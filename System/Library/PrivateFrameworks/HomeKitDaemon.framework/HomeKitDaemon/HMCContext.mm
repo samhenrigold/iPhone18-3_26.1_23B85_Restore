@@ -145,7 +145,7 @@
 
 + (id)findServiceGroupWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findServiceGroupWithModelID_error___hmf_once_t2;
   dCopy = d;
   if (v5 != -1)
@@ -153,14 +153,12 @@
     dispatch_once(&findServiceGroupWithModelID_error___hmf_once_t2, &__block_literal_global_307);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findServiceGroupWithModelID_error___hmf_once_v3;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283E89EB0 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -174,7 +172,7 @@ void __65__HMCContext_MKFServiceGroup__findServiceGroupWithModelID_error___block
 
 + (id)findAccountWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findAccountWithModelID_error___hmf_once_t0;
   dCopy = d;
   if (v5 != -1)
@@ -182,14 +180,12 @@ void __65__HMCContext_MKFServiceGroup__findServiceGroupWithModelID_error___block
     dispatch_once(&findAccountWithModelID_error___hmf_once_t0, &__block_literal_global_3175);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findAccountWithModelID_error___hmf_once_v1;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283E8EE20 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -203,7 +199,7 @@ void __55__HMCContext_MKFAccount__findAccountWithModelID_error___block_invoke()
 
 + (id)findCharacteristicWriteActionWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findCharacteristicWriteActionWithModelID_error___hmf_once_t1;
   dCopy = d;
   if (v5 != -1)
@@ -211,14 +207,12 @@ void __55__HMCContext_MKFAccount__findAccountWithModelID_error___block_invoke()
     dispatch_once(&findCharacteristicWriteActionWithModelID_error___hmf_once_t1, &__block_literal_global_5209);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findCharacteristicWriteActionWithModelID_error___hmf_once_v2;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283E92BA0 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -232,7 +226,7 @@ void __91__HMCContext_MKFCharacteristicWriteAction__findCharacteristicWriteActio
 
 + (id)findDurationEventWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findDurationEventWithModelID_error___hmf_once_t0;
   dCopy = d;
   if (v5 != -1)
@@ -240,14 +234,12 @@ void __91__HMCContext_MKFCharacteristicWriteAction__findCharacteristicWriteActio
     dispatch_once(&findDurationEventWithModelID_error___hmf_once_t0, &__block_literal_global_9569);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findDurationEventWithModelID_error___hmf_once_v1;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283E97C98 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -261,7 +253,7 @@ void __67__HMCContext_MKFDurationEvent__findDurationEventWithModelID_error___blo
 
 + (id)findPhotosPersonWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findPhotosPersonWithModelID_error___hmf_once_t2;
   dCopy = d;
   if (v5 != -1)
@@ -269,14 +261,12 @@ void __67__HMCContext_MKFDurationEvent__findDurationEventWithModelID_error___blo
     dispatch_once(&findPhotosPersonWithModelID_error___hmf_once_t2, &__block_literal_global_298);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findPhotosPersonWithModelID_error___hmf_once_v3;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283E99618 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -290,7 +280,7 @@ void __65__HMCContext_MKFPhotosPerson__findPhotosPersonWithModelID_error___block
 
 + (id)findHomePersonManagerSettingWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findHomePersonManagerSettingWithModelID_error___hmf_once_t0;
   dCopy = d;
   if (v5 != -1)
@@ -298,14 +288,12 @@ void __65__HMCContext_MKFPhotosPerson__findPhotosPersonWithModelID_error___block
     dispatch_once(&findHomePersonManagerSettingWithModelID_error___hmf_once_t0, &__block_literal_global_11491);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findHomePersonManagerSettingWithModelID_error___hmf_once_v1;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283E99CC8 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -319,7 +307,7 @@ void __89__HMCContext_MKFHomePersonManagerSetting__findHomePersonManagerSettingW
 
 + (id)findHomeManagerHomeWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findHomeManagerHomeWithModelID_error___hmf_once_t0;
   dCopy = d;
   if (v5 != -1)
@@ -327,14 +315,12 @@ void __89__HMCContext_MKFHomePersonManagerSetting__findHomePersonManagerSettingW
     dispatch_once(&findHomeManagerHomeWithModelID_error___hmf_once_t0, &__block_literal_global_16870);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findHomeManagerHomeWithModelID_error___hmf_once_v1;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283EB6DA0 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -348,7 +334,7 @@ void __71__HMCContext_MKFHomeManagerHome__findHomeManagerHomeWithModelID_error__
 
 + (id)findAccessoryWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findAccessoryWithModelID_error___hmf_once_t2;
   dCopy = d;
   if (v5 != -1)
@@ -356,14 +342,12 @@ void __71__HMCContext_MKFHomeManagerHome__findHomeManagerHomeWithModelID_error__
     dispatch_once(&findAccessoryWithModelID_error___hmf_once_t2, &__block_literal_global_520);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findAccessoryWithModelID_error___hmf_once_v3;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283EC01C8 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -377,7 +361,7 @@ void __59__HMCContext_MKFAccessory__findAccessoryWithModelID_error___block_invok
 
 + (id)findMediaPlaybackActionWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findMediaPlaybackActionWithModelID_error___hmf_once_t1;
   dCopy = d;
   if (v5 != -1)
@@ -385,14 +369,12 @@ void __59__HMCContext_MKFAccessory__findAccessoryWithModelID_error___block_invok
     dispatch_once(&findMediaPlaybackActionWithModelID_error___hmf_once_t1, &__block_literal_global_24557);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findMediaPlaybackActionWithModelID_error___hmf_once_v2;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283EC4728 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -406,7 +388,7 @@ void __79__HMCContext_MKFMediaPlaybackAction__findMediaPlaybackActionWithModelID
 
 + (id)findMatterAttributeValueEventWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findMatterAttributeValueEventWithModelID_error___hmf_once_t0;
   dCopy = d;
   if (v5 != -1)
@@ -414,14 +396,12 @@ void __79__HMCContext_MKFMediaPlaybackAction__findMediaPlaybackActionWithModelID
     dispatch_once(&findMatterAttributeValueEventWithModelID_error___hmf_once_t0, &__block_literal_global_28336);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findMatterAttributeValueEventWithModelID_error___hmf_once_v1;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283EC9460 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -435,7 +415,7 @@ void __91__HMCContext_MKFMatterAttributeValueEvent__findMatterAttributeValueEven
 
 + (id)findSignificantTimeEventWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findSignificantTimeEventWithModelID_error___hmf_once_t0;
   dCopy = d;
   if (v5 != -1)
@@ -443,14 +423,12 @@ void __91__HMCContext_MKFMatterAttributeValueEvent__findMatterAttributeValueEven
     dispatch_once(&findSignificantTimeEventWithModelID_error___hmf_once_t0, &__block_literal_global_32086);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findSignificantTimeEventWithModelID_error___hmf_once_v1;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283ECBC88 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -540,7 +518,6 @@ void __81__HMCContext_MKFSignificantTimeEvent__findSignificantTimeEventWithModel
 uint64_t __37__HMCContext_unsafeSynchronousBlock___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setIsExecuting:1];
-  v2 = *(a1 + 32);
   _HMFThreadLocalAsyncContextPush();
   (*(*(a1 + 40) + 16))();
   _HMFThreadLocalAsyncContextPop();
@@ -588,7 +565,7 @@ uint64_t __37__HMCContext_unsafeSynchronousBlock___block_invoke(uint64_t a1)
 
 - (void)_executeBlockWithPinnedQueryGeneration:(id)generation
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   generationCopy = generation;
   managedObjectContext = [(HMCContext *)self managedObjectContext];
   queryGenerationToken = [managedObjectContext queryGenerationToken];
@@ -600,9 +577,9 @@ uint64_t __37__HMCContext_unsafeSynchronousBlock___block_invoke(uint64_t a1)
 
   managedObjectContext2 = [(HMCContext *)self managedObjectContext];
   currentQueryGenerationToken = [MEMORY[0x277CBE4F8] currentQueryGenerationToken];
-  v25 = 0;
-  v9 = [managedObjectContext2 setQueryGenerationFromToken:currentQueryGenerationToken error:&v25];
-  v10 = v25;
+  v24 = 0;
+  v9 = [managedObjectContext2 setQueryGenerationFromToken:currentQueryGenerationToken error:&v24];
+  v10 = v24;
 
   if (v9)
   {
@@ -612,9 +589,9 @@ uint64_t __37__HMCContext_unsafeSynchronousBlock___block_invoke(uint64_t a1)
     _HMFThreadLocalAsyncContextPop();
     [(HMCContext *)self setIsExecuting:0];
     managedObjectContext3 = [(HMCContext *)self managedObjectContext];
-    v24 = v10;
-    v12 = [managedObjectContext3 setQueryGenerationFromToken:0 error:&v24];
-    v13 = v24;
+    v23 = v10;
+    v12 = [managedObjectContext3 setQueryGenerationFromToken:0 error:&v23];
+    v13 = v23;
 
     if ((v12 & 1) == 0)
     {
@@ -626,8 +603,8 @@ uint64_t __37__HMCContext_unsafeSynchronousBlock___block_invoke(uint64_t a1)
         v17 = HMFGetLogIdentifier();
         *buf = 138543618;
         *&buf[4] = v17;
-        v27 = 2114;
-        v28 = v13;
+        v26 = 2114;
+        v27 = v13;
         _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Error occurred while unpinning the query generation : %{public}@", buf, 0x16u);
       }
 
@@ -650,15 +627,13 @@ uint64_t __37__HMCContext_unsafeSynchronousBlock___block_invoke(uint64_t a1)
       v22 = HMFGetLogIdentifier();
       *buf = 138543618;
       *&buf[4] = v22;
-      v27 = 2114;
-      v28 = v10;
+      v26 = 2114;
+      v27 = v10;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to pin context to current query generation: %{public}@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v19);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performBlockAndWaitWithPinnedQueryGeneration:(id)generation
@@ -706,7 +681,6 @@ uint64_t __37__HMCContext_unsafeSynchronousBlock___block_invoke(uint64_t a1)
 uint64_t __27__HMCContext_performBlock___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setIsExecuting:1];
-  v2 = *(a1 + 32);
   _HMFThreadLocalAsyncContextPush();
   (*(*(a1 + 40) + 16))();
   _HMFThreadLocalAsyncContextPop();
@@ -761,10 +735,9 @@ uint64_t __27__HMCContext_performBlock___block_invoke(uint64_t a1)
 
 void __25__HMCContext_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v15_37201;
-  logCategory__hmf_once_v15_37201 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v15_37201;
+  logCategory__hmf_once_v15_37201 = v0;
 }
 
 + (id)findModelObjectOfType:(id)type databaseID:(id)d error:(id *)error
@@ -800,7 +773,7 @@ void __25__HMCContext_logCategory__block_invoke()
 
 + (id)findModelWithModelID:(id)d ofType:(id)type error:(id *)error
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v7 = findModelWithModelID_ofType_error___hmf_once_t10;
   typeCopy = type;
   dCopy = d;
@@ -809,14 +782,12 @@ void __25__HMCContext_logCategory__block_invoke()
     dispatch_once(&findModelWithModelID_ofType_error___hmf_once_t10, &__block_literal_global_267);
   }
 
-  v16 = @"OBJECTID";
-  v17[0] = dCopy;
+  v15 = @"OBJECTID";
+  v16[0] = dCopy;
   v10 = MEMORY[0x277CBEAC0];
   v11 = findModelWithModelID_ofType_error___hmf_once_v11;
-  v12 = [v10 dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  v12 = [v10 dictionaryWithObjects:v16 forKeys:&v15 count:1];
   v13 = __findModelObjectOfType(typeCopy, 0, v11, v12, error);
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -873,16 +844,14 @@ void __33__HMCContext_managedObjectIsMKF___block_invoke()
 + (id)synchronizationTokenFromLegacyModelID:(id)d
 {
   dCopy = d;
-  v6[2] = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
   if (d)
   {
-    v6[0] = 0;
-    v6[1] = 0;
-    [d getUUIDBytes:v6];
-    dCopy = [MEMORY[0x277CBEA90] dataWithBytes:v6 length:16];
+    v5[0] = 0;
+    v5[1] = 0;
+    [d getUUIDBytes:v5];
+    dCopy = [MEMORY[0x277CBEA90] dataWithBytes:v5 length:16];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return dCopy;
 }
@@ -918,7 +887,7 @@ void __33__HMCContext_managedObjectIsMKF___block_invoke()
 
 - (id)findLocalAccountWithError:(id *)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = +[_MKFAccount fetchRequest];
   v6 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K == 1", @"local"];
   [v5 setPredicate:v6];
@@ -956,9 +925,9 @@ void __33__HMCContext_managedObjectIsMKF___block_invoke()
       v15 = HMFGetLogIdentifier();
       v16 = *error;
       *buf = 138543618;
-      v20 = v15;
-      v21 = 2112;
-      v22 = v16;
+      v19 = v15;
+      v20 = 2112;
+      v21 = v16;
       _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Unable to find local account: %@", buf, 0x16u);
     }
 
@@ -966,14 +935,12 @@ void __33__HMCContext_managedObjectIsMKF___block_invoke()
     v11 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 + (id)findInvitationWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findInvitationWithModelID_error___hmf_once_t2;
   dCopy = d;
   if (v5 != -1)
@@ -981,14 +948,12 @@ void __33__HMCContext_managedObjectIsMKF___block_invoke()
     dispatch_once(&findInvitationWithModelID_error___hmf_once_t2, &__block_literal_global_319);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findInvitationWithModelID_error___hmf_once_v3;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283ED8520 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1002,7 +967,7 @@ void __61__HMCContext_MKFInvitation__findInvitationWithModelID_error___block_inv
 
 + (id)findTimePeriodBulletinConditionWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findTimePeriodBulletinConditionWithModelID_error___hmf_once_t0;
   dCopy = d;
   if (v5 != -1)
@@ -1010,14 +975,12 @@ void __61__HMCContext_MKFInvitation__findInvitationWithModelID_error___block_inv
     dispatch_once(&findTimePeriodBulletinConditionWithModelID_error___hmf_once_t0, &__block_literal_global_44248);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findTimePeriodBulletinConditionWithModelID_error___hmf_once_v1;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283EDDC10 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1031,7 +994,7 @@ void __95__HMCContext_MKFTimePeriodBulletinCondition__findTimePeriodBulletinCond
 
 + (id)findPresenceBulletinConditionWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findPresenceBulletinConditionWithModelID_error___hmf_once_t0;
   dCopy = d;
   if (v5 != -1)
@@ -1039,14 +1002,12 @@ void __95__HMCContext_MKFTimePeriodBulletinCondition__findTimePeriodBulletinCond
     dispatch_once(&findPresenceBulletinConditionWithModelID_error___hmf_once_t0, &__block_literal_global_47887);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findPresenceBulletinConditionWithModelID_error___hmf_once_v1;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283EE0F90 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1060,7 +1021,7 @@ void __91__HMCContext_MKFPresenceBulletinCondition__findPresenceBulletinConditio
 
 + (id)findIncomingInvitationWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findIncomingInvitationWithModelID_error___hmf_once_t0;
   dCopy = d;
   if (v5 != -1)
@@ -1068,14 +1029,12 @@ void __91__HMCContext_MKFPresenceBulletinCondition__findPresenceBulletinConditio
     dispatch_once(&findIncomingInvitationWithModelID_error___hmf_once_t0, &__block_literal_global_48480);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findIncomingInvitationWithModelID_error___hmf_once_v1;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283EE1418 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1089,7 +1048,7 @@ void __77__HMCContext_MKFIncomingInvitation__findIncomingInvitationWithModelID_e
 
 + (id)findTimeOfDayTimeSpecificationWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findTimeOfDayTimeSpecificationWithModelID_error___hmf_once_t0;
   dCopy = d;
   if (v5 != -1)
@@ -1097,14 +1056,12 @@ void __77__HMCContext_MKFIncomingInvitation__findIncomingInvitationWithModelID_e
     dispatch_once(&findTimeOfDayTimeSpecificationWithModelID_error___hmf_once_t0, &__block_literal_global_49230);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findTimeOfDayTimeSpecificationWithModelID_error___hmf_once_v1;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283EE1758 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1118,7 +1075,7 @@ void __93__HMCContext_MKFTimeOfDayTimeSpecification__findTimeOfDayTimeSpecificat
 
 + (id)findCalendarEventWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findCalendarEventWithModelID_error___hmf_once_t0;
   dCopy = d;
   if (v5 != -1)
@@ -1126,14 +1083,12 @@ void __93__HMCContext_MKFTimeOfDayTimeSpecification__findTimeOfDayTimeSpecificat
     dispatch_once(&findCalendarEventWithModelID_error___hmf_once_t0, &__block_literal_global_50095);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findCalendarEventWithModelID_error___hmf_once_v1;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283EE2548 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1147,7 +1102,7 @@ void __67__HMCContext_MKFCalendarEvent__findCalendarEventWithModelID_error___blo
 
 + (id)findHomeWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findHomeWithModelID_error___hmf_once_t4;
   dCopy = d;
   if (v5 != -1)
@@ -1155,14 +1110,12 @@ void __67__HMCContext_MKFCalendarEvent__findCalendarEventWithModelID_error___blo
     dispatch_once(&findHomeWithModelID_error___hmf_once_t4, &__block_literal_global_52520);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findHomeWithModelID_error___hmf_once_v5;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283EE6CB8 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1176,7 +1129,7 @@ void __49__HMCContext_MKFHome__findHomeWithModelID_error___block_invoke()
 
 + (id)findLocationEventWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findLocationEventWithModelID_error___hmf_once_t0;
   dCopy = d;
   if (v5 != -1)
@@ -1184,14 +1137,12 @@ void __49__HMCContext_MKFHome__findHomeWithModelID_error___block_invoke()
     dispatch_once(&findLocationEventWithModelID_error___hmf_once_t0, &__block_literal_global_52876);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findLocationEventWithModelID_error___hmf_once_v1;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283EE6EA0 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1205,7 +1156,7 @@ void __67__HMCContext_MKFLocationEvent__findLocationEventWithModelID_error___blo
 
 + (id)findHomeThreadNetworkWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findHomeThreadNetworkWithModelID_error___hmf_once_t2;
   dCopy = d;
   if (v5 != -1)
@@ -1213,14 +1164,12 @@ void __67__HMCContext_MKFLocationEvent__findLocationEventWithModelID_error___blo
     dispatch_once(&findHomeThreadNetworkWithModelID_error___hmf_once_t2, &__block_literal_global_281);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findHomeThreadNetworkWithModelID_error___hmf_once_v3;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283EE8C28 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1234,7 +1183,7 @@ void __75__HMCContext_MKFHomeThreadNetwork__findHomeThreadNetworkWithModelID_err
 
 + (id)findIntegerCharacteristicWithInstanceID:(id)d serviceDatabaseID:(id)iD error:(id *)error
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v7 = findIntegerCharacteristicWithInstanceID_serviceDatabaseID_error___hmf_once_t2;
   iDCopy = iD;
   dCopy = d;
@@ -1245,14 +1194,12 @@ void __75__HMCContext_MKFHomeThreadNetwork__findHomeThreadNetworkWithModelID_err
 
   v10 = findIntegerCharacteristicWithInstanceID_serviceDatabaseID_error___hmf_once_v3;
   objectID = [iDCopy objectID];
-  v16[0] = @"OBJECTID";
-  v16[1] = @"SECONDARYKEY";
-  v17[0] = iDCopy;
-  v17[1] = dCopy;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v15[0] = @"OBJECTID";
+  v15[1] = @"SECONDARYKEY";
+  v16[0] = iDCopy;
+  v16[1] = dCopy;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
   v13 = [HMCContext findModelObjectOfType:&unk_283EEC4C0 parentObjectID:objectID template:v10 substitutions:v12 error:error];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -1266,7 +1213,7 @@ void __104__HMCContext_MKFIntegerCharacteristic__findIntegerCharacteristicWithIn
 
 + (id)findIntegerCharacteristicWithInstanceID:(id)d service:(id)service error:(id *)error
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v7 = findIntegerCharacteristicWithInstanceID_service_error___hmf_once_t0;
   serviceCopy = service;
   dCopy = d;
@@ -1275,16 +1222,14 @@ void __104__HMCContext_MKFIntegerCharacteristic__findIntegerCharacteristicWithIn
     dispatch_once(&findIntegerCharacteristicWithInstanceID_service_error___hmf_once_t0, &__block_literal_global_58466);
   }
 
-  v16[0] = @"PRIMARYKEY";
-  v16[1] = @"SECONDARYKEY";
-  v17[0] = dCopy;
-  v17[1] = serviceCopy;
+  v15[0] = @"PRIMARYKEY";
+  v15[1] = @"SECONDARYKEY";
+  v16[0] = dCopy;
+  v16[1] = serviceCopy;
   v10 = MEMORY[0x277CBEAC0];
   v11 = findIntegerCharacteristicWithInstanceID_service_error___hmf_once_v1;
-  v12 = [v10 dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v12 = [v10 dictionaryWithObjects:v16 forKeys:v15 count:2];
   v13 = [HMCContext findModelObjectOfType:&unk_283EEC4C0 template:v11 substitutions:v12 error:error];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -1298,7 +1243,7 @@ void __94__HMCContext_MKFIntegerCharacteristic__findIntegerCharacteristicWithIns
 
 + (id)findHomeSettingWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findHomeSettingWithModelID_error___hmf_once_t2;
   dCopy = d;
   if (v5 != -1)
@@ -1306,14 +1251,12 @@ void __94__HMCContext_MKFIntegerCharacteristic__findIntegerCharacteristicWithIns
     dispatch_once(&findHomeSettingWithModelID_error___hmf_once_t2, &__block_literal_global_275_59739);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findHomeSettingWithModelID_error___hmf_once_v3;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283E99B78 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1327,7 +1270,7 @@ void __63__HMCContext_MKFHomeSetting__findHomeSettingWithModelID_error___block_i
 
 + (id)findRoomPresenceWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findRoomPresenceWithModelID_error___hmf_once_t0;
   dCopy = d;
   if (v5 != -1)
@@ -1335,14 +1278,12 @@ void __63__HMCContext_MKFHomeSetting__findHomeSettingWithModelID_error___block_i
     dispatch_once(&findRoomPresenceWithModelID_error___hmf_once_t0, &__block_literal_global_61921);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findRoomPresenceWithModelID_error___hmf_once_v1;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283EEFDD8 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1356,7 +1297,7 @@ void __65__HMCContext_MKFRoomPresence__findRoomPresenceWithModelID_error___block
 
 + (id)findUserWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findUserWithModelID_error___hmf_once_t27;
   dCopy = d;
   if (v5 != -1)
@@ -1364,14 +1305,12 @@ void __65__HMCContext_MKFRoomPresence__findRoomPresenceWithModelID_error___block
     dispatch_once(&findUserWithModelID_error___hmf_once_t27, &__block_literal_global_852);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findUserWithModelID_error___hmf_once_v28;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283EF6078 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1385,23 +1324,21 @@ void __49__HMCContext_MKFUser__findUserWithModelID_error___block_invoke()
 
 + (id)findDeviceWithDeviceIdentifier:(id)identifier
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAC30];
   identifierCopy = identifier;
   v5 = [v3 predicateWithFormat:@"(%K == $DEVICE_IDENTIFIER)", @"identifier"];
-  v10 = @"DEVICE_IDENTIFIER";
-  v11[0] = identifierCopy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = @"DEVICE_IDENTIFIER";
+  v10[0] = identifierCopy;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [HMCContext findModelObjectOfType:&unk_283EF7428 template:v5 substitutions:v6 error:0];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 + (id)findDeviceWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findDeviceWithModelID_error___hmf_once_t0;
   dCopy = d;
   if (v5 != -1)
@@ -1409,14 +1346,12 @@ void __49__HMCContext_MKFUser__findUserWithModelID_error___block_invoke()
     dispatch_once(&findDeviceWithModelID_error___hmf_once_t0, &__block_literal_global_68605);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findDeviceWithModelID_error___hmf_once_v1;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283EF7428 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1430,7 +1365,7 @@ void __53__HMCContext_MKFDevice__findDeviceWithModelID_error___block_invoke()
 
 + (id)findBulletinTimeSpecificationWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findBulletinTimeSpecificationWithModelID_error___hmf_once_t0;
   dCopy = d;
   if (v5 != -1)
@@ -1438,14 +1373,12 @@ void __53__HMCContext_MKFDevice__findDeviceWithModelID_error___block_invoke()
     dispatch_once(&findBulletinTimeSpecificationWithModelID_error___hmf_once_t0, &__block_literal_global_69346);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findBulletinTimeSpecificationWithModelID_error___hmf_once_v1;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283EE15E8 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1459,7 +1392,7 @@ void __91__HMCContext_MKFBulletinTimeSpecification__findBulletinTimeSpecificatio
 
 + (id)findAppleMediaAccessoryPowerActionWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findAppleMediaAccessoryPowerActionWithModelID_error___hmf_once_t0;
   dCopy = d;
   if (v5 != -1)
@@ -1467,14 +1400,12 @@ void __91__HMCContext_MKFBulletinTimeSpecification__findBulletinTimeSpecificatio
     dispatch_once(&findAppleMediaAccessoryPowerActionWithModelID_error___hmf_once_t0, &__block_literal_global_69779);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findAppleMediaAccessoryPowerActionWithModelID_error___hmf_once_v1;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283EF76C0 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1488,7 +1419,7 @@ void __101__HMCContext_MKFAppleMediaAccessoryPowerAction__findAppleMediaAccessor
 
 + (id)findHomeNetworkRouterManagingDeviceSettingWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findHomeNetworkRouterManagingDeviceSettingWithModelID_error___hmf_once_t0;
   dCopy = d;
   if (v5 != -1)
@@ -1496,14 +1427,12 @@ void __101__HMCContext_MKFAppleMediaAccessoryPowerAction__findAppleMediaAccessor
     dispatch_once(&findHomeNetworkRouterManagingDeviceSettingWithModelID_error___hmf_once_t0, &__block_literal_global_70765);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findHomeNetworkRouterManagingDeviceSettingWithModelID_error___hmf_once_v1;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283EF7B58 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1517,7 +1446,7 @@ void __117__HMCContext_MKFHomeNetworkRouterManagingDeviceSetting__findHomeNetwor
 
 + (id)findAirPlayAccessoryWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findAirPlayAccessoryWithModelID_error___hmf_once_t2;
   dCopy = d;
   if (v5 != -1)
@@ -1525,14 +1454,12 @@ void __117__HMCContext_MKFHomeNetworkRouterManagingDeviceSetting__findHomeNetwor
     dispatch_once(&findAirPlayAccessoryWithModelID_error___hmf_once_t2, &__block_literal_global_498);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findAirPlayAccessoryWithModelID_error___hmf_once_v3;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283EFA0F8 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1546,7 +1473,7 @@ void __73__HMCContext_MKFAirPlayAccessory__findAirPlayAccessoryWithModelID_error
 
 + (id)findHomeAccessCodeWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findHomeAccessCodeWithModelID_error___hmf_once_t0;
   dCopy = d;
   if (v5 != -1)
@@ -1554,14 +1481,12 @@ void __73__HMCContext_MKFAirPlayAccessory__findAirPlayAccessoryWithModelID_error
     dispatch_once(&findHomeAccessCodeWithModelID_error___hmf_once_t0, &__block_literal_global_72859);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findHomeAccessCodeWithModelID_error___hmf_once_v1;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283EFA300 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1575,7 +1500,7 @@ void __69__HMCContext_MKFHomeAccessCode__findHomeAccessCodeWithModelID_error___b
 
 + (id)findMatterBulletinRegistrationWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findMatterBulletinRegistrationWithModelID_error___hmf_once_t0;
   dCopy = d;
   if (v5 != -1)
@@ -1583,14 +1508,12 @@ void __69__HMCContext_MKFHomeAccessCode__findHomeAccessCodeWithModelID_error___b
     dispatch_once(&findMatterBulletinRegistrationWithModelID_error___hmf_once_t0, &__block_literal_global_74885);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findMatterBulletinRegistrationWithModelID_error___hmf_once_v1;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283EFCAE0 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1604,7 +1527,7 @@ void __93__HMCContext_MKFMatterBulletinRegistration__findMatterBulletinRegistrat
 
 + (id)findPresenceEventWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findPresenceEventWithModelID_error___hmf_once_t2;
   dCopy = d;
   if (v5 != -1)
@@ -1612,14 +1535,12 @@ void __93__HMCContext_MKFMatterBulletinRegistration__findMatterBulletinRegistrat
     dispatch_once(&findPresenceEventWithModelID_error___hmf_once_t2, &__block_literal_global_325_75332);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findPresenceEventWithModelID_error___hmf_once_v3;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283EFCC28 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1633,7 +1554,7 @@ void __67__HMCContext_MKFPresenceEvent__findPresenceEventWithModelID_error___blo
 
 + (id)findPersonWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findPersonWithModelID_error___hmf_once_t0;
   dCopy = d;
   if (v5 != -1)
@@ -1641,14 +1562,12 @@ void __67__HMCContext_MKFPresenceEvent__findPresenceEventWithModelID_error___blo
     dispatch_once(&findPersonWithModelID_error___hmf_once_t0, &__block_literal_global_78774);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findPersonWithModelID_error___hmf_once_v1;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283E99470 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1662,7 +1581,7 @@ void __53__HMCContext_MKFPerson__findPersonWithModelID_error___block_invoke()
 
 + (id)findGuestAccessCodeWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findGuestAccessCodeWithModelID_error___hmf_once_t2;
   dCopy = d;
   if (v5 != -1)
@@ -1670,14 +1589,12 @@ void __53__HMCContext_MKFPerson__findPersonWithModelID_error___block_invoke()
     dispatch_once(&findGuestAccessCodeWithModelID_error___hmf_once_t2, &__block_literal_global_291);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findGuestAccessCodeWithModelID_error___hmf_once_v3;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283EFFE10 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1691,7 +1608,7 @@ void __71__HMCContext_MKFGuestAccessCode__findGuestAccessCodeWithModelID_error__
 
 + (id)findRoomWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findRoomWithModelID_error___hmf_once_t2;
   dCopy = d;
   if (v5 != -1)
@@ -1699,14 +1616,12 @@ void __71__HMCContext_MKFGuestAccessCode__findGuestAccessCodeWithModelID_error__
     dispatch_once(&findRoomWithModelID_error___hmf_once_t2, &__block_literal_global_329_80150);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findRoomWithModelID_error___hmf_once_v3;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F00068 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1720,7 +1635,7 @@ void __49__HMCContext_MKFRoom__findRoomWithModelID_error___block_invoke()
 
 + (id)findServiceWithInstanceID:(id)d accessoryDatabaseID:(id)iD error:(id *)error
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v7 = findServiceWithInstanceID_accessoryDatabaseID_error___hmf_once_t6;
   iDCopy = iD;
   dCopy = d;
@@ -1731,14 +1646,12 @@ void __49__HMCContext_MKFRoom__findRoomWithModelID_error___block_invoke()
 
   v10 = findServiceWithInstanceID_accessoryDatabaseID_error___hmf_once_v7;
   objectID = [iDCopy objectID];
-  v16[0] = @"OBJECTID";
-  v16[1] = @"SECONDARYKEY";
-  v17[0] = iDCopy;
-  v17[1] = dCopy;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v15[0] = @"OBJECTID";
+  v15[1] = @"SECONDARYKEY";
+  v16[0] = iDCopy;
+  v16[1] = dCopy;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
   v13 = [HMCContext findModelObjectOfType:&unk_283F0D790 parentObjectID:objectID template:v10 substitutions:v12 error:error];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -1752,7 +1665,7 @@ void __78__HMCContext_MKFService__findServiceWithInstanceID_accessoryDatabaseID_
 
 + (id)findServiceWithInstanceID:(id)d accessory:(id)accessory error:(id *)error
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v7 = findServiceWithInstanceID_accessory_error___hmf_once_t4;
   accessoryCopy = accessory;
   dCopy = d;
@@ -1761,16 +1674,14 @@ void __78__HMCContext_MKFService__findServiceWithInstanceID_accessoryDatabaseID_
     dispatch_once(&findServiceWithInstanceID_accessory_error___hmf_once_t4, &__block_literal_global_434);
   }
 
-  v16[0] = @"PRIMARYKEY";
-  v16[1] = @"SECONDARYKEY";
-  v17[0] = dCopy;
-  v17[1] = accessoryCopy;
+  v15[0] = @"PRIMARYKEY";
+  v15[1] = @"SECONDARYKEY";
+  v16[0] = dCopy;
+  v16[1] = accessoryCopy;
   v10 = MEMORY[0x277CBEAC0];
   v11 = findServiceWithInstanceID_accessory_error___hmf_once_v5;
-  v12 = [v10 dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v12 = [v10 dictionaryWithObjects:v16 forKeys:v15 count:2];
   v13 = [HMCContext findModelObjectOfType:&unk_283F0D790 template:v11 substitutions:v12 error:error];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -1784,7 +1695,7 @@ void __68__HMCContext_MKFService__findServiceWithInstanceID_accessory_error___bl
 
 + (id)findServiceWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findServiceWithModelID_error___hmf_once_t2;
   dCopy = d;
   if (v5 != -1)
@@ -1792,14 +1703,12 @@ void __68__HMCContext_MKFService__findServiceWithInstanceID_accessory_error___bl
     dispatch_once(&findServiceWithModelID_error___hmf_once_t2, &__block_literal_global_425);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findServiceWithModelID_error___hmf_once_v3;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F0D790 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1813,7 +1722,7 @@ void __55__HMCContext_MKFService__findServiceWithModelID_error___block_invoke()
 
 + (id)findHAPMetadataWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findHAPMetadataWithModelID_error___hmf_once_t1;
   dCopy = d;
   if (v5 != -1)
@@ -1821,14 +1730,12 @@ void __55__HMCContext_MKFService__findServiceWithModelID_error___block_invoke()
     dispatch_once(&findHAPMetadataWithModelID_error___hmf_once_t1, &__block_literal_global_89027);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findHAPMetadataWithModelID_error___hmf_once_v2;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F0F148 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1842,7 +1749,7 @@ void __63__HMCContext_MKFHAPMetadata__findHAPMetadataWithModelID_error___block_i
 
 + (id)findHomeNetworkRouterSettingWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findHomeNetworkRouterSettingWithModelID_error___hmf_once_t2;
   dCopy = d;
   if (v5 != -1)
@@ -1850,14 +1757,12 @@ void __63__HMCContext_MKFHAPMetadata__findHAPMetadataWithModelID_error___block_i
     dispatch_once(&findHomeNetworkRouterSettingWithModelID_error___hmf_once_t2, &__block_literal_global_89403);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findHomeNetworkRouterSettingWithModelID_error___hmf_once_v3;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F0F390 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1871,7 +1776,7 @@ void __89__HMCContext_MKFHomeNetworkRouterSetting__findHomeNetworkRouterSettingW
 
 + (id)findCameraAccessModeBulletinRegistrationWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findCameraAccessModeBulletinRegistrationWithModelID_error___hmf_once_t1;
   dCopy = d;
   if (v5 != -1)
@@ -1879,14 +1784,12 @@ void __89__HMCContext_MKFHomeNetworkRouterSetting__findHomeNetworkRouterSettingW
     dispatch_once(&findCameraAccessModeBulletinRegistrationWithModelID_error___hmf_once_t1, &__block_literal_global_90382);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findCameraAccessModeBulletinRegistrationWithModelID_error___hmf_once_v2;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F0F8A8 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1900,7 +1803,7 @@ void __113__HMCContext_MKFCameraAccessModeBulletinRegistration__findCameraAccess
 
 + (id)findCameraSignificantEventBulletinRegistrationWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findCameraSignificantEventBulletinRegistrationWithModelID_error___hmf_once_t1;
   dCopy = d;
   if (v5 != -1)
@@ -1908,14 +1811,12 @@ void __113__HMCContext_MKFCameraAccessModeBulletinRegistration__findCameraAccess
     dispatch_once(&findCameraSignificantEventBulletinRegistrationWithModelID_error___hmf_once_t1, &__block_literal_global_95454);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findCameraSignificantEventBulletinRegistrationWithModelID_error___hmf_once_v2;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F12B68 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1929,7 +1830,7 @@ void __125__HMCContext_MKFCameraSignificantEventBulletinRegistration__findCamera
 
 + (id)findResidentSelectionWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findResidentSelectionWithModelID_error___hmf_once_t2;
   dCopy = d;
   if (v5 != -1)
@@ -1937,14 +1838,12 @@ void __125__HMCContext_MKFCameraSignificantEventBulletinRegistration__findCamera
     dispatch_once(&findResidentSelectionWithModelID_error___hmf_once_t2, &__block_literal_global_292);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findResidentSelectionWithModelID_error___hmf_once_v3;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F135A0 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1958,7 +1857,7 @@ void __75__HMCContext_MKFResidentSelection__findResidentSelectionWithModelID_err
 
 + (id)findCharacteristicValueEventWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findCharacteristicValueEventWithModelID_error___hmf_once_t0;
   dCopy = d;
   if (v5 != -1)
@@ -1966,14 +1865,12 @@ void __75__HMCContext_MKFResidentSelection__findResidentSelectionWithModelID_err
     dispatch_once(&findCharacteristicValueEventWithModelID_error___hmf_once_t0, &__block_literal_global_100235);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findCharacteristicValueEventWithModelID_error___hmf_once_v1;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F16E08 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -1987,7 +1884,7 @@ void __89__HMCContext_MKFCharacteristicValueEvent__findCharacteristicValueEventW
 
 + (id)findResidentWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findResidentWithModelID_error___hmf_once_t2;
   dCopy = d;
   if (v5 != -1)
@@ -1995,14 +1892,12 @@ void __89__HMCContext_MKFCharacteristicValueEvent__findCharacteristicValueEventW
     dispatch_once(&findResidentWithModelID_error___hmf_once_t2, &__block_literal_global_326_104423);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findResidentWithModelID_error___hmf_once_v3;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F1B2E8 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -2016,7 +1911,7 @@ void __57__HMCContext_MKFResident__findResidentWithModelID_error___block_invoke(
 
 + (id)findAppleMediaAccessoryWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findAppleMediaAccessoryWithModelID_error___hmf_once_t8;
   dCopy = d;
   if (v5 != -1)
@@ -2024,14 +1919,12 @@ void __57__HMCContext_MKFResident__findResidentWithModelID_error___block_invoke(
     dispatch_once(&findAppleMediaAccessoryWithModelID_error___hmf_once_t8, &__block_literal_global_106998);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findAppleMediaAccessoryWithModelID_error___hmf_once_v9;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F1F3B0 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -2045,7 +1938,7 @@ void __79__HMCContext_MKFAppleMediaAccessory__findAppleMediaAccessoryWithModelID
 
 + (id)findUserAccessCodeWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findUserAccessCodeWithModelID_error___hmf_once_t2;
   dCopy = d;
   if (v5 != -1)
@@ -2053,14 +1946,12 @@ void __79__HMCContext_MKFAppleMediaAccessory__findAppleMediaAccessoryWithModelID
     dispatch_once(&findUserAccessCodeWithModelID_error___hmf_once_t2, &__block_literal_global_283);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findUserAccessCodeWithModelID_error___hmf_once_v3;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F205A8 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -2074,7 +1965,7 @@ void __69__HMCContext_MKFUserAccessCode__findUserAccessCodeWithModelID_error___b
 
 + (id)findActionWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findActionWithModelID_error___hmf_once_t2;
   dCopy = d;
   if (v5 != -1)
@@ -2082,14 +1973,12 @@ void __69__HMCContext_MKFUserAccessCode__findUserAccessCodeWithModelID_error___b
     dispatch_once(&findActionWithModelID_error___hmf_once_t2, &__block_literal_global_278_109052);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findActionWithModelID_error___hmf_once_v3;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283E92A00 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -2103,7 +1992,7 @@ void __53__HMCContext_MKFAction__findActionWithModelID_error___block_invoke()
 
 + (id)findHomeManagerWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findHomeManagerWithModelID_error___hmf_once_t2;
   dCopy = d;
   if (v5 != -1)
@@ -2111,14 +2000,12 @@ void __53__HMCContext_MKFAction__findActionWithModelID_error___block_invoke()
     dispatch_once(&findHomeManagerWithModelID_error___hmf_once_t2, &__block_literal_global_120556);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findHomeManagerWithModelID_error___hmf_once_v3;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F2F9C0 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -2132,7 +2019,7 @@ void __63__HMCContext_MKFHomeManager__findHomeManagerWithModelID_error___block_i
 
 + (id)findBulletinConditionWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findBulletinConditionWithModelID_error___hmf_once_t2;
   dCopy = d;
   if (v5 != -1)
@@ -2140,14 +2027,12 @@ void __63__HMCContext_MKFHomeManager__findHomeManagerWithModelID_error___block_i
     dispatch_once(&findBulletinConditionWithModelID_error___hmf_once_t2, &__block_literal_global_278_120936);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findBulletinConditionWithModelID_error___hmf_once_v3;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283EDD4B8 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -2161,7 +2046,7 @@ void __75__HMCContext_MKFBulletinCondition__findBulletinConditionWithModelID_err
 
 + (id)findCharacteristicWithInstanceID:(id)d serviceDatabaseID:(id)iD error:(id *)error
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v7 = findCharacteristicWithInstanceID_serviceDatabaseID_error___hmf_once_t4;
   iDCopy = iD;
   dCopy = d;
@@ -2172,14 +2057,12 @@ void __75__HMCContext_MKFBulletinCondition__findBulletinConditionWithModelID_err
 
   v10 = findCharacteristicWithInstanceID_serviceDatabaseID_error___hmf_once_v5;
   objectID = [iDCopy objectID];
-  v16[0] = @"OBJECTID";
-  v16[1] = @"SECONDARYKEY";
-  v17[0] = iDCopy;
-  v17[1] = dCopy;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v15[0] = @"OBJECTID";
+  v15[1] = @"SECONDARYKEY";
+  v16[0] = iDCopy;
+  v16[1] = dCopy;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
   v13 = [HMCContext findModelObjectOfType:&unk_283EEC2D0 parentObjectID:objectID template:v10 substitutions:v12 error:error];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -2193,7 +2076,7 @@ void __90__HMCContext_MKFCharacteristic__findCharacteristicWithInstanceID_servic
 
 + (id)findCharacteristicWithInstanceID:(id)d service:(id)service error:(id *)error
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v7 = findCharacteristicWithInstanceID_service_error___hmf_once_t2;
   serviceCopy = service;
   dCopy = d;
@@ -2202,16 +2085,14 @@ void __90__HMCContext_MKFCharacteristic__findCharacteristicWithInstanceID_servic
     dispatch_once(&findCharacteristicWithInstanceID_service_error___hmf_once_t2, &__block_literal_global_324_123351);
   }
 
-  v16[0] = @"PRIMARYKEY";
-  v16[1] = @"SECONDARYKEY";
-  v17[0] = dCopy;
-  v17[1] = serviceCopy;
+  v15[0] = @"PRIMARYKEY";
+  v15[1] = @"SECONDARYKEY";
+  v16[0] = dCopy;
+  v16[1] = serviceCopy;
   v10 = MEMORY[0x277CBEAC0];
   v11 = findCharacteristicWithInstanceID_service_error___hmf_once_v3;
-  v12 = [v10 dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v12 = [v10 dictionaryWithObjects:v16 forKeys:v15 count:2];
   v13 = [HMCContext findModelObjectOfType:&unk_283EEC2D0 template:v11 substitutions:v12 error:error];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -2225,7 +2106,7 @@ void __80__HMCContext_MKFCharacteristic__findCharacteristicWithInstanceID_servic
 
 + (id)findUserActivityStatusWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findUserActivityStatusWithModelID_error___hmf_once_t2;
   dCopy = d;
   if (v5 != -1)
@@ -2233,14 +2114,12 @@ void __80__HMCContext_MKFCharacteristic__findCharacteristicWithInstanceID_servic
     dispatch_once(&findUserActivityStatusWithModelID_error___hmf_once_t2, &__block_literal_global_125620);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findUserActivityStatusWithModelID_error___hmf_once_v3;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F33218 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -2254,7 +2133,7 @@ void __77__HMCContext_MKFUserActivityStatus__findUserActivityStatusWithModelID_e
 
 + (id)findBulletinRegistrationWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findBulletinRegistrationWithModelID_error___hmf_once_t2;
   dCopy = d;
   if (v5 != -1)
@@ -2262,14 +2141,12 @@ void __77__HMCContext_MKFUserActivityStatus__findUserActivityStatusWithModelID_e
     dispatch_once(&findBulletinRegistrationWithModelID_error___hmf_once_t2, &__block_literal_global_329_128558);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findBulletinRegistrationWithModelID_error___hmf_once_v3;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283EFC8E8 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -2283,7 +2160,7 @@ void __81__HMCContext_MKFBulletinRegistration__findBulletinRegistrationWithModel
 
 + (id)findMatterAttributeEventWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findMatterAttributeEventWithModelID_error___hmf_once_t0;
   dCopy = d;
   if (v5 != -1)
@@ -2291,14 +2168,12 @@ void __81__HMCContext_MKFBulletinRegistration__findBulletinRegistrationWithModel
     dispatch_once(&findMatterAttributeEventWithModelID_error___hmf_once_t0, &__block_literal_global_130193);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findMatterAttributeEventWithModelID_error___hmf_once_v1;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283EC9310 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -2312,7 +2187,7 @@ void __81__HMCContext_MKFMatterAttributeEvent__findMatterAttributeEventWithModel
 
 + (id)findTimerTriggerWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findTimerTriggerWithModelID_error___hmf_once_t2;
   dCopy = d;
   if (v5 != -1)
@@ -2320,14 +2195,12 @@ void __81__HMCContext_MKFMatterAttributeEvent__findMatterAttributeEventWithModel
     dispatch_once(&findTimerTriggerWithModelID_error___hmf_once_t2, &__block_literal_global_351);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findTimerTriggerWithModelID_error___hmf_once_v3;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F37D88 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -2341,7 +2214,7 @@ void __65__HMCContext_MKFTimerTrigger__findTimerTriggerWithModelID_error___block
 
 + (id)findCameraReachabilityBulletinRegistrationWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findCameraReachabilityBulletinRegistrationWithModelID_error___hmf_once_t1;
   dCopy = d;
   if (v5 != -1)
@@ -2349,14 +2222,12 @@ void __65__HMCContext_MKFTimerTrigger__findTimerTriggerWithModelID_error___block
     dispatch_once(&findCameraReachabilityBulletinRegistrationWithModelID_error___hmf_once_t1, &__block_literal_global_137849);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findCameraReachabilityBulletinRegistrationWithModelID_error___hmf_once_v2;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F3ACA8 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -2370,7 +2241,7 @@ void __117__HMCContext_MKFCameraReachabilityBulletinRegistration__findCameraReac
 
 + (id)findEventWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findEventWithModelID_error___hmf_once_t3;
   dCopy = d;
   if (v5 != -1)
@@ -2378,14 +2249,12 @@ void __117__HMCContext_MKFCameraReachabilityBulletinRegistration__findCameraReac
     dispatch_once(&findEventWithModelID_error___hmf_once_t3, &__block_literal_global_291_141313);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findEventWithModelID_error___hmf_once_v4;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283E97B60 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -2399,7 +2268,7 @@ void __51__HMCContext_MKFEvent__findEventWithModelID_error___block_invoke()
 
 + (id)findShortcutActionWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findShortcutActionWithModelID_error___hmf_once_t0;
   dCopy = d;
   if (v5 != -1)
@@ -2407,14 +2276,12 @@ void __51__HMCContext_MKFEvent__findEventWithModelID_error___block_invoke()
     dispatch_once(&findShortcutActionWithModelID_error___hmf_once_t0, &__block_literal_global_146910);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findShortcutActionWithModelID_error___hmf_once_v1;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F46AE0 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -2428,7 +2295,7 @@ void __69__HMCContext_MKFShortcutAction__findShortcutActionWithModelID_error___b
 
 + (id)findSoftwareUpdateWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findSoftwareUpdateWithModelID_error___hmf_once_t2;
   dCopy = d;
   if (v5 != -1)
@@ -2436,14 +2303,12 @@ void __69__HMCContext_MKFShortcutAction__findShortcutActionWithModelID_error___b
     dispatch_once(&findSoftwareUpdateWithModelID_error___hmf_once_t2, &__block_literal_global_310);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findSoftwareUpdateWithModelID_error___hmf_once_v3;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F475C8 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -2457,7 +2322,7 @@ void __69__HMCContext_MKFSoftwareUpdate__findSoftwareUpdateWithModelID_error___b
 
 + (id)findMediaAccessoryWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findMediaAccessoryWithModelID_error___hmf_once_t0;
   dCopy = d;
   if (v5 != -1)
@@ -2465,14 +2330,12 @@ void __69__HMCContext_MKFSoftwareUpdate__findSoftwareUpdateWithModelID_error___b
     dispatch_once(&findMediaAccessoryWithModelID_error___hmf_once_t0, &__block_literal_global_152117);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findMediaAccessoryWithModelID_error___hmf_once_v1;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283EF9E38 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -2486,7 +2349,7 @@ void __69__HMCContext_MKFMediaAccessory__findMediaAccessoryWithModelID_error___b
 
 + (id)findGuestWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findGuestWithModelID_error___hmf_once_t11;
   dCopy = d;
   if (v5 != -1)
@@ -2494,14 +2357,12 @@ void __69__HMCContext_MKFMediaAccessory__findMediaAccessoryWithModelID_error___b
     dispatch_once(&findGuestWithModelID_error___hmf_once_t11, &__block_literal_global_678_153848);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findGuestWithModelID_error___hmf_once_v12;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F4B160 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -2515,7 +2376,7 @@ void __51__HMCContext_MKFGuest__findGuestWithModelID_error___block_invoke()
 
 + (id)findHomePersonWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findHomePersonWithModelID_error___hmf_once_t2;
   dCopy = d;
   if (v5 != -1)
@@ -2523,14 +2384,12 @@ void __51__HMCContext_MKFGuest__findGuestWithModelID_error___block_invoke()
     dispatch_once(&findHomePersonWithModelID_error___hmf_once_t2, &__block_literal_global_291_162942);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findHomePersonWithModelID_error___hmf_once_v3;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F518F0 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -2544,7 +2403,7 @@ void __61__HMCContext_MKFHomePerson__findHomePersonWithModelID_error___block_inv
 
 + (id)findStringCharacteristicWithInstanceID:(id)d serviceDatabaseID:(id)iD error:(id *)error
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v7 = findStringCharacteristicWithInstanceID_serviceDatabaseID_error___hmf_once_t2;
   iDCopy = iD;
   dCopy = d;
@@ -2555,14 +2414,12 @@ void __61__HMCContext_MKFHomePerson__findHomePersonWithModelID_error___block_inv
 
   v10 = findStringCharacteristicWithInstanceID_serviceDatabaseID_error___hmf_once_v3;
   objectID = [iDCopy objectID];
-  v16[0] = @"OBJECTID";
-  v16[1] = @"SECONDARYKEY";
-  v17[0] = iDCopy;
-  v17[1] = dCopy;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v15[0] = @"OBJECTID";
+  v15[1] = @"SECONDARYKEY";
+  v16[0] = iDCopy;
+  v16[1] = dCopy;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
   v13 = [HMCContext findModelObjectOfType:&unk_283F53710 parentObjectID:objectID template:v10 substitutions:v12 error:error];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -2576,7 +2433,7 @@ void __102__HMCContext_MKFStringCharacteristic__findStringCharacteristicWithInst
 
 + (id)findStringCharacteristicWithInstanceID:(id)d service:(id)service error:(id *)error
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v7 = findStringCharacteristicWithInstanceID_service_error___hmf_once_t0;
   serviceCopy = service;
   dCopy = d;
@@ -2585,16 +2442,14 @@ void __102__HMCContext_MKFStringCharacteristic__findStringCharacteristicWithInst
     dispatch_once(&findStringCharacteristicWithInstanceID_service_error___hmf_once_t0, &__block_literal_global_165961);
   }
 
-  v16[0] = @"PRIMARYKEY";
-  v16[1] = @"SECONDARYKEY";
-  v17[0] = dCopy;
-  v17[1] = serviceCopy;
+  v15[0] = @"PRIMARYKEY";
+  v15[1] = @"SECONDARYKEY";
+  v16[0] = dCopy;
+  v16[1] = serviceCopy;
   v10 = MEMORY[0x277CBEAC0];
   v11 = findStringCharacteristicWithInstanceID_service_error___hmf_once_v1;
-  v12 = [v10 dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v12 = [v10 dictionaryWithObjects:v16 forKeys:v15 count:2];
   v13 = [HMCContext findModelObjectOfType:&unk_283F53710 template:v11 substitutions:v12 error:error];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -2608,7 +2463,7 @@ void __92__HMCContext_MKFStringCharacteristic__findStringCharacteristicWithInsta
 
 + (id)findMatterLocalKeyValuePairWithKey:(id)key error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findMatterLocalKeyValuePairWithKey_error___hmf_once_t3;
   keyCopy = key;
   if (v5 != -1)
@@ -2616,14 +2471,12 @@ void __92__HMCContext_MKFStringCharacteristic__findStringCharacteristicWithInsta
     dispatch_once(&findMatterLocalKeyValuePairWithKey_error___hmf_once_t3, &__block_literal_global_270_173533);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = keyCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = keyCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findMatterLocalKeyValuePairWithKey_error___hmf_once_v4;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F57C40 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -2637,7 +2490,7 @@ void __83__HMCContext_MKFMatterLocalKeyValuePair__findMatterLocalKeyValuePairWit
 
 + (id)findHAPAccessoryWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findHAPAccessoryWithModelID_error___hmf_once_t10;
   dCopy = d;
   if (v5 != -1)
@@ -2645,14 +2498,12 @@ void __83__HMCContext_MKFMatterLocalKeyValuePair__findMatterLocalKeyValuePairWit
     dispatch_once(&findHAPAccessoryWithModelID_error___hmf_once_t10, &__block_literal_global_920);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findHAPAccessoryWithModelID_error___hmf_once_v11;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F59838 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -2666,7 +2517,7 @@ void __65__HMCContext_MKFHAPAccessory__findHAPAccessoryWithModelID_error___block
 
 + (id)findOutgoingInvitationWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findOutgoingInvitationWithModelID_error___hmf_once_t4;
   dCopy = d;
   if (v5 != -1)
@@ -2674,14 +2525,12 @@ void __65__HMCContext_MKFHAPAccessory__findHAPAccessoryWithModelID_error___block
     dispatch_once(&findOutgoingInvitationWithModelID_error___hmf_once_t4, &__block_literal_global_406_181317);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findOutgoingInvitationWithModelID_error___hmf_once_v5;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F5D530 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -2695,7 +2544,7 @@ void __77__HMCContext_MKFOutgoingInvitation__findOutgoingInvitationWithModelID_e
 
 + (id)findAccountHandleWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findAccountHandleWithModelID_error___hmf_once_t0;
   dCopy = d;
   if (v5 != -1)
@@ -2703,14 +2552,12 @@ void __77__HMCContext_MKFOutgoingInvitation__findOutgoingInvitationWithModelID_e
     dispatch_once(&findAccountHandleWithModelID_error___hmf_once_t0, &__block_literal_global_188885);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findAccountHandleWithModelID_error___hmf_once_v1;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F64610 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -2724,7 +2571,7 @@ void __67__HMCContext_MKFAccountHandle__findAccountHandleWithModelID_error___blo
 
 + (id)findNotificationRegistrationWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findNotificationRegistrationWithModelID_error___hmf_once_t2;
   dCopy = d;
   if (v5 != -1)
@@ -2732,14 +2579,12 @@ void __67__HMCContext_MKFAccountHandle__findAccountHandleWithModelID_error___blo
     dispatch_once(&findNotificationRegistrationWithModelID_error___hmf_once_t2, &__block_literal_global_300);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findNotificationRegistrationWithModelID_error___hmf_once_v3;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F6CF60 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -2753,7 +2598,7 @@ void __89__HMCContext_MKFNotificationRegistration__findNotificationRegistrationW
 
 + (id)findZoneWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findZoneWithModelID_error___hmf_once_t2;
   dCopy = d;
   if (v5 != -1)
@@ -2761,14 +2606,12 @@ void __89__HMCContext_MKFNotificationRegistration__findNotificationRegistrationW
     dispatch_once(&findZoneWithModelID_error___hmf_once_t2, &__block_literal_global_291_199186);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findZoneWithModelID_error___hmf_once_v3;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F6D480 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -2782,7 +2625,7 @@ void __49__HMCContext_MKFZone__findZoneWithModelID_error___block_invoke()
 
 + (id)findAnalysisEventBulletinRegistrationWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findAnalysisEventBulletinRegistrationWithModelID_error___hmf_once_t0;
   dCopy = d;
   if (v5 != -1)
@@ -2790,14 +2633,12 @@ void __49__HMCContext_MKFZone__findZoneWithModelID_error___block_invoke()
     dispatch_once(&findAnalysisEventBulletinRegistrationWithModelID_error___hmf_once_t0, &__block_literal_global_199653);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findAnalysisEventBulletinRegistrationWithModelID_error___hmf_once_v1;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F6D670 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -2811,7 +2652,7 @@ void __107__HMCContext_MKFAnalysisEventBulletinRegistration__findAnalysisEventBu
 
 + (id)findAccessoryNetworkProtectionGroupWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findAccessoryNetworkProtectionGroupWithModelID_error___hmf_once_t2;
   dCopy = d;
   if (v5 != -1)
@@ -2819,14 +2660,12 @@ void __107__HMCContext_MKFAnalysisEventBulletinRegistration__findAnalysisEventBu
     dispatch_once(&findAccessoryNetworkProtectionGroupWithModelID_error___hmf_once_t2, &__block_literal_global_287);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findAccessoryNetworkProtectionGroupWithModelID_error___hmf_once_v3;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F6DC70 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -2840,7 +2679,7 @@ void __103__HMCContext_MKFAccessoryNetworkProtectionGroup__findAccessoryNetworkP
 
 + (id)findNotificationRegistrationMediaPropertyWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findNotificationRegistrationMediaPropertyWithModelID_error___hmf_once_t1;
   dCopy = d;
   if (v5 != -1)
@@ -2848,14 +2687,12 @@ void __103__HMCContext_MKFAccessoryNetworkProtectionGroup__findAccessoryNetworkP
     dispatch_once(&findNotificationRegistrationMediaPropertyWithModelID_error___hmf_once_t1, &__block_literal_global_205414);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findNotificationRegistrationMediaPropertyWithModelID_error___hmf_once_v2;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F72D08 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -2869,7 +2706,7 @@ void __115__HMCContext_MKFNotificationRegistrationMediaProperty__findNotificatio
 
 + (id)findYearDayScheduleRuleWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findYearDayScheduleRuleWithModelID_error___hmf_once_t4;
   dCopy = d;
   if (v5 != -1)
@@ -2877,14 +2714,12 @@ void __115__HMCContext_MKFNotificationRegistrationMediaProperty__findNotificatio
     dispatch_once(&findYearDayScheduleRuleWithModelID_error___hmf_once_t4, &__block_literal_global_206671);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findYearDayScheduleRuleWithModelID_error___hmf_once_v5;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F73708 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -2898,7 +2733,7 @@ void __79__HMCContext_MKFYearDayScheduleRule__findYearDayScheduleRuleWithModelID
 
 + (id)findMatterPathWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findMatterPathWithModelID_error___hmf_once_t8;
   dCopy = d;
   if (v5 != -1)
@@ -2906,14 +2741,12 @@ void __79__HMCContext_MKFYearDayScheduleRule__findYearDayScheduleRuleWithModelID
     dispatch_once(&findMatterPathWithModelID_error___hmf_once_t8, &__block_literal_global_368_208513);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findMatterPathWithModelID_error___hmf_once_v9;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F74EF0 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -2927,7 +2760,7 @@ void __61__HMCContext_MKFMatterPath__findMatterPathWithModelID_error___block_inv
 
 + (id)findActionSetWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findActionSetWithModelID_error___hmf_once_t2;
   dCopy = d;
   if (v5 != -1)
@@ -2935,14 +2768,12 @@ void __61__HMCContext_MKFMatterPath__findMatterPathWithModelID_error___block_inv
     dispatch_once(&findActionSetWithModelID_error___hmf_once_t2, &__block_literal_global_377_214221);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findActionSetWithModelID_error___hmf_once_v3;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F7A810 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -2956,7 +2787,7 @@ void __59__HMCContext_MKFActionSet__findActionSetWithModelID_error___block_invok
 
 + (id)findApplicationDataWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findApplicationDataWithModelID_error___hmf_once_t5;
   dCopy = d;
   if (v5 != -1)
@@ -2964,14 +2795,12 @@ void __59__HMCContext_MKFActionSet__findActionSetWithModelID_error___block_invok
     dispatch_once(&findApplicationDataWithModelID_error___hmf_once_t5, &__block_literal_global_340);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findApplicationDataWithModelID_error___hmf_once_v6;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F7B838 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -2985,7 +2814,7 @@ void __71__HMCContext_MKFApplicationData__findApplicationDataWithModelID_error__
 
 + (id)findSunriseSunsetTimeSpecificationWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findSunriseSunsetTimeSpecificationWithModelID_error___hmf_once_t0;
   dCopy = d;
   if (v5 != -1)
@@ -2993,14 +2822,12 @@ void __71__HMCContext_MKFApplicationData__findApplicationDataWithModelID_error__
     dispatch_once(&findSunriseSunsetTimeSpecificationWithModelID_error___hmf_once_t0, &__block_literal_global_216095);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findSunriseSunsetTimeSpecificationWithModelID_error___hmf_once_v1;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F7C808 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -3014,7 +2841,7 @@ void __101__HMCContext_MKFSunriseSunsetTimeSpecification__findSunriseSunsetTimeS
 
 + (id)findHomeMediaSettingWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findHomeMediaSettingWithModelID_error___hmf_once_t0;
   dCopy = d;
   if (v5 != -1)
@@ -3022,14 +2849,12 @@ void __101__HMCContext_MKFSunriseSunsetTimeSpecification__findSunriseSunsetTimeS
     dispatch_once(&findHomeMediaSettingWithModelID_error___hmf_once_t0, &__block_literal_global_217509);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findHomeMediaSettingWithModelID_error___hmf_once_v1;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F7DE30 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -3043,7 +2868,7 @@ void __73__HMCContext_MKFHomeMediaSetting__findHomeMediaSettingWithModelID_error
 
 + (id)findTriggerWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findTriggerWithModelID_error___hmf_once_t2;
   dCopy = d;
   if (v5 != -1)
@@ -3051,14 +2876,12 @@ void __73__HMCContext_MKFHomeMediaSetting__findHomeMediaSettingWithModelID_error
     dispatch_once(&findTriggerWithModelID_error___hmf_once_t2, &__block_literal_global_316);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findTriggerWithModelID_error___hmf_once_v3;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F37BD8 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -3072,7 +2895,7 @@ void __55__HMCContext_MKFTrigger__findTriggerWithModelID_error___block_invoke()
 
 + (id)findNaturalLightingActionWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findNaturalLightingActionWithModelID_error___hmf_once_t0;
   dCopy = d;
   if (v5 != -1)
@@ -3080,14 +2903,12 @@ void __55__HMCContext_MKFTrigger__findTriggerWithModelID_error___block_invoke()
     dispatch_once(&findNaturalLightingActionWithModelID_error___hmf_once_t0, &__block_literal_global_232547);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findNaturalLightingActionWithModelID_error___hmf_once_v1;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F8F4C8 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -3101,7 +2922,7 @@ void __83__HMCContext_MKFNaturalLightingAction__findNaturalLightingActionWithMod
 
 + (id)findEventTriggerWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findEventTriggerWithModelID_error___hmf_once_t2;
   dCopy = d;
   if (v5 != -1)
@@ -3109,14 +2930,12 @@ void __83__HMCContext_MKFNaturalLightingAction__findNaturalLightingActionWithMod
     dispatch_once(&findEventTriggerWithModelID_error___hmf_once_t2, &__block_literal_global_409_233250);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findEventTriggerWithModelID_error___hmf_once_v3;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F8FDF8 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -3130,7 +2949,7 @@ void __65__HMCContext_MKFEventTrigger__findEventTriggerWithModelID_error___block
 
 + (id)findCharacteristicBulletinRegistrationWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findCharacteristicBulletinRegistrationWithModelID_error___hmf_once_t0;
   dCopy = d;
   if (v5 != -1)
@@ -3138,14 +2957,12 @@ void __65__HMCContext_MKFEventTrigger__findEventTriggerWithModelID_error___block
     dispatch_once(&findCharacteristicBulletinRegistrationWithModelID_error___hmf_once_t0, &__block_literal_global_243034);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findCharacteristicBulletinRegistrationWithModelID_error___hmf_once_v1;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F9DBE8 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -3159,7 +2976,7 @@ void __109__HMCContext_MKFCharacteristicBulletinRegistration__findCharacteristic
 
 + (id)findFloatCharacteristicWithInstanceID:(id)d serviceDatabaseID:(id)iD error:(id *)error
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v7 = findFloatCharacteristicWithInstanceID_serviceDatabaseID_error___hmf_once_t2;
   iDCopy = iD;
   dCopy = d;
@@ -3170,14 +2987,12 @@ void __109__HMCContext_MKFCharacteristicBulletinRegistration__findCharacteristic
 
   v10 = findFloatCharacteristicWithInstanceID_serviceDatabaseID_error___hmf_once_v3;
   objectID = [iDCopy objectID];
-  v16[0] = @"OBJECTID";
-  v16[1] = @"SECONDARYKEY";
-  v17[0] = iDCopy;
-  v17[1] = dCopy;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v15[0] = @"OBJECTID";
+  v15[1] = @"SECONDARYKEY";
+  v16[0] = iDCopy;
+  v16[1] = dCopy;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
   v13 = [HMCContext findModelObjectOfType:&unk_283F9E0C8 parentObjectID:objectID template:v10 substitutions:v12 error:error];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -3191,7 +3006,7 @@ void __100__HMCContext_MKFFloatCharacteristic__findFloatCharacteristicWithInstan
 
 + (id)findFloatCharacteristicWithInstanceID:(id)d service:(id)service error:(id *)error
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v7 = findFloatCharacteristicWithInstanceID_service_error___hmf_once_t0;
   serviceCopy = service;
   dCopy = d;
@@ -3200,16 +3015,14 @@ void __100__HMCContext_MKFFloatCharacteristic__findFloatCharacteristicWithInstan
     dispatch_once(&findFloatCharacteristicWithInstanceID_service_error___hmf_once_t0, &__block_literal_global_243847);
   }
 
-  v16[0] = @"PRIMARYKEY";
-  v16[1] = @"SECONDARYKEY";
-  v17[0] = dCopy;
-  v17[1] = serviceCopy;
+  v15[0] = @"PRIMARYKEY";
+  v15[1] = @"SECONDARYKEY";
+  v16[0] = dCopy;
+  v16[1] = serviceCopy;
   v10 = MEMORY[0x277CBEAC0];
   v11 = findFloatCharacteristicWithInstanceID_service_error___hmf_once_v1;
-  v12 = [v10 dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v12 = [v10 dictionaryWithObjects:v16 forKeys:v15 count:2];
   v13 = [HMCContext findModelObjectOfType:&unk_283F9E0C8 template:v11 substitutions:v12 error:error];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -3223,7 +3036,7 @@ void __90__HMCContext_MKFFloatCharacteristic__findFloatCharacteristicWithInstanc
 
 + (id)findRemovedUserAccessCodeWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findRemovedUserAccessCodeWithModelID_error___hmf_once_t2;
   dCopy = d;
   if (v5 != -1)
@@ -3231,14 +3044,12 @@ void __90__HMCContext_MKFFloatCharacteristic__findFloatCharacteristicWithInstanc
     dispatch_once(&findRemovedUserAccessCodeWithModelID_error___hmf_once_t2, &__block_literal_global_294);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findRemovedUserAccessCodeWithModelID_error___hmf_once_v3;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283FB3B28 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -3252,7 +3063,7 @@ void __83__HMCContext_MKFRemovedUserAccessCode__findRemovedUserAccessCodeWithMod
 
 + (id)findFaceprintWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findFaceprintWithModelID_error___hmf_once_t1;
   dCopy = d;
   if (v5 != -1)
@@ -3260,14 +3071,12 @@ void __83__HMCContext_MKFRemovedUserAccessCode__findRemovedUserAccessCodeWithMod
     dispatch_once(&findFaceprintWithModelID_error___hmf_once_t1, &__block_literal_global_266162);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findFaceprintWithModelID_error___hmf_once_v2;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283FB72F0 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -3281,7 +3090,7 @@ void __59__HMCContext_MKFFaceprint__findFaceprintWithModelID_error___block_invok
 
 + (id)findHomeSoftwareUpdateSettingWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findHomeSoftwareUpdateSettingWithModelID_error___hmf_once_t0;
   dCopy = d;
   if (v5 != -1)
@@ -3289,14 +3098,12 @@ void __59__HMCContext_MKFFaceprint__findFaceprintWithModelID_error___block_invok
     dispatch_once(&findHomeSoftwareUpdateSettingWithModelID_error___hmf_once_t0, &__block_literal_global_268682);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findHomeSoftwareUpdateSettingWithModelID_error___hmf_once_v1;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283FB8D30 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -3310,7 +3117,7 @@ void __91__HMCContext_MKFHomeSoftwareUpdateSetting__findHomeSoftwareUpdateSettin
 
 + (id)findCharacteristicEventWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findCharacteristicEventWithModelID_error___hmf_once_t1;
   dCopy = d;
   if (v5 != -1)
@@ -3318,14 +3125,12 @@ void __91__HMCContext_MKFHomeSoftwareUpdateSetting__findHomeSoftwareUpdateSettin
     dispatch_once(&findCharacteristicEventWithModelID_error___hmf_once_t1, &__block_literal_global_271496);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findCharacteristicEventWithModelID_error___hmf_once_v2;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283F16CE8 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -3339,7 +3144,7 @@ void __79__HMCContext_MKFCharacteristicEvent__findCharacteristicEventWithModelID
 
 + (id)findNotificationRegistrationActionSetWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findNotificationRegistrationActionSetWithModelID_error___hmf_once_t1;
   dCopy = d;
   if (v5 != -1)
@@ -3347,14 +3152,12 @@ void __79__HMCContext_MKFCharacteristicEvent__findCharacteristicEventWithModelID
     dispatch_once(&findNotificationRegistrationActionSetWithModelID_error___hmf_once_t1, &__block_literal_global_272171);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findNotificationRegistrationActionSetWithModelID_error___hmf_once_v2;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283FBAAE8 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -3368,7 +3171,7 @@ void __107__HMCContext_MKFNotificationRegistrationActionSet__findNotificationReg
 
 + (id)findMatterCommandActionWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findMatterCommandActionWithModelID_error___hmf_once_t0;
   dCopy = d;
   if (v5 != -1)
@@ -3376,14 +3179,12 @@ void __107__HMCContext_MKFNotificationRegistrationActionSet__findNotificationReg
     dispatch_once(&findMatterCommandActionWithModelID_error___hmf_once_t0, &__block_literal_global_272712);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findMatterCommandActionWithModelID_error___hmf_once_v1;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283FBAC58 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -3397,7 +3198,7 @@ void __79__HMCContext_MKFMatterCommandAction__findMatterCommandActionWithModelID
 
 + (id)findCharacteristicRangeEventWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findCharacteristicRangeEventWithModelID_error___hmf_once_t0;
   dCopy = d;
   if (v5 != -1)
@@ -3405,14 +3206,12 @@ void __79__HMCContext_MKFMatterCommandAction__findMatterCommandActionWithModelID
     dispatch_once(&findCharacteristicRangeEventWithModelID_error___hmf_once_t0, &__block_literal_global_274507);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findCharacteristicRangeEventWithModelID_error___hmf_once_v1;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283FBC640 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -3426,7 +3225,7 @@ void __89__HMCContext_MKFCharacteristicRangeEvent__findCharacteristicRangeEventW
 
 + (id)findWeekDayScheduleRuleWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findWeekDayScheduleRuleWithModelID_error___hmf_once_t5;
   dCopy = d;
   if (v5 != -1)
@@ -3434,14 +3233,12 @@ void __89__HMCContext_MKFCharacteristicRangeEvent__findCharacteristicRangeEventW
     dispatch_once(&findWeekDayScheduleRuleWithModelID_error___hmf_once_t5, &__block_literal_global_275479);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findWeekDayScheduleRuleWithModelID_error___hmf_once_v6;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283FBE1E0 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -3455,7 +3252,7 @@ void __79__HMCContext_MKFWeekDayScheduleRule__findWeekDayScheduleRuleWithModelID
 
 + (id)findNotificationRegistrationCharacteristicWithModelID:(id)d error:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v5 = findNotificationRegistrationCharacteristicWithModelID_error___hmf_once_t0;
   dCopy = d;
   if (v5 != -1)
@@ -3463,14 +3260,12 @@ void __79__HMCContext_MKFWeekDayScheduleRule__findWeekDayScheduleRuleWithModelID
     dispatch_once(&findNotificationRegistrationCharacteristicWithModelID_error___hmf_once_t0, &__block_literal_global_284878);
   }
 
-  v13 = @"PRIMARYKEY";
-  v14[0] = dCopy;
+  v12 = @"PRIMARYKEY";
+  v13[0] = dCopy;
   v7 = MEMORY[0x277CBEAC0];
   v8 = findNotificationRegistrationCharacteristicWithModelID_error___hmf_once_v1;
-  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v7 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [HMCContext findModelObjectOfType:&unk_283FC7950 template:v8 substitutions:v9 error:error];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

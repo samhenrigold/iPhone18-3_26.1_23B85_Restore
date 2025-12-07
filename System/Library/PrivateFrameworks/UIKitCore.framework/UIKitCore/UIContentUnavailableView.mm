@@ -356,7 +356,7 @@ uint64_t __42__UIContentUnavailableView_layoutSubviews__block_invoke_3(uint64_t 
   v115.size.height = v10;
   v21 = CGRectGetHeight(v115) - v12 - v66 - v65;
   memset(__src, 0, sizeof(__src));
-  [(UIContentUnavailableView *)self _computeLayoutInfoRestrictedToSize:v20, v21];
+  objc_msgSend__computeLayoutInfoRestrictedToSize_(self, v20, v21);
   v116.origin.x = v4;
   v116.origin.y = v6;
   v116.size.width = v8;
@@ -1954,7 +1954,7 @@ LABEL_89:
     size.width = self->_preferredMaxLayoutWidth;
   }
 
-  [(UIContentUnavailableView *)self _computeLayoutInfoRestrictedToSize:size.width, size.height, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  objc_msgSend__computeLayoutInfoRestrictedToSize_(self, a2, size.width, size.height, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
   v4 = 0.0;
   v3 = 0.0;
   result.height = v4;

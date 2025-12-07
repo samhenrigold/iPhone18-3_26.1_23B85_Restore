@@ -54,22 +54,20 @@
 
 + (id)defaultUserProfile
 {
-  v5[6] = *MEMORY[0x1E69E9840];
-  v4[0] = @"CMNatalimeterSetUserHeightMeter";
-  v4[1] = @"CMNatalimeterSetUserWeightKG";
-  v5[0] = &unk_1F0E6A708;
-  v5[1] = &unk_1F0E6A718;
-  v4[2] = @"CMNatalimeterSetUserAgeYr";
-  v4[3] = @"CMNatalimeterSetUserBiologicalSex";
-  v5[2] = &unk_1F0E6A728;
-  v5[3] = &unk_1F0E6A618;
-  v4[4] = @"CMNatalimeterSetUserCondition";
-  v4[5] = @"CMNatalimeterSetUserBetaBlockerUse";
-  v5[4] = &unk_1F0E6A618;
-  v5[5] = MEMORY[0x1E695E110];
-  result = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], a2, v5, v4, 6);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v4[6] = *MEMORY[0x1E69E9840];
+  v3[0] = @"CMNatalimeterSetUserHeightMeter";
+  v3[1] = @"CMNatalimeterSetUserWeightKG";
+  v4[0] = &unk_1F0E6A708;
+  v4[1] = &unk_1F0E6A718;
+  v3[2] = @"CMNatalimeterSetUserAgeYr";
+  v3[3] = @"CMNatalimeterSetUserBiologicalSex";
+  v4[2] = &unk_1F0E6A728;
+  v4[3] = &unk_1F0E6A618;
+  v3[4] = @"CMNatalimeterSetUserCondition";
+  v3[5] = @"CMNatalimeterSetUserBetaBlockerUse";
+  v4[4] = &unk_1F0E6A618;
+  v4[5] = MEMORY[0x1E695E110];
+  return objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], a2, v4, v3, 6);
 }
 
 + (BOOL)setUserProfile:(id)profile error:(id *)error
@@ -82,7 +80,7 @@
 
 + (BOOL)setUserInfo:(id)info error:(id *)error
 {
-  v41[6] = *MEMORY[0x1E69E9840];
+  v40[6] = *MEMORY[0x1E69E9840];
   v7 = objc_msgSend_gender(info, a2, info);
   if (v7 == 1)
   {
@@ -94,32 +92,30 @@
     v10 = 2 * (v7 == 0);
   }
 
-  v40[0] = @"CMNatalimeterSetUserHeightMeter";
+  v39[0] = @"CMNatalimeterSetUserHeightMeter";
   v11 = MEMORY[0x1E696AD98];
   objc_msgSend_height(info, v8, v9);
-  v41[0] = objc_msgSend_numberWithDouble_(v11, v12, v13);
-  v40[1] = @"CMNatalimeterSetUserWeightKG";
+  v40[0] = objc_msgSend_numberWithDouble_(v11, v12, v13);
+  v39[1] = @"CMNatalimeterSetUserWeightKG";
   v14 = MEMORY[0x1E696AD98];
   objc_msgSend_weight(info, v15, v16);
-  v41[1] = objc_msgSend_numberWithDouble_(v14, v17, v18);
-  v40[2] = @"CMNatalimeterSetUserAgeYr";
+  v40[1] = objc_msgSend_numberWithDouble_(v14, v17, v18);
+  v39[2] = @"CMNatalimeterSetUserAgeYr";
   v19 = MEMORY[0x1E696AD98];
   objc_msgSend_age(info, v20, v21);
-  v41[2] = objc_msgSend_numberWithDouble_(v19, v22, v23);
-  v40[3] = @"CMNatalimeterSetUserBiologicalSex";
-  v41[3] = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v24, v10);
-  v40[4] = @"CMNatalimeterSetUserCondition";
+  v40[2] = objc_msgSend_numberWithDouble_(v19, v22, v23);
+  v39[3] = @"CMNatalimeterSetUserBiologicalSex";
+  v40[3] = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v24, v10);
+  v39[4] = @"CMNatalimeterSetUserCondition";
   v25 = MEMORY[0x1E696AD98];
   v28 = objc_msgSend_condition(info, v26, v27);
-  v41[4] = objc_msgSend_numberWithInteger_(v25, v29, v28);
-  v40[5] = @"CMNatalimeterSetUserBetaBlockerUse";
+  v40[4] = objc_msgSend_numberWithInteger_(v25, v29, v28);
+  v39[5] = @"CMNatalimeterSetUserBetaBlockerUse";
   v30 = MEMORY[0x1E696AD98];
   v33 = objc_msgSend_betaBlockerUse(info, v31, v32);
-  v41[5] = objc_msgSend_numberWithBool_(v30, v34, v33);
-  v36 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v35, v41, v40, 6);
-  result = objc_msgSend_setUserProfile_error_(self, v37, v36, error);
-  v39 = *MEMORY[0x1E69E9840];
-  return result;
+  v40[5] = objc_msgSend_numberWithBool_(v30, v34, v33);
+  v36 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v35, v40, v39, 6);
+  return objc_msgSend_setUserProfile_error_(self, v37, v36, error);
 }
 
 + (BOOL)resetCalibrationDataWithError:(id *)error
@@ -291,19 +287,19 @@
 
 + (double)computeTimeToActiveCalories:(id)calories user:(id)user workoutType:(int64_t)type
 {
-  v80 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   if (!calories)
   {
-    v57 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, 0);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v57, v58, a2, self, @"CMNatalimeter.mm", 490, @"Invalid parameter not satisfying: %@", @"activeCalories");
+    v58 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, 0);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v58, v59, a2, self, @"CMNatalimeter.mm", 490, @"Invalid parameter not satisfying: %@", @"activeCalories");
     if (user)
     {
       goto LABEL_3;
     }
 
 LABEL_74:
-    v59 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, calories);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v59, v60, a2, self, @"CMNatalimeter.mm", 491, @"Invalid parameter not satisfying: %@", @"userInfo");
+    v60 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, calories);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v60, v61, a2, self, @"CMNatalimeter.mm", 491, @"Invalid parameter not satisfying: %@", @"userInfo");
     goto LABEL_3;
   }
 
@@ -313,13 +309,13 @@ LABEL_74:
   }
 
 LABEL_3:
-  v61 = xmmword_19B7BB380;
-  v62 = unk_19B7BB390;
-  *v63 = xmmword_19B7BB3A0;
-  *&v63[12] = *(&xmmword_19B7BB3A0 + 12);
+  v63 = xmmword_19B7BB380;
+  v64 = unk_19B7BB390;
+  *v65 = xmmword_19B7BB3A0;
+  *&v65[12] = *(&xmmword_19B7BB3A0 + 12);
   if (!objc_msgSend_gender(user, a2, calories) || objc_msgSend_gender(user, v10, v11) == 1)
   {
-    LODWORD(v61) = objc_msgSend_gender(user, v10, v11);
+    LODWORD(v63) = objc_msgSend_gender(user, v10, v11);
   }
 
   objc_msgSend_height(user, v10, v11);
@@ -332,8 +328,8 @@ LABEL_3:
   {
     objc_msgSend_height(user, v12, v13);
     *&v15 = v15;
-    v63[25] = 1;
-    DWORD2(v61) = LODWORD(v15);
+    v65[25] = 1;
+    DWORD2(v63) = LODWORD(v15);
     v16 = *&v15;
   }
 
@@ -348,8 +344,8 @@ LABEL_3:
   {
     objc_msgSend_weight(user, v17, v18);
     *&v20 = v20;
-    v63[26] = 1;
-    HIDWORD(v61) = LODWORD(v20);
+    v65[26] = 1;
+    HIDWORD(v63) = LODWORD(v20);
     v21 = (*&v20 * 2.7757) * 1000.0;
     v22 = *&v20;
   }
@@ -360,13 +356,13 @@ LABEL_3:
   {
     objc_msgSend_age(user, v23, v24);
     v25 = v27;
-    v63[24] = 1;
-    *(&v62 + 1) = v25;
+    v65[24] = 1;
+    *(&v64 + 1) = v25;
   }
 
   if ((objc_msgSend_condition(user, v23, v24) & 0x8000000000000000) == 0 && objc_msgSend_condition(user, v28, v29) <= 6)
   {
-    *&v63[8] = objc_msgSend_condition(user, v28, v30);
+    *&v65[8] = objc_msgSend_condition(user, v28, v30);
   }
 
   v31 = objc_msgSend_CLMotionActivityTypeFromCMWorkoutType_(CMWorkout, v28, type);
@@ -464,7 +460,7 @@ LABEL_39:
 
   v36 = v46 * v22 * 1000.0;
 LABEL_44:
-  v47 = v36 + v22 * sub_19B73FF78(&v61, (v31 < 0xC) & (0xC07u >> v31)) * 3600.0 * -1000.0 / 3600.0;
+  v47 = v36 + v22 * sub_19B73FF78(&v63, (v31 < 0xC) & (0xC07u >> v31)) * 3600.0 * -1000.0 / 3600.0;
   if (v47 <= 0.0)
   {
     if (qword_1EAFE2808 != -1)
@@ -476,9 +472,9 @@ LABEL_44:
     if (os_log_type_enabled(qword_1EAFE2830, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218243;
-      v73 = 0.0;
-      v74 = 2113;
-      v75 = *&user;
+      v75 = 0.0;
+      v76 = 2113;
+      v77 = *&user;
       _os_log_impl(&dword_19B41C000, v49, OS_LOG_TYPE_ERROR, "TimeToActiveCalories is negative: timeToActiveCalories, %f, %{private}@", buf, 0x16u);
     }
 
@@ -491,15 +487,16 @@ LABEL_44:
         dispatch_once(&qword_1EAFE2808, &unk_1F0E3AAE8);
       }
 
-      v64 = 134218243;
-      v65 = 0.0;
-      v66 = 2113;
-      v67 = *&user;
-      v51 = _os_log_send_and_compose_impl();
+      v66 = 134218243;
+      v67 = 0.0;
+      v68 = 2113;
+      v69 = *&user;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2830, 16, "TimeToActiveCalories is negative: timeToActiveCalories, %f, %{private}@", &v66, 22, v63);
+      v52 = v51;
       sub_19B6BB7CC("Generic", 1, 0, 0, "+[CMNatalimeter computeTimeToActiveCalories:user:workoutType:]", "CoreLocation: %s\n", v51);
-      if (v51 != buf)
+      if (v52 != buf)
       {
-        free(v51);
+        free(v52);
       }
 
       v48 = 0.0;
@@ -516,22 +513,22 @@ LABEL_44:
     dispatch_once(&qword_1EAFE2808, &unk_1F0E3AAE8);
   }
 
-  v52 = qword_1EAFE2830;
+  v53 = qword_1EAFE2830;
   if (os_log_type_enabled(qword_1EAFE2830, OS_LOG_TYPE_INFO))
   {
     *buf = 134218755;
-    v73 = v48;
-    v74 = 2048;
-    v75 = v35;
+    v75 = v48;
     v76 = 2048;
+    v77 = v35;
+    v78 = 2048;
     typeCopy = type;
-    v78 = 2113;
+    v80 = 2113;
     userCopy = user;
-    _os_log_impl(&dword_19B41C000, v52, OS_LOG_TYPE_INFO, "TimeToActiveCalories, %f, target, %f, workoutType, %ld, %{private}@", buf, 0x2Au);
+    _os_log_impl(&dword_19B41C000, v53, OS_LOG_TYPE_INFO, "TimeToActiveCalories, %f, target, %f, workoutType, %ld, %{private}@", buf, 0x2Au);
   }
 
-  v53 = sub_19B420058();
-  if (*(v53 + 160) > 1 || *(v53 + 164) > 1 || *(v53 + 168) > 1 || *(v53 + 152))
+  v54 = sub_19B420058();
+  if (*(v54 + 160) > 1 || *(v54 + 164) > 1 || *(v54 + 168) > 1 || *(v54 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE2808 != -1)
@@ -539,23 +536,24 @@ LABEL_44:
       dispatch_once(&qword_1EAFE2808, &unk_1F0E3AAE8);
     }
 
-    v64 = 134218755;
-    v65 = v48;
-    v66 = 2048;
-    v67 = v35;
+    v66 = 134218755;
+    v67 = v48;
     v68 = 2048;
+    v69 = v35;
+    v70 = 2048;
     typeCopy2 = type;
-    v70 = 2113;
+    v72 = 2113;
     userCopy2 = user;
-    v54 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "+[CMNatalimeter computeTimeToActiveCalories:user:workoutType:]", "CoreLocation: %s\n", v54);
-    if (v54 != buf)
+    LODWORD(v62) = 42;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2830, 1, "TimeToActiveCalories, %f, target, %f, workoutType, %ld, %{private}@", &v66, v62);
+    v56 = v55;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "+[CMNatalimeter computeTimeToActiveCalories:user:workoutType:]", "CoreLocation: %s\n", v55);
+    if (v56 != buf)
     {
-      free(v54);
+      free(v56);
     }
   }
 
-  v55 = *MEMORY[0x1E69E9840];
   return v48;
 }
 

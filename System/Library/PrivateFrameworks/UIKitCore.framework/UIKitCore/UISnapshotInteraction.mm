@@ -25,7 +25,7 @@
 {
   viewCopy = view;
   selfCopy = self;
-  sub_1890A869C();
+  sub_1890A869C(view);
 }
 
 - (_TtC5UIKitP33_5E047FF87EF322737F6B29EC4785CA5821UISnapshotInteraction)init

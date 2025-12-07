@@ -55,15 +55,15 @@
 
 - (id)em_person
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   simpleAddress = [self simpleAddress];
   if (simpleAddress)
   {
     v3 = objc_alloc(MEMORY[0x1E6964E50]);
     displayName = [self displayName];
     simpleAddress2 = [self simpleAddress];
-    v10[0] = simpleAddress2;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+    v9[0] = simpleAddress2;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
     v7 = [v3 initWithDisplayName:displayName handles:v6 handleIdentifier:*MEMORY[0x1E695C208]];
   }
 
@@ -71,8 +71,6 @@
   {
     v7 = 0;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

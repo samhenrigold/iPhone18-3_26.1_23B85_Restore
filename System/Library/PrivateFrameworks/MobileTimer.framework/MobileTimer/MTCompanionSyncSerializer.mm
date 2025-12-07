@@ -58,14 +58,12 @@ LABEL_9:
 
 - (void)changeFromData:(NSObject *)a1 ofType:.cold.1(NSObject *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = +[MTPairedDeviceListener sharedListener];
   v3 = [v2 pairedDeviceVersion];
-  v5 = 138543362;
-  v6 = v3;
-  _os_log_error_impl(&dword_1B1F9F000, a1, OS_LOG_TYPE_ERROR, "Dropping undecodeable sync data from %{public}@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543362;
+  v5 = v3;
+  _os_log_error_impl(&dword_1B1F9F000, a1, OS_LOG_TYPE_ERROR, "Dropping undecodeable sync data from %{public}@", &v4, 0xCu);
 }
 
 @end

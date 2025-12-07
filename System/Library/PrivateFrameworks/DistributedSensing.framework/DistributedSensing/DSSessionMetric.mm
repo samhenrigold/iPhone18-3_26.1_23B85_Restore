@@ -45,9 +45,7 @@
   self->_deviceRole = role;
   self->_numPotentialProviders = providers;
   self->_unterminatedSession = session;
-  date = [MEMORY[0x277CBEAA8] date];
-  sessionStartTime = self->_sessionStartTime;
-  self->_sessionStartTime = date;
+  self->_sessionStartTime = [MEMORY[0x277CBEAA8] date];
 
   MEMORY[0x2821F96F8]();
 }
@@ -61,16 +59,14 @@
 
     if (os_log_type_enabled(dsLogger, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_249027000, dsLogger, OS_LOG_TYPE_DEFAULT, "[DSCoreAnalytics] start time already initialized\n", v7, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_249027000, dsLogger, OS_LOG_TYPE_DEFAULT, "[DSCoreAnalytics] start time already initialized\n", v5, 2u);
     }
   }
 
   else
   {
-    date = [MEMORY[0x277CBEAA8] date];
-    providerAvailableStartTime = self->_providerAvailableStartTime;
-    self->_providerAvailableStartTime = date;
+    self->_providerAvailableStartTime = [MEMORY[0x277CBEAA8] date];
 
     MEMORY[0x2821F96F8]();
   }

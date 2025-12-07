@@ -3,6 +3,7 @@
 - (PSUIVoiceAndDataDrillDownController)init;
 - (PSUIVoiceAndDataDrillDownController)initWithCTClient:(id)client switchFactory:(id)factory carrierBundleCache:(id)cache standaloneCache:(id)standaloneCache;
 - (id)getSwitchSpecifiers;
+- (id)identifierForRATMode:(int)mode;
 - (id)specifiers;
 - (int)RATModeForSpecifier:(id)specifier;
 - (void)airplaneModeChanged;
@@ -171,30 +172,30 @@
 
 - (void)setUpRATModeSpecifierIdentifiers:(id)identifiers
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   if ([identifiersCopy count])
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v5 = identifiersCopy;
-    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v13 + 1) + 8 * i);
+          v10 = *(*(&v12 + 1) + 8 * i);
           if ([v10 cellType])
           {
             v11 = [(PSUIVoiceAndDataDrillDownController *)self identifierForRATMode:[(PSUIVoiceAndDataDrillDownController *)self RATModeForSpecifier:v10]];
@@ -207,14 +208,12 @@
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureSpecifiers
@@ -387,7 +386,7 @@ LABEL_24:
 
 - (id)getSwitchSpecifiers
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   shouldShowVoLTESwitch = [(PSUIVoiceAndDataDrillDownController *)self shouldShowVoLTESwitch];
   v5 = MEMORY[0x277D3FD20];
@@ -396,9 +395,9 @@ LABEL_24:
     getLogger = [(PSUIVoiceAndDataDrillDownController *)self getLogger];
     if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEBUG))
     {
-      v24 = 136315138;
-      v25 = "[PSUIVoiceAndDataDrillDownController getSwitchSpecifiers]";
-      _os_log_debug_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEBUG, "%s showing VoLTE switch", &v24, 0xCu);
+      v23 = 136315138;
+      v24 = "[PSUIVoiceAndDataDrillDownController getSwitchSpecifiers]";
+      _os_log_debug_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEBUG, "%s showing VoLTE switch", &v23, 0xCu);
     }
 
     v7 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"VoLTESwitchGroupSpecifierKey"];
@@ -418,9 +417,9 @@ LABEL_24:
     getLogger2 = [(PSUIVoiceAndDataDrillDownController *)self getLogger];
     if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_DEBUG))
     {
-      v24 = 136315138;
-      v25 = "[PSUIVoiceAndDataDrillDownController getSwitchSpecifiers]";
-      _os_log_debug_impl(&dword_2658DE000, getLogger2, OS_LOG_TYPE_DEBUG, "%s showing 5G SA switch", &v24, 0xCu);
+      v23 = 136315138;
+      v24 = "[PSUIVoiceAndDataDrillDownController getSwitchSpecifiers]";
+      _os_log_debug_impl(&dword_2658DE000, getLogger2, OS_LOG_TYPE_DEBUG, "%s showing 5G SA switch", &v23, 0xCu);
     }
 
     v11 = [(PSUIVoiceAndDataDrillDownSwitchSpecifiersFactory *)self->_switchFactory create5GSASwitchSpecifierWithHostController:self parentSpecifier:*(&self->super.super.super.super.super.super.isa + *v5)];
@@ -440,9 +439,9 @@ LABEL_24:
     getLogger3 = [(PSUIVoiceAndDataDrillDownController *)self getLogger];
     if (os_log_type_enabled(getLogger3, OS_LOG_TYPE_DEBUG))
     {
-      v24 = 136315138;
-      v25 = "[PSUIVoiceAndDataDrillDownController getSwitchSpecifiers]";
-      _os_log_debug_impl(&dword_2658DE000, getLogger3, OS_LOG_TYPE_DEBUG, "%s showing VoNR switch", &v24, 0xCu);
+      v23 = 136315138;
+      v24 = "[PSUIVoiceAndDataDrillDownController getSwitchSpecifiers]";
+      _os_log_debug_impl(&dword_2658DE000, getLogger3, OS_LOG_TYPE_DEBUG, "%s showing VoNR switch", &v23, 0xCu);
     }
 
     v15 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"VoNRSwitchGroupSpecifierKey"];
@@ -462,9 +461,9 @@ LABEL_24:
     getLogger4 = [(PSUIVoiceAndDataDrillDownController *)self getLogger];
     if (os_log_type_enabled(getLogger4, OS_LOG_TYPE_DEBUG))
     {
-      v24 = 136315138;
-      v25 = "[PSUIVoiceAndDataDrillDownController getSwitchSpecifiers]";
-      _os_log_debug_impl(&dword_2658DE000, getLogger4, OS_LOG_TYPE_DEBUG, "%s showing 2G switch", &v24, 0xCu);
+      v23 = 136315138;
+      v24 = "[PSUIVoiceAndDataDrillDownController getSwitchSpecifiers]";
+      _os_log_debug_impl(&dword_2658DE000, getLogger4, OS_LOG_TYPE_DEBUG, "%s showing 2G switch", &v23, 0xCu);
     }
 
     v19 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"2GSwitchGroupSpecifierKey"];
@@ -477,8 +476,6 @@ LABEL_24:
       [v19 setProperty:groupFooterText4 forKey:*MEMORY[0x277D3FF88]];
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -515,6 +512,21 @@ LABEL_24:
   unsignedIntValue = [firstObject unsignedIntValue];
 
   return unsignedIntValue;
+}
+
+- (id)identifierForRATMode:(int)mode
+{
+  if (mode > 5)
+  {
+    v4 = @"NO_KNOWN_RAT_MODE";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", *&mode];
+  }
+
+  return v4;
 }
 
 - (void)listItemSelected:(id)selected

@@ -7,14 +7,14 @@
 
 - (void)checkIsAvailableInStore:(id)store withReply:(id)reply
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   storeCopy = store;
   replyCopy = reply;
-  v7 = _NDOLogSystem();
+  v7 = _NDOLogSystem(replyCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v26 = storeCopy;
+    v25 = storeCopy;
     _os_log_impl(&dword_25BD52000, v7, OS_LOG_TYPE_DEFAULT, "Checking for %@ in the App Store", buf, 0xCu);
   }
 
@@ -24,15 +24,15 @@
 
   if (bOOLValue)
   {
-    v23[0] = @"AppTitleKey";
-    v23[1] = @"AppVendorName";
-    v24[0] = @"Apple Support";
-    v24[1] = @"Apple";
-    v23[2] = @"AppAvailablityText";
-    v23[3] = @"AppAvailabilityType";
-    v24[2] = @"OVERRIDE";
-    v24[3] = &unk_286D6E468;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:4];
+    v22[0] = @"AppTitleKey";
+    v22[1] = @"AppVendorName";
+    v23[0] = @"Apple Support";
+    v23[1] = @"Apple";
+    v22[2] = @"AppAvailablityText";
+    v22[3] = @"AppAvailabilityType";
+    v23[2] = @"OVERRIDE";
+    v23[3] = &unk_286D6E468;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:4];
     replyCopy[2](replyCopy, v11);
   }
 
@@ -44,39 +44,37 @@
     v11 = [v12 bagForProfile:bagSubProfile profileVersion:bagSubProfileVersion];
 
     v15 = [objc_alloc(MEMORY[0x277CEE570]) initWithType:0 clientIdentifier:@"com.apple.preferences.applesupport" clientVersion:@"1" bag:v11];
-    v22 = storeCopy;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
+    v21 = storeCopy;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
     [v15 setBundleIdentifiers:v16];
 
     perform = [v15 perform];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __60__NDOAppleSupportManager_checkIsAvailableInStore_withReply___block_invoke;
-    v19[3] = &unk_279976350;
-    v20 = storeCopy;
-    v21 = replyCopy;
-    [perform addFinishBlock:v19];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __60__NDOAppleSupportManager_checkIsAvailableInStore_withReply___block_invoke;
+    v18[3] = &unk_279976350;
+    v19 = storeCopy;
+    v20 = replyCopy;
+    [perform addFinishBlock:v18];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __60__NDOAppleSupportManager_checkIsAvailableInStore_withReply___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
   if (!v5 || v6)
   {
-    v34 = _NDOLogSystem();
+    v34 = _NDOLogSystem(v6);
     if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       v35 = *(a1 + 32);
       *buf = 138412546;
-      v46 = v35;
-      v47 = 2112;
-      v48 = v7;
+      v45 = v35;
+      v46 = 2112;
+      v47 = v7;
       _os_log_impl(&dword_25BD52000, v34, OS_LOG_TYPE_DEFAULT, "Lookup for %@ in the App Store failed with error %@", buf, 0x16u);
     }
 
@@ -101,9 +99,9 @@ void __60__NDOAppleSupportManager_checkIsAvailableInStore_withReply___block_invo
       if (v11 && v12)
       {
         v14 = [v12 objectForKeyedSubscript:@"artistName"];
-        v40 = [v13 objectForKeyedSubscript:@"name"];
-        v39 = [v13 objectForKeyedSubscript:@"platformAttributes"];
-        v17 = [v39 objectForKeyedSubscript:@"ios"];
+        v39 = [v13 objectForKeyedSubscript:@"name"];
+        v38 = [v13 objectForKeyedSubscript:@"platformAttributes"];
+        v17 = [v38 objectForKeyedSubscript:@"ios"];
         v18 = [v17 objectForKeyedSubscript:@"artwork"];
         v19 = [v18 objectForKeyedSubscript:@"url"];
         v20 = v13;
@@ -120,7 +118,7 @@ void __60__NDOAppleSupportManager_checkIsAvailableInStore_withReply___block_invo
         v11 = v21;
         v13 = v20;
 
-        v15 = v40;
+        v15 = v39;
       }
 
       v24 = [v13 objectForKeyedSubscript:@"url"];
@@ -141,8 +139,8 @@ void __60__NDOAppleSupportManager_checkIsAvailableInStore_withReply___block_invo
       }
 
       v29 = *(a1 + 40);
-      v43[0] = @"AppLinkURL";
-      v43[1] = @"AppIconURL";
+      v42[0] = @"AppLinkURL";
+      v42[1] = @"AppIconURL";
       if (v16)
       {
         v30 = v16;
@@ -153,8 +151,8 @@ void __60__NDOAppleSupportManager_checkIsAvailableInStore_withReply___block_invo
         v30 = &stru_286D686B8;
       }
 
-      v44[0] = v27;
-      v44[1] = v30;
+      v43[0] = v27;
+      v43[1] = v30;
       if (v15)
       {
         v31 = v15;
@@ -165,8 +163,8 @@ void __60__NDOAppleSupportManager_checkIsAvailableInStore_withReply___block_invo
         v31 = &stru_286D686B8;
       }
 
-      v43[2] = @"AppTitleKey";
-      v43[3] = @"AppVendorName";
+      v42[2] = @"AppTitleKey";
+      v42[3] = @"AppVendorName";
       if (v14)
       {
         v32 = v14;
@@ -177,27 +175,25 @@ void __60__NDOAppleSupportManager_checkIsAvailableInStore_withReply___block_invo
         v32 = &stru_286D686B8;
       }
 
-      v44[2] = v31;
-      v44[3] = v32;
-      v43[4] = @"AppAvailablityText";
-      v43[5] = @"AppAvailabilityType";
-      v44[4] = @"Free – On the App Store";
-      v44[5] = &unk_286D6E480;
-      v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:6];
+      v43[2] = v31;
+      v43[3] = v32;
+      v42[4] = @"AppAvailablityText";
+      v42[5] = @"AppAvailabilityType";
+      v43[4] = @"Free – On the App Store";
+      v43[5] = &unk_286D6E480;
+      v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:6];
       (*(v29 + 16))(v29, v33);
     }
 
     else
     {
       v36 = *(a1 + 40);
-      v41 = @"AppAvailabilityType";
-      v42 = &unk_286D6E498;
-      v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+      v40 = @"AppAvailabilityType";
+      v41 = &unk_286D6E498;
+      v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
       (*(v36 + 16))(v36, v37);
     }
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)appSupportAvailability:(id)availability withReply:(id)reply
@@ -223,7 +219,7 @@ void __60__NDOAppleSupportManager_checkIsAvailableInStore_withReply___block_invo
   {
     vendorName = [v9 vendorName];
     localizedName = [v9 localizedName];
-    v14 = _NDOLogSystem();
+    v14 = _NDOLogSystem(localizedName);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
@@ -271,14 +267,14 @@ void __60__NDOAppleSupportManager_checkIsAvailableInStore_withReply___block_invo
     vendorName = [(NDOAppleSupportManager *)self checkAppIsPurchased:availabilityCopy];
     v21 = [(__CFString *)vendorName objectForKey:@"AppAvailabilityType"];
     localizedName = v21;
-    if (vendorName && [(__CFString *)v21 intValue])
+    if (vendorName && (v22 = [(__CFString *)v21 intValue], v22))
     {
-      v22 = _NDOLogSystem();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v23 = _NDOLogSystem(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
         v36 = availabilityCopy;
-        _os_log_impl(&dword_25BD52000, v22, OS_LOG_TYPE_DEFAULT, "appSupportAvailability %@ is purchased.", buf, 0xCu);
+        _os_log_impl(&dword_25BD52000, v23, OS_LOG_TYPE_DEFAULT, "appSupportAvailability %@ is purchased.", buf, 0xCu);
       }
 
       [v28[5] addEntriesFromDictionary:vendorName];
@@ -298,19 +294,18 @@ void __60__NDOAppleSupportManager_checkIsAvailableInStore_withReply___block_invo
   }
 
   _Block_object_dispose(&v27, 8);
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __59__NDOAppleSupportManager_appSupportAvailability_withReply___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = _NDOLogSystem();
+  v4 = _NDOLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_25BD52000, v4, OS_LOG_TYPE_DEFAULT, "AppStore --> appSupportAvailability %@.", &v7, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_25BD52000, v4, OS_LOG_TYPE_DEFAULT, "AppStore --> appSupportAvailability %@.", &v5, 0xCu);
   }
 
   if (v3)
@@ -318,10 +313,7 @@ void __59__NDOAppleSupportManager_appSupportAvailability_withReply___block_invok
     [*(*(*(a1 + 40) + 8) + 40) addEntriesFromDictionary:v3];
   }
 
-  v5 = *(*(*(a1 + 40) + 8) + 40);
   (*(*(a1 + 32) + 16))();
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

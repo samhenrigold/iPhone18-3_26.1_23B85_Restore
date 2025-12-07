@@ -52,7 +52,7 @@
   v5 = completionCopy;
   v9 = v5;
   v6 = v8;
-  v7 = CATGetCatalystQueue();
+  v7 = CATGetCatalystQueue(v6);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __CATPerformBlock_block_invoke_8;
@@ -85,7 +85,7 @@ void __99__CATDeviceSessionBackedDevicePairingTerminal_verifyPairingAndFetchStab
   v9 = completionCopy;
   v14 = v9;
   v10 = v12;
-  v11 = CATGetCatalystQueue();
+  v11 = CATGetCatalystQueue(v10);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __CATPerformBlock_block_invoke_8;
@@ -115,7 +115,7 @@ void __75__CATDeviceSessionBackedDevicePairingTerminal_beginPairing_withCompleti
   v5 = nCopy;
   v9 = v5;
   v6 = v8;
-  v7 = CATGetCatalystQueue();
+  v7 = CATGetCatalystQueue(v6);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __CATPerformBlock_block_invoke_8;
@@ -142,7 +142,7 @@ void __54__CATDeviceSessionBackedDevicePairingTerminal_tryPIN___block_invoke(uin
   v4[3] = &unk_278DA7120;
   objc_copyWeak(&v5, &location);
   v2 = v4;
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(v2);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __CATPerformBlock_block_invoke_8;
@@ -163,7 +163,7 @@ void __57__CATDeviceSessionBackedDevicePairingTerminal_invalidate__block_invoke(
 - (void)_verifyPairingAndFetchStableIdentifierWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(completionCopy);
   CATAssertIsQueue(v4);
 
   if ([(CATDeviceSessionBackedDevicePairingTerminal *)self isInvalidated])
@@ -195,7 +195,7 @@ LABEL_6:
 {
   pairingCopy = pairing;
   completionCopy = completion;
-  v8 = CATGetCatalystQueue();
+  v8 = CATGetCatalystQueue(completionCopy);
   CATAssertIsQueue(v8);
 
   if ([(CATDeviceSessionBackedDevicePairingTerminal *)self isInvalidated])
@@ -258,7 +258,7 @@ void __76__CATDeviceSessionBackedDevicePairingTerminal__beginPairing_withComplet
   v8 = v4;
   objc_copyWeak(&v9, (a1 + 32));
   v5 = v7;
-  v6 = CATGetCatalystQueue();
+  v6 = CATGetCatalystQueue(v5);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __CATPerformBlock_block_invoke_8;
@@ -290,18 +290,19 @@ void __76__CATDeviceSessionBackedDevicePairingTerminal__beginPairing_withComplet
 {
   v12 = *MEMORY[0x277D85DE8];
   nCopy = n;
-  v6 = CATGetCatalystQueue();
+  v6 = CATGetCatalystQueue(nCopy);
   CATAssertIsQueue(v6);
 
-  if ([(CATDeviceSessionBackedDevicePairingTerminal *)self isInvalidated])
+  isInvalidated = [(CATDeviceSessionBackedDevicePairingTerminal *)self isInvalidated];
+  if (isInvalidated)
   {
-    v7 = _CATLogGeneral_3();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = _CATLogGeneral_3(isInvalidated);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v8 = NSStringFromSelector(a2);
+      v9 = NSStringFromSelector(a2);
       v10 = 138543362;
-      v11 = v8;
-      _os_log_impl(&dword_24329F000, v7, OS_LOG_TYPE_INFO, "Already invalidated upon reaching %{public}@, quietly returning", &v10, 0xCu);
+      v11 = v9;
+      _os_log_impl(&dword_24329F000, v8, OS_LOG_TYPE_INFO, "Already invalidated upon reaching %{public}@, quietly returning", &v10, 0xCu);
     }
   }
 
@@ -309,43 +310,39 @@ void __76__CATDeviceSessionBackedDevicePairingTerminal__beginPairing_withComplet
   {
     [(CATSharingDeviceSession *)self->mDeviceSession tryPairingPIN:nCopy];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_invalidate
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v4 = CATGetCatalystQueue();
+  v11 = *MEMORY[0x277D85DE8];
+  v4 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v4);
 
-  if ([(CATDeviceSessionBackedDevicePairingTerminal *)self isInvalidated])
+  isInvalidated = [(CATDeviceSessionBackedDevicePairingTerminal *)self isInvalidated];
+  if (isInvalidated)
   {
-    v5 = _CATLogGeneral_3();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = _CATLogGeneral_3(isInvalidated);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v6 = NSStringFromSelector(a2);
+      v7 = NSStringFromSelector(a2);
       *buf = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_24329F000, v5, OS_LOG_TYPE_INFO, "Already invalidated upon reaching %{public}@, quietly returning", buf, 0xCu);
+      v10 = v7;
+      _os_log_impl(&dword_24329F000, v6, OS_LOG_TYPE_INFO, "Already invalidated upon reaching %{public}@, quietly returning", buf, 0xCu);
     }
-
-    v7 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     [(CATDeviceSessionBackedDevicePairingTerminal *)self removeSessionHandlers];
     [(CATSharingDeviceSession *)self->mDeviceSession deactivate];
-    v9 = CATErrorWithCodeAndUserInfo(705, 0);
+    v8 = CATErrorWithCodeAndUserInfo(705, 0);
     [(CATDeviceSessionBackedDevicePairingTerminal *)self invalidateWithError:?];
-    v8 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (void)addSessionHandlers
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   objc_initWeak(&location, self);
@@ -391,7 +388,7 @@ void __65__CATDeviceSessionBackedDevicePairingTerminal_addSessionHandlers__block
   v4 = v3;
   v8 = v4;
   v5 = v7;
-  v6 = CATGetCatalystQueue();
+  v6 = CATGetCatalystQueue(v5);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __CATPerformBlock_block_invoke_8;
@@ -419,7 +416,7 @@ void __65__CATDeviceSessionBackedDevicePairingTerminal_addSessionHandlers__block
   v4 = v3;
   v8 = v4;
   v5 = v7;
-  v6 = CATGetCatalystQueue();
+  v6 = CATGetCatalystQueue(v5);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __CATPerformBlock_block_invoke_8;
@@ -444,7 +441,7 @@ void __65__CATDeviceSessionBackedDevicePairingTerminal_addSessionHandlers__block
   v3[3] = &unk_278DA7120;
   objc_copyWeak(&v4, (a1 + 32));
   v1 = v3;
-  v2 = CATGetCatalystQueue();
+  v2 = CATGetCatalystQueue(v1);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __CATPerformBlock_block_invoke_8;
@@ -471,7 +468,7 @@ void __65__CATDeviceSessionBackedDevicePairingTerminal_addSessionHandlers__block
   objc_copyWeak(v9, (a1 + 32));
   v9[1] = a3;
   v6 = v8;
-  v7 = CATGetCatalystQueue();
+  v7 = CATGetCatalystQueue(v6);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __CATPerformBlock_block_invoke_8;
@@ -492,35 +489,36 @@ void __65__CATDeviceSessionBackedDevicePairingTerminal_addSessionHandlers__block
 {
   v14 = *MEMORY[0x277D85DE8];
   invalidatedCopy = invalidated;
-  v6 = CATGetCatalystQueue();
+  v6 = CATGetCatalystQueue(invalidatedCopy);
   CATAssertIsQueue(v6);
 
   isInvalidated = [(CATDeviceSessionBackedDevicePairingTerminal *)self isInvalidated];
-  v8 = _CATLogGeneral_3();
-  v9 = v8;
-  if (isInvalidated)
+  v8 = isInvalidated;
+  v9 = _CATLogGeneral_3(isInvalidated);
+  v10 = v9;
+  if (v8)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v10 = NSStringFromSelector(a2);
+      v11 = NSStringFromSelector(a2);
       v12 = 138543362;
-      v13 = v10;
-      _os_log_impl(&dword_24329F000, v9, OS_LOG_TYPE_INFO, "Already invalidated upon reaching %{public}@, quietly returning", &v12, 0xCu);
+      v13 = v11;
+      _os_log_impl(&dword_24329F000, v10, OS_LOG_TYPE_INFO, "Already invalidated upon reaching %{public}@, quietly returning", &v12, 0xCu);
     }
 
     goto LABEL_9;
   }
 
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    [(CATDeviceSessionBackedDevicePairingTerminal *)self deviceSessionInvalidated:v9];
+    [(CATDeviceSessionBackedDevicePairingTerminal *)self deviceSessionInvalidated:v10];
   }
 
   [(CATDeviceSessionBackedDevicePairingTerminal *)self removeSessionHandlers];
   if (!invalidatedCopy)
   {
-    v9 = CATErrorWithCodeAndUserInfo(1, 0);
-    [(CATDeviceSessionBackedDevicePairingTerminal *)self invalidateWithError:v9];
+    v10 = CATErrorWithCodeAndUserInfo(1, 0);
+    [(CATDeviceSessionBackedDevicePairingTerminal *)self invalidateWithError:v10];
 LABEL_9:
 
     goto LABEL_10;
@@ -528,43 +526,42 @@ LABEL_9:
 
   [(CATDeviceSessionBackedDevicePairingTerminal *)self invalidateWithError:invalidatedCopy];
 LABEL_10:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deviceSessionEncounteredError:(id)error
 {
   v14 = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  v6 = CATGetCatalystQueue();
+  v6 = CATGetCatalystQueue(errorCopy);
   CATAssertIsQueue(v6);
 
   isInvalidated = [(CATDeviceSessionBackedDevicePairingTerminal *)self isInvalidated];
-  v8 = _CATLogGeneral_3();
-  v9 = v8;
-  if (isInvalidated)
+  v8 = isInvalidated;
+  v9 = _CATLogGeneral_3(isInvalidated);
+  v10 = v9;
+  if (v8)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v10 = NSStringFromSelector(a2);
+      v11 = NSStringFromSelector(a2);
       v12 = 138543362;
-      v13 = v10;
-      _os_log_impl(&dword_24329F000, v9, OS_LOG_TYPE_INFO, "Already invalidated upon reaching %{public}@, quietly returning", &v12, 0xCu);
+      v13 = v11;
+      _os_log_impl(&dword_24329F000, v10, OS_LOG_TYPE_INFO, "Already invalidated upon reaching %{public}@, quietly returning", &v12, 0xCu);
     }
 
     goto LABEL_9;
   }
 
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    [(CATDeviceSessionBackedDevicePairingTerminal *)self deviceSessionEncounteredError:errorCopy, v9];
+    [(CATDeviceSessionBackedDevicePairingTerminal *)self deviceSessionEncounteredError:errorCopy, v10];
   }
 
   [(CATDeviceSessionBackedDevicePairingTerminal *)self removeSessionHandlers];
   if (!errorCopy)
   {
-    v9 = CATErrorWithCodeAndUserInfo(1, 0);
-    [(CATDeviceSessionBackedDevicePairingTerminal *)self invalidateWithError:v9];
+    v10 = CATErrorWithCodeAndUserInfo(1, 0);
+    [(CATDeviceSessionBackedDevicePairingTerminal *)self invalidateWithError:v10];
 LABEL_9:
 
     goto LABEL_10;
@@ -572,61 +569,59 @@ LABEL_9:
 
   [(CATDeviceSessionBackedDevicePairingTerminal *)self invalidateWithError:errorCopy];
 LABEL_10:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deviceSessionReady
 {
   v13 = *MEMORY[0x277D85DE8];
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v4);
 
   isInvalidated = [(CATDeviceSessionBackedDevicePairingTerminal *)self isInvalidated];
-  v6 = _CATLogGeneral_3();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
-  if (isInvalidated)
+  v6 = isInvalidated;
+  v7 = _CATLogGeneral_3(isInvalidated);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
+  if (v6)
   {
-    if (v7)
+    if (v8)
     {
-      v8 = NSStringFromSelector(a2);
+      v9 = NSStringFromSelector(a2);
       v11 = 138543362;
-      v12 = v8;
-      _os_log_impl(&dword_24329F000, v6, OS_LOG_TYPE_INFO, "Already invalidated upon reaching %{public}@, quietly returning", &v11, 0xCu);
+      v12 = v9;
+      _os_log_impl(&dword_24329F000, v7, OS_LOG_TYPE_INFO, "Already invalidated upon reaching %{public}@, quietly returning", &v11, 0xCu);
     }
   }
 
   else
   {
-    if (v7)
+    if (v8)
     {
-      v9 = [(CATSharingDeviceSession *)self->mDeviceSession description];
+      v10 = [(CATSharingDeviceSession *)self->mDeviceSession description];
       v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_24329F000, v6, OS_LOG_TYPE_INFO, "Device Session %{public}@ ready", &v11, 0xCu);
+      v12 = v10;
+      _os_log_impl(&dword_24329F000, v7, OS_LOG_TYPE_INFO, "Device Session %{public}@ ready", &v11, 0xCu);
     }
 
     [(CATDeviceSessionBackedDevicePairingTerminal *)self verifyPairing];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)verifyPairing
 {
   v12 = *MEMORY[0x277D85DE8];
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v4);
 
-  if ([(CATDeviceSessionBackedDevicePairingTerminal *)self isInvalidated])
+  isInvalidated = [(CATDeviceSessionBackedDevicePairingTerminal *)self isInvalidated];
+  if (isInvalidated)
   {
-    v5 = _CATLogGeneral_3();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = _CATLogGeneral_3(isInvalidated);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v6 = NSStringFromSelector(a2);
+      v7 = NSStringFromSelector(a2);
       *buf = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_24329F000, v5, OS_LOG_TYPE_INFO, "Already invalidated upon reaching %{public}@, quietly returning", buf, 0xCu);
+      v11 = v7;
+      _os_log_impl(&dword_24329F000, v6, OS_LOG_TYPE_INFO, "Already invalidated upon reaching %{public}@, quietly returning", buf, 0xCu);
     }
   }
 
@@ -640,8 +635,6 @@ LABEL_10:
     v9[4] = self;
     [(CATSharingDeviceSession *)mDeviceSession verifyPairing:v9];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __60__CATDeviceSessionBackedDevicePairingTerminal_verifyPairing__block_invoke(uint64_t a1, char a2)
@@ -653,7 +646,7 @@ void __60__CATDeviceSessionBackedDevicePairingTerminal_verifyPairing__block_invo
   v4[4] = *(a1 + 32);
   v5 = a2;
   v2 = v4;
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(v2);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __CATPerformBlock_block_invoke_8;
@@ -664,62 +657,57 @@ void __60__CATDeviceSessionBackedDevicePairingTerminal_verifyPairing__block_invo
 
 - (void)verifyPairingFinished:(BOOL)finished
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v6 = CATGetCatalystQueue();
+  v15 = *MEMORY[0x277D85DE8];
+  v6 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v6);
 
-  if ([(CATDeviceSessionBackedDevicePairingTerminal *)self isInvalidated])
+  isInvalidated = [(CATDeviceSessionBackedDevicePairingTerminal *)self isInvalidated];
+  if (isInvalidated)
   {
-    v7 = _CATLogGeneral_3();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = _CATLogGeneral_3(isInvalidated);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v8 = NSStringFromSelector(a2);
+      v9 = NSStringFromSelector(a2);
       *buf = 138543362;
-      v16 = v8;
-      _os_log_impl(&dword_24329F000, v7, OS_LOG_TYPE_INFO, "Already invalidated upon reaching %{public}@, quietly returning", buf, 0xCu);
+      v14 = v9;
+      _os_log_impl(&dword_24329F000, v8, OS_LOG_TYPE_INFO, "Already invalidated upon reaching %{public}@, quietly returning", buf, 0xCu);
     }
-
-    v9 = *MEMORY[0x277D85DE8];
   }
 
   else if (finished)
   {
-    v10 = *MEMORY[0x277D85DE8];
 
     [(CATDeviceSessionBackedDevicePairingTerminal *)self fetchStableIdentifier];
   }
 
   else
   {
-    v14 = MEMORY[0x245D2F510](self->mVerifyPairingCompletion);
+    v12 = MEMORY[0x245D2F510](self->mVerifyPairingCompletion);
     mVerifyPairingCompletion = self->mVerifyPairingCompletion;
     self->mVerifyPairingCompletion = 0;
 
-    v12 = CATErrorWithCodeAndUserInfo(704, 0);
-    v14[2](v14, v12, 0);
-
-    v13 = *MEMORY[0x277D85DE8];
+    v11 = CATErrorWithCodeAndUserInfo(704, 0);
+    v12[2](v12, v11, 0);
   }
 }
 
 - (void)sessionHasPromptedForPINWithWaitTime:(unint64_t)time
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v6 = CATGetCatalystQueue();
+  v14 = *MEMORY[0x277D85DE8];
+  v6 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v6);
 
-  if ([(CATDeviceSessionBackedDevicePairingTerminal *)self isInvalidated])
+  isInvalidated = [(CATDeviceSessionBackedDevicePairingTerminal *)self isInvalidated];
+  if (isInvalidated)
   {
-    v7 = _CATLogGeneral_3();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = _CATLogGeneral_3(isInvalidated);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v8 = NSStringFromSelector(a2);
+      v9 = NSStringFromSelector(a2);
       *buf = 138543362;
-      v14 = v8;
-      _os_log_impl(&dword_24329F000, v7, OS_LOG_TYPE_INFO, "Already invalidated upon reaching %{public}@, quietly returning", buf, 0xCu);
+      v13 = v9;
+      _os_log_impl(&dword_24329F000, v8, OS_LOG_TYPE_INFO, "Already invalidated upon reaching %{public}@, quietly returning", buf, 0xCu);
     }
-
-    v9 = *MEMORY[0x277D85DE8];
   }
 
   else
@@ -727,30 +715,29 @@ void __60__CATDeviceSessionBackedDevicePairingTerminal_verifyPairing__block_invo
     v10 = MEMORY[0x245D2F510](self->mPINPromptHandler);
     if (v10)
     {
-      v12 = v10;
+      v11 = v10;
       v10[2](v10, time);
-      v10 = v12;
+      v10 = v11;
     }
-
-    v11 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (void)fetchStableIdentifier
 {
   v15 = *MEMORY[0x277D85DE8];
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v4);
 
-  if ([(CATDeviceSessionBackedDevicePairingTerminal *)self isInvalidated])
+  isInvalidated = [(CATDeviceSessionBackedDevicePairingTerminal *)self isInvalidated];
+  if (isInvalidated)
   {
-    v5 = _CATLogGeneral_3();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = _CATLogGeneral_3(isInvalidated);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v6 = NSStringFromSelector(a2);
+      v7 = NSStringFromSelector(a2);
       LODWORD(buf) = 138543362;
-      *(&buf + 4) = v6;
-      _os_log_impl(&dword_24329F000, v5, OS_LOG_TYPE_INFO, "Already invalidated upon reaching %{public}@, quietly returning", &buf, 0xCu);
+      *(&buf + 4) = v7;
+      _os_log_impl(&dword_24329F000, v6, OS_LOG_TYPE_INFO, "Already invalidated upon reaching %{public}@, quietly returning", &buf, 0xCu);
     }
   }
 
@@ -761,49 +748,47 @@ void __60__CATDeviceSessionBackedDevicePairingTerminal_verifyPairing__block_invo
     v10[2] = __68__CATDeviceSessionBackedDevicePairingTerminal_fetchStableIdentifier__block_invoke;
     v10[3] = &unk_278DA72D0;
     v10[4] = self;
-    v7 = v10;
-    v8 = CATGetCatalystQueue();
+    v8 = v10;
+    v9 = CATGetCatalystQueue(v8);
     *&buf = MEMORY[0x277D85DD0];
     *(&buf + 1) = 3221225472;
     v12 = __CATPerformBlock_block_invoke_8;
     v13 = &unk_278DA7208;
-    v14 = v7;
-    dispatch_async(v8, &buf);
+    v14 = v8;
+    dispatch_async(v9, &buf);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchStableIdentifierFinished:(id)finished
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v5 = CATGetCatalystQueue();
+  v19 = *MEMORY[0x277D85DE8];
+  v5 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v5);
 
-  if ([(CATDeviceSessionBackedDevicePairingTerminal *)self isInvalidated])
+  isInvalidated = [(CATDeviceSessionBackedDevicePairingTerminal *)self isInvalidated];
+  if (isInvalidated)
   {
-    v6 = _CATLogGeneral_3();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = _CATLogGeneral_3(isInvalidated);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v7 = NSStringFromSelector(a2);
+      v8 = NSStringFromSelector(a2);
       *buf = 138543362;
-      v19 = v7;
-      _os_log_impl(&dword_24329F000, v6, OS_LOG_TYPE_INFO, "Already invalidated upon reaching %{public}@, quietly returning", buf, 0xCu);
+      v18 = v8;
+      _os_log_impl(&dword_24329F000, v7, OS_LOG_TYPE_INFO, "Already invalidated upon reaching %{public}@, quietly returning", buf, 0xCu);
     }
 
-    v8 = *MEMORY[0x277D85DE8];
     return;
   }
 
-  v17 = MEMORY[0x245D2F510](self->mVerifyPairingCompletion);
+  v16 = MEMORY[0x245D2F510](self->mVerifyPairingCompletion);
   v9 = MEMORY[0x245D2F510](self->mBeginPairingCompletion);
-  if (v17)
+  if (v16)
   {
     mVerifyPairingCompletion = self->mVerifyPairingCompletion;
     self->mVerifyPairingCompletion = 0;
 
     selfCopy2 = self;
-    v12 = v17;
+    v12 = v16;
   }
 
   else
@@ -828,33 +813,29 @@ void __60__CATDeviceSessionBackedDevicePairingTerminal_verifyPairing__block_invo
 
   [(CATDeviceSessionBackedDevicePairingTerminal *)selfCopy2 vendConnectionForCompletion:v12];
 LABEL_10:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pairingCompleteWithError:(id)error
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v5 = CATGetCatalystQueue();
+  v11 = *MEMORY[0x277D85DE8];
+  v5 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v5);
 
-  if ([(CATDeviceSessionBackedDevicePairingTerminal *)self isInvalidated])
+  isInvalidated = [(CATDeviceSessionBackedDevicePairingTerminal *)self isInvalidated];
+  if (isInvalidated)
   {
-    v6 = _CATLogGeneral_3();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = _CATLogGeneral_3(isInvalidated);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v7 = NSStringFromSelector(a2);
-      v10 = 138543362;
-      v11 = v7;
-      _os_log_impl(&dword_24329F000, v6, OS_LOG_TYPE_INFO, "Already invalidated upon reaching %{public}@, quietly returning", &v10, 0xCu);
+      v8 = NSStringFromSelector(a2);
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_24329F000, v7, OS_LOG_TYPE_INFO, "Already invalidated upon reaching %{public}@, quietly returning", &v9, 0xCu);
     }
-
-    v8 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v9 = *MEMORY[0x277D85DE8];
 
     [(CATDeviceSessionBackedDevicePairingTerminal *)self fetchStableIdentifier];
   }
@@ -863,7 +844,7 @@ LABEL_10:
 - (void)vendConnectionForCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = CATGetCatalystQueue();
+  v5 = CATGetCatalystQueue(completionCopy);
   CATAssertIsQueue(v5);
 
   [(CATDeviceSessionBackedDevicePairingTerminal *)self removeSessionHandlers];
@@ -880,7 +861,7 @@ LABEL_10:
 - (void)invalidateWithError:(id)error
 {
   errorCopy = error;
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(errorCopy);
   CATAssertIsQueue(v4);
 
   mVerifyPairingCompletion = self->mVerifyPairingCompletion;
@@ -900,7 +881,7 @@ LABEL_10:
 
 - (void)removeSessionHandlers
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   [(CATSharingDeviceSession *)self->mDeviceSession setDeviceSessionReadyHandler:0];
@@ -913,27 +894,23 @@ LABEL_10:
 
 - (void)deviceSessionInvalidated:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [*(a1 + 8) description];
-  v5 = 138543362;
-  v6 = v3;
-  _os_log_error_impl(&dword_24329F000, a2, OS_LOG_TYPE_ERROR, "Device Session %{public}@ invalidated", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543362;
+  v5 = v3;
+  _os_log_error_impl(&dword_24329F000, a2, OS_LOG_TYPE_ERROR, "Device Session %{public}@ invalidated", &v4, 0xCu);
 }
 
 - (void)deviceSessionEncounteredError:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 8);
   v5 = [a2 verboseDescription];
-  v7 = 138543618;
-  v8 = v4;
-  v9 = 2114;
-  v10 = v5;
-  _os_log_error_impl(&dword_24329F000, a3, OS_LOG_TYPE_ERROR, "Device Session %{public}@ encountered error: %{public}@, invalidating", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = v4;
+  v8 = 2114;
+  v9 = v5;
+  _os_log_error_impl(&dword_24329F000, a3, OS_LOG_TYPE_ERROR, "Device Session %{public}@ encountered error: %{public}@, invalidating", &v6, 0x16u);
 }
 
 @end

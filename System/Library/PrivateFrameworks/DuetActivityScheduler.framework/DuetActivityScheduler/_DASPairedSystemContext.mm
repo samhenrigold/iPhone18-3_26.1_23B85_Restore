@@ -1,6 +1,7 @@
 @interface _DASPairedSystemContext
 + (id)contextWithClientIdentifier:(id)identifier callbackQueue:(id)queue systemConditionChangeCallback:(id)callback trafficCancelationHandler:(id)handler;
 + (id)stringForPriority:(unint64_t)priority;
++ (id)stringForThermalLevel:(int)level;
 + (void)initialize;
 - (BOOL)allowSyncTrafficForRecentlyBackgroundedApp;
 - (BOOL)allowsSendingTrafficeForServiceIdentifiers:(id)identifiers atPriorityLevel:(unint64_t)level isReunionOrInitialSync:(BOOL)sync responseValidityDuration:(double *)duration;
@@ -24,6 +25,7 @@
 - (void)registerForContextChanges;
 - (void)resetBudgetForRecentlyBackgroundedAppSyncTraffic;
 - (void)setPairedDeviceIdentifier:(id)identifier;
+- (void)setWatchKitStatus:(BOOL)status forApplication:(id)application;
 - (void)updateAppUsageHistory;
 @end
 
@@ -31,7 +33,7 @@
 
 - (void)handleAppStateChange
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   [(_DASPairedSystemContext *)self handleWatchAppBackgrounded];
   didHandleExclusiveAppChange = [(_DASPairedSystemContext *)self didHandleExclusiveAppChange];
   v4 = [MEMORY[0x1E695DFA8] set];
@@ -94,45 +96,45 @@
   if ((([(NSMutableSet *)self->_previousForegroundApps isEqual:v4]| didHandleExclusiveAppChange) & 1) == 0)
   {
     array = [MEMORY[0x1E695DF70] array];
-    v31 = v19;
-    v32 = v16;
-    v33 = v7;
-    v34 = v10;
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
+    v30 = v19;
+    v31 = v16;
+    v32 = v7;
+    v33 = v10;
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     v22 = v4;
-    v23 = [v22 countByEnumeratingWithState:&v37 objects:v41 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v36 objects:v40 count:16];
     if (v23)
     {
-      v24 = *v38;
+      v24 = *v37;
       do
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v38 != v24)
+          if (*v37 != v24)
           {
             objc_enumerationMutation(v22);
           }
 
-          v26 = *(*(&v37 + 1) + 8 * i);
-          if ((-[NSMutableSet containsObject:](self->_previousForegroundApps, "containsObject:", v26, v31, v32, v33) & 1) == 0 && ([kIgnoredApps containsObject:v26] & 1) == 0)
+          v26 = *(*(&v36 + 1) + 8 * i);
+          if ((-[NSMutableSet containsObject:](self->_previousForegroundApps, "containsObject:", v26, v30, v31, v32) & 1) == 0 && ([kIgnoredApps containsObject:v26] & 1) == 0)
           {
             [array addObject:v26];
           }
         }
 
-        v23 = [v22 countByEnumeratingWithState:&v37 objects:v41 count:16];
+        v23 = [v22 countByEnumeratingWithState:&v36 objects:v40 count:16];
       }
 
       while (v23);
     }
 
-    v7 = v33;
-    v10 = v34;
-    v19 = v31;
-    v16 = v32;
+    v7 = v32;
+    v10 = v33;
+    v19 = v30;
+    v16 = v31;
     if ([array count])
     {
       v27 = [array copy];
@@ -142,25 +144,23 @@
       block[2] = __47___DASPairedSystemContext_handleAppStateChange__block_invoke;
       block[3] = &unk_1E7C8F1A0;
       block[4] = self;
-      v36 = v27;
+      v35 = v27;
       v29 = v27;
       dispatch_async(callbackQueue, block);
 
-      v10 = v34;
+      v10 = v33;
     }
 
-    [(NSMutableSet *)self->_previousForegroundApps removeAllObjects:v31];
+    [(NSMutableSet *)self->_previousForegroundApps removeAllObjects:v30];
     [(NSMutableSet *)self->_previousForegroundApps unionSet:v22];
   }
 
   objc_sync_exit(v20);
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleWatchAppBackgrounded
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   context = self->_context;
   keyPathForDefaultPairedDeviceForegroundApp = [MEMORY[0x1E6997A68] keyPathForDefaultPairedDeviceForegroundApp];
   v5 = [(_CDContext *)context objectForKeyedSubscript:keyPathForDefaultPairedDeviceForegroundApp];
@@ -175,31 +175,31 @@
     {
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v24 = 0x3032000000;
-      v25 = __Block_byref_object_copy_;
-      v26 = __Block_byref_object_dispose_;
-      v27 = date;
-      v17 = 0;
-      v18 = &v17;
-      v19 = 0x3032000000;
-      v20 = __Block_byref_object_copy_;
-      v21 = __Block_byref_object_dispose_;
-      v22 = 0;
+      v23 = 0x3032000000;
+      v24 = __Block_byref_object_copy_;
+      v25 = __Block_byref_object_dispose_;
+      v26 = date;
+      v16 = 0;
+      v17 = &v16;
+      v18 = 0x3032000000;
+      v19 = __Block_byref_object_copy_;
+      v20 = __Block_byref_object_dispose_;
+      v21 = 0;
       recentlyBackgroundedApps = self->_recentlyBackgroundedApps;
-      v13[0] = MEMORY[0x1E69E9820];
-      v13[1] = 3221225472;
-      v13[2] = __53___DASPairedSystemContext_handleWatchAppBackgrounded__block_invoke;
-      v13[3] = &unk_1E7C8F178;
-      v14 = v27;
-      v15 = &v17;
+      v12[0] = MEMORY[0x1E69E9820];
+      v12[1] = 3221225472;
+      v12[2] = __53___DASPairedSystemContext_handleWatchAppBackgrounded__block_invoke;
+      v12[3] = &unk_1E7C8F178;
+      v13 = v26;
+      v14 = &v16;
       p_buf = &buf;
-      [(NSMutableDictionary *)recentlyBackgroundedApps enumerateKeysAndObjectsUsingBlock:v13];
-      if (v18[5])
+      [(NSMutableDictionary *)recentlyBackgroundedApps enumerateKeysAndObjectsUsingBlock:v12];
+      if (v17[5])
       {
         [(NSMutableDictionary *)self->_recentlyBackgroundedApps removeObjectForKey:?];
       }
 
-      _Block_object_dispose(&v17, 8);
+      _Block_object_dispose(&v16, 8);
       _Block_object_dispose(&buf, 8);
     }
 
@@ -217,13 +217,11 @@
   }
 
   [(_DASPairedSystemContext *)self setForegroundWatchApp:v5];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)didHandleExclusiveAppChange
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   context = self->_context;
   keyPathForDefaultPairedDeviceForegroundApp = [MEMORY[0x1E6997A68] keyPathForDefaultPairedDeviceForegroundApp];
@@ -244,29 +242,29 @@
   }
 
   previousExclusiveIdentifiers = [(_DASPairedSystemContext *)self previousExclusiveIdentifiers];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v11 = array;
-  callbackQueue = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  callbackQueue = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (callbackQueue)
   {
-    v20 = v6;
+    v19 = v6;
     v13 = 0;
-    v14 = *v25;
+    v14 = *v24;
     while (2)
     {
       v15 = 0;
       v16 = v13;
       do
       {
-        if (*v25 != v14)
+        if (*v24 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v13 = [kExclusiveApps objectForKeyedSubscript:{*(*(&v24 + 1) + 8 * v15), v20}];
+        v13 = [kExclusiveApps objectForKeyedSubscript:{*(*(&v23 + 1) + 8 * v15), v19}];
 
         if (v13 && ([previousExclusiveIdentifiers isEqualToArray:v13] & 1) == 0)
         {
@@ -277,7 +275,7 @@
           block[3] = &unk_1E7C8F1A0;
           block[4] = self;
           v13 = v13;
-          v23 = v13;
+          v22 = v13;
           dispatch_async(callbackQueue, block);
 
           LOBYTE(callbackQueue) = 1;
@@ -289,7 +287,7 @@
       }
 
       while (callbackQueue != v15);
-      callbackQueue = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      callbackQueue = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (callbackQueue)
       {
         continue;
@@ -299,7 +297,7 @@
     }
 
 LABEL_16:
-    v6 = v20;
+    v6 = v19;
   }
 
   else
@@ -310,28 +308,26 @@ LABEL_16:
   if ([previousExclusiveIdentifiers count] && !objc_msgSend(v13, "count"))
   {
     v17 = self->_callbackQueue;
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __54___DASPairedSystemContext_didHandleExclusiveAppChange__block_invoke_2;
-    v21[3] = &unk_1E7C8F0B0;
-    v21[4] = self;
-    dispatch_async(v17, v21);
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __54___DASPairedSystemContext_didHandleExclusiveAppChange__block_invoke_2;
+    v20[3] = &unk_1E7C8F0B0;
+    v20[4] = self;
+    dispatch_async(v17, v20);
     LOBYTE(callbackQueue) = 1;
   }
 
   [(_DASPairedSystemContext *)self setPreviousExclusiveIdentifiers:v13];
 
-  v18 = *MEMORY[0x1E69E9840];
   return callbackQueue;
 }
 
 - (void)updateAppUsageHistory
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_1B6E2F000, a2, OS_LOG_TYPE_ERROR, "Failed to get remote devices: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B6E2F000, a2, OS_LOG_TYPE_ERROR, "Failed to get remote devices: %@", &v2, 0xCu);
 }
 
 - (BOOL)isWatchPluggedIn
@@ -527,54 +523,105 @@ LABEL_16:
   }
 }
 
++ (id)stringForThermalLevel:(int)level
+{
+  if (level > 29)
+  {
+    switch(level)
+    {
+      case 30:
+        v4 = @"Heavy";
+
+        break;
+      case 40:
+        v4 = @"Trapping";
+
+        break;
+      case 50:
+        v4 = @"Sleeping";
+
+        break;
+      default:
+LABEL_20:
+        v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%u", *&level];
+
+        return v4;
+    }
+  }
+
+  else if (level)
+  {
+    if (level != 10)
+    {
+      if (level == 20)
+      {
+        v4 = @"@Moderate";
+
+        return v4;
+      }
+
+      goto LABEL_20;
+    }
+
+    v4 = @"Light";
+  }
+
+  else
+  {
+    v4 = @"Nominal";
+  }
+
+  return v4;
+}
+
 - (void)registerForContextChanges
 {
-  v34[6] = *MEMORY[0x1E69E9840];
+  v33[6] = *MEMORY[0x1E69E9840];
   keyPathForPluginStatus = [MEMORY[0x1E6997A68] keyPathForPluginStatus];
-  v34[0] = keyPathForPluginStatus;
+  v33[0] = keyPathForPluginStatus;
   keyPathForBatteryLevel = [MEMORY[0x1E6997A68] keyPathForBatteryLevel];
-  v34[1] = keyPathForBatteryLevel;
+  v33[1] = keyPathForBatteryLevel;
   keyPathForThermalPressureLevel = [MEMORY[0x1E6997A68] keyPathForThermalPressureLevel];
-  v34[2] = keyPathForThermalPressureLevel;
+  v33[2] = keyPathForThermalPressureLevel;
   keyPathForDefaultPairedDevicePluginStatus = [MEMORY[0x1E6997A68] keyPathForDefaultPairedDevicePluginStatus];
-  v34[3] = keyPathForDefaultPairedDevicePluginStatus;
+  v33[3] = keyPathForDefaultPairedDevicePluginStatus;
   keyPathForDefaultPairedDeviceBatteryLevel = [MEMORY[0x1E6997A68] keyPathForDefaultPairedDeviceBatteryLevel];
-  v34[4] = keyPathForDefaultPairedDeviceBatteryLevel;
+  v33[4] = keyPathForDefaultPairedDeviceBatteryLevel;
   keyPathForDefaultPairedDeviceThermalPressureLevel = [MEMORY[0x1E6997A68] keyPathForDefaultPairedDeviceThermalPressureLevel];
-  v34[5] = keyPathForDefaultPairedDeviceThermalPressureLevel;
-  v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:6];
+  v33[5] = keyPathForDefaultPairedDeviceThermalPressureLevel;
+  v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:6];
 
-  v28 = [MEMORY[0x1E6997A80] predicateForChangeAtKeyPaths:v29];
-  v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.system.pairedSystemContext", self->_identifier];
+  v27 = [MEMORY[0x1E6997A80] predicateForChangeAtKeyPaths:v28];
+  v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.system.pairedSystemContext", self->_identifier];
   identifier = self->_identifier;
-  v32[0] = MEMORY[0x1E69E9820];
-  v32[1] = 3221225472;
-  v32[2] = __52___DASPairedSystemContext_registerForContextChanges__block_invoke;
-  v32[3] = &unk_1E7C8F128;
-  v32[4] = self;
-  v26 = [MEMORY[0x1E6997A70] localNonWakingRegistrationWithIdentifier:v27 contextualPredicate:v28 clientIdentifier:identifier callback:v32];
-  [(_CDContext *)self->_context registerCallback:v26];
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __52___DASPairedSystemContext_registerForContextChanges__block_invoke;
+  v31[3] = &unk_1E7C8F128;
+  v31[4] = self;
+  v25 = [MEMORY[0x1E6997A70] localNonWakingRegistrationWithIdentifier:v26 contextualPredicate:v27 clientIdentifier:identifier callback:v31];
+  [(_CDContext *)self->_context registerCallback:v25];
   self->_previousPluginStatus = [(_DASPairedSystemContext *)self isWatchPluggedIn];
   self->_previousBatteryLevel = [(_DASPairedSystemContext *)self watchBatteryLevel];
   keyPathForDefaultPairedDeviceForegroundApp = [MEMORY[0x1E6997A68] keyPathForDefaultPairedDeviceForegroundApp];
-  v33[0] = keyPathForDefaultPairedDeviceForegroundApp;
+  v32[0] = keyPathForDefaultPairedDeviceForegroundApp;
   keyPathForServicesAppearingForeground = [MEMORY[0x1E6997A68] keyPathForServicesAppearingForeground];
-  v33[1] = keyPathForServicesAppearingForeground;
+  v32[1] = keyPathForServicesAppearingForeground;
   keyPathForDefaultPairedServicesAppearingForeground = [MEMORY[0x1E6997A68] keyPathForDefaultPairedServicesAppearingForeground];
-  v33[2] = keyPathForDefaultPairedServicesAppearingForeground;
+  v32[2] = keyPathForDefaultPairedServicesAppearingForeground;
   keyPathForActiveComplications = [MEMORY[0x1E6997A68] keyPathForActiveComplications];
-  v33[3] = keyPathForActiveComplications;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:4];
+  v32[3] = keyPathForActiveComplications;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:4];
 
   v15 = [MEMORY[0x1E6997A80] predicateForChangeAtKeyPaths:v14];
   v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.apps.pairedSystemContext", self->_identifier];
   v17 = self->_identifier;
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __52___DASPairedSystemContext_registerForContextChanges__block_invoke_3;
-  v31[3] = &unk_1E7C8F128;
-  v31[4] = self;
-  v18 = [MEMORY[0x1E6997A70] localNonWakingRegistrationWithIdentifier:v16 contextualPredicate:v15 clientIdentifier:v17 callback:v31];
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __52___DASPairedSystemContext_registerForContextChanges__block_invoke_3;
+  v30[3] = &unk_1E7C8F128;
+  v30[4] = self;
+  v18 = [MEMORY[0x1E6997A70] localNonWakingRegistrationWithIdentifier:v16 contextualPredicate:v15 clientIdentifier:v17 callback:v30];
   [(_CDContext *)self->_context registerCallback:v18];
   v19 = MEMORY[0x1E6997A80];
   keyPathForForegroundApp = [MEMORY[0x1E6997A68] keyPathForForegroundApp];
@@ -582,29 +629,27 @@ LABEL_16:
   kAlwaysAllowedPhoneApps = [v19 predicateForKeyPath:keyPathForForegroundApp withFormat:@"self.%@.value in %@", keyPathForForegroundApp2, kAlwaysAllowedPhoneApps];
 
   v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.alwaysAllowedApps.pairedsystemContext", self->_identifier];
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __52___DASPairedSystemContext_registerForContextChanges__block_invoke_5;
-  v30[3] = &unk_1E7C8F150;
-  v30[4] = self;
-  v24 = [MEMORY[0x1E6997A70] localNonWakingRegistrationWithIdentifier:v23 contextualPredicate:kAlwaysAllowedPhoneApps callback:v30];
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __52___DASPairedSystemContext_registerForContextChanges__block_invoke_5;
+  v29[3] = &unk_1E7C8F150;
+  v29[4] = self;
+  v24 = [MEMORY[0x1E6997A70] localNonWakingRegistrationWithIdentifier:v23 contextualPredicate:kAlwaysAllowedPhoneApps callback:v29];
   [(_CDContext *)self->_context registerCallback:v24];
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setPairedDeviceIdentifier:(id)identifier
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
     pairedDeviceIdentifier = self->_pairedDeviceIdentifier;
     *buf = 138412546;
-    v13 = pairedDeviceIdentifier;
-    v14 = 2112;
-    v15 = identifierCopy;
+    v12 = pairedDeviceIdentifier;
+    v13 = 2112;
+    v14 = identifierCopy;
     _os_log_impl(&dword_1B6E2F000, log, OS_LOG_TYPE_DEFAULT, "Paired device identifier update: %@ -> %@", buf, 0x16u);
   }
 
@@ -619,8 +664,6 @@ LABEL_16:
   block[3] = &unk_1E7C8F0B0;
   block[4] = self;
   dispatch_async(v9, block);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleConditionChange
@@ -694,7 +737,7 @@ LABEL_8:
 - (BOOL)allowsSendingTrafficeForServiceIdentifiers:(id)identifiers atPriorityLevel:(unint64_t)level isReunionOrInitialSync:(BOOL)sync responseValidityDuration:(double *)duration
 {
   syncCopy = sync;
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   if (duration)
   {
@@ -709,11 +752,11 @@ LABEL_8:
       v14 = log;
       v15 = [_DASPairedSystemContext stringForPriority:level];
       *buf = 138412802;
-      v25 = identifiersCopy;
-      v26 = 2112;
-      v27 = v15;
-      v28 = 1024;
-      v29 = syncCopy;
+      v24 = identifiersCopy;
+      v25 = 2112;
+      v26 = v15;
+      v27 = 1024;
+      v28 = syncCopy;
       v16 = "ALLOWED: %@, Priority=%@, Is Reunion/Initial Sync: %u";
       v17 = v14;
       v18 = 28;
@@ -725,9 +768,9 @@ LABEL_14:
     goto LABEL_17;
   }
 
-  v23 = 0;
-  v11 = [(_DASPairedSystemContext *)self foregroundApplicationsAllowSendingTrafficForServiceIdentifiers:identifiersCopy atPriorityLevel:level furtherChecksNecessary:&v23];
-  if (v23 != 1)
+  v22 = 0;
+  v11 = [(_DASPairedSystemContext *)self foregroundApplicationsAllowSendingTrafficForServiceIdentifiers:identifiersCopy atPriorityLevel:level furtherChecksNecessary:&v22];
+  if (v22 != 1)
   {
     v20 = v11;
     goto LABEL_17;
@@ -740,8 +783,8 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  v12 = [(_DASPairedSystemContext *)self thirdPartyAppPolicyAllowsSendingTrafficForServiceIdentifiers:identifiersCopy atPriorityLevel:level furtherChecksNecessary:&v23];
-  if (v23)
+  v12 = [(_DASPairedSystemContext *)self thirdPartyAppPolicyAllowsSendingTrafficForServiceIdentifiers:identifiersCopy atPriorityLevel:level furtherChecksNecessary:&v22];
+  if (v22)
   {
     if ([(_DASPairedSystemContext *)self batteryLevelsAllowSendingTrafficeForServiceIdentifiers:identifiersCopy atPriorityLevel:level])
     {
@@ -751,9 +794,9 @@ LABEL_16:
         v14 = v13;
         v15 = [_DASPairedSystemContext stringForPriority:level];
         *buf = 138412546;
-        v25 = identifiersCopy;
-        v26 = 2112;
-        v27 = v15;
+        v24 = identifiersCopy;
+        v25 = 2112;
+        v26 = v15;
         v16 = "ALLOWED: %@, Priority=%@";
         v17 = v14;
         v18 = 22;
@@ -777,13 +820,12 @@ LABEL_13:
 
 LABEL_17:
 
-  v21 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
 - (BOOL)foregroundApplicationsAllowSendingTrafficForServiceIdentifiers:(id)identifiers atPriorityLevel:(unint64_t)level furtherChecksNecessary:(BOOL *)necessary
 {
-  v77 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   necessaryCopy = necessary;
   *necessary = 0;
@@ -841,17 +883,17 @@ LABEL_17:
     v24 = log;
     v25 = [_DASPairedSystemContext stringForPriority:level];
     *buf = 138413570;
-    v63 = identifiersCopy;
-    v64 = 2112;
-    v65 = v25;
-    v66 = 2112;
-    v67 = v15;
-    v68 = 2112;
-    v69 = v12;
-    v70 = 2112;
-    v71 = v19;
-    v72 = 2112;
-    v73 = v22;
+    v62 = identifiersCopy;
+    v63 = 2112;
+    v64 = v25;
+    v65 = 2112;
+    v66 = v15;
+    v67 = 2112;
+    v68 = v12;
+    v69 = 2112;
+    v70 = v19;
+    v71 = 2112;
+    v72 = v22;
     _os_log_impl(&dword_1B6E2F000, v24, OS_LOG_TYPE_DEFAULT, "CHECKING: %@, Priority=%@, Phone Foreground: %@, Watch Foreground: %@, Foreground Services: %@, Remote Foreground Services: %@", buf, 0x3Eu);
   }
 
@@ -863,15 +905,15 @@ LABEL_17:
       v27 = v26;
       v28 = [_DASPairedSystemContext stringForPriority:level];
       *buf = 138413314;
-      v63 = identifiersCopy;
-      v64 = 2112;
-      v65 = v28;
-      v66 = 2112;
-      v67 = v15;
-      v68 = 2112;
-      v69 = v19;
-      v70 = 2112;
-      v71 = v22;
+      v62 = identifiersCopy;
+      v63 = 2112;
+      v64 = v28;
+      v65 = 2112;
+      v66 = v15;
+      v67 = 2112;
+      v68 = v19;
+      v69 = 2112;
+      v70 = v22;
       _os_log_impl(&dword_1B6E2F000, v27, OS_LOG_TYPE_DEFAULT, "ALLOWED: %@, Priority=%@, Phone Foreground: %@, Foreground Services: %@, Remote Foreground Services: %@", buf, 0x34u);
     }
 
@@ -880,31 +922,31 @@ LABEL_17:
 
   else
   {
-    v55 = v19;
+    v54 = v19;
     levelCopy = level;
-    v56 = array;
-    v57 = v12;
-    v60 = 0u;
-    v61 = 0u;
-    v58 = 0u;
+    v55 = array;
+    v56 = v12;
     v59 = 0u;
+    v60 = 0u;
+    v57 = 0u;
+    v58 = 0u;
     v31 = array;
-    v32 = [v31 countByEnumeratingWithState:&v58 objects:v76 count:16];
+    v32 = [v31 countByEnumeratingWithState:&v57 objects:v75 count:16];
     if (v32)
     {
       v33 = v32;
-      v34 = *v59;
+      v34 = *v58;
       while (2)
       {
         v35 = identifiersCopy;
         for (i = 0; i != v33; ++i)
         {
-          if (*v59 != v34)
+          if (*v58 != v34)
           {
             objc_enumerationMutation(v31);
           }
 
-          v37 = [kExclusiveApps objectForKeyedSubscript:*(*(&v58 + 1) + 8 * i)];
+          v37 = [kExclusiveApps objectForKeyedSubscript:*(*(&v57 + 1) + 8 * i)];
           if (v37)
           {
             v40 = v37;
@@ -914,22 +956,22 @@ LABEL_17:
             if (levelCopy >= 0x32 && [v35 anyItemsIntersectArray:v40])
             {
               v46 = self->_log;
-              array = v56;
-              v19 = v55;
+              array = v55;
+              v19 = v54;
               if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
               {
                 v47 = v46;
                 v48 = [_DASPairedSystemContext stringForPriority:v45];
                 *buf = 138413314;
-                v63 = identifiersCopy;
-                v64 = 2112;
-                v65 = v48;
-                v66 = 2112;
-                v67 = v15;
-                v68 = 2112;
-                v69 = v57;
-                v70 = 2112;
-                v71 = v55;
+                v62 = identifiersCopy;
+                v63 = 2112;
+                v64 = v48;
+                v65 = 2112;
+                v66 = v15;
+                v67 = 2112;
+                v68 = v56;
+                v69 = 2112;
+                v70 = v54;
                 _os_log_impl(&dword_1B6E2F000, v47, OS_LOG_TYPE_DEFAULT, "ALLOWED: %@, Priority=%@, Phone Foreground: %@, Watch Foreground: %@, Foreground Services: %@", buf, 0x34u);
               }
 
@@ -939,22 +981,22 @@ LABEL_17:
             else
             {
               v49 = self->_log;
-              array = v56;
-              v19 = v55;
+              array = v55;
+              v19 = v54;
               if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
               {
                 v50 = v49;
                 v51 = [_DASPairedSystemContext stringForPriority:v45];
                 *buf = 138413314;
-                v63 = identifiersCopy;
-                v64 = 2112;
-                v65 = v51;
-                v66 = 2112;
-                v67 = v15;
-                v68 = 2112;
-                v69 = v57;
-                v70 = 2112;
-                v71 = v55;
+                v62 = identifiersCopy;
+                v63 = 2112;
+                v64 = v51;
+                v65 = 2112;
+                v66 = v15;
+                v67 = 2112;
+                v68 = v56;
+                v69 = 2112;
+                v70 = v54;
                 _os_log_impl(&dword_1B6E2F000, v50, OS_LOG_TYPE_DEFAULT, "DENIED: %@, Priority=%@, Phone Foreground: %@, Watch Foreground: %@, Foreground Services: %@", buf, 0x34u);
               }
 
@@ -965,7 +1007,7 @@ LABEL_17:
           }
         }
 
-        v33 = [v31 countByEnumeratingWithState:&v58 objects:v76 count:16];
+        v33 = [v31 countByEnumeratingWithState:&v57 objects:v75 count:16];
         identifiersCopy = v35;
         if (v33)
         {
@@ -989,25 +1031,25 @@ LABEL_17:
     {
       v41 = levelCopy;
       v42 = self->_log;
-      v19 = v55;
+      v19 = v54;
       if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
       {
         v43 = v42;
         v44 = [_DASPairedSystemContext stringForPriority:v41];
         *buf = 138413826;
-        v63 = identifiersCopy;
-        v64 = 2112;
-        v65 = v44;
-        v66 = 2112;
-        v67 = v57;
-        v68 = 2112;
-        v69 = v15;
-        v70 = 2112;
-        v71 = v40;
-        v72 = 2112;
-        v73 = v55;
-        v74 = 2112;
-        v75 = v22;
+        v62 = identifiersCopy;
+        v63 = 2112;
+        v64 = v44;
+        v65 = 2112;
+        v66 = v56;
+        v67 = 2112;
+        v68 = v15;
+        v69 = 2112;
+        v70 = v40;
+        v71 = 2112;
+        v72 = v54;
+        v73 = 2112;
+        v74 = v22;
         _os_log_impl(&dword_1B6E2F000, v43, OS_LOG_TYPE_DEFAULT, "ALLOWED: %@, Priority=%@, Watch Focal Application: %@, Phone Focal Application: %@, Active Complications: %@, Foreground Services: %@, Remote Services: %@,", buf, 0x48u);
       }
 
@@ -1017,23 +1059,22 @@ LABEL_17:
     else
     {
       v29 = 1;
-      v19 = v55;
+      v19 = v54;
       *necessaryCopy = 1;
     }
 
-    array = v56;
+    array = v55;
 LABEL_44:
 
-    v12 = v57;
+    v12 = v56;
   }
 
-  v52 = *MEMORY[0x1E69E9840];
   return v29;
 }
 
 - (BOOL)thermalLevelsAllowSendingTrafficeForServiceIdentifiers:(id)identifiers atPriorityLevel:(unint64_t)level
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   context = self->_context;
   keyPathForThermalPressureLevel = [MEMORY[0x1E6997A68] keyPathForThermalPressureLevel];
@@ -1074,23 +1115,23 @@ LABEL_44:
     v21 = log;
     v22 = [_DASPairedSystemContext stringForPriority:levelCopy];
     [_DASPairedSystemContext stringForThermalLevel:unsignedIntValue];
-    v33 = v15;
+    v32 = v15;
     v24 = v23 = identifiersCopy;
     v25 = [_DASPairedSystemContext stringForThermalLevel:unsignedIntValue2];
     *buf = 138413314;
-    v36 = v23;
-    v37 = 2112;
-    v38 = v22;
-    v39 = 2112;
-    v40 = v24;
-    v41 = 2112;
-    v42 = v25;
-    v43 = 1024;
-    v44 = v17;
+    v35 = v23;
+    v36 = 2112;
+    v37 = v22;
+    v38 = 2112;
+    v39 = v24;
+    v40 = 2112;
+    v41 = v25;
+    v42 = 1024;
+    v43 = v17;
     _os_log_impl(&dword_1B6E2F000, v21, OS_LOG_TYPE_DEFAULT, "CHECKING: %@, Priority=%@, Local Thermals: %@, Paired Thermals: %@, Watch Plugged In: %u", buf, 0x30u);
 
     identifiersCopy = v23;
-    v15 = v33;
+    v15 = v32;
   }
 
   if (v15 >= v19)
@@ -1103,20 +1144,19 @@ LABEL_44:
       v29 = [_DASPairedSystemContext stringForThermalLevel:unsignedIntValue];
       v30 = [_DASPairedSystemContext stringForThermalLevel:unsignedIntValue2];
       *buf = 138413314;
-      v36 = identifiersCopy;
-      v37 = 2112;
-      v38 = v28;
-      v39 = 2112;
-      v40 = v29;
-      v41 = 2112;
-      v42 = v30;
-      v43 = 1024;
-      v44 = v17;
+      v35 = identifiersCopy;
+      v36 = 2112;
+      v37 = v28;
+      v38 = 2112;
+      v39 = v29;
+      v40 = 2112;
+      v41 = v30;
+      v42 = 1024;
+      v43 = v17;
       _os_log_impl(&dword_1B6E2F000, v27, OS_LOG_TYPE_DEFAULT, "DENIED: %@, Priority=%@, Local Thermals: %@, Paired Thermals: %@, Watch Plugged In: %u", buf, 0x30u);
     }
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v15 < v19;
 }
 
@@ -1155,7 +1195,7 @@ LABEL_44:
 
 - (BOOL)allowSyncTrafficForRecentlyBackgroundedApp
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = self->_persistence;
   objc_sync_enter(v3);
   recentTrafficSyncRequests = self->_recentTrafficSyncRequests;
@@ -1167,45 +1207,56 @@ LABEL_44:
     if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
     {
       v6 = self->_recentTrafficSyncRequests;
-      v9[0] = 67109120;
-      v9[1] = v6;
-      _os_log_impl(&dword_1B6E2F000, log, OS_LOG_TYPE_DEFAULT, "%d more background sync requests allowed", v9, 8u);
+      v8[0] = 67109120;
+      v8[1] = v6;
+      _os_log_impl(&dword_1B6E2F000, log, OS_LOG_TYPE_DEFAULT, "%d more background sync requests allowed", v8, 8u);
     }
   }
 
   objc_sync_exit(v3);
 
-  v7 = *MEMORY[0x1E69E9840];
   return recentTrafficSyncRequests > 0;
+}
+
+- (void)setWatchKitStatus:(BOOL)status forApplication:(id)application
+{
+  statusCopy = status;
+  applicationCopy = application;
+  v6 = self->_watchKitAppStatus;
+  objc_sync_enter(v6);
+  v7 = [MEMORY[0x1E696AD98] numberWithBool:statusCopy];
+  [(NSMutableDictionary *)self->_watchKitAppStatus setObject:v7 forKeyedSubscript:applicationCopy];
+
+  objc_sync_exit(v6);
 }
 
 - (BOOL)isAnyThirdPartyApp:(id)app
 {
-  v41 = *MEMORY[0x1E69E9840];
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x2020000000;
-  v35 = 0;
+  v40 = *MEMORY[0x1E69E9840];
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x2020000000;
+  v34 = 0;
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   obj = app;
   getActivePairedDevice = 0;
-  v5 = [obj countByEnumeratingWithState:&v28 objects:v40 count:16];
+  v5 = [obj countByEnumeratingWithState:&v27 objects:v39 count:16];
   if (v5)
   {
-    v6 = *v29;
+    v6 = *v28;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v29 != v6)
+        if (*v28 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v28 + 1) + 8 * i);
+        v8 = *(*(&v27 + 1) + 8 * i);
         v9 = self->_watchKitAppStatus;
         objc_sync_enter(v9);
         v10 = [(NSMutableDictionary *)self->_watchKitAppStatus objectForKeyedSubscript:v8];
@@ -1214,11 +1265,11 @@ LABEL_44:
         if (v10)
         {
           bOOLValue = [v10 BOOLValue];
-          *(v33 + 24) = bOOLValue;
+          *(v32 + 24) = bOOLValue;
           v18 = [(_DASPairedSystemContext *)self log];
           if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
           {
-            if (*(v33 + 24))
+            if (*(v32 + 24))
             {
               v19 = &stru_1F2EC9F10;
             }
@@ -1229,9 +1280,9 @@ LABEL_44:
             }
 
             *buf = 138412546;
-            v37 = v8;
-            v38 = 2112;
-            v39 = v19;
+            v36 = v8;
+            v37 = 2112;
+            v38 = v19;
             _os_log_impl(&dword_1B6E2F000, v18, OS_LOG_TYPE_INFO, "%@ is%@ a WatchKit app", buf, 0x16u);
           }
 
@@ -1247,20 +1298,20 @@ LABEL_19:
 
         v12 = dispatch_semaphore_create(0);
         mEMORY[0x1E698AB08] = [MEMORY[0x1E698AB08] sharedDeviceConnection];
-        v24[0] = MEMORY[0x1E69E9820];
-        v24[1] = 3221225472;
-        v24[2] = __46___DASPairedSystemContext_isAnyThirdPartyApp___block_invoke;
-        v24[3] = &unk_1E7C8F1C8;
-        v24[4] = self;
+        v23[0] = MEMORY[0x1E69E9820];
+        v23[1] = 3221225472;
+        v23[2] = __46___DASPairedSystemContext_isAnyThirdPartyApp___block_invoke;
+        v23[3] = &unk_1E7C8F1C8;
+        v23[4] = self;
         v14 = v12;
-        v25 = v14;
-        v26 = v8;
-        v27 = &v32;
-        [mEMORY[0x1E698AB08] fetchInfoForApplicationWithBundleID:v8 forPairedDevice:getActivePairedDevice completion:v24];
+        v24 = v14;
+        v25 = v8;
+        v26 = &v31;
+        [mEMORY[0x1E698AB08] fetchInfoForApplicationWithBundleID:v8 forPairedDevice:getActivePairedDevice completion:v23];
 
         v15 = dispatch_time(0, 1000000000);
         dispatch_semaphore_wait(v14, v15);
-        v16 = *(v33 + 24);
+        v16 = *(v32 + 24);
 
         if (v16)
         {
@@ -1268,7 +1319,7 @@ LABEL_19:
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v28 objects:v40 count:16];
+      v5 = [obj countByEnumeratingWithState:&v27 objects:v39 count:16];
       if (v5)
       {
         continue;
@@ -1280,43 +1331,42 @@ LABEL_19:
 
 LABEL_20:
 
-  v20 = *(v33 + 24);
-  _Block_object_dispose(&v32, 8);
+  v20 = *(v32 + 24);
+  _Block_object_dispose(&v31, 8);
 
-  v21 = *MEMORY[0x1E69E9840];
   return v20 & 1;
 }
 
 - (BOOL)thirdPartyAppPolicyAllowsSendingTrafficForServiceIdentifiers:(id)identifiers atPriorityLevel:(unint64_t)level furtherChecksNecessary:(BOOL *)necessary
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
-  v35 = identifiersCopy;
+  v34 = identifiersCopy;
   if (![(_DASPairedSystemContext *)self isWatchPluggedIn]&& [(_DASPairedSystemContext *)self isAnyThirdPartyApp:identifiersCopy])
   {
     levelCopy = level;
     date = [MEMORY[0x1E695DF00] date];
     obj = self->_recentlyBackgroundedApps;
     objc_sync_enter(obj);
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
     v10 = identifiersCopy;
-    v11 = [v10 countByEnumeratingWithState:&v36 objects:v50 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v35 objects:v49 count:16];
     if (v11)
     {
-      v12 = *v37;
+      v12 = *v36;
       while (2)
       {
         for (i = 0; i != v11; i = i + 1)
         {
-          if (*v37 != v12)
+          if (*v36 != v12)
           {
             objc_enumerationMutation(v10);
           }
 
-          v14 = *(*(&v36 + 1) + 8 * i);
+          v14 = *(*(&v35 + 1) + 8 * i);
           v15 = [(NSMutableDictionary *)self->_recentlyBackgroundedApps objectForKeyedSubscript:v14];
           if (v15)
           {
@@ -1331,7 +1381,7 @@ LABEL_20:
           }
         }
 
-        v11 = [v10 countByEnumeratingWithState:&v36 objects:v50 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v35 objects:v49 count:16];
         if (v11)
         {
           continue;
@@ -1368,15 +1418,15 @@ LABEL_31:
           v23 = [_DASPairedSystemContext stringForPriority:levelCopy];
           recentTrafficSyncRequests = self->_recentTrafficSyncRequests;
           *buf = 138413314;
-          v41 = v10;
-          v42 = 2112;
-          v43 = v23;
-          v44 = 2112;
-          v45 = v11;
-          v46 = 2112;
-          v47 = v15;
-          v48 = 1024;
-          v49 = recentTrafficSyncRequests;
+          v40 = v10;
+          v41 = 2112;
+          v42 = v23;
+          v43 = 2112;
+          v44 = v11;
+          v45 = 2112;
+          v46 = v15;
+          v47 = 1024;
+          v48 = recentTrafficSyncRequests;
           _os_log_impl(&dword_1B6E2F000, v22, OS_LOG_TYPE_DEFAULT, "ALLOWED: %@, Priority=%@, %@ backgrounded at: %@, Syncs Remaining: %d", buf, 0x30u);
         }
 
@@ -1389,15 +1439,15 @@ LABEL_31:
         v29 = [_DASPairedSystemContext stringForPriority:levelCopy];
         v30 = self->_recentTrafficSyncRequests;
         *buf = 138413314;
-        v41 = v10;
-        v42 = 2112;
-        v43 = v29;
-        v44 = 2112;
-        v45 = v11;
-        v46 = 2112;
-        v47 = v15;
-        v48 = 1024;
-        v49 = v30;
+        v40 = v10;
+        v41 = 2112;
+        v42 = v29;
+        v43 = 2112;
+        v44 = v11;
+        v45 = 2112;
+        v46 = v15;
+        v47 = 1024;
+        v48 = v30;
         _os_log_impl(&dword_1B6E2F000, v28, OS_LOG_TYPE_DEFAULT, "DENIED: %@, Priority=%@, %@ backgrounded at: %@, Syncs Remaining: %d", buf, 0x30u);
       }
     }
@@ -1418,9 +1468,9 @@ LABEL_31:
         v26 = v25;
         v27 = [_DASPairedSystemContext stringForPriority:levelCopy];
         *buf = 138412546;
-        v41 = v10;
-        v42 = 2112;
-        v43 = v27;
+        v40 = v10;
+        v41 = 2112;
+        v42 = v27;
         _os_log_impl(&dword_1B6E2F000, v26, OS_LOG_TYPE_DEFAULT, "DENIED: %@, Priority=%@, No app backgrounded recently", buf, 0x16u);
       }
     }
@@ -1439,7 +1489,6 @@ LABEL_31:
   *necessary = 1;
 LABEL_32:
 
-  v31 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -1504,33 +1553,33 @@ LABEL_32:
 
 - (BOOL)shouldBypassApplicationUsage:(id)usage
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   usageCopy = usage;
-  v4 = [usageCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [usageCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v9;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(usageCopy);
         }
 
-        if ([kUsageIgnoredApps containsObject:{*(*(&v9 + 1) + 8 * i), v9}])
+        if ([kUsageIgnoredApps containsObject:{*(*(&v8 + 1) + 8 * i), v8}])
         {
           LOBYTE(v4) = 1;
           goto LABEL_11;
         }
       }
 
-      v4 = [usageCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [usageCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v4)
       {
         continue;
@@ -1542,13 +1591,12 @@ LABEL_32:
 
 LABEL_11:
 
-  v7 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 - (BOOL)batteryLevelsAllowSendingTrafficeForServiceIdentifiers:(id)identifiers atPriorityLevel:(unint64_t)level
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   isWatchPluggedIn = [(_DASPairedSystemContext *)self isWatchPluggedIn];
   watchBatteryLevel = [(_DASPairedSystemContext *)self watchBatteryLevel];
@@ -1560,13 +1608,13 @@ LABEL_11:
       v10 = log;
       v11 = [_DASPairedSystemContext stringForPriority:level];
       *buf = 138413058;
-      v41 = identifiersCopy;
-      v42 = 2112;
-      v43 = v11;
-      v44 = 1024;
-      *v45 = watchBatteryLevel;
-      *&v45[4] = 1024;
-      *&v45[6] = 0;
+      v40 = identifiersCopy;
+      v41 = 2112;
+      v42 = v11;
+      v43 = 1024;
+      *v44 = watchBatteryLevel;
+      *&v44[4] = 1024;
+      *&v44[6] = 0;
       _os_log_impl(&dword_1B6E2F000, v10, OS_LOG_TYPE_DEFAULT, "DENIED: %@, Priority=%@, Watch Battery Level: %d, Watch Plugin Status: %u", buf, 0x22u);
     }
 
@@ -1583,15 +1631,15 @@ LABEL_11:
       v15 = v14;
       v16 = [_DASPairedSystemContext stringForPriority:level];
       *buf = 138413314;
-      v41 = identifiersCopy;
-      v42 = 2112;
-      v43 = v16;
-      v44 = 1024;
-      *v45 = watchBatteryLevel;
-      *&v45[4] = 1024;
-      *&v45[6] = isWatchPluggedIn;
-      *v46 = 2048;
-      *&v46[2] = v13;
+      v40 = identifiersCopy;
+      v41 = 2112;
+      v42 = v16;
+      v43 = 1024;
+      *v44 = watchBatteryLevel;
+      *&v44[4] = 1024;
+      *&v44[6] = isWatchPluggedIn;
+      *v45 = 2048;
+      *&v45[2] = v13;
       _os_log_impl(&dword_1B6E2F000, v15, OS_LOG_TYPE_DEFAULT, "ALLOWED: %@, Priority=%@, Watch Battery Level: %d, Watch Plugin Status: %u, Usage Threshold: %lf", buf, 0x2Cu);
     }
 
@@ -1607,31 +1655,31 @@ LABEL_26:
       goto LABEL_26;
     }
 
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     v22 = identifiersCopy;
-    v23 = [v22 countByEnumeratingWithState:&v35 objects:v39 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v34 objects:v38 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v36;
+      v25 = *v35;
       v26 = 0.0;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v36 != v25)
+          if (*v35 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
-          [(_DASPairedSystemContext *)self usageLikelihoodForApplication:*(*(&v35 + 1) + 8 * i), v35];
+          [(_DASPairedSystemContext *)self usageLikelihoodForApplication:*(*(&v34 + 1) + 8 * i), v34];
           v26 = v26 + v28;
         }
 
-        v24 = [v22 countByEnumeratingWithState:&v35 objects:v39 count:16];
+        v24 = [v22 countByEnumeratingWithState:&v34 objects:v38 count:16];
       }
 
       while (v24);
@@ -1648,15 +1696,15 @@ LABEL_26:
       v30 = v29;
       v31 = [_DASPairedSystemContext stringForPriority:level];
       *buf = 138413314;
-      v41 = v22;
-      v42 = 2112;
-      v43 = v31;
-      v44 = 2048;
-      *v45 = v26;
-      *&v45[8] = 1024;
-      *v46 = watchBatteryLevel;
-      *&v46[4] = 1024;
-      *&v46[6] = isWatchPluggedIn;
+      v40 = v22;
+      v41 = 2112;
+      v42 = v31;
+      v43 = 2048;
+      *v44 = v26;
+      *&v44[8] = 1024;
+      *v45 = watchBatteryLevel;
+      *&v45[4] = 1024;
+      *&v45[6] = isWatchPluggedIn;
       _os_log_impl(&dword_1B6E2F000, v30, OS_LOG_TYPE_DEFAULT, "CHECKING: %@, Priority=%@, App Usage: %lf, Watch Battery Level: %d, Watch Plugin Status: %u", buf, 0x2Cu);
     }
 
@@ -1665,21 +1713,21 @@ LABEL_26:
       goto LABEL_26;
     }
 
-    v34 = self->_log;
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    v33 = self->_log;
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = v34;
+      v18 = v33;
       v19 = [_DASPairedSystemContext stringForPriority:level];
       *buf = 138413314;
-      v41 = v22;
-      v42 = 2112;
-      v43 = v19;
-      v44 = 2048;
-      *v45 = v26;
-      *&v45[8] = 1024;
-      *v46 = watchBatteryLevel;
-      *&v46[4] = 1024;
-      *&v46[6] = isWatchPluggedIn;
+      v40 = v22;
+      v41 = 2112;
+      v42 = v19;
+      v43 = 2048;
+      *v44 = v26;
+      *&v44[8] = 1024;
+      *v45 = watchBatteryLevel;
+      *&v45[4] = 1024;
+      *&v45[6] = isWatchPluggedIn;
       v20 = "DENIED: %@, Priority=%@, App Usage: %lf, Watch Battery Level: %d, Watch Plugin Status: %u";
       goto LABEL_11;
     }
@@ -1693,15 +1741,15 @@ LABEL_26:
       v18 = v17;
       v19 = [_DASPairedSystemContext stringForPriority:level];
       *buf = 138413314;
-      v41 = identifiersCopy;
-      v42 = 2112;
-      v43 = v19;
-      v44 = 1024;
-      *v45 = watchBatteryLevel;
-      *&v45[4] = 1024;
-      *&v45[6] = isWatchPluggedIn;
-      *v46 = 2048;
-      *&v46[2] = v13;
+      v40 = identifiersCopy;
+      v41 = 2112;
+      v42 = v19;
+      v43 = 1024;
+      *v44 = watchBatteryLevel;
+      *&v44[4] = 1024;
+      *&v44[6] = isWatchPluggedIn;
+      *v45 = 2048;
+      *&v45[2] = v13;
       v20 = "DENIED: %@, Priority=%@, Watch Battery Level: %d, Watch Plugin Status: %u, Usage Threshold: %lf";
 LABEL_11:
       _os_log_impl(&dword_1B6E2F000, v18, OS_LOG_TYPE_DEFAULT, v20, buf, 0x2Cu);
@@ -1712,7 +1760,6 @@ LABEL_12:
   v21 = 0;
 LABEL_27:
 
-  v32 = *MEMORY[0x1E69E9840];
   return v21;
 }
 

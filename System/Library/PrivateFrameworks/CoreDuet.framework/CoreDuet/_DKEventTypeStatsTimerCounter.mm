@@ -35,7 +35,6 @@
 
 - (void)addTimingWithTimeInterval:(double)interval typeValue:
 {
-  v16 = *MEMORY[0x1E69E9840];
   v6 = a2;
   if (self)
   {
@@ -57,8 +56,6 @@
       [OUTLINED_FUNCTION_5_11() trackEventWithPropertyValues:interval value:?];
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addTimingWithStartDate:(void *)date endDate:(void *)endDate typeValue:

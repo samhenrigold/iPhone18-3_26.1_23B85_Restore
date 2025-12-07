@@ -12,7 +12,7 @@
 - (void)layoutSubviews
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for TrendsSplashVideoView();
+  v5.super_class = type metadata accessor for TrendsSplashVideoView(0);
   v2 = v5.receiver;
   [(TrendsSplashVideoView *)&v5 layoutSubviews];
   v3 = *&v2[OBJC_IVAR____TtC10FitnessApp21TrendsSplashVideoView_playerLayer];
@@ -28,7 +28,7 @@
 {
   *(&self->super.super.super.isa + OBJC_IVAR____TtC10FitnessApp21TrendsSplashVideoView_player) = 0;
   *(&self->super.super.super.isa + OBJC_IVAR____TtC10FitnessApp21TrendsSplashVideoView_playerLayer) = 0;
-  type metadata accessor for TrendsSplashVideoView();
+  type metadata accessor for TrendsSplashVideoView(0);
   swift_deallocPartialClassInstance();
   return 0;
 }

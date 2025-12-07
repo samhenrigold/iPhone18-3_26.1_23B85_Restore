@@ -66,7 +66,7 @@
 - (OS_dispatch_queue)actionQueue
 {
   v2 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v2, v3))
   {
     objc_exception_throw(v2);
   }
@@ -120,7 +120,7 @@
 - (CAMAbstractOverlayServiceControl)overlayControl
 {
   v2 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v2, v3))
   {
     objc_exception_throw(v2);
   }
@@ -132,7 +132,7 @@
 - (id)overlayUpdate
 {
   v2 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v2, v3))
   {
     objc_exception_throw(v2);
   }
@@ -167,7 +167,7 @@
 - (void)enqueueActionWithUpdate:(id)update
 {
   v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v3, v4))
   {
     objc_exception_throw(v3);
   }

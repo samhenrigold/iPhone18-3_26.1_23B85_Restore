@@ -175,7 +175,7 @@ LABEL_20:
 
 uint64_t __26__NSFileWatcher_watchItem__block_invoke_2(uint64_t a1, void *a2)
 {
-  if ([objc_msgSend(a2 "stringByDeletingLastPathComponent")])
+  if (objc_msgSend_isEqualToString_([a2 stringByDeletingLastPathComponent]))
   {
     return 0;
   }
@@ -191,7 +191,7 @@ uint64_t __26__NSFileWatcher_watchItem__block_invoke_2(uint64_t a1, void *a2)
   return v6();
 }
 
-uint64_t __26__NSFileWatcher_watchItem__block_invoke(void *a1, void *a2, uint64_t a3)
+NSObject *__26__NSFileWatcher_watchItem__block_invoke(void *a1, void *a2, uint64_t a3)
 {
   v31 = *MEMORY[0x1E69E9840];
   v25[0] = MEMORY[0x1E69E9820];
@@ -794,7 +794,7 @@ LABEL_15:
           _os_log_debug_impl(&dword_18075C000, v7, OS_LOG_TYPE_DEBUG, "#filereference Detected move from %{private}@ to %{private}@", buf, 0x16u);
         }
 
-        if (([path3 isEqualToString:self->_formerPath] & 1) == 0)
+        if ((objc_msgSend_isEqualToString_(path3) & 1) == 0)
         {
           [(NSFileWatcherObservations *)self->_itemObservations addDetectedMoveToPath:path3];
           LOBYTE(formerPath) = 1;
@@ -855,7 +855,7 @@ void __23__NSFileWatcher_settle__block_invoke(uint64_t a1, int a2, unsigned int 
   (*(*(*(a1 + 32) + 56) + 16))();
 }
 
-uint64_t __23__NSFileWatcher_settle__block_invoke_90(uint64_t a1, uint64_t a2, void *a3)
+void *__23__NSFileWatcher_settle__block_invoke_90(uint64_t a1, uint64_t a2, void *a3)
 {
   v9 = *MEMORY[0x1E69E9840];
   v5 = a3[4];

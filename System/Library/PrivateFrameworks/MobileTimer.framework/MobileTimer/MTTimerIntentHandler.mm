@@ -182,7 +182,7 @@ void __85__MTTimerIntentHandler__matchTimersFromIntentsTimer_excludeStoppedTimer
 
 void __105__MTTimerIntentHandler__genericallyResolveTargetTimer_multiple_allowedTimerStatesForFollowup_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -191,12 +191,12 @@ void __105__MTTimerIntentHandler__genericallyResolveTargetTimer_multiple_allowed
   {
     if (*(a1 + 48) && [v7 count] >= 2)
     {
-      v53 = MEMORY[0x1E69E9820];
-      v54 = 3221225472;
-      v55 = __105__MTTimerIntentHandler__genericallyResolveTargetTimer_multiple_allowedTimerStatesForFollowup_completion___block_invoke_8;
-      v56 = &unk_1E7B0FED0;
-      v57 = *(a1 + 48);
-      v13 = [v7 indexesOfObjectsPassingTest:&v53];
+      v52 = MEMORY[0x1E69E9820];
+      v53 = 3221225472;
+      v54 = __105__MTTimerIntentHandler__genericallyResolveTargetTimer_multiple_allowedTimerStatesForFollowup_completion___block_invoke_8;
+      v55 = &unk_1E7B0FED0;
+      v56 = *(a1 + 48);
+      v13 = [v7 indexesOfObjectsPassingTest:&v52];
       if ([v13 count] && (v14 = objc_msgSend(v13, "count"), v14 < objc_msgSend(v7, "count")))
       {
         v15 = [v7 objectsAtIndexes:v13];
@@ -206,11 +206,11 @@ void __105__MTTimerIntentHandler__genericallyResolveTargetTimer_multiple_allowed
         {
           v17 = *(a1 + 48);
           *buf = 136315650;
-          v60 = "[MTTimerIntentHandler _genericallyResolveTargetTimer:multiple:allowedTimerStatesForFollowup:completion:]_block_invoke_2";
-          v61 = 2112;
-          v62 = v17;
-          v63 = 2112;
-          v64 = v15;
+          v59 = "[MTTimerIntentHandler _genericallyResolveTargetTimer:multiple:allowedTimerStatesForFollowup:completion:]_block_invoke_2";
+          v60 = 2112;
+          v61 = v17;
+          v62 = 2112;
+          v63 = v15;
           _os_log_impl(&dword_1B1F9F000, v16, OS_LOG_TYPE_INFO, "%s Filtering matched timers for allowedTimerStatesForFollowup:%@ to: %@", buf, 0x20u);
         }
       }
@@ -230,14 +230,14 @@ void __105__MTTimerIntentHandler__genericallyResolveTargetTimer_multiple_allowed
       if (os_log_type_enabled(*MEMORY[0x1E696E6D8], OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v60 = "[MTTimerIntentHandler _genericallyResolveTargetTimer:multiple:allowedTimerStatesForFollowup:completion:]_block_invoke";
-        v61 = 2112;
-        v62 = v20;
+        v59 = "[MTTimerIntentHandler _genericallyResolveTargetTimer:multiple:allowedTimerStatesForFollowup:completion:]_block_invoke";
+        v60 = 2112;
+        v61 = v20;
         _os_log_impl(&dword_1B1F9F000, v21, OS_LOG_TYPE_INFO, "%s Filtering resolved timer matches to single unnamed timer: %@", buf, 0x16u);
       }
 
-      v58 = v20;
-      v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v58 count:1];
+      v57 = v20;
+      v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v57 count:1];
 
       v7 = v22;
     }
@@ -254,11 +254,11 @@ void __105__MTTimerIntentHandler__genericallyResolveTargetTimer_multiple_allowed
         {
           v30 = *(a1 + 32);
           *buf = 136315650;
-          v60 = "[MTTimerIntentHandler _genericallyResolveTargetTimer:multiple:allowedTimerStatesForFollowup:completion:]_block_invoke";
-          v61 = 2112;
-          v62 = v28;
-          v63 = 2112;
-          v64 = v30;
+          v59 = "[MTTimerIntentHandler _genericallyResolveTargetTimer:multiple:allowedTimerStatesForFollowup:completion:]_block_invoke";
+          v60 = 2112;
+          v61 = v28;
+          v62 = 2112;
+          v63 = v30;
           _os_log_impl(&dword_1B1F9F000, v29, OS_LOG_TYPE_INFO, "%s Found matching timer: %@ for target timer: %@", buf, 0x20u);
         }
 
@@ -280,11 +280,11 @@ void __105__MTTimerIntentHandler__genericallyResolveTargetTimer_multiple_allowed
         {
           v44 = *(a1 + 32);
           *buf = 136315650;
-          v60 = "[MTTimerIntentHandler _genericallyResolveTargetTimer:multiple:allowedTimerStatesForFollowup:completion:]_block_invoke";
-          v61 = 2112;
-          v62 = v35;
-          v63 = 2112;
-          v64 = v44;
+          v59 = "[MTTimerIntentHandler _genericallyResolveTargetTimer:multiple:allowedTimerStatesForFollowup:completion:]_block_invoke";
+          v60 = 2112;
+          v61 = v35;
+          v62 = 2112;
+          v63 = v44;
           _os_log_impl(&dword_1B1F9F000, v43, OS_LOG_TYPE_INFO, "%s Found no matching timers but 1 alternate timer: %@ for target timer: %@", buf, 0x20u);
         }
 
@@ -302,9 +302,9 @@ void __105__MTTimerIntentHandler__genericallyResolveTargetTimer_multiple_allowed
         {
           v50 = *(a1 + 32);
           *buf = 136315394;
-          v60 = "[MTTimerIntentHandler _genericallyResolveTargetTimer:multiple:allowedTimerStatesForFollowup:completion:]_block_invoke";
-          v61 = 2112;
-          v62 = v50;
+          v59 = "[MTTimerIntentHandler _genericallyResolveTargetTimer:multiple:allowedTimerStatesForFollowup:completion:]_block_invoke";
+          v60 = 2112;
+          v61 = v50;
           _os_log_impl(&dword_1B1F9F000, v49, OS_LOG_TYPE_INFO, "%s Found no matching timers for target timer: %@", buf, 0x16u);
         }
 
@@ -329,11 +329,11 @@ void __105__MTTimerIntentHandler__genericallyResolveTargetTimer_multiple_allowed
         {
           v26 = *(a1 + 32);
           *buf = 136315650;
-          v60 = "[MTTimerIntentHandler _genericallyResolveTargetTimer:multiple:allowedTimerStatesForFollowup:completion:]_block_invoke";
-          v61 = 2048;
-          v62 = v24;
-          v63 = 2112;
-          v64 = v26;
+          v59 = "[MTTimerIntentHandler _genericallyResolveTargetTimer:multiple:allowedTimerStatesForFollowup:completion:]_block_invoke";
+          v60 = 2048;
+          v61 = v24;
+          v62 = 2112;
+          v63 = v26;
           _os_log_impl(&dword_1B1F9F000, v25, OS_LOG_TYPE_INFO, "%s Found %ld matching timers for multi target timer: %@", buf, 0x20u);
         }
 
@@ -352,11 +352,11 @@ void __105__MTTimerIntentHandler__genericallyResolveTargetTimer_multiple_allowed
         v38 = [v35 count];
         v39 = *(a1 + 32);
         *buf = 136315650;
-        v60 = "[MTTimerIntentHandler _genericallyResolveTargetTimer:multiple:allowedTimerStatesForFollowup:completion:]_block_invoke_2";
-        v61 = 2048;
-        v62 = v38;
-        v63 = 2112;
-        v64 = v39;
+        v59 = "[MTTimerIntentHandler _genericallyResolveTargetTimer:multiple:allowedTimerStatesForFollowup:completion:]_block_invoke_2";
+        v60 = 2048;
+        v61 = v38;
+        v62 = 2112;
+        v63 = v39;
         _os_log_impl(&dword_1B1F9F000, v37, OS_LOG_TYPE_INFO, "%s Disambiguating %ld matching timers for single target timer: %@", buf, 0x20u);
       }
 
@@ -379,8 +379,6 @@ LABEL_41:
   v20 = [MEMORY[0x1E696EAC8] unsupported];
   (*(v19 + 16))(v19, v20, 0);
 LABEL_42:
-
-  v52 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __105__MTTimerIntentHandler__genericallyResolveTargetTimer_multiple_allowedTimerStatesForFollowup_completion___block_invoke_8(uint64_t a1, void *a2)
@@ -500,33 +498,31 @@ BOOL __93__MTTimerIntentHandler__alternateTimersForTargetTimerState_type_inTimer
 
 void __85__MTTimerIntentHandler__matchTimersFromIntentsTimer_excludeStoppedTimers_completion___block_invoke_3_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  v5 = 136315650;
-  v6 = "[MTTimerIntentHandler _matchTimersFromIntentsTimer:excludeStoppedTimers:completion:]_block_invoke_3";
-  v7 = 2112;
-  v8 = v3;
-  v9 = 2112;
-  v10 = a2;
-  _os_log_error_impl(&dword_1B1F9F000, log, OS_LOG_TYPE_ERROR, "%s Failed to retrieve timers from timer manager %@: %@", &v5, 0x20u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 136315650;
+  v5 = "[MTTimerIntentHandler _matchTimersFromIntentsTimer:excludeStoppedTimers:completion:]_block_invoke_3";
+  v6 = 2112;
+  v7 = v3;
+  v8 = 2112;
+  v9 = a2;
+  _os_log_error_impl(&dword_1B1F9F000, log, OS_LOG_TYPE_ERROR, "%s Failed to retrieve timers from timer manager %@: %@", &v4, 0x20u);
 }
 
 void __105__MTTimerIntentHandler__genericallyResolveTargetTimer_multiple_allowedTimerStatesForFollowup_completion___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
-  v6 = 136315906;
-  v7 = "[MTTimerIntentHandler _genericallyResolveTargetTimer:multiple:allowedTimerStatesForFollowup:completion:]_block_invoke";
-  v8 = 2112;
-  v9 = v3;
-  v10 = 2112;
-  v11 = v4;
-  v12 = 2112;
-  v13 = a2;
-  _os_log_error_impl(&dword_1B1F9F000, log, OS_LOG_TYPE_ERROR, "%s Failed to resolve timer %@ from timer manager %@ due to error %@", &v6, 0x2Au);
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 136315906;
+  v6 = "[MTTimerIntentHandler _genericallyResolveTargetTimer:multiple:allowedTimerStatesForFollowup:completion:]_block_invoke";
+  v7 = 2112;
+  v8 = v3;
+  v9 = 2112;
+  v10 = v4;
+  v11 = 2112;
+  v12 = a2;
+  _os_log_error_impl(&dword_1B1F9F000, log, OS_LOG_TYPE_ERROR, "%s Failed to resolve timer %@ from timer manager %@ due to error %@", &v5, 0x2Au);
 }
 
 @end

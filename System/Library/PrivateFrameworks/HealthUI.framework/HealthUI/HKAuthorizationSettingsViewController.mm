@@ -796,42 +796,42 @@ void __85__HKAuthorizationSettingsViewController__fetchBackgroundAppRefreshStatu
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __85__HKAuthorizationSettingsViewController__fetchBackgroundAppRefreshStatusWithHandler___block_invoke_2(uint64_t a1)
+uint64_t __85__HKAuthorizationSettingsViewController__fetchBackgroundAppRefreshStatusWithHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   _HKInitializeLogging();
-  v2 = HKLogAuthorization();
-  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_INFO);
+  v3 = HKLogAuthorization();
+  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_INFO);
 
-  if (v3)
+  if (v4)
   {
-    v4 = HKLogAuthorization();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = HKLogAuthorization();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v5 = *(a1 + 32);
-      v6 = HKStringFromBool();
+      v6 = *(a1 + 32);
       v7 = HKStringFromBool();
-      v10 = 138543874;
-      v11 = v5;
-      v12 = 2114;
-      v13 = v6;
-      v14 = 2114;
-      v15 = v7;
-      _os_log_impl(&dword_1C3942000, v4, OS_LOG_TYPE_INFO, "Duet BAR eligiblity for '%{public}@': global=%{public}@, app=%{public}@", &v10, 0x20u);
+      v8 = HKStringFromBool();
+      v11 = 138543874;
+      v12 = v6;
+      v13 = 2114;
+      v14 = v7;
+      v15 = 2114;
+      v16 = v8;
+      _os_log_impl(&dword_1C3942000, v5, OS_LOG_TYPE_INFO, "Duet BAR eligiblity for '%{public}@': global=%{public}@, app=%{public}@", &v11, 0x20u);
     }
   }
 
   if (*(a1 + 48) == 1)
   {
-    v8 = *(a1 + 49);
+    v9 = *(a1 + 49);
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  return (*(*(a1 + 40) + 16))(*(a1 + 40), v8 & 1);
+  return (*(*(a1 + 40) + 16))(*(a1 + 40), v9 & 1);
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path

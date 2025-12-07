@@ -100,35 +100,29 @@
 
 + (id)eventTypeString:(int64_t)string
 {
-  v10 = *MEMORY[0x1E69E9840];
-  if (string >= 3)
+  v9 = *MEMORY[0x1E69E9840];
+  if (string < 3)
   {
-    LogStream = _PFLogGetLogStream(17);
-    if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
-    {
-      v8 = 134217984;
-      stringCopy2 = string;
-      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Unknown event type, cannot covert to string: %ld\n", &v8, 0xCu);
-    }
-
-    v6 = _PFLogGetLogStream(17);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
-    {
-      v8 = 134217984;
-      stringCopy2 = string;
-      _os_log_fault_impl(&dword_18565F000, v6, OS_LOG_TYPE_FAULT, "CoreData: Unknown event type, cannot covert to string: %ld", &v8, 0xCu);
-    }
-
-    result = 0;
+    return off_1E6EC2838[string];
   }
 
-  else
+  LogStream = _PFLogGetLogStream(17);
+  if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
   {
-    result = off_1E6EC2838[string];
+    v7 = 134217984;
+    stringCopy2 = string;
+    _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Unknown event type, cannot covert to string: %ld\n", &v7, 0xCu);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  v6 = _PFLogGetLogStream(17);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+  {
+    v7 = 134217984;
+    stringCopy2 = string;
+    _os_log_fault_impl(&dword_18565F000, v6, OS_LOG_TYPE_FAULT, "CoreData: Unknown event type, cannot covert to string: %ld", &v7, 0xCu);
+  }
+
+  return 0;
 }
 
 @end

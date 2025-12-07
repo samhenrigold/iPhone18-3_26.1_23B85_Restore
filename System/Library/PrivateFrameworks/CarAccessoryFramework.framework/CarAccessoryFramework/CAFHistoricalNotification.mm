@@ -38,8 +38,13 @@
 - (id)name;
 - (unsigned)notificationSeverity;
 - (unsigned)userAction;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
+- (void)setHidden:(BOOL)hidden;
+- (void)setNotificationSeverity:(unsigned __int8)severity;
 - (void)setSymbolName:(id)name;
+- (void)setUserAction:(unsigned __int8)action;
+- (void)setUserDismissible:(BOOL)dismissible;
 - (void)unregisterObserver:(id)observer;
 @end
 
@@ -342,6 +347,13 @@
   return notificationSeverityValue;
 }
 
+- (void)setNotificationSeverity:(unsigned __int8)severity
+{
+  severityCopy = severity;
+  notificationSeverityCharacteristic = [(CAFHistoricalNotification *)self notificationSeverityCharacteristic];
+  [notificationSeverityCharacteristic setNotificationSeverityValue:severityCopy];
+}
+
 - (CAFHistoricalNotificationUserActionsCharacteristic)historicalNotificationUserActionsCharacteristic
 {
   v3 = [(CAFService *)self car];
@@ -418,6 +430,13 @@
   return bOOLValue;
 }
 
+- (void)setUserDismissible:(BOOL)dismissible
+{
+  dismissibleCopy = dismissible;
+  userDismissibleCharacteristic = [(CAFHistoricalNotification *)self userDismissibleCharacteristic];
+  [userDismissibleCharacteristic setBoolValue:dismissibleCopy];
+}
+
 - (BOOL)hasUserDismissible
 {
   userDismissibleCharacteristic = [(CAFHistoricalNotification *)self userDismissibleCharacteristic];
@@ -460,6 +479,13 @@
   return bOOLValue;
 }
 
+- (void)setHidden:(BOOL)hidden
+{
+  hiddenCopy = hidden;
+  hiddenCharacteristic = [(CAFHistoricalNotification *)self hiddenCharacteristic];
+  [hiddenCharacteristic setBoolValue:hiddenCopy];
+}
+
 - (CAFUInt8Characteristic)userActionCharacteristic
 {
   v3 = [(CAFService *)self car];
@@ -494,6 +520,13 @@
   return uint8Value;
 }
 
+- (void)setUserAction:(unsigned __int8)action
+{
+  actionCopy = action;
+  userActionCharacteristic = [(CAFHistoricalNotification *)self userActionCharacteristic];
+  [userActionCharacteristic setUint8Value:actionCopy];
+}
+
 - (CAFUInt8Range)userActionRange
 {
   userActionCharacteristic = [(CAFHistoricalNotification *)self userActionCharacteristic];
@@ -508,6 +541,227 @@
   v3 = userActionCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000030000001"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    userVisibleLabelCharacteristic = [(CAFHistoricalNotification *)self userVisibleLabelCharacteristic];
+    uniqueIdentifier2 = [userVisibleLabelCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      userVisibleLabel = [(CAFHistoricalNotification *)self userVisibleLabel];
+      [observers historicalNotificationService:self didUpdateUserVisibleLabel:userVisibleLabel];
+
+      observers2 = [(CAFService *)self observers];
+      name = [(CAFHistoricalNotification *)self name];
+      [observers2 historicalNotificationService:self didUpdateName:name];
+LABEL_28:
+
+      goto LABEL_29;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000030000005"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    userVisibleDescriptionCharacteristic = [(CAFHistoricalNotification *)self userVisibleDescriptionCharacteristic];
+    uniqueIdentifier4 = [userVisibleDescriptionCharacteristic uniqueIdentifier];
+    v20 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v20)
+    {
+      observers2 = [(CAFService *)self observers];
+      name = [(CAFHistoricalNotification *)self userVisibleDescription];
+      [observers2 historicalNotificationService:self didUpdateUserVisibleDescription:name];
+      goto LABEL_28;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x0000000049000004"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    userVisibleFullDescriptionCharacteristic = [(CAFHistoricalNotification *)self userVisibleFullDescriptionCharacteristic];
+    uniqueIdentifier6 = [userVisibleFullDescriptionCharacteristic uniqueIdentifier];
+    v25 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v25)
+    {
+      observers2 = [(CAFService *)self observers];
+      name = [(CAFHistoricalNotification *)self userVisibleFullDescription];
+      [observers2 historicalNotificationService:self didUpdateUserVisibleFullDescription:name];
+      goto LABEL_28;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType4 = [updateCopy characteristicType];
+  if ([characteristicType4 isEqual:@"0x0000000049000003"])
+  {
+    uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+    timestampCharacteristic = [(CAFHistoricalNotification *)self timestampCharacteristic];
+    uniqueIdentifier8 = [timestampCharacteristic uniqueIdentifier];
+    v30 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+    if (v30)
+    {
+      observers2 = [(CAFService *)self observers];
+      name = [(CAFHistoricalNotification *)self timestamp];
+      [observers2 historicalNotificationService:self didUpdateTimestamp:name];
+      goto LABEL_28;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType5 = [updateCopy characteristicType];
+  if ([characteristicType5 isEqual:@"0x000000003000005E"])
+  {
+    uniqueIdentifier9 = [updateCopy uniqueIdentifier];
+    symbolNameCharacteristic = [(CAFHistoricalNotification *)self symbolNameCharacteristic];
+    uniqueIdentifier10 = [symbolNameCharacteristic uniqueIdentifier];
+    v35 = [uniqueIdentifier9 isEqual:uniqueIdentifier10];
+
+    if (v35)
+    {
+      observers2 = [(CAFService *)self observers];
+      name = [(CAFHistoricalNotification *)self symbolName];
+      [observers2 historicalNotificationService:self didUpdateSymbolName:name];
+      goto LABEL_28;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType6 = [updateCopy characteristicType];
+  if ([characteristicType6 isEqual:@"0x0000000049000002"])
+  {
+    uniqueIdentifier11 = [updateCopy uniqueIdentifier];
+    notificationSeverityCharacteristic = [(CAFHistoricalNotification *)self notificationSeverityCharacteristic];
+    uniqueIdentifier12 = [notificationSeverityCharacteristic uniqueIdentifier];
+    v40 = [uniqueIdentifier11 isEqual:uniqueIdentifier12];
+
+    if (v40)
+    {
+      observers2 = [(CAFService *)self observers];
+      [observers2 historicalNotificationService:self didUpdateNotificationSeverity:{-[CAFHistoricalNotification notificationSeverity](self, "notificationSeverity")}];
+      goto LABEL_29;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType7 = [updateCopy characteristicType];
+  if ([characteristicType7 isEqual:@"0x0000000049000005"])
+  {
+    uniqueIdentifier13 = [updateCopy uniqueIdentifier];
+    historicalNotificationUserActionsCharacteristic = [(CAFHistoricalNotification *)self historicalNotificationUserActionsCharacteristic];
+    uniqueIdentifier14 = [historicalNotificationUserActionsCharacteristic uniqueIdentifier];
+    v45 = [uniqueIdentifier13 isEqual:uniqueIdentifier14];
+
+    if (v45)
+    {
+      observers2 = [(CAFService *)self observers];
+      name = [(CAFHistoricalNotification *)self historicalNotificationUserActions];
+      [observers2 historicalNotificationService:self didUpdateHistoricalNotificationUserActions:name];
+      goto LABEL_28;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType8 = [updateCopy characteristicType];
+  if ([characteristicType8 isEqual:@"0x0000000036000063"])
+  {
+    uniqueIdentifier15 = [updateCopy uniqueIdentifier];
+    userDismissibleCharacteristic = [(CAFHistoricalNotification *)self userDismissibleCharacteristic];
+    uniqueIdentifier16 = [userDismissibleCharacteristic uniqueIdentifier];
+    v50 = [uniqueIdentifier15 isEqual:uniqueIdentifier16];
+
+    if (v50)
+    {
+      observers2 = [(CAFService *)self observers];
+      [observers2 historicalNotificationService:self didUpdateUserDismissible:{-[CAFHistoricalNotification userDismissible](self, "userDismissible")}];
+      goto LABEL_29;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType9 = [updateCopy characteristicType];
+  if ([characteristicType9 isEqual:@"0x0000000036000023"])
+  {
+    uniqueIdentifier17 = [updateCopy uniqueIdentifier];
+    hiddenCharacteristic = [(CAFHistoricalNotification *)self hiddenCharacteristic];
+    uniqueIdentifier18 = [hiddenCharacteristic uniqueIdentifier];
+    v55 = [uniqueIdentifier17 isEqual:uniqueIdentifier18];
+
+    if (v55)
+    {
+      observers2 = [(CAFService *)self observers];
+      [observers2 historicalNotificationService:self didUpdateHidden:{-[CAFHistoricalNotification hidden](self, "hidden")}];
+      goto LABEL_29;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers2 = [updateCopy characteristicType];
+  if ([observers2 isEqual:@"0x0000000037000003"])
+  {
+    uniqueIdentifier19 = [updateCopy uniqueIdentifier];
+    userActionCharacteristic = [(CAFHistoricalNotification *)self userActionCharacteristic];
+    uniqueIdentifier20 = [userActionCharacteristic uniqueIdentifier];
+    v59 = [uniqueIdentifier19 isEqual:uniqueIdentifier20];
+
+    if (!v59)
+    {
+      goto LABEL_30;
+    }
+
+    observers2 = [(CAFService *)self observers];
+    [observers2 historicalNotificationService:self didUpdateUserAction:{-[CAFHistoricalNotification userAction](self, "userAction")}];
+  }
+
+LABEL_29:
+
+LABEL_30:
+  v60.receiver = self;
+  v60.super_class = CAFHistoricalNotification;
+  [(CAFService *)&v60 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForUserVisibleLabel

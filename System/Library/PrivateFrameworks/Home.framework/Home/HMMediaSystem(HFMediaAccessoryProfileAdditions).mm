@@ -56,39 +56,37 @@
 
 - (id)accessories
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   components = [self components];
-  v4 = [components countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [components countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(components);
         }
 
-        mediaProfile = [*(*(&v12 + 1) + 8 * i) mediaProfile];
+        mediaProfile = [*(*(&v11 + 1) + 8 * i) mediaProfile];
         accessory = [mediaProfile accessory];
         [v2 na_safeAddObject:accessory];
       }
 
-      v5 = [components countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [components countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -103,19 +101,19 @@
 
 - (id)hf_home
 {
-  v16 = *MEMORY[0x277D85DE8];
-  home = [self home];
-  if (!home)
+  v15 = *MEMORY[0x277D85DE8];
+  v4 = objc_msgSend_home(self);
+  if (!v4)
   {
     v5 = HFLogForCategory(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v11 = NSStringFromSelector(a2);
-      v12 = 138412546;
+      v10 = NSStringFromSelector(a2);
+      v11 = 138412546;
       selfCopy = self;
-      v14 = 2112;
-      v15 = v11;
-      _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "%@:%@ nil home. Please file a radar against “Home App | New Bugs” with any info you have on what you were doing.", &v12, 0x16u);
+      v13 = 2112;
+      v14 = v10;
+      _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "%@:%@ nil home. Please file a radar against “Home App | New Bugs” with any info you have on what you were doing.", &v11, 0x16u);
     }
 
     if (+[HFUtilities isInternalInstall])
@@ -126,12 +124,10 @@
     }
 
     v8 = +[HFHomeKitDispatcher sharedDispatcher];
-    home = [v8 home];
+    v4 = objc_msgSend_home(v8);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
-  return home;
+  return v4;
 }
 
 - (id)hf_parentRoom
@@ -188,7 +184,7 @@
 
 - (id)symptoms
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   symptomsHandler = [self symptomsHandler];
   symptoms = [symptomsHandler symptoms];
   v4 = [symptoms count];
@@ -200,18 +196,16 @@
     {
       symptomsHandler2 = [self symptomsHandler];
       symptoms2 = [symptomsHandler2 symptoms];
-      v12 = 138412546;
+      v11 = 138412546;
       selfCopy = self;
-      v14 = 2112;
-      v15 = symptoms2;
-      _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Media system: %@, has symptoms: %@", &v12, 0x16u);
+      v13 = 2112;
+      v14 = symptoms2;
+      _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Media system: %@, has symptoms: %@", &v11, 0x16u);
     }
   }
 
   symptomsHandler3 = [self symptomsHandler];
   symptoms3 = [symptomsHandler3 symptoms];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return symptoms3;
 }
@@ -234,33 +228,33 @@
 
 - (uint64_t)hf_supportsMusicAlarm
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   accessories = [self accessories];
   v3 = [accessories count];
 
   if (v3)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     accessories2 = [self accessories];
-    v5 = [accessories2 countByEnumeratingWithState:&v15 objects:v23 count:16];
+    v5 = [accessories2 countByEnumeratingWithState:&v14 objects:v22 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v16;
+      v7 = *v15;
       while (2)
       {
         v8 = 0;
         do
         {
-          if (*v16 != v7)
+          if (*v15 != v7)
           {
             objc_enumerationMutation(accessories2);
           }
 
-          if (![*(*(&v15 + 1) + 8 * v8) supportsMusicAlarm])
+          if (![*(*(&v14 + 1) + 8 * v8) supportsMusicAlarm])
           {
             v3 = 0;
             goto LABEL_12;
@@ -270,7 +264,7 @@
         }
 
         while (v6 != v8);
-        v6 = [accessories2 countByEnumeratingWithState:&v15 objects:v23 count:16];
+        v6 = [accessories2 countByEnumeratingWithState:&v14 objects:v22 count:16];
         if (v6)
         {
           continue;
@@ -298,9 +292,9 @@ LABEL_12:
 
       v11 = [self description];
       *buf = 138412546;
-      v20 = v10;
-      v21 = 2112;
-      v22 = v11;
+      v19 = v10;
+      v20 = 2112;
+      v21 = v11;
       _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "Accessory Supports Music Alarm (%@) mediaprofilecontainer %@", buf, 0x16u);
     }
   }
@@ -312,14 +306,13 @@ LABEL_12:
     {
       v12 = [self description];
       *buf = 138412290;
-      v20 = v12;
+      v19 = v12;
       _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "No Accessories Found that Supports Music Alarm mediaprofilecontainer %@", buf, 0xCu);
 
       v3 = 0;
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -353,25 +346,23 @@ LABEL_12:
 
 - (HFHomeKitSettingsAdapterManager)hf_settingsAdapterManager
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = objc_getAssociatedObject(self, a2);
   if (!v4)
   {
     v5 = HFLogForCategory(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v8 = 136315394;
-      v9 = "[HMMediaSystem(HFMediaAccessoryProfileAdditions) hf_settingsAdapterManager]";
-      v10 = 2112;
+      v7 = 136315394;
+      v8 = "[HMMediaSystem(HFMediaAccessoryProfileAdditions) hf_settingsAdapterManager]";
+      v9 = 2112;
       selfCopy = self;
-      _os_log_debug_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEBUG, "%s Creating new HFHomeKitSettingsAdapterManager for HMMediaSystem %@", &v8, 0x16u);
+      _os_log_debug_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEBUG, "%s Creating new HFHomeKitSettingsAdapterManager for HMMediaSystem %@", &v7, 0x16u);
     }
 
     v4 = [[HFHomeKitSettingsAdapterManager alloc] initWithHomeKitSettingsVendor:self];
     objc_setAssociatedObject(self, a2, v4, 1);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -398,36 +389,36 @@ LABEL_12:
 
 - (id)hf_dependentHomeKitObjectsForDownstreamItems
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   [v2 addObject:self];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   accessories = [self accessories];
-  v4 = [accessories countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [accessories countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(accessories);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         [v2 addObject:v8];
         mediaProfile = [v8 mediaProfile];
         hf_dependentHomeKitObjectsForDownstreamItems = [mediaProfile hf_dependentHomeKitObjectsForDownstreamItems];
         [v2 unionSet:hf_dependentHomeKitObjectsForDownstreamItems];
       }
 
-      v5 = [accessories countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [accessories countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
@@ -436,35 +427,33 @@ LABEL_12:
   settings = [self settings];
   [v2 na_safeAddObject:settings];
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v2;
 }
 
 - (uint64_t)hf_supportsMultiUser
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   accessories = [self accessories];
-  v2 = [accessories countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v2 = [accessories countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v10;
+    v4 = *v9;
     while (2)
     {
       v5 = 0;
       do
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(accessories);
         }
 
-        if (![*(*(&v9 + 1) + 8 * v5) supportsMultiUser])
+        if (![*(*(&v8 + 1) + 8 * v5) supportsMultiUser])
         {
           v6 = 0;
           goto LABEL_11;
@@ -474,7 +463,7 @@ LABEL_12:
       }
 
       while (v3 != v5);
-      v3 = [accessories countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [accessories countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v3)
       {
         continue;
@@ -487,12 +476,60 @@ LABEL_12:
   v6 = 1;
 LABEL_11:
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (uint64_t)hf_supportsMediaActions
 {
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  accessories = [self accessories];
+  v2 = [accessories countByEnumeratingWithState:&v8 objects:v12 count:16];
+  if (v2)
+  {
+    v3 = v2;
+    v4 = *v9;
+    while (2)
+    {
+      v5 = 0;
+      do
+      {
+        if (*v9 != v4)
+        {
+          objc_enumerationMutation(accessories);
+        }
+
+        if (![*(*(&v8 + 1) + 8 * v5) supportsMediaActions])
+        {
+          v6 = 0;
+          goto LABEL_11;
+        }
+
+        ++v5;
+      }
+
+      while (v3 != v5);
+      v3 = [accessories countByEnumeratingWithState:&v8 objects:v12 count:16];
+      if (v3)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  v6 = 1;
+LABEL_11:
+
+  return v6;
+}
+
+- (uint64_t)hf_homePodSupportsMultiUser
+{
   v14 = *MEMORY[0x277D85DE8];
   v9 = 0u;
   v10 = 0u;
@@ -506,64 +543,14 @@ LABEL_11:
     v4 = *v10;
     while (2)
     {
-      v5 = 0;
-      do
+      for (i = 0; i != v3; ++i)
       {
         if (*v10 != v4)
         {
           objc_enumerationMutation(accessories);
         }
 
-        if (![*(*(&v9 + 1) + 8 * v5) supportsMediaActions])
-        {
-          v6 = 0;
-          goto LABEL_11;
-        }
-
-        ++v5;
-      }
-
-      while (v3 != v5);
-      v3 = [accessories countByEnumeratingWithState:&v9 objects:v13 count:16];
-      if (v3)
-      {
-        continue;
-      }
-
-      break;
-    }
-  }
-
-  v6 = 1;
-LABEL_11:
-
-  v7 = *MEMORY[0x277D85DE8];
-  return v6;
-}
-
-- (uint64_t)hf_homePodSupportsMultiUser
-{
-  v15 = *MEMORY[0x277D85DE8];
-  v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  accessories = [self accessories];
-  v2 = [accessories countByEnumeratingWithState:&v10 objects:v14 count:16];
-  if (v2)
-  {
-    v3 = v2;
-    v4 = *v11;
-    while (2)
-    {
-      for (i = 0; i != v3; ++i)
-      {
-        if (*v11 != v4)
-        {
-          objc_enumerationMutation(accessories);
-        }
-
-        v6 = *(*(&v10 + 1) + 8 * i);
+        v6 = *(*(&v9 + 1) + 8 * i);
         if (![v6 hf_isHomePod] || !objc_msgSend(v6, "supportsMultiUser"))
         {
           v7 = 0;
@@ -571,7 +558,7 @@ LABEL_11:
         }
       }
 
-      v3 = [accessories countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v3 = [accessories countByEnumeratingWithState:&v9 objects:v13 count:16];
       v7 = 1;
       if (v3)
       {
@@ -589,34 +576,33 @@ LABEL_11:
 
 LABEL_13:
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (uint64_t)hf_homePodIsCapableOfShowingSplitAccountError
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   accessories = [self accessories];
-  v2 = [accessories countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v2 = [accessories countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v12;
+    v4 = *v11;
     while (2)
     {
       v5 = 0;
       do
       {
-        if (*v12 != v4)
+        if (*v11 != v4)
         {
           objc_enumerationMutation(accessories);
         }
 
-        mediaProfile = [*(*(&v11 + 1) + 8 * v5) mediaProfile];
+        mediaProfile = [*(*(&v10 + 1) + 8 * v5) mediaProfile];
         hf_homePodIsCapableOfShowingSplitAccountError = [mediaProfile hf_homePodIsCapableOfShowingSplitAccountError];
 
         if (!hf_homePodIsCapableOfShowingSplitAccountError)
@@ -629,7 +615,7 @@ LABEL_13:
       }
 
       while (v3 != v5);
-      v3 = [accessories countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v3 = [accessories countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v3)
       {
         continue;
@@ -642,44 +628,41 @@ LABEL_13:
   v8 = 1;
 LABEL_11:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (id)hf_deviceIdentifiers
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB58] set];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   accessories = [self accessories];
-  v4 = [accessories countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [accessories countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(accessories);
         }
 
-        deviceIdentifier = [*(*(&v11 + 1) + 8 * i) deviceIdentifier];
+        deviceIdentifier = [*(*(&v10 + 1) + 8 * i) deviceIdentifier];
         [v2 na_safeAddObject:deviceIdentifier];
       }
 
-      v5 = [accessories countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [accessories countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -854,32 +837,28 @@ LABEL_7:
 
 - (id)hf_fetchLogListWithTimeout:()HFMediaAccessoryProfileAdditions
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277D2C900];
   v1 = MEMORY[0x277CCA9B8];
-  v7 = *MEMORY[0x277CCA450];
-  v8[0] = @"HMMediaSystem is a composite of several objects, and does not support fetching logs";
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = *MEMORY[0x277CCA450];
+  v7[0] = @"HMMediaSystem is a composite of several objects, and does not support fetching logs";
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v3 = [v1 hf_errorWithCode:19 operation:@"HFOperationHomePodDataAnalyticsRetrieveLogList" options:v2];
   v4 = [v0 futureWithError:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)hf_fetchLog:()HFMediaAccessoryProfileAdditions timeout:
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277D2C900];
   v1 = MEMORY[0x277CCA9B8];
-  v7 = *MEMORY[0x277CCA450];
-  v8[0] = @"HMMediaSystem is a composite of several objects, and does not support fetching logs";
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = *MEMORY[0x277CCA450];
+  v7[0] = @"HMMediaSystem is a composite of several objects, and does not support fetching logs";
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v3 = [v1 hf_errorWithCode:19 operation:@"HFOperationHomePodDataAnalyticsRetrieveLog" options:v2];
   v4 = [v0 futureWithError:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1045,27 +1024,27 @@ LABEL_7:
 
 - (uint64_t)hf_supportsPreferredMediaUser
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   accessories = [self accessories];
-  v2 = [accessories countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v2 = [accessories countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v11;
+    v4 = *v10;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v11 != v4)
+        if (*v10 != v4)
         {
           objc_enumerationMutation(accessories);
         }
 
-        v6 = *(*(&v10 + 1) + 8 * i);
+        v6 = *(*(&v9 + 1) + 8 * i);
         if (([v6 hf_isHomePod] & 1) == 0 && !objc_msgSend(v6, "hf_isSiriEndpoint") || !objc_msgSend(v6, "supportsPreferredMediaUser"))
         {
           v7 = 0;
@@ -1073,7 +1052,7 @@ LABEL_7:
         }
       }
 
-      v3 = [accessories countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v3 = [accessories countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v3)
       {
         continue;
@@ -1086,7 +1065,6 @@ LABEL_7:
   v7 = 1;
 LABEL_13:
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

@@ -6,14 +6,14 @@
 
 - (_NSXPCQueryGenerationToken)initWithCoder:(id)coder
 {
-  v31 = *MEMORY[0x1E69E9840];
-  v29.receiver = self;
-  v29.super_class = _NSXPCQueryGenerationToken;
-  v4 = [(_NSQueryGenerationToken *)&v29 initWithCoder:?];
+  v30 = *MEMORY[0x1E69E9840];
+  v28.receiver = self;
+  v28.super_class = _NSXPCQueryGenerationToken;
+  v4 = [(_NSQueryGenerationToken *)&v28 initWithCoder:?];
   v5 = v4;
   if (!v4)
   {
-    goto LABEL_38;
+    return v5;
   }
 
   generationIdentifier = v4->super._generationIdentifier;
@@ -35,13 +35,13 @@
     if (userInfo)
     {
       v10 = userInfo;
-      userInfo = [objc_msgSend(objc_msgSend(userInfo valueForKey:{@"NSConnectionContext", "managedObjectContext"), "persistentStoreCoordinator"}];
+      userInfo = [objc_msgSend(objc_msgSend_valueForKey_(userInfo) "managedObjectContext")];
       if (userInfo)
       {
         goto LABEL_16;
       }
 
-      userInfo = [v10 valueForKey:@"PSCKey"];
+      userInfo = objc_msgSend_valueForKey_(v10);
     }
   }
 
@@ -84,25 +84,25 @@ LABEL_16:
     if (!v11)
     {
       persistentStores = [userInfo persistentStores];
+      v24 = 0u;
       v25 = 0u;
       v26 = 0u;
       v27 = 0u;
-      v28 = 0u;
-      v13 = [persistentStores countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v13 = [persistentStores countByEnumeratingWithState:&v24 objects:v29 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v26;
+        v15 = *v25;
         while (2)
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v26 != v15)
+            if (*v25 != v15)
             {
               objc_enumerationMutation(persistentStores);
             }
 
-            v17 = *(*(&v25 + 1) + 8 * i);
+            v17 = *(*(&v24 + 1) + 8 * i);
             if ([objc_msgSend(v17 "identifier")])
             {
               v18 = v17;
@@ -124,7 +124,7 @@ LABEL_16:
             }
           }
 
-          v14 = [persistentStores countByEnumeratingWithState:&v25 objects:v30 count:16];
+          v14 = [persistentStores countByEnumeratingWithState:&v24 objects:v29 count:16];
           if (v14)
           {
             continue;
@@ -147,8 +147,6 @@ LABEL_34:
     *&v5->super._flags |= 8u;
   }
 
-LABEL_38:
-  v23 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

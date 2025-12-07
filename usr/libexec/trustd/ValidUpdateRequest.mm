@@ -1,6 +1,7 @@
 @interface ValidUpdateRequest
 - (BOOL)scheduleUpdateFromServer:(id)server forVersion:(int64_t)version withQueue:(id)queue;
 - (BOOL)updateNowFromServer:(id)server version:(int64_t)version queue:(id)queue;
+- (id)createSession:(BOOL)session queue:(id)queue forServer:(id)server;
 - (id)validUpdateConfiguration:(BOOL)configuration;
 - (void)createSessions:(id)sessions forServer:(id)server;
 @end
@@ -169,6 +170,28 @@ LABEL_10:
 LABEL_7:
   v13 = ephemeralSession;
   [(ValidUpdateRequest *)self setBackgroundSession:ephemeralSession];
+}
+
+- (id)createSession:(BOOL)session queue:(id)queue forServer:(id)server
+{
+  sessionCopy = session;
+  serverCopy = server;
+  queueCopy = queue;
+  v10 = [(ValidUpdateRequest *)self validUpdateConfiguration:sessionCopy];
+  v11 = objc_alloc_init(ValidDelegate);
+  [(ValidDelegate *)v11 setHandler:&stru_100083680];
+  [(ValidDelegate *)v11 setTransaction:0];
+  [(ValidDelegate *)v11 setRevDbUpdateQueue:queueCopy];
+
+  [(ValidDelegate *)v11 setFinishedDownloading:0];
+  v12 = [serverCopy copy];
+
+  [(ValidDelegate *)v11 setCurrentUpdateServer:v12];
+  v13 = objc_alloc_init(NSOperationQueue);
+  [v13 setMaxConcurrentOperationCount:1];
+  v14 = [NSURLSession sessionWithConfiguration:v10 delegate:v11 delegateQueue:v13];
+
+  return v14;
 }
 
 - (id)validUpdateConfiguration:(BOOL)configuration

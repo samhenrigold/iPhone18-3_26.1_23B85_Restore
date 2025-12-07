@@ -94,19 +94,16 @@
 
 - (DRPDropletContextKeylineStyle)keylineStyle
 {
-  v3 = OBJC_IVAR___DRPDropletContextView_keylineStyle;
   swift_beginAccess();
-  v4 = *(&self->super.super.super.isa + v3);
-  v5 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v5;
+  return v2;
 }
 
 - (void)setKeylineStyle:(id)style
 {
   v5 = OBJC_IVAR___DRPDropletContextView_keylineStyle;
   swift_beginAccess();
-  v6 = *(&self->super.super.super.isa + v5);
   *(&self->super.super.super.isa + v5) = style;
   swift_unknownObjectRetain_n();
   selfCopy = self;

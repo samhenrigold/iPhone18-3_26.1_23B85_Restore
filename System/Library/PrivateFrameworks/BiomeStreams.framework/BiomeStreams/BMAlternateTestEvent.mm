@@ -1,4 +1,5 @@
 @interface BMAlternateTestEvent
++ (id)eventWithData:(id)data dataVersion:(unsigned int)version;
 - (BMAlternateTestEvent)initWithAlternateContent:(unsigned int)content dataVersion:(unsigned int)version;
 - (BMAlternateTestEvent)initWithCoder:(id)coder;
 - (BMAlternateTestEvent)initWithData:(id)data dataVersion:(unsigned int)version;
@@ -42,6 +43,15 @@
   return result;
 }
 
++ (id)eventWithData:(id)data dataVersion:(unsigned int)version
+{
+  v4 = *&version;
+  dataCopy = data;
+  v6 = [[BMAlternateTestEvent alloc] initWithData:dataCopy dataVersion:v4];
+
+  return v6;
+}
+
 - (id)serialize
 {
   v2 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:&self->_data length:8];
@@ -51,7 +61,7 @@
 
 - (BOOL)checkAndReportDecodingFailureIfNeededForuint32_t:(unsigned int)foruint32_t key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -69,9 +79,9 @@
     {
       v16 = MEMORY[0x1E696ABC0];
       v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to decode key %@", keyCopy, *MEMORY[0x1E696A578]];
-      v23[0] = v17;
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 errorWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -82,7 +92,6 @@
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14;
 }
 

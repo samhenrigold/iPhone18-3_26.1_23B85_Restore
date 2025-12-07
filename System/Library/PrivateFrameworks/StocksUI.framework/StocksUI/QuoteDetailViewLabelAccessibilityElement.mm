@@ -12,20 +12,20 @@
 - (CGRect)accessibilityFrame
 {
   selfCopy = self;
-  sub_220737950();
-  v4 = v3;
-  v6 = v5;
-  v8 = v7;
-  v10 = v9;
+  sub_220737950(selfCopy, v3);
+  v5 = v4;
+  v7 = v6;
+  v9 = v8;
+  v11 = v10;
 
-  v11 = v4;
-  v12 = v6;
-  v13 = v8;
-  v14 = v10;
-  result.size.height = v14;
-  result.size.width = v13;
-  result.origin.y = v12;
-  result.origin.x = v11;
+  v12 = v5;
+  v13 = v7;
+  v14 = v9;
+  v15 = v11;
+  result.size.height = v15;
+  result.size.width = v14;
+  result.origin.y = v13;
+  result.origin.x = v12;
   return result;
 }
 
@@ -42,13 +42,13 @@
 
 - (void)accessibilityElementDidBecomeFocused
 {
-  v3.receiver = self;
-  v3.super_class = swift_getObjectType();
-  v2 = v3.receiver;
-  [(QuoteDetailViewLabelAccessibilityElement *)&v3 accessibilityElementDidBecomeFocused];
+  v4.receiver = self;
+  v4.super_class = swift_getObjectType();
+  v2 = v4.receiver;
+  [(QuoteDetailViewLabelAccessibilityElement *)&v4 accessibilityElementDidBecomeFocused];
   if (swift_unknownObjectWeakLoadStrong())
   {
-    sub_220666E18(v2);
+    sub_220666E18(v2, v3);
     swift_unknownObjectRelease();
   }
 }
@@ -56,7 +56,7 @@
 - (BOOL)accessibilityScroll:(int64_t)scroll
 {
   selfCopy = self;
-  LOBYTE(scroll) = sub_220737BA4(scroll);
+  LOBYTE(scroll) = sub_220737BA4(scroll, v5);
 
   return scroll & 1;
 }

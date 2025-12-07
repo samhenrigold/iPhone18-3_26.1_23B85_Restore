@@ -77,19 +77,15 @@
   selfCopy = self;
   sub_20CE13FC4();
   swift_unknownObjectRelease();
-  v5 = OBJC_IVAR____TtC13HearingTestUI30HearingTestSetUpViewController_flowManager;
-  v6 = (*(&selfCopy->super.super.super.super.super.super.isa + OBJC_IVAR____TtC13HearingTestUI30HearingTestSetUpViewController_flowManager) + OBJC_IVAR____TtC13HearingTestUI22HearingTestFlowManager_analyticsManager);
-  v7 = *v6;
-  v8 = v6[1];
+  v5 = *(*(&selfCopy->super.super.super.super.super.super.isa + OBJC_IVAR____TtC13HearingTestUI30HearingTestSetUpViewController_flowManager) + OBJC_IVAR____TtC13HearingTestUI22HearingTestFlowManager_analyticsManager + 8);
   ObjectType = swift_getObjectType();
-  v12 = 4;
-  v10 = *(v8 + 48);
+  v8 = 4;
+  v7 = *(v5 + 48);
   swift_unknownObjectRetain();
-  v10(&v12, selfCopy, &off_2823BBD50, ObjectType, v8);
+  v7(&v8, selfCopy, &off_2823BBD50, ObjectType, v5);
   swift_unknownObjectRelease();
-  v11 = *(&selfCopy->super.super.super.super.super.super.isa + v5);
   sub_20CDDE960();
-  __swift_destroy_boxed_opaque_existential_1Tm(v13);
+  __swift_destroy_boxed_opaque_existential_1Tm(v9);
 }
 
 - (int64_t)numberOfSectionsInTableView:(id)view
@@ -161,9 +157,8 @@ LABEL_7:
 {
   v6 = sub_20CE12614();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_20CE13B84();
   sub_20CE13B74();
   sub_20CE13B24();
@@ -175,11 +170,11 @@ LABEL_7:
   sub_20CE125D4();
   viewCopy = view;
   selfCopy = self;
-  v13 = sub_20CD80910(viewCopy);
+  v12 = sub_20CD80910(viewCopy);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 
-  return v13;
+  return v12;
 }
 
 - (id)tableView:(id)view viewForHeaderInSection:(int64_t)section
@@ -203,9 +198,8 @@ LABEL_7:
 {
   v6 = sub_20CE12614();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_20CE13B84();
   sub_20CE13B74();
   sub_20CE13B24();
@@ -217,9 +211,9 @@ LABEL_7:
   sub_20CE125D4();
   viewCopy = view;
   selfCopy = self;
-  sub_20CD81108(viewCopy, v10);
+  sub_20CD81108(viewCopy, v9);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 @end

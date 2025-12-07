@@ -11,16 +11,16 @@ int main(int argc, const char **argv, const char **envp)
   return 0;
 }
 
-id SBRSLogCommon()
+id SBRSLogCommon(uint64_t a1)
 {
   if (qword_10000DCF0 != -1)
   {
     sub_100003440();
   }
 
-  v1 = qword_10000DCE8;
+  v2 = qword_10000DCE8;
 
-  return v1;
+  return v2;
 }
 
 void sub_100001124(id a1)
@@ -30,16 +30,16 @@ void sub_100001124(id a1)
   _objc_release_x1();
 }
 
-id SBRSLogXPC()
+id SBRSLogXPC(uint64_t a1)
 {
   if (qword_10000DD00 != -1)
   {
     sub_100003454();
   }
 
-  v1 = qword_10000DCF8;
+  v2 = qword_10000DCF8;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000011AC(id a1)
@@ -49,16 +49,16 @@ void sub_1000011AC(id a1)
   _objc_release_x1();
 }
 
-id SBRSLogImageAnalysis()
+id SBRSLogImageAnalysis(uint64_t a1)
 {
   if (qword_10000DD10 != -1)
   {
     sub_100003468();
   }
 
-  v1 = qword_10000DD08;
+  v2 = qword_10000DD08;
 
-  return v1;
+  return v2;
 }
 
 void sub_100001234(id a1)
@@ -277,24 +277,26 @@ void sub_100002788(uint64_t a1, void *a2, void *a3)
 
 void sub_100003170(uint64_t a1)
 {
-  (*(*(a1 + 32) + 16))();
-  v2 = SBRSLogXPC();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v2 = (*(*(a1 + 32) + 16))();
+  v3 = SBRSLogXPC(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_100003614(a1);
   }
 }
 
-void sub_1000033F8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000033F8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x1Cu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x1Cu);
 }
 
-void sub_100003424(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100003424(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0x12u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0x12u);
 }
 
 void sub_10000347C(const char *a1, uint64_t a2)
@@ -325,27 +327,58 @@ void sub_10000347C(const char *a1, uint64_t a2)
   __break(0);
 }
 
+void sub_100003594(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109378;
+  HIDWORD(v8) = a1;
+  LOWORD(v9) = 2080;
+  *(&v9 + 2) = "[SBRendererServiceConnection executeAnalysisRequest:reply:]";
+  sub_100003424(&_mh_execute_header, a2, a3, "(%d) start %s", a5, a6, a7, a8, v8, v9, WORD4(v9));
+}
+
 void sub_100003614(uint64_t a1)
 {
   v1 = *(a1 + 48);
-  v2 = CFAbsoluteTimeGetCurrent() - *(a1 + 40);
+  CFAbsoluteTimeGetCurrent();
+  LODWORD(v8) = 67109634;
+  HIDWORD(v8) = v1;
   sub_100003418();
   sub_1000033E4();
-  sub_1000033F8(&_mh_execute_header, v3, v4, "(%d) end %{public}s (serviced in %f s)", v5, v6, v7, v8, 2u);
+  sub_1000033F8(&_mh_execute_header, v2, v3, "(%d) end %{public}s (serviced in %f s)", v4, v5, v6, v7, v8);
 }
 
-void sub_100003734()
+void sub_1000036B8(int a1)
 {
-  CFAbsoluteTimeGetCurrent();
+  LODWORD(v7) = 67109378;
+  HIDWORD(v7) = a1;
   sub_100003418();
-  sub_1000033E4();
-  sub_1000033F8(&_mh_execute_header, v0, v1, "(%d) end %{public}s (serviced in %f s)", v2, v3, v4, v5, 2u);
+  sub_100003424(&_mh_execute_header, v1, v2, "(%d) start %{public}s", v3, v4, v5, v6, v7);
 }
 
-void sub_100003850()
+void sub_100003734(int a1)
 {
   CFAbsoluteTimeGetCurrent();
+  LODWORD(v8) = 67109634;
+  HIDWORD(v8) = a1;
   sub_100003418();
   sub_1000033E4();
-  sub_1000033F8(&_mh_execute_header, v0, v1, "(%d) end %{public}s (serviced in %f s)", v2, v3, v4, v5, 2u);
+  sub_1000033F8(&_mh_execute_header, v2, v3, "(%d) end %{public}s (serviced in %f s)", v4, v5, v6, v7, v8);
+}
+
+void sub_1000037D4(int a1)
+{
+  LODWORD(v7) = 67109378;
+  HIDWORD(v7) = a1;
+  sub_100003418();
+  sub_100003424(&_mh_execute_header, v1, v2, "(%d) start %{public}s", v3, v4, v5, v6, v7);
+}
+
+void sub_100003850(int a1)
+{
+  CFAbsoluteTimeGetCurrent();
+  LODWORD(v8) = 67109634;
+  HIDWORD(v8) = a1;
+  sub_100003418();
+  sub_1000033E4();
+  sub_1000033F8(&_mh_execute_header, v2, v3, "(%d) end %{public}s (serviced in %f s)", v4, v5, v6, v7, v8);
 }

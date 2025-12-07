@@ -24,59 +24,60 @@
   v6 = [commandParams objectForKeyedSubscript:@"ackURL"];
 
   provider = [(FMDCommandHandler *)self provider];
+  v8 = provider;
   if (v6)
   {
-    v8 = [NSURL URLWithString:v6];
+    v9 = [NSURL URLWithString:v6];
     commandParams2 = [(FMDCommandHandler *)self commandParams];
-    v10 = [commandParams2 objectForKey:@"udid"];
-    fm_nullToNil = [v10 fm_nullToNil];
+    v11 = [commandParams2 objectForKey:@"udid"];
+    fm_nullToNil = [v11 fm_nullToNil];
 
-    v23 = completionCopy;
+    v24 = completionCopy;
     if ([fm_nullToNil length])
     {
-      v12 = [[FMDAccessoryIdentifier alloc] initWithString:fm_nullToNil];
-      accessoryRegistry = [provider accessoryRegistry];
-      v14 = [accessoryRegistry accessoryForIdentifier:v12];
+      v13 = [[FMDAccessoryIdentifier alloc] initWithString:fm_nullToNil];
+      accessoryRegistry = [v8 accessoryRegistry];
+      v15 = [accessoryRegistry accessoryForIdentifier:v13];
     }
 
     else
     {
-      v14 = 0;
+      v15 = 0;
     }
 
-    v15 = [FMDActingRequestDecorator alloc];
-    v27[0] = _NSConcreteStackBlock;
-    v27[1] = 3221225472;
-    v27[2] = sub_1001DD924;
-    v27[3] = &unk_1002CDF18;
-    v28 = v14;
-    v16 = provider;
-    v29 = v16;
-    v17 = v14;
-    v18 = [(FMDActingRequestDecorator *)v15 initWithDeviceContextGenerator:&stru_1002D12C0 deviceInfoGenerator:v27 serverContextGenerator:0 requestHeaderGenerator:0];
-    v19 = [FMDRequestAckRegister alloc];
-    account = [v16 account];
+    v16 = [FMDActingRequestDecorator alloc];
+    v28[0] = _NSConcreteStackBlock;
+    v28[1] = 3221225472;
+    v28[2] = sub_1001DD924;
+    v28[3] = &unk_1002CDF18;
+    v29 = v15;
+    v17 = v8;
+    v30 = v17;
+    v18 = v15;
+    v19 = [(FMDActingRequestDecorator *)v16 initWithDeviceContextGenerator:&stru_1002D12C0 deviceInfoGenerator:v28 serverContextGenerator:0 requestHeaderGenerator:0];
+    v20 = [FMDRequestAckRegister alloc];
+    account = [v17 account];
     commandParams3 = [(FMDCommandHandler *)self commandParams];
-    v22 = [(FMDRequestAckRegister *)v19 initWithAccount:account registerCommand:commandParams3 ackURL:v8];
+    v23 = [(FMDRequestAckRegister *)v20 initWithAccount:account registerCommand:commandParams3 ackURL:v9];
 
-    [(FMDRequest *)v22 setDecorator:v18];
-    v25[0] = _NSConcreteStackBlock;
-    v25[1] = 3221225472;
-    v25[2] = sub_1001DD9C0;
-    v25[3] = &unk_1002CD1D0;
-    completionCopy = v23;
-    v26 = v23;
-    [(FMDRequest *)v22 setCompletionHandler:v25];
-    [v16 enqueueRequest:v22];
+    [(FMDRequest *)v23 setDecorator:v19];
+    v26[0] = _NSConcreteStackBlock;
+    v26[1] = 3221225472;
+    v26[2] = sub_1001DD9C0;
+    v26[3] = &unk_1002CD1D0;
+    completionCopy = v24;
+    v27 = v24;
+    [(FMDRequest *)v23 setCompletionHandler:v26];
+    [v17 enqueueRequest:v23];
   }
 
   else
   {
-    v8 = sub_100002880();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100002880(provider);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Not acking the register command because there is no ack URL", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Not acking the register command because there is no ack URL", buf, 2u);
     }
   }
 }

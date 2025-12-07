@@ -408,11 +408,11 @@ _BYTE *__50__UITableViewCellEditControl_setRotated_animated___block_invoke_2(uin
   return result;
 }
 
-uint64_t __50__UITableViewCellEditControl_setRotated_animated___block_invoke_3(uint64_t result)
+id *__50__UITableViewCellEditControl_setRotated_animated___block_invoke_3(id *result)
 {
   if (*(result + 40) == 1)
   {
-    return [*(result + 32) _toggleRotateAnimationDidStop];
+    return [result[4] _toggleRotateAnimationDidStop];
   }
 
   return result;

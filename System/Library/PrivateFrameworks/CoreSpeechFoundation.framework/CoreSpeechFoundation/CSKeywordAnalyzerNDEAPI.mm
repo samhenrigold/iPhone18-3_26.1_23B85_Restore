@@ -54,28 +54,24 @@
 
 - (id)checkForTriggerWithBytes:(const signed __int16 *)bytes withNumberOfSamples:(int64_t)samples
 {
-  v12 = *MEMORY[0x1E69E9840];
   v5 = objc_alloc(MEMORY[0x1E695DF88]);
   v6 = [v5 initWithLength:*MEMORY[0x1E69E1498]];
-  ndeObject = self->_ndeObject;
   [v6 bytes];
   nde_process_v2();
-  v8 = [[CSKeywordAnalyzerNDEAPIResult alloc] initWithBlob:v6 isEarlyDetected:0];
+  v7 = [[CSKeywordAnalyzerNDEAPIResult alloc] initWithBlob:v6 isEarlyDetected:0];
   lastResult = self->_lastResult;
-  self->_lastResult = v8;
-
-  v10 = *MEMORY[0x1E69E9840];
+  self->_lastResult = v7;
 
   return 0;
 }
 
 - (CSKeywordAnalyzerNDEAPI)initWithBlob:(id)blob
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   blobCopy = blob;
-  v20.receiver = self;
-  v20.super_class = CSKeywordAnalyzerNDEAPI;
-  v5 = [(CSKeywordAnalyzerNDEAPI *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = CSKeywordAnalyzerNDEAPI;
+  v5 = [(CSKeywordAnalyzerNDEAPI *)&v19 init];
   if (v5)
   {
     v6 = CSLogContextFacilityCoreSpeech;
@@ -88,11 +84,11 @@
         bytes = [blobCopy bytes];
         v10 = [blobCopy length];
         *buf = 136315650;
-        v22 = "[CSKeywordAnalyzerNDEAPI initWithBlob:]";
-        v23 = 2048;
-        v24 = bytes;
-        v25 = 1024;
-        v26 = v10;
+        v21 = "[CSKeywordAnalyzerNDEAPI initWithBlob:]";
+        v22 = 2048;
+        v23 = bytes;
+        v24 = 1024;
+        v25 = v10;
         _os_log_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_DEFAULT, "%s Initializaing NDEAPI with blob : %p(%dbytes)", buf, 0x1Cu);
       }
 
@@ -120,7 +116,7 @@ LABEL_12:
       }
 
       *buf = 136315138;
-      v22 = "[CSKeywordAnalyzerNDEAPI initWithBlob:]";
+      v21 = "[CSKeywordAnalyzerNDEAPI initWithBlob:]";
       v17 = "%s Failed to initialize CSKeywordAnalyerNDEAPI";
     }
 
@@ -132,7 +128,7 @@ LABEL_12:
       }
 
       *buf = 136315138;
-      v22 = "[CSKeywordAnalyzerNDEAPI initWithBlob:]";
+      v21 = "[CSKeywordAnalyzerNDEAPI initWithBlob:]";
       v17 = "%s CSKeywordAnalyerNDEAPI couldn't initialized since blob is nil";
     }
 
@@ -145,14 +141,13 @@ LABEL_6:
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v22 = "[CSKeywordAnalyzerNDEAPI initWithBlob:]";
+    v21 = "[CSKeywordAnalyzerNDEAPI initWithBlob:]";
     _os_log_impl(&dword_1DDA4B000, v15, OS_LOG_TYPE_DEFAULT, "%s CSKeywordAnalyerNDEAPI created", buf, 0xCu);
   }
 
   v16 = v5;
 LABEL_13:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v16;
 }
 

@@ -46,7 +46,7 @@
   selfCopy = self;
   ViewResponderGestureContainer.gestureRecognizers.getter();
 
-  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIGestureRecognizer);
+  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIGestureRecognizer, 0x1E69DCA60);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;

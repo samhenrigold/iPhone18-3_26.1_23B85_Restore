@@ -341,7 +341,7 @@ BOOL __39__TIKeyboardLayout_keyContainingPoint___block_invoke(uint64_t a1, doubl
   return v3;
 }
 
-uint64_t __24__TIKeyboardLayout_hash__block_invoke(uint64_t result, _BYTE *a2)
+uint64_t __24__TIKeyboardLayout_hash__block_invoke(uint64_t result, char *a2)
 {
   v2 = *a2;
   if (*a2)

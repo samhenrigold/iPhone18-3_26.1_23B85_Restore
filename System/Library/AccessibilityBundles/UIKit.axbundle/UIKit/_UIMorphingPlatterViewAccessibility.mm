@@ -31,7 +31,7 @@
   MEMORY[0x29EDC9740](v2);
   v3 = MEMORY[0x29EDC9748](v4);
   objc_storeStrong(&v4, 0);
-  [_UIPlatterTransformViewAccessibility _accessibilitySetIsExpandedTransformView:v3];
+  [(_UIPlatterTransformViewAccessibility *)v3 _accessibilitySetIsExpandedTransformView:?];
   MEMORY[0x29EDC9740](v3);
 }
 

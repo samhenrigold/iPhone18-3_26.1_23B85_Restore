@@ -85,35 +85,35 @@ uint64_t __43__MUExpandingLabel__bottomBaselineConstant__block_invoke(uint64_t a
 
 - (BOOL)_hasUnlaidOutFragments
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   _mk_lastLineSegment = [(NSTextLayoutManager *)self->_textLayoutManager _mk_lastLineSegment];
   v4 = objc_alloc(MEMORY[0x1E69DB848]);
   documentRange = [(NSTextLayoutManager *)self->_textLayoutManager documentRange];
   location = [documentRange location];
   v7 = [v4 initWithLocation:location];
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   _mk_layoutFragments = [(NSTextLayoutManager *)self->_textLayoutManager _mk_layoutFragments];
-  v9 = [_mk_layoutFragments countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [_mk_layoutFragments countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       v12 = 0;
       v13 = v7;
       do
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(_mk_layoutFragments);
         }
 
-        rangeInElement = [*(*(&v19 + 1) + 8 * v12) rangeInElement];
+        rangeInElement = [*(*(&v18 + 1) + 8 * v12) rangeInElement];
         v7 = [v13 textRangeByFormingUnionWithTextRange:rangeInElement];
 
         ++v12;
@@ -121,7 +121,7 @@ uint64_t __43__MUExpandingLabel__bottomBaselineConstant__block_invoke(uint64_t a
       }
 
       while (v10 != v12);
-      v10 = [_mk_layoutFragments countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [_mk_layoutFragments countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
@@ -130,7 +130,6 @@ uint64_t __43__MUExpandingLabel__bottomBaselineConstant__block_invoke(uint64_t a
   rangeInElement2 = [_mk_lastLineSegment rangeInElement];
   v16 = [v7 containsRange:rangeInElement2];
 
-  v17 = *MEMORY[0x1E69E9840];
   return v16 ^ 1;
 }
 
@@ -174,10 +173,10 @@ uint64_t __43__MUExpandingLabel__bottomBaselineConstant__block_invoke(uint64_t a
 
 - (void)_setExpansionMode:(unint64_t)mode
 {
-  v34[2] = *MEMORY[0x1E69E9840];
+  v33[2] = *MEMORY[0x1E69E9840];
   if (self->_expansionMode == mode)
   {
-    goto LABEL_15;
+    return;
   }
 
   isShowingExpanded = [(MUExpandingLabel *)self isShowingExpanded];
@@ -185,20 +184,20 @@ uint64_t __43__MUExpandingLabel__bottomBaselineConstant__block_invoke(uint64_t a
   isShowingExpanded2 = [(MUExpandingLabel *)self isShowingExpanded];
   if (isShowingExpanded == isShowingExpanded2)
   {
-    goto LABEL_15;
+    return;
   }
 
   v7 = isShowingExpanded2;
   [(UIButton *)self->_showMoreButton setHidden:isShowingExpanded2];
   if (v7 && [(MUExpandingLabel *)self _canShowLess])
   {
-    v33[0] = *MEMORY[0x1E69DB648];
+    v32[0] = *MEMORY[0x1E69DB648];
     showLessFont = [(MUExpandingLabel *)self showLessFont];
-    v34[0] = showLessFont;
-    v33[1] = *MEMORY[0x1E69DB650];
+    v33[0] = showLessFont;
+    v32[1] = *MEMORY[0x1E69DB650];
     showLessTextColor = [(MUExpandingLabel *)self showLessTextColor];
-    v34[1] = showLessTextColor;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:2];
+    v33[1] = showLessTextColor;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:2];
 
     attributedText = [(MUExpandingLabel *)self attributedText];
     v12 = [attributedText mutableCopy];
@@ -261,8 +260,6 @@ LABEL_12:
   }
 
   [(MUExpandingLabel *)self _setTextExclusionPath];
-LABEL_15:
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setExpanded:(BOOL)expanded
@@ -282,7 +279,7 @@ LABEL_15:
 
 - (void)_setTextExclusionPath
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   if ([(MUExpandingLabel *)self isShowingExpanded])
   {
     [(NSTextContainer *)self->_textContainer setExclusionPaths:MEMORY[0x1E695E0F0]];
@@ -298,23 +295,21 @@ LABEL_15:
     v9 = v8;
     v11 = v10;
 
-    v18.origin.x = v5;
-    v18.origin.y = v7;
-    v18.size.width = v9;
-    v18.size.height = v11;
-    v19 = CGRectInset(v18, -5.0, 0.0);
+    v17.origin.x = v5;
+    v17.origin.y = v7;
+    v17.size.width = v9;
+    v17.size.height = v11;
+    v18 = CGRectInset(v17, -5.0, 0.0);
     v12 = MEMORY[0x1E69DC728];
-    v20 = CGRectIntegral(v19);
-    v13 = [v12 bezierPathWithRect:{v20.origin.x, v20.origin.y, v20.size.width, v20.size.height}];
-    v17[0] = v13;
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+    v19 = CGRectIntegral(v18);
+    v13 = [v12 bezierPathWithRect:{v19.origin.x, v19.origin.y, v19.size.width, v19.size.height}];
+    v16[0] = v13;
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
     [(NSTextContainer *)self->_textContainer setExclusionPaths:v14];
   }
 
   textViewportLayoutController = [(NSTextLayoutManager *)self->_textLayoutManager textViewportLayoutController];
   [textViewportLayoutController setNeedsLayout];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)layoutSubviews

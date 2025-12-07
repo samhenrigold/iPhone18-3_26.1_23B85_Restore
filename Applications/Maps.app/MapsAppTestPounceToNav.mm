@@ -9,8 +9,8 @@
   testName = [(MapsAppTest *)self testName];
   NSLog(@"test is %@", testName);
 
-  options = [(MapsAppTest *)self options];
-  v5 = [options objectForKeyedSubscript:@"traceName"];
+  v4 = objc_msgSend_options(self);
+  v5 = [v4 objectForKeyedSubscript:@"traceName"];
 
   v6 = [NSBundle bundleWithIdentifier:@"com.apple.Maps"];
   v7 = [v5 stringByAppendingString:@".trace"];

@@ -7,7 +7,7 @@
 
 - (uint64_t)initWithAdCode:()ADError andDescription:
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v6 = a4;
   if (v6)
   {
@@ -19,12 +19,11 @@
     v7 = &stru_2850FB348;
   }
 
-  v12 = *MEMORY[0x277CCA450];
-  v13[0] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11 = *MEMORY[0x277CCA450];
+  v12[0] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v9 = [self initWithDomain:@"com.apple.ap.adcore" code:a3 userInfo:v8];
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

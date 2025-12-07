@@ -96,7 +96,7 @@ void __30__WFActionRateLimiter_modify___block_invoke(uint64_t a1)
 
 + (void)performAction:(id)action onQueue:(id)queue withBlock:(id)block
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   queueCopy = queue;
   blockCopy = block;
@@ -143,24 +143,24 @@ LABEL_4:
   if (rateLimitThreshold)
   {
     v14 = rateLimitThreshold;
-    v33 = 0;
-    v34 = &v33;
-    v35 = 0x2020000000;
-    v36 = 0;
+    v32 = 0;
+    v33 = &v32;
+    v34 = 0x2020000000;
+    v35 = 0;
     identifier = [actionCopy identifier];
     sharedInstance = [self sharedInstance];
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __55__WFActionRateLimiter_performAction_onQueue_withBlock___block_invoke;
-    v29[3] = &unk_1E83753E8;
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __55__WFActionRateLimiter_performAction_onQueue_withBlock___block_invoke;
+    v28[3] = &unk_1E83753E8;
     v17 = identifier;
-    v30 = v17;
-    v32 = &v33;
+    v29 = v17;
+    v31 = &v32;
     v18 = actionCopy;
-    v31 = v18;
-    [sharedInstance modify:v29];
+    v30 = v18;
+    [sharedInstance modify:v28];
 
-    if (v34[3] <= v14)
+    if (v33[3] <= v14)
     {
       v12[2](v12);
     }
@@ -173,13 +173,13 @@ LABEL_4:
         identifier2 = [v18 identifier];
         rateLimitDelay = [v18 rateLimitDelay];
         *buf = 136315906;
-        v38 = "+[WFActionRateLimiter performAction:onQueue:withBlock:]";
-        v39 = 2112;
-        v40 = identifier2;
-        v41 = 2048;
-        v42 = v14;
-        v43 = 2048;
-        v44 = rateLimitDelay;
+        v37 = "+[WFActionRateLimiter performAction:onQueue:withBlock:]";
+        v38 = 2112;
+        v39 = identifier2;
+        v40 = 2048;
+        v41 = v14;
+        v42 = 2048;
+        v43 = rateLimitDelay;
         _os_log_impl(&dword_1CA256000, v19, OS_LOG_TYPE_DEFAULT, "%s Action %@ is being rate limited because it passed the threshold of %li runs. Delaying execution for %li seconds.", buf, 0x2Au);
       }
 
@@ -188,19 +188,17 @@ LABEL_4:
       block[1] = 3221225472;
       block[2] = __55__WFActionRateLimiter_performAction_onQueue_withBlock___block_invoke_195;
       block[3] = &unk_1E837F4E8;
-      v28 = v12;
+      v27 = v12;
       dispatch_after(v22, queueCopy, block);
     }
 
-    _Block_object_dispose(&v33, 8);
+    _Block_object_dispose(&v32, 8);
   }
 
   else
   {
     v12[2](v12);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __55__WFActionRateLimiter_performAction_onQueue_withBlock___block_invoke(uint64_t a1, void *a2)

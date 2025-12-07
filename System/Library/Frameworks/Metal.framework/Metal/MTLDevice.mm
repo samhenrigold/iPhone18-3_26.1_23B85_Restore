@@ -85,22 +85,21 @@ void __65___MTLDevice_newLibraryWithStitchedDescriptor_completionHandler___block
     v3 = *(a1[4] + 456);
     if (v3)
     {
-      v4 = a1[5];
-      MTLPipelineCollection::addStitchedLibrary(v3, a2);
+      MTLPipelineCollection::addStitchedLibrary(v3, a2, a1[5]);
     }
   }
 
   (*(a1[7] + 16))();
-  v5 = a1[6];
+  v4 = a1[6];
 }
 
-uint64_t __44___MTLDevice_lookupRecompiledBinaryArchive___block_invoke()
+void __44___MTLDevice_lookupRecompiledBinaryArchive___block_invoke(uint64_t a1)
 {
   v4[5] = *MEMORY[0x1E69E9840];
-  result = [objc_msgSend(MEMORY[0x1E696AAE8] "mainBundle")];
-  if (result)
+  v1 = [objc_msgSend(MEMORY[0x1E696AAE8] "mainBundle")];
+  if (v1)
   {
-    v1 = result;
+    v2 = v1;
     if (MTLGetBaseCachePath(void)::onceToken != -1)
     {
       MTLGetBaseCachePath();
@@ -109,38 +108,30 @@ uint64_t __44___MTLDevice_lookupRecompiledBinaryArchive___block_invoke()
     v4[0] = MTLGetBaseCachePath(void)::result;
     v4[1] = @"com.apple.metalassetupgrader";
     v4[2] = @"recompiled";
-    v4[3] = v1;
+    v4[3] = v2;
     v4[4] = @"archiveMapping.db";
-    result = stat([objc_msgSend(MEMORY[0x1E696AEC0] pathWithComponents:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v4, 5)), "UTF8String"}], &v3);
-    if (!result)
+    if (!stat([objc_msgSend(MEMORY[0x1E696AEC0] pathWithComponents:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v4, 5)), "UTF8String"}], &v3))
     {
       operator new();
     }
   }
-
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
-uint64_t __39___MTLDevice_recordBinaryArchiveUsage___block_invoke()
+void __39___MTLDevice_recordBinaryArchiveUsage___block_invoke(uint64_t a1)
 {
-  v2[2] = *MEMORY[0x1E69E9840];
-  result = [objc_msgSend(MEMORY[0x1E696AAE8] "mainBundle")];
-  if (result)
+  v1[2] = *MEMORY[0x1E69E9840];
+  if ([objc_msgSend(MEMORY[0x1E696AAE8] "mainBundle")])
   {
     if (MTLGetShaderCachePath::onceToken != -1)
     {
       MTLGetShaderCachePath_cold_1();
     }
 
-    v2[0] = MTLGetShaderCachePath::result;
-    v2[1] = @"archiveUsage.db";
-    [MEMORY[0x1E696AEC0] pathWithComponents:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v2, 2)}];
+    v1[0] = MTLGetShaderCachePath::result;
+    v1[1] = @"archiveUsage.db";
+    [MEMORY[0x1E696AEC0] pathWithComponents:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v1, 2)}];
     operator new();
   }
-
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 void __26___MTLDevice_architecture__block_invoke(uint64_t a1)
@@ -155,7 +146,7 @@ void __26___MTLDevice_architecture__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __51___MTLDevice_maximumConcurrentCompilationTaskCount__block_invoke()
+uint64_t __51___MTLDevice_maximumConcurrentCompilationTaskCount__block_invoke(uint64_t a1, uint64_t a2, int a3)
 {
   result = MTLEnvVarAggregator::GET_MTL_MAXIMUM_CONCURRENT_COMPILATION_TASK_COUNT_API_OVERRIDE(0, 0);
   if (result >= 1)
@@ -192,12 +183,17 @@ uint64_t __43___MTLDevice_defaultCompilerProcessesCount__block_invoke(uint64_t a
   return result;
 }
 
-void __43___MTLDevice_maximumCompilerProcessesCount__block_invoke(uint64_t a1)
+void __43___MTLDevice_maximumCompilerProcessesCount__block_invoke(uint64_t a1, uint64_t a2)
 {
-  if ((atomic_load_explicit(&_ZGVZZ43___MTLDevice_maximumCompilerProcessesCount_EUb0_E7fromEnv, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_ZGVZZ43___MTLDevice_maximumCompilerProcessesCount_EUb0_E7fromEnv))
+  v2 = a1;
+  if ((atomic_load_explicit(&_ZGVZZ43___MTLDevice_maximumCompilerProcessesCount_EUb0_E7fromEnv, memory_order_acquire) & 1) == 0)
   {
-    _ZZZ43___MTLDevice_maximumCompilerProcessesCount_EUb0_E7fromEnv = MTLEnvVarAggregator::GET_MTL_FIXED_COMPILER_PROCESS_COUNT(0, 0);
-    __cxa_guard_release(&_ZGVZZ43___MTLDevice_maximumCompilerProcessesCount_EUb0_E7fromEnv);
+    a1 = __cxa_guard_acquire(&_ZGVZZ43___MTLDevice_maximumCompilerProcessesCount_EUb0_E7fromEnv);
+    if (a1)
+    {
+      _ZZZ43___MTLDevice_maximumCompilerProcessesCount_EUb0_E7fromEnv = MTLEnvVarAggregator::GET_MTL_FIXED_COMPILER_PROCESS_COUNT(0, 0);
+      __cxa_guard_release(&_ZGVZZ43___MTLDevice_maximumCompilerProcessesCount_EUb0_E7fromEnv);
+    }
   }
 
   if (_ZZZ43___MTLDevice_maximumCompilerProcessesCount_EUb0_E7fromEnv)
@@ -205,33 +201,38 @@ void __43___MTLDevice_maximumCompilerProcessesCount__block_invoke(uint64_t a1)
     [_MTLDevice maximumCompilerProcessesCount]::ret = _ZZZ43___MTLDevice_maximumCompilerProcessesCount_EUb0_E7fromEnv;
   }
 
-  else if (*(*(a1 + 32) + 600) == 1)
+  else if (*(*(v2 + 32) + 600) == 1)
   {
-    [_MTLDevice maximumCompilerProcessesCount]::ret = MTLGetOptimalCompilerProcessesCount();
+    [_MTLDevice maximumCompilerProcessesCount]::ret = MTLGetOptimalCompilerProcessesCount(a1, a2);
   }
 
   else
   {
+    v4 = 4;
+    v5 = 0;
     v3 = 4;
-    v4 = 0;
-    v2 = 4;
-    sysctlbyname("hw.perflevel0.logicalcpu", &v4 + 4, &v3, 0, 0);
-    sysctlbyname("hw.perflevel1.logicalcpu", &v4, &v2, 0, 0);
+    sysctlbyname("hw.perflevel0.logicalcpu", &v5 + 4, &v4, 0, 0);
+    sysctlbyname("hw.perflevel1.logicalcpu", &v5, &v3, 0, 0);
     _os_feature_enabled_impl();
     [_MTLDevice maximumCompilerProcessesCount]::ret = 2;
-    if (([*(a1 + 32) supportsFamily:1007] & 1) != 0 || objc_msgSend(*(a1 + 32), "supportsFamily:", 1001))
+    if (([*(v2 + 32) supportsFamily:1007] & 1) != 0 || objc_msgSend(*(v2 + 32), "supportsFamily:", 1001))
     {
       [_MTLDevice maximumCompilerProcessesCount]::ret = 2;
     }
   }
 }
 
-void __39___MTLDevice_threadsPerCompilerProcess__block_invoke(uint64_t a1)
+void __39___MTLDevice_threadsPerCompilerProcess__block_invoke(uint64_t a1, uint64_t a2)
 {
-  if ((atomic_load_explicit(&_ZGVZZ39___MTLDevice_threadsPerCompilerProcess_EUb1_E7fromEnv, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_ZGVZZ39___MTLDevice_threadsPerCompilerProcess_EUb1_E7fromEnv))
+  v2 = a1;
+  if ((atomic_load_explicit(&_ZGVZZ39___MTLDevice_threadsPerCompilerProcess_EUb1_E7fromEnv, memory_order_acquire) & 1) == 0)
   {
-    _ZZZ39___MTLDevice_threadsPerCompilerProcess_EUb1_E7fromEnv = MTLEnvVarAggregator::GET_MTL_THREADS_PER_COMPILER(0, 0);
-    __cxa_guard_release(&_ZGVZZ39___MTLDevice_threadsPerCompilerProcess_EUb1_E7fromEnv);
+    a1 = __cxa_guard_acquire(&_ZGVZZ39___MTLDevice_threadsPerCompilerProcess_EUb1_E7fromEnv);
+    if (a1)
+    {
+      _ZZZ39___MTLDevice_threadsPerCompilerProcess_EUb1_E7fromEnv = MTLEnvVarAggregator::GET_MTL_THREADS_PER_COMPILER(0, 0);
+      __cxa_guard_release(&_ZGVZZ39___MTLDevice_threadsPerCompilerProcess_EUb1_E7fromEnv);
+    }
   }
 
   if (_ZZZ39___MTLDevice_threadsPerCompilerProcess_EUb1_E7fromEnv)
@@ -240,71 +241,71 @@ void __39___MTLDevice_threadsPerCompilerProcess__block_invoke(uint64_t a1)
     return;
   }
 
-  if (*(*(a1 + 32) + 600) == 1)
+  if (*(*(v2 + 32) + 600) == 1)
   {
-    [_MTLDevice threadsPerCompilerProcess]::ret = MTLGetOptimalCompilerProcessesCount();
+    [_MTLDevice threadsPerCompilerProcess]::ret = MTLGetOptimalCompilerProcessesCount(a1, a2);
     return;
   }
 
-  v2 = _os_feature_enabled_impl();
+  v3 = _os_feature_enabled_impl();
+  v10 = 4;
+  v11 = 0;
   v9 = 4;
-  v10 = 0;
-  v8 = 4;
-  sysctlbyname("hw.perflevel0.logicalcpu", &v10 + 4, &v9, 0, 0);
-  sysctlbyname("hw.perflevel1.logicalcpu", &v10, &v8, 0, 0);
+  sysctlbyname("hw.perflevel0.logicalcpu", &v11 + 4, &v10, 0, 0);
+  sysctlbyname("hw.perflevel1.logicalcpu", &v11, &v9, 0, 0);
   [_MTLDevice threadsPerCompilerProcess]::ret = 1;
-  v4 = v10;
-  v3 = HIDWORD(v10);
-  if ([*(a1 + 32) supportsFamily:1007])
+  v5 = v11;
+  v4 = HIDWORD(v11);
+  if ([*(v2 + 32) supportsFamily:1007])
   {
+    if (v5)
+    {
+      v6 = v5;
+    }
+
+    else
+    {
+      v6 = 2;
+    }
+
     if (v4)
     {
-      v5 = v4;
+      v6 = v4;
+    }
+
+    if (!v3)
+    {
+      v6 = v5 + v4;
+    }
+
+    if (v6 <= 2)
+    {
+      v6 = 2;
+    }
+
+    v7 = v6 >> 1;
+    if (v7 >= 2)
+    {
+      v8 = 2;
     }
 
     else
     {
-      v5 = 2;
-    }
-
-    if (v3)
-    {
-      v5 = v3;
-    }
-
-    if (!v2)
-    {
-      v5 = v4 + v3;
-    }
-
-    if (v5 <= 2)
-    {
-      v5 = 2;
-    }
-
-    v6 = v5 >> 1;
-    if (v6 >= 2)
-    {
-      v7 = 2;
-    }
-
-    else
-    {
-      v7 = v6;
+      v8 = v7;
     }
   }
 
   else
   {
-    if (![*(a1 + 32) supportsFamily:1001])
+    if (![*(v2 + 32) supportsFamily:1001])
     {
       return;
     }
 
-    v7 = 1;
+    v8 = 1;
   }
 
-  [_MTLDevice threadsPerCompilerProcess]::ret = v7;
+  [_MTLDevice threadsPerCompilerProcess]::ret = v8;
 }
 
 @end

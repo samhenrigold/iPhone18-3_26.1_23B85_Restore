@@ -1,7 +1,7 @@
 @interface BWDepthRotatorNode
 - (BWDepthRotatorNode)initWithRotationDegrees:(int)degrees separateDepthComponentsEnabled:(BOOL)enabled depthProvidedAsAttachedMedia:(BOOL)media;
-- (uint64_t)_setupDepthMediaConfigurationForOutput:(uint64_t)output attachedMediaKey:;
-- (uint64_t)_updateDepthOutputFormatRequirementsForInputFormat:(uint64_t)format pixelFormat:(uint64_t)pixelFormat attachedMediaKey:;
+- (id)_updateDepthOutputFormatRequirementsForInputFormat:(uint64_t)format pixelFormat:(uint64_t)pixelFormat attachedMediaKey:;
+- (void)_setupDepthMediaConfigurationForOutput:(uint64_t)output attachedMediaKey:;
 - (void)dealloc;
 - (void)didReachEndOfDataForInput:(id)input;
 - (void)didSelectFormat:(id)format forInput:(id)input forAttachedMediaKey:(id)key;
@@ -108,7 +108,7 @@
 {
   if (self->_depthProvidedAsAttachedMedia)
   {
-    if ([key isEqualToString:@"PrimaryFormat"])
+    if (objc_msgSend_isEqualToString_(key, a2, @"PrimaryFormat"))
     {
       output = self->super._output;
 
@@ -116,7 +116,7 @@
       return;
     }
 
-    if (![key isEqualToString:@"Depth"])
+    if (!objc_msgSend_isEqualToString_(key))
     {
       v15.receiver = self;
       v15.super_class = BWDepthRotatorNode;
@@ -146,14 +146,14 @@
     v10 = BWAttachedMediaKey_PrimaryFormat;
   }
 
-  [(BWDepthRotatorNode *)self _updateDepthOutputFormatRequirementsForInputFormat:format pixelFormat:825306677 attachedMediaKey:*v10];
+  [(BWDepthRotatorNode *)&self->super.super.isa _updateDepthOutputFormatRequirementsForInputFormat:format pixelFormat:825306677 attachedMediaKey:*v10];
   v11 = @"DepthData_DY";
   selfCopy2 = self;
   formatCopy2 = format;
   pixelFormat = 1932996149;
 LABEL_11:
 
-  [(BWDepthRotatorNode *)selfCopy2 _updateDepthOutputFormatRequirementsForInputFormat:formatCopy2 pixelFormat:pixelFormat attachedMediaKey:v11];
+  [(BWDepthRotatorNode *)&selfCopy2->super.super.isa _updateDepthOutputFormatRequirementsForInputFormat:formatCopy2 pixelFormat:pixelFormat attachedMediaKey:v11];
 }
 
 - (void)renderSampleBuffer:(opaqueCMSampleBuffer *)buffer forInput:(id)input
@@ -171,7 +171,7 @@ LABEL_11:
   if (!AttachedMedia)
   {
     v10 = 0;
-    v24 = 0;
+    v34 = 0;
     goto LABEL_36;
   }
 
@@ -234,7 +234,7 @@ LABEL_17:
 LABEL_49:
       [BWDepthRotatorNode renderSampleBuffer:forInput:];
 LABEL_50:
-      v24 = 0;
+      v34 = 0;
 LABEL_51:
       if (target)
       {
@@ -248,9 +248,9 @@ LABEL_51:
         cf = 0;
       }
 
-      CMSampleBufferGetPresentationTimeStamp(&v34, bufferCopy);
-      v32 = [BWDroppedSample newDroppedSampleWithReason:0x1F219C050 pts:&v34];
-      [(BWNodeOutput *)self->super._output emitDroppedSample:v32];
+      CMSampleBufferGetPresentationTimeStamp(&v46, bufferCopy);
+      v42 = [BWDroppedSample newDroppedSampleWithReason:0x1F219C050 pts:&v46];
+      [(BWNodeOutput *)self->super._output emitDroppedSample:v42];
 
       goto LABEL_56;
     }
@@ -267,7 +267,7 @@ LABEL_19:
   v16 = CVPixelBufferGetHeight(v10);
   if (Width != v15 || v14 != v16)
   {
-    v24 = 0;
+    v34 = 0;
     if (![BWDepthRotatorNode renderSampleBuffer:forInput:])
     {
       goto LABEL_51;
@@ -277,74 +277,74 @@ LABEL_19:
   }
 
   v18 = FigCaptureConvertRotationAndMirroringToExifOrientation(self->_rotationDegrees, 0);
-  FigDepthRotateBuffer(v8, v10, v18);
+  FigDepthRotateBuffer(v8, v10, v18, v19, v20, v21, v22, v23, v43);
   if (BWCMSampleBufferCreateCopyWithNewPixelBuffer(AttachedMedia, v10, &self->_outputDepthFormatDescription, &target))
   {
     [BWDepthRotatorNode renderSampleBuffer:forInput:];
     goto LABEL_50;
   }
 
-  v33 = bufferCopy;
-  v19 = *off_1E798A328;
+  v45 = bufferCopy;
+  v24 = *off_1E798A328;
   CMRemoveAttachment(target, *off_1E798A328);
-  v20 = CMGetAttachment(AttachedMedia, v19, 0);
-  v21 = *off_1E798ABA8;
-  v22 = [v20 objectForKeyedSubscript:*off_1E798ABA8];
-  v23 = v22;
-  if (self->_separateDepthComponentsEnabled && !v22)
+  v25 = CMGetAttachment(AttachedMedia, v24, 0);
+  v26 = *off_1E798ABA8;
+  v27 = [v25 objectForKeyedSubscript:*off_1E798ABA8];
+  v28 = v27;
+  if (self->_separateDepthComponentsEnabled && !v27)
   {
     [BWDepthRotatorNode renderSampleBuffer:forInput:];
-    v24 = 0;
+    v34 = 0;
     goto LABEL_75;
   }
 
-  if (!v22)
+  if (!v27)
   {
-    v24 = 0;
-    bufferCopy = v33;
+    v34 = 0;
+    bufferCopy = v45;
     goto LABEL_36;
   }
 
-  v24 = [objc_msgSend(-[BWNodeOutput mediaPropertiesForAttachedMediaKey:](self->super._output mediaPropertiesForAttachedMediaKey:{@"DepthData_DY", "livePixelBufferPool"), "newPixelBuffer"}];
-  if (!v24)
+  v34 = [objc_msgSend(-[BWNodeOutput mediaPropertiesForAttachedMediaKey:](self->super._output mediaPropertiesForAttachedMediaKey:{@"DepthData_DY", "livePixelBufferPool"), "newPixelBuffer"}];
+  if (!v34)
   {
 LABEL_75:
-    bufferCopy = v33;
+    bufferCopy = v45;
     goto LABEL_51;
   }
 
-  if (FigDepthRotateBuffer(v23, v24, v18))
+  if (FigDepthRotateBuffer(v28, v34, v18, v29, v30, v31, v32, v33, v44))
   {
     [BWDepthRotatorNode renderSampleBuffer:forInput:];
     goto LABEL_75;
   }
 
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v26 = *off_1E798ABA0;
-  if ([v20 objectForKeyedSubscript:*off_1E798ABA0])
+  v36 = *off_1E798ABA0;
+  if ([v25 objectForKeyedSubscript:*off_1E798ABA0])
   {
-    [dictionary setObject:objc_msgSend(v20 forKeyedSubscript:{"objectForKeyedSubscript:", v26), v26}];
+    [dictionary setObject:objc_msgSend(v25 forKeyedSubscript:{"objectForKeyedSubscript:", v36), v36}];
   }
 
   if (!self->_separateDepthComponentsEnabled)
   {
-    [dictionary setObject:v24 forKeyedSubscript:v21];
+    [dictionary setObject:v34 forKeyedSubscript:v26];
     p_target = &target;
-    bufferCopy = v33;
+    bufferCopy = v45;
 LABEL_34:
-    CMSetAttachment(*p_target, v19, dictionary, 1u);
+    CMSetAttachment(*p_target, v24, dictionary, 1u);
     goto LABEL_36;
   }
 
-  bufferCopy = v33;
-  if (BWCMSampleBufferCreateCopyWithNewPixelBuffer(AttachedMedia, v24, &self->_outputDYFormatDescription, &cf))
+  bufferCopy = v45;
+  if (BWCMSampleBufferCreateCopyWithNewPixelBuffer(AttachedMedia, v34, &self->_outputDYFormatDescription, &cf))
   {
     [BWDepthRotatorNode renderSampleBuffer:forInput:];
     goto LABEL_51;
   }
 
   p_target = &cf;
-  if (![(BWDepthRotatorNode *)&cf renderSampleBuffer:v19 forInput:v21, dictionary])
+  if (![(BWDepthRotatorNode *)&cf renderSampleBuffer:v24 forInput:v26, dictionary])
   {
     goto LABEL_34;
   }
@@ -352,40 +352,40 @@ LABEL_34:
 LABEL_36:
   if (!self->_depthProvidedAsAttachedMedia)
   {
-    if (!target || (BWSampleBufferSetAttachedMedia(target, @"DepthData_DY", cf), (v30 = target) == 0))
+    if (!target || (BWSampleBufferSetAttachedMedia(target, @"DepthData_DY", cf), (v40 = target) == 0))
     {
-      v31 = 0;
+      v41 = 0;
       goto LABEL_59;
     }
 
     goto LABEL_45;
   }
 
-  v28 = @"Depth";
+  v38 = @"Depth";
   if (self->_separateDepthComponentsEnabled)
   {
     BWSampleBufferRemoveAttachedMedia(bufferCopy, @"Depth");
     BWSampleBufferSetAttachedMedia(bufferCopy, @"DepthData_DX", target);
-    v28 = @"DepthData_DY";
-    v29 = cf;
+    v38 = @"DepthData_DY";
+    v39 = cf;
   }
 
   else
   {
-    v29 = target;
+    v39 = target;
   }
 
-  BWSampleBufferSetAttachedMedia(bufferCopy, v28, v29);
+  BWSampleBufferSetAttachedMedia(bufferCopy, v38, v39);
   if (bufferCopy)
   {
-    v30 = bufferCopy;
+    v40 = bufferCopy;
 LABEL_45:
-    v31 = CFRetain(v30);
+    v41 = CFRetain(v40);
     goto LABEL_57;
   }
 
 LABEL_56:
-  v31 = 0;
+  v41 = 0;
 LABEL_57:
   if (target)
   {
@@ -403,15 +403,15 @@ LABEL_59:
     CFRelease(cf);
   }
 
-  if (v24)
+  if (v34)
   {
-    CFRelease(v24);
+    CFRelease(v34);
   }
 
-  if (v31)
+  if (v41)
   {
     [(BWNodeOutput *)self->super._output emitSampleBuffer:bufferCopy];
-    CFRelease(v31);
+    CFRelease(v41);
   }
 }
 
@@ -422,7 +422,7 @@ LABEL_59:
   [(BWNode *)&v3 didReachEndOfDataForInput:input];
 }
 
-- (uint64_t)_setupDepthMediaConfigurationForOutput:(uint64_t)output attachedMediaKey:
+- (void)_setupDepthMediaConfigurationForOutput:(uint64_t)output attachedMediaKey:
 {
   if (result)
   {
@@ -437,16 +437,16 @@ LABEL_59:
   return result;
 }
 
-- (uint64_t)_updateDepthOutputFormatRequirementsForInputFormat:(uint64_t)format pixelFormat:(uint64_t)pixelFormat attachedMediaKey:
+- (id)_updateDepthOutputFormatRequirementsForInputFormat:(uint64_t)format pixelFormat:(uint64_t)pixelFormat attachedMediaKey:
 {
   if (result)
   {
     v6 = result;
-    [objc_msgSend(*(result + 16) mediaConfigurationForAttachedMediaKey:{pixelFormat), "formatRequirements"}];
+    [objc_msgSend(result[2] mediaConfigurationForAttachedMediaKey:{pixelFormat), "formatRequirements"}];
     v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:format];
     [MEMORY[0x1E695DEC8] arrayWithObjects:&v8 count:1];
     [OUTLINED_FUNCTION_4() setSupportedPixelFormats:?];
-    v7 = *(v6 + 156);
+    v7 = *(v6 + 39);
     if (v7 == 270 || v7 == 90)
     {
       [a2 height];
@@ -467,54 +467,13 @@ LABEL_59:
   return result;
 }
 
-- (uint64_t)renderSampleBuffer:forInput:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
 - (BOOL)renderSampleBuffer:forInput:.cold.5()
 {
   fig_log_get_emitter();
-  FigDebugAssert3();
-  fig_log_get_emitter();
-  return FigSignalErrorAtGM() == 0;
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.6()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.7()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
+  v5 = 0;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5, v0, v7, v8, v9, v10, vars0, vars8);
+  emitter = fig_log_get_emitter();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE14, "<<<< BWDepthRotatorNode >>>>", 0x108, v0, v2, v3, v6) == 0;
 }
 
 - (BOOL)renderSampleBuffer:(const void *)a3 forInput:(void *)a4 .cold.8(CMAttachmentBearerRef *a1, const __CFString *a2, const void *a3, void *a4)

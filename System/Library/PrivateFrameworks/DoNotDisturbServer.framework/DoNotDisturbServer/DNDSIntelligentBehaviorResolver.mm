@@ -104,7 +104,7 @@ void __58__DNDSIntelligentBehaviorResolver_llmIntelligentBehavior___block_invoke
 
 void __58__DNDSIntelligentBehaviorResolver_llmIntelligentBehavior___block_invoke_2(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (!v3)
   {
@@ -144,10 +144,10 @@ LABEL_18:
       v7 = v5;
       v8 = [v6 identifier];
       v9 = [*(a1 + 32) bundleIdentifier];
-      v18 = 138412546;
-      v19 = v8;
-      v20 = 2112;
-      v21 = v9;
+      v17 = 138412546;
+      v18 = v8;
+      v19 = 2112;
+      v20 = v9;
       v10 = "Intelligent interruption spotlight query found more than one match for %@, %@";
     }
 
@@ -163,14 +163,14 @@ LABEL_18:
       v7 = v11;
       v8 = [v12 identifier];
       v9 = [*(a1 + 32) bundleIdentifier];
-      v18 = 138412546;
-      v19 = v8;
-      v20 = 2112;
-      v21 = v9;
+      v17 = 138412546;
+      v18 = v8;
+      v19 = 2112;
+      v20 = v9;
       v10 = "Intelligent interruption spotlight query found no matches for %@, %@";
     }
 
-    _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, v10, &v18, 0x16u);
+    _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_DEFAULT, v10, &v17, 0x16u);
 
     goto LABEL_16;
   }
@@ -178,15 +178,13 @@ LABEL_18:
   v4 = DNDSLogResolver;
   if (os_log_type_enabled(DNDSLogResolver, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 138412290;
-    v19 = v3;
-    _os_log_impl(&dword_24912E000, v4, OS_LOG_TYPE_DEFAULT, "Intelligent interruption spotlight query | Error: %@", &v18, 0xCu);
+    v17 = 138412290;
+    v18 = v3;
+    _os_log_impl(&dword_24912E000, v4, OS_LOG_TYPE_DEFAULT, "Intelligent interruption spotlight query | Error: %@", &v17, 0xCu);
   }
 
 LABEL_19:
   dispatch_semaphore_signal(*(a1 + 40));
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 @end

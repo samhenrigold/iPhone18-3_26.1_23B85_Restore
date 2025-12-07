@@ -173,7 +173,7 @@
   [(STTelephonyStatusDomainDataDiff *)selfCopy enumerateFlagsWithBlock:v11];
 }
 
-uint64_t __54__STTelephonyStatusDomainDataDiff_applyToMutableData___block_invoke_3(uint64_t result, uint64_t a2)
+void *__54__STTelephonyStatusDomainDataDiff_applyToMutableData___block_invoke_3(void *result, uint64_t a2, uint64_t a3)
 {
   if (a2 <= 2)
   {
@@ -181,27 +181,27 @@ uint64_t __54__STTelephonyStatusDomainDataDiff_applyToMutableData___block_invoke
     {
       if (a2 == 1)
       {
-        v14 = *(result + 32);
+        v15 = result[4];
         IsYes = BSSettingFlagIsYes();
 
-        return [v14 setDualSIMEnabled:IsYes];
+        return [v15 setDualSIMEnabled:IsYes];
       }
 
       else if (a2 == 2)
       {
-        v4 = *(result + 32);
-        v5 = BSSettingFlagIsYes();
+        v5 = result[4];
+        v6 = BSSettingFlagIsYes();
 
-        return [v4 setRadioModuleDead:v5];
+        return [v5 setRadioModuleDead:v6];
       }
     }
 
     else
     {
-      v8 = *(result + 32);
-      v9 = BSSettingFlagIsYes();
+      v9 = result[4];
+      v10 = BSSettingFlagIsYes();
 
-      return [v8 setCellularRadioCapabilityEnabled:v9];
+      return [v9 setCellularRadioCapabilityEnabled:v10];
     }
   }
 
@@ -209,35 +209,35 @@ uint64_t __54__STTelephonyStatusDomainDataDiff_applyToMutableData___block_invoke
   {
     if (a2 == 5)
     {
-      v12 = *(result + 32);
-      v13 = BSSettingFlagIsYes();
+      v13 = result[4];
+      v14 = BSSettingFlagIsYes();
 
-      return [v12 setUsingStewieConnection:v13];
+      return [v13 setUsingStewieConnection:v14];
     }
 
     else if (a2 == 6)
     {
-      v6 = *(result + 32);
-      v7 = BSSettingFlagIsYes();
+      v7 = result[4];
+      v8 = BSSettingFlagIsYes();
 
-      return [v6 setUsingStewieConnectionOverInternet:v7];
+      return [v7 setUsingStewieConnectionOverInternet:v8];
     }
   }
 
   else if (a2 == 3)
   {
-    v10 = *(result + 32);
-    v11 = BSSettingFlagIsYes();
+    v11 = result[4];
+    v12 = BSSettingFlagIsYes();
 
-    return [v10 setUsingStewieForSOS:v11];
+    return [v11 setUsingStewieForSOS:v12];
   }
 
   else
   {
-    v2 = *(result + 32);
-    v3 = BSSettingFlagIsYes();
+    v3 = result[4];
+    v4 = BSSettingFlagIsYes();
 
-    return [v2 setInactiveSOSEnabled:v3];
+    return [v3 setInactiveSOSEnabled:v4];
   }
 
   return result;

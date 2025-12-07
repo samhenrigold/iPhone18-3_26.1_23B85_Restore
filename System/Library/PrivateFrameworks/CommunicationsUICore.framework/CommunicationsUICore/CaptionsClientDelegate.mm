@@ -30,14 +30,14 @@
 {
   clientCopy = client;
   selfCopy = self;
-  sub_1C2F329AC(clientCopy, reason, MEMORY[0x1E69E9440], "Captions %s started for reason: %s");
+  sub_1C2F329AC(clientCopy, reason, MEMORY[0x1E69E9440], "Captions %s started for reason: %s", v8, selfCopy);
 }
 
 - (void)captionsClient:(id)client didStopCaptioningWithReason:(unsigned __int8)reason
 {
   clientCopy = client;
   selfCopy = self;
-  sub_1C2F329AC(clientCopy, reason, MEMORY[0x1E69E9430], "Captions %s stopped for reason: %s");
+  sub_1C2F329AC(clientCopy, reason, MEMORY[0x1E69E9430], "Captions %s stopped for reason: %s", v8, selfCopy);
 }
 
 - (void)captionsClient:(id)client didUpdateCaptions:(id)captions source:(int)source

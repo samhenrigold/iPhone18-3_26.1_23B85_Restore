@@ -11,6 +11,7 @@
 - (void)setInProgresText:(id)text;
 - (void)setIsInProgress:(BOOL)progress;
 - (void)viewDidLayoutSubviews;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation MCActivityViewController
@@ -52,6 +53,20 @@
   view5 = [(MCActivityViewController *)self view];
   longWaitingWarningLabel = [(MCActivityViewController *)self longWaitingWarningLabel];
   [view5 addSubview:longWaitingWarningLabel];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = MCActivityViewController;
+  [(MCActivityViewController *)&v5 viewWillAppear:appear];
+  if ([(MCActivityViewController *)self isInProgress])
+  {
+    spinnerView = [(MCActivityViewController *)self spinnerView];
+    [spinnerView startAnimating];
+
+    [(MCActivityViewController *)self _scheduleLongWaitingWarning];
+  }
 }
 
 - (void)viewDidLayoutSubviews
@@ -287,24 +302,29 @@ void __53__MCActivityViewController_completeActivityAnimated___block_invoke(uint
 uint64_t __55__MCActivityViewController__scheduleLongWaitingWarning__block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v7 = WeakRetained;
-    if ([WeakRetained isInProgress])
+    v8 = WeakRetained;
+    WeakRetained = [WeakRetained isInProgress];
+    v2 = v8;
+    if (WeakRetained)
     {
-      v2 = [v7 longWaitingWarningText];
-      v3 = [v7 longWaitingWarningLabel];
-      [v3 setText:v2];
+      v3 = [v8 longWaitingWarningText];
+      v4 = [v8 longWaitingWarningLabel];
+      [v4 setText:v3];
 
-      v4 = [v7 longWaitingWarningLabel];
-      [v4 setHidden:0];
+      v5 = [v8 longWaitingWarningLabel];
+      [v5 setHidden:0];
 
-      v5 = [v7 view];
-      [v5 setNeedsLayout];
+      v6 = [v8 view];
+      [v6 setNeedsLayout];
+
+      v2 = v8;
     }
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](WeakRetained, v2);
 }
 
 @end

@@ -128,16 +128,16 @@ LABEL_7:
 - (void)phonebookController:(id)controller didChangePhoneNumberInfo:(id)info
 {
   infoCopy = info;
-  v6 = TPSPhonebookLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = TPSPhonebookLog(infoCopy, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = infoCopy;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Phone number info changed to %@.", &v8, 0xCu);
+    v9 = 138412290;
+    v10 = infoCopy;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Phone number info changed to %@.", &v9, 0xCu);
   }
 
-  v7 = +[NSNotificationCenter defaultCenter];
-  [v7 postNotificationName:TPSPhonebookControllerSubscriptionDidChangeNotification object:self];
+  v8 = +[NSNotificationCenter defaultCenter];
+  [v8 postNotificationName:TPSPhonebookControllerSubscriptionDidChangeNotification object:self];
 }
 
 - (TPSPhonebookControllerDelegate)delegate

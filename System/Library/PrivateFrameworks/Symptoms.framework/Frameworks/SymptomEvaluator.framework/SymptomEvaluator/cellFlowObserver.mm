@@ -2,9 +2,11 @@
 - (BOOL)performDisposition:(unsigned int)disposition present:(BOOL)present;
 - (cellFlowObserver)init;
 - (id)infoDir;
+- (unsigned)noteFlow:(id)flow snapshot:(id)snapshot present:(BOOL)present trackedBy:(id)by;
 - (void)beginTrafficClassFlowSnapshot;
 - (void)configurePolicies:(id)policies;
 - (void)endTrafficClassFlowSnapshot:(id)snapshot periodUsecs:(unint64_t)usecs reply:(id)reply;
+- (void)noteForegroundState:(BOOL)state forApp:(id)app hasForegroundApps:(BOOL)apps;
 - (void)noteNewUsage:(unsigned int)usage;
 - (void)resetTrafficClassFlowSnapshot:(BOOL)snapshot;
 - (void)setEnabled:(BOOL)enabled;
@@ -51,16 +53,16 @@
 - (void)setEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = scoringLogHandle;
   if (os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_DEBUG))
   {
     enabled = self->_enabled;
-    v11[0] = 67109376;
-    v11[1] = enabled;
-    v12 = 1024;
-    v13 = enabledCopy;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "Entry, _enabled = %d new value %d", v11, 0xEu);
+    v10[0] = 67109376;
+    v10[1] = enabled;
+    v11 = 1024;
+    v12 = enabledCopy;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "Entry, _enabled = %d new value %d", v10, 0xEu);
   }
 
   if (self->_enabled != enabledCopy)
@@ -79,40 +81,39 @@
     else if (self->_flowSnapshotActive)
     {
       [(NSDate *)self->_flowSnapshotTCEnabledStartTime timeIntervalSinceNow];
-      self->_flowSnapshotAccumulatedTCEnabledTime = self->_flowSnapshotAccumulatedTCEnabledTime - v10;
+      self->_flowSnapshotAccumulatedTCEnabledTime = self->_flowSnapshotAccumulatedTCEnabledTime - v9;
     }
   }
 
   self->_enabled = enabledCopy;
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configurePolicies:(id)policies
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   obj = policies;
-  v3 = [obj countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v3 = [obj countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v3)
   {
     v5 = v3;
-    v6 = *v24;
+    v6 = *v23;
     *&v4 = 138412546;
-    v20 = v4;
+    v19 = v4;
     do
     {
       v7 = 0;
       do
       {
-        if (*v24 != v6)
+        if (*v23 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v23 + 1) + 8 * v7);
+        v8 = *(*(&v22 + 1) + 8 * v7);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -142,7 +143,7 @@
             {
               v14 = 19;
 LABEL_15:
-              v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{v14, v20}];
+              v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{v14, v19}];
               [(NSMutableDictionary *)self->_foregroundAppObservelist setObject:v15 forKeyedSubscript:v10];
             }
 
@@ -151,10 +152,10 @@ LABEL_15:
               v17 = configurationLogHandle;
               if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_ERROR))
               {
-                *buf = v20;
-                v28 = v10;
-                v29 = 2112;
-                v30 = v11;
+                *buf = v19;
+                v27 = v10;
+                v28 = 2112;
+                v29 = v11;
                 _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_ERROR, "Can't handle param pair %@  %@", buf, 0x16u);
               }
             }
@@ -180,19 +181,17 @@ LABEL_15:
       }
 
       while (v5 != v7);
-      v18 = [obj countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v18 = [obj countByEnumeratingWithState:&v22 objects:v30 count:16];
       v5 = v18;
     }
 
     while (v18);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)noteNewUsage:(unsigned int)usage
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   self->_classFlags = usage;
   if (self->_dampening || !self->_enabled)
   {
@@ -202,8 +201,8 @@ LABEL_15:
       intialClassFlags = self->_intialClassFlags;
       *buf = 67109376;
       usageCopy2 = usage;
-      v17 = 1024;
-      v18 = intialClassFlags;
+      v16 = 1024;
+      v17 = intialClassFlags;
       _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_INFO, "New flags 0x%x during suppression / dampening, initial value 0x%x", buf, 0xEu);
     }
   }
@@ -223,17 +222,15 @@ LABEL_15:
     self->_dampening = 1;
     v7 = dispatch_time(0, 1000000 * self->_dampeningMsecs);
     v8 = +[FlowAnalyticsEngine queue];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __33__cellFlowObserver_noteNewUsage___block_invoke;
-    v12[3] = &unk_27898AFE0;
-    v12[4] = self;
-    v13 = v6;
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __33__cellFlowObserver_noteNewUsage___block_invoke;
+    v11[3] = &unk_27898AFE0;
+    v11[4] = self;
+    v12 = v6;
     usageCopy3 = usage;
-    dispatch_after(v7, v8, v12);
+    dispatch_after(v7, v8, v11);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)performDisposition:(unsigned int)disposition present:(BOOL)present
@@ -271,9 +268,196 @@ LABEL_15:
   return v6;
 }
 
+- (unsigned)noteFlow:(id)flow snapshot:(id)snapshot present:(BOOL)present trackedBy:(id)by
+{
+  presentCopy = present;
+  flowCopy = flow;
+  byCopy = by;
+  classification = [flowCopy classification];
+  if (classification)
+  {
+    classification2 = [flowCopy classification];
+    disposition = [classification2 disposition];
+  }
+
+  else
+  {
+    disposition = 42;
+  }
+
+  if (![(cellFlowObserver *)self performDisposition:disposition present:presentCopy])
+  {
+    v14 = 0;
+    if (!byCopy)
+    {
+      goto LABEL_16;
+    }
+
+    goto LABEL_11;
+  }
+
+  [(cellFlowObserver *)self noteNewUsage:self->_classFlags];
+  if (presentCopy && disposition < 0x20)
+  {
+    v14 = 1 << disposition;
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  if (byCopy)
+  {
+LABEL_11:
+    if (self->_flowSnapshotActive && presentCopy)
+    {
+      userName = [byCopy userName];
+      if (userName)
+      {
+
+        if (disposition <= 0x1F)
+        {
+          self->_flowSnapshotFlags |= 1 << disposition;
+          flowSnapshotApps = self->_flowSnapshotApps;
+          userName2 = [byCopy userName];
+          [(NSMutableSet *)flowSnapshotApps addObject:userName2];
+        }
+      }
+    }
+  }
+
+LABEL_16:
+
+  return v14;
+}
+
+- (void)noteForegroundState:(BOOL)state forApp:(id)app hasForegroundApps:(BOOL)apps
+{
+  appsCopy = apps;
+  stateCopy = state;
+  v37 = *MEMORY[0x277D85DE8];
+  appCopy = app;
+  v9 = [(NSMutableDictionary *)self->_foregroundAppObservelist objectForKeyedSubscript:appCopy];
+  v10 = scoringLogHandle;
+  if (os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_DEBUG))
+  {
+    foreground = self->_foreground;
+    v29 = 138413314;
+    *v30 = appCopy;
+    *&v30[8] = 1024;
+    *v31 = stateCopy;
+    *&v31[4] = 1024;
+    v32 = appsCopy;
+    v33 = 1024;
+    v34 = foreground;
+    v35 = 2112;
+    v36 = v9;
+    _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "app name %@ isForeground %d  hasForegroundApps %d, current idea of foreground %d disp %@", &v29, 0x28u);
+  }
+
+  if (v9)
+  {
+    v12 = -[cellFlowObserver performDisposition:present:](self, "performDisposition:present:", [v9 unsignedIntValue], stateCopy);
+    v13 = scoringLogHandle;
+    if (os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_DEBUG))
+    {
+      classFlags = self->_classFlags;
+      enabled = self->_enabled;
+      v29 = 138413058;
+      *v30 = appCopy;
+      *&v30[8] = 1024;
+      *v31 = v12;
+      *&v31[4] = 1024;
+      v32 = classFlags;
+      v33 = 1024;
+      v34 = enabled;
+      _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEBUG, "Change in watched app %@ changed %d class flags 0x%x enabled %d", &v29, 0x1Eu);
+    }
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  if (appsCopy)
+  {
+    if (!self->_foreground)
+    {
+      self->_foreground = 1;
+      v16 = scoringLogHandle;
+      if (!os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_DEBUG))
+      {
+        goto LABEL_16;
+      }
+
+      v17 = self->_classFlags;
+      intialClassFlags = self->_intialClassFlags;
+      v19 = self->_enabled;
+      v29 = 67109632;
+      *v30 = v17;
+      *&v30[4] = 1024;
+      *&v30[6] = intialClassFlags;
+      *v31 = 1024;
+      *&v31[2] = v19;
+      v20 = "Going to Foreground, new flags 0x%x, initial value 0x%x, enabled %d";
+      v21 = v16;
+      v22 = 20;
+      goto LABEL_14;
+    }
+
+LABEL_15:
+    if (!v12)
+    {
+      goto LABEL_18;
+    }
+
+    goto LABEL_16;
+  }
+
+  if (!self->_foreground)
+  {
+    goto LABEL_15;
+  }
+
+  self->_foreground = 0;
+  v23 = scoringLogHandle;
+  if (!os_log_type_enabled(scoringLogHandle, OS_LOG_TYPE_DEBUG))
+  {
+    goto LABEL_16;
+  }
+
+  v24 = self->_classFlags;
+  v25 = self->_enabled;
+  v29 = 67109376;
+  *v30 = v24;
+  *&v30[4] = 1024;
+  *&v30[6] = v25;
+  v20 = "Going to background, new flags 0x%x enabled %d";
+  v21 = v23;
+  v22 = 14;
+LABEL_14:
+  _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEBUG, v20, &v29, v22);
+LABEL_16:
+  if (self->_enabled)
+  {
+    [NetworkAnalyticsEngine sendTrafficInfoFlags:self->_classFlags changeFlags:(self->_intialClassFlags ^ self->_classFlags) foreground:self->_foreground];
+    v26 = self->_classFlags;
+    self->_everReportedClassFlags |= v26;
+    self->_lastReportedClassFlags = v26;
+    date = [MEMORY[0x277CBEAA8] date];
+    lastReportTimestamp = self->_lastReportTimestamp;
+    self->_lastReportTimestamp = date;
+  }
+
+LABEL_18:
+  self->_intialClassFlags = self->_classFlags;
+}
+
 - (void)beginTrafficClassFlowSnapshot
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   [(cellFlowObserver *)self resetTrafficClassFlowSnapshot:1];
   v3 = +[TrackedFlow currentCellUsers];
   v4 = v3;
@@ -303,35 +487,33 @@ LABEL_15:
   v10 = noiLogHandle;
   if (os_log_type_enabled(noiLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138412290;
-    v17 = v4;
-    _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "TC Metric: currentCellUsers %@", &v16, 0xCu);
+    v15 = 138412290;
+    v16 = v4;
+    _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "TC Metric: currentCellUsers %@", &v15, 0xCu);
   }
 
   v11 = noiLogHandle;
   if (os_log_type_enabled(noiLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     flowSnapshotFlags = self->_flowSnapshotFlags;
-    v16 = 67109120;
-    LODWORD(v17) = flowSnapshotFlags;
-    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "TC Metric: initial snapshot flags 0x%x", &v16, 8u);
+    v15 = 67109120;
+    LODWORD(v16) = flowSnapshotFlags;
+    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "TC Metric: initial snapshot flags 0x%x", &v15, 8u);
   }
 
   v13 = noiLogHandle;
   if (os_log_type_enabled(noiLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     flowSnapshotApps = self->_flowSnapshotApps;
-    v16 = 138412290;
-    v17 = flowSnapshotApps;
-    _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEFAULT, "TC Metric: initial snapshot apps %@", &v16, 0xCu);
+    v15 = 138412290;
+    v16 = flowSnapshotApps;
+    _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEFAULT, "TC Metric: initial snapshot apps %@", &v15, 0xCu);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endTrafficClassFlowSnapshot:(id)snapshot periodUsecs:(unint64_t)usecs reply:(id)reply
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   snapshotCopy = snapshot;
   replyCopy = reply;
   v9 = &noiLogHandle;
@@ -342,11 +524,11 @@ LABEL_15:
     flowSnapshotFlags = self->_flowSnapshotFlags;
     flowSnapshotApps = self->_flowSnapshotApps;
     *buf = 67109634;
-    *v69 = flowSnapshotActive;
-    *&v69[4] = 1024;
-    *&v69[6] = flowSnapshotFlags;
-    *v70 = 2112;
-    *&v70[2] = flowSnapshotApps;
+    *v68 = flowSnapshotActive;
+    *&v68[4] = 1024;
+    *&v68[6] = flowSnapshotFlags;
+    *v69 = 2112;
+    *&v69[2] = flowSnapshotApps;
     _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "TC Metric: take snapshot when active %d flags 0x%x set %@", buf, 0x18u);
   }
 
@@ -370,7 +552,7 @@ LABEL_15:
       flowSnapshotAccumulatedTCEnabledTime = self->_flowSnapshotAccumulatedTCEnabledTime;
     }
 
-    v54 = (flowSnapshotAccumulatedTCEnabledTime * 1000000.0);
+    v53 = (flowSnapshotAccumulatedTCEnabledTime * 1000000.0);
     if (self->_foreground)
     {
       v21 = 0;
@@ -379,10 +561,10 @@ LABEL_15:
 
     else
     {
-      v52 = v15;
+      v51 = v15;
       v23 = +[OverrideTrackerPolicy sharedInstance];
       v24 = [v23 maxRRCTimePolicyForTarget:0];
-      v51 = v24;
+      v50 = v24;
       if (v24)
       {
         unsignedIntegerValue = [v24 unsignedIntegerValue];
@@ -393,32 +575,32 @@ LABEL_15:
         unsignedIntegerValue = 60;
       }
 
-      v66 = 0u;
-      v67 = 0u;
-      v64 = 0u;
       v65 = 0u;
+      v66 = 0u;
+      v63 = 0u;
+      v64 = 0u;
       v18 = v18;
-      v25 = [v18 countByEnumeratingWithState:&v64 objects:v76 count:16];
+      v25 = [v18 countByEnumeratingWithState:&v63 objects:v75 count:16];
       if (v25)
       {
         v26 = v25;
         obj = v18;
-        v49 = replyCopy;
-        v50 = snapshotCopy;
+        v48 = replyCopy;
+        v49 = snapshotCopy;
         v27 = 0;
-        v28 = *v65;
+        v28 = *v64;
         while (2)
         {
           v29 = 0;
-          v55 = v26;
+          v54 = v26;
           do
           {
-            if (*v65 != v28)
+            if (*v64 != v28)
             {
               objc_enumerationMutation(obj);
             }
 
-            v30 = *(*(&v64 + 1) + 8 * v29);
+            v30 = *(*(&v63 + 1) + 8 * v29);
             v31 = *v9;
             if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEFAULT))
             {
@@ -431,24 +613,24 @@ LABEL_15:
               v37 = v23;
               v39 = v38 = self;
               *buf = 138413058;
-              *v69 = v30;
+              *v68 = v30;
+              *&v68[8] = 2112;
+              *v69 = v36;
               *&v69[8] = 2112;
-              *v70 = v36;
-              *&v70[8] = 2112;
               usecsCopy = v39;
-              v72 = 2048;
-              v73 = unsignedIntegerValue;
+              v71 = 2048;
+              v72 = unsignedIntegerValue;
               _os_log_impl(&dword_23255B000, v35, OS_LOG_TYPE_DEFAULT, "TC Metric: app: %@ has quota in plist: %@, override: %@, default: %lu", buf, 0x2Au);
 
               v9 = v33;
               v28 = v32;
-              v26 = v55;
+              v26 = v54;
 
               self = v38;
               v23 = v37;
             }
 
-            v40 = [v23 maxRRCTimePolicyForTarget:{v30, v49, v50, v51}];
+            v40 = [v23 maxRRCTimePolicyForTarget:{v30, v48, v49, v50}];
             if (v40 || ([(NSMutableDictionary *)self->_perAppMaxRRCTimeSecs objectForKeyedSubscript:v30], v40 = objc_claimAutoreleasedReturnValue(), unsignedIntegerValue2 = unsignedIntegerValue, v40))
             {
               v42 = v40;
@@ -471,7 +653,7 @@ LABEL_15:
           }
 
           while (v26 != v29);
-          v26 = [obj countByEnumeratingWithState:&v64 objects:v76 count:16];
+          v26 = [obj countByEnumeratingWithState:&v63 objects:v75 count:16];
           if (v26)
           {
             continue;
@@ -487,8 +669,8 @@ LABEL_15:
         v22 = 1000000 * v27 < usecs;
         v14 = "no";
 LABEL_28:
-        replyCopy = v49;
-        snapshotCopy = v50;
+        replyCopy = v48;
+        snapshotCopy = v49;
       }
 
       else
@@ -500,13 +682,13 @@ LABEL_28:
         v14 = "no";
       }
 
-      v15 = v52;
+      v15 = v51;
     }
   }
 
   else
   {
-    v54 = 0;
+    v53 = 0;
     v21 = 0;
     v22 = 0;
     v18 = 0;
@@ -523,15 +705,15 @@ LABEL_28:
       v45 = "no";
     }
 
-    *v69 = v45;
-    *&v69[8] = 2080;
-    *v70 = v14;
-    *&v70[8] = 2048;
+    *v68 = v45;
+    *&v68[8] = 2080;
+    *v69 = v14;
+    *&v69[8] = 2048;
     usecsCopy = usecs;
-    v72 = 2048;
-    v73 = v54;
-    v74 = 2048;
-    v75 = v21;
+    v71 = 2048;
+    v72 = v53;
+    v73 = 2048;
+    v74 = v21;
     _os_log_impl(&dword_23255B000, v44, OS_LOG_TYPE_DEFAULT, "TC Metric: policy violation %s, whitelist %s, TCenableduration (usecs) %llu  duration (usecs) %llu, budget %llu", buf, 0x34u);
   }
 
@@ -539,17 +721,15 @@ LABEL_28:
   block[1] = 3221225472;
   block[2] = __66__cellFlowObserver_endTrafficClassFlowSnapshot_periodUsecs_reply___block_invoke;
   block[3] = &unk_27898FE48;
-  v62 = v15;
-  v60 = replyCopy;
-  v61 = v54;
-  v59 = v18;
-  v63 = v22;
+  v61 = v15;
+  v59 = replyCopy;
+  v60 = v53;
+  v58 = v18;
+  v62 = v22;
   v46 = v18;
   v47 = replyCopy;
   dispatch_async(snapshotCopy, block);
   [(cellFlowObserver *)self resetTrafficClassFlowSnapshot:0];
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetTrafficClassFlowSnapshot:(BOOL)snapshot

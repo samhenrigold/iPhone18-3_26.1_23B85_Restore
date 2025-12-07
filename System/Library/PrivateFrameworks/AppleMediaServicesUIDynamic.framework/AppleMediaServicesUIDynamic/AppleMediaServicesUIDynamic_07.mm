@@ -1,483 +1,6 @@
-Swift::Void __swiftcall VideoPlayer.pause()()
-{
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for VideoPlayer(0);
-  objc_msgSendSuper2(&v2, sel_pause);
-  v1 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_shouldBePlaying;
-  swift_beginAccess();
-  *(v0 + v1) = 0;
-}
-
-Swift::Void __swiftcall VideoPlayer.restart()()
-{
-  if (*(v0 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_playbackChecks) == 1 && *(v0 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_playbackChecks + 1) != 0 && *(v0 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_playbackChecks + 2) != 0)
-  {
-    v3 = MEMORY[0x1E6960CC0];
-    v4 = *MEMORY[0x1E6960CC0];
-    v5 = *(MEMORY[0x1E6960CC0] + 16);
-    v7.receiver = v0;
-    v7.super_class = type metadata accessor for VideoPlayer(0);
-    v6[0] = v4;
-    v6[1] = *(v3 + 8);
-    v6[2] = v5;
-    objc_msgSendSuper2(&v7, sel_seekToTime_, v6);
-  }
-}
-
-Swift::Void __swiftcall VideoPlayer.startPreloading()()
-{
-  v2 = v1;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433170);
-  OUTLINED_FUNCTION_12_4(v3);
-  OUTLINED_FUNCTION_29_0();
-  MEMORY[0x1EEE9AC00](v4);
-  v6 = v24 - v5;
-  sub_1CA19ADF8();
-  OUTLINED_FUNCTION_2_5();
-  v8 = v7;
-  MEMORY[0x1EEE9AC00](v9);
-  v11 = v24 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_videoUrl;
-  OUTLINED_FUNCTION_4_5();
-  sub_1CA10BC7C(v2 + v12, v6, &qword_1EC433170);
-  if (__swift_getEnumTagSinglePayload(v6, 1, v0) == 1)
-  {
-    sub_1CA10BDC8(v6, &qword_1EC433170);
-  }
-
-  else
-  {
-    (*(v8 + 32))(v11, v6);
-    v13 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_state;
-    OUTLINED_FUNCTION_4_5();
-    if (*(v2 + v13))
-    {
-      v14 = OUTLINED_FUNCTION_0_12();
-      v15(v14);
-    }
-
-    else
-    {
-      v16 = sub_1CA185A14();
-      [v16 cancelLoading];
-
-      sub_1CA1856EC(1);
-      v17 = v2 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_delegate;
-      OUTLINED_FUNCTION_4_5();
-      if (swift_unknownObjectWeakLoadStrong())
-      {
-        v18 = *(v17 + 8);
-        ObjectType = swift_getObjectType();
-        (*(v18 + 32))(v2, ObjectType, v18);
-        swift_unknownObjectRelease();
-      }
-
-      sub_1CA0F2110(0, &qword_1EC4343E8);
-      sub_1CA112194(v11);
-      OUTLINED_FUNCTION_5_12();
-      swift_allocObject();
-      swift_unknownObjectWeakInit();
-      OUTLINED_FUNCTION_5_12();
-      swift_allocObject();
-      swift_unknownObjectWeakInit();
-      v20 = sub_1CA0F2110(0, &qword_1EE03C230);
-
-      v21 = sub_1CA19C598();
-      v24[3] = v20;
-      v24[4] = MEMORY[0x1E69AB720];
-      v24[0] = v21;
-      sub_1CA19BE68();
-
-      v22 = OUTLINED_FUNCTION_0_12();
-      v23(v22);
-      __swift_destroy_boxed_opaque_existential_2(v24);
-    }
-  }
-}
-
-void sub_1CA1873B8(void **a1)
-{
-  v1 = *a1;
-  swift_beginAccess();
-  Strong = swift_unknownObjectWeakLoadStrong();
-  if (Strong)
-  {
-    v3 = Strong;
-    sub_1CA187514(v1);
-  }
-}
-
-void sub_1CA18741C()
-{
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4343F0);
-  MEMORY[0x1EEE9AC00](v0 - 8);
-  v2 = (&v6 - v1);
-  swift_beginAccess();
-  Strong = swift_unknownObjectWeakLoadStrong();
-  if (Strong)
-  {
-    v4 = Strong;
-    *v2 = sub_1CA19AD18();
-    v5 = type metadata accessor for VideoPlaybackFailure(0);
-    swift_storeEnumTagMultiPayload();
-    __swift_storeEnumTagSinglePayload(v2, 0, 1, v5);
-    sub_1CA185F8C(v2);
-  }
-}
-
-void sub_1CA187514(void *a1)
-{
-  v2 = sub_1CA19C2A8();
-  v3 = swift_allocObject();
-  swift_unknownObjectWeakInit();
-  v4 = swift_allocObject();
-  *(v4 + 16) = v3;
-  *(v4 + 24) = a1;
-  v7[4] = sub_1CA189DA8;
-  v7[5] = v4;
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 1107296256;
-  v7[2] = sub_1CA0F4068;
-  v7[3] = &block_descriptor_18;
-  v5 = _Block_copy(v7);
-  v6 = a1;
-
-  [v6 loadValuesAsynchronouslyForKeys:v2 completionHandler:v5];
-  _Block_release(v5);
-}
-
-void sub_1CA187638(uint64_t a1, void *a2)
-{
-  v115 = *MEMORY[0x1E69E9840];
-  v108 = sub_1CA19B2D8();
-  v3 = *(v108 - 8);
-  MEMORY[0x1EEE9AC00](v108);
-  v105 = &v95 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_1CA19B318();
-  v106 = *(v5 - 8);
-  v107 = v5;
-  MEMORY[0x1EEE9AC00](v5);
-  v104 = &v95 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = sub_1CA19BF48();
-  v103 = *(v7 - 8);
-  v8 = MEMORY[0x1EEE9AC00](v7);
-  v101 = &v95 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8);
-  v102 = &v95 - v10;
-  v11 = sub_1CA19ADF8();
-  v109 = *(v11 - 8);
-  MEMORY[0x1EEE9AC00](v11);
-  v13 = &v95 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC434448);
-  MEMORY[0x1EEE9AC00](v14);
-  v16 = &v95 - v15;
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433170);
-  v18 = MEMORY[0x1EEE9AC00](v17 - 8);
-  v100 = &v95 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20 = MEMORY[0x1EEE9AC00](v18);
-  v22 = &v95 - v21;
-  MEMORY[0x1EEE9AC00](v20);
-  v24 = &v95 - v23;
-  swift_beginAccess();
-  Strong = swift_unknownObjectWeakLoadStrong();
-  if (!Strong)
-  {
-    return;
-  }
-
-  v26 = Strong;
-  v98 = v7;
-  v99 = v3;
-  v110 = a2;
-  v27 = [a2 URL];
-  sub_1CA19ADA8();
-
-  __swift_storeEnumTagSinglePayload(v24, 0, 1, v11);
-  v28 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_videoUrl;
-  swift_beginAccess();
-  v29 = *(v14 + 48);
-  sub_1CA10BC7C(v24, v16, &qword_1EC433170);
-  sub_1CA10BC7C(v26 + v28, &v16[v29], &qword_1EC433170);
-  if (__swift_getEnumTagSinglePayload(v16, 1, v11) != 1)
-  {
-    sub_1CA10BC7C(v16, v22, &qword_1EC433170);
-    if (__swift_getEnumTagSinglePayload(&v16[v29], 1, v11) != 1)
-    {
-      v97 = v26;
-      v30 = v109;
-      (*(v109 + 32))(v13, &v16[v29], v11);
-      sub_1CA189DE8(&qword_1EC434450, MEMORY[0x1E6968FB0]);
-      v31 = sub_1CA19C0D8();
-      v32 = *(v30 + 8);
-      v32(v13, v11);
-      sub_1CA10BDC8(v24, &qword_1EC433170);
-      v32(v22, v11);
-      sub_1CA10BDC8(v16, &qword_1EC433170);
-      if ((v31 & 1) == 0)
-      {
-
-        return;
-      }
-
-      goto LABEL_9;
-    }
-
-    sub_1CA10BDC8(v24, &qword_1EC433170);
-    (*(v109 + 8))(v22, v11);
-LABEL_7:
-    sub_1CA10BDC8(v16, &qword_1EC434448);
-
-    return;
-  }
-
-  sub_1CA10BDC8(v24, &qword_1EC433170);
-  if (__swift_getEnumTagSinglePayload(&v16[v29], 1, v11) != 1)
-  {
-    goto LABEL_7;
-  }
-
-  v97 = v26;
-  sub_1CA10BDC8(v16, &qword_1EC433170);
-LABEL_9:
-  v96 = v28;
-  v33 = &unk_1F49CC2D8;
-  v34 = 2;
-  while (1)
-  {
-    v36 = *(v33 - 1);
-    v35 = *v33;
-    v37 = swift_allocObject();
-    *(v37 + 16) = 0;
-
-    v38 = sub_1CA19C0E8();
-    *&aBlock = *(v37 + 16);
-    v39 = [v110 statusOfValueForKey:v38 error:&aBlock];
-
-    v40 = aBlock;
-    v41 = *(v37 + 16);
-    *(v37 + 16) = aBlock;
-    v42 = v40;
-
-    if (v39 == 3)
-    {
-      break;
-    }
-
-    v33 += 2;
-    if (!--v34)
-    {
-      v43 = v110;
-      v44 = [v110 isPlayable];
-      v45 = v98;
-      v46 = v103;
-      if (v44)
-      {
-        v47 = [objc_allocWithZone(MEMORY[0x1E69880B0]) initWithAsset_];
-        [v47 setPreferredForwardBufferDuration_];
-        v48 = v97;
-        v49 = sub_1CA1865FC();
-        v52 = v108;
-        if ((v53 & 1) == 0)
-        {
-          v54 = v49;
-          v55 = v50;
-          v56 = v51;
-          v57 = v48;
-          v58 = HIDWORD(v50);
-          v113 = CGSizeMake;
-          v114 = 0;
-          *&aBlock = MEMORY[0x1E69E9820];
-          *(&aBlock + 1) = 1107296256;
-          *&v112 = sub_1CA17EED0;
-          *(&v112 + 1) = &block_descriptor_50;
-          v59 = _Block_copy(&aBlock);
-          *&aBlock = v54;
-          *(&aBlock + 1) = __PAIR64__(v58, v55);
-          v48 = v57;
-          *&v112 = v56;
-          [v47 seekToTime:&aBlock completionHandler:v59];
-          _Block_release(v59);
-          sub_1CA18667C(0, 0, 0, 1);
-        }
-
-        sub_1CA0F2110(0, &qword_1EE03C230);
-        v60 = sub_1CA19C598();
-        v61 = swift_allocObject();
-        v61[2] = v48;
-        v61[3] = v47;
-        v61[4] = v43;
-        v113 = sub_1CA189DDC;
-        v114 = v61;
-        *&aBlock = MEMORY[0x1E69E9820];
-        *(&aBlock + 1) = 1107296256;
-        *&v112 = sub_1CA0F4068;
-        *(&v112 + 1) = &block_descriptor_47_0;
-        v62 = _Block_copy(&aBlock);
-        v63 = v48;
-        v64 = v47;
-        v65 = v43;
-
-        v66 = v104;
-        sub_1CA19B2F8();
-        *&aBlock = MEMORY[0x1E69E7CC0];
-        sub_1CA189DE8(&qword_1EE03C350, MEMORY[0x1E69E7F60]);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC433C70);
-        sub_1CA0F40C4();
-        v67 = v105;
-        sub_1CA19C788();
-        MEMORY[0x1CCA99C20](0, v66, v67, v62);
-        _Block_release(v62);
-
-        (*(v99 + 8))(v67, v52);
-        (*(v106 + 8))(v66, v107);
-      }
-
-      else
-      {
-        v74 = v108;
-        if (qword_1EC432C88 != -1)
-        {
-          swift_once();
-        }
-
-        v75 = __swift_project_value_buffer(v45, qword_1EC43C8E8);
-        v76 = v101;
-        (*(v46 + 16))(v101, v75, v45);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC434440);
-        sub_1CA19B538();
-        *(swift_allocObject() + 16) = xmmword_1CA1A0B80;
-        sub_1CA19B4F8();
-        v77 = v100;
-        sub_1CA10BC7C(v97 + v96, v100, &qword_1EC433170);
-        if (__swift_getEnumTagSinglePayload(v77, 1, v11) == 1)
-        {
-          sub_1CA10BDC8(v77, &qword_1EC433170);
-          aBlock = 0u;
-          v112 = 0u;
-        }
-
-        else
-        {
-          *(&v112 + 1) = v11;
-          boxed_opaque_existential_2Tm = __swift_allocate_boxed_opaque_existential_2Tm(&aBlock);
-          (*(v109 + 32))(boxed_opaque_existential_2Tm, v77, v11);
-        }
-
-        sub_1CA19B528();
-        sub_1CA10BDC8(&aBlock, &qword_1EC433830);
-        sub_1CA19BDC8();
-
-        (*(v46 + 8))(v76, v45);
-        sub_1CA0F2110(0, &qword_1EE03C230);
-        v88 = sub_1CA19C598();
-        v89 = swift_allocObject();
-        v90 = v97;
-        *(v89 + 16) = v97;
-        v113 = sub_1CA189DD4;
-        v114 = v89;
-        *&aBlock = MEMORY[0x1E69E9820];
-        *(&aBlock + 1) = 1107296256;
-        *&v112 = sub_1CA0F4068;
-        *(&v112 + 1) = &block_descriptor_41_0;
-        v91 = _Block_copy(&aBlock);
-        v92 = v90;
-
-        v93 = v104;
-        sub_1CA19B2F8();
-        *&aBlock = MEMORY[0x1E69E7CC0];
-        sub_1CA189DE8(&qword_1EE03C350, MEMORY[0x1E69E7F60]);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC433C70);
-        sub_1CA0F40C4();
-        v94 = v105;
-        sub_1CA19C788();
-        MEMORY[0x1CCA99C20](0, v93, v94, v91);
-        _Block_release(v91);
-
-        (*(v99 + 8))(v94, v74);
-        (*(v106 + 8))(v93, v107);
-      }
-
-      return;
-    }
-  }
-
-  v68 = v108;
-  v69 = v98;
-  v70 = v103;
-  if (qword_1EC432C88 != -1)
-  {
-    swift_once();
-  }
-
-  v71 = __swift_project_value_buffer(v69, qword_1EC43C8E8);
-  (*(v70 + 16))(v102, v71, v69);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC434440);
-  sub_1CA19B538();
-  *(swift_allocObject() + 16) = xmmword_1CA1A0930;
-  sub_1CA19B4F8();
-  *(&v112 + 1) = MEMORY[0x1E69E6158];
-  *&aBlock = v36;
-  *(&aBlock + 1) = v35;
-
-  sub_1CA19B518();
-  sub_1CA10BDC8(&aBlock, &qword_1EC433830);
-  v72 = *(v37 + 16);
-  if (v72)
-  {
-    v73 = sub_1CA0F2110(0, &qword_1EC434388);
-  }
-
-  else
-  {
-    v73 = 0;
-    *(&aBlock + 1) = 0;
-    *&v112 = 0;
-  }
-
-  *&aBlock = v72;
-  *(&v112 + 1) = v73;
-  v78 = v72;
-  sub_1CA19B528();
-  sub_1CA10BDC8(&aBlock, &qword_1EC433830);
-  v79 = v102;
-  sub_1CA19BDC8();
-
-  (*(v70 + 8))(v79, v69);
-  sub_1CA0F2110(0, &qword_1EE03C230);
-  v80 = sub_1CA19C598();
-  v81 = swift_allocObject();
-  v82 = v97;
-  v81[2] = v97;
-  v81[3] = v36;
-  v81[4] = v35;
-  v81[5] = v37;
-  v113 = sub_1CA189DC8;
-  v114 = v81;
-  *&aBlock = MEMORY[0x1E69E9820];
-  *(&aBlock + 1) = 1107296256;
-  *&v112 = sub_1CA0F4068;
-  *(&v112 + 1) = &block_descriptor_35;
-  v83 = _Block_copy(&aBlock);
-  v84 = v82;
-
-  v85 = v104;
-  sub_1CA19B2F8();
-  *&aBlock = MEMORY[0x1E69E7CC0];
-  sub_1CA189DE8(&qword_1EE03C350, MEMORY[0x1E69E7F60]);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC433C70);
-  sub_1CA0F40C4();
-  v86 = v105;
-  sub_1CA19C788();
-  MEMORY[0x1CCA99C20](0, v85, v86, v83);
-  _Block_release(v83);
-
-  (*(v99 + 8))(v86, v68);
-  (*(v106 + 8))(v85, v107);
-}
-
 uint64_t sub_1CA18876C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4343F0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4343F0, &qword_1CA1A7BC8);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = (&v14 - v8);
   swift_beginAccess();
@@ -495,7 +18,7 @@ uint64_t sub_1CA18876C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
 uint64_t sub_1CA188860()
 {
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4343F0);
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4343F0, &qword_1CA1A7BC8);
   MEMORY[0x1EEE9AC00](v0 - 8);
   v2 = &v5 - v1;
   v3 = type metadata accessor for VideoPlaybackFailure(0);
@@ -527,45 +50,45 @@ uint64_t sub_1CA188910(char *a1, void *a2, void *a3)
 
 Swift::Void __swiftcall VideoPlayer.releaseAssets()()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4343F0);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4343F0, &qword_1CA1A7BC8);
   OUTLINED_FUNCTION_12_4(v1);
   OUTLINED_FUNCTION_29_0();
   MEMORY[0x1EEE9AC00](v2);
-  v4 = &v13 - v3;
+  v4 = &v11 - v3;
   v5 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_playerItem;
-  OUTLINED_FUNCTION_4_5();
+  OUTLINED_FUNCTION_4_5(v0 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_playerItem, v12);
   v6 = *(v0 + v5);
   if (v6)
   {
-    v7 = [v6 timebase];
-    if (v7)
+    v6 = [v6 timebase];
+    if (v6)
     {
-      v8 = v7;
-      CMTimebaseGetTime(&v13, v7);
-      sub_1CA18667C(v13.value, *&v13.timescale, v13.epoch, 0);
+      v7 = v6;
+      CMTimebaseGetTime(&v11, v6);
+      sub_1CA18667C(v11.value, *&v11.timescale, v11.epoch, 0);
     }
   }
 
-  v9 = sub_1CA185A14();
-  [v9 cancelLoading];
+  v8 = sub_1CA185A14(v6);
+  [v8 cancelLoading];
 
   sub_1CA1859B8(0);
-  v10 = v0 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_playbackChecks;
-  *v10 = 0;
-  *(v10 + 2) = 0;
+  v9 = v0 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_playbackChecks;
+  *v9 = 0;
+  *(v9 + 2) = 0;
   sub_1CA186048();
-  v11 = type metadata accessor for VideoPlaybackFailure(0);
-  __swift_storeEnumTagSinglePayload(v4, 1, 1, v11);
-  v12 = sub_1CA185F8C(v4);
+  v10 = type metadata accessor for VideoPlaybackFailure(0);
+  __swift_storeEnumTagSinglePayload(v4, 1, 1, v10);
+  sub_1CA185F8C(v4);
   *(v0 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_failureCount) = 0;
-  sub_1CA186000(v12);
+  sub_1CA186000();
   sub_1CA1856EC(0);
 }
 
 void sub_1CA188B20(uint64_t a1)
 {
   v93 = *(a1 + 8);
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433170);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433170, &qword_1CA1A1230);
   v5 = OUTLINED_FUNCTION_12_4(v4);
   v6 = MEMORY[0x1EEE9AC00](v5);
   v8 = &v86 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -578,7 +101,7 @@ void sub_1CA188B20(uint64_t a1)
   v15 = &v86 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v13);
   v17 = &v86 - v16;
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4343F0);
+  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4343F0, &qword_1CA1A7BC8);
   OUTLINED_FUNCTION_12_4(v18);
   OUTLINED_FUNCTION_29_0();
   MEMORY[0x1EEE9AC00](v19);
@@ -592,7 +115,7 @@ void sub_1CA188B20(uint64_t a1)
   {
     case 1:
       v38 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_state;
-      OUTLINED_FUNCTION_4_5();
+      OUTLINED_FUNCTION_4_5(&v2[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_state], &v96);
       v39 = v2[v38];
       if (v39 != 5 && (v39 != 7 || (LOBYTE(v22) & 1) == 0))
       {
@@ -622,25 +145,25 @@ void sub_1CA188B20(uint64_t a1)
 
       if (v29 != -1)
       {
-        OUTLINED_FUNCTION_2_29();
+        OUTLINED_FUNCTION_2_29(&qword_1EC432C88);
       }
 
       v30 = v91;
       v31 = __swift_project_value_buffer(v91, qword_1EC43C8E8);
       (*(v94 + 16))(v15, v31, v30);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC434440);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC434440, &unk_1CA1A7CD0);
       sub_1CA19B538();
       *(swift_allocObject() + 16) = xmmword_1CA1A7BB0;
       sub_1CA19B4F8();
       v32 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_videoUrl;
       v33 = v92;
-      OUTLINED_FUNCTION_4_5();
+      OUTLINED_FUNCTION_4_5(&v92[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_videoUrl], &time);
       v89 = v32;
-      sub_1CA10BC7C(&v33[v32], v8, &qword_1EC433170);
+      sub_1CA10BC7C(&v33[v32], v8, &qword_1EC433170, &qword_1CA1A1230);
       v34 = sub_1CA19ADF8();
       if (__swift_getEnumTagSinglePayload(v8, 1, v34) == 1)
       {
-        sub_1CA10BDC8(v8, &qword_1EC433170);
+        sub_1CA10BDC8(v8, &qword_1EC433170, &qword_1CA1A1230);
         v96 = 0u;
         v97 = 0u;
       }
@@ -653,7 +176,7 @@ void sub_1CA188B20(uint64_t a1)
       }
 
       sub_1CA19B508();
-      sub_1CA10BDC8(&v96, &qword_1EC433830);
+      sub_1CA10BDC8(&v96, &qword_1EC433830, qword_1CA1A0A30);
       sub_1CA19B4F8();
       if (v93)
       {
@@ -671,7 +194,7 @@ void sub_1CA188B20(uint64_t a1)
       *&v96 = v22;
       *(&v97 + 1) = v43;
       sub_1CA19B518();
-      sub_1CA10BDC8(&v96, &qword_1EC433830);
+      sub_1CA10BDC8(&v96, &qword_1EC433830, qword_1CA1A0A30);
       sub_1CA19B4F8();
       if (v24)
       {
@@ -690,7 +213,7 @@ void sub_1CA188B20(uint64_t a1)
       *(&v96 + 1) = v24;
       *(&v97 + 1) = v44;
       sub_1CA19B518();
-      sub_1CA10BDC8(&v96, &qword_1EC433830);
+      sub_1CA10BDC8(&v96, &qword_1EC433830, qword_1CA1A0A30);
       sub_1CA19B4F8();
       if (v26)
       {
@@ -709,13 +232,13 @@ void sub_1CA188B20(uint64_t a1)
       *(&v96 + 1) = v26;
       *(&v97 + 1) = v46;
       sub_1CA19B518();
-      sub_1CA10BDC8(&v96, &qword_1EC433830);
+      sub_1CA10BDC8(&v96, &qword_1EC433830, qword_1CA1A0A30);
       v48 = v91;
       sub_1CA19BDC8();
 
       (*(v94 + 8))(v15, v48);
       v49 = v90;
-      sub_1CA10BC7C(&v92[v89], v90, &qword_1EC433170);
+      sub_1CA10BC7C(&v92[v89], v90, &qword_1EC433170, &qword_1CA1A1230);
       v50 = type metadata accessor for VideoPlaybackFailure(0);
       OUTLINED_FUNCTION_0_12();
       swift_storeEnumTagMultiPayload();
@@ -724,7 +247,7 @@ void sub_1CA188B20(uint64_t a1)
       goto LABEL_70;
     case 3:
       v35 = &v2[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_delegate];
-      OUTLINED_FUNCTION_4_5();
+      OUTLINED_FUNCTION_4_5(&v2[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_delegate], &v96);
       if (!swift_unknownObjectWeakLoadStrong())
       {
         return;
@@ -735,7 +258,7 @@ void sub_1CA188B20(uint64_t a1)
       (*(v36 + 16))(ObjectType, v36, v22);
       goto LABEL_64;
     case 4:
-      if (*&v22 == 0.0 && (v27 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_state, OUTLINED_FUNCTION_4_5(), v2[v27] == 5))
+      if (*&v22 == 0.0 && (v27 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_state, OUTLINED_FUNCTION_4_5(&v2[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_state], &v96), v2[v27] == 5))
       {
         v28 = 4;
       }
@@ -759,22 +282,22 @@ void sub_1CA188B20(uint64_t a1)
         {
           if (qword_1EC432C88 != -1)
           {
-            OUTLINED_FUNCTION_2_29();
+            OUTLINED_FUNCTION_2_29(&qword_1EC432C88);
           }
 
           v69 = __swift_project_value_buffer(v1, qword_1EC43C8E8);
           (*(v94 + 16))(v17, v69, v1);
-          __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC434440);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC434440, &unk_1CA1A7CD0);
           sub_1CA19B538();
           *(swift_allocObject() + 16) = xmmword_1CA1A0B80;
           sub_1CA19B4F8();
           v70 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_videoUrl;
-          OUTLINED_FUNCTION_4_5();
-          sub_1CA10BC7C(&v2[v70], v10, &qword_1EC433170);
+          OUTLINED_FUNCTION_4_5(&v2[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_videoUrl], &time);
+          sub_1CA10BC7C(&v2[v70], v10, &qword_1EC433170, &qword_1CA1A1230);
           v71 = sub_1CA19ADF8();
           if (__swift_getEnumTagSinglePayload(v10, 1, v71) == 1)
           {
-            sub_1CA10BDC8(v10, &qword_1EC433170);
+            sub_1CA10BDC8(v10, &qword_1EC433170, &qword_1CA1A1230);
             v96 = 0u;
             v97 = 0u;
           }
@@ -787,7 +310,7 @@ void sub_1CA188B20(uint64_t a1)
           }
 
           sub_1CA19B508();
-          sub_1CA10BDC8(&v96, &qword_1EC433830);
+          sub_1CA10BDC8(&v96, &qword_1EC433830, qword_1CA1A0A30);
           sub_1CA19BDB8();
 
           (*(v94 + 8))(v17, v1);
@@ -796,7 +319,7 @@ void sub_1CA188B20(uint64_t a1)
         else
         {
           v41 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_shouldLoopPlayback;
-          OUTLINED_FUNCTION_4_5();
+          OUTLINED_FUNCTION_4_5(&v2[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_shouldLoopPlayback], &v96);
           if (v2[v41] == 1)
           {
             OUTLINED_FUNCTION_7_19(sel_seekToTime_, MEMORY[0x1E6960CC0]);
@@ -811,7 +334,7 @@ void sub_1CA188B20(uint64_t a1)
           }
 
           v73 = &v2[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_delegate];
-          OUTLINED_FUNCTION_4_5();
+          OUTLINED_FUNCTION_4_5(&v2[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_delegate], &time);
           if (swift_unknownObjectWeakLoadStrong())
           {
             v74 = *(v73 + 1);
@@ -832,7 +355,7 @@ void sub_1CA188B20(uint64_t a1)
 
         v55 = v54;
         v56 = &v2[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_delegate];
-        OUTLINED_FUNCTION_4_5();
+        OUTLINED_FUNCTION_4_5(&v2[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_delegate], &v96);
         if (swift_unknownObjectWeakLoadStrong())
         {
           v57 = *(v56 + 1);
@@ -949,16 +472,16 @@ id VideoPlayer.__allocating_init(playerItem:)(void *a1)
   return v3;
 }
 
-void sub_1CA18996C()
+void sub_1CA18996C(uint64_t a1)
 {
-  sub_1CA1899F4();
-  if (v0 <= 0x3F)
+  sub_1CA1899F4(319);
+  if (v1 <= 0x3F)
   {
     sub_1CA189A6C();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_1CA189AD0();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
       }
@@ -966,13 +489,13 @@ void sub_1CA18996C()
   }
 }
 
-void sub_1CA1899F4()
+void sub_1CA1899F4(uint64_t a1)
 {
   if (!qword_1EC434408)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EC4344C0);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EC4344C0, &qword_1CA1A7DC0);
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata2, &qword_1EC434408);
     }
@@ -995,7 +518,7 @@ void sub_1CA189AD0()
 {
   if (!qword_1EC434418)
   {
-    sub_1CA189B18();
+    sub_1CA189B18(0);
     if (!v1)
     {
       atomic_store(v0, &qword_1EC434418);
@@ -1003,33 +526,33 @@ void sub_1CA189AD0()
   }
 }
 
-void sub_1CA189B18()
+void sub_1CA189B18(uint64_t a1)
 {
   if (!qword_1EC434420)
   {
-    sub_1CA0F2110(255, &qword_1EC434388);
-    v0 = sub_1CA19C6F8();
-    if (!v1)
+    sub_1CA0F2110(255, &qword_1EC434388, 0x1E696ABC0);
+    v1 = sub_1CA19C6F8();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1EC434420);
+      atomic_store(v1, &qword_1EC434420);
     }
   }
 }
 
-void sub_1CA189B9C()
+void sub_1CA189B9C(uint64_t a1)
 {
   sub_1CA189D00(319, &qword_1EE03EA78, MEMORY[0x1E6968FB0]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1CA189D00(319, &qword_1EC434438, type metadata accessor for VideoPlaybackFailure);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_updateClassMetadata2();
     }
   }
 }
 
-void sub_1CA189D00(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_1CA189D00(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -1042,14 +565,16 @@ void sub_1CA189D00(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
   }
 }
 
-uint64_t block_copy_helper_18(uint64_t a1, uint64_t a2)
+double block_copy_helper_18(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 40);
   *(a1 + 32) = *(a2 + 32);
   *(a1 + 40) = v2;
+
+  return result;
 }
 
-uint64_t sub_1CA189DE8(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1CA189DE8(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1064,7 +589,7 @@ uint64_t sub_1CA189DE8(unint64_t *a1, void (*a2)(uint64_t))
 
 uint64_t sub_1CA189E30(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4343F0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4343F0, &qword_1CA1A7BC8);
   (*(*(v4 - 8) + 24))(a2, a1, v4);
   return a2;
 }
@@ -1090,7 +615,7 @@ uint64_t sub_1CA189F68(uint64_t a1)
   return a1;
 }
 
-uint64_t OUTLINED_FUNCTION_2_29()
+uint64_t OUTLINED_FUNCTION_2_29(uint64_t a1)
 {
 
   return swift_once();
@@ -1112,11 +637,11 @@ uint64_t VideoPlayerState.hashValue.getter(unsigned __int8 a1)
   return sub_1CA19CC18();
 }
 
-uint64_t sub_1CA18A0F8()
+uint64_t sub_1CA18A0F8(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_1CA19CBD8();
-  VideoPlayerState.hash(into:)(v3, v1);
+  VideoPlayerState.hash(into:)(v4, v2);
   return sub_1CA19CC18();
 }
 
@@ -1254,9 +779,9 @@ uint64_t sub_1CA18A270(uint64_t a1)
   return v13;
 }
 
-uint64_t VideoView.objectGraph.setter()
+uint64_t VideoView.objectGraph.setter(uint64_t a1)
 {
-  OUTLINED_FUNCTION_13();
+  OUTLINED_FUNCTION_13(a1);
   swift_weakAssign();
 }
 
@@ -1302,7 +827,7 @@ id sub_1CA18A4CC()
     {
       v6 = &v1[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_configuration];
       swift_beginAccess();
-      LOBYTE(v6) = v6[*(type metadata accessor for VideoConfiguration() + 40)];
+      LOBYTE(v6) = v6[*(type metadata accessor for VideoConfiguration(0) + 40)];
       v7 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_shouldLoopPlayback;
       swift_beginAccess();
       *(v5 + v7) = v6;
@@ -1472,7 +997,7 @@ LABEL_4:
     goto LABEL_6;
   }
 
-  sub_1CA10BC7C(&v1[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_networkInquiry], aBlock, &qword_1EC4345B0);
+  sub_1CA10BC7C(&v1[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_networkInquiry], aBlock, &qword_1EC4345B0, &unk_1CA1A3218);
   v13 = v45;
   if (v45)
   {
@@ -1490,7 +1015,7 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  sub_1CA10BDC8(aBlock, &qword_1EC4345B0);
+  sub_1CA10BDC8(aBlock, &qword_1EC4345B0, &unk_1CA1A3218);
   v16 = 0.0;
   v17 = 0.0;
 LABEL_6:
@@ -1498,7 +1023,7 @@ LABEL_6:
   v26 = *&v1[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_videoPlayer];
   if (!v26 || (v27 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_playerItem, swift_beginAccess(), (v28 = *(v26 + v27)) == 0) || ((result = [v28 preferredMaximumResolution], v31 == v16) ? (v32 = v30 == v17) : (v32 = 0), !v32))
   {
-    sub_1CA0F2110(0, &qword_1EE03C230);
+    sub_1CA0F2110(0, &qword_1EE03C230, 0x1E69E9610);
     (*(v9 + 104))(v11, *MEMORY[0x1E69E7F98], v8);
     v33 = sub_1CA19C5E8();
     (*(v9 + 8))(v11, v8);
@@ -1517,9 +1042,9 @@ LABEL_6:
     v37 = v34;
     sub_1CA19B2F8();
     v43 = MEMORY[0x1E69E7CC0];
-    sub_1CA19215C(&qword_1EE03C350, MEMORY[0x1E69E7F60]);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC433C70);
-    sub_1CA1127BC(&qword_1EE03C2A0, &unk_1EC433C70);
+    sub_1CA19215C(&qword_1EE03C350, MEMORY[0x1E69E7F60], MEMORY[0x1E69E7F70]);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC433C70, &qword_1CA1A0D40);
+    sub_1CA1127BC(&qword_1EE03C2A0, &unk_1EC433C70, &qword_1CA1A0D40);
     v38 = v42;
     sub_1CA19C788();
     MEMORY[0x1CCA99C20](0, v7, v5, v36);
@@ -1642,7 +1167,7 @@ void VideoView.__allocating_init(video:objectGraph:aspectRatio:contentSize:)()
   v51 = v4;
   v52 = v5;
   v7 = v6;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC434480);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC434480, &unk_1CA1A7660);
   v9 = OUTLINED_FUNCTION_12_4(v8);
   MEMORY[0x1EEE9AC00](v9);
   OUTLINED_FUNCTION_17_4();
@@ -1655,11 +1180,11 @@ void VideoView.__allocating_init(video:objectGraph:aspectRatio:contentSize:)()
   MEMORY[0x1EEE9AC00](v16);
   OUTLINED_FUNCTION_1_3();
   v19 = v18 - v17;
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4342F0);
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4342F0, &qword_1CA1A7760);
   v21 = OUTLINED_FUNCTION_12_4(v20);
   MEMORY[0x1EEE9AC00](v21);
   v23 = &v43 - v22;
-  v24 = type metadata accessor for VideoConfiguration();
+  v24 = type metadata accessor for VideoConfiguration(0);
   v25 = (v24 - 8);
   MEMORY[0x1EEE9AC00](v24);
   OUTLINED_FUNCTION_17_4();
@@ -1691,8 +1216,8 @@ void VideoView.__allocating_init(video:objectGraph:aspectRatio:contentSize:)()
   v44 = v37;
   v38 = OUTLINED_FUNCTION_23_7();
   sub_1CA190728(v38, v39, v40);
-  sub_1CA10BC7C(v7 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic5Video_templateMediaEvent, v45, &unk_1EC434480);
-  sub_1CA10BC7C(v7 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic5Video_templateClickEvent, v46, &unk_1EC434480);
+  sub_1CA10BC7C(v7 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic5Video_templateMediaEvent, v45, &unk_1EC434480, &unk_1CA1A7660);
+  sub_1CA10BC7C(v7 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic5Video_templateClickEvent, v46, &unk_1EC434480, &unk_1CA1A7660);
 
   VideoView.__allocating_init(playbackId:url:configuration:templateMediaEvent:templateClickEvent:asPartOf:)();
   *&v41[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_video] = v7;
@@ -1700,14 +1225,14 @@ void VideoView.__allocating_init(video:objectGraph:aspectRatio:contentSize:)()
 
   VideoView.apply(video:withContentSize:)(v7, v50, v51, v49 & 1);
 
-  sub_1CA10BDC8(v52, &qword_1EC4342F0);
+  sub_1CA10BDC8(v52, &qword_1EC4342F0, &qword_1CA1A7760);
   sub_1CA190788(v28, v44);
   OUTLINED_FUNCTION_20_0();
 }
 
 uint64_t sub_1CA18B6BC(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4342F0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4342F0, &qword_1CA1A7760);
   (*(*(v4 - 8) + 24))(a2, a1, v4);
   return a2;
 }
@@ -1725,14 +1250,14 @@ void VideoView.__allocating_init(playbackId:url:configuration:templateMediaEvent
   v34 = v8;
   v10 = v1;
   v39 = v11;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC434480);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC434480, &unk_1CA1A7660);
   v13 = OUTLINED_FUNCTION_12_4(v12);
   MEMORY[0x1EEE9AC00](v13);
   OUTLINED_FUNCTION_17_4();
   v35 = v14 - v15;
   MEMORY[0x1EEE9AC00](v16);
   v18 = &v33 - v17;
-  v19 = type metadata accessor for VideoConfiguration();
+  v19 = type metadata accessor for VideoConfiguration(0);
   v20 = OUTLINED_FUNCTION_12_4(v19);
   MEMORY[0x1EEE9AC00](v20);
   OUTLINED_FUNCTION_1_3();
@@ -1744,20 +1269,20 @@ void VideoView.__allocating_init(playbackId:url:configuration:templateMediaEvent
   v27 = v26 - v25;
   (*(v24 + 16))(v26 - v25, v10);
   sub_1CA190728(v9, v23, type metadata accessor for VideoConfiguration);
-  sub_1CA10BC7C(v7, v18, &unk_1EC434480);
+  sub_1CA10BC7C(v7, v18, &unk_1EC434480, &unk_1CA1A7660);
   v28 = v5;
   v29 = v5;
   v30 = v35;
-  sub_1CA10BC7C(v29, v35, &unk_1EC434480);
+  sub_1CA10BC7C(v29, v35, &unk_1EC434480, &unk_1CA1A7660);
   v31 = type metadata accessor for NWPathNetworkInquiry();
   v32 = sub_1CA16F030();
   v42[3] = v31;
   v42[4] = &off_1F49D1A98;
   v42[0] = v32;
   objc_allocWithZone(v38);
-  sub_1CA18BAF4(v39, v40, v27, v23, v18, v30, v42);
-  sub_1CA10BDC8(v28, &unk_1EC434480);
-  sub_1CA10BDC8(v7, &unk_1EC434480);
+  sub_1CA18BAF4(v39, v40, v27, v23, v18, v30, v42, v41);
+  sub_1CA10BDC8(v28, &unk_1EC434480, &unk_1CA1A7660);
+  sub_1CA10BDC8(v7, &unk_1EC434480, &unk_1CA1A7660);
   sub_1CA190788(v34, type metadata accessor for VideoConfiguration);
   (*(v24 + 8))(v37, v36);
   OUTLINED_FUNCTION_20_0();
@@ -1766,14 +1291,14 @@ void VideoView.__allocating_init(playbackId:url:configuration:templateMediaEvent
 uint64_t VideoView.apply(video:withContentSize:)(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
 {
   v9 = (v4 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_playbackId);
-  OUTLINED_FUNCTION_4_5();
+  OUTLINED_FUNCTION_4_5(v4 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_playbackId, v19);
   v10 = *v9 == *(a1 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic5Video_playbackId) && v9[1] == *(a1 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic5Video_playbackId + 8);
   if (v10 || (result = sub_1CA19CAF8(), (result & 1) != 0))
   {
     *(v4 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_video) = a1;
 
     VideoView.startPreloading()();
-    OUTLINED_FUNCTION_4_5();
+    OUTLINED_FUNCTION_4_5(v4 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_objectGraph, v18);
     result = swift_weakLoadStrong();
     if (result)
     {
@@ -1781,7 +1306,7 @@ uint64_t VideoView.apply(video:withContentSize:)(uint64_t a1, uint64_t a2, uint6
       if ((a4 & 1) == 0)
       {
         v13 = (*(v4 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_previewFrameArtwork) + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic16ArtworkImageView_artworkSize);
-        OUTLINED_FUNCTION_22_5();
+        OUTLINED_FUNCTION_22_5(v13, v17);
         *v13 = a2;
         v13[1] = a3;
       }
@@ -1789,7 +1314,7 @@ uint64_t VideoView.apply(video:withContentSize:)(uint64_t a1, uint64_t a2, uint6
       if (*(a1 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic5Video_preview))
       {
 
-        ArtworkImageView.apply(artwork:asPartOf:)(v14, v12);
+        ArtworkImageView.apply(artwork:asPartOf:)(v14, v12, v15, v16);
       }
     }
   }
@@ -1797,87 +1322,89 @@ uint64_t VideoView.apply(video:withContentSize:)(uint64_t a1, uint64_t a2, uint6
   return result;
 }
 
-char *sub_1CA18BAF4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+char *sub_1CA18BAF4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v8 = v7;
+  v9 = v8;
   ObjectType = swift_getObjectType();
+  v15 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_objectGraph;
   swift_weakInit();
   OUTLINED_FUNCTION_20_7(OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_fullScreenDelegate);
   OUTLINED_FUNCTION_20_7(OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_videoPlayerDelegate);
-  v14 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_previewFrameArtwork;
-  v15 = objc_allocWithZone(type metadata accessor for ArtworkImageView());
-  *&v7[v14] = OUTLINED_FUNCTION_19_4();
-  v7[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_animatePreviewFrameTransitions] = 0;
-  *&v7[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_videoPlayer] = 0;
-  *&v7[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_playerViewController] = 0;
-  *&v7[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_video] = 0;
-  v16 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_playButton;
-  *&v8[v16] = [objc_allocWithZone(type metadata accessor for PlayButton()) init];
-  v17 = &v8[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_additionalControlInsets];
-  v18 = *(MEMORY[0x1E69DDCE0] + 16);
-  *v17 = *MEMORY[0x1E69DDCE0];
-  v17[1] = v18;
-  v19 = &v8[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_prominentPlayButtonLocationOverride];
-  *v19 = 0;
-  *(v19 + 1) = 0;
-  v19[16] = 1;
-  *&v8[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_preferredUnobscuredArea] = 1;
-  v8[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_unmuteAfterVideoPlayerCreation] = 0;
-  *&v8[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_delegate + 8] = 0;
+  v16 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_previewFrameArtwork;
+  v17 = objc_allocWithZone(type metadata accessor for ArtworkImageView());
+  *&v8[v16] = OUTLINED_FUNCTION_19_4(v17);
+  v8[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_animatePreviewFrameTransitions] = 0;
+  *&v8[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_videoPlayer] = 0;
+  *&v8[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_playerViewController] = 0;
+  *&v8[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_video] = 0;
+  v18 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_playButton;
+  *&v9[v18] = [objc_allocWithZone(type metadata accessor for PlayButton()) init];
+  v19 = &v9[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_additionalControlInsets];
+  v20 = *(MEMORY[0x1E69DDCE0] + 16);
+  *v19 = *MEMORY[0x1E69DDCE0];
+  v19[1] = v20;
+  v21 = &v9[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_prominentPlayButtonLocationOverride];
+  *v21 = 0;
+  *(v21 + 1) = 0;
+  v21[16] = 1;
+  *&v9[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_preferredUnobscuredArea] = 1;
+  v9[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_unmuteAfterVideoPlayerCreation] = 0;
+  *&v9[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_delegate + 8] = 0;
   swift_unknownObjectWeakInit();
-  v8[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_isFullScreen] = 0;
-  v8[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_isTransitioningToFullscreen] = 0;
-  v8[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_wasAudioOnPreFullScreen] = 0;
-  v8[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_prefersMinimalPlaybackControls] = 0;
-  *&v8[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_currentTouch] = 0;
-  v8[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_releaseAssetsAtNextPauseState] = 0;
-  OUTLINED_FUNCTION_22_5();
+  v9[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_isFullScreen] = 0;
+  v9[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_isTransitioningToFullscreen] = 0;
+  v9[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_wasAudioOnPreFullScreen] = 0;
+  v9[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_prefersMinimalPlaybackControls] = 0;
+  *&v9[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_currentTouch] = 0;
+  v9[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_releaseAssetsAtNextPauseState] = 0;
+  OUTLINED_FUNCTION_22_5(&v9[v15], v55);
   swift_weakAssign();
-  v20 = &v8[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_playbackId];
-  *v20 = a1;
-  v20[1] = a2;
-  v21 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_videoUrl;
-  v22 = sub_1CA19ADF8();
-  v23 = *(v22 - 8);
-  v47 = a3;
-  (*(v23 + 16))(&v8[v21], a3, v22);
-  v43 = a5;
-  sub_1CA10BC7C(a5, &v8[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_templateMediaEvent], &unk_1EC434480);
-  v42 = a6;
-  sub_1CA10BC7C(a6, &v8[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_templateClickEvent], &unk_1EC434480);
+  v22 = &v9[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_playbackId];
+  *v22 = a1;
+  v22[1] = a2;
+  v23 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_videoUrl;
+  v24 = sub_1CA19ADF8();
+  v25 = *(v24 - 8);
+  v51 = a3;
+  (*(v25 + 16))(&v9[v23], a3, v24);
+  v47 = a5;
+  sub_1CA10BC7C(a5, &v9[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_templateMediaEvent], &unk_1EC434480, &unk_1CA1A7660);
+  v46 = a6;
+  sub_1CA10BC7C(a6, &v9[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_templateClickEvent], &unk_1EC434480, &unk_1CA1A7660);
   OUTLINED_FUNCTION_5_19();
-  v45 = a4;
-  sub_1CA190728(a4, &v8[v24], v25);
-  sub_1CA10BC7C(a7, &v8[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_networkInquiry], &qword_1EC4345B0);
-  v49.receiver = v8;
-  v49.super_class = ObjectType;
-  v26 = objc_msgSendSuper2(&v49, sel_initWithFrame_, 0.0, 0.0, 0.0, 0.0);
-  [v26 setClipsToBounds_];
-  v27 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_previewFrameArtwork;
-  [*&v26[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_previewFrameArtwork] setUserInteractionEnabled_];
-  [*&v26[v27] setClipsToBounds_];
-  [v26 addSubview_];
-  v28 = objc_opt_self();
-  v29 = [v28 defaultCenter];
-  v30 = sub_1CA19C0E8();
-  [v29 addObserver:v26 selector:sel_didChangeAutoPlayVideoSetting name:v30 object:0];
+  v49 = a4;
+  sub_1CA190728(a4, &v9[v26], v27);
+  sub_1CA10BC7C(a7, &v9[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_networkInquiry], &qword_1EC4345B0, &unk_1CA1A3218);
+  v54.receiver = v9;
+  v54.super_class = ObjectType;
+  v28 = objc_msgSendSuper2(&v54, sel_initWithFrame_, 0.0, 0.0, 0.0, 0.0);
+  [v28 setClipsToBounds_];
+  v29 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_previewFrameArtwork;
+  [*&v28[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_previewFrameArtwork] setUserInteractionEnabled_];
+  [*&v28[v29] setClipsToBounds_];
+  [v28 addSubview_];
+  v30 = objc_opt_self();
+  v31 = [v30 defaultCenter];
+  v32 = sub_1CA19C0E8();
+  [v31 addObserver:v28 selector:sel_didChangeAutoPlayVideoSetting name:v32 object:0];
 
-  v31 = [v28 defaultCenter];
-  [v31 addObserver:v26 selector:sel_handleMediaServicesReset name:*MEMORY[0x1E6958128] object:0];
+  v33 = [v30 defaultCenter];
+  [v33 addObserver:v28 selector:sel_handleMediaServicesReset name:*MEMORY[0x1E6958128] object:0];
 
-  OUTLINED_FUNCTION_4_5();
+  OUTLINED_FUNCTION_4_5(&v28[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_objectGraph], v52);
   if (swift_weakLoadStrong())
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4334A0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4334A0, &unk_1CA1A7DB0);
     sub_1CA19B7C8();
 
-    if (v48)
+    v34 = v53;
+    if (v53)
     {
-      if ([v48 respondsToSelector_])
+      if ([v53 respondsToSelector_])
       {
-        v32 = [v48 isVideoAudioEnabled];
+        v35 = [v34 isVideoAudioEnabled];
         swift_unknownObjectRelease();
-        v26[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_unmuteAfterVideoPlayerCreation] = v32;
+        v28[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_unmuteAfterVideoPlayerCreation] = v35;
       }
 
       else
@@ -1887,79 +1414,80 @@ char *sub_1CA18BAF4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
     }
   }
 
-  v33 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_playButton;
-  [*&v26[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_playButton] setHidden_];
-  v34 = *&v26[v33];
+  v36 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_playButton;
+  [*&v28[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_playButton] setHidden_];
+  v37 = *&v28[v36];
   OUTLINED_FUNCTION_14_2();
-  v35 = swift_allocObject();
+  v38 = swift_allocObject();
   swift_unknownObjectWeakInit();
-  v36 = &v34[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic10PlayButton_tapActionBlock];
-  v37 = *&v34[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic10PlayButton_tapActionBlock];
-  *v36 = sub_1CA19259C;
-  v36[1] = v35;
-  v38 = v34;
+  v39 = &v37[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic10PlayButton_tapActionBlock];
+  v40 = *&v37[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic10PlayButton_tapActionBlock];
+  v41 = *&v37[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic10PlayButton_tapActionBlock + 8];
+  *v39 = sub_1CA19259C;
+  v39[1] = v38;
+  v42 = v37;
 
-  sub_1CA0EBE84(v37);
+  sub_1CA0EBE84(v40, v41);
 
-  [v26 addSubview_];
+  [v28 addSubview_];
   sub_1CA18CA48();
 
-  sub_1CA10BDC8(a7, &qword_1EC4345B0);
-  sub_1CA10BDC8(v42, &unk_1EC434480);
-  sub_1CA10BDC8(v43, &unk_1EC434480);
+  sub_1CA10BDC8(a7, &qword_1EC4345B0, &unk_1CA1A3218);
+  sub_1CA10BDC8(v46, &unk_1EC434480, &unk_1CA1A7660);
+  sub_1CA10BDC8(v47, &unk_1EC434480, &unk_1CA1A7660);
   OUTLINED_FUNCTION_4_23();
-  sub_1CA190788(v45, v39);
-  (*(v23 + 8))(v47, v22);
-  return v26;
+  sub_1CA190788(v49, v43);
+  (*(v25 + 8))(v51, v24);
+  return v28;
 }
 
-void sub_1CA18C0DC()
+void sub_1CA18C0DC(uint64_t a1)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v2 = Strong;
     if (qword_1EE03B230 != -1)
     {
       swift_once();
     }
 
-    v2 = sub_1CA19AFF8();
-    __swift_project_value_buffer(v2, qword_1EE040B90);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960);
+    v3 = sub_1CA19AFF8();
+    __swift_project_value_buffer(v3, qword_1EE040B90);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960, &qword_1CA1A0B60);
     sub_1CA19AF88();
     *(swift_allocObject() + 16) = xmmword_1CA1A0B80;
-    v16 = type metadata accessor for VideoView();
-    v15[0] = v1;
-    v3 = v1;
-    v4 = AMSLogKey();
-    if (v4)
+    v17 = type metadata accessor for VideoView(0);
+    v16[0] = v2;
+    v4 = v2;
+    v5 = AMSLogKey();
+    if (v5)
     {
-      v5 = v4;
+      v6 = v5;
       sub_1CA19C118();
     }
 
     sub_1CA19AF58();
 
-    __swift_destroy_boxed_opaque_existential_2(v15);
-    v16 = MEMORY[0x1E69E6158];
-    v15[0] = 0x7061742079616C50;
-    v15[1] = 0xEB00000000646570;
+    __swift_destroy_boxed_opaque_existential_2(v16);
+    v17 = MEMORY[0x1E69E6158];
+    v16[0] = 0x7061742079616C50;
+    v16[1] = 0xEB00000000646570;
     sub_1CA19AF38();
-    sub_1CA10BDC8(v15, &qword_1EC433830);
+    sub_1CA10BDC8(v16, &qword_1EC433830, qword_1CA1A0A30);
     sub_1CA19AFC8();
 
     VideoView.play()();
-    v6 = &v3[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_delegate];
+    v7 = &v4[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_delegate];
     swift_beginAccess();
     if (swift_unknownObjectWeakLoadStrong())
     {
-      v7 = *(v6 + 1);
+      v8 = *(v7 + 1);
       swift_getObjectType();
-      v8 = *(v7 + 40);
-      v9 = v3;
-      v8();
+      v9 = *(v8 + 40);
+      v10 = v4;
+      v9();
 
       swift_unknownObjectRelease();
     }
@@ -1969,21 +1497,21 @@ void sub_1CA18C0DC()
       goto LABEL_19;
     }
 
-    v10 = &v3[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_configuration];
+    v11 = &v4[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_configuration];
     swift_beginAccess();
-    if ((v10[*(type metadata accessor for VideoConfiguration() + 24)] & 8) == 0)
+    if ((v11[*(type metadata accessor for VideoConfiguration(0) + 24)] & 8) == 0)
     {
       goto LABEL_19;
     }
 
-    v11 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_videoPlayer;
-    if (*&v3[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_videoPlayer])
+    v12 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_videoPlayer;
+    if (*&v4[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_videoPlayer])
     {
-      [v3 updateAudioSessionCategoryWithIsAudioOn_];
-      v12 = *&v3[v11];
-      if (v12)
+      [v4 updateAudioSessionCategoryWithIsAudioOn_];
+      v13 = *&v4[v12];
+      if (v13)
       {
-        [v12 setMuted_];
+        [v13 setMuted_];
       }
 
       goto LABEL_19;
@@ -1992,16 +1520,16 @@ void sub_1CA18C0DC()
     swift_beginAccess();
     if (swift_weakLoadStrong())
     {
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4334A0);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4334A0, &unk_1CA1A7DB0);
       sub_1CA19B7C8();
 
-      if (v14)
+      if (v15)
       {
-        if ([v14 respondsToSelector_])
+        if ([v15 respondsToSelector_])
         {
-          v13 = [v14 isVideoAudioEnabled];
+          v14 = [v15 isVideoAudioEnabled];
           swift_unknownObjectRelease();
-          v3[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_unmuteAfterVideoPlayerCreation] = v13;
+          v4[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_unmuteAfterVideoPlayerCreation] = v14;
 LABEL_19:
 
           return;
@@ -2011,7 +1539,7 @@ LABEL_19:
       }
     }
 
-    v3[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_unmuteAfterVideoPlayerCreation] = 1;
+    v4[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_unmuteAfterVideoPlayerCreation] = 1;
     goto LABEL_19;
   }
 }
@@ -2029,22 +1557,22 @@ Swift::Void __swiftcall VideoView.play()()
   v9 = v8 - v7;
   v10 = *&v0[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_videoPlayer];
   v11 = &unk_1CA1A0000;
-  v24 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_videoPlayer;
+  v26 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_videoPlayer;
   if (!v10)
   {
     if (qword_1EE03B230 != -1)
     {
-      OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_0_2(&qword_1EE03B230);
     }
 
     __swift_project_value_buffer(v3, qword_1EE040B90);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960, &qword_1CA1A0B60);
     v12 = sub_1CA19AF88();
     OUTLINED_FUNCTION_7_3(v12);
     OUTLINED_FUNCTION_4_8();
     *(swift_allocObject() + 16) = xmmword_1CA1A0B80;
-    v27 = ObjectType;
-    v25 = v1;
+    v31 = ObjectType;
+    v29 = v1;
     v1;
     v13 = AMSLogKey();
     if (v13)
@@ -2055,16 +1583,16 @@ Swift::Void __swiftcall VideoView.play()()
 
     sub_1CA19AF58();
 
-    __swift_destroy_boxed_opaque_existential_2(&v25);
-    v27 = MEMORY[0x1E69E6158];
-    v25 = 0x6964616F6C657250;
-    v26 = 0xEA0000000000676ELL;
+    __swift_destroy_boxed_opaque_existential_2(&v29);
+    v31 = MEMORY[0x1E69E6158];
+    v29 = 0x6964616F6C657250;
+    v30 = 0xEA0000000000676ELL;
     sub_1CA19AF38();
-    sub_1CA10BDC8(&v25, &qword_1EC433830);
+    sub_1CA10BDC8(&v29, &qword_1EC433830, qword_1CA1A0A30);
     sub_1CA19AF98();
 
     VideoView.startPreloading()();
-    v10 = *&v1[v24];
+    v10 = *&v1[v26];
     v11 = &unk_1CA1A0000;
     if (!v10)
     {
@@ -2073,14 +1601,14 @@ Swift::Void __swiftcall VideoView.play()()
   }
 
   v15 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_shouldBePlaying;
-  OUTLINED_FUNCTION_4_5();
+  OUTLINED_FUNCTION_4_5(v10 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_shouldBePlaying, &v28);
   if ((*(v10 + v15) & 1) == 0)
   {
     OUTLINED_FUNCTION_14_2();
-    swift_allocObject();
+    v21 = swift_allocObject();
     swift_unknownObjectWeakInit();
 
-    sub_1CA18D71C(sub_1CA18D714);
+    sub_1CA18D71C(sub_1CA18D714, v21);
   }
 
   else
@@ -2088,18 +1616,18 @@ Swift::Void __swiftcall VideoView.play()()
 LABEL_8:
     if (qword_1EE03B230 != -1)
     {
-      OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_0_2(&qword_1EE03B230);
     }
 
     v16 = __swift_project_value_buffer(v3, qword_1EE040B90);
     (*(v5 + 16))(v9, v16, v3);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960, &qword_1CA1A0B60);
     v17 = sub_1CA19AF88();
     OUTLINED_FUNCTION_7_3(v17);
     OUTLINED_FUNCTION_4_8();
     *(swift_allocObject() + 16) = v11[184];
-    v27 = ObjectType;
-    v25 = v1;
+    v31 = ObjectType;
+    v29 = v1;
     v18 = v1;
     v19 = AMSLogKey();
     if (v19)
@@ -2110,29 +1638,30 @@ LABEL_8:
 
     sub_1CA19AF58();
 
-    __swift_destroy_boxed_opaque_existential_2(&v25);
-    v25 = 0;
-    v26 = 0xE000000000000000;
+    __swift_destroy_boxed_opaque_existential_2(&v29);
+    v29 = 0;
+    v30 = 0xE000000000000000;
     sub_1CA19C8F8();
 
-    v25 = 0xD000000000000026;
-    v26 = 0x80000001CA1AF1E0;
-    if (*&v1[v24])
+    v29 = 0xD000000000000026;
+    v30 = 0x80000001CA1AF1E0;
+    v22 = *&v1[v26];
+    if (v22)
     {
-      OUTLINED_FUNCTION_4_5();
+      OUTLINED_FUNCTION_4_5(v22 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_state, &v27);
     }
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC434498);
-    v21 = sub_1CA19C168();
-    MEMORY[0x1CCA99820](v21);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC434498, &unk_1CA1A7DA0);
+    v23 = sub_1CA19C168();
+    MEMORY[0x1CCA99820](v23);
 
-    v27 = MEMORY[0x1E69E6158];
+    v31 = MEMORY[0x1E69E6158];
     sub_1CA19AF38();
-    sub_1CA10BDC8(&v25, &qword_1EC433830);
+    sub_1CA10BDC8(&v29, &qword_1EC433830, qword_1CA1A0A30);
     sub_1CA19AFC8();
 
-    v22 = OUTLINED_FUNCTION_0_12();
-    v23(v22);
+    v24 = OUTLINED_FUNCTION_0_12();
+    v25(v24);
   }
 
   OUTLINED_FUNCTION_20_0();
@@ -2142,9 +1671,9 @@ uint64_t VideoView.allowsAutoPlay.getter()
 {
   swift_getObjectType();
   v1 = v0 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_configuration;
-  OUTLINED_FUNCTION_4_5();
-  LOBYTE(v1) = *(v1 + *(type metadata accessor for VideoConfiguration() + 36));
-  OUTLINED_FUNCTION_4_5();
+  OUTLINED_FUNCTION_4_5(v0 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_configuration, v6);
+  LOBYTE(v1) = *(v1 + *(type metadata accessor for VideoConfiguration(0) + 36));
+  OUTLINED_FUNCTION_4_5(v0 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_objectGraph, &v5);
   Strong = swift_weakLoadStrong();
   v3 = static VideoView.isAutoPlayAllowed(videoConfigurationAutoPlay:objectGraph:)(v1, Strong);
 
@@ -2158,13 +1687,13 @@ void sub_1CA18CA48()
   v3 = sub_1CA19AFF8();
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
-  v6 = &v35 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v37 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = *&v1[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_videoPlayer];
   if (v7)
   {
     v8 = &v1[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_configuration];
     swift_beginAccess();
-    LOBYTE(v8) = v8[*(type metadata accessor for VideoConfiguration() + 40)];
+    LOBYTE(v8) = v8[*(type metadata accessor for VideoConfiguration(0) + 40)];
     v9 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_shouldLoopPlayback;
     swift_beginAccess();
     *(v7 + v9) = v8;
@@ -2207,7 +1736,7 @@ void sub_1CA18CA48()
     [v19 setVideoGravity:v18 forLayoutClass:0];
   }
 
-  v20 = type metadata accessor for VideoConfiguration();
+  v20 = type metadata accessor for VideoConfiguration(0);
   [v1 setUserInteractionEnabled_];
   [*&v1[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_playButton] setHidden_];
   v21 = *&v1[v10];
@@ -2221,23 +1750,23 @@ void sub_1CA18CA48()
     }
   }
 
-  v35 = v10;
+  v37 = v10;
   if (qword_1EE03B230 != -1)
   {
     swift_once();
   }
 
   v23 = __swift_project_value_buffer(v3, qword_1EE040B90);
-  v37 = v4;
+  v39 = v4;
   v24 = *(v4 + 16);
-  v36 = v6;
-  v38 = v3;
+  v38 = v6;
+  v40 = v3;
   v24(v6, v23, v3);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960, &qword_1CA1A0B60);
   sub_1CA19AF88();
   *(swift_allocObject() + 16) = xmmword_1CA1A0B80;
-  v41 = ObjectType;
-  v39 = v1;
+  v43 = ObjectType;
+  v41 = v1;
   v25 = v1;
   v26 = AMSLogKey();
   if (v26)
@@ -2249,13 +1778,13 @@ void sub_1CA18CA48()
   v28 = 1702195828;
   sub_1CA19AF58();
 
-  __swift_destroy_boxed_opaque_existential_2(&v39);
-  v39 = 0;
-  v40 = 0xE000000000000000;
+  __swift_destroy_boxed_opaque_existential_2(&v41);
+  v41 = 0;
+  v42 = 0xE000000000000000;
   sub_1CA19C8F8();
 
-  v39 = 0xD00000000000001BLL;
-  v40 = 0x80000001CA1AF770;
+  v41 = 0xD00000000000001BLL;
+  v42 = 0x80000001CA1AF770;
   v29 = 0xE400000000000000;
   if ((VideoView.allowsAutoPlay.getter() & 1) == 0)
   {
@@ -2270,32 +1799,32 @@ void sub_1CA18CA48()
 
   MEMORY[0x1CCA99820](v28, v29);
 
-  v41 = MEMORY[0x1E69E6158];
+  v43 = MEMORY[0x1E69E6158];
   sub_1CA19AF38();
-  sub_1CA10BDC8(&v39, &qword_1EC433830);
-  v31 = v36;
+  sub_1CA10BDC8(&v41, &qword_1EC433830, qword_1CA1A0A30);
+  v31 = v38;
   sub_1CA19AFC8();
 
-  (*(v37 + 8))(v31, v38);
-  v32 = *&v1[v35];
-  if (v32)
+  v32 = (*(v39 + 8))(v31, v40);
+  v34 = *&v1[v37];
+  if (v34)
   {
     if ((v14[*(v20 + 24)] & 8) != 0)
     {
-      v34 = 1;
+      v36 = 1;
     }
 
     else
     {
-      v33 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_isFullScreen;
+      v35 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_isFullScreen;
       swift_beginAccess();
-      v34 = v25[v33];
+      v36 = v25[v35];
     }
 
-    [v32 setPlaybackControlsIncludeVolumeControls_];
+    v32 = [v34 setPlaybackControlsIncludeVolumeControls_];
   }
 
-  sub_1CA18E9A0();
+  sub_1CA18E9A0(v32, v33);
   sub_1CA18F3EC();
   sub_1CA18B0F0();
 }
@@ -2308,7 +1837,7 @@ void sub_1CA18CFD8()
   OUTLINED_FUNCTION_20_7(OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_videoPlayerDelegate);
   v2 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_previewFrameArtwork;
   v3 = objc_allocWithZone(type metadata accessor for ArtworkImageView());
-  *(v0 + v2) = OUTLINED_FUNCTION_19_4();
+  *(v0 + v2) = OUTLINED_FUNCTION_19_4(v3);
   *(v0 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_animatePreviewFrameTransitions) = 0;
   *(v0 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_videoPlayer) = 0;
   *(v0 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_playerViewController) = 0;
@@ -2340,7 +1869,7 @@ void sub_1CA18CFD8()
 uint64_t VideoView.playbackId.getter()
 {
   v1 = (v0 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_playbackId);
-  OUTLINED_FUNCTION_4_5();
+  OUTLINED_FUNCTION_4_5(v0 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_playbackId, v4);
   v2 = *v1;
 
   return v2;
@@ -2349,7 +1878,7 @@ uint64_t VideoView.playbackId.getter()
 uint64_t VideoView.playbackId.setter(uint64_t a1, uint64_t a2)
 {
   v5 = (v2 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_playbackId);
-  OUTLINED_FUNCTION_22_5();
+  OUTLINED_FUNCTION_22_5(v5, v7);
   *v5 = a1;
   v5[1] = a2;
 }
@@ -2357,7 +1886,7 @@ uint64_t VideoView.playbackId.setter(uint64_t a1, uint64_t a2)
 uint64_t VideoView.delegate.setter(uint64_t a1, uint64_t a2)
 {
   v4 = v2 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_delegate;
-  OUTLINED_FUNCTION_22_5();
+  OUTLINED_FUNCTION_22_5(v4, v6);
   *(v4 + 8) = a2;
   swift_unknownObjectWeakAssign();
   return swift_unknownObjectRelease();
@@ -2379,17 +1908,17 @@ uint64_t (*VideoView.delegate.modify(void *a1))()
   return sub_1CA18D3D0;
 }
 
-uint64_t VideoView.state.getter()
+uint64_t VideoView.state.getter(uint64_t a1, uint64_t a2)
 {
-  v1 = *(v0 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_videoPlayer);
-  if (!v1)
+  v3 = *(v2 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_videoPlayer);
+  if (!v3)
   {
     return 0;
   }
 
-  v2 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_state;
-  OUTLINED_FUNCTION_1_22();
-  return *(v1 + v2);
+  v4 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_state;
+  OUTLINED_FUNCTION_1_22(v3 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_state, a2);
+  return *(v3 + v4);
 }
 
 Swift::Void __swiftcall VideoView.startPreloading()()
@@ -2410,51 +1939,51 @@ Swift::Void __swiftcall VideoView.startPreloading()()
   }
 }
 
-void sub_1CA18D530()
+void sub_1CA18D530(uint64_t a1)
 {
   if (qword_1EE03B230 != -1)
   {
     swift_once();
   }
 
-  v0 = sub_1CA19AFF8();
-  __swift_project_value_buffer(v0, qword_1EE040B90);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960);
+  v1 = sub_1CA19AFF8();
+  __swift_project_value_buffer(v1, qword_1EE040B90);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960, &qword_1CA1A0B60);
   sub_1CA19AF88();
   *(swift_allocObject() + 16) = xmmword_1CA1A0B80;
   sub_1CA19AF18();
-  v7 = MEMORY[0x1E69E6158];
-  v5 = 0xD00000000000001CLL;
-  v6 = 0x80000001CA1AF790;
+  v8 = MEMORY[0x1E69E6158];
+  v6 = 0xD00000000000001CLL;
+  v7 = 0x80000001CA1AF790;
   sub_1CA19AF38();
-  sub_1CA10BDC8(&v5, &qword_1EC433830);
+  sub_1CA10BDC8(&v6, &qword_1EC433830, qword_1CA1A0A30);
   sub_1CA19AF98();
 
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v2 = Strong;
-    v3 = *(Strong + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_videoPlayer);
-    if (v3)
+    v3 = Strong;
+    v4 = *(Strong + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_videoPlayer);
+    if (v4)
     {
-      v4 = v3;
+      v5 = v4;
 
-      [v4 play];
-      v2 = v4;
+      [v5 play];
+      v3 = v5;
     }
   }
 }
 
-void sub_1CA18D71C(void (*a1)(void))
+void sub_1CA18D71C(void (*a1)(void), uint64_t a2)
 {
-  v3 = *(v1 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_videoPlayer);
-  if (v3)
+  v4 = *(v2 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_videoPlayer);
+  if (v4)
   {
-    v4 = v3;
-    if ([v4 isMuted] && (VideoView.allowsAutoPlay.getter() & 1) != 0)
+    v5 = v4;
+    if ([v5 isMuted] && (VideoView.allowsAutoPlay.getter() & 1) != 0)
     {
-      sub_1CA0F2110(0, &unk_1EC434590);
+      sub_1CA0F2110(0, &unk_1EC434590, 0x1E6958460);
       sub_1CA18FBE8();
 
       return;
@@ -2469,14 +1998,14 @@ void sub_1CA18D71C(void (*a1)(void))
 
 Swift::Void __swiftcall VideoView.pause()()
 {
-  v1 = *(v0 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_videoPlayer);
-  if (v1)
+  v2 = *(v1 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_videoPlayer);
+  if (v2)
   {
-    v2 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_shouldBePlaying;
-    OUTLINED_FUNCTION_1_22();
-    if (*(v1 + v2) == 1)
+    v3 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_shouldBePlaying;
+    OUTLINED_FUNCTION_1_22(v2 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_shouldBePlaying, v0);
+    if (*(v2 + v3) == 1)
     {
-      [v1 pause];
+      [v2 pause];
     }
   }
 }
@@ -2500,22 +2029,22 @@ uint64_t VideoView.isPlaying.getter()
   }
 
   v2 = v1;
-  v3 = VideoPlayer.isPlaying.getter();
+  v3 = VideoPlayer.isPlaying.getter(v2);
 
   return v3 & 1;
 }
 
-uint64_t VideoView.shouldBePlaying.getter()
+uint64_t VideoView.shouldBePlaying.getter(uint64_t a1, uint64_t a2)
 {
-  v1 = *(v0 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_videoPlayer);
-  if (!v1)
+  v3 = *(v2 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_videoPlayer);
+  if (!v3)
   {
     return 0;
   }
 
-  v2 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_shouldBePlaying;
-  OUTLINED_FUNCTION_1_22();
-  return *(v1 + v2);
+  v4 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_shouldBePlaying;
+  OUTLINED_FUNCTION_1_22(v3 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic11VideoPlayer_shouldBePlaying, a2);
+  return *(v3 + v4);
 }
 
 uint64_t static VideoView.isAutoPlayAllowed(videoConfigurationAutoPlay:objectGraph:)(char a1, uint64_t a2)
@@ -2524,12 +2053,12 @@ uint64_t static VideoView.isAutoPlayAllowed(videoConfigurationAutoPlay:objectGra
   {
     if (qword_1EE03B230 != -1)
     {
-      OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_0_2(&qword_1EE03B230);
     }
 
     v8 = sub_1CA19AFF8();
     __swift_project_value_buffer(v8, qword_1EE040B90);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960, &qword_1CA1A0B60);
     OUTLINED_FUNCTION_40_1();
     v9 = sub_1CA19AF88();
     OUTLINED_FUNCTION_7_3(v9);
@@ -2543,7 +2072,7 @@ uint64_t static VideoView.isAutoPlayAllowed(videoConfigurationAutoPlay:objectGra
     v18 = 0xD00000000000001ELL;
     v19 = 0x80000001CA1AF210;
     sub_1CA19AF38();
-    sub_1CA10BDC8(&v18, &qword_1EC433830);
+    sub_1CA10BDC8(&v18, &qword_1EC433830, qword_1CA1A0A30);
     sub_1CA19AFA8();
     goto LABEL_9;
   }
@@ -2555,12 +2084,12 @@ uint64_t static VideoView.isAutoPlayAllowed(videoConfigurationAutoPlay:objectGra
   {
     if (qword_1EE03B230 != -1)
     {
-      OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_0_2(&qword_1EE03B230);
     }
 
     v5 = sub_1CA19AFF8();
     __swift_project_value_buffer(v5, qword_1EE040B90);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960, &qword_1CA1A0B60);
     OUTLINED_FUNCTION_40_1();
     v6 = sub_1CA19AF88();
     OUTLINED_FUNCTION_7_3(v6);
@@ -2574,7 +2103,7 @@ uint64_t static VideoView.isAutoPlayAllowed(videoConfigurationAutoPlay:objectGra
     v18 = 0x504C206E69207349;
     v19 = 0xE90000000000004DLL;
     sub_1CA19AF38();
-    sub_1CA10BDC8(&v18, &qword_1EC433830);
+    sub_1CA10BDC8(&v18, &qword_1EC433830, qword_1CA1A0A30);
     sub_1CA19AFC8();
 LABEL_9:
 
@@ -2583,7 +2112,7 @@ LABEL_9:
 
   if (a2)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4334A0);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4334A0, &unk_1CA1A7DB0);
     sub_1CA19B7C8();
     if (v18)
     {
@@ -2591,12 +2120,12 @@ LABEL_9:
       {
         if (qword_1EE03B230 != -1)
         {
-          OUTLINED_FUNCTION_0_2();
+          OUTLINED_FUNCTION_0_2(&qword_1EE03B230);
         }
 
         v15 = sub_1CA19AFF8();
         __swift_project_value_buffer(v15, qword_1EE040B90);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960, &qword_1CA1A0B60);
         v16 = sub_1CA19AF88();
         OUTLINED_FUNCTION_7_3(v16);
         OUTLINED_FUNCTION_4_8();
@@ -2610,7 +2139,7 @@ LABEL_9:
         v18 = 0xD000000000000027;
         v19 = 0x80000001CA1AF250;
         sub_1CA19AF38();
-        sub_1CA10BDC8(&v18, &qword_1EC433830);
+        sub_1CA10BDC8(&v18, &qword_1EC433830, qword_1CA1A0A30);
         sub_1CA19AFC8();
 
         swift_unknownObjectRelease();
@@ -2623,12 +2152,12 @@ LABEL_9:
 
   if (qword_1EE03B230 != -1)
   {
-    OUTLINED_FUNCTION_0_2();
+    OUTLINED_FUNCTION_0_2(&qword_1EE03B230);
   }
 
   v12 = sub_1CA19AFF8();
   __swift_project_value_buffer(v12, qword_1EE040B90);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960, &qword_1CA1A0B60);
   OUTLINED_FUNCTION_40_1();
   v13 = sub_1CA19AF88();
   OUTLINED_FUNCTION_7_3(v13);
@@ -2642,7 +2171,7 @@ LABEL_9:
   v18 = 0xD000000000000017;
   v19 = 0x80000001CA1AF230;
   sub_1CA19AF38();
-  sub_1CA10BDC8(&v18, &qword_1EC433830);
+  sub_1CA10BDC8(&v18, &qword_1EC433830, qword_1CA1A0A30);
   sub_1CA19AFC8();
 
   return 1;
@@ -2704,18 +2233,19 @@ void sub_1CA18DF24()
   [v0 setNeedsLayout];
 }
 
-uint64_t VideoView.isFullScreen.getter()
-{
-  v1 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_isFullScreen;
-  OUTLINED_FUNCTION_1_22();
-  return *(v0 + v1);
-}
-
-void VideoView.isFullScreen.setter(char a1)
+uint64_t VideoView.isFullScreen.getter(uint64_t a1, uint64_t a2)
 {
   v3 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_isFullScreen;
-  OUTLINED_FUNCTION_13();
-  *(v1 + v3) = a1;
+  OUTLINED_FUNCTION_1_22(v2 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_isFullScreen, a2);
+  return *(v2 + v3);
+}
+
+void VideoView.isFullScreen.setter(uint64_t a1)
+{
+  v2 = a1;
+  v3 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_isFullScreen;
+  OUTLINED_FUNCTION_13(a1);
+  *(v1 + v3) = v2;
   sub_1CA18DF24();
 }
 
@@ -2735,19 +2265,19 @@ void sub_1CA18E1A8(uint64_t a1, char a2)
   }
 }
 
-uint64_t VideoView.isTransitioningToFullscreen.getter()
+uint64_t VideoView.isTransitioningToFullscreen.getter(uint64_t a1, uint64_t a2)
 {
-  v1 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_isTransitioningToFullscreen;
-  OUTLINED_FUNCTION_1_22();
-  return *(v0 + v1);
+  v3 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_isTransitioningToFullscreen;
+  OUTLINED_FUNCTION_1_22(v2 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_isTransitioningToFullscreen, a2);
+  return *(v2 + v3);
 }
 
-uint64_t VideoView.configuration.getter@<X0>(uint64_t a1@<X8>)
+uint64_t VideoView.configuration.getter@<X0>(uint64_t a2@<X1>, uint64_t x8_0@<X8>)
 {
-  v3 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_configuration;
-  OUTLINED_FUNCTION_1_22();
+  v5 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_configuration;
+  OUTLINED_FUNCTION_1_22(v3 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_configuration, a2);
   OUTLINED_FUNCTION_5_19();
-  return sub_1CA190728(v1 + v3, a1, v4);
+  return sub_1CA190728(v3 + v5, x8_0, v6);
 }
 
 uint64_t VideoView.configuration.setter(uint64_t a1)
@@ -2862,7 +2392,7 @@ LABEL_14:
 
 uint64_t sub_1CA18E5F4(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for VideoConfiguration();
+  v4 = type metadata accessor for VideoConfiguration(0);
   (*(*(v4 - 8) + 24))(a2, a1, v4);
   return a2;
 }
@@ -2888,15 +2418,15 @@ Swift::Void __swiftcall VideoView.releaseAssets(now:)(Swift::Bool now)
 Swift::Void __swiftcall VideoView.layoutSubviews()()
 {
   v1 = v0;
-  v28.receiver = v0;
-  v28.super_class = swift_getObjectType();
-  objc_msgSendSuper2(&v28, sel_layoutSubviews);
+  v32.receiver = v0;
+  v32.super_class = swift_getObjectType();
+  objc_msgSendSuper2(&v32, sel_layoutSubviews);
   [v0 bounds];
-  width = v29.size.width;
-  height = v29.size.height;
-  MaxX = CGRectGetMaxX(v29);
-  v30.origin.x = OUTLINED_FUNCTION_31_2();
-  MaxY = CGRectGetMaxY(v30);
+  width = v33.size.width;
+  height = v33.size.height;
+  MaxX = CGRectGetMaxX(v33);
+  v34.origin.x = OUTLINED_FUNCTION_31_2();
+  MaxY = CGRectGetMaxY(v34);
   v6 = *&v0[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_playerViewController];
   if (v6)
   {
@@ -2916,7 +2446,7 @@ Swift::Void __swiftcall VideoView.layoutSubviews()()
   [v12 frame];
   [v12 setFrame_];
   v13 = &v12[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic16ArtworkImageView_artworkSize];
-  OUTLINED_FUNCTION_22_5();
+  OUTLINED_FUNCTION_22_5(&v12[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic16ArtworkImageView_artworkSize], v31);
   if (*v13 != width || v13[1] != height)
   {
     *v13 = width;
@@ -2926,76 +2456,76 @@ Swift::Void __swiftcall VideoView.layoutSubviews()()
     {
       if (*(v15 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic5Video_preview))
       {
-        OUTLINED_FUNCTION_4_5();
+        OUTLINED_FUNCTION_4_5(&v1[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_objectGraph], &v30);
         Strong = swift_weakLoadStrong();
         if (Strong)
         {
           v17 = Strong;
 
-          ArtworkImageView.apply(artwork:asPartOf:)(v18, v17);
+          ArtworkImageView.apply(artwork:asPartOf:)(v18, v17, v19, v20);
         }
       }
     }
   }
 
-  v19 = MaxY * 0.5;
-  v20 = MaxX * 0.5;
+  v21 = MaxY * 0.5;
+  v22 = MaxX * 0.5;
   [v12 setCenter_];
-  v21 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_playButton;
+  v23 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_playButton;
   [*&v1[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_playButton] sizeThatFits_];
-  v23 = v22;
   v25 = v24;
-  v26 = *&v1[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_prominentPlayButtonLocationOverride];
-  v27 = *&v1[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_prominentPlayButtonLocationOverride + 8];
+  v27 = v26;
+  v28 = *&v1[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_prominentPlayButtonLocationOverride];
+  v29 = *&v1[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_prominentPlayButtonLocationOverride + 8];
   if (v1[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_prominentPlayButtonLocationOverride + 16])
   {
-    v26 = v20;
-    v27 = v19;
+    v28 = v22;
+    v29 = v21;
   }
 
-  [*&v1[v21] setFrame_];
+  [*&v1[v23] setFrame_];
 }
 
-uint64_t sub_1CA18E9A0()
+uint64_t sub_1CA18E9A0(uint64_t a1, uint64_t a2)
 {
-  v1 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_releaseAssetsAtNextPauseState;
-  if (*(v0 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_releaseAssetsAtNextPauseState) == 1 && VideoView.state.getter() == 4)
+  v3 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_releaseAssetsAtNextPauseState;
+  if (*(v2 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_releaseAssetsAtNextPauseState) == 1 && VideoView.state.getter(a1, a2) == 4)
   {
-    *(v0 + v1) = 0;
-    v2 = swift_allocObject();
+    *(v2 + v3) = 0;
+    v4 = swift_allocObject();
     swift_unknownObjectWeakInit();
-    v3 = sub_1CA1924A4;
+    v5 = sub_1CA1924A4;
   }
 
   else
   {
-    v3 = 0;
-    v2 = 0;
+    v5 = 0;
+    v4 = 0;
   }
 
-  v4 = VideoView.isPlaying.getter();
-  v5 = *(v0 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_videoPlayer);
-  if (v5 && (v6 = [v5 currentItem]) != 0)
+  v6 = VideoView.isPlaying.getter();
+  v7 = *(v2 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_videoPlayer);
+  if (v7 && (v8 = [v7 currentItem]) != 0)
   {
-    v7 = v6;
-    [v6 currentTime];
+    v9 = v8;
+    [v8 currentTime];
     sub_1CA19C668();
-    v8 = sub_1CA19C658();
+    v10 = sub_1CA19C658();
   }
 
   else
   {
-    v8 = 1;
+    v10 = 1;
   }
 
-  v9 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_isFullScreen;
+  v11 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_isFullScreen;
   swift_beginAccess();
-  sub_1CA18EBB8(v8 & ~(*(v0 + v9) | v4) & 1, *(v0 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_animatePreviewFrameTransitions), v3, v2);
-  sub_1CA18F170(((*(v0 + v9) | v4) & 1) == 0);
-  return sub_1CA0EBE84(v3);
+  sub_1CA18EBB8(v10 & ~(*(v2 + v11) | v6) & 1, *(v2 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_animatePreviewFrameTransitions), v5, v4);
+  sub_1CA18F170(((*(v2 + v11) | v6) & 1) == 0);
+  return sub_1CA0EBE84(v5, v4);
 }
 
-void sub_1CA18EB3C(char a1)
+void sub_1CA18EB3C(char a1, uint64_t a2)
 {
   if (a1)
   {
@@ -3003,14 +2533,14 @@ void sub_1CA18EB3C(char a1)
     Strong = swift_unknownObjectWeakLoadStrong();
     if (Strong)
     {
-      v2 = Strong;
-      v3 = *(Strong + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_videoPlayer);
-      if (v3)
+      v3 = Strong;
+      v4 = *(Strong + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_videoPlayer);
+      if (v4)
       {
-        v4 = v3;
+        v5 = v4;
 
         VideoPlayer.releaseAssets()();
-        v2 = v4;
+        v3 = v5;
       }
     }
   }
@@ -3026,7 +2556,7 @@ void sub_1CA18EBB8(char a1, char a2, uint64_t (*a3)(), uint64_t a4)
 
   v11 = sub_1CA19AFF8();
   __swift_project_value_buffer(v11, qword_1EE040B90);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960, &qword_1CA1A0B60);
   sub_1CA19AF88();
   *(swift_allocObject() + 16) = xmmword_1CA1A0930;
   v35 = ObjectType;
@@ -3069,7 +2599,7 @@ void sub_1CA18EBB8(char a1, char a2, uint64_t (*a3)(), uint64_t a4)
 
   v35 = MEMORY[0x1E69E6158];
   sub_1CA19AF38();
-  sub_1CA10BDC8(&aBlock, &qword_1EC433830);
+  sub_1CA10BDC8(&aBlock, &qword_1EC433830, qword_1CA1A0A30);
   sub_1CA19AFC8();
 
   if ((a2 & 1) == 0)
@@ -3277,7 +2807,7 @@ id sub_1CA18F3EC()
 
   v13 = __swift_project_value_buffer(v2, qword_1EE040B90);
   (*(v3 + 16))(v5, v13, v2);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960, &qword_1CA1A0B60);
   sub_1CA19AF88();
   *(swift_allocObject() + 16) = xmmword_1CA1A0B80;
   v24 = ObjectType;
@@ -3311,31 +2841,32 @@ id sub_1CA18F3EC()
   }
 
   v21[39] = v18;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4345B8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4345B8, &unk_1CA1A7F10);
   v19 = sub_1CA19C168();
   MEMORY[0x1CCA99820](v19);
 
   v24 = MEMORY[0x1E69E6158];
   sub_1CA19AF38();
-  sub_1CA10BDC8(&v22, &qword_1EC433830);
+  sub_1CA10BDC8(&v22, &qword_1EC433830, qword_1CA1A0A30);
   sub_1CA19AFC8();
 
   (*(v3 + 8))(v5, v2);
   return [v14 accessibilityUpdatePlayerControllerControls];
 }
 
-uint64_t VideoView.prefersMinimalPlaybackControls.getter()
-{
-  v1 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_prefersMinimalPlaybackControls;
-  OUTLINED_FUNCTION_1_22();
-  return *(v0 + v1);
-}
-
-uint64_t VideoView.prefersMinimalPlaybackControls.setter(char a1)
+uint64_t VideoView.prefersMinimalPlaybackControls.getter(uint64_t a1, uint64_t a2)
 {
   v3 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_prefersMinimalPlaybackControls;
-  result = OUTLINED_FUNCTION_13();
-  *(v1 + v3) = a1;
+  OUTLINED_FUNCTION_1_22(v2 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_prefersMinimalPlaybackControls, a2);
+  return *(v2 + v3);
+}
+
+uint64_t VideoView.prefersMinimalPlaybackControls.setter(uint64_t a1)
+{
+  v2 = a1;
+  v3 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_prefersMinimalPlaybackControls;
+  result = OUTLINED_FUNCTION_13(a1);
+  *(v1 + v3) = v2;
   return result;
 }
 
@@ -3360,7 +2891,7 @@ void sub_1CA18F90C()
   v19 = v18 - v17;
   if (qword_1EC432C90 != -1)
   {
-    OUTLINED_FUNCTION_14_11();
+    OUTLINED_FUNCTION_14_11(&qword_1EC432C90);
   }
 
   v20 = swift_allocObject();
@@ -3376,14 +2907,14 @@ void sub_1CA18F90C()
   v30[2] = v21;
   v30[3] = &block_descriptor_10_0;
   v22 = _Block_copy(v30);
-  sub_1CA10FCD4(v3);
+  sub_1CA10FCD4(v3, v1);
   v23 = v9;
   v24 = v7;
   sub_1CA19B2F8();
   OUTLINED_FUNCTION_6_19();
-  sub_1CA19215C(v25, v26);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC433C70);
-  sub_1CA1127BC(&qword_1EE03C2A0, &unk_1EC433C70);
+  sub_1CA19215C(v25, v26, MEMORY[0x1E69E7F70]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC433C70, &qword_1CA1A0D40);
+  sub_1CA1127BC(&qword_1EE03C2A0, &unk_1EC433C70, &qword_1CA1A0D40);
   sub_1CA19C788();
   MEMORY[0x1CCA99C20](0, v19, v13, v22);
   _Block_release(v22);
@@ -3404,7 +2935,7 @@ void sub_1CA18FBE8()
   MEMORY[0x1EEE9AC00](v4);
   OUTLINED_FUNCTION_1_3();
   v7 = v6 - v5;
-  v22 = sub_1CA19B318();
+  v23 = sub_1CA19B318();
   OUTLINED_FUNCTION_1_0();
   v9 = v8;
   MEMORY[0x1EEE9AC00](v10);
@@ -3412,32 +2943,32 @@ void sub_1CA18FBE8()
   v13 = v12 - v11;
   if (qword_1EC432C90 != -1)
   {
-    OUTLINED_FUNCTION_14_11();
+    OUTLINED_FUNCTION_14_11(&qword_1EC432C90);
   }
 
   v14 = swift_allocObject();
   *(v14 + 16) = v3;
   *(v14 + 24) = v1;
-  v23[4] = sub_1CA192520;
-  v23[5] = v14;
+  v24[4] = sub_1CA192520;
+  v24[5] = v14;
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_2_1(COERCE_DOUBLE(1107296256));
-  v23[2] = v15;
-  v23[3] = &block_descriptor_53_0;
-  v16 = _Block_copy(v23);
+  v24[2] = v15;
+  v24[3] = &block_descriptor_53_0;
+  v16 = _Block_copy(v24);
   v17 = OUTLINED_FUNCTION_23_7();
-  sub_1CA10FCD4(v17);
+  sub_1CA10FCD4(v17, v18);
   sub_1CA19B2F8();
   OUTLINED_FUNCTION_6_19();
-  sub_1CA19215C(v18, v19);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC433C70);
-  sub_1CA1127BC(&qword_1EE03C2A0, &unk_1EC433C70);
+  sub_1CA19215C(v19, v20, MEMORY[0x1E69E7F70]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC433C70, &qword_1CA1A0D40);
+  sub_1CA1127BC(&qword_1EE03C2A0, &unk_1EC433C70, &qword_1CA1A0D40);
   sub_1CA19C788();
   MEMORY[0x1CCA99C20](0, v13, v7, v16);
   _Block_release(v16);
-  v20 = OUTLINED_FUNCTION_0_12();
-  v21(v20);
-  (*(v9 + 8))(v13, v22);
+  v21 = OUTLINED_FUNCTION_0_12();
+  v22(v21);
+  (*(v9 + 8))(v13, v23);
 
   OUTLINED_FUNCTION_20_0();
 }
@@ -3460,18 +2991,18 @@ uint64_t VideoView.videoDidChangeState(to:videoPlayer:)(uint64_t a1)
   ObjectType = swift_getObjectType();
   if (qword_1EE03B230 != -1)
   {
-    OUTLINED_FUNCTION_0_2();
+    OUTLINED_FUNCTION_0_2(&qword_1EE03B230);
   }
 
   v4 = sub_1CA19AFF8();
   __swift_project_value_buffer(v4, qword_1EE040B90);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960, &qword_1CA1A0B60);
   v5 = sub_1CA19AF88();
   OUTLINED_FUNCTION_7_3(v5);
   OUTLINED_FUNCTION_4_8();
   *(swift_allocObject() + 16) = xmmword_1CA1A0B80;
-  v16 = ObjectType;
-  v14 = v1;
+  v18 = ObjectType;
+  v16 = v1;
   v6 = v1;
   v7 = AMSLogKey();
   if (v7)
@@ -3482,23 +3013,23 @@ uint64_t VideoView.videoDidChangeState(to:videoPlayer:)(uint64_t a1)
 
   sub_1CA19AF58();
 
-  __swift_destroy_boxed_opaque_existential_2(&v14);
-  v14 = 0;
-  v15 = 0xE000000000000000;
+  __swift_destroy_boxed_opaque_existential_2(&v16);
+  v16 = 0;
+  v17 = 0xE000000000000000;
   sub_1CA19C8F8();
 
-  v14 = 0x6863206574617453;
-  v15 = 0xEF203A6465676E61;
+  v16 = 0x6863206574617453;
+  v17 = 0xEF203A6465676E61;
   v9 = sub_1CA19C168();
   MEMORY[0x1CCA99820](v9);
 
-  v16 = MEMORY[0x1E69E6158];
+  v18 = MEMORY[0x1E69E6158];
   sub_1CA19AF38();
-  sub_1CA10BDC8(&v14, &qword_1EC433830);
+  sub_1CA10BDC8(&v16, &qword_1EC433830, qword_1CA1A0A30);
   sub_1CA19AFC8();
 
   v10 = &v6[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_delegate];
-  OUTLINED_FUNCTION_4_5();
+  OUTLINED_FUNCTION_4_5(&v6[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_delegate], &v16);
   if (swift_unknownObjectWeakLoadStrong())
   {
     v11 = *(v10 + 1);
@@ -3507,14 +3038,14 @@ uint64_t VideoView.videoDidChangeState(to:videoPlayer:)(uint64_t a1)
     swift_unknownObjectRelease();
   }
 
-  sub_1CA18F3EC();
-  return sub_1CA18E9A0();
+  v13 = sub_1CA18F3EC();
+  return sub_1CA18E9A0(v13, v14);
 }
 
 Swift::Void __swiftcall VideoView.playbackWillEnd(in:)(Swift::Double in)
 {
   v3 = v1 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_delegate;
-  OUTLINED_FUNCTION_4_5();
+  OUTLINED_FUNCTION_4_5(v1 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_delegate, v6);
   if (swift_unknownObjectWeakLoadStrong())
   {
     v4 = *(v3 + 8);
@@ -3528,20 +3059,20 @@ void VideoView.videoDidPlayToEnd(videoPlayer:)()
 {
   v1 = v0;
   v2 = v0 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_delegate;
-  OUTLINED_FUNCTION_4_5();
+  OUTLINED_FUNCTION_4_5(v0 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_delegate, v15);
   if (swift_unknownObjectWeakLoadStrong())
   {
     v3 = *(v2 + 8);
     ObjectType = swift_getObjectType();
     v5 = v0 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_configuration;
-    OUTLINED_FUNCTION_4_5();
-    v6 = type metadata accessor for VideoConfiguration();
+    OUTLINED_FUNCTION_4_5(v0 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_configuration, v14);
+    v6 = type metadata accessor for VideoConfiguration(0);
     (*(v3 + 24))(*(v5 + *(v6 + 40)), v0, &protocol witness table for VideoView, ObjectType, v3);
     swift_unknownObjectRelease();
   }
 
   v7 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_isFullScreen;
-  OUTLINED_FUNCTION_4_5();
+  OUTLINED_FUNCTION_4_5(v1 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_isFullScreen, v13);
   if (*(v1 + v7) == 1)
   {
     v8 = *(v1 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_playerViewController);
@@ -3565,16 +3096,16 @@ void VideoView.videoDidPlayToEnd(videoPlayer:)()
   }
 }
 
-void sub_1CA1903B8()
+void sub_1CA1903B8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
-    v2 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_isFullScreen;
+    v4 = Strong;
+    v5 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_isFullScreen;
     swift_beginAccess();
-    v1[v2] = 0;
+    v4[v5] = 0;
     sub_1CA18DF24();
   }
 }
@@ -3587,11 +3118,13 @@ void sub_1CA190434(uint64_t a1, uint64_t a2, void *a3)
   v5(a2, a3);
 }
 
-uint64_t block_copy_helper_19(uint64_t a1, uint64_t a2)
+double block_copy_helper_19(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 40);
   *(a1 + 32) = *(a2 + 32);
   *(a1 + 40) = v2;
+
+  return result;
 }
 
 void VideoView.handleVideoPlaybackFailure(_:)()
@@ -3609,13 +3142,15 @@ void VideoView.handleVideoPlaybackFailure(_:)()
     v9 = *v5;
     v10 = [objc_opt_self() defaultCenter];
     v11 = sub_1CA19C0E8();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433280);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433280, &qword_1CA1A2000);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_1CA1A0B80;
+    v19[0] = 0x6B63616279616C50;
+    v19[1] = 0xEA00000000006449;
     v13 = MEMORY[0x1E69E6158];
     sub_1CA19C898();
     v14 = (v0 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_playbackId);
-    OUTLINED_FUNCTION_4_5();
+    OUTLINED_FUNCTION_4_5(v14, v19);
     v16 = *v14;
     v15 = v14[1];
     *(inited + 96) = v13;
@@ -3623,7 +3158,7 @@ void VideoView.handleVideoPlaybackFailure(_:)()
     *(inited + 80) = v15;
 
     sub_1CA19C898();
-    *(inited + 168) = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4344C0);
+    *(inited + 168) = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4344C0, &qword_1CA1A7DC0);
     *(inited + 144) = v9;
     v17 = v9;
     v18 = sub_1CA19C038();
@@ -3669,14 +3204,14 @@ void VideoView.touchesBegan(_:with:)(uint64_t a1, uint64_t a2)
     if (v12)
     {
       v13 = v12;
-      sub_1CA0F2110(0, &qword_1EC4344E0);
+      sub_1CA0F2110(0, &qword_1EC4344E0, 0x1E69DD250);
       v14 = v13;
       v15 = v3;
       LOBYTE(v13) = sub_1CA19C6D8();
 
       if ((v13 & 1) == 0)
       {
-        sub_1CA0F2110(0, &qword_1EC4344D0);
+        sub_1CA0F2110(0, &qword_1EC4344D0, 0x1E69DD190);
         sub_1CA191EF8();
         v16 = v14;
         v17 = sub_1CA19C3A8();
@@ -3685,20 +3220,20 @@ void VideoView.touchesBegan(_:with:)(uint64_t a1, uint64_t a2)
       }
     }
 
-    sub_1CA0F2110(0, &qword_1EC4344D0);
-    sub_1CA191EF8();
-    v20 = OUTLINED_FUNCTION_26_3();
+    sub_1CA0F2110(0, &qword_1EC4344D0, 0x1E69DD190);
+    v20 = sub_1CA191EF8();
+    v21 = OUTLINED_FUNCTION_26_3(v20);
   }
 
   else
   {
-    sub_1CA0F2110(0, &qword_1EC4344D0);
-    sub_1CA191EF8();
-    v20 = OUTLINED_FUNCTION_26_3();
+    sub_1CA0F2110(0, &qword_1EC4344D0, 0x1E69DD190);
+    v22 = sub_1CA191EF8();
+    v21 = OUTLINED_FUNCTION_26_3(v22);
   }
 
   OUTLINED_FUNCTION_30_2();
-  objc_msgSendSuper2(v21, v22);
+  objc_msgSendSuper2(v23, v24);
 }
 
 BOOL sub_1CA190A5C(void *a1, uint64_t a2)
@@ -3718,7 +3253,7 @@ BOOL sub_1CA190A5C(void *a1, uint64_t a2)
       return 0;
     }
 
-    sub_1CA0F2110(0, &qword_1EC4344D0);
+    sub_1CA0F2110(0, &qword_1EC4344D0, 0x1E69DD190);
     v6 = sub_1CA19C6C8();
     v7 = ~(-1 << *(a2 + 32));
     do
@@ -3742,73 +3277,73 @@ BOOL sub_1CA190A5C(void *a1, uint64_t a2)
   }
 }
 
-void sub_1CA190B98(uint64_t a1, uint64_t a2)
+void sub_1CA190B98(uint64_t a1, uint64_t a2, void *a3)
 {
-  v3 = v2;
+  v4 = v3;
   swift_getObjectType();
-  v6 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_currentTouch;
-  v7 = *&v3[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_currentTouch];
-  if (!v7)
+  v7 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_currentTouch;
+  v8 = *&v4[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_currentTouch];
+  if (!v8)
   {
     goto LABEL_8;
   }
 
-  v8 = v7;
-  if (!sub_1CA190A5C(v8, a1))
+  v9 = v8;
+  if (!sub_1CA190A5C(v9, a1))
   {
 
 LABEL_8:
-    sub_1CA0F2110(0, &qword_1EC4344D0);
+    sub_1CA0F2110(0, &qword_1EC4344D0, 0x1E69DD190);
     sub_1CA191EF8();
     OUTLINED_FUNCTION_23_7();
-    v18 = sub_1CA19C3A8();
+    v19 = sub_1CA19C3A8();
     goto LABEL_11;
   }
 
-  v9 = *&v3[v6];
-  *&v3[v6] = 0;
+  v10 = *&v4[v7];
+  *&v4[v7] = 0;
 
-  [v8 locationInView_];
-  v10 = [v3 hitTest:a2 withEvent:?];
-  if (v10)
+  [v9 locationInView_];
+  v11 = [v4 hitTest:a2 withEvent:?];
+  if (v11)
   {
-    v11 = v10;
-    sub_1CA0F2110(0, &qword_1EC4344E0);
     v12 = v11;
-    v13 = v3;
-    LOBYTE(v11) = sub_1CA19C6D8();
+    sub_1CA0F2110(0, &qword_1EC4344E0, 0x1E69DD250);
+    v13 = v12;
+    v14 = v4;
+    LOBYTE(v12) = sub_1CA19C6D8();
 
-    if ((v11 & 1) == 0)
+    if ((v12 & 1) == 0)
     {
-      sub_1CA0F2110(0, &qword_1EC4344D0);
+      sub_1CA0F2110(0, &qword_1EC4344D0, 0x1E69DD190);
       sub_1CA191EF8();
-      v14 = v12;
+      v15 = v13;
       OUTLINED_FUNCTION_23_7();
-      v15 = sub_1CA19C3A8();
+      v16 = sub_1CA19C3A8();
       OUTLINED_FUNCTION_30_2();
-      [v16 v17];
+      [v17 v18];
 
-      v8 = v14;
+      v9 = v15;
     }
   }
 
   else
   {
-    v12 = v8;
+    v13 = v9;
   }
 
-  sub_1CA0F2110(0, &qword_1EC4344D0);
+  sub_1CA0F2110(0, &qword_1EC4344D0, 0x1E69DD190);
   sub_1CA191EF8();
   OUTLINED_FUNCTION_23_7();
-  v18 = sub_1CA19C3A8();
+  v19 = sub_1CA19C3A8();
 LABEL_11:
   OUTLINED_FUNCTION_30_2();
-  objc_msgSendSuper2(v19, v20);
+  objc_msgSendSuper2(v20, v21);
 }
 
 uint64_t sub_1CA190DB8(void *a1, uint64_t a2, uint64_t a3, void *a4, void (*a5)(uint64_t, void *))
 {
-  sub_1CA0F2110(0, &qword_1EC4344D0);
+  sub_1CA0F2110(0, &qword_1EC4344D0, 0x1E69DD190);
   sub_1CA191EF8();
   v8 = sub_1CA19C3B8();
   v9 = a4;
@@ -3839,7 +3374,7 @@ void sub_1CA190E68()
   }
 }
 
-uint64_t VideoView.playerViewController(_:willBeginFullScreenPresentationWithAnimationCoordinator:)()
+void VideoView.playerViewController(_:willBeginFullScreenPresentationWithAnimationCoordinator:)()
 {
   v1 = v0;
   v2 = v0 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_fullScreenDelegate;
@@ -3852,9 +3387,8 @@ uint64_t VideoView.playerViewController(_:willBeginFullScreenPresentationWithAni
   }
 
   v5 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_isTransitioningToFullscreen;
-  result = OUTLINED_FUNCTION_22_5();
+  OUTLINED_FUNCTION_22_5(v1 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic9VideoView_isTransitioningToFullscreen, v6);
   *(v1 + v5) = 1;
-  return result;
 }
 
 void *sub_1CA191088()
@@ -3970,12 +3504,12 @@ uint64_t sub_1CA1916F4()
   MEMORY[0x1EEE9AC00](v3);
   v4 = sub_1CA19B318();
   MEMORY[0x1EEE9AC00](v4 - 8);
-  v6[1] = sub_1CA0F2110(0, &qword_1EE03C230);
+  v6[1] = sub_1CA0F2110(0, &qword_1EE03C230, 0x1E69E9610);
   sub_1CA19B308();
   v8 = MEMORY[0x1E69E7CC0];
-  sub_1CA19215C(&qword_1EE03C238, MEMORY[0x1E69E8030]);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC4345A0);
-  sub_1CA1127BC(&qword_1EE03C298, &unk_1EC4345A0);
+  sub_1CA19215C(&qword_1EE03C238, MEMORY[0x1E69E8030], MEMORY[0x1E69E8040]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC4345A0, &qword_1CA1A1AE0);
+  sub_1CA1127BC(&qword_1EE03C298, &unk_1EC4345A0, &qword_1CA1A1AE0);
   sub_1CA19C788();
   (*(v0 + 104))(v2, *MEMORY[0x1E69E8090], v7);
   result = sub_1CA19C5D8();
@@ -4006,30 +3540,30 @@ void sub_1CA191954(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   sub_1CA191BDC();
 }
 
-void sub_1CA191A7C()
+void sub_1CA191A7C(uint64_t a1, uint64_t a2)
 {
-  v10[1] = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_self();
-  v1 = [v0 sharedInstance];
-  v2 = [v1 categoryOptions];
+  v12[1] = *MEMORY[0x1E69E9840];
+  v2 = objc_opt_self();
+  v3 = [v2 sharedInstance];
+  v4 = [v3 categoryOptions];
 
-  if ((v2 & 1) == 0)
+  if ((v4 & 1) == 0)
   {
-    v3 = [v0 sharedInstance];
-    v4 = *MEMORY[0x1E6958068];
-    v5 = *MEMORY[0x1E6958130];
-    v10[0] = 0;
-    v6 = [v3 setCategory:v4 mode:v5 options:1 error:v10];
+    v5 = [v2 sharedInstance];
+    v6 = *MEMORY[0x1E6958068];
+    v7 = *MEMORY[0x1E6958130];
+    v12[0] = 0;
+    v8 = [v5 setCategory:v6 mode:v7 options:1 error:v12];
 
-    if (v6)
+    if (v8)
     {
-      v7 = v10[0];
+      v9 = v12[0];
     }
 
     else
     {
-      v8 = v10[0];
-      v9 = sub_1CA19AD28();
+      v10 = v12[0];
+      v11 = sub_1CA19AD28();
 
       swift_willThrow();
     }
@@ -4057,7 +3591,7 @@ void sub_1CA191BDC()
   MEMORY[0x1EEE9AC00](v15);
   OUTLINED_FUNCTION_1_3();
   v18 = v17 - v16;
-  sub_1CA0F2110(0, &qword_1EE03C230);
+  sub_1CA0F2110(0, &qword_1EE03C230, 0x1E69E9610);
   v19 = sub_1CA19C598();
   v20 = swift_allocObject();
   *(v20 + 16) = v6;
@@ -4069,14 +3603,14 @@ void sub_1CA191BDC()
   v27[2] = sub_1CA0F4068;
   v27[3] = v24;
   v21 = _Block_copy(v27);
-  sub_1CA10FCD4(v6);
+  sub_1CA10FCD4(v6, v4);
 
   sub_1CA19B2F8();
   v27[0] = MEMORY[0x1E69E7CC0];
   OUTLINED_FUNCTION_6_19();
-  sub_1CA19215C(v22, v23);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC433C70);
-  sub_1CA1127BC(&qword_1EE03C2A0, &unk_1EC433C70);
+  sub_1CA19215C(v22, v23, MEMORY[0x1E69E7F70]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC433C70, &qword_1CA1A0D40);
+  sub_1CA1127BC(&qword_1EE03C2A0, &unk_1EC433C70, &qword_1CA1A0D40);
   sub_1CA19C788();
   MEMORY[0x1CCA99C20](0, v18, v12, v21);
   _Block_release(v21);
@@ -4098,7 +3632,7 @@ unint64_t sub_1CA191EF8()
   result = qword_1EC4344D8;
   if (!qword_1EC4344D8)
   {
-    sub_1CA0F2110(255, &qword_1EC4344D0);
+    sub_1CA0F2110(255, &qword_1EC4344D0, 0x1E69DD190);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EC4344D8);
   }
@@ -4106,7 +3640,7 @@ unint64_t sub_1CA191EF8()
   return result;
 }
 
-uint64_t type metadata accessor for VideoView()
+uint64_t type metadata accessor for VideoView(uint64_t a1)
 {
   result = qword_1EC434578;
   if (!qword_1EC434578)
@@ -4117,16 +3651,16 @@ uint64_t type metadata accessor for VideoView()
   return result;
 }
 
-void sub_1CA191FB4()
+void sub_1CA191FB4(uint64_t a1)
 {
-  sub_1CA180558();
-  if (v0 <= 0x3F)
+  sub_1CA180558(319);
+  if (v1 <= 0x3F)
   {
     sub_1CA19ADF8();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
-      type metadata accessor for VideoConfiguration();
-      if (v2 <= 0x3F)
+      type metadata accessor for VideoConfiguration(319);
+      if (v3 <= 0x3F)
       {
         swift_updateClassMetadata2();
       }
@@ -4134,7 +3668,7 @@ void sub_1CA191FB4()
   }
 }
 
-uint64_t sub_1CA19215C(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1CA19215C(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -4191,7 +3725,7 @@ void sub_1CA192258(uint64_t a1, uint64_t a2, char a3, uint64_t a4)
       }
 
       MEMORY[0x1CCA99E90](a1, a2, v7);
-      sub_1CA0F2110(0, &qword_1EC4344D0);
+      sub_1CA0F2110(0, &qword_1EC4344D0, 0x1E69DD190);
       swift_dynamicCast();
       return;
     }
@@ -4203,7 +3737,7 @@ LABEL_26:
 
   if (a3)
   {
-    sub_1CA0F2110(0, &qword_1EC4344D0);
+    sub_1CA0F2110(0, &qword_1EC4344D0, 0x1E69DD190);
     if (sub_1CA19C7F8() == *(a4 + 36))
     {
       sub_1CA19C808();
@@ -4344,16 +3878,16 @@ uint64_t OUTLINED_FUNCTION_13_10()
   return sub_1CA19AF48();
 }
 
-uint64_t OUTLINED_FUNCTION_14_11()
+uint64_t OUTLINED_FUNCTION_14_11(uint64_t a1)
 {
 
   return swift_once();
 }
 
-id OUTLINED_FUNCTION_19_4()
+id OUTLINED_FUNCTION_19_4(uint64_t a1)
 {
 
-  return ArtworkImageView.init(artworkSize:frame:)();
+  return ArtworkImageView.init(artworkSize:frame:)(a1);
 }
 
 uint64_t OUTLINED_FUNCTION_20_7@<X0>(uint64_t a1@<X8>)
@@ -4363,13 +3897,14 @@ uint64_t OUTLINED_FUNCTION_20_7@<X0>(uint64_t a1@<X8>)
   return swift_unknownObjectWeakInit();
 }
 
-uint64_t OUTLINED_FUNCTION_22_5()
+double OUTLINED_FUNCTION_22_5(uint64_t a1, uint64_t a2)
 {
 
-  return swift_beginAccess();
+  swift_beginAccess();
+  return result;
 }
 
-uint64_t OUTLINED_FUNCTION_26_3()
+uint64_t OUTLINED_FUNCTION_26_3(uint64_t a1)
 {
 
   return sub_1CA19C3A8();
@@ -4398,7 +3933,7 @@ void sub_1CA19280C(char a1, double a2, double a3, double a4, double a5)
     }
 
     [v6 setTranslatesAutoresizingMaskIntoConstraints_];
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433810);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433810, &qword_1CA1A1A20);
     v18 = swift_allocObject();
     *(v18 + 16) = xmmword_1CA1A7FC0;
     v19 = [v6 topAnchor];
@@ -4440,7 +3975,7 @@ void sub_1CA192B20(uint64_t a1, uint64_t a2, char a3)
   {
     v26 = v7;
     [v3 setTranslatesAutoresizingMaskIntoConstraints_];
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433810);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433810, &qword_1CA1A1A20);
     v8 = swift_allocObject();
     *(v8 + 16) = xmmword_1CA1A7FD0;
     v9 = [v3 centerXAnchor];
@@ -4506,7 +4041,7 @@ uint64_t sub_1CA192E7C(uint64_t a1, uint64_t a2)
   v7 = v6;
   MEMORY[0x1EEE9AC00](v8);
   OUTLINED_FUNCTION_0_51();
-  v9 = sub_1CA193100();
+  v9 = sub_1CA193100(a1, a2);
   if (!v9)
   {
     return 0;
@@ -4528,7 +4063,7 @@ id sub_1CA192F94(uint64_t a1, uint64_t a2)
   v7 = v6;
   MEMORY[0x1EEE9AC00](v8);
   OUTLINED_FUNCTION_0_51();
-  v9 = sub_1CA193100();
+  v9 = sub_1CA193100(a1, a2);
   if (!v9 || (v10 = v9, sub_1CA19B7D8(), sub_1CA19BE18(), v11 = (*(v10 + 32))(a1, v2, a2), (*(v7 + 8))(v2, v5), , !v11))
   {
     sub_1CA19371C();
@@ -4541,35 +4076,36 @@ id sub_1CA192F94(uint64_t a1, uint64_t a2)
   return v11;
 }
 
-uint64_t sub_1CA193100()
+uint64_t sub_1CA193100(uint64_t a1, uint64_t a2)
 {
-  v0 = sub_1CA19B4D8();
-  MEMORY[0x1EEE9AC00](v0);
-  v2 = v20 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v3 = sub_1CA19B5C8();
-  v4 = *(v3 - 8);
-  v5 = MEMORY[0x1EEE9AC00](v3);
-  v7 = v20 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v5);
-  v9 = v20 - v8;
+  v2 = sub_1CA19B4D8();
+  MEMORY[0x1EEE9AC00](v2);
+  v4 = v23 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = sub_1CA19B5C8();
+  v6 = *(v5 - 8);
+  v7 = MEMORY[0x1EEE9AC00](v5);
+  v9 = v23 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v11 = v23 - v10;
   sub_1CA19B7D8();
   sub_1CA19BE18();
   sub_1CA19B4E8();
-  v21 = v9;
-  v22 = v4;
-  (*(v4 + 16))(v7, v9, v3);
-  v10 = Location.init(deserializing:using:)(v2, v7);
-  v12 = v11;
+  v24 = v11;
+  v25 = v6;
+  (*(v6 + 16))(v9, v11, v5);
+  v12 = Location.init(deserializing:using:)(v4, v9);
   v14 = v13;
   v16 = v15;
-  v17 = v10;
+  v18 = v17;
+  v19 = v12;
   type metadata accessor for PageLoader();
   sub_1CA19BE18();
-  v20[2] = v17;
-  v18 = PageLoader.pageDefinition(withLocation:)(v17, v12, v14, v16);
-  (*(v22 + 8))(v21, v3);
+  v23[2] = v19;
+  PageLoader.pageDefinition(withLocation:)(v19, v14, v16, v18);
+  v21 = v20;
+  (*(v25 + 8))(v24, v5);
 
-  return v18;
+  return v21;
 }
 
 unint64_t sub_1CA19371C()
@@ -4666,7 +4202,7 @@ unint64_t sub_1CA193834()
   result = qword_1EC4345C8;
   if (!qword_1EC4345C8)
   {
-    type metadata accessor for FlowAction();
+    type metadata accessor for FlowAction(255);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1EC4345C8);
   }
@@ -4691,13 +4227,13 @@ uint64_t sub_1CA193930(uint64_t a1, uint64_t a2)
   v4 = sub_1CA19B5C8();
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
-  v7 = &v19[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v7 = &v13[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
   v8 = sub_1CA19B4D8();
   MEMORY[0x1EEE9AC00](v8);
-  v10 = &v19[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v10 = &v13[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
   (*(v11 + 16))(v10, a1);
   (*(v5 + 16))(v7, a2, v4);
-  return VisualAreaArtwork.LayoutConstraints.init(deserializing:using:)(v10, v7, v12, v13, v14, v15, v16, v17);
+  return VisualAreaArtwork.LayoutConstraints.init(deserializing:using:)(v10, v7);
 }
 
 uint64_t sub_1CA193AD0(uint64_t a1, uint64_t a2, void (*a3)(void), uint64_t (*a4)(uint64_t, uint64_t))
@@ -4738,63 +4274,61 @@ uint64_t sub_1CA193C5C(uint64_t a1, uint64_t a2)
   return Location.init(deserializing:using:)(v14, v10);
 }
 
-uint64_t VisualAreaArtwork.init(deserializing:using:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t VisualAreaArtwork.init(deserializing:using:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X5>, uint64_t a6@<X6>, uint64_t a7@<X7>, uint64_t a8@<X8>)
 {
-  sub_1CA0FC9B0();
-  if (v3)
+  sub_1CA0FC9B0(0xD000000000000016, 0x80000001CA1AC5F0, &type metadata for VisualAreaArtwork, a3, a4, a5, a6, a7, v30, v33, v35, v37, v39, v41, v43, v45);
+  if (v8)
   {
 
-    v8 = 4;
+    v13 = 4;
   }
 
   else
   {
-    v8 = v7;
+    v13 = v12;
   }
 
-  MEMORY[0x1EEE9AC00](v7);
-  v9 = sub_1CA0FEE40();
-  MEMORY[0x1EEE9AC00](v9);
-  sub_1CA0FC07C();
-  v11 = v10;
-  v20 = v12;
-  v21 = v13;
-  v22 = v14;
-  sub_1CA0FC9B0();
-  v16 = v15;
+  MEMORY[0x1EEE9AC00](v12);
+  v14 = sub_1CA0FEE40();
+  MEMORY[0x1EEE9AC00](v14);
+  sub_1CA0FC07C(0xD000000000000011, v15 | 0x8000000000000000, &type metadata for VisualAreaArtwork);
+  v17 = v16;
+  HIDWORD(v31) = v18;
+  sub_1CA0FC9B0(0xD000000000000013, 0x80000001CA1AF840, &type metadata for VisualAreaArtwork, v18, v21, v22, v23, v24, v31, v20, v36, v19, v40, v42, v44, v46);
+  v26 = v25;
   sub_1CA19B4D8();
   OUTLINED_FUNCTION_4_6();
-  (*(v17 + 8))(a1);
+  (*(v27 + 8))(a1);
   sub_1CA19B5C8();
   OUTLINED_FUNCTION_4_6();
-  result = (*(v18 + 8))(a2);
-  *a3 = v8;
-  *(a3 + 8) = v9;
-  *(a3 + 16) = v16;
-  *(a3 + 24) = v22;
-  *(a3 + 32) = v21;
-  *(a3 + 40) = v11;
-  *(a3 + 48) = v20 & 1;
+  result = (*(v28 + 8))(a2);
+  *a8 = v13;
+  *(a8 + 8) = v14;
+  *(a8 + 16) = v26;
+  *(a8 + 24) = v38;
+  *(a8 + 32) = v34;
+  *(a8 + 40) = v17;
+  *(a8 + 48) = v32 & 1;
   return result;
 }
 
-uint64_t sub_1CA1940CC()
+uint64_t sub_1CA1940CC(uint64_t a1, uint64_t a2)
 {
-  v0 = sub_1CA19CA48();
+  v2 = sub_1CA19CA48();
 
-  if (v0 == 1)
+  if (v2 == 1)
   {
-    v1 = 1;
+    v3 = 1;
   }
 
   else
   {
-    v1 = 2;
+    v3 = 2;
   }
 
-  if (v0)
+  if (v2)
   {
-    return v1;
+    return v3;
   }
 
   else
@@ -4816,26 +4350,26 @@ uint64_t sub_1CA194120(char a1)
   }
 }
 
-double sub_1CA194158@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+double sub_1CA194158@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X5>, uint64_t a6@<X6>, uint64_t a7@<X7>, uint64_t a8@<X8>)
 {
-  VisualAreaArtwork.init(deserializing:using:)(a1, a2, v7);
-  if (!v3)
+  VisualAreaArtwork.init(deserializing:using:)(a1, a2, a3, a4, a5, a6, a7, v12);
+  if (!v8)
   {
-    v6 = v7[1];
-    *a3 = v7[0];
-    *(a3 + 16) = v6;
-    result = *&v8;
-    *(a3 + 32) = v8;
-    *(a3 + 48) = v9;
+    v11 = v12[1];
+    *a8 = v12[0];
+    *(a8 + 16) = v11;
+    result = *&v13;
+    *(a8 + 32) = v13;
+    *(a8 + 48) = v14;
   }
 
   return result;
 }
 
-uint64_t sub_1CA1941CC@<X0>(_BYTE *a1@<X8>)
+uint64_t sub_1CA1941CC@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
 {
-  result = sub_1CA1940CC();
-  *a1 = result;
+  result = sub_1CA1940CC(*a1, a1[1]);
+  *a2 = result;
   return result;
 }
 
@@ -4847,44 +4381,44 @@ uint64_t sub_1CA1941FC@<X0>(uint64_t *a1@<X8>)
   return result;
 }
 
-uint64_t VisualAreaArtwork.LayoutConstraints.init(deserializing:using:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t VisualAreaArtwork.LayoutConstraints.init(deserializing:using:)(uint64_t a1, uint64_t a2)
 {
-  sub_1CA0FC818(1684957547, 0xE400000000000000, &type metadata for VisualAreaArtwork.LayoutConstraints, a4, a5, a6, a7, a8);
-  if (!v8)
+  v6 = sub_1CA0FC818(1684957547, 0xE400000000000000, &type metadata for VisualAreaArtwork.LayoutConstraints);
+  if (!v2)
   {
-    if (v12)
+    if (v6)
     {
       sub_1CA16211C();
       sub_1CA16211C();
-      v17 = v16;
+      v11 = v10;
       sub_1CA16211C();
-      v9 = v17;
+      v3 = v11;
     }
 
     else
     {
-      v9 = 0;
+      v3 = 0;
     }
   }
 
   sub_1CA19B5C8();
   OUTLINED_FUNCTION_4_6();
-  (*(v13 + 8))(a2);
+  (*(v7 + 8))(a2);
   sub_1CA19B4D8();
   OUTLINED_FUNCTION_4_6();
-  (*(v14 + 8))(a1);
-  return v9;
+  (*(v8 + 8))(a1);
+  return v3;
 }
 
-uint64_t sub_1CA194410@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>)
+uint64_t sub_1CA194410@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  result = VisualAreaArtwork.LayoutConstraints.init(deserializing:using:)(a1, a2, a3, a4, a5, a6, a7, a8);
-  if (!v9)
+  result = VisualAreaArtwork.LayoutConstraints.init(deserializing:using:)(a1, a2);
+  if (!v3)
   {
-    *a9 = result;
-    *(a9 + 8) = v12;
-    *(a9 + 16) = v13;
-    *(a9 + 24) = v14 & 1;
+    *a3 = result;
+    *(a3 + 8) = v6;
+    *(a3 + 16) = v7;
+    *(a3 + 24) = v8 & 1;
   }
 
   return result;
@@ -5183,33 +4717,35 @@ uint64_t AlignableVisualAreaArtwork.init(artwork:sizeConstraints:horizontalAlign
   return result;
 }
 
-uint64_t AlignableVisualAreaImageViewContainer.horizontalAlignment.getter()
+uint64_t AlignableVisualAreaImageViewContainer.horizontalAlignment.getter(uint64_t a1)
 {
-  v1 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic37AlignableVisualAreaImageViewContainer_horizontalAlignment;
-  OUTLINED_FUNCTION_1_5();
-  return *(v0 + v1);
+  v2 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic37AlignableVisualAreaImageViewContainer_horizontalAlignment;
+  OUTLINED_FUNCTION_1_5(a1);
+  return *(v1 + v2);
 }
 
-uint64_t AlignableVisualAreaImageViewContainer.horizontalAlignment.setter(char a1)
+uint64_t AlignableVisualAreaImageViewContainer.horizontalAlignment.setter(uint64_t a1)
 {
+  v2 = a1;
   v3 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic37AlignableVisualAreaImageViewContainer_horizontalAlignment;
-  result = OUTLINED_FUNCTION_13();
-  *(v1 + v3) = a1;
+  result = OUTLINED_FUNCTION_13(a1);
+  *(v1 + v3) = v2;
   return result;
 }
 
-uint64_t AlignableVisualAreaImageViewContainer.accessibilityAlignment.getter()
+uint64_t AlignableVisualAreaImageViewContainer.accessibilityAlignment.getter(uint64_t a1)
 {
-  v1 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic37AlignableVisualAreaImageViewContainer_accessibilityAlignment;
-  OUTLINED_FUNCTION_1_5();
-  return *(v0 + v1);
+  v2 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic37AlignableVisualAreaImageViewContainer_accessibilityAlignment;
+  OUTLINED_FUNCTION_1_5(a1);
+  return *(v1 + v2);
 }
 
-uint64_t AlignableVisualAreaImageViewContainer.accessibilityAlignment.setter(char a1)
+uint64_t AlignableVisualAreaImageViewContainer.accessibilityAlignment.setter(uint64_t a1)
 {
+  v2 = a1;
   v3 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic37AlignableVisualAreaImageViewContainer_accessibilityAlignment;
-  result = OUTLINED_FUNCTION_13();
-  *(v1 + v3) = a1;
+  result = OUTLINED_FUNCTION_13(a1);
+  *(v1 + v3) = v2;
   return result;
 }
 
@@ -5222,7 +4758,7 @@ uint64_t sub_1CA1949B4()
   if (v3)
   {
     v4 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic37AlignableVisualAreaImageViewContainer_accessibilityAlignment;
-    OUTLINED_FUNCTION_4_5();
+    OUTLINED_FUNCTION_4_5(&v1[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic37AlignableVisualAreaImageViewContainer_accessibilityAlignment], v9);
     result = v1[v4];
     if (result != 4)
     {
@@ -5230,26 +4766,30 @@ uint64_t sub_1CA1949B4()
     }
 
     v6 = &v1[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic37AlignableVisualAreaImageViewContainer_horizontalAlignment];
+    v7 = &v8;
   }
 
   else
   {
     v6 = &v1[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic37AlignableVisualAreaImageViewContainer_horizontalAlignment];
+    v7 = v9;
   }
 
-  OUTLINED_FUNCTION_4_5();
+  OUTLINED_FUNCTION_4_5(v6, v7);
   return *v6;
 }
 
-char *AlignableVisualAreaImageViewContainer.__allocating_init(artworkSize:sizeConstraints:horizontalAlignment:accessibilityAlignment:)(uint64_t a1, char a2, char a3)
+char *AlignableVisualAreaImageViewContainer.__allocating_init(artworkSize:sizeConstraints:horizontalAlignment:accessibilityAlignment:)(void *a1, uint64_t a2, uint64_t a3)
 {
+  v4 = a3;
+  v5 = a2;
   OUTLINED_FUNCTION_23_3();
   v7 = objc_allocWithZone(v3);
   OUTLINED_FUNCTION_17_3();
-  return AlignableVisualAreaImageViewContainer.init(artworkSize:sizeConstraints:horizontalAlignment:accessibilityAlignment:)(a1, a2, a3);
+  return AlignableVisualAreaImageViewContainer.init(artworkSize:sizeConstraints:horizontalAlignment:accessibilityAlignment:)(a1, v5, v4);
 }
 
-char *AlignableVisualAreaImageViewContainer.init(artworkSize:sizeConstraints:horizontalAlignment:accessibilityAlignment:)(uint64_t a1, char a2, char a3)
+char *AlignableVisualAreaImageViewContainer.init(artworkSize:sizeConstraints:horizontalAlignment:accessibilityAlignment:)(void *a1, char a2, char a3)
 {
   OUTLINED_FUNCTION_23_3();
   v7 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic37AlignableVisualAreaImageViewContainer_accessibilityAlignment;
@@ -5259,7 +4799,7 @@ char *AlignableVisualAreaImageViewContainer.init(artworkSize:sizeConstraints:hor
   OUTLINED_FUNCTION_17_3();
   *(v3 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic37AlignableVisualAreaImageViewContainer_visualAreaImageView) = sub_1CA1954CC(v10);
   *(v3 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic37AlignableVisualAreaImageViewContainer_horizontalAlignment) = a2;
-  OUTLINED_FUNCTION_22_5();
+  OUTLINED_FUNCTION_22_5(v3 + v7, v15);
   *(v3 + v7) = a3;
   type metadata accessor for AlignableVisualAreaImageViewContainer();
   OUTLINED_FUNCTION_15_9();
@@ -5269,10 +4809,10 @@ char *AlignableVisualAreaImageViewContainer.init(artworkSize:sizeConstraints:hor
   return v13;
 }
 
-void sub_1CA194BE4()
+void sub_1CA194BE4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  *(v0 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic37AlignableVisualAreaImageViewContainer_accessibilityAlignment) = 4;
-  OUTLINED_FUNCTION_8_16();
+  *(v8 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic37AlignableVisualAreaImageViewContainer_accessibilityAlignment) = 4;
+  OUTLINED_FUNCTION_8_16("Fatal error", a2, a3, a4, 0x80000001CA1A92F0, "AppleMediaServicesUIDynamic/VisualAreaImageView.swift", a7, a8, 82, 0);
   __break(1u);
 }
 
@@ -5284,12 +4824,12 @@ Swift::Void __swiftcall AlignableVisualAreaImageViewContainer.layoutSubviews()()
   objc_msgSendSuper2(&v34, sel_layoutSubviews);
   if (qword_1EE03B230 != -1)
   {
-    OUTLINED_FUNCTION_0_2();
+    OUTLINED_FUNCTION_0_2(&qword_1EE03B230);
   }
 
   v4 = sub_1CA19AFF8();
   __swift_project_value_buffer(v4, qword_1EE040B90);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960, &qword_1CA1A0B60);
   v5 = sub_1CA19AF88();
   OUTLINED_FUNCTION_7_3(v5);
   OUTLINED_FUNCTION_4_8();
@@ -5348,25 +4888,25 @@ Swift::Void __swiftcall AlignableVisualAreaImageViewContainer.layoutSubviews()()
   [v15 setFrame_];
 }
 
-uint64_t AlignableVisualAreaImageViewContainer.apply(model:asPartOf:)(unsigned __int8 *a1, uint64_t a2)
+uint64_t AlignableVisualAreaImageViewContainer.apply(model:asPartOf:)(unsigned __int8 *a1, uint64_t a2, __n128 a3)
 {
-  v5 = a1[56];
-  if (v5 != 4)
+  v6 = a1[56];
+  if (v6 != 4)
   {
-    v6 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic37AlignableVisualAreaImageViewContainer_horizontalAlignment;
-    OUTLINED_FUNCTION_22_5();
-    *(v2 + v6) = v5;
+    v7 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic37AlignableVisualAreaImageViewContainer_horizontalAlignment;
+    OUTLINED_FUNCTION_22_5(v3 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic37AlignableVisualAreaImageViewContainer_horizontalAlignment, &v11);
+    *(v3 + v7) = v6;
   }
 
-  v7 = *a1;
-  if (v7 != 4)
+  v8 = *a1;
+  if (v8 != 4)
   {
-    v8 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic37AlignableVisualAreaImageViewContainer_accessibilityAlignment;
-    OUTLINED_FUNCTION_22_5();
-    *(v2 + v8) = v7;
+    v9 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic37AlignableVisualAreaImageViewContainer_accessibilityAlignment;
+    OUTLINED_FUNCTION_22_5(v3 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic37AlignableVisualAreaImageViewContainer_accessibilityAlignment, v12);
+    *(v3 + v9) = v8;
   }
 
-  return sub_1CA1961D0(a1, a2, *(v2 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic37AlignableVisualAreaImageViewContainer_visualAreaImageView));
+  return sub_1CA1961D0(a1, a2, *(v3 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic37AlignableVisualAreaImageViewContainer_visualAreaImageView));
 }
 
 CGSize __swiftcall AlignableVisualAreaImageViewContainer.sizeThatFits(_:)(CGSize a1)
@@ -5381,12 +4921,12 @@ void AlignableVisualAreaImageViewContainer.measurements(fitting:in:)(uint64_t a1
 {
   if (qword_1EE03B230 != -1)
   {
-    OUTLINED_FUNCTION_0_2();
+    OUTLINED_FUNCTION_0_2(&qword_1EE03B230);
   }
 
   v7 = sub_1CA19AFF8();
   __swift_project_value_buffer(v7, qword_1EE040B90);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960, &qword_1CA1A0B60);
   v8 = sub_1CA19AF88();
   OUTLINED_FUNCTION_7_3(v8);
   OUTLINED_FUNCTION_4_8();
@@ -5418,7 +4958,7 @@ void AlignableVisualAreaImageViewContainer.measurements(fitting:in:)(uint64_t a1
   OUTLINED_FUNCTION_15_9();
 }
 
-char *sub_1CA1954CC(uint64_t a1)
+char *sub_1CA1954CC(void *a1)
 {
   v4 = v1;
   OUTLINED_FUNCTION_23_3();
@@ -5429,43 +4969,44 @@ char *sub_1CA1954CC(uint64_t a1)
   v8 = objc_allocWithZone(v7);
   OUTLINED_FUNCTION_15_9();
   OUTLINED_FUNCTION_17_3();
-  *(v4 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_artworkImageView) = ArtworkImageView.init(artworkSize:frame:)();
-  v9 = (v4 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_artworkSize);
-  *v9 = v3;
-  v9[1] = v2;
+  *(v4 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_artworkImageView) = ArtworkImageView.init(artworkSize:frame:)(v9);
+  v10 = (v4 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_artworkSize);
+  *v10 = v3;
+  v10[1] = v2;
   sub_1CA0F2ACC(a1, v4 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_sizeConstraints);
-  type metadata accessor for VisualAreaImageView();
+  v17 = v4;
+  v18 = type metadata accessor for VisualAreaImageView();
   OUTLINED_FUNCTION_15_9();
-  v12 = objc_msgSendSuper2(v10, v11);
-  v13 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_artworkImageView;
-  OUTLINED_FUNCTION_4_5();
-  [v12 addSubview_];
+  v13 = objc_msgSendSuper2(v11, v12);
+  v14 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_artworkImageView;
+  OUTLINED_FUNCTION_4_5(&v13[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_artworkImageView], v16);
+  [v13 addSubview_];
   __swift_destroy_boxed_opaque_existential_2(a1);
-  return v12;
+  return v13;
 }
 
-void sub_1CA1955EC()
+void sub_1CA1955EC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = (v0 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_applyCachedArtwork);
-  *v1 = 0;
-  v1[1] = 0;
-  OUTLINED_FUNCTION_8_16();
+  v9 = (v8 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_applyCachedArtwork);
+  *v9 = 0;
+  v9[1] = 0;
+  OUTLINED_FUNCTION_8_16("Fatal error", a2, a3, a4, 0x80000001CA1A92F0, "AppleMediaServicesUIDynamic/VisualAreaImageView.swift", a7, a8, 176, 0);
   __break(1u);
 }
 
-id VisualAreaImageView.artworkImageView.getter()
+id VisualAreaImageView.artworkImageView.getter(uint64_t a1)
 {
-  v1 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_artworkImageView;
-  OUTLINED_FUNCTION_1_5();
-  v2 = *(v0 + v1);
+  v2 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_artworkImageView;
+  OUTLINED_FUNCTION_1_5(a1);
+  v3 = *(v1 + v2);
 
-  return v2;
+  return v3;
 }
 
 void sub_1CA1956C8(uint64_t a1)
 {
   v3 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_artworkImageView;
-  OUTLINED_FUNCTION_13();
+  OUTLINED_FUNCTION_13(a1);
   v4 = *(v1 + v3);
   *(v1 + v3) = a1;
 }
@@ -5473,7 +5014,7 @@ void sub_1CA1956C8(uint64_t a1)
 uint64_t VisualAreaImageView.sizeConstraints.getter@<X0>(uint64_t a1@<X8>)
 {
   v3 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_sizeConstraints;
-  OUTLINED_FUNCTION_4_5();
+  OUTLINED_FUNCTION_4_5(v1 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_sizeConstraints, v5);
   return sub_1CA0F2ACC(v1 + v3, a1);
 }
 
@@ -5481,7 +5022,7 @@ uint64_t sub_1CA19579C(__int128 *a1)
 {
   v3 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_sizeConstraints;
   swift_beginAccess();
-  __swift_destroy_boxed_opaque_existential_2(v1 + v3);
+  __swift_destroy_boxed_opaque_existential_2((v1 + v3));
   sub_1CA0EBE94(a1, v1 + v3);
   return swift_endAccess();
 }
@@ -5489,37 +5030,36 @@ uint64_t sub_1CA19579C(__int128 *a1)
 double VisualAreaImageView.artworkSize.getter()
 {
   v1 = v0 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_artworkSize;
-  OUTLINED_FUNCTION_4_5();
+  OUTLINED_FUNCTION_4_5(v0 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_artworkSize, v3);
   return *v1;
 }
 
-uint64_t sub_1CA19586C()
+void sub_1CA19586C()
 {
   OUTLINED_FUNCTION_23_3();
   v3 = (v0 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_artworkSize);
-  result = OUTLINED_FUNCTION_22_5();
+  OUTLINED_FUNCTION_22_5(v0 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_artworkSize, v4);
   *v3 = v2;
   v3[1] = v1;
-  return result;
 }
 
 Swift::Void __swiftcall VisualAreaImageView.layoutSubviews()()
 {
   if (qword_1EE03B230 != -1)
   {
-    OUTLINED_FUNCTION_0_2();
+    OUTLINED_FUNCTION_0_2(&qword_1EE03B230);
   }
 
   v1 = sub_1CA19AFF8();
   __swift_project_value_buffer(v1, qword_1EE040B90);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960, &qword_1CA1A0B60);
   v2 = sub_1CA19AF88();
   OUTLINED_FUNCTION_7_3(v2);
   OUTLINED_FUNCTION_4_8();
   *(swift_allocObject() + 16) = xmmword_1CA1A0B80;
   v3 = type metadata accessor for VisualAreaImageView();
-  v13 = v3;
-  v12[0] = v0;
+  v14 = v3;
+  v13[0] = v0;
   v4 = v0;
   v5 = AMSLogKey();
   if (v5)
@@ -5530,37 +5070,37 @@ Swift::Void __swiftcall VisualAreaImageView.layoutSubviews()()
 
   sub_1CA19AF58();
 
-  __swift_destroy_boxed_opaque_existential_2(v12);
-  v13 = v3;
-  v12[0] = v4;
+  __swift_destroy_boxed_opaque_existential_2(v13);
+  v14 = v3;
+  v13[0] = v4;
   v7 = v4;
   sub_1CA19AF38();
-  sub_1CA0F0440(v12);
+  sub_1CA0F0440(v13);
   sub_1CA19AFC8();
 
-  v11.receiver = v7;
-  v11.super_class = v3;
-  objc_msgSendSuper2(&v11, sel_layoutSubviews);
+  v12.receiver = v7;
+  v12.super_class = v3;
+  objc_msgSendSuper2(&v12, sel_layoutSubviews);
   v8 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_artworkImageView;
-  OUTLINED_FUNCTION_4_5();
+  OUTLINED_FUNCTION_4_5(&v7[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_artworkImageView], v13);
   v9 = *&v7[v8];
-  OUTLINED_FUNCTION_4_5();
+  OUTLINED_FUNCTION_4_5(&v7[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_artworkSize], v11);
   v10 = v9;
   [v10 frame];
   [v10 setFrame_];
 }
 
-id VisualAreaImageView.hasContent.getter()
+id VisualAreaImageView.hasContent.getter(uint64_t a1)
 {
-  v1 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_artworkImageView;
-  OUTLINED_FUNCTION_1_5();
-  return [*(v0 + v1) hasContent];
+  v2 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_artworkImageView;
+  OUTLINED_FUNCTION_1_5(a1);
+  return [*(v1 + v2) hasContent];
 }
 
 void VisualAreaImageView.updateArtworkSizeForMaxWidth(_:)(double a1)
 {
   v3 = &v1[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_artworkSize];
-  OUTLINED_FUNCTION_22_5();
+  OUTLINED_FUNCTION_22_5(&v1[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_artworkSize], v18);
   v4 = *v3;
   v5 = v3[1];
   _s27AppleMediaServicesUIDynamic19VisualAreaImageViewC12sizeThatFitsySo6CGSizeVAFF_0(a1);
@@ -5570,12 +5110,12 @@ void VisualAreaImageView.updateArtworkSizeForMaxWidth(_:)(double a1)
   {
     if (qword_1EE03B230 != -1)
     {
-      OUTLINED_FUNCTION_0_2();
+      OUTLINED_FUNCTION_0_2(&qword_1EE03B230);
     }
 
     v9 = sub_1CA19AFF8();
     __swift_project_value_buffer(v9, qword_1EE040B90);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960, &qword_1CA1A0B60);
     v10 = sub_1CA19AF88();
     OUTLINED_FUNCTION_7_3(v10);
     OUTLINED_FUNCTION_4_8();
@@ -5616,8 +5156,8 @@ void _s27AppleMediaServicesUIDynamic19VisualAreaImageViewC12sizeThatFitsySo6CGSi
 {
   v2 = v1;
   v4 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_sizeConstraints;
-  OUTLINED_FUNCTION_4_5();
-  sub_1CA0F2ACC(v2 + v4, v19);
+  OUTLINED_FUNCTION_4_5(v2 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_sizeConstraints, v21);
+  sub_1CA0F2ACC(v2 + v4, v22);
   if (a1 <= 0.0)
   {
     OUTLINED_FUNCTION_6_20();
@@ -5635,12 +5175,12 @@ void _s27AppleMediaServicesUIDynamic19VisualAreaImageViewC12sizeThatFitsySo6CGSi
   v15 = OUTLINED_FUNCTION_7_20();
   v16(v15);
   v17 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_artworkImageView;
-  OUTLINED_FUNCTION_4_5();
+  OUTLINED_FUNCTION_4_5(v2 + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_artworkImageView, v20);
   v18 = (*(v2 + v17) + OBJC_IVAR____TtC27AppleMediaServicesUIDynamic16ArtworkImageView_artworkSize);
-  OUTLINED_FUNCTION_4_5();
-  CGSize.sizeWithVisualAreaConstraints(_:)(v19, *v18, v18[1]);
+  OUTLINED_FUNCTION_4_5(v18, &v19);
+  CGSize.sizeWithVisualAreaConstraints(_:)(v22, *v18, v18[1]);
   OUTLINED_FUNCTION_5_20();
-  __swift_destroy_boxed_opaque_existential_2(v19);
+  __swift_destroy_boxed_opaque_existential_2(v22);
   OUTLINED_FUNCTION_10_18();
 }
 
@@ -5676,10 +5216,10 @@ id sub_1CA196138(uint64_t (*a1)(void))
 
 uint64_t sub_1CA1961D0(uint64_t a1, uint64_t a2, void *a3)
 {
-  v40 = &type metadata for AlignableVisualAreaArtwork;
-  v41 = &protocol witness table for AlignableVisualAreaArtwork;
+  v42 = &type metadata for AlignableVisualAreaArtwork;
+  v43 = &protocol witness table for AlignableVisualAreaArtwork;
   v5 = swift_allocObject();
-  v39[0] = v5;
+  v41[0] = v5;
   sub_1CA196C80(a1, v5 + 16);
   if (qword_1EE03B230 != -1)
   {
@@ -5688,12 +5228,12 @@ uint64_t sub_1CA1961D0(uint64_t a1, uint64_t a2, void *a3)
 
   v6 = sub_1CA19AFF8();
   __swift_project_value_buffer(v6, qword_1EE040B90);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960, &qword_1CA1A0B60);
   sub_1CA19AF88();
   *(swift_allocObject() + 16) = xmmword_1CA1A0930;
   v7 = type metadata accessor for VisualAreaImageView();
-  v38 = v7;
-  *&v37 = a3;
+  v40 = v7;
+  *&v39 = a3;
   v8 = a3;
   v9 = AMSLogKey();
   if (v9)
@@ -5704,39 +5244,39 @@ uint64_t sub_1CA1961D0(uint64_t a1, uint64_t a2, void *a3)
 
   sub_1CA19AF58();
 
-  __swift_destroy_boxed_opaque_existential_2(&v37);
+  __swift_destroy_boxed_opaque_existential_2(&v39);
   sub_1CA19AF18();
-  v11 = v40;
-  v12 = __swift_project_boxed_opaque_existential_2(v39, v40);
-  v38 = v11;
-  boxed_opaque_existential_2Tm = __swift_allocate_boxed_opaque_existential_2Tm(&v37);
+  v11 = v42;
+  v12 = __swift_project_boxed_opaque_existential_2(v41, v42);
+  v40 = v11;
+  boxed_opaque_existential_2Tm = __swift_allocate_boxed_opaque_existential_2Tm(&v39);
   (*(v11[-1].Description + 2))(boxed_opaque_existential_2Tm, v12, v11);
   sub_1CA19AF38();
-  sub_1CA0F0440(&v37);
+  sub_1CA0F0440(&v39);
   sub_1CA19AF98();
 
   v14 = *(v5 + 24);
-  sub_1CA0F2ACC(v5 + 32, &v37);
+  sub_1CA0F2ACC(v5 + 32, &v39);
   v15 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_sizeConstraints;
   swift_beginAccess();
   __swift_destroy_boxed_opaque_existential_2(&v8[v15]);
-  sub_1CA0EBE94(&v37, &v8[v15]);
+  sub_1CA0EBE94(&v39, &v8[v15]);
   swift_endAccess();
   v16 = *(v14 + 24);
   v17 = *(v16 + 32);
   v18 = *(v16 + 40);
-  sub_1CA0F2ACC(&v8[v15], &v37);
-  CGSize.sizeWithVisualAreaConstraints(_:)(&v37, v17, v18);
+  sub_1CA0F2ACC(&v8[v15], &v39);
+  CGSize.sizeWithVisualAreaConstraints(_:)(&v39, v17, v18);
   v20 = v19;
   v22 = v21;
-  __swift_destroy_boxed_opaque_existential_2(&v37);
+  __swift_destroy_boxed_opaque_existential_2(&v39);
   v23 = &v8[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_artworkSize];
   swift_beginAccess();
   *v23 = v20;
   *(v23 + 1) = v22;
   *(swift_allocObject() + 16) = xmmword_1CA1A0930;
-  v38 = v7;
-  *&v37 = v8;
+  v40 = v7;
+  *&v39 = v8;
   v24 = v8;
   v25 = AMSLogKey();
   if (v25)
@@ -5747,38 +5287,38 @@ uint64_t sub_1CA1961D0(uint64_t a1, uint64_t a2, void *a3)
 
   sub_1CA19AF58();
 
-  __swift_destroy_boxed_opaque_existential_2(&v37);
+  __swift_destroy_boxed_opaque_existential_2(&v39);
   sub_1CA19AF18();
   v27 = *v23;
   v28 = *(v23 + 1);
   type metadata accessor for CGSize(0);
-  v38 = v29;
-  *&v37 = v27;
-  *(&v37 + 1) = v28;
+  v40 = v29;
+  *&v39 = v27;
+  *(&v39 + 1) = v28;
   sub_1CA19AF38();
-  sub_1CA0F0440(&v37);
+  sub_1CA0F0440(&v39);
   sub_1CA19AF98();
 
   v30 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_artworkImageView;
   swift_beginAccess();
   [*&v24[v30] removeFromSuperview];
   v31 = objc_allocWithZone(type metadata accessor for ArtworkImageView());
-  v32 = ArtworkImageView.init(artworkSize:frame:)();
+  v32 = ArtworkImageView.init(artworkSize:frame:)(v31);
   v33 = *&v24[v30];
   *&v24[v30] = v32;
 
   [v24 addSubview_];
   v34 = *&v24[v30];
-  ArtworkImageView.apply(dynamicArtwork:asPartOf:)(v14, a2);
+  ArtworkImageView.apply(dynamicArtwork:asPartOf:)(v14, a2, v35, v36);
 
-  return __swift_destroy_boxed_opaque_existential_2(v39);
+  return __swift_destroy_boxed_opaque_existential_2(v41);
 }
 
 uint64_t sub_1CA196698(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5)
 {
-  v44 = a4;
-  v45 = a5;
-  boxed_opaque_existential_2Tm = __swift_allocate_boxed_opaque_existential_2Tm(v43);
+  v46 = a4;
+  v47 = a5;
+  boxed_opaque_existential_2Tm = __swift_allocate_boxed_opaque_existential_2Tm(v45);
   (*(*(a4 - 8) + 16))(boxed_opaque_existential_2Tm, a1, a4);
   if (qword_1EE03B230 != -1)
   {
@@ -5787,12 +5327,12 @@ uint64_t sub_1CA196698(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t
 
   v9 = sub_1CA19AFF8();
   __swift_project_value_buffer(v9, qword_1EE040B90);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC433960, &qword_1CA1A0B60);
   sub_1CA19AF88();
   *(swift_allocObject() + 16) = xmmword_1CA1A0930;
-  v38 = type metadata accessor for VisualAreaImageView();
-  v42 = v38;
-  *&v41 = a3;
+  v40 = type metadata accessor for VisualAreaImageView();
+  v44 = v40;
+  *&v43 = a3;
   v10 = a3;
   v11 = AMSLogKey();
   if (v11)
@@ -5803,39 +5343,39 @@ uint64_t sub_1CA196698(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t
 
   sub_1CA19AF58();
 
-  __swift_destroy_boxed_opaque_existential_2(&v41);
+  __swift_destroy_boxed_opaque_existential_2(&v43);
   sub_1CA19AF18();
-  v13 = v44;
-  v14 = __swift_project_boxed_opaque_existential_2(v43, v44);
-  v42 = v13;
-  v15 = __swift_allocate_boxed_opaque_existential_2Tm(&v41);
+  v13 = v46;
+  v14 = __swift_project_boxed_opaque_existential_2(v45, v46);
+  v44 = v13;
+  v15 = __swift_allocate_boxed_opaque_existential_2Tm(&v43);
   (*(*(v13 - 8) + 16))(v15, v14, v13);
   sub_1CA19AF38();
-  sub_1CA0F0440(&v41);
+  sub_1CA0F0440(&v43);
   sub_1CA19AF98();
 
   v16 = (*(a5 + 8))(a4, a5);
-  (*(a5 + 16))(&v41, a4, a5);
+  (*(a5 + 16))(&v43, a4, a5);
   v17 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_sizeConstraints;
   swift_beginAccess();
   __swift_destroy_boxed_opaque_existential_2(&v10[v17]);
-  sub_1CA0EBE94(&v41, &v10[v17]);
+  sub_1CA0EBE94(&v43, &v10[v17]);
   swift_endAccess();
   v18 = *(v16 + 24);
   v19 = *(v18 + 32);
   v20 = *(v18 + 40);
-  sub_1CA0F2ACC(&v10[v17], &v41);
-  CGSize.sizeWithVisualAreaConstraints(_:)(&v41, v19, v20);
+  sub_1CA0F2ACC(&v10[v17], &v43);
+  CGSize.sizeWithVisualAreaConstraints(_:)(&v43, v19, v20);
   v22 = v21;
   v24 = v23;
-  __swift_destroy_boxed_opaque_existential_2(&v41);
+  __swift_destroy_boxed_opaque_existential_2(&v43);
   v25 = &v10[OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_artworkSize];
   swift_beginAccess();
   *v25 = v22;
   *(v25 + 1) = v24;
   *(swift_allocObject() + 16) = xmmword_1CA1A0930;
-  v42 = v38;
-  *&v41 = v10;
+  v44 = v40;
+  *&v43 = v10;
   v26 = v10;
   v27 = AMSLogKey();
   if (v27)
@@ -5846,31 +5386,31 @@ uint64_t sub_1CA196698(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t
 
   sub_1CA19AF58();
 
-  __swift_destroy_boxed_opaque_existential_2(&v41);
+  __swift_destroy_boxed_opaque_existential_2(&v43);
   sub_1CA19AF18();
   v29 = *v25;
   v30 = *(v25 + 1);
   type metadata accessor for CGSize(0);
-  v42 = v31;
-  *&v41 = v29;
-  *(&v41 + 1) = v30;
+  v44 = v31;
+  *&v43 = v29;
+  *(&v43 + 1) = v30;
   sub_1CA19AF38();
-  sub_1CA0F0440(&v41);
+  sub_1CA0F0440(&v43);
   sub_1CA19AF98();
 
   v32 = OBJC_IVAR____TtC27AppleMediaServicesUIDynamic19VisualAreaImageView_artworkImageView;
   swift_beginAccess();
   [*&v26[v32] removeFromSuperview];
   v33 = objc_allocWithZone(type metadata accessor for ArtworkImageView());
-  v34 = ArtworkImageView.init(artworkSize:frame:)();
+  v34 = ArtworkImageView.init(artworkSize:frame:)(v33);
   v35 = *&v26[v32];
   *&v26[v32] = v34;
 
   [v26 addSubview_];
   v36 = *&v26[v32];
-  ArtworkImageView.apply(dynamicArtwork:asPartOf:)(v16, a2);
+  ArtworkImageView.apply(dynamicArtwork:asPartOf:)(v16, a2, v37, v38);
 
-  return __swift_destroy_boxed_opaque_existential_2(v43);
+  return __swift_destroy_boxed_opaque_existential_2(v45);
 }
 
 __n128 __swift_memcpy57_8(uint64_t a1, uint64_t a2)
@@ -5951,7 +5491,7 @@ LABEL_8:
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_8_16()
+uint64_t OUTLINED_FUNCTION_8_16(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10)
 {
 
   return sub_1CA19C9F8();
@@ -6095,7 +5635,7 @@ id NSDictionaryFromAttributes(xmlChar **a1)
     v3 = *a1;
     if (*a1)
     {
-      v4 = a1 + 2;
+      v4 = (a1 + 2);
       do
       {
         v5 = *(v4 - 1);

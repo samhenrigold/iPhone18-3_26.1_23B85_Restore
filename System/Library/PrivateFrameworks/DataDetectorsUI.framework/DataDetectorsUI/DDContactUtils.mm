@@ -104,7 +104,7 @@ LABEL_24:
 
 + (__CFString)normalizedPhoneNumberFromString:(uint64_t)string
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = a2;
   objc_opt_self();
   v3 = [v2 length];
@@ -124,7 +124,7 @@ LABEL_24:
   }
 
   MEMORY[0x28223BE20]();
-  v8 = (&v18 - ((v7 + 17) & 0xFFFFFFFFFFFFFFF0));
+  v8 = (&v17 - ((v7 + 17) & 0xFFFFFFFFFFFFFFF0));
   [v2 getCharacters:v8 range:{0, v5}];
   if (!v5)
   {
@@ -133,7 +133,7 @@ LABEL_24:
     goto LABEL_40;
   }
 
-  v18 = &v18;
+  v17 = &v17;
   v9 = 0;
   v10 = 0;
   do
@@ -229,7 +229,7 @@ LABEL_17:
   v8[v10] = 0;
   if (v10)
   {
-    v4 = [MEMORY[0x277CCACA8] stringWithCharacters:v8 length:{v10, v18, v19}];
+    v4 = [MEMORY[0x277CCACA8] stringWithCharacters:v8 length:{v10, v17, v18}];
   }
 
   else
@@ -238,8 +238,6 @@ LABEL_17:
   }
 
 LABEL_40:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

@@ -26,55 +26,57 @@
 
 + (id)displayScaleInfoWithDictionary:(id)dictionary screenType:(unint64_t)type zoomFactor:(id)factor error:(id *)error
 {
-  v40[1] = *MEMORY[0x1E69E9840];
+  v42[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   factorCopy = factor;
-  v36.width = 0.0;
-  v36.height = 0.0;
-  if ((CRSizeFromAirPlayDictionaryForKey(dictionaryCopy, *MEMORY[0x1E6962438], &v36) & 1) == 0)
+  v38.width = 0.0;
+  v38.height = 0.0;
+  v11 = CRSizeFromAirPlayDictionaryForKey(dictionaryCopy, *MEMORY[0x1E6962438], &v38);
+  if ((v11 & 1) == 0)
   {
-    v13 = CarDisplayScaleLogging();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v15 = CarDisplayScaleLogging(v11);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
-      [(CRDisplayScaleInfo *)dictionaryCopy displayScaleInfoWithDictionary:v13 screenType:v14 zoomFactor:v15 error:v16, v17, v18, v19];
+      [(CRDisplayScaleInfo *)dictionaryCopy displayScaleInfoWithDictionary:v15 screenType:v16 zoomFactor:v17 error:v18, v19, v20, v21];
     }
 
     if (error)
     {
-      v20 = MEMORY[0x1E696ABC0];
-      v39 = *MEMORY[0x1E696A578];
-      v40[0] = @"Unable to parse display physical size";
-      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:&v39 count:1];
-      *error = [v20 errorWithDomain:@"com.apple.carkit" code:-10001 userInfo:v21];
+      v22 = MEMORY[0x1E696ABC0];
+      v41 = *MEMORY[0x1E696A578];
+      v42[0] = @"Unable to parse display physical size";
+      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:&v41 count:1];
+      *error = [v22 errorWithDomain:@"com.apple.carkit" code:-10001 userInfo:v23];
     }
 
     goto LABEL_14;
   }
 
-  v35.width = 0.0;
-  v35.height = 0.0;
-  if (CRSizeFromAirPlayDictionaryForKey(dictionaryCopy, *MEMORY[0x1E6962440], &v35))
+  v37.width = 0.0;
+  v37.height = 0.0;
+  v12 = CRSizeFromAirPlayDictionaryForKey(dictionaryCopy, *MEMORY[0x1E6962440], &v37);
+  if (v12)
   {
     objc_opt_class();
-    v11 = [dictionaryCopy objectForKey:@"ViewAreas"];
-    if (v11 && (objc_opt_isKindOfClass() & 1) != 0)
+    v13 = [dictionaryCopy objectForKey:@"ViewAreas"];
+    if (v13 && (objc_opt_isKindOfClass() & 1) != 0)
     {
-      v12 = v11;
+      v14 = v13;
     }
 
     else
     {
-      v12 = 0;
+      v14 = 0;
     }
 
-    v31 = [v12 bs_map:&__block_literal_global];
+    v33 = [v14 bs_map:&__block_literal_global];
     if (!factorCopy)
     {
       objc_opt_class();
-      v32 = [dictionaryCopy objectForKeyedSubscript:@"ZoomFactor"];
-      if (v32 && (objc_opt_isKindOfClass() & 1) != 0)
+      v34 = [dictionaryCopy objectForKeyedSubscript:@"ZoomFactor"];
+      if (v34 && (objc_opt_isKindOfClass() & 1) != 0)
       {
-        factorCopy = v32;
+        factorCopy = v34;
       }
 
       else
@@ -83,36 +85,36 @@
       }
     }
 
-    v33 = [CRDisplayScaleInfo alloc];
-    v30 = [(CRDisplayScaleInfo *)v33 initWithPhysicalSize:v31 pixelSize:type viewAreas:factorCopy screenType:v36.width zoomFactor:v36.height, v35.width, v35.height];
+    v35 = [CRDisplayScaleInfo alloc];
+    v32 = [(CRDisplayScaleInfo *)v35 initWithPhysicalSize:v33 pixelSize:type viewAreas:factorCopy screenType:v38.width zoomFactor:v38.height, v37.width, v37.height];
 
     goto LABEL_23;
   }
 
-  v22 = CarDisplayScaleLogging();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+  v24 = CarDisplayScaleLogging(v12);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
   {
-    [(CRDisplayScaleInfo *)dictionaryCopy displayScaleInfoWithDictionary:v22 screenType:v23 zoomFactor:v24 error:v25, v26, v27, v28];
+    [(CRDisplayScaleInfo *)dictionaryCopy displayScaleInfoWithDictionary:v24 screenType:v25 zoomFactor:v26 error:v27, v28, v29, v30];
   }
 
   if (!error)
   {
 LABEL_14:
-    v30 = 0;
+    v32 = 0;
     goto LABEL_24;
   }
 
-  v29 = MEMORY[0x1E696ABC0];
-  v37 = *MEMORY[0x1E696A578];
-  v38 = @"Unable to parse display pixel size";
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
-  [v29 errorWithDomain:@"com.apple.carkit" code:-10001 userInfo:v12];
-  *error = v30 = 0;
+  v31 = MEMORY[0x1E696ABC0];
+  v39 = *MEMORY[0x1E696A578];
+  v40 = @"Unable to parse display pixel size";
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+  [v31 errorWithDomain:@"com.apple.carkit" code:-10001 userInfo:v14];
+  *error = v32 = 0;
 LABEL_23:
 
 LABEL_24:
 
-  return v30;
+  return v32;
 }
 
 CRViewArea *__81__CRDisplayScaleInfo_displayScaleInfoWithDictionary_screenType_zoomFactor_error___block_invoke(uint64_t a1, void *a2)
@@ -176,46 +178,47 @@ void __41__CRDisplayScaleInfo_initWithScreenInfo___block_invoke(uint64_t a1, voi
   width = pixelSize.width;
   v11 = size.height;
   v12 = size.width;
-  v59 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   areasCopy = areas;
   factorCopy = factor;
-  v52.receiver = self;
-  v52.super_class = CRDisplayScaleInfo;
-  v16 = [(CRDisplayScaleInfo *)&v52 init];
+  v56.receiver = self;
+  v56.super_class = CRDisplayScaleInfo;
+  v16 = [(CRDisplayScaleInfo *)&v56 init];
   if (!v16)
   {
     goto LABEL_51;
   }
 
   v17 = areasCopy;
-  v18 = v12 - *MEMORY[0x1E695F060];
-  v19 = -v18;
-  if (v18 >= 0.0)
+  v18 = v17;
+  v19 = v12 - *MEMORY[0x1E695F060];
+  v20 = -v19;
+  if (v19 >= 0.0)
   {
-    v19 = v12 - *MEMORY[0x1E695F060];
-  }
-
-  if (v19 > 1.0)
-  {
-    goto LABEL_9;
-  }
-
-  v20 = v11 - *(MEMORY[0x1E695F060] + 8);
-  if (v20 < 0.0)
-  {
-    v20 = -v20;
+    v20 = v12 - *MEMORY[0x1E695F060];
   }
 
   if (v20 > 1.0)
   {
+    goto LABEL_9;
+  }
+
+  v21 = v11 - *(MEMORY[0x1E695F060] + 8);
+  if (v21 < 0.0)
+  {
+    v21 = -v21;
+  }
+
+  if (v21 > 1.0)
+  {
 LABEL_9:
     if (v12 < 1.0 || v11 < 1.0)
     {
-      v21 = CarDisplayScaleLogging();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v22 = CarDisplayScaleLogging(v17);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1C81FC000, v21, OS_LOG_TYPE_DEFAULT, "Physical size is zero, pixel density is not valid", buf, 2u);
+        _os_log_impl(&dword_1C81FC000, v22, OS_LOG_TYPE_DEFAULT, "Physical size is zero, pixel density is not valid", buf, 2u);
       }
     }
 
@@ -223,19 +226,19 @@ LABEL_9:
     {
       if (width / v12 < 2.0)
       {
-        v21 = CarDisplayScaleLogging();
-        if (!os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v22 = CarDisplayScaleLogging(v17);
+        if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_21;
         }
 
-        v22 = BSNSStringFromCGSize();
         v23 = BSNSStringFromCGSize();
+        v24 = BSNSStringFromCGSize();
         *buf = 138412546;
-        v54 = v22;
-        v55 = 2114;
-        v56 = v23;
-        v24 = "Horizontal density is too low: pixelSize:%{publiic}@; physicalSize:%{public}@";
+        v58 = v23;
+        v59 = 2114;
+        v60 = v24;
+        v25 = "Horizontal density is too low: pixelSize:%{publiic}@; physicalSize:%{public}@";
         goto LABEL_20;
       }
 
@@ -244,63 +247,65 @@ LABEL_9:
         goto LABEL_25;
       }
 
-      v21 = CarDisplayScaleLogging();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v22 = CarDisplayScaleLogging(v17);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = BSNSStringFromCGSize();
         v23 = BSNSStringFromCGSize();
+        v24 = BSNSStringFromCGSize();
         *buf = 138412546;
-        v54 = v22;
-        v55 = 2114;
-        v56 = v23;
-        v24 = "Vertical density is too low: pixelSize:%{publiic}@; physicalSize:%{public}@";
+        v58 = v23;
+        v59 = 2114;
+        v60 = v24;
+        v25 = "Vertical density is too low: pixelSize:%{publiic}@; physicalSize:%{public}@";
 LABEL_20:
-        _os_log_impl(&dword_1C81FC000, v21, OS_LOG_TYPE_DEFAULT, v24, buf, 0x16u);
+        _os_log_impl(&dword_1C81FC000, v22, OS_LOG_TYPE_DEFAULT, v25, buf, 0x16u);
       }
     }
 
 LABEL_21:
 
-    v30 = CGSizeSquaredPixelSizeWithPhysicalSize(width, height, v12, v11);
-    v32 = v31;
-    v33 = 1.0 / CRPointScaleWithSize(type, v17, width, height, v12, v11);
-    v12 = v30 * v33 * 0.376647834;
-    v11 = v32 * v33 * 0.376647834;
-    v26 = CarDisplayScaleLogging();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v32 = CGSizeSquaredPixelSizeWithPhysicalSize(width, height, v12, v11);
+    v34 = v33;
+    v35 = CRPointScaleWithSize(type, v18, width, height, v12, v11);
+    v36 = 1.0 / v35;
+    v12 = v32 * v36 * 0.376647834;
+    v11 = v34 * v36 * 0.376647834;
+    v28 = CarDisplayScaleLogging(v35);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      v27 = BSNSStringFromCGSize();
-      v28 = BSNSStringFromCGSize();
+      v29 = BSNSStringFromCGSize();
+      v30 = BSNSStringFromCGSize();
       *buf = 138543874;
-      v54 = v27;
-      v55 = 2114;
-      v56 = v28;
-      v57 = 2114;
-      v58 = &unk_1F47F2718;
-      v29 = "Physical size is not valid, applying default size Result(%{public}@) = PointSize(%{public}@)/CROptimalPointsPerMM(%{public}@)";
+      v58 = v29;
+      v59 = 2114;
+      v60 = v30;
+      v61 = 2114;
+      v62 = &unk_1F47F2718;
+      v31 = "Physical size is not valid, applying default size Result(%{public}@) = PointSize(%{public}@)/CROptimalPointsPerMM(%{public}@)";
       goto LABEL_23;
     }
 
     goto LABEL_24;
   }
 
-  v25 = 1.0 / CRPointScaleWithSize(type, v17, width, height, v12, v11);
-  v12 = width * v25 * 0.376647834;
-  v11 = height * v25 * 0.376647834;
-  v26 = CarDisplayScaleLogging();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  v26 = CRPointScaleWithSize(type, v17, width, height, v12, v11);
+  v27 = 1.0 / v26;
+  v12 = width * v27 * 0.376647834;
+  v11 = height * v27 * 0.376647834;
+  v28 = CarDisplayScaleLogging(v26);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
-    v27 = BSNSStringFromCGSize();
-    v28 = BSNSStringFromCGSize();
+    v29 = BSNSStringFromCGSize();
+    v30 = BSNSStringFromCGSize();
     *buf = 138543874;
-    v54 = v27;
-    v55 = 2114;
-    v56 = v28;
-    v57 = 2114;
-    v58 = &unk_1F47F2718;
-    v29 = "Physical size is zero, applying default size Result(%{public}@) = PointSize(%{public}@)/CROptimalPointsPerMM(%{public}@)";
+    v58 = v29;
+    v59 = 2114;
+    v60 = v30;
+    v61 = 2114;
+    v62 = &unk_1F47F2718;
+    v31 = "Physical size is zero, applying default size Result(%{public}@) = PointSize(%{public}@)/CROptimalPointsPerMM(%{public}@)";
 LABEL_23:
-    _os_log_impl(&dword_1C81FC000, v26, OS_LOG_TYPE_DEFAULT, v29, buf, 0x20u);
+    _os_log_impl(&dword_1C81FC000, v28, OS_LOG_TYPE_DEFAULT, v31, buf, 0x20u);
   }
 
 LABEL_24:
@@ -311,74 +316,74 @@ LABEL_25:
   v16->_pixelSize.width = width;
   v16->_pixelSize.height = height;
   v16->_squaredPixelSize.width = CGSizeSquaredPixelSizeWithPhysicalSize(width, height, v12, v11);
-  v16->_squaredPixelSize.height = v34;
-  v35 = [v17 copy];
+  v16->_squaredPixelSize.height = v37;
+  v38 = [v18 copy];
   viewAreas = v16->_viewAreas;
-  v16->_viewAreas = v35;
+  v16->_viewAreas = v38;
 
   v16->_screenType = type;
   objc_opt_class();
-  v37 = +[CARPrototypePref zoomFactor];
-  internalSettingsValue = [v37 internalSettingsValue];
+  v40 = +[CARPrototypePref zoomFactor];
+  internalSettingsValue = [v40 internalSettingsValue];
   if (internalSettingsValue && (objc_opt_isKindOfClass() & 1) != 0)
   {
-    v39 = internalSettingsValue;
+    v42 = internalSettingsValue;
   }
 
   else
   {
-    v39 = 0;
+    v42 = 0;
   }
 
-  [v39 floatValue];
-  v41 = v40;
-  if (v40 >= 0.001)
+  floatValue = [v42 floatValue];
+  v45 = v44;
+  if (v44 >= 0.001)
   {
-    v43 = CarDisplayScaleLogging();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+    v47 = CarDisplayScaleLogging(floatValue);
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
     {
-      v44 = [MEMORY[0x1E696AD98] numberWithDouble:v41];
+      v48 = [MEMORY[0x1E696AD98] numberWithDouble:v45];
       *buf = 138543362;
-      v54 = v44;
-      _os_log_impl(&dword_1C81FC000, v43, OS_LOG_TYPE_DEFAULT, "Internal settings zoom factor specified: %{public}@", buf, 0xCu);
+      v58 = v48;
+      _os_log_impl(&dword_1C81FC000, v47, OS_LOG_TYPE_DEFAULT, "Internal settings zoom factor specified: %{public}@", buf, 0xCu);
     }
   }
 
   else
   {
     [factorCopy floatValue];
-    v41 = v42;
+    v45 = v46;
   }
 
-  v45 = v41 / 100.0;
-  if (v41 / 100.0 > 5.0 || v45 < 0.1)
+  v49 = v45 / 100.0;
+  if (v45 / 100.0 > 5.0 || v49 < 0.1)
   {
-    v45 = 1.0;
+    v49 = 1.0;
   }
 
-  v47 = 0.7;
-  v48 = v45 <= 0.7;
-  v49 = v45 < 1.5 || v45 <= 0.7;
-  if (v45 >= 1.5)
+  v51 = 0.7;
+  v52 = v49 <= 0.7;
+  v53 = v49 < 1.5 || v49 <= 0.7;
+  if (v49 >= 1.5)
   {
-    v48 = 1;
+    v52 = 1;
   }
 
-  if (!v49)
+  if (!v53)
   {
-    v47 = 1.5;
+    v51 = 1.5;
   }
 
-  if (v48)
+  if (v52)
   {
-    v45 = v47;
+    v49 = v51;
   }
 
-  v16->_zoomFactor = v45;
+  v16->_zoomFactor = v49;
   if (![(CRDisplayScaleInfo *)v16 _customZoomEnabled])
   {
     [_TtC6CarKit14DisplayScaling zoomFactorHeuristicsWithScreenType:type physicalSize:v12 pixelSize:v11, width, height];
-    v16->_zoomFactor = v50;
+    v16->_zoomFactor = v54;
   }
 
 LABEL_51:
@@ -387,14 +392,14 @@ LABEL_51:
 
 - (CGSize)canvasPixelSizeForDisplayScaleMode:(int64_t)mode
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   screenType = [(CRDisplayScaleInfo *)self screenType];
   if (screenType != 1)
   {
     if (screenType)
     {
-      v25 = *MEMORY[0x1E695F060];
-      v27 = *(MEMORY[0x1E695F060] + 8);
+      v27 = *MEMORY[0x1E695F060];
+      v29 = *(MEMORY[0x1E695F060] + 8);
       goto LABEL_30;
     }
 
@@ -408,38 +413,38 @@ LABEL_51:
       if ([(CRDisplayScaleInfo *)self _customZoomEnabled])
       {
         [(CRDisplayScaleInfo *)self preferredToOriginalScaleRatio];
-        v38 = v37;
+        v40 = v39;
         [(CRDisplayScaleInfo *)self zoomFactor];
-        v40 = v38 / v39;
-        [(CRDisplayScaleInfo *)self squaredPixelSize];
-        v11 = (((v40 * v41) + 1) & 0xFFFFFFFE);
-        v12 = (((v40 * v42) + 1) & 0xFFFFFFFE);
-        v13 = CarDisplayScaleLogging();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v42 = v40 / v41;
+        squaredPixelSize = [(CRDisplayScaleInfo *)self squaredPixelSize];
+        v12 = (((v42 * v44) + 1) & 0xFFFFFFFE);
+        v13 = (((v42 * v45) + 1) & 0xFFFFFFFE);
+        v14 = CarDisplayScaleLogging(squaredPixelSize);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
-          v14 = BSNSStringFromCGSize();
-          [(CRDisplayScaleInfo *)self squaredPixelSize];
           v15 = BSNSStringFromCGSize();
-          v17 = [MEMORY[0x1E696AD98] numberWithDouble:v40];
-          v43 = MEMORY[0x1E696AD98];
+          [(CRDisplayScaleInfo *)self squaredPixelSize];
+          v16 = BSNSStringFromCGSize();
+          v18 = [MEMORY[0x1E696AD98] numberWithDouble:v42];
+          v46 = MEMORY[0x1E696AD98];
           [(CRDisplayScaleInfo *)self preferredToOriginalScaleRatio];
-          v18 = [v43 numberWithDouble:?];
-          v44 = MEMORY[0x1E696AD98];
+          v19 = [v46 numberWithDouble:?];
+          v47 = MEMORY[0x1E696AD98];
           [(CRDisplayScaleInfo *)self zoomFactor];
-          v45 = [v44 numberWithDouble:?];
-          *v59 = 138544642;
-          *&v59[4] = v14;
-          *&v59[12] = 2114;
-          *&v59[14] = v15;
-          *&v59[22] = 2114;
-          v60 = v17;
-          *v61 = 2114;
-          *&v61[2] = v18;
-          *&v61[10] = 2114;
-          *&v61[12] = v45;
-          *&v61[20] = 2114;
-          *&v61[22] = self;
-          _os_log_impl(&dword_1C81FC000, v13, OS_LOG_TYPE_DEFAULT, "Optimal[with ZoomFactor] primary display scale canvas size calculated: Result(%{public}@) = SquaredPixelSize(%{public}@) x AdjustedScale(%{public}@); AdjustedScale=PreferredToOriginalScaleRatio(%{public}@)/zoomFactor(%{public}@)\nDisplayInfo: %{public}@", v59, 0x3Eu);
+          v48 = [v47 numberWithDouble:?];
+          *v64 = 138544642;
+          *&v64[4] = v15;
+          *&v64[12] = 2114;
+          *&v64[14] = v16;
+          *&v64[22] = 2114;
+          v65 = v18;
+          *v66 = 2114;
+          *&v66[2] = v19;
+          *&v66[10] = 2114;
+          *&v66[12] = v48;
+          *&v66[20] = 2114;
+          *&v66[22] = self;
+          _os_log_impl(&dword_1C81FC000, v14, OS_LOG_TYPE_DEFAULT, "Optimal[with ZoomFactor] primary display scale canvas size calculated: Result(%{public}@) = SquaredPixelSize(%{public}@) x AdjustedScale(%{public}@); AdjustedScale=PreferredToOriginalScaleRatio(%{public}@)/zoomFactor(%{public}@)\nDisplayInfo: %{public}@", v64, 0x3Eu);
 
 LABEL_20:
         }
@@ -448,29 +453,29 @@ LABEL_20:
       else
       {
         [(CRDisplayScaleInfo *)self _optimalScaleFactorWithPointScale:[(CRDisplayScaleInfo *)self preferredPointScale]];
-        v47 = v46;
-        [(CRDisplayScaleInfo *)self squaredPixelSize];
-        v11 = (((v47 * v48) + 1) & 0xFFFFFFFE);
-        v12 = (((v47 * v49) + 1) & 0xFFFFFFFE);
-        v13 = CarDisplayScaleLogging();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v50 = v49;
+        squaredPixelSize2 = [(CRDisplayScaleInfo *)self squaredPixelSize];
+        v12 = (((v50 * v52) + 1) & 0xFFFFFFFE);
+        v13 = (((v50 * v53) + 1) & 0xFFFFFFFE);
+        v14 = CarDisplayScaleLogging(squaredPixelSize2);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
-          v14 = BSNSStringFromCGSize();
-          [(CRDisplayScaleInfo *)self squaredPixelSize];
           v15 = BSNSStringFromCGSize();
-          v17 = [MEMORY[0x1E696AD98] numberWithDouble:v47];
-          v18 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[CRDisplayScaleInfo preferredPointScale](self, "preferredPointScale")}];
-          *v59 = 138544386;
-          *&v59[4] = v14;
-          *&v59[12] = 2114;
-          *&v59[14] = v15;
-          *&v59[22] = 2114;
-          v60 = v17;
-          *v61 = 2114;
-          *&v61[2] = v18;
-          *&v61[10] = 2114;
-          *&v61[12] = self;
-          v19 = "Optimal[no ZoomFactor] primary display scale canvas size calculated: Result(%{public}@) = PixelSize(%{public}@) x OptimalScaleFactor(%{public}@) at PointScale(%{public}@)\nDisplayInfo: %{public}@";
+          [(CRDisplayScaleInfo *)self squaredPixelSize];
+          v16 = BSNSStringFromCGSize();
+          v18 = [MEMORY[0x1E696AD98] numberWithDouble:v50];
+          v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[CRDisplayScaleInfo preferredPointScale](self, "preferredPointScale")}];
+          *v64 = 138544386;
+          *&v64[4] = v15;
+          *&v64[12] = 2114;
+          *&v64[14] = v16;
+          *&v64[22] = 2114;
+          v65 = v18;
+          *v66 = 2114;
+          *&v66[2] = v19;
+          *&v66[10] = 2114;
+          *&v66[12] = self;
+          v20 = "Optimal[no ZoomFactor] primary display scale canvas size calculated: Result(%{public}@) = PixelSize(%{public}@) x OptimalScaleFactor(%{public}@) at PointScale(%{public}@)\nDisplayInfo: %{public}@";
           goto LABEL_19;
         }
       }
@@ -480,63 +485,63 @@ LABEL_20:
     {
       if (mode != 1)
       {
-        v11 = *MEMORY[0x1E695F060];
-        v12 = *(MEMORY[0x1E695F060] + 8);
+        v12 = *MEMORY[0x1E695F060];
+        v13 = *(MEMORY[0x1E695F060] + 8);
         goto LABEL_22;
       }
 
       [(CRDisplayScaleInfo *)self squaredPixelSize];
       v7 = v6;
       v9 = v8;
-      [(CRDisplayScaleInfo *)self preferredToOriginalScaleRatio];
-      v11 = v7 * v10;
-      v12 = v9 * v10;
-      v13 = CarDisplayScaleLogging();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      preferredToOriginalScaleRatio = [(CRDisplayScaleInfo *)self preferredToOriginalScaleRatio];
+      v12 = v7 * v11;
+      v13 = v9 * v11;
+      v14 = CarDisplayScaleLogging(preferredToOriginalScaleRatio);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = BSNSStringFromCGSize();
-        [(CRDisplayScaleInfo *)self squaredPixelSize];
         v15 = BSNSStringFromCGSize();
-        v16 = MEMORY[0x1E696AD98];
+        [(CRDisplayScaleInfo *)self squaredPixelSize];
+        v16 = BSNSStringFromCGSize();
+        v17 = MEMORY[0x1E696AD98];
         [(CRDisplayScaleInfo *)self preferredToOriginalScaleRatio];
-        v17 = [v16 numberWithDouble:?];
-        v18 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[CRDisplayScaleInfo preferredPointScale](self, "preferredPointScale")}];
-        *v59 = 138544386;
-        *&v59[4] = v14;
-        *&v59[12] = 2114;
-        *&v59[14] = v15;
-        *&v59[22] = 2114;
-        v60 = v17;
-        *v61 = 2114;
-        *&v61[2] = v18;
-        *&v61[10] = 2114;
-        *&v61[12] = self;
-        v19 = "Default primary display scale canvas size calculated: Result(%{public}@)=SquaredPixelSize(%{public}@) x PreferredToOriginalRatio(%{public}@) at PointScale(%{public}@)\nDisplayInfo: %{public}@";
+        v18 = [v17 numberWithDouble:?];
+        v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[CRDisplayScaleInfo preferredPointScale](self, "preferredPointScale")}];
+        *v64 = 138544386;
+        *&v64[4] = v15;
+        *&v64[12] = 2114;
+        *&v64[14] = v16;
+        *&v64[22] = 2114;
+        v65 = v18;
+        *v66 = 2114;
+        *&v66[2] = v19;
+        *&v66[10] = 2114;
+        *&v66[12] = self;
+        v20 = "Default primary display scale canvas size calculated: Result(%{public}@)=SquaredPixelSize(%{public}@) x PreferredToOriginalRatio(%{public}@) at PointScale(%{public}@)\nDisplayInfo: %{public}@";
 LABEL_19:
-        _os_log_impl(&dword_1C81FC000, v13, OS_LOG_TYPE_DEFAULT, v19, v59, 0x34u);
+        _os_log_impl(&dword_1C81FC000, v14, OS_LOG_TYPE_DEFAULT, v20, v64, 0x34u);
         goto LABEL_20;
       }
     }
 
 LABEL_22:
-    [(CRDisplayScaleInfo *)self _pixelSizeByClampingToMinSize:[(CRDisplayScaleInfo *)self preferredPointScale:*v59] pointScale:v11, v12];
-    v25 = v51;
-    v27 = v50;
-    if (v11 < v51 || v12 < v50)
+    v54 = [(CRDisplayScaleInfo *)self _pixelSizeByClampingToMinSize:[(CRDisplayScaleInfo *)self preferredPointScale:*v64] pointScale:v12, v13];
+    v27 = v56;
+    v29 = v55;
+    if (v12 < v56 || v13 < v55)
     {
-      v53 = CarDisplayScaleLogging();
-      if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+      v58 = CarDisplayScaleLogging(v54);
+      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
       {
-        v54 = BSNSStringFromCGSize();
-        v55 = BSNSStringFromCGSize();
-        v56 = BSNSStringFromCGSize();
-        *v59 = 138543874;
-        *&v59[4] = v54;
-        *&v59[12] = 2114;
-        *&v59[14] = v55;
-        *&v59[22] = 2114;
-        v60 = v56;
-        _os_log_impl(&dword_1C81FC000, v53, OS_LOG_TYPE_DEFAULT, "Primary display size is less than minimum: Size(%{public}@) < Min(%{public}@); Returning minimal size;\n minSize(%{public}@)", v59, 0x20u);
+        v59 = BSNSStringFromCGSize();
+        v60 = BSNSStringFromCGSize();
+        v61 = BSNSStringFromCGSize();
+        *v64 = 138543874;
+        *&v64[4] = v59;
+        *&v64[12] = 2114;
+        *&v64[14] = v60;
+        *&v64[22] = 2114;
+        v65 = v61;
+        _os_log_impl(&dword_1C81FC000, v58, OS_LOG_TYPE_DEFAULT, "Primary display size is less than minimum: Size(%{public}@) < Min(%{public}@); Returning minimal size;\n minSize(%{public}@)", v64, 0x20u);
       }
     }
 
@@ -544,46 +549,46 @@ LABEL_22:
   }
 
   [(CRDisplayScaleInfo *)self preferredToOriginalScaleRatio];
-  v21 = v20;
+  v22 = v21;
   [(CRDisplayScaleInfo *)self zoomFactor];
-  v23 = v21 / v22;
-  [(CRDisplayScaleInfo *)self squaredPixelSize];
-  v25 = v23 * v24;
-  v27 = v23 * v26;
-  v28 = CarDisplayScaleLogging();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+  v24 = v22 / v23;
+  squaredPixelSize3 = [(CRDisplayScaleInfo *)self squaredPixelSize];
+  v27 = v24 * v26;
+  v29 = v24 * v28;
+  v30 = CarDisplayScaleLogging(squaredPixelSize3);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
-    v29 = BSNSStringFromCGSize();
+    v31 = BSNSStringFromCGSize();
     [(CRDisplayScaleInfo *)self squaredPixelSize];
-    v30 = BSNSStringFromCGSize();
-    v31 = [MEMORY[0x1E696AD98] numberWithDouble:v23];
-    v32 = MEMORY[0x1E696AD98];
-    [(CRDisplayScaleInfo *)self preferredToOriginalScaleRatio];
-    v33 = [v32 numberWithDouble:?];
+    v32 = BSNSStringFromCGSize();
+    v33 = [MEMORY[0x1E696AD98] numberWithDouble:v24];
     v34 = MEMORY[0x1E696AD98];
-    [(CRDisplayScaleInfo *)self zoomFactor];
+    [(CRDisplayScaleInfo *)self preferredToOriginalScaleRatio];
     v35 = [v34 numberWithDouble:?];
-    v36 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[CRDisplayScaleInfo preferredPointScale](self, "preferredPointScale")}];
-    *v59 = 138544642;
-    *&v59[4] = v29;
-    *&v59[12] = 2114;
-    *&v59[14] = v30;
-    *&v59[22] = 2114;
-    v60 = v31;
-    *v61 = 2114;
-    *&v61[2] = v33;
-    *&v61[10] = 2114;
-    *&v61[12] = v35;
-    *&v61[20] = 2114;
-    *&v61[22] = v36;
-    _os_log_impl(&dword_1C81FC000, v28, OS_LOG_TYPE_DEFAULT, "Secondary display size after scaling: Size(%{public}@) = SquaredPixelSize(%{public}@) x Scale(%{public}@); Scale = PreferredToOriginalScaleRatio(%{public}@)/ZoomFactor(%{public}@) at PointScale(%{public}@)", v59, 0x3Eu);
+    v36 = MEMORY[0x1E696AD98];
+    [(CRDisplayScaleInfo *)self zoomFactor];
+    v37 = [v36 numberWithDouble:?];
+    v38 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[CRDisplayScaleInfo preferredPointScale](self, "preferredPointScale")}];
+    *v64 = 138544642;
+    *&v64[4] = v31;
+    *&v64[12] = 2114;
+    *&v64[14] = v32;
+    *&v64[22] = 2114;
+    v65 = v33;
+    *v66 = 2114;
+    *&v66[2] = v35;
+    *&v66[10] = 2114;
+    *&v66[12] = v37;
+    *&v66[20] = 2114;
+    *&v66[22] = v38;
+    _os_log_impl(&dword_1C81FC000, v30, OS_LOG_TYPE_DEFAULT, "Secondary display size after scaling: Size(%{public}@) = SquaredPixelSize(%{public}@) x Scale(%{public}@); Scale = PreferredToOriginalScaleRatio(%{public}@)/ZoomFactor(%{public}@) at PointScale(%{public}@)", v64, 0x3Eu);
   }
 
 LABEL_30:
-  v57 = v25;
-  v58 = v27;
-  result.height = v58;
-  result.width = v57;
+  v62 = v27;
+  v63 = v29;
+  result.height = v63;
+  result.width = v62;
   return result;
 }
 
@@ -614,60 +619,60 @@ LABEL_30:
 
 - (id)_allowedScaleModes
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   [(CRDisplayScaleInfo *)self canvasPixelSizeForDisplayScaleMode:1];
   v4 = v3;
   v6 = v5;
-  [(CRDisplayScaleInfo *)self canvasPixelSizeForDisplayScaleMode:2];
-  v9 = v8;
-  v10 = v4 - v7;
-  if (v4 - v7 < 0.0)
+  v7 = [(CRDisplayScaleInfo *)self canvasPixelSizeForDisplayScaleMode:2];
+  v10 = v9;
+  v11 = v4 - v8;
+  if (v4 - v8 < 0.0)
   {
-    v10 = -(v4 - v7);
+    v11 = -(v4 - v8);
   }
 
-  if (v10 <= v4 * 0.05)
+  if (v11 <= v4 * 0.05)
   {
-    v12 = v6 - v8;
-    if (v6 - v9 < 0.0)
+    v13 = v6 - v9;
+    if (v6 - v10 < 0.0)
     {
-      v12 = -(v6 - v9);
+      v13 = -(v6 - v10);
     }
 
-    v11 = v12 <= v6 * 0.05;
+    v12 = v13 <= v6 * 0.05;
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  v13 = CarDisplayScaleLogging();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = CarDisplayScaleLogging(v7);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = BSStringFromCGSize();
     v15 = BSStringFromCGSize();
-    v16 = NSStringFromBOOL();
-    v19 = 138543874;
-    v20 = v14;
-    v21 = 2114;
-    v22 = v15;
-    v23 = 2114;
-    v24 = v16;
-    _os_log_impl(&dword_1C81FC000, v13, OS_LOG_TYPE_DEFAULT, "Allowed scale modes: defaultSize:%{public}@, optimizedSize:%{public}@; Original equals to default?: %{public}@", &v19, 0x20u);
+    v16 = BSStringFromCGSize();
+    v17 = NSStringFromBOOL();
+    v20 = 138543874;
+    v21 = v15;
+    v22 = 2114;
+    v23 = v16;
+    v24 = 2114;
+    v25 = v17;
+    _os_log_impl(&dword_1C81FC000, v14, OS_LOG_TYPE_DEFAULT, "Allowed scale modes: defaultSize:%{public}@, optimizedSize:%{public}@; Original equals to default?: %{public}@", &v20, 0x20u);
   }
 
-  if (v11)
+  if (v12)
   {
-    v17 = &unk_1F47F26D0;
+    v18 = &unk_1F47F26D0;
   }
 
   else
   {
-    v17 = &unk_1F47F26E8;
+    v18 = &unk_1F47F26E8;
   }
 
-  return v17;
+  return v18;
 }
 
 - (BOOL)allowsSmartZoom
@@ -707,7 +712,7 @@ LABEL_30:
 
   if ([(CRDisplayScaleInfo *)self originalPointScale]== 2 && v20 < 0.96)
   {
-    v21 = CarDisplayScaleLogging();
+    v21 = CarDisplayScaleLogging(2);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       [(CRDisplayScaleInfo *)self squaredPixelSize];
@@ -1115,6 +1120,20 @@ LABEL_27:
   result.height = height;
   result.width = width;
   return result;
+}
+
++ (void)displayScaleInfoWithDictionary:(uint64_t)a3 screenType:(uint64_t)a4 zoomFactor:(uint64_t)a5 error:(uint64_t)a6 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_1C81FC000, a2, a3, "Unable to parse display physical size: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
++ (void)displayScaleInfoWithDictionary:(uint64_t)a3 screenType:(uint64_t)a4 zoomFactor:(uint64_t)a5 error:(uint64_t)a6 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_1C81FC000, a2, a3, "Unable to parse display pixel size: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

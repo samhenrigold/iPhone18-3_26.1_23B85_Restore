@@ -1,4 +1,4 @@
-void AlignMarkAnchor(TRunGlue **a1, int64_t a2, int64_t a3, uint64_t a4, uint64_t a5, atomic_ullong *this, uint64_t a7)
+void AlignMarkAnchor(TRunGlue **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, atomic_ullong *this, uint64_t a7)
 {
   v45 = NAN;
   v46 = NAN;
@@ -68,7 +68,7 @@ void AlignMarkAnchor(TRunGlue **a1, int64_t a2, int64_t a3, uint64_t a4, uint64_
   {
     v29 = *(v12 + 14);
     v47 = &v42;
-    v30 = std::__tree<std::__value_type<long,TGlyphDeltaListEntry>,std::__map_value_compare<long,std::__value_type<long,TGlyphDeltaListEntry>,std::less<long>,true>,std::allocator<std::__value_type<long,TGlyphDeltaListEntry>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v29, a3);
+    v30 = std::__tree<std::__value_type<long,TGlyphDeltaListEntry>,std::__map_value_compare<long,std::__value_type<long,TGlyphDeltaListEntry>,std::less<long>,true>,std::allocator<std::__value_type<long,TGlyphDeltaListEntry>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v29, a3, &v47);
     a3 = v42;
     v31 = -v20;
     if (*(v12 + 516))
@@ -86,8 +86,8 @@ void AlignMarkAnchor(TRunGlue **a1, int64_t a2, int64_t a3, uint64_t a4, uint64_
       v31 = v18;
     }
 
-    v30[5] = v31;
-    v30[6] = v32;
+    *(v30 + 5) = v31;
+    *(v30 + 6) = v32;
   }
 
   if (*(v12 + 18))
@@ -438,7 +438,7 @@ LABEL_15:
     }
   }
 
-  OTL::GDEF::MarkFilteringSet(*(a1 + 24), bswap32(*(v13 + 2 * (bswap32(*(a2 + 4)) >> 16))) >> 16, &v57, v16, v17);
+  OTL::GDEF::MarkFilteringSet(&v57, *(a1 + 24), bswap32(*(v13 + 2 * (bswap32(*(a2 + 4)) >> 16))) >> 16, v16, v17);
   v20 = v59;
   v21 = (&v57 + (v60 >> 1));
   if (v60)
@@ -1466,7 +1466,7 @@ uint64_t OTL::GPOS::ApplyChainContextPosFormat1(uint64_t a1, unint64_t a2, TGlyp
                   return 0;
                 }
 
-                v33 = v32 + 1;
+                v33 = (v32 + 1);
                 if (v32 < a2 || v33 > v5)
                 {
                   return 0;
@@ -1481,7 +1481,7 @@ uint64_t OTL::GPOS::ApplyChainContextPosFormat1(uint64_t a1, unint64_t a2, TGlyp
                 v42 = v16;
                 v41 = v33;
 LABEL_64:
-                v43 = v41 + 1;
+                v43 = (v41 + 1);
                 if (v41 < a2 || v43 > v5)
                 {
                   return 0;
@@ -1691,9 +1691,9 @@ LABEL_92:
   return result;
 }
 
-uint64_t OTL::GPOS::ApplyChainContextPosFormat2(uint64_t a1, unsigned __int16 *a2, uint64_t *a3, unint64_t a4)
+uint64_t OTL::GPOS::ApplyChainContextPosFormat2(uint64_t a1, unsigned __int16 *a2, TGlyphIterator *a3, unint64_t a4)
 {
-  v8 = a3[6];
+  v8 = *(a3 + 6);
   v95 = *a3;
   *&v96[0] = v8;
   v9 = TRunGlue::TGlyph::glyphID(&v95);
@@ -1862,7 +1862,7 @@ uint64_t OTL::GPOS::ApplyChainContextPosFormat2(uint64_t a1, unsigned __int16 *a
                     return 0;
                   }
 
-                  v44 = v43 + 1;
+                  v44 = (v43 + 1);
                   if (v43 < a2 || v44 > v10)
                   {
                     return 0;
@@ -1877,7 +1877,7 @@ uint64_t OTL::GPOS::ApplyChainContextPosFormat2(uint64_t a1, unsigned __int16 *a
                   v49 = v8;
                   v50 = v44;
 LABEL_80:
-                  v57 = v50 + 1;
+                  v57 = (v50 + 1);
                   if (v50 < a2 || v57 > v10)
                   {
                     return 0;
@@ -1895,8 +1895,8 @@ LABEL_80:
                       {
 LABEL_94:
                         result = 0;
-                        v66 = a3[6];
-                        a3[6] = v8;
+                        v66 = *(a3 + 6);
+                        *(a3 + 6) = v8;
                         if (v60 < a2)
                         {
                           return result;
@@ -1936,7 +1936,7 @@ LABEL_120:
                               TRunGlue::ClearSafeToBreakAfter(*a3, v79);
                             }
 
-                            a3[6] = v8;
+                            *(a3 + 6) = v8;
                             TGlyphIterator::Next(a3, (v59 - 1));
                             return 1;
                           }
@@ -1979,7 +1979,7 @@ LABEL_120:
                         }
 
                         v71 = __rev16(*v60);
-                        a3[6] = *(&v95 + (v59 - 1));
+                        *(a3 + 6) = *(&v95 + (v59 - 1));
                         if (v71 <= 1)
                         {
                           v72 = 1;
@@ -1995,7 +1995,7 @@ LABEL_120:
                         v75 = v72;
                         while (TGlyphIterator::NextContext(a3, 1))
                         {
-                          v76 = a3[6];
+                          v76 = *(a3 + 6);
                           v93 = *a3;
                           v94 = v76;
                           v77 = TRunGlue::TGlyph::glyphID(&v93);
@@ -2008,9 +2008,9 @@ LABEL_120:
                           if (!--v75)
                           {
                             v67 = &v73[v72 - 1 + 2];
-                            v66 = a3[6];
+                            v66 = *(a3 + 6);
                             v8 = v90;
-                            a3[6] = v90;
+                            *(a3 + 6) = v90;
                             v59 = v83;
                             goto LABEL_120;
                           }
@@ -2025,7 +2025,7 @@ LABEL_120:
                         v63 = v96;
                         while (TGlyphIterator::Next(a3, 1))
                         {
-                          v64 = a3[6];
+                          v64 = *(a3 + 6);
                           v93 = *a3;
                           v94 = v64;
                           v65 = TRunGlue::TGlyph::glyphID(&v93);
@@ -2102,7 +2102,7 @@ LABEL_117:
                 v54 = v44;
                 while (TGlyphIterator::PrevContext(a3, 1))
                 {
-                  v55 = a3[6];
+                  v55 = *(a3 + 6);
                   v93 = *a3;
                   v94 = v55;
                   v56 = TRunGlue::TGlyph::glyphID(&v93);
@@ -2120,16 +2120,16 @@ LABEL_117:
                   ++v54;
                   if (!--v53)
                   {
-                    v49 = a3[6];
+                    v49 = *(a3 + 6);
                     v8 = v90;
-                    a3[6] = v90;
+                    *(a3 + 6) = v90;
                     goto LABEL_80;
                   }
                 }
 
 LABEL_116:
                 v8 = v90;
-                a3[6] = v90;
+                *(a3 + 6) = v90;
                 goto LABEL_117;
               }
             }
@@ -2335,39 +2335,42 @@ double *TRunGlue::TGlyph::AdjustXPositionBy(TRunGlue::TGlyph *this, double a2)
   if ((*(v4 + 144) || *(v4 + 184)) && (*(v4 + 516) & 1) == 0)
   {
     Origin = TRunGlue::GetOrigin(v4, *(this + 1));
-    v10 = *this;
-    v11 = *(this + 1);
-    v12 = Origin + *(*this + 520) * a2;
+    v12 = *this;
+    v13 = *(this + 1);
+    v14 = Origin + *(*this + 520) * a2;
 
-    return TRunGlue::SetOrigin(v10, v11, *&v12);
+    return TRunGlue::SetOrigin(v12, v13, *&v14);
   }
 
   else
   {
-    result = std::__tree<std::__value_type<long,TGlyphDeltaListEntry>,std::__map_value_compare<long,std::__value_type<long,TGlyphDeltaListEntry>,std::less<long>,true>,std::allocator<std::__value_type<long,TGlyphDeltaListEntry>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(*(v4 + 112), *(this + 1));
-    v6 = result[5];
-    v7 = result[6];
+    v5 = *(v4 + 112);
+    v6 = *(this + 1);
+    v15 = (this + 8);
+    result = std::__tree<std::__value_type<long,TGlyphDeltaListEntry>,std::__map_value_compare<long,std::__value_type<long,TGlyphDeltaListEntry>,std::less<long>,true>,std::allocator<std::__value_type<long,TGlyphDeltaListEntry>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v5, v6, &v15);
+    v8 = result[5];
+    v9 = result[6];
     if (*(*this + 516))
     {
-      v7 = v7 + a2;
+      v9 = v9 + a2;
     }
 
     else
     {
-      v6 = v6 + a2;
+      v8 = v8 + a2;
     }
 
-    result[5] = v6;
-    result[6] = v7;
+    result[5] = v8;
+    result[6] = v9;
   }
 
   return result;
 }
 
-void *std::__tree<std::__value_type<long,TGlyphDeltaListEntry>,std::__map_value_compare<long,std::__value_type<long,TGlyphDeltaListEntry>,std::less<long>,true>,std::allocator<std::__value_type<long,TGlyphDeltaListEntry>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(uint64_t a1, uint64_t a2)
+uint64_t **std::__tree<std::__value_type<long,TGlyphDeltaListEntry>,std::__map_value_compare<long,std::__value_type<long,TGlyphDeltaListEntry>,std::less<long>,true>,std::allocator<std::__value_type<long,TGlyphDeltaListEntry>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(uint64_t **a1, uint64_t a2, uint64_t ***a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_8:
     operator new();
@@ -2377,34 +2380,34 @@ LABEL_8:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = v2[4];
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = v3[4];
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_8;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
-      return v3;
+      return v4;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-void TRunGlue::GetUnscaledPosition(TRunGlue *this, int64_t a2)
+void TRunGlue::GetUnscaledPosition(TRunGlue *this, uint64_t a2)
 {
   TRunGlue::FocusOnIndex(this, a2);
   TRunGlue::GetOrigin(this, a2);
@@ -2416,21 +2419,21 @@ void TRunGlue::GetUnscaledPosition(TRunGlue *this, int64_t a2)
   }
 }
 
-OTL::Coverage *OTL::GDEF::MarkFilteringSet@<X0>(OTL::Coverage *this@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>, double a4@<D0>, int8x16_t a5@<Q1>)
+OTL::Coverage *OTL::GDEF::MarkFilteringSet@<X0>(OTL::Coverage *__return_ptr a1@<X8>, OTL::Coverage *this@<X0>, unsigned int a3@<W1>, double a4@<D0>, int8x16_t a5@<Q1>)
 {
   v5 = *(this + 4);
-  if (a2 < bswap32(*(v5 + 2)) >> 16)
+  if (a3 < bswap32(*(v5 + 2)) >> 16)
   {
-    return OTL::Coverage::Coverage(a3, (v5 + bswap32(*(v5 + 4 * a2 + 4))), *(this + 1), 1, a4, a5);
+    return OTL::Coverage::Coverage(a1, (v5 + bswap32(*(v5 + 4 * a3 + 4))), *(this + 1), 1, a4, a5);
   }
 
-  *a3 = 0;
-  *(a3 + 8) = 0;
-  *(a3 + 16) = OTL::Coverage::SearchUnknown;
-  *(a3 + 24) = 0;
-  *(a3 + 32) = 0xFFFF;
-  *(a3 + 40) = 0;
-  *(a3 + 48) = 0;
+  *a1 = 0;
+  *(a1 + 1) = 0;
+  *(a1 + 2) = OTL::Coverage::SearchUnknown;
+  *(a1 + 3) = 0;
+  *(a1 + 8) = 0xFFFF;
+  *(a1 + 5) = 0;
+  *(a1 + 6) = 0;
   return this;
 }
 
@@ -2608,7 +2611,7 @@ void TRubyRun::InitializeAnnotation(atomic_ullong *this)
     dispatch_once_f(&qword_1ED567C50, 0, GetValidRubyAttributes(void)::$_0::__invoke);
   }
 
-  CreateCopyOfDictionaryFilteredByKeys(explicit, _MergedGlobals_19, &v19);
+  CreateCopyOfDictionaryFilteredByKeys(&v19, explicit, _MergedGlobals_19);
   v18 = 0xAAAAAAAAAAAAAAAALL;
   TCFMutableDictionary::TCFMutableDictionary(&v18, atomic_load_explicit(&v19, memory_order_acquire));
   if (this[95])
@@ -2718,7 +2721,7 @@ void TRubyRun::InitializeAnnotationFrom(TRubyRun *this, const TRubyRun *a2)
   while (v4 != 288);
 }
 
-uint64_t TRubyRun::TRubyRun(uint64_t a1, uint64_t a2, uint64_t a3, CFIndex a4, int a5)
+uint64_t TRubyRun::TRubyRun(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4, int a5)
 {
   *TRun::TRun(a1, a2, a3, a4, a5) = &unk_1EF2587D0;
   *(a1 + 320) = atomic_load_explicit((a2 + 320), memory_order_acquire);
@@ -2751,7 +2754,7 @@ uint64_t TRubyRun::TRubyRun(uint64_t a1, uint64_t a2, uint64_t a3, CFIndex a4, i
   *(a1 + 744) = *MEMORY[0x1E695F060];
   *(a1 + 760) = *(a2 + 760);
   *(a1 + 768) = 0;
-  if (a3 == *(a1 + 728) && a4 == *(a1 + 736))
+  if (__PAIR128__(a4, a3) == *(a1 + 728))
   {
     TRubyRun::InitializeAnnotationFrom(a1, a2);
   }
@@ -2759,7 +2762,7 @@ uint64_t TRubyRun::TRubyRun(uint64_t a1, uint64_t a2, uint64_t a3, CFIndex a4, i
   return a1;
 }
 
-double TRubyRun::UpdateMetricsWithAnnotationLine(TRubyRun *this, int a2, __n128 a3)
+double TRubyRun::UpdateMetricsWithAnnotationLine(TRubyRun *this, unsigned int a2, __n128 a3)
 {
   v3 = (this + 72 * a2 + 408);
   if (!atomic_load_explicit(v3, memory_order_acquire))
@@ -4012,7 +4015,7 @@ void TRubyRun::CopyRubyAnnotationLineForPosition(atomic_ullong *this@<X0>, unsig
   }
 }
 
-uint64_t ___ZN19TRubyAnnotationLine18InitWithAnnotationERK15TRubyAnnotation14CTRubyPositionPK14__CFDictionarydb_block_invoke(uint64_t a1, uint64_t a2, CFIndex a3, CFIndex a4)
+void *___ZN19TRubyAnnotationLine18InitWithAnnotationERK15TRubyAnnotation14CTRubyPositionPK14__CFDictionarydb_block_invoke(uint64_t a1, uint64_t a2, CFIndex a3, CFIndex a4)
 {
   v23 = *MEMORY[0x1E69E9840];
   v18 = 0u;
@@ -4058,7 +4061,7 @@ uint64_t ___ZN19TRubyAnnotationLine18InitWithAnnotationERK15TRubyAnnotation14CTR
           CFAttributedStringSetAttribute(explicit, v25, v12, v17);
         }
 
-        ++v11;
+        v11 = v11 + 1;
       }
 
       while (v9 != v11);
@@ -4124,7 +4127,7 @@ void CreateLine(const __CFAttributedString *a1, int a2)
   }
 
   memcpy(keys, &unk_184773BD8, 0x110uLL);
-  TTypesetterAttrString::TTypesetterAttrString(keys, a1, atomic_load_explicit(&v4, memory_order_acquire));
+  TTypesetterAttrString::TTypesetterAttrString(keys, a1, atomic_load_explicit(&v4, memory_order_acquire), 1);
 }
 
 uint64_t GetToneString(int a1)
@@ -4217,7 +4220,7 @@ void TRubyRun::~TRubyRun(id *this)
   JUMPOUT(0x1865F22D0);
 }
 
-uint64_t TRubyRun::FindBreak@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, const TCharStream *a3@<X2>, int a4@<W3>, uint64_t a5@<X8>, double a6@<D0>)
+uint64_t TRubyRun::FindBreak@<X0>(uint64_t result@<X0>, char *a2@<X1>, const TCharStream *a3@<X2>, int a4@<W3>, uint64_t a5@<X8>, double a6@<D0>)
 {
   v6 = result;
   if (atomic_load_explicit((result + 408), memory_order_acquire))
@@ -4299,7 +4302,7 @@ CFSetRef GetValidRubyAttributes(void)::$_0::__invoke()
   return result;
 }
 
-uint64_t OTL::GSUB::ApplyMultipleSubst(uint64_t a1, uint64_t a2, int64_t *a3, unsigned int a4, _WORD *a5, uint64_t a6)
+uint64_t OTL::GSUB::ApplyMultipleSubst(uint64_t a1, uint64_t a2, TGlyphIterator *a3, unsigned int a4, _WORD *a5, uint64_t a6)
 {
   v30 = *MEMORY[0x1E69E9840];
   v6 = *(a1 + 40);
@@ -4356,15 +4359,15 @@ uint64_t OTL::GSUB::ApplyMultipleSubst(uint64_t a1, uint64_t a2, int64_t *a3, un
           return result;
         }
 
-        v28 = a3[9];
-        a3[9] = 0;
+        v28 = *(a3 + 9);
+        *(a3 + 9) = 0;
         TGlyphIterator::Next(a3, (v22 - 1));
-        a3[9] = v28;
+        *(a3 + 9) = v28;
       }
 
       else
       {
-        TRunGlue::Delete(*a3, a3[6], 0);
+        TRunGlue::Delete(*a3, *(a3 + 6), 0);
         ++*a5;
       }
 
@@ -4634,7 +4637,7 @@ unsigned __int16 *ContextSubstFormat1::NthSubRuleSet(ContextSubstFormat1 *this, 
   }
 }
 
-uint64_t OTL::GSUB::ApplyContextSubstFormat1(uint64_t a1, ContextSubstFormat1 *this, TGlyphIterator *a3, int a4, _WORD *a5, uint64_t a6, uint64_t a7)
+uint64_t OTL::GSUB::ApplyContextSubstFormat1(uint64_t a1, ContextSubstFormat1 *this, TGlyphIterator *a3, int a4, _WORD *a5, uint64_t a6, unint64_t a7)
 {
   v7 = *(a1 + 40);
   v8 = this + 6;
@@ -4830,7 +4833,7 @@ LABEL_65:
   return result;
 }
 
-uint64_t OTL::GSUB::WouldSubstituteContext1(void *a1, ContextSubstFormat1 *this, int a3, uint64_t a4, unsigned int a5)
+uint64_t OTL::GSUB::WouldSubstituteContext1(void *a1, ContextSubstFormat1 *this, int a3, uint64_t a4, uint64_t a5)
 {
   v5 = a1[5];
   v6 = this + 6;
@@ -4848,6 +4851,7 @@ uint64_t OTL::GSUB::WouldSubstituteContext1(void *a1, ContextSubstFormat1 *this,
     return 0;
   }
 
+  v14 = a5;
   result = ContextSubstFormat1::NthSubRuleSet(this, a3 - 1, v5);
   if (!result)
   {
@@ -4892,7 +4896,7 @@ LABEL_30:
         if (v28 <= v5)
         {
           v29 = __rev16(*v27);
-          if (*v27 && v29 <= a5)
+          if (*v27 && v29 <= v14)
           {
             v31 = (v29 - 1);
             v32 = &v28[v31];
@@ -4914,7 +4918,7 @@ LABEL_30:
             if (v29 < 2)
             {
 LABEL_58:
-              if (OTL::GSUB::WouldSubstituteLookupRecords(a1, this, v28, bswap32(v27[1]) >> 16, a4, a5))
+              if (OTL::GSUB::WouldSubstituteLookupRecords(a1, this, v28, bswap32(v27[1]) >> 16, a4, v14))
               {
                 return 1;
               }
@@ -4983,22 +4987,22 @@ uint64_t OTL::GSUB::WouldSubstituteLookupRecords(void *a1, unint64_t a2, unsigne
       if (v12)
       {
         v13 = v12;
-        v27 = ((*(v12 + 26) - *(v12 + 24)) >> 6);
+        v28 = ((*(v12 + 26) - *(v12 + 24)) >> 6);
         if (((*(v12 + 26) - *(v12 + 24)) >> 6))
         {
           v14 = 0;
-          v28 = a6 - HIWORD(v11);
-          v29 = (a5 + 2 * HIWORD(v11));
+          v29 = a6 - HIWORD(v11);
+          v30 = (a5 + 2 * HIWORD(v11));
           while (2)
           {
-            v15 = v13[12];
-            v16 = (v13[13] - v15) >> 6;
+            v15 = *(v13 + 12);
+            v16 = (*(v13 + 13) - v15) >> 6;
             v17 = v15 + (v14 << 6) + 8;
             v18 = v16 <= v14 ? 0 : v15 + (v14 << 6) + 8;
             if (v16 > v14)
             {
-              v20 = v28;
-              v19 = v29;
+              v20 = v29;
+              v19 = v30;
               do
               {
                 v21 = *(v17 + 16);
@@ -5009,11 +5013,12 @@ uint64_t OTL::GSUB::WouldSubstituteLookupRecords(void *a1, unint64_t a2, unsigne
                   v21 = *(*v23 + v21);
                 }
 
-                if (v21(v23, *v19))
+                v24 = v21(v23, *v19);
+                if (v24)
                 {
-                  v24 = v13[12];
-                  v25 = v14 >= (v13[13] - v24) >> 6 ? 0 : *(v24 + (v14 << 6));
-                  if (OTL::GSUB::WouldSubstituteSubtable(a1, v13, *(v13 + 8), v25))
+                  v25 = *(v13 + 12);
+                  v26 = v14 >= (*(v13 + 13) - v25) >> 6 ? 0 : *(v25 + (v14 << 6));
+                  if (OTL::GSUB::WouldSubstituteSubtable(a1, v13, *(v13 + 8), v26, v24, v19, v20))
                   {
                     return 1;
                   }
@@ -5024,7 +5029,7 @@ uint64_t OTL::GSUB::WouldSubstituteLookupRecords(void *a1, unint64_t a2, unsigne
               }
 
               while (v20);
-              if (++v14 != v27)
+              if (++v14 != v28)
               {
                 continue;
               }
@@ -5083,29 +5088,29 @@ unsigned __int16 *ContextSubstFormat2::NthSubClassSet(ContextSubstFormat2 *this,
   }
 }
 
-unsigned __int16 *OTL::GSUB::ApplyContextSubstFormat2(uint64_t a1, unsigned __int16 *a2, uint64_t *a3, _WORD *a4, uint64_t a5, uint64_t a6)
+unsigned __int16 *OTL::GSUB::ApplyContextSubstFormat2(uint64_t a1, ContextSubstFormat2 *a2, uint64_t *a3, _WORD *a4, uint64_t a5, unint64_t a6)
 {
   v12 = a3[6];
   v64 = *a3;
   *&v65[0] = v12;
   v13 = TRunGlue::TGlyph::glyphID(&v64);
   v14 = *(a1 + 40);
-  v15 = a2 + 4;
-  if ((a2 + 3) < *(a1 + 32) || v15 > v14)
+  v15 = (a2 + 8);
+  if (a2 + 6 < *(a1 + 32) || v15 > v14)
   {
     return 0;
   }
 
-  v17 = bswap32(a2[3]) >> 16;
+  v17 = bswap32(*(a2 + 3)) >> 16;
   v18 = &v15[v17];
-  v19 = (a2 + 5) <= v14 ? (v14 - v15) >> 1 : 0;
+  v19 = a2 + 10 <= v14 ? (v14 - v15) >> 1 : 0;
   v20 = v18 <= v14 && v18 >= v15;
   if (!v20 && v19 != v17)
   {
     return 0;
   }
 
-  v22 = (a2 + (bswap32(a2[2]) >> 16));
+  v22 = (a2 + (bswap32(*(a2 + 2)) >> 16));
   if ((v22 + 1) > v14)
   {
     return 0;
@@ -5193,13 +5198,13 @@ unsigned __int16 *OTL::GSUB::ApplyContextSubstFormat2(uint64_t a1, unsigned __in
         v36 = v12;
       }
 
-      v37 = v30 + 1;
+      v37 = (v30 + 1);
       v62 = a3;
       v55 = a1;
       v56 = a5;
       v54 = a6;
       v58 = v22;
-      if (v30 + 1 < a2 || (v38 = __rev16(*v30), v39 = &v37[v38], v39 < v37) || v39 > v14)
+      if (v30 + 1 < a2 || (v38 = __rev16(*v30), v39 = v37 + 2 * v38, v39 < v37) || v39 > v14)
       {
         v40 = (v30 + 2) <= v14 && v37 >= a2;
         v38 = (v14 - v37) >> 1;
@@ -5348,18 +5353,18 @@ unsigned __int16 *EqualClassSequenceAndNote<BigEndianScalar<unsigned short>>(OTL
   return v5;
 }
 
-uint64_t OTL::GSUB::WouldSubstituteContext2(void *a1, unsigned __int16 *a2, unsigned __int16 *a3, unsigned int a4)
+uint64_t OTL::GSUB::WouldSubstituteContext2(void *a1, ContextSubstFormat2 *a2, unsigned __int16 *a3, unsigned int a4)
 {
   v4 = a1[5];
-  v5 = a2 + 4;
-  if ((a2 + 3) < a1[4] || v5 > v4)
+  v5 = (a2 + 8);
+  if (a2 + 6 < a1[4] || v5 > v4)
   {
     return 0;
   }
 
-  v8 = bswap32(a2[3]) >> 16;
+  v8 = bswap32(*(a2 + 3)) >> 16;
   v9 = &v5[v8];
-  v10 = (a2 + 5) <= v4 ? (v4 - v5) >> 1 : 0;
+  v10 = a2 + 10 <= v4 ? (v4 - v5) >> 1 : 0;
   v11 = v9 <= v4 && v9 >= v5;
   v12 = v11 || v10 == v8;
   if (!v12)
@@ -5367,7 +5372,7 @@ uint64_t OTL::GSUB::WouldSubstituteContext2(void *a1, unsigned __int16 *a2, unsi
     return 0;
   }
 
-  v13 = (a2 + (bswap32(a2[2]) >> 16));
+  v13 = (a2 + (bswap32(*(a2 + 2)) >> 16));
   if ((v13 + 1) > v4)
   {
     return 0;
@@ -5398,8 +5403,8 @@ uint64_t OTL::GSUB::WouldSubstituteContext2(void *a1, unsigned __int16 *a2, unsi
     if (result)
     {
       v19 = result;
-      v20 = (result + 2);
-      if (result + 2 < a2 || ((v21 = __rev16(*result), v22 = &v20[v21], v22 >= v20) ? (v23 = v22 > v4) : (v23 = 1), v23))
+      v20 = result + 2;
+      if (result + 2 < a2 || ((v21 = __rev16(*result), v22 = v20 + 2 * v21, v22 >= v20) ? (v23 = v22 > v4) : (v23 = 1), v23))
       {
         v24 = result + 4 <= v4 && v20 >= a2;
         v21 = (v4 - v20) >> 1;
@@ -5435,7 +5440,7 @@ uint64_t OTL::GSUB::WouldSubstituteContext2(void *a1, unsigned __int16 *a2, unsi
       {
         if (v25 < bswap32(*v19) >> 16)
         {
-          v27 = v20[v25];
+          v27 = *(v20 + 2 * v25);
           v12 = v27 == 0;
           v28 = __rev16(v27);
           v29 = (v19 + v28);
@@ -5474,7 +5479,7 @@ LABEL_69:
 
               else
               {
-                v44 = (&v20[v32] + v28);
+                v44 = (v20 + 2 * v32 + v28);
                 v41 = v32 - 1;
                 v42 = a3 + 1;
                 while (1)
@@ -5509,7 +5514,7 @@ LABEL_69:
   return result;
 }
 
-uint64_t OTL::GSUB::ApplyContextSubstFormat3(uint64_t a1, unint64_t a2, uint64_t a3, _WORD *a4, uint64_t a5, uint64_t a6)
+uint64_t OTL::GSUB::ApplyContextSubstFormat3(uint64_t a1, unint64_t a2, uint64_t a3, _WORD *a4, uint64_t a5, unint64_t a6)
 {
   v7 = *(a1 + 40);
   v8 = a2 + 6;
@@ -5606,10 +5611,10 @@ LABEL_16:
   return 1;
 }
 
-uint64_t OTL::GSUB::WouldSubstituteContext3(void *a1, unint64_t a2, uint64_t a3, unsigned int a4)
+uint64_t OTL::GSUB::WouldSubstituteContext3(void *a1, unsigned __int16 *a2, uint64_t a3, unsigned int a4)
 {
   v4 = a1[5];
-  v5 = a2 + 6;
+  v5 = (a2 + 3);
   if (a1[4] <= a2)
   {
     v6 = v5 >= v4;
@@ -5627,9 +5632,9 @@ uint64_t OTL::GSUB::WouldSubstituteContext3(void *a1, unint64_t a2, uint64_t a3,
     return 0;
   }
 
-  v10 = *(a2 + 2);
+  v10 = a2[1];
   v11 = __rev16(v10);
-  if (*(a2 + 2))
+  if (a2[1])
   {
     v12 = v11 >= a4;
     v13 = v11 == a4;
@@ -5646,12 +5651,12 @@ uint64_t OTL::GSUB::WouldSubstituteContext3(void *a1, unint64_t a2, uint64_t a3,
     return 0;
   }
 
-  v17 = (a2 + 8);
+  v17 = a2 + 4;
   if (v10 != 256)
   {
     v18 = (v11 - 1);
     v19 = &v17[v18];
-    if (a2 + 10 <= v4)
+    if ((a2 + 5) <= v4)
     {
       v20 = (v4 - v17) >> 1;
     }
@@ -5724,7 +5729,7 @@ LABEL_33:
     }
   }
 
-  return OTL::GSUB::WouldSubstituteLookupRecords(a1, a2, v17, bswap32(*(a2 + 4)) >> 16, a3, a4);
+  return OTL::GSUB::WouldSubstituteLookupRecords(a1, a2, v17, bswap32(a2[2]) >> 16, a3, a4);
 }
 
 unsigned __int16 *ChainContextSubstFormat1::NthChainSubRuleSet(ChainContextSubstFormat1 *this, unsigned int a2, unint64_t a3)
@@ -5766,7 +5771,7 @@ unsigned __int16 *ChainContextSubstFormat1::NthChainSubRuleSet(ChainContextSubst
   }
 }
 
-uint64_t OTL::GSUB::ApplyChainContextSubstFormat1(uint64_t a1, ChainContextSubstFormat1 *this, TGlyphIterator *a3, int a4, _WORD *a5, uint64_t a6, uint64_t a7)
+uint64_t OTL::GSUB::ApplyChainContextSubstFormat1(uint64_t a1, ChainContextSubstFormat1 *this, TGlyphIterator *a3, int a4, _WORD *a5, uint64_t a6, unint64_t a7)
 {
   v7 = *(a1 + 40);
   v8 = this + 6;
@@ -6323,21 +6328,21 @@ LABEL_58:
   return result;
 }
 
-unsigned __int16 *OTL::GSUB::WouldSubstituteChainContext2(void *a1, unsigned __int16 *a2, unsigned __int16 *a3, unsigned int a4)
+unsigned __int16 *OTL::GSUB::WouldSubstituteChainContext2(void *a1, ChainContextSubstFormat2 *a2, unsigned __int16 *a3, unsigned int a4)
 {
   v4 = a1[5];
-  v5 = a2 + 6;
-  if ((a2 + 5) < a1[4] || v5 > v4)
+  v5 = (a2 + 12);
+  if (a2 + 10 < a1[4] || v5 > v4)
   {
     return 0;
   }
 
   result = 0;
-  v9 = bswap32(a2[5]) >> 16;
+  v9 = bswap32(*(a2 + 5)) >> 16;
   v10 = __CFADD__(v5, 2 * v9);
   v11 = &v5[v9] > v4 || v10;
   v12 = (v4 - v5) >> 1;
-  if ((a2 + 7) > v4)
+  if (a2 + 14 > v4)
   {
     v12 = 0;
   }
@@ -6352,9 +6357,9 @@ unsigned __int16 *OTL::GSUB::WouldSubstituteChainContext2(void *a1, unsigned __i
     v13 = v11;
   }
 
-  if (a2[5] && (v13 & 1) == 0)
+  if (*(a2 + 5) && (v13 & 1) == 0)
   {
-    v14 = (a2 + (bswap32(a2[3]) >> 16));
+    v14 = (a2 + (bswap32(*(a2 + 3)) >> 16));
     if ((v14 + 1) > v4)
     {
       return 0;
@@ -6641,9 +6646,9 @@ LABEL_33:
   return result;
 }
 
-uint64_t OTL::GSUB::ApplyReverseChainSingleSubst(uint64_t a1, unint64_t a2, uint64_t a3, unsigned int a4, uint64_t a5)
+uint64_t OTL::GSUB::ApplyReverseChainSingleSubst(uint64_t a1, unint64_t a2, int *a3, unsigned int a4, uint64_t a5)
 {
-  v10 = *(a3 + 48);
+  v10 = *(a3 + 6);
   v37[0] = *a3;
   v37[1] = v10;
   TRunGlue::TGlyph::glyphID(v37);
@@ -6658,9 +6663,9 @@ uint64_t OTL::GSUB::ApplyReverseChainSingleSubst(uint64_t a1, unint64_t a2, uint
   v14 = __rev16(v13);
   if (*(a2 + 4))
   {
-    v15 = *(a3 + 40);
-    v16 = *(a3 + 48);
-    if (*(a3 + 8) < 1)
+    v15 = *(a3 + 5);
+    v16 = *(a3 + 6);
+    if (a3[2] < 1)
     {
       if (v16 - v14 <= v15)
       {
@@ -6688,9 +6693,9 @@ uint64_t OTL::GSUB::ApplyReverseChainSingleSubst(uint64_t a1, unint64_t a2, uint
     goto LABEL_13;
   }
 
-  v21 = *(a3 + 48);
-  v22 = *(a3 + 32);
-  if (*(a3 + 8) < 1)
+  v21 = *(a3 + 6);
+  v22 = *(a3 + 4);
+  if (a3[2] < 1)
   {
     if (v21 + v20 < v22)
     {
@@ -6722,7 +6727,7 @@ LABEL_13:
   }
 
   v23 = &v18[v20];
-  v24 = v23 + 1;
+  v24 = (v23 + 1);
   if (v23 < a2 || v24 > v11)
   {
     return 0;
@@ -6734,7 +6739,7 @@ LABEL_13:
     return 0;
   }
 
-  v27 = &v24[v26];
+  v27 = v24 + 2 * v26;
   v28 = v24 >= a2 && v27 >= v24;
   if (!v28 || v27 > v11)
   {
@@ -6751,7 +6756,7 @@ LABEL_13:
     }
   }
 
-  TRunGlue::SetGlyphID<true>(*a3, *(a3 + 48), bswap32(v24[a4 - 1]) >> 16);
+  TRunGlue::SetGlyphID<true>(*a3, *(a3 + 6), bswap32(*(v24 + 2 * (a4 - 1))) >> 16);
   v32 = 1;
   std::function<void ()(CFRange,long)>::operator()(a5, v10, 1, 1);
   if (*(*a3 + 144))
@@ -6822,7 +6827,7 @@ LABEL_7:
       }
     }
 
-    if ((v10[13] - v10[12]) >> 6)
+    if ((*(v10 + 13) - *(v10 + 12)) >> 6)
     {
       std::__function::__value_func<void ()(unsigned short,unsigned short)>::__value_func[abi:fn200100](v15, v17);
       v16 = 0;
@@ -6845,7 +6850,7 @@ LABEL_7:
   return v11;
 }
 
-unsigned __int16 *OTL::GSUB::WouldSubstituteSubtable(void *a1, int a2, int a3, ChainContextSubstFormat1 *this, unsigned int a5, unsigned __int16 *a6, unsigned int a7)
+unsigned __int16 *OTL::GSUB::WouldSubstituteSubtable(void *a1, int a2, int a3, ChainContextSubstFormat1 *this, unsigned int a5, unsigned __int16 *a6, uint64_t a7)
 {
   switch(a3)
   {
@@ -7213,7 +7218,7 @@ uint64_t OTL::GCommon::IterateConditionSetTables(uint64_t a1, unsigned int *a2, 
   }
 
   v7 = bswap32(a2[2]);
-  v8 = (a2 + v7);
+  v8 = a2 + v7;
   v9 = a2 + v7 + 2;
   if (v9 <= a3)
   {
@@ -7222,8 +7227,8 @@ uint64_t OTL::GCommon::IterateConditionSetTables(uint64_t a1, unsigned int *a2, 
     do
     {
       v13 = bswap32(*v8) >> 16;
-      v14 = v9 + 4 * v13;
-      v15 = (v8 + 3) <= a3 ? (a3 - v9) >> 2 : 0;
+      v14 = &v9[4 * v13];
+      v15 = (v8 + 6) <= a3 ? (a3 - v9) >> 2 : 0;
       v16 = v14 <= a3 && v14 >= v9;
       if (!v16 && v15 != v13)
       {
@@ -7275,12 +7280,12 @@ uint64_t OTL::GCommon::IterateConditionSetTables(uint64_t a1, unsigned int *a2, 
 
       v25 = *v11;
       v11 += 2;
-      v8 = (a2 + bswap32(v25));
-      v9 = (v8 + 1);
+      v8 = a2 + bswap32(v25);
+      v9 = v8 + 2;
       v12 -= 8;
     }
 
-    while ((v8 + 1) <= a3);
+    while ((v8 + 2) <= a3);
   }
 
   return 0;
@@ -7288,16 +7293,16 @@ uint64_t OTL::GCommon::IterateConditionSetTables(uint64_t a1, unsigned int *a2, 
 
 uint64_t std::function<BOOL ()(OTL::ConditionSetTable const*,OTL::FeatureTableSubstitutionTable const*,BOOL &)>::operator()(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = a3;
-  v7 = a2;
+  v8 = a3;
+  v9 = a2;
   v3 = *(a1 + 24);
   if (v3)
   {
-    return (*(*v3 + 48))(v3, &v7, &v6);
+    return (*(*v3 + 48))(v3, &v9, &v8);
   }
 
   v5 = std::__throw_bad_function_call[abi:fn200100]();
-  return OTL::GDEF::IterateMarkGlyphsNotInSet(v5);
+  return OTL::GDEF::IterateMarkGlyphsNotInSet(v5, v6, v7);
 }
 
 void OTL::GDEF::IterateMarkGlyphsNotInSet(OTL::Coverage *a1, unsigned int a2, uint64_t a3, double a4, int8x16_t a5)
@@ -7309,16 +7314,16 @@ void OTL::GDEF::IterateMarkGlyphsNotInSet(OTL::Coverage *a1, unsigned int a2, ui
   v7[1] = v6;
   v7[2] = v6;
   v7[0] = v6;
-  OTL::GDEF::MarkFilteringSet(a1, a2, v7, -3.72066208e-103, a5);
+  OTL::GDEF::MarkFilteringSet(v7, a1, a2, -3.72066208e-103, a5);
   v9 = v7;
   std::__function::__value_func<void ()(unsigned short)>::__value_func[abi:fn200100](v10, a3);
   operator new();
 }
 
-void OTL::GDEF::IterateMarkGlyphsNotOfAttachmentType(uint64_t a1, __int16 a2)
+void OTL::GDEF::IterateMarkGlyphsNotOfAttachmentType(uint64_t a1, __int16 a2, uint64_t a3)
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2 = a2;
+  v4 = *MEMORY[0x1E69E9840];
+  v3 = a2;
   operator new();
 }
 
@@ -7807,7 +7812,7 @@ uint64_t std::__function::__func<OTL::GCommon::FeatureTableSubstitutionsForFont(
   if (**a2)
   {
     v5 = 4 * __rev16(**a2);
-    v6 = (v3 + 1);
+    v6 = (v3 + 2);
     v7 = **(a1 + 8);
     while (1)
     {
@@ -8424,7 +8429,7 @@ LABEL_17:
   return v3 > 0;
 }
 
-uint64_t TRunGlue::GetMappedCharsInRange(uint64_t *a1, uint64_t a2, uint64_t a3, size_t *a4)
+unint64_t TRunGlue::GetMappedCharsInRange(unint64_t *a1, char *a2, uint64_t a3, size_t *a4)
 {
   result = *a1;
   if (result)
@@ -8442,7 +8447,7 @@ uint64_t TRunGlue::GetMappedCharsInRange(uint64_t *a1, uint64_t a2, uint64_t a3,
       v10 = a1[19];
       v11 = a1[52] + 8 * v10;
       v12 = (a1[51] + 4 * v10);
-      v13 = a2 + a3;
+      v13 = &a2[a3];
       while (1)
       {
         v14 = *(v11 + 8 * v9);
@@ -8495,7 +8500,7 @@ uint64_t TRunGlue::GetMappedCharsInRange(uint64_t *a1, uint64_t a2, uint64_t a3,
   return result;
 }
 
-unint64_t TRunGlue::GetGlyphIDForCharIndex(TRunGlue *this, uint64_t a2)
+uint64_t TRunGlue::GetGlyphIDForCharIndex(TRunGlue *this, uint64_t a2)
 {
   v4 = *this;
   if (!v4)
@@ -8544,7 +8549,7 @@ unint64_t TRunGlue::GetGlyphIDForCharIndex(TRunGlue *this, uint64_t a2)
   return result;
 }
 
-uint64_t TRunGlue::ReplaceCharRangeWithGlyphs(TRunGlue *this, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6)
+uint64_t TRunGlue::ReplaceCharRangeWithGlyphs(TRunGlue *this, uint64_t a2, uint64_t a3, uint64_t *a4, void *a5, uint64_t a6)
 {
   if (*this)
   {
@@ -8604,7 +8609,7 @@ uint64_t TRunGlue::ReplaceCharRangeWithGlyphs(TRunGlue *this, uint64_t a2, uint6
   }
 
   v28 = *a4;
-  v29 = *(a4 + 8);
+  v29 = a4[1];
   v75 = a4;
   v30 = v29 - *a4;
   v31 = a3 - (v30 >> 1);
@@ -8676,7 +8681,7 @@ uint64_t TRunGlue::ReplaceCharRangeWithGlyphs(TRunGlue *this, uint64_t a2, uint6
   }
 
 LABEL_23:
-  a4 = v30 >> 1;
+  a4 = (v30 >> 1);
   v37 = (v30 >> 1) - a3;
   if (v30 >> 1 <= a3)
   {
@@ -8938,10 +8943,10 @@ LABEL_79:
   return 1;
 }
 
-uint64_t TRunGlue::DoGlyphInsertion(TRunGlue *this, const unsigned __int16 *a2, unsigned int a3, int a4, int a5, int64_t a6, int64_t a7, char a8, BOOL *a9)
+uint64_t TRunGlue::DoGlyphInsertion(uint64_t **this, const unsigned __int16 *a2, unsigned int a3, int a4, int a5, uint64_t a6, uint64_t a7, char a8, BOOL *a9)
 {
   v80 = *MEMORY[0x1E69E9840];
-  if (*(this + 18))
+  if (this[18])
   {
     if (a7 < 0)
     {
@@ -8982,7 +8987,7 @@ LABEL_6:
     TRunGlue::FocusOnIndex(this, a6);
     v70 = a6;
     v22 = (a4 ^ 1u) + a6;
-    if (v22 < 0 || *(this + 20) < v22)
+    if (v22 < 0 || this[20] < v22)
     {
       if (a9)
       {
@@ -8995,41 +9000,41 @@ LABEL_6:
     }
 
     v23 = a3;
-    v24 = *(this + 18);
+    v24 = this[18];
     if (v24)
     {
       v69 = a3;
-      if (v24 != *(this + 53))
+      if (v24 != this[53])
       {
-        TStorageRange::DetachStorageIfShared((v24 + 192));
-        v24 = *(this + 18);
-        *(this + 53) = v24;
+        TStorageRange::DetachStorageIfShared((v24 + 24));
+        v24 = this[18];
+        this[53] = v24;
       }
 
-      if (v22 - *(this + 19) < 0)
+      if (v22 - this[19] < 0)
       {
         v25.location = 0;
       }
 
       else
       {
-        v25.location = v22 - *(this + 19);
+        v25.location = v22 - this[19];
       }
 
       v25.length = a3;
-      TStorageRange::InsertGlyphs((v24 + 192), v25);
+      TStorageRange::InsertGlyphs(v24 + 24, v25);
     }
 
     else
     {
-      result = std::function<BOOL ()(CFRange,unsigned short **,CGSize **,CGPoint **,long **)>::operator()(*(this + 59), *(this + 19) + v22, a3, this + 168, this + 176, this + 184, this + 416);
+      result = std::function<BOOL ()(CFRange,unsigned short **,CGSize **,CGPoint **,long **)>::operator()(this[59], this[19] + v22, a3, (this + 21), (this + 22), (this + 23), (this + 52));
       if (!result)
       {
         return result;
       }
 
       v69 = a3;
-      if (!*(this + 51))
+      if (!this[51])
       {
         v68 = v21;
         v55 = TRunGlue::length(this);
@@ -9054,10 +9059,10 @@ LABEL_81:
           v64 = v22;
           while (1)
           {
-            v65 = v64 + *(this + 19);
-            v66 = v65 >= 0 ? v64 + *(this + 19) : v65 + 7;
-            v67 = *(this + 27);
-            if (*(this + 28) - v67 <= (v66 >> 3))
+            v65 = this[19] + v64;
+            v66 = v65 >= 0 ? (this[19] + v64) : (v65 + 7);
+            v67 = this[27];
+            if (this[28] - v67 <= (v66 >> 3))
             {
               break;
             }
@@ -9075,15 +9080,15 @@ LABEL_81:
           v59 = v57;
           while (1)
           {
-            v60 = v59 + *(this + 19);
+            v60 = this[19] + v59;
             v61 = v60 + 7;
             if (v60 >= 0)
             {
-              v61 = v59 + *(this + 19);
+              v61 = this[19] + v59;
             }
 
-            v62 = *(this + 27);
-            if (*(this + 28) - v62 <= (v61 >> 3))
+            v62 = this[27];
+            if (this[28] - v62 <= (v61 >> 3))
             {
               break;
             }
@@ -9100,18 +9105,18 @@ LABEL_89:
         __break(1u);
       }
 
-      v41 = *(this + 32);
-      if (v41 != *(this + 33))
+      v41 = this[32];
+      if (v41 != this[33])
       {
         LODWORD(v74) = 0;
-        std::vector<unsigned int,TInlineBufferAllocator<unsigned int,30ul>>::insert(this + 32, (v41 + 4 * v22), a3, &v74);
-        *(this + 51) = *(this + 32);
+        std::vector<unsigned int,TInlineBufferAllocator<unsigned int,30ul>>::insert(this + 32, v41 + 4 * v22, a3, &v74);
+        this[51] = this[32];
       }
     }
 
 LABEL_25:
     TRunGlue::InsertedGlyphs(this, v23);
-    v26 = *(this + 13);
+    v26 = this[13];
     v27 = v69;
     if (v26)
     {
@@ -9207,7 +9212,7 @@ LABEL_25:
         while (v44 != v36);
       }
 
-      if ((*(this + 6) & 0x80000000) != 0 && v42 != v36)
+      if ((this[3] & 0x80000000) != 0 && v42 != v36)
       {
         v45 = (v36 - 4);
         if (v45 > v42)
@@ -9239,10 +9244,10 @@ LABEL_25:
         TRunGlue::SetAttachmentCount(this, v22 + v49, 0);
         v51 = a2[v49];
         TRunGlue::SetGlyphID<true>(this, v22 + v49, v51);
-        v52 = *(this + 24);
+        v52 = this[24];
         if (v52)
         {
-          if (*(this + 63) > v51)
+          if (this[63] > v51)
           {
             *(v52 + (v51 >> 3)) |= 1 << (v51 & 7);
           }
@@ -9258,7 +9263,7 @@ LABEL_25:
     }
 
 LABEL_64:
-    v53 = *(this + 18);
+    v53 = this[18];
     if (!v53)
     {
       goto LABEL_70;
@@ -9266,7 +9271,7 @@ LABEL_64:
 
     if (a7 == v70)
     {
-      if (*(v53 + 256) > 1)
+      if (*(v53 + 64) > 1)
       {
 LABEL_70:
         v73 = &v74;
@@ -9282,12 +9287,12 @@ LABEL_70:
       v54 = 2;
     }
 
-    *(v53 + 256) = v54;
+    *(v53 + 64) = v54;
     goto LABEL_70;
   }
 
   result = 0;
-  if ((a7 & 0x8000000000000000) == 0 && *(this + 59))
+  if ((a7 & 0x8000000000000000) == 0 && this[59])
   {
     goto LABEL_6;
   }
@@ -9295,7 +9300,7 @@ LABEL_70:
   return result;
 }
 
-void TRunGlue::Rotate(TRunGlue *this, uint64_t a2, int64_t a3, int64_t a4, void *a5)
+void TRunGlue::Rotate(TRunGlue *this, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
   v192[1] = *MEMORY[0x1E69E9840];
   v5 = a3 - a2;
@@ -9878,10 +9883,10 @@ LABEL_105:
             *&v164[32] = -1;
             v156 = v8;
             v101 = TRunGlue::EditRun(this, &v156);
-            TStorageRange::GetGlyphEntry((v101 + 192), v156, &__src);
+            TStorageRange::GetGlyphEntry(&__src, (v101 + 192), v156);
             v161[0] = v6;
             v102 = TRunGlue::EditRun(this, v161);
-            TStorageRange::GetGlyphEntry((v102 + 192), v161[0], &v156);
+            TStorageRange::GetGlyphEntry(&v156, (v102 + 192), v161[0]);
             CopyToStorage(this, v8, &v156);
             CopyToStorage(this, v6, &__src);
           }

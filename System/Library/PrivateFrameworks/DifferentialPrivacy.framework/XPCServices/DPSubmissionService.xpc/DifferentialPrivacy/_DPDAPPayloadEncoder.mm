@@ -11,6 +11,7 @@
 - (id)encodedInfoForServerRole:(unsigned __int8)role;
 - (id)encodedReportAuthExtensionDataWithError:(id *)error;
 - (id)encodedTaskProvExtensionDataWithError:(id *)error;
+- (id)encryptedShareForServerRole:(unsigned __int8)role publicKey:(id)key error:(id *)error;
 - (id)inputShareInfoString;
 - (id)taskIDWithError:(id *)error;
 - (void)encodePublicShare;
@@ -283,6 +284,60 @@ LABEL_6:
   v3 = [NSString stringWithFormat:@"dap-%@ input share", dapVersion];
 
   return v3;
+}
+
+- (id)encryptedShareForServerRole:(unsigned __int8)role publicKey:(id)key error:(id *)error
+{
+  roleCopy = role;
+  keyCopy = key;
+  v9 = [(_DPDAPPayloadEncoder *)self encodedPlaintextInputShareForServerRole:roleCopy error:error];
+  if (v9)
+  {
+    v10 = [(_DPDAPPayloadEncoder *)self encodedInfoForServerRole:roleCopy];
+    v11 = [(_DPDAPPayloadEncoder *)self encodedAdditionalDataWithError:error];
+    if (v11)
+    {
+      v12 = [objc_opt_class() encryptWithPublicKey:keyCopy info:v10 inputShare:v9 additionalData:v11 error:error];
+      if ([v12 count] == 2)
+      {
+        v13 = v12;
+      }
+
+      else
+      {
+        v14 = @"Helper";
+        if (roleCopy == 2)
+        {
+          v14 = @"Leader";
+        }
+
+        v15 = [NSString stringWithFormat:@"Unable to encrypt %@ share with HPKE.", v14];
+        v16 = [_DPDediscoError errorWithCode:100 description:v15];
+        if (error)
+        {
+          v17 = [_DPDediscoError errorWithCode:100 underlyingError:*error description:v15];
+
+          v16 = v17;
+        }
+
+        [v16 logAndStoreInError:error];
+
+        v13 = 0;
+      }
+    }
+
+    else
+    {
+      v13 = 0;
+    }
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  return v13;
 }
 
 - (BOOL)isDonationValidWithError:(id *)error

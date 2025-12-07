@@ -149,31 +149,8 @@ LABEL_8:
   if (encoderCopy && bufferCopy && stateCopy)
   {
     v19 = DYMTLGetNullableAssociatedObject(stateCopy, 0);
-    if (([v19 isRasterizationEnabled] & 1) == 0)
+    if (([v19 isRasterizationEnabled] & 1) == 0 || (-[DYMTLDebugWireframeRenderer _updateTextureDescriptor:usingEncoder:renderPassDescriptor:](self, "_updateTextureDescriptor:usingEncoder:renderPassDescriptor:", self->_wireframeTextureDescriptor, encoderCopy, descriptor), -[DYMTLFunctionPlayer device](self->_player, "device"), v20 = objc_claimAutoreleasedReturnValue(), DYMTLNewTexture(v20, self->_wireframeTextureDescriptor), v21 = objc_claimAutoreleasedReturnValue(), v22 = self->_wireframeTexture, self->_wireframeTexture = v21, v22, v20, -[DYMTLDebugWireframeRenderer _updateTextureDescriptor:usingEncoder:renderPassDescriptor:](self, "_updateTextureDescriptor:usingEncoder:renderPassDescriptor:", self->_outlineTextureDescriptor, encoderCopy, descriptor), -[DYMTLFunctionPlayer device](self->_player, "device"), v23 = objc_claimAutoreleasedReturnValue(), DYMTLNewTexture(v23, self->_outlineTextureDescriptor), v24 = objc_claimAutoreleasedReturnValue(), outlineTexture = self->_outlineTexture, self->_outlineTexture = v24, outlineTexture, v23, -[DYMTLFunctionPlayer device](self->_player, "device"), v26 = objc_claimAutoreleasedReturnValue(), DYMTLNewTexture(v26, self->_wireframeTextureDescriptor), v27 = objc_claimAutoreleasedReturnValue(), solidTexture = self->_solidTexture, self->_solidTexture = v27, solidTexture, v26, !self->_wireframeTexture))
     {
-      goto LABEL_19;
-    }
-
-    [(DYMTLDebugWireframeRenderer *)self _updateTextureDescriptor:self->_wireframeTextureDescriptor usingEncoder:encoderCopy renderPassDescriptor:descriptor];
-    device = [(DYMTLFunctionPlayer *)self->_player device];
-    v21 = DYMTLNewTexture(device, self->_wireframeTextureDescriptor);
-    v22 = self->_wireframeTexture;
-    self->_wireframeTexture = v21;
-
-    [(DYMTLDebugWireframeRenderer *)self _updateTextureDescriptor:self->_outlineTextureDescriptor usingEncoder:encoderCopy renderPassDescriptor:descriptor];
-    device2 = [(DYMTLFunctionPlayer *)self->_player device];
-    v24 = DYMTLNewTexture(device2, self->_outlineTextureDescriptor);
-    outlineTexture = self->_outlineTexture;
-    self->_outlineTexture = v24;
-
-    device3 = [(DYMTLFunctionPlayer *)self->_player device];
-    v27 = DYMTLNewTexture(device3, self->_wireframeTextureDescriptor);
-    solidTexture = self->_solidTexture;
-    self->_solidTexture = v27;
-
-    if (!self->_wireframeTexture)
-    {
-LABEL_19:
       v18 = 3;
       goto LABEL_20;
     }
@@ -220,9 +197,9 @@ LABEL_19:
       [v30 setMaxVertexAmplificationCount:{objc_msgSend(v29, "maxVertexAmplificationCount")}];
     }
 
-    device4 = [(DYMTLFunctionPlayer *)self->_player device];
+    device = [(DYMTLFunctionPlayer *)self->_player device];
     v58 = 0;
-    v36 = [device4 newRenderPipelineStateWithDescriptor:v30 error:&v58];
+    v36 = [device newRenderPipelineStateWithDescriptor:v30 error:&v58];
     v37 = v58;
     wireframeRenderPipelineState = self->_wireframeRenderPipelineState;
     self->_wireframeRenderPipelineState = v36;
@@ -231,10 +208,10 @@ LABEL_19:
     if (self->_wireframeRenderPipelineState)
     {
 
-      device5 = [(DYMTLFunctionPlayer *)self->_player device];
+      device2 = [(DYMTLFunctionPlayer *)self->_player device];
       outlinePostProcessFunction = self->_outlinePostProcessFunction;
       v57 = 0;
-      v41 = [device5 newComputePipelineStateWithFunction:outlinePostProcessFunction error:&v57];
+      v41 = [device2 newComputePipelineStateWithFunction:outlinePostProcessFunction error:&v57];
       v37 = v57;
       p_wireframeTexture = &self->_outlineComputePipelineState;
       outlineComputePipelineState = self->_outlineComputePipelineState;
@@ -245,9 +222,9 @@ LABEL_19:
         objc_storeStrong(&self->_originalCommandBuffer, buffer);
         objc_storeStrong(&self->_originalEncoder, encoder);
         objc_storeStrong(&self->_originalParallelEncoder, obj);
-        device6 = [encoderCopy device];
+        device3 = [encoderCopy device];
         descriptor = [encoderCopy descriptor];
-        v49 = DYMTLNewStatefulRenderCommandEncoder(device6, descriptor);
+        v49 = DYMTLNewStatefulRenderCommandEncoder(device3, descriptor);
         savedVertexState = self->_savedVertexState;
         self->_savedVertexState = v49;
 
@@ -317,49 +294,47 @@ LABEL_20:
   }
 
   [(MTLRenderPassColorAttachmentDescriptor *)self->_wireframeRenderPassColorAttachmentDescriptor setTexture:self->_wireframeTexture];
-  wireframeRenderPassDescriptor = self->_wireframeRenderPassDescriptor;
   if ((objc_opt_respondsToSelector() & 1) != 0 && encoder->renderTargetArrayLength != -1)
   {
     [(MTLRenderPassDescriptor *)self->_wireframeRenderPassDescriptor setRenderTargetArrayLength:?];
   }
 
-  v9 = self->_wireframeRenderPassDescriptor;
   if ((objc_opt_respondsToSelector() & 1) != 0 && encoder->rasterizationRateMap)
   {
-    v10 = [(DYMTLFunctionPlayer *)self->_player objectForKey:?];
-    [(MTLRenderPassDescriptor *)self->_wireframeRenderPassDescriptor setRasterizationRateMap:v10];
+    v8 = [(DYMTLFunctionPlayer *)self->_player objectForKey:?];
+    [(MTLRenderPassDescriptor *)self->_wireframeRenderPassDescriptor setRasterizationRateMap:v8];
   }
 
-  v11 = DYMTLNewStatefulRenderCommandEncoder(self->_originalCommandBuffer, self->_wireframeRenderPassDescriptor);
-  [v11 setRenderPipelineState:self->_wireframeRenderPipelineState];
+  v9 = DYMTLNewStatefulRenderCommandEncoder(self->_originalCommandBuffer, self->_wireframeRenderPassDescriptor);
+  [v9 setRenderPipelineState:self->_wireframeRenderPipelineState];
   savedVertexState = self->_savedVertexState;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __67__DYMTLDebugWireframeRenderer_createWireframeRenderCommandEncoder___block_invoke;
-  v23[3] = &unk_27930F3E0;
-  v23[4] = self;
-  [(DYMTLStatefulRenderCommandEncoder *)savedVertexState applyVertexStateToEncoder:v11 rawBytesBlock:v23];
-  v13 = self->_savedVertexState;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __67__DYMTLDebugWireframeRenderer_createWireframeRenderCommandEncoder___block_invoke;
+  v21[3] = &unk_27930F3E0;
+  v21[4] = self;
+  [(DYMTLStatefulRenderCommandEncoder *)savedVertexState applyVertexStateToEncoder:v9 rawBytesBlock:v21];
+  v11 = self->_savedVertexState;
   self->_savedVertexState = 0;
 
   originalEncoder = self->_originalEncoder;
   self->_originalEncoder = 0;
 
   device = [(DYMTLFunctionPlayer *)self->_player device];
-  v16 = objc_opt_new();
-  v17 = [device newDepthStencilStateWithDescriptor:v16];
+  v14 = objc_opt_new();
+  v15 = [device newDepthStencilStateWithDescriptor:v14];
 
-  [v11 setDepthStencilState:v17];
-  [v11 setTriangleFillMode:1];
-  [(DYMTLFunctionPlayer *)self->_player setObject:v11 forKey:self->_originalCommandEncoderId];
-  device2 = [v11 device];
-  descriptor = [v11 descriptor];
-  v20 = DYMTLNewStatefulRenderCommandEncoder(device2, descriptor);
-  v21 = self->_savedVertexState;
-  self->_savedVertexState = v20;
+  [v9 setDepthStencilState:v15];
+  [v9 setTriangleFillMode:1];
+  [(DYMTLFunctionPlayer *)self->_player setObject:v9 forKey:self->_originalCommandEncoderId];
+  device2 = [v9 device];
+  descriptor = [v9 descriptor];
+  v18 = DYMTLNewStatefulRenderCommandEncoder(device2, descriptor);
+  v19 = self->_savedVertexState;
+  self->_savedVertexState = v18;
 
   [(DYMTLStatefulRenderCommandEncoder *)self->_savedVertexState setRenderPipelineState:self->_wireframeRenderPipelineState];
-  [v11 applyVertexStateToEncoder:self->_savedVertexState rawBytesBlock:&__block_literal_global_68];
+  [v9 applyVertexStateToEncoder:self->_savedVertexState rawBytesBlock:&__block_literal_global_68];
 
   return 1;
 }
@@ -398,35 +373,33 @@ uint64_t __67__DYMTLDebugWireframeRenderer_createWireframeRenderCommandEncoder__
     }
 
     [(MTLRenderPassColorAttachmentDescriptor *)self->_solidRenderPassColorAttachmentDescriptor setTexture:self->_solidTexture];
-    solidRenderPassDescriptor = self->_solidRenderPassDescriptor;
     if ((objc_opt_respondsToSelector() & 1) != 0 && encoder->renderTargetArrayLength != -1)
     {
       [(MTLRenderPassDescriptor *)self->_solidRenderPassDescriptor setRenderTargetArrayLength:?];
     }
 
-    v19 = self->_solidRenderPassDescriptor;
     if ((objc_opt_respondsToSelector() & 1) != 0 && encoder->rasterizationRateMap)
     {
-      v20 = [(DYMTLFunctionPlayer *)self->_player objectForKey:?];
-      [(MTLRenderPassDescriptor *)self->_solidRenderPassDescriptor setRasterizationRateMap:v20];
+      v18 = [(DYMTLFunctionPlayer *)self->_player objectForKey:?];
+      [(MTLRenderPassDescriptor *)self->_solidRenderPassDescriptor setRasterizationRateMap:v18];
     }
 
-    v21 = DYMTLNewStatefulRenderCommandEncoder(self->_originalCommandBuffer, self->_solidRenderPassDescriptor);
-    [v21 setRenderPipelineState:self->_wireframeRenderPipelineState];
+    v19 = DYMTLNewStatefulRenderCommandEncoder(self->_originalCommandBuffer, self->_solidRenderPassDescriptor);
+    [v19 setRenderPipelineState:self->_wireframeRenderPipelineState];
     savedVertexState = self->_savedVertexState;
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __114__DYMTLDebugWireframeRenderer_createSolidRenderCommandEncoder_commandBufferId_commandEncoderId_parallelEncoderId___block_invoke;
-    v26[3] = &unk_27930F3E0;
-    v26[4] = self;
-    [(DYMTLStatefulRenderCommandEncoder *)savedVertexState applyVertexStateToEncoder:v21 rawBytesBlock:v26];
-    v23 = self->_savedVertexState;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __114__DYMTLDebugWireframeRenderer_createSolidRenderCommandEncoder_commandBufferId_commandEncoderId_parallelEncoderId___block_invoke;
+    v24[3] = &unk_27930F3E0;
+    v24[4] = self;
+    [(DYMTLStatefulRenderCommandEncoder *)savedVertexState applyVertexStateToEncoder:v19 rawBytesBlock:v24];
+    v21 = self->_savedVertexState;
     self->_savedVertexState = 0;
 
-    v24 = self->_originalEncoder;
+    v22 = self->_originalEncoder;
     self->_originalEncoder = 0;
 
-    [(DYMTLFunctionPlayer *)self->_player setObject:v21 forKey:self->_originalCommandEncoderId];
+    [(DYMTLFunctionPlayer *)self->_player setObject:v19 forKey:self->_originalCommandEncoderId];
   }
 
   return solidTexture != 0;

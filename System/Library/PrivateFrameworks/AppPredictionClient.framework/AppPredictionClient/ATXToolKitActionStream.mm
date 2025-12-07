@@ -10,24 +10,25 @@
   completionCopy = completion;
   v7 = [intentsCopy _pas_mappedArrayWithTransform:&__block_literal_global_6];
   v8 = [v7 count];
-  if (v8 == [intentsCopy count])
+  v9 = [intentsCopy count];
+  if (v8 == v9)
   {
-    v9 = MEMORY[0x1E69C5B68];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __72__ATXToolKitActionStream_sanitizeTitleForToolKitIntents_withCompletion___block_invoke_11;
-    v11[3] = &unk_1E80C1260;
-    v12 = intentsCopy;
-    v13 = completionCopy;
-    [v9 fetchTitlesFromToolInvocations:v7 completionHandler:v11];
+    v10 = MEMORY[0x1E69C5B68];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __72__ATXToolKitActionStream_sanitizeTitleForToolKitIntents_withCompletion___block_invoke_11;
+    v12[3] = &unk_1E80C1260;
+    v13 = intentsCopy;
+    v14 = completionCopy;
+    [v10 fetchTitlesFromToolInvocations:v7 completionHandler:v12];
   }
 
   else
   {
-    v10 = __atxlog_handle_action_prediction();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = __atxlog_handle_action_prediction(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(ATXToolKitActionStream *)v7 sanitizeTitleForToolKitIntents:intentsCopy withCompletion:v10];
+      [(ATXToolKitActionStream *)v7 sanitizeTitleForToolKitIntents:intentsCopy withCompletion:v11];
     }
 
     (*(completionCopy + 2))(completionCopy, intentsCopy);
@@ -47,7 +48,7 @@ void __72__ATXToolKitActionStream_sanitizeTitleForToolKitIntents_withCompletion_
   v5 = a2;
   v6 = a3;
   v7 = v6;
-  if (v5 && !v6 && (v8 = [v5 count], v8 == objc_msgSend(*(a1 + 32), "count")))
+  if (v5 && !v6 && (v8 = [v5 count], v6 = objc_msgSend(*(a1 + 32), "count"), v8 == v6))
   {
     if ([*(a1 + 32) count])
     {
@@ -68,7 +69,7 @@ void __72__ATXToolKitActionStream_sanitizeTitleForToolKitIntents_withCompletion_
 
   else
   {
-    v13 = __atxlog_handle_action_prediction();
+    v13 = __atxlog_handle_action_prediction(v6);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       __72__ATXToolKitActionStream_sanitizeTitleForToolKitIntents_withCompletion___block_invoke_11_cold_1(v7, v13);

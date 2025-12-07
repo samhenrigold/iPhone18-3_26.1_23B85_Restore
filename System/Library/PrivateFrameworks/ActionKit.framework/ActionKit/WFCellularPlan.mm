@@ -14,6 +14,8 @@
 - (id)serviceDescriptor;
 - (int64_t)currentRATMode;
 - (void)setCurrentRATMode:(int64_t)mode;
+- (void)setDataRoamingEnabled:(BOOL)enabled;
+- (void)setSmartDataModeEnabled:(BOOL)enabled;
 @end
 
 @implementation WFCellularPlan
@@ -98,12 +100,12 @@ LABEL_18:
 
 void __34__WFCellularPlan_labelForRATMode___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) client];
   v3 = *(*(a1 + 32) + 40);
-  v18 = 0;
-  v4 = [v2 context:v3 getCarrierBundleValue:&unk_28509CD70 error:&v18];
-  v5 = v18;
+  v17 = 0;
+  v4 = [v2 context:v3 getCarrierBundleValue:&unk_28509CD70 error:&v17];
+  v5 = v17;
 
   if (v4)
   {
@@ -132,9 +134,9 @@ void __34__WFCellularPlan_labelForRATMode___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v20 = "[WFCellularPlan labelForRATMode:]_block_invoke";
-      v21 = 2112;
-      v22 = v5;
+      v19 = "[WFCellularPlan labelForRATMode:]_block_invoke";
+      v20 = 2112;
+      v21 = v5;
       _os_log_impl(&dword_23DE30000, v8, OS_LOG_TYPE_ERROR, "%s Failed to get DataIndicatorOverride value: %@", buf, 0x16u);
     }
   }
@@ -142,9 +144,9 @@ void __34__WFCellularPlan_labelForRATMode___block_invoke(uint64_t a1)
   labelForRATMode__use4GOver3G = [v7 isEqualToString:@"4G"];
   v9 = [*(a1 + 32) client];
   v10 = *(*(a1 + 32) + 40);
-  v17 = 0;
-  v11 = [v9 context:v10 getCarrierBundleValue:&unk_28509CD88 error:&v17];
-  v12 = v17;
+  v16 = 0;
+  v11 = [v9 context:v10 getCarrierBundleValue:&unk_28509CD88 error:&v16];
+  v12 = v16;
 
   if (v11)
   {
@@ -173,16 +175,14 @@ void __34__WFCellularPlan_labelForRATMode___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v20 = "[WFCellularPlan labelForRATMode:]_block_invoke";
-      v21 = 2112;
-      v22 = v12;
+      v19 = "[WFCellularPlan labelForRATMode:]_block_invoke";
+      v20 = 2112;
+      v21 = v12;
       _os_log_impl(&dword_23DE30000, v15, OS_LOG_TYPE_ERROR, "%s Failed to get DataIndicatorOverrideForLTE value: %@", buf, 0x16u);
     }
   }
 
   labelForRATMode__useLTEOver4G = [v14 isEqualToString:@"LTE"];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)currentRATModeLabel
@@ -192,14 +192,36 @@ void __34__WFCellularPlan_labelForRATMode___block_invoke(uint64_t a1)
   return [(WFCellularPlan *)self labelForRATMode:currentRATMode];
 }
 
-- (BOOL)dataRoamingEnabled
+- (void)setDataRoamingEnabled:(BOOL)enabled
 {
-  v15 = *MEMORY[0x277D85DE8];
+  enabledCopy = enabled;
+  v13 = *MEMORY[0x277D85DE8];
   client = [(WFCellularPlan *)self client];
   serviceDescriptor = [(WFCellularPlan *)self serviceDescriptor];
-  v10 = 0;
-  v5 = [client getInternationalDataAccessSync:serviceDescriptor error:&v10];
-  v6 = v10;
+  v7 = [client setInternationalDataAccessSync:serviceDescriptor status:enabledCopy];
+
+  if (v7)
+  {
+    v8 = getWFActionsLogObject();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      v9 = 136315394;
+      v10 = "[WFCellularPlan setDataRoamingEnabled:]";
+      v11 = 2112;
+      v12 = v7;
+      _os_log_impl(&dword_23DE30000, v8, OS_LOG_TYPE_ERROR, "%s Failed to set Data Roaming setting: %@", &v9, 0x16u);
+    }
+  }
+}
+
+- (BOOL)dataRoamingEnabled
+{
+  v14 = *MEMORY[0x277D85DE8];
+  client = [(WFCellularPlan *)self client];
+  serviceDescriptor = [(WFCellularPlan *)self serviceDescriptor];
+  v9 = 0;
+  v5 = [client getInternationalDataAccessSync:serviceDescriptor error:&v9];
+  v6 = v9;
 
   if (v6)
   {
@@ -207,14 +229,13 @@ void __34__WFCellularPlan_labelForRATMode___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v12 = "[WFCellularPlan dataRoamingEnabled]";
-      v13 = 2112;
-      v14 = v6;
+      v11 = "[WFCellularPlan dataRoamingEnabled]";
+      v12 = 2112;
+      v13 = v6;
       _os_log_impl(&dword_23DE30000, v7, OS_LOG_TYPE_ERROR, "%s Failed to get data roaming status: %@", buf, 0x16u);
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -258,40 +279,55 @@ void __34__WFCellularPlan_labelForRATMode___block_invoke(uint64_t a1)
   return carrierName;
 }
 
+- (void)setSmartDataModeEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v13 = *MEMORY[0x277D85DE8];
+  v5 = getWFActionsLogObject();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  {
+    v9 = 136315394;
+    v10 = "[WFCellularPlan setSmartDataModeEnabled:]";
+    v11 = 1024;
+    v12 = enabledCopy;
+    _os_log_impl(&dword_23DE30000, v5, OS_LOG_TYPE_DEBUG, "%s Setting smart data mode to enabled: %d", &v9, 0x12u);
+  }
+
+  v6 = [getCTServiceDescriptorClass_20872() descriptorWithSubscriptionContext:self->_ctContext];
+  client = [(WFCellularPlan *)self client];
+  v8 = [client setSmartDataMode:v6 enable:enabledCopy];
+}
+
 - (BOOL)smartDataModeEnabled
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   client = [(WFCellularPlan *)self client];
   v4 = [client isSmartDataModeSupported:0];
 
-  if (v4)
+  if (!v4)
   {
-    v5 = [getCTServiceDescriptorClass_20872() descriptorWithSubscriptionContext:self->_ctContext];
-    client2 = [(WFCellularPlan *)self client];
-    v12 = 0;
-    v7 = [client2 smartDataMode:v5 error:&v12];
-    v8 = v12;
+    return 0;
+  }
 
-    if (v8)
+  v5 = [getCTServiceDescriptorClass_20872() descriptorWithSubscriptionContext:self->_ctContext];
+  client2 = [(WFCellularPlan *)self client];
+  v11 = 0;
+  v7 = [client2 smartDataMode:v5 error:&v11];
+  v8 = v11;
+
+  if (v8)
+  {
+    v9 = getWFActionsLogObject();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v9 = getWFActionsLogObject();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 136315394;
-        v14 = "[WFCellularPlan smartDataModeEnabled]";
-        v15 = 2112;
-        v16 = v8;
-        _os_log_impl(&dword_23DE30000, v9, OS_LOG_TYPE_ERROR, "%s Failed to get smartDataMode status with error %@", buf, 0x16u);
-      }
+      *buf = 136315394;
+      v13 = "[WFCellularPlan smartDataModeEnabled]";
+      v14 = 2112;
+      v15 = v8;
+      _os_log_impl(&dword_23DE30000, v9, OS_LOG_TYPE_ERROR, "%s Failed to get smartDataMode status with error %@", buf, 0x16u);
     }
   }
 
-  else
-  {
-    v7 = 0;
-  }
-
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -309,7 +345,7 @@ void __34__WFCellularPlan_labelForRATMode___block_invoke(uint64_t a1)
 
 void __36__WFCellularPlan_setCurrentRATMode___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = MEMORY[0x277CCABB0];
   v9 = *(a1 + 40);
@@ -327,11 +363,11 @@ void __36__WFCellularPlan_setCurrentRATMode___block_invoke(uint64_t a1, void *a2
       v14 = getWFActionsLogObject();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v16 = 136315394;
-        v17 = "[WFCellularPlan setCurrentRATMode:]_block_invoke";
-        v18 = 2112;
-        v19 = v13;
-        _os_log_impl(&dword_23DE30000, v14, OS_LOG_TYPE_ERROR, "%s Failed to set RAT with error %@", &v16, 0x16u);
+        v15 = 136315394;
+        v16 = "[WFCellularPlan setCurrentRATMode:]_block_invoke";
+        v17 = 2112;
+        v18 = v13;
+        _os_log_impl(&dword_23DE30000, v14, OS_LOG_TYPE_ERROR, "%s Failed to set RAT with error %@", &v15, 0x16u);
       }
     }
 
@@ -342,18 +378,16 @@ void __36__WFCellularPlan_setCurrentRATMode___block_invoke(uint64_t a1, void *a2
 
     *a4 = 1;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)currentRATMode
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   client = [(WFCellularPlan *)self client];
   ctContext = self->_ctContext;
-  v14 = 0;
-  v5 = [client getMaxDataRate:ctContext error:&v14];
-  v6 = v14;
+  v13 = 0;
+  v5 = [client getMaxDataRate:ctContext error:&v13];
+  v6 = v13;
 
   if (v6)
   {
@@ -361,9 +395,9 @@ void __36__WFCellularPlan_setCurrentRATMode___block_invoke(uint64_t a1, void *a2
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v16 = "[WFCellularPlan currentRATMode]";
-      v17 = 2112;
-      v18 = v6;
+      v15 = "[WFCellularPlan currentRATMode]";
+      v16 = 2112;
+      v17 = v6;
       _os_log_impl(&dword_23DE30000, v7, OS_LOG_TYPE_ERROR, "%s Failed to getMaxDataRate with error %@", buf, 0x16u);
     }
 
@@ -393,18 +427,17 @@ void __36__WFCellularPlan_setCurrentRATMode___block_invoke(uint64_t a1, void *a2
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return integerValue;
 }
 
 - (NSArray)availableRATModes
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   client = [(WFCellularPlan *)self client];
   ctContext = self->_ctContext;
-  v11 = 0;
-  v5 = [client getSupportedDataRates:ctContext error:&v11];
-  v6 = v11;
+  v10 = 0;
+  v5 = [client getSupportedDataRates:ctContext error:&v10];
+  v6 = v10;
 
   if (v6)
   {
@@ -412,9 +445,9 @@ void __36__WFCellularPlan_setCurrentRATMode___block_invoke(uint64_t a1, void *a2
     if (os_log_type_enabled(rates, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v13 = "[WFCellularPlan availableRATModes]";
-      v14 = 2112;
-      v15 = v6;
+      v12 = "[WFCellularPlan availableRATModes]";
+      v13 = 2112;
+      v14 = v6;
       _os_log_impl(&dword_23DE30000, rates, OS_LOG_TYPE_ERROR, "%s Failed to enumerate supported data rates with error %@", buf, 0x16u);
     }
 
@@ -426,8 +459,6 @@ void __36__WFCellularPlan_setCurrentRATMode___block_invoke(uint64_t a1, void *a2
     rates = [v5 rates];
     v8 = [rates if_flatMap:&__block_literal_global_21002];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

@@ -133,13 +133,12 @@ void __62__GTReplayProfileReplyStream_dispatchMessage_replyConnection___block_in
 
 void __62__GTReplayProfileReplyStream_dispatchMessage_replyConnection___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 134218242;
-  v5 = a2;
-  v6 = 2112;
-  v7 = a1;
-  _os_log_error_impl(&dword_24DBC9000, log, OS_LOG_TYPE_ERROR, "Failed to download data handle:%llu error:%@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 134218242;
+  v4 = a2;
+  v5 = 2112;
+  v6 = a1;
+  _os_log_error_impl(&dword_24DBC9000, log, OS_LOG_TYPE_ERROR, "Failed to download data handle:%llu error:%@", &v3, 0x16u);
 }
 
 @end

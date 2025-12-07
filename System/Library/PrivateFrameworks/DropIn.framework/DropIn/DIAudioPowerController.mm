@@ -33,90 +33,82 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = DILogHandleAudioPowerController();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = DILogHandleAudioPowerController(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v7 = &stru_285D02BA8;
+    v6 = &stru_285D02BA8;
     _os_log_impl(&dword_249DA7000, v3, OS_LOG_TYPE_DEFAULT, "%@Tearing down Audio Power Controller", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = DIAudioPowerController;
-  [(DIAudioPowerController *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = DIAudioPowerController;
+  [(DIAudioPowerController *)&v4 dealloc];
 }
 
 - (void)setDelegate:(id)delegate
 {
-  v17 = *MEMORY[0x277D85DE8];
-  objc_storeWeak(&self->_delegate, delegate);
+  v16 = *MEMORY[0x277D85DE8];
+  v5 = objc_storeWeak(&self->_delegate, delegate);
   if (delegate)
   {
     connectionManager = [(DIAudioPowerController *)self connectionManager];
     manager = [connectionManager manager];
     connection = [manager connection];
-    v7 = [connection remoteObjectProxyWithErrorHandler:&__block_literal_global_3];
+    v8 = [connection remoteObjectProxyWithErrorHandler:&__block_literal_global_3];
     connectionManager2 = [(DIAudioPowerController *)self connectionManager];
     manager2 = [connectionManager2 manager];
     clientContext = [manager2 clientContext];
-    [v7 registerAudioPowerWithContext:clientContext completionHandler:&__block_literal_global_6];
-
-    v11 = *MEMORY[0x277D85DE8];
+    [v8 registerAudioPowerWithContext:clientContext completionHandler:&__block_literal_global_6];
   }
 
   else
   {
-    v12 = DILogHandleAudioPowerController();
+    v12 = DILogHandleAudioPowerController(v5);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v16 = &stru_285D02BA8;
+      v15 = &stru_285D02BA8;
       _os_log_impl(&dword_249DA7000, v12, OS_LOG_TYPE_DEFAULT, "%@Audio power controller delegate set to nil", buf, 0xCu);
     }
-
-    v13 = *MEMORY[0x277D85DE8];
   }
 }
 
 void __38__DIAudioPowerController_setDelegate___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = DILogHandleAudioPowerController();
+  v3 = DILogHandleAudioPowerController(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     v4 = [v2 localizedDescription];
-    v6 = 138412546;
-    v7 = &stru_285D02BA8;
-    v8 = 2112;
-    v9 = v4;
-    _os_log_impl(&dword_249DA7000, v3, OS_LOG_TYPE_ERROR, "%@Audio power controller set delegate proxy error: %@", &v6, 0x16u);
+    v5 = 138412546;
+    v6 = &stru_285D02BA8;
+    v7 = 2112;
+    v8 = v4;
+    _os_log_impl(&dword_249DA7000, v3, OS_LOG_TYPE_ERROR, "%@Audio power controller set delegate proxy error: %@", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __38__DIAudioPowerController_setDelegate___block_invoke_4(uint64_t a1, void *a2)
 {
   v10 = *MEMORY[0x277D85DE8];
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = DILogHandleAudioPowerController();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = DILogHandleAudioPowerController(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v4 = [v2 localizedDescription];
+      v5 = [v3 localizedDescription];
       v6 = 138412546;
       v7 = &stru_285D02BA8;
       v8 = 2112;
-      v9 = v4;
-      _os_log_impl(&dword_249DA7000, v3, OS_LOG_TYPE_ERROR, "%@Audio power controller set delegate register audio power with context error: %@", &v6, 0x16u);
+      v9 = v5;
+      _os_log_impl(&dword_249DA7000, v4, OS_LOG_TYPE_ERROR, "%@Audio power controller set delegate register audio power with context error: %@", &v6, 0x16u);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didUpdateAudioPower:(float)power

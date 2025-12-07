@@ -1,4 +1,5 @@
 @interface KTSMManager
+- (BOOL)addOptInStateWithURI:(id)i smtTimestamp:(id)timestamp application:(id)application state:(BOOL)state error:(id *)error;
 - (BOOL)changeOptInState:(unint64_t)state application:(id)application loggableData:(id *)data error:(id *)error;
 - (BOOL)isCloudKitManateeAcountAvailable;
 - (BOOL)isKTKeyDifferent:(id)different;
@@ -51,6 +52,7 @@
 - (void)idsServerBagUpdate;
 - (void)idsServerReportKTKeyWrong:(id)wrong;
 - (void)insertOSVersion:(id)version complete:(id)complete;
+- (void)insertResultForElement:(id)element samplesAgo:(id)ago success:(BOOL)success withCompletion:(id)completion;
 - (void)inspectErrorForRetryAfter:(id)after trigger:(id)trigger;
 - (void)ktRepair:(id)repair complete:(id)complete;
 - (void)mapHeadUpdated:(id)updated populating:(BOOL)populating;
@@ -71,6 +73,7 @@
 - (void)retryPendingValidations:(id)validations;
 - (void)setCloudKitOutgoingFlag;
 - (void)setLastSelfValidate:(id)validate;
+- (void)setOptInForURI:(id)i application:(id)application state:(BOOL)state smtTimestamp:(id)timestamp complete:(id)complete;
 - (void)setOverrideTimeBetweenReports:(double)reports completion:(id)completion;
 - (void)startMetrics;
 - (void)startStateMachine;
@@ -113,8 +116,10 @@
 - (void)triggerSelfValidateFromEnrollment;
 - (void)triggerStatusUpdate:(id)update;
 - (void)tryOptInByDefaultWithCompletionHandler:(id)handler;
+- (void)updateIDSRecommendation:(BOOL)recommendation complete:(id)complete;
 - (void)uriNeedsUpdate:(id)update forApplication:(id)application;
 - (void)validatePendingURIsAndRequests;
+- (void)waitForIDSRegistration:(BOOL)registration complete:(id)complete;
 - (void)xpc24HrNotification:(id)notification;
 @end
 
@@ -1354,30 +1359,13 @@ LABEL_5:
 - (BOOL)isKTKeyDifferent:(id)different
 {
   differentCopy = different;
-  if (![(KTSMManager *)self idsServerReportedWrong])
+  if (!-[KTSMManager idsServerReportedWrong](self, "idsServerReportedWrong") || (-[KTSMManager idsServerReportedWrongPublicKey](self, "idsServerReportedWrongPublicKey"), (v5 = objc_claimAutoreleasedReturnValue()) != 0) && (v6 = v5, -[KTSMManager idsServerReportedWrongPublicKey](self, "idsServerReportedWrongPublicKey"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 isEqual:differentCopy], v7, v6, (v8 & 1) != 0))
   {
-    goto LABEL_4;
-  }
-
-  idsServerReportedWrongPublicKey = [(KTSMManager *)self idsServerReportedWrongPublicKey];
-  if (!idsServerReportedWrongPublicKey)
-  {
-    goto LABEL_5;
-  }
-
-  v6 = idsServerReportedWrongPublicKey;
-  idsServerReportedWrongPublicKey2 = [(KTSMManager *)self idsServerReportedWrongPublicKey];
-  v8 = [idsServerReportedWrongPublicKey2 isEqual:differentCopy];
-
-  if (v8)
-  {
-LABEL_4:
     v9 = 0;
   }
 
   else
   {
-LABEL_5:
     [(KTSMManager *)self setIdsServerReportedWrong:0];
     [(KTSMManager *)self setIdsServerReportedWrongPublicKey:0];
     v9 = 1;
@@ -3425,6 +3413,29 @@ LABEL_39:
   dispatch_resume(timer2);
 }
 
+- (void)waitForIDSRegistration:(BOOL)registration complete:(id)complete
+{
+  registrationCopy = registration;
+  completeCopy = complete;
+  v7 = +[NSDate now];
+  deps = [(KTSMManager *)self deps];
+  idsAccountTracker = [deps idsAccountTracker];
+  [idsAccountTracker setTimeOfLastUpsell:v7];
+
+  v14 = _NSConcreteStackBlock;
+  v15 = 3221225472;
+  v16 = sub_10005ABEC;
+  v17 = &unk_10031AA28;
+  selfCopy = self;
+  v19 = completeCopy;
+  v10 = completeCopy;
+  [(KTSMManager *)self _waitForIDSRegistration:registrationCopy complete:&v14];
+  v11 = [(KTSMManager *)self deps:v14];
+  idsOperations = [v11 idsOperations];
+  [idsOperations checkIDSTimeoutSeconds];
+  [(KTSMManager *)self timeout:(v13 * 1000000000.0) block:v10];
+}
+
 - (void)_waitForIDSRegistration:(BOOL)registration complete:(id)complete
 {
   completeCopy = complete;
@@ -4081,6 +4092,77 @@ LABEL_70:
   }
 }
 
+- (BOOL)addOptInStateWithURI:(id)i smtTimestamp:(id)timestamp application:(id)application state:(BOOL)state error:(id *)error
+{
+  stateCopy = state;
+  iCopy = i;
+  timestampCopy = timestamp;
+  applicationCopy = application;
+  deps = [(KTSMManager *)self deps];
+  cloudRecords = [deps cloudRecords];
+
+  if (cloudRecords)
+  {
+    v17 = [cloudRecords addOptInStateWithURI:iCopy smtTimestamp:timestampCopy application:applicationCopy state:stateCopy error:error];
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  return v17;
+}
+
+- (void)setOptInForURI:(id)i application:(id)application state:(BOOL)state smtTimestamp:(id)timestamp complete:(id)complete
+{
+  stateCopy = state;
+  iCopy = i;
+  applicationCopy = application;
+  timestampCopy = timestamp;
+  completeCopy = complete;
+  deps = [(KTSMManager *)self deps];
+  cloudRecords = [deps cloudRecords];
+
+  if (cloudRecords)
+  {
+    if (!timestampCopy)
+    {
+      if (qword_10038BD00 != -1)
+      {
+        sub_10024A36C();
+      }
+
+      v18 = qword_10038BD08;
+      if (os_log_type_enabled(qword_10038BD08, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "using SMT timestamp now 'now', will lead to sadness", buf, 2u);
+      }
+
+      timestampCopy = +[NSDate date];
+    }
+
+    v24 = iCopy;
+    v25 = timestampCopy;
+    v19 = [NSDictionary dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+    v22 = 0;
+    v20 = [cloudRecords setOptInStateWithURIs:v19 application:applicationCopy state:stateCopy error:&v22];
+    v21 = v22;
+    if (v20)
+    {
+      [(KTSMManager *)self setCloudKitOutgoingFlag];
+    }
+
+    completeCopy[2](completeCopy, v20, v21);
+  }
+
+  else
+  {
+    completeCopy[2](completeCopy, 0, 0);
+  }
+}
+
 - (void)getAllOptInStates:(id)states
 {
   statesCopy = states;
@@ -4446,6 +4528,50 @@ LABEL_11:
   [(KTSMManager *)selfCopy triggerMaybeReportEligibilityWithCompletion:v4];
 }
 
+- (void)updateIDSRecommendation:(BOOL)recommendation complete:(id)complete
+{
+  recommendationCopy = recommendation;
+  completeCopy = complete;
+  if ((_os_feature_enabled_impl() & 1) == 0)
+  {
+    v9 = [TransparencyError errorWithDomain:kTransparencyErrorEligibility code:9 description:@"KTEligibilityServerReporting feature not enabled"];
+    if (qword_10038BD00 != -1)
+    {
+      sub_10024A588();
+    }
+
+    v10 = qword_10038BD08;
+    if (os_log_type_enabled(qword_10038BD08, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "KTEligibilityServerReporting feature not enabled", buf, 2u);
+    }
+
+    goto LABEL_9;
+  }
+
+  statusReporting = [(KTSMManager *)self statusReporting];
+
+  if (!statusReporting)
+  {
+    v9 = [TransparencyError errorWithDomain:kTransparencyErrorInternal code:-367 description:@"State Machine not initialized yet, can't run eligibility commands"];
+LABEL_9:
+    completeCopy[2](completeCopy, v9);
+
+    goto LABEL_10;
+  }
+
+  statusReporting2 = [(KTSMManager *)self statusReporting];
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_1000604D0;
+  v11[3] = &unk_10031BCC0;
+  v12 = completeCopy;
+  [statusReporting2 setLastIDSRecWithRecommendation:recommendationCopy completionHandler:v11];
+
+LABEL_10:
+}
+
 - (void)insertOSVersion:(id)version complete:(id)complete
 {
   versionCopy = version;
@@ -4617,6 +4743,119 @@ LABEL_9:
   [statusReporting2 aggregateResultWithSamples:result element:elementCopy completionHandler:v14];
 
 LABEL_10:
+}
+
+- (void)insertResultForElement:(id)element samplesAgo:(id)ago success:(BOOL)success withCompletion:(id)completion
+{
+  successCopy = success;
+  elementCopy = element;
+  agoCopy = ago;
+  completionCopy = completion;
+  if (_os_feature_enabled_impl())
+  {
+    statusReporting = [(KTSMManager *)self statusReporting];
+
+    if (statusReporting)
+    {
+      if ([agoCopy count] == 1)
+      {
+        statusReporting2 = [(KTSMManager *)self statusReporting];
+        v15 = [agoCopy objectAtIndexedSubscript:0];
+        intValue = [v15 intValue];
+        v45[0] = _NSConcreteStackBlock;
+        v45[1] = 3221225472;
+        v45[2] = sub_1000613FC;
+        v45[3] = &unk_10031A768;
+        v46 = completionCopy;
+        [statusReporting2 insertResultWithElement:elementCopy samplesAgo:intValue success:successCopy completionHandler:v45];
+
+        goto LABEL_21;
+      }
+
+      if ([agoCopy count] == 2)
+      {
+        v21 = [agoCopy objectAtIndexedSubscript:0];
+        v31 = [agoCopy objectAtIndexedSubscript:1];
+        if ([v21 compare:?] == 1)
+        {
+          v22 = [TransparencyError errorWithDomain:kTransparencyErrorInternal code:-399 description:@"Invalid sample range"];
+          v23 = [SecXPCHelper cleanseErrorForXPC:v22];
+          (*(completionCopy + 2))(completionCopy, v23);
+        }
+
+        else
+        {
+          v26 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+          v27 = dispatch_queue_create("com.apple.transparency.eligibilityCLIQueue", v26);
+
+          *buf = 0;
+          v40 = buf;
+          v41 = 0x3032000000;
+          v42 = sub_10004DA78;
+          v43 = sub_10004DA88;
+          v44 = 0;
+          v28 = dispatch_group_create();
+          for (i = [v21 intValue]; i <= objc_msgSend(v31, "intValue"); ++i)
+          {
+            dispatch_group_enter(v28);
+            statusReporting3 = [(KTSMManager *)self statusReporting];
+            v35[0] = _NSConcreteStackBlock;
+            v35[1] = 3221225472;
+            v35[2] = sub_100061464;
+            v35[3] = &unk_10031BDE0;
+            v36 = v27;
+            v38 = buf;
+            v37 = v28;
+            [statusReporting3 insertResultWithElement:elementCopy samplesAgo:i success:successCopy completionHandler:v35];
+          }
+
+          block[0] = _NSConcreteStackBlock;
+          block[1] = 3221225472;
+          block[2] = sub_100061578;
+          block[3] = &unk_10031BE08;
+          v33 = completionCopy;
+          v34 = buf;
+          dispatch_group_notify(v28, v27, block);
+
+          _Block_object_dispose(buf, 8);
+        }
+
+        goto LABEL_21;
+      }
+
+      v18 = kTransparencyErrorInternal;
+      v19 = @"Invalid sample range";
+      v20 = -399;
+    }
+
+    else
+    {
+      v18 = kTransparencyErrorInternal;
+      v19 = @"State Machine not initialized yet, can't run eligibility commands";
+      v20 = -367;
+    }
+
+    v24 = [TransparencyError errorWithDomain:v18 code:v20 description:v19];
+    v25 = [SecXPCHelper cleanseErrorForXPC:v24];
+    (*(completionCopy + 2))(completionCopy, v25);
+
+    goto LABEL_21;
+  }
+
+  if (qword_10038BD00 != -1)
+  {
+    sub_10024A5C4();
+  }
+
+  v17 = qword_10038BD08;
+  if (os_log_type_enabled(qword_10038BD08, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "KTEligibilityMetrics feature not enabled", buf, 2u);
+  }
+
+  (*(completionCopy + 2))(completionCopy, 0);
+LABEL_21:
 }
 
 - (void)successInfoForElement:(id)element samples:(int64_t)samples complete:(id)complete

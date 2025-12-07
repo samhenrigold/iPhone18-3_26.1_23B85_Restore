@@ -92,7 +92,7 @@ id __53__HFBiomeUsageCountsByRoomFetchRequest_eventHandler___block_invoke(uint64
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = [WeakRetained home];
+  v5 = objc_msgSend_home(WeakRetained);
   v6 = [v5 hf_roomWithIdentifier:v3];
 
   return v6;
@@ -102,7 +102,7 @@ void *__53__HFBiomeUsageCountsByRoomFetchRequest_eventHandler___block_invoke_2(u
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = [WeakRetained home];
+  v5 = objc_msgSend_home(WeakRetained);
   v6 = [v5 hf_serviceGroupWithIdentifier:v3];
 
   v7 = [WeakRetained filter];
@@ -125,7 +125,7 @@ void *__53__HFBiomeUsageCountsByRoomFetchRequest_eventHandler___block_invoke_3(u
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = [WeakRetained home];
+  v5 = objc_msgSend_home(WeakRetained);
   v6 = [v5 hf_accessoryWithIdentifier:v3];
 
   v7 = [WeakRetained filter];
@@ -148,7 +148,7 @@ void *__53__HFBiomeUsageCountsByRoomFetchRequest_eventHandler___block_invoke_4(u
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = [WeakRetained home];
+  v5 = objc_msgSend_home(WeakRetained);
   v6 = [v5 hf_serviceWithIdentifier:v3];
 
   v7 = [WeakRetained filter];

@@ -32,12 +32,12 @@
       sub_10130EE10(v6, v4);
     }
 
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Tried to enqueue nil command.", v7, v8, v9, v10, v11, v12, v13, "+[CRLCommandControllerObjCHelper fatalAssertOnNilCommand:]");
-    v14 = +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", "+[CRLCommandControllerObjCHelper fatalAssertOnNilCommand:]");
-    v15 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCommands/CRLCommandControllerObjCHelper.m"];
-    [CRLAssertionHandler handleFailureInFunction:v14 file:v15 lineNumber:17 isFatal:1 description:"Tried to enqueue nil command."];
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Tried to enqueue nil command.", "+[CRLCommandControllerObjCHelper fatalAssertOnNilCommand:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCommands/CRLCommandControllerObjCHelper.m", 17);
+    v7 = +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", "+[CRLCommandControllerObjCHelper fatalAssertOnNilCommand:]");
+    v8 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCommands/CRLCommandControllerObjCHelper.m"];
+    [CRLAssertionHandler handleFailureInFunction:v7 file:v8 lineNumber:17 isFatal:1 description:"Tried to enqueue nil command."];
 
-    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v16, v17);
+    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v9, v10);
     abort();
   }
 }

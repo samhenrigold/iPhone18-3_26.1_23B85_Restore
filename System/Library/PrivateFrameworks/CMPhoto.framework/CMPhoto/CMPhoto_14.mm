@@ -1,29 +1,3 @@
-void sub_1A59E4E84(_Unwind_Exception *exception_object)
-{
-  v3 = *(v1 + 8);
-  if (v3)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void _ZNSt3__120__shared_ptr_emplaceIN4vega5dicom7ElementINS1_10dictionary9ImageTypeEEENS_9allocatorIS6_EEEC2B8ne200100IJES8_Li0EEES8_DpOT_(void *a1)
-{
-  a1[1] = 0;
-  a1[2] = 0;
-  *a1 = &unk_1F1915330;
-  vega::dicom::Element<vega::dictionary::ImageType>::Element(a1 + 3);
-}
-
-void vega::dicom::Element<vega::dictionary::ImageType>::Element(void *a1)
-{
-  *a1 = 0;
-  a1[1] = 0;
-  std::allocate_shared[abi:ne200100]<vega::dicom::DataElement,std::allocator<vega::dicom::DataElement>,vega::Tag const&,vega::VR const&,0>();
-}
-
 void sub_1A59E4FC4(_Unwind_Exception *exception_object)
 {
   v3 = *(v1 + 8);
@@ -233,7 +207,7 @@ void sub_1A59E5824(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::vector<vega::Byte>>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<vega::Byte>>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 8);
   if (v3 >= *(a1 + 16))
@@ -244,39 +218,39 @@ uint64_t std::vector<std::vector<vega::Byte>>::push_back[abi:ne200100](uint64_t 
   else
   {
     std::vector<std::vector<vega::Byte>>::__construct_one_at_end[abi:ne200100]<std::vector<vega::Byte> const&>(a1, a2);
-    result = v3 + 24;
+    result = (v3 + 24);
   }
 
   *(a1 + 8) = result;
   return result;
 }
 
-uint64_t std::vector<std::vector<vega::Byte>>::__construct_one_at_end[abi:ne200100]<std::vector<vega::Byte> const&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<vega::Byte>>::__construct_one_at_end[abi:ne200100]<std::vector<vega::Byte> const&>(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 8);
   *v3 = 0;
   v3[1] = 0;
   v3[2] = 0;
-  result = std::vector<vega::Byte>::__init_with_size[abi:ne200100]<vega::Byte*,vega::Byte*>(v3, *a2, a2[1], a2[1] - *a2);
+  result = std::vector<vega::Byte>::__init_with_size[abi:ne200100]<vega::Byte*,vega::Byte*>(v3, *a2, *(a2 + 8), *(a2 + 8) - *a2);
   *(a1 + 8) = v3 + 3;
   return result;
 }
 
-uint64_t std::vector<std::vector<vega::Byte>>::__emplace_back_slow_path<std::vector<vega::Byte> const&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<vega::Byte>>::__emplace_back_slow_path<std::vector<vega::Byte> const&>(char **a1, uint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0xAAAAAAAAAAAAAAALL)
   {
     std::vector<int>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
   {
     v6 = 0xAAAAAAAAAAAAAAALL;
   }
@@ -300,16 +274,16 @@ uint64_t std::vector<std::vector<vega::Byte>>::__emplace_back_slow_path<std::vec
   *v7 = 0;
   *(v7 + 8) = 0;
   *(v7 + 16) = 0;
-  std::vector<vega::Byte>::__init_with_size[abi:ne200100]<vega::Byte*,vega::Byte*>(24 * v2, *a2, a2[1], a2[1] - *a2);
+  std::vector<vega::Byte>::__init_with_size[abi:ne200100]<vega::Byte*,vega::Byte*>((24 * v2), *a2, *(a2 + 8), *(a2 + 8) - *a2);
   v8 = v16 + 24;
-  v9 = *(a1 + 8) - *a1;
+  v9 = a1[1] - *a1;
   v10 = &v15[-v9];
   memcpy(&v15[-v9], *a1, v9);
   v11 = *a1;
   *a1 = v10;
-  *(a1 + 8) = v8;
-  v12 = *(a1 + 16);
-  *(a1 + 16) = v17;
+  a1[1] = v8;
+  v12 = a1[2];
+  a1[2] = v17;
   v16 = v11;
   v17 = v12;
   v14 = v11;
@@ -318,9 +292,9 @@ uint64_t std::vector<std::vector<vega::Byte>>::__emplace_back_slow_path<std::vec
   return v8;
 }
 
-void sub_1A59E59E4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A59E59E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::vector<vega::Byte>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -382,7 +356,7 @@ uint64_t vega::dicom::DataElement::validate_manipulator<vega::manipulators::Enca
     exception = __cxa_allocate_exception(0x10uLL);
     std::string::basic_string[abi:ne200100]<0>(&v14, "DataElement::set_manipulator, received manipulator does not support VR ");
     v7 = vega::dicom::DataElement::vr(a1);
-    vega::VR::str(v7, v12);
+    vega::VR::str(v12, v7);
     if ((v13 & 0x80u) == 0)
     {
       v8 = v12;
@@ -477,7 +451,7 @@ uint64_t DestroyThreadContext(uint64_t a1)
   return result;
 }
 
-uint64_t EncodeFrameThreads(int *a1, unsigned __int16 *a2, unsigned int a3, _WORD *a4, int a5, int a6)
+uint64_t EncodeFrameThreads(unsigned int *a1, unsigned __int16 *a2, unsigned int a3, _WORD *a4, int a5, int a6)
 {
   v8 = a2;
   v23[5] = *MEMORY[0x1E69E9840];
@@ -529,20 +503,20 @@ uint64_t EncodeFrameThreads(int *a1, unsigned __int16 *a2, unsigned int a3, _WOR
   return (v11 - a4);
 }
 
-void *std::vector<std::thread>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::thread>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::thread>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::thread>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<std::thread>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::thread>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -587,7 +561,7 @@ void std::vector<std::thread>::__destroy_vector::operator()[abi:ne200100](void *
   }
 }
 
-uint64_t std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thread_struct>,EncodeFrameThreads::$_0,int,int,int>>(uint64_t *a1)
+uint64_t std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thread_struct>,EncodeFrameThreads::$_0,int,int,int>>(const void **a1)
 {
   v28 = a1;
   v2 = std::__thread_local_data();
@@ -720,9 +694,9 @@ LABEL_28:
   return 0;
 }
 
-void sub_1A59E6484(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A59E6484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::tuple<std::unique_ptr<std::__thread_struct>,EncodeFrameThreads::$_0,int,int,int>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -753,7 +727,7 @@ uint64_t *std::unique_ptr<std::__thread_struct>::~unique_ptr[abi:ne200100](uint6
   return a1;
 }
 
-uint64_t vega::dictionary::Page::Page(uint64_t a1, __int128 *a2, uint64_t *a3, uint64_t *a4, uint64_t *a5)
+uint64_t vega::dictionary::Page::Page(uint64_t a1, __int128 *a2, uint64_t *a3, uint64_t a4, uint64_t *a5)
 {
   *a1 = 0;
   *(a1 + 8) = 0;
@@ -774,7 +748,7 @@ uint64_t vega::dictionary::Page::Page(uint64_t a1, __int128 *a2, uint64_t *a3, u
   *(a1 + 40) = v10;
   *(a1 + 56) = 0;
   *(a1 + 64) = 0;
-  std::vector<vega::VR>::__init_with_size[abi:ne200100]<vega::VR*,vega::VR*>(a1 + 48, *a4, a4[1], (a4[1] - *a4) >> 1);
+  std::vector<vega::VR>::__init_with_size[abi:ne200100]<vega::VR*,vega::VR*>((a1 + 48), *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 1);
   v11 = *a5;
   *(a1 + 80) = *(a5 + 2);
   *(a1 + 72) = v11;
@@ -792,7 +766,7 @@ void sub_1A59E65C4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t vega::dictionary::Page::Page(uint64_t a1, void *a2, __int128 *a3, void *a4, uint64_t *a5, uint64_t *a6)
+uint64_t vega::dictionary::Page::Page(uint64_t a1, void *a2, __int128 *a3, void *a4, uint64_t a5, uint64_t *a6)
 {
   *a1 = *a2;
   v10 = a2[1];
@@ -818,52 +792,52 @@ uint64_t vega::dictionary::Page::Page(uint64_t a1, void *a2, __int128 *a3, void 
   *(a1 + 48) = 0;
   *(a1 + 56) = 0;
   *(a1 + 64) = 0;
-  std::vector<vega::VR>::__init_with_size[abi:ne200100]<vega::VR*,vega::VR*>(a1 + 48, *a5, a5[1], (a5[1] - *a5) >> 1);
+  std::vector<vega::VR>::__init_with_size[abi:ne200100]<vega::VR*,vega::VR*>((a1 + 48), *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 1);
   v12 = *a6;
   *(a1 + 80) = *(a6 + 2);
   *(a1 + 72) = v12;
-  LODWORD(v25.__r_.__value_.__l.__data_) = 0xFFFFFF;
-  if (vega::Tag::operator!=((a1 + 44), &v25) || (*CMPhotoGetEncodeAccelerationModeOverride(a1 + 40) & 1) == 0 || *CMPhotoGetEncodeAccelerationModeOverride(a1 + 40) < 9u)
+  LODWORD(v27.__r_.__value_.__l.__data_) = 0xFFFFFF;
+  if (vega::Tag::operator!=((a1 + 44), &v27) || (CMPhotoGetEncodeAccelerationModeOverride(), (*v13 & 1) == 0) || (CMPhotoGetEncodeAccelerationModeOverride(), *v14 < 9u))
   {
     exception = __cxa_allocate_exception(0x10uLL);
-    vega::Tag::str(&v23);
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Private Page encountered an invalid tag mask: ", &v23, &v24);
-    v15 = std::string::append(&v24, ", ", 2uLL);
-    v16 = *&v15->__r_.__value_.__l.__data_;
-    v25.__r_.__value_.__r.__words[2] = v15->__r_.__value_.__r.__words[2];
-    *&v25.__r_.__value_.__l.__data_ = v16;
-    v15->__r_.__value_.__l.__size_ = 0;
-    v15->__r_.__value_.__r.__words[2] = 0;
-    v15->__r_.__value_.__r.__words[0] = 0;
-    vega::Tag::str(v21);
-    if ((v22 & 0x80u) == 0)
+    vega::Tag::str(v25);
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Private Page encountered an invalid tag mask: ", v25, &v26);
+    v17 = std::string::append(&v26, ", ", 2uLL);
+    v18 = *&v17->__r_.__value_.__l.__data_;
+    v27.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
+    *&v27.__r_.__value_.__l.__data_ = v18;
+    v17->__r_.__value_.__l.__size_ = 0;
+    v17->__r_.__value_.__r.__words[2] = 0;
+    v17->__r_.__value_.__r.__words[0] = 0;
+    vega::Tag::str(v23);
+    if ((v24 & 0x80u) == 0)
     {
-      v17 = v21;
+      v19 = v23;
     }
 
     else
     {
-      v17 = v21[0];
+      v19 = v23[0];
     }
 
-    if ((v22 & 0x80u) == 0)
+    if ((v24 & 0x80u) == 0)
     {
-      v18 = v22;
+      v20 = v24;
     }
 
     else
     {
-      v18 = v21[1];
+      v20 = v23[1];
     }
 
-    v19 = std::string::append(&v25, v17, v18);
-    v20 = *&v19->__r_.__value_.__l.__data_;
-    v26.__r_.__value_.__r.__words[2] = v19->__r_.__value_.__r.__words[2];
-    *&v26.__r_.__value_.__l.__data_ = v20;
-    v19->__r_.__value_.__l.__size_ = 0;
-    v19->__r_.__value_.__r.__words[2] = 0;
-    v19->__r_.__value_.__r.__words[0] = 0;
-    std::runtime_error::runtime_error(exception, &v26);
+    v21 = std::string::append(&v27, v19, v20);
+    v22 = *&v21->__r_.__value_.__l.__data_;
+    v28.__r_.__value_.__r.__words[2] = v21->__r_.__value_.__r.__words[2];
+    *&v28.__r_.__value_.__l.__data_ = v22;
+    v21->__r_.__value_.__l.__size_ = 0;
+    v21->__r_.__value_.__r.__words[2] = 0;
+    v21->__r_.__value_.__r.__words[0] = 0;
+    std::runtime_error::runtime_error(exception, &v28);
     exception->__vftable = &unk_1F1917110;
   }
 
@@ -941,7 +915,7 @@ __n128 std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<c
   return result;
 }
 
-BOOL vega::dictionary::Page::allows_vr(unsigned __int16 **this, const vega::VR *a2)
+uint64_t vega::dictionary::Page::allows_vr(unsigned __int16 **this, const vega::VR *a2)
 {
   if (vega::TagMask::is_private((this + 5)))
   {
@@ -953,55 +927,55 @@ BOOL vega::dictionary::Page::allows_vr(unsigned __int16 **this, const vega::VR *
 
 uint64_t vega::TagMask::is_private(vega::TagMask *this)
 {
-  if (*(CMPhotoGetEncodeAccelerationModeOverride)())
-  {
-    return *CMPhotoGetEncodeAccelerationModeOverride(this + 4) & 1;
-  }
-
-  else
+  CMPhotoGetEncodeAccelerationModeOverride();
+  if ((*v1 & 1) == 0)
   {
     return 0;
   }
+
+  CMPhotoGetEncodeAccelerationModeOverride();
+  return *v3 & 1;
 }
 
 uint64_t vega::dictionary::Page::determine_implicit_vr(vega::dictionary::Page *this)
 {
   if (vega::MultiVR::single((this + 48)))
   {
-    v2 = *CMPhotoGetEncodeAccelerationModeOverride(this + 48);
-    return *v2;
+    CMPhotoGetEncodeAccelerationModeOverride();
+    v3 = *v2;
+    return *v3;
   }
 
-  v3 = (this + 16);
-  v4 = std::string::basic_string[abi:ne200100]<0>(&__p, "OverlayData");
-  v5 = *(this + 39);
-  if (v5 >= 0)
+  v4 = (this + 16);
+  v5 = std::string::basic_string[abi:ne200100]<0>(&__p, "OverlayData");
+  v6 = *(this + 39);
+  if (v6 >= 0)
   {
-    v6 = *(this + 39);
+    v7 = *(this + 39);
   }
 
   else
   {
-    v6 = *(this + 3);
+    v7 = *(this + 3);
   }
 
-  v7 = v22;
-  v8 = v22;
-  if ((v22 & 0x80u) != 0)
+  v8 = v23;
+  v9 = v23;
+  if ((v23 & 0x80u) != 0)
   {
-    v7 = v21;
+    v8 = v22;
   }
 
-  if (v6 != v7)
+  if (v7 != v8)
   {
-    v11 = 0;
-    if (v22 < 0)
+    v12 = 0;
+    if (v23 < 0)
     {
       goto LABEL_20;
     }
 
 LABEL_18:
-    if (v11)
+    if (v12)
     {
       goto LABEL_39;
     }
@@ -1009,17 +983,17 @@ LABEL_18:
     goto LABEL_21;
   }
 
-  if (v5 >= 0)
+  if (v6 >= 0)
   {
-    v9 = this + 16;
+    v10 = this + 16;
   }
 
   else
   {
-    v9 = *v3;
+    v10 = *v4;
   }
 
-  if ((v22 & 0x80u) == 0)
+  if ((v23 & 0x80u) == 0)
   {
     p_p = &__p;
   }
@@ -1029,53 +1003,53 @@ LABEL_18:
     p_p = __p;
   }
 
-  v4 = memcmp(v9, p_p, v6);
-  v11 = v4 == 0;
-  if ((v8 & 0x80000000) == 0)
+  v5 = memcmp(v10, p_p, v7);
+  v12 = v5 == 0;
+  if ((v9 & 0x80000000) == 0)
   {
     goto LABEL_18;
   }
 
 LABEL_20:
   operator delete(__p);
-  if (v11)
+  if (v12)
   {
 LABEL_39:
-    vega::vr::OW(v4);
-    v2 = &_MergedGlobals_12;
-    return *v2;
+    vega::vr::OW(v5);
+    v3 = &_MergedGlobals_12;
+    return *v3;
   }
 
 LABEL_21:
-  v4 = vega::TagMask::contains((this + 40), vega::Tag::PIXEL_DATA);
-  if (v4)
+  v5 = vega::TagMask::contains((this + 40), vega::Tag::PIXEL_DATA);
+  if (v5)
   {
     goto LABEL_39;
   }
 
-  v4 = std::string::basic_string[abi:ne200100]<0>(&__p, "WaveformData");
-  v12 = *(this + 39);
-  if (v12 >= 0)
+  v5 = std::string::basic_string[abi:ne200100]<0>(&__p, "WaveformData");
+  v13 = *(this + 39);
+  if (v13 >= 0)
   {
-    v13 = *(this + 39);
+    v14 = *(this + 39);
   }
 
   else
   {
-    v13 = *(this + 3);
+    v14 = *(this + 3);
   }
 
-  v14 = v22;
-  v15 = v22;
-  if ((v22 & 0x80u) != 0)
+  v15 = v23;
+  v16 = v23;
+  if ((v23 & 0x80u) != 0)
   {
-    v14 = v21;
+    v15 = v22;
   }
 
-  if (v13 != v14)
+  if (v14 != v15)
   {
-    v18 = 0;
-    if ((v22 & 0x80000000) == 0)
+    v19 = 0;
+    if ((v23 & 0x80000000) == 0)
     {
       goto LABEL_38;
     }
@@ -1083,36 +1057,36 @@ LABEL_21:
     goto LABEL_37;
   }
 
-  if (v12 >= 0)
+  if (v13 >= 0)
   {
-    v16 = this + 16;
+    v17 = this + 16;
   }
 
   else
   {
-    v16 = *v3;
+    v17 = *v4;
   }
 
-  if ((v22 & 0x80u) == 0)
+  if ((v23 & 0x80u) == 0)
   {
-    v17 = &__p;
+    v18 = &__p;
   }
 
   else
   {
-    v17 = __p;
+    v18 = __p;
   }
 
-  v4 = memcmp(v16, v17, v13);
-  v18 = v4 == 0;
-  if (v15 < 0)
+  v5 = memcmp(v17, v18, v14);
+  v19 = v5 == 0;
+  if (v16 < 0)
   {
 LABEL_37:
     operator delete(__p);
   }
 
 LABEL_38:
-  if (v18)
+  if (v19)
   {
     goto LABEL_39;
   }
@@ -1120,12 +1094,12 @@ LABEL_38:
   if (vega::Tag::tag((this + 40)))
   {
     {
-      v2 = &vega::vr::LO(void)::LO;
+      v3 = &vega::vr::LO(void)::LO;
     }
 
     else
     {
-      v2 = &vega::vr::LO(void)::LO;
+      v3 = &vega::vr::LO(void)::LO;
       {
         vega::vr::LO(void)::LO = 20300;
       }
@@ -1134,39 +1108,39 @@ LABEL_38:
 
   else
   {
-    v2 = vega::MultiVR::to_single_vr(this + 6);
+    v3 = vega::MultiVR::to_single_vr(this + 6);
   }
 
-  return *v2;
+  return *v3;
 }
 
-void vega::vr::OW(vega::vr *this)
+void vega::vr::OW(uint64_t this)
 {
-  if ((atomic_load_explicit(&qword_1ED6FA738, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA738, memory_order_acquire) & 1) == 0)
   {
     vega::vr::OW();
   }
 }
 
 {
-  if ((atomic_load_explicit(&qword_1ED6FA758, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA758, memory_order_acquire) & 1) == 0)
   {
     vega::vr::OW();
   }
 }
 
 {
-  if ((atomic_load_explicit(&qword_1ED6FA838, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA838, memory_order_acquire) & 1) == 0)
   {
     vega::vr::OW();
   }
 }
 
-void *vega::dictionary::Page::private_owner@<X0>(void *this@<X0>, void *a2@<X8>)
+uint64_t *vega::dictionary::Page::private_owner@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
   v2 = this[1];
-  *a2 = *this;
-  a2[1] = v2;
+  *a1 = *this;
+  a1[1] = v2;
   if (v2)
   {
     atomic_fetch_add_explicit((v2 + 16), 1uLL, memory_order_relaxed);
@@ -1175,7 +1149,7 @@ void *vega::dictionary::Page::private_owner@<X0>(void *this@<X0>, void *a2@<X8>)
   return this;
 }
 
-uint64_t std::vector<vega::VR>::__init_with_size[abi:ne200100]<vega::VR*,vega::VR*>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<vega::VR>::__init_with_size[abi:ne200100]<vega::VR*,vega::VR*>(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -1197,7 +1171,7 @@ void sub_1A59E6C9C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<vega::VR>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<vega::VR>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -1209,33 +1183,33 @@ void std::vector<vega::VR>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
 
 void vega::vr::OW()
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA738))
+  if (__cxa_guard_acquire(byte_1ED6FA738))
   {
     _MergedGlobals_12 = 22351;
 
-    __cxa_guard_release(&qword_1ED6FA738);
+    __cxa_guard_release(byte_1ED6FA738);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA758))
+  if (__cxa_guard_acquire(byte_1ED6FA758))
   {
     word_1ED6FA742 = 22351;
 
-    __cxa_guard_release(&qword_1ED6FA758);
+    __cxa_guard_release(byte_1ED6FA758);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA838))
+  if (__cxa_guard_acquire(byte_1ED6FA838))
   {
     word_1ED6FA7AA = 22351;
 
-    __cxa_guard_release(&qword_1ED6FA838);
+    __cxa_guard_release(byte_1ED6FA838);
   }
 }
 
-uint64_t vega::dicom::Writer::Writer(uint64_t a1, uint64_t *a2)
+vega::dicom::IOState *vega::dicom::Writer::Writer(vega::dicom::IOState *a1, uint64_t *a2)
 {
   v3 = a2[1];
   v5 = *a2;
@@ -1264,186 +1238,186 @@ void sub_1A59E6DB8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t vega::dicom::Writer::write_element(vega::dicom::IOState *a1, vega::dictionary::Page **a2)
+uint64_t vega::dicom::Writer::write_element(vega::dicom::RawWriter *a1, vega::dictionary::Page **a2)
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v4 = vega::dictionary::Page::name(*a2);
   v5 = vega::dicom::RawWriter::write_from<vega::Tag>(a1, v4);
   if (!vega::dicom::RawWriter::vr_explicit(a1))
   {
-    vega::dicom::RawWriter::tell(a1, &v39);
-    v35 = v43;
+    vega::dicom::RawWriter::tell(&v40, a1);
     v36 = v44;
     v37 = v45;
     v38 = v46;
-    v31 = v39;
+    v39 = v47;
     v32 = v40;
     v33 = v41;
     v34 = v42;
-    v9 = v47;
-    v12 = vega::dicom::SOPClass::uid(*a2);
-    v11 = vega::dicom::RawWriter::write_from<unsigned int>(a1, v12) + v5;
+    v35 = v43;
+    v10 = v48;
+    v13 = vega::dicom::SOPClass::uid(*a2);
+    v12 = vega::dicom::RawWriter::write_from<unsigned int>(a1, v13) + v5;
     goto LABEL_5;
   }
 
-  vega::dicom::DataElement::vr(*a2);
-  v6 = vega::dicom::RawWriter::write_from<vega::VR>(a1) + v5;
-  v7 = vega::dicom::DataElement::vr(*a2);
-  if (vega::VR::needs_two_byte_padding(v7))
+  v6 = vega::dicom::DataElement::vr(*a2);
+  v7 = vega::dicom::RawWriter::write_from<vega::VR>(a1, v6) + v5;
+  v8 = vega::dicom::DataElement::vr(*a2);
+  if (vega::VR::needs_two_byte_padding(v8))
   {
-    LOWORD(v29[0]) = 0;
-    v8 = vega::dicom::RawWriter::write_from<unsigned short>(a1);
-    vega::dicom::RawWriter::tell(a1, &v39);
-    v35 = v43;
+    LOWORD(v30[0]) = 0;
+    v9 = vega::dicom::RawWriter::write_from<unsigned short>(a1, v30);
+    vega::dicom::RawWriter::tell(&v40, a1);
     v36 = v44;
     v37 = v45;
     v38 = v46;
-    v31 = v39;
+    v39 = v47;
     v32 = v40;
     v33 = v41;
     v34 = v42;
-    v9 = v47;
-    v10 = vega::dicom::SOPClass::uid(*a2);
-    v11 = v8 + v6 + vega::dicom::RawWriter::write_from<unsigned int>(a1, v10);
+    v35 = v43;
+    v10 = v48;
+    v11 = vega::dicom::SOPClass::uid(*a2);
+    v12 = v9 + v7 + vega::dicom::RawWriter::write_from<unsigned int>(a1, v11);
 LABEL_5:
-    v13 = 1;
+    v14 = 1;
     goto LABEL_7;
   }
 
-  LOWORD(v29[0]) = *vega::dicom::SOPClass::uid(*a2);
-  vega::dicom::RawWriter::tell(a1, &v39);
-  v35 = v43;
+  LOWORD(v30[0]) = *vega::dicom::SOPClass::uid(*a2);
+  vega::dicom::RawWriter::tell(&v40, a1);
   v36 = v44;
   v37 = v45;
   v38 = v46;
-  v31 = v39;
+  v39 = v47;
   v32 = v40;
   v33 = v41;
   v34 = v42;
-  v9 = v47;
-  v13 = 0;
-  v11 = vega::dicom::RawWriter::write_from<unsigned short>(a1) + v6;
+  v35 = v43;
+  v10 = v48;
+  v14 = 0;
+  v12 = vega::dicom::RawWriter::write_from<unsigned short>(a1, v30) + v7;
 LABEL_7:
-  v28 = 0;
+  v29 = 0;
   is_sequence = vega::dicom::DataElement::is_sequence(*a2);
-  v15 = *a2;
+  v16 = *a2;
   vega::dicom::DataElement::lazy_load(*a2);
   if (is_sequence)
   {
-    v16 = *(v15 + 8);
-    vega::dicom::DataElement::lazy_load(v15);
-    v17 = *(v15 + 9);
-    if (v16 == v17)
+    v17 = *(v16 + 8);
+    vega::dicom::DataElement::lazy_load(v16);
+    v18 = *(v16 + 9);
+    if (v17 == v18)
     {
-      v18 = 0;
+      v19 = 0;
     }
 
     else
     {
-      v18 = 0;
+      v19 = 0;
       do
       {
-        v19 = *v16;
-        v20 = v16[1];
-        if (v20)
+        v20 = *v17;
+        v21 = v17[1];
+        if (v21)
         {
-          atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
-          v26 = v19;
+          atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
           v27 = v20;
-          atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
+          v28 = v21;
+          atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
         else
         {
-          v26 = *v16;
-          v27 = 0;
+          v27 = *v17;
+          v28 = 0;
         }
 
-        v18 += vega::dicom::Writer::write_data_set(a1, &v26);
-        v28 = v18;
-        if (v20)
+        v19 += vega::dicom::Writer::write_data_set(a1, &v27);
+        v29 = v19;
+        if (v21)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v20);
-          std::__shared_weak_count::__release_shared[abi:ne200100](v20);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v21);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v21);
         }
 
-        v16 += 2;
+        v17 += 2;
       }
 
-      while (v16 != v17);
+      while (v17 != v18);
     }
 
     if (vega::dicom::DataElement::is_undefined_length(*a2))
     {
-      v23 = vega::dicom::RawWriter::write_from<vega::Tag>(a1, &vega::Tag::SEQ_DELIMITATION);
-      LODWORD(v39) = 0;
-      v18 += v23 + vega::dicom::RawWriter::write_from<unsigned int>(a1, &v39);
-      v28 = v18;
+      v24 = vega::dicom::RawWriter::write_from<vega::Tag>(a1, &vega::Tag::SEQ_DELIMITATION);
+      LODWORD(v40) = 0;
+      v19 += v24 + vega::dicom::RawWriter::write_from<unsigned int>(a1, &v40);
+      v29 = v19;
     }
   }
 
   else
   {
-    v21 = *(v15 + 30);
-    v22 = *(v15 + 31);
-    if (v22)
+    v22 = *(v16 + 30);
+    v23 = *(v16 + 31);
+    if (v23)
     {
-      atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v18 = (*(*v21 + 40))(v21, a1);
-    v28 = v18;
-    if (v22)
+    v19 = (*(*v22 + 40))(v22, a1);
+    v29 = v19;
+    if (v23)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v22);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v23);
     }
   }
 
   if (!vega::dicom::DataElement::is_undefined_length(*a2))
   {
-    vega::dicom::RawWriter::tell(a1, v29);
-    v43 = v35;
+    vega::dicom::RawWriter::tell(v30, a1);
     v44 = v36;
     v45 = v37;
     v46 = v38;
-    v39 = v31;
+    v47 = v39;
     v40 = v32;
     v41 = v33;
     v42 = v34;
-    v47 = v9;
+    v43 = v35;
+    v48 = v10;
     vega::dicom::RawWriter::seek_pos(a1);
-    if (v13)
+    if (v14)
     {
-      vega::dicom::RawWriter::write_from<unsigned int>(a1, &v28);
+      vega::dicom::RawWriter::write_from<unsigned int>(a1, &v29);
     }
 
     else
     {
-      LOWORD(v39) = v18;
-      if (v18 >= 0x10000)
+      LOWORD(v40) = v19;
+      if (v19 >= 0x10000)
       {
         exception = __cxa_allocate_exception(0x10uLL);
         std::runtime_error::runtime_error(exception, "Error: encountered overflow when trying to write 2 byte length");
         __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
       }
 
-      vega::dicom::RawWriter::write_from<unsigned short>(a1);
+      vega::dicom::RawWriter::write_from<unsigned short>(a1, &v40);
     }
 
-    v45 = v29[6];
-    v46 = v29[7];
-    v47 = v30;
-    v41 = v29[2];
-    v42 = v29[3];
-    v43 = v29[4];
-    v44 = v29[5];
-    v39 = v29[0];
-    v40 = v29[1];
+    v46 = v30[6];
+    v47 = v30[7];
+    v48 = v31;
+    v42 = v30[2];
+    v43 = v30[3];
+    v44 = v30[4];
+    v45 = v30[5];
+    v40 = v30[0];
+    v41 = v30[1];
     vega::dicom::RawWriter::seek_pos(a1);
-    v18 = v28;
+    v19 = v29;
   }
 
-  return v11 + v18;
+  return v12 + v19;
 }
 
 uint64_t vega::dicom::RawWriter::write_from<unsigned int>(vega::dicom::IOState *a1, uint64_t a2)
@@ -1469,12 +1443,12 @@ uint64_t vega::dicom::RawWriter::write_from<unsigned int>(vega::dicom::IOState *
   return 4;
 }
 
-uint64_t vega::dicom::Writer::write_data_set(vega::dicom::IOState *a1, uint64_t *a2)
+uint64_t vega::dicom::Writer::write_data_set(vega::dicom::RawWriter *a1, uint64_t *a2)
 {
   v35 = *MEMORY[0x1E69E9840];
   v15 = 0;
   v4 = vega::dicom::RawWriter::write_from<vega::Tag>(a1, &vega::Tag::ITEM);
-  vega::dicom::RawWriter::tell(a1, &v26);
+  vega::dicom::RawWriter::tell(&v26, a1);
   v22 = v30;
   v23 = v31;
   v24 = v32;
@@ -1518,7 +1492,7 @@ uint64_t vega::dicom::Writer::write_data_set(vega::dicom::IOState *a1, uint64_t 
     vega::dicom::DataSet::iterator::operator++(&v26);
   }
 
-  vega::dicom::RawWriter::tell(a1, v16);
+  vega::dicom::RawWriter::tell(v16, a1);
   v30 = v22;
   v31 = v23;
   v32 = v24;
@@ -1554,7 +1528,7 @@ void sub_1A59E7500(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t vega::Tag::str@<X0>(_BYTE *a1@<X8>)
+uint64_t *vega::Tag::str@<X0>(uint64_t *__return_ptr a1@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v8);
   vega::operator<<(&v9);
@@ -1575,7 +1549,7 @@ uint64_t vega::Tag::str@<X0>(_BYTE *a1@<X8>)
     if ((v16 & 8) == 0)
     {
       v3 = 0;
-      a1[23] = 0;
+      *(a1 + 23) = 0;
       goto LABEL_14;
     }
 
@@ -1594,14 +1568,14 @@ uint64_t vega::Tag::str@<X0>(_BYTE *a1@<X8>)
     operator new();
   }
 
-  a1[23] = v3;
+  *(a1 + 23) = v3;
   if (v3)
   {
     memmove(a1, locale, v3);
   }
 
 LABEL_14:
-  a1[v3] = 0;
+  *(a1 + v3) = 0;
   v8[0] = *MEMORY[0x1E69E54D8];
   v6 = *(MEMORY[0x1E69E54D8] + 72);
   *(v8 + *(v8[0] - 24)) = *(MEMORY[0x1E69E54D8] + 64);
@@ -1618,11 +1592,11 @@ LABEL_14:
   return MEMORY[0x1AC552AF0](&v17);
 }
 
-void sub_1A59E7790(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A59E7790(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va, MEMORY[0x1E69E54D8]);
-  MEMORY[0x1AC552AF0](v2 + 128);
+  MEMORY[0x1AC552AF0](v3 + 128);
   _Unwind_Resume(a1);
 }
 
@@ -1732,19 +1706,19 @@ uint64_t vega::MultiVR::MultiVR(uint64_t a1, std::string *__str)
 
 LABEL_25:
     exception = __cxa_allocate_exception(0x10uLL);
-    std::string::basic_string[abi:ne200100]<0>(&v37, "Invalid MultiVR string ");
-    v25 = SHIBYTE(__str->__r_.__value_.__r.__words[2]);
-    if (v25 >= 0)
+    std::string::basic_string[abi:ne200100]<0>(&v38, "Invalid MultiVR string ");
+    v26 = SHIBYTE(__str->__r_.__value_.__r.__words[2]);
+    if (v26 >= 0)
     {
-      v26 = __str;
+      v27 = __str;
     }
 
     else
     {
-      v26 = __str->__r_.__value_.__r.__words[0];
+      v27 = __str->__r_.__value_.__r.__words[0];
     }
 
-    if (v25 >= 0)
+    if (v26 >= 0)
     {
       size = HIBYTE(__str->__r_.__value_.__r.__words[2]);
     }
@@ -1754,42 +1728,42 @@ LABEL_25:
       size = __str->__r_.__value_.__l.__size_;
     }
 
-    v28 = std::string::append(&v37, v26, size);
-    v29 = *&v28->__r_.__value_.__l.__data_;
-    v38.__r_.__value_.__r.__words[2] = v28->__r_.__value_.__r.__words[2];
-    *&v38.__r_.__value_.__l.__data_ = v29;
-    v28->__r_.__value_.__l.__size_ = 0;
-    v28->__r_.__value_.__r.__words[2] = 0;
-    v28->__r_.__value_.__r.__words[0] = 0;
-    std::string::basic_string[abi:ne200100]<0>(v35, "");
-    if ((v36 & 0x80u) == 0)
-    {
-      v30 = v35;
-    }
-
-    else
-    {
-      v30 = v35[0];
-    }
-
-    if ((v36 & 0x80u) == 0)
+    v29 = std::string::append(&v38, v27, size);
+    v30 = *&v29->__r_.__value_.__l.__data_;
+    v39.__r_.__value_.__r.__words[2] = v29->__r_.__value_.__r.__words[2];
+    *&v39.__r_.__value_.__l.__data_ = v30;
+    v29->__r_.__value_.__l.__size_ = 0;
+    v29->__r_.__value_.__r.__words[2] = 0;
+    v29->__r_.__value_.__r.__words[0] = 0;
+    std::string::basic_string[abi:ne200100]<0>(v36, "");
+    if ((v37 & 0x80u) == 0)
     {
       v31 = v36;
     }
 
     else
     {
-      v31 = v35[1];
+      v31 = v36[0];
     }
 
-    v32 = std::string::append(&v38, v30, v31);
-    v33 = *&v32->__r_.__value_.__l.__data_;
-    v39.__r_.__value_.__r.__words[2] = v32->__r_.__value_.__r.__words[2];
-    *&v39.__r_.__value_.__l.__data_ = v33;
-    v32->__r_.__value_.__l.__size_ = 0;
-    v32->__r_.__value_.__r.__words[2] = 0;
-    v32->__r_.__value_.__r.__words[0] = 0;
-    std::runtime_error::runtime_error(exception, &v39);
+    if ((v37 & 0x80u) == 0)
+    {
+      v32 = v37;
+    }
+
+    else
+    {
+      v32 = v36[1];
+    }
+
+    v33 = std::string::append(&v39, v31, v32);
+    v34 = *&v33->__r_.__value_.__l.__data_;
+    v40.__r_.__value_.__r.__words[2] = v33->__r_.__value_.__r.__words[2];
+    *&v40.__r_.__value_.__l.__data_ = v34;
+    v33->__r_.__value_.__l.__size_ = 0;
+    v33->__r_.__value_.__r.__words[2] = 0;
+    v33->__r_.__value_.__r.__words[0] = 0;
+    std::runtime_error::runtime_error(exception, &v40);
     exception->__vftable = &unk_1F1917150;
   }
 
@@ -1808,32 +1782,22 @@ LABEL_5:
     v8 = 1;
     do
     {
-      std::string::basic_string(&v34, __str, v6, 2uLL, &v38);
-      v9 = vega::vr::parse_vr_string(&v34);
-      v11 = *(a1 + 8);
-      v10 = *(a1 + 16);
-      if (v11 >= v10)
+      std::string::basic_string(&v35, __str, v6, 2uLL, &v39);
+      v10 = vega::vr::parse_vr_string(&v35, v9);
+      v12 = *(a1 + 8);
+      v11 = *(a1 + 16);
+      if (v12 >= v11)
       {
-        v13 = (v11 - *a1) >> 1;
-        if (v13 <= -2)
+        v14 = (v12 - *a1) >> 1;
+        if (v14 <= -2)
         {
           std::vector<int>::__throw_length_error[abi:ne200100]();
         }
 
-        v14 = v10 - *a1;
-        if (v14 <= v13 + 1)
+        v15 = v11 - *a1;
+        if (v15 <= v14 + 1)
         {
-          v15 = v13 + 1;
-        }
-
-        else
-        {
-          v15 = v14;
-        }
-
-        if (v14 >= 0x7FFFFFFFFFFFFFFELL)
-        {
-          v16 = 0x7FFFFFFFFFFFFFFFLL;
+          v16 = v14 + 1;
         }
 
         else
@@ -1841,37 +1805,47 @@ LABEL_5:
           v16 = v15;
         }
 
-        if (v16)
+        if (v15 >= 0x7FFFFFFFFFFFFFFELL)
         {
-          std::allocator<unsigned short>::allocate_at_least[abi:ne200100](a1, v16);
+          v17 = 0x7FFFFFFFFFFFFFFFLL;
         }
 
-        v17 = (2 * v13);
-        *v17 = v9;
-        v12 = 2 * v13 + 2;
-        v18 = *(a1 + 8) - *a1;
-        v19 = v17 - v18;
-        memcpy(v17 - v18, *a1, v18);
-        v20 = *a1;
-        *a1 = v19;
-        *(a1 + 8) = v12;
-        *(a1 + 16) = 0;
-        if (v20)
+        else
         {
-          operator delete(v20);
+          v17 = v16;
+        }
+
+        if (v17)
+        {
+          std::allocator<unsigned short>::allocate_at_least[abi:ne200100](a1, v17);
+        }
+
+        v18 = (2 * v14);
+        *v18 = v10;
+        v13 = 2 * v14 + 2;
+        v19 = *(a1 + 8) - *a1;
+        v20 = v18 - v19;
+        memcpy(v18 - v19, *a1, v19);
+        v21 = *a1;
+        *a1 = v20;
+        *(a1 + 8) = v13;
+        *(a1 + 16) = 0;
+        if (v21)
+        {
+          operator delete(v21);
         }
       }
 
       else
       {
-        *v11 = v9;
-        v12 = (v11 + 1);
+        *v12 = v10;
+        v13 = (v12 + 1);
       }
 
-      *(a1 + 8) = v12;
-      if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
+      *(a1 + 8) = v13;
+      if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v34.__r_.__value_.__l.__data_);
+        operator delete(v35.__r_.__value_.__l.__data_);
       }
 
       v6 += 3;
@@ -1926,7 +1900,7 @@ LABEL_12:
   goto LABEL_12;
 }
 
-BOOL vega::MultiVR::contains(unsigned __int16 **this, const vega::VR *a2)
+uint64_t vega::MultiVR::contains(unsigned __int16 **this, const vega::VR *a2)
 {
   v4 = *this;
   v5 = this[1];
@@ -1949,7 +1923,7 @@ BOOL vega::MultiVR::contains(unsigned __int16 **this, const vega::VR *a2)
     return 1;
   }
 
-  vega::VR::name(a2, &v35);
+  vega::VR::name(&v35, a2);
   if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
   {
     if (v35.__r_.__value_.__l.__size_ == 2)
@@ -2018,7 +1992,7 @@ LABEL_72:
     return 0;
   }
 
-  vega::VR::name(a2, &v35);
+  vega::VR::name(&v35, a2);
   if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
   {
     if (v35.__r_.__value_.__l.__size_ == 2)
@@ -2037,7 +2011,7 @@ LABEL_72:
     }
 
 LABEL_40:
-    vega::VR::name(a2, &v35);
+    vega::VR::name(&v35, a2);
     if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
     {
       if (v35.__r_.__value_.__l.__size_ == 2)
@@ -2132,7 +2106,7 @@ LABEL_85:
       return 0;
     }
 
-    vega::VR::name(a2, &v35);
+    vega::VR::name(&v35, a2);
     if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
     {
       if (v35.__r_.__value_.__l.__size_ != 2)
@@ -2252,38 +2226,38 @@ LABEL_73:
   return !v32;
 }
 
-void vega::vr::OB(vega::vr *this)
+void vega::vr::OB(uint64_t this)
 {
-  if ((atomic_load_explicit(&qword_1ED6FA750, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA750, memory_order_acquire) & 1) == 0)
   {
     vega::vr::OB();
   }
 }
 
 {
-  if ((atomic_load_explicit(&qword_1ED6FA830, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA830, memory_order_acquire) & 1) == 0)
   {
     vega::vr::OB();
   }
 }
 
 {
-  if ((atomic_load_explicit(&qword_1ED6FA8D0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA8D0, memory_order_acquire) & 1) == 0)
   {
     vega::vr::OB();
   }
 }
 
-void vega::vr::SS(vega::vr *this)
+void vega::vr::SS(uint64_t this)
 {
-  if ((atomic_load_explicit(&qword_1ED6FA768, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA768, memory_order_acquire) & 1) == 0)
   {
     vega::vr::SS();
   }
 }
 
 {
-  if ((atomic_load_explicit(&qword_1ED6FA868, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA868, memory_order_acquire) & 1) == 0)
   {
     vega::vr::SS();
   }
@@ -2391,7 +2365,7 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  if ((atomic_load_explicit(&qword_1ED6FA778, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA778, memory_order_acquire) & 1) == 0)
   {
     vega::MultiVR::to_single_vr();
   }
@@ -2435,12 +2409,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -2454,22 +2428,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -2503,13 +2477,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -2553,87 +2527,87 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
 void vega::vr::OB()
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA750))
+  if (__cxa_guard_acquire(byte_1ED6FA750))
   {
     _MergedGlobals_13 = 16975;
 
-    __cxa_guard_release(&qword_1ED6FA750);
+    __cxa_guard_release(byte_1ED6FA750);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA830))
+  if (__cxa_guard_acquire(byte_1ED6FA830))
   {
     word_1ED6FA7A8 = 16975;
 
-    __cxa_guard_release(&qword_1ED6FA830);
+    __cxa_guard_release(byte_1ED6FA830);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA8D0))
+  if (__cxa_guard_acquire(byte_1ED6FA8D0))
   {
     _MergedGlobals_16 = 16975;
 
-    __cxa_guard_release(&qword_1ED6FA8D0);
+    __cxa_guard_release(byte_1ED6FA8D0);
   }
 }
 
 void vega::vr::US()
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA760))
+  if (__cxa_guard_acquire(byte_1ED6FA760))
   {
     word_1ED6FA744 = 21333;
 
-    __cxa_guard_release(&qword_1ED6FA760);
+    __cxa_guard_release(byte_1ED6FA760);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA898))
+  if (__cxa_guard_acquire(byte_1ED6FA898))
   {
     word_1ED6FA7C2 = 21333;
 
-    __cxa_guard_release(&qword_1ED6FA898);
+    __cxa_guard_release(byte_1ED6FA898);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA6B8))
+  if (__cxa_guard_acquire(byte_1ED6FA6B8))
   {
     word_1ED6FA692 = 21333;
 
-    __cxa_guard_release(&qword_1ED6FA6B8);
+    __cxa_guard_release(byte_1ED6FA6B8);
   }
 }
 
 void vega::vr::SS()
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA768))
+  if (__cxa_guard_acquire(byte_1ED6FA768))
   {
     word_1ED6FA746 = 21331;
 
-    __cxa_guard_release(&qword_1ED6FA768);
+    __cxa_guard_release(byte_1ED6FA768);
   }
 }
 
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA868))
+  if (__cxa_guard_acquire(byte_1ED6FA868))
   {
     word_1ED6FA7B6 = 21331;
 
-    __cxa_guard_release(&qword_1ED6FA868);
+    __cxa_guard_release(byte_1ED6FA868);
   }
 }
 
 void vega::MultiVR::to_single_vr()
 {
-  if (__cxa_guard_acquire(&qword_1ED6FA778))
+  if (__cxa_guard_acquire(byte_1ED6FA778))
   {
     word_1ED6FA748 = 30831;
     qword_1ED6FA770 = &word_1ED6FA748;
 
-    __cxa_guard_release(&qword_1ED6FA778);
+    __cxa_guard_release(byte_1ED6FA778);
   }
 }
 
@@ -2752,7 +2726,7 @@ LABEL_8:
   goto LABEL_8;
 }
 
-uint64_t std::regex_match[abi:ne200100]<std::__wrap_iter<char const*>,std::allocator<std::sub_match<std::__wrap_iter<char const*>>>,char,std::regex_traits<char>>(char *__f, char *__l, uint64_t a3, uint64_t a4, int a5)
+uint64_t std::regex_match[abi:ne200100]<std::__wrap_iter<char const*>,std::allocator<std::sub_match<std::__wrap_iter<char const*>>>,char,std::regex_traits<char>>(char *__f, char *__l, uint64_t a3, uint64_t a4, unsigned int a5)
 {
   v5 = a5;
   memset(&__p.__prefix_, 0, 17);
@@ -2760,7 +2734,7 @@ uint64_t std::regex_match[abi:ne200100]<std::__wrap_iter<char const*>,std::alloc
   __p.__ready_ = 0;
   __p.__position_start_ = 0;
   memset(&__p, 0, 41);
-  v9 = std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(a4, __f, __l, &__p, a5 | 0x1040u);
+  v9 = std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(a4, __f, __l, &__p, a5 | 0x1040);
   std::match_results<std::__wrap_iter<char const*>>::__assign[abi:ne200100]<char const*,std::allocator<std::sub_match<char const*>>>(a3, __f, __l, &__p, (v5 & 0x800) != 0);
   if (__p.__matches_.__begin_)
   {
@@ -2793,7 +2767,7 @@ void sub_1A59E8FBC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(uint64_t a1, char *__f, char *__l, std::match_results<const char *> *this, int a5)
+uint64_t std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(uint64_t a1, char *__f, char *__l, std::match_results<const char *> *this, unsigned int a5)
 {
   if ((a5 & 0x80) != 0)
   {
@@ -2837,7 +2811,7 @@ LABEL_19:
       do
       {
         std::vector<std::sub_match<char const*>>::assign(&this->__matches_, 0xAAAAAAAAAAAAAAABLL * ((this->__matches_.__end_ - this->__matches_.__begin_) >> 3), &this->__unmatched_);
-        v13 = std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v11, __l, this, v9 | 0x80u, 0);
+        v13 = std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v11, __l, this, v9 | 0x80, 0);
         begin = this->__matches_.__begin_;
         end = this->__matches_.__end_;
         if (v13)
@@ -2853,7 +2827,7 @@ LABEL_19:
 
     v12 = &this->__unmatched_;
     std::vector<std::sub_match<char const*>>::assign(&this->__matches_, 0xAAAAAAAAAAAAAAABLL * ((this->__matches_.__end_ - this->__matches_.__begin_) >> 3), &this->__unmatched_);
-    if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v11, __l, this, v9 | 0x80u, 0))
+    if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v11, __l, this, v9 | 0x80, 0))
     {
       begin = this->__matches_.__begin_;
       end = this->__matches_.__end_;
@@ -3534,6 +3508,13 @@ LABEL_71:
   return v49;
 }
 
+void sub_1A59E9DC8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
+{
+  va_start(va, a24);
+  std::deque<std::__state<char>>::~deque[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
 uint64_t std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_subs<std::allocator<std::sub_match<char const*>>>(uint64_t a1, const char *a2, const char *a3, uint64_t *a4, int a5, char a6)
 {
   v52 = 0;
@@ -3774,10 +3755,10 @@ void sub_1A59EA298(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::__state<char>>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
+uint64_t std::vector<std::__state<char>>::push_back[abi:ne200100](unint64_t *a1, uint64_t a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = std::vector<std::__state<char>>::__emplace_back_slow_path<std::__state<char>>(a1, a2);
   }
@@ -3809,7 +3790,7 @@ uint64_t std::vector<std::__state<char>>::push_back[abi:ne200100](uint64_t a1, u
     result = v3 + 96;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
@@ -3879,21 +3860,21 @@ void std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)16
   __cxa_throw(exception, MEMORY[0x1E69E53A0], MEMORY[0x1E69E52B0]);
 }
 
-uint64_t std::vector<std::__state<char>>::__emplace_back_slow_path<std::__state<char>>(uint64_t a1, uint64_t a2)
+uint64_t std::vector<std::__state<char>>::__emplace_back_slow_path<std::__state<char>>(unint64_t *a1, uint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 5);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 5);
   v3 = v2 + 1;
   if (v2 + 1 > 0x2AAAAAAAAAAAAAALL)
   {
     std::vector<int>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 5) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 5) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 5);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 5);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 5) >= 0x155555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 5) >= 0x155555555555555)
   {
     v6 = 0x2AAAAAAAAAAAAAALL;
   }
@@ -3936,14 +3917,14 @@ uint64_t std::vector<std::__state<char>>::__emplace_back_slow_path<std::__state<
   *(v7 + 85) = *(a2 + 85);
   *(v7 + 80) = v9;
   *&v18 = 96 * v2 + 96;
-  v10 = *(a1 + 8);
+  v10 = a1[1];
   v11 = 96 * v2 + *a1 - v10;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::__state<char>>,std::__state<char>*>(a1, *a1, v10, v11);
   v12 = *a1;
   *a1 = v11;
-  v13 = *(a1 + 16);
+  v13 = a1[2];
   v15 = v18;
-  *(a1 + 8) = v18;
+  *(a1 + 1) = v18;
   *&v18 = v12;
   *(&v18 + 1) = v13;
   v16 = v12;
@@ -3952,9 +3933,9 @@ uint64_t std::vector<std::__state<char>>::__emplace_back_slow_path<std::__state<
   return v15;
 }
 
-void sub_1A59EA654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1A59EA654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::__state<char>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -3977,29 +3958,29 @@ void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::_
     v6 = a2;
     do
     {
-      v7 = *(v6 + 1);
+      v7 = *(v6 + 16);
       *a4 = *v6;
       *(a4 + 16) = v7;
       *(a4 + 40) = 0;
       *(a4 + 48) = 0;
       *(a4 + 32) = 0;
-      *(a4 + 32) = *(v6 + 2);
-      *(a4 + 48) = v6[6];
-      v6[4] = 0;
-      v6[5] = 0;
-      v6[6] = 0;
+      *(a4 + 32) = *(v6 + 32);
+      *(a4 + 48) = *(v6 + 48);
+      *(v6 + 32) = 0;
+      *(v6 + 40) = 0;
+      *(v6 + 48) = 0;
       *(a4 + 56) = 0;
       *(a4 + 64) = 0;
       *(a4 + 72) = 0;
-      *(a4 + 56) = *(v6 + 7);
-      *(a4 + 72) = v6[9];
-      v6[7] = 0;
-      v6[8] = 0;
-      v6[9] = 0;
-      v8 = v6[10];
+      *(a4 + 56) = *(v6 + 56);
+      *(a4 + 72) = *(v6 + 72);
+      *(v6 + 56) = 0;
+      *(v6 + 64) = 0;
+      *(v6 + 72) = 0;
+      v8 = *(v6 + 80);
       *(a4 + 85) = *(v6 + 85);
       *(a4 + 80) = v8;
-      v6 += 12;
+      v6 += 96;
       a4 += 96;
     }
 
@@ -4228,7 +4209,7 @@ void std::allocator<std::pair<unsigned long,char const*>>::allocate_at_least[abi
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<std::sub_match<char const*>>::__init_with_size[abi:ne200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::sub_match<char const*>>::__init_with_size[abi:ne200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4250,7 +4231,7 @@ void sub_1A59EABBC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::sub_match<char const*>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::sub_match<char const*>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -4260,7 +4241,7 @@ void std::vector<std::sub_match<char const*>>::__vallocate[abi:ne200100](uint64_
   std::vector<int>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t std::vector<std::pair<unsigned long,char const*>>::__init_with_size[abi:ne200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::pair<unsigned long,char const*>>::__init_with_size[abi:ne200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4282,7 +4263,7 @@ void sub_1A59EAC7C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::pair<unsigned long,char const*>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<unsigned long,char const*>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -4318,7 +4299,7 @@ void std::vector<std::__state<char>>::__destroy_vector::operator()[abi:ne200100]
   }
 }
 
-__n128 std::deque<std::__state<char>>::push_back(void *a1, uint64_t a2)
+__n128 std::deque<std::__state<char>>::push_back(unint64_t *a1, uint64_t a2)
 {
   v4 = a1[2];
   v5 = a1[1];
@@ -4422,19 +4403,19 @@ int64x2_t std::deque<std::__state<char>>::push_front(int64x2_t *a1, uint64_t a2)
   return result;
 }
 
-void *std::deque<std::__state<char>>::__add_back_capacity(void *a1)
+void std::deque<std::__state<char>>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x2A;
   v3 = v1 - 42;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -4442,25 +4423,25 @@ void *std::deque<std::__state<char>>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::allocator<std::thread>::allocate_at_least[abi:ne200100](a1, v9);
+    v10 = a1;
+    std::allocator<std::thread>::allocate_at_least[abi:ne200100](a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(a1, &v9);
 }
 
 void sub_1A59EB160(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -4474,27 +4455,26 @@ void sub_1A59EB160(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(void *result, void *a2)
+void std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::allocator<std::thread>::allocate_at_least[abi:ne200100](result, v11);
+      std::allocator<std::thread>::allocate_at_least[abi:ne200100](a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -4503,28 +4483,26 @@ void *std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char>
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_front<std::__state<char> *>(const void **result, void *a2)
+void std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_front<std::__state<char> *>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -4537,52 +4515,50 @@ const void **std::__split_buffer<std::__state<char> *,std::allocator<std::__stat
         v9 = (v7 - v4) >> 2;
       }
 
-      std::allocator<std::thread>::allocate_at_least[abi:ne200100](result, v9);
+      std::allocator<std::thread>::allocate_at_least[abi:ne200100](a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = (v6 + 8 * v8);
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
-  *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  *(v5 - 8) = *a2;
+  a1[1] = a1[1] - 8;
 }
 
-void *std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *> &>::emplace_back<std::__state<char> *>(void *result, void *a2)
+void std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *> &>::emplace_back<std::__state<char> *>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::allocator<std::thread>::allocate_at_least[abi:ne200100](result[4], v11);
+      std::allocator<std::thread>::allocate_at_least[abi:ne200100](a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -4591,28 +4567,26 @@ void *std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char>
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *> &>::emplace_front<std::__state<char> *&>(const void **result, void *a2)
+void std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *> &>::emplace_front<std::__state<char> *&>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -4625,29 +4599,28 @@ const void **std::__split_buffer<std::__state<char> *,std::allocator<std::__stat
         v9 = (v7 - v4) >> 2;
       }
 
-      std::allocator<std::thread>::allocate_at_least[abi:ne200100](result[4], v9);
+      std::allocator<std::thread>::allocate_at_least[abi:ne200100](a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 uint64_t std::deque<std::__state<char>>::__maybe_remove_back_spare[abi:ne200100](void *a1, int a2)
@@ -4689,10 +4662,10 @@ uint64_t std::deque<std::__state<char>>::__maybe_remove_back_spare[abi:ne200100]
   return v7 ^ 1u;
 }
 
-const void **std::deque<std::__state<char>>::__add_front_capacity(uint64_t a1)
+void std::deque<std::__state<char>>::__add_front_capacity(const void **a1)
 {
-  v1 = *(a1 + 8);
-  v2 = *(a1 + 16);
+  v1 = a1[1];
+  v2 = a1[2];
   v3 = v2 - v1;
   if (v2 == v1)
   {
@@ -4704,15 +4677,15 @@ const void **std::deque<std::__state<char>>::__add_front_capacity(uint64_t a1)
     v4 = 42 * ((v2 - v1) >> 3) - 1;
   }
 
-  v5 = *(a1 + 32);
-  if ((v4 - (*(a1 + 40) + v5)) < 0x2A)
+  v5 = a1[4];
+  if ((v4 - (a1[5] + v5)) < 0x2A)
   {
-    v7 = *(a1 + 24);
-    v8 = *a1;
-    v9 = &v7[-*a1];
-    if (v3 < v9)
+    v6 = a1[3];
+    v7 = *a1;
+    v8 = v6 - *a1;
+    if (v3 < v8)
     {
-      if (v1 != v8)
+      if (v1 != v7)
       {
         operator new();
       }
@@ -4720,24 +4693,24 @@ const void **std::deque<std::__state<char>>::__add_front_capacity(uint64_t a1)
       operator new();
     }
 
-    if (v7 == v8)
+    if (v6 == v7)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = v9 >> 2;
+      v9 = v8 >> 2;
     }
 
-    v11[4] = a1;
-    std::allocator<std::thread>::allocate_at_least[abi:ne200100](a1, v10);
+    v10[4] = a1;
+    std::allocator<std::thread>::allocate_at_least[abi:ne200100](a1, v9);
   }
 
-  *(a1 + 32) = v5 + 42;
-  v11[0] = *(v2 - 1);
-  *(a1 + 16) = v2 - 8;
-  return std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_front<std::__state<char> *>(a1, v11);
+  a1[4] = (v5 + 42);
+  v10[0] = *(v2 - 8);
+  a1[2] = (v2 - 8);
+  std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_front<std::__state<char> *>(a1, v10);
 }
 
 void sub_1A59EB850(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -4848,7 +4821,7 @@ uint64_t std::__split_buffer<std::__state<char> *,std::allocator<std::__state<ch
   return a1;
 }
 
-_BYTE *std::vector<std::sub_match<char const*>>::__assign_with_size[abi:ne200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(void *a1, __int128 *a2, __int128 *a3, unint64_t a4)
+char *std::vector<std::sub_match<char const*>>::__assign_with_size[abi:ne200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(uint64_t *a1, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -4948,7 +4921,7 @@ _BYTE *std::vector<std::sub_match<char const*>>::__assign_with_size[abi:ne200100
   return result;
 }
 
-char *std::vector<std::pair<unsigned long,char const*>>::__assign_with_size[abi:ne200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(char **a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
+char *std::vector<std::pair<unsigned long,char const*>>::__assign_with_size[abi:ne200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(uint64_t *a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -5038,7 +5011,7 @@ char *std::vector<std::pair<unsigned long,char const*>>::__assign_with_size[abi:
         v17 = v5[1];
         v5 += 2;
         *v11 = v16;
-        *(v11 + 1) = v17;
+        *(v11 + 8) = v17;
         v11 += 16;
         v15 += 16;
       }
@@ -5190,12 +5163,12 @@ double vega::DateTime::DateTime(vega::DateTime *this)
   return result;
 }
 
-void vega::DateTime::DateTime(_OWORD *a1)
+void vega::DateTime::DateTime(_OWORD *a1, uint64_t a2)
 {
   a1[1] = 0u;
   a1[2] = 0u;
   *a1 = 0u;
-  vega::DateTime::set_string();
+  vega::DateTime::set_string(a1, a2);
 }
 
 void sub_1A59EBF38(_Unwind_Exception *a1)
@@ -5210,18 +5183,18 @@ void sub_1A59EBF38(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void vega::DateTime::set_string()
+void vega::DateTime::set_string(uint64_t a1, uint64_t a2)
 {
-  v2 = 0;
-  v3 = 0;
   v4 = 0;
   v5 = 0;
   v6 = 0;
   v7 = 0;
   v8 = 0;
   v9 = 0;
-  *v0 = 0u;
-  memset(v1, 0, sizeof(v1));
+  v10 = 0;
+  v11 = 0;
+  *v2 = 0u;
+  memset(v3, 0, sizeof(v3));
   std::allocate_shared[abi:ne200100]<std::basic_regex<char,std::regex_traits<char>> const,std::allocator<std::basic_regex<char,std::regex_traits<char>>>,char const(&)[40],0>();
 }
 
@@ -5245,11 +5218,11 @@ void sub_1A59EC244(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *vega::DateTime::str@<X0>(uint64_t *__return_ptr a1@<X8>, vega::dictionary::Page **this@<X0>)
+uint64_t vega::DateTime::str@<X0>(vega::dictionary::Page **this@<X0>, void *a2@<X8>)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v6);
   vega::operator<<(&v7, this);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v6, a1);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::str[abi:ne200100](v6, a2);
   v6[0] = *MEMORY[0x1E69E54D8];
   v4 = *(MEMORY[0x1E69E54D8] + 72);
   *(v6 + *(v6[0] - 24)) = *(MEMORY[0x1E69E54D8] + 64);
@@ -5266,9 +5239,9 @@ uint64_t *vega::DateTime::str@<X0>(uint64_t *__return_ptr a1@<X8>, vega::diction
   return MEMORY[0x1AC552AF0](&v11);
 }
 
-void sub_1A59EC454(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A59EC454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -5278,7 +5251,7 @@ void *vega::operator<<(void *a1, vega::dictionary::Page **a2)
   v4 = a2[2];
   if (v4)
   {
-    vega::DateTime::str(&__p, v4);
+    vega::DateTime::str(v4, &__p);
     if ((v17 & 0x80u) == 0)
     {
       p_p = &__p;
@@ -5339,7 +5312,7 @@ void *vega::operator<<(void *a1, vega::dictionary::Page **a2)
   v7 = a2[4];
   if (v7)
   {
-    vega::DateTime::str(&__p, v7);
+    vega::DateTime::str(v7, &__p);
     if ((v17 & 0x80u) == 0)
     {
       v8 = &__p;
@@ -5594,9 +5567,9 @@ void sub_1A59EC578(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t vega::DateTime::read_single_string_from@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
+uint64_t vega::DateTime::read_single_string_from@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19[17] = *MEMORY[0x1E69E9840];
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v11);
   v10 = 0;
   if ((*(a1 + *(*a1 - 24) + 32) & 2) != 0)
@@ -5616,7 +5589,7 @@ uint64_t vega::DateTime::read_single_string_from@<X0>(void *a1@<X0>, uint64_t a2
     }
 
     std::operator>>[abi:ne200100]<char,std::char_traits<char>>(a1, &v10);
-    v19[0] = v10;
+    LOBYTE(v19[0]) = v10;
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v12, v19, 1);
     v4 = 1;
 LABEL_8:
@@ -5653,7 +5626,7 @@ LABEL_14:
   std::istream::seekg();
   std::istream::tellg();
   std::istream::seekg();
-  if (v18 - v20 < 2)
+  if ((v18[16] - v19[16]) < 2)
   {
     goto LABEL_26;
   }
@@ -5701,8 +5674,8 @@ LABEL_26:
 
 LABEL_28:
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
 LABEL_29:
   v11[0] = *MEMORY[0x1E69E54D8];
   v8 = *(MEMORY[0x1E69E54D8] + 72);
@@ -5720,9 +5693,9 @@ LABEL_29:
   return MEMORY[0x1AC552AF0](&v16);
 }
 
-void sub_1A59EC98C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A59EC98C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -5839,7 +5812,7 @@ void sub_1A59ECCCC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__shared_ptr_emplace<std::basic_regex<char,std::regex_traits<char>> const,std::allocator<std::basic_regex<char,std::regex_traits<char>>>>::__shared_ptr_emplace[abi:ne200100]<char const(&)[137],std::allocator<std::basic_regex<char,std::regex_traits<char>>>,0>(std::regex_traits<char> *a1, const char *a2)
+void std::__shared_ptr_emplace<std::basic_regex<char,std::regex_traits<char>> const,std::allocator<std::basic_regex<char,std::regex_traits<char>>>>::__shared_ptr_emplace[abi:ne200100]<char const(&)[137],std::allocator<std::basic_regex<char,std::regex_traits<char>>>,0>(std::regex_traits<char> *a1, char *a2)
 {
   a1->__ct_ = 0;
   a1->__col_ = 0;
@@ -5855,15 +5828,15 @@ void std::__shared_ptr_emplace<std::basic_regex<char,std::regex_traits<char>> co
   JUMPOUT(0x1AC552B90);
 }
 
-void std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100](std::regex_traits<char> *a1, const char *a2, int a3)
+void std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100](std::regex_traits<char> *a1, char *a2, int a3)
 {
-  v5 = std::regex_traits<char>::regex_traits(a1);
-  LODWORD(v5[1].__loc_.__locale_) = a3;
-  *(&v5[1].__loc_.__locale_ + 4) = 0u;
-  *(&v5[1].__col_ + 4) = 0u;
-  HIDWORD(v5[2].__ct_) = 0;
-  strlen(a2);
-  std::basic_regex<char,std::regex_traits<char>>::__parse<char const*>();
+  v6 = std::regex_traits<char>::regex_traits(a1);
+  LODWORD(v6[1].__loc_.__locale_) = a3;
+  *(&v6[1].__loc_.__locale_ + 4) = 0u;
+  *(&v6[1].__col_ + 4) = 0u;
+  HIDWORD(v6[2].__ct_) = 0;
+  v7 = strlen(a2);
+  std::basic_regex<char,std::regex_traits<char>>::__parse<char const*>(a1, a2, &a2[v7]);
 }
 
 void sub_1A59ECED8(_Unwind_Exception *a1)
@@ -5978,7 +5951,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_basic_r
   return v3;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(std::basic_regex<char> *a1, std::basic_regex<char> *a2, std::basic_regex<char> *a3)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3)
 {
   end = a1->__end_;
   v7 = std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(a1, a2, a3);
@@ -5992,7 +5965,7 @@ LABEL_8:
   while (v8 != a3 && *v8 == 124)
   {
     v9 = a1->__end_;
-    v10 = std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(a1, (v8 + 1), a3);
+    v10 = std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(a1, v8 + 1, a3);
     if (v10 == v8 + 1)
     {
       goto LABEL_8;
@@ -6065,7 +6038,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_grep<ch
   return v8;
 }
 
-std::basic_regex<char> *std::basic_regex<char,std::regex_traits<char>>::__parse_egrep<char const*>(std::basic_regex<char> *a1, std::basic_regex<char> *__s, std::basic_regex<char> *a3)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_egrep<char const*>(std::basic_regex<char> *a1, unsigned __int8 *__s, unsigned __int8 *a3)
 {
   end = a1->__end_;
   v7 = memchr(__s, 10, a3 - __s);
@@ -6087,7 +6060,7 @@ std::basic_regex<char> *std::basic_regex<char,std::regex_traits<char>>::__parse_
   std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(a1, __s, v8);
   if (v8 != a3)
   {
-    v8 = (v8 + 1);
+    ++v8;
   }
 
   while (v8 != a3)
@@ -6118,7 +6091,7 @@ std::basic_regex<char> *std::basic_regex<char,std::regex_traits<char>>::__parse_
 
     else
     {
-      v8 = (&v10->__traits_.__loc_.__locale_ + 1);
+      v8 = v10 + 1;
     }
   }
 
@@ -8164,7 +8137,7 @@ void std::__bracket_expression<char,std::regex_traits<char>>::__exec(const std::
     v73 = (this->__traits_.__ct_->do_tolower)(this->__traits_.__ct_, v6);
   }
 
-  std::regex_traits<char>::__lookup_collatename<char *>(&this->__traits_, &v72, &v74, &__p);
+  std::regex_traits<char>::__lookup_collatename<char *>(&this->__traits_, &v72, &__p, &v74);
   if ((v71 & 0x80000000) == 0)
   {
     if (v71)
@@ -8225,7 +8198,7 @@ LABEL_24:
     {
       v13 = 0;
       v14 = 0;
-      while (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v12[v13].first.__r_.__value_.__r.__words, &__p) > 0 || std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__p, &this->__ranges_.__begin_[v13].second.__r_.__value_.__l.__data_) >= 1)
+      while (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v12[v13], &__p) > 0 || std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__p, &this->__ranges_.__begin_[v13].second) >= 1)
       {
         ++v14;
         v12 = this->__ranges_.__begin_;
@@ -8481,7 +8454,7 @@ LABEL_87:
   {
     v47 = 0;
     v48 = 0;
-    while (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v33[v47].first.__r_.__value_.__r.__words, &__p) > 0 || std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__p, &this->__ranges_.__begin_[v47].second.__r_.__value_.__l.__data_) >= 1)
+    while (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v33[v47], &__p) > 0 || std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__p, &this->__ranges_.__begin_[v47].second) >= 1)
     {
       ++v48;
       v33 = this->__ranges_.__begin_;
@@ -8745,7 +8718,7 @@ void sub_1A59F14DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(void *a1, void **a2)
+uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(uint64_t ***a1, char *a2)
 {
   v2 = *(a1 + 23);
   v3 = a1[1];
@@ -8755,7 +8728,7 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocat
     v2 = v3;
   }
 
-  v4 = *(a2 + 23);
+  v4 = a2[23];
   if (v4 >= 0)
   {
     v5 = a2;
@@ -8768,23 +8741,23 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocat
 
   if (v4 >= 0)
   {
-    v6 = *(a2 + 23);
+    v6 = a2[23];
   }
 
   else
   {
-    v6 = a2[1];
+    v6 = *(a2 + 1);
   }
 
   return std::operator<=>[abi:ne200100]<char,std::char_traits<char>>(a1, v2, v5, v6);
 }
 
-void std::regex_traits<char>::__lookup_collatename<char *>(uint64_t a1@<X0>, _BYTE *a2@<X1>, _BYTE *a3@<X2>, uint64_t a4@<X8>)
+void std::regex_traits<char>::__lookup_collatename<char *>(uint64_t a1@<X0>, _BYTE *a2@<X1>, uint64_t a3@<X8>, _BYTE *a4@<X2>)
 {
-  std::string::__init_with_size[abi:ne200100]<char *,char *>(&__s, a2, a3, a3 - a2);
-  *a4 = 0;
-  *(a4 + 8) = 0;
-  *(a4 + 16) = 0;
+  std::string::__init_with_size[abi:ne200100]<char *,char *>(&__s, a2, a4, a4 - a2);
+  *a3 = 0;
+  *(a3 + 8) = 0;
+  *(a3 + 16) = 0;
   if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
   {
     if (!__s.__r_.__value_.__l.__size_)
@@ -8806,13 +8779,13 @@ void std::regex_traits<char>::__lookup_collatename<char *>(uint64_t a1@<X0>, _BY
   }
 
   std::__get_collation_name(&v11, p_s);
-  *a4 = *&v11.__r_.__value_.__l.__data_;
+  *a3 = *&v11.__r_.__value_.__l.__data_;
   v7 = v11.__r_.__value_.__r.__words[2];
-  *(a4 + 16) = *(&v11.__r_.__value_.__l + 2);
+  *(a3 + 16) = *(&v11.__r_.__value_.__l + 2);
   v8 = HIBYTE(v7);
   if ((v8 & 0x80u) != 0)
   {
-    v8 = *(a4 + 8);
+    v8 = *(a3 + 8);
   }
 
   if (v8)
@@ -8834,35 +8807,35 @@ void std::regex_traits<char>::__lookup_collatename<char *>(uint64_t a1@<X0>, _BY
   }
 
   (*(**(a1 + 16) + 32))(&v11);
-  if (*(a4 + 23) < 0)
+  if (*(a3 + 23) < 0)
   {
-    operator delete(*a4);
+    operator delete(*a3);
   }
 
-  *a4 = v11;
-  if ((*(a4 + 23) & 0x80000000) == 0)
+  *a3 = v11;
+  if ((*(a3 + 23) & 0x80000000) == 0)
   {
-    v9 = *(a4 + 23);
+    v9 = *(a3 + 23);
     if (v9 != 12 && v9 != 1)
     {
-      *a4 = 0;
-      *(a4 + 23) = 0;
+      *a3 = 0;
+      *(a3 + 23) = 0;
       goto LABEL_9;
     }
 
     goto LABEL_23;
   }
 
-  v10 = *(a4 + 8);
+  v10 = *(a3 + 8);
   if (v10 == 1 || v10 == 12)
   {
 LABEL_23:
-    std::string::operator=(a4, &__s);
+    std::string::operator=(a3, &__s);
     goto LABEL_9;
   }
 
-  **a4 = 0;
-  *(a4 + 8) = 0;
+  **a3 = 0;
+  *(a3 + 8) = 0;
 LABEL_9:
   if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -8885,7 +8858,7 @@ void sub_1A59F16A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::__init_with_size[abi:ne200100]<char *,char *>(_BYTE *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
+void *std::string::__init_with_size[abi:ne200100]<char *,char *>(void *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
 {
   if (a4 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -8898,14 +8871,14 @@ _BYTE *std::string::__init_with_size[abi:ne200100]<char *,char *>(_BYTE *__dst, 
     operator new();
   }
 
-  __dst[23] = a4;
+  *(__dst + 23) = a4;
   v5 = a3 - __src;
   if (a3 != __src)
   {
     __dst = memmove(__dst, __src, v5);
   }
 
-  v4[v5] = 0;
+  *(v4 + v5) = 0;
   return __dst;
 }
 
@@ -9019,7 +8992,7 @@ void sub_1A59F18E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<char>::push_back[abi:ne200100](uint64_t a1, _BYTE *a2)
+void std::vector<char>::push_back[abi:ne200100](uint64_t a1, char *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -9191,7 +9164,7 @@ LABEL_28:
         {
           v20 = v30;
 LABEL_46:
-          std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](v6, *v20, *(v20 + 1));
+          std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](v6, *v20, v20[1]);
           goto LABEL_47;
         }
 

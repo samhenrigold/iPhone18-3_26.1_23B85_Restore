@@ -81,7 +81,7 @@
 
 - (MXAverage)initWithCoder:(id)coder
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   if ([coderCopy allowsKeyedCoding])
   {
@@ -103,9 +103,9 @@
     {
       v13 = MEMORY[0x277CCA9B8];
       v14 = *MEMORY[0x277CCA050];
-      v19 = *MEMORY[0x277CCA450];
-      v20[0] = @"Measurement class object has been corrupted!";
-      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+      v18 = *MEMORY[0x277CCA450];
+      v19[0] = @"Measurement class object has been corrupted!";
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
       v16 = [v13 errorWithDomain:v14 code:4864 userInfo:v15];
       [coderCopy failWithError:v16];
 
@@ -119,7 +119,6 @@
     selfCopy = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

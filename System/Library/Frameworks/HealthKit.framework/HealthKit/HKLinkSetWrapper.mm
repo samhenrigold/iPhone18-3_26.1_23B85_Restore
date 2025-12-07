@@ -34,49 +34,47 @@
   sub_191C0E22C(0);
   v8 = v7;
   v9 = *(v7 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x1EEE9AC00](v7, v11);
-  v13 = &v20 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v11 = &v18 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   dataCopy = data;
-  v15 = sub_191CC6048();
-  v17 = v16;
+  v13 = sub_191CC6048();
+  v15 = v14;
 
-  sub_191C0492C(v15, v17);
-  sub_191C0DD28(&qword_1EADCACA8, sub_191C0E22C);
+  sub_191C0492C(v13, v15);
+  sub_191C0DD28(&qword_1EADCACA8, sub_191C0E22C, MEMORY[0x1E6995130]);
   sub_191CC6568();
-  (*(v9 + 32))(self + OBJC_IVAR___HKLinkSetWrapper_orderedSet, v13, v8);
-  v21.receiver = self;
-  v21.super_class = ObjectType;
-  v18 = [(HKLinkSetWrapper *)&v21 init];
-  sub_191C049D8(v15, v17);
-  return v18;
+  (*(v9 + 32))(self + OBJC_IVAR___HKLinkSetWrapper_orderedSet, v11, v8);
+  v19.receiver = self;
+  v19.super_class = ObjectType;
+  v16 = [(HKLinkSetWrapper *)&v19 init];
+  sub_191C049D8(v13, v15);
+  return v16;
 }
 
 - (id)serializedDataWithError:(id *)error
 {
   v4 = sub_191CC6548();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x1EEE9AC00](v4, v7);
-  v9 = &v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = qword_1EADCA120;
+  MEMORY[0x1EEE9AC00](v4);
+  v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = qword_1EADCA120;
   selfCopy = self;
-  if (v10 != -1)
+  if (v8 != -1)
   {
     swift_once();
   }
 
-  (*(v5 + 104))(v9, *MEMORY[0x1E6995288], v4);
+  (*(v5 + 104))(v7, *MEMORY[0x1E6995288], v4);
   sub_191C0E22C(0);
-  sub_191C0DD28(&qword_1EADCACA8, sub_191C0E22C);
-  v12 = sub_191CC6558();
-  v14 = v13;
+  sub_191C0DD28(&qword_1EADCACA8, sub_191C0E22C, MEMORY[0x1E6995130]);
+  v10 = sub_191CC6558();
+  v12 = v11;
 
-  (*(v5 + 8))(v9, v4);
-  v15 = sub_191CC6028();
-  sub_191C049D8(v12, v14);
+  (*(v5 + 8))(v7, v4);
+  v13 = sub_191CC6028();
+  sub_191C049D8(v10, v12);
 
-  return v15;
+  return v13;
 }
 
 - (NSArray)elements
@@ -106,29 +104,28 @@
   sub_191C0E22C(0);
   v6 = v5;
   v7 = *(v5 - 8);
-  v8 = v7[8];
-  v10 = MEMORY[0x1EEE9AC00](v5, v9);
-  v12 = &v24 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v10, v13);
-  v15 = &v24 - v14;
-  v16 = v7[2];
-  v16(&v24 - v14, self + OBJC_IVAR___HKLinkSetWrapper_orderedSet, v6);
+  v8 = MEMORY[0x1EEE9AC00](v5);
+  v10 = &v21 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v8);
+  v12 = &v21 - v11;
+  v13 = *(v7 + 16);
+  v13(&v21 - v11, self + OBJC_IVAR___HKLinkSetWrapper_orderedSet, v6);
   elementCopy = element;
   selfCopy = self;
   sub_191CC6458();
-  v16(v12, v15, v6);
-  v19 = ObjectType;
-  v20 = objc_allocWithZone(ObjectType);
-  v16(&v20[OBJC_IVAR___HKLinkSetWrapper_orderedSet], v12, v6);
-  v26.receiver = v20;
-  v26.super_class = v19;
-  v21 = [(HKLinkSetWrapper *)&v26 init];
+  v13(v10, v12, v6);
+  v16 = ObjectType;
+  v17 = objc_allocWithZone(ObjectType);
+  v13(&v17[OBJC_IVAR___HKLinkSetWrapper_orderedSet], v10, v6);
+  v23.receiver = v17;
+  v23.super_class = v16;
+  v18 = [(HKLinkSetWrapper *)&v23 init];
 
-  v22 = v7[1];
-  v22(v12, v6);
-  v22(v15, v6);
+  v19 = *(v7 + 8);
+  v19(v10, v6);
+  v19(v12, v6);
 
-  return v21;
+  return v18;
 }
 
 - (id)insertingElement:(id)element index:(int64_t)index
@@ -138,29 +135,28 @@
   sub_191C0E22C(0);
   v7 = v6;
   v8 = *(v6 - 8);
-  v9 = v8[8];
-  v11 = MEMORY[0x1EEE9AC00](v6, v10);
-  v13 = &indexCopy - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11, v14);
-  v16 = &indexCopy - v15;
-  v17 = v8[2];
-  v17(&indexCopy - v15, self + OBJC_IVAR___HKLinkSetWrapper_orderedSet, v7);
+  v9 = MEMORY[0x1EEE9AC00](v6);
+  v11 = &indexCopy - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v9);
+  v13 = &indexCopy - v12;
+  v14 = *(v8 + 16);
+  v14(&indexCopy - v12, self + OBJC_IVAR___HKLinkSetWrapper_orderedSet, v7);
   elementCopy = element;
   selfCopy = self;
   sub_191CC6468();
-  v17(v13, v16, v7);
-  v20 = ObjectType;
-  v21 = objc_allocWithZone(ObjectType);
-  v17(&v21[OBJC_IVAR___HKLinkSetWrapper_orderedSet], v13, v7);
-  v27.receiver = v21;
-  v27.super_class = v20;
-  v22 = [(HKLinkSetWrapper *)&v27 init];
+  v14(v11, v13, v7);
+  v17 = ObjectType;
+  v18 = objc_allocWithZone(ObjectType);
+  v14(&v18[OBJC_IVAR___HKLinkSetWrapper_orderedSet], v11, v7);
+  v24.receiver = v18;
+  v24.super_class = v17;
+  v19 = [(HKLinkSetWrapper *)&v24 init];
 
-  v23 = v8[1];
-  v23(v13, v7);
-  v23(v16, v7);
+  v20 = *(v8 + 8);
+  v20(v11, v7);
+  v20(v13, v7);
 
-  return v22;
+  return v19;
 }
 
 - (id)movingElementFrom:(int64_t)from to:(int64_t)to
@@ -177,27 +173,26 @@
   sub_191C0E22C(0);
   v6 = v5;
   v7 = *(v5 - 8);
-  v8 = v7[8];
-  v10 = MEMORY[0x1EEE9AC00](v5, v9);
-  v12 = &v22 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v10, v13);
-  v15 = &v22 - v14;
-  v16 = v7[2];
-  v16(&v22 - v14, self + OBJC_IVAR___HKLinkSetWrapper_orderedSet, v6);
+  v8 = MEMORY[0x1EEE9AC00](v5);
+  v10 = &v19 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v8);
+  v12 = &v19 - v11;
+  v13 = *(v7 + 16);
+  v13(&v19 - v11, self + OBJC_IVAR___HKLinkSetWrapper_orderedSet, v6);
   selfCopy = self;
   sub_191CC6478();
-  v16(v12, v15, v6);
-  v18 = objc_allocWithZone(ObjectType);
-  v16(&v18[OBJC_IVAR___HKLinkSetWrapper_orderedSet], v12, v6);
-  v22.receiver = v18;
-  v22.super_class = ObjectType;
-  v19 = [(HKLinkSetWrapper *)&v22 init];
+  v13(v10, v12, v6);
+  v15 = objc_allocWithZone(ObjectType);
+  v13(&v15[OBJC_IVAR___HKLinkSetWrapper_orderedSet], v10, v6);
+  v19.receiver = v15;
+  v19.super_class = ObjectType;
+  v16 = [(HKLinkSetWrapper *)&v19 init];
 
-  v20 = v7[1];
-  v20(v12, v6);
-  v20(v15, v6);
+  v17 = *(v7 + 8);
+  v17(v10, v6);
+  v17(v12, v6);
 
-  return v19;
+  return v16;
 }
 
 - (id)removingLinksWithUUID:(id)d
@@ -206,36 +201,34 @@
   sub_191C0E22C(0);
   v5 = v4;
   v6 = *(v4 - 8);
-  v7 = v6[8];
-  v9 = MEMORY[0x1EEE9AC00](v4, v8);
-  v11 = &v26 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v9, v12);
-  v14 = &v26 - v13;
-  v29 = sub_191CC61A8();
-  v15 = *(v29 - 8);
-  v16 = *(v15 + 64);
-  MEMORY[0x1EEE9AC00](v29, v17);
-  v19 = &v26 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = MEMORY[0x1EEE9AC00](v4);
+  v9 = &v21 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v11 = &v21 - v10;
+  v24 = sub_191CC61A8();
+  v12 = *(v24 - 8);
+  MEMORY[0x1EEE9AC00](v24);
+  v14 = &v21 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_191CC6188();
-  v20 = v6[2];
-  v20(v14, self + OBJC_IVAR___HKLinkSetWrapper_orderedSet, v5);
-  v30 = v19;
+  v15 = *(v6 + 16);
+  v15(v11, self + OBJC_IVAR___HKLinkSetWrapper_orderedSet, v5);
+  v25 = v14;
   selfCopy = self;
   sub_191CC64C8();
-  v20(v11, v14, v5);
-  v21 = ObjectType;
-  v22 = objc_allocWithZone(ObjectType);
-  v20(&v22[OBJC_IVAR___HKLinkSetWrapper_orderedSet], v11, v5);
-  v31.receiver = v22;
-  v31.super_class = v21;
-  v23 = [(HKLinkSetWrapper *)&v31 init];
-  v24 = v6[1];
-  v24(v11, v5);
-  v24(v14, v5);
+  v15(v9, v11, v5);
+  v16 = ObjectType;
+  v17 = objc_allocWithZone(ObjectType);
+  v15(&v17[OBJC_IVAR___HKLinkSetWrapper_orderedSet], v9, v5);
+  v26.receiver = v17;
+  v26.super_class = v16;
+  v18 = [(HKLinkSetWrapper *)&v26 init];
+  v19 = *(v6 + 8);
+  v19(v9, v5);
+  v19(v11, v5);
 
-  (*(v15 + 8))(v19, v29);
+  (*(v12 + 8))(v14, v24);
 
-  return v23;
+  return v18;
 }
 
 - (id)removingAll
@@ -244,27 +237,26 @@
   sub_191C0E22C(0);
   v5 = v4;
   v6 = *(v4 - 8);
-  v7 = v6[8];
-  v9 = MEMORY[0x1EEE9AC00](v4, v8);
-  v11 = &v21 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v9, v12);
-  v14 = &v21 - v13;
-  v15 = v6[2];
-  v15(&v21 - v13, self + OBJC_IVAR___HKLinkSetWrapper_orderedSet, v5);
+  v7 = MEMORY[0x1EEE9AC00](v4);
+  v9 = &v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v11 = &v18 - v10;
+  v12 = *(v6 + 16);
+  v12(&v18 - v10, self + OBJC_IVAR___HKLinkSetWrapper_orderedSet, v5);
   selfCopy = self;
   sub_191CC64D8();
-  v15(v11, v14, v5);
-  v17 = objc_allocWithZone(ObjectType);
-  v15(&v17[OBJC_IVAR___HKLinkSetWrapper_orderedSet], v11, v5);
-  v21.receiver = v17;
-  v21.super_class = ObjectType;
-  v18 = [(HKLinkSetWrapper *)&v21 init];
+  v12(v9, v11, v5);
+  v14 = objc_allocWithZone(ObjectType);
+  v12(&v14[OBJC_IVAR___HKLinkSetWrapper_orderedSet], v9, v5);
+  v18.receiver = v14;
+  v18.super_class = ObjectType;
+  v15 = [(HKLinkSetWrapper *)&v18 init];
 
-  v19 = v6[1];
-  v19(v11, v5);
-  v19(v14, v5);
+  v16 = *(v6 + 8);
+  v16(v9, v5);
+  v16(v11, v5);
 
-  return v18;
+  return v15;
 }
 
 - (id)replacingElementAt:(int64_t)at withElement:(id)element
@@ -280,51 +272,49 @@
 {
   v5 = sub_191CC61A8();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v9 = MEMORY[0x1EEE9AC00](v5, v8);
-  v11 = &v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v9, v12);
-  v14 = &v19 - v13;
+  v7 = MEMORY[0x1EEE9AC00](v5);
+  v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v11 = &v16 - v10;
   sub_191CC6188();
   sub_191CC6188();
   selfCopy = self;
-  v16 = LinkSetWrapper.retargetingLinksWithUUID(_:newUUID:)(v14, v11);
+  v13 = LinkSetWrapper.retargetingLinksWithUUID(_:newUUID:)(v11, v9);
 
-  v17 = *(v6 + 8);
-  v17(v11, v5);
-  v17(v14, v5);
+  v14 = *(v6 + 8);
+  v14(v9, v5);
+  v14(v11, v5);
 
-  return v16;
+  return v13;
 }
 
 - (id)swappingElementsAt:(int64_t)at andAt:(int64_t)andAt
 {
-  v23[1] = andAt;
+  v20[1] = andAt;
   ObjectType = swift_getObjectType();
   sub_191C0E22C(0);
   v7 = v6;
   v8 = *(v6 - 8);
-  v9 = v8[8];
-  v11 = MEMORY[0x1EEE9AC00](v6, v10);
-  v13 = v23 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11, v14);
-  v16 = v23 - v15;
-  v17 = v8[2];
-  v17(v23 - v15, self + OBJC_IVAR___HKLinkSetWrapper_orderedSet, v7);
+  v9 = MEMORY[0x1EEE9AC00](v6);
+  v11 = v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v9);
+  v13 = v20 - v12;
+  v14 = *(v8 + 16);
+  v14(v20 - v12, self + OBJC_IVAR___HKLinkSetWrapper_orderedSet, v7);
   selfCopy = self;
   sub_191CC6498();
-  v17(v13, v16, v7);
-  v19 = objc_allocWithZone(ObjectType);
-  v17(&v19[OBJC_IVAR___HKLinkSetWrapper_orderedSet], v13, v7);
-  v24.receiver = v19;
-  v24.super_class = ObjectType;
-  v20 = [(HKLinkSetWrapper *)&v24 init];
+  v14(v11, v13, v7);
+  v16 = objc_allocWithZone(ObjectType);
+  v14(&v16[OBJC_IVAR___HKLinkSetWrapper_orderedSet], v11, v7);
+  v21.receiver = v16;
+  v21.super_class = ObjectType;
+  v17 = [(HKLinkSetWrapper *)&v21 init];
 
-  v21 = v8[1];
-  v21(v13, v7);
-  v21(v16, v7);
+  v18 = *(v8 + 8);
+  v18(v11, v7);
+  v18(v13, v7);
 
-  return v20;
+  return v17;
 }
 
 - (id)mergingLinkSet:(id)set
@@ -333,29 +323,28 @@
   sub_191C0E22C(0);
   v6 = v5;
   v7 = *(v5 - 8);
-  v8 = v7[8];
-  v10 = MEMORY[0x1EEE9AC00](v5, v9);
-  v12 = &v24 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v10, v13);
-  v15 = &v24 - v14;
-  sub_191C0DD28(&qword_1EADCACA8, sub_191C0E22C);
+  v8 = MEMORY[0x1EEE9AC00](v5);
+  v10 = &v21 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v8);
+  v12 = &v21 - v11;
+  sub_191C0DD28(&qword_1EADCACA8, sub_191C0E22C, MEMORY[0x1E6995130]);
   setCopy = set;
   selfCopy = self;
   sub_191CC6578();
-  v18 = v7[2];
-  v18(v12, v15, v6);
-  v19 = ObjectType;
-  v20 = objc_allocWithZone(ObjectType);
-  v18(&v20[OBJC_IVAR___HKLinkSetWrapper_orderedSet], v12, v6);
-  v26.receiver = v20;
-  v26.super_class = v19;
-  v21 = [(HKLinkSetWrapper *)&v26 init];
+  v15 = *(v7 + 16);
+  v15(v10, v12, v6);
+  v16 = ObjectType;
+  v17 = objc_allocWithZone(ObjectType);
+  v15(&v17[OBJC_IVAR___HKLinkSetWrapper_orderedSet], v10, v6);
+  v23.receiver = v17;
+  v23.super_class = v16;
+  v18 = [(HKLinkSetWrapper *)&v23 init];
 
-  v22 = v7[1];
-  v22(v12, v6);
-  v22(v15, v6);
+  v19 = *(v7 + 8);
+  v19(v10, v6);
+  v19(v12, v6);
 
-  return v21;
+  return v18;
 }
 
 - (NSString)description
@@ -377,7 +366,7 @@
   type metadata accessor for UserDomainConceptLinkStructWrapper(0);
   selfCopy = self;
   sub_191CC6428();
-  sub_191C0DD28(&qword_1EADCACC8, type metadata accessor for UserDomainConceptLinkStructWrapper);
+  sub_191C0DD28(&qword_1EADCACC8, type metadata accessor for UserDomainConceptLinkStructWrapper, MEMORY[0x1E69E81B8]);
   v4 = sub_191CC6998();
 
   return v4;

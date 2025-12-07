@@ -14,15 +14,15 @@
 
 - (KTStatus)initWithApplication:(id)application
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   applicationCopy = application;
   v6 = [TransparencyApplication applicationValueForIdentifier:applicationCopy];
 
   if (v6)
   {
-    v15.receiver = self;
-    v15.super_class = KTStatus;
-    v7 = [(KTStatus *)&v15 init];
+    v14.receiver = self;
+    v14.super_class = KTStatus;
+    v7 = [(KTStatus *)&v14 init];
     v8 = v7;
     if (v7)
     {
@@ -47,14 +47,13 @@
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_4, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v17 = applicationCopy;
+      v16 = applicationCopy;
       _os_log_impl(&dword_1E10DB000, v12, OS_LOG_TYPE_ERROR, "Unknown application identifier: %@", buf, 0xCu);
     }
 
     selfCopy = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -173,7 +172,7 @@ void __19__KTStatus_status___block_invoke_2(uint64_t a1, void *a2, void *a3)
 
 void __19__KTStatus_status___block_invoke_3(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_4 != -1)
   {
@@ -183,16 +182,14 @@ void __19__KTStatus_status___block_invoke_3(uint64_t a1, void *a2)
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_4;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_4, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown getCurrentStatus error: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown getCurrentStatus error: %@", &v7, 0xCu);
   }
 
   v5 = *(*(a1 + 32) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v3;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __19__KTStatus_status___block_invoke_4()
@@ -222,7 +219,7 @@ uint64_t __19__KTStatus_status___block_invoke_4()
 
 void __22__KTStatus_getStatus___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -236,9 +233,9 @@ void __22__KTStatus_getStatus___block_invoke(uint64_t a1, void *a2, void *a3)
     v13 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_4;
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_4, OS_LOG_TYPE_ERROR))
     {
-      v15 = 138412290;
-      v16 = v7;
-      _os_log_impl(&dword_1E10DB000, v13, OS_LOG_TYPE_ERROR, "Unknown invokeXPCAsynchronousCallWithBlock error: %@", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = v7;
+      _os_log_impl(&dword_1E10DB000, v13, OS_LOG_TYPE_ERROR, "Unknown invokeXPCAsynchronousCallWithBlock error: %@", &v14, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -257,16 +254,14 @@ void __22__KTStatus_getStatus___block_invoke(uint64_t a1, void *a2, void *a3)
       v9 = *(a1 + 32);
       v10 = v8;
       v11 = [v9 applicationIdentifier];
-      v15 = 138543362;
-      v16 = v11;
-      _os_log_impl(&dword_1E10DB000, v10, OS_LOG_TYPE_INFO, "Sending asynchronous get KT status for %{public}@", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v11;
+      _os_log_impl(&dword_1E10DB000, v10, OS_LOG_TYPE_INFO, "Sending asynchronous get KT status for %{public}@", &v14, 0xCu);
     }
 
     v12 = [*(a1 + 32) applicationIdentifier];
     [v5 getStatus:v12 completionBlock:*(a1 + 40)];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __22__KTStatus_getStatus___block_invoke_2()
@@ -285,7 +280,7 @@ uint64_t __22__KTStatus_getStatus___block_invoke_264()
 
 void __22__KTStatus_getStatus___block_invoke_267(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_4 != -1)
   {
@@ -295,14 +290,12 @@ void __22__KTStatus_getStatus___block_invoke_267(uint64_t a1, void *a2)
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_4;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown getCurrentStatus error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown getCurrentStatus error: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __22__KTStatus_getStatus___block_invoke_2_268()
@@ -332,7 +325,7 @@ uint64_t __22__KTStatus_getStatus___block_invoke_2_268()
 
 void __26__KTStatus_getSelfStatus___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -346,9 +339,9 @@ void __26__KTStatus_getSelfStatus___block_invoke(uint64_t a1, void *a2, void *a3
     v13 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_4;
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_4, OS_LOG_TYPE_ERROR))
     {
-      v15 = 138412290;
-      v16 = v7;
-      _os_log_impl(&dword_1E10DB000, v13, OS_LOG_TYPE_ERROR, "Unknown invokeXPCAsynchronousCallWithBlock error: %@", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = v7;
+      _os_log_impl(&dword_1E10DB000, v13, OS_LOG_TYPE_ERROR, "Unknown invokeXPCAsynchronousCallWithBlock error: %@", &v14, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -367,16 +360,14 @@ void __26__KTStatus_getSelfStatus___block_invoke(uint64_t a1, void *a2, void *a3
       v9 = *(a1 + 32);
       v10 = v8;
       v11 = [v9 applicationIdentifier];
-      v15 = 138543362;
-      v16 = v11;
-      _os_log_impl(&dword_1E10DB000, v10, OS_LOG_TYPE_INFO, "Sending asynchronous get KT status for %{public}@", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v11;
+      _os_log_impl(&dword_1E10DB000, v10, OS_LOG_TYPE_INFO, "Sending asynchronous get KT status for %{public}@", &v14, 0xCu);
     }
 
     v12 = [*(a1 + 32) applicationIdentifier];
     [v5 getSelfStatus:v12 completionBlock:*(a1 + 40)];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __26__KTStatus_getSelfStatus___block_invoke_2()
@@ -395,7 +386,7 @@ uint64_t __26__KTStatus_getSelfStatus___block_invoke_273()
 
 void __26__KTStatus_getSelfStatus___block_invoke_276(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_4 != -1)
   {
@@ -405,14 +396,12 @@ void __26__KTStatus_getSelfStatus___block_invoke_276(uint64_t a1, void *a2)
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_4;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown getCurrentStatus error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown getCurrentStatus error: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __26__KTStatus_getSelfStatus___block_invoke_2_277()
@@ -444,7 +433,7 @@ uint64_t __26__KTStatus_getSelfStatus___block_invoke_2_277()
 
 void __48__KTStatus_errorForFailedEvent_completionBlock___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -459,7 +448,7 @@ void __48__KTStatus_errorForFailedEvent_completionBlock___block_invoke(uint64_t 
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_4, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v17 = v7;
+      v16 = v7;
       _os_log_impl(&dword_1E10DB000, v11, OS_LOG_TYPE_ERROR, "Unknown invokeXPCAsynchronousCallWithBlock error: %@", buf, 0xCu);
     }
 
@@ -478,21 +467,19 @@ void __48__KTStatus_errorForFailedEvent_completionBlock___block_invoke(uint64_t 
     {
       v9 = *(a1 + 32);
       *buf = 138412290;
-      v17 = v9;
+      v16 = v9;
       _os_log_impl(&dword_1E10DB000, v8, OS_LOG_TYPE_INFO, "Sending asynchronous error lookup for %@", buf, 0xCu);
     }
 
-    v15 = *(a1 + 32);
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __48__KTStatus_errorForFailedEvent_completionBlock___block_invoke_285;
-    v13[3] = &unk_1E87015F0;
-    v14 = *(a1 + 40);
-    [v5 errorsForFailedEvents:v10 completionBlock:v13];
+    v14 = *(a1 + 32);
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v14 count:1];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __48__KTStatus_errorForFailedEvent_completionBlock___block_invoke_285;
+    v12[3] = &unk_1E87015F0;
+    v13 = *(a1 + 40);
+    [v5 errorsForFailedEvents:v10 completionBlock:v12];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __48__KTStatus_errorForFailedEvent_completionBlock___block_invoke_2()
@@ -533,7 +520,7 @@ void __48__KTStatus_errorForFailedEvent_completionBlock___block_invoke_285(uint6
 
 void __48__KTStatus_errorForFailedEvent_completionBlock___block_invoke_2_287(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_4 != -1)
   {
@@ -543,14 +530,12 @@ void __48__KTStatus_errorForFailedEvent_completionBlock___block_invoke_2_287(uin
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_4;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown errorForFailedEvent error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown errorForFailedEvent error: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __48__KTStatus_errorForFailedEvent_completionBlock___block_invoke_3()
@@ -582,7 +567,7 @@ uint64_t __48__KTStatus_errorForFailedEvent_completionBlock___block_invoke_3()
 
 void __50__KTStatus_errorsForFailedEvents_completionBlock___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -596,9 +581,9 @@ void __50__KTStatus_errorsForFailedEvents_completionBlock___block_invoke(uint64_
     v10 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_4;
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_4, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138412290;
-      v13 = v7;
-      _os_log_impl(&dword_1E10DB000, v10, OS_LOG_TYPE_ERROR, "Unknown invokeXPCAsynchronousCallWithBlock error: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v7;
+      _os_log_impl(&dword_1E10DB000, v10, OS_LOG_TYPE_ERROR, "Unknown invokeXPCAsynchronousCallWithBlock error: %@", &v11, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -615,15 +600,13 @@ void __50__KTStatus_errorsForFailedEvents_completionBlock___block_invoke(uint64_
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_4, OS_LOG_TYPE_INFO))
     {
       v9 = *(a1 + 32);
-      v12 = 138412290;
-      v13 = v9;
-      _os_log_impl(&dword_1E10DB000, v8, OS_LOG_TYPE_INFO, "Sending asynchronous error lookup for %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v9;
+      _os_log_impl(&dword_1E10DB000, v8, OS_LOG_TYPE_INFO, "Sending asynchronous error lookup for %@", &v11, 0xCu);
     }
 
     [v5 errorsForFailedEvents:*(a1 + 32) completionBlock:*(a1 + 40)];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __50__KTStatus_errorsForFailedEvents_completionBlock___block_invoke_2()
@@ -642,7 +625,7 @@ uint64_t __50__KTStatus_errorsForFailedEvents_completionBlock___block_invoke_292
 
 void __50__KTStatus_errorsForFailedEvents_completionBlock___block_invoke_295(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_4 != -1)
   {
@@ -652,14 +635,12 @@ void __50__KTStatus_errorsForFailedEvents_completionBlock___block_invoke_295(uin
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_4;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown errorForFailedEvent error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown errorForFailedEvent error: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __50__KTStatus_errorsForFailedEvents_completionBlock___block_invoke_2_296()
@@ -691,7 +672,7 @@ uint64_t __50__KTStatus_errorsForFailedEvents_completionBlock___block_invoke_2_2
 
 void __46__KTStatus_ignoreFailedEvent_completionBlock___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -706,7 +687,7 @@ void __46__KTStatus_ignoreFailedEvent_completionBlock___block_invoke(uint64_t a1
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_4, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v15 = v7;
+      v14 = v7;
       _os_log_impl(&dword_1E10DB000, v11, OS_LOG_TYPE_ERROR, "Unknown invokeXPCAsynchronousCallWithBlock error: %@", buf, 0xCu);
     }
 
@@ -725,16 +706,14 @@ void __46__KTStatus_ignoreFailedEvent_completionBlock___block_invoke(uint64_t a1
     {
       v9 = *(a1 + 32);
       *buf = 138412290;
-      v15 = v9;
+      v14 = v9;
       _os_log_impl(&dword_1E10DB000, v8, OS_LOG_TYPE_INFO, "Sending asynchronous ignore error for %@", buf, 0xCu);
     }
 
-    v13 = *(a1 + 32);
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:1];
+    v12 = *(a1 + 32);
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:1];
     [v5 ignoreFailedEvents:v10 completionBlock:*(a1 + 40)];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __46__KTStatus_ignoreFailedEvent_completionBlock___block_invoke_2()
@@ -753,7 +732,7 @@ uint64_t __46__KTStatus_ignoreFailedEvent_completionBlock___block_invoke_301()
 
 void __46__KTStatus_ignoreFailedEvent_completionBlock___block_invoke_304(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_4 != -1)
   {
@@ -763,14 +742,12 @@ void __46__KTStatus_ignoreFailedEvent_completionBlock___block_invoke_304(uint64_
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_4;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown invokeXPCAsynchronousCallWithBlock error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown invokeXPCAsynchronousCallWithBlock error: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __46__KTStatus_ignoreFailedEvent_completionBlock___block_invoke_2_305()
@@ -802,7 +779,7 @@ uint64_t __46__KTStatus_ignoreFailedEvent_completionBlock___block_invoke_2_305()
 
 void __47__KTStatus_ignoreFailedEvents_completionBlock___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -816,9 +793,9 @@ void __47__KTStatus_ignoreFailedEvents_completionBlock___block_invoke(uint64_t a
     v10 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_4;
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_4, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138412290;
-      v13 = v7;
-      _os_log_impl(&dword_1E10DB000, v10, OS_LOG_TYPE_ERROR, "Unknown invokeXPCAsynchronousCallWithBlock error: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v7;
+      _os_log_impl(&dword_1E10DB000, v10, OS_LOG_TYPE_ERROR, "Unknown invokeXPCAsynchronousCallWithBlock error: %@", &v11, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -835,15 +812,13 @@ void __47__KTStatus_ignoreFailedEvents_completionBlock___block_invoke(uint64_t a
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_4, OS_LOG_TYPE_INFO))
     {
       v9 = *(a1 + 32);
-      v12 = 138412290;
-      v13 = v9;
-      _os_log_impl(&dword_1E10DB000, v8, OS_LOG_TYPE_INFO, "Sending asynchronous ignore error for %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v9;
+      _os_log_impl(&dword_1E10DB000, v8, OS_LOG_TYPE_INFO, "Sending asynchronous ignore error for %@", &v11, 0xCu);
     }
 
     [v5 ignoreFailedEvents:*(a1 + 32) completionBlock:*(a1 + 40)];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __47__KTStatus_ignoreFailedEvents_completionBlock___block_invoke_2()
@@ -862,7 +837,7 @@ uint64_t __47__KTStatus_ignoreFailedEvents_completionBlock___block_invoke_310()
 
 void __47__KTStatus_ignoreFailedEvents_completionBlock___block_invoke_313(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_4 != -1)
   {
@@ -872,14 +847,12 @@ void __47__KTStatus_ignoreFailedEvents_completionBlock___block_invoke_313(uint64
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_4;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown invokeXPCAsynchronousCallWithBlock error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown invokeXPCAsynchronousCallWithBlock error: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __47__KTStatus_ignoreFailedEvents_completionBlock___block_invoke_2_314()

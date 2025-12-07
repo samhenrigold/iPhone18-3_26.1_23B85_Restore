@@ -3,6 +3,7 @@
 - (BOOL)_copyIBICFromPath:(char *)path withOptions:(__CFDictionary *)options intoArray:(const __CFArray *)array withError:(__CFError *)error;
 - (BOOL)generateFirmwareImagesWithCallback:(ramrod_update_callbacks *)callback context:(firmware_update_context *)context;
 - (BOOL)updateBootFirmwareWithCallback:(ramrod_update_callbacks *)callback context:(firmware_update_context *)context error:(id *)error;
+- (NVMEiBootUpdater)initWithIOService:(unsigned int)service;
 - (void)dealloc;
 @end
 
@@ -13,6 +14,26 @@
   v3 = @"IOProviderClass";
   v4 = @"AppleEmbeddedNVMeController";
   return [NSDictionary dictionaryWithObjects:&v4 forKeys:&v3 count:1];
+}
+
+- (NVMEiBootUpdater)initWithIOService:(unsigned int)service
+{
+  v3 = *&service;
+  v7.receiver = self;
+  v7.super_class = NVMEiBootUpdater;
+  v4 = [(MSUBootFirmwareUpdater *)&v7 initWithIOService:?];
+  if (v4)
+  {
+    v5 = [[DevNodeWriter alloc] initWithServiceNamed:@"EmbeddedDeviceTypeFirmware" parent:v3];
+    v4->_writer = v5;
+    if (!v5)
+    {
+
+      return 0;
+    }
+  }
+
+  return v4;
 }
 
 - (void)dealloc
@@ -194,12 +215,12 @@ LABEL_31:
 
 - (BOOL)_copyIBICFromPath:(char *)path withOptions:(__CFDictionary *)options intoArray:(const __CFArray *)array withError:(__CFError *)error
 {
-  v81 = -1;
+  v79 = -1;
   theData = 0;
-  v80 = -1;
+  v78 = -1;
   if (!error)
   {
-    [(NVMEiBootUpdater *)self _copyIBICFromPath:a2 withOptions:path intoArray:options withError:array, 0, v6, v7, v76];
+    [(NVMEiBootUpdater *)self _copyIBICFromPath:a2 withOptions:path intoArray:options withError:array, 0, v6, v7, v74];
 LABEL_33:
     v28 = 0;
     Mutable = 0;
@@ -276,7 +297,7 @@ LABEL_41:
     goto LABEL_29;
   }
 
-  URLFromString = AMSupportCreateURLFromString(kCFAllocatorDefault, v47, v41, v42, v43, v44, v45, v46);
+  URLFromString = AMSupportCreateURLFromString(kCFAllocatorDefault, v47);
   if (!URLFromString)
   {
     [(NVMEiBootUpdater *)error _copyIBICFromPath:v48 withOptions:v49 intoArray:v50 withError:v51, v52, v53, v54];
@@ -284,7 +305,7 @@ LABEL_41:
   }
 
   arrayCopy = array;
-  v79 = v47;
+  v77 = v47;
   errorCopy = error;
   if (CFArrayGetCount(v28) < 1)
   {
@@ -300,30 +321,30 @@ LABEL_27:
     {
       ValueAtIndex = CFArrayGetValueAtIndex(v28, v56);
       CStringPtr = CFStringGetCStringPtr(ValueAtIndex, 0x8000100u);
-      v67 = AMRestorePartitionFWCopyTagData(URLFromString, ValueAtIndex, 0, &v81, &theData, &v80, v59, v60);
+      v65 = AMRestorePartitionFWCopyTagData(URLFromString, ValueAtIndex, 0, &v79, &theData, &v78);
       if (Value)
       {
-        v68 = CFGetTypeID(Value);
-        if (v68 == CFBooleanGetTypeID() && CFBooleanGetValue(Value) == 1 && v67)
+        v66 = CFGetTypeID(Value);
+        if (v66 == CFBooleanGetTypeID() && CFBooleanGetValue(Value) == 1 && v65)
         {
           break;
         }
       }
 
-      if (v67 == 8)
+      if (v65 == 8)
       {
-        iBU_LOG_real(@"FW tag %s missing, but this is not fatal.\n", "[NVMEiBootUpdater _copyIBICFromPath:withOptions:intoArray:withError:]", v61, v62, v63, v64, v65, v66, CStringPtr);
+        iBU_LOG_real(@"FW tag %s missing, but this is not fatal.\n", "[NVMEiBootUpdater _copyIBICFromPath:withOptions:intoArray:withError:]", v59, v60, v61, v62, v63, v64, CStringPtr);
       }
 
-      else if (v67)
+      else if (v65)
       {
-        iBU_LOG_real(@"Unexpected error %d scanning for FW tag %s - corrupt FW partition?\n", "[NVMEiBootUpdater _copyIBICFromPath:withOptions:intoArray:withError:]", v61, v62, v63, v64, v65, v66, v67);
+        iBU_LOG_real(@"Unexpected error %d scanning for FW tag %s - corrupt FW partition?\n", "[NVMEiBootUpdater _copyIBICFromPath:withOptions:intoArray:withError:]", v59, v60, v61, v62, v63, v64, v65);
       }
 
       else
       {
         CFDataGetLength(theData);
-        iBU_LOG_real(@"Found FW tag %s of %lu length.\n", "[NVMEiBootUpdater _copyIBICFromPath:withOptions:intoArray:withError:]", v69, v70, v71, v72, v73, v74, CStringPtr);
+        iBU_LOG_real(@"Found FW tag %s of %lu length.\n", "[NVMEiBootUpdater _copyIBICFromPath:withOptions:intoArray:withError:]", v67, v68, v69, v70, v71, v72, CStringPtr);
         CFArrayAppendValue(Mutable, theData);
       }
 
@@ -339,11 +360,11 @@ LABEL_27:
       }
     }
 
-    [(NVMEiBootUpdater *)errorCopy _copyIBICFromPath:v67 withOptions:v61 intoArray:v62 withError:v63, v64, v65, v66];
+    [(NVMEiBootUpdater *)errorCopy _copyIBICFromPath:v65 withOptions:v59 intoArray:v60 withError:v61, v62, v63, v64];
     LOBYTE(pathCopy) = 0;
   }
 
-  v47 = v79;
+  v47 = v77;
 LABEL_29:
   AMSupportSafeRelease(v47);
   AMSupportSafeRelease(URLFromString);

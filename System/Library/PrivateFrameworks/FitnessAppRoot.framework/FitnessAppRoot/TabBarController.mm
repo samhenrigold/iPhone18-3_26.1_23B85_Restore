@@ -3,6 +3,7 @@
 - (_TtC14FitnessAppRoot16TabBarController)initWithCoder:(id)coder;
 - (_TtC14FitnessAppRoot16TabBarController)initWithNibName:(id)name bundle:(id)bundle;
 - (_TtC14FitnessAppRoot16TabBarController)initWithTabs:(id)tabs;
+- (void)_setSelectedViewController:(id)controller performUpdates:(BOOL)updates;
 - (void)didMoveToParentViewController:(id)controller;
 @end
 
@@ -20,6 +21,17 @@
   result = sub_1E5AD0168();
   __break(1u);
   return result;
+}
+
+- (void)_setSelectedViewController:(id)controller performUpdates:(BOOL)updates
+{
+  updatesCopy = updates;
+  v8.receiver = self;
+  v8.super_class = swift_getObjectType();
+  controllerCopy = controller;
+  v7 = v8.receiver;
+  [(TabBarController *)&v8 _setSelectedViewController:controllerCopy performUpdates:updatesCopy];
+  sub_1E5AAB260();
 }
 
 - (void)didMoveToParentViewController:(id)controller

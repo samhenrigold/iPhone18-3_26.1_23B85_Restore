@@ -26,16 +26,17 @@
 - (_LSDOpenService)initWithXPCListener:(id)listener
 {
   listenerCopy = listener;
-  v8.receiver = self;
-  v8.super_class = _LSDOpenService;
-  v5 = [(_LSDService *)&v8 initWithXPCListener:listenerCopy];
+  v9.receiver = self;
+  v9.super_class = _LSDOpenService;
+  v5 = [(_LSDService *)&v9 initWithXPCListener:listenerCopy];
+  v6 = v5;
   if (v5)
   {
-    v6 = _LSServer_GetIOQueue();
-    dispatch_async(v6, &__block_literal_global_34);
+    v7 = _LSServer_GetIOQueue(v5);
+    dispatch_async(v7, &__block_literal_global_34);
   }
 
-  return v5;
+  return v6;
 }
 
 @end

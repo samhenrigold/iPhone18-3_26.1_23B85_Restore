@@ -519,15 +519,17 @@ LABEL_15:
   return v11;
 }
 
-uint64_t __41__WFNextHourPrecipitation_initWithCoder___block_invoke()
+uint64_t __41__WFNextHourPrecipitation_initWithCoder___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = MEMORY[0x277CBEB98];
-  v1 = objc_opt_class();
-  v2 = objc_opt_class();
+  v2 = MEMORY[0x277CBEB98];
   v3 = objc_opt_class();
-  initWithCoder__classes = [v0 setWithObjects:{v1, v2, v3, objc_opt_class(), 0}];
+  v4 = objc_opt_class();
+  v5 = objc_opt_class();
+  v6 = [v2 setWithObjects:{v3, v4, v5, objc_opt_class(), 0}];
+  v7 = initWithCoder__classes;
+  initWithCoder__classes = v6;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v6, v7);
 }
 
 @end

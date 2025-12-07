@@ -82,13 +82,13 @@ void __39__WCAClient__establishDaemonConnection__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __39__WCAClient__establishDaemonConnection__block_invoke_2(uint64_t result)
+void *__39__WCAClient__establishDaemonConnection__block_invoke_2(void *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
     v1 = result;
     NSLog(&cfstr_SXpcConnection.isa, "[WCAClient _establishDaemonConnection]_block_invoke_2");
-    v2 = *(v1 + 32);
+    v2 = v1[4];
 
     return [v2 _invalidateDaemonConnectionIfPossible];
   }
@@ -112,13 +112,13 @@ void __39__WCAClient__establishDaemonConnection__block_invoke_3(uint64_t a1)
   }
 }
 
-uint64_t __39__WCAClient__establishDaemonConnection__block_invoke_4(uint64_t result)
+void *__39__WCAClient__establishDaemonConnection__block_invoke_4(void *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
     v1 = result;
     NSLog(&cfstr_SXpcConnection_0.isa, "[WCAClient _establishDaemonConnection]_block_invoke_4");
-    v2 = *(v1 + 32);
+    v2 = v1[4];
 
     return [v2 _invalidateDaemonConnectionIfPossible];
   }

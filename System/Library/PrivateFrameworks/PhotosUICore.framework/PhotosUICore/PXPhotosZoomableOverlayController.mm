@@ -55,10 +55,11 @@
   v6 = (self + OBJC_IVAR___PXPhotosZoomableOverlayController_overlayLayoutProvider);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_1A3C33378(v7);
+  sub_1A3C33378(v7, v8);
 }
 
 - (NSArray)availableLenses
@@ -133,7 +134,7 @@
   swift_unknownObjectRetain();
   sub_1A524E0B4();
   swift_unknownObjectRelease();
-  __swift_destroy_boxed_opaque_existential_0(&v4);
+  __swift_destroy_boxed_opaque_existential_0(v4);
   return 0;
 }
 

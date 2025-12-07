@@ -13,7 +13,7 @@
   *(&self->super.isa + OBJC_IVAR____TtC16KnoxClientPublic9AuthToken____lazy_storage___jsonEncoder) = 0;
   Date.init()();
   (*(v4 + 32))(self + OBJC_IVAR____TtC16KnoxClientPublic9AuthToken_expirationDate, v6, v3);
-  v7 = type metadata accessor for AuthToken();
+  v7 = type metadata accessor for AuthToken(0);
   v9.receiver = self;
   v9.super_class = v7;
   return [(AuthToken *)&v9 init];

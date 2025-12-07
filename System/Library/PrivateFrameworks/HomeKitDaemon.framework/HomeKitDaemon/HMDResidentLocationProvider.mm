@@ -7,7 +7,7 @@
 
 - (void)didDetermineLocation:(id)location
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   locationCopy = location;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -15,24 +15,22 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v11 = 138543618;
-    v12 = v8;
-    v13 = 2112;
-    v14 = locationCopy;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@didDetermineLocation: %@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v8;
+    v12 = 2112;
+    v13 = locationCopy;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@didDetermineLocation: %@", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   [(HMDResidentLocationProvider *)selfCopy setLocation:locationCopy];
   residentLocationUpdatedPromise = [(HMDResidentLocationProvider *)selfCopy residentLocationUpdatedPromise];
   [residentLocationUpdatedPromise fulfillWithNoValue];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestResidentLocation
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -54,8 +52,6 @@
   objc_storeStrong(&selfCopy->_residentLocationUpdatedPromise, *obj);
   v10 = +[HMDLocation sharedManager];
   [v10 startExtractingSingleLocationForDelegate:selfCopy];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

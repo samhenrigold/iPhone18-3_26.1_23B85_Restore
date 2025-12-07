@@ -37,7 +37,7 @@
 
 - (HMDDoorbellChimeControllerContext)initWithWorkQueue:(id)queue accessory:(id)accessory
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   accessoryCopy = accessory;
   if (!accessoryCopy)
@@ -53,9 +53,9 @@ LABEL_7:
   }
 
   v9 = accessoryCopy;
-  v20.receiver = self;
-  v20.super_class = HMDDoorbellChimeControllerContext;
-  v10 = [(HMDDoorbellChimeControllerContext *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = HMDDoorbellChimeControllerContext;
+  v10 = [(HMDDoorbellChimeControllerContext *)&v19 init];
   v11 = v10;
   if (v10)
   {
@@ -65,17 +65,16 @@ LABEL_7:
     doorbellBulletinUtilities = v11->_doorbellBulletinUtilities;
     v11->_doorbellBulletinUtilities = v12;
 
-    v21 = *MEMORY[0x277CD0E38];
+    v20 = *MEMORY[0x277CD0E38];
     v14 = [MEMORY[0x277CBEB98] setWithObject:*MEMORY[0x277CCF910]];
-    v22[0] = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v21[0] = v14;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
 
     v16 = [[HMDCharacteristicsAvailabilityListener alloc] initWithAccessory:v9 workQueue:queueCopy interestedCharacteristicTypesByServiceType:v15];
     listener = v11->_listener;
     v11->_listener = v16;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

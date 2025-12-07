@@ -26,7 +26,7 @@
 {
   dismissCopy = dismiss;
   selfCopy = self;
-  LOBYTE(self) = sub_100177988();
+  LOBYTE(self) = sub_100177988(selfCopy, v6, v7);
 
   return self & 1;
 }

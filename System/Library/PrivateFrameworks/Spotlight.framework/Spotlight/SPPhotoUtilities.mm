@@ -20,19 +20,17 @@
 
 void __41__SPPhotoUtilities_bundlesIndexingPhotos__block_invoke()
 {
-  v5[5] = *MEMORY[0x277D85DE8];
+  v4[5] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277D65AE0];
-  v5[0] = *MEMORY[0x277D65B58];
-  v5[1] = v0;
+  v4[0] = *MEMORY[0x277D65B58];
+  v4[1] = v0;
   v1 = *MEMORY[0x277D65AA0];
-  v5[2] = *MEMORY[0x277D65C00];
-  v5[3] = v1;
-  v5[4] = *MEMORY[0x277D65AB0];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:5];
+  v4[2] = *MEMORY[0x277D65C00];
+  v4[3] = v1;
+  v4[4] = *MEMORY[0x277D65AB0];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:5];
   v3 = bundlesIndexingPhotos_bundlesIndexingPhotos;
   bundlesIndexingPhotos_bundlesIndexingPhotos = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (id)allPhotoBundles

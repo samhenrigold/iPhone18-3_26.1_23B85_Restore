@@ -144,7 +144,7 @@ uint64_t __52__MapsUserLocationViewAccessibility__axAnnotatePuck__block_invoke_2
 
 - (id)_axVLFElements
 {
-  v12[2] = *MEMORY[0x29EDCA608];
+  v11[2] = *MEMORY[0x29EDCA608];
   objc_opt_class();
   v3 = __UIAccessibilityCastAsClass();
   _calloutView = [v3 _calloutView];
@@ -164,9 +164,9 @@ uint64_t __52__MapsUserLocationViewAccessibility__axAnnotatePuck__block_invoke_2
   {
     if (_calloutView)
     {
-      v12[0] = _axPuck;
-      v12[1] = _calloutView;
-      v8 = [MEMORY[0x29EDB8D80] arrayWithObjects:v12 count:2];
+      v11[0] = _axPuck;
+      v11[1] = _calloutView;
+      v8 = [MEMORY[0x29EDB8D80] arrayWithObjects:v11 count:2];
       goto LABEL_12;
     }
   }
@@ -182,8 +182,6 @@ uint64_t __52__MapsUserLocationViewAccessibility__axAnnotatePuck__block_invoke_2
 
   v8 = 0;
 LABEL_12:
-
-  v10 = *MEMORY[0x29EDCA608];
 
   return v8;
 }
@@ -204,36 +202,36 @@ LABEL_12:
 {
   y = test.y;
   x = test.x;
-  v27 = *MEMORY[0x29EDCA608];
+  v26 = *MEMORY[0x29EDCA608];
   eventCopy = event;
   if ([(MapsUserLocationViewAccessibility *)self _axIsShowingVLFCallout])
   {
     _axVLFElements = [(MapsUserLocationViewAccessibility *)self _axVLFElements];
     if (_axVLFElements)
     {
-      v25 = 0;
+      v24 = 0;
       objc_opt_class();
       v9 = __UIAccessibilityCastAsClass();
+      v20 = 0u;
       v21 = 0u;
       v22 = 0u;
       v23 = 0u;
-      v24 = 0u;
       v10 = _axVLFElements;
-      v11 = [v10 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v20 objects:v25 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v22;
+        v13 = *v21;
         while (2)
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v22 != v13)
+            if (*v21 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = *(*(&v21 + 1) + 8 * i);
+            v15 = *(*(&v20 + 1) + 8 * i);
             [v15 convertPoint:v9 fromView:{x, y}];
             v16 = [v15 _accessibilityHitTest:eventCopy withEvent:?];
             if (v16)
@@ -244,7 +242,7 @@ LABEL_12:
             }
           }
 
-          v12 = [v10 countByEnumeratingWithState:&v21 objects:v26 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v20 objects:v25 count:16];
           if (v12)
           {
             continue;
@@ -256,12 +254,10 @@ LABEL_12:
     }
   }
 
-  v20.receiver = self;
-  v20.super_class = MapsUserLocationViewAccessibility;
-  v17 = [(MapsUserLocationViewAccessibility *)&v20 _accessibilityHitTest:eventCopy withEvent:x, y];
+  v19.receiver = self;
+  v19.super_class = MapsUserLocationViewAccessibility;
+  v17 = [(MapsUserLocationViewAccessibility *)&v19 _accessibilityHitTest:eventCopy withEvent:x, y];
 LABEL_14:
-
-  v18 = *MEMORY[0x29EDCA608];
 
   return v17;
 }

@@ -9,8 +9,9 @@
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_1000BB9C0(appear);
+  sub_1000BB9C0(appearCopy);
 }
 
 - (void)viewDidLoad

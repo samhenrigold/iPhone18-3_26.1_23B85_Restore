@@ -1,10 +1,10 @@
 @interface MOAssetAndMediaType:
-- (uint64_t)Int;
+- (double)Int;
 @end
 
 @implementation MOAssetAndMediaType:
 
-- (uint64_t)Int
+- (double)Int
 {
   if (a3)
   {

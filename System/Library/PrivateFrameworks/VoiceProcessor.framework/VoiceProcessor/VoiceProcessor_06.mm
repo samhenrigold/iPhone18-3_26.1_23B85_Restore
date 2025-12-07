@@ -1,6 +1,527 @@
+CFMutableDictionaryRef VoiceProcessorV2::SaveFilesPrepare(VoiceProcessorV2 *this)
+{
+  v39 = *MEMORY[0x277D85DE8];
+  v2 = this + 12288;
+  CurrentGregorianDate = CATimeUtilities::GetCurrentGregorianDate(this);
+  *(this + 1623) = CurrentGregorianDate;
+  *(this + 1624) = v5;
+  *(this + 3180) = 0;
+  *(this + 13000) = 0u;
+  *(this + 13015) = 0;
+  if ((*(this + 68) & 1) != 0 || *(this + 69) == 1)
+  {
+    if (v2[3872])
+    {
+      *(this + 3180) = *(this + 3181);
+      if (VPLogScope(void)::once != -1)
+      {
+        dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
+      }
+
+      v6 = VPLogScope(void)::scope;
+      if (VPLogScope(void)::scope)
+      {
+        CurrentGregorianDate = CALegacyLog::LogEnabled(5, VPLogScope(void)::scope, 0);
+        if (CurrentGregorianDate)
+        {
+          v7 = (*v6 ? *v6 : MEMORY[0x277D86220]);
+          CurrentGregorianDate = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
+          if (CurrentGregorianDate)
+          {
+            v8 = *(this + 3180);
+            buf.st_dev = 136315650;
+            *&buf.st_mode = "vpDebug_FileSaving.cpp";
+            WORD2(buf.st_ino) = 1024;
+            *(&buf.st_ino + 6) = 609;
+            HIWORD(buf.st_uid) = 1024;
+            buf.st_gid = v8;
+            _os_log_impl(&dword_2724B4000, v7, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> Simulator override file saving level: %d", &buf, 0x18u);
+          }
+        }
+      }
+
+      v9 = *(this + 1588);
+      if (v9 && ((v2[3593] & 1) != 0 || v2[3594] == 1))
+      {
+        if (VPLogScope(void)::once != -1)
+        {
+          dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
+        }
+
+        CALegacyLog::log(v9, 5, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpDebug_FileSaving.cpp", 609, "SaveFilesPrepare", "Simulator override file saving level: %d", *(this + 3180));
+      }
+    }
+
+    else
+    {
+      std::__fs::filesystem::path::path[abi:ne200100]<char [16],void>(&buf, "/usr/local/lib/");
+      CurrentGregorianDate = vp::utility::CASuperBowl(&buf, v10);
+      v11 = CurrentGregorianDate;
+      if (SHIBYTE(buf.st_gid) < 0)
+      {
+        operator delete(*&buf.st_dev);
+      }
+
+      if (HIDWORD(v11))
+      {
+        *(this + 3180) = v11;
+        if (VPLogScope(void)::once != -1)
+        {
+          dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
+        }
+
+        v12 = VPLogScope(void)::scope;
+        if (VPLogScope(void)::scope)
+        {
+          CurrentGregorianDate = CALegacyLog::LogEnabled(5, VPLogScope(void)::scope, 0);
+          if (CurrentGregorianDate)
+          {
+            v13 = (*v12 ? *v12 : MEMORY[0x277D86220]);
+            CurrentGregorianDate = os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG);
+            if (CurrentGregorianDate)
+            {
+              v14 = *(this + 3180);
+              buf.st_dev = 136315650;
+              *&buf.st_mode = "vpDebug_FileSaving.cpp";
+              WORD2(buf.st_ino) = 1024;
+              *(&buf.st_ino + 6) = 603;
+              HIWORD(buf.st_uid) = 1024;
+              buf.st_gid = v14;
+              _os_log_impl(&dword_2724B4000, v13, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> magic file exists, enabling file saving level %d", &buf, 0x18u);
+            }
+          }
+        }
+
+        v15 = *(this + 1588);
+        if (v15 && ((v2[3593] & 1) != 0 || v2[3594] == 1))
+        {
+          if (VPLogScope(void)::once != -1)
+          {
+            dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
+          }
+
+          CALegacyLog::log(v15, 5, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpDebug_FileSaving.cpp", 603, "SaveFilesPrepare", "magic file exists, enabling file saving level %d", *(this + 3180));
+        }
+      }
+    }
+
+    if (*(this + 3180))
+    {
+LABEL_55:
+      CFRetain(@"com.apple.coreaudio");
+      v20 = CFPreferencesCopyAppValue(@"vp_save_files_dir", @"com.apple.coreaudio");
+      v21 = v20;
+      if (v20)
+      {
+        CFStringGetCString(v20, this + 12728, 256, 0x600u);
+        CFRelease(v21);
+      }
+
+      else
+      {
+        v22 = this + 16168;
+        if (v2[3903] < 0)
+        {
+          v22 = *v22;
+        }
+
+        v23 = strlen(v22);
+        strlcpy(this + 12728, v22, v23 + 1);
+      }
+
+      if (VPLogScope(void)::once != -1)
+      {
+        dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
+      }
+
+      v24 = VPLogScope(void)::scope;
+      if (VPLogScope(void)::scope && CALegacyLog::LogEnabled(5, VPLogScope(void)::scope, 0))
+      {
+        v25 = (*v24 ? *v24 : MEMORY[0x277D86220]);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+        {
+          buf.st_dev = 136315650;
+          *&buf.st_mode = "vpDebug_FileSaving.cpp";
+          WORD2(buf.st_ino) = 1024;
+          *(&buf.st_ino + 6) = 499;
+          HIWORD(buf.st_uid) = 2080;
+          *&buf.st_gid = this + 12728;
+          _os_log_impl(&dword_2724B4000, v25, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> audio recordings available in %s", &buf, 0x1Cu);
+        }
+      }
+
+      v26 = *(this + 1588);
+      if (v26 && ((v2[3593] & 1) != 0 || v2[3594] == 1))
+      {
+        if (VPLogScope(void)::once != -1)
+        {
+          dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
+        }
+
+        CALegacyLog::log(v26, 5, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpDebug_FileSaving.cpp", 499, "SetSaveFilesDirectory", "audio recordings available in %s", this + 12728);
+      }
+
+      if (stat(this + 12728, &buf) == -1 && mkpath_np(this + 12728, 0x1FFu))
+      {
+        *(this + 3180) = 0;
+        if (VPLogScope(void)::once != -1)
+        {
+          dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
+        }
+
+        v27 = VPLogScope(void)::scope;
+        if (VPLogScope(void)::scope && CALegacyLog::LogEnabled(1, VPLogScope(void)::scope, 0))
+        {
+          v28 = (*v27 ? *v27 : MEMORY[0x277D86220]);
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+          {
+            *v32 = 136315650;
+            v33 = "vpDebug_FileSaving.cpp";
+            v34 = 1024;
+            v35 = 510;
+            v36 = 2080;
+            v37 = this + 12728;
+            _os_log_impl(&dword_2724B4000, v28, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> file saving turned OFF! recording directory %s cannot be created", v32, 0x1Cu);
+          }
+        }
+
+        v29 = *(this + 1588);
+        if (v29 && ((v2[3593] & 1) != 0 || v2[3594] == 1))
+        {
+          if (VPLogScope(void)::once != -1)
+          {
+            dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
+          }
+
+          CALegacyLog::log(v29, 1, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpDebug_FileSaving.cpp", 510, "SetSaveFilesDirectory", "file saving turned OFF! recording directory %s cannot be created", this + 12728);
+        }
+      }
+
+      VPGetSaveFileNameForIndex(&buf, (this + 12728), 93, 1, this + 12984);
+      operator new();
+    }
+
+    if (PlatformUtilities_iOS::IsTelephonyCaptureAllowed(CurrentGregorianDate))
+    {
+      *(this + 3180) = 1;
+      if (VPLogScope(void)::once != -1)
+      {
+        dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
+      }
+
+      v16 = VPLogScope(void)::scope;
+      if (VPLogScope(void)::scope && CALegacyLog::LogEnabled(5, VPLogScope(void)::scope, 0))
+      {
+        v17 = (*v16 ? *v16 : MEMORY[0x277D86220]);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        {
+          v18 = *(this + 3180);
+          buf.st_dev = 136315650;
+          *&buf.st_mode = "vpDebug_FileSaving.cpp";
+          WORD2(buf.st_ino) = 1024;
+          *(&buf.st_ino + 6) = 619;
+          HIWORD(buf.st_uid) = 1024;
+          buf.st_gid = v18;
+          _os_log_impl(&dword_2724B4000, v17, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> master default exists, enabling file saving level %d", &buf, 0x18u);
+        }
+      }
+
+      v19 = *(this + 1588);
+      if (v19 && ((v2[3593] & 1) != 0 || v2[3594] == 1))
+      {
+        if (VPLogScope(void)::once != -1)
+        {
+          dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
+        }
+
+        CALegacyLog::log(v19, 5, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpDebug_FileSaving.cpp", 619, "SaveFilesPrepare", "master default exists, enabling file saving level %d", *(this + 3180));
+      }
+    }
+  }
+
+  if (*(this + 3180))
+  {
+    goto LABEL_55;
+  }
+
+  v32[0] = 0;
+  VoiceProcessorV2::ReadDefaultsOverride(@"vp_save_timestamps", 0, v32, 0, v4);
+  if (v32[0] == 1)
+  {
+    if (*(this + 3180))
+    {
+      VPGetSaveFileNameForIndex(&buf, (this + 12728), 94, 1, this + 12984);
+      operator new();
+    }
+
+    operator new();
+  }
+
+  bzero(this + 14136, 0x440uLL);
+  v30 = *MEMORY[0x277CBECE8];
+  *(this + 1906) = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
+  *(this + 3808) = 0;
+  result = CFDictionaryCreateMutable(v30, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+  *(this + 1905) = result;
+  *(this + 3818) = 0;
+  *(this + 1908) = 0;
+  *(this + 1910) = 0;
+  *(this + 3822) = 0;
+  v2[3004] = 0;
+  *(this + 1912) = 0;
+  *(this + 3826) = 0;
+  v2[3020] = 0;
+  return result;
+}
+
+void sub_272525AE4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
+{
+  MEMORY[0x2743CBFA0](v20, 0x1020C40D5A9D86FLL, a3, a4, a5, a6, a7, a8);
+  if (a20 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+std::string *VPGetSaveFileNameForIndex(std::string *a1, std::string *a2, uint64_t a3, int a4, uint64_t a5)
+{
+  v22 = *MEMORY[0x277D85DE8];
+  v17 = a2;
+  v20 = 0u;
+  v21 = 0u;
+  *__str = 0u;
+  v19 = 0u;
+  snprintf(__str, 0x40uLL, "%d%02d%02d.%02d%02d%02d", *a5, *(a5 + 4), *(a5 + 5), *(a5 + 6), *(a5 + 7), *(a5 + 8));
+  std::__fs::filesystem::path::path[abi:ne200100]<char const*,void>(a1, &v17);
+  std::__fs::filesystem::path::append[abi:ne200100]<char [8]>(a1, "vp.");
+  v8 = (&v17 + 7);
+  do
+  {
+    v9 = v8->__r_.__value_.__s.__data_[1];
+    v8 = (v8 + 1);
+  }
+
+  while (v9);
+  std::string::append[abi:ne200100]<char const*,0>(a1, __str, v8);
+  std::string::append(a1, ".xxx.", 5uLL);
+  v10 = &kVPSaveFileIndexToCodeArray_v2;
+  v11 = 136;
+  v12 = "badsavefile";
+  while (*v10 != a3)
+  {
+    v10 += 4;
+    if (!--v11)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  v12 = *(v10 + 1);
+LABEL_8:
+  v13 = strlen(v12);
+  std::string::append(a1, v12, v13);
+  std::string::append(a1, ".", 1uLL);
+  v14 = VPGetSaveFileNameForIndex(char const*,unsigned long long,vpSaveFileType,CATimeUtilities::GregorianDate const&)::kFileNameExtention[a4];
+  v15 = strlen(v14);
+  return std::string::append(a1, v14, v15);
+}
+
+void VoiceProcessorV2::SaveFilesInitialize(VoiceProcessorV2 *this)
+{
+  v2 = *(this + 1765);
+  v3 = *(this + 1764);
+  v4 = v3;
+  if (v2 != v3)
+  {
+    do
+    {
+      v2 -= 24;
+      *&v33 = v2;
+      std::vector<std::unique_ptr<VPTimeFreqConverter>>::__destroy_vector::operator()[abi:ne200100](&v33);
+    }
+
+    while (v2 != v3);
+    v4 = *(this + 1764);
+  }
+
+  *(this + 1765) = v3;
+  v5 = (v3 - v4);
+  v6 = 0xAAAAAAAAAAAAAAABLL * ((v3 - v4) >> 3);
+  if (v6 > 0x87)
+  {
+    if (v5 != 3264)
+    {
+      v12 = v4 + 3264;
+      while (v3 != v12)
+      {
+        v3 -= 24;
+        *&v33 = v3;
+        std::vector<std::unique_ptr<VPTimeFreqConverter>>::__destroy_vector::operator()[abi:ne200100](&v33);
+      }
+
+      *(this + 1765) = v12;
+    }
+  }
+
+  else
+  {
+    v7 = 136 - v6;
+    v8 = *(this + 1766);
+    if (0xAAAAAAAAAAAAAAABLL * ((v8 - v3) >> 3) < v7)
+    {
+      v9 = 0xAAAAAAAAAAAAAAABLL * ((v8 - v4) >> 3);
+      v10 = 2 * v9;
+      if (2 * v9 <= 0x88)
+      {
+        v10 = 136;
+      }
+
+      if (v9 >= 0x555555555555555)
+      {
+        v11 = 0xAAAAAAAAAAAAAAALL;
+      }
+
+      else
+      {
+        v11 = v10;
+      }
+
+      if (v11 <= 0xAAAAAAAAAAAAAAALL)
+      {
+        operator new();
+      }
+
+      goto LABEL_51;
+    }
+
+    bzero(v3, 24 * ((3240 - v5) / 0x18uLL) + 24);
+    *(this + 1765) = &v3[24 * ((3240 - v5) / 0x18uLL) + 24];
+  }
+
+  for (i = 0; i != 136; ++i)
+  {
+    if (VoiceProcessorV2::SignalIsInFrequencyDomain(this, i))
+    {
+      v35 = 0;
+      v33 = 0u;
+      v34 = 0u;
+      VoiceProcessorV2::GetSignalSaveFileFormatForIndex(&v33, this, i, 0.0, v14);
+      v15 = *(this + 1764) + 24 * i;
+      v16 = HIDWORD(v34);
+      v17 = *v15;
+      v18 = *(v15 + 8);
+      v19 = (v18 - *v15) >> 3;
+      if (HIDWORD(v34) <= v19)
+      {
+        if (HIDWORD(v34) < v19)
+        {
+          v24 = (v17 + 8 * HIDWORD(v34));
+          while (v18 != v24)
+          {
+            std::unique_ptr<VPTimeFreqConverter>::reset[abi:ne200100](--v18, 0);
+          }
+
+          *(v15 + 8) = v24;
+        }
+      }
+
+      else
+      {
+        v20 = HIDWORD(v34) - v19;
+        v21 = *(v15 + 16);
+        if (v20 > (v21 - v18) >> 3)
+        {
+          v22 = v21 - v17;
+          if (v22 >> 2 > HIDWORD(v34))
+          {
+            v16 = v22 >> 2;
+          }
+
+          if (v22 >= 0x7FFFFFFFFFFFFFF8)
+          {
+            v23 = 0x1FFFFFFFFFFFFFFFLL;
+          }
+
+          else
+          {
+            v23 = v16;
+          }
+
+          if (!(v23 >> 61))
+          {
+            operator new();
+          }
+
+LABEL_51:
+          std::__throw_bad_array_new_length[abi:ne200100]();
+        }
+
+        bzero(*(v15 + 8), 8 * v20);
+        *(v15 + 8) = &v18[v20];
+      }
+    }
+  }
+
+  if (*(this + 3180))
+  {
+    if (*(this + 484) == 1)
+    {
+      VoiceProcessorV2::CreateSignalSaveFiles(this, 1);
+      if (*(this + 3180))
+      {
+        if (*(this + 1908))
+        {
+          goto LABEL_55;
+        }
+
+        v25 = 4 * *(this + 3814) * *(this + 3815);
+        v26 = malloc_type_malloc(v25, 0x2365AC71uLL);
+        if (v26)
+        {
+          v27 = 1;
+        }
+
+        else
+        {
+          v27 = v25 == 0;
+        }
+
+        if (!v27)
+        {
+LABEL_52:
+          exception = __cxa_allocate_exception(8uLL);
+          v32 = std::bad_alloc::bad_alloc(exception);
+        }
+
+        v28 = v26;
+        bzero(v26, v25);
+        *(this + 1908) = v28;
+        if (*(this + 3180))
+        {
+LABEL_55:
+          if (!*(this + 1910))
+          {
+            v29 = malloc_type_malloc(0x30D40uLL, 0x2365AC71uLL);
+            if (!v29)
+            {
+              goto LABEL_52;
+            }
+
+            v30 = v29;
+            bzero(v29, 0x30D40uLL);
+            *(this + 1910) = v30;
+          }
+        }
+      }
+    }
+  }
+}
+
 void VoiceProcessorV2::CreateSignalSaveFiles(VoiceProcessorV2 *this, int a2)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v4 = this + 12288;
   if (a2 == 1)
   {
@@ -72,10 +593,10 @@ void VoiceProcessorV2::CreateSignalSaveFiles(VoiceProcessorV2 *this, int a2)
 LABEL_14:
   memset(__str, 0, 64);
   snprintf(__str, 0x40uLL, "%d%02d%02d.%02d%02d%02d.%03u", *(this + 3246), *(this + 12988), *(this + 12989), *(this + 12990), *(this + 12991), *(this + 1624), *(this + 3250));
-  memset(&v46, 0, sizeof(v46));
-  std::__fs::filesystem::path::path[abi:ne200100]<char [256],void>(&v45, (this + 12728));
-  std::__fs::filesystem::path::append[abi:ne200100]<char [8]>(&v45, "vp.");
-  v9 = (&v48.mBuffers[0].mData + 7);
+  memset(&v45, 0, sizeof(v45));
+  std::__fs::filesystem::path::path[abi:ne200100]<char [256],void>(&v44, (this + 12728));
+  std::__fs::filesystem::path::append[abi:ne200100]<char [8]>(&v44, "vp.");
+  v9 = (&v47.mBuffers[0].mData + 7);
   do
   {
     v10 = v9->__r_.__value_.__s.__data_[1];
@@ -83,10 +604,10 @@ LABEL_14:
   }
 
   while (v10);
-  std::string::append[abi:ne200100]<char const*,0>(&v45, __str, v9);
-  std::string::append(&v45, ".", 1uLL);
+  std::string::append[abi:ne200100]<char const*,0>(&v44, __str, v9);
+  std::string::append(&v44, ".", 1uLL);
   v11 = 0;
-  v42 = this + 13024;
+  v41 = this + 13024;
   do
   {
     if ((v11 & 0xFC) == 0x48 || v11 - 41 <= 0x35 && ((1 << (v11 - 41)) & 0x30000000000801) != 0)
@@ -143,14 +664,14 @@ LABEL_36:
     if (*(this + 3180) && VoiceProcessorV2::QuerySaveFileAtIndexthroughFileSavingKey(this, v11))
     {
       VoiceProcessorV2::GetSignalSaveFileFormatForIndex(&buf, this, v11, v14, v15);
-      *&v44.mSampleRate = *&buf.mSampleTime;
-      *&v44.mBytesPerPacket = *&buf.mRateScalar;
-      *&v44.mBitsPerChannel = *&buf.mSMPTETime.mSubframes;
-      std::string::operator=(&v46, &v45);
+      *&v43.mSampleRate = *&buf.mSampleTime;
+      *&v43.mBytesPerPacket = *&buf.mRateScalar;
+      *&v43.mBitsPerChannel = *&buf.mSMPTETime.mSubframes;
+      std::string::operator=(&v45, &v44);
       if (a2 == 1)
       {
-        p_buf = &v48;
-        CAX4CCStringNoQuote::CAX4CCStringNoQuote(&v48, **(this + 297));
+        p_buf = &v47;
+        CAX4CCStringNoQuote::CAX4CCStringNoQuote(&v47, **(this + 297));
       }
 
       else
@@ -160,8 +681,8 @@ LABEL_36:
       }
 
       v17 = strlen(p_buf);
-      std::string::append(&v46, p_buf, v17);
-      std::string::append(&v46, ".", 1uLL);
+      std::string::append(&v45, p_buf, v17);
+      std::string::append(&v45, ".", 1uLL);
       v18 = 136;
       v19 = &kVPSaveFileIndexToCodeArray_v2;
       while (v11 != *v19)
@@ -177,7 +698,7 @@ LABEL_36:
       v20 = *(v19 + 1);
 LABEL_46:
       v21 = strlen(v20);
-      std::string::append(&v46, v20, v21);
+      std::string::append(&v45, v20, v21);
       if (v11 == 71)
       {
         v22 = ".caf";
@@ -188,15 +709,15 @@ LABEL_46:
         v22 = ".wav";
       }
 
-      std::string::append(&v46, v22, 4uLL);
-      v23 = *&v42[8 * v11];
-      *&v42[8 * v11] = 0;
+      std::string::append(&v45, v22, 4uLL);
+      v23 = *&v41[8 * v11];
+      *&v41[8 * v11] = 0;
       if (v23)
       {
         (*(*v23 + 8))(v23);
       }
 
-      if (v44.mChannelsPerFrame)
+      if (v43.mChannelsPerFrame)
       {
         v24 = *(this + 3180) - 8;
         if (v24 > 0xB)
@@ -209,14 +730,14 @@ LABEL_46:
           v25 = dword_27275A690[v24];
         }
 
-        vp::Audio_Capture::create(&buf, &v46, &v44, v25);
+        vp::Audio_Capture::create(&buf, &v45, &v43, v25);
         mSampleTime = buf.mSampleTime;
-        v32 = *&v42[8 * v11];
-        *&v42[8 * v11] = buf.mSampleTime;
+        v32 = *&v41[8 * v11];
+        *&v41[8 * v11] = buf.mSampleTime;
         if (v32)
         {
           (*(*v32 + 8))(v32);
-          mSampleTime = *&v42[8 * v11];
+          mSampleTime = *&v41[8 * v11];
         }
 
         if (mSampleTime == 0.0)
@@ -232,10 +753,10 @@ LABEL_46:
             v38 = (*v37 ? *v37 : MEMORY[0x277D86220]);
             if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
             {
-              v39 = &v46;
-              if ((v46.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+              v39 = &v45;
+              if ((v45.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
               {
-                v39 = v46.__r_.__value_.__r.__words[0];
+                v39 = v45.__r_.__value_.__r.__words[0];
               }
 
               LODWORD(buf.mSampleTime) = 136315650;
@@ -273,10 +794,10 @@ LABEL_46:
             v34 = (*v33 ? *v33 : MEMORY[0x277D86220]);
             if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
             {
-              v35 = &v46;
-              if ((v46.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+              v35 = &v45;
+              if ((v45.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
               {
-                v35 = v46.__r_.__value_.__r.__words[0];
+                v35 = v45.__r_.__value_.__r.__words[0];
               }
 
               LODWORD(buf.mSampleTime) = 136315650;
@@ -303,25 +824,25 @@ LABEL_46:
 
         if (VoiceProcessorV2::SignalIsInFrequencyDomain(this, v11))
         {
-          if (v44.mChannelsPerFrame == (*(*(this + 1764) + 24 * v11 + 8) - *(*(this + 1764) + 24 * v11)) >> 3 && v44.mChannelsPerFrame)
+          if (v43.mChannelsPerFrame == (*(*(this + 1764) + 24 * v11 + 8) - *(*(this + 1764) + 24 * v11)) >> 3 && v43.mChannelsPerFrame)
           {
             operator new();
           }
 
-          myAllocABLDynamic(&v44, *(this + 129), this + v11 + 1767);
+          myAllocABLDynamic(&v43, *(this + 129), this + v11 + 1767);
         }
 
         if (v11 == 92)
         {
-          v43 = 0x40000000;
-          *&v48.mNumberBuffers = 1;
-          *&v48.mBuffers[0].mNumberChannels = 0x400000001;
-          v48.mBuffers[0].mData = &v43;
+          v42 = 0x40000000;
+          *&v47.mNumberBuffers = 1;
+          *&v47.mBuffers[0].mNumberChannels = 0x400000001;
+          v47.mBuffers[0].mData = &v42;
           memset(&buf, 0, 56);
           buf.mFlags = 1;
           if ((v4[3593] & 1) != 0 || v4[3594] == 1)
           {
-            VoiceProcessorV2::SaveFilesWriteSignal(this, 0x5Cu, 1, &v48, &buf);
+            VoiceProcessorV2::SaveFilesWriteSignal(this, 0x5Cu, 1, &v47, &buf);
           }
         }
       }
@@ -339,10 +860,10 @@ LABEL_46:
           v27 = (*v26 ? *v26 : MEMORY[0x277D86220]);
           if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
           {
-            v28 = &v46;
-            if ((v46.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+            v28 = &v45;
+            if ((v45.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
             {
-              v28 = v46.__r_.__value_.__r.__words[0];
+              v28 = v45.__r_.__value_.__r.__words[0];
             }
 
             LODWORD(buf.mSampleTime) = 136315906;
@@ -352,7 +873,7 @@ LABEL_46:
             WORD1(buf.mRateScalar) = 2080;
             *(&buf.mRateScalar + 4) = v28;
             WORD2(buf.mWordClockTime) = 1024;
-            *(&buf.mWordClockTime + 6) = v44.mChannelsPerFrame;
+            *(&buf.mWordClockTime + 6) = v43.mChannelsPerFrame;
             _os_log_impl(&dword_2724B4000, v27, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> Skipping file capture for %s due to unsupported format, theFileFormat.mChannelsPerFrame=%u", &buf, 0x22u);
           }
         }
@@ -365,13 +886,13 @@ LABEL_46:
             dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
           }
 
-          v30 = &v46;
-          if ((v46.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+          v30 = &v45;
+          if ((v45.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
           {
-            v30 = v46.__r_.__value_.__r.__words[0];
+            v30 = v45.__r_.__value_.__r.__words[0];
           }
 
-          CALegacyLog::log(v29, 1, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpDebug_FileSaving.cpp", 1273, "CreateSignalSaveFiles", "Skipping file capture for %s due to unsupported format, theFileFormat.mChannelsPerFrame=%u", v30, v44.mChannelsPerFrame);
+          CALegacyLog::log(v29, 1, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpDebug_FileSaving.cpp", 1273, "CreateSignalSaveFiles", "Skipping file capture for %s due to unsupported format, theFileFormat.mChannelsPerFrame=%u", v30, v43.mChannelsPerFrame);
         }
       }
     }
@@ -381,17 +902,15 @@ LABEL_20:
   }
 
   while (v11 != 136);
+  if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v44.__r_.__value_.__l.__data_);
+  }
+
   if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v45.__r_.__value_.__l.__data_);
   }
-
-  if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v46.__r_.__value_.__l.__data_);
-  }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 void sub_272526AB4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *__p, uint64_t a32, int a33, __int16 a34, char a35, char a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42)
@@ -493,7 +1012,7 @@ void VoiceProcessorV2::SaveFilesInitializeDLP(VoiceProcessorV2 *this)
 
 void VoiceProcessorV2::SaveFilesCleanup(VoiceProcessorV2 *this)
 {
-  v85 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   v2 = *(this + 3180);
   if (v2)
   {
@@ -519,10 +1038,10 @@ void VoiceProcessorV2::SaveFilesCleanup(VoiceProcessorV2 *this)
 
           *buf = 136315650;
           *&buf[4] = "vpDebug_FileSaving.cpp";
-          v81 = 1024;
-          v82 = 786;
-          v83 = 2080;
-          v84 = p_p;
+          v80 = 1024;
+          v81 = 786;
+          v82 = 2080;
+          v83 = p_p;
           _os_log_impl(&dword_2724B4000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> writing properties plist file: %s ...", buf, 0x1Cu);
         }
       }
@@ -679,10 +1198,10 @@ LABEL_48:
 
             *buf = 136315650;
             *&buf[4] = "vpDebug_FileSaving.cpp";
-            v81 = 1024;
-            v82 = 802;
-            v83 = 2080;
-            v84 = v22;
+            v80 = 1024;
+            v81 = 802;
+            v82 = 2080;
+            v83 = v22;
             _os_log_impl(&dword_2724B4000, v21, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> writing time stamps plist file: %s ...", buf, 0x1Cu);
           }
         }
@@ -733,7 +1252,7 @@ LABEL_48:
     {
       if (!*(this + 1908))
       {
-        goto LABEL_254;
+        goto LABEL_253;
       }
 
       VPGetSaveFileNameForIndex(&__p, (this + 12728), 74, 1, this + 12984);
@@ -756,10 +1275,10 @@ LABEL_48:
 
           *buf = 136315650;
           *&buf[4] = "vpDebug_FileSaving.cpp";
-          v81 = 1024;
-          v82 = 813;
-          v83 = 2080;
-          v84 = v28;
+          v80 = 1024;
+          v81 = 813;
+          v82 = 2080;
+          v83 = v28;
           _os_log_impl(&dword_2724B4000, v27, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> writing error log file: %s  ... ", buf, 0x1Cu);
         }
       }
@@ -832,10 +1351,10 @@ LABEL_48:
 
             *buf = 136315650;
             *&buf[4] = "vpDebug_FileSaving.cpp";
-            v81 = 1024;
-            v82 = 825;
-            v83 = 2080;
-            v84 = v36;
+            v80 = 1024;
+            v81 = 825;
+            v82 = 2080;
+            v83 = v36;
             _os_log_impl(&dword_2724B4000, v35, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> couldn't open file to write: %s  ... ", buf, 0x1Cu);
           }
         }
@@ -867,10 +1386,10 @@ LABEL_48:
 
       if (*(this + 3180))
       {
-LABEL_254:
+LABEL_253:
         if (!*(this + 1910))
         {
-          goto LABEL_255;
+          goto LABEL_254;
         }
 
         VPGetSaveFileNameForIndex(&__p, (this + 12728), 41, 3, this + 12984);
@@ -893,10 +1412,10 @@ LABEL_254:
 
             *buf = 136315650;
             *&buf[4] = "vpDebug_FileSaving.cpp";
-            v81 = 1024;
-            v82 = 876;
-            v83 = 2080;
-            v84 = v41;
+            v80 = 1024;
+            v81 = 876;
+            v82 = 2080;
+            v83 = v41;
             _os_log_impl(&dword_2724B4000, v40, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> writing gating control data file: %s ... ", buf, 0x1Cu);
           }
         }
@@ -967,10 +1486,10 @@ LABEL_254:
 
               *buf = 136315650;
               *&buf[4] = "vpDebug_FileSaving.cpp";
-              v81 = 1024;
-              v82 = 896;
-              v83 = 2080;
-              v84 = v51;
+              v80 = 1024;
+              v81 = 896;
+              v82 = 2080;
+              v83 = v51;
               _os_log_impl(&dword_2724B4000, v50, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> couldn't open file to write: %s  ... ", buf, 0x1Cu);
             }
           }
@@ -1002,7 +1521,7 @@ LABEL_254:
 
         if (*(this + 3180))
         {
-LABEL_255:
+LABEL_254:
           if (*(this + 1912))
           {
             VPGetSaveFileNameForIndex(&__p, (this + 12728), 52, 3, this + 12984);
@@ -1025,10 +1544,10 @@ LABEL_255:
 
                 *buf = 136315650;
                 *&buf[4] = "vpDebug_FileSaving.cpp";
-                v81 = 1024;
-                v82 = 907;
-                v83 = 2080;
-                v84 = v56;
+                v80 = 1024;
+                v81 = 907;
+                v82 = 2080;
+                v83 = v56;
                 _os_log_impl(&dword_2724B4000, v55, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> writing dlp control data file: %s ... ", buf, 0x1Cu);
               }
             }
@@ -1108,10 +1627,10 @@ LABEL_255:
 
                   *buf = 136315650;
                   *&buf[4] = "vpDebug_FileSaving.cpp";
-                  v81 = 1024;
-                  v82 = 927;
-                  v83 = 2080;
-                  v84 = v66;
+                  v80 = 1024;
+                  v81 = 927;
+                  v82 = 2080;
+                  v83 = v66;
                   _os_log_impl(&dword_2724B4000, v65, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> couldn't open file to write: %s  ... ", buf, 0x1Cu);
                 }
               }
@@ -1205,8 +1724,6 @@ LABEL_255:
     free(v77);
     *(this + 1912) = 0;
   }
-
-  v78 = *MEMORY[0x277D85DE8];
 }
 
 void sub_272527DC8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
@@ -1397,34 +1914,30 @@ uint64_t VoiceProcessorV2::EchoGateV3ReadWriteControlDataCallback(uint64_t this,
 uint64_t VoiceProcessorV2::LogIOError(uint64_t this, float a2, float a3, float a4, float a5, const char *a6, ...)
 {
   va_start(va, a6);
-  v10 = *MEMORY[0x277D85DE8];
-  if (*(this + 12720))
+  v9 = *MEMORY[0x277D85DE8];
+  if (!*(this + 12720))
   {
-    v6 = *(this + 15264);
-    if (v6)
+    return vsnprintf(__str, 0x100uLL, a6, va);
+  }
+
+  v6 = *(this + 15264);
+  if (v6)
+  {
+    v7 = *(this + 15272);
+    if (v7 < (*(this + 15256) - 1) * *(this + 15260))
     {
-      v7 = *(this + 15272);
-      if (v7 < (*(this + 15256) - 1) * *(this + 15260))
-      {
-        *(v6 + 4 * v7) = a2;
-        *(v6 + 4 * (v7 + 1)) = a3;
-        *(v6 + 4 * (v7 + 2)) = a4;
-        *(this + 15272) = v7 + 4;
-        *(v6 + 4 * (v7 + 3)) = a5;
-      }
+      *(v6 + 4 * v7) = a2;
+      *(v6 + 4 * (v7 + 1)) = a3;
+      *(v6 + 4 * (v7 + 2)) = a4;
+      *(this + 15272) = v7 + 4;
+      *(v6 + 4 * (v7 + 3)) = a5;
     }
   }
 
-  else
-  {
-    this = vsnprintf(__str, 0x100uLL, a6, va);
-  }
-
-  v8 = *MEMORY[0x277D85DE8];
   return this;
 }
 
-uint64_t std::vector<std::pair<unsigned int,float>>::__init_with_size[abi:ne200100]<std::pair<unsigned int,float>*,std::pair<unsigned int,float>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::pair<unsigned int,float>>::__init_with_size[abi:ne200100]<std::pair<unsigned int,float>*,std::pair<unsigned int,float>*>(uint64_t *result, _DWORD *a2, _DWORD *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1503,11 +2016,13 @@ void VoiceProcessorV2::LogNonTransientErrors(VoiceProcessorV2 *this, int a2)
     v18 = *(this + 2001);
     for (j = *(this + 2002); v18 != j; v18 = &v21[1])
     {
-      *&buf[8] = 0uLL;
+      *&buf[8] = 0;
+      *&buf[16] = 0;
+      v26 = v18;
       *buf = &buf[8];
-      v20 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(buf, v18);
-      v21 = v18 + 1;
-      std::string::operator=((v20 + 56), v21);
+      v20 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(buf, v18, &v26);
+      v21 = (v18 + 24);
+      std::string::operator=((v20 + 7), v21);
       CAAudioStatisticsSendMessage(*(this + 271), *(this + 544), buf, 6);
       std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(*&buf[8]);
     }
@@ -1568,32 +2083,31 @@ void VoiceProcessorV2::LogNonTransientErrors(VoiceProcessorV2 *this, int a2)
     {
       *&buf[8] = 0;
       *&buf[16] = 0;
+      v26 = v22;
       *buf = &buf[8];
-      v24 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(buf, v22);
-      v25 = v22 + 1;
-      std::string::operator=((v24 + 56), v25);
+      v24 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(buf, v22, &v26);
+      v25 = (v22 + 24);
+      std::string::operator=((v24 + 7), v25);
       CAAudioStatisticsSendMessage(*(this + 271), *(this + 544), buf, 6);
       std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(*&buf[8]);
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, void *a2)
+uint64_t *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, void *a2, __int128 **a3)
 {
-  v2 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
 void VoiceProcessorV2::LogVPParams(VoiceProcessorV2 *this)
 {
-  v163 = *MEMORY[0x277D85DE8];
+  v161 = *MEMORY[0x277D85DE8];
   if (VPLogScope(void)::once != -1)
   {
     dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
@@ -1722,7 +2236,7 @@ void VoiceProcessorV2::LogVPParams(VoiceProcessorV2 *this)
         v19 = (*v18 ? *v18 : v17);
         if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          CAX4CCString::CAX4CCString(v158, *(*(this + 294) + 4 * v16));
+          CAX4CCString::CAX4CCString(v156, *(*(this + 294) + 4 * v16));
           *buf = 136315906;
           *&buf[4] = "vpDebug_Logging.cpp";
           *&buf[12] = 1024;
@@ -1730,7 +2244,7 @@ void VoiceProcessorV2::LogVPParams(VoiceProcessorV2 *this)
           *&buf[18] = 2048;
           *&buf[20] = v16;
           *&buf[28] = 2080;
-          *&buf[30] = v158;
+          *&buf[30] = v156;
           _os_log_impl(&dword_2724B4000, v19, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp>       : Ref Port #%lu=%s", buf, 0x26u);
         }
       }
@@ -1771,7 +2285,7 @@ void VoiceProcessorV2::LogVPParams(VoiceProcessorV2 *this)
         v25 = (*v24 ? *v24 : v23);
         if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
-          CAX4CCString::CAX4CCString(v158, *(*(this + 297) + 4 * v22));
+          CAX4CCString::CAX4CCString(v156, *(*(this + 297) + 4 * v22));
           *buf = 136315906;
           *&buf[4] = "vpDebug_Logging.cpp";
           *&buf[12] = 1024;
@@ -1779,7 +2293,7 @@ void VoiceProcessorV2::LogVPParams(VoiceProcessorV2 *this)
           *&buf[18] = 2048;
           *&buf[20] = v22;
           *&buf[28] = 2080;
-          *&buf[30] = v158;
+          *&buf[30] = v156;
           _os_log_impl(&dword_2724B4000, v25, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp>       : Mic Port #%lu=%s", buf, 0x26u);
         }
       }
@@ -1888,17 +2402,17 @@ void VoiceProcessorV2::LogVPParams(VoiceProcessorV2 *this)
     v36 = (*v35 ? *v35 : MEMORY[0x277D86220]);
     if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
-      CAFormatter::CAFormatter(v158, (this + 592));
+      CAFormatter::CAFormatter(v156, (this + 592));
       *buf = 136315650;
       *&buf[4] = "vpDebug_Logging.cpp";
       *&buf[12] = 1024;
       *&buf[14] = 195;
       *&buf[18] = 2080;
-      *&buf[20] = *v158;
+      *&buf[20] = *v156;
       _os_log_impl(&dword_2724B4000, v36, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp>     HW Format REF: %s", buf, 0x1Cu);
-      if (*v158)
+      if (*v156)
       {
-        free(*v158);
+        free(*v156);
       }
     }
   }
@@ -1931,17 +2445,17 @@ void VoiceProcessorV2::LogVPParams(VoiceProcessorV2 *this)
     v40 = (*v39 ? *v39 : MEMORY[0x277D86220]);
     if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
-      CAFormatter::CAFormatter(v158, (this + 632));
+      CAFormatter::CAFormatter(v156, (this + 632));
       *buf = 136315650;
       *&buf[4] = "vpDebug_Logging.cpp";
       *&buf[12] = 1024;
       *&buf[14] = 196;
       *&buf[18] = 2080;
-      *&buf[20] = *v158;
+      *&buf[20] = *v156;
       _os_log_impl(&dword_2724B4000, v40, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp>     HW Format MIC: %s", buf, 0x1Cu);
-      if (*v158)
+      if (*v156)
       {
-        free(*v158);
+        free(*v156);
       }
     }
   }
@@ -2107,18 +2621,18 @@ void VoiceProcessorV2::LogVPParams(VoiceProcessorV2 *this)
       *buf = *(this + 552);
       *&buf[16] = v61;
       *&buf[32] = *(this + 73);
-      CA::StreamDescription::AsString(__p, buf, *buf, *&v61);
-      v62 = v156 >= 0 ? __p : __p[0];
-      *v158 = 136315650;
-      *&v158[4] = "vpDebug_Logging.cpp";
-      v159 = 1024;
-      v160 = 201;
-      v161 = 2080;
-      v162 = v62;
-      _os_log_impl(&dword_2724B4000, v60, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp>     HW Format EXT REF: %s", v158, 0x1Cu);
-      if (v156 < 0)
+      CA::StreamDescription::AsString(&__p, buf, *buf, *&v61);
+      v62 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
+      *v156 = 136315650;
+      *&v156[4] = "vpDebug_Logging.cpp";
+      v157 = 1024;
+      v158 = 201;
+      v159 = 2080;
+      v160 = v62;
+      _os_log_impl(&dword_2724B4000, v60, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp>     HW Format EXT REF: %s", v156, 0x1Cu);
+      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(__p[0]);
+        operator delete(__p.__r_.__value_.__l.__data_);
       }
     }
   }
@@ -2136,21 +2650,21 @@ void VoiceProcessorV2::LogVPParams(VoiceProcessorV2 *this)
     *buf = *(this + 552);
     *&buf[16] = v65;
     *&buf[32] = *(this + 73);
-    CA::StreamDescription::AsString(v158, buf, *buf, *&v65);
-    if (SBYTE3(v162) >= 0)
+    CA::StreamDescription::AsString(v156, buf, *buf, *&v65);
+    if (SBYTE3(v160) >= 0)
     {
-      v66 = v158;
+      v66 = v156;
     }
 
     else
     {
-      v66 = *v158;
+      v66 = *v156;
     }
 
     CALegacyLog::log(v63, 3, v64, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpDebug_Logging.cpp", 201, "LogVPParams", "    HW Format EXT REF: %s", v66);
-    if (SBYTE3(v162) < 0)
+    if (SBYTE3(v160) < 0)
     {
-      operator delete(*v158);
+      operator delete(*v156);
     }
   }
 
@@ -2259,17 +2773,17 @@ void VoiceProcessorV2::LogVPParams(VoiceProcessorV2 *this)
     v80 = (*v79 ? *v79 : MEMORY[0x277D86220]);
     if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
     {
-      CAFormatter::CAFormatter(v158, (this + 992));
+      CAFormatter::CAFormatter(v156, (this + 992));
       *buf = 136315650;
       *&buf[4] = "vpDebug_Logging.cpp";
       *&buf[12] = 1024;
       *&buf[14] = 214;
       *&buf[18] = 2080;
-      *&buf[20] = *v158;
+      *&buf[20] = *v156;
       _os_log_impl(&dword_2724B4000, v80, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp>     VP Output Format: %s", buf, 0x1Cu);
-      if (*v158)
+      if (*v156)
       {
-        free(*v158);
+        free(*v156);
       }
     }
   }
@@ -2726,17 +3240,17 @@ void VoiceProcessorV2::LogVPParams(VoiceProcessorV2 *this)
     v136 = (*v135 ? *v135 : MEMORY[0x277D86220]);
     if (os_log_type_enabled(v136, OS_LOG_TYPE_DEFAULT))
     {
-      CAFormatter::CAFormatter(v158, (this + 216));
+      CAFormatter::CAFormatter(v156, (this + 216));
       *buf = 136315650;
       *&buf[4] = "vpDebug_Logging.cpp";
       *&buf[12] = 1024;
       *&buf[14] = 235;
       *&buf[18] = 2080;
-      *&buf[20] = *v158;
+      *&buf[20] = *v156;
       _os_log_impl(&dword_2724B4000, v136, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp>     DL Format FEV: %s", buf, 0x1Cu);
-      if (*v158)
+      if (*v156)
       {
-        free(*v158);
+        free(*v156);
       }
     }
   }
@@ -2769,17 +3283,17 @@ void VoiceProcessorV2::LogVPParams(VoiceProcessorV2 *this)
     v140 = (*v139 ? *v139 : MEMORY[0x277D86220]);
     if (os_log_type_enabled(v140, OS_LOG_TYPE_DEFAULT))
     {
-      CAFormatter::CAFormatter(v158, (this + 296));
+      CAFormatter::CAFormatter(v156, (this + 296));
       *buf = 136315650;
       *&buf[4] = "vpDebug_Logging.cpp";
       *&buf[12] = 1024;
       *&buf[14] = 236;
       *&buf[18] = 2080;
-      *&buf[20] = *v158;
+      *&buf[20] = *v156;
       _os_log_impl(&dword_2724B4000, v140, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp>     DL Format FEV Process: %s", buf, 0x1Cu);
-      if (*v158)
+      if (*v156)
       {
-        free(*v158);
+        free(*v156);
       }
     }
   }
@@ -2812,17 +3326,17 @@ void VoiceProcessorV2::LogVPParams(VoiceProcessorV2 *this)
     v144 = (*v143 ? *v143 : MEMORY[0x277D86220]);
     if (os_log_type_enabled(v144, OS_LOG_TYPE_DEFAULT))
     {
-      CAFormatter::CAFormatter(v158, (this + 336));
+      CAFormatter::CAFormatter(v156, (this + 336));
       *buf = 136315650;
       *&buf[4] = "vpDebug_Logging.cpp";
       *&buf[12] = 1024;
       *&buf[14] = 237;
       *&buf[18] = 2080;
-      *&buf[20] = *v158;
+      *&buf[20] = *v156;
       _os_log_impl(&dword_2724B4000, v144, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp>     DL Format MIX: %s", buf, 0x1Cu);
-      if (*v158)
+      if (*v156)
       {
-        free(*v158);
+        free(*v156);
       }
     }
   }
@@ -2906,8 +3420,6 @@ void VoiceProcessorV2::LogVPParams(VoiceProcessorV2 *this)
 
     CALegacyLog::log(v153, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpDebug_Logging.cpp", 240, "LogVPParams", "____________logparams:end___________");
   }
-
-  v154 = *MEMORY[0x277D85DE8];
 }
 
 void sub_27252B7E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28)
@@ -2922,11 +3434,11 @@ void sub_27252B7E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void VoiceProcessorV2::LoopBackInitialize(VoiceProcessorV2 *this, uint64_t a2, uint64_t a3, uint64_t a4, unsigned __int8 *a5)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v5 = this + 12288;
   if (*(this + 15728) != 1 || *(this + 484) != 1 || *(this + 485) != 1)
   {
-    goto LABEL_37;
+    return;
   }
 
   v7 = *(this + 42);
@@ -3016,14 +3528,14 @@ LABEL_11:
       v22 = *(this + 91);
       *buf = 136316162;
       *&buf[4] = "vpDebug_Loopback.cpp";
-      v27 = 1024;
-      v28 = 50;
-      v29 = 2080;
-      v30 = v20;
-      v31 = 1024;
-      v32 = v21;
-      v33 = 1024;
-      v34 = v22;
+      v26 = 1024;
+      v27 = 50;
+      v28 = 2080;
+      v29 = v20;
+      v30 = 1024;
+      v31 = v21;
+      v32 = 1024;
+      v33 = v22;
       _os_log_impl(&dword_2724B4000, v19, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> loopbackinitialize SRC=%s, usOut#chan=%d, dlMix#chan=%d", buf, 0x28u);
     }
   }
@@ -3048,9 +3560,6 @@ LABEL_11:
 
     CALegacyLog::log(v23, 5, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpDebug_Loopback.cpp", 50, "LoopBackInitialize", "loopbackinitialize SRC=%s, usOut#chan=%d, dlMix#chan=%d", v24, *(this + 245), *(this + 91));
   }
-
-LABEL_37:
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void std::valarray<float>::resize(uint64_t a1, unint64_t a2)
@@ -3082,7 +3591,7 @@ void std::valarray<float>::resize(uint64_t a1, unint64_t a2)
 
 void VoiceProcessorV2::LoopBackRead(VoiceProcessorV2 *this, unsigned int a2, AudioBufferList *a3)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v3 = this + 12288;
   if (*(this + 15728) == 1)
   {
@@ -3165,7 +3674,7 @@ void VoiceProcessorV2::LoopBackRead(VoiceProcessorV2 *this, unsigned int a2, Aud
       v7 = 0;
     }
 
-    v33 = a2 - v7;
+    v32 = a2 - v7;
     if (a2 > v7)
     {
       if (VPLogScope(void)::once != -1)
@@ -3180,13 +3689,13 @@ void VoiceProcessorV2::LoopBackRead(VoiceProcessorV2 *this, unsigned int a2, Aud
         if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315906;
-          v35 = "vpDebug_Loopback.cpp";
-          v36 = 1024;
-          v37 = 100;
-          v38 = 1024;
-          v39 = v7;
-          v40 = 1024;
-          v41 = a2;
+          v34 = "vpDebug_Loopback.cpp";
+          v35 = 1024;
+          v36 = 100;
+          v37 = 1024;
+          v38 = v7;
+          v39 = 1024;
+          v40 = a2;
           _os_log_impl(&dword_2724B4000, v24, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> loopbackread ERROR read %d (requested %d) frames", buf, 0x1Eu);
         }
       }
@@ -3221,13 +3730,13 @@ void VoiceProcessorV2::LoopBackRead(VoiceProcessorV2 *this, unsigned int a2, Aud
             if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
             {
               *buf = 136315906;
-              v35 = "vpDebug_Loopback.cpp";
-              v36 = 1024;
-              v37 = 102;
-              v38 = 1024;
-              v39 = v33;
-              v40 = 1024;
-              v41 = v26;
+              v34 = "vpDebug_Loopback.cpp";
+              v35 = 1024;
+              v36 = 102;
+              v37 = 1024;
+              v38 = v32;
+              v39 = 1024;
+              v40 = v26;
               _os_log_impl(&dword_2724B4000, v30, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> loopbackread filled %d zeros in outABL channel %d", buf, 0x1Eu);
             }
           }
@@ -3240,10 +3749,10 @@ void VoiceProcessorV2::LoopBackRead(VoiceProcessorV2 *this, unsigned int a2, Aud
               dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
             }
 
-            CALegacyLog::log(v31, 5, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpDebug_Loopback.cpp", 102, "LoopBackRead", "loopbackread filled %d zeros in outABL channel %d", v33, v26);
+            CALegacyLog::log(v31, 5, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpDebug_Loopback.cpp", 102, "LoopBackRead", "loopbackread filled %d zeros in outABL channel %d", v32, v26);
           }
 
-          bzero((*(&a3->mNumberBuffers + v27) + 4 * v28), 4 * v33);
+          bzero((*(&a3->mNumberBuffers + v27) + 4 * v28), 4 * v32);
           ++v26;
           v27 += 16;
         }
@@ -3252,8 +3761,6 @@ void VoiceProcessorV2::LoopBackRead(VoiceProcessorV2 *this, unsigned int a2, Aud
       }
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void VoiceProcessorV2::PListCopyDictionaryForWrite(VoiceProcessorV2 *this, __CFDictionary **a2)
@@ -3261,38 +3768,107 @@ void VoiceProcessorV2::PListCopyDictionaryForWrite(VoiceProcessorV2 *this, __CFD
   key[32] = *MEMORY[0x277D85DE8];
   *a2 = 0;
   v3 = *(this + 1906);
-  if (!v3)
+  if (v3)
   {
-    goto LABEL_28;
-  }
+    Count = CFArrayGetCount(v3);
+    if (Count <= 0)
+    {
+      v8 = 0;
+      v30 = 0;
+    }
 
-  Count = CFArrayGetCount(v3);
-  if (Count <= 0)
-  {
-    v8 = 0;
-    v31 = 0;
-    goto LABEL_17;
-  }
+    else
+    {
+      ValueAtIndex = CFArrayGetValueAtIndex(*(this + 1906), Count - 1);
+      v30 = 0;
+      if (ValueAtIndex)
+      {
+        v7 = ValueAtIndex;
+        valuePtr = 0;
+        VPGetPropsPListStringForKey(key, 3);
+        v8 = key[0];
+        v30 = key[0];
+        Value = CFDictionaryGetValue(v7, key[0]);
+        v10 = CFArrayGetCount(Value);
+        v11 = CFArrayGetValueAtIndex(Value, v10 - 1);
+        CFNumberGetValue(v11, kCFNumberIntType, &valuePtr);
+        if (valuePtr == *(this + 3148))
+        {
+          v28 = 0;
+          VPGetPropsPListStringForKey(key, 2);
+          v12 = key[0];
+          v30 = key[0];
+          key[0] = v8;
+          if (v8)
+          {
+            CFRelease(v8);
+          }
 
-  ValueAtIndex = CFArrayGetValueAtIndex(*(this + 1906), Count - 1);
-  v31 = 0;
-  if (!ValueAtIndex)
-  {
-    v8 = 0;
-    goto LABEL_17;
-  }
+          v13 = CFDictionaryGetValue(v7, v12);
+          v14 = CFArrayGetCount(v13);
+          v15 = CFArrayGetValueAtIndex(v13, v14 - 1);
+          CFNumberGetValue(v15, kCFNumberIntType, &v28);
+          if (v28 == *(this + 3149))
+          {
+            v27 = 0;
+            VPGetPropsPListStringForKey(key, 17);
+            v8 = key[0];
+            v30 = key[0];
+            key[0] = v12;
+            if (v12)
+            {
+              CFRelease(v12);
+            }
 
-  v7 = ValueAtIndex;
-  valuePtr = 0;
-  VPGetPropsPListStringForKey(key, 3);
-  v8 = key[0];
-  v31 = key[0];
-  Value = CFDictionaryGetValue(v7, key[0]);
-  v10 = CFArrayGetCount(Value);
-  v11 = CFArrayGetValueAtIndex(Value, v10 - 1);
-  CFNumberGetValue(v11, kCFNumberIntType, &valuePtr);
-  if (valuePtr != *(this + 3148))
-  {
+            v16 = CFDictionaryGetValue(v7, v8);
+            v17 = CFArrayGetCount(v16);
+            v18 = CFArrayGetValueAtIndex(v16, v17 - 1);
+            CFNumberGetValue(v18, kCFNumberIntType, &v27);
+            if (v27 != *(this + 3150))
+            {
+              goto LABEL_17;
+            }
+
+            snprintf(key, 0x100uLL, "%s%d%02d%02d.%02d%02d%02d.%03u", "vp.", *(this + 3246), *(this + 12988), *(this + 12989), *(this + 12990), *(this + 12991), *(this + 1624), *(this + 3250));
+            VPGetPropsPListStringForKey(&cf, 1);
+            v12 = cf;
+            v30 = cf;
+            cf = v8;
+            if (v8)
+            {
+              CFRelease(v8);
+            }
+
+            v19 = CFDictionaryGetValue(v7, v12);
+            v20 = CFArrayGetCount(v19);
+            v21 = CFArrayGetValueAtIndex(v19, v20 - 1);
+            SystemEncoding = CFStringGetSystemEncoding();
+            CStringPtr = CFStringGetCStringPtr(v21, SystemEncoding);
+            v24 = strlen(CStringPtr);
+            if (!strncmp(CStringPtr, key, v24))
+            {
+              *a2 = v7;
+              CFRetain(v7);
+LABEL_26:
+              if (v12)
+              {
+                CFRelease(v12);
+              }
+
+              return;
+            }
+          }
+
+          v8 = v12;
+        }
+      }
+
+      else
+      {
+        v8 = 0;
+      }
+    }
+
 LABEL_17:
     *a2 = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
     VPGetPropsPListStringForKey(key, 3);
@@ -3329,78 +3905,6 @@ LABEL_17:
     v12 = v8;
     goto LABEL_26;
   }
-
-  v29 = 0;
-  VPGetPropsPListStringForKey(key, 2);
-  v12 = key[0];
-  v31 = key[0];
-  key[0] = v8;
-  if (v8)
-  {
-    CFRelease(v8);
-  }
-
-  v13 = CFDictionaryGetValue(v7, v12);
-  v14 = CFArrayGetCount(v13);
-  v15 = CFArrayGetValueAtIndex(v13, v14 - 1);
-  CFNumberGetValue(v15, kCFNumberIntType, &v29);
-  if (v29 != *(this + 3149))
-  {
-    goto LABEL_14;
-  }
-
-  v28 = 0;
-  VPGetPropsPListStringForKey(key, 17);
-  v8 = key[0];
-  v31 = key[0];
-  key[0] = v12;
-  if (v12)
-  {
-    CFRelease(v12);
-  }
-
-  v16 = CFDictionaryGetValue(v7, v8);
-  v17 = CFArrayGetCount(v16);
-  v18 = CFArrayGetValueAtIndex(v16, v17 - 1);
-  CFNumberGetValue(v18, kCFNumberIntType, &v28);
-  if (v28 != *(this + 3150))
-  {
-    goto LABEL_17;
-  }
-
-  snprintf(key, 0x100uLL, "%s%d%02d%02d.%02d%02d%02d.%03u", "vp.", *(this + 3246), *(this + 12988), *(this + 12989), *(this + 12990), *(this + 12991), *(this + 1624), *(this + 3250));
-  VPGetPropsPListStringForKey(&cf, 1);
-  v12 = cf;
-  v31 = cf;
-  cf = v8;
-  if (v8)
-  {
-    CFRelease(v8);
-  }
-
-  v19 = CFDictionaryGetValue(v7, v12);
-  v20 = CFArrayGetCount(v19);
-  v21 = CFArrayGetValueAtIndex(v19, v20 - 1);
-  SystemEncoding = CFStringGetSystemEncoding();
-  CStringPtr = CFStringGetCStringPtr(v21, SystemEncoding);
-  v24 = strlen(CStringPtr);
-  if (strncmp(CStringPtr, key, v24))
-  {
-LABEL_14:
-    v8 = v12;
-    goto LABEL_17;
-  }
-
-  *a2 = v7;
-  CFRetain(v7);
-LABEL_26:
-  if (v12)
-  {
-    CFRelease(v12);
-  }
-
-LABEL_28:
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void sub_27252C464(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, char a21, int a22, __int16 a23, char a24, char a25)
@@ -3415,13 +3919,13 @@ void sub_27252C464(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void VoiceProcessorV2::PListWriteInitializeHwInputParameters(VoiceProcessorV2 *this)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (*(this + 1906))
   {
-    v26 = 0;
-    VoiceProcessorV2::PListCopyDictionaryForWrite(this, &v26);
-    v2 = v26;
-    if (v26)
+    v27 = 0;
+    VoiceProcessorV2::PListCopyDictionaryForWrite(this, &v27);
+    v2 = v27;
+    if (v27)
     {
       v3 = this + 32;
       if (*(this + 55) < 0)
@@ -3431,7 +3935,7 @@ void VoiceProcessorV2::PListWriteInitializeHwInputParameters(VoiceProcessorV2 *t
 
       VPGetPropsPListStringForKey(cf, 0);
       v4 = strlen(v3);
-      WriteItemToDictionary(&v26, cf, 0, v4 + 1, v3);
+      WriteItemToDictionary(&v27, cf, 0, v4 + 1, v3);
       if (cf[0])
       {
         CFRelease(cf[0]);
@@ -3449,15 +3953,15 @@ void VoiceProcessorV2::PListWriteInitializeHwInputParameters(VoiceProcessorV2 *t
 
       valuePtr = v5;
       VPGetPropsPListStringForKey(cf, 64);
-      WriteItemToDictionary(&v26, cf, 1, 4uLL, &valuePtr);
+      WriteItemToDictionary(&v27, cf, 1, 4uLL, &valuePtr);
       if (cf[0])
       {
         CFRelease(cf[0]);
       }
 
-      v24 = *(this + 16);
+      v25 = *(this + 16);
       VPGetPropsPListStringForKey(cf, 77);
-      WriteItemToDictionary(&v26, cf, 1, 4uLL, &v24);
+      WriteItemToDictionary(&v27, cf, 1, 4uLL, &v25);
       if (cf[0])
       {
         CFRelease(cf[0]);
@@ -3466,7 +3970,7 @@ void VoiceProcessorV2::PListWriteInitializeHwInputParameters(VoiceProcessorV2 *t
       if (*(this + 294) != *(this + 295))
       {
         VPGetPropsPListStringForKey(cf, 6);
-        WriteItemToDictionary(&v26, cf, 1, 4uLL, *(this + 294));
+        WriteItemToDictionary(&v27, cf, 1, 4uLL, *(this + 294));
         if (cf[0])
         {
           CFRelease(cf[0]);
@@ -3478,39 +3982,39 @@ void VoiceProcessorV2::PListWriteInitializeHwInputParameters(VoiceProcessorV2 *t
           v7 = 4;
           do
           {
-            VPGetPropsPListStringForKey(&v22, 6);
-            if (!v22)
+            VPGetPropsPListStringForKey(&v23, 6);
+            if (!v23)
             {
               exception = __cxa_allocate_exception(0x10uLL);
               std::runtime_error::runtime_error(exception, "Could not construct");
             }
 
-            applesauce::CF::convert_to<std::string,0>(cf, v22);
-            if ((SBYTE7(v20) & 0x80u) == 0)
+            applesauce::CF::convert_to<std::string,0>(cf, v23);
+            if ((SBYTE7(v21) & 0x80u) == 0)
             {
-              v8 = cf;
+              v9 = cf;
             }
 
             else
             {
-              v8 = cf[0];
+              v9 = cf[0];
             }
 
-            applesauce::CF::make_StringRef(@"%s%lu", &v23, v8, v6);
-            if (SBYTE7(v20) < 0)
+            applesauce::CF::make_StringRef(&v24, @"%s%lu", v8, v9, v6);
+            if (SBYTE7(v21) < 0)
             {
               operator delete(cf[0]);
             }
 
-            if (v22)
-            {
-              CFRelease(v22);
-            }
-
-            WriteItemToDictionary(&v26, &v23, 1, 4uLL, (*(this + 294) + v7));
             if (v23)
             {
               CFRelease(v23);
+            }
+
+            WriteItemToDictionary(&v27, &v24, 1, 4uLL, (*(this + 294) + v7));
+            if (v24)
+            {
+              CFRelease(v24);
             }
 
             ++v6;
@@ -3524,7 +4028,7 @@ void VoiceProcessorV2::PListWriteInitializeHwInputParameters(VoiceProcessorV2 *t
       if (*(this + 297) != *(this + 298))
       {
         VPGetPropsPListStringForKey(cf, 9);
-        WriteItemToDictionary(&v26, cf, 1, 4uLL, *(this + 297));
+        WriteItemToDictionary(&v27, cf, 1, 4uLL, *(this + 297));
         if (cf[0])
         {
           CFRelease(cf[0]);
@@ -3532,151 +4036,151 @@ void VoiceProcessorV2::PListWriteInitializeHwInputParameters(VoiceProcessorV2 *t
 
         if (*(this + 298) - *(this + 297) >= 5uLL)
         {
-          v9 = 1;
-          v10 = 4;
+          v10 = 1;
+          v11 = 4;
           do
           {
-            VPGetPropsPListStringForKey(&v22, 9);
-            if (!v22)
+            VPGetPropsPListStringForKey(&v23, 9);
+            if (!v23)
             {
-              v18 = __cxa_allocate_exception(0x10uLL);
-              std::runtime_error::runtime_error(v18, "Could not construct");
+              v19 = __cxa_allocate_exception(0x10uLL);
+              std::runtime_error::runtime_error(v19, "Could not construct");
             }
 
-            applesauce::CF::convert_to<std::string,0>(cf, v22);
-            if ((SBYTE7(v20) & 0x80u) == 0)
+            applesauce::CF::convert_to<std::string,0>(cf, v23);
+            if ((SBYTE7(v21) & 0x80u) == 0)
             {
-              v11 = cf;
+              v13 = cf;
             }
 
             else
             {
-              v11 = cf[0];
+              v13 = cf[0];
             }
 
-            applesauce::CF::make_StringRef(@"%s%lu", &v23, v11, v9);
-            if (SBYTE7(v20) < 0)
+            applesauce::CF::make_StringRef(&v24, @"%s%lu", v12, v13, v10);
+            if (SBYTE7(v21) < 0)
             {
               operator delete(cf[0]);
             }
 
-            if (v22)
-            {
-              CFRelease(v22);
-            }
-
-            WriteItemToDictionary(&v26, &v23, 1, 4uLL, (*(this + 297) + v10));
             if (v23)
             {
               CFRelease(v23);
             }
 
-            ++v9;
-            v10 += 4;
+            WriteItemToDictionary(&v27, &v24, 1, 4uLL, (*(this + 297) + v11));
+            if (v24)
+            {
+              CFRelease(v24);
+            }
+
+            ++v10;
+            v11 += 4;
           }
 
-          while (v9 < (*(this + 298) - *(this + 297)) >> 2);
+          while (v10 < (*(this + 298) - *(this + 297)) >> 2);
         }
       }
 
       VPGetPropsPListStringForKey(cf, 35);
-      WriteItemToDictionary(&v26, cf, 1, 4uLL, this + 2400);
+      WriteItemToDictionary(&v27, cf, 1, 4uLL, this + 2400);
       if (cf[0])
       {
         CFRelease(cf[0]);
       }
 
       VPGetPropsPListStringForKey(cf, 41);
-      WriteItemToDictionary(&v26, cf, 1, 4uLL, this + 2404);
+      WriteItemToDictionary(&v27, cf, 1, 4uLL, this + 2404);
       if (cf[0])
       {
         CFRelease(cf[0]);
       }
 
-      v12 = *(this + 38);
+      v14 = *(this + 38);
       *cf = *(this + 37);
-      v20 = v12;
-      v21 = *(this + 78);
+      v21 = v14;
+      v22 = *(this + 78);
       ASBDToText(cf, __s);
       VPGetPropsPListStringForKey(cf, 4);
-      v13 = strlen(__s);
-      WriteItemToDictionary(&v26, cf, 0, v13 + 1, __s);
+      v15 = strlen(__s);
+      WriteItemToDictionary(&v27, cf, 0, v15 + 1, __s);
       if (cf[0])
       {
         CFRelease(cf[0]);
       }
 
-      v14 = *(this + 648);
+      v16 = *(this + 648);
       *cf = *(this + 632);
-      v20 = v14;
-      v21 = *(this + 83);
+      v21 = v16;
+      v22 = *(this + 83);
       ASBDToText(cf, __s);
       VPGetPropsPListStringForKey(cf, 7);
-      v15 = strlen(__s);
-      WriteItemToDictionary(&v26, cf, 0, v15 + 1, __s);
+      v17 = strlen(__s);
+      WriteItemToDictionary(&v27, cf, 0, v17 + 1, __s);
       if (cf[0])
       {
         CFRelease(cf[0]);
       }
 
       VPGetPropsPListStringForKey(cf, 5);
-      WriteItemToDictionary(&v26, cf, 1, 4uLL, this + 500);
+      WriteItemToDictionary(&v27, cf, 1, 4uLL, this + 500);
       if (cf[0])
       {
         CFRelease(cf[0]);
       }
 
       VPGetPropsPListStringForKey(cf, 8);
-      WriteItemToDictionary(&v26, cf, 1, 4uLL, this + 504);
+      WriteItemToDictionary(&v27, cf, 1, 4uLL, this + 504);
       if (cf[0])
       {
         CFRelease(cf[0]);
       }
 
       VPGetPropsPListStringForKey(cf, 42);
-      WriteItemToDictionary(&v26, cf, 1, 4uLL, this + 1156);
+      WriteItemToDictionary(&v27, cf, 1, 4uLL, this + 1156);
       if (cf[0])
       {
         CFRelease(cf[0]);
       }
 
       VPGetPropsPListStringForKey(cf, 43);
-      WriteItemToDictionary(&v26, cf, 1, 4uLL, this + 1160);
+      WriteItemToDictionary(&v27, cf, 1, 4uLL, this + 1160);
       if (cf[0])
       {
         CFRelease(cf[0]);
       }
 
       VPGetPropsPListStringForKey(cf, 10);
-      WriteItemToDictionary(&v26, cf, 1, 4uLL, this + 1176);
+      WriteItemToDictionary(&v27, cf, 1, 4uLL, this + 1176);
       if (cf[0])
       {
         CFRelease(cf[0]);
       }
 
       VPGetPropsPListStringForKey(cf, 11);
-      WriteItemToDictionary(&v26, cf, 1, 4uLL, this + 1172);
+      WriteItemToDictionary(&v27, cf, 1, 4uLL, this + 1172);
       if (cf[0])
       {
         CFRelease(cf[0]);
       }
 
       VPGetPropsPListStringForKey(cf, 12);
-      WriteItemToDictionary(&v26, cf, 1, 4uLL, this + 1184);
+      WriteItemToDictionary(&v27, cf, 1, 4uLL, this + 1184);
       if (cf[0])
       {
         CFRelease(cf[0]);
       }
 
       VPGetPropsPListStringForKey(cf, 13);
-      WriteItemToDictionary(&v26, cf, 1, 4uLL, this + 1180);
+      WriteItemToDictionary(&v27, cf, 1, 4uLL, this + 1180);
       if (cf[0])
       {
         CFRelease(cf[0]);
       }
 
       VPGetPropsPListStringForKey(cf, 39);
-      WriteItemToDictionary(&v26, cf, 2, 4uLL, this + 1164);
+      WriteItemToDictionary(&v27, cf, 2, 4uLL, this + 1164);
       if (cf[0])
       {
         CFRelease(cf[0]);
@@ -3685,8 +4189,6 @@ void VoiceProcessorV2::PListWriteInitializeHwInputParameters(VoiceProcessorV2 *t
       CFRelease(v2);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void sub_27252CBB4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, char a19, int a20, __int16 a21, char a22, char a23)
@@ -3699,9 +4201,9 @@ void sub_27252CBB4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-CFTypeID applesauce::CF::make_StringRef@<X0>(CFStringRef format@<X0>, CFStringRef *a2@<X8>, ...)
+uint64_t *applesauce::CF::make_StringRef@<X0>(CFStringRef *__return_ptr a1@<X8>, CFStringRef format@<X0>, const __CFString *a3@<X1>, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   v4 = CFStringCreateWithFormatAndArguments(0, 0, format, va);
   if (!v4)
   {
@@ -3709,7 +4211,7 @@ CFTypeID applesauce::CF::make_StringRef@<X0>(CFStringRef format@<X0>, CFStringRe
     applesauce::CF::construct_error(exception);
   }
 
-  *a2 = v4;
+  *a1 = v4;
   v5 = CFGetTypeID(v4);
   result = CFStringGetTypeID();
   if (v5 != result)
@@ -3730,71 +4232,71 @@ void sub_27252CDA4(_Unwind_Exception *a1)
 
 void VoiceProcessorV2::PListWriteInitializeOutputParameters(VoiceProcessorV2 *this)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (*(this + 1906))
   {
-    v9 = 0;
-    VoiceProcessorV2::PListCopyDictionaryForWrite(this, &v9);
-    v2 = v9;
-    if (v9)
+    v8 = 0;
+    VoiceProcessorV2::PListCopyDictionaryForWrite(this, &v8);
+    v2 = v8;
+    if (v8)
     {
       v3 = *(this + 63);
       *cf = *(this + 62);
-      v7 = v3;
-      v8 = *(this + 128);
+      v6 = v3;
+      v7 = *(this + 128);
       ASBDToText(cf, __s);
       VPGetPropsPListStringForKey(cf, 14);
       v4 = strlen(__s);
-      WriteItemToDictionary(&v9, cf, 0, v4 + 1, __s);
+      WriteItemToDictionary(&v8, cf, 0, v4 + 1, __s);
       if (cf[0])
       {
         CFRelease(cf[0]);
       }
 
       VPGetPropsPListStringForKey(cf, 42);
-      WriteItemToDictionary(&v9, cf, 1, 4uLL, this + 1156);
+      WriteItemToDictionary(&v8, cf, 1, 4uLL, this + 1156);
       if (cf[0])
       {
         CFRelease(cf[0]);
       }
 
       VPGetPropsPListStringForKey(cf, 43);
-      WriteItemToDictionary(&v9, cf, 1, 4uLL, this + 1160);
+      WriteItemToDictionary(&v8, cf, 1, 4uLL, this + 1160);
       if (cf[0])
       {
         CFRelease(cf[0]);
       }
 
       VPGetPropsPListStringForKey(cf, 10);
-      WriteItemToDictionary(&v9, cf, 1, 4uLL, this + 1176);
+      WriteItemToDictionary(&v8, cf, 1, 4uLL, this + 1176);
       if (cf[0])
       {
         CFRelease(cf[0]);
       }
 
       VPGetPropsPListStringForKey(cf, 11);
-      WriteItemToDictionary(&v9, cf, 1, 4uLL, this + 1172);
+      WriteItemToDictionary(&v8, cf, 1, 4uLL, this + 1172);
       if (cf[0])
       {
         CFRelease(cf[0]);
       }
 
       VPGetPropsPListStringForKey(cf, 12);
-      WriteItemToDictionary(&v9, cf, 1, 4uLL, this + 1184);
+      WriteItemToDictionary(&v8, cf, 1, 4uLL, this + 1184);
       if (cf[0])
       {
         CFRelease(cf[0]);
       }
 
       VPGetPropsPListStringForKey(cf, 13);
-      WriteItemToDictionary(&v9, cf, 1, 4uLL, this + 1180);
+      WriteItemToDictionary(&v8, cf, 1, 4uLL, this + 1180);
       if (cf[0])
       {
         CFRelease(cf[0]);
       }
 
       VPGetPropsPListStringForKey(cf, 39);
-      WriteItemToDictionary(&v9, cf, 2, 4uLL, this + 1164);
+      WriteItemToDictionary(&v8, cf, 2, 4uLL, this + 1164);
       if (cf[0])
       {
         CFRelease(cf[0]);
@@ -3803,8 +4305,6 @@ void VoiceProcessorV2::PListWriteInitializeOutputParameters(VoiceProcessorV2 *th
       CFRelease(v2);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void sub_27252D004(_Unwind_Exception *exception_object, int a2)
@@ -3819,25 +4319,25 @@ void sub_27252D004(_Unwind_Exception *exception_object, int a2)
 
 void VoiceProcessorV2::PListWriteInitializeDLPParameters(VoiceProcessorV2 *this)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (*(this + 1906))
   {
-    v11 = 0;
-    VoiceProcessorV2::PListCopyDictionaryForWrite(this, &v11);
-    v2 = v11;
-    if (v11)
+    v10 = 0;
+    VoiceProcessorV2::PListCopyDictionaryForWrite(this, &v10);
+    v2 = v10;
+    if (v10)
     {
       ASBDToText((this + 336), __s);
       VPGetPropsPListStringForKey(cf, 18);
       v3 = strlen(__s);
-      WriteItemToDictionary(&v11, cf, 0, v3 + 1, __s);
+      WriteItemToDictionary(&v10, cf, 0, v3 + 1, __s);
       if (cf[0])
       {
         CFRelease(cf[0]);
       }
 
       VPGetPropsPListStringForKey(cf, 19);
-      WriteItemToDictionary(&v11, cf, 1, 4uLL, this + 492);
+      WriteItemToDictionary(&v10, cf, 1, 4uLL, this + 492);
       if (cf[0])
       {
         CFRelease(cf[0]);
@@ -3846,7 +4346,7 @@ void VoiceProcessorV2::PListWriteInitializeDLPParameters(VoiceProcessorV2 *this)
       ASBDToText((this + 216), __s);
       VPGetPropsPListStringForKey(cf, 20);
       v4 = strlen(__s);
-      WriteItemToDictionary(&v11, cf, 0, v4 + 1, __s);
+      WriteItemToDictionary(&v10, cf, 0, v4 + 1, __s);
       if (cf[0])
       {
         CFRelease(cf[0]);
@@ -3856,19 +4356,19 @@ void VoiceProcessorV2::PListWriteInitializeDLPParameters(VoiceProcessorV2 *this)
       {
         v5 = *(this + 38);
         *cf = *(this + 37);
-        v9 = v5;
-        v10 = *(this + 78);
+        v8 = v5;
+        v9 = *(this + 78);
         ASBDToText(cf, __s);
         VPGetPropsPListStringForKey(cf, 4);
         v6 = strlen(__s);
-        WriteItemToDictionary(&v11, cf, 0, v6 + 1, __s);
+        WriteItemToDictionary(&v10, cf, 0, v6 + 1, __s);
         if (cf[0])
         {
           CFRelease(cf[0]);
         }
 
         VPGetPropsPListStringForKey(cf, 5);
-        WriteItemToDictionary(&v11, cf, 1, 4uLL, this + 500);
+        WriteItemToDictionary(&v10, cf, 1, 4uLL, this + 500);
         if (cf[0])
         {
           CFRelease(cf[0]);
@@ -3878,8 +4378,6 @@ void VoiceProcessorV2::PListWriteInitializeDLPParameters(VoiceProcessorV2 *this)
       CFRelease(v2);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void sub_27252D23C(_Unwind_Exception *exception_object, int a2)
@@ -3894,25 +4392,25 @@ void sub_27252D23C(_Unwind_Exception *exception_object, int a2)
 
 void VoiceProcessorV2::PListWriteInitializeSpkrTelParameters(VoiceProcessorV2 *this)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (*(this + 1906))
   {
-    v6 = 0;
-    VoiceProcessorV2::PListCopyDictionaryForWrite(this, &v6);
-    v2 = v6;
-    if (v6)
+    v5 = 0;
+    VoiceProcessorV2::PListCopyDictionaryForWrite(this, &v5);
+    v2 = v5;
+    if (v5)
     {
       ASBDToText((this + 1496), __s);
       VPGetPropsPListStringForKey(&cf, 32);
       v3 = strlen(__s);
-      WriteItemToDictionary(&v6, &cf, 0, v3 + 1, __s);
+      WriteItemToDictionary(&v5, &cf, 0, v3 + 1, __s);
       if (cf)
       {
         CFRelease(cf);
       }
 
       VPGetPropsPListStringForKey(&cf, 33);
-      WriteItemToDictionary(&v6, &cf, 1, 4uLL, this + 1536);
+      WriteItemToDictionary(&v5, &cf, 1, 4uLL, this + 1536);
       if (cf)
       {
         CFRelease(cf);
@@ -3921,8 +4419,6 @@ void VoiceProcessorV2::PListWriteInitializeSpkrTelParameters(VoiceProcessorV2 *t
       CFRelease(v2);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void sub_27252D380(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10)
@@ -3937,7 +4433,7 @@ void sub_27252D380(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void VoiceProcessorV2::PListWriteSetPropertyParameters(VoiceProcessorV2 *this, int a2)
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   if (*(this + 1906))
   {
     cf = 0;
@@ -3954,9 +4450,9 @@ void VoiceProcessorV2::PListWriteSetPropertyParameters(VoiceProcessorV2 *this, i
             switch(a2)
             {
               case 1868653667:
-                applesauce::CF::NumberRef::NumberRef<unsigned int,void>(&v19, *(this + 4141));
-                applesauce::CF::TypeRef::TypeRef(&v24, "DuckingLevel");
-                applesauce::CF::NumberRef::operator applesauce::CF::TypeRef(&v25, v19);
+                applesauce::CF::NumberRef::NumberRef<unsigned int,void>(&v18, *(this + 4141));
+                applesauce::CF::TypeRef::TypeRef(&v23, "DuckingLevel");
+                applesauce::CF::NumberRef::operator applesauce::CF::TypeRef(&v24, v18);
                 if (*(this + 16561))
                 {
                   v11 = MEMORY[0x277CBED28];
@@ -3967,23 +4463,23 @@ void VoiceProcessorV2::PListWriteSetPropertyParameters(VoiceProcessorV2 *this, i
                   v11 = MEMORY[0x277CBED10];
                 }
 
-                v18 = *v11;
-                applesauce::CF::TypeRef::TypeRef(v26, "EnableAdvancedDucking");
-                applesauce::CF::BooleanRef::operator applesauce::CF::TypeRef(v27, v18);
-                valuePtr = &v24;
-                v21 = 2;
+                v17 = *v11;
+                applesauce::CF::TypeRef::TypeRef(v25, "EnableAdvancedDucking");
+                applesauce::CF::BooleanRef::operator applesauce::CF::TypeRef(v26, v17);
+                valuePtr = &v23;
+                v20 = 2;
                 CFDictionaryRef = applesauce::CF::details::make_CFDictionaryRef(&valuePtr);
                 v13 = 0;
-                v22 = CFDictionaryRef;
+                v21 = CFDictionaryRef;
                 do
                 {
-                  v14 = v27[v13];
+                  v14 = v26[v13];
                   if (v14)
                   {
                     CFRelease(v14);
                   }
 
-                  v15 = *&v26[v13 * 8];
+                  v15 = *&v25[v13 * 8];
                   if (v15)
                   {
                     CFRelease(v15);
@@ -3993,21 +4489,21 @@ void VoiceProcessorV2::PListWriteSetPropertyParameters(VoiceProcessorV2 *this, i
                 }
 
                 while (v13 != -4);
-                applesauce::CF::BooleanRef::~BooleanRef(&v18);
-                applesauce::CF::NumberRef::~NumberRef(&v19);
-                v24 = CFDictionaryRef;
+                applesauce::CF::BooleanRef::~BooleanRef(&v17);
+                applesauce::CF::NumberRef::~NumberRef(&v18);
+                v23 = CFDictionaryRef;
                 VPGetPropsPListStringForKey(&valuePtr, 75);
-                WriteItemToDictionary(&cf, &valuePtr, 4, 8uLL, &v24);
+                WriteItemToDictionary(&cf, &valuePtr, 4, 8uLL, &v23);
                 break;
               case 1936744803:
                 LODWORD(valuePtr) = *(this + 2261);
-                VPGetPropsPListStringForKey(&v24, 68);
-                WriteItemToDictionary(&cf, &v24, 1, 4uLL, &valuePtr);
+                VPGetPropsPListStringForKey(&v23, 68);
+                WriteItemToDictionary(&cf, &v23, 1, 4uLL, &valuePtr);
                 goto LABEL_76;
               case 1936746595:
-                applesauce::CF::NumberRef::NumberRef<unsigned int,void>(&v19, *(this + 4096));
-                applesauce::CF::TypeRef::TypeRef(&v24, "SpatialMode");
-                applesauce::CF::NumberRef::operator applesauce::CF::TypeRef(&v25, v19);
+                applesauce::CF::NumberRef::NumberRef<unsigned int,void>(&v18, *(this + 4096));
+                applesauce::CF::TypeRef::TypeRef(&v23, "SpatialMode");
+                applesauce::CF::NumberRef::operator applesauce::CF::TypeRef(&v24, v18);
                 if (*(this + 16388))
                 {
                   v6 = MEMORY[0x277CBED28];
@@ -4018,23 +4514,23 @@ void VoiceProcessorV2::PListWriteSetPropertyParameters(VoiceProcessorV2 *this, i
                   v6 = MEMORY[0x277CBED10];
                 }
 
-                v18 = *v6;
-                applesauce::CF::TypeRef::TypeRef(v26, "HeadTracking");
-                applesauce::CF::BooleanRef::operator applesauce::CF::TypeRef(v27, v18);
-                valuePtr = &v24;
-                v21 = 2;
+                v17 = *v6;
+                applesauce::CF::TypeRef::TypeRef(v25, "HeadTracking");
+                applesauce::CF::BooleanRef::operator applesauce::CF::TypeRef(v26, v17);
+                valuePtr = &v23;
+                v20 = 2;
                 v7 = applesauce::CF::details::make_CFDictionaryRef(&valuePtr);
                 v8 = 0;
-                v22 = v7;
+                v21 = v7;
                 do
                 {
-                  v9 = v27[v8];
+                  v9 = v26[v8];
                   if (v9)
                   {
                     CFRelease(v9);
                   }
 
-                  v10 = *&v26[v8 * 8];
+                  v10 = *&v25[v8 * 8];
                   if (v10)
                   {
                     CFRelease(v10);
@@ -4044,38 +4540,38 @@ void VoiceProcessorV2::PListWriteSetPropertyParameters(VoiceProcessorV2 *this, i
                 }
 
                 while (v8 != -4);
-                applesauce::CF::BooleanRef::~BooleanRef(&v18);
-                applesauce::CF::NumberRef::~NumberRef(&v19);
-                v24 = v7;
+                applesauce::CF::BooleanRef::~BooleanRef(&v17);
+                applesauce::CF::NumberRef::~NumberRef(&v18);
+                v23 = v7;
                 VPGetPropsPListStringForKey(&valuePtr, 73);
-                WriteItemToDictionary(&cf, &valuePtr, 4, 8uLL, &v24);
+                WriteItemToDictionary(&cf, &valuePtr, 4, 8uLL, &v23);
                 break;
               default:
                 goto LABEL_78;
             }
 
             applesauce::CF::StringRef::~StringRef(&valuePtr);
-            applesauce::CF::DictionaryRef::~DictionaryRef(&v22);
+            applesauce::CF::DictionaryRef::~DictionaryRef(&v21);
             goto LABEL_78;
           }
 
           switch(a2)
           {
             case 1937141091:
-              v17 = atomic_load(this + 567);
-              LODWORD(valuePtr) = v17;
-              VPGetPropsPListStringForKey(&v24, 71);
-              WriteItemToDictionary(&cf, &v24, 2, 4uLL, &valuePtr);
-              applesauce::CF::StringRef::~StringRef(&v24);
+              v16 = atomic_load(this + 567);
+              LODWORD(valuePtr) = v16;
+              VPGetPropsPListStringForKey(&v23, 71);
+              WriteItemToDictionary(&cf, &v23, 2, 4uLL, &valuePtr);
+              applesauce::CF::StringRef::~StringRef(&v23);
               v4 = cf;
               break;
             case 1953915762:
-              VPGetPropsPListStringForKey(&v24, 40);
-              WriteItemToDictionary(&cf, &v24, 2, 4uLL, this + 2216);
+              VPGetPropsPListStringForKey(&v23, 40);
+              WriteItemToDictionary(&cf, &v23, 2, 4uLL, this + 2216);
               goto LABEL_76;
             case 1953915764:
-              VPGetPropsPListStringForKey(&v24, 26);
-              WriteItemToDictionary(&cf, &v24, 1, 4uLL, this + 2212);
+              VPGetPropsPListStringForKey(&v23, 26);
+              WriteItemToDictionary(&cf, &v23, 1, 4uLL, this + 2212);
               goto LABEL_76;
           }
         }
@@ -4086,18 +4582,18 @@ void VoiceProcessorV2::PListWriteSetPropertyParameters(VoiceProcessorV2 *this, i
           {
             case 1768514915:
               LODWORD(valuePtr) = *(this + 16568);
-              VPGetPropsPListStringForKey(&v24, 76);
-              WriteItemToDictionary(&cf, &v24, 1, 4uLL, &valuePtr);
+              VPGetPropsPListStringForKey(&v23, 76);
+              WriteItemToDictionary(&cf, &v23, 1, 4uLL, &valuePtr);
               goto LABEL_76;
             case 1835361379:
               LODWORD(valuePtr) = *(this + 2260);
-              VPGetPropsPListStringForKey(&v24, 67);
-              WriteItemToDictionary(&cf, &v24, 1, 4uLL, &valuePtr);
+              VPGetPropsPListStringForKey(&v23, 67);
+              WriteItemToDictionary(&cf, &v23, 1, 4uLL, &valuePtr);
               goto LABEL_76;
             case 1836082532:
               LODWORD(valuePtr) = *(this + 2262);
-              VPGetPropsPListStringForKey(&v24, 74);
-              WriteItemToDictionary(&cf, &v24, 1, 4uLL, &valuePtr);
+              VPGetPropsPListStringForKey(&v23, 74);
+              WriteItemToDictionary(&cf, &v23, 1, 4uLL, &valuePtr);
               goto LABEL_76;
           }
         }
@@ -4108,18 +4604,18 @@ void VoiceProcessorV2::PListWriteSetPropertyParameters(VoiceProcessorV2 *this, i
           {
             case 1635085677:
               LODWORD(valuePtr) = *(this + 2288);
-              VPGetPropsPListStringForKey(&v24, 80);
-              WriteItemToDictionary(&cf, &v24, 1, 4uLL, &valuePtr);
+              VPGetPropsPListStringForKey(&v23, 80);
+              WriteItemToDictionary(&cf, &v23, 1, 4uLL, &valuePtr);
               goto LABEL_76;
             case 1718384242:
               LODWORD(valuePtr) = *(this + 4134);
-              VPGetPropsPListStringForKey(&v24, 69);
-              WriteItemToDictionary(&cf, &v24, 1, 4uLL, &valuePtr);
+              VPGetPropsPListStringForKey(&v23, 69);
+              WriteItemToDictionary(&cf, &v23, 1, 4uLL, &valuePtr);
               goto LABEL_76;
             case 1751933808:
-              v24 = *(this + 281);
+              v23 = *(this + 281);
               VPGetPropsPListStringForKey(&valuePtr, 65);
-              WriteItemToDictionary(&cf, &valuePtr, 4, 8uLL, &v24);
+              WriteItemToDictionary(&cf, &valuePtr, 4, 8uLL, &v23);
               p_valuePtr = &valuePtr;
 LABEL_77:
               applesauce::CF::StringRef::~StringRef(p_valuePtr);
@@ -4135,17 +4631,17 @@ LABEL_77:
           switch(a2)
           {
             case 32797:
-              VPGetPropsPListStringForKey(&v24, 66);
-              WriteItemToDictionary(&cf, &v24, 2, 4uLL, this + 2256);
+              VPGetPropsPListStringForKey(&v23, 66);
+              WriteItemToDictionary(&cf, &v23, 2, 4uLL, this + 2256);
               goto LABEL_76;
             case 32798:
-              VPGetPropsPListStringForKey(&v24, 62);
-              WriteItemToDictionary(&cf, &v24, 4, 8uLL, this + 2240);
+              VPGetPropsPListStringForKey(&v23, 62);
+              WriteItemToDictionary(&cf, &v23, 4, 8uLL, this + 2240);
               goto LABEL_76;
             case 1634758502:
               LODWORD(valuePtr) = *(this + 4152);
-              VPGetPropsPListStringForKey(&v24, 79);
-              WriteItemToDictionary(&cf, &v24, 1, 4uLL, &valuePtr);
+              VPGetPropsPListStringForKey(&v23, 79);
+              WriteItemToDictionary(&cf, &v23, 1, 4uLL, &valuePtr);
               goto LABEL_76;
           }
         }
@@ -4156,17 +4652,17 @@ LABEL_77:
           {
             case 32788:
               LODWORD(valuePtr) = *(this + 2093);
-              VPGetPropsPListStringForKey(&v24, 34);
-              WriteItemToDictionary(&cf, &v24, 1, 4uLL, &valuePtr);
+              VPGetPropsPListStringForKey(&v23, 34);
+              WriteItemToDictionary(&cf, &v23, 1, 4uLL, &valuePtr);
               goto LABEL_76;
             case 32792:
-              VPGetPropsPListStringForKey(&v24, 44);
-              WriteItemToDictionary(&cf, &v24, 1, 4uLL, this + 1152);
+              VPGetPropsPListStringForKey(&v23, 44);
+              WriteItemToDictionary(&cf, &v23, 1, 4uLL, this + 1152);
               goto LABEL_76;
             case 32794:
               LODWORD(valuePtr) = *(this + 2090);
-              VPGetPropsPListStringForKey(&v24, 61);
-              WriteItemToDictionary(&cf, &v24, 1, 4uLL, &valuePtr);
+              VPGetPropsPListStringForKey(&v23, 61);
+              WriteItemToDictionary(&cf, &v23, 1, 4uLL, &valuePtr);
               goto LABEL_76;
           }
         }
@@ -4177,16 +4673,16 @@ LABEL_77:
         switch(a2)
         {
           case 32783:
-            VPGetPropsPListStringForKey(&v24, 27);
-            WriteItemToDictionary(&cf, &v24, 4, 8uLL, this + 2224);
+            VPGetPropsPListStringForKey(&v23, 27);
+            WriteItemToDictionary(&cf, &v23, 4, 8uLL, this + 2224);
             goto LABEL_76;
           case 32784:
-            VPGetPropsPListStringForKey(&v24, 28);
-            WriteItemToDictionary(&cf, &v24, 4, 8uLL, this + 2232);
+            VPGetPropsPListStringForKey(&v23, 28);
+            WriteItemToDictionary(&cf, &v23, 4, 8uLL, this + 2232);
             goto LABEL_76;
           case 32786:
-            VPGetPropsPListStringForKey(&v24, 31);
-            WriteItemToDictionary(&cf, &v24, 1, 4uLL, this + 2752);
+            VPGetPropsPListStringForKey(&v23, 31);
+            WriteItemToDictionary(&cf, &v23, 1, 4uLL, this + 2752);
             goto LABEL_76;
         }
       }
@@ -4196,20 +4692,20 @@ LABEL_77:
         switch(a2)
         {
           case 32769:
-            VPGetPropsPListStringForKey(&v24, 16);
-            WriteItemToDictionary(&cf, &v24, 1, 4uLL, this + 2304);
+            VPGetPropsPListStringForKey(&v23, 16);
+            WriteItemToDictionary(&cf, &v23, 1, 4uLL, this + 2304);
             goto LABEL_76;
           case 32772:
             LODWORD(valuePtr) = *(this + 2088);
-            VPGetPropsPListStringForKey(&v24, 60);
-            WriteItemToDictionary(&cf, &v24, 1, 4uLL, &valuePtr);
+            VPGetPropsPListStringForKey(&v23, 60);
+            WriteItemToDictionary(&cf, &v23, 1, 4uLL, &valuePtr);
             goto LABEL_76;
           case 32773:
             LODWORD(valuePtr) = *(this + 2091);
-            VPGetPropsPListStringForKey(&v24, 29);
-            WriteItemToDictionary(&cf, &v24, 1, 4uLL, &valuePtr);
+            VPGetPropsPListStringForKey(&v23, 29);
+            WriteItemToDictionary(&cf, &v23, 1, 4uLL, &valuePtr);
 LABEL_76:
-            p_valuePtr = &v24;
+            p_valuePtr = &v23;
             goto LABEL_77;
         }
       }
@@ -4218,16 +4714,14 @@ LABEL_78:
       CFRelease(v4);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
-void sub_27252DBDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_27252DBDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5 = va_arg(va1, const void *);
-  v7 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v8 = va_arg(va1, const void *);
+  v10 = va_arg(va1, void);
   applesauce::CF::StringRef::~StringRef(va);
   applesauce::CF::DictionaryRef::~DictionaryRef(va1);
   _Unwind_Resume(a1);
@@ -4331,9 +4825,9 @@ void VoiceProcessorV2::PListWriteSetDeviceOrientationParameters(VoiceProcessorV2
   }
 }
 
-void sub_27252DF8C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_27252DF8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::StringRef::~StringRef(va);
   _Unwind_Resume(a1);
 }
@@ -4360,24 +4854,24 @@ void VoiceProcessorV2::PListWriteSetUIOrientationParameters(VoiceProcessorV2 *th
   }
 }
 
-void sub_27252E020(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_27252E020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::StringRef::~StringRef(va);
   _Unwind_Resume(a1);
 }
 
 void VoiceProcessorV2::PListWriteMicTrimGainParameters(VoiceProcessorV2 *a1, float **a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (*(a1 + 1906))
   {
     if (*a2 != a2[1])
     {
-      v8 = 0;
-      VoiceProcessorV2::PListCopyDictionaryForWrite(a1, &v8);
-      v3 = v8;
-      if (v8)
+      v7 = 0;
+      VoiceProcessorV2::PListCopyDictionaryForWrite(a1, &v7);
+      v3 = v7;
+      if (v7)
       {
         snprintf(__str, 0x200uLL, "%f", **a2);
         v4 = *a2;
@@ -4397,7 +4891,7 @@ void VoiceProcessorV2::PListWriteMicTrimGainParameters(VoiceProcessorV2 *a1, flo
 
         VPGetPropsPListStringForKey(__source, 24);
         v6 = strlen(__str);
-        WriteItemToDictionary(&v8, __source, 0, v6 + 1, __str);
+        WriteItemToDictionary(&v7, __source, 0, v6 + 1, __str);
         if (*__source)
         {
           CFRelease(*__source);
@@ -4407,8 +4901,6 @@ void VoiceProcessorV2::PListWriteMicTrimGainParameters(VoiceProcessorV2 *a1, flo
       }
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void sub_27252E184(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
@@ -4423,15 +4915,15 @@ void sub_27252E184(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void VoiceProcessorV2::PListWriteRefTrimGainParameters(VoiceProcessorV2 *a1, float **a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (*(a1 + 1906))
   {
     if (*a2 != a2[1])
     {
-      v8 = 0;
-      VoiceProcessorV2::PListCopyDictionaryForWrite(a1, &v8);
-      v3 = v8;
-      if (v8)
+      v7 = 0;
+      VoiceProcessorV2::PListCopyDictionaryForWrite(a1, &v7);
+      v3 = v7;
+      if (v7)
       {
         snprintf(__str, 0x200uLL, "%f", **a2);
         v4 = *a2;
@@ -4451,7 +4943,7 @@ void VoiceProcessorV2::PListWriteRefTrimGainParameters(VoiceProcessorV2 *a1, flo
 
         VPGetPropsPListStringForKey(__source, 25);
         v6 = strlen(__str);
-        WriteItemToDictionary(&v8, __source, 0, v6 + 1, __str);
+        WriteItemToDictionary(&v7, __source, 0, v6 + 1, __str);
         if (*__source)
         {
           CFRelease(*__source);
@@ -4461,8 +4953,6 @@ void VoiceProcessorV2::PListWriteRefTrimGainParameters(VoiceProcessorV2 *a1, flo
       }
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void sub_27252E300(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
@@ -4497,24 +4987,24 @@ void VoiceProcessorV2::PListWriteSpeakerCalibrationParameters(VoiceProcessorV2 *
   }
 }
 
-void sub_27252E3A8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_27252E3A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::StringRef::~StringRef(va);
   _Unwind_Resume(a1);
 }
 
 void VoiceProcessorV2::PListWriteSpkInputDataSrcParameters(VoiceProcessorV2 *this, unsigned int *a2, unsigned int a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     if (*(this + 1906))
     {
-      v10 = 0;
-      VoiceProcessorV2::PListCopyDictionaryForWrite(this, &v10);
-      v5 = v10;
-      if (v10)
+      v9 = 0;
+      VoiceProcessorV2::PListCopyDictionaryForWrite(this, &v9);
+      v5 = v9;
+      if (v9)
       {
         snprintf(__str, 0x200uLL, "%d", *a2);
         if (a3 >= 2)
@@ -4534,7 +5024,7 @@ void VoiceProcessorV2::PListWriteSpkInputDataSrcParameters(VoiceProcessorV2 *thi
 
         VPGetPropsPListStringForKey(__source, 57);
         v8 = strlen(__str);
-        WriteItemToDictionary(&v10, __source, 0, v8 + 1, __str);
+        WriteItemToDictionary(&v9, __source, 0, v8 + 1, __str);
         if (*__source)
         {
           CFRelease(*__source);
@@ -4544,8 +5034,6 @@ void VoiceProcessorV2::PListWriteSpkInputDataSrcParameters(VoiceProcessorV2 *thi
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void sub_27252E4F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
@@ -4584,10 +5072,8 @@ AUProcessingBlockBase *VoiceProcessorV2::VPAUProcessingBlock::RemoveAUAtIndex(AU
   if (*(*(this + 3) + 24 * a2 + 16))
   {
     v2 = this;
-    v3 = *(this + 2);
     AUPBUnregisterAU();
     AUProcessingBlockBase::RemoveAUAtIndex(v2);
-    v4 = *(v2 + 2);
     return AUPBPropertiesChanged();
   }
 
@@ -4875,7 +5361,7 @@ void VoiceProcessorV2::VPAUProcessingBlock::~VPAUProcessingBlock(VoiceProcessorV
   JUMPOUT(0x2743CBFA0);
 }
 
-uint64_t VoiceProcessorV2::VPAUProcessingBlock::FindIndex(uint64_t a1, uint64_t a2, uint64_t a3)
+unint64_t VoiceProcessorV2::VPAUProcessingBlock::FindIndex(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = a2 - a1;
   if (a2 == a1)
@@ -4907,19 +5393,19 @@ uint64_t VoiceProcessorV2::VPAUProcessingBlock::FindIndex(uint64_t a1, uint64_t 
 
 BOOL VoiceProcessorV2::AUIsInDownLinkProcessingChain(uint64_t a1, uint64_t a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  __dst[57] = *MEMORY[0x277D85DE8];
   {
-    v21 = a1;
-    v18 = a2;
-    a2 = v18;
-    v20 = v19;
-    a1 = v21;
-    if (v20)
+    v20 = a1;
+    v17 = a2;
+    a2 = v17;
+    v19 = v18;
+    a1 = v20;
+    if (v19)
     {
-      memcpy(__dst, "2qrv\b", sizeof(__dst));
+      memcpy(__dst, "2qrv\b", 0x1C8uLL);
       std::multimap<unsigned int,unsigned int>::multimap[abi:ne200100](__dst, 57);
-      a1 = v21;
-      a2 = v18;
+      a1 = v20;
+      a2 = v17;
     }
   }
 
@@ -4954,25 +5440,25 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v9 = *v2;
-  v10 = v2;
+  v8 = *v2;
+  v9 = v2;
   if (*v2)
   {
-    v10 = v2;
+    v9 = v2;
     do
     {
-      v11 = *(v9 + 28);
-      v12 = v11 >= v3;
-      v13 = v11 < v3;
-      if (v12)
+      v10 = *(v8 + 28);
+      v11 = v10 >= v3;
+      v12 = v10 < v3;
+      if (v11)
       {
-        v10 = v9;
+        v9 = v8;
       }
 
-      v9 = *(v9 + 8 * v13);
+      v8 = *(v8 + 8 * v12);
     }
 
-    while (v9);
+    while (v8);
   }
 
   for (i = *(v2 + 8); i; i = *(i + 8 * (v3 >= *(i + 28))))
@@ -4983,56 +5469,51 @@ LABEL_8:
     }
   }
 
-  if (v10 == v4)
+  if (v9 == v4)
   {
 LABEL_9:
     v6 = *(a2 + 16);
-LABEL_10:
-    result = v6 == *(a1 + 12552);
-    goto LABEL_11;
+    return v6 == *(a1 + 12552);
   }
 
   v6 = *(a2 + 16);
-  while (v6 != *(a1 + 3512 + 8 * *(v10 + 8)))
+  while (v6 != *(a1 + 3512 + 8 * *(v9 + 8)))
   {
-    v15 = v10[1];
-    if (v15)
+    v14 = v9[1];
+    if (v14)
     {
       do
       {
-        v16 = v15;
-        v15 = *v15;
+        v15 = v14;
+        v14 = *v14;
       }
 
-      while (v15);
+      while (v14);
     }
 
     else
     {
       do
       {
-        v16 = v10[2];
-        v17 = *v16 == v10;
-        v10 = v16;
+        v15 = v9[2];
+        v16 = *v15 == v9;
+        v9 = v15;
       }
 
-      while (!v17);
+      while (!v16);
     }
 
-    v10 = v16;
-    if (v16 == v4)
+    v9 = v15;
+    if (v15 == v4)
     {
-      goto LABEL_10;
+      return v6 == *(a1 + 12552);
     }
   }
 
-  result = 1;
-LABEL_11:
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
-void std::multimap<unsigned int,unsigned int>::multimap[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::multimap<unsigned int,unsigned int>::multimap[abi:ne200100](uint64_t *result, uint64_t a2)
 {
   qword_280898D18 = 0;
   qword_280898D10 = 0;
@@ -5043,7 +5524,7 @@ void std::multimap<unsigned int,unsigned int>::multimap[abi:ne200100](uint64_t a
   }
 }
 
-id DeviceNameAsString(int a1)
+id DeviceNameAsString(uint64_t a1)
 {
   v1 = PlatformUtilities_iOS::CopyProductTypeFilePrefix(a1);
   if (!v1)
@@ -5059,195 +5540,195 @@ id DeviceNameAsString(int a1)
 
 void DSPEngineConfiguration::DSPEngineConfiguration(DSPEngineConfiguration *this)
 {
-  v96[3] = *MEMORY[0x277D85DE8];
+  v95[3] = *MEMORY[0x277D85DE8];
   GetVoiceProcessorVersion(vp::Context const&,unsigned int,unsigned int,unsigned int,unsigned int)::sDSPEngineConfiguration = 0;
   v1 = MEMORY[0x277CBEB38];
-  v95[0] = @"VP configuration info";
-  v94[0] = @"ref port subtype";
-  v77 = [MEMORY[0x277CCACA8] stringWithFormat:@"b%u", 205];
-  v92 = v77;
-  v93 = &unk_2881CA8B8;
-  v76 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v93 forKeys:&v92 count:1];
-  v94[1] = v76;
-  v91[0] = @"device";
-  v75 = DeviceNameAsString(8);
-  v89[0] = v75;
-  v90[0] = &unk_2881CA8E0;
-  v74 = DeviceNameAsString(9);
-  v89[1] = v74;
-  v90[1] = &unk_2881CA908;
-  v73 = DeviceNameAsString(17);
-  v89[2] = v73;
-  v90[2] = &unk_2881CA930;
-  v72 = DeviceNameAsString(7);
-  v89[3] = v72;
-  v90[3] = &unk_2881CA958;
-  v71 = DeviceNameAsString(11);
-  v89[4] = v71;
-  v90[4] = &unk_2881CA980;
-  v70 = DeviceNameAsString(12);
-  v89[5] = v70;
-  v90[5] = &unk_2881CA9A8;
-  v69 = DeviceNameAsString(13);
-  v89[6] = v69;
-  v90[6] = &unk_2881CA9D0;
-  v68 = DeviceNameAsString(14);
-  v89[7] = v68;
-  v90[7] = &unk_2881CA9F8;
-  v67 = DeviceNameAsString(5);
-  v89[8] = v67;
-  v90[8] = &unk_2881CAA20;
-  v66 = DeviceNameAsString(6);
-  v89[9] = v66;
-  v90[9] = &unk_2881CAA48;
-  v65 = DeviceNameAsString(66);
-  v89[10] = v65;
-  v90[10] = &unk_2881CAA70;
-  v64 = DeviceNameAsString(15);
-  v89[11] = v64;
-  v90[11] = &unk_2881CAA98;
-  v63 = DeviceNameAsString(16);
-  v89[12] = v63;
-  v90[12] = &unk_2881CAAC0;
-  v62 = DeviceNameAsString(10);
-  v89[13] = v62;
-  v90[13] = &unk_2881CAAE8;
-  v61 = DeviceNameAsString(1);
-  v89[14] = v61;
-  v90[14] = &unk_2881CAB10;
-  v60 = DeviceNameAsString(3);
-  v89[15] = v60;
-  v90[15] = &unk_2881CAB38;
-  v59 = DeviceNameAsString(4);
-  v89[16] = v59;
-  v90[16] = &unk_2881CAB60;
-  v58 = DeviceNameAsString(18);
-  v89[17] = v58;
-  v90[17] = &unk_2881CAB88;
-  v57 = DeviceNameAsString(19);
-  v89[18] = v57;
-  v90[18] = &unk_2881CABB0;
-  v56 = DeviceNameAsString(29);
-  v89[19] = v56;
-  v90[19] = &unk_2881CABD8;
-  v55 = DeviceNameAsString(30);
-  v89[20] = v55;
-  v90[20] = &unk_2881CAC00;
-  v54 = DeviceNameAsString(33);
-  v89[21] = v54;
-  v90[21] = &unk_2881CAC28;
-  v53 = DeviceNameAsString(34);
-  v89[22] = v53;
-  v90[22] = &unk_2881CAC50;
-  v52 = DeviceNameAsString(35);
-  v89[23] = v52;
-  v90[23] = &unk_2881CAC78;
-  v51 = DeviceNameAsString(36);
-  v89[24] = v51;
-  v90[24] = &unk_2881CACA0;
-  v50 = DeviceNameAsString(37);
-  v89[25] = v50;
-  v90[25] = &unk_2881CACC8;
-  v49 = DeviceNameAsString(38);
-  v89[26] = v49;
-  v90[26] = &unk_2881CACF0;
-  v48 = DeviceNameAsString(21);
-  v89[27] = v48;
-  v90[27] = &unk_2881CAD18;
-  v47 = DeviceNameAsString(22);
-  v89[28] = v47;
-  v90[28] = &unk_2881CAD40;
-  v46 = DeviceNameAsString(25);
-  v89[29] = v46;
-  v90[29] = &unk_2881CAD68;
-  v45 = DeviceNameAsString(27);
-  v89[30] = v45;
-  v90[30] = &unk_2881CAD90;
-  v44 = DeviceNameAsString(31);
-  v89[31] = v44;
-  v90[31] = &unk_2881CADB8;
-  v43 = DeviceNameAsString(23);
-  v89[32] = v43;
-  v90[32] = &unk_2881CADE0;
-  v42 = DeviceNameAsString(39);
-  v89[33] = v42;
-  v90[33] = &unk_2881CAE08;
-  v41 = DeviceNameAsString(41);
-  v89[34] = v41;
-  v90[34] = &unk_2881CAE30;
-  v40 = DeviceNameAsString(44);
-  v89[35] = v40;
-  v90[35] = &unk_2881CAE58;
-  v39 = DeviceNameAsString(46);
-  v89[36] = v39;
-  v90[36] = &unk_2881CAE80;
-  v38 = DeviceNameAsString(47);
-  v89[37] = v38;
-  v90[37] = &unk_2881CAEA8;
-  v37 = DeviceNameAsString(49);
-  v89[38] = v37;
-  v90[38] = &unk_2881CAED0;
-  v36 = DeviceNameAsString(51);
-  v89[39] = v36;
-  v90[39] = &unk_2881CAEF8;
-  v35 = DeviceNameAsString(53);
-  v89[40] = v35;
-  v90[40] = &unk_2881CAF20;
-  v34 = DeviceNameAsString(55);
-  v89[41] = v34;
-  v90[41] = &unk_2881CAF48;
-  v33 = DeviceNameAsString(57);
-  v89[42] = v33;
-  v90[42] = &unk_2881CAF70;
+  v94[0] = @"VP configuration info";
+  v93[0] = @"ref port subtype";
+  v76 = [MEMORY[0x277CCACA8] stringWithFormat:@"b%u", 205];
+  v91 = v76;
+  v92 = &unk_2881CA8B8;
+  v75 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v92 forKeys:&v91 count:1];
+  v93[1] = v75;
+  v90[0] = @"device";
+  v74 = DeviceNameAsString(8);
+  v88[0] = v74;
+  v89[0] = &unk_2881CA8E0;
+  v73 = DeviceNameAsString(9);
+  v88[1] = v73;
+  v89[1] = &unk_2881CA908;
+  v72 = DeviceNameAsString(17);
+  v88[2] = v72;
+  v89[2] = &unk_2881CA930;
+  v71 = DeviceNameAsString(7);
+  v88[3] = v71;
+  v89[3] = &unk_2881CA958;
+  v70 = DeviceNameAsString(11);
+  v88[4] = v70;
+  v89[4] = &unk_2881CA980;
+  v69 = DeviceNameAsString(12);
+  v88[5] = v69;
+  v89[5] = &unk_2881CA9A8;
+  v68 = DeviceNameAsString(13);
+  v88[6] = v68;
+  v89[6] = &unk_2881CA9D0;
+  v67 = DeviceNameAsString(14);
+  v88[7] = v67;
+  v89[7] = &unk_2881CA9F8;
+  v66 = DeviceNameAsString(5);
+  v88[8] = v66;
+  v89[8] = &unk_2881CAA20;
+  v65 = DeviceNameAsString(6);
+  v88[9] = v65;
+  v89[9] = &unk_2881CAA48;
+  v64 = DeviceNameAsString(66);
+  v88[10] = v64;
+  v89[10] = &unk_2881CAA70;
+  v63 = DeviceNameAsString(15);
+  v88[11] = v63;
+  v89[11] = &unk_2881CAA98;
+  v62 = DeviceNameAsString(16);
+  v88[12] = v62;
+  v89[12] = &unk_2881CAAC0;
+  v61 = DeviceNameAsString(10);
+  v88[13] = v61;
+  v89[13] = &unk_2881CAAE8;
+  v60 = DeviceNameAsString(1);
+  v88[14] = v60;
+  v89[14] = &unk_2881CAB10;
+  v59 = DeviceNameAsString(3);
+  v88[15] = v59;
+  v89[15] = &unk_2881CAB38;
+  v58 = DeviceNameAsString(4);
+  v88[16] = v58;
+  v89[16] = &unk_2881CAB60;
+  v57 = DeviceNameAsString(18);
+  v88[17] = v57;
+  v89[17] = &unk_2881CAB88;
+  v56 = DeviceNameAsString(19);
+  v88[18] = v56;
+  v89[18] = &unk_2881CABB0;
+  v55 = DeviceNameAsString(29);
+  v88[19] = v55;
+  v89[19] = &unk_2881CABD8;
+  v54 = DeviceNameAsString(30);
+  v88[20] = v54;
+  v89[20] = &unk_2881CAC00;
+  v53 = DeviceNameAsString(33);
+  v88[21] = v53;
+  v89[21] = &unk_2881CAC28;
+  v52 = DeviceNameAsString(34);
+  v88[22] = v52;
+  v89[22] = &unk_2881CAC50;
+  v51 = DeviceNameAsString(35);
+  v88[23] = v51;
+  v89[23] = &unk_2881CAC78;
+  v50 = DeviceNameAsString(36);
+  v88[24] = v50;
+  v89[24] = &unk_2881CACA0;
+  v49 = DeviceNameAsString(37);
+  v88[25] = v49;
+  v89[25] = &unk_2881CACC8;
+  v48 = DeviceNameAsString(38);
+  v88[26] = v48;
+  v89[26] = &unk_2881CACF0;
+  v47 = DeviceNameAsString(21);
+  v88[27] = v47;
+  v89[27] = &unk_2881CAD18;
+  v46 = DeviceNameAsString(22);
+  v88[28] = v46;
+  v89[28] = &unk_2881CAD40;
+  v45 = DeviceNameAsString(25);
+  v88[29] = v45;
+  v89[29] = &unk_2881CAD68;
+  v44 = DeviceNameAsString(27);
+  v88[30] = v44;
+  v89[30] = &unk_2881CAD90;
+  v43 = DeviceNameAsString(31);
+  v88[31] = v43;
+  v89[31] = &unk_2881CADB8;
+  v42 = DeviceNameAsString(23);
+  v88[32] = v42;
+  v89[32] = &unk_2881CADE0;
+  v41 = DeviceNameAsString(39);
+  v88[33] = v41;
+  v89[33] = &unk_2881CAE08;
+  v40 = DeviceNameAsString(41);
+  v88[34] = v40;
+  v89[34] = &unk_2881CAE30;
+  v39 = DeviceNameAsString(44);
+  v88[35] = v39;
+  v89[35] = &unk_2881CAE58;
+  v38 = DeviceNameAsString(46);
+  v88[36] = v38;
+  v89[36] = &unk_2881CAE80;
+  v37 = DeviceNameAsString(47);
+  v88[37] = v37;
+  v89[37] = &unk_2881CAEA8;
+  v36 = DeviceNameAsString(49);
+  v88[38] = v36;
+  v89[38] = &unk_2881CAED0;
+  v35 = DeviceNameAsString(51);
+  v88[39] = v35;
+  v89[39] = &unk_2881CAEF8;
+  v34 = DeviceNameAsString(53);
+  v88[40] = v34;
+  v89[40] = &unk_2881CAF20;
+  v33 = DeviceNameAsString(55);
+  v88[41] = v33;
+  v89[41] = &unk_2881CAF48;
+  v32 = DeviceNameAsString(57);
+  v88[42] = v32;
+  v89[42] = &unk_2881CAF70;
   v2 = DeviceNameAsString(59);
-  v89[43] = v2;
-  v90[43] = &unk_2881CAF98;
+  v88[43] = v2;
+  v89[43] = &unk_2881CAF98;
   v3 = DeviceNameAsString(60);
-  v89[44] = v3;
-  v90[44] = &unk_2881CAFC0;
+  v88[44] = v3;
+  v89[44] = &unk_2881CAFC0;
   v4 = DeviceNameAsString(62);
-  v89[45] = v4;
-  v90[45] = &unk_2881CAFE8;
+  v88[45] = v4;
+  v89[45] = &unk_2881CAFE8;
   v5 = DeviceNameAsString(64);
-  v89[46] = v5;
-  v90[46] = &unk_2881CB010;
+  v88[46] = v5;
+  v89[46] = &unk_2881CB010;
   v6 = DeviceNameAsString(65);
-  v89[47] = v6;
-  v90[47] = &unk_2881CB038;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v90 forKeys:v89 count:48];
-  v91[1] = v7;
-  v91[2] = &unk_2881CB060;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v91 count:3];
-  v94[2] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v94 count:3];
-  v96[0] = v9;
-  v96[1] = &unk_2881CB088;
-  v95[1] = @"tree index";
-  v95[2] = @"version";
-  v96[2] = &unk_2881CB0A0;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v96 forKeys:v95 count:3];
+  v88[47] = v6;
+  v89[47] = &unk_2881CB038;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v89 forKeys:v88 count:48];
+  v90[1] = v7;
+  v90[2] = &unk_2881CB060;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v90 count:3];
+  v93[2] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v93 count:3];
+  v95[0] = v9;
+  v95[1] = &unk_2881CB088;
+  v94[1] = @"tree index";
+  v94[2] = @"version";
+  v95[2] = &unk_2881CB0A0;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v95 forKeys:v94 count:3];
   v11 = [v1 dictionaryWithDictionary:v10];
 
   [v11 objectForKeyedSubscript:@"tree index"];
+  v79 = 0u;
   v80 = 0u;
-  v81 = 0u;
-  v78 = 0u;
-  v12 = v79 = 0u;
-  v13 = [v12 countByEnumeratingWithState:&v78 objects:v88 count:16];
+  v77 = 0u;
+  v12 = v78 = 0u;
+  v13 = [v12 countByEnumeratingWithState:&v77 objects:v87 count:16];
   if (v13)
   {
-    v14 = *v79;
+    v14 = *v78;
     do
     {
       v15 = 0;
       do
       {
-        if (*v79 != v14)
+        if (*v78 != v14)
         {
           objc_enumerationMutation(v12);
         }
 
-        v16 = *(*(&v78 + 1) + 8 * v15);
+        v16 = *(*(&v77 + 1) + 8 * v15);
         v17 = [v11 objectForKeyedSubscript:v16];
         v18 = v17;
         if (v17)
@@ -5277,11 +5758,11 @@ void DSPEngineConfiguration::DSPEngineConfiguration(DSPEngineConfiguration *this
                   v22 = v16;
                   v23 = [v16 UTF8String];
                   *buf = 136315650;
-                  v83 = "vpDSPEngineConfiguration.mm";
-                  v84 = 1024;
-                  v85 = 231;
-                  v86 = 2080;
-                  v87 = v23;
+                  v82 = "vpDSPEngineConfiguration.mm";
+                  v83 = 1024;
+                  v84 = 231;
+                  v85 = 2080;
+                  v86 = v23;
                   v24 = v21;
                   v25 = OS_LOG_TYPE_ERROR;
                   v26 = "%25s:%-5d DSPEngine configuration file claimed to have tree %s, but it was an a valid tree";
@@ -5316,11 +5797,11 @@ void DSPEngineConfiguration::DSPEngineConfiguration(DSPEngineConfiguration *this
               v29 = v16;
               v30 = [v16 UTF8String];
               *buf = 136315650;
-              v83 = "vpDSPEngineConfiguration.mm";
-              v84 = 1024;
-              v85 = 227;
-              v86 = 2080;
-              v87 = v30;
+              v82 = "vpDSPEngineConfiguration.mm";
+              v83 = 1024;
+              v84 = 227;
+              v85 = 2080;
+              v86 = v30;
               v24 = v21;
               v25 = OS_LOG_TYPE_DEFAULT;
               v26 = "%25s:%-5d DSPEngine configuration file claimed to have tree %s, but it was not found";
@@ -5336,7 +5817,7 @@ LABEL_25:
       }
 
       while (v13 != v15);
-      v13 = [v12 countByEnumeratingWithState:&v78 objects:v88 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v77 objects:v87 count:16];
     }
 
     while (v13);
@@ -5344,16 +5825,14 @@ LABEL_25:
 
   v31 = GetVoiceProcessorVersion(vp::Context const&,unsigned int,unsigned int,unsigned int,unsigned int)::sDSPEngineConfiguration;
   GetVoiceProcessorVersion(vp::Context const&,unsigned int,unsigned int,unsigned int,unsigned int)::sDSPEngineConfiguration = v11;
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t GetVoiceProcessorVersion(const vp::Context *a1, AudioObjectID a2, unsigned int a3, AudioObjectID a4, unsigned int a5)
 {
-  v83 = *MEMORY[0x277D85DE8];
-  v74 = 0;
-  AppIntegerValue = CACFPreferencesGetAppIntegerValue(@"vp_force_version", @"com.apple.coreaudio", &v74);
-  if (!v74)
+  v82 = *MEMORY[0x277D85DE8];
+  v73 = 0;
+  AppIntegerValue = CACFPreferencesGetAppIntegerValue(@"vp_force_version", @"com.apple.coreaudio", &v73);
+  if (!v73)
   {
     if (*(a1 + 47) >= 0)
     {
@@ -5401,14 +5880,13 @@ LABEL_12:
     if (v21 && __dst[0] == 1)
     {
 
-      v11 = 10;
-      goto LABEL_95;
+      return 10;
     }
 
     {
-      if (v73)
+      if (v72)
       {
-        DSPEngineConfiguration::DSPEngineConfiguration(v73);
+        DSPEngineConfiguration::DSPEngineConfiguration(v72);
       }
     }
 
@@ -5426,18 +5904,18 @@ LABEL_12:
     GetVPProductFamilyType(v22);
     v24 = DeviceNameAsString(8);
     *__s = 0;
-    *v76 = 0;
-    v75 = 0;
+    *v75 = 0;
+    v74 = 0;
     if (a2 && a3)
     {
       GetAndPrintPortTypeProperty(0x6F757470u, a3, a2, 0x70737562u, "sub", __s);
-      GetAndPrintPortTypeProperty(0x6F757470u, a3, a2, 0x70657074u, "end point", &v76[1]);
+      GetAndPrintPortTypeProperty(0x6F757470u, a3, a2, 0x70657074u, "end point", &v75[1]);
     }
 
     if (a4 && a5)
     {
-      GetAndPrintPortTypeProperty(0x696E7074u, a5, a4, 0x70737562u, "sub", v76);
-      GetAndPrintPortTypeProperty(0x696E7074u, a5, a4, 0x70657074u, "end point", &v75);
+      GetAndPrintPortTypeProperty(0x696E7074u, a5, a4, 0x70737562u, "sub", v75);
+      GetAndPrintPortTypeProperty(0x696E7074u, a5, a4, 0x70657074u, "end point", &v74);
     }
 
     [(NSDictionary *)v23 setObject:v24 forKeyedSubscript:@"device"];
@@ -5457,17 +5935,17 @@ LABEL_12:
     [(NSDictionary *)v23 setObject:v30 forKeyedSubscript:@"ref port subtype"];
 
     v31 = MEMORY[0x277CCACA8];
-    CAX4CCStringNoQuote::CAX4CCStringNoQuote(__dst, v76[1]);
+    CAX4CCStringNoQuote::CAX4CCStringNoQuote(__dst, v75[1]);
     v32 = [v31 stringWithUTF8String:__dst];
     [(NSDictionary *)v23 setObject:v32 forKeyedSubscript:@"ref port endpoint type"];
 
     v33 = MEMORY[0x277CCACA8];
-    CAX4CCStringNoQuote::CAX4CCStringNoQuote(__dst, v76[0]);
+    CAX4CCStringNoQuote::CAX4CCStringNoQuote(__dst, v75[0]);
     v34 = [v33 stringWithUTF8String:__dst];
     [(NSDictionary *)v23 setObject:v34 forKeyedSubscript:@"mic port subtype"];
 
     v35 = MEMORY[0x277CCACA8];
-    CAX4CCStringNoQuote::CAX4CCStringNoQuote(__dst, v75);
+    CAX4CCStringNoQuote::CAX4CCStringNoQuote(__dst, v74);
     v36 = [v35 stringWithUTF8String:__dst];
     [(NSDictionary *)v23 setObject:v36 forKeyedSubscript:@"mic port endpoint type"];
 
@@ -5485,14 +5963,14 @@ LABEL_12:
       operator new();
     }
 
-    BYTE3(v82) = v38;
+    BYTE3(v81) = v38;
     if (v38)
     {
       memcpy(__dst, __s, v38);
     }
 
     __dst[v39] = 0;
-    if ((v82 & 0x80000000) == 0)
+    if ((v81 & 0x80000000) == 0)
     {
       v40 = __dst;
     }
@@ -5503,7 +5981,7 @@ LABEL_12:
     }
 
     v41 = [v37 stringWithUTF8String:v40];
-    if (SBYTE3(v82) < 0)
+    if (SBYTE3(v81) < 0)
     {
       operator delete(*__dst);
     }
@@ -5519,7 +5997,7 @@ LABEL_12:
         v11 = 6;
 LABEL_94:
 
-        goto LABEL_95;
+        return v11;
       }
     }
 
@@ -5541,14 +6019,14 @@ LABEL_94:
       operator new();
     }
 
-    BYTE3(v82) = v46;
+    BYTE3(v81) = v46;
     if (v46)
     {
       memcpy(__dst, __s, v46);
     }
 
     __dst[v47] = 0;
-    if ((v82 & 0x80000000) == 0)
+    if ((v81 & 0x80000000) == 0)
     {
       v48 = __dst;
     }
@@ -5559,7 +6037,7 @@ LABEL_94:
     }
 
     v49 = [v45 stringWithUTF8String:v48];
-    if (SBYTE3(v82) < 0)
+    if (SBYTE3(v81) < 0)
     {
       operator delete(*__dst);
     }
@@ -5614,10 +6092,10 @@ LABEL_93:
           v60 = [(__CFString *)@"VP configuration info" UTF8String];
           *__dst = 136315650;
           *&__dst[4] = "vpDSPEngineConfiguration.mm";
-          v79 = 1024;
-          v80 = 242;
-          v81 = 2080;
-          v82 = v60;
+          v78 = 1024;
+          v79 = 242;
+          v80 = 2080;
+          v81 = v60;
           _os_log_impl(&dword_2724B4000, v59, OS_LOG_TYPE_ERROR, "%25s:%-5d Couldn't get DSPEngine configuration tree %s", __dst, 0x1Cu);
         }
       }
@@ -5651,8 +6129,8 @@ LABEL_93:
         {
           *__dst = 136315394;
           *&__dst[4] = "vpDSPEngineConfiguration.mm";
-          v79 = 1024;
-          v80 = 461;
+          v78 = 1024;
+          v79 = 461;
           _os_log_impl(&dword_2724B4000, v67, OS_LOG_TYPE_ERROR, "%25s:%-5d Unknown or unsupported device!!", __dst, 0x12u);
         }
       }
@@ -5684,8 +6162,8 @@ LABEL_93:
         {
           *__dst = 136315394;
           *&__dst[4] = "vpDSPEngineConfiguration.mm";
-          v79 = 1024;
-          v80 = 467;
+          v78 = 1024;
+          v79 = 467;
           _os_log_impl(&dword_2724B4000, v70, OS_LOG_TYPE_ERROR, "%25s:%-5d Couldn't find the VP version in the DSPEngine configuration file!", __dst, 0x12u);
         }
       }
@@ -5696,13 +6174,10 @@ LABEL_93:
     goto LABEL_93;
   }
 
-  v11 = AppIntegerValue;
-LABEL_95:
-  v71 = *MEMORY[0x277D85DE8];
-  return v11;
+  return AppIntegerValue;
 }
 
-void ECApplicator::ECApplicator(ECApplicator *this, VoiceProcessorV4 *a2, int a3, int a4)
+void ECApplicator::ECApplicator(ECApplicator *this, VoiceProcessorV4 *a2, int a3, unsigned int a4)
 {
   *this = a2;
   *(this + 2) = a3;
@@ -5760,12 +6235,12 @@ uint64_t ECApplicator::setInputOutputABLs(uint64_t this, AudioBufferList **a2, A
   return this;
 }
 
-uint64_t ECApplicator::apply(AudioUnitParameterID *this, AudioTimeStamp *a2, unsigned int a3, BOOL *a4, float *a5, float *a6, float *a7, float *a8, float *a9, float *a10)
+uint64_t ECApplicator::apply(const AudioBufferList ***this, AudioTimeStamp *a2, unsigned int a3, BOOL *a4, float *a5, float *a6, float *a7, float *a8, float *a9, float *a10)
 {
   *a4 = 1;
   ioActionFlags = 512;
   v16 = *this;
-  if (*(v16[177] + a3))
+  if (*(&v16[177]->mNumberBuffers + a3))
   {
     v17 = 1.0;
   }
@@ -5775,7 +6250,7 @@ uint64_t ECApplicator::apply(AudioUnitParameterID *this, AudioTimeStamp *a2, uns
     v17 = 0.0;
   }
 
-  v18 = (*(*v16 + 112))(v16);
+  v18 = ((*v16)[4].mBuffers[0].mData)(v16);
   v19 = *this;
   if (v18 >= 6 && (*(v19 + 2260) & 1) == 0)
   {
@@ -5789,14 +6264,14 @@ uint64_t ECApplicator::apply(AudioUnitParameterID *this, AudioTimeStamp *a2, uns
           outValue = 0.0;
           if (!AudioUnitGetParameter(v20, 0x65637232u, 0, 0, &outValue))
           {
-            AudioUnitSetParameter(*(*this + 8 * this[2] + 2792), 0x30u, 0, 0, outValue, 0);
+            AudioUnitSetParameter((*this)[*(this + 2) + 349], 0x30u, 0, 0, outValue, 0);
           }
         }
       }
     }
 
     v19 = *this;
-    if (*(*this + 8864) & 1) != 0 && (v19[1109])
+    if ((*this)[1108] & 1) != 0 && (v19[1109])
     {
       v21 = v19[439];
       if (v21)
@@ -5806,7 +6281,7 @@ uint64_t ECApplicator::apply(AudioUnitParameterID *this, AudioTimeStamp *a2, uns
           inValue = 0.0;
           if (!AudioUnitGetParameter(v21, 0x65637233u, 0, 0, &inValue))
           {
-            AudioUnitSetParameter(*(*this + 8 * this[2] + 2792), 0x31u, 0, 0, inValue, 0);
+            AudioUnitSetParameter((*this)[*(this + 2) + 349], 0x31u, 0, 0, inValue, 0);
           }
 
           v19 = *this;
@@ -5815,20 +6290,20 @@ uint64_t ECApplicator::apply(AudioUnitParameterID *this, AudioTimeStamp *a2, uns
     }
   }
 
-  AudioUnitSetParameter(v19[this[2] + 349], this[4], 0, 0, v17, 0);
-  AudioUnitSetParameter(*(*this + 8 * this[2] + 2792), this[5], 0, 0, *(*this + 4400), 0);
-  AudioUnitProcessMultiple(*(*this + 8 * this[2] + 2792), &ioActionFlags, a2, *(*this + 516), this[16], *(this + 6), this[17], *(this + 7));
+  AudioUnitSetParameter(v19[*(this + 2) + 349], *(this + 4), 0, 0, v17, 0);
+  AudioUnitSetParameter((*this)[*(this + 2) + 349], *(this + 5), 0, 0, *(*this + 1100), 0);
+  AudioUnitProcessMultiple((*this)[*(this + 2) + 349], &ioActionFlags, a2, *(*this + 129), *(this + 16), this[6], *(this + 17), this[7]);
   if (*(this + 12) == 1)
   {
-    memcpy(*(**(this + 6) + 16), *(**(this + 7) + 16), 4 * *(*this + 516));
+    memcpy((*this[6])->mBuffers[0].mData, (*this[7])->mBuffers[0].mData, 4 * *(*this + 129));
   }
 
-  AudioUnitGetParameter(*(*this + 8 * this[2] + 2792), this[6], 0, 0, a5);
-  AudioUnitGetParameter(*(*this + 8 * this[2] + 2792), this[7], 0, 0, a6);
-  AudioUnitGetParameter(*(*this + 8 * this[2] + 2792), this[8], 0, 0, a7);
-  AudioUnitGetParameter(*(*this + 8 * this[2] + 2792), this[9], 0, 0, a8);
-  AudioUnitGetParameter(*(*this + 8 * this[2] + 2792), this[10], 0, 0, a9);
-  return AudioUnitGetParameter(*(*this + 8 * this[2] + 2792), this[11], 0, 0, a10);
+  AudioUnitGetParameter((*this)[*(this + 2) + 349], *(this + 6), 0, 0, a5);
+  AudioUnitGetParameter((*this)[*(this + 2) + 349], *(this + 7), 0, 0, a6);
+  AudioUnitGetParameter((*this)[*(this + 2) + 349], *(this + 8), 0, 0, a7);
+  AudioUnitGetParameter((*this)[*(this + 2) + 349], *(this + 9), 0, 0, a8);
+  AudioUnitGetParameter((*this)[*(this + 2) + 349], *(this + 10), 0, 0, a9);
+  return AudioUnitGetParameter((*this)[*(this + 2) + 349], *(this + 11), 0, 0, a10);
 }
 
 void VPGetPropsPListStringForKey(CFStringRef *a1, uint64_t a2)
@@ -6023,7 +6498,7 @@ void myFreeABLDynamic(AudioBufferList **a1)
 
 void WritePropertyListToFile(CFPropertyListRef *a1, const char *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   errorCode = 0;
   v3 = *MEMORY[0x277CBECE8];
   v4 = CFStringCreateWithCString(*MEMORY[0x277CBECE8], a2, 0x600u);
@@ -6038,7 +6513,7 @@ void WritePropertyListToFile(CFPropertyListRef *a1, const char *a2)
 
     if (VPGenCppUtilsLogScope(void)::scope)
     {
-      v8 = *VPGenCppUtilsLogScope(void)::scope;
+      v7 = *VPGenCppUtilsLogScope(void)::scope;
       if (!*VPGenCppUtilsLogScope(void)::scope)
       {
         goto LABEL_2;
@@ -6047,18 +6522,18 @@ void WritePropertyListToFile(CFPropertyListRef *a1, const char *a2)
 
     else
     {
-      v8 = MEMORY[0x277D86220];
+      v7 = MEMORY[0x277D86220];
     }
 
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315650;
-      v11 = "vpGenCppUtils.cpp";
-      v12 = 1024;
-      v13 = 284;
-      v14 = 1024;
-      v15 = errorCode;
-      _os_log_impl(&dword_2724B4000, v8, OS_LOG_TYPE_DEBUG, "%25s:%-5d _vp: plist write to file: err-%d writing plist", buf, 0x18u);
+      v10 = "vpGenCppUtils.cpp";
+      v11 = 1024;
+      v12 = 284;
+      v13 = 1024;
+      v14 = errorCode;
+      _os_log_impl(&dword_2724B4000, v7, OS_LOG_TYPE_DEBUG, "%25s:%-5d _vp: plist write to file: err-%d writing plist", buf, 0x18u);
     }
   }
 
@@ -6077,8 +6552,6 @@ LABEL_2:
   {
     CFRelease(Data);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void WriteItemToDictionary(__CFDictionary **a1, const void **a2, int a3, unint64_t a4, const char *valuePtr)
@@ -6185,7 +6658,7 @@ LABEL_21:
 char *ASBDToText(const CAStreamBasicDescription *a1, char *__str)
 {
   v4 = 0;
-  v31 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = 0uLL;
   do
   {
@@ -6229,7 +6702,6 @@ char *ASBDToText(const CAStreamBasicDescription *a1, char *__str)
       }
     }
 
-    v13 = *(a1 + 8);
     if (((*(a1 + 3) >> 7) & 0x3F) != 0)
     {
       snprintf(__source, 0x14uLL, "%d.%d");
@@ -6237,7 +6709,6 @@ char *ASBDToText(const CAStreamBasicDescription *a1, char *__str)
 
     else
     {
-      v25 = *(a1 + 8);
       snprintf(__source, 0x14uLL, "%d");
     }
 
@@ -6247,8 +6718,8 @@ char *ASBDToText(const CAStreamBasicDescription *a1, char *__str)
   else
   {
     *__dst = 0;
-    v27 = 0;
-    v28 = 0;
+    v24 = 0;
+    v25 = 0;
     LODWORD(v5) = bswap32(v6);
     v9 = vzip1_s8(*&v5, *&v5);
     v10.i64[0] = 0x1F0000001FLL;
@@ -6256,11 +6727,11 @@ char *ASBDToText(const CAStreamBasicDescription *a1, char *__str)
     v11.i64[0] = 0x5F0000005FLL;
     v11.i64[1] = 0x5F0000005FLL;
     v12 = vbsl_s8(vmovn_s32(vcgtq_u32(v11, vsraq_n_s32(v10, vshlq_n_s32(vmovl_u16(v9), 0x18uLL), 0x18uLL))), v9, 0x2E002E002E002ELL);
-    v30 = 4;
+    v27 = 4;
     *__source = vuzp1_s8(v12, v12).u32[0];
     __source[4] = 0;
     strlcpy(__dst, __source, 0x18uLL);
-    if (v30 < 0)
+    if (v27 < 0)
     {
       operator delete(*__source);
     }
@@ -6269,35 +6740,35 @@ char *ASBDToText(const CAStreamBasicDescription *a1, char *__str)
     snprintf(__str, 0x200uLL, "%s");
   }
 
+  v13 = strlen(__str);
+  snprintf(&__str[v13], v13 + 512, "@%.0f/%X", *a1, *(a1 + 3));
   v14 = strlen(__str);
-  snprintf(&__str[v14], v14 + 512, "@%.0f/%X", *a1, *(a1 + 3));
-  v15 = strlen(__str);
-  v16 = &__str[v15];
+  v15 = &__str[v14];
   if (*(a1 + 2) != 1819304813)
   {
-    snprintf(v16, v15 + 512, "#%d", *(a1 + 5));
-    v16 = &__str[strlen(__str)];
+    snprintf(v15, v14 + 512, "#%d", *(a1 + 5));
+    v15 = &__str[strlen(__str)];
   }
 
-  v17 = *(a1 + 6);
-  v18 = *(a1 + 3);
-  if (v17)
+  v16 = *(a1 + 6);
+  v17 = *(a1 + 3);
+  if (v16)
   {
-    if ((v18 & 0x20) != 0)
+    if ((v17 & 0x20) != 0)
     {
-      v19 = 1;
+      v18 = 1;
     }
 
     else
     {
-      v19 = *(a1 + 7);
-      if (!v19)
+      v18 = *(a1 + 7);
+      if (!v18)
       {
         goto LABEL_38;
       }
     }
 
-    if ((v17 / v19) < 1)
+    if ((v16 / v18) < 1)
     {
       goto LABEL_38;
     }
@@ -6307,55 +6778,54 @@ char *ASBDToText(const CAStreamBasicDescription *a1, char *__str)
       CAVerboseAbort();
     }
 
-    if ((v18 & 0x20) != 0)
+    if ((v17 & 0x20) != 0)
     {
-      v20 = 1;
+      v19 = 1;
     }
 
     else
     {
-      v20 = *(a1 + 7);
-      if (!v20)
+      v19 = *(a1 + 7);
+      if (!v19)
       {
 LABEL_33:
-        if (v20 != *(a1 + 8))
+        if (v19 != *(a1 + 8))
         {
-          if ((v18 & 0x10) != 0)
+          if ((v17 & 0x10) != 0)
           {
-            v21 = "H";
+            v20 = "H";
           }
 
           else
           {
-            v21 = "L";
+            v20 = "L";
           }
 
-          snprintf(v16, v16 - __str + 512, ":%s%d", v21, v17);
-          v16 = &__str[strlen(__str)];
-          v18 = *(a1 + 3);
+          snprintf(v15, v15 - __str + 512, ":%s%d", v20, v16);
+          v15 = &__str[strlen(__str)];
+          v17 = *(a1 + 3);
         }
 
         goto LABEL_38;
       }
     }
 
-    v20 = 8 * (v17 / v20);
+    v19 = 8 * (v16 / v19);
     goto LABEL_33;
   }
 
 LABEL_38:
-  if ((v18 & 0x20) != 0)
+  if ((v17 & 0x20) != 0)
   {
-    v22 = "D";
+    v21 = "D";
   }
 
   else
   {
-    v22 = "I";
+    v21 = "I";
   }
 
-  snprintf(v16, v16 - __str + 512, ",%d%s", *(a1 + 7), v22);
-  v23 = *MEMORY[0x277D85DE8];
+  snprintf(v15, v15 - __str + 512, ",%d%s", *(a1 + 7), v21);
   return __str;
 }
 
@@ -6371,18 +6841,18 @@ void sub_272531C60(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 unint64_t BlockSizeHelper::GetNextFFTFriendlyBlkSz(unint64_t this)
 {
-  v21[1] = *MEMORY[0x277D85DE8];
-  v20[4] = xmmword_27275AA98;
-  v20[5] = unk_27275AAA8;
-  v20[6] = xmmword_27275AAB8;
-  v20[0] = xmmword_27275AA58;
-  v20[1] = unk_27275AA68;
-  v20[2] = xmmword_27275AA78;
-  v20[3] = unk_27275AA88;
+  v21 = *MEMORY[0x277D85DE8];
+  v19[4] = xmmword_27275AA98;
+  v19[5] = unk_27275AAA8;
+  v19[6] = xmmword_27275AAB8;
+  v19[0] = xmmword_27275AA58;
+  v19[1] = unk_27275AA68;
+  v19[2] = xmmword_27275AA78;
+  v19[3] = unk_27275AA88;
   __p = 0;
+  v9 = 0;
   v10 = 0;
-  v11 = 0;
-  std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(&__p, v20, v21, 0x1CuLL);
+  std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(&__p, v19, &v20, 0x1CuLL);
   if ((this - 4097) < 0xFFFFF00F)
   {
     if (VPGenCppUtilsLogScope(void)::once != -1)
@@ -6410,25 +6880,25 @@ LABEL_18:
     {
       v6 = "large";
       *buf = 136315906;
-      v13 = "vpGenCppUtils.cpp";
-      v15 = 526;
-      v14 = 1024;
+      v12 = "vpGenCppUtils.cpp";
+      v14 = 526;
+      v13 = 1024;
       if (this < 0x10)
       {
         v6 = "small";
       }
 
-      v16 = 1024;
-      v17 = this;
-      v18 = 2080;
-      v19 = v6;
+      v15 = 1024;
+      v16 = this;
+      v17 = 2080;
+      v18 = v6;
       _os_log_impl(&dword_2724B4000, v2, OS_LOG_TYPE_ERROR, "%25s:%-5d GetNextFFTFriendlyBlkSz: input block size %d is too %s !!!", buf, 0x22u);
     }
 
     goto LABEL_18;
   }
 
-  if (((v10 - __p) >> 2) < 1)
+  if (((v9 - __p) >> 2) < 1)
   {
 LABEL_12:
     v4 = 0;
@@ -6462,7 +6932,7 @@ LABEL_20:
         goto LABEL_20;
       }
 
-      if ((((v10 - __p) >> 2) & 0x7FFFFFFF) == ++v3)
+      if ((((v9 - __p) >> 2) & 0x7FFFFFFF) == ++v3)
       {
         goto LABEL_12;
       }
@@ -6475,11 +6945,10 @@ LABEL_23:
     operator delete(__p);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return this;
 }
 
-uint64_t std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(uint64_t *result, int *a2, int *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6942,9 +7411,9 @@ void *___Z31AudioIssueDetectorLibraryLoaderv_block_invoke_2427()
 
 uint64_t VoiceProcessorV2::InitializeDownlinkProcessing(std::chrono::duration<long long, std::ratio<1, 1000000>>::rep a1, uint64_t a2, UInt32 a3, uint64_t a4, void *a5)
 {
-  v89 = *MEMORY[0x277D85DE8];
-  v79 = a1 + 2408;
-  v80 = (*(*(a1 + 2408) + 16))();
+  v88 = *MEMORY[0x277D85DE8];
+  v78 = a1 + 2408;
+  v79 = (*(*(a1 + 2408) + 16))();
   atomic_fetch_add((a1 + 2496), 1u);
   while (*(a1 + 2500))
   {
@@ -7006,9 +7475,9 @@ uint64_t VoiceProcessorV2::InitializeDownlinkProcessing(std::chrono::duration<lo
     v15 = (*v14 ? *v14 : MEMORY[0x277D86220]);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      CAFormatter::CAFormatter(v76, a2);
-      v16 = v76[0];
-      CAFormatter::CAFormatter(&v87, a4);
+      CAFormatter::CAFormatter(v75, a2);
+      v16 = v75[0];
+      CAFormatter::CAFormatter(&v86, a4);
       *buf = 136316162;
       *&buf[4] = "vpInitializeDownlink.cpp";
       *&buf[12] = 1024;
@@ -7018,16 +7487,16 @@ uint64_t VoiceProcessorV2::InitializeDownlinkProcessing(std::chrono::duration<lo
       *&buf[28] = 1024;
       *&buf[30] = a3;
       *&buf[34] = 2080;
-      *&buf[36] = v87.mSampleRate;
+      *&buf[36] = v86.mSampleRate;
       _os_log_impl(&dword_2724B4000, v15, OS_LOG_TYPE_INFO, "%25s:%-5d  <vp> mix %s (blksz %u), voice %s", buf, 0x2Cu);
-      if (*&v87.mSampleRate)
+      if (*&v86.mSampleRate)
       {
-        free(*&v87.mSampleRate);
+        free(*&v86.mSampleRate);
       }
 
-      if (v76[0])
+      if (v75[0])
       {
-        free(v76[0]);
+        free(v75[0]);
       }
     }
   }
@@ -7044,12 +7513,12 @@ uint64_t VoiceProcessorV2::InitializeDownlinkProcessing(std::chrono::duration<lo
     v19 = VPLogScope(void)::scope;
     CAFormatter::CAFormatter(buf, a2);
     v20 = *buf;
-    CAFormatter::CAFormatter(v76, a4);
-    CALegacyLog::log(v17, 4, v19, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpInitializeDownlink.cpp", 133, "InitializeDownlinkProcessing", "mix %s (blksz %u), voice %s", v20, a3, v76[0]);
+    CAFormatter::CAFormatter(v75, a4);
+    CALegacyLog::log(v17, 4, v19, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpInitializeDownlink.cpp", 133, "InitializeDownlinkProcessing", "mix %s (blksz %u), voice %s", v20, a3, v75[0]);
     a5 = v18;
-    if (v76[0])
+    if (v75[0])
     {
-      free(v76[0]);
+      free(v75[0]);
     }
 
     if (*buf)
@@ -7063,9 +7532,9 @@ uint64_t VoiceProcessorV2::InitializeDownlinkProcessing(std::chrono::duration<lo
   *&buf[16] = v21;
   *&buf[32] = *(a2 + 32);
   v22 = *(a4 + 16);
-  *v76 = *a4;
-  v77 = v22;
-  v78 = *(a4 + 32);
+  *v75 = *a4;
+  v76 = v22;
+  v77 = *(a4 + 32);
   if (VPLogScope(void)::once != -1)
   {
     dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
@@ -7077,17 +7546,17 @@ uint64_t VoiceProcessorV2::InitializeDownlinkProcessing(std::chrono::duration<lo
     v24 = (*v23 ? *v23 : MEMORY[0x277D86220]);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
     {
-      CAFormatter::CAFormatter(&v75, buf);
-      LODWORD(v87.mSampleRate) = 136315650;
-      *(&v87.mSampleRate + 4) = "vpInitializeDownlink.cpp";
-      LOWORD(v87.mFormatFlags) = 1024;
-      *(&v87.mFormatFlags + 2) = 138;
-      HIWORD(v87.mBytesPerPacket) = 2080;
-      *&v87.mFramesPerPacket = v75.mSampleRate;
-      _os_log_impl(&dword_2724B4000, v24, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> initializedlp:   mix asbd = %s", &v87, 0x1Cu);
-      if (*&v75.mSampleRate)
+      CAFormatter::CAFormatter(&v74, buf);
+      LODWORD(v86.mSampleRate) = 136315650;
+      *(&v86.mSampleRate + 4) = "vpInitializeDownlink.cpp";
+      LOWORD(v86.mFormatFlags) = 1024;
+      *(&v86.mFormatFlags + 2) = 138;
+      HIWORD(v86.mBytesPerPacket) = 2080;
+      *&v86.mFramesPerPacket = v74.mSampleRate;
+      _os_log_impl(&dword_2724B4000, v24, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> initializedlp:   mix asbd = %s", &v86, 0x1Cu);
+      if (*&v74.mSampleRate)
       {
-        free(*&v75.mSampleRate);
+        free(*&v74.mSampleRate);
       }
     }
   }
@@ -7101,11 +7570,11 @@ uint64_t VoiceProcessorV2::InitializeDownlinkProcessing(std::chrono::duration<lo
     }
 
     v26 = VPLogScope(void)::scope;
-    CAFormatter::CAFormatter(&v87, buf);
-    CALegacyLog::log(v25, 5, v26, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpInitializeDownlink.cpp", 138, "InitializeDownlinkProcessing", "initializedlp:   mix asbd = %s", *&v87.mSampleRate);
-    if (*&v87.mSampleRate)
+    CAFormatter::CAFormatter(&v86, buf);
+    CALegacyLog::log(v25, 5, v26, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpInitializeDownlink.cpp", 138, "InitializeDownlinkProcessing", "initializedlp:   mix asbd = %s", *&v86.mSampleRate);
+    if (*&v86.mSampleRate)
     {
-      free(*&v87.mSampleRate);
+      free(*&v86.mSampleRate);
     }
   }
 
@@ -7120,17 +7589,17 @@ uint64_t VoiceProcessorV2::InitializeDownlinkProcessing(std::chrono::duration<lo
     v28 = (*v27 ? *v27 : MEMORY[0x277D86220]);
     if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
     {
-      CAFormatter::CAFormatter(&v75, v76);
-      LODWORD(v87.mSampleRate) = 136315650;
-      *(&v87.mSampleRate + 4) = "vpInitializeDownlink.cpp";
-      LOWORD(v87.mFormatFlags) = 1024;
-      *(&v87.mFormatFlags + 2) = 140;
-      HIWORD(v87.mBytesPerPacket) = 2080;
-      *&v87.mFramesPerPacket = v75.mSampleRate;
-      _os_log_impl(&dword_2724B4000, v28, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> initializedlp: voice asbd = %s", &v87, 0x1Cu);
-      if (*&v75.mSampleRate)
+      CAFormatter::CAFormatter(&v74, v75);
+      LODWORD(v86.mSampleRate) = 136315650;
+      *(&v86.mSampleRate + 4) = "vpInitializeDownlink.cpp";
+      LOWORD(v86.mFormatFlags) = 1024;
+      *(&v86.mFormatFlags + 2) = 140;
+      HIWORD(v86.mBytesPerPacket) = 2080;
+      *&v86.mFramesPerPacket = v74.mSampleRate;
+      _os_log_impl(&dword_2724B4000, v28, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> initializedlp: voice asbd = %s", &v86, 0x1Cu);
+      if (*&v74.mSampleRate)
       {
-        free(*&v75.mSampleRate);
+        free(*&v74.mSampleRate);
       }
     }
   }
@@ -7144,11 +7613,11 @@ uint64_t VoiceProcessorV2::InitializeDownlinkProcessing(std::chrono::duration<lo
     }
 
     v30 = VPLogScope(void)::scope;
-    CAFormatter::CAFormatter(&v87, v76);
-    CALegacyLog::log(v29, 5, v30, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpInitializeDownlink.cpp", 140, "InitializeDownlinkProcessing", "initializedlp: voice asbd = %s", *&v87.mSampleRate);
-    if (*&v87.mSampleRate)
+    CAFormatter::CAFormatter(&v86, v75);
+    CALegacyLog::log(v29, 5, v30, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpInitializeDownlink.cpp", 140, "InitializeDownlinkProcessing", "initializedlp: voice asbd = %s", *&v86.mSampleRate);
+    if (*&v86.mSampleRate)
     {
-      free(*&v87.mSampleRate);
+      free(*&v86.mSampleRate);
     }
   }
 
@@ -7163,13 +7632,13 @@ uint64_t VoiceProcessorV2::InitializeDownlinkProcessing(std::chrono::duration<lo
     v32 = (*v31 ? *v31 : MEMORY[0x277D86220]);
     if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
     {
-      LODWORD(v87.mSampleRate) = 136315650;
-      *(&v87.mSampleRate + 4) = "vpInitializeDownlink.cpp";
-      LOWORD(v87.mFormatFlags) = 1024;
-      *(&v87.mFormatFlags + 2) = 141;
-      HIWORD(v87.mBytesPerPacket) = 1024;
-      v87.mFramesPerPacket = a3;
-      _os_log_impl(&dword_2724B4000, v32, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> initializedlp: mix blk sz = %d", &v87, 0x18u);
+      LODWORD(v86.mSampleRate) = 136315650;
+      *(&v86.mSampleRate + 4) = "vpInitializeDownlink.cpp";
+      LOWORD(v86.mFormatFlags) = 1024;
+      *(&v86.mFormatFlags + 2) = 141;
+      HIWORD(v86.mBytesPerPacket) = 1024;
+      v86.mFramesPerPacket = a3;
+      _os_log_impl(&dword_2724B4000, v32, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp> initializedlp: mix blk sz = %d", &v86, 0x18u);
     }
   }
 
@@ -7187,11 +7656,11 @@ uint64_t VoiceProcessorV2::InitializeDownlinkProcessing(std::chrono::duration<lo
   v34 = *&buf[16];
   *(a1 + 336) = *buf;
   *(a1 + 352) = v34;
-  v35 = v77;
-  *(a1 + 216) = *v76;
+  v35 = v76;
+  *(a1 + 216) = *v75;
   *(a1 + 368) = *&buf[32];
   *(a1 + 232) = v35;
-  *(a1 + 248) = v78;
+  *(a1 + 248) = v77;
   *(a1 + 492) = a3;
   *(a1 + 524) = a3;
   *(a1 + 528) = 1;
@@ -7215,35 +7684,35 @@ LABEL_178:
               dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
             }
 
-            v70 = VPLogScope(void)::scope;
+            v69 = VPLogScope(void)::scope;
             if (VPLogScope(void)::scope && CALegacyLog::LogEnabled(3, VPLogScope(void)::scope, 0))
             {
-              v71 = (*v70 ? *v70 : MEMORY[0x277D86220]);
-              if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
+              v70 = (*v69 ? *v69 : MEMORY[0x277D86220]);
+              if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
               {
-                v72 = *(a1 + 524);
-                v73 = *(a1 + 528);
-                LODWORD(v87.mSampleRate) = 136315906;
-                *(&v87.mSampleRate + 4) = "vpInitializeDownlink.cpp";
-                LOWORD(v87.mFormatFlags) = 1024;
-                *(&v87.mFormatFlags + 2) = 601;
-                HIWORD(v87.mBytesPerPacket) = 1024;
-                v87.mFramesPerPacket = v72;
-                LOWORD(v87.mBytesPerFrame) = 1024;
-                *(&v87.mBytesPerFrame + 2) = v73;
-                _os_log_impl(&dword_2724B4000, v71, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> +++ dl io blk size = %u, num dl io cycles = %u", &v87, 0x1Eu);
+                v71 = *(a1 + 524);
+                v72 = *(a1 + 528);
+                LODWORD(v86.mSampleRate) = 136315906;
+                *(&v86.mSampleRate + 4) = "vpInitializeDownlink.cpp";
+                LOWORD(v86.mFormatFlags) = 1024;
+                *(&v86.mFormatFlags + 2) = 601;
+                HIWORD(v86.mBytesPerPacket) = 1024;
+                v86.mFramesPerPacket = v71;
+                LOWORD(v86.mBytesPerFrame) = 1024;
+                *(&v86.mBytesPerFrame + 2) = v72;
+                _os_log_impl(&dword_2724B4000, v70, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> +++ dl io blk size = %u, num dl io cycles = %u", &v86, 0x1Eu);
               }
             }
 
-            v74 = *(a1 + 12704);
-            if (v74 && ((*(a1 + 15881) & 1) != 0 || *(a1 + 15882) == 1))
+            v73 = *(a1 + 12704);
+            if (v73 && ((*(a1 + 15881) & 1) != 0 || *(a1 + 15882) == 1))
             {
               if (VPLogScope(void)::once != -1)
               {
                 dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
               }
 
-              CALegacyLog::log(v74, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpInitializeDownlink.cpp", 601, "CalcDLIoBlkSz", "+++ dl io blk size = %u, num dl io cycles = %u", *(a1 + 524), *(a1 + 528));
+              CALegacyLog::log(v73, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpInitializeDownlink.cpp", 601, "CalcDLIoBlkSz", "+++ dl io blk size = %u, num dl io cycles = %u", *(a1 + 524), *(a1 + 528));
             }
 
             goto LABEL_94;
@@ -7253,16 +7722,16 @@ LABEL_178:
           v46 = *(a1 + 524);
           if (ShouldUseOptimizedBlockSizeForFacePlant)
           {
-            v68 = *(a1 + 336);
-            while (v46 / v68 > 0.01)
+            v67 = *(a1 + 336);
+            while (v46 / v67 > 0.01)
             {
               a3 = v46 >> 1;
               *(a1 + 524) = v46 >> 1;
               if (v46 >= 0x82)
               {
-                v69 = v46 & 6;
+                v68 = v46 & 6;
                 v46 >>= 1;
-                if (!v69)
+                if (!v68)
                 {
                   continue;
                 }
@@ -7315,11 +7784,11 @@ LABEL_94:
   *(a1 + 12612) = 0;
   VoiceProcessorV2::InitDLSRCs(a1);
   v36 = *(a1 + 352);
-  *&v87.mSampleRate = *(a1 + 336);
-  *&v87.mBytesPerPacket = v36;
-  *&v87.mBitsPerChannel = *(a1 + 368);
-  v87.mChannelsPerFrame = 4;
-  myAllocABLDynamic(&v87, *(a1 + 492), (a1 + 208));
+  *&v86.mSampleRate = *(a1 + 336);
+  *&v86.mBytesPerPacket = v36;
+  *&v86.mBitsPerChannel = *(a1 + 368);
+  v86.mChannelsPerFrame = 4;
+  myAllocABLDynamic(&v86, *(a1 + 492), (a1 + 208));
   if (a5)
   {
     a5 = _Block_copy(a5);
@@ -7340,23 +7809,23 @@ LABEL_94:
     }
 
     v38 = *(a1 + 352);
-    *&v75.mSampleRate = *(a1 + 336);
-    *&v75.mBytesPerPacket = v38;
-    *&v75.mBitsPerChannel = *(a1 + 368);
+    *&v74.mSampleRate = *(a1 + 336);
+    *&v74.mBytesPerPacket = v38;
+    *&v74.mBitsPerChannel = *(a1 + 368);
     v39 = *(a1 + 348) & 0x20;
-    if ((v75.mFormatFlags & 0x20) != 0)
+    if ((v74.mFormatFlags & 0x20) != 0)
     {
       mChannelsPerFrame = 1;
     }
 
     else
     {
-      mChannelsPerFrame = v75.mChannelsPerFrame;
-      if (!v75.mChannelsPerFrame)
+      mChannelsPerFrame = v74.mChannelsPerFrame;
+      if (!v74.mChannelsPerFrame)
       {
-        v41 = (v75.mBitsPerChannel + 7) >> 3;
+        v41 = (v74.mBitsPerChannel + 7) >> 3;
 LABEL_119:
-        v75.mChannelsPerFrame = 8;
+        v74.mChannelsPerFrame = 8;
         if (v39)
         {
           v48 = 0;
@@ -7367,11 +7836,11 @@ LABEL_119:
           v48 = 3;
         }
 
-        v75.mFramesPerPacket = 1;
-        v75.mBytesPerFrame = v41 << v48;
-        v75.mFormatFlags = v75.mFormatFlags & 0xFFFFFFDF | v39;
-        v75.mBytesPerPacket = v41 << v48;
-        myAllocABLDynamic(&v75, v37, (a1 + 1640));
+        v74.mFramesPerPacket = 1;
+        v74.mBytesPerFrame = v41 << v48;
+        v74.mFormatFlags = v74.mFormatFlags & 0xFFFFFFDF | v39;
+        v74.mBytesPerPacket = v41 << v48;
+        myAllocABLDynamic(&v74, v37, (a1 + 1640));
         v49 = *(a1 + 1640);
         if (*v49)
         {
@@ -7398,13 +7867,13 @@ LABEL_119:
           v53 = (*v52 ? *v52 : MEMORY[0x277D86220]);
           if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
           {
-            *v81 = 136315650;
-            v82 = "vpInitializeDownlink.cpp";
-            v83 = 1024;
-            v84 = 214;
-            v85 = 1024;
-            v86 = v37;
-            _os_log_impl(&dword_2724B4000, v53, OS_LOG_TYPE_INFO, "%25s:%-5d  <vp> DL Fade data size = %u", v81, 0x18u);
+            *v80 = 136315650;
+            v81 = "vpInitializeDownlink.cpp";
+            v82 = 1024;
+            v83 = 214;
+            v84 = 1024;
+            v85 = v37;
+            _os_log_impl(&dword_2724B4000, v53, OS_LOG_TYPE_INFO, "%25s:%-5d  <vp> DL Fade data size = %u", v80, 0x18u);
           }
         }
 
@@ -7423,7 +7892,7 @@ LABEL_119:
       }
     }
 
-    v41 = v75.mBytesPerFrame / mChannelsPerFrame;
+    v41 = v74.mBytesPerFrame / mChannelsPerFrame;
     goto LABEL_119;
   }
 
@@ -7494,16 +7963,15 @@ LABEL_140:
   }
 
   atomic_fetch_add((a1 + 2496), 0xFFFFFFFF);
-  if (v80 == 1)
+  if (v79 == 1)
   {
-    (*(*v79 + 24))(v79);
+    (*(*v78 + 24))(v78);
   }
 
-  v65 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
-void sub_272533964(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31)
+void sub_272533964(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31)
 {
   atomic_fetch_add((v31 + 2496), 0xFFFFFFFF);
   CADeprecated::CAMutex::Locker::~Locker(&a25);
@@ -7523,9 +7991,9 @@ void std::__destroy_at[abi:ne200100]<vp::Block<int ()(AudioBufferList *,AudioTim
 void VoiceProcessorV2::InitializeDLP(VoiceProcessorV2 *this)
 {
   v1 = this;
-  v257 = *MEMORY[0x277D85DE8];
-  v235 = this + 12288;
-  v232 = (this + 592);
+  v253 = *MEMORY[0x277D85DE8];
+  v234 = this + 12288;
+  v231 = (this + 592);
   if (VoiceProcessorV2::ShouldGenerateReferenceSignalInternally(this))
   {
     v2 = v1 + 336;
@@ -7543,29 +8011,29 @@ void VoiceProcessorV2::InitializeDLP(VoiceProcessorV2 *this)
         if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
         {
           v5 = *(v1 + 38);
-          *&block[0].mSelector = *&v232->mSampleRate;
+          *&block[0].mSelector = *&v231->mSampleRate;
           *&block[1].mScope = v5;
           *&block[2].mElement = *(v1 + 78);
           p_outData = &outData;
           CA::StreamDescription::AsString(&outData, block, *&block[0].mSelector, *&v5);
-          if (v246 < 0)
+          if ((outData.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
           {
-            p_outData = outData;
+            p_outData = outData.__r_.__value_.__r.__words[0];
           }
 
           v7 = *(v1 + 22);
-          *&v241.mSampleRate = *v2;
-          *&v241.mBytesPerPacket = v7;
-          *&v241.mBitsPerChannel = *(v1 + 46);
-          CA::StreamDescription::AsString(&__p, &v241, v241.mSampleRate, *&v7);
-          if (v249 >= 0)
+          *&v240.mSampleRate = *v2;
+          *&v240.mBytesPerPacket = v7;
+          *&v240.mBitsPerChannel = *(v1 + 46);
+          CA::StreamDescription::AsString(&__p, &v240, v240.mSampleRate, *&v7);
+          if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
             p_p = &__p;
           }
 
           else
           {
-            p_p = __p;
+            p_p = __p.__r_.__value_.__r.__words[0];
           }
 
           *buf = 136315906;
@@ -7574,23 +8042,23 @@ void VoiceProcessorV2::InitializeDLP(VoiceProcessorV2 *this)
           *&buf[14] = 3284;
           *&buf[18] = 2080;
           *&buf[20] = p_outData;
-          v251 = 2080;
-          v252 = p_p;
+          v247 = 2080;
+          v248 = p_p;
           _os_log_impl(&dword_2724B4000, v4, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> Updating hwRef to match dlMix format:\n was: %s\n now: %s", buf, 0x26u);
-          if (v249 < 0)
+          if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(__p);
+            operator delete(__p.__r_.__value_.__l.__data_);
           }
 
-          if (SHIBYTE(v246) < 0)
+          if (SHIBYTE(outData.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(outData);
+            operator delete(outData.__r_.__value_.__l.__data_);
           }
         }
       }
 
       v9 = *(v1 + 1588);
-      if (!v9 || (v235[3593] & 1) == 0 && v235[3594] != 1)
+      if (!v9 || (v234[3593] & 1) == 0 && v234[3594] != 1)
       {
         goto LABEL_71;
       }
@@ -7602,7 +8070,7 @@ void VoiceProcessorV2::InitializeDLP(VoiceProcessorV2 *this)
 
       v10 = VPLogScope(void)::scope;
       v11 = *(v1 + 38);
-      *&block[0].mSelector = *&v232->mSampleRate;
+      *&block[0].mSelector = *&v231->mSampleRate;
       *&block[1].mScope = v11;
       *&block[2].mElement = *(v1 + 78);
       v12 = buf;
@@ -7613,25 +8081,25 @@ void VoiceProcessorV2::InitializeDLP(VoiceProcessorV2 *this)
       }
 
       v13 = *(v1 + 22);
-      *&v241.mSampleRate = *v2;
-      *&v241.mBytesPerPacket = v13;
-      *&v241.mBitsPerChannel = *(v1 + 46);
-      CA::StreamDescription::AsString(&outData, &v241, v241.mSampleRate, *&v13);
-      if (v246 >= 0)
+      *&v240.mSampleRate = *v2;
+      *&v240.mBytesPerPacket = v13;
+      *&v240.mBitsPerChannel = *(v1 + 46);
+      CA::StreamDescription::AsString(&outData, &v240, v240.mSampleRate, *&v13);
+      if ((outData.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
         v14 = &outData;
       }
 
       else
       {
-        v14 = outData;
+        v14 = outData.__r_.__value_.__r.__words[0];
       }
 
       CALegacyLog::log(v9, 3, v10, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/VoiceProcessor_v2.cpp", 3284, "UpdateReferenceSignalFormat", "Updating hwRef to match dlMix format:\n was: %s\n now: %s", v12, v14);
 LABEL_67:
-      if (SHIBYTE(v246) < 0)
+      if (SHIBYTE(outData.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(outData);
+        operator delete(outData.__r_.__value_.__l.__data_);
       }
 
       if ((buf[23] & 0x80000000) != 0)
@@ -7641,7 +8109,7 @@ LABEL_67:
 
 LABEL_71:
       v27 = *(v2 + 1);
-      *&v232->mSampleRate = *v2;
+      *&v231->mSampleRate = *v2;
       *(v1 + 38) = v27;
       *(v1 + 78) = *(v2 + 4);
       if (VPLogScope(void)::once != -1)
@@ -7664,7 +8132,7 @@ LABEL_71:
       }
 
       v30 = *(v1 + 1588);
-      if (v30 && ((v235[3593] & 1) != 0 || v235[3594] == 1))
+      if (v30 && ((v234[3593] & 1) != 0 || v234[3594] == 1))
       {
         if (VPLogScope(void)::once != -1)
         {
@@ -7694,7 +8162,7 @@ LABEL_71:
       }
 
       v33 = *(v1 + 1588);
-      if (v33 && ((v235[3593] & 1) != 0 || v235[3594] == 1))
+      if (v33 && ((v234[3593] & 1) != 0 || v234[3594] == 1))
       {
         if (VPLogScope(void)::once != -1)
         {
@@ -7725,7 +8193,7 @@ LABEL_71:
       }
 
       v36 = *(v1 + 1588);
-      if (v36 && ((v235[3593] & 1) != 0 || v235[3594] == 1))
+      if (v36 && ((v234[3593] & 1) != 0 || v234[3594] == 1))
       {
         if (VPLogScope(void)::once != -1)
         {
@@ -7751,30 +8219,30 @@ LABEL_71:
       v16 = (*v15 ? *v15 : MEMORY[0x277D86220]);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = *&v232->mBytesPerPacket;
-        *&block[0].mSelector = *&v232->mSampleRate;
+        v17 = *&v231->mBytesPerPacket;
+        *&block[0].mSelector = *&v231->mSampleRate;
         *&block[1].mScope = v17;
-        *&block[2].mElement = *&v232->mBitsPerChannel;
+        *&block[2].mElement = *&v231->mBitsPerChannel;
         v18 = &outData;
         CA::StreamDescription::AsString(&outData, block, *&block[0].mSelector, *&v17);
-        if (v246 < 0)
+        if ((outData.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          v18 = outData;
+          v18 = outData.__r_.__value_.__r.__words[0];
         }
 
         v19 = *(v1 + 568);
-        *&v241.mSampleRate = *v2;
-        *&v241.mBytesPerPacket = v19;
-        *&v241.mBitsPerChannel = *(v1 + 73);
-        CA::StreamDescription::AsString(&__p, &v241, v241.mSampleRate, *&v19);
-        if (v249 >= 0)
+        *&v240.mSampleRate = *v2;
+        *&v240.mBytesPerPacket = v19;
+        *&v240.mBitsPerChannel = *(v1 + 73);
+        CA::StreamDescription::AsString(&__p, &v240, v240.mSampleRate, *&v19);
+        if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
           v20 = &__p;
         }
 
         else
         {
-          v20 = __p;
+          v20 = __p.__r_.__value_.__r.__words[0];
         }
 
         *buf = 136315906;
@@ -7783,23 +8251,23 @@ LABEL_71:
         *&buf[14] = 3292;
         *&buf[18] = 2080;
         *&buf[20] = v18;
-        v251 = 2080;
-        v252 = v20;
+        v247 = 2080;
+        v248 = v20;
         _os_log_impl(&dword_2724B4000, v16, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> Updating hwRef to match extHwRef format:\n was:%s\n now:%s", buf, 0x26u);
-        if (v249 < 0)
+        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(__p);
+          operator delete(__p.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v246) < 0)
+        if (SHIBYTE(outData.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(outData);
+          operator delete(outData.__r_.__value_.__l.__data_);
         }
       }
     }
 
     v21 = *(v1 + 1588);
-    if (!v21 || (v235[3593] & 1) == 0 && v235[3594] != 1)
+    if (!v21 || (v234[3593] & 1) == 0 && v234[3594] != 1)
     {
       goto LABEL_71;
     }
@@ -7810,10 +8278,10 @@ LABEL_71:
     }
 
     v22 = VPLogScope(void)::scope;
-    v23 = *&v232->mBytesPerPacket;
-    *&block[0].mSelector = *&v232->mSampleRate;
+    v23 = *&v231->mBytesPerPacket;
+    *&block[0].mSelector = *&v231->mSampleRate;
     *&block[1].mScope = v23;
-    *&block[2].mElement = *&v232->mBitsPerChannel;
+    *&block[2].mElement = *&v231->mBitsPerChannel;
     v24 = buf;
     CA::StreamDescription::AsString(buf, block, *&block[0].mSelector, *&v23);
     if (buf[23] < 0)
@@ -7822,18 +8290,18 @@ LABEL_71:
     }
 
     v25 = *(v1 + 568);
-    *&v241.mSampleRate = *v2;
-    *&v241.mBytesPerPacket = v25;
-    *&v241.mBitsPerChannel = *(v1 + 73);
-    CA::StreamDescription::AsString(&outData, &v241, v241.mSampleRate, *&v25);
-    if (v246 >= 0)
+    *&v240.mSampleRate = *v2;
+    *&v240.mBytesPerPacket = v25;
+    *&v240.mBitsPerChannel = *(v1 + 73);
+    CA::StreamDescription::AsString(&outData, &v240, v240.mSampleRate, *&v25);
+    if ((outData.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       v26 = &outData;
     }
 
     else
     {
-      v26 = outData;
+      v26 = outData.__r_.__value_.__r.__words[0];
     }
 
     CALegacyLog::log(v21, 3, v22, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/VoiceProcessor_v2.cpp", 3292, "UpdateReferenceSignalFormat", "Updating hwRef to match extHwRef format:\n was:%s\n now:%s", v24, v26);
@@ -7854,7 +8322,7 @@ LABEL_71:
 
   *(v1 + 2005) = v38;
   std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::clear(v1 + 4608);
-  if ((v235[3873] & 1) == 0)
+  if ((v234[3873] & 1) == 0)
   {
     v39 = *(v1 + 1987);
     if (v39)
@@ -7865,7 +8333,7 @@ LABEL_71:
 
   VoiceProcessorV2::InitDLSRCs(v1);
   VoiceProcessorV2::InitializeVPParams(v1);
-  if (v235[3873] == 1)
+  if (v234[3873] == 1)
   {
     if (VPLogScope(void)::once != -1)
     {
@@ -7887,7 +8355,7 @@ LABEL_71:
     }
 
     v42 = *(v1 + 1588);
-    if (v42 && ((v235[3593] & 1) != 0 || v235[3594] == 1))
+    if (v42 && ((v234[3593] & 1) != 0 || v234[3594] == 1))
     {
       if (VPLogScope(void)::once != -1)
       {
@@ -7942,11 +8410,11 @@ LABEL_148:
     *&block[2].mSelector = xmmword_272756350;
     v50 = *(v1 + 131);
     default_resource = std::pmr::get_default_resource(Parameter);
-    vp::Audio_Buffer::create(&v241, block, v50, default_resource);
-    mSampleRate = v241.mSampleRate;
-    v241.mSampleRate = 0.0;
+    vp::Audio_Buffer::create(&v240, block, v50, default_resource);
+    mSampleRate = v240.mSampleRate;
+    v240.mSampleRate = 0.0;
     std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100](v1 + 345, *&mSampleRate);
-    Parameter = std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100](&v241, 0);
+    Parameter = std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100](&v240, 0);
     v49 = *(v1 + 1108);
   }
 
@@ -7957,11 +8425,11 @@ LABEL_148:
     *&block[2].mSelector = xmmword_272756350;
     v53 = *(v1 + 136);
     v54 = std::pmr::get_default_resource(Parameter);
-    vp::Audio_Buffer::create(&v241, block, v53, v54);
-    v55 = v241.mSampleRate;
-    v241.mSampleRate = 0.0;
+    vp::Audio_Buffer::create(&v240, block, v53, v54);
+    v55 = v240.mSampleRate;
+    v240.mSampleRate = 0.0;
     std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100](v1 + 348, *&v55);
-    std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100](&v241, 0);
+    std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100](&v240, 0);
     AudioUnitGetParameter(*(v1 + 453), 8u, 0, 0, v1 + 574);
     Parameter = AudioUnitGetParameter(*(v1 + 453), 0x2Bu, 0, 0, v1 + 575);
     v49 = *(v1 + 1108);
@@ -7974,11 +8442,11 @@ LABEL_148:
     *&block[2].mSelector = xmmword_272756350;
     v56 = *(v1 + 131);
     v57 = std::pmr::get_default_resource(Parameter);
-    vp::Audio_Buffer::create(&v241, block, v56, v57);
-    v58 = v241.mSampleRate;
-    v241.mSampleRate = 0.0;
+    vp::Audio_Buffer::create(&v240, block, v56, v57);
+    v58 = v240.mSampleRate;
+    v240.mSampleRate = 0.0;
     std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100](v1 + 346, *&v58);
-    Parameter = std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100](&v241, 0);
+    Parameter = std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100](&v240, 0);
     v49 = *(v1 + 1108);
   }
 
@@ -7989,11 +8457,11 @@ LABEL_148:
     *&block[2].mSelector = xmmword_272756350;
     v59 = *(v1 + 131);
     v60 = std::pmr::get_default_resource(Parameter);
-    vp::Audio_Buffer::create(&v241, block, v59, v60);
-    v61 = v241.mSampleRate;
-    v241.mSampleRate = 0.0;
+    vp::Audio_Buffer::create(&v240, block, v59, v60);
+    v61 = v240.mSampleRate;
+    v240.mSampleRate = 0.0;
     std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100](v1 + 347, *&v61);
-    std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100](&v241, 0);
+    std::unique_ptr<vp::Audio_Buffer::Storage,vp::Audio_Buffer::Storage_Deleter>::reset[abi:ne200100](&v240, 0);
     v49 = *(v1 + 1108);
   }
 
@@ -8004,11 +8472,11 @@ LABEL_148:
 
   if (*(v1 + 1135) == 1)
   {
-    if (*(v1 + 125) == *(v1 + 123) && CAStreamBasicDescription::IsEqual((v1 + 336), v232))
+    if (*(v1 + 125) == *(v1 + 123) && CAStreamBasicDescription::IsEqual((v1 + 336), v231))
     {
-      if (v235[316] == 1)
+      if (v234[316] == 1)
       {
-        v235[316] = 0;
+        v234[316] = 0;
         if (VPLogScope(void)::once != -1)
         {
           dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
@@ -8029,7 +8497,7 @@ LABEL_148:
         }
 
         v64 = *(v1 + 1588);
-        if (v64 && ((v235[3593] & 1) != 0 || v235[3594] == 1))
+        if (v64 && ((v234[3593] & 1) != 0 || v234[3594] == 1))
         {
           if (VPLogScope(void)::once != -1)
           {
@@ -8043,7 +8511,7 @@ LABEL_148:
 
     else
     {
-      v235[316] = 1;
+      v234[316] = 1;
       if (VPLogScope(void)::once != -1)
       {
         dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
@@ -8064,7 +8532,7 @@ LABEL_148:
       }
 
       v67 = *(v1 + 1588);
-      if (v67 && ((v235[3593] & 1) != 0 || v235[3594] == 1))
+      if (v67 && ((v234[3593] & 1) != 0 || v234[3594] == 1))
       {
         if (VPLogScope(void)::once != -1)
         {
@@ -8110,7 +8578,7 @@ LABEL_148:
   }
 
   v70 = *(v1 + 1588);
-  if (v70 && ((v235[3593] & 1) != 0 || v235[3594] == 1))
+  if (v70 && ((v234[3593] & 1) != 0 || v234[3594] == 1))
   {
     if (VPLogScope(void)::once != -1)
     {
@@ -8121,9 +8589,9 @@ LABEL_148:
   }
 
   v71 = 0;
-  v234 = v1 + 8880;
-  v236 = v1;
-  v233 = v1 + 3512;
+  v233 = v1 + 8880;
+  v235 = v1;
+  v232 = v1 + 3512;
   do
   {
     v72 = &VoiceProcessorV2::VPDownlinkIndexToSubTypeArray;
@@ -8140,8 +8608,8 @@ LABEL_148:
 
     v74 = (v72 + 2);
 LABEL_220:
-    LODWORD(outData) = 0;
-    LODWORD(__p) = 4;
+    LODWORD(outData.__r_.__value_.__l.__data_) = 0;
+    LODWORD(__p.__r_.__value_.__l.__data_) = 4;
     v75 = *&v44[8 * v71];
     if (v75)
     {
@@ -8167,7 +8635,7 @@ LABEL_220:
 
         v79 = *&v44[8 * v71];
         v80 = "(bypassed)";
-        if (!outData)
+        if (!LODWORD(outData.__r_.__value_.__l.__data_))
         {
           v80 = "";
         }
@@ -8182,14 +8650,14 @@ LABEL_220:
         *(&block[2].mScope + 2) = v78;
         HIWORD(block[3].mSelector) = 2080;
         *&block[3].mScope = v80;
-        LOWORD(v254) = 2048;
-        *(&v254 + 2) = v79;
+        LOWORD(v250) = 2048;
+        *(&v250 + 2) = v79;
         _os_log_impl(&dword_2724B4000, v77, OS_LOG_TYPE_DEBUG, "%25s:%-5d  <vp>     %s: %s %s (%p)", block, 0x3Au);
       }
     }
 
     v81 = *(v1 + 1588);
-    if (v81 && ((v235[3593] & 1) != 0 || v235[3594] == 1))
+    if (v81 && ((v234[3593] & 1) != 0 || v234[3594] == 1))
     {
       if (VPLogScope(void)::once != -1)
       {
@@ -8203,7 +8671,7 @@ LABEL_220:
       }
 
       v83 = "(bypassed)";
-      if (!outData)
+      if (!LODWORD(outData.__r_.__value_.__l.__data_))
       {
         v83 = "";
       }
@@ -8211,13 +8679,13 @@ LABEL_220:
       CALegacyLog::log(v81, 5, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpDebug_Logging.cpp", 77, "LogVPDownlinkChain", "    %s: %s %s (%p)", v74, v82, v83, *&v44[8 * v71]);
     }
 
-    memset(&v241, 0, 24);
-    std::vector<std::pair<unsigned int,float>>::__init_with_size[abi:ne200100]<std::pair<unsigned int,float>*,std::pair<unsigned int,float>*>(&v241, *&v234[24 * v71], *&v234[24 * v71 + 8], (*&v234[24 * v71 + 8] - *&v234[24 * v71]) >> 3);
-    v84 = v241.mSampleRate;
-    if (*&v241.mFormatID != *&v241.mSampleRate)
+    memset(&v240, 0, 24);
+    std::vector<std::pair<unsigned int,float>>::__init_with_size[abi:ne200100]<std::pair<unsigned int,float>*,std::pair<unsigned int,float>*>(&v240, *&v233[24 * v71], *&v233[24 * v71 + 8], (*&v233[24 * v71 + 8] - *&v233[24 * v71]) >> 3);
+    v84 = v240.mSampleRate;
+    if (*&v240.mFormatID != *&v240.mSampleRate)
     {
       v85 = 0;
-      v86 = (*&v241.mFormatID - *&v241.mSampleRate) >> 3;
+      v86 = (*&v240.mFormatID - *&v240.mSampleRate) >> 3;
       v87 = 1;
       do
       {
@@ -8246,8 +8714,8 @@ LABEL_220:
           }
         }
 
-        v91 = *(v236 + 1588);
-        if (v91 && ((v235[3593] & 1) != 0 || v235[3594] == 1))
+        v91 = *(v235 + 1588);
+        if (v91 && ((v234[3593] & 1) != 0 || v234[3594] == 1))
         {
           if (VPLogScope(void)::once != -1)
           {
@@ -8271,8 +8739,8 @@ LABEL_220:
     }
 
     ++v71;
-    v1 = v236;
-    v44 = v233;
+    v1 = v235;
+    v44 = v232;
   }
 
   while (v71 != 64);
@@ -8287,7 +8755,7 @@ LABEL_220:
     v95 = (*v94 ? *v94 : MEMORY[0x277D86220]);
     if (os_log_type_enabled(v95, OS_LOG_TYPE_DEBUG))
     {
-      v96 = *(v236 + 1569);
+      v96 = *(v235 + 1569);
       block[0].mSelector = 136315906;
       *&block[0].mScope = "vpDebug_Logging.cpp";
       LOWORD(block[1].mSelector) = 1024;
@@ -8300,15 +8768,15 @@ LABEL_220:
     }
   }
 
-  v97 = *(v236 + 1588);
-  if (v97 && ((v235[3593] & 1) != 0 || v235[3594] == 1))
+  v97 = *(v235 + 1588);
+  if (v97 && ((v234[3593] & 1) != 0 || v234[3594] == 1))
   {
     if (VPLogScope(void)::once != -1)
     {
       dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
     }
 
-    CALegacyLog::log(v97, 5, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpDebug_Logging.cpp", 86, "LogVPDownlinkChain", "    %s: ON (%p)", "(DL)-AUXVP", *(v236 + 1569));
+    CALegacyLog::log(v97, 5, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpDebug_Logging.cpp", 86, "LogVPDownlinkChain", "    %s: ON (%p)", "(DL)-AUXVP", *(v235 + 1569));
   }
 
   if (VPLogScope(void)::once != -1)
@@ -8330,8 +8798,8 @@ LABEL_220:
     }
   }
 
-  v100 = *(v236 + 1588);
-  if (v100 && ((v235[3593] & 1) != 0 || v235[3594] == 1))
+  v100 = *(v235 + 1588);
+  if (v100 && ((v234[3593] & 1) != 0 || v234[3594] == 1))
   {
     if (VPLogScope(void)::once != -1)
     {
@@ -8341,8 +8809,8 @@ LABEL_220:
     CALegacyLog::log(v100, 5, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpDebug_Logging.cpp", 87, "LogVPDownlinkChain", "____________logdownlinkchain:end___________");
   }
 
-  myAllocABLDynamic((v236 + 336), *(v236 + 123), v236 + 200);
-  v101 = *(v236 + 200);
+  myAllocABLDynamic((v235 + 336), *(v235 + 123), v235 + 200);
+  v101 = *(v235 + 200);
   if (*v101)
   {
     v102 = 0;
@@ -8357,8 +8825,8 @@ LABEL_220:
     while (v102 < *v101);
   }
 
-  myAllocABLDynamic((v236 + 336), *(v236 + 123), v236 + 201);
-  v104 = *(v236 + 201);
+  myAllocABLDynamic((v235 + 336), *(v235 + 123), v235 + 201);
+  v104 = *(v235 + 201);
   if (*v104)
   {
     v105 = 0;
@@ -8373,8 +8841,8 @@ LABEL_220:
     while (v105 < *v104);
   }
 
-  myAllocABLDynamic((v236 + 336), *(v236 + 123), v236 + 202);
-  v107 = *(v236 + 202);
+  myAllocABLDynamic((v235 + 336), *(v235 + 123), v235 + 202);
+  v107 = *(v235 + 202);
   if (*v107)
   {
     v108 = 0;
@@ -8389,34 +8857,34 @@ LABEL_220:
     while (v108 < *v107);
   }
 
-  v110 = *(v236 + 22);
-  *&v241.mSampleRate = *(v236 + 21);
-  *&v241.mBytesPerPacket = v110;
-  *&v241.mBitsPerChannel = *(v236 + 46);
-  if ((v241.mFormatFlags & 0x20) != 0)
+  v110 = *(v235 + 22);
+  *&v240.mSampleRate = *(v235 + 21);
+  *&v240.mBytesPerPacket = v110;
+  *&v240.mBitsPerChannel = *(v235 + 46);
+  if ((v240.mFormatFlags & 0x20) != 0)
   {
     mChannelsPerFrame = 1;
   }
 
   else
   {
-    mChannelsPerFrame = v241.mChannelsPerFrame;
-    if (!v241.mChannelsPerFrame)
+    mChannelsPerFrame = v240.mChannelsPerFrame;
+    if (!v240.mChannelsPerFrame)
     {
-      v112 = (v241.mBitsPerChannel + 7) >> 3;
+      v112 = (v240.mBitsPerChannel + 7) >> 3;
       goto LABEL_310;
     }
   }
 
-  v112 = v241.mBytesPerFrame / mChannelsPerFrame;
+  v112 = v240.mBytesPerFrame / mChannelsPerFrame;
 LABEL_310:
-  v241.mBytesPerFrame = v112;
-  v241.mChannelsPerFrame = 1;
-  v241.mBytesPerPacket = v112;
-  v241.mFramesPerPacket = 1;
-  v241.mFormatFlags |= 0x20u;
-  myAllocABLDynamic(&v241, *(v236 + 131), v236 + 203);
-  v113 = *(v236 + 203);
+  v240.mBytesPerFrame = v112;
+  v240.mChannelsPerFrame = 1;
+  v240.mBytesPerPacket = v112;
+  v240.mFramesPerPacket = 1;
+  v240.mFormatFlags |= 0x20u;
+  myAllocABLDynamic(&v240, *(v235 + 131), v235 + 203);
+  v113 = *(v235 + 203);
   if (*v113)
   {
     v114 = 0;
@@ -8431,8 +8899,8 @@ LABEL_310:
     while (v114 < *v113);
   }
 
-  myAllocABLDynamic((v236 + 336), *(v236 + 131), v236 + 204);
-  v116 = *(v236 + 204);
+  myAllocABLDynamic((v235 + 336), *(v235 + 131), v235 + 204);
+  v116 = *(v235 + 204);
   if (*v116)
   {
     v117 = 0;
@@ -8447,19 +8915,19 @@ LABEL_310:
     while (v117 < *v116);
   }
 
-  VoiceProcessorV2::SaveFilesInitializeDLP(v236);
-  if (v235[3593] == 1)
+  VoiceProcessorV2::SaveFilesInitializeDLP(v235);
+  if (v234[3593] == 1)
   {
-    if (*(v236 + 155))
+    if (*(v235 + 155))
     {
-      if (*(v236 + 1135) == 1)
+      if (*(v235 + 1135) == 1)
       {
-        myAllocABLDynamic(v232, *(v236 + 125), v236 + 1914);
+        myAllocABLDynamic(v231, *(v235 + 125), v235 + 1914);
       }
 
-      if (*(v236 + 485) == 1)
+      if (*(v235 + 485) == 1)
       {
-        VoiceProcessorV2::OpenSignalInjectionFiles(v236, 0);
+        VoiceProcessorV2::OpenSignalInjectionFiles(v235, 0);
       }
     }
 
@@ -8476,7 +8944,7 @@ LABEL_310:
         v120 = (*v119 ? *v119 : MEMORY[0x277D86220]);
         if (os_log_type_enabled(v120, OS_LOG_TYPE_ERROR))
         {
-          v121 = *(v236 + 155);
+          v121 = *(v235 + 155);
           block[0].mSelector = 136315650;
           *&block[0].mScope = "vpDebug_FileInjection.cpp";
           LOWORD(block[1].mSelector) = 1024;
@@ -8487,33 +8955,33 @@ LABEL_310:
         }
       }
 
-      v122 = *(v236 + 1588);
-      if (v122 && ((v235[3593] & 1) != 0 || v235[3594] == 1))
+      v122 = *(v235 + 1588);
+      if (v122 && ((v234[3593] & 1) != 0 || v234[3594] == 1))
       {
         if (VPLogScope(void)::once != -1)
         {
           dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
         }
 
-        CALegacyLog::log(v122, 1, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpDebug_FileInjection.cpp", 110, "InjectionFilesInitializeDLP", "Failed to initialize downlink injection files due to unsupported format, mHwRefASBD.mChannelsPerFrame=%u", *(v236 + 155));
+        CALegacyLog::log(v122, 1, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpDebug_FileInjection.cpp", 110, "InjectionFilesInitializeDLP", "Failed to initialize downlink injection files due to unsupported format, mHwRefASBD.mChannelsPerFrame=%u", *(v235 + 155));
       }
     }
   }
 
-  if ((v235[3873] & 1) == 0)
+  if ((v234[3873] & 1) == 0)
   {
-    v123 = (v235 + 3608);
-    if (!*(v235 + 451))
+    v123 = (v234 + 3608);
+    if (!*(v234 + 451))
     {
       operator new();
     }
 
-    if (*(v236 + 8871) & 1) != 0 && (*(v236 + 8879))
+    if (*(v235 + 8871) & 1) != 0 && (*(v235 + 8879))
     {
-      v124 = *(v236 + 1987);
-      if (*(v236 + 495))
+      v124 = *(v235 + 1987);
+      if (*(v235 + 495))
       {
-        PowerLogManager::SetPowerVendor(v124, v236 + 495, 1936748595);
+        PowerLogManager::SetPowerVendor(v124, v235 + 495, 1936748595);
 LABEL_344:
         v125 = *v123;
         if (PowerLogManagerLogScope(void)::once != -1)
@@ -8566,35 +9034,34 @@ LABEL_352:
   }
 
 LABEL_353:
-  (*(*v236 + 248))(v236);
-  if ((*(v236 + 8870) & 4) == 0)
+  (*(*v235 + 248))(v235);
+  if ((*(v235 + 8870) & 4) == 0)
   {
     goto LABEL_503;
   }
 
-  if (!*(v236 + 489))
+  if (!*(v235 + 489))
   {
     goto LABEL_503;
   }
 
-  HeadsetSensitivity = VoiceProcessorV2::GetHeadsetSensitivity(v236);
-  AudioUnitSetParameter(*(v236 + 489), 1u, 0, 0, HeadsetSensitivity, 0);
-  RefPortOwningDeviceID = VoiceProcessorV2::GetRefPortOwningDeviceID(v236);
+  HeadsetSensitivity = VoiceProcessorV2::GetHeadsetSensitivity(v235);
+  AudioUnitSetParameter(*(v235 + 489), 1u, 0, 0, HeadsetSensitivity, 0);
+  RefPortOwningDeviceID = VoiceProcessorV2::GetRefPortOwningDeviceID(v235);
   if (!HIDWORD(RefPortOwningDeviceID))
   {
     goto LABEL_503;
   }
 
   memset(buf, 0, 24);
-  outData = 0;
-  v246 = 0uLL;
-  v131 = **(v236 + 294);
+  memset(&outData, 0, sizeof(outData));
+  v131 = **(v235 + 294);
   if (v131 == 1885892674 || v131 == 1885892706)
   {
     cf = 0;
     ioDataSize[0] = 8;
-    __p = 0x676C6F62646F7663;
-    LODWORD(v248) = 0;
+    __p.__r_.__value_.__r.__words[0] = 0x676C6F62646F7663;
+    LODWORD(__p.__r_.__value_.__r.__words[1]) = 0;
     if (AudioObjectGetPropertyData(RefPortOwningDeviceID, &__p, 0, 0, ioDataSize, &cf))
     {
       if (VPLogScope(void)::once != -1)
@@ -8616,8 +9083,8 @@ LABEL_353:
         }
       }
 
-      v134 = *(v236 + 1588);
-      if (v134 && ((v235[3593] & 1) != 0 || v235[3594] == 1))
+      v134 = *(v235 + 1588);
+      if (v134 && ((v234[3593] & 1) != 0 || v234[3594] == 1))
       {
         if (VPLogScope(void)::once != -1)
         {
@@ -8646,8 +9113,8 @@ LABEL_353:
         }
       }
 
-      v137 = *(v236 + 1588);
-      if (v137 && ((v235[3593] & 1) != 0 || v235[3594] == 1))
+      v137 = *(v235 + 1588);
+      if (v137 && ((v234[3593] & 1) != 0 || v234[3594] == 1))
       {
         if (VPLogScope(void)::once != -1)
         {
@@ -8657,7 +9124,7 @@ LABEL_353:
         CALegacyLog::log(v137, 5, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpInitializeDownlink.cpp", 925, "SetVolumeCurveForVolumeLimit", "[VolumeLimit] Creating volume curves");
       }
 
-      v138 = *(v236 + 600);
+      v138 = *(v235 + 600);
       if (v138 != 1634231920 && v138 != 1633759844)
       {
         std::vector<float>::vector[abi:ne200100](block, 2uLL);
@@ -8673,14 +9140,14 @@ LABEL_353:
         goto LABEL_474;
       }
 
-      v255 = 0;
+      v251 = 0;
       *&block[0].mSelector = xmmword_27275AAF8;
       *&block[1].mScope = unk_27275AB08;
       *&block[2].mElement = xmmword_27275AB18;
-      v254 = unk_27275AB28;
-      std::vector<float>::__assign_with_size[abi:ne200100]<float const*,float const*>(&outData, block, v256, 0x11uLL);
-      v139 = v246 - outData;
-      v140 = ((v246 - outData) >> 2);
+      v250 = unk_27275AB28;
+      std::vector<float>::__assign_with_size[abi:ne200100]<float const*,float const*>(&outData.__r_.__value_.__l.__data_, block, v252, 0x11uLL);
+      v139 = outData.__r_.__value_.__l.__size_ - outData.__r_.__value_.__r.__words[0];
+      v140 = ((outData.__r_.__value_.__l.__size_ - outData.__r_.__value_.__r.__words[0]) >> 2);
       std::vector<float>::vector[abi:ne200100](block, v140);
       if ((v139 >> 2))
       {
@@ -8816,21 +9283,20 @@ LABEL_353:
             *&block[0].mElement = v165;
             *&block[1].mScope = v164;
             *&block[0].mSelector = v166;
-            if (outData)
+            if (outData.__r_.__value_.__r.__words[0])
             {
-              operator delete(outData);
+              operator delete(outData.__r_.__value_.__l.__data_);
             }
           }
 
           outData = *&block[0].mSelector;
-          v246 = *&block[0].mElement;
           v174 = (*&block[0].mElement - *&block[0].mSelector) >> 2;
           if (VPLogScope(void)::once != -1)
           {
             dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
           }
 
-          v1 = v236;
+          v1 = v235;
           v175 = VPLogScope(void)::scope;
           if (VPLogScope(void)::scope && CALegacyLog::LogEnabled(5, VPLogScope(void)::scope, 0))
           {
@@ -8847,8 +9313,8 @@ LABEL_353:
             }
           }
 
-          v177 = *(v236 + 1588);
-          if (v177 && ((v235[3593] & 1) != 0 || v235[3594] == 1))
+          v177 = *(v235 + 1588);
+          if (v177 && ((v234[3593] & 1) != 0 || v234[3594] == 1))
           {
             if (VPLogScope(void)::once != -1)
             {
@@ -8917,8 +9383,8 @@ LABEL_468:
           goto LABEL_474;
         }
 
-        v230 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v230, "Could not convert");
+        v229 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v229, "Could not convert");
 LABEL_612:
       }
     }
@@ -8928,8 +9394,8 @@ LABEL_612:
       CFArray = 0;
     }
 
-    v230 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v230, "Could not construct");
+    v229 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v229, "Could not construct");
     goto LABEL_612;
   }
 
@@ -8946,7 +9412,7 @@ LABEL_612:
       v154 = (*v153 ? *v153 : MEMORY[0x277D86220]);
       if (os_log_type_enabled(v154, OS_LOG_TYPE_ERROR))
       {
-        CAX4CCString::CAX4CCString(&__p, **(v236 + 294));
+        CAX4CCString::CAX4CCString(&__p, **(v235 + 294));
         block[0].mSelector = 136315650;
         *&block[0].mScope = "vpInitializeDownlink.cpp";
         LOWORD(block[1].mSelector) = 1024;
@@ -8957,8 +9423,8 @@ LABEL_612:
       }
     }
 
-    v155 = *(v236 + 1588);
-    if (v155 && ((v235[3593] & 1) != 0 || v235[3594] == 1))
+    v155 = *(v235 + 1588);
+    if (v155 && ((v234[3593] & 1) != 0 || v234[3594] == 1))
     {
       if (VPLogScope(void)::once != -1)
       {
@@ -8966,7 +9432,7 @@ LABEL_612:
       }
 
       v156 = VPLogScope(void)::scope;
-      CAX4CCString::CAX4CCString(block, **(v236 + 294));
+      CAX4CCString::CAX4CCString(block, **(v235 + 294));
       CALegacyLog::log(v155, 1, v156, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpInitializeDownlink.cpp", 941, "SetVolumeCurveForVolumeLimit", "Unsupported port type: %s", block);
     }
 
@@ -8997,7 +9463,7 @@ LABEL_474:
   }
 
   v192 = *(v1 + 1588);
-  if (v192 && ((v235[3593] & 1) != 0 || v235[3594] == 1))
+  if (v192 && ((v234[3593] & 1) != 0 || v234[3594] == 1))
   {
     if (VPLogScope(void)::once != -1)
     {
@@ -9021,8 +9487,8 @@ LABEL_474:
   applesauce::CF::TypeRef::TypeRef(&block[1].mScope, "OutputMap");
   CFRetain(v194);
   *&block[2].mSelector = v194;
-  __p = block;
-  v248 = 2;
+  __p.__r_.__value_.__r.__words[0] = block;
+  __p.__r_.__value_.__l.__size_ = 2;
   CFDictionaryRef = applesauce::CF::details::make_CFDictionaryRef(&__p);
   v196 = 0;
   cf = CFDictionaryRef;
@@ -9053,9 +9519,9 @@ LABEL_474:
   *&block[0].mSelector = CFDictionaryRef;
   AudioUnitSetProperty(*(v1 + 489), 0xFA01u, 0, 0, block, 8u);
   CFRelease(CFDictionaryRef);
-  if (outData)
+  if (outData.__r_.__value_.__r.__words[0])
   {
-    operator delete(outData);
+    operator delete(outData.__r_.__value_.__l.__data_);
   }
 
 LABEL_501:
@@ -9076,26 +9542,26 @@ LABEL_503:
       AudioUnitSetParameter(*(v1 + 484), 0x1Bu, 0, 0, OutputPortProductIDForPME, 0);
     }
 
-    if (v235[3593] == 1)
+    if (v234[3593] == 1)
     {
       VoiceProcessorV2::GetRefPortUIDForPME(&outData, v1);
-      v201 = outData;
-      if (outData)
+      v201 = outData.__r_.__value_.__r.__words[0];
+      if (outData.__r_.__value_.__r.__words[0])
       {
-        CFRetain(outData);
+        CFRetain(outData.__r_.__value_.__l.__data_);
       }
 
-      v239 = v201;
-      if (va::PersonalAudioInterface::isPersonalMediaEnabled(&v239))
+      v238 = v201;
+      if (va::PersonalAudioInterface::isPersonalMediaEnabled(&v238))
       {
-        v202 = outData;
-        if (outData)
+        v202 = outData.__r_.__value_.__r.__words[0];
+        if (outData.__r_.__value_.__r.__words[0])
         {
-          CFRetain(outData);
+          CFRetain(outData.__r_.__value_.__l.__data_);
         }
 
-        v238 = v202;
-        va::PersonalAudioInterface::getPreset(&__p, &v238);
+        v237 = v202;
+        va::PersonalAudioInterface::getPreset(&__p, &v237);
         if (v202)
         {
           CFRelease(v202);
@@ -9112,10 +9578,10 @@ LABEL_503:
         CFRelease(v201);
       }
 
-      v203 = __p;
-      if (__p)
+      v203 = __p.__r_.__value_.__r.__words[0];
+      if (__p.__r_.__value_.__r.__words[0])
       {
-        CFRetain(__p);
+        CFRetain(__p.__r_.__value_.__l.__data_);
         cf = v203;
         applesauce::CF::TypeRef::TypeRef(block, "hlc_paconfig");
         v204 = cf;
@@ -9129,8 +9595,8 @@ LABEL_503:
         CFArray = CFNumberCreate(0, kCFNumberIntType, ioDataSize);
         if (!CFArray)
         {
-          v227 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v227, "Could not construct");
+          v226 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v226, "Could not construct");
         }
 
         v205 = applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,applesauce::CF::NumberRef>(&block[1].mScope, "hlc_headset", &CFArray);
@@ -9138,20 +9604,20 @@ LABEL_503:
         *ioDataSize = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
         if (!*ioDataSize)
         {
+          v227 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v227, "Could not construct");
+        }
+
+        applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,applesauce::CF::NumberRef>(&block[2].mElement, "hlc_enable", ioDataSize);
+        v239 = v199;
+        valuePtr = CFNumberCreate(0, kCFNumberFloatType, &v239);
+        if (!valuePtr)
+        {
           v228 = __cxa_allocate_exception(0x10uLL);
           std::runtime_error::runtime_error(v228, "Could not construct");
         }
 
-        applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,applesauce::CF::NumberRef>(&block[2].mElement, "hlc_enable", ioDataSize);
-        v240 = v199;
-        valuePtr = CFNumberCreate(0, kCFNumberFloatType, &v240);
-        if (!valuePtr)
-        {
-          v229 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v229, "Could not construct");
-        }
-
-        applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,applesauce::CF::NumberRef>(&v254, "hlc_sensitivity", &valuePtr);
+        applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,applesauce::CF::NumberRef>(&v250, "hlc_sensitivity", &valuePtr);
         *buf = block;
         *&buf[8] = 4;
         v206 = applesauce::CF::details::make_CFDictionaryRef(buf);
@@ -9164,7 +9630,7 @@ LABEL_503:
 
         for (i = 0; i != -64; i -= 16)
         {
-          v209 = *(&v254 + i + 8);
+          v209 = *(&v250 + i + 8);
           if (v209)
           {
             CFRelease(v209);
@@ -9197,7 +9663,7 @@ LABEL_503:
           CFRelease(cf);
         }
 
-        if (v235[3593] == 1)
+        if (v234[3593] == 1)
         {
           VoiceProcessorV2::PListWriteSetPropertyParameters(v1, 1751933808);
         }
@@ -9209,15 +9675,15 @@ LABEL_503:
           CFRelease(v211);
         }
 
-        if (__p)
+        if (__p.__r_.__value_.__r.__words[0])
         {
-          CFRelease(__p);
+          CFRelease(__p.__r_.__value_.__l.__data_);
         }
       }
 
-      if (outData)
+      if (outData.__r_.__value_.__r.__words[0])
       {
-        CFRelease(outData);
+        CFRelease(outData.__r_.__value_.__l.__data_);
       }
     }
   }
@@ -9231,8 +9697,8 @@ LABEL_503:
       strcpy(buf, "dlovptuo");
       buf[9] = 0;
       *&buf[10] = 0;
-      LODWORD(outData) = 4;
-      LODWORD(__p) = 0;
+      LODWORD(outData.__r_.__value_.__l.__data_) = 4;
+      LODWORD(__p.__r_.__value_.__l.__data_) = 0;
       v214 = v213;
       if (AudioObjectGetPropertyData(v213, buf, 0, 0, &outData, &__p) && (**(v1 + 294) != 1885892727 || (*&block[0].mSelector = 0x6F757470766F6C64, block[0].mElement = 1, LODWORD(cf) = 4, LODWORD(CFArray) = 0, AudioObjectGetPropertyData(v214, block, 0, 0, &cf, &CFArray))))
       {
@@ -9256,7 +9722,7 @@ LABEL_503:
         }
 
         v217 = *(v1 + 1588);
-        if (v217 && ((v235[3593] & 1) != 0 || v235[3594] == 1))
+        if (v217 && ((v234[3593] & 1) != 0 || v234[3594] == 1))
         {
           if (VPLogScope(void)::once != -1)
           {
@@ -9285,7 +9751,7 @@ LABEL_503:
             LOWORD(block[1].mSelector) = 1024;
             *(&block[1].mSelector + 2) = 730;
             HIWORD(block[1].mScope) = 2048;
-            *&block[1].mElement = *&__p;
+            *&block[1].mElement = *&__p.__r_.__value_.__l.__data_;
             LOWORD(block[2].mScope) = 1024;
             *(&block[2].mScope + 2) = v214;
             _os_log_impl(&dword_2724B4000, v219, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> HW Volume in %f dB from DeviceID %u !", block, 0x22u);
@@ -9293,14 +9759,14 @@ LABEL_503:
         }
 
         v220 = *(v1 + 1588);
-        if (v220 && ((v235[3593] & 1) != 0 || v235[3594] == 1))
+        if (v220 && ((v234[3593] & 1) != 0 || v234[3594] == 1))
         {
           if (VPLogScope(void)::once != -1)
           {
             dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
           }
 
-          CALegacyLog::log(v220, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpInitializeDownlink.cpp", 730, "GetHardwareVolume", "HW Volume in %f dB from DeviceID %u !", *&__p, v214);
+          CALegacyLog::log(v220, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpInitializeDownlink.cpp", 730, "GetHardwareVolume", "HW Volume in %f dB from DeviceID %u !", *&__p.__r_.__value_.__l.__data_, v214);
         }
 
         (*(*v1 + 56))(v1, 32797, &__p, 4);
@@ -9339,7 +9805,7 @@ LABEL_503:
     }
 
     v225 = *(v1 + 1588);
-    if (v225 && ((v235[3593] & 1) != 0 || v235[3594] == 1))
+    if (v225 && ((v234[3593] & 1) != 0 || v234[3594] == 1))
     {
       if (VPLogScope(void)::once != -1)
       {
@@ -9349,294 +9815,4 @@ LABEL_503:
       CALegacyLog::log(v225, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpInitializeDownlink.cpp", 541, "InitializeDLP", "Re-set mix gain range to [%f, %f]dB", *(v1 + 1122), *(v1 + 1123));
     }
   }
-
-  v226 = *MEMORY[0x277D85DE8];
-}
-
-void sub_272536FD4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, int a26, __int16 a27, char a28, char a29, int a30, __int16 a31, char a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40, int a41, __int16 a42, char a43, char a44, int a45, __int16 a46, char a47, char a48, void *__p, uint64_t a50, int a51, __int16 a52, char a53, char a54, char a55)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  v57 = *(v55 - 240);
-  if (v57)
-  {
-    operator delete(v57);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::clear(uint64_t a1)
-{
-  if (*(a1 + 24))
-  {
-    std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__deallocate_node(*(a1 + 16));
-    *(a1 + 16) = 0;
-    v2 = *(a1 + 8);
-    if (v2)
-    {
-      for (i = 0; i != v2; ++i)
-      {
-        *(*a1 + 8 * i) = 0;
-      }
-    }
-
-    *(a1 + 24) = 0;
-  }
-}
-
-float VoiceProcessorV2::GetHeadsetSensitivity(int **this)
-{
-  *&v25[5] = *MEMORY[0x277D85DE8];
-  v2 = (this + 1536);
-  outData = 105.0;
-  RefPortOwningDeviceID = VoiceProcessorV2::GetRefPortOwningDeviceID(this);
-  if (!HIDWORD(RefPortOwningDeviceID) || (v4 = RefPortOwningDeviceID, *&inAddress.mSelector = 0x676C6F62646F7365, inAddress.mElement = 0, ioDataSize = 4, AudioObjectGetPropertyData(RefPortOwningDeviceID, &inAddress, 0, 0, &ioDataSize, &outData)) || (outData > 50.0 ? (v5 = outData < 150.0) : (v5 = 0), !v5))
-  {
-    v6 = *(this + 600);
-    if (v6 <= 1647521841)
-    {
-      if (v6 <= 1633759843)
-      {
-        if (v6 == 1214329654)
-        {
-          goto LABEL_23;
-        }
-
-        v8 = 1214394677;
-      }
-
-      else
-      {
-        if (v6 == 1633759844 || v6 == 1634231920)
-        {
-          goto LABEL_23;
-        }
-
-        v8 = 1647393080;
-      }
-    }
-
-    else
-    {
-      if (v6 <= 1647718502)
-      {
-        if (v6 == 1647521842)
-        {
-          goto LABEL_40;
-        }
-
-        if (v6 != 1647522096)
-        {
-          if (v6 == 1647718502)
-          {
-            v7 = 1120980173;
-LABEL_24:
-            outData = *&v7;
-            if (VPLogScope(void)::once != -1)
-            {
-              dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-            }
-
-            v9 = VPLogScope(void)::scope;
-            if (VPLogScope(void)::scope && CALegacyLog::LogEnabled(3, VPLogScope(void)::scope, 0))
-            {
-              v10 = (*v9 ? *v9 : MEMORY[0x277D86220]);
-              if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-              {
-                *buf = 136315650;
-                v21 = "vpInitializeDownlink.cpp";
-                v22 = 1024;
-                v23 = 861;
-                v24 = 2048;
-                *v25 = outData;
-                _os_log_impl(&dword_2724B4000, v10, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> Unable to read sensitivity from device setting default (%f)", buf, 0x1Cu);
-              }
-            }
-
-            v11 = this[1588];
-            if (v11 && ((v2[3593] & 1) != 0 || v2[3594] == 1))
-            {
-              if (VPLogScope(void)::once != -1)
-              {
-                dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-              }
-
-              CALegacyLog::log(v11, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpInitializeDownlink.cpp", 861, "GetHeadsetSensitivity", "Unable to read sensitivity from device setting default (%f)");
-            }
-
-            goto LABEL_39;
-          }
-
-LABEL_40:
-          v7 = 1121058816;
-          goto LABEL_24;
-        }
-
-LABEL_23:
-        v7 = 1120403456;
-        goto LABEL_24;
-      }
-
-      if (v6 == 1647718503)
-      {
-        v7 = 1121045709;
-        goto LABEL_24;
-      }
-
-      if (v6 == 1752709424)
-      {
-        goto LABEL_23;
-      }
-
-      v8 = 2003068262;
-    }
-
-    if (v6 != v8)
-    {
-      goto LABEL_40;
-    }
-
-    goto LABEL_23;
-  }
-
-  if (VPLogScope(void)::once != -1)
-  {
-    dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-  }
-
-  v14 = VPLogScope(void)::scope;
-  if (VPLogScope(void)::scope && CALegacyLog::LogEnabled(3, VPLogScope(void)::scope, 0))
-  {
-    v15 = (*v14 ? *v14 : MEMORY[0x277D86220]);
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 136315906;
-      v21 = "vpInitializeDownlink.cpp";
-      v22 = 1024;
-      v23 = 812;
-      v24 = 1024;
-      v25[0] = v4;
-      LOWORD(v25[1]) = 2048;
-      *(&v25[1] + 2) = outData;
-      _os_log_impl(&dword_2724B4000, v15, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  <vp> Sensitivity from device(%u) = %f", buf, 0x22u);
-    }
-  }
-
-  v16 = this[1588];
-  if (v16 && ((v2[3593] & 1) != 0 || v2[3594] == 1))
-  {
-    if (VPLogScope(void)::once != -1)
-    {
-      dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-    }
-
-    CALegacyLog::log(v16, 3, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpInitializeDownlink.cpp", 812, "GetHeadsetSensitivity", "Sensitivity from device(%u) = %f");
-  }
-
-LABEL_39:
-  result = outData;
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t VoiceProcessorV2::GetOutputPortProductIDForPME(int **this)
-{
-  v23 = *MEMORY[0x277D85DE8];
-  if (*(this + 600) >> 1 == 823859251)
-  {
-    result = 8210;
-  }
-
-  else if ((*this[294] | 0x20) == 0x70687062)
-  {
-    result = VoiceProcessorV2::IsRefPortOwningDeviceBluetoothAppleProduct(this);
-    if (result)
-    {
-      outData = 0;
-      RefPortOwningDeviceID = VoiceProcessorV2::GetRefPortOwningDeviceID(this);
-      v4 = RefPortOwningDeviceID;
-      if (HIDWORD(RefPortOwningDeviceID))
-      {
-        *&inAddress.mSelector = 0x676C6F6262616964;
-        inAddress.mElement = 0;
-        ioDataSize = 4;
-        PropertyData = AudioObjectGetPropertyData(RefPortOwningDeviceID, &inAddress, 0, 0, &ioDataSize, &outData);
-        if (PropertyData)
-        {
-          v6 = PropertyData;
-          if (VPLogScope(void)::once != -1)
-          {
-            dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-          }
-
-          v8 = VPLogScope(void)::scope;
-          if (VPLogScope(void)::scope && CALegacyLog::LogEnabled(1, VPLogScope(void)::scope, 0))
-          {
-            v9 = (*v8 ? *v8 : MEMORY[0x277D86220]);
-            if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-            {
-              ioDataSize = 136315906;
-              v16 = "vpInitializeDownlink.cpp";
-              v17 = 1024;
-              v18 = 704;
-              v19 = 1024;
-              v20 = v6;
-              v21 = 1024;
-              v22 = v4;
-              _os_log_impl(&dword_2724B4000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d  >vp> error %d getting Bluetooth product ID for reference device %u", &ioDataSize, 0x1Eu);
-            }
-          }
-
-          v10 = this[1588];
-          if (v10 && ((*(this + 15881) & 1) != 0 || *(this + 15882) == 1))
-          {
-            if (VPLogScope(void)::once != -1)
-            {
-              v12 = this[1588];
-              dispatch_once(&VPLogScope(void)::once, &__block_literal_global_2733);
-              v10 = v12;
-            }
-
-            CALegacyLog::log(v10, 1, VPLogScope(void)::scope, "/Library/Caches/com.apple.xbs/Sources/VoiceProcessor/Targets/Framework/VoiceProcessor/vpInitializeDownlink.cpp", 704, "GetRefPortOwningDeviceBluetoothProductID", "error %d getting Bluetooth product ID for reference device %u", v6, v4);
-          }
-
-          v5 = 0;
-        }
-
-        else
-        {
-          v5 = 0x100000000;
-          v6 = outData;
-        }
-      }
-
-      else
-      {
-        v5 = 0x100000000;
-        v6 = RefPortOwningDeviceID;
-      }
-
-      if ((v5 & 0x100000000) != 0)
-      {
-        result = v6 | v5;
-      }
-
-      else
-      {
-        result = 0;
-      }
-    }
-  }
-
-  else
-  {
-    result = 0;
-  }
-
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
 }

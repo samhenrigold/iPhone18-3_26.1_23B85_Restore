@@ -1,8 +1,11 @@
 @interface SCROBrailleHandler
 - (SCROBrailleHandler)initWithBrailleDisplayManager:(id)manager;
+- (int)handleGetValue:(id *)value forKey:(int)key withObject:(id)object trusted:(BOOL)trusted;
 - (int)handlePerformActionForKey:(int)key trusted:(BOOL)trusted;
 - (int)handleRegisterCallbackForKey:(int)key trusted:(BOOL)trusted;
+- (int)handleSetValue:(id)value forKey:(int)key trusted:(BOOL)trusted;
 - (void)configurationDidChange;
+- (void)handleBrailleDeletedUntranslatedText:(id)text speakLiterally:(BOOL)literally;
 - (void)handleBrailleDidDisplay:(id)display;
 - (void)handleBrailleDidPanLeft:(id)left elementToken:(id)token appToken:(id)appToken lineOffset:(id)offset;
 - (void)handleBrailleDidPanRight:(id)right elementToken:(id)token appToken:(id)appToken lineOffset:(id)offset;
@@ -10,10 +13,12 @@
 - (void)handleBrailleDidShowPreviousAnnouncement:(id)announcement;
 - (void)handleBrailleDriverDidLoad;
 - (void)handleBrailleDriverDisconnected;
+- (void)handleBrailleInsertedUntranslatedText:(id)text speakLiterally:(BOOL)literally;
 - (void)handleBrailleKeyMemorize:(id)memorize;
 - (void)handleBrailleKeyWillMemorize:(id)memorize;
 - (void)handleBrailleKeypress:(id)keypress;
 - (void)handleBrailleReplaceTextRange:(_NSRange)range withString:(id)string cursor:(unint64_t)cursor;
+- (void)handleBrailleSpeechRequest:(id)request language:(id)language shouldQueue:(BOOL)queue;
 - (void)handleBrailleTableFailedToLoad:(id)load;
 - (void)handleBrailleUIRequest:(id)request;
 - (void)handleCopyStringToClipboard:(id)clipboard;
@@ -21,6 +26,7 @@
 - (void)handleDidBrailleUIStart;
 - (void)handleDisplayModeChanged:(id)changed;
 - (void)handleFailedToLoadBluetoothDevice:(id)device;
+- (void)handlePlanarPanFailedIsLeft:(BOOL)left;
 - (void)handlePlayBorderHitSound;
 - (void)handlePlayCommandNotSupportedSound;
 - (void)handleStartEditing;
@@ -60,47 +66,47 @@
   switch(key)
   {
     case 'N':
-      result = 0;
+      LODWORD(hasActiveUserDisplays) = 0;
       self->_callbacks.configChanged = 1;
       break;
     case 'O':
-      result = 0;
+      LODWORD(hasActiveUserDisplays) = 0;
       self->_callbacks.tableLoadFailed = 1;
       break;
     case 'P':
-      result = 0;
+      LODWORD(hasActiveUserDisplays) = 0;
       self->_callbacks.keypress = 1;
       break;
     case 'Q':
-      result = 0;
+      LODWORD(hasActiveUserDisplays) = 0;
       self->_callbacks.userEventOccured = 1;
       break;
     case 'R':
-      result = 0;
+      LODWORD(hasActiveUserDisplays) = 0;
       self->_callbacks.replaceTextRange = 1;
       break;
     case 'S':
-      result = 0;
+      LODWORD(hasActiveUserDisplays) = 0;
       self->_callbacks.startEditing = 1;
       break;
     case 'T':
-      result = 0;
+      LODWORD(hasActiveUserDisplays) = 0;
       self->_callbacks.insertUntranslatedText = 1;
       break;
     case 'U':
-      result = 0;
+      LODWORD(hasActiveUserDisplays) = 0;
       self->_callbacks.deleteUntranslatedText = 1;
       break;
     case 'V':
-      result = 0;
+      LODWORD(hasActiveUserDisplays) = 0;
       self->_callbacks.speechRequest = 1;
       break;
     case 'W':
-      result = 0;
+      LODWORD(hasActiveUserDisplays) = 0;
       self->_callbacks.keyWillMem = 1;
       break;
     case 'X':
-      result = 0;
+      LODWORD(hasActiveUserDisplays) = 0;
       self->_callbacks.keymem = 1;
       break;
     case 'Y':
@@ -109,34 +115,34 @@
         goto LABEL_29;
       }
 
-      result = 0;
+      LODWORD(hasActiveUserDisplays) = 0;
       self->_callbacks.didDisplay = 1;
       break;
     case 'Z':
-      result = 0;
+      LODWORD(hasActiveUserDisplays) = 0;
       self->_callbacks.panLeft = 1;
       break;
     case '[':
-      result = 0;
+      LODWORD(hasActiveUserDisplays) = 0;
       self->_callbacks.panRight = 1;
       break;
     case '\\':
-      result = 0;
+      LODWORD(hasActiveUserDisplays) = 0;
       self->_callbacks.showPreviousAnnouncement = 1;
       break;
     case ']':
-      result = 0;
+      LODWORD(hasActiveUserDisplays) = 0;
       self->_callbacks.showNextAnnouncement = 1;
       break;
     case '^':
-      result = 0;
+      LODWORD(hasActiveUserDisplays) = 0;
       self->_callbacks.playBorderHitSound = 1;
       break;
     case '_':
-      result = 0;
+      LODWORD(hasActiveUserDisplays) = 0;
       self->_callbacks.playCommandNotSupportedSound = 1;
       break;
-      v6 = _SCROD_LOG();
+      v6 = _SCROD_LOG(self);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -144,10 +150,10 @@
       }
 
       self->_callbacks.playDisplayConnectionSound = 1;
-      result = [(SCROBrailleDisplayManager *)self->_brailleDisplayManager hasActiveUserDisplays];
-      if (result)
+      hasActiveUserDisplays = [(SCROBrailleDisplayManager *)self->_brailleDisplayManager hasActiveUserDisplays];
+      if (hasActiveUserDisplays)
       {
-        v7 = _SCROD_LOG();
+        v7 = _SCROD_LOG(hasActiveUserDisplays);
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
@@ -156,50 +162,415 @@
 
         [(SCROBrailleHandler *)self performSelector:sel_handleBrailleDriverDidLoad withObject:0 afterDelay:0.0];
 LABEL_29:
-        result = 0;
+        LODWORD(hasActiveUserDisplays) = 0;
       }
 
       break;
     case 'a':
-      result = 0;
+      LODWORD(hasActiveUserDisplays) = 0;
       self->_callbacks.bluetoothDisplayLoadFailed = 1;
       break;
     case 'b':
-      result = 0;
+      LODWORD(hasActiveUserDisplays) = 0;
       self->_callbacks.displayModeChanged = 1;
       break;
     case 'c':
-      result = 0;
+      LODWORD(hasActiveUserDisplays) = 0;
       self->_callbacks.copyStringToClipboard = 1;
       break;
     case 'd':
-      result = 0;
+      LODWORD(hasActiveUserDisplays) = 0;
       self->_callbacks.planarCanvasDidChange = 1;
       break;
     case 'e':
-      result = 0;
+      LODWORD(hasActiveUserDisplays) = 0;
       self->_callbacks.planarPan = 1;
       break;
     case 'f':
-      result = 0;
+      LODWORD(hasActiveUserDisplays) = 0;
       self->_callbacks.didBrailleUIStart = 1;
       break;
     case 'g':
-      result = 0;
+      LODWORD(hasActiveUserDisplays) = 0;
       self->_callbacks.brailleUIRequest = 1;
       break;
     case 'h':
-      result = 0;
+      LODWORD(hasActiveUserDisplays) = 0;
       self->_callbacks.didBrailleUIEnd = 1;
       break;
     default:
-      v8.receiver = self;
-      v8.super_class = SCROBrailleHandler;
-      result = [SCROHandler handleRegisterCallbackForKey:sel_handleRegisterCallbackForKey_trusted_ trusted:?];
+      v9.receiver = self;
+      v9.super_class = SCROBrailleHandler;
+      LODWORD(hasActiveUserDisplays) = [SCROHandler handleRegisterCallbackForKey:sel_handleRegisterCallbackForKey_trusted_ trusted:?];
       break;
   }
 
-  return result;
+  return hasActiveUserDisplays;
+}
+
+- (int)handleSetValue:(id)value forKey:(int)key trusted:(BOOL)trusted
+{
+  trustedCopy = trusted;
+  v6 = *&key;
+  valueCopy = value;
+  v9 = valueCopy;
+  switch(v6)
+  {
+    case 18:
+      -[SCROBrailleDisplayManager unloadVirtualDisplay:](self->_brailleDisplayManager, "unloadVirtualDisplay:", [valueCopy unsignedIntegerValue]);
+      goto LABEL_54;
+    case 21:
+      brailleDisplayManager = self->_brailleDisplayManager;
+      v12 = [valueCopy objectForKey:@"displayToken"];
+      unsignedIntegerValue = [v12 unsignedIntegerValue];
+      v14 = [v9 objectForKey:@"button"];
+      -[SCROBrailleDisplayManager virtualDisplay:pressButton:](brailleDisplayManager, "virtualDisplay:pressButton:", unsignedIntegerValue, [v14 unsignedIntegerValue]);
+      goto LABEL_52;
+    case 22:
+      v11 = self->_brailleDisplayManager;
+      v12 = [valueCopy objectForKey:@"displayToken"];
+      unsignedIntegerValue2 = [v12 unsignedIntegerValue];
+      v14 = [v9 objectForKey:@"keyChord"];
+      -[SCROBrailleDisplayManager virtualDisplay:pressKeyChord:](v11, "virtualDisplay:pressKeyChord:", unsignedIntegerValue2, [v14 unsignedIntegerValue]);
+      goto LABEL_52;
+    case 23:
+      v18 = self->_brailleDisplayManager;
+      v12 = [valueCopy objectForKey:@"displayToken"];
+      unsignedIntegerValue3 = [v12 unsignedIntegerValue];
+      v14 = [v9 objectForKey:@"index"];
+      unsignedIntegerValue4 = [v14 unsignedIntegerValue];
+      v21 = [v9 objectForKey:@"withSpace"];
+      -[SCROBrailleDisplayManager virtualDisplay:pressRouterWithIndex:withSpace:](v18, "virtualDisplay:pressRouterWithIndex:withSpace:", unsignedIntegerValue3, unsignedIntegerValue4, [v21 BOOLValue]);
+      goto LABEL_51;
+    case 24:
+      -[SCROBrailleDisplayManager systemVirtualDisplayPressKeyChord:](self->_brailleDisplayManager, "systemVirtualDisplayPressKeyChord:", [valueCopy unsignedIntegerValue]);
+      goto LABEL_54;
+    case 25:
+      [(SCROBrailleDisplayManager *)self->_brailleDisplayManager loadBluetoothDriverWithAddress:valueCopy];
+      goto LABEL_54;
+    case 26:
+      [(SCROBrailleDisplayManager *)self->_brailleDisplayManager removeBluetoothDriverWithAddress:valueCopy];
+      goto LABEL_54;
+    case 27:
+      [(SCROBrailleDisplayManager *)self->_brailleDisplayManager loadBLEDriverWithIdentifier:valueCopy];
+      goto LABEL_54;
+    case 28:
+      [(SCROBrailleDisplayManager *)self->_brailleDisplayManager configureTableWithIdentifier:valueCopy];
+      goto LABEL_54;
+    case 29:
+      [(SCROBrailleDisplayManager *)self->_brailleDisplayManager configureInputTableWithIdentifier:valueCopy];
+      goto LABEL_54;
+    case 30:
+      -[SCROBrailleDisplayManager setAlwaysUsesNemethCodeForTechnicalText:](self->_brailleDisplayManager, "setAlwaysUsesNemethCodeForTechnicalText:", [valueCopy BOOLValue]);
+      goto LABEL_54;
+    case 31:
+      v12 = [objc_alloc(MEMORY[0x277CCA898]) initWithAttributedString:valueCopy];
+      [(SCROBrailleDisplayManager *)self->_brailleDisplayManager setMainAttributedString:v12 forceUpdate:0];
+      goto LABEL_53;
+    case 33:
+      -[SCROBrailleDisplayManager setShowDotsSevenAndEight:](self->_brailleDisplayManager, "setShowDotsSevenAndEight:", [valueCopy BOOLValue]);
+      goto LABEL_54;
+    case 34:
+      -[SCROBrailleDisplayManager setShowEightDotBraille:](self->_brailleDisplayManager, "setShowEightDotBraille:", [valueCopy BOOLValue]);
+      goto LABEL_54;
+    case 35:
+      -[SCROBrailleDisplayManager setInputEightDotBraille:](self->_brailleDisplayManager, "setInputEightDotBraille:", [valueCopy BOOLValue]);
+      goto LABEL_54;
+    case 36:
+      -[SCROBrailleDisplayManager setAutomaticBrailleTranslationEnabled:](self->_brailleDisplayManager, "setAutomaticBrailleTranslationEnabled:", [valueCopy BOOLValue]);
+      goto LABEL_54;
+    case 37:
+      -[SCROBrailleDisplayManager setContractionMode:](self->_brailleDisplayManager, "setContractionMode:", [valueCopy intValue]);
+      goto LABEL_54;
+    case 38:
+      -[SCROBrailleDisplayManager setInputContractionMode:](self->_brailleDisplayManager, "setInputContractionMode:", [valueCopy intValue]);
+      goto LABEL_54;
+    case 39:
+      if (trustedCopy)
+      {
+        -[SCROBrailleDisplayManager setLineDescriptorDisplayCallbackEnabled:](self->_brailleDisplayManager, "setLineDescriptorDisplayCallbackEnabled:", [valueCopy BOOLValue]);
+      }
+
+      goto LABEL_54;
+    case 40:
+      [(SCROBrailleDisplayManager *)self->_brailleDisplayManager setAggregatedStatus:valueCopy];
+      goto LABEL_54;
+    case 41:
+      -[SCROBrailleDisplayManager setVirtualStatusAlignment:](self->_brailleDisplayManager, "setVirtualStatusAlignment:", [valueCopy intValue]);
+      goto LABEL_54;
+    case 42:
+      -[SCROBrailleDisplayManager setMasterStatusCellIndex:](self->_brailleDisplayManager, "setMasterStatusCellIndex:", [valueCopy integerValue]);
+      goto LABEL_54;
+    case 43:
+      -[SCROBrailleDisplayManager setPersistentKeyModifiers:](self->_brailleDisplayManager, "setPersistentKeyModifiers:", [valueCopy intValue]);
+      goto LABEL_54;
+    case 44:
+      -[SCROBrailleDisplayManager setWordWrapEnabled:](self->_brailleDisplayManager, "setWordWrapEnabled:", [valueCopy BOOLValue]);
+      goto LABEL_54;
+    case 45:
+      -[SCROBrailleDisplayManager setAutoAdvanceEnabled:](self->_brailleDisplayManager, "setAutoAdvanceEnabled:", [valueCopy BOOLValue]);
+      goto LABEL_54;
+    case 46:
+      v10 = self->_brailleDisplayManager;
+      [valueCopy doubleValue];
+      [(SCROBrailleDisplayManager *)v10 setAutoAdvanceDuration:?];
+      goto LABEL_54;
+    case 47:
+      -[SCROBrailleDisplayManager setBlinkingCursorEnabled:](self->_brailleDisplayManager, "setBlinkingCursorEnabled:", [valueCopy BOOLValue]);
+      goto LABEL_54;
+    case 48:
+      v23 = self->_brailleDisplayManager;
+      [valueCopy doubleValue];
+      [(SCROBrailleDisplayManager *)v23 setLastUserInteractionTime:?];
+      goto LABEL_54;
+    case 49:
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        [(SCROBrailleDisplayManager *)self->_brailleDisplayManager setTactileGraphicsImageData:v9];
+      }
+
+      goto LABEL_54;
+    case 50:
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        [(SCROBrailleDisplayManager *)self->_brailleDisplayManager setPlanarData:v9];
+      }
+
+      goto LABEL_54;
+    case 52:
+      -[SCROBrailleDisplayManager panDisplayLeft:](self->_brailleDisplayManager, "panDisplayLeft:", [valueCopy integerValue]);
+      goto LABEL_54;
+    case 53:
+      -[SCROBrailleDisplayManager panDisplayRight:](self->_brailleDisplayManager, "panDisplayRight:", [valueCopy integerValue]);
+      goto LABEL_54;
+    case 54:
+      -[SCROBrailleDisplayManager panDisplayBeginning:](self->_brailleDisplayManager, "panDisplayBeginning:", [valueCopy integerValue]);
+      goto LABEL_54;
+    case 55:
+      -[SCROBrailleDisplayManager panDisplayEnd:](self->_brailleDisplayManager, "panDisplayEnd:", [valueCopy integerValue]);
+      goto LABEL_54;
+    case 56:
+      [(SCROBrailleDisplayManager *)self->_brailleDisplayManager simulateKeypress:valueCopy];
+      goto LABEL_54;
+    case 57:
+      v24 = self->_brailleDisplayManager;
+      v12 = [valueCopy objectForKey:@"prepare"];
+      bOOLValue = [v12 BOOLValue];
+      v14 = [v9 objectForKey:@"immediate"];
+      bOOLValue2 = [v14 BOOLValue];
+      v21 = [v9 objectForKey:@"displayToken"];
+      -[SCROBrailleDisplayManager setPrepareToMemorizeNextKey:immediate:forDisplayWithToken:](v24, "setPrepareToMemorizeNextKey:immediate:forDisplayWithToken:", bOOLValue, bOOLValue2, [v21 integerValue]);
+LABEL_51:
+
+LABEL_52:
+      goto LABEL_53;
+    case 58:
+      -[SCROBrailleDisplayManager setPrimaryBrailleDisplay:](self->_brailleDisplayManager, "setPrimaryBrailleDisplay:", [valueCopy integerValue]);
+      goto LABEL_54;
+    case 59:
+      -[SCROBrailleDisplayManager setSingleKeyQuickNav:](self->_brailleDisplayManager, "setSingleKeyQuickNav:", [valueCopy BOOLValue]);
+      goto LABEL_54;
+    case 60:
+      -[SCROBrailleDisplayManager setSingleLetterInputIsOn:](self->_brailleDisplayManager, "setSingleLetterInputIsOn:", [valueCopy BOOLValue]);
+      goto LABEL_54;
+    case 61:
+      -[SCROBrailleDisplayManager setTextSearchModeIsOn:](self->_brailleDisplayManager, "setTextSearchModeIsOn:", [valueCopy BOOLValue]);
+      goto LABEL_54;
+    case 62:
+      [valueCopy doubleValue];
+      [(SCROBrailleDisplayManager *)self->_brailleDisplayManager setBrailleKeyDebounceTimeout:?];
+      goto LABEL_54;
+    case 63:
+      -[SCROBrailleDisplayManager planarPanDisplayLeft:](self->_brailleDisplayManager, "planarPanDisplayLeft:", [valueCopy integerValue]);
+      goto LABEL_54;
+    case 64:
+      -[SCROBrailleDisplayManager planarPanDisplayRight:](self->_brailleDisplayManager, "planarPanDisplayRight:", [valueCopy integerValue]);
+      goto LABEL_54;
+    case 73:
+      [(SCROBrailleDisplayManager *)self->_brailleDisplayManager startBrailleUI:valueCopy];
+      goto LABEL_54;
+    case 74:
+      [(SCROBrailleDisplayManager *)self->_brailleDisplayManager endBrailleUI:valueCopy];
+      goto LABEL_54;
+    case 75:
+      v12 = [valueCopy objectForKey:@"response"];
+      v17 = [v9 objectForKey:@"request"];
+      [(SCROBrailleDisplayManager *)self->_brailleDisplayManager handleBrailleUIResponse:v12 forRequest:v17];
+
+      goto LABEL_53;
+    case 76:
+      v22 = self->_brailleDisplayManager;
+      v12 = [valueCopy objectForKey:@"command"];
+      [(SCROBrailleDisplayManager *)v22 processBrailleUICommand:v12];
+LABEL_53:
+
+LABEL_54:
+      v27 = 0;
+      break;
+    default:
+      v29.receiver = self;
+      v29.super_class = SCROBrailleHandler;
+      v27 = [(SCROHandler *)&v29 handleSetValue:valueCopy forKey:v6 trusted:trustedCopy];
+      break;
+  }
+
+  return v27;
+}
+
+- (int)handleGetValue:(id *)value forKey:(int)key withObject:(id)object trusted:(BOOL)trusted
+{
+  trustedCopy = trusted;
+  v7 = *&key;
+  objectCopy = object;
+  v11 = objectCopy;
+  switch(v7)
+  {
+    case 19:
+      unsignedIntegerValue = [objectCopy unsignedIntegerValue];
+      v13 = MEMORY[0x277CCABB0];
+      numberOfTextLinesInPlanarBraille = [(SCROBrailleDisplayManager *)self->_brailleDisplayManager loadVirtualDisplayWithMainSize:unsignedIntegerValue];
+      goto LABEL_7;
+    case 20:
+      mainAttributedString = -[SCROBrailleDisplayManager mainCellsForVirtualDisplay:](self->_brailleDisplayManager, "mainCellsForVirtualDisplay:", [objectCopy unsignedIntegerValue]);
+      goto LABEL_34;
+    case 30:
+      v15 = MEMORY[0x277CCABB0];
+      alwaysUsesNemethCodeForTechnicalText = [(SCROBrailleDisplayManager *)self->_brailleDisplayManager alwaysUsesNemethCodeForTechnicalText];
+      goto LABEL_33;
+    case 31:
+      if (!trustedCopy)
+      {
+        goto LABEL_24;
+      }
+
+      mainAttributedString = [(SCROBrailleDisplayManager *)self->_brailleDisplayManager mainAttributedString];
+      goto LABEL_34;
+    case 33:
+      v15 = MEMORY[0x277CCABB0];
+      alwaysUsesNemethCodeForTechnicalText = [(SCROBrailleDisplayManager *)self->_brailleDisplayManager showDotsSevenAndEight];
+      goto LABEL_33;
+    case 34:
+      v15 = MEMORY[0x277CCABB0];
+      alwaysUsesNemethCodeForTechnicalText = [(SCROBrailleDisplayManager *)self->_brailleDisplayManager showEightDotBraille];
+      goto LABEL_33;
+    case 35:
+      v15 = MEMORY[0x277CCABB0];
+      alwaysUsesNemethCodeForTechnicalText = [(SCROBrailleDisplayManager *)self->_brailleDisplayManager inputEightDotBraille];
+      goto LABEL_33;
+    case 37:
+      v17 = MEMORY[0x277CCABB0];
+      contractionMode = [(SCROBrailleDisplayManager *)self->_brailleDisplayManager contractionMode];
+      goto LABEL_28;
+    case 38:
+      v17 = MEMORY[0x277CCABB0];
+      contractionMode = [(SCROBrailleDisplayManager *)self->_brailleDisplayManager inputContractionMode];
+      goto LABEL_28;
+    case 39:
+      v15 = MEMORY[0x277CCABB0];
+      alwaysUsesNemethCodeForTechnicalText = [(SCROBrailleDisplayManager *)self->_brailleDisplayManager lineDescriptorDisplayCallbackEnabled];
+      goto LABEL_33;
+    case 40:
+      mainAttributedString = [(SCROBrailleDisplayManager *)self->_brailleDisplayManager aggregatedStatus];
+      goto LABEL_34;
+    case 41:
+      v17 = MEMORY[0x277CCABB0];
+      contractionMode = [(SCROBrailleDisplayManager *)self->_brailleDisplayManager virtualStatusAlignment];
+      goto LABEL_28;
+    case 42:
+      mainAttributedString = [MEMORY[0x277CCABB0] numberWithInteger:{-[SCROBrailleDisplayManager masterStatusCellIndex](self->_brailleDisplayManager, "masterStatusCellIndex")}];
+      goto LABEL_34;
+    case 43:
+      mainAttributedString = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{-[SCROBrailleDisplayManager persistentKeyModifiers](self->_brailleDisplayManager, "persistentKeyModifiers")}];
+      goto LABEL_34;
+    case 44:
+      v15 = MEMORY[0x277CCABB0];
+      alwaysUsesNemethCodeForTechnicalText = [(SCROBrailleDisplayManager *)self->_brailleDisplayManager wordWrapEnabled];
+      goto LABEL_33;
+    case 45:
+      v15 = MEMORY[0x277CCABB0];
+      alwaysUsesNemethCodeForTechnicalText = [(SCROBrailleDisplayManager *)self->_brailleDisplayManager autoAdvanceEnabled];
+      goto LABEL_33;
+    case 46:
+      v32 = MEMORY[0x277CCABB0];
+      [(SCROBrailleDisplayManager *)self->_brailleDisplayManager autoAdvanceDuration];
+      mainAttributedString = [v32 numberWithDouble:?];
+      goto LABEL_34;
+    case 47:
+      v15 = MEMORY[0x277CCABB0];
+      alwaysUsesNemethCodeForTechnicalText = [(SCROBrailleDisplayManager *)self->_brailleDisplayManager blinkingCursorEnabled];
+      goto LABEL_33;
+    case 65:
+      v15 = MEMORY[0x277CCABB0];
+      alwaysUsesNemethCodeForTechnicalText = [(SCROBrailleDisplayManager *)self->_brailleDisplayManager isConfigured];
+      goto LABEL_33;
+    case 66:
+      v36 = 0;
+      v22 = [objectCopy objectForKey:@"index"];
+      v23 = [v11 objectForKey:@"displayToken"];
+      brailleDisplayManager = self->_brailleDisplayManager;
+      v35 = 0;
+      v25 = -[SCROBrailleDisplayManager tokenForRouterIndex:location:appToken:forDisplayWithToken:](brailleDisplayManager, "tokenForRouterIndex:location:appToken:forDisplayWithToken:", [v22 integerValue], &v36, &v35, objc_msgSend(v23, "integerValue"));
+      v26 = v35;
+      v27 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:3];
+      v28 = [MEMORY[0x277CCABB0] numberWithInteger:v25];
+      [v27 setObject:v28 forKey:kSCROBrailleRouterKeyToken[0]];
+
+      v29 = [MEMORY[0x277CCABB0] numberWithInteger:v36];
+      [v27 setObject:v29 forKey:kSCROBrailleRouterKeyLocation];
+
+      [v27 setObject:v26 forKey:kSCROBrailleRouterKeyAppToken[0]];
+      v30 = v27;
+      *value = v27;
+
+LABEL_24:
+      v31 = 0;
+      break;
+    case 67:
+      mainAttributedString = [(SCROBrailleDisplayManager *)self->_brailleDisplayManager driverConfiguration];
+      goto LABEL_34;
+    case 68:
+      v17 = MEMORY[0x277CCABB0];
+      contractionMode = [(SCROBrailleDisplayManager *)self->_brailleDisplayManager displayMode];
+LABEL_28:
+      mainAttributedString = [v17 numberWithInt:contractionMode];
+      goto LABEL_34;
+    case 69:
+      v20 = -[SCROBrailleDisplayManager rangeOfBrailleCellRepresentingCharacterAtIndex:](self->_brailleDisplayManager, "rangeOfBrailleCellRepresentingCharacterAtIndex:", [objectCopy unsignedIntegerValue]);
+      mainAttributedString = [MEMORY[0x277CCAE60] valueWithRange:{v20, v21}];
+      goto LABEL_34;
+    case 70:
+      v15 = MEMORY[0x277CCABB0];
+      alwaysUsesNemethCodeForTechnicalText = [(SCROBrailleDisplayManager *)self->_brailleDisplayManager isCandidateSelectionOn];
+      goto LABEL_33;
+    case 71:
+      v15 = MEMORY[0x277CCABB0];
+      alwaysUsesNemethCodeForTechnicalText = [(SCROBrailleDisplayManager *)self->_brailleDisplayManager isWordDescriptionOn];
+      goto LABEL_33;
+    case 72:
+      v13 = MEMORY[0x277CCABB0];
+      numberOfTextLinesInPlanarBraille = [(SCROBrailleDisplayManager *)self->_brailleDisplayManager numberOfTextLinesInPlanarBraille];
+LABEL_7:
+      mainAttributedString = [v13 numberWithUnsignedInteger:numberOfTextLinesInPlanarBraille];
+      goto LABEL_34;
+    case 77:
+      v15 = MEMORY[0x277CCABB0];
+      alwaysUsesNemethCodeForTechnicalText = [(SCROBrailleDisplayManager *)self->_brailleDisplayManager isBrailleUIActive];
+LABEL_33:
+      mainAttributedString = [v15 numberWithBool:alwaysUsesNemethCodeForTechnicalText];
+LABEL_34:
+      v31 = 0;
+      *value = mainAttributedString;
+      break;
+    default:
+      v34.receiver = self;
+      v34.super_class = SCROBrailleHandler;
+      v31 = [(SCROHandler *)&v34 handleGetValue:value forKey:v7 withObject:objectCopy trusted:trustedCopy];
+      break;
+  }
+
+  return v31;
 }
 
 - (int)handlePerformActionForKey:(int)key trusted:(BOOL)trusted
@@ -274,30 +645,28 @@ LABEL_16:
 
 - (void)handleBrailleReplaceTextRange:(_NSRange)range withString:(id)string cursor:(unint64_t)cursor
 {
-  v19[3] = *MEMORY[0x277D85DE8];
+  v18[3] = *MEMORY[0x277D85DE8];
   if (self->_callbacks.replaceTextRange)
   {
     length = range.length;
     location = range.location;
-    v18[0] = kSCROBrailleCallbackReplaceTextRange_RangeKey;
+    v17[0] = kSCROBrailleCallbackReplaceTextRange_RangeKey;
     v9 = MEMORY[0x277CCAE60];
     stringCopy = string;
     v11 = [v9 valueWithRange:{location, length}];
-    v19[0] = v11;
-    v19[1] = stringCopy;
-    v18[1] = kSCROBrailleCallbackReplaceTextRange_StringKey;
-    v18[2] = kSCROBrailleCallbackReplaceTextRange_CursorKey;
+    v18[0] = v11;
+    v18[1] = stringCopy;
+    v17[1] = kSCROBrailleCallbackReplaceTextRange_StringKey;
+    v17[2] = kSCROBrailleCallbackReplaceTextRange_CursorKey;
     v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:cursor];
-    v19[2] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
+    v18[2] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
 
     v14 = [SCROCallback alloc];
     v15 = [(SCROCallback *)v14 initWithKey:82 object:v13];
     callbackDelegate = [(SCROHandler *)self callbackDelegate];
     [(SCROCallback *)v15 postToHandler:callbackDelegate];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUserEventOccured
@@ -317,6 +686,101 @@ LABEL_16:
     v5 = [[SCROCallback alloc] initWithKey:83 object:0];
     callbackDelegate = [(SCROHandler *)self callbackDelegate];
     [(SCROCallback *)v5 postToHandler:callbackDelegate];
+  }
+}
+
+- (void)handleBrailleInsertedUntranslatedText:(id)text speakLiterally:(BOOL)literally
+{
+  v14[2] = *MEMORY[0x277D85DE8];
+  if (text)
+  {
+    if (self->_callbacks.insertUntranslatedText)
+    {
+      literallyCopy = literally;
+      v13[0] = kSCROBrailleCallbackSpeechFeedback_SpeakLiterallyKey;
+      v6 = MEMORY[0x277CCABB0];
+      textCopy = text;
+      v8 = [v6 numberWithBool:literallyCopy];
+      v13[1] = kSCROBrailleCallbackSpeechFeedback_SpokenTextKey;
+      v14[0] = v8;
+      v14[1] = textCopy;
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+
+      v10 = [SCROCallback alloc];
+      v11 = [(SCROCallback *)v10 initWithKey:84 object:v9];
+      callbackDelegate = [(SCROHandler *)self callbackDelegate];
+      [(SCROCallback *)v11 postToHandler:callbackDelegate];
+    }
+  }
+}
+
+- (void)handleBrailleDeletedUntranslatedText:(id)text speakLiterally:(BOOL)literally
+{
+  v14[2] = *MEMORY[0x277D85DE8];
+  if (text)
+  {
+    if (self->_callbacks.deleteUntranslatedText)
+    {
+      literallyCopy = literally;
+      v13[0] = kSCROBrailleCallbackSpeechFeedback_SpeakLiterallyKey;
+      v6 = MEMORY[0x277CCABB0];
+      textCopy = text;
+      v8 = [v6 numberWithBool:literallyCopy];
+      v13[1] = kSCROBrailleCallbackSpeechFeedback_SpokenTextKey;
+      v14[0] = v8;
+      v14[1] = textCopy;
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+
+      v10 = [SCROCallback alloc];
+      v11 = [(SCROCallback *)v10 initWithKey:85 object:v9];
+      callbackDelegate = [(SCROHandler *)self callbackDelegate];
+      [(SCROCallback *)v11 postToHandler:callbackDelegate];
+    }
+  }
+}
+
+- (void)handleBrailleSpeechRequest:(id)request language:(id)language shouldQueue:(BOOL)queue
+{
+  queueCopy = queue;
+  v22[3] = *MEMORY[0x277D85DE8];
+  requestCopy = request;
+  languageCopy = language;
+  v10 = languageCopy;
+  if (requestCopy && self->_callbacks.speechRequest)
+  {
+    if (languageCopy)
+    {
+      v21[0] = kSCROBrailleCallbackSpeechFeedback_SpokenTextKey;
+      v21[1] = kSCROBrailleCallbackSpeechFeedback_LanguageKey;
+      v22[0] = requestCopy;
+      v22[1] = languageCopy;
+      v21[2] = kSCROBrailleCallbackSpeechFeedback_ShouldQueueKey;
+      v11 = [MEMORY[0x277CCABB0] numberWithBool:queueCopy];
+      v22[2] = v11;
+      v12 = MEMORY[0x277CBEAC0];
+      v13 = v22;
+      v14 = v21;
+      v15 = 3;
+    }
+
+    else
+    {
+      v19[0] = kSCROBrailleCallbackSpeechFeedback_SpokenTextKey;
+      v19[1] = kSCROBrailleCallbackSpeechFeedback_ShouldQueueKey;
+      v20[0] = requestCopy;
+      v11 = [MEMORY[0x277CCABB0] numberWithBool:queueCopy];
+      v20[1] = v11;
+      v12 = MEMORY[0x277CBEAC0];
+      v13 = v20;
+      v14 = v19;
+      v15 = 2;
+    }
+
+    v16 = [v12 dictionaryWithObjects:v13 forKeys:v14 count:v15];
+
+    v17 = [[SCROCallback alloc] initWithKey:86 object:v16];
+    callbackDelegate = [(SCROHandler *)self callbackDelegate];
+    [(SCROCallback *)v17 postToHandler:callbackDelegate];
   }
 }
 
@@ -438,14 +902,14 @@ LABEL_16:
 
 - (void)handleBrailleDriverDidLoad
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = _SCROD_LOG();
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = _SCROD_LOG(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [MEMORY[0x277CCABB0] numberWithBool:self->_callbacks.playDisplayConnectionSound];
-    v9 = 138412290;
-    v10 = v4;
-    _os_log_impl(&dword_26490B000, v3, OS_LOG_TYPE_DEFAULT, "Brailler driver did load %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v4;
+    _os_log_impl(&dword_26490B000, v3, OS_LOG_TYPE_DEFAULT, "Brailler driver did load %@", &v8, 0xCu);
   }
 
   if (self->_callbacks.playDisplayConnectionSound)
@@ -456,14 +920,12 @@ LABEL_16:
     callbackDelegate = [(SCROHandler *)self callbackDelegate];
     [(SCROCallback *)v6 postToHandler:callbackDelegate];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configurationDidChange
 {
   v12 = *MEMORY[0x277D85DE8];
-  v3 = _SCROD_LOG();
+  v3 = _SCROD_LOG(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     configChanged = self->_callbacks.configChanged;
@@ -479,18 +941,16 @@ LABEL_16:
     callbackDelegate = [(SCROHandler *)self callbackDelegate];
     [(SCROCallback *)v6 postToHandler:callbackDelegate];
 
-    v8 = _SCROD_LOG();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _SCROD_LOG(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v11[0]) = 0;
-      _os_log_impl(&dword_26490B000, v8, OS_LOG_TYPE_DEFAULT, "Posting SCRODisplayConfigurationChangedNotification", v11, 2u);
+      _os_log_impl(&dword_26490B000, v9, OS_LOG_TYPE_DEFAULT, "Posting SCRODisplayConfigurationChangedNotification", v11, 2u);
     }
 
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterPostNotification(DarwinNotifyCenter, kSCRODisplayConfigurationChangedNotification, 0, 0, 1u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleFailedToLoadBluetoothDevice:(id)device
@@ -550,6 +1010,20 @@ LABEL_16:
 
     callbackDelegate = [(SCROHandler *)self callbackDelegate];
     [(SCROCallback *)v7 postToHandler:callbackDelegate];
+  }
+}
+
+- (void)handlePlanarPanFailedIsLeft:(BOOL)left
+{
+  if (self->_callbacks.planarPan)
+  {
+    leftCopy = left;
+    v6 = [SCROCallback alloc];
+    v7 = [MEMORY[0x277CCABB0] numberWithBool:leftCopy];
+    v9 = [(SCROCallback *)v6 initWithKey:101 object:v7];
+
+    callbackDelegate = [(SCROHandler *)self callbackDelegate];
+    [(SCROCallback *)v9 postToHandler:callbackDelegate];
   }
 }
 

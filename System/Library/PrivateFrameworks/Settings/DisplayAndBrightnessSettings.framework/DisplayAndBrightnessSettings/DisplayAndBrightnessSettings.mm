@@ -19,10 +19,11 @@ void sub_221031354(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 2u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 2u);
 }
 
 BOOL OUTLINED_FUNCTION_1(NSObject *a1)
@@ -81,7 +82,7 @@ id DBSAnimationPackageURLForDisplayZoomOptionAndUserInterfaceStyle(uint64_t a1, 
   }
 
   v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@%@%@", v10, v7, v8, v9];
-  v12 = DBS_BundleForDisplayAndBrightnessSettingsFramework();
+  v12 = DBS_BundleForDisplayAndBrightnessSettingsFramework(v11);
   v13 = [v12 URLForResource:v11 withExtension:@"ca"];
 
   return v13;
@@ -108,7 +109,7 @@ id DBSStillPreviewImageForDisplayZoomOption(uint64_t a1)
 
   v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@", v4, v3];
   v6 = MEMORY[0x277D755B8];
-  v7 = DBS_BundleForDisplayAndBrightnessSettingsFramework();
+  v7 = DBS_BundleForDisplayAndBrightnessSettingsFramework(v5);
   v8 = [v6 imageNamed:v5 inBundle:v7 compatibleWithTraitCollection:0];
 
   return v8;
@@ -127,7 +128,7 @@ void DBSPurgeKeyboardCache()
   [v2 purge];
 }
 
-uint64_t __UIKeyboardCacheVersion_block_invoke()
+void *__UIKeyboardCacheVersion_block_invoke()
 {
   result = [MGCopyAnswerWithError() hash];
   UIKeyboardCacheVersion_buildVersion = result;
@@ -183,9 +184,9 @@ void sub_221041A6C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2210421F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2210421F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -237,7 +238,7 @@ LABEL_7:
   return 0;
 }
 
-uint64_t DBSChamoisEnabled()
+uint64_t DBSChamoisEnabled(uint64_t a1, uint64_t a2)
 {
   if (DBSChamoisEnabled_onceToken != -1)
   {
@@ -254,7 +255,7 @@ uint64_t __DBSChamoisEnabled_block_invoke()
   return result;
 }
 
-uint64_t DBSReverseZoomEnabled()
+uint64_t DBSReverseZoomEnabled(uint64_t a1, uint64_t a2)
 {
   if (DBSReverseZoomEnabled_onceToken != -1)
   {
@@ -271,7 +272,7 @@ uint64_t __DBSReverseZoomEnabled_block_invoke()
   return result;
 }
 
-uint64_t DBSMostDisplaySpaceEnabled()
+uint64_t DBSMostDisplaySpaceEnabled(uint64_t a1, uint64_t a2)
 {
   if (DBSMostDisplaySpaceEnabled_onceToken != -1)
   {
@@ -288,7 +289,7 @@ uint64_t __DBSMostDisplaySpaceEnabled_block_invoke()
   return result;
 }
 
-uint64_t DBSFlexibleWindowingEnabled()
+uint64_t DBSFlexibleWindowingEnabled(uint64_t a1, uint64_t a2)
 {
   if (DBSFlexibleWindowingEnabled_onceToken != -1)
   {
@@ -305,39 +306,29 @@ uint64_t __DBSFlexibleWindowingEnabled_block_invoke()
   return result;
 }
 
-double GetWhitepointShiftLuminanceLoss(float64_t a1, float64_t a2)
+double GetWhitepointShiftLuminanceLoss(__n128 a1, __n128 a2, double a3, double a4, float64x2_t a5, float64x2_t a6, float64x2_t a7, float64x2_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  if ((atomic_load_explicit(&_MergedGlobals, memory_order_acquire) & 1) == 0)
+  v31 = *MEMORY[0x277D85DE8];
+  if ((atomic_load_explicit(_MergedGlobals, memory_order_acquire) & 1) == 0)
   {
     GetWhitepointShiftLuminanceLoss_cold_1();
   }
 
-  if ((atomic_load_explicit(qword_27CFB0268, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_27CFB0268, memory_order_acquire) & 1) == 0)
   {
     GetWhitepointShiftLuminanceLoss_cold_2();
   }
 
-  v2.f64[0] = a1;
-  v2.f64[1] = a2;
-  v3 = vsubq_f64(xmmword_22105F300, v2);
+  *&v16.f64[0] = a1.n128_u64[0];
+  *&v16.f64[1] = a2.n128_u64[0];
+  v17 = vsubq_f64(xmmword_22105F300, v16);
   __asm { FMOV            V1.2D, #1.0 }
 
-  v14[2] = xmmword_27CFB02C0;
-  v14[3] = unk_27CFB02D0;
-  v14[4] = xmmword_27CFB02E0;
-  v14[5] = unk_27CFB02F0;
-  v14[0] = xmmword_27CFB02A0;
-  v14[1] = unk_27CFB02B0;
-  v13[0] = v3;
-  v13[1] = _Q1;
-  v12[0] = xmmword_27CFB0280;
-  v12[1] = *algn_27CFB0290;
-  ChromaticAdaptationTransform<double>::ChromaticAdaptationTransform(v15, v14, v13, v12);
-  return v16;
+  ChromaticAdaptationTransform<double>::ChromaticAdaptationTransform(v29, &v28, &v27, &v26, a13, a14, a15, a16, *&a2, *&a1, xmmword_27CFB0280, *algn_27CFB0290, xmmword_27CFB02A0, xmmword_27CFB02B0, a5, a6, a7, a8, xmmword_27CFB0280, *algn_27CFB0290, v17, _Q1, xmmword_27CFB02A0, *&xmmword_27CFB02B0, xmmword_27CFB02C0, unk_27CFB02D0, xmmword_27CFB02E0, unk_27CFB02F0, v29[0], v29[1], *&v29[2], *&v29[3], *&v29[4], *&v29[5], v29[6], v29[7], v29[8], v29[9], v29[10], v29[11]);
+  return v30;
 }
 
-_OWORD *RGBXYZConversionMatrices<double>::RGBXYZConversionMatrices(_OWORD *a1, uint64_t a2, float64x2_t *a3, double a4, float64x2_t a5, double a6, double a7, double a8, float64x2_t a9, double a10, float64x2_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, float64x2_t a45, float64x2_t a46, float64x2_t a47, float64x2_t a48, float64x2_t a49, float64x2_t a50)
+float64x2_t *RGBXYZConversionMatrices<double>::RGBXYZConversionMatrices(float64x2_t *a1, uint64_t a2, float64x2_t *a3, double a4, float64x2_t a5, double a6, double a7, double a8, float64x2_t a9, double a10, float64x2_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, __n128 a33, __n128 a34, float64x2_t a35, __n128 a36, float64x2_t a37, float64x2_t a38, float64x2_t a39, float64x2_t a40, float64x2_t a41, float64x2_t a42, float64x2_t a43, float64x2_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48)
 {
   a1[10] = 0u;
   a1[11] = 0u;
@@ -352,56 +343,56 @@ _OWORD *RGBXYZConversionMatrices<double>::RGBXYZConversionMatrices(_OWORD *a1, u
   *a1 = 0u;
   a1[1] = 0u;
   a5.f64[0] = *(a2 + 16);
-  v51 = *(a2 + 8);
-  v52.f64[0] = a5.f64[0] * *a2 / v51;
-  a9.f64[0] = a5.f64[0] * (1.0 - *a2 - v51) / v51;
-  v52.f64[1] = a5.f64[0];
-  v67 = v52;
-  v68 = a9;
-  v53 = *(a2 + 32);
+  v49 = *(a2 + 8);
+  v50.f64[0] = a5.f64[0] * *a2 / v49;
+  a9.f64[0] = a5.f64[0] * (1.0 - *a2 - v49) / v49;
+  v50.f64[1] = a5.f64[0];
+  v65 = v50;
+  v66 = a9;
+  v51 = *(a2 + 32);
   a5.f64[0] = *(a2 + 48);
-  v52.f64[0] = *(a2 + 40);
-  v54.f64[0] = a5.f64[0] * *&v53 / v52.f64[0];
-  a11.f64[0] = a5.f64[0] * (1.0 - *&v53 - v52.f64[0]) / v52.f64[0];
-  v54.f64[1] = a5.f64[0];
-  v65 = v54;
-  v66 = a11;
-  v55 = *(a2 + 64);
+  v50.f64[0] = *(a2 + 40);
+  v52.f64[0] = a5.f64[0] * *&v51 / v50.f64[0];
+  a11.f64[0] = a5.f64[0] * (1.0 - *&v51 - v50.f64[0]) / v50.f64[0];
+  v52.f64[1] = a5.f64[0];
+  v63 = v52;
+  v64 = a11;
+  v53 = *(a2 + 64);
   a5.f64[0] = *(a2 + 80);
-  v52.f64[0] = *(a2 + 72);
-  v54.f64[0] = a5.f64[0] * *&v55 / v52.f64[0];
-  v52.f64[0] = a5.f64[0] * (1.0 - *&v55 - v52.f64[0]) / v52.f64[0];
-  v69 = v52;
-  v54.f64[1] = a5.f64[0];
-  v64 = v54;
-  v56 = *a3;
-  v57 = a3[1];
-  v54.f64[0] = a3->f64[1];
-  a5.f64[0] = vmuld_n_f64(a3->f64[0], v57.f64[0]) / v54.f64[0];
-  v62 = v57;
-  v63 = a5;
-  v56.f64[0] = (1.0 - a3->f64[0] - v54.f64[0]) * v57.f64[0] / v54.f64[0];
-  vars0 = v56;
+  v50.f64[0] = *(a2 + 72);
+  v52.f64[0] = a5.f64[0] * *&v53 / v50.f64[0];
+  v50.f64[0] = a5.f64[0] * (1.0 - *&v53 - v50.f64[0]) / v50.f64[0];
+  v67 = v50;
+  v52.f64[1] = a5.f64[0];
+  v62 = v52;
+  v54 = *a3;
+  v55 = a3[1];
+  v52.f64[0] = a3->f64[1];
+  a5.f64[0] = vmuld_n_f64(a3->f64[0], v55.f64[0]) / v52.f64[0];
+  v60 = v55;
+  v61 = a5;
+  v54.f64[0] = (1.0 - a3->f64[0] - v52.f64[0]) * v55.f64[0] / v52.f64[0];
+  vars0 = v54;
   __invert_d3();
-  *&v58 = *&vmlaq_f64(vmlaq_f64(vmulq_f64(v63, a46), v62, a48), vars0, a50);
-  v59 = vmlaq_n_f64(vmlaq_n_f64(vmulq_n_f64(a45, v63.f64[0]), a47, v62.f64[0]), a49, vars0.f64[0]);
-  *a1 = vmulq_n_f64(v67, v59.f64[0]);
-  a1[1] = vmulq_n_f64(v68, v59.f64[0]);
-  a1[2] = vmulq_laneq_f64(v65, v59, 1);
-  a1[3] = vmulq_laneq_f64(v66, v59, 1);
-  a1[4] = vmulq_n_f64(v64, v58);
-  a1[5] = vmulq_n_f64(v69, v58);
+  *&v56 = *&vmlaq_f64(vmlaq_f64(vmulq_f64(v61, a40), v60, a42), vars0, a44);
+  v57 = vmlaq_n_f64(vmlaq_n_f64(vmulq_n_f64(a39, v61.f64[0]), a41, v60.f64[0]), a43, vars0.f64[0]);
+  *a1 = vmulq_n_f64(v65, v57.f64[0]);
+  a1[1] = vmulq_n_f64(v66, v57.f64[0]);
+  a1[2] = vmulq_laneq_f64(v63, v57, 1);
+  a1[3] = vmulq_laneq_f64(v64, v57, 1);
+  a1[4] = vmulq_n_f64(v62, v56);
+  a1[5] = vmulq_n_f64(v67, v56);
   __invert_d3();
-  a1[8] = a47;
-  a1[9] = a48;
-  a1[10] = a49;
-  a1[11] = a50;
-  a1[6] = a45;
-  a1[7] = a46;
+  a1[8] = a41;
+  a1[9] = a42;
+  a1[10] = a43;
+  a1[11] = a44;
+  a1[6] = a39;
+  a1[7] = a40;
   return a1;
 }
 
-_OWORD *ChromaticAdaptationMatrix<double>::ChromaticAdaptationMatrix(_OWORD *a1, float64x2_t *a2, float64x2_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, __int128 a13, __int128 a14, __int128 a15, __int128 a16, __int128 a17, __int128 a18, float64x2_t a19, float64x2_t a20, float64x2_t a21, float64x2_t a22, float64x2_t a23, float64x2_t a24, __int128 a25, float64x2_t a26, __int128 a27, float64x2_t a28, __int128 a29, float64x2_t a30)
+_OWORD *ChromaticAdaptationMatrix<double>::ChromaticAdaptationMatrix(_OWORD *a1, float64x2_t *a2, float64x2_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, float64x2_t a19, float64x2_t a20, float64x2_t a21, float64x2_t a22, float64x2_t a23, float64x2_t a24, float64x2_t a26, float64x2_t a28, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, __int128 a13, __int128 a14, __int128 a15, __int128 a16, __int128 a17, __int128 a18, float64x2_t a25, float64x2_t a27, float64x2_t a29, float64x2_t a30, float64x2_t a31, float64x2_t a32, __int128 a33, float64x2_t a34, __int128 a35, float64x2_t a36, __int128 a37, float64x2_t a38)
 {
   a1[4] = 0u;
   a1[5] = 0u;
@@ -409,87 +400,87 @@ _OWORD *ChromaticAdaptationMatrix<double>::ChromaticAdaptationMatrix(_OWORD *a1,
   a1[3] = 0u;
   *a1 = 0u;
   a1[1] = 0u;
-  a25 = xmmword_22105F310;
-  a26 = 0x3FA3EAB367A0F909uLL;
-  a27 = xmmword_22105F320;
-  a28 = 0xBFB189374BC6A7F0;
-  a29 = xmmword_22105F330;
-  a30 = 0x3FF0793DD97F62B7uLL;
+  a33 = xmmword_22105F310;
+  a34 = 0x3FA3EAB367A0F909uLL;
+  a35 = xmmword_22105F320;
+  a36 = 0xBFB189374BC6A7F0;
+  a37 = xmmword_22105F330;
+  a38 = 0x3FF0793DD97F62B7uLL;
   __invert_d3();
-  v33 = 0;
-  v35 = *a2;
-  v34 = a2[1];
-  v37 = a19;
-  v36 = a20;
-  v39 = a21;
-  v38 = a22;
-  v41 = a23;
-  v40 = a24;
-  v42 = a2->f64[1];
-  v43.f64[0] = vmuld_n_f64(a2->f64[0], v34.f64[0]) / v42;
-  v35.f64[0] = (1.0 - a2->f64[0] - v42) * v34.f64[0] / v42;
-  v44 = vmulq_f64(v43, 0x3FA3EAB367A0F909uLL);
-  v45 = vmlaq_n_f64(vmlaq_n_f64(vmulq_n_f64(xmmword_22105F310, v43.f64[0]), xmmword_22105F320, v34.f64[0]), xmmword_22105F330, v35.f64[0]);
-  v46 = vmlaq_f64(vmlaq_f64(v44, 0xBFB189374BC6A7F0, v34), 0x3FF0793DD97F62B7uLL, v35);
-  v48 = *a3;
-  v47 = a3[1];
-  v49 = a3->f64[1];
-  v50.f64[0] = vmuld_n_f64(a3->f64[0], v47.f64[0]) / v49;
-  v48.f64[0] = (1.0 - a3->f64[0] - v49) * v47.f64[0] / v49;
-  v51 = vmlaq_f64(vmulq_f64(v50, 0x3FA3EAB367A0F909uLL), 0xBFB189374BC6A7F0, v47);
-  v52 = vdivq_f64(vmlaq_n_f64(vmlaq_n_f64(vmulq_n_f64(xmmword_22105F310, v50.f64[0]), xmmword_22105F320, v47.f64[0]), xmmword_22105F330, v48.f64[0]), v45);
-  v50.f64[0] = 0.0;
-  v50.f64[1] = v52.f64[1];
-  a19 = *&v52.f64[0];
-  a20 = 0u;
-  a21 = v50;
-  a22 = 0u;
-  a23 = 0uLL;
-  a24 = vdivq_f64(vmlaq_f64(v51, 0x3FF0793DD97F62B7uLL, v48), v46);
+  v41 = 0;
+  v43 = *a2;
+  v42 = a2[1];
+  v45 = a25;
+  v44 = a27;
+  v47 = a29;
+  v46 = a30;
+  v49 = a31;
+  v48 = a32;
+  v50 = a2->f64[1];
+  v51.f64[0] = vmuld_n_f64(a2->f64[0], v42.f64[0]) / v50;
+  v43.f64[0] = (1.0 - a2->f64[0] - v50) * v42.f64[0] / v50;
+  v52 = vmulq_f64(v51, 0x3FA3EAB367A0F909uLL);
+  v53 = vmlaq_n_f64(vmlaq_n_f64(vmulq_n_f64(xmmword_22105F310, v51.f64[0]), xmmword_22105F320, v42.f64[0]), xmmword_22105F330, v43.f64[0]);
+  v54 = vmlaq_f64(vmlaq_f64(v52, 0xBFB189374BC6A7F0, v42), 0x3FF0793DD97F62B7uLL, v43);
+  v56 = *a3;
+  v55 = a3[1];
+  v57 = a3->f64[1];
+  v58.f64[0] = vmuld_n_f64(a3->f64[0], v55.f64[0]) / v57;
+  v56.f64[0] = (1.0 - a3->f64[0] - v57) * v55.f64[0] / v57;
+  v59 = vmlaq_f64(vmulq_f64(v58, 0x3FA3EAB367A0F909uLL), 0xBFB189374BC6A7F0, v55);
+  v60 = vdivq_f64(vmlaq_n_f64(vmlaq_n_f64(vmulq_n_f64(xmmword_22105F310, v58.f64[0]), xmmword_22105F320, v55.f64[0]), xmmword_22105F330, v56.f64[0]), v53);
+  v58.f64[0] = 0.0;
+  v58.f64[1] = v60.f64[1];
+  a25 = *&v60.f64[0];
+  a27 = 0u;
+  a29 = v58;
+  a30 = 0u;
+  a31 = 0uLL;
+  a32 = vdivq_f64(vmlaq_f64(v59, 0x3FF0793DD97F62B7uLL, v56), v54);
   do
   {
-    v54 = *(&a19 + v33);
-    v53 = *(&a19 + v33 + 16);
-    v55 = (&a25 + v33);
-    *v55 = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v37, v54.f64[0]), v39, v54, 1), v41, *&v53);
-    v55[1] = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v36, v54.f64[0]), v38, v54, 1), v40, *&v53);
-    v33 += 32;
+    v62 = *(&a25 + v41);
+    v61 = *(&a25 + v41 + 16);
+    v63 = (&a33 + v41);
+    *v63 = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v45, v62.f64[0]), v47, v62, 1), v49, *&v61);
+    v63[1] = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v44, v62.f64[0]), v46, v62, 1), v48, *&v61);
+    v41 += 32;
   }
 
-  while (v33 != 96);
-  v56 = 0;
-  v58 = a25;
-  v57 = a26;
-  v60 = a27;
-  v59 = a28;
-  v62 = a29;
-  v61 = a30;
-  a25 = xmmword_22105F310;
-  a26 = 0x3FA3EAB367A0F909uLL;
-  a27 = xmmword_22105F320;
-  a28 = 0xBFB189374BC6A7F0;
-  a29 = xmmword_22105F330;
-  a30 = 0x3FF0793DD97F62B7uLL;
+  while (v41 != 96);
+  v64 = 0;
+  v66 = a33;
+  v65 = a34;
+  v68 = a35;
+  v67 = a36;
+  v70 = a37;
+  v69 = a38;
+  a33 = xmmword_22105F310;
+  a34 = 0x3FA3EAB367A0F909uLL;
+  a35 = xmmword_22105F320;
+  a36 = 0xBFB189374BC6A7F0;
+  a37 = xmmword_22105F330;
+  a38 = 0x3FF0793DD97F62B7uLL;
   do
   {
-    v64 = *(&a25 + v56);
-    v63 = *(&a25 + v56 + 16);
-    v65 = (&a13 + v56);
-    *v65 = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v58, v64.f64[0]), v60, v64, 1), v62, *&v63);
-    v65[1] = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v57, v64.f64[0]), v59, v64, 1), v61, *&v63);
-    v56 += 32;
+    v72 = *(&a33 + v64);
+    v71 = *(&a33 + v64 + 16);
+    v73 = (&a13 + v64);
+    *v73 = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v66, v72.f64[0]), v68, v72, 1), v70, *&v71);
+    v73[1] = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v65, v72.f64[0]), v67, v72, 1), v69, *&v71);
+    v64 += 32;
   }
 
-  while (v56 != 96);
-  v66 = a16;
+  while (v64 != 96);
+  v74 = a16;
   a1[2] = a15;
-  a1[3] = v66;
-  v67 = a18;
+  a1[3] = v74;
+  v75 = a18;
   a1[4] = a17;
-  a1[5] = v67;
-  v68 = a14;
+  a1[5] = v75;
+  v76 = a14;
   *a1 = a13;
-  a1[1] = v68;
+  a1[1] = v76;
   return a1;
 }
 
@@ -528,9 +519,9 @@ void sub_22104D49C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22104FD58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_22104FD58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -560,28 +551,28 @@ id DBSLockScreenTimeString()
 id DBS_LocalizedStringForMagnify(void *a1)
 {
   v1 = a1;
-  v2 = DBS_BundleForDisplayAndBrightnessSettingsFramework();
+  v2 = DBS_BundleForDisplayAndBrightnessSettingsFramework(v1);
   v3 = [v2 localizedStringForKey:v1 value:0 table:@"Magnify"];
 
   return v3;
 }
 
-id DBS_BundleForDisplayAndBrightnessSettingsFramework()
+id DBS_BundleForDisplayAndBrightnessSettingsFramework(uint64_t a1)
 {
   if (DBS_BundleForDisplayAndBrightnessSettingsFramework_onceToken != -1)
   {
     DBS_BundleForDisplayAndBrightnessSettingsFramework_cold_1();
   }
 
-  v1 = DBS_BundleForDisplayAndBrightnessSettingsFramework__displayAndBrightnessSettingsFrameworkBundle;
+  v2 = DBS_BundleForDisplayAndBrightnessSettingsFramework__displayAndBrightnessSettingsFrameworkBundle;
 
-  return v1;
+  return v2;
 }
 
 id DBS_LocalizedStringForDisplays(void *a1)
 {
   v1 = a1;
-  v2 = DBS_BundleForDisplayAndBrightnessSettingsFramework();
+  v2 = DBS_BundleForDisplayAndBrightnessSettingsFramework(v1);
   v3 = [v2 localizedStringForKey:v1 value:0 table:@"Display"];
 
   return v3;
@@ -590,7 +581,7 @@ id DBS_LocalizedStringForDisplays(void *a1)
 id DBS_LocalizedStringForFineTune(void *a1)
 {
   v1 = a1;
-  v2 = DBS_BundleForDisplayAndBrightnessSettingsFramework();
+  v2 = DBS_BundleForDisplayAndBrightnessSettingsFramework(v1);
   v3 = [v2 localizedStringForKey:v1 value:0 table:@"FineTune"];
 
   return v3;
@@ -599,7 +590,7 @@ id DBS_LocalizedStringForFineTune(void *a1)
 id DBS_LocalizedStringForConnectedDisplays(void *a1)
 {
   v1 = a1;
-  v2 = DBS_BundleForDisplayAndBrightnessSettingsFramework();
+  v2 = DBS_BundleForDisplayAndBrightnessSettingsFramework(v1);
   v3 = [v2 localizedStringForKey:v1 value:0 table:@"ExternalDisplays"];
 
   return v3;
@@ -608,7 +599,7 @@ id DBS_LocalizedStringForConnectedDisplays(void *a1)
 id DBS_LocalizedStringForConnectedDisplays_J8xx(void *a1)
 {
   v1 = a1;
-  v2 = DBS_BundleForDisplayAndBrightnessSettingsFramework();
+  v2 = DBS_BundleForDisplayAndBrightnessSettingsFramework(v1);
   v3 = [v2 localizedStringForKey:v1 value:0 table:@"ExternalDisplays_J8xx"];
 
   return v3;
@@ -617,7 +608,7 @@ id DBS_LocalizedStringForConnectedDisplays_J8xx(void *a1)
 id DBS_LocalizedStringForColorSchedule(void *a1)
 {
   v1 = a1;
-  v2 = DBS_BundleForDisplayAndBrightnessSettingsFramework();
+  v2 = DBS_BundleForDisplayAndBrightnessSettingsFramework(v1);
   v3 = [v2 localizedStringForKey:v1 value:0 table:@"ColorSchedule"];
 
   return v3;
@@ -626,7 +617,7 @@ id DBS_LocalizedStringForColorSchedule(void *a1)
 id DBS_LocalizedStringForColorTemperature(void *a1)
 {
   v1 = a1;
-  v2 = DBS_BundleForDisplayAndBrightnessSettingsFramework();
+  v2 = DBS_BundleForDisplayAndBrightnessSettingsFramework(v1);
   v3 = [v2 localizedStringForKey:v1 value:0 table:@"ColorTemperature"];
 
   return v3;
@@ -635,7 +626,7 @@ id DBS_LocalizedStringForColorTemperature(void *a1)
 id DBS_LocalizedStringForLargeFontSettings(void *a1)
 {
   v1 = a1;
-  v2 = DBS_BundleForDisplayAndBrightnessSettingsFramework();
+  v2 = DBS_BundleForDisplayAndBrightnessSettingsFramework(v1);
   v3 = [v2 localizedStringForKey:v1 value:0 table:@"LargeFontsSettings"];
 
   return v3;
@@ -644,7 +635,7 @@ id DBS_LocalizedStringForLargeFontSettings(void *a1)
 id DBS_LocalizedStringForDeviceAppearance(void *a1)
 {
   v1 = a1;
-  v2 = DBS_BundleForDisplayAndBrightnessSettingsFramework();
+  v2 = DBS_BundleForDisplayAndBrightnessSettingsFramework(v1);
   v3 = [v2 localizedStringForKey:v1 value:0 table:@"DeviceAppearanceSchedule"];
 
   return v3;
@@ -653,7 +644,7 @@ id DBS_LocalizedStringForDeviceAppearance(void *a1)
 id DBS_LocalizedStringForPictureInPicture(void *a1)
 {
   v1 = a1;
-  v2 = DBS_BundleForDisplayAndBrightnessSettingsFramework();
+  v2 = DBS_BundleForDisplayAndBrightnessSettingsFramework(v1);
   v3 = [v2 localizedStringForKey:v1 value:0 table:@"PiP"];
 
   return v3;
@@ -662,7 +653,7 @@ id DBS_LocalizedStringForPictureInPicture(void *a1)
 id DBS_LocalizedStringForContinuousExpose(void *a1)
 {
   v1 = a1;
-  v2 = DBS_BundleForDisplayAndBrightnessSettingsFramework();
+  v2 = DBS_BundleForDisplayAndBrightnessSettingsFramework(v1);
   v3 = [v2 localizedStringForKey:v1 value:0 table:@"ContinuousExpose"];
 
   return v3;
@@ -741,11 +732,11 @@ void sub_22105B050(void *a1)
   UIViewController.dbs_popViewController()();
 }
 
-id sub_22105B0D8()
+id sub_22105B0D8(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = swift_getObjectType();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v4.receiver = v2;
+  v4.super_class = swift_getObjectType();
+  return objc_msgSendSuper2(&v4, sel_dealloc);
 }
 
 void DBSGetMobileFrameBuffer_cold_1(int a1, NSObject *a2)
@@ -758,7 +749,7 @@ void DBSGetMobileFrameBuffer_cold_1(int a1, NSObject *a2)
 
 void GetWhitepointShiftLuminanceLoss_cold_1()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals))
+  if (__cxa_guard_acquire(_MergedGlobals))
   {
     __asm { FMOV            V0.2D, #1.0 }
 
@@ -769,20 +760,20 @@ void GetWhitepointShiftLuminanceLoss_cold_1()
     xmmword_27CFB02E0 = xmmword_22105F360;
     unk_27CFB02F0 = _Q0;
 
-    __cxa_guard_release(&_MergedGlobals);
+    __cxa_guard_release(_MergedGlobals);
   }
 }
 
 void GetWhitepointShiftLuminanceLoss_cold_2()
 {
-  if (__cxa_guard_acquire(qword_27CFB0268))
+  if (__cxa_guard_acquire(byte_27CFB0268))
   {
     __asm { FMOV            V0.2D, #1.0 }
 
     *algn_27CFB0290 = _Q0;
     xmmword_27CFB0280 = xmmword_22105F300;
 
-    __cxa_guard_release(qword_27CFB0268);
+    __cxa_guard_release(byte_27CFB0268);
   }
 }
 

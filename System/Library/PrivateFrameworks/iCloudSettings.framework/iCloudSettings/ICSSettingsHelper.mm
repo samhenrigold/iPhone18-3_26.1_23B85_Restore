@@ -9,7 +9,7 @@
 
 + (void)showAccountRecoveryFromViewController:(id)controller accountManager:(id)manager
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   managerCopy = manager;
   v8 = _AAUILogSystem();
@@ -18,37 +18,35 @@
     v9 = objc_opt_class();
     v10 = NSStringFromClass(v9);
     *buf = 138412290;
-    v17 = v10;
+    v16 = v10;
     _os_log_impl(&dword_275819000, v8, OS_LOG_TYPE_DEFAULT, "%@: Starting Account recovery flow.", buf, 0xCu);
   }
 
   objc_initWeak(buf, controllerCopy);
   objc_initWeak(&location, managerCopy);
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __74__ICSSettingsHelper_showAccountRecoveryFromViewController_accountManager___block_invoke;
-  v12[3] = &unk_27A666980;
-  objc_copyWeak(&v13, buf);
-  objc_copyWeak(&v14, &location);
-  [self repairPrimaryAppleAccountInViewController:controllerCopy completion:v12];
-  objc_destroyWeak(&v14);
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __74__ICSSettingsHelper_showAccountRecoveryFromViewController_accountManager___block_invoke;
+  v11[3] = &unk_27A666980;
+  objc_copyWeak(&v12, buf);
+  objc_copyWeak(&v13, &location);
+  [self repairPrimaryAppleAccountInViewController:controllerCopy completion:v11];
   objc_destroyWeak(&v13);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(&location);
   objc_destroyWeak(buf);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __74__ICSSettingsHelper_showAccountRecoveryFromViewController_accountManager___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a3;
   objc_copyWeak(&to, (a1 + 32));
-  objc_copyWeak(&v19, (a1 + 40));
+  objc_copyWeak(&v18, (a1 + 40));
   v6 = objc_loadWeakRetained(&to);
   if (v6)
   {
-    v7 = objc_loadWeakRetained(&v19);
+    v7 = objc_loadWeakRetained(&v18);
     if (!v7)
     {
       a2 = 0;
@@ -61,7 +59,7 @@ void __74__ICSSettingsHelper_showAccountRecoveryFromViewController_accountManage
       dispatch_assert_queue_V2(v8);
 
       v10 = objc_alloc(MEMORY[0x277CECA00]);
-      v11 = objc_loadWeakRetained(&v19);
+      v11 = objc_loadWeakRetained(&v18);
       v12 = [v10 initWithAccountManager:v11];
 
       v13 = objc_loadWeakRetained(&to);
@@ -76,21 +74,19 @@ void __74__ICSSettingsHelper_showAccountRecoveryFromViewController_accountManage
     v16 = objc_opt_class();
     v17 = NSStringFromClass(v16);
     *buf = 138412546;
-    v22 = v17;
-    v23 = 2112;
-    v24 = v5;
+    v21 = v17;
+    v22 = 2112;
+    v23 = v5;
     _os_log_impl(&dword_275819000, v14, OS_LOG_TYPE_DEFAULT, "%@: Account recovery flow completed with error: %@", buf, 0x16u);
   }
 
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v18);
   objc_destroyWeak(&to);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 + (void)showAccountRecoveryFromViewController:(id)controller accountManager:(id)manager highlightRowIdentifier:(id)identifier
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   managerCopy = manager;
   identifierCopy = identifier;
@@ -100,40 +96,38 @@ void __74__ICSSettingsHelper_showAccountRecoveryFromViewController_accountManage
     v12 = objc_opt_class();
     v13 = NSStringFromClass(v12);
     *buf = 138412290;
-    v22 = v13;
+    v21 = v13;
     _os_log_impl(&dword_275819000, v11, OS_LOG_TYPE_DEFAULT, "%@: Starting Account recovery flow.", buf, 0xCu);
   }
 
   objc_initWeak(buf, controllerCopy);
   objc_initWeak(&location, managerCopy);
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __97__ICSSettingsHelper_showAccountRecoveryFromViewController_accountManager_highlightRowIdentifier___block_invoke;
-  v16[3] = &unk_27A6669A8;
-  objc_copyWeak(&v18, buf);
-  objc_copyWeak(&v19, &location);
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __97__ICSSettingsHelper_showAccountRecoveryFromViewController_accountManager_highlightRowIdentifier___block_invoke;
+  v15[3] = &unk_27A6669A8;
+  objc_copyWeak(&v17, buf);
+  objc_copyWeak(&v18, &location);
   v14 = identifierCopy;
-  v17 = v14;
-  [self repairPrimaryAppleAccountInViewController:controllerCopy completion:v16];
+  v16 = v14;
+  [self repairPrimaryAppleAccountInViewController:controllerCopy completion:v15];
 
-  objc_destroyWeak(&v19);
   objc_destroyWeak(&v18);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(&location);
   objc_destroyWeak(buf);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __97__ICSSettingsHelper_showAccountRecoveryFromViewController_accountManager_highlightRowIdentifier___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a3;
   objc_copyWeak(&to, (a1 + 40));
-  objc_copyWeak(&v19, (a1 + 48));
+  objc_copyWeak(&v18, (a1 + 48));
   v6 = objc_loadWeakRetained(&to);
   if (v6)
   {
-    v7 = objc_loadWeakRetained(&v19);
+    v7 = objc_loadWeakRetained(&v18);
     if (!v7)
     {
       a2 = 0;
@@ -146,7 +140,7 @@ void __97__ICSSettingsHelper_showAccountRecoveryFromViewController_accountManage
       dispatch_assert_queue_V2(v8);
 
       v10 = objc_alloc(MEMORY[0x277CECA00]);
-      v11 = objc_loadWeakRetained(&v19);
+      v11 = objc_loadWeakRetained(&v18);
       v12 = [v10 initWithAccountManager:v11 highlightRowIdentifier:*(a1 + 32)];
 
       v13 = objc_loadWeakRetained(&to);
@@ -161,16 +155,14 @@ void __97__ICSSettingsHelper_showAccountRecoveryFromViewController_accountManage
     v16 = objc_opt_class();
     v17 = NSStringFromClass(v16);
     *buf = 138412546;
-    v22 = v17;
-    v23 = 2112;
-    v24 = v5;
+    v21 = v17;
+    v22 = 2112;
+    v23 = v5;
     _os_log_impl(&dword_275819000, v14, OS_LOG_TYPE_DEFAULT, "%@: Account recovery flow completed with error: %@", buf, 0x16u);
   }
 
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v18);
   objc_destroyWeak(&to);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 + (void)repairPrimaryAppleAccountInViewController:(id)controller completion:(id)completion

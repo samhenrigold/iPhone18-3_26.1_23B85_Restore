@@ -178,12 +178,12 @@ LABEL_13:
 
     if (valueCopy | v11)
     {
-      v12 = [v11 isEqualToString:valueCopy];
+      isEqualToString = objc_msgSend_isEqualToString_(v11);
     }
 
     else
     {
-      v12 = 1;
+      isEqualToString = 1;
     }
   }
 
@@ -191,10 +191,10 @@ LABEL_13:
   {
     v14.receiver = self;
     v14.super_class = PLDetectedFaceComputeJournalEntryPayload;
-    v12 = [(PLDetectedFaceJournalEntryPayload *)&v14 comparePayloadValue:valueCopy toObjectDictionaryValue:dictionaryValueCopy forPayloadProperty:propertyCopy];
+    isEqualToString = [(PLDetectedFaceJournalEntryPayload *)&v14 comparePayloadValue:valueCopy toObjectDictionaryValue:dictionaryValueCopy forPayloadProperty:propertyCopy];
   }
 
-  return v12;
+  return isEqualToString;
 }
 
 + (id)persistedPropertyNamesForEntityNames

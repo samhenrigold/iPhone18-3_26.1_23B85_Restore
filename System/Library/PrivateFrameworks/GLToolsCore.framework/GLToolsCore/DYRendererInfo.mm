@@ -538,7 +538,7 @@ uint64_t __58__DYRendererInfo_rendererInfoWithGLIContext_dispatch_api___block_in
   return v3;
 }
 
-uint64_t __34__DYRendererInfo__supportsLimits___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
+void *__34__DYRendererInfo__supportsLimits___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
   result = [a2 isEqualToString:@"GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT"];
   if ((result & 1) == 0)
@@ -560,9 +560,7 @@ uint64_t __34__DYRendererInfo__supportsLimits___block_invoke(uint64_t a1, void *
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       v10 = [objc_opt_class() description];
-      [a2 cStringUsingEncoding:1];
-      [v10 cStringUsingEncoding:1];
-      v11 = dy_abort();
+      v11 = dy_abort("Unsupported limit: (%s, %s)", [a2 cStringUsingEncoding:1], objc_msgSend(v10, "cStringUsingEncoding:", 1));
       return [(DYRendererInfo *)v11 _supportsGLVersion:v12, v13];
     }
 

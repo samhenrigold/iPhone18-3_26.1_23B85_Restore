@@ -37,7 +37,7 @@
     {
       v22 = objc_opt_class();
       NSStringFromClass(v22);
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNNeuron.mm", 0x86, @"[%@ cnnNeuronDescriptorWithType:a:b:c:...] invalid neuron type (%lu)", v23, v24, v25, v26);
     }
 
     return 0;
@@ -47,17 +47,17 @@
   {
     if (MTLReportFailureTypeEnabled())
     {
-      v24 = objc_opt_class();
-      NSStringFromClass(v24);
-      MTLReportFailure();
+      v28 = objc_opt_class();
+      NSStringFromClass(v28);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNNeuron.mm", 0x88, @"[%@ cnnNeuronDescriptorWithType:a:b:c:...] invalid initialization method for the following neuron type(s): MPSCNNNeuronPReLU", v29, v30, v31, v32);
     }
 
     return 0;
   }
 
-  v25.receiver = self;
-  v25.super_class = MPSNNNeuronDescriptor;
-  result = [(MPSNNNeuronDescriptor *)&v25 init];
+  v33.receiver = self;
+  v33.super_class = MPSNNNeuronDescriptor;
+  result = [(MPSNNNeuronDescriptor *)&v33 init];
   if (result)
   {
     v20 = result;
@@ -134,23 +134,33 @@
 {
   if (!data)
   {
-    if (MTLReportFailureTypeEnabled())
+    if (!MTLReportFailureTypeEnabled())
     {
-      goto LABEL_12;
+      goto LABEL_14;
     }
 
-    goto LABEL_13;
+    v19 = objc_opt_class();
+    NSStringFromClass(v19);
+    v24 = @"[%@ cnnNeuronPReLUDescriptorWithData:...] data must be valid";
+    v25 = 206;
+LABEL_13:
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNNeuron.mm", v25, v24, v20, v21, v22, v23);
+    goto LABEL_14;
   }
 
   copyCopy = copy;
   v11 = objc_msgSend_length(data, a2, data, copy, v4, v5, v6, v7);
   if (!v11)
   {
-    if (MTLReportFailureTypeEnabled())
+    if (!MTLReportFailureTypeEnabled())
     {
-      goto LABEL_12;
+      goto LABEL_14;
     }
 
+    v26 = objc_opt_class();
+    NSStringFromClass(v26);
+    v24 = @"[%@ cnnNeuronPReLUDescriptorWithData:count:...] data length (%lu) is invalid";
+    v25 = 209;
     goto LABEL_13;
   }
 
@@ -158,20 +168,21 @@
   {
     if (MTLReportFailureTypeEnabled())
     {
-LABEL_12:
-      v19 = objc_opt_class();
-      NSStringFromClass(v19);
-      MTLReportFailure();
+      v27 = objc_opt_class();
+      NSStringFromClass(v27);
+      v24 = @"[%@ cnnNeuronPReLUDescriptorWithData:count:...] data length (%lu) is invalid (not a multiple of sizeof(float))";
+      v25 = 210;
+      goto LABEL_13;
     }
 
-LABEL_13:
+LABEL_14:
 
     return 0;
   }
 
-  v20.receiver = self;
-  v20.super_class = MPSNNNeuronDescriptor;
-  result = [(MPSNNNeuronDescriptor *)&v20 init];
+  v28.receiver = self;
+  v28.super_class = MPSNNNeuronDescriptor;
+  result = [(MPSNNNeuronDescriptor *)&v28 init];
   if (result)
   {
     v18 = result;

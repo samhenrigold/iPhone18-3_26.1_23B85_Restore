@@ -44,7 +44,7 @@
 
 - (id)triObjectForExpectedKey:()TRI
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = [self objectForKeyedSubscript:v4];
   if (!v5)
@@ -52,13 +52,11 @@
     v6 = TRILogCategory_Server();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138412290;
-      v10 = v4;
-      _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, "Value missing for key %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v4;
+      _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, "Value missing for key %@", &v8, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

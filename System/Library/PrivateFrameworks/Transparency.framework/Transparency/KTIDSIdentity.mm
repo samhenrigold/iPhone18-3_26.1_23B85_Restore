@@ -1,10 +1,35 @@
 @interface KTIDSIdentity
 - (BOOL)isEqual:(id)equal;
 - (KTIDSIdentity)initWithCoder:(id)coder;
+- (KTIDSIdentity)initWithPushToken:(id)token ktLoggableData:(id)data signature:(id)signature ktCapable:(BOOL)capable conditionalEnforcement:(BOOL)enforcement;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation KTIDSIdentity
+
+- (KTIDSIdentity)initWithPushToken:(id)token ktLoggableData:(id)data signature:(id)signature ktCapable:(BOOL)capable conditionalEnforcement:(BOOL)enforcement
+{
+  enforcementCopy = enforcement;
+  capableCopy = capable;
+  tokenCopy = token;
+  dataCopy = data;
+  signatureCopy = signature;
+  v19.receiver = self;
+  v19.super_class = KTIDSIdentity;
+  v15 = [(KTIDSIdentity *)&v19 init];
+  v16 = v15;
+  if (v15)
+  {
+    [(KTIDSIdentity *)v15 setPushToken:tokenCopy];
+    [(KTIDSIdentity *)v16 setKtLoggableData:dataCopy];
+    [(KTIDSIdentity *)v16 setSignature:signatureCopy];
+    [(KTIDSIdentity *)v16 setKtCapable:capableCopy];
+    [(KTIDSIdentity *)v16 setSupportConditionalEnforcement:enforcementCopy];
+    v17 = v16;
+  }
+
+  return v16;
+}
 
 - (void)encodeWithCoder:(id)coder
 {

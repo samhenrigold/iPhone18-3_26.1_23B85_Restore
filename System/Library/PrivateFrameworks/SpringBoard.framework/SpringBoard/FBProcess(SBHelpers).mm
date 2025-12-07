@@ -1,6 +1,6 @@
 @interface FBProcess(SBHelpers)
+- (BOOL)sb_isProbablyUIApplication;
 - (id)sb_bundleIdentifierWithFallback;
-- (uint64_t)sb_isProbablyUIApplication;
 @end
 
 @implementation FBProcess(SBHelpers)
@@ -23,7 +23,7 @@
   return bundleIdentifier2;
 }
 
-- (uint64_t)sb_isProbablyUIApplication
+- (BOOL)sb_isProbablyUIApplication
 {
   if ([self isApplicationProcess])
   {

@@ -58,7 +58,7 @@
 
 - (void)_cplCopyProperties:()CPLCodingProxy fromOtherObject:withCopyBlock:
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v9 = a3;
   v10 = a4;
   v11 = a5;
@@ -67,67 +67,65 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v24 = __CPLCodingOSLogDomain();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v23 = __CPLCodingOSLogDomain();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v38 = objc_opt_class();
-        v39 = 2112;
-        v40 = v12;
-        v25 = v38;
-        _os_log_impl(&dword_1DC05A000, v24, OS_LOG_TYPE_ERROR, "Trying to copy properties from an instance of %@ to an instance of %@", buf, 0x16u);
+        v37 = objc_opt_class();
+        v38 = 2112;
+        v39 = v12;
+        v24 = v37;
+        _os_log_impl(&dword_1DC05A000, v23, OS_LOG_TYPE_ERROR, "Trying to copy properties from an instance of %@ to an instance of %@", buf, 0x16u);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v27 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/NSObject+CPLCodingProxy.m"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v27 lineNumber:962 description:{@"Trying to copy properties from an instance of %@ to an instance of %@", objc_opt_class(), v12}];
+    v26 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/NSObject+CPLCodingProxy.m"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v26 lineNumber:962 description:{@"Trying to copy properties from an instance of %@ to an instance of %@", objc_opt_class(), v12}];
 
     abort();
   }
 
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __77__NSObject_CPLCodingProxy___cplCopyProperties_fromOtherObject_withCopyBlock___block_invoke;
-  v34[3] = &unk_1E861DB98;
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __77__NSObject_CPLCodingProxy___cplCopyProperties_fromOtherObject_withCopyBlock___block_invoke;
+  v33[3] = &unk_1E861DB98;
   v13 = v11;
-  v36 = v13;
-  v34[4] = self;
+  v35 = v13;
+  v33[4] = self;
   v14 = v10;
-  v35 = v14;
-  v15 = MEMORY[0x1E128EBA0](v34);
+  v34 = v14;
+  v15 = MEMORY[0x1E128EBA0](v33);
   _cplPropertyAttributeMap = [v12 _cplPropertyAttributeMap];
   if (v9)
   {
     null = [MEMORY[0x1E695DFB0] null];
     allObjects = [v9 allObjects];
     v19 = [_cplPropertyAttributeMap objectsForKeys:allObjects notFoundMarker:null];
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __77__NSObject_CPLCodingProxy___cplCopyProperties_fromOtherObject_withCopyBlock___block_invoke_2;
-    v28[3] = &unk_1E861DB70;
-    v30 = allObjects;
-    v31 = v15;
-    v29 = null;
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __77__NSObject_CPLCodingProxy___cplCopyProperties_fromOtherObject_withCopyBlock___block_invoke_2;
+    v27[3] = &unk_1E861DB70;
+    v29 = allObjects;
+    v30 = v15;
+    v28 = null;
     v20 = allObjects;
     v21 = v15;
     v22 = null;
-    [v19 enumerateObjectsUsingBlock:v28];
+    [v19 enumerateObjectsUsingBlock:v27];
   }
 
   else
   {
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __77__NSObject_CPLCodingProxy___cplCopyProperties_fromOtherObject_withCopyBlock___block_invoke_140;
-    v32[3] = &unk_1E861DB48;
-    v33 = v15;
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __77__NSObject_CPLCodingProxy___cplCopyProperties_fromOtherObject_withCopyBlock___block_invoke_140;
+    v31[3] = &unk_1E861DB48;
+    v32 = v15;
     v22 = v15;
-    [_cplPropertyAttributeMap enumerateKeysAndObjectsUsingBlock:v32];
-    v21 = v33;
+    [_cplPropertyAttributeMap enumerateKeysAndObjectsUsingBlock:v31];
+    v21 = v32;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cplClearProperties:()CPLCodingProxy
@@ -174,24 +172,24 @@
 
 - (uint64_t)cplHash
 {
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x2020000000;
-  v10 = -1;
-  v2 = objc_opt_class();
-  _cplPropertyAttributeMap = [v2 _cplPropertyAttributeMap];
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __35__NSObject_CPLCodingProxy__cplHash__block_invoke;
-  v6[3] = &unk_1E861DAF8;
-  v6[4] = self;
-  v6[5] = &v7;
-  v6[6] = v2;
-  [_cplPropertyAttributeMap enumerateKeysAndObjectsUsingBlock:v6];
-  v4 = v8[3];
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v11 = -1;
+  v3 = objc_opt_class();
+  _cplPropertyAttributeMap = [v3 _cplPropertyAttributeMap];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __35__NSObject_CPLCodingProxy__cplHash__block_invoke;
+  v7[3] = &unk_1E861DAF8;
+  v7[4] = self;
+  v7[5] = &v8;
+  v7[6] = v3;
+  [_cplPropertyAttributeMap enumerateKeysAndObjectsUsingBlock:v7];
+  v5 = v9[3];
 
-  _Block_object_dispose(&v7, 8);
-  return v4;
+  _Block_object_dispose(&v8, 8);
+  return v5;
 }
 
 - (uint64_t)cplProperties:()CPLCodingProxy areEqualToPropertiesOf:diffTracker:withEqualityBlock:
@@ -279,16 +277,16 @@
 
 + (id)cplAllPropertyNames
 {
-  v11[0] = 0;
-  v11[1] = v11;
-  v11[2] = 0x2050000000;
-  v11[3] = objc_opt_class();
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__13182;
-  v9 = __Block_byref_object_dispose__13183;
-  v10 = 0;
+  v12[0] = 0;
+  v12[1] = v12;
+  v12[2] = 0x2050000000;
+  v12[3] = objc_opt_class();
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x3032000000;
+  v9 = __Block_byref_object_copy__13182;
+  v10 = __Block_byref_object_dispose__13183;
+  v11 = 0;
   if (cplAllPropertyNames_onceToken != -1)
   {
     dispatch_once(&cplAllPropertyNames_onceToken, &__block_literal_global_142);
@@ -298,39 +296,37 @@
   block[1] = 3221225472;
   block[2] = __47__NSObject_CPLCodingProxy__cplAllPropertyNames__block_invoke_2;
   block[3] = &unk_1E861DBC0;
-  block[4] = &v5;
-  block[5] = v11;
+  block[4] = &v6;
+  block[5] = v12;
   block[6] = self;
   dispatch_sync(cplAllPropertyNames_lock, block);
-  v2 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v3 = v7[5];
+  _Block_object_dispose(&v6, 8);
 
-  _Block_object_dispose(v11, 8);
+  _Block_object_dispose(v12, 8);
 
-  return v2;
+  return v3;
 }
 
 + (void)cplDumpProperties
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
     v2 = __CPLCodingOSLogDomain();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
       _cplPropertyAttributeMap = [self _cplPropertyAttributeMap];
-      v5 = 138412290;
-      v6 = _cplPropertyAttributeMap;
-      _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = _cplPropertyAttributeMap;
+      _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_DEBUG, "%@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_addPropertyAttributeMapToPropertyMapLocked:()CPLCodingProxy
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if (objc_opt_class() != self)
   {
@@ -344,8 +340,8 @@
     }
 
     v7 = 0;
-    v48 = v5;
-    v49 = v4;
+    v47 = v5;
+    v48 = v4;
     selfCopy = self;
     while (1)
     {
@@ -361,8 +357,8 @@
           {
             *buf = 138412546;
             selfCopy3 = self;
-            v62 = 2112;
-            v63 = aSelectorName;
+            v61 = 2112;
+            v62 = aSelectorName;
             _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_DEBUG, "Ignoring %@.%@ for coding", buf, 0x16u);
           }
 
@@ -372,17 +368,17 @@
         goto LABEL_60;
       }
 
-      v51 = v8;
-      v52 = v7;
-      v50 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithCString:property_getAttributes(v9) encoding:4];
-      v11 = [v50 componentsSeparatedByString:@", "];
+      v50 = v8;
+      v51 = v7;
+      v49 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithCString:property_getAttributes(v9) encoding:4];
+      v11 = [v49 componentsSeparatedByString:@", "];
       v12 = objc_alloc_init(CPLCodingPropertyEntry);
+      v54 = 0u;
       v55 = 0u;
       v56 = 0u;
       v57 = 0u;
-      v58 = 0u;
       v13 = v11;
-      v14 = [v13 countByEnumeratingWithState:&v55 objects:v68 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v54 objects:v67 count:16];
       if (!v14)
       {
         v16 = 0;
@@ -391,18 +387,18 @@
 
       v15 = v14;
       v16 = 0;
-      v17 = *v56;
+      v17 = *v55;
       do
       {
         v18 = 0;
         do
         {
-          if (*v56 != v17)
+          if (*v55 != v17)
           {
             objc_enumerationMutation(v13);
           }
 
-          v19 = *(*(&v55 + 1) + 8 * v18);
+          v19 = *(*(&v54 + 1) + 8 * v18);
           v20 = __tolower([v19 characterAtIndex:0]);
           if (v20 <= 114)
           {
@@ -479,12 +475,12 @@ LABEL_26:
                 {
                   *buf = 138413058;
                   selfCopy3 = selfCopy;
-                  v62 = 2112;
-                  v63 = aSelectorName;
-                  v64 = 2112;
-                  v65 = v32;
-                  v66 = 2112;
-                  v67 = v33;
+                  v61 = 2112;
+                  v62 = aSelectorName;
+                  v63 = 2112;
+                  v64 = v32;
+                  v65 = 2112;
+                  v66 = v33;
                   _os_log_impl(&dword_1DC05A000, v34, OS_LOG_TYPE_DEBUG, "Class for property %@.%@ is %@. Additional secure classes are %@", buf, 0x2Au);
                 }
               }
@@ -519,8 +515,8 @@ LABEL_26:
               {
                 *buf = 138412546;
                 selfCopy3 = self;
-                v62 = 2112;
-                v63 = aSelectorName;
+                v61 = 2112;
+                v62 = aSelectorName;
                 _os_log_impl(&dword_1DC05A000, v22, OS_LOG_TYPE_ERROR, "Ignoring %@.%@ for coding as its type is too generic", buf, 0x16u);
               }
 
@@ -533,7 +529,7 @@ LABEL_27:
         }
 
         while (v15 != v18);
-        v36 = [v13 countByEnumeratingWithState:&v55 objects:v68 count:16];
+        v36 = [v13 countByEnumeratingWithState:&v54 objects:v67 count:16];
         v15 = v36;
       }
 
@@ -548,8 +544,8 @@ LABEL_48:
         [(CPLCodingPropertyEntry *)v12 setPropertyGetterIMP:v38];
       }
 
-      v6 = v48;
-      v4 = v49;
+      v6 = v47;
+      v4 = v48;
       if (![(CPLCodingPropertyEntry *)v12 propertySetter]&& ![(CPLCodingPropertyEntry *)v12 isReadOnly])
       {
         v39 = objc_alloc(MEMORY[0x1E696AEC0]);
@@ -579,11 +575,11 @@ LABEL_48:
         }
       }
 
-      [v49 setObject:v12 forKey:aSelectorName];
+      [v48 setObject:v12 forKey:aSelectorName];
 
-      v8 = v51;
-      v7 = v52;
-      v10 = v50;
+      v8 = v50;
+      v7 = v51;
+      v10 = v49;
 LABEL_59:
 
 LABEL_60:
@@ -596,8 +592,6 @@ LABEL_61:
       }
     }
   }
-
-  v47 = *MEMORY[0x1E69E9840];
 }
 
 + (uint64_t)cplShouldIgnorePropertyForCoding:()CPLCodingProxy

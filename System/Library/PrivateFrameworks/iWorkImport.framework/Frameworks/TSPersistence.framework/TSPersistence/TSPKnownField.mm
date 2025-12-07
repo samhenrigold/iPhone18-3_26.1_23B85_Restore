@@ -167,7 +167,7 @@ LABEL_32:
     v10 = *(descriptor + 17);
     *(v8 + 2) = google::protobuf::FieldDescriptor::kTypeToCppTypeMap[*(descriptor + 14)];
     *(v8 + 3) = v10;
-    sub_2769E211C(v8 + 2, info);
+    sub_2769E211C(v8 + 16, info);
   }
 
   return v8;

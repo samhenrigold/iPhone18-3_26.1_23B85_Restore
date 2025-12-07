@@ -23,7 +23,7 @@
 
 - (void)fetchVendorModelEntryForProductData:(id)data completion:(id)completion
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   completionCopy = completion;
   context = [(HMVendorDataStore *)self context];
@@ -37,17 +37,17 @@
 
     v13 = [MEMORY[0x1E69A2A10] messageWithName:@"kFetchVendorModelEntryForProductDataRequestKey" destination:v12 payload:dictionary];
     objc_initWeak(location, self);
-    v20 = MEMORY[0x1E69E9820];
-    v21 = 3221225472;
-    v22 = __68__HMVendorDataStore_fetchVendorModelEntryForProductData_completion___block_invoke;
-    v23 = &unk_1E754CFF8;
-    objc_copyWeak(&v25, location);
-    v24 = completionCopy;
-    [v13 setResponseHandler:&v20];
+    v19 = MEMORY[0x1E69E9820];
+    v20 = 3221225472;
+    v21 = __68__HMVendorDataStore_fetchVendorModelEntryForProductData_completion___block_invoke;
+    v22 = &unk_1E754CFF8;
+    objc_copyWeak(&v24, location);
+    v23 = completionCopy;
+    [v13 setResponseHandler:&v19];
     messageDispatcher = [context messageDispatcher];
     [messageDispatcher sendMessage:v13];
 
-    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v24);
     objc_destroyWeak(location);
   }
 
@@ -61,20 +61,18 @@
       v18 = HMFGetLogIdentifier();
       *location = 138543618;
       *&location[4] = v18;
-      v27 = 2080;
-      v28 = "[HMVendorDataStore fetchVendorModelEntryForProductData:completion:]";
+      v26 = 2080;
+      v27 = "[HMVendorDataStore fetchVendorModelEntryForProductData:completion:]";
       _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_ERROR, "%{public}@Nil context - %s", location, 0x16u);
     }
 
     objc_autoreleasePoolPop(v15);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __68__HMVendorDataStore_fetchVendorModelEntryForProductData_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -84,13 +82,13 @@ void __68__HMVendorDataStore_fetchVendorModelEntryForProductData_completion___bl
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v29 = 138543874;
-    v30 = v11;
-    v31 = 2112;
-    v32 = v6;
-    v33 = 2112;
-    v34 = v5;
-    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@kFetchVendorModelEntryForProductDataRequestKey received a response: %@, error: %@", &v29, 0x20u);
+    v28 = 138543874;
+    v29 = v11;
+    v30 = 2112;
+    v31 = v6;
+    v32 = 2112;
+    v33 = v5;
+    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@kFetchVendorModelEntryForProductDataRequestKey received a response: %@, error: %@", &v28, 0x20u);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -134,9 +132,9 @@ LABEL_20:
       if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         v26 = HMFGetLogIdentifier();
-        v29 = 138543362;
-        v30 = v26;
-        _os_log_impl(&dword_19BB39000, v25, OS_LOG_TYPE_ERROR, "%{public}@kFetchVendorModelEntryForProductDataRequestKey response payload is invalid", &v29, 0xCu);
+        v28 = 138543362;
+        v29 = v26;
+        _os_log_impl(&dword_19BB39000, v25, OS_LOG_TYPE_ERROR, "%{public}@kFetchVendorModelEntryForProductDataRequestKey response payload is invalid", &v28, 0xCu);
       }
 
       objc_autoreleasePoolPop(v23);
@@ -156,23 +154,21 @@ LABEL_20:
   if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
     v22 = HMFGetLogIdentifier();
-    v29 = 138543618;
-    v30 = v22;
-    v31 = 2112;
-    v32 = v5;
-    _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@kFetchVendorModelEntryForProductDataRequestKey was responded with error: %@", &v29, 0x16u);
+    v28 = 138543618;
+    v29 = v22;
+    v30 = 2112;
+    v31 = v5;
+    _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@kFetchVendorModelEntryForProductDataRequestKey was responded with error: %@", &v28, 0x16u);
   }
 
   objc_autoreleasePoolPop(v19);
   (*(*(a1 + 32) + 16))();
 LABEL_21:
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchVendorModelEntryForManufacturer:(id)manufacturer model:(id)model completion:(id)completion
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   manufacturerCopy = manufacturer;
   modelCopy = model;
   completionCopy = completion;
@@ -192,18 +188,18 @@ LABEL_21:
 
     v16 = [MEMORY[0x1E69A2A10] messageWithName:@"kFetchVendorModelEntryForManufacturerRequestKey" destination:v15 payload:dictionary];
     objc_initWeak(location, self);
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __75__HMVendorDataStore_fetchVendorModelEntryForManufacturer_model_completion___block_invoke;
-    v23[3] = &unk_1E754D058;
-    v23[4] = self;
-    objc_copyWeak(&v25, location);
-    v24 = completionCopy;
-    [v16 setResponseHandler:v23];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __75__HMVendorDataStore_fetchVendorModelEntryForManufacturer_model_completion___block_invoke;
+    v22[3] = &unk_1E754D058;
+    v22[4] = self;
+    objc_copyWeak(&v24, location);
+    v23 = completionCopy;
+    [v16 setResponseHandler:v22];
     messageDispatcher = [context messageDispatcher];
     [messageDispatcher sendMessage:v16];
 
-    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v24);
     objc_destroyWeak(location);
   }
 
@@ -217,20 +213,18 @@ LABEL_21:
       v21 = HMFGetLogIdentifier();
       *location = 138543618;
       *&location[4] = v21;
-      v27 = 2080;
-      v28 = "[HMVendorDataStore fetchVendorModelEntryForManufacturer:model:completion:]";
+      v26 = 2080;
+      v27 = "[HMVendorDataStore fetchVendorModelEntryForManufacturer:model:completion:]";
       _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@Nil context - %s", location, 0x16u);
     }
 
     objc_autoreleasePoolPop(v18);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __75__HMVendorDataStore_fetchVendorModelEntryForManufacturer_model_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -239,13 +233,13 @@ void __75__HMVendorDataStore_fetchVendorModelEntryForManufacturer_model_completi
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     v10 = HMFGetLogIdentifier();
-    v29 = 138543874;
-    v30 = v10;
-    v31 = 2112;
-    v32 = v6;
-    v33 = 2112;
-    v34 = v5;
-    _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_DEBUG, "%{public}@kFetchVendorModelEntryForManufacturerRequestKey received a response: %@, error: %@", &v29, 0x20u);
+    v28 = 138543874;
+    v29 = v10;
+    v30 = 2112;
+    v31 = v6;
+    v32 = 2112;
+    v33 = v5;
+    _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_DEBUG, "%{public}@kFetchVendorModelEntryForManufacturerRequestKey received a response: %@, error: %@", &v28, 0x20u);
   }
 
   objc_autoreleasePoolPop(v7);
@@ -290,9 +284,9 @@ LABEL_20:
       if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         v26 = HMFGetLogIdentifier();
-        v29 = 138543362;
-        v30 = v26;
-        _os_log_impl(&dword_19BB39000, v25, OS_LOG_TYPE_ERROR, "%{public}@Fetching vendor model entry response payload is invalid", &v29, 0xCu);
+        v28 = 138543362;
+        v29 = v26;
+        _os_log_impl(&dword_19BB39000, v25, OS_LOG_TYPE_ERROR, "%{public}@Fetching vendor model entry response payload is invalid", &v28, 0xCu);
       }
 
       objc_autoreleasePoolPop(v23);
@@ -312,18 +306,16 @@ LABEL_20:
   if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
     v22 = HMFGetLogIdentifier();
-    v29 = 138543618;
-    v30 = v22;
-    v31 = 2112;
-    v32 = v5;
-    _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@Fetching vendor model entry responded with error: %@", &v29, 0x16u);
+    v28 = 138543618;
+    v29 = v22;
+    v30 = 2112;
+    v31 = v5;
+    _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@Fetching vendor model entry responded with error: %@", &v28, 0x16u);
   }
 
   objc_autoreleasePoolPop(v19);
   (*(*(a1 + 40) + 16))();
 LABEL_21:
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (HMVendorDataStore)init
@@ -360,10 +352,11 @@ LABEL_21:
 
 uint64_t __32__HMVendorDataStore_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  logCategory__hmf_once_v11 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v11;
+  logCategory__hmf_once_v11 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

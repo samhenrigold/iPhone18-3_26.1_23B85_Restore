@@ -8,6 +8,8 @@
 - (id)boostPrimaryThreadQualityOfService;
 - (id)currentAuthorPrivateIDs;
 - (id)currentAuthorShareParticipantID;
+- (id)setUpControllersForBackground:(BOOL)background commandExecutor:(id)executor;
+- (int64_t)addObserverForICloudTeardownSuspendingCollaboration:(BOOL)collaboration block:(id)block;
 - (void)backgroundDocumentDidLoad;
 - (void)dealloc;
 - (void)documentDidLoadWithCommandDispatcher:(id)dispatcher commandExecutor:(id)executor;
@@ -82,6 +84,15 @@
   v23 = v22;
 
   objc_exception_throw(v22);
+}
+
+- (id)setUpControllersForBackground:(BOOL)background commandExecutor:(id)executor
+{
+  v6.receiver = self;
+  v6.super_class = TSCKDocumentRoot;
+  v4 = [(TSCKDocumentRoot *)&v6 setUpControllersForBackground:background commandExecutor:executor];
+
+  return v4;
 }
 
 - (void)backgroundDocumentDidLoad
@@ -177,9 +188,38 @@
   return v11;
 }
 
+- (int64_t)addObserverForICloudTeardownSuspendingCollaboration:(BOOL)collaboration block:(id)block
+{
+  collaborationCopy = collaboration;
+  blockCopy = block;
+  if ((objc_msgSend_isMainThread(MEMORY[0x277CCACC8], v7, v8, v9) & 1) == 0)
+  {
+    v12 = MEMORY[0x277D81150];
+    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "[TSCKDocumentRoot addObserverForICloudTeardownSuspendingCollaboration:block:]", v11);
+    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/collaborationkit/TSCKDocumentRoot.mm", v15);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v17, v13, v16, 1598, 0, "This operation must only be performed on the main thread.");
+
+    objc_msgSend_logFullBacktrace(MEMORY[0x277D81150], v18, v19, v20);
+  }
+
+  if (!self->_iCloudTeardownStack)
+  {
+    v21 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    iCloudTeardownStack = self->_iCloudTeardownStack;
+    self->_iCloudTeardownStack = v21;
+  }
+
+  v23 = [TSCKDocumentRootICloudObserver alloc];
+  v25 = objc_msgSend_initWithSuspendedCollaboration_block_(v23, v24, collaborationCopy, blockCopy);
+  v29 = objc_msgSend_identifer(v25, v26, v27, v28);
+  objc_msgSend_addObject_(self->_iCloudTeardownStack, v30, v25, v31);
+
+  return v29;
+}
+
 - (void)removeICloudTeardownObserver:(int64_t)observer
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   if ((objc_msgSend_isMainThread(MEMORY[0x277CCACC8], a2, observer, v3) & 1) == 0)
   {
     v9 = MEMORY[0x277D81150];
@@ -190,27 +230,27 @@
     objc_msgSend_logFullBacktrace(MEMORY[0x277D81150], v15, v16, v17);
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v18 = objc_msgSend_reverseObjectEnumerator(self->_iCloudTeardownStack, v6, v7, v8, 0);
-  v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v19, &v31, v35, 16);
+  v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v19, &v30, v34, 16);
   if (v23)
   {
     v24 = 0;
-    v25 = *v32;
+    v25 = *v31;
     do
     {
       for (i = 0; i != v23; ++i)
       {
-        if (*v32 != v25)
+        if (*v31 != v25)
         {
           objc_enumerationMutation(v18);
         }
 
-        v27 = *(*(&v31 + 1) + 8 * i);
-        if (v24 || objc_msgSend_identifer(*(*(&v31 + 1) + 8 * i), v20, v21, v22) != observer)
+        v27 = *(*(&v30 + 1) + 8 * i);
+        if (v24 || objc_msgSend_identifer(*(*(&v30 + 1) + 8 * i), v20, v21, v22) != observer)
         {
           objc_msgSend_suspendedCollaboration(v27, v20, v21, v22);
         }
@@ -221,7 +261,7 @@
         }
       }
 
-      v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v20, &v31, v35, 16);
+      v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v20, &v30, v34, 16);
     }
 
     while (v23);
@@ -237,13 +277,11 @@
 
     v24 = 0;
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyICloudTeardownObserversWithReason:(unint64_t)reason
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if ((objc_msgSend_isMainThread(MEMORY[0x277CCACC8], a2, reason, v3) & 1) == 0)
   {
     v9 = MEMORY[0x277D81150];
@@ -254,38 +292,36 @@
     objc_msgSend_logFullBacktrace(MEMORY[0x277D81150], v15, v16, v17);
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v18 = objc_msgSend_copy(self->_iCloudTeardownStack, v6, v7, v8, 0);
   v22 = objc_msgSend_reverseObjectEnumerator(v18, v19, v20, v21);
 
-  v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v22, v23, &v29, v33, 16);
+  v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v22, v23, &v28, v32, 16);
   if (v25)
   {
-    v26 = *v30;
+    v26 = *v29;
     do
     {
       v27 = 0;
       do
       {
-        if (*v30 != v26)
+        if (*v29 != v26)
         {
           objc_enumerationMutation(v22);
         }
 
-        objc_msgSend_invokeWithDocumentRoot_reason_(*(*(&v29 + 1) + 8 * v27++), v24, self, reason);
+        objc_msgSend_invokeWithDocumentRoot_reason_(*(*(&v28 + 1) + 8 * v27++), v24, self, reason);
       }
 
       while (v25 != v27);
-      v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v22, v24, &v29, v33, 16);
+      v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v22, v24, &v28, v32, 16);
     }
 
     while (v25);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasICloudTeardownObserver

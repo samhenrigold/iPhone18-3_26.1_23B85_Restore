@@ -3,7 +3,7 @@
 
 @implementation AXSAuditInspectionModeEnabled
 
-uint64_t ___AXSAuditInspectionModeEnabled_block_invoke()
+void *___AXSAuditInspectionModeEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

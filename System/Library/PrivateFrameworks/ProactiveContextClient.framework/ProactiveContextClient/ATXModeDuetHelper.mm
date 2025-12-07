@@ -60,7 +60,7 @@ uint64_t __55__ATXModeDuetHelper_modeStreamFrom_to_ascending_limit___block_invok
 
 void __55__ATXModeDuetHelper_modeStreamFrom_to_ascending_limit___block_invoke_3(uint64_t a1, void *a2)
 {
-  v23[5] = *MEMORY[0x277D85DE8];
+  v22[5] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 eventBody];
   v5 = [v4 modeType];
@@ -74,7 +74,7 @@ void __55__ATXModeDuetHelper_modeStreamFrom_to_ascending_limit___block_invoke_3(
   v10 = v9;
   if (v9 >= 0x12)
   {
-    v12 = __atxlog_handle_modes();
+    v12 = __atxlog_handle_modes(v9);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
       __55__ATXModeDuetHelper_modeStreamFrom_to_ascending_limit___block_invoke_3_cold_1(v10, v12);
@@ -93,26 +93,24 @@ void __55__ATXModeDuetHelper_modeStreamFrom_to_ascending_limit___block_invoke_3(
     v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%ld", v5];
     v14 = MEMORY[0x277CFE1D8];
     v15 = *(a1 + 32);
-    v23[0] = v13;
-    v22[0] = @"mode";
-    v22[1] = @"start";
+    v22[0] = v13;
+    v21[0] = @"mode";
+    v21[1] = @"start";
     v16 = MEMORY[0x277CCACA8];
     [v7 timeIntervalSince1970];
     v18 = [v16 stringWithFormat:@"%lld", v17];
-    v23[1] = v18;
-    v23[2] = v11;
-    v22[2] = @"modeOrigin";
-    v22[3] = @"contextVector";
-    v22[4] = @"process";
-    v23[3] = &stru_287331708;
-    v23[4] = @"contextstored";
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:5];
+    v22[1] = v18;
+    v22[2] = v11;
+    v21[2] = @"modeOrigin";
+    v21[3] = @"contextVector";
+    v21[4] = @"process";
+    v22[3] = &stru_287331708;
+    v22[4] = @"contextstored";
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:5];
     v20 = [v14 eventWithStream:v15 startDate:v7 endDate:v7 identifierStringValue:v13 metadata:v19];
 
     [*(a1 + 40) addObject:v20];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __55__ATXModeDuetHelper_modeStreamFrom_to_ascending_limit___block_invoke_4(uint64_t a1, void *a2, void *a3)
@@ -205,11 +203,10 @@ uint64_t __55__ATXModeDuetHelper_modeStreamFrom_to_ascending_limit___block_invok
 
 void __55__ATXModeDuetHelper_modeStreamFrom_to_ascending_limit___block_invoke_3_cold_1(int a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_fault_impl(&dword_260C9F000, a2, OS_LOG_TYPE_FAULT, "BMUserFocusInferredModeOrigin: %lu not handled in switch statement", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_fault_impl(&dword_260C9F000, a2, OS_LOG_TYPE_FAULT, "BMUserFocusInferredModeOrigin: %lu not handled in switch statement", &v2, 0xCu);
 }
 
 @end

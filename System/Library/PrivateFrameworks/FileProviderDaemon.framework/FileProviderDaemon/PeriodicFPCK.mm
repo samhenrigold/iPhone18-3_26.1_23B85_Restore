@@ -17,11 +17,10 @@
 
 - (void)saveCheckpointWithReport:(id)report
 {
-  v4 = *&self->saveCheckpoint[13];
-  v3 = *&self->diagnosticsManager[5];
+  v3 = *&self->saveCheckpoint[13];
   reportCopy = report;
 
-  v4(reportCopy);
+  v3(reportCopy);
 }
 
 @end

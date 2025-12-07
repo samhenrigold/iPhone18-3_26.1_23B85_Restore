@@ -22,47 +22,47 @@
 
 - (void)initOperatorDependancies:(id)dependancies
 {
-  v48[1] = *MEMORY[0x277D85DE8];
+  v47[1] = *MEMORY[0x277D85DE8];
   dependanciesCopy = dependancies;
   if (dependanciesCopy)
   {
     [(PLDuetServiceImpl *)self setDuetService:dependanciesCopy];
     v5 = objc_alloc(MEMORY[0x277D3F270]);
-    v46[0] = MEMORY[0x277D85DD0];
-    v46[1] = 3221225472;
-    v46[2] = __48__PLDuetServiceSimple_initOperatorDependancies___block_invoke;
-    v46[3] = &unk_27825A1D8;
-    v46[4] = self;
-    v6 = [v5 initWithOperator:dependanciesCopy withRegistration:&unk_282C19CF0 withBlock:v46];
+    v45[0] = MEMORY[0x277D85DD0];
+    v45[1] = 3221225472;
+    v45[2] = __48__PLDuetServiceSimple_initOperatorDependancies___block_invoke;
+    v45[3] = &unk_27825A1D8;
+    v45[4] = self;
+    v6 = [v5 initWithOperator:dependanciesCopy withRegistration:&unk_282C19CF0 withBlock:v45];
     [(PLDuetServiceImpl *)self setEventListener:v6];
 
     v7 = objc_alloc(MEMORY[0x277D3F278]);
-    v45[0] = MEMORY[0x277D85DD0];
-    v45[1] = 3221225472;
-    v45[2] = __48__PLDuetServiceSimple_initOperatorDependancies___block_invoke_2;
-    v45[3] = &unk_278259810;
-    v45[4] = self;
-    v8 = [v7 initWithOperator:dependanciesCopy withRegistration:&unk_282C19D18 withBlock:v45];
+    v44[0] = MEMORY[0x277D85DD0];
+    v44[1] = 3221225472;
+    v44[2] = __48__PLDuetServiceSimple_initOperatorDependancies___block_invoke_2;
+    v44[3] = &unk_278259810;
+    v44[4] = self;
+    v8 = [v7 initWithOperator:dependanciesCopy withRegistration:&unk_282C19D18 withBlock:v44];
     [(PLDuetServiceImpl *)self setEnergyResponder:v8];
 
     v9 = objc_alloc(MEMORY[0x277D3F270]);
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __48__PLDuetServiceSimple_initOperatorDependancies___block_invoke_3;
-    v44[3] = &unk_27825A1D8;
-    v44[4] = self;
-    v10 = [v9 initWithOperator:dependanciesCopy withRegistration:&unk_282C19D40 withBlock:v44];
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = __48__PLDuetServiceSimple_initOperatorDependancies___block_invoke_3;
+    v43[3] = &unk_27825A1D8;
+    v43[4] = self;
+    v10 = [v9 initWithOperator:dependanciesCopy withRegistration:&unk_282C19D40 withBlock:v43];
     [(PLDuetServiceSimple *)self setResetListener:v10];
 
     [(PLDuetServiceSimple *)self setIsCharging:0];
     v11 = objc_alloc(MEMORY[0x277D3F1A8]);
     v12 = [(PLOperator *)PLBatteryAgent entryKeyForType:*MEMORY[0x277D3F5C8] andName:@"Battery"];
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __48__PLDuetServiceSimple_initOperatorDependancies___block_invoke_4;
-    v43[3] = &unk_2782597E8;
-    v43[4] = self;
-    v13 = [v11 initWithOperator:dependanciesCopy forEntryKey:v12 withBlock:v43];
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __48__PLDuetServiceSimple_initOperatorDependancies___block_invoke_4;
+    v42[3] = &unk_2782597E8;
+    v42[4] = self;
+    v13 = [v11 initWithOperator:dependanciesCopy forEntryKey:v12 withBlock:v42];
     [(PLDuetServiceSimple *)self setChargingListener:v13];
 
     duetService = [(PLDuetServiceImpl *)self duetService];
@@ -73,42 +73,42 @@
       selfCopy = self;
       v15 = [(PLOperator *)PLDuetService entryKeyForType:*MEMORY[0x277D3F5D8] andName:@"ComplicationEvents"];
       v16 = [objc_alloc(MEMORY[0x277D3F260]) initWithKey:@"timestampEnd" withValue:&unk_282C13080 withComparisonOperation:6];
-      storage = [dependanciesCopy storage];
-      v48[0] = v16;
-      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:1];
-      v36 = v15;
-      v19 = [storage entriesForKey:v15 withComparisons:v18];
+      v17 = objc_msgSend_storage(dependanciesCopy);
+      v47[0] = v16;
+      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:1];
+      v35 = v15;
+      v19 = [v17 entriesForKey:v15 withComparisons:v18];
 
-      v41 = 0u;
-      v42 = 0u;
-      v39 = 0u;
       v40 = 0u;
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
       v20 = v19;
-      v21 = [v20 countByEnumeratingWithState:&v39 objects:v47 count:16];
+      v21 = [v20 countByEnumeratingWithState:&v38 objects:v46 count:16];
       if (v21)
       {
         v22 = v21;
-        v23 = *v40;
+        v23 = *v39;
         do
         {
           for (i = 0; i != v22; ++i)
           {
-            if (*v40 != v23)
+            if (*v39 != v23)
             {
               objc_enumerationMutation(v20);
             }
 
-            v25 = *(*(&v39 + 1) + 8 * i);
-            storage2 = [dependanciesCopy storage];
-            v38[0] = MEMORY[0x277D85DD0];
-            v38[1] = 3221225472;
-            v38[2] = __48__PLDuetServiceSimple_initOperatorDependancies___block_invoke_348;
-            v38[3] = &unk_2782591D0;
-            v38[4] = v25;
-            [storage2 updateEntry:v25 withBlock:v38];
+            v25 = *(*(&v38 + 1) + 8 * i);
+            v26 = objc_msgSend_storage(dependanciesCopy);
+            v37[0] = MEMORY[0x277D85DD0];
+            v37[1] = 3221225472;
+            v37[2] = __48__PLDuetServiceSimple_initOperatorDependancies___block_invoke_348;
+            v37[3] = &unk_2782591D0;
+            v37[4] = v25;
+            [v26 updateEntry:v25 withBlock:v37];
           }
 
-          v22 = [v20 countByEnumeratingWithState:&v39 objects:v47 count:16];
+          v22 = [v20 countByEnumeratingWithState:&v38 objects:v46 count:16];
         }
 
         while (v22);
@@ -136,8 +136,6 @@
       CFNotificationCenterAddObserver(v34, self, testCapping, @"com.apple.powerlogd.PLDuetService.testCapping", 0, CFNotificationSuspensionBehaviorDeliverImmediately);
     }
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void __48__PLDuetServiceSimple_initOperatorDependancies___block_invoke_4(uint64_t a1, void *a2)
@@ -155,20 +153,20 @@ void __48__PLDuetServiceSimple_initOperatorDependancies___block_invoke_348(uint6
 
 - (void)didReceiveStartEventWithPayload:(id)payload
 {
-  v88 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
-  v74 = payloadCopy;
+  v73 = payloadCopy;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v5 = objc_opt_class();
-    v84[0] = MEMORY[0x277D85DD0];
-    v84[1] = 3221225472;
-    v84[2] = __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invoke;
-    v84[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v84[4] = v5;
+    v83[0] = MEMORY[0x277D85DD0];
+    v83[1] = 3221225472;
+    v83[2] = __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invoke;
+    v83[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v83[4] = v5;
     if (qword_2811F69E0 != -1)
     {
-      dispatch_once(&qword_2811F69E0, v84);
+      dispatch_once(&qword_2811F69E0, v83);
     }
 
     if (byte_2811F695B == 1)
@@ -184,11 +182,11 @@ void __48__PLDuetServiceSimple_initOperatorDependancies___block_invoke_348(uint6
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v87 = payloadCopy;
+        v86 = payloadCopy;
         _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
-      payloadCopy = v74;
+      payloadCopy = v73;
     }
   }
 
@@ -200,21 +198,21 @@ void __48__PLDuetServiceSimple_initOperatorDependancies___block_invoke_348(uint6
   bundleIDToState = [(PLDuetServiceSimple *)self bundleIDToState];
   v17 = [bundleIDToState objectForKeyedSubscript:v12];
 
-  v73 = v12;
+  v72 = v12;
   if (v17)
   {
     v18 = [(PLDuetServiceSimple *)self didReceiveStopEventWithPayload:payloadCopy];
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v19 = objc_opt_class();
-      v83[0] = MEMORY[0x277D85DD0];
-      v83[1] = 3221225472;
-      v83[2] = __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invoke_375;
-      v83[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v83[4] = v19;
+      v82[0] = MEMORY[0x277D85DD0];
+      v82[1] = 3221225472;
+      v82[2] = __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invoke_375;
+      v82[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v82[4] = v19;
       if (qword_2811F69E8 != -1)
       {
-        dispatch_once(&qword_2811F69E8, v83);
+        dispatch_once(&qword_2811F69E8, v82);
       }
 
       if (byte_2811F695C == 1)
@@ -230,12 +228,12 @@ void __48__PLDuetServiceSimple_initOperatorDependancies___block_invoke_348(uint6
         if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v87 = v20;
+          v86 = v20;
           _os_log_debug_impl(&dword_21A4C6000, v25, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
 
-        v12 = v73;
-        payloadCopy = v74;
+        v12 = v72;
+        payloadCopy = v73;
       }
     }
   }
@@ -292,31 +290,31 @@ void __48__PLDuetServiceSimple_initOperatorDependancies___block_invoke_348(uint6
     }
   }
 
-  v81 = 0u;
-  v82 = 0u;
-  v79 = 0u;
   v80 = 0u;
+  v81 = 0u;
+  v78 = 0u;
+  v79 = 0u;
   bundleIDToState2 = [(PLDuetServiceSimple *)self bundleIDToState];
   allValues = [bundleIDToState2 allValues];
 
-  v45 = [allValues countByEnumeratingWithState:&v79 objects:v85 count:16];
+  v45 = [allValues countByEnumeratingWithState:&v78 objects:v84 count:16];
   if (v45)
   {
     v46 = v45;
-    v47 = *v80;
-    v75 = v26;
+    v47 = *v79;
+    v74 = v26;
     selfCopy = self;
     do
     {
       v48 = 0;
       do
       {
-        if (*v80 != v47)
+        if (*v79 != v47)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v49 = *(*(&v79 + 1) + 8 * v48);
+        v49 = *(*(&v78 + 1) + 8 * v48);
         endDate = [v49 endDate];
 
         if (!endDate)
@@ -347,11 +345,11 @@ void __48__PLDuetServiceSimple_initOperatorDependancies___block_invoke_348(uint6
               if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v87 = v52;
+                v86 = v52;
                 _os_log_debug_impl(&dword_21A4C6000, v57, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
               }
 
-              v26 = v75;
+              v26 = v74;
               self = selfCopy;
             }
           }
@@ -367,28 +365,28 @@ void __48__PLDuetServiceSimple_initOperatorDependancies___block_invoke_348(uint6
       }
 
       while (v46 != v48);
-      v46 = [allValues countByEnumeratingWithState:&v79 objects:v85 count:16];
+      v46 = [allValues countByEnumeratingWithState:&v78 objects:v84 count:16];
     }
 
     while (v46);
   }
 
   bundleIDToState3 = [(PLDuetServiceSimple *)self bundleIDToState];
-  v61 = v73;
-  [bundleIDToState3 setObject:v26 forKeyedSubscript:v73];
+  v61 = v72;
+  [bundleIDToState3 setObject:v26 forKeyedSubscript:v72];
 
-  v62 = v74;
+  v62 = v73;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v63 = objc_opt_class();
-    v77[0] = MEMORY[0x277D85DD0];
-    v77[1] = 3221225472;
-    v77[2] = __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invoke_394;
-    v77[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v77[4] = v63;
+    v76[0] = MEMORY[0x277D85DD0];
+    v76[1] = 3221225472;
+    v76[2] = __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invoke_394;
+    v76[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v76[4] = v63;
     if (qword_2811F69F8 != -1)
     {
-      dispatch_once(&qword_2811F69F8, v77);
+      dispatch_once(&qword_2811F69F8, v76);
     }
 
     if (byte_2811F695E == 1)
@@ -407,40 +405,38 @@ void __48__PLDuetServiceSimple_initOperatorDependancies___block_invoke_348(uint6
       if (os_log_type_enabled(v71, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v87 = v66;
+        v86 = v66;
         _os_log_debug_impl(&dword_21A4C6000, v71, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
-      v61 = v73;
-      v62 = v74;
+      v61 = v72;
+      v62 = v73;
     }
   }
-
-  v72 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invoke(uint64_t a1)
+void *__55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F695B = result;
   return result;
 }
 
-uint64_t __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invoke_375(uint64_t a1)
+void *__55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invoke_375(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F695C = result;
   return result;
 }
 
-uint64_t __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invoke_388(uint64_t a1)
+void *__55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invoke_388(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F695D = result;
   return result;
 }
 
-uint64_t __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invoke_394(uint64_t a1)
+void *__55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invoke_394(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F695E = result;
@@ -449,17 +445,17 @@ uint64_t __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invok
 
 - (id)didReceiveStopEventWithPayload:(id)payload
 {
-  v221 = *MEMORY[0x277D85DE8];
+  v220 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v5 = objc_opt_class();
-    v214[0] = MEMORY[0x277D85DD0];
-    v214[1] = 3221225472;
-    v214[2] = __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke;
-    v214[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v214[4] = v5;
-    v6 = v214;
+    v213[0] = MEMORY[0x277D85DD0];
+    v213[1] = 3221225472;
+    v213[2] = __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke;
+    v213[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v213[4] = v5;
+    v6 = v213;
     if (qword_2811F6A00 != -1)
     {
       dispatch_once(&qword_2811F6A00, v6);
@@ -478,27 +474,27 @@ uint64_t __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invok
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v220 = payloadCopy;
+        v219 = payloadCopy;
         _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
   v13 = [payloadCopy objectForKeyedSubscript:@"bundleID"];
-  v184 = [payloadCopy objectForKeyedSubscript:@"info"];
+  v183 = [payloadCopy objectForKeyedSubscript:@"info"];
   bundleIDToState = [(PLDuetServiceSimple *)self bundleIDToState];
-  v185 = v13;
+  v184 = v13;
   v15 = [bundleIDToState objectForKeyedSubscript:v13];
 
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v16 = objc_opt_class();
-    v213[0] = MEMORY[0x277D85DD0];
-    v213[1] = 3221225472;
-    v213[2] = __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_400;
-    v213[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v213[4] = v16;
-    v17 = v213;
+    v212[0] = MEMORY[0x277D85DD0];
+    v212[1] = 3221225472;
+    v212[2] = __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_400;
+    v212[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v212[4] = v16;
+    v17 = v212;
     if (qword_2811F6A08 != -1)
     {
       dispatch_once(&qword_2811F6A08, v17);
@@ -517,7 +513,7 @@ uint64_t __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invok
       if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v220 = v18;
+        v219 = v18;
         _os_log_debug_impl(&dword_21A4C6000, v23, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -534,7 +530,7 @@ uint64_t __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invok
 
     if (intValue < 1)
     {
-      [(PLDuetServiceSimple *)self numCPUSecondsForBundleID:v185];
+      [(PLDuetServiceSimple *)self numCPUSecondsForBundleID:v184];
     }
 
     else
@@ -558,12 +554,12 @@ uint64_t __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invok
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v34 = objc_opt_class();
-      v212[0] = MEMORY[0x277D85DD0];
-      v212[1] = 3221225472;
-      v212[2] = __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_403;
-      v212[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v212[4] = v34;
-      v35 = v212;
+      v211[0] = MEMORY[0x277D85DD0];
+      v211[1] = 3221225472;
+      v211[2] = __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_403;
+      v211[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v211[4] = v34;
+      v35 = v211;
       if (qword_2811F6A10 != -1)
       {
         dispatch_once(&qword_2811F6A10, v35);
@@ -582,7 +578,7 @@ uint64_t __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invok
         if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v220 = v36;
+          v219 = v36;
           _os_log_debug_impl(&dword_21A4C6000, v41, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -593,12 +589,12 @@ uint64_t __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invok
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v44 = objc_opt_class();
-      v211[0] = MEMORY[0x277D85DD0];
-      v211[1] = 3221225472;
-      v211[2] = __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_409;
-      v211[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v211[4] = v44;
-      v45 = v211;
+      v210[0] = MEMORY[0x277D85DD0];
+      v210[1] = 3221225472;
+      v210[2] = __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_409;
+      v210[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v210[4] = v44;
+      v45 = v210;
       if (qword_2811F6A18 != -1)
       {
         dispatch_once(&qword_2811F6A18, v45);
@@ -617,7 +613,7 @@ uint64_t __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invok
         if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v220 = v46;
+          v219 = v46;
           _os_log_debug_impl(&dword_21A4C6000, v51, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -627,12 +623,12 @@ uint64_t __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invok
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v53 = objc_opt_class();
-      v210[0] = MEMORY[0x277D85DD0];
-      v210[1] = 3221225472;
-      v210[2] = __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_415;
-      v210[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v210[4] = v53;
-      v54 = v210;
+      v209[0] = MEMORY[0x277D85DD0];
+      v209[1] = 3221225472;
+      v209[2] = __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_415;
+      v209[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v209[4] = v53;
+      v54 = v209;
       if (qword_2811F6A20 != -1)
       {
         dispatch_once(&qword_2811F6A20, v54);
@@ -651,22 +647,22 @@ uint64_t __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invok
         if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v220 = v55;
+          v219 = v55;
           _os_log_debug_impl(&dword_21A4C6000, v60, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
     }
 
-    v183 = payloadCopy;
-    v208 = 0u;
-    v209 = 0u;
-    v206 = 0u;
+    v182 = payloadCopy;
     v207 = 0u;
+    v208 = 0u;
+    v205 = 0u;
+    v206 = 0u;
     obj = [v15 overlappingStates];
-    v188 = [obj countByEnumeratingWithState:&v206 objects:v218 count:16];
-    if (v188)
+    v187 = [obj countByEnumeratingWithState:&v205 objects:v217 count:16];
+    if (v187)
     {
-      v187 = *v207;
+      v186 = *v206;
       v61 = 0.0;
       v62 = v15;
       do
@@ -674,21 +670,21 @@ uint64_t __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invok
         v63 = 0;
         do
         {
-          if (*v207 != v187)
+          if (*v206 != v186)
           {
             objc_enumerationMutation(obj);
           }
 
-          v64 = *(*(&v206 + 1) + 8 * v63);
+          v64 = *(*(&v205 + 1) + 8 * v63);
           if ([MEMORY[0x277D3F180] debugEnabled])
           {
             v65 = objc_opt_class();
-            v205[0] = MEMORY[0x277D85DD0];
-            v205[1] = 3221225472;
-            v205[2] = __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_421;
-            v205[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-            v205[4] = v65;
-            v66 = v205;
+            v204[0] = MEMORY[0x277D85DD0];
+            v204[1] = 3221225472;
+            v204[2] = __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_421;
+            v204[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+            v204[4] = v65;
+            v66 = v204;
             if (qword_2811F6A28 != -1)
             {
               dispatch_once(&qword_2811F6A28, v66);
@@ -707,7 +703,7 @@ uint64_t __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invok
               if (os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v220 = v67;
+                v219 = v67;
                 _os_log_debug_impl(&dword_21A4C6000, v72, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
               }
 
@@ -740,12 +736,12 @@ uint64_t __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invok
           if ([MEMORY[0x277D3F180] debugEnabled])
           {
             v82 = objc_opt_class();
-            v204[0] = MEMORY[0x277D85DD0];
-            v204[1] = 3221225472;
-            v204[2] = __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_427;
-            v204[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-            v204[4] = v82;
-            v83 = v204;
+            v203[0] = MEMORY[0x277D85DD0];
+            v203[1] = 3221225472;
+            v203[2] = __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_427;
+            v203[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+            v203[4] = v82;
+            v83 = v203;
             if (qword_2811F6A30 != -1)
             {
               dispatch_once(&qword_2811F6A30, v83);
@@ -765,7 +761,7 @@ uint64_t __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invok
               if (os_log_type_enabled(v90, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v220 = v85;
+                v219 = v85;
                 _os_log_debug_impl(&dword_21A4C6000, v90, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
               }
 
@@ -779,11 +775,11 @@ uint64_t __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invok
           ++v63;
         }
 
-        while (v188 != v63);
-        v188 = [obj countByEnumeratingWithState:&v206 objects:v218 count:16];
+        while (v187 != v63);
+        v187 = [obj countByEnumeratingWithState:&v205 objects:v217 count:16];
       }
 
-      while (v188);
+      while (v187);
     }
 
     else
@@ -793,16 +789,16 @@ uint64_t __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invok
 
     [v15 duration];
     v92 = v91;
-    payloadCopy = v183;
+    payloadCopy = v182;
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v93 = objc_opt_class();
-      v203[0] = MEMORY[0x277D85DD0];
-      v203[1] = 3221225472;
-      v203[2] = __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_430;
-      v203[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v203[4] = v93;
-      v94 = v203;
+      v202[0] = MEMORY[0x277D85DD0];
+      v202[1] = 3221225472;
+      v202[2] = __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_430;
+      v202[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v202[4] = v93;
+      v94 = v202;
       if (qword_2811F6A38 != -1)
       {
         dispatch_once(&qword_2811F6A38, v94);
@@ -821,7 +817,7 @@ uint64_t __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invok
         if (os_log_type_enabled(v100, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v220 = v95;
+          v219 = v95;
           _os_log_debug_impl(&dword_21A4C6000, v100, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -832,12 +828,12 @@ uint64_t __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invok
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v103 = objc_opt_class();
-      v202[0] = MEMORY[0x277D85DD0];
-      v202[1] = 3221225472;
-      v202[2] = __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_436;
-      v202[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v202[4] = v103;
-      v104 = v202;
+      v201[0] = MEMORY[0x277D85DD0];
+      v201[1] = 3221225472;
+      v201[2] = __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_436;
+      v201[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v201[4] = v103;
+      v104 = v201;
       if (qword_2811F6A40 != -1)
       {
         dispatch_once(&qword_2811F6A40, v104);
@@ -856,7 +852,7 @@ uint64_t __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invok
         if (os_log_type_enabled(v110, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v220 = v105;
+          v219 = v105;
           _os_log_debug_impl(&dword_21A4C6000, v110, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -866,12 +862,12 @@ uint64_t __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invok
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v112 = objc_opt_class();
-      v201[0] = MEMORY[0x277D85DD0];
-      v201[1] = 3221225472;
-      v201[2] = __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_442;
-      v201[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v201[4] = v112;
-      v113 = v201;
+      v200[0] = MEMORY[0x277D85DD0];
+      v200[1] = 3221225472;
+      v200[2] = __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_442;
+      v200[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v200[4] = v112;
+      v113 = v200;
       if (qword_2811F6A48 != -1)
       {
         dispatch_once(&qword_2811F6A48, v113);
@@ -890,7 +886,7 @@ uint64_t __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invok
         if (os_log_type_enabled(v119, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v220 = v114;
+          v219 = v114;
           _os_log_debug_impl(&dword_21A4C6000, v119, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -911,12 +907,12 @@ uint64_t __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invok
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v123 = objc_opt_class();
-      v200[0] = MEMORY[0x277D85DD0];
-      v200[1] = 3221225472;
-      v200[2] = __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_454;
-      v200[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v200[4] = v123;
-      v124 = v200;
+      v199[0] = MEMORY[0x277D85DD0];
+      v199[1] = 3221225472;
+      v199[2] = __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_454;
+      v199[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v199[4] = v123;
+      v124 = v199;
       if (qword_2811F6A50 != -1)
       {
         dispatch_once(&qword_2811F6A50, v124);
@@ -935,28 +931,28 @@ uint64_t __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invok
         if (os_log_type_enabled(v130, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v220 = v125;
+          v219 = v125;
           _os_log_debug_impl(&dword_21A4C6000, v130, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
     }
 
-    v131 = [v184 objectForKeyedSubscript:@"cellDuration"];
+    v131 = [v183 objectForKeyedSubscript:@"cellDuration"];
     v132 = [v131 integerValue] / 1000.0;
-    v133 = [v184 objectForKeyedSubscript:@"wifiDuration"];
+    v133 = [v183 objectForKeyedSubscript:@"wifiDuration"];
     v134 = [v133 integerValue] / 1000.0 * 0.0611111111 + v132 * 0.222222222;
-    v135 = [v184 objectForKeyedSubscript:@"btDuration"];
+    v135 = [v183 objectForKeyedSubscript:@"btDuration"];
     v136 = v134 + [v135 integerValue] / 1000.0 * 0.0277777778;
 
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v137 = objc_opt_class();
-      v199[0] = MEMORY[0x277D85DD0];
-      v199[1] = 3221225472;
-      v199[2] = __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_469;
-      v199[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v199[4] = v137;
-      v138 = v199;
+      v198[0] = MEMORY[0x277D85DD0];
+      v198[1] = 3221225472;
+      v198[2] = __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_469;
+      v198[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v198[4] = v137;
+      v138 = v198;
       if (qword_2811F6A58 != -1)
       {
         dispatch_once(&qword_2811F6A58, v138);
@@ -975,24 +971,24 @@ uint64_t __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invok
         if (os_log_type_enabled(v144, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v220 = v139;
+          v219 = v139;
           _os_log_debug_impl(&dword_21A4C6000, v144, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
     }
 
     bundleIDToState2 = [(PLDuetServiceSimple *)self bundleIDToState];
-    [bundleIDToState2 removeObjectForKey:v185];
+    [bundleIDToState2 removeObjectForKey:v184];
 
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v146 = objc_opt_class();
-      v198[0] = MEMORY[0x277D85DD0];
-      v198[1] = 3221225472;
-      v198[2] = __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_475;
-      v198[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v198[4] = v146;
-      v147 = v198;
+      v197[0] = MEMORY[0x277D85DD0];
+      v197[1] = 3221225472;
+      v197[2] = __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_475;
+      v197[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v197[4] = v146;
+      v147 = v197;
       if (qword_2811F6A60 != -1)
       {
         dispatch_once(&qword_2811F6A60, v147);
@@ -1014,7 +1010,7 @@ uint64_t __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invok
         if (os_log_type_enabled(v155, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v220 = v149;
+          v219 = v149;
           _os_log_debug_impl(&dword_21A4C6000, v155, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -1050,44 +1046,44 @@ uint64_t __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invok
       if (isDebugEnabled)
       {
         v162 = [(PLOperator *)PLDuetService entryKeyForType:*MEMORY[0x277D3F5D8] andName:@"ComplicationEvents"];
-        v163 = [objc_alloc(MEMORY[0x277D3F260]) initWithKey:@"BundleID" withValue:v185 withComparisonOperation:0];
+        v163 = [objc_alloc(MEMORY[0x277D3F260]) initWithKey:@"BundleID" withValue:v184 withComparisonOperation:0];
         v164 = [objc_alloc(MEMORY[0x277D3F260]) initWithKey:@"timestampEnd" withValue:&unk_282C13080 withComparisonOperation:6];
         duetService3 = [(PLDuetServiceImpl *)self duetService];
-        storage = [duetService3 storage];
-        v217[0] = v163;
-        v217[1] = v164;
-        v167 = [MEMORY[0x277CBEA60] arrayWithObjects:v217 count:2];
-        v168 = [storage lastEntryForKey:v162 withComparisons:v167 isSingleton:0];
+        v166 = objc_msgSend_storage(duetService3);
+        v216[0] = v163;
+        v216[1] = v164;
+        v167 = [MEMORY[0x277CBEA60] arrayWithObjects:v216 count:2];
+        v168 = [v166 lastEntryForKey:v162 withComparisons:v167 isSingleton:0];
 
         duetService4 = [(PLDuetServiceImpl *)self duetService];
-        storage2 = [duetService4 storage];
-        v190[0] = MEMORY[0x277D85DD0];
-        v190[1] = 3221225472;
-        v190[2] = __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_476;
-        v190[3] = &unk_278261DB0;
+        v170 = objc_msgSend_storage(duetService4);
+        v189[0] = MEMORY[0x277D85DD0];
+        v189[1] = 3221225472;
+        v189[2] = __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_476;
+        v189[3] = &unk_278261DB0;
         v171 = v168;
-        v191 = v171;
-        v192 = v30;
-        v193 = v52;
-        v194 = v111;
-        v195 = v122;
-        v196 = v136;
-        v197 = v156;
-        [storage2 updateEntry:v171 withBlock:v190];
+        v190 = v171;
+        v191 = v30;
+        v192 = v52;
+        v193 = v111;
+        v194 = v122;
+        v195 = v136;
+        v196 = v156;
+        [v170 updateEntry:v171 withBlock:v189];
 
-        payloadCopy = v183;
+        payloadCopy = v182;
       }
     }
 
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v172 = objc_opt_class();
-      v189[0] = MEMORY[0x277D85DD0];
-      v189[1] = 3221225472;
-      v189[2] = __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_2;
-      v189[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v189[4] = v172;
-      v173 = v189;
+      v188[0] = MEMORY[0x277D85DD0];
+      v188[1] = 3221225472;
+      v188[2] = __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_2;
+      v188[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v188[4] = v172;
+      v173 = v188;
       if (qword_2811F6A68 != -1)
       {
         dispatch_once(&qword_2811F6A68, v173);
@@ -1106,16 +1102,16 @@ uint64_t __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invok
         if (os_log_type_enabled(v179, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v220 = v174;
+          v219 = v174;
           _os_log_debug_impl(&dword_21A4C6000, v179, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
     }
 
-    v215 = @"energy";
+    v214 = @"energy";
     v180 = [MEMORY[0x277CCABB0] numberWithDouble:v156];
-    v216 = v180;
-    v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v216 forKeys:&v215 count:1];
+    v215 = v180;
+    v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v215 forKeys:&v214 count:1];
   }
 
   else
@@ -1123,96 +1119,94 @@ uint64_t __55__PLDuetServiceSimple_didReceiveStartEventWithPayload___block_invok
     v29 = 0;
   }
 
-  v181 = *MEMORY[0x277D85DE8];
-
   return v29;
 }
 
-uint64_t __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke(uint64_t a1)
+void *__54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F695F = result;
   return result;
 }
 
-uint64_t __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_400(uint64_t a1)
+void *__54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_400(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6960 = result;
   return result;
 }
 
-uint64_t __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_403(uint64_t a1)
+void *__54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_403(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6961 = result;
   return result;
 }
 
-uint64_t __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_409(uint64_t a1)
+void *__54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_409(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6962 = result;
   return result;
 }
 
-uint64_t __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_415(uint64_t a1)
+void *__54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_415(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6963 = result;
   return result;
 }
 
-uint64_t __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_421(uint64_t a1)
+void *__54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_421(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6964 = result;
   return result;
 }
 
-uint64_t __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_427(uint64_t a1)
+void *__54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_427(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6965 = result;
   return result;
 }
 
-uint64_t __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_430(uint64_t a1)
+void *__54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_430(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6966 = result;
   return result;
 }
 
-uint64_t __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_436(uint64_t a1)
+void *__54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_436(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6967 = result;
   return result;
 }
 
-uint64_t __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_442(uint64_t a1)
+void *__54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_442(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6968 = result;
   return result;
 }
 
-uint64_t __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_454(uint64_t a1)
+void *__54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_454(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6969 = result;
   return result;
 }
 
-uint64_t __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_469(uint64_t a1)
+void *__54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_469(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F696A = result;
   return result;
 }
 
-uint64_t __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_475(uint64_t a1)
+void *__54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_475(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F696B = result;
@@ -1243,7 +1237,7 @@ void __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_476
   [*(a1 + 32) setObject:v8 forKeyedSubscript:@"EnergyReturned"];
 }
 
-uint64_t __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_2(uint64_t a1)
+void *__54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F696C = result;
@@ -1267,41 +1261,40 @@ uint64_t __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke
 
 - (double)numCPUSecondsForPid:(int)pid
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v10 = 0u;
-  v11 = 0u;
-  v8 = 0u;
+  v11 = *MEMORY[0x277D85DE8];
   v9 = 0u;
-  v6 = 0u;
+  v10 = 0u;
   v7 = 0u;
-  v3 = proc_pid_rusage(pid, 0, &v6);
+  v8 = 0u;
+  v5 = 0u;
+  v6 = 0u;
+  v3 = proc_pid_rusage(pid, 0, &v5);
   result = 0.0;
   if (!v3)
   {
-    [MEMORY[0x277D3F258] secondsFromMachTime:{v7, 0.0}];
+    [MEMORY[0x277D3F258] secondsFromMachTime:{v6, 0.0}];
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (double)numCPUSecondsForBundleID:(id)d
 {
-  v3 = MEMORY[0x28223BE20](self, a2);
-  v56 = *MEMORY[0x277D85DE8];
+  v3 = MEMORY[0x28223BE20](self);
+  v55 = *MEMORY[0x277D85DE8];
   v5 = v4;
-  v48 = v5;
+  v47 = v5;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v6 = objc_opt_class();
-    v52[0] = MEMORY[0x277D85DD0];
-    v52[1] = 3221225472;
-    v52[2] = __48__PLDuetServiceSimple_numCPUSecondsForBundleID___block_invoke;
-    v52[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v52[4] = v6;
+    v51[0] = MEMORY[0x277D85DD0];
+    v51[1] = 3221225472;
+    v51[2] = __48__PLDuetServiceSimple_numCPUSecondsForBundleID___block_invoke;
+    v51[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v51[4] = v6;
     if (qword_2811F6A70 != -1)
     {
-      dispatch_once(&qword_2811F6A70, v52);
+      dispatch_once(&qword_2811F6A70, v51);
     }
 
     if (byte_2811F696D == 1)
@@ -1321,7 +1314,7 @@ uint64_t __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke
         _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "%@", __b, 0xCu);
       }
 
-      v5 = v48;
+      v5 = v47;
     }
   }
 
@@ -1337,7 +1330,8 @@ uint64_t __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke
       v16 = __b;
       do
       {
-        v18 = *v16++;
+        v18 = *v16;
+        v16 += 4;
         v17 = v18;
         if (v18 < 1)
         {
@@ -1370,15 +1364,15 @@ uint64_t __54__PLDuetServiceSimple_didReceiveStopEventWithPayload___block_invoke
             if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
             {
               buffer = 138412290;
-              v54 = v20;
+              v53 = v20;
               _os_log_debug_impl(&dword_21A4C6000, v25, OS_LOG_TYPE_DEBUG, "%@", &buffer, 0xCu);
             }
           }
         }
 
         duetService2 = [v3 duetService];
-        storage = [duetService2 storage];
-        v28 = [storage processIDEntryForPid:v17];
+        v27 = objc_msgSend_storage(duetService2);
+        v28 = [v27 processIDEntryForPid:v17];
         v29 = [v28 objectForKeyedSubscript:@"BundleID"];
 
         if (!v29)
@@ -1402,14 +1396,14 @@ LABEL_24:
         if ([MEMORY[0x277D3F180] debugEnabled])
         {
           v31 = objc_opt_class();
-          v50[0] = MEMORY[0x277D85DD0];
-          v50[1] = 3221225472;
-          v50[2] = __48__PLDuetServiceSimple_numCPUSecondsForBundleID___block_invoke_508;
-          v50[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-          v50[4] = v31;
+          v49[0] = MEMORY[0x277D85DD0];
+          v49[1] = 3221225472;
+          v49[2] = __48__PLDuetServiceSimple_numCPUSecondsForBundleID___block_invoke_508;
+          v49[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+          v49[4] = v31;
           if (qword_2811F6A80 != -1)
           {
-            dispatch_once(&qword_2811F6A80, v50);
+            dispatch_once(&qword_2811F6A80, v49);
           }
 
           if (byte_2811F696F == 1)
@@ -1425,11 +1419,11 @@ LABEL_24:
             if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
             {
               buffer = 138412290;
-              v54 = v32;
+              v53 = v32;
               _os_log_debug_impl(&dword_21A4C6000, v37, OS_LOG_TYPE_DEBUG, "%@", &buffer, 0xCu);
             }
 
-            v5 = v48;
+            v5 = v47;
           }
         }
 
@@ -1451,14 +1445,14 @@ LABEL_33:
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v39 = objc_opt_class();
-      v49[0] = MEMORY[0x277D85DD0];
-      v49[1] = 3221225472;
-      v49[2] = __48__PLDuetServiceSimple_numCPUSecondsForBundleID___block_invoke_514;
-      v49[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v49[4] = v39;
+      v48[0] = MEMORY[0x277D85DD0];
+      v48[1] = 3221225472;
+      v48[2] = __48__PLDuetServiceSimple_numCPUSecondsForBundleID___block_invoke_514;
+      v48[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v48[4] = v39;
       if (qword_2811F6A88 != -1)
       {
-        dispatch_once(&qword_2811F6A88, v49);
+        dispatch_once(&qword_2811F6A88, v48);
       }
 
       if (byte_2811F6970 == 1)
@@ -1474,11 +1468,11 @@ LABEL_33:
         if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
         {
           buffer = 138412290;
-          v54 = v29;
+          v53 = v29;
           _os_log_debug_impl(&dword_21A4C6000, v44, OS_LOG_TYPE_DEBUG, "%@", &buffer, 0xCu);
         }
 
-        v5 = v48;
+        v5 = v47;
 LABEL_45:
       }
     }
@@ -1489,32 +1483,31 @@ LABEL_45:
     v38 = 0.0;
   }
 
-  v46 = *MEMORY[0x277D85DE8];
   return v38;
 }
 
-uint64_t __48__PLDuetServiceSimple_numCPUSecondsForBundleID___block_invoke(uint64_t a1)
+void *__48__PLDuetServiceSimple_numCPUSecondsForBundleID___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F696D = result;
   return result;
 }
 
-uint64_t __48__PLDuetServiceSimple_numCPUSecondsForBundleID___block_invoke_502(uint64_t a1)
+void *__48__PLDuetServiceSimple_numCPUSecondsForBundleID___block_invoke_502(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F696E = result;
   return result;
 }
 
-uint64_t __48__PLDuetServiceSimple_numCPUSecondsForBundleID___block_invoke_508(uint64_t a1)
+void *__48__PLDuetServiceSimple_numCPUSecondsForBundleID___block_invoke_508(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F696F = result;
   return result;
 }
 
-uint64_t __48__PLDuetServiceSimple_numCPUSecondsForBundleID___block_invoke_514(uint64_t a1)
+void *__48__PLDuetServiceSimple_numCPUSecondsForBundleID___block_invoke_514(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6970 = result;

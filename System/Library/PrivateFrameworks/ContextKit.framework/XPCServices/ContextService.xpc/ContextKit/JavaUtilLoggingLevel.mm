@@ -82,7 +82,7 @@ LABEL_15:
   resourceBundleName = self->resourceBundleName_;
   if (resourceBundleName)
   {
-    BundleWithNSString = JavaUtilResourceBundle_getBundleWithNSString_(resourceBundleName);
+    BundleWithNSString = JavaUtilResourceBundle_getBundleWithNSString_(resourceBundleName, v4);
     JreStrongAssign(&self->rb_, BundleWithNSString);
   }
 }

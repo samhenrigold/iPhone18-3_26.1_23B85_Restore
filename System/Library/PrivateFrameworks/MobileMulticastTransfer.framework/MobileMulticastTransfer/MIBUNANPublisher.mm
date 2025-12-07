@@ -332,7 +332,7 @@ uint64_t __24__MIBUNANPublisher_stop__block_invoke(uint64_t a1)
 
 - (void)_startPublisher
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(&self->_unfairLock);
   if (MIBUOnceToken != -1)
   {
@@ -342,12 +342,37 @@ uint64_t __24__MIBUNANPublisher_stop__block_invoke(uint64_t a1)
   v3 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
+    v7 = 138543362;
     selfCopy2 = self;
-    _os_log_impl(&dword_259B04000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Starting NAN publisher!", &v8, 0xCu);
+    _os_log_impl(&dword_259B04000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Starting NAN publisher!", &v7, 0xCu);
   }
 
-  if (!self->_publisherState)
+  if (self->_publisherState)
+  {
+    if (MIBUOnceToken == -1)
+    {
+      v4 = MIBUConnObj;
+      if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
+      {
+LABEL_8:
+        v7 = 138543362;
+        selfCopy2 = self;
+        _os_log_impl(&dword_259B04000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: NAN publisher already started.", &v7, 0xCu);
+      }
+    }
+
+    else
+    {
+      [MIBUNANPublisher _startPublisher];
+      v4 = MIBUConnObj;
+      if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_8;
+      }
+    }
+  }
+
+  else
   {
     self->_publisherState = 1;
     v5 = [objc_alloc(MEMORY[0x277D7BAF0]) initWithConfiguration:self->_nanConfiguration];
@@ -356,32 +381,7 @@ uint64_t __24__MIBUNANPublisher_stop__block_invoke(uint64_t a1)
 
     [(WiFiAwarePublisher *)self->_nanPublisher setDelegate:self];
     [(WiFiAwarePublisher *)self->_nanPublisher start];
-    goto LABEL_10;
   }
-
-  if (MIBUOnceToken != -1)
-  {
-    [MIBUNANPublisher _startPublisher];
-    v4 = MIBUConnObj;
-    if (!os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_10;
-    }
-
-    goto LABEL_8;
-  }
-
-  v4 = MIBUConnObj;
-  if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
-  {
-LABEL_8:
-    v8 = 138543362;
-    selfCopy2 = self;
-    _os_log_impl(&dword_259B04000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: NAN publisher already started.", &v8, 0xCu);
-  }
-
-LABEL_10:
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __35__MIBUNANPublisher__startPublisher__block_invoke()
@@ -418,7 +418,7 @@ void __35__MIBUNANPublisher__startPublisher__block_invoke_79()
 
 - (void)_stopPublisherForReason:(id)reason
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   os_unfair_lock_assert_owner(&self->_unfairLock);
   if (MIBUOnceToken != -1)
@@ -429,11 +429,11 @@ void __35__MIBUNANPublisher__startPublisher__block_invoke_79()
   v5 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138543618;
+    v9 = 138543618;
     selfCopy2 = self;
-    v12 = 2114;
-    v13 = reasonCopy;
-    _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Stopping NAN publisher for reason: %{public}@", &v10, 0x16u);
+    v11 = 2114;
+    v12 = reasonCopy;
+    _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Stopping NAN publisher for reason: %{public}@", &v9, 0x16u);
   }
 
   if (self->_publisherState == 3)
@@ -454,9 +454,9 @@ void __35__MIBUNANPublisher__startPublisher__block_invoke_79()
     if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
     {
 LABEL_8:
-      v10 = 138543362;
+      v9 = 138543362;
       selfCopy2 = self;
-      _os_log_impl(&dword_259B04000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: NAN publisher already stopped.", &v10, 0xCu);
+      _os_log_impl(&dword_259B04000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: NAN publisher already stopped.", &v9, 0xCu);
     }
   }
 
@@ -476,8 +476,6 @@ LABEL_8:
   }
 
 LABEL_12:
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __44__MIBUNANPublisher__stopPublisherForReason___block_invoke()
@@ -514,7 +512,7 @@ void __44__MIBUNANPublisher__stopPublisherForReason___block_invoke_85()
 
 - (void)_terminateDataSessionWithPeer:(id)peer withCompletion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   peerCopy = peer;
   completionCopy = completion;
   os_unfair_lock_assert_owner(&self->_unfairLock);
@@ -528,8 +526,8 @@ void __44__MIBUNANPublisher__stopPublisherForReason___block_invoke_85()
   {
     *buf = 138543618;
     selfCopy = self;
-    v26 = 2114;
-    v27 = peerCopy;
+    v25 = 2114;
+    v26 = peerCopy;
     _os_log_impl(&dword_259B04000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Terminating NAN data session with peer: %{public}@", buf, 0x16u);
   }
 
@@ -549,7 +547,7 @@ void __44__MIBUNANPublisher__stopPublisherForReason___block_invoke_85()
       if (!os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
       {
 LABEL_11:
-        v18 = safeCreateError(3758096389, 0, @"NAN data session not found", v13, v14, v15, v16, v17, v20);
+        v18 = safeCreateError(3758096389, 0, @"NAN data session not found", v13, v14, v15, v16, v17, v19);
         completionCopy[2](completionCopy, v18);
 
         goto LABEL_12;
@@ -570,17 +568,16 @@ LABEL_11:
   }
 
   nanPublisher = self->_nanPublisher;
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __65__MIBUNANPublisher__terminateDataSessionWithPeer_withCompletion___block_invoke_99;
-  v21[3] = &unk_2798EC158;
-  v21[4] = self;
-  v22 = peerCopy;
-  v23 = completionCopy;
-  [(WiFiAwarePublisher *)nanPublisher terminateDataSession:v11 completionHandler:v21];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __65__MIBUNANPublisher__terminateDataSessionWithPeer_withCompletion___block_invoke_99;
+  v20[3] = &unk_2798EC158;
+  v20[4] = self;
+  v21 = peerCopy;
+  v22 = completionCopy;
+  [(WiFiAwarePublisher *)nanPublisher terminateDataSession:v11 completionHandler:v20];
 
 LABEL_12:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __65__MIBUNANPublisher__terminateDataSessionWithPeer_withCompletion___block_invoke()
@@ -627,7 +624,7 @@ void __65__MIBUNANPublisher__terminateDataSessionWithPeer_withCompletion___block
 
     if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
     {
-      __65__MIBUNANPublisher__terminateDataSessionWithPeer_withCompletion___block_invoke_99_cold_2(a1);
+      __65__MIBUNANPublisher__terminateDataSessionWithPeer_withCompletion___block_invoke_99_cold_2();
     }
 
     v2 = safeCreateError(3758096389, 0, @"NAN data session with %@ failed to stop: %ld", v4, v5, v6, v7, v8, *(a1 + 40));
@@ -654,7 +651,7 @@ void __65__MIBUNANPublisher__terminateDataSessionWithPeer_withCompletion___block
 
 - (void)_terminateMulticastSessionWithPeer:(id)peer withCompletion:(id)completion
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   peerCopy = peer;
   completionCopy = completion;
   os_unfair_lock_assert_owner(&self->_unfairLock);
@@ -668,8 +665,8 @@ void __65__MIBUNANPublisher__terminateDataSessionWithPeer_withCompletion___block
   {
     *buf = 138543618;
     selfCopy = self;
-    v25 = 2114;
-    v26 = peerCopy;
+    v24 = 2114;
+    v25 = peerCopy;
     _os_log_impl(&dword_259B04000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Terminating NAN multicast session with peer: %{public}@", buf, 0x16u);
   }
 
@@ -710,17 +707,16 @@ LABEL_11:
   }
 
   nanPublisher = self->_nanPublisher;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __70__MIBUNANPublisher__terminateMulticastSessionWithPeer_withCompletion___block_invoke_114;
-  v20[3] = &unk_2798EC158;
-  v20[4] = self;
-  v21 = peerCopy;
-  v22 = completionCopy;
-  [(WiFiAwarePublisher *)nanPublisher terminateMulticastSession:v11 completionHandler:v20];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __70__MIBUNANPublisher__terminateMulticastSessionWithPeer_withCompletion___block_invoke_114;
+  v19[3] = &unk_2798EC158;
+  v19[4] = self;
+  v20 = peerCopy;
+  v21 = completionCopy;
+  [(WiFiAwarePublisher *)nanPublisher terminateMulticastSession:v11 completionHandler:v19];
 
 LABEL_12:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __70__MIBUNANPublisher__terminateMulticastSessionWithPeer_withCompletion___block_invoke()
@@ -767,7 +763,7 @@ void __70__MIBUNANPublisher__terminateMulticastSessionWithPeer_withCompletion___
 
     if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
     {
-      __70__MIBUNANPublisher__terminateMulticastSessionWithPeer_withCompletion___block_invoke_114_cold_2(a1);
+      __70__MIBUNANPublisher__terminateMulticastSessionWithPeer_withCompletion___block_invoke_114_cold_2();
     }
 
     v2 = safeCreateError(3758096393, 0, @"NAN multicast session with %@ failed to stop: %ld", v4, v5, v6, v7, v8, *(a1 + 40));
@@ -854,7 +850,7 @@ void __50__MIBUNANPublisher__multicastData_withCompletion___block_invoke_125(uin
 
     if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
     {
-      __50__MIBUNANPublisher__multicastData_withCompletion___block_invoke_125_cold_2(a1);
+      __50__MIBUNANPublisher__multicastData_withCompletion___block_invoke_125_cold_2();
     }
 
     v2 = safeCreateError(3758096391, 0, @"NAN multicast session data send failed: %ld", v4, v5, v6, v7, v8, v2);
@@ -881,7 +877,7 @@ void __50__MIBUNANPublisher__multicastData_withCompletion___block_invoke_2()
 
 - (void)_handleFailureDueToError:(id)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   os_unfair_lock_assert_owner(&self->_unfairLock);
   retryLimit = self->_retryLimit;
@@ -898,10 +894,10 @@ void __50__MIBUNANPublisher__multicastData_withCompletion___block_invoke_2()
     retryCount = self->_retryCount;
     *buf = 138543874;
     selfCopy2 = self;
-    v18 = 2114;
-    v19 = errorCopy;
-    v20 = 2048;
-    v21 = retryCount;
+    v17 = 2114;
+    v18 = errorCopy;
+    v19 = 2048;
+    v20 = retryCount;
     _os_log_impl(&dword_259B04000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Handling NAN failure due to error: %{public}@ retry count: %lu", buf, 0x20u);
   }
 
@@ -931,9 +927,9 @@ LABEL_9:
 
     else
     {
-      v14 = v9;
+      v13 = v9;
       [MIBUNANPublisher _handleFailureDueToError:];
-      v10 = v14;
+      v10 = v13;
       v11 = MIBUConnObj;
       if (!os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
       {
@@ -943,15 +939,13 @@ LABEL_9:
 
     *buf = 138543618;
     selfCopy2 = self;
-    v18 = 2048;
-    v19 = v10;
+    v17 = 2048;
+    v18 = v10;
     _os_log_impl(&dword_259B04000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: Restarting NAN publisher in %lld secs", buf, 0x16u);
     goto LABEL_9;
   }
 
 LABEL_10:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __45__MIBUNANPublisher__handleFailureDueToError___block_invoke()
@@ -1003,7 +997,7 @@ void __45__MIBUNANPublisher__handleFailureDueToError___block_invoke_136()
 
 void __56__MIBUNANPublisher__handleNANDataSessionExpiredForPeer___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (MIBUOnceToken != -1)
   {
     __56__MIBUNANPublisher__handleNANDataSessionExpiredForPeer___block_invoke_cold_1();
@@ -1015,24 +1009,22 @@ void __56__MIBUNANPublisher__handleNANDataSessionExpiredForPeer___block_invoke(u
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     *buf = 138543618;
-    v11 = v3;
-    v12 = 2114;
-    v13 = v4;
+    v10 = v3;
+    v11 = 2114;
+    v12 = v4;
     _os_log_impl(&dword_259B04000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Timer fired to expunge NAN data session with peer: %{public}@", buf, 0x16u);
   }
 
   [*(*(a1 + 32) + 56) removeObjectForKey:*(a1 + 40)];
   v6 = *(a1 + 32);
   v5 = *(a1 + 40);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __56__MIBUNANPublisher__handleNANDataSessionExpiredForPeer___block_invoke_142;
-  v8[3] = &unk_2798EBD20;
-  v8[4] = v6;
-  v9 = v5;
-  [v6 _terminateDataSessionWithPeer:v9 withCompletion:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __56__MIBUNANPublisher__handleNANDataSessionExpiredForPeer___block_invoke_142;
+  v7[3] = &unk_2798EBD20;
+  v7[4] = v6;
+  v8 = v5;
+  [v6 _terminateDataSessionWithPeer:v8 withCompletion:v7];
 }
 
 void __56__MIBUNANPublisher__handleNANDataSessionExpiredForPeer___block_invoke_2()
@@ -1053,8 +1045,8 @@ void __56__MIBUNANPublisher__handleNANDataSessionExpiredForPeer___block_invoke_2
 
 void __56__MIBUNANPublisher__handleNANDataSessionExpiredForPeer___block_invoke_142(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  if (!v3)
+  v2 = a2;
+  if (!v2)
   {
     goto LABEL_5;
   }
@@ -1066,7 +1058,7 @@ void __56__MIBUNANPublisher__handleNANDataSessionExpiredForPeer___block_invoke_1
 
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
   {
-    __56__MIBUNANPublisher__handleNANDataSessionExpiredForPeer___block_invoke_142_cold_2(a1);
+    __56__MIBUNANPublisher__handleNANDataSessionExpiredForPeer___block_invoke_142_cold_2();
   }
 
   else
@@ -1093,7 +1085,7 @@ void __56__MIBUNANPublisher__handleNANDataSessionExpiredForPeer___block_invoke_2
 
 - (void)publisherStarted:(id)started
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   startedCopy = started;
   if (MIBUOnceToken != -1)
   {
@@ -1108,16 +1100,14 @@ void __56__MIBUNANPublisher__handleNANDataSessionExpiredForPeer___block_invoke_2
     _os_log_impl(&dword_259B04000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: NAN publisher started!", buf, 0xCu);
   }
 
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __37__MIBUNANPublisher_publisherStarted___block_invoke_149;
-  v7[3] = &unk_2798EB9A8;
-  v7[4] = self;
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __37__MIBUNANPublisher_publisherStarted___block_invoke_149;
+  v6[3] = &unk_2798EB9A8;
+  v6[4] = self;
   os_unfair_lock_lock(&self->_unfairLock);
-  __37__MIBUNANPublisher_publisherStarted___block_invoke_149(v7);
+  __37__MIBUNANPublisher_publisherStarted___block_invoke_149(v6);
   os_unfair_lock_unlock(&self->_unfairLock);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __37__MIBUNANPublisher_publisherStarted___block_invoke()
@@ -1230,7 +1220,7 @@ void __51__MIBUNANPublisher_publisher_terminatedWithReason___block_invoke_158(ui
 
 - (void)publisher:(id)publisher receivedMessage:(id)message fromSubscriberID:(unsigned __int8)d subscriberAddress:(id)address
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   publisherCopy = publisher;
   messageCopy = message;
   addressCopy = address;
@@ -1244,16 +1234,14 @@ void __51__MIBUNANPublisher_publisher_terminatedWithReason___block_invoke_158(ui
   {
     v13 = v12;
     ipv6AddressString = [addressCopy ipv6AddressString];
-    v16 = 138543874;
+    v15 = 138543874;
     selfCopy = self;
-    v18 = 2114;
-    v19 = messageCopy;
-    v20 = 2114;
-    v21 = ipv6AddressString;
-    _os_log_impl(&dword_259B04000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@: NAN publisher received message: %{public}@ from peer: %{public}@", &v16, 0x20u);
+    v17 = 2114;
+    v18 = messageCopy;
+    v19 = 2114;
+    v20 = ipv6AddressString;
+    _os_log_impl(&dword_259B04000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@: NAN publisher received message: %{public}@ from peer: %{public}@", &v15, 0x20u);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __81__MIBUNANPublisher_publisher_receivedMessage_fromSubscriberID_subscriberAddress___block_invoke()
@@ -1274,7 +1262,7 @@ void __81__MIBUNANPublisher_publisher_receivedMessage_fromSubscriberID_subscribe
 
 - (void)publisher:(id)publisher dataConfirmedForHandle:(id)handle localInterfaceIndex:(unsigned int)index serviceSpecificInfo:(id)info
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   v9 = NSStringFromIfIndex(index);
   initiatorDataAddress = [handleCopy initiatorDataAddress];
@@ -1290,29 +1278,27 @@ void __81__MIBUNANPublisher_publisher_receivedMessage_fromSubscriberID_subscribe
   {
     *buf = 138543874;
     selfCopy = self;
-    v23 = 2114;
-    v24 = ipv6AddressString;
-    v25 = 2114;
-    v26 = handleCopy;
+    v22 = 2114;
+    v23 = ipv6AddressString;
+    v24 = 2114;
+    v25 = handleCopy;
     _os_log_impl(&dword_259B04000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: NAN publisher confirmed data session for peer: %{public}@ with handle: %{public}@", buf, 0x20u);
   }
 
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __93__MIBUNANPublisher_publisher_dataConfirmedForHandle_localInterfaceIndex_serviceSpecificInfo___block_invoke_166;
-  v17[3] = &unk_2798EBF08;
-  v17[4] = self;
-  v18 = ipv6AddressString;
-  v19 = handleCopy;
-  v20 = v9;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __93__MIBUNANPublisher_publisher_dataConfirmedForHandle_localInterfaceIndex_serviceSpecificInfo___block_invoke_166;
+  v16[3] = &unk_2798EBF08;
+  v16[4] = self;
+  v17 = ipv6AddressString;
+  v18 = handleCopy;
+  v19 = v9;
   v13 = v9;
   v14 = handleCopy;
   v15 = ipv6AddressString;
   os_unfair_lock_lock(&self->_unfairLock);
-  __93__MIBUNANPublisher_publisher_dataConfirmedForHandle_localInterfaceIndex_serviceSpecificInfo___block_invoke_166(v17);
+  __93__MIBUNANPublisher_publisher_dataConfirmedForHandle_localInterfaceIndex_serviceSpecificInfo___block_invoke_166(v16);
   os_unfair_lock_unlock(&self->_unfairLock);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __93__MIBUNANPublisher_publisher_dataConfirmedForHandle_localInterfaceIndex_serviceSpecificInfo___block_invoke()
@@ -1331,9 +1317,9 @@ void __93__MIBUNANPublisher_publisher_dataConfirmedForHandle_localInterfaceIndex
   }
 }
 
-void __93__MIBUNANPublisher_publisher_dataConfirmedForHandle_localInterfaceIndex_serviceSpecificInfo___block_invoke_166(uint64_t *a1)
+void __93__MIBUNANPublisher_publisher_dataConfirmedForHandle_localInterfaceIndex_serviceSpecificInfo___block_invoke_166(void *a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = [*(a1[4] + 48) objectForKey:a1[5]];
 
   if (v2)
@@ -1345,7 +1331,7 @@ void __93__MIBUNANPublisher_publisher_dataConfirmedForHandle_localInterfaceIndex
 
     if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
     {
-      __93__MIBUNANPublisher_publisher_dataConfirmedForHandle_localInterfaceIndex_serviceSpecificInfo___block_invoke_166_cold_2(a1 + 4);
+      __93__MIBUNANPublisher_publisher_dataConfirmedForHandle_localInterfaceIndex_serviceSpecificInfo___block_invoke_166_cold_2();
     }
   }
 
@@ -1364,35 +1350,33 @@ void __93__MIBUNANPublisher_publisher_dataConfirmedForHandle_localInterfaceIndex
       v5 = *(v4 + 48);
       v6 = v3;
       *buf = 138543618;
-      v18 = v4;
-      v19 = 2048;
-      v20 = [v5 count];
+      v17 = v4;
+      v18 = 2048;
+      v19 = [v5 count];
       _os_log_impl(&dword_259B04000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Current data session count after confirmation: %lu", buf, 0x16u);
     }
 
     v7 = objc_alloc(MEMORY[0x277CBEBB8]);
     v8 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:10.0];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __93__MIBUNANPublisher_publisher_dataConfirmedForHandle_localInterfaceIndex_serviceSpecificInfo___block_invoke_174;
-    v15[3] = &unk_2798EC180;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __93__MIBUNANPublisher_publisher_dataConfirmedForHandle_localInterfaceIndex_serviceSpecificInfo___block_invoke_174;
+    v14[3] = &unk_2798EC180;
     v9 = a1[5];
-    v15[4] = a1[4];
-    v16 = v9;
-    v10 = [v7 initWithFireDate:v8 interval:0 repeats:v15 block:0.0];
+    v14[4] = a1[4];
+    v15 = v9;
+    v10 = [v7 initWithFireDate:v8 interval:0 repeats:v14 block:0.0];
 
     [*(a1[4] + 56) setObject:v10 forKey:a1[5]];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __93__MIBUNANPublisher_publisher_dataConfirmedForHandle_localInterfaceIndex_serviceSpecificInfo___block_invoke_2_176;
     block[3] = &unk_2798EB9A8;
-    v14 = v10;
+    v13 = v10;
     v11 = v10;
     dispatch_async(MEMORY[0x277D85CD0], block);
     [*(a1[4] + 24) nanPublisher:a1[4] didCreateDataSessionWithPeer:a1[5] usingInterface:a1[7]];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __93__MIBUNANPublisher_publisher_dataConfirmedForHandle_localInterfaceIndex_serviceSpecificInfo___block_invoke_2()
@@ -1435,7 +1419,7 @@ void __93__MIBUNANPublisher_publisher_dataConfirmedForHandle_localInterfaceIndex
 
 - (void)publisher:(id)publisher dataTerminatedForHandle:(id)handle reason:(int64_t)reason
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   initiatorDataAddress = [handleCopy initiatorDataAddress];
   ipv6AddressString = [initiatorDataAddress ipv6AddressString];
@@ -1450,25 +1434,23 @@ void __93__MIBUNANPublisher_publisher_dataConfirmedForHandle_localInterfaceIndex
   {
     *buf = 138543874;
     selfCopy = self;
-    v16 = 2114;
-    v17 = ipv6AddressString;
-    v18 = 2114;
-    v19 = handleCopy;
+    v15 = 2114;
+    v16 = ipv6AddressString;
+    v17 = 2114;
+    v18 = handleCopy;
     _os_log_impl(&dword_259B04000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: NAN publisher terminated data session for peer: %{public}@ with handle: %{public}@", buf, 0x20u);
   }
 
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __61__MIBUNANPublisher_publisher_dataTerminatedForHandle_reason___block_invoke_180;
-  v12[3] = &unk_2798EBC88;
-  v12[4] = self;
-  v13 = ipv6AddressString;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __61__MIBUNANPublisher_publisher_dataTerminatedForHandle_reason___block_invoke_180;
+  v11[3] = &unk_2798EBC88;
+  v11[4] = self;
+  v12 = ipv6AddressString;
   v10 = ipv6AddressString;
   os_unfair_lock_lock(&self->_unfairLock);
-  __61__MIBUNANPublisher_publisher_dataTerminatedForHandle_reason___block_invoke_180(v12);
+  __61__MIBUNANPublisher_publisher_dataTerminatedForHandle_reason___block_invoke_180(v11);
   os_unfair_lock_unlock(&self->_unfairLock);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __61__MIBUNANPublisher_publisher_dataTerminatedForHandle_reason___block_invoke()
@@ -1489,7 +1471,7 @@ void __61__MIBUNANPublisher_publisher_dataTerminatedForHandle_reason___block_inv
 
 void __61__MIBUNANPublisher_publisher_dataTerminatedForHandle_reason___block_invoke_180(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 48) objectForKey:*(a1 + 40)];
 
   if (v2)
@@ -1507,9 +1489,9 @@ void __61__MIBUNANPublisher_publisher_dataTerminatedForHandle_reason___block_inv
       v5 = *(v4 + 48);
       v6 = v3;
       *buf = 138543618;
-      v13 = v4;
-      v14 = 2048;
-      v15 = [v5 count];
+      v11 = v4;
+      v12 = 2048;
+      v13 = [v5 count];
       _os_log_impl(&dword_259B04000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Current data session count after termination: %lu", buf, 0x16u);
     }
 
@@ -1521,13 +1503,11 @@ void __61__MIBUNANPublisher_publisher_dataTerminatedForHandle_reason___block_inv
       block[1] = 3221225472;
       block[2] = __61__MIBUNANPublisher_publisher_dataTerminatedForHandle_reason___block_invoke_186;
       block[3] = &unk_2798EB9A8;
-      v11 = v7;
+      v9 = v7;
       dispatch_async(MEMORY[0x277D85CD0], block);
     }
 
     [*(*(a1 + 32) + 24) nanPublisher:*(a1 + 32) didDestoryDataSessionWithPeer:*(a1 + 40)];
-
-    v8 = *MEMORY[0x277D85DE8];
   }
 
   else
@@ -1539,10 +1519,8 @@ void __61__MIBUNANPublisher_publisher_dataTerminatedForHandle_reason___block_inv
 
     if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
     {
-      __61__MIBUNANPublisher_publisher_dataTerminatedForHandle_reason___block_invoke_180_cold_3((a1 + 32));
+      __61__MIBUNANPublisher_publisher_dataTerminatedForHandle_reason___block_invoke_180_cold_3();
     }
-
-    v9 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -1611,7 +1589,7 @@ void __75__MIBUNANPublisher_publisher_detectedMulticastError_fromMulticastReceiv
 
 - (void)publisher:(id)publisher receivedDataBlobForMulticastSession:(id)session fromPeer:(id)peer
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   ipv6AddressString = [peer ipv6AddressString];
   if (MIBUOnceToken != -1)
@@ -1624,27 +1602,25 @@ void __75__MIBUNANPublisher_publisher_detectedMulticastError_fromMulticastReceiv
   {
     *buf = 138543874;
     selfCopy = self;
-    v18 = 2114;
-    v19 = sessionCopy;
-    v20 = 2114;
-    v21 = ipv6AddressString;
+    v17 = 2114;
+    v18 = sessionCopy;
+    v19 = 2114;
+    v20 = ipv6AddressString;
     _os_log_impl(&dword_259B04000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: NAN publisher received multicast data blob: %{public}@ from peer: %{public}@", buf, 0x20u);
   }
 
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __75__MIBUNANPublisher_publisher_receivedDataBlobForMulticastSession_fromPeer___block_invoke_191;
-  v13[3] = &unk_2798EBCB0;
-  v13[4] = self;
-  v14 = sessionCopy;
-  v15 = ipv6AddressString;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __75__MIBUNANPublisher_publisher_receivedDataBlobForMulticastSession_fromPeer___block_invoke_191;
+  v12[3] = &unk_2798EBCB0;
+  v12[4] = self;
+  v13 = sessionCopy;
+  v14 = ipv6AddressString;
   v10 = ipv6AddressString;
   v11 = sessionCopy;
   os_unfair_lock_lock(&self->_unfairLock);
-  __75__MIBUNANPublisher_publisher_receivedDataBlobForMulticastSession_fromPeer___block_invoke_191(v13);
+  __75__MIBUNANPublisher_publisher_receivedDataBlobForMulticastSession_fromPeer___block_invoke_191(v12);
   os_unfair_lock_unlock(&self->_unfairLock);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __75__MIBUNANPublisher_publisher_receivedDataBlobForMulticastSession_fromPeer___block_invoke()
@@ -1663,158 +1639,74 @@ void __75__MIBUNANPublisher_publisher_receivedDataBlobForMulticastSession_fromPe
   }
 }
 
-uint64_t __75__MIBUNANPublisher_publisher_receivedDataBlobForMulticastSession_fromPeer___block_invoke_191(void *a1)
-{
-  v1 = a1[5];
-  v2 = a1[6];
-  return [*(a1[4] + 24) nanPublisher:? didReceiveData:? fromPeer:?];
-}
-
-- (void)initWithServiceName:groupAddress:groupPort:countryCode:channelName:band:bandwidth:enableRateAdapter:publisherDelegate:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)initWithServiceName:groupAddress:groupPort:countryCode:channelName:band:bandwidth:enableRateAdapter:publisherDelegate:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithServiceName:groupAddress:groupPort:countryCode:channelName:band:bandwidth:enableRateAdapter:publisherDelegate:.cold.6()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithServiceName:groupAddress:groupPort:countryCode:channelName:band:bandwidth:enableRateAdapter:publisherDelegate:.cold.8()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_terminateDataSessionWithPeer:withCompletion:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __65__MIBUNANPublisher__terminateDataSessionWithPeer_withCompletion___block_invoke_99_cold_2(uint64_t a1)
+void __65__MIBUNANPublisher__terminateDataSessionWithPeer_withCompletion___block_invoke_99_cold_2()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_4_4();
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 - (void)_terminateMulticastSessionWithPeer:withCompletion:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __70__MIBUNANPublisher__terminateMulticastSessionWithPeer_withCompletion___block_invoke_114_cold_2(uint64_t a1)
+void __70__MIBUNANPublisher__terminateMulticastSessionWithPeer_withCompletion___block_invoke_114_cold_2()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_4_4();
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-- (void)_multicastData:withCompletion:.cold.2()
+void __56__MIBUNANPublisher__handleNANDataSessionExpiredForPeer___block_invoke_142_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __50__MIBUNANPublisher__multicastData_withCompletion___block_invoke_125_cold_2(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 32);
-  OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __56__MIBUNANPublisher__handleNANDataSessionExpiredForPeer___block_invoke_142_cold_2(uint64_t a1)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_4_4();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)publisher:failedToStartWithError:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)publisher:terminatedWithReason:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __93__MIBUNANPublisher_publisher_dataConfirmedForHandle_localInterfaceIndex_serviceSpecificInfo___block_invoke_166_cold_2(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __61__MIBUNANPublisher_publisher_dataTerminatedForHandle_reason___block_invoke_180_cold_3(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)publisher:detectedMulticastError:fromMulticastReceiver:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -37,7 +37,7 @@
   equalCopy = equal;
   if (equalCopy == self)
   {
-    v7 = 1;
+    v5 = 1;
   }
 
   else
@@ -45,18 +45,16 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      context = equalCopy->_context;
-      v6 = self->_context;
-      v7 = BSEqualObjects();
+      v5 = BSEqualObjects();
     }
 
     else
     {
-      v7 = 0;
+      v5 = 0;
     }
   }
 
-  return v7;
+  return v5;
 }
 
 - (CHSWidgetRelevanceRelevantContextAttribute)initWithCoder:(id)coder

@@ -54,33 +54,7 @@
   }
 
   v10->_root = root;
-  if (!verifyCopy)
-  {
-    goto LABEL_13;
-  }
-
-  bytes2 = [(NSData *)v10->_data bytes];
-  v13 = [(NSData *)v10->_data length];
-  root = v10->_root;
-  if (root < bytes2 || root > bytes2 + v13)
-  {
-    goto LABEL_14;
-  }
-
-  bytes3 = [(NSData *)v10->_data bytes];
-  v17 = [(NSData *)v10->_data length];
-  v21[0] = bytes3;
-  v21[1] = v17;
-  v22 = xmmword_233005E20;
-  v23 = 0;
-  v24 = 1;
-  v18 = v10->_root;
-  if (!v18)
-  {
-    goto LABEL_13;
-  }
-
-  if (!siri::speech::schema_fb::StartTextToSpeechStreamingRequest::Verify(v18, v21))
+  if (verifyCopy && ((v12 = [(NSData *)v10->_data bytes], v13 = [(NSData *)v10->_data length], root = v10->_root, root >= v12) ? (v15 = root > v12 + v13) : (v15 = 1), v15 || (v16 = [(NSData *)v10->_data bytes], v17 = [(NSData *)v10->_data length], v21[0] = v16, v21[1] = v17, v22 = xmmword_233005E20, v23 = 0, v24 = 1, (v18 = v10->_root) != 0) && !siri::speech::schema_fb::StartTextToSpeechStreamingRequest::Verify(v18, v21)))
   {
 LABEL_14:
     v19 = 0;
@@ -648,7 +622,7 @@ LABEL_8:
 
 - (Offset<siri::speech::schema_fb::StartTextToSpeechStreamingRequest>)addObjectToBuffer:(void *)buffer
 {
-  v88 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   speech_id = [(FTStartTextToSpeechStreamingRequest *)self speech_id];
   v6 = speech_id;
   if (!speech_id)
@@ -669,7 +643,7 @@ LABEL_8:
 
   uTF8String2 = [(__CFString *)session_id UTF8String];
   v12 = strlen(uTF8String2);
-  v78 = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateString(buffer, uTF8String2, v12);
+  v77 = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateString(buffer, uTF8String2, v12);
 
   stream_id = [(FTStartTextToSpeechStreamingRequest *)self stream_id];
   v14 = stream_id;
@@ -680,7 +654,7 @@ LABEL_8:
 
   uTF8String3 = [(__CFString *)stream_id UTF8String];
   v16 = strlen(uTF8String3);
-  v77 = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateString(buffer, uTF8String3, v16);
+  v76 = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateString(buffer, uTF8String3, v16);
 
   language = [(FTStartTextToSpeechStreamingRequest *)self language];
   v18 = language;
@@ -691,7 +665,7 @@ LABEL_8:
 
   uTF8String4 = [(__CFString *)language UTF8String];
   v20 = strlen(uTF8String4);
-  v76 = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateString(buffer, uTF8String4, v20);
+  v75 = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateString(buffer, uTF8String4, v20);
 
   gender = [(FTStartTextToSpeechStreamingRequest *)self gender];
   v22 = gender;
@@ -702,7 +676,7 @@ LABEL_8:
 
   uTF8String5 = [(__CFString *)gender UTF8String];
   v24 = strlen(uTF8String5);
-  v75 = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateString(buffer, uTF8String5, v24);
+  v74 = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateString(buffer, uTF8String5, v24);
 
   text = [(FTStartTextToSpeechStreamingRequest *)self text];
   v26 = text;
@@ -713,7 +687,7 @@ LABEL_8:
 
   uTF8String6 = [(__CFString *)text UTF8String];
   v28 = strlen(uTF8String6);
-  v74 = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateString(buffer, uTF8String6, v28);
+  v73 = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateString(buffer, uTF8String6, v28);
 
   audio_type = [(FTStartTextToSpeechStreamingRequest *)self audio_type];
   enable_word_timing_info = [(FTStartTextToSpeechStreamingRequest *)self enable_word_timing_info];
@@ -726,47 +700,47 @@ LABEL_8:
 
   uTF8String7 = [(__CFString *)voice_name UTF8String];
   v32 = strlen(uTF8String7);
-  v71 = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateString(buffer, uTF8String7, v32);
+  v70 = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateString(buffer, uTF8String7, v32);
 
-  memset(&v86, 0, sizeof(v86));
+  memset(&v85, 0, sizeof(v85));
   context_info = [(FTStartTextToSpeechStreamingRequest *)self context_info];
-  std::vector<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v86, [context_info count]);
+  std::vector<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v85, [context_info count]);
 
-  v84 = 0u;
-  v85 = 0u;
-  v82 = 0u;
   v83 = 0u;
+  v84 = 0u;
+  v81 = 0u;
+  v82 = 0u;
   context_info2 = [(FTStartTextToSpeechStreamingRequest *)self context_info];
   selfCopy = self;
-  v35 = [context_info2 countByEnumeratingWithState:&v82 objects:v87 count:16];
+  v35 = [context_info2 countByEnumeratingWithState:&v81 objects:v86 count:16];
   if (v35)
   {
-    v36 = *v83;
+    v36 = *v82;
     bufferCopy = buffer;
     do
     {
       for (i = 0; i != v35; ++i)
       {
-        if (*v83 != v36)
+        if (*v82 != v36)
         {
           objc_enumerationMutation(context_info2);
         }
 
-        v39 = [*(*(&v82 + 1) + 8 * i) addObjectToBuffer:buffer];
-        end = v86.__end_;
-        if (v86.__end_ >= v86.__end_cap_.__value_)
+        v39 = [*(*(&v81 + 1) + 8 * i) addObjectToBuffer:buffer];
+        end = v85.__end_;
+        if (v85.__end_ >= v85.__end_cap_.__value_)
         {
-          begin = v86.__begin_;
-          v43 = v86.__end_ - v86.__begin_;
-          v44 = v86.__end_ - v86.__begin_;
+          begin = v85.__begin_;
+          v43 = v85.__end_ - v85.__begin_;
+          v44 = v85.__end_ - v85.__begin_;
           v45 = v44 + 1;
           if ((v44 + 1) >> 62)
           {
             std::vector<unsigned short>::__throw_length_error[abi:ne200100]();
           }
 
-          v46 = v86.__end_cap_.__value_ - v86.__begin_;
-          if ((v86.__end_cap_.__value_ - v86.__begin_) >> 1 > v45)
+          v46 = v85.__end_cap_.__value_ - v85.__begin_;
+          if ((v85.__end_cap_.__value_ - v85.__begin_) >> 1 > v45)
           {
             v45 = v46 >> 1;
           }
@@ -783,16 +757,16 @@ LABEL_8:
 
           if (v47)
           {
-            std::__allocate_at_least[abi:ne200100]<std::allocator<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::RecognitionToken>>>(&v86, v47);
+            std::__allocate_at_least[abi:ne200100]<std::allocator<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::RecognitionToken>>>(&v85, v47);
           }
 
           *(4 * v44) = v39;
           v41 = (4 * v44 + 4);
           memcpy(0, begin, v43);
-          v48 = v86.__begin_;
-          v86.__begin_ = 0;
-          v86.__end_ = v41;
-          v86.__end_cap_.__value_ = 0;
+          v48 = v85.__begin_;
+          v85.__begin_ = 0;
+          v85.__end_ = v41;
+          v85.__end_cap_.__value_ = 0;
           if (v48)
           {
             operator delete(v48);
@@ -803,30 +777,30 @@ LABEL_8:
 
         else
         {
-          *v86.__end_ = v39;
+          *v85.__end_ = v39;
           v41 = end + 1;
         }
 
-        v86.__end_ = v41;
+        v85.__end_ = v41;
       }
 
-      v35 = [context_info2 countByEnumeratingWithState:&v82 objects:v87 count:16];
+      v35 = [context_info2 countByEnumeratingWithState:&v81 objects:v86 count:16];
     }
 
     while (v35);
   }
 
-  if (v86.__end_ == v86.__begin_)
+  if (v85.__end_ == v85.__begin_)
   {
     v49 = &apple::aiml::flatbuffers2::data<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::StartTextToSpeechStreamingRequest_::ContextInfoEntry>,std::allocator<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::StartTextToSpeechStreamingRequest_::ContextInfoEntry>>>(std::vector<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::StartTextToSpeechStreamingRequest_::ContextInfoEntry>> const&)::t;
   }
 
   else
   {
-    v49 = v86.__begin_;
+    v49 = v85.__begin_;
   }
 
-  v50 = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateVector<apple::aiml::flatbuffers2::String>(buffer, v49, v86.__end_ - v86.__begin_);
+  v50 = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateVector<apple::aiml::flatbuffers2::String>(buffer, v49, v85.__end_ - v85.__begin_);
   preferred_voice_type = [(FTStartTextToSpeechStreamingRequest *)selfCopy preferred_voice_type];
   meta_info = [(FTStartTextToSpeechStreamingRequest *)selfCopy meta_info];
   v53 = [meta_info addObjectToBuffer:buffer];
@@ -835,13 +809,13 @@ LABEL_8:
   v55 = [context addObjectToBuffer:buffer];
 
   experiment = [(FTStartTextToSpeechStreamingRequest *)selfCopy experiment];
-  v70 = [experiment addObjectToBuffer:buffer];
+  v69 = [experiment addObjectToBuffer:buffer];
 
   feature_flags = [(FTStartTextToSpeechStreamingRequest *)selfCopy feature_flags];
-  v69 = [feature_flags addObjectToBuffer:buffer];
+  v68 = [feature_flags addObjectToBuffer:buffer];
 
   debug = [(FTStartTextToSpeechStreamingRequest *)selfCopy debug];
-  v68 = [debug addObjectToBuffer:buffer];
+  v67 = [debug addObjectToBuffer:buffer];
 
   profile = [(FTStartTextToSpeechStreamingRequest *)selfCopy profile];
   LODWORD(debug) = [profile addObjectToBuffer:buffer];
@@ -856,37 +830,36 @@ LABEL_8:
   v63 = [prosody_control_config addObjectToBuffer:buffer];
 
   *(buffer + 70) = 1;
-  v67 = *(buffer + 8);
+  v66 = *(buffer + 8);
   LODWORD(prosody_control_config) = *(buffer + 12);
-  v81 = *(buffer + 10);
+  v80 = *(buffer + 10);
   apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 4, String);
-  apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 6, v78);
-  apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 8, v77);
-  apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 10, v76);
-  apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 12, v75);
-  apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 14, v74);
+  apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 6, v77);
+  apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 8, v76);
+  apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 10, v75);
+  apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 12, v74);
+  apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 14, v73);
   apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned int>(buffer, 16, audio_type, 0);
   apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned char>(buffer, 18, enable_word_timing_info, 0);
-  apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 20, v71);
+  apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 20, v70);
   apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 22, v50);
   apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned int>(buffer, 24, preferred_voice_type, 0);
   apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 26, v53);
   apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 28, v55);
-  apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 30, v70);
-  apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 32, v69);
-  apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 34, v68);
+  apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 30, v69);
+  apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 32, v68);
+  apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 34, v67);
   apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 36, debug);
   apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 38, profile);
   apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 40, dev_config);
   apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 42, v63);
-  v64.var0 = apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable(buffer, v67 - prosody_control_config + v81);
-  if (v86.__begin_)
+  v64.var0 = apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable(buffer, v66 - prosody_control_config + v80);
+  if (v85.__begin_)
   {
-    v86.__end_ = v86.__begin_;
-    operator delete(v86.__begin_);
+    v85.__end_ = v85.__begin_;
+    operator delete(v85.__begin_);
   }
 
-  v65 = *MEMORY[0x277D85DE8];
   return v64;
 }
 

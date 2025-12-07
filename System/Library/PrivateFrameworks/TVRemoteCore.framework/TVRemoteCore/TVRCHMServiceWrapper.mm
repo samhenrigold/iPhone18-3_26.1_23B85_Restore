@@ -120,17 +120,17 @@
 
 - (void)connect
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (!self->_connected)
   {
     self->_connectionState = 1;
-    v3 = _TVRCHomeKitLog();
+    v3 = _TVRCHomeKitLog(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       service = self->_service;
-      v17 = 138412290;
-      v18 = service;
-      _os_log_impl(&dword_26CF7F000, v3, OS_LOG_TYPE_DEFAULT, "Attempting to connect service %@", &v17, 0xCu);
+      v18 = 138412290;
+      v19 = service;
+      _os_log_impl(&dword_26CF7F000, v3, OS_LOG_TYPE_DEFAULT, "Attempting to connect service %@", &v18, 0xCu);
     }
 
     accessory = [(HMService *)self->_service accessory];
@@ -138,27 +138,28 @@
     home = self->_home;
     self->_home = home;
 
-    v8 = _TVRCHomeKitLog();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    v9 = _TVRCHomeKitLog(v8);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
     if (accessory)
     {
-      if (v9)
+      if (v10)
       {
-        v17 = 138412290;
-        v18 = accessory;
-        _os_log_impl(&dword_26CF7F000, v8, OS_LOG_TYPE_DEFAULT, "Found parent accessory %@", &v17, 0xCu);
+        v18 = 138412290;
+        v19 = accessory;
+        _os_log_impl(&dword_26CF7F000, v9, OS_LOG_TYPE_DEFAULT, "Found parent accessory %@", &v18, 0xCu);
       }
 
       isReachable = [(HMService *)accessory isReachable];
-      v11 = _TVRCHomeKitLog();
-      v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-      if (isReachable)
+      v12 = isReachable;
+      v13 = _TVRCHomeKitLog(isReachable);
+      v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+      if (v12)
       {
-        if (v12)
+        if (v14)
         {
-          v17 = 138412290;
-          v18 = accessory;
-          _os_log_impl(&dword_26CF7F000, v11, OS_LOG_TYPE_DEFAULT, "Accessory %@ is reachable and local. Informing delegate that we can connect", &v17, 0xCu);
+          v18 = 138412290;
+          v19 = accessory;
+          _os_log_impl(&dword_26CF7F000, v13, OS_LOG_TYPE_DEFAULT, "Accessory %@ is reachable and local. Informing delegate that we can connect", &v18, 0xCu);
         }
 
         self->_connectionState = 2;
@@ -171,35 +172,33 @@
         goto LABEL_18;
       }
 
-      if (v12)
+      if (v14)
       {
-        v17 = 138412290;
-        v18 = accessory;
-        _os_log_impl(&dword_26CF7F000, v11, OS_LOG_TYPE_DEFAULT, "Accessory %@ is not reachable or local. Informing delegate that we disconnected", &v17, 0xCu);
+        v18 = 138412290;
+        v19 = accessory;
+        _os_log_impl(&dword_26CF7F000, v13, OS_LOG_TYPE_DEFAULT, "Accessory %@ is not reachable or local. Informing delegate that we disconnected", &v18, 0xCu);
       }
 
-      v15 = 300;
+      v17 = 300;
     }
 
     else
     {
-      if (v9)
+      if (v10)
       {
-        v14 = self->_service;
-        v17 = 138412290;
-        v18 = v14;
-        _os_log_impl(&dword_26CF7F000, v8, OS_LOG_TYPE_DEFAULT, "Could not find accessory for service %@. Informing delegate that we disconnected", &v17, 0xCu);
+        v16 = self->_service;
+        v18 = 138412290;
+        v19 = v16;
+        _os_log_impl(&dword_26CF7F000, v9, OS_LOG_TYPE_DEFAULT, "Could not find accessory for service %@. Informing delegate that we disconnected", &v18, 0xCu);
       }
 
-      v15 = 301;
+      v17 = 301;
     }
 
-    WeakRetained = TVRCMakeError(v15, 0);
+    WeakRetained = TVRCMakeError(v17, 0);
     [(TVRCHMServiceWrapper *)self _disconnectWithError:WeakRetained];
 LABEL_18:
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendButtonEvent:(id)event
@@ -278,21 +277,21 @@ LABEL_18:
 
 - (void)_serviceNameChanged:(id)changed
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v4 = _TVRCHomeKitLog();
+  v17 = *MEMORY[0x277D85DE8];
+  v4 = _TVRCHomeKitLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = objc_opt_class();
     service = self->_service;
     v7 = v5;
     name = [(TVRCHMServiceWrapper *)self name];
-    v12 = 138412802;
-    v13 = v5;
-    v14 = 2112;
-    v15 = service;
-    v16 = 2112;
-    v17 = name;
-    _os_log_impl(&dword_26CF7F000, v4, OS_LOG_TYPE_DEFAULT, "%@ got notification that services updated name %@. New name : %@", &v12, 0x20u);
+    v11 = 138412802;
+    v12 = v5;
+    v13 = 2112;
+    v14 = service;
+    v15 = 2112;
+    v16 = name;
+    _os_log_impl(&dword_26CF7F000, v4, OS_LOG_TYPE_DEFAULT, "%@ got notification that services updated name %@. New name : %@", &v11, 0x20u);
   }
 
   if (self->_connected)
@@ -301,24 +300,22 @@ LABEL_18:
     name2 = [(TVRCHMServiceWrapper *)self name];
     [WeakRetained service:self updatedName:name2];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_serviceRemoved:(id)removed
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v4 = _TVRCHomeKitLog();
+  v13 = *MEMORY[0x277D85DE8];
+  v4 = _TVRCHomeKitLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = objc_opt_class();
     service = self->_service;
-    v10 = 138543618;
-    v11 = v5;
-    v12 = 2112;
-    v13 = service;
+    v9 = 138543618;
+    v10 = v5;
+    v11 = 2112;
+    v12 = service;
     v7 = v5;
-    _os_log_impl(&dword_26CF7F000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ got notification that services went away %@. Disconnecting if still connected", &v10, 0x16u);
+    _os_log_impl(&dword_26CF7F000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ got notification that services went away %@. Disconnecting if still connected", &v9, 0x16u);
   }
 
   if (self->_connectionState)
@@ -326,8 +323,6 @@ LABEL_18:
     v8 = TVRCMakeError(300, 0);
     [(TVRCHMServiceWrapper *)self _disconnectWithError:v8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_serviceActiveStateChanged:(id)changed
@@ -336,30 +331,28 @@ LABEL_18:
   userInfo = [changed userInfo];
   v4 = [userInfo objectForKeyedSubscript:@"TVRCMatchPointServiceActiveStateKey"];
 
-  v5 = _TVRCHomeKitLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = _TVRCHomeKitLog(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
     v8 = v4;
-    _os_log_impl(&dword_26CF7F000, v5, OS_LOG_TYPE_DEFAULT, "Received notification that activeState changed to %@", &v7, 0xCu);
+    _os_log_impl(&dword_26CF7F000, v6, OS_LOG_TYPE_DEFAULT, "Received notification that activeState changed to %@", &v7, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_disconnectWithError:(id)error
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  v5 = _TVRCHomeKitLog();
+  v5 = _TVRCHomeKitLog(errorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     service = self->_service;
-    v10 = 138412546;
-    v11 = service;
-    v12 = 2114;
-    v13 = errorCopy;
-    _os_log_impl(&dword_26CF7F000, v5, OS_LOG_TYPE_DEFAULT, "Attempting to disconnect service %@ with error %{public}@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = service;
+    v11 = 2114;
+    v12 = errorCopy;
+    _os_log_impl(&dword_26CF7F000, v5, OS_LOG_TYPE_DEFAULT, "Attempting to disconnect service %@ with error %{public}@", &v9, 0x16u);
   }
 
   if (self->_connected)
@@ -374,14 +367,12 @@ LABEL_18:
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained disconnectedFromService:self error:errorCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendRemoteKey:(int64_t)key
 {
   v14 = *MEMORY[0x277D85DE8];
-  v5 = _TVRCHomeKitLog();
+  v5 = _TVRCHomeKitLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     service = self->_service;
@@ -394,29 +385,27 @@ LABEL_18:
 
   if (self->_serviceCharacteristic)
   {
-    v7 = [MEMORY[0x277CCABB0] numberWithInteger:key];
-    [(TVRCHMServiceWrapper *)self _writeValue:v7 toCharacteristic:self->_serviceCharacteristic];
+    v8 = [MEMORY[0x277CCABB0] numberWithInteger:key];
+    [(TVRCHMServiceWrapper *)self _writeValue:v8 toCharacteristic:self->_serviceCharacteristic];
   }
 
   else
   {
-    v7 = _TVRCHomeKitLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _TVRCHomeKitLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = self->_service;
+      v9 = self->_service;
       v10 = 138412290;
-      keyCopy = v8;
-      _os_log_impl(&dword_26CF7F000, v7, OS_LOG_TYPE_DEFAULT, "No characteristic of type HMCharacteristicRemoteKey exists for service %@", &v10, 0xCu);
+      keyCopy = v9;
+      _os_log_impl(&dword_26CF7F000, v8, OS_LOG_TYPE_DEFAULT, "No characteristic of type HMCharacteristicRemoteKey exists for service %@", &v10, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendWakeKey
 {
   v10 = *MEMORY[0x277D85DE8];
-  v3 = _TVRCHomeKitLog();
+  v3 = _TVRCHomeKitLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     service = self->_service;
@@ -427,30 +416,28 @@ LABEL_18:
 
   if (self->_activeCharacteristic)
   {
-    v5 = [MEMORY[0x277CCABB0] numberWithInteger:1];
-    [(TVRCHMServiceWrapper *)self _writeValue:v5 toCharacteristic:self->_activeCharacteristic];
+    v6 = [MEMORY[0x277CCABB0] numberWithInteger:1];
+    [(TVRCHMServiceWrapper *)self _writeValue:v6 toCharacteristic:self->_activeCharacteristic];
   }
 
   else
   {
-    v5 = _TVRCHomeKitLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _TVRCHomeKitLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = self->_service;
+      v7 = self->_service;
       v8 = 138412290;
-      v9 = v6;
-      _os_log_impl(&dword_26CF7F000, v5, OS_LOG_TYPE_DEFAULT, "No characteristic of type HMCharacteristicTypeActive exists for service %@", &v8, 0xCu);
+      v9 = v7;
+      _os_log_impl(&dword_26CF7F000, v6, OS_LOG_TYPE_DEFAULT, "No characteristic of type HMCharacteristicTypeActive exists for service %@", &v8, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updatePowerState
 {
   if (self->_activeCharacteristic)
   {
-    v3 = _TVRCHomeKitLog();
+    v3 = _TVRCHomeKitLog(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
@@ -483,8 +470,8 @@ void __41__TVRCHMServiceWrapper__updatePowerState__block_invoke(uint64_t a1, voi
 
     if (v3)
     {
-      v8 = _TVRCHomeKitLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = _TVRCHomeKitLog(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         __41__TVRCHMServiceWrapper__updatePowerState__block_invoke_cold_1();
       }
@@ -492,28 +479,25 @@ void __41__TVRCHMServiceWrapper__updatePowerState__block_invoke(uint64_t a1, voi
 
     else
     {
-      v9 = [v5 activeCharacteristic];
-      v8 = [v9 value];
+      v10 = [v5 activeCharacteristic];
+      v9 = [v10 value];
 
-      [v5 setCurrentActiveState:{-[NSObject intValue](v8, "intValue")}];
-      v10 = _TVRCHomeKitLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = _TVRCHomeKitLog([v5 setCurrentActiveState:{-[NSObject intValue](v9, "intValue")}]);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         v12 = 134217984;
         v13 = [v5 currentActiveState];
-        _os_log_impl(&dword_26CF7F000, v10, OS_LOG_TYPE_DEFAULT, "Received value for HMCharacteristicTypeActive. Setting currentActiveState to %ld", &v12, 0xCu);
+        _os_log_impl(&dword_26CF7F000, v11, OS_LOG_TYPE_DEFAULT, "Received value for HMCharacteristicTypeActive. Setting currentActiveState to %ld", &v12, 0xCu);
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateMuteState
 {
   if (self->_muteCharacteristic)
   {
-    v3 = _TVRCHomeKitLog();
+    v3 = _TVRCHomeKitLog(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
@@ -546,8 +530,8 @@ void __40__TVRCHMServiceWrapper__updateMuteState__block_invoke(uint64_t a1, void
 
     if (v3)
     {
-      v8 = _TVRCHomeKitLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = _TVRCHomeKitLog(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         __41__TVRCHMServiceWrapper__updatePowerState__block_invoke_cold_1();
       }
@@ -555,27 +539,24 @@ void __40__TVRCHMServiceWrapper__updateMuteState__block_invoke(uint64_t a1, void
 
     else
     {
-      v9 = [v5 muteCharacteristic];
-      v8 = [v9 value];
+      v10 = [v5 muteCharacteristic];
+      v9 = [v10 value];
 
-      [v5 setMuteEnabled:{-[NSObject BOOLValue](v8, "BOOLValue")}];
-      v10 = _TVRCHomeKitLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = _TVRCHomeKitLog([v5 setMuteEnabled:{-[NSObject BOOLValue](v9, "BOOLValue")}]);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         v12[0] = 67109120;
         v12[1] = [v5 muteEnabled];
-        _os_log_impl(&dword_26CF7F000, v10, OS_LOG_TYPE_DEFAULT, "Received value for HMCharacteristicTypeMute. Setting muteEnabled to %{BOOL}d", v12, 8u);
+        _os_log_impl(&dword_26CF7F000, v11, OS_LOG_TYPE_DEFAULT, "Received value for HMCharacteristicTypeMute. Setting muteEnabled to %{BOOL}d", v12, 8u);
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_togglePowerButton
 {
   v16 = *MEMORY[0x277D85DE8];
-  v3 = _TVRCHomeKitLog();
+  v3 = _TVRCHomeKitLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     service = self->_service;
@@ -588,16 +569,16 @@ void __40__TVRCHMServiceWrapper__updateMuteState__block_invoke(uint64_t a1, void
   {
     isTVAwake = [(TVRCHMServiceWrapper *)self isTVAwake];
     objc_initWeak(buf, self);
-    v6 = !isTVAwake;
+    v7 = !isTVAwake;
     activeCharacteristic = self->_activeCharacteristic;
-    v8 = [MEMORY[0x277CCABB0] numberWithInteger:v6];
+    v9 = [MEMORY[0x277CCABB0] numberWithInteger:v7];
     v12[0] = MEMORY[0x277D85DD0];
     v12[1] = 3221225472;
     v12[2] = __42__TVRCHMServiceWrapper__togglePowerButton__block_invoke;
     v12[3] = &unk_279D82D60;
     objc_copyWeak(v13, buf);
-    v13[1] = v6;
-    [(HMCharacteristic *)activeCharacteristic writeValue:v8 completionHandler:v12];
+    v13[1] = v7;
+    [(HMCharacteristic *)activeCharacteristic writeValue:v9 completionHandler:v12];
 
     objc_destroyWeak(v13);
     objc_destroyWeak(buf);
@@ -605,17 +586,15 @@ void __40__TVRCHMServiceWrapper__updateMuteState__block_invoke(uint64_t a1, void
 
   else
   {
-    v9 = _TVRCHomeKitLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _TVRCHomeKitLog(v5);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = self->_service;
+      v11 = self->_service;
       *buf = 138412290;
-      v15 = v10;
-      _os_log_impl(&dword_26CF7F000, v9, OS_LOG_TYPE_DEFAULT, "No characteristic of type HMCharacteristicTypeActive exists for service %@", buf, 0xCu);
+      v15 = v11;
+      _os_log_impl(&dword_26CF7F000, v10, OS_LOG_TYPE_DEFAULT, "No characteristic of type HMCharacteristicTypeActive exists for service %@", buf, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __42__TVRCHMServiceWrapper__togglePowerButton__block_invoke(uint64_t a1, void *a2)
@@ -623,13 +602,14 @@ void __42__TVRCHMServiceWrapper__togglePowerButton__block_invoke(uint64_t a1, vo
   v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = _TVRCHomeKitLog();
-    v6 = v5;
+    v6 = _TVRCHomeKitLog(WeakRetained);
+    v7 = v6;
     if (v3)
     {
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         __42__TVRCHMServiceWrapper__togglePowerButton__block_invoke_cold_1();
       }
@@ -637,30 +617,28 @@ void __42__TVRCHMServiceWrapper__togglePowerButton__block_invoke(uint64_t a1, vo
 
     else
     {
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 40)];
-        v8 = [WeakRetained activeCharacteristic];
-        v9 = [v8 localizedDescription];
+        v8 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 40)];
+        v9 = [v5 activeCharacteristic];
+        v10 = [v9 localizedDescription];
         v11 = 138412546;
-        v12 = v7;
+        v12 = v8;
         v13 = 2112;
-        v14 = v9;
-        _os_log_impl(&dword_26CF7F000, v6, OS_LOG_TYPE_DEFAULT, "Successfully wrote value %@ to characteristic %@", &v11, 0x16u);
+        v14 = v10;
+        _os_log_impl(&dword_26CF7F000, v7, OS_LOG_TYPE_DEFAULT, "Successfully wrote value %@ to characteristic %@", &v11, 0x16u);
       }
 
-      [WeakRetained setCurrentActiveState:*(a1 + 40)];
+      [v5 setCurrentActiveState:*(a1 + 40)];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendVolumeKey:(BOOL)key
 {
   keyCopy = key;
   v15 = *MEMORY[0x277D85DE8];
-  v5 = _TVRCHomeKitLog();
+  v5 = _TVRCHomeKitLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = @"NO";
@@ -679,29 +657,27 @@ void __42__TVRCHMServiceWrapper__togglePowerButton__block_invoke(uint64_t a1, vo
 
   if (self->_volumeSelectorCharacteristic)
   {
-    v8 = [MEMORY[0x277CCABB0] numberWithInteger:!keyCopy];
-    [(TVRCHMServiceWrapper *)self _writeValue:v8 toCharacteristic:self->_volumeSelectorCharacteristic];
+    v9 = [MEMORY[0x277CCABB0] numberWithInteger:!keyCopy];
+    [(TVRCHMServiceWrapper *)self _writeValue:v9 toCharacteristic:self->_volumeSelectorCharacteristic];
   }
 
   else
   {
-    v8 = _TVRCHomeKitLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _TVRCHomeKitLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = self->_service;
+      v10 = self->_service;
       v11 = 138412290;
-      v12 = v9;
-      _os_log_impl(&dword_26CF7F000, v8, OS_LOG_TYPE_DEFAULT, "No characteristic of type HMCharacteristicTypeVolumeSelector exists for service %@", &v11, 0xCu);
+      v12 = v10;
+      _os_log_impl(&dword_26CF7F000, v9, OS_LOG_TYPE_DEFAULT, "No characteristic of type HMCharacteristicTypeVolumeSelector exists for service %@", &v11, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendMuteKey
 {
   v17 = *MEMORY[0x277D85DE8];
-  v3 = _TVRCHomeKitLog();
+  v3 = _TVRCHomeKitLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     service = self->_service;
@@ -714,16 +690,16 @@ void __42__TVRCHMServiceWrapper__togglePowerButton__block_invoke(uint64_t a1, vo
   {
     muteEnabled = [(TVRCHMServiceWrapper *)self muteEnabled];
     objc_initWeak(buf, self);
-    v6 = !muteEnabled;
+    v7 = !muteEnabled;
     muteCharacteristic = self->_muteCharacteristic;
-    v8 = [MEMORY[0x277CCABB0] numberWithBool:v6];
+    v9 = [MEMORY[0x277CCABB0] numberWithBool:v7];
     v12[0] = MEMORY[0x277D85DD0];
     v12[1] = 3221225472;
     v12[2] = __36__TVRCHMServiceWrapper__sendMuteKey__block_invoke;
     v12[3] = &unk_279D82D88;
     objc_copyWeak(&v13, buf);
-    v14 = v6;
-    [(HMCharacteristic *)muteCharacteristic writeValue:v8 completionHandler:v12];
+    v14 = v7;
+    [(HMCharacteristic *)muteCharacteristic writeValue:v9 completionHandler:v12];
 
     objc_destroyWeak(&v13);
     objc_destroyWeak(buf);
@@ -731,17 +707,15 @@ void __42__TVRCHMServiceWrapper__togglePowerButton__block_invoke(uint64_t a1, vo
 
   else
   {
-    v9 = _TVRCHomeKitLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _TVRCHomeKitLog(v5);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = self->_service;
+      v11 = self->_service;
       *buf = 138412290;
-      v16 = v10;
-      _os_log_impl(&dword_26CF7F000, v9, OS_LOG_TYPE_DEFAULT, "No characteristic of type HMCharacteristicTypeMute exists for service %@", buf, 0xCu);
+      v16 = v11;
+      _os_log_impl(&dword_26CF7F000, v10, OS_LOG_TYPE_DEFAULT, "No characteristic of type HMCharacteristicTypeMute exists for service %@", buf, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __36__TVRCHMServiceWrapper__sendMuteKey__block_invoke(uint64_t a1, void *a2)
@@ -749,13 +723,14 @@ void __36__TVRCHMServiceWrapper__sendMuteKey__block_invoke(uint64_t a1, void *a2
   v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = _TVRCHomeKitLog();
-    v6 = v5;
+    v6 = _TVRCHomeKitLog(WeakRetained);
+    v7 = v6;
     if (v3)
     {
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         __36__TVRCHMServiceWrapper__sendMuteKey__block_invoke_cold_1();
       }
@@ -763,23 +738,21 @@ void __36__TVRCHMServiceWrapper__sendMuteKey__block_invoke(uint64_t a1, void *a2
 
     else
     {
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 40)];
-        v8 = [WeakRetained muteCharacteristic];
-        v9 = [v8 localizedDescription];
+        v8 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 40)];
+        v9 = [v5 muteCharacteristic];
+        v10 = [v9 localizedDescription];
         v11 = 138412546;
-        v12 = v7;
+        v12 = v8;
         v13 = 2112;
-        v14 = v9;
-        _os_log_impl(&dword_26CF7F000, v6, OS_LOG_TYPE_DEFAULT, "Successfully wrote value %@ to characteristic %@", &v11, 0x16u);
+        v14 = v10;
+        _os_log_impl(&dword_26CF7F000, v7, OS_LOG_TYPE_DEFAULT, "Successfully wrote value %@ to characteristic %@", &v11, 0x16u);
       }
 
-      [WeakRetained setMuteEnabled:*(a1 + 40)];
+      [v5 setMuteEnabled:*(a1 + 40)];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)_remoteKeyForTVRCButton:(id)button
@@ -863,28 +836,28 @@ void __36__TVRCHMServiceWrapper__sendMuteKey__block_invoke(uint64_t a1, void *a2
 
 - (id)_televisionServiceForAccessory:(id)accessory
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   services = [accessory services];
-  v4 = [services countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [services countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     v7 = *MEMORY[0x277CD0F20];
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(services);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         serviceType = [v9 serviceType];
         v11 = [serviceType isEqualToString:v7];
 
@@ -895,7 +868,7 @@ void __36__TVRCHMServiceWrapper__sendMuteKey__block_invoke(uint64_t a1, void *a2
         }
       }
 
-      v5 = [services countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [services countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v5)
       {
         continue;
@@ -907,8 +880,6 @@ void __36__TVRCHMServiceWrapper__sendMuteKey__block_invoke(uint64_t a1, void *a2
 
   v12 = 0;
 LABEL_11:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -940,7 +911,7 @@ LABEL_11:
         }
 
         v11 = *(*(&v24 + 1) + 8 * v10);
-        v12 = _TVRCHomeKitLog();
+        v12 = _TVRCHomeKitLog(v5);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
           localizedDescription = [v11 localizedDescription];
@@ -956,14 +927,14 @@ LABEL_11:
 
         if (v14)
         {
-          v15 = _TVRCHomeKitLog();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          v16 = _TVRCHomeKitLog(v15);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543618;
             v29 = v11;
             v30 = 2112;
             v31 = serviceCopy;
-            _os_log_impl(&dword_26CF7F000, v15, OS_LOG_TYPE_DEFAULT, "Found characteristic of type HMCharacteristicRemoteKey, %{public}@ for service %@", buf, 0x16u);
+            _os_log_impl(&dword_26CF7F000, v16, OS_LOG_TYPE_DEFAULT, "Found characteristic of type HMCharacteristicRemoteKey, %{public}@ for service %@", buf, 0x16u);
           }
 
           p_serviceCharacteristic = &self->_serviceCharacteristic;
@@ -972,21 +943,21 @@ LABEL_11:
         else
         {
           characteristicType2 = [v11 characteristicType];
-          v18 = [characteristicType2 isEqualToString:v9];
+          v19 = [characteristicType2 isEqualToString:v9];
 
-          if (!v18)
+          if (!v19)
           {
             goto LABEL_17;
           }
 
-          v19 = _TVRCHomeKitLog();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+          v20 = _TVRCHomeKitLog(v5);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543618;
             v29 = v11;
             v30 = 2112;
             v31 = serviceCopy;
-            _os_log_impl(&dword_26CF7F000, v19, OS_LOG_TYPE_DEFAULT, "Found characteristic of type HMCharacteristicTypeActive, %{public}@ for service %@", buf, 0x16u);
+            _os_log_impl(&dword_26CF7F000, v20, OS_LOG_TYPE_DEFAULT, "Found characteristic of type HMCharacteristicTypeActive, %{public}@ for service %@", buf, 0x16u);
           }
 
           v23[0] = MEMORY[0x277D85DD0];
@@ -1004,19 +975,18 @@ LABEL_17:
       }
 
       while (v6 != v10);
-      v6 = [characteristics countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v5 = [characteristics countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v6 = v5;
     }
 
-    while (v6);
+    while (v5);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __54__TVRCHMServiceWrapper__setCharacteristicsForService___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = _TVRCHomeKitLog();
+  v3 = _TVRCHomeKitLog(v2);
   v4 = v3;
   if (v2)
   {
@@ -1035,28 +1005,28 @@ void __54__TVRCHMServiceWrapper__setCharacteristicsForService___block_invoke(uin
 
 - (void)_checkVolumeServicesForAccessory:(id)accessory
 {
-  v52 = *MEMORY[0x277D85DE8];
-  v42 = 0u;
-  v43 = 0u;
+  v54 = *MEMORY[0x277D85DE8];
   v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   services = [accessory services];
-  v5 = [services countByEnumeratingWithState:&v42 objects:v51 count:16];
+  v5 = [services countByEnumeratingWithState:&v44 objects:v53 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v43;
+    v7 = *v45;
     v8 = *MEMORY[0x277CD0EF0];
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v43 != v7)
+      if (*v45 != v7)
       {
         objc_enumerationMutation(services);
       }
 
-      v10 = *(*(&v42 + 1) + 8 * v9);
+      v10 = *(*(&v44 + 1) + 8 * v9);
       serviceType = [v10 serviceType];
       v12 = [serviceType isEqualToString:v8];
 
@@ -1067,7 +1037,7 @@ LABEL_3:
 
       if (v6 == ++v9)
       {
-        v6 = [services countByEnumeratingWithState:&v42 objects:v51 count:16];
+        v6 = [services countByEnumeratingWithState:&v44 objects:v53 count:16];
         if (!v6)
         {
           goto LABEL_32;
@@ -1081,47 +1051,47 @@ LABEL_3:
 
     if (v13)
     {
+      v42 = 0u;
+      v43 = 0u;
       v40 = 0u;
       v41 = 0u;
-      v38 = 0u;
-      v39 = 0u;
-      v35 = v13;
+      v37 = v13;
       characteristics = [v13 characteristics];
-      v15 = [characteristics countByEnumeratingWithState:&v38 objects:v50 count:16];
+      v15 = [characteristics countByEnumeratingWithState:&v40 objects:v52 count:16];
       if (!v15)
       {
         goto LABEL_31;
       }
 
       v16 = v15;
-      v17 = *v39;
+      v17 = *v41;
       v18 = *MEMORY[0x277CCFBA8];
       v19 = *MEMORY[0x277CCFBB0];
-      v33 = v37;
-      v34 = *MEMORY[0x277CCF980];
+      v35 = v39;
+      v36 = *MEMORY[0x277CCF980];
       while (1)
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v39 != v17)
+          if (*v41 != v17)
           {
             objc_enumerationMutation(characteristics);
           }
 
-          v21 = *(*(&v38 + 1) + 8 * i);
+          v21 = *(*(&v40 + 1) + 8 * i);
           characteristicType = [v21 characteristicType];
           v23 = [characteristicType isEqualToString:v18];
 
           if (v23)
           {
-            v24 = _TVRCHomeKitLog();
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+            v25 = _TVRCHomeKitLog(v24);
+            if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543618;
-              v47 = v21;
-              v48 = 2112;
-              v49 = v35;
-              _os_log_impl(&dword_26CF7F000, v24, OS_LOG_TYPE_DEFAULT, "Found characteristic of type HMCharacteristicTypeVolume, %{public}@ for service %@", buf, 0x16u);
+              v49 = v21;
+              v50 = 2112;
+              v51 = v37;
+              _os_log_impl(&dword_26CF7F000, v25, OS_LOG_TYPE_DEFAULT, "Found characteristic of type HMCharacteristicTypeVolume, %{public}@ for service %@", buf, 0x16u);
             }
 
             self->_volumeControlSupported = 1;
@@ -1130,18 +1100,18 @@ LABEL_3:
           else
           {
             characteristicType2 = [v21 characteristicType];
-            v26 = [characteristicType2 isEqualToString:v19];
+            v27 = [characteristicType2 isEqualToString:v19];
 
-            if (v26)
+            if (v27)
             {
-              v27 = _TVRCHomeKitLog();
-              if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+              v29 = _TVRCHomeKitLog(v28);
+              if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543618;
-                v47 = v21;
-                v48 = 2112;
-                v49 = v35;
-                _os_log_impl(&dword_26CF7F000, v27, OS_LOG_TYPE_DEFAULT, "Found characteristic of type HMCharacteristicTypeVolumeSelector, %{public}@ for service %@", buf, 0x16u);
+                v49 = v21;
+                v50 = 2112;
+                v51 = v37;
+                _os_log_impl(&dword_26CF7F000, v29, OS_LOG_TYPE_DEFAULT, "Found characteristic of type HMCharacteristicTypeVolumeSelector, %{public}@ for service %@", buf, 0x16u);
               }
 
               self->_volumeControlSupported = 1;
@@ -1151,29 +1121,29 @@ LABEL_3:
             else
             {
               characteristicType3 = [v21 characteristicType];
-              v30 = [characteristicType3 isEqualToString:v34];
+              v32 = [characteristicType3 isEqualToString:v36];
 
-              if (!v30)
+              if (!v32)
               {
                 continue;
               }
 
-              v31 = _TVRCHomeKitLog();
-              if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+              v34 = _TVRCHomeKitLog(v33);
+              if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543618;
-                v47 = v21;
-                v48 = 2112;
-                v49 = v35;
-                _os_log_impl(&dword_26CF7F000, v31, OS_LOG_TYPE_DEFAULT, "Found characteristic of type HMCharacteristicTypeMute, %{public}@ for service %@", buf, 0x16u);
+                v49 = v21;
+                v50 = 2112;
+                v51 = v37;
+                _os_log_impl(&dword_26CF7F000, v34, OS_LOG_TYPE_DEFAULT, "Found characteristic of type HMCharacteristicTypeMute, %{public}@ for service %@", buf, 0x16u);
               }
 
-              v36[0] = MEMORY[0x277D85DD0];
-              v36[1] = 3221225472;
-              v37[0] = __57__TVRCHMServiceWrapper__checkVolumeServicesForAccessory___block_invoke;
-              v37[1] = &unk_279D82DB0;
-              v37[2] = v21;
-              [v21 enableNotification:1 completionHandler:v36];
+              v38[0] = MEMORY[0x277D85DD0];
+              v38[1] = 3221225472;
+              v39[0] = __57__TVRCHMServiceWrapper__checkVolumeServicesForAccessory___block_invoke;
+              v39[1] = &unk_279D82DB0;
+              v39[2] = v21;
+              [v21 enableNotification:1 completionHandler:v38];
               p_volumeSelectorCharacteristic = &self->_muteCharacteristic;
             }
 
@@ -1181,12 +1151,12 @@ LABEL_3:
           }
         }
 
-        v16 = [characteristics countByEnumeratingWithState:&v38 objects:v50 count:16];
+        v16 = [characteristics countByEnumeratingWithState:&v40 objects:v52 count:16];
         if (!v16)
         {
 LABEL_31:
 
-          services = v35;
+          services = v37;
           goto LABEL_32;
         }
       }
@@ -1197,14 +1167,12 @@ LABEL_31:
   {
 LABEL_32:
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __57__TVRCHMServiceWrapper__checkVolumeServicesForAccessory___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = _TVRCHomeKitLog();
+  v3 = _TVRCHomeKitLog(v2);
   v4 = v3;
   if (v2)
   {
@@ -1241,20 +1209,20 @@ void __57__TVRCHMServiceWrapper__checkVolumeServicesForAccessory___block_invoke(
   v13 = valueCopy;
   v24 = v13;
   [v11 setCompletionHandler:&v19];
-  [v11 setProgressHandler:{&__block_literal_global_5, v19, v20, v21, v22}];
+  v14 = [v11 setProgressHandler:{&__block_literal_global_5, v19, v20, v21, v22}];
   home = self->_home;
-  v15 = _TVRCHomeKitLog();
-  v16 = v15;
+  v16 = _TVRCHomeKitLog(v14);
+  v17 = v16;
   if (home)
   {
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = self->_home;
+      v18 = self->_home;
       *buf = 138412546;
       v26 = v11;
       v27 = 2112;
-      v28 = v17;
-      _os_log_impl(&dword_26CF7F000, v16, OS_LOG_TYPE_DEFAULT, "Performing Batch Characteristic Write Request %@, on home %@", buf, 0x16u);
+      v28 = v18;
+      _os_log_impl(&dword_26CF7F000, v17, OS_LOG_TYPE_DEFAULT, "Performing Batch Characteristic Write Request %@, on home %@", buf, 0x16u);
     }
 
     [(HMHome *)self->_home performBatchCharacteristicRequest:v11];
@@ -1262,20 +1230,18 @@ void __57__TVRCHMServiceWrapper__checkVolumeServicesForAccessory___block_invoke(
 
   else
   {
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [TVRCHMServiceWrapper _writeValue:v11 toCharacteristic:v16];
+      [TVRCHMServiceWrapper _writeValue:v11 toCharacteristic:v17];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __53__TVRCHMServiceWrapper__writeValue_toCharacteristic___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = _TVRCHomeKitLog();
+  v4 = _TVRCHomeKitLog(v3);
   v5 = v4;
   if (v3)
   {
@@ -1289,29 +1255,25 @@ void __53__TVRCHMServiceWrapper__writeValue_toCharacteristic___block_invoke(uint
   {
     v6 = *(a1 + 40);
     v7 = [*(a1 + 32) localizedDescription];
-    v9 = 138412546;
-    v10 = v6;
-    v11 = 2112;
-    v12 = v7;
-    _os_log_impl(&dword_26CF7F000, v5, OS_LOG_TYPE_DEFAULT, "Successfully wrote value %@ to characteristic %@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
+    _os_log_impl(&dword_26CF7F000, v5, OS_LOG_TYPE_DEFAULT, "Successfully wrote value %@ to characteristic %@", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __53__TVRCHMServiceWrapper__writeValue_toCharacteristic___block_invoke_32(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = _TVRCHomeKitLog();
+  v3 = _TVRCHomeKitLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_26CF7F000, v3, OS_LOG_TYPE_DEFAULT, "Batch Characteristic Write progress handler called - %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_26CF7F000, v3, OS_LOG_TYPE_DEFAULT, "Batch Characteristic Write progress handler called - %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_readValueForCharacteristic:(id)characteristic completionHandler:(id)handler
@@ -1340,20 +1302,20 @@ void __53__TVRCHMServiceWrapper__writeValue_toCharacteristic___block_invoke_32(u
   v21 = v13;
   v14 = v12;
   v22 = v14;
-  [v11 setCompletionHandler:v20];
+  v15 = [v11 setCompletionHandler:v20];
   home = self->_home;
-  v16 = _TVRCHomeKitLog();
-  v17 = v16;
+  v17 = _TVRCHomeKitLog(v15);
+  v18 = v17;
   if (home)
   {
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = self->_home;
+      v19 = self->_home;
       *buf = 138412546;
       v26 = v11;
       v27 = 2112;
-      v28 = v18;
-      _os_log_impl(&dword_26CF7F000, v17, OS_LOG_TYPE_DEFAULT, "Performing Batch Characteristic Read Request %@, on home %@", buf, 0x16u);
+      v28 = v19;
+      _os_log_impl(&dword_26CF7F000, v18, OS_LOG_TYPE_DEFAULT, "Performing Batch Characteristic Read Request %@, on home %@", buf, 0x16u);
     }
 
     [(HMHome *)self->_home performBatchCharacteristicRequest:v11];
@@ -1361,39 +1323,38 @@ void __53__TVRCHMServiceWrapper__writeValue_toCharacteristic___block_invoke_32(u
 
   else
   {
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [TVRCHMHomeObserver _readCharacteristic:v11 completion:v17];
+      [TVRCHMHomeObserver _readCharacteristic:v11 completion:v18];
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __70__TVRCHMServiceWrapper__readValueForCharacteristic_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   obj = a2;
-  v3 = [obj countByEnumeratingWithState:&v15 objects:v23 count:16];
+  v3 = [obj countByEnumeratingWithState:&v14 objects:v22 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v16;
+    v5 = *v15;
     do
     {
-      for (i = 0; i != v4; ++i)
+      v6 = 0;
+      do
       {
-        if (*v16 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v15 + 1) + 8 * i);
-        v8 = _TVRCHomeKitLog();
+        v7 = *(*(&v14 + 1) + 8 * v6);
+        v8 = _TVRCHomeKitLog(v3);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
           v9 = [v7 value];
@@ -1401,31 +1362,33 @@ void __70__TVRCHMServiceWrapper__readValueForCharacteristic_completionHandler___
           v11 = [v10 characteristic];
           v12 = [v11 localizedDescription];
           *buf = 138412546;
-          v20 = v9;
-          v21 = 2112;
-          v22 = v12;
+          v19 = v9;
+          v20 = 2112;
+          v21 = v12;
           _os_log_impl(&dword_26CF7F000, v8, OS_LOG_TYPE_DEFAULT, "Received value %@ for read request on characteristic %@", buf, 0x16u);
         }
 
-        (*(*(a1 + 32) + 16))();
+        v3 = (*(*(a1 + 32) + 16))();
+        ++v6;
       }
 
-      v4 = [obj countByEnumeratingWithState:&v15 objects:v23 count:16];
+      while (v4 != v6);
+      v3 = [obj countByEnumeratingWithState:&v14 objects:v22 count:16];
+      v4 = v3;
     }
 
-    while (v4);
+    while (v3);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __70__TVRCHMServiceWrapper__readValueForCharacteristic_completionHandler___block_invoke_35(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _TVRCHomeKitLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _TVRCHomeKitLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __70__TVRCHMServiceWrapper__readValueForCharacteristic_completionHandler___block_invoke_35_cold_1();
     }
@@ -1441,78 +1404,54 @@ void __70__TVRCHMServiceWrapper__readValueForCharacteristic_completionHandler___
   return WeakRetained;
 }
 
-void __41__TVRCHMServiceWrapper__updatePowerState__block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_1(&dword_26CF7F000, v0, v1, "Failed to read to chacratersitic %@. Error : %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 void __42__TVRCHMServiceWrapper__togglePowerButton__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_3();
-  v11 = *MEMORY[0x277D85DE8];
   v1 = [v0 activeCharacteristic];
   v2 = [v1 localizedDescription];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_2_0(&dword_26CF7F000, v3, v4, "Failed to write to characteristic %@. Error : %{public}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_26CF7F000, v3, v4, "Failed to write to characteristic %@. Error : %{public}@", v5, v6, v7, v8);
 }
 
 void __36__TVRCHMServiceWrapper__sendMuteKey__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_3();
-  v11 = *MEMORY[0x277D85DE8];
   v1 = [v0 muteCharacteristic];
   v2 = [v1 localizedDescription];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_2_0(&dword_26CF7F000, v3, v4, "Failed to write to characteristic %@. Error : %{public}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_26CF7F000, v3, v4, "Failed to write to characteristic %@. Error : %{public}@", v5, v6, v7, v8);
 }
 
 void __54__TVRCHMServiceWrapper__setCharacteristicsForService___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_3();
-  v0 = *MEMORY[0x277D85DE8];
-  v2 = [OUTLINED_FUNCTION_4(v1) localizedDescription];
+  v1 = [OUTLINED_FUNCTION_4(v0) localizedDescription];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_2_0(&dword_26CF7F000, v3, v4, "Failed to enable notification for characteristic %@. Error : %{public}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_26CF7F000, v2, v3, "Failed to enable notification for characteristic %@. Error : %{public}@", v4, v5, v6, v7);
 }
 
 - (void)_writeValue:(uint64_t)a1 toCharacteristic:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_26CF7F000, a2, OS_LOG_TYPE_ERROR, "Could not perform Batch Characteristic Write Request %@ since no valid home was found", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_26CF7F000, a2, OS_LOG_TYPE_ERROR, "Could not perform Batch Characteristic Write Request %@ since no valid home was found", &v2, 0xCu);
 }
 
 void __53__TVRCHMServiceWrapper__writeValue_toCharacteristic___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_3();
-  v0 = *MEMORY[0x277D85DE8];
-  v2 = [OUTLINED_FUNCTION_4(v1) localizedDescription];
+  v1 = [OUTLINED_FUNCTION_4(v0) localizedDescription];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_2_0(&dword_26CF7F000, v3, v4, "Failed to write to characteristic %@. Error : %{public}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_26CF7F000, v2, v3, "Failed to write to characteristic %@. Error : %{public}@", v4, v5, v6, v7);
 }
 
 void __70__TVRCHMServiceWrapper__readValueForCharacteristic_completionHandler___block_invoke_35_cold_1()
 {
   OUTLINED_FUNCTION_3();
-  v0 = *MEMORY[0x277D85DE8];
-  v2 = [OUTLINED_FUNCTION_4(v1) localizedDescription];
+  v1 = [OUTLINED_FUNCTION_4(v0) localizedDescription];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_2_0(&dword_26CF7F000, v3, v4, "Failed to read to chacratersitic %@. Error : %{public}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_26CF7F000, v2, v3, "Failed to read to chacratersitic %@. Error : %{public}@", v4, v5, v6, v7);
 }
 
 @end

@@ -36,28 +36,28 @@
 
 - (void)addResourceObjectsOfClassesOrProtocols:(id)protocols toSet:(id)set
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   protocolsCopy = protocols;
   setCopy = set;
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v8 = [protocolsCopy countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v8 = [protocolsCopy countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v30;
+    v10 = *v29;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v30 != v10)
+        if (*v29 != v10)
         {
           objc_enumerationMutation(protocolsCopy);
         }
 
-        v12 = *(*(&v29 + 1) + 8 * i);
+        v12 = *(*(&v28 + 1) + 8 * i);
         isClass = object_isClass(v12);
         resource = [(WFResourceNode *)self resource];
         v15 = resource;
@@ -85,41 +85,39 @@ LABEL_10:
         }
       }
 
-      v9 = [protocolsCopy countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v9 = [protocolsCopy countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
     while (v9);
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   subnodes = [(WFResourceNode *)self subnodes];
-  v20 = [subnodes countByEnumeratingWithState:&v25 objects:v33 count:16];
+  v20 = [subnodes countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v26;
+    v22 = *v25;
     do
     {
       for (j = 0; j != v21; ++j)
       {
-        if (*v26 != v22)
+        if (*v25 != v22)
         {
           objc_enumerationMutation(subnodes);
         }
 
-        [*(*(&v25 + 1) + 8 * j) addResourceObjectsOfClassesOrProtocols:protocolsCopy toSet:setCopy];
+        [*(*(&v24 + 1) + 8 * j) addResourceObjectsOfClassesOrProtocols:protocolsCopy toSet:setCopy];
       }
 
-      v21 = [subnodes countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v21 = [subnodes countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
     while (v21);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (id)resourceObjectsOfClasses:(id)classes
@@ -246,30 +244,30 @@ LABEL_10:
 
 + (id)nodesWithDefinitions:(id)definitions
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   definitionsCopy = definitions;
   v4 = objc_opt_new();
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v5 = definitionsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v17 objects:v23 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     v9 = MEMORY[0x1E695E0F0];
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -289,16 +287,16 @@ LABEL_10:
           }
 
 LABEL_11:
-          [v4 addObject:{v13, v18}];
+          [v4 addObject:{v13, v17}];
           goto LABEL_21;
         }
 
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) != 0 && [v11 length])
         {
-          v22 = @"WFResourceClass";
-          v23 = v11;
-          v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+          v21 = @"WFResourceClass";
+          v22 = v11;
+          v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
         }
 
         else
@@ -330,13 +328,11 @@ LABEL_20:
 LABEL_21:
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v17 objects:v23 count:16];
     }
 
     while (v7);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

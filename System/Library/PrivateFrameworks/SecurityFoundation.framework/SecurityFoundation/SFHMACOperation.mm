@@ -47,10 +47,7 @@
 
 - (void)setDigestOperation:(id)operation
 {
-  v4 = [operation copyWithZone:0];
-  hmacOperationInternal = self->_hmacOperationInternal;
-  v6 = hmacOperationInternal[1];
-  hmacOperationInternal[1] = v4;
+  *(self->_hmacOperationInternal + 1) = [operation copyWithZone:0];
 
   MEMORY[0x2821F96F8]();
 }

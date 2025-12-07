@@ -30,9 +30,9 @@
 - (AXMTFaceKitFaceTracker)initWithFaceKitPipeline:(BOOL)pipeline
 {
   pipelineCopy = pipeline;
-  v25.receiver = self;
-  v25.super_class = AXMTFaceKitFaceTracker;
-  v4 = [(AXMTFaceKitFaceTracker *)&v25 init];
+  v26.receiver = self;
+  v26.super_class = AXMTFaceKitFaceTracker;
+  v4 = [(AXMTFaceKitFaceTracker *)&v26 init];
   if (!v4)
   {
     goto LABEL_30;
@@ -40,40 +40,41 @@
 
   if (pipelineCopy)
   {
-    v24 = 0;
+    v25 = 0;
     _faceKitCreationOptions = [objc_opt_class() _faceKitCreationOptions];
-    v31 = 0;
-    v32 = &v31;
-    v33 = 0x2020000000;
+    v32 = 0;
+    v33 = &v32;
+    v34 = 0x2020000000;
     v6 = off_100054690;
-    v34 = off_100054690;
+    v35 = off_100054690;
     if (!off_100054690)
     {
-      v26 = _NSConcreteStackBlock;
-      v27 = 3221225472;
-      v28 = sub_100027DA8;
-      v29 = &unk_100048BA8;
-      v30 = &v31;
+      v27 = _NSConcreteStackBlock;
+      v28 = 3221225472;
+      v29 = sub_100027DA8;
+      v30 = &unk_100048BA8;
+      v31 = &v32;
       v7 = sub_100027DF8();
       v8 = dlsym(v7, "CVAFaceTrackingCreate");
-      *(v30[1] + 24) = v8;
-      off_100054690 = *(v30[1] + 24);
-      v6 = v32[3];
+      *(v31[1] + 24) = v8;
+      off_100054690 = *(v31[1] + 24);
+      v6 = v33[3];
     }
 
-    _Block_object_dispose(&v31, 8);
+    _Block_object_dispose(&v32, 8);
     if (!v6)
     {
 LABEL_33:
-      v23 = sub_100029794();
-      _Block_object_dispose(&v31, 8);
-      _Unwind_Resume(v23);
+      sub_100029794();
+      v24 = v23;
+      _Block_object_dispose(&v32, 8);
+      _Unwind_Resume(v24);
     }
 
     v9 = kCFAllocatorDefault;
-    v10 = v6(kCFAllocatorDefault, _faceKitCreationOptions, &v24);
+    v10 = v6(kCFAllocatorDefault, _faceKitCreationOptions, &v25);
 
-    v11 = v24;
+    v11 = v25;
     v12 = AXSSLogForCategory();
     v13 = v12;
     if (v10)
@@ -98,10 +99,10 @@ LABEL_33:
 
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      sub_100028E34(&v24, v13);
+      sub_100028E34(&v25, v13);
     }
 
-    v4->__faceKitRef = v24;
+    v4->__faceKitRef = v25;
   }
 
   else
@@ -115,46 +116,46 @@ LABEL_33:
     v9 = kCFAllocatorDefault;
   }
 
-  v24 = 0;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2020000000;
+  v25 = 0;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
   v17 = off_1000546A0;
-  v34 = off_1000546A0;
+  v35 = off_1000546A0;
   if (!off_1000546A0)
   {
-    v26 = _NSConcreteStackBlock;
-    v27 = 3221225472;
-    v28 = sub_100027F6C;
-    v29 = &unk_100048BA8;
-    v30 = &v31;
+    v27 = _NSConcreteStackBlock;
+    v28 = 3221225472;
+    v29 = sub_100027F6C;
+    v30 = &unk_100048BA8;
+    v31 = &v32;
     v18 = sub_100027DF8();
     v19 = dlsym(v18, "CVAFaceTrackingLiteFilterCreate");
-    *(v30[1] + 24) = v19;
-    off_1000546A0 = *(v30[1] + 24);
-    v17 = v32[3];
+    *(v31[1] + 24) = v19;
+    off_1000546A0 = *(v31[1] + 24);
+    v17 = v33[3];
   }
 
-  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v32, 8);
   if (!v17)
   {
     sub_100029794();
     goto LABEL_33;
   }
 
-  if (v17(v9, &v24))
+  if (v17(v9, &v25))
   {
     v20 = 1;
   }
 
   else
   {
-    v20 = v24 == 0;
+    v20 = v25 == 0;
   }
 
   if (!v20)
   {
-    v4->__faceKitLiteFilterRef = v24;
+    v4->__faceKitLiteFilterRef = v25;
 LABEL_30:
     v21 = v4;
     goto LABEL_31;
@@ -297,42 +298,43 @@ LABEL_31:
   v5 = dispatch_semaphore_create(0);
   v6 = objc_opt_class();
   _initialFaceInfo = [(AXMTFaceKitFaceTracker *)self _initialFaceInfo];
-  v18 = _NSConcreteStackBlock;
-  v19 = 3221225472;
-  v20 = sub_100022658;
-  v21 = &unk_100049180;
+  v19 = _NSConcreteStackBlock;
+  v20 = 3221225472;
+  v21 = sub_100022658;
+  v22 = &unk_100049180;
   selfCopy = self;
   frameCopy = frame;
   v8 = v5;
-  v23 = v8;
-  v9 = [v6 _faceKitProcessOptionsForSampleBuffer:frame detectedFaceInfo:_initialFaceInfo callback:&v18];
+  v24 = v8;
+  v9 = [v6 _faceKitProcessOptionsForSampleBuffer:frame detectedFaceInfo:_initialFaceInfo callback:&v19];
 
-  v10 = [(AXMTFaceKitFaceTracker *)self _faceKitRef:v18];
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x2020000000;
+  v10 = [(AXMTFaceKitFaceTracker *)self _faceKitRef:v19];
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x2020000000;
   v11 = off_1000546A8;
-  v33 = off_1000546A8;
+  v34 = off_1000546A8;
   if (!off_1000546A8)
   {
-    v25 = _NSConcreteStackBlock;
-    v26 = 3221225472;
-    v27 = sub_100027FBC;
-    v28 = &unk_100048BA8;
-    v29 = &v30;
+    v26 = _NSConcreteStackBlock;
+    v27 = 3221225472;
+    v28 = sub_100027FBC;
+    v29 = &unk_100048BA8;
+    v30 = &v31;
     v12 = sub_100027DF8();
     v13 = dlsym(v12, "CVAFaceTrackingProcess");
-    *(v29[1] + 24) = v13;
-    off_1000546A8 = *(v29[1] + 24);
-    v11 = v31[3];
+    *(v30[1] + 24) = v13;
+    off_1000546A8 = *(v30[1] + 24);
+    v11 = v32[3];
   }
 
-  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v31, 8);
   if (!v11)
   {
-    v17 = sub_100029794();
-    _Block_object_dispose(&v30, 8);
-    _Unwind_Resume(v17);
+    sub_100029794();
+    v18 = v17;
+    _Block_object_dispose(&v31, 8);
+    _Unwind_Resume(v18);
   }
 
   v14 = v11(v10, v9);
@@ -355,139 +357,141 @@ LABEL_31:
 - (id)_generateFaceKitResultForVanillaOutput:(id)output withSampleBuffer:(opaqueCMSampleBuffer *)buffer
 {
   outputCopy = output;
+  v5 = outputCopy;
   if (qword_100054608 != -1)
   {
     sub_10002905C();
   }
 
-  v35 = outputCopy;
-  v36 = [outputCopy objectForKeyedSubscript:sub_100022FAC()];
-  if (![v36 count])
+  v37 = v5;
+  v38 = [v5 objectForKeyedSubscript:sub_100022FAC(outputCopy)];
+  if (![v38 count])
   {
-    v25 = 0;
+    v27 = 0;
     goto LABEL_33;
   }
 
-  firstObject = [v36 firstObject];
-  v5 = firstObject;
+  firstObject = [v38 firstObject];
+  v6 = firstObject;
   if (firstObject)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v6 = [firstObject objectForKeyedSubscript:sub_1000230A0()];
-      v46 = 0;
-      v47 = &v46;
-      v48 = 0x2020000000;
-      v7 = qword_1000546D0;
-      v49 = qword_1000546D0;
+      v8 = [firstObject objectForKeyedSubscript:sub_1000230A0(isKindOfClass)];
+      v48 = 0;
+      v49 = &v48;
+      v50 = 0x2020000000;
+      v9 = qword_1000546D0;
+      v51 = qword_1000546D0;
       if (!qword_1000546D0)
       {
-        v41 = _NSConcreteStackBlock;
-        v42 = 3221225472;
-        v43 = sub_10002814C;
-        v44 = &unk_100048BA8;
-        v45 = &v46;
-        v8 = sub_100027DF8();
-        v47[3] = dlsym(v8, "kCVAFaceTracking_Animation");
-        qword_1000546D0 = *(v45[1] + 24);
-        v7 = v47[3];
+        v43 = _NSConcreteStackBlock;
+        v44 = 3221225472;
+        v45 = sub_10002814C;
+        v46 = &unk_100048BA8;
+        v47 = &v48;
+        v10 = sub_100027DF8();
+        v49[3] = dlsym(v10, "kCVAFaceTracking_Animation");
+        qword_1000546D0 = *(v47[1] + 24);
+        v9 = v49[3];
       }
 
-      _Block_object_dispose(&v46, 8);
-      if (v7)
+      _Block_object_dispose(&v48, 8);
+      if (v9)
       {
-        v31 = [v6 objectForKeyedSubscript:*v7];
+        v33 = [v8 objectForKeyedSubscript:*v9];
 
-        if (!v31)
+        if (!v33)
         {
-          v24 = 0;
+          v26 = 0;
 LABEL_29:
-          v26 = [AXMTFaceKitXNUResult alloc];
-          v27 = qword_1000545F8;
+          v28 = [AXMTFaceKitXNUResult alloc];
+          v29 = qword_1000545F8;
           _referenceDimensionsValue = [(AXMTFaceKitFaceTracker *)self _referenceDimensionsValue];
-          v25 = [(AXMTFaceKitXNUResult *)v26 initWithFaceKitTrackedFaceDictionary:firstObject semanticsDictionary:v27 sampleBuffer:buffer expressions:v24 referenceDimensionsValue:_referenceDimensionsValue];
+          v27 = [(AXMTFaceKitXNUResult *)v28 initWithFaceKitTrackedFaceDictionary:firstObject semanticsDictionary:v29 sampleBuffer:buffer expressions:v26 referenceDimensionsValue:_referenceDimensionsValue];
 
-          if (v25)
+          if (v27)
           {
-            v29 = v25;
+            v31 = v27;
           }
 
-          v5 = firstObject;
+          v6 = firstObject;
           goto LABEL_32;
         }
 
-        v46 = 0;
-        v47 = &v46;
-        v48 = 0x2020000000;
-        v9 = qword_1000546D8;
-        v49 = qword_1000546D8;
+        v48 = 0;
+        v49 = &v48;
+        v50 = 0x2020000000;
+        v11 = qword_1000546D8;
+        v51 = qword_1000546D8;
         if (!qword_1000546D8)
         {
-          v41 = _NSConcreteStackBlock;
-          v42 = 3221225472;
-          v43 = sub_10002819C;
-          v44 = &unk_100048BA8;
-          v45 = &v46;
-          v10 = sub_100027DF8();
-          v47[3] = dlsym(v10, "kCVAFaceTracking_AnimationBlendshapes");
-          qword_1000546D8 = *(v45[1] + 24);
-          v9 = v47[3];
+          v43 = _NSConcreteStackBlock;
+          v44 = 3221225472;
+          v45 = sub_10002819C;
+          v46 = &unk_100048BA8;
+          v47 = &v48;
+          v12 = sub_100027DF8();
+          v49[3] = dlsym(v12, "kCVAFaceTracking_AnimationBlendshapes");
+          qword_1000546D8 = *(v47[1] + 24);
+          v11 = v49[3];
         }
 
-        _Block_object_dispose(&v46, 8);
-        if (v9)
+        _Block_object_dispose(&v48, 8);
+        if (v11)
         {
-          v11 = [v31 objectForKeyedSubscript:*v9];
-          v12 = +[NSMutableDictionary dictionary];
-          if (v11)
+          v13 = [v33 objectForKeyedSubscript:*v11];
+          v14 = +[NSMutableDictionary dictionary];
+          if (v13)
           {
+            v41 = 0u;
+            v42 = 0u;
             v39 = 0u;
             v40 = 0u;
-            v37 = 0u;
-            v38 = 0u;
-            v13 = qword_100054600;
-            v14 = [v13 countByEnumeratingWithState:&v37 objects:v50 count:16];
-            if (v14)
+            v15 = qword_100054600;
+            v16 = [v15 countByEnumeratingWithState:&v39 objects:v52 count:16];
+            if (v16)
             {
-              v15 = *v38;
+              v17 = *v40;
               do
               {
-                for (i = 0; i != v14; i = i + 1)
+                for (i = 0; i != v16; i = i + 1)
                 {
-                  if (*v38 != v15)
+                  if (*v40 != v17)
                   {
-                    objc_enumerationMutation(v13);
+                    objc_enumerationMutation(v15);
                   }
 
-                  v17 = *(*(&v37 + 1) + 8 * i);
-                  v18 = [qword_100054600 objectForKeyedSubscript:{v17, v31}];
-                  unsignedIntValue = [v18 unsignedIntValue];
+                  v19 = *(*(&v39 + 1) + 8 * i);
+                  v20 = [qword_100054600 objectForKeyedSubscript:{v19, v33}];
+                  unsignedIntValue = [v20 unsignedIntValue];
 
-                  v20 = v11;
-                  LODWORD(v21) = *([v11 bytes] + unsignedIntValue);
-                  v22 = [NSNumber numberWithFloat:v21];
-                  [v12 setObject:v22 forKey:v17];
+                  v22 = v13;
+                  LODWORD(v23) = *([v13 bytes] + unsignedIntValue);
+                  v24 = [NSNumber numberWithFloat:v23];
+                  [v14 setObject:v24 forKey:v19];
                 }
 
-                v14 = [v13 countByEnumeratingWithState:&v37 objects:v50 count:16];
+                v16 = [v15 countByEnumeratingWithState:&v39 objects:v52 count:16];
               }
 
-              while (v14);
+              while (v16);
             }
 
-            v23 = [v31 objectForKeyedSubscript:@"tongue_out"];
-            if (v23)
+            v25 = [v33 objectForKeyedSubscript:@"tongue_out"];
+            if (v25)
             {
-              [v12 setObject:v23 forKey:@"tongue_out"];
+              [v14 setObject:v25 forKey:@"tongue_out"];
             }
 
-            v24 = [(AXMTFaceKitFaceTracker *)self _handleFaceBlendShapes:v12, v31];
+            v26 = [(AXMTFaceKitFaceTracker *)self _handleFaceBlendShapes:v14, v33];
           }
 
           else
           {
-            v24 = 0;
+            v26 = 0;
           }
 
           goto LABEL_29;
@@ -499,65 +503,65 @@ LABEL_29:
     }
   }
 
-  v25 = 0;
+  v27 = 0;
 LABEL_32:
 
 LABEL_33:
 
-  return v25;
+  return v27;
 }
 
 - (id)_generateFaceKitResultForLiteOutput:(id)output imageProcessedInExclaves:(BOOL)exclaves
 {
   exclavesCopy = exclaves;
   outputCopy = output;
-  v47 = [outputCopy objectForKeyedSubscript:sub_1000238F4()];
-  *&v53 = 0;
-  *(&v53 + 1) = &v53;
-  *&v54 = 0x2020000000;
+  v46 = [outputCopy objectForKeyedSubscript:sub_1000238F4(outputCopy)];
+  *&v52 = 0;
+  *(&v52 + 1) = &v52;
+  *&v53 = 0x2020000000;
   v5 = qword_1000546E8;
-  *(&v54 + 1) = qword_1000546E8;
+  *(&v53 + 1) = qword_1000546E8;
   if (!qword_1000546E8)
   {
-    *&v62 = _NSConcreteStackBlock;
-    *(&v62 + 1) = 3221225472;
-    *&v63 = sub_10002823C;
-    *(&v63 + 1) = &unk_100048BA8;
-    *&v64 = &v53;
+    *&v61 = _NSConcreteStackBlock;
+    *(&v61 + 1) = 3221225472;
+    *&v62 = sub_10002823C;
+    *(&v62 + 1) = &unk_100048BA8;
+    *&v63 = &v52;
     v6 = sub_100027DF8();
     v7 = dlsym(v6, "kCVAFaceTrackingLiteFilter_ClientData");
-    *(*(v64 + 8) + 24) = v7;
-    qword_1000546E8 = *(*(v64 + 8) + 24);
-    v5 = *(*(&v53 + 1) + 24);
+    *(*(v63 + 8) + 24) = v7;
+    qword_1000546E8 = *(*(v63 + 8) + 24);
+    v5 = *(*(&v52 + 1) + 24);
   }
 
-  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(&v52, 8);
   if (!v5)
   {
     goto LABEL_35;
   }
 
   v8 = [outputCopy objectForKeyedSubscript:*v5];
-  *&v53 = 0;
-  *(&v53 + 1) = &v53;
-  *&v54 = 0x2020000000;
+  *&v52 = 0;
+  *(&v52 + 1) = &v52;
+  *&v53 = 0x2020000000;
   v9 = qword_1000546F0;
-  *(&v54 + 1) = qword_1000546F0;
+  *(&v53 + 1) = qword_1000546F0;
   if (!qword_1000546F0)
   {
-    *&v62 = _NSConcreteStackBlock;
-    *(&v62 + 1) = 3221225472;
-    *&v63 = sub_10002828C;
-    *(&v63 + 1) = &unk_100048BA8;
-    *&v64 = &v53;
+    *&v61 = _NSConcreteStackBlock;
+    *(&v61 + 1) = 3221225472;
+    *&v62 = sub_10002828C;
+    *(&v62 + 1) = &unk_100048BA8;
+    *&v63 = &v52;
     v10 = sub_100027DF8();
     v11 = dlsym(v10, "kCVAFaceTrackingLiteFilter_ClientDataAccessibility");
-    *(*(v64 + 8) + 24) = v11;
-    qword_1000546F0 = *(*(v64 + 8) + 24);
-    v9 = *(*(&v53 + 1) + 24);
+    *(*(v63 + 8) + 24) = v11;
+    qword_1000546F0 = *(*(v63 + 8) + 24);
+    v9 = *(*(&v52 + 1) + 24);
   }
 
-  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(&v52, 8);
   if (!v9)
   {
     goto LABEL_35;
@@ -565,148 +569,147 @@ LABEL_33:
 
   v12 = [v8 objectForKeyedSubscript:*v9];
 
-  v45 = [v47 objectForKeyedSubscript:sub_100022FAC()];
-  firstObject = [v45 firstObject];
-  v44 = [firstObject objectForKeyedSubscript:sub_1000230A0()];
-  if (v12 && v44)
+  v44 = [v46 objectForKeyedSubscript:sub_100022FAC(v13)];
+  firstObject = [v44 firstObject];
+  v43 = [firstObject objectForKeyedSubscript:sub_1000230A0(firstObject)];
+  if (v12 && v43)
   {
-    *&v53 = 0;
-    *(&v53 + 1) = &v53;
-    *&v54 = 0x2020000000;
-    v14 = qword_1000546F8;
-    *(&v54 + 1) = qword_1000546F8;
+    *&v52 = 0;
+    *(&v52 + 1) = &v52;
+    *&v53 = 0x2020000000;
+    v15 = qword_1000546F8;
+    *(&v53 + 1) = qword_1000546F8;
     if (!qword_1000546F8)
     {
-      *&v62 = _NSConcreteStackBlock;
-      *(&v62 + 1) = 3221225472;
-      *&v63 = sub_1000282DC;
-      *(&v63 + 1) = &unk_100048BA8;
-      *&v64 = &v53;
-      v15 = sub_100027DF8();
-      v16 = dlsym(v15, "kCVAFaceTrackingLiteFilterClientAccessibility_Expressions");
-      *(*(v64 + 8) + 24) = v16;
-      qword_1000546F8 = *(*(v64 + 8) + 24);
-      v14 = *(*(&v53 + 1) + 24);
+      *&v61 = _NSConcreteStackBlock;
+      *(&v61 + 1) = 3221225472;
+      *&v62 = sub_1000282DC;
+      *(&v62 + 1) = &unk_100048BA8;
+      *&v63 = &v52;
+      v16 = sub_100027DF8();
+      v17 = dlsym(v16, "kCVAFaceTrackingLiteFilterClientAccessibility_Expressions");
+      *(*(v63 + 8) + 24) = v17;
+      qword_1000546F8 = *(*(v63 + 8) + 24);
+      v15 = *(*(&v52 + 1) + 24);
     }
 
-    _Block_object_dispose(&v53, 8);
-    if (v14)
+    _Block_object_dispose(&v52, 8);
+    if (v15)
     {
-      v17 = [v12 objectForKeyedSubscript:*v14];
-      v66 = 0;
-      v64 = 0u;
-      v65 = 0u;
-      v62 = 0u;
+      v18 = [v12 objectForKeyedSubscript:*v15];
+      v65 = 0;
       v63 = 0u;
-      +[AXSSMotionTrackingExpressionConfiguration_Exclave emptyAccessibilityExpressions];
-      v60 = 0u;
+      v64 = 0u;
       v61 = 0u;
-      v58 = 0u;
+      v62 = 0u;
+      objc_msgSend_emptyAccessibilityExpressions(AXSSMotionTrackingExpressionConfiguration_Exclave);
       v59 = 0u;
-      v18 = v17;
-      v19 = [v18 countByEnumeratingWithState:&v58 objects:v67 count:16];
-      if (v19)
+      v60 = 0u;
+      v57 = 0u;
+      v58 = 0u;
+      v19 = v18;
+      v20 = [v19 countByEnumeratingWithState:&v57 objects:v66 count:16];
+      if (v20)
       {
-        v20 = *v59;
+        v21 = *v58;
         do
         {
-          for (i = 0; i != v19; i = i + 1)
+          for (i = 0; i != v20; i = i + 1)
           {
-            if (*v59 != v20)
+            if (*v58 != v21)
             {
-              objc_enumerationMutation(v18);
+              objc_enumerationMutation(v19);
             }
 
-            v22 = *(*(&v58 + 1) + 8 * i);
-            v23 = [v18 objectForKeyedSubscript:v22];
-            charValue = [v23 charValue];
+            v23 = [v19 objectForKeyedSubscript:*(*(&v57 + 1) + 8 * i)];
+            [v23 charValue];
+            v49 = v63;
             v50 = v64;
             v51 = v65;
-            v52 = v66;
+            v47 = v61;
             v48 = v62;
-            v49 = v63;
-            [(AXMTFaceKitFaceTracker *)self _updateAXExpressions:&v48 withFaceKitLiteExpresion:v22 faceKitLiteExpressionActivation:charValue];
+            objc_msgSend__updateAXExpressions_withFaceKitLiteExpresion_faceKitLiteExpressionActivation_(self);
+            v63 = v54;
             v64 = v55;
             v65 = v56;
-            v66 = v57;
+            v61 = v52;
             v62 = v53;
-            v63 = v54;
           }
 
-          v19 = [v18 countByEnumeratingWithState:&v58 objects:v67 count:16];
+          v20 = [v19 countByEnumeratingWithState:&v57 objects:v66 count:16];
         }
 
-        while (v19);
+        while (v20);
       }
 
-      *&v48 = 0;
-      *(&v48 + 1) = &v48;
-      *&v49 = 0x2020000000;
-      v25 = qword_100054700;
-      *(&v49 + 1) = qword_100054700;
+      *&v47 = 0;
+      *(&v47 + 1) = &v47;
+      *&v48 = 0x2020000000;
+      v24 = qword_100054700;
+      *(&v48 + 1) = qword_100054700;
       if (!qword_100054700)
       {
-        *&v53 = _NSConcreteStackBlock;
-        *(&v53 + 1) = 3221225472;
-        *&v54 = sub_10002832C;
-        *(&v54 + 1) = &unk_100048BA8;
-        *&v55 = &v48;
-        v26 = sub_100027DF8();
-        v27 = dlsym(v26, "kCVAFaceTrackingLiteFilterClientAccessibility_Landmarks");
-        *(*(v55 + 8) + 24) = v27;
-        qword_100054700 = *(*(v55 + 8) + 24);
-        v25 = *(*(&v48 + 1) + 24);
+        *&v52 = _NSConcreteStackBlock;
+        *(&v52 + 1) = 3221225472;
+        *&v53 = sub_10002832C;
+        *(&v53 + 1) = &unk_100048BA8;
+        *&v54 = &v47;
+        v25 = sub_100027DF8();
+        v26 = dlsym(v25, "kCVAFaceTrackingLiteFilterClientAccessibility_Landmarks");
+        *(*(v54 + 8) + 24) = v26;
+        qword_100054700 = *(*(v54 + 8) + 24);
+        v24 = *(*(&v47 + 1) + 24);
       }
 
-      _Block_object_dispose(&v48, 8);
-      if (v25)
+      _Block_object_dispose(&v47, 8);
+      if (v24)
       {
-        v28 = [v12 objectForKeyedSubscript:*v25];
-        *&v48 = 0;
-        *(&v48 + 1) = &v48;
-        *&v49 = 0x2020000000;
-        v29 = qword_100054708;
-        *(&v49 + 1) = qword_100054708;
+        v27 = [v12 objectForKeyedSubscript:*v24];
+        *&v47 = 0;
+        *(&v47 + 1) = &v47;
+        *&v48 = 0x2020000000;
+        v28 = qword_100054708;
+        *(&v48 + 1) = qword_100054708;
         if (!qword_100054708)
         {
-          *&v53 = _NSConcreteStackBlock;
-          *(&v53 + 1) = 3221225472;
-          *&v54 = sub_10002837C;
-          *(&v54 + 1) = &unk_100048BA8;
-          *&v55 = &v48;
-          v30 = sub_100027DF8();
-          v31 = dlsym(v30, "kCVAFaceTrackingLiteFilterClientAccessibility_LandmarkNoseBaseCenter");
-          *(*(v55 + 8) + 24) = v31;
-          qword_100054708 = *(*(v55 + 8) + 24);
-          v29 = *(*(&v48 + 1) + 24);
+          *&v52 = _NSConcreteStackBlock;
+          *(&v52 + 1) = 3221225472;
+          *&v53 = sub_10002837C;
+          *(&v53 + 1) = &unk_100048BA8;
+          *&v54 = &v47;
+          v29 = sub_100027DF8();
+          v30 = dlsym(v29, "kCVAFaceTrackingLiteFilterClientAccessibility_LandmarkNoseBaseCenter");
+          *(*(v54 + 8) + 24) = v30;
+          qword_100054708 = *(*(v54 + 8) + 24);
+          v28 = *(*(&v47 + 1) + 24);
         }
 
-        _Block_object_dispose(&v48, 8);
-        if (v29)
+        _Block_object_dispose(&v47, 8);
+        if (v28)
         {
-          v32 = [v28 objectForKeyedSubscript:*v29];
+          v31 = [v27 objectForKeyedSubscript:*v28];
 
-          if ([v32 count] == 2)
+          if ([v31 count] == 2)
           {
-            v33 = [v32 objectAtIndexedSubscript:0];
-            v34 = [v32 objectAtIndexedSubscript:1];
+            v32 = [v31 objectAtIndexedSubscript:0];
+            v33 = [v31 objectAtIndexedSubscript:1];
+            [v32 doubleValue];
+            v35 = v34;
             [v33 doubleValue];
-            v36 = v35;
-            [v34 doubleValue];
-            v38 = [NSValue valueWithPoint:v36, v37];
-            v39 = [AXMTFaceKitExclavesResult alloc];
+            v37 = [NSValue valueWithPoint:v35, v36];
+            v38 = [AXMTFaceKitExclavesResult alloc];
             _referenceDimensionsValue = [(AXMTFaceKitFaceTracker *)self _referenceDimensionsValue];
+            v54 = v63;
             v55 = v64;
             v56 = v65;
-            v57 = v66;
+            v52 = v61;
             v53 = v62;
-            v54 = v63;
-            v41 = [(AXMTFaceKitExclavesResult *)v39 initWithFaceKitLiteSharedDataDictionary:v47 expressions:&v53 noseBaseCenter:v38 referenceDimensionsValue:_referenceDimensionsValue imageProcessedInExclaves:exclavesCopy];
+            v40 = [(AXMTFaceKitExclavesResult *)v38 initWithFaceKitLiteSharedDataDictionary:v46 expressions:&v52 noseBaseCenter:v37 referenceDimensionsValue:_referenceDimensionsValue imageProcessedInExclaves:exclavesCopy];
           }
 
           else
           {
-            v41 = 0;
+            v40 = 0;
           }
 
           goto LABEL_32;
@@ -723,16 +726,16 @@ LABEL_35:
     goto LABEL_37;
   }
 
-  v18 = AXSSLogForCategory();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  v19 = AXSSLogForCategory();
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
     sub_1000290E4();
   }
 
-  v41 = 0;
+  v40 = 0;
 LABEL_32:
 
-  return v41;
+  return v40;
 }
 
 - ($AA6A45B2DFCED8527C3A0E9A46B0D48F)_updateAXExpressions:(SEL)expressions withFaceKitLiteExpresion:(id *)expresion faceKitLiteExpressionActivation:(id)activation
@@ -740,20 +743,20 @@ LABEL_32:
   v6 = a6;
   activationCopy = activation;
   v11 = [(AXMTFaceKitFaceTracker *)self _axFacialExpressionActivationForFaceKitLiteExpresionActivation:v6];
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x2020000000;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x2020000000;
   v12 = qword_100054710;
-  v33 = qword_100054710;
+  v37 = qword_100054710;
   if (!qword_100054710)
   {
     v13 = sub_100027DF8();
-    v31[3] = dlsym(v13, "kCVAFaceTrackingLiteFilterClientAccessibility_ExpressionBrowsUp");
-    qword_100054710 = v31[3];
-    v12 = v31[3];
+    v35[3] = dlsym(v13, "kCVAFaceTrackingLiteFilterClientAccessibility_ExpressionBrowsUp");
+    qword_100054710 = v35[3];
+    v12 = v35[3];
   }
 
-  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v34, 8);
   if (!v12)
   {
     sub_100029794();
@@ -777,20 +780,20 @@ LABEL_36:
     goto LABEL_37;
   }
 
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x2020000000;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x2020000000;
   v16 = qword_100054718;
-  v33 = qword_100054718;
+  v37 = qword_100054718;
   if (!qword_100054718)
   {
     v17 = sub_100027DF8();
-    v31[3] = dlsym(v17, "kCVAFaceTrackingLiteFilterClientAccessibility_ExpressionJawOpen");
-    qword_100054718 = v31[3];
-    v16 = v31[3];
+    v35[3] = dlsym(v17, "kCVAFaceTrackingLiteFilterClientAccessibility_ExpressionJawOpen");
+    qword_100054718 = v35[3];
+    v16 = v35[3];
   }
 
-  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v34, 8);
   if (!v16)
   {
     goto LABEL_39;
@@ -802,20 +805,20 @@ LABEL_36:
     goto LABEL_36;
   }
 
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x2020000000;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x2020000000;
   v18 = qword_100054720;
-  v33 = qword_100054720;
+  v37 = qword_100054720;
   if (!qword_100054720)
   {
     v19 = sub_100027DF8();
-    v31[3] = dlsym(v19, "kCVAFaceTrackingLiteFilterClientAccessibility_ExpressionSmile");
-    qword_100054720 = v31[3];
-    v18 = v31[3];
+    v35[3] = dlsym(v19, "kCVAFaceTrackingLiteFilterClientAccessibility_ExpressionSmile");
+    qword_100054720 = v35[3];
+    v18 = v35[3];
   }
 
-  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v34, 8);
   if (!v18)
   {
     goto LABEL_40;
@@ -827,20 +830,20 @@ LABEL_36:
     goto LABEL_36;
   }
 
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x2020000000;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x2020000000;
   v20 = qword_100054728;
-  v33 = qword_100054728;
+  v37 = qword_100054728;
   if (!qword_100054728)
   {
     v21 = sub_100027DF8();
-    v31[3] = dlsym(v21, "kCVAFaceTrackingLiteFilterClientAccessibility_ExpressionTongueOut");
-    qword_100054728 = v31[3];
-    v20 = v31[3];
+    v35[3] = dlsym(v21, "kCVAFaceTrackingLiteFilterClientAccessibility_ExpressionTongueOut");
+    qword_100054728 = v35[3];
+    v20 = v35[3];
   }
 
-  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v34, 8);
   if (!v20)
   {
     goto LABEL_41;
@@ -852,20 +855,20 @@ LABEL_36:
     goto LABEL_36;
   }
 
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x2020000000;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x2020000000;
   v22 = qword_100054730;
-  v33 = qword_100054730;
+  v37 = qword_100054730;
   if (!qword_100054730)
   {
     v23 = sub_100027DF8();
-    v31[3] = dlsym(v23, "kCVAFaceTrackingLiteFilterClientAccessibility_ExpressionEyeBlink");
-    qword_100054730 = v31[3];
-    v22 = v31[3];
+    v35[3] = dlsym(v23, "kCVAFaceTrackingLiteFilterClientAccessibility_ExpressionEyeBlink");
+    qword_100054730 = v35[3];
+    v22 = v35[3];
   }
 
-  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v34, 8);
   if (!v22)
   {
     goto LABEL_42;
@@ -877,60 +880,64 @@ LABEL_36:
     goto LABEL_36;
   }
 
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x2020000000;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x2020000000;
   v24 = qword_100054738;
-  v33 = qword_100054738;
+  v37 = qword_100054738;
   if (!qword_100054738)
   {
     v25 = sub_100027DF8();
-    v31[3] = dlsym(v25, "kCVAFaceTrackingLiteFilterClientAccessibility_ExpressionNoseSneer");
-    qword_100054738 = v31[3];
-    v24 = v31[3];
+    v35[3] = dlsym(v25, "kCVAFaceTrackingLiteFilterClientAccessibility_ExpressionNoseSneer");
+    qword_100054738 = v35[3];
+    v24 = v35[3];
   }
 
-  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v34, 8);
   if (!v24)
   {
 LABEL_43:
-    v29 = sub_100029794();
-    _Block_object_dispose(&v30, 8);
-    _Unwind_Resume(v29);
+    sub_100029794();
+    v33 = v32;
+    _Block_object_dispose(&v34, 8);
+    _Unwind_Resume(v33);
   }
 
-  if ([activationCopy isEqualToString:*v24])
+  v26 = [activationCopy isEqualToString:*v24];
+  if (v26)
   {
     p_var1 = &expresion->var5;
     goto LABEL_36;
   }
 
-  if ([activationCopy isEqualToString:sub_100023F84()])
+  v27 = [activationCopy isEqualToString:sub_100023F84(v26)];
+  if (v27)
   {
     p_var1 = &expresion->var6;
     goto LABEL_36;
   }
 
-  if ([activationCopy isEqualToString:sub_100024078()])
+  v28 = [activationCopy isEqualToString:sub_100024078(v27)];
+  if (v28)
   {
     p_var1 = &expresion->var8;
     goto LABEL_36;
   }
 
-  if ([activationCopy isEqualToString:sub_10002416C()])
+  if ([activationCopy isEqualToString:sub_10002416C(v28)])
   {
     p_var1 = &expresion->var7;
     goto LABEL_36;
   }
 
 LABEL_37:
-  v26 = *&expresion->var6;
+  v29 = *&expresion->var6;
   *&retstr->var4 = *&expresion->var4;
-  *&retstr->var6 = v26;
+  *&retstr->var6 = v29;
   retstr->var8 = expresion->var8;
-  v27 = *&expresion->var2;
+  v30 = *&expresion->var2;
   *&retstr->var0 = *&expresion->var0;
-  *&retstr->var2 = v27;
+  *&retstr->var2 = v30;
 
   return result;
 }
@@ -951,7 +958,7 @@ LABEL_37:
 - (void)_processFaceKitResults:(__CFDictionary *)results withSampleBuffer:(opaqueCMSampleBuffer *)buffer
 {
   resultsCopy = results;
-  v7 = [(__CFDictionary *)resultsCopy objectForKeyedSubscript:sub_1000238F4()];
+  v7 = [(__CFDictionary *)resultsCopy objectForKeyedSubscript:sub_1000238F4(resultsCopy)];
   v8 = v7;
   if (buffer)
   {
@@ -970,25 +977,25 @@ LABEL_37:
   }
 
   _faceKitLiteFilterRef = [(AXMTFaceKitFaceTracker *)self _faceKitLiteFilterRef];
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x2020000000;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x2020000000;
   v12 = off_100054758;
-  v46 = off_100054758;
+  v47 = off_100054758;
   if (!off_100054758)
   {
-    v38 = _NSConcreteStackBlock;
-    v39 = 3221225472;
-    v40 = sub_10002869C;
-    v41 = &unk_100048BA8;
-    v42 = &v43;
+    v39 = _NSConcreteStackBlock;
+    v40 = 3221225472;
+    v41 = sub_10002869C;
+    v42 = &unk_100048BA8;
+    v43 = &v44;
     v13 = sub_100027DF8();
-    v44[3] = dlsym(v13, "CVAFaceTrackingLiteFilterProcessVanilla");
-    off_100054758 = *(v42[1] + 24);
-    v12 = v44[3];
+    v45[3] = dlsym(v13, "CVAFaceTrackingLiteFilterProcessVanilla");
+    off_100054758 = *(v43[1] + 24);
+    v12 = v45[3];
   }
 
-  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v44, 8);
   if (!v12)
   {
     sub_100029794();
@@ -998,67 +1005,68 @@ LABEL_32:
   }
 
   v12(_faceKitLiteFilterRef, resultsCopy);
+  v38 = 0;
   v37 = 0;
-  v36 = 0;
   _faceKitLiteFilterRef2 = [(AXMTFaceKitFaceTracker *)self _faceKitLiteFilterRef];
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x2020000000;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x2020000000;
   v15 = off_100054768;
-  v46 = off_100054768;
+  v47 = off_100054768;
   if (!off_100054768)
   {
-    v38 = _NSConcreteStackBlock;
-    v39 = 3221225472;
-    v40 = sub_10002873C;
-    v41 = &unk_100048BA8;
-    v42 = &v43;
+    v39 = _NSConcreteStackBlock;
+    v40 = 3221225472;
+    v41 = sub_10002873C;
+    v42 = &unk_100048BA8;
+    v43 = &v44;
     v16 = sub_100027DF8();
-    v44[3] = dlsym(v16, "CVAFaceTrackingLiteFilterGetOutput");
-    off_100054768 = *(v42[1] + 24);
-    v15 = v44[3];
+    v45[3] = dlsym(v16, "CVAFaceTrackingLiteFilterGetOutput");
+    off_100054768 = *(v43[1] + 24);
+    v15 = v45[3];
   }
 
-  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v44, 8);
   if (!v15)
   {
     goto LABEL_32;
   }
 
   v17 = v15(_faceKitLiteFilterRef2);
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x2020000000;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x2020000000;
   v18 = off_100054760;
-  v46 = off_100054760;
+  v47 = off_100054760;
   if (!off_100054760)
   {
-    v38 = _NSConcreteStackBlock;
-    v39 = 3221225472;
-    v40 = sub_1000286EC;
-    v41 = &unk_100048BA8;
-    v42 = &v43;
+    v39 = _NSConcreteStackBlock;
+    v40 = 3221225472;
+    v41 = sub_1000286EC;
+    v42 = &unk_100048BA8;
+    v43 = &v44;
     v19 = sub_100027DF8();
-    v44[3] = dlsym(v19, "CVAFaceTrackingLiteFilterCopyDecodedOutput");
-    off_100054760 = *(v42[1] + 24);
-    v18 = v44[3];
+    v45[3] = dlsym(v19, "CVAFaceTrackingLiteFilterCopyDecodedOutput");
+    off_100054760 = *(v43[1] + 24);
+    v18 = v45[3];
   }
 
-  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v44, 8);
   if (!v18)
   {
 LABEL_33:
-    v35 = sub_100029794();
-    _Block_object_dispose(&v43, 8);
-    _Unwind_Resume(v35);
+    sub_100029794();
+    v36 = v35;
+    _Block_object_dispose(&v44, 8);
+    _Unwind_Resume(v36);
   }
 
-  v18(v17, &v37, &v36);
-  v20 = v37;
+  v18(v17, &v38, &v37);
+  v20 = v38;
 
   resultsCopy = v20;
 LABEL_18:
-  v21 = [(__CFDictionary *)resultsCopy objectForKeyedSubscript:sub_1000238F4()];
+  v21 = [(__CFDictionary *)resultsCopy objectForKeyedSubscript:sub_1000238F4(v7)];
 
   if (v21)
   {
@@ -1200,8 +1208,8 @@ LABEL_18:
   v10 = [arrayCopy objectAtIndexedSubscript:2];
   v11 = [v10 objectAtIndexedSubscript:0];
   [v11 floatValue];
-  *&v12 = __PAIR64__(v27, v28);
-  *(&v12 + 1) = v13;
+  v12.n128_u64[0] = __PAIR64__(v27, v28);
+  v12.n128_u64[1] = v13;
   v29 = v12;
 
   v14 = [arrayCopy objectAtIndexedSubscript:0];
@@ -1274,13 +1282,13 @@ LABEL_18:
   infoCopy = info;
   callbackCopy = callback;
   v9 = +[NSMutableDictionary dictionary];
-  v63[0] = sub_100025A00();
-  v64[0] = &off_100049FB8;
-  v63[1] = sub_100025AF4();
-  v64[1] = &off_100049FD0;
-  v48 = [NSDictionary dictionaryWithObjects:v64 forKeys:v63 count:2];
-  v52 = +[NSMutableDictionary dictionary];
-  [v52 setObject:v48 forKeyedSubscript:sub_100025BE8()];
+  v64[0] = sub_100025A00(v9);
+  v65[0] = &off_100049FB8;
+  v64[1] = sub_100025AF4(v64[0]);
+  v65[1] = &off_100049FD0;
+  v49 = [NSDictionary dictionaryWithObjects:v65 forKeys:v64 count:2];
+  v53 = +[NSMutableDictionary dictionary];
+  [v53 setObject:v49 forKeyedSubscript:sub_100025BE8(v53)];
   ImageBuffer = CMSampleBufferGetImageBuffer(buffer);
   if (!ImageBuffer)
   {
@@ -1295,10 +1303,11 @@ LABEL_18:
   v13 = v12;
   if (v12 && (v14 = CFGetTypeID(v12), v14 == CFDataGetTypeID()))
   {
-    *v55 = 0u;
+    *v56 = 0u;
     memset(time, 0, sizeof(time));
     [v13 getBytes:time length:48];
-    _backupIntrinsicsMatrixForiOS = [self _intrinsicsArrayFromMatrix:{*time, *&time[16], v55[0]}];
+    _backupIntrinsicsMatrixForiOS = [self _intrinsicsArrayFromMatrix:{*time, *&time[16], v56[0]}];
+    v51 = _backupIntrinsicsMatrixForiOS;
   }
 
   else
@@ -1306,245 +1315,246 @@ LABEL_18:
     if (!ImageBuffer)
     {
 LABEL_12:
-      _backupIntrinsicsMatrixForiOS = 0;
+      v51 = 0;
       goto LABEL_13;
     }
 
     _backupIntrinsicsMatrixForiOS = [objc_opt_class() _backupIntrinsicsMatrixForiOS];
+    v51 = _backupIntrinsicsMatrixForiOS;
   }
 
-  if (!_backupIntrinsicsMatrixForiOS)
+  if (!v51)
   {
     goto LABEL_12;
   }
 
-  [v52 setObject:_backupIntrinsicsMatrixForiOS forKeyedSubscript:sub_100025CDC()];
+  [v53 setObject:v51 forKeyedSubscript:sub_100025CDC(_backupIntrinsicsMatrixForiOS)];
 LABEL_13:
-  v15 = [v52 copy];
-  [v9 setObject:v15 forKeyedSubscript:sub_100025DD0()];
+  v16 = [v53 copy];
+  [v9 setObject:v16 forKeyedSubscript:sub_100025DD0(v16)];
 
   if (!infoCopy)
   {
-    v16 = AXSSLogForCategory();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = AXSSLogForCategory();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_100029278();
     }
   }
 
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
-  v17 = qword_100054798;
-  v59 = qword_100054798;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
+  v18 = qword_100054798;
+  v60 = qword_100054798;
   if (!qword_100054798)
   {
     *time = _NSConcreteStackBlock;
     *&time[8] = 3221225472;
     *&time[16] = sub_10002891C;
     *&time[24] = &unk_100048BA8;
-    *&v55[0] = &v56;
-    v18 = sub_100027DF8();
-    v19 = dlsym(v18, "kCVAFaceTracking_DetectedFaceFaceID");
-    *(*(*&v55[0] + 8) + 24) = v19;
-    qword_100054798 = *(*(*&v55[0] + 8) + 24);
-    v17 = v57[3];
+    *&v56[0] = &v57;
+    v19 = sub_100027DF8();
+    v20 = dlsym(v19, "kCVAFaceTracking_DetectedFaceFaceID");
+    *(*(*&v56[0] + 8) + 24) = v20;
+    qword_100054798 = *(*(*&v56[0] + 8) + 24);
+    v18 = v58[3];
   }
 
-  _Block_object_dispose(&v56, 8);
-  if (!v17)
+  _Block_object_dispose(&v57, 8);
+  if (!v18)
   {
     goto LABEL_47;
   }
 
-  v60[0] = *v17;
-  v49 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [infoCopy identifier]);
-  v61[0] = v49;
-  v60[1] = sub_100025EC4();
+  v61[0] = *v18;
+  v50 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [infoCopy identifier]);
+  v62[0] = v50;
+  v61[1] = sub_100025EC4(v50);
   [infoCopy boundingBoxInNormalizedCoordinates];
-  DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v66);
-  v61[1] = DictionaryRepresentation;
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
-  v21 = qword_1000547A8;
-  v59 = qword_1000547A8;
+  DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v67);
+  v62[1] = DictionaryRepresentation;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
+  v22 = qword_1000547A8;
+  v60 = qword_1000547A8;
   if (!qword_1000547A8)
   {
     *time = _NSConcreteStackBlock;
     *&time[8] = 3221225472;
     *&time[16] = sub_1000289BC;
     *&time[24] = &unk_100048BA8;
-    *&v55[0] = &v56;
-    v22 = sub_100027DF8();
-    v23 = dlsym(v22, "kCVAFaceTracking_DetectedFaceAngleInfoRoll");
-    *(*(*&v55[0] + 8) + 24) = v23;
-    qword_1000547A8 = *(*(*&v55[0] + 8) + 24);
-    v21 = v57[3];
+    *&v56[0] = &v57;
+    v23 = sub_100027DF8();
+    v24 = dlsym(v23, "kCVAFaceTracking_DetectedFaceAngleInfoRoll");
+    *(*(*&v56[0] + 8) + 24) = v24;
+    qword_1000547A8 = *(*(*&v56[0] + 8) + 24);
+    v22 = v58[3];
   }
 
-  _Block_object_dispose(&v56, 8);
-  if (!v21)
+  _Block_object_dispose(&v57, 8);
+  if (!v22)
   {
     goto LABEL_47;
   }
 
-  v60[2] = *v21;
+  v61[2] = *v22;
   [infoCopy roll];
-  v24 = [NSNumber numberWithDouble:?];
-  v61[2] = v24;
-  v25 = [NSDictionary dictionaryWithObjects:v61 forKeys:v60 count:3];
-  v62 = v25;
-  v26 = [NSArray arrayWithObjects:&v62 count:1];
-  v27 = infoCopy;
+  v25 = [NSNumber numberWithDouble:?];
+  v62[2] = v25;
+  v26 = [NSDictionary dictionaryWithObjects:v62 forKeys:v61 count:3];
+  v63 = v26;
+  v27 = [NSArray arrayWithObjects:&v63 count:1];
+  v28 = infoCopy;
   bufferCopy = buffer;
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
-  v29 = qword_1000547B0;
-  v59 = qword_1000547B0;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
+  v30 = qword_1000547B0;
+  v60 = qword_1000547B0;
   if (!qword_1000547B0)
   {
     *time = _NSConcreteStackBlock;
     *&time[8] = 3221225472;
     *&time[16] = sub_100028A0C;
     *&time[24] = &unk_100048BA8;
-    *&v55[0] = &v56;
-    v30 = sub_100027DF8();
-    v31 = dlsym(v30, "kCVAFaceTracking_DetectedFacesArray");
-    *(*(*&v55[0] + 8) + 24) = v31;
-    qword_1000547B0 = *(*(*&v55[0] + 8) + 24);
-    v29 = v57[3];
+    *&v56[0] = &v57;
+    v31 = sub_100027DF8();
+    v32 = dlsym(v31, "kCVAFaceTracking_DetectedFacesArray");
+    *(*(*&v56[0] + 8) + 24) = v32;
+    qword_1000547B0 = *(*(*&v56[0] + 8) + 24);
+    v30 = v58[3];
   }
 
-  _Block_object_dispose(&v56, 8);
-  if (!v29)
+  _Block_object_dispose(&v57, 8);
+  if (!v30)
   {
     goto LABEL_47;
   }
 
-  [v9 setObject:v26 forKeyedSubscript:*v29];
+  [v9 setObject:v27 forKeyedSubscript:*v30];
 
   if (!ImageBuffer)
   {
     goto LABEL_31;
   }
 
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
-  v32 = qword_1000547B8;
-  v59 = qword_1000547B8;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
+  v33 = qword_1000547B8;
+  v60 = qword_1000547B8;
   if (!qword_1000547B8)
   {
     *time = _NSConcreteStackBlock;
     *&time[8] = 3221225472;
     *&time[16] = sub_100028A5C;
     *&time[24] = &unk_100048BA8;
-    *&v55[0] = &v56;
-    v33 = sub_100027DF8();
-    v34 = dlsym(v33, "kCVAFaceTracking_Color");
-    *(*(*&v55[0] + 8) + 24) = v34;
-    qword_1000547B8 = *(*(*&v55[0] + 8) + 24);
-    v32 = v57[3];
+    *&v56[0] = &v57;
+    v34 = sub_100027DF8();
+    v35 = dlsym(v34, "kCVAFaceTracking_Color");
+    *(*(*&v56[0] + 8) + 24) = v35;
+    qword_1000547B8 = *(*(*&v56[0] + 8) + 24);
+    v33 = v58[3];
   }
 
-  _Block_object_dispose(&v56, 8);
-  if (!v32)
+  _Block_object_dispose(&v57, 8);
+  if (!v33)
   {
 LABEL_47:
     sub_100029794();
     goto LABEL_51;
   }
 
-  [v9 setObject:ImageBuffer forKeyedSubscript:*v32];
+  [v9 setObject:ImageBuffer forKeyedSubscript:*v33];
 LABEL_31:
-  memset(&v53, 0, sizeof(v53));
-  CMSampleBufferGetPresentationTimeStamp(&v53, bufferCopy);
-  *time = v53;
-  v35 = CMTimeCopyAsDictionary(time, kCFAllocatorDefault);
-  if (v35)
+  memset(&v54, 0, sizeof(v54));
+  CMSampleBufferGetPresentationTimeStamp(&v54, bufferCopy);
+  *time = v54;
+  v36 = CMTimeCopyAsDictionary(time, kCFAllocatorDefault);
+  if (v36)
   {
-    v56 = 0;
-    v57 = &v56;
-    v58 = 0x2020000000;
-    v36 = qword_1000547C0;
-    v59 = qword_1000547C0;
+    v57 = 0;
+    v58 = &v57;
+    v59 = 0x2020000000;
+    v37 = qword_1000547C0;
+    v60 = qword_1000547C0;
     if (!qword_1000547C0)
     {
       *time = _NSConcreteStackBlock;
       *&time[8] = 3221225472;
       *&time[16] = sub_100028AAC;
       *&time[24] = &unk_100048BA8;
-      *&v55[0] = &v56;
-      v37 = sub_100027DF8();
-      v38 = dlsym(v37, "kCVAFaceTracking_Timestamp");
-      *(*(*&v55[0] + 8) + 24) = v38;
-      qword_1000547C0 = *(*(*&v55[0] + 8) + 24);
-      v36 = v57[3];
+      *&v56[0] = &v57;
+      v38 = sub_100027DF8();
+      v39 = dlsym(v38, "kCVAFaceTracking_Timestamp");
+      *(*(*&v56[0] + 8) + 24) = v39;
+      qword_1000547C0 = *(*(*&v56[0] + 8) + 24);
+      v37 = v58[3];
     }
 
-    _Block_object_dispose(&v56, 8);
-    if (!v36)
+    _Block_object_dispose(&v57, 8);
+    if (!v37)
     {
       goto LABEL_50;
     }
 
-    [v9 setObject:v35 forKeyedSubscript:*v36];
+    [v9 setObject:v36 forKeyedSubscript:*v37];
   }
 
   if (callbackCopy)
   {
-    v39 = objc_retainBlock(callbackCopy);
-    v56 = 0;
-    v57 = &v56;
-    v58 = 0x2020000000;
-    v40 = qword_1000547C8;
-    v59 = qword_1000547C8;
+    v40 = objc_retainBlock(callbackCopy);
+    v57 = 0;
+    v58 = &v57;
+    v59 = 0x2020000000;
+    v41 = qword_1000547C8;
+    v60 = qword_1000547C8;
     if (!qword_1000547C8)
     {
       *time = _NSConcreteStackBlock;
       *&time[8] = 3221225472;
       *&time[16] = sub_100028AFC;
       *&time[24] = &unk_100048BA8;
-      *&v55[0] = &v56;
-      v41 = sub_100027DF8();
-      v42 = dlsym(v41, "kCVAFaceTracking_Callback");
-      *(*(*&v55[0] + 8) + 24) = v42;
-      qword_1000547C8 = *(*(*&v55[0] + 8) + 24);
-      v40 = v57[3];
+      *&v56[0] = &v57;
+      v42 = sub_100027DF8();
+      v43 = dlsym(v42, "kCVAFaceTracking_Callback");
+      *(*(*&v56[0] + 8) + 24) = v43;
+      qword_1000547C8 = *(*(*&v56[0] + 8) + 24);
+      v41 = v58[3];
     }
 
-    _Block_object_dispose(&v56, 8);
-    if (!v40)
+    _Block_object_dispose(&v57, 8);
+    if (!v41)
     {
       goto LABEL_50;
     }
 
-    [v9 setObject:v39 forKeyedSubscript:*v40];
+    [v9 setObject:v40 forKeyedSubscript:*v41];
   }
 
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
-  v43 = qword_1000547D0;
-  v59 = qword_1000547D0;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
+  v44 = qword_1000547D0;
+  v60 = qword_1000547D0;
   if (!qword_1000547D0)
   {
     *time = _NSConcreteStackBlock;
     *&time[8] = 3221225472;
     *&time[16] = sub_100028B4C;
     *&time[24] = &unk_100048BA8;
-    *&v55[0] = &v56;
-    v44 = sub_100027DF8();
-    v45 = dlsym(v44, "kCVAFaceTracking_AddMesh");
-    *(*(*&v55[0] + 8) + 24) = v45;
-    qword_1000547D0 = *(*(*&v55[0] + 8) + 24);
-    v43 = v57[3];
+    *&v56[0] = &v57;
+    v45 = sub_100027DF8();
+    v46 = dlsym(v45, "kCVAFaceTracking_AddMesh");
+    *(*(*&v56[0] + 8) + 24) = v46;
+    qword_1000547D0 = *(*(*&v56[0] + 8) + 24);
+    v44 = v58[3];
   }
 
-  _Block_object_dispose(&v56, 8);
-  if (!v43)
+  _Block_object_dispose(&v57, 8);
+  if (!v44)
   {
 LABEL_50:
     sub_100029794();
@@ -1552,10 +1562,10 @@ LABEL_51:
     __break(1u);
   }
 
-  [v9 setObject:&__kCFBooleanTrue forKeyedSubscript:*v43];
-  v46 = [v9 copy];
+  [v9 setObject:&__kCFBooleanTrue forKeyedSubscript:*v44];
+  v47 = [v9 copy];
 
-  return v46;
+  return v47;
 }
 
 + (NSDictionary)_faceKitCreationOptions

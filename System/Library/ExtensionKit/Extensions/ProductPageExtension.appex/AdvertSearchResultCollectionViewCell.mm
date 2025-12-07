@@ -26,13 +26,13 @@
 
 - (void)prepareForReuse
 {
-  v4.receiver = self;
-  v4.super_class = type metadata accessor for AdvertSearchResultCollectionViewCell();
-  v2 = v4.receiver;
-  [(AdvertSearchResultCollectionViewCell *)&v4 prepareForReuse];
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for AdvertSearchResultCollectionViewCell();
+  v2 = v5.receiver;
+  [(AdvertSearchResultCollectionViewCell *)&v5 prepareForReuse];
   v3 = *&v2[OBJC_IVAR____TtC20ProductPageExtension36AdvertSearchResultCollectionViewCell_advertsContentView];
   sub_100522870();
-  sub_10057EDF4();
+  sub_10057EDF4(v4);
 }
 
 @end

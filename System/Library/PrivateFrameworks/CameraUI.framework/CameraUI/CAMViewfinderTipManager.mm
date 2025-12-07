@@ -8,7 +8,7 @@
 + (id)stylesTipViewControllerWithSourceItem:(id)item
 {
   itemCopy = item;
-  v4 = sub_1A3989A0C();
+  v4 = sub_1A3989A0C(itemCopy);
 
   return v4;
 }

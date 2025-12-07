@@ -81,7 +81,7 @@
 
 - (void)pushPoint:(PolyNomialExtrapolation *)self
 {
-  v5 = *(&v2 + 1);
+  v5 = HIDWORD(v2);
   v7 = v2;
   std::deque<float>::push_back(&self->_x, &v7);
   v6 = v5;
@@ -99,11 +99,11 @@
 
 - (double)predict
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   if ([self ready])
   {
-    v29 = *(self + 8);
-    if (v29 >= 1)
+    v28 = *(self + 8);
+    if (v28 >= 1)
     {
       v2 = 0;
       v3 = *(self + 12);
@@ -148,10 +148,10 @@ LABEL_11:
         ++v2;
       }
 
-      while (v2 != (v29 & ~(v29 >> 31)));
+      while (v2 != (v28 & ~(v28 >> 31)));
     }
 
-    if (v29 >= 1)
+    if (v28 >= 1)
     {
       v14 = 0;
       v15 = *(self + 80);
@@ -172,60 +172,60 @@ LABEL_11:
         ++v14;
       }
 
-      while (v29 != v14);
+      while (v28 != v14);
     }
 
-    v41 = 869711765;
-    cva::SVD<cva::Matrix<float,0u,0u,false>,true>::SVD<cva::Matrix<float,0u,0u,false>>(v33, (self + 16), 3, 0);
-    cva::SVD<cva::Matrix<float,0u,0u,false>,true>::inverse(v33, &v41, v36);
-    if (v38 != *(self + 80))
+    v40 = 869711765;
+    cva::SVD<cva::Matrix<float,0u,0u,false>,true>::SVD<cva::Matrix<float,0u,0u,false>>(v32, self + 16, 3, 0);
+    cva::SVD<cva::Matrix<float,0u,0u,false>,true>::inverse(v32, &v40, v35);
+    if (v37 != *(self + 80))
     {
       __assert_rtn("MatrixMultExpr", "matrixmultexpr.h", 100, "((lhs.ref().columns() == rhs.ref().rows())) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
     }
 
-    v39[0] = 0;
-    v39[1] = 0;
-    cva::MatrixData<int,0ul,0ul,false>::allocate(v39, v37);
-    v40 = v37;
-    v43 = v36;
-    v44 = self + 64;
-    if (v38 != *(self + 80))
+    v38[0] = 0;
+    v38[1] = 0;
+    cva::MatrixData<int,0ul,0ul,false>::allocate(v38, v36);
+    v39 = v36;
+    v42 = v35;
+    v43 = self + 64;
+    if (v37 != *(self + 80))
     {
       __assert_rtn("MatrixMultExpr", "matrixmultexpr.h", 100, "((lhs.ref().columns() == rhs.ref().rows())) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
     }
 
-    v45 = 1065353216;
-    cva::assign<false,false,cva::Matrix<float,0u,1u,false>,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u,1u,false>>(v39, v42);
-    free(v36[0]);
-    free(v35);
+    v44 = 1065353216;
+    cva::assign<false,false,cva::Matrix<float,0u,1u,false>,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u,1u,false>>(v38, v41);
+    free(v35[0]);
     free(v34);
-    free(v33[0]);
-    cva::SVD<cva::Matrix<float,0u,0u,false>,true>::SVD<cva::Matrix<float,0u,0u,false>>(v33, (self + 40), 3, 0);
-    cva::SVD<cva::Matrix<float,0u,0u,false>,true>::inverse(v33, &v41, v30);
-    if (v32 != *(self + 104))
+    free(v33);
+    free(v32[0]);
+    cva::SVD<cva::Matrix<float,0u,0u,false>,true>::SVD<cva::Matrix<float,0u,0u,false>>(v32, self + 40, 3, 0);
+    cva::SVD<cva::Matrix<float,0u,0u,false>,true>::inverse(v32, &v40, v29);
+    if (v31 != *(self + 104))
     {
       __assert_rtn("MatrixMultExpr", "matrixmultexpr.h", 100, "((lhs.ref().columns() == rhs.ref().rows())) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
     }
 
-    v36[0] = 0;
-    v36[1] = 0;
-    cva::MatrixData<int,0ul,0ul,false>::allocate(v36, v31);
-    v37 = v31;
-    v43 = v30;
-    v44 = self + 88;
-    if (v32 != *(self + 104))
+    v35[0] = 0;
+    v35[1] = 0;
+    cva::MatrixData<int,0ul,0ul,false>::allocate(v35, v30);
+    v36 = v30;
+    v42 = v29;
+    v43 = self + 88;
+    if (v31 != *(self + 104))
     {
       __assert_rtn("MatrixMultExpr", "matrixmultexpr.h", 100, "((lhs.ref().columns() == rhs.ref().rows())) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
     }
 
-    v45 = 1065353216;
-    cva::assign<false,false,cva::Matrix<float,0u,1u,false>,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u,1u,false>>(v36, v42);
-    free(v30[0]);
-    free(v35);
+    v44 = 1065353216;
+    cva::assign<false,false,cva::Matrix<float,0u,1u,false>,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u,1u,false>>(v35, v41);
+    free(v29[0]);
     free(v34);
-    free(v33[0]);
+    free(v33);
+    free(v32[0]);
     v16 = *(self + 12);
-    v17 = v36[0];
+    v17 = v35[0];
     if ((v16 & 0x80000000) != 0)
     {
       v22 = 0;
@@ -233,9 +233,9 @@ LABEL_11:
 
     else
     {
-      if (v16 >= v37)
+      if (v16 >= v36)
       {
-        v18 = v37;
+        v18 = v36;
       }
 
       else
@@ -243,16 +243,16 @@ LABEL_11:
         v18 = *(self + 12);
       }
 
-      if (v40 <= v18 || v37 == v18)
+      if (v39 <= v18 || v36 == v18)
       {
         __assert_rtn("assert_in_bounds", "matrixmixin.h", 2269, "((row < mixed().rows()) && (col < mixed().columns())) || cva::detail::assertMessage(Index out of bounds!)");
       }
 
-      v19 = v39[0];
+      v19 = v38[0];
       v20 = v16 + 1;
       v21 = *(self + 8);
       v22 = 0;
-      v23 = v36[0];
+      v23 = v35[0];
       do
       {
         v24 = pow(v21, v16);
@@ -268,7 +268,7 @@ LABEL_11:
     }
 
     free(v17);
-    free(v39[0]);
+    free(v38[0]);
   }
 
   else
@@ -276,7 +276,6 @@ LABEL_11:
     v22 = vneg_f32(0x3F0000003FLL);
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return *&v22;
 }
 

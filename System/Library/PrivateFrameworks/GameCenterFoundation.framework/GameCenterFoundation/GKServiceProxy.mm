@@ -86,10 +86,10 @@ LABEL_11:
 
 - (id)methodSignatureForSelector:(SEL)selector
 {
-  v20[1] = *MEMORY[0x277D85DE8];
-  v18.receiver = self;
-  v18.super_class = GKServiceProxy;
-  v5 = [(GKServiceProxy *)&v18 methodSignatureForSelector:?];
+  v19[1] = *MEMORY[0x277D85DE8];
+  v17.receiver = self;
+  v17.super_class = GKServiceProxy;
+  v5 = [(GKServiceProxy *)&v17 methodSignatureForSelector:?];
   if (!v5)
   {
     v6 = NSStringFromSelector(selector);
@@ -100,21 +100,19 @@ LABEL_11:
     protocol = [v9 protocol];
     if (!protocol)
     {
-      v14 = MEMORY[0x277CBEAD8];
-      v19 = @"selector";
-      v20[0] = v6;
-      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
-      v16 = [v14 exceptionWithName:@"GKNoSuchServiceException" reason:@"Attempted to dispatch a selector which is not recognized by any service" userInfo:v15];
-      v17 = v16;
+      v13 = MEMORY[0x277CBEAD8];
+      v18 = @"selector";
+      v19[0] = v6;
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+      v15 = [v13 exceptionWithName:@"GKNoSuchServiceException" reason:@"Attempted to dispatch a selector which is not recognized by any service" userInfo:v14];
+      v16 = v15;
 
-      objc_exception_throw(v16);
+      objc_exception_throw(v15);
     }
 
     v11 = protocol;
     v5 = [(GKServiceProxy *)self methodSignatureForProtocol:protocol selector:selector];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -157,7 +155,7 @@ void __36__GKServiceProxy_forwardInvocation___block_invoke(uint64_t a1)
 
 void __36__GKServiceProxy_forwardInvocation___block_invoke_2(id *a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = [a1[4] selector];
   v3 = NSStringFromSelector(v2);
   v4 = [a1[4] _gkReplyHandlerInvocation];
@@ -170,22 +168,22 @@ void __36__GKServiceProxy_forwardInvocation___block_invoke_2(id *a1)
     {
       v7 = [a1[5] requestIdentifierForInvocation:a1[4]];
       v8 = *(a1[5] + 2);
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __36__GKServiceProxy_forwardInvocation___block_invoke_3;
-      v19[3] = &unk_2785E05D8;
-      v20 = v7;
-      v21 = v3;
-      v22 = a1[4];
-      v23 = v4;
-      v24 = a1[6];
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __36__GKServiceProxy_forwardInvocation___block_invoke_3;
+      v18[3] = &unk_2785E05D8;
+      v19 = v7;
+      v20 = v3;
+      v21 = a1[4];
+      v22 = v4;
+      v23 = a1[6];
       v9 = v6;
       v10 = a1[5];
-      v25 = v9;
-      v26 = v10;
-      v27 = v2;
+      v24 = v9;
+      v25 = v10;
+      v26 = v2;
       v11 = v7;
-      [v8 asyncWriteToDictionary:v19];
+      [v8 asyncWriteToDictionary:v18];
     }
 
     else
@@ -200,7 +198,7 @@ void __36__GKServiceProxy_forwardInvocation___block_invoke_2(id *a1)
       if (os_log_type_enabled(os_log_GKPerf, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v29 = v3;
+        v28 = v3;
         _os_log_impl(&dword_227904000, v17, OS_LOG_TYPE_INFO, "Sending one-way request %@", buf, 0xCu);
       }
 
@@ -227,13 +225,11 @@ void __36__GKServiceProxy_forwardInvocation___block_invoke_2(id *a1)
 
     [a1[4] _gkClearCopiedArguments];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __36__GKServiceProxy_forwardInvocation___block_invoke_3(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 objectForKey:*(a1 + 32)];
   if (v4)
@@ -249,9 +245,9 @@ void __36__GKServiceProxy_forwardInvocation___block_invoke_3(uint64_t a1, void *
       v7 = *(a1 + 40);
       v8 = *(a1 + 48);
       *buf = 138412546;
-      v33 = v7;
-      v34 = 2112;
-      v35 = v8;
+      v32 = v7;
+      v33 = 2112;
+      v34 = v8;
       _os_log_impl(&dword_227904000, v6, OS_LOG_TYPE_INFO, "Preventing duplicate load for %@ %@", buf, 0x16u);
     }
 
@@ -269,27 +265,27 @@ void __36__GKServiceProxy_forwardInvocation___block_invoke_3(uint64_t a1, void *
     [v3 setObject:v12 forKey:*(a1 + 32)];
 
     v13 = *(a1 + 72);
-    v30[0] = @"timestamp";
+    v29[0] = @"timestamp";
     v14 = [MEMORY[0x277CCABB0] numberWithDouble:CFAbsoluteTimeGetCurrent()];
     v15 = *(a1 + 32);
-    v31[0] = v14;
-    v31[1] = v15;
-    v30[1] = @"requestID";
-    v30[2] = @"subproxy";
-    v31[2] = *(a1 + 80);
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:3];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __36__GKServiceProxy_forwardInvocation___block_invoke_480;
-    v25[3] = &unk_2785E05B0;
+    v30[0] = v14;
+    v30[1] = v15;
+    v29[1] = @"requestID";
+    v29[2] = @"subproxy";
+    v30[2] = *(a1 + 80);
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:3];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __36__GKServiceProxy_forwardInvocation___block_invoke_480;
+    v24[3] = &unk_2785E05B0;
     v17 = *(a1 + 88);
-    v25[4] = *(a1 + 80);
-    v29 = v17;
-    v26 = *(a1 + 56);
-    v27 = *(a1 + 32);
+    v24[4] = *(a1 + 80);
+    v28 = v17;
+    v25 = *(a1 + 56);
+    v26 = *(a1 + 32);
     v10 = v11;
-    v28 = v10;
-    v18 = [v13 remoteObjectProxyWithUserInfo:v16 errorHandler:v25];
+    v27 = v10;
+    v18 = [v13 remoteObjectProxyWithUserInfo:v16 errorHandler:v24];
 
     v19 = +[GKPreferences shared];
     if ([v19 isInternalBuild])
@@ -316,7 +312,7 @@ void __36__GKServiceProxy_forwardInvocation___block_invoke_3(uint64_t a1, void *
     {
       v23 = *(a1 + 40);
       *buf = 138412290;
-      v33 = v23;
+      v32 = v23;
       _os_log_impl(&dword_227904000, v22, OS_LOG_TYPE_INFO, "Sending request %@", buf, 0xCu);
     }
 
@@ -324,7 +320,6 @@ void __36__GKServiceProxy_forwardInvocation___block_invoke_3(uint64_t a1, void *
   }
 
   [*(a1 + 48) _gkClearCopiedArguments];
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __36__GKServiceProxy_forwardInvocation___block_invoke_480(uint64_t a1, void *a2)
@@ -387,7 +382,7 @@ void __67__GKServiceProxy_replyToDuplicatesForRequest_withInvocation_queue___blo
 
   if (os_log_type_enabled(os_log_GKPerf, OS_LOG_TYPE_DEBUG))
   {
-    __67__GKServiceProxy_replyToDuplicatesForRequest_withInvocation_queue___block_invoke_2_cold_1(a1);
+    __67__GKServiceProxy_replyToDuplicatesForRequest_withInvocation_queue___block_invoke_2_cold_1();
   }
 
   v7[0] = MEMORY[0x277D85DD0];
@@ -513,7 +508,7 @@ void __67__GKServiceProxy_replyToDuplicatesForRequest_withInvocation_queue___blo
 
 void __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke(uint64_t a1)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   if ([*(a1 + 32) needsBuildUpServiceLookup])
   {
@@ -533,49 +528,49 @@ void __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke(uint64_t a
     v6 = [*v2 baseProxy];
     [*v2 setServiceGeneration:{objc_msgSend(v6, "serviceGeneration")}];
 
-    v39 = 0;
-    v40 = &v39;
-    v41 = 0x2020000000;
-    v42 = 0;
+    v38 = 0;
+    v39 = &v38;
+    v40 = 0x2020000000;
+    v41 = 0;
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_486;
     aBlock[3] = &unk_2785DFF00;
-    aBlock[4] = &v39;
+    aBlock[4] = &v38;
     v7 = _Block_copy(aBlock);
     v8 = [*v2 baseProxy];
     v9 = [v8 connection];
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_487;
-    v34[3] = &unk_2785E0650;
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_487;
+    v33[3] = &unk_2785E0650;
     v10 = *(a1 + 32);
     v11 = *(a1 + 40);
-    v37 = &v39;
-    v34[4] = v10;
-    v35 = v11;
+    v36 = &v38;
+    v33[4] = v10;
+    v34 = v11;
     v12 = v5;
-    v36 = v12;
-    [v9 gkPerformSynchronously:v34 errorHandler:v7];
+    v35 = v12;
+    [v9 gkPerformSynchronously:v33 errorHandler:v7];
 
     v13 = [*v2 baseProxy];
     v14 = [v13 connection];
-    v25 = MEMORY[0x277D85DD0];
-    v26 = 3221225472;
-    v27 = __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_780;
-    v28 = &unk_2785E06A0;
+    v24 = MEMORY[0x277D85DD0];
+    v25 = 3221225472;
+    v26 = __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_780;
+    v27 = &unk_2785E06A0;
     v15 = *(a1 + 32);
     v16 = *(a1 + 40);
-    v33 = &v39;
-    v29 = v15;
-    v30 = v16;
+    v32 = &v38;
+    v28 = v15;
+    v29 = v16;
     v17 = v7;
-    v32 = v17;
+    v31 = v17;
     v18 = v12;
-    v31 = v18;
-    [v14 gkPerformSynchronously:&v25 errorHandler:v17];
+    v30 = v18;
+    [v14 gkPerformSynchronously:&v24 errorHandler:v17];
 
-    if (v40[3])
+    if (v39[3])
     {
       v19 = 0;
     }
@@ -599,12 +594,10 @@ void __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke(uint64_t a
       v19 = v18;
     }
 
-    [*v2 setServiceLookup:{v19, v25, v26, v27, v28, v29}];
+    [*v2 setServiceLookup:{v19, v24, v25, v26, v27, v28}];
 
-    _Block_object_dispose(&v39, 8);
+    _Block_object_dispose(&v38, 8);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_486(uint64_t a1, void *a2)
@@ -667,7 +660,7 @@ void __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2(uint64_t
 
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
   {
-    __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2_cold_1(a1);
+    __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2_cold_1();
   }
 
   if (!os_log_GKGeneral)
@@ -678,7 +671,7 @@ void __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2(uint64_t
   v27 = os_log_GKPerf;
   if (os_log_type_enabled(os_log_GKPerf, OS_LOG_TYPE_DEBUG))
   {
-    __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2_cold_2(v27, a1);
+    __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2_cold_2(v27);
   }
 
   CFAbsoluteTimeGetCurrent();
@@ -712,7 +705,7 @@ void __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2(uint64_t
 
   if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
   {
-    __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2_cold_4(a1);
+    __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2_cold_4();
   }
 }
 
@@ -765,7 +758,7 @@ void __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2_781(uint
   v26 = os_log_GKPerf;
   if (os_log_type_enabled(os_log_GKPerf, OS_LOG_TYPE_DEBUG))
   {
-    __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2_781_cold_1(v26, a1);
+    __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2_781_cold_1(v26);
   }
 
   v27 = os_log_GKGeneral;
@@ -778,7 +771,7 @@ void __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2_781(uint
 
     if (os_log_type_enabled(os_log_GKError, OS_LOG_TYPE_ERROR))
     {
-      __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2_781_cold_2(a1);
+      __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2_781_cold_2();
     }
 
     (*(*(a1 + 56) + 16))();
@@ -794,7 +787,7 @@ void __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2_781(uint
 
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
     {
-      __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2_781_cold_3(a1);
+      __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2_781_cold_3();
     }
 
     CFAbsoluteTimeGetCurrent();
@@ -829,7 +822,7 @@ void __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2_781(uint
 
     if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
     {
-      __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2_781_cold_5(a1);
+      __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2_781_cold_5();
     }
   }
 }
@@ -843,57 +836,46 @@ void __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2_781(uint
 
 - (void)initWithPlayer:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_debug_impl(&dword_227904000, v1, OS_LOG_TYPE_DEBUG, "%@ init player:%@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_227904000, v1, OS_LOG_TYPE_DEBUG, "%@ init player:%@", v2, 0x16u);
 }
 
 void __36__GKServiceProxy_forwardInvocation___block_invoke_2_cold_1(void *a1, const char *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = a1;
   sel_getName(a2);
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_227904000, v3, OS_LOG_TYPE_ERROR, "No gamed service found for selector %s", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_227904000, v3, OS_LOG_TYPE_ERROR, "No gamed service found for selector %s", v4, 0xCu);
 }
 
-void __67__GKServiceProxy_replyToDuplicatesForRequest_withInvocation_queue___block_invoke_2_cold_1(uint64_t a1)
+void __67__GKServiceProxy_replyToDuplicatesForRequest_withInvocation_queue___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_7_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 - (void)needsBuildUpServiceLookup
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [self serviceGeneration];
   serviceLookup = [self serviceLookup];
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x1Cu);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_cold_1(uint64_t a1, void **a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 40);
-  v4 = *a2;
-  v5 = a3;
-  [v4 serviceGeneration];
+  v3 = *a2;
+  v4 = a3;
+  [v3 serviceGeneration];
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v6, v7, v8, v9, v10, 0x1Cu);
-
-  v11 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x1Cu);
 }
 
 void __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_cold_2(void *a1, uint64_t a2, uint8_t *buf, os_log_t log)
@@ -905,104 +887,81 @@ void __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_cold_2(voi
   _os_log_debug_impl(&dword_227904000, log, OS_LOG_TYPE_DEBUG, "[%@]Setting service lookup to: %@", buf, 0x16u);
 }
 
-void __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_486_cold_1()
+void __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_0(&dword_227904000, v0, v1, "Could not load services for GameKit. This likely means your game is missing the com.apple.developer.game-center entitlement. For more info see:\n https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_developer_game-center\n\nERROR: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2_cold_1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_7_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2_cold_2(void *a1, uint64_t a2)
+void __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2_cold_2(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = a1;
-  v4 = CFAbsoluteTimeGetCurrent() - *(a2 + 56);
+  v1 = a1;
+  CFAbsoluteTimeGetCurrent();
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2_cold_3(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v1 = a1;
+  CFAbsoluteTimeGetCurrent();
+  v8 = 136315394;
+  OUTLINED_FUNCTION_0_5();
+  OUTLINED_FUNCTION_4_0(&dword_227904000, v2, v3, "%s elapsed seconds:%g", v4, v5, v6, v7, v8);
+}
+
+void __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2_cold_4()
+{
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_10();
+  OUTLINED_FUNCTION_7_0();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
+}
+
+void __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2_781_cold_1(void *a1)
+{
   v1 = a1;
   CFAbsoluteTimeGetCurrent();
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_4_0(&dword_227904000, v2, v3, "%s elapsed seconds:%g", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2_cold_4(uint64_t a1)
-{
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
-  OUTLINED_FUNCTION_10();
-  OUTLINED_FUNCTION_7_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2_781_cold_1(void *a1, uint64_t a2)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = a1;
-  v4 = CFAbsoluteTimeGetCurrent() - *(a2 + 64);
-  OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
-void __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2_781_cold_2(uint64_t a1)
+void __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2_781_cold_2()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_10();
-  v5 = 2112;
-  v6 = v1;
-  _os_log_error_impl(&dword_227904000, v2, OS_LOG_TYPE_ERROR, "[%@]Failed to get privateProxy services. error: %@", v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_227904000, v1, OS_LOG_TYPE_ERROR, "[%@]Failed to get privateProxy services. error: %@", v2, 0x16u);
 }
 
-void __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2_781_cold_3(uint64_t a1)
+void __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2_781_cold_3()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_7_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2_781_cold_4(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = a1;
   CFAbsoluteTimeGetCurrent();
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_4_0(&dword_227904000, v2, v3, "%s elapsed seconds:%g", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_227904000, v2, v3, "%s elapsed seconds:%g", v4, v5, v6, v7, v8);
 }
 
-void __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2_781_cold_5(uint64_t a1)
+void __47__GKServiceProxy_buildServiceLookupIfNecessary__block_invoke_2_781_cold_5()
 {
-  OUTLINED_FUNCTION_8(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_7_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 @end

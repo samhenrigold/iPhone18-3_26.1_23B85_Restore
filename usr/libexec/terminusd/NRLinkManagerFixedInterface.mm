@@ -60,7 +60,7 @@ LABEL_10:
       dispatch_once(&qword_1002291C0, &stru_1001FBE90);
     }
 
-    _NRLogWithArgs();
+    _NRLogWithArgs(qword_1002291B8, 1, "%s%.30s:%-4d Ignoring link received data event as manager is cancelled: %@", ", "[NRLinkManagerFixedInterface linkDidReceiveData:data:]"", 345, self);
   }
 
 LABEL_11:
@@ -93,7 +93,7 @@ LABEL_11:
     }
 
     v9 = sub_10011FA74();
-    _NRLogWithArgs();
+    _NRLogWithArgs(v9, 17, "%s called with null link", "[NRLinkManagerFixedInterface linkIsUnavailable:]");
     goto LABEL_14;
   }
 
@@ -136,7 +136,7 @@ LABEL_14:
       dispatch_once(&qword_1002291C0, &stru_1001FBE90);
     }
 
-    _NRLogWithArgs();
+    _NRLogWithArgs(qword_1002291B8, 1, "%s%.30s:%-4d Ignoring link unavailability event as manager is cancelled: %@", ", "[NRLinkManagerFixedInterface linkIsUnavailable:]"", 322, self);
   }
 
 LABEL_15:
@@ -169,7 +169,7 @@ LABEL_15:
     }
 
     v10 = sub_10011FA74();
-    _NRLogWithArgs();
+    _NRLogWithArgs(v10, 17, "%s called with null link", "[NRLinkManagerFixedInterface linkIsSuspended:]");
     goto LABEL_14;
   }
 
@@ -212,7 +212,7 @@ LABEL_14:
       dispatch_once(&qword_1002291C0, &stru_1001FBE90);
     }
 
-    _NRLogWithArgs();
+    _NRLogWithArgs(qword_1002291B8, 1, "%s%.30s:%-4d Ignoring link suspended event as manager is cancelled: %@", ", "[NRLinkManagerFixedInterface linkIsSuspended:]"", 299, self);
   }
 
 LABEL_15:
@@ -245,7 +245,7 @@ LABEL_15:
     }
 
     v10 = sub_10011FA74();
-    _NRLogWithArgs();
+    _NRLogWithArgs(v10, 17, "%s called with null link", "[NRLinkManagerFixedInterface linkIsReady:]");
     goto LABEL_14;
   }
 
@@ -288,7 +288,7 @@ LABEL_14:
       dispatch_once(&qword_1002291C0, &stru_1001FBE90);
     }
 
-    _NRLogWithArgs();
+    _NRLogWithArgs(qword_1002291B8, 1, "%s%.30s:%-4d Ignoring link ready event as manager is cancelled: %@", ", "[NRLinkManagerFixedInterface linkIsReady:]"", 276, self);
   }
 
 LABEL_15:
@@ -321,7 +321,7 @@ LABEL_15:
     }
 
     v9 = sub_10011FA74();
-    _NRLogWithArgs();
+    _NRLogWithArgs(v9, 17, "%s called with null link", "[NRLinkManagerFixedInterface linkIsAvailable:]");
     goto LABEL_14;
   }
 
@@ -364,7 +364,7 @@ LABEL_14:
       dispatch_once(&qword_1002291C0, &stru_1001FBE90);
     }
 
-    _NRLogWithArgs();
+    _NRLogWithArgs(qword_1002291B8, 1, "%s%.30s:%-4d Ignoring link availability event as manager is cancelled: %@", ", "[NRLinkManagerFixedInterface linkIsAvailable:]"", 251, self);
   }
 
 LABEL_15:
@@ -391,26 +391,25 @@ LABEL_15:
 
   if (self)
   {
-    type = self->super._type;
     StringFromNRLinkType = createStringFromNRLinkType();
     [v5 appendFormat:@"\nLinkManager type: %@", StringFromNRLinkType];
 
     state = self->super._state;
-    v10 = [NSString alloc];
+    v9 = [NSString alloc];
     if (state > 1001)
     {
       switch(state)
       {
         case 0x3EA:
-          state = [v10 initWithUTF8String:"Start"];
+          state = [v9 initWithUTF8String:"Start"];
           goto LABEL_15;
         case 0x3EB:
-          state = [v10 initWithUTF8String:"Ready"];
+          state = [v9 initWithUTF8String:"Ready"];
           goto LABEL_15;
         case 0x3EC:
-          state = [v10 initWithUTF8String:"Cancelled"];
+          state = [v9 initWithUTF8String:"Cancelled"];
 LABEL_15:
-          v12 = state;
+          v11 = state;
           [v5 appendFormat:@"\nState: %@", state];
 
           goto LABEL_16;
@@ -423,26 +422,26 @@ LABEL_15:
     {
       if (state == 1001)
       {
-        state = [v10 initWithUTF8String:"Initial"];
+        state = [v9 initWithUTF8String:"Initial"];
         goto LABEL_15;
       }
 
 LABEL_14:
-      state = [v10 initWithFormat:@"Unknown(%u)", state];
+      state = [v9 initWithFormat:@"Unknown(%u)", state];
       goto LABEL_15;
     }
   }
 
   else
   {
-    v15 = createStringFromNRLinkType();
-    [v5 appendFormat:@"\nLinkManager type: %@", v15];
+    v14 = createStringFromNRLinkType();
+    [v5 appendFormat:@"\nLinkManager type: %@", v14];
 
-    v10 = [NSString alloc];
+    v9 = [NSString alloc];
   }
 
-  v16 = [v10 initWithUTF8String:"Invalid"];
-  [v5 appendFormat:@"\nState: %@", v16];
+  v15 = [v9 initWithUTF8String:"Invalid"];
+  [v5 appendFormat:@"\nState: %@", v15];
 
   if (!self)
   {
@@ -478,17 +477,14 @@ LABEL_17:
     }
 
     v3 = qword_1002291B8;
-    v6 = 97;
     copyName = [(NRLinkManagerFixedInterface *)self copyName];
-    v4 = "";
-    v5 = "[NRLinkManagerFixedInterface dealloc]";
-    _NRLogWithArgs();
+    _NRLogWithArgs(v3, 1, "%s%.30s:%-4d %@", ", "[NRLinkManagerFixedInterface dealloc]"", 97, copyName);
   }
 
-  [(NRLinkManagerFixedInterface *)self invalidateManager:v4];
-  v8.receiver = self;
-  v8.super_class = NRLinkManagerFixedInterface;
-  [(NRLinkManagerFixedInterface *)&v8 dealloc];
+  [(NRLinkManagerFixedInterface *)self invalidateManager];
+  v5.receiver = self;
+  v5.super_class = NRLinkManagerFixedInterface;
+  [(NRLinkManagerFixedInterface *)&v5 dealloc];
 }
 
 - (void)invalidateManager
@@ -520,7 +516,7 @@ LABEL_17:
           dispatch_once(&qword_1002291C0, &stru_1001FBE90);
         }
 
-        _NRLogWithArgs();
+        _NRLogWithArgs(qword_1002291B8, 1, "%s%.30s:%-4d Already cancelled", ", "[NRLinkManagerFixedInterface cancel]"", 71);
       }
 
       return;

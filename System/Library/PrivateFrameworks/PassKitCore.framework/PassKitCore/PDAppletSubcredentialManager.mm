@@ -53,9 +53,9 @@
   elementCopy = element;
   assertionManagerCopy = assertionManager;
   notificationManagerCopy = notificationManager;
-  v36.receiver = self;
-  v36.super_class = PDAppletSubcredentialManager;
-  v18 = [(PDAppletSubcredentialManager *)&v36 init];
+  v37.receiver = self;
+  v37.super_class = PDAppletSubcredentialManager;
+  v18 = [(PDAppletSubcredentialManager *)&v37 init];
   v19 = v18;
   if (v18)
   {
@@ -79,14 +79,14 @@
     [(PDPaymentWebServiceCoordinator *)v19->_webServiceCoordinator registerObserver:v19];
     [(PDAssertionManager *)v19->_assertionManager registerObserver:v19];
     PDNFSecureXPCRegisterAccessDeviceEventObserver(v19);
-    v24 = PDUtilityQueue();
+    v25 = PDUtilityQueue(v24);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_1001924D0;
     block[3] = &unk_10083C470;
-    v35 = v19;
-    v25 = dispatch_block_create(DISPATCH_BLOCK_NO_QOS_CLASS|DISPATCH_BLOCK_DETACHED, block);
-    dispatch_async(v24, v25);
+    v36 = v19;
+    v26 = dispatch_block_create(DISPATCH_BLOCK_NO_QOS_CLASS|DISPATCH_BLOCK_DETACHED, block);
+    dispatch_async(v25, v26);
   }
 
   return v19;

@@ -58,22 +58,21 @@
 {
   v3 = sub_2146D8B88();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = self + OBJC_IVAR___BlastDoorRelayGroupMutationMessage_relayGroupMutationMessage;
-  v9 = type metadata accessor for RelayGroupMutationMessage();
-  (*(v4 + 16))(v7, &v8[*(v9 + 32)], v3);
-  v10 = sub_2146D8B38();
-  (*(v4 + 8))(v7, v3);
+  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = self + OBJC_IVAR___BlastDoorRelayGroupMutationMessage_relayGroupMutationMessage;
+  v8 = type metadata accessor for RelayGroupMutationMessage(0);
+  (*(v4 + 16))(v6, &v7[*(v8 + 32)], v3);
+  v9 = sub_2146D8B38();
+  (*(v4 + 8))(v6, v3);
 
-  return v10;
+  return v9;
 }
 
 - (BlastDoorRelayGroupMutationWrapper)mutation
 {
   v2 = self + OBJC_IVAR___BlastDoorRelayGroupMutationMessage_relayGroupMutationMessage;
-  v3 = &v2[*(type metadata accessor for RelayGroupMutationMessage() + 44)];
+  v3 = &v2[*(type metadata accessor for RelayGroupMutationMessage(0) + 44)];
   v4 = *v3;
   v5 = *(v3 + 1);
   v6 = *(v3 + 2);

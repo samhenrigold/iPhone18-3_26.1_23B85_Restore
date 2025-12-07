@@ -13,9 +13,9 @@
 - (void)start
 {
   sub_100008BB8(0, &qword_101698160, OS_os_log_ptr);
-  v2 = static OS_os_log.default.getter();
-  static os_log_type_t.default.getter();
-  os_log(_:dso:log:type:_:)();
+  v3 = static OS_os_log.default.getter();
+  v2 = static os_log_type_t.default.getter();
+  os_log(_:dso:log:type:_:)("Kickstarting daemon for finding state manager callback", 54, 2, &_mh_execute_header, v3, v2, _swiftEmptyArrayStorage);
 }
 
 - (void)enableFinderModeWithCompletion:(id)completion
@@ -26,15 +26,15 @@
   sub_100008BB8(0, &qword_101698160, OS_os_log_ptr);
   selfCopy = self;
   v7 = static OS_os_log.default.getter();
-  static os_log_type_t.default.getter();
-  os_log(_:dso:log:type:_:)();
+  v8 = static os_log_type_t.default.getter();
+  os_log(_:dso:log:type:_:)("Trampolining enableFinderMode", 29, 2, &_mh_execute_header, v7, v8, _swiftEmptyArrayStorage);
 
-  sub_10001F280(selfCopy + OBJC_IVAR____TtC12searchpartydP33_A237235B9060AAA443FA0E26E38E988121FinderStateTrampoline_implementation, v10);
-  v8 = v11;
+  sub_10001F280(selfCopy + OBJC_IVAR____TtC12searchpartydP33_A237235B9060AAA443FA0E26E38E988121FinderStateTrampoline_implementation, v11);
   v9 = v12;
-  sub_1000035D0(v10, v11);
-  (*(v9 + 8))(sub_10026AE30, v5, v8, v9);
-  sub_100007BAC(v10);
+  v10 = v13;
+  sub_1000035D0(v11, v12);
+  (*(v10 + 8))(sub_10026AE30, v5, v9, v10);
+  sub_100007BAC(v11);
 }
 
 - (void)disableFinderModeWithCompletion:(id)completion
@@ -45,15 +45,15 @@
   sub_100008BB8(0, &qword_101698160, OS_os_log_ptr);
   selfCopy = self;
   v7 = static OS_os_log.default.getter();
-  static os_log_type_t.default.getter();
-  os_log(_:dso:log:type:_:)();
+  v8 = static os_log_type_t.default.getter();
+  os_log(_:dso:log:type:_:)("Trampolining disableFinderMode", 30, 2, &_mh_execute_header, v7, v8, _swiftEmptyArrayStorage);
 
-  sub_10001F280(selfCopy + OBJC_IVAR____TtC12searchpartydP33_A237235B9060AAA443FA0E26E38E988121FinderStateTrampoline_implementation, v10);
-  v8 = v11;
+  sub_10001F280(selfCopy + OBJC_IVAR____TtC12searchpartydP33_A237235B9060AAA443FA0E26E38E988121FinderStateTrampoline_implementation, v11);
   v9 = v12;
-  sub_1000035D0(v10, v11);
-  (*(v9 + 16))(sub_10026AE30, v5, v8, v9);
-  sub_100007BAC(v10);
+  v10 = v13;
+  sub_1000035D0(v11, v12);
+  (*(v10 + 16))(sub_10026AE30, v5, v9, v10);
+  sub_100007BAC(v11);
 }
 
 - (void)fetchFinderState:(id)state

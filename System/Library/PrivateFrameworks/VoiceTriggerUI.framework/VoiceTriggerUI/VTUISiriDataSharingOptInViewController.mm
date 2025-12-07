@@ -1,6 +1,7 @@
 @interface VTUISiriDataSharingOptInViewController
 - (VTUISiriDataSharingOptInViewController)initWithViewStyle:(int64_t)style;
 - (VTUISiriDataSharingOptInViewControllerDelegate)delegate;
+- (void)viewDidDisappear:(BOOL)disappear;
 @end
 
 @implementation VTUISiriDataSharingOptInViewController
@@ -49,6 +50,15 @@ LABEL_12:
   return selfCopy;
 }
 
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = VTUISiriDataSharingOptInViewController;
+  [(OBBaseWelcomeController *)&v5 viewDidDisappear:disappear];
+  delegate = [(VTUISiriDataSharingOptInViewController *)self delegate];
+  [delegate didDismissFromViewController:self];
+}
+
 - (VTUISiriDataSharingOptInViewControllerDelegate)delegate
 {
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -58,11 +68,10 @@ LABEL_12:
 
 - (void)initWithViewStyle:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[VTUISiriDataSharingOptInViewController initWithViewStyle:]";
-  _os_log_error_impl(&dword_2728BC000, log, OS_LOG_TYPE_ERROR, "%s #SiriDataSharingOptIn: Passing VTUISiriDataSharingOptInViewStyleSiriProx to VTUISiriDataSharingViewController", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[VTUISiriDataSharingOptInViewController initWithViewStyle:]";
+  _os_log_error_impl(&dword_2728BC000, log, OS_LOG_TYPE_ERROR, "%s #SiriDataSharingOptIn: Passing VTUISiriDataSharingOptInViewStyleSiriProx to VTUISiriDataSharingViewController", &v1, 0xCu);
 }
 
 @end

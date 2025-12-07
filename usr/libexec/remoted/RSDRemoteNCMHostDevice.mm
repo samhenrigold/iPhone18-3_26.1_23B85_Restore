@@ -62,7 +62,7 @@
     if (initWithGeneratedName)
     {
       v12 = [NSString stringWithCString:[(RSDRemoteDevice *)initWithGeneratedName device_name] encoding:4];
-      [qword_1000643B8 setObject:v12 forKeyedSubscript:numberCopy];
+      objc_msgSend_setObject_forKeyedSubscript_(qword_1000643B8);
     }
   }
 
@@ -209,7 +209,7 @@ LABEL_17:
       }
 
       interface3 = [(RSDRemoteNCMDevice *)self interface];
-      v14 = sub_100031974([interface3 index]);
+      v14 = sub_100031974([interface3 index], 2);
 
       if (v14)
       {
@@ -426,37 +426,37 @@ LABEL_17:
 
 - (uint64_t)tlsRequirement
 {
-  v0 = sub_1000012E4();
-  v1 = sub_10001A4AC(v0, @"rsd_ncm_tls_requirement", @"ncm-tls-requirement", 0);
+  v1 = sub_1000012E4(self);
+  v2 = sub_10001A4AC(v1, @"rsd_ncm_tls_requirement", @"ncm-tls-requirement", 0);
 
-  if (v1 <= 1)
+  if (v2 <= 1)
   {
-    v2 = 1;
+    v4 = 1;
   }
 
   else
   {
-    v2 = v1;
+    v4 = v2;
   }
 
-  v3 = sub_1000012E4();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_1000012E4(v3);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = sub_100019E60(v2);
-    v5 = &unk_100053A79;
-    if (!v1)
+    v6 = sub_100019E60(v4);
+    v7 = &unk_100053A79;
+    if (!v2)
     {
-      v5 = " by default";
+      v7 = " by default";
     }
 
-    v7 = 136315394;
-    v8 = v4;
-    v9 = 2080;
-    v10 = v5;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "TLS is %s for NCM peers%s", &v7, 0x16u);
+    v9 = 136315394;
+    v10 = v6;
+    v11 = 2080;
+    v12 = v7;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "TLS is %s for NCM peers%s", &v9, 0x16u);
   }
 
-  return v2;
+  return v4;
 }
 
 @end

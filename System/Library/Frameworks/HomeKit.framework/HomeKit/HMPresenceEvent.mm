@@ -30,11 +30,11 @@
 
 - (HMPresenceEvent)initWithCoder:(id)coder
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v18.receiver = self;
-  v18.super_class = HMPresenceEvent;
-  v5 = [(HMEvent *)&v18 initWithCoder:coderCopy];
+  v17.receiver = self;
+  v17.super_class = HMPresenceEvent;
+  v5 = [(HMEvent *)&v17 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"kPresenceEventPresence"];
@@ -42,9 +42,9 @@
     v5->_presenceType = v6;
 
     v8 = MEMORY[0x1E695DFD8];
-    v19[0] = objc_opt_class();
-    v19[1] = objc_opt_class();
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+    v18[0] = objc_opt_class();
+    v18[1] = objc_opt_class();
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
     v10 = [v8 setWithArray:v9];
     v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"kPresenceEventUsers"];
 
@@ -58,7 +58,6 @@
     v5->_activation = v14;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -75,7 +74,7 @@
 
 + (id)users:(id)users home:(id)home presenceType:(id)type
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   usersCopy = users;
   homeCopy = home;
   typeCopy = type;
@@ -84,28 +83,28 @@
     array = [MEMORY[0x1E695DF70] array];
     if (usersCopy)
     {
-      v29 = typeCopy;
-      v30 = homeCopy;
+      v28 = typeCopy;
+      v29 = homeCopy;
       users = [homeCopy users];
+      v30 = 0u;
       v31 = 0u;
       v32 = 0u;
       v33 = 0u;
-      v34 = 0u;
-      v12 = [users countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v12 = [users countByEnumeratingWithState:&v30 objects:v34 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v32;
+        v14 = *v31;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v32 != v14)
+            if (*v31 != v14)
             {
               objc_enumerationMutation(users);
             }
 
-            v16 = *(*(&v31 + 1) + 8 * i);
+            v16 = *(*(&v30 + 1) + 8 * i);
             uuid = [v16 uuid];
             uUIDString = [uuid UUIDString];
             v19 = [usersCopy containsObject:uUIDString];
@@ -116,14 +115,14 @@
             }
           }
 
-          v13 = [users countByEnumeratingWithState:&v31 objects:v35 count:16];
+          v13 = [users countByEnumeratingWithState:&v30 objects:v34 count:16];
         }
 
         while (v13);
       }
 
-      homeCopy = v30;
-      currentUser = [v30 currentUser];
+      homeCopy = v29;
+      currentUser = [v29 currentUser];
       uuid2 = [currentUser uuid];
       uUIDString2 = [uuid2 UUIDString];
       v23 = [usersCopy containsObject:uUIDString2];
@@ -133,7 +132,7 @@
         [array addObject:currentUser];
       }
 
-      typeCopy = v29;
+      typeCopy = v28;
     }
   }
 
@@ -145,17 +144,15 @@
     {
       v26 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v37 = v26;
-      v38 = 2112;
-      v39 = typeCopy;
+      v36 = v26;
+      v37 = 2112;
+      v38 = typeCopy;
       _os_log_impl(&dword_19BB39000, v25, OS_LOG_TYPE_INFO, "%{public}@Presence type %@ does not apply for users", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v24);
     array = 0;
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -273,7 +270,7 @@
 
 void __38__HMPresenceEvent_mergeFromNewObject___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -281,20 +278,19 @@ void __38__HMPresenceEvent_mergeFromNewObject___block_invoke(uint64_t a1, void *
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Removed user via presence event merge: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Removed user via presence event merge: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __38__HMPresenceEvent_mergeFromNewObject___block_invoke_32(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -302,42 +298,41 @@ void __38__HMPresenceEvent_mergeFromNewObject___block_invoke_32(uint64_t a1, voi
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Added user via presence event merge: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Added user via presence event merge: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateUsers:(id)users completionHandler:(id)handler
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   usersCopy = users;
   handlerCopy = handler;
   context = [(HMEvent *)self context];
   if (!handlerCopy)
   {
-    v38 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMPresenceEvent updateUsers:completionHandler:]", @"completion"];
-    v39 = objc_autoreleasePoolPush();
+    v37 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMPresenceEvent updateUsers:completionHandler:]", @"completion"];
+    v38 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v41 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+    v40 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
     {
-      v42 = HMFGetLogIdentifier();
+      v41 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v60 = v42;
-      v61 = 2112;
-      v62 = v38;
-      _os_log_impl(&dword_19BB39000, v41, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v59 = v41;
+      v60 = 2112;
+      v61 = v37;
+      _os_log_impl(&dword_19BB39000, v40, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v39);
-    v43 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v38 userInfo:0];
-    objc_exception_throw(v43);
+    objc_autoreleasePoolPop(v38);
+    v42 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v37 userInfo:0];
+    objc_exception_throw(v42);
   }
 
   v9 = context;
@@ -350,9 +345,9 @@ void __38__HMPresenceEvent_mergeFromNewObject___block_invoke_32(uint64_t a1, voi
     {
       v34 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v60 = v34;
-      v61 = 2080;
-      v62 = "[HMPresenceEvent updateUsers:completionHandler:]";
+      v59 = v34;
+      v60 = 2080;
+      v61 = "[HMPresenceEvent updateUsers:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v33, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -374,34 +369,34 @@ LABEL_25:
     goto LABEL_29;
   }
 
-  v45 = v9;
+  v44 = v9;
   v12 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(usersCopy, "count")}];
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
-  v46 = usersCopy;
+  v45 = usersCopy;
   v13 = usersCopy;
-  v14 = [v13 countByEnumeratingWithState:&v51 objects:v58 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v50 objects:v57 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v52;
+    v16 = *v51;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v52 != v16)
+        if (*v51 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        uuid = [*(*(&v51 + 1) + 8 * i) uuid];
+        uuid = [*(*(&v50 + 1) + 8 * i) uuid];
         uUIDString = [uuid UUIDString];
         [v12 addObject:uUIDString];
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v51 objects:v58 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v50 objects:v57 count:16];
     }
 
     while (v15);
@@ -411,39 +406,39 @@ LABEL_25:
   v21 = [v12 count];
   if (v21 == [users count])
   {
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
-    v44 = users;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v43 = users;
     v22 = users;
-    v23 = [v22 countByEnumeratingWithState:&v47 objects:v57 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v46 objects:v56 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v48;
+      v25 = *v47;
       while (2)
       {
         for (j = 0; j != v24; ++j)
         {
-          if (*v48 != v25)
+          if (*v47 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
-          uuid2 = [*(*(&v47 + 1) + 8 * j) uuid];
+          uuid2 = [*(*(&v46 + 1) + 8 * j) uuid];
           uUIDString2 = [uuid2 UUIDString];
           v29 = [v12 containsObject:uUIDString2];
 
           if (!v29)
           {
 
-            users = v44;
+            users = v43;
             goto LABEL_27;
           }
         }
 
-        v24 = [v22 countByEnumeratingWithState:&v47 objects:v57 count:16];
+        v24 = [v22 countByEnumeratingWithState:&v46 objects:v56 count:16];
         if (v24)
         {
           continue;
@@ -453,55 +448,54 @@ LABEL_25:
       }
     }
 
-    v9 = v45;
-    delegateCaller2 = [v45 delegateCaller];
+    v9 = v44;
+    delegateCaller2 = [v44 delegateCaller];
     [delegateCaller2 callCompletion:handlerCopy error:0];
-    usersCopy = v46;
-    users = v44;
+    usersCopy = v45;
+    users = v43;
   }
 
   else
   {
 LABEL_27:
-    v55 = @"kPresenceEventUsers";
+    v54 = @"kPresenceEventUsers";
     delegateCaller2 = [v12 allObjects];
-    v56 = delegateCaller2;
-    v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+    v55 = delegateCaller2;
+    v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
     [(HMEvent *)self _updateEventWithPayload:v36 completionHandler:handlerCopy];
 
-    v9 = v45;
-    usersCopy = v46;
+    v9 = v44;
+    usersCopy = v45;
   }
 
 LABEL_29:
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updatePresenceType:(id)type completionHandler:(id)handler
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   handlerCopy = handler;
   context = [(HMEvent *)self context];
   if (!handlerCopy)
   {
-    v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMPresenceEvent updatePresenceType:completionHandler:]", @"completion"];
-    v25 = objc_autoreleasePoolPush();
+    v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMPresenceEvent updatePresenceType:completionHandler:]", @"completion"];
+    v24 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v27 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v26 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      v28 = HMFGetLogIdentifier();
+      v27 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v33 = v28;
-      v34 = 2112;
-      v35 = v24;
-      _os_log_impl(&dword_19BB39000, v27, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v32 = v27;
+      v33 = 2112;
+      v34 = v23;
+      _os_log_impl(&dword_19BB39000, v26, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v25);
-    v29 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v24 userInfo:0];
-    objc_exception_throw(v29);
+    objc_autoreleasePoolPop(v24);
+    v28 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v23 userInfo:0];
+    objc_exception_throw(v28);
   }
 
   v9 = context;
@@ -514,10 +508,10 @@ LABEL_29:
 
       if (!v11)
       {
-        v30 = @"kPresenceEventPresence";
-        v31 = typeCopy;
-        v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
-        [(HMEvent *)self _updateEventWithPayload:v23 completionHandler:handlerCopy];
+        v29 = @"kPresenceEventPresence";
+        v30 = typeCopy;
+        v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+        [(HMEvent *)self _updateEventWithPayload:v22 completionHandler:handlerCopy];
 
         goto LABEL_13;
       }
@@ -529,9 +523,9 @@ LABEL_29:
       {
         v15 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v33 = v15;
-        v34 = 2112;
-        v35 = typeCopy;
+        v32 = v15;
+        v33 = 2112;
+        v34 = typeCopy;
         _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_INFO, "%{public}@Presence type is already %@", buf, 0x16u);
       }
 
@@ -557,9 +551,9 @@ LABEL_29:
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v33 = v20;
-      v34 = 2080;
-      v35 = "[HMPresenceEvent updatePresenceType:completionHandler:]";
+      v32 = v20;
+      v33 = 2080;
+      v34 = "[HMPresenceEvent updatePresenceType:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -569,15 +563,14 @@ LABEL_29:
   }
 
 LABEL_13:
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_serializeForAdd
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v25.receiver = self;
-  v25.super_class = HMPresenceEvent;
-  _serializeForAdd = [(HMEvent *)&v25 _serializeForAdd];
+  v26 = *MEMORY[0x1E69E9840];
+  v24.receiver = self;
+  v24.super_class = HMPresenceEvent;
+  _serializeForAdd = [(HMEvent *)&v24 _serializeForAdd];
   v4 = [_serializeForAdd mutableCopy];
 
   presenceType = [(HMPresenceEvent *)self presenceType];
@@ -592,31 +585,31 @@ LABEL_13:
   if (v8)
   {
     array = [MEMORY[0x1E695DF70] array];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     users2 = [(HMPresenceEvent *)self users];
-    v11 = [users2 countByEnumeratingWithState:&v21 objects:v26 count:16];
+    v11 = [users2 countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v22;
+      v13 = *v21;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v22 != v13)
+          if (*v21 != v13)
           {
             objc_enumerationMutation(users2);
           }
 
-          uuid = [*(*(&v21 + 1) + 8 * i) uuid];
+          uuid = [*(*(&v20 + 1) + 8 * i) uuid];
           uUIDString = [uuid UUIDString];
           [array addObject:uUIDString];
         }
 
-        v12 = [users2 countByEnumeratingWithState:&v21 objects:v26 count:16];
+        v12 = [users2 countByEnumeratingWithState:&v20 objects:v25 count:16];
       }
 
       while (v12);
@@ -628,18 +621,16 @@ LABEL_13:
 
   v18 = [v4 copy];
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v18;
 }
 
 - (void)_updateFromDictionary:(id)dictionary
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v26.receiver = self;
-  v26.super_class = HMPresenceEvent;
-  [(HMEvent *)&v26 _updateFromDictionary:dictionaryCopy];
+  v25.receiver = self;
+  v25.super_class = HMPresenceEvent;
+  [(HMEvent *)&v25 _updateFromDictionary:dictionaryCopy];
   v5 = [dictionaryCopy hmf_stringForKey:@"kPresenceEventPresence"];
   if (v5)
   {
@@ -651,9 +642,9 @@ LABEL_13:
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v28 = v9;
-      v29 = 2112;
-      v30 = v5;
+      v27 = v9;
+      v28 = 2112;
+      v29 = v5;
       _os_log_impl(&dword_19BB39000, v8, OS_LOG_TYPE_INFO, "%{public}@Updating presence type to %@", buf, 0x16u);
     }
 
@@ -671,9 +662,9 @@ LABEL_13:
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v28 = v14;
-      v29 = 2112;
-      v30 = v10;
+      v27 = v14;
+      v28 = 2112;
+      v29 = v10;
       _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_INFO, "%{public}@Updating activation to %@", buf, 0x16u);
     }
 
@@ -696,9 +687,9 @@ LABEL_13:
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v28 = v23;
-      v29 = 2112;
-      v30 = v19;
+      v27 = v23;
+      v28 = 2112;
+      v29 = v19;
       _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_INFO, "%{public}@Updating users list to %@", buf, 0x16u);
     }
 
@@ -706,8 +697,6 @@ LABEL_13:
     observedUsers = [(HMPresenceEvent *)selfCopy3 observedUsers];
     [observedUsers setArray:v19];
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (id)users
@@ -832,37 +821,37 @@ LABEL_13:
 
 - (id)description
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AD60];
   presenceType = [(HMPresenceEvent *)self presenceType];
   v5 = [v3 stringWithFormat:@"type: %@", presenceType];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   users = [(HMPresenceEvent *)self users];
-  v7 = [users countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [users countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(users);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         [v5 appendString:{@", "}];
         userID = [v11 userID];
         [v5 appendString:userID];
       }
 
-      v8 = [users countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [users countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
@@ -871,8 +860,6 @@ LABEL_13:
   v13 = MEMORY[0x1E696AEC0];
   activation = [(HMPresenceEvent *)self activation];
   v15 = [v13 stringWithFormat:@"[Presence-Event: %@, mode: %@]", v5, activation];
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -911,7 +898,7 @@ LABEL_13:
 
 - (HMPresenceEvent)initWithPresenceEventType:(unint64_t)type presenceUserType:(unint64_t)userType users:(id)users
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   usersCopy = users;
   v9 = presenceTypeForEventTypeAndGranularity(type, userType);
   v10 = (&unk_19BE376C0 + 8 * type - 8);
@@ -921,29 +908,27 @@ LABEL_13:
   }
 
   v11 = *v10;
-  v17 = @"kEventUUIDKey";
+  v16 = @"kEventUUIDKey";
   uUID = [MEMORY[0x1E696AFB0] UUID];
-  v18[0] = uUID;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+  v17[0] = uUID;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
   v14 = [(HMPresenceEvent *)self initWithDict:v13 presenceType:v9 users:usersCopy activationGranularity:v11];
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (HMPresenceEvent)initWithPresenceType:(id)type users:(id)users
 {
-  v15[1] = *MEMORY[0x1E69E9840];
-  v14 = @"kEventUUIDKey";
+  v14[1] = *MEMORY[0x1E69E9840];
+  v13 = @"kEventUUIDKey";
   v6 = MEMORY[0x1E696AFB0];
   usersCopy = users;
   typeCopy = type;
   uUID = [v6 UUID];
-  v15[0] = uUID;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v14[0] = uUID;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
   v11 = [(HMPresenceEvent *)self initWithDict:v10 presenceType:typeCopy users:usersCopy activationGranularity:2];
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

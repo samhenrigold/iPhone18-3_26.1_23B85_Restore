@@ -26,7 +26,7 @@
 
 - (NSManagedObjectContext)newBackgroundContext
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if ([(NSArray *)[(NSPersistentStoreCoordinator *)self->_storeCoordinator persistentStores] count])
   {
     goto LABEL_11;
@@ -84,7 +84,6 @@ LABEL_11:
     [(NSManagedObjectContext *)v9 setPersistentStoreCoordinator:self->_storeCoordinator];
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -102,8 +101,9 @@ LABEL_11:
     v6 = *MEMORY[0x1E695D930];
     v7 = MEMORY[0x1E696AEC0];
     v8 = NSStringFromClass(self);
-    v9 = [v5 exceptionWithName:v6 reason:objc_msgSend(v7 userInfo:{"stringWithFormat:", @"+[%@ %@] Could not conjure up a useful location for writing persistent stores.", v8, NSStringFromSelector(a2)), 0}];
-    objc_exception_throw(v9);
+    v9 = NSStringFromSelector(a2);
+    v10 = [v5 exceptionWithName:v6 reason:objc_msgSend_stringWithFormat_(v7 userInfo:{v8, v9), 0}];
+    objc_exception_throw(v10);
   }
 
   return result;
@@ -111,10 +111,10 @@ LABEL_11:
 
 void __44__NSPersistentContainer_defaultDirectoryURL__block_invoke()
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v31 = xmmword_18592EDA8;
-  v32 = 0;
-  v0 = &v31;
+  v32 = *MEMORY[0x1E69E9840];
+  v30 = xmmword_18592EDA8;
+  v31 = 0;
+  v0 = &v30;
   while (1)
   {
     v2 = *v0;
@@ -134,8 +134,8 @@ void __44__NSPersistentContainer_defaultDirectoryURL__block_invoke()
           if (v14)
           {
             *buf = 134217984;
-            v26 = &v31;
-LABEL_33:
+            v25 = &v30;
+LABEL_32:
             _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error:  Found no possible URLs for directory type %lu\n", buf, 0xCu);
           }
         }
@@ -143,12 +143,12 @@ LABEL_33:
         else if (v14)
         {
           *buf = 134217984;
-          v26 = &v31;
-          goto LABEL_33;
+          v25 = &v30;
+          goto LABEL_32;
         }
       }
 
-      _NSCoreDataLog_console(1, " Found no possible URLs for directory type %lu", &v31);
+      _NSCoreDataLog_console(1, " Found no possible URLs for directory type %lu", &v30);
       v18 = v11;
       goto LABEL_30;
     }
@@ -165,12 +165,12 @@ LABEL_33:
   }
 
   v5 = [MEMORY[0x1E696AC08] defaultManager];
-  v24 = 0;
-  v6 = [v5 fileExistsAtPath:objc_msgSend(v4 isDirectory:{"path"), &v24}];
+  v23 = 0;
+  v6 = [v5 fileExistsAtPath:objc_msgSend(v4 isDirectory:{"path"), &v23}];
   if ((v6 & 1) == 0)
   {
-    v23 = 0;
-    if ([v5 createDirectoryAtURL:v4 withIntermediateDirectories:1 attributes:0 error:&v23])
+    v22 = 0;
+    if ([v5 createDirectoryAtURL:v4 withIntermediateDirectories:1 attributes:0 error:&v22])
     {
       goto LABEL_18;
     }
@@ -186,35 +186,35 @@ LABEL_33:
       {
         if (v17)
         {
-          goto LABEL_36;
+          goto LABEL_35;
         }
       }
 
       else if (v17)
       {
-LABEL_36:
-        v21 = [v23 domain];
-        v22 = [v23 code];
+LABEL_35:
+        v20 = [v22 domain];
+        v21 = [v22 code];
         *buf = 138412802;
-        v26 = v4;
-        v27 = 2112;
-        v28 = v21;
-        v29 = 1024;
-        v30 = v22;
+        v25 = v4;
+        v26 = 2112;
+        v27 = v20;
+        v28 = 1024;
+        v29 = v21;
         _os_log_error_impl(&dword_18565F000, v16, OS_LOG_TYPE_ERROR, "CoreData: error:  Failed to create directory %@: %@ (%d)\n", buf, 0x1Cu);
       }
     }
 
-    v19 = [v23 domain];
-    _NSCoreDataLog_console(1, " Failed to create directory %@: %@ (%d)", v4, v19, [v23 code]);
+    v19 = [v22 domain];
+    _NSCoreDataLog_console(1, " Failed to create directory %@: %@ (%d)", v4, v19, [v22 code]);
     goto LABEL_29;
   }
 
-  if (v24)
+  if (v23)
   {
 LABEL_18:
     _MergedGlobals_86 = v4;
-    goto LABEL_31;
+    return;
   }
 
   v7 = objc_autoreleasePoolPush();
@@ -229,16 +229,16 @@ LABEL_18:
       if (v10)
       {
         *buf = 138412290;
-        v26 = v4;
-        goto LABEL_35;
+        v25 = v4;
+        goto LABEL_34;
       }
     }
 
     else if (v10)
     {
       *buf = 138412290;
-      v26 = v4;
-LABEL_35:
+      v25 = v4;
+LABEL_34:
       _os_log_error_impl(&dword_18565F000, v9, OS_LOG_TYPE_ERROR, "CoreData: error:  File %@ already exists and is not a directory!\n", buf, 0xCu);
     }
   }
@@ -248,13 +248,11 @@ LABEL_29:
   v18 = v7;
 LABEL_30:
   objc_autoreleasePoolPop(v18);
-LABEL_31:
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)persistentStoreDescriptions
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   objc_sync_enter(self);
   storeDescriptions = self->_storeDescriptions;
   if (storeDescriptions)
@@ -279,11 +277,12 @@ LABEL_31:
     v9 = MEMORY[0x1E696AEC0];
     v10 = objc_opt_class();
     v11 = NSStringFromClass(v10);
-    v12 = [v8 exceptionWithName:*MEMORY[0x1E695D930] reason:objc_msgSend(v9 userInfo:{"stringWithFormat:", @"+[%@ %@] Could not conjure up a useful location for writing persistent stores.", v11, NSStringFromSelector(sel__createDefaultStoreDescriptions)), 0}];
-    objc_exception_throw(v12);
+    v12 = NSStringFromSelector(sel__createDefaultStoreDescriptions);
+    v13 = [v8 exceptionWithName:*MEMORY[0x1E695D930] reason:objc_msgSend_stringWithFormat_(v9 userInfo:{v11, v12), 0}];
+    objc_exception_throw(v13);
   }
 
-  v6 = [defaultDirectoryURL URLByAppendingPathComponent:objc_msgSend(MEMORY[0x1E696AEC0] isDirectory:{"stringWithFormat:", @"%@.sqlite", self->_name), 0}];
+  v6 = [defaultDirectoryURL URLByAppendingPathComponent:objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] isDirectory:{self->_name), 0}];
   if (v6)
   {
     *buf = [objc_msgSend(objc_opt_class() "persistentStoreDescriptionClass")];
@@ -305,24 +304,22 @@ LABEL_31:
 
   else
   {
-    v13 = MEMORY[0x1E695E0F0];
+    v14 = MEMORY[0x1E695E0F0];
     if (v4)
     {
-      v13 = v4;
+      v14 = v4;
     }
 
-    self->_storeDescriptions = v13;
+    self->_storeDescriptions = v14;
   }
 
   objc_sync_exit(self);
   if (!v4)
   {
-    v16 = *MEMORY[0x1E69E9840];
     return MEMORY[0x1E695E0F0];
   }
 
 LABEL_16:
-  v14 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -413,13 +410,14 @@ LABEL_16:
   v3 = *MEMORY[0x1E695D920];
   v4 = MEMORY[0x1E696AEC0];
   v5 = objc_opt_class();
-  v6 = [v2 exceptionWithName:v3 reason:objc_msgSend(v4 userInfo:{"stringWithFormat:", @"Failed to call designated initializer on '%@' \n", NSStringFromClass(v5)), 0}];
-  objc_exception_throw(v6);
+  v6 = NSStringFromClass(v5);
+  v7 = [v2 exceptionWithName:v3 reason:objc_msgSend_stringWithFormat_(v4 userInfo:{v6), 0}];
+  objc_exception_throw(v7);
 }
 
 + (id)_newModelForName:(id)name
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
   v5 = objc_opt_class();
   v6 = mainBundle;
@@ -440,82 +438,38 @@ LABEL_16:
   result = [v6 URLForResource:name withExtension:@"momd"];
   if (result)
   {
-    goto LABEL_23;
+    goto LABEL_7;
   }
 
   result = [v6 URLForResource:name withExtension:@"mom"];
   if (result)
   {
-    goto LABEL_23;
+    goto LABEL_7;
   }
 
   if (v6 == mainBundle)
   {
-LABEL_18:
-    result = 0;
-    goto LABEL_19;
+    return 0;
   }
 
   result = [mainBundle URLForResource:name withExtension:@"momd"];
   if (result || (result = [mainBundle URLForResource:name withExtension:@"mom"]) != 0)
   {
-LABEL_23:
+LABEL_7:
     v9 = result;
     result = [[NSManagedObjectModel alloc] initWithContentsOfURL:result];
-    if (!result)
+    if (result)
     {
-      v10 = objc_autoreleasePoolPush();
-      _pflogInitialize(1);
-      if (_pflogging_enable_oslog >= 1)
-      {
-        v11 = _pflogging_catastrophic_mode;
-        LogStream = _PFLogGetLogStream(1);
-        v13 = os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR);
-        if (v11)
-        {
-          if (v13)
-          {
-            goto LABEL_20;
-          }
-        }
-
-        else if (v13)
-        {
-LABEL_20:
-          *buf = 138412290;
-          path = [v9 path];
-          _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error:  Failed to load model at path: %@\n", buf, 0xCu);
-        }
-      }
-
-      _NSCoreDataLog_console(1, " Failed to load model at path: %@", [v9 path]);
-      objc_autoreleasePoolPop(v10);
-      goto LABEL_18;
+      return result;
     }
-  }
 
-LABEL_19:
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
-}
+    v10 = objc_autoreleasePoolPush();
+    _pflogInitialize(1);
+    if (_pflogging_enable_oslog < 1)
+    {
+      goto LABEL_17;
+    }
 
-- (NSPersistentContainer)initWithName:(NSString *)name
-{
-  v17 = *MEMORY[0x1E69E9840];
-  v5 = [objc_opt_class() _newModelForName:name];
-  if (v5)
-  {
-    v6 = v5;
-    v7 = [(NSPersistentContainer *)self initWithName:name managedObjectModel:v5];
-
-    v8 = *MEMORY[0x1E69E9840];
-    return v7;
-  }
-
-  v10 = objc_autoreleasePoolPush();
-  _pflogInitialize(1);
-  if (_pflogging_enable_oslog >= 1)
-  {
     v11 = _pflogging_catastrophic_mode;
     LogStream = _PFLogGetLogStream(1);
     v13 = os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR);
@@ -523,34 +477,77 @@ LABEL_19:
     {
       if (v13)
       {
-        *buf = 138412290;
-        v16 = name;
-LABEL_11:
-        _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error:  Failed to load model named %@\n", buf, 0xCu);
+        goto LABEL_20;
       }
     }
 
     else if (v13)
     {
+LABEL_20:
       *buf = 138412290;
-      v16 = name;
+      path = [v9 path];
+      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error:  Failed to load model at path: %@\n", buf, 0xCu);
+    }
+
+LABEL_17:
+    _NSCoreDataLog_console(1, " Failed to load model at path: %@", [v9 path]);
+    objc_autoreleasePoolPop(v10);
+    return 0;
+  }
+
+  return result;
+}
+
+- (NSPersistentContainer)initWithName:(NSString *)name
+{
+  v15 = *MEMORY[0x1E69E9840];
+  v5 = [objc_opt_class() _newModelForName:name];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = [(NSPersistentContainer *)self initWithName:name managedObjectModel:v5];
+
+    return v7;
+  }
+
+  v9 = objc_autoreleasePoolPush();
+  _pflogInitialize(1);
+  if (_pflogging_enable_oslog >= 1)
+  {
+    v10 = _pflogging_catastrophic_mode;
+    LogStream = _PFLogGetLogStream(1);
+    v12 = os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR);
+    if (v10)
+    {
+      if (v12)
+      {
+        *buf = 138412290;
+        v14 = name;
+LABEL_11:
+        _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error:  Failed to load model named %@\n", buf, 0xCu);
+      }
+    }
+
+    else if (v12)
+    {
+      *buf = 138412290;
+      v14 = name;
       goto LABEL_11;
     }
   }
 
   _NSCoreDataLog_console(1, " Failed to load model named %@", name);
-  objc_autoreleasePoolPop(v10);
+  objc_autoreleasePoolPop(v9);
 
-  v14 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (NSPersistentContainer)initWithName:(NSString *)name managedObjectModel:(NSManagedObjectModel *)model
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v16.receiver = self;
-  v16.super_class = NSPersistentContainer;
-  v6 = [(NSPersistentContainer *)&v16 init];
+  v18 = *MEMORY[0x1E69E9840];
+  v15.receiver = self;
+  v15.super_class = NSPersistentContainer;
+  v6 = [(NSPersistentContainer *)&v15 init];
   if (v6)
   {
     if ([(NSString *)name length])
@@ -564,7 +561,7 @@ LABEL_11:
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v18 = name;
+        v17 = name;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: [NSPersistentContainer initWithName:managedObjectModel:] called with invalid container name '%@'\n", buf, 0xCu);
       }
 
@@ -575,7 +572,7 @@ LABEL_11:
       }
 
       *buf = 138412290;
-      v18 = name;
+      v17 = name;
       v9 = "CoreData: [NSPersistentContainer initWithName:managedObjectModel:] called with invalid container name '%@'";
       v10 = v8;
       v11 = 12;
@@ -609,122 +606,118 @@ LABEL_11:
     v6->_storeDescriptions = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (void)loadPersistentStoresWithCompletionHandler:(void *)block
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   persistentStoreDescriptions = [(NSPersistentContainer *)self persistentStoreDescriptions];
-  v7 = [(NSArray *)persistentStoreDescriptions countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [(NSArray *)persistentStoreDescriptions countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(persistentStoreDescriptions);
         }
 
-        v11 = [*(*(&v13 + 1) + 8 * v10) copy];
+        v11 = [*(*(&v12 + 1) + 8 * v10) copy];
         [array addObject:v11];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [(NSArray *)persistentStoreDescriptions countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [(NSArray *)persistentStoreDescriptions countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
 
   [(NSPersistentContainer *)self _loadStoreDescriptions:array withCompletionHandler:block];
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_loadStoreDescriptions:(id)descriptions withCompletionHandler:(id)handler
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (![descriptions count])
   {
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:@"-[NSPersistentContainer loadPersistentStoresWithCompletionHandler:] called on an instance with no store descriptions" userInfo:0]);
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
-  v7 = [descriptions countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v7 = [descriptions countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v23;
+    v9 = *v22;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(descriptions);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * i);
+        v11 = *(*(&v21 + 1) + 8 * i);
         if (([v11 shouldAddStoreAsynchronously] & 1) == 0)
         {
           [(NSPersistentStoreCoordinator *)self->_storeCoordinator addPersistentStoreWithDescription:v11 completionHandler:handler];
         }
       }
 
-      v8 = [descriptions countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v8 = [descriptions countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v8);
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
-  v12 = [descriptions countByEnumeratingWithState:&v18 objects:v26 count:16];
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v12 = [descriptions countByEnumeratingWithState:&v17 objects:v25 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v19;
+    v14 = *v18;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v19 != v14)
+        if (*v18 != v14)
         {
           objc_enumerationMutation(descriptions);
         }
 
-        v16 = *(*(&v18 + 1) + 8 * j);
+        v16 = *(*(&v17 + 1) + 8 * j);
         if ([v16 shouldAddStoreAsynchronously])
         {
           [(NSPersistentStoreCoordinator *)self->_storeCoordinator addPersistentStoreWithDescription:v16 completionHandler:handler];
         }
       }
 
-      v13 = [descriptions countByEnumeratingWithState:&v18 objects:v26 count:16];
+      v13 = [descriptions countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
     while (v13);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performBackgroundTask:(void *)block
@@ -741,19 +734,17 @@ LABEL_11:
 
 void __47__NSPersistentContainer_performBackgroundTask___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
-  v3 = *(a1 + 32);
+  v2 = *(a1 + 32);
 }
 
 + (NSPersistentContainer)persistentContainerWithPath:(id)path
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v5 = [self persistentContainerWithName:{objc_msgSend(path, "lastPathComponent")}];
   persistentStoreDescriptionClass = [self persistentStoreDescriptionClass];
-  v9[0] = [persistentStoreDescriptionClass persistentStoreDescriptionWithURL:{objc_msgSend(MEMORY[0x1E695DFF8], "fileURLWithPath:", path)}];
-  -[NSPersistentContainer setPersistentStoreDescriptions:](v5, "setPersistentStoreDescriptions:", [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1]);
-  v7 = *MEMORY[0x1E69E9840];
+  v8[0] = [persistentStoreDescriptionClass persistentStoreDescriptionWithURL:{objc_msgSend(MEMORY[0x1E695DFF8], "fileURLWithPath:", path)}];
+  -[NSPersistentContainer setPersistentStoreDescriptions:](v5, "setPersistentStoreDescriptions:", [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1]);
   return v5;
 }
 
@@ -767,61 +758,56 @@ void __47__NSPersistentContainer_performBackgroundTask___block_invoke(uint64_t a
 
 + (NSPersistentContainer)persistentContainerWithPath:(id)path managedObjectModel:(id)model
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v6 = [self persistentContainerWithName:objc_msgSend(path managedObjectModel:{"lastPathComponent"), model}];
   persistentStoreDescriptionClass = [self persistentStoreDescriptionClass];
-  v10[0] = [persistentStoreDescriptionClass persistentStoreDescriptionWithURL:{objc_msgSend(MEMORY[0x1E695DFF8], "fileURLWithPath:", path)}];
-  -[NSPersistentContainer setPersistentStoreDescriptions:](v6, "setPersistentStoreDescriptions:", [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1]);
-  v8 = *MEMORY[0x1E69E9840];
+  v9[0] = [persistentStoreDescriptionClass persistentStoreDescriptionWithURL:{objc_msgSend(MEMORY[0x1E695DFF8], "fileURLWithPath:", path)}];
+  -[NSPersistentContainer setPersistentStoreDescriptions:](v6, "setPersistentStoreDescriptions:", [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1]);
   return v6;
 }
 
 + (id)persistentContainerUsingCachedModelWithPath:(id)path
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v15 = 0;
+  v19 = *MEMORY[0x1E69E9840];
+  v14 = 0;
   v5 = [MEMORY[0x1E695DFF8] fileURLWithPath:?];
-  v6 = +[NSPersistentStore cachedModelForPersistentStoreWithURL:options:error:](NSPersistentStore, "cachedModelForPersistentStoreWithURL:options:error:", v5, [objc_msgSend(objc_msgSend(self "persistentStoreDescriptionClass")], &v15);
-  if (!v6)
+  v6 = +[NSPersistentStore cachedModelForPersistentStoreWithURL:options:error:](NSPersistentStore, "cachedModelForPersistentStoreWithURL:options:error:", v5, [objc_msgSend(objc_msgSend(self "persistentStoreDescriptionClass")], &v14);
+  if (v6)
   {
-    v8 = objc_autoreleasePoolPush();
-    _pflogInitialize(1);
-    if (_pflogging_enable_oslog >= 1)
-    {
-      v9 = _pflogging_catastrophic_mode;
-      LogStream = _PFLogGetLogStream(1);
-      v11 = os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR);
-      if (v9)
-      {
-        if (v11)
-        {
-          goto LABEL_10;
-        }
-      }
+    return [self persistentContainerWithPath:path managedObjectModel:v6];
+  }
 
-      else if (v11)
+  v8 = objc_autoreleasePoolPush();
+  _pflogInitialize(1);
+  if (_pflogging_enable_oslog >= 1)
+  {
+    v9 = _pflogging_catastrophic_mode;
+    LogStream = _PFLogGetLogStream(1);
+    v11 = os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR);
+    if (v9)
+    {
+      if (v11)
       {
-LABEL_10:
-        v13 = v15;
-        userInfo = [v15 userInfo];
-        *buf = 138412546;
-        v17 = v13;
-        v18 = 2112;
-        v19 = userInfo;
-        _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: cachedModelForPersistentStoreWithURL failed with error %@ and userInfo of %@\n", buf, 0x16u);
+        goto LABEL_9;
       }
     }
 
-    _NSCoreDataLog_console(1, "cachedModelForPersistentStoreWithURL failed with error %@ and userInfo of %@", v15, [v15 userInfo]);
-    objc_autoreleasePoolPop(v8);
-    result = 0;
-    goto LABEL_9;
+    else if (v11)
+    {
+LABEL_9:
+      v12 = v14;
+      userInfo = [v14 userInfo];
+      *buf = 138412546;
+      v16 = v12;
+      v17 = 2112;
+      v18 = userInfo;
+      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: cachedModelForPersistentStoreWithURL failed with error %@ and userInfo of %@\n", buf, 0x16u);
+    }
   }
 
-  result = [self persistentContainerWithPath:path managedObjectModel:v6];
-LABEL_9:
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  _NSCoreDataLog_console(1, "cachedModelForPersistentStoreWithURL failed with error %@ and userInfo of %@", v14, [v14 userInfo]);
+  objc_autoreleasePoolPop(v8);
+  return 0;
 }
 
 - (BOOL)load:(id *)load
@@ -873,7 +859,7 @@ LABEL_9:
 
 intptr_t __43__NSPersistentContainer_CoreDataSPI__load___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (a3)
   {
     v6 = objc_autoreleasePoolPush();
@@ -895,11 +881,11 @@ intptr_t __43__NSPersistentContainer_CoreDataSPI__load___block_invoke(uint64_t a
       {
 LABEL_9:
         *buf = 138412802;
-        v13 = a2;
-        v14 = 2112;
-        v15 = a3;
-        v16 = 2112;
-        v17 = [a3 userInfo];
+        v12 = a2;
+        v13 = 2112;
+        v14 = a3;
+        v15 = 2112;
+        v16 = [a3 userInfo];
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: Store failed to load.  %@ with error = %@ with userInfo %@\n", buf, 0x20u);
       }
     }
@@ -910,9 +896,7 @@ LABEL_9:
   }
 
   atomic_fetch_add_explicit((*(*(a1 + 48) + 8) + 40), 1u, memory_order_relaxed);
-  result = dispatch_semaphore_signal(*(a1 + 32));
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return dispatch_semaphore_signal(*(a1 + 32));
 }
 
 @end

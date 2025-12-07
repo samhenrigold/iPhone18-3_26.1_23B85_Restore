@@ -30,7 +30,7 @@
 
 void __41__SYActivityObserver_loadSynapseObserver__block_invoke()
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v0 = SYIsBacklinkingSupportedForDevice();
   v1 = os_log_create("com.apple.synapse", "BacklinkMonitor");
   v2 = os_log_type_enabled(v1, OS_LOG_TYPE_INFO);
@@ -38,8 +38,8 @@ void __41__SYActivityObserver_loadSynapseObserver__block_invoke()
   {
     if (v2)
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&dword_225901000, v1, OS_LOG_TYPE_INFO, "ActivityObserver: Loading observer.", &v9, 2u);
+      LOWORD(v8) = 0;
+      _os_log_impl(&dword_225901000, v1, OS_LOG_TYPE_INFO, "ActivityObserver: Loading observer.", &v8, 2u);
     }
 
     v1 = +[SYActivityObserver sharedInstance];
@@ -49,8 +49,8 @@ void __41__SYActivityObserver_loadSynapseObserver__block_invoke()
 
   else if (v2)
   {
-    LOWORD(v9) = 0;
-    _os_log_impl(&dword_225901000, v1, OS_LOG_TYPE_INFO, "ActivityObserver: Backlinking is disabled for current device.", &v9, 2u);
+    LOWORD(v8) = 0;
+    _os_log_impl(&dword_225901000, v1, OS_LOG_TYPE_INFO, "ActivityObserver: Backlinking is disabled for current device.", &v8, 2u);
   }
 
   v3 = [MEMORY[0x277CCA8D8] mainBundle];
@@ -63,9 +63,9 @@ void __41__SYActivityObserver_loadSynapseObserver__block_invoke()
   {
     if (v7)
     {
-      v9 = 138412290;
-      v10 = v4;
-      _os_log_impl(&dword_225901000, &v6->super, OS_LOG_TYPE_DEFAULT, "Load document workflows observer for bundle: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v4;
+      _os_log_impl(&dword_225901000, &v6->super, OS_LOG_TYPE_DEFAULT, "Load document workflows observer for bundle: %@", &v8, 0xCu);
     }
 
     v6 = objc_alloc_init(SYDocumentWorkflowsActivityObserver);
@@ -75,12 +75,10 @@ void __41__SYActivityObserver_loadSynapseObserver__block_invoke()
 
   else if (v7)
   {
-    v9 = 138412290;
-    v10 = v4;
-    _os_log_impl(&dword_225901000, &v6->super, OS_LOG_TYPE_DEFAULT, "Skip document workflows observer for bundle: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v4;
+    _os_log_impl(&dword_225901000, &v6->super, OS_LOG_TYPE_DEFAULT, "Skip document workflows observer for bundle: %@", &v8, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerForAppStateNotifications
@@ -179,14 +177,14 @@ void __54__SYActivityObserver_registerForAppStateNotifications__block_invoke_2(u
 
 void __50__SYActivityObserver_indexedContentItemsDidChange__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 8) appIsActive];
   v3 = os_log_create("com.apple.synapse", "BacklinkMonitor");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v7[0] = 67109120;
-    v7[1] = v2;
-    _os_log_impl(&dword_225901000, v3, OS_LOG_TYPE_INFO, "ActivityObserver: Indexed content items did change. App is active: %d", v7, 8u);
+    v6[0] = 67109120;
+    v6[1] = v2;
+    _os_log_impl(&dword_225901000, v3, OS_LOG_TYPE_INFO, "ActivityObserver: Indexed content items did change. App is active: %d", v6, 8u);
   }
 
   if (v2)
@@ -202,8 +200,6 @@ void __50__SYActivityObserver_indexedContentItemsDidChange__block_invoke(uint64_
     v4 = [v5 _defaultActivityObserverContext];
     [v5 _reportActiveUserActivityChangeIfNeeded:0 context:v4];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reportActiveUserActivityChangeIfNeeded:(id)needed context:(id)context
@@ -323,11 +319,11 @@ void __72__SYActivityObserver__q_reportActiveUserActivityChangeIfNeeded_context_
   [v5 _syFetchCurrentUserActivityWithCompletion:v7];
 }
 
-uint64_t __71__SYActivityObserver__discoverAndProcessActiveUserActivityWithContext___block_invoke(uint64_t result, uint64_t a2)
+id *__71__SYActivityObserver__discoverAndProcessActiveUserActivityWithContext___block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) _reportActiveUserActivityChangeIfNeeded:a2 context:*(result + 40)];
+    return [result[4] _reportActiveUserActivityChangeIfNeeded:a2 context:result[5]];
   }
 
   return result;
@@ -335,7 +331,7 @@ uint64_t __71__SYActivityObserver__discoverAndProcessActiveUserActivityWithConte
 
 - (void)q_processActiveUserActivity:(id)activity identifier:(id)identifier linkable:(BOOL)linkable context:(id)context
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   identifierCopy = identifier;
   contextCopy = context;
@@ -389,9 +385,9 @@ uint64_t __71__SYActivityObserver__discoverAndProcessActiveUserActivityWithConte
   block[4] = self;
   linkableCopy = linkable;
   v23 = identifierCopy;
-  v34 = v23;
-  v35 = activityCopy;
-  v36 = contextCopy;
+  v33 = v23;
+  v34 = activityCopy;
+  v35 = contextCopy;
   v24 = contextCopy;
   v25 = activityCopy;
   v26 = dispatch_block_create(0, block);
@@ -407,9 +403,9 @@ uint64_t __71__SYActivityObserver__discoverAndProcessActiveUserActivityWithConte
     }
 
     *buf = 134218242;
-    v39 = v22;
-    v40 = 2112;
-    v41 = v28;
+    v38 = v22;
+    v39 = 2112;
+    v40 = v28;
     _os_log_impl(&dword_225901000, v27, OS_LOG_TYPE_INFO, "ActivityObserver: Scheduling request after %0.2fs for activity: %@.", buf, 0x16u);
   }
 
@@ -417,13 +413,11 @@ uint64_t __71__SYActivityObserver__discoverAndProcessActiveUserActivityWithConte
   _observerQueue = [(SYActivityObserver *)self _observerQueue];
   _delayedEvaluationBlock3 = [(SYActivityObserver *)self _delayedEvaluationBlock];
   dispatch_after(v29, _observerQueue, _delayedEvaluationBlock3);
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __78__SYActivityObserver_q_processActiveUserActivity_identifier_linkable_context___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) set_delayedEvaluationBlock:0];
   if (*(a1 + 64))
   {
@@ -449,9 +443,9 @@ LABEL_5:
       }
 
       *buf = 138412546;
-      v19 = v5;
-      v20 = 2112;
-      v21 = v6;
+      v18 = v5;
+      v19 = 2112;
+      v20 = v6;
       _os_log_impl(&dword_225901000, v4, OS_LOG_TYPE_INFO, "ActivityObserver: Starting request for activity: %@, linkable: %@.", buf, 0x16u);
     }
 
@@ -477,15 +471,15 @@ LABEL_5:
     v11 = v9;
     v12 = [v10 _client];
     v13 = *(a1 + 56);
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __78__SYActivityObserver_q_processActiveUserActivity_identifier_linkable_context___block_invoke_25;
-    v16[3] = &unk_27856C5D8;
-    v17 = *(a1 + 40);
-    [v12 notifyActiveUserActivityDidChange:v11 context:v13 completion:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __78__SYActivityObserver_q_processActiveUserActivity_identifier_linkable_context___block_invoke_25;
+    v15[3] = &unk_27856C5D8;
+    v16 = *(a1 + 40);
+    [v12 notifyActiveUserActivityDidChange:v11 context:v13 completion:v15];
 
 LABEL_17:
-    goto LABEL_18;
+    return;
   }
 
   if ([*(a1 + 32) _lastReportedActivityWasLinkable])
@@ -499,22 +493,19 @@ LABEL_17:
     v11 = os_log_create("com.apple.synapse", "BacklinkMonitor");
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v15 = *(a1 + 40);
+      v14 = *(a1 + 40);
       *buf = 138412290;
-      v19 = v15;
+      v18 = v14;
       _os_log_impl(&dword_225901000, v11, OS_LOG_TYPE_INFO, "ActivityObserver: Current activity %@ is not linkable, ignoring.", buf, 0xCu);
     }
 
     goto LABEL_17;
   }
-
-LABEL_18:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __78__SYActivityObserver_q_processActiveUserActivity_identifier_linkable_context___block_invoke_25(uint64_t a1, int a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = os_log_create("com.apple.synapse", "BacklinkMonitor");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
@@ -530,16 +521,15 @@ void __78__SYActivityObserver_q_processActiveUserActivity_identifier_linkable_co
       v6 = @"N";
     }
 
-    v9 = 138412546;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_225901000, v4, OS_LOG_TYPE_INFO, "ActivityObserver: Finished request for activity: %@. Success: %@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_225901000, v4, OS_LOG_TYPE_INFO, "ActivityObserver: Finished request for activity: %@. Success: %@", &v8, 0x16u);
   }
 
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterPostNotification(DarwinNotifyCenter, @"SYRemoteCurrentActivityDidChange", 0, 0, 1u);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userActivityDidBecomeCurrent:(id)current current:(BOOL)a4
@@ -640,38 +630,34 @@ void __78__SYActivityObserver_q_processActiveUserActivity_identifier_linkable_co
 
 - (void)_handleAppBecomeActive:(id)active
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   activeCopy = active;
   v5 = os_log_create("com.apple.synapse", "BacklinkMonitor");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v8 = 138412290;
-    v9 = activeCopy;
-    _os_log_impl(&dword_225901000, v5, OS_LOG_TYPE_INFO, "ActivityObserver: app is active %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = activeCopy;
+    _os_log_impl(&dword_225901000, v5, OS_LOG_TYPE_INFO, "ActivityObserver: app is active %@", &v7, 0xCu);
   }
 
   _defaultActivityObserverContext = [(SYActivityObserver *)self _defaultActivityObserverContext];
   [(SYActivityObserver *)self _discoverAndProcessActiveUserActivityWithContext:_defaultActivityObserverContext];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleAppResignActive:(id)active
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   activeCopy = active;
   v5 = os_log_create("com.apple.synapse", "BacklinkMonitor");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v8 = 138412290;
-    v9 = activeCopy;
-    _os_log_impl(&dword_225901000, v5, OS_LOG_TYPE_INFO, "ActivityObserver: app is inactive %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = activeCopy;
+    _os_log_impl(&dword_225901000, v5, OS_LOG_TYPE_INFO, "ActivityObserver: app is inactive %@", &v7, 0xCu);
   }
 
   _defaultActivityObserverContext = [(SYActivityObserver *)self _defaultActivityObserverContext];
   [(SYActivityObserver *)self _reportActiveUserActivityChangeIfNeeded:0 context:_defaultActivityObserverContext];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

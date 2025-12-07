@@ -6,6 +6,7 @@
 - (BOOL)_BOOLForMGQuery:(int)query;
 - (BOOL)_isEventAtOneWithTimeIntervelOrDate:(id)date usesTwelveHourClock:(BOOL)clock;
 - (BOOL)_isFocusModeActiveFromDataSource;
+- (BOOL)_mgQueryCaller:(int)caller;
 - (double)doubleByEvaluatingJavaScript:(id)script;
 - (id)_allHandlesFromDataSourceWithContact:(id)contact;
 - (id)_allHeuristicClassNames;
@@ -16,6 +17,7 @@
 - (id)_bestTimeToInteractFromDataSourceWithContact:(id)contact;
 - (id)_birthdayEventsFromDataSource;
 - (id)_calendarEventsFromDataSourceBetweenStartDate:(id)date endDate:(id)endDate;
+- (id)_callHistoryFromDataSourceWithMaxAge:(double)age showIncomingCalls:(BOOL)calls showOutgoingCalls:(BOOL)outgoingCalls showMissedCallsOnly:(BOOL)only;
 - (id)_cityNameFromAirportCode:(id)code;
 - (id)_clipboardContentsFromDataSource;
 - (id)_contactsDataSourceWithType:(id)type value:(id)value identifiers:(id)identifiers;
@@ -38,6 +40,7 @@
 - (id)_predictedBedTime;
 - (id)_scheduledBedTime;
 - (id)_timeIntervalSinceUserWakeup;
+- (id)_travelTimeForEventWithID:(id)d latitude:(double)latitude longitude:(double)longitude expectedArrivalDate:(id)date transportType:(id)type localOnlyAfterFirstUpdate:(BOOL)update;
 - (id)_unreadMessagesWithLimit:(int64_t)limit;
 - (id)_userAppPreferenceFromDataSourceWithIntentName:(id)name parameterCombination:(id)combination;
 - (id)_usualAlarmTimeOfDayDataSource;
@@ -93,7 +96,7 @@
 
   else
   {
-    v5 = sub_100001940();
+    v5 = sub_100001940(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_100016C44();
@@ -132,60 +135,61 @@ LABEL_6:
 {
   bundleCopy = bundle;
   providerCopy = provider;
-  v26.receiver = self;
-  v26.super_class = ATXHeuristicJSEnv;
-  v9 = [(ATXHeuristicJSEnv *)&v26 init];
+  v28.receiver = self;
+  v28.super_class = ATXHeuristicJSEnv;
+  v9 = [(ATXHeuristicJSEnv *)&v28 init];
+  v10 = v9;
   if (v9)
   {
-    v10 = sub_100001830();
-    v9->_signpost = os_signpost_id_generate(v10);
+    v11 = sub_100001830(v9);
+    v10->_signpost = os_signpost_id_generate(v11);
 
-    v11 = sub_100001830();
-    v12 = v11;
-    signpost = v9->_signpost;
-    if (signpost - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+    v13 = sub_100001830(v12);
+    v14 = v13;
+    signpost = v10->_signpost;
+    if (signpost - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
     {
-      v25[0] = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v12, OS_SIGNPOST_INTERVAL_BEGIN, signpost, "ATXHeuristicJSEnv", " enableTelemetry=YES ", v25, 2u);
+      v27[0] = 0;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v14, OS_SIGNPOST_INTERVAL_BEGIN, signpost, "ATXHeuristicJSEnv", " enableTelemetry=YES ", v27, 2u);
     }
 
-    objc_storeStrong(&v9->_heuristicsBundle, bundle);
-    v14 = [[ATXHeuristicDevice alloc] initWithLocationManager:0];
-    device = v9->_device;
-    v9->_device = v14;
+    objc_storeStrong(&v10->_heuristicsBundle, bundle);
+    v16 = [[ATXHeuristicDevice alloc] initWithLocationManager:0];
+    device = v10->_device;
+    v10->_device = v16;
 
     if (providerCopy)
     {
-      v16 = providerCopy;
-      provider = v9->_provider;
-      v9->_provider = v16;
+      v18 = providerCopy;
+      provider = v10->_provider;
+      v10->_provider = v18;
     }
 
     else
     {
-      v18 = [[ATXHeuristicDataSourcesServer alloc] initWithDevice:v9->_device];
-      dataSourcesServer = v9->_dataSourcesServer;
-      v9->_dataSourcesServer = v18;
+      v20 = [[ATXHeuristicDataSourcesServer alloc] initWithDevice:v10->_device];
+      dataSourcesServer = v10->_dataSourcesServer;
+      v10->_dataSourcesServer = v20;
 
-      v20 = [ATXHeuristicDataSourcesClient alloc];
-      provider = [(ATXHeuristicDataSourcesServer *)v9->_dataSourcesServer listenerEndpoint];
-      v21 = [(ATXHeuristicDataSourcesClient *)v20 initWithListenerEndpoint:provider];
-      v22 = v9->_provider;
-      v9->_provider = v21;
+      v22 = [ATXHeuristicDataSourcesClient alloc];
+      provider = [(ATXHeuristicDataSourcesServer *)v10->_dataSourcesServer listenerEndpoint];
+      v23 = [(ATXHeuristicDataSourcesClient *)v22 initWithListenerEndpoint:provider];
+      v24 = v10->_provider;
+      v10->_provider = v23;
     }
 
-    *&v9->_mgQueryResults[4] = -1;
-    *v9->_mgQueryResults = -1;
-    [(ATXHeuristicJSEnv *)v9 _setUpInterpreter];
-    v23 = v9;
+    *&v10->_mgQueryResults[4] = -1;
+    *v10->_mgQueryResults = -1;
+    [(ATXHeuristicJSEnv *)v10 _setUpInterpreter];
+    v25 = v10;
   }
 
-  return v9;
+  return v10;
 }
 
 - (void)dealloc
 {
-  v3 = sub_100001830();
+  v3 = sub_100001830(self);
   v4 = v3;
   signpost = self->_signpost;
   if (signpost - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
@@ -761,33 +765,34 @@ LABEL_6:
   v3 = [(NSBundle *)self->_heuristicsBundle URLForResource:@"heuristics" withExtension:@"js"];
   if (v3)
   {
-    v8 = 0;
-    v4 = [[NSString alloc] initWithContentsOfURL:v3 usedEncoding:0 error:&v8];
-    v5 = v8;
+    v9 = 0;
+    v4 = [[NSString alloc] initWithContentsOfURL:v3 usedEncoding:0 error:&v9];
+    v5 = v9;
+    v6 = v5;
     if (v4)
     {
-      v6 = [(JSContext *)self->_jsContext evaluateScript:v4 withSourceURL:v3];
+      v7 = [(JSContext *)self->_jsContext evaluateScript:v4 withSourceURL:v3];
     }
 
     else
     {
-      v7 = sub_100001940();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = sub_100001940(v5);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v10 = v5;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Could not load the heuristics JS script: %@", buf, 0xCu);
+        v11 = v6;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Could not load the heuristics JS script: %@", buf, 0xCu);
       }
     }
   }
 
   else
   {
-    v5 = sub_100001940();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100001940(0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Could not find the heuristics JS script", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Could not find the heuristics JS script", buf, 2u);
     }
   }
 }
@@ -931,15 +936,15 @@ LABEL_6:
           v53[5] = v8;
           [(ATXHeuristicJSEnv *)self trackActionsAndExpirersForHeuristicName:v11 mutableResult:v43 performingBlock:v53];
           JSGarbageCollect([(JSContext *)self->_jsContext JSGlobalContextRef]);
-          v12 = sub_100001940();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+          v13 = sub_100001940(v12);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             ATXMemoryUsageInMBOfCurrentProcess();
             *buf = 134218242;
-            v61 = v13;
+            v61 = v14;
             v62 = 2112;
             v63 = v11;
-            _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Memory usage is %f MB after running '%@'", buf, 0x16u);
+            _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Memory usage is %f MB after running '%@'", buf, 0x16u);
           }
         }
 
@@ -952,88 +957,87 @@ LABEL_6:
     while (v5);
   }
 
-  v14 = [(JSContext *)self->_jsContext evaluateScript:@"resetSharedState()"];
+  v15 = [(JSContext *)self->_jsContext evaluateScript:@"resetSharedState()"];
   v38 = [(NSDate *)self->_now dateByAddingTimeInterval:600.0];
   v49 = 0u;
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v15 = v43;
+  v16 = v43;
   allKeys = [v43 allKeys];
-  v16 = [allKeys countByEnumeratingWithState:&v49 objects:v59 count:16];
-  if (v16)
+  v17 = [allKeys countByEnumeratingWithState:&v49 objects:v59 count:16];
+  if (v17)
   {
-    v17 = v16;
-    v18 = *v50;
+    v18 = v17;
+    v19 = *v50;
     v39 = *v50;
     do
     {
-      v19 = 0;
-      v40 = v17;
+      v20 = 0;
+      v40 = v18;
       do
       {
-        if (*v50 != v18)
+        if (*v50 != v19)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v20 = *(*(&v49 + 1) + 8 * v19);
-        v21 = [v15 objectForKeyedSubscript:v20];
-        actionMakers = [v21 actionMakers];
-        v23 = [actionMakers count];
+        v21 = *(*(&v49 + 1) + 8 * v20);
+        v22 = [v16 objectForKeyedSubscript:v21];
+        actionMakers = [v22 actionMakers];
+        v24 = [actionMakers count];
 
-        if (!v23)
+        if (!v24)
         {
           v47 = 0u;
           v48 = 0u;
           v45 = 0u;
           v46 = 0u;
-          expirers = [v21 expirers];
-          v25 = [expirers countByEnumeratingWithState:&v45 objects:v58 count:16];
-          if (!v25)
+          expirers = [v22 expirers];
+          v26 = [expirers countByEnumeratingWithState:&v45 objects:v58 count:16];
+          if (!v26)
           {
 
 LABEL_28:
             v31 = [[ATXHeuristicCacheTimeExpirer alloc] initWithFireDate:v38];
             v32 = [ATXHeuristicActionMakersAndExpirers alloc];
-            actionMakers2 = [v21 actionMakers];
-            expirers2 = [v21 expirers];
+            actionMakers2 = [v22 actionMakers];
+            expirers2 = [v22 expirers];
             v35 = [expirers2 setByAddingObject:v31];
             v36 = [v32 initWithActionMakers:actionMakers2 expirers:v35];
 
-            v18 = v39;
-            [v15 setObject:v36 forKeyedSubscript:v20];
+            v19 = v39;
+            [v16 setObject:v36 forKeyedSubscript:v21];
 
-            v17 = v40;
+            v18 = v40;
             goto LABEL_29;
           }
 
-          v26 = v25;
-          v27 = 0;
-          v28 = *v46;
+          v27 = v26;
+          v28 = 0;
+          v29 = *v46;
           do
           {
-            for (j = 0; j != v26; j = j + 1)
+            for (j = 0; j != v27; ++j)
             {
-              if (*v46 != v28)
+              if (*v46 != v29)
               {
                 objc_enumerationMutation(expirers);
               }
 
-              v30 = *(*(&v45 + 1) + 8 * j);
               objc_opt_class();
-              v27 |= objc_opt_isKindOfClass();
+              v28 |= objc_opt_isKindOfClass();
             }
 
-            v26 = [expirers countByEnumeratingWithState:&v45 objects:v58 count:16];
+            v27 = [expirers countByEnumeratingWithState:&v45 objects:v58 count:16];
           }
 
-          while (v26);
+          while (v27);
 
-          v15 = v43;
-          v18 = v39;
-          v17 = v40;
-          if ((v27 & 1) == 0)
+          v16 = v43;
+          v19 = v39;
+          v18 = v40;
+          if ((v28 & 1) == 0)
           {
             goto LABEL_28;
           }
@@ -1041,67 +1045,67 @@ LABEL_28:
 
 LABEL_29:
 
-        v19 = v19 + 1;
+        v20 = v20 + 1;
       }
 
-      while (v19 != v17);
-      v17 = [allKeys countByEnumeratingWithState:&v49 objects:v59 count:16];
+      while (v20 != v18);
+      v18 = [allKeys countByEnumeratingWithState:&v49 objects:v59 count:16];
     }
 
-    while (v17);
+    while (v18);
   }
 
-  return v15;
+  return v16;
 }
 
 - (id)resultsForInformationHeuristics:(id)heuristics
 {
   heuristicsCopy = heuristics;
   v5 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(heuristicsCopy, "count")}];
-  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
   obj = heuristicsCopy;
-  v6 = [obj countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v6 = [obj countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v18 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         v11 = objc_autoreleasePoolPush();
-        v16[0] = _NSConcreteStackBlock;
-        v16[1] = 3221225472;
-        v16[2] = sub_10000DA84;
-        v16[3] = &unk_100025738;
-        v16[4] = self;
-        v16[5] = v10;
-        [(ATXHeuristicJSEnv *)self trackCardsAndRefreshTriggersForInformationHeuristicName:v10 mutableResults:v5 performingBlock:v16];
+        v17[0] = _NSConcreteStackBlock;
+        v17[1] = 3221225472;
+        v17[2] = sub_10000DA84;
+        v17[3] = &unk_100025738;
+        v17[4] = self;
+        v17[5] = v10;
+        [(ATXHeuristicJSEnv *)self trackCardsAndRefreshTriggersForInformationHeuristicName:v10 mutableResults:v5 performingBlock:v17];
         JSGarbageCollect([(JSContext *)self->_jsContext JSGlobalContextRef]);
-        v12 = sub_100001940();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v13 = sub_100001940(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           ATXMemoryUsageInMBOfCurrentProcess();
           *buf = 134218242;
-          v22 = v13;
-          v23 = 2112;
-          v24 = v10;
-          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Memory usage is %f MB after running '%@'", buf, 0x16u);
+          v23 = v14;
+          v24 = 2112;
+          v25 = v10;
+          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Memory usage is %f MB after running '%@'", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v11);
       }
 
-      v7 = [obj countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v7 = [obj countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v7);
@@ -1210,50 +1214,51 @@ LABEL_29:
 {
   actionCopy = action;
   criteriaCopy = criteria;
-  if (actionCopy && ((objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0)))
+  v8 = criteriaCopy;
+  if (actionCopy && ((objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) || (objc_opt_class(), criteriaCopy = objc_opt_isKindOfClass(), (criteriaCopy & 1) != 0)))
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v8 = [[ATXHeuristicActionMakerForAction alloc] initWithAction:actionCopy];
+      v9 = [[ATXHeuristicActionMakerForAction alloc] initWithAction:actionCopy];
     }
 
     else
     {
-      v8 = actionCopy;
+      v9 = actionCopy;
     }
 
-    v9 = v8;
-    if (criteriaCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+    v10 = v9;
+    if (v8 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
     {
-      v13 = sub_100001940();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v15 = sub_100001940(isKindOfClass);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        *v14 = 0;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Expected nil or ATXActionCriteria", v14, 2u);
+        *v16 = 0;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Expected nil or ATXActionCriteria", v16, 2u);
       }
     }
 
     else
     {
-      [v9 setCriteria:criteriaCopy];
-      actionTypeName = [v9 actionTypeName];
-      v11 = [@":" stringByAppendingString:actionTypeName];
+      [v10 setCriteria:v8];
+      actionTypeName = [v10 actionTypeName];
+      v13 = [@":" stringByAppendingString:actionTypeName];
 
-      v12 = [(NSString *)self->_currentHeuristicName stringByAppendingString:v11];
-      [v9 setHeuristic:v12];
+      v14 = [(NSString *)self->_currentHeuristicName stringByAppendingString:v13];
+      [v10 setHeuristic:v14];
 
-      [(NSMutableArray *)self->_currentActionsBuffer addObject:v9];
+      [(NSMutableArray *)self->_currentActionsBuffer addObject:v10];
     }
   }
 
   else
   {
-    v9 = sub_100001940();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100001940(criteriaCopy);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Expected non-null ATXAction", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Expected non-null ATXAction", buf, 2u);
     }
   }
 }
@@ -1420,6 +1425,25 @@ LABEL_29:
       return Value == kCFBooleanTrue;
   }
 
+  return result;
+}
+
+- (BOOL)_mgQueryCaller:(int)caller
+{
+  if (caller > 5)
+  {
+    return 0;
+  }
+
+  mgQueryResults = self->_mgQueryResults;
+  v5 = self->_mgQueryResults[caller];
+  if (v5 != 255)
+  {
+    return v5 != 0;
+  }
+
+  result = [(ATXHeuristicJSEnv *)self _BOOLForMGQuery:*&caller];
+  mgQueryResults[caller] = result;
   return result;
 }
 
@@ -1758,35 +1782,35 @@ LABEL_7:
   dateCopy = date;
   if ([handlesCopy count])
   {
-    v18 = 0;
-    v19 = &v18;
-    v20 = 0x3032000000;
-    v21 = sub_100009940;
-    v22 = sub_100009950;
-    v23 = 0;
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x3032000000;
+    v24 = sub_100009940;
+    v25 = sub_100009950;
+    v26 = 0;
     v15 = 0;
-    v16[0] = &v15;
-    v16[1] = 0x3032000000;
-    v16[2] = sub_100009940;
-    v16[3] = sub_100009950;
-    v17 = 0;
+    v16 = &v15;
+    v17 = 0x3032000000;
+    v18 = sub_100009940;
+    v19 = sub_100009950;
+    v20 = 0;
     provider = self->_provider;
     v9 = [NSSet setWithArray:handlesCopy];
     v14[0] = _NSConcreteStackBlock;
     v14[1] = 3221225472;
     v14[2] = sub_100010AB0;
     v14[3] = &unk_100025A00;
-    v14[4] = &v18;
+    v14[4] = &v21;
     v14[5] = &v15;
     [(ATXHeuristicDataSources *)provider duetInteractionCountForHandles:v9 sinceDate:dateCopy callback:v14];
 
-    if (*(v16[0] + 40))
+    if (v16[5])
     {
-      v10 = sub_100001940();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = sub_100001940(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        Name = sel_getName("duetInteractionCountForHandles:sinceDate:callback:");
-        sub_10001704C(Name, v16);
+        sel_getName("duetInteractionCountForHandles:sinceDate:callback:");
+        sub_10001704C();
       }
 
       v12 = 0;
@@ -1794,12 +1818,12 @@ LABEL_7:
 
     else
     {
-      v12 = v19[5];
+      v12 = v22[5];
     }
 
     _Block_object_dispose(&v15, 8);
 
-    _Block_object_dispose(&v18, 8);
+    _Block_object_dispose(&v21, 8);
   }
 
   else
@@ -1814,33 +1838,33 @@ LABEL_7:
 {
   nameCopy = name;
   combinationCopy = combination;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = sub_100009940;
-  v21 = sub_100009950;
-  v22 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = sub_100009940;
+  v24 = sub_100009950;
+  v25 = 0;
   v14 = 0;
-  v15[0] = &v14;
-  v15[1] = 0x3032000000;
-  v15[2] = sub_100009940;
-  v15[3] = sub_100009950;
-  v16 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = sub_100009940;
+  v18 = sub_100009950;
+  v19 = 0;
   provider = self->_provider;
   v13[0] = _NSConcreteStackBlock;
   v13[1] = 3221225472;
   v13[2] = sub_100010D48;
   v13[3] = &unk_100025A28;
-  v13[4] = &v17;
+  v13[4] = &v20;
   v13[5] = &v14;
-  [(ATXHeuristicDataSources *)provider preferredAppForIntentName:nameCopy andParameterCombination:combinationCopy callback:v13];
-  if (*(v15[0] + 40))
+  v9 = [(ATXHeuristicDataSources *)provider preferredAppForIntentName:nameCopy andParameterCombination:combinationCopy callback:v13];
+  if (v15[5])
   {
-    v9 = sub_100001940();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100001940(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      Name = sel_getName("preferredAppForIntentName:andParameterCombination:callback:");
-      sub_10001704C(Name, v15);
+      sel_getName("preferredAppForIntentName:andParameterCombination:callback:");
+      sub_10001704C();
     }
 
     v11 = 0;
@@ -1848,45 +1872,96 @@ LABEL_7:
 
   else
   {
-    v11 = v18[5];
+    v11 = v21[5];
   }
 
   _Block_object_dispose(&v14, 8);
 
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v20, 8);
 
   return v11;
 }
 
+- (id)_travelTimeForEventWithID:(id)d latitude:(double)latitude longitude:(double)longitude expectedArrivalDate:(id)date transportType:(id)type localOnlyAfterFirstUpdate:(BOOL)update
+{
+  updateCopy = update;
+  dCopy = d;
+  dateCopy = date;
+  typeCopy = type;
+  v17 = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = sub_100009940;
+  v34 = sub_100009950;
+  v35 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = sub_100009940;
+  v28 = sub_100009950;
+  v29 = 0;
+  provider = self->_provider;
+  v23[0] = _NSConcreteStackBlock;
+  v23[1] = 3221225472;
+  v23[2] = sub_100011040;
+  v23[3] = &unk_100025A50;
+  v23[4] = &v30;
+  v23[5] = &v24;
+  v19 = [(ATXHeuristicDataSources *)provider travelTimeInfoForEventID:dCopy location:v17 expectedArrivalDate:dateCopy transportType:typeCopy localOnlyAfterFirstUpdate:updateCopy callback:v23];
+  if (v25[5])
+  {
+    v20 = sub_100001940(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    {
+      sel_getName("travelTimeInfoForEventID:location:expectedArrivalDate:transportType:localOnlyAfterFirstUpdate:callback:");
+      sub_10001704C();
+    }
+
+    v21 = 0;
+  }
+
+  else
+  {
+    v21 = v31[5];
+  }
+
+  _Block_object_dispose(&v24, 8);
+
+  _Block_object_dispose(&v30, 8);
+
+  return v21;
+}
+
 - (id)_nlEventsFromDataSource
 {
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x3032000000;
-  v14 = sub_100009940;
-  v15 = sub_100009950;
-  v16 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = sub_100009940;
+  v18 = sub_100009950;
+  v19 = 0;
   v8 = 0;
-  v9[0] = &v8;
-  v9[1] = 0x3032000000;
-  v9[2] = sub_100009940;
-  v9[3] = sub_100009950;
-  v10 = 0;
+  v9 = &v8;
+  v10 = 0x3032000000;
+  v11 = sub_100009940;
+  v12 = sub_100009950;
+  v13 = 0;
   provider = self->_provider;
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
   v7[2] = sub_1000112A8;
   v7[3] = &unk_100025A78;
-  v7[4] = &v11;
+  v7[4] = &v14;
   v7[5] = &v8;
-  [(ATXHeuristicDataSources *)provider nlEventsWithCallback:v7];
-  if (*(v9[0] + 40))
+  v3 = [(ATXHeuristicDataSources *)provider nlEventsWithCallback:v7];
+  if (v9[5])
   {
-    v3 = sub_100001940();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = sub_100001940(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      Name = sel_getName("nlEventsWithCallback:");
-      sub_10001704C(Name, v9);
+      sel_getName("nlEventsWithCallback:");
+      sub_10001704C();
     }
 
     v5 = 0;
@@ -1894,12 +1969,12 @@ LABEL_7:
 
   else
   {
-    v5 = v12[5];
+    v5 = v15[5];
   }
 
   _Block_object_dispose(&v8, 8);
 
-  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(&v14, 8);
 
   return v5;
 }
@@ -1915,35 +1990,35 @@ LABEL_7:
     goto LABEL_28;
   }
 
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = sub_100009940;
-  v27 = sub_100009950;
-  v28 = 0;
-  v20 = 0;
-  v21[0] = &v20;
-  v21[1] = 0x3032000000;
-  v21[2] = sub_100009940;
-  v21[3] = sub_100009950;
-  v22 = 0;
-  v19[0] = _NSConcreteStackBlock;
-  v19[1] = 3221225472;
-  v19[2] = sub_100011738;
-  v19[3] = &unk_100025A78;
-  v19[4] = &v23;
-  v19[5] = &v20;
-  v11 = objc_retainBlock(v19);
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = sub_100009940;
+  v31 = sub_100009950;
+  v32 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = sub_100009940;
+  v25 = sub_100009950;
+  v26 = 0;
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_100011738;
+  v20[3] = &unk_100025A78;
+  v20[4] = &v27;
+  v20[5] = &v21;
+  v11 = objc_retainBlock(v20);
   if ([typeCopy isEqualToString:@"identifiers"])
   {
-    [(ATXHeuristicDataSources *)self->_provider contactsWithIdentifiers:identifiersCopy callback:v11];
-    if (*(v21[0] + 40))
+    v12 = [(ATXHeuristicDataSources *)self->_provider contactsWithIdentifiers:identifiersCopy callback:v11];
+    if (v22[5])
     {
-      v12 = sub_100001940();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = sub_100001940(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        Name = sel_getName("contactsWithIdentifiers:callback:");
-        sub_10001704C(Name, v21);
+        sel_getName("contactsWithIdentifiers:callback:");
+        sub_10001704C();
       }
 
 LABEL_26:
@@ -1955,14 +2030,14 @@ LABEL_26:
 
   else if ([typeCopy isEqualToString:@"name"])
   {
-    [(ATXHeuristicDataSources *)self->_provider contactsWithName:valueCopy callback:v11];
-    if (*(v21[0] + 40))
+    v15 = [(ATXHeuristicDataSources *)self->_provider contactsWithName:valueCopy callback:v11];
+    if (v22[5])
     {
-      v12 = sub_100001940();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = sub_100001940(v15);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v15 = sel_getName("contactsWithName:callback:");
-        sub_10001704C(v15, v21);
+        sel_getName("contactsWithName:callback:");
+        sub_10001704C();
       }
 
       goto LABEL_26;
@@ -1971,14 +2046,14 @@ LABEL_26:
 
   else if ([typeCopy isEqualToString:@"email"])
   {
-    [(ATXHeuristicDataSources *)self->_provider contactsWithEmail:valueCopy callback:v11];
-    if (*(v21[0] + 40))
+    v16 = [(ATXHeuristicDataSources *)self->_provider contactsWithEmail:valueCopy callback:v11];
+    if (v22[5])
     {
-      v12 = sub_100001940();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = sub_100001940(v16);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v16 = sel_getName("contactsWithEmail:callback:");
-        sub_10001704C(v16, v21);
+        sel_getName("contactsWithEmail:callback:");
+        sub_10001704C();
       }
 
       goto LABEL_26;
@@ -1987,38 +2062,39 @@ LABEL_26:
 
   else
   {
-    if (![typeCopy isEqualToString:@"phone"])
+    v17 = [typeCopy isEqualToString:@"phone"];
+    if (!v17)
     {
-      v12 = sub_100001940();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_100001940(v17);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v30 = typeCopy;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Unknown fetch type: '%@'", buf, 0xCu);
+        v34 = typeCopy;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Unknown fetch type: '%@'", buf, 0xCu);
       }
 
       goto LABEL_26;
     }
 
-    [(ATXHeuristicDataSources *)self->_provider contactsWithPhone:valueCopy callback:v11];
-    if (*(v21[0] + 40))
+    v18 = [(ATXHeuristicDataSources *)self->_provider contactsWithPhone:valueCopy callback:v11];
+    if (v22[5])
     {
-      v12 = sub_100001940();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = sub_100001940(v18);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v17 = sel_getName("contactsWithPhone:callback:");
-        sub_10001704C(v17, v21);
+        sel_getName("contactsWithPhone:callback:");
+        sub_10001704C();
       }
 
       goto LABEL_26;
     }
   }
 
-  v14 = v24[5];
+  v14 = v28[5];
 LABEL_27:
 
-  _Block_object_dispose(&v20, 8);
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v27, 8);
 
 LABEL_28:
 
@@ -2027,33 +2103,33 @@ LABEL_28:
 
 - (id)_currentLocationFromDataSource
 {
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x3032000000;
-  v14 = sub_100009940;
-  v15 = sub_100009950;
-  v16 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = sub_100009940;
+  v18 = sub_100009950;
+  v19 = 0;
   v8 = 0;
-  v9[0] = &v8;
-  v9[1] = 0x3032000000;
-  v9[2] = sub_100009940;
-  v9[3] = sub_100009950;
-  v10 = 0;
+  v9 = &v8;
+  v10 = 0x3032000000;
+  v11 = sub_100009940;
+  v12 = sub_100009950;
+  v13 = 0;
   provider = self->_provider;
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
   v7[2] = sub_1000119A0;
   v7[3] = &unk_100025A50;
-  v7[4] = &v11;
+  v7[4] = &v14;
   v7[5] = &v8;
-  [(ATXHeuristicDataSources *)provider obtainOneTimeLocationWithCallback:v7];
-  if (*(v9[0] + 40))
+  v3 = [(ATXHeuristicDataSources *)provider obtainOneTimeLocationWithCallback:v7];
+  if (v9[5])
   {
-    v3 = sub_100001940();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = sub_100001940(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      Name = sel_getName("obtainOneTimeLocationWithCallback:");
-      sub_10001704C(Name, v9);
+      sel_getName("obtainOneTimeLocationWithCallback:");
+      sub_10001704C();
     }
 
     v5 = 0;
@@ -2061,45 +2137,45 @@ LABEL_28:
 
   else
   {
-    v5 = v12[5];
+    v5 = v15[5];
   }
 
   _Block_object_dispose(&v8, 8);
 
-  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(&v14, 8);
 
   return v5;
 }
 
 - (id)_unreadMessagesWithLimit:(int64_t)limit
 {
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x3032000000;
-  v15 = sub_100009940;
-  v16 = sub_100009950;
-  v17 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = sub_100009940;
+  v19 = sub_100009950;
+  v20 = 0;
   v9 = 0;
-  v10[0] = &v9;
-  v10[1] = 0x3032000000;
-  v10[2] = sub_100009940;
-  v10[3] = sub_100009950;
-  v11 = 0;
+  v10 = &v9;
+  v11 = 0x3032000000;
+  v12 = sub_100009940;
+  v13 = sub_100009950;
+  v14 = 0;
   provider = self->_provider;
   v8[0] = _NSConcreteStackBlock;
   v8[1] = 3221225472;
   v8[2] = sub_100011C08;
   v8[3] = &unk_100025A78;
-  v8[4] = &v12;
+  v8[4] = &v15;
   v8[5] = &v9;
-  [(ATXHeuristicDataSources *)provider unreadMessagesWithLimit:limit callback:v8];
-  if (*(v10[0] + 40))
+  v4 = [(ATXHeuristicDataSources *)provider unreadMessagesWithLimit:limit callback:v8];
+  if (v10[5])
   {
-    v4 = sub_100001940();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sub_100001940(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      Name = sel_getName("unreadMessagesWithLimit:callback:");
-      sub_10001704C(Name, v10);
+      sel_getName("unreadMessagesWithLimit:callback:");
+      sub_10001704C();
     }
 
     v6 = 0;
@@ -2107,45 +2183,45 @@ LABEL_28:
 
   else
   {
-    v6 = v13[5];
+    v6 = v16[5];
   }
 
   _Block_object_dispose(&v9, 8);
 
-  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v15, 8);
 
   return v6;
 }
 
 - (id)_peopleSuggestionsFromDataSource
 {
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x3032000000;
-  v14 = sub_100009940;
-  v15 = sub_100009950;
-  v16 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = sub_100009940;
+  v18 = sub_100009950;
+  v19 = 0;
   v8 = 0;
-  v9[0] = &v8;
-  v9[1] = 0x3032000000;
-  v9[2] = sub_100009940;
-  v9[3] = sub_100009950;
-  v10 = 0;
+  v9 = &v8;
+  v10 = 0x3032000000;
+  v11 = sub_100009940;
+  v12 = sub_100009950;
+  v13 = 0;
   provider = self->_provider;
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
   v7[2] = sub_100011E70;
   v7[3] = &unk_100025A78;
-  v7[4] = &v11;
+  v7[4] = &v14;
   v7[5] = &v8;
-  [(ATXHeuristicDataSources *)provider peopleSuggestionsWithCallback:v7];
-  if (*(v9[0] + 40))
+  v3 = [(ATXHeuristicDataSources *)provider peopleSuggestionsWithCallback:v7];
+  if (v9[5])
   {
-    v3 = sub_100001940();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = sub_100001940(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      Name = sel_getName("peopleSuggestionsWithCallback:");
-      sub_10001704C(Name, v9);
+      sel_getName("peopleSuggestionsWithCallback:");
+      sub_10001704C();
     }
 
     v5 = 0;
@@ -2153,30 +2229,30 @@ LABEL_28:
 
   else
   {
-    v5 = v12[5];
+    v5 = v15[5];
   }
 
   _Block_object_dispose(&v8, 8);
 
-  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(&v14, 8);
 
   return v5;
 }
 
 - (id)_enabledAlarmsFromTS:(double)s toTS:(double)tS
 {
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = sub_100009940;
-  v20 = sub_100009950;
-  v21 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = sub_100009940;
+  v23 = sub_100009950;
+  v24 = 0;
   v13 = 0;
-  v14[0] = &v13;
-  v14[1] = 0x3032000000;
-  v14[2] = sub_100009940;
-  v14[3] = sub_100009950;
-  v15 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = sub_100009940;
+  v17 = sub_100009950;
+  v18 = 0;
   provider = self->_provider;
   v6 = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:s];
   v7 = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate:tS];
@@ -2184,17 +2260,17 @@ LABEL_28:
   v12[1] = 3221225472;
   v12[2] = sub_100012138;
   v12[3] = &unk_100025A78;
-  v12[4] = &v16;
+  v12[4] = &v19;
   v12[5] = &v13;
   [(ATXHeuristicDataSources *)provider alarmsFromDate:v6 toDate:v7 completionHandler:v12];
 
-  if (*(v14[0] + 40))
+  if (v14[5])
   {
-    v8 = sub_100001940();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_100001940(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      Name = sel_getName("alarmsFromDate:toDate:completionHandler:");
-      sub_10001704C(Name, v14);
+      sel_getName("alarmsFromDate:toDate:completionHandler:");
+      sub_10001704C();
     }
 
     v10 = 0;
@@ -2202,12 +2278,12 @@ LABEL_28:
 
   else
   {
-    v10 = v17[5];
+    v10 = v20[5];
   }
 
   _Block_object_dispose(&v13, 8);
 
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v19, 8);
 
   return v10;
 }
@@ -2223,33 +2299,33 @@ LABEL_28:
 - (id)_latestFlightStatus:(id)status
 {
   statusCopy = status;
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = sub_100009940;
-  v18 = sub_100009950;
-  v19 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = sub_100009940;
+  v21 = sub_100009950;
+  v22 = 0;
   v11 = 0;
-  v12[0] = &v11;
-  v12[1] = 0x3032000000;
-  v12[2] = sub_100009940;
-  v12[3] = sub_100009950;
-  v13 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = sub_100009940;
+  v15 = sub_100009950;
+  v16 = 0;
   provider = self->_provider;
   v10[0] = _NSConcreteStackBlock;
   v10[1] = 3221225472;
   v10[2] = sub_100012410;
   v10[3] = &unk_100025A50;
-  v10[4] = &v14;
+  v10[4] = &v17;
   v10[5] = &v11;
-  [(ATXHeuristicDataSources *)provider flightStatusForFlight:statusCopy callback:v10];
-  if (*(v12[0] + 40))
+  v6 = [(ATXHeuristicDataSources *)provider flightStatusForFlight:statusCopy callback:v10];
+  if (v12[5])
   {
-    v6 = sub_100001940();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_100001940(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      Name = sel_getName("flightStatusForFlight:callback:");
-      sub_10001704C(Name, v12);
+      sel_getName("flightStatusForFlight:callback:");
+      sub_10001704C();
     }
 
     v8 = 0;
@@ -2257,45 +2333,45 @@ LABEL_28:
 
   else
   {
-    v8 = v15[5];
+    v8 = v18[5];
   }
 
   _Block_object_dispose(&v11, 8);
 
-  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v17, 8);
 
   return v8;
 }
 
 - (id)_usualAlarmTimeOfDayDataSource
 {
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x3032000000;
-  v14 = sub_100009940;
-  v15 = sub_100009950;
-  v16 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = sub_100009940;
+  v18 = sub_100009950;
+  v19 = 0;
   v8 = 0;
-  v9[0] = &v8;
-  v9[1] = 0x3032000000;
-  v9[2] = sub_100009940;
-  v9[3] = sub_100009950;
-  v10 = 0;
+  v9 = &v8;
+  v10 = 0x3032000000;
+  v11 = sub_100009940;
+  v12 = sub_100009950;
+  v13 = 0;
   provider = self->_provider;
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
   v7[2] = sub_100012678;
   v7[3] = &unk_100025A00;
-  v7[4] = &v11;
+  v7[4] = &v14;
   v7[5] = &v8;
-  [(ATXHeuristicDataSources *)provider alarmTimeOfDay:v7];
-  if (*(v9[0] + 40))
+  v3 = [(ATXHeuristicDataSources *)provider alarmTimeOfDay:v7];
+  if (v9[5])
   {
-    v3 = sub_100001940();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = sub_100001940(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      Name = sel_getName("alarmTimeOfDay:");
-      sub_10001704C(Name, v9);
+      sel_getName("alarmTimeOfDay:");
+      sub_10001704C();
     }
 
     v5 = 0;
@@ -2303,82 +2379,82 @@ LABEL_28:
 
   else
   {
-    v5 = v12[5];
+    v5 = v15[5];
   }
 
   _Block_object_dispose(&v8, 8);
 
-  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(&v14, 8);
 
   return v5;
 }
 
 - (id)_clipboardContentsFromDataSource
 {
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = sub_100009940;
-  v29 = sub_100009950;
-  v30 = 0;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = sub_100009940;
-  v23 = sub_100009950;
-  v24 = 0;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = sub_100009940;
-  v17 = sub_100009950;
-  v18 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = sub_100009940;
+  v32 = sub_100009950;
+  v33 = 0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = sub_100009940;
+  v26 = sub_100009950;
+  v27 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = sub_100009940;
+  v20 = sub_100009950;
+  v21 = 0;
   v10 = 0;
-  v11[0] = &v10;
-  v11[1] = 0x3032000000;
-  v11[2] = sub_100009940;
-  v11[3] = sub_100009950;
-  v12 = 0;
+  v11 = &v10;
+  v12 = 0x3032000000;
+  v13 = sub_100009940;
+  v14 = sub_100009950;
+  v15 = 0;
   provider = self->_provider;
   v9[0] = _NSConcreteStackBlock;
   v9[1] = 3221225472;
   v9[2] = sub_100012A1C;
   v9[3] = &unk_100025AA0;
-  v9[4] = &v25;
-  v9[5] = &v13;
-  v9[6] = &v19;
+  v9[4] = &v28;
+  v9[5] = &v16;
+  v9[6] = &v22;
   v9[7] = &v10;
-  [(ATXHeuristicDataSources *)provider contentsWithCallback:v9];
-  if (*(v11[0] + 40))
+  v3 = [(ATXHeuristicDataSources *)provider contentsWithCallback:v9];
+  if (v11[5])
   {
-    v3 = sub_100001940();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = sub_100001940(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      Name = sel_getName("contentsWithCallback:");
-      sub_10001704C(Name, v11);
+      sel_getName("contentsWithCallback:");
+      sub_10001704C();
     }
 
     v5 = 0;
     goto LABEL_5;
   }
 
-  if (v26[5])
+  if (v29[5])
   {
-    v6 = v14[5];
+    v6 = v17[5];
     if (v6)
     {
-      if (v20[5])
+      if (v23[5])
       {
-        v32[0] = v26[5];
-        v31[0] = @"content";
-        v31[1] = @"creationTimestamp";
+        v35[0] = v29[5];
+        v34[0] = @"content";
+        v34[1] = @"creationTimestamp";
         [v6 timeIntervalSinceReferenceDate];
-        v3 = [NSNumber numberWithDouble:?];
-        v31[2] = @"originatorBundleID";
-        v7 = v20[5];
-        v32[1] = v3;
-        v32[2] = v7;
-        v5 = [NSDictionary dictionaryWithObjects:v32 forKeys:v31 count:3];
+        v4 = [NSNumber numberWithDouble:?];
+        v34[2] = @"originatorBundleID";
+        v7 = v23[5];
+        v35[1] = v4;
+        v35[2] = v7;
+        v5 = [NSDictionary dictionaryWithObjects:v35 forKeys:v34 count:3];
 LABEL_5:
 
         goto LABEL_11;
@@ -2390,41 +2466,41 @@ LABEL_5:
 LABEL_11:
   _Block_object_dispose(&v10, 8);
 
-  _Block_object_dispose(&v13, 8);
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v22, 8);
 
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v28, 8);
 
   return v5;
 }
 
 - (BOOL)_isFocusModeActiveFromDataSource
 {
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2020000000;
   v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 0;
   v8 = 0;
-  v9[0] = &v8;
-  v9[1] = 0x3032000000;
-  v9[2] = sub_100009940;
-  v9[3] = sub_100009950;
-  v10 = 0;
+  v9 = &v8;
+  v10 = 0x3032000000;
+  v11 = sub_100009940;
+  v12 = sub_100009950;
+  v13 = 0;
   provider = self->_provider;
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
   v7[2] = sub_100012CA8;
   v7[3] = &unk_100025AC8;
-  v7[4] = &v11;
+  v7[4] = &v14;
   v7[5] = &v8;
-  [(ATXHeuristicDataSources *)provider isFocusModeActive:v7];
-  if (*(v9[0] + 40))
+  v3 = [(ATXHeuristicDataSources *)provider isFocusModeActive:v7];
+  if (v9[5])
   {
-    v3 = sub_100001940();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = sub_100001940(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      Name = sel_getName("isFocusModeActive:");
-      sub_10001704C(Name, v9);
+      sel_getName("isFocusModeActive:");
+      sub_10001704C();
     }
 
     v5 = 0;
@@ -2432,44 +2508,44 @@ LABEL_11:
 
   else
   {
-    v5 = *(v12 + 24);
+    v5 = *(v15 + 24);
   }
 
   _Block_object_dispose(&v8, 8);
 
-  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(&v14, 8);
   return v5 & 1;
 }
 
 - (id)_visibleCalendarsFromDataSource
 {
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x3032000000;
-  v14 = sub_100009940;
-  v15 = sub_100009950;
-  v16 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = sub_100009940;
+  v18 = sub_100009950;
+  v19 = 0;
   v8 = 0;
-  v9[0] = &v8;
-  v9[1] = 0x3032000000;
-  v9[2] = sub_100009940;
-  v9[3] = sub_100009950;
-  v10 = 0;
+  v9 = &v8;
+  v10 = 0x3032000000;
+  v11 = sub_100009940;
+  v12 = sub_100009950;
+  v13 = 0;
   provider = self->_provider;
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
   v7[2] = sub_100012EA8;
   v7[3] = &unk_100025A78;
-  v7[4] = &v11;
+  v7[4] = &v14;
   v7[5] = &v8;
-  [(ATXHeuristicDataSources *)provider visibleCalendarsWithCallback:v7];
-  if (*(v9[0] + 40))
+  v3 = [(ATXHeuristicDataSources *)provider visibleCalendarsWithCallback:v7];
+  if (v9[5])
   {
-    v3 = sub_100001940();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = sub_100001940(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      Name = sel_getName("visibleCalendarsWithCallback:");
-      sub_10001704C(Name, v9);
+      sel_getName("visibleCalendarsWithCallback:");
+      sub_10001704C();
     }
 
     v5 = 0;
@@ -2477,12 +2553,12 @@ LABEL_11:
 
   else
   {
-    v5 = v12[5];
+    v5 = v15[5];
   }
 
   _Block_object_dispose(&v8, 8);
 
-  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(&v14, 8);
 
   return v5;
 }
@@ -2491,33 +2567,33 @@ LABEL_11:
 {
   dateCopy = date;
   endDateCopy = endDate;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = sub_100009940;
-  v21 = sub_100009950;
-  v22 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = sub_100009940;
+  v24 = sub_100009950;
+  v25 = 0;
   v14 = 0;
-  v15[0] = &v14;
-  v15[1] = 0x3032000000;
-  v15[2] = sub_100009940;
-  v15[3] = sub_100009950;
-  v16 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = sub_100009940;
+  v18 = sub_100009950;
+  v19 = 0;
   provider = self->_provider;
   v13[0] = _NSConcreteStackBlock;
   v13[1] = 3221225472;
   v13[2] = sub_100013140;
   v13[3] = &unk_100025A78;
-  v13[4] = &v17;
+  v13[4] = &v20;
   v13[5] = &v14;
-  [(ATXHeuristicDataSources *)provider calendarEventsFromStartDate:dateCopy toEndDate:endDateCopy callback:v13];
-  if (*(v15[0] + 40))
+  v9 = [(ATXHeuristicDataSources *)provider calendarEventsFromStartDate:dateCopy toEndDate:endDateCopy callback:v13];
+  if (v15[5])
   {
-    v9 = sub_100001940();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100001940(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      Name = sel_getName("calendarEventsFromStartDate:toEndDate:callback:");
-      sub_10001704C(Name, v15);
+      sel_getName("calendarEventsFromStartDate:toEndDate:callback:");
+      sub_10001704C();
     }
 
     v11 = 0;
@@ -2525,12 +2601,12 @@ LABEL_11:
 
   else
   {
-    v11 = v18[5];
+    v11 = v21[5];
   }
 
   _Block_object_dispose(&v14, 8);
 
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v20, 8);
 
   return v11;
 }
@@ -2539,93 +2615,93 @@ LABEL_11:
 {
   styleCopy = style;
   v5 = styleCopy;
-  if (!styleCopy || ([styleCopy isEqualToString:@"ticket"] & 1) != 0 || (objc_msgSend(v5, "isEqualToString:", @"boardingPass") & 1) != 0)
+  if (!styleCopy || ([styleCopy isEqualToString:@"ticket"] & 1) != 0 || (v6 = objc_msgSend(v5, "isEqualToString:", @"boardingPass"), (v6 & 1) != 0))
   {
-    v16 = 0;
-    v17 = &v16;
-    v18 = 0x3032000000;
-    v19 = sub_100009940;
-    v20 = sub_100009950;
-    v21 = 0;
-    v13 = 0;
-    v14[0] = &v13;
-    v14[1] = 0x3032000000;
-    v14[2] = sub_100009940;
-    v14[3] = sub_100009950;
-    v15 = 0;
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x3032000000;
+    v23 = sub_100009940;
+    v24 = sub_100009950;
+    v25 = 0;
+    v14 = 0;
+    v15 = &v14;
+    v16 = 0x3032000000;
+    v17 = sub_100009940;
+    v18 = sub_100009950;
+    v19 = 0;
     provider = self->_provider;
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_100013424;
-    v12[3] = &unk_100025A78;
-    v12[4] = &v16;
-    v12[5] = &v13;
-    [(ATXHeuristicDataSources *)provider passesWithStyle:v5 callback:v12];
-    if (*(v14[0] + 40))
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_100013424;
+    v13[3] = &unk_100025A78;
+    v13[4] = &v20;
+    v13[5] = &v14;
+    v8 = [(ATXHeuristicDataSources *)provider passesWithStyle:v5 callback:v13];
+    if (v15[5])
     {
-      v7 = sub_100001940();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = sub_100001940(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        Name = sel_getName("passesWithStyle:callback:");
-        sub_10001704C(Name, v14);
+        sel_getName("passesWithStyle:callback:");
+        sub_10001704C();
       }
 
-      v9 = 0;
+      v10 = 0;
     }
 
     else
     {
-      v9 = v17[5];
+      v10 = v21[5];
     }
 
-    _Block_object_dispose(&v13, 8);
+    _Block_object_dispose(&v14, 8);
 
-    _Block_object_dispose(&v16, 8);
+    _Block_object_dispose(&v20, 8);
   }
 
   else
   {
-    v11 = sub_100001940();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sub_100001940(v6);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_100017084();
     }
 
-    v9 = &__NSArray0__struct;
+    v10 = &__NSArray0__struct;
   }
 
-  return v9;
+  return v10;
 }
 
 - (id)_bestAppSuggestionFromDataSource
 {
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x3032000000;
-  v14 = sub_100009940;
-  v15 = sub_100009950;
-  v16 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = sub_100009940;
+  v18 = sub_100009950;
+  v19 = 0;
   v8 = 0;
-  v9[0] = &v8;
-  v9[1] = 0x3032000000;
-  v9[2] = sub_100009940;
-  v9[3] = sub_100009950;
-  v10 = 0;
+  v9 = &v8;
+  v10 = 0x3032000000;
+  v11 = sub_100009940;
+  v12 = sub_100009950;
+  v13 = 0;
   provider = self->_provider;
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
   v7[2] = sub_10001368C;
   v7[3] = &unk_100025AF0;
-  v7[4] = &v11;
+  v7[4] = &v14;
   v7[5] = &v8;
-  [(ATXHeuristicDataSources *)provider bestAppSuggestionWithCallback:v7];
-  if (*(v9[0] + 40))
+  v3 = [(ATXHeuristicDataSources *)provider bestAppSuggestionWithCallback:v7];
+  if (v9[5])
   {
-    v3 = sub_100001940();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = sub_100001940(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      Name = sel_getName("bestAppSuggestionWithCallback:");
-      sub_10001704C(Name, v9);
+      sel_getName("bestAppSuggestionWithCallback:");
+      sub_10001704C();
     }
 
     v5 = 0;
@@ -2633,45 +2709,45 @@ LABEL_11:
 
   else
   {
-    v5 = v12[5];
+    v5 = v15[5];
   }
 
   _Block_object_dispose(&v8, 8);
 
-  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(&v14, 8);
 
   return v5;
 }
 
 - (id)_vipsFromDataSource
 {
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x3032000000;
-  v14 = sub_100009940;
-  v15 = sub_100009950;
-  v16 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = sub_100009940;
+  v18 = sub_100009950;
+  v19 = 0;
   v8 = 0;
-  v9[0] = &v8;
-  v9[1] = 0x3032000000;
-  v9[2] = sub_100009940;
-  v9[3] = sub_100009950;
-  v10 = 0;
+  v9 = &v8;
+  v10 = 0x3032000000;
+  v11 = sub_100009940;
+  v12 = sub_100009950;
+  v13 = 0;
   provider = self->_provider;
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
   v7[2] = sub_1000138F4;
   v7[3] = &unk_100025A78;
-  v7[4] = &v11;
+  v7[4] = &v14;
   v7[5] = &v8;
-  [(ATXHeuristicDataSources *)provider vipsWithCallback:v7];
-  if (*(v9[0] + 40))
+  v3 = [(ATXHeuristicDataSources *)provider vipsWithCallback:v7];
+  if (v9[5])
   {
-    v3 = sub_100001940();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = sub_100001940(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      Name = sel_getName("vipsWithCallback:");
-      sub_10001704C(Name, v9);
+      sel_getName("vipsWithCallback:");
+      sub_10001704C();
     }
 
     v5 = 0;
@@ -2679,12 +2755,12 @@ LABEL_11:
 
   else
   {
-    v5 = v12[5];
+    v5 = v15[5];
   }
 
   _Block_object_dispose(&v8, 8);
 
-  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(&v14, 8);
 
   return v5;
 }
@@ -2702,33 +2778,33 @@ LABEL_11:
     v5 = 0;
   }
 
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = sub_100009940;
-  v19 = sub_100009950;
-  v20 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = sub_100009940;
+  v22 = sub_100009950;
+  v23 = 0;
   v12 = 0;
-  v13[0] = &v12;
-  v13[1] = 0x3032000000;
-  v13[2] = sub_100009940;
-  v13[3] = sub_100009950;
-  v14 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = sub_100009940;
+  v16 = sub_100009950;
+  v17 = 0;
   provider = self->_provider;
   v11[0] = _NSConcreteStackBlock;
   v11[1] = 3221225472;
   v11[2] = sub_100013BA0;
   v11[3] = &unk_100025A78;
-  v11[4] = &v15;
+  v11[4] = &v18;
   v11[5] = &v12;
-  [(ATXHeuristicDataSources *)provider getEventsWithProminentFeature:v5 callback:v11];
-  if (*(v13[0] + 40))
+  v7 = [(ATXHeuristicDataSources *)provider getEventsWithProminentFeature:v5 callback:v11];
+  if (v13[5])
   {
-    v7 = sub_100001940();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_100001940(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      Name = sel_getName("getEventsWithProminentFeature:callback:");
-      sub_10001704C(Name, v13);
+      sel_getName("getEventsWithProminentFeature:callback:");
+      sub_10001704C();
     }
 
     v9 = 0;
@@ -2736,45 +2812,45 @@ LABEL_11:
 
   else
   {
-    v9 = v16[5];
+    v9 = v19[5];
   }
 
   _Block_object_dispose(&v12, 8);
 
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v18, 8);
 
   return v9;
 }
 
 - (id)_batteryInformationFromDataSource
 {
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x3032000000;
-  v14 = sub_100009940;
-  v15 = sub_100009950;
-  v16 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = sub_100009940;
+  v18 = sub_100009950;
+  v19 = 0;
   v8 = 0;
-  v9[0] = &v8;
-  v9[1] = 0x3032000000;
-  v9[2] = sub_100009940;
-  v9[3] = sub_100009950;
-  v10 = 0;
+  v9 = &v8;
+  v10 = 0x3032000000;
+  v11 = sub_100009940;
+  v12 = sub_100009950;
+  v13 = 0;
   provider = self->_provider;
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
   v7[2] = sub_100013E08;
   v7[3] = &unk_100025A78;
-  v7[4] = &v11;
+  v7[4] = &v14;
   v7[5] = &v8;
-  [(ATXHeuristicDataSources *)provider batteryInformationWithCallback:v7];
-  if (*(v9[0] + 40))
+  v3 = [(ATXHeuristicDataSources *)provider batteryInformationWithCallback:v7];
+  if (v9[5])
   {
-    v3 = sub_100001940();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = sub_100001940(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      Name = sel_getName("batteryInformationWithCallback:");
-      sub_10001704C(Name, v9);
+      sel_getName("batteryInformationWithCallback:");
+      sub_10001704C();
     }
 
     v5 = 0;
@@ -2782,12 +2858,12 @@ LABEL_11:
 
   else
   {
-    v5 = v12[5];
+    v5 = v15[5];
   }
 
   _Block_object_dispose(&v8, 8);
 
-  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(&v14, 8);
 
   return v5;
 }
@@ -2795,33 +2871,33 @@ LABEL_11:
 - (id)_favoriteContactsFromDataSourceWithExistingContacts:(id)contacts
 {
   contactsCopy = contacts;
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = sub_100009940;
-  v18 = sub_100009950;
-  v19 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = sub_100009940;
+  v21 = sub_100009950;
+  v22 = 0;
   v11 = 0;
-  v12[0] = &v11;
-  v12[1] = 0x3032000000;
-  v12[2] = sub_100009940;
-  v12[3] = sub_100009950;
-  v13 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = sub_100009940;
+  v15 = sub_100009950;
+  v16 = 0;
   provider = self->_provider;
   v10[0] = _NSConcreteStackBlock;
   v10[1] = 3221225472;
   v10[2] = sub_10001408C;
   v10[3] = &unk_100025A78;
-  v10[4] = &v14;
+  v10[4] = &v17;
   v10[5] = &v11;
-  [(ATXHeuristicDataSources *)provider favoritesWithContacts:contactsCopy callback:v10];
-  if (*(v12[0] + 40))
+  v6 = [(ATXHeuristicDataSources *)provider favoritesWithContacts:contactsCopy callback:v10];
+  if (v12[5])
   {
-    v6 = sub_100001940();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_100001940(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      Name = sel_getName("favoritesWithContacts:callback:");
-      sub_10001704C(Name, v12);
+      sel_getName("favoritesWithContacts:callback:");
+      sub_10001704C();
     }
 
     v8 = 0;
@@ -2829,12 +2905,12 @@ LABEL_11:
 
   else
   {
-    v8 = v15[5];
+    v8 = v18[5];
   }
 
   _Block_object_dispose(&v11, 8);
 
-  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v17, 8);
 
   return v8;
 }
@@ -2844,33 +2920,33 @@ LABEL_11:
   contactCopy = contact;
   if (contactCopy)
   {
-    v15 = 0;
-    v16 = &v15;
-    v17 = 0x3032000000;
-    v18 = sub_100009940;
-    v19 = sub_100009950;
-    v20 = 0;
+    v18 = 0;
+    v19 = &v18;
+    v20 = 0x3032000000;
+    v21 = sub_100009940;
+    v22 = sub_100009950;
+    v23 = 0;
     v12 = 0;
-    v13[0] = &v12;
-    v13[1] = 0x3032000000;
-    v13[2] = sub_100009940;
-    v13[3] = sub_100009950;
-    v14 = 0;
+    v13 = &v12;
+    v14 = 0x3032000000;
+    v15 = sub_100009940;
+    v16 = sub_100009950;
+    v17 = 0;
     provider = self->_provider;
     v11[0] = _NSConcreteStackBlock;
     v11[1] = 3221225472;
     v11[2] = sub_100014340;
     v11[3] = &unk_100025A78;
-    v11[4] = &v15;
+    v11[4] = &v18;
     v11[5] = &v12;
-    [(ATXHeuristicDataSources *)provider allHandlesForContact:contactCopy callback:v11];
-    if (*(v13[0] + 40))
+    v6 = [(ATXHeuristicDataSources *)provider allHandlesForContact:contactCopy callback:v11];
+    if (v13[5])
     {
-      v6 = sub_100001940();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = sub_100001940(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        Name = sel_getName("allHandlesForContact:callback:");
-        sub_10001704C(Name, v13);
+        sel_getName("allHandlesForContact:callback:");
+        sub_10001704C();
       }
 
       v8 = 0;
@@ -2878,17 +2954,17 @@ LABEL_11:
 
     else
     {
-      v8 = v16[5];
+      v8 = v19[5];
     }
 
     _Block_object_dispose(&v12, 8);
 
-    _Block_object_dispose(&v15, 8);
+    _Block_object_dispose(&v18, 8);
   }
 
   else
   {
-    v9 = sub_100001940();
+    v9 = sub_100001940(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_1000170F8();
@@ -2904,13 +2980,13 @@ LABEL_11:
 {
   contactCopy = contact;
   stringCopy = string;
-  v20 = @"imessage";
-  v21 = @"facetime";
-  v26 = IDSServiceNameiMessage;
-  v27 = IDSServiceNameFaceTime;
-  v22 = @"calling";
-  v28 = IDSServiceNameCalling;
-  v8 = [NSDictionary dictionaryWithObjects:&v26 forKeys:&v20 count:3];
+  v21 = @"imessage";
+  v22 = @"facetime";
+  v27 = IDSServiceNameiMessage;
+  v28 = IDSServiceNameFaceTime;
+  v23 = @"calling";
+  v29 = IDSServiceNameCalling;
+  v8 = [NSDictionary dictionaryWithObjects:&v27 forKeys:&v21 count:3];
   v9 = [v8 objectForKeyedSubscript:stringCopy];
   v10 = v9;
   if (v9)
@@ -2920,7 +2996,7 @@ LABEL_11:
 
   else
   {
-    v12 = sub_100001940();
+    v12 = sub_100001940(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_10001712C();
@@ -2929,93 +3005,93 @@ LABEL_11:
 
   if (contactCopy && v10)
   {
+    v27 = 0;
+    v28 = &v27;
+    v29 = 0x3032000000;
+    v30 = sub_100009940;
+    v31 = sub_100009950;
+    v32 = 0;
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x3032000000;
+    v24 = sub_100009940;
+    v25 = sub_100009950;
     v26 = 0;
-    v27 = &v26;
-    v28 = 0x3032000000;
-    v29 = sub_100009940;
-    v30 = sub_100009950;
-    v31 = 0;
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x3032000000;
-    v23 = sub_100009940;
-    v24 = sub_100009950;
-    v25 = 0;
     provider = self->_provider;
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_1000146D8;
-    v19[3] = &unk_100025A28;
-    v19[4] = &v26;
-    v19[5] = &v20;
-    [(ATXHeuristicDataSources *)provider bestHandleForContact:contactCopy service:v10 callback:v19];
-    if (v21[5])
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_1000146D8;
+    v20[3] = &unk_100025A28;
+    v20[4] = &v27;
+    v20[5] = &v21;
+    v15 = [(ATXHeuristicDataSources *)provider bestHandleForContact:contactCopy service:v10 callback:v20];
+    if (v22[5])
     {
-      v14 = sub_100001940();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = sub_100001940(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        Name = sel_getName("bestHandleForContact:service:callback:");
-        sub_10001704C(Name, &v21);
+        sel_getName("bestHandleForContact:service:callback:");
+        sub_10001704C();
       }
 
-      v16 = 0;
+      v17 = 0;
     }
 
     else
     {
-      v16 = v27[5];
+      v17 = v28[5];
     }
 
-    _Block_object_dispose(&v20, 8);
+    _Block_object_dispose(&v21, 8);
 
-    _Block_object_dispose(&v26, 8);
+    _Block_object_dispose(&v27, 8);
   }
 
   else
   {
-    v17 = sub_100001940();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = sub_100001940(v13);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_1000171A0();
     }
 
-    v16 = 0;
+    v17 = 0;
   }
 
-  return v16;
+  return v17;
 }
 
 - (id)_holidayEventsFromDataSourceBetweenStartDate:(id)date endDate:(id)endDate
 {
   dateCopy = date;
   endDateCopy = endDate;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = sub_100009940;
-  v21 = sub_100009950;
-  v22 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = sub_100009940;
+  v24 = sub_100009950;
+  v25 = 0;
   v14 = 0;
-  v15[0] = &v14;
-  v15[1] = 0x3032000000;
-  v15[2] = sub_100009940;
-  v15[3] = sub_100009950;
-  v16 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = sub_100009940;
+  v18 = sub_100009950;
+  v19 = 0;
   provider = self->_provider;
   v13[0] = _NSConcreteStackBlock;
   v13[1] = 3221225472;
   v13[2] = sub_100014970;
   v13[3] = &unk_100025A78;
-  v13[4] = &v17;
+  v13[4] = &v20;
   v13[5] = &v14;
-  [(ATXHeuristicDataSources *)provider holidaysFromStartDate:dateCopy toEndDate:endDateCopy callback:v13];
-  if (*(v15[0] + 40))
+  v9 = [(ATXHeuristicDataSources *)provider holidaysFromStartDate:dateCopy toEndDate:endDateCopy callback:v13];
+  if (v15[5])
   {
-    v9 = sub_100001940();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100001940(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      Name = sel_getName("holidaysFromStartDate:toEndDate:callback:");
-      sub_10001704C(Name, v15);
+      sel_getName("holidaysFromStartDate:toEndDate:callback:");
+      sub_10001704C();
     }
 
     v11 = 0;
@@ -3023,45 +3099,45 @@ LABEL_11:
 
   else
   {
-    v11 = v18[5];
+    v11 = v21[5];
   }
 
   _Block_object_dispose(&v14, 8);
 
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v20, 8);
 
   return v11;
 }
 
 - (id)_birthdayEventsFromDataSource
 {
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x3032000000;
-  v14 = sub_100009940;
-  v15 = sub_100009950;
-  v16 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = sub_100009940;
+  v18 = sub_100009950;
+  v19 = 0;
   v8 = 0;
-  v9[0] = &v8;
-  v9[1] = 0x3032000000;
-  v9[2] = sub_100009940;
-  v9[3] = sub_100009950;
-  v10 = 0;
+  v9 = &v8;
+  v10 = 0x3032000000;
+  v11 = sub_100009940;
+  v12 = sub_100009950;
+  v13 = 0;
   provider = self->_provider;
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
   v7[2] = sub_100014BD8;
   v7[3] = &unk_100025A78;
-  v7[4] = &v11;
+  v7[4] = &v14;
   v7[5] = &v8;
-  [(ATXHeuristicDataSources *)provider birthdaysWithCallback:v7];
-  if (*(v9[0] + 40))
+  v3 = [(ATXHeuristicDataSources *)provider birthdaysWithCallback:v7];
+  if (v9[5])
   {
-    v3 = sub_100001940();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = sub_100001940(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      Name = sel_getName("birthdaysWithCallback:");
-      sub_10001704C(Name, v9);
+      sel_getName("birthdaysWithCallback:");
+      sub_10001704C();
     }
 
     v5 = 0;
@@ -3069,14 +3145,60 @@ LABEL_11:
 
   else
   {
-    v5 = v12[5];
+    v5 = v15[5];
   }
 
   _Block_object_dispose(&v8, 8);
 
-  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(&v14, 8);
 
   return v5;
+}
+
+- (id)_callHistoryFromDataSourceWithMaxAge:(double)age showIncomingCalls:(BOOL)calls showOutgoingCalls:(BOOL)outgoingCalls showMissedCallsOnly:(BOOL)only
+{
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = sub_100009940;
+  v22 = sub_100009950;
+  v23 = 0;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = sub_100009940;
+  v16 = sub_100009950;
+  v17 = 0;
+  provider = self->_provider;
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_100014E40;
+  v11[3] = &unk_100025A78;
+  v11[4] = &v18;
+  v11[5] = &v12;
+  v7 = [(ATXHeuristicDataSources *)provider callNewerThan:calls showIncoming:outgoingCalls showOutgoing:only missedOnly:v11 callback:age];
+  if (v13[5])
+  {
+    v8 = sub_100001940(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      sel_getName("callNewerThan:showIncoming:showOutgoing:missedOnly:callback:");
+      sub_10001704C();
+    }
+
+    v9 = 0;
+  }
+
+  else
+  {
+    v9 = v19[5];
+  }
+
+  _Block_object_dispose(&v12, 8);
+
+  _Block_object_dispose(&v18, 8);
+
+  return v9;
 }
 
 - (id)_bestTimeToInteractFromDataSourceWithContact:(id)contact
@@ -3084,33 +3206,33 @@ LABEL_11:
   contactCopy = contact;
   if (contactCopy)
   {
-    v15 = 0;
-    v16 = &v15;
-    v17 = 0x3032000000;
-    v18 = sub_100009940;
-    v19 = sub_100009950;
-    v20 = 0;
+    v18 = 0;
+    v19 = &v18;
+    v20 = 0x3032000000;
+    v21 = sub_100009940;
+    v22 = sub_100009950;
+    v23 = 0;
     v12 = 0;
-    v13[0] = &v12;
-    v13[1] = 0x3032000000;
-    v13[2] = sub_100009940;
-    v13[3] = sub_100009950;
-    v14 = 0;
+    v13 = &v12;
+    v14 = 0x3032000000;
+    v15 = sub_100009940;
+    v16 = sub_100009950;
+    v17 = 0;
     provider = self->_provider;
     v11[0] = _NSConcreteStackBlock;
     v11[1] = 3221225472;
     v11[2] = sub_1000150F4;
     v11[3] = &unk_100025A50;
-    v11[4] = &v15;
+    v11[4] = &v18;
     v11[5] = &v12;
-    [(ATXHeuristicDataSources *)provider hourOfDayInteractionProbabilitiesWithContact:contactCopy callback:v11];
-    if (*(v13[0] + 40))
+    v6 = [(ATXHeuristicDataSources *)provider hourOfDayInteractionProbabilitiesWithContact:contactCopy callback:v11];
+    if (v13[5])
     {
-      v6 = sub_100001940();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = sub_100001940(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        Name = sel_getName("hourOfDayInteractionProbabilitiesWithContact:callback:");
-        sub_10001704C(Name, v13);
+        sel_getName("hourOfDayInteractionProbabilitiesWithContact:callback:");
+        sub_10001704C();
       }
 
       v8 = 0;
@@ -3118,17 +3240,17 @@ LABEL_11:
 
     else
     {
-      v8 = v16[5];
+      v8 = v19[5];
     }
 
     _Block_object_dispose(&v12, 8);
 
-    _Block_object_dispose(&v15, 8);
+    _Block_object_dispose(&v18, 8);
   }
 
   else
   {
-    v9 = sub_100001940();
+    v9 = sub_100001940(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       sub_1000171D4();
@@ -3142,33 +3264,33 @@ LABEL_11:
 
 - (id)_timeIntervalSinceUserWakeup
 {
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x3032000000;
-  v14 = sub_100009940;
-  v15 = sub_100009950;
-  v16 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = sub_100009940;
+  v18 = sub_100009950;
+  v19 = 0;
   v8 = 0;
-  v9[0] = &v8;
-  v9[1] = 0x3032000000;
-  v9[2] = sub_100009940;
-  v9[3] = sub_100009950;
-  v10 = 0;
+  v9 = &v8;
+  v10 = 0x3032000000;
+  v11 = sub_100009940;
+  v12 = sub_100009950;
+  v13 = 0;
   provider = self->_provider;
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
   v7[2] = sub_10001535C;
   v7[3] = &unk_100025A00;
-  v7[4] = &v11;
+  v7[4] = &v14;
   v7[5] = &v8;
-  [(ATXHeuristicDataSources *)provider timeIntervalSinceUserWakeupWithCallback:v7];
-  if (*(v9[0] + 40))
+  v3 = [(ATXHeuristicDataSources *)provider timeIntervalSinceUserWakeupWithCallback:v7];
+  if (v9[5])
   {
-    v3 = sub_100001940();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = sub_100001940(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      Name = sel_getName("timeIntervalSinceUserWakeupWithCallback:");
-      sub_10001704C(Name, v9);
+      sel_getName("timeIntervalSinceUserWakeupWithCallback:");
+      sub_10001704C();
     }
 
     v5 = 0;
@@ -3176,12 +3298,12 @@ LABEL_11:
 
   else
   {
-    v5 = v12[5];
+    v5 = v15[5];
   }
 
   _Block_object_dispose(&v8, 8);
 
-  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(&v14, 8);
 
   return v5;
 }
@@ -3189,33 +3311,33 @@ LABEL_11:
 - (id)_fetchWidgetMetadataForAppBundleIds:(id)ids
 {
   idsCopy = ids;
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = sub_100009940;
-  v18 = sub_100009950;
-  v19 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = sub_100009940;
+  v21 = sub_100009950;
+  v22 = 0;
   v11 = 0;
-  v12[0] = &v11;
-  v12[1] = 0x3032000000;
-  v12[2] = sub_100009940;
-  v12[3] = sub_100009950;
-  v13 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = sub_100009940;
+  v15 = sub_100009950;
+  v16 = 0;
   provider = self->_provider;
   v10[0] = _NSConcreteStackBlock;
   v10[1] = 3221225472;
   v10[2] = sub_1000155E0;
   v10[3] = &unk_100025A50;
-  v10[4] = &v14;
+  v10[4] = &v17;
   v10[5] = &v11;
-  [(ATXHeuristicDataSources *)provider fetchWidgetMetadataForAppBundleIds:idsCopy callback:v10];
-  if (*(v12[0] + 40))
+  v6 = [(ATXHeuristicDataSources *)provider fetchWidgetMetadataForAppBundleIds:idsCopy callback:v10];
+  if (v12[5])
   {
-    v6 = sub_100001940();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_100001940(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      Name = sel_getName("fetchWidgetMetadataForAppBundleIds:callback:");
-      sub_10001704C(Name, v12);
+      sel_getName("fetchWidgetMetadataForAppBundleIds:callback:");
+      sub_10001704C();
     }
 
     v8 = 0;
@@ -3223,12 +3345,12 @@ LABEL_11:
 
   else
   {
-    v8 = v15[5];
+    v8 = v18[5];
   }
 
   _Block_object_dispose(&v11, 8);
 
-  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v17, 8);
 
   return v8;
 }
@@ -3237,33 +3359,33 @@ LABEL_11:
 {
   fromCopy = from;
   toCopy = to;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = sub_100009940;
-  v21 = sub_100009950;
-  v22 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = sub_100009940;
+  v24 = sub_100009950;
+  v25 = 0;
   v14 = 0;
-  v15[0] = &v14;
-  v15[1] = 0x3032000000;
-  v15[2] = sub_100009940;
-  v15[3] = sub_100009950;
-  v16 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = sub_100009940;
+  v18 = sub_100009950;
+  v19 = 0;
   provider = self->_provider;
   v13[0] = _NSConcreteStackBlock;
   v13[1] = 3221225472;
   v13[2] = sub_100015878;
   v13[3] = &unk_100025A50;
-  v13[4] = &v17;
+  v13[4] = &v20;
   v13[5] = &v14;
-  [(ATXHeuristicDataSources *)provider getLocationForMostRelevantTripInRangeFrom:fromCopy to:toCopy callback:v13];
-  if (*(v15[0] + 40))
+  v9 = [(ATXHeuristicDataSources *)provider getLocationForMostRelevantTripInRangeFrom:fromCopy to:toCopy callback:v13];
+  if (v15[5])
   {
-    v9 = sub_100001940();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100001940(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      Name = sel_getName("getLocationForMostRelevantTripInRangeFrom:to:callback:");
-      sub_10001704C(Name, v15);
+      sel_getName("getLocationForMostRelevantTripInRangeFrom:to:callback:");
+      sub_10001704C();
     }
 
     v11 = 0;
@@ -3271,45 +3393,45 @@ LABEL_11:
 
   else
   {
-    v11 = v18[5];
+    v11 = v21[5];
   }
 
   _Block_object_dispose(&v14, 8);
 
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v20, 8);
 
   return v11;
 }
 
 - (id)_modeCorrelatedAppsInCurrentMode
 {
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x3032000000;
-  v14 = sub_100009940;
-  v15 = sub_100009950;
-  v16 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = sub_100009940;
+  v18 = sub_100009950;
+  v19 = 0;
   v8 = 0;
-  v9[0] = &v8;
-  v9[1] = 0x3032000000;
-  v9[2] = sub_100009940;
-  v9[3] = sub_100009950;
-  v10 = 0;
+  v9 = &v8;
+  v10 = 0x3032000000;
+  v11 = sub_100009940;
+  v12 = sub_100009950;
+  v13 = 0;
   provider = self->_provider;
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
   v7[2] = sub_100015AE0;
   v7[3] = &unk_100025B18;
-  v7[4] = &v11;
+  v7[4] = &v14;
   v7[5] = &v8;
-  [(ATXHeuristicDataSources *)provider modeCorrelatedAppsInCurrentModeWithCallback:v7];
-  if (*(v9[0] + 40))
+  v3 = [(ATXHeuristicDataSources *)provider modeCorrelatedAppsInCurrentModeWithCallback:v7];
+  if (v9[5])
   {
-    v3 = sub_100001940();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = sub_100001940(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      Name = sel_getName("modeCorrelatedAppsInCurrentModeWithCallback:");
-      sub_10001704C(Name, v9);
+      sel_getName("modeCorrelatedAppsInCurrentModeWithCallback:");
+      sub_10001704C();
     }
 
     v5 = 0;
@@ -3317,45 +3439,45 @@ LABEL_11:
 
   else
   {
-    v5 = v12[5];
+    v5 = v15[5];
   }
 
   _Block_object_dispose(&v8, 8);
 
-  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(&v14, 8);
 
   return v5;
 }
 
 - (id)_scheduledBedTime
 {
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x3032000000;
-  v15 = sub_100009940;
-  v16 = sub_100009950;
-  v17 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = sub_100009940;
+  v19 = sub_100009950;
+  v20 = 0;
   v9 = 0;
-  v10[0] = &v9;
-  v10[1] = 0x3032000000;
-  v10[2] = sub_100009940;
-  v10[3] = sub_100009950;
-  v11 = 0;
+  v10 = &v9;
+  v11 = 0x3032000000;
+  v12 = sub_100009940;
+  v13 = sub_100009950;
+  v14 = 0;
   v8[0] = _NSConcreteStackBlock;
   v8[1] = 3221225472;
   v8[2] = sub_100015E2C;
   v8[3] = &unk_100025A00;
-  v8[4] = &v12;
+  v8[4] = &v15;
   v8[5] = &v9;
   v3 = objc_retainBlock(v8);
-  [(ATXHeuristicDataSources *)self->_provider scheduledBedTimeWithCallback:v3];
-  if (*(v10[0] + 40))
+  v4 = [(ATXHeuristicDataSources *)self->_provider scheduledBedTimeWithCallback:v3];
+  if (v10[5])
   {
-    v4 = sub_100001940();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sub_100001940(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      Name = sel_getName("scheduledBedTimeWithCallback:");
-      sub_10001704C(Name, v10);
+      sel_getName("scheduledBedTimeWithCallback:");
+      sub_10001704C();
     }
 
     v6 = 0;
@@ -3363,44 +3485,44 @@ LABEL_11:
 
   else
   {
-    v6 = v13[5];
+    v6 = v16[5];
   }
 
   _Block_object_dispose(&v9, 8);
-  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v15, 8);
 
   return v6;
 }
 
 - (id)_predictedBedTime
 {
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x3032000000;
-  v15 = sub_100009940;
-  v16 = sub_100009950;
-  v17 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = sub_100009940;
+  v19 = sub_100009950;
+  v20 = 0;
   v9 = 0;
-  v10[0] = &v9;
-  v10[1] = 0x3032000000;
-  v10[2] = sub_100009940;
-  v10[3] = sub_100009950;
-  v11 = 0;
+  v10 = &v9;
+  v11 = 0x3032000000;
+  v12 = sub_100009940;
+  v13 = sub_100009950;
+  v14 = 0;
   v8[0] = _NSConcreteStackBlock;
   v8[1] = 3221225472;
   v8[2] = sub_1000160B0;
   v8[3] = &unk_100025A00;
-  v8[4] = &v12;
+  v8[4] = &v15;
   v8[5] = &v9;
   v3 = objc_retainBlock(v8);
-  [(ATXHeuristicDataSources *)self->_provider predictedBedTimeWithCallback:v3];
-  if (*(v10[0] + 40))
+  v4 = [(ATXHeuristicDataSources *)self->_provider predictedBedTimeWithCallback:v3];
+  if (v10[5])
   {
-    v4 = sub_100001940();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sub_100001940(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      Name = sel_getName("predictedBedTimeWithCallback:");
-      sub_10001704C(Name, v10);
+      sel_getName("predictedBedTimeWithCallback:");
+      sub_10001704C();
     }
 
     v6 = 0;
@@ -3408,11 +3530,11 @@ LABEL_11:
 
   else
   {
-    v6 = v13[5];
+    v6 = v16[5];
   }
 
   _Block_object_dispose(&v9, 8);
-  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v15, 8);
 
   return v6;
 }

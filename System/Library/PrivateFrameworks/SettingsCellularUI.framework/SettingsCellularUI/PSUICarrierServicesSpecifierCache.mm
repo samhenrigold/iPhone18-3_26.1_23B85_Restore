@@ -177,42 +177,42 @@ LABEL_7:
 
 - (void)fetchSpecifiers
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   getLogger = [(PSUICarrierServicesSpecifierCache *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v58 = "[PSUICarrierServicesSpecifierCache fetchSpecifiers]";
+    v57 = "[PSUICarrierServicesSpecifierCache fetchSpecifiers]";
     _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s executing fetch", buf, 0xCu);
   }
 
   mEMORY[0x277D4D868] = [MEMORY[0x277D4D868] sharedInstance];
   subscriptionContexts = [mEMORY[0x277D4D868] subscriptionContexts];
 
-  v40 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v39 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v52 = 0u;
   v53 = 0u;
   v54 = 0u;
   v55 = 0u;
-  v56 = 0u;
   obj = subscriptionContexts;
-  v41 = [obj countByEnumeratingWithState:&v53 objects:v64 count:16];
-  if (v41)
+  v40 = [obj countByEnumeratingWithState:&v52 objects:v63 count:16];
+  if (v40)
   {
-    v39 = *v54;
-    v44 = *MEMORY[0x277D40128];
-    v45 = *MEMORY[0x277D401A8];
+    v38 = *v53;
+    v43 = *MEMORY[0x277D40128];
+    v44 = *MEMORY[0x277D401A8];
     do
     {
       v5 = 0;
       do
       {
-        if (*v54 != v39)
+        if (*v53 != v38)
         {
           objc_enumerationMutation(obj);
         }
 
-        v42 = v5;
-        v6 = *(*(&v53 + 1) + 8 * v5);
+        v41 = v5;
+        v6 = *(*(&v52 + 1) + 8 * v5);
         v7 = objc_alloc(MEMORY[0x277CBEB18]);
         emptyGroupSpecifier = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
         v9 = [v7 initWithObjects:{emptyGroupSpecifier, 0}];
@@ -221,34 +221,34 @@ LABEL_7:
         v11 = [v10 carrierServices:v6];
 
         v12 = +[PSUICoreTelephonyCarrierBundleCache sharedInstance];
-        v48 = v6;
-        v46 = [v12 showServiceCodes:v6];
+        v47 = v6;
+        v45 = [v12 showServiceCodes:v6];
 
-        v51 = 0u;
-        v52 = 0u;
-        v49 = 0u;
         v50 = 0u;
-        v43 = v11;
-        v13 = [v43 countByEnumeratingWithState:&v49 objects:v63 count:16];
+        v51 = 0u;
+        v48 = 0u;
+        v49 = 0u;
+        v42 = v11;
+        v13 = [v42 countByEnumeratingWithState:&v48 objects:v62 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v50;
+          v15 = *v49;
           do
           {
             for (i = 0; i != v14; ++i)
             {
-              if (*v50 != v15)
+              if (*v49 != v15)
               {
-                objc_enumerationMutation(v43);
+                objc_enumerationMutation(v42);
               }
 
-              v17 = *(*(&v49 + 1) + 8 * i);
+              v17 = *(*(&v48 + 1) + 8 * i);
               v18 = objc_alloc_init(MEMORY[0x277D3FAD8]);
               [v18 setButtonAction:sel_dialCarrierServiceNumber_];
               *&v18[*MEMORY[0x277D3FC90]] = 4;
               v19 = sel_readPreference_;
-              if (!v46)
+              if (!v45)
               {
                 v19 = 0;
               }
@@ -260,7 +260,7 @@ LABEL_7:
               {
                 v21 = v9;
                 v22 = +[PSUICoreTelephonyCarrierBundleCache sharedInstance];
-                v23 = [v22 carrierServiceNameForServiceName:v20 context:v48];
+                v23 = [v22 carrierServiceNameForServiceName:v20 context:v47];
 
                 if ([v23 length])
                 {
@@ -274,19 +274,19 @@ LABEL_7:
 
               [v18 setName:v20];
               v25 = [v17 objectForKey:@"ServiceCode"];
-              [v18 setProperty:v25 forKey:v45];
+              [v18 setProperty:v25 forKey:v44];
 
-              [v18 setProperty:v48 forKey:v44];
+              [v18 setProperty:v47 forKey:v43];
               [v9 addObject:v18];
             }
 
-            v14 = [v43 countByEnumeratingWithState:&v49 objects:v63 count:16];
+            v14 = [v42 countByEnumeratingWithState:&v48 objects:v62 count:16];
           }
 
           while (v14);
         }
 
-        if ([v43 count])
+        if ([v42 count])
         {
           emptyGroupSpecifier2 = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
           [v9 addObject:emptyGroupSpecifier2];
@@ -294,14 +294,14 @@ LABEL_7:
 
         v27 = [PSUIMyAccountSpecifier alloc];
         v28 = +[PSUICoreTelephonyCarrierBundleCache sharedInstance];
-        v29 = [(PSUIMyAccountSpecifier *)v27 initWithContext:v48 cbCache:v28];
+        v29 = [(PSUIMyAccountSpecifier *)v27 initWithContext:v47 cbCache:v28];
 
         if (v29)
         {
           [v9 addObject:v29];
         }
 
-        v30 = [(PSUICarrierServicesSpecifierCache *)self mmsInfoSpecifierWithTarget:self context:v48];
+        v30 = [(PSUICarrierServicesSpecifierCache *)self mmsInfoSpecifierWithTarget:self context:v47];
         if (v30)
         {
           if (v29)
@@ -318,34 +318,33 @@ LABEL_7:
         {
           v33 = [v9 count];
           *buf = 136315650;
-          v58 = "[PSUICarrierServicesSpecifierCache fetchSpecifiers]";
-          v59 = 2112;
-          v60 = v48;
-          v61 = 2048;
-          v62 = v33;
+          v57 = "[PSUICarrierServicesSpecifierCache fetchSpecifiers]";
+          v58 = 2112;
+          v59 = v47;
+          v60 = 2048;
+          v61 = v33;
           _os_log_impl(&dword_2658DE000, getLogger2, OS_LOG_TYPE_DEFAULT, "%s fetch succeeded: %@, %lu", buf, 0x20u);
         }
 
-        v34 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v48, "slotID")}];
-        [(NSMutableDictionary *)v40 setObject:v9 forKeyedSubscript:v34];
+        v34 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v47, "slotID")}];
+        [(NSMutableDictionary *)v39 setObject:v9 forKeyedSubscript:v34];
 
-        v5 = v42 + 1;
+        v5 = v41 + 1;
       }
 
-      while (v42 + 1 != v41);
-      v41 = [obj countByEnumeratingWithState:&v53 objects:v64 count:16];
+      while (v41 + 1 != v40);
+      v40 = [obj countByEnumeratingWithState:&v52 objects:v63 count:16];
     }
 
-    while (v41);
+    while (v40);
   }
 
   selfCopy = self;
   objc_sync_enter(selfCopy);
   specifiersDict = selfCopy->_specifiersDict;
-  selfCopy->_specifiersDict = v40;
+  selfCopy->_specifiersDict = v39;
 
   objc_sync_exit(selfCopy);
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (id)specifiers:(id)specifiers
@@ -371,7 +370,7 @@ LABEL_7:
 
 - (void)dialCarrierServiceNumber:(id)number
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v4 = *MEMORY[0x277D40128];
   numberCopy = number;
   v6 = [numberCopy propertyForKey:v4];
@@ -381,7 +380,7 @@ LABEL_7:
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v20 = v7;
+    v19 = v7;
     _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Dialing carrier service number %@", buf, 0xCu);
   }
 
@@ -399,37 +398,33 @@ LABEL_7:
   [v12 setPerformDialAssist:0];
   [v12 setPerformLocalDialAssist:0];
   [v12 setPreferDefaultApp:0];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __62__PSUICarrierServicesSpecifierCache_dialCarrierServiceNumber___block_invoke;
-  v17[3] = &unk_279BA9EF0;
-  v17[4] = self;
-  v18 = v12;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __62__PSUICarrierServicesSpecifierCache_dialCarrierServiceNumber___block_invoke;
+  v16[3] = &unk_279BA9EF0;
+  v16[4] = self;
+  v17 = v12;
   v15 = v12;
-  [v9 launchAppForDialRequest:v15 completion:v17];
-
-  v16 = *MEMORY[0x277D85DE8];
+  [v9 launchAppForDialRequest:v15 completion:v16];
 }
 
 void __62__PSUICarrierServicesSpecifierCache_dialCarrierServiceNumber___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = [*(a1 + 32) getLogger];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = *(a1 + 40);
-      v7 = 138412546;
-      v8 = v6;
-      v9 = 2112;
-      v10 = v3;
-      _os_log_error_impl(&dword_2658DE000, v4, OS_LOG_TYPE_ERROR, "Error launching app for service number dial request %@: %@", &v7, 0x16u);
+      v5 = *(a1 + 40);
+      v6 = 138412546;
+      v7 = v5;
+      v8 = 2112;
+      v9 = v3;
+      _os_log_error_impl(&dword_2658DE000, v4, OS_LOG_TYPE_ERROR, "Error launching app for service number dial request %@: %@", &v6, 0x16u);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)openURLWithSpecifier:(id)specifier

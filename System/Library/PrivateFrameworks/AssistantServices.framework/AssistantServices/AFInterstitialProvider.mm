@@ -1,4 +1,5 @@
 @interface AFInterstitialProvider
+- (AFInterstitialProvider)initWithStyle:(int64_t)style recordRoute:(id)route isVoiceTrigger:(BOOL)trigger isDucking:(BOOL)ducking isTwoShot:(BOOL)shot speechEndHostTime:(unint64_t)time context:(id)context delegate:(id)self0;
 - (AFInterstitialProvider)initWithStyle:(int64_t)style recordRoute:(id)route isVoiceTrigger:(BOOL)trigger isDucking:(BOOL)ducking isTwoShot:(BOOL)shot speechEndHostTime:(unint64_t)time context:(id)context preferences:(id)self0 delegate:(id)self1;
 - (void)_invalidate;
 - (void)_performNextActionWithExpectedDelay:(double)delay;
@@ -10,13 +11,13 @@
 
 - (void)invalidate
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v8 = "[AFInterstitialProvider invalidate]";
-    v9 = 2048;
+    v7 = "[AFInterstitialProvider invalidate]";
+    v8 = 2048;
     selfCopy = self;
     _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s %p", buf, 0x16u);
   }
@@ -28,7 +29,6 @@
   block[3] = &unk_1E73497C8;
   block[4] = self;
   dispatch_async(queue, block);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_invalidate
@@ -45,38 +45,37 @@
 
 - (void)dealloc
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v7 = "[AFInterstitialProvider dealloc]";
-    v8 = 2048;
+    v6 = "[AFInterstitialProvider dealloc]";
+    v7 = 2048;
     selfCopy = self;
     _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s %p", buf, 0x16u);
   }
 
-  v5.receiver = self;
-  v5.super_class = AFInterstitialProvider;
-  [(AFInterstitialProvider *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = AFInterstitialProvider;
+  [(AFInterstitialProvider *)&v4 dealloc];
 }
 
 - (void)_performNextActionWithExpectedDelay:(double)delay
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   if ([(NSMutableArray *)self->_pendingActions count])
   {
     v5 = [(NSMutableArray *)self->_pendingActions objectAtIndex:0];
     [(NSMutableArray *)self->_pendingActions removeObjectAtIndex:0];
     objc_initWeak(&location, self);
     v6 = [AFOneArgumentSafetyBlock alloc];
-    v45[0] = MEMORY[0x1E69E9820];
-    v45[1] = 3221225472;
-    v45[2] = __62__AFInterstitialProvider__performNextActionWithExpectedDelay___block_invoke;
-    v45[3] = &unk_1E7341B40;
-    objc_copyWeak(&v46, &location);
-    v38 = [(AFOneArgumentSafetyBlock *)v6 initWithBlock:v45];
+    v44[0] = MEMORY[0x1E69E9820];
+    v44[1] = 3221225472;
+    v44[2] = __62__AFInterstitialProvider__performNextActionWithExpectedDelay___block_invoke;
+    v44[3] = &unk_1E7341B40;
+    objc_copyWeak(&v45, &location);
+    v37 = [(AFOneArgumentSafetyBlock *)v6 initWithBlock:v44];
     phase = [v5 phase];
     style = [(AFInterstitialConfiguration *)self->_configuration style];
     [v5 duration];
@@ -84,7 +83,7 @@
     {
       languageCode = [(AFInterstitialConfiguration *)self->_configuration languageCode];
       gender = [(AFInterstitialConfiguration *)self->_configuration gender];
-      v37 = languageCode;
+      v36 = languageCode;
       v12 = 0;
       v13 = 0;
       if ([languageCode length] && gender)
@@ -129,7 +128,7 @@
           {
             v27 = +[AFLocalization sharedInstance];
             v28 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-            v12 = [v27 localizedStringForKey:v26 gender:gender table:@"Interstitials" bundle:v28 languageCode:v37];
+            v12 = [v27 localizedStringForKey:v26 gender:gender table:@"Interstitials" bundle:v28 languageCode:v36];
           }
 
           else
@@ -159,14 +158,14 @@
 
         v31 = v30;
         *buf = 136316162;
-        v49 = "[AFInterstitialProvider _performNextActionWithExpectedDelay:]";
-        v50 = 2112;
-        v51 = v31;
-        v52 = 2112;
-        v53 = v13;
-        v54 = 2112;
-        v55 = v12;
-        v56 = 2048;
+        v48 = "[AFInterstitialProvider _performNextActionWithExpectedDelay:]";
+        v49 = 2112;
+        v50 = v31;
+        v51 = 2112;
+        v52 = v13;
+        v53 = 2112;
+        v54 = v12;
+        v55 = 2048;
         delayCopy = delay;
         _os_log_impl(&dword_1912FE000, v29, OS_LOG_TYPE_INFO, "%s phase = %@, displayText = %@, speakableText = %@, expectedDelay = %f", buf, 0x34u);
       }
@@ -174,14 +173,14 @@
       v32 = self->_queue;
       WeakRetained = objc_loadWeakRetained(&self->_delegate);
       context = self->_context;
-      v42[0] = MEMORY[0x1E69E9820];
-      v42[1] = 3221225472;
-      v42[2] = __62__AFInterstitialProvider__performNextActionWithExpectedDelay___block_invoke_15;
-      v42[3] = &unk_1E7349860;
+      v41[0] = MEMORY[0x1E69E9820];
+      v41[1] = 3221225472;
+      v41[2] = __62__AFInterstitialProvider__performNextActionWithExpectedDelay___block_invoke_15;
+      v41[3] = &unk_1E7349860;
       v35 = v32;
-      v43 = v35;
-      v44 = v38;
-      [WeakRetained interstitialProvider:self handlePhase:phase displayText:v13 speakableText:v12 expectedDelay:context context:v42 completion:delay];
+      v42 = v35;
+      v43 = v37;
+      [WeakRetained interstitialProvider:self handlePhase:phase displayText:v13 speakableText:v12 expectedDelay:context context:v41 completion:delay];
     }
 
     else
@@ -191,19 +190,19 @@
       {
 LABEL_32:
 
-        objc_destroyWeak(&v46);
+        objc_destroyWeak(&v45);
         objc_destroyWeak(&location);
 
-        goto LABEL_33;
+        return;
       }
 
       v15 = AFSiriLogContextConnection;
       if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v49 = "[AFInterstitialProvider _performNextActionWithExpectedDelay:]";
-        v50 = 2048;
-        v51 = *&v14;
+        v48 = "[AFInterstitialProvider _performNextActionWithExpectedDelay:]";
+        v49 = 2048;
+        v50 = *&v14;
         _os_log_impl(&dword_1912FE000, v15, OS_LOG_TYPE_INFO, "%s duration = %f", buf, 0x16u);
       }
 
@@ -214,17 +213,14 @@ LABEL_32:
       block[1] = 3221225472;
       block[2] = __62__AFInterstitialProvider__performNextActionWithExpectedDelay___block_invoke_16;
       block[3] = &unk_1E7348498;
-      v40 = v38;
-      v41 = v14;
+      v39 = v37;
+      v40 = v14;
       dispatch_after(v17, queue, block);
-      v13 = v40;
+      v13 = v39;
     }
 
     goto LABEL_32;
   }
-
-LABEL_33:
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 void __62__AFInterstitialProvider__performNextActionWithExpectedDelay___block_invoke(uint64_t a1, void *a2)
@@ -255,23 +251,38 @@ void __62__AFInterstitialProvider__performNextActionWithExpectedDelay___block_in
   [v1 invokeWithValue:v2];
 }
 
+- (AFInterstitialProvider)initWithStyle:(int64_t)style recordRoute:(id)route isVoiceTrigger:(BOOL)trigger isDucking:(BOOL)ducking isTwoShot:(BOOL)shot speechEndHostTime:(unint64_t)time context:(id)context delegate:(id)self0
+{
+  shotCopy = shot;
+  duckingCopy = ducking;
+  triggerCopy = trigger;
+  delegateCopy = delegate;
+  contextCopy = context;
+  routeCopy = route;
+  v19 = +[AFInstanceContext currentContext];
+  v20 = [[AFPreferences alloc] initWithInstanceContext:v19];
+  v21 = [(AFInterstitialProvider *)self initWithStyle:style recordRoute:routeCopy isVoiceTrigger:triggerCopy isDucking:duckingCopy isTwoShot:shotCopy speechEndHostTime:time context:contextCopy preferences:v20 delegate:delegateCopy];
+
+  return v21;
+}
+
 - (AFInterstitialProvider)initWithStyle:(int64_t)style recordRoute:(id)route isVoiceTrigger:(BOOL)trigger isDucking:(BOOL)ducking isTwoShot:(BOOL)shot speechEndHostTime:(unint64_t)time context:(id)context preferences:(id)self0 delegate:(id)self1
 {
   shotCopy = shot;
   duckingCopy = ducking;
   triggerCopy = trigger;
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   routeCopy = route;
   contextCopy = context;
   preferencesCopy = preferences;
   delegateCopy = delegate;
-  v46.receiver = self;
-  v46.super_class = AFInterstitialProvider;
-  v21 = [(AFInterstitialProvider *)&v46 init];
+  v45.receiver = self;
+  v45.super_class = AFInterstitialProvider;
+  v21 = [(AFInterstitialProvider *)&v45 init];
   if (v21)
   {
-    v33 = triggerCopy;
-    v34 = duckingCopy;
+    v32 = triggerCopy;
+    v33 = duckingCopy;
     v22 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
@@ -288,25 +299,25 @@ void __62__AFInterstitialProvider__performNextActionWithExpectedDelay___block_in
 
       v25 = v24;
       *buf = 136317442;
-      v48 = "[AFInterstitialProvider initWithStyle:recordRoute:isVoiceTrigger:isDucking:isTwoShot:speechEndHostTime:context:preferences:delegate:]";
-      v49 = 2048;
-      v50 = v21;
-      v51 = 2112;
-      v52 = v25;
-      v53 = 2112;
-      v54 = routeCopy;
-      v55 = 1024;
-      v56 = v33;
-      v57 = 1024;
-      v58 = v34;
-      v59 = 1024;
-      v60 = shotCopy;
-      v61 = 2048;
+      v47 = "[AFInterstitialProvider initWithStyle:recordRoute:isVoiceTrigger:isDucking:isTwoShot:speechEndHostTime:context:preferences:delegate:]";
+      v48 = 2048;
+      v49 = v21;
+      v50 = 2112;
+      v51 = v25;
+      v52 = 2112;
+      v53 = routeCopy;
+      v54 = 1024;
+      v55 = v32;
+      v56 = 1024;
+      v57 = v33;
+      v58 = 1024;
+      v59 = shotCopy;
+      v60 = 2048;
       timeCopy = time;
-      v63 = 2112;
-      v64 = contextCopy;
-      v65 = 2112;
-      v66 = preferencesCopy;
+      v62 = 2112;
+      v63 = contextCopy;
+      v64 = 2112;
+      v65 = preferencesCopy;
       _os_log_impl(&dword_1912FE000, v23, OS_LOG_TYPE_INFO, "%s %p (style = %@, recordRoute = %@, isVoiceTrigger = %d, isDucking = %d, isTwoShot = %d, speechEndHostTime = %llu, context = %@, preferences = %@)", buf, 0x5Au);
     }
 
@@ -322,26 +333,25 @@ void __62__AFInterstitialProvider__performNextActionWithExpectedDelay___block_in
     block[1] = 3221225472;
     block[2] = __134__AFInterstitialProvider_initWithStyle_recordRoute_isVoiceTrigger_isDucking_isTwoShot_speechEndHostTime_context_preferences_delegate___block_invoke;
     block[3] = &unk_1E7341B18;
-    v36 = preferencesCopy;
-    v37 = v21;
+    v35 = preferencesCopy;
+    v36 = v21;
     styleCopy = style;
+    v42 = v32;
     v43 = v33;
-    v44 = v34;
-    v45 = shotCopy;
-    v38 = routeCopy;
+    v44 = shotCopy;
+    v37 = routeCopy;
     timeCopy2 = time;
-    v39 = contextCopy;
-    v40 = delegateCopy;
+    v38 = contextCopy;
+    v39 = delegateCopy;
     dispatch_async(v30, block);
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
 void __134__AFInterstitialProvider_initWithStyle_recordRoute_isVoiceTrigger_isDucking_isTwoShot_speechEndHostTime_context_preferences_delegate___block_invoke(uint64_t a1)
 {
-  v74 = *MEMORY[0x1E69E9840];
+  v73 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -386,8 +396,8 @@ void __134__AFInterstitialProvider_initWithStyle_recordRoute_isVoiceTrigger_isDu
   }
 
   v12 = [AFInterstitialConfiguration alloc];
-  LOBYTE(v60) = *(a1 + 90);
-  v13 = [(AFInterstitialConfiguration *)v12 initWithStyle:*(a1 + 72) languageCode:v7 gender:v11 recordRoute:*(a1 + 48) isVoiceTrigger:*(a1 + 88) isDucking:*(a1 + 89) isTwoShot:v60 speechEndHostTime:*(a1 + 80)];
+  LOBYTE(v59) = *(a1 + 90);
+  v13 = [(AFInterstitialConfiguration *)v12 initWithStyle:*(a1 + 72) languageCode:v7 gender:v11 recordRoute:*(a1 + 48) isVoiceTrigger:*(a1 + 88) isDucking:*(a1 + 89) isTwoShot:v59 speechEndHostTime:*(a1 + 80)];
   v14 = *(a1 + 40);
   v15 = *(v14 + 16);
   *(v14 + 16) = v13;
@@ -460,24 +470,24 @@ void __134__AFInterstitialProvider_initWithStyle_recordRoute_isVoiceTrigger_isDu
     {
       if (v18 == 8)
       {
-        v64 = v16;
-        v65 = v10;
-        v66 = v7;
-        v67 = v3;
+        v63 = v16;
+        v64 = v10;
+        v65 = v7;
+        v66 = v3;
         v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"INITIAL_%u", arc4random_uniform(3u)];
         v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"FOLLOW_UP_%u", arc4random_uniform(3u)];
         v28 = 0;
         do
         {
-          v57 = v28;
+          v56 = v28;
           v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"FOLLOW_UP_%u", arc4random_uniform(3u)];
         }
 
-        while (([v28 isEqualToString:v27] & 1) != 0);
-        v58 = 0.0;
+        while ((objc_msgSend_isEqualToString_(v28) & 1) != 0);
+        v57 = 0.0;
         if (+[AFFeatureFlags isNanoSiriUIRefreshEnabled])
         {
-          v59 = AFSiriLogContextConnection;
+          v58 = AFSiriLogContextConnection;
           if (v24 > 0.0)
           {
             v20 = v20 - v24 >= 0.0 ? v20 - v24 : 0.0;
@@ -487,42 +497,42 @@ void __134__AFInterstitialProvider_initWithStyle_recordRoute_isVoiceTrigger_isDu
               *&buf[4] = "_AFInterstitialActionsCreate";
               *&buf[12] = 2048;
               *&buf[14] = v20;
-              _os_log_impl(&dword_1912FE000, v59, OS_LOG_TYPE_INFO, "%s delayBeforeInitial = %f (adjustment based on end-of-speech info)", buf, 0x16u);
-              v59 = AFSiriLogContextConnection;
+              _os_log_impl(&dword_1912FE000, v58, OS_LOG_TYPE_INFO, "%s delayBeforeInitial = %f (adjustment based on end-of-speech info)", buf, 0x16u);
+              v58 = AFSiriLogContextConnection;
             }
           }
 
           if (v20 + -0.6 >= 0.0)
           {
-            v58 = v20 + -0.6;
+            v57 = v20 + -0.6;
           }
 
           else
           {
-            v58 = 0.0;
+            v57 = 0.0;
           }
 
-          if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
+          if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
           {
             *buf = 136315394;
             *&buf[4] = "_AFInterstitialActionsCreate";
             *&buf[12] = 2048;
-            *&buf[14] = v58;
-            _os_log_impl(&dword_1912FE000, v59, OS_LOG_TYPE_INFO, "%s delayBeforeInitial = %f (adjustment for frontend UI)", buf, 0x16u);
+            *&buf[14] = v57;
+            _os_log_impl(&dword_1912FE000, v58, OS_LOG_TYPE_INFO, "%s delayBeforeInitial = %f (adjustment for frontend UI)", buf, 0x16u);
           }
         }
 
-        v63 = [[_AFInterstitialAction alloc] initWithDuration:v58];
-        *buf = v63;
-        v62 = [[_AFInterstitialAction alloc] initWithPhase:1 displayKey:v26 speakableKey:0];
-        *&buf[8] = v62;
-        v61 = [[_AFInterstitialAction alloc] initWithDuration:5.4];
-        *&buf[16] = v61;
+        v62 = [[_AFInterstitialAction alloc] initWithDuration:v57];
+        *buf = v62;
+        v61 = [[_AFInterstitialAction alloc] initWithPhase:1 displayKey:v26 speakableKey:0];
+        *&buf[8] = v61;
+        v60 = [[_AFInterstitialAction alloc] initWithDuration:5.4];
+        *&buf[16] = v60;
         v30 = [[_AFInterstitialAction alloc] initWithPhase:2 displayKey:v27 speakableKey:0];
-        v69 = v30;
+        v68 = v30;
         v31 = 7.4;
         v32 = [[_AFInterstitialAction alloc] initWithDuration:7.4];
-        v70 = v32;
+        v69 = v32;
         v33 = [_AFInterstitialAction alloc];
         v34 = v28;
         v44 = 0;
@@ -538,10 +548,10 @@ void __134__AFInterstitialProvider_initWithStyle_recordRoute_isVoiceTrigger_isDu
     }
 
 LABEL_45:
-    v66 = v7;
-    v67 = v3;
-    v64 = v16;
-    v65 = v10;
+    v65 = v7;
+    v66 = v3;
+    v63 = v16;
+    v64 = v10;
     if (v24 > 0.0)
     {
       v20 = v20 - v24 >= 0.0 ? v20 - v24 : 0.0;
@@ -565,7 +575,7 @@ LABEL_45:
       v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"FOLLOW_UP_%u", arc4random_uniform(3u)];
     }
 
-    while (([v28 isEqualToString:v27] & 1) != 0);
+    while ((objc_msgSend_isEqualToString_(v28) & 1) != 0);
     if (v20 + -0.4 >= 0.0)
     {
       v42 = v20 + -0.4;
@@ -586,17 +596,17 @@ LABEL_45:
       _os_log_impl(&dword_1912FE000, v43, OS_LOG_TYPE_INFO, "%s delayBeforeInitial = %f (adjustment for frontend UI)", buf, 0x16u);
     }
 
-    v63 = [[_AFInterstitialAction alloc] initWithDuration:v42];
-    *buf = v63;
-    v62 = [[_AFInterstitialAction alloc] initWithPhase:1 displayKey:v26 speakableKey:v26];
-    *&buf[8] = v62;
-    v61 = [[_AFInterstitialAction alloc] initWithDuration:5.6];
-    *&buf[16] = v61;
+    v62 = [[_AFInterstitialAction alloc] initWithDuration:v42];
+    *buf = v62;
+    v61 = [[_AFInterstitialAction alloc] initWithPhase:1 displayKey:v26 speakableKey:v26];
+    *&buf[8] = v61;
+    v60 = [[_AFInterstitialAction alloc] initWithDuration:5.6];
+    *&buf[16] = v60;
     v30 = [[_AFInterstitialAction alloc] initWithPhase:2 displayKey:v27 speakableKey:v27];
-    v69 = v30;
+    v68 = v30;
     v31 = 7.6;
     v32 = [[_AFInterstitialAction alloc] initWithDuration:7.6];
-    v70 = v32;
+    v69 = v32;
     v33 = [_AFInterstitialAction alloc];
     v34 = v28;
     goto LABEL_59;
@@ -652,10 +662,10 @@ LABEL_45:
   if (v18 == 4)
   {
 LABEL_32:
-    v64 = v16;
-    v65 = v10;
-    v66 = v7;
-    v67 = v3;
+    v63 = v16;
+    v64 = v10;
+    v65 = v7;
+    v66 = v3;
     v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"INITIAL_%u", arc4random_uniform(3u)];
     v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"FOLLOW_UP_%u", arc4random_uniform(3u)];
     v28 = 0;
@@ -665,36 +675,36 @@ LABEL_32:
       v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"FOLLOW_UP_%u", arc4random_uniform(3u)];
     }
 
-    while (([v28 isEqualToString:v27] & 1) != 0);
-    v63 = [[_AFInterstitialAction alloc] initWithDuration:v20];
-    *buf = v63;
-    v62 = [[_AFInterstitialAction alloc] initWithPhase:1 displayKey:0 speakableKey:v26];
-    *&buf[8] = v62;
-    v61 = [[_AFInterstitialAction alloc] initWithDuration:6.0];
-    *&buf[16] = v61;
+    while ((objc_msgSend_isEqualToString_(v28) & 1) != 0);
+    v62 = [[_AFInterstitialAction alloc] initWithDuration:v20];
+    *buf = v62;
+    v61 = [[_AFInterstitialAction alloc] initWithPhase:1 displayKey:0 speakableKey:v26];
+    *&buf[8] = v61;
+    v60 = [[_AFInterstitialAction alloc] initWithDuration:6.0];
+    *&buf[16] = v60;
     v30 = [[_AFInterstitialAction alloc] initWithPhase:2 displayKey:0 speakableKey:v27];
-    v69 = v30;
+    v68 = v30;
     v31 = 8.0;
     v32 = [[_AFInterstitialAction alloc] initWithDuration:8.0];
-    v70 = v32;
+    v69 = v32;
     v33 = [_AFInterstitialAction alloc];
     v34 = 0;
 LABEL_59:
     v44 = v28;
 LABEL_60:
     v45 = [(_AFInterstitialAction *)v33 initWithPhase:3 displayKey:v34 speakableKey:v44];
-    v71 = v45;
+    v70 = v45;
     v46 = v26;
     v47 = [[_AFInterstitialAction alloc] initWithDuration:v31];
-    v72 = v47;
+    v71 = v47;
     v48 = [[_AFInterstitialAction alloc] initWithPhase:4 displayKey:0 speakableKey:0];
-    v73 = v48;
+    v72 = v48;
     v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:buf count:8];
 
-    v7 = v66;
-    v3 = v67;
-    v16 = v64;
-    v10 = v65;
+    v7 = v65;
+    v3 = v66;
+    v16 = v63;
+    v10 = v64;
   }
 
 LABEL_61:
@@ -717,13 +727,11 @@ LABEL_61:
     *&buf[12] = 2112;
     *&buf[14] = v54;
     *&buf[22] = 2112;
-    v69 = v55;
+    v68 = v55;
     _os_log_impl(&dword_1912FE000, v52, OS_LOG_TYPE_INFO, "%s configuration = %@, context = %@", buf, 0x20u);
   }
 
   [*(a1 + 40) _performNextActionWithExpectedDelay:0.0];
-
-  v56 = *MEMORY[0x1E69E9840];
 }
 
 @end

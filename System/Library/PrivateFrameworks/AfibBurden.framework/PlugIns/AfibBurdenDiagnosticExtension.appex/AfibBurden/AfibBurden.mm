@@ -1,13 +1,13 @@
-id ab_get_framework_log()
+id ab_get_framework_log(uint64_t a1)
 {
   if (qword_10000C788 != -1)
   {
     sub_100002CBC();
   }
 
-  v1 = qword_10000C790;
+  v2 = qword_10000C790;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000112C(id a1)
@@ -36,9 +36,9 @@ void sub_100001FEC(id a1)
   [v3 setDateStyle:2];
 }
 
-void sub_10000231C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10000231C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -54,7 +54,7 @@ void sub_100002358(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
   v6 = a3;
   v7 = a4;
-  v8 = ab_get_framework_log();
+  v8 = ab_get_framework_log(v7);
   v9 = v8;
   if (v7)
   {
@@ -83,44 +83,46 @@ void sub_100002358(uint64_t a1, uint64_t a2, void *a3, void *a4)
 void sub_100002A44(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if ((a2 & 1) == 0)
   {
-    v6 = ab_get_framework_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = ab_get_framework_log(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "failed to delete previous classifications", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "failed to delete previous classifications", buf, 2u);
     }
   }
 
-  v7 = +[NSDate now];
-  v8 = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
-  [v8 setFirstWeekday:2];
-  v9 = [v7 hk_dayIndexWithCalendar:v8];
-  v10 = 10;
+  v8 = +[NSDate now];
+  v9 = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
+  [v9 setFirstWeekday:2];
+  v10 = [v8 hk_dayIndexWithCalendar:v9];
+  v11 = v10;
+  v12 = 10;
   do
   {
-    v11 = ab_get_framework_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = ab_get_framework_log(v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134349056;
-      v17 = v9;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "running force analysis for the week containing dayIndex %{public}llu", buf, 0xCu);
+      v19 = v11;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "running force analysis for the week containing dayIndex %{public}llu", buf, 0xCu);
     }
 
-    notify_set_state(*(a1 + 48), v9);
-    v12 = *(a1 + 32);
-    v15 = v5;
-    v13 = [v12 performAnalysisForWeekContainingDayIndex:v9 error:&v15];
-    v14 = v15;
+    notify_set_state(*(a1 + 48), v11);
+    v14 = *(a1 + 32);
+    v17 = v6;
+    v15 = [v14 performAnalysisForWeekContainingDayIndex:v11 error:&v17];
+    v16 = v17;
 
-    notify_set_state(*(a1 + 48), 0);
-    v9 -= 7;
-    v5 = v14;
-    --v10;
+    v10 = notify_set_state(*(a1 + 48), 0);
+    v11 -= 7;
+    v6 = v16;
+    --v12;
   }
 
-  while (v10);
+  while (v12);
   dispatch_semaphore_signal(*(a1 + 40));
 }
 

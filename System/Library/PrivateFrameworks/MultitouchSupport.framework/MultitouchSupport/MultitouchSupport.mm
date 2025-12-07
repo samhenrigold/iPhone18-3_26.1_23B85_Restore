@@ -21,52 +21,51 @@ void __MTDeviceCreateMultitouchDispatchSource_block_invoke(uint64_t a1)
     v3 = (i->msgh_size + 71) & 0xFFFFFFFC;
   }
 
-  v7 = v6;
+  v8 = v6;
   if (v6)
   {
-    v9 = *(a1 + 32);
-    if (v9)
+    v10 = *(a1 + 32);
+    if (v10)
     {
-      if (*(v9 + 133) == 1)
+      if (*(v10 + 133) == 1)
       {
-        mt_CachePropertiesForDevice(v9);
+        mt_CachePropertiesForDevice(v10);
       }
 
-      v10 = MTLoggingFramework();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+      v11 = MTLoggingFramework(v10, v7);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
-        v11 = *(*(a1 + 32) + 64);
+        v12 = *(*(a1 + 32) + 64);
         LODWORD(v13.version) = 67109376;
-        HIDWORD(v13.version) = v7;
+        HIDWORD(v13.version) = v8;
         LOWORD(v13.info) = 2048;
-        *(&v13.info + 2) = v11;
-        _os_log_impl(&dword_25AD59000, v10, OS_LOG_TYPE_FAULT, "mach_msg failed: 0x%08x (deviceID 0x%llX)", &v13, 0x12u);
+        *(&v13.info + 2) = v12;
+        _os_log_impl(&dword_25AD59000, v11, OS_LOG_TYPE_FAULT, "mach_msg failed: 0x%08x (deviceID 0x%llX)", &v13, 0x12u);
       }
     }
 
     else
     {
-      __MTDeviceCreateMultitouchDispatchSource_block_invoke_cold_1(v7);
+      __MTDeviceCreateMultitouchDispatchSource_block_invoke_cold_1(v8, v7);
     }
   }
 
   else
   {
     v13.copyDescription = 0xAAAAAAAAAAAAAAAALL;
-    *&v8 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    *&v13.version = v8;
-    *&v13.retain = v8;
+    *&v9 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    *&v13.version = v9;
+    *&v13.retain = v9;
     CFMachPortGetContext(*(*(a1 + 32) + 2088), &v13);
     mt_DequeueMultitouchDataMachPortCallBack(*(*(a1 + 32) + 2088), 0, 0, v13.info);
   }
 
   CFAllocatorDeallocate(v2, i);
   CFRelease(*(a1 + 32));
-  v12 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t MTDeviceSetReport(uint64_t a1, int a2, uint64_t a3, signed int a4)
+uint64_t MTDeviceSetReport(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
   result = 3758097090;
   if (a1)
@@ -95,25 +94,24 @@ uint64_t MTDeviceSetReport(uint64_t a1, int a2, uint64_t a3, signed int a4)
 
 uint64_t mt_DeviceSetReportViaDriver(uint64_t a1, int a2, uint64_t a3, unsigned int a4)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v4 = 3758097084;
   if (!a1)
   {
-    v4 = 3758097101;
-    goto LABEL_15;
+    return 3758097101;
   }
 
-  *&v47[15] = -1431655766;
+  *&v46[15] = -1431655766;
   outputStructCnt = 520;
   outputStruct = a2;
   if (a4 > 0x200)
   {
     puts("Too many bytes for the report to be set");
-    v4 = 3758097128;
-    goto LABEL_15;
+    return 3758097128;
   }
 
-  v48 = a4;
+  v47 = a4;
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
@@ -128,8 +126,8 @@ uint64_t mt_DeviceSetReportViaDriver(uint64_t a1, int a2, uint64_t a3, unsigned 
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
-  *v47 = 0u;
+  *v46 = 0u;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
@@ -145,7 +143,6 @@ uint64_t mt_DeviceSetReportViaDriver(uint64_t a1, int a2, uint64_t a3, unsigned 
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   __memmove_chk();
   v8 = *(a1 + 20);
   connect = v8;
@@ -154,7 +151,7 @@ uint64_t mt_DeviceSetReportViaDriver(uint64_t a1, int a2, uint64_t a3, unsigned 
     v4 = IOConnectCallStructMethod(v8, 2u, &outputStruct, 0x208uLL, &outputStruct, &outputStructCnt);
     if (!v4)
     {
-      goto LABEL_15;
+      return v4;
     }
 
     goto LABEL_13;
@@ -182,12 +179,10 @@ LABEL_13:
     }
   }
 
-LABEL_15:
-  v10 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
-void mt_DequeueMultitouchDataMachPortCallBack(CFMachPortRef port, uint64_t a2, uint64_t a3, uint64_t a4)
+void mt_DequeueMultitouchDataMachPortCallBack(__CFMachPort *port, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   if (a4)
   {
@@ -196,21 +191,21 @@ void mt_DequeueMultitouchDataMachPortCallBack(CFMachPortRef port, uint64_t a2, u
     {
       do
       {
-        if (!CFMachPortIsValid(port) || !IODataQueueDataAvailable(*(a4 + 24)))
+        if (!CFMachPortIsValid(port) || !IODataQueueDataAvailable(a4[3]))
         {
           break;
         }
 
         dataSize = *(v5 + 384);
-        v7 = IODataQueueDequeue(*(a4 + 24), *(a4 + 8), &dataSize);
+        v7 = IODataQueueDequeue(a4[3], a4[1], &dataSize);
         if (v7 == -536870181)
         {
-          IODataQueueDequeue(*(a4 + 24), 0, 0);
+          IODataQueueDequeue(a4[3], 0, 0);
         }
 
         else if (!v7)
         {
-          mt_HandleMultitouchFrame(v5, *(a4 + 8), dataSize, *(v5 + 384));
+          mt_HandleMultitouchFrame(v5, a4[1], dataSize, *(v5 + 384));
         }
       }
 
@@ -219,9 +214,8 @@ void mt_DequeueMultitouchDataMachPortCallBack(CFMachPortRef port, uint64_t a2, u
   }
 }
 
-void mt_HandleMultitouchFrame(uint64_t a1, unsigned __int8 *a2, size_t a3, unsigned int a4)
+void mt_HandleMultitouchFrame(uint64_t a1, unsigned __int8 *a2, size_t a3, uint64_t a4)
 {
-  v17 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     __memcpy_chk();
@@ -261,11 +255,7 @@ void mt_HandleMultitouchFrame(uint64_t a1, unsigned __int8 *a2, size_t a3, unsig
     if (*(a1 + 5736) && *(a1 + 5748) == 1)
     {
       mach_absolute_time();
-      v10 = *(a1 + 5728);
-      v11 = *(a1 + 5736);
       work_interval_join();
-      v12 = *(a1 + 5736);
-      v13 = *(a1 + 5744);
       work_interval_notify();
       work_interval_leave();
     }
@@ -274,24 +264,22 @@ void mt_HandleMultitouchFrame(uint64_t a1, unsigned __int8 *a2, size_t a3, unsig
     {
       for (j = 0; j != 32; j += 8)
       {
-        v15 = *(a1 + j + 1840);
-        if (v15)
+        v11 = *(a1 + j + 1840);
+        if (v11)
         {
-          v15(a1, 0, *(a1 + j + 1880));
+          v11(a1, 0, *(a1 + j + 1880));
         }
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void mt_ProcessMultitouchFrame(uint64_t a1, unsigned __int8 *a2, size_t a3)
 {
-  v102 = *MEMORY[0x277D85DE8];
+  v101 = *MEMORY[0x277D85DE8];
   if (!a2 || !a3)
   {
-    goto LABEL_107;
+    return;
   }
 
   v6 = (a1 + 4096);
@@ -311,797 +299,802 @@ void mt_ProcessMultitouchFrame(uint64_t a1, unsigned __int8 *a2, size_t a3)
   *(v7 + 30) = *(a1 + 88);
   *(v7 + 28) = *(a1 + 84);
   *(v7 + 32) = *(a1 + 364);
-  v8 = *a2;
-  v9 = v6[1631];
+  v10 = *a2;
+  v11 = v6[1631];
   if (v6[1631])
   {
-    if (v6[1624] == v8)
+    if (v6[1624] == v10)
     {
       goto LABEL_9;
     }
 
-    v10 = v6 + 1625;
-    v11 = 1;
+    v12 = v6 + 1625;
+    v13 = 1;
     do
     {
-      v12 = v11;
-      if (v9 == v11)
+      v14 = v13;
+      if (v11 == v13)
       {
         break;
       }
 
-      v13 = *v10++;
-      ++v11;
+      v15 = *v12++;
+      ++v13;
     }
 
-    while (v13 != v8);
-    if (v12 < v9)
+    while (v15 != v10);
+    if (v14 < v11)
     {
 LABEL_9:
-      v14 = (a3 - 1);
-      v15 = (a2 + 1);
+      v16 = (a3 - 1);
+      v17 = a2 + 1;
 LABEL_10:
-      mt_PostExternalMessage(a1, v15, v8, v14);
+      mt_PostExternalMessage(a1, v17, v10, v16);
       goto LABEL_104;
     }
   }
 
   if (*a2 > 0x59u)
   {
-    if (*a2 > 0x77u)
+    if (*a2 <= 0x77u)
     {
-      if (*a2 <= 0xC4u)
+      if ((v10 - 117) < 3)
       {
-        if (v8 == 120)
+        if (MTParse_V4PrecisePathAndImage(a2, a3, v7, a1))
         {
-          if ((MTParse_SensorImage(a2, a3, v7, a1) & 1) == 0)
-          {
-            goto LABEL_104;
-          }
-
           goto LABEL_62;
         }
 
-        if (v8 == 121)
-        {
-          if ((MTParse_HostPathAndImage(a2, a3, v7) & 1) == 0)
-          {
-            goto LABEL_104;
-          }
-
-          goto LABEL_62;
-        }
-      }
-
-      else
-      {
-        if ((v8 - 197) < 2)
-        {
-          if ((MTProcess_0xC5_Data(a2, a3, v7, a1) & 1) == 0)
-          {
-            goto LABEL_104;
-          }
-
-          goto LABEL_62;
-        }
-
-        if (v8 == 204 || v8 == 206)
-        {
-          if ((MTProcess_0xCC_Data(a2, a3, v7, a1) & 1) == 0)
-          {
-            goto LABEL_104;
-          }
-
-          goto LABEL_62;
-        }
-      }
-    }
-
-    else
-    {
-      if ((v8 - 117) < 3)
-      {
-        if ((MTParse_V4PrecisePathAndImage(a2, a3, v7, a1) & 1) == 0)
-        {
-          goto LABEL_104;
-        }
-
-        goto LABEL_62;
-      }
-
-      if ((v8 - 115) < 2)
-      {
-        if ((MTParse_V3BinaryPathOrImage(a2, a3, v7, a1) & 1) == 0)
-        {
-          goto LABEL_104;
-        }
-
-        goto LABEL_62;
-      }
-
-      if (v8 == 90)
-      {
-        if ((MTParse_SABinary(a2, a3, v7, a1) & 1) == 0)
-        {
-          goto LABEL_104;
-        }
-
-        goto LABEL_62;
-      }
-    }
-  }
-
-  else if (*a2 <= 0x30u)
-  {
-    if (*a2 > 0x26u)
-    {
-      switch(v8)
-      {
-        case '\'':
-          goto LABEL_35;
-        case '(':
-          if (!MTParse_CompactV4BinaryPath(a2, a3, v7, a1))
-          {
-            goto LABEL_104;
-          }
-
-          goto LABEL_62;
-        case ')':
-LABEL_35:
-          if ((MTParse_CompactV3orV5BinaryPath(a2, a3, v7, a1) & 1) == 0)
-          {
-            goto LABEL_104;
-          }
-
-          goto LABEL_62;
-      }
-    }
-
-    else if ((v8 - 36) < 3)
-    {
-      MTParse_CompactBinaryPath(a2, a3, v7, a1);
-      if ((v16 & 1) == 0)
-      {
         goto LABEL_104;
       }
 
+      if ((v10 - 115) < 2)
+      {
+        if (MTParse_V3BinaryPathOrImage(a2, a3, v7, a1))
+        {
+          goto LABEL_62;
+        }
+
+        goto LABEL_104;
+      }
+
+      if (v10 == 90)
+      {
+        if (MTParse_SABinary(a2, a3, v7, a1))
+        {
+          goto LABEL_62;
+        }
+
+        goto LABEL_104;
+      }
+
+      goto LABEL_114;
+    }
+
+    if (*a2 > 0xC4u)
+    {
+      if ((v10 - 197) < 2)
+      {
+        if (MTProcess_0xC5_Data(a2, a3, v7, a1))
+        {
+          goto LABEL_62;
+        }
+
+        goto LABEL_104;
+      }
+
+      if (v10 == 204 || v10 == 206)
+      {
+        if (MTProcess_0xCC_Data(a2, a3, v7, a1))
+        {
+          goto LABEL_62;
+        }
+
+        goto LABEL_104;
+      }
+
+      goto LABEL_114;
+    }
+
+    if (v10 != 120)
+    {
+      if (v10 == 121)
+      {
+        if (MTParse_HostPathAndImage(a2, a3, v7))
+        {
+          goto LABEL_62;
+        }
+
+        goto LABEL_104;
+      }
+
+      goto LABEL_114;
+    }
+
+    if (MTParse_SensorImage(a2, a3, v7, a1))
+    {
       goto LABEL_62;
     }
   }
 
   else
   {
-    if (*a2 <= 0x33u)
+    if (*a2 <= 0x30u)
     {
-      if (v8 == 49)
+      if (*a2 <= 0x26u)
       {
-        if ((MTParse_CompactV7BinaryPath(a2, a3, v7, a1) & 1) == 0)
+        if ((v10 - 36) < 3)
         {
+          MTParse_CompactBinaryPath(a2, a3, v7, a1);
+          if (v18)
+          {
+            goto LABEL_62;
+          }
+
           goto LABEL_104;
         }
+
+        goto LABEL_114;
       }
 
-      else if (v8 == 50)
+      if (v10 != 39)
       {
-        if ((MTParse_CompactV8BinaryPath(a2, a3, v7, a1) & 1) == 0)
+        if (v10 == 40)
         {
+          if (MTParse_CompactV4BinaryPath(a2, a3, v7, a1))
+          {
+            goto LABEL_62;
+          }
+
           goto LABEL_104;
         }
-      }
 
-      else if (!MTParse_CompactV9BinaryPath(a2, a3, v7, a1))
-      {
-        goto LABEL_104;
-      }
-
-LABEL_62:
-      mt_CheckForTimestampErrors(a1, *v7);
-      if (!*(a1 + 152))
-      {
-        if (*(a1 + 133) == 1)
+        if (v10 != 41)
         {
-          mt_CachePropertiesForDevice(a1);
-        }
-
-        else
-        {
-          mt_InitializeAlgorithmsForDevice(a1, v17, v18, v19, v20, v21, v22, v23);
+          goto LABEL_114;
         }
       }
 
-      if (*(v7 + 53))
+      if (MTParse_CompactV3orV5BinaryPath(a2, a3, v7, a1))
       {
-        v24 = 2;
-      }
-
-      else
-      {
-        v24 = 0;
-      }
-
-      mt_UpdateDeviceOrientation(a1, v24, 0);
-      v28 = *(v7 + 16);
-      if (v28 >= *(a1 + 176))
-      {
-        v29 = *(a1 + 168);
-      }
-
-      else
-      {
-        v29 = *(a1 + 168) + 256;
-      }
-
-      *(a1 + 168) = v29 & 0xFFFFFFFFFFFFFF00 | v28;
-      *(a1 + 176) = v28;
-      if (*(a1 + 210) != *(v7 + 55))
-      {
-        v30 = *(a1 + 1224);
-        if (*(v7 + 55))
-        {
-          if (*(a1 + 1224))
-          {
-            for (i = 0; i != 32; i += 8)
-            {
-              v32 = *(a1 + i + 1192);
-              if (v32)
-              {
-                v32(a1, 29, *(a1 + i + 1232));
-              }
-            }
-          }
-        }
-
-        else if (*(a1 + 1224))
-        {
-          for (j = 0; j != 32; j += 8)
-          {
-            v34 = *(a1 + j + 1192);
-            if (v34)
-            {
-              v34(a1, 30, *(a1 + j + 1232));
-            }
-          }
-        }
-
-        *(a1 + 210) = *(v7 + 55);
-      }
-
-      mt_PostLegacyFrameHeaderCallbacks(a1, v7, v25, v26, v27);
-      mt_PostButtonStateCallbacks(a1, *(v7 + 52));
-      if (*(a1 + 1080))
-      {
-        for (k = 0; k != 32; k += 8)
-        {
-          v36 = *(a1 + k + 1048);
-          if (v36)
-          {
-            v36(a1, *(a1 + 168), a3, 1, *(a1 + k + 1088));
-          }
-        }
-      }
-
-      mt_PostForceCentroidCallbacks(a1, v7);
-      if (!*(a1 + 152))
-      {
-        puts("Algorithms uninitialized!");
-        goto LABEL_98;
-      }
-
-      if (*(v7 + 39))
-      {
-LABEL_98:
-        if (*(a1 + 1080))
-        {
-          for (m = 0; m != 32; m += 8)
-          {
-            v40 = *(a1 + m + 1048);
-            if (v40)
-            {
-              v40(a1, *(a1 + 168), a3, 0, *(a1 + m + 1088));
-            }
-          }
-        }
-
-        *(a1 + 180) = *v7;
-        goto LABEL_104;
-      }
-
-      v37 = *(v7 + 8);
-      if (v37 > 0x73)
-      {
-        if (v37 == 116 || v37 == 204 || v37 == 206)
-        {
-          goto LABEL_96;
-        }
-      }
-
-      else
-      {
-        v38 = v37 - 36;
-        if (v38 <= 0x20 && ((1 << v38) & 0x10000E03DLL) != 0)
-        {
-LABEL_96:
-          mtalg_ProcessPathFrame(a1, v7, *(a1 + 168), *v7);
-          goto LABEL_98;
-        }
-      }
-
-      if (*(v7 + 11) != 1 || (*(v7 + 12) & 1) != 0)
-      {
-        mtalg_ProcessImageFrame(a1, v7, *(v7 + 40), *(a1 + 168), *v7);
-        goto LABEL_98;
-      }
-
-      goto LABEL_96;
-    }
-
-    if ((v8 - 67) < 3)
-    {
-      if ((MTParse_BinaryPathOrImage(a2, a3, v7, a1) & 1) == 0)
-      {
-        goto LABEL_104;
-      }
-
-      goto LABEL_62;
-    }
-
-    if (v8 == 52)
-    {
-      if (!MTParse_CompactV10BinaryPath(a2, a3, v7, a1))
-      {
-        goto LABEL_104;
-      }
-
-      goto LABEL_62;
-    }
-  }
-
-  if (a3 >= 2 && v8 == 64)
-  {
-    v43 = a2[1];
-    if (a3 < 3 || a2[1])
-    {
-      switch(a2[1])
-      {
-        case 1u:
-          if (*(a1 + 1224))
-          {
-            for (n = 0; n != 32; n += 8)
-            {
-              v53 = *(a1 + n + 1192);
-              if (v53)
-              {
-                v53(a1, 1, *(a1 + n + 1232));
-              }
-            }
-          }
-
-          break;
-        case 2u:
-          *(a1 + 2136) = 0;
-          *(a1 + 2128) = 0;
-          *(a1 + 2140) = 0;
-          *(a1 + 180) = 0;
-          *(a1 + 176) = 0;
-          mt_CachePropertiesForDevice(a1);
-          if (*(a1 + 1224))
-          {
-            for (ii = 0; ii != 32; ii += 8)
-            {
-              v90 = *(a1 + ii + 1192);
-              if (v90)
-              {
-                v90(a1, 5, *(a1 + ii + 1232));
-              }
-            }
-          }
-
-          break;
-        case 3u:
-          if (*(a1 + 1224))
-          {
-            for (jj = 0; jj != 32; jj += 8)
-            {
-              v88 = *(a1 + jj + 1192);
-              if (v88)
-              {
-                v88(a1, 6, *(a1 + jj + 1232));
-              }
-            }
-          }
-
-          goto LABEL_236;
-        case 4u:
-          if (*(a1 + 1224))
-          {
-            for (kk = 0; kk != 32; kk += 8)
-            {
-              v86 = *(a1 + kk + 1192);
-              if (v86)
-              {
-                v86(a1, 7, *(a1 + kk + 1232));
-              }
-            }
-          }
-
-          break;
-        case 5u:
-          *(a1 + 184) = 0;
-          if (*(a1 + 1224))
-          {
-            for (mm = 0; mm != 32; mm += 8)
-            {
-              v78 = *(a1 + mm + 1192);
-              if (v78)
-              {
-                v78(a1, 8, *(a1 + mm + 1232));
-              }
-            }
-          }
-
-LABEL_236:
-          mt_FlushInternalStateForDevice(a1);
-          break;
-        case 6u:
-          if (*(a1 + 1224))
-          {
-            for (nn = 0; nn != 32; nn += 8)
-            {
-              v82 = *(a1 + nn + 1192);
-              if (v82)
-              {
-                v82(a1, 14, *(a1 + nn + 1232));
-              }
-            }
-          }
-
-          break;
-        case 7u:
-          if (*(a1 + 1224))
-          {
-            for (i1 = 0; i1 != 32; i1 += 8)
-            {
-              v92 = *(a1 + i1 + 1192);
-              if (v92)
-              {
-                v92(a1, 15, *(a1 + i1 + 1232));
-              }
-            }
-          }
-
-          break;
-        case 8u:
-          if (*(a1 + 1224))
-          {
-            for (i2 = 0; i2 != 32; i2 += 8)
-            {
-              v94 = *(a1 + i2 + 1192);
-              if (v94)
-              {
-                v94(a1, 12, *(a1 + i2 + 1232));
-              }
-            }
-          }
-
-          break;
-        case 9u:
-          if (*(a1 + 1224))
-          {
-            for (i3 = 0; i3 != 32; i3 += 8)
-            {
-              v98 = *(a1 + i3 + 1192);
-              if (v98)
-              {
-                v98(a1, 13, *(a1 + i3 + 1232));
-              }
-            }
-          }
-
-          break;
-        case 0xAu:
-          if (*(a1 + 1224))
-          {
-            for (i4 = 0; i4 != 32; i4 += 8)
-            {
-              v96 = *(a1 + i4 + 1192);
-              if (v96)
-              {
-                v96(a1, 16, *(a1 + i4 + 1232));
-              }
-            }
-          }
-
-          break;
-        case 0xBu:
-          if (*(a1 + 1224))
-          {
-            for (i5 = 0; i5 != 32; i5 += 8)
-            {
-              v76 = *(a1 + i5 + 1192);
-              if (v76)
-              {
-                v76(a1, 17, *(a1 + i5 + 1232));
-              }
-            }
-          }
-
-          break;
-        case 0xEu:
-          if (*(a1 + 1224))
-          {
-            for (i6 = 0; i6 != 32; i6 += 8)
-            {
-              v84 = *(a1 + i6 + 1192);
-              if (v84)
-              {
-                v84(a1, 32, *(a1 + i6 + 1232));
-              }
-            }
-          }
-
-          break;
-        case 0xFu:
-          if (*(a1 + 1224))
-          {
-            for (i7 = 0; i7 != 32; i7 += 8)
-            {
-              v80 = *(a1 + i7 + 1192);
-              if (v80)
-              {
-                v80(a1, 33, *(a1 + i7 + 1232));
-              }
-            }
-          }
-
-          break;
-        case 0x10u:
-          if (*(a1 + 1224))
-          {
-            for (i8 = 0; i8 != 32; i8 += 8)
-            {
-              v74 = *(a1 + i8 + 1192);
-              if (v74)
-              {
-                v74(a1, 34, *(a1 + i8 + 1232));
-              }
-            }
-          }
-
-          break;
-        default:
-          goto LABEL_104;
-      }
-    }
-
-    else if (*(a1 + 1224))
-    {
-      v44 = 0;
-      v45 = a2[2];
-      do
-      {
-        v46 = *(a1 + v44 + 1192);
-        if (v46)
-        {
-          v46(a1, v45, *(a1 + v44 + 1232));
-        }
-
-        v44 += 8;
-      }
-
-      while (v44 != 32);
-    }
-
-    goto LABEL_104;
-  }
-
-  if (v8 != 80)
-  {
-    if (a3 >= 2 && v8 == 96)
-    {
-      v47 = a2[1];
-      if (*(a1 + 1224))
-      {
-        for (i9 = 0; i9 != 32; i9 += 8)
-        {
-          v49 = *(a1 + i9 + 1192);
-          if (v49)
-          {
-            v49(a1, (v47 + 300), *(a1 + i9 + 1232));
-          }
-        }
-
-        v47 = a2[1];
-      }
-
-      if (v47 == 2)
-      {
-        *(a1 + 2136) = 0;
-        *(a1 + 2128) = 0;
-        *(a1 + 2140) = 0;
-        *(a1 + 180) = 0;
-        *(a1 + 184) = 0;
-        mt_CachePropertiesForDevice(a1);
-        if (*(a1 + 1224))
-        {
-          for (i10 = 0; i10 != 32; i10 += 8)
-          {
-            v61 = *(a1 + i10 + 1192);
-            if (v61)
-            {
-              v61(a1, 5, *(a1 + i10 + 1232));
-            }
-          }
-        }
-      }
-
-      else if (v47 == 1)
-      {
-        if (*(a1 + 1224))
-        {
-          for (i11 = 0; i11 != 32; i11 += 8)
-          {
-            v51 = *(a1 + i11 + 1192);
-            if (v51)
-            {
-              v51(a1, 6, *(a1 + i11 + 1232));
-            }
-          }
-        }
-      }
-
-      else if (a3 >= 3 && v47 == 48)
-      {
-        v62 = a2[2] ? 35 : 36;
-        if (*(a1 + 1224))
-        {
-          for (i12 = 0; i12 != 32; i12 += 8)
-          {
-            v64 = *(a1 + i12 + 1192);
-            if (v64)
-            {
-              v64(a1, v62, *(a1 + i12 + 1232));
-            }
-          }
-        }
+        goto LABEL_62;
       }
 
       goto LABEL_104;
     }
 
-    if (*a2 > 0x7Fu)
+    if (*a2 > 0x33u)
     {
-      if (v8 != 128)
+      if ((v10 - 67) < 3)
       {
-        if (v8 == 129)
+        if ((MTParse_BinaryPathOrImage(a2, a3, v7, a1) & 1) == 0)
         {
-          *buf = 0xAAAAAAAAAAAAAAAALL;
-          if (MTParse_HIDOffTableHeightReport(a2, a3, buf))
-          {
-            mt_PostOffTableHeightCallbacks(a1, *&buf[4], 0, 0xFFFFFFFFLL);
-          }
-
           goto LABEL_104;
         }
 
-        if (v8 != 130)
+LABEL_62:
+        mt_CheckForTimestampErrors(a1, *v7);
+        if (!*(a1 + 152))
         {
-          goto LABEL_182;
+          if (*(a1 + 133) == 1)
+          {
+            mt_CachePropertiesForDevice(a1);
+          }
+
+          else
+          {
+            mt_InitializeAlgorithmsForDevice(a1, v19, v20, v21, v22, v23, v24, v25);
+          }
         }
 
-        *&v54 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v54 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        *buf = v54;
-        *&buf[16] = v54;
-        if (!MTParse_HIDRelativePointerV2Report(a2, a3, buf))
+        if (*(v7 + 53))
+        {
+          v26 = 2;
+        }
+
+        else
+        {
+          v26 = 0;
+        }
+
+        mt_UpdateDeviceOrientation(a1, v26, 0);
+        v30 = *(v7 + 16);
+        if (v30 >= *(a1 + 176))
+        {
+          v31 = *(a1 + 168);
+        }
+
+        else
+        {
+          v31 = *(a1 + 168) + 256;
+        }
+
+        *(a1 + 168) = v31 & 0xFFFFFFFFFFFFFF00 | v30;
+        *(a1 + 176) = v30;
+        if (*(a1 + 210) != *(v7 + 55))
+        {
+          if (*(v7 + 55))
+          {
+            if (*(a1 + 1224))
+            {
+              for (i = 0; i != 32; i += 8)
+              {
+                v33 = *(a1 + i + 1192);
+                if (v33)
+                {
+                  v33(a1, 29, *(a1 + i + 1232));
+                }
+              }
+            }
+          }
+
+          else if (*(a1 + 1224))
+          {
+            for (j = 0; j != 32; j += 8)
+            {
+              v35 = *(a1 + j + 1192);
+              if (v35)
+              {
+                v35(a1, 30, *(a1 + j + 1232));
+              }
+            }
+          }
+
+          *(a1 + 210) = *(v7 + 55);
+        }
+
+        mt_PostLegacyFrameHeaderCallbacks(a1, v7, v27, v28, v29);
+        mt_PostButtonStateCallbacks(a1, *(v7 + 52));
+        if (*(a1 + 1080))
+        {
+          for (k = 0; k != 32; k += 8)
+          {
+            v37 = *(a1 + k + 1048);
+            if (v37)
+            {
+              v37(a1, *(a1 + 168), a3, 1, *(a1 + k + 1088));
+            }
+          }
+        }
+
+        mt_PostForceCentroidCallbacks(a1, v7);
+        if (!*(a1 + 152))
+        {
+          puts("Algorithms uninitialized!");
+          goto LABEL_98;
+        }
+
+        if (*(v7 + 39))
+        {
+LABEL_98:
+          if (*(a1 + 1080))
+          {
+            for (m = 0; m != 32; m += 8)
+            {
+              v41 = *(a1 + m + 1048);
+              if (v41)
+              {
+                v41(a1, *(a1 + 168), a3, 0, *(a1 + m + 1088));
+              }
+            }
+          }
+
+          *(a1 + 180) = *v7;
+          goto LABEL_104;
+        }
+
+        v38 = *(v7 + 8);
+        if (v38 > 0x73)
+        {
+          if (v38 == 116 || v38 == 204 || v38 == 206)
+          {
+            goto LABEL_96;
+          }
+        }
+
+        else
+        {
+          v39 = v38 - 36;
+          if (v39 <= 0x20 && ((1 << v39) & 0x10000E03DLL) != 0)
+          {
+LABEL_96:
+            mtalg_ProcessPathFrame(a1, v7, *(a1 + 168), *v7);
+            goto LABEL_98;
+          }
+        }
+
+        if (*(v7 + 11) != 1 || (*(v7 + 12) & 1) != 0)
+        {
+          mtalg_ProcessImageFrame(a1, v7, *(v7 + 40), *(a1 + 168), *v7);
+          goto LABEL_98;
+        }
+
+        goto LABEL_96;
+      }
+
+      if (v10 == 52)
+      {
+        if (MTParse_CompactV10BinaryPath(a2, a3, v7, a1))
+        {
+          goto LABEL_62;
+        }
+
+        goto LABEL_104;
+      }
+
+LABEL_114:
+      if (a3 >= 2 && v10 == 64)
+      {
+        if (a3 < 3 || a2[1])
+        {
+          switch(a2[1])
+          {
+            case 1u:
+              if (*(a1 + 1224))
+              {
+                for (n = 0; n != 32; n += 8)
+                {
+                  v52 = *(a1 + n + 1192);
+                  if (v52)
+                  {
+                    v52(a1, 1, *(a1 + n + 1232));
+                  }
+                }
+              }
+
+              break;
+            case 2u:
+              *(a1 + 2136) = 0;
+              *(a1 + 2128) = 0;
+              *(a1 + 2140) = 0;
+              *(a1 + 180) = 0;
+              *(a1 + 176) = 0;
+              mt_CachePropertiesForDevice(a1);
+              if (*(a1 + 1224))
+              {
+                for (ii = 0; ii != 32; ii += 8)
+                {
+                  v89 = *(a1 + ii + 1192);
+                  if (v89)
+                  {
+                    v89(a1, 5, *(a1 + ii + 1232));
+                  }
+                }
+              }
+
+              break;
+            case 3u:
+              if (*(a1 + 1224))
+              {
+                for (jj = 0; jj != 32; jj += 8)
+                {
+                  v87 = *(a1 + jj + 1192);
+                  if (v87)
+                  {
+                    v87(a1, 6, *(a1 + jj + 1232));
+                  }
+                }
+              }
+
+              goto LABEL_236;
+            case 4u:
+              if (*(a1 + 1224))
+              {
+                for (kk = 0; kk != 32; kk += 8)
+                {
+                  v85 = *(a1 + kk + 1192);
+                  if (v85)
+                  {
+                    v85(a1, 7, *(a1 + kk + 1232));
+                  }
+                }
+              }
+
+              break;
+            case 5u:
+              *(a1 + 184) = 0;
+              if (*(a1 + 1224))
+              {
+                for (mm = 0; mm != 32; mm += 8)
+                {
+                  v77 = *(a1 + mm + 1192);
+                  if (v77)
+                  {
+                    v77(a1, 8, *(a1 + mm + 1232));
+                  }
+                }
+              }
+
+LABEL_236:
+              mt_FlushInternalStateForDevice(a1);
+              break;
+            case 6u:
+              if (*(a1 + 1224))
+              {
+                for (nn = 0; nn != 32; nn += 8)
+                {
+                  v81 = *(a1 + nn + 1192);
+                  if (v81)
+                  {
+                    v81(a1, 14, *(a1 + nn + 1232));
+                  }
+                }
+              }
+
+              break;
+            case 7u:
+              if (*(a1 + 1224))
+              {
+                for (i1 = 0; i1 != 32; i1 += 8)
+                {
+                  v91 = *(a1 + i1 + 1192);
+                  if (v91)
+                  {
+                    v91(a1, 15, *(a1 + i1 + 1232));
+                  }
+                }
+              }
+
+              break;
+            case 8u:
+              if (*(a1 + 1224))
+              {
+                for (i2 = 0; i2 != 32; i2 += 8)
+                {
+                  v93 = *(a1 + i2 + 1192);
+                  if (v93)
+                  {
+                    v93(a1, 12, *(a1 + i2 + 1232));
+                  }
+                }
+              }
+
+              break;
+            case 9u:
+              if (*(a1 + 1224))
+              {
+                for (i3 = 0; i3 != 32; i3 += 8)
+                {
+                  v97 = *(a1 + i3 + 1192);
+                  if (v97)
+                  {
+                    v97(a1, 13, *(a1 + i3 + 1232));
+                  }
+                }
+              }
+
+              break;
+            case 0xAu:
+              if (*(a1 + 1224))
+              {
+                for (i4 = 0; i4 != 32; i4 += 8)
+                {
+                  v95 = *(a1 + i4 + 1192);
+                  if (v95)
+                  {
+                    v95(a1, 16, *(a1 + i4 + 1232));
+                  }
+                }
+              }
+
+              break;
+            case 0xBu:
+              if (*(a1 + 1224))
+              {
+                for (i5 = 0; i5 != 32; i5 += 8)
+                {
+                  v75 = *(a1 + i5 + 1192);
+                  if (v75)
+                  {
+                    v75(a1, 17, *(a1 + i5 + 1232));
+                  }
+                }
+              }
+
+              break;
+            case 0xEu:
+              if (*(a1 + 1224))
+              {
+                for (i6 = 0; i6 != 32; i6 += 8)
+                {
+                  v83 = *(a1 + i6 + 1192);
+                  if (v83)
+                  {
+                    v83(a1, 32, *(a1 + i6 + 1232));
+                  }
+                }
+              }
+
+              break;
+            case 0xFu:
+              if (*(a1 + 1224))
+              {
+                for (i7 = 0; i7 != 32; i7 += 8)
+                {
+                  v79 = *(a1 + i7 + 1192);
+                  if (v79)
+                  {
+                    v79(a1, 33, *(a1 + i7 + 1232));
+                  }
+                }
+              }
+
+              break;
+            case 0x10u:
+              if (*(a1 + 1224))
+              {
+                for (i8 = 0; i8 != 32; i8 += 8)
+                {
+                  v73 = *(a1 + i8 + 1192);
+                  if (v73)
+                  {
+                    v73(a1, 34, *(a1 + i8 + 1232));
+                  }
+                }
+              }
+
+              break;
+            default:
+              goto LABEL_104;
+          }
+        }
+
+        else if (*(a1 + 1224))
+        {
+          v43 = 0;
+          v44 = a2[2];
+          do
+          {
+            v45 = *(a1 + v43 + 1192);
+            if (v45)
+            {
+              v45(a1, v44, *(a1 + v43 + 1232));
+            }
+
+            v43 += 8;
+          }
+
+          while (v43 != 32);
+        }
+
+        goto LABEL_104;
+      }
+
+      if (v10 == 80)
+      {
+        goto LABEL_104;
+      }
+
+      if (a3 >= 2 && v10 == 96)
+      {
+        v46 = a2[1];
+        if (*(a1 + 1224))
+        {
+          for (i9 = 0; i9 != 32; i9 += 8)
+          {
+            v48 = *(a1 + i9 + 1192);
+            if (v48)
+            {
+              v48(a1, (v46 + 300), *(a1 + i9 + 1232));
+            }
+          }
+
+          v46 = a2[1];
+        }
+
+        if (v46 == 2)
+        {
+          *(a1 + 2136) = 0;
+          *(a1 + 2128) = 0;
+          *(a1 + 2140) = 0;
+          *(a1 + 180) = 0;
+          *(a1 + 184) = 0;
+          mt_CachePropertiesForDevice(a1);
+          if (*(a1 + 1224))
+          {
+            for (i10 = 0; i10 != 32; i10 += 8)
+            {
+              v60 = *(a1 + i10 + 1192);
+              if (v60)
+              {
+                v60(a1, 5, *(a1 + i10 + 1232));
+              }
+            }
+          }
+        }
+
+        else if (v46 == 1)
+        {
+          if (*(a1 + 1224))
+          {
+            for (i11 = 0; i11 != 32; i11 += 8)
+            {
+              v50 = *(a1 + i11 + 1192);
+              if (v50)
+              {
+                v50(a1, 6, *(a1 + i11 + 1232));
+              }
+            }
+          }
+        }
+
+        else if (a3 >= 3 && v46 == 48)
+        {
+          v61 = a2[2] ? 35 : 36;
+          if (*(a1 + 1224))
+          {
+            for (i12 = 0; i12 != 32; i12 += 8)
+            {
+              v63 = *(a1 + i12 + 1192);
+              if (v63)
+              {
+                v63(a1, v61, *(a1 + i12 + 1232));
+              }
+            }
+          }
+        }
+
+        goto LABEL_104;
+      }
+
+      if (*a2 > 0x7Fu)
+      {
+        if (v10 != 128)
+        {
+          if (v10 == 129)
+          {
+            *buf = 0xAAAAAAAAAAAAAAAALL;
+            if (MTParse_HIDOffTableHeightReport(a2, a3, buf))
+            {
+              mt_PostOffTableHeightCallbacks(a1, *&buf[4], 0, 0xFFFFFFFFLL);
+            }
+
+            goto LABEL_104;
+          }
+
+          if (v10 != 130)
+          {
+            goto LABEL_182;
+          }
+
+          *&v53 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v53 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          *buf = v53;
+          *&buf[16] = v53;
+          if (!MTParse_HIDRelativePointerV2Report(a2, a3, buf))
+          {
+            goto LABEL_104;
+          }
+
+          mt_PostTrackingCallbacks(a1, *&buf[8], *&buf[12], *&buf[2]);
+          v54 = *&buf[8];
+          v55 = *&buf[12];
+          v56 = *&buf[4];
+          v57 = *&buf[24];
+          v58 = a1;
+LABEL_181:
+          mt_PostRelativePointerCallbacks(v58, v54, v55, v56, v57);
+          goto LABEL_104;
+        }
+
+        memset(buf, 170, 24);
+        if (!MTParse_HIDRelativePointerReport(a2, a3, buf))
         {
           goto LABEL_104;
         }
 
         mt_PostTrackingCallbacks(a1, *&buf[8], *&buf[12], *&buf[2]);
-        v55 = *&buf[8];
-        v56 = *&buf[12];
-        v57 = *&buf[4];
-        v58 = *&buf[24];
-        v59 = a1;
-LABEL_181:
-        mt_PostRelativePointerCallbacks(v59, v55, v56, v57, v58);
-        goto LABEL_104;
+        v68 = *&buf[8];
+        v67 = *&buf[12];
+        v66 = *&buf[4];
+        v57 = mach_absolute_time();
+        v58 = a1;
+        v54 = v68;
+        v55 = v67;
       }
 
-      memset(buf, 170, 24);
-      if (!MTParse_HIDRelativePointerReport(a2, a3, buf))
+      else
       {
-        goto LABEL_104;
-      }
-
-      mt_PostTrackingCallbacks(a1, *&buf[8], *&buf[12], *&buf[2]);
-      v69 = *&buf[8];
-      v68 = *&buf[12];
-      v67 = *&buf[4];
-      v58 = mach_absolute_time();
-      v59 = a1;
-      v55 = v69;
-      v56 = v68;
-    }
-
-    else
-    {
-      if (v8 != 2)
-      {
-        if (v8 == 82)
+        if (v10 != 2)
         {
-          MTParse_TimestampSync(a2, a3, a1);
-          goto LABEL_104;
-        }
-
-        if (v8 == 83)
-        {
-          *buf = 0xAAAAAAAAAAAAAAAALL;
-          v100 = -21846;
-          v99 = -1431655766;
-          if (!MTParse_ExternalMessage(a2, a3, buf, &v100, &v99))
+          if (v10 == 82)
           {
+            MTParse_TimestampSync(a2, a3, a1);
             goto LABEL_104;
           }
 
-          v15 = *buf;
-          v8 = v100;
-          v14 = v99;
-          goto LABEL_10;
-        }
+          if (v10 == 83)
+          {
+            *buf = 0xAAAAAAAAAAAAAAAALL;
+            v99 = -21846;
+            v98 = -1431655766;
+            if (MTParse_ExternalMessage(a2, a3, buf, &v99, &v98))
+            {
+              v17 = *buf;
+              v10 = v99;
+              v16 = v98;
+              goto LABEL_10;
+            }
+
+            goto LABEL_104;
+          }
 
 LABEL_182:
-        if (*(a1 + 133) == 1)
-        {
-          mt_CachePropertiesForDevice(a1);
+          if (*(a1 + 133) == 1)
+          {
+            mt_CachePropertiesForDevice(a1);
+          }
+
+          v69 = MTLoggingFramework(v8, v9);
+          if (os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG))
+          {
+            v70 = *a2;
+            v71 = *(a1 + 64);
+            *buf = 67109632;
+            *&buf[4] = v70;
+            *&buf[8] = 1024;
+            *&buf[10] = a3;
+            *&buf[14] = 2048;
+            *&buf[16] = v71;
+            _os_log_impl(&dword_25AD59000, v69, OS_LOG_TYPE_DEBUG, "Data packet with format 0x%02X length %u. Ignoring... (deviceID 0x%llX)", buf, 0x18u);
+          }
+
+          goto LABEL_104;
         }
 
-        v70 = MTLoggingFramework();
-        if (os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG))
+        memset(buf, 170, 6);
+        if (!MTParse_HIDMouseReport(a2, a3, buf))
         {
-          v71 = *a2;
-          v72 = *(a1 + 64);
-          *buf = 67109632;
-          *&buf[4] = v71;
-          *&buf[8] = 1024;
-          *&buf[10] = a3;
-          *&buf[14] = 2048;
-          *&buf[16] = v72;
-          _os_log_impl(&dword_25AD59000, v70, OS_LOG_TYPE_DEBUG, "Data packet with format 0x%02X length %u. Ignoring... (deviceID 0x%llX)", buf, 0x18u);
+          goto LABEL_104;
         }
 
-        goto LABEL_104;
+        mt_PostTrackingCallbacks(a1, buf[2], buf[3], 400);
+        v64 = buf[2];
+        v65 = buf[3];
+        v66 = buf[1];
+        v57 = mach_absolute_time();
+        v58 = a1;
+        v54 = v64;
+        v55 = v65;
       }
 
-      memset(buf, 170, 6);
-      if (!MTParse_HIDMouseReport(a2, a3, buf))
+      v56 = v66;
+      goto LABEL_181;
+    }
+
+    if (v10 == 49)
+    {
+      if ((MTParse_CompactV7BinaryPath(a2, a3, v7, a1) & 1) == 0)
       {
         goto LABEL_104;
       }
 
-      mt_PostTrackingCallbacks(a1, buf[2], buf[3], 400);
-      v65 = buf[2];
-      v66 = buf[3];
-      v67 = buf[1];
-      v58 = mach_absolute_time();
-      v59 = a1;
-      v55 = v65;
-      v56 = v66;
+      goto LABEL_62;
     }
 
-    v57 = v67;
-    goto LABEL_181;
+    if (v10 == 50)
+    {
+      if (MTParse_CompactV8BinaryPath(a2, a3, v7, a1))
+      {
+        goto LABEL_62;
+      }
+    }
+
+    else if (MTParse_CompactV9BinaryPath(a2, a3, v7, a1))
+    {
+      goto LABEL_62;
+    }
   }
 
 LABEL_104:
-  v41 = *(a1 + 1768);
-  if (v41 && (*(a1 + 2076) & *(a1 + 2312)) != 0)
+  v42 = *(a1 + 1768);
+  if (v42)
   {
-    v41(a1, a1 + 2312, *(a1 + 1808));
+    if ((*(a1 + 2076) & *(a1 + 2312)) != 0)
+    {
+      v42(a1, a1 + 2312, *(a1 + 1808));
+    }
   }
-
-LABEL_107:
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t mt_PostFullFrameCallbacks(uint64_t result, uint64_t a2, uint64_t a3)
@@ -1138,7 +1131,7 @@ void ParsedMultitouchFrameRepInitialize(uint64_t a1)
   *(a1 + 48) = v3;
 }
 
-uint64_t MTLoggingFramework()
+uint64_t MTLoggingFramework(uint64_t a1, uint64_t a2)
 {
   if (MTLoggingFramework_onceToken != -1)
   {
@@ -1150,26 +1143,25 @@ uint64_t MTLoggingFramework()
 
 uint64_t MTDevicePowerSetState(io_service_t *a1, int a2)
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v42 = v4;
-  v43 = v4;
-  v40 = v4;
   v41 = v4;
-  v38 = v4;
+  v42 = v4;
   v39 = v4;
-  v36 = v4;
+  v40 = v4;
   v37 = v4;
-  v34 = v4;
+  v38 = v4;
   v35 = v4;
-  v32 = v4;
+  v36 = v4;
   v33 = v4;
-  v30 = v4;
+  v34 = v4;
   v31 = v4;
-  v28 = v4;
+  v32 = v4;
   v29 = v4;
+  v30 = v4;
   v27 = v4;
+  v28 = v4;
   v26 = v4;
   v25 = v4;
   v24 = v4;
@@ -1185,21 +1177,21 @@ uint64_t MTDevicePowerSetState(io_service_t *a1, int a2)
   v14 = v4;
   v13 = v4;
   v12 = v4;
+  v11 = v4;
   memset(__b, 170, sizeof(__b));
   inputStruct = 4;
   if (a2)
   {
     if (a2 == 2)
     {
-      LOBYTE(v12) = 2;
+      LOBYTE(v11) = 2;
       v6 = MTDeviceIssueDriverRequest(a1, &inputStruct, __b);
       goto LABEL_8;
     }
 
     if (a2 != 1)
     {
-      result = 3758097090;
-      goto LABEL_12;
+      return 3758097090;
     }
 
     v5 = 1;
@@ -1210,26 +1202,25 @@ uint64_t MTDevicePowerSetState(io_service_t *a1, int a2)
     v5 = 0;
   }
 
-  LOBYTE(v12) = v5;
+  LOBYTE(v11) = v5;
   *&v7 = 0xAAAAAAAAAAAAAAAALL;
   *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v76 = v7;
-  v77 = v7;
-  v74 = v7;
   v75 = v7;
-  v72 = v7;
+  v76 = v7;
   v73 = v7;
-  v70 = v7;
+  v74 = v7;
   v71 = v7;
-  v68 = v7;
+  v72 = v7;
   v69 = v7;
-  v66 = v7;
+  v70 = v7;
   v67 = v7;
-  v64 = v7;
+  v68 = v7;
   v65 = v7;
-  v62 = v7;
+  v66 = v7;
   v63 = v7;
+  v64 = v7;
   v61 = v7;
+  v62 = v7;
   v60 = v7;
   v59 = v7;
   v58 = v7;
@@ -1245,25 +1236,22 @@ uint64_t MTDevicePowerSetState(io_service_t *a1, int a2)
   v48 = v7;
   v47 = v7;
   v46 = v7;
+  v45 = v7;
   memset(outputStruct, 170, sizeof(outputStruct));
-  v45 = 12;
-  MTDeviceIssueDriverRequest(a1, &v45, outputStruct);
+  v44 = 12;
+  MTDeviceIssueDriverRequest(a1, &v44, outputStruct);
   v6 = MTDeviceIssueDriverRequest(a1, &inputStruct, __b);
   MTDeviceUpdateUILockState(a1, 1);
 LABEL_8:
   if (v6)
   {
-    result = v6;
+    return v6;
   }
 
   else
   {
-    result = __b[0];
+    return __b[0];
   }
-
-LABEL_12:
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t MTDeviceIssueDriverRequest(io_service_t *a1, void *inputStruct, void *outputStruct)
@@ -1322,46 +1310,13 @@ uint64_t MTParse_SABinary(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
   v9 = a2 - 1;
   v12 = 0xAAAAAAAAAAAAAA00;
   v13 = 0;
-  if (v9 < 2)
-  {
-    goto LABEL_6;
-  }
-
-  if (*(a1 + 1) != 1)
-  {
-    goto LABEL_6;
-  }
-
-  if (*(a1 + 2) != 2)
-  {
-    goto LABEL_6;
-  }
-
-  *(a3 + 80) = 90;
-  *(a3 + 82) = 540;
-  *(a3 + 8) = 90;
-  *(a3 + 15) = 2;
-  *(a3 + 62) = *(a3 + 102);
-  *(a3 + 64) = *(a3 + 104);
-  *(a3 + 66) = *(a3 + 98);
-  *(a3 + 68) = *(a3 + 100);
-  *(a3 + 72) = *(a3 + 96);
-  v5 = *(a3 + 88);
-  *(a3 + 73) = v5;
-  *(a3 + 36) = 16;
-  *(a3 + 52) = 0;
-  *(a3 + 54) = v5;
-  *(a3 + 11) = 0;
-  *(a3 + 12) = *(a3 + 94) != 0;
-  *(a3 + 113) = 0;
-  if (SABinaryParser::parseRunFrame(&v8, MTParse_SABinary::$_0::__invoke, MTParse_SABinary::$_1::__invoke, MTParse_SABinary::$_2::__invoke))
+  if (v9 >= 2 && *(a1 + 1) == 1 && *(a1 + 2) == 2 && (*(a3 + 80) = 90, *(a3 + 82) = 540, *(a3 + 8) = 90, *(a3 + 15) = 2, *(a3 + 62) = *(a3 + 102), *(a3 + 64) = *(a3 + 104), *(a3 + 66) = *(a3 + 98), *(a3 + 68) = *(a3 + 100), *(a3 + 72) = *(a3 + 96), v5 = *(a3 + 88), *(a3 + 73) = v5, *(a3 + 36) = 16, *(a3 + 52) = 0, *(a3 + 54) = v5, *(a3 + 11) = 0, *(a3 + 12) = *(a3 + 94) != 0, *(a3 + 113) = 0, SABinaryParser::parseRunFrame(&v8, MTParse_SABinary::$_0::__invoke, MTParse_SABinary::$_1::__invoke, MTParse_SABinary::$_2::__invoke)))
   {
     v6 = *(a3 + 11);
   }
 
   else
   {
-LABEL_6:
     v6 = 0;
   }
 
@@ -1619,9 +1574,9 @@ uint64_t MTDeviceNotifyWorkInterval(uint64_t a1, int a2)
   return result;
 }
 
-void mt_PostLegacyFrameHeaderCallbacks(uint64_t a1, uint64_t a2, uint8x8_t a3, uint8x8_t a4, uint8x8_t a5)
+void mt_PostLegacyFrameHeaderCallbacks(void *result, uint64_t a2, uint8x8_t a3, uint8x8_t a4, uint8x8_t a5)
 {
-  if (!*(a1 + 1296) && (*(a1 + 2076) & 2) == 0)
+  if (!*(result + 1296) && (*(result + 2076) & 2) == 0)
   {
     return;
   }
@@ -1726,23 +1681,23 @@ LABEL_25:
   v19 = vmovl_u8(a5).u64[0];
   v20 = *(a2 + 102);
 LABEL_26:
-  if ((*(a1 + 2076) & 2) != 0)
+  if ((*(result + 2076) & 2) != 0)
   {
-    *(a1 + 2312) |= 2u;
-    *(a1 + 2332) = vuzp1_s8(v10, v10).u32[0];
-    *(a1 + 2336) = v11;
-    *(a1 + 2340) = vuzp1_s8(v12, v10).u32[0];
-    *(a1 + 2344) = v13;
-    *(a1 + 2346) = v14;
-    *(a1 + 2348) = v15;
-    *(a1 + 2349) = v16;
-    *(a1 + 2350) = v17;
-    *(a1 + 2352) = v18;
-    *(a1 + 2354) = v20;
-    *(a1 + 2356) = vuzp1_s8(v19, v10).u32[0];
+    *(result + 578) |= 2u;
+    *(result + 583) = vuzp1_s8(v10, v10).u32[0];
+    *(result + 584) = v11;
+    *(result + 585) = vuzp1_s8(v12, v10).u32[0];
+    *(result + 1172) = v13;
+    *(result + 1173) = v14;
+    *(result + 2348) = v15;
+    *(result + 2349) = v16;
+    *(result + 1175) = v17;
+    *(result + 1176) = v18;
+    *(result + 1177) = v20;
+    *(result + 589) = vuzp1_s8(v19, v10).u32[0];
   }
 
-  if (*(a1 + 1296))
+  if (*(result + 1296))
   {
     v21 = 0;
     v22 = vuzp1_s8(v10, v10);
@@ -1752,10 +1707,10 @@ LABEL_26:
     v26 = vuzp1_s8(v19, v23).u32[0];
     do
     {
-      v24 = *(a1 + v21 + 1264);
+      v24 = result[v21 + 158];
       if (v24)
       {
-        v25 = *(a1 + v21 + 1304);
+        v25 = result[v21 + 163];
         v29 = v28;
         v30 = v11;
         v31 = v27;
@@ -1767,17 +1722,17 @@ LABEL_26:
         v37 = v18;
         v38 = v20;
         v39 = v26;
-        v24(a1, &v29, v25);
+        v24(result, &v29, v25);
       }
 
-      v21 += 8;
+      ++v21;
     }
 
-    while (v21 != 32);
+    while (v21 != 4);
   }
 }
 
-BOOL MTParse_SABinary_Paths(uint64_t a1, unsigned __int8 *a2, uint64_t a3, __MTDevice *a4)
+uint64_t MTParse_SABinary_Paths(uint64_t a1, unsigned __int8 *a2, uint64_t a3, __MTDevice *a4)
 {
   v4 = *(a1 + 2);
   if (v4 < 4)
@@ -1874,244 +1829,244 @@ uint64_t MTParse_SABinary::$_0::__invoke(uint64_t *a1, uint64_t a2)
   return 1;
 }
 
-BOOL MTParse_PrecisePathPayload(unsigned __int8 *a1, int a2, MTParsedMultitouchFrameRep_t *a3, __MTDevice *a4, int a5, int a6, unsigned int a7, int a8)
+uint64_t MTParse_PrecisePathPayload(unsigned __int8 *a1, int a2, MTParsedMultitouchFrameRep_t *a3, __MTDevice *a4, int a5, int a6, unsigned int a7, int a8)
 {
-  v60 = *MEMORY[0x277D85DE8];
-  if (*(a3 + 11) == 1)
+  v61 = *MEMORY[0x277D85DE8];
+  if (*(a3 + 11) != 1)
   {
-    v9 = a8 ? 2 : 32;
-    if (a7 && v9 >= a5 && a5 >= 1 && (a7 + a6) <= a2 && !(a7 % a5))
-    {
-      v14 = 0;
-      v15 = a3 + 116;
-      v16 = (a7 / a5);
-      v17 = a5;
-      v18 = &a1[a6];
-      v19 = vdup_n_s32(0x42C80000u);
-      v20 = a3 + 116;
-      v56 = v18;
-      v57 = a3 + 116;
-      while (1)
-      {
-        if (a8)
-        {
-          v21 = v15;
-        }
-
-        else
-        {
-          v21 = v20;
-        }
-
-        memcpy(v21, &v18[v14 * v16], v16);
-        v22 = v21[2];
-        v23 = bswap32(v21[1]);
-        if (a4->var21 == 1)
-        {
-          v24 = v21[1];
-        }
-
-        else
-        {
-          v24 = v23;
-        }
-
-        v21[1] = v24;
-        v25 = bswap32(v22);
-        if (a4->var21 == 1)
-        {
-          v26 = v22;
-        }
-
-        else
-        {
-          v26 = v25;
-        }
-
-        v21[2] = v26;
-        v27 = v21[4];
-        v28 = bswap32(v21[3]);
-        if (a4->var21 == 1)
-        {
-          v29 = v21[3];
-        }
-
-        else
-        {
-          v29 = v28;
-        }
-
-        v21[3] = v29;
-        v30 = bswap32(v27);
-        if (a4->var21 == 1)
-        {
-          v31 = v27;
-        }
-
-        else
-        {
-          v31 = v30;
-        }
-
-        v21[4] = v31;
-        v32 = v21[6];
-        v33 = bswap32(v21[5]);
-        if (a4->var21 == 1)
-        {
-          v34 = v21[5];
-        }
-
-        else
-        {
-          v34 = v33;
-        }
-
-        v21[5] = v34;
-        v35 = bswap32(v32);
-        if (a4->var21 == 1)
-        {
-          v36 = v32;
-        }
-
-        else
-        {
-          v36 = v35;
-        }
-
-        v21[6] = v36;
-        v37 = v21[8];
-        v38 = bswap32(v21[7]);
-        if (a4->var21 == 1)
-        {
-          v39 = v21[7];
-        }
-
-        else
-        {
-          v39 = v38;
-        }
-
-        v21[7] = v39;
-        v41 = v21[9];
-        v40 = v21[10];
-        v42 = bswap32(v40);
-        if (a4->var21 != 1)
-        {
-          v40 = v42;
-        }
-
-        v21[10] = v40;
-        v43 = bswap32(v37);
-        if (a4->var21 == 1)
-        {
-          v43 = v37;
-        }
-
-        v21[8] = v43;
-        v44 = bswap32(v41);
-        if (a4->var21 == 1)
-        {
-          v45 = v41;
-        }
-
-        else
-        {
-          v45 = v44;
-        }
-
-        v21[9] = v45;
-        v46 = *(v21 + 22);
-        if (a4->var21 == 1)
-        {
-          if (a8)
-          {
-            v47 = &v57[60 * v14 + 48];
-            v48 = *(v15 + 12);
-LABEL_49:
-            *v47 = v48;
-            v49 = *(v15 + 13);
-            v50 = *(v15 + 14);
-            v51 = bswap32(v49);
-            if (a4->var21 != 1)
-            {
-              v49 = v51;
-            }
-
-            *(v15 + 13) = v49;
-            v52 = bswap32(v50);
-            if (a4->var21 == 1)
-            {
-              v53 = v50;
-            }
-
-            else
-            {
-              v53 = v52;
-            }
-
-            *(v15 + 14) = v53;
-            *(a3 + 113) = 1;
-            *(v21 + 22) = v46 | 0x1000;
-            if (v15[2] != 7 && a4->var47)
-            {
-              if (a4->var37)
-              {
-                mt_CachePropertiesForDevice(a4);
-              }
-
-              v54 = MTLoggingFramework();
-              if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
-              {
-                var13 = a4->var13;
-                *buf = 134217984;
-                v59 = var13;
-                _os_log_impl(&dword_25AD59000, v54, OS_LOG_TYPE_DEFAULT, "Non tstamp-synced contact detected. Clearing device timestamp offset (deviceID 0x%llX)", buf, 0xCu);
-              }
-
-              a4->var47 = 0;
-              v18 = v56;
-            }
-
-            if (*(v21 + 5) == 0.0 || *(v21 + 6) == 0.0)
-            {
-              *(v21 + 5) = v19;
-            }
-
-            goto LABEL_65;
-          }
-        }
-
-        else
-        {
-          LOWORD(v46) = __rev16(v46);
-          *(v21 + 22) = v46;
-          *(v21 + 23) = bswap32(*(v21 + 23)) >> 16;
-          if (a8)
-          {
-            v47 = (v15 + 48);
-            v48 = bswap32(*(v15 + 12));
-            goto LABEL_49;
-          }
-        }
-
-        *(a3 + 112) = 1;
-LABEL_65:
-        ++v14;
-        v15 += 60;
-        v20 += 48;
-        if (!--v17)
-        {
-          result = 1;
-          goto LABEL_11;
-        }
-      }
-    }
+    return a7 == 0;
   }
 
-  result = a7 == 0;
-LABEL_11:
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  v9 = a8 ? 2 : 32;
+  if (!a7 || v9 < a5 || a5 < 1 || (a7 + a6) > a2 || a7 % a5)
+  {
+    return a7 == 0;
+  }
+
+  v13 = 0;
+  v14 = a3 + 116;
+  v15 = (a7 / a5);
+  v16 = a5;
+  v17 = &a1[a6];
+  v18 = vdup_n_s32(0x42C80000u);
+  v19 = a3 + 116;
+  v57 = v17;
+  v58 = a3 + 116;
+  do
+  {
+    if (a8)
+    {
+      v20 = v14;
+    }
+
+    else
+    {
+      v20 = v19;
+    }
+
+    v21 = memcpy(v20, &v17[v13 * v15], v15);
+    v23 = v20[2];
+    v24 = bswap32(v20[1]);
+    if (a4->var21 == 1)
+    {
+      v25 = v20[1];
+    }
+
+    else
+    {
+      v25 = v24;
+    }
+
+    v20[1] = v25;
+    v26 = bswap32(v23);
+    if (a4->var21 == 1)
+    {
+      v27 = v23;
+    }
+
+    else
+    {
+      v27 = v26;
+    }
+
+    v20[2] = v27;
+    v28 = v20[4];
+    v29 = bswap32(v20[3]);
+    if (a4->var21 == 1)
+    {
+      v30 = v20[3];
+    }
+
+    else
+    {
+      v30 = v29;
+    }
+
+    v20[3] = v30;
+    v31 = bswap32(v28);
+    if (a4->var21 == 1)
+    {
+      v32 = v28;
+    }
+
+    else
+    {
+      v32 = v31;
+    }
+
+    v20[4] = v32;
+    v33 = v20[6];
+    v34 = bswap32(v20[5]);
+    if (a4->var21 == 1)
+    {
+      v35 = v20[5];
+    }
+
+    else
+    {
+      v35 = v34;
+    }
+
+    v20[5] = v35;
+    v36 = bswap32(v33);
+    if (a4->var21 == 1)
+    {
+      v37 = v33;
+    }
+
+    else
+    {
+      v37 = v36;
+    }
+
+    v20[6] = v37;
+    v38 = v20[8];
+    v39 = bswap32(v20[7]);
+    if (a4->var21 == 1)
+    {
+      v40 = v20[7];
+    }
+
+    else
+    {
+      v40 = v39;
+    }
+
+    v20[7] = v40;
+    v42 = v20[9];
+    v41 = v20[10];
+    v43 = bswap32(v41);
+    if (a4->var21 != 1)
+    {
+      v41 = v43;
+    }
+
+    v20[10] = v41;
+    v44 = bswap32(v38);
+    if (a4->var21 == 1)
+    {
+      v44 = v38;
+    }
+
+    v20[8] = v44;
+    v45 = bswap32(v42);
+    if (a4->var21 == 1)
+    {
+      v46 = v42;
+    }
+
+    else
+    {
+      v46 = v45;
+    }
+
+    v20[9] = v46;
+    v47 = *(v20 + 22);
+    if (a4->var21 == 1)
+    {
+      if (!a8)
+      {
+        goto LABEL_63;
+      }
+
+      v48 = &v58[60 * v13 + 48];
+      v49 = *(v14 + 12);
+    }
+
+    else
+    {
+      LOWORD(v47) = __rev16(v47);
+      *(v20 + 22) = v47;
+      *(v20 + 23) = bswap32(*(v20 + 23)) >> 16;
+      if ((a8 & 1) == 0)
+      {
+LABEL_63:
+        *(a3 + 112) = 1;
+        goto LABEL_64;
+      }
+
+      v48 = (v14 + 48);
+      v49 = bswap32(*(v14 + 12));
+    }
+
+    *v48 = v49;
+    v50 = *(v14 + 13);
+    v51 = *(v14 + 14);
+    v52 = bswap32(v50);
+    if (a4->var21 != 1)
+    {
+      v50 = v52;
+    }
+
+    *(v14 + 13) = v50;
+    v53 = bswap32(v51);
+    if (a4->var21 == 1)
+    {
+      v54 = v51;
+    }
+
+    else
+    {
+      v54 = v53;
+    }
+
+    *(v14 + 14) = v54;
+    *(a3 + 113) = 1;
+    *(v20 + 22) = v47 | 0x1000;
+    if (v14[2] != 7 && a4->var47)
+    {
+      if (a4->var37)
+      {
+        mt_CachePropertiesForDevice(a4);
+      }
+
+      v55 = MTLoggingFramework(v21, v22);
+      if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+      {
+        var13 = a4->var13;
+        *buf = 134217984;
+        v60 = var13;
+        _os_log_impl(&dword_25AD59000, v55, OS_LOG_TYPE_DEFAULT, "Non tstamp-synced contact detected. Clearing device timestamp offset (deviceID 0x%llX)", buf, 0xCu);
+      }
+
+      a4->var47 = 0;
+      v17 = v57;
+    }
+
+    if (*(v20 + 5) == 0.0 || *(v20 + 6) == 0.0)
+    {
+      *(v20 + 5) = v18;
+    }
+
+LABEL_64:
+    ++v13;
+    v14 += 60;
+    v19 += 48;
+    --v16;
+  }
+
+  while (v16);
+  return 1;
 }
 
 uint64_t SABinaryParser::parseInjExtData(uint64_t a1, uint64_t (*a2)(uint64_t, unsigned __int8 *, char *), uint64_t (*a3)(void, unsigned __int8 *, unsigned __int8 *), uint64_t (*a4)(void))
@@ -2187,7 +2142,7 @@ uint64_t SABinaryParser::parseInjExtData(uint64_t a1, uint64_t (*a2)(uint64_t, u
         if (a2)
         {
           v17 = *(a1 + 24);
-          v18 = (v10 + 22);
+          v18 = v10 + 22;
 LABEL_21:
           if ((a2(v17, v10, v18) & 1) == 0)
           {
@@ -2229,7 +2184,7 @@ LABEL_21:
       }
 
       v17 = *(a1 + 24);
-      v18 = (v10 + 1);
+      v18 = v10 + 1;
       v10 = v15;
       goto LABEL_21;
     }
@@ -2252,7 +2207,7 @@ LABEL_28:
 uint64_t mt_CheckForTimestampErrors(uint64_t result, unsigned int a2)
 {
   v2 = result;
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v3 = *(result + 2128 + 4 * *(result + 2140));
   v4 = *(result + 2140) + 1 - 3 * ((21846 * (*(result + 2140) + 1)) >> 16);
   *(result + 2140) = v4;
@@ -2261,7 +2216,7 @@ uint64_t mt_CheckForTimestampErrors(uint64_t result, unsigned int a2)
   {
     if (v3 <= a2)
     {
-      goto LABEL_13;
+      return result;
     }
 
     puts("\nERROR: timestamps out of order (time travel, eh?)!");
@@ -2294,23 +2249,22 @@ uint64_t mt_CheckForTimestampErrors(uint64_t result, unsigned int a2)
 
   *&v9 = 0xAAAAAAAAAAAAAAAALL;
   *(&v9 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v43 = v9;
-  v44 = v9;
-  v41 = v9;
   v42 = v9;
-  v39 = v9;
+  v43 = v9;
   v40 = v9;
-  v37 = v9;
+  v41 = v9;
   v38 = v9;
-  v35 = v9;
+  v39 = v9;
   v36 = v9;
-  v33 = v9;
+  v37 = v9;
   v34 = v9;
-  v31 = v9;
+  v35 = v9;
   v32 = v9;
-  v29 = v9;
+  v33 = v9;
   v30 = v9;
+  v31 = v9;
   v28 = v9;
+  v29 = v9;
   v27 = v9;
   v26 = v9;
   v25 = v9;
@@ -2326,13 +2280,11 @@ uint64_t mt_CheckForTimestampErrors(uint64_t result, unsigned int a2)
   v15 = v9;
   v14 = v9;
   v13 = v9;
+  v12 = v9;
   memset(__b, 170, sizeof(__b));
   inputStruct = 8;
-  LOBYTE(v13) = 102;
-  result = MTDeviceIssueDriverRequest(v2, &inputStruct, __b);
-LABEL_13:
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  LOBYTE(v12) = 102;
+  return MTDeviceIssueDriverRequest(v2, &inputStruct, __b);
 }
 
 uint64_t mt_PostButtonStateCallbacks(uint64_t result, uint64_t a2)
@@ -2375,9 +2327,9 @@ uint64_t mt_PostButtonStateCallbacks(uint64_t result, uint64_t a2)
   return result;
 }
 
-void mt_PostForceCentroidCallbacks(uint64_t a1, uint64_t a2)
+void mt_PostForceCentroidCallbacks(uint64_t result, uint64_t a2)
 {
-  if (a1)
+  if (result)
   {
     if (*(a2 + 13) == 1)
     {
@@ -2386,17 +2338,17 @@ void mt_PostForceCentroidCallbacks(uint64_t a1, uint64_t a2)
       v9 = -1;
       v10 = -1;
       v11 = 0xAAAAAAAAFFFFFFFFLL;
-      v8.i64[0] = *(a1 + 168);
+      v8.i64[0] = *(result + 168);
       *&v8.i64[1] = *a2;
-      v5.n128_f32[0] = mtalg_ConvertBinaryForceCentroidToMTFC(a1, *(a2 + 56) | (*(a2 + 60) << 32), &v8);
-      if (*(a1 + 1512))
+      v5.n128_f32[0] = mtalg_ConvertBinaryForceCentroidToMTFC(result, *(a2 + 56) | (*(a2 + 60) << 32), &v8);
+      if (*(result + 1512))
       {
         for (i = 0; i != 32; i += 8)
         {
-          v7 = *(a1 + i + 1480);
+          v7 = *(result + i + 1480);
           if (v7)
           {
-            v7(a1, &v8, *(a1 + i + 1520), v5);
+            v7(result, &v8, *(result + i + 1520), v5);
           }
         }
       }
@@ -2694,7 +2646,7 @@ unsigned __int16 mt_FillMTContactDirectFromPrecise@<H0>(__int16 *a1@<X0>, uint64
 
 uint64_t MTAlg_IssueContactFrameCallbacks(uint64_t result, uint64_t a2, double a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v3 = result;
@@ -2719,7 +2671,6 @@ uint64_t MTAlg_IssueContactFrameCallbacks(uint64_t result, uint64_t a2, double a
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3812,7 +3763,7 @@ void mt_CachePropertiesForDevice(uint64_t a1)
     }
 
     mt_ServiceGetDataProperty(*(a1 + 16), @"Sensor Region Param", &v24, &v23);
-    if ((MTParseSensorRegionParam(v24, v23, (a1 + 360), a1) & 1) == 0)
+    if (!MTParseSensorRegionParam(v24, v23, (a1 + 360), a1))
     {
       *(a1 + 360) = 0;
       *(a1 + 364) = 255;
@@ -3884,7 +3835,8 @@ void mt_CachePropertiesForDevice(uint64_t a1)
     }
 
     v18 = 0;
-    if (!mt_DeviceCopyDictionaryProperty(a1, @"MultipleFirmwaresConfig", &v18))
+    v13 = mt_DeviceCopyDictionaryProperty(a1, @"MultipleFirmwaresConfig", &v18);
+    if (!v13)
     {
       v13 = *(a1 + 5752);
       if (v13)
@@ -3897,23 +3849,21 @@ void mt_CachePropertiesForDevice(uint64_t a1)
 
     if ((v4 & *(a1 + 133)) == 1)
     {
-      v14 = MTLoggingFramework();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = MTLoggingFramework(v13, v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        v15 = *(a1 + 92);
-        v16 = *(a1 + 96);
+        v16 = *(a1 + 92);
+        v17 = *(a1 + 96);
         *buf = 134218240;
-        v52 = v15;
+        v52 = v16;
         v53 = 2048;
-        v54 = v16;
-        _os_log_impl(&dword_25AD59000, v14, OS_LOG_TYPE_ERROR, "Sensor Surface dimensions not provided. Using defaults or getting from descriptor (%lu x %lu)", buf, 0x16u);
+        v54 = v17;
+        _os_log_impl(&dword_25AD59000, v15, OS_LOG_TYPE_ERROR, "Sensor Surface dimensions not provided. Using defaults or getting from descriptor (%lu x %lu)", buf, 0x16u);
       }
     }
 
     *(a1 + 133) = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void mt_TerminateAlgorithmsForDevice(uint64_t a1)
@@ -4110,13 +4060,13 @@ uint64_t mt_DeviceCopyDictionaryProperty(uint64_t a1, const __CFString *a2, void
 
 uint64_t MTDeviceStart(uint64_t a1, int a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = 3758097090;
   if (a1)
   {
     if (*(a1 + 20))
     {
-      v2 = 3758097109;
+      return 3758097109;
     }
 
     else
@@ -4143,13 +4093,13 @@ uint64_t MTDeviceStart(uint64_t a1, int a2)
             mt_CachePropertiesForDevice(a1);
           }
 
-          v4 = MTLoggingFramework();
-          if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+          v6 = MTLoggingFramework(v4, v5);
+          if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
           {
-            v5 = *(a1 + 64);
+            v7 = *(a1 + 64);
             *buf = 134217984;
-            *&buf[4] = v5;
-            _os_log_impl(&dword_25AD59000, v4, OS_LOG_TYPE_ERROR, "familyID is invalid, even after AMD re-fetching properties (deviceID 0x%llX)", buf, 0xCu);
+            *&buf[4] = v7;
+            _os_log_impl(&dword_25AD59000, v6, OS_LOG_TYPE_ERROR, "familyID is invalid, even after AMD re-fetching properties (deviceID 0x%llX)", buf, 0xCu);
           }
         }
       }
@@ -4163,40 +4113,40 @@ uint64_t MTDeviceStart(uint64_t a1, int a2)
 
       if (*(a1 + 212) == 4)
       {
-        v6 = (*(a1 + 163) << 25 >> 31) & 0x464C5452;
+        v8 = (*(a1 + 163) << 25 >> 31) & 0x464C5452;
       }
 
       else
       {
-        v6 = 0;
+        v8 = 0;
       }
 
-      v2 = IOServiceOpen(*(a1 + 16), *MEMORY[0x277D85F48], v6, &connect);
+      v2 = IOServiceOpen(*(a1 + 16), *MEMORY[0x277D85F48], v8, &connect);
       if (!v2)
       {
         *(a1 + 20) = connect;
         if (!*(a1 + 152))
         {
-          mt_InitializeAlgorithmsForDevice(a1, v7, v8, v9, v10, v11, v12, v13);
+          mt_InitializeAlgorithmsForDevice(a1, v9, v10, v11, v12, v13, v14, v15);
         }
 
-        v14 = *(a1 + 160);
-        if ((v14 & 1) == 0)
+        v16 = *(a1 + 160);
+        if ((v16 & 1) == 0)
         {
           *(a1 + 2112) = 0;
-          if ((v14 & 0x20000000) == 0)
+          if ((v16 & 0x20000000) == 0)
           {
-            *(a1 + 160) = v14 | 0x20000000;
-            v18 = 0;
-            v15 = malloc_type_calloc(0x10uLL, 1uLL, 0x6DBDACD8uLL);
-            *v15 = a1;
-            v15[1] = MTDeviceCreateMultitouchRunLoopSource(a1);
+            *(a1 + 160) = v16 | 0x20000000;
+            v19 = 0;
+            v17 = malloc_type_calloc(0x10uLL, 1uLL, 0x6DBDACD8uLL);
+            *v17 = a1;
+            v17[1] = MTDeviceCreateMultitouchRunLoopSource(a1);
             CFRetain(a1);
-            if (pthread_create(&v18, 0, mt_ThreadedMTEntry, v15))
+            if (pthread_create(&v19, 0, mt_ThreadedMTEntry, v17))
             {
-              CFRelease(*v15);
-              CFRelease(v15[1]);
-              free(v15);
+              CFRelease(*v17);
+              CFRelease(v17[1]);
+              free(v17);
             }
           }
         }
@@ -4204,7 +4154,6 @@ uint64_t MTDeviceStart(uint64_t a1, int a2)
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -4281,7 +4230,7 @@ uint64_t mt_InitializeAlgorithmsForDevice(uint64_t result, uint64_t a2, uint64_t
   return result;
 }
 
-CFMachPortRef MTDeviceCreateMultitouchRunLoopSource(__CFMachPort *a1)
+CFRunLoopSourceRef MTDeviceCreateMultitouchRunLoopSource(__CFMachPort *a1)
 {
   result = MTDeviceCreateMultitouchMachPort(a1);
   if (result)
@@ -4434,29 +4383,29 @@ CFMachPortRef MTDeviceCreateMultitouchMachPort(CFMachPortRef result)
         v3 = MaxPacketSizeByKey;
       }
 
-      *(v1 + 384) = v3;
-      if (*(v1 + 392))
+      *(v1 + 96) = v3;
+      if (*(v1 + 49))
       {
-        ParsedMultitouchFrameRepDestroy(*(v1 + 392));
-        v3 = *(v1 + 384);
+        ParsedMultitouchFrameRepDestroy(*(v1 + 49));
+        v3 = *(v1 + 96);
       }
 
-      *(v1 + 392) = MT_ParsedMultitouchFrameRepCreate(v3);
+      *(v1 + 49) = MT_ParsedMultitouchFrameRepCreate(v3);
       v4 = malloc_type_malloc(0x28uLL, 0x1030040C0747FF5uLL);
       *v4 = 0u;
       *(v4 + 1) = 0u;
       *(v4 + 4) = 0;
-      v5 = malloc_type_malloc(*(v1 + 384), 0x67B54624uLL);
-      *(v1 + 136) = v5;
+      v5 = malloc_type_malloc(*(v1 + 96), 0x67B54624uLL);
+      *(v1 + 17) = v5;
       *v4 = v1;
       *(v4 + 1) = v5;
-      v4[4] = *(v1 + 20);
+      v4[4] = *(v1 + 5);
       context.version = 0;
       context.info = v4;
       memset(&context.retain, 0, 24);
       if (v5)
       {
-        bzero(v5, *(v1 + 384));
+        bzero(v5, *(v1 + 96));
         v12 = 0;
         v13 = 0;
         NotificationPort = IODataQueueAllocateNotificationPort();
@@ -4478,7 +4427,7 @@ CFMachPortRef MTDeviceCreateMultitouchMachPort(CFMachPortRef result)
             v8 = v12;
             *(v4 + 3) = v13;
             *(v4 + 4) = v8;
-            if ((*(v1 + 160) & 1) != 0 || ((input = 1, outputCnt = 0, *(v1 + 212)) ? (v9 = 0) : (v9 = 21), !IOConnectCallScalarMethod(v4[4], v9, &input, 1u, 0, &outputCnt)))
+            if ((*(v1 + 160) & 1) != 0 || ((input = 1, outputCnt = 0, *(v1 + 53)) ? (v9 = 0) : (v9 = 21), !IOConnectCallScalarMethod(v4[4], v9, &input, 1u, 0, &outputCnt)))
             {
               LOBYTE(input) = -86;
               result = CFMachPortCreateWithPort(*MEMORY[0x277CBECE8], NotificationPort, mt_DequeueMultitouchDataMachPortCallBack, &context, &input);
@@ -4489,7 +4438,7 @@ CFMachPortRef MTDeviceCreateMultitouchMachPort(CFMachPortRef result)
 
               else if (result)
               {
-                *(v1 + 2088) = result;
+                *(v1 + 261) = result;
                 return result;
               }
             }
@@ -4827,7 +4776,7 @@ LABEL_13:
   return 0;
 }
 
-uint64_t MTActuatorCreateFromService(io_object_t a1)
+uint64_t MTActuatorCreateFromService(uint64_t a1)
 {
   if (a1)
   {
@@ -4922,7 +4871,7 @@ uint64_t MTActuatorGetMTDevice(uint64_t result)
   return result;
 }
 
-uint64_t MTActuatorOpen(uint64_t a1, int a2)
+uint64_t MTActuatorOpen(CFTypeID a1, int a2)
 {
   v2 = 3758097090;
   if (a1)
@@ -5134,27 +5083,26 @@ uint64_t MTActuatorIssueDriverRequest(uint64_t a1, void *inputStruct, void *outp
 
 uint64_t MTActuatorSetSystemActuationsEnabled(uint64_t a1, char a2)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   *&v3 = 0xAAAAAAAAAAAAAAAALL;
   *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v39 = v3;
-  v40 = v3;
-  result = 3758097086;
-  v37 = v3;
   v38 = v3;
-  v35 = v3;
+  v39 = v3;
+  result = 3758097086;
   v36 = v3;
-  v33 = v3;
+  v37 = v3;
   v34 = v3;
-  v31 = v3;
+  v35 = v3;
   v32 = v3;
-  v29 = v3;
+  v33 = v3;
   v30 = v3;
-  v27 = v3;
+  v31 = v3;
   v28 = v3;
-  v25 = v3;
+  v29 = v3;
   v26 = v3;
+  v27 = v3;
   v24 = v3;
+  v25 = v3;
   v23 = v3;
   v22 = v3;
   v21 = v3;
@@ -5170,53 +5118,52 @@ uint64_t MTActuatorSetSystemActuationsEnabled(uint64_t a1, char a2)
   v11 = v3;
   v10 = v3;
   v9 = v3;
+  v8 = v3;
   inputStruct = 13;
-  LOBYTE(v9) = a2;
+  LOBYTE(v8) = a2;
   if (a1)
   {
     v5 = *(a1 + 32);
     if (v5)
     {
-      memset(v7, 170, sizeof(v7));
-      result = MTActuatorIssueDriverRequest(a1, &inputStruct, v7);
+      memset(v6, 170, sizeof(v6));
+      result = MTActuatorIssueDriverRequest(a1, &inputStruct, v6);
       if (!result)
       {
-        result = v7[0];
-        if (!v7[0])
+        result = v6[0];
+        if (!v6[0])
         {
           mt_PostNotificationEventToDriver(v5, 27);
-          result = 0;
+          return 0;
         }
       }
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 BOOL MTActuatorGetSystemActuationsEnabled(uint64_t a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   *&v2 = 0xAAAAAAAAAAAAAAAALL;
   *(&v2 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v38 = v2;
-  v39 = v2;
-  v36 = v2;
   v37 = v2;
-  v34 = v2;
+  v38 = v2;
   v35 = v2;
-  v32 = v2;
+  v36 = v2;
   v33 = v2;
-  v30 = v2;
+  v34 = v2;
   v31 = v2;
-  v28 = v2;
+  v32 = v2;
   v29 = v2;
-  v26 = v2;
+  v30 = v2;
   v27 = v2;
-  v24 = v2;
+  v28 = v2;
   v25 = v2;
+  v26 = v2;
   v23 = v2;
+  v24 = v2;
   v22 = v2;
   v21 = v2;
   v20 = v2;
@@ -5232,21 +5179,11 @@ BOOL MTActuatorGetSystemActuationsEnabled(uint64_t a1)
   v10 = v2;
   v9 = v2;
   v8 = v2;
-  memset(v6, 170, sizeof(v6));
+  v7 = v2;
+  memset(v5, 170, sizeof(v5));
   inputStruct = 14;
-  v3 = MTActuatorIssueDriverRequest(a1, &inputStruct, v6);
-  if (v3 | v6[0])
-  {
-    result = 0;
-  }
-
-  else
-  {
-    result = LOBYTE(v6[1]) != 0;
-  }
-
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v3 = MTActuatorIssueDriverRequest(a1, &inputStruct, v5);
+  return !(v3 | v5[0]) && LOBYTE(v5[1]) != 0;
 }
 
 uint64_t mt_ServiceCFPropertyExists(io_registry_entry_t entry, const __CFString *a2)
@@ -5430,14 +5367,14 @@ uint64_t mt_ServiceGetBoolProperty(io_registry_entry_t entry, const __CFString *
   return result;
 }
 
-uint64_t MTDeviceIsOpaqueSurface(uint64_t a1)
+uint64_t MTDeviceIsOpaqueSurface(uint64_t result)
 {
-  if (a1)
+  if (result)
   {
-    return mtalg_IsOpaqueSurface(a1);
+    return mtalg_IsOpaqueSurface(result);
   }
 
-  return a1;
+  return result;
 }
 
 uint64_t MTDeviceGetVersion(uint64_t a1, _DWORD *a2)
@@ -5457,7 +5394,7 @@ uint64_t MTDeviceGetVersion(uint64_t a1, _DWORD *a2)
   return result;
 }
 
-uint64_t MTDeviceHasExpectedVersion(uint64_t result)
+BOOL MTDeviceHasExpectedVersion(_BOOL8 result)
 {
   if (result)
   {
@@ -6124,31 +6061,30 @@ uint64_t MTDeviceGetForceThresholdForMotion(uint64_t a1, _DWORD *a2, _DWORD *a3,
   return result;
 }
 
-BOOL MTDeviceIsAlive(_BOOL8 result)
+io_service_t *MTDeviceIsAlive(io_service_t *result)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v1 = result;
     *&v2 = 0xAAAAAAAAAAAAAAAALL;
     *(&v2 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v37 = v2;
-    v38 = v2;
-    v35 = v2;
     v36 = v2;
-    v33 = v2;
+    v37 = v2;
     v34 = v2;
-    v31 = v2;
+    v35 = v2;
     v32 = v2;
-    v29 = v2;
+    v33 = v2;
     v30 = v2;
-    v27 = v2;
+    v31 = v2;
     v28 = v2;
-    v25 = v2;
+    v29 = v2;
     v26 = v2;
-    v23 = v2;
+    v27 = v2;
     v24 = v2;
+    v25 = v2;
     v22 = v2;
+    v23 = v2;
     v21 = v2;
     v20 = v2;
     v19 = v2;
@@ -6164,13 +6100,13 @@ BOOL MTDeviceIsAlive(_BOOL8 result)
     v9 = v2;
     v8 = v2;
     v7 = v2;
-    memset(v5, 170, sizeof(v5));
+    v6 = v2;
+    memset(v4, 170, sizeof(v4));
     inputStruct = 0;
-    v3 = MTDeviceIssueDriverRequest(v1, &inputStruct, v5);
-    result = (v3 | v5[0]) == 0;
+    v3 = MTDeviceIssueDriverRequest(v1, &inputStruct, v4);
+    return ((v3 | v4[0]) == 0);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6257,25 +6193,24 @@ uint64_t _MTDeviceGetMaxPacketSizeByKey(uint64_t a1, const __CFString *a2, uint6
 
 uint64_t MTDeviceSetInjectionMaxPacketSize(io_service_t *a1, int a2)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *&v43[12] = v4;
-  v42 = v4;
-  *v43 = v4;
-  v40 = v4;
+  *&v42[12] = v4;
   v41 = v4;
-  v38 = v4;
+  *v42 = v4;
   v39 = v4;
-  v36 = v4;
+  v40 = v4;
   v37 = v4;
-  v34 = v4;
+  v38 = v4;
   v35 = v4;
-  v32 = v4;
+  v36 = v4;
   v33 = v4;
-  v30 = v4;
+  v34 = v4;
   v31 = v4;
+  v32 = v4;
   v29 = v4;
+  v30 = v4;
   v28 = v4;
   v27 = v4;
   v26 = v4;
@@ -6292,25 +6227,23 @@ uint64_t MTDeviceSetInjectionMaxPacketSize(io_service_t *a1, int a2)
   v15 = v4;
   v14 = v4;
   v13 = v4;
-  memset(v7, 170, sizeof(v7));
+  v12 = v4;
+  memset(v6, 170, sizeof(v6));
   inputStruct = 19;
-  v9 = HIBYTE(a2);
-  v10 = BYTE2(a2);
-  v11 = BYTE1(a2);
-  v12 = a2;
-  LODWORD(result) = MTDeviceIssueDriverRequest(a1, &inputStruct, v7);
+  v8 = HIBYTE(a2);
+  v9 = BYTE2(a2);
+  v10 = BYTE1(a2);
+  v11 = a2;
+  LODWORD(result) = MTDeviceIssueDriverRequest(a1, &inputStruct, v6);
   if (result)
   {
-    result = result;
+    return result;
   }
 
   else
   {
-    result = v7[0];
+    return v6[0];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t MTDeviceGetSATelemetryReportID(uint64_t result)
@@ -6512,26 +6445,25 @@ uint64_t MTDevicePowerSetEnabled(io_service_t *a1, int a2)
 
 uint64_t MTDeviceUpdatePowerStatistics(io_service_t *a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   *&v2 = 0xAAAAAAAAAAAAAAAALL;
   *(&v2 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v38 = v2;
-  v39 = v2;
-  v36 = v2;
   v37 = v2;
-  v34 = v2;
+  v38 = v2;
   v35 = v2;
-  v32 = v2;
+  v36 = v2;
   v33 = v2;
-  v30 = v2;
+  v34 = v2;
   v31 = v2;
-  v28 = v2;
+  v32 = v2;
   v29 = v2;
-  v26 = v2;
+  v30 = v2;
   v27 = v2;
-  v24 = v2;
+  v28 = v2;
   v25 = v2;
+  v26 = v2;
   v23 = v2;
+  v24 = v2;
   v22 = v2;
   v21 = v2;
   v20 = v2;
@@ -6547,10 +6479,11 @@ uint64_t MTDeviceUpdatePowerStatistics(io_service_t *a1)
   v10 = v2;
   v9 = v2;
   v8 = v2;
-  memset(v6, 170, sizeof(v6));
+  v7 = v2;
+  memset(v5, 170, sizeof(v5));
   inputStruct = 12;
-  LODWORD(result) = MTDeviceIssueDriverRequest(a1, &inputStruct, v6);
-  if (v6[0])
+  LODWORD(result) = MTDeviceIssueDriverRequest(a1, &inputStruct, v5);
+  if (v5[0])
   {
     v4 = result == 0;
   }
@@ -6562,16 +6495,13 @@ uint64_t MTDeviceUpdatePowerStatistics(io_service_t *a1)
 
   if (v4)
   {
-    result = v6[0];
+    return v5[0];
   }
 
   else
   {
-    result = result;
+    return result;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t MTDevicePowerGetEnabled(io_service_t *a1, BOOL *a2)
@@ -6591,26 +6521,25 @@ uint64_t MTDevicePowerGetEnabled(io_service_t *a1, BOOL *a2)
 
 uint64_t MTDevicePowerGetState(io_service_t *a1, _DWORD *a2)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v39 = v4;
-  v40 = v4;
-  v37 = v4;
   v38 = v4;
-  v35 = v4;
+  v39 = v4;
   v36 = v4;
-  v33 = v4;
+  v37 = v4;
   v34 = v4;
-  v31 = v4;
+  v35 = v4;
   v32 = v4;
-  v29 = v4;
+  v33 = v4;
   v30 = v4;
-  v27 = v4;
+  v31 = v4;
   v28 = v4;
-  v25 = v4;
+  v29 = v4;
   v26 = v4;
+  v27 = v4;
   v24 = v4;
+  v25 = v4;
   v23 = v4;
   v22 = v4;
   v21 = v4;
@@ -6626,37 +6555,37 @@ uint64_t MTDevicePowerGetState(io_service_t *a1, _DWORD *a2)
   v11 = v4;
   v10 = v4;
   v9 = v4;
-  memset(v7, 170, sizeof(v7));
+  v8 = v4;
+  memset(v6, 170, sizeof(v6));
   inputStruct = 3;
-  result = MTDeviceIssueDriverRequest(a1, &inputStruct, v7);
+  result = MTDeviceIssueDriverRequest(a1, &inputStruct, v6);
   if (!result)
   {
-    result = v7[0];
+    result = v6[0];
     if (a2)
     {
-      if (!v7[0])
+      if (!v6[0])
       {
-        if (LOBYTE(v7[1]) > 2u)
+        if (LOBYTE(v6[1]) > 2u)
         {
-          result = 3758096385;
+          return 3758096385;
         }
 
         else
         {
           result = 0;
-          *a2 = LOBYTE(v7[1]);
+          *a2 = LOBYTE(v6[1]);
         }
       }
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t mt_RecursiveMakeDirectory(const char *a1, mode_t a2, uid_t a3, gid_t a4, int a5)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   memset(__b, 170, sizeof(__b));
   snprintf(__b, 0x400uLL, "%s", a1);
   v10 = strlen(__b);
@@ -6677,26 +6606,34 @@ uint64_t mt_RecursiveMakeDirectory(const char *a1, mode_t a2, uid_t a3, gid_t a4
             v15 = v14;
             if (*__error() != 17)
             {
-              goto LABEL_15;
+              return v15;
             }
           }
 
           v16.tv_sec = 0xAAAAAAAAAAAAAAAALL;
           v16.tv_nsec = 0xAAAAAAAAAAAAAAAALL;
-          *&v20.st_blksize = v16;
-          *v20.st_qspare = v16;
-          v20.st_birthtimespec = v16;
-          *&v20.st_size = v16;
-          v20.st_mtimespec = v16;
-          v20.st_ctimespec = v16;
-          *&v20.st_uid = v16;
-          v20.st_atimespec = v16;
-          *&v20.st_dev = v16;
-          v17 = stat(__b, &v20);
-          if (v17 || (v20.st_uid != a3 || v20.st_gid != a4) && (v17 = chown(__b, a3, a4), v17))
+          *&v19.st_blksize = v16;
+          *v19.st_qspare = v16;
+          v19.st_birthtimespec = v16;
+          *&v19.st_size = v16;
+          v19.st_mtimespec = v16;
+          v19.st_ctimespec = v16;
+          *&v19.st_uid = v16;
+          v19.st_atimespec = v16;
+          *&v19.st_dev = v16;
+          v17 = stat(__b, &v19);
+          if (v17)
           {
-            v15 = v17;
-            goto LABEL_15;
+            return v17;
+          }
+
+          if (v19.st_uid != a3 || v19.st_gid != a4)
+          {
+            v17 = chown(__b, a3, a4);
+            if (v17)
+            {
+              return v17;
+            }
           }
 
           __b[i] = 47;
@@ -6710,10 +6647,7 @@ uint64_t mt_RecursiveMakeDirectory(const char *a1, mode_t a2, uid_t a3, gid_t a4
     }
   }
 
-  v15 = 0;
-LABEL_15:
-  v18 = *MEMORY[0x277D85DE8];
-  return v15;
+  return 0;
 }
 
 uint64_t MTDeviceUpdateDynamicCalibration(uint64_t a1)
@@ -6826,26 +6760,25 @@ LABEL_22:
 
 uint64_t MTDeviceSetParserEnabled(io_service_t *a1, char a2)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v39 = v4;
-  v40 = v4;
-  v37 = v4;
   v38 = v4;
-  v35 = v4;
+  v39 = v4;
   v36 = v4;
-  v33 = v4;
+  v37 = v4;
   v34 = v4;
-  v31 = v4;
+  v35 = v4;
   v32 = v4;
-  v29 = v4;
+  v33 = v4;
   v30 = v4;
-  v27 = v4;
+  v31 = v4;
   v28 = v4;
-  v25 = v4;
+  v29 = v4;
   v26 = v4;
+  v27 = v4;
   v24 = v4;
+  v25 = v4;
   v23 = v4;
   v22 = v4;
   v21 = v4;
@@ -6861,86 +6794,26 @@ uint64_t MTDeviceSetParserEnabled(io_service_t *a1, char a2)
   v11 = v4;
   v10 = v4;
   v9 = v4;
-  memset(v7, 170, sizeof(v7));
+  v8 = v4;
+  memset(v6, 170, sizeof(v6));
   inputStruct = 17;
-  LOBYTE(v9) = a2;
-  result = MTDeviceIssueDriverRequest(a1, &inputStruct, v7);
+  LOBYTE(v8) = a2;
+  result = MTDeviceIssueDriverRequest(a1, &inputStruct, v6);
   if (!result)
   {
-    result = v7[0];
-    if (!v7[0])
+    result = v6[0];
+    if (!v6[0])
     {
       mt_PostNotificationEventToDriver(a1, 26);
-      result = 0;
+      return 0;
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t MTDeviceGetParserEnabled(io_service_t *a1, BOOL *a2)
 {
-  v42 = *MEMORY[0x277D85DE8];
-  *&v4 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v40 = v4;
-  v41 = v4;
-  v38 = v4;
-  v39 = v4;
-  v36 = v4;
-  v37 = v4;
-  v34 = v4;
-  v35 = v4;
-  v32 = v4;
-  v33 = v4;
-  v30 = v4;
-  v31 = v4;
-  v28 = v4;
-  v29 = v4;
-  v26 = v4;
-  v27 = v4;
-  v25 = v4;
-  v24 = v4;
-  v23 = v4;
-  v22 = v4;
-  v21 = v4;
-  v20 = v4;
-  v19 = v4;
-  v18 = v4;
-  v17 = v4;
-  v16 = v4;
-  v15 = v4;
-  v14 = v4;
-  v13 = v4;
-  v12 = v4;
-  v11 = v4;
-  v10 = v4;
-  memset(v8, 170, sizeof(v8));
-  inputStruct = 18;
-  LODWORD(result) = MTDeviceIssueDriverRequest(a1, &inputStruct, v8);
-  v6 = v8[0];
-  if (a2 && !result && !v8[0])
-  {
-    *a2 = LOBYTE(v8[1]) == 1;
-  }
-
-  if (result)
-  {
-    result = result;
-  }
-
-  else
-  {
-    result = v6;
-  }
-
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t MTDeviceSetSystemForceResponseEnabled(io_service_t *a1, char a2)
-{
   v41 = *MEMORY[0x277D85DE8];
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
@@ -6977,45 +6850,100 @@ uint64_t MTDeviceSetSystemForceResponseEnabled(io_service_t *a1, char a2)
   v10 = v4;
   v9 = v4;
   memset(v7, 170, sizeof(v7));
+  inputStruct = 18;
+  LODWORD(result) = MTDeviceIssueDriverRequest(a1, &inputStruct, v7);
+  v6 = v7[0];
+  if (a2 && !result && !v7[0])
+  {
+    *a2 = LOBYTE(v7[1]) == 1;
+  }
+
+  if (result)
+  {
+    return result;
+  }
+
+  else
+  {
+    return v6;
+  }
+}
+
+uint64_t MTDeviceSetSystemForceResponseEnabled(io_service_t *a1, char a2)
+{
+  v40 = *MEMORY[0x277D85DE8];
+  *&v4 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v38 = v4;
+  v39 = v4;
+  v36 = v4;
+  v37 = v4;
+  v34 = v4;
+  v35 = v4;
+  v32 = v4;
+  v33 = v4;
+  v30 = v4;
+  v31 = v4;
+  v28 = v4;
+  v29 = v4;
+  v26 = v4;
+  v27 = v4;
+  v24 = v4;
+  v25 = v4;
+  v23 = v4;
+  v22 = v4;
+  v21 = v4;
+  v20 = v4;
+  v19 = v4;
+  v18 = v4;
+  v17 = v4;
+  v16 = v4;
+  v15 = v4;
+  v14 = v4;
+  v13 = v4;
+  v12 = v4;
+  v11 = v4;
+  v10 = v4;
+  v9 = v4;
+  v8 = v4;
+  memset(v6, 170, sizeof(v6));
   inputStruct = 15;
-  LOBYTE(v9) = a2;
-  result = MTDeviceIssueDriverRequest(a1, &inputStruct, v7);
+  LOBYTE(v8) = a2;
+  result = MTDeviceIssueDriverRequest(a1, &inputStruct, v6);
   if (!result)
   {
-    result = v7[0];
-    if (!v7[0])
+    result = v6[0];
+    if (!v6[0])
     {
       mt_PostNotificationEventToDriver(a1, 28);
-      result = 0;
+      return 0;
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 BOOL MTDeviceGetSystemForceResponseEnabled(io_service_t *a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   *&v2 = 0xAAAAAAAAAAAAAAAALL;
   *(&v2 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v38 = v2;
-  v39 = v2;
-  v36 = v2;
   v37 = v2;
-  v34 = v2;
+  v38 = v2;
   v35 = v2;
-  v32 = v2;
+  v36 = v2;
   v33 = v2;
-  v30 = v2;
+  v34 = v2;
   v31 = v2;
-  v28 = v2;
+  v32 = v2;
   v29 = v2;
-  v26 = v2;
+  v30 = v2;
   v27 = v2;
-  v24 = v2;
+  v28 = v2;
   v25 = v2;
+  v26 = v2;
   v23 = v2;
+  v24 = v2;
   v22 = v2;
   v21 = v2;
   v20 = v2;
@@ -7031,21 +6959,11 @@ BOOL MTDeviceGetSystemForceResponseEnabled(io_service_t *a1)
   v10 = v2;
   v9 = v2;
   v8 = v2;
-  memset(v6, 170, sizeof(v6));
+  v7 = v2;
+  memset(v5, 170, sizeof(v5));
   inputStruct = 16;
-  v3 = MTDeviceIssueDriverRequest(a1, &inputStruct, v6);
-  if (v3 | v6[0])
-  {
-    result = 0;
-  }
-
-  else
-  {
-    result = LOBYTE(v6[1]) != 0;
-  }
-
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v3 = MTDeviceIssueDriverRequest(a1, &inputStruct, v5);
+  return !(v3 | v5[0]) && LOBYTE(v5[1]) != 0;
 }
 
 uint64_t MTDeviceEnableWorkIntervalNotification(uint64_t a1)
@@ -7079,25 +6997,24 @@ uint64_t MTDeviceEnableWorkIntervalNotification(uint64_t a1)
   return v1;
 }
 
-void _MTDriverAppendIOReporterChannelsToResetInfo()
+void _MTDriverAppendIOReporterChannelsToResetInfo(uint64_t a1, uint64_t a2)
 {
-  v0 = IOReportCopyChannelsForDriver();
-  if (v0)
+  v2 = IOReportCopyChannelsForDriver();
+  if (v2)
   {
-    v1 = v0;
+    v3 = v2;
     if (IOReportGetChannelCount() >= 1)
     {
-      v2 = *MEMORY[0x277CBECE8];
       IOReportCreateSubscription();
     }
 
-    CFRelease(v1);
+    CFRelease(v3);
   }
 }
 
 __CFArray *MTDriverCreateResetInfo()
 {
-  v23[3] = *MEMORY[0x277D85DE8];
+  v22[3] = *MEMORY[0x277D85DE8];
   theArray = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
   if (theArray)
   {
@@ -7117,9 +7034,9 @@ __CFArray *MTDriverCreateResetInfo()
         if (ChildServiceWithProperty)
         {
           v9 = ChildServiceWithProperty;
-          v23[0] = @"ResetCount";
-          v23[1] = @"Core Dumps Count";
-          v23[2] = @"Core Dump";
+          v22[0] = @"ResetCount";
+          v22[1] = @"Core Dumps Count";
+          v22[2] = @"Core Dump";
           Mutable = CFDictionaryCreateMutable(v1, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
           if (Mutable)
           {
@@ -7132,7 +7049,7 @@ __CFArray *MTDriverCreateResetInfo()
               CFDictionarySetValue(v11, @"Name", v12);
               for (i = 0; i != 3; ++i)
               {
-                v16 = v23[i];
+                v16 = v22[i];
                 CFProperty = IORegistryEntryCreateCFProperty(v9, v16, v1, 0);
                 if (CFProperty)
                 {
@@ -7142,7 +7059,7 @@ __CFArray *MTDriverCreateResetInfo()
                 }
               }
 
-              _MTDriverAppendIOReporterChannelsToResetInfo();
+              _MTDriverAppendIOReporterChannelsToResetInfo(v9, v11);
               v19 = CFRetain(v11);
               CFRelease(v13);
               v2 = v14;
@@ -7176,7 +7093,6 @@ __CFArray *MTDriverCreateResetInfo()
     while ((v4 & 1) != 0);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return theArray;
 }
 
@@ -7414,34 +7330,37 @@ uint64_t MTSwapInt32PtrHostToDevice(uint64_t result, unsigned int *a2)
 
 NSObject *mt_CreateBinaryFilters(uint64_t a1)
 {
-  v162 = *MEMORY[0x277D85DE8];
-  v140 = 0xAAAAAAAAAAAAAAAALL;
-  if (mt_DeviceCopyArrayProperty(a1, @"BinaryFilters", &v140))
+  v184 = *MEMORY[0x277D85DE8];
+  v162 = 0xAAAAAAAAAAAAAAAALL;
+  if (mt_DeviceCopyArrayProperty(a1, @"BinaryFilters", &v162))
   {
     v2 = 0;
-    v140 = 0;
+    v162 = 0;
   }
 
   else
   {
-    v2 = v140;
+    v2 = v162;
   }
 
-  if ([v2 count])
+  v3 = [v2 count];
+  if (v3)
   {
-    v3 = objc_opt_new();
-    v4 = [objc_alloc(MEMORY[0x277CBEBC0]) initFileURLWithPath:@"/System/Library/MultitouchPlugins" isDirectory:1];
-    if (v4)
+    v5 = objc_opt_new();
+    v6 = [objc_alloc(MEMORY[0x277CBEBC0]) initFileURLWithPath:@"/System/Library/MultitouchPlugins" isDirectory:1];
+    v8 = v6;
+    if (v6)
     {
-      v113 = objc_opt_new();
-      if (v113)
+      v9 = objc_opt_new();
+      v135 = v9;
+      if (v9)
       {
-        v5 = [MTAHTSupport getInterfaceInServiceTree:MTDeviceGetService(a1)];
-        v6 = v5;
-        v114 = v4;
-        v115 = v3;
-        v134 = a1;
-        if (!v5)
+        v11 = [MTAHTSupport getInterfaceInServiceTree:MTDeviceGetService(a1)];
+        v13 = v11;
+        v136 = v8;
+        v137 = v5;
+        v156 = a1;
+        if (!v11)
         {
           if (a1)
           {
@@ -7450,709 +7369,713 @@ NSObject *mt_CreateBinaryFilters(uint64_t a1)
               mt_CachePropertiesForDevice(a1);
             }
 
-            v9 = MTLoggingFramework();
-            if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+            v18 = MTLoggingFramework(v11, v12);
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
-              v27 = *(a1 + 64);
+              v36 = *(a1 + 64);
               *buf = 134217984;
-              *&buf[4] = v27;
-              _os_log_impl(&dword_25AD59000, v9, OS_LOG_TYPE_ERROR, "MTDevice doesn't have an AHTInterface (deviceID 0x%llX)", buf, 0xCu);
+              *&buf[4] = v36;
+              _os_log_impl(&dword_25AD59000, v18, OS_LOG_TYPE_ERROR, "MTDevice doesn't have an AHTInterface (deviceID 0x%llX)", buf, 0xCu);
             }
 
-            v8 = a1;
-            v10 = 0;
+            v17 = a1;
+            v19 = 0;
 LABEL_59:
 
-            if (v10)
+            if (v19)
             {
-              v37 = v10;
+              v48 = v19;
             }
 
             else
             {
-              v37 = &__block_literal_global;
+              v48 = &__block_literal_global;
             }
 
-            v120 = MEMORY[0x25F855B00](v37);
+            v142 = MEMORY[0x25F855B00](v48);
 
-            v38 = objc_opt_new();
-            LODWORD(v141) = -1431655766;
-            if (!MTDeviceGetVersion(v8, &v141))
+            v49 = objc_opt_new();
+            LODWORD(v163) = -1431655766;
+            if (!MTDeviceGetVersion(v17, &v163))
             {
-              v39 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@0x%08X", @"MTFW-", v141];
-              [v38 addObject:v39];
+              v50 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@0x%08X", @"MTFW-", v163];
+              [v49 addObject:v50];
             }
 
-            v40 = [objc_alloc(MEMORY[0x277CCA8D8]) initWithPath:@"/System/Library/Extensions/AppleMultitouchSPI.kext/PlugIns/MultitouchHID.plugin/"];
-            v41 = v40;
-            v42 = 0x277CBE000;
-            v22 = v120;
-            if (v40)
+            v51 = [objc_alloc(MEMORY[0x277CCA8D8]) initWithPath:@"/System/Library/Extensions/AppleMultitouchSPI.kext/PlugIns/MultitouchHID.plugin/"];
+            v52 = v51;
+            v53 = 0x277CBE000;
+            v31 = v142;
+            if (v51)
             {
-              v43 = [v40 objectForInfoDictionaryKey:@"CFBundleVersion"];
-              if (v43)
+              v54 = [v51 objectForInfoDictionaryKey:@"CFBundleVersion"];
+              if (v54)
               {
-                v44 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", @"MultitouchHID.plugin-", v43];
-                [v38 addObject:v44];
+                v55 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", @"MultitouchHID.plugin-", v54];
+                [v49 addObject:v55];
 
-                v22 = v120;
+                v31 = v142;
               }
             }
 
-            v45 = [objc_alloc(MEMORY[0x277CCA8D8]) initWithPath:@"/System/Library/PrivateFrameworks/MultitouchSupport.framework/"];
-            if (v45)
+            v56 = [objc_alloc(MEMORY[0x277CCA8D8]) initWithPath:@"/System/Library/PrivateFrameworks/MultitouchSupport.framework/"];
+            if (v56)
             {
-              v46 = [v41 objectForInfoDictionaryKey:@"CFBundleVersion"];
-              if (v46)
+              v57 = [v52 objectForInfoDictionaryKey:@"CFBundleVersion"];
+              if (v57)
               {
-                [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", @"MultitouchSupport.framework-", v46];
-                v48 = v47 = v2;
-                [v38 addObject:v48];
+                [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", @"MultitouchSupport.framework-", v57];
+                v59 = v58 = v2;
+                [v49 addObject:v59];
 
-                v2 = v47;
-                v42 = 0x277CBE000uLL;
+                v2 = v58;
+                v53 = 0x277CBE000uLL;
               }
 
-              v22 = v120;
+              v31 = v142;
             }
 
-            if ([v38 count])
+            v60 = [v49 count];
+            if (v60)
             {
-              v49 = v38;
+              v62 = v49;
             }
 
-            else if (v134)
+            else if (v156)
             {
-              if (*(v134 + 133) == 1)
+              if (*(v156 + 133) == 1)
               {
-                mt_CachePropertiesForDevice(v134);
+                mt_CachePropertiesForDevice(v156);
               }
 
-              v50 = MTLoggingFramework();
-              if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+              v63 = MTLoggingFramework(v60, v61);
+              if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
               {
-                v51 = *(v134 + 64);
+                v64 = *(v156 + 64);
                 *buf = 134217984;
-                *&buf[4] = v51;
-                _os_log_impl(&dword_25AD59000, v50, OS_LOG_TYPE_ERROR, "No versions could be retrieved (deviceID 0x%llX)", buf, 0xCu);
+                *&buf[4] = v64;
+                _os_log_impl(&dword_25AD59000, v63, OS_LOG_TYPE_ERROR, "No versions could be retrieved (deviceID 0x%llX)", buf, 0xCu);
               }
 
-              v49 = 0;
-              v22 = v120;
+              v62 = 0;
+              v31 = v142;
             }
 
             else
             {
-              mt_CreateBinaryFilters_cold_1();
-              v49 = 0;
+              mt_CreateBinaryFilters_cold_1(0, v61);
+              v62 = 0;
             }
 
-            v138 = 0u;
-            v139 = 0u;
-            v136 = 0u;
-            v137 = 0u;
-            v112 = v2;
+            v160 = 0u;
+            v161 = 0u;
+            v158 = 0u;
+            v159 = 0u;
+            v134 = v2;
             obj = v2;
-            v52 = v134;
-            v127 = [obj countByEnumeratingWithState:&v136 objects:v151 count:16];
-            v53 = v3;
-            if (v127)
+            v65 = v156;
+            v149 = [obj countByEnumeratingWithState:&v158 objects:v173 count:16];
+            v66 = v5;
+            if (v149)
             {
-              v135 = &v22[2];
-              v125 = *v137;
-              v54 = 0x277CBE000uLL;
-              v126 = v49;
+              v157 = &v31[2];
+              v147 = *v159;
+              v67 = 0x277CBE000uLL;
+              v148 = v62;
               do
               {
-                v55 = 0;
+                v68 = 0;
                 do
                 {
-                  if (*v137 != v125)
+                  if (*v159 != v147)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v131 = v55;
-                  v56 = *(*(&v136 + 1) + 8 * v55);
-                  v57 = *(v54 + 2752);
+                  v153 = v68;
+                  v69 = *(*(&v158 + 1) + 8 * v68);
                   objc_opt_class();
                   if ((objc_opt_isKindOfClass() & 1) == 0)
                   {
-                    v149 = @"Name";
-                    v150 = v56;
-                    v59 = [*(v54 + 2752) dictionaryWithObjects:&v150 forKeys:&v149 count:1];
-                    v58 = [v59 mutableCopy];
+                    v171 = @"Name";
+                    v172 = v69;
+                    v71 = [*(v67 + 2752) dictionaryWithObjects:&v172 forKeys:&v171 count:1];
+                    v70 = [v71 mutableCopy];
 
-                    if (!v49)
+                    if (!v62)
                     {
                       goto LABEL_90;
                     }
 
 LABEL_89:
-                    v60 = [v49 mutableCopy];
-                    [v58 setObject:v60 forKey:@"Versions"];
+                    v72 = [v62 mutableCopy];
+                    [v70 setObject:v72 forKey:@"Versions"];
 
                     goto LABEL_90;
                   }
 
-                  v58 = [v56 mutableCopy];
-                  if (v49)
+                  v70 = [v69 mutableCopy];
+                  if (v62)
                   {
                     goto LABEL_89;
                   }
 
 LABEL_90:
-                  v61 = v4;
-                  v62 = v58;
-                  v132 = v22;
-                  v133 = v62;
-                  v63 = [v62 objectForKeyedSubscript:@"Name"];
-                  v130 = v61;
-                  if (!v63)
+                  v73 = v8;
+                  v74 = v70;
+                  v154 = v31;
+                  v155 = v74;
+                  v75 = [v74 objectForKeyedSubscript:@"Name"];
+                  v152 = v73;
+                  if (!v75)
                   {
-                    v65 = 0;
-                    v54 = 0x277CBE000;
-                    v66 = v131;
+                    v77 = 0;
+                    v67 = 0x277CBE000;
+                    v78 = v153;
                     goto LABEL_148;
                   }
 
-                  v129 = v63;
-                  v128 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.plugin", v63];
-                  v64 = [objc_alloc(*(v42 + 3008)) initWithString:v128 relativeToURL:v61];
-                  v65 = 0;
-                  v54 = 0x277CBE000;
-                  v66 = v131;
-                  if ([v64 checkResourceIsReachableAndReturnError:0])
+                  v151 = v75;
+                  v150 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.plugin", v75];
+                  v76 = [objc_alloc(*(v53 + 3008)) initWithString:v150 relativeToURL:v73];
+                  v77 = 0;
+                  v67 = 0x277CBE000;
+                  v78 = v153;
+                  if ([v76 checkResourceIsReachableAndReturnError:0])
                   {
-                    v67 = v64;
-                    v68 = v133;
-                    v124 = v132;
-                    v69 = [objc_alloc(MEMORY[0x277CCA8D8]) initWithURL:v67];
-                    v122 = v68;
-                    v123 = v64;
-                    if (![v69 load])
+                    v79 = v76;
+                    v80 = v155;
+                    v146 = v154;
+                    v81 = [objc_alloc(MEMORY[0x277CCA8D8]) initWithURL:v79];
+                    v144 = v80;
+                    v145 = v76;
+                    if (![v81 load])
                     {
-                      v65 = 0;
+                      v77 = 0;
                       goto LABEL_133;
                     }
 
-                    v70 = v4;
-                    v71 = v53;
-                    v72 = v69;
-                    v73 = [v69 principalClass];
-                    if (([v73 conformsToProtocol:&unk_286C2B818] & 1) == 0)
+                    v82 = v8;
+                    v83 = v66;
+                    v84 = v81;
+                    v85 = [v81 principalClass];
+                    if (([v85 conformsToProtocol:&unk_286C2B818] & 1) == 0)
                     {
-                      v75 = [[MTBinaryFilterLegacy alloc] initFromURL:v67 device:v52];
+                      v87 = [[MTBinaryFilterLegacy alloc] initFromURL:v79 device:v65];
 LABEL_99:
-                      v65 = v75;
-                      v54 = 0x277CBE000;
-                      v53 = v71;
-                      v4 = v70;
-                      v42 = 0x277CBE000;
+                      v77 = v87;
+                      v67 = 0x277CBE000;
+                      v66 = v83;
+                      v8 = v82;
+                      v53 = 0x277CBE000;
                       goto LABEL_133;
                     }
 
-                    v74 = [v73 alloc];
+                    v86 = [v85 alloc];
                     if (objc_opt_respondsToSelector())
                     {
-                      v75 = [v74 initWithInfo:v68 getProperty:v124];
+                      v87 = [v86 initWithInfo:v80 getProperty:v146];
                       goto LABEL_99;
                     }
 
-                    v116 = v74;
-                    v76 = v68;
-                    v77 = v124;
-                    v119 = v76;
-                    v78 = [v76 objectForKeyedSubscript:@"PropertyNames"];
+                    v138 = v86;
+                    v88 = v80;
+                    v89 = v146;
+                    v141 = v88;
+                    v90 = [v88 objectForKeyedSubscript:@"PropertyNames"];
                     objc_opt_class();
-                    v118 = v78;
-                    v54 = 0x277CBE000;
-                    v117 = v67;
-                    if (objc_opt_isKindOfClass())
+                    v140 = v90;
+                    isKindOfClass = objc_opt_isKindOfClass();
+                    v67 = 0x277CBE000;
+                    v139 = v79;
+                    if (isKindOfClass)
                     {
-                      v79 = objc_opt_new();
-                      if (v79)
+                      v93 = objc_opt_new();
+                      if (v93)
                       {
-                        v80 = v79;
-                        v143 = 0u;
-                        v144 = 0u;
-                        v141 = 0u;
-                        v142 = 0u;
-                        v81 = v118;
-                        v82 = [v81 countByEnumeratingWithState:&v141 objects:buf count:16];
-                        if (v82)
+                        v95 = v93;
+                        v165 = 0u;
+                        v166 = 0u;
+                        v163 = 0u;
+                        v164 = 0u;
+                        v96 = v140;
+                        v97 = [v96 countByEnumeratingWithState:&v163 objects:buf count:16];
+                        if (v97)
                         {
-                          v83 = v82;
-                          v84 = *v142;
+                          v98 = v97;
+                          v99 = *v164;
                           do
                           {
-                            v85 = 0;
+                            v100 = 0;
                             do
                             {
-                              if (*v142 != v84)
+                              if (*v164 != v99)
                               {
-                                objc_enumerationMutation(v81);
+                                objc_enumerationMutation(v96);
                               }
 
-                              v86 = *(*(&v141 + 1) + 8 * v85);
-                              v87 = (*v135)(v77, v86);
-                              if (v87)
+                              v101 = *(*(&v163 + 1) + 8 * v100);
+                              v102 = (*v157)(v89, v101);
+                              v104 = v102;
+                              if (v102)
                               {
-                                [v80 setObject:v87 forKeyedSubscript:v86];
+                                [v95 setObject:v102 forKeyedSubscript:v101];
                               }
 
-                              else if (v52)
+                              else if (v65)
                               {
-                                if (*(v52 + 133) == 1)
+                                if (*(v65 + 133) == 1)
                                 {
-                                  mt_CachePropertiesForDevice(v52);
+                                  mt_CachePropertiesForDevice(v65);
                                 }
 
-                                v88 = MTLoggingFramework();
-                                if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
+                                v105 = MTLoggingFramework(v102, v103);
+                                if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
                                 {
-                                  v89 = *(v134 + 64);
-                                  *v154 = 138543618;
-                                  v155 = v86;
-                                  v156 = 2048;
-                                  v157 = v89;
-                                  _os_log_impl(&dword_25AD59000, v88, OS_LOG_TYPE_ERROR, "Could not retrieve the property %{public}@ (deviceID 0x%llX)", v154, 0x16u);
+                                  v106 = *(v156 + 64);
+                                  *v176 = 138543618;
+                                  v177 = v101;
+                                  v178 = 2048;
+                                  v179 = v106;
+                                  _os_log_impl(&dword_25AD59000, v105, OS_LOG_TYPE_ERROR, "Could not retrieve the property %{public}@ (deviceID 0x%llX)", v176, 0x16u);
                                 }
 
-                                v52 = v134;
+                                v65 = v156;
                               }
 
                               else
                               {
-                                mt_CreateBinaryFilters_cold_2(v152, v86, &v153);
+                                mt_CreateBinaryFilters_cold_2(v174, v101, &v175);
                               }
 
-                              ++v85;
+                              ++v100;
                             }
 
-                            while (v83 != v85);
-                            v69 = v72;
-                            v90 = [v81 countByEnumeratingWithState:&v141 objects:buf count:16];
-                            v83 = v90;
+                            while (v98 != v100);
+                            v81 = v84;
+                            v107 = [v96 countByEnumeratingWithState:&v163 objects:buf count:16];
+                            v98 = v107;
                           }
 
-                          while (v90);
+                          while (v107);
                         }
 
-                        [v119 setObject:v80 forKeyedSubscript:@"Properties"];
-                        v4 = v114;
-                        v53 = v115;
-                        v42 = 0x277CBE000;
-                        v54 = 0x277CBE000;
-                        v66 = v131;
+                        [v141 setObject:v95 forKeyedSubscript:@"Properties"];
+                        v8 = v136;
+                        v66 = v137;
+                        v53 = 0x277CBE000;
+                        v67 = 0x277CBE000;
+                        v78 = v153;
 LABEL_132:
 
-                        v65 = [v116 initWithInfo:v119];
-                        v67 = v117;
+                        v77 = [v138 initWithInfo:v141];
+                        v79 = v139;
 LABEL_133:
 
-                        v94 = v67;
-                        if (v65)
+                        v113 = v79;
+                        if (v77)
                         {
-                          if (v52)
+                          if (v65)
                           {
-                            if (*(v52 + 133) == 1)
+                            if (*(v65 + 133) == 1)
                             {
-                              mt_CachePropertiesForDevice(v52);
+                              mt_CachePropertiesForDevice(v65);
                             }
 
-                            v95 = MTLoggingFramework();
-                            if (os_log_type_enabled(v95, OS_LOG_TYPE_INFO))
+                            v114 = MTLoggingFramework(v111, v112);
+                            if (os_log_type_enabled(v114, OS_LOG_TYPE_INFO))
                             {
-                              v96 = *(v52 + 64);
+                              v115 = *(v65 + 64);
                               *buf = 138543618;
-                              *&buf[4] = v94;
+                              *&buf[4] = v113;
                               *&buf[12] = 2048;
-                              *&buf[14] = v96;
-                              v97 = v95;
-                              v98 = OS_LOG_TYPE_INFO;
-                              v99 = "Created binary filter from %{public}@ (deviceID 0x%llX)";
+                              *&buf[14] = v115;
+                              v116 = v114;
+                              v117 = OS_LOG_TYPE_INFO;
+                              v118 = "Created binary filter from %{public}@ (deviceID 0x%llX)";
                               goto LABEL_144;
                             }
 
 LABEL_146:
 
-                            v22 = v120;
-                            v64 = v123;
+                            v31 = v142;
+                            v76 = v145;
                             goto LABEL_147;
                           }
 
-                          v95 = MTLoggingFramework();
-                          if (!os_log_type_enabled(v95, OS_LOG_TYPE_INFO))
+                          v114 = MTLoggingFramework(v111, v112);
+                          if (!os_log_type_enabled(v114, OS_LOG_TYPE_INFO))
                           {
                             goto LABEL_146;
                           }
 
                           *buf = 138543362;
-                          *&buf[4] = v94;
-                          v97 = v95;
-                          v98 = OS_LOG_TYPE_INFO;
-                          v99 = "Created binary filter from %{public}@";
+                          *&buf[4] = v113;
+                          v116 = v114;
+                          v117 = OS_LOG_TYPE_INFO;
+                          v118 = "Created binary filter from %{public}@";
 LABEL_163:
-                          v101 = 12;
+                          v120 = 12;
                         }
 
                         else
                         {
-                          if (!v52)
+                          if (!v65)
                           {
-                            v95 = MTLoggingFramework();
-                            if (!os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
+                            v114 = MTLoggingFramework(v111, v112);
+                            if (!os_log_type_enabled(v114, OS_LOG_TYPE_ERROR))
                             {
                               goto LABEL_146;
                             }
 
                             *buf = 138543362;
-                            *&buf[4] = v94;
-                            v97 = v95;
-                            v98 = OS_LOG_TYPE_ERROR;
-                            v99 = "Couldn't create binary filter from %{public}@";
+                            *&buf[4] = v113;
+                            v116 = v114;
+                            v117 = OS_LOG_TYPE_ERROR;
+                            v118 = "Couldn't create binary filter from %{public}@";
                             goto LABEL_163;
                           }
 
-                          if (*(v52 + 133) == 1)
+                          if (*(v65 + 133) == 1)
                           {
-                            mt_CachePropertiesForDevice(v52);
+                            mt_CachePropertiesForDevice(v65);
                           }
 
-                          v95 = MTLoggingFramework();
-                          if (!os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
+                          v114 = MTLoggingFramework(v111, v112);
+                          if (!os_log_type_enabled(v114, OS_LOG_TYPE_ERROR))
                           {
                             goto LABEL_146;
                           }
 
-                          v100 = *(v52 + 64);
+                          v119 = *(v65 + 64);
                           *buf = 138543618;
-                          *&buf[4] = v94;
+                          *&buf[4] = v113;
                           *&buf[12] = 2048;
-                          *&buf[14] = v100;
-                          v97 = v95;
-                          v98 = OS_LOG_TYPE_ERROR;
-                          v99 = "Couldn't create binary filter from %{public}@ (deviceID 0x%llX)";
+                          *&buf[14] = v119;
+                          v116 = v114;
+                          v117 = OS_LOG_TYPE_ERROR;
+                          v118 = "Couldn't create binary filter from %{public}@ (deviceID 0x%llX)";
 LABEL_144:
-                          v101 = 22;
+                          v120 = 22;
                         }
 
-                        _os_log_impl(&dword_25AD59000, v97, v98, v99, buf, v101);
+                        _os_log_impl(&dword_25AD59000, v116, v117, v118, buf, v120);
                         goto LABEL_146;
                       }
 
-                      if (v52)
+                      if (v65)
                       {
-                        v53 = v71;
-                        if (*(v52 + 133) == 1)
+                        v66 = v83;
+                        if (*(v65 + 133) == 1)
                         {
-                          mt_CachePropertiesForDevice(v52);
+                          mt_CachePropertiesForDevice(v65);
                         }
 
-                        v92 = MTLoggingFramework();
-                        v4 = v70;
-                        if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
+                        v109 = MTLoggingFramework(v93, v94);
+                        v8 = v82;
+                        if (os_log_type_enabled(v109, OS_LOG_TYPE_ERROR))
                         {
-                          v93 = *(v52 + 64);
+                          v110 = *(v65 + 64);
                           *buf = 134217984;
-                          *&buf[4] = v93;
-                          _os_log_impl(&dword_25AD59000, v92, OS_LOG_TYPE_ERROR, "Could not allocate properties dict (deviceID 0x%llX)", buf, 0xCu);
+                          *&buf[4] = v110;
+                          _os_log_impl(&dword_25AD59000, v109, OS_LOG_TYPE_ERROR, "Could not allocate properties dict (deviceID 0x%llX)", buf, 0xCu);
                         }
 
-                        v80 = 0;
-                        v54 = 0x277CBE000;
+                        v95 = 0;
+                        v67 = 0x277CBE000;
                         goto LABEL_131;
                       }
 
-                      mt_CreateBinaryFilters_cold_3(&v145, v146);
-                      v80 = 0;
-                      v53 = v71;
+                      mt_CreateBinaryFilters_cold_3(&v167, v168);
+                      v95 = 0;
+                      v66 = v83;
                     }
 
                     else
                     {
-                      if (v52)
+                      if (v65)
                       {
-                        v53 = v71;
-                        if (*(v52 + 133) == 1)
+                        v66 = v83;
+                        if (*(v65 + 133) == 1)
                         {
-                          mt_CachePropertiesForDevice(v52);
+                          mt_CachePropertiesForDevice(v65);
                         }
 
-                        v80 = MTLoggingFramework();
-                        v4 = v70;
-                        if (os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG))
+                        v95 = MTLoggingFramework(isKindOfClass, v92);
+                        v8 = v82;
+                        if (os_log_type_enabled(v95, OS_LOG_TYPE_DEBUG))
                         {
-                          v91 = *(v52 + 64);
+                          v108 = *(v65 + 64);
                           *buf = 134217984;
-                          *&buf[4] = v91;
-                          _os_log_impl(&dword_25AD59000, v80, OS_LOG_TYPE_DEBUG, "No property names to read (deviceID 0x%llX)", buf, 0xCu);
+                          *&buf[4] = v108;
+                          _os_log_impl(&dword_25AD59000, v95, OS_LOG_TYPE_DEBUG, "No property names to read (deviceID 0x%llX)", buf, 0xCu);
                         }
 
                         goto LABEL_131;
                       }
 
-                      v80 = MTLoggingFramework();
-                      v53 = v71;
-                      if (os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG))
+                      v95 = MTLoggingFramework(isKindOfClass, v92);
+                      v66 = v83;
+                      if (os_log_type_enabled(v95, OS_LOG_TYPE_DEBUG))
                       {
                         *buf = 0;
-                        _os_log_impl(&dword_25AD59000, v80, OS_LOG_TYPE_DEBUG, "No property names to read", buf, 2u);
+                        _os_log_impl(&dword_25AD59000, v95, OS_LOG_TYPE_DEBUG, "No property names to read", buf, 2u);
                       }
                     }
 
-                    v4 = v70;
+                    v8 = v82;
 LABEL_131:
-                    v42 = 0x277CBE000;
+                    v53 = 0x277CBE000;
                     goto LABEL_132;
                   }
 
 LABEL_147:
 
-                  v63 = v129;
+                  v75 = v151;
 LABEL_148:
 
-                  if (v65)
+                  if (v77)
                   {
-                    mt_UpdateMaxPacketSize(v52, v65);
-                    [v53 addObject:v65];
+                    mt_UpdateMaxPacketSize(v65, v77);
+                    [v66 addObject:v77];
                   }
 
-                  else if (v52)
+                  else if (v65)
                   {
-                    if (*(v52 + 133) == 1)
+                    if (*(v65 + 133) == 1)
                     {
-                      mt_CachePropertiesForDevice(v52);
+                      mt_CachePropertiesForDevice(v65);
                     }
 
-                    v102 = MTLoggingFramework();
-                    if (os_log_type_enabled(v102, OS_LOG_TYPE_ERROR))
+                    v123 = MTLoggingFramework(v121, v122);
+                    if (os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
                     {
-                      v103 = [v133 objectForKeyedSubscript:@"Name"];
-                      v104 = *(v134 + 64);
+                      v124 = [v155 objectForKeyedSubscript:@"Name"];
+                      v125 = *(v156 + 64);
                       *buf = 138543618;
-                      *&buf[4] = v103;
+                      *&buf[4] = v124;
                       *&buf[12] = 2048;
-                      *&buf[14] = v104;
-                      _os_log_impl(&dword_25AD59000, v102, OS_LOG_TYPE_ERROR, "Cannot create filter %{public}@ (deviceID 0x%llX)", buf, 0x16u);
+                      *&buf[14] = v125;
+                      _os_log_impl(&dword_25AD59000, v123, OS_LOG_TYPE_ERROR, "Cannot create filter %{public}@ (deviceID 0x%llX)", buf, 0x16u);
 
-                      v52 = v134;
+                      v65 = v156;
                     }
 
-                    v54 = 0x277CBE000;
+                    v67 = 0x277CBE000;
                   }
 
                   else
                   {
-                    mt_CreateBinaryFilters_cold_4(v147, v133, &v148);
+                    mt_CreateBinaryFilters_cold_4(v169, v155, &v170);
                   }
 
-                  v55 = v66 + 1;
-                  v49 = v126;
+                  v68 = v78 + 1;
+                  v62 = v148;
                 }
 
-                while (v55 != v127);
-                v105 = [obj countByEnumeratingWithState:&v136 objects:v151 count:16];
-                v127 = v105;
+                while (v68 != v149);
+                v126 = [obj countByEnumeratingWithState:&v158 objects:v173 count:16];
+                v149 = v126;
               }
 
-              while (v105);
+              while (v126);
             }
 
-            if ([v53 count]< 0xB)
+            v127 = [v66 count];
+            if (v127 < 0xB)
             {
-              if ([v53 count])
+              if ([v66 count])
               {
-                v3 = v53;
-                v21 = v53;
+                v5 = v66;
+                v30 = v66;
 LABEL_180:
-                v2 = v112;
+                v2 = v134;
 LABEL_181:
 
                 goto LABEL_182;
               }
 
-              v3 = v53;
+              v5 = v66;
             }
 
             else
             {
-              if (v52)
+              if (v65)
               {
-                v3 = v53;
-                if (*(v52 + 133) == 1)
+                v5 = v66;
+                if (*(v65 + 133) == 1)
                 {
-                  mt_CachePropertiesForDevice(v52);
+                  mt_CachePropertiesForDevice(v65);
                 }
 
-                v106 = MTLoggingFramework();
-                v2 = v112;
-                if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
+                v129 = MTLoggingFramework(v127, v128);
+                v2 = v134;
+                if (os_log_type_enabled(v129, OS_LOG_TYPE_ERROR))
                 {
-                  v107 = [v3 count];
-                  v108 = *(v52 + 64);
+                  v130 = [v5 count];
+                  v131 = *(v65 + 64);
                   *buf = 67109632;
-                  *&buf[4] = v107;
+                  *&buf[4] = v130;
                   *&buf[8] = 1024;
                   *&buf[10] = 10;
                   *&buf[14] = 2048;
-                  *&buf[16] = v108;
-                  _os_log_impl(&dword_25AD59000, v106, OS_LOG_TYPE_ERROR, "Too many filters. Found %u, max supported: %u (deviceID 0x%llX)", buf, 0x18u);
+                  *&buf[16] = v131;
+                  _os_log_impl(&dword_25AD59000, v129, OS_LOG_TYPE_ERROR, "Too many filters. Found %u, max supported: %u (deviceID 0x%llX)", buf, 0x18u);
                 }
 
-                v21 = 0;
+                v30 = 0;
                 goto LABEL_181;
               }
 
-              v3 = v53;
-              mt_CreateBinaryFilters_cold_5(v53);
+              v5 = v66;
+              mt_CreateBinaryFilters_cold_5(v66, v128);
             }
 
-            v21 = 0;
+            v30 = 0;
             goto LABEL_180;
           }
 
-          v9 = MTLoggingFramework();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+          v18 = MTLoggingFramework(0, v12);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_impl(&dword_25AD59000, v9, OS_LOG_TYPE_ERROR, "MTDevice doesn't have an AHTInterface", buf, 2u);
+            _os_log_impl(&dword_25AD59000, v18, OS_LOG_TYPE_ERROR, "MTDevice doesn't have an AHTInterface", buf, 2u);
           }
 
-          v10 = 0;
+          v19 = 0;
 LABEL_58:
-          v8 = v134;
+          v17 = v156;
           goto LABEL_59;
         }
 
-        v7 = [v5 getBootLoader];
-        if (v7)
+        v14 = [v11 getBootLoader];
+        v16 = v14;
+        if (v14)
         {
 LABEL_9:
           *buf = MEMORY[0x277D85DD0];
           *&buf[8] = 3221225472;
           *&buf[16] = __mt_CreateGetPropertyBlock_block_invoke;
-          v159 = &unk_2799231E8;
-          v8 = v134;
-          v160 = v7;
-          v161 = v134;
-          v9 = v7;
-          v10 = MEMORY[0x25F855B00](buf);
+          v181 = &unk_2799231E8;
+          v17 = v156;
+          v182 = v16;
+          v183 = v156;
+          v18 = v16;
+          v19 = MEMORY[0x25F855B00](buf);
 
           goto LABEL_59;
         }
 
-        v28 = v134;
-        if (v134)
+        v37 = v156;
+        if (v156)
         {
-          if (*(v134 + 133) == 1)
+          if (*(v156 + 133) == 1)
           {
-            mt_CachePropertiesForDevice(v134);
+            mt_CachePropertiesForDevice(v156);
           }
 
-          v29 = MTLoggingFramework();
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+          v38 = MTLoggingFramework(v14, v15);
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
           {
-            v30 = *(v134 + 64);
+            v39 = *(v156 + 64);
             *buf = 134217984;
-            *&buf[4] = v30;
-            _os_log_impl(&dword_25AD59000, v29, OS_LOG_TYPE_DEFAULT, "AHTInterface doesn't have an AHTBootloader. Trying with AHTDevice (deviceID 0x%llX)", buf, 0xCu);
+            *&buf[4] = v39;
+            _os_log_impl(&dword_25AD59000, v38, OS_LOG_TYPE_DEFAULT, "AHTInterface doesn't have an AHTBootloader. Trying with AHTDevice (deviceID 0x%llX)", buf, 0xCu);
           }
         }
 
         else
         {
-          v29 = MTLoggingFramework();
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+          v38 = MTLoggingFramework(0, v15);
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_25AD59000, v29, OS_LOG_TYPE_DEFAULT, "AHTInterface doesn't have an AHTBootloader. Trying with AHTDevice", buf, 2u);
+            _os_log_impl(&dword_25AD59000, v38, OS_LOG_TYPE_DEFAULT, "AHTInterface doesn't have an AHTBootloader. Trying with AHTDevice", buf, 2u);
           }
 
-          v28 = 0;
+          v37 = 0;
         }
 
-        v31 = [MTAHTSupport getDeviceInServiceTree:MTDeviceGetService(v28)];
-        v9 = v31;
-        if (v31)
+        v40 = [MTAHTSupport getDeviceInServiceTree:MTDeviceGetService(v37)];
+        v18 = v40;
+        if (v40)
         {
-          v32 = [v31 getBootLoader];
-          if (v32)
+          v42 = [v40 getBootLoader];
+          if (v42)
           {
-            v7 = v32;
+            v16 = v42;
 
             goto LABEL_9;
           }
 
-          if (v134)
+          if (v156)
           {
-            if (*(v134 + 133) == 1)
+            if (*(v156 + 133) == 1)
             {
-              mt_CachePropertiesForDevice(v134);
+              mt_CachePropertiesForDevice(v156);
             }
 
-            v33 = MTLoggingFramework();
-            if (!os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+            v44 = MTLoggingFramework(v42, v43);
+            if (!os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_57;
             }
 
-            v36 = *(v134 + 64);
+            v47 = *(v156 + 64);
             *buf = 134217984;
-            *&buf[4] = v36;
-            v35 = "AHTDevice doesn't have an AHTBootloader (deviceID 0x%llX)";
+            *&buf[4] = v47;
+            v46 = "AHTDevice doesn't have an AHTBootloader (deviceID 0x%llX)";
             goto LABEL_56;
           }
 
-          v33 = MTLoggingFramework();
-          if (!os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+          v44 = MTLoggingFramework(0, v43);
+          if (!os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_57;
           }
 
           *buf = 0;
-          v111 = "AHTDevice doesn't have an AHTBootloader";
+          v133 = "AHTDevice doesn't have an AHTBootloader";
         }
 
         else
         {
-          if (v28)
+          if (v37)
           {
-            if (*(v28 + 133) == 1)
+            if (*(v37 + 133) == 1)
             {
-              mt_CachePropertiesForDevice(v134);
+              mt_CachePropertiesForDevice(v156);
             }
 
-            v33 = MTLoggingFramework();
-            if (!os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+            v44 = MTLoggingFramework(v40, v41);
+            if (!os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_57;
             }
 
-            v34 = *(v134 + 64);
+            v45 = *(v156 + 64);
             *buf = 134217984;
-            *&buf[4] = v34;
-            v35 = "MTDevice doesn't have an AHTDevice (deviceID 0x%llX)";
+            *&buf[4] = v45;
+            v46 = "MTDevice doesn't have an AHTDevice (deviceID 0x%llX)";
 LABEL_56:
-            _os_log_impl(&dword_25AD59000, v33, OS_LOG_TYPE_ERROR, v35, buf, 0xCu);
+            _os_log_impl(&dword_25AD59000, v44, OS_LOG_TYPE_ERROR, v46, buf, 0xCu);
 LABEL_57:
 
-            v10 = 0;
+            v19 = 0;
             goto LABEL_58;
           }
 
-          v33 = MTLoggingFramework();
-          if (!os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+          v44 = MTLoggingFramework(0, v41);
+          if (!os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_57;
           }
 
           *buf = 0;
-          v111 = "MTDevice doesn't have an AHTDevice";
+          v133 = "MTDevice doesn't have an AHTDevice";
         }
 
-        _os_log_impl(&dword_25AD59000, v33, OS_LOG_TYPE_ERROR, v111, buf, 2u);
+        _os_log_impl(&dword_25AD59000, v44, OS_LOG_TYPE_ERROR, v133, buf, 2u);
         goto LABEL_57;
       }
 
@@ -8163,37 +8086,37 @@ LABEL_57:
           mt_CachePropertiesForDevice(a1);
         }
 
-        v22 = MTLoggingFramework();
-        if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v31 = MTLoggingFramework(v9, v10);
+        if (!os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_31;
         }
 
-        v23 = *(a1 + 64);
+        v32 = *(a1 + 64);
         *buf = 134217984;
-        *&buf[4] = v23;
-        v24 = "Cannot allocate bundles (deviceID 0x%llX)";
-        v25 = v22;
-        v26 = 12;
+        *&buf[4] = v32;
+        v33 = "Cannot allocate bundles (deviceID 0x%llX)";
+        v34 = v31;
+        v35 = 12;
       }
 
       else
       {
-        v22 = MTLoggingFramework();
-        if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v31 = MTLoggingFramework(0, v10);
+        if (!os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_31;
         }
 
         *buf = 0;
-        v24 = "Cannot allocate bundles";
-        v25 = v22;
-        v26 = 2;
+        v33 = "Cannot allocate bundles";
+        v34 = v31;
+        v35 = 2;
       }
 
-      _os_log_impl(&dword_25AD59000, v25, OS_LOG_TYPE_ERROR, v24, buf, v26);
+      _os_log_impl(&dword_25AD59000, v34, OS_LOG_TYPE_ERROR, v33, buf, v35);
 LABEL_31:
-      v21 = 0;
+      v30 = 0;
 LABEL_182:
 
       goto LABEL_183;
@@ -8206,38 +8129,38 @@ LABEL_182:
         mt_CachePropertiesForDevice(a1);
       }
 
-      v16 = MTLoggingFramework();
-      v113 = v16;
-      if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v25 = MTLoggingFramework(v6, v7);
+      v135 = v25;
+      if (!os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_22;
       }
 
-      v17 = *(a1 + 64);
+      v26 = *(a1 + 64);
       *buf = 134217984;
-      *&buf[4] = v17;
-      v18 = "Cannot create URL from default path (deviceID 0x%llX)";
-      v19 = v16;
-      v20 = 12;
+      *&buf[4] = v26;
+      v27 = "Cannot create URL from default path (deviceID 0x%llX)";
+      v28 = v25;
+      v29 = 12;
     }
 
     else
     {
-      v113 = MTLoggingFramework();
-      if (!os_log_type_enabled(v113, OS_LOG_TYPE_ERROR))
+      v135 = MTLoggingFramework(0, v7);
+      if (!os_log_type_enabled(v135, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_22;
       }
 
       *buf = 0;
-      v18 = "Cannot create URL from default path";
-      v19 = v113;
-      v20 = 2;
+      v27 = "Cannot create URL from default path";
+      v28 = v135;
+      v29 = 2;
     }
 
-    _os_log_impl(&dword_25AD59000, v19, OS_LOG_TYPE_ERROR, v18, buf, v20);
+    _os_log_impl(&dword_25AD59000, v28, OS_LOG_TYPE_ERROR, v27, buf, v29);
 LABEL_22:
-    v21 = 0;
+    v30 = 0;
 LABEL_183:
 
     goto LABEL_184;
@@ -8250,51 +8173,51 @@ LABEL_183:
       mt_CachePropertiesForDevice(a1);
     }
 
-    v11 = MTLoggingFramework();
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v20 = MTLoggingFramework(v3, v4);
+    if (!os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
-      v3 = v11;
+      v5 = v20;
       goto LABEL_24;
     }
 
-    v12 = *(a1 + 64);
+    v21 = *(a1 + 64);
     *buf = 134217984;
-    *&buf[4] = v12;
-    v13 = "No binary filters found (deviceID 0x%llX)";
-    v3 = v11;
-    v14 = v11;
-    v15 = 12;
+    *&buf[4] = v21;
+    v22 = "No binary filters found (deviceID 0x%llX)";
+    v5 = v20;
+    v23 = v20;
+    v24 = 12;
   }
 
   else
   {
-    v3 = MTLoggingFramework();
-    if (!os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v5 = MTLoggingFramework(0, v4);
+    if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_24;
     }
 
     *buf = 0;
-    v13 = "No binary filters found";
-    v14 = v3;
-    v15 = 2;
+    v22 = "No binary filters found";
+    v23 = v5;
+    v24 = 2;
   }
 
-  _os_log_impl(&dword_25AD59000, v14, OS_LOG_TYPE_DEBUG, v13, buf, v15);
+  _os_log_impl(&dword_25AD59000, v23, OS_LOG_TYPE_DEBUG, v22, buf, v24);
 LABEL_24:
-  v21 = 0;
+  v30 = 0;
 LABEL_184:
 
-  v109 = *MEMORY[0x277D85DE8];
-  return v21;
+  return v30;
 }
 
 void mt_UpdateMaxPacketSize(uint64_t a1, void *a2)
 {
-  *&v20[7] = *MEMORY[0x277D85DE8];
+  *&v22[7] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 maxFrameSize];
-  if (v4 > MTDeviceGetDriverMaxPacketSize(a1))
+  DriverMaxPacketSize = MTDeviceGetDriverMaxPacketSize(a1);
+  if (v4 > DriverMaxPacketSize)
   {
     if (a1)
     {
@@ -8303,29 +8226,29 @@ void mt_UpdateMaxPacketSize(uint64_t a1, void *a2)
         mt_CachePropertiesForDevice(a1);
       }
 
-      v5 = MTLoggingFramework();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v7 = MTLoggingFramework(DriverMaxPacketSize, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
-        v6 = [v3 maxFrameSize];
-        v7 = *(a1 + 64);
-        LODWORD(v18) = 67109376;
-        HIDWORD(v18) = v6;
-        v19 = 2048;
-        *v20 = v7;
-        _os_log_impl(&dword_25AD59000, v5, OS_LOG_TYPE_DEBUG, "Setting a max injection packet size of %u (deviceID 0x%llX)", &v18, 0x12u);
+        v8 = [v3 maxFrameSize];
+        v9 = *(a1 + 64);
+        LODWORD(v20) = 67109376;
+        HIDWORD(v20) = v8;
+        v21 = 2048;
+        *v22 = v9;
+        _os_log_impl(&dword_25AD59000, v7, OS_LOG_TYPE_DEBUG, "Setting a max injection packet size of %u (deviceID 0x%llX)", &v20, 0x12u);
       }
     }
 
     else
     {
-      mt_UpdateMaxPacketSize_cold_1(v3, &v18);
-      v5 = v18;
+      mt_UpdateMaxPacketSize_cold_1(v3, &v20);
+      v7 = v20;
     }
 
-    v8 = MTDeviceSetInjectionMaxPacketSize(a1, [v3 maxFrameSize]);
-    if (v8)
+    v10 = MTDeviceSetInjectionMaxPacketSize(a1, [v3 maxFrameSize]);
+    if (v10)
     {
-      v9 = v8;
+      v12 = v10;
       if (a1)
       {
         if (*(a1 + 133) == 1)
@@ -8333,54 +8256,53 @@ void mt_UpdateMaxPacketSize(uint64_t a1, void *a2)
           mt_CachePropertiesForDevice(a1);
         }
 
-        v10 = MTLoggingFramework();
-        if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v13 = MTLoggingFramework(v10, v11);
+        if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_14;
         }
 
-        v11 = [v3 maxFrameSize];
-        v12 = *(a1 + 64);
-        LODWORD(v18) = 67109632;
-        HIDWORD(v18) = v11;
-        v19 = 1024;
-        *v20 = v9;
-        v20[2] = 2048;
-        *&v20[3] = v12;
-        v13 = "Error setting max injection packet size to %u: 0x%08X (deviceID 0x%llX)";
-        v14 = v10;
-        v15 = 24;
+        v14 = [v3 maxFrameSize];
+        v15 = *(a1 + 64);
+        LODWORD(v20) = 67109632;
+        HIDWORD(v20) = v14;
+        v21 = 1024;
+        *v22 = v12;
+        v22[2] = 2048;
+        *&v22[3] = v15;
+        v16 = "Error setting max injection packet size to %u: 0x%08X (deviceID 0x%llX)";
+        v17 = v13;
+        v18 = 24;
       }
 
       else
       {
-        v10 = MTLoggingFramework();
-        if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v13 = MTLoggingFramework(v10, v11);
+        if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_14;
         }
 
-        v17 = [v3 maxFrameSize];
-        LODWORD(v18) = 67109376;
-        HIDWORD(v18) = v17;
-        v19 = 1024;
-        *v20 = v9;
-        v13 = "Error setting max injection packet size to %u: 0x%08X";
-        v14 = v10;
-        v15 = 14;
+        v19 = [v3 maxFrameSize];
+        LODWORD(v20) = 67109376;
+        HIDWORD(v20) = v19;
+        v21 = 1024;
+        *v22 = v12;
+        v16 = "Error setting max injection packet size to %u: 0x%08X";
+        v17 = v13;
+        v18 = 14;
       }
 
-      _os_log_impl(&dword_25AD59000, v14, OS_LOG_TYPE_ERROR, v13, &v18, v15);
+      _os_log_impl(&dword_25AD59000, v17, OS_LOG_TYPE_ERROR, v16, &v20, v18);
 LABEL_14:
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
-void mt_ApplyBinaryFilters(uint64_t a1, unsigned __int8 *a2, size_t a3, unsigned int a4)
+void mt_ApplyBinaryFilters(uint64_t a1, unsigned __int8 *a2, size_t a3, uint64_t a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v4 = a4;
+  v22 = *MEMORY[0x277D85DE8];
   if (*(a1 + 2304) == 1)
   {
     *(a1 + 2304) = 0;
@@ -8389,63 +8311,60 @@ void mt_ApplyBinaryFilters(uint64_t a1, unsigned __int8 *a2, size_t a3, unsigned
       mt_CachePropertiesForDevice(a1);
     }
 
-    v8 = MTLoggingFramework();
+    v8 = MTLoggingFramework(a1, a2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = *(a1 + 64);
       *buf = 134217984;
-      v23 = v9;
+      v21 = v9;
       _os_log_impl(&dword_25AD59000, v8, OS_LOG_TYPE_INFO, "Resetting Binary Filters (deviceID 0x%llX)", buf, 0xCu);
     }
 
     v10 = *(a1 + 2296);
+    v16 = 0u;
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    v21 = 0u;
-    v11 = [v10 countByEnumeratingWithState:&v18 objects:buf count:16];
+    v11 = [v10 countByEnumeratingWithState:&v16 objects:buf count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v19;
+      v13 = *v17;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v19 != v13)
+          if (*v17 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v18 + 1) + 8 * i);
+          v15 = *(*(&v16 + 1) + 8 * i);
           [v15 reset];
           mt_UpdateMaxPacketSize(a1, v15);
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v18 objects:buf count:16];
+        v12 = [v10 countByEnumeratingWithState:&v16 objects:buf count:16];
       }
 
       while (v12);
     }
   }
 
-  v16 = *(a1 + 64);
   kdebug_trace();
-  mt_ApplyBinaryFilter(a1, 0, a2, a3, a4, 1);
-  v17 = *MEMORY[0x277D85DE8];
+  mt_ApplyBinaryFilter(a1, 0, a2, a3, v4, 1);
 }
 
 void mt_ApplyBinaryFilter(uint64_t a1, unsigned int a2, unsigned __int8 *a3, size_t a4, unsigned int a5, uint64_t a6)
 {
-  v21 = a3;
-  v19 = a5;
-  v20 = a4;
+  v17 = a3;
+  v15 = a5;
+  v16 = a4;
   v11 = *(a1 + 2296);
   if ([v11 count] == a2)
   {
     if (a6)
     {
-      v12 = *(a1 + 64);
       kdebug_trace();
     }
 
@@ -8454,26 +8373,23 @@ void mt_ApplyBinaryFilter(uint64_t a1, unsigned int a2, unsigned __int8 *a3, siz
 
   else
   {
-    v13 = [v11 objectAtIndexedSubscript:a2];
-    v14 = *(a1 + 64);
+    v12 = [v11 objectAtIndexedSubscript:a2];
     kdebug_trace();
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __mt_ApplyBinaryFilter_block_invoke;
-    v17[3] = &__block_descriptor_41_e14_v24__0_8I16I20l;
-    v18 = a2;
-    v17[4] = a1;
-    [v13 filterFrame:&v21 size:&v20 maxSize:&v19 extraFrame:v17];
-    v15 = *(a1 + 64);
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __mt_ApplyBinaryFilter_block_invoke;
+    v13[3] = &__block_descriptor_41_e14_v24__0_8I16I20l;
+    v14 = a2;
+    v13[4] = a1;
+    [v12 filterFrame:&v17 size:&v16 maxSize:&v15 extraFrame:v13];
     kdebug_trace();
-    if (v20)
+    if (v16)
     {
-      mt_ApplyBinaryFilter(a1, (a2 + 1), v21, v20, v19, a6);
+      mt_ApplyBinaryFilter(a1, (a2 + 1), v17, v16, v15, a6);
     }
 
     else if (a6)
     {
-      v16 = *(a1 + 64);
       kdebug_trace();
     }
   }
@@ -8481,7 +8397,7 @@ void mt_ApplyBinaryFilter(uint64_t a1, unsigned int a2, unsigned __int8 *a3, siz
 
 void mt_SetBinaryFiltersProperty(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     if (*(a1 + 133) == 1)
@@ -8489,16 +8405,16 @@ void mt_SetBinaryFiltersProperty(uint64_t a1, uint64_t a2, uint64_t a3)
       mt_CachePropertiesForDevice(a1);
     }
 
-    v6 = MTLoggingFramework();
+    v6 = MTLoggingFramework(a1, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = *(a1 + 64);
       *buf = 138543874;
-      v24 = a2;
-      v25 = 2114;
-      v26 = a3;
-      v27 = 2048;
-      v28 = v7;
+      v23 = a2;
+      v24 = 2114;
+      v25 = a3;
+      v26 = 2048;
+      v27 = v7;
       v8 = "Setting Binary Filters property %{public}@ = %{public}@ (deviceID 0x%llX)";
       v9 = v6;
       v10 = 32;
@@ -8509,13 +8425,13 @@ LABEL_6:
 
   else
   {
-    v6 = MTLoggingFramework();
+    v6 = MTLoggingFramework(0, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 138543618;
-      v24 = a2;
-      v25 = 2114;
-      v26 = a3;
+      v23 = a2;
+      v24 = 2114;
+      v25 = a3;
       v8 = "Setting Binary Filters property %{public}@ = %{public}@";
       v9 = v6;
       v10 = 22;
@@ -8524,38 +8440,36 @@ LABEL_6:
   }
 
   v11 = *(a1 + 2296);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v19;
+    v14 = *v18;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v19 != v14)
+        if (*v18 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v18 + 1) + 8 * i);
+        v16 = *(*(&v17 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
           [v16 setProperty:a2 withValue:a3];
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v13);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 BOOL OUTLINED_FUNCTION_1(NSObject *a1)
@@ -8575,7 +8489,7 @@ uint64_t MTSet16BitScalingRange(uint64_t result, unsigned int a2)
   return result;
 }
 
-__int16 *mt_Scale8BitBufferTo16BitRange(__int16 *result, int a2, int a3)
+__int16 *mt_Scale8BitBufferTo16BitRange(__int16 *result, unsigned int a2, int a3)
 {
   if (a2 >= 1)
   {
@@ -8627,7 +8541,7 @@ uint64_t mt_Scale16BitRangeTo8Bits(uint64_t result, int a2, int a3, int a4, int 
 
 uint64_t mt_UncompressTouchpadCodecV1Force(char *a1, uint64_t a2, unint64_t a3, int a4, unsigned int a5, int a6, _DWORD *a7)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   *a7 = 0;
   if (a3 > 0xF)
   {
@@ -8696,27 +8610,24 @@ uint64_t mt_UncompressTouchpadCodecV1Force(char *a1, uint64_t a2, unint64_t a3, 
       }
     }
 
-    result = 0;
+    return 0;
   }
 
   else
   {
     v7 = a3;
-    v8 = MTLoggingFramework();
+    v8 = MTLoggingFramework(a1, a2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v22[0] = 67109376;
-      v22[1] = v7;
-      v23 = 1024;
-      v24 = 16;
-      _os_log_impl(&dword_25AD59000, v8, OS_LOG_TYPE_ERROR, "Uncompressed image buffer(%u) was too small to handle expected number of force bytes(%u)\n", v22, 0xEu);
+      v21[0] = 67109376;
+      v21[1] = v7;
+      v22 = 1024;
+      v23 = 16;
+      _os_log_impl(&dword_25AD59000, v8, OS_LOG_TYPE_ERROR, "Uncompressed image buffer(%u) was too small to handle expected number of force bytes(%u)\n", v21, 0xEu);
     }
 
-    result = 3758096385;
+    return 3758096385;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t mt_UncompressTouchpadCodecV1Touch(_WORD *a1, uint64_t a2, unint64_t a3, unsigned __int16 a4, unsigned int a5)
@@ -8724,37 +8635,37 @@ uint64_t mt_UncompressTouchpadCodecV1Touch(_WORD *a1, uint64_t a2, unint64_t a3,
   v9 = touchpadCodecCreate(a5, a4, 16, 0, 0);
   if (v9)
   {
-    v10 = touchpadCodecDecodeImage(v9, a1, 2 * a5, a2, a3);
-    v11 = 0;
-    if (!v10)
+    v11 = touchpadCodecDecodeImage(v9, a1, 2 * a5, a2, a3);
+    v13 = 0;
+    if (!v11)
     {
-      v11 = 3758097084;
-      v12 = MTLoggingFramework();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = 3758097084;
+      v14 = MTLoggingFramework(0, v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v16 = 0;
-        v13 = "Touchpad codec v1 failed to decode the provided image\n";
-        v14 = &v16;
+        v18 = 0;
+        v15 = "Touchpad codec v1 failed to decode the provided image\n";
+        v16 = &v18;
 LABEL_7:
-        _os_log_impl(&dword_25AD59000, v12, OS_LOG_TYPE_ERROR, v13, v14, 2u);
+        _os_log_impl(&dword_25AD59000, v14, OS_LOG_TYPE_ERROR, v15, v16, 2u);
       }
     }
   }
 
   else
   {
-    v11 = 3758097084;
-    v12 = MTLoggingFramework();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = 3758097084;
+    v14 = MTLoggingFramework(0, v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v13 = "Touchpad codec v1 failed to create codec\n";
-      v14 = buf;
+      v15 = "Touchpad codec v1 failed to create codec\n";
+      v16 = buf;
       goto LABEL_7;
     }
   }
 
-  return v11;
+  return v13;
 }
 
 uint64_t mt_UncompressTouchpadCodecV1Image(_WORD *a1, unint64_t a2, uint64_t a3, unint64_t a4, unsigned int a5, unsigned int a6, int a7)
@@ -8809,33 +8720,34 @@ uint64_t __mtalgLibraryRegister()
   return result;
 }
 
-uint64_t mtalg_CreateAlgLibraryForDevice(uint64_t a1, size_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7, uint64_t a8, uint64_t a9, unint64_t a10)
+uint64_t mtalg_CreateAlgLibraryForDevice(uint64_t a1, size_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, unint64_t a10)
 {
   if (!a1)
   {
     return 0;
   }
 
-  v16 = *MEMORY[0x277CBECE8];
+  v10 = a7;
   if (!__kmtalg_LibraryTypeID)
   {
     pthread_once(&__mtalgLibraryTypeInit, __mtalgLibraryRegister);
   }
 
   Instance = _CFRuntimeCreateInstance();
-  v19 = Instance;
+  v18 = Instance;
   if (Instance)
   {
-    mt_InitImagerGridAndTimeState(Instance + 24, a2, a3, a4, a5, a6, a7, v18, a9, a10);
-    mt_InitPathLifeCycles(v19);
+    mt_InitImagerGridAndTimeState(Instance + 24, a2, a3, a4, a5, a6, v10, v17, a9, a10);
+    mt_InitPathLifeCycles(v18);
   }
 
-  return v19;
+  return v18;
 }
 
-void mt_InitImagerGridAndTimeState(uint64_t a1, size_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7, uint64_t a8, uint64_t a9, unint64_t a10)
+void mt_InitImagerGridAndTimeState(uint64_t a1, size_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7, uint64_t a8, uint64_t a9, unint64_t a10)
 {
   v12 = a4;
+  v13 = a3;
   v14 = a2;
   memset(v18, 170, 7);
   *a1 = 0u;
@@ -8895,7 +8807,7 @@ void mt_InitImagerGridAndTimeState(uint64_t a1, size_t a2, int a3, uint64_t a4, 
   *(a1 + 459) = v17;
   if ((gMT_BE_LESS_VERBOSE & 1) == 0)
   {
-    printf("*** %s (0x%lx) family*** (%2d cols X %2d rows)\n", *(a1 + 32), *(a1 + 24), a3, v14);
+    printf("*** %s (0x%lx) family*** (%2d cols X %2d rows)\n", *(a1 + 32), *(a1 + 24), v13, v14);
   }
 }
 
@@ -8942,22 +8854,22 @@ size_t mt_FillDefaultMultitouchRegion(size_t result, int a2, uint64_t a3, uint64
   return result;
 }
 
-uint64_t mt_ExpandImageAndForward(uint64_t a1, __int16 *a2, uint64_t a3, uint64_t a4)
+uint64_t mt_ExpandImageAndForward(_BYTE *a1, __int16 *a2, unsigned int *a3, uint64_t a4)
 {
-  v8 = *(a3 + 14);
-  v9 = *(a3 + 12);
+  v8 = *(a3 + 7);
+  v9 = *(a3 + 6);
   v10 = v9 + v8;
   v11 = *a3;
   if (*a3)
   {
-    v12 = *(a3 + 4);
+    v12 = a3[1];
   }
 
   else if (*(a3 + 17) == 1)
   {
     if (*(a3 + 16) == 8)
     {
-      mt_Scale8BitBufferTo16BitRange(a2, *(a3 + 10) * *(a3 + 8), v9);
+      mt_Scale8BitBufferTo16BitRange(a2, *(a3 + 5) * *(a3 + 4), v9);
       v11 = *a3;
       v12 = 66562;
     }
@@ -8985,7 +8897,7 @@ uint64_t mt_ExpandImageAndForward(uint64_t a1, __int16 *a2, uint64_t a3, uint64_
     v12 = 66;
   }
 
-  mtp_ForwardDeviceImageBuffer(a1, a2, *(a3 + 8), *(a3 + 10), a4, v11, v12, v8, v10, 1);
+  mtp_ForwardDeviceImageBuffer(a1, a2, *(a3 + 4), *(a3 + 5), a4, v11, v12, v8, v10, 1);
   return v12;
 }
 
@@ -9285,7 +9197,7 @@ void __MTDeviceRelease(uint64_t a1)
   }
 }
 
-uint64_t mtalg_ProcessImageFrame(uint64_t a1, uint64_t a2, __int16 *a3, uint64_t a4, unint64_t a5)
+uint64_t mtalg_ProcessImageFrame(_BYTE *a1, uint64_t a2, __int16 *a3, uint64_t a4, unint64_t a5)
 {
   result = MTAlg_GetAlgLibStateRef(a1);
   if (result)
@@ -9302,7 +9214,7 @@ uint64_t mtalg_ProcessImageFrame(uint64_t a1, uint64_t a2, __int16 *a3, uint64_t
       MTAlg_IssueOpticalProximityCallback(a1, *(a2 + 62));
     }
 
-    return mt_ExpandImageAndForward(a1, a3, a2 + 20, v11 + 488);
+    return mt_ExpandImageAndForward(a1, a3, (a2 + 20), v11 + 488);
   }
 
   return result;

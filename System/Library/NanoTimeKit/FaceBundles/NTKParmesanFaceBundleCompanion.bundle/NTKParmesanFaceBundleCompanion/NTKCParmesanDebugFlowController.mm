@@ -7,9 +7,9 @@
 
 + (id)debugViewControllerForFace:(id)face
 {
-  v4 = objc_allocWithZone(type metadata accessor for ParmesanDebugViewController());
+  v4 = objc_allocWithZone(type metadata accessor for ParmesanDebugViewController(0));
   faceCopy = face;
-  v6 = sub_23BF8FEE0();
+  v6 = sub_23BF8FEE0(faceCopy);
   initWithRootViewController_ = [objc_allocWithZone(MEMORY[0x277D757A0]) initWithRootViewController_];
 
   return initWithRootViewController_;

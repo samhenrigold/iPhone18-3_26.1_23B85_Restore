@@ -8,17 +8,10 @@
 
 - (Class)responseClass
 {
-  v2 = _os_feature_enabled_impl();
-  v3 = off_1E7AC5130;
-  if (!v2)
-  {
-    v3 = off_1E7AC5158;
-  }
+  _os_feature_enabled_impl();
+  v2 = objc_opt_class();
 
-  v4 = *v3;
-  v5 = objc_opt_class();
-
-  return v5;
+  return v2;
 }
 
 - (PARLookupRequest)initWithCoder:(id)coder

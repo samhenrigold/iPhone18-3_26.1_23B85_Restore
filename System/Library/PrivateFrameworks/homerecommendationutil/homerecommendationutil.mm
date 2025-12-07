@@ -1,73 +1,73 @@
-uint64_t start(int a1, uint64_t a2)
+uint64_t start(unsigned int a1, uint64_t a2)
 {
   context = objc_autoreleasePoolPush();
   v4 = objc_opt_new();
-  v5 = (a1 - 1);
+  v5 = a1 - 1;
   if (a1 < 1)
   {
-    v30 = 0;
-    v31 = 0;
     v29 = 0;
-    v37 = 0;
-    v35 = 0;
+    v30 = 0;
+    v28 = 0;
+    v36 = 0;
+    v34 = 0;
+    v31 = 0;
     v32 = 0;
     v33 = 0;
-    v34 = 0;
-    v36 = 0;
+    v35 = 0;
 LABEL_30:
-    v15 = v36;
-    v17 = v33;
-    v16 = v34;
-    v18 = v32;
-    v19 = [[HomeRecommendationUtilDriver alloc] initWithArgs:v4 homeID:v36 templateName:v34 serviceID:v33 accessoryID:v32];
+    v15 = v35;
+    v17 = v32;
+    v16 = v33;
+    v18 = v31;
+    v19 = [[HomeRecommendationUtilDriver alloc] initWithArgs:v4 homeID:v35 templateName:v33 serviceID:v32 accessoryID:v31];
     v8 = v19;
-    if (v37)
+    if (v36)
     {
       [(HomeRecommendationUtilDriver *)v19 setAutoCommit:1];
     }
 
-    [v8 setAutoCommitAll:v35 & 1];
-    v21 = v30;
-    v20 = v31;
-    v22 = v29;
+    [v8 setAutoCommitAll:v34 & 1];
+    v21 = v29;
+    v20 = v30;
+    v22 = v28;
+    if (v29)
+    {
+      [v8 setExtraOptions:v29];
+    }
+
     if (v30)
     {
-      [v8 setExtraOptions:v30];
+      [v8 setRecommendationID:v30];
     }
 
-    if (v31)
-    {
-      [v8 setRecommendationID:v31];
-    }
-
-    if ([v29 isEqualToString:@"lights"])
+    if ([v28 isEqualToString:@"lights"])
     {
       v23 = +[HFAccessoryTypeGroup lightAccessoryTypeGroup];
     }
 
-    else if ([v29 isEqualToString:@"water"])
+    else if ([v28 isEqualToString:@"water"])
     {
       v23 = +[HFAccessoryTypeGroup waterAccessoryTypeGroup];
     }
 
-    else if ([v29 isEqualToString:@"media"])
+    else if ([v28 isEqualToString:@"media"])
     {
       v23 = +[HFAccessoryTypeGroup mediaAccessoryTypeGroup];
     }
 
-    else if ([v29 isEqualToString:@"security"])
+    else if ([v28 isEqualToString:@"security"])
     {
       v23 = +[HFAccessoryTypeGroup securityAccessoryTypeGroup];
     }
 
-    else if ([v29 isEqualToString:@"climate"])
+    else if ([v28 isEqualToString:@"climate"])
     {
       v23 = +[HFAccessoryTypeGroup climateAccessoryTypeGroup];
     }
 
     else
     {
-      if (![v29 isEqualToString:@"energy"])
+      if (![v28 isEqualToString:@"energy"])
       {
 LABEL_50:
         [v8 start];
@@ -77,23 +77,23 @@ LABEL_50:
       v23 = +[HFAccessoryTypeGroup energyAccessoryTypeGroup];
     }
 
-    v25 = v23;
+    v24 = v23;
     [v8 setTypeGroup:v23];
 
     goto LABEL_50;
   }
 
-  v36 = 0;
-  v33 = 0;
-  v34 = 0;
-  v32 = 0;
   v35 = 0;
-  v37 = 0;
+  v32 = 0;
+  v33 = 0;
+  v31 = 0;
+  v34 = 0;
+  v36 = 0;
+  v28 = 0;
   v29 = 0;
   v30 = 0;
-  v31 = 0;
   v6 = a1;
-  v27 = a2;
+  v26 = a2;
   v7 = (a2 + 8);
   while (1)
   {
@@ -120,13 +120,13 @@ LABEL_50:
 
     if ([v8 isEqualToString:@"--auto-commit"])
     {
-      v37 = 1;
+      v36 = 1;
       goto LABEL_27;
     }
 
     if ([v8 isEqualToString:@"--auto-commit-all"])
     {
-      v35 = 1;
+      v34 = 1;
       goto LABEL_27;
     }
 
@@ -138,7 +138,7 @@ LABEL_50:
     if ([v8 isEqualToString:@"--home"])
     {
       [NSString stringWithUTF8String:*v7];
-      v36 = v13 = v36;
+      v35 = v13 = v35;
 LABEL_26:
 
       goto LABEL_27;
@@ -147,28 +147,28 @@ LABEL_26:
     if ([v8 isEqualToString:@"--template"])
     {
       [NSString stringWithUTF8String:*v7];
-      v34 = v13 = v34;
+      v33 = v13 = v33;
       goto LABEL_26;
     }
 
     if ([v8 isEqualToString:@"--service"])
     {
       [NSString stringWithUTF8String:*v7];
-      v33 = v13 = v33;
+      v32 = v13 = v32;
       goto LABEL_26;
     }
 
     if ([v8 isEqualToString:@"--accessory"])
     {
       [NSString stringWithUTF8String:*v7];
-      v32 = v13 = v32;
+      v31 = v13 = v31;
       goto LABEL_26;
     }
 
     if ([v8 isEqualToString:@"--recommendation"])
     {
       [NSString stringWithUTF8String:*v7];
-      v31 = v13 = v31;
+      v30 = v13 = v30;
       goto LABEL_26;
     }
 
@@ -177,14 +177,14 @@ LABEL_26:
       v13 = [NSString stringWithUTF8String:*v7];
       v14 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v13 integerValue]);
 
-      v30 = v14;
+      v29 = v14;
       goto LABEL_26;
     }
 
     if ([v8 isEqualToString:@"--typeGroup"])
     {
       [NSString stringWithUTF8String:*v7];
-      v29 = v13 = v29;
+      v28 = v13 = v28;
       goto LABEL_26;
     }
 
@@ -198,15 +198,14 @@ LABEL_27:
     }
   }
 
-  v24 = *v27;
-  printf("Incorrect usage: %s %s [parameter value]\n", *v27, *(v7 - 1));
-  v15 = v36;
-  v17 = v33;
-  v16 = v34;
-  v20 = v31;
-  v18 = v32;
-  v22 = v29;
-  v21 = v30;
+  printf("Incorrect usage: %s %s [parameter value]\n", *v26, *(v7 - 1));
+  v15 = v35;
+  v17 = v32;
+  v16 = v33;
+  v20 = v30;
+  v18 = v31;
+  v22 = v28;
+  v21 = v29;
 LABEL_51:
 
   objc_autoreleasePoolPop(context);
@@ -226,77 +225,26 @@ id sub_100001920(uint64_t a1)
 
   v3 = [*(a1 + 32) serviceID];
 
-  if (!v3)
-  {
-    goto LABEL_3;
-  }
-
-  v4 = [*(a1 + 32) home];
-  v5 = [v4 accessories];
-  v6 = [v5 na_flatMap:&stru_100008298];
-  v26[0] = _NSConcreteStackBlock;
-  v26[1] = 3221225472;
-  v26[2] = sub_100001C7C;
-  v26[3] = &unk_1000082C0;
-  v26[4] = *(a1 + 32);
-  v7 = [v6 na_firstObjectPassingTest:v26];
-  [*(a1 + 32) setService:v7];
-
-  v8 = [*(a1 + 32) service];
-
-  if (!v8)
+  if (v3 && ([*(a1 + 32) home], v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "accessories"), v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "na_flatMap:", &stru_100008298), v6 = objc_claimAutoreleasedReturnValue(), v26[0] = _NSConcreteStackBlock, v26[1] = 3221225472, v26[2] = sub_100001C7C, v26[3] = &unk_1000082C0, v26[4] = *(a1 + 32), objc_msgSend(v6, "na_firstObjectPassingTest:", v26), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "setService:", v7), v7, v6, v5, v4, objc_msgSend(*(a1 + 32), "service"), v8 = objc_claimAutoreleasedReturnValue(), v8, !v8))
   {
     v22 = 2;
   }
 
   else
   {
-LABEL_3:
     v9 = [*(a1 + 32) accessoryID];
 
-    if (!v9)
-    {
-      goto LABEL_5;
-    }
-
-    v10 = [*(a1 + 32) home];
-    v11 = [NSUUID alloc];
-    v12 = [*(a1 + 32) accessoryID];
-    v13 = [v11 initWithUUIDString:v12];
-    v14 = [v10 hf_accessoryWithIdentifier:v13];
-    [*(a1 + 32) setAccessory:v14];
-
-    v15 = [*(a1 + 32) accessory];
-
-    if (!v15)
+    if (v9 && ([*(a1 + 32) home], v10 = objc_claimAutoreleasedReturnValue(), v11 = [NSUUID alloc], objc_msgSend(*(a1 + 32), "accessoryID"), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v11, "initWithUUIDString:", v12), objc_msgSend(v10, "hf_accessoryWithIdentifier:", v13), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "setAccessory:", v14), v14, v13, v12, v10, objc_msgSend(*(a1 + 32), "accessory"), v15 = objc_claimAutoreleasedReturnValue(), v15, !v15))
     {
       v22 = 3;
     }
 
     else
     {
-LABEL_5:
       v16 = [*(a1 + 32) templateName];
 
-      if (!v16)
+      if (!v16 || (+[HRETemplateRecommendationGenerator allAvailableTemplates](HRETemplateRecommendationGenerator, "allAvailableTemplates"), v17 = objc_claimAutoreleasedReturnValue(), v25[0] = _NSConcreteStackBlock, v25[1] = 3221225472, v25[2] = sub_100001CF0, v25[3] = &unk_1000082E8, v25[4] = *(a1 + 32), [v17 na_firstObjectPassingTest:v25], v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "setTemplate:", v18), v18, v17, objc_msgSend(*(a1 + 32), "template"), v19 = objc_claimAutoreleasedReturnValue(), v19, v19))
       {
-        goto LABEL_7;
-      }
-
-      v17 = +[HRETemplateRecommendationGenerator allAvailableTemplates];
-      v25[0] = _NSConcreteStackBlock;
-      v25[1] = 3221225472;
-      v25[2] = sub_100001CF0;
-      v25[3] = &unk_1000082E8;
-      v25[4] = *(a1 + 32);
-      v18 = [v17 na_firstObjectPassingTest:v25];
-      [*(a1 + 32) setTemplate:v18];
-
-      v19 = [*(a1 + 32) template];
-
-      if (v19)
-      {
-LABEL_7:
         v20 = objc_alloc_init(HRERecommendationEngine);
         [*(a1 + 32) setRecommendationEngine:v20];
 

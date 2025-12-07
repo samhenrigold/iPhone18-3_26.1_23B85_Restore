@@ -298,7 +298,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
   has = self->_has;
   if (*&has)
@@ -515,29 +515,29 @@ LABEL_18:
   if ([(NSMutableArray *)self->_rttSamples count])
   {
     v5 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_rttSamples, "count")}];
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     rttSamples = self->_rttSamples;
-    v7 = [(NSMutableArray *)rttSamples countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [(NSMutableArray *)rttSamples countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v14;
+      v9 = *v13;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v14 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(rttSamples);
           }
 
-          [v5 addObject:{objc_msgSend(*(*(&v13 + 1) + 8 * i), "dictionaryRepresentation")}];
+          [v5 addObject:{objc_msgSend(*(*(&v12 + 1) + 8 * i), "dictionaryRepresentation")}];
         }
 
-        v8 = [(NSMutableArray *)rttSamples countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v8 = [(NSMutableArray *)rttSamples countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v8);
@@ -551,17 +551,15 @@ LABEL_18:
     [dictionary setObject:objc_msgSend(MEMORY[0x29EDBA070] forKey:{"numberWithUnsignedInt:", self->_rangingChannelQuality), @"rangingChannelQuality"}];
   }
 
-  v11 = *MEMORY[0x29EDCA608];
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v34 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   has = self->_has;
   if (*&has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 0x4000) == 0)
@@ -581,7 +579,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  selfPreferredChannel = self->_selfPreferredChannel;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -596,7 +593,6 @@ LABEL_4:
   }
 
 LABEL_30:
-  selfPreferredChannelFlags = self->_selfPreferredChannelFlags;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -611,7 +607,6 @@ LABEL_5:
   }
 
 LABEL_31:
-  selfMasterChannel = self->_selfMasterChannel;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -626,7 +621,6 @@ LABEL_6:
   }
 
 LABEL_32:
-  peerPreferredChannel = self->_peerPreferredChannel;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -641,7 +635,6 @@ LABEL_7:
   }
 
 LABEL_33:
-  peerPreferredChannelFlags = self->_peerPreferredChannelFlags;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -656,7 +649,6 @@ LABEL_8:
   }
 
 LABEL_34:
-  peerMasterChannel = self->_peerMasterChannel;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -671,7 +663,6 @@ LABEL_9:
   }
 
 LABEL_35:
-  protocolVersion = self->_protocolVersion;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -686,7 +677,6 @@ LABEL_10:
   }
 
 LABEL_36:
-  rangingChannel = self->_rangingChannel;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -701,7 +691,6 @@ LABEL_11:
   }
 
 LABEL_37:
-  rangingBandwidth = self->_rangingBandwidth;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -716,7 +705,6 @@ LABEL_12:
   }
 
 LABEL_38:
-  resultFlags = self->_resultFlags;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -731,7 +719,6 @@ LABEL_13:
   }
 
 LABEL_39:
-  resultStatus = self->_resultStatus;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -746,7 +733,6 @@ LABEL_14:
   }
 
 LABEL_40:
-  validCount = self->_validCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -761,7 +747,6 @@ LABEL_15:
   }
 
 LABEL_41:
-  numMeasurements = self->_numMeasurements;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -776,52 +761,46 @@ LABEL_16:
   }
 
 LABEL_42:
-  awdlLatency = self->_awdlLatency;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x400) != 0)
   {
 LABEL_17:
-    rangingLatency = self->_rangingLatency;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_18:
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
-  v30 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   rttSamples = self->_rttSamples;
-  v7 = [(NSMutableArray *)rttSamples countByEnumeratingWithState:&v29 objects:v33 count:16];
-  if (v7)
+  v6 = [(NSMutableArray *)rttSamples countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v30;
+    v7 = v6;
+    v8 = *v11;
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v30 != v9)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(rttSamples);
         }
 
-        v11 = *(*(&v29 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v8 = [(NSMutableArray *)rttSamples countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v7 = [(NSMutableArray *)rttSamples countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
   if ((*(&self->_has + 1) & 2) != 0)
   {
-    rangingChannelQuality = self->_rangingChannelQuality;
     PBDataWriterWriteUint32Field();
   }
-
-  v13 = *MEMORY[0x29EDCA608];
 }
 
 - (void)copyTo:(id)to
@@ -1077,7 +1056,7 @@ LABEL_18:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   has = self->_has;
@@ -1308,30 +1287,30 @@ LABEL_17:
   }
 
 LABEL_18:
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   rttSamples = self->_rttSamples;
-  v9 = [(NSMutableArray *)rttSamples countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [(NSMutableArray *)rttSamples countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(rttSamples);
         }
 
-        v13 = [*(*(&v16 + 1) + 8 * i) copyWithZone:zone];
+        v13 = [*(*(&v15 + 1) + 8 * i) copyWithZone:zone];
         [v6 addRttSamples:v13];
       }
 
-      v10 = [(NSMutableArray *)rttSamples countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [(NSMutableArray *)rttSamples countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
@@ -1343,7 +1322,6 @@ LABEL_18:
     v6[22] |= 0x200u;
   }
 
-  v14 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -1829,7 +1807,7 @@ LABEL_34:
 
 - (void)mergeFrom:(id)from
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   v5 = *(from + 22);
   if (v5)
   {
@@ -2058,29 +2036,29 @@ LABEL_17:
   }
 
 LABEL_18:
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = *(from + 8);
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(AWDWiFiMetricsManagerRangingReport *)self addRttSamples:*(*(&v12 + 1) + 8 * i)];
+        [(AWDWiFiMetricsManagerRangingReport *)self addRttSamples:*(*(&v11 + 1) + 8 * i)];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
@@ -2091,8 +2069,6 @@ LABEL_18:
     self->_rangingChannelQuality = *(from + 12);
     *&self->_has |= 0x200u;
   }
-
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 @end

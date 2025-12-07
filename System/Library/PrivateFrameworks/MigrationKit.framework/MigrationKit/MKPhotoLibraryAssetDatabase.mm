@@ -1,4 +1,5 @@
 @interface MKPhotoLibraryAssetDatabase
+- (MKPhotoLibraryAssetDatabase)initWithType:(unint64_t)type reuse:(BOOL)reuse;
 - (id)asset;
 - (id)collections;
 - (id)identifiersForCollection:(id)collection offset:(unint64_t)offset limit:(unint64_t)limit;
@@ -7,6 +8,7 @@
 - (void)close;
 - (void)create:(BOOL)create;
 - (void)dealloc;
+- (void)open:(id)open reuse:(BOOL)reuse;
 - (void)query:(id)query;
 - (void)remove:(id)remove;
 - (void)removeCollection:(id)collection;
@@ -15,12 +17,106 @@
 
 @implementation MKPhotoLibraryAssetDatabase
 
+- (MKPhotoLibraryAssetDatabase)initWithType:(unint64_t)type reuse:(BOOL)reuse
+{
+  reuseCopy = reuse;
+  v26.receiver = self;
+  v26.super_class = MKPhotoLibraryAssetDatabase;
+  v6 = [(MKPhotoLibraryAssetDatabase *)&v26 init];
+  v7 = v6;
+  if (v6)
+  {
+    v8 = 0;
+    v6->_database = 0;
+    if (type <= 2)
+    {
+      v8 = off_2798DCF90[type];
+    }
+
+    v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"/Library/MigrationKit/matd/%@", v8];
+    v10 = NSHomeDirectory();
+    v11 = [v10 stringByAppendingPathComponent:v9];
+
+    stringByDeletingLastPathComponent = [v11 stringByDeletingLastPathComponent];
+    defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+    v14 = [defaultManager fileExistsAtPath:stringByDeletingLastPathComponent];
+
+    if (v14)
+    {
+      v15 = 0;
+    }
+
+    else
+    {
+      defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
+      v25 = 0;
+      [defaultManager2 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v25];
+      v15 = v25;
+
+      if (v15)
+      {
+        v17 = +[MKLog log];
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        {
+          [MKPhotoLibraryAssetDatabase initWithType:reuse:];
+        }
+      }
+    }
+
+    if (reuseCopy || ([MEMORY[0x277CCAA00] defaultManager], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "isDeletableFileAtPath:", v11), v18, !v19))
+    {
+      v21 = v15;
+    }
+
+    else
+    {
+      defaultManager3 = [MEMORY[0x277CCAA00] defaultManager];
+      v24 = v15;
+      [defaultManager3 removeItemAtPath:v11 error:&v24];
+      v21 = v24;
+
+      if (v21)
+      {
+        v22 = +[MKLog log];
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        {
+          [MKPhotoLibraryAssetDatabase initWithType:reuse:];
+        }
+      }
+    }
+
+    [(MKPhotoLibraryAssetDatabase *)v7 open:v11 reuse:reuseCopy];
+  }
+
+  return v7;
+}
+
 - (void)dealloc
 {
   [(MKPhotoLibraryAssetDatabase *)self close];
   v3.receiver = self;
   v3.super_class = MKPhotoLibraryAssetDatabase;
   [(MKPhotoLibraryAssetDatabase *)&v3 dealloc];
+}
+
+- (void)open:(id)open reuse:(BOOL)reuse
+{
+  reuseCopy = reuse;
+  openCopy = open;
+  if (sqlite3_open([open UTF8String], &self->_database))
+  {
+    v8 = +[MKLog log];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      [(MKApplicationDatabase *)self open:v8];
+    }
+  }
+
+  else
+  {
+
+    [(MKPhotoLibraryAssetDatabase *)self create:reuseCopy];
+  }
 }
 
 - (void)close

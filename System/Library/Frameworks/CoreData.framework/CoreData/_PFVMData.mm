@@ -38,13 +38,13 @@
 
 - (_PFVMData)initWithContentsOfFile:(id)file options:(unint64_t)options error:(id *)error
 {
-  v35[2] = *MEMORY[0x1E69E9840];
-  v27.receiver = self;
-  v27.super_class = _PFVMData;
-  v7 = [(_PFVMData *)&v27 init:file];
+  v34[2] = *MEMORY[0x1E69E9840];
+  v26.receiver = self;
+  v26.super_class = _PFVMData;
+  v7 = [(_PFVMData *)&v26 init:file];
   if (!v7)
   {
-    goto LABEL_22;
+    return v7;
   }
 
   fileSystemRepresentation = [file fileSystemRepresentation];
@@ -55,26 +55,26 @@
     {
       v10 = v9;
       fcntl(v9, 48, 1);
-      memset(&v26, 0, sizeof(v26));
-      if (fstat(v10, &v26))
+      memset(&v25, 0, sizeof(v25));
+      if (fstat(v10, &v25))
       {
         if (error)
         {
           v11 = *__error();
           v12 = *MEMORY[0x1E696A798];
-          v34[0] = *MEMORY[0x1E696A368];
-          v34[1] = @"reason";
-          v35[0] = file;
-          v35[1] = @"fstat failed";
-          *error = [MEMORY[0x1E696ABC0] errorWithDomain:v12 code:v11 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v35, v34, 2)}];
+          v33[0] = *MEMORY[0x1E696A368];
+          v33[1] = @"reason";
+          v34[0] = file;
+          v34[1] = @"fstat failed";
+          *error = [MEMORY[0x1E696ABC0] errorWithDomain:v12 code:v11 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v34, v33, 2)}];
         }
 
         close(v10);
         goto LABEL_21;
       }
 
-      st_size = v26.st_size;
-      v7->_length = v26.st_size;
+      st_size = v25.st_size;
+      v7->_length = v25.st_size;
       if (!st_size)
       {
         goto LABEL_18;
@@ -99,13 +99,13 @@
 
         v18 = MEMORY[0x1E696ABC0];
         v19 = *MEMORY[0x1E696A798];
-        v32[0] = *MEMORY[0x1E696A368];
-        v32[1] = @"reason";
-        v33[0] = file;
-        v33[1] = @"read failed";
+        v31[0] = *MEMORY[0x1E696A368];
+        v31[1] = @"reason";
+        v32[0] = file;
+        v32[1] = @"read failed";
         v20 = MEMORY[0x1E695DF20];
-        v21 = v33;
-        v22 = v32;
+        v21 = v32;
+        v22 = v31;
       }
 
       else
@@ -121,13 +121,13 @@ LABEL_18:
         v17 = *v23;
         v18 = MEMORY[0x1E696ABC0];
         v19 = *MEMORY[0x1E696A798];
-        v30[0] = *MEMORY[0x1E696A368];
-        v30[1] = @"reason";
-        v31[0] = file;
-        v31[1] = @"mmap failed";
+        v29[0] = *MEMORY[0x1E696A368];
+        v29[1] = @"reason";
+        v30[0] = file;
+        v30[1] = @"mmap failed";
         v20 = MEMORY[0x1E695DF20];
-        v21 = v31;
-        v22 = v30;
+        v21 = v30;
+        v22 = v29;
       }
 
       *error = [v18 errorWithDomain:v19 code:v17 userInfo:{objc_msgSend(v20, "dictionaryWithObjects:forKeys:count:", v21, v22, 2)}];
@@ -138,11 +138,11 @@ LABEL_18:
     {
       v13 = *__error();
       v14 = *MEMORY[0x1E696A798];
-      v28[0] = *MEMORY[0x1E696A368];
-      v28[1] = @"reason";
-      v29[0] = file;
-      v29[1] = @"open failed";
-      *error = [MEMORY[0x1E696ABC0] errorWithDomain:v14 code:v13 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v29, v28, 2)}];
+      v27[0] = *MEMORY[0x1E696A368];
+      v27[1] = @"reason";
+      v28[0] = file;
+      v28[1] = @"open failed";
+      *error = [MEMORY[0x1E696ABC0] errorWithDomain:v14 code:v13 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v28, v27, 2)}];
     }
   }
 
@@ -151,11 +151,9 @@ LABEL_19:
   {
 LABEL_21:
 
-    v7 = 0;
+    return 0;
   }
 
-LABEL_22:
-  v24 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

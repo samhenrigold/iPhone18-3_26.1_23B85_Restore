@@ -1,5 +1,6 @@
 @interface CPLPrequeliteIDMapping
 - (BOOL)addAddEventForRecordWithLocalScopedIdentifier:(id)identifier direction:(unint64_t)direction error:(id *)error;
+- (BOOL)addCloudScopedIdentifier:(id)identifier forLocalScopedIdentifier:(id)scopedIdentifier isFinal:(BOOL)final direction:(unint64_t)direction error:(id *)error;
 - (BOOL)addDeleteEventForRecordWithLocalScopedIdentifier:(id)identifier direction:(unint64_t)direction error:(id *)error;
 - (BOOL)deleteRecordsForScopeIndex:(int64_t)index maxCount:(int64_t)count deletedCount:(int64_t *)deletedCount error:(id *)error;
 - (BOOL)hasPendingIdentifiers;
@@ -151,31 +152,14 @@
   mainTable = [(CPLPrequeliteStorage *)self mainTable];
   v8 = [pqlConnection cplExecute:{@"ALTER TABLE %@ ADD COLUMN addTimestamp TIMESTAMP NOT NULL DEFAULT -2147483648", mainTable}];
 
-  if (!v8)
+  if (v8 && (-[CPLPrequeliteStorage mainTable](self, "mainTable"), v9 = objc_claimAutoreleasedReturnValue(), v10 = [pqlConnection cplExecute:{@"ALTER TABLE %@ ADD COLUMN addDirection INTEGER NOT NULL DEFAULT 0", v9}], v9, v10) && (-[CPLPrequeliteStorage mainTable](self, "mainTable"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(pqlConnection, "cplExecute:", @"ALTER TABLE %@ ADD COLUMN deleteTimestamp TIMESTAMP DEFAULT NULL", v11), v11, v12))
   {
-    goto LABEL_16;
-  }
-
-  mainTable2 = [(CPLPrequeliteStorage *)self mainTable];
-  v10 = [pqlConnection cplExecute:{@"ALTER TABLE %@ ADD COLUMN addDirection INTEGER NOT NULL DEFAULT 0", mainTable2}];
-
-  if (!v10)
-  {
-    goto LABEL_16;
-  }
-
-  mainTable3 = [(CPLPrequeliteStorage *)self mainTable];
-  v12 = [pqlConnection cplExecute:{@"ALTER TABLE %@ ADD COLUMN deleteTimestamp TIMESTAMP DEFAULT NULL", mainTable3}];
-
-  if (v12)
-  {
-    mainTable4 = [(CPLPrequeliteStorage *)self mainTable];
-    v14 = [pqlConnection cplExecute:{@"ALTER TABLE %@ ADD COLUMN deleteDirection INTEGER DEFAULT NULL", mainTable4}];
+    mainTable2 = [(CPLPrequeliteStorage *)self mainTable];
+    v14 = [pqlConnection cplExecute:{@"ALTER TABLE %@ ADD COLUMN deleteDirection INTEGER DEFAULT NULL", mainTable2}];
   }
 
   else
   {
-LABEL_16:
     v14 = 0;
   }
 
@@ -278,6 +262,152 @@ LABEL_16:
   }
 
   return v8;
+}
+
+- (BOOL)addCloudScopedIdentifier:(id)identifier forLocalScopedIdentifier:(id)scopedIdentifier isFinal:(BOOL)final direction:(unint64_t)direction error:(id *)error
+{
+  finalCopy = final;
+  identifierCopy = identifier;
+  scopedIdentifierCopy = scopedIdentifier;
+  scopeIdentifier = [scopedIdentifierCopy scopeIdentifier];
+  v15 = [(CPLPrequeliteStorage *)self stableScopeIndexForScopeIdentifier:scopeIdentifier];
+
+  if (v15 != 0x7FFFFFFFFFFFFFFFLL)
+  {
+    pqStore = [(CPLPrequeliteStorage *)self pqStore];
+    pqlConnection = [pqStore pqlConnection];
+
+    +[NSDate timeIntervalSinceReferenceDate];
+    v21 = v20;
+    mainTable = [(CPLPrequeliteStorage *)self mainTable];
+    v47 = identifierCopy;
+    identifier = [identifierCopy identifier];
+    identifier2 = [scopedIdentifierCopy identifier];
+    directionCopy = direction;
+    v26 = identifier2;
+    v45 = directionCopy;
+    v46 = finalCopy;
+    v44 = v21;
+    v43 = v21;
+    v27 = pqlConnection;
+    v28 = [pqlConnection cplExecute:{@"INSERT OR IGNORE INTO %@ (stableScopeIndex, cloudIdentifier, localIdentifier, mappingState, addTimestamp, addDirection) VALUES (%ld, %@, %@, %i, %ld, %ld)", mainTable, v15, identifier, identifier2, finalCopy, v43, directionCopy}];
+
+    if (v28)
+    {
+      identifierCopy = v47;
+      if ([pqlConnection changes])
+      {
+LABEL_7:
+        [(CPLPrequeliteIDMapping *)self _cacheLocalScopedIdentifier:scopedIdentifierCopy cloudScopedIdentifier:identifierCopy isFinal:v46];
+        v17 = 1;
+LABEL_33:
+
+        goto LABEL_34;
+      }
+
+      errorCopy = error;
+      v48 = 0;
+      v30 = [(CPLPrequeliteIDMapping *)self cloudScopedIdentifierForLocalScopedIdentifier:scopedIdentifierCopy isFinal:&v48];
+      v31 = v30;
+      if (v30 && (!v47 || ([v30 isEqual:v47] & 1) == 0))
+      {
+        if ((_CPLSilentLogging & 1) == 0)
+        {
+          sub_1001BFA0C(v31, scopedIdentifierCopy);
+        }
+
+        if (![(CPLPrequeliteIDMapping *)self removeMappingForCloudScopedIdentifier:v31 error:errorCopy])
+        {
+          goto LABEL_29;
+        }
+      }
+
+      v32 = [(CPLPrequeliteIDMapping *)self localScopedIdentifierForCloudScopedIdentifier:v47 isFinal:&v48];
+      if (!v32)
+      {
+        goto LABEL_24;
+      }
+
+      v33 = v32;
+      if (scopedIdentifierCopy)
+      {
+        v32 = [v32 isEqual:scopedIdentifierCopy];
+        if (v32)
+        {
+          v42 = v33;
+          identifierCopy = v47;
+          sub_1001BFAB8(v47, scopedIdentifierCopy, v42);
+          goto LABEL_25;
+        }
+      }
+
+      if ((_CPLSilentLogging & 1) == 0)
+      {
+        v34 = sub_1001635D8(v32);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412546;
+          v50 = v33;
+          v51 = 2112;
+          v52 = v47;
+          _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Removing stale mapping of local identifier %@ to cloud identifier %@", buf, 0x16u);
+        }
+      }
+
+      v35 = [(CPLPrequeliteIDMapping *)self removeMappingForLocalScopedIdentifier:v33 error:errorCopy];
+
+      if (v35)
+      {
+LABEL_24:
+        mainTable2 = [(CPLPrequeliteStorage *)self mainTable];
+        identifierCopy = v47;
+        identifier3 = [v47 identifier];
+        identifier4 = [scopedIdentifierCopy identifier];
+        v39 = [v27 cplExecute:{@"INSERT INTO %@ (stableScopeIndex, cloudIdentifier, localIdentifier, mappingState, addTimestamp, addDirection) VALUES (%ld, %@, %@, %i, %ld, %ld)", mainTable2, v15, identifier3, identifier4, v46, v44, v45}];
+
+        if (v39)
+        {
+LABEL_25:
+
+          goto LABEL_7;
+        }
+
+        lastCPLError = [v27 lastCPLError];
+        if (errorCopy)
+        {
+          lastCPLError = lastCPLError;
+          *errorCopy = lastCPLError;
+        }
+
+LABEL_29:
+        v17 = 0;
+        goto LABEL_33;
+      }
+    }
+
+    else if (error)
+    {
+      [pqlConnection lastCPLError];
+      *error = v17 = 0;
+LABEL_32:
+      identifierCopy = v47;
+      goto LABEL_33;
+    }
+
+    v17 = 0;
+    goto LABEL_32;
+  }
+
+  if (error)
+  {
+    scopeIdentifier2 = [scopedIdentifierCopy scopeIdentifier];
+    *error = [CPLErrors invalidScopeErrorWithScopeIdentifier:scopeIdentifier2];
+  }
+
+  v17 = 0;
+LABEL_34:
+
+  return v17;
 }
 
 - (BOOL)setFinalCloudScopedIdentifier:(id)identifier forPendingCloudScopedIdentifier:(id)scopedIdentifier error:(id *)error

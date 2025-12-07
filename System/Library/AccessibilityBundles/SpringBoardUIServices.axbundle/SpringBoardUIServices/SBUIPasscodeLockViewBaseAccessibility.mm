@@ -8,7 +8,9 @@
 - (unint64_t)_accessibilityHandwritingAttributePreferredCharacterSet;
 - (void)_accessibilityInsertText:(id)text;
 - (void)_accessibilityReplaceCharactersAtCursor:(unint64_t)cursor withString:(id)string;
+- (void)_resetForFailedPasscode:(BOOL)passcode;
 - (void)_setPasscodeLockViewState:(int64_t)state animated:(BOOL)animated;
+- (void)_updateStatusTextForBioEvent:(unint64_t)event animated:(BOOL)animated;
 @end
 
 @implementation SBUIPasscodeLockViewBaseAccessibility
@@ -80,7 +82,7 @@
   return v4 != 0;
 }
 
-uint64_t __71__SBUIPasscodeLockViewBaseAccessibility__accessibilityHasDeletableText__block_invoke(uint64_t a1)
+void *__71__SBUIPasscodeLockViewBaseAccessibility__accessibilityHasDeletableText__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) length];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -136,6 +138,17 @@ void __66__SBUIPasscodeLockViewBaseAccessibility__accessibilityInsertText___bloc
   return 1;
 }
 
+- (void)_resetForFailedPasscode:(BOOL)passcode
+{
+  v5.receiver = self;
+  v5.super_class = SBUIPasscodeLockViewBaseAccessibility;
+  [(SBUIPasscodeLockViewBaseAccessibility *)&v5 _resetForFailedPasscode:passcode];
+  v3 = *MEMORY[0x29EDC7EA8];
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7EA8], *MEMORY[0x29EDBDA90]);
+  v4 = accessibilitySBLocalizedString(@"failed.passcode");
+  UIAccessibilityPostNotification(v3, v4);
+}
+
 - (void)_accessibilityReplaceCharactersAtCursor:(unint64_t)cursor withString:(id)string
 {
   stringCopy = string;
@@ -145,24 +158,24 @@ void __66__SBUIPasscodeLockViewBaseAccessibility__accessibilityInsertText___bloc
   AXPerformSafeBlock();
 }
 
-uint64_t __92__SBUIPasscodeLockViewBaseAccessibility__accessibilityReplaceCharactersAtCursor_withString___block_invoke(uint64_t result)
+void *__92__SBUIPasscodeLockViewBaseAccessibility__accessibilityReplaceCharactersAtCursor_withString___block_invoke(void *result)
 {
   v1 = result;
-  if (*(result + 56))
+  if (result[7])
   {
     v2 = 0;
     do
     {
-      result = [*(v1 + 32) deleteLastCharacter];
+      result = [v1[4] deleteLastCharacter];
       ++v2;
     }
 
-    while (v2 < *(v1 + 56));
+    while (v2 < v1[7]);
   }
 
-  if (*(v1 + 40))
+  if (v1[5])
   {
-    v3 = *(v1 + 48);
+    v3 = v1[6];
 
     return [v3 _accessibilityInsertText:?];
   }
@@ -178,6 +191,29 @@ uint64_t __92__SBUIPasscodeLockViewBaseAccessibility__accessibilityReplaceCharac
   isFirstResponder = [v3 isFirstResponder];
 
   return isFirstResponder;
+}
+
+- (void)_updateStatusTextForBioEvent:(unint64_t)event animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  _accessibilityEntryFieldIsFirstResponder = [(SBUIPasscodeLockViewBaseAccessibility *)self _accessibilityEntryFieldIsFirstResponder];
+  v8 = [(SBUIPasscodeLockViewBaseAccessibility *)self safeValueForKey:@"_statusText"];
+  v11.receiver = self;
+  v11.super_class = SBUIPasscodeLockViewBaseAccessibility;
+  [(SBUIPasscodeLockViewBaseAccessibility *)&v11 _updateStatusTextForBioEvent:event animated:animatedCopy];
+  if (_accessibilityEntryFieldIsFirstResponder)
+  {
+    v9 = [(SBUIPasscodeLockViewBaseAccessibility *)self safeValueForKey:@"_statusText"];
+    if ((-[SBUIPasscodeLockViewBaseAccessibility safeIntegerForKey:](self, "safeIntegerForKey:", @"_statusState") & 0xFFFFFFFFFFFFFFFELL) == 8 || ([v8 isEqualToString:v9] & 1) == 0)
+    {
+      if ([v9 length])
+      {
+        v10 = [MEMORY[0x29EDBD7E8] axAttributedStringWithString:v9];
+        [v10 setAttribute:&unk_2A231C9E0 forKey:*MEMORY[0x29EDBD860]];
+        UIAccessibilityPostNotification(*MEMORY[0x29EDC7EA8], v10);
+      }
+    }
+  }
 }
 
 - (BOOL)becomeFirstResponder

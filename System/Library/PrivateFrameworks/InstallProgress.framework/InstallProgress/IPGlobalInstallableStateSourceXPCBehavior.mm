@@ -86,13 +86,13 @@
 
 void __65__IPGlobalInstallableStateSourceXPCBehavior_registerStateSource___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = _IPDefaultLog();
+  v11 = *MEMORY[0x277D85DE8];
+  v2 = _IPDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v11 = v3;
+    v10 = v3;
     _os_log_impl(&dword_254C69000, v2, OS_LOG_TYPE_DEFAULT, "registering state source %@", buf, 0xCu);
   }
 
@@ -111,18 +111,17 @@ void __65__IPGlobalInstallableStateSourceXPCBehavior_registerStateSource___block
   block[1] = 3221225472;
   block[2] = __65__IPGlobalInstallableStateSourceXPCBehavior_registerStateSource___block_invoke_7;
   block[3] = &unk_2797B2030;
-  v9 = *(a1 + 32);
+  v8 = *(a1 + 32);
   dispatch_async(v6, block);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __65__IPGlobalInstallableStateSourceXPCBehavior_registerStateSource___block_invoke_7(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v6 = 0;
-  v3 = [v2 currentStateWithError:&v6];
-  v4 = v6;
+  v7 = 0;
+  v3 = [v2 currentStateWithError:&v7];
+  v4 = v7;
+  v5 = v4;
   if (v3)
   {
     [*(a1 + 32) notifyOfUpdate:v3];
@@ -130,8 +129,8 @@ void __65__IPGlobalInstallableStateSourceXPCBehavior_registerStateSource___block
 
   else
   {
-    v5 = _IPClientLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _IPClientLog(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __65__IPGlobalInstallableStateSourceXPCBehavior_registerStateSource___block_invoke_7_cold_1();
     }
@@ -154,14 +153,14 @@ void __65__IPGlobalInstallableStateSourceXPCBehavior_registerStateSource___block
 
 void __67__IPGlobalInstallableStateSourceXPCBehavior_unregisterStateSource___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = _IPDefaultLog();
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = _IPDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_254C69000, v2, OS_LOG_TYPE_DEFAULT, "unregistering state source %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_254C69000, v2, OS_LOG_TYPE_DEFAULT, "unregistering state source %@", &v6, 0xCu);
   }
 
   v4 = [*(a1 + 32) collationKey];
@@ -171,8 +170,6 @@ void __67__IPGlobalInstallableStateSourceXPCBehavior_unregisterStateSource___blo
   {
     [*(*(a1 + 40) + 32) removeObjectForKey:v4];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerProgressSource:(id)source
@@ -202,7 +199,7 @@ void __67__IPGlobalInstallableStateSourceXPCBehavior_unregisterStateSource___blo
 void __68__IPGlobalInstallableStateSourceXPCBehavior_registerProgressSource___block_invoke(uint64_t a1)
 {
   v45 = *MEMORY[0x277D85DE8];
-  v2 = _IPDefaultLog();
+  v2 = _IPDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -266,27 +263,27 @@ void __68__IPGlobalInstallableStateSourceXPCBehavior_registerProgressSource___bl
         _Block_object_dispose(&v32, 8);
         _Block_object_dispose(&buf, 8);
 
-        v22 = _IPDefaultLog();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v23 = _IPDefaultLog(v22);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
           LOWORD(buf) = 0;
-          _os_log_impl(&dword_254C69000, v22, OS_LOG_TYPE_DEFAULT, "really registering progress source", &buf, 2u);
+          _os_log_impl(&dword_254C69000, v23, OS_LOG_TYPE_DEFAULT, "really registering progress source", &buf, 2u);
         }
 
         v7 = [*(a1 + 32) collationKey];
-        v23 = [*(*(a1 + 40) + 40) objectForKey:v7];
-        if (!v23)
+        v24 = [*(*(a1 + 40) + 40) objectForKey:v7];
+        if (!v24)
         {
-          v23 = [MEMORY[0x277CCAA50] weakObjectsHashTable];
-          [*(*(a1 + 40) + 40) setObject:v23 forKey:v7];
+          v24 = [MEMORY[0x277CCAA50] weakObjectsHashTable];
+          [*(*(a1 + 40) + 40) setObject:v24 forKey:v7];
         }
 
-        [v23 addObject:*(a1 + 32)];
+        [v24 addObject:*(a1 + 32)];
 
         goto LABEL_18;
       }
 
-      v11 = _IPClientLog();
+      v11 = _IPClientLog(6);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         v12 = *(a1 + 32);
@@ -303,10 +300,10 @@ void __68__IPGlobalInstallableStateSourceXPCBehavior_registerProgressSource___bl
 
     else
     {
-      v15 = _IPClientLog();
+      v15 = _IPClientLog(0);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        __68__IPGlobalInstallableStateSourceXPCBehavior_registerProgressSource___block_invoke_cold_1(v7, &buf + 8);
+        __68__IPGlobalInstallableStateSourceXPCBehavior_registerProgressSource___block_invoke_cold_1();
       }
 
       v13 = v25;
@@ -328,8 +325,6 @@ void __68__IPGlobalInstallableStateSourceXPCBehavior_registerProgressSource___bl
 
 LABEL_18:
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __68__IPGlobalInstallableStateSourceXPCBehavior_registerProgressSource___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -358,14 +353,14 @@ void __68__IPGlobalInstallableStateSourceXPCBehavior_registerProgressSource___bl
 
 void __70__IPGlobalInstallableStateSourceXPCBehavior_unregisterProgressSource___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = _IPDefaultLog();
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = _IPDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_254C69000, v2, OS_LOG_TYPE_DEFAULT, "unregistering progress source %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_254C69000, v2, OS_LOG_TYPE_DEFAULT, "unregistering progress source %@", &v6, 0xCu);
   }
 
   v4 = [*(a1 + 32) collationKey];
@@ -375,29 +370,25 @@ void __70__IPGlobalInstallableStateSourceXPCBehavior_unregisterProgressSource___
   {
     [*(*(a1 + 40) + 40) removeObjectForKey:v4];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_resumeStateStreamSourceIfNecessary
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (!self->_stateStreamSourceResumed)
   {
-    v3 = _IPClientLog();
+    v3 = _IPClientLog(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       stateStreamSource = self->_stateStreamSource;
-      v6 = 138412290;
-      v7 = stateStreamSource;
-      _os_log_impl(&dword_254C69000, v3, OS_LOG_TYPE_DEFAULT, "resuming state stream source %@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = stateStreamSource;
+      _os_log_impl(&dword_254C69000, v3, OS_LOG_TYPE_DEFAULT, "resuming state stream source %@", &v5, 0xCu);
     }
 
     [(IPStateUpdateStreamSource *)self->_stateStreamSource resume];
     self->_stateStreamSourceResumed = 1;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addObserver:(id)observer
@@ -438,10 +429,9 @@ uint64_t __57__IPGlobalInstallableStateSourceXPCBehavior_addObserver___block_inv
 
 - (void)_queue_registerAsProgressObserverIfNecessary
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(*self + 40));
-  OUTLINED_FUNCTION_0_1(&dword_254C69000, a2, a3, "Could not register as progress observer! %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(*self + 40);
+  OUTLINED_FUNCTION_0_1(&dword_254C69000, a2, a3, "Could not register as progress observer! %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (id)_queue_connectedConnection
@@ -452,12 +442,10 @@ uint64_t __57__IPGlobalInstallableStateSourceXPCBehavior_addObserver___block_inv
   if (!currentConnection)
   {
     v5 = (*(self->_connectionProvider + 2))();
-    [v5 _setQueue:self->_q];
-    v6 = IPClientExportedInterface();
+    v6 = IPClientExportedInterface([v5 _setQueue:self->_q]);
     [v5 setExportedInterface:v6];
 
-    [v5 setExportedObject:self];
-    v7 = IPServerExportedInterface();
+    v7 = IPServerExportedInterface([v5 setExportedObject:self]);
     [v5 setRemoteObjectInterface:v7];
 
     objc_initWeak(&location, self);
@@ -482,7 +470,7 @@ uint64_t __57__IPGlobalInstallableStateSourceXPCBehavior_addObserver___block_inv
     currentConnection = *p_currentConnection;
     if (!*p_currentConnection)
     {
-      v8 = _IPClientLog();
+      v8 = _IPClientLog(0);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
         [(IPGlobalInstallableStateSourceXPCBehavior *)v8 _queue_connectedConnection];
@@ -498,7 +486,7 @@ uint64_t __57__IPGlobalInstallableStateSourceXPCBehavior_addObserver___block_inv
 void __71__IPGlobalInstallableStateSourceXPCBehavior__queue_connectedConnection__block_invoke(uint64_t a1)
 {
   v20 = *MEMORY[0x277D85DE8];
-  v2 = _IPClientLog();
+  v2 = _IPClientLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __71__IPGlobalInstallableStateSourceXPCBehavior__queue_connectedConnection__block_invoke_cold_1(v2);
@@ -533,11 +521,11 @@ void __71__IPGlobalInstallableStateSourceXPCBehavior__queue_connectedConnection_
 
           if (v11)
           {
-            v12 = _IPClientLog();
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+            v13 = _IPClientLog(v12);
+            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
             {
               *v14 = 0;
-              _os_log_impl(&dword_254C69000, v12, OS_LOG_TYPE_DEFAULT, "someone is registered for progress, reconnecting...", v14, 2u);
+              _os_log_impl(&dword_254C69000, v13, OS_LOG_TYPE_DEFAULT, "someone is registered for progress, reconnecting...", v14, 2u);
             }
 
             [v4 _queue_registerAsProgressObserverIfNecessary];
@@ -557,13 +545,11 @@ void __71__IPGlobalInstallableStateSourceXPCBehavior__queue_connectedConnection_
 
 LABEL_16:
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __71__IPGlobalInstallableStateSourceXPCBehavior__queue_connectedConnection__block_invoke_16(uint64_t a1)
 {
-  v2 = _IPClientLog();
+  v2 = _IPClientLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __71__IPGlobalInstallableStateSourceXPCBehavior__queue_connectedConnection__block_invoke_16_cold_1(v2);
@@ -598,43 +584,42 @@ void __71__IPGlobalInstallableStateSourceXPCBehavior__queue_connectedConnection_
 
 - (id)_installableStateSourcesForStates:(id)states
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   statesCopy = states;
   v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(statesCopy, "count")}];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v6 = statesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         v12 = [IPAppStateSource alloc];
         identity = [v11 identity];
         v14 = [(IPAppStateSource *)v12 initWithApplicationIdentity:identity forStateSourceRegistry:self];
         [v5 addObject:v14];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
   }
 
   v15 = [v5 copy];
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -687,7 +672,7 @@ void __71__IPGlobalInstallableStateSourceXPCBehavior__queue_connectedConnection_
 void __96__IPGlobalInstallableStateSourceXPCBehavior__queue_makeExtantStateSourcesForGlobalSource_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _IPClientLog();
+  v4 = _IPClientLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __96__IPGlobalInstallableStateSourceXPCBehavior__queue_makeExtantStateSourcesForGlobalSource_error___block_invoke_cold_1();
@@ -705,16 +690,16 @@ void __96__IPGlobalInstallableStateSourceXPCBehavior__queue_makeExtantStateSourc
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), a3);
   if (v5)
   {
-    v7 = [*(a1 + 32) _installableStateSourcesForStates:v5];
-    v8 = *(*(a1 + 48) + 8);
-    v9 = *(v8 + 40);
-    *(v8 + 40) = v7;
+    v8 = [*(a1 + 32) _installableStateSourcesForStates:v5];
+    v9 = *(*(a1 + 48) + 8);
+    v10 = *(v9 + 40);
+    *(v9 + 40) = v8;
   }
 
   else
   {
-    v10 = _IPClientLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _IPClientLog(v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __96__IPGlobalInstallableStateSourceXPCBehavior__queue_makeExtantStateSourcesForGlobalSource_error___block_invoke_19_cold_1();
     }
@@ -769,7 +754,7 @@ void __96__IPGlobalInstallableStateSourceXPCBehavior__queue_makeExtantStateSourc
 void __100__IPGlobalInstallableStateSourceXPCBehavior__queue_makeInstallingStateSourcesForGlobalSource_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _IPClientLog();
+  v4 = _IPClientLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __100__IPGlobalInstallableStateSourceXPCBehavior__queue_makeInstallingStateSourcesForGlobalSource_error___block_invoke_cold_1();
@@ -782,34 +767,34 @@ void __100__IPGlobalInstallableStateSourceXPCBehavior__queue_makeInstallingState
 
 void __100__IPGlobalInstallableStateSourceXPCBehavior__queue_makeInstallingStateSourcesForGlobalSource_error___block_invoke_21(void *a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
   if (v5)
   {
-    v25 = v6;
+    v24 = v6;
     v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     v9 = v5;
-    v10 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v27;
+      v12 = *v26;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v27 != v12)
+          if (*v26 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v26 + 1) + 8 * i);
+          v14 = *(*(&v25 + 1) + 8 * i);
           if ([v14 isInstalling])
           {
             v15 = [IPAppStateSource alloc];
@@ -820,7 +805,7 @@ void __100__IPGlobalInstallableStateSourceXPCBehavior__queue_makeInstallingState
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (v11);
@@ -831,12 +816,12 @@ void __100__IPGlobalInstallableStateSourceXPCBehavior__queue_makeInstallingState
     v20 = *(v19 + 40);
     *(v19 + 40) = v18;
 
-    v7 = v25;
+    v7 = v24;
   }
 
   else
   {
-    v21 = _IPClientLog();
+    v21 = _IPClientLog(v6);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       __100__IPGlobalInstallableStateSourceXPCBehavior__queue_makeInstallingStateSourcesForGlobalSource_error___block_invoke_21_cold_1();
@@ -847,8 +832,6 @@ void __100__IPGlobalInstallableStateSourceXPCBehavior__queue_makeInstallingState
     v8 = *(v22 + 40);
     *(v22 + 40) = v23;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)makeInstallingStateSourcesForGlobalSource:(id)source andEnumerate:(id)enumerate
@@ -886,10 +869,7 @@ void __100__IPGlobalInstallableStateSourceXPCBehavior__queue_makeInstallingState
 
 uint64_t __100__IPGlobalInstallableStateSourceXPCBehavior_makeInstallingStateSourcesForGlobalSource_andEnumerate___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _queue_makeInstallingStateSourcesForGlobalSource:*(a1 + 40) error:0];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _queue_makeInstallingStateSourcesForGlobalSource:*(a1 + 40) error:0];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -929,10 +909,7 @@ uint64_t __100__IPGlobalInstallableStateSourceXPCBehavior_makeInstallingStateSou
 
 uint64_t __96__IPGlobalInstallableStateSourceXPCBehavior_makeExtantStateSourcesForGlobalSource_andEnumerate___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _queue_makeExtantStateSourcesForGlobalSource:*(a1 + 40) error:0];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _queue_makeExtantStateSourcesForGlobalSource:*(a1 + 40) error:0];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1040,10 +1017,11 @@ void __74__IPGlobalInstallableStateSourceXPCBehavior_serverActionBarrierForTesti
 void __74__IPGlobalInstallableStateSourceXPCBehavior_serverActionBarrierForTesting__block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = _IPClientLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _IPClientLog(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __74__IPGlobalInstallableStateSourceXPCBehavior_serverActionBarrierForTesting__block_invoke_2_cold_1();
     }
@@ -1056,47 +1034,45 @@ void __74__IPGlobalInstallableStateSourceXPCBehavior_serverActionBarrierForTesti
   identityCopy = identity;
   changedCopy = changed;
   dispatch_assert_queue_V2(self->_q);
-  v8 = _IPClientLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = _IPClientLog(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     v20 = identityCopy;
     v21 = 2112;
     v22 = changedCopy;
-    _os_log_impl(&dword_254C69000, v8, OS_LOG_TYPE_DEFAULT, "Installable for identity %@ progress changed to %@", buf, 0x16u);
+    _os_log_impl(&dword_254C69000, v9, OS_LOG_TYPE_DEFAULT, "Installable for identity %@ progress changed to %@", buf, 0x16u);
   }
 
-  v9 = [(NSMutableDictionary *)self->_registeredProgressSources objectForKey:identityCopy];
-  allObjects = [v9 allObjects];
-  v11 = [allObjects copy];
+  v10 = [(NSMutableDictionary *)self->_registeredProgressSources objectForKey:identityCopy];
+  allObjects = [v10 allObjects];
+  v12 = [allObjects copy];
 
-  if ([v11 count])
+  if ([v12 count])
   {
     calloutQueue = self->_calloutQueue;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __84__IPGlobalInstallableStateSourceXPCBehavior_installableForIdentity_progressChanged___block_invoke;
     block[3] = &unk_2797B21B8;
-    v16 = v11;
+    v16 = v12;
     v17 = changedCopy;
     v18 = identityCopy;
     dispatch_async(calloutQueue, block);
 
-    v13 = v16;
+    v14 = v16;
   }
 
   else
   {
-    v13 = _IPClientLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = _IPClientLog(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v20 = identityCopy;
-      _os_log_impl(&dword_254C69000, v13, OS_LOG_TYPE_DEFAULT, "No observers to notify of progress to %@", buf, 0xCu);
+      _os_log_impl(&dword_254C69000, v14, OS_LOG_TYPE_DEFAULT, "No observers to notify of progress to %@", buf, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __84__IPGlobalInstallableStateSourceXPCBehavior_installableForIdentity_progressChanged___block_invoke(uint64_t a1)
@@ -1132,16 +1108,14 @@ void __84__IPGlobalInstallableStateSourceXPCBehavior_installableForIdentity_prog
     while (v4);
   }
 
-  v7 = _IPClientLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = _IPClientLog(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 48);
+    v9 = *(a1 + 48);
     *buf = 138412290;
-    v15 = v8;
-    _os_log_impl(&dword_254C69000, v7, OS_LOG_TYPE_DEFAULT, "Notified observers of update to %@", buf, 0xCu);
+    v15 = v9;
+    _os_log_impl(&dword_254C69000, v8, OS_LOG_TYPE_DEFAULT, "Notified observers of update to %@", buf, 0xCu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)installableForIdentity:(id)identity progressEndedForReason:(unint64_t)reason
@@ -1149,18 +1123,18 @@ void __84__IPGlobalInstallableStateSourceXPCBehavior_installableForIdentity_prog
   v21 = *MEMORY[0x277D85DE8];
   identityCopy = identity;
   dispatch_assert_queue_V2(self->_q);
-  v7 = _IPClientLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = _IPClientLog(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     v18 = identityCopy;
     v19 = 2048;
     reasonCopy = reason;
-    _os_log_impl(&dword_254C69000, v7, OS_LOG_TYPE_DEFAULT, "Installable for identity %@ progress ended with reason %llu", buf, 0x16u);
+    _os_log_impl(&dword_254C69000, v8, OS_LOG_TYPE_DEFAULT, "Installable for identity %@ progress ended with reason %llu", buf, 0x16u);
   }
 
-  v8 = [(NSMutableDictionary *)self->_registeredProgressSources objectForKey:identityCopy];
-  allObjects = [v8 allObjects];
+  v9 = [(NSMutableDictionary *)self->_registeredProgressSources objectForKey:identityCopy];
+  allObjects = [v9 allObjects];
 
   [(NSMutableDictionary *)self->_registeredProgressSources removeObjectForKey:identityCopy];
   if ([allObjects count])
@@ -1175,21 +1149,19 @@ void __84__IPGlobalInstallableStateSourceXPCBehavior_installableForIdentity_prog
     v15 = identityCopy;
     dispatch_async(calloutQueue, block);
 
-    v11 = v14;
+    v12 = v14;
   }
 
   else
   {
-    v11 = _IPClientLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = _IPClientLog(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v18 = identityCopy;
-      _os_log_impl(&dword_254C69000, v11, OS_LOG_TYPE_DEFAULT, "No observers to notify of finish of %@", buf, 0xCu);
+      _os_log_impl(&dword_254C69000, v12, OS_LOG_TYPE_DEFAULT, "No observers to notify of finish of %@", buf, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __91__IPGlobalInstallableStateSourceXPCBehavior_installableForIdentity_progressEndedForReason___block_invoke(uint64_t a1)
@@ -1225,16 +1197,14 @@ void __91__IPGlobalInstallableStateSourceXPCBehavior_installableForIdentity_prog
     while (v4);
   }
 
-  v7 = _IPClientLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = _IPClientLog(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 40);
+    v9 = *(a1 + 40);
     *buf = 138412290;
-    v15 = v8;
-    _os_log_impl(&dword_254C69000, v7, OS_LOG_TYPE_DEFAULT, "Notified observers of finish of %@", buf, 0xCu);
+    v15 = v9;
+    _os_log_impl(&dword_254C69000, v8, OS_LOG_TYPE_DEFAULT, "Notified observers of finish of %@", buf, 0xCu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_noteInstallBeganForIdentity:(id)identity
@@ -1242,16 +1212,16 @@ void __91__IPGlobalInstallableStateSourceXPCBehavior_installableForIdentity_prog
   v14 = *MEMORY[0x277D85DE8];
   identityCopy = identity;
   dispatch_assert_queue_V2(self->_q);
-  v5 = _IPClientLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = _IPClientLog(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     v13 = identityCopy;
-    _os_log_impl(&dword_254C69000, v5, OS_LOG_TYPE_DEFAULT, "Install began for %@", buf, 0xCu);
+    _os_log_impl(&dword_254C69000, v6, OS_LOG_TYPE_DEFAULT, "Install began for %@", buf, 0xCu);
   }
 
-  v6 = [(NSMutableDictionary *)self->_registeredStateSources objectForKey:identityCopy];
-  allObjects = [v6 allObjects];
+  v7 = [(NSMutableDictionary *)self->_registeredStateSources objectForKey:identityCopy];
+  allObjects = [v7 allObjects];
 
   if ([allObjects count])
   {
@@ -1263,44 +1233,40 @@ void __91__IPGlobalInstallableStateSourceXPCBehavior_installableForIdentity_prog
     v11 = allObjects;
     dispatch_async(calloutQueue, block);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __80__IPGlobalInstallableStateSourceXPCBehavior__queue_noteInstallBeganForIdentity___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
+  v6 = 0u;
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
   v1 = *(a1 + 32);
-  v2 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v8;
+    v4 = *v7;
     do
     {
       v5 = 0;
       do
       {
-        if (*v8 != v4)
+        if (*v7 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        [*(*(&v7 + 1) + 8 * v5++) noteInstallStarted];
+        [*(*(&v6 + 1) + 8 * v5++) noteInstallStarted];
       }
 
       while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
     while (v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_sendStateSourceAvailableForIdentity:(id)identity
@@ -1340,38 +1306,36 @@ IPAppStateSource *__88__IPGlobalInstallableStateSourceXPCBehavior__queue_sendSta
 
 void __88__IPGlobalInstallableStateSourceXPCBehavior__queue_sendStateSourceAvailableForIdentity___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) globalStateSourceBehavior:*(a1 + 40) stateSourceAvailableForIdentity:*(a1 + 48) withGenerator:{*(a1 + 56), v8}];
+        [*(*(&v7 + 1) + 8 * v6++) globalStateSourceBehavior:*(a1 + 40) stateSourceAvailableForIdentity:*(a1 + 48) withGenerator:{*(a1 + 56), v7}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_sendStateSourceUnavailableForIdentity:(id)identity
@@ -1395,50 +1359,48 @@ void __88__IPGlobalInstallableStateSourceXPCBehavior__queue_sendStateSourceAvail
 
 void __90__IPGlobalInstallableStateSourceXPCBehavior__queue_sendStateSourceUnavailableForIdentity___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
+  v6 = 0u;
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
   v1 = *(a1 + 32);
-  v2 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v8;
+    v4 = *v7;
     do
     {
       v5 = 0;
       do
       {
-        if (*v8 != v4)
+        if (*v7 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        [*(*(&v7 + 1) + 8 * v5++) noteRemoved];
+        [*(*(&v6 + 1) + 8 * v5++) noteRemoved];
       }
 
       while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
     while (v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stateUpdateStreamSource:(id)source updateMessageReceived:(id)received
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   receivedCopy = received;
-  v6 = _IPClientLog();
+  v6 = _IPClientLog(receivedCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412290;
-    v13 = receivedCopy;
-    _os_log_impl(&dword_254C69000, v6, OS_LOG_TYPE_DEFAULT, "received update message %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = receivedCopy;
+    _os_log_impl(&dword_254C69000, v6, OS_LOG_TYPE_DEFAULT, "received update message %@", &v11, 0xCu);
   }
 
   type = [receivedCopy type];
@@ -1460,77 +1422,25 @@ LABEL_7:
       goto LABEL_11;
   }
 
-  identity = _IPClientLog();
+  identity = _IPClientLog(type);
   if (os_log_type_enabled(identity, OS_LOG_TYPE_DEFAULT))
   {
     type2 = [receivedCopy type];
-    v12 = 67109120;
-    LODWORD(v13) = type2;
-    _os_log_impl(&dword_254C69000, identity, OS_LOG_TYPE_DEFAULT, "Ignoring update message of type %u for now", &v12, 8u);
+    v11 = 67109120;
+    LODWORD(v12) = type2;
+    _os_log_impl(&dword_254C69000, identity, OS_LOG_TYPE_DEFAULT, "Ignoring update message of type %u for now", &v11, 8u);
   }
 
 LABEL_11:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-void __65__IPGlobalInstallableStateSourceXPCBehavior_registerStateSource___block_invoke_7_cold_1()
+void __68__IPGlobalInstallableStateSourceXPCBehavior_registerProgressSource___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_1(&dword_254C69000, v0, v1, "Could not fetch installable state source current state: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __68__IPGlobalInstallableStateSourceXPCBehavior_registerProgressSource___block_invoke_cold_1(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *(*a2 + 40);
-  OUTLINED_FUNCTION_1_0();
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_254C69000, v4, OS_LOG_TYPE_ERROR, "could not fetch progress data for %@, synthesizing cancel event: %@", v6, 0x16u);
   v5 = *MEMORY[0x277D85DE8];
-}
-
-void __96__IPGlobalInstallableStateSourceXPCBehavior__queue_makeExtantStateSourcesForGlobalSource_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_1(&dword_254C69000, v0, v1, "could not fetch all state sources: connection error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __96__IPGlobalInstallableStateSourceXPCBehavior__queue_makeExtantStateSourcesForGlobalSource_error___block_invoke_19_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_1(&dword_254C69000, v0, v1, "couldn't get installable states: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __100__IPGlobalInstallableStateSourceXPCBehavior__queue_makeInstallingStateSourcesForGlobalSource_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_1(&dword_254C69000, v0, v1, "could not fetch state sources: connection error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __100__IPGlobalInstallableStateSourceXPCBehavior__queue_makeInstallingStateSourcesForGlobalSource_error___block_invoke_21_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_1(&dword_254C69000, v0, v1, "could not get state sources: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __74__IPGlobalInstallableStateSourceXPCBehavior_serverActionBarrierForTesting__block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_1(&dword_254C69000, v0, v1, "server action barrier failed: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_254C69000, v1, OS_LOG_TYPE_ERROR, "could not fetch progress data for %@, synthesizing cancel event: %@", v2, 0x16u);
 }
 
 @end

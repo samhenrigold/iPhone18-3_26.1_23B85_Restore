@@ -1,4 +1,5 @@
 @interface UNLegacyNotificationTrigger
++ (id)triggerWithDate:(id)date timeZone:(id)zone remainingRepeatCount:(int)count totalRepeatCount:(int)repeatCount repeatInterval:(unint64_t)interval repeatCalendar:(id)calendar;
 + (id)triggerWithDate:(id)date timeZone:(id)zone repeatInterval:(unint64_t)interval repeatCalendar:(id)calendar;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)willTriggerAfterDate:(id)date withRequestedDate:(id)requestedDate;
@@ -13,6 +14,18 @@
 @end
 
 @implementation UNLegacyNotificationTrigger
+
++ (id)triggerWithDate:(id)date timeZone:(id)zone remainingRepeatCount:(int)count totalRepeatCount:(int)repeatCount repeatInterval:(unint64_t)interval repeatCalendar:(id)calendar
+{
+  v9 = *&repeatCount;
+  v10 = *&count;
+  calendarCopy = calendar;
+  zoneCopy = zone;
+  dateCopy = date;
+  v17 = [[self alloc] _initWithDate:dateCopy timeZone:zoneCopy remainingRepeatCount:v10 totalRepeatCount:v9 repeatInterval:interval repeatCalendar:calendarCopy];
+
+  return v17;
+}
 
 + (id)triggerWithDate:(id)date timeZone:(id)zone repeatInterval:(unint64_t)interval repeatCalendar:(id)calendar
 {

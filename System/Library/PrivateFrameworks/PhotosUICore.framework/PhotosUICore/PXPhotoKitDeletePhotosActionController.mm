@@ -70,10 +70,10 @@
 
 - (void)getConfirmationMessage:(id *)message destructiveButtonTitle:(id *)title cancelButtonTitle:(id *)buttonTitle isDestructiveBehavior:(BOOL *)behavior
 {
-  v89 = *MEMORY[0x1E69E9840];
+  v91 = *MEMORY[0x1E69E9840];
   _plAssets = [(PXPhotoKitDeletePhotosActionController *)self _plAssets];
   v62 = [_plAssets count];
-  v71 = v62;
+  v73 = v62;
   v10 = PLSuffixForItems();
   firstObject = [_plAssets firstObject];
   v12 = objc_alloc(MEMORY[0x1E69BE898]);
@@ -109,11 +109,11 @@
     v21 = PXContentSyndicationAssetCount(_assets);
     if (v21 == [_assets count])
     {
-      v70[1] = 0;
-      v70[2] = 0;
-      v22 = PXContentSyndicationRemoveConfirmationTitleAndMessageLocalizedStrings(_assets);
-      v19 = 0;
-      v15 = 0;
+      v71 = 0;
+      v72 = 0;
+      v22 = PXContentSyndicationRemoveConfirmationTitleAndMessageLocalizedStrings(_assets, &v72, &v71);
+      v19 = v72;
+      v15 = v71;
       if (v22)
       {
 LABEL_16:
@@ -135,9 +135,9 @@ LABEL_16:
     }
 
     v69 = v19;
-    v70[0] = v15;
-    [v66 getDeletionWarningTitle:0 message:v70 buttonTitle:&v69 forAssets:_plAssets syndicationAssetCount:v21 clientName:0 style:0];
-    v23 = v70[0];
+    v70 = v15;
+    [v66 getDeletionWarningTitle:0 message:&v70 buttonTitle:&v69 forAssets:_plAssets syndicationAssetCount:v21 clientName:0 style:0];
+    v23 = v70;
 
     v24 = v69;
     v19 = v24;
@@ -168,10 +168,10 @@ LABEL_16:
     v14 = 0;
     v18 = @"EXPUNGE_BUTTON_TITLE_";
 LABEL_23:
-    [v66 getAvalancheDeleteWarning:0 actualDeletionCount:&v71 forAssets:_plAssets];
-    v29 = v71;
+    [v66 getAvalancheDeleteWarning:0 actualDeletionCount:&v73 forAssets:_plAssets];
+    v29 = v73;
     v63 = v17;
-    if (v14 && !v71)
+    if (v14 && !v73)
     {
       v56 = v18;
       v57 = v10;
@@ -183,65 +183,65 @@ LABEL_23:
       v32 = _assets2;
       v33 = _plAssets2;
       v34 = [MEMORY[0x1E695DFA8] set];
-      v76 = 0u;
-      v77 = 0u;
       v78 = 0u;
       v79 = 0u;
+      v80 = 0u;
+      v81 = 0u;
       v35 = v32;
-      v36 = [v35 countByEnumeratingWithState:&v76 objects:buf count:16];
+      v36 = [v35 countByEnumeratingWithState:&v78 objects:buf count:16];
       if (v36)
       {
         v37 = v36;
-        v38 = *v77;
+        v38 = *v79;
         do
         {
           for (i = 0; i != v37; ++i)
           {
-            if (*v77 != v38)
+            if (*v79 != v38)
             {
               objc_enumerationMutation(v35);
             }
 
-            uuid = [*(*(&v76 + 1) + 8 * i) uuid];
+            uuid = [*(*(&v78 + 1) + 8 * i) uuid];
             if (uuid)
             {
               [v34 addObject:uuid];
             }
           }
 
-          v37 = [v35 countByEnumeratingWithState:&v76 objects:buf count:16];
+          v37 = [v35 countByEnumeratingWithState:&v78 objects:buf count:16];
         }
 
         while (v37);
       }
 
+      v76 = 0u;
+      v77 = 0u;
       v74 = 0u;
       v75 = 0u;
-      v72 = 0u;
-      v73 = 0u;
       v41 = v33;
-      v42 = [v41 countByEnumeratingWithState:&v72 objects:v80 count:16];
+      v42 = [v41 countByEnumeratingWithState:&v74 objects:v82 count:16];
       if (v42)
       {
         v43 = v42;
-        v44 = *v73;
+        v44 = *v75;
         do
         {
           for (j = 0; j != v43; ++j)
           {
-            if (*v73 != v44)
+            if (*v75 != v44)
             {
               objc_enumerationMutation(v41);
             }
 
-            pl_uuid = [*(*(&v72 + 1) + 8 * j) pl_uuid];
+            pl_uuid = [*(*(&v74 + 1) + 8 * j) pl_uuid];
             if (pl_uuid && [v34 containsObject:pl_uuid])
             {
               [v34 removeObject:pl_uuid];
             }
           }
 
-          v43 = [v41 countByEnumeratingWithState:&v72 objects:v80 count:16];
+          v43 = [v41 countByEnumeratingWithState:&v74 objects:v82 count:16];
         }
 
         while (v43);
@@ -258,17 +258,17 @@ LABEL_23:
         _plAssets3 = [(PXPhotoKitDeletePhotosActionController *)self _plAssets];
         v52 = [_plAssets3 count];
         *buf = 134218754;
-        v82 = v62;
-        v83 = 2048;
-        v84 = v50;
+        v84 = v62;
         v85 = 2048;
-        v86 = v52;
-        v87 = 2112;
-        v88 = allObjects;
+        v86 = v50;
+        v87 = 2048;
+        v88 = v52;
+        v89 = 2112;
+        v90 = allObjects;
         _os_log_impl(&dword_1A3C1C000, v48, OS_LOG_TYPE_ERROR, "Invalid recover assets state. previousDeletionCount: %ld, assetsCount: %lu, plAssetsCount: %lu, missingUUIDs: %@", buf, 0x2Au);
       }
 
-      v29 = v71;
+      v29 = v73;
       buttonTitle = buttonTitleCopy;
       behavior = behaviorCopy;
       firstObject = v61;
@@ -314,7 +314,7 @@ LABEL_6:
     v18 = 0;
     v14 = 0;
     v17 = 1;
-    v62 = v71;
+    v62 = v73;
     goto LABEL_23;
   }
 

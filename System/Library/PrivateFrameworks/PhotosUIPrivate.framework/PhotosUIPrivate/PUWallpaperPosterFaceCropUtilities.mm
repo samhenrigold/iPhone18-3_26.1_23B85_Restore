@@ -1,9 +1,9 @@
 @interface PUWallpaperPosterFaceCropUtilities
 + (CGRect)_getBoundingFaceRectFor:(id)for userInfo:(id)info visibleFrame:(CGRect)frame originalImage:(CGRect)image;
 + (CGRect)getSquareCropForVisibleFrame:(CGRect)frame layerStack:(id)stack userInfo:(id)info originalImage:(CGRect)image;
++ (double)_getBestCropForVisibleFrame:(double)frame preferredCropCrect:(double)crect acceptableCropRect:(double)rect faceRect:(double)faceRect;
 + (double)_getNormalizedRectForSaliencyRect:(double)rect originalImage:(double)image visibleFrame:(double)frame;
 + (id)_getNormalizedFaceRects:(id)rects userInfo:(id)info originalImage:(CGRect)image visibleFrame:(CGRect)frame;
-+ (uint64_t)_getBestCropForVisibleFrame:(double)frame preferredCropCrect:(double)crect acceptableCropRect:(double)rect faceRect:(double)faceRect;
 @end
 
 @implementation PUWallpaperPosterFaceCropUtilities
@@ -313,29 +313,30 @@ uint64_t __98__PUWallpaperPosterFaceCropUtilities__getBoundingFaceRectFor_userIn
   }
 }
 
-+ (uint64_t)_getBestCropForVisibleFrame:(double)frame preferredCropCrect:(double)crect acceptableCropRect:(double)rect faceRect:(double)faceRect
++ (double)_getBestCropForVisibleFrame:(double)frame preferredCropCrect:(double)crect acceptableCropRect:(double)rect faceRect:(double)faceRect
 {
-  [MEMORY[0x1E69C06A0] bestCropRectV2ForAspectRatio:frame withFocusRegion:crect sourcePixelWidth:0 sourcePixelHeight:1.0 sourcePreferredCropRectNormalized:*MEMORY[0x1E695F050] sourceAcceptableCropRectNormalized:*(MEMORY[0x1E695F050] + 8) sourceFaceAreaRectNormalized:*(MEMORY[0x1E695F050] + 16) outputCropScore:{*(MEMORY[0x1E695F050] + 24), *&rect, *&faceRect, *&a7, *&a8, a17, a18, a19, a20, a21, a22}];
+  [MEMORY[0x1E69C06A0] bestCropRectV2ForAspectRatio:frame withFocusRegion:crect sourcePixelWidth:0 sourcePixelHeight:a14 sourcePreferredCropRectNormalized:a15 sourceAcceptableCropRectNormalized:a16 sourceFaceAreaRectNormalized:1.0 outputCropScore:{*MEMORY[0x1E695F050], *(MEMORY[0x1E695F050] + 8), *(MEMORY[0x1E695F050] + 16), *(MEMORY[0x1E695F050] + 24), *&rect, *&faceRect, *&a7, *&a8, a17, a18, a19, a20, a21, a22}];
 
-  return PXRectDenormalize();
+  PXRectDenormalize();
+  return result;
 }
 
 + (double)_getNormalizedRectForSaliencyRect:(double)rect originalImage:(double)image visibleFrame:(double)frame
 {
-  v16 = *MEMORY[0x1E695F050];
+  v12 = *MEMORY[0x1E695F050];
   if (!CGRectEqualToRect(*&self, *MEMORY[0x1E695F050]))
   {
     PXRectDenormalize();
-    v20.origin.x = a9;
-    v20.origin.y = a10;
-    v20.size.width = a11;
-    v20.size.height = a12;
-    CGRectIntersection(v19, v20);
+    v16.origin.x = a9;
+    v16.origin.y = a10;
+    v16.size.width = a11;
+    v16.size.height = a12;
+    CGRectIntersection(v15, v16);
     PXRectNormalize();
-    return v17;
+    return v13;
   }
 
-  return v16;
+  return v12;
 }
 
 + (CGRect)getSquareCropForVisibleFrame:(CGRect)frame layerStack:(id)stack userInfo:(id)info originalImage:(CGRect)image

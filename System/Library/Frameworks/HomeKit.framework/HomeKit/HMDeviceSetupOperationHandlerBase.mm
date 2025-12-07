@@ -20,7 +20,7 @@
 
 - (void)setupSession:(id)session didReceiveExchangeData:(id)data completionHandler:(id)handler
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   dataCopy = data;
   handlerCopy = handler;
@@ -30,9 +30,9 @@
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v14 = HMFGetLogIdentifier();
-    v17 = 138543362;
-    v18 = v14;
-    _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@Received request to send unexpected received exchange data, dropping", &v17, 0xCu);
+    v16 = 138543362;
+    v17 = v14;
+    _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@Received request to send unexpected received exchange data, dropping", &v16, 0xCu);
   }
 
   objc_autoreleasePoolPop(v11);
@@ -41,8 +41,6 @@
     v15 = [MEMORY[0x1E696ABC0] hmErrorWithCode:48];
     handlerCopy[2](handlerCopy, 0, v15);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)configureSessionForMessages
@@ -56,7 +54,7 @@
 
 - (void)dealloc
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -64,9 +62,9 @@
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v11 = v6;
-    v12 = 2112;
-    v13 = objc_opt_class();
+    v10 = v6;
+    v11 = 2112;
+    v12 = objc_opt_class();
     _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_INFO, "%{public}@Deallocating %@", buf, 0x16u);
   }
 
@@ -74,10 +72,9 @@
   setupSession = [(HMDeviceSetupOperationHandlerBase *)selfCopy setupSession];
   [setupSession cleanUpSession];
 
-  v9.receiver = selfCopy;
-  v9.super_class = HMDeviceSetupOperationHandlerBase;
-  [(HMDeviceSetupOperationHandlerBase *)&v9 dealloc];
-  v8 = *MEMORY[0x1E69E9840];
+  v8.receiver = selfCopy;
+  v8.super_class = HMDeviceSetupOperationHandlerBase;
+  [(HMDeviceSetupOperationHandlerBase *)&v8 dealloc];
 }
 
 - (HMDeviceSetupOperationHandlerBase)initWithSetupSessionFactory:(id)factory
@@ -120,12 +117,11 @@ HMDeviceSetupSession *__41__HMDeviceSetupOperationHandlerBase_init__block_invoke
 
 uint64_t __48__HMDeviceSetupOperationHandlerBase_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v3_24923;
-  logCategory__hmf_once_v3_24923 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v3_24923;
+  logCategory__hmf_once_v3_24923 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

@@ -36,7 +36,7 @@
   v25 = v24;
   if (currentLayoutInfo)
   {
-    [currentLayoutInfo additionalContentTransform];
+    objc_msgSend_additionalContentTransform(currentLayoutInfo);
   }
 
   else
@@ -73,7 +73,7 @@
     v17 = v16;
     v19 = v18;
     v21 = v20;
-    [v4 additionalContentTransform];
+    objc_msgSend_additionalContentTransform(v4);
     v29.origin.x = v15;
     v29.origin.y = v17;
     v29.size.width = v19;
@@ -86,7 +86,7 @@
     contentView = [(PUParallaxVideoLayerView *)self contentView];
     [contentView setFrame:{x, y, width, height}];
 
-    [v4 additionalTransform];
+    objc_msgSend_additionalTransform(v4);
     v28 = v27;
     [(PUParallaxVideoLayerView *)self setTransform:&v28];
     PXRectWithSize();

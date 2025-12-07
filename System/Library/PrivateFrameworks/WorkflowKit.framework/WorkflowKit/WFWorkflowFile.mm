@@ -28,6 +28,8 @@
 - (id)writeToDiskWithFormat:(unint64_t)format error:(id *)error;
 - (unint64_t)estimatedSize;
 - (void)setDisabledOnLockScreen:(BOOL)screen;
+- (void)setHasOutputFallback:(BOOL)fallback;
+- (void)setHasShortcutInputVariables:(BOOL)variables;
 - (void)setIcon:(id)icon;
 - (void)setMinimumClientVersion:(id)version;
 @end
@@ -339,6 +341,13 @@ LABEL_7:
   return bOOLValue;
 }
 
+- (void)setHasOutputFallback:(BOOL)fallback
+{
+  rootObject = self->_rootObject;
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:fallback];
+  [(NSMutableDictionary *)rootObject setValue:v4 forKey:@"WFWorkflowHasOutputFallback"];
+}
+
 - (BOOL)hasOutputFallback
 {
   v2 = [(NSMutableDictionary *)self->_rootObject objectForKeyedSubscript:@"WFWorkflowHasOutputFallback"];
@@ -347,6 +356,13 @@ LABEL_7:
   bOOLValue = [v4 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setHasShortcutInputVariables:(BOOL)variables
+{
+  rootObject = self->_rootObject;
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:variables];
+  [(NSMutableDictionary *)rootObject setValue:v4 forKey:@"WFWorkflowHasShortcutInputVariables"];
 }
 
 - (BOOL)hasShortcutInputVariables
@@ -627,7 +643,7 @@ LABEL_7:
 - (WFWorkflowFile)initWithDictionary:(id)dictionary name:(id)name performMigration:(BOOL)migration
 {
   migrationCopy = migration;
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   nameCopy = name;
   v10 = getWFGeneralLogObject();
@@ -638,13 +654,13 @@ LABEL_7:
   if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     *buf = 138412290;
-    v33 = @"dictionary";
+    v32 = @"dictionary";
     _os_signpost_emit_with_name_impl(&dword_1CA256000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v11, "WFWorkflowFileInit", "type=%{signpost.description:attribute}@", buf, 0xCu);
   }
 
-  v31.receiver = self;
-  v31.super_class = WFWorkflowFile;
-  v14 = [(WFWorkflowFile *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = WFWorkflowFile;
+  v14 = [(WFWorkflowFile *)&v30 init];
   if (v14)
   {
     uUID = [MEMORY[0x1E696AFB0] UUID];
@@ -684,13 +700,12 @@ LABEL_7:
     v28 = v14;
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (WFWorkflowFile)initWithFileData:(id)data name:(id)name error:(id *)error
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   dataCopy = data;
   v10 = getWFGeneralLogObject();
@@ -700,9 +715,9 @@ LABEL_7:
   v13 = v12;
   if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
-    v20 = 138412290;
-    v21 = @"data";
-    _os_signpost_emit_with_name_impl(&dword_1CA256000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v11, "WFWorkflowFileInit", "type=%{signpost.description:attribute}@", &v20, 0xCu);
+    v19 = 138412290;
+    v20 = @"data";
+    _os_signpost_emit_with_name_impl(&dword_1CA256000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v11, "WFWorkflowFileInit", "type=%{signpost.description:attribute}@", &v19, 0xCu);
   }
 
   v14 = [MEMORY[0x1E696AE40] propertyListWithData:dataCopy options:0 format:0 error:error];
@@ -713,8 +728,8 @@ LABEL_7:
     v16 = v15;
     if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
     {
-      LOWORD(v20) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1CA256000, v16, OS_SIGNPOST_INTERVAL_END, v11, "WFWorkflowFileInit", "", &v20, 2u);
+      LOWORD(v19) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1CA256000, v16, OS_SIGNPOST_INTERVAL_END, v11, "WFWorkflowFileInit", "", &v19, 2u);
     }
 
     self = [(WFWorkflowFile *)self initWithDictionary:v14 name:nameCopy];
@@ -726,7 +741,6 @@ LABEL_7:
     selfCopy = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -740,10 +754,9 @@ LABEL_7:
 
 + (NSArray)writableTypeIdentifiersForItemProvider
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = @"com.apple.shortcuts.workflow-file";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = @"com.apple.shortcuts.workflow-file";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 
   return v2;
 }

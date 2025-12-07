@@ -39,7 +39,6 @@
 {
   if (*&self->_has)
   {
-    keyExists = self->_keyExists;
     PBDataWriterWriteBOOLField();
   }
 }

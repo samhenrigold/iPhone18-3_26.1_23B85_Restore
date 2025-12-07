@@ -9,11 +9,11 @@
 
 - (BLTMessageDigest)initWithMessage:(id)message
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   messageCopy = message;
-  v10.receiver = self;
-  v10.super_class = BLTMessageDigest;
-  v5 = [(BLTMessageDigest *)&v10 init];
+  v9.receiver = self;
+  v9.super_class = BLTMessageDigest;
+  v5 = [(BLTMessageDigest *)&v9 init];
   if (v5)
   {
     if (!messageCopy)
@@ -21,13 +21,12 @@
       messageCopy = objc_alloc_init(MEMORY[0x277CBEA90]);
     }
 
-    [messageCopy MD5:v11];
-    v6 = [MEMORY[0x277CBEA90] dataWithBytes:v11 length:16];
+    [messageCopy MD5:v10];
+    v6 = [MEMORY[0x277CBEA90] dataWithBytes:v10 length:16];
     messageDigest = v5->_messageDigest;
     v5->_messageDigest = v6;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

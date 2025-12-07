@@ -18,7 +18,7 @@
 
 - (id)abort
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   blockRow = [(HMBLocalSQLContextOutputBlock *)self blockRow];
   v4 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -33,20 +33,20 @@
       identifier = [activity identifier];
       shortDescription = [identifier shortDescription];
       *buf = 138543618;
-      v36 = v8;
-      v37 = 2114;
-      v38 = shortDescription;
+      v35 = v8;
+      v36 = 2114;
+      v37 = shortDescription;
       _os_log_impl(&dword_22AD27000, v7, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Aborting output block", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
     owner = [(HMBLocalSQLContextOutputBlock *)selfCopy owner];
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __38__HMBLocalSQLContextOutputBlock_abort__block_invoke;
-    v34[3] = &unk_2786E24B0;
-    v34[4] = selfCopy;
-    v13 = [owner sqlBlockWithActivity:0 block:v34];
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __38__HMBLocalSQLContextOutputBlock_abort__block_invoke;
+    v33[3] = &unk_2786E24B0;
+    v33[4] = selfCopy;
+    v13 = [owner sqlBlockWithActivity:0 block:v33];
 
     v14 = objc_autoreleasePoolPush();
     v15 = selfCopy;
@@ -61,11 +61,11 @@
         identifier2 = [activity2 identifier];
         shortDescription2 = [identifier2 shortDescription];
         *buf = 138543874;
-        v36 = v18;
-        v37 = 2114;
-        v38 = shortDescription2;
-        v39 = 2112;
-        v40 = v13;
+        v35 = v18;
+        v36 = 2114;
+        v37 = shortDescription2;
+        v38 = 2112;
+        v39 = v13;
         _os_log_impl(&dword_22AD27000, v17, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] Failed to abort output block: %@", buf, 0x20u);
       }
 
@@ -83,9 +83,9 @@
         identifier3 = [activity3 identifier];
         shortDescription3 = [identifier3 shortDescription];
         *buf = 138543618;
-        v36 = v27;
-        v37 = 2114;
-        v38 = shortDescription3;
+        v35 = v27;
+        v36 = 2114;
+        v37 = shortDescription3;
         _os_log_impl(&dword_22AD27000, v17, OS_LOG_TYPE_DEBUG, "%{public}@[%{public}@] Successfully aborted output block", buf, 0x16u);
       }
 
@@ -105,17 +105,15 @@
       identifier4 = [activity5 identifier];
       shortDescription4 = [identifier4 shortDescription];
       *buf = 138543618;
-      v36 = v23;
-      v37 = 2114;
-      v38 = shortDescription4;
+      v35 = v23;
+      v36 = 2114;
+      v37 = shortDescription4;
       _os_log_impl(&dword_22AD27000, v7, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] Asked to abort invalid output block", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
     v13 = 0;
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -139,7 +137,7 @@ id __38__HMBLocalSQLContextOutputBlock_abort__block_invoke(uint64_t a1, void *a2
 
 - (id)commit:(id)commit
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   commitCopy = commit;
   blockRow = [(HMBLocalSQLContextOutputBlock *)self blockRow];
   v6 = objc_autoreleasePoolPush();
@@ -155,9 +153,9 @@ id __38__HMBLocalSQLContextOutputBlock_abort__block_invoke(uint64_t a1, void *a2
       identifier = [activity identifier];
       shortDescription = [identifier shortDescription];
       *buf = 138543618;
-      v45 = v10;
-      v46 = 2114;
-      v47 = shortDescription;
+      v44 = v10;
+      v45 = 2114;
+      v46 = shortDescription;
       _os_log_impl(&dword_22AD27000, v9, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Committing output block.", buf, 0x16u);
     }
 
@@ -166,13 +164,13 @@ id __38__HMBLocalSQLContextOutputBlock_abort__block_invoke(uint64_t a1, void *a2
     [activity2 markWithReason:@"committing block."];
 
     owner = [(HMBLocalSQLContextOutputBlock *)selfCopy owner];
-    v38 = MEMORY[0x277D85DD0];
-    v39 = 3221225472;
-    v40 = __40__HMBLocalSQLContextOutputBlock_commit___block_invoke;
-    v41 = &unk_2786E1B00;
-    v42 = selfCopy;
-    v43 = commitCopy;
-    v16 = [owner sqlBlockWithActivity:0 block:&v38];
+    v37 = MEMORY[0x277D85DD0];
+    v38 = 3221225472;
+    v39 = __40__HMBLocalSQLContextOutputBlock_commit___block_invoke;
+    v40 = &unk_2786E1B00;
+    v41 = selfCopy;
+    v42 = commitCopy;
+    v16 = [owner sqlBlockWithActivity:0 block:&v37];
 
     v17 = objc_autoreleasePoolPush();
     v18 = selfCopy;
@@ -183,15 +181,15 @@ id __38__HMBLocalSQLContextOutputBlock_abort__block_invoke(uint64_t a1, void *a2
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         v21 = HMFGetLogIdentifier();
-        v22 = [(HMBLocalSQLContextOutputBlock *)v18 activity:v38];
+        v22 = [(HMBLocalSQLContextOutputBlock *)v18 activity:v37];
         identifier2 = [v22 identifier];
         shortDescription2 = [identifier2 shortDescription];
         *buf = 138543874;
-        v45 = v21;
-        v46 = 2114;
-        v47 = shortDescription2;
-        v48 = 2112;
-        v49 = v16;
+        v44 = v21;
+        v45 = 2114;
+        v46 = shortDescription2;
+        v47 = 2112;
+        v48 = v16;
         _os_log_impl(&dword_22AD27000, v20, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] Failed to commit output block: %@", buf, 0x20u);
       }
 
@@ -206,13 +204,13 @@ id __38__HMBLocalSQLContextOutputBlock_abort__block_invoke(uint64_t a1, void *a2
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
         v31 = HMFGetLogIdentifier();
-        v32 = [(HMBLocalSQLContextOutputBlock *)v18 activity:v38];
+        v32 = [(HMBLocalSQLContextOutputBlock *)v18 activity:v37];
         identifier3 = [v32 identifier];
         shortDescription3 = [identifier3 shortDescription];
         *buf = 138543618;
-        v45 = v31;
-        v46 = 2114;
-        v47 = shortDescription3;
+        v44 = v31;
+        v45 = 2114;
+        v46 = shortDescription3;
         _os_log_impl(&dword_22AD27000, v20, OS_LOG_TYPE_DEBUG, "%{public}@[%{public}@] Successfully committed input block", buf, 0x16u);
       }
 
@@ -232,17 +230,15 @@ id __38__HMBLocalSQLContextOutputBlock_abort__block_invoke(uint64_t a1, void *a2
       identifier4 = [activity4 identifier];
       shortDescription4 = [identifier4 shortDescription];
       *buf = 138543618;
-      v45 = v27;
-      v46 = 2114;
-      v47 = shortDescription4;
+      v44 = v27;
+      v45 = 2114;
+      v46 = shortDescription4;
       _os_log_impl(&dword_22AD27000, v9, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] Asked to commit invalid output block", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
     v16 = 0;
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -263,21 +259,21 @@ id __40__HMBLocalSQLContextOutputBlock_commit___block_invoke(uint64_t a1, void *
 
 - (id)updateModelID:(id)d modelEncoding:(unint64_t)encoding modelData:(id)data
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dataCopy = data;
   if ([(HMBLocalSQLContextOutputBlock *)self blockRow])
   {
     owner = [(HMBLocalSQLContextOutputBlock *)self owner];
-    v29 = MEMORY[0x277D85DD0];
-    v30 = 3221225472;
-    v31 = __71__HMBLocalSQLContextOutputBlock_updateModelID_modelEncoding_modelData___block_invoke;
-    v32 = &unk_2786E1AD8;
+    v28 = MEMORY[0x277D85DD0];
+    v29 = 3221225472;
+    v30 = __71__HMBLocalSQLContextOutputBlock_updateModelID_modelEncoding_modelData___block_invoke;
+    v31 = &unk_2786E1AD8;
     selfCopy = self;
-    v34 = dCopy;
+    v33 = dCopy;
     encodingCopy = encoding;
-    v35 = dataCopy;
-    v11 = [owner sqlBlockWithActivity:0 block:&v29];
+    v34 = dataCopy;
+    v11 = [owner sqlBlockWithActivity:0 block:&v28];
 
     if (v11)
     {
@@ -287,15 +283,15 @@ id __40__HMBLocalSQLContextOutputBlock_commit___block_invoke(uint64_t a1, void *
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         v15 = HMFGetLogIdentifier();
-        v16 = [(HMBLocalSQLContextOutputBlock *)selfCopy2 activity:v29];
+        v16 = [(HMBLocalSQLContextOutputBlock *)selfCopy2 activity:v28];
         identifier = [v16 identifier];
         shortDescription = [identifier shortDescription];
         *buf = 138543874;
-        v38 = v15;
-        v39 = 2114;
-        v40 = shortDescription;
-        v41 = 2112;
-        v42 = v11;
+        v37 = v15;
+        v38 = 2114;
+        v39 = shortDescription;
+        v40 = 2112;
+        v41 = v11;
         _os_log_impl(&dword_22AD27000, v14, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] Failed to add additional entries on output block: %@", buf, 0x20u);
       }
 
@@ -316,17 +312,15 @@ id __40__HMBLocalSQLContextOutputBlock_commit___block_invoke(uint64_t a1, void *
       identifier2 = [activity identifier];
       shortDescription2 = [identifier2 shortDescription];
       *buf = 138543618;
-      v38 = v23;
-      v39 = 2114;
-      v40 = shortDescription2;
+      v37 = v23;
+      v38 = 2114;
+      v39 = shortDescription2;
       _os_log_impl(&dword_22AD27000, v22, OS_LOG_TYPE_ERROR, "%{public}@[%{public}@] Asked to add additional entries on invalid output block", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v20);
     v11 = 0;
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -351,12 +345,12 @@ id __71__HMBLocalSQLContextOutputBlock_updateModelID_modelEncoding_modelData___b
 
 - (HMBLocalSQLContextOutputBlock)initWithOwner:(id)owner identifier:(id)identifier zoneRow:(unint64_t)row blockRow:(unint64_t)blockRow
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   ownerCopy = owner;
   identifierCopy = identifier;
-  v32.receiver = self;
-  v32.super_class = HMBLocalSQLContextOutputBlock;
-  v12 = [(HMBLocalSQLContextOutputBlock *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = HMBLocalSQLContextOutputBlock;
+  v12 = [(HMBLocalSQLContextOutputBlock *)&v31 init];
   v13 = v12;
   if (v12)
   {
@@ -382,24 +376,23 @@ id __71__HMBLocalSQLContextOutputBlock_updateModelID_modelEncoding_modelData___b
       identifier = [activity identifier];
       shortDescription = [identifier shortDescription];
       [(HMBLocalSQLContextOutputBlock *)v21 identifier];
-      v31 = v20;
+      v30 = v20;
       v28 = v27 = identifierCopy;
       *buf = 138543874;
-      v34 = v23;
-      v35 = 2114;
-      v36 = shortDescription;
-      v37 = 2112;
-      v38 = v28;
+      v33 = v23;
+      v34 = 2114;
+      v35 = shortDescription;
+      v36 = 2112;
+      v37 = v28;
       _os_log_impl(&dword_22AD27000, v22, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Creating Output Block for %@", buf, 0x20u);
 
       identifierCopy = v27;
-      v20 = v31;
+      v20 = v30;
     }
 
     objc_autoreleasePoolPop(v20);
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -417,12 +410,11 @@ id __71__HMBLocalSQLContextOutputBlock_updateModelID_modelEncoding_modelData___b
 
 uint64_t __44__HMBLocalSQLContextOutputBlock_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v12;
-  logCategory__hmf_once_v12 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v12;
+  logCategory__hmf_once_v12 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

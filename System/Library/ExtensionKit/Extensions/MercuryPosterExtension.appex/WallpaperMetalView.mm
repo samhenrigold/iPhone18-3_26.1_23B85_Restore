@@ -34,7 +34,7 @@
 
 + (Class)layerClass
 {
-  sub_100012904(0, &unk_1001311E0);
+  sub_100012904(0, &unk_1001311E0, CAMetalLayer_ptr);
 
   return swift_getObjCClassFromMetadata();
 }

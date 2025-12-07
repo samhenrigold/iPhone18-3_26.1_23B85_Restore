@@ -129,7 +129,6 @@
   MEMORY[0x277D82BD8](disableWhenDeviceLockedConfigurationKey);
   MEMORY[0x277D82BD8](v6);
   MEMORY[0x277D82BD8](disableWhenDisplayOffConfigurationKey);
-  *MEMORY[0x277D85DE8];
 
   return v4;
 }

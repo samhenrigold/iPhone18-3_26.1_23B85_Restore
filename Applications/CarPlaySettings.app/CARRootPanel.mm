@@ -20,38 +20,39 @@
 - (CARRootPanel)initWithPanelController:(id)controller
 {
   controllerCopy = controller;
-  v11.receiver = self;
-  v11.super_class = CARRootPanel;
-  v5 = [(CARSettingsPanel *)&v11 initWithPanelController:controllerCopy];
+  v12.receiver = self;
+  v12.super_class = CARRootPanel;
+  v5 = [(CARSettingsPanel *)&v12 initWithPanelController:controllerCopy];
+  v6 = v5;
   if (v5)
   {
-    v6 = sub_10001C784();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = sub_10001C784(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      sub_10009073C(v5, v6);
+      sub_10009073C(v6, v7);
     }
 
-    [controllerCopy addNotificationSettingsObserver:v5];
+    [controllerCopy addNotificationSettingsObserver:v6];
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
-    CFNotificationCenterAddObserver(DarwinNotifyCenter, v5, sub_1000029C0, @"com.apple.gms.availability.notification", 0, 0);
-    [(CARRootPanel *)v5 _updateAIEnabled];
-    v8 = +[_TtC15CarPlaySettings16CARAssetsManager sharedInstance];
-    [v8 addObserver:v5];
-
+    CFNotificationCenterAddObserver(DarwinNotifyCenter, v6, sub_1000029C0, @"com.apple.gms.availability.notification", 0, 0);
+    [(CARRootPanel *)v6 _updateAIEnabled];
     v9 = +[_TtC15CarPlaySettings16CARAssetsManager sharedInstance];
-    v5->_isDarkModeOnly = [v9 isDarkModeAppearanceOnly];
+    [v9 addObserver:v6];
 
-    [(CARRootPanel *)v5 _updateVehicleWithDarkModeOnlyIfNeeded];
+    v10 = +[_TtC15CarPlaySettings16CARAssetsManager sharedInstance];
+    v6->_isDarkModeOnly = [v10 isDarkModeAppearanceOnly];
+
+    [(CARRootPanel *)v6 _updateVehicleWithDarkModeOnlyIfNeeded];
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)viewDidLoad
 {
-  v18.receiver = self;
-  v18.super_class = CARRootPanel;
-  [(CARSettingsTablePanel *)&v18 viewDidLoad];
+  v19.receiver = self;
+  v19.super_class = CARRootPanel;
+  [(CARSettingsTablePanel *)&v19 viewDidLoad];
   v3 = +[NSUserDefaults standardUserDefaults];
   v4 = [v3 objectForKey:@"CARLastPanelKey"];
 
@@ -62,54 +63,54 @@
 
   if (v8)
   {
-    v9 = sub_10001C784();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_10001C784(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v17 = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[Settings] Display scale was reset, reopen DisplayScale panel", v17, 2u);
+      *v18 = 0;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[Settings] Display scale was reset, reopen DisplayScale panel", v18, 2u);
     }
 
-    v10 = [(CARRootPanel *)self panelPassingTest:&stru_1000DACE0];
+    v11 = [(CARRootPanel *)self panelPassingTest:&stru_1000DACE0];
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
   panelController2 = [(CARSettingsPanel *)self panelController];
   carSession = [panelController2 carSession];
   configuration = [carSession configuration];
   screens = [configuration screens];
-  v15 = [screens bs_containsObjectPassingTest:&stru_1000DAD20];
+  v16 = [screens bs_containsObjectPassingTest:&stru_1000DAD20];
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && v15)
+  if ((objc_opt_isKindOfClass() & 1) != 0 && v16)
   {
     panelController3 = [(CARSettingsPanel *)self panelController];
-    [panelController3 pushPanel:v10];
+    [panelController3 pushPanel:v11];
   }
 }
 
 - (void)viewWillAppear:(BOOL)appear
 {
-  v6.receiver = self;
-  v6.super_class = CARRootPanel;
-  [(CARSettingsTablePanel *)&v6 viewWillAppear:appear];
-  v3 = sub_10001C784();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v7.receiver = self;
+  v7.super_class = CARRootPanel;
+  v3 = [(CARSettingsTablePanel *)&v7 viewWillAppear:appear];
+  v4 = sub_10001C784(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "[Settings] CARRootPanel appeared. Reset kCARSettingsLastPanelKey", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "[Settings] CARRootPanel appeared. Reset kCARSettingsLastPanelKey", v6, 2u);
   }
 
-  v4 = +[NSUserDefaults standardUserDefaults];
-  [v4 removeObjectForKey:@"CARLastPanelKey"];
+  v5 = +[NSUserDefaults standardUserDefaults];
+  [v5 removeObjectForKey:@"CARLastPanelKey"];
 }
 
 - (void)dealloc
 {
-  v3 = sub_10001C784();
+  v3 = sub_10001C784(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_1000907B4(self, v3);
@@ -456,7 +457,7 @@ LABEL_32:
 
 - (void)invalidate
 {
-  v3 = sub_10001C784();
+  v3 = sub_10001C784(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -496,27 +497,28 @@ LABEL_32:
 - (void)_updateAIEnabled
 {
   v3 = AFDeviceSupportsSystemAssistantExperience();
-  v4 = sub_10001C784();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v4 = v3;
+  v5 = sub_10001C784(v3);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = @"NO";
-    if (v3)
+    v6 = @"NO";
+    if (v4)
     {
-      v5 = @"YES";
+      v6 = @"YES";
     }
 
     *buf = 138543362;
-    v9 = v5;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "[Settings] Apple intelligence enabled: %{public}@", buf, 0xCu);
+    v10 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[Settings] Apple intelligence enabled: %{public}@", buf, 0xCu);
   }
 
-  v6[0] = _NSConcreteStackBlock;
-  v6[1] = 3221225472;
-  v6[2] = sub_100003C44;
-  v6[3] = &unk_1000DAD48;
-  v6[4] = self;
-  v7 = v3;
-  dispatch_async(&_dispatch_main_q, v6);
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_100003C44;
+  v7[3] = &unk_1000DAD48;
+  v7[4] = self;
+  v8 = v4;
+  dispatch_async(&_dispatch_main_q, v7);
 }
 
 - (void)assetsManagerReady

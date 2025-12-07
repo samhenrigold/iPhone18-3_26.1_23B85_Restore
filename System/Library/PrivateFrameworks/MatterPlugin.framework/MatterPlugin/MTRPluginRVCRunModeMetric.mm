@@ -24,31 +24,31 @@
 
 - (id)additionalCoreAnalyticsEventDictionary
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   invokeCommandMetric = [(MTRPluginRVCRunModeMetric *)self invokeCommandMetric];
   expectedValues = [invokeCommandMetric expectedValues];
 
-  v4 = [expectedValues countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v4 = [expectedValues countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
     v7 = 0;
-    v8 = *v30;
+    v8 = *v29;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v30 != v8)
+        if (*v29 != v8)
         {
           objc_enumerationMutation(expectedValues);
         }
 
-        v10 = *(*(&v29 + 1) + 8 * i);
+        v10 = *(*(&v28 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -84,7 +84,7 @@
         }
       }
 
-      v5 = [expectedValues countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v5 = [expectedValues countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v5);
@@ -108,8 +108,6 @@
 
   [v22 setObject:v7 forKeyedSubscript:@"rvcRunMode"];
   [v22 setObject:v6 forKeyedSubscript:@"rvcOperationalState"];
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v22;
 }

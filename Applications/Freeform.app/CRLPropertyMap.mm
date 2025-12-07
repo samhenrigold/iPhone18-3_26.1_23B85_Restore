@@ -31,7 +31,7 @@
   sub_100BC1F00(v8, property);
   swift_endAccess();
 
-  sub_10000CAAC(v9, &unk_1019F4D00);
+  sub_10000CAAC(v9, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (BOOL)containsProperty:(unint64_t)property
@@ -77,7 +77,7 @@
   sub_100BC1F00(v8, subscript);
   swift_endAccess();
 
-  sub_10000CAAC(v9, &unk_1019F4D00);
+  sub_10000CAAC(v9, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (void)enumeratePropertiesUsingBlock:(id)block

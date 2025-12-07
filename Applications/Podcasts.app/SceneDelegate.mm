@@ -39,8 +39,8 @@
 
 - (void)scene:(id)scene openURLContexts:(id)contexts
 {
-  sub_100009F1C(0, &qword_10057A278);
-  sub_100031980(&qword_10057A280, &qword_10057A278);
+  sub_100009F1C(0, &qword_10057A278, UIOpenURLContext_ptr);
+  sub_100031980(&qword_10057A280, &qword_10057A278, UIOpenURLContext_ptr);
   v6 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   sceneCopy = scene;
   selfCopy = self;
@@ -71,7 +71,7 @@
   sceneCopy = scene;
   errorCopy = error;
   selfCopy = self;
-  sub_1002717D8(v8, v10);
+  sub_1002717D8(v8, v10, errorCopy);
 }
 
 - (void)windowScene:(id)scene performActionForShortcutItem:(id)item completionHandler:(id)handler

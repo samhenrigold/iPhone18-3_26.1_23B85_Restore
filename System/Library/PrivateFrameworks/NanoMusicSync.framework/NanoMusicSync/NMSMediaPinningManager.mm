@@ -8,7 +8,6 @@
 + (id)_tokenForInstance:(id)instance;
 + (id)sharedManager;
 + (unint64_t)_mediaStorageSizeForCurrentDevice;
-+ (void)_mediaStorageSizeForCurrentDevice;
 + (void)_persistNewClientToken;
 - (BOOL)_deviceSupportsPodcastsPinningSettingsV2;
 - (BOOL)_isAlbumPinned:(id)pinned;
@@ -44,8 +43,15 @@
 - (NSSet)podcastsSelectedStationUUIDs;
 - (double)_audiobookDownloadLimit;
 - (double)audiobookDownloadLimit;
+- (id)_legacy_newAudiobooksGroupIteratorWithDownloadedItemsOnly:(BOOL)only;
+- (id)_legacy_newGroupIteratorForBundleIdentifier:(id)identifier downloadedItemsOnly:(BOOL)only;
+- (id)_legacy_newMusicGroupIteratorWithDownloadedItemsOnly:(BOOL)only;
+- (id)_legacy_newPodcastsGroupIteratorWithDownloadedItemsOnly:(BOOL)only;
+- (id)_legacy_quotaManagerWithDownloadedItemsOnly:(BOOL)only;
 - (id)_newAudiobooksEnumeratorWithDownloadedItemsOnly:(BOOL)only;
+- (id)_newItemEnumeratorForBundleIdentifier:(id)identifier downloadedItemsOnly:(BOOL)only;
 - (id)_newMusicEnumeratorWithDownloadedItemsOnly:(BOOL)only;
+- (id)_quotaManagerWithDownloadedItemsOnly:(BOOL)only;
 - (id)downloadInfoForBundleIdentifier:(id)identifier;
 - (id)downloadInfoWithinAvailableSpace:(unint64_t)space;
 - (id)podcastsDownloadSettingsForShowFeedURL:(id)l;
@@ -135,18 +141,19 @@
 
 uint64_t __39__NMSMediaPinningManager_sharedManager__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  sharedManager___sharedMananger = objc_opt_new();
+  v1 = objc_opt_new();
+  v2 = sharedManager___sharedMananger;
+  sharedManager___sharedMananger = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (NMSMediaPinningManager)init
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v25.receiver = self;
-  v25.super_class = NMSMediaPinningManager;
-  v2 = [(NMSMediaPinningManager *)&v25 init];
+  v29 = *MEMORY[0x277D85DE8];
+  v24.receiver = self;
+  v24.super_class = NMSMediaPinningManager;
+  v2 = [(NMSMediaPinningManager *)&v24 init];
   if (v2)
   {
     v3 = +[NMSyncDefaults sharedDefaults];
@@ -201,7 +208,7 @@ LABEL_10:
         defaultCenter7 = [MEMORY[0x277CCA9A0] defaultCenter];
         [defaultCenter7 addObserver:v2 selector:sel__handleMediaPinningManagerAudiobooksIdentifiersDidChangeNotification_ name:@"NMSMediaPinningManagerAudiobooksIdentifiersDidChangeNotification" object:0];
 
-        goto LABEL_11;
+        return v2;
       }
 
       v14 = objc_alloc_init(NMSPodcastsDownloadableContentController_Legacy);
@@ -221,9 +228,9 @@ LABEL_10:
         _shouldCalculateCachedIdentifiers = [(NMSMediaPinningManager *)v2 _shouldCalculateCachedIdentifiers];
         _shouldSkipQuotaManagerEvaluation = [(NMSMediaPinningManager *)v2 _shouldSkipQuotaManagerEvaluation];
         *buf = 67109376;
-        v27 = _shouldCalculateCachedIdentifiers;
-        v28 = 1024;
-        v29 = _shouldSkipQuotaManagerEvaluation;
+        v26 = _shouldCalculateCachedIdentifiers;
+        v27 = 1024;
+        v28 = _shouldSkipQuotaManagerEvaluation;
         _os_log_impl(&dword_25B27B000, mEMORY[0x277D3DAF0], OS_LOG_TYPE_DEFAULT, "Not creating NMSPodcastsDownloadableContentProvider. _shouldCalculateCachedIdentifiers %x _shouldSkipQuotaManagerEvaluation %x", buf, 0xEu);
       }
     }
@@ -231,8 +238,6 @@ LABEL_10:
     goto LABEL_10;
   }
 
-LABEL_11:
-  v23 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -268,32 +273,30 @@ LABEL_11:
   dispatch_async(internalQueue, v4);
 }
 
-uint64_t __44__NMSMediaPinningManager_setAvailableSpace___block_invoke(uint64_t a1)
+char *__44__NMSMediaPinningManager_setAvailableSpace___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() _mediaStorageSizeForCurrentDevice];
-  v4 = *(a1 + 32);
-  if (v3 >= *(a1 + 40))
+  v2 = [objc_opt_class() _mediaStorageSizeForCurrentDevice];
+  if (v2 >= *(a1 + 40))
   {
-    v5 = *(a1 + 40);
+    v3 = *(a1 + 40);
   }
 
   else
   {
-    v5 = v3;
+    v3 = v2;
   }
 
   result = [*(a1 + 32) _mediaQuota];
-  if (result - v5 >= 0x4C4B41)
+  if (&result[-v3] >= 0x4C4B41)
   {
-    v7 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v5];
+    v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v3];
+    v6 = *(a1 + 32);
+    v7 = *(v6 + 40);
+    *(v6 + 40) = v5;
+
     v8 = *(a1 + 32);
-    v9 = *(v8 + 40);
-    *(v8 + 40) = v7;
 
-    v10 = *(a1 + 32);
-
-    return [v10 _invalidateAddedItemsCache];
+    return [v8 _invalidateAddedItemsCache];
   }
 
   return result;
@@ -546,23 +549,19 @@ void __43__NMSMediaPinningManager_workoutPlaylistID__block_invoke(uint64_t a1)
 
   if ((*(*(a1 + 32) + 113) & 1) == 0)
   {
-    if ([*(*(*(a1 + 40) + 8) + 40) longLongValue])
+    if ([*(*(*(a1 + 40) + 8) + 40) longLongValue] && (objc_msgSend(objc_opt_class(), "_playlistPIDValidForPinning:", *(*(*(a1 + 40) + 8) + 40)) & 1) == 0)
     {
-      v6 = *(a1 + 32);
-      if (([objc_opt_class() _playlistPIDValidForPinning:*(*(*(a1 + 40) + 8) + 40)] & 1) == 0)
+      v6 = NMLogForCategory(5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v7 = NMLogForCategory(5);
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-        {
-          __43__NMSMediaPinningManager_workoutPlaylistID__block_invoke_cold_1(a1 + 40, v7, v8, v9, v10, v11, v12, v13);
-        }
-
-        v14 = *(*(a1 + 40) + 8);
-        v15 = *(v14 + 40);
-        *(v14 + 40) = 0;
-
-        [*(a1 + 32) _setWorkoutPlaylistID:*(*(*(a1 + 40) + 8) + 40)];
+        __43__NMSMediaPinningManager_workoutPlaylistID__block_invoke_cold_1(a1 + 40, v6, v7, v8, v9, v10, v11, v12);
       }
+
+      v13 = *(*(a1 + 40) + 8);
+      v14 = *(v13 + 40);
+      *(v13 + 40) = 0;
+
+      [*(a1 + 32) _setWorkoutPlaylistID:*(*(*(a1 + 40) + 8) + 40)];
     }
 
     *(*(a1 + 32) + 113) = 1;
@@ -1031,7 +1030,7 @@ void __54__NMSMediaPinningManager_podcastsSelectedShowFeedURLs__block_invoke_3(u
   return v3;
 }
 
-uint64_t __50__NMSMediaPinningManager_pinnedPodcastsAreUserSet__block_invoke(uint64_t a1)
+void *__50__NMSMediaPinningManager_pinnedPodcastsAreUserSet__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 8) pinnedPodcastsAreUserSet];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1050,9 +1049,9 @@ uint64_t __50__NMSMediaPinningManager_pinnedPodcastsAreUserSet__block_invoke(uin
   dispatch_async(internalQueue, v4);
 }
 
-uint64_t __54__NMSMediaPinningManager_setPinnedPodcastsAreUserSet___block_invoke(uint64_t a1)
+void *__54__NMSMediaPinningManager_setPinnedPodcastsAreUserSet___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
   result = [*(*(a1 + 32) + 8) pinnedPodcastsAreUserSet];
   if (v2 != result)
@@ -1061,16 +1060,15 @@ uint64_t __54__NMSMediaPinningManager_setPinnedPodcastsAreUserSet___block_invoke
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 40);
-      v7[0] = 67109120;
-      v7[1] = v5;
-      _os_log_impl(&dword_25B27B000, v4, OS_LOG_TYPE_DEFAULT, "Setting new pinned podcasts are user set value %x", v7, 8u);
+      v6[0] = 67109120;
+      v6[1] = v5;
+      _os_log_impl(&dword_25B27B000, v4, OS_LOG_TYPE_DEFAULT, "Setting new pinned podcasts are user set value %x", v6, 8u);
     }
 
     [*(*(a1 + 32) + 8) setPinnedPodcastsAreUserSet:*(a1 + 40)];
-    result = [*(a1 + 32) _invalidateMediaCacheForAppIdentifiers:2];
+    return [*(a1 + 32) _invalidateMediaCacheForAppIdentifiers:2];
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1104,7 +1102,7 @@ uint64_t __54__NMSMediaPinningManager_setPinnedPodcastsAreUserSet___block_invoke
   }
 }
 
-uint64_t __46__NMSMediaPinningManager_savedEpisodesEnabled__block_invoke(uint64_t a1)
+void *__46__NMSMediaPinningManager_savedEpisodesEnabled__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 8) pinnedPodcastsAreUserSet];
   if (result)
@@ -1128,9 +1126,9 @@ uint64_t __46__NMSMediaPinningManager_savedEpisodesEnabled__block_invoke(uint64_
   dispatch_async(internalQueue, v4);
 }
 
-uint64_t __50__NMSMediaPinningManager_setSavedEpisodesEnabled___block_invoke(uint64_t a1)
+void *__50__NMSMediaPinningManager_setSavedEpisodesEnabled___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
   result = [*(*(a1 + 32) + 8) savedEpisodesEnabled];
   if (v2 != result)
@@ -1139,16 +1137,15 @@ uint64_t __50__NMSMediaPinningManager_setSavedEpisodesEnabled___block_invoke(uin
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 40);
-      v7[0] = 67109120;
-      v7[1] = v5;
-      _os_log_impl(&dword_25B27B000, v4, OS_LOG_TYPE_DEFAULT, "Setting new saved episodes enabled value %x", v7, 8u);
+      v6[0] = 67109120;
+      v6[1] = v5;
+      _os_log_impl(&dword_25B27B000, v4, OS_LOG_TYPE_DEFAULT, "Setting new saved episodes enabled value %x", v6, 8u);
     }
 
     [*(*(a1 + 32) + 8) setSavedEpisodesEnabled:*(a1 + 40)];
-    result = [*(a1 + 32) _invalidateMediaCacheForAppIdentifiers:2];
+    return [*(a1 + 32) _invalidateMediaCacheForAppIdentifiers:2];
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1264,14 +1261,14 @@ uint64_t __50__NMSMediaPinningManager_setSavedEpisodesEnabled___block_invoke(uin
 
 void __48__NMSMediaPinningManager_pinPodcastWithFeedURL___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = NMLogForCategory(5);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v7 = 138543362;
-    v8 = v3;
-    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_DEFAULT, "Pinning podcast <%{public}@>", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v3;
+    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_DEFAULT, "Pinning podcast <%{public}@>", &v6, 0xCu);
   }
 
   v4 = [*(*(a1 + 40) + 8) pinnedPodcastFeedURLs];
@@ -1283,8 +1280,6 @@ void __48__NMSMediaPinningManager_pinPodcastWithFeedURL___block_invoke(uint64_t 
   {
     [*(a1 + 40) _invalidateMediaCacheForAppIdentifiers:2];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unpinPodcastWithFeedURL:(id)l
@@ -1303,14 +1298,14 @@ void __48__NMSMediaPinningManager_pinPodcastWithFeedURL___block_invoke(uint64_t 
 
 void __50__NMSMediaPinningManager_unpinPodcastWithFeedURL___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = NMLogForCategory(5);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v7 = 138543362;
-    v8 = v3;
-    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_DEFAULT, "Unpinning podcast <%{public}@>", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v3;
+    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_DEFAULT, "Unpinning podcast <%{public}@>", &v6, 0xCu);
   }
 
   v4 = [*(*(a1 + 40) + 8) pinnedPodcastFeedURLs];
@@ -1322,8 +1317,6 @@ void __50__NMSMediaPinningManager_unpinPodcastWithFeedURL___block_invoke(uint64_
   {
     [*(a1 + 40) _invalidateMediaCacheForAppIdentifiers:2];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pinPodcastStationWithUUID:(id)d
@@ -1342,14 +1335,14 @@ void __50__NMSMediaPinningManager_unpinPodcastWithFeedURL___block_invoke(uint64_
 
 void __52__NMSMediaPinningManager_pinPodcastStationWithUUID___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = NMLogForCategory(5);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v7 = 138543362;
-    v8 = v3;
-    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_DEFAULT, "Pinning podcast station <%{public}@>", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v3;
+    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_DEFAULT, "Pinning podcast station <%{public}@>", &v6, 0xCu);
   }
 
   v4 = [*(*(a1 + 40) + 8) pinnedPodcastStationUUIDs];
@@ -1361,8 +1354,6 @@ void __52__NMSMediaPinningManager_pinPodcastStationWithUUID___block_invoke(uint6
   {
     [*(a1 + 40) _invalidateMediaCacheForAppIdentifiers:2];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unpinPodcastStationWithUUID:(id)d
@@ -1381,14 +1372,14 @@ void __52__NMSMediaPinningManager_pinPodcastStationWithUUID___block_invoke(uint6
 
 void __54__NMSMediaPinningManager_unpinPodcastStationWithUUID___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = NMLogForCategory(5);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v7 = 138543362;
-    v8 = v3;
-    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_DEFAULT, "Unpinning podcast station <%{public}@>", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v3;
+    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_DEFAULT, "Unpinning podcast station <%{public}@>", &v6, 0xCu);
   }
 
   v4 = [*(*(a1 + 40) + 8) pinnedPodcastStationUUIDs];
@@ -1400,8 +1391,6 @@ void __54__NMSMediaPinningManager_unpinPodcastStationWithUUID___block_invoke(uin
   {
     [*(a1 + 40) _invalidateMediaCacheForAppIdentifiers:2];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidateAudiobooksCache
@@ -1475,18 +1464,108 @@ void __46__NMSMediaPinningManager_audiobookIdentifiers__block_invoke(uint64_t a1
 
 - (void)_fetchAudiobooksIdentifiers
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_4(&dword_25B27B000, v0, v1, "Failed to unarchive cached audiobookIdentifiers due to %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  dispatch_assert_queue_V2(self->_internalQueue);
+  v3 = MEMORY[0x277CBEB98];
+  v4 = objc_opt_class();
+  v5 = [v3 setWithObjects:{v4, objc_opt_class(), 0}];
+  v6 = MEMORY[0x277CCAAC8];
+  v7 = MEMORY[0x277CBEA90];
+  _cachedAudiobookIdentifiersFilePath = [objc_opt_class() _cachedAudiobookIdentifiersFilePath];
+  v9 = [v7 dataWithContentsOfFile:_cachedAudiobookIdentifiersFilePath];
+  v14 = 0;
+  v10 = [v6 unarchivedObjectOfClasses:v5 fromData:v9 error:&v14];
+  v11 = v14;
+
+  if (v11)
+  {
+    v12 = NMLogForCategory(5);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      [NMSMediaPinningManager _fetchAudiobooksIdentifiers];
+    }
+  }
+
+  cachedAudiobookIdentifiers = self->_cachedAudiobookIdentifiers;
+  self->_cachedAudiobookIdentifiers = v10;
 }
 
 - (void)_refreshAudiobooksIdentifiers
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_4(&dword_25B27B000, v0, v1, "Failed to archive audiobookIdentifiers due to %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  dispatch_assert_queue_V2(self->_internalQueue);
+  if ([(NMSMediaPinningManager *)self _deviceSupportsPodcastsPinningSettingsV2])
+  {
+    orderedSet = [MEMORY[0x277CBEB40] orderedSet];
+    if ([(NMSyncDefaults *)self->_sharedDefaults readingNowEnabled])
+    {
+      readingNowAudiobooks = [(NMSyncDefaults *)self->_sharedDefaults readingNowAudiobooks];
+
+      if (readingNowAudiobooks)
+      {
+        readingNowAudiobooks2 = [(NMSyncDefaults *)self->_sharedDefaults readingNowAudiobooks];
+        [orderedSet addObjectsFromArray:readingNowAudiobooks2];
+      }
+    }
+
+    if ([(NMSyncDefaults *)self->_sharedDefaults wantToReadEnabled])
+    {
+      wantToReadAudiobooks = [(NMSyncDefaults *)self->_sharedDefaults wantToReadAudiobooks];
+
+      if (wantToReadAudiobooks)
+      {
+        wantToReadAudiobooks2 = [(NMSyncDefaults *)self->_sharedDefaults wantToReadAudiobooks];
+        [orderedSet addObjectsFromArray:wantToReadAudiobooks2];
+      }
+    }
+
+    pinnedAudiobooks = [(NMSyncDefaults *)self->_sharedDefaults pinnedAudiobooks];
+
+    if (pinnedAudiobooks)
+    {
+      pinnedAudiobooks2 = [(NMSyncDefaults *)self->_sharedDefaults pinnedAudiobooks];
+      [orderedSet addObjectsFromArray:pinnedAudiobooks2];
+    }
+
+    array = [orderedSet array];
+    p_cachedAudiobookIdentifiers = &self->_cachedAudiobookIdentifiers;
+    v12 = self->_cachedAudiobookIdentifiers;
+    v13 = v12;
+    if (v12 == array)
+    {
+    }
+
+    else
+    {
+      v14 = [(NSArray *)v12 isEqual:array];
+
+      if ((v14 & 1) == 0)
+      {
+        v20 = 0;
+        v15 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:array requiringSecureCoding:1 error:&v20];
+        v16 = v20;
+        if (v16)
+        {
+          v17 = NMLogForCategory(5);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          {
+            [NMSMediaPinningManager _refreshAudiobooksIdentifiers];
+          }
+        }
+
+        _cachedAudiobookIdentifiersFilePath = [objc_opt_class() _cachedAudiobookIdentifiersFilePath];
+        [v15 writeToFile:_cachedAudiobookIdentifiersFilePath atomically:1];
+
+        objc_storeStrong(p_cachedAudiobookIdentifiers, array);
+        defaultCenter = [MEMORY[0x277CCA9A0] defaultCenter];
+        [defaultCenter postNotificationName:@"NMSMediaPinningManagerAudiobooksIdentifiersDidChangeNotification" object:0];
+      }
+    }
+  }
+
+  else
+  {
+
+    [(NMSMediaPinningManager *)self _legacy_refreshAudiobooksIdentifiers];
+  }
 }
 
 - (BOOL)isWantToReadEnabled
@@ -1508,7 +1587,7 @@ void __46__NMSMediaPinningManager_audiobookIdentifiers__block_invoke(uint64_t a1
   return v3;
 }
 
-uint64_t __45__NMSMediaPinningManager_isWantToReadEnabled__block_invoke(uint64_t a1)
+void *__45__NMSMediaPinningManager_isWantToReadEnabled__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 8) wantToReadEnabled];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1527,9 +1606,9 @@ uint64_t __45__NMSMediaPinningManager_isWantToReadEnabled__block_invoke(uint64_t
   dispatch_async(internalQueue, v4);
 }
 
-uint64_t __47__NMSMediaPinningManager_setWantToReadEnabled___block_invoke(uint64_t a1)
+void *__47__NMSMediaPinningManager_setWantToReadEnabled___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
   result = [*(*(a1 + 32) + 8) wantToReadEnabled];
   if (v2 != result)
@@ -1538,16 +1617,15 @@ uint64_t __47__NMSMediaPinningManager_setWantToReadEnabled___block_invoke(uint64
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 40);
-      v7[0] = 67109120;
-      v7[1] = v5;
-      _os_log_impl(&dword_25B27B000, v4, OS_LOG_TYPE_DEFAULT, "Setting new wantToReadEnabled value: %x", v7, 8u);
+      v6[0] = 67109120;
+      v6[1] = v5;
+      _os_log_impl(&dword_25B27B000, v4, OS_LOG_TYPE_DEFAULT, "Setting new wantToReadEnabled value: %x", v6, 8u);
     }
 
     [*(*(a1 + 32) + 8) setWantToReadEnabled:*(a1 + 40)];
-    result = [*(a1 + 32) _invalidateMediaCacheForAppIdentifiers:4];
+    return [*(a1 + 32) _invalidateMediaCacheForAppIdentifiers:4];
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1599,7 +1677,7 @@ void __46__NMSMediaPinningManager_wantToReadAudiobooks__block_invoke(uint64_t a1
 
 void __50__NMSMediaPinningManager_setWantToReadAudiobooks___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) array];
   v3 = [*(*(a1 + 40) + 8) wantToReadAudiobooks];
   v4 = v3;
@@ -1617,9 +1695,9 @@ void __50__NMSMediaPinningManager_setWantToReadAudiobooks___block_invoke(uint64_
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         v7 = *(a1 + 32);
-        v9 = 138543362;
-        v10 = v7;
-        _os_log_impl(&dword_25B27B000, v6, OS_LOG_TYPE_DEFAULT, "Setting wantToReadAudiobooks %{public}@", &v9, 0xCu);
+        v8 = 138543362;
+        v9 = v7;
+        _os_log_impl(&dword_25B27B000, v6, OS_LOG_TYPE_DEFAULT, "Setting wantToReadAudiobooks %{public}@", &v8, 0xCu);
       }
 
       [*(*(a1 + 40) + 8) setWantToReadAudiobooks:v2];
@@ -1629,8 +1707,6 @@ void __50__NMSMediaPinningManager_setWantToReadAudiobooks___block_invoke(uint64_
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isReadingNowEnabled
@@ -1652,7 +1728,7 @@ void __50__NMSMediaPinningManager_setWantToReadAudiobooks___block_invoke(uint64_
   return v3;
 }
 
-uint64_t __45__NMSMediaPinningManager_isReadingNowEnabled__block_invoke(uint64_t a1)
+void *__45__NMSMediaPinningManager_isReadingNowEnabled__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 8) readingNowEnabled];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1671,9 +1747,9 @@ uint64_t __45__NMSMediaPinningManager_isReadingNowEnabled__block_invoke(uint64_t
   dispatch_async(internalQueue, v4);
 }
 
-uint64_t __47__NMSMediaPinningManager_setReadingNowEnabled___block_invoke(uint64_t a1)
+void *__47__NMSMediaPinningManager_setReadingNowEnabled___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
   result = [*(*(a1 + 32) + 8) readingNowEnabled];
   if (v2 != result)
@@ -1682,16 +1758,15 @@ uint64_t __47__NMSMediaPinningManager_setReadingNowEnabled___block_invoke(uint64
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 40);
-      v7[0] = 67109120;
-      v7[1] = v5;
-      _os_log_impl(&dword_25B27B000, v4, OS_LOG_TYPE_DEFAULT, "Setting new readingNowEnabled value: %x", v7, 8u);
+      v6[0] = 67109120;
+      v6[1] = v5;
+      _os_log_impl(&dword_25B27B000, v4, OS_LOG_TYPE_DEFAULT, "Setting new readingNowEnabled value: %x", v6, 8u);
     }
 
     [*(*(a1 + 32) + 8) setReadingNowEnabled:*(a1 + 40)];
-    result = [*(a1 + 32) _invalidateMediaCacheForAppIdentifiers:4];
+    return [*(a1 + 32) _invalidateMediaCacheForAppIdentifiers:4];
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1743,7 +1818,7 @@ void __46__NMSMediaPinningManager_readingNowAudiobooks__block_invoke(uint64_t a1
 
 void __50__NMSMediaPinningManager_setReadingNowAudiobooks___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) array];
   v3 = [*(*(a1 + 40) + 8) readingNowAudiobooks];
   v4 = v3;
@@ -1761,9 +1836,9 @@ void __50__NMSMediaPinningManager_setReadingNowAudiobooks___block_invoke(uint64_
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         v7 = *(a1 + 32);
-        v9 = 138543362;
-        v10 = v7;
-        _os_log_impl(&dword_25B27B000, v6, OS_LOG_TYPE_DEFAULT, "Setting readingNowAudiobooks %{public}@", &v9, 0xCu);
+        v8 = 138543362;
+        v9 = v7;
+        _os_log_impl(&dword_25B27B000, v6, OS_LOG_TYPE_DEFAULT, "Setting readingNowAudiobooks %{public}@", &v8, 0xCu);
       }
 
       [*(*(a1 + 40) + 8) setReadingNowAudiobooks:v2];
@@ -1773,8 +1848,6 @@ void __50__NMSMediaPinningManager_setReadingNowAudiobooks___block_invoke(uint64_
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (NSOrderedSet)pinnedAudiobooks
@@ -1832,7 +1905,7 @@ void __42__NMSMediaPinningManager_pinnedAudiobooks__block_invoke(uint64_t a1)
   return internalQueue;
 }
 
-uint64_t __44__NMSMediaPinningManager_isAudiobookPinned___block_invoke(uint64_t a1)
+void *__44__NMSMediaPinningManager_isAudiobookPinned___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _isAudiobookPinned:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -1855,14 +1928,14 @@ uint64_t __44__NMSMediaPinningManager_isAudiobookPinned___block_invoke(uint64_t 
 
 void __39__NMSMediaPinningManager_pinAudiobook___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = NMLogForCategory(5);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v8 = 138543362;
-    v9 = v3;
-    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_DEFAULT, "Pinning audiobook <%{public}@>", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v3;
+    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_DEFAULT, "Pinning audiobook <%{public}@>", &v7, 0xCu);
   }
 
   v4 = [*(*(a1 + 40) + 8) pinnedAudiobooks];
@@ -1873,7 +1946,6 @@ void __39__NMSMediaPinningManager_pinAudiobook___block_invoke(uint64_t a1)
   [*(*(a1 + 40) + 8) setPinnedAudiobooks:v6];
 
   [*(a1 + 40) _invalidateMediaCacheForAppIdentifiers:4];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unpinAudiobook:(id)audiobook
@@ -1892,14 +1964,14 @@ void __39__NMSMediaPinningManager_pinAudiobook___block_invoke(uint64_t a1)
 
 void __41__NMSMediaPinningManager_unpinAudiobook___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = NMLogForCategory(5);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v8 = 138543362;
-    v9 = v3;
-    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_DEFAULT, "Unpinning audiobook <%{public}@>", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v3;
+    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_DEFAULT, "Unpinning audiobook <%{public}@>", &v7, 0xCu);
   }
 
   v4 = [*(*(a1 + 40) + 8) pinnedAudiobooks];
@@ -1910,7 +1982,6 @@ void __41__NMSMediaPinningManager_unpinAudiobook___block_invoke(uint64_t a1)
   [*(*(a1 + 40) + 8) setPinnedAudiobooks:v6];
 
   [*(a1 + 40) _invalidateMediaCacheForAppIdentifiers:4];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (double)audiobookDownloadLimit
@@ -1932,7 +2003,7 @@ void __41__NMSMediaPinningManager_unpinAudiobook___block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __48__NMSMediaPinningManager_audiobookDownloadLimit__block_invoke(uint64_t a1)
+void *__48__NMSMediaPinningManager_audiobookDownloadLimit__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _audiobookDownloadLimit];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -1953,7 +2024,7 @@ uint64_t __48__NMSMediaPinningManager_audiobookDownloadLimit__block_invoke(uint6
 
 void __52__NMSMediaPinningManager_setAudiobookDownloadLimit___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 40)];
   v3 = [*(*(a1 + 32) + 8) audiobookDownloadLimit];
   v4 = v3;
@@ -1971,39 +2042,35 @@ void __52__NMSMediaPinningManager_setAudiobookDownloadLimit___block_invoke(uint6
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         v7 = *(a1 + 40);
-        v9 = 134217984;
-        v10 = v7;
-        _os_log_impl(&dword_25B27B000, v6, OS_LOG_TYPE_DEFAULT, "Setting new audiobookDownloadLimit value: %f", &v9, 0xCu);
+        v8 = 134217984;
+        v9 = v7;
+        _os_log_impl(&dword_25B27B000, v6, OS_LOG_TYPE_DEFAULT, "Setting new audiobookDownloadLimit value: %f", &v8, 0xCu);
       }
 
       [*(*(a1 + 32) + 8) setAudiobookDownloadLimit:v2];
       [*(a1 + 32) _invalidateMediaCacheForAppIdentifiers:4];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_tokenForInstance:(id)instance
 {
-  v10[2] = *MEMORY[0x277D85DE8];
-  v9[0] = @"Instance";
-  v9[1] = @"Date";
-  v10[0] = instance;
+  v9[2] = *MEMORY[0x277D85DE8];
+  v8[0] = @"Instance";
+  v8[1] = @"Date";
+  v9[0] = instance;
   v3 = MEMORY[0x277CBEAA8];
   instanceCopy = instance;
   date = [v3 date];
-  v10[1] = date;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[1] = date;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
 
   return v6;
 }
 
 + (void)_persistNewClientToken
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = +[NMSyncDefaults sharedDefaults];
   clientPinningSettingsToken = [v3 clientPinningSettingsToken];
 
@@ -2020,15 +2087,13 @@ void __52__NMSMediaPinningManager_setAudiobookDownloadLimit___block_invoke(uint6
   v8 = NMLogForCategory(5);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543362;
-    v12 = v7;
-    _os_log_impl(&dword_25B27B000, v8, OS_LOG_TYPE_DEFAULT, "[SyncStatus] Generated new syncState stateToken: %{public}@", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v7;
+    _os_log_impl(&dword_25B27B000, v8, OS_LOG_TYPE_DEFAULT, "[SyncStatus] Generated new syncState stateToken: %{public}@", &v10, 0xCu);
   }
 
   v9 = +[NMSyncDefaults sharedDefaults];
   [v9 setClientPinningSettingsToken:v7];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notePinningSettingsChangedLocally
@@ -2054,7 +2119,7 @@ void __52__NMSMediaPinningManager_setAudiobookDownloadLimit___block_invoke(uint6
 
 uint64_t __77__NMSMediaPinningManager__handleMusicPinningSelectionsDidChangeNotification___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 objectForKeyedSubscript:@"IsInProcessNotification"];
   v4 = [v3 BOOLValue];
@@ -2069,26 +2134,23 @@ uint64_t __77__NMSMediaPinningManager__handleMusicPinningSelectionsDidChangeNoti
       v6 = @"local";
     }
 
-    v11 = 138543618;
-    v12 = v7;
-    v13 = 2112;
-    v14 = v6;
-    _os_log_impl(&dword_25B27B000, v5, OS_LOG_TYPE_INFO, "NMSMediaPinningManager got %{public}@ from %@ process", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v6;
+    _os_log_impl(&dword_25B27B000, v5, OS_LOG_TYPE_INFO, "NMSMediaPinningManager got %{public}@ from %@ process", &v10, 0x16u);
   }
 
   v8 = *(a1 + 40);
   if (v4)
   {
-    result = [v8 _notePinningSettingsChangedLocally];
+    return [v8 _notePinningSettingsChangedLocally];
   }
 
   else
   {
-    result = [v8 _invalidateMediaCacheForAppIdentifiers:1];
+    return [v8 _invalidateMediaCacheForAppIdentifiers:1];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (void)_handlePodcastsPinningSelectionsDidChangeNotification:(id)notification
@@ -2107,7 +2169,7 @@ uint64_t __77__NMSMediaPinningManager__handleMusicPinningSelectionsDidChangeNoti
 
 void __80__NMSMediaPinningManager__handlePodcastsPinningSelectionsDidChangeNotification___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 objectForKeyedSubscript:@"IsInProcessNotification"];
   v4 = [v3 BOOLValue];
@@ -2122,19 +2184,17 @@ void __80__NMSMediaPinningManager__handlePodcastsPinningSelectionsDidChangeNotif
       v6 = @"local";
     }
 
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_25B27B000, v5, OS_LOG_TYPE_INFO, "NMSMediaPinningManager got %{public}@ from %@ process", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_25B27B000, v5, OS_LOG_TYPE_INFO, "NMSMediaPinningManager got %{public}@ from %@ process", &v8, 0x16u);
   }
 
   if (v4)
   {
     [*(a1 + 40) _notePinningSettingsChangedLocally];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleAudiobooksPinningSelectionsDidChangeNotification:(id)notification
@@ -2153,7 +2213,7 @@ void __80__NMSMediaPinningManager__handlePodcastsPinningSelectionsDidChangeNotif
 
 uint64_t __82__NMSMediaPinningManager__handleAudiobooksPinningSelectionsDidChangeNotification___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 objectForKeyedSubscript:@"IsInProcessNotification"];
   v4 = [v3 BOOLValue];
@@ -2168,26 +2228,23 @@ uint64_t __82__NMSMediaPinningManager__handleAudiobooksPinningSelectionsDidChang
       v6 = @"local";
     }
 
-    v11 = 138543618;
-    v12 = v7;
-    v13 = 2112;
-    v14 = v6;
-    _os_log_impl(&dword_25B27B000, v5, OS_LOG_TYPE_INFO, "NMSMediaPinningManager got %{public}@ from %@ process", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v6;
+    _os_log_impl(&dword_25B27B000, v5, OS_LOG_TYPE_INFO, "NMSMediaPinningManager got %{public}@ from %@ process", &v10, 0x16u);
   }
 
   v8 = *(a1 + 40);
   if (v4)
   {
-    result = [v8 _notePinningSettingsChangedLocally];
+    return [v8 _notePinningSettingsChangedLocally];
   }
 
   else
   {
-    result = [v8 _invalidateMediaCacheForAppIdentifiers:4];
+    return [v8 _invalidateMediaCacheForAppIdentifiers:4];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (void)_handleAudiobooksRecommendationsDidChangeNotification:(id)notification
@@ -2206,7 +2263,7 @@ uint64_t __82__NMSMediaPinningManager__handleAudiobooksPinningSelectionsDidChang
 
 uint64_t __80__NMSMediaPinningManager__handleAudiobooksRecommendationsDidChangeNotification___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 objectForKeyedSubscript:@"IsInProcessNotification"];
   v4 = [v3 BOOLValue];
@@ -2221,26 +2278,23 @@ uint64_t __80__NMSMediaPinningManager__handleAudiobooksRecommendationsDidChangeN
       v6 = @"local";
     }
 
-    v11 = 138543618;
-    v12 = v7;
-    v13 = 2112;
-    v14 = v6;
-    _os_log_impl(&dword_25B27B000, v5, OS_LOG_TYPE_INFO, "NMSMediaPinningManager got %{public}@ from %@ process", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v6;
+    _os_log_impl(&dword_25B27B000, v5, OS_LOG_TYPE_INFO, "NMSMediaPinningManager got %{public}@ from %@ process", &v10, 0x16u);
   }
 
   v8 = *(a1 + 40);
   if (v4)
   {
-    result = [v8 _notePinningSettingsChangedLocally];
+    return [v8 _notePinningSettingsChangedLocally];
   }
 
   else
   {
-    result = [v8 _invalidateMediaCacheForAppIdentifiers:4];
+    return [v8 _invalidateMediaCacheForAppIdentifiers:4];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (void)_handleRecommendationLibraryContentsDidChangeNotification:(id)notification
@@ -2259,19 +2313,17 @@ uint64_t __80__NMSMediaPinningManager__handleAudiobooksRecommendationsDidChangeN
 
 uint64_t __84__NMSMediaPinningManager__handleRecommendationLibraryContentsDidChangeNotification___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = NMLogForCategory(5);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_INFO, "NMSMediaPinningManager got %{public}@.", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_INFO, "NMSMediaPinningManager got %{public}@.", &v5, 0xCu);
   }
 
-  result = [*(a1 + 40) _invalidateMediaCacheForAppIdentifiers:1];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) _invalidateMediaCacheForAppIdentifiers:1];
 }
 
 - (void)_handleRecommendationsDidUpdateNotification:(id)notification
@@ -2290,19 +2342,17 @@ uint64_t __84__NMSMediaPinningManager__handleRecommendationLibraryContentsDidCha
 
 uint64_t __70__NMSMediaPinningManager__handleRecommendationsDidUpdateNotification___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = NMLogForCategory(5);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_INFO, "NMSMediaPinningManager got %{public}@.", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_INFO, "NMSMediaPinningManager got %{public}@.", &v5, 0xCu);
   }
 
-  result = [*(a1 + 40) _invalidateMediaCacheForAppIdentifiers:1];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) _invalidateMediaCacheForAppIdentifiers:1];
 }
 
 - (void)_handleMediaLibraryDidChangeNotification:(id)notification
@@ -2321,19 +2371,17 @@ uint64_t __70__NMSMediaPinningManager__handleRecommendationsDidUpdateNotificatio
 
 uint64_t __67__NMSMediaPinningManager__handleMediaLibraryDidChangeNotification___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = NMLogForCategory(5);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_INFO, "NMSMediaPinningManager got %{public}@.", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_INFO, "NMSMediaPinningManager got %{public}@.", &v5, 0xCu);
   }
 
-  result = [*(a1 + 40) _invalidateMediaCacheForAppIdentifiers:7];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) _invalidateMediaCacheForAppIdentifiers:7];
 }
 
 - (void)_handleMediaLibraryDynamicPropertiesDidChangeNotification:(id)notification
@@ -2352,19 +2400,17 @@ uint64_t __67__NMSMediaPinningManager__handleMediaLibraryDidChangeNotification__
 
 uint64_t __84__NMSMediaPinningManager__handleMediaLibraryDynamicPropertiesDidChangeNotification___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = NMLogForCategory(5);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_INFO, "NMSMediaPinningManager got %{public}@.", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_INFO, "NMSMediaPinningManager got %{public}@.", &v5, 0xCu);
   }
 
-  result = [*(a1 + 40) _invalidateMediaCacheForAppIdentifiers:7];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) _invalidateMediaCacheForAppIdentifiers:7];
 }
 
 - (void)_handlePodcastSizeInfoDidChangeNotification:(id)notification
@@ -2383,19 +2429,17 @@ uint64_t __84__NMSMediaPinningManager__handleMediaLibraryDynamicPropertiesDidCha
 
 uint64_t __70__NMSMediaPinningManager__handlePodcastSizeInfoDidChangeNotification___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = NMLogForCategory(5);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_INFO, "NMSMediaPinningManager got %{public}@.", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_INFO, "NMSMediaPinningManager got %{public}@.", &v5, 0xCu);
   }
 
-  result = [*(a1 + 40) _invalidateAddedItemsCache];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) _invalidateAddedItemsCache];
 }
 
 - (void)_handleICAgeVerificationStateDidChangeNotification:(id)notification
@@ -2414,19 +2458,17 @@ uint64_t __70__NMSMediaPinningManager__handlePodcastSizeInfoDidChangeNotificatio
 
 uint64_t __77__NMSMediaPinningManager__handleICAgeVerificationStateDidChangeNotification___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = NMLogForCategory(5);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_INFO, "NMSMediaPinningManager got %{public}@.", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_INFO, "NMSMediaPinningManager got %{public}@.", &v5, 0xCu);
   }
 
-  result = [*(a1 + 40) _invalidateMediaCacheForAppIdentifiers:1];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) _invalidateMediaCacheForAppIdentifiers:1];
 }
 
 - (void)_handleRecommendationSelectionsDidChangeNotification:(id)notification
@@ -2445,7 +2487,7 @@ uint64_t __77__NMSMediaPinningManager__handleICAgeVerificationStateDidChangeNoti
 
 void __79__NMSMediaPinningManager__handleRecommendationSelectionsDidChangeNotification___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 objectForKeyedSubscript:@"IsInProcessNotification"];
   v4 = [v3 BOOLValue];
@@ -2460,19 +2502,17 @@ void __79__NMSMediaPinningManager__handleRecommendationSelectionsDidChangeNotifi
       v6 = @"local";
     }
 
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_25B27B000, v5, OS_LOG_TYPE_INFO, "NMSMediaPinningManager got %{public}@ from %@ process", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_25B27B000, v5, OS_LOG_TYPE_INFO, "NMSMediaPinningManager got %{public}@ from %@ process", &v8, 0x16u);
   }
 
   if (v4)
   {
     [*(a1 + 40) _notePinningSettingsChangedLocally];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handlePairedDeviceDidBecomeActiveNotification:(id)notification
@@ -2491,19 +2531,17 @@ void __79__NMSMediaPinningManager__handleRecommendationSelectionsDidChangeNotifi
 
 uint64_t __73__NMSMediaPinningManager__handlePairedDeviceDidBecomeActiveNotification___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = NMLogForCategory(5);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_INFO, "NMSMediaPinningManager got %{public}@.", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_INFO, "NMSMediaPinningManager got %{public}@.", &v5, 0xCu);
   }
 
-  result = [*(a1 + 40) _invalidateMediaCacheForAppIdentifiers:7];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) _invalidateMediaCacheForAppIdentifiers:7];
 }
 
 - (void)_handleMediaPinningMusicContentsInvalidatedNotification:(id)notification
@@ -2707,7 +2745,7 @@ void __95__NMSMediaPinningManager__handleMediaPinningManagerAudiobooksIdentifier
 - (id)_newMusicEnumeratorWithDownloadedItemsOnly:(BOOL)only
 {
   onlyCopy = only;
-  v94 = *MEMORY[0x277D85DE8];
+  v93 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   if ([(NMSMediaPinningManager *)self _shouldIncludeMusicManualDownloadsInQuotaEvaluation])
   {
@@ -2716,7 +2754,7 @@ void __95__NMSMediaPinningManager__handleMediaPinningManagerAudiobooksIdentifier
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v93 = workoutPlaylistID;
+      v92 = workoutPlaylistID;
       _os_log_impl(&dword_25B27B000, v6, OS_LOG_TYPE_DEFAULT, "_quotaManager (Music containers) workoutPlaylistID: %{public}@", buf, 0xCu);
     }
 
@@ -2733,37 +2771,37 @@ void __95__NMSMediaPinningManager__handleMediaPinningManagerAudiobooksIdentifier
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v93 = pinnedPlaylists;
+      v92 = pinnedPlaylists;
       _os_log_impl(&dword_25B27B000, v11, OS_LOG_TYPE_DEFAULT, "_quotaManager (Music containers) pinnedPlaylists %{public}@", buf, 0xCu);
     }
 
-    v86 = 0u;
-    v87 = 0u;
-    v84 = 0u;
     v85 = 0u;
+    v86 = 0u;
+    v83 = 0u;
+    v84 = 0u;
     v12 = pinnedPlaylists;
-    v13 = [v12 countByEnumeratingWithState:&v84 objects:v91 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v83 objects:v90 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v85;
+      v15 = *v84;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v85 != v15)
+          if (*v84 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v84 + 1) + 8 * i);
+          v17 = *(*(&v83 + 1) + 8 * i);
           v18 = [NMSItemGroupEnumerator alloc];
           v19 = [NMSMediaItemGroup itemGroupWithSyncedPlaylistID:v17 downloadedItemsOnly:onlyCopy];
           v20 = [(NMSItemGroupEnumerator *)v18 initWithItemGroup:v19];
           [array addObject:v20];
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v84 objects:v91 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v83 objects:v90 count:16];
       }
 
       while (v14);
@@ -2774,37 +2812,37 @@ void __95__NMSMediaPinningManager__handleMediaPinningManagerAudiobooksIdentifier
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v93 = pinnedAlbums;
+      v92 = pinnedAlbums;
       _os_log_impl(&dword_25B27B000, v22, OS_LOG_TYPE_DEFAULT, "_quotaManager (Music containers) pinnedAlbums %{public}@", buf, 0xCu);
     }
 
-    v82 = 0u;
-    v83 = 0u;
-    v80 = 0u;
     v81 = 0u;
+    v82 = 0u;
+    v79 = 0u;
+    v80 = 0u;
     v23 = pinnedAlbums;
-    v24 = [v23 countByEnumeratingWithState:&v80 objects:v90 count:16];
+    v24 = [v23 countByEnumeratingWithState:&v79 objects:v89 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v81;
+      v26 = *v80;
       do
       {
         for (j = 0; j != v25; ++j)
         {
-          if (*v81 != v26)
+          if (*v80 != v26)
           {
             objc_enumerationMutation(v23);
           }
 
-          v28 = *(*(&v80 + 1) + 8 * j);
+          v28 = *(*(&v79 + 1) + 8 * j);
           v29 = [NMSItemGroupEnumerator alloc];
           v30 = [NMSMediaItemGroup itemGroupWithSyncedAlbumID:v28 downloadedItemsOnly:onlyCopy];
           v31 = [(NMSItemGroupEnumerator *)v29 initWithItemGroup:v30];
           [array addObject:v31];
         }
 
-        v25 = [v23 countByEnumeratingWithState:&v80 objects:v90 count:16];
+        v25 = [v23 countByEnumeratingWithState:&v79 objects:v89 count:16];
       }
 
       while (v25);
@@ -2813,29 +2851,29 @@ void __95__NMSMediaPinningManager__handleMediaPinningManagerAudiobooksIdentifier
 
   _fetchMusicRecommendations = [objc_opt_class() _fetchMusicRecommendations];
   array2 = [MEMORY[0x277CBEB18] array];
+  v75 = 0u;
   v76 = 0u;
   v77 = 0u;
   v78 = 0u;
-  v79 = 0u;
   obj = _fetchMusicRecommendations;
-  v34 = [obj countByEnumeratingWithState:&v76 objects:v89 count:16];
+  v34 = [obj countByEnumeratingWithState:&v75 objects:v88 count:16];
   if (v34)
   {
     v36 = v34;
-    v37 = *v77;
+    v37 = *v76;
     *&v35 = 138543362;
-    v68 = v35;
+    v67 = v35;
     do
     {
       v38 = 0;
       do
       {
-        if (*v77 != v37)
+        if (*v76 != v37)
         {
           objc_enumerationMutation(obj);
         }
 
-        v39 = *(*(&v76 + 1) + 8 * v38);
+        v39 = *(*(&v75 + 1) + 8 * v38);
         identifier = [v39 identifier];
         if ([identifier isEqualToString:NMSRecommendationLibraryPinsIdentifier])
         {
@@ -2860,8 +2898,8 @@ LABEL_33:
         {
           if (v45)
           {
-            *buf = v68;
-            v93 = v39;
+            *buf = v67;
+            v92 = v39;
             _os_log_impl(&dword_25B27B000, v44, OS_LOG_TYPE_DEFAULT, "_quotaManager (Music containers) including enabled store recommendation %{public}@", buf, 0xCu);
           }
 
@@ -2875,8 +2913,8 @@ LABEL_33:
         {
           if (v45)
           {
-            *buf = v68;
-            v93 = v39;
+            *buf = v67;
+            v92 = v39;
             _os_log_impl(&dword_25B27B000, v44, OS_LOG_TYPE_DEFAULT, "_quotaManager (Music containers) NOT including disabled store recommendation %{public}@", buf, 0xCu);
           }
         }
@@ -2886,35 +2924,35 @@ LABEL_34:
       }
 
       while (v36 != v38);
-      v49 = [obj countByEnumeratingWithState:&v76 objects:v89 count:16];
+      v49 = [obj countByEnumeratingWithState:&v75 objects:v88 count:16];
       v36 = v49;
     }
 
     while (v49);
   }
 
-  v74 = 0u;
-  v75 = 0u;
-  v72 = 0u;
   v73 = 0u;
+  v74 = 0u;
+  v71 = 0u;
+  v72 = 0u;
   v50 = array2;
-  v51 = [v50 countByEnumeratingWithState:&v72 objects:v88 count:16];
+  v51 = [v50 countByEnumeratingWithState:&v71 objects:v87 count:16];
   if (v51)
   {
     v53 = v51;
-    v54 = *v73;
+    v54 = *v72;
     *&v52 = 138543362;
-    v69 = v52;
+    v68 = v52;
     do
     {
       for (k = 0; k != v53; ++k)
       {
-        if (*v73 != v54)
+        if (*v72 != v54)
         {
           objc_enumerationMutation(v50);
         }
 
-        v56 = *(*(&v72 + 1) + 8 * k);
+        v56 = *(*(&v71 + 1) + 8 * k);
         isSelected2 = [v56 isSelected];
         v58 = NMLogForCategory(5);
         v59 = os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT);
@@ -2922,8 +2960,8 @@ LABEL_34:
         {
           if (v59)
           {
-            *buf = v69;
-            v93 = v56;
+            *buf = v68;
+            v92 = v56;
             _os_log_impl(&dword_25B27B000, v58, OS_LOG_TYPE_DEFAULT, "_quotaManager (Music containers) including enabled recommendation %{public}@", buf, 0xCu);
           }
 
@@ -2935,13 +2973,13 @@ LABEL_34:
 
         else if (v59)
         {
-          *buf = v69;
-          v93 = v56;
+          *buf = v68;
+          v92 = v56;
           _os_log_impl(&dword_25B27B000, v58, OS_LOG_TYPE_DEFAULT, "_quotaManager (Music containers) NOT including disabled recommendation %{public}@", buf, 0xCu);
         }
       }
 
-      v53 = [v50 countByEnumeratingWithState:&v72 objects:v88 count:16];
+      v53 = [v50 countByEnumeratingWithState:&v71 objects:v87 count:16];
     }
 
     while (v53);
@@ -2952,50 +2990,49 @@ LABEL_34:
   v64 = [array copy];
   v65 = [(NMSSequentialItemEnumerator *)v62 initWithItemEnumerators:v64];
 
-  v66 = *MEMORY[0x277D85DE8];
   return v65;
 }
 
 - (id)_newAudiobooksEnumeratorWithDownloadedItemsOnly:(BOOL)only
 {
   onlyCopy = only;
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   v4 = NMLogForCategory(5);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     wantToReadEnabled = [(NMSyncDefaults *)self->_sharedDefaults wantToReadEnabled];
     readingNowEnabled = [(NMSyncDefaults *)self->_sharedDefaults readingNowEnabled];
     *buf = 67109376;
-    *v64 = wantToReadEnabled;
-    *&v64[4] = 1024;
-    *&v64[6] = readingNowEnabled;
+    *v63 = wantToReadEnabled;
+    *&v63[4] = 1024;
+    *&v63[6] = readingNowEnabled;
     _os_log_impl(&dword_25B27B000, v4, OS_LOG_TYPE_DEFAULT, "_quotaManager (Audiobooks containers) wantToReadEnabled: %x, readingNowEnabled: %x", buf, 0xEu);
   }
 
   array = [MEMORY[0x277CBEB18] array];
   [(NMSMediaPinningManager *)self _audiobookDownloadLimit];
   v9 = v8;
+  v55 = 0u;
   v56 = 0u;
   v57 = 0u;
   v58 = 0u;
-  v59 = 0u;
   selfCopy = self;
   obj = [(NMSyncDefaults *)self->_sharedDefaults pinnedAudiobooks];
-  v10 = [obj countByEnumeratingWithState:&v56 objects:v62 count:16];
+  v10 = [obj countByEnumeratingWithState:&v55 objects:v61 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v57;
+    v12 = *v56;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v57 != v12)
+        if (*v56 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v56 + 1) + 8 * i);
+        v14 = *(*(&v55 + 1) + 8 * i);
         v15 = [NMSItemGroupEnumerator alloc];
         v16 = [NMSMediaItemGroup itemGroupWithAudiobookIdentifier:v14 downloadLimit:v9 manuallyAdded:0 downloadedItemsOnly:onlyCopy];
         v17 = [(NMSItemGroupEnumerator *)v15 initWithItemGroup:v16];
@@ -3005,12 +3042,12 @@ LABEL_34:
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          *v64 = v14;
+          *v63 = v14;
           _os_log_impl(&dword_25B27B000, v18, OS_LOG_TYPE_DEFAULT, "_quotaManager (Audiobook containers) adding pinned audiobook %{public}@", buf, 0xCu);
         }
       }
 
-      v11 = [obj countByEnumeratingWithState:&v56 objects:v62 count:16];
+      v11 = [obj countByEnumeratingWithState:&v55 objects:v61 count:16];
     }
 
     while (v11);
@@ -3019,26 +3056,26 @@ LABEL_34:
   v19 = selfCopy;
   if ([(NMSyncDefaults *)selfCopy->_sharedDefaults readingNowEnabled])
   {
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
     v53 = 0u;
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
     obja = [(NMSyncDefaults *)selfCopy->_sharedDefaults readingNowAudiobooks];
-    v20 = [obja countByEnumeratingWithState:&v52 objects:v61 count:16];
+    v20 = [obja countByEnumeratingWithState:&v51 objects:v60 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v53;
+      v22 = *v52;
       do
       {
         for (j = 0; j != v21; ++j)
         {
-          if (*v53 != v22)
+          if (*v52 != v22)
           {
             objc_enumerationMutation(obja);
           }
 
-          v24 = *(*(&v52 + 1) + 8 * j);
+          v24 = *(*(&v51 + 1) + 8 * j);
           v25 = [NMSItemGroupEnumerator alloc];
           v26 = [NMSMediaItemGroup itemGroupWithAudiobookIdentifier:v24 downloadLimit:v9 manuallyAdded:0 downloadedItemsOnly:onlyCopy];
           v27 = [(NMSItemGroupEnumerator *)v25 initWithItemGroup:v26];
@@ -3048,12 +3085,12 @@ LABEL_34:
           if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            *v64 = v24;
+            *v63 = v24;
             _os_log_impl(&dword_25B27B000, v28, OS_LOG_TYPE_DEFAULT, "_quotaManager (Audiobook containers) adding readingNow audiobook %{public}@", buf, 0xCu);
           }
         }
 
-        v21 = [obja countByEnumeratingWithState:&v52 objects:v61 count:16];
+        v21 = [obja countByEnumeratingWithState:&v51 objects:v60 count:16];
       }
 
       while (v21);
@@ -3064,26 +3101,26 @@ LABEL_34:
 
   if ([(NMSyncDefaults *)v19->_sharedDefaults wantToReadEnabled])
   {
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
     v49 = 0u;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
     objb = [(NMSyncDefaults *)v19->_sharedDefaults wantToReadAudiobooks];
-    v29 = [objb countByEnumeratingWithState:&v48 objects:v60 count:16];
+    v29 = [objb countByEnumeratingWithState:&v47 objects:v59 count:16];
     if (v29)
     {
       v30 = v29;
-      v31 = *v49;
+      v31 = *v48;
       do
       {
         for (k = 0; k != v30; ++k)
         {
-          if (*v49 != v31)
+          if (*v48 != v31)
           {
             objc_enumerationMutation(objb);
           }
 
-          v33 = *(*(&v48 + 1) + 8 * k);
+          v33 = *(*(&v47 + 1) + 8 * k);
           v34 = [NMSItemGroupEnumerator alloc];
           v35 = [NMSMediaItemGroup itemGroupWithAudiobookIdentifier:v33 downloadLimit:v9 manuallyAdded:0 downloadedItemsOnly:onlyCopy];
           v36 = [(NMSItemGroupEnumerator *)v34 initWithItemGroup:v35];
@@ -3093,12 +3130,12 @@ LABEL_34:
           if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            *v64 = v33;
+            *v63 = v33;
             _os_log_impl(&dword_25B27B000, v37, OS_LOG_TYPE_DEFAULT, "_quotaManager (Audiobook containers) adding wantToRead audiobook %{public}@", buf, 0xCu);
           }
         }
 
-        v30 = [objb countByEnumeratingWithState:&v48 objects:v60 count:16];
+        v30 = [objb countByEnumeratingWithState:&v47 objects:v59 count:16];
       }
 
       while (v30);
@@ -3109,8 +3146,162 @@ LABEL_34:
   v39 = [array copy];
   v40 = [(NMSSequentialItemEnumerator *)v38 initWithItemEnumerators:v39];
 
-  v41 = *MEMORY[0x277D85DE8];
   return v40;
+}
+
+- (id)_newItemEnumeratorForBundleIdentifier:(id)identifier downloadedItemsOnly:(BOOL)only
+{
+  onlyCopy = only;
+  identifierCopy = identifier;
+  if ([identifierCopy isEqualToString:@"com.apple.NanoMusic"])
+  {
+    createItemEnumerator = [(NMSMediaPinningManager *)self _newMusicEnumeratorWithDownloadedItemsOnly:onlyCopy];
+  }
+
+  else if ([identifierCopy isEqualToString:@"com.apple.podcasts"])
+  {
+    createItemEnumerator = [(NMSPodcastsDownloadableContentProvider *)self->_podcastsDownloadableContentProvider createItemEnumerator];
+  }
+
+  else
+  {
+    if (![identifierCopy isEqualToString:@"com.apple.NanoBooks"])
+    {
+      v8 = 0;
+      goto LABEL_8;
+    }
+
+    createItemEnumerator = [(NMSMediaPinningManager *)self _newAudiobooksEnumeratorWithDownloadedItemsOnly:onlyCopy];
+  }
+
+  v8 = createItemEnumerator;
+LABEL_8:
+
+  return v8;
+}
+
+- (id)_quotaManagerWithDownloadedItemsOnly:(BOOL)only
+{
+  onlyCopy = only;
+  v35 = *MEMORY[0x277D85DE8];
+  if ([(NMSMediaPinningManager *)self _shouldSkipQuotaManagerEvaluation])
+  {
+    v5 = 0;
+    goto LABEL_27;
+  }
+
+  if (onlyCopy)
+  {
+    v6 = 32;
+  }
+
+  else
+  {
+    v6 = 24;
+  }
+
+  v5 = *(&self->super.isa + v6);
+  if (v5)
+  {
+    goto LABEL_27;
+  }
+
+  v22 = v6;
+  v7 = NMLogForCategory(5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    if (onlyCopy)
+    {
+      v8 = @"downloaded";
+    }
+
+    else
+    {
+      v8 = @"added";
+    }
+
+    *buf = 138412546;
+    v32 = v8;
+    v33 = 2048;
+    _mediaQuota = [(NMSMediaPinningManager *)self _mediaQuota];
+    _os_log_impl(&dword_25B27B000, v7, OS_LOG_TYPE_DEFAULT, "[QuotaManager Caching] Creating new %@ items quota manager for quota:%llu", buf, 0x16u);
+  }
+
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v30[0] = @"com.apple.NanoMusic";
+  v30[1] = @"com.apple.podcasts";
+  v30[2] = @"com.apple.NanoBooks";
+  [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:3];
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v10 = v26 = 0u;
+  v11 = [v10 countByEnumeratingWithState:&v23 objects:v29 count:16];
+  if (v11)
+  {
+    v12 = v11;
+    v13 = *v24;
+    do
+    {
+      for (i = 0; i != v12; ++i)
+      {
+        if (*v24 != v13)
+        {
+          objc_enumerationMutation(v10);
+        }
+
+        v15 = *(*(&v23 + 1) + 8 * i);
+        if (![(NMSMediaPinningManager *)self _isAppDownloadingDormantForBundleIdentifier:v15])
+        {
+          v16 = [(NMSMediaPinningManager *)self _newItemEnumeratorForBundleIdentifier:v15 downloadedItemsOnly:onlyCopy];
+          if (!v16)
+          {
+            goto LABEL_24;
+          }
+
+LABEL_23:
+          [dictionary setObject:v16 forKeyedSubscript:v15];
+          goto LABEL_24;
+        }
+
+        v16 = [(NMSMediaPinningManager *)self _newItemEnumeratorForBundleIdentifier:v15 downloadedItemsOnly:1];
+        v17 = NMLogForCategory(12);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412290;
+          v32 = v15;
+          _os_log_impl(&dword_25B27B000, v17, OS_LOG_TYPE_DEFAULT, "Skipping downloading of %@ items because it is download-dormant.", buf, 0xCu);
+        }
+
+        if (v16)
+        {
+          goto LABEL_23;
+        }
+
+LABEL_24:
+      }
+
+      v12 = [v10 countByEnumeratingWithState:&v23 objects:v29 count:16];
+    }
+
+    while (v12);
+  }
+
+  v27[0] = @"com.apple.NanoMusic";
+  v27[1] = @"com.apple.podcasts";
+  v28[0] = &unk_286C8D4F0;
+  v28[1] = &unk_286C8D508;
+  v27[2] = @"com.apple.NanoBooks";
+  v28[2] = &unk_286C8D520;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:3];
+  v19 = [NMSMediaQuotaManager alloc];
+  v20 = [dictionary copy];
+  v5 = [(NMSMediaQuotaManager *)v19 initWithItemEnumerators:v20 estimatedItemSizes:v18 quota:[(NMSMediaPinningManager *)self _mediaQuota]];
+
+  objc_storeStrong((&self->super.isa + v22), v5);
+LABEL_27:
+
+  return v5;
 }
 
 - (BOOL)_shouldSkipQuotaManagerEvaluation
@@ -3375,20 +3566,18 @@ void __65__NMSMediaPinningManager__invalidateMediaCacheForAppIdentifiers___block
 
 void __57__NMSMediaPinningManager__cachedIdentifiersDirectoryPath__block_invoke()
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  v5[0] = CPSharedResourcesDirectory();
-  v5[1] = @"Library";
-  v5[2] = @"NanoMusicSync";
-  v5[3] = @"CachedIdentifiers";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:4];
+  v4[4] = *MEMORY[0x277D85DE8];
+  v4[0] = CPSharedResourcesDirectory();
+  v4[1] = @"Library";
+  v4[2] = @"NanoMusicSync";
+  v4[3] = @"CachedIdentifiers";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:4];
   v1 = [MEMORY[0x277CCACA8] pathWithComponents:v0];
   v2 = _cachedIdentifiersDirectoryPath_path;
   _cachedIdentifiersDirectoryPath_path = v1;
 
   v3 = [MEMORY[0x277CCAA00] defaultManager];
   [v3 createDirectoryAtPath:_cachedIdentifiersDirectoryPath_path withIntermediateDirectories:1 attributes:0 error:0];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (unint64_t)_mediaStorageSizeForCurrentDevice
@@ -3533,18 +3722,361 @@ void __42__NMSMediaPinningManager_albumIdentifiers__block_invoke(uint64_t a1)
 
 - (void)_fetchMusicIdentifiers
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_4(&dword_25B27B000, v0, v1, "Failed to unarchive cached playlistIdentifiers due to %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  dispatch_assert_queue_V2(self->_internalQueue);
+  v3 = MEMORY[0x277CBEB98];
+  v4 = objc_opt_class();
+  v5 = [v3 setWithObjects:{v4, objc_opt_class(), 0}];
+  v6 = MEMORY[0x277CCAAC8];
+  v7 = MEMORY[0x277CBEA90];
+  _cachedAlbumIdentifiersFilePath = [objc_opt_class() _cachedAlbumIdentifiersFilePath];
+  v9 = [v7 dataWithContentsOfFile:_cachedAlbumIdentifiersFilePath];
+  v22 = 0;
+  v10 = [v6 unarchivedObjectOfClasses:v5 fromData:v9 error:&v22];
+  v11 = v22;
+
+  if (v11)
+  {
+    v12 = NMLogForCategory(5);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      [NMSMediaPinningManager _fetchMusicIdentifiers];
+    }
+  }
+
+  objc_storeStrong(&self->_cachedAlbumIdentifiers, v10);
+  v13 = MEMORY[0x277CCAAC8];
+  v14 = MEMORY[0x277CBEA90];
+  _cachedPlaylistIdentifiersFilePath = [objc_opt_class() _cachedPlaylistIdentifiersFilePath];
+  v16 = [v14 dataWithContentsOfFile:_cachedPlaylistIdentifiersFilePath];
+  v21 = 0;
+  v17 = [v13 unarchivedObjectOfClasses:v5 fromData:v16 error:&v21];
+  v18 = v21;
+
+  if (v18)
+  {
+    v19 = NMLogForCategory(5);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    {
+      [NMSMediaPinningManager _fetchMusicIdentifiers];
+    }
+  }
+
+  cachedPlaylistIdentifiers = self->_cachedPlaylistIdentifiers;
+  self->_cachedPlaylistIdentifiers = v17;
 }
 
 - (void)_refreshMusicIdentifiers
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_4(&dword_25B27B000, v0, v1, "Failed to archive playlistIdentifiers due to %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v115 = *MEMORY[0x277D85DE8];
+  dispatch_assert_queue_V2(self->_internalQueue);
+  if ([(NMSMediaPinningManager *)self _deviceSupportsPodcastsPinningSettingsV2])
+  {
+    v82 = [MEMORY[0x277CBEB58] set];
+    v84 = [MEMORY[0x277CBEB58] set];
+    v104 = 0u;
+    v105 = 0u;
+    v106 = 0u;
+    v107 = 0u;
+    selfCopy = self;
+    pinnedAlbums = [(NMSyncDefaults *)self->_sharedDefaults pinnedAlbums];
+    v4 = [pinnedAlbums countByEnumeratingWithState:&v104 objects:v114 count:16];
+    if (v4)
+    {
+      v5 = v4;
+      v6 = *v105;
+      do
+      {
+        for (i = 0; i != v5; ++i)
+        {
+          if (*v105 != v6)
+          {
+            objc_enumerationMutation(pinnedAlbums);
+          }
+
+          v8 = *(*(&v104 + 1) + 8 * i);
+          v9 = objc_alloc(MEMORY[0x277CD5DA0]);
+          v10 = MEMORY[0x277CD5E40];
+          v11 = [MEMORY[0x277CD5F58] kindWithVariants:1];
+          v12 = [v10 kindWithSongKind:v11];
+          v103[0] = MEMORY[0x277D85DD0];
+          v103[1] = 3221225472;
+          v103[2] = __50__NMSMediaPinningManager__refreshMusicIdentifiers__block_invoke;
+          v103[3] = &unk_27993E660;
+          v103[4] = v8;
+          v13 = [v9 initWithModelKind:v12 block:v103];
+          [v82 addObject:v13];
+        }
+
+        v5 = [pinnedAlbums countByEnumeratingWithState:&v104 objects:v114 count:16];
+      }
+
+      while (v5);
+    }
+
+    v101 = 0u;
+    v102 = 0u;
+    v99 = 0u;
+    v100 = 0u;
+    obj = [(NMSyncDefaults *)self->_sharedDefaults pinnedPlaylists];
+    v14 = [obj countByEnumeratingWithState:&v99 objects:v113 count:16];
+    if (v14)
+    {
+      v15 = v14;
+      v16 = *v100;
+      do
+      {
+        for (j = 0; j != v15; ++j)
+        {
+          if (*v100 != v16)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v18 = *(*(&v99 + 1) + 8 * j);
+          v19 = objc_alloc(MEMORY[0x277CD5DA0]);
+          v20 = MEMORY[0x277CD5EF0];
+          v21 = MEMORY[0x277CD5EF8];
+          v22 = [MEMORY[0x277CD5F58] kindWithVariants:1];
+          v112 = v22;
+          v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v112 count:1];
+          v24 = [v21 kindWithKinds:v23];
+          v25 = [v20 kindWithPlaylistEntryKind:v24 options:0];
+          v98[0] = MEMORY[0x277D85DD0];
+          v98[1] = 3221225472;
+          v98[2] = __50__NMSMediaPinningManager__refreshMusicIdentifiers__block_invoke_2;
+          v98[3] = &unk_27993E660;
+          v98[4] = v18;
+          v26 = [v19 initWithModelKind:v25 block:v98];
+          [v84 addObject:v26];
+        }
+
+        v15 = [obj countByEnumeratingWithState:&v99 objects:v113 count:16];
+      }
+
+      while (v15);
+    }
+
+    workoutPlaylistID = [(NMSyncDefaults *)selfCopy->_sharedDefaults workoutPlaylistID];
+
+    if (workoutPlaylistID)
+    {
+      v28 = objc_alloc(MEMORY[0x277CD5DA0]);
+      v29 = MEMORY[0x277CD5EF0];
+      v30 = MEMORY[0x277CD5EF8];
+      v31 = [MEMORY[0x277CD5F58] kindWithVariants:1];
+      v111 = v31;
+      v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v111 count:1];
+      v33 = [v30 kindWithKinds:v32];
+      v34 = [v29 kindWithPlaylistEntryKind:v33 options:0];
+      v97[0] = MEMORY[0x277D85DD0];
+      v97[1] = 3221225472;
+      v97[2] = __50__NMSMediaPinningManager__refreshMusicIdentifiers__block_invoke_3;
+      v97[3] = &unk_27993E660;
+      v97[4] = selfCopy;
+      v35 = [v28 initWithModelKind:v34 block:v97];
+      [v84 addObject:v35];
+    }
+
+    v95 = 0u;
+    v96 = 0u;
+    v93 = 0u;
+    v94 = 0u;
+    _fetchMusicRecommendations = [objc_opt_class() _fetchMusicRecommendations];
+    v36 = [_fetchMusicRecommendations countByEnumeratingWithState:&v93 objects:v110 count:16];
+    if (v36)
+    {
+      v37 = v36;
+      v38 = *v94;
+      v78 = *v94;
+      do
+      {
+        v39 = 0;
+        v79 = v37;
+        do
+        {
+          if (*v94 != v38)
+          {
+            objc_enumerationMutation(_fetchMusicRecommendations);
+          }
+
+          v40 = *(*(&v93 + 1) + 8 * v39);
+          if ([v40 isSelected])
+          {
+            v81 = v39;
+            v91 = 0u;
+            v92 = 0u;
+            v89 = 0u;
+            v90 = 0u;
+            items = [v40 items];
+            v42 = [items countByEnumeratingWithState:&v89 objects:v109 count:16];
+            if (!v42)
+            {
+              goto LABEL_36;
+            }
+
+            v43 = v42;
+            v44 = *v90;
+            while (1)
+            {
+              for (k = 0; k != v43; ++k)
+              {
+                if (*v90 != v44)
+                {
+                  objc_enumerationMutation(items);
+                }
+
+                v46 = *(*(&v89 + 1) + 8 * k);
+                objc_opt_class();
+                if (objc_opt_isKindOfClass())
+                {
+                  v47 = objc_alloc(MEMORY[0x277CD5DA0]);
+                  v48 = MEMORY[0x277CD5EF0];
+                  v49 = MEMORY[0x277CD5EF8];
+                  v50 = [MEMORY[0x277CD5F58] kindWithVariants:1];
+                  v108 = v50;
+                  v51 = [MEMORY[0x277CBEA60] arrayWithObjects:&v108 count:1];
+                  v52 = [v49 kindWithKinds:v51];
+                  v53 = [v48 kindWithPlaylistEntryKind:v52 options:0];
+                  v88[0] = MEMORY[0x277D85DD0];
+                  v88[1] = 3221225472;
+                  v88[2] = __50__NMSMediaPinningManager__refreshMusicIdentifiers__block_invoke_4;
+                  v88[3] = &unk_27993E660;
+                  v88[4] = v46;
+                  v54 = [v47 initWithModelKind:v53 block:v88];
+                  [v84 addObject:v54];
+                }
+
+                else
+                {
+                  objc_opt_class();
+                  if ((objc_opt_isKindOfClass() & 1) == 0)
+                  {
+                    continue;
+                  }
+
+                  v55 = objc_alloc(MEMORY[0x277CD5DA0]);
+                  v56 = MEMORY[0x277CD5E40];
+                  v50 = [MEMORY[0x277CD5F58] kindWithVariants:1];
+                  v51 = [v56 kindWithSongKind:v50];
+                  v87[0] = MEMORY[0x277D85DD0];
+                  v87[1] = 3221225472;
+                  v87[2] = __50__NMSMediaPinningManager__refreshMusicIdentifiers__block_invoke_5;
+                  v87[3] = &unk_27993E660;
+                  v87[4] = v46;
+                  v52 = [v55 initWithModelKind:v51 block:v87];
+                  [v82 addObject:v52];
+                }
+              }
+
+              v43 = [items countByEnumeratingWithState:&v89 objects:v109 count:16];
+              if (!v43)
+              {
+LABEL_36:
+
+                v38 = v78;
+                v37 = v79;
+                v39 = v81;
+                break;
+              }
+            }
+          }
+
+          ++v39;
+        }
+
+        while (v39 != v37);
+        v37 = [_fetchMusicRecommendations countByEnumeratingWithState:&v93 objects:v110 count:16];
+      }
+
+      while (v37);
+    }
+
+    allObjects = [v82 allObjects];
+    allObjects2 = [v84 allObjects];
+    v59 = selfCopy;
+    v60 = selfCopy->_cachedAlbumIdentifiers;
+    v61 = v60;
+    v62 = v60 != allObjects;
+    if (v60 != allObjects)
+    {
+      v63 = [(NSArray *)v60 isEqual:allObjects];
+
+      if (v63)
+      {
+        v62 = 0;
+        v59 = selfCopy;
+        goto LABEL_51;
+      }
+
+      v86 = 0;
+      v64 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:allObjects requiringSecureCoding:1 error:&v86];
+      v61 = v86;
+      if (v61)
+      {
+        v65 = NMLogForCategory(5);
+        if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+        {
+          [NMSMediaPinningManager _refreshMusicIdentifiers];
+        }
+      }
+
+      v59 = selfCopy;
+      _cachedAlbumIdentifiersFilePath = [objc_opt_class() _cachedAlbumIdentifiersFilePath];
+      [v64 writeToFile:_cachedAlbumIdentifiersFilePath atomically:1];
+
+      objc_storeStrong(&selfCopy->_cachedAlbumIdentifiers, allObjects);
+    }
+
+LABEL_51:
+    cachedPlaylistIdentifiers = v59->_cachedPlaylistIdentifiers;
+    p_cachedPlaylistIdentifiers = &v59->_cachedPlaylistIdentifiers;
+    v69 = cachedPlaylistIdentifiers;
+    v70 = v69;
+    if (v69 == allObjects2)
+    {
+    }
+
+    else
+    {
+      v71 = [(NSArray *)v69 isEqual:allObjects2];
+
+      if ((v71 & 1) == 0)
+      {
+        v85 = 0;
+        v72 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:allObjects2 requiringSecureCoding:1 error:&v85];
+        v73 = v85;
+        if (v73)
+        {
+          v74 = NMLogForCategory(5);
+          if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+          {
+            [NMSMediaPinningManager _refreshMusicIdentifiers];
+          }
+        }
+
+        _cachedPlaylistIdentifiersFilePath = [objc_opt_class() _cachedPlaylistIdentifiersFilePath];
+        [v72 writeToFile:_cachedPlaylistIdentifiersFilePath atomically:1];
+
+        objc_storeStrong(p_cachedPlaylistIdentifiers, allObjects2);
+        goto LABEL_60;
+      }
+    }
+
+    if (!v62)
+    {
+LABEL_61:
+
+      return;
+    }
+
+LABEL_60:
+    defaultCenter = [MEMORY[0x277CCA9A0] defaultCenter];
+    [defaultCenter postNotificationName:@"NMSMediaPinningManagerMusicIdentifiersDidChangeNotification" object:0];
+
+    goto LABEL_61;
+  }
+
+  [(NMSMediaPinningManager *)self _legacy_refreshMusicIdentifiers];
 }
 
 void __50__NMSMediaPinningManager__refreshMusicIdentifiers__block_invoke(uint64_t a1, void *a2)
@@ -3711,7 +4243,7 @@ void __41__NMSMediaPinningManager_pinnedPlaylists__block_invoke(uint64_t a1)
       v11 = NMLogForCategory(5);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        __41__NMSMediaPinningManager_pinnedPlaylists__block_invoke_cold_1(v9, a1 + 40);
+        __41__NMSMediaPinningManager_pinnedPlaylists__block_invoke_cold_1();
       }
 
       v12 = [*(*(*(a1 + 40) + 8) + 40) objectsAtIndexes:v9];
@@ -3728,11 +4260,10 @@ void __41__NMSMediaPinningManager_pinnedPlaylists__block_invoke(uint64_t a1)
 
 uint64_t __41__NMSMediaPinningManager_pinnedPlaylists__block_invoke_2(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
-  v4 = [objc_opt_class() _playlistPIDValidForPinning:v3];
+  v2 = a2;
+  v3 = [objc_opt_class() _playlistPIDValidForPinning:v2];
 
-  return v4;
+  return v3;
 }
 
 - (BOOL)isAlbumPinned:(id)pinned
@@ -3758,7 +4289,7 @@ uint64_t __41__NMSMediaPinningManager_pinnedPlaylists__block_invoke_2(uint64_t a
   return internalQueue;
 }
 
-uint64_t __40__NMSMediaPinningManager_isAlbumPinned___block_invoke(uint64_t a1)
+void *__40__NMSMediaPinningManager_isAlbumPinned___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _isAlbumPinned:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -3788,7 +4319,7 @@ uint64_t __40__NMSMediaPinningManager_isAlbumPinned___block_invoke(uint64_t a1)
   return internalQueue;
 }
 
-uint64_t __43__NMSMediaPinningManager_isPlaylistPinned___block_invoke(uint64_t a1)
+void *__43__NMSMediaPinningManager_isPlaylistPinned___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _isPlaylistPinned:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -3814,14 +4345,14 @@ uint64_t __43__NMSMediaPinningManager_isPlaylistPinned___block_invoke(uint64_t a
 
 void __53__NMSMediaPinningManager_pinAlbum_completionHandler___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = NMLogForCategory(5);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v8 = 138543362;
-    v9 = v3;
-    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_DEFAULT, "Pinning album <%{public}@>", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v3;
+    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_DEFAULT, "Pinning album <%{public}@>", &v7, 0xCu);
   }
 
   v4 = [*(*(a1 + 40) + 8) pinnedAlbums];
@@ -3835,8 +4366,6 @@ void __53__NMSMediaPinningManager_pinAlbum_completionHandler___block_invoke(uint
   {
     (*(v6 + 16))(v6, 1);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pinPlaylist:(id)playlist completionHandler:(id)handler
@@ -3858,52 +4387,50 @@ void __53__NMSMediaPinningManager_pinAlbum_completionHandler___block_invoke(uint
 
 uint64_t __56__NMSMediaPinningManager_pinPlaylist_completionHandler___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() _playlistPIDValidForPinning:*(a1 + 40)];
-  v4 = NMLogForCategory(5);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v15 = *MEMORY[0x277D85DE8];
+  v2 = [objc_opt_class() _playlistPIDValidForPinning:*(a1 + 40)];
+  v3 = NMLogForCategory(5);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = @"NO";
-    v6 = *(a1 + 40);
-    if (v3)
+    v4 = @"NO";
+    v5 = *(a1 + 40);
+    if (v2)
     {
-      v5 = @"YES";
+      v4 = @"YES";
     }
 
-    v13 = 138543618;
-    v14 = v6;
-    v15 = 2112;
-    v16 = v5;
-    _os_log_impl(&dword_25B27B000, v4, OS_LOG_TYPE_DEFAULT, "[Pinning Validation] pinPlaylist: <%{public}@>, valid: %@", &v13, 0x16u);
+    v11 = 138543618;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v4;
+    _os_log_impl(&dword_25B27B000, v3, OS_LOG_TYPE_DEFAULT, "[Pinning Validation] pinPlaylist: <%{public}@>, valid: %@", &v11, 0x16u);
   }
 
-  if (v3)
+  if (v2)
   {
-    v7 = NMLogForCategory(5);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = NMLogForCategory(5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 40);
-      v13 = 138543362;
-      v14 = v8;
-      _os_log_impl(&dword_25B27B000, v7, OS_LOG_TYPE_DEFAULT, "Pinning playlist <%{public}@>", &v13, 0xCu);
+      v7 = *(a1 + 40);
+      v11 = 138543362;
+      v12 = v7;
+      _os_log_impl(&dword_25B27B000, v6, OS_LOG_TYPE_DEFAULT, "Pinning playlist <%{public}@>", &v11, 0xCu);
     }
 
-    v9 = [*(*(a1 + 32) + 8) pinnedPlaylists];
-    v10 = [v9 mutableCopy];
+    v8 = [*(*(a1 + 32) + 8) pinnedPlaylists];
+    v9 = [v8 mutableCopy];
 
-    [v10 addObject:*(a1 + 40)];
-    [*(*(a1 + 32) + 8) setPinnedPlaylists:v10];
+    [v9 addObject:*(a1 + 40)];
+    [*(*(a1 + 32) + 8) setPinnedPlaylists:v9];
     [*(a1 + 32) _invalidateMediaCacheForAppIdentifiers:1];
   }
 
   result = *(a1 + 48);
   if (result)
   {
-    result = (*(result + 16))(result, v3);
+    return (*(result + 16))(result, v2);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3926,14 +4453,14 @@ uint64_t __56__NMSMediaPinningManager_pinPlaylist_completionHandler___block_invo
 
 void __55__NMSMediaPinningManager_unpinAlbum_completionHandler___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = NMLogForCategory(5);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v8 = 138543362;
-    v9 = v3;
-    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_DEFAULT, "Unpinning album <%{public}@>", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v3;
+    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_DEFAULT, "Unpinning album <%{public}@>", &v7, 0xCu);
   }
 
   v4 = [*(*(a1 + 40) + 8) pinnedAlbums];
@@ -3947,8 +4474,6 @@ void __55__NMSMediaPinningManager_unpinAlbum_completionHandler___block_invoke(ui
   {
     (*(v6 + 16))(v6, 1);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unpinPlaylist:(id)playlist completionHandler:(id)handler
@@ -3970,14 +4495,14 @@ void __55__NMSMediaPinningManager_unpinAlbum_completionHandler___block_invoke(ui
 
 void __58__NMSMediaPinningManager_unpinPlaylist_completionHandler___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = NMLogForCategory(5);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v8 = 138543362;
-    v9 = v3;
-    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_DEFAULT, "Unpinning playlist <%{public}@>", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v3;
+    _os_log_impl(&dword_25B27B000, v2, OS_LOG_TYPE_DEFAULT, "Unpinning playlist <%{public}@>", &v7, 0xCu);
   }
 
   v4 = [*(*(a1 + 40) + 8) pinnedPlaylists];
@@ -3991,8 +4516,6 @@ void __58__NMSMediaPinningManager_unpinPlaylist_completionHandler___block_invoke
   {
     (*(v6 + 16))(v6, 1);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)_playlistPIDValidForPinning:(id)pinning
@@ -4010,10 +4533,10 @@ void __58__NMSMediaPinningManager_unpinPlaylist_completionHandler___block_invoke
     autoupdatingSharedLibrary = [MEMORY[0x277D2B5F8] autoupdatingSharedLibrary];
     v7 = [v5 unrestrictedQueryWithLibrary:autoupdatingSharedLibrary predicate:v4 orderingTerms:0];
 
-    v20 = 0;
-    v21[0] = &v20;
-    v21[1] = 0x2020000000;
-    v21[2] = 0;
+    v18 = 0;
+    v19 = &v18;
+    v20 = 0x2020000000;
+    v21 = 0;
     *(v23 + 24) = 1;
     v8 = *MEMORY[0x277D2B4C0];
     v26[0] = *MEMORY[0x277D2B4D8];
@@ -4023,28 +4546,27 @@ void __58__NMSMediaPinningManager_unpinPlaylist_completionHandler___block_invoke
     v26[3] = v9;
     v26[4] = *MEMORY[0x277D2B4E8];
     v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:5];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __54__NMSMediaPinningManager__playlistPIDValidForPinning___block_invoke;
-    v16[3] = &unk_27993E6B0;
-    v18 = &v20;
-    v11 = pinningCopy;
-    v17 = v11;
-    v19 = &v22;
-    [v7 enumeratePersistentIDsAndProperties:v10 usingBlock:v16];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __54__NMSMediaPinningManager__playlistPIDValidForPinning___block_invoke;
+    v14[3] = &unk_27993E6B0;
+    v16 = &v18;
+    v15 = pinningCopy;
+    v17 = &v22;
+    [v7 enumeratePersistentIDsAndProperties:v10 usingBlock:v14];
 
-    if (*(v21[0] + 24) != 1)
+    if (v19[3] != 1)
     {
-      v12 = NMLogForCategory(5);
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v11 = NMLogForCategory(5);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [(NMSMediaPinningManager *)v11 _playlistPIDValidForPinning:v21];
+        +[NMSMediaPinningManager _playlistPIDValidForPinning:];
       }
 
       *(v23 + 24) = 0;
     }
 
-    _Block_object_dispose(&v20, 8);
+    _Block_object_dispose(&v18, 8);
   }
 
   else
@@ -4056,16 +4578,15 @@ void __58__NMSMediaPinningManager_unpinPlaylist_completionHandler___block_invoke
     }
   }
 
-  v13 = *(v23 + 24);
+  v12 = *(v23 + 24);
   _Block_object_dispose(&v22, 8);
 
-  v14 = *MEMORY[0x277D85DE8];
-  return v13 & 1;
+  return v12 & 1;
 }
 
 void __54__NMSMediaPinningManager__playlistPIDValidForPinning___block_invoke(void *a1, uint64_t a2, id *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   ++*(*(a1[5] + 8) + 24);
   v5 = [a3[1] BOOLValue];
   v6 = [a3[2] BOOLValue];
@@ -4077,24 +4598,22 @@ void __54__NMSMediaPinningManager__playlistPIDValidForPinning___block_invoke(voi
     v10 = NMLogForCategory(5);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v12 = a1[4];
-      v13 = 138544386;
-      v14 = v12;
-      v15 = 1024;
-      v16 = v5;
-      v17 = 1024;
-      v18 = v6;
-      v19 = 1024;
-      v20 = v7;
-      v21 = 1024;
-      v22 = v9;
-      _os_log_error_impl(&dword_25B27B000, v10, OS_LOG_TYPE_ERROR, "[Pinning Validation] Rejecting invalid Playlist PID: %{public}@ -- hidden:%d geniusPlaylist:%d geniusMix:%d folder:%d", &v13, 0x24u);
+      v11 = a1[4];
+      v12 = 138544386;
+      v13 = v11;
+      v14 = 1024;
+      v15 = v5;
+      v16 = 1024;
+      v17 = v6;
+      v18 = 1024;
+      v19 = v7;
+      v20 = 1024;
+      v21 = v9;
+      _os_log_error_impl(&dword_25B27B000, v10, OS_LOG_TYPE_ERROR, "[Pinning Validation] Rejecting invalid Playlist PID: %{public}@ -- hidden:%d geniusPlaylist:%d geniusMix:%d folder:%d", &v12, 0x24u);
     }
 
     *(*(a1[6] + 8) + 24) = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateWorkoutSettingsPlaylistPIDTo:(id)to
@@ -4121,7 +4640,7 @@ void __54__NMSMediaPinningManager__playlistPIDValidForPinning___block_invoke(voi
 
 - (void)_setWorkoutPlaylistID:(id)d
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dCopy = d;
   mEMORY[0x277D2BCF8] = [MEMORY[0x277D2BCF8] sharedInstance];
   activePairedDeviceSelectorBlock = [MEMORY[0x277D2BCF8] activePairedDeviceSelectorBlock];
@@ -4136,7 +4655,7 @@ void __54__NMSMediaPinningManager__playlistPIDValidForPinning___block_invoke(voi
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v23 = dCopy;
+      v22 = dCopy;
       _os_log_impl(&dword_25B27B000, v11, OS_LOG_TYPE_DEFAULT, "Setting workoutPlaylistID <%{public}@>", buf, 0xCu);
     }
 
@@ -4152,12 +4671,12 @@ void __54__NMSMediaPinningManager__playlistPIDValidForPinning___block_invoke(voi
       [(NMSKeepLocalRequestOptions *)v13 setQualityOfService:25];
       [(NMSKeepLocalRequestOptions *)v13 setTimeout:0.0];
       v14 = [objc_alloc(objc_opt_class()) initWithModelObject:v12 enableState:1];
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __48__NMSMediaPinningManager__setWorkoutPlaylistID___block_invoke;
-      v20[3] = &unk_27993E6D8;
-      v21 = dCopy;
-      [v14 performWithOptions:v13 completion:v20];
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __48__NMSMediaPinningManager__setWorkoutPlaylistID___block_invoke;
+      v19[3] = &unk_27993E6D8;
+      v20 = dCopy;
+      [v14 performWithOptions:v13 completion:v19];
     }
   }
 
@@ -4183,9 +4702,9 @@ void __54__NMSMediaPinningManager__playlistPIDValidForPinning___block_invoke(voi
       }
 
       *buf = 138543618;
-      v23 = dCopy;
-      v24 = 2112;
-      v25 = v17;
+      v22 = dCopy;
+      v23 = 2112;
+      v24 = v17;
       _os_log_impl(&dword_25B27B000, v16, OS_LOG_TYPE_DEFAULT, "[Pinning Validation] setWorkoutPlaylistID: <%{public}@>, valid: %@", buf, 0x16u);
     }
 
@@ -4195,7 +4714,7 @@ void __54__NMSMediaPinningManager__playlistPIDValidForPinning___block_invoke(voi
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v23 = dCopy;
+        v22 = dCopy;
         _os_log_impl(&dword_25B27B000, v18, OS_LOG_TYPE_DEFAULT, "Setting workoutPlaylistID <%{public}@>", buf, 0xCu);
       }
 
@@ -4204,8 +4723,6 @@ void __54__NMSMediaPinningManager__playlistPIDValidForPinning___block_invoke(voi
       [(NMSMediaPinningManager *)self _invalidateMediaCacheForAppIdentifiers:1];
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __48__NMSMediaPinningManager__setWorkoutPlaylistID___block_invoke(uint64_t a1, void *a2)
@@ -4466,6 +4983,688 @@ void __51__NMSMediaPinningManager__legacy_musicIsOutOfSpace__block_invoke(uint64
   *(*(*(a1 + 40) + 8) + 24) = v2 > [v3 sizeOfItemsWithinQuotaForBundleIdentifier:@"com.apple.NanoMusic"];
 }
 
+- (id)_legacy_newMusicGroupIteratorWithDownloadedItemsOnly:(BOOL)only
+{
+  onlyCopy = only;
+  v72 = *MEMORY[0x277D85DE8];
+  orderedSet = [MEMORY[0x277CBEB40] orderedSet];
+  if ([(NMSMediaPinningManager *)self _shouldIncludeMusicManualDownloadsInQuotaEvaluation])
+  {
+    workoutPlaylistID = [(NMSyncDefaults *)self->_sharedDefaults workoutPlaylistID];
+    v7 = NMLogForCategory(5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543362;
+      v66 = workoutPlaylistID;
+      _os_log_impl(&dword_25B27B000, v7, OS_LOG_TYPE_DEFAULT, "_quotaManager (Music containers) workoutPlaylistID: %{public}@", buf, 0xCu);
+    }
+
+    if ([workoutPlaylistID longLongValue])
+    {
+      v8 = [NMSMediaItemGroup itemGroupWithSyncedPlaylistID:workoutPlaylistID downloadedItemsOnly:onlyCopy];
+      [orderedSet addObject:v8];
+    }
+
+    obj = workoutPlaylistID;
+    v9 = orderedSet;
+    pinnedPlaylists = [(NMSyncDefaults *)self->_sharedDefaults pinnedPlaylists];
+    v11 = NMLogForCategory(5);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543362;
+      v66 = pinnedPlaylists;
+      _os_log_impl(&dword_25B27B000, v11, OS_LOG_TYPE_DEFAULT, "_quotaManager (Music containers) pinnedPlaylists %{public}@", buf, 0xCu);
+    }
+
+    v63 = 0u;
+    v64 = 0u;
+    v61 = 0u;
+    v62 = 0u;
+    v12 = pinnedPlaylists;
+    v13 = [v12 countByEnumeratingWithState:&v61 objects:v71 count:16];
+    if (v13)
+    {
+      v14 = v13;
+      v15 = *v62;
+      do
+      {
+        for (i = 0; i != v14; ++i)
+        {
+          if (*v62 != v15)
+          {
+            objc_enumerationMutation(v12);
+          }
+
+          v17 = [NMSMediaItemGroup itemGroupWithSyncedPlaylistID:*(*(&v61 + 1) + 8 * i) downloadedItemsOnly:onlyCopy];
+          [v9 addObject:v17];
+        }
+
+        v14 = [v12 countByEnumeratingWithState:&v61 objects:v71 count:16];
+      }
+
+      while (v14);
+    }
+
+    pinnedAlbums = [(NMSyncDefaults *)self->_sharedDefaults pinnedAlbums];
+    v19 = NMLogForCategory(5);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543362;
+      v66 = pinnedAlbums;
+      _os_log_impl(&dword_25B27B000, v19, OS_LOG_TYPE_DEFAULT, "_quotaManager (Music containers) pinnedAlbums %{public}@", buf, 0xCu);
+    }
+
+    v59 = 0u;
+    v60 = 0u;
+    v57 = 0u;
+    v58 = 0u;
+    v20 = pinnedAlbums;
+    v21 = [v20 countByEnumeratingWithState:&v57 objects:v70 count:16];
+    if (v21)
+    {
+      v22 = v21;
+      v23 = *v58;
+      do
+      {
+        for (j = 0; j != v22; ++j)
+        {
+          if (*v58 != v23)
+          {
+            objc_enumerationMutation(v20);
+          }
+
+          v25 = [NMSMediaItemGroup itemGroupWithSyncedAlbumID:*(*(&v57 + 1) + 8 * j) downloadedItemsOnly:onlyCopy];
+          [v9 addObject:v25];
+        }
+
+        v22 = [v20 countByEnumeratingWithState:&v57 objects:v70 count:16];
+      }
+
+      while (v22);
+    }
+
+    orderedSet = v9;
+  }
+
+  [objc_opt_class() _fetchMusicRecommendations];
+  v53 = 0u;
+  v54 = 0u;
+  v55 = 0u;
+  obja = v56 = 0u;
+  v26 = [obja countByEnumeratingWithState:&v53 objects:v69 count:16];
+  if (!v26)
+  {
+    goto LABEL_52;
+  }
+
+  v28 = v26;
+  v50 = orderedSet;
+  v29 = 0;
+  v30 = *v54;
+  *&v27 = 138543618;
+  v49 = v27;
+  do
+  {
+    for (k = 0; k != v28; ++k)
+    {
+      if (*v54 != v30)
+      {
+        objc_enumerationMutation(obja);
+      }
+
+      v32 = *(*(&v53 + 1) + 8 * k);
+      identifier = [v32 identifier];
+      v34 = [identifier isEqualToString:NMSRecommendationRecentMusicIdentifier];
+
+      isSelected = [v32 isSelected];
+      v36 = isSelected;
+      if (v34)
+      {
+        if (isSelected)
+        {
+          if (v29)
+          {
+            v37 = NMLogForCategory(5);
+            if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+            {
+              *buf = v49;
+              v66 = v29;
+              v67 = 2114;
+              v68 = v32;
+              _os_log_error_impl(&dword_25B27B000, v37, OS_LOG_TYPE_ERROR, "_quotaManager (Music containers) Multiple recentMusicRecommendation; have:%{public}@; got:%{public}@", buf, 0x16u);
+            }
+          }
+
+          v38 = v29;
+          v29 = v32;
+          goto LABEL_46;
+        }
+
+        v38 = NMLogForCategory(5);
+        if (!os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+        {
+          goto LABEL_46;
+        }
+
+        *buf = 0;
+        v40 = v38;
+        v41 = "_quotaManager (Music containers) NOT including disabled Recent Music.";
+        v42 = 2;
+LABEL_45:
+        _os_log_impl(&dword_25B27B000, v40, OS_LOG_TYPE_DEFAULT, v41, buf, v42);
+        goto LABEL_46;
+      }
+
+      v38 = NMLogForCategory(5);
+      v39 = os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT);
+      if (!v36)
+      {
+        if (!v39)
+        {
+          goto LABEL_46;
+        }
+
+        *buf = 138543362;
+        v66 = v32;
+        v40 = v38;
+        v41 = "_quotaManager (Music containers) NOT including disabled store recommendation %{public}@";
+        v42 = 12;
+        goto LABEL_45;
+      }
+
+      if (v39)
+      {
+        *buf = 138543362;
+        v66 = v32;
+        _os_log_impl(&dword_25B27B000, v38, OS_LOG_TYPE_DEFAULT, "_quotaManager (Music containers) including enabled store recommendation %{public}@", buf, 0xCu);
+      }
+
+      v38 = [NMSMediaItemGroup itemGroupWithRecommendation:v32 downloadedItemsOnly:onlyCopy];
+      [v50 addObject:v38];
+LABEL_46:
+    }
+
+    v28 = [obja countByEnumeratingWithState:&v53 objects:v69 count:16];
+  }
+
+  while (v28);
+  orderedSet = v50;
+  if (v29)
+  {
+    v43 = NMLogForCategory(5);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543362;
+      v66 = v29;
+      _os_log_impl(&dword_25B27B000, v43, OS_LOG_TYPE_DEFAULT, "_quotaManager (Music containers) including enabled HR recommendation %{public}@", buf, 0xCu);
+    }
+
+    v44 = [NMSMediaItemGroup itemGroupWithRecommendation:v29 downloadedItemsOnly:onlyCopy];
+    [v50 addObject:v44];
+    goto LABEL_55;
+  }
+
+LABEL_52:
+  v44 = NMLogForCategory(5);
+  if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_25B27B000, v44, OS_LOG_TYPE_DEFAULT, "_quotaManager (Music containers) skipping Recent Music because there is no enabled Recent Music recommendation.", buf, 2u);
+  }
+
+  v29 = 0;
+LABEL_55:
+
+  v45 = [NMSSequentialMediaItemGroupIterator alloc];
+  array = [orderedSet array];
+  v47 = [(NMSMediaItemGroupIterator *)v45 initWithItemGroups:array estimatedItemSize:7000000];
+
+  return v47;
+}
+
+- (id)_legacy_newPodcastsGroupIteratorWithDownloadedItemsOnly:(BOOL)only
+{
+  onlyCopy = only;
+  v47 = *MEMORY[0x277D85DE8];
+  mEMORY[0x277D3DAF0] = [MEMORY[0x277D3DAF0] sharedInstance];
+  isReady = [mEMORY[0x277D3DAF0] isReady];
+
+  v7 = NMLogForCategory(5);
+  v8 = v7;
+  if (isReady)
+  {
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      pinnedPodcastsAreUserSet = [(NMSyncDefaults *)self->_sharedDefaults pinnedPodcastsAreUserSet];
+      *buf = 67109120;
+      LODWORD(v45) = pinnedPodcastsAreUserSet;
+      _os_log_impl(&dword_25B27B000, v8, OS_LOG_TYPE_DEFAULT, "_quotaManager (Podcasts containers) pinnedPodcastsAreUserSet %x", buf, 8u);
+    }
+
+    array = [MEMORY[0x277CBEB18] array];
+    if ([(NMSyncDefaults *)self->_sharedDefaults pinnedPodcastsAreUserSet])
+    {
+      if ([(NMSyncDefaults *)self->_sharedDefaults savedEpisodesEnabled])
+      {
+        v11 = NMLogForCategory(5);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_25B27B000, v11, OS_LOG_TYPE_DEFAULT, "_quotaManager (Podcasts containers) adding Saved Episodes item group", buf, 2u);
+        }
+
+        v12 = [NMSMediaItemGroup itemGroupWithSavedEpisodesDownloadedItemsOnly:onlyCopy];
+        [array addObject:v12];
+      }
+
+      v41 = 0u;
+      v42 = 0u;
+      v39 = 0u;
+      v40 = 0u;
+      selfCopy = self;
+      pinnedPodcastStationUUIDs = [(NMSyncDefaults *)self->_sharedDefaults pinnedPodcastStationUUIDs];
+      v14 = [pinnedPodcastStationUUIDs countByEnumeratingWithState:&v39 objects:v46 count:16];
+      if (v14)
+      {
+        v15 = v14;
+        v16 = *v40;
+        do
+        {
+          for (i = 0; i != v15; ++i)
+          {
+            if (*v40 != v16)
+            {
+              objc_enumerationMutation(pinnedPodcastStationUUIDs);
+            }
+
+            v18 = *(*(&v39 + 1) + 8 * i);
+            v19 = NMLogForCategory(5);
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 138543362;
+              v45 = v18;
+              _os_log_impl(&dword_25B27B000, v19, OS_LOG_TYPE_DEFAULT, "_quotaManager (Podcasts containers) adding station %{public}@", buf, 0xCu);
+            }
+
+            v20 = [NMSMediaItemGroup itemGroupWithPodcastStationUUID:v18 downloadedItemsOnly:onlyCopy];
+            [array addObject:v20];
+          }
+
+          v15 = [pinnedPodcastStationUUIDs countByEnumeratingWithState:&v39 objects:v46 count:16];
+        }
+
+        while (v15);
+      }
+
+      v37 = 0u;
+      v38 = 0u;
+      v35 = 0u;
+      v36 = 0u;
+      pinnedPodcastFeedURLs = [(NMSyncDefaults *)selfCopy->_sharedDefaults pinnedPodcastFeedURLs];
+      v22 = [pinnedPodcastFeedURLs countByEnumeratingWithState:&v35 objects:v43 count:16];
+      if (v22)
+      {
+        v23 = v22;
+        v24 = *v36;
+        do
+        {
+          for (j = 0; j != v23; ++j)
+          {
+            if (*v36 != v24)
+            {
+              objc_enumerationMutation(pinnedPodcastFeedURLs);
+            }
+
+            v26 = *(*(&v35 + 1) + 8 * j);
+            v27 = NMLogForCategory(5);
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 138543362;
+              v45 = v26;
+              _os_log_impl(&dword_25B27B000, v27, OS_LOG_TYPE_DEFAULT, "_quotaManager (Podcasts containers) adding podcast with feed url %{public}@", buf, 0xCu);
+            }
+
+            v28 = [NMSMediaItemGroup itemGroupWithCustomPodcastFeedURL:v26 downloadedItemsOnly:onlyCopy];
+            [array addObject:v28];
+          }
+
+          v23 = [pinnedPodcastFeedURLs countByEnumeratingWithState:&v35 objects:v43 count:16];
+        }
+
+        while (v23);
+      }
+    }
+
+    else
+    {
+      v30 = NMLogForCategory(5);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_25B27B000, v30, OS_LOG_TYPE_DEFAULT, "_quotaManager (Podcasts containers) adding Up Next item group", buf, 2u);
+      }
+
+      pinnedPodcastFeedURLs = [NMSMediaItemGroup itemGroupWithUpNextEpisodesDownloadedItemsOnly:onlyCopy];
+      [array addObject:pinnedPodcastFeedURLs];
+    }
+
+    v31 = [NMSAlternatingMediaItemGroupIterator alloc];
+    v32 = [array copy];
+    v29 = [(NMSMediaItemGroupIterator *)v31 initWithItemGroups:v32 estimatedItemSize:50000000];
+  }
+
+  else
+  {
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      [NMSMediaPinningManager _legacy_newPodcastsGroupIteratorWithDownloadedItemsOnly:v8];
+    }
+
+    array = [MEMORY[0x277D3DAF0] sharedInstance];
+    [array attemptToFix];
+    v29 = 0;
+  }
+
+  return v29;
+}
+
+- (id)_legacy_newAudiobooksGroupIteratorWithDownloadedItemsOnly:(BOOL)only
+{
+  onlyCopy = only;
+  v58 = *MEMORY[0x277D85DE8];
+  v5 = NMLogForCategory(5);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    wantToReadEnabled = [(NMSyncDefaults *)self->_sharedDefaults wantToReadEnabled];
+    readingNowEnabled = [(NMSyncDefaults *)self->_sharedDefaults readingNowEnabled];
+    *buf = 67109376;
+    *v57 = wantToReadEnabled;
+    *&v57[4] = 1024;
+    *&v57[6] = readingNowEnabled;
+    _os_log_impl(&dword_25B27B000, v5, OS_LOG_TYPE_DEFAULT, "_quotaManager (Audiobooks containers) wantToReadEnabled: %x, readingNowEnabled: %x", buf, 0xEu);
+  }
+
+  orderedSet = [MEMORY[0x277CBEB40] orderedSet];
+  [(NMSMediaPinningManager *)self _audiobookDownloadLimit];
+  v10 = v9;
+  v49 = 0u;
+  v50 = 0u;
+  v51 = 0u;
+  v52 = 0u;
+  selfCopy = self;
+  pinnedAudiobooks = [(NMSyncDefaults *)self->_sharedDefaults pinnedAudiobooks];
+  v12 = [pinnedAudiobooks countByEnumeratingWithState:&v49 objects:v55 count:16];
+  if (v12)
+  {
+    v13 = v12;
+    v14 = *v50;
+    do
+    {
+      for (i = 0; i != v13; ++i)
+      {
+        if (*v50 != v14)
+        {
+          objc_enumerationMutation(pinnedAudiobooks);
+        }
+
+        v16 = *(*(&v49 + 1) + 8 * i);
+        v17 = [NMSMediaItemGroup itemGroupWithAudiobookIdentifier:v16 downloadLimit:v10 manuallyAdded:0 downloadedItemsOnly:onlyCopy];
+        [orderedSet addObject:v17];
+
+        v18 = NMLogForCategory(5);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138543362;
+          *v57 = v16;
+          _os_log_impl(&dword_25B27B000, v18, OS_LOG_TYPE_DEFAULT, "_quotaManager (Audiobook containers) adding pinned audiobook %{public}@", buf, 0xCu);
+        }
+      }
+
+      v13 = [pinnedAudiobooks countByEnumeratingWithState:&v49 objects:v55 count:16];
+    }
+
+    while (v13);
+  }
+
+  v19 = selfCopy;
+  if ([(NMSyncDefaults *)selfCopy->_sharedDefaults readingNowEnabled])
+  {
+    v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
+    readingNowAudiobooks = [(NMSyncDefaults *)selfCopy->_sharedDefaults readingNowAudiobooks];
+    v21 = [readingNowAudiobooks countByEnumeratingWithState:&v45 objects:v54 count:16];
+    if (v21)
+    {
+      v22 = v21;
+      v23 = *v46;
+      do
+      {
+        for (j = 0; j != v22; ++j)
+        {
+          if (*v46 != v23)
+          {
+            objc_enumerationMutation(readingNowAudiobooks);
+          }
+
+          v25 = *(*(&v45 + 1) + 8 * j);
+          v26 = [NMSMediaItemGroup itemGroupWithAudiobookIdentifier:v25 downloadLimit:v10 manuallyAdded:0 downloadedItemsOnly:onlyCopy];
+          [orderedSet addObject:v26];
+
+          v27 = NMLogForCategory(5);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138543362;
+            *v57 = v25;
+            _os_log_impl(&dword_25B27B000, v27, OS_LOG_TYPE_DEFAULT, "_quotaManager (Audiobook containers) adding readingNow audiobook %{public}@", buf, 0xCu);
+          }
+        }
+
+        v22 = [readingNowAudiobooks countByEnumeratingWithState:&v45 objects:v54 count:16];
+      }
+
+      while (v22);
+    }
+
+    v19 = selfCopy;
+  }
+
+  if ([(NMSyncDefaults *)v19->_sharedDefaults wantToReadEnabled])
+  {
+    v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
+    wantToReadAudiobooks = [(NMSyncDefaults *)v19->_sharedDefaults wantToReadAudiobooks];
+    v29 = [wantToReadAudiobooks countByEnumeratingWithState:&v41 objects:v53 count:16];
+    if (v29)
+    {
+      v30 = v29;
+      v31 = *v42;
+      do
+      {
+        for (k = 0; k != v30; ++k)
+        {
+          if (*v42 != v31)
+          {
+            objc_enumerationMutation(wantToReadAudiobooks);
+          }
+
+          v33 = *(*(&v41 + 1) + 8 * k);
+          v34 = [NMSMediaItemGroup itemGroupWithAudiobookIdentifier:v33 downloadLimit:v10 manuallyAdded:0 downloadedItemsOnly:onlyCopy];
+          [orderedSet addObject:v34];
+
+          v35 = NMLogForCategory(5);
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138543362;
+            *v57 = v33;
+            _os_log_impl(&dword_25B27B000, v35, OS_LOG_TYPE_DEFAULT, "_quotaManager (Audiobook containers) adding wantToRead audiobook %{public}@", buf, 0xCu);
+          }
+        }
+
+        v30 = [wantToReadAudiobooks countByEnumeratingWithState:&v41 objects:v53 count:16];
+      }
+
+      while (v30);
+    }
+  }
+
+  v36 = [NMSSequentialMediaItemGroupIterator alloc];
+  array = [orderedSet array];
+  v38 = [(NMSMediaItemGroupIterator *)v36 initWithItemGroups:array estimatedItemSize:143000000];
+
+  return v38;
+}
+
+- (id)_legacy_newGroupIteratorForBundleIdentifier:(id)identifier downloadedItemsOnly:(BOOL)only
+{
+  onlyCopy = only;
+  identifierCopy = identifier;
+  if ([identifierCopy isEqualToString:@"com.apple.NanoMusic"])
+  {
+    v7 = [(NMSMediaPinningManager *)self _legacy_newMusicGroupIteratorWithDownloadedItemsOnly:onlyCopy];
+LABEL_7:
+    v8 = v7;
+    goto LABEL_8;
+  }
+
+  if ([identifierCopy isEqualToString:@"com.apple.podcasts"])
+  {
+    v7 = [(NMSMediaPinningManager *)self _legacy_newPodcastsGroupIteratorWithDownloadedItemsOnly:onlyCopy];
+    goto LABEL_7;
+  }
+
+  if ([identifierCopy isEqualToString:@"com.apple.NanoBooks"])
+  {
+    v7 = [(NMSMediaPinningManager *)self _legacy_newAudiobooksGroupIteratorWithDownloadedItemsOnly:onlyCopy];
+    goto LABEL_7;
+  }
+
+  v8 = 0;
+LABEL_8:
+
+  return v8;
+}
+
+- (id)_legacy_quotaManagerWithDownloadedItemsOnly:(BOOL)only
+{
+  onlyCopy = only;
+  v32 = *MEMORY[0x277D85DE8];
+  if ([(NMSMediaPinningManager *)self _shouldSkipQuotaManagerEvaluation])
+  {
+    v5 = 0;
+    goto LABEL_27;
+  }
+
+  if (onlyCopy)
+  {
+    v6 = 136;
+  }
+
+  else
+  {
+    v6 = 128;
+  }
+
+  v5 = *(&self->super.isa + v6);
+  if (v5)
+  {
+    goto LABEL_27;
+  }
+
+  v21 = v6;
+  v7 = NMLogForCategory(5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    if (onlyCopy)
+    {
+      v8 = @"downloaded";
+    }
+
+    else
+    {
+      v8 = @"added";
+    }
+
+    *buf = 138412546;
+    v29 = v8;
+    v30 = 2048;
+    _mediaQuota = [(NMSMediaPinningManager *)self _mediaQuota];
+    _os_log_impl(&dword_25B27B000, v7, OS_LOG_TYPE_DEFAULT, "[QuotaManager Caching] Creating new %@ items quota manager for quota:%llu", buf, 0x16u);
+  }
+
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v27[0] = @"com.apple.NanoMusic";
+  v27[1] = @"com.apple.podcasts";
+  v27[2] = @"com.apple.NanoBooks";
+  [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:3];
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v10 = v25 = 0u;
+  v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  if (v11)
+  {
+    v12 = v11;
+    v13 = *v23;
+    do
+    {
+      for (i = 0; i != v12; ++i)
+      {
+        if (*v23 != v13)
+        {
+          objc_enumerationMutation(v10);
+        }
+
+        v15 = *(*(&v22 + 1) + 8 * i);
+        if (![(NMSMediaPinningManager *)self _isAppDownloadingDormantForBundleIdentifier:v15])
+        {
+          v16 = [(NMSMediaPinningManager *)self _legacy_newGroupIteratorForBundleIdentifier:v15 downloadedItemsOnly:onlyCopy];
+          if (!v16)
+          {
+            goto LABEL_24;
+          }
+
+LABEL_23:
+          [dictionary setObject:v16 forKeyedSubscript:v15];
+          goto LABEL_24;
+        }
+
+        v16 = [(NMSMediaPinningManager *)self _legacy_newGroupIteratorForBundleIdentifier:v15 downloadedItemsOnly:1];
+        v17 = NMLogForCategory(12);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412290;
+          v29 = v15;
+          _os_log_impl(&dword_25B27B000, v17, OS_LOG_TYPE_DEFAULT, "Skipping downloading of %@ items because it is download-dormant.", buf, 0xCu);
+        }
+
+        if (v16)
+        {
+          goto LABEL_23;
+        }
+
+LABEL_24:
+      }
+
+      v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    }
+
+    while (v12);
+  }
+
+  v18 = [NMSMediaQuotaManager_Legacy alloc];
+  v19 = [dictionary copy];
+  v5 = [(NMSMediaQuotaManager_Legacy *)v18 initWithGroupIterators:v19 quota:[(NMSMediaPinningManager *)self _mediaQuota]];
+
+  objc_storeStrong((&self->super.isa + v21), v5);
+LABEL_27:
+
+  return v5;
+}
+
 - (void)extensionAccessDidChange
 {
   mEMORY[0x277D3DAF0] = [MEMORY[0x277D3DAF0] sharedInstance];
@@ -4497,54 +5696,18 @@ void __51__NMSMediaPinningManager__legacy_musicIsOutOfSpace__block_invoke(uint64
 
 void __43__NMSMediaPinningManager_workoutPlaylistID__block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(*(*a1 + 8) + 40));
-  OUTLINED_FUNCTION_4(&dword_25B27B000, a2, a3, "[Pinning Validation] Removing invalid workoutPlaylistID %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)_mediaStorageSizeForCurrentDevice
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_4(&dword_25B27B000, v0, v1, "Could not get total storage information from the active watch: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __41__NMSMediaPinningManager_pinnedPlaylists__block_invoke_cold_1(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *(*(*a2 + 8) + 40);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_0(&dword_25B27B000, v3, v4, "[Pinning Validation] Removing invalid pinnedPlaylists; validPlaylistIndices: %{public}@, original pinnedPlaylists: %{public}@");
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)_playlistPIDValidForPinning:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *(*a2 + 24);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_0(&dword_25B27B000, v3, v4, "[Pinning Validation] Rejecting invalid Playlist PID: %{public}@ -- matchedObjects:%tu");
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)_playlistPIDValidForPinning:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_4(&dword_25B27B000, v0, v1, "[Pinning Validation] Rejecting invalid Playlist PID: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *(*(*a1 + 8) + 40);
+  OUTLINED_FUNCTION_4(&dword_25B27B000, a2, a3, "[Pinning Validation] Removing invalid workoutPlaylistID %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __48__NMSMediaPinningManager__setWorkoutPlaylistID___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138543618;
-  *&v4[4] = *(a1 + 32);
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_2_0(&dword_25B27B000, a2, a3, "Failed to set keep local for workoutPlaylistID <%{public}@>.  Error=%@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138543618;
+  *&v3[4] = *(a1 + 32);
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_2_0(&dword_25B27B000, a2, a3, "Failed to set keep local for workoutPlaylistID <%{public}@>.  Error=%@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 @end

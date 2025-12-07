@@ -25,7 +25,7 @@
     processIdentifier = [connectionCopy processIdentifier];
     v10 = 0u;
     v11 = 0u;
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   else
@@ -340,7 +340,7 @@
                 v43 = [v39 substringFromIndex:v41 + 1];
                 if ([v43 length])
                 {
-                  if ([v43 isEqualToString:@"*"])
+                  if (objc_msgSend_isEqualToString_(v43))
                   {
                     [v34 addObject:v42];
                   }
@@ -789,9 +789,9 @@ LABEL_41:
 
             if (v31)
             {
-              v33 = [(NSString *)v30 isEqualToString:v31];
+              isEqualToString = objc_msgSend_isEqualToString_(v30);
 
-              if (v33)
+              if (isEqualToString)
               {
                 goto LABEL_41;
               }
@@ -959,9 +959,9 @@ LABEL_30:
   initiative = [sessionCopy initiative];
   lowercaseString = [initiative lowercaseString];
 
-  if (![lowercaseString isEqualToString:@"messaging"])
+  if (!objc_msgSend_isEqualToString_(lowercaseString))
   {
-    if ([lowercaseString isEqualToString:@"amp_enrollment"])
+    if (objc_msgSend_isEqualToString_(lowercaseString))
     {
       if (self->_AMPCardEnrollment)
       {
@@ -971,7 +971,7 @@ LABEL_30:
       goto LABEL_9;
     }
 
-    if ([lowercaseString isEqualToString:@"amp_psd2"])
+    if (objc_msgSend_isEqualToString_(lowercaseString))
     {
       if (!self->_cardOnFilePayments)
       {
@@ -981,13 +981,13 @@ LABEL_30:
       goto LABEL_21;
     }
 
-    if ([lowercaseString isEqualToString:@"in_app"])
+    if (objc_msgSend_isEqualToString_(lowercaseString))
     {
       if (self->_inAppPayments)
       {
         developerTeamID = self->_developerTeamID;
         initiativeContext = [sessionCopy initiativeContext];
-        if (![(NSString *)developerTeamID isEqualToString:initiativeContext]&& (PKBypassCertValidation() & 1) == 0 && !self->_inAppPaymentsPrivate)
+        if ((objc_msgSend_isEqualToString_(developerTeamID) & 1) == 0 && (PKBypassCertValidation() & 1) == 0 && !self->_inAppPaymentsPrivate)
         {
           paymentAllAccess = self->_paymentAllAccess;
 

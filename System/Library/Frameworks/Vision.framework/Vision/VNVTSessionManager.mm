@@ -295,7 +295,7 @@ BOOL __142__VNVTSessionManager_waitAndGetAvailablePixelRotationSessionForInputPi
   return v2 == *(a1 + 32);
 }
 
-id __142__VNVTSessionManager_waitAndGetAvailablePixelRotationSessionForInputPixelFormat_outputPixelFormat_rotation_flipHorizontal_flipVertical_error___block_invoke_2(uint64_t a1, void *a2)
+VNVTPixelRotationSession *__142__VNVTSessionManager_waitAndGetAvailablePixelRotationSessionForInputPixelFormat_outputPixelFormat_rotation_flipHorizontal_flipVertical_error___block_invoke_2(uint64_t a1, void *a2)
 {
   objc_opt_self();
   v3 = VTPixelRotationSessionCreateWithRotationAndFlip();

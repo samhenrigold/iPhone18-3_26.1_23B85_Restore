@@ -60,7 +60,7 @@ void *__38__DYUNIXDomainSocketTransport_setUrl___block_invoke(void *result)
 
 - (void)_connectServer:(id)server future:(id)future
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   serverCopy = server;
   if (!server)
   {
@@ -74,13 +74,13 @@ void *__38__DYUNIXDomainSocketTransport_setUrl___block_invoke(void *result)
   }
 
   CFStringGetFileSystemRepresentation(serverCopy, buffer, 1024);
-  v29 = 0u;
-  memset(v30, 0, sizeof(v30));
-  v27 = 0u;
   v28 = 0u;
-  v9 = strlen(buffer) + 1;
-  v25 = 0;
+  memset(v29, 0, sizeof(v29));
   v26 = 0u;
+  v27 = 0u;
+  v9 = strlen(buffer) + 1;
+  v24 = 0;
+  v25 = 0u;
   if (server || v9 < 0x69)
   {
     if (v9 >= 0x69)
@@ -91,7 +91,7 @@ LABEL_19:
 LABEL_21:
       [future setError:{+[DYError errorWithDomain:code:userInfo:](DYError, "errorWithDomain:code:userInfo:", v17, v18, 0)}];
       [future setResult:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithBool:", 0)}];
-      goto LABEL_25;
+      return;
     }
 
     if (server)
@@ -125,9 +125,9 @@ LABEL_13:
     self->super.super.super._url = [objc_alloc(MEMORY[0x277CBEBC0]) initFileURLWithPath:serverCopy];
   }
 
-  v25.sa_family = 1;
-  strlcpy(v25.sa_data, buffer, 0x68uLL);
-  v12 = strlen(v25.sa_data);
+  v24.sa_family = 1;
+  strlcpy(v24.sa_data, buffer, 0x68uLL);
+  v12 = strlen(v24.sa_data);
   v13 = socket(1, 1, 0);
   if (v13 == -1)
   {
@@ -138,8 +138,8 @@ LABEL_13:
   }
 
   v14 = v13;
-  unlink(v25.sa_data);
-  if (bind(v14, &v25, v12 + 2) != -1 && listen(v14, 1) != -1)
+  unlink(v24.sa_data);
+  if (bind(v14, &v24, v12 + 2) != -1 && listen(v14, 1) != -1)
   {
     fcntl(v14, 4, 4);
     v15 = dispatch_source_create(MEMORY[0x277D85D28], v14, 0, self->super.super.super._queue);
@@ -148,21 +148,21 @@ LABEL_13:
     handler[1] = 3221225472;
     handler[2] = __53__DYUNIXDomainSocketTransport__connectServer_future___block_invoke;
     handler[3] = &unk_27930C198;
-    v24 = v14;
+    v23 = v14;
     handler[4] = self;
     handler[5] = future;
     dispatch_source_set_cancel_handler(v15, handler);
     v16 = *&self->_mode;
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __53__DYUNIXDomainSocketTransport__connectServer_future___block_invoke_2;
-    v21[3] = &unk_27930C198;
-    v22 = v14;
-    v21[4] = self;
-    v21[5] = future;
-    dispatch_source_set_event_handler(v16, v21);
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __53__DYUNIXDomainSocketTransport__connectServer_future___block_invoke_2;
+    v20[3] = &unk_27930C198;
+    v21 = v14;
+    v20[4] = self;
+    v20[5] = future;
+    dispatch_source_set_event_handler(v16, v20);
     dispatch_resume(*&self->_mode);
-    goto LABEL_25;
+    return;
   }
 
 LABEL_23:
@@ -172,9 +172,6 @@ LABEL_23:
   {
     close(v14);
   }
-
-LABEL_25:
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 _BYTE *__53__DYUNIXDomainSocketTransport__connectServer_future___block_invoke(uint64_t a1)
@@ -195,14 +192,14 @@ _BYTE *__53__DYUNIXDomainSocketTransport__connectServer_future___block_invoke(ui
   return result;
 }
 
-intptr_t __53__DYUNIXDomainSocketTransport__connectServer_future___block_invoke_2(uint64_t a1)
+void *__53__DYUNIXDomainSocketTransport__connectServer_future___block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   result = dispatch_source_testcancel(*(*(a1 + 32) + 272));
   if (!result)
   {
-    v10 = 106;
-    v3 = accept(*(a1 + 48), &v11, &v10);
+    v9 = 106;
+    v3 = accept(*(a1 + 48), &v10, &v9);
     if (v3 == -1)
     {
       v7 = [DYError errorWithDomain:*MEMORY[0x277CCA5B8] code:*__error() userInfo:0];
@@ -221,47 +218,45 @@ intptr_t __53__DYUNIXDomainSocketTransport__connectServer_future___block_invoke_
       v6 = (a1 + 40);
     }
 
-    result = [*v6 setResult:v5];
+    return [*v6 setResult:v5];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)_connectClient:(id)client future:(id)future
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (client)
   {
     v7 = socket(1, 1, 0);
     if (v7 != -1)
     {
       v8 = v7;
-      v25 = 0u;
-      memset(v26, 0, sizeof(v26));
       v23 = 0u;
-      v24 = 0u;
-      v21 = 0;
+      memset(v24, 0, sizeof(v24));
+      v21 = 0u;
       v22 = 0u;
-      CFStringGetFileSystemRepresentation(client, v20, 1024);
-      if (strlen(v20) - 103 > 0xFFFFFFFFFFFFFF97)
+      v19 = 0;
+      v20 = 0u;
+      CFStringGetFileSystemRepresentation(client, v18, 1024);
+      if (strlen(v18) - 103 > 0xFFFFFFFFFFFFFF97)
       {
-        v21.sa_family = 1;
-        strlcpy(v21.sa_data, v20, 0x68uLL);
-        v16 = strlen(v21.sa_data);
-        if (connect(v8, &v21, v16 + 2) != -1)
+        v19.sa_family = 1;
+        strlcpy(v19.sa_data, v18, 0x68uLL);
+        v15 = strlen(v19.sa_data);
+        if (connect(v8, &v19, v15 + 2) != -1)
         {
           [(DYBaseSocketTransport *)self runWithSocket:v8];
-          v17 = 1;
+          v16 = 1;
 LABEL_14:
-          [future setResult:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithBool:", v17)}];
-          v19 = *MEMORY[0x277D85DE8];
+          [future setResult:{objc_msgSend(MEMORY[0x277CCABB0], "numberWithBool:", v16)}];
           return;
         }
 
-        v18 = *MEMORY[0x277CCA5B8];
+        v17 = *MEMORY[0x277CCA5B8];
         v10 = *__error();
-        v9 = v18;
+        v9 = v17;
       }
 
       else
@@ -271,7 +266,7 @@ LABEL_14:
       }
 
       [future setError:{+[DYError errorWithDomain:code:userInfo:](DYError, "errorWithDomain:code:userInfo:", v9, v10, 0)}];
-      v17 = 0;
+      v16 = 0;
       goto LABEL_14;
     }
 
@@ -288,7 +283,6 @@ LABEL_14:
 
   [future setError:{+[DYError errorWithDomain:code:userInfo:](DYError, "errorWithDomain:code:userInfo:", v11, v12, 0)}];
   v14 = [MEMORY[0x277CCABB0] numberWithBool:0];
-  v15 = *MEMORY[0x277D85DE8];
 
   [future setResult:v14];
 }

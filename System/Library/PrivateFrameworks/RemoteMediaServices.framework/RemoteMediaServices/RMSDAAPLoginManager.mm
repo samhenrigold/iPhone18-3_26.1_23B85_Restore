@@ -65,7 +65,7 @@ void __50__RMSDAAPLoginManager_loginWithCompletionHandler___block_invoke(uint64_
 
   else
   {
-    v4 = RMSLogger();
+    v4 = RMSLogger(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __50__RMSDAAPLoginManager_loginWithCompletionHandler___block_invoke_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
@@ -113,7 +113,7 @@ void __50__RMSDAAPLoginManager_loginWithCompletionHandler___block_invoke_1(uint6
 
   else
   {
-    v8 = RMSLogger();
+    v8 = RMSLogger(a1);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __50__RMSDAAPLoginManager_loginWithCompletionHandler___block_invoke_1_cold_1(v8, v9, v10, v11, v12, v13, v14, v15);
@@ -139,7 +139,7 @@ void __50__RMSDAAPLoginManager_loginWithCompletionHandler___block_invoke_2(uint6
 
   else
   {
-    v4 = RMSLogger();
+    v4 = RMSLogger(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __50__RMSDAAPLoginManager_loginWithCompletionHandler___block_invoke_2_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
@@ -237,16 +237,17 @@ void __69__RMSDAAPLoginManager__requestControlInterfaceWithCompletionHandler___b
 void __58__RMSDAAPLoginManager__requestLoginWithCompletionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
   v4 = [RMSDAAPParser objectWithData:?];
+  v5 = v4;
   if (a2 != 1)
   {
-    v5 = RMSLogger();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = RMSLogger(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __58__RMSDAAPLoginManager__requestLoginWithCompletionHandler___block_invoke_cold_1(v4, v5);
+      __58__RMSDAAPLoginManager__requestLoginWithCompletionHandler___block_invoke_cold_1(v5, v6);
     }
   }
 
-  (*(*(a1 + 32) + 16))(*(a1 + 32), a2, [v4 intValue]);
+  (*(*(a1 + 32) + 16))(*(a1 + 32), a2, [v5 intValue]);
 }
 
 - (void)_requestFairPlayHandshake:(id)handshake

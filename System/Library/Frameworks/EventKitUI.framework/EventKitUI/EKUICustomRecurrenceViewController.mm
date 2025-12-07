@@ -384,20 +384,20 @@ LABEL_20:
         [(UIPickerView *)self->_intervalPicker setTranslatesAutoresizingMaskIntoConstraints:0];
       }
 
-      contentView = [(EKUITableViewCell *)p_super contentView];
-      [contentView addSubview:self->_intervalPicker];
+      v12 = objc_msgSend_contentView(p_super);
+      [v12 addSubview:self->_intervalPicker];
 
-      contentView2 = [(EKUITableViewCell *)p_super contentView];
+      v13 = objc_msgSend_contentView(p_super);
       v14 = MEMORY[0x1E696ACD8];
       v15 = _NSDictionaryOfVariableBindings(&cfstr_Intervalpicker.isa, self->_intervalPicker, 0);
       v16 = [v14 constraintsWithVisualFormat:@"H:|[_intervalPicker]|" options:0 metrics:0 views:v15];
-      [contentView2 addConstraints:v16];
+      [v13 addConstraints:v16];
 
-      contentView3 = [(EKUITableViewCell *)p_super contentView];
+      v17 = objc_msgSend_contentView(p_super);
       v18 = MEMORY[0x1E696ACD8];
       v19 = _NSDictionaryOfVariableBindings(&cfstr_Intervalpicker.isa, self->_intervalPicker, 0);
       v20 = [v18 constraintsWithVisualFormat:@"V:|[_intervalPicker]|" options:0 metrics:0 views:v19];
-      [contentView3 addConstraints:v20];
+      [v17 addConstraints:v20];
 
       v21 = self->_cachedInterval - 1;
       if ([(EKUICustomRecurrenceViewController *)self _disallowsRecurrenceInterval])
@@ -558,8 +558,8 @@ LABEL_8:
   if (EKUICatalyst())
   {
     backgroundColor = [viewCopy backgroundColor];
-    contentView = [footerViewCopy contentView];
-    [contentView setBackgroundColor:backgroundColor];
+    v8 = objc_msgSend_contentView(footerViewCopy);
+    [v8 setBackgroundColor:backgroundColor];
   }
 }
 
@@ -625,7 +625,7 @@ LABEL_8:
     if (pickerCopy)
     {
       tableView = [(EKUICustomRecurrenceViewController *)self view];
-      [tableView tintColor];
+      objc_msgSend_tintColor(tableView);
     }
 
     else

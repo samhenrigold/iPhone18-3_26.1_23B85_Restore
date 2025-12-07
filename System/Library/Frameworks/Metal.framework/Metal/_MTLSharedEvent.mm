@@ -1,5 +1,6 @@
 @interface _MTLSharedEvent
 - (NSString)label;
+- (_MTLSharedEvent)initWithMachPort:(unsigned int)port;
 - (_MTLSharedEvent)initWithOptions:(int64_t)options;
 - (_MTLSharedEvent)initWithSharedEventHandle:(id)handle;
 - (id)newSharedEventHandle;
@@ -76,6 +77,19 @@
   return v4;
 }
 
+- (_MTLSharedEvent)initWithMachPort:(unsigned int)port
+{
+  v4.receiver = self;
+  v4.super_class = _MTLSharedEvent;
+  result = [(IOSurfaceSharedEvent *)&v4 initWithMachPort:*&port];
+  if (result)
+  {
+    result->_labelLock._os_unfair_lock_opaque = 0;
+  }
+
+  return result;
+}
+
 - (_MTLSharedEvent)initWithOptions:(int64_t)options
 {
   v4.receiver = self;
@@ -115,16 +129,14 @@
 {
   if (MTLTraceEnabledSPI() && **MEMORY[0x1E69A8488])
   {
-    v5 = *(&self->super.super.isa + *MEMORY[0x1E696CE20]);
-    labelTraceID = self->_labelTraceID;
     [label cStringUsingEncoding:1];
     self->_labelTraceID = IOAccelDeviceTraceObjectLabel();
   }
 
-  v7 = [label copy];
+  v5 = [label copy];
   os_unfair_lock_lock(&self->_labelLock);
   label = self->_label;
-  self->_label = v7;
+  self->_label = v5;
   os_unfair_lock_unlock(&self->_labelLock);
 }
 

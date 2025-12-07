@@ -109,29 +109,28 @@
 {
   v8 = type metadata accessor for UUID();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   MEMORY[0x1EEE9AC00](v8);
-  v12 = aBlock - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = _Block_copy(reply);
+  v11 = aBlock - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = _Block_copy(reply);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  v14 = swift_allocObject();
-  *(v14 + 16) = v13;
-  v15 = *self->wrapped;
+  v13 = swift_allocObject();
+  *(v13 + 16) = v12;
+  v14 = *self->wrapped;
   dataCopy = data;
 
   isa = UUID._bridgeToObjectiveC()().super.isa;
   aBlock[4] = _s14SiriKitRuntime39ConversationFlexibleExecutionSupportXPCCIeyBhy_ACIeghg_TRTA_0;
-  aBlock[5] = v14;
+  aBlock[5] = v13;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable (@guaranteed FlowExtensionUserInputResultXPC) -> ();
   aBlock[3] = &block_descriptor_98_0;
-  v18 = _Block_copy(aBlock);
+  v17 = _Block_copy(aBlock);
 
-  [v15 acceptInitialInputWithInputIdentifier:isa speechData:dataCopy reply:v18];
-  _Block_release(v18);
+  [v14 acceptInitialInputWithInputIdentifier:isa speechData:dataCopy reply:v17];
+  _Block_release(v17);
 
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (void)prepareWithBridge:(id)bridge reply:(id)reply

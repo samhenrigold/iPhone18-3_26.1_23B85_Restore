@@ -46,12 +46,12 @@ void sub_100001488(int8x16_t *a1)
   dispatch_async(&_dispatch_main_q, block);
 }
 
-void sub_1000015A8(uint64_t a1)
+void sub_1000015A8(uint64_t a1, const char *a2)
 {
-  v2 = *(a1 + 40);
-  if (v2)
+  v3 = *(a1 + 40);
+  if (v3)
   {
-    [v2 duration];
+    objc_msgSend_duration(v3, a2);
   }
 
   else
@@ -60,15 +60,15 @@ void sub_1000015A8(uint64_t a1)
   }
 
   *(*(a1 + 32) + 32) = CMTimeGetSeconds(&time);
-  v3 = [AVPlayerItem playerItemWithAsset:*(a1 + 40)];
-  [v3 addObserver:*(a1 + 32) forKeyPath:@"status" options:4 context:&unk_100008B60];
-  v4 = +[NSNotificationCenter defaultCenter];
-  [v4 addObserver:*(a1 + 32) selector:"_playerItemDidPlayToEndTime:" name:AVPlayerItemDidPlayToEndTimeNotification object:v3];
+  v4 = [AVPlayerItem playerItemWithAsset:*(a1 + 40)];
+  [v4 addObserver:*(a1 + 32) forKeyPath:@"status" options:4 context:&unk_100008B60];
+  v5 = +[NSNotificationCenter defaultCenter];
+  [v5 addObserver:*(a1 + 32) selector:"_playerItemDidPlayToEndTime:" name:AVPlayerItemDidPlayToEndTimeNotification object:v4];
 
-  v5 = [AVPlayer playerWithPlayerItem:v3];
-  v6 = *(a1 + 32);
-  v7 = *(v6 + 8);
-  *(v6 + 8) = v5;
+  v6 = [AVPlayer playerWithPlayerItem:v4];
+  v7 = *(a1 + 32);
+  v8 = *(v7 + 8);
+  *(v7 + 8) = v6;
 
   [*(*(a1 + 32) + 8) setActionAtItemEnd:2];
   [*(*(a1 + 32) + 16) setPlayer:*(*(a1 + 32) + 8)];

@@ -119,17 +119,14 @@
   v16 = v25[0];
   if (ResourcesAndReturnError)
   {
-    ptr = self->_net.__ptr_;
-    v18 = objc_msgSend_inputImageTensorName(self->_configuration, v12, v13, v14, v15, printCopy);
-    v19 = v18;
-    objc_msgSend_UTF8String(v18, v20, v21, v22, v23);
-    sub_1AC09056C(printCopy);
-    sub_1AC06910C();
+    v17 = objc_msgSend_inputImageTensorName(self->_configuration, v12, v13, v14, v15, printCopy);
+    v18 = v17;
+    __dst[7] = objc_msgSend_UTF8String(v17, v19, v20, v21, v22);
+    v23 = sub_1AC09056C(printCopy);
+    sub_1AC06910C(__dst, v23);
   }
 
   completionCopy[2](completionCopy, 0, v16);
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (id).cxx_construct

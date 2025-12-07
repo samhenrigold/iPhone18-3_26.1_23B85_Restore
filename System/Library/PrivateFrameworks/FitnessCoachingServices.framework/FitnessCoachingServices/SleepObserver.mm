@@ -24,36 +24,34 @@
 {
   v3 = sub_2278C6820();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20]();
-  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v3);
+  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   __swift_project_boxed_opaque_existential_1((&self->super.isa + OBJC_IVAR____TtC23FitnessCoachingServices13SleepObserver_dateProvider), *&self->dateProvider[OBJC_IVAR____TtC23FitnessCoachingServices13SleepObserver_dateProvider + 16]);
-  v8 = off_283AE99E0;
-  type metadata accessor for DateProvider();
+  v7 = off_283AE99E0;
+  type metadata accessor for DateProvider(0);
   selfCopy = self;
-  v8(v7);
+  v7(v6);
 
-  v10 = sub_2278C67D0();
-  (*(v4 + 8))(v7, v3);
+  v9 = sub_2278C67D0();
+  (*(v4 + 8))(v6, v3);
 
-  return v10;
+  return v9;
 }
 
 - (id)currentCalendar
 {
   v3 = sub_2278C6920();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20]();
-  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v3);
+  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   __swift_project_boxed_opaque_existential_1((&self->super.isa + OBJC_IVAR____TtC23FitnessCoachingServices13SleepObserver_dateProvider), *&self->dateProvider[OBJC_IVAR____TtC23FitnessCoachingServices13SleepObserver_dateProvider + 16]);
   selfCopy = self;
   sub_227804920();
 
-  v9 = sub_2278C68B0();
-  (*(v4 + 8))(v7, v3);
+  v8 = sub_2278C68B0();
+  (*(v4 + 8))(v6, v3);
 
-  return v9;
+  return v8;
 }
 
 @end

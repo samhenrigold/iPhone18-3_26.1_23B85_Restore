@@ -2,7 +2,7 @@
 + (id)limitationForRole:(unsigned __int8)role withPercentage:(unint64_t)percentage duration:(double)duration violationPolicy:(unint64_t)policy;
 - (BOOL)isEqual:(id)equal;
 - (RBSCPUMaximumUsageLimitation)initWithRBSXPCCoder:(id)coder;
-- (id)_initWithRole:(unint64_t)role percentage:(unint64_t)percentage duration:(double)duration violationPolicy:;
+- (_BYTE)_initWithRole:(unint64_t)role percentage:(unint64_t)percentage duration:(double)duration violationPolicy:;
 - (id)description;
 - (unint64_t)hash;
 - (void)encodeWithRBSXPCCoder:(id)coder;
@@ -89,7 +89,7 @@
   return v5;
 }
 
-- (id)_initWithRole:(unint64_t)role percentage:(unint64_t)percentage duration:(double)duration violationPolicy:
+- (_BYTE)_initWithRole:(unint64_t)role percentage:(unint64_t)percentage duration:(double)duration violationPolicy:
 {
   if (result)
   {
@@ -128,7 +128,7 @@
     result = objc_msgSendSuper2(&v18, sel__init);
     if (result)
     {
-      *(result + 8) = v8;
+      result[8] = v8;
       *(result + 2) = role;
       *(result + 3) = duration;
       *(result + 4) = percentage;

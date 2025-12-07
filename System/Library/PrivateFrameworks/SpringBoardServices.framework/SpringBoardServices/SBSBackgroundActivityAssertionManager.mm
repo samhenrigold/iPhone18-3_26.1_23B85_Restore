@@ -24,9 +24,10 @@
 
 uint64_t __55__SBSBackgroundActivityAssertionManager_sharedInstance__block_invoke()
 {
-  sharedInstance___sharedBackgroundActivityAssertionManager = objc_opt_new();
+  v0 = objc_opt_new();
+  sharedInstance___sharedBackgroundActivityAssertionManager = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 - (SBSBackgroundActivityAssertionManager)init
@@ -132,7 +133,7 @@ void __85__SBSBackgroundActivityAssertionManager__internalQueue_setupXPCConnecti
 
 void __85__SBSBackgroundActivityAssertionManager__internalQueue_setupXPCConnectionIfNecessary__block_invoke_2(uint64_t a1)
 {
-  v2 = SBLogStatusBarish();
+  v2 = SBLogStatusBarish(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __85__SBSBackgroundActivityAssertionManager__internalQueue_setupXPCConnectionIfNecessary__block_invoke_2_cold_1(a1, v2);
@@ -187,7 +188,7 @@ void __92__SBSBackgroundActivityAssertionManager_addBackgroundActivityAssertion_
   }
 
   v7 = [*(a1 + 40) assertionData];
-  v8 = SBLogStatusBarish();
+  v8 = SBLogStatusBarish(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -241,9 +242,9 @@ void __92__SBSBackgroundActivityAssertionManager_addBackgroundActivityAssertion_
   {
     v4 = [*(a1 + 48) objectForKey:*(a1 + 40)];
     v5 = v4;
-    if (v4 && [v4 BOOLValue])
+    if (v4 && (v4 = [v4 BOOLValue], v4))
     {
-      v6 = SBLogStatusBarish();
+      v6 = SBLogStatusBarish(v4);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         v7 = *(a1 + 56);
@@ -261,7 +262,7 @@ void __92__SBSBackgroundActivityAssertionManager_addBackgroundActivityAssertion_
 
     else
     {
-      v9 = SBLogStatusBarish();
+      v9 = SBLogStatusBarish(v4);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         v10 = *(a1 + 56);
@@ -319,7 +320,7 @@ void __92__SBSBackgroundActivityAssertionManager_addBackgroundActivityAssertion_
 void __75__SBSBackgroundActivityAssertionManager_removeBackgroundActivityAssertion___block_invoke(uint64_t a1)
 {
   v8 = *MEMORY[0x1E69E9840];
-  v2 = SBLogStatusBarish();
+  v2 = SBLogStatusBarish(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -377,7 +378,7 @@ void __72__SBSBackgroundActivityAssertionManager_updateStatusStringForAssertion_
 void __95__SBSBackgroundActivityAssertionManager_invalidateBackgroundActivityAssertionsWithIdentifiers___block_invoke(uint64_t a1)
 {
   v16 = *MEMORY[0x1E69E9840];
-  v2 = SBLogStatusBarish();
+  v2 = SBLogStatusBarish(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -463,34 +464,35 @@ void __74__SBSBackgroundActivityAssertionManager_statusBarTappedWithContext_repl
 
 void __74__SBSBackgroundActivityAssertionManager_statusBarTappedWithContext_reply___block_invoke_2(void *a1)
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E69C75E0] identifierWithPid:getpid()];
   v3 = [MEMORY[0x1E69C7640] targetWithProcessIdentifier:v2];
   v4 = [MEMORY[0x1E69C7560] attributeWithDomain:@"com.apple.common" name:@"FinishTaskUninterruptable"];
-  v14[0] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+  v15[0] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
 
   v6 = [objc_alloc(MEMORY[0x1E69C7548]) initWithExplanation:@"SBSBackgroundActivityCoordinatorDelegateCompletionBlock" target:v3 attributes:v5];
-  if (([v6 acquireWithError:0] & 1) == 0)
+  v7 = [v6 acquireWithError:0];
+  if ((v7 & 1) == 0)
   {
-    v7 = SBLogStatusBarish();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = SBLogStatusBarish(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_19169D000, v7, OS_LOG_TYPE_DEFAULT, "SBSBackgroundActivityCoordinator: Could not take process assertion for delivering event to delegate.", buf, 2u);
+      _os_log_impl(&dword_19169D000, v8, OS_LOG_TYPE_DEFAULT, "SBSBackgroundActivityCoordinator: Could not take process assertion for delivering event to delegate.", buf, 2u);
     }
   }
 
   (*(a1[6] + 16))();
-  v9 = a1[4];
-  v8 = a1[5];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __74__SBSBackgroundActivityAssertionManager_statusBarTappedWithContext_reply___block_invoke_120;
-  v11[3] = &unk_1E735F9D0;
-  v12 = v6;
-  v10 = v6;
-  [v9 _handleStatusBarTapWithContext:v8 withCompletionBlock:v11];
+  v10 = a1[4];
+  v9 = a1[5];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __74__SBSBackgroundActivityAssertionManager_statusBarTappedWithContext_reply___block_invoke_120;
+  v12[3] = &unk_1E735F9D0;
+  v13 = v6;
+  v11 = v6;
+  [v10 _handleStatusBarTapWithContext:v9 withCompletionBlock:v12];
 }
 
 - (id)succinctDescription
@@ -745,7 +747,7 @@ void __95__SBSBackgroundActivityAssertionManager__internalQueue_updateRegistrati
 
 - (void)_registerBackgroundActivityCoordinatorAfterInterruption
 {
-  v3 = SBLogStatusBarish();
+  v3 = SBLogStatusBarish(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -781,7 +783,7 @@ void __96__SBSBackgroundActivityAssertionManager__registerBackgroundActivityCoor
 void __96__SBSBackgroundActivityAssertionManager__registerBackgroundActivityCoordinatorAfterInterruption__block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = SBLogStatusBarish();
+  v4 = SBLogStatusBarish(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -831,7 +833,7 @@ void __96__SBSBackgroundActivityAssertionManager__registerBackgroundActivityCoor
 void __62__SBSBackgroundActivityAssertionManager_unregisterCoordinator__block_invoke(uint64_t a1)
 {
   v2 = [*(*(a1 + 32) + 24) remoteObjectProxyWithErrorHandler:&__block_literal_global_132_0];
-  v3 = SBLogStatusBarish();
+  v3 = SBLogStatusBarish(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -842,13 +844,13 @@ void __62__SBSBackgroundActivityAssertionManager_unregisterCoordinator__block_in
   [v2 setRegisteredBackgroundActivityIdentifiers:0 reply:&__block_literal_global_135_0];
 }
 
-void __62__SBSBackgroundActivityAssertionManager_unregisterCoordinator__block_invoke_2()
+void __62__SBSBackgroundActivityAssertionManager_unregisterCoordinator__block_invoke_2(uint64_t a1)
 {
-  v0 = SBLogStatusBarish();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = SBLogStatusBarish(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_19169D000, v0, OS_LOG_TYPE_DEFAULT, "SBSBackgroundActivityCoordinator: Error communicating with SpringBoard.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_19169D000, v1, OS_LOG_TYPE_DEFAULT, "SBSBackgroundActivityCoordinator: Error communicating with SpringBoard.", v2, 2u);
   }
 }
 
@@ -916,29 +918,29 @@ void __73__SBSBackgroundActivityAssertionManager__handleXPCConnectionInvalidatio
 
 void __62__SBSBackgroundActivityAssertionManager__reactivateAssertions__block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = objc_opt_new();
-  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
   v3 = *(*(a1 + 32) + 8);
-  v4 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v18;
     do
     {
       v7 = 0;
       do
       {
-        if (*v17 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(a1 + 32) + 8) objectForKey:*(*(&v16 + 1) + 8 * v7)];
+        v8 = [*(*(a1 + 32) + 8) objectForKey:*(*(&v17 + 1) + 8 * v7)];
         v9 = v8;
         if (v8)
         {
@@ -950,29 +952,29 @@ void __62__SBSBackgroundActivityAssertionManager__reactivateAssertions__block_in
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v5);
   }
 
-  v11 = SBLogStatusBarish();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = SBLogStatusBarish(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_19169D000, v11, OS_LOG_TYPE_DEFAULT, "Re-activating style override assertions after interruption", buf, 2u);
+    _os_log_impl(&dword_19169D000, v12, OS_LOG_TYPE_DEFAULT, "Re-activating style override assertions after interruption", buf, 2u);
   }
 
   if ([v2 count])
   {
-    v12 = [*(*(a1 + 32) + 24) remoteObjectProxy];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __62__SBSBackgroundActivityAssertionManager__reactivateAssertions__block_invoke_137;
-    v13[3] = &unk_1E73616A0;
-    v13[4] = *(a1 + 32);
-    v14 = v2;
-    [v12 activateBackgroundActivityAssertions:v14 reply:v13];
+    v13 = [*(*(a1 + 32) + 24) remoteObjectProxy];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __62__SBSBackgroundActivityAssertionManager__reactivateAssertions__block_invoke_137;
+    v14[3] = &unk_1E73616A0;
+    v14[4] = *(a1 + 32);
+    v15 = v2;
+    [v13 activateBackgroundActivityAssertions:v15 reply:v14];
   }
 }
 
@@ -1019,7 +1021,7 @@ void __62__SBSBackgroundActivityAssertionManager__reactivateAssertions__block_in
         v8 = [*(*(&v17 + 1) + 8 * v7) uniqueIdentifier];
         v9 = [a1[5] objectForKey:v8];
         v10 = v9;
-        if (v9 && [v9 BOOLValue])
+        if (v9 && (v9 = [v9 BOOLValue], v9))
         {
           v11 = [*(a1[6] + 2) objectForKey:v8];
           if (v11)
@@ -1037,7 +1039,7 @@ void __62__SBSBackgroundActivityAssertionManager__reactivateAssertions__block_in
 
         else
         {
-          v13 = SBLogStatusBarish();
+          v13 = SBLogStatusBarish(v9);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             *buf = v14;

@@ -247,7 +247,7 @@
 - (int64_t)onPlayCommand:(id)command
 {
   commandCopy = command;
-  v5 = BKAudiobooksMediaRemoteLog();
+  v5 = BKAudiobooksMediaRemoteLog(commandCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -269,17 +269,17 @@
 
   else
   {
-    v11 = BKAudiobooksMediaRemoteLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = BKAudiobooksMediaRemoteLog(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      *v14 = 0;
-      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "deferring play command", v14, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "deferring play command", v15, 2u);
     }
 
     [(BKAudiobookMediaRemoteAdaptor *)self setShouldProcessDeferredPlayComamnd:1];
   }
 
-  v12 = self->_currentEvent;
+  v13 = self->_currentEvent;
   self->_currentEvent = 0;
 
   return 0;
@@ -288,7 +288,7 @@
 - (int64_t)onPlayItemInQueueCommand:(id)command
 {
   commandCopy = command;
-  v6 = BKAudiobooksMediaRemoteLog();
+  v6 = BKAudiobooksMediaRemoteLog(commandCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -302,23 +302,23 @@
     player = [(BKAudiobookMediaRemoteAdaptor *)self player];
     currentAudiobook = [player currentAudiobook];
     chapters = [currentAudiobook chapters];
-    v20[0] = _NSConcreteStackBlock;
-    v20[1] = 3221225472;
-    v20[2] = sub_18534;
-    v20[3] = &unk_3D0E0;
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v21[2] = sub_18534;
+    v21[3] = &unk_3D0E0;
     v11 = contentItemID;
-    v21 = v11;
-    v12 = [chapters indexOfObjectPassingTest:v20];
+    v22 = v11;
+    v12 = [chapters indexOfObjectPassingTest:v21];
 
     if (v12 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      player3 = BKAudiobooksMediaRemoteLog();
+      player3 = BKAudiobooksMediaRemoteLog(v13);
       if (os_log_type_enabled(player3, OS_LOG_TYPE_ERROR))
       {
         sub_219AC(v11, player3);
       }
 
-      v14 = 200;
+      v15 = 200;
     }
 
     else
@@ -328,39 +328,39 @@
 
       if (v12 == currentChapterIndex)
       {
-        v14 = 0;
+        v15 = 0;
 LABEL_15:
-        v15 = v21;
+        v16 = v22;
         goto LABEL_16;
       }
 
       player3 = [(BKAudiobookMediaRemoteAdaptor *)self player];
       [player3 playChapterAtIndex:v12];
-      v14 = 0;
+      v15 = 0;
     }
 
     goto LABEL_15;
   }
 
-  v15 = BKAudiobooksMediaRemoteLog();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v16 = BKAudiobooksMediaRemoteLog(0);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    sub_21A24(v15);
+    sub_21A24(v16);
   }
 
-  v14 = 200;
+  v15 = 200;
 LABEL_16:
 
   currentEvent = self->_currentEvent;
   self->_currentEvent = 0;
 
-  return v14;
+  return v15;
 }
 
 - (int64_t)onPauseCommand:(id)command
 {
   commandCopy = command;
-  v5 = BKAudiobooksMediaRemoteLog();
+  v5 = BKAudiobooksMediaRemoteLog(commandCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v11 = 0;
@@ -383,7 +383,7 @@ LABEL_16:
 - (int64_t)onTogglePlayPauseCommand:(id)command
 {
   commandCopy = command;
-  v5 = BKAudiobooksMediaRemoteLog();
+  v5 = BKAudiobooksMediaRemoteLog(commandCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v11 = 0;
@@ -406,7 +406,7 @@ LABEL_16:
 - (int64_t)onNextTrackCommand:(id)command
 {
   commandCopy = command;
-  v6 = BKAudiobooksMediaRemoteLog();
+  v6 = BKAudiobooksMediaRemoteLog(commandCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *v14 = 0;
@@ -454,7 +454,7 @@ LABEL_16:
 - (int64_t)onPrevTrackCommand:(id)command
 {
   commandCopy = command;
-  v6 = BKAudiobooksMediaRemoteLog();
+  v6 = BKAudiobooksMediaRemoteLog(commandCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *v14 = 0;
@@ -502,7 +502,7 @@ LABEL_16:
 - (int64_t)onSkipForward:(id)forward
 {
   forwardCopy = forward;
-  v5 = BKAudiobooksMediaRemoteLog();
+  v5 = BKAudiobooksMediaRemoteLog(forwardCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v13 = 0;
@@ -536,7 +536,7 @@ LABEL_16:
 - (int64_t)onSkipBackward:(id)backward
 {
   backwardCopy = backward;
-  v5 = BKAudiobooksMediaRemoteLog();
+  v5 = BKAudiobooksMediaRemoteLog(backwardCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v13 = 0;
@@ -570,7 +570,7 @@ LABEL_16:
 - (int64_t)onSeekForwardCommand:(id)command
 {
   commandCopy = command;
-  v6 = BKAudiobooksMediaRemoteLog();
+  v6 = BKAudiobooksMediaRemoteLog(commandCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *v14 = 0;
@@ -618,7 +618,7 @@ LABEL_11:
 - (int64_t)onSeekBackwardCommand:(id)command
 {
   commandCopy = command;
-  v6 = BKAudiobooksMediaRemoteLog();
+  v6 = BKAudiobooksMediaRemoteLog(commandCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *v14 = 0;
@@ -666,24 +666,25 @@ LABEL_11:
 - (int64_t)onSpecialSeekForwardCommand:(id)command
 {
   commandCopy = command;
-  v6 = BKAudiobooksMediaRemoteLog();
+  v6 = BKAudiobooksMediaRemoteLog(commandCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v15 = 0;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "special seek forward", v15, 2u);
+    *v16 = 0;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "special seek forward", v16, 2u);
   }
 
   objc_storeStrong(&self->_currentEvent, command);
-  if ([commandCopy type] != &dword_0 + 3)
+  type = [commandCopy type];
+  if (type != &dword_0 + 3)
   {
-    v11 = BKAudiobooksMediaRemoteLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = BKAudiobooksMediaRemoteLog(type);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_21A68(commandCopy);
     }
 
 LABEL_12:
-    v10 = 200;
+    v11 = 200;
     goto LABEL_13;
   }
 
@@ -691,7 +692,7 @@ LABEL_12:
   if (!skipBehavior)
   {
     _skipForwardCommandEvent = [(BKAudiobookMediaRemoteAdaptor *)self _skipForwardCommandEvent];
-    v10 = [(BKAudiobookMediaRemoteAdaptor *)self onSkipForward:_skipForwardCommandEvent];
+    v11 = [(BKAudiobookMediaRemoteAdaptor *)self onSkipForward:_skipForwardCommandEvent];
 
     goto LABEL_13;
   }
@@ -706,42 +707,43 @@ LABEL_12:
 
   if (nextChapterOrRestartAudiobook)
   {
-    v10 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v10 = 200;
+    v11 = 200;
   }
 
 LABEL_13:
   currentEvent = self->_currentEvent;
   self->_currentEvent = 0;
 
-  return v10;
+  return v11;
 }
 
 - (int64_t)onSpecialSeekBackwardCommand:(id)command
 {
   commandCopy = command;
-  v6 = BKAudiobooksMediaRemoteLog();
+  v6 = BKAudiobooksMediaRemoteLog(commandCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v15 = 0;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "special seek backward", v15, 2u);
+    *v16 = 0;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "special seek backward", v16, 2u);
   }
 
   objc_storeStrong(&self->_currentEvent, command);
-  if ([commandCopy type] != &dword_0 + 3)
+  type = [commandCopy type];
+  if (type != &dword_0 + 3)
   {
-    v11 = BKAudiobooksMediaRemoteLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = BKAudiobooksMediaRemoteLog(type);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_21A68(commandCopy);
     }
 
 LABEL_12:
-    v10 = 200;
+    v11 = 200;
     goto LABEL_13;
   }
 
@@ -749,7 +751,7 @@ LABEL_12:
   if (!skipBehavior)
   {
     _skipBackwardCommandEvent = [(BKAudiobookMediaRemoteAdaptor *)self _skipBackwardCommandEvent];
-    v10 = [(BKAudiobookMediaRemoteAdaptor *)self onSkipBackward:_skipBackwardCommandEvent];
+    v11 = [(BKAudiobookMediaRemoteAdaptor *)self onSkipBackward:_skipBackwardCommandEvent];
 
     goto LABEL_13;
   }
@@ -764,25 +766,25 @@ LABEL_12:
 
   if (previousChapterOrRestartChapter)
   {
-    v10 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v10 = 200;
+    v11 = 200;
   }
 
 LABEL_13:
   currentEvent = self->_currentEvent;
   self->_currentEvent = 0;
 
-  return v10;
+  return v11;
 }
 
 - (int64_t)onChangePlaybackRateCommand:(id)command
 {
   commandCopy = command;
-  v5 = BKAudiobooksMediaRemoteLog();
+  v5 = BKAudiobooksMediaRemoteLog(commandCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v11 = 0;
@@ -802,7 +804,7 @@ LABEL_13:
 - (int64_t)onChangePlaybackPositionCommand:(id)command
 {
   commandCopy = command;
-  v5 = BKAudiobooksMediaRemoteLog();
+  v5 = BKAudiobooksMediaRemoteLog(commandCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v17 = 0;
@@ -914,7 +916,7 @@ LABEL_13:
   shouldProcessDeferredPlayComamnd = [(BKAudiobookMediaRemoteAdaptor *)self shouldProcessDeferredPlayComamnd];
   if (change && shouldProcessDeferredPlayComamnd)
   {
-    v7 = BKAudiobooksMediaRemoteLog();
+    v7 = BKAudiobooksMediaRemoteLog(shouldProcessDeferredPlayComamnd);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *v9 = 0;

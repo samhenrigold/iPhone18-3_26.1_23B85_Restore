@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)outputDeviceSubTypeAsString:(int)string;
+- (id)outputDeviceTypeAsString:(int)string;
 - (int)StringAsOutputDeviceSubType:(id)type;
 - (int)StringAsOutputDeviceType:(id)type;
 - (int)outputDeviceSubType;
@@ -42,6 +44,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)outputDeviceTypeAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E6E54728[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsOutputDeviceType:(id)type
@@ -96,6 +113,21 @@
   {
     return 0;
   }
+}
+
+- (id)outputDeviceSubTypeAsString:(int)string
+{
+  if (string >= 0x15)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E6E54758[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsOutputDeviceSubType:(id)type
@@ -277,26 +309,24 @@
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    outputDeviceType = self->_outputDeviceType;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    outputDeviceSubType = self->_outputDeviceSubType;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_outputDeviceId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -358,7 +388,6 @@
     goto LABEL_14;
   }
 
-  v5 = *(equalCopy + 24);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 24) & 2) == 0 || self->_outputDeviceType != *(equalCopy + 5))
@@ -370,7 +399,7 @@
   else if ((*(equalCopy + 24) & 2) != 0)
   {
 LABEL_14:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_15;
   }
 
@@ -390,17 +419,17 @@ LABEL_14:
   outputDeviceId = self->_outputDeviceId;
   if (outputDeviceId | *(equalCopy + 1))
   {
-    v7 = [(NSString *)outputDeviceId isEqual:?];
+    v6 = [(NSString *)outputDeviceId isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_15:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

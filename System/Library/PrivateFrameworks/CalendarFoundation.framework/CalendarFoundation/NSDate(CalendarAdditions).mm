@@ -19,14 +19,13 @@
   else
   {
     v7 = objc_alloc_init(MEMORY[0x1E695DF10]);
-    [v7 setDay:1];
     v16 = 0;
     v17 = &v16;
     v18 = 0x3032000000;
     v19 = __Block_byref_object_copy__2;
     v20 = __Block_byref_object_dispose__2;
     v21 = 0;
-    v8 = _EKSharedGregorianCalendarLock();
+    v8 = _EKSharedGregorianCalendarLock([v7 setDay:1]);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __55__NSDate_CalendarAdditions__dateForEndOfDayInTimeZone___block_invoke;
@@ -55,7 +54,7 @@
   v24 = __Block_byref_object_copy__2;
   v25 = __Block_byref_object_dispose__2;
   v26 = 0;
-  v11 = _EKSharedGregorianCalendarLock();
+  v11 = _EKSharedGregorianCalendarLock(v10);
   v15[0] = MEMORY[0x1E69E9820];
   v15[1] = 3221225472;
   v15[2] = __65__NSDate_CalendarAdditions__dateAtHour_minute_second_inTimeZone___block_invoke;
@@ -101,7 +100,7 @@
 {
   v5 = a3;
   v6 = a4;
-  v7 = _EKSharedGregorianCalendarLock();
+  v7 = _EKSharedGregorianCalendarLock(v6);
   v10[0] = MEMORY[0x1E69E9820];
   v10[1] = 3221225472;
   v10[2] = __72__NSDate_CalendarAdditions___performBlockBehindDispatchSync_inTimeZone___block_invoke;

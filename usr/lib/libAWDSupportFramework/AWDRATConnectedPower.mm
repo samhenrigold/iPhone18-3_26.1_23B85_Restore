@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)rATAsString:(int)string;
 - (int)StringAsRAT:(id)t;
 - (int)rAT;
 - (unint64_t)hash;
@@ -41,6 +42,19 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)rATAsString:(int)string
+{
+  if (string >= 8)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32BC8[string];
+  }
 }
 
 - (int)StringAsRAT:(id)t
@@ -156,7 +170,6 @@
     }
 
 LABEL_6:
-    powerConnectedMicroWatt = self->_powerConnectedMicroWatt;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 1) == 0)
     {
@@ -166,7 +179,6 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  rAT = self->_rAT;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 2) != 0)
@@ -181,7 +193,6 @@ LABEL_3:
   }
 
 LABEL_7:
-  powerConnSetupMicroWatt = self->_powerConnSetupMicroWatt;
 
   PBDataWriterWriteUint32Field();
 }

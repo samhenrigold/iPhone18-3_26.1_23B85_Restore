@@ -24,15 +24,14 @@
 {
   v2 = objc_opt_class();
 
-  return objc_msgSend_logger(v2, v3, v4);
+  return objc_msgSend_logger(v2, v3, v4, v5);
 }
 
 - (BOOL)canPopulateUserInfoForMessageBalloonBundleID:(id)d
 {
-  v3 = *MEMORY[0x1E69A68E0];
   dCopy = d;
-  v5 = IMBalloonExtensionIDWithSuffix();
-  isEqualToString = objc_msgSend_isEqualToString_(dCopy, v6, v5);
+  v4 = IMBalloonExtensionIDWithSuffix();
+  isEqualToString = objc_msgSend_isEqualToString_(dCopy, v5, v4, v6);
 
   return isEqualToString;
 }
@@ -41,35 +40,35 @@
 {
   contentCopy = content;
   dataCopy = data;
-  if (objc_msgSend_canPopulateUserInfoForMessageBalloonBundleID_(self, v9, d))
+  if (objc_msgSend_canPopulateUserInfoForMessageBalloonBundleID_(self, v9, d, v10))
   {
-    objc_msgSend_setCategoryIdentifier_(contentCopy, v10, *MEMORY[0x1E69A7838]);
-    v13 = objc_msgSend_userInfo(contentCopy, v11, v12);
-    Mutable = objc_msgSend_mutableCopy(v13, v14, v15);
+    objc_msgSend_setCategoryIdentifier_(contentCopy, v11, *MEMORY[0x1E69A7838], v12);
+    v16 = objc_msgSend_userInfo(contentCopy, v13, v14, v15);
+    Mutable = objc_msgSend_mutableCopy(v16, v17, v18, v19);
 
     if (!Mutable)
     {
       Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
     }
 
-    v17 = IMDictionaryFromPayloadData();
-    v18 = IMSanitizedURLForIMExtensionPayloadURLKey();
-    v21 = v18;
-    if (v18)
+    v21 = IMDictionaryFromPayloadData();
+    v22 = IMSanitizedURLForIMExtensionPayloadURLKey();
+    v26 = v22;
+    if (v22)
     {
-      v22 = objc_msgSend_absoluteString(v18, v19, v20);
-      objc_msgSend_setObject_forKey_(Mutable, v23, v22, *MEMORY[0x1E69A7820]);
+      v27 = objc_msgSend_absoluteString(v22, v23, v24, v25);
+      objc_msgSend_setObject_forKey_(Mutable, v28, v27, *MEMORY[0x1E69A7820]);
     }
 
-    objc_msgSend_setObject_forKey_(Mutable, v19, MEMORY[0x1E695E118], *MEMORY[0x1E69A7830]);
-    objc_msgSend_setUserInfo_(contentCopy, v24, Mutable);
-    objc_msgSend_setInterruptionLevel_(contentCopy, v25, 2);
+    objc_msgSend_setObject_forKey_(Mutable, v23, MEMORY[0x1E695E118], *MEMORY[0x1E69A7830]);
+    objc_msgSend_setUserInfo_(contentCopy, v29, Mutable, v30);
+    objc_msgSend_setInterruptionLevel_(contentCopy, v31, 2, v32);
   }
 }
 
 - (id)notificationCategories
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E6983218];
   v3 = *MEMORY[0x1E69A7838];
   v4 = objc_msgSend_localizedUserNotificationStringForKey_arguments_(MEMORY[0x1E696AEC0], a2, @"MADRID_MESSAGE_FORMAT", 0);
@@ -79,11 +78,9 @@
 
   if (v9)
   {
-    v13[0] = v9;
-    v7 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v10, v13, 1);
+    v12[0] = v9;
+    v7 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v10, v12, 1);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

@@ -9,8 +9,8 @@
   sub_269CA6690();
   v6 = v5;
   v7 = *(v5 - 8);
-  MEMORY[0x28223BE20](v5);
-  v9 = &v10 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v5, v8);
+  v10 = &v11 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_269D9A8E0();
   sub_269D9A8D0();
   sub_269D9A880();
@@ -23,7 +23,7 @@
 
   sub_269CA5FCC();
 
-  (*(v7 + 8))(v9, v6);
+  (*(v7 + 8))(v10, v6);
 }
 
 @end

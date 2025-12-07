@@ -31,7 +31,7 @@
 
 void __91__ICHTMLSearchIndexerDataSource_allIndexableObjectIDsInReversedReindexingOrderWithContext___block_invoke(uint64_t a1)
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v3 = [MEMORY[0x277CCAC30] predicateWithFormat:@"store != nil"];
   [v2 addObject:v3];
@@ -43,15 +43,15 @@ void __91__ICHTMLSearchIndexerDataSource_allIndexableObjectIDsInReversedReindexi
   v6 = [MEMORY[0x277CBE428] fetchRequestWithEntityName:@"Note"];
   [v6 setResultType:1];
   v7 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"modificationDate" ascending:1];
-  v29[0] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
+  v28[0] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
   [v6 setSortDescriptors:v8];
 
   [v6 setPredicate:v5];
   v9 = *(a1 + 32);
-  v28 = 0;
-  v10 = [v9 executeFetchRequest:v6 error:&v28];
-  v11 = v28;
+  v27 = 0;
+  v10 = [v9 executeFetchRequest:v6 error:&v27];
+  v11 = v27;
   if (v11)
   {
     v12 = os_log_create("com.apple.notes", "SearchIndexer");
@@ -68,9 +68,9 @@ void __91__ICHTMLSearchIndexerDataSource_allIndexableObjectIDsInReversedReindexi
   [v13 setPredicate:v14];
 
   v15 = *(a1 + 32);
-  v27 = 0;
-  v16 = [v15 executeFetchRequest:v13 error:&v27];
-  v17 = v27;
+  v26 = 0;
+  v16 = [v15 executeFetchRequest:v13 error:&v26];
+  v17 = v26;
   if (v17)
   {
     v18 = os_log_create("com.apple.notes", "SearchIndexer");
@@ -87,9 +87,9 @@ void __91__ICHTMLSearchIndexerDataSource_allIndexableObjectIDsInReversedReindexi
   [v19 setPredicate:v20];
 
   v21 = *(a1 + 32);
-  v26 = 0;
-  v22 = [v21 executeFetchRequest:v19 error:&v26];
-  v23 = v26;
+  v25 = 0;
+  v22 = [v21 executeFetchRequest:v19 error:&v25];
+  v23 = v25;
   if (v23)
   {
     v24 = os_log_create("com.apple.notes", "SearchIndexer");
@@ -102,17 +102,15 @@ void __91__ICHTMLSearchIndexerDataSource_allIndexableObjectIDsInReversedReindexi
   [*(*(*(a1 + 40) + 8) + 40) ic_addObjectsFromNonNilArray:v10];
   [*(*(*(a1 + 40) + 8) + 40) ic_addObjectsFromNonNilArray:v16];
   [*(*(*(a1 + 40) + 8) + 40) ic_addObjectsFromNonNilArray:v22];
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)contextWillSave:(id)save
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   saveCopy = save;
-  v34.receiver = self;
-  v34.super_class = ICHTMLSearchIndexerDataSource;
-  [(ICBaseSearchIndexerDataSource *)&v34 contextWillSave:saveCopy];
+  v33.receiver = self;
+  v33.super_class = ICHTMLSearchIndexerDataSource;
+  [(ICBaseSearchIndexerDataSource *)&v33 contextWillSave:saveCopy];
   object = [saveCopy object];
   persistentStoreCoordinator = [object persistentStoreCoordinator];
   persistentStoreCoordinator2 = [(ICHTMLSearchIndexerDataSource *)self persistentStoreCoordinator];
@@ -120,28 +118,28 @@ void __91__ICHTMLSearchIndexerDataSource_allIndexableObjectIDsInReversedReindexi
 
   if (v8)
   {
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     updatedObjects = [object updatedObjects];
-    v10 = [updatedObjects countByEnumeratingWithState:&v30 objects:v35 count:16];
+    v10 = [updatedObjects countByEnumeratingWithState:&v29 objects:v34 count:16];
     if (v10)
     {
       v11 = v10;
-      v28 = object;
-      v29 = saveCopy;
-      v12 = *v31;
+      v27 = object;
+      v28 = saveCopy;
+      v12 = *v30;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v31 != v12)
+          if (*v30 != v12)
           {
             objc_enumerationMutation(updatedObjects);
           }
 
-          v14 = *(*(&v30 + 1) + 8 * i);
+          v14 = *(*(&v29 + 1) + 8 * i);
           objc_opt_class();
           v15 = ICDynamicCast();
           if (v15)
@@ -177,7 +175,7 @@ void __91__ICHTMLSearchIndexerDataSource_allIndexableObjectIDsInReversedReindexi
           }
         }
 
-        v11 = [updatedObjects countByEnumeratingWithState:&v30 objects:v35 count:16];
+        v11 = [updatedObjects countByEnumeratingWithState:&v29 objects:v34 count:16];
         if (v11)
         {
           continue;
@@ -188,8 +186,8 @@ void __91__ICHTMLSearchIndexerDataSource_allIndexableObjectIDsInReversedReindexi
 
       v20 = 1;
 LABEL_17:
-      saveCopy = v29;
-      object = v28;
+      saveCopy = v28;
+      object = v27;
     }
 
     else
@@ -211,42 +209,14 @@ LABEL_17:
       [defaultCenter postNotificationName:*MEMORY[0x277D36150] object:self];
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
-}
-
-void __91__ICHTMLSearchIndexerDataSource_allIndexableObjectIDsInReversedReindexingOrderWithContext___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_9(&dword_25C69C000, v0, v1, "Error fetching HTML notes: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __91__ICHTMLSearchIndexerDataSource_allIndexableObjectIDsInReversedReindexingOrderWithContext___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_9(&dword_25C69C000, v0, v1, "Error fetching HTML folders: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __91__ICHTMLSearchIndexerDataSource_allIndexableObjectIDsInReversedReindexingOrderWithContext___block_invoke_cold_3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_9(&dword_25C69C000, v0, v1, "Error fetching HTML accounts: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)contextWillSave:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [a1 accountIdentifier];
   OUTLINED_FUNCTION_5();
-  _os_log_debug_impl(&dword_25C69C000, a2, OS_LOG_TYPE_DEBUG, "legacy account %@ migration state changed to YES, so let's re-index everything.", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_25C69C000, a2, OS_LOG_TYPE_DEBUG, "legacy account %@ migration state changed to YES, so let's re-index everything.", v4, 0xCu);
 }
 
 @end

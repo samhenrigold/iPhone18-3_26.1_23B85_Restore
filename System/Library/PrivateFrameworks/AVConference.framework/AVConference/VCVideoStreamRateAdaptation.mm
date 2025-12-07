@@ -180,61 +180,63 @@ LABEL_11:
 
 - (BOOL)runVideoStreamRateAdaptation
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (self->_rateAdaptationEnabled)
   {
-    v14 = -1431655766;
+    v16 = -1431655766;
+    v17 = -1431655766;
     v15 = -1431655766;
-    v13 = -1431655766;
-    RTPGetPacketLossMetrics(self->_rtpHandle, &v15, &v14, &v13);
-    if (VRTraceGetErrorLogLevelForModule() >= 7)
+    RTPGetPacketLossMetrics(self->_rtpHandle, &v17, &v16, &v15);
+    ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
+    if (ErrorLogLevelForModule >= 7)
     {
-      v4 = VRTraceErrorLogLevelToCSTR();
-      v5 = *MEMORY[0x1E6986650];
-      if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
+      v6 = VRTraceErrorLogLevelToCSTR();
+      v7 = *MEMORY[0x1E6986650];
+      ErrorLogLevelForModule = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT);
+      if (ErrorLogLevelForModule)
       {
         *buf = 136316162;
-        v17 = v4;
-        v18 = 2080;
-        v19 = "[VCVideoStreamRateAdaptation runVideoStreamRateAdaptation]";
-        v20 = 1024;
-        v21 = 81;
+        v19 = v6;
+        v20 = 2080;
+        v21 = "[VCVideoStreamRateAdaptation runVideoStreamRateAdaptation]";
         v22 = 1024;
-        v23 = v14;
+        v23 = 81;
         v24 = 1024;
-        v25 = v13;
-        _os_log_impl(&dword_1DB56E000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d packetsExpectedForInterval:%u packetsLostForInterval:%u", buf, 0x28u);
+        v25 = v16;
+        v26 = 1024;
+        v27 = v15;
+        _os_log_impl(&dword_1DB56E000, v7, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d packetsExpectedForInterval:%u packetsLostForInterval:%u", buf, 0x28u);
       }
     }
 
-    if (v14)
+    if (v16)
     {
-      LODWORD(v3) = v13;
-      v6 = v3 / v14;
-      self->_packetLossPercentage = v6 * 100.0;
+      LODWORD(v5) = v15;
+      v8 = v5 / v16;
+      self->_packetLossPercentage = v8 * 100.0;
       if (self->_sendTmmbrBitrate && !self->_receivedTmmbnBitrate)
       {
         if (VRTraceGetErrorLogLevelForModule() >= 3)
         {
-          v7 = VRTraceErrorLogLevelToCSTR();
-          v8 = *MEMORY[0x1E6986650];
+          v9 = VRTraceErrorLogLevelToCSTR();
+          v10 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
           {
-            [(VCVideoStreamRateAdaptation *)v7 runVideoStreamRateAdaptation];
+            [(VCVideoStreamRateAdaptation *)v9 runVideoStreamRateAdaptation];
           }
         }
 
         self->_tmmbRTT = 0.0;
-        [(VCVideoStreamRateAdaptation *)self setOperatingBitrate:self->_sendTmmbrBitrate];
+        ErrorLogLevelForModule = [(VCVideoStreamRateAdaptation *)self setOperatingBitrate:self->_sendTmmbrBitrate];
       }
 
-      v9 = micro();
-      self->_adaptationTime = v9;
-      [(VCVideoStreamRateController *)self->_rateController doRateControlWithTime:self->_operatingBitrate roundTripTime:[(VCVideoStreamRateAdaptation *)self averageReceivedBitrate] packetLossRate:v9 operatingBitrate:self->_tmmbRTT averageReceivedBitrate:v6];
+      v11 = micro(ErrorLogLevelForModule, v4);
+      self->_adaptationTime = v11;
+      [(VCVideoStreamRateController *)self->_rateController doRateControlWithTime:self->_operatingBitrate roundTripTime:[(VCVideoStreamRateAdaptation *)self averageReceivedBitrate] packetLossRate:v11 operatingBitrate:self->_tmmbRTT averageReceivedBitrate:v8];
       [(VCVideoStreamRateAdaptation *)self owrd];
-      if (self->_maxOWRD < v10)
+      if (self->_maxOWRD < v12)
       {
-        self->_maxOWRD = v10;
+        self->_maxOWRD = v12;
       }
     }
 
@@ -257,7 +259,7 @@ LABEL_11:
 {
   v36 = *MEMORY[0x1E69E9840];
   self->_receivedTmmbnBitrate = n;
-  v4 = micro();
+  v4 = micro(self, a2);
   self->_tmmbnReceiveTime = v4;
   self->_tmmbRTT = v4 - self->_tmmbrSendTime;
   [(VCVideoStreamRateAdaptation *)self setOperatingBitrate:self->_receivedTmmbnBitrate];
@@ -362,17 +364,18 @@ LABEL_11:
 
 - (void)scheduleTMMBR:(unsigned int)r
 {
+  selfCopy = self;
   v23 = *MEMORY[0x1E69E9840];
   if (r && self->_sendTmmbrBitrate != r)
   {
     self->_downlinkQualityDidChange = 1;
     self->_sendTmmbrBitrate = r;
-    [(VCVideoStreamRateAdaptation *)self reportingVideoStreamEvent:226];
+    self = [(VCVideoStreamRateAdaptation *)self reportingVideoStreamEvent:226];
   }
 
-  self->_receivedTmmbnBitrate = 0;
-  self->_tmmbrSendTime = micro();
-  RTCPSetSendTMMBR(self->_rtpHandle, self->_sendTmmbrBitrate);
+  selfCopy->_receivedTmmbnBitrate = 0;
+  selfCopy->_tmmbrSendTime = micro(self, a2);
+  RTCPSetSendTMMBR(selfCopy->_rtpHandle, selfCopy->_sendTmmbrBitrate);
   if (VRTraceGetErrorLogLevelForModule() >= 8)
   {
     v4 = VRTraceErrorLogLevelToCSTR();
@@ -382,8 +385,8 @@ LABEL_11:
     {
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = [-[VCVideoStreamRateAdaptation className](self "className")];
-        sendTmmbrBitrate = self->_sendTmmbrBitrate;
+        v7 = [-[VCVideoStreamRateAdaptation className](selfCopy "className")];
+        sendTmmbrBitrate = selfCopy->_sendTmmbrBitrate;
         v11 = 136316418;
         v12 = v4;
         v13 = 2080;
@@ -402,8 +405,8 @@ LABEL_11:
 
     else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v9 = [-[VCVideoStreamRateAdaptation className](self "className")];
-      v10 = self->_sendTmmbrBitrate;
+      v9 = [-[VCVideoStreamRateAdaptation className](selfCopy "className")];
+      v10 = selfCopy->_sendTmmbrBitrate;
       v11 = 136316418;
       v12 = v4;
       v13 = 2080;

@@ -10,17 +10,17 @@
 
 - (PSGCircleSegment)initWithFrame:(CGRect)frame
 {
-  v18[1] = *MEMORY[0x277D85DE8];
-  v16.receiver = self;
-  v16.super_class = PSGCircleSegment;
-  v3 = [(PSGCircleSegment *)&v16 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v17[1] = *MEMORY[0x277D85DE8];
+  v15.receiver = self;
+  v15.super_class = PSGCircleSegment;
+  v3 = [(PSGCircleSegment *)&v15 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v3)
   {
     v4 = [MEMORY[0x277D74310] preferredFontDescriptorWithTextStyle:*MEMORY[0x277D76A08]];
-    v17 = *MEMORY[0x277D74430];
+    v16 = *MEMORY[0x277D74430];
     v5 = [MEMORY[0x277CCABB0] numberWithDouble:*MEMORY[0x277D74410]];
-    v18[0] = v5;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v17[0] = v5;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
 
     v7 = [v4 fontDescriptorByAddingAttributes:v6];
 
@@ -44,7 +44,6 @@
     [(PSGCircleSegment *)v3 setTitleColor:systemBlueColor forState:0];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

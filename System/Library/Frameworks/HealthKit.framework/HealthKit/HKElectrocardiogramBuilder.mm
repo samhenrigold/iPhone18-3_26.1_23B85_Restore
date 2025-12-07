@@ -52,14 +52,14 @@
   {
 LABEL_8:
     v29 = &leadCopy;
-    v10 = std::__tree<std::__value_type<binarysample::ElectrocardiogramLead_Name,binarysample::ElectrocardiogramLead>,std::__map_value_compare<binarysample::ElectrocardiogramLead_Name,std::__value_type<binarysample::ElectrocardiogramLead_Name,binarysample::ElectrocardiogramLead>,std::less<binarysample::ElectrocardiogramLead_Name>,true>,std::allocator<std::__value_type<binarysample::ElectrocardiogramLead_Name,binarysample::ElectrocardiogramLead>>>::__emplace_unique_key_args<binarysample::ElectrocardiogramLead_Name,std::piecewise_construct_t const&,std::tuple<binarysample::ElectrocardiogramLead_Name const&>,std::tuple<>>(&p_end_node[-1], &leadCopy);
+    v10 = std::__tree<std::__value_type<binarysample::ElectrocardiogramLead_Name,binarysample::ElectrocardiogramLead>,std::__map_value_compare<binarysample::ElectrocardiogramLead_Name,std::__value_type<binarysample::ElectrocardiogramLead_Name,binarysample::ElectrocardiogramLead>,std::less<binarysample::ElectrocardiogramLead_Name>,true>,std::allocator<std::__value_type<binarysample::ElectrocardiogramLead_Name,binarysample::ElectrocardiogramLead>>>::__emplace_unique_key_args<binarysample::ElectrocardiogramLead_Name,std::piecewise_construct_t const&,std::tuple<binarysample::ElectrocardiogramLead_Name const&>,std::tuple<>>(&p_end_node[-1], &leadCopy, &std::piecewise_construct, &v29);
     v11 = leadCopy;
     *(v10 + 100) |= 1u;
     *(v10 + 24) = v11;
   }
 
   v29 = &leadCopy;
-  v12 = std::__tree<std::__value_type<binarysample::ElectrocardiogramLead_Name,binarysample::ElectrocardiogramLead>,std::__map_value_compare<binarysample::ElectrocardiogramLead_Name,std::__value_type<binarysample::ElectrocardiogramLead_Name,binarysample::ElectrocardiogramLead>,std::less<binarysample::ElectrocardiogramLead_Name>,true>,std::allocator<std::__value_type<binarysample::ElectrocardiogramLead_Name,binarysample::ElectrocardiogramLead>>>::__emplace_unique_key_args<binarysample::ElectrocardiogramLead_Name,std::piecewise_construct_t const&,std::tuple<binarysample::ElectrocardiogramLead_Name const&>,std::tuple<>>(v8, &leadCopy);
+  v12 = std::__tree<std::__value_type<binarysample::ElectrocardiogramLead_Name,binarysample::ElectrocardiogramLead>,std::__map_value_compare<binarysample::ElectrocardiogramLead_Name,std::__value_type<binarysample::ElectrocardiogramLead_Name,binarysample::ElectrocardiogramLead>,std::less<binarysample::ElectrocardiogramLead_Name>,true>,std::allocator<std::__value_type<binarysample::ElectrocardiogramLead_Name,binarysample::ElectrocardiogramLead>>>::__emplace_unique_key_args<binarysample::ElectrocardiogramLead_Name,std::piecewise_construct_t const&,std::tuple<binarysample::ElectrocardiogramLead_Name const&>,std::tuple<>>(v8, &leadCopy, &std::piecewise_construct, &v29);
   v13 = v12;
   v15 = v12[10];
   v14 = v12[11];
@@ -121,30 +121,31 @@ LABEL_8:
 {
   deviceCopy = device;
   metadataCopy = metadata;
-  binarysample::Electrocardiogram::Electrocardiogram(v15);
+  binarysample::Electrocardiogram::Electrocardiogram(v16);
   v8 = +[HKUnit hertzUnit];
   frequency = [(HKElectrocardiogramBuilder *)self frequency];
   [frequency doubleValueForUnit:v8];
-  v17 |= 1u;
-  v16 = v10;
+  v19 |= 1u;
+  v17 = v10;
 
-  if (self->_leads.__tree_.__begin_node_ != &self->_leads.__tree_.__end_node_)
+  begin_node = self->_leads.__tree_.__begin_node_;
+  if (begin_node != &self->_leads.__tree_.__end_node_)
   {
-    PB::PtrVector<binarysample::ElectrocardiogramLead>::emplace_back<binarysample::ElectrocardiogramLead const>();
+    PB::PtrVector<binarysample::ElectrocardiogramLead>::emplace_back<binarysample::ElectrocardiogramLead const>(&v18, &begin_node->_classification);
   }
 
   startDate = [(HKElectrocardiogramBuilder *)self startDate];
-  v12 = [HKElectrocardiogram _electrocardiogramWithStartDate:startDate device:deviceCopy metadata:metadataCopy];
+  v13 = [HKElectrocardiogram _electrocardiogramWithStartDate:startDate device:deviceCopy metadata:metadataCopy];
 
-  binarysample::Electrocardiogram::Electrocardiogram(v14, v15);
-  [v12 setReading:v14];
-  binarysample::Electrocardiogram::~Electrocardiogram(v14);
-  [v12 _setPrivateClassification:self->_classification];
-  [v12 _setAverageHeartRate:self->_averageHeartRate];
-
+  binarysample::Electrocardiogram::Electrocardiogram(v15, v16);
+  [v13 setReading:v15];
   binarysample::Electrocardiogram::~Electrocardiogram(v15);
+  [v13 _setPrivateClassification:self->_classification];
+  [v13 _setAverageHeartRate:self->_averageHeartRate];
 
-  return v12;
+  binarysample::Electrocardiogram::~Electrocardiogram(v16);
+
+  return v13;
 }
 
 - (id).cxx_construct

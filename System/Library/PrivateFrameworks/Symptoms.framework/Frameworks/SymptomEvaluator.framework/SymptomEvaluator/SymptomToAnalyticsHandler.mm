@@ -2,6 +2,7 @@
 + (id)configureClass:(id)class;
 + (id)sharedInstance;
 - (BOOL)noteSymptom:(id)symptom;
+- (void)noteIPAddressAcquisitionFailed:(BOOL)failed forEvent:(id)event;
 @end
 
 @implementation SymptomToAnalyticsHandler
@@ -46,7 +47,7 @@ void __43__SymptomToAnalyticsHandler_sharedInstance__block_invoke(uint64_t a1)
 
 - (BOOL)noteSymptom:(id)symptom
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   symptomCopy = symptom;
   eventKey = [symptomCopy eventKey];
   v6 = analyticsLogHandle;
@@ -54,8 +55,8 @@ void __43__SymptomToAnalyticsHandler_sharedInstance__block_invoke(uint64_t a1)
   {
     v7 = v6;
     *buf = 138412546;
-    v81 = eventKey;
-    v82 = 2048;
+    v80 = eventKey;
+    v81 = 2048;
     seqNo = [symptomCopy seqNo];
     _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "netanalyticsdebug: receiving symptom with key: %@ [#%llu]", buf, 0x16u);
   }
@@ -65,9 +66,9 @@ void __43__SymptomToAnalyticsHandler_sharedInstance__block_invoke(uint64_t a1)
   {
 
 LABEL_6:
-    v78 = eventKey;
-    v79 = symptomCopy;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
+    v77 = eventKey;
+    v78 = symptomCopy;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     v13 = defaultCenter;
     v14 = @"kNotificationDNSsymptoms";
@@ -82,125 +83,125 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v17 = [SymptomStore keyFromSymptomName:@"SYMPTOM_ADDRESS_ACQUISITION_SUCCEEDED"];
-  if ([(__CFString *)eventKey isEqualToString:v17])
+  v16 = [SymptomStore keyFromSymptomName:@"SYMPTOM_ADDRESS_ACQUISITION_SUCCEEDED"];
+  if ([(__CFString *)eventKey isEqualToString:v16])
   {
 
 LABEL_12:
-    v20 = [SymptomStore keyFromSymptomName:@"SYMPTOM_ADDRESS_ACQUISITION_FAILED"];
-    v21 = [(__CFString *)eventKey isEqualToString:v20];
+    v19 = [SymptomStore keyFromSymptomName:@"SYMPTOM_ADDRESS_ACQUISITION_FAILED"];
+    v20 = [(__CFString *)eventKey isEqualToString:v19];
 
-    [(SymptomToAnalyticsHandler *)self noteIPAddressAcquisitionFailed:v21 forEvent:symptomCopy];
+    [(SymptomToAnalyticsHandler *)self noteIPAddressAcquisitionFailed:v20 forEvent:symptomCopy];
     goto LABEL_8;
   }
 
-  v18 = [SymptomStore keyFromSymptomName:@"SYMPTOM_ADDRESS_ACQUISITION_FAILED"];
-  v19 = [(__CFString *)eventKey isEqualToString:v18];
+  v17 = [SymptomStore keyFromSymptomName:@"SYMPTOM_ADDRESS_ACQUISITION_FAILED"];
+  v18 = [(__CFString *)eventKey isEqualToString:v17];
 
-  if (v19)
+  if (v18)
   {
     goto LABEL_12;
   }
 
-  v22 = [SymptomStore keyFromSymptomName:@"com.apple.neipsecike.establishstats"];
-  if (([(__CFString *)eventKey isEqualToString:v22]& 1) != 0)
+  v21 = [SymptomStore keyFromSymptomName:@"com.apple.neipsecike.establishstats"];
+  if (([(__CFString *)eventKey isEqualToString:v21]& 1) != 0)
   {
     goto LABEL_16;
   }
 
-  v23 = [SymptomStore keyFromSymptomName:@"com.apple.neipsecike.sendstats"];
-  if ([(__CFString *)eventKey isEqualToString:v23])
+  v22 = [SymptomStore keyFromSymptomName:@"com.apple.neipsecike.sendstats"];
+  if ([(__CFString *)eventKey isEqualToString:v22])
   {
 
 LABEL_16:
 LABEL_17:
-    v76 = eventKey;
-    v77 = symptomCopy;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
+    v75 = eventKey;
+    v76 = symptomCopy;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     v13 = defaultCenter;
     v14 = @"kNotificationFlowStats";
     goto LABEL_7;
   }
 
-  v24 = [SymptomStore keyFromSymptomName:@"com.apple.neipsecike.disconnectstats"];
-  v25 = [(__CFString *)eventKey isEqualToString:v24];
+  v23 = [SymptomStore keyFromSymptomName:@"com.apple.neipsecike.disconnectstats"];
+  v24 = [(__CFString *)eventKey isEqualToString:v23];
 
-  if (v25)
+  if (v24)
   {
     goto LABEL_17;
   }
 
-  v26 = [SymptomStore keyFromSymptomName:@"com.apple.wifimanager.link-quality"];
-  v27 = [(__CFString *)eventKey isEqualToString:v26];
+  v25 = [SymptomStore keyFromSymptomName:@"com.apple.wifimanager.link-quality"];
+  v26 = [(__CFString *)eventKey isEqualToString:v25];
 
-  if (v27)
+  if (v26)
   {
-    v28 = rnfLogHandle;
+    v27 = rnfLogHandle;
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v29 = v28;
+      v28 = v27;
       seqNo2 = [symptomCopy seqNo];
       creationTimeStamp = [symptomCopy creationTimeStamp];
       [creationTimeStamp timeIntervalSince1970];
-      v33 = dateStringMillisecondsFromTimeInterval(v32);
+      v32 = dateStringMillisecondsFromTimeInterval(v31);
       *buf = 134218242;
-      v81 = seqNo2;
-      v82 = 2112;
-      seqNo = v33;
-      _os_log_impl(&dword_23255B000, v29, OS_LOG_TYPE_DEFAULT, "trigger-disconnect: com.apple.wifimanager.link-quality symptom [#%llu], received: %@", buf, 0x16u);
+      v80 = seqNo2;
+      v81 = 2112;
+      seqNo = v32;
+      _os_log_impl(&dword_23255B000, v28, OS_LOG_TYPE_DEFAULT, "trigger-disconnect: com.apple.wifimanager.link-quality symptom [#%llu], received: %@", buf, 0x16u);
     }
 
-    v34 = rnfLogHandle;
+    v33 = rnfLogHandle;
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v35 = v34;
-      v36 = qos_class_self();
-      v37 = qos_string(v36);
+      v34 = v33;
+      v35 = qos_class_self();
+      v36 = qos_string(v35);
       *buf = 136315138;
-      v81 = v37;
-      _os_log_impl(&dword_23255B000, v35, OS_LOG_TYPE_DEBUG, "trigger-disconnect: com.apple.wifimanager.link-quality symptom: QoS %s", buf, 0xCu);
+      v80 = v36;
+      _os_log_impl(&dword_23255B000, v34, OS_LOG_TYPE_DEBUG, "trigger-disconnect: com.apple.wifimanager.link-quality symptom: QoS %s", buf, 0xCu);
     }
 
-    v74 = eventKey;
-    v75 = symptomCopy;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
+    v73 = eventKey;
+    v74 = symptomCopy;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     v13 = defaultCenter;
     v14 = @"kNotificationTriggerDisconnectThreshold";
     goto LABEL_7;
   }
 
-  v38 = [SymptomStore keyFromSymptomName:@"SYMPTOM_LIBNETCORE_DATA_STALL"];
-  if ([(__CFString *)eventKey isEqualToString:v38])
+  v37 = [SymptomStore keyFromSymptomName:@"SYMPTOM_LIBNETCORE_DATA_STALL"];
+  if ([(__CFString *)eventKey isEqualToString:v37])
   {
 
 LABEL_28:
-    v72 = eventKey;
-    v73 = symptomCopy;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
+    v71 = eventKey;
+    v72 = symptomCopy;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     v13 = defaultCenter;
     v14 = @"kNotificationDataStall";
     goto LABEL_7;
   }
 
-  v39 = [SymptomStore keyFromSymptomName:@"SYMPTOM_LIBNETCORE_TLS_HANDSHAKE_TIMEOUT"];
-  v40 = [(__CFString *)eventKey isEqualToString:v39];
+  v38 = [SymptomStore keyFromSymptomName:@"SYMPTOM_LIBNETCORE_TLS_HANDSHAKE_TIMEOUT"];
+  v39 = [(__CFString *)eventKey isEqualToString:v38];
 
-  if (v40)
+  if (v39)
   {
     goto LABEL_28;
   }
 
-  v41 = [SymptomStore keyFromSymptomName:@"SYMPTOM_LIBNETCORE_EXPECTED_TRANSFER"];
-  v42 = [(__CFString *)eventKey isEqualToString:v41];
+  v40 = [SymptomStore keyFromSymptomName:@"SYMPTOM_LIBNETCORE_EXPECTED_TRANSFER"];
+  v41 = [(__CFString *)eventKey isEqualToString:v40];
 
-  if (v42)
+  if (v41)
   {
-    v70 = eventKey;
-    v71 = symptomCopy;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
+    v69 = eventKey;
+    v70 = symptomCopy;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     v13 = defaultCenter;
     v14 = @"kNotificationExpectedTransfer";
@@ -208,26 +209,26 @@ LABEL_28:
 
   else
   {
-    v43 = [SymptomStore keyFromSymptomName:@"com.apple.coremedia.assetdownload.event"];
-    if ([(__CFString *)eventKey isEqualToString:v43])
+    v42 = [SymptomStore keyFromSymptomName:@"com.apple.coremedia.assetdownload.event"];
+    if ([(__CFString *)eventKey isEqualToString:v42])
     {
     }
 
     else
     {
-      v44 = [SymptomStore keyFromSymptomName:@"SYMPTOM_TRANSPORT_DISCONNECT"];
-      v45 = [(__CFString *)eventKey isEqualToString:v44];
+      v43 = [SymptomStore keyFromSymptomName:@"SYMPTOM_TRANSPORT_DISCONNECT"];
+      v44 = [(__CFString *)eventKey isEqualToString:v43];
 
-      if (!v45)
+      if (!v44)
       {
-        v47 = [SymptomStore keyFromSymptomName:@"com.apple.symptoms.captivity.url.redirects"];
-        v48 = [(__CFString *)eventKey isEqualToString:v47];
+        v46 = [SymptomStore keyFromSymptomName:@"com.apple.symptoms.captivity.url.redirects"];
+        v47 = [(__CFString *)eventKey isEqualToString:v46];
 
-        if (v48)
+        if (v47)
         {
-          v66 = eventKey;
-          v67 = symptomCopy;
-          v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
+          v65 = eventKey;
+          v66 = symptomCopy;
+          v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
           defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
           v13 = defaultCenter;
           v14 = @"kNotificationCaptivityRedirects";
@@ -235,14 +236,14 @@ LABEL_28:
 
         else
         {
-          v49 = [SymptomStore keyFromSymptomName:@"SYMPTOM_CERT_ERROR"];
-          v50 = [(__CFString *)eventKey isEqualToString:v49];
+          v48 = [SymptomStore keyFromSymptomName:@"SYMPTOM_CERT_ERROR"];
+          v49 = [(__CFString *)eventKey isEqualToString:v48];
 
-          if (v50)
+          if (v49)
           {
-            v64 = eventKey;
-            v65 = symptomCopy;
-            v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
+            v63 = eventKey;
+            v64 = symptomCopy;
+            v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
             defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
             v13 = defaultCenter;
             v14 = @"kNotificationCertError";
@@ -250,14 +251,14 @@ LABEL_28:
 
           else
           {
-            v51 = [SymptomStore keyFromSymptomName:@"SYMPTOM_CAPTIVTY_INDETERMINATE"];
-            v52 = [(__CFString *)eventKey isEqualToString:v51];
+            v50 = [SymptomStore keyFromSymptomName:@"SYMPTOM_CAPTIVTY_INDETERMINATE"];
+            v51 = [(__CFString *)eventKey isEqualToString:v50];
 
-            if (v52)
+            if (v51)
             {
-              v62 = eventKey;
-              v63 = symptomCopy;
-              v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
+              v61 = eventKey;
+              v62 = symptomCopy;
+              v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
               defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
               v13 = defaultCenter;
               v14 = @"kNotificationCaptivityIndeterminate";
@@ -265,14 +266,14 @@ LABEL_28:
 
             else
             {
-              v53 = [SymptomStore keyFromSymptomName:@"SYMPTOM_BARCODE_ACTIVATION"];
-              v54 = [(__CFString *)eventKey isEqualToString:v53];
+              v52 = [SymptomStore keyFromSymptomName:@"SYMPTOM_BARCODE_ACTIVATION"];
+              v53 = [(__CFString *)eventKey isEqualToString:v52];
 
-              if (v54)
+              if (v53)
               {
-                v60 = eventKey;
-                v61 = symptomCopy;
-                v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
+                v59 = eventKey;
+                v60 = symptomCopy;
+                v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
                 defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
                 v13 = defaultCenter;
                 v14 = @"kNotificationBarcodeActivation";
@@ -280,25 +281,25 @@ LABEL_28:
 
               else
               {
-                v55 = [SymptomStore keyFromSymptomName:@"com.apple.das.oversize.load"];
-                v56 = [(__CFString *)eventKey isEqualToString:v55];
+                v54 = [SymptomStore keyFromSymptomName:@"com.apple.das.oversize.load"];
+                v55 = [(__CFString *)eventKey isEqualToString:v54];
 
-                if (!v56)
+                if (!v55)
                 {
                   goto LABEL_8;
                 }
 
-                v58 = eventKey;
-                v59 = symptomCopy;
-                v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
-                v57 = analyticsLogHandle;
+                v57 = eventKey;
+                v58 = symptomCopy;
+                v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+                v56 = analyticsLogHandle;
                 if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 138412546;
-                  v81 = @"kNotificationDASOversizeLoad";
-                  v82 = 2112;
+                  v80 = @"kNotificationDASOversizeLoad";
+                  v81 = 2112;
                   seqNo = v11;
-                  _os_log_impl(&dword_23255B000, v57, OS_LOG_TYPE_DEBUG, "netanalyticsdebug: posting event %@ with info %@", buf, 0x16u);
+                  _os_log_impl(&dword_23255B000, v56, OS_LOG_TYPE_DEBUG, "netanalyticsdebug: posting event %@ with info %@", buf, 0x16u);
                 }
 
                 defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
@@ -313,17 +314,17 @@ LABEL_28:
       }
     }
 
-    v68 = eventKey;
-    v69 = symptomCopy;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
-    v46 = analyticsLogHandle;
+    v67 = eventKey;
+    v68 = symptomCopy;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v68 forKeys:&v67 count:1];
+    v45 = analyticsLogHandle;
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412546;
-      v81 = @"kNotificationCoreMediaAssetDownload";
-      v82 = 2112;
+      v80 = @"kNotificationCoreMediaAssetDownload";
+      v81 = 2112;
       seqNo = v11;
-      _os_log_impl(&dword_23255B000, v46, OS_LOG_TYPE_DEBUG, "netanalyticsdebug: posting event %@ with info %@", buf, 0x16u);
+      _os_log_impl(&dword_23255B000, v45, OS_LOG_TYPE_DEBUG, "netanalyticsdebug: posting event %@ with info %@", buf, 0x16u);
     }
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
@@ -335,8 +336,78 @@ LABEL_7:
   [defaultCenter postNotificationName:v14 object:self userInfo:v11];
 
 LABEL_8:
-  v15 = *MEMORY[0x277D85DE8];
   return 1;
+}
+
+- (void)noteIPAddressAcquisitionFailed:(BOOL)failed forEvent:(id)event
+{
+  failedCopy = failed;
+  v19 = *MEMORY[0x277D85DE8];
+  eventData = [event eventData];
+  if (!eventData)
+  {
+    v6 = otherLogHandle;
+    if (!os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
+    {
+      return;
+    }
+
+    *v14 = 0;
+    v7 = "Missing eventData in configd DHCP symptom, returning";
+    goto LABEL_15;
+  }
+
+  if ((*(eventData + 4) & 1) == 0)
+  {
+    v6 = otherLogHandle;
+    if (!os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
+    {
+      return;
+    }
+
+    *v14 = 0;
+    v7 = "Received configd DHCP symptom with no interface index qualifier";
+LABEL_15:
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, v7, v14, 2u);
+    return;
+  }
+
+  v8 = *(eventData + 24);
+  if (!v8)
+  {
+    v6 = otherLogHandle;
+    if (!os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
+    {
+      return;
+    }
+
+    *v14 = 0;
+    v7 = "Did not receive an interface index from configd DHCP symptom";
+    goto LABEL_15;
+  }
+
+  v9 = [objc_alloc(MEMORY[0x277CD91D8]) initWithInterfaceIndex:v8];
+  interfaceName = [v9 interfaceName];
+  v11 = otherLogHandle;
+  if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_DEBUG))
+  {
+    v12 = "success";
+    *v14 = 136315650;
+    if (failedCopy)
+    {
+      v12 = "failure";
+    }
+
+    *&v14[4] = v12;
+    v15 = 2112;
+    v16 = interfaceName;
+    v17 = 1024;
+    v18 = v8;
+    _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, "NDF: About to inform NDFCore of IP address acquisition %s on interface %@ (index %d)", v14, 0x1Cu);
+  }
+
+  v13 = +[NDFCoreShim sharedInstance];
+  [v13 noteIPAddressAcquisitionFailed:failedCopy forInterface:interfaceName];
 }
 
 @end

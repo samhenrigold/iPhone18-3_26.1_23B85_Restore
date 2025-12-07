@@ -11,7 +11,7 @@
   v5 = sub_75C840();
   (*(*(v5 - 8) + 56))(self + v4, 1, 1, v5);
   v6 = OBJC_IVAR____TtC18ASMessagesProvider30LinkableTextCollectionViewCell_bodyText;
-  v7 = sub_BD88(&unk_944E80);
+  v7 = sub_BD88(&unk_944E80, &unk_799630);
   (*(*(v7 - 8) + 56))(self + v6, 1, 1, v7);
   result = sub_76A840();
   __break(1u);

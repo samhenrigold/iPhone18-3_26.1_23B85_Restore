@@ -180,8 +180,8 @@ LABEL_4:
     if (v17)
     {
       v24 = MEMORY[0x277CBEB98];
-      allKeys = [dictionary allKeys];
-      v26 = [v24 setWithArray:allKeys];
+      v25 = objc_msgSend_allKeys(dictionary);
+      v26 = [v24 setWithArray:v25];
 
       v27 = [objc_alloc(MEMORY[0x277D14C60]) initWithHome:hf_home trigger:v17];
       v28 = [v27 updateWithOptions:optionsCopy];
@@ -373,7 +373,7 @@ id __67__HUProgrammableSwitchEventOptionItem__subclass_updateWithOptions___block
   v3 = MEMORY[0x277CBEB98];
   v4 = a2;
   v5 = [v4 results];
-  v6 = [v5 allKeys];
+  v6 = objc_msgSend_allKeys(v5);
   v7 = [v3 setWithArray:v6];
   v8 = [v7 mutableCopy];
 

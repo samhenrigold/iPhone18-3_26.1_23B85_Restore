@@ -1,5 +1,6 @@
 @interface CRDTModelSyncEntity
 + (id)propertyIDKey;
+- (BOOL)isEqualExceptForDate:(id)date ignoringEmptySalt:(BOOL)salt;
 - (NSString)debugDescription;
 - (_TtC14bookdatastored19CRDTModelSyncEntity)initWithEntity:(id)entity insertIntoManagedObjectContext:(id)context;
 - (id)identifier;
@@ -30,6 +31,19 @@
   swift_unknownObjectRelease();
 }
 
+- (BOOL)isEqualExceptForDate:(id)date ignoringEmptySalt:(BOOL)salt
+{
+  saltCopy = salt;
+  swift_unknownObjectRetain();
+  selfCopy = self;
+  v8.super.super.isa = date;
+  v8._privacyDelegate = saltCopy;
+  LOBYTE(saltCopy) = CRDTModelSyncEntity.isEqualExceptForDate(_:ignoringEmptySalt:)(v8, v9);
+  swift_unknownObjectRelease();
+
+  return saltCopy;
+}
+
 - (void)resolveConflictsFromRecord:(id)record withResolvers:(id)resolvers
 {
   resolversCopy = resolvers;
@@ -55,7 +69,7 @@
 - (_TtC14bookdatastored19CRDTModelSyncEntity)initWithEntity:(id)entity insertIntoManagedObjectContext:(id)context
 {
   v7.receiver = self;
-  v7.super_class = type metadata accessor for CRDTModelSyncEntity();
+  v7.super_class = type metadata accessor for CRDTModelSyncEntity(0);
   return [(CRDTModelSyncEntity *)&v7 initWithEntity:entity insertIntoManagedObjectContext:context];
 }
 
@@ -89,7 +103,7 @@
 - (NSString)debugDescription
 {
   v9.receiver = self;
-  v9.super_class = type metadata accessor for CRDTModelSyncEntity();
+  v9.super_class = type metadata accessor for CRDTModelSyncEntity(0);
   v2 = v9.receiver;
   v3 = [(CRDTModelSyncEntity *)&v9 debugDescription];
   sub_1001C6018();

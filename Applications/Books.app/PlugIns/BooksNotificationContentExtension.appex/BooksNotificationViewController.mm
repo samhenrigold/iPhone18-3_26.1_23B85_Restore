@@ -11,8 +11,12 @@
 - (void)didReceiveNotificationResponse:(id)response completionHandler:(id)handler;
 - (void)feedViewController:(id)controller willTransitionToContentHeight:(double)height;
 - (void)syncLayoutControllerNeedsFlushing:(id)flushing;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation BooksNotificationViewController
@@ -77,6 +81,53 @@
   [(TUISyncLayoutController *)self->_syncLayoutController flush];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = BooksNotificationViewController;
+  [(BooksNotificationViewController *)&v5 viewWillAppear:appear];
+  analyticsManager = [(BooksNotificationViewController *)self analyticsManager];
+  [analyticsManager startSession];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = BooksNotificationViewController;
+  [(BooksNotificationViewController *)&v4 viewDidAppear:appear];
+  [(BooksNotificationViewController *)self bc_analyticsVisibilityUpdateSubtree];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = BooksNotificationViewController;
+  [(BooksNotificationViewController *)&v4 viewWillDisappear:disappear];
+  [(BooksNotificationViewController *)self bc_analyticsVisibilitySubtreeWillDisappear];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v9.receiver = self;
+  v9.super_class = BooksNotificationViewController;
+  v4 = [(BooksNotificationViewController *)&v9 viewDidDisappear:disappear];
+  v5 = BooksNotificationLog(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "viewDidDisappear", buf, 2u);
+  }
+
+  [(BooksNotificationViewController *)self bc_analyticsVisibilitySubtreeDidDisappear];
+  v6 = +[NSProcessInfo processInfo];
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_100002744;
+  v7[3] = &unk_1000084B8;
+  v7[4] = self;
+  [v6 performExpiringActivityWithReason:@"uploading metrics" usingBlock:v7];
+}
+
 - (void)didReceiveNotification:(id)notification
 {
   notificationCopy = notification;
@@ -110,7 +161,7 @@
 
   else
   {
-    v8 = BooksNotificationLog();
+    v8 = BooksNotificationLog(v5);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_1000048E0(self, v8);
@@ -129,8 +180,8 @@
   actionIdentifier = [responseCopy actionIdentifier];
   LODWORD(notification) = [actionIdentifier isEqualToString:UNNotificationDefaultActionIdentifier];
 
-  v52 = handlerCopy;
-  v54 = v10;
+  v54 = handlerCopy;
+  v56 = v10;
   if (notification)
   {
     defaultAction = [v10 defaultAction];
@@ -148,25 +199,25 @@
 
     else
     {
+      v70 = 0u;
+      v71 = 0u;
       v68 = 0u;
       v69 = 0u;
-      v66 = 0u;
-      v67 = 0u;
       buttonActions = [v10 buttonActions];
-      defaultAction = [buttonActions countByEnumeratingWithState:&v66 objects:v76 count:16];
+      defaultAction = [buttonActions countByEnumeratingWithState:&v68 objects:v78 count:16];
       if (defaultAction)
       {
-        v16 = *v67;
+        v16 = *v69;
         while (2)
         {
           for (i = 0; i != defaultAction; i = i + 1)
           {
-            if (*v67 != v16)
+            if (*v69 != v16)
             {
               objc_enumerationMutation(buttonActions);
             }
 
-            v18 = *(*(&v66 + 1) + 8 * i);
+            v18 = *(*(&v68 + 1) + 8 * i);
             identifier = [v18 identifier];
             actionIdentifier3 = [responseCopy actionIdentifier];
             v21 = [identifier isEqualToString:actionIdentifier3];
@@ -178,7 +229,7 @@
             }
           }
 
-          defaultAction = [buttonActions countByEnumeratingWithState:&v66 objects:v76 count:16];
+          defaultAction = [buttonActions countByEnumeratingWithState:&v68 objects:v78 count:16];
           if (defaultAction)
           {
             continue;
@@ -188,26 +239,27 @@
         }
 
 LABEL_15:
-        v10 = v54;
+        v10 = v56;
       }
     }
   }
 
   defaultURL = [defaultAction defaultURL];
-  if ([defaultURL bc_isBookStoreAddToWantToReadURL])
+  bc_isBookStoreAddToWantToReadURL = [defaultURL bc_isBookStoreAddToWantToReadURL];
+  if (bc_isBookStoreAddToWantToReadURL)
   {
-    v23 = 3;
+    v24 = 3;
 LABEL_29:
-    v25 = BooksNotificationLog();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v26 = BooksNotificationLog(bc_isBookStoreAddToWantToReadURL);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = objc_opt_class();
+      v27 = objc_opt_class();
       *buf = 138543618;
-      v73 = v26;
-      v74 = 2048;
-      v75 = v23;
-      v27 = v26;
-      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "%{public}@: didReceiveNotificationResponse:completionHandler: Report Figaro metrics for action type %ld", buf, 0x16u);
+      v75 = v27;
+      v76 = 2048;
+      v77 = v24;
+      v28 = v27;
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "%{public}@: didReceiveNotificationResponse:completionHandler: Report Figaro metrics for action type %ld", buf, 0x16u);
     }
 
     metricsEvent = [defaultAction metricsEvent];
@@ -215,164 +267,168 @@ LABEL_29:
     goto LABEL_32;
   }
 
-  if ([defaultURL bc_isBookStoreBuyNowURL])
+  bc_isBookStoreAddToWantToReadURL = [defaultURL bc_isBookStoreBuyNowURL];
+  if (bc_isBookStoreAddToWantToReadURL)
   {
-    v23 = 2;
+    v24 = 2;
     goto LABEL_29;
   }
 
-  if ([defaultURL bc_isBookStoreViewInStoreURL])
+  bc_isBookStoreAddToWantToReadURL = [defaultURL bc_isBookStoreViewInStoreURL];
+  if (bc_isBookStoreAddToWantToReadURL)
   {
-    v23 = 4;
+    v24 = 4;
     goto LABEL_29;
   }
 
-  if ([defaultURL bc_isBookStoreStartReadingURL])
+  bc_isBookStoreAddToWantToReadURL = [defaultURL bc_isBookStoreStartReadingURL];
+  if (bc_isBookStoreAddToWantToReadURL)
   {
-    v23 = 5;
+    v24 = 5;
     goto LABEL_29;
   }
 
-  v23 = 6;
-  if ([defaultURL bc_isBookStoreStartListeningURL])
+  bc_isBookStoreAddToWantToReadURL = [defaultURL bc_isBookStoreStartListeningURL];
+  v24 = 6;
+  if (bc_isBookStoreAddToWantToReadURL)
   {
-    v24 = 6;
+    v25 = 6;
   }
 
   else
   {
-    v24 = 0;
+    v25 = 0;
   }
 
-  if ((v24 - 2) <= 4)
+  if ((v25 - 2) <= 4)
   {
     goto LABEL_29;
   }
 
-  metricsEvent = BooksNotificationLog();
+  metricsEvent = BooksNotificationLog(bc_isBookStoreAddToWantToReadURL);
   if (os_log_type_enabled(metricsEvent, OS_LOG_TYPE_DEFAULT))
   {
-    v50 = objc_opt_class();
+    v52 = objc_opt_class();
     *buf = 138543618;
-    v73 = v50;
-    v74 = 2048;
-    v75 = v24;
-    v51 = v50;
+    v75 = v52;
+    v76 = 2048;
+    v77 = v25;
+    v53 = v52;
     _os_log_impl(&_mh_execute_header, metricsEvent, OS_LOG_TYPE_DEFAULT, "%{public}@: didReceiveNotificationResponse:completionHandler: Skip Figaro metrics reporting for action type %ld", buf, 0x16u);
   }
 
-  v23 = 0;
+  v24 = 0;
 LABEL_32:
 
-  [(BooksNotificationViewController *)self _emitNotificationEngagementEventForResponse:responseCopy notificationAction:defaultAction actionType:v23];
+  [(BooksNotificationViewController *)self _emitNotificationEngagementEventForResponse:responseCopy notificationAction:defaultAction actionType:v24];
   metricsEvent2 = [v10 metricsEvent];
-  v30 = [metricsEvent2 objectForKeyedSubscript:@"details"];
-  v31 = [v30 objectForKeyedSubscript:@"contentAdamId"];
+  v31 = [metricsEvent2 objectForKeyedSubscript:@"details"];
+  v32 = [v31 objectForKeyedSubscript:@"contentAdamId"];
 
   objc_opt_class();
-  v32 = BUDynamicCast();
-  v33 = v32;
-  if (v32)
+  v33 = BUDynamicCast();
+  v34 = v33;
+  if (v33)
   {
-    stringValue = v32;
+    stringValue = v33;
   }
 
   else
   {
     objc_opt_class();
-    v35 = BUDynamicCast();
-    stringValue = [v35 stringValue];
+    v36 = BUDynamicCast();
+    stringValue = [v36 stringValue];
   }
 
-  v70[0] = FBSOpenApplicationOptionKeyPromptUnlockDevice;
-  v70[1] = FBSOpenApplicationOptionKeyUnlockDevice;
-  v71[0] = &__kCFBooleanTrue;
-  v71[1] = &__kCFBooleanTrue;
-  v70[2] = FBSOpenApplicationOptionKeyLaunchOrigin;
-  v36 = objc_opt_class();
-  v37 = NSStringFromClass(v36);
-  v71[2] = v37;
-  v38 = [NSDictionary dictionaryWithObjects:v71 forKeys:v70 count:3];
+  v72[0] = FBSOpenApplicationOptionKeyPromptUnlockDevice;
+  v72[1] = FBSOpenApplicationOptionKeyUnlockDevice;
+  v73[0] = &__kCFBooleanTrue;
+  v73[1] = &__kCFBooleanTrue;
+  v72[2] = FBSOpenApplicationOptionKeyLaunchOrigin;
+  v37 = objc_opt_class();
+  v38 = NSStringFromClass(v37);
+  v73[2] = v38;
+  v39 = [NSDictionary dictionaryWithObjects:v73 forKeys:v72 count:3];
 
-  if ((v23 - 4) < 3)
+  if ((v24 - 4) < 3)
   {
     ba_effectiveAnalyticsTracker = [(BooksNotificationViewController *)self ba_effectiveAnalyticsTracker];
-    v56[0] = _NSConcreteStackBlock;
-    v56[1] = 3221225472;
-    v56[2] = sub_100003448;
-    v56[3] = &unk_100008530;
-    v56[4] = self;
-    v57 = stringValue;
-    v61 = v23;
-    v58 = defaultURL;
-    v59 = v38;
-    v40 = v53;
-    v60 = v53;
-    [BNBookDataStoreServices addStoreIDToWantToRead:v57 tracker:ba_effectiveAnalyticsTracker completion:v56];
+    v58[0] = _NSConcreteStackBlock;
+    v58[1] = 3221225472;
+    v58[2] = sub_100003448;
+    v58[3] = &unk_100008530;
+    v58[4] = self;
+    v59 = stringValue;
+    v63 = v24;
+    v60 = defaultURL;
+    v61 = v39;
+    v42 = v55;
+    v62 = v55;
+    [BNBookDataStoreServices addStoreIDToWantToRead:v59 tracker:ba_effectiveAnalyticsTracker completion:v58];
 
-    v41 = v57;
+    v43 = v59;
 LABEL_40:
 
     goto LABEL_41;
   }
 
-  if (v23 == 2)
+  if (v24 == 2)
   {
-    v43 = BooksNotificationLog();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+    v45 = BooksNotificationLog(v40);
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
     {
-      v44 = objc_opt_class();
+      v46 = objc_opt_class();
       *buf = 138543618;
-      v73 = v44;
-      v74 = 2048;
-      v75 = 2;
-      v45 = v44;
-      _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "%{public}@: didReceiveNotificationResponse:completionHandler: handling URL for action type %ld", buf, 0x16u);
+      v75 = v46;
+      v76 = 2048;
+      v77 = 2;
+      v47 = v46;
+      _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "%{public}@: didReceiveNotificationResponse:completionHandler: handling URL for action type %ld", buf, 0x16u);
     }
 
-    v46 = +[LSApplicationWorkspace defaultWorkspace];
-    [v46 openSensitiveURL:defaultURL withOptions:v38];
+    v48 = +[LSApplicationWorkspace defaultWorkspace];
+    [v48 openSensitiveURL:defaultURL withOptions:v39];
 
-    v40 = v53;
-    v53[2](v53, 1);
+    v42 = v55;
+    v55[2](v55, 1);
   }
 
   else
   {
-    if (v23 == 3)
+    if (v24 == 3)
     {
       ba_effectiveAnalyticsTracker2 = [(BooksNotificationViewController *)self ba_effectiveAnalyticsTracker];
-      v62[0] = _NSConcreteStackBlock;
-      v62[1] = 3221225472;
-      v62[2] = sub_100003354;
-      v62[3] = &unk_100008468;
-      v62[4] = self;
-      v63 = stringValue;
-      v65 = 3;
-      v64 = v53;
-      [BNBookDataStoreServices addStoreIDToWantToRead:v63 tracker:ba_effectiveAnalyticsTracker2 completion:v62];
+      v64[0] = _NSConcreteStackBlock;
+      v64[1] = 3221225472;
+      v64[2] = sub_100003354;
+      v64[3] = &unk_100008468;
+      v64[4] = self;
+      v65 = stringValue;
+      v67 = 3;
+      v66 = v55;
+      [BNBookDataStoreServices addStoreIDToWantToRead:v65 tracker:ba_effectiveAnalyticsTracker2 completion:v64];
 
-      v40 = v53;
-      v41 = v63;
+      v42 = v55;
+      v43 = v65;
       goto LABEL_40;
     }
 
-    v47 = BooksNotificationLog();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+    v49 = BooksNotificationLog(v40);
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
     {
-      v48 = objc_opt_class();
+      v50 = objc_opt_class();
       *buf = 138543618;
-      v73 = v48;
-      v74 = 2048;
-      v75 = v23;
-      v49 = v48;
-      _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "%{public}@: didReceiveNotificationResponse:completionHandler: Let superclass to handle URL for action type %ld", buf, 0x16u);
+      v75 = v50;
+      v76 = 2048;
+      v77 = v24;
+      v51 = v50;
+      _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "%{public}@: didReceiveNotificationResponse:completionHandler: Let superclass to handle URL for action type %ld", buf, 0x16u);
     }
 
-    v55.receiver = self;
-    v55.super_class = BooksNotificationViewController;
-    v40 = v53;
-    [(BooksNotificationViewController *)&v55 didReceiveNotificationResponse:responseCopy completionHandler:v53];
+    v57.receiver = self;
+    v57.super_class = BooksNotificationViewController;
+    v42 = v55;
+    [(BooksNotificationViewController *)&v57 didReceiveNotificationResponse:responseCopy completionHandler:v55];
   }
 
 LABEL_41:
@@ -452,7 +508,7 @@ LABEL_41:
 - (void)_renderUserNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = BooksNotificationLog();
+  v5 = BooksNotificationLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     logKey = [notificationCopy logKey];

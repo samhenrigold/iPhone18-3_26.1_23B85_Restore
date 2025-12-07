@@ -49,7 +49,7 @@
 
 - (id)pendingArbitrationExecutionFuture
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   activeArbitrationFuture = [(HFAppleMusicAccountArbitrator *)self activeArbitrationFuture];
 
   if (activeArbitrationFuture)
@@ -58,41 +58,41 @@
     goto LABEL_27;
   }
 
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   accessories = [(HFAppleMusicAccountArbitrator *)self accessories];
-  v7 = [accessories countByEnumeratingWithState:&v46 objects:v64 count:16];
+  v7 = [accessories countByEnumeratingWithState:&v45 objects:v63 count:16];
   if (!v7)
   {
     goto LABEL_12;
   }
 
   v8 = v7;
-  v9 = *v47;
+  v9 = *v46;
   while (2)
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v47 != v9)
+      if (*v46 != v9)
       {
         objc_enumerationMutation(accessories);
       }
 
-      v11 = *(*(&v46 + 1) + 8 * i);
+      v11 = *(*(&v45 + 1) + 8 * i);
       remoteLoginHandler = [v11 remoteLoginHandler];
       v13 = remoteLoginHandler;
       if (!remoteLoginHandler)
       {
         v20 = MEMORY[0x277D2C900];
         v21 = MEMORY[0x277CCA9B8];
-        v62[0] = @"accessory";
-        v62[1] = @"accessories";
-        v63[0] = v11;
+        v61[0] = @"accessory";
+        v61[1] = @"accessories";
+        v62[0] = v11;
         accessories2 = [(HFAppleMusicAccountArbitrator *)self accessories];
-        v63[1] = accessories2;
-        v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:v62 count:2];
+        v62[1] = accessories2;
+        v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v62 forKeys:v61 count:2];
         v24 = v21;
         v25 = 11;
 LABEL_16:
@@ -106,19 +106,19 @@ LABEL_16:
       {
         v20 = MEMORY[0x277D2C900];
         v26 = MEMORY[0x277CCA9B8];
-        v60[0] = @"accessory";
-        v60[1] = @"accessories";
-        v61[0] = v11;
+        v59[0] = @"accessory";
+        v59[1] = @"accessories";
+        v60[0] = v11;
         accessories2 = [(HFAppleMusicAccountArbitrator *)self accessories];
-        v61[1] = accessories2;
-        v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v61 forKeys:v60 count:2];
+        v60[1] = accessories2;
+        v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v60 forKeys:v59 count:2];
         v24 = v26;
         v25 = 12;
         goto LABEL_16;
       }
     }
 
-    v8 = [accessories countByEnumeratingWithState:&v46 objects:v64 count:16];
+    v8 = [accessories countByEnumeratingWithState:&v45 objects:v63 count:16];
     if (v8)
     {
       continue;
@@ -131,21 +131,21 @@ LABEL_12:
 
   v14 = objc_opt_new();
   accessories3 = [(HFAppleMusicAccountArbitrator *)self accessories];
-  v43[0] = MEMORY[0x277D85DD0];
-  v43[1] = 3221225472;
-  v43[2] = __66__HFAppleMusicAccountArbitrator_pendingArbitrationExecutionFuture__block_invoke;
-  v43[3] = &unk_277E01340;
-  v43[4] = self;
-  v45 = a2;
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = __66__HFAppleMusicAccountArbitrator_pendingArbitrationExecutionFuture__block_invoke;
+  v42[3] = &unk_277E01340;
+  v42[4] = self;
+  v44 = a2;
   accessories = v14;
-  v44 = accessories;
-  [accessories3 na_each:v43];
+  v43 = accessories;
+  [accessories3 na_each:v42];
 
   account = [(HFAppleMusicAccountArbitrator *)self account];
   contextGenerator = [(HFAppleMusicAccountArbitrator *)self contextGenerator];
-  v42 = 0;
-  v18 = [(HFAppleMusicAccountArbitrator *)self _resolvedLoginType:&v42];
-  v19 = v42;
+  v41 = 0;
+  v18 = [(HFAppleMusicAccountArbitrator *)self _resolvedLoginType:&v41];
+  v19 = v41;
   if (!v19)
   {
     if (v18 == 1)
@@ -170,26 +170,26 @@ LABEL_22:
           v33 = [MEMORY[0x277CCABB0] numberWithInteger:v18];
           *buf = 138413314;
           selfCopy = self;
-          v52 = 2112;
-          v53 = v32;
-          v54 = 2112;
-          v55 = v30;
-          v56 = 2112;
-          v57 = account;
-          v58 = 2112;
-          v59 = v33;
+          v51 = 2112;
+          v52 = v32;
+          v53 = 2112;
+          v54 = v30;
+          v55 = 2112;
+          v56 = account;
+          v57 = 2112;
+          v58 = v33;
           _os_log_impl(&dword_20D9BF000, v31, OS_LOG_TYPE_DEFAULT, "%@:%@ Added Login plan = [%@] account = [%@] loginType = [%@]", buf, 0x34u);
         }
 
         v34 = [accessories na_map:&__block_literal_global_158_1];
         v35 = MEMORY[0x277D2C900];
-        v40[0] = MEMORY[0x277D85DD0];
-        v40[1] = 3221225472;
-        v40[2] = __66__HFAppleMusicAccountArbitrator_pendingArbitrationExecutionFuture__block_invoke_2;
-        v40[3] = &unk_277DF29A0;
-        v41 = v34;
+        v39[0] = MEMORY[0x277D85DD0];
+        v39[1] = 3221225472;
+        v39[2] = __66__HFAppleMusicAccountArbitrator_pendingArbitrationExecutionFuture__block_invoke_2;
+        v39[3] = &unk_277DF29A0;
+        v40 = v34;
         v36 = v34;
-        v37 = [v35 lazyFutureWithBlock:v40];
+        v37 = [v35 lazyFutureWithBlock:v39];
         [(HFAppleMusicAccountArbitrator *)self setActiveArbitrationFuture:v37];
 
         activeArbitrationFuture2 = [(HFAppleMusicAccountArbitrator *)self activeArbitrationFuture];
@@ -209,14 +209,13 @@ LABEL_25:
 
 LABEL_26:
 LABEL_27:
-  v38 = *MEMORY[0x277D85DE8];
 
   return activeArbitrationFuture2;
 }
 
 void __66__HFAppleMusicAccountArbitrator_pendingArbitrationExecutionFuture__block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (([v3 supportsMultiUser] & 1) == 0)
   {
@@ -238,19 +237,17 @@ void __66__HFAppleMusicAccountArbitrator_pendingArbitrationExecutionFuture__bloc
     {
       v8 = *(a1 + 32);
       v9 = NSStringFromSelector(*(a1 + 48));
-      v11 = 138412802;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v9;
-      v15 = 2112;
-      v16 = v4;
-      _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "%@:%@ Added Logout plan for account = [%@]", &v11, 0x20u);
+      v10 = 138412802;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v9;
+      v14 = 2112;
+      v15 = v4;
+      _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "%@:%@ Added Logout plan for account = [%@]", &v10, 0x20u);
     }
 
     [*(a1 + 40) addObject:v6];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __66__HFAppleMusicAccountArbitrator_pendingArbitrationExecutionFuture__block_invoke_2(uint64_t a1, void *a2)

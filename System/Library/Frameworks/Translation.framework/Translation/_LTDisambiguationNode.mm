@@ -3,8 +3,6 @@
 - (_LTDisambiguationNode)initWithText:(id)text links:(id)links romanization:(id)romanization;
 - (id)copyWithZone:(_NSZone *)zone;
 - (void)_insertPrefix:(id)prefix;
-- (void)_removeAllLinks;
-- (void)_removeRomanization;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -38,23 +36,9 @@
   return v11;
 }
 
-- (void)_removeAllLinks
-{
-  links = self->_links;
-  self->_links = MEMORY[0x277CBEBF8];
-  MEMORY[0x2821F96F8]();
-}
-
-- (void)_removeRomanization
-{
-  romanization = self->_romanization;
-  self->_romanization = 0;
-  MEMORY[0x2821F96F8]();
-}
-
 - (void)_insertPrefix:(id)prefix
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   prefixCopy = prefix;
   if ([(NSString *)self->_text length])
   {
@@ -62,31 +46,31 @@
     text = self->_text;
     self->_text = v5;
 
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v7 = self->_links;
-    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       do
       {
         v11 = 0;
         do
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          [*(*(&v15 + 1) + 8 * v11++) _insertPrefix:prefixCopy];
+          [*(*(&v14 + 1) + 8 * v11++) _insertPrefix:prefixCopy];
         }
 
         while (v9 != v11);
-        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v9);
@@ -94,13 +78,11 @@
 
     if ([(NSString *)self->_romanization length])
     {
-      v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", prefixCopy, self->_romanization, v15];
+      v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", prefixCopy, self->_romanization, v14];
       romanization = self->_romanization;
       self->_romanization = v12;
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -114,11 +96,11 @@
 
 - (_LTDisambiguationNode)initWithCoder:(id)coder
 {
-  v19[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v18.receiver = self;
-  v18.super_class = _LTDisambiguationNode;
-  v5 = [(_LTDisambiguationNode *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = _LTDisambiguationNode;
+  v5 = [(_LTDisambiguationNode *)&v17 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"text"];
@@ -126,9 +108,9 @@
     v5->_text = v6;
 
     v8 = MEMORY[0x277CBEB98];
-    v19[0] = objc_opt_class();
-    v19[1] = objc_opt_class();
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+    v18[0] = objc_opt_class();
+    v18[1] = objc_opt_class();
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
     v10 = [v8 setWithArray:v9];
 
     v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"links"];
@@ -142,7 +124,6 @@
     v15 = v5;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

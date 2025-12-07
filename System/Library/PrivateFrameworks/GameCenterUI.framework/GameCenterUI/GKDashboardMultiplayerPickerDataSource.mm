@@ -2643,9 +2643,9 @@ LABEL_7:
   }
 }
 
-void __68__GKDashboardMultiplayerPickerDataSource_setNearbyPlayer_reachable___block_invoke(uint64_t a1)
+void __68__GKDashboardMultiplayerPickerDataSource_setNearbyPlayer_reachable___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (!*(*(*(a1 + 48) + 8) + 40))
   {
     return;
@@ -2653,34 +2653,34 @@ void __68__GKDashboardMultiplayerPickerDataSource_setNearbyPlayer_reachable___bl
 
   if (!*MEMORY[0x277D0C2A0])
   {
-    v2 = GKOSLoggers();
+    v3 = GKOSLoggers();
   }
 
-  v3 = *MEMORY[0x277D0C2B0];
+  v4 = *MEMORY[0x277D0C2B0];
   if (os_log_type_enabled(*MEMORY[0x277D0C2B0], OS_LOG_TYPE_INFO))
   {
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 56);
+    v5 = *(a1 + 32);
+    v6 = *(a1 + 56);
     *buf = 138412546;
-    v28 = v4;
-    v29 = 1024;
-    v30 = v5;
-    _os_log_impl(&dword_24DE53000, v3, OS_LOG_TYPE_INFO, "setNearbyPlayer: %@ reachable: %d", buf, 0x12u);
+    v29 = v5;
+    v30 = 1024;
+    v31 = v6;
+    _os_log_impl(&dword_24DE53000, v4, OS_LOG_TYPE_INFO, "setNearbyPlayer: %@ reachable: %d", buf, 0x12u);
   }
 
-  v6 = [*(a1 + 40) nearbyPlayers];
-  v7 = [v6 count];
+  v7 = [*(a1 + 40) nearbyPlayers];
+  v8 = [v7 count];
 
-  v8 = *(a1 + 56);
-  v9 = [*(a1 + 40) nearbyPlayers];
-  v10 = [v9 containsObject:*(a1 + 32)];
+  v9 = *(a1 + 56);
+  v10 = [*(a1 + 40) nearbyPlayers];
+  v11 = [v10 containsObject:*(a1 + 32)];
 
-  if (v8 != 1)
+  if (v9 != 1)
   {
-    if (v10)
+    if (v11)
     {
-      v15 = [*(a1 + 40) nearbyPlayers];
-      [v15 removeObject:*(a1 + 32)];
+      v16 = [*(a1 + 40) nearbyPlayers];
+      [v16 removeObject:*(a1 + 32)];
 
       [*(a1 + 40) updateStateForUnreachableNearbyPlayer:*(a1 + 32)];
     }
@@ -2688,34 +2688,34 @@ void __68__GKDashboardMultiplayerPickerDataSource_setNearbyPlayer_reachable___bl
     goto LABEL_16;
   }
 
-  if ((v10 & 1) == 0)
+  if ((v11 & 1) == 0)
   {
-    v11 = [*(a1 + 40) nearbyPlayers];
-    [v11 insertObject:*(a1 + 32) atIndex:0];
+    v12 = [*(a1 + 40) nearbyPlayers];
+    [v12 insertObject:*(a1 + 32) atIndex:0];
 
-    v12 = [*(a1 + 40) friendPlayers];
-    if ([v12 containsObject:*(a1 + 32)])
+    v13 = [*(a1 + 40) friendPlayers];
+    if ([v13 containsObject:*(a1 + 32)])
     {
 LABEL_13:
 
       goto LABEL_16;
     }
 
-    v13 = [*(a1 + 40) suggestedPlayers];
-    if ([v13 containsObject:*(a1 + 32)])
+    v14 = [*(a1 + 40) suggestedPlayers];
+    if ([v14 containsObject:*(a1 + 32)])
     {
 LABEL_12:
 
       goto LABEL_13;
     }
 
-    v14 = [*(a1 + 32) referenceKey];
+    v15 = [*(a1 + 32) referenceKey];
 
-    if (v14)
+    if (v15)
     {
-      v12 = [*(a1 + 40) playerStates];
-      v13 = [*(a1 + 32) referenceKey];
-      [v12 setObject:&unk_286189348 forKeyedSubscript:v13];
+      v13 = [*(a1 + 40) playerStates];
+      v14 = [*(a1 + 32) referenceKey];
+      [v13 setObject:&unk_286189348 forKeyedSubscript:v14];
       goto LABEL_12;
     }
   }
@@ -2728,40 +2728,40 @@ LABEL_16:
 
   if (([*(a1 + 40) isSearching] & 1) == 0)
   {
-    v16 = [*(a1 + 40) nearbyPlayers];
-    v17 = [v16 count];
+    v17 = [*(a1 + 40) nearbyPlayers];
+    v18 = [v17 count];
 
-    if (v17 * v7 || v17 + v7 < 1 || ([*(a1 + 40) suggestedPlayerGroups], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "count"), v18, v19))
+    if (v18 * v8 || v18 + v8 < 1 || ([*(a1 + 40) suggestedPlayerGroups], v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend(v19, "count"), v19, v20))
     {
-      v20 = [*(a1 + 40) suggestionContainerCell];
-      if (!v20)
+      v21 = [*(a1 + 40) suggestionContainerCell];
+      if (!v21)
       {
-        v21 = [*(a1 + 40) collectionView];
-        v22 = [MEMORY[0x277CCAA70] indexPathForItem:0 inSection:0];
-        v23 = [v21 cellForItemAtIndexPath:v22];
+        v22 = [*(a1 + 40) collectionView];
+        v23 = [MEMORY[0x277CCAA70] indexPathForItem:0 inSection:0];
+        v24 = [v22 cellForItemAtIndexPath:v23];
 
-        if (v23 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+        if (v24 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
         {
-          v20 = v23;
+          v21 = v24;
         }
 
         else
         {
-          v20 = 0;
+          v21 = 0;
         }
       }
 
-      v24 = [*(a1 + 40) nearbyPlayers];
-      [v20 updateNearbyPlayers:v24];
+      v25 = [*(a1 + 40) nearbyPlayers];
+      [v21 updateNearbyPlayers:v25];
     }
 
     else
     {
-      v20 = [*(a1 + 40) collectionView];
-      v24 = [MEMORY[0x277CCAA70] indexPathForItem:0 inSection:0];
-      v26 = v24;
-      v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
-      [v20 reloadItemsAtIndexPaths:v25];
+      v21 = [*(a1 + 40) collectionView];
+      v25 = [MEMORY[0x277CCAA70] indexPathForItem:0 inSection:0];
+      v27 = v25;
+      v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
+      [v21 reloadItemsAtIndexPaths:v26];
     }
   }
 }
@@ -5266,7 +5266,7 @@ LABEL_8:
   v5 = a2;
   v6 = [v4 numberWithInteger:a3];
   OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_3_1(&dword_24DE53000, v7, v8, "Previous sort preference for %@: %@.", v9, v10, v11, v12, v13);
+  OUTLINED_FUNCTION_3_1(&dword_24DE53000, v7, v8, "Previous sort preference for %@: %@.", v9, v10, v11, v12);
 }
 
 - (void)setFriendSortFilterScope:(uint64_t)a3 .cold.1(uint64_t a1, void *a2, uint64_t a3)
@@ -5275,7 +5275,7 @@ LABEL_8:
   v5 = a2;
   v6 = [v4 numberWithInteger:a3];
   OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_3_1(&dword_24DE53000, v7, v8, "Remember sort preference for %@: %@.", v9, v10, v11, v12, v13);
+  OUTLINED_FUNCTION_3_1(&dword_24DE53000, v7, v8, "Remember sort preference for %@: %@.", v9, v10, v11, v12);
 }
 
 void __72__GKDashboardMultiplayerPickerDataSource_loadDataWithCompletionHandler___block_invoke_4_cold_2(uint8_t *a1, void *a2, void *a3, void *a4)

@@ -60,11 +60,11 @@
 
 - (_CDMultiLevelRateLimiter)initWithPeriodToCountMap:(id)map
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   mapCopy = map;
-  v44.receiver = self;
-  v44.super_class = _CDMultiLevelRateLimiter;
-  v5 = [(_CDMultiLevelRateLimiter *)&v44 init];
+  v43.receiver = self;
+  v43.super_class = _CDMultiLevelRateLimiter;
+  v5 = [(_CDMultiLevelRateLimiter *)&v43 init];
   if (v5)
   {
     allKeys = [mapCopy allKeys];
@@ -72,39 +72,39 @@
     v8 = [v7 mutableCopy];
 
     v9 = [MEMORY[0x1E695DF70] arrayWithCapacity:v5->_numberOfRateLimitPolicies];
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     v10 = v8;
-    v11 = [v10 countByEnumeratingWithState:&v40 objects:v45 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v39 objects:v44 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v41;
+      v13 = *v40;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v41 != v13)
+          if (*v40 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = [mapCopy objectForKeyedSubscript:*(*(&v40 + 1) + 8 * i)];
+          v15 = [mapCopy objectForKeyedSubscript:*(*(&v39 + 1) + 8 * i)];
           if (v15)
           {
             [v9 addObject:v15];
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v40 objects:v45 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v39 objects:v44 count:16];
       }
 
       while (v12);
     }
 
-    v39 = v5;
+    v38 = v5;
 
     indexSet = [MEMORY[0x1E696AD50] indexSet];
     v17 = [v9 count] - 1;
@@ -155,43 +155,42 @@
     }
 
     v25 = [MEMORY[0x1E695DEC8] arrayWithArray:v10];
-    v5 = v39;
-    periods = v39->_periods;
-    v39->_periods = v25;
+    v5 = v38;
+    periods = v38->_periods;
+    v38->_periods = v25;
 
-    v39->_numberOfRateLimitPolicies = [(NSArray *)v39->_periods count];
+    v38->_numberOfRateLimitPolicies = [(NSArray *)v38->_periods count];
     v27 = [MEMORY[0x1E695DEC8] arrayWithArray:v9];
-    maxCounts = v39->_maxCounts;
-    v39->_maxCounts = v27;
+    maxCounts = v38->_maxCounts;
+    v38->_maxCounts = v27;
 
-    v29 = [MEMORY[0x1E695DF70] arrayWithCapacity:v39->_numberOfRateLimitPolicies];
-    periodStart = v39->_periodStart;
-    v39->_periodStart = v29;
+    v29 = [MEMORY[0x1E695DF70] arrayWithCapacity:v38->_numberOfRateLimitPolicies];
+    periodStart = v38->_periodStart;
+    v38->_periodStart = v29;
 
-    v31 = [MEMORY[0x1E695DF70] arrayWithCapacity:v39->_numberOfRateLimitPolicies];
-    balances = v39->_balances;
-    v39->_balances = v31;
+    v31 = [MEMORY[0x1E695DF70] arrayWithCapacity:v38->_numberOfRateLimitPolicies];
+    balances = v38->_balances;
+    v38->_balances = v31;
 
     distantPast = [MEMORY[0x1E695DF00] distantPast];
-    objc_storeStrong(&v39->_lastRecorded, distantPast);
-    if (v39->_numberOfRateLimitPolicies >= 1)
+    objc_storeStrong(&v38->_lastRecorded, distantPast);
+    if (v38->_numberOfRateLimitPolicies >= 1)
     {
       v34 = 0;
       do
       {
-        [(NSMutableArray *)v39->_balances setObject:&unk_1F05EE8C8 atIndexedSubscript:v34];
-        [(NSMutableArray *)v39->_periodStart setObject:distantPast atIndexedSubscript:v34++];
+        [(NSMutableArray *)v38->_balances setObject:&unk_1F05EE8C8 atIndexedSubscript:v34];
+        [(NSMutableArray *)v38->_periodStart setObject:distantPast atIndexedSubscript:v34++];
       }
 
-      while (v34 < v39->_numberOfRateLimitPolicies);
+      while (v34 < v38->_numberOfRateLimitPolicies);
     }
 
     v35 = dispatch_queue_create("com.apple.duet.multilevelratelimiter", 0);
-    queue = v39->_queue;
-    v39->_queue = v35;
+    queue = v38->_queue;
+    v38->_queue = v35;
   }
 
-  v37 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -212,10 +211,9 @@
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  maxCounts = self->_maxCounts;
-  v7 = [v3 stringWithFormat:@"%@: %@ per %@", v5, maxCounts, self->_periods];
+  v6 = [v3 stringWithFormat:@"%@: %@ per %@", v5, self->_maxCounts, self->_periods];
 
-  return v7;
+  return v6;
 }
 
 @end

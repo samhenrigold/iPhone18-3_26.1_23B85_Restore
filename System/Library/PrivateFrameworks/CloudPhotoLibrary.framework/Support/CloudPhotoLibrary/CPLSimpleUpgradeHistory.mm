@@ -21,9 +21,9 @@
 - (CPLSimpleUpgradeHistory)initWithLibraryIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v42.receiver = self;
-  v42.super_class = CPLSimpleUpgradeHistory;
-  v5 = [(CPLSimpleUpgradeHistory *)&v42 init];
+  v43.receiver = self;
+  v43.super_class = CPLSimpleUpgradeHistory;
+  v5 = [(CPLSimpleUpgradeHistory *)&v43 init];
   if (!v5)
   {
     goto LABEL_67;
@@ -39,94 +39,94 @@
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v11 = sub_10017AAD4();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = sub_10017AAD4(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      v12 = v5->_libraryIdentifier;
+      v13 = v5->_libraryIdentifier;
       *buf = 138412546;
-      v44 = v12;
-      v45 = 2112;
-      v46 = v10;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "At opening time, history for %@ is %@", buf, 0x16u);
+      v45 = v13;
+      v46 = 2112;
+      v47 = v10;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "At opening time, history for %@ is %@", buf, 0x16u);
     }
   }
 
   if ([identifierCopy isEqualToString:CPLLibraryIdentifierSystemLibrary])
   {
-    v13 = v10 == 0;
+    v14 = v10 == 0;
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
-  if (v13)
+  if (v14)
   {
-    v15 = objc_alloc_init(NSMutableDictionary);
+    v16 = objc_alloc_init(NSMutableDictionary);
     history = v5->_history;
-    v5->_history = v15;
+    v5->_history = v16;
 
-    v17 = [v6 objectForKey:@"_CPLLastOSBuildVersion"];
-    if (v17)
+    v18 = [v6 objectForKey:@"_CPLLastOSBuildVersion"];
+    if (v18)
     {
-      [(NSMutableDictionary *)v5->_history setObject:v17 forKeyedSubscript:@"lastSeenOSBuildVersion"];
+      [(NSMutableDictionary *)v5->_history setObject:v18 forKeyedSubscript:@"lastSeenOSBuildVersion"];
       [v6 removeObjectForKey:@"_CPLLastOSBuildVersion"];
     }
 
-    v18 = [v6 objectForKey:@"_CPLPreviousOSBuildVersion"];
-    if (v18)
+    v19 = [v6 objectForKey:@"_CPLPreviousOSBuildVersion"];
+    if (v19)
     {
-      [(NSMutableDictionary *)v5->_history setObject:v18 forKeyedSubscript:@"previousOSBuildVersion"];
+      [(NSMutableDictionary *)v5->_history setObject:v19 forKeyedSubscript:@"previousOSBuildVersion"];
       [v6 removeObjectForKey:@"_CPLPreviousOSBuildVersion"];
     }
 
-    v19 = [v6 objectForKey:@"_CPLLastOSUpgrade"];
-    if (v19)
+    v20 = [v6 objectForKey:@"_CPLLastOSUpgrade"];
+    if (v20)
     {
-      [(NSMutableDictionary *)v5->_history setObject:v19 forKeyedSubscript:@"lastOSBuildUpgradeDate"];
+      [(NSMutableDictionary *)v5->_history setObject:v20 forKeyedSubscript:@"lastOSBuildUpgradeDate"];
       [v6 removeObjectForKey:@"_CPLLastOSUpgrade"];
     }
 
-    v20 = [v6 objectForKey:@"_CPLLastDBVersion"];
-    if (v20)
+    v21 = [v6 objectForKey:@"_CPLLastDBVersion"];
+    if (v21)
     {
-      [(NSMutableDictionary *)v5->_history setObject:v20 forKeyedSubscript:@"lastSeenDBVersion"];
+      [(NSMutableDictionary *)v5->_history setObject:v21 forKeyedSubscript:@"lastSeenDBVersion"];
       [v6 removeObjectForKey:@"_CPLLastDBVersion"];
     }
 
-    v21 = [v6 objectForKey:@"_CPLPreviousDBVersion"];
-    if (v21)
+    v22 = [v6 objectForKey:@"_CPLPreviousDBVersion"];
+    if (v22)
     {
-      [(NSMutableDictionary *)v5->_history setObject:v21 forKeyedSubscript:@"previousDBVersion"];
+      [(NSMutableDictionary *)v5->_history setObject:v22 forKeyedSubscript:@"previousDBVersion"];
       [v6 removeObjectForKey:@"_CPLPreviousDBVersion"];
     }
 
-    v22 = [v6 objectForKey:@"_CPLLastDBUpgrade"];
-    if (v22)
+    v23 = [v6 objectForKey:@"_CPLLastDBUpgrade"];
+    if (v23)
     {
-      [(NSMutableDictionary *)v5->_history setObject:v22 forKeyedSubscript:@"lastDBUpgradeDate"];
+      [(NSMutableDictionary *)v5->_history setObject:v23 forKeyedSubscript:@"lastDBUpgradeDate"];
       [v6 removeObjectForKey:@"_CPLLastDBUpgrade"];
     }
 
-    v23 = [v6 objectForKey:@"_CPLLastCPLVersion"];
-    if (v23)
+    v24 = [v6 objectForKey:@"_CPLLastCPLVersion"];
+    if (v24)
     {
-      [(NSMutableDictionary *)v5->_history setObject:v23 forKeyedSubscript:@"lastSeenCPLVersion"];
+      [(NSMutableDictionary *)v5->_history setObject:v24 forKeyedSubscript:@"lastSeenCPLVersion"];
       [v6 removeObjectForKey:@"_CPLLastCPLVersion"];
     }
 
-    v24 = [v6 objectForKey:@"_CPLPreviousCPLVersion"];
-    if (v24)
+    v25 = [v6 objectForKey:@"_CPLPreviousCPLVersion"];
+    if (v25)
     {
-      [(NSMutableDictionary *)v5->_history setObject:v24 forKeyedSubscript:@"previousCPLVersion"];
+      [(NSMutableDictionary *)v5->_history setObject:v25 forKeyedSubscript:@"previousCPLVersion"];
       [v6 removeObjectForKey:@"_CPLPreviousCPLVersion"];
     }
 
-    v25 = [v6 objectForKey:@"_CPLLastCPLUpgrade"];
-    if (v25)
+    v26 = [v6 objectForKey:@"_CPLLastCPLUpgrade"];
+    if (v26)
     {
-      [(NSMutableDictionary *)v5->_history setObject:v25 forKeyedSubscript:@"lastCPLUpgradeDate"];
+      [(NSMutableDictionary *)v5->_history setObject:v26 forKeyedSubscript:@"lastCPLUpgradeDate"];
       [v6 removeObjectForKey:@"_CPLLastCPLUpgrade"];
     }
 
@@ -137,24 +137,25 @@
   {
     if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v14 = [v10 mutableCopy];
+      v15 = [v10 mutableCopy];
     }
 
     else
     {
-      v14 = objc_alloc_init(NSMutableDictionary);
+      v15 = objc_alloc_init(NSMutableDictionary);
     }
 
-    v26 = v5->_history;
-    v5->_history = v14;
+    v27 = v5->_history;
+    v5->_history = v15;
   }
 
-  v27 = __CPLBuildVersion();
+  v28 = __CPLBuildVersion();
   lastSeenOSBuildVersion = [(CPLSimpleUpgradeHistory *)v5 lastSeenOSBuildVersion];
-  v29 = lastSeenOSBuildVersion;
-  if (lastSeenOSBuildVersion && v27)
+  v30 = lastSeenOSBuildVersion;
+  if (lastSeenOSBuildVersion && v28)
   {
-    if ([lastSeenOSBuildVersion isEqual:v27])
+    lastSeenOSBuildVersion = [lastSeenOSBuildVersion isEqual:v28];
+    if (lastSeenOSBuildVersion)
     {
       goto LABEL_50;
     }
@@ -162,61 +163,62 @@
 LABEL_40:
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v30 = sub_10017AAD4();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      v31 = sub_10017AAD4(lastSeenOSBuildVersion);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
-        v31 = @"unknown";
-        if (v29)
+        v32 = @"unknown";
+        if (v30)
         {
-          v31 = v29;
+          v32 = v30;
         }
 
         *buf = 138543618;
-        v44 = v31;
-        v45 = 2114;
-        v46 = v27;
-        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "OS Build version has changed since last launch, from %{public}@ to %{public}@", buf, 0x16u);
+        v45 = v32;
+        v46 = 2114;
+        v47 = v28;
+        _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "OS Build version has changed since last launch, from %{public}@ to %{public}@", buf, 0x16u);
       }
     }
 
-    [(NSMutableDictionary *)v5->_history setObject:v27 forKeyedSubscript:@"lastSeenOSBuildVersion"];
+    [(NSMutableDictionary *)v5->_history setObject:v28 forKeyedSubscript:@"lastSeenOSBuildVersion"];
     v5->_versionHasChanged = 1;
     goto LABEL_47;
   }
 
-  if (!(lastSeenOSBuildVersion | v27))
+  if (!(lastSeenOSBuildVersion | v28))
   {
     goto LABEL_50;
   }
 
-  if (v27)
+  if (v28)
   {
     goto LABEL_40;
   }
 
   sub_1001C58A4(v5);
 LABEL_47:
-  v32 = +[NSDate date];
-  [(NSMutableDictionary *)v5->_history setObject:v32 forKeyedSubscript:@"lastOSBuildUpgradeDate"];
+  v33 = +[NSDate date];
+  [(NSMutableDictionary *)v5->_history setObject:v33 forKeyedSubscript:@"lastOSBuildUpgradeDate"];
 
-  v33 = v5->_history;
-  if (v29)
+  v34 = v5->_history;
+  if (v30)
   {
-    [(NSMutableDictionary *)v33 setObject:v29 forKeyedSubscript:@"previousOSBuildVersion"];
+    [(NSMutableDictionary *)v34 setObject:v30 forKeyedSubscript:@"previousOSBuildVersion"];
   }
 
   else
   {
-    [(NSMutableDictionary *)v33 removeObjectForKey:@"previousOSBuildVersion"];
+    [(NSMutableDictionary *)v34 removeObjectForKey:@"previousOSBuildVersion"];
   }
 
 LABEL_50:
-  v34 = __CPLVersion();
+  v35 = __CPLVersion();
   lastSeenCPLVersion = [(CPLSimpleUpgradeHistory *)v5 lastSeenCPLVersion];
-  v36 = lastSeenCPLVersion;
-  if (lastSeenCPLVersion && v34)
+  v37 = lastSeenCPLVersion;
+  if (lastSeenCPLVersion && v35)
   {
-    if ([lastSeenCPLVersion isEqual:v34])
+    lastSeenCPLVersion = [lastSeenCPLVersion isEqual:v35];
+    if (lastSeenCPLVersion)
     {
       goto LABEL_64;
     }
@@ -224,43 +226,43 @@ LABEL_50:
 LABEL_55:
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v37 = sub_10017AAD4();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+      v38 = sub_10017AAD4(lastSeenCPLVersion);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
       {
-        v38 = @"unknown";
-        if (v36)
+        v39 = @"unknown";
+        if (v37)
         {
-          v38 = v36;
+          v39 = v37;
         }
 
         *buf = 138412546;
-        v44 = v38;
-        v45 = 2112;
-        v46 = v34;
-        _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "CPL version has changed since last launch, from %@ to %@", buf, 0x16u);
+        v45 = v39;
+        v46 = 2112;
+        v47 = v35;
+        _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "CPL version has changed since last launch, from %@ to %@", buf, 0x16u);
       }
     }
 
     v5->_versionHasChanged = 1;
-    [(NSMutableDictionary *)v5->_history setObject:v34 forKeyedSubscript:@"lastSeenCPLVersion"];
-    v39 = +[NSDate date];
-    [(NSMutableDictionary *)v5->_history setObject:v39 forKeyedSubscript:@"lastCPLUpgradeDate"];
+    [(NSMutableDictionary *)v5->_history setObject:v35 forKeyedSubscript:@"lastSeenCPLVersion"];
+    v40 = +[NSDate date];
+    [(NSMutableDictionary *)v5->_history setObject:v40 forKeyedSubscript:@"lastCPLUpgradeDate"];
 
-    v40 = v5->_history;
-    if (v36)
+    v41 = v5->_history;
+    if (v37)
     {
-      [(NSMutableDictionary *)v40 setObject:v36 forKeyedSubscript:@"previousCPLVersion"];
+      [(NSMutableDictionary *)v41 setObject:v37 forKeyedSubscript:@"previousCPLVersion"];
     }
 
     else
     {
-      [(NSMutableDictionary *)v40 removeObjectForKey:@"previousCPLVersion"];
+      [(NSMutableDictionary *)v41 removeObjectForKey:@"previousCPLVersion"];
     }
 
     goto LABEL_64;
   }
 
-  if (lastSeenCPLVersion | v34)
+  if (lastSeenCPLVersion | v35)
   {
     goto LABEL_55;
   }
@@ -486,71 +488,72 @@ LABEL_67:
   blockCopy = block;
   v4 = +[NSUserDefaults standardUserDefaults];
   v5 = [@"_CPLUpgradeHistory-" length];
-  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v27 = v4;
+  v39 = 0u;
+  v28 = v4;
   dictionaryRepresentation = [v4 dictionaryRepresentation];
   allKeys = [dictionaryRepresentation allKeys];
 
   v8 = allKeys;
-  v9 = [allKeys countByEnumeratingWithState:&v35 objects:v42 count:16];
+  v9 = [allKeys countByEnumeratingWithState:&v36 objects:v43 count:16];
   if (v9)
   {
     v10 = v9;
-    v30 = 0;
-    v11 = *v36;
+    v31 = 0;
+    v11 = *v37;
     v12 = (blockCopy + 2);
-    v28 = blockCopy;
-    v29 = *v36;
+    v29 = blockCopy;
+    v30 = *v37;
     do
     {
       for (i = 0; i != v10; i = i + 1)
       {
-        if (*v36 != v11)
+        if (*v37 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v35 + 1) + 8 * i);
+        v14 = *(*(&v36 + 1) + 8 * i);
         if ([v14 hasPrefix:@"_CPLUpgradeHistory-"])
         {
           v15 = [v14 substringFromIndex:v5];
-          if ((blockCopy[2](blockCopy, v15) & 1) == 0)
+          v16 = blockCopy[2](blockCopy, v15);
+          if ((v16 & 1) == 0)
           {
-            v16 = v12;
-            v17 = v8;
-            v18 = v5;
-            v19 = v30;
+            v17 = v12;
+            v18 = v8;
+            v19 = v5;
+            v20 = v31;
             if ((_CPLSilentLogging & 1) == 0)
             {
-              v20 = sub_10017AAD4();
-              if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+              v21 = sub_10017AAD4(v16);
+              if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v41 = v15;
-                _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Removing unused history for %@", buf, 0xCu);
+                v42 = v15;
+                _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Removing unused history for %@", buf, 0xCu);
               }
             }
 
-            if (!v30)
+            if (!v31)
             {
-              v19 = objc_alloc_init(NSMutableArray);
+              v20 = objc_alloc_init(NSMutableArray);
             }
 
-            v30 = v19;
-            [v19 addObject:v14];
-            v5 = v18;
-            v8 = v17;
-            v12 = v16;
-            blockCopy = v28;
-            v11 = v29;
+            v31 = v20;
+            [v20 addObject:v14];
+            v5 = v19;
+            v8 = v18;
+            v12 = v17;
+            blockCopy = v29;
+            v11 = v30;
           }
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v35 objects:v42 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v36 objects:v43 count:16];
     }
 
     while (v10);
@@ -558,42 +561,42 @@ LABEL_67:
 
   else
   {
-    v30 = 0;
+    v31 = 0;
   }
 
-  v21 = v30;
-  if ([v30 count])
+  v22 = v31;
+  if ([v31 count])
   {
-    v33 = 0u;
     v34 = 0u;
-    v31 = 0u;
+    v35 = 0u;
     v32 = 0u;
-    v22 = v30;
-    v23 = [v22 countByEnumeratingWithState:&v31 objects:v39 count:16];
-    if (v23)
+    v33 = 0u;
+    v23 = v31;
+    v24 = [v23 countByEnumeratingWithState:&v32 objects:v40 count:16];
+    if (v24)
     {
-      v24 = v23;
-      v25 = *v32;
+      v25 = v24;
+      v26 = *v33;
       do
       {
-        for (j = 0; j != v24; j = j + 1)
+        for (j = 0; j != v25; j = j + 1)
         {
-          if (*v32 != v25)
+          if (*v33 != v26)
           {
-            objc_enumerationMutation(v22);
+            objc_enumerationMutation(v23);
           }
 
-          [v27 removeObjectForKey:*(*(&v31 + 1) + 8 * j)];
+          [v28 removeObjectForKey:*(*(&v32 + 1) + 8 * j)];
         }
 
-        v24 = [v22 countByEnumeratingWithState:&v31 objects:v39 count:16];
+        v25 = [v23 countByEnumeratingWithState:&v32 objects:v40 count:16];
       }
 
-      while (v24);
+      while (v25);
     }
 
-    [v27 synchronize];
-    v21 = v30;
+    [v28 synchronize];
+    v22 = v31;
   }
 }
 
@@ -601,7 +604,7 @@ LABEL_67:
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_10017AAD4();
+    v3 = sub_10017AAD4(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       libraryIdentifier = self->_libraryIdentifier;

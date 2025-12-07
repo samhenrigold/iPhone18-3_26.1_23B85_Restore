@@ -151,7 +151,7 @@
   label = dispatch_queue_get_label(queueCopy);
 
   v8 = [v5 initWithUTF8String:label];
-  v7 = [(NSMutableDictionary *)self->_observersByIdentifier objectForKey:?];
+  v7 = objc_msgSend_objectForKey_(self->_observersByIdentifier);
   if (v7)
   {
     [(NSMutableDictionary *)self->_observersByIdentifier removeObjectForKey:v8];
@@ -164,7 +164,7 @@
   queueCopy = queue;
   handlerCopy = handler;
   v12 = [[NSString alloc] initWithUTF8String:dispatch_queue_get_label(queueCopy)];
-  v13 = [(NSMutableDictionary *)self->_observersByIdentifier objectForKey:v12];
+  v13 = objc_msgSend_objectForKey_(self->_observersByIdentifier);
 
   if (v13)
   {

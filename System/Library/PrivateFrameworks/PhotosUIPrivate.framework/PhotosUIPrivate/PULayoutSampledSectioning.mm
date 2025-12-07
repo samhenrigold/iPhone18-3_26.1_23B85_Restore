@@ -1286,7 +1286,7 @@ LABEL_44:
   }
 }
 
-uint64_t __53__PULayoutSampledSectioning__cacheSectioningIfNeeded__block_invoke(uint64_t a1, uint64_t a2)
+void *__53__PULayoutSampledSectioning__cacheSectioningIfNeeded__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) containsIndex:a2];
   if (result)

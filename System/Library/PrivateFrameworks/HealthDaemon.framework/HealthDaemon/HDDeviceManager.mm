@@ -502,28 +502,28 @@ id __47__HDDeviceManager_deviceEntityForDevice_error___block_invoke_2(uint64_t a
 
 BOOL __60__HDDeviceManager_devicesWithProperty_matchingValues_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = [*(a1 + 32) deviceEntitiesWithProperty:*(a1 + 40) matchingValues:*(a1 + 48) error:a3];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       v9 = 0;
       do
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * v9);
+        v10 = *(*(&v15 + 1) + 8 * v9);
         WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
         v12 = [WeakRetained database];
         v13 = [v10 deviceInHealthDatabase:v12 error:a3];
@@ -537,13 +537,12 @@ BOOL __60__HDDeviceManager_devicesWithProperty_matchingValues_error___block_invo
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v5 != 0;
 }
 
@@ -585,54 +584,54 @@ uint64_t __30__HDDeviceManager__noneDevice__block_invoke()
 
 uint64_t __39__HDDeviceManager_allDevicesWithError___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v41[1] = *MEMORY[0x277D85DE8];
+  v40[1] = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = [v4 databaseForEntityClass:objc_opt_class()];
   v6 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  v41[0] = *MEMORY[0x277D10A40];
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:1];
+  v40[0] = *MEMORY[0x277D10A40];
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:1];
   v8 = [(HDSQLiteEntity *)HDDeviceEntity queryWithDatabase:v5 predicate:0];
-  v39 = 0;
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = __39__HDDeviceManager_allDevicesWithError___block_invoke_2;
-  v37[3] = &unk_278615128;
+  v38 = 0;
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3221225472;
+  v36[2] = __39__HDDeviceManager_allDevicesWithError___block_invoke_2;
+  v36[3] = &unk_278615128;
   v9 = v6;
-  v38 = v9;
-  v10 = [v8 enumeratePersistentIDsAndProperties:v7 error:&v39 enumerationHandler:v37];
-  v11 = v39;
+  v37 = v9;
+  v10 = [v8 enumeratePersistentIDsAndProperties:v7 error:&v38 enumerationHandler:v36];
+  v11 = v38;
   v12 = v11;
   if (v10)
   {
-    v30 = v7;
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
+    v29 = v7;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     v13 = v9;
-    v14 = [v13 countByEnumeratingWithState:&v33 objects:v40 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v32 objects:v39 count:16];
     if (v14)
     {
       v15 = v14;
-      v28 = v5;
-      v29 = v4;
-      v16 = *v34;
+      v27 = v5;
+      v28 = v4;
+      v16 = *v33;
       while (2)
       {
         v17 = 0;
         v18 = v12;
         do
         {
-          if (*v34 != v16)
+          if (*v33 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v19 = *(*(&v33 + 1) + 8 * v17);
+          v19 = *(*(&v32 + 1) + 8 * v17);
           v20 = *(a1 + 32);
-          v32 = v18;
-          v21 = [v20 deviceForPersistentID:v19 error:&v32];
-          v12 = v32;
+          v31 = v18;
+          v21 = [v20 deviceForPersistentID:v19 error:&v31];
+          v12 = v31;
 
           if (v21)
           {
@@ -662,7 +661,7 @@ uint64_t __39__HDDeviceManager_allDevicesWithError___block_invoke(uint64_t a1, v
         }
 
         while (v15 != v17);
-        v15 = [v13 countByEnumeratingWithState:&v33 objects:v40 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v32 objects:v39 count:16];
         if (v15)
         {
           continue;
@@ -673,8 +672,8 @@ uint64_t __39__HDDeviceManager_allDevicesWithError___block_invoke(uint64_t a1, v
 
       v22 = 1;
 LABEL_23:
-      v5 = v28;
-      v4 = v29;
+      v5 = v27;
+      v4 = v28;
     }
 
     else
@@ -682,7 +681,7 @@ LABEL_23:
       v22 = 1;
     }
 
-    v7 = v30;
+    v7 = v29;
   }
 
   else
@@ -714,16 +713,15 @@ LABEL_23:
     }
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
-uint64_t __39__HDDeviceManager_allDevicesWithError___block_invoke_2(uint64_t a1)
+uint64_t __39__HDDeviceManager_allDevicesWithError___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = HDSQLiteColumnAsInt64();
-  v3 = *(a1 + 32);
-  v4 = [MEMORY[0x277CCABB0] numberWithLongLong:v2];
-  [v3 addObject:v4];
+  v5 = HDSQLiteColumnAsInt64();
+  v6 = *(a1 + 32);
+  v7 = [MEMORY[0x277CCABB0] numberWithLongLong:v5];
+  [v6 addObject:v7];
 
   return 1;
 }

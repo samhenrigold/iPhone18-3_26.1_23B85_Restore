@@ -121,12 +121,12 @@
 
 - (void)layoutSubviews
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (![(SBDeviceApplicationSceneClassicWrapperView *)self->_classicWrapperView suppressLayoutUpdatesForStartOfClassicPhoneAppRotation])
   {
-    v25.receiver = self;
-    v25.super_class = SBDeviceApplicationSceneView;
-    [(SBSceneView *)&v25 layoutSubviews];
+    v26.receiver = self;
+    v26.super_class = SBDeviceApplicationSceneView;
+    [(SBSceneView *)&v26 layoutSubviews];
     [(SBDeviceApplicationSceneView *)self bounds];
     v4 = v3;
     v6 = v5;
@@ -136,9 +136,9 @@
     {
       [(SBDeviceApplicationSceneView *)self bringSubviewToFront:?];
       orientation = [(SBSceneView *)self orientation];
-      v23 = 0u;
       v24 = 0u;
-      v22 = 0u;
+      v25 = 0u;
+      v23 = 0u;
       SBFTransformFromOrientationToOrientation();
       [(SBDeviceApplicationSceneView *)self center];
       if ((orientation - 3) >= 2)
@@ -164,53 +164,53 @@
       [(_UIDirectionalRotationView *)self->_hostCounterRotationView setCenter:?];
       [(_UIDirectionalRotationView *)self->_hostCounterRotationView setBounds:v4, v6, v13, v12];
       hostCounterRotationView = self->_hostCounterRotationView;
-      *buf = v22;
-      *&buf[16] = v23;
-      v27 = v24;
-      [(_UIDirectionalRotationView *)hostCounterRotationView setTransform:buf];
+      *buf = v23;
+      *&buf[16] = v24;
+      v28 = v25;
+      v15 = [(_UIDirectionalRotationView *)hostCounterRotationView setTransform:buf];
       if (self->_grabberLivesInCounterRotationView)
       {
         [(SBHomeGrabberRotationView *)self->_grabberRotationView setFrame:v4, v6, v13, v12];
-        [(_UIDirectionalRotationView *)self->_hostCounterRotationView bringSubviewToFront:self->_grabberRotationView];
+        v15 = [(_UIDirectionalRotationView *)self->_hostCounterRotationView bringSubviewToFront:self->_grabberRotationView];
       }
 
-      v15 = SBLogHomeAffordance();
-      v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG);
+      v16 = SBLogHomeAffordance(v15);
+      v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG);
 
-      if (v16)
+      if (v17)
       {
         [(SBDeviceApplicationSceneView *)self bounds];
-        v17 = NSStringFromCGRect(v29);
-        [(_UIDirectionalRotationView *)self->_hostCounterRotationView bounds];
         v18 = NSStringFromCGRect(v30);
+        [(_UIDirectionalRotationView *)self->_hostCounterRotationView bounds];
+        v19 = NSStringFromCGRect(v31);
         [(SBSceneView *)self orientation];
-        v19 = BSInterfaceOrientationDescription();
-        v20 = SBLogHomeAffordance();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+        v20 = BSInterfaceOrientationDescription();
+        v21 = SBLogHomeAffordance(v20);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
         {
           *buf = 134218754;
           *&buf[4] = self;
           *&buf[12] = 2114;
-          *&buf[14] = v17;
+          *&buf[14] = v18;
           *&buf[22] = 2114;
-          *&buf[24] = v18;
-          LOWORD(v27) = 2114;
-          *(&v27 + 2) = v19;
-          _os_log_debug_impl(&dword_21ED4E000, v20, OS_LOG_TYPE_DEBUG, "%p laying out sceneView - scene=%{public}@ counter=%{public}@-%{public}@", buf, 0x2Au);
+          *&buf[24] = v19;
+          LOWORD(v28) = 2114;
+          *(&v28 + 2) = v20;
+          _os_log_debug_impl(&dword_21ED4E000, v21, OS_LOG_TYPE_DEBUG, "%p laying out sceneView - scene=%{public}@ counter=%{public}@-%{public}@", buf, 0x2Au);
         }
       }
     }
 
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __46__SBDeviceApplicationSceneView_layoutSubviews__block_invoke;
-    v21[3] = &unk_2783BB0E0;
-    v21[4] = self;
-    *&v21[5] = v4;
-    *&v21[6] = v6;
-    *&v21[7] = v8;
-    *&v21[8] = v10;
-    [(SBDeviceApplicationSceneView *)self _enumerateOrderedOverlayViewPriorities:v21];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __46__SBDeviceApplicationSceneView_layoutSubviews__block_invoke;
+    v22[3] = &unk_2783BB0E0;
+    v22[4] = self;
+    *&v22[5] = v4;
+    *&v22[6] = v6;
+    *&v22[7] = v8;
+    *&v22[8] = v10;
+    [(SBDeviceApplicationSceneView *)self _enumerateOrderedOverlayViewPriorities:v22];
     if (self->_classicAccessoryView)
     {
       [(SBDeviceApplicationSceneView *)self bringSubviewToFront:?];
@@ -387,7 +387,7 @@ void __46__SBDeviceApplicationSceneView_layoutSubviews__block_invoke(uint64_t a1
 
               v32 = v16[356];
               settings = [sceneIfExists settings];
-              [settings frame];
+              objc_msgSend_frame(settings);
               v34 = [(__objc2_class *)v32 coordinateSpaceForFrame:v31 withinCoordinateSpace:?];
 
               [(SBDeviceApplicationSceneView *)selfCopy convertRect:v34 fromCoordinateSpace:v21, v23, v25, v27];
@@ -755,7 +755,7 @@ void __120__SBDeviceApplicationSceneView_initWithSceneHandle_referenceSize_conte
     v22 = viewCopy;
     v8 = [MEMORY[0x277CCABB0] numberWithInteger:priority];
     v9 = [(NSMutableDictionary *)overlayViewsByPriority objectForKeyedSubscript:v8];
-    v10 = [v9 containsObject:v22];
+    v10 = objc_msgSend_containsObject_(v9);
 
     viewCopy = v22;
     if ((v10 & 1) == 0)
@@ -803,7 +803,7 @@ void __120__SBDeviceApplicationSceneView_initWithSceneHandle_referenceSize_conte
     v22 = viewCopy;
     v8 = [MEMORY[0x277CCABB0] numberWithInteger:priority];
     v9 = [(NSMutableDictionary *)overlayViewsByPriority objectForKeyedSubscript:v8];
-    v10 = [v9 containsObject:v22];
+    v10 = objc_msgSend_containsObject_(v9);
 
     viewCopy = v22;
     if (v10)
@@ -964,8 +964,7 @@ void __56__SBDeviceApplicationSceneView_enableTransitionOverlay___block_invoke(u
 
       if (uiClientSettings)
       {
-        -[SBHomeGrabberRotationView setOrientation:](self->_grabberRotationView, "setOrientation:", [uiClientSettings interfaceOrientation]);
-        v11 = SBLogHomeAffordance();
+        v11 = SBLogHomeAffordance(-[SBHomeGrabberRotationView setOrientation:](self->_grabberRotationView, "setOrientation:", [uiClientSettings interfaceOrientation]));
         if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
           homeGrabberView = [(SBDeviceApplicationSceneView *)self homeGrabberView];
@@ -1391,8 +1390,7 @@ void __68__SBDeviceApplicationSceneView__sceneHandleDidUpdateClientSettings___bl
       [v4 setNeedsLayout];
       v11 = a2;
       v12 = [v11 animationSettings];
-      [v4[83] setOrientation:v10 animated:1 rotationSettings:v12];
-      v13 = SBLogHomeAffordance();
+      v13 = SBLogHomeAffordance([v4[83] setOrientation:v10 animated:1 rotationSettings:v12]);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         v14 = [v4[83] grabberView];

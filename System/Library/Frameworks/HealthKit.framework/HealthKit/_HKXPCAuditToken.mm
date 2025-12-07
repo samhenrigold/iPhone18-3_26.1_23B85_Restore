@@ -54,37 +54,37 @@
   v4 = SecTaskCreateWithAuditToken(0, &cf);
   if (v4)
   {
-    v5 = v4;
+    v6 = v4;
     *cf.val = 0;
-    v6 = SecTaskCopySigningIdentifier(v4, &cf);
-    if (!v6 && *cf.val)
+    v8 = SecTaskCopySigningIdentifier(v4, &cf);
+    if (!v8 && *cf.val)
     {
-      _HKInitializeLogging();
-      v7 = HKLogDefault;
+      _HKInitializeLogging(0, v7);
+      v9 = HKLogDefault;
       if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_ERROR))
       {
-        [(_HKXPCAuditToken *)&cf signingIdentifierFromAuditToken:v7];
+        [(_HKXPCAuditToken *)&cf signingIdentifierFromAuditToken:v9];
       }
 
       CFRelease(*cf.val);
     }
 
-    CFRelease(v5);
+    CFRelease(v6);
   }
 
   else
   {
-    _HKInitializeLogging();
-    v8 = HKLogDefault;
+    _HKInitializeLogging(0, v5);
+    v10 = HKLogDefault;
     if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_ERROR))
     {
-      [_HKXPCAuditToken signingIdentifierFromAuditToken:v8];
+      [_HKXPCAuditToken signingIdentifierFromAuditToken:v10];
     }
 
-    v6 = 0;
+    v8 = 0;
   }
 
-  return v6;
+  return v8;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -114,12 +114,11 @@
 
 + (void)signingIdentifierFromAuditToken:(uint64_t *)a1 .cold.1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Unable to get signing identifier from task: %{public}@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Unable to get signing identifier from task: %{public}@", &v3, 0xCu);
 }
 
 @end

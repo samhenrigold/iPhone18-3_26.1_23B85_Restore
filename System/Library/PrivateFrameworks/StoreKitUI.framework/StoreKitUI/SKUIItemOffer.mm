@@ -248,7 +248,7 @@
       buttonText = v13->_buttonText;
       v13->_buttonText = v18;
 
-      v13->_price = ([(NSString *)v13->_buttonText isEqualToString:@"FREE"]^ 1);
+      v13->_price = (objc_msgSend_isEqualToString_(v13->_buttonText) ^ 1);
     }
 
     v20 = [dictionaryCopy objectForKey:@"confirm-text"];
@@ -377,22 +377,22 @@ LABEL_9:
 
 - (int64_t)offerType
 {
-  if ([(NSString *)self->_offerTypeString isEqualToString:@"rent"])
+  if (objc_msgSend_isEqualToString_(self->_offerTypeString, a2, @"rent"))
   {
     return 3;
   }
 
-  if ([(NSString *)self->_offerTypeString isEqualToString:@"preorder"])
+  if (objc_msgSend_isEqualToString_(self->_offerTypeString))
   {
     return 2;
   }
 
-  if ([(NSString *)self->_offerTypeString isEqualToString:@"complete"])
+  if (objc_msgSend_isEqualToString_(self->_offerTypeString))
   {
     return 1;
   }
 
-  if ([(NSString *)self->_offerTypeString isEqualToString:@"get"])
+  if (objc_msgSend_isEqualToString_(self->_offerTypeString))
   {
     return 4;
   }
@@ -633,6 +633,30 @@ LABEL_8:
   }
 
   MEMORY[0x2821F96F8](v4, v5);
+}
+
+- (void)initWithButtonText:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemOffer initWithButtonText:]";
+}
+
+- (void)initWithLookupDictionary:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemOffer initWithLookupDictionary:]";
+}
+
+- (void)initWithOfferDictionary:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemOffer initWithOfferDictionary:]";
+}
+
+- (void)initWithRedownloadToken:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemOffer initWithRedownloadToken:]";
 }
 
 @end

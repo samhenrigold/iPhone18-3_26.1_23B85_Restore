@@ -174,7 +174,7 @@ LABEL_8:
   }
 
   versionAtCreation = [v12 versionAtCreation];
-  [(PAESharedDefaultBase *)self getPixelTransformForImage:input];
+  objc_msgSend_getPixelTransformForImage_(self);
   v14 = v70[1];
   v15 = v70[6];
   v70[0] = 0.0;
@@ -214,7 +214,7 @@ LABEL_13:
         (*(*v36 + 120))(v36, 0, v64);
         v38 = HGObject::operator new(0x1A0uLL);
         HGCrop::HGCrop(v38);
-        [(PAESharedDefaultBase *)self getImageBoundary:input];
+        objc_msgSend_getImageBoundary_(self);
         v39 = HGRectMake4i(*v63[0].f64, *(v63[0].f64 + 1), *&v63[0].f64[1] + *v63[0].f64, *(&v63[0].f64[1] + 1) + *(v63[0].f64 + 1));
         (*(*v38 + 96))(v38, 0, v39, SHIDWORD(v39), (v40 + 1), ((v40 + 0x100000000) >> 32));
         (*(*v38 + 120))(v38, 0, v36);
@@ -239,7 +239,7 @@ LABEL_13:
         (*(*v64 + 16))(v64);
       }
 
-      [(PAESharedDefaultBase *)self smear:&v57 fromImage:input toImage:input];
+      objc_msgSend_smear_fromImage_toImage_(self);
       v41 = v71[0].f64[0];
       if (v64 == *&v71[0].f64[0])
       {
@@ -315,15 +315,15 @@ LABEL_13:
     goto LABEL_37;
   }
 
-  [input heliumRef];
+  objc_msgSend_heliumRef(input);
   if ((v65 & 1) == 0)
   {
     goto LABEL_13;
   }
 
 LABEL_8:
-  [(PAESharedDefaultBase *)self getInversePixelTransformForImage:output];
-  [(PAESharedDefaultBase *)self getPixelTransformForImage:output];
+  objc_msgSend_getInversePixelTransformForImage_(self);
+  objc_msgSend_getPixelTransformForImage_(self);
   v16 = HGObject::operator new(0x1C0uLL);
   HGNode::HGNode(v16);
   *v16 = &unk_2871D9F38;

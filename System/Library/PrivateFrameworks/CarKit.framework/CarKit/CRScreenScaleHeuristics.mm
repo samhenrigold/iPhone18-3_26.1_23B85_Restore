@@ -8,28 +8,28 @@
 
 + (void)scaledDisplays:(id)displays withDisplayScaling:(BOOL)scaling reply:(id)reply
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (reply)
   {
     replyCopy = reply;
     displaysCopy = displays;
     v10 = objc_opt_new();
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __67__CRScreenScaleHeuristics_scaledDisplays_withDisplayScaling_reply___block_invoke;
-    v13[3] = &unk_1E82FC710;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __67__CRScreenScaleHeuristics_scaledDisplays_withDisplayScaling_reply___block_invoke;
+    v14[3] = &unk_1E82FC710;
     scalingCopy = scaling;
     v11 = v10;
-    v14 = v11;
+    v15 = v11;
     selfCopy = self;
-    [displaysCopy enumerateObjectsUsingBlock:v13];
+    [displaysCopy enumerateObjectsUsingBlock:v14];
 
-    v12 = CarGeneralLogging();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = CarGeneralLogging(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v18 = v11;
-      _os_log_impl(&dword_1C81FC000, v12, OS_LOG_TYPE_DEFAULT, "CRScreenScaleHeuristics: displays: %@", buf, 0xCu);
+      v19 = v11;
+      _os_log_impl(&dword_1C81FC000, v13, OS_LOG_TYPE_DEFAULT, "CRScreenScaleHeuristics: displays: %@", buf, 0xCu);
     }
 
     replyCopy[2](replyCopy, v11, 0);
@@ -38,114 +38,115 @@
 
 void __67__CRScreenScaleHeuristics_scaledDisplays_withDisplayScaling_reply___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v32[3] = *MEMORY[0x1E69E9840];
+  v33[3] = *MEMORY[0x1E69E9840];
   v5 = *MEMORY[0x1E6962438];
   v6 = a2;
   v7 = [v6 objectForKey:v5];
   v8 = *MEMORY[0x1E6962440];
   v9 = [v6 objectForKey:*MEMORY[0x1E6962440]];
+  v29.width = 0.0;
+  v29.height = 0.0;
   v28.width = 0.0;
   v28.height = 0.0;
-  v27.width = 0.0;
-  v27.height = 0.0;
-  CRSizeFromDictionary(v7, &v28);
-  CRSizeFromDictionary(v9, &v27);
-  width = v27.width;
-  height = v27.height;
+  CRSizeFromDictionary(v7, &v29);
+  CRSizeFromDictionary(v9, &v28);
+  width = v28.width;
+  height = v28.height;
   if (*(a1 + 48) == 1)
   {
-    v26 = 0;
-    v12 = [CRDisplayScaleInfo displayScaleInfoWithDictionary:v6 screenType:a3 != 0 zoomFactor:0 error:&v26, v9];
+    v27 = 0;
+    v12 = [CRDisplayScaleInfo displayScaleInfoWithDictionary:v6 screenType:a3 != 0 zoomFactor:0 error:&v27, v9];
 
-    v13 = v26;
+    v13 = v27;
+    v14 = v13;
     if (v13)
     {
-      DictionaryRepresentation = CarGeneralLogging();
+      DictionaryRepresentation = CarGeneralLogging(v13);
       if (os_log_type_enabled(DictionaryRepresentation, OS_LOG_TYPE_ERROR))
       {
-        __67__CRScreenScaleHeuristics_scaledDisplays_withDisplayScaling_reply___block_invoke_cold_1(v13, DictionaryRepresentation);
+        __67__CRScreenScaleHeuristics_scaledDisplays_withDisplayScaling_reply___block_invoke_cold_1(v14, DictionaryRepresentation);
       }
     }
 
     else
     {
-      v33.height = height;
-      v33.width = width;
-      DictionaryRepresentation = CGSizeCreateDictionaryRepresentation(v33);
-      v17 = [v12 preferredPointScale];
-      v31[0] = v5;
-      v31[1] = v8;
-      v32[0] = v7;
-      v32[1] = DictionaryRepresentation;
-      v31[2] = @"preferredUIScale";
-      v18 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v17];
-      v32[2] = v18;
-      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:3];
+      v34.height = height;
+      v34.width = width;
+      DictionaryRepresentation = CGSizeCreateDictionaryRepresentation(v34);
+      v18 = [v12 preferredPointScale];
+      v32[0] = v5;
+      v32[1] = v8;
+      v33[0] = v7;
+      v33[1] = DictionaryRepresentation;
+      v32[2] = @"preferredUIScale";
+      v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v18];
+      v33[2] = v19;
+      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:3];
 
-      [*(a1 + 32) addObject:v19];
+      [*(a1 + 32) addObject:v20];
     }
   }
 
   else
   {
-    v15 = 684.0;
-    v16 = v28.width / v28.height;
-    v13 = [v6 objectForKey:{@"ViewAreas", v9}];
+    v16 = 684.0;
+    v17 = v29.width / v29.height;
+    v14 = [v6 objectForKey:{@"ViewAreas", v9}];
 
-    if (v28.height > 80.0 || v27.height < 600.0 || v27.height >= 684.0 || v16 < 1.6)
+    if (v29.height > 80.0 || v28.height < 600.0 || v28.height >= 684.0 || v17 < 1.6)
     {
-      if (v28.height == 156.0 && v27.height == 1172.0 && v16 <= 1.0)
+      if (v29.height == 156.0 && v28.height == 1172.0 && v17 <= 1.0)
       {
-        width = ((v16 * 1380.0) + 1) & 0xFFFFFFFE;
+        width = ((v17 * 1380.0) + 1) & 0xFFFFFFFE;
         height = 1380;
       }
 
-      else if (v28.height == 91.0 && v27.height == 720.0)
+      else if (v29.height == 91.0 && v28.height == 720.0)
       {
-        v20 = v16 < 2.4 || v13 == 0;
-        if (!v20 && [*(a1 + 40) viewAreas:v13 containsSize:{1760.0, 660.0}])
+        v21 = v17 < 2.4 || v14 == 0;
+        if (!v21 && [*(a1 + 40) viewAreas:v14 containsSize:{1760.0, 660.0}])
         {
-          width = ((v16 * 774.0) + 1) & 0xFFFFFFFE;
+          width = ((v17 * 774.0) + 1) & 0xFFFFFFFE;
           height = 774;
-          v15 = 660.0;
+          v16 = 660.0;
         }
       }
     }
 
     else
     {
-      width = ((v16 * 720.0) + 1) & 0xFFFFFFFE;
+      width = ((v17 * 720.0) + 1) & 0xFFFFFFFE;
       height = 720;
     }
 
-    v34.width = width;
-    v34.height = height;
-    v12 = CGSizeCreateDictionaryRepresentation(v34);
+    v35.width = width;
+    v35.height = height;
+    v12 = CGSizeCreateDictionaryRepresentation(v35);
     if (a3)
     {
-      v21 = +[CARPrototypePref force3xCluster];
-      v22 = [v21 valueBool];
+      v22 = +[CARPrototypePref force3xCluster];
+      v23 = [v22 valueBool];
 
-      v23 = 3.0;
-      if ((v22 & 1) == 0)
+      v24 = 3.0;
+      if ((v23 & 1) == 0)
       {
-        [*(a1 + 40) getSecondaryDisplayScale:width physicalSize:{height, v28.width, v28.height}];
+        [*(a1 + 40) getSecondaryDisplayScale:width physicalSize:{height, v29.width, v29.height}];
       }
     }
 
     else
     {
-      [*(a1 + 40) getPrimaryDisplayScale:v13 viewAreas:width widthThreshold:height heightThreshold:{1122.0, v15}];
+      [*(a1 + 40) getPrimaryDisplayScale:v14 viewAreas:width widthThreshold:height heightThreshold:{1122.0, v16}];
     }
 
-    v29[0] = v5;
-    v29[1] = v8;
-    v30[0] = v7;
-    v30[1] = v12;
-    v29[2] = @"preferredUIScale";
-    v24 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v23];
-    v30[2] = v24;
-    DictionaryRepresentation = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:3];
+    v30[0] = v5;
+    v30[1] = v8;
+    v31[0] = v7;
+    v31[1] = v12;
+    v30[2] = @"preferredUIScale";
+    v25 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v24];
+    v31[2] = v25;
+    DictionaryRepresentation = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:3];
 
     [*(a1 + 32) addObject:DictionaryRepresentation];
   }

@@ -106,7 +106,7 @@
   serialize = [role serialize];
   [dictionary setObject:serialize forKeyedSubscript:*MEMORY[0x277CD2428]];
 
-  v11 = [dictionary copy];
+  v11 = objc_msgSend_copy(dictionary);
 
   return v11;
 }
@@ -121,7 +121,7 @@
 
 - (id)attributeDescriptions
 {
-  v17[3] = *MEMORY[0x277D85DE8];
+  v16[3] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   uuid = [(HMDMediaSystemComponent *)self uuid];
   v5 = [v3 initWithName:@"uuid" value:uuid];
@@ -129,16 +129,14 @@
   accessory = [(HMDMediaSystemComponent *)self accessory];
   uuid2 = [accessory uuid];
   v9 = [v6 initWithName:@"accessoryUUID" value:uuid2];
-  v17[1] = v9;
+  v16[1] = v9;
   v10 = objc_alloc(MEMORY[0x277D0F778]);
   role = [(HMDMediaSystemComponent *)self role];
   [role type];
   v12 = HMMediaSystemRoleTypeAsString();
   v13 = [v10 initWithName:@"roleType" value:v12];
-  v17[2] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v16[2] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
 
   return v14;
 }
@@ -176,15 +174,14 @@
 
 void __38__HMDMediaSystemComponent_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v5_159359;
-  logCategory__hmf_once_v5_159359 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v5_159359;
+  logCategory__hmf_once_v5_159359 = v0;
 }
 
 + (id)mediaSystemComponentWithDictionary:(id)dictionary home:(id)home
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   homeCopy = home;
   v7 = [dictionaryCopy hmf_UUIDForKey:*MEMORY[0x277CD2430]];
@@ -207,11 +204,11 @@ void __38__HMDMediaSystemComponent_logCategory__block_invoke()
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           v20 = HMFGetLogIdentifier();
-          v23 = 138543618;
-          v24 = v20;
-          v25 = 2112;
-          v26 = dictionaryCopy;
-          _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Role entry is nil - cannot create mediaSystemComponent with %@", &v23, 0x16u);
+          v22 = 138543618;
+          v23 = v20;
+          v24 = 2112;
+          v25 = dictionaryCopy;
+          _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Role entry is nil - cannot create mediaSystemComponent with %@", &v22, 0x16u);
         }
 
         objc_autoreleasePoolPop(v18);
@@ -226,13 +223,13 @@ void __38__HMDMediaSystemComponent_logCategory__block_invoke()
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         v17 = HMFGetLogIdentifier();
-        v23 = 138543874;
-        v24 = v17;
-        v25 = 2112;
-        v26 = dictionaryCopy;
-        v27 = 2112;
-        v28 = homeCopy;
-        _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@accessory cannot be looked up - cannot create mediaSystemComponent with %@in home %@", &v23, 0x20u);
+        v22 = 138543874;
+        v23 = v17;
+        v24 = 2112;
+        v25 = dictionaryCopy;
+        v26 = 2112;
+        v27 = homeCopy;
+        _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@accessory cannot be looked up - cannot create mediaSystemComponent with %@in home %@", &v22, 0x20u);
       }
 
       objc_autoreleasePoolPop(v15);
@@ -247,25 +244,23 @@ void __38__HMDMediaSystemComponent_logCategory__block_invoke()
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v23 = 138543618;
-      v24 = v14;
-      v25 = 2112;
-      v26 = dictionaryCopy;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@mediaComponentUUID is nil - cannot create mediaSystemComponent with %@", &v23, 0x16u);
+      v22 = 138543618;
+      v23 = v14;
+      v24 = 2112;
+      v25 = dictionaryCopy;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@mediaComponentUUID is nil - cannot create mediaSystemComponent with %@", &v22, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
     v11 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 + (id)accessoryForMediaSystemComponentWithDictionary:(id)dictionary home:(id)home
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   homeCopy = home;
   v7 = [dictionaryCopy hmf_UUIDForKey:*MEMORY[0x277CCF0B0]];
@@ -282,20 +277,18 @@ void __38__HMDMediaSystemComponent_logCategory__block_invoke()
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = HMFGetLogIdentifier();
-      v15 = 138543874;
-      v16 = v12;
-      v17 = 2112;
-      v18 = dictionaryCopy;
-      v19 = 2112;
-      v20 = homeCopy;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@accessoryUUID is nil transaction dictionary - cannot find accessory with %@in home %@", &v15, 0x20u);
+      v14 = 138543874;
+      v15 = v12;
+      v16 = 2112;
+      v17 = dictionaryCopy;
+      v18 = 2112;
+      v19 = homeCopy;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@accessoryUUID is nil transaction dictionary - cannot find accessory with %@in home %@", &v14, 0x20u);
     }
 
     objc_autoreleasePoolPop(v10);
     v9 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

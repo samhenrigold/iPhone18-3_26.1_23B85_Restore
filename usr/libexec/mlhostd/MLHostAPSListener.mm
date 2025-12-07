@@ -25,7 +25,7 @@
     v10 = 0xF000000000000000;
   }
 
-  sub_100009180();
+  sub_100009180(selfCopy2, v12, v13);
   sub_1000099C0(tokenCopy, v10);
 }
 
@@ -34,13 +34,13 @@
   connectionCopy = connection;
   messageCopy = message;
   selfCopy = self;
-  sub_100009268(message);
+  sub_100009268(message, selfCopy, v8);
 }
 
 - (_TtC7mlhostd17MLHostAPSListener)init
 {
   ObjectType = swift_getObjectType();
-  v4 = (&self->super.isa + OBJC_IVAR____TtC7mlhostd17MLHostAPSListener_handleMessage);
+  v4 = (self + OBJC_IVAR____TtC7mlhostd17MLHostAPSListener_handleMessage);
   *v4 = nullsub_1;
   v4[1] = 0;
   v6.receiver = self;

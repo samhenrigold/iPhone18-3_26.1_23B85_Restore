@@ -99,7 +99,6 @@ LABEL_4:
     }
 
 LABEL_6:
-    enabled = self->_enabled;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 4) == 0)
     {
@@ -109,7 +108,6 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  timestamp = self->_timestamp;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) != 0)
@@ -124,7 +122,6 @@ LABEL_3:
   }
 
 LABEL_7:
-  stickiness = self->_stickiness;
 
   PBDataWriterWriteUint32Field();
 }

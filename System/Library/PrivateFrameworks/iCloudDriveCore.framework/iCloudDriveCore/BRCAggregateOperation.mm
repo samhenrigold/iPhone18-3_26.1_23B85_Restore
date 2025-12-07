@@ -28,49 +28,49 @@
 
 - (void)main
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = dispatch_group_create();
-  v24[0] = 0;
-  v24[1] = v24;
-  v24[2] = 0x3032000000;
-  v24[3] = __Block_byref_object_copy__51;
-  v24[4] = __Block_byref_object_dispose__51;
-  v25 = 0;
+  v23[0] = 0;
+  v23[1] = v23;
+  v23[2] = 0x3032000000;
+  v23[3] = __Block_byref_object_copy__51;
+  v23[4] = __Block_byref_object_dispose__51;
+  v24 = 0;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   obj = self->_subOperations;
-  v4 = [(NSArray *)obj countByEnumeratingWithState:&v20 objects:v26 count:16];
+  v4 = [(NSArray *)obj countByEnumeratingWithState:&v19 objects:v25 count:16];
   if (v4)
   {
     v5 = 0;
-    v6 = *v21;
+    v6 = *v20;
     do
     {
       v7 = 0;
       do
       {
-        if (*v21 != v6)
+        if (*v20 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v20 + 1) + 8 * v7);
+        v8 = *(*(&v19 + 1) + 8 * v7);
         dispatch_group_enter(v3);
         [v8 setIgnoreMissingRemoteClientProxy:1];
         finishBlock = [v8 finishBlock];
-        v15[0] = MEMORY[0x277D85DD0];
-        v15[1] = 3221225472;
-        v15[2] = __29__BRCAggregateOperation_main__block_invoke;
-        v15[3] = &unk_278506D60;
-        v15[4] = self;
-        v18 = v24;
-        v19 = v5;
+        v14[0] = MEMORY[0x277D85DD0];
+        v14[1] = 3221225472;
+        v14[2] = __29__BRCAggregateOperation_main__block_invoke;
+        v14[3] = &unk_278506D60;
+        v14[4] = self;
+        v17 = v23;
+        v18 = v5;
         v10 = finishBlock;
-        v17 = v10;
-        v16 = v3;
-        [v8 setFinishBlock:v15];
+        v16 = v10;
+        v15 = v3;
+        [v8 setFinishBlock:v14];
         [(_BRCOperation *)self addSubOperation:v8];
 
         ++v5;
@@ -78,7 +78,7 @@
       }
 
       while (v4 != v7);
-      v4 = [(NSArray *)obj countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v4 = [(NSArray *)obj countByEnumeratingWithState:&v19 objects:v25 count:16];
     }
 
     while (v4);
@@ -90,11 +90,10 @@
   block[2] = __29__BRCAggregateOperation_main__block_invoke_2;
   block[3] = &unk_278502208;
   block[4] = self;
-  block[5] = v24;
+  block[5] = v23;
   dispatch_group_notify(v3, callbackQueue, block);
 
-  _Block_object_dispose(v24, 8);
-  v12 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v23, 8);
 }
 
 void __29__BRCAggregateOperation_main__block_invoke(uint64_t a1, void *a2, void *a3)

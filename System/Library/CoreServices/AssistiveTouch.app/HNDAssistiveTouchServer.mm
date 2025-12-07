@@ -121,7 +121,7 @@
 
   else
   {
-    _AXLogWithFacility();
+    _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"AssistiveTouch could not long press element at unknown index: %lu");
   }
 }
 
@@ -144,7 +144,7 @@
   v9 = v8;
   if (([v8 performAction:v5] & 1) == 0)
   {
-    _AXLogWithFacility();
+    _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"AssistiveTouch could not perform specified action on element at index: %lu");
   }
 }
 
@@ -161,7 +161,7 @@
 
   else
   {
-    _AXLogWithFacility();
+    _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"AssistiveTouch could not press element at unknown index: %lu");
   }
 }
 
@@ -202,7 +202,7 @@
     }
 
 LABEL_12:
-    _AXLogWithFacility();
+    _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"AssistiveTouch could not scroll in unknown direction: %ld");
     goto LABEL_16;
   }
 
@@ -250,7 +250,7 @@ LABEL_16:
 
   else if (position)
   {
-    _AXLogWithFacility();
+    _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"AssistiveTouch could not scroll to unknown page position: %ld");
   }
 
   else
@@ -323,7 +323,7 @@ LABEL_9:
     goto LABEL_11;
   }
 
-  _AXLogWithFacility();
+  _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"AssistiveTouch could not zoom in unknown direction: %ld");
 LABEL_11:
 }
 
@@ -478,42 +478,45 @@ LABEL_11:
 
     if (([v6 isRunning] & 1) == 0)
     {
-      v17 = 0;
-      v8 = [v6 startServerWithError:&v17];
-      v9 = v17;
-      v10 = v9;
+      v14 = 0;
+      v8 = [v6 startServerWithError:&v14];
+      v9 = v14;
       if (v8)
       {
-        v14 = @"Started AssistiveTouch message server";
+        _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Started AssistiveTouch message server");
       }
 
       else
       {
-        v14 = @"AssistiveTouch could not start its message server: %@";
-        v15 = v9;
+        _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"AssistiveTouch could not start its message server: %@");
       }
-
-      LOBYTE(v13) = 1;
-      _AXLogWithFacility();
     }
 
-    v12 = [HNDAccessibilityManager sharedManager:v13];
-    goto LABEL_14;
+    v12 = +[HNDAccessibilityManager sharedManager];
+    goto LABEL_17;
   }
 
   if ([server isRunning])
   {
-    v16 = 0;
-    [v6 stopServerWithError:&v16];
-    v11 = v16;
-    _AXLogWithFacility();
+    v13 = 0;
+    v10 = [v6 stopServerWithError:&v13];
+    v11 = v13;
+    if (v10)
+    {
+      _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Stopped AssistiveTouch message server");
+    }
+
+    else
+    {
+      _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"AssistiveTouch could not stop its message server: %@");
+    }
   }
 
   if (v6)
   {
     [v6 removeAllHandlersForTarget:self];
     [(HNDAssistiveTouchServer *)self setServer:0];
-LABEL_14:
+LABEL_17:
   }
 }
 

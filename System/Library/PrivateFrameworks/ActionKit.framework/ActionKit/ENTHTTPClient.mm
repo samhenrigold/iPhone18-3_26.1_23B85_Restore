@@ -1,4 +1,5 @@
 @interface ENTHTTPClient
+- (ENTHTTPClient)initWithURL:(id)l userAgent:(id)agent timeout:(int)timeout;
 - (id)newRequest;
 - (int)readAll:(char *)all offset:(int)offset length:(int)length;
 - (void)flush;
@@ -99,6 +100,27 @@ LABEL_8:
 
   [(ENTHTTPClient *)self setResponseDataOffset:[(ENTHTTPClient *)self responseDataOffset]+ length];
   return length;
+}
+
+- (ENTHTTPClient)initWithURL:(id)l userAgent:(id)agent timeout:(int)timeout
+{
+  v5 = *&timeout;
+  lCopy = l;
+  agentCopy = agent;
+  v14.receiver = self;
+  v14.super_class = ENTHTTPClient;
+  v10 = [(ENTHTTPClient *)&v14 init];
+  v11 = v10;
+  if (v10)
+  {
+    [(ENTHTTPClient *)v10 setTimeout:v5];
+    [(ENTHTTPClient *)v11 setUrl:lCopy];
+    [(ENTHTTPClient *)v11 setUserAgent:agentCopy];
+    v12 = [objc_alloc(MEMORY[0x277CBEB28]) initWithCapacity:1024];
+    [(ENTHTTPClient *)v11 setRequestData:v12];
+  }
+
+  return v11;
 }
 
 @end

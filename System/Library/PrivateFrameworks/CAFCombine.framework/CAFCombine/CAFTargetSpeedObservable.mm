@@ -24,14 +24,14 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFTargetSpeedObservable.targetSpeedService(_:didUpdateTargetSpeedState:)();
+  CAFTargetSpeedObservable.targetSpeedService(_:didUpdateTargetSpeedState:)(selfCopy, state);
 }
 
 - (void)targetSpeedService:(id)service didUpdateSpeedLimited:(BOOL)limited
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFTargetSpeedObservable.targetSpeedService(_:didUpdateSpeedLimited:)();
+  CAFTargetSpeedObservable.targetSpeedService(_:didUpdateSpeedLimited:)(selfCopy, limited);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

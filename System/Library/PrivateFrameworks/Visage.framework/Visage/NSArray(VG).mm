@@ -20,81 +20,79 @@
 
 - (id)vg_arrayByInvokingBlock:()VG
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(self, "count")}];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   selfCopy = self;
-  v7 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v10 = v4[2](v4, *(*(&v14 + 1) + 8 * i));
-        [v5 addObject:{v10, v14}];
+        v10 = v4[2](v4, *(*(&v13 + 1) + 8 * i));
+        [v5 addObject:{v10, v13}];
       }
 
-      v7 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
 
   v11 = [v5 copy];
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (id)vg_compactArrayByInvokingBlock:()VG
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(self, "count")}];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   selfCopy = self;
-  v7 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        if (*(*(&v14 + 1) + 8 * i))
+        if (*(*(&v13 + 1) + 8 * i))
         {
           v10 = v4[2](v4);
-          [v5 addObject:{v10, v14}];
+          [v5 addObject:{v10, v13}];
         }
       }
 
-      v7 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
 
   v11 = [v5 copy];
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -151,30 +149,30 @@
 
 - (void)vg_vectorByInvokingFloatValue
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   *a2 = 0;
   a2[1] = 0;
   a2[2] = 0;
   std::vector<float>::reserve(a2, [self count]);
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   selfCopy = self;
-  v5 = [selfCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v5 = [selfCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v5)
   {
-    v6 = *v21;
+    v6 = *v20;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v21 != v6)
+        if (*v20 != v6)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        [*(*(&v20 + 1) + 8 * i) floatValue];
+        [*(*(&v19 + 1) + 8 * i) floatValue];
         v10 = a2[1];
         v9 = a2[2];
         if (v10 >= v9)
@@ -210,7 +208,7 @@
           }
 
           *(4 * v14) = v8;
-          v11 = 4 * v14 + 4;
+          v11 = (4 * v14 + 4);
           memcpy(0, v12, v13);
           v18 = *a2;
           *a2 = 0;
@@ -225,48 +223,46 @@
         else
         {
           *v10 = v8;
-          v11 = (v10 + 4);
+          v11 = v10 + 4;
         }
 
         a2[1] = v11;
       }
 
-      v5 = [selfCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v5 = [selfCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v5);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)vg_vectorFloat3ByInvokingFloatValue
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   *a2 = 0;
   a2[1] = 0;
   a2[2] = 0;
   _ZNSt3__16vectorIDv4_fNS_9allocatorIS1_EEE7reserveEm(a2, [self count]);
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   selfCopy = self;
-  v5 = [selfCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v5 = [selfCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v5)
   {
-    v6 = *v22;
+    v6 = *v21;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v22 != v6)
+        if (*v21 != v6)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        [*(*(&v21 + 1) + 8 * i) vg_float3ByInvokingFloatValue];
-        v20 = v8;
+        [*(*(&v20 + 1) + 8 * i) vg_float3ByInvokingFloatValue];
+        v19 = v8;
         v10 = a2[1];
         v9 = a2[2];
         if (v10 >= v9)
@@ -323,13 +319,11 @@
         a2[1] = v11;
       }
 
-      v5 = [selfCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v5 = [selfCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v5);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 + (id)vg_arrayWithNumbersFromFloat3:()VG
@@ -421,38 +415,36 @@
 
 - (id)vg_dataByInvokingFloatValue
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB28] dataWithLength:{4 * objc_msgSend(self, "count")}];
   mutableBytes = [v2 mutableBytes];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   selfCopy = self;
-  v5 = [selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [selfCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        [*(*(&v11 + 1) + 8 * i) floatValue];
+        [*(*(&v10 + 1) + 8 * i) floatValue];
         *mutableBytes++ = v8;
       }
 
-      v5 = [selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [selfCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

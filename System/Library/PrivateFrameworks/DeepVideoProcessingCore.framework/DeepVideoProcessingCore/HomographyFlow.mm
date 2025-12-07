@@ -13,8 +13,8 @@
 - (uint64_t)encodeCombineFlowToCommandBuffer:(__n128)buffer input:(__n128)input homography:(uint64_t)homography baseWarp:(void *)warp destination:(void *)destination;
 - (uint64_t)encodeCorrectFlowToCommandBuffer:(uint64_t)buffer input:(uint64_t)input refFlow:(uint64_t)flow homography:(void *)homography;
 - (uint64_t)postprocessFlowWithhomographyMatrix21:(double)matrix21 matrix12:(double)matrix12 inputForwardFlow:(double)flow inputBackwardFlow:(double)backwardFlow outputForwardFlow:(double)forwardFlow outputBackwardFlow:(float)outputBackwardFlow downscaleFacttor:(uint64_t)facttor;
-- (uint64_t)proprocessFirst:(double)first warpedFirst:(double)warpedFirst withHomography:(uint64_t)homography;
 - (void)dealloc;
+- (void)proprocessFirst:(double)first warpedFirst:(double)warpedFirst withHomography:(uint64_t)homography;
 @end
 
 @implementation HomographyFlow
@@ -569,7 +569,7 @@ LABEL_7:
   return v13;
 }
 
-- (uint64_t)proprocessFirst:(double)first warpedFirst:(double)warpedFirst withHomography:(uint64_t)homography
+- (void)proprocessFirst:(double)first warpedFirst:(double)warpedFirst withHomography:(uint64_t)homography
 {
   commandBuffer = [*(self + 24) commandBuffer];
   v11 = [self bindInternalTextureFromFirst:a6 warpedFirst:a7];
@@ -605,13 +605,13 @@ LABEL_7:
     v19 = computeCommandEncoder;
     if (computeCommandEncoder)
     {
-      [computeCommandEncoder setComputePipelineState:{*(v6 + 48), OUTLINED_FUNCTION_8(computeCommandEncoder, v12, v13, v14, v15, v16, v17, v18, v32, v34, v36, v38, v40).n128_f64[0]}];
+      [computeCommandEncoder setComputePipelineState:{*(v6 + 48), OUTLINED_FUNCTION_8(computeCommandEncoder, v12, v13, v14, v15, v16, v17, v18, v33, v35, v37, v39, v41).n128_f64[0]}];
       OUTLINED_FUNCTION_3_2();
       v20 = OUTLINED_FUNCTION_5();
-      OUTLINED_FUNCTION_4_0(v20, v21, v47);
+      OUTLINED_FUNCTION_4_0(v20, v21, v48);
       [v9 width];
       height = [v9 height];
-      OUTLINED_FUNCTION_0_5(height, v23, v24, v25, v26, v27, v28, v29, v33, v35, v37, v39, v41, v42, v30, v43, v44, v45, v46);
+      OUTLINED_FUNCTION_0_5(height, v23, v24, v25, v26, v27, v28, v29, v30, v34, v36, v38, v40, v42, v43, v31, v44, v45, v46, v47);
       [v19 endEncoding];
       v10 = 0;
     }
@@ -680,11 +680,11 @@ LABEL_7:
       [computeCommandEncoder setComputePipelineState:*(v6 + 64)];
       OUTLINED_FUNCTION_3_2();
       v13 = OUTLINED_FUNCTION_5();
-      OUTLINED_FUNCTION_8(v13, v14, v15, v16, v17, v18, v19, v20, v33, v35, v37, v39, v41);
-      OUTLINED_FUNCTION_4_0(v21, v22, v48);
+      OUTLINED_FUNCTION_8(v13, v14, v15, v16, v17, v18, v19, v20, v34, v36, v38, v40, v42);
+      OUTLINED_FUNCTION_4_0(v21, v22, v49);
       [v7 width];
       height = [v7 height];
-      OUTLINED_FUNCTION_0_5(height, v24, v25, v26, v27, v28, v29, v30, v34, v36, v38, v40, v42, v43, v31, v44, v45, v46, v47);
+      OUTLINED_FUNCTION_0_5(height, v24, v25, v26, v27, v28, v29, v30, v31, v35, v37, v39, v41, v43, v44, v32, v45, v46, v47, v48);
       [v12 endEncoding];
       v10 = 0;
     }

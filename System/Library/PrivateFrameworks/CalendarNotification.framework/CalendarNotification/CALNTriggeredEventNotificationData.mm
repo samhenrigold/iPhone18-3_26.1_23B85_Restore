@@ -115,37 +115,7 @@
   alarmID2 = [dataCopy alarmID];
   v7 = CalEqualStrings();
 
-  if (!v7)
-  {
-    goto LABEL_8;
-  }
-
-  isOffsetFromTravelTimeStart = [(CALNTriggeredEventNotificationData *)self isOffsetFromTravelTimeStart];
-  if (isOffsetFromTravelTimeStart != [dataCopy isOffsetFromTravelTimeStart])
-  {
-    goto LABEL_8;
-  }
-
-  lastFireTimeOfAlertOffsetFromTravelTime = [(CALNTriggeredEventNotificationData *)self lastFireTimeOfAlertOffsetFromTravelTime];
-  lastFireTimeOfAlertOffsetFromTravelTime2 = [dataCopy lastFireTimeOfAlertOffsetFromTravelTime];
-  v11 = CalEqualObjects();
-
-  if (!v11)
-  {
-    goto LABEL_8;
-  }
-
-  hypothesis = [(CALNTriggeredEventNotificationData *)self hypothesis];
-  hypothesis2 = [dataCopy hypothesis];
-  v14 = CalEqualObjects();
-
-  if (!v14)
-  {
-    goto LABEL_8;
-  }
-
-  hasDisplayedLeaveByMessage = [(CALNTriggeredEventNotificationData *)self hasDisplayedLeaveByMessage];
-  if (hasDisplayedLeaveByMessage == [dataCopy hasDisplayedLeaveByMessage] && (v16 = -[CALNTriggeredEventNotificationData hasDisplayedLeaveNowMessage](self, "hasDisplayedLeaveNowMessage"), v16 == objc_msgSend(dataCopy, "hasDisplayedLeaveNowMessage")) && (v17 = -[CALNTriggeredEventNotificationData hasDisplayedRunningLateMessage](self, "hasDisplayedRunningLateMessage"), v17 == objc_msgSend(dataCopy, "hasDisplayedRunningLateMessage")))
+  if (v7 && (v8 = -[CALNTriggeredEventNotificationData isOffsetFromTravelTimeStart](self, "isOffsetFromTravelTimeStart"), v8 == [dataCopy isOffsetFromTravelTimeStart]) && (-[CALNTriggeredEventNotificationData lastFireTimeOfAlertOffsetFromTravelTime](self, "lastFireTimeOfAlertOffsetFromTravelTime"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(dataCopy, "lastFireTimeOfAlertOffsetFromTravelTime"), v10 = objc_claimAutoreleasedReturnValue(), v11 = CalEqualObjects(), v10, v9, v11) && (-[CALNTriggeredEventNotificationData hypothesis](self, "hypothesis"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(dataCopy, "hypothesis"), v13 = objc_claimAutoreleasedReturnValue(), v14 = CalEqualObjects(), v13, v12, v14) && (v15 = -[CALNTriggeredEventNotificationData hasDisplayedLeaveByMessage](self, "hasDisplayedLeaveByMessage"), v15 == objc_msgSend(dataCopy, "hasDisplayedLeaveByMessage")) && (v16 = -[CALNTriggeredEventNotificationData hasDisplayedLeaveNowMessage](self, "hasDisplayedLeaveNowMessage"), v16 == objc_msgSend(dataCopy, "hasDisplayedLeaveNowMessage")) && (v17 = -[CALNTriggeredEventNotificationData hasDisplayedRunningLateMessage](self, "hasDisplayedRunningLateMessage"), v17 == objc_msgSend(dataCopy, "hasDisplayedRunningLateMessage")))
   {
     lastTimeNotificationAdded = [(CALNTriggeredEventNotificationData *)self lastTimeNotificationAdded];
     lastTimeNotificationAdded2 = [dataCopy lastTimeNotificationAdded];
@@ -154,7 +124,6 @@
 
   else
   {
-LABEL_8:
     v18 = 0;
   }
 

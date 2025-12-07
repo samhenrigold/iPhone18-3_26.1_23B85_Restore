@@ -586,15 +586,15 @@ uint64_t __45__PKAutoRefineTaskManager_updatePendingTasks__block_invoke(uint64_t
 
     selfCopy = self;
     objc_sync_enter(selfCopy);
-    [(PKAutoRefineTask *)*(selfCopy + 2) cancel];
-    v4 = *(selfCopy + 2);
-    *(selfCopy + 2) = 0;
+    [(PKAutoRefineTask *)selfCopy[2] cancel];
+    v4 = selfCopy[2];
+    selfCopy[2] = 0;
 
     v12 = 0u;
     v13 = 0u;
     v10 = 0u;
     v11 = 0u;
-    v5 = *(selfCopy + 3);
+    v5 = selfCopy[3];
     v6 = [v5 countByEnumeratingWithState:&v10 objects:v15 count:16];
     if (v6)
     {
@@ -619,7 +619,7 @@ uint64_t __45__PKAutoRefineTaskManager_updatePendingTasks__block_invoke(uint64_t
       while (v6);
     }
 
-    [*(selfCopy + 3) removeAllObjects];
+    [selfCopy[3] removeAllObjects];
     v9 = +[PKHandwritingSynthesisLogger sharedHandwritingSynthesisLogger];
     [(PKHandwritingSynthesisLogger *)v9 clearAllEntries];
 
@@ -634,19 +634,19 @@ uint64_t __45__PKAutoRefineTaskManager_updatePendingTasks__block_invoke(uint64_t
   {
     itemCopy = item;
     objc_sync_enter(itemCopy);
-    v5 = *(itemCopy + 2);
-    if (v5 && (*(v5 + 104) & 1) != 0 || ([(PKAutoRefineTask *)v5 queryItemIsEqualToQueryItem:v3]& 1) == 0)
+    v5 = itemCopy[2];
+    if (v5 && (v5[104] & 1) != 0 || ([(PKAutoRefineTask *)v5 queryItemIsEqualToQueryItem:v3]& 1) == 0)
     {
       for (i = 0; ; ++i)
       {
-        v9 = [*(itemCopy + 3) count];
+        v9 = [itemCopy[3] count];
         v6 = i < v9;
         if (i >= v9)
         {
           break;
         }
 
-        v10 = [*(itemCopy + 3) objectAtIndex:i];
+        v10 = [itemCopy[3] objectAtIndex:i];
         v11 = [(PKAutoRefineTask *)v10 queryItemIsEqualToQueryItem:v3];
 
         if (v11)
@@ -679,8 +679,8 @@ uint64_t __45__PKAutoRefineTaskManager_updatePendingTasks__block_invoke(uint64_t
   {
     itemCopy = item;
     objc_sync_enter(itemCopy);
-    v5 = *(itemCopy + 2);
-    if (!v5 || (*(v5 + 104) & 1) == 0)
+    v5 = itemCopy[2];
+    if (!v5 || (v5[104] & 1) == 0)
     {
       v14 = 0;
       [(PKAutoRefineTask *)v5 trimTaskForNewItem:v3 shouldCancel:&v14];
@@ -693,13 +693,13 @@ uint64_t __45__PKAutoRefineTaskManager_updatePendingTasks__block_invoke(uint64_t
           _os_log_debug_impl(&dword_1C7CCA000, v6, OS_LOG_TYPE_DEBUG, "Cancel active task given query item.", buf, 2u);
         }
 
-        [(PKAutoRefineTask *)*(itemCopy + 2) cancel];
+        [(PKAutoRefineTask *)itemCopy[2] cancel];
       }
     }
 
-    for (i = 0; i < [*(itemCopy + 3) count]; ++i)
+    for (i = 0; i < [itemCopy[3] count]; ++i)
     {
-      v8 = [*(itemCopy + 3) objectAtIndex:i];
+      v8 = [itemCopy[3] objectAtIndex:i];
       v9 = v8;
       if (!v8 || (*(v8 + 104) & 1) == 0)
       {
@@ -710,7 +710,7 @@ uint64_t __45__PKAutoRefineTaskManager_updatePendingTasks__block_invoke(uint64_t
           v10 = os_log_create("com.apple.pencilkit", "AutoRefine");
           if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
           {
-            *v11 = 0;
+            v11[0] = 0;
             _os_log_debug_impl(&dword_1C7CCA000, v10, OS_LOG_TYPE_DEBUG, "Cancel task given query item.", v11, 2u);
           }
 
@@ -730,8 +730,8 @@ uint64_t __45__PKAutoRefineTaskManager_updatePendingTasks__block_invoke(uint64_t
   {
     strokeCopy = stroke;
     objc_sync_enter(strokeCopy);
-    v5 = *(strokeCopy + 2);
-    if (!v5 || (*(v5 + 104) & 1) == 0)
+    v5 = strokeCopy[2];
+    if (!v5 || (v5[104] & 1) == 0)
     {
       v14 = 0;
       [(PKAutoRefineTask *)v5 trimTaskForNewStroke:v3 shouldCancel:&v14];
@@ -744,13 +744,13 @@ uint64_t __45__PKAutoRefineTaskManager_updatePendingTasks__block_invoke(uint64_t
           _os_log_debug_impl(&dword_1C7CCA000, v6, OS_LOG_TYPE_DEBUG, "Cancel active task given refinable stroke.", buf, 2u);
         }
 
-        [(PKAutoRefineTask *)*(strokeCopy + 2) cancel];
+        [(PKAutoRefineTask *)strokeCopy[2] cancel];
       }
     }
 
-    for (i = 0; i < [*(strokeCopy + 3) count]; ++i)
+    for (i = 0; i < [strokeCopy[3] count]; ++i)
     {
-      v8 = [*(strokeCopy + 3) objectAtIndex:i];
+      v8 = [strokeCopy[3] objectAtIndex:i];
       v9 = v8;
       if (!v8 || (*(v8 + 104) & 1) == 0)
       {
@@ -761,7 +761,7 @@ uint64_t __45__PKAutoRefineTaskManager_updatePendingTasks__block_invoke(uint64_t
           v10 = os_log_create("com.apple.pencilkit", "AutoRefine");
           if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
           {
-            *v11 = 0;
+            v11[0] = 0;
             _os_log_debug_impl(&dword_1C7CCA000, v10, OS_LOG_TYPE_DEBUG, "Cancel task given refinable stroke.", v11, 2u);
           }
 

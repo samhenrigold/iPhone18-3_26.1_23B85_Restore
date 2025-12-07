@@ -4,45 +4,47 @@
 - (double)sliderValueFromRemainingTime:(double)time;
 - (id)createSliderView;
 - (id)sliderView;
+- (void)_reloadForCurrentStateAnimated:(BOOL)animated;
 - (void)_updateGlyphPackageDescription;
 - (void)buttonTapped:(id)tapped forEvent:(id)event;
 - (void)dealloc;
 - (void)displayLinkTick:(id)tick;
 - (void)setContentRenderingMode:(unint64_t)mode;
+- (void)setTimer:(id)timer animated:(BOOL)animated;
 - (void)sliderDidBeginEditing:(id)editing;
 - (void)sliderEditingEnded:(id)ended;
 - (void)sliderValueChanged:(id)changed;
 - (void)startDisplayLinkUpdates;
 - (void)stopDisplayLinkUpdates;
 - (void)viewDidLoad;
+- (void)willTransitionToExpandedContentMode:(BOOL)mode;
 @end
 
 @implementation MTCCTimerViewController
 
 - (MTCCTimerViewController)init
 {
-  v9 = *MEMORY[0x29EDCA608];
-  v6.receiver = self;
-  v6.super_class = MTCCTimerViewController;
-  v2 = [(MTCCTimerViewController *)&v6 init];
+  v8 = *MEMORY[0x29EDCA608];
+  v5.receiver = self;
+  v5.super_class = MTCCTimerViewController;
+  v2 = [(MTCCTimerViewController *)&v5 init];
   if (v2)
   {
     v3 = MTLogForCategory();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v8 = v2;
+      v7 = v2;
       _os_log_impl(&dword_29C9FA000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ initialized", buf, 0xCu);
     }
   }
 
-  v4 = *MEMORY[0x29EDCA608];
   return v2;
 }
 
 - (void)dealloc
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v12 = *MEMORY[0x29EDCA608];
   v3 = MTLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -54,18 +56,31 @@
   v6 = objc_msgSend_displayLink(self, v4, v5);
   objc_msgSend_invalidate(v6, v7, v8);
 
-  v10.receiver = self;
-  v10.super_class = MTCCTimerViewController;
-  [(MTCCTimerViewController *)&v10 dealloc];
-  v9 = *MEMORY[0x29EDCA608];
+  v9.receiver = self;
+  v9.super_class = MTCCTimerViewController;
+  [(MTCCTimerViewController *)&v9 dealloc];
+}
+
+- (void)setTimer:(id)timer animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  timerCopy = timer;
+  if ((objc_msgSend_isEqual_(self->_internalTimer, v6, timerCopy) & 1) == 0)
+  {
+    v9 = objc_msgSend_copy(timerCopy, v7, v8);
+    internalTimer = self->_internalTimer;
+    self->_internalTimer = v9;
+
+    objc_msgSend__reloadForCurrentStateAnimated_(self, v11, animatedCopy);
+  }
 }
 
 - (void)viewDidLoad
 {
-  v37[1] = *MEMORY[0x29EDCA608];
-  v36.receiver = self;
-  v36.super_class = MTCCTimerViewController;
-  [(CCUISliderModuleViewController *)&v36 viewDidLoad];
+  v36[1] = *MEMORY[0x29EDCA608];
+  v35.receiver = self;
+  v35.super_class = MTCCTimerViewController;
+  [(CCUISliderModuleViewController *)&v35 viewDidLoad];
   v3 = MEMORY[0x29EDB9F48];
   v4 = objc_opt_class();
   v6 = objc_msgSend_bundleForClass_(v3, v5, v4);
@@ -75,8 +90,8 @@
   objc_msgSend_setValueText_(self, v10, 0);
   objc_msgSend_setSelectedValueText_(self, v11, 0);
   objc_msgSend__updateGlyphPackageDescription(self, v12, v13);
-  v37[0] = objc_opt_class();
-  v15 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], v14, v37, 1);
+  v36[0] = objc_opt_class();
+  v15 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], v14, v36, 1);
   v17 = objc_msgSend_registerForTraitChanges_withAction_(self, v16, v15, sel__updateGlyphPackageDescription);
 
   v20 = objc_msgSend_sliderView(self, v18, v19);
@@ -92,7 +107,6 @@
   objc_msgSend_addTarget_action_forControlEvents_(v32, v33, self, sel_sliderEditingEnded_, 0x40000);
 
   objc_msgSend__reloadForCurrentStateAnimated_(self, v34, 0);
-  v35 = *MEMORY[0x29EDCA608];
 }
 
 - (id)sliderView
@@ -129,31 +143,39 @@
 
 - (void)buttonTapped:(id)tapped forEvent:(id)event
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   eventCopy = event;
   v6 = MTLogForCategory();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138543362;
+    v11 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_29C9FA000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ button tapped, relaying to delegate", &v12, 0xCu);
+    _os_log_impl(&dword_29C9FA000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ button tapped, relaying to delegate", &v11, 0xCu);
   }
 
   v9 = objc_msgSend_delegate(self, v7, v8);
   objc_msgSend_timerViewControllerButtonTapped_withEvent_(v9, v10, self, eventCopy);
+}
 
-  v11 = *MEMORY[0x29EDCA608];
+- (void)willTransitionToExpandedContentMode:(BOOL)mode
+{
+  modeCopy = mode;
+  v9.receiver = self;
+  v9.super_class = MTCCTimerViewController;
+  [(CCUISliderModuleViewController *)&v9 willTransitionToExpandedContentMode:?];
+  v7 = objc_msgSend_delegate(self, v5, v6);
+  objc_msgSend_timerViewController_didExpand_(v7, v8, self, modeCopy);
 }
 
 - (void)sliderDidBeginEditing:(id)editing
 {
-  v36 = *MEMORY[0x29EDCA608];
+  v35 = *MEMORY[0x29EDCA608];
   v4 = MTLogForCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v34 = 138543362;
+    v33 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_29C9FA000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ slider began editing", &v34, 0xCu);
+    _os_log_impl(&dword_29C9FA000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ slider began editing", &v33, 0xCu);
   }
 
   objc_msgSend_stopDisplayLinkUpdates(self, v5, v6);
@@ -176,8 +198,6 @@
 
     objc_msgSend_setTimer_(self, v32, v20);
   }
-
-  v33 = *MEMORY[0x29EDCA608];
 }
 
 - (void)sliderEditingEnded:(id)ended
@@ -198,7 +218,7 @@
 
 - (void)sliderValueChanged:(id)changed
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v30 = *MEMORY[0x29EDCA608];
   v4 = objc_msgSend_step(changed, a2, changed);
   v5 = v4;
   if (v4 >= 0xD)
@@ -221,8 +241,8 @@
   {
     *buf = 138543618;
     selfCopy = self;
-    v29 = 2050;
-    v30 = v6;
+    v28 = 2050;
+    v29 = v6;
     _os_log_impl(&dword_29C9FA000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ slider value changed to step: %{public}lu", buf, 0x16u);
   }
 
@@ -236,8 +256,6 @@
   v21 = objc_msgSend_delegate(self, v19, v20);
   v24 = objc_msgSend_timer(self, v22, v23);
   objc_msgSend_timerViewController_timerDidChange_(v21, v25, self, v24);
-
-  v26 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_updateGlyphPackageDescription
@@ -259,6 +277,69 @@
   v15 = objc_msgSend_descriptionForPackageNamed_inBundle_(v10, v14, v9, v17);
 
   objc_msgSend_setGlyphPackageDescription_(self, v16, v15);
+}
+
+- (void)_reloadForCurrentStateAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v5 = objc_msgSend_timer(self, a2, animated);
+  v8 = objc_msgSend_state(v5, v6, v7);
+
+  switch(v8)
+  {
+    case 3:
+      v11 = objc_msgSend_timer(self, v9, v10);
+      v21 = objc_msgSend_fireDate(v11, v19, v20);
+      objc_msgSend_timeIntervalSinceNow(v21, v22, v23);
+      v17 = v24;
+
+      v18 = 1;
+      goto LABEL_8;
+    case 2:
+      v11 = objc_msgSend_timer(self, v9, v10);
+      objc_msgSend_remainingTime(v11, v15, v16);
+      goto LABEL_6;
+    case 1:
+      v11 = objc_msgSend_timer(self, v9, v10);
+      objc_msgSend_duration(v11, v12, v13);
+LABEL_6:
+      v17 = v14;
+      v18 = 0;
+LABEL_8:
+
+      goto LABEL_10;
+  }
+
+  v18 = 0;
+  v17 = 0;
+LABEL_10:
+  objc_msgSend_setSelected_(self, v9, v18);
+  v27 = objc_msgSend_appearsSelected(self, v25, v26);
+  v35[0] = MEMORY[0x29EDCA5F8];
+  v35[1] = 3221225472;
+  v35[2] = sub_29CA01EB0;
+  v35[3] = &unk_29F33F8E0;
+  v35[4] = self;
+  v35[5] = v17;
+  v36 = animatedCopy;
+  v37 = v27;
+  v28 = MEMORY[0x29ED51590](v35);
+  v30 = v28;
+  if (animatedCopy)
+  {
+    objc_msgSend_animateWithDuration_animations_(MEMORY[0x29EDC7DA0], v29, v28, 0.25);
+  }
+
+  else
+  {
+    (*(v28 + 16))(v28);
+  }
+
+  objc_msgSend_stopDisplayLinkUpdates(self, v31, v32);
+  if (v27)
+  {
+    objc_msgSend_startDisplayLinkUpdates(self, v33, v34);
+  }
 }
 
 - (void)startDisplayLinkUpdates

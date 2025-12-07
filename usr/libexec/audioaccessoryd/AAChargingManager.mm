@@ -4,6 +4,8 @@
 + (id)sharedAAChargingManager;
 + (id)wallet;
 + (void)fetchChargingStateForDevice:(id)device;
++ (void)handleChangeOfDynamicEndOfChargeState:(char)state forDevice:(id)device;
++ (void)handleChangeOfOptimizedBatteryChargingState:(char)state forDevice:(id)device;
 - (AAChargingManager)init;
 - (id)_calendarTravelInterval;
 - (id)_currentUserTempDisableDEOCIntervalForIdentifier:(id)identifier;
@@ -89,6 +91,51 @@
   [sharedAAChargingManager2 _fetchOptimizedBatteryChargingEnabledForDevice:deviceCopy];
 }
 
++ (void)handleChangeOfDynamicEndOfChargeState:(char)state forDevice:(id)device
+{
+  stateCopy = state;
+  deviceCopy = device;
+  if (stateCopy == 3)
+  {
+    if (dword_1002F6928 <= 30 && (dword_1002F6928 != -1 || _LogCategory_Initialize()))
+    {
+      sub_1001ED6AC(deviceCopy);
+    }
+
+    sharedAAChargingManager = [self sharedAAChargingManager];
+    [sharedAAChargingManager _currentUserDidTempDisableDEOCForDevice:deviceCopy];
+    v7 = 1;
+  }
+
+  else
+  {
+    if (dword_1002F6928 <= 30 && (dword_1002F6928 != -1 || _LogCategory_Initialize()))
+    {
+      sub_1001ED66C(deviceCopy);
+    }
+
+    sharedAAChargingManager = [self sharedAAChargingManager];
+    identifier = [deviceCopy identifier];
+    [sharedAAChargingManager _removeUserTempDisableDEOCIntervalforIdentifier:identifier];
+
+    v7 = 2;
+  }
+
+  v9 = +[AADeviceManagerDaemon sharedAADeviceManagerDaemon];
+  [v9 updateDevice:deviceCopy withOBCState:0 deocTempDisabled:v7];
+
+  sharedAAChargingManager2 = [self sharedAAChargingManager];
+  [sharedAAChargingManager2 _changeOptimizedBatteryChargingState:stateCopy forDevice:deviceCopy];
+}
+
++ (void)handleChangeOfOptimizedBatteryChargingState:(char)state forDevice:(id)device
+{
+  stateCopy = state;
+  deviceCopy = device;
+  sharedAAChargingManager = [self sharedAAChargingManager];
+  [sharedAAChargingManager _changeOptimizedBatteryChargingState:stateCopy forDevice:deviceCopy];
+}
+
 - (void)_currentUserDidTempDisableDEOCForDevice:(id)device
 {
   deviceCopy = device;
@@ -113,46 +160,52 @@
       goto LABEL_3;
     }
 
-    if (dword_1002F6928 <= 30 && (dword_1002F6928 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6928 <= 30)
     {
-      sub_1001ED72C();
+      if (dword_1002F6928 != -1 || (v7 = _LogCategory_Initialize(), v7))
+      {
+        sub_1001ED72C(v7, v8, v9);
+      }
     }
 
     _travelIntervalFromCalendarAndWallet = [(AAChargingManager *)self _travelIntervalFromCalendarAndWallet];
     if (_travelIntervalFromCalendarAndWallet)
     {
-      v10 = _travelIntervalFromCalendarAndWallet;
+      v15 = _travelIntervalFromCalendarAndWallet;
       endDate = [_travelIntervalFromCalendarAndWallet endDate];
-      v12 = [endDate dateByAddingTimeInterval:86400.0];
+      v17 = [endDate dateByAddingTimeInterval:86400.0];
 
-      v13 = [NSDateInterval alloc];
-      startDate = [v10 startDate];
-      v6 = [v13 initWithStartDate:startDate endDate:v12];
+      v18 = [NSDateInterval alloc];
+      startDate = [v15 startDate];
+      v6 = [v18 initWithStartDate:startDate endDate:v17];
 
       if (v6)
       {
 LABEL_3:
-        v7 = [(AAChargingManager *)self deocTempDisableIntervalAACPMessageWithInterval:v6];
+        v10 = [(AAChargingManager *)self deocTempDisableIntervalAACPMessageWithInterval:v6];
 
         goto LABEL_8;
       }
     }
 
-    if (dword_1002F6928 <= 30 && (dword_1002F6928 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6928 <= 30)
     {
-      sub_1001ED748();
+      if (dword_1002F6928 != -1 || (_travelIntervalFromCalendarAndWallet = _LogCategory_Initialize(), _travelIntervalFromCalendarAndWallet))
+      {
+        sub_1001ED748(_travelIntervalFromCalendarAndWallet, v13, v14);
+      }
     }
   }
 
   else if (dword_1002F6928 <= 10 && (dword_1002F6928 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001ED6EC();
+    sub_1001ED6EC(deviceCopy);
   }
 
-  v7 = 0;
+  v10 = 0;
 LABEL_8:
 
-  return v7;
+  return v10;
 }
 
 - (id)deocTempDisableIntervalAACPMessageWithInterval:(id)interval
@@ -160,7 +213,7 @@ LABEL_8:
   intervalCopy = interval;
   if (dword_1002F6928 <= 30 && (dword_1002F6928 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001ED764();
+    sub_1001ED764(intervalCopy);
   }
 
   startDate = [intervalCopy startDate];
@@ -507,7 +560,7 @@ LABEL_12:
     v7 = v6;
     if (([v7 isAllDay] & 1) != 0 || (objc_msgSend(v7, "suggestionInfo"), v8 = objc_claimAutoreleasedReturnValue(), v8, !v8))
     {
-      v13 = 0;
+      v14 = 0;
     }
 
     else
@@ -522,25 +575,25 @@ LABEL_12:
         {
           startDate = [v7 startDate];
           endDate = [v7 endDate];
-          LogPrintF();
+          LogPrintF(&dword_1002F6928, "[AAChargingManager _isFlightEventWithId:]", 30, "Found flight event from %@-%@", startDate, endDate);
         }
 
-        v13 = v7;
+        v14 = v7;
       }
 
       else
       {
-        v13 = 0;
+        v14 = 0;
       }
     }
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
-  return v13;
+  return v14;
 }
 
 - (id)_walletTravelInterval
@@ -550,8 +603,7 @@ LABEL_12:
 
   if (dword_1002F6928 <= 30 && (dword_1002F6928 != -1 || _LogCategory_Initialize()))
   {
-    v25 = [v4 count];
-    LogPrintF();
+    LogPrintF(&dword_1002F6928, "-[AAChargingManager _walletTravelInterval]", 30, "Found %lu passes", [v4 count]);
   }
 
   if ([v4 count])
@@ -559,49 +611,49 @@ LABEL_12:
     [(AAChargingManager *)self _earliestDateConsideredForDEOCEvent];
     objc_claimAutoreleasedReturnValue();
     _latestDateConsideredForDEOCEvent = [sub_100076A0C() _latestDateConsideredForDEOCEvent];
-    v34 = +[NSMutableArray array];
+    v31 = +[NSMutableArray array];
+    v36 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
-    v41 = 0u;
-    v42 = 0u;
-    v29 = v4;
+    v26 = v4;
     obj = v4;
-    v32 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
-    if (v32)
+    v29 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+    if (v29)
     {
-      v31 = *v40;
+      v28 = *v37;
       do
       {
         v6 = 0;
         do
         {
-          if (*v40 != v31)
+          if (*v37 != v28)
           {
             objc_enumerationMutation(obj);
           }
 
-          v33 = v6;
-          v7 = *(*(&v39 + 1) + 8 * v6);
+          v30 = v6;
+          v7 = *(*(&v36 + 1) + 8 * v6);
+          v32 = 0u;
+          v33 = 0u;
+          v34 = 0u;
           v35 = 0u;
-          v36 = 0u;
-          v37 = 0u;
-          v38 = 0u;
           relevantDates = [v7 relevantDates];
-          v9 = [relevantDates countByEnumeratingWithState:&v35 objects:v43 count:16];
+          v9 = [relevantDates countByEnumeratingWithState:&v32 objects:v40 count:16];
           if (v9)
           {
             v10 = v9;
-            v11 = *v36;
+            v11 = *v33;
             do
             {
               for (i = 0; i != v10; i = i + 1)
               {
-                if (*v36 != v11)
+                if (*v33 != v11)
                 {
                   objc_enumerationMutation(relevantDates);
                 }
 
-                v13 = *(*(&v35 + 1) + 8 * i);
+                v13 = *(*(&v32 + 1) + 8 * i);
                 latestDate = [v13 latestDate];
                 v15 = [latestDate earlierDate:v3];
                 latestDate2 = [v13 latestDate];
@@ -618,62 +670,57 @@ LABEL_12:
                     {
                       earliestDate3 = [v13 earliestDate];
                       latestDate3 = [v13 latestDate];
-                      LogPrintF();
-
-                      [v34 addObject:{v13, earliestDate3, latestDate3}];
+                      LogPrintF(&dword_1002F6928, "[AAChargingManager _walletTravelInterval]", 30, "Found pass with relevant dates: %@ - %@", earliestDate3, latestDate3);
                     }
 
-                    else
-                    {
-                      [v34 addObject:{v13, v26, v27}];
-                    }
+                    [v31 addObject:v13];
                   }
                 }
               }
 
-              v10 = [relevantDates countByEnumeratingWithState:&v35 objects:v43 count:16];
+              v10 = [relevantDates countByEnumeratingWithState:&v32 objects:v40 count:16];
             }
 
             while (v10);
           }
 
-          v6 = v33 + 1;
+          v6 = v30 + 1;
         }
 
-        while ((v33 + 1) != v32);
-        v32 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+        while ((v30 + 1) != v29);
+        v29 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
       }
 
-      while (v32);
+      while (v29);
     }
 
-    if ([v34 count])
+    if ([v31 count])
     {
-      v21 = [PKPassRelevantDate findDateFromDates:v34 option:0];
-      v22 = [PKPassRelevantDate findDateFromDates:v34 option:3];
-      v23 = [[NSDateInterval alloc] initWithStartDate:v21 endDate:v22];
+      v22 = [PKPassRelevantDate findDateFromDates:v31 option:0];
+      v23 = [PKPassRelevantDate findDateFromDates:v31 option:3];
+      v24 = [[NSDateInterval alloc] initWithStartDate:v22 endDate:v23];
 
-      v4 = v29;
+      v4 = v26;
     }
 
     else
     {
-      v4 = v29;
+      v4 = v26;
       if (dword_1002F6928 <= 30 && (dword_1002F6928 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_1002F6928, "[AAChargingManager _walletTravelInterval]", 30, "No passes with relevant dates");
       }
 
-      v23 = 0;
+      v24 = 0;
     }
   }
 
   else
   {
-    v23 = 0;
+    v24 = 0;
   }
 
-  return v23;
+  return v24;
 }
 
 - (void)_fetchOptimizedBatteryChargingEnabledForDevice:(id)device
@@ -740,7 +787,7 @@ LABEL_12:
 
         self = [v9 identifier];
         bluetoothAddress2 = [v9 bluetoothAddress];
-        LogPrintF();
+        LogPrintF(&dword_1002F6928, "[AAChargingManager _changeOptimizedBatteryChargingState:forDevice:]", 90, "Failed to set OBC State %u, unknown state for Device[%@] (%@)", stateCopy, self, bluetoothAddress2);
 
         break;
     }

@@ -9,14 +9,13 @@
 
 - (DDResultTracker)initWithReferenceResult:(__DDResult *)result
 {
-  v13.receiver = self;
-  v13.super_class = DDResultTracker;
-  v4 = [(DDResultTracker *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = DDResultTracker;
+  v4 = [(DDResultTracker *)&v12 init];
   if (v4)
   {
     *(v4 + 12) = CFRetain(result);
     *(v4 + 6) = DDResultGetRange();
-    v5 = *(v4 + 12);
     Category = DDResultGetCategory();
     *(v4 + 8) = xmmword_21ABCD8B0;
     *(v4 + 24) = xmmword_21ABCD8C0;
@@ -24,23 +23,23 @@
     {
       *(v4 + 6) = 2;
       v4[44] = 1;
-      v7 = 8;
+      v6 = 8;
     }
 
     else
     {
       --*&v4[4 * Category + 8];
-      v7 = vaddvq_s32(vaddq_s32(*(v4 + 8), *(v4 + 24)));
+      v6 = vaddvq_s32(vaddq_s32(*(v4 + 8), *(v4 + 24)));
     }
 
+    *(v4 + 10) = v6;
+    v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v8 = *(v4 + 10);
     *(v4 + 10) = v7;
-    v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v9 = *(v4 + 10);
-    *(v4 + 10) = v8;
 
-    v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v11 = *(v4 + 11);
-    *(v4 + 11) = v10;
+    v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v10 = *(v4 + 11);
+    *(v4 + 11) = v9;
 
     *(v4 + 9) = 0;
   }
@@ -63,7 +62,7 @@
 
 - (BOOL)addResultIfAppropriate:(__DDResult *)appropriate referenceDate:(id)date referenceTimeZone:(id)zone
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   zoneCopy = zone;
   if (!self->totalCountRemaining)
@@ -146,7 +145,6 @@ LABEL_47:
   v16 = 0;
   if (Category == 4 && v13 <= 2 * maximumDistance)
   {
-    v17 = *MEMORY[0x277D040A8];
     if (!DDResultHasType() || DDResultIsPastDate())
     {
 LABEL_14:
@@ -158,75 +156,74 @@ LABEL_19:
     v14 = self->countRemainingByCategory[Category];
     if (v14 && Category == 4)
     {
-      v38 = v12;
-      v49 = 0u;
-      v50 = 0u;
+      v35 = v12;
+      v46 = 0u;
       v47 = 0u;
-      v48 = 0u;
+      v44 = 0u;
+      v45 = 0u;
       referenceResult = self->referenceResult;
-      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&referenceResult count:1];
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&referenceResult count:1];
       resultsBefore = self->resultsBefore;
       resultsAfter = self->resultsAfter;
-      v53[0] = v18;
-      v53[1] = resultsBefore;
-      v53[2] = resultsAfter;
-      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:3];
+      v50[0] = v17;
+      v50[1] = resultsBefore;
+      v50[2] = resultsAfter;
+      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:3];
 
-      v39 = [v21 countByEnumeratingWithState:&v47 objects:v54 count:16];
-      if (v39)
+      v36 = [v20 countByEnumeratingWithState:&v44 objects:v51 count:16];
+      if (v36)
       {
-        v37 = dateCopy;
-        v22 = *v48;
-        v23 = *MEMORY[0x277D04198];
-        v41 = v21;
-        v42 = zoneCopy;
-        v36 = *v48;
+        v34 = dateCopy;
+        v21 = *v45;
+        v22 = *MEMORY[0x277D04198];
+        v38 = v20;
+        v39 = zoneCopy;
+        v33 = *v45;
         while (2)
         {
-          v24 = 0;
+          v23 = 0;
           do
           {
-            if (*v48 != v22)
+            if (*v45 != v21)
             {
-              objc_enumerationMutation(v21);
+              objc_enumerationMutation(v20);
             }
 
-            v40 = v24;
-            v25 = *(*(&v47 + 1) + 8 * v24);
+            v37 = v23;
+            v24 = *(*(&v44 + 1) + 8 * v23);
+            v40 = 0u;
+            v41 = 0u;
+            v42 = 0u;
             v43 = 0u;
-            v44 = 0u;
-            v45 = 0u;
-            v46 = 0u;
-            v26 = v25;
-            v27 = [v26 countByEnumeratingWithState:&v43 objects:v51 count:16];
-            if (v27)
+            v25 = v24;
+            v26 = [v25 countByEnumeratingWithState:&v40 objects:v48 count:16];
+            if (v26)
             {
-              v28 = v27;
-              v29 = *v44;
+              v27 = v26;
+              v28 = *v41;
 LABEL_29:
-              v30 = 0;
+              v29 = 0;
               while (1)
               {
-                if (*v44 != v29)
+                if (*v41 != v28)
                 {
-                  objc_enumerationMutation(v26);
+                  objc_enumerationMutation(v25);
                 }
 
-                v31 = *(*(&v43 + 1) + 8 * v30);
                 Type = DDResultGetType();
-                if (MEMORY[0x21CEDEBB0](Type, v23))
+                if (MEMORY[0x21CEDEBB0](Type, v22))
                 {
-                  v33 = DDResultGetType();
-                  if (MEMORY[0x21CEDEBB0](Type, v33))
+                  v31 = DDResultGetType();
+                  if (MEMORY[0x21CEDEBB0](Type, v31))
                   {
                     break;
                   }
                 }
 
-                if (v28 == ++v30)
+                if (v27 == ++v29)
                 {
-                  v28 = [v26 countByEnumeratingWithState:&v43 objects:v51 count:16];
-                  if (!v28)
+                  v27 = [v25 countByEnumeratingWithState:&v40 objects:v48 count:16];
+                  if (!v27)
                   {
                     goto LABEL_36;
                   }
@@ -236,22 +233,22 @@ LABEL_29:
               }
 
               v16 = 1;
-              dateCopy = v37;
-              zoneCopy = v42;
+              dateCopy = v34;
+              zoneCopy = v39;
               goto LABEL_48;
             }
 
 LABEL_36:
 
-            v24 = v40 + 1;
-            v21 = v41;
-            zoneCopy = v42;
-            v22 = v36;
+            ++v23;
+            v20 = v38;
+            zoneCopy = v39;
+            v21 = v33;
           }
 
-          while (v40 + 1 != v39);
-          v39 = [v41 countByEnumeratingWithState:&v47 objects:v54 count:16];
-          if (v39)
+          while (v37 + 1 != v36);
+          v36 = [v38 countByEnumeratingWithState:&v44 objects:v51 count:16];
+          if (v36)
           {
             continue;
           }
@@ -259,14 +256,14 @@ LABEL_36:
           break;
         }
 
-        dateCopy = v37;
+        dateCopy = v34;
       }
 
       else
       {
       }
 
-      v12 = v38;
+      v12 = v35;
       goto LABEL_44;
     }
 
@@ -275,7 +272,6 @@ LABEL_36:
 
 LABEL_48:
 
-  v34 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

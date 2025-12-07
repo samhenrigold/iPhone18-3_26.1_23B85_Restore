@@ -12,7 +12,7 @@
 
 + (id)URLProviderWithDictionary:(id)dictionary
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v4 = [dictionaryCopy objectForKeyedSubscript:@"authorizationUrl"];
   null = [MEMORY[0x277CBEB68] null];
@@ -30,12 +30,12 @@
   null2 = [MEMORY[0x277CBEB68] null];
   if (v7 == null2)
   {
-    v53 = 0;
+    v52 = 0;
   }
 
   else
   {
-    v53 = [dictionaryCopy objectForKeyedSubscript:@"clientIdentifier"];
+    v52 = [dictionaryCopy objectForKeyedSubscript:@"clientIdentifier"];
   }
 
   v9 = [dictionaryCopy objectForKeyedSubscript:@"redirectURI"];
@@ -115,14 +115,14 @@
   if (!v24)
   {
     v29 = LogCategory_Daemon();
-    v52 = v29;
+    v51 = v29;
     if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_58;
     }
 
     *buf = 138412290;
-    v60 = v6;
+    v59 = v6;
     v30 = "BCNativeOAuth2URLProvider: Unable to create object. Could not create a valid authorizationURL from string:%@";
     v31 = v29;
     v32 = 12;
@@ -134,7 +134,7 @@ LABEL_34:
   if (![v11 length])
   {
     v33 = LogCategory_Daemon();
-    v52 = v33;
+    v51 = v33;
     if (!os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_58;
@@ -147,11 +147,11 @@ LABEL_34:
     goto LABEL_34;
   }
 
-  v51 = v24;
+  v50 = v24;
   v25 = [MEMORY[0x277CBEBC0] URLWithString:v11];
   scheme = [v25 scheme];
   lowercaseString = [scheme lowercaseString];
-  v52 = v25;
+  v51 = v25;
   if ([lowercaseString isEqualToString:@"http"])
   {
   }
@@ -159,67 +159,67 @@ LABEL_34:
   else
   {
     [v25 scheme];
-    v34 = v47 = v23;
+    v34 = v46 = v23;
     [v34 lowercaseString];
-    v35 = v49 = v20;
-    v46 = [v35 isEqualToString:@"https"];
+    v35 = v48 = v20;
+    v45 = [v35 isEqualToString:@"https"];
 
-    v23 = v47;
-    if ((v46 & 1) == 0)
+    v23 = v46;
+    if ((v45 & 1) == 0)
     {
       v41 = LogCategory_Daemon();
-      v24 = v51;
+      v24 = v50;
       if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
-        scheme2 = [v52 scheme];
+        scheme2 = [v51 scheme];
         *buf = 138412290;
-        v60 = scheme2;
+        v59 = scheme2;
         _os_log_error_impl(&dword_236EA0000, v41, OS_LOG_TYPE_ERROR, "BCServerSideOAuth2URLProvider: Unable to create object. Unsupported scheme '%@' for redirect URI", buf, 0xCu);
 
-        v20 = v49;
+        v20 = v48;
       }
 
       goto LABEL_57;
     }
   }
 
-  v24 = v51;
-  if ([v53 length])
+  v24 = v50;
+  if ([v52 length])
   {
     if ([v20 length] && ((objc_msgSend(v20, "isEqualToString:", @"code") & 1) != 0 || (objc_msgSend(v20, "isEqualToString:", @"token") & 1) != 0))
     {
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v48 = v23;
-        v50 = v20;
-        v56 = 0u;
-        v57 = 0u;
-        v54 = 0u;
+        v47 = v23;
+        v49 = v20;
         v55 = 0u;
+        v56 = 0u;
+        v53 = 0u;
+        v54 = 0u;
         v36 = v14;
-        v37 = [v36 countByEnumeratingWithState:&v54 objects:v58 count:16];
+        v37 = [v36 countByEnumeratingWithState:&v53 objects:v57 count:16];
         if (v37)
         {
           v38 = v37;
-          v39 = *v55;
+          v39 = *v54;
 LABEL_43:
           v40 = 0;
           while (1)
           {
-            if (*v55 != v39)
+            if (*v54 != v39)
             {
               objc_enumerationMutation(v36);
             }
 
-            if ([*(*(&v54 + 1) + 8 * v40) length])
+            if ([*(*(&v53 + 1) + 8 * v40) length])
             {
               break;
             }
 
             if (v38 == ++v40)
             {
-              v38 = [v36 countByEnumeratingWithState:&v54 objects:v58 count:16];
+              v38 = [v36 countByEnumeratingWithState:&v53 objects:v57 count:16];
               if (v38)
               {
                 goto LABEL_43;
@@ -231,17 +231,17 @@ LABEL_43:
 
           if ([v17 length])
           {
-            v24 = v51;
-            v23 = v48;
-            v20 = v50;
-            v28 = [[BCServerSideOAuth2URLProvider alloc] _initWithAuthorizationURL:v51 clientIdentifier:v53 redirectURI:v52 scope:v36 state:v17 responseType:v50 additionalParameters:v48];
+            v24 = v50;
+            v23 = v47;
+            v20 = v49;
+            v28 = [[BCServerSideOAuth2URLProvider alloc] _initWithAuthorizationURL:v50 clientIdentifier:v52 redirectURI:v51 scope:v36 state:v17 responseType:v49 additionalParameters:v47];
             goto LABEL_59;
           }
 
           v41 = LogCategory_Daemon();
-          v23 = v48;
-          v20 = v50;
-          v24 = v51;
+          v23 = v47;
+          v20 = v49;
+          v24 = v50;
           if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
@@ -254,9 +254,9 @@ LABEL_43:
 
 LABEL_49:
 
-        v23 = v48;
-        v20 = v50;
-        v24 = v51;
+        v23 = v47;
+        v20 = v49;
+        v24 = v50;
       }
 
       v41 = LogCategory_Daemon();
@@ -299,7 +299,6 @@ LABEL_58:
 LABEL_59:
 
 LABEL_60:
-  v44 = *MEMORY[0x277D85DE8];
 
   return v28;
 }
@@ -395,9 +394,9 @@ LABEL_60:
 
 - (id)authenticationSessionURL
 {
-  v30[3] = *MEMORY[0x277D85DE8];
-  v29 = [(NSURL *)self->_authorizationURL copy];
-  v3 = [objc_alloc(MEMORY[0x277CCACE0]) initWithURL:v29 resolvingAgainstBaseURL:0];
+  v29[3] = *MEMORY[0x277D85DE8];
+  v28 = [(NSURL *)self->_authorizationURL copy];
+  v3 = [objc_alloc(MEMORY[0x277CCACE0]) initWithURL:v28 resolvingAgainstBaseURL:0];
   v4 = [objc_alloc(MEMORY[0x277CCAD18]) initWithName:@"response_type" value:self->_responseType];
   v5 = [objc_alloc(MEMORY[0x277CCAD18]) initWithName:@"client_id" value:self->_clientIdentifier];
   v6 = objc_alloc(MEMORY[0x277CCAD18]);
@@ -434,10 +433,10 @@ LABEL_60:
   }
 
   v20 = MEMORY[0x277CBEB18];
-  v30[0] = v5;
-  v30[1] = v9;
-  v30[2] = v4;
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:3];
+  v29[0] = v5;
+  v29[1] = v9;
+  v29[2] = v4;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:3];
   v22 = [v20 arrayWithArray:v21];
 
   if (self->_scope)
@@ -460,8 +459,6 @@ LABEL_60:
 
   [v3 setQueryItems:v22];
   v26 = [v3 URL];
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v26;
 }

@@ -22,12 +22,12 @@
 
 - (id)init:(id)init
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = SiriHeadphoneIdentityHelper;
+  v11 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = SiriHeadphoneIdentityHelper;
   initCopy = init;
-  v4 = [(SiriHeadphoneIdentityHelper *)&v9 init];
-  [(SiriHeadphoneIdentityHelper *)v4 setViewController:initCopy, v9.receiver, v9.super_class];
+  v4 = [(SiriHeadphoneIdentityHelper *)&v8 init];
+  [(SiriHeadphoneIdentityHelper *)v4 setViewController:initCopy, v8.receiver, v8.super_class];
 
   mEMORY[0x277CF3248] = [MEMORY[0x277CF3248] sharedInstance];
   [(SiriHeadphoneIdentityHelper *)v4 setBluetoothManager:mEMORY[0x277CF3248]];
@@ -37,11 +37,10 @@
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v11 = "[SiriHeadphoneIdentityHelper init:]";
+    v10 = "[SiriHeadphoneIdentityHelper init:]";
     _os_log_impl(&dword_21FEE5000, v6, OS_LOG_TYPE_DEFAULT, "%s #shih headphone monitor setup start", buf, 0xCu);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -70,7 +69,7 @@
 
 - (void)setupBluetoothNotificationObservers
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter addObserver:self selector:sel_bluetoothDeviceInitiatedVoiceControl_ name:*MEMORY[0x277CF31E8] object:0];
   [defaultCenter addObserver:self selector:sel_bluetoothDeviceEndedVoiceControl_ name:*MEMORY[0x277CF31E0] object:0];
@@ -79,12 +78,10 @@
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[SiriHeadphoneIdentityHelper setupBluetoothNotificationObservers]";
-    _os_log_impl(&dword_21FEE5000, v4, OS_LOG_TYPE_DEFAULT, "%s #shih setup observer", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[SiriHeadphoneIdentityHelper setupBluetoothNotificationObservers]";
+    _os_log_impl(&dword_21FEE5000, v4, OS_LOG_TYPE_DEFAULT, "%s #shih setup observer", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isSupportedHeadphoneDevice:(id)device
@@ -123,30 +120,6 @@
 
 - (void)bluetoothDeviceInitiatedVoiceControl:(id)control
 {
-  v11 = *MEMORY[0x277D85DE8];
-  object = [control object];
-  if ([(SiriHeadphoneIdentityHelper *)self deviceSupportsActivation:object])
-  {
-    v5 = *MEMORY[0x277CEF098];
-    if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
-    {
-      v9 = 136315138;
-      v10 = "[SiriHeadphoneIdentityHelper bluetoothDeviceInitiatedVoiceControl:]";
-      _os_log_impl(&dword_21FEE5000, v5, OS_LOG_TYPE_DEFAULT, "%s #shih initiated voice control", &v9, 0xCu);
-    }
-
-    v6 = [MEMORY[0x277D551D0] bluetoothDeviceForIdentifier:3 bluetoothDevice:object];
-    [v6 activate];
-    [(SiriHeadphoneIdentityHelper *)self setActivationDevice:object];
-    v7 = [MEMORY[0x277CBEAA8] now];
-    [(SiriHeadphoneIdentityHelper *)self setActivationTime:v7];
-  }
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)bluetoothDeviceEndedVoiceControl:(id)control
-{
   v10 = *MEMORY[0x277D85DE8];
   object = [control object];
   if ([(SiriHeadphoneIdentityHelper *)self deviceSupportsActivation:object])
@@ -155,20 +128,40 @@
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
       v8 = 136315138;
-      v9 = "[SiriHeadphoneIdentityHelper bluetoothDeviceEndedVoiceControl:]";
-      _os_log_impl(&dword_21FEE5000, v5, OS_LOG_TYPE_DEFAULT, "%s #shih ended voice control", &v8, 0xCu);
+      v9 = "[SiriHeadphoneIdentityHelper bluetoothDeviceInitiatedVoiceControl:]";
+      _os_log_impl(&dword_21FEE5000, v5, OS_LOG_TYPE_DEFAULT, "%s #shih initiated voice control", &v8, 0xCu);
+    }
+
+    v6 = [MEMORY[0x277D551D0] bluetoothDeviceForIdentifier:3 bluetoothDevice:object];
+    [v6 activate];
+    [(SiriHeadphoneIdentityHelper *)self setActivationDevice:object];
+    v7 = [MEMORY[0x277CBEAA8] now];
+    [(SiriHeadphoneIdentityHelper *)self setActivationTime:v7];
+  }
+}
+
+- (void)bluetoothDeviceEndedVoiceControl:(id)control
+{
+  v9 = *MEMORY[0x277D85DE8];
+  object = [control object];
+  if ([(SiriHeadphoneIdentityHelper *)self deviceSupportsActivation:object])
+  {
+    v5 = *MEMORY[0x277CEF098];
+    if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = 136315138;
+      v8 = "[SiriHeadphoneIdentityHelper bluetoothDeviceEndedVoiceControl:]";
+      _os_log_impl(&dword_21FEE5000, v5, OS_LOG_TYPE_DEFAULT, "%s #shih ended voice control", &v7, 0xCu);
     }
 
     v6 = [MEMORY[0x277D551D0] bluetoothDeviceForIdentifier:3 bluetoothDevice:object];
     [v6 deactivate];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)bluetoothDeviceDisconnectSuccess:(id)success
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   object = [success object];
   userProfileMetadata = [(SiriHeadphoneIdentityHelper *)self userProfileMetadata];
   headphoneConnected = [userProfileMetadata headphoneConnected];
@@ -180,9 +173,9 @@
       v7 = *MEMORY[0x277CEF098];
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 136315138;
-        v11 = "[SiriHeadphoneIdentityHelper bluetoothDeviceDisconnectSuccess:]";
-        _os_log_impl(&dword_21FEE5000, v7, OS_LOG_TYPE_DEFAULT, "%s #shih disconnected success", &v10, 0xCu);
+        v9 = 136315138;
+        v10 = "[SiriHeadphoneIdentityHelper bluetoothDeviceDisconnectSuccess:]";
+        _os_log_impl(&dword_21FEE5000, v7, OS_LOG_TYPE_DEFAULT, "%s #shih disconnected success", &v9, 0xCu);
       }
 
       [(SiriHeadphoneIdentityHelper *)self clearUserData];
@@ -190,22 +183,20 @@
 
     else
     {
-      v9 = *MEMORY[0x277CEF098];
+      v8 = *MEMORY[0x277CEF098];
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 136315138;
-        v11 = "[SiriHeadphoneIdentityHelper bluetoothDeviceDisconnectSuccess:]";
-        _os_log_impl(&dword_21FEE5000, v9, OS_LOG_TYPE_DEFAULT, "%s #shih Not a supported device, ignoring bluetooth disconnect", &v10, 0xCu);
+        v9 = 136315138;
+        v10 = "[SiriHeadphoneIdentityHelper bluetoothDeviceDisconnectSuccess:]";
+        _os_log_impl(&dword_21FEE5000, v8, OS_LOG_TYPE_DEFAULT, "%s #shih Not a supported device, ignoring bluetooth disconnect", &v9, 0xCu);
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)bluetoothDeviceConnectSuccess:(id)success
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   object = [success object];
   if ([(SiriHeadphoneIdentityHelper *)self isSupportedHeadphoneDevice:object]|| [(SiriHeadphoneIdentityHelper *)self isBluetoothSpeaker:object])
   {
@@ -224,9 +215,9 @@
         v11 = *MEMORY[0x277CEF098];
         if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
         {
-          v18 = 136315138;
-          v19 = "[SiriHeadphoneIdentityHelper bluetoothDeviceConnectSuccess:]";
-          _os_log_impl(&dword_21FEE5000, v11, OS_LOG_TYPE_DEFAULT, "%s #shih Guest success", &v18, 0xCu);
+          v17 = 136315138;
+          v18 = "[SiriHeadphoneIdentityHelper bluetoothDeviceConnectSuccess:]";
+          _os_log_impl(&dword_21FEE5000, v11, OS_LOG_TYPE_DEFAULT, "%s #shih Guest success", &v17, 0xCu);
         }
 
         address2 = objc_alloc_init(MEMORY[0x277D5D308]);
@@ -243,11 +234,11 @@
         if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
         {
           v16 = v15;
-          v18 = 136315394;
-          v19 = "[SiriHeadphoneIdentityHelper bluetoothDeviceConnectSuccess:]";
-          v20 = 1024;
+          v17 = 136315394;
+          v18 = "[SiriHeadphoneIdentityHelper bluetoothDeviceConnectSuccess:]";
+          v19 = 1024;
           isAppleAudioDevice = [object isAppleAudioDevice];
-          _os_log_impl(&dword_21FEE5000, v16, OS_LOG_TYPE_DEFAULT, "%s #shih connected success (Apple:%d)", &v18, 0x12u);
+          _os_log_impl(&dword_21FEE5000, v16, OS_LOG_TYPE_DEFAULT, "%s #shih connected success (Apple:%d)", &v17, 0x12u);
         }
 
         address2 = [object address];
@@ -266,9 +257,9 @@
       v10 = *MEMORY[0x277CEF098];
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
       {
-        v18 = 136315138;
-        v19 = "[SiriHeadphoneIdentityHelper bluetoothDeviceConnectSuccess:]";
-        _os_log_impl(&dword_21FEE5000, v10, OS_LOG_TYPE_DEFAULT, "%s #shih multiple devices connected, this is not allowed", &v18, 0xCu);
+        v17 = 136315138;
+        v18 = "[SiriHeadphoneIdentityHelper bluetoothDeviceConnectSuccess:]";
+        _os_log_impl(&dword_21FEE5000, v10, OS_LOG_TYPE_DEFAULT, "%s #shih multiple devices connected, this is not allowed", &v17, 0xCu);
       }
 
       [(SiriHeadphoneIdentityHelper *)self clearUserData];
@@ -280,15 +271,13 @@
     v14 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 136315138;
-      v19 = "[SiriHeadphoneIdentityHelper bluetoothDeviceConnectSuccess:]";
-      _os_log_impl(&dword_21FEE5000, v14, OS_LOG_TYPE_DEFAULT, "%s #shih Not a supported device, ignoring bluetooth", &v18, 0xCu);
+      v17 = 136315138;
+      v18 = "[SiriHeadphoneIdentityHelper bluetoothDeviceConnectSuccess:]";
+      _os_log_impl(&dword_21FEE5000, v14, OS_LOG_TYPE_DEFAULT, "%s #shih Not a supported device, ignoring bluetooth", &v17, 0xCu);
     }
   }
 
 LABEL_19:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearUserData
@@ -301,7 +290,7 @@ LABEL_19:
 
 - (void)assignUserData:(id)data identifier:(id)identifier
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   [(SiriHeadphoneIdentityHelper *)self setBtIdentifier:identifier];
   [(SiriHeadphoneIdentityHelper *)self setUserProfileMetadata:dataCopy];
@@ -312,14 +301,12 @@ LABEL_19:
     v8 = v7;
     userProfileMetadata = [(SiriHeadphoneIdentityHelper *)self userProfileMetadata];
     v10 = [(SiriHeadphoneIdentityHelper *)self debugStringForProfileMetadata:userProfileMetadata];
-    v12 = 136315394;
-    v13 = "[SiriHeadphoneIdentityHelper assignUserData:identifier:]";
-    v14 = 2112;
-    v15 = v10;
-    _os_log_impl(&dword_21FEE5000, v8, OS_LOG_TYPE_DEFAULT, "%s #shih updated assignment %@", &v12, 0x16u);
+    v11 = 136315394;
+    v12 = "[SiriHeadphoneIdentityHelper assignUserData:identifier:]";
+    v13 = 2112;
+    v14 = v10;
+    _os_log_impl(&dword_21FEE5000, v8, OS_LOG_TYPE_DEFAULT, "%s #shih updated assignment %@", &v11, 0x16u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updatePersonaId:(BOOL)id identifier:(id)identifier
@@ -476,7 +463,7 @@ void __58__SiriHeadphoneIdentityHelper_updatePersonaId_identifier___block_invoke
 
 - (void)siriWentIdleAndQuiet:(BOOL)quiet
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (quiet)
   {
     activationDevice = [(SiriHeadphoneIdentityHelper *)self activationDevice];
@@ -493,9 +480,9 @@ void __58__SiriHeadphoneIdentityHelper_updatePersonaId_identifier___block_invoke
         v9 = *MEMORY[0x277CEF098];
         if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
         {
-          v13 = 136315138;
-          v14 = "[SiriHeadphoneIdentityHelper siriWentIdleAndQuiet:]";
-          _os_log_impl(&dword_21FEE5000, v9, OS_LOG_TYPE_DEFAULT, "%s #shih idle siri deactivated voice control", &v13, 0xCu);
+          v12 = 136315138;
+          v13 = "[SiriHeadphoneIdentityHelper siriWentIdleAndQuiet:]";
+          _os_log_impl(&dword_21FEE5000, v9, OS_LOG_TYPE_DEFAULT, "%s #shih idle siri deactivated voice control", &v12, 0xCu);
         }
 
         v10 = [MEMORY[0x277D551D0] bluetoothDeviceForIdentifier:3 bluetoothDevice:activationDevice2];
@@ -506,8 +493,6 @@ void __58__SiriHeadphoneIdentityHelper_updatePersonaId_identifier___block_invoke
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (NSObject)viewController
@@ -519,20 +504,18 @@ void __58__SiriHeadphoneIdentityHelper_updatePersonaId_identifier___block_invoke
 
 - (void)updatePersonaId:(os_log_t)log identifier:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[SiriHeadphoneIdentityHelper updatePersonaId:identifier:]";
-  _os_log_error_impl(&dword_21FEE5000, log, OS_LOG_TYPE_ERROR, "%s #shih DANGER using old api", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[SiriHeadphoneIdentityHelper updatePersonaId:identifier:]";
+  _os_log_error_impl(&dword_21FEE5000, log, OS_LOG_TYPE_ERROR, "%s #shih DANGER using old api", &v1, 0xCu);
 }
 
 void __58__SiriHeadphoneIdentityHelper_updatePersonaId_identifier___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_21FEE5000, v0, OS_LOG_TYPE_ERROR, "%s #shih Error getting current persona id: %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_21FEE5000, v0, OS_LOG_TYPE_ERROR, "%s #shih Error getting current persona id: %@", v1, 0x16u);
 }
 
 @end

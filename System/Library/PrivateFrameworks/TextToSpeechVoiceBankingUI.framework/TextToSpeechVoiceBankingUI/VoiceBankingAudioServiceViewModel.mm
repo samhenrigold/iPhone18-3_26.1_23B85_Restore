@@ -9,21 +9,20 @@
 - (void)audioPlayerDidFinishPlaying:(id)playing successfully:(BOOL)successfully
 {
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_2806C9C80, &qword_26EF3E400);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x28223BE20](v6 - 8, v8);
-  v10 = &v16 - v9;
-  v11 = sub_26EF3B30C();
-  (*(*(v11 - 8) + 56))(v10, 1, 1, v11);
+  MEMORY[0x28223BE20](v6 - 8);
+  v8 = &v14 - v7;
+  v9 = sub_26EF3B30C();
+  (*(*(v9 - 8) + 56))(v8, 1, 1, v9);
   sub_26EF3B2DC();
   selfCopy = self;
-  v13 = sub_26EF3B2CC();
-  v14 = swift_allocObject();
-  v15 = MEMORY[0x277D85700];
-  *(v14 + 16) = v13;
-  *(v14 + 24) = v15;
-  *(v14 + 32) = successfully;
-  *(v14 + 40) = selfCopy;
-  sub_26EE2C388(0, 0, v10, &unk_26EF44460, v14);
+  v11 = sub_26EF3B2CC();
+  v12 = swift_allocObject();
+  v13 = MEMORY[0x277D85700];
+  *(v12 + 16) = v11;
+  *(v12 + 24) = v13;
+  *(v12 + 32) = successfully;
+  *(v12 + 40) = selfCopy;
+  sub_26EE2C388(0, 0, v8, &unk_26EF44460, v12);
 }
 
 - (void)applicationDidResign

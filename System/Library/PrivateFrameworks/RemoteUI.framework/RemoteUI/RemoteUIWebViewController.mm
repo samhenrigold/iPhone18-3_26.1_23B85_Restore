@@ -319,16 +319,17 @@ uint64_t __40__RemoteUIWebViewController_viewDidLoad__block_invoke(uint64_t a1)
 
 - (void)webView:(id)view didFailNavigation:(id)navigation withError:(id)error
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  if (_isInternalInstall())
+  isInternalInstall = _isInternalInstall(errorCopy, v7);
+  if (isInternalInstall)
   {
-    v7 = _RUILoggingFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = _RUILoggingFacility(isInternalInstall);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = errorCopy;
-      _os_log_impl(&dword_21B93D000, v7, OS_LOG_TYPE_DEFAULT, "WebView load failed with error %@", &v10, 0xCu);
+      v12 = 138412290;
+      v13 = errorCopy;
+      _os_log_impl(&dword_21B93D000, v9, OS_LOG_TYPE_DEFAULT, "WebView load failed with error %@", &v12, 0xCu);
     }
   }
 
@@ -336,23 +337,24 @@ uint64_t __40__RemoteUIWebViewController_viewDidLoad__block_invoke(uint64_t a1)
   if (loadCompletion)
   {
     loadCompletion[2](loadCompletion, 0, errorCopy);
-    v9 = self->_loadCompletion;
+    v11 = self->_loadCompletion;
     self->_loadCompletion = 0;
   }
 }
 
 - (void)webView:(id)view didFailProvisionalNavigation:(id)navigation withError:(id)error
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  if (_isInternalInstall())
+  isInternalInstall = _isInternalInstall(errorCopy, v7);
+  if (isInternalInstall)
   {
-    v7 = _RUILoggingFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = _RUILoggingFacility(isInternalInstall);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = errorCopy;
-      _os_log_impl(&dword_21B93D000, v7, OS_LOG_TYPE_DEFAULT, "WebView load failed with error %@", &v10, 0xCu);
+      v12 = 138412290;
+      v13 = errorCopy;
+      _os_log_impl(&dword_21B93D000, v9, OS_LOG_TYPE_DEFAULT, "WebView load failed with error %@", &v12, 0xCu);
     }
   }
 
@@ -360,31 +362,32 @@ uint64_t __40__RemoteUIWebViewController_viewDidLoad__block_invoke(uint64_t a1)
   if (loadCompletion)
   {
     loadCompletion[2](loadCompletion, 0, errorCopy);
-    v9 = self->_loadCompletion;
+    v11 = self->_loadCompletion;
     self->_loadCompletion = 0;
   }
 }
 
 - (void)userContentController:(id)controller didReceiveScriptMessage:(id)message
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   messageCopy = message;
-  if (_isInternalInstall())
+  isInternalInstall = _isInternalInstall(messageCopy, v6);
+  if (isInternalInstall)
   {
-    v6 = _RUILoggingFacility();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = _RUILoggingFacility(isInternalInstall);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       name = [messageCopy name];
-      v22 = 138543362;
-      v23 = name;
-      _os_log_impl(&dword_21B93D000, v6, OS_LOG_TYPE_DEFAULT, "didReceiveScriptMessage: %{public}@", &v22, 0xCu);
+      v28 = 138543362;
+      v29 = name;
+      _os_log_impl(&dword_21B93D000, v8, OS_LOG_TYPE_DEFAULT, "didReceiveScriptMessage: %{public}@", &v28, 0xCu);
     }
   }
 
   name2 = [messageCopy name];
-  v9 = [name2 isEqualToString:@"dismissWebView"];
+  v11 = [name2 isEqualToString:@"dismissWebView"];
 
-  if (v9)
+  if (v11)
   {
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     body = [messageCopy body];
@@ -394,9 +397,9 @@ uint64_t __40__RemoteUIWebViewController_viewDidLoad__block_invoke(uint64_t a1)
   else
   {
     name3 = [messageCopy name];
-    v13 = [name3 isEqualToString:@"startActivityIndicator"];
+    v15 = [name3 isEqualToString:@"startActivityIndicator"];
 
-    if (v13)
+    if (v15)
     {
       [(RemoteUIWebViewController *)self _startActivityIndicator];
     }
@@ -404,44 +407,45 @@ uint64_t __40__RemoteUIWebViewController_viewDidLoad__block_invoke(uint64_t a1)
     else
     {
       name4 = [messageCopy name];
-      v15 = [name4 isEqualToString:@"stopActivityIndicator"];
+      v17 = [name4 isEqualToString:@"stopActivityIndicator"];
 
-      if (!v15)
+      if (!v17)
       {
         name5 = [messageCopy name];
-        v17 = [name5 isEqualToString:@"log"];
+        v19 = [name5 isEqualToString:@"log"];
 
-        if (v17)
+        if (v19)
         {
-          if (!_isInternalInstall())
+          v22 = _isInternalInstall(v20, v21);
+          if (!v22)
           {
             goto LABEL_19;
           }
 
-          v18 = _RUILoggingFacility();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+          v23 = _RUILoggingFacility(v22);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
           {
             body2 = [messageCopy body];
-            v22 = 138412290;
-            v23 = body2;
-            _os_log_impl(&dword_21B93D000, v18, OS_LOG_TYPE_DEFAULT, "remoteUIBridge.log: %@", &v22, 0xCu);
+            v28 = 138412290;
+            v29 = body2;
+            _os_log_impl(&dword_21B93D000, v23, OS_LOG_TYPE_DEFAULT, "remoteUIBridge.log: %@", &v28, 0xCu);
           }
         }
 
         else
         {
           name6 = [messageCopy name];
-          v21 = [name6 isEqualToString:@"error"];
+          v26 = [name6 isEqualToString:@"error"];
 
-          if (!v21)
+          if (!v26)
           {
             goto LABEL_19;
           }
 
-          v18 = _RUILoggingFacility();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+          v23 = _RUILoggingFacility(v27);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
-            [RemoteUIWebViewController userContentController:messageCopy didReceiveScriptMessage:v18];
+            [RemoteUIWebViewController userContentController:messageCopy didReceiveScriptMessage:v23];
           }
         }
 

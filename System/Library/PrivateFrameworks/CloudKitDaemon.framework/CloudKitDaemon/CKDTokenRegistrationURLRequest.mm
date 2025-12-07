@@ -42,17 +42,16 @@
 
 - (id)requestOperationClasses
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = objc_opt_class();
-  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v6, 1);
-  v4 = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = objc_opt_class();
+  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v5, 1);
 
   return v3;
 }
 
 - (id)generateRequestOperations
 {
-  v95 = *MEMORY[0x277D85DE8];
+  v94 = *MEMORY[0x277D85DE8];
   if (*MEMORY[0x277CBC880] != -1)
   {
     dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -70,15 +69,15 @@
     v24 = objc_msgSend_apsEnvironmentString(self, v22, v23);
     v27 = objc_msgSend_bundleID(self, v25, v26);
     *buf = 138544387;
-    v86 = v9;
-    v87 = 2114;
-    v88 = v15;
-    v89 = 2113;
-    v90 = v21;
-    v91 = 2114;
-    v92 = v24;
-    v93 = 2114;
-    v94 = v27;
+    v85 = v9;
+    v86 = 2114;
+    v87 = v15;
+    v88 = 2113;
+    v89 = v21;
+    v90 = 2114;
+    v91 = v24;
+    v92 = 2114;
+    v93 = v27;
     _os_log_impl(&dword_22506F000, v6, OS_LOG_TYPE_INFO, "req: %{public}@, Sending token registration for %{public}@ with token %{private}@ in aps environment %{public}@ with bundleID %{public}@", buf, 0x34u);
   }
 
@@ -112,10 +111,8 @@
   v78 = objc_msgSend_tokenRegistrationBody(v75, v76, v77);
   objc_msgSend_setSkipBundleIDCheck_(v78, v79, v72);
 
-  v84 = v30;
-  v81 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v80, &v84, 1);
-
-  v82 = *MEMORY[0x277D85DE8];
+  v83 = v30;
+  v81 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v80, &v83, 1);
 
   return v81;
 }

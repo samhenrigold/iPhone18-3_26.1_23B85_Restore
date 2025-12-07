@@ -851,11 +851,11 @@ void __42__STAllowanceListController_addAllowance___block_invoke(uint64_t a1, vo
   }
 }
 
-uint64_t __45__STAllowanceListController_confirmDeletion___block_invoke(uint64_t result, int a2)
+id *__45__STAllowanceListController_confirmDeletion___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _showConfirmDeletionView:*(result + 40)];
+    return [result[4] _showConfirmDeletionView:result[5]];
   }
 
   return result;

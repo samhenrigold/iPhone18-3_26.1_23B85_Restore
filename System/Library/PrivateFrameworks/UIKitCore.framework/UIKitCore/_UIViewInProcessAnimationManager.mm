@@ -1,9 +1,9 @@
 @interface _UIViewInProcessAnimationManager
-+ (uint64_t)_advanceWithTime:(double)time;
-+ (uint64_t)_applicationBecameActive;
-+ (uint64_t)_applicationDidEnterBackground;
-+ (uint64_t)_cancelAllAnimationsImmediately;
-+ (uint64_t)_setCurrentMediaTime:(double)time;
++ (double)_applicationBecameActive;
++ (double)_applicationDidEnterBackground;
++ (double)_cancelAllAnimationsImmediately;
++ (void)_advanceWithTime:(double)time;
++ (void)_setCurrentMediaTime:(double)time;
 + (void)_setExternalAnimationDriver:(id)driver;
 - (_UIViewInProcessAnimationManager)init;
 @end
@@ -40,7 +40,7 @@
   return [(_UIViewInProcessAnimationManager *)&v3 init];
 }
 
-+ (uint64_t)_cancelAllAnimationsImmediately
++ (double)_cancelAllAnimationsImmediately
 {
   if (qword_1ED48EFD0 != -1)
   {
@@ -77,6 +77,7 @@ LABEL_14:
 
     if (v6 >= v4)
     {
+      break;
     }
 
     v3 = *(v0 + 64 + 8 * v6);
@@ -96,9 +97,11 @@ LABEL_10:
       continue;
     }
   }
+
+  return result;
 }
 
-+ (uint64_t)_advanceWithTime:(double)time
++ (void)_advanceWithTime:(double)time
 {
   if (qword_1ED48EFD0 != -1)
   {
@@ -117,29 +120,29 @@ LABEL_23:
 
   v5 = v4 & *(qword_1EA9951B0 + 64);
   v6 = (v3 + 63) >> 6;
-  v27 = qword_1EA9951B0;
+  v26 = qword_1EA9951B0;
 
   v7 = 0;
   v8 = "";
-  v25 = v6;
-  v26 = v2;
+  v24 = v6;
+  v25 = v2;
   while (v5)
   {
     v9 = v8;
 LABEL_12:
-    v11 = *(*(v27 + 56) + ((v7 << 9) | (8 * __clz(__rbit64(v5)))));
+    v11 = *(*(v26 + 56) + ((v7 << 9) | (8 * __clz(__rbit64(v5)))));
 
     signpost_c2_tick_enter_start();
     v12 = v11[33];
     v13 = swift_allocObject();
     *(v13 + 16) = sub_188AA7238;
     *(v13 + 24) = v11;
-    v32 = sub_188A4B574;
-    v33 = v13;
+    v31 = sub_188A4B574;
+    v32 = v13;
     aBlock = MEMORY[0x1E69E9820];
-    v29 = 1107296256;
-    v30 = sub_188A4A968;
-    v31 = &block_descriptor_115;
+    v28 = 1107296256;
+    v29 = sub_188A4A968;
+    v30 = &block_descriptor_115;
     v14 = _Block_copy(&aBlock);
 
     dispatch_sync(v12, v14);
@@ -169,12 +172,12 @@ LABEL_22:
     v17 = swift_allocObject();
     *(v17 + 16) = sub_188AA7258;
     *(v17 + 24) = v16;
-    v32 = sub_188E3FE50;
-    v33 = v17;
+    v31 = sub_188E3FE50;
+    v32 = v17;
     aBlock = MEMORY[0x1E69E9820];
-    v29 = 1107296256;
-    v30 = sub_188A4A968;
-    v31 = &block_descriptor_17_2;
+    v28 = 1107296256;
+    v29 = sub_188A4A968;
+    v30 = &block_descriptor_17_2;
     v18 = _Block_copy(&aBlock);
 
     dispatch_sync(v15, v18);
@@ -214,8 +217,8 @@ LABEL_22:
 
     v5 &= v5 - 1;
 
-    v6 = v25;
-    v2 = v26;
+    v6 = v24;
+    v2 = v25;
   }
 
   while (1)
@@ -229,6 +232,7 @@ LABEL_22:
 
     if (v10 >= v6)
     {
+      break;
     }
 
     v5 = *(v2 + 8 * v10);
@@ -242,7 +246,7 @@ LABEL_22:
   }
 }
 
-+ (uint64_t)_setCurrentMediaTime:(double)time
++ (void)_setCurrentMediaTime:(double)time
 {
   if (qword_1ED48EFD0 != -1)
   {
@@ -250,29 +254,29 @@ LABEL_14:
     swift_once();
   }
 
-  result = swift_beginAccess();
-  v3 = 0;
-  v4 = qword_1EA9951B0;
-  v5 = qword_1EA9951B0 + 64;
-  v6 = 1 << *(qword_1EA9951B0 + 32);
-  v7 = -1;
-  if (v6 < 64)
+  swift_beginAccess();
+  v2 = 0;
+  v3 = qword_1EA9951B0;
+  v4 = qword_1EA9951B0 + 64;
+  v5 = 1 << *(qword_1EA9951B0 + 32);
+  v6 = -1;
+  if (v5 < 64)
   {
-    v7 = ~(-1 << v6);
+    v6 = ~(-1 << v5);
   }
 
-  v8 = v7 & *(qword_1EA9951B0 + 64);
-  v9 = (v6 + 63) >> 6;
-  if (v8)
+  v7 = v6 & *(qword_1EA9951B0 + 64);
+  v8 = (v5 + 63) >> 6;
+  if (v7)
   {
     while (1)
     {
-      v10 = v3;
+      v9 = v2;
 LABEL_10:
-      v11 = __clz(__rbit64(v8));
-      v8 &= v8 - 1;
-      *(*(*(v4 + 56) + ((v10 << 9) | (8 * v11))) + 240) = time;
-      if (!v8)
+      v10 = __clz(__rbit64(v7));
+      v7 &= v7 - 1;
+      *(*(*(v3 + 56) + ((v9 << 9) | (8 * v10))) + 240) = time;
+      if (!v7)
       {
         goto LABEL_6;
       }
@@ -282,29 +286,29 @@ LABEL_10:
   while (1)
   {
 LABEL_6:
-    v10 = v3 + 1;
-    if (__OFADD__(v3, 1))
+    v9 = v2 + 1;
+    if (__OFADD__(v2, 1))
     {
       __break(1u);
       goto LABEL_14;
     }
 
-    if (v10 >= v9)
+    if (v9 >= v8)
     {
-      return result;
+      break;
     }
 
-    v8 = *(v5 + 8 * v10);
-    ++v3;
-    if (v8)
+    v7 = *(v4 + 8 * v9);
+    ++v2;
+    if (v7)
     {
-      v3 = v10;
+      v2 = v9;
       goto LABEL_10;
     }
   }
 }
 
-+ (uint64_t)_applicationDidEnterBackground
++ (double)_applicationDidEnterBackground
 {
   if (qword_1ED48EFD0 != -1)
   {
@@ -370,6 +374,7 @@ LABEL_11:
 
     if (v7 >= v4)
     {
+      break;
     }
 
     v3 = *(v0 + 64 + 8 * v7);
@@ -380,9 +385,11 @@ LABEL_11:
       goto LABEL_11;
     }
   }
+
+  return result;
 }
 
-+ (uint64_t)_applicationBecameActive
++ (double)_applicationBecameActive
 {
   if (qword_1ED48EFD0 != -1)
   {
@@ -453,6 +460,7 @@ LABEL_11:
 
     if (v9 >= v5)
     {
+      break;
     }
 
     v4 = *(v1 + 8 * v9);
@@ -463,6 +471,8 @@ LABEL_11:
       goto LABEL_11;
     }
   }
+
+  return result;
 }
 
 @end

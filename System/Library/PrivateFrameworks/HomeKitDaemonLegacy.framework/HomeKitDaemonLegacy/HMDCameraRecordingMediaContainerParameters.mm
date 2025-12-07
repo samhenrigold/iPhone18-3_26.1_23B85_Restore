@@ -56,10 +56,10 @@
 
 - (BOOL)_parseFromTLVData
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CFEC08] wrappertlv:1 name:@"kMediaContainerParametersFragmentLength"];
-  v10[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v9[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   v5 = [(HAPTLVBase *)self _parse:v4];
   if (v5)
   {
@@ -68,7 +68,6 @@
     self->_fragmentLength = field;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

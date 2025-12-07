@@ -9,6 +9,7 @@
 - (void)didPerformCommand:(id)command;
 - (void)didReportUserResponseFeedback:(id)feedback;
 - (void)presentViewController:(id)controller;
+- (void)presentViewControllerForCard:(id)card animate:(BOOL)animate;
 - (void)willDismissViewController:(id)controller;
 @end
 
@@ -162,6 +163,20 @@
   {
     v6 = objc_loadWeakRetained(&self->_feedbackDelegate);
     [v6 willDismissViewController:controllerCopy];
+  }
+}
+
+- (void)presentViewControllerForCard:(id)card animate:(BOOL)animate
+{
+  animateCopy = animate;
+  cardCopy = card;
+  WeakRetained = objc_loadWeakRetained(&self->_feedbackDelegate);
+  v7 = objc_opt_respondsToSelector();
+
+  if (v7)
+  {
+    v8 = objc_loadWeakRetained(&self->_feedbackDelegate);
+    [v8 presentViewControllerForCard:cardCopy animate:animateCopy];
   }
 }
 

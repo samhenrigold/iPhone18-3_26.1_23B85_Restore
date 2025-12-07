@@ -65,13 +65,21 @@ LABEL_7:
 
 - (void)layoutSubviews
 {
-  v6.receiver = self;
-  v6.super_class = PKPassBannerLeadingView;
-  [(PKPassBannerLeadingView *)&v6 layoutSubviews];
+  v19.receiver = self;
+  v19.super_class = PKPassBannerLeadingView;
+  [(PKPassBannerLeadingView *)&v19 layoutSubviews];
   [(PKPassBannerLeadingView *)self bounds];
+  v4 = v3;
+  v6 = v5;
+  v8 = *&v7;
+  v10 = *&v9;
   passView = self->_passView;
-  [(PKPassThumbnailView *)passView sizeThatFits:v4, v5];
-  PKSizeAlignedInRect();
+  [(PKPassThumbnailView *)passView sizeThatFits:v7, v9];
+  v12.n128_u64[0] = v4;
+  v13.n128_u64[0] = v6;
+  v14.n128_u64[0] = v8;
+  v15.n128_u64[0] = v10;
+  PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v16, v17, v12, v13, v14, v15, v18);
   [(PKPassThumbnailView *)passView setFrame:?];
 }
 

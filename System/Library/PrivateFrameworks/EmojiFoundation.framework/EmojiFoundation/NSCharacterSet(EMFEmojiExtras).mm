@@ -11,9 +11,9 @@
     +[NSCharacterSet(EMFEmojiExtras) _emojiCharacterSet];
   }
 
-  v1 = _emojiCharacterSet___emojiCharacterSet;
+  v2 = _emojiCharacterSet___emojiCharacterSet;
 
-  return v1;
+  return v2;
 }
 
 @end

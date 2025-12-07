@@ -54,7 +54,7 @@ LABEL_17:
     goto LABEL_23;
   }
 
-  [dataCopy transform];
+  objc_msgSend_transform(dataCopy);
   v33.receiver = self;
   v33.super_class = ARFaceAnchor;
   v6 = [(ARAnchor *)&v33 initWithIdentifier:v31 transform:?];

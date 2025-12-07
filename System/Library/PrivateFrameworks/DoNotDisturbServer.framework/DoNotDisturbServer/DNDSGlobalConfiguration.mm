@@ -166,7 +166,6 @@
     goto LABEL_8;
   }
 
-  automaticallyGenerated = configurationCopy->_automaticallyGenerated;
   if (self->_automaticallyGenerated)
   {
     selfCopy2 = configurationCopy;
@@ -192,10 +191,10 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v12 = [p_isa[4] laterDate:self->_lastModified];
-  v13 = [v12 isEqualToDate:p_isa[4]];
+  v11 = [p_isa[4] laterDate:self->_lastModified];
+  v12 = [v11 isEqualToDate:p_isa[4]];
 
-  if (v13)
+  if (v12)
   {
     selfCopy2 = p_isa;
   }
@@ -206,9 +205,9 @@ LABEL_8:
   }
 
 LABEL_9:
-  v10 = selfCopy2;
+  v9 = selfCopy2;
 
-  return v10;
+  return v9;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -334,16 +333,14 @@ LABEL_15:
 {
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
-  preventAutoReply = self->_preventAutoReply;
-  v6 = DNDEnabledSettingToString();
+  v5 = DNDEnabledSettingToString();
   bypassSettings = [(DNDSGlobalConfiguration *)self bypassSettings];
-  modesCanImpactAvailability = self->_modesCanImpactAvailability;
-  v9 = DNDEnabledSettingToString();
+  v7 = DNDEnabledSettingToString();
   lastModified = [(DNDSGlobalConfiguration *)self lastModified];
-  v11 = [MEMORY[0x277CCABB0] numberWithBool:{-[DNDSGlobalConfiguration isAutomaticallyGenerated](self, "isAutomaticallyGenerated")}];
-  v12 = [v3 stringWithFormat:@"<%@: %p preventAutoReply: %@; bypassSettings: %@; modesCanImpactAvailability: %@; lastModified: %@; automaticallyGenerated: %@>", v4, self, v6, bypassSettings, v9, lastModified, v11];;
+  v9 = [MEMORY[0x277CCABB0] numberWithBool:{-[DNDSGlobalConfiguration isAutomaticallyGenerated](self, "isAutomaticallyGenerated")}];
+  v10 = [v3 stringWithFormat:@"<%@: %p preventAutoReply: %@; bypassSettings: %@; modesCanImpactAvailability: %@; lastModified: %@; automaticallyGenerated: %@>", v4, self, v5, bypassSettings, v7, lastModified, v9];;
 
-  return v12;
+  return v10;
 }
 
 - (id)mutableCopyWithZone:(_NSZone *)zone

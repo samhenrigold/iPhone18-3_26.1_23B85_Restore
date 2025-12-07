@@ -119,55 +119,55 @@ void __95__PLAssetsdCPLResourceDownloader_sendClientCPLStatusWithVirtualTaskIden
   }
 }
 
-void __75__PLAssetsdCPLResourceDownloader_cancelCPLDownloadTasks_completionHandler___block_invoke(uint64_t a1)
+void __75__PLAssetsdCPLResourceDownloader_cancelCPLDownloadTasks_completionHandler___block_invoke(uint64_t a1, const char *a2)
 {
-  v2 = [*(a1 + 32) count];
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
-  v18 = 0;
-  if (!v2)
+  v4 = objc_msgSend_count(*(a1 + 32), a2);
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v20 = 0;
+  if (!v4)
   {
     goto LABEL_9;
   }
 
-  v3 = v2;
-  v4 = 0;
-  for (i = 0; i != v3; ++i)
+  v5 = v4;
+  v6 = 0;
+  for (i = 0; i != v5; ++i)
   {
-    v6 = [*(a1 + 32) objectAtIndexedSubscript:i];
+    v8 = [*(a1 + 32) objectAtIndexedSubscript:i];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v7 = [*(*(a1 + 40) + 40) objectForKey:v6];
-      v8 = [v7 objectForKeyedSubscript:@"taskIdentifier"];
-      if (v8)
+      v9 = [*(*(a1 + 40) + 40) objectForKey:v8];
+      v10 = [v9 objectForKeyedSubscript:@"taskIdentifier"];
+      if (v10)
       {
-        ++v16[3];
-        v10[0] = MEMORY[0x1E69E9820];
-        v10[1] = 3221225472;
-        v10[2] = __75__PLAssetsdCPLResourceDownloader_cancelCPLDownloadTasks_completionHandler___block_invoke_2;
-        v10[3] = &unk_1E7573C50;
-        v9 = *(a1 + 48);
-        v10[4] = *(a1 + 40);
-        v11 = v6;
-        v14 = &v15;
-        v13 = *(a1 + 56);
-        v12 = *(a1 + 32);
-        [v9 cancelResourceTransferTaskWithIdentifier:v8 completion:v10];
+        ++v18[3];
+        v12[0] = MEMORY[0x1E69E9820];
+        v12[1] = 3221225472;
+        v12[2] = __75__PLAssetsdCPLResourceDownloader_cancelCPLDownloadTasks_completionHandler___block_invoke_2;
+        v12[3] = &unk_1E7573C50;
+        v11 = *(a1 + 48);
+        v12[4] = *(a1 + 40);
+        v13 = v8;
+        v16 = &v17;
+        v15 = *(a1 + 56);
+        v14 = *(a1 + 32);
+        [v11 cancelResourceTransferTaskWithIdentifier:v10 completion:v12];
 
-        v4 = 1;
+        v6 = 1;
       }
     }
   }
 
-  if ((v4 & 1) == 0)
+  if ((v6 & 1) == 0)
   {
 LABEL_9:
     (*(*(a1 + 56) + 16))();
   }
 
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v17, 8);
 }
 
 void __75__PLAssetsdCPLResourceDownloader_cancelCPLDownloadTasks_completionHandler___block_invoke_2(uint64_t a1, char a2)
@@ -189,17 +189,17 @@ void __75__PLAssetsdCPLResourceDownloader_cancelCPLDownloadTasks_completionHandl
   dispatch_async(v5, block);
 }
 
-uint64_t __75__PLAssetsdCPLResourceDownloader_cancelCPLDownloadTasks_completionHandler___block_invoke_3(uint64_t result)
+void *__75__PLAssetsdCPLResourceDownloader_cancelCPLDownloadTasks_completionHandler___block_invoke_3(void *result)
 {
   v1 = result;
   if (*(result + 72) == 1)
   {
-    result = [*(*(result + 32) + 40) removeObjectForKey:*(result + 40)];
+    result = [*(result[4] + 40) removeObjectForKey:result[5]];
   }
 
-  if (!--*(*(*(v1 + 64) + 8) + 24))
+  if (!--*(*(v1[8] + 8) + 24))
   {
-    v2 = *(*(v1 + 56) + 16);
+    v2 = *(v1[7] + 16);
 
     return v2();
   }
@@ -727,7 +727,7 @@ void __52__PLAssetsdCPLResourceDownloader_handleInvalidation__block_invoke(uint6
 {
   v15 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_pendingCPLDownloadsIsolationQueue);
-  if ([(NSMutableDictionary *)self->_pendingCPLDownloads count])
+  if (objc_msgSend_count(self->_pendingCPLDownloads))
   {
     libraryServicesManager = [(PLPhotoLibrary *)self->_photoLibrary libraryServicesManager];
     cloudPhotoLibraryManager = [libraryServicesManager cloudPhotoLibraryManager];

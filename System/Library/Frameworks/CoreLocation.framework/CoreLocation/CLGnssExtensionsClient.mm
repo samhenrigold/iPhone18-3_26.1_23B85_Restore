@@ -45,9 +45,9 @@
 
 + (id)newAssertionForBundle:(id)bundle withReason:(id)reason withCallbackQueue:(id)queue andBlock:(id)block
 {
-  bundlePath = [bundle bundlePath];
+  v9 = objc_msgSend_bundlePath(bundle, a2, bundle, reason);
 
-  return sub_19B96A90C(&stru_1F0E6F140, bundlePath, reason, queue, block);
+  return sub_19B96A90C(&stru_1F0E6F140, v9, reason, queue, block);
 }
 
 @end

@@ -60,23 +60,21 @@
 
 - (void)_stopMonitoring
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterRemoveObserver(DarwinNotifyCenter, self, @"kAFPreferencesDidChangeDarwinNotification", 0);
   v4 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[CSSiriEnabledMonitor _stopMonitoring]";
-    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Stop monitoring : Siri setting switch", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[CSSiriEnabledMonitor _stopMonitoring]";
+    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Stop monitoring : Siri setting switch", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startMonitoringWithQueue:(id)queue
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterAddObserver(DarwinNotifyCenter, self, _AssistantPrefsChangedNotification, @"kAFPreferencesDidChangeDarwinNotification", 0, CFNotificationSuspensionBehaviorDeliverImmediately);
   v5 = AFPreferencesAssistantEnabled();
@@ -98,14 +96,12 @@
       v7 = @"Disabled";
     }
 
-    v9 = 136315394;
-    v10 = "[CSSiriEnabledMonitor _startMonitoringWithQueue:]";
-    v11 = 2114;
-    v12 = v7;
-    _os_log_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_DEFAULT, "%s Start monitoring : Siri setting switch, Siri is %{public}@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[CSSiriEnabledMonitor _startMonitoringWithQueue:]";
+    v10 = 2114;
+    v11 = v7;
+    _os_log_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_DEFAULT, "%s Start monitoring : Siri setting switch, Siri is %{public}@", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (CSSiriEnabledMonitor)init
@@ -123,9 +119,11 @@
 
 uint64_t __38__CSSiriEnabledMonitor_sharedInstance__block_invoke()
 {
-  sharedInstance__sharedInstance = objc_alloc_init(CSSiriEnabledMonitor);
+  v0 = objc_alloc_init(CSSiriEnabledMonitor);
+  v1 = sharedInstance__sharedInstance;
+  sharedInstance__sharedInstance = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

@@ -401,7 +401,7 @@ LABEL_80:
     v27 = 0;
     v28 = 0;
     v26 = 0;
-    v15 = sub_100B014BC(descriptionCopy, &v28, &v27, &v26, &v29);
+    v15 = sub_100B014BC(descriptionCopy, &v28, &v27, &v26, v29);
     v14 = v28;
     v16 = v27;
     v17 = v26;

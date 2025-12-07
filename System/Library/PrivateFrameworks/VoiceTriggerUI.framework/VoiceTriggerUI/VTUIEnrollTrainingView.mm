@@ -3,6 +3,7 @@
 - (VTUIEnrollTrainingViewDelegate)delegate;
 - (void)_setupUI;
 - (void)dealloc;
+- (void)setContinuationAndPreludeLabelHidden:(BOOL)hidden;
 - (void)setContinuationLabelHidden:(BOOL)hidden animated:(BOOL)animated;
 - (void)setDelegate:(id)delegate;
 - (void)setPreludeLabelHidden:(BOOL)hidden;
@@ -27,7 +28,7 @@
 
 - (void)_setupUI
 {
-  v145[3] = *MEMORY[0x277D85DE8];
+  v144[3] = *MEMORY[0x277D85DE8];
   v3 = +[VTUIStyle sharedStyle];
   readableContentGuide = [(VTUIEnrollTrainingView *)self readableContentGuide];
   systemBackgroundColor = [MEMORY[0x277D75348] systemBackgroundColor];
@@ -91,7 +92,7 @@
   v25 = [v3 VTUIDeviceSpecificString:@"TEXT_LABEL_TO_FIRST"];
   [(UILabel *)self->_instructionContinuationLabel setText:v25];
 
-  v135 = v14;
+  v134 = v14;
   [v14 addArrangedSubview:self->_instructionContinuationLabel];
   v26 = objc_alloc_init(MEMORY[0x277D756B8]);
   statusLabel = self->_statusLabel;
@@ -125,27 +126,27 @@
     v36 = +[VTUIStyle sharedStyle];
     isIpad = [v36 isIpad];
 
-    v116 = MEMORY[0x277CCAAD0];
+    v115 = MEMORY[0x277CCAAD0];
     v38 = self->_skipButton;
     if (isIpad)
     {
       widthAnchor = [(UIButton *)v38 widthAnchor];
       [v3 footerButtonMaximumWidth];
-      v118 = widthAnchor;
+      v117 = widthAnchor;
       [widthAnchor constraintEqualToConstant:?];
       v41 = v40 = v3;
-      v145[0] = v41;
+      v144[0] = v41;
       centerXAnchor = [(UIButton *)self->_skipButton centerXAnchor];
       centerXAnchor2 = [(VTUIEnrollTrainingView *)self centerXAnchor];
       trailingAnchor = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-      v145[1] = trailingAnchor;
+      v144[1] = trailingAnchor;
       heightAnchor = [(UIButton *)self->_skipButton heightAnchor];
       v46 = v40;
       [v40 primaryButtonHeight];
       heightAnchor2 = [heightAnchor constraintEqualToConstant:?];
-      v145[2] = heightAnchor2;
-      v48 = [MEMORY[0x277CBEA60] arrayWithObjects:v145 count:3];
-      [v116 activateConstraints:v48];
+      v144[2] = heightAnchor2;
+      v48 = [MEMORY[0x277CBEA60] arrayWithObjects:v144 count:3];
+      [v115 activateConstraints:v48];
     }
 
     else
@@ -153,121 +154,121 @@
       leadingAnchor = [(UIButton *)v38 leadingAnchor];
       [(VTUIEnrollTrainingView *)self leadingAnchor];
       v41 = v50 = v3;
-      v118 = leadingAnchor;
+      v117 = leadingAnchor;
       centerXAnchor = [leadingAnchor constraintEqualToAnchor:v41 constant:38.0];
-      v144[0] = centerXAnchor;
+      v143[0] = centerXAnchor;
       centerXAnchor2 = [(UIButton *)self->_skipButton trailingAnchor];
       trailingAnchor = [(VTUIEnrollTrainingView *)self trailingAnchor];
       heightAnchor = [centerXAnchor2 constraintEqualToAnchor:trailingAnchor constant:-38.0];
-      v144[1] = heightAnchor;
+      v143[1] = heightAnchor;
       heightAnchor2 = [(UIButton *)self->_skipButton heightAnchor];
       v46 = v50;
       [v50 primaryButtonHeight];
       v48 = [heightAnchor2 constraintEqualToConstant:?];
-      v144[2] = v48;
-      v51 = [MEMORY[0x277CBEA60] arrayWithObjects:v144 count:3];
-      [v116 activateConstraints:v51];
+      v143[2] = v48;
+      v51 = [MEMORY[0x277CBEA60] arrayWithObjects:v143 count:3];
+      [v115 activateConstraints:v51];
     }
 
     v3 = v46;
     v33 = 0x277CBE000uLL;
   }
 
-  v114 = MEMORY[0x277CCAAD0];
+  v113 = MEMORY[0x277CCAAD0];
   topAnchor = [(SUICOrbView *)self->_orbView topAnchor];
   safeAreaLayoutGuide = [(VTUIEnrollTrainingView *)self safeAreaLayoutGuide];
   topAnchor2 = [safeAreaLayoutGuide topAnchor];
   [v3 orbOffsetFromTopTraining];
   [topAnchor constraintEqualToAnchor:topAnchor2 constant:?];
   v52 = v3;
-  v115 = v136 = v3;
-  v143[0] = v115;
+  v114 = v135 = v3;
+  v142[0] = v114;
   centerXAnchor3 = [(SUICOrbView *)self->_orbView centerXAnchor];
   centerXAnchor4 = [(VTUIEnrollTrainingView *)self centerXAnchor];
   v55 = [centerXAnchor3 constraintEqualToAnchor:centerXAnchor4];
-  v143[1] = v55;
+  v142[1] = v55;
   widthAnchor2 = [(SUICOrbView *)self->_orbView widthAnchor];
   [v52 orbLength];
   v57 = [widthAnchor2 constraintEqualToConstant:?];
-  v143[2] = v57;
+  v142[2] = v57;
   heightAnchor3 = [(SUICOrbView *)self->_orbView heightAnchor];
   [v52 orbLength];
   v59 = [heightAnchor3 constraintEqualToConstant:?];
-  v143[3] = v59;
-  v60 = [*(v33 + 2656) arrayWithObjects:v143 count:4];
-  [v114 activateConstraints:v60];
+  v142[3] = v59;
+  v60 = [*(v33 + 2656) arrayWithObjects:v142 count:4];
+  [v113 activateConstraints:v60];
 
-  v120 = MEMORY[0x277CCAAD0];
+  v119 = MEMORY[0x277CCAAD0];
   centerXAnchor5 = [(VTUICheckMarkView *)self->_checkMark centerXAnchor];
   centerXAnchor6 = [(SUICOrbView *)self->_orbView centerXAnchor];
   v62 = [centerXAnchor5 constraintEqualToAnchor:centerXAnchor6];
-  v142[0] = v62;
+  v141[0] = v62;
   centerYAnchor = [(VTUICheckMarkView *)self->_checkMark centerYAnchor];
   centerYAnchor2 = [(SUICOrbView *)self->_orbView centerYAnchor];
   v65 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v142[1] = v65;
-  v66 = [MEMORY[0x277CBEA60] arrayWithObjects:v142 count:2];
-  [v120 activateConstraints:v66];
+  v141[1] = v65;
+  v66 = [MEMORY[0x277CBEA60] arrayWithObjects:v141 count:2];
+  [v119 activateConstraints:v66];
 
-  v124 = MEMORY[0x277CCAAD0];
-  topAnchor3 = [v135 topAnchor];
+  v123 = MEMORY[0x277CCAAD0];
+  topAnchor3 = [v134 topAnchor];
   bottomAnchor = [(SUICOrbView *)self->_orbView bottomAnchor];
   v67 = [topAnchor3 constraintEqualToAnchor:bottomAnchor];
-  v141[0] = v67;
-  leadingAnchor2 = [v135 leadingAnchor];
+  v140[0] = v67;
+  leadingAnchor2 = [v134 leadingAnchor];
   leadingAnchor3 = [readableContentGuide leadingAnchor];
   v70 = [leadingAnchor2 constraintEqualToAnchor:leadingAnchor3];
-  v141[1] = v70;
-  trailingAnchor2 = [v135 trailingAnchor];
+  v140[1] = v70;
+  trailingAnchor2 = [v134 trailingAnchor];
   trailingAnchor3 = [readableContentGuide trailingAnchor];
   v73 = [trailingAnchor2 constraintEqualToAnchor:trailingAnchor3];
-  v141[2] = v73;
-  v74 = [MEMORY[0x277CBEA60] arrayWithObjects:v141 count:3];
-  [v124 activateConstraints:v74];
+  v140[2] = v73;
+  v74 = [MEMORY[0x277CBEA60] arrayWithObjects:v140 count:3];
+  [v123 activateConstraints:v74];
 
   LODWORD(v75) = 1148846080;
-  [v135 setContentHuggingPriority:1 forAxis:v75];
-  v125 = MEMORY[0x277CCAAD0];
+  [v134 setContentHuggingPriority:1 forAxis:v75];
+  v124 = MEMORY[0x277CCAAD0];
   topAnchor4 = [(UILabel *)self->_statusLabel topAnchor];
-  topAnchor5 = [v135 topAnchor];
+  topAnchor5 = [v134 topAnchor];
   v76 = [topAnchor4 constraintEqualToAnchor:topAnchor5];
-  v140[0] = v76;
+  v139[0] = v76;
   leadingAnchor4 = [(UILabel *)self->_statusLabel leadingAnchor];
   leadingAnchor5 = [readableContentGuide leadingAnchor];
   v79 = [leadingAnchor4 constraintEqualToAnchor:leadingAnchor5];
-  v140[1] = v79;
+  v139[1] = v79;
   trailingAnchor4 = [(UILabel *)self->_statusLabel trailingAnchor];
   trailingAnchor5 = [readableContentGuide trailingAnchor];
   v82 = [trailingAnchor4 constraintEqualToAnchor:trailingAnchor5];
-  v140[2] = v82;
-  v83 = [MEMORY[0x277CBEA60] arrayWithObjects:v140 count:3];
-  [v125 activateConstraints:v83];
+  v139[2] = v82;
+  v83 = [MEMORY[0x277CBEA60] arrayWithObjects:v139 count:3];
+  [v124 activateConstraints:v83];
 
-  v126 = MEMORY[0x277CCAAD0];
+  v125 = MEMORY[0x277CCAAD0];
   leftAnchor = [(UIButton *)self->_skipButton leftAnchor];
   leftAnchor2 = [readableContentGuide leftAnchor];
   v84 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-  v139[0] = v84;
+  v138[0] = v84;
   rightAnchor = [(UIButton *)self->_skipButton rightAnchor];
   rightAnchor2 = [readableContentGuide rightAnchor];
   v87 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
-  v139[1] = v87;
+  v138[1] = v87;
   bottomAnchor2 = [(UIButton *)self->_skipButton bottomAnchor];
   safeAreaLayoutGuide2 = [(VTUIEnrollTrainingView *)self safeAreaLayoutGuide];
   bottomAnchor3 = [safeAreaLayoutGuide2 bottomAnchor];
-  [v136 footerSkipButtonBaselineFromBottom];
+  [v135 footerSkipButtonBaselineFromBottom];
   v92 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3 constant:-v91];
-  v139[2] = v92;
-  v93 = [MEMORY[0x277CBEA60] arrayWithObjects:v139 count:3];
-  [v126 activateConstraints:v93];
+  v138[2] = v92;
+  v93 = [MEMORY[0x277CBEA60] arrayWithObjects:v138 count:3];
+  [v125 activateConstraints:v93];
 
   v94 = [MEMORY[0x277CCA8D8] bundleWithPath:@"/AppleInternal/Library/Assistant/UIPlugins/Debug.siriUIBundle"];
   if (v94)
   {
     v95 = [MEMORY[0x277D755B8] imageNamed:@"radarBug" inBundle:v94 compatibleWithTraitCollection:0];
-    v134 = [v95 imageWithRenderingMode:2];
+    v133 = [v95 imageWithRenderingMode:2];
 
-    v96 = [MEMORY[0x277D619A0] buttonWithImageTemplate:v134 style:0];
+    v96 = [MEMORY[0x277D619A0] buttonWithImageTemplate:v133 style:0];
     radarButton = self->_radarButton;
     self->_radarButton = v96;
 
@@ -282,24 +283,22 @@
 
     [(VTUIEnrollTrainingView *)self setRadarButtonHidden:0];
     [(VTUIEnrollTrainingView *)self addSubview:self->_radarButton];
-    v130 = MEMORY[0x277CCAAD0];
+    v129 = MEMORY[0x277CCAAD0];
     trailingAnchor6 = [(SiriUIContentButton *)self->_radarButton trailingAnchor];
     safeAreaLayoutGuide3 = [(VTUIEnrollTrainingView *)self safeAreaLayoutGuide];
     trailingAnchor7 = [safeAreaLayoutGuide3 trailingAnchor];
-    [v136 radarBtnHorizontalPadding];
+    [v135 radarBtnHorizontalPadding];
     v106 = [trailingAnchor6 constraintEqualToAnchor:trailingAnchor7 constant:-v105];
-    v138[0] = v106;
+    v137[0] = v106;
     bottomAnchor4 = [(SiriUIContentButton *)self->_radarButton bottomAnchor];
     safeAreaLayoutGuide4 = [(VTUIEnrollTrainingView *)self safeAreaLayoutGuide];
     bottomAnchor5 = [safeAreaLayoutGuide4 bottomAnchor];
-    [v136 radarBtnVerticalPadding];
+    [v135 radarBtnVerticalPadding];
     v111 = [bottomAnchor4 constraintEqualToAnchor:bottomAnchor5 constant:-v110];
-    v138[1] = v111;
-    v112 = [MEMORY[0x277CBEA60] arrayWithObjects:v138 count:2];
-    [v130 activateConstraints:v112];
+    v137[1] = v111;
+    v112 = [MEMORY[0x277CBEA60] arrayWithObjects:v137 count:2];
+    [v129 activateConstraints:v112];
   }
-
-  v113 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -312,7 +311,7 @@
 
 - (void)showRadarExitButton:(id)button
 {
-  v26[3] = *MEMORY[0x277D85DE8];
+  v25[3] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277D75220];
   buttonCopy = button;
   v6 = [v4 buttonWithType:0];
@@ -329,26 +328,24 @@
   [(UIButton *)v9 setTitleColor:systemBlueColor forState:0];
 
   [(VTUIEnrollTrainingView *)self addSubview:self->_radarExitButton];
-  v22 = MEMORY[0x277CCAAD0];
+  v21 = MEMORY[0x277CCAAD0];
   leftAnchor = [(UIButton *)self->_radarExitButton leftAnchor];
   readableContentGuide = [(VTUIEnrollTrainingView *)self readableContentGuide];
   leftAnchor2 = [readableContentGuide leftAnchor];
   v11 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-  v26[0] = v11;
+  v25[0] = v11;
   rightAnchor = [(UIButton *)self->_radarExitButton rightAnchor];
   readableContentGuide2 = [(VTUIEnrollTrainingView *)self readableContentGuide];
   rightAnchor2 = [readableContentGuide2 rightAnchor];
   v15 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
-  v26[1] = v15;
+  v25[1] = v15;
   bottomAnchor = [(UIButton *)self->_radarExitButton bottomAnchor];
   safeAreaLayoutGuide = [(VTUIEnrollTrainingView *)self safeAreaLayoutGuide];
   bottomAnchor2 = [safeAreaLayoutGuide bottomAnchor];
   v19 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v26[2] = v19;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:3];
-  [v22 activateConstraints:v20];
-
-  v21 = *MEMORY[0x277D85DE8];
+  v25[2] = v19;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:3];
+  [v21 activateConstraints:v20];
 }
 
 - (void)setDelegate:(id)delegate
@@ -360,6 +357,20 @@
   {
     [(SiriUIContentButton *)radarButton addTarget:delegateCopy action:sel_enrollTrainingViewRadarButtonPressed_ forControlEvents:64];
   }
+}
+
+- (void)setContinuationAndPreludeLabelHidden:(BOOL)hidden
+{
+  hiddenCopy = hidden;
+  v5 = 1.0;
+  if (hidden)
+  {
+    v5 = 0.0;
+  }
+
+  [(UILabel *)self->_instructionPreludeLabel setAlpha:v5];
+
+  [(VTUIEnrollTrainingView *)self setContinuationLabelHidden:hiddenCopy animated:0];
 }
 
 - (void)setPreludeLabelHidden:(BOOL)hidden

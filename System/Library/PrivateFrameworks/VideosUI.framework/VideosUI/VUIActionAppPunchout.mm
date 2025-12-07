@@ -40,7 +40,7 @@
 
 - (void)performWithTargetResponder:(id)responder completionHandler:(id)handler
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   punchoutURL = [(VUIActionAppPunchout *)self punchoutURL];
   v7 = punchoutURL;
@@ -51,23 +51,23 @@
 
     if (v9)
     {
-      v10 = [(VUIActionAppPunchout *)self _addMusicAppMetricsToUrl:v7];
+      v11 = [(VUIActionAppPunchout *)self _addMusicAppMetricsToUrl:v7];
     }
 
     else
     {
-      v10 = v7;
+      v11 = v7;
     }
 
-    v11 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v12 = VUIDefaultLogObject(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v12 = 138412290;
-      v13 = v10;
-      _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_INFO, "VUIActionAppPunchout:: punching out to %@", &v12, 0xCu);
+      v13 = 138412290;
+      v14 = v11;
+      _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_INFO, "VUIActionAppPunchout:: punching out to %@", &v13, 0xCu);
     }
 
-    [(VUIActionAppPunchout *)self _openPunchoutURL:v10];
+    [(VUIActionAppPunchout *)self _openPunchoutURL:v11];
   }
 
   if (handlerCopy)
@@ -109,7 +109,7 @@
 
 - (void)_openPunchoutURL:(id)l
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   lCopy = l;
   v6 = [objc_alloc(MEMORY[0x1E696AF20]) initWithURL:lCopy resolvingAgainstBaseURL:0];
   scheme = [v6 scheme];
@@ -127,7 +127,7 @@ LABEL_10:
       goto LABEL_11;
     }
 
-    v27 = scheme2;
+    v28 = scheme2;
   }
 
   v11 = lCopy;
@@ -146,7 +146,7 @@ LABEL_10:
 
   v6 = v12;
   lCopy = v11;
-  scheme2 = v27;
+  scheme2 = v28;
   if ((v9 & 1) == 0)
   {
     goto LABEL_10;
@@ -154,61 +154,63 @@ LABEL_10:
 
 LABEL_11:
 
-  if ([(VUIActionAppPunchout *)self isSensitiveURL])
+  isSensitiveURL = [(VUIActionAppPunchout *)self isSensitiveURL];
+  if (isSensitiveURL)
   {
-    v16 = @"<sensitive url>";
+    v17 = @"<sensitive url>";
   }
 
   else
   {
-    v16 = [lCopy description];
+    isSensitiveURL = [lCopy description];
+    v17 = isSensitiveURL;
   }
 
-  v17 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v18 = VUIDefaultLogObject(isSensitiveURL);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v34 = v16;
-    v35 = 1024;
-    v36 = isTVApp;
-    v37 = 1024;
-    isSensitiveURL = [(VUIActionAppPunchout *)self isSensitiveURL];
-    _os_log_impl(&dword_1E323F000, v17, OS_LOG_TYPE_DEFAULT, "VUIActionAppPunchout:: open url: %@, punchoutToTVApp: %d, isSensitiveURL: %d", buf, 0x18u);
+    v35 = v17;
+    v36 = 1024;
+    v37 = isTVApp;
+    v38 = 1024;
+    isSensitiveURL2 = [(VUIActionAppPunchout *)self isSensitiveURL];
+    _os_log_impl(&dword_1E323F000, v18, OS_LOG_TYPE_DEFAULT, "VUIActionAppPunchout:: open url: %@, punchoutToTVApp: %d, isSensitiveURL: %d", buf, 0x18u);
   }
 
   if (isTVApp)
   {
-    v18 = +[VUIInterfaceFactory sharedInstance];
-    openURLHandler = [v18 openURLHandler];
+    v19 = +[VUIInterfaceFactory sharedInstance];
+    openURLHandler = [v19 openURLHandler];
     appContext = [(VUIActionAppPunchout *)self appContext];
-    v21 = +[VUITVAppLauncher sharedInstance];
-    deeplinkCompletionHandler = [v21 deeplinkCompletionHandler];
+    v22 = +[VUITVAppLauncher sharedInstance];
+    deeplinkCompletionHandler = [v22 deeplinkCompletionHandler];
     [openURLHandler processDeeplink:lCopy appContext:appContext completion:deeplinkCompletionHandler];
 
-    v23 = +[VUIMetricsController sharedInstance];
+    v24 = +[VUIMetricsController sharedInstance];
     absoluteString = [lCopy absoluteString];
-    [v23 setExitEventDestinationUrl:absoluteString];
+    [v24 setExitEventDestinationUrl:absoluteString];
   }
 
   else
   {
-    v23 = objc_alloc_init(MEMORY[0x1E69636B8]);
-    v31 = *MEMORY[0x1E699F970];
-    v32 = MEMORY[0x1E695E118];
-    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
-    [v23 setFrontBoardOptions:v25];
+    v24 = objc_alloc_init(MEMORY[0x1E69636B8]);
+    v32 = *MEMORY[0x1E699F970];
+    v33 = MEMORY[0x1E695E118];
+    v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+    [v24 setFrontBoardOptions:v26];
 
-    [v23 setSensitive:self->_isSensitiveURL];
+    [v24 setSensitive:self->_isSensitiveURL];
     defaultWorkspace = [MEMORY[0x1E6963608] defaultWorkspace];
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __41__VUIActionAppPunchout__openPunchoutURL___block_invoke;
-    v28[3] = &unk_1E8733CC8;
-    v29 = v16;
-    v30 = lCopy;
-    [defaultWorkspace openURL:v30 configuration:v23 completionHandler:v28];
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __41__VUIActionAppPunchout__openPunchoutURL___block_invoke;
+    v29[3] = &unk_1E8733CC8;
+    v30 = v17;
+    v31 = lCopy;
+    [defaultWorkspace openURL:v31 configuration:v24 completionHandler:v29];
 
-    absoluteString = v29;
+    absoluteString = v30;
   }
 }
 
@@ -217,7 +219,7 @@ void __41__VUIActionAppPunchout__openPunchoutURL___block_invoke(uint64_t a1, voi
   v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = VUIDefaultLogObject();
+  v7 = VUIDefaultLogObject(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(a1 + 32);

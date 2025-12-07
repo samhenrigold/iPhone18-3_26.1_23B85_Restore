@@ -36,40 +36,40 @@
 
   if (name)
   {
-    sub_1AC30A92C();
+    v7 = sub_1AC30A92C();
     v8 = v6;
     MEMORY[0x1E69E5920](name);
-    v7 = v8;
+    sub_1AC27E64C(v7, v8, layout, v8);
   }
 
-  else
-  {
-    v7 = 0;
-  }
-
-  sub_1AC27E64C(v7);
+  sub_1AC27E64C(0, 0, layout, 0);
 }
 
 - (_TtC19HeadphoneSettingsUI24BobbleTutorialController)initWithTitle:(id)title detailText:(id)text icon:(id)icon contentLayout:(int64_t)layout
 {
+  layoutCopy = layout;
   MEMORY[0x1E69E5928](title);
   MEMORY[0x1E69E5928](text);
   MEMORY[0x1E69E5928](icon);
   sub_1AC30A92C();
   if (text)
   {
-    sub_1AC30A92C();
-    v8 = v6;
+    v8 = sub_1AC30A92C();
+    v9 = v6;
     MEMORY[0x1E69E5920](text);
-    v7 = v8;
+    v7 = v9;
+    v10 = v8;
+    v11 = v9;
   }
 
   else
   {
     v7 = 0;
+    v10 = 0;
+    v11 = 0;
   }
 
-  sub_1AC27E9A4(v7);
+  sub_1AC27E9A4(v10, v11, icon, layoutCopy, v7);
 }
 
 @end

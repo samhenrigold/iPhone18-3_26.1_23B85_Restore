@@ -64,22 +64,20 @@
 
 void __40__FAFamilyNotifier_deliverNotification___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = _FALogSystem();
+  v4 = _FALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 136315650;
-    v8 = "[FAFamilyNotifier deliverNotification:]_block_invoke";
-    v9 = 2112;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_24AAE4000, v4, OS_LOG_TYPE_DEFAULT, "%s: XPC error delivering notification %@ - %@", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "[FAFamilyNotifier deliverNotification:]_block_invoke";
+    v8 = 2112;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_24AAE4000, v4, OS_LOG_TYPE_DEFAULT, "%s: XPC error delivering notification %@ - %@", &v6, 0x20u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeNotificationWithIdentifier:(id)identifier
@@ -99,22 +97,20 @@ void __40__FAFamilyNotifier_deliverNotification___block_invoke(uint64_t a1, void
 
 void __53__FAFamilyNotifier_removeNotificationWithIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = _FALogSystem();
+  v4 = _FALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 136315650;
-    v8 = "[FAFamilyNotifier removeNotificationWithIdentifier:]_block_invoke";
-    v9 = 2112;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_24AAE4000, v4, OS_LOG_TYPE_DEFAULT, "%s: XPC error removing notification with identifier %@ - %@", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "[FAFamilyNotifier removeNotificationWithIdentifier:]_block_invoke";
+    v8 = 2112;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_24AAE4000, v4, OS_LOG_TYPE_DEFAULT, "%s: XPC error removing notification with identifier %@ - %@", &v6, 0x20u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAllNotifications
@@ -127,19 +123,17 @@ void __53__FAFamilyNotifier_removeNotificationWithIdentifier___block_invoke(uint
 
 void __42__FAFamilyNotifier_removeAllNotifications__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = _FALogSystem();
+  v3 = _FALogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315394;
-    v6 = "[FAFamilyNotifier removeAllNotifications]_block_invoke";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_impl(&dword_24AAE4000, v3, OS_LOG_TYPE_DEFAULT, "%s: XPC error removing all notifications - %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[FAFamilyNotifier removeAllNotifications]_block_invoke";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_impl(&dword_24AAE4000, v3, OS_LOG_TYPE_DEFAULT, "%s: XPC error removing all notifications - %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_pendingNotificationsWithClientIdentifier:(id)identifier
@@ -179,20 +173,19 @@ void __42__FAFamilyNotifier_removeAllNotifications__block_invoke(uint64_t a1, vo
 
 void __62__FAFamilyNotifier__pendingNotificationsWithClientIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = _FALogSystem();
+  v4 = _FALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "[FAFamilyNotifier _pendingNotificationsWithClientIdentifier:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_24AAE4000, v4, OS_LOG_TYPE_DEFAULT, "%s: XPC error removing all notifications - %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[FAFamilyNotifier _pendingNotificationsWithClientIdentifier:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_24AAE4000, v4, OS_LOG_TYPE_DEFAULT, "%s: XPC error removing all notifications - %@", &v5, 0x16u);
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __62__FAFamilyNotifier__pendingNotificationsWithClientIdentifier___block_invoke_2(uint64_t a1, void *a2)
@@ -272,77 +265,70 @@ void __62__FAFamilyNotifier__pendingNotificationsWithClientIdentifier___block_in
 
 void __35__FAFamilyNotifier_agentConnection__block_invoke_3(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = _FALogSystem();
+  v4 = _FALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "[FAFamilyNotifier agentConnection]_block_invoke_3";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_24AAE4000, v4, OS_LOG_TYPE_DEFAULT, "%s: XPC error bootstrapping remote client interface - %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[FAFamilyNotifier agentConnection]_block_invoke_3";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_24AAE4000, v4, OS_LOG_TYPE_DEFAULT, "%s: XPC error bootstrapping remote client interface - %@", &v5, 0x16u);
   }
 
   [*(*(*(a1 + 32) + 8) + 40) _agentConnectionFailedToBootstrap];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_agentConnectionWasInterrupted
 {
-  v8 = *MEMORY[0x277D85DE8];
-  [(NSLock *)self->_connLock lock];
-  v3 = _FALogSystem();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = _FALogSystem([(NSLock *)self->_connLock lock]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[FAFamilyNotifier _agentConnectionWasInterrupted]";
-    _os_log_impl(&dword_24AAE4000, v3, OS_LOG_TYPE_DEFAULT, "%s: agent connection interrupted. Disposing of connection.", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[FAFamilyNotifier _agentConnectionWasInterrupted]";
+    _os_log_impl(&dword_24AAE4000, v3, OS_LOG_TYPE_DEFAULT, "%s: agent connection interrupted. Disposing of connection.", &v5, 0xCu);
   }
 
   conn = self->_conn;
   self->_conn = 0;
 
   [(NSLock *)self->_connLock unlock];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_agentConnectionWasInvalidated
 {
-  v8 = *MEMORY[0x277D85DE8];
-  [(NSLock *)self->_connLock lock];
-  v3 = _FALogSystem();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = _FALogSystem([(NSLock *)self->_connLock lock]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[FAFamilyNotifier _agentConnectionWasInvalidated]";
-    _os_log_impl(&dword_24AAE4000, v3, OS_LOG_TYPE_DEFAULT, "%s: agent connection invalidated. Disposing of connection.", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[FAFamilyNotifier _agentConnectionWasInvalidated]";
+    _os_log_impl(&dword_24AAE4000, v3, OS_LOG_TYPE_DEFAULT, "%s: agent connection invalidated. Disposing of connection.", &v5, 0xCu);
   }
 
   conn = self->_conn;
   self->_conn = 0;
 
   [(NSLock *)self->_connLock unlock];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_agentConnectionFailedToBootstrap
 {
-  v8 = *MEMORY[0x277D85DE8];
-  [(NSLock *)self->_connLock lock];
-  v3 = _FALogSystem();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = _FALogSystem([(NSLock *)self->_connLock lock]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[FAFamilyNotifier _agentConnectionFailedToBootstrap]";
-    _os_log_impl(&dword_24AAE4000, v3, OS_LOG_TYPE_DEFAULT, "%s: agent connection failed to bootstrap. Disposing of connection.", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[FAFamilyNotifier _agentConnectionFailedToBootstrap]";
+    _os_log_impl(&dword_24AAE4000, v3, OS_LOG_TYPE_DEFAULT, "%s: agent connection failed to bootstrap. Disposing of connection.", &v5, 0xCu);
   }
 
   conn = self->_conn;
   self->_conn = 0;
 
   [(NSLock *)self->_connLock unlock];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection

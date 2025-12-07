@@ -52,7 +52,7 @@
 void __63__AAUIMyBenefactorActionHandler_doDestructiveAction_specifier___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _AAUILogSystem();
+  v4 = _AAUILogSystem(v3);
   v5 = v4;
   if (!v3)
   {
@@ -188,8 +188,7 @@ void __65__AAUIMyBenefactorActionHandler__showAuthPromptInViewController___block
   v7 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained _stopAllSpinners];
-    v8 = _AAUILogSystem();
+    v8 = _AAUILogSystem([WeakRetained _stopAllSpinners]);
     v9 = v8;
     if (!a2 || v5)
     {
@@ -242,7 +241,7 @@ void __65__AAUIMyBenefactorActionHandler__showAuthPromptInViewController___block
 {
   actionCopy = action;
   specifierCopy = specifier;
-  v8 = _AAUILogSystem();
+  v8 = _AAUILogSystem(specifierCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -259,35 +258,34 @@ void __65__AAUIMyBenefactorActionHandler__showAuthPromptInViewController___block
 
   if (v14)
   {
-    v15 = [accountStore aida_accountForiCloudAccount:v14];
-    if (v15)
+    v16 = [accountStore aida_accountForiCloudAccount:v14];
+    if (v16)
     {
-      v16 = objc_alloc(MEMORY[0x1E698B820]);
+      v17 = objc_alloc(MEMORY[0x1E698B820]);
       claimTokenString = [v11 claimTokenString];
-      v18 = [v16 initWithGrandSlamAccount:v15 accountStore:accountStore claimCode:claimTokenString];
+      v19 = [v17 initWithGrandSlamAccount:v16 accountStore:accountStore claimCode:claimTokenString];
 
-      [(AAUIMyBenefactorActionHandler *)self _startSpinnerInSpecifier:specifierCopy];
-      v19 = _AAUILogSystem();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v20 = _AAUILogSystem([(AAUIMyBenefactorActionHandler *)self _startSpinnerInSpecifier:specifierCopy]);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        *v24 = 0;
-        _os_log_impl(&dword_1C5355000, v19, OS_LOG_TYPE_DEFAULT, "Presenting Beneficiary Claim RUI...", v24, 2u);
+        *v25 = 0;
+        _os_log_impl(&dword_1C5355000, v20, OS_LOG_TYPE_DEFAULT, "Presenting Beneficiary Claim RUI...", v25, 2u);
       }
 
-      v20 = [[AAUIGrandSlamRemoteUIPresenter alloc] initWithAccountManager:self->_accountManager presenter:actionCopy];
+      v21 = [[AAUIGrandSlamRemoteUIPresenter alloc] initWithAccountManager:self->_accountManager presenter:actionCopy];
       remoteUIPresenter = self->_remoteUIPresenter;
-      self->_remoteUIPresenter = v20;
+      self->_remoteUIPresenter = v21;
 
       [(AAUIGrandSlamRemoteUIPresenter *)self->_remoteUIPresenter setDelegate:self];
-      v22 = self->_remoteUIPresenter;
-      urlRequest = [v18 urlRequest];
-      [(AAUIGrandSlamRemoteUIPresenter *)v22 loadRequest:urlRequest];
+      v23 = self->_remoteUIPresenter;
+      urlRequest = [v19 urlRequest];
+      [(AAUIGrandSlamRemoteUIPresenter *)v23 loadRequest:urlRequest];
     }
 
     else
     {
-      v18 = _AAUILogSystem();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v19 = _AAUILogSystem(0);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         [AAUIMyBenefactorActionHandler doSecondaryAction:specifier:];
       }
@@ -296,8 +294,8 @@ void __65__AAUIMyBenefactorActionHandler__showAuthPromptInViewController___block
 
   else
   {
-    v15 = _AAUILogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = _AAUILogSystem(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [AAUIMyBenefactorActionHandler doSecondaryAction:specifier:];
     }
@@ -363,10 +361,11 @@ void __49__AAUIMyBenefactorActionHandler__stopAllSpinners__block_invoke(uint64_t
 - (void)remoteUIRequestComplete:(id)complete error:(id)error
 {
   errorCopy = error;
+  v6 = errorCopy;
   if (errorCopy)
   {
-    v6 = _AAUILogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _AAUILogSystem(errorCopy);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [AAUIMyBenefactorActionHandler remoteUIRequestComplete:error:];
     }

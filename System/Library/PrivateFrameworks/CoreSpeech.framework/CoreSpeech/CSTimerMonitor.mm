@@ -120,53 +120,53 @@
 {
   timerCopy = timer;
   userInfo = [timerCopy userInfo];
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2020000000;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
   v5 = qword_10029E090;
-  v27 = qword_10029E090;
+  v28 = qword_10029E090;
   if (!qword_10029E090)
   {
-    v19 = _NSConcreteStackBlock;
-    v20 = 3221225472;
-    v21 = sub_10004DC10;
-    v22 = &unk_100253580;
-    v23 = &v24;
+    v20 = _NSConcreteStackBlock;
+    v21 = 3221225472;
+    v22 = sub_10004DC10;
+    v23 = &unk_100253580;
+    v24 = &v25;
     v6 = sub_10004DC60();
-    v25[3] = dlsym(v6, "MTTimerManagerTimersKey");
-    qword_10029E090 = *(v23[1] + 24);
-    v5 = v25[3];
+    v26[3] = dlsym(v6, "MTTimerManagerTimersKey");
+    qword_10029E090 = *(v24[1] + 24);
+    v5 = v26[3];
   }
 
-  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v25, 8);
   if (!v5)
   {
-    dlerror();
-    abort_report_np();
+    v15 = dlerror();
+    abort_report_np("%s", v15);
     __break(1u);
   }
 
   v7 = [userInfo objectForKey:*v5];
 
-  v17 = 0u;
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
+  v17 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v15 objects:v28 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v29 count:16];
   if (v9)
   {
-    v10 = *v16;
+    v10 = *v17;
     while (2)
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v16 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        sound = [*(*(&v15 + 1) + 8 * i) sound];
+        sound = [*(*(&v16 + 1) + 8 * i) sound];
         interruptAudio = [sound interruptAudio];
 
         if (interruptAudio)
@@ -176,7 +176,7 @@
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v15 objects:v28 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v16 objects:v29 count:16];
       if (v9)
       {
         continue;

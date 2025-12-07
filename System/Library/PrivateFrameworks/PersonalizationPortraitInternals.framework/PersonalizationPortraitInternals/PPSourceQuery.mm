@@ -13,11 +13,9 @@
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x277CCACA8]);
-  v4 = *&self->_limit;
-  v5 = [v3 initWithFormat:@"<PPSourceQuery l:%tu d:%@-%@ mid:%@ mui:%@ mch:%@", self->_limit, self->_fromDate, self->_toDate, self->_matchingBundleIds, self->_matchingDocumentIds, self->_matchingContactHandle];
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"<PPSourceQuery l:%tu d:%@-%@ mid:%@ mui:%@ mch:%@", self->_limit, self->_fromDate, self->_toDate, self->_matchingBundleIds, self->_matchingDocumentIds, self->_matchingContactHandle];
 
-  return v5;
+  return v2;
 }
 
 - (BOOL)isEqual:(id)equal

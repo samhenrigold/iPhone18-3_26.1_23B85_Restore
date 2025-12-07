@@ -7,7 +7,6 @@
 - (QLFileThumbnailRequest)initWithCoder:(id)coder;
 - (QLFileThumbnailRequest)initWithItem:(id)item maximumSize:(CGSize)size minimumSize:(double)minimumSize scale:(double)scale options:(id)options generationData:(id)data;
 - (id)contentType;
-- (id)description;
 - (int)iconFlavor;
 - (int)interpolationQuality;
 - (unint64_t)badgeType;
@@ -58,14 +57,6 @@
   identifier = [contentType identifier];
 
   return identifier;
-}
-
-- (id)description
-{
-  v3 = MEMORY[0x1E696AEC0];
-  v4 = objc_opt_class();
-  maximumSize = self->_maximumSize;
-  return [v3 stringWithFormat:@"<%@:%p maximumSize=(%.2f, %.2f) minimumSize=(%.2f, %.2f) scale=%.1f item=%@>", v4, self, *&self->_maximumSize.width, *&self->_maximumSize.height, *&self->_minimumSize.width, *&self->_minimumSize.height, *&self->_scale, self->_item];
 }
 
 - (unint64_t)badgeType

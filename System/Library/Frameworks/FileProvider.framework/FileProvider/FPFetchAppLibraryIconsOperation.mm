@@ -58,13 +58,10 @@
 
 - (void)main
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [self fp_shortDescriptionExpandingAtMost:4];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_20();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)operationDidProgressWithInfo:(id)info error:(id)error completionHandler:(id)handler
@@ -115,10 +112,9 @@
 
 - (void)operationDidProgressWithInfo:error:completionHandler:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(&dword_1AAAE1000, v0, OS_LOG_TYPE_DEBUG, "[DEBUG] can't map appBundleID '%@' to item identifier", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1AAAE1000, v0, OS_LOG_TYPE_DEBUG, "[DEBUG] can't map appBundleID '%@' to item identifier", v1, 0xCu);
 }
 
 @end

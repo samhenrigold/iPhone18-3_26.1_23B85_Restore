@@ -5,6 +5,8 @@
 - (BOOL)createIndex:(id)index withDefinition:(id)definition condition:(id)condition unique:(BOOL)unique error:(id *)error;
 - (BOOL)createIndexOnColumn:(id)column error:(id *)error;
 - (BOOL)createIndexOnColumnVariable:(id)variable error:(id *)error;
+- (BOOL)createIndexWithName:(id)name withDefinition:(id)definition condition:(id)condition unique:(BOOL)unique error:(id *)error;
+- (BOOL)createIndexWithName:(id)name withDefinition:(id)definition unique:(BOOL)unique error:(id *)error;
 - (BOOL)createMainTableWithColumnVariables:(id)variables error:(id *)error;
 - (BOOL)createMainTableWithDefinition:(id)definition error:(id *)error;
 - (BOOL)createStorage;
@@ -138,7 +140,8 @@
     sub_1001B8C0C(self, a2, variableCopy);
   }
 
-  if (![(CPLPrequeliteStorage *)self shouldUpgradeSchema])
+  shouldUpgradeSchema = [(CPLPrequeliteStorage *)self shouldUpgradeSchema];
+  if ((shouldUpgradeSchema & 1) == 0)
   {
     sub_1001B8B28(self, a2, variableCopy);
   }
@@ -147,26 +150,26 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v8 = sub_10014C718();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v9 = sub_10014C718(shouldUpgradeSchema);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        v9 = "temporary ";
+        v10 = "temporary ";
         mainTable = self->_mainTable;
         if (!self->_tempTable)
         {
-          v9 = "";
+          v10 = "";
         }
 
         *buf = 138412802;
-        v23 = variableCopy;
-        v24 = 2080;
-        v25 = v9;
-        v26 = 2112;
-        v27 = mainTable;
-        v11 = "Creating column %@ on %s%@";
-        v12 = v8;
-        v13 = OS_LOG_TYPE_DEBUG;
-        v14 = 32;
+        v24 = variableCopy;
+        v25 = 2080;
+        v26 = v10;
+        v27 = 2112;
+        v28 = mainTable;
+        v12 = "Creating column %@ on %s%@";
+        v13 = v9;
+        v14 = OS_LOG_TYPE_DEBUG;
+        v15 = 32;
         goto LABEL_12;
       }
 
@@ -176,20 +179,20 @@
 
   else if ((_CPLSilentLogging & 1) == 0)
   {
-    v8 = sub_10014C718();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_10014C718(shouldUpgradeSchema);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = self->_mainTable;
+      v16 = self->_mainTable;
       *buf = 138412546;
-      v23 = variableCopy;
-      v24 = 2112;
-      v25 = v15;
-      v11 = "Adding column %@ on %@";
-      v12 = v8;
-      v13 = OS_LOG_TYPE_DEFAULT;
-      v14 = 22;
+      v24 = variableCopy;
+      v25 = 2112;
+      v26 = v16;
+      v12 = "Adding column %@ on %@";
+      v13 = v9;
+      v14 = OS_LOG_TYPE_DEFAULT;
+      v15 = 22;
 LABEL_12:
-      _os_log_impl(&_mh_execute_header, v12, v13, v11, buf, v14);
+      _os_log_impl(&_mh_execute_header, v13, v14, v12, buf, v15);
     }
 
 LABEL_13:
@@ -200,14 +203,14 @@ LABEL_13:
 
   mainTable = [(CPLPrequeliteStorage *)self mainTable];
   columnDefinition = [variableCopy columnDefinition];
-  v20 = [pqlConnection cplExecute:{@"ALTER TABLE %@ ADD COLUMN %@", mainTable, columnDefinition}];
+  v21 = [pqlConnection cplExecute:{@"ALTER TABLE %@ ADD COLUMN %@", mainTable, columnDefinition}];
 
-  if (error && (v20 & 1) == 0)
+  if (error && (v21 & 1) == 0)
   {
     *error = [pqlConnection lastCPLError];
   }
 
-  return v20;
+  return v21;
 }
 
 - (BOOL)addColumnVariableGroup:(id)group error:(id *)error
@@ -260,12 +263,14 @@ LABEL_11:
   indexCopy = index;
   definitionCopy = definition;
   conditionCopy = condition;
+  v16 = conditionCopy;
   if (self->_initializingStorage)
   {
     goto LABEL_4;
   }
 
-  if (![(CPLPrequeliteStorage *)self shouldUpgradeSchema])
+  conditionCopy = [(CPLPrequeliteStorage *)self shouldUpgradeSchema];
+  if (!conditionCopy)
   {
     sub_1001B8CF0(self, a2, indexCopy);
   }
@@ -278,29 +283,29 @@ LABEL_4:
       goto LABEL_14;
     }
 
-    v16 = sub_10014C718();
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v17 = sub_10014C718(conditionCopy);
+    if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_13;
     }
 
-    v17 = "temporary ";
+    v18 = "temporary ";
     mainTable = self->_mainTable;
     if (!self->_tempTable)
     {
-      v17 = "";
+      v18 = "";
     }
 
     *buf = 138412802;
     *&buf[4] = indexCopy;
     *&buf[12] = 2080;
-    *&buf[14] = v17;
+    *&buf[14] = v18;
     *&buf[22] = 2112;
-    v35 = mainTable;
-    v19 = "Creating index %@ on %s%@";
-    v20 = v16;
-    v21 = OS_LOG_TYPE_DEBUG;
-    v22 = 32;
+    v36 = mainTable;
+    v20 = "Creating index %@ on %s%@";
+    v21 = v17;
+    v22 = OS_LOG_TYPE_DEBUG;
+    v23 = 32;
     goto LABEL_12;
   }
 
@@ -309,59 +314,59 @@ LABEL_4:
     goto LABEL_14;
   }
 
-  v16 = sub_10014C718();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v17 = sub_10014C718(conditionCopy);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = self->_mainTable;
+    v24 = self->_mainTable;
     *buf = 138412546;
     *&buf[4] = indexCopy;
     *&buf[12] = 2112;
-    *&buf[14] = v23;
-    v19 = "Adding index %@ on %@";
-    v20 = v16;
-    v21 = OS_LOG_TYPE_DEFAULT;
-    v22 = 22;
+    *&buf[14] = v24;
+    v20 = "Adding index %@ on %@";
+    v21 = v17;
+    v22 = OS_LOG_TYPE_DEFAULT;
+    v23 = 22;
 LABEL_12:
-    _os_log_impl(&_mh_execute_header, v20, v21, v19, buf, v22);
+    _os_log_impl(&_mh_execute_header, v21, v22, v20, buf, v23);
   }
 
 LABEL_13:
 
 LABEL_14:
-  v24 = [CPLPrequeliteVariable indexVariableForVariableWithName:indexCopy forTable:self->_nameTable];
+  v25 = [CPLPrequeliteVariable indexVariableForVariableWithName:indexCopy forTable:self->_nameTable];
   pqStore = [(CPLPrequeliteStorage *)self pqStore];
   pqlConnection = [pqStore pqlConnection];
-  v27 = pqlConnection;
+  v28 = pqlConnection;
   if (!uniqueCopy)
   {
-    if (!conditionCopy)
+    if (!v16)
     {
-      v28 = [pqlConnection cplExecute:{@"CREATE INDEX IF NOT EXISTS %@ ON %@ (%@)", v24, self->_mainTable, definitionCopy, v33, *buf, *&buf[8], v35}];
+      v29 = [pqlConnection cplExecute:{@"CREATE INDEX IF NOT EXISTS %@ ON %@ (%@)", v25, self->_mainTable, definitionCopy, v34, *buf, *&buf[8], v36}];
       goto LABEL_20;
     }
 
     goto LABEL_18;
   }
 
-  if (conditionCopy)
+  if (v16)
   {
 LABEL_18:
-    v28 = [pqlConnection cplExecute:{@"CREATE INDEX IF NOT EXISTS %@ ON %@ (%@) WHERE %@", v24, self->_mainTable, definitionCopy, conditionCopy, *buf, *&buf[8], v35}];
+    v29 = [pqlConnection cplExecute:{@"CREATE INDEX IF NOT EXISTS %@ ON %@ (%@) WHERE %@", v25, self->_mainTable, definitionCopy, v16, *buf, *&buf[8], v36}];
     goto LABEL_20;
   }
 
-  v28 = [pqlConnection cplExecute:{@"CREATE UNIQUE INDEX IF NOT EXISTS %@ ON %@ (%@)", v24, self->_mainTable, definitionCopy, v33, *buf, *&buf[16], v35}];
+  v29 = [pqlConnection cplExecute:{@"CREATE UNIQUE INDEX IF NOT EXISTS %@ ON %@ (%@)", v25, self->_mainTable, definitionCopy, v34, *buf, *&buf[8], v36}];
 LABEL_20:
-  v29 = v28;
+  v30 = v29;
 
-  if (error && !v29)
+  if (error && !v30)
   {
     pqStore2 = [(CPLPrequeliteStorage *)self pqStore];
     pqlConnection2 = [pqStore2 pqlConnection];
     *error = [pqlConnection2 lastCPLError];
   }
 
-  return v29;
+  return v30;
 }
 
 - (BOOL)createIndexOnColumnVariable:(id)variable error:(id *)error
@@ -369,6 +374,39 @@ LABEL_20:
   variableCopy = variable;
   variableName = [variableCopy variableName];
   LOBYTE(error) = [(CPLPrequeliteStorage *)self createIndex:variableName withDefinition:variableCopy condition:0 unique:0 error:error];
+
+  return error;
+}
+
+- (BOOL)createIndexWithName:(id)name withDefinition:(id)definition unique:(BOOL)unique error:(id *)error
+{
+  uniqueCopy = unique;
+  definitionCopy = definition;
+  nameCopy = name;
+  v12 = [PQLRawInjection alloc];
+  v13 = [definitionCopy dataUsingEncoding:4];
+
+  v14 = [v12 initWithData:v13];
+  LOBYTE(error) = [(CPLPrequeliteStorage *)self createIndex:nameCopy withDefinition:v14 condition:0 unique:uniqueCopy error:error];
+
+  return error;
+}
+
+- (BOOL)createIndexWithName:(id)name withDefinition:(id)definition condition:(id)condition unique:(BOOL)unique error:(id *)error
+{
+  uniqueCopy = unique;
+  conditionCopy = condition;
+  definitionCopy = definition;
+  nameCopy = name;
+  v15 = [PQLRawInjection alloc];
+  v16 = [definitionCopy dataUsingEncoding:4];
+
+  v17 = [v15 initWithData:v16];
+  v18 = [PQLRawInjection alloc];
+  v19 = [conditionCopy dataUsingEncoding:4];
+
+  v20 = [v18 initWithData:v19];
+  LOBYTE(error) = [(CPLPrequeliteStorage *)self createIndex:nameCopy withDefinition:v17 condition:v20 unique:uniqueCopy error:error];
 
   return error;
 }
@@ -426,25 +464,26 @@ LABEL_20:
     goto LABEL_7;
   }
 
-  if (![(CPLPrequeliteStorage *)self shouldUpgradeSchema])
+  shouldUpgradeSchema = [(CPLPrequeliteStorage *)self shouldUpgradeSchema];
+  if (!shouldUpgradeSchema)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v22 = sub_10014C718();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v23 = sub_10014C718(shouldUpgradeSchema);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        v23 = self->_mainTable;
+        v24 = self->_mainTable;
         *buf = 138412546;
-        v27 = variableCopy;
-        v28 = 2112;
-        v29 = v23;
-        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Trying to create variable %@ for %@ but the table has just been created", buf, 0x16u);
+        v28 = variableCopy;
+        v29 = 2112;
+        v30 = v24;
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "Trying to create variable %@ for %@ but the table has just been created", buf, 0x16u);
       }
     }
 
-    v24 = +[NSAssertionHandler currentHandler];
-    v25 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteStorage.m"];
-    [v24 handleFailureInMethod:a2 object:self file:v25 lineNumber:240 description:{@"Trying to create variable %@ for %@ but the table has just been created", variableCopy, self->_mainTable}];
+    v25 = +[NSAssertionHandler currentHandler];
+    v26 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteStorage.m"];
+    [v25 handleFailureInMethod:a2 object:self file:v26 lineNumber:240 description:{@"Trying to create variable %@ for %@ but the table has just been created", variableCopy, self->_mainTable}];
 
     abort();
   }
@@ -454,18 +493,18 @@ LABEL_20:
 LABEL_7:
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v14 = sub_10014C718();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v15 = sub_10014C718(shouldUpgradeSchema);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412546;
-        v27 = variableCopy;
-        v28 = 2112;
-        v29 = valueCopy;
-        v15 = "Creating variable %@ with default value %@";
-        v16 = v14;
-        v17 = OS_LOG_TYPE_DEBUG;
+        v28 = variableCopy;
+        v29 = 2112;
+        v30 = valueCopy;
+        v16 = "Creating variable %@ with default value %@";
+        v17 = v15;
+        v18 = OS_LOG_TYPE_DEBUG;
 LABEL_13:
-        _os_log_impl(&_mh_execute_header, v16, v17, v15, buf, 0x16u);
+        _os_log_impl(&_mh_execute_header, v17, v18, v16, buf, 0x16u);
         goto LABEL_14;
       }
 
@@ -475,16 +514,16 @@ LABEL_13:
 
   else if ((_CPLSilentLogging & 1) == 0)
   {
-    v14 = sub_10014C718();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_10014C718(shouldUpgradeSchema);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v27 = variableCopy;
-      v28 = 2112;
-      v29 = valueCopy;
-      v15 = "Adding variable %@ with default value %@";
-      v16 = v14;
-      v17 = OS_LOG_TYPE_DEFAULT;
+      v28 = variableCopy;
+      v29 = 2112;
+      v30 = valueCopy;
+      v16 = "Adding variable %@ with default value %@";
+      v17 = v15;
+      v18 = OS_LOG_TYPE_DEFAULT;
       goto LABEL_13;
     }
 
@@ -946,49 +985,50 @@ LABEL_6:
   pqStore = [(CPLPrequeliteStorage *)self pqStore];
   pqlConnection = [pqStore pqlConnection];
 
-  if (![pqlConnection cplExecute:{@"DROP TABLE IF EXISTS %@", self->_tempTable}])
+  v19 = [pqlConnection cplExecute:{@"DROP TABLE IF EXISTS %@", self->_tempTable}];
+  if (!v19)
   {
     goto LABEL_31;
   }
 
   v56 = v11;
   tableName = [(CPLPrequeliteTable *)self->_mainTable tableName];
-  v20 = [tableName stringByAppendingString:@"."];
+  v21 = [tableName stringByAppendingString:@"."];
 
-  v21 = objc_alloc_init(NSMutableArray);
+  v22 = objc_alloc_init(NSMutableArray);
   v63 = 0u;
   v64 = 0u;
   v65 = 0u;
   v66 = 0u;
   selfCopy = self;
-  v22 = [pqlConnection cplFetch:{@"SELECT name FROM sqlite_master WHERE type = index AND tbl_name = %@", self->_mainTable}];
-  v23 = [v22 enumerateObjectsOfClass:objc_opt_class()];
+  v23 = [pqlConnection cplFetch:{@"SELECT name FROM sqlite_master WHERE type = index AND tbl_name = %@", self->_mainTable}];
+  v24 = [v23 enumerateObjectsOfClass:objc_opt_class()];
 
-  v24 = [v23 countByEnumeratingWithState:&v63 objects:v76 count:16];
-  if (v24)
+  v25 = [v24 countByEnumeratingWithState:&v63 objects:v76 count:16];
+  if (v25)
   {
-    v25 = v24;
-    v26 = *v64;
+    v26 = v25;
+    v27 = *v64;
     do
     {
-      for (i = 0; i != v25; i = i + 1)
+      for (i = 0; i != v26; i = i + 1)
       {
-        if (*v64 != v26)
+        if (*v64 != v27)
         {
-          objc_enumerationMutation(v23);
+          objc_enumerationMutation(v24);
         }
 
-        v28 = *(*(&v63 + 1) + 8 * i);
-        if ([v28 hasPrefix:v20])
+        v29 = *(*(&v63 + 1) + 8 * i);
+        if ([v29 hasPrefix:v21])
         {
-          [v21 addObject:v28];
+          [v22 addObject:v29];
         }
       }
 
-      v25 = [v23 countByEnumeratingWithState:&v63 objects:v76 count:16];
+      v26 = [v24 countByEnumeratingWithState:&v63 objects:v76 count:16];
     }
 
-    while (v25);
+    while (v26);
   }
 
   v55 = v14;
@@ -997,25 +1037,25 @@ LABEL_6:
   v62 = 0u;
   v59 = 0u;
   v60 = 0u;
-  v29 = v21;
-  v30 = [v29 countByEnumeratingWithState:&v59 objects:v75 count:16];
-  if (v30)
+  v30 = v22;
+  v31 = [v30 countByEnumeratingWithState:&v59 objects:v75 count:16];
+  if (v31)
   {
-    v31 = v30;
-    v32 = *v60;
+    v32 = v31;
+    v33 = *v60;
     while (2)
     {
-      for (j = 0; j != v31; j = j + 1)
+      for (j = 0; j != v32; j = j + 1)
       {
-        if (*v60 != v32)
+        if (*v60 != v33)
         {
-          objc_enumerationMutation(v29);
+          objc_enumerationMutation(v30);
         }
 
-        v34 = [PQLNameInjection nameWithString:*(*(&v59 + 1) + 8 * j)];
-        v35 = [pqlConnection cplExecute:{@"DROP INDEX %@", v34}];
+        v35 = [PQLNameInjection nameWithString:*(*(&v59 + 1) + 8 * j)];
+        v36 = [pqlConnection cplExecute:{@"DROP INDEX %@", v35}];
 
-        if ((v35 & 1) == 0)
+        if ((v36 & 1) == 0)
         {
 
           self = selfCopy;
@@ -1025,8 +1065,8 @@ LABEL_6:
         }
       }
 
-      v31 = [v29 countByEnumeratingWithState:&v59 objects:v75 count:16];
-      if (v31)
+      v32 = [v30 countByEnumeratingWithState:&v59 objects:v75 count:16];
+      if (v32)
       {
         continue;
       }
@@ -1036,36 +1076,19 @@ LABEL_6:
   }
 
   self = selfCopy;
-  v36 = selfCopy->_mainTable;
+  v37 = selfCopy->_mainTable;
   objc_storeStrong(&self->_mainTable, self->_tempTable);
   createStorage = [(CPLPrequeliteStorage *)selfCopy createStorage];
   mainTable = selfCopy->_mainTable;
-  selfCopy->_mainTable = v36;
+  selfCopy->_mainTable = v37;
 
   v14 = v55;
   v11 = v56;
-  if (!createStorage)
-  {
-    goto LABEL_31;
-  }
-
-  uTF8String = [instructionsCopy UTF8String];
-  v40 = [PQLRawInjection rawInjection:uTF8String length:strlen(uTF8String)];
-  uTF8String2 = [v56 UTF8String];
-  v42 = [PQLRawInjection rawInjection:uTF8String2 length:strlen(uTF8String2)];
-  v43 = [pqlConnection cplExecute:{@"INSERT INTO %@ (%@) SELECT %@ FROM %@", selfCopy->_tempTable, v40, v42, selfCopy->_mainTable}];
-  changes = [pqlConnection changes];
-
-  if (!v43)
-  {
-    goto LABEL_31;
-  }
-
-  if ([pqlConnection cplExecute:{@"DROP TABLE %@", selfCopy->_mainTable}] && (v44 = selfCopy->_tempTable, (objc_msgSend(pqlConnection, "cplExecute:", @"ALTER TABLE %@ RENAME TO %@", v44, selfCopy->_mainTable) & 1) != 0))
+  if (createStorage && (v40 = [instructionsCopy UTF8String], +[PQLRawInjection rawInjection:length:](PQLRawInjection, "rawInjection:length:", v40, strlen(v40)), v41 = objc_claimAutoreleasedReturnValue(), v42 = objc_msgSend(v56, "UTF8String"), +[PQLRawInjection rawInjection:length:](PQLRawInjection, "rawInjection:length:", v42, strlen(v42)), v43 = objc_claimAutoreleasedReturnValue(), v44 = objc_msgSend(pqlConnection, "cplExecute:", @"INSERT INTO %@ (%@) SELECT %@ FROM %@", selfCopy->_tempTable, v41, v43, selfCopy->_mainTable), v54 = objc_msgSend(pqlConnection, "changes"), v43, v41, v44) && (v19 = objc_msgSend(pqlConnection, "cplExecute:", @"DROP TABLE %@", selfCopy->_mainTable), v19) && (v19 = objc_msgSend(pqlConnection, "cplExecute:", @"ALTER TABLE %@ RENAME TO %@", selfCopy->_tempTable, selfCopy->_mainTable), (v19 & 1) != 0))
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v45 = sub_10014C718();
+      v45 = sub_10014C718(v19);
       if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
       {
         v46 = selfCopy->_mainTable;
@@ -1076,13 +1099,13 @@ LABEL_6:
         v71 = 2112;
         v72 = instructionsCopy;
         v73 = 2048;
-        v74 = changes;
+        v74 = v54;
         _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "successfully recreated %@ using copy %@ -> %@ (%lld records copied)", buf, 0x2Au);
       }
     }
 
     pqStore2 = [(CPLPrequeliteStorage *)selfCopy pqStore];
-    [pqStore2 recordUpgradeEvent:{@"successfully recreated %@ using copy %@ -> %@ (%lld records copied)", selfCopy->_mainTable, v56, instructionsCopy, changes}];
+    [pqStore2 recordUpgradeEvent:{@"successfully recreated %@ using copy %@ -> %@ (%lld records copied)", selfCopy->_mainTable, v56, instructionsCopy, v54}];
 
     v48 = 1;
   }
@@ -1092,7 +1115,7 @@ LABEL_6:
 LABEL_31:
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v49 = sub_10014C718();
+      v49 = sub_10014C718(v19);
       if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
       {
         v50 = self->_mainTable;
@@ -1129,15 +1152,16 @@ LABEL_31:
 
 - (BOOL)createStorage
 {
-  if (![(CPLPrequeliteStorage *)self isAlive]&& (_CPLSilentLogging & 1) == 0)
+  isAlive = [(CPLPrequeliteStorage *)self isAlive];
+  if ((isAlive & 1) == 0 && (_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_10014C718();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_10014C718(isAlive);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       mainTable = [(CPLPrequeliteStorage *)self mainTable];
-      v7 = 138412290;
-      v8 = mainTable;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Creating storage for %@", &v7, 0xCu);
+      v8 = 138412290;
+      v9 = mainTable;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Creating storage for %@", &v8, 0xCu);
     }
   }
 
@@ -1151,7 +1175,7 @@ LABEL_31:
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = sub_10014C718();
+    v4 = sub_10014C718(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       v6 = 134217984;
@@ -1169,31 +1193,31 @@ LABEL_31:
   v5 = v4;
   v7 = v6;
   v9 = v8;
+  v10 = v9;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v10 = sub_10014C718();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = sub_10014C718(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v7[3];
-      variables = [v9 variables];
+      variables = [v10 variables];
       sub_10014EC90();
-      _os_log_impl(v11, v12, v13, v14, v15, 0x16u);
+      _os_log_impl(v12, v13, v14, v15, v16, 0x16u);
     }
   }
 
   pqStore = [v7 pqStore];
   pqlConnection = [pqStore pqlConnection];
 
-  v18 = v7[2];
-  definitionInjection = [v9 definitionInjection];
-  v20 = [pqlConnection cplExecute:{@"CREATE TABLE %@ (%@)", v18, definitionInjection}];
+  v19 = v7[2];
+  definitionInjection = [v10 definitionInjection];
+  v21 = [pqlConnection cplExecute:{@"CREATE TABLE %@ (%@)", v19, definitionInjection}];
 
-  if (v5 && (v20 & 1) == 0)
+  if (v5 && (v21 & 1) == 0)
   {
     *v5 = [pqlConnection lastCPLError];
   }
 
-  return v20;
+  return v21;
 }
 
 - (BOOL)createMainTableWithDefinition:(id)definition error:(id *)error
@@ -1202,60 +1226,61 @@ LABEL_31:
   v5 = v4;
   v7 = v6;
   v9 = v8;
+  v10 = v9;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v10 = sub_10014C718();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = sub_10014C718(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v7[3];
       sub_10014EC90();
-      _os_log_impl(v11, v12, v13, v14, v15, 0x16u);
+      _os_log_impl(v12, v13, v14, v15, v16, 0x16u);
     }
   }
 
-  v16 = [PQLRawInjection alloc];
-  v17 = [v9 dataUsingEncoding:4];
-  v18 = [v16 initWithData:v17];
+  v17 = [PQLRawInjection alloc];
+  v18 = [v10 dataUsingEncoding:4];
+  v19 = [v17 initWithData:v18];
 
   pqStore = [v7 pqStore];
   pqlConnection = [pqStore pqlConnection];
 
-  v21 = [pqlConnection cplExecute:{@"CREATE TABLE %@ (%@)", v7[2], v18}];
-  v22 = v21;
-  if (v5 && (v21 & 1) == 0)
+  v22 = [pqlConnection cplExecute:{@"CREATE TABLE %@ (%@)", v7[2], v19}];
+  v23 = v22;
+  if (v5 && (v22 & 1) == 0)
   {
     *v5 = [pqlConnection lastCPLError];
   }
 
-  return v22;
+  return v23;
 }
 
 - (BOOL)dropIndexWithName:(id)name error:(id *)error
 {
   nameCopy = name;
+  v7 = nameCopy;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v7 = sub_10014C718();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = sub_10014C718(nameCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       sub_10014EC90();
-      _os_log_impl(v8, v9, v10, v11, v12, 0xCu);
+      _os_log_impl(v9, v10, v11, v12, v13, 0xCu);
     }
   }
 
-  v13 = [CPLPrequeliteVariable indexVariableForVariableWithName:nameCopy forTable:self->_nameTable];
+  v14 = [CPLPrequeliteVariable indexVariableForVariableWithName:v7 forTable:self->_nameTable];
   pqStore = [(CPLPrequeliteStorage *)self pqStore];
   pqlConnection = [pqStore pqlConnection];
-  v16 = [pqlConnection cplExecute:{@"DROP INDEX IF EXISTS %@", v13}];
+  v17 = [pqlConnection cplExecute:{@"DROP INDEX IF EXISTS %@", v14}];
 
-  if (error && (v16 & 1) == 0)
+  if (error && (v17 & 1) == 0)
   {
     pqStore2 = [(CPLPrequeliteStorage *)self pqStore];
     pqlConnection2 = [pqStore2 pqlConnection];
     *error = [pqlConnection2 lastCPLError];
   }
 
-  return v16;
+  return v17;
 }
 
 @end

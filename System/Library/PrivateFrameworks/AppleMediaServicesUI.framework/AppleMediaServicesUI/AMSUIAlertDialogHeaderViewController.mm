@@ -29,10 +29,10 @@
 
 - (void)viewDidLoad
 {
-  v34[5] = *MEMORY[0x1E69E9840];
-  v33.receiver = self;
-  v33.super_class = AMSUIAlertDialogHeaderViewController;
-  [(AMSUIAlertDialogHeaderViewController *)&v33 viewDidLoad];
+  v33[5] = *MEMORY[0x1E69E9840];
+  v32.receiver = self;
+  v32.super_class = AMSUIAlertDialogHeaderViewController;
+  [(AMSUIAlertDialogHeaderViewController *)&v32 viewDidLoad];
   imageView = [(AMSUIAlertDialogHeaderViewController *)self imageView];
   [imageView setTranslatesAutoresizingMaskIntoConstraints:0];
 
@@ -43,39 +43,37 @@
   imageView3 = [(AMSUIAlertDialogHeaderViewController *)self imageView];
   [view addSubview:imageView3];
 
-  v22 = MEMORY[0x1E696ACD8];
+  v21 = MEMORY[0x1E696ACD8];
   imageView4 = [(AMSUIAlertDialogHeaderViewController *)self imageView];
   topAnchor = [imageView4 topAnchor];
   view2 = [(AMSUIAlertDialogHeaderViewController *)self view];
   topAnchor2 = [view2 topAnchor];
-  v28 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:20.0];
-  v34[0] = v28;
+  v27 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:20.0];
+  v33[0] = v27;
   imageView5 = [(AMSUIAlertDialogHeaderViewController *)self imageView];
   bottomAnchor = [imageView5 bottomAnchor];
   view3 = [(AMSUIAlertDialogHeaderViewController *)self view];
   bottomAnchor2 = [view3 bottomAnchor];
-  v23 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v34[1] = v23;
+  v22 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+  v33[1] = v22;
   imageView6 = [(AMSUIAlertDialogHeaderViewController *)self imageView];
   leadingAnchor = [imageView6 leadingAnchor];
   view4 = [(AMSUIAlertDialogHeaderViewController *)self view];
   leadingAnchor2 = [view4 leadingAnchor];
   v7 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v34[2] = v7;
+  v33[2] = v7;
   imageView7 = [(AMSUIAlertDialogHeaderViewController *)self imageView];
   trailingAnchor = [imageView7 trailingAnchor];
   view5 = [(AMSUIAlertDialogHeaderViewController *)self view];
   trailingAnchor2 = [view5 trailingAnchor];
   v12 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v34[3] = v12;
+  v33[3] = v12;
   imageView8 = [(AMSUIAlertDialogHeaderViewController *)self imageView];
   heightAnchor = [imageView8 heightAnchor];
   v15 = [heightAnchor constraintEqualToConstant:44.0];
-  v34[4] = v15;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:5];
-  [v22 activateConstraints:v16];
-
-  v17 = *MEMORY[0x1E69E9840];
+  v33[4] = v15;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:5];
+  [v21 activateConstraints:v16];
 }
 
 - (void)loadImage
@@ -105,7 +103,7 @@
 
 void __49__AMSUIAlertDialogHeaderViewController_loadImage__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [MEMORY[0x1E698C968] sharedConfig];
   if (!v4)
@@ -116,23 +114,20 @@ void __49__AMSUIAlertDialogHeaderViewController_loadImage__block_invoke(uint64_t
   v5 = [v4 OSLogObject];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v6 = *(a1 + 32);
     *buf = 138543362;
-    v13 = objc_opt_class();
-    v7 = v13;
+    v11 = objc_opt_class();
+    v6 = v11;
     _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_DEBUG, "%{public}@: Successfully loaded image asset", buf, 0xCu);
   }
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __49__AMSUIAlertDialogHeaderViewController_loadImage__block_invoke_7;
-  v10[3] = &unk_1E7F243C0;
-  v10[4] = *(a1 + 32);
-  v11 = v3;
-  v8 = v3;
-  dispatch_async(MEMORY[0x1E69E96A0], v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __49__AMSUIAlertDialogHeaderViewController_loadImage__block_invoke_7;
+  v8[3] = &unk_1E7F243C0;
+  v8[4] = *(a1 + 32);
+  v9 = v3;
+  v7 = v3;
+  dispatch_async(MEMORY[0x1E69E96A0], v8);
 }
 
 void __49__AMSUIAlertDialogHeaderViewController_loadImage__block_invoke_7(uint64_t a1)
@@ -144,27 +139,24 @@ void __49__AMSUIAlertDialogHeaderViewController_loadImage__block_invoke_7(uint64
 
 void __49__AMSUIAlertDialogHeaderViewController_loadImage__block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  v4 = [MEMORY[0x1E698C968] sharedConfig];
-  if (!v4)
+  v10 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v3 = [MEMORY[0x1E698C968] sharedConfig];
+  if (!v3)
   {
-    v4 = [MEMORY[0x1E698C968] sharedConfig];
+    v3 = [MEMORY[0x1E698C968] sharedConfig];
   }
 
-  v5 = [v4 OSLogObject];
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v4 = [v3 OSLogObject];
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v9 = 138543618;
-    v10 = objc_opt_class();
-    v11 = 2114;
-    v12 = v3;
-    v7 = v10;
-    _os_log_impl(&dword_1BB036000, v5, OS_LOG_TYPE_ERROR, "%{public}@: Failed to load image %{public}@", &v9, 0x16u);
+    v6 = 138543618;
+    v7 = objc_opt_class();
+    v8 = 2114;
+    v9 = v2;
+    v5 = v7;
+    _os_log_impl(&dword_1BB036000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to load image %{public}@", &v6, 0x16u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -68,34 +68,35 @@ LABEL_7:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v16 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+    v17 = __atxlog_handle_notification_management(isKindOfClass);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
-      [(ATXDigestTimeline *)self initWithProto:v16];
+      [(ATXDigestTimeline *)self initWithProto:v17];
     }
 
     goto LABEL_7;
   }
 
-  v5 = MEMORY[0x1E696AFB0];
-  v6 = protoCopy;
-  v7 = [v5 alloc];
-  sessionUUID = [v6 sessionUUID];
-  v19 = [v7 initWithUUIDString:sessionUUID];
+  v6 = MEMORY[0x1E696AFB0];
+  v7 = protoCopy;
+  v8 = [v6 alloc];
+  sessionUUID = [v7 sessionUUID];
+  v20 = [v8 initWithUUIDString:sessionUUID];
 
-  bundleId = [v6 bundleId];
-  avgNumBasicNotifications = [v6 avgNumBasicNotifications];
-  avgNumMessageNotifications = [v6 avgNumMessageNotifications];
-  avgNumTimeSensitiveNonMessageNotifications = [v6 avgNumTimeSensitiveNonMessageNotifications];
-  rank = [v6 rank];
-  addedToDigest = [v6 addedToDigest];
-  LOBYTE(v7) = [v6 wasShownInDigestOnboarding];
+  bundleId = [v7 bundleId];
+  avgNumBasicNotifications = [v7 avgNumBasicNotifications];
+  avgNumMessageNotifications = [v7 avgNumMessageNotifications];
+  avgNumTimeSensitiveNonMessageNotifications = [v7 avgNumTimeSensitiveNonMessageNotifications];
+  rank = [v7 rank];
+  addedToDigest = [v7 addedToDigest];
+  LOBYTE(v8) = [v7 wasShownInDigestOnboarding];
 
-  BYTE1(v18) = v7;
-  LOBYTE(v18) = addedToDigest;
-  self = [(ATXDigestOnboardingAppSelectionLoggingEvent *)self initWithSessionUUID:v19 bundleId:bundleId avgNumBasicNotifications:avgNumBasicNotifications avgNumMessageNotifications:avgNumMessageNotifications avgNumTimeSensitiveNonMessageNotifications:avgNumTimeSensitiveNonMessageNotifications rank:rank addedToDigest:v18 wasShownInDigestOnboarding:?];
+  BYTE1(v19) = v8;
+  LOBYTE(v19) = addedToDigest;
+  self = [(ATXDigestOnboardingAppSelectionLoggingEvent *)self initWithSessionUUID:v20 bundleId:bundleId avgNumBasicNotifications:avgNumBasicNotifications avgNumMessageNotifications:avgNumMessageNotifications avgNumTimeSensitiveNonMessageNotifications:avgNumTimeSensitiveNonMessageNotifications rank:rank addedToDigest:v19 wasShownInDigestOnboarding:?];
 
   selfCopy = self;
 LABEL_8:

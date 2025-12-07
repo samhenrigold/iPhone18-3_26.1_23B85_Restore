@@ -445,13 +445,13 @@ kern_return_t mach_vm_purgable_control(vm_map_t target_task, mach_vm_address_t a
 
 int close(int a1)
 {
-  result = mac_syscall(SYS_close, a1);
+  LODWORD(v2) = mac_syscall(SYS_close, a1);
   if (v1)
   {
-    return cerror(result);
+    LODWORD(v2) = cerror(v2);
   }
 
-  return result;
+  return v2;
 }
 
 int64_t mach_vm_reclaim_update_kernel_accounting(atomic_ullong *a1)
@@ -496,6 +496,17 @@ off_t lseek(int a1, off_t a2, int a3)
   return result;
 }
 
+int fstat64(int a1, stat *a2)
+{
+  v9 = mac_syscall(SYS_fstat64, *&a1, a2, v3, v4, v5, v6, v7, v8);
+  if (v2)
+  {
+    LODWORD(v9) = cerror_nocancel(v9);
+  }
+
+  return v9;
+}
+
 uint64_t kevent_qos(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
 {
   result = mac_syscall(SYS_kevent_qos, a1, a2, a3, a4, a5, a6, a7, a8);
@@ -507,7 +518,7 @@ uint64_t kevent_qos(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, 
   return result;
 }
 
-uint64_t _kernelrpc_mach_port_request_notification(unsigned int a1, int a2, int a3, int a4, int a5, unsigned __int8 a6, _DWORD *a7)
+uint64_t _kernelrpc_mach_port_request_notification(unsigned int a1, int a2, int a3, int a4, int a5, unsigned __int8 a6, int *a7)
 {
   v14 = 1;
   v15 = a5;
@@ -991,6 +1002,35 @@ LABEL_24:
   }
 
   return v17;
+}
+
+kern_return_t thread_policy_set(thread_act_t thread, thread_policy_flavor_t flavor, thread_policy_t policy_info, mach_msg_type_number_t policy_infoCnt)
+{
+  v4 = *&thread;
+  result = _kernelrpc_thread_policy_set(thread, flavor, policy_info, policy_infoCnt);
+  if (result)
+  {
+    if (result == 51)
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    if (*_libkernel_functions >= 3uLL)
+    {
+      v6 = *(_libkernel_functions + 88);
+      if (v6)
+      {
+        v6(v4);
+      }
+    }
+
+    return 0;
+  }
+
+  return result;
 }
 
 uint64_t _kernelrpc_thread_policy_set(unsigned int a1, unsigned int a2, void *__src, unsigned int a4)
@@ -1591,6 +1631,28 @@ LABEL_23:
   return v9;
 }
 
+kern_return_t vm_map(vm_map_t target_task, vm_address_t *address, vm_size_t size, vm_address_t mask, int flags, mem_entry_name_port_t object, vm_offset_t offset, BOOLean_t copy, vm_prot_t cur_protection, vm_prot_t max_protection, vm_inherit_t inheritance)
+{
+  v15 = _kernelrpc_vm_map(target_task, address, size, mask, flags, object, offset, copy, *&cur_protection, inheritance);
+  v16 = v15;
+  if (__syscall_logger)
+  {
+    v17 = v15 == 0;
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  if (v17)
+  {
+    __syscall_logger(flags & 0xFF000000 | 0x90, target_task, size, 0, *address, 0);
+  }
+
+  return v16;
+}
+
 uint64_t _kernelrpc_vm_map(unsigned int a1, uint64_t *a2, uint64_t a3, uint64_t a4, int a5, int a6, uint64_t a7, int a8, uint64_t a9, int a10)
 {
   v19 = 1;
@@ -2069,7 +2131,7 @@ LABEL_26:
   return v7;
 }
 
-uint64_t _kernelrpc_mach_port_get_refs(unsigned int a1, unsigned int a2, int a3, _DWORD *a4)
+uint64_t _kernelrpc_mach_port_get_refs(unsigned int a1, unsigned int a2, int a3, int *a4)
 {
   v16 = 0;
   v13 = NDR_record;
@@ -2316,30 +2378,8 @@ kern_return_t mach_vm_map(vm_map_t target_task, mach_vm_address_t *address, mach
   v13 = size;
   v14 = address;
   v15 = target_task;
-  if (object)
+  if (object || (max_protection == 7 ? (v16 = inheritance == 1) : (v16 = 0), !v16 || (v17 = mask, v18 = copy, v21 = offset, v22 = _kernelrpc_mach_vm_map_trap(target_task, address, size, mask, flags, cur_protection), mask = v17, offset = v21, v13 = size, v14 = address, v15 = target_task, copy = v18, v23 = v22, v22 == 268435459)))
   {
-    goto LABEL_8;
-  }
-
-  if (max_protection != 7 || inheritance != 1)
-  {
-    goto LABEL_8;
-  }
-
-  v17 = mask;
-  v18 = copy;
-  v21 = offset;
-  v22 = _kernelrpc_mach_vm_map_trap(target_task, address, size, mask, flags, cur_protection);
-  mask = v17;
-  offset = v21;
-  v13 = size;
-  v14 = address;
-  v15 = target_task;
-  copy = v18;
-  v23 = v22;
-  if (v22 == 268435459)
-  {
-LABEL_8:
     v23 = _kernelrpc_mach_vm_map(v15, v14, v13, mask, flags, object, offset, copy, __SPAIR64__(max_protection, cur_protection), inheritance);
   }
 
@@ -2748,6 +2788,149 @@ LABEL_24:
   return v10;
 }
 
+mach_msg_return_t mach_msg_overwrite(mach_msg_header_t *msg, mach_msg_option_t option, mach_msg_size_t send_size, mach_msg_size_t rcv_size, mach_port_name_t rcv_name, mach_msg_timeout_t timeout, mach_port_name_t notify, mach_msg_header_t *rcv_msg, mach_msg_size_t rcv_limit)
+{
+  v12 = *&rcv_name;
+  v14 = *&send_size;
+  v16 = option;
+  if (*_libkernel_voucher_functions < 3)
+  {
+    goto LABEL_2;
+  }
+
+  v17 = v43;
+  if ((~option & 0x802) == 0 && _libkernel_voucher_functions[5])
+  {
+    StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
+    v17 = *(StatusReg + 984);
+    if (v17)
+    {
+      v16 = option | 0x100000000;
+    }
+
+    else
+    {
+      v38 = *(_libkernel_functions + 16);
+      if (!v38 || (v42 = *&rcv_name, v39 = option | 0x100000000, v40 = v38(128), v12 = v42, !v40))
+      {
+        v16 &= ~0x100000000uLL;
+LABEL_2:
+        v17 = v43;
+        goto LABEL_7;
+      }
+
+      v41 = v39;
+      v17 = v40;
+      *(StatusReg + 984) = v40;
+      v16 = v41;
+    }
+  }
+
+LABEL_7:
+  v19 = v16 | 0x100000000;
+  if (rcv_msg != 0 && (v16 & 2) != 0)
+  {
+    v16 |= 0x100000000uLL;
+  }
+
+  if ((v16 & 1) != 0 && *_libkernel_voucher_functions >= 3 && (v20 = _libkernel_voucher_functions[5]) != 0)
+  {
+    v21 = v12;
+    v22 = v20(v17, 128);
+    v12 = v21;
+    if (v22)
+    {
+      if ((v19 & 0x100000000) == 0)
+      {
+        goto LABEL_15;
+      }
+
+      goto LABEL_14;
+    }
+  }
+
+  else
+  {
+    v22 = 0;
+  }
+
+  v19 = v16;
+  if ((v16 & 0x100000000) != 0)
+  {
+LABEL_14:
+    v44[0] = msg;
+    v44[1] = rcv_msg;
+    v45 = v14;
+    v46 = rcv_size;
+    v47 = v17;
+    v48 = 0;
+    v49 = v22;
+    v50 = 128;
+  }
+
+LABEL_15:
+  if (v19)
+  {
+    v23 = notify;
+  }
+
+  else
+  {
+    v23 = 0;
+  }
+
+  if ((v19 & 0x4003) == 0x4002)
+  {
+    msg->msgh_remote_port = notify;
+  }
+
+  msgh_bits = msg->msgh_bits;
+  msgh_voucher_port = msg->msgh_voucher_port;
+  msgh_id = msg->msgh_id;
+  v28 = (v19 & 1) == 0 || msgh_bits >= 0;
+  if ((v19 & 0x100000000) != 0)
+  {
+    if (v28)
+    {
+      v30 = 0;
+    }
+
+    else
+    {
+      v30 = msg[1].msgh_bits;
+    }
+
+    v32 = (msgh_voucher_port | (msgh_id << 32));
+    v33 = (v30 | (v12 << 32));
+    v34 = ((v23 << 32) | 2);
+    v36 = v44;
+    v35 = v19 | 0x400000000;
+    v31 = (msgh_bits | 0x200000000);
+  }
+
+  else
+  {
+    if (v28)
+    {
+      v29 = 0;
+    }
+
+    else
+    {
+      v29 = msg[1].msgh_bits;
+    }
+
+    v31 = (msgh_bits | (v14 << 32));
+    v32 = (msgh_voucher_port | (msgh_id << 32));
+    v33 = (v29 | (v12 << 32));
+    v34 = (rcv_size | (v23 << 32));
+    v35 = v19 | 0x400000000;
+    v36 = msg;
+  }
+
+  return mach_msg2_internal(v36, v35, v31, *&msg->msgh_remote_port, v32, v33, v34, timeout);
+}
+
 int64_t mach_msg2_internal(void *a1, uint64_t a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
 {
   v14 = a2;
@@ -3025,7 +3208,6 @@ uint64_t stackshot_config_dealloc(uint64_t a1)
   v4 = *(_libkernel_functions + 24);
   if (v4)
   {
-    v5 = *(_libkernel_functions + 24);
     v4(a1);
   }
 
@@ -3253,7 +3435,6 @@ LABEL_26:
                 }
 
                 while (v11 > v9);
-                p_msgh_size[3];
                 if (p_msgh_size[3] && *(p_msgh_size + 8) != 0)
                 {
                   v8 = 4 * v11;
@@ -3674,6 +3855,47 @@ void __rename(const std::__fs::filesystem::path *__from, const std::__fs::filesy
   }
 }
 
+int proc_pidpath_audittoken(audit_token_t *audittoken, void *buffer, uint32_t buffersize)
+{
+  if (buffersize <= 0x3FF)
+  {
+    result = 0;
+    v4 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8);
+    if (!v4)
+    {
+      v4 = &errno;
+    }
+
+    v5 = 12;
+LABEL_9:
+    *v4 = v5;
+    return result;
+  }
+
+  if (buffersize > 0x1000)
+  {
+    result = 0;
+    v4 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8);
+    if (!v4)
+    {
+      v4 = &errno;
+    }
+
+    v5 = 84;
+    goto LABEL_9;
+  }
+
+  if (__proc_info_extended_id(2, audittoken->val[5], 0xB, 1, audittoken->val[7], 0, buffer, *&buffersize) == -1)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return (*(_libkernel_string_functions + 12))(buffer);
+  }
+}
+
 uint64_t __proc_info_extended_id(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
 {
   result = mac_syscall(SYS_proc_info_extended_id, a1, a2, a3, a4, a5, a6, a7, a8);
@@ -3691,6 +3913,38 @@ int fchown(int a1, uid_t a2, gid_t a3)
   if (v3)
   {
     return cerror_nocancel(result);
+  }
+
+  return result;
+}
+
+int proc_regionfilename(int pid, uint64_t address, void *buffer, uint32_t buffersize)
+{
+  v10 = 0u;
+  memset(v11, 0, 496);
+  if (buffersize > 0x3FF)
+  {
+    if (__proc_info(2, *&pid, 0x1F, address, &v10, 0x410, v4, v5) + 1 >= 2)
+    {
+      return (*(_libkernel_string_functions + 11))(buffer, v11, buffersize);
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    result = 0;
+    v8 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8);
+    if (!v8)
+    {
+      v8 = &errno;
+    }
+
+    *v8 = 12;
   }
 
   return result;
@@ -3854,6 +4108,38 @@ uint64_t __ulock_wake(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6
   return result;
 }
 
+int proc_track_dirty(pid_t pid, uint32_t flags)
+{
+  v4 = __proc_info(8, *&pid, 1, flags, 0, 0, v2, v3);
+  result = 0;
+  if (v4 == -1)
+  {
+    v6 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8);
+    if (!v6)
+    {
+      v6 = &errno;
+    }
+
+    return *v6;
+  }
+
+  return result;
+}
+
+int proc_listallpids(void *buffer, int buffersize)
+{
+  v4 = __proc_info(1, 1, 0, 0, buffer, *&buffersize, v2, v3);
+  if (v4 == -1)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return v4 >> 2;
+  }
+}
+
 ssize_t readlink(const char *a1, char *a2, size_t a3)
 {
   result = mac_syscall(SYS_readlink, a1, a2, a3);
@@ -3889,13 +4175,13 @@ int utimes(const char *a1, const timeval *a2)
 
 int accept(int a1, sockaddr *a2, socklen_t *a3)
 {
-  result = mac_syscall(SYS_accept, a1, a2, a3);
+  LODWORD(v4) = mac_syscall(SYS_accept, a1, a2, a3);
   if (v3)
   {
-    return cerror(result);
+    LODWORD(v4) = cerror(v4);
   }
 
-  return result;
+  return v4;
 }
 
 int rmdir(const char *a1)
@@ -4040,13 +4326,13 @@ LABEL_5:
 
 int __fcntl(int a1, int a2, void *a3)
 {
-  result = mac_syscall(SYS_fcntl, a1, a2, a3);
+  LODWORD(v4) = mac_syscall(SYS_fcntl, a1, a2, a3);
   if (v3)
   {
-    return cerror(result);
+    LODWORD(v4) = cerror(v4);
   }
 
-  return result;
+  return v4;
 }
 
 uint64_t __pthread_fchdir(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
@@ -4168,13 +4454,13 @@ int ioctl(int a1, unint64_t a2, ...)
 
 int __ioctl(int a1, unint64_t a2, void *a3)
 {
-  result = mac_syscall(SYS_ioctl, a1, a2, a3);
+  LODWORD(v4) = mac_syscall(SYS_ioctl, a1, a2, a3);
   if (v3)
   {
-    return cerror(result);
+    LODWORD(v4) = cerror(v4);
   }
 
-  return result;
+  return v4;
 }
 
 uint64_t objc_bp_assist_cfg_np(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
@@ -4190,13 +4476,13 @@ uint64_t objc_bp_assist_cfg_np(void *a1, void *a2, void *a3, void *a4, void *a5,
 
 int connectx(int a1, const sa_endpoints_t *a2, sae_associd_t a3, unsigned int a4, const iovec *a5, unsigned int a6, size_t *a7, sae_connid_t *a8)
 {
-  result = mac_syscall(SYS_connectx, a1, a2, a3, a4, a5, a6, a7, a8);
+  LODWORD(v9) = mac_syscall(SYS_connectx, a1, a2, a3, a4, a5, a6, a7, a8);
   if (v8)
   {
-    return cerror(result);
+    LODWORD(v9) = cerror(v9);
   }
 
-  return result;
+  return v9;
 }
 
 ssize_t getxattr(const char *path, const char *name, void *value, size_t size, u_int32_t position, int options)
@@ -4274,6 +4560,136 @@ pid_t getpid(void)
   return result;
 }
 
+int proc_pidfdinfo(int pid, int fd, int flavor, void *buffer, int buffersize)
+{
+  result = __proc_info(3, *&pid, *&flavor, fd, buffer, *&buffersize, v5, v6);
+  if (result == -1)
+  {
+    return 0;
+  }
+
+  return result;
+}
+
+int proc_name(int pid, void *buffer, uint32_t buffersize)
+{
+  v15 = 0;
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v10 = 0u;
+  memset(v9, 0, sizeof(v9));
+  if (buffersize > 0x1F)
+  {
+    if (__proc_info(2, *&pid, 3, 0, v9, 0x88, v3, v4) + 1 >= 2)
+    {
+      if (v11)
+      {
+        v8 = v12;
+        *buffer = v11;
+        *(buffer + 1) = v8;
+      }
+
+      else
+      {
+        *buffer = v10;
+      }
+
+      return (*(_libkernel_string_functions + 12))(buffer);
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    result = 0;
+    v6 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8);
+    if (!v6)
+    {
+      v6 = &errno;
+    }
+
+    *v6 = 12;
+  }
+
+  return result;
+}
+
+int proc_pidpath(int pid, void *buffer, uint32_t buffersize)
+{
+  if (buffersize <= 0x3FF)
+  {
+    result = 0;
+    v6 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8);
+    if (!v6)
+    {
+      v6 = &errno;
+    }
+
+    v7 = 12;
+LABEL_9:
+    *v6 = v7;
+    return result;
+  }
+
+  if (buffersize > 0x1000)
+  {
+    result = 0;
+    v6 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8);
+    if (!v6)
+    {
+      v6 = &errno;
+    }
+
+    v7 = 84;
+    goto LABEL_9;
+  }
+
+  if (__proc_info(2, *&pid, 0xB, 0, buffer, *&buffersize, v3, v4) == -1)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return (*(_libkernel_string_functions + 12))(buffer);
+  }
+}
+
+int proc_pidinfo(int pid, int flavor, uint64_t arg, void *buffer, int buffersize)
+{
+  result = __proc_info(2, *&pid, *&flavor, arg, buffer, *&buffersize, v5, v6);
+  if (result == -1)
+  {
+    return 0;
+  }
+
+  return result;
+}
+
+int proc_set_dirty(pid_t pid, BOOL dirty)
+{
+  v4 = __proc_info(8, *&pid, 2, dirty, 0, 0, v2, v3);
+  result = 0;
+  if (v4 == -1)
+  {
+    v6 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8);
+    if (!v6)
+    {
+      v6 = &errno;
+    }
+
+    return *v6;
+  }
+
+  return result;
+}
+
 uint64_t __proc_info(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
 {
   result = mac_syscall(SYS_proc_info, a1, a2, a3, a4, a5, a6, a7, a8);
@@ -4298,13 +4714,13 @@ int mkdir(const char *a1, mode_t a2)
 
 int faccessat(int a1, const char *a2, int a3, int a4)
 {
-  result = mac_syscall(SYS_faccessat, a1, a2, a3, a4);
+  LODWORD(v5) = mac_syscall(SYS_faccessat, a1, a2, a3, a4);
   if (v4)
   {
-    return cerror(result);
+    LODWORD(v5) = cerror(v5);
   }
 
-  return result;
+  return v5;
 }
 
 int unlink(const char *a1)
@@ -4320,13 +4736,13 @@ int unlink(const char *a1)
 
 int __unlink(const char *a1)
 {
-  result = mac_syscall(SYS_unlink, a1);
+  LODWORD(v2) = mac_syscall(SYS_unlink, a1);
   if (v1)
   {
-    return cerror(result);
+    LODWORD(v2) = cerror(v2);
   }
 
-  return result;
+  return v2;
 }
 
 ssize_t recvmsg(int a1, msghdr *a2, int a3)
@@ -4353,13 +4769,24 @@ int unlinkat(int a1, const char *a2, int a3)
 
 int __unlinkat(int a1, const char *a2, int a3)
 {
-  result = mac_syscall(SYS_unlinkat, a1, a2, a3);
+  LODWORD(v4) = mac_syscall(SYS_unlinkat, a1, a2, a3);
   if (v3)
   {
-    return cerror(result);
+    LODWORD(v4) = cerror(v4);
   }
 
-  return result;
+  return v4;
+}
+
+int fstatat64(int a1, const char *a2, stat *a3, int a4)
+{
+  v9 = mac_syscall(SYS_fstatat64, *&a1, a2, a3, *&a4, v5, v6, v7, v8);
+  if (v4)
+  {
+    LODWORD(v9) = cerror_nocancel(v9);
+  }
+
+  return v9;
 }
 
 ssize_t fgetxattr(int fd, const char *name, void *value, size_t size, u_int32_t position, int options)
@@ -4375,13 +4802,13 @@ ssize_t fgetxattr(int fd, const char *name, void *value, size_t size, u_int32_t 
 
 int access(const char *a1, int a2)
 {
-  result = mac_syscall(SYS_access, a1, a2);
+  LODWORD(v3) = mac_syscall(SYS_access, a1, a2);
   if (v2)
   {
-    return cerror(result);
+    LODWORD(v3) = cerror(v3);
   }
 
-  return result;
+  return v3;
 }
 
 uint64_t __psynch_cvwait(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
@@ -4495,13 +4922,13 @@ int open(const char *a1, int a2, ...)
 
 int __open(const char *a1, int a2, void *a3)
 {
-  result = mac_syscall(SYS_open, a1, a2, a3);
+  LODWORD(v4) = mac_syscall(SYS_open, a1, a2, a3);
   if (v3)
   {
-    return cerror(result);
+    LODWORD(v4) = cerror(v4);
   }
 
-  return result;
+  return v4;
 }
 
 uint64_t csops_audittoken(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
@@ -4550,19 +4977,20 @@ int stat64(const char *a1, stat *a2)
 
 int __openat(int a1, const char *a2, int a3)
 {
-  result = mac_syscall(SYS_openat, a1, a2, a3);
+  LODWORD(v4) = mac_syscall(SYS_openat, a1, a2, a3);
   if (v3)
   {
-    return cerror(result);
+    LODWORD(v4) = cerror(v4);
   }
 
-  return result;
+  return v4;
 }
 
-uint64_t cerror(int a1)
+uint64_t cerror(uint64_t a1)
 {
+  v1 = a1;
   (*(_libkernel_functions + 40))();
-  cerror_nocancel(a1);
+  cerror_nocancel(v1);
   return -1;
 }
 
@@ -4695,6 +5123,17 @@ int __munmap(void *a1, size_t a2)
   }
 
   return result;
+}
+
+int fstatfs64(int a1, statfs *a2)
+{
+  v9 = mac_syscall(SYS_fstatfs64, *&a1, a2, v3, v4, v5, v6, v7, v8);
+  if (v2)
+  {
+    LODWORD(v9) = cerror_nocancel(v9);
+  }
+
+  return v9;
 }
 
 uint64_t guarded_pwrite_np(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
@@ -4949,7 +5388,7 @@ uint64_t __psynch_mutexwait(void *a1, void *a2, void *a3, void *a4, void *a5, vo
   return result;
 }
 
-uint64_t __thread_selfusage(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
+int64_t __thread_selfusage(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
 {
   result = mac_syscall(SYS_thread_selfusage, a1, a2, a3, a4, a5, a6, a7, a8);
   if (v8)
@@ -5097,34 +5536,34 @@ uint64_t work_interval_create(int32x2_t **a1, __int32 a2, uint64_t a3, uint64_t 
 {
   if (a1)
   {
-    v25 = 0;
-    v26.i32[0] = 0;
-    v26.i32[1] = a2;
-    result = __work_interval_ctl(4, 0, &v25, 0x10, a5, a6, a7, a8);
+    v24 = 0;
+    v25.i32[0] = 0;
+    v25.i32[1] = a2;
+    result = __work_interval_ctl(4, 0, &v24, 0x10, a5, a6, a7, a8);
     if (result != -1)
     {
       v10 = *(_libkernel_functions + 16);
-      if (v10 && (v11 = *(_libkernel_functions + 16), (v12 = v10(24)) != 0))
+      if (v10 && (v11 = v10(24)) != 0)
       {
-        v20 = v12;
-        v21 = __thread_selfid(v12, v13, v14, v15, v16, v17, v18, v19);
+        v19 = v11;
+        v20 = __thread_selfid(v11, v12, v13, v14, v15, v16, v17, v18);
         result = 0;
-        v22 = v25;
-        *v20 = v21;
-        v20[1] = v22;
-        v20[2] = vrev64_s32(v26);
-        *a1 = v20;
+        v21 = v24;
+        *v19 = v20;
+        v19[1] = v21;
+        v19[2] = vrev64_s32(v25);
+        *a1 = v19;
       }
 
       else
       {
-        v24 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8);
-        if (!v24)
+        v23 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8);
+        if (!v23)
         {
-          v24 = &errno;
+          v23 = &errno;
         }
 
-        *v24 = 12;
+        *v23 = 12;
         return 0xFFFFFFFFLL;
       }
     }
@@ -5132,20 +5571,20 @@ uint64_t work_interval_create(int32x2_t **a1, __int32 a2, uint64_t a3, uint64_t 
 
   else
   {
-    v23 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8);
-    if (!v23)
+    v22 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8);
+    if (!v22)
     {
-      v23 = &errno;
+      v22 = &errno;
     }
 
-    *v23 = 22;
+    *v22 = 22;
     return 0xFFFFFFFFLL;
   }
 
   return result;
 }
 
-uint64_t __thread_selfid(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
+int64_t __thread_selfid(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
 {
   result = mac_syscall(SYS_thread_selfid, a1, a2, a3, a4, a5, a6, a7, a8);
   if (v8)
@@ -5244,6 +5683,29 @@ int getiopolicy_np(int a1, int a2)
   {
     return v10;
   }
+}
+
+int setiopolicy_np(int a1, int a2, int a3)
+{
+  v10[0] = a2;
+  v10[1] = a1;
+  v10[2] = a3;
+  result = __iopolicysys(2, v10, *&a3, v3, v4, v5, v6, v7);
+  if (result == -2)
+  {
+    if (*_libkernel_functions >= 3uLL)
+    {
+      v9 = *(_libkernel_functions + 88);
+      if (v9)
+      {
+        v9(0);
+      }
+    }
+
+    return 0;
+  }
+
+  return result;
 }
 
 uint64_t __iopolicysys(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
@@ -5473,19 +5935,18 @@ uint64_t os_channel_sync(unsigned int *a1, void *a2, uint64_t a3, void *a4, void
     return 22;
   }
 
-  v8 = *a1;
-  v9 = a1[1];
+  v8 = a1[1];
   if (a2)
   {
-    v10 = v9 & 0xFFFFFFF6;
+    v9 = (v8 & 0xFFFFFFF6);
   }
 
   else
   {
-    v10 = v9;
+    v9 = v8;
   }
 
-  return __channel_sync(*a1, a2, v10, a4, a5, a6, a7, a8);
+  return __channel_sync(*a1, a2, v9, a4, a5, a6, a7, a8);
 }
 
 uint64_t __psynch_cvbroad(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
@@ -5767,7 +6228,7 @@ __n128 os_packet_set_flow_uuid(uint64_t a1, __n128 *a2)
 
     else
     {
-      *v2 = a2->n128_u32[0];
+      v2->n128_u32[0] = a2->n128_u32[0];
       *((a1 & 0xFFFFFFFFFFFFFFF0) + 4) = a2->n128_u32[1];
       *((a1 & 0xFFFFFFFFFFFFFFF0) + 8) = a2->n128_u32[2];
       *((a1 & 0xFFFFFFFFFFFFFFF0) + 0xC) = a2->n128_u32[3];
@@ -5776,7 +6237,7 @@ __n128 os_packet_set_flow_uuid(uint64_t a1, __n128 *a2)
 
   else
   {
-    *v2 = a2->n128_u64[0];
+    v2->n128_u64[0] = a2->n128_u64[0];
     *((a1 & 0xFFFFFFFFFFFFFFF0) + 8) = a2->n128_u64[1];
   }
 
@@ -5877,13 +6338,13 @@ int sigprocmask(int a1, const sigset_t *a2, sigset_t *a3)
 
 int fsync(int a1)
 {
-  result = mac_syscall(SYS_fsync, a1);
+  LODWORD(v2) = mac_syscall(SYS_fsync, a1);
   if (v1)
   {
-    return cerror(result);
+    LODWORD(v2) = cerror(v2);
   }
 
-  return result;
+  return v2;
 }
 
 uint64_t guarded_open_dprotected_np(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, uint64_t a7, void *a8, unsigned int a9)
@@ -5947,13 +6408,13 @@ int ftruncate(int a1, off_t a2)
 
 int select_DARWIN_EXTSN(int a1, fd_set *a2, fd_set *a3, fd_set *a4, timeval *a5)
 {
-  result = mac_syscall(SYS_select, a1, a2, a3, a4, a5);
+  LODWORD(v6) = mac_syscall(SYS_select, a1, a2, a3, a4, a5);
   if (v5)
   {
-    return cerror(result);
+    LODWORD(v6) = cerror(v6);
   }
 
-  return result;
+  return v6;
 }
 
 kern_return_t mach_port_get_attributes(ipc_space_read_t task, mach_port_name_t name, mach_port_flavor_t flavor, mach_port_info_t port_info_out, mach_msg_type_number_t *port_info_outCnt)
@@ -6640,6 +7101,17 @@ uint64_t __disable_threadsignal(void *a1, void *a2, void *a3, void *a4, void *a5
   return result;
 }
 
+int getfsstat64(statfs *a1, int a2, int a3)
+{
+  v9 = mac_syscall(SYS_getfsstat64, a1, *&a2, *&a3, v4, v5, v6, v7, v8);
+  if (v3)
+  {
+    LODWORD(v9) = cerror_nocancel(v9);
+  }
+
+  return v9;
+}
+
 uint64_t os_channel_slot_attach_packet(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if ((*(*(*result + 16) + 16) & 8) == 0)
@@ -6766,13 +7238,13 @@ int renameat(int a1, const char *a2, int a3, const char *a4)
 
 int __renameat(int a1, const char *a2, int a3, const char *a4)
 {
-  result = mac_syscall(SYS_renameat, a1, a2, a3, a4);
+  LODWORD(v5) = mac_syscall(SYS_renameat, a1, a2, a3, a4);
   if (v4)
   {
-    return cerror(result);
+    LODWORD(v5) = cerror(v5);
   }
 
-  return result;
+  return v5;
 }
 
 uint64_t os_packet_finalize(uint64_t a1)
@@ -7792,7 +8264,7 @@ LABEL_10:
     v20 = *v13;
     if (*(v8 + 52) != -1)
     {
-      v28 = (v8 + 32);
+      v28 = v8 + 32;
       goto LABEL_18;
     }
 
@@ -7800,7 +8272,7 @@ LABEL_55:
     v40 = *(v8 + 56);
     if (v40 != -1)
     {
-      v28 = (v15[10] + v40 * *(v20 + 26));
+      v28 = v15[10] + v40 * *(v20 + 26);
       if (v28)
       {
         goto LABEL_64;
@@ -7835,7 +8307,7 @@ LABEL_18:
       v29 = v28;
       do
       {
-        v30 = *(v29 + 5);
+        v30 = *(v29 + 20);
         if (v30 == -1)
         {
           v35 = 0;
@@ -7843,7 +8315,7 @@ LABEL_18:
 
         else
         {
-          v31 = *(v29 + 20);
+          v31 = *(v29 + 40);
           v32 = (v31 & 2) == 0;
           if ((v31 & 2) != 0)
           {
@@ -7868,8 +8340,8 @@ LABEL_18:
           v35 = v15[v34] + (*(v20 + v33) * v30);
         }
 
-        v29[1] = v35;
-        v36 = *(v29 + 6);
+        *(v29 + 8) = v35;
+        v36 = *(v29 + 24);
         if (v36 == -1)
         {
           *v29 = 0;
@@ -7879,7 +8351,7 @@ LABEL_18:
           }
 
           result = 6;
-          if (v28[1])
+          if (*(v28 + 8))
           {
             if (v16 + 1 == v12[3])
             {
@@ -8318,10 +8790,23 @@ uint64_t posix_spawnattr_setjetsam_ext(uint64_t *a1, __int16 a2, int a3, int a4,
 
 int msync(void *a1, size_t a2, int a3)
 {
-  result = mac_syscall(SYS_msync, a1, a2, a3);
+  LODWORD(v4) = mac_syscall(SYS_msync, a1, a2, a3);
   if (v3)
   {
-    return cerror(result);
+    LODWORD(v4) = cerror(v4);
+  }
+
+  return v4;
+}
+
+kern_return_t host_create_mach_voucher(host_t host, mach_voucher_attr_raw_recipe_array_t recipes, mach_msg_type_number_t recipesCnt, ipc_voucher_t *voucher)
+{
+  v5 = *&recipesCnt;
+  result = host_create_mach_voucher_trap(host, recipes, recipesCnt, voucher);
+  if (result == 268435459)
+  {
+
+    return _kernelrpc_host_create_mach_voucher(host, recipes, v5, voucher);
   }
 
   return result;
@@ -8528,13 +9013,13 @@ uint64_t posix_spawnattr_setprocesstype_np(uint64_t *a1, int a2)
 
 int connect(int a1, const sockaddr *a2, socklen_t a3)
 {
-  result = mac_syscall(SYS_connect, a1, a2, a3);
+  LODWORD(v4) = mac_syscall(SYS_connect, a1, a2, a3);
   if (v3)
   {
-    return cerror(result);
+    LODWORD(v4) = cerror(v4);
   }
 
-  return result;
+  return v4;
 }
 
 uint64_t posix_spawnattr_set_threadlimit_ext(uint64_t *a1, int a2)
@@ -8893,7 +9378,7 @@ uint64_t __psynch_cvclrprepost(void *a1, void *a2, void *a3, void *a4, void *a5,
   return result;
 }
 
-uint64_t __sigreturn(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
+int64_t __sigreturn(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
 {
   result = mac_syscall(SYS_sigreturn, a1, a2, a3, a4, a5, a6, a7, a8);
   if (v8)
@@ -8935,13 +9420,13 @@ uint64_t connect_NOCANCEL(void *a1, void *a2, void *a3, void *a4, void *a5, void
 
 int __wait4(pid_t a1, int *a2, int a3, rusage *a4)
 {
-  result = mac_syscall(SYS_wait4, a1, a2, a3, a4);
+  LODWORD(v5) = mac_syscall(SYS_wait4, a1, a2, a3, a4);
   if (v4)
   {
-    return cerror(result);
+    LODWORD(v5) = cerror(v5);
   }
 
-  return result;
+  return v5;
 }
 
 uint64_t os_nexus_flow_set_wake_from_sleep(__int128 *a1, uint64_t a2, int a3)
@@ -9044,17 +9529,16 @@ uint64_t _posix_spawn_file_actions_grow(int **a1)
     return 12;
   }
 
-  v5 = *(_libkernel_functions + 32);
-  v6 = v4();
-  if (!v6)
+  v5 = v4();
+  if (!v5)
   {
     return 12;
   }
 
-  v7 = v6;
+  v6 = v5;
   result = 0;
-  *v7 = v3;
-  *a1 = v7;
+  *v6 = v3;
+  *a1 = v6;
   return result;
 }
 
@@ -9085,15 +9569,14 @@ LABEL_5:
       v12 = *(_libkernel_functions + 16);
       if (v12)
       {
-        v13 = *(_libkernel_functions + 16);
-        v14 = v12(48);
-        if (v14)
+        v13 = v12(48);
+        if (v13)
         {
-          v10 = v14;
-          v14[1] = 0u;
-          v14[2] = 0u;
-          *v14 = 0u;
-          *(v7 + 208) = v14;
+          v10 = v13;
+          v13[1] = 0u;
+          v13[2] = 0u;
+          *v13 = 0u;
+          *(v7 + 208) = v13;
           goto LABEL_5;
         }
       }
@@ -9327,484 +9810,4 @@ uint64_t work_interval_join_port(unsigned int a1, uint64_t a2, uint64_t a3, uint
 
   *v9 = 22;
   return 0xFFFFFFFFLL;
-}
-
-int setgid(gid_t a1)
-{
-  result = mac_syscall(SYS_setgid, a1);
-  if (v1)
-  {
-    return cerror_nocancel(result);
-  }
-
-  return result;
-}
-
-int __initgroups(const char *a1, int a2)
-{
-  result = mac_syscall(SYS_initgroups, a1, a2);
-  if (v2)
-  {
-    return cerror_nocancel(result);
-  }
-
-  return result;
-}
-
-int setuid(uid_t a1)
-{
-  result = mac_syscall(SYS_setuid, a1);
-  if (v1)
-  {
-    return cerror_nocancel(result);
-  }
-
-  return result;
-}
-
-kern_return_t host_processor_set_priv(host_priv_t host_priv, processor_set_name_t set_name, processor_set_t *set)
-{
-  v13 = 0x13000000000000;
-  v14 = 0;
-  v11 = 1;
-  v12 = set_name;
-  reply_port = mig_get_reply_port();
-  *&v10.msgh_bits = 0x2880001513;
-  *&v10.msgh_remote_port = __PAIR64__(reply_port, host_priv);
-  *&v10.msgh_voucher_port = 0x1A400000000;
-  v6 = mach_msg2_internal(&v10, 0x200000003, 0x2880001513, __PAIR64__(reply_port, host_priv), 0x1A400000000, ((reply_port << 32) | 1), 0x30, 0);
-  v7 = v6;
-  if ((v6 - 268435458) > 0xE || ((1 << (v6 - 2)) & 0x4003) == 0)
-  {
-    if (!v6)
-    {
-      if (v10.msgh_id == 71)
-      {
-        v7 = -308;
-      }
-
-      else if (v10.msgh_id == 520)
-      {
-        if ((v10.msgh_bits & 0x80000000) != 0)
-        {
-          v7 = -300;
-          if (v11 == 1 && *&v10.msgh_size == 40 && HIWORD(v13) << 16 == 1114112)
-          {
-            v7 = 0;
-            *set = v12;
-            return v7;
-          }
-        }
-
-        else if (v10.msgh_size == 36)
-        {
-          v7 = -300;
-          if (v13)
-          {
-            if (v10.msgh_remote_port)
-            {
-              v7 = -300;
-            }
-
-            else
-            {
-              v7 = v13;
-            }
-          }
-        }
-
-        else
-        {
-          v7 = -300;
-        }
-      }
-
-      else
-      {
-        v7 = -301;
-      }
-
-      mach_msg_destroy(&v10);
-      return v7;
-    }
-
-    mig_dealloc_reply_port(v10.msgh_local_port);
-  }
-
-  return v7;
-}
-
-uint64_t sigsuspend_NOCANCEL(unsigned int *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
-{
-  if (a1)
-  {
-    a1 = *a1;
-  }
-
-  return __sigsuspend_nocancel(a1, a2, a3, a4, a5, a6, a7, a8);
-}
-
-kern_return_t host_processor_sets(host_priv_t host_priv, processor_set_name_array_t *processor_sets, mach_msg_type_number_t *processor_setsCnt)
-{
-  v15 = 0;
-  v14 = 0u;
-  v13 = 0u;
-  reply_port = mig_get_reply_port();
-  *&v12.msgh_bits = 0x1800001513;
-  *&v12.msgh_remote_port = __PAIR64__(reply_port, host_priv);
-  *&v12.msgh_voucher_port = 0x1A300000000;
-  v7 = mach_msg2_internal(&v12, 0x200000003, 0x1800001513, __PAIR64__(reply_port, host_priv), 0x1A300000000, (reply_port << 32), 0x40, 0);
-  v8 = v7;
-  if ((v7 - 268435458) > 0xE || ((1 << (v7 - 2)) & 0x4003) == 0)
-  {
-    if (!v7)
-    {
-      if (v12.msgh_id == 71)
-      {
-        v8 = -308;
-      }
-
-      else if (v12.msgh_id == 519)
-      {
-        if ((v12.msgh_bits & 0x80000000) != 0)
-        {
-          v8 = -300;
-          if (v13 == 1 && *&v12.msgh_size == 56 && HIWORD(v13) == 529)
-          {
-            v10 = v14;
-            if (v14 == HIDWORD(v14))
-            {
-              v8 = 0;
-              *processor_sets = *(&v13 + 4);
-              *processor_setsCnt = v10;
-              return v8;
-            }
-          }
-        }
-
-        else if (v12.msgh_size == 36)
-        {
-          v8 = -300;
-          if (DWORD2(v13))
-          {
-            if (v12.msgh_remote_port)
-            {
-              v8 = -300;
-            }
-
-            else
-            {
-              v8 = DWORD2(v13);
-            }
-          }
-        }
-
-        else
-        {
-          v8 = -300;
-        }
-      }
-
-      else
-      {
-        v8 = -301;
-      }
-
-      mach_msg_destroy(&v12);
-      return v8;
-    }
-
-    mig_dealloc_reply_port(v12.msgh_local_port);
-  }
-
-  return v8;
-}
-
-pid_t setsid(void)
-{
-  result = mac_syscall(SYS_setsid);
-  if (v0)
-  {
-    return cerror_nocancel(result);
-  }
-
-  return result;
-}
-
-kern_return_t processor_set_tasks(processor_set_t processor_set, task_array_t *task_list, mach_msg_type_number_t *task_listCnt)
-{
-  v15 = 0;
-  v14 = 0u;
-  v13 = 0u;
-  reply_port = mig_get_reply_port();
-  *&v12.msgh_bits = 0x1800001513;
-  *&v12.msgh_remote_port = __PAIR64__(reply_port, processor_set);
-  *&v12.msgh_voucher_port = 0xFA500000000;
-  v7 = mach_msg2_internal(&v12, 0x200000003, 0x1800001513, __PAIR64__(reply_port, processor_set), 0xFA500000000, (reply_port << 32), 0x40, 0);
-  v8 = v7;
-  if ((v7 - 268435458) > 0xE || ((1 << (v7 - 2)) & 0x4003) == 0)
-  {
-    if (!v7)
-    {
-      if (v12.msgh_id == 71)
-      {
-        v8 = -308;
-      }
-
-      else if (v12.msgh_id == 4105)
-      {
-        if ((v12.msgh_bits & 0x80000000) != 0)
-        {
-          v8 = -300;
-          if (v13 == 1 && *&v12.msgh_size == 56 && HIWORD(v13) == 529)
-          {
-            v10 = v14;
-            if (v14 == HIDWORD(v14))
-            {
-              v8 = 0;
-              *task_list = *(&v13 + 4);
-              *task_listCnt = v10;
-              return v8;
-            }
-          }
-        }
-
-        else if (v12.msgh_size == 36)
-        {
-          v8 = -300;
-          if (DWORD2(v13))
-          {
-            if (v12.msgh_remote_port)
-            {
-              v8 = -300;
-            }
-
-            else
-            {
-              v8 = DWORD2(v13);
-            }
-          }
-        }
-
-        else
-        {
-          v8 = -300;
-        }
-      }
-
-      else
-      {
-        v8 = -301;
-      }
-
-      mach_msg_destroy(&v12);
-      return v8;
-    }
-
-    mig_dealloc_reply_port(v12.msgh_local_port);
-  }
-
-  return v8;
-}
-
-sem_t *__sem_open(const char *a1, int a2, void *a3)
-{
-  result = mac_syscall(SYS_sem_open, a1, a2, a3);
-  if (v3)
-  {
-    return cerror_nocancel(result);
-  }
-
-  return result;
-}
-
-uint64_t proc_rlimit_control(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
-{
-  result = mac_syscall(SYS_proc_rlimit_control, a1, a2, a3, a4, a5, a6, a7, a8);
-  if (v8)
-  {
-    return cerror_nocancel(result);
-  }
-
-  return result;
-}
-
-kern_return_t mach_vm_remap_new(vm_map_t target_task, mach_vm_address_t *target_address, mach_vm_size_t size, mach_vm_offset_t mask, int flags, vm_map_read_t src_task, mach_vm_address_t src_address, BOOLean_t copy, vm_prot_t *cur_protection, vm_prot_t *max_protection, vm_inherit_t inheritance)
-{
-  v15 = _kernelrpc_mach_vm_remap_new(target_task, target_address, size, mask, flags, src_task, src_address, copy, cur_protection, max_protection, inheritance);
-  v16 = v15;
-  if (__syscall_logger)
-  {
-    v17 = v15 == 0;
-  }
-
-  else
-  {
-    v17 = 0;
-  }
-
-  if (v17)
-  {
-    __syscall_logger(flags & 0xFF000000 | 0x90, target_task, size, 0, *target_address, 0);
-  }
-
-  return v16;
-}
-
-uint64_t _kernelrpc_mach_vm_remap_new(unsigned int a1, uint64_t *a2, uint64_t a3, uint64_t a4, int a5, int a6, uint64_t a7, int a8, int *a9, int *a10, int a11)
-{
-  v22 = 1;
-  v23 = a6;
-  *&v24 = 0x13000000000000;
-  v13 = *a2;
-  *(&v24 + 1) = NDR_record;
-  v25 = v13;
-  v26 = a3;
-  v27 = a4;
-  v28 = a5;
-  v29 = a7;
-  v14 = *a9;
-  v30 = a8;
-  v31 = v14;
-  v32 = *a10;
-  v33 = a11;
-  reply_port = mig_get_reply_port();
-  *&v21.msgh_bits = 0x6480001513;
-  *&v21.msgh_remote_port = __PAIR64__(reply_port, a1);
-  *&v21.msgh_voucher_port = 0x12D500000000;
-  v16 = mach_msg2_internal(&v21, 0x200000003, 0x6480001513, __PAIR64__(reply_port, a1), 0x12D500000000, ((reply_port << 32) | 1), 0x3C, 0);
-  v17 = v16;
-  if ((v16 - 268435458) > 0xE || ((1 << (v16 - 2)) & 0x4003) == 0)
-  {
-    if (!v16)
-    {
-      if (v21.msgh_id == 71)
-      {
-        v17 = 4294966988;
-      }
-
-      else if (v21.msgh_id == 4921)
-      {
-        if ((v21.msgh_bits & 0x80000000) == 0)
-        {
-          if (v21.msgh_size == 52)
-          {
-            if (!v21.msgh_remote_port)
-            {
-              v17 = v24;
-              if (!v24)
-              {
-                *a2 = *(&v24 + 4);
-                v20 = v25;
-                *a9 = HIDWORD(v24);
-                *a10 = v20;
-                return v17;
-              }
-
-              goto LABEL_20;
-            }
-          }
-
-          else if (v21.msgh_size == 36)
-          {
-            if (v21.msgh_remote_port)
-            {
-              v18 = 1;
-            }
-
-            else
-            {
-              v18 = v24 == 0;
-            }
-
-            if (v18)
-            {
-              v17 = 4294966996;
-            }
-
-            else
-            {
-              v17 = v24;
-            }
-
-            goto LABEL_20;
-          }
-        }
-
-        v17 = 4294966996;
-      }
-
-      else
-      {
-        v17 = 4294966995;
-      }
-
-LABEL_20:
-      mach_msg_destroy(&v21);
-      return v17;
-    }
-
-    mig_dealloc_reply_port(v21.msgh_local_port);
-  }
-
-  return v17;
-}
-
-int pipe(int a1[2])
-{
-  v4 = mac_syscall(SYS_pipe, a1);
-  if (v1)
-  {
-    return cerror_nocancel(v4);
-  }
-
-  *a1 = v4;
-  a1[1] = v2;
-  return 0;
-}
-
-uint64_t posix_spawnattr_setdataless_iopolicy_np(uint64_t *a1, int a2)
-{
-  if (!a1)
-  {
-    return 22;
-  }
-
-  v2 = *a1;
-  if (!*a1)
-  {
-    return 22;
-  }
-
-  result = 0;
-  *(v2 + 128) |= 4u;
-  *(v2 + 152) = a2 | 4;
-  return result;
-}
-
-int fchmodat(int a1, const char *a2, mode_t a3, int a4)
-{
-  result = mac_syscall(SYS_fchmodat, a1, a2, a3, a4);
-  if (v4)
-  {
-    return cerror_nocancel(result);
-  }
-
-  return result;
-}
-
-uint64_t os_channel_rx_ring(uint64_t a1, unsigned int a2)
-{
-  v2 = *(a1 + 16);
-  v3 = v2[5];
-  v4 = v3 == -1 || v3 == a2;
-  if (v4 && (v5 = v2[78], v5 <= a2) && v2[79] >= a2)
-  {
-    return a1 + 96 * (a2 - (v5 + v2[76]) + v2[77] + 1) + 72;
-  }
-
-  else
-  {
-    return 0;
-  }
 }

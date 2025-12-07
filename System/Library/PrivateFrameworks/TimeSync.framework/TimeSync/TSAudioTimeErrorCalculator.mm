@@ -100,7 +100,7 @@
 
   else
   {
-    v10 = [objc_alloc(*off_279DBD610[correlationType]) initWithMaxCorrelationLength:self->_correlationLength andUpscaleFactor:self->_upscaleFactor forSamplingRate:self->_samplingRate];
+    v10 = [objc_alloc(*off_279DBD610[correlationType]) initWithMaxCorrelationLength:? andUpscaleFactor:? forSamplingRate:?];
   }
 
   v13 = v10;
@@ -137,7 +137,7 @@
   v13 = (endOffsetCopy - v10 + 1) / self->_interval;
   if (option != 1 && (option || v13 <= 10000 / self->_upscaleFactor) || ([MEMORY[0x277CCAC38] processInfo], v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "activeProcessorCount"), v14, v15 == 1))
   {
-    [(TSAudioTimeErrorCalculator *)self _processTimeErrorFromStartOffset:v10 atIndex:0 withCount:v13];
+    [TSAudioTimeErrorCalculator _processTimeErrorFromStartOffset:"_processTimeErrorFromStartOffset:atIndex:withCount:" atIndex:? withCount:?];
   }
 
   else
@@ -222,8 +222,8 @@ intptr_t __96__TSAudioTimeErrorCalculator_calculateTimeErrorFromStartOffset_toEn
     v4 = 0;
     do
     {
-      v5 = [[TSAudioTimeErrorValue alloc] initWithSampleTimestamp:self->_sampleTimestamps[v4] andTimeError:self->_timeErrors[v4]];
-      [array addObject:v5];
+      v5 = [TSAudioTimeErrorValue initWithSampleTimestamp:"initWithSampleTimestamp:andTimeError:" andTimeError:?];
+      [array addObject:?];
 
       ++v4;
     }
@@ -247,9 +247,8 @@ intptr_t __96__TSAudioTimeErrorCalculator_calculateTimeErrorFromStartOffset_toEn
     v4 = 0;
     do
     {
-      v5 = self->_timeErrors[v4];
-      v6 = [[TSTimeErrorValue alloc] initWithTimestamp:(self->_sampleTimestamps[v4] * 1000000000.0) andError:(v5 * 1000000000.0)];
-      [array addObject:v6];
+      v5 = [TSTimeErrorValue initWithTimestamp:"initWithTimestamp:andError:" andError:?];
+      [array addObject:?];
 
       ++v4;
     }
@@ -267,9 +266,9 @@ intptr_t __96__TSAudioTimeErrorCalculator_calculateTimeErrorFromStartOffset_toEn
   if ([lCopy isFileURL])
   {
     path = [lCopy path];
-    v9 = [path stringByAppendingPathComponent:filenameCopy];
+    v9 = [path stringByAppendingPathComponent:?];
 
-    v10 = [(TSAudioTimeErrorCalculator *)self exportTimeErrorToPath:v9];
+    v10 = [(TSAudioTimeErrorCalculator *)self exportTimeErrorToPath:?];
   }
 
   else
@@ -327,13 +326,12 @@ intptr_t __96__TSAudioTimeErrorCalculator_calculateTimeErrorFromStartOffset_toEn
 
 - (void)calculateTimeErrorFromStartOffset:(uint64_t)a1 toEndOffset:(uint64_t)a2 withThreadingOption:.cold.1(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 134218240;
-  v4 = a1 - a2;
-  v5 = 2048;
-  v6 = (a1 - a2) / 1000000000.0;
-  _os_log_debug_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Elapsed time %llu, %f\n", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 134218240;
+  v3 = a1 - a2;
+  v4 = 2048;
+  v5 = (a1 - a2) / 1000000000.0;
+  _os_log_debug_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Elapsed time %llu, %f\n", &v2, 0x16u);
 }
 
 @end

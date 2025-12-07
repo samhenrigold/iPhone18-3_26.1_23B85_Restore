@@ -30,7 +30,7 @@
 
 - (id)runWithCompletion:(id)completion
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = [MEMORY[0x277CCAC48] discreteProgressWithTotalUnitCount:1000];
   _HKInitializeLogging();
@@ -40,27 +40,26 @@
     if (self)
     {
       v7 = self->super._storeIdentifier;
-      options = self->super._options;
-      v9 = v7;
+      v8 = v7;
     }
 
     else
     {
       v7 = 0;
-      v9 = 0;
+      v8 = 0;
     }
 
-    v10 = v6;
-    v11 = HKStaticSyncOptionsToString();
+    v9 = v6;
+    v10 = HKStaticSyncOptionsToString();
     *buf = 138544130;
     selfCopy = self;
-    v24 = 2080;
-    v25 = "[HDStaticSyncExportTask runWithCompletion:]";
+    v22 = 2080;
+    v23 = "[HDStaticSyncExportTask runWithCompletion:]";
+    v24 = 2114;
+    v25 = v7;
     v26 = 2114;
-    v27 = v7;
-    v28 = 2114;
-    v29 = v11;
-    _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_INFO, "%{public}@: %s: storeIdentifier = %{public}@, options = %{public}@", buf, 0x2Au);
+    v27 = v10;
+    _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_INFO, "%{public}@: %s: storeIdentifier = %{public}@, options = %{public}@", buf, 0x2Au);
   }
 
   if (self)
@@ -78,27 +77,26 @@
   block[2] = __44__HDStaticSyncExportTask_runWithCompletion___block_invoke;
   block[3] = &unk_278616D18;
   block[4] = self;
-  v21 = completionCopy;
-  v13 = v5;
-  v20 = v13;
-  v14 = completionCopy;
+  v19 = completionCopy;
+  v12 = v5;
+  v18 = v12;
+  v13 = completionCopy;
   dispatch_async(queue, block);
-  v15 = v20;
-  v16 = v13;
+  v14 = v18;
+  v15 = v12;
 
-  v17 = *MEMORY[0x277D85DE8];
-  return v13;
+  return v12;
 }
 
 void __44__HDStaticSyncExportTask_runWithCompletion___block_invoke(uint64_t a1)
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x3032000000;
+  v41 = __Block_byref_object_copy__46;
+  v42 = __Block_byref_object_dispose__46;
   v43 = 0;
-  v44 = &v43;
-  v45 = 0x3032000000;
-  v46 = __Block_byref_object_copy__46;
-  v47 = __Block_byref_object_dispose__46;
-  v48 = 0;
   v2 = [_HDStaticSyncStore alloc];
   v3 = *(a1 + 32);
   if (v3)
@@ -117,14 +115,13 @@ void __44__HDStaticSyncExportTask_runWithCompletion___block_invoke(uint64_t a1)
   }
 
   v5 = v3;
-  v6 = (v44 + 5);
-  obj = v44[5];
+  v6 = (v39 + 5);
+  obj = v39[5];
   v7 = [(_HDStaticSyncStore *)v2 initWithProfile:WeakRetained storeIdentifier:v5 error:&obj];
   objc_storeStrong(v6, obj);
 
   if (!v7)
   {
-    v21 = v44[5];
     (*(*(a1 + 48) + 16))();
     goto LABEL_33;
   }
@@ -133,16 +130,15 @@ void __44__HDStaticSyncExportTask_runWithCompletion___block_invoke(uint64_t a1)
   if (!v8 || (v9 = *(v8 + 16), (v9 & 1) == 0))
   {
     v10 = objc_alloc_init(HDSyncAnchorMap);
-    v11 = (v44 + 5);
-    v41 = v44[5];
+    v11 = (v39 + 5);
+    v36 = v39[5];
     v12 = v10;
     v13 = objc_loadWeakRetained(v7 + 2);
-    v14 = [HDSyncAnchorEntity setAcknowledgedAnchorsWithMap:v12 store:v7 resetNext:1 resetInvalid:1 profile:v13 error:&v41];
+    v14 = [HDSyncAnchorEntity setAcknowledgedAnchorsWithMap:v12 store:v7 resetNext:1 resetInvalid:1 profile:v13 error:&v36];
 
-    objc_storeStrong(v11, v41);
+    objc_storeStrong(v11, v36);
     if (!v14)
     {
-      v22 = v44[5];
       (*(*(a1 + 48) + 16))();
 LABEL_32:
 
@@ -157,58 +153,57 @@ LABEL_21:
       v12 = [(HDSyncSession *)[_HDStaticSyncSession alloc] initWithSyncStore:v7 reason:@"Static Sync" delegate:*(a1 + 32)];
       [(HDSyncSession *)v12 setDatabaseAccessibilityTimeout:300.0];
       _HKInitializeLogging();
-      v24 = MEMORY[0x277CCC328];
-      v25 = *MEMORY[0x277CCC328];
+      v21 = MEMORY[0x277CCC328];
+      v22 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_INFO))
       {
-        v26 = v25;
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+        v23 = v22;
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
-          v27 = *(a1 + 32);
-          v28 = [(HDSyncSession *)v12 syncStore];
-          *v55 = 138543618;
-          *&v55[4] = v27;
-          *&v55[12] = 2114;
-          *&v55[14] = v28;
-          _os_log_impl(&dword_228986000, v26, OS_LOG_TYPE_INFO, "%{public}@: start performSyncSession: %{public}@", v55, 0x16u);
+          v24 = *(a1 + 32);
+          v25 = [(HDSyncSession *)v12 syncStore];
+          *v50 = 138543618;
+          *&v50[4] = v24;
+          *&v50[12] = 2114;
+          *&v50[14] = v25;
+          _os_log_impl(&dword_228986000, v23, OS_LOG_TYPE_INFO, "%{public}@: start performSyncSession: %{public}@", v50, 0x16u);
         }
       }
 
-      v29 = *(a1 + 32);
-      if (v29)
+      v26 = *(a1 + 32);
+      if (v26)
       {
-        v30 = objc_loadWeakRetained((v29 + 8));
+        v27 = objc_loadWeakRetained((v26 + 8));
       }
 
       else
       {
-        v30 = 0;
+        v27 = 0;
       }
 
-      v31 = [v30 syncEngine];
-      v32 = (v44 + 5);
-      v39 = v44[5];
-      [v31 performSyncSession:v12 accessibilityAssertion:0 error:&v39];
-      objc_storeStrong(v32, v39);
+      v28 = [v27 syncEngine];
+      v29 = (v39 + 5);
+      v34 = v39[5];
+      [v28 performSyncSession:v12 accessibilityAssertion:0 error:&v34];
+      objc_storeStrong(v29, v34);
 
       _HKInitializeLogging();
-      v33 = *v24;
-      if (os_log_type_enabled(*v24, OS_LOG_TYPE_INFO))
+      v30 = *v21;
+      if (os_log_type_enabled(*v21, OS_LOG_TYPE_INFO))
       {
-        v34 = v33;
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+        v31 = v30;
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
         {
-          v35 = *(a1 + 32);
-          v36 = [(HDSyncSession *)v12 syncStore];
-          *v55 = 138543618;
-          *&v55[4] = v35;
-          *&v55[12] = 2114;
-          *&v55[14] = v36;
-          _os_log_impl(&dword_228986000, v34, OS_LOG_TYPE_INFO, "%{public}@: finshed performSyncSession: %{public}@", v55, 0x16u);
+          v32 = *(a1 + 32);
+          v33 = [(HDSyncSession *)v12 syncStore];
+          *v50 = 138543618;
+          *&v50[4] = v32;
+          *&v50[12] = 2114;
+          *&v50[14] = v33;
+          _os_log_impl(&dword_228986000, v31, OS_LOG_TYPE_INFO, "%{public}@: finshed performSyncSession: %{public}@", v50, 0x16u);
         }
       }
 
-      v37 = v44[5];
       (*(*(a1 + 48) + 16))();
       goto LABEL_32;
     }
@@ -221,20 +216,20 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  *v55 = 0;
-  *&v55[8] = v55;
-  *&v55[16] = 0x2020000000;
-  v56 = 1;
+  *v50 = 0;
+  *&v50[8] = v50;
+  *&v50[16] = 0x2020000000;
+  v51 = 1;
   v15 = *(v8 + 40);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __44__HDStaticSyncExportTask_runWithCompletion___block_invoke_319;
   block[3] = &unk_27861A1D0;
   block[4] = v8;
-  block[5] = &v43;
-  block[6] = v55;
+  block[5] = &v38;
+  block[6] = v50;
   dispatch_sync(v15, block);
-  v16 = *(*&v55[8] + 24);
+  v16 = *(*&v50[8] + 24);
   if (v16)
   {
     _HKInitializeLogging();
@@ -247,11 +242,11 @@ LABEL_21:
         v19 = *(a1 + 32);
         v20 = [*(v19 + 112) path];
         *buf = 138543874;
-        v50 = v19;
-        v51 = 2114;
-        v52 = v7;
-        v53 = 2114;
-        v54 = v20;
+        v45 = v19;
+        v46 = 2114;
+        v47 = v7;
+        v48 = 2114;
+        v49 = v20;
         _os_log_impl(&dword_228986000, v18, OS_LOG_TYPE_INFO, "%{public}@: %{public}@: export static sync data to %{public}@", buf, 0x20u);
       }
     }
@@ -259,11 +254,10 @@ LABEL_21:
 
   else
   {
-    v23 = v44[5];
     (*(*(a1 + 48) + 16))();
   }
 
-  _Block_object_dispose(v55, 8);
+  _Block_object_dispose(v50, 8);
   if (v16)
   {
     v8 = *(a1 + 32);
@@ -272,8 +266,7 @@ LABEL_21:
 
 LABEL_33:
 
-  _Block_object_dispose(&v43, 8);
-  v38 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v38, 8);
 }
 
 void __44__HDStaticSyncExportTask_runWithCompletion___block_invoke_319(void *a1)
@@ -323,57 +316,56 @@ void __44__HDStaticSyncExportTask_runWithCompletion___block_invoke_319(void *a1)
   *(*(a1[6] + 8) + 24) = *(a1[4] + 112) != 0;
 }
 
-uint64_t __82__HDStaticSyncExportTask__estimateSyncEntityClassesWithChangesForSession_profile___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t __82__HDStaticSyncExportTask__estimateSyncEntityClassesWithChangesForSession_profile___block_invoke(id *a1, uint64_t a2, uint64_t a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
+  v22 = 0u;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v5 = [*(a1 + 32) syncStore];
+  v5 = [a1[4] syncStore];
   v6 = [v5 orderedSyncEntities];
 
   obj = v6;
-  v7 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v25;
+    v9 = *v23;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v25 != v9)
+        if (*v23 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v24 + 1) + 8 * i);
+        v11 = *(*(&v22 + 1) + 8 * i);
         v12 = [v11 syncEntityIdentifier];
-        v13 = [*(a1 + 32) syncStore];
-        v14 = [HDSyncAnchorEntity syncAnchorOfType:0 entityIdentifier:v12 store:v13 profile:*(a1 + 40) error:a3];
+        v13 = [a1[4] syncStore];
+        v14 = [HDSyncAnchorEntity syncAnchorOfType:0 entityIdentifier:v12 store:v13 profile:a1[5] error:a3];
 
-        v15 = *(a1 + 56);
-        v16 = *(a1 + 32);
-        v17 = *(a1 + 40);
-        v18 = v16;
+        v15 = a1[4];
+        v16 = a1[5];
+        v17 = v15;
         objc_opt_self();
-        v19 = [v11 nextSyncAnchorWithSession:v18 startSyncAnchor:v14 profile:v17 error:a3];
+        v18 = [v11 nextSyncAnchorWithSession:v17 startSyncAnchor:v14 profile:v16 error:a3];
 
-        if (v14 < 0 || v19 < 0)
+        if (v14 < 0 || v18 < 0)
         {
-          [MEMORY[0x277CCA9B8] hk_assignError:a3 code:100 format:{@"Invalid anchor(s) (%lld, %lld) for %@", v14, v19, v11}];
-          v20 = 0;
+          [MEMORY[0x277CCA9B8] hk_assignError:a3 code:100 format:{@"Invalid anchor(s) (%lld, %lld) for %@", v14, v18, v11}];
+          v19 = 0;
           goto LABEL_14;
         }
 
-        if (v19 != v14)
+        if (v18 != v14)
         {
-          [*(a1 + 48) addObject:v11];
+          [a1[6] addObject:v11];
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v8 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v8)
       {
         continue;
@@ -383,16 +375,15 @@ uint64_t __82__HDStaticSyncExportTask__estimateSyncEntityClassesWithChangesForSe
     }
   }
 
-  v20 = 1;
+  v19 = 1;
 LABEL_14:
 
-  v21 = *MEMORY[0x277D85DE8];
-  return v20;
+  return v19;
 }
 
 - (void)syncSessionWillBegin:(id)begin
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   beginCopy = begin;
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC328];
@@ -402,29 +393,27 @@ LABEL_14:
     syncStore = [beginCopy syncStore];
     *buf = 138543874;
     selfCopy = self;
-    v15 = 2080;
-    v16 = "[HDStaticSyncExportTask syncSessionWillBegin:]";
-    v17 = 2114;
-    v18 = syncStore;
+    v14 = 2080;
+    v15 = "[HDStaticSyncExportTask syncSessionWillBegin:]";
+    v16 = 2114;
+    v17 = syncStore;
     _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_INFO, "%{public}@: %s: %{public}@", buf, 0x20u);
   }
 
   exportQueue = self->_exportQueue;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __47__HDStaticSyncExportTask_syncSessionWillBegin___block_invoke;
-  v11[3] = &unk_278613920;
-  v11[4] = self;
-  v12 = beginCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __47__HDStaticSyncExportTask_syncSessionWillBegin___block_invoke;
+  v10[3] = &unk_278613920;
+  v10[4] = self;
+  v11 = beginCopy;
   v9 = beginCopy;
-  dispatch_async(exportQueue, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  dispatch_async(exportQueue, v10);
 }
 
 void __47__HDStaticSyncExportTask_syncSessionWillBegin___block_invoke(uint64_t a1)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (*(v2 + 48))
   {
@@ -451,24 +440,24 @@ LABEL_6:
   v7 = objc_opt_self();
   v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v9 = [v6 database];
-  v30 = 0;
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __82__HDStaticSyncExportTask__estimateSyncEntityClassesWithChangesForSession_profile___block_invoke;
-  v25[3] = &unk_278613550;
+  v29 = 0;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __82__HDStaticSyncExportTask__estimateSyncEntityClassesWithChangesForSession_profile___block_invoke;
+  v24[3] = &unk_278613550;
   v10 = v5;
-  v26 = v10;
+  v25 = v10;
   v11 = v6;
-  v27 = v11;
-  v29 = v7;
+  v26 = v11;
+  v28 = v7;
   v12 = v8;
-  v28 = v12;
-  v13 = [(HDHealthEntity *)HDDataEntity performReadTransactionWithHealthDatabase:v9 error:&v30 block:v25];
-  v14 = v30;
+  v27 = v12;
+  v13 = [(HDHealthEntity *)HDDataEntity performReadTransactionWithHealthDatabase:v9 error:&v29 block:v24];
+  v14 = v29;
 
   if (v13)
   {
-    v24 = v12;
+    v23 = v12;
   }
 
   else
@@ -478,17 +467,17 @@ LABEL_6:
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v32 = v7;
-      v33 = 2114;
-      v34 = v14;
+      v31 = v7;
+      v32 = 2114;
+      v33 = v14;
       _os_log_error_impl(&dword_228986000, v15, OS_LOG_TYPE_ERROR, "%{public}@: error estimating (for progress reporting) sync entity classes with changes to sync: %{public}@", buf, 0x16u);
     }
 
     v16 = [v10 syncStore];
-    v24 = [v16 orderedSyncEntities];
+    v23 = [v16 orderedSyncEntities];
   }
 
-  v17 = [MEMORY[0x277CCAC48] progressWithTotalUnitCount:objc_msgSend(v24 parent:"count") pendingUnitCount:{*(*(a1 + 32) + 64), objc_msgSend(*(*(a1 + 32) + 64), "totalUnitCount")}];
+  v17 = [MEMORY[0x277CCAC48] progressWithTotalUnitCount:objc_msgSend(v23 parent:"count") pendingUnitCount:{*(*(a1 + 32) + 64), objc_msgSend(*(*(a1 + 32) + 64), "totalUnitCount")}];
   v18 = *(a1 + 32);
   v19 = *(v18 + 72);
   *(v18 + 72) = v17;
@@ -497,13 +486,11 @@ LABEL_6:
   v21 = *(a1 + 32);
   v22 = *(v21 + 80);
   *(v21 + 80) = v20;
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncSession:(id)session sendChanges:(id)changes completion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   changesCopy = changes;
   completionCopy = completion;
@@ -515,33 +502,31 @@ LABEL_6:
     syncStore = [sessionCopy syncStore];
     *buf = 138543874;
     selfCopy = self;
-    v25 = 2080;
-    v26 = "[HDStaticSyncExportTask syncSession:sendChanges:completion:]";
-    v27 = 2114;
-    v28 = syncStore;
+    v24 = 2080;
+    v25 = "[HDStaticSyncExportTask syncSession:sendChanges:completion:]";
+    v26 = 2114;
+    v27 = syncStore;
     _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_INFO, "%{public}@: %s: %{public}@", buf, 0x20u);
   }
 
   exportQueue = self->_exportQueue;
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __61__HDStaticSyncExportTask_syncSession_sendChanges_completion___block_invoke;
-  v19[3] = &unk_278613680;
-  v19[4] = self;
-  v20 = changesCopy;
-  v21 = sessionCopy;
-  v22 = completionCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __61__HDStaticSyncExportTask_syncSession_sendChanges_completion___block_invoke;
+  v18[3] = &unk_278613680;
+  v18[4] = self;
+  v19 = changesCopy;
+  v20 = sessionCopy;
+  v21 = completionCopy;
   v15 = completionCopy;
   v16 = sessionCopy;
   v17 = changesCopy;
-  dispatch_async(exportQueue, v19);
-
-  v18 = *MEMORY[0x277D85DE8];
+  dispatch_async(exportQueue, v18);
 }
 
 void __61__HDStaticSyncExportTask_syncSession_sendChanges_completion___block_invoke(uint64_t a1)
 {
-  v100 = *MEMORY[0x277D85DE8];
+  v96 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (*(v2 + 48) == 1)
   {
@@ -582,8 +567,8 @@ void __61__HDStaticSyncExportTask_syncSession_sendChanges_completion___block_inv
         *&buf[4] = v2;
         *&buf[12] = 2114;
         *&buf[14] = v19;
-        v98 = 2114;
-        v99 = v21;
+        v94 = 2114;
+        v95 = v21;
         _os_log_impl(&dword_228986000, v18, OS_LOG_TYPE_INFO, "%{public}@: %{public}@: create archive %{public}@", buf, 0x20u);
       }
     }
@@ -633,185 +618,173 @@ void __61__HDStaticSyncExportTask_syncSession_sendChanges_completion___block_inv
 
       else
       {
-        v38 = v33;
-        v35 = v38;
-        if (v38)
+        v37 = v33;
+        v35 = v37;
+        if (v37)
         {
-          v39 = v38;
+          v38 = v37;
         }
 
         v36 = 0;
       }
-
-      v37 = off_27860F000;
     }
 
     else
     {
       v35 = 0;
       v36 = 1;
-      v37 = off_27860F000;
     }
 
-    v40 = v35;
-    v41 = v40;
+    v39 = v35;
+    v40 = v39;
     if (!v36)
     {
-      v86 = *(*(a1 + 56) + 16);
+      v83 = *(*(a1 + 56) + 16);
       goto LABEL_48;
     }
   }
 
-  else
-  {
-    v37 = off_27860F000;
-  }
-
-  v41 = objc_alloc_init(HDSyncAnchorRangeMap);
-  v92 = 0u;
-  v93 = 0u;
-  v94 = 0u;
-  v95 = 0u;
+  v40 = objc_alloc_init(HDSyncAnchorRangeMap);
+  v88 = 0u;
+  v89 = 0u;
+  v90 = 0u;
+  v91 = 0u;
   obj = *(a1 + 40);
-  v42 = [obj countByEnumeratingWithState:&v92 objects:v96 count:16];
-  if (!v42)
+  v41 = [obj countByEnumeratingWithState:&v88 objects:v92 count:16];
+  if (!v41)
   {
     goto LABEL_43;
   }
 
-  v43 = v42;
-  v44 = &off_278633000;
-  v91 = *v93;
-  v89 = v41;
+  v42 = v41;
+  v43 = &off_278633000;
+  v87 = *v89;
+  v85 = v40;
   while (2)
   {
-    v45 = 0;
-    v88 = v44[466];
+    v44 = 0;
+    v84 = v43[466];
     do
     {
-      if (*v93 != v91)
+      if (*v89 != v87)
       {
         objc_enumerationMutation(obj);
       }
 
-      v46 = *(*(&v92 + 1) + 8 * v45);
-      v47 = *(*(a1 + 32) + 80);
-      v48 = [v46 syncEntityIdentifier];
-      LOBYTE(v47) = [v47 containsObject:v48];
+      v45 = *(*(&v88 + 1) + 8 * v44);
+      v46 = *(*(a1 + 32) + 80);
+      v47 = [v45 syncEntityIdentifier];
+      LOBYTE(v46) = [v46 containsObject:v47];
 
-      if ((v47 & 1) == 0)
+      if ((v46 & 1) == 0)
       {
-        v49 = *(*(a1 + 32) + 80);
-        v50 = [v46 syncEntityIdentifier];
-        [v49 addObject:v50];
+        v48 = *(*(a1 + 32) + 80);
+        v49 = [v45 syncEntityIdentifier];
+        [v48 addObject:v49];
 
         [*(*(a1 + 32) + 72) setCompletedUnitCount:{objc_msgSend(*(*(a1 + 32) + 80), "count")}];
       }
 
-      v51 = v37[162];
-      v52 = v41;
-      v53 = v46;
+      v50 = v40;
+      v51 = v45;
       objc_opt_self();
       *buf = 0;
       *&buf[8] = 0;
-      v54 = [v53 syncEntityIdentifier];
-      v55 = [(HDSyncAnchorRangeMap *)v52 getAnchorRange:buf forSyncEntityIdentifier:v54];
+      v52 = [v51 syncEntityIdentifier];
+      v53 = [(HDSyncAnchorRangeMap *)v50 getAnchorRange:buf forSyncEntityIdentifier:v52];
 
-      if (!v55)
+      if (!v53)
       {
-        v57 = [v53 syncAnchorRange];
-        v59 = v58;
-        v60 = [v53 syncEntityIdentifier];
-        [(HDSyncAnchorRangeMap *)v52 setAnchorRange:v57 forSyncEntityIdentifier:v59, v60];
-        v61 = 0;
-        v62 = 1;
+        v55 = [v51 syncAnchorRange];
+        v57 = v56;
+        v58 = [v51 syncEntityIdentifier];
+        [(HDSyncAnchorRangeMap *)v50 setAnchorRange:v55 forSyncEntityIdentifier:v57, v58];
+        v59 = 0;
+        v60 = 1;
         goto LABEL_40;
       }
 
-      v56 = [v53 sequenceNumber];
-      if ([v56 integerValue])
+      v54 = [v51 sequenceNumber];
+      if ([v54 integerValue])
       {
       }
 
       else
       {
-        v63 = [v53 syncAnchorRange];
-        v64 = *&buf[8];
+        v61 = [v51 syncAnchorRange];
+        v62 = *&buf[8];
 
-        v65 = v63 == v64;
-        v37 = off_27860F000;
-        if (!v65)
+        if (v61 != v62)
         {
-          v76 = MEMORY[0x277CCA9B8];
-          v77 = objc_opt_class();
-          v78 = [v53 syncAnchorRange];
-          v79 = *&buf[8];
-          v60 = [v53 sequenceNumber];
-          [v76 hk_errorForInvalidArgument:@"@" class:v77 selector:v88 format:{@"startAnchor (%lld) != previous endAnchor (%lld), sequence (%@)", v78, v79, v60}];
-          v80 = LABEL_36:;
-          v61 = v80;
-          if (v80)
+          v73 = MEMORY[0x277CCA9B8];
+          v74 = objc_opt_class();
+          v75 = [v51 syncAnchorRange];
+          v76 = *&buf[8];
+          v58 = [v51 sequenceNumber];
+          [v73 hk_errorForInvalidArgument:@"@" class:v74 selector:v84 format:{@"startAnchor (%lld) != previous endAnchor (%lld), sequence (%@)", v75, v76, v58}];
+          v77 = LABEL_36:;
+          v59 = v77;
+          if (v77)
           {
-            v81 = v80;
+            v78 = v77;
           }
 
-          v62 = 0;
-          v37 = off_27860F000;
+          v60 = 0;
           goto LABEL_39;
         }
       }
 
-      v66 = [v53 sequenceNumber];
-      if ([v66 integerValue] < 1)
+      v63 = [v51 sequenceNumber];
+      if ([v63 integerValue] < 1)
       {
       }
 
       else
       {
-        [v53 syncAnchorRange];
-        v68 = v67;
-        v69 = *&buf[8];
+        [v51 syncAnchorRange];
+        v65 = v64;
+        v66 = *&buf[8];
 
-        if (v68 != v69)
+        if (v65 != v66)
         {
-          v70 = MEMORY[0x277CCA9B8];
-          v71 = objc_opt_class();
-          [v53 syncAnchorRange];
-          v73 = v72;
-          v74 = *&buf[8];
-          v60 = [v53 sequenceNumber];
-          [v70 hk_errorForInvalidArgument:@"@" class:v71 selector:v88 format:{@"endAnchor (%lld) != previous endAnchor (%lld), sequence (%@)", v73, v74, v60}];
+          v67 = MEMORY[0x277CCA9B8];
+          v68 = objc_opt_class();
+          [v51 syncAnchorRange];
+          v70 = v69;
+          v71 = *&buf[8];
+          v58 = [v51 sequenceNumber];
+          [v67 hk_errorForInvalidArgument:@"@" class:v68 selector:v84 format:{@"endAnchor (%lld) != previous endAnchor (%lld), sequence (%@)", v70, v71, v58}];
           goto LABEL_36;
         }
       }
 
-      [v53 syncAnchorRange];
-      *&buf[8] = v75;
-      v60 = [v53 syncEntityIdentifier];
-      [(HDSyncAnchorRangeMap *)v52 setAnchorRange:*buf forSyncEntityIdentifier:*&buf[8], v60];
-      v61 = 0;
-      v62 = 1;
+      [v51 syncAnchorRange];
+      *&buf[8] = v72;
+      v58 = [v51 syncEntityIdentifier];
+      [(HDSyncAnchorRangeMap *)v50 setAnchorRange:*buf forSyncEntityIdentifier:*&buf[8], v58];
+      v59 = 0;
+      v60 = 1;
 LABEL_39:
-      v41 = v89;
+      v40 = v85;
 LABEL_40:
 
-      v82 = v61;
-      v83 = v82;
-      if ((v62 & 1) == 0)
+      v79 = v59;
+      v80 = v79;
+      if ((v60 & 1) == 0)
       {
         (*(*(a1 + 56) + 16))();
 
-        v41 = v52;
+        v40 = v50;
         goto LABEL_49;
       }
 
-      ++v45;
+      ++v44;
     }
 
-    while (v43 != v45);
-    v43 = [obj countByEnumeratingWithState:&v92 objects:v96 count:16];
-    v44 = &off_278633000;
-    if (v43)
+    while (v42 != v44);
+    v42 = [obj countByEnumeratingWithState:&v88 objects:v92 count:16];
+    v43 = &off_278633000;
+    if (v42)
     {
       continue;
     }
@@ -822,28 +795,26 @@ LABEL_40:
 LABEL_43:
 
   _HKInitializeLogging();
-  v84 = *MEMORY[0x277CCC328];
+  v81 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_INFO))
   {
-    v85 = *(a1 + 32);
+    v82 = *(a1 + 32);
     *buf = 138543618;
-    *&buf[4] = v85;
+    *&buf[4] = v82;
     *&buf[12] = 2114;
-    *&buf[14] = v41;
-    _os_log_impl(&dword_228986000, v84, OS_LOG_TYPE_INFO, "%{public}@: sendChanges for anchor ranges %{public}@", buf, 0x16u);
+    *&buf[14] = v40;
+    _os_log_impl(&dword_228986000, v81, OS_LOG_TYPE_INFO, "%{public}@: sendChanges for anchor ranges %{public}@", buf, 0x16u);
   }
 
-  v86 = *(*(a1 + 56) + 16);
+  v83 = *(*(a1 + 56) + 16);
 LABEL_48:
-  v86();
+  v83();
 LABEL_49:
-
-  v87 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)syncSession:(id)session didEndTransactionWithError:(id *)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC328];
@@ -851,23 +822,22 @@ LABEL_49:
   {
     v7 = v6;
     syncStore = [sessionCopy syncStore];
-    v11 = 138543874;
+    v10 = 138543874;
     selfCopy = self;
-    v13 = 2080;
-    v14 = "[HDStaticSyncExportTask syncSession:didEndTransactionWithError:]";
-    v15 = 2114;
-    v16 = syncStore;
-    _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_INFO, "%{public}@: %s: %{public}@", &v11, 0x20u);
+    v12 = 2080;
+    v13 = "[HDStaticSyncExportTask syncSession:didEndTransactionWithError:]";
+    v14 = 2114;
+    v15 = syncStore;
+    _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_INFO, "%{public}@: %s: %{public}@", &v10, 0x20u);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (void)syncSession:(id)session didFinishSuccessfully:(BOOL)successfully error:(id)error
 {
   successfullyCopy = successfully;
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   errorCopy = error;
   _HKInitializeLogging();
@@ -879,20 +849,20 @@ LABEL_49:
     v13 = syncStore;
     v14 = @"NO";
     *buf = 138544386;
-    v20 = 2080;
-    v21 = "[HDStaticSyncExportTask syncSession:didFinishSuccessfully:error:]";
+    v19 = 2080;
+    v20 = "[HDStaticSyncExportTask syncSession:didFinishSuccessfully:error:]";
     selfCopy = self;
-    v22 = 2114;
+    v21 = 2114;
     if (successfullyCopy)
     {
       v14 = @"YES";
     }
 
-    v23 = syncStore;
-    v24 = 2114;
-    v25 = v14;
-    v26 = 2114;
-    v27 = errorCopy;
+    v22 = syncStore;
+    v23 = 2114;
+    v24 = v14;
+    v25 = 2114;
+    v26 = errorCopy;
     _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_INFO, "%{public}@: %s: %{public}@: success: %{public}@, error: %{public}@", buf, 0x34u);
   }
 
@@ -903,8 +873,6 @@ LABEL_49:
   block[3] = &unk_278613968;
   block[4] = self;
   dispatch_async(exportQueue, block);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __66__HDStaticSyncExportTask_syncSession_didFinishSuccessfully_error___block_invoke(uint64_t a1)

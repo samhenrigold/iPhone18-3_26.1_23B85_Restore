@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)rATAsString:(int)string;
 - (int)StringAsRAT:(id)t;
 - (int)rAT;
 - (unint64_t)hash;
@@ -53,6 +54,19 @@
   }
 
   *&self->_has = *&self->_has & 0xEF | v3;
+}
+
+- (id)rATAsString:(int)string
+{
+  if (string >= 8)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32B68[string];
+  }
 }
 
 - (int)StringAsRAT:(id)t
@@ -256,7 +270,6 @@ LABEL_13:
 {
   if ((*&self->_has & 0x10) != 0)
   {
-    rAT = self->_rAT;
     PBDataWriterWriteInt32Field();
   }
 
@@ -268,7 +281,6 @@ LABEL_13:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    bundleFGDuration = self->_bundleFGDuration;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 1) == 0)
@@ -288,7 +300,6 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  bundleBGDuration = self->_bundleBGDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -300,7 +311,6 @@ LABEL_8:
     }
 
 LABEL_14:
-    numMTConnectionTriggered = self->_numMTConnectionTriggered;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 0x20) == 0)
     {
@@ -311,7 +321,6 @@ LABEL_14:
   }
 
 LABEL_13:
-  numMOConnectionTriggered = self->_numMOConnectionTriggered;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) != 0)
@@ -326,7 +335,6 @@ LABEL_9:
   }
 
 LABEL_15:
-  totalBytesTransferred = self->_totalBytesTransferred;
 
   PBDataWriterWriteUint32Field();
 }
@@ -491,7 +499,6 @@ LABEL_8:
   if (v5)
   {
     has = self->_has;
-    v7 = *(equal + 40);
     if ((has & 0x10) != 0)
     {
       if ((*(equal + 40) & 0x10) == 0 || self->_rAT != *(equal + 8))

@@ -66,7 +66,7 @@
 
   selfCopy = self;
   sub_1C99B0390(v7, v6);
-  sub_1C979AFD4(v7);
+  sub_1C979AFD4(v7, v6);
 }
 
 - (BOOL)addRequest:(id)request withObserver:(id)observer error:(id *)error
@@ -104,8 +104,8 @@ LABEL_3:
 LABEL_6:
   sub_1C99B086C(v12, v11);
 
-  sub_1C97F9D3C(v11, &unk_1EC3C5E60);
-  sub_1C97F9D3C(v12, &unk_1EC3C5E60);
+  sub_1C97F9D3C(v11, &unk_1EC3C5E60, qword_1C9A9AE10);
+  sub_1C97F9D3C(v12, &unk_1EC3C5E60, qword_1C9A9AE10);
   return 1;
 }
 
@@ -127,7 +127,7 @@ LABEL_6:
 
   sub_1C99B0B80(v6);
 
-  sub_1C97F9D3C(v6, &unk_1EC3C5E60);
+  sub_1C97F9D3C(v6, &unk_1EC3C5E60, qword_1C9A9AE10);
 }
 
 - (void)removeAllRequests

@@ -68,7 +68,7 @@
             topInsetView = self->_topInsetView;
             self->_topInsetView = v11;
 
-            v13 = +[UIColor blackColor];
+            v13 = objc_msgSend_blackColor(UIColor);
             [(UIView *)self->_topInsetView setBackgroundColor:v13];
           }
 
@@ -629,9 +629,9 @@
     goto LABEL_8;
   }
 
-  v7 = [(_UIBarBackgroundLayout *)v5 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     v8 = [(_UIBarBackgroundLayout *)v10 copy];

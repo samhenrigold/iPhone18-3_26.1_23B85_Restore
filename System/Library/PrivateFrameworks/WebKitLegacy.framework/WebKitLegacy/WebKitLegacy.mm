@@ -1,4 +1,4 @@
-uint64_t WebLocalizedString(void *a1, const char *a2)
+void *WebLocalizedString(void *a1, const char *a2)
 {
   if (a1)
   {
@@ -193,7 +193,7 @@ LABEL_26:
   WTF::fastFree(v2, v3);
 }
 
-_DWORD *BackForwardList::addItem(_DWORD *result, unint64_t a2)
+_DWORD *BackForwardList::addItem(_DWORD *result, uint64_t a2)
 {
   v2 = result[15];
   if (v2)
@@ -307,7 +307,7 @@ LABEL_19:
       v22 = *(v3 + 6);
       if (!v22)
       {
-        WTF::HashTable<WTF::RefPtr<WebCore::HistoryItem,WTF::RawPtrTraits<WebCore::HistoryItem>,WTF::DefaultRefDerefTraits<WebCore::HistoryItem>>,WTF::RefPtr<WebCore::HistoryItem,WTF::RawPtrTraits<WebCore::HistoryItem>,WTF::DefaultRefDerefTraits<WebCore::HistoryItem>>,WTF::IdentityExtractor,WTF::DefaultHash<WTF::RefPtr<WebCore::HistoryItem,WTF::RawPtrTraits<WebCore::HistoryItem>,WTF::DefaultRefDerefTraits<WebCore::HistoryItem>>>,WTF::HashTraits<WTF::RefPtr<WebCore::HistoryItem,WTF::RawPtrTraits<WebCore::HistoryItem>,WTF::DefaultRefDerefTraits<WebCore::HistoryItem>>>,WTF::HashTraits<WTF::RefPtr<WebCore::HistoryItem,WTF::RawPtrTraits<WebCore::HistoryItem>,WTF::DefaultRefDerefTraits<WebCore::HistoryItem>>>,WTF::FastMalloc>::rehash(v3 + 6, 8u);
+        WTF::HashTable<WTF::RefPtr<WebCore::HistoryItem,WTF::RawPtrTraits<WebCore::HistoryItem>,WTF::DefaultRefDerefTraits<WebCore::HistoryItem>>,WTF::RefPtr<WebCore::HistoryItem,WTF::RawPtrTraits<WebCore::HistoryItem>,WTF::DefaultRefDerefTraits<WebCore::HistoryItem>>,WTF::IdentityExtractor,WTF::DefaultHash<WTF::RefPtr<WebCore::HistoryItem,WTF::RawPtrTraits<WebCore::HistoryItem>,WTF::DefaultRefDerefTraits<WebCore::HistoryItem>>>,WTF::HashTraits<WTF::RefPtr<WebCore::HistoryItem,WTF::RawPtrTraits<WebCore::HistoryItem>,WTF::DefaultRefDerefTraits<WebCore::HistoryItem>>>,WTF::HashTraits<WTF::RefPtr<WebCore::HistoryItem,WTF::RawPtrTraits<WebCore::HistoryItem>,WTF::DefaultRefDerefTraits<WebCore::HistoryItem>>>,WTF::FastMalloc>::rehash(v3 + 6, 8uLL);
         v22 = *(v3 + 6);
       }
 
@@ -392,7 +392,7 @@ LABEL_32:
         }
 
 LABEL_37:
-        v36 = v35 << (6 * v33 >= (2 * v35));
+        v36 = (v35 << (6 * v33 >= (2 * v35)));
 LABEL_38:
         WTF::HashTable<WTF::RefPtr<WebCore::HistoryItem,WTF::RawPtrTraits<WebCore::HistoryItem>,WTF::DefaultRefDerefTraits<WebCore::HistoryItem>>,WTF::RefPtr<WebCore::HistoryItem,WTF::RawPtrTraits<WebCore::HistoryItem>,WTF::DefaultRefDerefTraits<WebCore::HistoryItem>>,WTF::IdentityExtractor,WTF::DefaultHash<WTF::RefPtr<WebCore::HistoryItem,WTF::RawPtrTraits<WebCore::HistoryItem>,WTF::DefaultRefDerefTraits<WebCore::HistoryItem>>>,WTF::HashTraits<WTF::RefPtr<WebCore::HistoryItem,WTF::RawPtrTraits<WebCore::HistoryItem>,WTF::DefaultRefDerefTraits<WebCore::HistoryItem>>>,WTF::HashTraits<WTF::RefPtr<WebCore::HistoryItem,WTF::RawPtrTraits<WebCore::HistoryItem>,WTF::DefaultRefDerefTraits<WebCore::HistoryItem>>>,WTF::FastMalloc>::rehash(v3 + 6, v36);
         v37 = (v3[14] + 1);
@@ -439,16 +439,16 @@ LABEL_43:
   return result;
 }
 
-void sub_1C79C2194(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C79C2194(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WTF::Ref<WebCore::HistoryItem,WTF::RawPtrTraits<WebCore::HistoryItem>,WTF::DefaultRefDerefTraits<WebCore::HistoryItem>>::~Ref(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1C79C21A8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C79C21A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WTF::Ref<WebCore::HistoryItem,WTF::RawPtrTraits<WebCore::HistoryItem>,WTF::DefaultRefDerefTraits<WebCore::HistoryItem>>::~Ref(va);
   _Unwind_Resume(a1);
 }
@@ -909,9 +909,9 @@ LABEL_12:
   return this;
 }
 
-void sub_1C79C283C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C79C283C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   WTF::Ref<WebCore::HistoryItem,WTF::RawPtrTraits<WebCore::HistoryItem>,WTF::DefaultRefDerefTraits<WebCore::HistoryItem>>::~Ref(va);
   _Unwind_Resume(a1);
 }
@@ -1123,8 +1123,9 @@ uint64_t WTF::RefCountedAndCanMakeWeakPtr<WebCore::HistoryItem>::deref(uint64_t 
   return result;
 }
 
-_DWORD *WTF::HashTable<WTF::RefPtr<WebCore::HistoryItem,WTF::RawPtrTraits<WebCore::HistoryItem>,WTF::DefaultRefDerefTraits<WebCore::HistoryItem>>,WTF::RefPtr<WebCore::HistoryItem,WTF::RawPtrTraits<WebCore::HistoryItem>,WTF::DefaultRefDerefTraits<WebCore::HistoryItem>>,WTF::IdentityExtractor,WTF::DefaultHash<WTF::RefPtr<WebCore::HistoryItem,WTF::RawPtrTraits<WebCore::HistoryItem>,WTF::DefaultRefDerefTraits<WebCore::HistoryItem>>>,WTF::HashTraits<WTF::RefPtr<WebCore::HistoryItem,WTF::RawPtrTraits<WebCore::HistoryItem>,WTF::DefaultRefDerefTraits<WebCore::HistoryItem>>>,WTF::HashTraits<WTF::RefPtr<WebCore::HistoryItem,WTF::RawPtrTraits<WebCore::HistoryItem>,WTF::DefaultRefDerefTraits<WebCore::HistoryItem>>>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2)
+_DWORD *WTF::HashTable<WTF::RefPtr<WebCore::HistoryItem,WTF::RawPtrTraits<WebCore::HistoryItem>,WTF::DefaultRefDerefTraits<WebCore::HistoryItem>>,WTF::RefPtr<WebCore::HistoryItem,WTF::RawPtrTraits<WebCore::HistoryItem>,WTF::DefaultRefDerefTraits<WebCore::HistoryItem>>,WTF::IdentityExtractor,WTF::DefaultHash<WTF::RefPtr<WebCore::HistoryItem,WTF::RawPtrTraits<WebCore::HistoryItem>,WTF::DefaultRefDerefTraits<WebCore::HistoryItem>>>,WTF::HashTraits<WTF::RefPtr<WebCore::HistoryItem,WTF::RawPtrTraits<WebCore::HistoryItem>,WTF::DefaultRefDerefTraits<WebCore::HistoryItem>>>,WTF::HashTraits<WTF::RefPtr<WebCore::HistoryItem,WTF::RawPtrTraits<WebCore::HistoryItem>,WTF::DefaultRefDerefTraits<WebCore::HistoryItem>>>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2)
 {
+  v2 = a2;
   v4 = *a1;
   if (*a1)
   {
@@ -1140,8 +1141,8 @@ _DWORD *WTF::HashTable<WTF::RefPtr<WebCore::HistoryItem,WTF::RawPtrTraits<WebCor
 
   result = WTF::fastZeroedMalloc((8 * a2 + 16));
   *a1 = (result + 4);
-  result[2] = a2 - 1;
-  result[3] = a2;
+  result[2] = v2 - 1;
+  result[3] = v2;
   *result = 0;
   result[1] = v6;
   if (v5)
@@ -1340,7 +1341,7 @@ void *BinaryPropertyListPlan::writeBooleanTrue(void *this)
   return this;
 }
 
-uint64_t *BinaryPropertyListPlan::writeInteger(uint64_t *this, int a2)
+uint64_t *BinaryPropertyListPlan::writeInteger(uint64_t *this, unsigned int a2)
 {
   v2 = this;
   ++this[7];
@@ -1367,7 +1368,7 @@ uint64_t *BinaryPropertyListPlan::writeInteger(uint64_t *this, int a2)
   v4 = this[3];
   if (!v4)
   {
-    this = WTF::HashTable<int,WTF::KeyValuePair<int,unsigned long>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<int,unsigned long>>,WTF::DefaultHash<int>,WTF::HashMap<int,unsigned long,WTF::DefaultHash<int>,WTF::HashTraits<int>,WTF::HashTraits<unsigned long>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<int>,WTF::FastMalloc>::rehash(this + 3, 8u);
+    this = WTF::HashTable<int,WTF::KeyValuePair<int,unsigned long>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<int,unsigned long>>,WTF::DefaultHash<int>,WTF::HashMap<int,unsigned long,WTF::DefaultHash<int>,WTF::HashTraits<int>,WTF::HashTraits<unsigned long>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<int>,WTF::FastMalloc>::rehash(this + 3, 8uLL);
     v4 = v2[3];
   }
 
@@ -1414,7 +1415,7 @@ LABEL_22:
           if (a2 >= 0x10000)
           {
             v19 = 9;
-            if (a2 >= 0)
+            if ((a2 & 0x80000000) == 0)
             {
               v19 = 5;
             }
@@ -1436,7 +1437,7 @@ LABEL_26:
       }
     }
 
-    v17 = v16 << (6 * v14 >= (2 * v16));
+    v17 = (v16 << (6 * v14 >= (2 * v16)));
     goto LABEL_21;
   }
 
@@ -1483,7 +1484,7 @@ uint64_t BinaryPropertyListPlan::writeString(BinaryPropertyListPlan *this, const
   v9 = *(this + 4);
   if (!v9)
   {
-    WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,unsigned long>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,unsigned long>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,unsigned long,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<unsigned long>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(this + 4, 8u);
+    WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,unsigned long>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,unsigned long>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,unsigned long,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<unsigned long>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(this + 4, 8uLL);
     v9 = *(this + 4);
     if (!v9)
     {
@@ -1579,7 +1580,7 @@ LABEL_29:
     if (v25 <= 2 * v24)
     {
 LABEL_30:
-      v26 = v25 << (6 * v23 >= (2 * v25));
+      v26 = (v25 << (6 * v23 >= (2 * v25)));
       goto LABEL_31;
     }
   }
@@ -1655,10 +1656,10 @@ LABEL_31:
   return result;
 }
 
-uint64_t *BinaryPropertyListPlan::writeIntegerArray(uint64_t *this, int *a2, unint64_t a3)
+int **BinaryPropertyListPlan::writeIntegerArray(int **this, int *a2, unint64_t a3)
 {
   v5 = this;
-  v6 = this[7] + 1;
+  v6 = (this[7] + 1);
   this[7] = v6;
   if (!a2 && !a3 || a3 == -1)
   {
@@ -1667,9 +1668,9 @@ uint64_t *BinaryPropertyListPlan::writeIntegerArray(uint64_t *this, int *a2, uni
   }
 
   v7 = this[5];
-  if (v7 || (this = WTF::HashTable<IntegerArray,WTF::KeyValuePair<IntegerArray,unsigned long>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<IntegerArray,unsigned long>>,IntegerArrayHash,WTF::HashMap<IntegerArray,unsigned long,IntegerArrayHash,IntegerArrayHashTraits,WTF::HashTraits<unsigned long>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,IntegerArrayHashTraits,WTF::FastMalloc>::rehash(this + 5, 8u, 0), (v7 = v5[5]) != 0))
+  if (v7 || (this = WTF::HashTable<IntegerArray,WTF::KeyValuePair<IntegerArray,unsigned long>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<IntegerArray,unsigned long>>,IntegerArrayHash,WTF::HashMap<IntegerArray,unsigned long,IntegerArrayHash,IntegerArrayHashTraits,WTF::HashTraits<unsigned long>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,IntegerArrayHashTraits,WTF::FastMalloc>::rehash(this + 5, 8uLL, 0), (v7 = v5[5]) != 0))
   {
-    v8 = *(v7 - 8);
+    v8 = *(v7 - 2);
     v9 = -1640531527;
     if (!a3)
     {
@@ -1711,9 +1712,9 @@ LABEL_9:
   }
 
   v16 = v15 & v8;
-  v17 = (v7 + 24 * (v15 & v8));
+  v17 = &v7[6 * (v15 & v8)];
   v18 = *v17;
-  v19 = v17[1];
+  v19 = *(v17 + 1);
   v20 = v19 == 0;
   if (*v17)
   {
@@ -1768,9 +1769,9 @@ LABEL_9:
     }
 
     v16 = (++v22 + v16) & v8;
-    v17 = (v7 + 24 * v16);
+    v17 = &v7[6 * v16];
     v18 = *v17;
-    v19 = v17[1];
+    v19 = *(v17 + 1);
     v20 = v19 == 0;
     if (*v17)
     {
@@ -1788,28 +1789,28 @@ LABEL_9:
   {
 LABEL_32:
     *v17 = a2;
-    v17[1] = a3;
-    v17[2] = 0;
+    *(v17 + 1) = a3;
+    *(v17 + 2) = 0;
     v23 = v17;
-    v30 = *(v7 - 16);
+    v30 = *(v7 - 4);
   }
 
   else
   {
-    *(v23 + 8) = 0;
-    *(v23 + 16) = 0;
+    v23[1] = 0;
+    v23[2] = 0;
     *v23 = 0;
     v7 = v5[5];
-    v30 = *(v7 - 16) - 1;
-    *(v7 - 16) = v30;
+    v30 = *(v7 - 4) - 1;
+    *(v7 - 4) = v30;
     *v23 = a2;
-    *(v23 + 8) = a3;
+    v23[1] = a3;
   }
 
-  v31 = *(v7 - 12) + 1;
-  *(v7 - 12) = v31;
+  v31 = *(v7 - 3) + 1;
+  *(v7 - 3) = v31;
   v32 = (v30 + v31);
-  v33 = *(v7 - 4);
+  v33 = *(v7 - 1);
   if (v33 > 0x400)
   {
     if (v33 <= 2 * v32)
@@ -1830,7 +1831,7 @@ LABEL_39:
     }
 
 LABEL_38:
-    v34 = v33 << (6 * v31 >= (2 * v33));
+    v34 = (v33 << (6 * v31 >= (2 * v33)));
     goto LABEL_39;
   }
 
@@ -1846,7 +1847,7 @@ LABEL_40:
     while (a3 != v35);
     v36 = v5[6];
     v5[6] = v36 + 1;
-    *(v23 + 16) = v36;
+    v23[2] = v36;
     v37 = 1;
     v38 = 3;
     v39 = 4;
@@ -1876,7 +1877,7 @@ LABEL_40:
   {
     v41 = v5[6];
     v5[6] = v41 + 1;
-    *(v23 + 16) = v41;
+    v23[2] = v41;
     v37 = 1;
   }
 
@@ -1887,7 +1888,7 @@ LABEL_40:
   return this;
 }
 
-BOOL BinaryPropertyListPlan::writeUniqueString(int64x2_t *this, const WTF::String *a2, double a3, double a4, double a5, int8x16_t a6)
+uint64_t BinaryPropertyListPlan::writeUniqueString(int64x2_t *this, WTF::String **a2, double a3, double a4, double a5, int8x16_t a6)
 {
   v7 = 1;
   v8 = vdupq_n_s64(1uLL);
@@ -1929,7 +1930,7 @@ BOOL BinaryPropertyListPlan::writeUniqueString(int64x2_t *this, const WTF::Strin
   v13 = v7 + v11 + this[4].i64[0];
   this[4].i64[0] = v13;
   result = WTF::String::containsOnlyASCII(v10, *v9.i64, *v8.i64, a5, a6);
-  if (!result)
+  if ((result & 1) == 0)
   {
     this[4].i64[0] = v13 + v12;
   }
@@ -2046,7 +2047,7 @@ void *BinaryPropertyListPlan::writeDictionaryEnd(void *this, uint64_t a2)
   return this;
 }
 
-BOOL WTF::String::containsOnlyASCII(_BOOL8 this, double a2, double a3, double a4, int8x16_t a5)
+uint64_t WTF::String::containsOnlyASCII(uint64_t this, double a2, double a3, double a4, int8x16_t a5)
 {
   if (!this)
   {
@@ -3664,7 +3665,7 @@ LABEL_55:
   return BinaryPropertyListSerializer::addAggregateObjectReference(this, v26);
 }
 
-uint64_t BinaryPropertyListSerializer::writeUniqueString(BinaryPropertyListSerializer *this, const char *a2)
+size_t BinaryPropertyListSerializer::writeUniqueString(BinaryPropertyListSerializer *this, const char *a2)
 {
   BinaryPropertyListSerializer::addAggregateObjectReference(this, *(this + 17));
   v5 = *(this + 16);
@@ -4501,8 +4502,9 @@ void BinaryPropertyListPlan::~BinaryPropertyListPlan(BinaryPropertyListPlan *thi
   JUMPOUT(0x1CCA6A890);
 }
 
-_DWORD *WTF::HashTable<int,WTF::KeyValuePair<int,unsigned long>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<int,unsigned long>>,WTF::DefaultHash<int>,WTF::HashMap<int,unsigned long,WTF::DefaultHash<int>,WTF::HashTraits<int>,WTF::HashTraits<unsigned long>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<int>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2)
+_DWORD *WTF::HashTable<int,WTF::KeyValuePair<int,unsigned long>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<int,unsigned long>>,WTF::DefaultHash<int>,WTF::HashMap<int,unsigned long,WTF::DefaultHash<int>,WTF::HashTraits<int>,WTF::HashTraits<unsigned long>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<int>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2)
 {
+  v2 = a2;
   v4 = *a1;
   if (*a1)
   {
@@ -4518,8 +4520,8 @@ _DWORD *WTF::HashTable<int,WTF::KeyValuePair<int,unsigned long>,WTF::KeyValuePai
 
   result = WTF::fastZeroedMalloc((16 * a2 + 16));
   *a1 = (result + 4);
-  result[2] = a2 - 1;
-  result[3] = a2;
+  result[2] = v2 - 1;
+  result[3] = v2;
   *result = 0;
   result[1] = v6;
   if (v5)
@@ -4563,8 +4565,9 @@ _DWORD *WTF::HashTable<int,WTF::KeyValuePair<int,unsigned long>,WTF::KeyValuePai
   return WTF::fastFree((v4 - 16), v8);
 }
 
-_DWORD *WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,unsigned long>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,unsigned long>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,unsigned long,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<unsigned long>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2)
+_DWORD *WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,unsigned long>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,unsigned long>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,unsigned long,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<unsigned long>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2)
 {
+  v2 = a2;
   v4 = *a1;
   if (*a1)
   {
@@ -4580,8 +4583,8 @@ _DWORD *WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,unsigned long>,
 
   result = WTF::fastZeroedMalloc((16 * a2 + 16));
   *a1 = (result + 4);
-  result[2] = a2 - 1;
-  result[3] = a2;
+  result[2] = v2 - 1;
+  result[3] = v2;
   *result = 0;
   result[1] = v6;
   if (v5)
@@ -4667,8 +4670,9 @@ LABEL_21:
   return result;
 }
 
-void *WTF::HashTable<IntegerArray,WTF::KeyValuePair<IntegerArray,unsigned long>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<IntegerArray,unsigned long>>,IntegerArrayHash,WTF::HashMap<IntegerArray,unsigned long,IntegerArrayHash,IntegerArrayHashTraits,WTF::HashTraits<unsigned long>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,IntegerArrayHashTraits,WTF::FastMalloc>::rehash(uint64_t *a1, unsigned int a2, unsigned int **a3)
+void *WTF::HashTable<IntegerArray,WTF::KeyValuePair<IntegerArray,unsigned long>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<IntegerArray,unsigned long>>,IntegerArrayHash,WTF::HashMap<IntegerArray,unsigned long,IntegerArrayHash,IntegerArrayHashTraits,WTF::HashTraits<unsigned long>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,IntegerArrayHashTraits,WTF::FastMalloc>::rehash(uint64_t *a1, unint64_t a2, unsigned int **a3)
 {
+  v4 = a2;
   v6 = *a1;
   if (*a1)
   {
@@ -4685,14 +4689,14 @@ void *WTF::HashTable<IntegerArray,WTF::KeyValuePair<IntegerArray,unsigned long>,
   v9 = WTF::fastMalloc((24 * a2 + 16));
   v11 = v9;
   v12 = v9 + 16;
-  if (a2)
+  if (v4)
   {
-    bzero((v9 + 16), 24 * a2);
+    bzero((v9 + 16), 24 * v4);
   }
 
   *a1 = v12;
-  v11[2] = a2 - 1;
-  v11[3] = a2;
+  v11[2] = v4 - 1;
+  v11[3] = v4;
   *v11 = 0;
   v11[1] = v8;
   if (v7)
@@ -5067,41 +5071,41 @@ LABEL_31:
   return result;
 }
 
-void InProcessIDBServer::~InProcessIDBServer(InProcessIDBServer *this)
+void InProcessIDBServer::~InProcessIDBServer(InProcessIDBServer *this, unint64_t a2)
 {
-  v16 = 0;
   v17 = 0;
-  v2 = WTF::fastMalloc(0x18);
-  *v2 = &unk_1F4729EA0;
-  v2[1] = this;
-  v2[2] = &v16;
-  v18 = v2;
-  (*(**(this + 8) + 48))(*(this + 8), &v18);
-  v3 = v18;
   v18 = 0;
-  if (v3)
-  {
-    (*(*v3 + 8))(v3);
-  }
-
-  v18 = 0x7FF0000000000000;
+  v3 = WTF::fastMalloc(0x18);
+  *v3 = &unk_1F4729EA0;
+  v3[1] = this;
+  v3[2] = &v17;
+  v19 = v3;
+  (*(**(this + 8) + 48))(*(this + 8), &v19);
+  v4 = v19;
   v19 = 0;
-  WTF::BinarySemaphore::waitUntil();
-  v5 = *(this + 8);
-  *(this + 8) = 0;
-  if (v5)
+  if (v4)
   {
-    (*(*v5 + 40))(v5);
+    (*(*v4 + 8))(v4);
   }
 
-  v6 = *(this + 7);
+  v19 = 0x7FF0000000000000;
+  v20 = 0;
+  WTF::BinarySemaphore::waitUntil();
+  v6 = *(this + 8);
+  *(this + 8) = 0;
+  if (v6)
+  {
+    (*(*v6 + 40))(v6);
+  }
+
+  v7 = *(this + 7);
   *(this + 7) = 0;
-  if (!v6)
+  if (!v7)
   {
 LABEL_8:
-    v7 = *(this + 6);
+    v8 = *(this + 6);
     *(this + 6) = 0;
-    if (!v7)
+    if (!v8)
     {
       goto LABEL_18;
     }
@@ -5109,109 +5113,86 @@ LABEL_8:
     goto LABEL_17;
   }
 
-  if (*v6 != 1)
+  if (*v7 != 1)
   {
-    --*v6;
+    --*v7;
     goto LABEL_8;
   }
 
-  v8 = *(v6 + 2);
-  if (v8)
-  {
-    WTF::fastFree((v8 - 16), v4);
-  }
-
-  v9 = *(v6 + 1);
+  v9 = *(v7 + 2);
   if (v9)
   {
-    v10 = (v9 + 8);
-    if (!atomic_load(v10))
+    WTF::fastFree((v9 - 16), v5);
+  }
+
+  v10 = *(v7 + 1);
+  if (v10)
+  {
+    v11 = (v10 + 8);
+    if (!atomic_load(v11))
     {
 LABEL_27:
       __break(0xC471u);
       JUMPOUT(0x1C79C6A4CLL);
     }
 
-    atomic_fetch_add(v10, 0xFFFFFFFF);
+    atomic_fetch_add(v11, 0xFFFFFFFF);
   }
 
-  if (*v6 != 1)
+  if (*v7 != 1)
   {
     goto LABEL_27;
   }
 
-  WTF::fastFree(v6, v4);
-  v7 = *(this + 6);
+  WTF::fastFree(v7, v5);
+  v8 = *(this + 6);
   *(this + 6) = 0;
-  if (!v7)
+  if (!v8)
   {
     goto LABEL_18;
   }
 
 LABEL_17:
-  if (atomic_fetch_add(v7, 0xFFFFFFFF) == 1)
+  if (atomic_fetch_add(v8, 0xFFFFFFFF) == 1)
   {
-    atomic_store(1u, v7);
-    WebCore::IDBClient::IDBConnectionToServer::~IDBConnectionToServer(v7);
-    if (atomic_load((v14 + 4)))
+    atomic_store(1u, v8);
+    WebCore::IDBClient::IDBConnectionToServer::~IDBConnectionToServer(v8);
+    if (atomic_load((v15 + 4)))
     {
-      *v14 = 0u;
-      *(v14 + 16) = 0u;
+      *v15 = 0u;
+      *(v15 + 16) = 0u;
     }
 
     else
     {
-      bmalloc::api::tzoneFree(v14, v4);
+      bmalloc::api::tzoneFree(v15, v5);
     }
   }
 
 LABEL_18:
-  v12 = *(this + 5);
+  v13 = *(this + 5);
   *(this + 5) = 0;
-  if (v12)
-  {
-    (*(*v12 + 8))(v12);
-  }
-
-  v13 = *(this + 1);
   if (v13)
   {
-    *(v13 + 8) = 0;
+    (*(*v13 + 8))(v13);
+  }
+
+  v14 = *(this + 1);
+  if (v14)
+  {
+    *(v14 + 8) = 0;
     *(this + 1) = 0;
-    if (atomic_fetch_add(v13, 0xFFFFFFFF) == 1)
+    if (atomic_fetch_add(v14, 0xFFFFFFFF) == 1)
     {
-      atomic_store(1u, v13);
-      WTF::fastFree(v13, v4);
+      atomic_store(1u, v14);
+      WTF::fastFree(v14, v5);
     }
   }
 }
 
 {
-  InProcessIDBServer::~InProcessIDBServer(this);
-  if (atomic_load((v1 + 24)))
-  {
-    *(v1 + 64) = 0;
-    *(v1 + 32) = 0u;
-    *(v1 + 48) = 0u;
-    *v1 = 0u;
-    *(v1 + 16) = 0u;
-  }
-
-  else
-  {
-
-    WTF::fastFree(v1, v2);
-  }
-}
-
-void non-virtual thunk toInProcessIDBServer::~InProcessIDBServer(InProcessIDBServer *this)
-{
-  InProcessIDBServer::~InProcessIDBServer((this - 16));
-}
-
-{
-  InProcessIDBServer::~InProcessIDBServer((this - 16));
-  if (atomic_load(this + 2))
+  InProcessIDBServer::~InProcessIDBServer(this, a2);
+  if (atomic_load((v2 + 24)))
   {
     *(v2 + 64) = 0;
     *(v2 + 32) = 0u;
@@ -5224,6 +5205,29 @@ void non-virtual thunk toInProcessIDBServer::~InProcessIDBServer(InProcessIDBSer
   {
 
     WTF::fastFree(v2, v3);
+  }
+}
+
+void non-virtual thunk toInProcessIDBServer::~InProcessIDBServer(InProcessIDBServer *this, unint64_t a2)
+{
+  InProcessIDBServer::~InProcessIDBServer((this - 16), a2);
+}
+
+{
+  InProcessIDBServer::~InProcessIDBServer((this - 16), a2);
+  if (atomic_load(this + 2))
+  {
+    *(v3 + 64) = 0;
+    *(v3 + 32) = 0u;
+    *(v3 + 48) = 0u;
+    *v3 = 0u;
+    *(v3 + 16) = 0u;
+  }
+
+  else
+  {
+
+    WTF::fastFree(v3, v4);
   }
 }
 
@@ -5612,59 +5616,59 @@ uint64_t InProcessIDBServer::didOpenDatabase(atomic_uint *this, const WebCore::I
   return 0;
 }
 
-uint64_t InProcessIDBServer::didAbortTransaction(uint64_t a1, WebCore::IDBResourceIdentifier *this)
+uint64_t InProcessIDBServer::didAbortTransaction(uint64_t a1, WebCore::IDBResourceIdentifier *this, unsigned __int16 *a3)
 {
   atomic_fetch_add((a1 + 28), 1u);
-  *&v8 = WebCore::IDBResourceIdentifier::isolatedCopy(this);
-  *(&v8 + 1) = v2;
+  *&v9 = WebCore::IDBResourceIdentifier::isolatedCopy(this);
+  *(&v9 + 1) = v3;
   WTF::String::isolatedCopy();
   WebCore::IDBError::IDBError();
-  if (v11 && atomic_fetch_add_explicit(v11, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v11, v3);
+    WTF::StringImpl::destroy(v12, v4);
   }
 
-  v4 = WTF::fastMalloc(0x38);
-  *v4 = &unk_1F4729FB8;
-  *(v4 + 8) = a1;
-  *(v4 + 16) = a1;
-  *(v4 + 24) = v8;
-  *(v4 + 40) = v9;
-  *(v4 + 48) = v10;
-  v12 = v4;
+  v5 = WTF::fastMalloc(0x38);
+  *v5 = &unk_1F4729FB8;
+  *(v5 + 8) = a1;
+  *(v5 + 16) = a1;
+  *(v5 + 24) = v9;
+  *(v5 + 40) = v10;
+  *(v5 + 48) = v11;
+  v13 = v5;
   WTF::callOnMainThread();
-  if (v12)
+  if (v13)
   {
-    (*(*v12 + 8))(v12);
+    (*(*v13 + 8))(v13);
   }
 
   return 0;
 }
 
-uint64_t InProcessIDBServer::didCommitTransaction(uint64_t a1, WebCore::IDBResourceIdentifier *this)
+uint64_t InProcessIDBServer::didCommitTransaction(uint64_t a1, WebCore::IDBResourceIdentifier *this, unsigned __int16 *a3)
 {
   atomic_fetch_add((a1 + 28), 1u);
-  *&v8 = WebCore::IDBResourceIdentifier::isolatedCopy(this);
-  *(&v8 + 1) = v2;
+  *&v9 = WebCore::IDBResourceIdentifier::isolatedCopy(this);
+  *(&v9 + 1) = v3;
   WTF::String::isolatedCopy();
   WebCore::IDBError::IDBError();
-  if (v11 && atomic_fetch_add_explicit(v11, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v11, v3);
+    WTF::StringImpl::destroy(v12, v4);
   }
 
-  v4 = WTF::fastMalloc(0x38);
-  *v4 = &unk_1F4729FE0;
-  *(v4 + 8) = a1;
-  *(v4 + 16) = a1;
-  *(v4 + 24) = v8;
-  *(v4 + 40) = v9;
-  *(v4 + 48) = v10;
-  v12 = v4;
+  v5 = WTF::fastMalloc(0x38);
+  *v5 = &unk_1F4729FE0;
+  *(v5 + 8) = a1;
+  *(v5 + 16) = a1;
+  *(v5 + 24) = v9;
+  *(v5 + 40) = v10;
+  *(v5 + 48) = v11;
+  v13 = v5;
   WTF::callOnMainThread();
-  if (v12)
+  if (v13)
   {
-    (*(*v12 + 8))(v12);
+    (*(*v13 + 8))(v13);
   }
 
   return 0;
@@ -6390,45 +6394,45 @@ uint64_t InProcessIDBServer::deleteObjectStore(atomic_uint *this, const WebCore:
   return 0;
 }
 
-uint64_t InProcessIDBServer::renameObjectStore(uint64_t a1, WebCore::IDBRequestData *this, uint64_t a3)
+uint64_t InProcessIDBServer::renameObjectStore(uint64_t a1, WebCore::IDBRequestData *this, uint64_t a3, uint64_t a4)
 {
   atomic_fetch_add((a1 + 28), 1u);
-  WebCore::IDBRequestData::isolatedCopy(v18, this);
-  *(&v19 + 1) = a3;
+  WebCore::IDBRequestData::isolatedCopy(v19, this);
+  *(&v20 + 1) = a3;
   WTF::String::isolatedCopy();
-  v5 = WTF::fastMalloc(0x90);
-  *v5 = &unk_1F472A300;
-  *(v5 + 8) = a1;
-  *(v5 + 16) = a1;
-  v6 = v18[3];
-  v7 = v18[4];
-  v8 = v18[5];
-  *(v5 + 120) = v19;
-  *(v5 + 88) = v7;
-  *(v5 + 72) = v6;
-  *(v5 + 104) = v8;
-  v9 = v18[2];
-  v10 = v18[0];
-  *(v5 + 40) = v18[1];
-  *(v5 + 24) = v10;
-  *(v5 + 56) = v9;
-  v11 = v20;
-  v20 = 0;
-  *(v5 + 136) = v11;
-  v21 = v5;
-  (*(**(a1 + 64) + 48))(*(a1 + 64), &v21);
-  v13 = v21;
+  v6 = WTF::fastMalloc(0x90);
+  *v6 = &unk_1F472A300;
+  *(v6 + 8) = a1;
+  *(v6 + 16) = a1;
+  v7 = v19[3];
+  v8 = v19[4];
+  v9 = v19[5];
+  *(v6 + 120) = v20;
+  *(v6 + 88) = v8;
+  *(v6 + 72) = v7;
+  *(v6 + 104) = v9;
+  v10 = v19[2];
+  v11 = v19[0];
+  *(v6 + 40) = v19[1];
+  *(v6 + 24) = v11;
+  *(v6 + 56) = v10;
+  v12 = v21;
   v21 = 0;
-  if (v13)
+  *(v6 + 136) = v12;
+  v22 = v6;
+  (*(**(a1 + 64) + 48))(*(a1 + 64), &v22);
+  v14 = v22;
+  v22 = 0;
+  if (v14)
   {
-    (*(*v13 + 8))(v13);
+    (*(*v14 + 8))(v14);
   }
 
-  v14 = v20;
-  v20 = 0;
-  if (v14 && atomic_fetch_add_explicit(v14, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  v15 = v21;
+  v21 = 0;
+  if (v15 && atomic_fetch_add_explicit(v15, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v14, v12);
+    WTF::StringImpl::destroy(v15, v13);
   }
 
   return 0;
@@ -6646,96 +6650,96 @@ uint64_t InProcessIDBServer::createIndex(WebCore::IDBRequestData const&,WebCore:
   }
 
   atomic_store(1u, v9 + 7);
-  (*(*v9 + 8))(v9);
+  (*(*v9 + 8))(v9, a2);
   return a1;
 }
 
-uint64_t InProcessIDBServer::deleteIndex(uint64_t a1, WebCore::IDBRequestData *this, uint64_t a3)
+uint64_t InProcessIDBServer::deleteIndex(uint64_t a1, WebCore::IDBRequestData *this, uint64_t a3, uint64_t a4)
 {
   atomic_fetch_add((a1 + 28), 1u);
-  WebCore::IDBRequestData::isolatedCopy(v18, this);
-  *(&v19 + 1) = a3;
+  WebCore::IDBRequestData::isolatedCopy(v19, this);
+  *(&v20 + 1) = a3;
   WTF::String::isolatedCopy();
-  v5 = WTF::fastMalloc(0x90);
-  *v5 = &unk_1F472A378;
-  *(v5 + 8) = a1;
-  *(v5 + 16) = a1;
-  v6 = v18[3];
-  v7 = v18[4];
-  v8 = v18[5];
-  *(v5 + 120) = v19;
-  *(v5 + 88) = v7;
-  *(v5 + 72) = v6;
-  *(v5 + 104) = v8;
-  v9 = v18[2];
-  v10 = v18[0];
-  *(v5 + 40) = v18[1];
-  *(v5 + 24) = v10;
-  *(v5 + 56) = v9;
-  v11 = v20;
-  v20 = 0;
-  *(v5 + 136) = v11;
-  v21 = v5;
-  (*(**(a1 + 64) + 48))(*(a1 + 64), &v21);
-  v13 = v21;
+  v6 = WTF::fastMalloc(0x90);
+  *v6 = &unk_1F472A378;
+  *(v6 + 8) = a1;
+  *(v6 + 16) = a1;
+  v7 = v19[3];
+  v8 = v19[4];
+  v9 = v19[5];
+  *(v6 + 120) = v20;
+  *(v6 + 88) = v8;
+  *(v6 + 72) = v7;
+  *(v6 + 104) = v9;
+  v10 = v19[2];
+  v11 = v19[0];
+  *(v6 + 40) = v19[1];
+  *(v6 + 24) = v11;
+  *(v6 + 56) = v10;
+  v12 = v21;
   v21 = 0;
-  if (v13)
+  *(v6 + 136) = v12;
+  v22 = v6;
+  (*(**(a1 + 64) + 48))(*(a1 + 64), &v22);
+  v14 = v22;
+  v22 = 0;
+  if (v14)
   {
-    (*(*v13 + 8))(v13);
+    (*(*v14 + 8))(v14);
   }
 
-  v14 = v20;
-  v20 = 0;
-  if (v14 && atomic_fetch_add_explicit(v14, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  v15 = v21;
+  v21 = 0;
+  if (v15 && atomic_fetch_add_explicit(v15, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v14, v12);
+    WTF::StringImpl::destroy(v15, v13);
   }
 
   return 0;
 }
 
-uint64_t InProcessIDBServer::renameIndex(uint64_t a1, WebCore::IDBRequestData *this, uint64_t a3, uint64_t a4)
+uint64_t InProcessIDBServer::renameIndex(uint64_t a1, WebCore::IDBRequestData *this, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   atomic_fetch_add((a1 + 28), 1u);
-  WebCore::IDBRequestData::isolatedCopy(v21, this);
-  *(&v22 + 1) = a3;
-  v23 = a4;
+  WebCore::IDBRequestData::isolatedCopy(v22, this);
+  *(&v23 + 1) = a3;
+  v24 = a4;
   WTF::String::isolatedCopy();
-  v7 = WTF::fastMalloc(0x98);
-  *v7 = &unk_1F472A3A0;
-  *(v7 + 8) = a1;
-  *(v7 + 16) = a1;
-  v8 = v21[3];
-  v9 = v21[2];
-  v10 = v21[1];
-  *(v7 + 24) = v21[0];
-  *(v7 + 40) = v10;
-  *(v7 + 56) = v9;
-  *(v7 + 72) = v8;
-  v11 = v21[4];
-  v12 = v21[5];
-  v13 = v23;
-  *(v7 + 120) = v22;
-  *(v7 + 136) = v13;
-  *(v7 + 104) = v12;
-  *(v7 + 88) = v11;
+  v8 = WTF::fastMalloc(0x98);
+  *v8 = &unk_1F472A3A0;
+  *(v8 + 8) = a1;
+  *(v8 + 16) = a1;
+  v9 = v22[3];
+  v10 = v22[2];
+  v11 = v22[1];
+  *(v8 + 24) = v22[0];
+  *(v8 + 40) = v11;
+  *(v8 + 56) = v10;
+  *(v8 + 72) = v9;
+  v12 = v22[4];
+  v13 = v22[5];
   v14 = v24;
-  v24 = 0;
-  *(v7 + 144) = v14;
-  v25 = v7;
-  (*(**(a1 + 64) + 48))(*(a1 + 64), &v25);
-  v16 = v25;
+  *(v8 + 120) = v23;
+  *(v8 + 136) = v14;
+  *(v8 + 104) = v13;
+  *(v8 + 88) = v12;
+  v15 = v25;
   v25 = 0;
-  if (v16)
+  *(v8 + 144) = v15;
+  v26 = v8;
+  (*(**(a1 + 64) + 48))(*(a1 + 64), &v26);
+  v17 = v26;
+  v26 = 0;
+  if (v17)
   {
-    (*(*v16 + 8))(v16);
+    (*(*v17 + 8))(v17);
   }
 
-  v17 = v24;
-  v24 = 0;
-  if (v17 && atomic_fetch_add_explicit(v17, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  v18 = v25;
+  v25 = 0;
+  if (v18 && atomic_fetch_add_explicit(v18, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v17, v15);
+    WTF::StringImpl::destroy(v18, v16);
   }
 
   return 0;
@@ -6788,7 +6792,7 @@ LABEL_15:
         v19 = v122;
         if (!v122)
         {
-          WTF::HashTable<WTF::ObjectIdentifierGeneric<WebCore::IDBIndexIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebCore::IDBIndexIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,WebCore::IndexKey>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebCore::IDBIndexIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,WebCore::IndexKey>>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebCore::IDBIndexIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashMap<WTF::ObjectIdentifierGeneric<WebCore::IDBIndexIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,WebCore::IndexKey,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebCore::IDBIndexIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebCore::IDBIndexIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WebCore::IndexKey>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebCore::IDBIndexIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::FastMalloc>::rehash(&v122, 8u);
+          WTF::HashTable<WTF::ObjectIdentifierGeneric<WebCore::IDBIndexIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebCore::IDBIndexIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,WebCore::IndexKey>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::ObjectIdentifierGeneric<WebCore::IDBIndexIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,WebCore::IndexKey>>,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebCore::IDBIndexIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashMap<WTF::ObjectIdentifierGeneric<WebCore::IDBIndexIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>,WebCore::IndexKey,WTF::DefaultHash<WTF::ObjectIdentifierGeneric<WebCore::IDBIndexIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebCore::IDBIndexIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::HashTraits<WebCore::IndexKey>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::ObjectIdentifierGeneric<WebCore::IDBIndexIdentifierType,WTF::ObjectIdentifierThreadSafeAccessTraits<unsigned long long>,unsigned long long>>,WTF::FastMalloc>::rehash(&v122, 8uLL);
           v19 = v122;
         }
 
@@ -7490,7 +7494,7 @@ LABEL_155:
           if (v64)
           {
 LABEL_156:
-            v65 = v64 << (6 * v62 >= (2 * v64));
+            v65 = (v64 << (6 * v62 >= (2 * v64)));
           }
 
           else
@@ -8666,11 +8670,39 @@ uint64_t InProcessIDBServer::generateIndexKeyForRecord(WebCore::IDBResourceIdent
   return a1;
 }
 
-uint64_t InProcessIDBServer::didStartTransaction(uint64_t a1, WebCore::IDBResourceIdentifier *this)
+uint64_t InProcessIDBServer::didStartTransaction(uint64_t a1, WebCore::IDBResourceIdentifier *this, unsigned __int16 *a3)
 {
   atomic_fetch_add((a1 + 28), 1u);
-  *&v8 = WebCore::IDBResourceIdentifier::isolatedCopy(this);
-  *(&v8 + 1) = v2;
+  *&v9 = WebCore::IDBResourceIdentifier::isolatedCopy(this);
+  *(&v9 + 1) = v3;
+  WTF::String::isolatedCopy();
+  WebCore::IDBError::IDBError();
+  if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  {
+    WTF::StringImpl::destroy(v12, v4);
+  }
+
+  v5 = WTF::fastMalloc(0x38);
+  *v5 = &unk_1F472A558;
+  *(v5 + 8) = a1;
+  *(v5 + 16) = a1;
+  *(v5 + 24) = v9;
+  *(v5 + 40) = v10;
+  *(v5 + 48) = v11;
+  v13 = v5;
+  WTF::callOnMainThread();
+  if (v13)
+  {
+    (*(*v13 + 8))(v13);
+  }
+
+  return 0;
+}
+
+uint64_t InProcessIDBServer::didCloseFromServer(uint64_t a1, uint64_t a2, unsigned __int16 *a3)
+{
+  atomic_fetch_add((a1 + 28), 1u);
+  v8 = *(a2 + 16);
   WTF::String::isolatedCopy();
   WebCore::IDBError::IDBError();
   if (v11 && atomic_fetch_add_explicit(v11, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -8678,46 +8710,18 @@ uint64_t InProcessIDBServer::didStartTransaction(uint64_t a1, WebCore::IDBResour
     WTF::StringImpl::destroy(v11, v3);
   }
 
-  v4 = WTF::fastMalloc(0x38);
-  *v4 = &unk_1F472A558;
+  v4 = WTF::fastMalloc(0x30);
+  *v4 = &unk_1F472A580;
   *(v4 + 8) = a1;
   *(v4 + 16) = a1;
   *(v4 + 24) = v8;
-  *(v4 + 40) = v9;
-  *(v4 + 48) = v10;
+  *(v4 + 32) = v9;
+  *(v4 + 40) = v10;
   v12 = v4;
   WTF::callOnMainThread();
   if (v12)
   {
     (*(*v12 + 8))(v12);
-  }
-
-  return 0;
-}
-
-uint64_t InProcessIDBServer::didCloseFromServer(uint64_t a1, uint64_t a2)
-{
-  atomic_fetch_add((a1 + 28), 1u);
-  v7 = *(a2 + 16);
-  WTF::String::isolatedCopy();
-  WebCore::IDBError::IDBError();
-  if (v10 && atomic_fetch_add_explicit(v10, 0xFFFFFFFE, memory_order_relaxed) == 2)
-  {
-    WTF::StringImpl::destroy(v10, v2);
-  }
-
-  v3 = WTF::fastMalloc(0x30);
-  *v3 = &unk_1F472A580;
-  *(v3 + 8) = a1;
-  *(v3 + 16) = a1;
-  *(v3 + 24) = v7;
-  *(v3 + 32) = v8;
-  *(v3 + 40) = v9;
-  v11 = v3;
-  WTF::callOnMainThread();
-  if (v11)
-  {
-    (*(*v11 + 8))(v11);
   }
 
   return 0;
@@ -8772,7 +8776,7 @@ uint64_t non-virtual thunk toInProcessIDBServer::notifyOpenDBRequestBlocked(atom
   return result;
 }
 
-uint64_t InProcessIDBServer::databaseConnectionPendingClose(uint64_t a1, uint64_t a2)
+uint64_t InProcessIDBServer::databaseConnectionPendingClose(uint64_t a1, unint64_t a2)
 {
   atomic_fetch_add((a1 + 28), 1u);
   v4 = WTF::fastMalloc(0x20);
@@ -8792,7 +8796,7 @@ uint64_t InProcessIDBServer::databaseConnectionPendingClose(uint64_t a1, uint64_
   return result;
 }
 
-uint64_t InProcessIDBServer::databaseConnectionClosed(uint64_t a1, uint64_t a2)
+uint64_t InProcessIDBServer::databaseConnectionClosed(uint64_t a1, unint64_t a2)
 {
   atomic_fetch_add((a1 + 28), 1u);
   v4 = WTF::fastMalloc(0x20);
@@ -8812,7 +8816,7 @@ uint64_t InProcessIDBServer::databaseConnectionClosed(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t InProcessIDBServer::abortOpenAndUpgradeNeeded(uint64_t a1, uint64_t a2, WebCore::IDBResourceIdentifier *this)
+uint64_t InProcessIDBServer::abortOpenAndUpgradeNeeded(uint64_t a1, unint64_t a2, WebCore::IDBResourceIdentifier *this)
 {
   if (*(this + 16) == 1)
   {
@@ -9360,115 +9364,115 @@ unsigned int *InProcessIDBServer::openDBRequestCancelled(atomic_uint *this, cons
   return result;
 }
 
-unsigned int *InProcessIDBServer::getAllDatabaseNamesAndVersions(uint64_t a1, _OWORD *a2)
+unsigned int *InProcessIDBServer::getAllDatabaseNamesAndVersions(uint64_t a1, _OWORD *a2, uint64_t a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v18 = a1;
+  v28 = *MEMORY[0x1E69E9840];
   v19 = a1;
+  v20 = a1;
   atomic_fetch_add((a1 + 28), 1u);
-  *v20 = WebCore::IDBClient::IDBConnectionToServer::identifier(*(a1 + 48));
-  *&v20[8] = *a2;
+  *v21 = WebCore::IDBClient::IDBConnectionToServer::identifier(*(a1 + 48));
+  *&v21[8] = *a2;
   WebCore::SecurityOriginData::isolatedCopy();
   WebCore::SecurityOriginData::isolatedCopy();
-  v4 = WTF::fastMalloc(0x70);
-  v5 = v18;
-  *v4 = &unk_1F472A6C0;
-  *(v4 + 8) = v5;
+  v5 = WTF::fastMalloc(0x70);
   v6 = v19;
-  v19 = 0;
-  *(v4 + 16) = v6;
-  v7 = *&v20[16];
-  *(v4 + 24) = *v20;
-  *(v4 + 40) = v7;
-  *(v4 + 48) = 0;
-  *(v4 + 72) = -1;
-  if (v23 != 255)
+  *v5 = &unk_1F472A6C0;
+  *(v5 + 8) = v6;
+  v7 = v20;
+  v20 = 0;
+  *(v5 + 16) = v7;
+  v8 = *&v21[16];
+  *(v5 + 24) = *v21;
+  *(v5 + 40) = v8;
+  *(v5 + 48) = 0;
+  *(v5 + 72) = -1;
+  if (v24 != 255)
   {
-    if (v23)
+    if (v24)
     {
-      *(v4 + 48) = v21;
+      *(v5 + 48) = v22;
     }
 
     else
     {
-      *(v4 + 48) = v21;
-      v8 = *(&v21 + 1);
-      v21 = 0uLL;
-      *(v4 + 56) = v8;
-      *(v4 + 64) = v22;
+      *(v5 + 48) = v22;
+      v9 = *(&v22 + 1);
+      v22 = 0uLL;
+      *(v5 + 56) = v9;
+      *(v5 + 64) = v23;
     }
 
-    *(v4 + 72) = v23;
+    *(v5 + 72) = v24;
   }
 
-  *(v4 + 80) = 0;
-  *(v4 + 104) = -1;
-  if (v26 != 255)
+  *(v5 + 80) = 0;
+  *(v5 + 104) = -1;
+  if (v27 != 255)
   {
-    if (v26)
+    if (v27)
     {
-      *(v4 + 80) = v24;
+      *(v5 + 80) = v25;
     }
 
     else
     {
-      *(v4 + 80) = v24;
-      v9 = *(&v24 + 1);
-      v24 = 0uLL;
-      *(v4 + 88) = v9;
-      *(v4 + 96) = v25;
+      *(v5 + 80) = v25;
+      v10 = *(&v25 + 1);
+      v25 = 0uLL;
+      *(v5 + 88) = v10;
+      *(v5 + 96) = v26;
     }
 
-    *(v4 + 104) = v26;
+    *(v5 + 104) = v27;
   }
 
-  v17 = v4;
-  (*(**(a1 + 64) + 48))(*(a1 + 64), &v17);
-  v11 = v17;
-  v17 = 0;
-  if (v11)
+  v18 = v5;
+  (*(**(a1 + 64) + 48))(*(a1 + 64), &v18);
+  v12 = v18;
+  v18 = 0;
+  if (v12)
   {
-    (*(*v11 + 8))(v11);
+    (*(*v12 + 8))(v12);
   }
 
-  if (!v26)
+  if (!v27)
   {
-    v12 = *(&v24 + 1);
-    *(&v24 + 1) = 0;
-    if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(v12, v10);
-    }
-
-    v13 = v24;
-    *&v24 = 0;
+    v13 = *(&v25 + 1);
+    *(&v25 + 1) = 0;
     if (v13 && atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v13, v10);
+      WTF::StringImpl::destroy(v13, v11);
     }
-  }
 
-  v26 = -1;
-  if (!v23)
-  {
-    v14 = *(&v21 + 1);
-    *(&v21 + 1) = 0;
+    v14 = v25;
+    *&v25 = 0;
     if (v14 && atomic_fetch_add_explicit(v14, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v14, v10);
-    }
-
-    v15 = v21;
-    *&v21 = 0;
-    if (v15 && atomic_fetch_add_explicit(v15, 0xFFFFFFFE, memory_order_relaxed) == 2)
-    {
-      WTF::StringImpl::destroy(v15, v10);
+      WTF::StringImpl::destroy(v14, v11);
     }
   }
 
-  v23 = -1;
-  result = v19;
-  v19 = 0;
+  v27 = -1;
+  if (!v24)
+  {
+    v15 = *(&v22 + 1);
+    *(&v22 + 1) = 0;
+    if (v15 && atomic_fetch_add_explicit(v15, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    {
+      WTF::StringImpl::destroy(v15, v11);
+    }
+
+    v16 = v22;
+    *&v22 = 0;
+    if (v16 && atomic_fetch_add_explicit(v16, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    {
+      WTF::StringImpl::destroy(v16, v11);
+    }
+  }
+
+  v24 = -1;
+  result = v20;
+  v20 = 0;
   if (result)
   {
     if (atomic_fetch_add(result + 7, 0xFFFFFFFF) == 1)
@@ -9535,7 +9539,7 @@ uint64_t InProcessIDBServer::getAllDatabaseNamesAndVersions(WebCore::IDBResource
     {
       atomic_store(1u, v10 + 7);
       v11 = result;
-      (*(*v10 + 8))(v10);
+      (*(*v10 + 8))(v10, a2);
       return v11;
     }
   }
@@ -9543,7 +9547,7 @@ uint64_t InProcessIDBServer::getAllDatabaseNamesAndVersions(WebCore::IDBResource
   return result;
 }
 
-uint64_t InProcessIDBServer::didGetAllDatabaseNamesAndVersions(uint64_t a1, __int128 *a2, uint64_t *a3)
+WTF::StringImpl *InProcessIDBServer::didGetAllDatabaseNamesAndVersions(uint64_t a1, WTF::StringImpl *a2, uint64_t *a3)
 {
   atomic_fetch_add((a1 + 28), 1u);
   v14 = *a2;

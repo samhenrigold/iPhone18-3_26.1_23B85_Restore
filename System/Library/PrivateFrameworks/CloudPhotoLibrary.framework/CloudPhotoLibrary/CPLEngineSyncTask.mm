@@ -20,20 +20,18 @@
 
 - (void)launch
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   [(CPLEngineSyncTask *)self withThroughputReporter:&__block_literal_global_15642];
   if ((_CPLSilentLogging & 1) == 0)
   {
     v3 = __CPLTaskOSLogDomain_15620();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v5 = 138412290;
+      v4 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEBUG, "%@ launched", &v5, 0xCu);
+      _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEBUG, "%@ launched", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (id)description
@@ -140,28 +138,28 @@ LABEL_12:
 
 - (void)taskDidFinishWithError:(id)error
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self->_hasFinishedTask)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v10 = __CPLTaskOSLogDomain_15620();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v9 = __CPLTaskOSLogDomain_15620();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v11 = NSStringFromSelector(a2);
+        v10 = NSStringFromSelector(a2);
         *buf = 138412546;
         selfCopy2 = self;
-        v17 = 2112;
-        v18 = v11;
-        _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_ERROR, "%@ called %@ twice", buf, 0x16u);
+        v16 = 2112;
+        v17 = v10;
+        _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_ERROR, "%@ called %@ twice", buf, 0x16u);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLEngineSyncTask.m"];
-    v14 = NSStringFromSelector(a2);
-    [currentHandler handleFailureInMethod:a2 object:self file:v13 lineNumber:111 description:{@"%@ called %@ twice", self, v14}];
+    v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLEngineSyncTask.m"];
+    v13 = NSStringFromSelector(a2);
+    [currentHandler handleFailureInMethod:a2 object:self file:v12 lineNumber:111 description:{@"%@ called %@ twice", self, v13}];
 
     abort();
   }
@@ -188,8 +186,8 @@ LABEL_12:
     {
       *buf = 138412546;
       selfCopy2 = self;
-      v17 = 2112;
-      v18 = v6;
+      v16 = 2112;
+      v17 = v6;
       _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEBUG, "%@ did finish with error: %@", buf, 0x16u);
     }
   }
@@ -199,7 +197,6 @@ LABEL_12:
   [delegate task:self didFinishWithError:v6];
 
   [(CPLEngineSyncTask *)self setDelegate:0];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)withThroughputReporter:(id)reporter
@@ -235,13 +232,11 @@ uint64_t __44__CPLEngineSyncTask_withThroughputReporter___block_invoke(uint64_t 
     v6 = *(a1 + 32);
     v7 = *(v6 + 32);
     *(v6 + 32) = v5;
-
-    v8 = *(*(a1 + 32) + 32);
   }
 
-  v9 = *(*(a1 + 40) + 16);
+  v8 = *(*(a1 + 40) + 16);
 
-  return v9();
+  return v8();
 }
 
 - (void)setThroughputReporter:(id)reporter
@@ -262,21 +257,20 @@ uint64_t __44__CPLEngineSyncTask_withThroughputReporter___block_invoke(uint64_t 
 
 - (void)cancel
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
     v3 = __CPLTaskOSLogDomain_15620();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v5 = 138412290;
+      v4 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEBUG, "%@ has been cancelled", &v5, 0xCu);
+      _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_DEBUG, "%@ has been cancelled", &v4, 0xCu);
     }
   }
 
   [(CPLEngineSyncTask *)self _setCancelled:1];
   [(CPLEngineSyncTask *)self withThroughputReporter:&__block_literal_global_6_15640];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)taskIdentifier

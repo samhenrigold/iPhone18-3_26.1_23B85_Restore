@@ -2,7 +2,7 @@
 - (uint64_t)setNeedsDisplayForDirtyTiles:()TSDTilingLayerSupport;
 - (uint64_t)setNeedsLayoutForTilingLayers;
 - (uint64_t)setTileContents:()TSDTilingLayerSupport;
-- (uint64_t)tilingSafeSetSublayers:()TSDTilingLayerSupport;
+- (void)tilingSafeSetSublayers:()TSDTilingLayerSupport;
 @end
 
 @implementation CALayer(TSDTilingLayerSupport)
@@ -14,7 +14,7 @@
   return [sublayers makeObjectsPerformSelector:a2];
 }
 
-- (uint64_t)tilingSafeSetSublayers:()TSDTilingLayerSupport
+- (void)tilingSafeSetSublayers:()TSDTilingLayerSupport
 {
   result = [a3 isEqualToArray:{objc_msgSend(self, "sublayers")}];
   if ((result & 1) == 0)

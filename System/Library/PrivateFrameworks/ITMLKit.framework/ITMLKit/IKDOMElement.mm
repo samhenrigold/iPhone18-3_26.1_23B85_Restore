@@ -30,7 +30,7 @@
 
 - (id)ik_templateName
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   tagName = [(IKDOMElement *)self tagName];
   if (![tagName isEqualToString:@"document"])
   {
@@ -38,13 +38,13 @@
     goto LABEL_24;
   }
 
-  v24 = tagName;
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
+  v23 = tagName;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   obj = [(IKDOMElement *)self childElements];
-  v4 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v4 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (!v4)
   {
     v6 = 0;
@@ -59,18 +59,18 @@
   v7 = 0;
   v8 = 0;
   v9 = 0;
-  v10 = *v27;
+  v10 = *v26;
   do
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v27 != v10)
+      if (*v26 != v10)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(*(&v26 + 1) + 8 * i);
-      if (v6 || ([*(*(&v26 + 1) + 8 * i) tagName], v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "isEqualToString:", @"head"), v13, (v14 & 1) == 0))
+      v12 = *(*(&v25 + 1) + 8 * i);
+      if (v6 || ([*(*(&v25 + 1) + 8 * i) tagName], v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "isEqualToString:", @"head"), v13, (v14 & 1) == 0))
       {
         if (v8 || ([v12 tagName], v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "isEqualToString:", @"navigationBar"), v16, (v17 & 1) == 0))
         {
@@ -107,7 +107,7 @@
       v7 = v15;
     }
 
-    v5 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v5 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   }
 
   while (v5);
@@ -115,28 +115,24 @@ LABEL_23:
 
   tagName2 = [v7 tagName];
 
-  tagName = v24;
+  tagName = v23;
 LABEL_24:
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return tagName2;
 }
 
 - (id)ik_templateElementCSSSelectorList
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D7B6C0];
   elementName = [(IKDOMElement *)self elementName];
   v5 = [v3 safe_initWithText:elementName];
 
   v6 = MEMORY[0x277D7B6C8];
-  v12[0] = v5;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = v5;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   elementName2 = [(IKDOMElement *)self elementName];
   v9 = [v6 safe_initWithSelectors:v7 text:elementName2];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

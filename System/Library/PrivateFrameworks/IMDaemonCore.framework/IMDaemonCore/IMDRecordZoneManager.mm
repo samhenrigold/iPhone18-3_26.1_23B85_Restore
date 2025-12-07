@@ -148,7 +148,7 @@
 
 - (void)_setUpPushConnection
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   pushConnection = [(IMDRecordZoneManager *)self pushConnection];
   v3 = [objc_msgSend(MEMORY[0x277CCA8D8] "mainBundle")];
   if (![v3 length])
@@ -156,23 +156,21 @@
     v3 = [objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8] "mainBundle")];
   }
 
-  v11[0] = [@"com.apple.icloud-container." stringByAppendingString:v3];
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = [@"com.apple.icloud-container." stringByAppendingString:v3];
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   [(APSConnection *)pushConnection setEnabledTopics:v4];
   if (IMOSLoggingEnabled())
   {
     v5 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v7 = 138412546;
-      v8 = pushConnection;
-      v9 = 2112;
-      v10 = v4;
-      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Created push connection %@ with enabled topics %@", &v7, 0x16u);
+      v6 = 138412546;
+      v7 = pushConnection;
+      v8 = 2112;
+      v9 = v4;
+      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Created push connection %@ with enabled topics %@", &v6, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connection:(id)connection didReceivePublicToken:(id)token
@@ -190,7 +188,7 @@
 
 - (void)connection:(id)connection didReceiveIncomingMessage:(id)message
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   userInfo = [message userInfo];
   v6 = [MEMORY[0x277CBC4C0] notificationFromRemoteNotificationDictionary:userInfo];
   if (IMOSLoggingEnabled())
@@ -198,11 +196,11 @@
     v7 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v11 = 138412546;
-      v12 = userInfo;
-      v13 = 2112;
-      v14 = v6;
-      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "APSConnection didReceiveIncomingMessage pushPayload: %@ ckNotification: %@", &v11, 0x16u);
+      v10 = 138412546;
+      v11 = userInfo;
+      v12 = 2112;
+      v13 = v6;
+      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "APSConnection didReceiveIncomingMessage pushPayload: %@ ckNotification: %@", &v10, 0x16u);
     }
   }
 
@@ -217,28 +215,26 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v6, "notificationType")}];
-      v11 = 138412290;
-      v12 = v9;
-      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Received a notification for an unsupported notitifcation type: %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v9;
+      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Received a notification for an unsupported notitifcation type: %@", &v10, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleNotificationForZoneID:(id)d subscriptionID:(id)iD
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v7 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v10 = 138412546;
+      v9 = 138412546;
       dCopy2 = d;
-      v12 = 2112;
+      v11 = 2112;
       iDCopy2 = iD;
-      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Received a notification for zoneID: %@ for subscriptionID: %@", &v10, 0x16u);
+      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Received a notification for zoneID: %@ for subscriptionID: %@", &v9, 0x16u);
     }
   }
 
@@ -252,20 +248,18 @@
     v8 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v10 = 138412546;
+      v9 = 138412546;
       dCopy2 = d;
-      v12 = 2112;
+      v11 = 2112;
       iDCopy2 = iD;
-      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Received a notification for zoneID we haven't set up: %@ subscriptionID: %@", &v10, 0x16u);
+      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Received a notification for zoneID we haven't set up: %@ subscriptionID: %@", &v9, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createSubscriptionForZoneID:(id)d subscriptionID:(id)iD recordType:(id)type completionBlock:(id)block
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v10 = [objc_alloc(MEMORY[0x277CBC618]) initWithZoneID:d subscriptionID:iD];
   if ([type length])
   {
@@ -278,22 +272,20 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v16 = v10;
-      v17 = 2112;
+      v15 = v10;
+      v16 = 2112;
       dCopy = d;
       _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Creating subscription: %@ for zoneID: %@", buf, 0x16u);
     }
   }
 
   truthDatabase = [(IMDCKDatabaseManager *)[(IMDRecordZoneManager *)self dataBaseManager] truthDatabase];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = sub_22B52BD58;
-  v14[3] = &unk_278703990;
-  v14[4] = block;
-  [truthDatabase saveSubscription:v10 completionHandler:v14];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = sub_22B52BD58;
+  v13[3] = &unk_278703990;
+  v13[4] = block;
+  [truthDatabase saveSubscription:v10 completionHandler:v13];
 }
 
 - (void)_createSubscriptionIfNeededForZoneID:(id)d subscriptionID:(id)iD recordType:(id)type completionBlock:(id)block
@@ -313,12 +305,12 @@
 
 - (void)_checkRecordZoneExists:(id)exists completionBlock:(id)block
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   if (exists && block)
   {
     v7 = objc_alloc(MEMORY[0x277CBC3D0]);
-    v19[0] = exists;
-    v8 = [v7 initWithRecordZoneIDs:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v19, 1)}];
+    v18[0] = exists;
+    v8 = [v7 initWithRecordZoneIDs:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v18, 1)}];
     v9 = objc_alloc_init(MEMORY[0x277CBC4F0]);
     [v9 setAllowsCellularAccess:1];
     [v9 setQualityOfService:{-[IMDRecordZoneManager derivedQualityOfService](self, "derivedQualityOfService")}];
@@ -329,21 +321,21 @@
       v10 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        v15 = 138412546;
+        v14 = 138412546;
         existsCopy = [v8 operationID];
-        v17 = 2112;
+        v16 = 2112;
         recordZoneIDs = [v8 recordZoneIDs];
-        _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Created CKFetchRecordZonesOperation operation ID %@ zoneID %@", &v15, 0x16u);
+        _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Created CKFetchRecordZonesOperation operation ID %@ zoneID %@", &v14, 0x16u);
       }
     }
 
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = sub_22B52C404;
-    v14[3] = &unk_2787039E0;
-    v14[4] = exists;
-    v14[5] = block;
-    [v8 setFetchRecordZonesCompletionBlock:v14];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = sub_22B52C404;
+    v13[3] = &unk_2787039E0;
+    v13[4] = exists;
+    v13[5] = block;
+    [v8 setFetchRecordZonesCompletionBlock:v13];
     if (v8)
     {
       [-[IMDCKDatabaseManager truthDatabase](-[IMDRecordZoneManager dataBaseManager](self "dataBaseManager")];
@@ -356,8 +348,8 @@
         v12 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v15) = 0;
-          _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Error initializing fetchOperation ", &v15, 2u);
+          LOWORD(v14) = 0;
+          _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Error initializing fetchOperation ", &v14, 2u);
         }
       }
 
@@ -370,36 +362,32 @@
     v11 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v15 = 138412290;
+      v14 = 138412290;
       existsCopy = exists;
-      _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "_checkRecordZoneExists invalid parameter: recordZoneID %@", &v15, 0xCu);
+      _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "_checkRecordZoneExists invalid parameter: recordZoneID %@", &v14, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createRecordZone:(id)zone completionBlock:(id)block
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v7 = objc_alloc(MEMORY[0x277CBC490]);
-  v12[0] = zone;
-  v8 = [v7 initWithRecordZonesToSave:objc_msgSend(MEMORY[0x277CBEA60] recordZoneIDsToDelete:{"arrayWithObjects:count:", v12, 1), 0}];
+  v11[0] = zone;
+  v8 = [v7 initWithRecordZonesToSave:objc_msgSend(MEMORY[0x277CBEA60] recordZoneIDsToDelete:{"arrayWithObjects:count:", v11, 1), 0}];
   v9 = objc_alloc_init(MEMORY[0x277CBC4F0]);
   [v9 setAllowsCellularAccess:1];
   [v9 setQualityOfService:{-[IMDRecordZoneManager derivedQualityOfService](self, "derivedQualityOfService")}];
   [v8 setConfiguration:v9];
 
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = sub_22B52C6FC;
-  v11[3] = &unk_278703A08;
-  v11[4] = zone;
-  v11[5] = block;
-  [v8 setModifyRecordZonesCompletionBlock:v11];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = sub_22B52C6FC;
+  v10[3] = &unk_278703A08;
+  v10[4] = zone;
+  v10[5] = block;
+  [v8 setModifyRecordZonesCompletionBlock:v10];
   [-[IMDCKDatabaseManager truthDatabase](-[IMDRecordZoneManager dataBaseManager](self "dataBaseManager")];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createRecordZoneIfNeeded:(id)needed completionBlock:(id)block
@@ -425,14 +413,13 @@
 
 - (void)_deleteZone:(id)zone forDatabase:(id)database
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   zoneID = [zone zoneID];
   v6 = objc_alloc(MEMORY[0x277CBC490]);
-  v9[0] = zoneID;
-  v7 = [v6 initWithRecordZonesToSave:0 recordZoneIDsToDelete:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v9, 1)}];
+  v8[0] = zoneID;
+  v7 = [v6 initWithRecordZonesToSave:0 recordZoneIDsToDelete:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v8, 1)}];
   [v7 setModifyRecordZonesCompletionBlock:&unk_283F19868];
   [database addOperation:v7];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createChatZoneIfNeededWithCompletionBlock:(id)block
@@ -528,22 +515,21 @@
 
 - (void)createSubscriptionIfNeededOnDeDupeZoneForSubscription:(id)subscription recordType:(id)type completionBlock:(id)block
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v9 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v11 = 138412546;
+      v10 = 138412546;
       subscriptionCopy = subscription;
-      v13 = 2112;
+      v12 = 2112;
       typeCopy = type;
-      _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Going to create subscription on deDupe zone for subscriptionID: %@ recordType: %@", &v11, 0x16u);
+      _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Going to create subscription on deDupe zone for subscriptionID: %@ recordType: %@", &v10, 0x16u);
     }
   }
 
   [(IMDRecordZoneManager *)self _createSubscriptionIfNeededForZoneID:[(IMDRecordZoneManager *)self deDupeSaltZoneID] subscriptionID:subscription recordType:type completionBlock:block];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createRecoverableMessageZoneIfNeededWithCompletionBlock:(id)block
@@ -625,7 +611,7 @@
 
 - (void)_deleteAllZonesForDatabase:(id)database
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = [objc_alloc(MEMORY[0x277CBEA60]) initWithObjects:{-[IMDRecordZoneManager chatRecordZoneID](self, "chatRecordZoneID"), -[IMDRecordZoneManager chat1RecordZoneID](self, "chat1RecordZoneID"), -[IMDRecordZoneManager messageRecordZoneID](self, "messageRecordZoneID"), -[IMDRecordZoneManager attachmentRecordZoneID](self, "attachmentRecordZoneID"), -[IMDRecordZoneManager updateRecordZoneID](self, "updateRecordZoneID"), -[IMDRecordZoneManager recoverableMessageRecordZoneID](self, "recoverableMessageRecordZoneID"), -[IMDRecordZoneManager scheduledMessageRecordZoneID](self, "scheduledMessageRecordZoneID"), -[IMDRecordZoneManager chatBotMessageRecordZoneID](self, "chatBotMessageRecordZoneID"), -[IMDRecordZoneManager chatBotAttachmentRecordZoneID](self, "chatBotAttachmentRecordZoneID"), -[IMDRecordZoneManager chatBotRecoverableMessageRecordZoneID](self, "chatBotRecoverableMessageRecordZoneID"), 0}];
   if (IMOSLoggingEnabled())
   {
@@ -633,28 +619,26 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v10 = v4;
-      v11 = 2112;
+      v9 = v4;
+      v10 = 2112;
       databaseCopy = database;
       _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Request to delete zones %@ for database %@", buf, 0x16u);
     }
   }
 
   v6 = [objc_alloc(MEMORY[0x277CBC490]) initWithRecordZonesToSave:0 recordZoneIDsToDelete:v4];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = sub_22B52D7C0;
-  v8[3] = &unk_278703AA0;
-  v8[4] = database;
-  [v6 setModifyRecordZonesCompletionBlock:v8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = sub_22B52D7C0;
+  v7[3] = &unk_278703AA0;
+  v7[4] = database;
+  [v6 setModifyRecordZonesCompletionBlock:v7];
   [database addOperation:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)derivedQualityOfService
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = [objc_msgSend(MEMORY[0x277CCACC8] "currentThread")];
   if (v2 <= 17)
   {
@@ -671,23 +655,22 @@
     v4 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v7 = 134218240;
-      v8 = [objc_msgSend(MEMORY[0x277CCACC8] "currentThread")];
-      v9 = 2048;
-      v10 = v3;
-      _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "QOS: 0x%lX target qos: 0x%lX", &v7, 0x16u);
+      v6 = 134218240;
+      v7 = [objc_msgSend(MEMORY[0x277CCACC8] "currentThread")];
+      v8 = 2048;
+      v9 = v3;
+      _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "QOS: 0x%lX target qos: 0x%lX", &v6, 0x16u);
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (void)fetchChatZoneToCheckManateeStatus:(id)status
 {
-  v12[1] = *MEMORY[0x277D85DE8];
-  v12[0] = [(IMDRecordZoneManager *)self chatRecordZoneID];
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[1] = *MEMORY[0x277D85DE8];
+  v11[0] = [(IMDRecordZoneManager *)self chatRecordZoneID];
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v6 = [objc_alloc(MEMORY[0x277CBC3D0]) initWithRecordZoneIDs:v5];
   v7 = objc_alloc_init(MEMORY[0x277CBC4F0]);
   [v7 setQualityOfService:{-[IMDRecordZoneManager derivedQualityOfService](self, "derivedQualityOfService")}];
@@ -702,16 +685,14 @@
     }
   }
 
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = sub_22B52DC40;
-  v10[3] = &unk_2787039E0;
-  v10[4] = self;
-  v10[5] = status;
-  [v6 setFetchRecordZonesCompletionBlock:v10];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = sub_22B52DC40;
+  v9[3] = &unk_2787039E0;
+  v9[4] = self;
+  v9[5] = status;
+  [v6 setFetchRecordZonesCompletionBlock:v9];
   [-[IMDCKDatabaseManager truthDatabase](-[IMDRecordZoneManager dataBaseManager](self "dataBaseManager")];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

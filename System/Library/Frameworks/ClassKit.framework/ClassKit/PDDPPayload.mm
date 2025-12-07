@@ -1,8 +1,10 @@
 @interface PDDPPayload
 - (BOOL)isEqual:(id)equal;
+- (id)actionAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsAction:(id)action;
 - (int)StringAsType:(id)type;
 - (int)action;
@@ -59,6 +61,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string < 0x27 && ((0x7FFFFE91DFuLL >> string) & 1) != 0)
+  {
+    v4 = off_100205DA0[string];
+  }
+
+  else
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsType:(id)type
@@ -258,6 +275,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)actionAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_100205ED8[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsAction:(id)action
@@ -525,166 +557,162 @@
 {
   toCopy = to;
   has = self->_has;
-  v10 = toCopy;
+  v6 = toCopy;
   if ((has & 4) != 0)
   {
-    payloadSize = self->_payloadSize;
     PBDataWriterWriteInt32Field();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 8) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_status)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_handout)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_attachment)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_recipient)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_classInfo)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_person)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_classMember)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_classZone)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_asset)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_authStatus)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_completionStatus)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    action = self->_action;
     PBDataWriterWriteInt32Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_stateChange)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_queryZone)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_collection)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_collectionItem)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_survey)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_surveyStep)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_surveyStepAnswer)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (*&self->_has)
   {
-    actionFlags = self->_actionFlags;
     PBDataWriterWriteUint64Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_schedule)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_scheduledEvent)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_assessment)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_takerWork)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 }
 
@@ -980,7 +1008,6 @@
     goto LABEL_66;
   }
 
-  v5 = *(equalCopy + 212);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 212) & 4) == 0 || self->_payloadSize != *(equalCopy + 28))
@@ -992,7 +1019,7 @@
   else if ((*(equalCopy + 212) & 4) != 0)
   {
 LABEL_66:
-    v30 = 0;
+    v27 = 0;
     goto LABEL_67;
   }
 
@@ -1105,7 +1132,6 @@ LABEL_66:
     }
   }
 
-  v17 = *(equalCopy + 212);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 212) & 2) == 0 || self->_action != *(equalCopy + 4))
@@ -1179,7 +1205,6 @@ LABEL_66:
     }
   }
 
-  v25 = *(equalCopy + 212);
   if (*&self->_has)
   {
     if ((*(equalCopy + 212) & 1) == 0 || self->_actionFlags != *(equalCopy + 1))
@@ -1220,17 +1245,17 @@ LABEL_66:
   takerWork = self->_takerWork;
   if (takerWork | *(equalCopy + 25))
   {
-    v30 = [(PDDPTakerWork *)takerWork isEqual:?];
+    v27 = [(PDDPTakerWork *)takerWork isEqual:?];
   }
 
   else
   {
-    v30 = 1;
+    v27 = 1;
   }
 
 LABEL_67:
 
-  return v30;
+  return v27;
 }
 
 - (unint64_t)hash

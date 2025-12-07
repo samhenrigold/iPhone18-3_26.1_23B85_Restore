@@ -10,9 +10,11 @@ uint64_t ____CPLTaskOSLogDomain_block_invoke()
     dispatch_once(&_CPLOSLogSubsystem_onceToken, &__block_literal_global_40);
   }
 
-  __CPLTaskOSLogDomain_result = os_log_create("com.apple.photos.cpl", "engine.sync.transportupdate");
+  v0 = os_log_create("com.apple.photos.cpl", "engine.sync.transportupdate");
+  v1 = __CPLTaskOSLogDomain_result;
+  __CPLTaskOSLogDomain_result = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t ____CPLTaskOSLogDomain_block_invoke_627()
@@ -22,9 +24,11 @@ uint64_t ____CPLTaskOSLogDomain_block_invoke_627()
     dispatch_once(&_CPLOSLogSubsystem_onceToken, &__block_literal_global_40);
   }
 
-  __CPLTaskOSLogDomain_result_624 = os_log_create("com.apple.photos.cpl", "engine.sync.mingle");
+  v0 = os_log_create("com.apple.photos.cpl", "engine.sync.mingle");
+  v1 = __CPLTaskOSLogDomain_result_624;
+  __CPLTaskOSLogDomain_result_624 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t ____CPLTaskOSLogDomain_block_invoke_1360()

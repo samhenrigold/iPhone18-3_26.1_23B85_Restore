@@ -53,7 +53,7 @@
 
 - (BOOL)_waitInMode:(id)mode untilDate:(id)date
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v7 = objc_autoreleasePoolPush();
   if (!mode)
   {
@@ -105,7 +105,7 @@
     while (![(AVRunLoopConditionRunLoopState *)v9 signaled]);
   }
 
-  [(NSCondition *)self lock:v16];
+  [(NSCondition *)self lock];
   [(AVRunLoopConditionRunLoopState *)v9 setSignalSource:0];
   CFRunLoopRemoveSource(Current, v10, mode);
   [(NSMutableArray *)self->_runLoopStateList removeObject:v9];

@@ -24,30 +24,26 @@
 
 - (id)mergedInputEventStreamForInsert
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   _notificationEventPublisher = [(ATXNotificationAndSuggestionDatastore *)self _notificationEventPublisher];
   _suggestionPublisher = [(ATXNotificationAndSuggestionDatastore *)self _suggestionPublisher];
-  v9[0] = _suggestionPublisher;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = _suggestionPublisher;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   v6 = [(ATXNotificationAndSuggestionDatastore *)self _timeBasedMergePublisher:_notificationEventPublisher withOtherPublishers:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (id)mergedInputEventStreamForUpdates
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   _suggestionInteractionEventPublisher = [(ATXNotificationAndSuggestionDatastore *)self _suggestionInteractionEventPublisher];
   _notificationGroupEventPublisher = [(ATXNotificationAndSuggestionDatastore *)self _notificationGroupEventPublisher];
   _notificationDeliveryEventPublisher = [(ATXNotificationAndSuggestionDatastore *)self _notificationDeliveryEventPublisher];
-  v10[0] = _suggestionInteractionEventPublisher;
-  v10[1] = _notificationGroupEventPublisher;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
+  v9[0] = _suggestionInteractionEventPublisher;
+  v9[1] = _notificationGroupEventPublisher;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
   v7 = [(ATXNotificationAndSuggestionDatastore *)self _timeBasedMergePublisher:_notificationDeliveryEventPublisher withOtherPublishers:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -228,7 +224,7 @@ uint64_t __86__ATXNotificationAndSuggestionDatastore__timeBasedMergePublisher_wi
 
           else
           {
-            eventBody2 = __atxlog_handle_default();
+            eventBody2 = __atxlog_handle_default(v13);
             if (os_log_type_enabled(eventBody2, OS_LOG_TYPE_FAULT))
             {
               [ATXNotificationAndSuggestionDatastore updateDatabaseForEvent:];
@@ -256,7 +252,7 @@ uint64_t __86__ATXNotificationAndSuggestionDatastore__timeBasedMergePublisher_wi
 
       else
       {
-        v7 = __atxlog_handle_default();
+        v7 = __atxlog_handle_default(eventType);
         if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
         {
           [ATXNotificationAndSuggestionDatastore updateDatabaseForNotificationEvent:];
@@ -372,26 +368,27 @@ uint64_t __86__ATXNotificationAndSuggestionDatastore__timeBasedMergePublisher_wi
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:version];
   v9 = [v7 initWithURLPath:0 versionNumber:v8 bookmark:bookmarkCopy metadata:0];
 
-  v15 = 0;
-  v10 = [v9 serializeBookmark:&v15];
-  v11 = v15;
+  v16 = 0;
+  v10 = [v9 serializeBookmark:&v16];
+  v11 = v16;
+  v12 = v11;
   if (v11)
   {
-    v12 = __atxlog_handle_default();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = __atxlog_handle_default(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [ATXNotificationAndSuggestionDatastore _serializeBookmark:withVersion:];
     }
 
-    v13 = 0;
+    v14 = 0;
   }
 
   else
   {
-    v13 = v10;
+    v14 = v10;
   }
 
-  return v13;
+  return v14;
 }
 
 - (void)updateDatabase
@@ -439,15 +436,16 @@ void __55__ATXNotificationAndSuggestionDatastore_updateDatabase__block_invoke_2(
 {
   v3 = a2;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     [*(a1 + 32) updateDatabaseForEvent:v3];
   }
 
   else
   {
-    v4 = __atxlog_handle_default();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       __55__ATXNotificationAndSuggestionDatastore_updateDatabase__block_invoke_2_cold_1();
     }
@@ -468,15 +466,16 @@ void __55__ATXNotificationAndSuggestionDatastore_updateDatabase__block_invoke_2_
 {
   v3 = a2;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     [*(a1 + 32) updateDatabaseForEvent:v3];
   }
 
   else
   {
-    v4 = __atxlog_handle_default();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       __55__ATXNotificationAndSuggestionDatastore_updateDatabase__block_invoke_2_cold_1();
     }
@@ -556,203 +555,199 @@ void __55__ATXNotificationAndSuggestionDatastore_updateDatabase__block_invoke_2_
 
 - (void)pruneDatabaseWithXPCActivity:(id)activity
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
-  [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-  v6 = v5;
-  v7 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  timeIntervalSinceReferenceDate = [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
+  v7 = v6;
+  v8 = __atxlog_handle_notification_management(timeIntervalSinceReferenceDate);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v8 = objc_opt_class();
-    v9 = NSStringFromClass(v8);
+    v9 = objc_opt_class();
+    v10 = NSStringFromClass(v9);
     *buf = 138412546;
-    v61 = v9;
-    v62 = 2048;
-    v63 = v6;
-    _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_INFO, "[%@] Pruning database given current time %f", buf, 0x16u);
+    v63 = v10;
+    v64 = 2048;
+    v65 = v7;
+    _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_INFO, "[%@] Pruning database given current time %f", buf, 0x16u);
   }
 
   [MEMORY[0x277CEBCB0] appPredictionDirectoryFile:@"_ATXNotificationStore.db"];
-  v10 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+  v11 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v58 = 0;
-  v12 = [defaultManager removeItemAtPath:*&v10 error:&v58];
-  v13 = v58;
-  v14 = v13;
-  if ((v12 & 1) != 0 || !v13)
+  v60 = 0;
+  v13 = [defaultManager removeItemAtPath:*&v11 error:&v60];
+  v14 = v60;
+  v15 = v14;
+  if ((v13 & 1) != 0 || !v14)
   {
-    v20 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v22 = __atxlog_handle_notification_management(v14);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v61 = "[ATXNotificationAndSuggestionDatastore pruneDatabaseWithXPCActivity:]";
-      v62 = 2112;
-      v63 = v10;
-      _os_log_impl(&dword_2263AA000, v20, OS_LOG_TYPE_DEFAULT, "%s: Migration step 10: Deleted old database at %@", buf, 0x16u);
+      v63 = "[ATXNotificationAndSuggestionDatastore pruneDatabaseWithXPCActivity:]";
+      v64 = 2112;
+      v65 = v11;
+      _os_log_impl(&dword_2263AA000, v22, OS_LOG_TYPE_DEFAULT, "%s: Migration step 10: Deleted old database at %@", buf, 0x16u);
     }
 
+    v58 = 0u;
+    v59 = 0u;
     v56 = 0u;
     v57 = 0u;
-    v54 = 0u;
-    v55 = 0u;
     appPredictionDirectory = [MEMORY[0x277CEBCB0] appPredictionDirectory];
-    v19 = [defaultManager contentsOfDirectoryAtPath:appPredictionDirectory error:0];
+    v21 = [defaultManager contentsOfDirectoryAtPath:appPredictionDirectory error:0];
 
-    v22 = [v19 countByEnumeratingWithState:&v54 objects:v59 count:16];
-    if (v22)
+    v24 = [v21 countByEnumeratingWithState:&v56 objects:v61 count:16];
+    if (v24)
     {
-      v23 = v22;
-      v52 = v14;
-      v53 = activityCopy;
-      v24 = v10;
-      v25 = *v55;
+      v25 = v24;
+      v54 = v15;
+      v55 = activityCopy;
+      v26 = v11;
+      v27 = *v57;
       do
       {
-        for (i = 0; i != v23; ++i)
+        for (i = 0; i != v25; ++i)
         {
-          if (*v55 != v25)
+          if (*v57 != v27)
           {
-            objc_enumerationMutation(v19);
+            objc_enumerationMutation(v21);
           }
 
-          v27 = *(*(&v54 + 1) + 8 * i);
-          if ([v27 hasPrefix:{@"_ATXNotificationStore.db", v52, v53}])
+          v29 = *(*(&v56 + 1) + 8 * i);
+          if ([v29 hasPrefix:{@"_ATXNotificationStore.db", v54, v55}])
           {
-            v28 = [MEMORY[0x277CEBCB0] appPredictionDirectoryFile:v27];
-            [defaultManager removeItemAtPath:v28 error:0];
+            v30 = [MEMORY[0x277CEBCB0] appPredictionDirectoryFile:v29];
+            [defaultManager removeItemAtPath:v30 error:0];
           }
         }
 
-        v23 = [v19 countByEnumeratingWithState:&v54 objects:v59 count:16];
+        v25 = [v21 countByEnumeratingWithState:&v56 objects:v61 count:16];
       }
 
-      while (v23);
-      v10 = v24;
-      v14 = v52;
-      activityCopy = v53;
+      while (v25);
+      v11 = v26;
+      v15 = v54;
+      activityCopy = v55;
     }
 
-    v18 = &off_226871000;
+    v20 = &off_226871000;
   }
 
   else
   {
-    userInfo = [v13 userInfo];
-    v16 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CCA7E8]];
-    code = [v16 code];
+    userInfo = [v14 userInfo];
+    v17 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CCA7E8]];
+    code = [v17 code];
 
-    v18 = &off_226871000;
+    v20 = &off_226871000;
     if (code == 2)
     {
       goto LABEL_22;
     }
 
-    v19 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v21 = __atxlog_handle_notification_management(v19);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      [(ATXNotificationAndSuggestionDatastore *)*&v10 pruneDatabaseWithXPCActivity:v14, v19];
+      [(ATXNotificationAndSuggestionDatastore *)*&v11 pruneDatabaseWithXPCActivity:v15, v21];
     }
   }
 
 LABEL_22:
-  v29 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+  v31 = __atxlog_handle_notification_management(v19);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
   {
-    v30 = objc_opt_class();
-    v31 = NSStringFromClass(v30);
-    *buf = *(v18 + 414);
-    v61 = v31;
-    v62 = 2048;
-    v63 = v6 + -5184000.0;
-    _os_log_impl(&dword_2263AA000, v29, OS_LOG_TYPE_INFO, "[%@] Pruning notifications with cutoff time %f", buf, 0x16u);
+    v32 = objc_opt_class();
+    v33 = NSStringFromClass(v32);
+    *buf = *(v20 + 414);
+    v63 = v33;
+    v64 = 2048;
+    v65 = v7 + -5184000.0;
+    _os_log_impl(&dword_2263AA000, v31, OS_LOG_TYPE_INFO, "[%@] Pruning notifications with cutoff time %f", buf, 0x16u);
   }
 
-  v32 = [(ATXNotificationAndSuggestionDatastore *)self pruneNotificationsBeforeTimestamp:v6 + -5184000.0];
-  if ([activityCopy didDefer])
+  v34 = [(ATXNotificationAndSuggestionDatastore *)self pruneNotificationsBeforeTimestamp:v7 + -5184000.0];
+  didDefer = [activityCopy didDefer];
+  if (didDefer)
   {
-    v33 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+    v36 = __atxlog_handle_notification_management(didDefer);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
     {
-      v34 = objc_opt_class();
-      v35 = NSStringFromClass(v34);
+      v37 = objc_opt_class();
+      v38 = NSStringFromClass(v37);
       *buf = 138412290;
-      v61 = v35;
-      _os_log_impl(&dword_2263AA000, v33, OS_LOG_TYPE_INFO, "[%@] XPC Activity deferred, skipping remaining work.", buf, 0xCu);
+      v63 = v38;
+      _os_log_impl(&dword_2263AA000, v36, OS_LOG_TYPE_INFO, "[%@] XPC Activity deferred, skipping remaining work.", buf, 0xCu);
     }
   }
 
-  v36 = v6 + -31536000.0;
-  v37 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+  v39 = v7 + -31536000.0;
+  v40 = __atxlog_handle_notification_management(didDefer);
+  if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
   {
-    v38 = objc_opt_class();
-    v39 = NSStringFromClass(v38);
-    *buf = *(v18 + 414);
-    v61 = v39;
-    v62 = 2048;
-    v63 = v36;
-    _os_log_impl(&dword_2263AA000, v37, OS_LOG_TYPE_INFO, "[%@] Pruning suggestions with cutoff time %f", buf, 0x16u);
+    v41 = objc_opt_class();
+    v42 = NSStringFromClass(v41);
+    *buf = *(v20 + 414);
+    v63 = v42;
+    v64 = 2048;
+    v65 = v39;
+    _os_log_impl(&dword_2263AA000, v40, OS_LOG_TYPE_INFO, "[%@] Pruning suggestions with cutoff time %f", buf, 0x16u);
   }
 
-  v40 = [(ATXNotificationAndSuggestionDatastore *)self pruneSuggestionsBeforeTimestamp:v36];
-  if ([activityCopy didDefer])
+  v43 = [(ATXNotificationAndSuggestionDatastore *)self pruneSuggestionsBeforeTimestamp:v39];
+  didDefer2 = [activityCopy didDefer];
+  if (didDefer2)
   {
-    v41 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+    v45 = __atxlog_handle_notification_management(didDefer2);
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
     {
-      v42 = objc_opt_class();
-      v43 = NSStringFromClass(v42);
+      v46 = objc_opt_class();
+      v47 = NSStringFromClass(v46);
       *buf = 138412290;
-      v61 = v43;
-      _os_log_impl(&dword_2263AA000, v41, OS_LOG_TYPE_INFO, "[%@] XPC Activity deferred, skipping remaining work.", buf, 0xCu);
+      v63 = v47;
+      _os_log_impl(&dword_2263AA000, v45, OS_LOG_TYPE_INFO, "[%@] XPC Activity deferred, skipping remaining work.", buf, 0xCu);
     }
   }
 
-  v44 = __atxlog_handle_notification_management();
-  if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
-  {
-    v45 = objc_opt_class();
-    v46 = NSStringFromClass(v45);
-    *buf = 138412290;
-    v61 = v46;
-    _os_log_impl(&dword_2263AA000, v44, OS_LOG_TYPE_INFO, "[%@] Vacuuming database", buf, 0xCu);
-  }
-
-  vacuumDatabase = [(ATXNotificationAndSuggestionDatastore *)self vacuumDatabase];
-  v48 = __atxlog_handle_notification_management();
+  v48 = __atxlog_handle_notification_management(didDefer2);
   if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
   {
     v49 = objc_opt_class();
     v50 = NSStringFromClass(v49);
     *buf = 138412290;
-    v61 = v50;
-    _os_log_impl(&dword_2263AA000, v48, OS_LOG_TYPE_INFO, "[%@] Finished pruning and vacuuming database", buf, 0xCu);
+    v63 = v50;
+    _os_log_impl(&dword_2263AA000, v48, OS_LOG_TYPE_INFO, "[%@] Vacuuming database", buf, 0xCu);
   }
 
-  v51 = *MEMORY[0x277D85DE8];
+  v51 = __atxlog_handle_notification_management([(ATXNotificationAndSuggestionDatastore *)self vacuumDatabase]);
+  if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
+  {
+    v52 = objc_opt_class();
+    v53 = NSStringFromClass(v52);
+    *buf = 138412290;
+    v63 = v53;
+    _os_log_impl(&dword_2263AA000, v51, OS_LOG_TYPE_INFO, "[%@] Finished pruning and vacuuming database", buf, 0xCu);
+  }
 }
 
 - (void)notificationAndSuggestionDatastorePerfMetricsLogging
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   notificationAndSuggestionDatastorePerfMetrics = [(ATXNotificationAndSuggestionDatabase *)self->_db notificationAndSuggestionDatastorePerfMetrics];
   v4 = v3;
-  v9[0] = @"notificationsCount";
+  v8[0] = @"notificationsCount";
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:notificationAndSuggestionDatastorePerfMetrics];
-  v9[1] = @"suggestionsCount";
-  v10[0] = v5;
+  v8[1] = @"suggestionsCount";
+  v9[0] = v5;
   v6 = [MEMORY[0x277CCABB0] numberWithInteger:v4];
-  v10[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v9[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
   AnalyticsSendEvent();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateDatabaseForEvent:.cold.1()
 {
   OUTLINED_FUNCTION_2_1();
-  v13 = *MEMORY[0x277D85DE8];
   v1 = objc_opt_class();
   NSStringFromClass(v1);
   objc_claimAutoreleasedReturnValue();
@@ -760,69 +755,57 @@ LABEL_22:
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1_13(&dword_2263AA000, v5, v6, "[%@] - Encountered unknown event type: %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_13(&dword_2263AA000, v5, v6, "[%@] - Encountered unknown event type: %@", v7, v8, v9, v10);
 }
 
 - (void)updateDatabaseForNotificationEvent:.cold.1()
 {
   OUTLINED_FUNCTION_2_1();
-  v11 = *MEMORY[0x277D85DE8];
   v1 = objc_opt_class();
   NSStringFromClass(v1);
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_8_1() eventType];
   v2 = ATXNEventTypeToString();
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1_13(&dword_2263AA000, v3, v4, "[%@] Received unexpected notification receive event type %@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_13(&dword_2263AA000, v3, v4, "[%@] Received unexpected notification receive event type %@", v5, v6, v7, v8);
 }
 
 - (void)_serializeBookmark:withVersion:.cold.1()
 {
   OUTLINED_FUNCTION_2_1();
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_class();
   v3 = NSStringFromClass(v2);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = v1;
-  _os_log_error_impl(&dword_2263AA000, v0, OS_LOG_TYPE_ERROR, "%@ – failed to serialize bookmark.  Error: %@", &v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = v1;
+  _os_log_error_impl(&dword_2263AA000, v0, OS_LOG_TYPE_ERROR, "%@ – failed to serialize bookmark.  Error: %@", &v4, 0x16u);
 }
 
 void __55__ATXNotificationAndSuggestionDatastore_updateDatabase__block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_2_1();
-  v14 = *MEMORY[0x277D85DE8];
-  v2 = *(v1 + 32);
-  v3 = objc_opt_class();
-  NSStringFromClass(v3);
+  v1 = objc_opt_class();
+  NSStringFromClass(v1);
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_8_1();
-  v4 = objc_opt_class();
-  v5 = NSStringFromClass(v4);
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
   OUTLINED_FUNCTION_0_5();
-  OUTLINED_FUNCTION_1_13(&dword_2263AA000, v6, v7, "[%@] Expected a BMStoreEvent, but received a %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_13(&dword_2263AA000, v4, v5, "[%@] Expected a BMStoreEvent, but received a %@", v6, v7, v8, v9);
 }
 
 - (void)pruneDatabaseWithXPCActivity:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = 136315650;
-  v5 = "[ATXNotificationAndSuggestionDatastore pruneDatabaseWithXPCActivity:]";
-  v6 = 2112;
-  v7 = a1;
-  v8 = 2112;
-  v9 = a2;
-  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "%s: Failed to delete: %@ with error: %@", &v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = 136315650;
+  v4 = "[ATXNotificationAndSuggestionDatastore pruneDatabaseWithXPCActivity:]";
+  v5 = 2112;
+  v6 = a1;
+  v7 = 2112;
+  v8 = a2;
+  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "%s: Failed to delete: %@ with error: %@", &v3, 0x20u);
 }
 
 @end

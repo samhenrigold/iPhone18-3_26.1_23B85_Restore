@@ -314,27 +314,27 @@
 
 - (id)description
 {
-  v32 = *MEMORY[0x1E69E9840];
-  v20[0] = @"Identifier";
-  v20[1] = @"URL";
-  v18 = vdupq_n_s64(@"(null)");
-  v21 = vbslq_s8(vceqzq_s64(*&self->_identifier), v18, *&self->_identifier);
+  v31 = *MEMORY[0x1E69E9840];
+  v19[0] = @"Identifier";
+  v19[1] = @"URL";
+  v17 = vdupq_n_s64(@"(null)");
+  v20 = vbslq_s8(vceqzq_s64(*&self->_identifier), v17, *&self->_identifier);
   requestedOperation = self->_requestedOperation;
   if (!requestedOperation)
   {
     requestedOperation = @"(null)";
   }
 
-  v20[2] = @"RequestedOperation";
-  v20[3] = @"Realm";
+  v19[2] = @"RequestedOperation";
+  v19[3] = @"Realm";
   realm = self->_realm;
   if (!realm)
   {
     realm = @"(null)";
   }
 
-  v22 = requestedOperation;
-  v23 = realm;
+  v21 = requestedOperation;
+  v22 = realm;
   authorizationOptions = self->_authorizationOptions;
   responseCode = self->_responseCode;
   if (!authorizationOptions)
@@ -342,8 +342,8 @@
     authorizationOptions = @"(null)";
   }
 
-  v20[4] = @"AuthorizationOptions";
-  v20[5] = @"UseInternalExtensions";
+  v19[4] = @"AuthorizationOptions";
+  v19[5] = @"UseInternalExtensions";
   if (self->_useInternalExtensions)
   {
     v7 = @"YES";
@@ -354,10 +354,10 @@
     v7 = @"NO";
   }
 
-  v24 = authorizationOptions;
-  v25 = v7;
-  v20[6] = @"ResponseCode";
-  v8 = [MEMORY[0x1E696AD98] numberWithInteger:{responseCode, *&v18}];
+  v23 = authorizationOptions;
+  v24 = v7;
+  v19[6] = @"ResponseCode";
+  v8 = [MEMORY[0x1E696AD98] numberWithInteger:{responseCode, *&v17}];
   v9 = v8;
   if (self->_cfNetworkInterception)
   {
@@ -369,10 +369,10 @@
     v10 = @"NO";
   }
 
-  v26 = v8;
-  v27 = v10;
-  v20[7] = @"CFNetworkInterception";
-  v20[8] = @"CallerManaged";
+  v25 = v8;
+  v26 = v10;
+  v19[7] = @"CFNetworkInterception";
+  v19[8] = @"CallerManaged";
   if (self->_callerManaged)
   {
     v11 = @"YES";
@@ -383,10 +383,10 @@
     v11 = @"NO";
   }
 
-  v28 = v11;
-  v20[9] = @"CallerTeamIdentifier";
-  v20[10] = @"LocalizedCallerDisplayName";
-  v29 = vbslq_s8(vceqzq_s64(*&self->_callerTeamIdentifier), v19, *&self->_callerTeamIdentifier);
+  v27 = v11;
+  v19[9] = @"CallerTeamIdentifier";
+  v19[10] = @"LocalizedCallerDisplayName";
+  v28 = vbslq_s8(vceqzq_s64(*&self->_callerTeamIdentifier), v18, *&self->_callerTeamIdentifier);
   if (self->_enableUserInteraction)
   {
     v12 = @"YES";
@@ -397,20 +397,18 @@
     v12 = @"NO";
   }
 
-  v20[11] = @"EnableUserInteraction";
-  v20[12] = @"ImpersonationBundleIdentifier";
+  v19[11] = @"EnableUserInteraction";
+  v19[12] = @"ImpersonationBundleIdentifier";
   impersonationBundleIdentifier = self->_impersonationBundleIdentifier;
   if (!impersonationBundleIdentifier)
   {
     impersonationBundleIdentifier = @"(null)";
   }
 
-  v30 = v12;
-  v31 = impersonationBundleIdentifier;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:v20 count:13];
+  v29 = v12;
+  v30 = impersonationBundleIdentifier;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:v19 count:13];
   v15 = [v14 description];
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

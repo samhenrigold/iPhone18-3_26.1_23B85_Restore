@@ -1,30 +1,30 @@
 BOOL _ddResultTypeHasMLEquivalent(uint64_t a1, const __CFArray *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 64);
   if (([v4 isEqualToString:@"Data"] & 1) != 0 || (objc_msgSend(v4, "isEqualToString:", @"Tag") & 1) != 0 || objc_msgSend(v4, "isEqualToString:", @"Compatibility"))
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v5 = *(a1 + 56);
-    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       while (2)
       {
         v9 = 0;
         do
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          if (_ddResultTypeHasMLEquivalent(*(*(&v13 + 1) + 8 * v9), a2))
+          if (_ddResultTypeHasMLEquivalent(*(*(&v12 + 1) + 8 * v9), a2))
           {
 
             v10 = 1;
@@ -35,7 +35,7 @@ BOOL _ddResultTypeHasMLEquivalent(uint64_t a1, const __CFArray *a2)
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v7)
         {
           continue;
@@ -55,7 +55,6 @@ BOOL _ddResultTypeHasMLEquivalent(uint64_t a1, const __CFArray *a2)
 
 LABEL_14:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -120,9 +119,9 @@ void __DDMLGetTaggerModel_block_invoke(uint64_t a1)
   }
 }
 
-void sub_1BCFFC6D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BCFFC6D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -142,7 +141,7 @@ void __DDMLScannerBuildResultsFromTokens_block_invoke(uint64_t a1)
   *(*(*(a1 + 56) + 8) + 24) = 0;
 }
 
-uint64_t __DDMLGetTaggerModel_block_invoke_2(uint64_t a1, void *a2, double a3)
+void *__DDMLGetTaggerModel_block_invoke_2(uint64_t a1, void *a2, double a3)
 {
   Helper_x8__kLDAssetTypeDataDetectorHead = gotLoadHelper_x8__kLDAssetTypeDataDetectorHead(a3);
   result = [v7 isEqualToString:{**(v6 + 72), Helper_x8__kLDAssetTypeDataDetectorHead}];
@@ -151,11 +150,14 @@ uint64_t __DDMLGetTaggerModel_block_invoke_2(uint64_t a1, void *a2, double a3)
     v9 = *(*(a1 + 32) + 8);
     if (*(v9 + 40))
     {
-      [a2 path];
-      if ([objc_claimAutoreleasedReturnValue() hasPrefix:@"/System/Library/LinguisticData"])
+      v12 = [a2 path];
+      v10 = [v12 hasPrefix:@"/System/Library/LinguisticData"];
+      if (v10)
       {
         objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
       }
+
+      v11 = v12;
     }
 
     else
@@ -165,7 +167,7 @@ uint64_t __DDMLGetTaggerModel_block_invoke_2(uint64_t a1, void *a2, double a3)
       *(v9 + 40) = v10;
     }
 
-    return MEMORY[0x1EEE66BB8]();
+    return MEMORY[0x1EEE66BB8](v10, v11);
   }
 
   return result;
@@ -260,7 +262,7 @@ LABEL_7:
 
 void __DDMLScannerGetEmbeddingAndAssetsForScriptWithCompletionHandler_block_invoke_190(uint64_t a1, uint64_t a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2 == 2)
   {
@@ -272,9 +274,9 @@ void __DDMLScannerGetEmbeddingAndAssetsForScriptWithCompletionHandler_block_invo
     v6 = DDLogHandle_error_log_handle;
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138412290;
-      v10 = v5;
-      _os_log_error_impl(&dword_1BCFDD000, v6, OS_LOG_TYPE_ERROR, "Failed to get latin embedding, results will be of DDQOSRegular quality, %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v5;
+      _os_log_error_impl(&dword_1BCFDD000, v6, OS_LOG_TYPE_ERROR, "Failed to get latin embedding, results will be of DDQOSRegular quality, %@", &v8, 0xCu);
     }
   }
 
@@ -283,8 +285,6 @@ void __DDMLScannerGetEmbeddingAndAssetsForScriptWithCompletionHandler_block_invo
   {
     (*(v7 + 16))(v7, v5);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void _startEmbeddingCleanupTimeout()
@@ -323,13 +323,13 @@ void ___startEmbeddingCleanupTimeout_block_invoke()
 
 BOOL DDMLUpdateScannerResultsWithMLResults(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v7 = [DDResultCluster clustersWithDDResults:*(a1 + 168) mlResults:a3];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (!v8)
   {
     goto LABEL_16;
@@ -337,18 +337,18 @@ BOOL DDMLUpdateScannerResultsWithMLResults(uint64_t a1, uint64_t a2, uint64_t a3
 
   v9 = v8;
   Mutable = 0;
-  v11 = *v21;
+  v11 = *v20;
   v12 = MEMORY[0x1E695E9C0];
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v21 != v11)
+      if (*v20 != v11)
       {
         objc_enumerationMutation(v7);
       }
 
-      v14 = [*(*(&v20 + 1) + 8 * i) resolvedDDResultFromOriginalQuery:a2 mlSupportedTypes:a4];
+      v14 = [*(*(&v19 + 1) + 8 * i) resolvedDDResultFromOriginalQuery:a2 mlSupportedTypes:a4];
       if (v14)
       {
         v15 = v14;
@@ -361,7 +361,7 @@ BOOL DDMLUpdateScannerResultsWithMLResults(uint64_t a1, uint64_t a2, uint64_t a3
       }
     }
 
-    v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
   }
 
   while (v9);
@@ -384,7 +384,6 @@ LABEL_16:
     v17 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -398,16 +397,16 @@ BOOL shouldURLifyNode(void *a1)
   return [a1 nodeType] != 1 || objc_msgSend(shouldURLifyNode_doNotVisit, "member:", objc_msgSend(a1, "nodeName")) == 0;
 }
 
-uint64_t __shouldURLifyNode_block_invoke()
+void *__shouldURLifyNode_block_invoke()
 {
   result = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:{@"A", @"a", @"STYLE", @"style", @"IMG", @"img", @"META", @"meta", @"SCRIPT", @"script", @"TITLE", @"title", @"OBJECT", @"object", 0}];
   shouldURLifyNode_doNotVisit = result;
   return result;
 }
 
-uint64_t DDURLStringForResult(uint64_t a1, uint64_t a2, char a3, const void *a4, const __CFTimeZone *a5)
+const __CFString *DDURLStringForResult(uint64_t a1, uint64_t a2, char a3, const void *a4, const __CFTimeZone *a5)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   Category = DDResultGetCategory(a1);
   if ((Category - 3) >= 2)
   {
@@ -415,14 +414,14 @@ uint64_t DDURLStringForResult(uint64_t a1, uint64_t a2, char a3, const void *a4,
     v12 = *(a1 + 64);
     if (!_typesAreEqual(@"TrackingNumber", v12) && !_typesAreEqual(@"FlightInformation", v12) && !_typesAreEqual(@"Parsec", v12) && !_typesAreEqual(@"GameCenter", v12) && !_typesAreEqual(@"Money", v12) && !_typesAreEqual(@"AuthCode", v12) && !_typesAreEqual(@"PhysicalAmount", v12) && !_typesAreEqual(@"DomesticIdentifier", v12) && !_typesAreEqual(@"UPIIdentifier", v12) && !_typesAreEqual(@"evts", v12))
     {
-      v17 = DDResultCopyExtractedURLWithOptions(a1, 1);
-      v13 = v17;
+      v15 = DDResultCopyExtractedURLWithOptions(a1, 1);
+      v13 = v15;
       if (v11 != 2)
       {
-        goto LABEL_14;
+        return v13;
       }
 
-      if (v17)
+      if (v15)
       {
         goto LABEL_21;
       }
@@ -432,19 +431,19 @@ uint64_t DDURLStringForResult(uint64_t a1, uint64_t a2, char a3, const void *a4,
         dispatch_once(&DDLogHandle_onceToken, &__block_literal_global_791);
       }
 
-      v18 = DDLogHandle_error_log_handle;
+      v16 = DDLogHandle_error_log_handle;
       if (os_log_type_enabled(DDLogHandle_error_log_handle, OS_LOG_TYPE_ERROR))
       {
-        v19 = *(a1 + 72);
+        v17 = *(a1 + 72);
         *buf = 138412290;
-        v21 = v19;
-        _os_log_error_impl(&dword_1BCFDD000, v18, OS_LOG_TYPE_ERROR, "Result %@ returned NULL URL", buf, 0xCu);
+        v19 = v17;
+        _os_log_error_impl(&dword_1BCFDD000, v16, OS_LOG_TYPE_ERROR, "Result %@ returned NULL URL", buf, 0xCu);
         if ((a3 & 2) != 0)
         {
 LABEL_22:
           if (_typesAreEqual(v12, @"PhoneNumber"))
           {
-            goto LABEL_14;
+            return v13;
           }
         }
       }
@@ -460,35 +459,29 @@ LABEL_21:
 
       if ((a3 & 4) != 0 && _typesAreEqual(v12, @"QuotedShortPhoneNumber") || (a3 & 8) != 0 && _typesAreEqual(v12, @"UnquotedShortPhoneNumber"))
       {
-        goto LABEL_14;
+        return v13;
       }
 
-      goto LABEL_13;
+      return 0;
     }
   }
 
   if (DDResultIsPastDate(a1, a4, a5))
   {
-LABEL_13:
-    v13 = 0;
-LABEL_14:
-    v14 = *MEMORY[0x1E69E9840];
-    return v13;
+    return 0;
   }
 
-  result = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@://%@", @"x-apple-data-detectors", a2];
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
+  return [MEMORY[0x1E696AEC0] stringWithFormat:@"%@://%@", @"x-apple-data-detectors", a2];
 }
 
-void sub_1BCFFE0B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1BCFFE0B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t DDURLWithPotentiallyInvalidURLString(uint64_t result)
+void *DDURLWithPotentiallyInvalidURLString(void *result)
 {
   if (!result)
   {
@@ -561,7 +554,7 @@ uint64_t DDShouldUseDebugHighlightForResult(uint64_t a1)
   return 0;
 }
 
-uint64_t DDShouldImmediatelyShowActionSheetForResult(uint64_t result)
+BOOL DDShouldImmediatelyShowActionSheetForResult(_BOOL8 result)
 {
   if (result)
   {
@@ -606,17 +599,17 @@ uint64_t DDShouldImmediatelyShowActionSheetForResult(uint64_t result)
 
 uint64_t DDShouldImmediatelyShowActionSheetForURL(uint64_t result)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (!result)
   {
-    goto LABEL_39;
+    return result;
   }
 
   v1 = result;
   result = [&unk_1F3B7DCD8 containsObject:{objc_msgSend(objc_msgSend(result, "scheme"), "lowercaseString")}];
   if (!result)
   {
-    goto LABEL_39;
+    return result;
   }
 
   v2 = [v1 resourceSpecifier];
@@ -665,48 +658,48 @@ LABEL_12:
       v9 = [v8 stringByReplacingOccurrencesOfString:@":" withString:@";"];
     }
 
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
-    v10 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v10 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v10)
     {
       v11 = v10;
-      v22 = v9;
+      v21 = v9;
       v12 = 0;
       v13 = 1;
-      v14 = *v24;
+      v14 = *v23;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
           v16 = v12;
           v12 = v13;
-          if (*v24 != v14)
+          if (*v23 != v14)
           {
             objc_enumerationMutation(v6);
           }
 
           if ((v12 & 1) == 0)
           {
-            v17 = *(*(&v23 + 1) + 8 * i);
+            v17 = *(*(&v22 + 1) + 8 * i);
             v18 = [v17 componentsSeparatedByString:@"="];
             v19 = v18;
             if ((v16 & 1) != 0 && [v18 count] == 1)
             {
               if ([v17 length] && objc_msgSend(v17, "rangeOfCharacterFromSet:", objc_msgSend(objc_msgSend(MEMORY[0x1E696AB08], "characterSetWithCharactersInString:", @"1234567890#*"), "invertedSet")) == 0x7FFFFFFFFFFFFFFFLL)
               {
-                v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@;%@", v22, v17];
+                v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@;%@", v21, v17];
 LABEL_41:
-                v9 = v21;
+                v9 = v20;
                 goto LABEL_33;
               }
             }
 
             else if ([v19 count] == 2 && objc_msgSend(objc_msgSend(v19, "objectAtIndexedSubscript:", 0), "isEqualToString:", @"ext") && objc_msgSend(objc_msgSend(v19, "objectAtIndexedSubscript:", 1), "length"))
             {
-              v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@;%@", v22, objc_msgSend(objc_msgSend(v19, "objectAtIndexedSubscript:", 1), "stringByRemovingPercentEncoding")];
+              v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@;%@", v21, objc_msgSend(objc_msgSend(v19, "objectAtIndexedSubscript:", 1), "stringByRemovingPercentEncoding")];
               goto LABEL_41;
             }
           }
@@ -714,7 +707,7 @@ LABEL_41:
           v13 = 0;
         }
 
-        v11 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v11 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
         v13 = 0;
         if (v11)
         {
@@ -724,7 +717,7 @@ LABEL_41:
         break;
       }
 
-      v9 = v22;
+      v9 = v21;
     }
 
     goto LABEL_33;
@@ -743,17 +736,15 @@ LABEL_33:
         dispatch_once(&DDTelephonyWillPrompt_sOnce, &__block_literal_global_17);
       }
 
-      result = DDTelephonyWillPrompt_sandbox_result == 0;
+      return DDTelephonyWillPrompt_sandbox_result == 0;
     }
 
     else
     {
-      result = 1;
+      return 1;
     }
   }
 
-LABEL_39:
-  v20 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -871,9 +862,9 @@ LABEL_3:
   return v14;
 }
 
-void sub_1BCFFEBB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BCFFEBB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -953,7 +944,7 @@ void __DDSourcePushSharedDataOrFile_block_invoke_59(uint64_t a1, char a2)
 
 uint64_t __sourceAccessCreateAndEnterGroup_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (DDLogHandle_onceToken != -1)
   {
     dispatch_once(&DDLogHandle_onceToken, &__block_literal_global_791);
@@ -962,14 +953,12 @@ uint64_t __sourceAccessCreateAndEnterGroup_block_invoke(uint64_t a1, uint64_t a2
   v4 = DDLogHandle_error_log_handle;
   if (os_log_type_enabled(DDLogHandle_error_log_handle, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412290;
-    v8 = a2;
-    _os_log_error_impl(&dword_1BCFDD000, v4, OS_LOG_TYPE_ERROR, "Connection to DataDetectorsSourceAccess failed (%@)", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = a2;
+    _os_log_error_impl(&dword_1BCFDD000, v4, OS_LOG_TYPE_ERROR, "Connection to DataDetectorsSourceAccess failed (%@)", &v6, 0xCu);
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 void __DDSourcePushSharedDataOrFile_block_invoke()
@@ -1000,61 +989,59 @@ uint64_t DDPushUserDebugData()
 
 id DDSourceGetLexiconData(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x3052000000;
-  v12 = __Block_byref_object_copy__1340;
-  v13 = __Block_byref_object_dispose__1341;
-  v14 = 0;
+  v15 = *MEMORY[0x1E69E9840];
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x3052000000;
+  v11 = __Block_byref_object_copy__1340;
+  v12 = __Block_byref_object_dispose__1341;
+  v13 = 0;
   if ((a1 & 0xFFFFFFFD) == 4)
   {
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __DDSourceGetLexiconData_block_invoke;
-    v8[3] = &unk_1E8002380;
-    v8[4] = &v9;
-    mmapSource(a1, 1, v8);
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __DDSourceGetLexiconData_block_invoke;
+    v7[3] = &unk_1E8002380;
+    v7[4] = &v8;
+    mmapSource(a1, 1, v7);
   }
 
-  else if (_DDTriePathForSource(a1, v15, 1, 1, 0))
+  else if (_DDTriePathForSource(a1, v14, 1, 1, 0))
   {
+    v5 = 0;
     v6 = 0;
-    v7 = 0;
-    v5[0] = 0;
-    v5[1] = 0;
-    if (DDautommap(v15, &v6, &v7, v5))
+    v4 = 0uLL;
+    if (DDautommap(v14, &v5, &v6, &v4))
     {
-      if (v6)
+      if (v5)
       {
-        if (v7)
+        if (v6)
         {
-          v1 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:v6 length:v7 deallocator:&__block_literal_global_46];
-          v10[5] = v1;
+          v1 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:v5 length:v6 deallocator:&__block_literal_global_46];
+          v9[5] = v1;
         }
 
         else
         {
-          munmap(v6, 0);
+          munmap(v5, 0);
         }
       }
     }
   }
 
-  v2 = v10[5];
-  _Block_object_dispose(&v9, 8);
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = v9[5];
+  _Block_object_dispose(&v8, 8);
   return v2;
 }
 
-void sub_1BCFFF174(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1BCFFF174(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __DDSourceGetLexiconData_block_invoke(uint64_t result, void *a2, uint64_t a3)
+void *__DDSourceGetLexiconData_block_invoke(void *result, void *a2, uint64_t a3)
 {
   if (a2)
   {
@@ -1062,7 +1049,7 @@ uint64_t __DDSourceGetLexiconData_block_invoke(uint64_t result, void *a2, uint64
     {
       v3 = result;
       result = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytesNoCopy:a2 length:a3 deallocator:&__block_literal_global_1349];
-      *(*(*(v3 + 32) + 8) + 40) = result;
+      *(*(v3[4] + 8) + 40) = result;
     }
 
     else
@@ -1154,14 +1141,14 @@ LABEL_8:
   }
 }
 
-void sub_1BCFFF498(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BCFFF498(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -1200,14 +1187,12 @@ void __mmapSource_block_invoke_53(void *a1, void *a2)
     }
   }
 
-  v6 = *(*(a1[7] + 8) + 24);
-  v7 = *(*(a1[6] + 8) + 24);
   (*(a1[5] + 16))();
-  v8 = a1[4];
-  if (v8)
+  v6 = a1[4];
+  if (v6)
   {
-    [v8 invalidate];
-    v9 = a1[4];
+    [v6 invalidate];
+    v7 = a1[4];
   }
 }
 
@@ -1267,18 +1252,16 @@ LABEL_11:
 
 void DDExternalTableAppendEntries(void (*a1)(void, void, void, void), uint64_t a2, uint64_t a3)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   if (a2 <= 7)
   {
-    memset(v4, 0, sizeof(v4));
-    *(v4 + a2) = a3;
-    _DDSourceUpdateSourceWithContent(a1, v4, 0, 0, 8);
+    memset(v3, 0, sizeof(v3));
+    *(v3 + a2) = a3;
+    _DDSourceUpdateSourceWithContent(a1, v3, 0, 0, 8);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t DDExternalTableWriteAtPath(uint64_t a1, uint64_t a2)
+uint64_t DDExternalTableWriteAtPath(uint64_t a1, void *a2)
 {
   v2 = a2;
   if (a2)
@@ -1315,7 +1298,7 @@ uint64_t DDExternalTableWriteAtPath(uint64_t a1, uint64_t a2)
 
 void *DDCreateTimeZoneValuesFromResultValue(CFStringRef theString)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (theString)
   {
     v2 = *MEMORY[0x1E695E480];
@@ -1330,7 +1313,7 @@ LABEL_9:
         CFRelease(ArrayBySeparatingStrings);
         if (v8)
         {
-          goto LABEL_21;
+          return v8;
         }
 
         goto LABEL_16;
@@ -1344,8 +1327,8 @@ LABEL_9:
       v9 = DDLogHandle_error_log_handle;
       if (os_log_type_enabled(DDLogHandle_error_log_handle, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v13) = 0;
-        _os_log_error_impl(&dword_1BCFDD000, v9, OS_LOG_TYPE_ERROR, "We've shouldn't have 0 items for a time zone value", &v13, 2u);
+        LOWORD(v12) = 0;
+        _os_log_error_impl(&dword_1BCFDD000, v9, OS_LOG_TYPE_ERROR, "We've shouldn't have 0 items for a time zone value", &v12, 2u);
       }
     }
 
@@ -1378,21 +1361,18 @@ LABEL_16:
   v10 = DDLogHandle_error_log_handle;
   if (os_log_type_enabled(DDLogHandle_error_log_handle, OS_LOG_TYPE_ERROR))
   {
-    v13 = 138412290;
-    v14 = theString;
-    _os_log_error_impl(&dword_1BCFDD000, v10, OS_LOG_TYPE_ERROR, "Couldn't extract time zone values for %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = theString;
+    _os_log_error_impl(&dword_1BCFDD000, v10, OS_LOG_TYPE_ERROR, "Couldn't extract time zone values for %@", &v12, 0xCu);
   }
 
-  v8 = 0;
-LABEL_21:
-  v11 = *MEMORY[0x1E69E9840];
-  return v8;
+  return 0;
 }
 
 const __CFString *createPropertyListForResource(const __CFString *a1)
 {
   v1 = a1;
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v2 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"%@.%@", a1, @"plist");
@@ -1411,7 +1391,7 @@ const __CFString *createPropertyListForResource(const __CFString *a1)
         {
 LABEL_22:
           CFRelease(v2);
-          goto LABEL_23;
+          return v1;
         }
       }
 
@@ -1426,9 +1406,9 @@ LABEL_22:
         if (os_log_type_enabled(DDLogHandle_error_log_handle, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v15 = v6;
-          v16 = 2112;
-          v17 = v2;
+          v14 = v6;
+          v15 = 2112;
+          v16 = v2;
           _os_log_error_impl(&dword_1BCFDD000, v9, OS_LOG_TYPE_ERROR, "DDCreateDataFromFileAtUrl failed on %@, could not find %@", buf, 0x16u);
         }
 
@@ -1450,7 +1430,7 @@ LABEL_22:
       }
 
       *buf = 138412290;
-      v15 = v2;
+      v14 = v2;
       _os_log_error_impl(&dword_1BCFDD000, v10, OS_LOG_TYPE_ERROR, "Could not find %@", buf, 0xCu);
     }
 
@@ -1464,7 +1444,7 @@ LABEL_19:
     if (os_log_type_enabled(DDLogHandle_error_log_handle, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v15 = v2;
+      v14 = v2;
       _os_log_error_impl(&dword_1BCFDD000, v11, OS_LOG_TYPE_ERROR, "Could not load %@", buf, 0xCu);
     }
 
@@ -1472,19 +1452,18 @@ LABEL_19:
     goto LABEL_22;
   }
 
-LABEL_23:
-  v12 = *MEMORY[0x1E69E9840];
   return v1;
 }
 
-uint64_t extractHourMinuteSecondWithRefCopyTimeZone(uint64_t result, uint64_t a2, const __CFLocale *a3, int *a4, _DWORD *a5, _DWORD *a6, CFTimeZoneRef *a7, unsigned int a8, signed int a9, int a10, uint64_t a11)
+uint64_t extractHourMinuteSecondWithRefCopyTimeZone(uint64_t result, uint64_t a2, const __CFLocale *a3, int *a4, _DWORD *a5, _DWORD *a6, CFTimeZoneRef *a7, uint64_t a8, signed int a9, int a10, uint64_t a11)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   if (!result)
   {
-    goto LABEL_67;
+    return result;
   }
 
+  v11 = a8;
   v16 = result;
   while (1)
   {
@@ -1507,7 +1486,7 @@ uint64_t extractHourMinuteSecondWithRefCopyTimeZone(uint64_t result, uint64_t a2
         result = extractHourFromApproxTimeValue(SubresultWithType, buf, a3);
         if (!result)
         {
-          goto LABEL_67;
+          return result;
         }
 
         if (a4)
@@ -1543,14 +1522,14 @@ uint64_t extractHourMinuteSecondWithRefCopyTimeZone(uint64_t result, uint64_t a2
           }
 
           *buf = 138412290;
-          v45 = DetailedDescription;
+          v44 = DetailedDescription;
           v27 = "Could not parse %@";
           goto LABEL_64;
         }
 
-        v40 = DDResultGetSubresultWithType(v16, @"Meridian");
+        v39 = DDResultGetSubresultWithType(v16, @"Meridian");
         v20 = DDResultGetSubresultWithType(v16, @"Hours");
-        v43 = 0;
+        v42 = 0;
         v21 = DDResultGetSubresultWithType(v16, @"Minutes");
         if (v21)
         {
@@ -1561,12 +1540,12 @@ uint64_t extractHourMinuteSecondWithRefCopyTimeZone(uint64_t result, uint64_t a2
             v23 = v22[9];
           }
 
-          if ((extractInteger(v23, &v43 + 1) & 1) == 0)
+          if ((extractInteger(v23, &v42 + 1) & 1) == 0)
           {
-            goto LABEL_66;
+            return 0;
           }
 
-          v24 = hourValueForHourAndMeridianResult(v20, a2, a3, v40, a8, a9, a10, a11, HIDWORD(v43) == 0);
+          v24 = hourValueForHourAndMeridianResult(v20, a2, a3, v39, v11, a9, a10, a11, HIDWORD(v42) == 0);
           if (v24 < 0)
           {
             goto LABEL_60;
@@ -1575,7 +1554,7 @@ uint64_t extractHourMinuteSecondWithRefCopyTimeZone(uint64_t result, uint64_t a2
 
         else
         {
-          v30 = hourValueForHourAndMeridianResult(v20, a2, a3, v40, a8, a9, a10, a11, 1);
+          v30 = hourValueForHourAndMeridianResult(v20, a2, a3, v39, v11, a9, a10, a11, 1);
           if (v30 < 0)
           {
 LABEL_60:
@@ -1592,13 +1571,13 @@ LABEL_60:
             }
 
             *buf = 138412290;
-            v45 = DetailedDescription;
+            v44 = DetailedDescription;
             v27 = "Time with no hour: %@";
 LABEL_64:
             _os_log_error_impl(&dword_1BCFDD000, v26, OS_LOG_TYPE_ERROR, v27, buf, 0xCu);
 LABEL_65:
             CFRelease(DetailedDescription);
-            goto LABEL_66;
+            return 0;
           }
 
           v24 = v30;
@@ -1612,22 +1591,20 @@ LABEL_65:
               v33 = v32[9];
             }
 
-            result = extractInteger(v33, &v43 + 1);
+            result = extractInteger(v33, &v42 + 1);
             if (!result)
             {
-              goto LABEL_67;
+              return result;
             }
 
-            if (HIDWORD(v43) > 0x3B)
+            if (HIDWORD(v42) > 0x3B)
             {
-LABEL_66:
-              result = 0;
-              goto LABEL_67;
+              return 0;
             }
 
-            if (HIDWORD(v43))
+            if (HIDWORD(v42))
             {
-              HIDWORD(v43) = 60 - HIDWORD(v43);
+              HIDWORD(v42) = 60 - HIDWORD(v42);
               if (v24)
               {
                 --v24;
@@ -1651,10 +1628,10 @@ LABEL_66:
             v36 = v35[9];
           }
 
-          result = extractInteger(v36, &v43);
+          result = extractInteger(v36, &v42);
           if (!result)
           {
-            goto LABEL_67;
+            return result;
           }
         }
 
@@ -1665,12 +1642,12 @@ LABEL_66:
 
         if (a5)
         {
-          *a5 = HIDWORD(v43);
+          *a5 = HIDWORD(v42);
         }
 
         if (a6)
         {
-          *a6 = v43;
+          *a6 = v42;
         }
 
         if (a7)
@@ -1687,8 +1664,7 @@ LABEL_66:
         }
       }
 
-      result = 1;
-      goto LABEL_67;
+      return 1;
     }
 
     v18 = *(v16 + 56);
@@ -1702,7 +1678,7 @@ LABEL_66:
     a10 = -1;
     if (!result)
     {
-      goto LABEL_67;
+      return result;
     }
   }
 
@@ -1717,11 +1693,9 @@ LABEL_66:
   {
     *buf = 0;
     _os_log_error_impl(&dword_1BCFDD000, v19, OS_LOG_TYPE_ERROR, "Wrong number of results", buf, 2u);
-    goto LABEL_66;
+    return 0;
   }
 
-LABEL_67:
-  v39 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2063,33 +2037,32 @@ LABEL_47:
 __CFString *createDetailedDescription(void *a1)
 {
   Mutable = CFStringCreateMutable(0, 0);
-  v3 = a1[5];
-  CFStringAppendFormat(Mutable, 0, @"type = %@, range = %ld/%ld, matched string = %@", a1[8], a1[4], v3, a1[9]);
+  CFStringAppendFormat(Mutable, 0, @"type = %@, range = %ld/%ld, matched string = %@", a1[8], a1[4], a1[5], a1[9]);
   if (a1[6])
   {
     CFStringAppendFormat(Mutable, 0, @", score = %ld", a1[6]);
   }
 
-  v4 = a1[10];
-  if (v4 || (v4 = a1[9]) != 0)
+  v3 = a1[10];
+  if (v3 || (v3 = a1[9]) != 0)
   {
-    CFStringAppendFormat(Mutable, 0, @", value = %@", v4);
+    CFStringAppendFormat(Mutable, 0, @", value = %@", v3);
   }
 
-  v5 = a1[7];
-  if (v5 && CFArrayGetCount(v5))
+  v4 = a1[7];
+  if (v4 && CFArrayGetCount(v4))
   {
     CFStringAppend(Mutable, @"\nSubresults = {\n");
-    for (i = 0; i < CFArrayGetCount(v5); ++i)
+    for (i = 0; i < CFArrayGetCount(v4); ++i)
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(v5, i);
-      v8 = ValueAtIndex[10];
-      if (!v8)
+      ValueAtIndex = CFArrayGetValueAtIndex(v4, i);
+      v7 = ValueAtIndex[10];
+      if (!v7)
       {
-        v8 = ValueAtIndex[9];
+        v7 = ValueAtIndex[9];
       }
 
-      CFStringAppendFormat(Mutable, 0, @"(%@:%@)\n", ValueAtIndex[8], v8);
+      CFStringAppendFormat(Mutable, 0, @"(%@:%@)\n", ValueAtIndex[8], v7);
     }
 
     CFStringAppend(Mutable, @"}");
@@ -2100,7 +2073,7 @@ __CFString *createDetailedDescription(void *a1)
 
 CFTimeZoneRef DDCreateTimeZoneWithResult(uint64_t a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   SubresultWithType = DDResultGetSubresultWithType(a1, @"OlsonTimeZone");
   if (!SubresultWithType || (v3 = SubresultWithType[10]) == 0 && (v3 = SubresultWithType[9]) == 0)
   {
@@ -2110,8 +2083,8 @@ CFTimeZoneRef DDCreateTimeZoneWithResult(uint64_t a1)
       v11 = v10[10];
       if (v11 || (v11 = v10[9]) != 0)
       {
-        v27 = 0;
-        if ((extractInteger(v11, &v27) & 1) == 0)
+        v26 = 0;
+        if ((extractInteger(v11, &v26) & 1) == 0)
         {
           if (DDLogHandle_onceToken != -1)
           {
@@ -2122,23 +2095,23 @@ CFTimeZoneRef DDCreateTimeZoneWithResult(uint64_t a1)
           if (os_log_type_enabled(DDLogHandle_error_log_handle, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v29 = v11;
+            v28 = v11;
             _os_log_error_impl(&dword_1BCFDD000, v18, OS_LOG_TYPE_ERROR, "Could not extract hour offset for time zone (%@)", buf, 0xCu);
           }
 
           goto LABEL_57;
         }
 
-        v12 = 3600 * v27;
+        v12 = 3600 * v26;
         v13 = DDResultGetSubresultWithType(a1, @"Minutes");
         if (v13)
         {
           v14 = v13[10];
           if (v14 || (v14 = v13[9]) != 0)
           {
-            if (extractInteger(v14, &v27))
+            if (extractInteger(v14, &v26))
             {
-              v12 += 60 * v27;
+              v12 += 60 * v26;
             }
 
             else
@@ -2152,7 +2125,7 @@ CFTimeZoneRef DDCreateTimeZoneWithResult(uint64_t a1)
               if (os_log_type_enabled(DDLogHandle_error_log_handle, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v29 = v14;
+                v28 = v14;
                 _os_log_error_impl(&dword_1BCFDD000, v19, OS_LOG_TYPE_ERROR, "Could not extract minute offset for time zone (%@), ignoring", buf, 0xCu);
               }
             }
@@ -2161,7 +2134,7 @@ CFTimeZoneRef DDCreateTimeZoneWithResult(uint64_t a1)
 
         if (v12 > 64800)
         {
-          goto LABEL_60;
+          return 0;
         }
 
         v20 = DDResultGetSubresultWithType(a1, @"Sign");
@@ -2183,7 +2156,7 @@ CFTimeZoneRef DDCreateTimeZoneWithResult(uint64_t a1)
                 if (os_log_type_enabled(DDLogHandle_error_log_handle, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  v29 = v21;
+                  v28 = v21;
                   _os_log_error_impl(&dword_1BCFDD000, v22, OS_LOG_TYPE_ERROR, "Could not extract sign for time zone offset (%@), considering a positive offset", buf, 0xCu);
                 }
               }
@@ -2202,7 +2175,7 @@ CFTimeZoneRef DDCreateTimeZoneWithResult(uint64_t a1)
           goto LABEL_57;
         }
 
-        goto LABEL_61;
+        return v8;
       }
     }
 
@@ -2232,7 +2205,7 @@ CFTimeZoneRef DDCreateTimeZoneWithResult(uint64_t a1)
     }
 
     *buf = 138412290;
-    v29 = v17;
+    v28 = v17;
     _os_log_error_impl(&dword_1BCFDD000, v16, OS_LOG_TYPE_ERROR, "Relative time zone without value (%@)", buf, 0xCu);
     goto LABEL_57;
   }
@@ -2259,7 +2232,7 @@ CFTimeZoneRef DDCreateTimeZoneWithResult(uint64_t a1)
     }
 
     *buf = 138412290;
-    v29 = v3;
+    v28 = v3;
     _os_log_error_impl(&dword_1BCFDD000, v15, OS_LOG_TYPE_ERROR, "Unexpected error while extracting time zone (%@)", buf, 0xCu);
     if (v6)
     {
@@ -2279,26 +2252,24 @@ LABEL_59:
     {
       if (a1)
       {
-        v26 = *(a1 + 80);
-        if (!v26)
+        v25 = *(a1 + 80);
+        if (!v25)
         {
-          v26 = *(a1 + 72);
+          v25 = *(a1 + 72);
         }
       }
 
       else
       {
-        v26 = 0;
+        v25 = 0;
       }
 
       *buf = 138412290;
-      v29 = v26;
+      v28 = v25;
       _os_log_error_impl(&dword_1BCFDD000, v23, OS_LOG_TYPE_ERROR, "CFTimeZoneCreateWithName failed for %@", buf, 0xCu);
     }
 
-LABEL_60:
-    v8 = 0;
-    goto LABEL_61;
+    return 0;
   }
 
   if (CFArrayGetCount(v6) != 2 || (v7 = CFArrayGetValueAtIndex(v6, 1), (v8 = CFTimeZoneCreateWithName(v4, v7, 1u)) == 0))
@@ -2313,8 +2284,6 @@ LABEL_60:
     goto LABEL_57;
   }
 
-LABEL_61:
-  v24 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -2323,12 +2292,12 @@ uint64_t extractMeridianValue(uint64_t result, _BYTE *a2, _BYTE *a3, _BYTE *a4, 
   if (result)
   {
     v9 = result;
-    if (_typesAreEqual(*(result + 64), @"Meridian") || _typesAreEqual(v9[8], @"ApproxTime") || (result = _typesAreEqual(v9[8], @"SpecialDateTime"), result))
+    if (_typesAreEqual(*(result + 64), @"Meridian") || _typesAreEqual(*(v9 + 64), @"ApproxTime") || (result = _typesAreEqual(*(v9 + 64), @"SpecialDateTime"), result))
     {
-      v10 = v9[10];
+      v10 = *(v9 + 80);
       if (!v10)
       {
-        v10 = v9[9];
+        v10 = *(v9 + 72);
         if (!v10)
         {
           return 0;
@@ -2667,14 +2636,13 @@ void __getLocaleForExtraction_block_invoke()
 
 uint64_t DDResultCopyExtractedDateFromReferenceDateWithLocale(uint64_t a1, const __CFLocale *a2, const void *a3, const void *a4, BOOL *a5, CFDateRef *a6, CFTypeRef *a7)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v14 = _copyDefaultCalendar();
   if (v14)
   {
     v15 = v14;
     v16 = DDResultCopyExtractedDateFromReferenceDateRec(a1, a2, v14, a3, a4, a5, a6, a7, 0);
     CFRelease(v15);
-    v17 = *MEMORY[0x1E69E9840];
     return v16;
   }
 
@@ -2685,15 +2653,14 @@ uint64_t DDResultCopyExtractedDateFromReferenceDateWithLocale(uint64_t a1, const
       dispatch_once(&DDLogHandle_onceToken, &__block_literal_global_791);
     }
 
-    v19 = DDLogHandle_error_log_handle;
+    v18 = DDLogHandle_error_log_handle;
     if (os_log_type_enabled(DDLogHandle_error_log_handle, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v22 = "DDResultCopyExtractedDateFromReferenceDateWithLocale";
-      _os_log_error_impl(&dword_1BCFDD000, v19, OS_LOG_TYPE_ERROR, "Couldn't fetch the gregorian calendar in %s...", buf, 0xCu);
+      v20 = "DDResultCopyExtractedDateFromReferenceDateWithLocale";
+      _os_log_error_impl(&dword_1BCFDD000, v18, OS_LOG_TYPE_ERROR, "Couldn't fetch the gregorian calendar in %s...", buf, 0xCu);
     }
 
-    v20 = *MEMORY[0x1E69E9840];
     return 0;
   }
 }
@@ -2724,7 +2691,7 @@ LABEL_6:
 
 uint64_t DDResultCopyExtractedDateFromReferenceDateRec(uint64_t a1, const __CFLocale *a2, __CFCalendar *a3, const void *a4, const void *a5, BOOL *a6, CFDateRef *a7, CFTypeRef *a8, int a9)
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v15 = a1;
@@ -2797,7 +2764,7 @@ LABEL_20:
 LABEL_131:
       CFRelease(v26);
       CFRelease(v27);
-      goto LABEL_132;
+      return v19;
     }
 
     if (_typesAreEqual(v16, @"DateTime"))
@@ -2818,9 +2785,9 @@ LABEL_131:
           *a6 = 0;
         }
 
-        v70 = 0;
+        v69 = 0;
         *buf = 0;
-        HIDWORD(v69) = 0;
+        HIDWORD(v68) = 0;
         v30 = DDResultGetSubresultWithType(v15, @"Time");
         v31 = DDResultGetSubresultWithType(v15, @"ApproxTime");
         if (v30)
@@ -2830,25 +2797,25 @@ LABEL_131:
             v31 = DDResultGetSubresultWithType(v15, @"SpecialDateTime");
           }
 
-          v32 = extractHourMinuteSecondWithRefCopyTimeZone(v30, 0, locale, &v70 + 1, &v70, &v69 + 1, buf, 0xFFFFFFFF, -1, -1, v31);
+          v32 = extractHourMinuteSecondWithRefCopyTimeZone(v30, 0, locale, &v69 + 1, &v69, &v68 + 1, buf, 0xFFFFFFFFLL, -1, -1, v31);
         }
 
         else
         {
           if (!v31)
           {
-            LODWORD(v69) = -1;
-            HourFromApproxTimeValue = extractHourFromApproxTimeValue(v29, &v69, locale);
+            LODWORD(v68) = -1;
+            HourFromApproxTimeValue = extractHourFromApproxTimeValue(v29, &v68, locale);
             goto LABEL_86;
           }
 
           v43 = DDResultGetSubresultWithType(v15, @"ApproxTime");
-          v32 = extractHourMinuteSecondWithRefCopyTimeZone(v43, 0, locale, &v70 + 1, &v70, &v69 + 1, buf, 0xFFFFFFFF, -1, -1, 0);
+          v32 = extractHourMinuteSecondWithRefCopyTimeZone(v43, 0, locale, &v69 + 1, &v69, &v68 + 1, buf, 0xFFFFFFFFLL, -1, -1, 0);
         }
 
         v44 = v32;
-        LODWORD(v69) = -1;
-        HourFromApproxTimeValue = extractHourFromApproxTimeValue(v29, &v69, locale);
+        LODWORD(v68) = -1;
+        HourFromApproxTimeValue = extractHourFromApproxTimeValue(v29, &v68, locale);
         if (v44)
         {
           if (!HourFromApproxTimeValue)
@@ -2856,22 +2823,22 @@ LABEL_131:
             goto LABEL_90;
           }
 
-          if (v69 <= 11)
+          if (v68 <= 11)
           {
-            v46 = HIDWORD(v70) - 12;
-            if (SHIDWORD(v70) <= 12 && (HIDWORD(v70) != 12 || v70 < 1))
+            v46 = HIDWORD(v69) - 12;
+            if (SHIDWORD(v69) <= 12 && (HIDWORD(v69) != 12 || v69 < 1))
             {
               goto LABEL_90;
             }
 
 LABEL_84:
-            HIDWORD(v70) = v46;
+            HIDWORD(v69) = v46;
             goto LABEL_90;
           }
 
-          if (v69 != 12 && (SHIDWORD(v70) < 12 || v69 != 15 && HIDWORD(v70) == 12))
+          if (v68 != 12 && (SHIDWORD(v69) < 12 || v68 != 15 && HIDWORD(v69) == 12))
           {
-            v46 = HIDWORD(v70) + 12;
+            v46 = HIDWORD(v69) + 12;
             goto LABEL_84;
           }
 
@@ -2879,7 +2846,7 @@ LABEL_90:
           v50 = *buf;
           if (a7)
           {
-            v68 = 0;
+            v67 = 0;
             if (*buf)
             {
               v51 = *buf;
@@ -2890,32 +2857,32 @@ LABEL_90:
               v51 = v22;
             }
 
-            v67 = 0;
+            v66 = 0;
             at = MEMORY[0x1BFB34330](v23);
             CFCalendarSetTimeZone(a3, v51);
-            CFCalendarDecomposeAbsoluteTime(a3, at, "yMd", &v68 + 4, &v68, &v67);
+            CFCalendarDecomposeAbsoluteTime(a3, at, "yMd", &v67 + 4, &v67, &v66);
             v52 = DDResultGetSubresultWithType(v15, @"RelativeDay");
             if (v52)
             {
               v53 = v52;
-              v65 = -1;
+              v64 = -1;
               v54 = v52[10];
               if (!v54)
               {
                 v54 = v53[9];
               }
 
-              if (!extractInteger(v54, &v65))
+              if (!extractInteger(v54, &v64))
               {
                 goto LABEL_126;
               }
 
-              if (!CFCalendarComposeAbsoluteTime(a3, &at, "yMdHms", HIDWORD(v68), v68, v67, HIDWORD(v70), v70, HIDWORD(v69)))
+              if (!CFCalendarComposeAbsoluteTime(a3, &at, "yMdHms", HIDWORD(v67), v67, v66, HIDWORD(v69), v69, HIDWORD(v68)))
               {
                 goto LABEL_126;
               }
 
-              v55 = CFCalendarAddComponents(a3, &at, 0, "d", v65);
+              v55 = CFCalendarAddComponents(a3, &at, 0, "d", v64);
               if (!v55)
               {
                 goto LABEL_126;
@@ -2925,12 +2892,12 @@ LABEL_90:
             else
             {
               v56 = DDResultGetSubresultWithType(v15, @"Date");
-              if (v56 && !DDResultExtractDayMonthYear(v56, locale, a3, &v67, &v68, &v68 + 1, v23, v51))
+              if (v56 && !DDResultExtractDayMonthYear(v56, locale, a3, &v66, &v67, &v67 + 1, v23, v51))
               {
                 goto LABEL_126;
               }
 
-              v55 = CFCalendarComposeAbsoluteTime(a3, &at, "yMdHms", HIDWORD(v68), v68, v67, HIDWORD(v70), v70, HIDWORD(v69));
+              v55 = CFCalendarComposeAbsoluteTime(a3, &at, "yMdHms", HIDWORD(v67), v67, v66, HIDWORD(v69), v69, HIDWORD(v68));
               if (!v55)
               {
                 goto LABEL_126;
@@ -2958,7 +2925,7 @@ LABEL_90:
 LABEL_86:
         if (HourFromApproxTimeValue)
         {
-          v49 = v69;
+          v49 = v68;
         }
 
         else
@@ -2966,9 +2933,9 @@ LABEL_86:
           v49 = 12;
         }
 
-        LODWORD(v70) = 0;
-        HIDWORD(v70) = v49;
-        HIDWORD(v69) = 0;
+        LODWORD(v69) = 0;
+        HIDWORD(v69) = v49;
+        HIDWORD(v68) = 0;
         *buf = 0;
         goto LABEL_90;
       }
@@ -2993,17 +2960,17 @@ LABEL_86:
         goto LABEL_131;
       }
 
-      v70 = 0;
-      HIDWORD(v69) = 0;
-      if (DDResultExtractDayMonthYear(v40, locale, a3, &v70 + 1, &v70, &v69 + 1, a4, a5))
+      v69 = 0;
+      HIDWORD(v68) = 0;
+      if (DDResultExtractDayMonthYear(v40, locale, a3, &v69 + 1, &v69, &v68 + 1, a4, a5))
       {
         v41 = DDResultGetSubresultWithType(v15, @"Time");
         v26 = v22;
         if (v41)
         {
           v19 = v41;
-          LODWORD(v69) = 0;
-          v68 = 0;
+          LODWORD(v68) = 0;
+          v67 = 0;
           *buf = 0;
           v42 = locale;
         }
@@ -3011,8 +2978,8 @@ LABEL_86:
         else
         {
           v19 = DDResultGetSubresultWithType(v15, @"ApproxTime");
-          LODWORD(v69) = 0;
-          v68 = 0;
+          LODWORD(v68) = 0;
+          v67 = 0;
           *buf = 0;
           v42 = locale;
           if (!v19)
@@ -3022,7 +2989,7 @@ LABEL_86:
         }
 
         v57 = DDResultGetSubresultWithType(v15, @"ApproxTime");
-        if (!extractHourMinuteSecondWithRefCopyTimeZone(v19, 0, v42, &v69, &v68 + 1, &v68, buf, 0xFFFFFFFF, -1, -1, v57))
+        if (!extractHourMinuteSecondWithRefCopyTimeZone(v19, 0, v42, &v68, &v67 + 1, &v67, buf, 0xFFFFFFFFLL, -1, -1, v57))
         {
           goto LABEL_126;
         }
@@ -3049,9 +3016,9 @@ LABEL_86:
 
         CFCalendarSetTimeZone(a3, v58);
         at = 0.0;
-        v37 = HIDWORD(v69);
-        v38 = v70;
-        v39 = HIDWORD(v70);
+        v37 = HIDWORD(v68);
+        v38 = v69;
+        v39 = HIDWORD(v69);
         goto LABEL_119;
       }
     }
@@ -3087,22 +3054,22 @@ LABEL_86:
         at = MEMORY[0x1BFB34330](v23);
         v26 = v22;
         CFCalendarSetTimeZone(a3, v22);
-        v69 = 0;
-        v70 = 0;
         v68 = 0;
-        CFCalendarDecomposeAbsoluteTime(a3, at, "yMdH", &v70 + 4, &v70, &v69 + 4, &v69);
+        v69 = 0;
+        v67 = 0;
+        CFCalendarDecomposeAbsoluteTime(a3, at, "yMdH", &v69 + 4, &v69, &v68 + 4, &v68);
         v34 = -1;
         if (!a9)
         {
           v35 = _typesAreEqual(v16, @"Time");
-          v34 = v69;
+          v34 = v68;
           if (!v35)
           {
             v34 = -1;
           }
         }
 
-        if (!extractHourMinuteSecondWithRefCopyTimeZone(v15, 0, a2, &v69, &v68 + 1, &v68, buf, 0xFFFFFFFF, -1, v34, 0))
+        if (!extractHourMinuteSecondWithRefCopyTimeZone(v15, 0, a2, &v68, &v67 + 1, &v67, buf, 0xFFFFFFFFLL, -1, v34, 0))
         {
           v19 = 0;
           goto LABEL_20;
@@ -3130,11 +3097,11 @@ LABEL_86:
         }
 
         CFCalendarSetTimeZone(a3, v36);
-        v38 = v70;
-        v37 = HIDWORD(v70);
-        v39 = HIDWORD(v69);
+        v38 = v69;
+        v37 = HIDWORD(v69);
+        v39 = HIDWORD(v68);
 LABEL_119:
-        CFCalendarComposeAbsoluteTime(a3, &at, "yMdHms", v37, v38, v39, v69, HIDWORD(v68), v68);
+        CFCalendarComposeAbsoluteTime(a3, &at, "yMdHms", v37, v38, v39, v68, HIDWORD(v67), v67);
         *a7 = CFDateCreate(0, at);
 LABEL_120:
         if (*buf)
@@ -3184,16 +3151,16 @@ LABEL_126:
       }
 
       LODWORD(at) = 0;
-      v70 = 0;
+      v69 = 0;
       v27 = v23;
-      if (DDResultExtractDayMonthYear(v15, locale, a3, &at, &v70 + 1, &v70, a4, a5))
+      if (DDResultExtractDayMonthYear(v15, locale, a3, &at, &v69 + 1, &v69, a4, a5))
       {
         v26 = v22;
         if (a7)
         {
           CFCalendarSetTimeZone(a3, v22);
           *buf = 0;
-          CFCalendarComposeAbsoluteTime(a3, buf, "yMdHms", v70, HIDWORD(v70), LODWORD(at), 12, 0, 0);
+          CFCalendarComposeAbsoluteTime(a3, buf, "yMdHms", v69, HIDWORD(v69), LODWORD(at), 12, 0, 0);
           *a7 = CFDateCreate(0, *buf);
         }
 
@@ -3217,10 +3184,7 @@ LABEL_126:
     _os_log_error_impl(&dword_1BCFDD000, v18, OS_LOG_TYPE_ERROR, "result should not be NULL", buf, 2u);
   }
 
-  v19 = 0;
-LABEL_132:
-  v61 = *MEMORY[0x1E69E9840];
-  return v19;
+  return 0;
 }
 
 CFDateRef copyBestDateForDate(const void *a1)
@@ -3242,7 +3206,7 @@ CFDateRef copyBestDateForDate(const void *a1)
 
 uint64_t DDResultExtractDayMonthYear(uint64_t a1, const __CFLocale *a2, __CFCalendar *a3, _DWORD *a4, _DWORD *a5, _DWORD *a6, uint64_t a7, CFTypeRef cf)
 {
-  v125 = *MEMORY[0x1E69E9840];
+  v124 = *MEMORY[0x1E69E9840];
   if (cf)
   {
     v16 = CFRetain(cf);
@@ -3267,8 +3231,8 @@ uint64_t DDResultExtractDayMonthYear(uint64_t a1, const __CFLocale *a2, __CFCale
   }
 
   v19 = Current;
+  v119 = 0;
   v120 = 0;
-  v121 = 0;
   SubresultWithType = DDResultGetSubresultWithType(a1, @"AbsoluteDate");
   v21 = DDResultGetSubresultWithType(a1, @"PartialDate");
   if (!(SubresultWithType | v21))
@@ -3277,7 +3241,7 @@ uint64_t DDResultExtractDayMonthYear(uint64_t a1, const __CFLocale *a2, __CFCale
     {
       data = DDResultGetSubresultWithType(a1, @"RelativeDay");
       v30 = data;
-      LODWORD(v119) = -1;
+      LODWORD(v118) = -1;
       if (data)
       {
         v22 = a5;
@@ -3293,11 +3257,11 @@ uint64_t DDResultExtractDayMonthYear(uint64_t a1, const __CFLocale *a2, __CFCale
         v22 = a5;
       }
 
-      if (extractInteger(data, &v119))
+      if (extractInteger(data, &v118))
       {
         at[0] = v19;
-        CFCalendarAddComponents(a3, at, 0, "d", LODWORD(v119));
-        CFCalendarDecomposeAbsoluteTime(a3, at[0], "yMd", &v120 + 4, &v121, &v121 + 4);
+        CFCalendarAddComponents(a3, at, 0, "d", LODWORD(v118));
+        CFCalendarDecomposeAbsoluteTime(a3, at[0], "yMd", &v119 + 4, &v120, &v120 + 4);
         goto LABEL_111;
       }
 
@@ -3345,7 +3309,7 @@ LABEL_186:
 
     v37 = DDResultGetSubresultWithType(a1, @"RelativeDayOfWeek");
     v38 = DDResultGetSubresultWithType(v37, @"DayOfWeek");
-    v114 = a6;
+    v113 = a6;
     if (v38 && ((v39 = v38[10]) != 0 || (v39 = v38[9]) != 0))
     {
       v40 = 0;
@@ -3365,8 +3329,8 @@ LABEL_186:
           v42 = 0;
           v43 = 0;
           v40 = 0;
-          v113 = 0;
-          v115 = 1;
+          v112 = 0;
+          v114 = 1;
           v41 = 1;
         }
 
@@ -3377,9 +3341,9 @@ LABEL_186:
           {
             v42 = 0;
             v43 = 0;
-            v113 = 0;
+            v112 = 0;
             v41 = 0;
-            v115 = 1;
+            v114 = 1;
             v40 = 1;
           }
 
@@ -3399,39 +3363,39 @@ LABEL_186:
               }
             }
 
-            v102 = DDResultGetSubresultWithType(v37, @"PreviousDay");
-            if (!v102 || (v39 = v102[10]) == 0 && (v39 = v102[9]) == 0)
+            v101 = DDResultGetSubresultWithType(v37, @"PreviousDay");
+            if (!v101 || (v39 = v101[10]) == 0 && (v39 = v101[9]) == 0)
             {
-              v103 = DDResultGetSubresultWithType(v37, @"DayOfPreviousWeek");
-              if (v103 && ((v39 = v103[10]) != 0 || (v39 = v103[9]) != 0))
+              v102 = DDResultGetSubresultWithType(v37, @"DayOfPreviousWeek");
+              if (v102 && ((v39 = v102[10]) != 0 || (v39 = v102[9]) != 0))
               {
                 v42 = 0;
-                v115 = 0;
+                v114 = 0;
                 v41 = 0;
                 v40 = -1;
               }
 
               else
               {
-                v107 = DDResultGetSubresultWithType(v37, @"DayOfThisWeek");
-                if (v107 && ((v39 = v107[10]) != 0 || (v39 = v107[9]) != 0))
+                v106 = DDResultGetSubresultWithType(v37, @"DayOfThisWeek");
+                if (v106 && ((v39 = v106[10]) != 0 || (v39 = v106[9]) != 0))
                 {
                   v42 = 0;
-                  v115 = 0;
+                  v114 = 0;
                   v40 = 0;
                   v41 = 0;
                 }
 
                 else
                 {
-                  v109 = DDResultGetSubresultWithType(v37, @"DayOfNextWeek");
-                  if (v109)
+                  v108 = DDResultGetSubresultWithType(v37, @"DayOfNextWeek");
+                  if (v108)
                   {
-                    v39 = v109[10];
-                    if (v39 || (v39 = v109[9]) != 0)
+                    v39 = v108[10];
+                    if (v39 || (v39 = v108[9]) != 0)
                     {
                       v42 = 0;
-                      v115 = 0;
+                      v114 = 0;
                       v41 = 0;
                       v43 = 1;
                       v40 = 1;
@@ -3439,8 +3403,8 @@ LABEL_186:
                     }
                   }
 
-                  v110 = DDResultGetSubresultWithType(v37, @"DayOfNextNextWeek");
-                  if (!v110 || (v39 = v110[10]) == 0 && (v39 = v110[9]) == 0)
+                  v109 = DDResultGetSubresultWithType(v37, @"DayOfNextNextWeek");
+                  if (!v109 || (v39 = v109[10]) == 0 && (v39 = v109[9]) == 0)
                   {
                     if (DDLogHandle_onceToken != -1)
                     {
@@ -3459,7 +3423,7 @@ LABEL_186:
                   }
 
                   v42 = 0;
-                  v115 = 0;
+                  v114 = 0;
                   v41 = 0;
                   v40 = 2;
                 }
@@ -3467,22 +3431,22 @@ LABEL_186:
 
               v43 = 1;
 LABEL_60:
-              v113 = 1;
+              v112 = 1;
               goto LABEL_61;
             }
 
             v42 = 0;
             v43 = 0;
-            v113 = 0;
+            v112 = 0;
             v41 = 0;
             v40 = -1;
-            v115 = 1;
+            v114 = 1;
           }
         }
 
 LABEL_61:
-        v118 = 0;
-        if ((extractInteger(v39, &v118) & 1) == 0)
+        v117 = 0;
+        if ((extractInteger(v39, &v117) & 1) == 0)
         {
           if (DDLogHandle_onceToken != -1)
           {
@@ -3501,10 +3465,10 @@ LABEL_61:
           goto LABEL_132;
         }
 
-        v111 = v41;
+        v110 = v41;
         v56 = v42;
         v22 = a5;
-        v57 = v118;
+        v57 = v117;
         DayOfWeek = CFAbsoluteTimeGetDayOfWeek(v19, v17);
         if (DayOfWeek == 7)
         {
@@ -3518,8 +3482,8 @@ LABEL_61:
 
         at[0] = 0.0;
         *&at[1] = at;
-        v123 = 0x2000000000;
-        v124 = DDResultExtractDayMonthYear_actualFirstWeekDay;
+        v122 = 0x2000000000;
+        v123 = DDResultExtractDayMonthYear_actualFirstWeekDay;
         if (DDResultExtractDayMonthYear_sOnce != -1)
         {
           dispatch_once(&DDResultExtractDayMonthYear_sOnce, &__block_literal_global_182);
@@ -3531,7 +3495,7 @@ LABEL_61:
         block[3] = &unk_1E8002558;
         block[4] = at;
         block[5] = a2;
-        v117 = v59;
+        v116 = v59;
         dispatch_sync(DDResultExtractDayMonthYear_sQueue, block);
         v60 = *(*&at[1] + 24);
         if (v60 - 8 > 0xFFFFFFF8)
@@ -3571,7 +3535,7 @@ LABEL_61:
         v69 = v57 - v59;
         if (v43)
         {
-          v70 = v115;
+          v70 = v114;
           if (v69 >= 0)
           {
             v70 = 0;
@@ -3580,7 +3544,7 @@ LABEL_61:
 
         else
         {
-          v70 = v113;
+          v70 = v112;
           if (v57 != v59)
           {
             v70 = 0;
@@ -3591,9 +3555,9 @@ LABEL_61:
 LABEL_101:
             ++v40;
 LABEL_102:
-            a6 = v114;
+            a6 = v113;
             LODWORD(v72) = v69 - v40 + 8 * v40;
-            if ((v111 & (v72 < 4)) != 0)
+            if ((v110 & (v72 < 4)) != 0)
             {
               v72 = (v72 + 7);
             }
@@ -3603,9 +3567,9 @@ LABEL_102:
               v72 = v72;
             }
 
-            v119 = v19;
-            CFCalendarAddComponents(a3, &v119, 0, "d", v72);
-            CFCalendarDecomposeAbsoluteTime(a3, v119, "yMd", &v120 + 4, &v121, &v121 + 4);
+            v118 = v19;
+            CFCalendarAddComponents(a3, &v118, 0, "d", v72);
+            CFCalendarDecomposeAbsoluteTime(a3, v118, "yMd", &v119 + 4, &v120, &v120 + 4);
             _Block_object_dispose(at, 8);
             goto LABEL_111;
           }
@@ -3630,7 +3594,7 @@ LABEL_102:
     }
 
 LABEL_59:
-    v115 = 1;
+    v114 = 1;
     goto LABEL_60;
   }
 
@@ -3650,17 +3614,17 @@ LABEL_59:
   GregorianDate = CFAbsoluteTimeGetGregorianDate(v19, cf);
   if (v25)
   {
-    if (extractDMYFromAmbiguousForm(v25, a2, &v121 + 1, &v121, &v120 + 1))
+    if (extractDMYFromAmbiguousForm(v25, a2, &v120 + 1, &v120, &v119 + 1))
     {
       a6 = v23;
-      if (v120 < 0)
+      if (v119 < 0)
       {
-        v27 = v121 - GregorianDate.month;
+        v27 = v120 - GregorianDate.month;
         if (v27 > -3)
         {
           if (v27 < 11)
           {
-            HIDWORD(v120) = GregorianDate.year;
+            HIDWORD(v119) = GregorianDate.year;
             goto LABEL_111;
           }
 
@@ -3672,23 +3636,23 @@ LABEL_59:
           v28 = GregorianDate.year + 1;
         }
 
-        HIDWORD(v120) = v28;
+        HIDWORD(v119) = v28;
       }
 
 LABEL_111:
       if (a4)
       {
-        *a4 = HIDWORD(v121);
+        *a4 = HIDWORD(v120);
       }
 
       if (v22)
       {
-        *v22 = v121;
+        *v22 = v120;
       }
 
       if (a6)
       {
-        *a6 = HIDWORD(v120);
+        *a6 = HIDWORD(v119);
       }
 
       v54 = 1;
@@ -3714,7 +3678,7 @@ LABEL_111:
         v48 = v47[9];
       }
 
-      if ((extractInteger(v48, &v121) & 1) == 0)
+      if ((extractInteger(v48, &v120) & 1) == 0)
       {
         goto LABEL_186;
       }
@@ -3742,12 +3706,12 @@ LABEL_111:
         }
 
         v65 = LODWORD(at[0]) + GregorianDate.month;
-        LODWORD(v121) = v65;
+        LODWORD(v120) = v65;
         if (v65 < 13)
         {
           if (v65 <= 0)
           {
-            LODWORD(v121) = v65 + 12;
+            LODWORD(v120) = v65 + 12;
             v50 = -1;
           }
 
@@ -3759,7 +3723,7 @@ LABEL_111:
 
         else
         {
-          LODWORD(v121) = v65 - 12;
+          LODWORD(v120) = v65 - 12;
           v50 = 1;
         }
 
@@ -3773,13 +3737,13 @@ LABEL_111:
       }
     }
 
-    HIDWORD(v120) = extractGregorianYear(v25);
-    if ((v120 & 0x8000000000000000) == 0)
+    HIDWORD(v119) = extractGregorianYear(v25);
+    if ((v119 & 0x8000000000000000) == 0)
     {
       goto LABEL_140;
     }
 
-    HIDWORD(v120) = GregorianDate.year;
+    HIDWORD(v119) = GregorianDate.year;
     if (v50)
     {
       v78 = v50 + GregorianDate.year;
@@ -3792,7 +3756,7 @@ LABEL_111:
         goto LABEL_140;
       }
 
-      v86 = v121 - GregorianDate.month;
+      v86 = v120 - GregorianDate.month;
       if (v86 > -3)
       {
         if (v86 < 11)
@@ -3809,20 +3773,20 @@ LABEL_111:
       }
     }
 
-    HIDWORD(v120) = v78;
+    HIDWORD(v119) = v78;
 LABEL_140:
     v79 = DDResultGetSubresultWithType(v25, @"DayNumber");
     if (v79)
     {
-      v112 = v49;
+      v111 = v49;
       v80 = v79[10];
       if (!v80)
       {
         v80 = v79[9];
       }
 
-      v81 = HIDWORD(v120);
-      v82 = v121;
+      v81 = HIDWORD(v119);
+      v82 = v120;
       if (CFStringCompare(v80, @"LastDayOfMonth", 0))
       {
         LODWORD(at[0]) = -1;
@@ -3839,7 +3803,7 @@ LABEL_140:
         {
           if (!v82)
           {
-            HIDWORD(v121) = 31;
+            HIDWORD(v120) = 31;
             a6 = v23;
             second = GregorianDate.second;
 LABEL_168:
@@ -3847,8 +3811,8 @@ LABEL_168:
             v90 = DDResultGetSubresultWithType(v89, @"DayOfWeek");
             if (!v90)
             {
-              v99 = v112;
-              if (v121)
+              v99 = v111;
+              if (v120)
               {
                 v99 = 0;
               }
@@ -3859,14 +3823,14 @@ LABEL_168:
               }
 
 LABEL_202:
-              v104 = HIDWORD(v121) - ((*&GregorianDate.year >> 16) >> 24);
-              if (v104 > -7)
+              v103 = HIDWORD(v120) - ((*&GregorianDate.year >> 16) >> 24);
+              if (v103 > -7)
               {
                 month = GregorianDate.month;
-                if (v104 < 25)
+                if (v103 < 25)
                 {
 LABEL_216:
-                  LODWORD(v121) = month;
+                  LODWORD(v120) = month;
                   goto LABEL_111;
                 }
 
@@ -3877,7 +3841,7 @@ LABEL_216:
                 }
 
                 month = GregorianDate.month + 11;
-                v106 = HIDWORD(v120) - 1;
+                v105 = HIDWORD(v119) - 1;
               }
 
               else
@@ -3889,10 +3853,10 @@ LABEL_216:
                 }
 
                 month = GregorianDate.month - 11;
-                v106 = HIDWORD(v120) + 1;
+                v105 = HIDWORD(v119) + 1;
               }
 
-              HIDWORD(v120) = v106;
+              HIDWORD(v119) = v105;
               goto LABEL_216;
             }
 
@@ -3903,24 +3867,24 @@ LABEL_216:
               v92 = v91[9];
             }
 
-            if (extractInteger(v92, &v120))
+            if (extractInteger(v92, &v119))
             {
-              if (!v112)
+              if (!v111)
               {
                 goto LABEL_111;
               }
 
-              *&v126.year = *&GregorianDate.year & 0xFFFF00FF00000000 | (BYTE4(v121) << 40) | HIDWORD(v120);
-              v126.second = second;
-              AbsoluteTime = CFGregorianDateGetAbsoluteTime(v126, v17);
+              *&v125.year = *&GregorianDate.year & 0xFFFF00FF00000000 | (BYTE4(v120) << 40) | HIDWORD(v119);
+              v125.second = second;
+              AbsoluteTime = CFGregorianDateGetAbsoluteTime(v125, v17);
               *at = *"";
-              LODWORD(v123) = -2;
-              v119 = AbsoluteTime;
-              CFCalendarAddComponents(a3, &v119, 0, "M", 1);
-              *&v127.year = *&GregorianDate.year;
-              v127.second = second;
-              v94 = CFGregorianDateGetAbsoluteTime(v127, v17);
-              if (v119 - v94 < v94 - AbsoluteTime)
+              LODWORD(v122) = -2;
+              v118 = AbsoluteTime;
+              CFCalendarAddComponents(a3, &v118, 0, "M", 1);
+              *&v126.year = *&GregorianDate.year;
+              v126.second = second;
+              v94 = CFGregorianDateGetAbsoluteTime(v126, v17);
+              if (v118 - v94 < v94 - AbsoluteTime)
               {
                 *&at[0] = 1;
               }
@@ -3928,11 +3892,11 @@ LABEL_216:
               v95 = 0;
               while (1)
               {
-                v119 = AbsoluteTime;
-                CFCalendarAddComponents(a3, &v119, 0, "M", *(at + v95));
-                v96 = *&CFAbsoluteTimeGetGregorianDate(v119, v17);
-                v97 = CFAbsoluteTimeGetDayOfWeek(v119, v17);
-                if (v97 % 7 == v120)
+                v118 = AbsoluteTime;
+                CFCalendarAddComponents(a3, &v118, 0, "M", *(at + v95));
+                v96 = *&CFAbsoluteTimeGetGregorianDate(v118, v17);
+                v97 = CFAbsoluteTimeGetDayOfWeek(v118, v17);
+                if (v97 % 7 == v119)
                 {
                   break;
                 }
@@ -3940,14 +3904,14 @@ LABEL_216:
                 v95 += 4;
                 if (v95 == 20)
                 {
-                  v98 = v121;
+                  v98 = v120;
                   goto LABEL_201;
                 }
               }
 
               v98 = (v96 >> 8) >> 24;
-              HIDWORD(v120) = v96;
-              LODWORD(v121) = v98;
+              HIDWORD(v119) = v96;
+              LODWORD(v120) = v98;
 LABEL_201:
               a6 = v23;
               if (v98)
@@ -3969,14 +3933,14 @@ LABEL_201:
               goto LABEL_186;
             }
 
-            v108 = v91[10];
-            if (!v108)
+            v107 = v91[10];
+            if (!v107)
             {
-              v108 = v91[9];
+              v107 = v91[9];
             }
 
             LODWORD(at[0]) = 138412290;
-            *(at + 4) = v108;
+            *(at + 4) = v107;
             v61 = "Could not extract the day of week from the value %@";
             goto LABEL_132;
           }
@@ -3993,7 +3957,7 @@ LABEL_201:
 
           v83 = v87[v82 - 1];
 LABEL_165:
-          HIDWORD(v121) = v83;
+          HIDWORD(v120) = v83;
           a6 = v23;
           second = GregorianDate.second;
           if (v83 < 0)
@@ -4019,7 +3983,7 @@ LABEL_165:
       }
 
       v54 = 0;
-      HIDWORD(v121) = -1;
+      HIDWORD(v120) = -1;
       goto LABEL_187;
     }
 
@@ -4054,8 +4018,8 @@ LABEL_150:
     year = GregorianDate.year;
   }
 
-  HIDWORD(v120) = year;
-  LOBYTE(v119) = 0;
+  HIDWORD(v119) = year;
+  LOBYTE(v118) = 0;
   LODWORD(at[0]) = 0;
   v35 = DDResultGetSubresultWithType(v32, @"Identifier");
   if (v35)
@@ -4089,9 +4053,9 @@ LABEL_150:
     a6 = v23;
   }
 
-  v53 = DDResultExtractDayAndMonthWithSpecialDayIdentifierInYear(v36, v52, a2, &v119, at, &v121 + 1, &v121, year);
+  DayAndMonthWithSpecialDayIdentifierInYear = DDResultExtractDayAndMonthWithSpecialDayIdentifierInYear(v36, v52, a2, &v118, at, &v120 + 1, &v120, year);
   v54 = 0;
-  if (v53 && (v121 & 0x8000000000000000) == 0 && (v121 & 0x80000000) == 0)
+  if (DayAndMonthWithSpecialDayIdentifierInYear && (v120 & 0x8000000000000000) == 0 && (v120 & 0x80000000) == 0)
   {
     goto LABEL_111;
   }
@@ -4102,7 +4066,6 @@ LABEL_187:
     CFRelease(v17);
   }
 
-  v100 = *MEMORY[0x1E69E9840];
   return v54;
 }
 
@@ -4155,42 +4118,42 @@ uint64_t DDGetUnitValueFromSubBinder(uint64_t a1, const __CFString *a2)
 uint64_t extractDMYFromAmbiguousForm(CFIndex Count, const __CFLocale *a2, _DWORD *a3, int *a4, int *a5)
 {
   v5 = Count;
-  v78 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   v6 = *(Count + 56);
   if (!v6 || (Count = CFArrayGetCount(*(Count + 56)), (Count - 4) <= 0xFFFFFFFFFFFFFFFDLL))
   {
     DDLogErrD(Count, a2, a3, a4, a5, @"bad subresult %@", v5);
-    goto LABEL_4;
+    return 0;
   }
 
-  v13 = Count;
-  v14 = 0;
-  v15 = v77;
+  v12 = Count;
+  v13 = 0;
+  v14 = v76;
   do
   {
-    ValueAtIndex = CFArrayGetValueAtIndex(v6, v14);
+    ValueAtIndex = CFArrayGetValueAtIndex(v6, v13);
     if (ValueAtIndex)
     {
-      v17 = ValueAtIndex;
+      v16 = ValueAtIndex;
       ValueAtIndex = ValueAtIndex[2].data;
       if (!ValueAtIndex)
       {
-        ValueAtIndex = v17[2].info;
+        ValueAtIndex = v16[2].info;
       }
     }
 
-    Integer = extractInteger(ValueAtIndex, v15);
+    Integer = extractInteger(ValueAtIndex, v14);
     if ((Integer & 1) == 0)
     {
-      DDLogErrD(Integer, v19, v20, v21, v22, @"could not extract integer at %ld from %@", v14, v5);
-      goto LABEL_4;
+      DDLogErrD(Integer, v18, v19, v20, v21, @"could not extract integer at %ld from %@", v13, v5);
+      return 0;
     }
 
+    ++v13;
     ++v14;
-    ++v15;
   }
 
-  while (v13 != v14);
+  while (v12 != v13);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 0x40000000;
   block[2] = __extractDMYFromAmbiguousForm_block_invoke;
@@ -4201,353 +4164,349 @@ uint64_t extractDMYFromAmbiguousForm(CFIndex Count, const __CFLocale *a2, _DWORD
     dispatch_once(&extractDMYFromAmbiguousForm_sOnce, block);
   }
 
-  v23 = extractDMYFromAmbiguousForm_sFormatLocale;
-  if (extractDMYFromAmbiguousForm_sFormatLocale && (v24 = MEMORY[0x1BFB34430](a2), CFEqual(v23, v24)))
+  v22 = extractDMYFromAmbiguousForm_sFormatLocale;
+  if (extractDMYFromAmbiguousForm_sFormatLocale && (v23 = MEMORY[0x1BFB34430](a2), CFEqual(v22, v23)))
   {
-    v25 = &extractDMYFromAmbiguousForm_sFormat2;
-    if (v13 != 2)
+    v24 = &extractDMYFromAmbiguousForm_sFormat2;
+    if (v12 != 2)
     {
-      v25 = &extractDMYFromAmbiguousForm_sFormat3;
+      v24 = &extractDMYFromAmbiguousForm_sFormat3;
     }
 
-    DateFormatFromTemplate = CFRetain(*v25);
+    DateFormatFromTemplate = CFRetain(*v24);
   }
 
   else
   {
-    if (v13 == 3)
+    if (v12 == 3)
     {
-      v31 = @"yMd";
+      v30 = @"yMd";
     }
 
     else
     {
-      v31 = @"Md";
+      v30 = @"Md";
     }
 
-    DateFormatFromTemplate = CFDateFormatterCreateDateFormatFromTemplate(*MEMORY[0x1E695E480], v31, 0, a2);
+    DateFormatFromTemplate = CFDateFormatterCreateDateFormatFromTemplate(*MEMORY[0x1E695E480], v30, 0, a2);
   }
 
-  v32 = DateFormatFromTemplate;
+  v31 = DateFormatFromTemplate;
   if (!DateFormatFromTemplate)
   {
-    DDLogErrD(0, v27, v28, v29, v30, @"could not get the date format string from the current locale");
-    goto LABEL_4;
+    DDLogErrD(0, v26, v27, v28, v29, @"could not get the date format string from the current locale");
+    return 0;
   }
 
   Length = CFStringGetLength(DateFormatFromTemplate);
-  v75 = Length;
+  v74 = Length;
   if (Length >= 100)
   {
-    DDLogErrD(Length, v34, v35, v36, v37, @"format length too long");
-    CFRelease(v32);
-    goto LABEL_4;
+    DDLogErrD(Length, v33, v34, v35, v36, @"format length too long");
+    CFRelease(v31);
+    return 0;
   }
 
-  v38 = Length;
-  v39 = MEMORY[0x1EEE9AC00](Length);
-  v40 = &v74 - ((v39 + 16) & 0xFFFFFFFFFFFFFFF0);
-  bzero(v40, v39 + 1);
-  v79.location = 0;
-  v79.length = v38;
-  CFStringGetBytes(v32, v79, 0x600u, 0x3Fu, 0, v40, v38 + 1, &v75);
-  v40[v75] = 0;
-  CFRelease(v32);
-  v46 = 0;
-  v47 = 0xFFFFFFFFLL;
+  v37 = Length;
+  v38 = MEMORY[0x1EEE9AC00](Length);
+  v39 = &v73 - ((v38 + 16) & 0xFFFFFFFFFFFFFFF0);
+  bzero(v39, v38 + 1);
+  v78.location = 0;
+  v78.length = v37;
+  CFStringGetBytes(v31, v78, 0x600u, 0x3Fu, 0, v39, v37 + 1, &v74);
+  v39[v74] = 0;
+  CFRelease(v31);
+  v45 = 0;
+  v46 = 0xFFFFFFFFLL;
   do
   {
-    v48 = v77[v46];
-    if (!v48 || v48 >= 32)
+    v47 = v76[v45];
+    if (!v47 || v47 >= 32)
     {
-      if (v47 != -1)
+      if (v46 != -1)
       {
-        DDLogErrD(v41, v42, v43, v44, v45, @"Aborting, impossible date pattern, too many years in %@", v5);
-        goto LABEL_4;
+        DDLogErrD(v40, v41, v42, v43, v44, @"Aborting, impossible date pattern, too many years in %@", v5);
+        return 0;
       }
 
-      v47 = v46;
+      v46 = v45;
     }
 
-    ++v46;
+    ++v45;
   }
 
-  while (v13 != v46);
-  if (v47 == -1)
+  while (v12 != v45);
+  if (v46 == -1)
   {
-    v50 = 0xFFFFFFFFLL;
+    v49 = 0xFFFFFFFFLL;
   }
 
   else
   {
-    v49 = 0;
-    v50 = 0xFFFFFFFFLL;
+    v48 = 0;
+    v49 = 0xFFFFFFFFLL;
     do
     {
-      if (v77[v49] >= 13 && v47 != v49)
+      if (v76[v48] >= 13 && v46 != v48)
       {
-        if (v50 != -1)
+        if (v49 != -1)
         {
-          DDLogErrD(v41, v42, v43, v44, v45, @"Aborting, impossible date pattern, too many month in %@", v5);
-          goto LABEL_4;
+          DDLogErrD(v40, v41, v42, v43, v44, @"Aborting, impossible date pattern, too many month in %@", v5);
+          return 0;
         }
 
-        v50 = v49;
+        v49 = v48;
       }
 
-      ++v49;
+      ++v48;
     }
 
-    while (v13 != v49);
+    while (v12 != v48);
   }
 
-  v52 = *v40;
-  if (!*v40)
+  v51 = *v39;
+  if (!*v39)
   {
-    v54 = 0xFFFFFFFFLL;
-    goto LABEL_91;
+    v53 = 0xFFFFFFFFLL;
+    goto LABEL_90;
   }
 
-  v53 = 0;
-  v54 = 0xFFFFFFFFLL;
-  while (v53 != v47 && v53 != v54 && v53 != v50)
+  v52 = 0;
+  v53 = 0xFFFFFFFFLL;
+  while (v52 != v46 && v52 != v53 && v52 != v49)
   {
-LABEL_73:
-    if (v52 > 99)
+LABEL_72:
+    if (v51 > 99)
     {
-      if (v52 == 100)
+      if (v51 == 100)
       {
-        if (v50 == -1)
+        if (v49 == -1)
         {
-          v50 = v53;
-        }
-
-        else
-        {
-          v50 = v50;
-        }
-
-        goto LABEL_88;
-      }
-
-      if (v52 == 121)
-      {
-LABEL_82:
-        if (v47 == -1)
-        {
-          v47 = v53;
+          v49 = v52;
         }
 
         else
         {
-          v47 = v47;
+          v49 = v49;
         }
-      }
-    }
 
-    else if ((v52 - 76) >= 2)
-    {
-      if (v52 == 89)
-      {
-        goto LABEL_82;
-      }
-    }
-
-    else if (v54 == -1)
-    {
-      v54 = v53;
-    }
-
-    else
-    {
-      v54 = v54;
-    }
-
-LABEL_88:
-    v63 = *++v40;
-    v52 = v63;
-    if (!v63)
-    {
-      goto LABEL_91;
-    }
-  }
-
-  v55 = 0;
-  if (v53 <= 2)
-  {
-    v56 = 2;
-  }
-
-  else
-  {
-    v56 = v53;
-  }
-
-  v57 = v56 - v53;
-  v41 = v53;
-  v42 = &v77[v53 + 1];
-  v43 = v53;
-  v44 = (1 - v54) + v53;
-  v45 = (1 - v47) + v53;
-  while (v57 != v55)
-  {
-    v58 = v53 + v55 + 1;
-    v59 = v44 + v55;
-    v60 = v45 + v55;
-    if (v13 > v53 + v55 + 1 && v60 && v59 && v58 != v50)
-    {
-      if (v50 != -1 || v47 == -1)
-      {
-        v62 = v50;
+        goto LABEL_87;
       }
 
-      else
+      if (v51 == 121)
       {
-        v62 = v53 + v55 + 1;
-      }
-
-      if (v42[v55] >= 13)
-      {
-        v50 = v62;
-      }
-
-      else
-      {
-        v50 = v50;
-      }
-    }
-
-    ++v55;
-    if (v60 && v59 && v58 != v50)
-    {
-      v53 += v55;
-      goto LABEL_73;
-    }
-  }
-
-LABEL_91:
-  if (v13 != 2)
-  {
-    if (v50 <= 2 && ((v54 | v47) & 0x80000000) == 0 && v54 <= 2 && v47 < 3)
-    {
-      v64 = v77[v47];
-      goto LABEL_100;
-    }
-
-    goto LABEL_115;
-  }
-
-  if (v50 > 1 || v54 >= 2)
-  {
-LABEL_115:
-    DDLogErrD(v41, v42, v43, v44, v45, @"Aborting, one of the position is incorrect (%d, %d, %d)", v50, v54, v47);
-    goto LABEL_4;
-  }
-
-  v64 = -1;
-LABEL_100:
-  v65 = v77[v54];
-  v66 = v77[v50];
-  if (v65 >= 13 && (v66 - 1) <= 0xB)
-  {
-    v67 = lastDayOfMonthLeapYear[(v66 - 1)];
-    v68 = v65 <= v67;
-    if (v65 <= v67)
-    {
-      v69 = v65;
-    }
-
-    else
-    {
-      v69 = v66;
-    }
-
-    if (v68)
-    {
-      v65 = v66;
-    }
-
-    v66 = v69;
-  }
-
-  if ((v65 - 13) < 0xFFFFFFF4)
-  {
-    goto LABEL_4;
-  }
-
-  if (v66 < 1)
-  {
-    goto LABEL_113;
-  }
-
-  v70 = lastDayOfMonthLeapYear[v65 - 1];
-  if (v66 <= v70)
-  {
-    if (v13 >= 3)
-    {
-      v71 = 0;
-      while (v77[v71] <= v70)
-      {
-        if (++v71 == 3)
+LABEL_81:
+        if (v46 == -1)
         {
-          goto LABEL_122;
+          v46 = v52;
+        }
+
+        else
+        {
+          v46 = v46;
         }
       }
+    }
 
-      if (v47 != v71)
+    else if ((v51 - 76) >= 2)
+    {
+      if (v51 == 89)
       {
-        DDLogErrD(v41, v42, v43, v44, v45, @"Locale information is useless (year)");
-        goto LABEL_4;
+        goto LABEL_81;
       }
     }
 
-LABEL_122:
-    *a3 = v66;
-    *a4 = v65;
-    v72 = v64 + 1900;
-    if (v64 >= 0x64)
+    else if (v53 == -1)
     {
-      v72 = v64;
-    }
-
-    if (v64 <= 0x31)
-    {
-      v72 = v64 + 2000;
-    }
-
-    if (v64 >= 0)
-    {
-      v73 = v72;
+      v53 = v52;
     }
 
     else
     {
-      v73 = -1;
+      v53 = v53;
     }
 
-    *a5 = v73;
-    result = 1;
+LABEL_87:
+    v62 = *++v39;
+    v51 = v62;
+    if (!v62)
+    {
+      goto LABEL_90;
+    }
+  }
+
+  v54 = 0;
+  if (v52 <= 2)
+  {
+    v55 = 2;
   }
 
   else
   {
-    if ((v66 - 32) <= 0xFFFFFFE0)
-    {
-LABEL_113:
-      DDLogErrD(v41, v42, v43, v44, v45, @"Day (%d) is out of bounds", v66);
-    }
-
-LABEL_4:
-    result = 0;
+    v55 = v52;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  v56 = v55 - v52;
+  v40 = v52;
+  v41 = &v76[v52 + 1];
+  v42 = v52;
+  v43 = (1 - v53) + v52;
+  v44 = (1 - v46) + v52;
+  while (v56 != v54)
+  {
+    v57 = v52 + v54 + 1;
+    v58 = v43 + v54;
+    v59 = v44 + v54;
+    if (v12 > v52 + v54 + 1 && v59 && v58 && v57 != v49)
+    {
+      if (v49 != -1 || v46 == -1)
+      {
+        v61 = v49;
+      }
+
+      else
+      {
+        v61 = v52 + v54 + 1;
+      }
+
+      if (v41[v54] >= 13)
+      {
+        v49 = v61;
+      }
+
+      else
+      {
+        v49 = v49;
+      }
+    }
+
+    ++v54;
+    if (v59 && v58 && v57 != v49)
+    {
+      v52 += v54;
+      goto LABEL_72;
+    }
+  }
+
+LABEL_90:
+  if (v12 != 2)
+  {
+    if (v49 <= 2 && ((v53 | v46) & 0x80000000) == 0 && v53 <= 2 && v46 < 3)
+    {
+      v63 = v76[v46];
+      goto LABEL_99;
+    }
+
+    goto LABEL_114;
+  }
+
+  if (v49 > 1 || v53 >= 2)
+  {
+LABEL_114:
+    DDLogErrD(v40, v41, v42, v43, v44, @"Aborting, one of the position is incorrect (%d, %d, %d)", v49, v53, v46);
+    return 0;
+  }
+
+  v63 = -1;
+LABEL_99:
+  v64 = v76[v53];
+  v65 = v76[v49];
+  if (v64 >= 13 && (v65 - 1) <= 0xB)
+  {
+    v66 = lastDayOfMonthLeapYear[(v65 - 1)];
+    v67 = v64 <= v66;
+    if (v64 <= v66)
+    {
+      v68 = v64;
+    }
+
+    else
+    {
+      v68 = v65;
+    }
+
+    if (v67)
+    {
+      v64 = v65;
+    }
+
+    v65 = v68;
+  }
+
+  if ((v64 - 13) < 0xFFFFFFF4)
+  {
+    return 0;
+  }
+
+  if (v65 < 1)
+  {
+    goto LABEL_112;
+  }
+
+  v69 = lastDayOfMonthLeapYear[v64 - 1];
+  if (v65 <= v69)
+  {
+    if (v12 >= 3)
+    {
+      v70 = 0;
+      while (v76[v70] <= v69)
+      {
+        if (++v70 == 3)
+        {
+          goto LABEL_121;
+        }
+      }
+
+      if (v46 != v70)
+      {
+        DDLogErrD(v40, v41, v42, v43, v44, @"Locale information is useless (year)");
+        return 0;
+      }
+    }
+
+LABEL_121:
+    *a3 = v65;
+    *a4 = v64;
+    v71 = v63 + 1900;
+    if (v63 >= 0x64)
+    {
+      v71 = v63;
+    }
+
+    if (v63 <= 0x31)
+    {
+      v71 = v63 + 2000;
+    }
+
+    if (v63 >= 0)
+    {
+      v72 = v71;
+    }
+
+    else
+    {
+      v72 = -1;
+    }
+
+    *a5 = v72;
+    return 1;
+  }
+
+  else
+  {
+    if ((v65 - 32) <= 0xFFFFFFE0)
+    {
+LABEL_112:
+      DDLogErrD(v40, v41, v42, v43, v44, @"Day (%d) is out of bounds", v65);
+    }
+
+    return 0;
+  }
 }
 
 uint64_t extractGregorianYear(uint64_t a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   SubresultWithType = DDResultGetSubresultWithType(a1, @"YearNumber");
   if (SubresultWithType)
   {
@@ -4574,27 +4533,23 @@ uint64_t extractGregorianYear(uint64_t a1)
 
       if (*buf >= 0)
       {
-        result = v5;
+        return v5;
       }
 
       else
       {
-        result = 0xFFFFFFFFLL;
+        return 0xFFFFFFFFLL;
       }
-
-      goto LABEL_62;
     }
 
-LABEL_61:
-    result = 0xFFFFFFFFLL;
-    goto LABEL_62;
+    return 0xFFFFFFFFLL;
   }
 
   v7 = DDResultGetSubresultWithType(a1, @"JapaneseYear");
   if (v7)
   {
     v8 = v7;
-    v28 = 0;
+    v27 = 0;
     data = DDResultGetSubresultWithType(v7, @"JapaneseYearNumber");
     if (data)
     {
@@ -4606,15 +4561,15 @@ LABEL_61:
       }
     }
 
-    if (!extractInteger(data, &v28))
+    if (!extractInteger(data, &v27))
     {
-      goto LABEL_61;
+      return 0xFFFFFFFFLL;
     }
 
     v11 = DDResultGetSubresultWithType(v8, @"JapaneseEra");
     if (!v11)
     {
-      goto LABEL_78;
+      return v27;
     }
 
     v12 = v11[10];
@@ -4623,13 +4578,13 @@ LABEL_61:
       v12 = v11[9];
       if (!v12)
       {
-        goto LABEL_78;
+        return v27;
       }
     }
 
     if (CFStringGetLength(v12) <= 0)
     {
-      goto LABEL_70;
+      goto LABEL_69;
     }
 
     CharacterAtIndex = CFStringGetCharacterAtIndex(v12, 0);
@@ -4646,7 +4601,7 @@ LABEL_61:
 
           if (CharacterAtIndex != 104)
           {
-            goto LABEL_70;
+            goto LABEL_69;
           }
         }
       }
@@ -4662,43 +4617,41 @@ LABEL_61:
           }
 
 LABEL_59:
-          v24 = v28 + 2019;
-          goto LABEL_73;
+          v24 = v27 + 2019;
+          goto LABEL_72;
         }
 
         if (CharacterAtIndex != 13179)
         {
-          v26 = 13180;
-LABEL_68:
-          if (CharacterAtIndex != v26)
+          v25 = 13180;
+LABEL_67:
+          if (CharacterAtIndex != v25)
           {
-            goto LABEL_70;
+            goto LABEL_69;
           }
 
-          v24 = v28 + 1926;
-LABEL_73:
-          v28 = v24 - 1;
+          v24 = v27 + 1926;
+LABEL_72:
+          v27 = v24 - 1;
           if (v24 <= 0)
           {
-            goto LABEL_74;
+            goto LABEL_73;
           }
 
-LABEL_78:
-          result = v28;
-          goto LABEL_62;
+          return v27;
         }
       }
 
-LABEL_65:
-      v24 = v28 + 1989;
-      goto LABEL_73;
+LABEL_64:
+      v24 = v27 + 1989;
+      goto LABEL_72;
     }
 
     if (CharacterAtIndex <= 22822)
     {
       if (CharacterAtIndex == 13181)
       {
-        goto LABEL_71;
+        goto LABEL_70;
       }
 
       if (CharacterAtIndex != 13182)
@@ -4710,23 +4663,23 @@ LABEL_58:
           goto LABEL_59;
         }
 
-LABEL_70:
-        v28 = -1;
-LABEL_74:
+LABEL_69:
+        v27 = -1;
+LABEL_73:
         if (DDLogHandle_onceToken != -1)
         {
           dispatch_once(&DDLogHandle_onceToken, &__block_literal_global_791);
         }
 
-        v27 = DDLogHandle_error_log_handle;
+        v26 = DDLogHandle_error_log_handle;
         if (os_log_type_enabled(DDLogHandle_error_log_handle, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v30 = v12;
-          _os_log_error_impl(&dword_1BCFDD000, v27, OS_LOG_TYPE_ERROR, "Unknown era: %@", buf, 0xCu);
+          v29 = v12;
+          _os_log_error_impl(&dword_1BCFDD000, v26, OS_LOG_TYPE_ERROR, "Unknown era: %@", buf, 0xCu);
         }
 
-        goto LABEL_78;
+        return v27;
       }
     }
 
@@ -4738,26 +4691,26 @@ LABEL_74:
         {
           if (CharacterAtIndex != 24179)
           {
-            goto LABEL_70;
+            goto LABEL_69;
           }
 
-          goto LABEL_65;
+          goto LABEL_64;
         }
 
-LABEL_71:
-        v24 = v28 + 1912;
-        goto LABEL_73;
+LABEL_70:
+        v24 = v27 + 1912;
+        goto LABEL_72;
       }
 
       if (CharacterAtIndex != 26126)
       {
-        v26 = 26157;
-        goto LABEL_68;
+        v25 = 26157;
+        goto LABEL_67;
       }
     }
 
-    v24 = v28 + 1868;
-    goto LABEL_73;
+    v24 = v27 + 1868;
+    goto LABEL_72;
   }
 
   v15 = DDResultGetSubresultWithType(a1, @"MinguoYear");
@@ -4782,15 +4735,13 @@ LABEL_71:
           {
             if ((*buf - 43) > 0x31)
             {
-              result = (*buf + 1857);
+              return (*buf + 1857);
             }
 
             else
             {
-              result = (*buf + 1957);
+              return (*buf + 1957);
             }
-
-            goto LABEL_62;
           }
         }
 
@@ -4799,31 +4750,23 @@ LABEL_71:
           v23 = *buf - 543;
           if (*buf >= 0x21Fu)
           {
-            if (v23 > 0x31)
+            if (v23 <= 0x31)
             {
-              if (v23 >= 0x64)
-              {
-                result = v23;
-              }
-
-              else
-              {
-                result = (*buf + 1357);
-              }
+              return (*buf + 1457);
             }
 
-            else
+            if (v23 >= 0x64)
             {
-              result = (*buf + 1457);
+              return v23;
             }
 
-            goto LABEL_62;
+            return (*buf + 1357);
           }
         }
       }
     }
 
-    goto LABEL_61;
+    return 0xFFFFFFFFLL;
   }
 
   v16 = v15;
@@ -4836,7 +4779,7 @@ LABEL_71:
 
   if (!extractInteger(v17, buf))
   {
-    goto LABEL_61;
+    return 0xFFFFFFFFLL;
   }
 
   v18 = *buf + 3811;
@@ -4857,20 +4800,16 @@ LABEL_71:
 
   if (*buf >= -1911)
   {
-    result = v19;
+    return v19;
   }
 
   else
   {
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
-
-LABEL_62:
-  v25 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
-uint64_t DDResultExtractDayAndMonthWithSpecialDayIdentifierInYear(void *key, uint64_t a2, const __CFLocale *a3, Boolean *a4, int *a5, _DWORD *a6, _DWORD *a7, unsigned int a8)
+uint64_t DDResultExtractDayAndMonthWithSpecialDayIdentifierInYear(void *key, uint64_t a2, const __CFLocale *a3, Boolean *a4, int *a5, _DWORD *a6, int *a7, unsigned int a8)
 {
   *a6 = 1;
   *a7 = 1;
@@ -4923,50 +4862,32 @@ uint64_t DDResultExtractDayAndMonthWithSpecialDayIdentifierInYear(void *key, uin
   }
 
   v21 = *MEMORY[0x1E695E480];
-  if (!a2)
+  if (!a2 || (alloc = *MEMORY[0x1E695E480], v22 = CFStringCreateWithFormat(v21, 0, @"%@.%@", v20, a2), v23 = CFDictionaryGetValue(v17, v22), CFRelease(v22), !v23) && (v24 = CFStringCreateWithFormat(alloc, 0, @"default.%@", a2), v23 = CFDictionaryGetValue(v17, v24), v25 = v24, v21 = alloc, CFRelease(v25), !v23))
   {
-    goto LABEL_32;
-  }
-
-  alloc = *MEMORY[0x1E695E480];
-  v22 = CFStringCreateWithFormat(v21, 0, @"%@.%@", v20, a2);
-  v23 = CFDictionaryGetValue(v17, v22);
-  CFRelease(v22);
-  if (!v23)
-  {
-    v24 = CFStringCreateWithFormat(alloc, 0, @"default.%@", a2);
-    v23 = CFDictionaryGetValue(v17, v24);
-    v25 = v24;
-    v21 = alloc;
-    CFRelease(v25);
+    v26 = CFDictionaryGetValue(v17, v20);
+    v27 = v26 ? v26 : @"GREGORIAN";
+    v34 = v20;
+    v28 = v21;
+    v29 = CFStringCreateWithFormat(v21, 0, @"%@.%@", v34, v27);
+    v23 = CFDictionaryGetValue(v17, v29);
+    CFRelease(v29);
     if (!v23)
     {
-LABEL_32:
-      v26 = CFDictionaryGetValue(v17, v20);
-      v27 = v26 ? v26 : @"GREGORIAN";
-      v34 = v20;
-      v28 = v21;
-      v29 = CFStringCreateWithFormat(v21, 0, @"%@.%@", v34, v27);
-      v23 = CFDictionaryGetValue(v17, v29);
-      CFRelease(v29);
+      v30 = CFStringCreateWithFormat(v28, 0, @"default.%@", v27);
+      v23 = CFDictionaryGetValue(v17, v30);
+      CFRelease(v30);
       if (!v23)
       {
-        v30 = CFStringCreateWithFormat(v28, 0, @"default.%@", v27);
-        v23 = CFDictionaryGetValue(v17, v30);
-        CFRelease(v30);
-        if (!v23)
+        v31 = CFDictionaryGetValue(v17, @"default");
+        v32 = @"GREGORIAN";
+        if (v31)
         {
-          v31 = CFDictionaryGetValue(v17, @"default");
-          v32 = @"GREGORIAN";
-          if (v31)
-          {
-            v32 = v31;
-          }
-
-          v33 = CFStringCreateWithFormat(v28, 0, @"default.%@", v32);
-          v23 = CFDictionaryGetValue(v17, v33);
-          CFRelease(v33);
+          v32 = v31;
         }
+
+        v33 = CFStringCreateWithFormat(v28, 0, @"default.%@", v32);
+        v23 = CFDictionaryGetValue(v17, v33);
+        CFRelease(v33);
       }
     }
   }
@@ -5027,9 +4948,9 @@ dispatch_queue_t __DDResultExtractDayMonthYear_block_invoke()
   return result;
 }
 
-uint64_t DDExtractDayAndMonthFromSpecialDayInYearRec(_DWORD *a1, _DWORD *a2, uint64_t a3, Boolean *a4, int *a5, uint64_t a6, const __CFDictionary *a7, int a8)
+uint64_t DDExtractDayAndMonthFromSpecialDayInYearRec(_DWORD *a1, int *a2, uint64_t a3, Boolean *a4, int *a5, uint64_t a6, const __CFDictionary *a7, int a8)
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   if (a8 >= 2)
   {
     if (DDLogHandle_onceToken != -1)
@@ -5050,12 +4971,10 @@ uint64_t DDExtractDayAndMonthFromSpecialDayInYearRec(_DWORD *a1, _DWORD *a2, uin
       v14 = 18;
 LABEL_6:
       _os_log_error_impl(&dword_1BCFDD000, v13, OS_LOG_TYPE_ERROR, v12, &buf, v14);
-LABEL_33:
-      result = 0;
-      goto LABEL_55;
+      return 0;
     }
 
-    goto LABEL_55;
+    return result;
   }
 
   Value = CFDictionaryGetValue(a7, @"Type");
@@ -5080,7 +4999,7 @@ LABEL_33:
     CFNumberGetValue(v30, kCFNumberIntType, &valuePtr);
     if (extractDayFromWeekDayRelativeToMonth(a3, *a2, buf.years, valuePtr) < 1)
     {
-      goto LABEL_33;
+      return 0;
     }
 
     *a1 = extractDayFromWeekDayRelativeToMonth(a3, *a2, buf.years, valuePtr);
@@ -5128,7 +5047,7 @@ LABEL_33:
         {
 LABEL_32:
           CFRelease(v22);
-          goto LABEL_33;
+          return 0;
         }
       }
 
@@ -5149,7 +5068,7 @@ LABEL_36:
       if (valuePtr)
       {
         memset(&buf.hours, 0, 20);
-        v65 = a1;
+        v64 = a1;
         cfa = a3;
         v50 = a6;
         v51 = *a1;
@@ -5160,20 +5079,19 @@ LABEL_36:
         v56 = (v51 << 40) | (v54 << 32);
         a5 = v53;
         a4 = v52;
-        *&v71.year = v56 | cfa;
-        v71.second = 0.0;
-        AbsoluteTime = CFGregorianDateGetAbsoluteTime(v71, v55);
+        *&v70.year = v56 | cfa;
+        v70.second = 0.0;
+        AbsoluteTime = CFGregorianDateGetAbsoluteTime(v70, v55);
         *&buf.years = 0;
         buf.days = v49;
         v58 = CFAbsoluteTimeAddGregorianUnits(AbsoluteTime, v55, &buf);
         v59 = *&CFAbsoluteTimeGetGregorianDate(v58, v55);
         CFRelease(v55);
-        *v65 = (v59 >> 16) >> 24;
+        *v64 = (v59 >> 16) >> 24;
         *a2 = (v59 >> 8) >> 24;
         if (v59 != cfa)
         {
-          result = DDExtractDayAndMonthFromSpecialDayInYearRec(v65, a2, 2 * cfa - v59, v52, a5, v50, a7, (a8 + 1));
-          goto LABEL_55;
+          return DDExtractDayAndMonthFromSpecialDayInYearRec(v64, a2, 2 * cfa - v59, v52, a5, v50, a7, a8 + 1);
         }
       }
     }
@@ -5187,46 +5105,47 @@ LABEL_36:
       }
     }
 
-    if (a5)
+    if (!a5)
     {
-      v61 = CFDictionaryGetValue(a7, @"Observed");
-      if (v61)
-      {
-        v62 = v61;
-        if (CFStringCompare(v61, @"closestBusinessDay", 0) == kCFCompareEqualTo)
-        {
-          result = 1;
-          *a5 = 1;
-          goto LABEL_55;
-        }
-
-        if (CFStringCompare(v62, @"nextBusinessDay", 0))
-        {
-          if (CFStringCompare(v62, @"previousBusinessDay", 0))
-          {
-            if (CFStringCompare(v62, @"sameDay", 0) == kCFCompareEqualTo)
-            {
-              *a5 = 0;
-            }
-
-            goto LABEL_54;
-          }
-
-          v63 = 2;
-        }
-
-        else
-        {
-          v63 = 3;
-        }
-
-        *a5 = v63;
-      }
+      return 1;
     }
 
-LABEL_54:
-    result = 1;
-    goto LABEL_55;
+    v61 = CFDictionaryGetValue(a7, @"Observed");
+    if (!v61)
+    {
+      return 1;
+    }
+
+    v62 = v61;
+    if (CFStringCompare(v61, @"closestBusinessDay", 0) == kCFCompareEqualTo)
+    {
+      result = 1;
+      *a5 = 1;
+      return result;
+    }
+
+    if (CFStringCompare(v62, @"nextBusinessDay", 0))
+    {
+      if (CFStringCompare(v62, @"previousBusinessDay", 0))
+      {
+        if (CFStringCompare(v62, @"sameDay", 0) == kCFCompareEqualTo)
+        {
+          *a5 = 0;
+        }
+
+        return 1;
+      }
+
+      v63 = 2;
+    }
+
+    else
+    {
+      v63 = 3;
+    }
+
+    *a5 = v63;
+    return 1;
   }
 
   v31 = CFDictionaryGetValue(a7, @"SpecialDate");
@@ -5282,18 +5201,16 @@ LABEL_54:
     goto LABEL_6;
   }
 
-LABEL_55:
-  v64 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t extractDayFromWeekDayRelativeToMonth(unsigned int a1, unsigned __int8 a2, int a3, int a4)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v8 = CFTimeZoneCopyDefault();
-  *&v22.year = a1 | (a2 << 32) | 0x10000000000;
-  v22.second = 0.0;
-  AbsoluteTime = CFGregorianDateGetAbsoluteTime(v22, v8);
+  *&v21.year = a1 | (a2 << 32) | 0x10000000000;
+  v21.second = 0.0;
+  AbsoluteTime = CFGregorianDateGetAbsoluteTime(v21, v8);
   v10 = _copyDefaultCalendar();
   if (!v10)
   {
@@ -5305,24 +5222,22 @@ uint64_t extractDayFromWeekDayRelativeToMonth(unsigned int a1, unsigned __int8 a
     v14 = DDLogHandle_error_log_handle;
     if (os_log_type_enabled(DDLogHandle_error_log_handle, OS_LOG_TYPE_ERROR))
     {
-      v20.years = 136315138;
-      *&v20.months = "extractDayFromWeekDayRelativeToMonth";
-      _os_log_error_impl(&dword_1BCFDD000, v14, OS_LOG_TYPE_ERROR, "Couldn't fetch the gregorian calendar in %s...", &v20, 0xCu);
+      v19.years = 136315138;
+      *&v19.months = "extractDayFromWeekDayRelativeToMonth";
+      _os_log_error_impl(&dword_1BCFDD000, v14, OS_LOG_TYPE_ERROR, "Couldn't fetch the gregorian calendar in %s...", &v19, 0xCu);
       if (!v8)
       {
-        goto LABEL_9;
+        return 0xFFFFFFFFLL;
       }
     }
 
     else if (!v8)
     {
-LABEL_9:
-      result = 0xFFFFFFFFLL;
-      goto LABEL_17;
+      return 0xFFFFFFFFLL;
     }
 
     CFRelease(v8);
-    goto LABEL_9;
+    return 0xFFFFFFFFLL;
   }
 
   v11 = v10;
@@ -5330,9 +5245,9 @@ LABEL_9:
   CFRelease(v11);
   if (a4 < 0)
   {
-    memset(&v20.days, 0, 24);
-    *&v20.years = 0x100000000;
-    v16 = CFAbsoluteTimeAddGregorianUnits(AbsoluteTime, v8, &v20);
+    memset(&v19.days, 0, 24);
+    *&v19.years = 0x100000000;
+    v16 = CFAbsoluteTimeAddGregorianUnits(AbsoluteTime, v8, &v19);
     DayOfWeek = CFAbsoluteTimeGetDayOfWeek(v16, v8);
     v13 = length - a4 + 8 * a4 + a3 - DayOfWeek + 7 - 7 * ((a3 - DayOfWeek + 7) / 7) + 1;
   }
@@ -5345,17 +5260,13 @@ LABEL_9:
   CFRelease(v8);
   if (length < v13 || v13 < 1)
   {
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
   else
   {
-    result = v13;
+    return v13;
   }
-
-LABEL_17:
-  v19 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 _DWORD *extractJulianEasterInYear(_DWORD *result, _DWORD *a2, int a3)
@@ -5382,7 +5293,7 @@ _DWORD *extractJulianEasterInYear(_DWORD *result, _DWORD *a2, int a3)
 
 void *__extractDMYFromAmbiguousForm_block_invoke(void *result)
 {
-  v1 = *(result + 4);
+  v1 = result[4];
   if (v1)
   {
     v2 = result;
@@ -5416,7 +5327,7 @@ uint64_t DDResultCopyExtractedDateFromReferenceDate(uint64_t a1, const void *a2,
   return DDResultCopyExtractedDateFromReferenceDateWithLocale(a1, v12, a2, a3, a4, a5, a6);
 }
 
-uint64_t DDResultCopyExtractedStartDateEndDate(uint64_t a1, CFDateRef *a2, CFTypeRef *a3, CFTypeRef *a4, CFTypeRef *a5, BOOL *a6, const void *a7, CFTypeRef cf)
+uint64_t DDResultCopyExtractedStartDateEndDate(const __CFString **a1, CFDateRef *a2, CFTypeRef *a3, CFDateRef *a4, CFTypeRef *a5, BOOL *a6, const void *a7, CFTypeRef cf)
 {
   if (getLocaleForExtraction_sOnce != -1)
   {
@@ -5426,9 +5337,9 @@ uint64_t DDResultCopyExtractedStartDateEndDate(uint64_t a1, CFDateRef *a2, CFTyp
   return DDResultCopyExtractedStartDateEndDateWithLocale(a1, _sLocaleForExtraction, a2, a3, a4, a5, a6, a7, cf);
 }
 
-uint64_t DDResultCopyExtractedStartDateEndDateWithLocale(uint64_t a1, const __CFLocale *a2, CFDateRef *a3, CFTypeRef *a4, CFTypeRef *a5, CFTypeRef *a6, BOOL *a7, const void *a8, CFTypeRef cf)
+uint64_t DDResultCopyExtractedStartDateEndDateWithLocale(const __CFString **a1, const __CFLocale *a2, CFDateRef *a3, CFTypeRef *a4, CFDateRef *a5, CFTypeRef *a6, BOOL *a7, const void *a8, CFTypeRef cf)
 {
-  v154 = *MEMORY[0x1E69E9840];
+  v153 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
     if (DDLogHandle_onceToken != -1)
@@ -5439,7 +5350,7 @@ uint64_t DDResultCopyExtractedStartDateEndDateWithLocale(uint64_t a1, const __CF
     v20 = DDLogHandle_error_log_handle;
     if (!os_log_type_enabled(DDLogHandle_error_log_handle, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_12;
+      return 0;
     }
 
     *buf = 0;
@@ -5448,7 +5359,7 @@ uint64_t DDResultCopyExtractedStartDateEndDateWithLocale(uint64_t a1, const __CF
     v23 = 2;
 LABEL_81:
     _os_log_error_impl(&dword_1BCFDD000, v22, OS_LOG_TYPE_ERROR, v21, buf, v23);
-    goto LABEL_12;
+    return 0;
   }
 
   v17 = _copyDefaultCalendar();
@@ -5462,7 +5373,7 @@ LABEL_81:
     v24 = DDLogHandle_error_log_handle;
     if (!os_log_type_enabled(DDLogHandle_error_log_handle, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_12;
+      return 0;
     }
 
     *buf = 136315138;
@@ -5474,9 +5385,9 @@ LABEL_81:
   }
 
   v18 = v17;
-  v141 = a3;
-  v140 = a5;
-  v138 = a7;
+  v140 = a3;
+  v139 = a5;
+  v137 = a7;
   if (cf)
   {
     v19 = CFRetain(cf);
@@ -5488,10 +5399,10 @@ LABEL_81:
   }
 
   v26 = v19;
-  v139 = a6;
-  v143 = copyBestDateForDate(a8);
+  v138 = a6;
+  v142 = copyBestDateForDate(a8);
   SubresultWithType = a1;
-  if (!_typesAreEqual(*(a1 + 64), @"TimeDuration"))
+  if (!_typesAreEqual(a1[8], @"TimeDuration"))
   {
     SubresultWithType = DDResultGetSubresultWithType(a1, @"TimeDuration");
   }
@@ -5513,8 +5424,8 @@ LABEL_81:
     }
 
     v38 = calendar;
-    v39 = v143;
-    v40 = _DDResultCopyImplicitDateFromReferenceDateWithLocale(v30, 1, v29, calendar, a8, cf, v143, v26, v138, v140, v139, v141, a4);
+    v39 = v142;
+    v40 = _DDResultCopyImplicitDateFromReferenceDateWithLocale(v30, 1, v29, calendar, a8, cf, v142, v26, v137, v139, v138, v140, a4);
 LABEL_33:
     v25 = v40;
     goto LABEL_248;
@@ -5524,8 +5435,8 @@ LABEL_33:
   if (!v30)
   {
     v38 = v18;
-    v39 = v143;
-    v40 = _DDResultCopyImplicitDateFromReferenceDateWithLocale(v32, 0, v29, v18, a8, cf, v143, v26, v138, v141, a4, v140, v139);
+    v39 = v142;
+    v40 = _DDResultCopyImplicitDateFromReferenceDateWithLocale(v32, 0, v29, v18, a8, cf, v142, v26, v137, v140, a4, v139, v138);
     goto LABEL_33;
   }
 
@@ -5536,10 +5447,10 @@ LABEL_33:
     v36 = v30[7];
     if (CFArrayGetCount(v32[7]) >= 1 && (!v36 || CFArrayGetCount(v36) >= 1))
     {
-      v152 = 0;
-      *buf = 0;
       v151 = 0;
+      *buf = 0;
       v150 = 0;
+      v149 = 0;
       if (CFArrayGetCount(v35) == 1)
       {
         ValueAtIndex = CFArrayGetValueAtIndex(v35, 0);
@@ -5552,7 +5463,7 @@ LABEL_33:
         v37 = DDResultGetSubresultWithType(v33, @"ApproxTime");
       }
 
-      v135 = v37;
+      v134 = v37;
       v26 = v34;
       v38 = calendar;
       if (v36)
@@ -5570,17 +5481,17 @@ LABEL_33:
           v76 = DDResultGetSubresultWithType(v30, @"ApproxTime");
         }
 
-        v39 = v143;
-        v88 = DDResultCopyExtractedDateFromReferenceDateRec(v75, v74, calendar, v143, v26, &v150 + 1, &v152, &v151, 1);
-        if (a4 && v151)
+        v39 = v142;
+        v88 = DDResultCopyExtractedDateFromReferenceDateRec(v75, v74, calendar, v142, v26, &v149 + 1, &v151, &v150, 1);
+        if (a4 && v150)
         {
-          *a4 = CFRetain(v151);
+          *a4 = CFRetain(v150);
         }
 
         IsPartial = resultIsPartial(v75);
         if (!v88)
         {
-          v91 = v143;
+          v91 = v142;
           v78 = v76;
           v79 = ValueAtIndex;
           goto LABEL_83;
@@ -5596,12 +5507,12 @@ LABEL_33:
 
       else
       {
-        HIBYTE(v150) = 0;
+        HIBYTE(v149) = 0;
         v77 = MEMORY[0x1BFB34330](a8);
         v75 = 0;
         v78 = 0;
-        v152 = CFDateCreate(0, v77);
-        v39 = v143;
+        v151 = CFDateCreate(0, v77);
+        v39 = v142;
         v74 = v29;
         v79 = ValueAtIndex;
       }
@@ -5611,14 +5522,14 @@ LABEL_33:
       if (!v90)
       {
 LABEL_83:
-        DDResultCopyExtractedDateFromReferenceDateRec(v79, v74, calendar, v91, v26, &v150, buf, v139, 1);
+        DDResultCopyExtractedDateFromReferenceDateRec(v79, v74, calendar, v91, v26, &v149, buf, v138, 1);
         v25 = 0;
-        v92 = v152;
-        if (v152 && *buf)
+        v92 = v151;
+        if (v151 && *buf)
         {
-          if (v141)
+          if (v140)
           {
-            if (CFDateCompare(v152, *buf, 0) == kCFCompareGreaterThan)
+            if (CFDateCompare(v151, *buf, 0) == kCFCompareGreaterThan)
             {
               if (DDResultGetSubresultWithType(v75, @"YearNumber"))
               {
@@ -5648,55 +5559,55 @@ LABEL_83:
                 v115 = 0;
               }
 
-              memset(v149, 0, sizeof(v149));
-              v148 = 0;
-              v146 = 0;
+              memset(v148, 0, sizeof(v148));
               v147 = 0;
               v145 = 0;
-              MEMORY[0x1BFB34330](v152);
-              CFCalendarDecomposeAbsoluteTime(calendar, v118, "yMdHms", &v149[2] + 4, &v149[2], &v149[1] + 4, &v149[1], v149 + 4, v149);
+              v146 = 0;
+              v144 = 0;
+              MEMORY[0x1BFB34330](v151);
+              CFCalendarDecomposeAbsoluteTime(calendar, v118, "yMdHms", &v148[2] + 4, &v148[2], &v148[1] + 4, &v148[1], v148 + 4, v148);
               MEMORY[0x1BFB34330](*buf);
-              CFCalendarDecomposeAbsoluteTime(calendar, v119, "yMdHms", &v148, &v147 + 4, &v147, &v146 + 4, &v146, &v145);
-              if (!v93 && SHIDWORD(v149[2]) > v148)
+              CFCalendarDecomposeAbsoluteTime(calendar, v119, "yMdHms", &v147, &v146 + 4, &v146, &v145 + 4, &v145, &v144);
+              if (!v93 && SHIDWORD(v148[2]) > v147)
               {
-                HIDWORD(v149[2]) = v148;
-                CFRelease(v152);
+                HIDWORD(v148[2]) = v147;
+                CFRelease(v151);
                 at = 0.0;
-                CFCalendarComposeAbsoluteTime(calendar, &at, "yMdHms", HIDWORD(v149[2]), LODWORD(v149[2]), HIDWORD(v149[1]), LODWORD(v149[1]), HIDWORD(v149[0]), LODWORD(v149[0]));
-                v152 = CFDateCreate(*MEMORY[0x1E695E480], at);
+                CFCalendarComposeAbsoluteTime(calendar, &at, "yMdHms", HIDWORD(v148[2]), LODWORD(v148[2]), HIDWORD(v148[1]), LODWORD(v148[1]), HIDWORD(v148[0]), LODWORD(v148[0]));
+                v151 = CFDateCreate(*MEMORY[0x1E695E480], at);
               }
 
               if (v115)
               {
                 v99 = v74;
                 v25 = 1;
-                v39 = v143;
+                v39 = v142;
               }
 
               else
               {
-                if (SHIDWORD(v149[2]) <= v148)
+                if (SHIDWORD(v148[2]) <= v147)
                 {
                   v25 = 1;
                 }
 
                 else
                 {
-                  v148 = HIDWORD(v149[2]);
+                  v147 = HIDWORD(v148[2]);
                   CFRelease(*buf);
                   at = 0.0;
-                  v25 = CFCalendarComposeAbsoluteTime(calendar, &at, "yMdHms", v148, HIDWORD(v147), v147, HIDWORD(v146), v146, v145);
+                  v25 = CFCalendarComposeAbsoluteTime(calendar, &at, "yMdHms", v147, HIDWORD(v146), v146, HIDWORD(v145), v145, v144);
                   *buf = CFDateCreate(*MEMORY[0x1E695E480], at);
                 }
 
-                v39 = v143;
+                v39 = v142;
                 v99 = v74;
-                if (!v93 && CFDateCompare(v152, *buf, 0) == kCFCompareGreaterThan)
+                if (!v93 && CFDateCompare(v151, *buf, 0) == kCFCompareGreaterThan)
                 {
-                  ++v148;
+                  ++v147;
                   CFRelease(*buf);
                   at = 0.0;
-                  v25 = CFCalendarComposeAbsoluteTime(calendar, &at, "yMdHms", v148, HIDWORD(v147), v147, HIDWORD(v146), v146, v145);
+                  v25 = CFCalendarComposeAbsoluteTime(calendar, &at, "yMdHms", v147, HIDWORD(v146), v146, HIDWORD(v145), v145, v144);
                   *buf = CFDateCreate(*MEMORY[0x1E695E480], at);
                 }
               }
@@ -5708,9 +5619,9 @@ LABEL_83:
               v25 = 1;
             }
 
-            v100 = v140;
-            v101 = v138;
-            if (CFDateCompare(v152, *buf, 0) == kCFCompareGreaterThan)
+            v100 = v139;
+            v101 = v137;
+            if (CFDateCompare(v151, *buf, 0) == kCFCompareGreaterThan)
             {
               if (CFDateCompare(a8, *buf, 0) == kCFCompareLessThan)
               {
@@ -5725,43 +5636,43 @@ LABEL_83:
 
             else
             {
-              v120 = v152;
+              v120 = v151;
             }
 
             v121 = CFRetain(v120);
             if (v78)
             {
-              HIDWORD(v149[2]) = 0;
+              HIDWORD(v148[2]) = 0;
               v122 = v78[10];
               if (!v122)
               {
                 v122 = v78[9];
               }
 
-              if (extractHourFromApproxTimeValue(v122, &v149[2] + 1, v99))
+              if (extractHourFromApproxTimeValue(v122, &v148[2] + 1, v99))
               {
-                *(&v149[1] + 4) = 0;
-                LODWORD(v149[1]) = 0;
+                *(&v148[1] + 4) = 0;
+                LODWORD(v148[1]) = 0;
                 at = MEMORY[0x1BFB34330](v121);
-                CFCalendarDecomposeAbsoluteTime(calendar, at, "yMd", &v149[2], &v149[1] + 4, &v149[1]);
-                CFCalendarComposeAbsoluteTime(calendar, &at, "yMdHms", LODWORD(v149[2]), HIDWORD(v149[1]), LODWORD(v149[1]), HIDWORD(v149[2]), 0, 0);
+                CFCalendarDecomposeAbsoluteTime(calendar, at, "yMd", &v148[2], &v148[1] + 4, &v148[1]);
+                CFCalendarComposeAbsoluteTime(calendar, &at, "yMdHms", LODWORD(v148[2]), HIDWORD(v148[1]), LODWORD(v148[1]), HIDWORD(v148[2]), 0, 0);
                 CFRelease(v121);
                 v121 = CFDateCreate(*MEMORY[0x1E695E480], at);
-                HIBYTE(v150) = 0;
+                HIBYTE(v149) = 0;
               }
             }
 
-            v102 = v135;
-            *v141 = v121;
+            v102 = v134;
+            *v140 = v121;
           }
 
           else
           {
             v99 = v74;
             v25 = 1;
-            v100 = v140;
-            v101 = v138;
-            v102 = v135;
+            v100 = v139;
+            v101 = v137;
+            v102 = v134;
           }
 
           if (v100)
@@ -5771,14 +5682,14 @@ LABEL_83:
               goto LABEL_231;
             }
 
-            HIDWORD(v149[2]) = 0;
+            HIDWORD(v148[2]) = 0;
             v123 = v102[10];
             if (!v123)
             {
               v123 = v102[9];
             }
 
-            if (!extractHourFromApproxTimeValue(v123, &v149[2] + 1, v99) || (*(&v149[1] + 4) = 0, LODWORD(v149[1]) = 0, at = MEMORY[0x1BFB34330](*buf), CFCalendarDecomposeAbsoluteTime(calendar, at, "yMd", &v149[2], &v149[1] + 4, &v149[1]), CFCalendarComposeAbsoluteTime(calendar, &at, "yMdHms", LODWORD(v149[2]), HIDWORD(v149[1]), LODWORD(v149[1]), HIDWORD(v149[2]), 0, 0), v124 = CFDateCreate(*MEMORY[0x1E695E480], at), LOBYTE(v150) = 0, !v124))
+            if (!extractHourFromApproxTimeValue(v123, &v148[2] + 1, v99) || (*(&v148[1] + 4) = 0, LODWORD(v148[1]) = 0, at = MEMORY[0x1BFB34330](*buf), CFCalendarDecomposeAbsoluteTime(calendar, at, "yMd", &v148[2], &v148[1] + 4, &v148[1]), CFCalendarComposeAbsoluteTime(calendar, &at, "yMdHms", LODWORD(v148[2]), HIDWORD(v148[1]), LODWORD(v148[1]), HIDWORD(v148[2]), 0, 0), v124 = CFDateCreate(*MEMORY[0x1E695E480], at), LOBYTE(v149) = 0, !v124))
             {
 LABEL_231:
               v124 = CFRetain(*buf);
@@ -5789,9 +5700,9 @@ LABEL_231:
 
           if (v101)
           {
-            if (v150)
+            if (v149)
             {
-              v125 = HIBYTE(v150) == 0;
+              v125 = HIBYTE(v149) == 0;
             }
 
             else
@@ -5803,7 +5714,7 @@ LABEL_231:
             *v101 = v126;
           }
 
-          v92 = v152;
+          v92 = v151;
         }
 
         if (v92)
@@ -5811,9 +5722,9 @@ LABEL_231:
           CFRelease(v92);
         }
 
-        if (v151)
+        if (v150)
         {
-          CFRelease(v151);
+          CFRelease(v150);
         }
 
         v114 = *buf;
@@ -5830,7 +5741,7 @@ LABEL_254:
           CFRelease(v26);
           CFRelease(v39);
           CFRelease(v38);
-          goto LABEL_255;
+          return v25;
         }
 
 LABEL_249:
@@ -5854,7 +5765,7 @@ LABEL_249:
       }
 
 LABEL_79:
-      v91 = v152;
+      v91 = v151;
       goto LABEL_83;
     }
   }
@@ -5864,7 +5775,7 @@ LABEL_26:
   {
     v26 = v34;
     v38 = calendar;
-    v39 = v143;
+    v39 = v142;
     if (!DDResultGetSubresultWithType(v31, @"DayInterval"))
     {
       goto LABEL_249;
@@ -5876,10 +5787,10 @@ LABEL_26:
     v55 = DDResultGetSubresultWithType(v52, @"EndDay");
     GregorianYear = extractGregorianYear(v52);
     v25 = 0;
-    LODWORD(v152) = -1;
     LODWORD(v151) = -1;
+    LODWORD(v150) = -1;
     LODWORD(at) = -1;
-    HIDWORD(v149[2]) = -1;
+    HIDWORD(v148[2]) = -1;
     if (!v53 || !v54 || !v55)
     {
       goto LABEL_201;
@@ -5894,12 +5805,12 @@ LABEL_26:
 
     if (v53[4] <= v55[4])
     {
-      v59 = &v152;
+      v59 = &v151;
     }
 
     else
     {
-      v59 = &v151;
+      v59 = &v150;
     }
 
     Integer = extractInteger(v58, v59);
@@ -5909,7 +5820,7 @@ LABEL_26:
       v62 = data;
       data = data[2].data;
       v63 = calendar;
-      v64 = v143;
+      v64 = v142;
       if (!data)
       {
         data = v62[2].info;
@@ -5919,7 +5830,7 @@ LABEL_26:
     else
     {
       v63 = calendar;
-      v64 = v143;
+      v64 = v142;
     }
 
     v103 = Integer & extractInteger(data, &at);
@@ -5928,7 +5839,7 @@ LABEL_26:
     {
       v105 = info;
       info = info[2].data;
-      v106 = v140;
+      v106 = v139;
       if (!info)
       {
         info = v105[2].info;
@@ -5937,29 +5848,29 @@ LABEL_26:
 
     else
     {
-      v106 = v140;
+      v106 = v139;
     }
 
-    if ((v103 & extractInteger(info, &v149[2] + 1)) != 1)
+    if ((v103 & extractInteger(info, &v148[2] + 1)) != 1)
     {
       v25 = 0;
       goto LABEL_201;
     }
 
     *buf = 0;
-    LODWORD(v149[2]) = 0;
+    LODWORD(v148[2]) = 0;
     MEMORY[0x1BFB34330](v64);
-    CFCalendarDecomposeAbsoluteTime(v63, v107, "yM", buf, &v149[2]);
-    v108 = v151;
+    CFCalendarDecomposeAbsoluteTime(v63, v107, "yM", buf, &v148[2]);
+    v108 = v150;
     if (v57 == -1)
     {
-      v109 = v152;
-      if (v151 != -1)
+      v109 = v151;
+      if (v150 != -1)
       {
-        v109 = v151;
+        v109 = v150;
       }
 
-      v110 = v109 - LODWORD(v149[2]);
+      v110 = v109 - LODWORD(v148[2]);
       if (v110 > -3)
       {
         v57 = *buf - (v110 > 10);
@@ -5972,27 +5883,27 @@ LABEL_26:
     }
 
     v116 = LODWORD(at);
-    if (SLODWORD(at) <= SHIDWORD(v149[2]))
+    if (SLODWORD(at) <= SHIDWORD(v148[2]))
     {
-      if (v151 == -1)
+      if (v150 == -1)
       {
-        v108 = v152;
-        LODWORD(v151) = v152;
+        v108 = v151;
+        LODWORD(v150) = v151;
       }
 
       else
       {
-        LODWORD(v152) = v151;
+        LODWORD(v151) = v150;
       }
     }
 
-    else if (v151 == -1)
+    else if (v150 == -1)
     {
-      v108 = v152;
-      LODWORD(v151) = v152 + 1;
-      if (v152 == 12)
+      v108 = v151;
+      LODWORD(v150) = v151 + 1;
+      if (v151 == 12)
       {
-        LODWORD(v151) = 1;
+        LODWORD(v150) = 1;
         v117 = v57;
         v108 = 12;
         v57 = (v57 + 1);
@@ -6002,21 +5913,21 @@ LABEL_26:
 
     else
     {
-      v108 = (v151 - 1);
-      LODWORD(v152) = v151 - 1;
-      if (v151 == 1)
+      v108 = (v150 - 1);
+      LODWORD(v151) = v150 - 1;
+      if (v150 == 1)
       {
         v108 = 12;
-        LODWORD(v152) = 12;
+        LODWORD(v151) = 12;
         v117 = (v57 - 1);
 LABEL_192:
-        if (v138)
+        if (v137)
         {
-          *v138 = 1;
+          *v137 = 1;
         }
 
         *buf = 0;
-        if (!v141)
+        if (!v140)
         {
           v25 = 1;
           goto LABEL_198;
@@ -6025,11 +5936,11 @@ LABEL_192:
         v25 = CFCalendarComposeAbsoluteTime(v63, buf, "yMdHms", v117, v108, v116, 12, 0, 0);
         if (v25)
         {
-          *v141 = CFDateCreate(0, *buf);
+          *v140 = CFDateCreate(0, *buf);
 LABEL_198:
           if (v106)
           {
-            v25 = CFCalendarComposeAbsoluteTime(v63, buf, "yMdHms", v57, v151, HIDWORD(v149[2]), 12, 0, 0);
+            v25 = CFCalendarComposeAbsoluteTime(v63, buf, "yMdHms", v57, v150, HIDWORD(v148[2]), 12, 0, 0);
             if (v25)
             {
               *v106 = CFDateCreate(0, *buf);
@@ -6039,7 +5950,7 @@ LABEL_198:
 
 LABEL_201:
         v38 = calendar;
-        v39 = v143;
+        v39 = v142;
         goto LABEL_248;
       }
     }
@@ -6048,23 +5959,23 @@ LABEL_201:
     goto LABEL_192;
   }
 
-  v149[2] = 0;
-  HIDWORD(v149[1]) = 0;
-  v39 = v143;
-  MEMORY[0x1BFB34330](v143);
+  v148[2] = 0;
+  HIDWORD(v148[1]) = 0;
+  v39 = v142;
+  MEMORY[0x1BFB34330](v142);
   v38 = calendar;
-  CFCalendarDecomposeAbsoluteTime(calendar, v41, "yMd", &v149[1] + 4, &v149[2], &v149[2] + 4);
+  CFCalendarDecomposeAbsoluteTime(calendar, v41, "yMd", &v148[1] + 4, &v148[2], &v148[2] + 4);
   v42 = DDResultGetSubresultWithType(v31, @"Date");
   v26 = v34;
   v43 = v29;
-  if (!v42 || (v44 = v42, (DDResultExtractDayMonthYear(v42, v29, calendar, &v149[2] + 1, &v149[2], &v149[1] + 1, v143, v26) & 1) != 0))
+  if (!v42 || (v44 = v42, (DDResultExtractDayMonthYear(v42, v29, calendar, &v148[2] + 1, &v148[2], &v148[1] + 1, v142, v26) & 1) != 0))
   {
-    *(v149 + 4) = 0;
-    LODWORD(v149[0]) = 0;
-    v148 = 0;
+    *(v148 + 4) = 0;
+    LODWORD(v148[0]) = 0;
     v147 = 0;
+    v146 = 0;
+    v150 = 0;
     v151 = 0;
-    v152 = 0;
     v45 = DDResultGetSubresultWithType(SubresultWithType, @"BeginTime");
     v46 = DDResultGetSubresultWithType(v45, @"Time");
     v47 = DDResultGetSubresultWithType(SubresultWithType, @"EndTime");
@@ -6073,23 +5984,23 @@ LABEL_201:
     {
       v49 = v48;
       v50 = DDResultGetSubresultWithType(SubresultWithType, @"TimeZone");
-      v134 = a4;
+      v133 = a4;
       v51 = v31;
       if (v50)
       {
-        v137 = DDCreateTimeZoneWithResult(v50);
+        v136 = DDCreateTimeZoneWithResult(v50);
       }
 
       else
       {
-        v137 = 0;
+        v136 = 0;
       }
 
       v80 = DDResultGetSubresultWithType(v49, @"Meridian");
       v81 = DDResultGetSubresultWithType(v46, @"Meridian");
       v82 = DDResultGetSubresultWithType(v46, @"Hours");
       v83 = -1;
-      v133 = v80;
+      v132 = v80;
       if (v80 || !v46)
       {
         v31 = v51;
@@ -6113,9 +6024,9 @@ LABEL_201:
 
             if ((extractInteger(v86, buf) & 1) == 0)
             {
-              if (v137)
+              if (v136)
               {
-                CFRelease(v137);
+                CFRelease(v136);
               }
 
               v25 = 0;
@@ -6130,31 +6041,31 @@ LABEL_201:
 
       if (v49)
       {
-        v94 = extractHourMinuteSecondWithRefCopyTimeZone(v49, v82, v43, &v148, &v147 + 1, &v147, &v151, 0xFFFFFFFF, v83, -1, v81);
+        v94 = extractHourMinuteSecondWithRefCopyTimeZone(v49, v82, v43, &v147, &v146 + 1, &v146, &v150, 0xFFFFFFFFLL, v83, -1, v81);
         if (v46)
         {
           v95 = DDResultGetSubresultWithType(v49, @"Hours");
           if (v94)
           {
-            if ((v147 + HIDWORD(v147) < 0) ^ __OFADD__(v147, HIDWORD(v147)) | (v147 + HIDWORD(v147) == 0))
+            if ((v146 + HIDWORD(v146) < 0) ^ __OFADD__(v146, HIDWORD(v146)) | (v146 + HIDWORD(v146) == 0))
             {
-              v96 = v148;
+              v96 = v147;
             }
 
             else
             {
-              v96 = v148 + 1;
+              v96 = v147 + 1;
             }
 
-            v97 = extractHourMinuteSecondWithRefCopyTimeZone(v46, v95, v43, &v149[1], v149 + 1, v149, &v152, v96, -1, -1, v133);
+            v97 = extractHourMinuteSecondWithRefCopyTimeZone(v46, v95, v43, &v148[1], v148 + 1, v148, &v151, v96, -1, -1, v132);
             v94 = 1;
-            v71 = v141;
+            v71 = v140;
             goto LABEL_103;
           }
 
 LABEL_102:
-          v71 = v141;
-          v97 = extractHourMinuteSecondWithRefCopyTimeZone(v46, v95, v43, &v149[1], v149 + 1, v149, &v152, 0xFFFFFFFF, -1, -1, v81);
+          v71 = v140;
+          v97 = extractHourMinuteSecondWithRefCopyTimeZone(v46, v95, v43, &v148[1], v148 + 1, v148, &v151, 0xFFFFFFFFLL, -1, -1, v81);
           v94 = 0;
 LABEL_103:
           v98 = v97 != 0;
@@ -6173,46 +6084,46 @@ LABEL_103:
         v94 = 0;
       }
 
-      MEMORY[0x1BFB34330](v143);
-      CFCalendarDecomposeAbsoluteTime(calendar, v111, "Hm", &v149[1], v149 + 4);
+      MEMORY[0x1BFB34330](v142);
+      CFCalendarDecomposeAbsoluteTime(calendar, v111, "Hm", &v148[1], v148 + 4);
       v98 = 0;
-      LODWORD(v149[0]) = 0;
-      v71 = v141;
+      LODWORD(v148[0]) = 0;
+      v71 = v140;
 LABEL_126:
-      if (v137)
+      if (v136)
       {
-        if (v152)
-        {
-          CFRelease(v152);
-        }
-
         if (v151)
         {
           CFRelease(v151);
         }
 
-        CFRetain(v137);
-        v151 = v137;
-        v152 = v137;
+        if (v150)
+        {
+          CFRelease(v150);
+        }
+
+        CFRetain(v136);
+        v150 = v136;
+        v151 = v136;
       }
 
       else
       {
-        if (v152 || !v151)
+        if (v151 || !v150)
         {
-          a4 = v134;
-          if (v152 && !v151)
+          a4 = v133;
+          if (v151 && !v150)
           {
-            v151 = CFRetain(v152);
+            v150 = CFRetain(v151);
           }
 
           goto LABEL_136;
         }
 
-        v152 = CFRetain(v151);
+        v151 = CFRetain(v150);
       }
 
-      a4 = v134;
+      a4 = v133;
 LABEL_136:
       if (v94 != 0 || v98)
       {
@@ -6220,25 +6131,25 @@ LABEL_136:
         {
           if (!v94)
           {
-            v148 = (LODWORD(v149[1]) + 1) % 24;
-            v147 = v149[0];
+            v147 = (LODWORD(v148[1]) + 1) % 24;
+            v146 = v148[0];
           }
         }
 
         else
         {
-          LODWORD(v149[1]) = (v148 - 1) % 24;
-          v149[0] = v147;
+          LODWORD(v148[1]) = (v147 - 1) % 24;
+          v148[0] = v146;
         }
 
 LABEL_149:
-        if (v152)
+        if (v151)
         {
-          CFCalendarSetTimeZone(calendar, v152);
+          CFCalendarSetTimeZone(calendar, v151);
         }
 
         *buf = 0;
-        v25 = CFCalendarComposeAbsoluteTime(calendar, buf, "yMdHms", HIDWORD(v149[1]), LODWORD(v149[2]), HIDWORD(v149[2]), LODWORD(v149[1]), HIDWORD(v149[0]), LODWORD(v149[0]));
+        v25 = CFCalendarComposeAbsoluteTime(calendar, buf, "yMdHms", HIDWORD(v148[1]), LODWORD(v148[2]), HIDWORD(v148[2]), LODWORD(v148[1]), HIDWORD(v148[0]), LODWORD(v148[0]));
         if (v25)
         {
           if (v71)
@@ -6246,23 +6157,23 @@ LABEL_149:
             *v71 = CFDateCreate(0, *buf);
           }
 
-          if (a4 && v152)
+          if (a4 && v151)
           {
-            *a4 = CFRetain(v152);
+            *a4 = CFRetain(v151);
           }
 
-          if (!v140)
+          if (!v139)
           {
             goto LABEL_164;
           }
 
-          if (v151)
+          if (v150)
           {
-            CFCalendarSetTimeZone(calendar, v151);
+            CFCalendarSetTimeZone(calendar, v150);
           }
 
           at = 0.0;
-          v25 = CFCalendarComposeAbsoluteTime(calendar, &at, "yMdHms", HIDWORD(v149[1]), LODWORD(v149[2]), HIDWORD(v149[2]), v148, HIDWORD(v147), v147);
+          v25 = CFCalendarComposeAbsoluteTime(calendar, &at, "yMdHms", HIDWORD(v148[1]), LODWORD(v148[2]), HIDWORD(v148[2]), v147, HIDWORD(v146), v146);
           if (v25)
           {
             v113 = at;
@@ -6272,29 +6183,29 @@ LABEL_149:
               v113 = at;
             }
 
-            *v140 = CFDateCreate(0, v113);
+            *v139 = CFDateCreate(0, v113);
 LABEL_164:
-            if (v139 && v151)
+            if (v138 && v150)
             {
-              *v139 = CFRetain(v151);
+              *v138 = CFRetain(v150);
             }
 
-            if (v138)
+            if (v137)
             {
-              *v138 = 0;
+              *v137 = 0;
             }
           }
         }
 
 LABEL_169:
-        if (v152)
+        if (v151)
         {
-          CFRelease(v152);
+          CFRelease(v151);
         }
 
-        v114 = v151;
-        v39 = v143;
-        if (v151)
+        v114 = v150;
+        v39 = v142;
+        if (v150)
         {
           goto LABEL_247;
         }
@@ -6312,30 +6223,30 @@ LABEL_169:
       {
         if (v49)
         {
-          v132 = *(v49 + 72);
+          v131 = *(v49 + 72);
         }
 
         else
         {
-          v132 = 0;
+          v131 = 0;
         }
 
         *buf = 138412290;
-        *&buf[4] = v132;
+        *&buf[4] = v131;
         _os_log_error_impl(&dword_1BCFDD000, v112, OS_LOG_TYPE_ERROR, "Could not extract end time from %@", buf, 0xCu);
-      }
-
-      if (v152)
-      {
-        CFRelease(v152);
-        v152 = 0;
       }
 
       if (v151)
       {
         CFRelease(v151);
-        v25 = 0;
         v151 = 0;
+      }
+
+      if (v150)
+      {
+        CFRelease(v150);
+        v25 = 0;
+        v150 = 0;
         goto LABEL_169;
       }
 
@@ -6364,27 +6275,27 @@ LABEL_147:
       v68 = DDResultGetSubresultWithType(v31, @"ApproxTime");
     }
 
-    LODWORD(v149[1]) = hourValueForHourAndMeridianResult(v65, v67, v29, 0, 0xFFFFFFFF, -1, -1, 0, 1);
-    v69 = hourValueForHourAndMeridianResult(v67, v65, v29, v68, 0xFFFFFFFF, v149[1], -1, 0, 1);
-    v148 = v69;
-    v70 = LODWORD(v149[1]) | v69;
-    if (v69 >= SLODWORD(v149[1]))
+    LODWORD(v148[1]) = hourValueForHourAndMeridianResult(v65, v67, v29, 0, 0xFFFFFFFF, -1, -1, 0, 1);
+    v69 = hourValueForHourAndMeridianResult(v67, v65, v29, v68, 0xFFFFFFFF, v148[1], -1, 0, 1);
+    v147 = v69;
+    v70 = LODWORD(v148[1]) | v69;
+    if (v69 >= SLODWORD(v148[1]))
     {
-      v71 = v141;
-      if (v69 - LODWORD(v149[1]) < 13)
+      v71 = v140;
+      if (v69 - LODWORD(v148[1]) < 13)
       {
         goto LABEL_122;
       }
 
-      v72 = LODWORD(v149[1]) + 12;
+      v72 = LODWORD(v148[1]) + 12;
     }
 
     else
     {
-      v71 = v141;
-      if (SLODWORD(v149[1]) < 13)
+      v71 = v140;
+      if (SLODWORD(v148[1]) < 13)
       {
-        v148 = v69 + 12;
+        v147 = v69 + 12;
 LABEL_122:
         if ((v70 & 0x80000000) == 0)
         {
@@ -6394,10 +6305,10 @@ LABEL_122:
         goto LABEL_147;
       }
 
-      v72 = LODWORD(v149[1]) - 12;
+      v72 = LODWORD(v148[1]) - 12;
     }
 
-    LODWORD(v149[1]) = v72;
+    LODWORD(v148[1]) = v72;
     goto LABEL_122;
   }
 
@@ -6409,20 +6320,16 @@ LABEL_122:
   v73 = DDLogHandle_error_log_handle;
   if (os_log_type_enabled(DDLogHandle_error_log_handle, OS_LOG_TYPE_ERROR))
   {
-    v131 = v44[9];
+    v130 = v44[9];
     *buf = 138412290;
-    *&buf[4] = v131;
+    *&buf[4] = v130;
     _os_log_error_impl(&dword_1BCFDD000, v73, OS_LOG_TYPE_ERROR, "Could not extract date from %@", buf, 0xCu);
   }
 
-  CFRelease(v143);
+  CFRelease(v142);
   CFRelease(v26);
   CFRelease(calendar);
-LABEL_12:
-  v25 = 0;
-LABEL_255:
-  v129 = *MEMORY[0x1E69E9840];
-  return v25;
+  return 0;
 }
 
 uint64_t _DDResultCopyImplicitDateFromReferenceDateWithLocale(uint64_t a1, int a2, const __CFLocale *a3, __CFCalendar *a4, const void *a5, const void *a6, const void *a7, const __CFTimeZone *a8, BOOL *a9, CFTypeRef *a10, void *a11, CFDateRef *a12, CFTypeRef *a13)
@@ -6581,7 +6488,7 @@ LABEL_29:
   return v20;
 }
 
-BOOL resultIsPartial(const __CFString **a1)
+BOOL resultIsPartial(CFStringRef *a1)
 {
   SubresultWithType = a1;
   if (a1 && _typesAreEqual(a1[8], @"DateTime"))
@@ -6673,35 +6580,34 @@ LABEL_9:
 
 CFStringRef DDResultCopyStrippedPhoneNumber(__CFString *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (!CFStringHasPrefix(a1, @"(0)"))
   {
-    v18.length = CFStringGetLength(a1);
-    v18.location = 0;
-    CFStringFindAndReplace(a1, @"(0)", &stru_1F3B75AB8, v18, 0);
+    v17.length = CFStringGetLength(a1);
+    v17.location = 0;
+    CFStringFindAndReplace(a1, @"(0)", &stru_1F3B75AB8, v17, 0);
   }
 
   Length = CFStringGetLength(a1);
   v3 = Length;
   if (Length < 21)
   {
-    v4 = v14;
-    v17.location = 0;
-    v17.length = Length;
-    CFStringGetCharacters(a1, v17, v14);
+    v4 = v13;
+    v16.location = 0;
+    v16.length = Length;
+    CFStringGetCharacters(a1, v16, v13);
     if (v3 <= 0)
     {
-      v11 = CFStringCreateWithCharacters(*MEMORY[0x1E695E480], v14, 0);
-      goto LABEL_41;
+      return CFStringCreateWithCharacters(*MEMORY[0x1E695E480], v13, 0);
     }
   }
 
   else
   {
     v4 = malloc_type_malloc(2 * Length, 0x1000040BDFB0063uLL);
-    v16.location = 0;
-    v16.length = v3;
-    CFStringGetCharacters(a1, v16, v4);
+    v15.location = 0;
+    v15.length = v3;
+    CFStringGetCharacters(a1, v15, v4);
   }
 
   v5 = 0;
@@ -6851,13 +6757,11 @@ LABEL_33:
 
   while (v3 != v5);
   v11 = CFStringCreateWithCharacters(*MEMORY[0x1E695E480], v4, v7);
-  if (v4 != v14)
+  if (v4 != v13)
   {
     free(v4);
   }
 
-LABEL_41:
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -6868,7 +6772,7 @@ CFCharacterSetRef __DDCreatePunycodedString_block_invoke()
   return result;
 }
 
-const __CFString *DDCopyPunycodedWebURLString(const __CFString *result)
+CFStringRef DDCopyPunycodedWebURLString(CFStringRef result)
 {
   if (result)
   {
@@ -7498,7 +7402,7 @@ LABEL_64:
   return !v50;
 }
 
-BOOL DDResultIsPastDate(uint64_t a1, const void *a2, const __CFTimeZone *a3)
+BOOL DDResultIsPastDate(const __CFString **a1, const void *a2, const __CFTimeZone *a3)
 {
   if (getLocaleForExtraction_sOnce != -1)
   {
@@ -7510,36 +7414,35 @@ BOOL DDResultIsPastDate(uint64_t a1, const void *a2, const __CFTimeZone *a3)
   return DDResultIsPastDateWithLocale(a1, a2, v6, a3);
 }
 
-BOOL DDResultIsPastDateWithLocale(uint64_t a1, const void *a2, const __CFLocale *a3, const __CFTimeZone *a4)
+BOOL DDResultIsPastDateWithLocale(const __CFString **a1, const void *a2, const __CFLocale *a3, const __CFTimeZone *a4)
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v8 = *(a1 + 64);
+  v20 = *MEMORY[0x1E69E9840];
+  v8 = a1[8];
   v9 = _sDateForExtraction;
   if (_typesAreEqual(v8, @"Timestamp"))
   {
-    IsPast = 1;
-    goto LABEL_27;
+    return 1;
   }
 
   if (_typesAreEqual(v8, @"DateTime") || _typesAreEqual(v8, @"Date") || _typesAreEqual(v8, @"TimeOffset") || _typesAreEqual(v8, @"BeginDate") || _typesAreEqual(v8, @"EndDate"))
   {
     cf = 0;
-    v18 = 0;
+    v17 = 0;
     v11 = _copyDefaultCalendar();
     if (v11)
     {
       v12 = v11;
-      if (DDResultCopyExtractedDateFromReferenceDateRec(a1, a3, v11, a2, a4, &v18, &cf, 0, 0))
+      if (DDResultCopyExtractedDateFromReferenceDateRec(a1, a3, v11, a2, a4, &v17, &cf, 0, 0))
       {
         if (cf)
         {
-          IsPast = dateIsPast(cf, v9, v18, a3, a4);
+          IsPast = dateIsPast(cf, v9, v17, a3, a4);
           CFRelease(cf);
 LABEL_25:
           v15 = v12;
 LABEL_26:
           CFRelease(v15);
-          goto LABEL_27;
+          return IsPast;
         }
 
         if (DDLogHandle_onceToken != -1)
@@ -7593,22 +7496,20 @@ LABEL_24:
       _os_log_error_impl(&dword_1BCFDD000, v13, OS_LOG_TYPE_ERROR, "Couldn't fetch the gregorian calendar in %s...", buf, 0xCu);
     }
 
-LABEL_16:
-    IsPast = 0;
-    goto LABEL_27;
+    return 0;
   }
 
   if (!_typesAreEqual(v8, @"DateDuration") && !_typesAreEqual(v8, @"DayInterval"))
   {
-    goto LABEL_16;
+    return 0;
   }
 
   cf = 0;
   *buf = 0;
-  v18 = 0;
-  if (DDResultCopyExtractedStartDateEndDateWithLocale(a1, a3, 0, 0, buf, &cf, &v18, a2, a4))
+  v17 = 0;
+  if (DDResultCopyExtractedStartDateEndDateWithLocale(a1, a3, 0, 0, buf, &cf, &v17, a2, a4))
   {
-    IsPast = dateIsPast(*buf, v9, v18, a3, cf);
+    IsPast = dateIsPast(*buf, v9, v17, a3, cf);
   }
 
   else
@@ -7627,15 +7528,13 @@ LABEL_16:
     goto LABEL_26;
   }
 
-LABEL_27:
-  v16 = *MEMORY[0x1E69E9840];
   return IsPast;
 }
 
 BOOL dateIsPast(uint64_t a1, uint64_t a2, int a3, const __CFLocale *a4, const __CFTimeZone *a5)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v9 = MEMORY[0x1BFB34330]();
+  v22 = *MEMORY[0x1E69E9840];
+  v9 = MEMORY[0x1BFB34330](a1);
   if (a2)
   {
     MEMORY[0x1BFB34330](a2);
@@ -7650,26 +7549,17 @@ BOOL dateIsPast(uint64_t a1, uint64_t a2, int a3, const __CFLocale *a4, const __
   v12 = Current - v9;
   if (!a3)
   {
-    if (v12 >= 60.0)
-    {
-      goto LABEL_21;
-    }
-
-LABEL_11:
-    result = 0;
-    goto LABEL_22;
+    return v12 >= 60.0;
   }
 
   if (v12 <= -90000.0)
   {
-    goto LABEL_11;
+    return 0;
   }
 
   if (v12 >= 90000.0)
   {
-LABEL_21:
-    result = 1;
-    goto LABEL_22;
+    return 1;
   }
 
   v13 = _copyDefaultCalendar();
@@ -7679,19 +7569,19 @@ LABEL_21:
     CFCalendarSetLocale(v13, a4);
     CFCalendarSetTimeZone(v14, a5);
     *buf = 0;
-    v19 = 0;
-    v20 = 0;
     v18 = 0;
-    CFCalendarDecomposeAbsoluteTime(v14, v9, "yMd", buf, &v20 + 4, &v20);
-    CFCalendarDecomposeAbsoluteTime(v14, v11, "yMd", &v19 + 4, &v19, &v18);
-    if (*buf <= SHIDWORD(v19) && (*buf != HIDWORD(v19) || SHIDWORD(v20) <= v19 && (HIDWORD(v20) != v19 || v20 <= v18)))
+    v19 = 0;
+    v17 = 0;
+    CFCalendarDecomposeAbsoluteTime(v14, v9, "yMd", buf, &v19 + 4, &v19);
+    CFCalendarDecomposeAbsoluteTime(v14, v11, "yMd", &v18 + 4, &v18, &v17);
+    if (*buf <= SHIDWORD(v18) && (*buf != HIDWORD(v18) || SHIDWORD(v19) <= v18 && (HIDWORD(v19) != v18 || v19 <= v17)))
     {
       CFRelease(v14);
-      goto LABEL_21;
+      return 1;
     }
 
     CFRelease(v14);
-    goto LABEL_11;
+    return 0;
   }
 
   if (DDLogHandle_onceToken != -1)
@@ -7704,13 +7594,11 @@ LABEL_21:
   if (result)
   {
     *buf = 136315138;
-    v22 = "dateIsPast";
+    v21 = "dateIsPast";
     _os_log_error_impl(&dword_1BCFDD000, v16, OS_LOG_TYPE_ERROR, "Couldn't fetch the gregorian calendar in %s...", buf, 0xCu);
-    goto LABEL_11;
+    return 0;
   }
 
-LABEL_22:
-  v17 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -8252,7 +8140,7 @@ uint64_t DDResultPhysicalUnitsExtraction(uint64_t result, double *a2, CFTypeRef 
 
 CFStringRef DDResultCopyAuthCode(CFStringRef result)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v1 = result;
@@ -8261,61 +8149,54 @@ CFStringRef DDResultCopyAuthCode(CFStringRef result)
       info = v1[2].info;
       Length = CFStringGetLength(info);
       v4 = Length;
-      if (Length < 3)
-      {
-        if (Length < 1)
-        {
-          goto LABEL_17;
-        }
-
-        v5 = 1;
-      }
-
-      else
+      if (Length >= 3)
       {
         v5 = 1;
         if (CFStringGetCharacterAtIndex(info, 1) != 45)
         {
           v5 = CFStringGetCharacterAtIndex(info, 2) == 45;
         }
+
+        goto LABEL_8;
       }
 
-      v6 = 0;
-      v7 = 0;
-      do
+      if (Length >= 1)
       {
-        CharacterAtIndex = CFStringGetCharacterAtIndex(info, v6);
-        if ((CharacterAtIndex - 48) < 0xA || !v5 && (CharacterAtIndex & 0xFFFFFFDF) - 65 <= 0x19)
+        v5 = 1;
+LABEL_8:
+        v6 = 0;
+        v7 = 0;
+        do
         {
-          if (v7 > 9)
+          CharacterAtIndex = CFStringGetCharacterAtIndex(info, v6);
+          if ((CharacterAtIndex - 48) < 0xA || !v5 && (CharacterAtIndex & 0xFFFFFFDF) - 65 <= 0x19)
           {
-            goto LABEL_17;
+            if (v7 > 9)
+            {
+              return 0;
+            }
+
+            chars[v7++] = CharacterAtIndex;
           }
 
-          chars[v7++] = CharacterAtIndex;
+          ++v6;
         }
 
-        ++v6;
-      }
-
-      while (v4 != v6);
-      if (v7 >= 1)
-      {
-        result = CFStringCreateWithCharacters(0, chars, v7);
-        goto LABEL_18;
+        while (v4 != v6);
+        if (v7 >= 1)
+        {
+          return CFStringCreateWithCharacters(0, chars, v7);
+        }
       }
     }
 
-LABEL_17:
-    result = 0;
+    return 0;
   }
 
-LABEL_18:
-  v9 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t DDResultSelectBest(uint64_t a1, uint64_t a2)
+const __CFString **DDResultSelectBest(const __CFString **a1, const __CFString **a2)
 {
   if (a1)
   {
@@ -8338,8 +8219,8 @@ uint64_t DDResultSelectBest(uint64_t a1, uint64_t a2)
     return v2;
   }
 
-  v5 = *(a2 + 64);
-  if (!_typesAreEqual(*(a1 + 64), @"DateTime") || !_typesAreEqual(v5, @"DateTime") || DDResultGetSubresultWithTypePath(a1, @"Date.AbsoluteDate.DayNumber") || DDResultGetSubresultWithTypePath(a1, @"Date.AbsoluteDate.AmbiguousDate.DayNumber") || !DDResultGetSubresultWithTypePath(v3, @"Date.AbsoluteDate.DayNumber") && !DDResultGetSubresultWithTypePath(v3, @"Date.AbsoluteDate.AmbiguousDate.DayNumber"))
+  v5 = a2[8];
+  if (!_typesAreEqual(a1[8], @"DateTime") || !_typesAreEqual(v5, @"DateTime") || DDResultGetSubresultWithTypePath(a1, @"Date.AbsoluteDate.DayNumber") || DDResultGetSubresultWithTypePath(a1, @"Date.AbsoluteDate.AmbiguousDate.DayNumber") || !DDResultGetSubresultWithTypePath(v3, @"Date.AbsoluteDate.DayNumber") && !DDResultGetSubresultWithTypePath(v3, @"Date.AbsoluteDate.AmbiguousDate.DayNumber"))
   {
     return v2;
   }
@@ -8392,7 +8273,8 @@ LABEL_8:
       SubresultWithType = DDResultGetSubresultWithType(v1, @"Date");
       if (!SubresultWithType)
       {
-        if (DDResultGetSubresultWithType(v1, @"BeginDate") && (DDResultDateExtractionDependsOnContextTense() & 1) != 0)
+        v5 = DDResultGetSubresultWithType(v1, @"BeginDate");
+        if (v5 && DDResultDateExtractionDependsOnContextTense(v5))
         {
           return 1;
         }
@@ -8651,228 +8533,226 @@ id DDDimensionFromUnitString(void *a1)
 
 void __DDDimensionFromUnitString_block_invoke()
 {
-  v76[72] = *MEMORY[0x1E69E9840];
-  v75[0] = @"gram";
-  v74 = [MEMORY[0x1E696B060] grams];
-  v76[0] = v74;
-  v75[1] = @"kilogram";
-  v73 = [MEMORY[0x1E696B060] kilograms];
-  v76[1] = v73;
-  v75[2] = @"metric tonne";
-  v72 = [MEMORY[0x1E696B060] metricTons];
-  v76[2] = v72;
-  v75[3] = @"ounce";
-  v71 = [MEMORY[0x1E696B060] ounces];
-  v76[3] = v71;
-  v75[4] = @"pound";
-  v70 = [MEMORY[0x1E696B060] poundsMass];
-  v76[4] = v70;
-  v75[5] = @"stone";
-  v69 = [MEMORY[0x1E696B060] stones];
-  v76[5] = v69;
-  v75[6] = @"short ton";
-  v68 = [MEMORY[0x1E696B060] shortTons];
-  v76[6] = v68;
-  v75[7] = @"watt";
-  v67 = [MEMORY[0x1E696B068] watts];
-  v76[7] = v67;
-  v75[8] = @"kilowatt";
-  v66 = [MEMORY[0x1E696B068] kilowatts];
-  v76[8] = v66;
-  v75[9] = @"horse power";
-  v65 = [MEMORY[0x1E696B068] horsepower];
-  v76[9] = v65;
-  v75[10] = @"kilometer per hour";
-  v64 = [MEMORY[0x1E696B078] kilometersPerHour];
-  v76[10] = v64;
-  v75[11] = @"mile per hour";
-  v63 = [MEMORY[0x1E696B078] milesPerHour];
-  v76[11] = v63;
-  v75[12] = @"meter per second";
-  v62 = [MEMORY[0x1E696B078] metersPerSecond];
-  v76[12] = v62;
-  v75[13] = @"celsius";
-  v61 = [MEMORY[0x1E696B080] celsius];
-  v76[13] = v61;
-  v75[14] = @"fahrenheit";
-  v60 = [MEMORY[0x1E696B080] fahrenheit];
-  v76[14] = v60;
-  v75[15] = @"kelvin";
-  v59 = [MEMORY[0x1E696B080] kelvin];
-  v76[15] = v59;
-  v75[16] = @"liter per 100 kilometers";
-  v58 = [MEMORY[0x1E696B040] litersPer100Kilometers];
-  v76[16] = v58;
-  v75[17] = @"mile per gallon";
-  v57 = [MEMORY[0x1E696B040] milesPerGallon];
-  v76[17] = v57;
-  v75[18] = @"kilowatt hour";
-  v56 = [MEMORY[0x1E696B030] kilowattHours];
-  v76[18] = v56;
-  v75[19] = @"kilocalorie";
-  v55 = [MEMORY[0x1E696B030] kilocalories];
-  v76[19] = v55;
-  v75[20] = @"calorie";
-  v54 = [MEMORY[0x1E696B030] calories];
-  v76[20] = v54;
-  v75[21] = @"joule";
-  v53 = [MEMORY[0x1E696B030] joules];
-  v76[21] = v53;
-  v75[22] = @"kilojoule";
-  v52 = [MEMORY[0x1E696B030] kilojoules];
-  v76[22] = v52;
-  v75[23] = @"kilometer";
-  v51 = [MEMORY[0x1E696B058] kilometers];
-  v76[23] = v51;
-  v75[24] = @"meter";
-  v50 = [MEMORY[0x1E696B058] meters];
-  v76[24] = v50;
-  v75[25] = @"centimeter";
-  v49 = [MEMORY[0x1E696B058] centimeters];
-  v76[25] = v49;
-  v75[26] = @"millimeter";
-  v48 = [MEMORY[0x1E696B058] millimeters];
-  v76[26] = v48;
-  v75[27] = @"mile";
-  v47 = [MEMORY[0x1E696B058] miles];
-  v76[27] = v47;
-  v75[28] = @"yard";
-  v46 = [MEMORY[0x1E696B058] yards];
-  v76[28] = v46;
-  v75[29] = @"foot";
-  v45 = [MEMORY[0x1E696B058] feet];
-  v76[29] = v45;
-  v75[30] = @"inch";
-  v44 = [MEMORY[0x1E696B058] inches];
-  v76[30] = v44;
-  v75[31] = @"hectare";
-  v43 = [MEMORY[0x1E696AFE8] hectares];
-  v76[31] = v43;
-  v75[32] = @"square kilometer";
-  v42 = [MEMORY[0x1E696AFE8] squareKilometers];
-  v76[32] = v42;
-  v75[33] = @"square meter";
-  v41 = [MEMORY[0x1E696AFE8] squareMeters];
-  v76[33] = v41;
-  v75[34] = @"square centimeter";
-  v40 = [MEMORY[0x1E696AFE8] squareCentimeters];
-  v76[34] = v40;
-  v75[35] = @"acre";
-  v39 = [MEMORY[0x1E696AFE8] acres];
-  v76[35] = v39;
-  v75[36] = @"square mile";
-  v38 = [MEMORY[0x1E696AFE8] squareMiles];
-  v76[36] = v38;
-  v75[37] = @"square yard";
-  v37 = [MEMORY[0x1E696AFE8] squareYards];
-  v76[37] = v37;
-  v75[38] = @"square foot";
-  v36 = [MEMORY[0x1E696AFE8] squareFeet];
-  v76[38] = v36;
-  v75[39] = @"square inch";
-  v35 = [MEMORY[0x1E696AFE8] squareInches];
-  v76[39] = v35;
-  v75[40] = @"degree";
-  v34 = [MEMORY[0x1E696AFE0] degrees];
-  v76[40] = v34;
-  v75[41] = @"radian";
-  v33 = [MEMORY[0x1E696AFE0] radians];
-  v76[41] = v33;
-  v75[42] = @"turn";
-  v32 = [MEMORY[0x1E696AFE0] revolutions];
-  v76[42] = v32;
-  v75[43] = @"liter";
-  v31 = [MEMORY[0x1E696B088] liters];
-  v76[43] = v31;
-  v75[44] = @"centiliter";
-  v30 = [MEMORY[0x1E696B088] centiliters];
-  v76[44] = v30;
-  v75[45] = @"milliliter";
-  v29 = [MEMORY[0x1E696B088] milliliters];
-  v76[45] = v29;
-  v75[46] = @"cubic meter";
-  v28 = [MEMORY[0x1E696B088] cubicMeters];
-  v76[46] = v28;
-  v75[47] = @"cubic centimeter";
-  v27 = [MEMORY[0x1E696B088] cubicCentimeters];
-  v76[47] = v27;
-  v75[48] = @"gallon";
-  v26 = [MEMORY[0x1E696B088] gallons];
-  v76[48] = v26;
-  v75[49] = @"gallon-imperial";
-  v25 = [MEMORY[0x1E696B088] imperialGallons];
-  v76[49] = v25;
-  v75[50] = @"pint";
-  v24 = [MEMORY[0x1E696B088] pints];
-  v76[50] = v24;
-  v75[51] = @"pint-imperial";
-  v23 = [MEMORY[0x1E696B088] imperialPints];
-  v76[51] = v23;
-  v75[52] = @"quart";
-  v22 = [MEMORY[0x1E696B088] quarts];
-  v76[52] = v22;
-  v75[53] = @"quart-imperial";
-  v21 = [MEMORY[0x1E696B088] imperialQuarts];
-  v76[53] = v21;
-  v75[54] = @"cup";
-  v20 = [MEMORY[0x1E696B088] cups];
-  v76[54] = v20;
-  v75[55] = @"fluid ounce";
-  v19 = [MEMORY[0x1E696B088] fluidOunces];
-  v76[55] = v19;
-  v75[56] = @"fluid ounce-imperial";
-  v18 = [MEMORY[0x1E696B088] imperialFluidOunces];
-  v76[56] = v18;
-  v75[57] = @"tablespoon";
-  v17 = [MEMORY[0x1E696B088] tablespoons];
-  v76[57] = v17;
-  v75[58] = @"tablespoon-imperial";
-  v16 = [MEMORY[0x1E696B088] imperialTablespoons];
-  v76[58] = v16;
-  v75[59] = @"teaspoon";
-  v15 = [MEMORY[0x1E696B088] teaspoons];
-  v76[59] = v15;
-  v75[60] = @"teaspoon-imperial";
-  v14 = [MEMORY[0x1E696B088] imperialTeaspoons];
-  v76[60] = v14;
-  v75[61] = @"cubic foot";
-  v13 = [MEMORY[0x1E696B088] cubicFeet];
-  v76[61] = v13;
-  v75[62] = @"cubic inch";
+  v75[72] = *MEMORY[0x1E69E9840];
+  v74[0] = @"gram";
+  v73 = [MEMORY[0x1E696B060] grams];
+  v75[0] = v73;
+  v74[1] = @"kilogram";
+  v72 = [MEMORY[0x1E696B060] kilograms];
+  v75[1] = v72;
+  v74[2] = @"metric tonne";
+  v71 = [MEMORY[0x1E696B060] metricTons];
+  v75[2] = v71;
+  v74[3] = @"ounce";
+  v70 = [MEMORY[0x1E696B060] ounces];
+  v75[3] = v70;
+  v74[4] = @"pound";
+  v69 = [MEMORY[0x1E696B060] poundsMass];
+  v75[4] = v69;
+  v74[5] = @"stone";
+  v68 = [MEMORY[0x1E696B060] stones];
+  v75[5] = v68;
+  v74[6] = @"short ton";
+  v67 = [MEMORY[0x1E696B060] shortTons];
+  v75[6] = v67;
+  v74[7] = @"watt";
+  v66 = [MEMORY[0x1E696B068] watts];
+  v75[7] = v66;
+  v74[8] = @"kilowatt";
+  v65 = [MEMORY[0x1E696B068] kilowatts];
+  v75[8] = v65;
+  v74[9] = @"horse power";
+  v64 = [MEMORY[0x1E696B068] horsepower];
+  v75[9] = v64;
+  v74[10] = @"kilometer per hour";
+  v63 = [MEMORY[0x1E696B078] kilometersPerHour];
+  v75[10] = v63;
+  v74[11] = @"mile per hour";
+  v62 = [MEMORY[0x1E696B078] milesPerHour];
+  v75[11] = v62;
+  v74[12] = @"meter per second";
+  v61 = [MEMORY[0x1E696B078] metersPerSecond];
+  v75[12] = v61;
+  v74[13] = @"celsius";
+  v60 = [MEMORY[0x1E696B080] celsius];
+  v75[13] = v60;
+  v74[14] = @"fahrenheit";
+  v59 = [MEMORY[0x1E696B080] fahrenheit];
+  v75[14] = v59;
+  v74[15] = @"kelvin";
+  v58 = [MEMORY[0x1E696B080] kelvin];
+  v75[15] = v58;
+  v74[16] = @"liter per 100 kilometers";
+  v57 = [MEMORY[0x1E696B040] litersPer100Kilometers];
+  v75[16] = v57;
+  v74[17] = @"mile per gallon";
+  v56 = [MEMORY[0x1E696B040] milesPerGallon];
+  v75[17] = v56;
+  v74[18] = @"kilowatt hour";
+  v55 = [MEMORY[0x1E696B030] kilowattHours];
+  v75[18] = v55;
+  v74[19] = @"kilocalorie";
+  v54 = [MEMORY[0x1E696B030] kilocalories];
+  v75[19] = v54;
+  v74[20] = @"calorie";
+  v53 = [MEMORY[0x1E696B030] calories];
+  v75[20] = v53;
+  v74[21] = @"joule";
+  v52 = [MEMORY[0x1E696B030] joules];
+  v75[21] = v52;
+  v74[22] = @"kilojoule";
+  v51 = [MEMORY[0x1E696B030] kilojoules];
+  v75[22] = v51;
+  v74[23] = @"kilometer";
+  v50 = [MEMORY[0x1E696B058] kilometers];
+  v75[23] = v50;
+  v74[24] = @"meter";
+  v49 = [MEMORY[0x1E696B058] meters];
+  v75[24] = v49;
+  v74[25] = @"centimeter";
+  v48 = [MEMORY[0x1E696B058] centimeters];
+  v75[25] = v48;
+  v74[26] = @"millimeter";
+  v47 = [MEMORY[0x1E696B058] millimeters];
+  v75[26] = v47;
+  v74[27] = @"mile";
+  v46 = [MEMORY[0x1E696B058] miles];
+  v75[27] = v46;
+  v74[28] = @"yard";
+  v45 = [MEMORY[0x1E696B058] yards];
+  v75[28] = v45;
+  v74[29] = @"foot";
+  v44 = [MEMORY[0x1E696B058] feet];
+  v75[29] = v44;
+  v74[30] = @"inch";
+  v43 = [MEMORY[0x1E696B058] inches];
+  v75[30] = v43;
+  v74[31] = @"hectare";
+  v42 = [MEMORY[0x1E696AFE8] hectares];
+  v75[31] = v42;
+  v74[32] = @"square kilometer";
+  v41 = [MEMORY[0x1E696AFE8] squareKilometers];
+  v75[32] = v41;
+  v74[33] = @"square meter";
+  v40 = [MEMORY[0x1E696AFE8] squareMeters];
+  v75[33] = v40;
+  v74[34] = @"square centimeter";
+  v39 = [MEMORY[0x1E696AFE8] squareCentimeters];
+  v75[34] = v39;
+  v74[35] = @"acre";
+  v38 = [MEMORY[0x1E696AFE8] acres];
+  v75[35] = v38;
+  v74[36] = @"square mile";
+  v37 = [MEMORY[0x1E696AFE8] squareMiles];
+  v75[36] = v37;
+  v74[37] = @"square yard";
+  v36 = [MEMORY[0x1E696AFE8] squareYards];
+  v75[37] = v36;
+  v74[38] = @"square foot";
+  v35 = [MEMORY[0x1E696AFE8] squareFeet];
+  v75[38] = v35;
+  v74[39] = @"square inch";
+  v34 = [MEMORY[0x1E696AFE8] squareInches];
+  v75[39] = v34;
+  v74[40] = @"degree";
+  v33 = [MEMORY[0x1E696AFE0] degrees];
+  v75[40] = v33;
+  v74[41] = @"radian";
+  v32 = [MEMORY[0x1E696AFE0] radians];
+  v75[41] = v32;
+  v74[42] = @"turn";
+  v31 = [MEMORY[0x1E696AFE0] revolutions];
+  v75[42] = v31;
+  v74[43] = @"liter";
+  v30 = [MEMORY[0x1E696B088] liters];
+  v75[43] = v30;
+  v74[44] = @"centiliter";
+  v29 = [MEMORY[0x1E696B088] centiliters];
+  v75[44] = v29;
+  v74[45] = @"milliliter";
+  v28 = [MEMORY[0x1E696B088] milliliters];
+  v75[45] = v28;
+  v74[46] = @"cubic meter";
+  v27 = [MEMORY[0x1E696B088] cubicMeters];
+  v75[46] = v27;
+  v74[47] = @"cubic centimeter";
+  v26 = [MEMORY[0x1E696B088] cubicCentimeters];
+  v75[47] = v26;
+  v74[48] = @"gallon";
+  v25 = [MEMORY[0x1E696B088] gallons];
+  v75[48] = v25;
+  v74[49] = @"gallon-imperial";
+  v24 = [MEMORY[0x1E696B088] imperialGallons];
+  v75[49] = v24;
+  v74[50] = @"pint";
+  v23 = [MEMORY[0x1E696B088] pints];
+  v75[50] = v23;
+  v74[51] = @"pint-imperial";
+  v22 = [MEMORY[0x1E696B088] imperialPints];
+  v75[51] = v22;
+  v74[52] = @"quart";
+  v21 = [MEMORY[0x1E696B088] quarts];
+  v75[52] = v21;
+  v74[53] = @"quart-imperial";
+  v20 = [MEMORY[0x1E696B088] imperialQuarts];
+  v75[53] = v20;
+  v74[54] = @"cup";
+  v19 = [MEMORY[0x1E696B088] cups];
+  v75[54] = v19;
+  v74[55] = @"fluid ounce";
+  v18 = [MEMORY[0x1E696B088] fluidOunces];
+  v75[55] = v18;
+  v74[56] = @"fluid ounce-imperial";
+  v17 = [MEMORY[0x1E696B088] imperialFluidOunces];
+  v75[56] = v17;
+  v74[57] = @"tablespoon";
+  v16 = [MEMORY[0x1E696B088] tablespoons];
+  v75[57] = v16;
+  v74[58] = @"tablespoon-imperial";
+  v15 = [MEMORY[0x1E696B088] imperialTablespoons];
+  v75[58] = v15;
+  v74[59] = @"teaspoon";
+  v14 = [MEMORY[0x1E696B088] teaspoons];
+  v75[59] = v14;
+  v74[60] = @"teaspoon-imperial";
+  v13 = [MEMORY[0x1E696B088] imperialTeaspoons];
+  v75[60] = v13;
+  v74[61] = @"cubic foot";
+  v12 = [MEMORY[0x1E696B088] cubicFeet];
+  v75[61] = v12;
+  v74[62] = @"cubic inch";
   v0 = [MEMORY[0x1E696B088] cubicInches];
-  v76[62] = v0;
-  v75[63] = @"bar";
+  v75[62] = v0;
+  v74[63] = @"bar";
   v1 = [MEMORY[0x1E696B070] bars];
-  v76[63] = v1;
-  v75[64] = @"kilopascal";
+  v75[63] = v1;
+  v74[64] = @"kilopascal";
   v2 = [MEMORY[0x1E696B070] kilopascals];
-  v76[64] = v2;
-  v75[65] = @"hectopascal";
+  v75[64] = v2;
+  v74[65] = @"hectopascal";
   v3 = [MEMORY[0x1E696B070] hectopascals];
-  v76[65] = v3;
-  v75[66] = @"millimeter of mercury";
+  v75[65] = v3;
+  v74[66] = @"millimeter of mercury";
   v4 = [MEMORY[0x1E696B070] millimetersOfMercury];
-  v76[66] = v4;
-  v75[67] = @"psi";
+  v75[66] = v4;
+  v74[67] = @"psi";
   v5 = [MEMORY[0x1E696B070] poundsForcePerSquareInch];
-  v76[67] = v5;
-  v75[68] = @"hour";
+  v75[67] = v5;
+  v74[68] = @"hour";
   v6 = [MEMORY[0x1E696B008] hours];
-  v76[68] = v6;
-  v75[69] = @"minute";
+  v75[68] = v6;
+  v74[69] = @"minute";
   v7 = [MEMORY[0x1E696B008] minutes];
-  v76[69] = v7;
-  v75[70] = @"second";
+  v75[69] = v7;
+  v74[70] = @"second";
   v8 = [MEMORY[0x1E696B008] seconds];
-  v76[70] = v8;
-  v75[71] = @"millisecond";
+  v75[70] = v8;
+  v74[71] = @"millisecond";
   v9 = [MEMORY[0x1E696B008] milliseconds];
-  v76[71] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v76 forKeys:v75 count:72];
+  v75[71] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v75 forKeys:v74 count:72];
   v11 = DDDimensionFromUnitString__supportedUnits;
   DDDimensionFromUnitString__supportedUnits = v10;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 id DDResultGetShipmentTrackingUrlWithCarrier(void *a1, void *a2)
@@ -9094,14 +8974,14 @@ uint64_t ___dd_dispatch_get_queue_for_writing_block_invoke()
   return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
-void sub_1BD00BDC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1BD00BDC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -9172,7 +9052,7 @@ LABEL_15:
 
 id DDExtractMessageBotReplies(void *a1)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = v1;
   if (!v1)
@@ -9210,64 +9090,64 @@ id DDExtractMessageBotReplies(void *a1)
     goto LABEL_50;
   }
 
-  v33 = v6;
-  v34 = v2;
-  v35 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v8];
+  v32 = v6;
+  v33 = v2;
+  v34 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v8];
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
-  v32 = v7;
+  v31 = v7;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v44 objects:v49 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v43 objects:v48 count:16];
   if (!v10)
   {
     goto LABEL_47;
   }
 
   v11 = v10;
-  v12 = *v45;
-  v36 = v9;
-  v38 = *v45;
+  v12 = *v44;
+  v35 = v9;
+  v37 = *v44;
   do
   {
     v13 = 0;
-    v37 = v11;
+    v36 = v11;
     do
     {
-      if (*v45 != v12)
+      if (*v44 != v12)
       {
         objc_enumerationMutation(v9);
       }
 
-      v14 = *(*(&v44 + 1) + 8 * v13);
+      v14 = *(*(&v43 + 1) + 8 * v13);
       v15 = [v14 coreResult];
       if (v15 && _typesAreEqual(*(v15 + 64), @"CannedReply"))
       {
-        v39 = v13;
-        v42 = 0u;
-        v43 = 0u;
-        v40 = 0u;
+        v38 = v13;
         v41 = 0u;
+        v42 = 0u;
+        v39 = 0u;
+        v40 = 0u;
         v16 = [v14 subResults];
-        v17 = [v16 countByEnumeratingWithState:&v40 objects:v48 count:16];
+        v17 = [v16 countByEnumeratingWithState:&v39 objects:v47 count:16];
         if (v17)
         {
           v18 = v17;
           v19 = 0;
           v20 = 0;
           v21 = 0;
-          v22 = *v41;
+          v22 = *v40;
           while (1)
           {
             for (i = 0; i != v18; ++i)
             {
-              if (*v41 != v22)
+              if (*v40 != v22)
               {
                 objc_enumerationMutation(v16);
               }
 
-              v24 = [*(*(&v40 + 1) + 8 * i) coreResult];
+              v24 = [*(*(&v39 + 1) + 8 * i) coreResult];
               if (v24)
               {
                 v25 = v24;
@@ -9316,26 +9196,26 @@ id DDExtractMessageBotReplies(void *a1)
               }
             }
 
-            v18 = [v16 countByEnumeratingWithState:&v40 objects:v48 count:16];
+            v18 = [v16 countByEnumeratingWithState:&v39 objects:v47 count:16];
             if (!v18)
             {
 
               if (v19)
               {
-                v9 = v36;
-                v11 = v37;
+                v9 = v35;
+                v11 = v36;
                 if (v20)
                 {
                   v16 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{v19, @"Type", v20, @"Value", v21, @"Target", 0}];
-                  [v35 addObject:v16];
+                  [v34 addObject:v16];
                   goto LABEL_41;
                 }
               }
 
               else
               {
-                v9 = v36;
-                v11 = v37;
+                v9 = v35;
+                v11 = v36;
               }
 
               goto LABEL_42;
@@ -9349,42 +9229,41 @@ id DDExtractMessageBotReplies(void *a1)
 LABEL_41:
 
 LABEL_42:
-        v12 = v38;
-        v13 = v39;
+        v12 = v37;
+        v13 = v38;
       }
 
       ++v13;
     }
 
     while (v13 != v11);
-    v29 = [v9 countByEnumeratingWithState:&v44 objects:v49 count:16];
+    v29 = [v9 countByEnumeratingWithState:&v43 objects:v48 count:16];
     v11 = v29;
   }
 
   while (v29);
 LABEL_47:
 
-  v8 = v35;
-  if (![v35 count])
+  v8 = v34;
+  if (![v34 count])
   {
 
     v8 = 0;
   }
 
-  v6 = v33;
-  v2 = v34;
-  v7 = v32;
+  v6 = v32;
+  v2 = v33;
+  v7 = v31;
 LABEL_50:
 
 LABEL_52:
-  v30 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
-void sub_1BD00CDE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BD00CDE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9413,7 +9292,7 @@ void _DDDFAScannerCFFinalize(void *a1)
 
 uint64_t DDDFAScannerCreateFromCache(const void *a1)
 {
-  v2 = DDTypeRegister(&DDDFAScannerGetTypeID_typeID);
+  v2 = DDTypeRegister(&DDDFAScannerGetTypeID_typeID, &kDDDFAScannerContextClass);
   Instance = DDTypeCreateInstance_(0, v2, 0x20uLL);
   *(Instance + 24) = a1;
   CFRetain(a1);

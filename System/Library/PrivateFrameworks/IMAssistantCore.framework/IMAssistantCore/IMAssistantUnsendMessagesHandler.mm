@@ -9,14 +9,14 @@
 
 - (void)handleUnsendMessages:(id)messages completion:(id)completion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   messagesCopy = messages;
   completionCopy = completion;
   v8 = IMLogHandleForCategory();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v20 = messagesCopy;
+    v19 = messagesCopy;
     _os_log_impl(&dword_25479E000, v8, OS_LOG_TYPE_INFO, "Handling INUnsendMessagesIntent: %@", buf, 0xCu);
   }
 
@@ -28,11 +28,11 @@
   {
     messageIdentifiers = [messagesCopy messageIdentifiers];
     v13 = +[IMAssistantMessageQueryHandler IMAssistantIMSPIQueue];
-    v17 = messagesCopy;
-    v18 = completionCopy;
+    v16 = messagesCopy;
+    v17 = completionCopy;
     IMSPIQueryIMMessageItemsWithGUIDsAndQOS();
 
-    v14 = v17;
+    v14 = v16;
   }
 
   else
@@ -47,8 +47,6 @@
     v14 = [objc_alloc(MEMORY[0x277CD4298]) initWithCode:10 userActivity:0];
     (*(completionCopy + 2))(completionCopy, v14);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)chatsForMessageIdentifiers:(id)identifiers completion:(id)completion

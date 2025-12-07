@@ -9,10 +9,10 @@
 - (_TtC18ASMessagesProvider24ProductReviewActionsCell)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR____TtC18ASMessagesProvider24ProductReviewActionsCell_productReviewActionsView;
-  type metadata accessor for ProductReviewActionsView();
+  type metadata accessor for ProductReviewActionsView(0);
   *(&self->super.super.super.super.super.isa + v4) = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
   v5 = OBJC_IVAR____TtC18ASMessagesProvider24ProductReviewActionsCell_separatorView;
-  type metadata accessor for SeparatorView();
+  type metadata accessor for SeparatorView(0);
   *(&self->super.super.super.super.super.isa + v5) = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
   result = sub_76A840();
   __break(1u);

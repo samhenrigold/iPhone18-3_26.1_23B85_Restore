@@ -1,5 +1,6 @@
 @interface ATXPBPredictionAmbientLightContext
 - (BOOL)isEqual:(id)equal;
+- (id)ambientLightTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -11,6 +12,21 @@
 @end
 
 @implementation ATXPBPredictionAmbientLightContext
+
+- (id)ambientLightTypeAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_2785991F8[string];
+  }
+
+  return v4;
+}
 
 - (int)StringAsAmbientLightType:(id)type
 {
@@ -101,7 +117,6 @@
 {
   if (*&self->_has)
   {
-    ambientLightType = self->_ambientLightType;
     PBDataWriterWriteInt32Field();
   }
 }

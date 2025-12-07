@@ -2902,7 +2902,7 @@ uint64_t AUMixSwitchNF::SetProperty(AUMixSwitchNF *this, int a2, int a3, unsigne
       {
         v8 = a6 >> 2;
         v9 = &__src[4 * v8];
-        v10 = this + 536;
+        v10 = (this + 536);
       }
 
       else
@@ -2914,7 +2914,7 @@ uint64_t AUMixSwitchNF::SetProperty(AUMixSwitchNF *this, int a2, int a3, unsigne
 
         v8 = a6 >> 2;
         v9 = &__src[4 * v8];
-        v10 = this + 608;
+        v10 = (this + 608);
       }
 
       goto LABEL_19;
@@ -2933,7 +2933,7 @@ uint64_t AUMixSwitchNF::SetProperty(AUMixSwitchNF *this, int a2, int a3, unsigne
 
     v8 = a6 >> 2;
     v9 = &__src[4 * v8];
-    v10 = this + 560;
+    v10 = (this + 560);
 LABEL_19:
     std::vector<float>::__assign_with_size[abi:ne200100]<float const*,float const*>(v10, __src, v9, v8);
     return 0;
@@ -2961,7 +2961,7 @@ LABEL_19:
     case 1831955832:
       v8 = a6 >> 2;
       v9 = &__src[4 * v8];
-      v10 = this + 584;
+      v10 = (this + 584);
       goto LABEL_19;
   }
 
@@ -8041,10 +8041,10 @@ _DWORD *ecRMDF::ec_state_reset(ecRMDF *this)
   *(this + 36) = 1065353216;
   v3 = *(this + 9);
   LOBYTE(__u) = 1;
-  std::vector<BOOL>::assign(this + 46, v3, &__u);
+  std::vector<BOOL>::assign(this + 368, v3, &__u);
   v4 = *(this + 8);
   LOBYTE(__u) = 1;
-  std::vector<BOOL>::assign(this + 49, v4, &__u);
+  std::vector<BOOL>::assign(this + 392, v4, &__u);
   v5 = (2 * *(this + 13));
   __u = 0;
   std::vector<float>::assign(this + 52, v5, &__u, v6);

@@ -1,4 +1,5 @@
 @interface ACAccount(ICAccountAdditions)
+- (BOOL)ic_isITunesAccount;
 - (BOOL)ic_isSandboxed;
 - (id)ic_DSID;
 - (id)ic_ageVerificationExpirationDate;
@@ -9,7 +10,6 @@
 - (id)ic_uniqueIdentifier;
 - (uint64_t)ic_isActiveLockerAccount;
 - (uint64_t)ic_isAutomaticDownloadsEnabledForMediaKindMusic;
-- (uint64_t)ic_isITunesAccount;
 - (uint64_t)ic_isManageable;
 - (uint64_t)ic_isManagedAppleID;
 - (uint64_t)ic_isSubscriptionStatusEnabled;
@@ -85,7 +85,7 @@ LABEL_16:
   return ic_isActive;
 }
 
-- (uint64_t)ic_isITunesAccount
+- (BOOL)ic_isITunesAccount
 {
   accountType = [self accountType];
   identifier = [accountType identifier];

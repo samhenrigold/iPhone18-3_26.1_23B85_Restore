@@ -23,7 +23,7 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFDisplayedSpeedObservable.displayedSpeedService(_:didUpdateShowSecondarySpeed:)();
+  CAFDisplayedSpeedObservable.displayedSpeedService(_:didUpdateShowSecondarySpeed:)(selfCopy, speed);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

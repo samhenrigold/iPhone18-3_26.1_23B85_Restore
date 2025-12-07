@@ -17,8 +17,9 @@
 
 - (void)setIsMomentsAvailable:(BOOL)available
 {
+  availableCopy = available;
   selfCopy = self;
-  ParticipantInfoView.isMomentsAvailable.setter(available);
+  ParticipantInfoView.isMomentsAvailable.setter(availableCopy);
 }
 
 - (void)layoutSubviews

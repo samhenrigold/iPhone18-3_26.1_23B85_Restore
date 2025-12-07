@@ -23,17 +23,17 @@
 
 - (MIOModelDescription)initWithSpecification:(const void *)specification isUpdatable:(BOOL)updatable modelParameters:(id)parameters classLabelsPerFunction:(id)function error:(id *)error
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   functionCopy = function;
-  v58.receiver = self;
-  v58.super_class = MIOModelDescription;
-  v11 = [(MIOModelDescription *)&v58 init];
+  v56.receiver = self;
+  v56.super_class = MIOModelDescription;
+  v11 = [(MIOModelDescription *)&v56 init];
   v12 = v11;
   if (!v11)
   {
 LABEL_45:
-    v43 = v12;
+    v42 = v12;
     goto LABEL_46;
   }
 
@@ -55,30 +55,30 @@ LABEL_45:
   CoreML::Specification::ModelDescription::CopyFrom(v11 + 1, specification);
   *(v11 + 192) = updatable;
   v17 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v56 = 0u;
-  v57 = 0u;
   v54 = 0u;
   v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
   v18 = parametersCopy;
-  v19 = [v18 countByEnumeratingWithState:&v54 objects:v61 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v52 objects:v59 count:16];
   if (v19)
   {
-    v20 = *v55;
+    v20 = *v53;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v55 != v20)
+        if (*v53 != v20)
         {
           objc_enumerationMutation(v18);
         }
 
-        v22 = *(*(&v54 + 1) + 8 * i);
+        v22 = *(*(&v52 + 1) + 8 * i);
         v23 = [v22 key];
         [v17 setObject:v22 forKeyedSubscript:v23];
       }
 
-      v19 = [v18 countByEnumeratingWithState:&v54 objects:v61 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v52 objects:v59 count:16];
     }
 
     while (v19);
@@ -94,15 +94,15 @@ LABEL_45:
   {
     v27 = 0;
 LABEL_42:
-    v44 = [v12[23] objectAtIndexedSubscript:v27];
+    v43 = [v12[23] objectAtIndexedSubscript:v27];
     null = [MEMORY[0x1E695DFB0] null];
-    v46 = v44 == null;
+    v45 = v43 == null;
 
-    if (!v46)
+    if (!v45)
     {
-      v47 = [v12[23] objectAtIndexedSubscript:v27];
-      v48 = v12[26];
-      v12[26] = v47;
+      v46 = [v12[23] objectAtIndexedSubscript:v27];
+      v47 = v12[26];
+      v12[26] = v46;
     }
 
     goto LABEL_45;
@@ -146,9 +146,8 @@ LABEL_42:
     if (v35 == v32)
     {
       v37 = v36 >= 0 ? (*(*(v30 + 8 * v27) + 88) & 0xFFFFFFFFFFFFFFFELL) : *v34;
-      v38 = *v28;
-      v39 = v31 >= 0 ? v28 : *v28;
-      if (!memcmp(v37, v39, v32))
+      v38 = v31 >= 0 ? v28 : *v28;
+      if (!memcmp(v37, v38, v32))
       {
         break;
       }
@@ -175,19 +174,18 @@ LABEL_42:
 
   if (error)
   {
-    v40 = MEMORY[0x1E696ABC0];
-    v59 = *MEMORY[0x1E696A578];
-    v41 = [MEMORY[0x1E696AEC0] stringWithFormat:@"The default function was not found."];
-    v60 = v41;
-    v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
-    *error = [v40 errorWithDomain:@"com.apple.mlassetio" code:1 userInfo:v42];
+    v39 = MEMORY[0x1E696ABC0];
+    v57 = *MEMORY[0x1E696A578];
+    v40 = [MEMORY[0x1E696AEC0] stringWithFormat:@"The default function was not found."];
+    v58 = v40;
+    v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+    *error = [v39 errorWithDomain:@"com.apple.mlassetio" code:1 userInfo:v41];
   }
 
-  v43 = 0;
+  v42 = 0;
 LABEL_46:
 
-  v49 = *MEMORY[0x1E69E9840];
-  return v43;
+  return v42;
 }
 
 - (id)mutableCopyWithZone:(_NSZone *)zone
@@ -203,7 +201,7 @@ LABEL_46:
 
 - (id)description
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AD60] stringWithFormat:@"MIOModelDescription (%p)\n", self];
   inputDescriptions = [(MIOModelDescription *)self inputDescriptions];
   v5 = [inputDescriptions componentsJoinedByString:@"\n    "];
@@ -219,31 +217,31 @@ LABEL_46:
   if (v9)
   {
     [v3 appendFormat:@"  metadata:\n"];
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     metadata2 = [(MIOModelDescription *)self metadata];
-    v11 = [metadata2 countByEnumeratingWithState:&v47 objects:v52 count:16];
+    v11 = [metadata2 countByEnumeratingWithState:&v46 objects:v51 count:16];
     if (v11)
     {
-      v12 = *v48;
+      v12 = *v47;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v48 != v12)
+          if (*v47 != v12)
           {
             objc_enumerationMutation(metadata2);
           }
 
-          v14 = *(*(&v47 + 1) + 8 * i);
+          v14 = *(*(&v46 + 1) + 8 * i);
           metadata3 = [(MIOModelDescription *)self metadata];
           v16 = [metadata3 objectForKeyedSubscript:v14];
           [v3 appendFormat:@"    %@ -> %@\n", v14, v16];
         }
 
-        v11 = [metadata2 countByEnumeratingWithState:&v47 objects:v52 count:16];
+        v11 = [metadata2 countByEnumeratingWithState:&v46 objects:v51 count:16];
       }
 
       while (v11);
@@ -289,31 +287,31 @@ LABEL_46:
   if (!v28)
   {
     [v3 appendFormat:@"  parameterDescriptions:\n"];
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
     v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
     parameterDescriptionsByKey2 = [(MIOModelDescription *)self parameterDescriptionsByKey];
-    v30 = [parameterDescriptionsByKey2 countByEnumeratingWithState:&v43 objects:v51 count:16];
+    v30 = [parameterDescriptionsByKey2 countByEnumeratingWithState:&v42 objects:v50 count:16];
     if (v30)
     {
-      v31 = *v44;
+      v31 = *v43;
       do
       {
         for (j = 0; j != v30; ++j)
         {
-          if (*v44 != v31)
+          if (*v43 != v31)
           {
             objc_enumerationMutation(parameterDescriptionsByKey2);
           }
 
-          v33 = *(*(&v43 + 1) + 8 * j);
+          v33 = *(*(&v42 + 1) + 8 * j);
           parameterDescriptionsByKey3 = [(MIOModelDescription *)self parameterDescriptionsByKey];
           v35 = [parameterDescriptionsByKey3 objectForKeyedSubscript:v33];
           [v3 appendFormat:@"    %@ -> %@\n", v33, v35];
         }
 
-        v30 = [parameterDescriptionsByKey2 countByEnumeratingWithState:&v43 objects:v51 count:16];
+        v30 = [parameterDescriptionsByKey2 countByEnumeratingWithState:&v42 objects:v50 count:16];
       }
 
       while (v30);
@@ -332,8 +330,6 @@ LABEL_46:
     v40 = [functionDescriptions componentsJoinedByString:@"\n    "];
     [v3 appendFormat:@"  functions:\n    %@\n", v40];
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -1017,9 +1013,9 @@ LABEL_25:
 
 - (void)setMetadata:(id)metadata
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   metadataCopy = metadata;
-  v4 = [metadataCopy objectForKeyedSubscript:{@"MLModelDescriptionKey", CoreML::Specification::Metadata::Metadata(v47, 0, 0)}];
+  v4 = [metadataCopy objectForKeyedSubscript:{@"MLModelDescriptionKey", CoreML::Specification::Metadata::Metadata(v46, 0, 0)}];
   v5 = v4 == 0;
 
   if (!v5)
@@ -1027,13 +1023,13 @@ LABEL_25:
     v6 = [metadataCopy objectForKeyedSubscript:@"MLModelDescriptionKey"];
     v7 = v6;
     uTF8String = [v6 UTF8String];
-    v9 = (v48 & 0xFFFFFFFFFFFFFFFCLL);
-    if (v48)
+    v9 = (v47 & 0xFFFFFFFFFFFFFFFCLL);
+    if (v47)
     {
       v9 = *v9;
     }
 
-    google::protobuf::internal::ArenaStringPtr::Set<google::protobuf::internal::ArenaStringPtr::EmptyDefault>(&v50, uTF8String, v9);
+    google::protobuf::internal::ArenaStringPtr::Set<google::protobuf::internal::ArenaStringPtr::EmptyDefault>(&v49, uTF8String, v9);
   }
 
   v10 = [metadataCopy objectForKeyedSubscript:@"MLModelVersionStringKey"];
@@ -1044,13 +1040,13 @@ LABEL_25:
     v12 = [metadataCopy objectForKeyedSubscript:@"MLModelVersionStringKey"];
     v13 = v12;
     uTF8String2 = [v12 UTF8String];
-    v15 = (v48 & 0xFFFFFFFFFFFFFFFCLL);
-    if (v48)
+    v15 = (v47 & 0xFFFFFFFFFFFFFFFCLL);
+    if (v47)
     {
       v15 = *v15;
     }
 
-    google::protobuf::internal::ArenaStringPtr::Set<google::protobuf::internal::ArenaStringPtr::EmptyDefault>(&v51, uTF8String2, v15);
+    google::protobuf::internal::ArenaStringPtr::Set<google::protobuf::internal::ArenaStringPtr::EmptyDefault>(&v50, uTF8String2, v15);
   }
 
   v16 = [metadataCopy objectForKeyedSubscript:@"MLModelAuthorKey"];
@@ -1061,13 +1057,13 @@ LABEL_25:
     v18 = [metadataCopy objectForKeyedSubscript:@"MLModelAuthorKey"];
     v19 = v18;
     uTF8String3 = [v18 UTF8String];
-    v21 = (v48 & 0xFFFFFFFFFFFFFFFCLL);
-    if (v48)
+    v21 = (v47 & 0xFFFFFFFFFFFFFFFCLL);
+    if (v47)
     {
       v21 = *v21;
     }
 
-    google::protobuf::internal::ArenaStringPtr::Set<google::protobuf::internal::ArenaStringPtr::EmptyDefault>(&v52, uTF8String3, v21);
+    google::protobuf::internal::ArenaStringPtr::Set<google::protobuf::internal::ArenaStringPtr::EmptyDefault>(&v51, uTF8String3, v21);
   }
 
   v22 = [metadataCopy objectForKeyedSubscript:@"MLModelLicenseKey"];
@@ -1078,48 +1074,48 @@ LABEL_25:
     v24 = [metadataCopy objectForKeyedSubscript:@"MLModelLicenseKey"];
     v25 = v24;
     uTF8String4 = [v24 UTF8String];
-    v27 = (v48 & 0xFFFFFFFFFFFFFFFCLL);
-    if (v48)
+    v27 = (v47 & 0xFFFFFFFFFFFFFFFCLL);
+    if (v47)
     {
       v27 = *v27;
     }
 
-    google::protobuf::internal::ArenaStringPtr::Set<google::protobuf::internal::ArenaStringPtr::EmptyDefault>(&v53, uTF8String4, v27);
+    google::protobuf::internal::ArenaStringPtr::Set<google::protobuf::internal::ArenaStringPtr::EmptyDefault>(&v52, uTF8String4, v27);
   }
 
   v28 = [metadataCopy objectForKeyedSubscript:@"MLModelCreatorDefinedKey"];
   v29 = v28;
   if (v28)
   {
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
     v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
     v30 = v28;
-    v31 = [v30 countByEnumeratingWithState:&v55 objects:v60 count:16];
+    v31 = [v30 countByEnumeratingWithState:&v54 objects:v59 count:16];
     if (v31)
     {
-      v32 = *v56;
+      v32 = *v55;
       do
       {
         for (i = 0; i != v31; ++i)
         {
-          if (*v56 != v32)
+          if (*v55 != v32)
           {
             objc_enumerationMutation(v30);
           }
 
-          v34 = *(*(&v55 + 1) + 8 * i);
+          v34 = *(*(&v54 + 1) + 8 * i);
           v35 = [v30 objectForKeyedSubscript:v34];
           v36 = v35;
           uTF8String5 = [v35 UTF8String];
           v38 = v34;
           uTF8String6 = [v34 UTF8String];
-          google::protobuf::Map<std::string,std::string>::InnerMap::insert<char const*>(v49, &uTF8String6, v59);
-          MEMORY[0x1C6908830](v59[0] + 24, uTF8String5);
+          google::protobuf::Map<std::string,std::string>::InnerMap::insert<char const*>(v48, &uTF8String6, v58);
+          MEMORY[0x1C6908830](v58[0] + 24, uTF8String5);
         }
 
-        v31 = [v30 countByEnumeratingWithState:&v55 objects:v60 count:16];
+        v31 = [v30 countByEnumeratingWithState:&v54 objects:v59 count:16];
       }
 
       while (v31);
@@ -1140,7 +1136,7 @@ LABEL_25:
     self->_modelDescriptionParams.metadata_ = metadata;
   }
 
-  if (metadata != v47)
+  if (metadata != v46)
   {
     v42 = *(metadata + 1);
     if ((v42 & 2) != 0)
@@ -1157,15 +1153,15 @@ LABEL_25:
       }
     }
 
-    if ((v48 & 2) != 0)
+    if ((v47 & 2) != 0)
     {
       v44 = 0;
     }
 
     else
     {
-      v44 = (v48 & 0xFFFFFFFFFFFFFFFCLL);
-      if (v48)
+      v44 = (v47 & 0xFFFFFFFFFFFFFFFCLL);
+      if (v47)
       {
         v44 = *v44;
       }
@@ -1173,18 +1169,16 @@ LABEL_25:
 
     if (v43 == v44)
     {
-      CoreML::Specification::Metadata::InternalSwap(metadata, v47);
+      CoreML::Specification::Metadata::InternalSwap(metadata, v46);
     }
 
     else
     {
-      CoreML::Specification::Metadata::CopyFrom(metadata, v47);
+      CoreML::Specification::Metadata::CopyFrom(metadata, v46);
     }
   }
 
-  CoreML::Specification::Metadata::~Metadata(v47);
-
-  v45 = *MEMORY[0x1E69E9840];
+  CoreML::Specification::Metadata::~Metadata(v46);
 }
 
 @end

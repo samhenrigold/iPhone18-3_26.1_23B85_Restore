@@ -64,99 +64,97 @@ uint64_t __50__CNAssetInfo_checkIfCinematic_completionHandler___block_invoke(uin
 
 void __47__CNAssetInfo_loadFromAsset_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v4 = a2;
+  v5 = a3;
   v18 = v4;
-  v19 = a3;
-  if (v19)
+  v19 = v5;
+  if (v5)
   {
-    v5 = _CNLogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = _CNLogSystem(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      __47__CNAssetInfo_loadFromAsset_completionHandler___block_invoke_cold_1(v19, a1);
+      __47__CNAssetInfo_loadFromAsset_completionHandler___block_invoke_cold_1();
     }
 
-    v6 = _CNCinematicError(3, v19);
+    v7 = _CNCinematicError(3, v19);
     (*(*(a1 + 40) + 16))(*(a1 + 40));
   }
 
   else
   {
-    v33 = 0;
-    v34 = &v33;
-    v35 = 0x3032000000;
-    v36 = __Block_byref_object_copy_;
-    v37 = __Block_byref_object_dispose_;
-    v38 = 0;
+    v33[0] = 0;
+    v33[1] = v33;
+    v33[2] = 0x3032000000;
+    v33[3] = __Block_byref_object_copy_;
+    v33[4] = __Block_byref_object_dispose_;
+    v34 = 0;
     v29 = 0;
     v30 = &v29;
     v31 = 0x2020000000;
     v32 = 0;
-    v7 = dispatch_group_create();
+    v8 = dispatch_group_create();
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v8 = v4;
-    v9 = [v8 countByEnumeratingWithState:&v25 objects:v39 count:{16, v4, 0}];
-    if (v9)
+    v9 = v4;
+    v10 = [v9 countByEnumeratingWithState:&v25 objects:v35 count:{16, v4}];
+    if (v10)
     {
-      v10 = *v26;
+      v11 = *v26;
       do
       {
-        for (i = 0; i != v9; ++i)
+        for (i = 0; i != v10; ++i)
         {
-          if (*v26 != v10)
+          if (*v26 != v11)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v9);
           }
 
-          v12 = *(*(&v25 + 1) + 8 * i);
-          if ([v12 isEnabled])
+          v13 = *(*(&v25 + 1) + 8 * i);
+          if ([v13 isEnabled])
           {
-            dispatch_group_enter(v7);
-            v13 = *(a1 + 48);
+            dispatch_group_enter(v8);
+            v14 = *(a1 + 48);
             v21[0] = MEMORY[0x277D85DD0];
             v21[1] = 3221225472;
             v21[2] = __47__CNAssetInfo_loadFromAsset_completionHandler___block_invoke_2;
             v21[3] = &unk_278A16178;
-            v23 = &v33;
+            v23 = v33;
             v24 = &v29;
-            v22 = v7;
-            [v13 loadFromCinematicVideoTrack:v12 completionHandler:v21];
+            v22 = v8;
+            [v14 loadFromCinematicVideoTrack:v13 completionHandler:v21];
           }
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v25 objects:v39 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v25 objects:v35 count:16];
       }
 
-      while (v9);
+      while (v10);
     }
 
-    dispatch_group_wait(v7, 0xFFFFFFFFFFFFFFFFLL);
+    v15 = dispatch_group_wait(v8, 0xFFFFFFFFFFFFFFFFLL);
     if (*(v30 + 24) == 1)
     {
-      v14 = v34[5];
       (*(*(a1 + 40) + 16))();
     }
 
     else
     {
-      v15 = _CNLogSystem();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v16 = _CNLogSystem(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
-        __47__CNAssetInfo_loadFromAsset_completionHandler___block_invoke_cold_2(v15);
+        __47__CNAssetInfo_loadFromAsset_completionHandler___block_invoke_cold_2(v16);
       }
 
-      v16 = _CNCinematicError(3, 0);
+      v17 = _CNCinematicError(3, 0);
       (*(*(a1 + 40) + 16))();
     }
 
     _Block_object_dispose(&v29, 8);
-    _Block_object_dispose(&v33, 8);
+    _Block_object_dispose(v33, 8);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __47__CNAssetInfo_loadFromAsset_completionHandler___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
@@ -206,12 +204,13 @@ void __61__CNAssetInfo_loadFromCinematicVideoTrack_completionHandler___block_inv
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _CNLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = _CNLogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      __61__CNAssetInfo_loadFromCinematicVideoTrack_completionHandler___block_invoke_cold_1(v6, a1);
+      __61__CNAssetInfo_loadFromCinematicVideoTrack_completionHandler___block_invoke_cold_1();
     }
 
     (*(*(a1 + 40) + 16))();
@@ -219,29 +218,29 @@ void __61__CNAssetInfo_loadFromCinematicVideoTrack_completionHandler___block_inv
 
   else
   {
-    v8 = *(a1 + 32);
-    v16 = MEMORY[0x277D85DD0];
-    v17 = 3221225472;
-    v18 = __61__CNAssetInfo_loadFromCinematicVideoTrack_completionHandler___block_invoke_4;
-    v19 = &unk_278A161C8;
-    v20 = v8;
-    v9 = *(a1 + 40);
-    v10 = *(a1 + 48);
-    v22 = v9;
+    v9 = *(a1 + 32);
+    v17 = MEMORY[0x277D85DD0];
+    v18 = 3221225472;
+    v19 = __61__CNAssetInfo_loadFromCinematicVideoTrack_completionHandler___block_invoke_4;
+    v20 = &unk_278A161C8;
+    v21 = v9;
+    v10 = *(a1 + 40);
+    v11 = *(a1 + 48);
     v23 = v10;
-    v21 = v5;
-    v11 = v20;
-    v12 = &v16;
-    v13 = [v11 asset];
-    v14 = *MEMORY[0x277CE5E70];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = ___CNLoadMetadataTrackForVideoTrack_block_invoke;
-    v24[3] = &unk_278A16018;
-    v25 = v11;
+    v24 = v11;
+    v22 = v5;
+    v12 = v21;
+    v13 = &v17;
+    v14 = [v12 asset];
+    v15 = *MEMORY[0x277CE5E70];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = ___CNLoadMetadataTrackForVideoTrack_block_invoke;
+    v25[3] = &unk_278A16018;
     v26 = v12;
-    v15 = v11;
-    [v13 loadTracksWithMediaType:v14 completionHandler:v24];
+    v27 = v13;
+    v16 = v12;
+    [v14 loadTracksWithMediaType:v15 completionHandler:v25];
   }
 }
 
@@ -252,40 +251,40 @@ void __61__CNAssetInfo_loadFromCinematicVideoTrack_completionHandler___block_inv
   v7 = v6;
   if (!v5 || v6)
   {
-    v15 = _CNLogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v16 = _CNLogSystem(v6);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      __61__CNAssetInfo_loadFromCinematicVideoTrack_completionHandler___block_invoke_4_cold_2(v7, a1);
+      __61__CNAssetInfo_loadFromCinematicVideoTrack_completionHandler___block_invoke_4_cold_2();
     }
 
-    v16 = 3;
-    v17 = v7;
+    v17 = 3;
+    v18 = v7;
     goto LABEL_12;
   }
 
   v8 = [v5 formatDescriptions];
   v9 = [v8 firstObject];
 
-  if (!v9 || (CMMetadataFormatDescriptionGetIdentifiers(v9), v10 = objc_claimAutoreleasedReturnValue(), [@"mdta/" stringByAppendingString:0x284A05300], v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v10, "containsObject:", v11), v11, v10, (v12 & 1) == 0))
+  if (!v9 || (CMMetadataFormatDescriptionGetIdentifiers(v9), v11 = objc_claimAutoreleasedReturnValue(), [@"mdta/" stringByAppendingString:0x284A05300], v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v11, "containsObject:", v12), v12, v11, (v13 & 1) == 0))
   {
-    v18 = _CNLogSystem();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v19 = _CNLogSystem(v10);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
-      __61__CNAssetInfo_loadFromCinematicVideoTrack_completionHandler___block_invoke_4_cold_1(v5, a1);
+      __61__CNAssetInfo_loadFromCinematicVideoTrack_completionHandler___block_invoke_4_cold_1();
     }
 
-    v16 = 4;
-    v17 = 0;
+    v17 = 4;
+    v18 = 0;
 LABEL_12:
-    v13 = _CNCinematicError(v16, v17);
-    v14 = *(*(a1 + 48) + 16);
+    v14 = _CNCinematicError(v17, v18);
+    v15 = *(*(a1 + 48) + 16);
     goto LABEL_13;
   }
 
-  v13 = [objc_alloc(*(a1 + 56)) _initWithVideoTrack:*(a1 + 32) disparityTrack:*(a1 + 40) metadataTrack:v5];
-  v14 = *(*(a1 + 48) + 16);
+  v14 = [objc_alloc(*(a1 + 56)) _initWithVideoTrack:*(a1 + 32) disparityTrack:*(a1 + 40) metadataTrack:v5];
+  v15 = *(*(a1 + 48) + 16);
 LABEL_13:
-  v14();
+  v15();
 }
 
 - (AVAsset)asset
@@ -305,7 +304,7 @@ LABEL_13:
   v6 = cinematicVideoTrack;
   if (cinematicVideoTrack)
   {
-    [cinematicVideoTrack timeRange];
+    objc_msgSend_timeRange(cinematicVideoTrack);
   }
 
   else
@@ -319,7 +318,7 @@ LABEL_13:
   v8 = cinematicDisparityTrack;
   if (cinematicDisparityTrack)
   {
-    [cinematicDisparityTrack timeRange];
+    objc_msgSend_timeRange(cinematicDisparityTrack);
   }
 
   else
@@ -341,7 +340,7 @@ LABEL_13:
   v12 = cinematicMetadataTrack;
   if (cinematicMetadataTrack)
   {
-    [cinematicMetadataTrack timeRange];
+    objc_msgSend_timeRange(cinematicMetadataTrack);
   }
 
   else
@@ -383,7 +382,7 @@ LABEL_13:
   [(CNAssetInfo *)self naturalSize];
   v6 = v5;
   v8 = v7;
-  [(CNAssetInfo *)self preferredTransform];
+  objc_msgSend_preferredTransform(self);
   v13.origin.x = v3;
   v13.origin.y = v4;
   v13.size.width = v6;
@@ -402,7 +401,7 @@ LABEL_13:
   if (cinematicVideoTrack)
   {
     v6 = cinematicVideoTrack;
-    [cinematicVideoTrack preferredTransform];
+    objc_msgSend_preferredTransform(cinematicVideoTrack);
     cinematicVideoTrack = v6;
   }
 
@@ -418,61 +417,53 @@ LABEL_13:
 
 - (NSArray)allCinematicTracks
 {
-  v9[3] = *MEMORY[0x277D85DE8];
+  v8[3] = *MEMORY[0x277D85DE8];
   cinematicVideoTrack = [(CNAssetInfo *)self cinematicVideoTrack];
   cinematicDisparityTrack = [(CNAssetInfo *)self cinematicDisparityTrack];
-  v9[1] = cinematicDisparityTrack;
+  v8[1] = cinematicDisparityTrack;
   cinematicMetadataTrack = [(CNAssetInfo *)self cinematicMetadataTrack];
-  v9[2] = cinematicMetadataTrack;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:3];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[2] = cinematicMetadataTrack;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:3];
 
   return v6;
 }
 
 - (NSArray)videoCompositionTracks
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   cinematicVideoTrack = [(CNAssetInfo *)self cinematicVideoTrack];
-  v8[0] = cinematicVideoTrack;
+  v7[0] = cinematicVideoTrack;
   cinematicDisparityTrack = [(CNAssetInfo *)self cinematicDisparityTrack];
-  v8[1] = cinematicDisparityTrack;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[1] = cinematicDisparityTrack;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
 
   return v5;
 }
 
 - (NSArray)videoCompositionTrackIDs
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCABB0];
   cinematicVideoTrack = [(CNAssetInfo *)self cinematicVideoTrack];
   v5 = [v3 numberWithInt:{objc_msgSend(cinematicVideoTrack, "trackID")}];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = MEMORY[0x277CCABB0];
   cinematicDisparityTrack = [(CNAssetInfo *)self cinematicDisparityTrack];
   v8 = [v6 numberWithInt:{objc_msgSend(cinematicDisparityTrack, "trackID")}];
-  v12[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
 
   return v9;
 }
 
 - (NSArray)sampleDataTrackIDs
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCABB0];
   cinematicMetadataTrack = [(CNAssetInfo *)self cinematicMetadataTrack];
   v4 = [v2 numberWithInt:{objc_msgSend(cinematicMetadataTrack, "trackID")}];
-  v8[0] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[0] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
 
   return v5;
 }
@@ -496,40 +487,36 @@ LABEL_13:
   return p_isa;
 }
 
-void __47__CNAssetInfo_loadFromAsset_completionHandler___block_invoke_cold_1(uint64_t a1, uint64_t a2)
+void __47__CNAssetInfo_loadFromAsset_completionHandler___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_2_0(a2, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __61__CNAssetInfo_loadFromCinematicVideoTrack_completionHandler___block_invoke_cold_1(uint64_t a1, uint64_t a2)
+void __61__CNAssetInfo_loadFromCinematicVideoTrack_completionHandler___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_2_0(a2, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __61__CNAssetInfo_loadFromCinematicVideoTrack_completionHandler___block_invoke_4_cold_1(uint64_t a1, uint64_t a2)
+void __61__CNAssetInfo_loadFromCinematicVideoTrack_completionHandler___block_invoke_4_cold_1()
 {
-  OUTLINED_FUNCTION_2_0(a2, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __61__CNAssetInfo_loadFromCinematicVideoTrack_completionHandler___block_invoke_4_cold_2(uint64_t a1, uint64_t a2)
+void __61__CNAssetInfo_loadFromCinematicVideoTrack_completionHandler___block_invoke_4_cold_2()
 {
-  OUTLINED_FUNCTION_2_0(a2, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 @end

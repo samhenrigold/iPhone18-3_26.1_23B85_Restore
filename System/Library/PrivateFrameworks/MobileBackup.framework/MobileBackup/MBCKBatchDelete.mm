@@ -106,7 +106,7 @@
     selfCopy = self;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "Adding a delete for %{public}@ to %{public}@", buf, 0x16u);
     v34 = dCopy;
-    _MBLog();
+    _MBLog(@"Db", "Adding a delete for %{public}@ to %{public}@");
   }
 
   if (dCopy)
@@ -233,10 +233,10 @@ LABEL_29:
   errorCopy = error;
   if ([infoCopy state] == 3)
   {
-    v18 = +[NSAssertionHandler currentHandler];
+    v19 = +[NSAssertionHandler currentHandler];
     recordID = [infoCopy recordID];
-    v20 = +[NSThread callStackSymbols];
-    [v18 handleFailureInMethod:a2 object:self file:@"MBCKBatchDelete.m" lineNumber:151 description:{@"We've already finished Deleting record %@: %@", recordID, v20}];
+    v21 = +[NSThread callStackSymbols];
+    [v19 handleFailureInMethod:a2 object:self file:@"MBCKBatchDelete.m" lineNumber:151 description:{@"We've already finished Deleting record %@: %@", recordID, v21}];
   }
 
   v7 = MBGetDefaultLog();
@@ -248,7 +248,7 @@ LABEL_29:
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "Performing callbacks for delete of record %{public}@", buf, 0xCu);
 
     recordID3 = [infoCopy recordID];
-    _MBLog();
+    _MBLog(@"Db", "Performing callbacks for delete of record %{public}@", recordID3);
   }
 
   [infoCopy setState:3];
@@ -260,37 +260,37 @@ LABEL_29:
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v11 = callbacks;
-  v12 = [v11 countByEnumeratingWithState:&v28 objects:v32 count:16];
-  if (v12)
+  v12 = callbacks;
+  v13 = [v12 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  if (v13)
   {
-    v13 = v12;
-    v14 = *v29;
+    v14 = v13;
+    v15 = *v29;
     do
     {
-      for (i = 0; i != v13; i = i + 1)
+      for (i = 0; i != v14; i = i + 1)
       {
-        if (*v29 != v14)
+        if (*v29 != v15)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v12);
         }
 
-        v16 = *(*(&v28 + 1) + 8 * i);
+        v17 = *(*(&v28 + 1) + 8 * i);
         callbackQueue = [(MBCKBatchDelete *)self callbackQueue];
         block[0] = _NSConcreteStackBlock;
         block[1] = 3221225472;
         block[2] = sub_1001E7C58;
         block[3] = &unk_1003C14B8;
-        v27 = v16;
+        v27 = v17;
         v25 = recordID4;
         v26 = errorCopy;
         dispatch_async(callbackQueue, block);
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
-    while (v13);
+    while (v14);
   }
 }
 
@@ -331,7 +331,7 @@ LABEL_29:
         v18 = 2112;
         v19 = v8;
         _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Failed %{public}@: %@", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"E ", "Failed %{public}@: %@", selfCopy, v8);
       }
     }
 
@@ -340,7 +340,7 @@ LABEL_29:
       *buf = 138543362;
       v17 = selfCopy;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Finished %{public}@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "Finished %{public}@", selfCopy);
     }
 
     if (completionCopy)
@@ -385,46 +385,37 @@ LABEL_29:
       v27 = v26;
       if (deleteAttempts == 1)
       {
-        if (!os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
         {
-          goto LABEL_49;
+          *buf = 138543362;
+          v41 = recordID;
+          _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEBUG, "Deleted record %{public}@", buf, 0xCu);
+          _MBLog(@"Db", "Deleted record %{public}@", recordID);
         }
-
-        *buf = 138543362;
-        v43 = recordID;
-        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEBUG, "Deleted record %{public}@", buf, 0xCu);
       }
 
-      else
+      else if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
-        if (!os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
-        {
-          goto LABEL_49;
-        }
-
         *buf = 138543618;
-        v43 = recordID;
-        v44 = 2048;
-        v45 = *&deleteAttempts;
+        v41 = recordID;
+        v42 = 2048;
+        v43 = *&deleteAttempts;
         _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Deleted record %{public}@ after %lu attempts", buf, 0x16u);
+        _MBLog(@"Df", "Deleted record %{public}@ after %lu attempts", recordID, deleteAttempts);
       }
 
-LABEL_48:
-      _MBLog();
-      goto LABEL_49;
+      goto LABEL_47;
     }
 
     v14 = MBGetDefaultLog();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v43 = recordID;
-      v44 = 2112;
-      v45 = *&v11;
+      v41 = recordID;
+      v42 = 2112;
+      v43 = *&v11;
       _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Handling delete error for record %{public}@: %@", buf, 0x16u);
-      v40 = recordID;
-      v41 = v11;
-      _MBLog();
+      _MBLog(@"E ", "Handling delete error for record %{public}@: %@", recordID, v11);
     }
 
     ckOperationPolicy = [(MBCKBatchDelete *)self ckOperationPolicy];
@@ -441,21 +432,84 @@ LABEL_48:
 
     if (!v20)
     {
-      if (([operationCopy atomic] & 1) == 0)
+      if (([operationCopy atomic] & 1) != 0 || (v21 = 5.0, !+[MBError isRetryableXPCError:](MBError, "isRetryableXPCError:", v11)))
       {
-        v21 = 5.0;
-        if ([MBError isRetryableXPCError:v11])
+LABEL_45:
+
+        v27 = MBGetDefaultLog();
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_45;
+          *buf = 138543874;
+          v41 = recordID;
+          v42 = 2048;
+          v43 = *&deleteAttempts;
+          v44 = 2112;
+          v45 = v11;
+          _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "Failed to delete record %{public}@ after %lu attempts, error:%@", buf, 0x20u);
+          _MBLog(@"E ", "Failed to delete record %{public}@ after %lu attempts, error:%@", recordID, deleteAttempts, v11);
         }
+
+LABEL_47:
+
+        [(MBCKBatchDelete *)self _performCallbacksForDeleteInfo:infoCopy error:v11];
+LABEL_48:
+
+        goto LABEL_49;
       }
 
-      goto LABEL_46;
+      goto LABEL_44;
     }
 
     v21 = fmax(v18, 1.0);
     code = [v11 code];
-    if (code <= 5)
+    if (code > 5)
+    {
+      switch(code)
+      {
+        case 6:
+          v28 = MBGetDefaultLog();
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138543362;
+            v41 = recordID;
+            _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "Delete of record %{public}@ hit a service unavailable error", buf, 0xCu);
+            _MBLog(@"E ", "Delete of record %{public}@ hit a service unavailable error", recordID);
+          }
+
+          break;
+        case 7:
+          v33 = MBGetDefaultLog();
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138543362;
+            v41 = recordID;
+            _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "Delete of record %{public}@ was rate limited", buf, 0xCu);
+            _MBLog(@"E ", "Delete of record %{public}@ was rate limited", recordID);
+          }
+
+          if ([MBError isNetworkDisconnectedError:v11]&& ![(MBCKBatchDelete *)self retryWhenNetworkDisconnected])
+          {
+            goto LABEL_45;
+          }
+
+          goto LABEL_44;
+        case 23:
+          v28 = MBGetDefaultLog();
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138543362;
+            v41 = recordID;
+            _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "Delete of record %{public}@ got a zone busy error", buf, 0xCu);
+            _MBLog(@"E ", "Delete of record %{public}@ got a zone busy error", recordID);
+          }
+
+          break;
+        default:
+          goto LABEL_45;
+      }
+    }
+
+    else
     {
       switch(code)
       {
@@ -464,136 +518,64 @@ LABEL_48:
           v30 = [userInfo objectForKeyedSubscript:CKPartialErrorsByItemIDKey];
           v31 = [v30 objectForKeyedSubscript:recordID];
 
-          if (v31)
+          if (!v31)
           {
-            [(MBCKBatchDelete *)self _handleCompletionForDeleteInfo:infoCopy operation:operationCopy error:v31];
-            goto LABEL_57;
+            v39 = MBGetDefaultLog();
+            if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+            {
+              *buf = 138543362;
+              v41 = recordID;
+              _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "No partial error found for record %{public}@", buf, 0xCu);
+              _MBLog(@"E ", "No partial error found for record %{public}@", recordID);
+            }
+
+            goto LABEL_45;
           }
 
-          v39 = MBGetDefaultLog();
-          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
-          {
-            *buf = 138543362;
-            v43 = recordID;
-            _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "No partial error found for record %{public}@", buf, 0xCu);
-            _MBLog();
-          }
-
-          break;
+          [(MBCKBatchDelete *)self _handleCompletionForDeleteInfo:infoCopy operation:operationCopy error:v31];
+          goto LABEL_55;
         case 3:
           v32 = MBGetDefaultLog();
           if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v43 = recordID;
+            v41 = recordID;
             _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "Delete of record %{public}@ hit a network unavailable error", buf, 0xCu);
-            v40 = recordID;
-            _MBLog();
+            _MBLog(@"E ", "Delete of record %{public}@ hit a network unavailable error", recordID);
           }
 
-          if (![MBError isNetworkDisconnectedError:v11]|| [(MBCKBatchDelete *)self retryWhenNetworkDisconnected])
+          if ([MBError isNetworkDisconnectedError:v11]&& ![(MBCKBatchDelete *)self retryWhenNetworkDisconnected])
           {
-            v24 = arc4random_uniform(5u);
-            v25 = 10.0;
-LABEL_40:
-            v21 = fmax(v21, v24 + v25);
             goto LABEL_45;
           }
 
+          v24 = arc4random_uniform(5u);
+          v25 = 10.0;
           break;
         case 4:
           v23 = MBGetDefaultLog();
           if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v43 = recordID;
+            v41 = recordID;
             _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "Delete of record %{public}@ hit a network failure error", buf, 0xCu);
-            v40 = recordID;
-            _MBLog();
+            _MBLog(@"E ", "Delete of record %{public}@ hit a network failure error", recordID);
           }
 
           v24 = arc4random_uniform(5u);
           v25 = 1.0;
-          goto LABEL_40;
-        default:
           break;
-      }
-
-LABEL_46:
-
-      v27 = MBGetDefaultLog();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 138543874;
-        v43 = recordID;
-        v44 = 2048;
-        v45 = *&deleteAttempts;
-        v46 = 2112;
-        v47 = v11;
-        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "Failed to delete record %{public}@ after %lu attempts, error:%@", buf, 0x20u);
-        goto LABEL_48;
-      }
-
-LABEL_49:
-
-      [(MBCKBatchDelete *)self _performCallbacksForDeleteInfo:infoCopy error:v11];
-LABEL_50:
-
-      goto LABEL_51;
-    }
-
-    switch(code)
-    {
-      case 6:
-        v28 = MBGetDefaultLog();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 138543362;
-          v43 = recordID;
-          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "Delete of record %{public}@ hit a service unavailable error", buf, 0xCu);
-          v40 = recordID;
-          goto LABEL_33;
-        }
-
-        break;
-      case 7:
-        v33 = MBGetDefaultLog();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 138543362;
-          v43 = recordID;
-          _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "Delete of record %{public}@ was rate limited", buf, 0xCu);
-          v40 = recordID;
-          _MBLog();
-        }
-
-        if (![MBError isNetworkDisconnectedError:v11]|| [(MBCKBatchDelete *)self retryWhenNetworkDisconnected])
-        {
+        default:
           goto LABEL_45;
-        }
+      }
 
-        goto LABEL_46;
-      case 23:
-        v28 = MBGetDefaultLog();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 138543362;
-          v43 = recordID;
-          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "Delete of record %{public}@ got a zone busy error", buf, 0xCu);
-          v40 = recordID;
-LABEL_33:
-          _MBLog();
-        }
-
-        break;
-      default:
-        goto LABEL_46;
+      v21 = fmax(v21, v24 + v25);
     }
 
-LABEL_45:
+LABEL_44:
     if (deleteAttempts > [v16 maxRetryAttempts])
     {
-      goto LABEL_46;
+      goto LABEL_45;
     }
 
     userInfo2 = [v11 userInfo];
@@ -610,25 +592,25 @@ LABEL_45:
     if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543874;
-      v43 = recordID;
+      v41 = recordID;
+      v42 = 2048;
+      v43 = v36;
       v44 = 2048;
-      v45 = v36;
-      v46 = 2048;
-      v47 = deleteAttempts;
+      v45 = deleteAttempts;
       _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "Retrying delete of record %{public}@ in %0.3fs after %lu attempts", buf, 0x20u);
-      _MBLog();
+      _MBLog(@"Df", "Retrying delete of record %{public}@ in %0.3fs after %lu attempts", recordID, *&v36, deleteAttempts);
     }
 
     v38 = [NSDate dateWithTimeIntervalSinceNow:v36];
     [infoCopy setRetryDate:v38];
 
     [infoCopy setState:1];
-LABEL_57:
+LABEL_55:
 
-    goto LABEL_50;
+    goto LABEL_48;
   }
 
-LABEL_51:
+LABEL_49:
 }
 
 - (void)_sendBatchDeleteOperationForDeleteInfos:(id)infos
@@ -654,8 +636,7 @@ LABEL_51:
     v33 = 2048;
     selfCopy2 = [infosCopy count];
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Deleting a batch for %{public}@, c:%lu", buf, 0x16u);
-    [infosCopy count];
-    _MBLog();
+    _MBLog(@"Df", "Deleting a batch for %{public}@, c:%lu", self, [infosCopy count]);
   }
 
   v8 = [infosCopy valueForKey:@"recordID"];
@@ -692,8 +673,7 @@ LABEL_51:
     }
 
     operationID2 = [v9 operationID];
-    [v8 count];
-    _MBLog();
+    _MBLog(@"Df", "Created operation %{public}@ for %{public}@, c:%lu, o:%ld", operationID2, self, [v8 count], v13);
   }
 
   deleteGroup = [(MBCKBatchDelete *)self deleteGroup];
@@ -740,29 +720,26 @@ LABEL_51:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543874;
-    selfCopy3 = self;
-    v38 = 2048;
-    v39 = COERCE_DOUBLE([infosCopy count]);
-    v40 = 2048;
-    v41 = v10;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Preparing to delete a batch for %{public}@, c:%lu, tq:%.3fs", buf, 0x20u);
-    v28 = v10;
     selfCopy2 = self;
-    v27 = [infosCopy count];
-    _MBLog();
+    v35 = 2048;
+    v36 = COERCE_DOUBLE([infosCopy count]);
+    v37 = 2048;
+    v38 = v10;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Preparing to delete a batch for %{public}@, c:%lu, tq:%.3fs", buf, 0x20u);
+    _MBLog(@"Df", "Preparing to delete a batch for %{public}@, c:%lu, tq:%.3fs", self, [infosCopy count], v10);
   }
 
-  v33 = 0u;
-  v34 = 0u;
+  v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v12 = infosCopy;
-  v13 = [v12 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (!v13)
   {
 
 LABEL_20:
-    [(MBCKBatchDelete *)self _sendBatchDeleteOperationForDeleteInfos:v12, selfCopy2, v27];
+    [(MBCKBatchDelete *)self _sendBatchDeleteOperationForDeleteInfos:v12];
     deleteGroup2 = [(MBCKBatchDelete *)self deleteGroup];
     dispatch_group_leave(deleteGroup2);
     goto LABEL_21;
@@ -770,17 +747,17 @@ LABEL_20:
 
   v14 = v13;
   deleteGroup2 = 0;
-  v16 = *v32;
+  v16 = *v29;
   do
   {
     for (i = 0; i != v14; i = i + 1)
     {
-      if (*v32 != v16)
+      if (*v29 != v16)
       {
         objc_enumerationMutation(v12);
       }
 
-      retryDate = [*(*(&v31 + 1) + 8 * i) retryDate];
+      retryDate = [*(*(&v28 + 1) + 8 * i) retryDate];
       v19 = retryDate;
       if (retryDate)
       {
@@ -798,7 +775,7 @@ LABEL_20:
       }
     }
 
-    v14 = [v12 countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v14 = [v12 countByEnumeratingWithState:&v28 objects:v32 count:16];
   }
 
   while (v14);
@@ -814,11 +791,11 @@ LABEL_20:
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    selfCopy3 = self;
-    v38 = 2048;
-    v39 = v22;
+    selfCopy2 = self;
+    v35 = 2048;
+    v36 = v22;
     _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Scheduling a batch for %{public}@ in %0.3fs", buf, 0x16u);
-    _MBLog();
+    _MBLog(@"Df", "Scheduling a batch for %{public}@ in %0.3fs", self, *&v22);
   }
 
   v24 = dispatch_time(0, (v22 * 1000000000.0));
@@ -828,7 +805,7 @@ LABEL_20:
   block[2] = sub_1001E9544;
   block[3] = &unk_1003BC060;
   block[4] = self;
-  v30 = v12;
+  v27 = v12;
   dispatch_after(v24, v25, block);
 
 LABEL_21:
@@ -843,7 +820,7 @@ LABEL_21:
 
   deletesCopy = deletes;
   ckOperationPolicy = [(MBCKBatchDelete *)self ckOperationPolicy];
-  v33 = ckOperationPolicy;
+  v31 = ckOperationPolicy;
   if (!ckOperationPolicy)
   {
     __assert_rtn("[MBCKBatchDelete _flushBatchedDeletes:]", "MBCKBatchDelete.m", 371, "policy");
@@ -851,15 +828,15 @@ LABEL_21:
 
   maxBatchCount = [ckOperationPolicy maxBatchCount];
   deleteIncrementally = [(MBCKBatchDelete *)self deleteIncrementally];
-  v36 = objc_opt_new();
+  v34 = objc_opt_new();
   selfCopy = self;
   objc_sync_enter(selfCopy);
   deleteInfos = [(MBCKBatchDelete *)selfCopy deleteInfos];
   array = [deleteInfos array];
 
-  v32 = array;
-  v31 = [array sortedArrayWithOptions:16 usingComparator:&stru_1003C14D8];
-  objectEnumerator = [v31 objectEnumerator];
+  v30 = array;
+  v29 = [array sortedArrayWithOptions:16 usingComparator:&stru_1003C14D8];
+  objectEnumerator = [v29 objectEnumerator];
   v10 = 0;
   v11 = 0;
   v12 = 0;
@@ -889,7 +866,7 @@ LABEL_21:
       if (!v15)
       {
 LABEL_27:
-        [nextObject setState:{2, v29, v30}];
+        [nextObject setState:2];
         [nextObject setDeleteAttempts:{objc_msgSend(nextObject, "deleteAttempts") + 1}];
         if (!v12)
         {
@@ -947,16 +924,14 @@ LABEL_27:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       *buf = 134218242;
-      v43 = v15;
-      v44 = 2114;
-      v45 = v11;
+      v41 = v15;
+      v42 = 2114;
+      v43 = v11;
       _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "Flushing %lu batched deletes, zoneID:%{public}@", buf, 0x16u);
-      v29 = v15;
-      v30 = v11;
-      _MBLog();
+      _MBLog(@"I ", "Flushing %lu batched deletes, zoneID:%{public}@", v15, v11);
     }
 
-    [v36 addObject:v12];
+    [v34 addObject:v12];
     deleteGroup = [(MBCKBatchDelete *)selfCopy deleteGroup];
     dispatch_group_enter(deleteGroup);
 
@@ -987,30 +962,30 @@ LABEL_32:
   }
 
   objc_sync_exit(selfCopy);
-  v39 = 0u;
-  v40 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v24 = v36;
-  v25 = [v24 countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v35 = 0u;
+  v36 = 0u;
+  v24 = v34;
+  v25 = [v24 countByEnumeratingWithState:&v35 objects:v39 count:16];
   if (v25)
   {
-    v26 = *v38;
+    v26 = *v36;
     do
     {
       for (i = 0; i != v25; i = i + 1)
       {
-        if (*v38 != v26)
+        if (*v36 != v26)
         {
           objc_enumerationMutation(v24);
         }
 
-        [(MBCKBatchDelete *)selfCopy _scheduleBatchDeleteOperationForDeleteInfos:*(*(&v37 + 1) + 8 * i)];
+        [(MBCKBatchDelete *)selfCopy _scheduleBatchDeleteOperationForDeleteInfos:*(*(&v35 + 1) + 8 * i)];
         deleteGroup2 = [(MBCKBatchDelete *)selfCopy deleteGroup];
         dispatch_group_leave(deleteGroup2);
       }
 
-      v25 = [v24 countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v25 = [v24 countByEnumeratingWithState:&v35 objects:v39 count:16];
     }
 
     while (v25);

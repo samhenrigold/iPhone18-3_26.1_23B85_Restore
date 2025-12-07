@@ -210,7 +210,6 @@ LABEL_8:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    rxfrmtoolong = self->_rxfrmtoolong;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x10) == 0)
@@ -230,7 +229,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  rxfrmtooshrt = self->_rxfrmtooshrt;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -245,7 +243,6 @@ LABEL_4:
   }
 
 LABEL_11:
-  rxinvmachdr = self->_rxinvmachdr;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -260,7 +257,6 @@ LABEL_5:
   }
 
 LABEL_12:
-  rxbadfcs = self->_rxbadfcs;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -272,7 +268,6 @@ LABEL_6:
     }
 
 LABEL_14:
-    rxcrsglitch = self->_rxcrsglitch;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 0x40) == 0)
     {
@@ -283,7 +278,6 @@ LABEL_14:
   }
 
 LABEL_13:
-  rxbadplcp = self->_rxbadplcp;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) != 0)
@@ -298,7 +292,6 @@ LABEL_7:
   }
 
 LABEL_15:
-  rxstrt = self->_rxstrt;
 
   PBDataWriterWriteUint64Field();
 }

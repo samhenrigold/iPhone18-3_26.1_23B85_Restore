@@ -46,7 +46,7 @@ uint64_t __25__RCPPlayer_sharedPlayer__block_invoke()
 {
   optionsCopy = options;
   streamCopy = stream;
-  v8 = RCPLogPlayback();
+  v8 = RCPLogPlayback(streamCopy);
   if (os_signpost_enabled(v8))
   {
     *buf = 0;
@@ -62,11 +62,11 @@ uint64_t __25__RCPPlayer_sharedPlayer__block_invoke()
   sharedPlayer3 = [self sharedPlayer];
   [sharedPlayer3 tearDown];
 
-  v12 = RCPLogPlayback();
-  if (os_signpost_enabled(v12))
+  v13 = RCPLogPlayback(v12);
+  if (os_signpost_enabled(v13))
   {
-    *v13 = 0;
-    _os_signpost_emit_with_name_impl(&dword_2619DE000, v12, OS_SIGNPOST_INTERVAL_BEGIN, 0x1F5uLL, "RecapPlayEventStream", &unk_261A05C9D, v13, 2u);
+    *v14 = 0;
+    _os_signpost_emit_with_name_impl(&dword_2619DE000, v13, OS_SIGNPOST_INTERVAL_BEGIN, 0x1F5uLL, "RecapPlayEventStream", &unk_261A05C9D, v14, 2u);
   }
 }
 
@@ -186,7 +186,7 @@ LABEL_18:
 
 - (void)playEventStream:(id)stream withOptions:(id)options
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   streamCopy = stream;
   optionsCopy = options;
   environment = [(RCPPlayer *)self environment];
@@ -197,7 +197,7 @@ LABEL_18:
   [optionsCopy setPlaybackSpeedFactor:v10 * v12];
 
   objc_storeStrong(&self->_playbackOptions, options);
-  v52 = environment;
+  v54 = environment;
   if ([environment isSimulator] && (v13 = objc_opt_class(), (objc_msgSend(v13, "isSubclassOfClass:", objc_opt_class(), environment) & 1) == 0))
   {
     environment3 = [streamCopy environment];
@@ -224,90 +224,90 @@ LABEL_18:
   denom = info.denom;
   [optionsCopy playbackSpeedFactor];
   v19 = v18;
-  v54 = streamCopy;
+  v56 = streamCopy;
   events = [streamCopy events];
   v21 = mach_absolute_time();
   [optionsCopy minDelayBetweenSends];
   v23 = v22;
-  v69 = 0u;
+  v71 = 0u;
+  v72 = 0u;
   v70 = 0u;
-  v68 = 0u;
   if (optionsCopy)
   {
-    [optionsCopy transform];
+    objc_msgSend_transform(optionsCopy);
   }
 
-  v56 = optionsCopy;
+  v58 = optionsCopy;
   if ([(RCPPlayerPlaybackOptions *)self->_playbackOptions linkEventDeliveryToDisplayRefreshRate])
   {
     +[RCPPlayerDisplayLinkWaiter wait];
     firstObject = [events firstObject];
-    *buf = v68;
-    *&buf[16] = v69;
-    v75 = v70;
+    *buf = v70;
+    *&buf[16] = v71;
+    v77 = v72;
     [(RCPPlayer *)self _sendEvent:firstObject machTimeOffset:0 transform:buf];
   }
 
+  v68 = 0u;
+  v69 = 0u;
   v66 = 0u;
   v67 = 0u;
-  v64 = 0u;
-  v65 = 0u;
   obj = events;
-  v57 = [obj countByEnumeratingWithState:&v64 objects:v73 count:16];
-  if (v57)
+  v59 = [obj countByEnumeratingWithState:&v66 objects:v75 count:16];
+  if (v59)
   {
     v25 = 0;
     v26 = (numer / denom);
     v27 = 1.0 / v19;
     v28 = (v23 * 1000000000.0);
-    v55 = *v65;
+    v57 = *v67;
     do
     {
       v29 = 0;
       do
       {
         selfCopy = self;
-        if (*v65 != v55)
+        if (*v67 != v57)
         {
           objc_enumerationMutation(obj);
         }
 
-        v31 = *(*(&v64 + 1) + 8 * v29);
-        v60 = 0u;
-        v61 = 0u;
+        v31 = *(*(&v66 + 1) + 8 * v29);
         v62 = 0u;
         v63 = 0u;
+        v64 = 0u;
+        v65 = 0u;
         preActions = [v31 preActions];
-        v33 = [preActions countByEnumeratingWithState:&v60 objects:v72 count:16];
+        v33 = [preActions countByEnumeratingWithState:&v62 objects:v74 count:16];
         if (v33)
         {
           v34 = v33;
-          v35 = *v61;
+          v35 = *v63;
           do
           {
             for (i = 0; i != v34; ++i)
             {
-              if (*v61 != v35)
+              if (*v63 != v35)
               {
                 objc_enumerationMutation(preActions);
               }
 
-              [*(*(&v60 + 1) + 8 * i) play];
+              [*(*(&v62 + 1) + 8 * i) play];
               v37 = mach_absolute_time();
             }
 
             v21 = v37;
-            v34 = [preActions countByEnumeratingWithState:&v60 objects:v72 count:16];
+            v34 = [preActions countByEnumeratingWithState:&v62 objects:v74 count:16];
           }
 
           while (v34);
         }
 
         firstObject2 = [obj firstObject];
-        v39 = (v27 * [v56 timestampForEventReplay:firstObject2]);
+        v39 = (v27 * [v58 timestampForEventReplay:firstObject2]);
 
         v40 = v21 - v39;
-        v41 = v21 - v39 + (v27 * [v56 timestampForEventReplay:v31]);
+        v41 = v21 - v39 + (v27 * [v58 timestampForEventReplay:v31]);
         v42 = (v26 * mach_absolute_time());
         v43 = v42 + v28;
         if (v42 + v28 <= (v41 * v26 + -1000000.0))
@@ -325,38 +325,38 @@ LABEL_18:
         {
           __rqtp.tv_sec = v44 / 0x3B9ACA00;
           __rqtp.tv_nsec = v44 % 0x3B9ACA00;
-          nanosleep(&__rqtp, 0);
-          v45 = RCPLogPlayback();
-          if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+          v45 = nanosleep(&__rqtp, 0);
+          v46 = RCPLogPlayback(v45);
+          if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
           {
-            v46 = RCPTimeIntervalFromMachTimestamp((v44 / v26));
+            v47 = RCPTimeIntervalFromMachTimestamp((v44 / v26));
             *buf = 134218240;
             *&buf[4] = v25;
             *&buf[12] = 2048;
-            *&buf[14] = v46;
-            _os_log_impl(&dword_2619DE000, v45, OS_LOG_TYPE_INFO, " - %4ld delayed by %0.9fs -\n", buf, 0x16u);
+            *&buf[14] = v47;
+            _os_log_impl(&dword_2619DE000, v46, OS_LOG_TYPE_INFO, " - %4ld delayed by %0.9fs -\n", buf, 0x16u);
           }
         }
 
-        v47 = mach_absolute_time();
-        v48 = RCPTimeIntervalFromMachTimestamp(v47);
-        v49 = RCPTimeIntervalFromMachTimestamp(v41);
-        v50 = RCPLogPlayback();
-        if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
+        v48 = mach_absolute_time();
+        v49 = RCPTimeIntervalFromMachTimestamp(v48);
+        v50 = RCPTimeIntervalFromMachTimestamp(v41);
+        v52 = RCPLogPlayback(v51);
+        if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
         {
           *buf = 134218240;
           *&buf[4] = v25;
           *&buf[12] = 2048;
-          *&buf[14] = v48 - v49;
-          _os_log_debug_impl(&dword_2619DE000, v50, OS_LOG_TYPE_DEBUG, "  - %4ld delivery - difference %0.9fs -\n", buf, 0x16u);
+          *&buf[14] = v49 - v50;
+          _os_log_debug_impl(&dword_2619DE000, v52, OS_LOG_TYPE_DEBUG, "  - %4ld delivery - difference %0.9fs -\n", buf, 0x16u);
         }
 
         self = selfCopy;
         if (![(RCPPlayerPlaybackOptions *)selfCopy->_playbackOptions linkEventDeliveryToDisplayRefreshRate]|| v25)
         {
-          *buf = v68;
-          *&buf[16] = v69;
-          v75 = v70;
+          *buf = v70;
+          *&buf[16] = v71;
+          v77 = v72;
           [(RCPPlayer *)selfCopy _sendEvent:v31 machTimeOffset:v40 transform:buf];
         }
 
@@ -364,11 +364,11 @@ LABEL_18:
         ++v29;
       }
 
-      while (v29 != v57);
-      v57 = [obj countByEnumeratingWithState:&v64 objects:v73 count:16];
+      while (v29 != v59);
+      v59 = [obj countByEnumeratingWithState:&v66 objects:v75 count:16];
     }
 
-    while (v57);
+    while (v59);
   }
 
   analyticsEventSender = [(RCPPlayer *)self analyticsEventSender];
@@ -420,10 +420,10 @@ LABEL_18:
 {
   serviceCopy = service;
   v11 = *&transform->c;
-  v16[0] = *&transform->a;
-  v16[1] = v11;
-  v16[2] = *&transform->tx;
-  v12 = [(RCPPlayer *)self _cloneAndTransformHIDEvent:event machTimeOffset:offset transform:v16];
+  v17[0] = *&transform->a;
+  v17[1] = v11;
+  v17[2] = *&transform->tx;
+  v12 = [(RCPPlayer *)self _cloneAndTransformHIDEvent:event machTimeOffset:offset transform:v17];
   customizeHIDEvent = [(RCPPlayerPlaybackOptions *)self->_playbackOptions customizeHIDEvent];
 
   if (customizeHIDEvent)
@@ -434,10 +434,10 @@ LABEL_18:
 
   if (v12)
   {
-    v15 = RCPLogPlayback();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v16 = RCPLogPlayback(v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      [RCPPlayer _sendEvent:v12 withService:v15 machTimeOffset:? transform:?];
+      [RCPPlayer _sendEvent:v12 withService:v16 machTimeOffset:? transform:?];
     }
 
     [serviceCopy postHIDEvent:v12];

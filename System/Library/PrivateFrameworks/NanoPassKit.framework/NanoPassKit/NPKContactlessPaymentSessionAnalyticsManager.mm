@@ -39,41 +39,41 @@
   dispatch_async(analyticsQueue, v8);
 }
 
-void __103__NPKContactlessPaymentSessionAnalyticsManager_contactlessPaymentSessionManager_didChangeSessionState___block_invoke(uint64_t a1)
+void __103__NPKContactlessPaymentSessionAnalyticsManager_contactlessPaymentSessionManager_didChangeSessionState___block_invoke(uint64_t a1, uint64_t a2)
 {
   v95 = *MEMORY[0x277D85DE8];
-  if (NPKIsRunningInCarousel())
+  if (NPKIsRunningInCarousel(a1, a2))
   {
-    v3 = 0;
+    v4 = 0;
   }
 
   else
   {
-    v3 = 2;
+    v4 = 2;
   }
 
-  v4 = *MEMORY[0x277D38450];
-  v5 = [*(a1 + 32) transactionContext];
-  if ([v5 releaseDataStatus] == 6)
+  v5 = *MEMORY[0x277D38450];
+  v6 = [*(a1 + 32) transactionContext];
+  if ([v6 releaseDataStatus] == 6)
   {
-    v6 = [*(*(a1 + 40) + 16) transactionContext];
-    v1 = [v6 releaseDataStatus];
+    v7 = [*(*(a1 + 40) + 16) transactionContext];
+    v2 = [v7 releaseDataStatus];
 
-    if (v1 != 6)
+    if (v2 != 6)
     {
-      v7 = MEMORY[0x277D37D28];
-      v8 = *MEMORY[0x277D38558];
+      v8 = MEMORY[0x277D37D28];
+      v9 = *MEMORY[0x277D38558];
       v93[0] = *MEMORY[0x277D38538];
-      v93[1] = v8;
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v93 count:2];
-      v10 = *MEMORY[0x277D383E0];
-      v11 = *MEMORY[0x277D383C0];
+      v93[1] = v9;
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v93 count:2];
+      v11 = *MEMORY[0x277D383E0];
+      v12 = *MEMORY[0x277D383C0];
       v91[0] = *MEMORY[0x277D383D8];
-      v91[1] = v11;
-      v92[0] = v10;
+      v91[1] = v12;
+      v92[0] = v11;
       v92[1] = @"userCancelled";
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v92 forKeys:v91 count:2];
-      [v7 subjects:v9 sendEvent:v12];
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v92 forKeys:v91 count:2];
+      [v8 subjects:v10 sendEvent:v13];
       goto LABEL_13;
     }
   }
@@ -84,18 +84,18 @@ void __103__NPKContactlessPaymentSessionAnalyticsManager_contactlessPaymentSessi
 
   if ([*(*(a1 + 40) + 16) failureType] || !objc_msgSend(*(a1 + 32), "failureType"))
   {
-    v9 = [*(*(a1 + 40) + 16) transactionContext];
-    if ([v9 transactionStatus] == 2)
+    v10 = [*(*(a1 + 40) + 16) transactionContext];
+    if ([v10 transactionStatus] == 2)
     {
 LABEL_14:
 
 LABEL_15:
-      v13 = @"other";
+      v14 = @"other";
       goto LABEL_16;
     }
 
-    v12 = [*(a1 + 32) transactionContext];
-    if ([v12 transactionStatus] != 2)
+    v13 = [*(a1 + 32) transactionContext];
+    if ([v13 transactionStatus] != 2)
     {
 LABEL_13:
 
@@ -108,9 +108,9 @@ LABEL_13:
 
     else
     {
-      v1 = [*(a1 + 32) completionReason];
+      v2 = [*(a1 + 32) completionReason];
 
-      if (v1)
+      if (v2)
       {
         goto LABEL_15;
       }
@@ -124,7 +124,7 @@ LABEL_13:
     v20 = *MEMORY[0x277D38500];
     v85[0] = *MEMORY[0x277D383D8];
     v85[1] = v20;
-    v86[0] = v4;
+    v86[0] = v5;
     v86[1] = @"success";
     v21 = *MEMORY[0x277D384B8];
     v86[2] = v20;
@@ -153,7 +153,7 @@ LABEL_13:
             objc_enumerationMutation(v23);
           }
 
-          v1 = *(*(&v81 + 1) + 8 * i);
+          v2 = *(*(&v81 + 1) + 8 * i);
           if (v26 && v26 != [*(*(&v81 + 1) + 8 * i) paymentType])
           {
             v29 = v19;
@@ -162,7 +162,7 @@ LABEL_13:
             goto LABEL_41;
           }
 
-          v26 = [(__CFString *)v1 paymentType];
+          v26 = [(__CFString *)v2 paymentType];
         }
 
         v25 = [v23 countByEnumeratingWithState:&v81 objects:v94 count:16];
@@ -227,17 +227,17 @@ LABEL_136:
               v66 = [v65 cardType];
               if (v66 <= 4)
               {
-                v1 = **(&unk_279946CA0 + v66);
+                v2 = **(&unk_279946CA0 + v66);
               }
             }
 
             else
             {
-              v1 = @"other";
+              v2 = @"other";
             }
 
             v85[6] = *MEMORY[0x277D383C0];
-            v86[5] = v1;
+            v86[5] = v2;
             v86[6] = @"unknown";
             v67 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v86 forKeys:v85 count:7];
             [v79 subjects:v29 sendEvent:v67];
@@ -251,7 +251,7 @@ LABEL_136:
               v71 = [v70 isLowPowerModeEnabled];
 
               IsTinker = NPKPairedOrPairingDeviceIsTinker();
-              NPKTrackSETransactionDetails(v3, 5, v71, IsTinker);
+              NPKTrackSETransactionDetails(v4, 5, v71, IsTinker);
             }
 
             goto LABEL_15;
@@ -270,7 +270,7 @@ LABEL_62:
 
     v35 = [v32 accessType];
     v36 = [v32 accessReportingType];
-    v1 = v36;
+    v2 = v36;
     if (v35 <= 2)
     {
       switch(v35)
@@ -332,7 +332,7 @@ LABEL_131:
 
   v15 = [*(a1 + 32) failureType];
   v16 = @"unknown";
-  v13 = @"other";
+  v14 = @"other";
   if (v15 <= 5)
   {
     if (v15 <= 2)
@@ -346,7 +346,7 @@ LABEL_131:
 
 LABEL_57:
         v16 = @"failure";
-        v13 = @"transactionFailed";
+        v14 = @"transactionFailed";
         goto LABEL_65;
       }
     }
@@ -365,7 +365,7 @@ LABEL_57:
     }
 
     v16 = @"failure";
-    v13 = @"sessionFailed";
+    v14 = @"sessionFailed";
     goto LABEL_65;
   }
 
@@ -378,7 +378,7 @@ LABEL_57:
 
 LABEL_56:
     v16 = @"failure";
-    v13 = @"userCancelled";
+    v14 = @"userCancelled";
     goto LABEL_65;
   }
 
@@ -389,7 +389,7 @@ LABEL_56:
 
   if (v15 == 10)
   {
-    v13 = *MEMORY[0x277D383D0];
+    v14 = *MEMORY[0x277D383D0];
     v17 = MEMORY[0x277D38458];
   }
 
@@ -400,14 +400,14 @@ LABEL_56:
       goto LABEL_65;
     }
 
-    v13 = @"unlockIPhone";
+    v14 = @"unlockIPhone";
     v17 = MEMORY[0x277D383E8];
   }
 
   v38 = *v17;
 
   v16 = @"failure";
-  v4 = v38;
+  v5 = v38;
 LABEL_65:
   v80 = MEMORY[0x277D37D28];
   v39 = *MEMORY[0x277D38558];
@@ -417,13 +417,13 @@ LABEL_65:
   v41 = *MEMORY[0x277D38500];
   v88[0] = *MEMORY[0x277D383D8];
   v88[1] = v41;
-  v89[0] = v4;
+  v89[0] = v5;
   v89[1] = v16;
   v42 = *MEMORY[0x277D383C0];
   v88[2] = *MEMORY[0x277D384B8];
   v88[3] = v42;
   v89[2] = v41;
-  v89[3] = v13;
+  v89[3] = v14;
   v88[4] = *MEMORY[0x277D38508];
   v78 = [*(a1 + 32) currentPass];
   v76 = [v78 paymentPass];
@@ -447,7 +447,7 @@ LABEL_65:
           objc_enumerationMutation(v43);
         }
 
-        v1 = *(*(&v81 + 1) + 8 * j);
+        v2 = *(*(&v81 + 1) + 8 * j);
         if (v46 && v46 != [*(*(&v81 + 1) + 8 * j) paymentType])
         {
           v49 = v40;
@@ -456,7 +456,7 @@ LABEL_65:
           goto LABEL_77;
         }
 
-        v46 = [(__CFString *)v1 paymentType];
+        v46 = [(__CFString *)v2 paymentType];
       }
 
       v45 = [v43 countByEnumeratingWithState:&v81 objects:v94 count:16];
@@ -487,7 +487,7 @@ LABEL_77:
 
     v55 = [v52 accessType];
     v56 = [v52 accessReportingType];
-    v1 = v56;
+    v2 = v56;
     if (v55 <= 2)
     {
       switch(v55)
@@ -595,23 +595,21 @@ LABEL_121:
     v61 = [v60 cardType];
     if (v61 <= 4)
     {
-      v1 = **(&unk_279946CA0 + v61);
+      v2 = **(&unk_279946CA0 + v61);
     }
   }
 
   else
   {
-    v1 = @"other";
+    v2 = @"other";
   }
 
-  v89[6] = v1;
+  v89[6] = v2;
   v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v89 forKeys:v88 count:7];
   [v80 subjects:v49 sendEvent:v62];
 
 LABEL_16:
   objc_storeStrong((*(a1 + 40) + 16), *(a1 + 32));
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

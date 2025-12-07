@@ -1,1777 +1,3 @@
-void TriggerType.init(from:)()
-{
-  OUTLINED_FUNCTION_34();
-  v79 = v0;
-  v2 = v1;
-  v70 = v3;
-  v78 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB785F70, &qword_1B1F354F8);
-  OUTLINED_FUNCTION_0(v78);
-  v73 = v4;
-  v6 = *(v5 + 64);
-  OUTLINED_FUNCTION_26();
-  MEMORY[0x1EEE9AC00](v7);
-  OUTLINED_FUNCTION_17();
-  v75 = v8;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB785F78, &qword_1B1F35500);
-  v10 = OUTLINED_FUNCTION_0(v9);
-  v71 = v11;
-  v72 = v10;
-  v13 = *(v12 + 64);
-  OUTLINED_FUNCTION_26();
-  MEMORY[0x1EEE9AC00](v14);
-  OUTLINED_FUNCTION_17();
-  v74 = v15;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB785F80, &qword_1B1F35508);
-  v17 = OUTLINED_FUNCTION_0(v16);
-  v76 = v18;
-  v77 = v17;
-  v20 = *(v19 + 64);
-  OUTLINED_FUNCTION_26();
-  MEMORY[0x1EEE9AC00](v21);
-  OUTLINED_FUNCTION_39_1();
-  v22 = type metadata accessor for TriggerType(0);
-  v23 = OUTLINED_FUNCTION_10(v22);
-  v25 = *(v24 + 64);
-  v26 = MEMORY[0x1EEE9AC00](v23);
-  v28 = &v66 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v29 = MEMORY[0x1EEE9AC00](v26);
-  v31 = &v66 - v30;
-  MEMORY[0x1EEE9AC00](v29);
-  v33 = &v66 - v32;
-  v34 = v2[4];
-  OUTLINED_FUNCTION_44(v2, v2[3]);
-  sub_1B1E7B218();
-  v35 = v79;
-  sub_1B1F1B810();
-  if (v35)
-  {
-    goto LABEL_8;
-  }
-
-  v66 = v28;
-  v67 = v31;
-  v36 = v77;
-  v68 = v33;
-  v69 = v22;
-  v79 = v2;
-  v37 = sub_1B1F1B210();
-  sub_1B1E32BFC(v37, 0);
-  if (v39 == v40 >> 1)
-  {
-LABEL_7:
-    v50 = v69;
-    v51 = sub_1B1F1AFE0();
-    OUTLINED_FUNCTION_13();
-    v53 = v52;
-    v54 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB783CD0, qword_1B1F2B6F0) + 48);
-    *v53 = v50;
-    sub_1B1F1B190();
-    OUTLINED_FUNCTION_35_3();
-    (*(*(v51 - 8) + 104))(v53, *MEMORY[0x1E69E6AF8], v51);
-    swift_willThrow();
-    swift_unknownObjectRelease();
-    v55 = OUTLINED_FUNCTION_19_10();
-    v56(v55, v36);
-    v2 = v79;
-LABEL_8:
-    v57 = v2;
-LABEL_9:
-    __swift_destroy_boxed_opaque_existential_1(v57);
-    OUTLINED_FUNCTION_35();
-    return;
-  }
-
-  if (v39 < (v40 >> 1))
-  {
-    v80 = *(v38 + v39);
-    sub_1B1E32BF8(v39 + 1);
-    v42 = v41;
-    v44 = v43;
-    swift_unknownObjectRelease();
-    if (v42 == v44 >> 1)
-    {
-      v45 = v36;
-      if (v80)
-      {
-        OUTLINED_FUNCTION_84();
-        sub_1B1E7B26C();
-        OUTLINED_FUNCTION_42_0();
-        v46 = v68;
-        type metadata accessor for LocationTrigger(0);
-        OUTLINED_FUNCTION_12_7();
-        sub_1B1E771F0(v47, v48);
-        v49 = v66;
-        OUTLINED_FUNCTION_55_0();
-        swift_unknownObjectRelease();
-        v60 = OUTLINED_FUNCTION_20_5();
-        v61(v60);
-        v62 = OUTLINED_FUNCTION_50_0();
-      }
-
-      else
-      {
-        sub_1B1E7B2C0();
-        OUTLINED_FUNCTION_42_0();
-        v46 = v68;
-        type metadata accessor for TimeOfDayTrigger(0);
-        OUTLINED_FUNCTION_11_8();
-        sub_1B1E771F0(v58, v59);
-        v49 = v67;
-        OUTLINED_FUNCTION_55_0();
-        swift_unknownObjectRelease();
-        v64 = OUTLINED_FUNCTION_20_5();
-        v65(v64);
-        v62 = OUTLINED_FUNCTION_19_10();
-      }
-
-      v63(v62, v45);
-      swift_storeEnumTagMultiPayload();
-      sub_1B1E7AE0C(v49, v46);
-      sub_1B1E7AE0C(v46, v70);
-      v57 = v79;
-      goto LABEL_9;
-    }
-
-    goto LABEL_7;
-  }
-
-  __break(1u);
-}
-
-uint64_t sub_1B1E79D58(uint64_t a1, uint64_t a2)
-{
-  v4 = a1 == 0x746E65746E69 && a2 == 0xE600000000000000;
-  if (v4 || (OUTLINED_FUNCTION_41_1() & 1) != 0)
-  {
-
-    return 0;
-  }
-
-  else
-  {
-    v6 = a1 == 0xD000000000000010 && 0x80000001B1F39C20 == a2;
-    if (v6 || (OUTLINED_FUNCTION_41_1() & 1) != 0)
-    {
-
-      return 1;
-    }
-
-    else if (a1 == 0x74756374726F6873 && a2 == 0xE800000000000000)
-    {
-
-      return 2;
-    }
-
-    else
-    {
-      v8 = OUTLINED_FUNCTION_41_1();
-
-      if (v8)
-      {
-        return 2;
-      }
-
-      else
-      {
-        return 3;
-      }
-    }
-  }
-}
-
-uint64_t sub_1B1E79E48(char a1)
-{
-  if (!a1)
-  {
-    return 0x746E65746E69;
-  }
-
-  if (a1 == 1)
-  {
-    return 0xD000000000000010;
-  }
-
-  return 0x74756374726F6873;
-}
-
-uint64_t sub_1B1E79EB0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
-{
-  result = sub_1B1E79D58(a1, a2);
-  *a3 = result;
-  return result;
-}
-
-uint64_t sub_1B1E79EE4(uint64_t a1)
-{
-  v2 = sub_1B1E7B314();
-
-  return MEMORY[0x1EEE6BB70](a1, v2);
-}
-
-uint64_t sub_1B1E79F20(uint64_t a1)
-{
-  v2 = sub_1B1E7B314();
-
-  return MEMORY[0x1EEE6BB78](a1, v2);
-}
-
-void CodableTriggerAction.init(from:)()
-{
-  OUTLINED_FUNCTION_34();
-  v2 = v1;
-  v4 = v3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB785F98, &qword_1B1F35510);
-  OUTLINED_FUNCTION_0(v5);
-  v7 = v6;
-  v9 = *(v8 + 64);
-  OUTLINED_FUNCTION_26();
-  MEMORY[0x1EEE9AC00](v10);
-  OUTLINED_FUNCTION_39_1();
-  v11 = v2[4];
-  OUTLINED_FUNCTION_44(v2, v2[3]);
-  sub_1B1E7B314();
-  sub_1B1F1B810();
-  if (!v0)
-  {
-    sub_1B1E0EDAC();
-    OUTLINED_FUNCTION_24_0();
-    sub_1B1F1B200();
-    sub_1B1DEA98C(0, qword_1EB7849B8, 0x1E696ACD0);
-    sub_1B1DEA98C(0, &qword_1EB785FB0, 0x1E69AC640);
-    v12 = sub_1B1F1AD40();
-    if (v12)
-    {
-      v22 = v12;
-      OUTLINED_FUNCTION_24_0();
-      v19 = sub_1B1F1B1C0();
-      v21 = v20;
-      sub_1B1E03C48(v23, v24);
-      v13 = *(v7 + 8);
-      v14 = OUTLINED_FUNCTION_49();
-      v15(v14);
-      *v4 = v22;
-      *(v4 + 8) = v19;
-      *(v4 + 16) = v21;
-      *(v4 + 24) = 0;
-    }
-
-    else
-    {
-      sub_1B1F1AFE0();
-      OUTLINED_FUNCTION_13();
-      sub_1B1E7B368(&qword_1EB785FA8, &qword_1EB785F98, &qword_1B1F35510);
-      sub_1B1F1AFC0();
-      swift_willThrow();
-      sub_1B1E03C48(v23, v24);
-      v16 = *(v7 + 8);
-      v17 = OUTLINED_FUNCTION_49();
-      v18(v17);
-    }
-  }
-
-  __swift_destroy_boxed_opaque_existential_1(v2);
-  OUTLINED_FUNCTION_35();
-}
-
-void CodableTriggerAction.encode(to:)()
-{
-  OUTLINED_FUNCTION_34();
-  v31 = v1;
-  v3 = v2;
-  v33[2] = *MEMORY[0x1E69E9840];
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB785FB8, &qword_1B1F35518);
-  OUTLINED_FUNCTION_0(v4);
-  v6 = v5;
-  v8 = *(v7 + 64);
-  OUTLINED_FUNCTION_26();
-  MEMORY[0x1EEE9AC00](v9);
-  v11 = v27 - v10;
-  v12 = *v0;
-  v13 = v0[1];
-  v29 = v0[2];
-  v30 = v12;
-  v14 = *(v0 + 24);
-  v15 = v3[4];
-  OUTLINED_FUNCTION_44(v3, v3[3]);
-  sub_1B1E7B314();
-  sub_1B1F1B830();
-  if (v14)
-  {
-    LOBYTE(v33[0]) = 2;
-    sub_1B1F1B270();
-    (*(v6 + 8))(v11, v4);
-  }
-
-  else
-  {
-    v27[1] = v13;
-    v28 = v11;
-    v16 = v6;
-    v17 = v31;
-    v18 = objc_opt_self();
-    v33[0] = 0;
-    v19 = [v18 archivedDataWithRootObject:v30 requiringSecureCoding:1 error:v33];
-    v20 = v33[0];
-    if (v19)
-    {
-      v21 = sub_1B1F1A290();
-      v23 = v22;
-
-      v33[0] = v21;
-      v33[1] = v23;
-      v32 = 0;
-      sub_1B1E0EF20();
-      v24 = v28;
-      sub_1B1F1B2B0();
-      if (v17)
-      {
-        (*(v16 + 8))(v24, v4);
-        sub_1B1E03C48(v21, v23);
-      }
-
-      else
-      {
-        LOBYTE(v33[0]) = 1;
-        sub_1B1F1B270();
-        sub_1B1E03C48(v21, v23);
-        (*(v16 + 8))(v24, v4);
-      }
-    }
-
-    else
-    {
-      v25 = v20;
-      sub_1B1F1A1C0();
-
-      swift_willThrow();
-      (*(v16 + 8))(v28, v4);
-    }
-  }
-
-  v26 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_35();
-}
-
-uint64_t ScheduledTrigger.identifier.getter()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  sub_1B1F1A760();
-  return OUTLINED_FUNCTION_6_8();
-}
-
-uint64_t ScheduledTrigger.triggerType.getter()
-{
-  v2 = OUTLINED_FUNCTION_87();
-  v3 = *(type metadata accessor for ScheduledTrigger(v2) + 20);
-  OUTLINED_FUNCTION_13_7();
-  return sub_1B1E7AEB8(v1 + v4, v0);
-}
-
-uint64_t ScheduledTrigger.triggerType.setter(uint64_t a1)
-{
-  v3 = v1 + *(type metadata accessor for ScheduledTrigger(0) + 20);
-
-  return sub_1B1E7B3DC(a1, v3);
-}
-
-uint64_t ScheduledTrigger.init(identifier:trigger:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, void *a4@<X8>)
-{
-  *a4 = a1;
-  a4[1] = a2;
-  v6 = a3[3];
-  v7 = a3[4];
-  __swift_project_boxed_opaque_existential_0(a3, v6);
-  v8 = *(v7 + 32);
-  v9 = a4 + *(type metadata accessor for ScheduledTrigger(0) + 20);
-  v8(v6, v7);
-
-  return __swift_destroy_boxed_opaque_existential_1(a3);
-}
-
-uint64_t sub_1B1E7A7C4(uint64_t a1, uint64_t a2)
-{
-  v4 = a1 == 0x696669746E656469 && a2 == 0xEA00000000007265;
-  if (v4 || (sub_1B1F1B510() & 1) != 0)
-  {
-
-    return 0;
-  }
-
-  else if (a1 == 0x5472656767697274 && a2 == 0xEB00000000657079)
-  {
-
-    return 1;
-  }
-
-  else
-  {
-    v7 = sub_1B1F1B510();
-
-    if (v7)
-    {
-      return 1;
-    }
-
-    else
-    {
-      return 2;
-    }
-  }
-}
-
-uint64_t sub_1B1E7A898(char a1)
-{
-  if (a1)
-  {
-    return 0x5472656767697274;
-  }
-
-  else
-  {
-    return 0x696669746E656469;
-  }
-}
-
-uint64_t sub_1B1E7A8DC()
-{
-  v1 = *v0;
-  sub_1B1F1B7C0();
-  OUTLINED_FUNCTION_58_0();
-  return sub_1B1F1B7F0();
-}
-
-uint64_t sub_1B1E7A920@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
-{
-  result = sub_1B1E7A7C4(a1, a2);
-  *a3 = result;
-  return result;
-}
-
-uint64_t sub_1B1E7A948(uint64_t a1)
-{
-  v2 = sub_1B1E7B440();
-
-  return MEMORY[0x1EEE6BB70](a1, v2);
-}
-
-uint64_t sub_1B1E7A984(uint64_t a1)
-{
-  v2 = sub_1B1E7B440();
-
-  return MEMORY[0x1EEE6BB78](a1, v2);
-}
-
-uint64_t ScheduledTrigger.encode(to:)()
-{
-  OUTLINED_FUNCTION_33_5();
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB785FC0, &qword_1B1F35520);
-  OUTLINED_FUNCTION_0(v2);
-  v4 = *(v3 + 64);
-  OUTLINED_FUNCTION_26();
-  MEMORY[0x1EEE9AC00](v5);
-  OUTLINED_FUNCTION_39_1();
-  OUTLINED_FUNCTION_16_11();
-  sub_1B1E7B440();
-  OUTLINED_FUNCTION_15_13();
-  v6 = *v1;
-  v7 = v1[1];
-  OUTLINED_FUNCTION_24_0();
-  sub_1B1F1B270();
-  if (!v0)
-  {
-    v8 = *(type metadata accessor for ScheduledTrigger(0) + 20);
-    OUTLINED_FUNCTION_33_2();
-    type metadata accessor for TriggerType(0);
-    OUTLINED_FUNCTION_9_12();
-    sub_1B1E771F0(v9, v10);
-    OUTLINED_FUNCTION_24_0();
-    sub_1B1F1B2B0();
-  }
-
-  v11 = OUTLINED_FUNCTION_8_11();
-  return v12(v11);
-}
-
-void ScheduledTrigger.init(from:)()
-{
-  OUTLINED_FUNCTION_34();
-  v2 = v1;
-  v27 = v3;
-  v28 = type metadata accessor for TriggerType(0);
-  v4 = OUTLINED_FUNCTION_10(v28);
-  v6 = *(v5 + 64);
-  MEMORY[0x1EEE9AC00](v4);
-  OUTLINED_FUNCTION_2_3();
-  v9 = v8 - v7;
-  v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB785FD0, &qword_1B1F35528);
-  OUTLINED_FUNCTION_0(v29);
-  v11 = *(v10 + 64);
-  OUTLINED_FUNCTION_26();
-  MEMORY[0x1EEE9AC00](v12);
-  v13 = OUTLINED_FUNCTION_17_6();
-  v14 = type metadata accessor for ScheduledTrigger(v13);
-  v15 = OUTLINED_FUNCTION_10(v14);
-  v17 = *(v16 + 64);
-  MEMORY[0x1EEE9AC00](v15);
-  OUTLINED_FUNCTION_2_3();
-  v20 = (v19 - v18);
-  v21 = v2[4];
-  OUTLINED_FUNCTION_44(v2, v2[3]);
-  sub_1B1E7B440();
-  sub_1B1F1B810();
-  if (v0)
-  {
-    __swift_destroy_boxed_opaque_existential_1(v2);
-  }
-
-  else
-  {
-    *v20 = sub_1B1F1B1C0();
-    v20[1] = v22;
-    OUTLINED_FUNCTION_33_2();
-    OUTLINED_FUNCTION_9_12();
-    sub_1B1E771F0(v23, v24);
-    sub_1B1F1B200();
-    v25 = OUTLINED_FUNCTION_31_6();
-    v26(v25);
-    sub_1B1E7AE0C(v9, v20 + *(v14 + 20));
-    sub_1B1E7AEB8(v20, v27);
-    __swift_destroy_boxed_opaque_existential_1(v2);
-    sub_1B1E7AF10(v20, type metadata accessor for ScheduledTrigger);
-  }
-
-  OUTLINED_FUNCTION_35();
-}
-
-uint64_t sub_1B1E7AE0C(uint64_t a1, uint64_t a2)
-{
-  v3 = OUTLINED_FUNCTION_25_4();
-  v5 = v4(v3);
-  OUTLINED_FUNCTION_10(v5);
-  v7 = *(v6 + 32);
-  v8 = OUTLINED_FUNCTION_6_8();
-  v9(v8);
-  return a2;
-}
-
-unint64_t sub_1B1E7AE64()
-{
-  result = qword_1EB785EC8;
-  if (!qword_1EB785EC8)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB785EC8);
-  }
-
-  return result;
-}
-
-uint64_t sub_1B1E7AEB8(uint64_t a1, uint64_t a2)
-{
-  v3 = OUTLINED_FUNCTION_25_4();
-  v5 = v4(v3);
-  OUTLINED_FUNCTION_10(v5);
-  v7 = *(v6 + 16);
-  v8 = OUTLINED_FUNCTION_6_8();
-  v9(v8);
-  return a2;
-}
-
-uint64_t sub_1B1E7AF10(uint64_t a1, uint64_t (*a2)(void))
-{
-  v3 = a2(0);
-  OUTLINED_FUNCTION_10(v3);
-  (*(v4 + 8))(a1);
-  return a1;
-}
-
-uint64_t sub_1B1E7AF88(uint64_t a1, uint64_t a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB785ED8, &qword_1B1F354C8);
-  (*(*(v4 - 8) + 16))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t sub_1B1E7AFF8(uint64_t a1, uint64_t a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB785ED8, &qword_1B1F354C8);
-  (*(*(v4 - 8) + 32))(a2, a1, v4);
-  return a2;
-}
-
-unint64_t sub_1B1E7B068()
-{
-  result = qword_1EB785EE8;
-  if (!qword_1EB785EE8)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB785EE8);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7B0BC()
-{
-  result = qword_1EB785F00;
-  if (!qword_1EB785F00)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB785F00);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7B110()
-{
-  result = qword_1EB785F18;
-  if (!qword_1EB785F18)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB785F18);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7B164()
-{
-  result = qword_1EB785F20;
-  if (!qword_1EB785F20)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_1EB785ED8, &qword_1B1F354C8);
-    sub_1B1E771F0(&qword_1EB785F28, type metadata accessor for LocationTrigger.TimeRange);
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB785F20);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7B218()
-{
-  result = qword_1EB785F48;
-  if (!qword_1EB785F48)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB785F48);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7B26C()
-{
-  result = qword_1EB785F50;
-  if (!qword_1EB785F50)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB785F50);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7B2C0()
-{
-  result = qword_1EB785F60;
-  if (!qword_1EB785F60)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB785F60);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7B314()
-{
-  result = qword_1EB785FA0;
-  if (!qword_1EB785FA0)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB785FA0);
-  }
-
-  return result;
-}
-
-uint64_t sub_1B1E7B368(unint64_t *a1, uint64_t *a2, uint64_t *a3)
-{
-  result = *a1;
-  if (!result)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
-  }
-
-  return result;
-}
-
-uint64_t sub_1B1E7B3DC(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for TriggerType(0);
-  (*(*(v4 - 8) + 40))(a2, a1, v4);
-  return a2;
-}
-
-unint64_t sub_1B1E7B440()
-{
-  result = qword_1EB785FC8;
-  if (!qword_1EB785FC8)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB785FC8);
-  }
-
-  return result;
-}
-
-uint64_t sub_1B1E7B494(uint64_t a1)
-{
-  *(a1 + 8) = sub_1B1E771F0(&qword_1EB785F90, type metadata accessor for TimeOfDayTrigger);
-  result = sub_1B1E771F0(&qword_1EB785F68, type metadata accessor for TimeOfDayTrigger);
-  *(a1 + 16) = result;
-  return result;
-}
-
-unint64_t sub_1B1E7B51C()
-{
-  result = qword_1EB785FD8;
-  if (!qword_1EB785FD8)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB785FD8);
-  }
-
-  return result;
-}
-
-uint64_t sub_1B1E7B570(uint64_t a1)
-{
-  *(a1 + 8) = sub_1B1E771F0(&qword_1EB785F88, type metadata accessor for LocationTrigger);
-  result = sub_1B1E771F0(&qword_1EB785F58, type metadata accessor for LocationTrigger);
-  *(a1 + 16) = result;
-  return result;
-}
-
-uint64_t get_enum_tag_for_layout_string_19VoiceShortcutClient10RecurrenceO(uint64_t a1)
-{
-  if ((*(a1 + 8) & 2) != 0)
-  {
-    return (*a1 + 2);
-  }
-
-  else
-  {
-    return *(a1 + 8) & 3;
-  }
-}
-
-void sub_1B1E7B6B8()
-{
-  sub_1B1DEA98C(319, &qword_1EB785EF0, 0x1E695FBB0);
-  if (v0 <= 0x3F)
-  {
-    sub_1B1E7B764();
-    if (v1 <= 0x3F)
-    {
-      swift_cvw_initStructMetadataWithLayoutString();
-    }
-  }
-}
-
-void sub_1B1E7B764()
-{
-  if (!qword_1EB786010)
-  {
-    type metadata accessor for LocationTrigger.TimeRange(255);
-    v0 = sub_1B1F1AEB0();
-    if (!v1)
-    {
-      atomic_store(v0, &qword_1EB786010);
-    }
-  }
-}
-
-uint64_t sub_1B1E7B7F4()
-{
-  result = sub_1B1F1A110();
-  if (v1 <= 0x3F)
-  {
-    swift_cvw_initStructMetadataWithLayoutString();
-    return 0;
-  }
-
-  return result;
-}
-
-uint64_t sub_1B1E7B888()
-{
-  result = type metadata accessor for TimeOfDayTrigger(319);
-  if (v1 <= 0x3F)
-  {
-    result = type metadata accessor for LocationTrigger(319);
-    if (v2 <= 0x3F)
-    {
-      swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-__n128 __swift_memcpy57_8(uint64_t a1, uint64_t a2)
-{
-  result = *a2;
-  v3 = *(a2 + 16);
-  v4 = *(a2 + 32);
-  *(a1 + 41) = *(a2 + 41);
-  *(a1 + 16) = v3;
-  *(a1 + 32) = v4;
-  *a1 = result;
-  return result;
-}
-
-uint64_t sub_1B1E7B924(uint64_t a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 >= 0xFF && *(a1 + 57))
-  {
-    return (*a1 + 255);
-  }
-
-  v3 = *(a1 + 56);
-  if (v3 >= 2)
-  {
-    return (v3 ^ 0xFF) + 1;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t sub_1B1E7B960(uint64_t result, unsigned int a2, unsigned int a3)
-{
-  if (a2 > 0xFE)
-  {
-    *(result + 41) = 0u;
-    *(result + 16) = 0u;
-    *(result + 32) = 0u;
-    *result = 0u;
-    *result = a2 - 255;
-    if (a3 >= 0xFF)
-    {
-      *(result + 57) = 1;
-    }
-  }
-
-  else
-  {
-    if (a3 >= 0xFF)
-    {
-      *(result + 57) = 0;
-    }
-
-    if (a2)
-    {
-      *(result + 56) = -a2;
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_1B1E7B9B0(uint64_t result, unsigned int a2)
-{
-  if (a2 > 1)
-  {
-    *(result + 48) = 0;
-    *(result + 16) = 0u;
-    *(result + 32) = 0u;
-    *result = 0u;
-    *result = a2 - 2;
-    LOBYTE(a2) = 2;
-  }
-
-  *(result + 56) = a2;
-  return result;
-}
-
-uint64_t sub_1B1E7B9F8(uint64_t a1, unsigned int a2)
-{
-  if (a2)
-  {
-    if (a2 >= 0xFF && *(a1 + 25))
-    {
-      v2 = *a1 + 254;
-    }
-
-    else
-    {
-      v3 = *(a1 + 24);
-      if (v3 <= 1)
-      {
-        v2 = -1;
-      }
-
-      else
-      {
-        v2 = v3 ^ 0xFF;
-      }
-    }
-  }
-
-  else
-  {
-    v2 = -1;
-  }
-
-  return (v2 + 1);
-}
-
-uint64_t sub_1B1E7BA38(uint64_t result, unsigned int a2, unsigned int a3)
-{
-  if (a2 > 0xFE)
-  {
-    *(result + 8) = 0;
-    *(result + 16) = 0;
-    *(result + 24) = 0;
-    *result = a2 - 255;
-    if (a3 >= 0xFF)
-    {
-      *(result + 25) = 1;
-    }
-  }
-
-  else
-  {
-    if (a3 >= 0xFF)
-    {
-      *(result + 25) = 0;
-    }
-
-    if (a2)
-    {
-      *(result + 24) = -a2;
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_1B1E7BAE4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t))
-{
-  result = a5(319);
-  if (v6 <= 0x3F)
-  {
-    swift_cvw_initStructMetadataWithLayoutString();
-    return 0;
-  }
-
-  return result;
-}
-
-_BYTE *storeEnumTagSinglePayload for CodableTriggerAction.CodingKeys(_BYTE *result, unsigned int a2, unsigned int a3)
-{
-  if (a3 + 2 >= 0xFFFF00)
-  {
-    v3 = 4;
-  }
-
-  else
-  {
-    v3 = 2;
-  }
-
-  if ((a3 + 2) >> 8 < 0xFF)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  if (a3 >= 0xFE)
-  {
-    v5 = v4;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  if (a2 > 0xFD)
-  {
-    v6 = ((a2 - 254) >> 8) + 1;
-    *result = a2 + 2;
-    switch(v5)
-    {
-      case 1:
-        result[1] = v6;
-        break;
-      case 2:
-        *(result + 1) = v6;
-        break;
-      case 3:
-LABEL_23:
-        __break(1u);
-        break;
-      case 4:
-        *(result + 1) = v6;
-        break;
-      default:
-        return result;
-    }
-  }
-
-  else
-  {
-    switch(v5)
-    {
-      case 1:
-        result[1] = 0;
-        if (!a2)
-        {
-          return result;
-        }
-
-        goto LABEL_18;
-      case 2:
-        *(result + 1) = 0;
-        goto LABEL_17;
-      case 3:
-        goto LABEL_23;
-      case 4:
-        *(result + 1) = 0;
-        if (!a2)
-        {
-          return result;
-        }
-
-        goto LABEL_18;
-      default:
-LABEL_17:
-        if (a2)
-        {
-LABEL_18:
-          *result = a2 + 2;
-        }
-
-        break;
-    }
-  }
-
-  return result;
-}
-
-_BYTE *sub_1B1E7BC68(_BYTE *result, int a2, int a3)
-{
-  if ((a3 + 1) >= 0x10000)
-  {
-    v3 = 4;
-  }
-
-  else
-  {
-    v3 = 2;
-  }
-
-  if ((a3 + 1) < 0x100)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  if (a3)
-  {
-    v5 = v4;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  if (a2)
-  {
-    switch(v5)
-    {
-      case 1:
-        *result = a2;
-        break;
-      case 2:
-        *result = a2;
-        break;
-      case 3:
-        goto LABEL_19;
-      case 4:
-        *result = a2;
-        break;
-      default:
-        return result;
-    }
-  }
-
-  else
-  {
-    switch(v5)
-    {
-      case 1:
-        *result = 0;
-        break;
-      case 2:
-        *result = 0;
-        break;
-      case 3:
-LABEL_19:
-        __break(1u);
-        break;
-      case 4:
-        *result = 0;
-        break;
-      default:
-        return result;
-    }
-  }
-
-  return result;
-}
-
-_BYTE *storeEnumTagSinglePayload for LocationTrigger.CodingKeys(_BYTE *result, unsigned int a2, unsigned int a3)
-{
-  if (a3 + 3 >= 0xFFFF00)
-  {
-    v3 = 4;
-  }
-
-  else
-  {
-    v3 = 2;
-  }
-
-  if ((a3 + 3) >> 8 < 0xFF)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  if (a3 >= 0xFD)
-  {
-    v5 = v4;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  if (a2 > 0xFC)
-  {
-    v6 = ((a2 - 253) >> 8) + 1;
-    *result = a2 + 3;
-    switch(v5)
-    {
-      case 1:
-        result[1] = v6;
-        break;
-      case 2:
-        *(result + 1) = v6;
-        break;
-      case 3:
-LABEL_23:
-        __break(1u);
-        break;
-      case 4:
-        *(result + 1) = v6;
-        break;
-      default:
-        return result;
-    }
-  }
-
-  else
-  {
-    switch(v5)
-    {
-      case 1:
-        result[1] = 0;
-        if (!a2)
-        {
-          return result;
-        }
-
-        goto LABEL_18;
-      case 2:
-        *(result + 1) = 0;
-        goto LABEL_17;
-      case 3:
-        goto LABEL_23;
-      case 4:
-        *(result + 1) = 0;
-        if (!a2)
-        {
-          return result;
-        }
-
-        goto LABEL_18;
-      default:
-LABEL_17:
-        if (a2)
-        {
-LABEL_18:
-          *result = a2 + 3;
-        }
-
-        break;
-    }
-  }
-
-  return result;
-}
-
-_BYTE *sub_1B1E7BE30(_BYTE *result, unsigned int a2, unsigned int a3)
-{
-  if (a3 + 1 >= 0xFFFF00)
-  {
-    v3 = 4;
-  }
-
-  else
-  {
-    v3 = 2;
-  }
-
-  if ((a3 + 1) >> 8 < 0xFF)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  if (a3 >= 0xFF)
-  {
-    v5 = v4;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  if (a2 > 0xFE)
-  {
-    v6 = ((a2 - 255) >> 8) + 1;
-    *result = a2 + 1;
-    switch(v5)
-    {
-      case 1:
-        result[1] = v6;
-        break;
-      case 2:
-        *(result + 1) = v6;
-        break;
-      case 3:
-LABEL_23:
-        __break(1u);
-        break;
-      case 4:
-        *(result + 1) = v6;
-        break;
-      default:
-        return result;
-    }
-  }
-
-  else
-  {
-    switch(v5)
-    {
-      case 1:
-        result[1] = 0;
-        if (!a2)
-        {
-          return result;
-        }
-
-        goto LABEL_18;
-      case 2:
-        *(result + 1) = 0;
-        goto LABEL_17;
-      case 3:
-        goto LABEL_23;
-      case 4:
-        *(result + 1) = 0;
-        if (!a2)
-        {
-          return result;
-        }
-
-        goto LABEL_18;
-      default:
-LABEL_17:
-        if (a2)
-        {
-LABEL_18:
-          *result = a2 + 1;
-        }
-
-        break;
-    }
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7BF10()
-{
-  result = qword_1EB786048;
-  if (!qword_1EB786048)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB786048);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7BF68()
-{
-  result = qword_1EB786050;
-  if (!qword_1EB786050)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB786050);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7BFC0()
-{
-  result = qword_1EB786058;
-  if (!qword_1EB786058)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB786058);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7C018()
-{
-  result = qword_1EB786060;
-  if (!qword_1EB786060)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB786060);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7C070()
-{
-  result = qword_1EB786068;
-  if (!qword_1EB786068)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB786068);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7C0C8()
-{
-  result = qword_1EB786070;
-  if (!qword_1EB786070)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB786070);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7C120()
-{
-  result = qword_1EB786078;
-  if (!qword_1EB786078)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB786078);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7C178()
-{
-  result = qword_1EB786080;
-  if (!qword_1EB786080)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB786080);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7C1D0()
-{
-  result = qword_1EB786088;
-  if (!qword_1EB786088)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB786088);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7C228()
-{
-  result = qword_1EB786090;
-  if (!qword_1EB786090)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB786090);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7C280()
-{
-  result = qword_1EB786098;
-  if (!qword_1EB786098)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB786098);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7C2D8()
-{
-  result = qword_1EB7860A0;
-  if (!qword_1EB7860A0)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB7860A0);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7C330()
-{
-  result = qword_1EB7860A8;
-  if (!qword_1EB7860A8)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB7860A8);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7C388()
-{
-  result = qword_1EB7860B0;
-  if (!qword_1EB7860B0)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB7860B0);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7C3E0()
-{
-  result = qword_1EB7860B8;
-  if (!qword_1EB7860B8)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB7860B8);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7C438()
-{
-  result = qword_1EB7860C0;
-  if (!qword_1EB7860C0)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB7860C0);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7C490()
-{
-  result = qword_1EB7860C8;
-  if (!qword_1EB7860C8)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB7860C8);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7C4E8()
-{
-  result = qword_1EB7860D0;
-  if (!qword_1EB7860D0)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB7860D0);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7C540()
-{
-  result = qword_1EB7860D8;
-  if (!qword_1EB7860D8)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB7860D8);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7C598()
-{
-  result = qword_1EB7860E0;
-  if (!qword_1EB7860E0)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB7860E0);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7C5F0()
-{
-  result = qword_1EB7860E8;
-  if (!qword_1EB7860E8)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB7860E8);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7C648()
-{
-  result = qword_1EB7860F0;
-  if (!qword_1EB7860F0)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB7860F0);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7C6A0()
-{
-  result = qword_1EB7860F8;
-  if (!qword_1EB7860F8)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB7860F8);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7C6F8()
-{
-  result = qword_1EB786100;
-  if (!qword_1EB786100)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB786100);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7C750()
-{
-  result = qword_1EB786108;
-  if (!qword_1EB786108)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB786108);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7C7A8()
-{
-  result = qword_1EB786110;
-  if (!qword_1EB786110)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB786110);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7C800()
-{
-  result = qword_1EB786118;
-  if (!qword_1EB786118)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB786118);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7C858()
-{
-  result = qword_1EB786120;
-  if (!qword_1EB786120)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB786120);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7C8B0()
-{
-  result = qword_1EB786128;
-  if (!qword_1EB786128)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB786128);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7C908()
-{
-  result = qword_1EB786130;
-  if (!qword_1EB786130)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB786130);
-  }
-
-  return result;
-}
-
-unint64_t sub_1B1E7C960()
-{
-  result = qword_1EB786138;
-  if (!qword_1EB786138)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1EB786138);
-  }
-
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_15_13()
-{
-
-  return sub_1B1F1B830();
-}
-
-uint64_t OUTLINED_FUNCTION_34_2()
-{
-
-  return sub_1B1F1B200();
-}
-
-uint64_t OUTLINED_FUNCTION_35_3()
-{
-
-  return sub_1B1F1AFD0();
-}
-
-uint64_t OUTLINED_FUNCTION_39_2()
-{
-  v1 = *(v0 + 8);
-  if (v1 >= 0xFFFFFFFF)
-  {
-    LODWORD(v1) = -1;
-  }
-
-  return (v1 + 1);
-}
-
-uint64_t OUTLINED_FUNCTION_41_1()
-{
-
-  return sub_1B1F1B510();
-}
-
-uint64_t OUTLINED_FUNCTION_42_0()
-{
-
-  return sub_1B1F1B180();
-}
-
-uint64_t OUTLINED_FUNCTION_47_0()
-{
-
-  return sub_1B1F1B7C0();
-}
-
-uint64_t OUTLINED_FUNCTION_55_0()
-{
-
-  return sub_1B1F1B200();
-}
-
 uint64_t OUTLINED_FUNCTION_56_0()
 {
   v3 = *(v1 - 136);
@@ -1779,7 +5,7 @@ uint64_t OUTLINED_FUNCTION_56_0()
   return sub_1B1E03C48(v3, v0);
 }
 
-uint64_t OUTLINED_FUNCTION_57_0()
+uint64_t OUTLINED_FUNCTION_57_0(uint64_t a1, uint64_t a2, uint64_t a3, ...)
 {
 
   return sub_1B1F1A900();
@@ -1791,9 +17,9 @@ void OUTLINED_FUNCTION_58_0()
   JUMPOUT(0x1B273E060);
 }
 
-void sub_1B1E7D17C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1B1E7D17C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1805,11 +31,11 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1B1E7D398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1B1E7D398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
+  _Block_object_dispose((v20 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1863,7 +89,7 @@ BOOL __WFSystemGlyphCharactersInSection_block_invoke(uint64_t a1, void *a2)
 
 id WFSystemOutlineGlyphCharactersInSection(uint64_t a1)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v2 = objc_opt_new();
   v3 = objc_opt_new();
   v4 = WFSystemGlyphCharactersInSection(a1);
@@ -1872,39 +98,39 @@ id WFSystemOutlineGlyphCharactersInSection(uint64_t a1)
   aBlock[2] = __WFSystemOutlineGlyphCharactersInSection_block_invoke;
   aBlock[3] = &unk_1E7AFFAC0;
   v5 = v2;
-  v31 = v5;
+  v30 = v5;
   v6 = v3;
-  v32 = v6;
+  v31 = v6;
   v7 = _Block_copy(aBlock);
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __WFSystemOutlineGlyphCharactersInSection_block_invoke_2;
-  v27[3] = &unk_1E7AFFAE8;
-  v21 = v5;
-  v28 = v21;
-  v19 = v6;
-  v29 = v19;
-  v20 = _Block_copy(v27);
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __WFSystemOutlineGlyphCharactersInSection_block_invoke_2;
+  v26[3] = &unk_1E7AFFAE8;
+  v20 = v5;
+  v27 = v20;
+  v18 = v6;
+  v28 = v18;
+  v19 = _Block_copy(v26);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   obj = v4;
-  v8 = [obj countByEnumeratingWithState:&v23 objects:v33 count:16];
+  v8 = [obj countByEnumeratingWithState:&v22 objects:v32 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v24;
+    v10 = *v23;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v24 != v10)
+        if (*v23 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v23 + 1) + 8 * i);
+        v12 = *(*(&v22 + 1) + 8 * i);
         v13 = WFSystemImageNameForGlyphCharacter([v12 intValue]);
         v14 = WFSystemImageNameForOutlineGlyphCharacter([v12 intValue]);
         if ([v13 hasSuffix:@".fill"])
@@ -1914,10 +140,10 @@ id WFSystemOutlineGlyphCharactersInSection(uint64_t a1)
 
         else
         {
-          v15 = [v21 objectForKey:v14];
+          v15 = [v20 objectForKey:v14];
           if (v15)
           {
-            v20[2](v20, v12, v14, v15);
+            v19[2](v19, v12, v14, v15);
           }
 
           else
@@ -1927,15 +153,14 @@ id WFSystemOutlineGlyphCharactersInSection(uint64_t a1)
         }
       }
 
-      v9 = [obj countByEnumeratingWithState:&v23 objects:v33 count:16];
+      v9 = [obj countByEnumeratingWithState:&v22 objects:v32 count:16];
     }
 
     while (v9);
   }
 
-  v16 = v19;
-  v17 = *MEMORY[0x1E69E9840];
-  return v19;
+  v16 = v18;
+  return v18;
 }
 
 void __WFSystemOutlineGlyphCharactersInSection_block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2021,9 +246,9 @@ uint64_t WFSectionForGlyph(__int16 a1)
   return v4;
 }
 
-void sub_1B1E853C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B1E853C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2103,13 +328,13 @@ LABEL_14:
 
 id WFAppIntentArchiverErrorWithLocalizedErrorDescription(void *a1, void *a2)
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   v5 = MEMORY[0x1E695DF90];
-  v11 = *MEMORY[0x1E696A578];
-  v12[0] = v3;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v10 = *MEMORY[0x1E696A578];
+  v11[0] = v3;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v7 = [v5 dictionaryWithDictionary:v6];
 
   if (v4)
@@ -2119,72 +344,66 @@ id WFAppIntentArchiverErrorWithLocalizedErrorDescription(void *a1, void *a2)
 
   v8 = [MEMORY[0x1E696ABC0] errorWithDomain:@"AppIntentsArchivingError" code:1000 userInfo:v7];
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
-void sub_1B1E888F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B1E888F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getAVSystemControllerClass_block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v7[0] = 0;
+  v9 = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
   if (!MediaExperienceLibraryCore_frameworkLibrary)
   {
-    v7[1] = MEMORY[0x1E69E9820];
-    v7[2] = 3221225472;
-    v7[3] = __MediaExperienceLibraryCore_block_invoke;
-    v7[4] = &__block_descriptor_40_e5_v8__0l;
-    v7[5] = v7;
-    v8 = xmmword_1E7AFFD88;
-    v9 = 0;
+    v6[1] = MEMORY[0x1E69E9820];
+    v6[2] = 3221225472;
+    v6[3] = __MediaExperienceLibraryCore_block_invoke;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_1E7AFFD88;
+    v8 = 0;
     MediaExperienceLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!MediaExperienceLibraryCore_frameworkLibrary)
   {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *MediaExperienceLibrary(void)"];
-    [v4 handleFailureInFunction:v5 file:@"WFAVSystemController.m" lineNumber:16 description:{@"%s", v7[0]}];
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *MediaExperienceLibrary(void)"];
+    [v3 handleFailureInFunction:v4 file:@"WFAVSystemController.m" lineNumber:16 description:{@"%s", v6[0]}];
 
     goto LABEL_10;
   }
 
-  if (v7[0])
+  if (v6[0])
   {
-    free(v7[0]);
+    free(v6[0]);
   }
 
   result = objc_getClass("AVSystemController");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getAVSystemControllerClass(void)_block_invoke"];
-    [v4 handleFailureInFunction:v6 file:@"WFAVSystemController.m" lineNumber:17 description:{@"Unable to find class %s", "AVSystemController"}];
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getAVSystemControllerClass(void)_block_invoke"];
+    [v3 handleFailureInFunction:v5 file:@"WFAVSystemController.m" lineNumber:17 description:{@"Unable to find class %s", "AVSystemController"}];
 
 LABEL_10:
     __break(1u);
   }
 
   getAVSystemControllerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __MediaExperienceLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   MediaExperienceLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2269,20 +488,18 @@ uint64_t WFRunSourceIsSpotlight(void *a1)
 
 void __WFRunSourceIsSpotlight_block_invoke()
 {
-  v3[8] = *MEMORY[0x1E69E9840];
-  v3[0] = @"spotlight-search";
-  v3[1] = @"spotlight-search-detail-page";
-  v3[2] = @"spotlight_prediction";
-  v3[3] = @"contextual-action-spotlight-unknown";
-  v3[4] = @"contextual-action-spotlight-search";
-  v3[5] = @"contextual-action-spotlight-prediction";
-  v3[6] = @"contextual-action-spotlight-top-hit";
-  v3[7] = @"spotlight-tool";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:8];
+  v2[8] = *MEMORY[0x1E69E9840];
+  v2[0] = @"spotlight-search";
+  v2[1] = @"spotlight-search-detail-page";
+  v2[2] = @"spotlight_prediction";
+  v2[3] = @"contextual-action-spotlight-unknown";
+  v2[4] = @"contextual-action-spotlight-search";
+  v2[5] = @"contextual-action-spotlight-prediction";
+  v2[6] = @"contextual-action-spotlight-top-hit";
+  v2[7] = @"spotlight-tool";
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:8];
   v1 = WFRunSourceIsSpotlight_s_spotlightRunSources;
   WFRunSourceIsSpotlight_s_spotlightRunSources = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t WFRunSourceIsToolKit(void *a1)
@@ -2301,15 +518,13 @@ uint64_t WFRunSourceIsToolKit(void *a1)
 
 void __WFRunSourceIsToolKit_block_invoke()
 {
-  v3[3] = *MEMORY[0x1E69E9840];
-  v3[0] = @"spotlight-tool";
-  v3[1] = @"toolKit";
-  v3[2] = @"siri-planner";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:3];
+  v2[3] = *MEMORY[0x1E69E9840];
+  v2[0] = @"spotlight-tool";
+  v2[1] = @"toolKit";
+  v2[2] = @"siri-planner";
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:3];
   v1 = WFRunSourceIsToolKit_toolKitRunSources;
   WFRunSourceIsToolKit_toolKitRunSources = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t WFRunSourceIsSuggestion(void *a1)
@@ -2328,20 +543,18 @@ uint64_t WFRunSourceIsSuggestion(void *a1)
 
 void __WFRunSourceIsSuggestion_block_invoke()
 {
-  v3[8] = *MEMORY[0x1E69E9840];
-  v3[0] = @"siri";
-  v3[1] = @"lock_screen_prediction";
-  v3[2] = @"WFWorkflowRunSourceSuggestionsWidgetPrediction";
-  v3[3] = @"spotlight_prediction";
-  v3[4] = @"spotlight-search";
-  v3[5] = @"watch-face";
-  v3[6] = @"siri_cloud_relay";
-  v3[7] = @"carplay";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:8];
+  v2[8] = *MEMORY[0x1E69E9840];
+  v2[0] = @"siri";
+  v2[1] = @"lock_screen_prediction";
+  v2[2] = @"WFWorkflowRunSourceSuggestionsWidgetPrediction";
+  v2[3] = @"spotlight_prediction";
+  v2[4] = @"spotlight-search";
+  v2[5] = @"watch-face";
+  v2[6] = @"siri_cloud_relay";
+  v2[7] = @"carplay";
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:8];
   v1 = WFRunSourceIsSuggestion_s_suggestionRunSources;
   WFRunSourceIsSuggestion_s_suggestionRunSources = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t WFRunSourceIsExemptFromOutputApproval(void *a1)
@@ -2360,21 +573,19 @@ uint64_t WFRunSourceIsExemptFromOutputApproval(void *a1)
 
 void __WFRunSourceIsExemptFromOutputApproval_block_invoke()
 {
-  v3[2] = *MEMORY[0x1E69E9840];
-  v3[0] = @"button";
-  v3[1] = @"keyboard";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:2];
+  v2[2] = *MEMORY[0x1E69E9840];
+  v2[0] = @"button";
+  v2[1] = @"keyboard";
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:2];
   v1 = WFRunSourceIsExemptFromOutputApproval_s_outputApprovalExemptRunSources;
   WFRunSourceIsExemptFromOutputApproval_s_outputApprovalExemptRunSources = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1B1E8CB58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1B1E8CB58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 128), 8);
+  _Block_object_dispose((v20 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2385,35 +596,35 @@ uint64_t __Block_byref_object_copy__1764(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1B1E8CE04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1B1E8CE04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
+  _Block_object_dispose((v20 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B1E8D0C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1B1E8D0C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 128), 8);
+  _Block_object_dispose((v20 - 128), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B1E8D558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1B1E8D558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 128), 8);
+  _Block_object_dispose((v20 - 128), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B1E8D854(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1B1E8D854(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 128), 8);
+  _Block_object_dispose((v20 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2431,9 +642,11 @@ id getWFActionsLogObject()
 
 uint64_t __getWFActionsLogObject_block_invoke()
 {
-  getWFActionsLogObject_log = os_log_create(WFLogSubsystem, "Actions");
+  v0 = os_log_create(WFLogSubsystem, "Actions");
+  v1 = getWFActionsLogObject_log;
+  getWFActionsLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFContentGraphLogObject()
@@ -2450,9 +663,11 @@ id getWFContentGraphLogObject()
 
 uint64_t __getWFContentGraphLogObject_block_invoke()
 {
-  getWFContentGraphLogObject_log = os_log_create(WFLogSubsystem, "ContentGraph");
+  v0 = os_log_create(WFLogSubsystem, "ContentGraph");
+  v1 = getWFContentGraphLogObject_log;
+  getWFContentGraphLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFContentItemLogObject()
@@ -2469,9 +684,11 @@ id getWFContentItemLogObject()
 
 uint64_t __getWFContentItemLogObject_block_invoke()
 {
-  getWFContentItemLogObject_log = os_log_create(WFLogSubsystem, "ContentItem");
+  v0 = os_log_create(WFLogSubsystem, "ContentItem");
+  v1 = getWFContentItemLogObject_log;
+  getWFContentItemLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFInterchangeLogObject()
@@ -2488,9 +705,11 @@ id getWFInterchangeLogObject()
 
 uint64_t __getWFInterchangeLogObject_block_invoke()
 {
-  getWFInterchangeLogObject_log = os_log_create(WFLogSubsystem, "Interchange");
+  v0 = os_log_create(WFLogSubsystem, "Interchange");
+  v1 = getWFInterchangeLogObject_log;
+  getWFInterchangeLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFEditorLogObject()
@@ -2507,9 +726,11 @@ id getWFEditorLogObject()
 
 uint64_t __getWFEditorLogObject_block_invoke()
 {
-  getWFEditorLogObject_log = os_log_create(WFLogSubsystem, "Editor");
+  v0 = os_log_create(WFLogSubsystem, "Editor");
+  v1 = getWFEditorLogObject_log;
+  getWFEditorLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFFoldersLogObject()
@@ -2526,9 +747,11 @@ id getWFFoldersLogObject()
 
 uint64_t __getWFFoldersLogObject_block_invoke()
 {
-  getWFFoldersLogObject_log = os_log_create(WFLogSubsystem, "Folders");
+  v0 = os_log_create(WFLogSubsystem, "Folders");
+  v1 = getWFFoldersLogObject_log;
+  getWFFoldersLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFIntentExecutionLogObject()
@@ -2545,16 +768,20 @@ id getWFIntentExecutionLogObject()
 
 uint64_t __getWFIntentExecutionLogObject_block_invoke()
 {
-  getWFIntentExecutionLogObject_log = os_log_create(WFLogSubsystem, "IntentExecution");
+  v0 = os_log_create(WFLogSubsystem, "IntentExecution");
+  v1 = getWFIntentExecutionLogObject_log;
+  getWFIntentExecutionLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __getWFCloudKitSyncLogObject_block_invoke()
 {
-  getWFCloudKitSyncLogObject_log = os_log_create(WFLogSubsystem, "CloudKitSync");
+  v0 = os_log_create(WFLogSubsystem, "CloudKitSync");
+  v1 = getWFCloudKitSyncLogObject_log;
+  getWFCloudKitSyncLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFWatchSyncLogObject()
@@ -2571,9 +798,11 @@ id getWFWatchSyncLogObject()
 
 uint64_t __getWFWatchSyncLogObject_block_invoke()
 {
-  getWFWatchSyncLogObject_log = os_log_create(WFLogSubsystem, "WatchSync");
+  v0 = os_log_create(WFLogSubsystem, "WatchSync");
+  v1 = getWFWatchSyncLogObject_log;
+  getWFWatchSyncLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFTriggersLogObject()
@@ -2590,9 +819,11 @@ id getWFTriggersLogObject()
 
 uint64_t __getWFTriggersLogObject_block_invoke()
 {
-  getWFTriggersLogObject_log = os_log_create(WFLogSubsystem, "Triggers");
+  v0 = os_log_create(WFLogSubsystem, "Triggers");
+  v1 = getWFTriggersLogObject_log;
+  getWFTriggersLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFTriggerNotificationsLogObject()
@@ -2609,9 +840,11 @@ id getWFTriggerNotificationsLogObject()
 
 uint64_t __getWFTriggerNotificationsLogObject_block_invoke()
 {
-  getWFTriggerNotificationsLogObject_log = os_log_create(WFLogSubsystem, "TriggerNotifications");
+  v0 = os_log_create(WFLogSubsystem, "TriggerNotifications");
+  v1 = getWFTriggerNotificationsLogObject_log;
+  getWFTriggerNotificationsLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFPeaceMigrationLogObject()
@@ -2628,9 +861,11 @@ id getWFPeaceMigrationLogObject()
 
 uint64_t __getWFPeaceMigrationLogObject_block_invoke()
 {
-  getWFPeaceMigrationLogObject_log = os_log_create(WFLogSubsystem, "PeaceMigration");
+  v0 = os_log_create(WFLogSubsystem, "PeaceMigration");
+  v1 = getWFPeaceMigrationLogObject_log;
+  getWFPeaceMigrationLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFWorkflowMigrationLogObject()
@@ -2647,9 +882,11 @@ id getWFWorkflowMigrationLogObject()
 
 uint64_t __getWFWorkflowMigrationLogObject_block_invoke()
 {
-  getWFWorkflowMigrationLogObject_log = os_log_create(WFLogSubsystem, "WorkflowMigration");
+  v0 = os_log_create(WFLogSubsystem, "WorkflowMigration");
+  v1 = getWFWorkflowMigrationLogObject_log;
+  getWFWorkflowMigrationLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFAutomatorMigrationLogObject()
@@ -2666,9 +903,11 @@ id getWFAutomatorMigrationLogObject()
 
 uint64_t __getWFAutomatorMigrationLogObject_block_invoke()
 {
-  getWFAutomatorMigrationLogObject_log = os_log_create(WFLogSubsystem, "AutomatorMigration");
+  v0 = os_log_create(WFLogSubsystem, "AutomatorMigration");
+  v1 = getWFAutomatorMigrationLogObject_log;
+  getWFAutomatorMigrationLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFSpotlightSyncLogObject()
@@ -2685,9 +924,11 @@ id getWFSpotlightSyncLogObject()
 
 uint64_t __getWFSpotlightSyncLogObject_block_invoke()
 {
-  getWFSpotlightSyncLogObject_log = os_log_create(WFLogSubsystem, "SpotlightSync");
+  v0 = os_log_create(WFLogSubsystem, "SpotlightSync");
+  v1 = getWFSpotlightSyncLogObject_log;
+  getWFSpotlightSyncLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFHomeLogObject()
@@ -2704,9 +945,11 @@ id getWFHomeLogObject()
 
 uint64_t __getWFHomeLogObject_block_invoke()
 {
-  getWFHomeLogObject_log = os_log_create(WFLogSubsystem, "Home");
+  v0 = os_log_create(WFLogSubsystem, "Home");
+  v1 = getWFHomeLogObject_log;
+  getWFHomeLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFRemoteExecutionLogObject()
@@ -2723,9 +966,11 @@ id getWFRemoteExecutionLogObject()
 
 uint64_t __getWFRemoteExecutionLogObject_block_invoke()
 {
-  getWFRemoteExecutionLogObject_log = os_log_create(WFLogSubsystem, "RemoteExecution");
+  v0 = os_log_create(WFLogSubsystem, "RemoteExecution");
+  v1 = getWFRemoteExecutionLogObject_log;
+  getWFRemoteExecutionLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFBundledIntentsLogObject()
@@ -2742,9 +987,11 @@ id getWFBundledIntentsLogObject()
 
 uint64_t __getWFBundledIntentsLogObject_block_invoke()
 {
-  getWFBundledIntentsLogObject_log = os_log_create(WFLogSubsystem, "BundledIntents");
+  v0 = os_log_create(WFLogSubsystem, "BundledIntents");
+  v1 = getWFBundledIntentsLogObject_log;
+  getWFBundledIntentsLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFDialogLogObject()
@@ -2761,9 +1008,11 @@ id getWFDialogLogObject()
 
 uint64_t __getWFDialogLogObject_block_invoke()
 {
-  getWFDialogLogObject_log = os_log_create(WFLogSubsystem, "Dialog");
+  v0 = os_log_create(WFLogSubsystem, "Dialog");
+  v1 = getWFDialogLogObject_log;
+  getWFDialogLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFRuntimeUILogObject()
@@ -2780,9 +1029,11 @@ id getWFRuntimeUILogObject()
 
 uint64_t __getWFRuntimeUILogObject_block_invoke()
 {
-  getWFRuntimeUILogObject_log = os_log_create(WFLogSubsystem, "RuntimeUI");
+  v0 = os_log_create(WFLogSubsystem, "RuntimeUI");
+  v1 = getWFRuntimeUILogObject_log;
+  getWFRuntimeUILogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFWidgetLogObject()
@@ -2799,9 +1050,11 @@ id getWFWidgetLogObject()
 
 uint64_t __getWFWidgetLogObject_block_invoke()
 {
-  getWFWidgetLogObject_log = os_log_create(WFLogSubsystem, "Widget");
+  v0 = os_log_create(WFLogSubsystem, "Widget");
+  v1 = getWFWidgetLogObject_log;
+  getWFWidgetLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFSleepLogObject()
@@ -2818,9 +1071,11 @@ id getWFSleepLogObject()
 
 uint64_t __getWFSleepLogObject_block_invoke()
 {
-  getWFSleepLogObject_log = os_log_create(WFLogSubsystem, "Sleep");
+  v0 = os_log_create(WFLogSubsystem, "Sleep");
+  v1 = getWFSleepLogObject_log;
+  getWFSleepLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFContextualActionsLogObject()
@@ -2837,9 +1092,11 @@ id getWFContextualActionsLogObject()
 
 uint64_t __getWFContextualActionsLogObject_block_invoke()
 {
-  getWFContextualActionsLogObject_log = os_log_create(WFLogSubsystem, "ContextualActions");
+  v0 = os_log_create(WFLogSubsystem, "ContextualActions");
+  v1 = getWFContextualActionsLogObject_log;
+  getWFContextualActionsLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFSandboxLogObject()
@@ -2856,9 +1113,11 @@ id getWFSandboxLogObject()
 
 uint64_t __getWFSandboxLogObject_block_invoke()
 {
-  getWFSandboxLogObject_log = os_log_create(WFLogSubsystem, "Sandbox");
+  v0 = os_log_create(WFLogSubsystem, "Sandbox");
+  v1 = getWFSandboxLogObject_log;
+  getWFSandboxLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFAppIntentsLogObject()
@@ -2875,9 +1134,11 @@ id getWFAppIntentsLogObject()
 
 uint64_t __getWFAppIntentsLogObject_block_invoke()
 {
-  getWFAppIntentsLogObject_log = os_log_create(WFLogSubsystem, "AppIntents");
+  v0 = os_log_create(WFLogSubsystem, "AppIntents");
+  v1 = getWFAppIntentsLogObject_log;
+  getWFAppIntentsLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFRunningStateLogObject()
@@ -2894,9 +1155,11 @@ id getWFRunningStateLogObject()
 
 uint64_t __getWFRunningStateLogObject_block_invoke()
 {
-  getWFRunningStateLogObject_log = os_log_create(WFLogSubsystem, "RunningState");
+  v0 = os_log_create(WFLogSubsystem, "RunningState");
+  v1 = getWFRunningStateLogObject_log;
+  getWFRunningStateLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFStateMachineLogObject()
@@ -2925,9 +1188,11 @@ id getWFSessionKitLogObject()
 
 uint64_t __getWFSessionKitLogObject_block_invoke()
 {
-  getWFSessionKitLogObject_log = os_log_create(WFLogSubsystem, "SessionKit");
+  v0 = os_log_create(WFLogSubsystem, "SessionKit");
+  v1 = getWFSessionKitLogObject_log;
+  getWFSessionKitLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFTestHarnessLogObject()
@@ -2944,9 +1209,11 @@ id getWFTestHarnessLogObject()
 
 uint64_t __getWFTestHarnessLogObject_block_invoke()
 {
-  getWFTestHarnessLogObject_log = os_log_create(WFLogSubsystem, "TestHarness");
+  v0 = os_log_create(WFLogSubsystem, "TestHarness");
+  v1 = getWFTestHarnessLogObject_log;
+  getWFTestHarnessLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFBiomeWritingLogObject()
@@ -2963,9 +1230,11 @@ id getWFBiomeWritingLogObject()
 
 uint64_t __getWFBiomeWritingLogObject_block_invoke()
 {
-  getWFBiomeWritingLogObject_log = os_log_create(WFLogSubsystem, "BiomeWriting");
+  v0 = os_log_create(WFLogSubsystem, "BiomeWriting");
+  v1 = getWFBiomeWritingLogObject_log;
+  getWFBiomeWritingLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFDropletLogObject()
@@ -2982,9 +1251,11 @@ id getWFDropletLogObject()
 
 uint64_t __getWFDropletLogObject_block_invoke()
 {
-  getWFDropletLogObject_log = os_log_create(WFLogSubsystem, "Droplet");
+  v0 = os_log_create(WFLogSubsystem, "Droplet");
+  v1 = getWFDropletLogObject_log;
+  getWFDropletLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFWidgetConfigurationLogObject()
@@ -3001,9 +1272,11 @@ id getWFWidgetConfigurationLogObject()
 
 uint64_t __getWFWidgetConfigurationLogObject_block_invoke()
 {
-  getWFWidgetConfigurationLogObject_log = os_log_create(WFLogSubsystem, "WidgetConfiguration");
+  v0 = os_log_create(WFLogSubsystem, "WidgetConfiguration");
+  v1 = getWFWidgetConfigurationLogObject_log;
+  getWFWidgetConfigurationLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFSmartShortcutPickerLogObject()
@@ -3020,9 +1293,11 @@ id getWFSmartShortcutPickerLogObject()
 
 uint64_t __getWFSmartShortcutPickerLogObject_block_invoke()
 {
-  getWFSmartShortcutPickerLogObject_log = os_log_create(WFLogSubsystem, "SmartShortcutPicker");
+  v0 = os_log_create(WFLogSubsystem, "SmartShortcutPicker");
+  v1 = getWFSmartShortcutPickerLogObject_log;
+  getWFSmartShortcutPickerLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFTopHitsLogObject()
@@ -3039,9 +1314,11 @@ id getWFTopHitsLogObject()
 
 uint64_t __getWFTopHitsLogObject_block_invoke()
 {
-  getWFTopHitsLogObject_log = os_log_create(WFLogSubsystem, "TopHits");
+  v0 = os_log_create(WFLogSubsystem, "TopHits");
+  v1 = getWFTopHitsLogObject_log;
+  getWFTopHitsLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFTestingLifecycleLogObject()
@@ -3058,9 +1335,11 @@ id getWFTestingLifecycleLogObject()
 
 uint64_t __getWFTestingLifecycleLogObject_block_invoke()
 {
-  getWFTestingLifecycleLogObject_log = os_log_create(WFLogSubsystem, "TestingLifecycle");
+  v0 = os_log_create(WFLogSubsystem, "TestingLifecycle");
+  v1 = getWFTestingLifecycleLogObject_log;
+  getWFTestingLifecycleLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFToolKitLogObject()
@@ -3077,9 +1356,11 @@ id getWFToolKitLogObject()
 
 uint64_t __getWFToolKitLogObject_block_invoke()
 {
-  getWFToolKitLogObject_log = os_log_create(WFLogSubsystem, "ToolKit");
+  v0 = os_log_create(WFLogSubsystem, "ToolKit");
+  v1 = getWFToolKitLogObject_log;
+  getWFToolKitLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFToolKitSyncLogObject()
@@ -3096,9 +1377,11 @@ id getWFToolKitSyncLogObject()
 
 uint64_t __getWFToolKitSyncLogObject_block_invoke()
 {
-  getWFToolKitSyncLogObject_log = os_log_create(WFLogSubsystem, "ToolKitSync");
+  v0 = os_log_create(WFLogSubsystem, "ToolKitSync");
+  v1 = getWFToolKitSyncLogObject_log;
+  getWFToolKitSyncLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFToolKitDatabaseLogObject()
@@ -3115,9 +1398,11 @@ id getWFToolKitDatabaseLogObject()
 
 uint64_t __getWFToolKitDatabaseLogObject_block_invoke()
 {
-  getWFToolKitDatabaseLogObject_log = os_log_create(WFLogSubsystem, "ToolKitDatabase");
+  v0 = os_log_create(WFLogSubsystem, "ToolKitDatabase");
+  v1 = getWFToolKitDatabaseLogObject_log;
+  getWFToolKitDatabaseLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFToolKitIndexingLogObject()
@@ -3134,9 +1419,11 @@ id getWFToolKitIndexingLogObject()
 
 uint64_t __getWFToolKitIndexingLogObject_block_invoke()
 {
-  getWFToolKitIndexingLogObject_log = os_log_create(WFLogSubsystem, "ToolKitIndexing");
+  v0 = os_log_create(WFLogSubsystem, "ToolKitIndexing");
+  v1 = getWFToolKitIndexingLogObject_log;
+  getWFToolKitIndexingLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFToolKitRepresentationLogObject()
@@ -3153,9 +1440,11 @@ id getWFToolKitRepresentationLogObject()
 
 uint64_t __getWFToolKitRepresentationLogObject_block_invoke()
 {
-  getWFToolKitRepresentationLogObject_log = os_log_create(WFLogSubsystem, "ToolKitRepresentation");
+  v0 = os_log_create(WFLogSubsystem, "ToolKitRepresentation");
+  v1 = getWFToolKitRepresentationLogObject_log;
+  getWFToolKitRepresentationLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFToolKitSchedulerLogObject()
@@ -3172,9 +1461,11 @@ id getWFToolKitSchedulerLogObject()
 
 uint64_t __getWFToolKitSchedulerLogObject_block_invoke()
 {
-  getWFToolKitSchedulerLogObject_log = os_log_create(WFLogSubsystem, "ToolKitScheduler");
+  v0 = os_log_create(WFLogSubsystem, "ToolKitScheduler");
+  v1 = getWFToolKitSchedulerLogObject_log;
+  getWFToolKitSchedulerLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFToolKitExecutionPoolLogObject()
@@ -3191,9 +1482,11 @@ id getWFToolKitExecutionPoolLogObject()
 
 uint64_t __getWFToolKitExecutionPoolLogObject_block_invoke()
 {
-  getWFToolKitExecutionPoolLogObject_log = os_log_create(WFLogSubsystem, "ToolKitExecutionPool");
+  v0 = os_log_create(WFLogSubsystem, "ToolKitExecutionPool");
+  v1 = getWFToolKitExecutionPoolLogObject_log;
+  getWFToolKitExecutionPoolLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFToolKitSQLLogObject()
@@ -3210,9 +1503,11 @@ id getWFToolKitSQLLogObject()
 
 uint64_t __getWFToolKitSQLLogObject_block_invoke()
 {
-  getWFToolKitSQLLogObject_log = os_log_create(WFLogSubsystem, "ToolKitSQL");
+  v0 = os_log_create(WFLogSubsystem, "ToolKitSQL");
+  v1 = getWFToolKitSQLLogObject_log;
+  getWFToolKitSQLLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFAppShortcutInterpolationLogObject()
@@ -3229,9 +1524,11 @@ id getWFAppShortcutInterpolationLogObject()
 
 uint64_t __getWFAppShortcutInterpolationLogObject_block_invoke()
 {
-  getWFAppShortcutInterpolationLogObject_log = os_log_create(WFLogSubsystem, "AppShortcutInterpolation");
+  v0 = os_log_create(WFLogSubsystem, "AppShortcutInterpolation");
+  v1 = getWFAppShortcutInterpolationLogObject_log;
+  getWFAppShortcutInterpolationLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFActionConfirmationAlertLogObject()
@@ -3248,9 +1545,11 @@ id getWFActionConfirmationAlertLogObject()
 
 uint64_t __getWFActionConfirmationAlertLogObject_block_invoke()
 {
-  getWFActionConfirmationAlertLogObject_log = os_log_create(WFLogSubsystem, "ActionConfirmationAlert");
+  v0 = os_log_create(WFLogSubsystem, "ActionConfirmationAlert");
+  v1 = getWFActionConfirmationAlertLogObject_log;
+  getWFActionConfirmationAlertLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFPersonaLogObject()
@@ -3267,9 +1566,11 @@ id getWFPersonaLogObject()
 
 uint64_t __getWFPersonaLogObject_block_invoke()
 {
-  getWFPersonaLogObject_log = os_log_create(WFLogSubsystem, "Persona");
+  v0 = os_log_create(WFLogSubsystem, "Persona");
+  v1 = getWFPersonaLogObject_log;
+  getWFPersonaLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFAppIntentsMetadataLogObject()
@@ -3286,9 +1587,11 @@ id getWFAppIntentsMetadataLogObject()
 
 uint64_t __getWFAppIntentsMetadataLogObject_block_invoke()
 {
-  getWFAppIntentsMetadataLogObject_log = os_log_create(WFLogSubsystem, "AppIntentsMetadata");
+  v0 = os_log_create(WFLogSubsystem, "AppIntentsMetadata");
+  v1 = getWFAppIntentsMetadataLogObject_log;
+  getWFAppIntentsMetadataLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFFilesystemEventsLogObject()
@@ -3305,9 +1608,11 @@ id getWFFilesystemEventsLogObject()
 
 uint64_t __getWFFilesystemEventsLogObject_block_invoke()
 {
-  getWFFilesystemEventsLogObject_log = os_log_create(WFLogSubsystem, "FilesystemEvents");
+  v0 = os_log_create(WFLogSubsystem, "FilesystemEvents");
+  v1 = getWFFilesystemEventsLogObject_log;
+  getWFFilesystemEventsLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFLanguageLogObject()
@@ -3324,9 +1629,11 @@ id getWFLanguageLogObject()
 
 uint64_t __getWFLanguageLogObject_block_invoke()
 {
-  getWFLanguageLogObject_log = os_log_create(WFLogSubsystem, "Language");
+  v0 = os_log_create(WFLogSubsystem, "Language");
+  v1 = getWFLanguageLogObject_log;
+  getWFLanguageLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFUserStringsLogObject()
@@ -3343,9 +1650,11 @@ id getWFUserStringsLogObject()
 
 uint64_t __getWFUserStringsLogObject_block_invoke()
 {
-  getWFUserStringsLogObject_log = os_log_create(WFLogSubsystem, "UserStrings");
+  v0 = os_log_create(WFLogSubsystem, "UserStrings");
+  v1 = getWFUserStringsLogObject_log;
+  getWFUserStringsLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFParameterSummaryLogObject()
@@ -3362,9 +1671,11 @@ id getWFParameterSummaryLogObject()
 
 uint64_t __getWFParameterSummaryLogObject_block_invoke()
 {
-  getWFParameterSummaryLogObject_log = os_log_create(WFLogSubsystem, "ParameterSummary");
+  v0 = os_log_create(WFLogSubsystem, "ParameterSummary");
+  v1 = getWFParameterSummaryLogObject_log;
+  getWFParameterSummaryLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id getWFControlMigrationLogObject()
@@ -3381,31 +1692,33 @@ id getWFControlMigrationLogObject()
 
 uint64_t __getWFControlMigrationLogObject_block_invoke()
 {
-  getWFControlMigrationLogObject_log = os_log_create(WFLogSubsystem, "ControlMigration");
+  v0 = os_log_create(WFLogSubsystem, "ControlMigration");
+  v1 = getWFControlMigrationLogObject_log;
+  getWFControlMigrationLogObject_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
-void sub_1B1E9143C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B1E9143C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void *__getBiomeLibrarySymbolLoc_block_invoke(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v6[0] = 0;
+  v8 = *MEMORY[0x1E69E9840];
+  v5[0] = 0;
   if (!BiomeLibraryLibraryCore_frameworkLibrary)
   {
-    v6[1] = MEMORY[0x1E69E9820];
-    v6[2] = 3221225472;
-    v6[3] = __BiomeLibraryLibraryCore_block_invoke;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_1E7B00310;
-    v8 = 0;
+    v5[1] = MEMORY[0x1E69E9820];
+    v5[2] = 3221225472;
+    v5[3] = __BiomeLibraryLibraryCore_block_invoke;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_1E7B00310;
+    v7 = 0;
     BiomeLibraryLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
@@ -3414,14 +1727,14 @@ void *__getBiomeLibrarySymbolLoc_block_invoke(void *a1)
   {
     a1 = [MEMORY[0x1E696AAA8] currentHandler];
     v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *BiomeLibraryLibrary(void)"];
-    [a1 handleFailureInFunction:v2 file:@"WFToggleFocusModeContextualAction.m" lineNumber:19 description:{@"%s", v6[0]}];
+    [a1 handleFailureInFunction:v2 file:@"WFToggleFocusModeContextualAction.m" lineNumber:19 description:{@"%s", v5[0]}];
 
     __break(1u);
     goto LABEL_7;
   }
 
-  v3 = v6[0];
-  if (v6[0])
+  v3 = v5[0];
+  if (v5[0])
   {
 LABEL_7:
     free(v3);
@@ -3430,17 +1743,13 @@ LABEL_7:
   result = dlsym(v2, "BiomeLibrary");
   *(*(a1[4] + 8) + 24) = result;
   getBiomeLibrarySymbolLoc_ptr = *(*(a1[4] + 8) + 24);
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __BiomeLibraryLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   BiomeLibraryLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3512,6 +1821,13 @@ id VCAppBundleIdentifierForBundleRecord(void *a1)
   return v5;
 }
 
+void sub_1B1E96FF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t __Block_byref_object_copy__2791(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -3578,26 +1894,26 @@ void WFBiomeLibrary()
   }
 }
 
-void sub_1B1E9B7FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B1E9B7FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void *__getBiomeLibrarySymbolLoc_block_invoke_3424(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v6[0] = 0;
+  v8 = *MEMORY[0x1E69E9840];
+  v5[0] = 0;
   if (!BiomeLibraryLibraryCore_frameworkLibrary_3428)
   {
-    v6[1] = MEMORY[0x1E69E9820];
-    v6[2] = 3221225472;
-    v6[3] = __BiomeLibraryLibraryCore_block_invoke_3429;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_1E7B004A8;
-    v8 = 0;
+    v5[1] = MEMORY[0x1E69E9820];
+    v5[2] = 3221225472;
+    v5[3] = __BiomeLibraryLibraryCore_block_invoke_3429;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_1E7B004A8;
+    v7 = 0;
     BiomeLibraryLibraryCore_frameworkLibrary_3428 = _sl_dlopen();
   }
 
@@ -3606,14 +1922,14 @@ void *__getBiomeLibrarySymbolLoc_block_invoke_3424(void *a1)
   {
     a1 = [MEMORY[0x1E696AAA8] currentHandler];
     v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *BiomeLibraryLibrary(void)"];
-    [a1 handleFailureInFunction:v2 file:@"WFToggleSettingContextualAction.m" lineNumber:20 description:{@"%s", v6[0]}];
+    [a1 handleFailureInFunction:v2 file:@"WFToggleSettingContextualAction.m" lineNumber:20 description:{@"%s", v5[0]}];
 
     __break(1u);
     goto LABEL_7;
   }
 
-  v3 = v6[0];
-  if (v6[0])
+  v3 = v5[0];
+  if (v5[0])
   {
 LABEL_7:
     free(v3);
@@ -3622,23 +1938,19 @@ LABEL_7:
   result = dlsym(v2, "BiomeLibrary");
   *(*(a1[4] + 8) + 24) = result;
   getBiomeLibrarySymbolLoc_ptr_3423 = *(*(a1[4] + 8) + 24);
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __BiomeLibraryLibraryCore_block_invoke_3429(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   BiomeLibraryLibraryCore_frameworkLibrary_3428 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 id WFToggleSettingContextualActions()
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v0 = [&unk_1F29314B8 mutableCopy];
   v1 = +[WFDevice currentDevice];
   [v0 addObjectsFromArray:&unk_1F29314D0];
@@ -3646,9 +1958,9 @@ id WFToggleSettingContextualActions()
   if ([v1 hasCapability:@"CellularData"])
   {
     v2 = +[WFCellularSettings defaultSettings];
-    v15 = 0;
-    v3 = [v2 isCellularDataCapableWithError:&v15];
-    v4 = v15;
+    v14 = 0;
+    v3 = [v2 isCellularDataCapableWithError:&v14];
+    v4 = v14;
     v5 = getWFSpotlightSyncLogObject();
     v6 = v5;
     if (v4)
@@ -3656,9 +1968,9 @@ id WFToggleSettingContextualActions()
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v17 = "WFToggleSettingContextualActions";
-        v18 = 2112;
-        v19 = v4;
+        v16 = "WFToggleSettingContextualActions";
+        v17 = 2112;
+        v18 = v4;
         v7 = "%s Unable to get cellular data capability: %@";
         v8 = v6;
         v9 = OS_LOG_TYPE_ERROR;
@@ -3676,7 +1988,7 @@ LABEL_11:
         if (v11)
         {
           *buf = 136315138;
-          v17 = "WFToggleSettingContextualActions";
+          v16 = "WFToggleSettingContextualActions";
           _os_log_impl(&dword_1B1DE3000, v6, OS_LOG_TYPE_INFO, "%s Device is cellular data capable, indexing toggle", buf, 0xCu);
         }
 
@@ -3687,7 +1999,7 @@ LABEL_11:
       if (v11)
       {
         *buf = 136315138;
-        v17 = "WFToggleSettingContextualActions";
+        v16 = "WFToggleSettingContextualActions";
         v7 = "%s Device is not cellular data capable, not indexing toggle";
         v8 = v6;
         v9 = OS_LOG_TYPE_INFO;
@@ -3720,8 +2032,6 @@ LABEL_13:
   }
 
   v12 = [v0 if_compactMap:&__block_literal_global_3593];
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -3762,17 +2072,17 @@ void *__getCGImageSourceCreateImageAtIndexSymbolLoc_block_invoke(uint64_t a1)
 
 void *ImageIOLibrary()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!ImageIOLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __ImageIOLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E7B00580;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __ImageIOLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E7B00580;
+    v6 = 0;
     ImageIOLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
@@ -3780,31 +2090,27 @@ void *ImageIOLibrary()
   if (!ImageIOLibraryCore_frameworkLibrary)
   {
     v0 = [MEMORY[0x1E696AAA8] currentHandler];
-    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *ImageIOLibrary(void)"];
-    [v0 handleFailureInFunction:v4 file:@"WFImage.m" lineNumber:37 description:{@"%s", v5[0]}];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *ImageIOLibrary(void)"];
+    [v0 handleFailureInFunction:v3 file:@"WFImage.m" lineNumber:37 description:{@"%s", v4[0]}];
 
     __break(1u);
     goto LABEL_7;
   }
 
-  v1 = v5[0];
-  if (v5[0])
+  v1 = v4[0];
+  if (v4[0])
   {
 LABEL_7:
     free(v1);
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return v0;
 }
 
 uint64_t __ImageIOLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ImageIOLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3857,47 +2163,42 @@ void soft_CGImageSourceCopyProperties(uint64_t a1)
   }
 }
 
-void sub_1B1EA11C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B1EA11C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void getkCGImagePropertyOrientation()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
   v0 = getkCGImagePropertyOrientationSymbolLoc_ptr;
-  v8 = getkCGImagePropertyOrientationSymbolLoc_ptr;
+  v7 = getkCGImagePropertyOrientationSymbolLoc_ptr;
   if (!getkCGImagePropertyOrientationSymbolLoc_ptr)
   {
     v1 = ImageIOLibrary();
-    v6[3] = dlsym(v1, "kCGImagePropertyOrientation");
-    getkCGImagePropertyOrientationSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v5[3] = dlsym(v1, "kCGImagePropertyOrientation");
+    getkCGImagePropertyOrientationSymbolLoc_ptr = v5[3];
+    v0 = v5[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (v0)
+  _Block_object_dispose(&v4, 8);
+  if (!v0)
   {
-    v2 = *v0;
-  }
-
-  else
-  {
-    v3 = [MEMORY[0x1E696AAA8] currentHandler];
-    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"CFStringRef getkCGImagePropertyOrientation(void)"];
-    [v3 handleFailureInFunction:v4 file:@"WFImage.m" lineNumber:45 description:{@"%s", dlerror()}];
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"CFStringRef getkCGImagePropertyOrientation(void)"];
+    [v2 handleFailureInFunction:v3 file:@"WFImage.m" lineNumber:45 description:{@"%s", dlerror()}];
 
     __break(1u);
   }
 }
 
-void sub_1B1EA1314(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B1EA1314(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6686,6 +4987,13 @@ LABEL_690:
   return v1;
 }
 
+void sub_1B1EA5210(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void __getWFFileRepresentationClass_block_invoke(uint64_t a1)
 {
   ContentKitLibrary();
@@ -6745,118 +5053,109 @@ void __getWFContentLocationClass_block_invoke(uint64_t a1)
 
 void ContentKitLibrary()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
   if (!ContentKitLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = __ContentKitLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E7B00658;
-    v6 = 0;
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __ContentKitLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E7B00658;
+    v5 = 0;
     ContentKitLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!ContentKitLibraryCore_frameworkLibrary)
   {
-    v2 = [MEMORY[0x1E696AAA8] currentHandler];
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *ContentKitLibrary(void)"];
-    [v2 handleFailureInFunction:v3 file:@"WFContextualActionRunRequest.m" lineNumber:16 description:{@"%s", v4[0]}];
+    v1 = [MEMORY[0x1E696AAA8] currentHandler];
+    v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *ContentKitLibrary(void)"];
+    [v1 handleFailureInFunction:v2 file:@"WFContextualActionRunRequest.m" lineNumber:16 description:{@"%s", v3[0]}];
 
     __break(1u);
     goto LABEL_7;
   }
 
-  v0 = v4[0];
-  if (v4[0])
+  v0 = v3[0];
+  if (v3[0])
   {
 LABEL_7:
     free(v0);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __ContentKitLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ContentKitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_1B1EA6304(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1B1EA6304(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t __LinkServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   LinkServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_1B1EA923C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B1EA923C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getPDCPreflightManagerClass_block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v7[0] = 0;
+  v9 = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
   if (!PrivacyDisclosureCoreLibraryCore_frameworkLibrary)
   {
-    v7[1] = MEMORY[0x1E69E9820];
-    v7[2] = 3221225472;
-    v7[3] = __PrivacyDisclosureCoreLibraryCore_block_invoke;
-    v7[4] = &__block_descriptor_40_e5_v8__0l;
-    v7[5] = v7;
-    v8 = xmmword_1E7B007D8;
-    v9 = 0;
+    v6[1] = MEMORY[0x1E69E9820];
+    v6[2] = 3221225472;
+    v6[3] = __PrivacyDisclosureCoreLibraryCore_block_invoke;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_1E7B007D8;
+    v8 = 0;
     PrivacyDisclosureCoreLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!PrivacyDisclosureCoreLibraryCore_frameworkLibrary)
   {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *PrivacyDisclosureCoreLibrary(void)"];
-    [v4 handleFailureInFunction:v5 file:@"WFSystemActionRunnerClient.m" lineNumber:42 description:{@"%s", v7[0]}];
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *PrivacyDisclosureCoreLibrary(void)"];
+    [v3 handleFailureInFunction:v4 file:@"WFSystemActionRunnerClient.m" lineNumber:42 description:{@"%s", v6[0]}];
 
     goto LABEL_10;
   }
 
-  if (v7[0])
+  if (v6[0])
   {
-    free(v7[0]);
+    free(v6[0]);
   }
 
   result = objc_getClass("PDCPreflightManager");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getPDCPreflightManagerClass(void)_block_invoke"];
-    [v4 handleFailureInFunction:v6 file:@"WFSystemActionRunnerClient.m" lineNumber:43 description:{@"Unable to find class %s", "PDCPreflightManager"}];
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getPDCPreflightManagerClass(void)_block_invoke"];
+    [v3 handleFailureInFunction:v5 file:@"WFSystemActionRunnerClient.m" lineNumber:43 description:{@"Unable to find class %s", "PDCPreflightManager"}];
 
 LABEL_10:
     __break(1u);
   }
 
   getPDCPreflightManagerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6881,17 +5180,17 @@ void __getFBSOpenApplicationServiceClass_block_invoke(uint64_t a1)
 
 void *__getSBSOpenApplicationLaunchOriginActionButtonSymbolLoc_block_invoke(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v6[0] = 0;
+  v8 = *MEMORY[0x1E69E9840];
+  v5[0] = 0;
   if (!SpringBoardServicesLibraryCore_frameworkLibrary)
   {
-    v6[1] = MEMORY[0x1E69E9820];
-    v6[2] = 3221225472;
-    v6[3] = __SpringBoardServicesLibraryCore_block_invoke;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_1E7B00808;
-    v8 = 0;
+    v5[1] = MEMORY[0x1E69E9820];
+    v5[2] = 3221225472;
+    v5[3] = __SpringBoardServicesLibraryCore_block_invoke;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_1E7B00808;
+    v7 = 0;
     SpringBoardServicesLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
@@ -6900,14 +5199,14 @@ void *__getSBSOpenApplicationLaunchOriginActionButtonSymbolLoc_block_invoke(void
   {
     a1 = [MEMORY[0x1E696AAA8] currentHandler];
     v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *SpringBoardServicesLibrary(void)"];
-    [a1 handleFailureInFunction:v2 file:@"WFSystemActionRunnerClient.m" lineNumber:31 description:{@"%s", v6[0]}];
+    [a1 handleFailureInFunction:v2 file:@"WFSystemActionRunnerClient.m" lineNumber:31 description:{@"%s", v5[0]}];
 
     __break(1u);
     goto LABEL_7;
   }
 
-  v3 = v6[0];
-  if (v6[0])
+  v3 = v5[0];
+  if (v5[0])
   {
 LABEL_7:
     free(v3);
@@ -6916,7 +5215,6 @@ LABEL_7:
   result = dlsym(v2, "SBSOpenApplicationLaunchOriginActionButton");
   *(*(a1[4] + 8) + 24) = result;
   getSBSOpenApplicationLaunchOriginActionButtonSymbolLoc_ptr = *(*(a1[4] + 8) + 24);
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6931,17 +5229,17 @@ void *__getFBSOpenApplicationOptionKeyLaunchOriginSymbolLoc_block_invoke(uint64_
 
 void *FrontBoardServicesLibrary()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!FrontBoardServicesLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __FrontBoardServicesLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E7B007F0;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __FrontBoardServicesLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E7B007F0;
+    v6 = 0;
     FrontBoardServicesLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
@@ -6949,21 +5247,20 @@ void *FrontBoardServicesLibrary()
   if (!FrontBoardServicesLibraryCore_frameworkLibrary)
   {
     v0 = [MEMORY[0x1E696AAA8] currentHandler];
-    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *FrontBoardServicesLibrary(void)"];
-    [v0 handleFailureInFunction:v4 file:@"WFSystemActionRunnerClient.m" lineNumber:26 description:{@"%s", v5[0]}];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *FrontBoardServicesLibrary(void)"];
+    [v0 handleFailureInFunction:v3 file:@"WFSystemActionRunnerClient.m" lineNumber:26 description:{@"%s", v4[0]}];
 
     __break(1u);
     goto LABEL_7;
   }
 
-  v1 = v5[0];
-  if (v5[0])
+  v1 = v4[0];
+  if (v4[0])
   {
 LABEL_7:
     free(v1);
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return v0;
 }
 
@@ -6988,31 +5285,22 @@ void __getFBSOpenApplicationOptionsClass_block_invoke(uint64_t a1)
 
 uint64_t __FrontBoardServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   FrontBoardServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __SpringBoardServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SpringBoardServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __PrivacyDisclosureCoreLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   PrivacyDisclosureCoreLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7046,9 +5334,9 @@ uint64_t WFWorkflowPaletteColorForLNShortcutTileColor(uint64_t result)
   return result;
 }
 
-void sub_1B1EAB978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B1EAB978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7074,53 +5362,48 @@ void __getWFContentCollectionClass_block_invoke_5220(uint64_t a1)
 
 void ContentKitLibrary_5221()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
   if (!ContentKitLibraryCore_frameworkLibrary_5231)
   {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = __ContentKitLibraryCore_block_invoke_5232;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E7B008B8;
-    v6 = 0;
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __ContentKitLibraryCore_block_invoke_5232;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E7B008B8;
+    v5 = 0;
     ContentKitLibraryCore_frameworkLibrary_5231 = _sl_dlopen();
   }
 
   if (!ContentKitLibraryCore_frameworkLibrary_5231)
   {
-    v2 = [MEMORY[0x1E696AAA8] currentHandler];
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void * _Nonnull ContentKitLibrary(void)"];
-    [v2 handleFailureInFunction:v3 file:@"WFConfiguratorRunRequest.m" lineNumber:26 description:{@"%s", v4[0]}];
+    v1 = [MEMORY[0x1E696AAA8] currentHandler];
+    v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void * _Nonnull ContentKitLibrary(void)"];
+    [v1 handleFailureInFunction:v2 file:@"WFConfiguratorRunRequest.m" lineNumber:26 description:{@"%s", v3[0]}];
 
     __break(1u);
     goto LABEL_7;
   }
 
-  v0 = v4[0];
-  if (v4[0])
+  v0 = v3[0];
+  if (v3[0])
   {
 LABEL_7:
     free(v0);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __ContentKitLibraryCore_block_invoke_5232(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ContentKitLibraryCore_frameworkLibrary_5231 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_1B1EABD04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B1EABD04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7144,9 +5427,9 @@ void __getWFContentItemClass_block_invoke(uint64_t a1)
   }
 }
 
-void sub_1B1EAF300(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B1EAF300(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7169,17 +5452,17 @@ void *__getCGImageDestinationCreateWithDataSymbolLoc_block_invoke(uint64_t a1)
 
 void *ImageIOLibrary_5544()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!ImageIOLibraryCore_frameworkLibrary_5562)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __ImageIOLibraryCore_block_invoke_5563;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E7B00AA8;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __ImageIOLibraryCore_block_invoke_5563;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E7B00AA8;
+    v6 = 0;
     ImageIOLibraryCore_frameworkLibrary_5562 = _sl_dlopen();
   }
 
@@ -7187,21 +5470,20 @@ void *ImageIOLibrary_5544()
   if (!ImageIOLibraryCore_frameworkLibrary_5562)
   {
     v0 = [MEMORY[0x1E696AAA8] currentHandler];
-    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *ImageIOLibrary(void)"];
-    [v0 handleFailureInFunction:v4 file:@"WFImage+Representations.m" lineNumber:18 description:{@"%s", v5[0]}];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *ImageIOLibrary(void)"];
+    [v0 handleFailureInFunction:v3 file:@"WFImage+Representations.m" lineNumber:18 description:{@"%s", v4[0]}];
 
     __break(1u);
     goto LABEL_7;
   }
 
-  v1 = v5[0];
-  if (v5[0])
+  v1 = v4[0];
+  if (v4[0])
   {
 LABEL_7:
     free(v1);
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return v0;
 }
 
@@ -7270,17 +5552,14 @@ void *__getCGImageDestinationFinalizeSymbolLoc_block_invoke(uint64_t a1)
 
 uint64_t __ImageIOLibraryCore_block_invoke_5563(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ImageIOLibraryCore_frameworkLibrary_5562 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_1B1EB087C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B1EB087C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7292,17 +5571,18 @@ uint64_t __Block_byref_object_copy__5659(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1B1EB0C08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1B1EB0C08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B1EB1AAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57)
+void sub_1B1EB1AAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, ...)
 {
+  va_start(va, a56);
   _Block_object_dispose(&a51, 8);
-  _Block_object_dispose(&a57, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -7326,9 +5606,9 @@ void *__AppPredictionClientLibrary_block_invoke()
   return result;
 }
 
-void sub_1B1EB4024(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B1EB4024(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7376,9 +5656,9 @@ id getISIconClass()
   return v1;
 }
 
-void sub_1B1EB41D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B1EB41D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7492,9 +5772,9 @@ LABEL_20:
   v8 = a2;
 }
 
-void sub_1B1EB45F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B1EB45F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7523,21 +5803,21 @@ id getISImageDescriptorClass()
   return v1;
 }
 
-void sub_1B1EB46E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B1EB46E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id WFImageForIconAndDescriptor(void *a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v14 = a2;
+  v14 = *MEMORY[0x1E69E9840];
+  v13 = a2;
   v3 = MEMORY[0x1E695DEC8];
   v4 = a2;
   v5 = a1;
-  v6 = [v3 arrayWithObjects:&v14 count:1];
+  v6 = [v3 arrayWithObjects:&v13 count:1];
   v7 = WFISImagesForIconAndDescriptors(v5, v6);
 
   v8 = [v7 firstObject];
@@ -7547,8 +5827,6 @@ id WFImageForIconAndDescriptor(void *a1, void *a2)
   v10 = [WFImage imageWithCGImage:v9 scale:1 orientation:?];
 
   v11 = [v10 imageWithRenderingMode:1];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -7590,17 +5868,17 @@ void __getISImageDescriptorClass_block_invoke(uint64_t a1)
 
 void *IconServicesLibrary()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!IconServicesLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __IconServicesLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E7B00D08;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __IconServicesLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E7B00D08;
+    v6 = 0;
     IconServicesLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
@@ -7608,31 +5886,27 @@ void *IconServicesLibrary()
   if (!IconServicesLibraryCore_frameworkLibrary)
   {
     v0 = [MEMORY[0x1E696AAA8] currentHandler];
-    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *IconServicesLibrary(void)"];
-    [v0 handleFailureInFunction:v4 file:@"WFImage+Icons.m" lineNumber:23 description:{@"%s", v5[0]}];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *IconServicesLibrary(void)"];
+    [v0 handleFailureInFunction:v3 file:@"WFImage+Icons.m" lineNumber:23 description:{@"%s", v4[0]}];
 
     __break(1u);
     goto LABEL_7;
   }
 
-  v1 = v5[0];
-  if (v5[0])
+  v1 = v4[0];
+  if (v4[0])
   {
 LABEL_7:
     free(v1);
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return v0;
 }
 
 uint64_t __IconServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   IconServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7682,21 +5956,18 @@ void __getISIconClass_block_invoke(uint64_t a1)
   }
 }
 
-void sub_1B1EB507C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1B1EB507C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
-  _Block_object_dispose((v10 - 96), 8);
+  va_start(va, a17);
+  _Block_object_dispose((v17 - 96), 8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t __CalendarUIKitLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CalendarUIKitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7707,9 +5978,9 @@ uint64_t __Block_byref_object_copy__5938(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1B1EB583C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1B1EB583C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7764,85 +6035,85 @@ id WFImageApplicationIconCache()
 
 uint64_t __WFImageApplicationIconCache_block_invoke()
 {
-  WFImageApplicationIconCache_cache = objc_alloc_init(MEMORY[0x1E695DEE0]);
+  v0 = objc_alloc_init(MEMORY[0x1E695DEE0]);
+  v1 = WFImageApplicationIconCache_cache;
+  WFImageApplicationIconCache_cache = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id WFStaccatoTintColorForSectionIdentifier(void *a1)
 {
-  v19[12] = *MEMORY[0x1E69E9840];
-  v18[0] = @"SilentMode";
-  v17 = a1;
-  v16 = [[WFColor alloc] initWithSystemColor:5];
-  v19[0] = v16;
-  v18[1] = @"Focus";
-  v15 = [[WFColor alloc] initWithSystemColor:10];
-  v19[1] = v15;
-  v18[2] = @"Flashlight";
-  v14 = [WFColor colorWithRGBAValue:1937084671];
-  v19[2] = v14;
-  v18[3] = @"Camera";
+  v18[12] = *MEMORY[0x1E69E9840];
+  v17[0] = @"SilentMode";
+  v16 = a1;
+  v15 = [[WFColor alloc] initWithSystemColor:5];
+  v18[0] = v15;
+  v17[1] = @"Focus";
+  v14 = [[WFColor alloc] initWithSystemColor:10];
+  v18[1] = v14;
+  v17[2] = @"Flashlight";
+  v13 = [WFColor colorWithRGBAValue:1937084671];
+  v18[2] = v13;
+  v17[3] = @"Camera";
   v1 = [[WFColor alloc] initWithSystemColor:6];
-  v19[3] = v1;
-  v18[4] = @"Translate";
+  v18[3] = v1;
+  v17[4] = @"Translate";
   v2 = [[WFColor alloc] initWithSystemColor:816760831];
-  v19[4] = v2;
-  v18[5] = @"VoiceMemos";
+  v18[4] = v2;
+  v17[5] = @"VoiceMemos";
   v3 = [[WFColor alloc] initWithSystemColor:2];
-  v19[5] = v3;
-  v18[6] = @"Magnifier";
+  v18[5] = v3;
+  v17[6] = @"Magnifier";
   v4 = [[WFColor alloc] initWithSystemColor:14];
-  v19[6] = v4;
-  v18[7] = @"MusicRecognition";
+  v18[6] = v4;
+  v17[7] = @"MusicRecognition";
   v5 = [[WFColor alloc] initWithSystemColor:4];
-  v19[7] = v5;
-  v18[8] = @"Shortcuts";
+  v18[7] = v5;
+  v17[8] = @"Shortcuts";
   v6 = [WFColor colorWithRGBAValue:994537727];
-  v19[8] = v6;
-  v18[9] = @"Accessibility";
+  v18[8] = v6;
+  v17[9] = @"Accessibility";
   v7 = [[WFColor alloc] initWithSystemColor:4];
-  v19[9] = v7;
-  v18[10] = @"Nothing";
+  v18[9] = v7;
+  v17[10] = @"Nothing";
   v8 = [[WFColor alloc] initWithWhite:0.0 alpha:0.0];
-  v19[10] = v8;
-  v18[11] = @"Controls";
+  v18[10] = v8;
+  v17[11] = @"Controls";
   v9 = [[WFColor alloc] initWithRed:0.5018 green:0.5292 blue:0.5813 alpha:1.0];
-  v19[11] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:12];
+  v18[11] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:12];
 
-  v11 = [v10 objectForKeyedSubscript:v17];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = [v10 objectForKeyedSubscript:v16];
 
   return v11;
 }
 
 id WFEncodableErrorDictionary(void *a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = objc_opt_new();
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v3 = [v1 allKeys];
-  v4 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * i);
+        v8 = *(*(&v15 + 1) + 8 * i);
         v9 = WFEncodableErrorObject(v8);
         v10 = [v1 objectForKeyedSubscript:v8];
         v11 = WFEncodableErrorObject(v10);
@@ -7863,21 +6134,20 @@ id WFEncodableErrorDictionary(void *a1)
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
   }
 
   v13 = [v2 copy];
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
 
 id WFEncodableErrorObject(void *a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (WFEncodableErrorObject_onceToken != -1)
   {
@@ -7898,26 +6168,26 @@ LABEL_5:
   {
     v4 = v1;
     v5 = objc_opt_new();
+    v23 = 0u;
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
-    v28 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v25 objects:v30 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v26;
+      v9 = *v24;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v26 != v9)
+          if (*v24 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v25 + 1) + 8 * i);
+          v11 = *(*(&v23 + 1) + 8 * i);
           v12 = WFEncodableErrorObject(v11);
           if (v12)
           {
@@ -7925,7 +6195,7 @@ LABEL_5:
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
       }
 
       while (v8);
@@ -7943,26 +6213,25 @@ LABEL_5:
       goto LABEL_5;
     }
 
-    v23 = 0u;
-    v24 = 0u;
     v21 = 0u;
     v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v13 = WFEncodableErrorObject_encodableClasses;
-    v14 = [v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v19 objects:v27 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v22;
+      v16 = *v20;
       while (2)
       {
         for (j = 0; j != v15; ++j)
         {
-          if (*v22 != v16)
+          if (*v20 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v21 + 1) + 8 * j);
           if (objc_opt_isKindOfClass())
           {
             v3 = v1;
@@ -7971,7 +6240,7 @@ LABEL_5:
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v19 objects:v27 count:16];
         if (v15)
         {
           continue;
@@ -7985,8 +6254,6 @@ LABEL_5:
   }
 
 LABEL_29:
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -8032,16 +6299,16 @@ id getLPLinkMetadataClass()
   return v1;
 }
 
-void sub_1B1EB8100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B1EB8100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B1EB832C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B1EB832C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8067,104 +6334,95 @@ void __getLPImageClass_block_invoke(uint64_t a1)
 
 void LinkPresentationLibrary()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
   if (!LinkPresentationLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = __LinkPresentationLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E7B00DD0;
-    v6 = 0;
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __LinkPresentationLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E7B00DD0;
+    v5 = 0;
     LinkPresentationLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!LinkPresentationLibraryCore_frameworkLibrary)
   {
-    v2 = [MEMORY[0x1E696AAA8] currentHandler];
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *LinkPresentationLibrary(void)"];
-    [v2 handleFailureInFunction:v3 file:@"WFItemProviderRequestMetadata.m" lineNumber:21 description:{@"%s", v4[0]}];
+    v1 = [MEMORY[0x1E696AAA8] currentHandler];
+    v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *LinkPresentationLibrary(void)"];
+    [v1 handleFailureInFunction:v2 file:@"WFItemProviderRequestMetadata.m" lineNumber:21 description:{@"%s", v3[0]}];
 
     __break(1u);
     goto LABEL_7;
   }
 
-  v0 = v4[0];
-  if (v4[0])
+  v0 = v3[0];
+  if (v3[0])
   {
 LABEL_7:
     free(v0);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __LinkPresentationLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   LinkPresentationLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 Class __getUIImageClass_block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v7[0] = 0;
+  v9 = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
   if (!UIKitLibraryCore_frameworkLibrary)
   {
-    v7[1] = MEMORY[0x1E69E9820];
-    v7[2] = 3221225472;
-    v7[3] = __UIKitLibraryCore_block_invoke;
-    v7[4] = &__block_descriptor_40_e5_v8__0l;
-    v7[5] = v7;
-    v8 = xmmword_1E7B00DE8;
-    v9 = 0;
+    v6[1] = MEMORY[0x1E69E9820];
+    v6[2] = 3221225472;
+    v6[3] = __UIKitLibraryCore_block_invoke;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_1E7B00DE8;
+    v8 = 0;
     UIKitLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!UIKitLibraryCore_frameworkLibrary)
   {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *UIKitLibrary(void)"];
-    [v4 handleFailureInFunction:v5 file:@"WFItemProviderRequestMetadata.m" lineNumber:20 description:{@"%s", v7[0]}];
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *UIKitLibrary(void)"];
+    [v3 handleFailureInFunction:v4 file:@"WFItemProviderRequestMetadata.m" lineNumber:20 description:{@"%s", v6[0]}];
 
     goto LABEL_10;
   }
 
-  if (v7[0])
+  if (v6[0])
   {
-    free(v7[0]);
+    free(v6[0]);
   }
 
   result = objc_getClass("UIImage");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getUIImageClass(void)_block_invoke"];
-    [v4 handleFailureInFunction:v6 file:@"WFItemProviderRequestMetadata.m" lineNumber:22 description:{@"Unable to find class %s", "UIImage"}];
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getUIImageClass(void)_block_invoke"];
+    [v3 handleFailureInFunction:v5 file:@"WFItemProviderRequestMetadata.m" lineNumber:22 description:{@"Unable to find class %s", "UIImage"}];
 
 LABEL_10:
     __break(1u);
   }
 
   getUIImageClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __UIKitLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   UIKitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -8187,9 +6445,34 @@ void __getLPLinkMetadataClass_block_invoke(uint64_t a1)
   }
 }
 
-void sub_1B1EBBF74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B1EBA0A8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, __int128 buf)
 {
-  va_start(va, a7);
+  if (a2 == 1)
+  {
+    v17 = objc_begin_catch(a1);
+    v18 = getWFVoiceShortcutClientLogObject();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+    {
+      LODWORD(buf) = 136315394;
+      *(&buf + 4) = "[WFWorkflowOutputRunResult getOutputWithCompletionHandler:]";
+      WORD6(buf) = 2112;
+      *(&buf + 14) = v17;
+      _os_log_impl(&dword_1B1DE3000, v18, OS_LOG_TYPE_FAULT, "%s Exception thrown when decoding output: %@", &buf, 0x16u);
+    }
+
+    v19 = [v16 unableToDecodeError];
+    (*(v15 + 16))(v15, 0, v19);
+
+    objc_end_catch();
+    JUMPOUT(0x1B1EBA074);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1B1EBBF74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8253,63 +6536,58 @@ void __getLNActionMetadataClass_block_invoke(uint64_t a1)
 
 void LinkServicesLibrary_6889()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
   if (!LinkServicesLibraryCore_frameworkLibrary_6894)
   {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = __LinkServicesLibraryCore_block_invoke_6895;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E7B00E58;
-    v6 = 0;
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __LinkServicesLibraryCore_block_invoke_6895;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E7B00E58;
+    v5 = 0;
     LinkServicesLibraryCore_frameworkLibrary_6894 = _sl_dlopen();
   }
 
   if (!LinkServicesLibraryCore_frameworkLibrary_6894)
   {
-    v2 = [MEMORY[0x1E696AAA8] currentHandler];
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *LinkServicesLibrary(void)"];
-    [v2 handleFailureInFunction:v3 file:@"WFWorkflowRunDescriptors.m" lineNumber:25 description:{@"%s", v4[0]}];
+    v1 = [MEMORY[0x1E696AAA8] currentHandler];
+    v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *LinkServicesLibrary(void)"];
+    [v1 handleFailureInFunction:v2 file:@"WFWorkflowRunDescriptors.m" lineNumber:25 description:{@"%s", v3[0]}];
 
     __break(1u);
     goto LABEL_7;
   }
 
-  v0 = v4[0];
-  if (v4[0])
+  v0 = v3[0];
+  if (v3[0])
   {
 LABEL_7:
     free(v0);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __LinkServicesLibraryCore_block_invoke_6895(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   LinkServicesLibraryCore_frameworkLibrary_6894 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void *__getAnalyticsSendEventLazySymbolLoc_block_invoke(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v6[0] = 0;
+  v8 = *MEMORY[0x1E69E9840];
+  v5[0] = 0;
   if (!CoreAnalyticsLibraryCore_frameworkLibrary)
   {
-    v6[1] = MEMORY[0x1E69E9820];
-    v6[2] = 3221225472;
-    v6[3] = __CoreAnalyticsLibraryCore_block_invoke;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_1E7B00EC0;
-    v8 = 0;
+    v5[1] = MEMORY[0x1E69E9820];
+    v5[2] = 3221225472;
+    v5[3] = __CoreAnalyticsLibraryCore_block_invoke;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_1E7B00EC0;
+    v7 = 0;
     CoreAnalyticsLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
@@ -8318,14 +6596,14 @@ void *__getAnalyticsSendEventLazySymbolLoc_block_invoke(void *a1)
   {
     a1 = [MEMORY[0x1E696AAA8] currentHandler];
     v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *CoreAnalyticsLibrary(void)"];
-    [a1 handleFailureInFunction:v2 file:@"WFLinkActionWorkflowRunnerClient.m" lineNumber:21 description:{@"%s", v6[0]}];
+    [a1 handleFailureInFunction:v2 file:@"WFLinkActionWorkflowRunnerClient.m" lineNumber:21 description:{@"%s", v5[0]}];
 
     __break(1u);
     goto LABEL_7;
   }
 
-  v3 = v6[0];
-  if (v6[0])
+  v3 = v5[0];
+  if (v5[0])
   {
 LABEL_7:
     free(v3);
@@ -8334,94 +6612,86 @@ LABEL_7:
   result = dlsym(v2, "AnalyticsSendEventLazy");
   *(*(a1[4] + 8) + 24) = result;
   getAnalyticsSendEventLazySymbolLoc_ptr = *(*(a1[4] + 8) + 24);
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __CoreAnalyticsLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreAnalyticsLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_1B1EBE2F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B1EBE2F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getCLLocationClass_block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v7[0] = 0;
+  v9 = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
   if (!CoreLocationLibraryCore_frameworkLibrary)
   {
-    v7[1] = MEMORY[0x1E69E9820];
-    v7[2] = 3221225472;
-    v7[3] = __CoreLocationLibraryCore_block_invoke;
-    v7[4] = &__block_descriptor_40_e5_v8__0l;
-    v7[5] = v7;
-    v8 = xmmword_1E7B00F28;
-    v9 = 0;
+    v6[1] = MEMORY[0x1E69E9820];
+    v6[2] = 3221225472;
+    v6[3] = __CoreLocationLibraryCore_block_invoke;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_1E7B00F28;
+    v8 = 0;
     CoreLocationLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!CoreLocationLibraryCore_frameworkLibrary)
   {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *CoreLocationLibrary(void)"];
-    [v4 handleFailureInFunction:v5 file:@"WFGetDirectionsContextualAction.m" lineNumber:17 description:{@"%s", v7[0]}];
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *CoreLocationLibrary(void)"];
+    [v3 handleFailureInFunction:v4 file:@"WFGetDirectionsContextualAction.m" lineNumber:17 description:{@"%s", v6[0]}];
 
     goto LABEL_10;
   }
 
-  if (v7[0])
+  if (v6[0])
   {
-    free(v7[0]);
+    free(v6[0]);
   }
 
   result = objc_getClass("CLLocation");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getCLLocationClass(void)_block_invoke"];
-    [v4 handleFailureInFunction:v6 file:@"WFGetDirectionsContextualAction.m" lineNumber:18 description:{@"Unable to find class %s", "CLLocation"}];
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getCLLocationClass(void)_block_invoke"];
+    [v3 handleFailureInFunction:v5 file:@"WFGetDirectionsContextualAction.m" lineNumber:18 description:{@"Unable to find class %s", "CLLocation"}];
 
 LABEL_10:
     __break(1u);
   }
 
   getCLLocationClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __CoreLocationLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreLocationLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_1B1EBF70C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B1EBF70C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_1B1EC10DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  (*(a10 + 16))();
+  (*(a10 + 16))(a10, a2, a3, a4, a5, a6, a7, a8);
   (*(v11 + 16))(v11);
   (*(v10 + 16))(v10);
   _Unwind_Resume(a1);
@@ -8472,47 +6742,42 @@ void WFCTFontCopyCharacterSet(uint64_t a1)
   }
 }
 
-void sub_1B1EC1314(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B1EC1314(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void getkCTFontAttributeName()
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
   v0 = getkCTFontAttributeNameSymbolLoc_ptr;
-  v8 = getkCTFontAttributeNameSymbolLoc_ptr;
+  v7 = getkCTFontAttributeNameSymbolLoc_ptr;
   if (!getkCTFontAttributeNameSymbolLoc_ptr)
   {
     v1 = CoreTextLibrary();
-    v6[3] = dlsym(v1, "kCTFontAttributeName");
-    getkCTFontAttributeNameSymbolLoc_ptr = v6[3];
-    v0 = v6[3];
+    v5[3] = dlsym(v1, "kCTFontAttributeName");
+    getkCTFontAttributeNameSymbolLoc_ptr = v5[3];
+    v0 = v5[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (v0)
+  _Block_object_dispose(&v4, 8);
+  if (!v0)
   {
-    v2 = *v0;
-  }
-
-  else
-  {
-    v3 = [MEMORY[0x1E696AAA8] currentHandler];
-    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"CFStringRef getkCTFontAttributeName(void)"];
-    [v3 handleFailureInFunction:v4 file:@"WFWorkflowIconDrawer.m" lineNumber:35 description:{@"%s", dlerror()}];
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"CFStringRef getkCTFontAttributeName(void)"];
+    [v2 handleFailureInFunction:v3 file:@"WFWorkflowIconDrawer.m" lineNumber:35 description:{@"%s", dlerror()}];
 
     __break(1u);
   }
 }
 
-void sub_1B1EC1470(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B1EC1470(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8548,9 +6813,9 @@ void WFCTFramesetterCreateWithAttributedString(uint64_t a1)
   }
 }
 
-void sub_1B1EC15D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B1EC15D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8586,9 +6851,9 @@ void WFCTFramesetterSuggestFrameSizeWithConstraints(uint64_t a1, uint64_t a2, ui
   }
 }
 
-void sub_1B1EC176C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B1EC176C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8604,17 +6869,17 @@ void *__getCTFramesetterSuggestFrameSizeWithConstraintsSymbolLoc_block_invoke(ui
 
 void *CoreTextLibrary()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!CoreTextLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __CoreTextLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E7B00F88;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __CoreTextLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E7B00F88;
+    v6 = 0;
     CoreTextLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
@@ -8622,31 +6887,27 @@ void *CoreTextLibrary()
   if (!CoreTextLibraryCore_frameworkLibrary)
   {
     v0 = [MEMORY[0x1E696AAA8] currentHandler];
-    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *CoreTextLibrary(void)"];
-    [v0 handleFailureInFunction:v4 file:@"WFWorkflowIconDrawer.m" lineNumber:28 description:{@"%s", v5[0]}];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *CoreTextLibrary(void)"];
+    [v0 handleFailureInFunction:v3 file:@"WFWorkflowIconDrawer.m" lineNumber:28 description:{@"%s", v4[0]}];
 
     __break(1u);
     goto LABEL_7;
   }
 
-  v1 = v5[0];
-  if (v5[0])
+  v1 = v4[0];
+  if (v4[0])
   {
 LABEL_7:
     free(v1);
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return v0;
 }
 
 uint64_t __CoreTextLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreTextLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -8679,7 +6940,7 @@ void *__getCTFontCopyCharacterSetSymbolLoc_block_invoke(uint64_t a1)
 
 void sub_1B1EC3018(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27)
 {
-  (*(a16 + 16))();
+  (*(a16 + 16))(a16, a2, a3, a4, a5, a6, a7, a8);
   (*(a19 + 16))();
   (*(a27 + 16))();
   (*(a21 + 16))();
@@ -8688,15 +6949,15 @@ void sub_1B1EC3018(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void WFDrawGlyphForVectorIdentifier(void *a1, void *a2, void *a3, void *a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v15 = a2;
   v16 = a3;
   v17 = a4;
-  memset(&v33, 0, sizeof(v33));
+  memset(&v32, 0, sizeof(v32));
   v18 = v15;
   v19 = a1;
-  CGContextGetCTM(&v33, [v15 CGContext]);
-  v20 = floor(sqrt(v33.c * v33.c + v33.a * v33.a));
+  CGContextGetCTM(&v32, [v15 CGContext]);
+  v20 = floor(sqrt(v32.c * v32.c + v32.a * v32.a));
   v21 = [v19 coreGlyphsCatalogs];
 
   v22 = [WFImage glyphNamed:v16 pointSize:6 symbolWeight:v21 scaleFactor:a8 inCatalogs:v20];
@@ -8714,16 +6975,16 @@ void WFDrawGlyphForVectorIdentifier(void *a1, void *a2, void *a3, void *a4, CGFl
 
     v27 = v24 * v26;
     v28 = v25 * v26;
+    v38.origin.x = a5;
+    v38.origin.y = a6;
+    v38.size.width = a7;
+    v38.size.height = a8;
+    MidX = CGRectGetMidX(v38);
     v39.origin.x = a5;
     v39.origin.y = a6;
     v39.size.width = a7;
     v39.size.height = a8;
-    MidX = CGRectGetMidX(v39);
-    v40.origin.x = a5;
-    v40.origin.y = a6;
-    v40.size.width = a7;
-    v40.size.height = a8;
-    MidY = CGRectGetMidY(v40);
+    MidY = CGRectGetMidY(v39);
     v31 = v20;
     [v23 drawInContext:v15 inRect:round((MidX - v27 * 0.5) * v31) / v31, round((MidY - v28 * 0.5) * v31) / v31, round(v27 * v31) / v31, round(v28 * v31) / v31];
   }
@@ -8734,14 +6995,12 @@ void WFDrawGlyphForVectorIdentifier(void *a1, void *a2, void *a3, void *a4, CGFl
     if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v35 = "WFDrawGlyphForVectorIdentifier";
-      v36 = 2114;
-      v37 = v16;
+      v34 = "WFDrawGlyphForVectorIdentifier";
+      v35 = 2114;
+      v36 = v16;
       _os_log_impl(&dword_1B1DE3000, v23, OS_LOG_TYPE_FAULT, "%s vector glyph was unexpectedly nil with identifier: %{public}@", buf, 0x16u);
     }
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 void *__getkCTForegroundColorAttributeNameSymbolLoc_block_invoke(uint64_t a1)
@@ -8784,9 +7043,9 @@ void WFCTFramesetterCreateFrame(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t 
   }
 }
 
-void sub_1B1EC35F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B1EC35F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8822,9 +7081,9 @@ void WFCTFrameDraw(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_1B1EC3764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B1EC3764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8849,7 +7108,7 @@ void *__getCTFramesetterCreateFrameSymbolLoc_block_invoke(uint64_t a1)
 
 id WFStaticContextualActionDefinitionsForSurface(unint64_t a1)
 {
-  v73 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   if (a1 == 2)
   {
     v4 = 0;
@@ -8871,9 +7130,9 @@ LABEL_32:
       v45 = [[WFToggleSettingContextualAction alloc] initWithSetting:1 operation:0];
       v46 = [[WFToggleSettingContextualAction alloc] initWithSetting:2 operation:0];
       v44 = objc_opt_new();
-      v68 = v45;
-      v69 = v46;
-      v47 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v68 count:2];
+      v67 = v45;
+      v68 = v46;
+      v47 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v67 count:2];
       [(WFContextualAction *)v44 addObjectsFromArray:v47];
 
       v48 = +[WFDevice currentDevice];
@@ -8916,10 +7175,10 @@ LABEL_32:
       }
 
       v8 = WFRotateImageContextualAction(v7, 1, v5);
-      v66[0] = v8;
+      v65[0] = v8;
       v9 = WFRotateImageContextualAction(v6, 0, v5);
-      v66[1] = v9;
-      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v66 count:2];
+      v65[1] = v9;
+      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v65 count:2];
       [(WFTakeScreenshotContextualAction *)v2 addObjectsFromArray:v10];
 
       if (a1 == 1)
@@ -8943,10 +7202,10 @@ LABEL_32:
       }
 
       v13 = *MEMORY[0x1E6982E30];
-      v61 = *MEMORY[0x1E6982F10];
+      v60 = *MEMORY[0x1E6982F10];
       v14 = [MEMORY[0x1E695DFD8] setWithObjects:{*MEMORY[0x1E6982E30], 0}];
       v15 = MEMORY[0x1E696AE18];
-      v16 = [v61 identifier];
+      v16 = [v60 identifier];
       v17 = [v13 identifier];
       v18 = [v15 predicateWithFormat:@"SUBQUERY (SELF, $file, $file.type.identifier UTI-CONFORMS-TO %@).@count > 1 OR SUBQUERY (SELF, $file, $file.type.identifier UTI-CONFORMS-TO %@).@count >= 1", v16, v17];
 
@@ -8954,32 +7213,32 @@ LABEL_32:
       v20 = WFLocalizedString(@"Create PDF");
       v21 = [WFContextualAction alloc];
       v22 = [WFContextualActionIcon iconWithSystemName:v11];
-      LOBYTE(v58) = 0;
-      v23 = [(WFContextualAction *)v21 initWithIdentifier:v12 wfActionIdentifier:@"is.workflow.actions.makepdf" type:0 correspondingSystemActionType:5 associatedAppBundleIdentifier:@"com.apple.DocumentsApp" resultFileOperation:1 alternate:v58 filteringBehavior:v19 parameters:MEMORY[0x1E695E0F0] displayString:v20 title:v20 subtitle:0 icon:v22];
+      LOBYTE(v57) = 0;
+      v23 = [(WFContextualAction *)v21 initWithIdentifier:v12 wfActionIdentifier:@"is.workflow.actions.makepdf" type:0 correspondingSystemActionType:5 associatedAppBundleIdentifier:@"com.apple.DocumentsApp" resultFileOperation:1 alternate:v57 filteringBehavior:v19 parameters:MEMORY[0x1E695E0F0] displayString:v20 title:v20 subtitle:0 icon:v22];
 
       [(WFTakeScreenshotContextualAction *)v2 addObject:v23];
       v24 = objc_alloc_init(WFFinderConvertImageContextualAction);
       [(WFTakeScreenshotContextualAction *)v2 addObject:v24];
 
       v25 = _os_feature_enabled_impl();
-      v62 = 0;
-      v63 = &v62;
-      v64 = 0x2050000000;
+      v61 = 0;
+      v62 = &v61;
+      v63 = 0x2050000000;
       v26 = getVKCRemoveBackgroundRequestHandlerClass_softClass;
-      v65 = getVKCRemoveBackgroundRequestHandlerClass_softClass;
+      v64 = getVKCRemoveBackgroundRequestHandlerClass_softClass;
       if (!getVKCRemoveBackgroundRequestHandlerClass_softClass)
       {
-        v68 = MEMORY[0x1E69E9820];
-        v69 = 3221225472;
-        v70 = __getVKCRemoveBackgroundRequestHandlerClass_block_invoke;
-        v71 = &unk_1E7B02C60;
-        v72 = &v62;
-        __getVKCRemoveBackgroundRequestHandlerClass_block_invoke(&v68);
-        v26 = v63[3];
+        v67 = MEMORY[0x1E69E9820];
+        v68 = 3221225472;
+        v69 = __getVKCRemoveBackgroundRequestHandlerClass_block_invoke;
+        v70 = &unk_1E7B02C60;
+        v71 = &v61;
+        __getVKCRemoveBackgroundRequestHandlerClass_block_invoke(&v67);
+        v26 = v62[3];
       }
 
       v27 = v26;
-      _Block_object_dispose(&v62, 8);
+      _Block_object_dispose(&v61, 8);
       if ((v25 & [v26 isSupported]) == 1)
       {
         v28 = WFLocalizedString(@"Remove Background");
@@ -8987,22 +7246,22 @@ LABEL_32:
         v30 = [MEMORY[0x1E695DFD8] setWithObject:v13];
         v31 = [WFContextualActionFilteringBehavior filteringWithMatchingTypes:v30 predicate:0];
         v32 = [WFContextualActionIcon iconWithSystemName:@"circle.rectangle.filled.pattern.diagonalline"];
-        LOBYTE(v59) = 0;
-        v33 = [(WFContextualAction *)v29 initWithIdentifier:@"is.workflow.actions.image.removebackground" wfActionIdentifier:@"is.workflow.actions.image.removebackground" type:0 correspondingSystemActionType:9 associatedAppBundleIdentifier:@"com.apple.mobileslideshow" resultFileOperation:1 alternate:v59 filteringBehavior:v31 parameters:0 displayString:v28 title:v28 subtitle:0 icon:v32];
+        LOBYTE(v58) = 0;
+        v33 = [(WFContextualAction *)v29 initWithIdentifier:@"is.workflow.actions.image.removebackground" wfActionIdentifier:@"is.workflow.actions.image.removebackground" type:0 correspondingSystemActionType:9 associatedAppBundleIdentifier:@"com.apple.mobileslideshow" resultFileOperation:1 alternate:v58 filteringBehavior:v31 parameters:0 displayString:v28 title:v28 subtitle:0 icon:v32];
 
         [(WFTakeScreenshotContextualAction *)v2 addObject:v33];
       }
 
       if (a1 == 1)
       {
-        v51 = [MEMORY[0x1E695DFD8] setWithObject:v61];
+        v51 = [MEMORY[0x1E695DFD8] setWithObject:v60];
         v52 = [WFContextualActionFilteringBehavior filteringWithMatchingTypes:v51 predicate:0];
 
         v53 = WFLocalizedString(@"Optimize File Size");
         v54 = [WFContextualAction alloc];
         v55 = [WFContextualActionIcon iconWithSystemName:@"doc.richtext"];
-        LOBYTE(v59) = 0;
-        v44 = [(WFContextualAction *)v54 initWithIdentifier:@"is.workflow.actions.compresspdf" wfActionIdentifier:@"is.workflow.actions.compresspdf" type:0 correspondingSystemActionType:0 associatedAppBundleIdentifier:@"com.apple.DocumentsApp" resultFileOperation:1 alternate:v59 filteringBehavior:v52 parameters:0 displayString:v53 title:v53 subtitle:0 icon:v55];
+        LOBYTE(v58) = 0;
+        v44 = [(WFContextualAction *)v54 initWithIdentifier:@"is.workflow.actions.compresspdf" wfActionIdentifier:@"is.workflow.actions.compresspdf" type:0 correspondingSystemActionType:0 associatedAppBundleIdentifier:@"com.apple.DocumentsApp" resultFileOperation:1 alternate:v58 filteringBehavior:v52 parameters:0 displayString:v53 title:v53 subtitle:0 icon:v55];
 
         [(WFTakeScreenshotContextualAction *)v2 addObject:v44];
       }
@@ -9014,18 +7273,18 @@ LABEL_32:
         v36 = [WFContextualAction alloc];
         v37 = +[WFContextualActionFilteringBehavior matchAllFiles];
         v38 = [WFContextualActionIcon iconWithSystemName:@"timeline.selection"];
-        LOBYTE(v59) = 0;
-        v39 = [(WFContextualAction *)v36 initWithIdentifier:@"APPEXTENSION-com.apple.finder.TrimQuickAction" wfActionIdentifier:0 type:0 correspondingSystemActionType:4 associatedAppBundleIdentifier:@"com.apple.finder" resultFileOperation:0 alternate:v59 filteringBehavior:v37 parameters:0 displayString:v34 title:v34 subtitle:0 icon:v38];
+        LOBYTE(v58) = 0;
+        v39 = [(WFContextualAction *)v36 initWithIdentifier:@"APPEXTENSION-com.apple.finder.TrimQuickAction" wfActionIdentifier:0 type:0 correspondingSystemActionType:4 associatedAppBundleIdentifier:@"com.apple.finder" resultFileOperation:0 alternate:v58 filteringBehavior:v37 parameters:0 displayString:v34 title:v34 subtitle:0 icon:v38];
 
         v40 = [WFContextualAction alloc];
         v41 = +[WFContextualActionFilteringBehavior matchAllFiles];
         v42 = [WFContextualActionIcon iconWithSystemName:@"pencil.tip.crop.circle"];
-        LOBYTE(v60) = 0;
-        v43 = [(WFContextualAction *)v40 initWithIdentifier:@"APPEXTENSION-com.apple.finder.MarkupQuickAction" wfActionIdentifier:0 type:0 correspondingSystemActionType:3 associatedAppBundleIdentifier:@"com.apple.finder" resultFileOperation:0 alternate:v60 filteringBehavior:v41 parameters:0 displayString:v35 title:v35 subtitle:0 icon:v42];
+        LOBYTE(v59) = 0;
+        v43 = [(WFContextualAction *)v40 initWithIdentifier:@"APPEXTENSION-com.apple.finder.MarkupQuickAction" wfActionIdentifier:0 type:0 correspondingSystemActionType:3 associatedAppBundleIdentifier:@"com.apple.finder" resultFileOperation:0 alternate:v59 filteringBehavior:v41 parameters:0 displayString:v35 title:v35 subtitle:0 icon:v42];
 
-        v68 = v39;
-        v69 = v43;
-        v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v68 count:2];
+        v67 = v39;
+        v68 = v43;
+        v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v67 count:2];
 
         [(WFTakeScreenshotContextualAction *)v2 addObjectsFromArray:v44];
       }
@@ -9035,54 +7294,53 @@ LABEL_32:
   }
 
   v2 = objc_alloc_init(WFTakeScreenshotContextualAction);
-  v67 = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v67 count:1];
+  v66 = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v66 count:1];
 LABEL_33:
   v4 = v3;
 
 LABEL_34:
-  v56 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
-void sub_1B1EC4A88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B1EC4A88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 WFContextualAction *WFRotateImageContextualAction(void *a1, int a2, char a3)
 {
-  v40[9] = *MEMORY[0x1E69E9840];
-  v38 = a1;
-  if (!v38)
+  v39[9] = *MEMORY[0x1E69E9840];
+  v37 = a1;
+  if (!v37)
   {
-    v33 = [MEMORY[0x1E696AAA8] currentHandler];
-    v34 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"WFContextualAction * _Nonnull WFRotateImageContextualAction(NSString * _Nonnull __strong, BOOL, BOOL)"}];
-    [v33 handleFailureInFunction:v34 file:@"WFStaticContextualActionDefinitions.m" lineNumber:48 description:{@"Invalid parameter not satisfying: %@", @"identifier"}];
+    v32 = [MEMORY[0x1E696AAA8] currentHandler];
+    v33 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"WFContextualAction * _Nonnull WFRotateImageContextualAction(NSString * _Nonnull __strong, BOOL, BOOL)"}];
+    [v32 handleFailureInFunction:v33 file:@"WFStaticContextualActionDefinitions.m" lineNumber:48 description:{@"Invalid parameter not satisfying: %@", @"identifier"}];
   }
 
   v5 = MEMORY[0x1E695DFD8];
   v6 = *MEMORY[0x1E6982E58];
-  v40[0] = *MEMORY[0x1E6982F28];
-  v40[1] = v6;
-  v40[2] = *MEMORY[0x1E6983008];
+  v39[0] = *MEMORY[0x1E6982F28];
+  v39[1] = v6;
+  v39[2] = *MEMORY[0x1E6983008];
   v7 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.adobe.photoshop-image"];
   v8 = *MEMORY[0x1E6982E00];
-  v40[3] = v7;
-  v40[4] = v8;
+  v39[3] = v7;
+  v39[4] = v8;
   v9 = *MEMORY[0x1E6982EC8];
-  v40[5] = *MEMORY[0x1E6982F80];
-  v40[6] = v9;
+  v39[5] = *MEMORY[0x1E6982F80];
+  v39[6] = v9;
   v10 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.m4v-video"];
-  v40[7] = v10;
+  v39[7] = v10;
   v11 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"public.3gpp"];
-  v40[8] = v11;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:9];
+  v39[8] = v11;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:9];
   v13 = [v5 setWithArray:v12];
-  v37 = v13;
+  v36 = v13;
 
   if (a2)
   {
@@ -9130,7 +7388,7 @@ WFContextualAction *WFRotateImageContextualAction(void *a1, int a2, char a3)
     v18 = 2;
   }
 
-  v36 = v18;
+  v35 = v18;
   v19 = WFLocalizedString(v14);
   v20 = WFLocalizedString(v15);
   v21 = a3 & ~a2;
@@ -9139,72 +7397,66 @@ WFContextualAction *WFRotateImageContextualAction(void *a1, int a2, char a3)
   v24 = [WFContextualActionParameter alloc];
   v25 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v17];
   v26 = [(WFContextualActionParameter *)v24 initWithType:@"WFNumberContentItem" displayString:v19 wfParameterKey:@"WFImageRotateAmount" wfSerializedRepresentation:v25];
-  v39 = v26;
-  v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v39 count:1];
+  v38 = v26;
+  v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:1];
   v28 = WFLocalizedStringWithKey(@"Rotate Image (Contextual Action)", @"Rotate Image");
   v29 = [WFContextualActionIcon iconWithSystemName:v16];
-  LOBYTE(v35) = v21;
-  v30 = [(WFContextualAction *)v23 initWithIdentifier:v38 wfActionIdentifier:@"is.workflow.actions.image.rotate" type:0 correspondingSystemActionType:v36 associatedAppBundleIdentifier:@"com.apple.mobileslideshow" resultFileOperation:0 alternate:v35 filteringBehavior:v22 parameters:v27 displayString:v20 title:v28 subtitle:v20 icon:v29];
-
-  v31 = *MEMORY[0x1E69E9840];
+  LOBYTE(v34) = v21;
+  v30 = [(WFContextualAction *)v23 initWithIdentifier:v37 wfActionIdentifier:@"is.workflow.actions.image.rotate" type:0 correspondingSystemActionType:v35 associatedAppBundleIdentifier:@"com.apple.mobileslideshow" resultFileOperation:0 alternate:v34 filteringBehavior:v22 parameters:v27 displayString:v20 title:v28 subtitle:v20 icon:v29];
 
   return v30;
 }
 
 Class __getVKCRemoveBackgroundRequestHandlerClass_block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v7[0] = 0;
+  v9 = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
   if (!VisionKitCoreLibraryCore_frameworkLibrary)
   {
-    v7[1] = MEMORY[0x1E69E9820];
-    v7[2] = 3221225472;
-    v7[3] = __VisionKitCoreLibraryCore_block_invoke;
-    v7[4] = &__block_descriptor_40_e5_v8__0l;
-    v7[5] = v7;
-    v8 = xmmword_1E7B00FA0;
-    v9 = 0;
+    v6[1] = MEMORY[0x1E69E9820];
+    v6[2] = 3221225472;
+    v6[3] = __VisionKitCoreLibraryCore_block_invoke;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_1E7B00FA0;
+    v8 = 0;
     VisionKitCoreLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!VisionKitCoreLibraryCore_frameworkLibrary)
   {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *VisionKitCoreLibrary(void)"];
-    [v4 handleFailureInFunction:v5 file:@"WFStaticContextualActionDefinitions.m" lineNumber:24 description:{@"%s", v7[0]}];
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *VisionKitCoreLibrary(void)"];
+    [v3 handleFailureInFunction:v4 file:@"WFStaticContextualActionDefinitions.m" lineNumber:24 description:{@"%s", v6[0]}];
 
     goto LABEL_10;
   }
 
-  if (v7[0])
+  if (v6[0])
   {
-    free(v7[0]);
+    free(v6[0]);
   }
 
   result = objc_getClass("VKCRemoveBackgroundRequestHandler");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getVKCRemoveBackgroundRequestHandlerClass(void)_block_invoke"];
-    [v4 handleFailureInFunction:v6 file:@"WFStaticContextualActionDefinitions.m" lineNumber:25 description:{@"Unable to find class %s", "VKCRemoveBackgroundRequestHandler"}];
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getVKCRemoveBackgroundRequestHandlerClass(void)_block_invoke"];
+    [v3 handleFailureInFunction:v5 file:@"WFStaticContextualActionDefinitions.m" lineNumber:25 description:{@"Unable to find class %s", "VKCRemoveBackgroundRequestHandler"}];
 
 LABEL_10:
     __break(1u);
   }
 
   getVKCRemoveBackgroundRequestHandlerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __VisionKitCoreLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   VisionKitCoreLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -9244,26 +7496,26 @@ void WFBiomeLibrary_8552()
   }
 }
 
-void sub_1B1EC8640(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B1EC8640(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void *__getBiomeLibrarySymbolLoc_block_invoke_8554(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v6[0] = 0;
+  v8 = *MEMORY[0x1E69E9840];
+  v5[0] = 0;
   if (!BiomeLibraryLibraryCore_frameworkLibrary_8556)
   {
-    v6[1] = MEMORY[0x1E69E9820];
-    v6[2] = 3221225472;
-    v6[3] = __BiomeLibraryLibraryCore_block_invoke_8557;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_1E7B00FE8;
-    v8 = 0;
+    v5[1] = MEMORY[0x1E69E9820];
+    v5[2] = 3221225472;
+    v5[3] = __BiomeLibraryLibraryCore_block_invoke_8557;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_1E7B00FE8;
+    v7 = 0;
     BiomeLibraryLibraryCore_frameworkLibrary_8556 = _sl_dlopen();
   }
 
@@ -9272,14 +7524,14 @@ void *__getBiomeLibrarySymbolLoc_block_invoke_8554(void *a1)
   {
     a1 = [MEMORY[0x1E696AAA8] currentHandler];
     v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *BiomeLibraryLibrary(void)"];
-    [a1 handleFailureInFunction:v2 file:@"WFToggleAccessibilityContextualAction.m" lineNumber:15 description:{@"%s", v6[0]}];
+    [a1 handleFailureInFunction:v2 file:@"WFToggleAccessibilityContextualAction.m" lineNumber:15 description:{@"%s", v5[0]}];
 
     __break(1u);
     goto LABEL_7;
   }
 
-  v3 = v6[0];
-  if (v6[0])
+  v3 = v5[0];
+  if (v5[0])
   {
 LABEL_7:
     free(v3);
@@ -9288,17 +7540,13 @@ LABEL_7:
   result = dlsym(v2, "BiomeLibrary");
   *(*(a1[4] + 8) + 24) = result;
   getBiomeLibrarySymbolLoc_ptr_8553 = *(*(a1[4] + 8) + 24);
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __BiomeLibraryLibraryCore_block_invoke_8557(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   BiomeLibraryLibraryCore_frameworkLibrary_8556 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -9326,77 +7574,70 @@ void sub_1B1EC9714(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1B1ECAB94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B1ECAB94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getCLLocationClass_block_invoke_9046(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v7[0] = 0;
+  v9 = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
   if (!CoreLocationLibraryCore_frameworkLibrary_9047)
   {
-    v7[1] = MEMORY[0x1E69E9820];
-    v7[2] = 3221225472;
-    v7[3] = __CoreLocationLibraryCore_block_invoke_9048;
-    v7[4] = &__block_descriptor_40_e5_v8__0l;
-    v7[5] = v7;
-    v8 = xmmword_1E7B01208;
-    v9 = 0;
+    v6[1] = MEMORY[0x1E69E9820];
+    v6[2] = 3221225472;
+    v6[3] = __CoreLocationLibraryCore_block_invoke_9048;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_1E7B01208;
+    v8 = 0;
     CoreLocationLibraryCore_frameworkLibrary_9047 = _sl_dlopen();
   }
 
   if (!CoreLocationLibraryCore_frameworkLibrary_9047)
   {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *CoreLocationLibrary(void)"];
-    [v4 handleFailureInFunction:v5 file:@"WFRequestRideContextualAction.m" lineNumber:17 description:{@"%s", v7[0]}];
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *CoreLocationLibrary(void)"];
+    [v3 handleFailureInFunction:v4 file:@"WFRequestRideContextualAction.m" lineNumber:17 description:{@"%s", v6[0]}];
 
     goto LABEL_10;
   }
 
-  if (v7[0])
+  if (v6[0])
   {
-    free(v7[0]);
+    free(v6[0]);
   }
 
   result = objc_getClass("CLLocation");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getCLLocationClass(void)_block_invoke"];
-    [v4 handleFailureInFunction:v6 file:@"WFRequestRideContextualAction.m" lineNumber:18 description:{@"Unable to find class %s", "CLLocation"}];
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getCLLocationClass(void)_block_invoke"];
+    [v3 handleFailureInFunction:v5 file:@"WFRequestRideContextualAction.m" lineNumber:18 description:{@"Unable to find class %s", "CLLocation"}];
 
 LABEL_10:
     __break(1u);
   }
 
   getCLLocationClass_softClass_9045 = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __CoreLocationLibraryCore_block_invoke_9048(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreLocationLibraryCore_frameworkLibrary_9047 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __UIFoundationLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   UIFoundationLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -9424,67 +7665,63 @@ id getFPSandboxingURLWrapperClass()
   return v1;
 }
 
-void sub_1B1ECC928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B1ECC928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getFPSandboxingURLWrapperClass_block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v7[0] = 0;
+  v9 = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
   if (!FileProviderLibraryCore_frameworkLibrary)
   {
-    v7[1] = MEMORY[0x1E69E9820];
-    v7[2] = 3221225472;
-    v7[3] = __FileProviderLibraryCore_block_invoke;
-    v7[4] = &__block_descriptor_40_e5_v8__0l;
-    v7[5] = v7;
-    v8 = xmmword_1E7B012A8;
-    v9 = 0;
+    v6[1] = MEMORY[0x1E69E9820];
+    v6[2] = 3221225472;
+    v6[3] = __FileProviderLibraryCore_block_invoke;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_1E7B012A8;
+    v8 = 0;
     FileProviderLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!FileProviderLibraryCore_frameworkLibrary)
   {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *FileProviderLibrary(void)"];
-    [v4 handleFailureInFunction:v5 file:@"WFContextualActionFile.m" lineNumber:19 description:{@"%s", v7[0]}];
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *FileProviderLibrary(void)"];
+    [v3 handleFailureInFunction:v4 file:@"WFContextualActionFile.m" lineNumber:19 description:{@"%s", v6[0]}];
 
     goto LABEL_10;
   }
 
-  if (v7[0])
+  if (v6[0])
   {
-    free(v7[0]);
+    free(v6[0]);
   }
 
   result = objc_getClass("FPSandboxingURLWrapper");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getFPSandboxingURLWrapperClass(void)_block_invoke"];
-    [v4 handleFailureInFunction:v6 file:@"WFContextualActionFile.m" lineNumber:20 description:{@"Unable to find class %s", "FPSandboxingURLWrapper"}];
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getFPSandboxingURLWrapperClass(void)_block_invoke"];
+    [v3 handleFailureInFunction:v5 file:@"WFContextualActionFile.m" lineNumber:20 description:{@"Unable to find class %s", "FPSandboxingURLWrapper"}];
 
 LABEL_10:
     __break(1u);
   }
 
   getFPSandboxingURLWrapperClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __FileProviderLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   FileProviderLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -9776,4 +8013,3177 @@ LABEL_43:
 LABEL_44:
 
   return v41;
+}
+
+void sub_1B1ECE394(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void *__getkCGImageSourceShouldCacheSymbolLoc_block_invoke(uint64_t a1)
+{
+  v2 = ImageIOLibrary_9720();
+  result = dlsym(v2, "kCGImageSourceShouldCache");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  getkCGImageSourceShouldCacheSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+void *ImageIOLibrary_9720()
+{
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
+  if (!ImageIOLibraryCore_frameworkLibrary_9765)
+  {
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __ImageIOLibraryCore_block_invoke_9766;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E7B012E0;
+    v6 = 0;
+    ImageIOLibraryCore_frameworkLibrary_9765 = _sl_dlopen();
+  }
+
+  v0 = ImageIOLibraryCore_frameworkLibrary_9765;
+  if (!ImageIOLibraryCore_frameworkLibrary_9765)
+  {
+    v0 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *ImageIOLibrary(void)"];
+    [v0 handleFailureInFunction:v3 file:@"WFImageHelpers.m" lineNumber:24 description:{@"%s", v4[0]}];
+
+    __break(1u);
+    goto LABEL_7;
+  }
+
+  v1 = v4[0];
+  if (v4[0])
+  {
+LABEL_7:
+    free(v1);
+  }
+
+  return v0;
+}
+
+void *__getkCGImageSourceTypeIdentifierHintSymbolLoc_block_invoke(uint64_t a1)
+{
+  v2 = ImageIOLibrary_9720();
+  result = dlsym(v2, "kCGImageSourceTypeIdentifierHint");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  getkCGImageSourceTypeIdentifierHintSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+void *__getCGImageSourceCreateWithDataSymbolLoc_block_invoke_9726(uint64_t a1)
+{
+  v2 = ImageIOLibrary_9720();
+  result = dlsym(v2, "CGImageSourceCreateWithData");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  getCGImageSourceCreateWithDataSymbolLoc_ptr_9725 = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+void *__getCGImageSourceGetCountSymbolLoc_block_invoke_9730(uint64_t a1)
+{
+  v2 = ImageIOLibrary_9720();
+  result = dlsym(v2, "CGImageSourceGetCount");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  getCGImageSourceGetCountSymbolLoc_ptr_9729 = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+void *__getCGImageSourceCreateImageAtIndexSymbolLoc_block_invoke_9734(uint64_t a1)
+{
+  v2 = ImageIOLibrary_9720();
+  result = dlsym(v2, "CGImageSourceCreateImageAtIndex");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  getCGImageSourceCreateImageAtIndexSymbolLoc_ptr_9733 = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+void *__getCGImageSourceCopyPropertiesAtIndexSymbolLoc_block_invoke_9738(uint64_t a1)
+{
+  v2 = ImageIOLibrary_9720();
+  result = dlsym(v2, "CGImageSourceCopyPropertiesAtIndex");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  getCGImageSourceCopyPropertiesAtIndexSymbolLoc_ptr_9737 = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+void *__getkCGImagePropertyGIFDictionarySymbolLoc_block_invoke(uint64_t a1)
+{
+  v2 = ImageIOLibrary_9720();
+  result = dlsym(v2, "kCGImagePropertyGIFDictionary");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  getkCGImagePropertyGIFDictionarySymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+void *__getkCGImagePropertyGIFDelayTimeSymbolLoc_block_invoke(uint64_t a1)
+{
+  v2 = ImageIOLibrary_9720();
+  result = dlsym(v2, "kCGImagePropertyGIFDelayTime");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  getkCGImagePropertyGIFDelayTimeSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+void *__getkCGImagePropertyOrientationSymbolLoc_block_invoke_9744(uint64_t a1)
+{
+  v2 = ImageIOLibrary_9720();
+  result = dlsym(v2, "kCGImagePropertyOrientation");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  getkCGImagePropertyOrientationSymbolLoc_ptr_9743 = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+Class initUIImage_9749()
+{
+  if (UIKitLibrary_sOnce_9750 != -1)
+  {
+    dispatch_once(&UIKitLibrary_sOnce_9750, &__block_literal_global_9751);
+  }
+
+  result = objc_getClass("UIImage");
+  classUIImage_9753 = result;
+  getUIImageClass_9747 = UIImageFunction_9755;
+  return result;
+}
+
+void *__UIKitLibrary_block_invoke_9758()
+{
+  result = dlopen("/System/Library/Frameworks/UIKit.framework/UIKit", 2);
+  UIKitLibrary_sLib_9760 = result;
+  return result;
+}
+
+uint64_t __ImageIOLibraryCore_block_invoke_9766(uint64_t a1)
+{
+  result = _sl_dlopen();
+  ImageIOLibraryCore_frameworkLibrary_9765 = result;
+  return result;
+}
+
+void sub_1B1ECECD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void *CoreTelephonyLibrary()
+{
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
+  if (!CoreTelephonyLibraryCore_frameworkLibrary)
+  {
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __CoreTelephonyLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E7B01300;
+    v6 = 0;
+    CoreTelephonyLibraryCore_frameworkLibrary = _sl_dlopen();
+  }
+
+  v0 = CoreTelephonyLibraryCore_frameworkLibrary;
+  if (!CoreTelephonyLibraryCore_frameworkLibrary)
+  {
+    v0 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *CoreTelephonyLibrary(void)"];
+    [v0 handleFailureInFunction:v3 file:@"WFCellularSettings.m" lineNumber:15 description:{@"%s", v4[0]}];
+
+    __break(1u);
+    goto LABEL_7;
+  }
+
+  v1 = v4[0];
+  if (v4[0])
+  {
+LABEL_7:
+    free(v1);
+  }
+
+  return v0;
+}
+
+id WFNSErrorFromCTError(unint64_t a1)
+{
+  v12[2] = *MEMORY[0x1E69E9840];
+  if (a1)
+  {
+    if (a1 == 2)
+    {
+      v2 = MEMORY[0x1E696ABC0];
+      v3 = MEMORY[0x1E696A5A0];
+      goto LABEL_6;
+    }
+
+    if (a1 == 1)
+    {
+      v2 = MEMORY[0x1E696ABC0];
+      v3 = MEMORY[0x1E696A798];
+LABEL_6:
+      v4 = [v2 errorWithDomain:*v3 code:a1 >> 32 userInfo:0];
+      goto LABEL_9;
+    }
+
+    v5 = HIDWORD(a1);
+    v6 = MEMORY[0x1E696ABC0];
+    v11[0] = @"CTErrorDomain";
+    v7 = [MEMORY[0x1E696AD98] numberWithInt:a1];
+    v11[1] = @"CTError";
+    v12[0] = v7;
+    v8 = [MEMORY[0x1E696AD98] numberWithInt:v5];
+    v12[1] = v8;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+    v4 = [v6 errorWithDomain:@"WFCellularSettingsErrorDomain" code:0 userInfo:v9];
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+LABEL_9:
+
+  return v4;
+}
+
+uint64_t __CoreTelephonyLibraryCore_block_invoke(uint64_t a1)
+{
+  result = _sl_dlopen();
+  CoreTelephonyLibraryCore_frameworkLibrary = result;
+  return result;
+}
+
+void sub_1B1ECF1EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+double CGFloatCeilWithScale(double result, double a2)
+{
+  if (a2 > 0.0)
+  {
+    return ceil(result * a2) / a2;
+  }
+
+  return result;
+}
+
+double CGFloatRoundWithScale(double result, double a2)
+{
+  if (a2 > 0.0)
+  {
+    return round(result * a2) / a2;
+  }
+
+  return result;
+}
+
+double CGFloatFloorWithScale(double result, double a2)
+{
+  if (a2 > 0.0)
+  {
+    return floor(result * a2) / a2;
+  }
+
+  return result;
+}
+
+void sub_1B1ED108C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B1ED3D24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(&a23, 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v28 - 176), 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__10583(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+__CFString *WFContextualActionDescribeSurface(unint64_t a1)
+{
+  if (a1 > 0x12)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return off_1E7B01520[a1];
+  }
+}
+
+BOOL WFCanAccessUserDefaultsDomain(void *a1, int a2)
+{
+  getpid();
+  v6 = [@"com.apple.siri.shortcuts" UTF8String];
+  v3 = sandbox_check();
+  v4 = v3;
+  if (a1 && v3 == -1)
+  {
+    *a1 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:*__error() userInfo:{0, v6}];
+  }
+
+  return v4 == 0;
+}
+
+void *__UIKitLibrary_block_invoke_12015()
+{
+  result = dlopen("/System/Library/Frameworks/UIKit.framework/UIKit", 2);
+  UIKitLibrary_sLib_12017 = result;
+  return result;
+}
+
+void sub_1B1EDBCA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void *__getCTFontCreateWithGraphicsFontSymbolLoc_block_invoke(void *a1)
+{
+  v8 = *MEMORY[0x1E69E9840];
+  v5[0] = 0;
+  if (!CoreTextLibraryCore_frameworkLibrary_12284)
+  {
+    v5[1] = MEMORY[0x1E69E9820];
+    v5[2] = 3221225472;
+    v5[3] = __CoreTextLibraryCore_block_invoke_12285;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_1E7B01838;
+    v7 = 0;
+    CoreTextLibraryCore_frameworkLibrary_12284 = _sl_dlopen();
+  }
+
+  v2 = CoreTextLibraryCore_frameworkLibrary_12284;
+  if (!CoreTextLibraryCore_frameworkLibrary_12284)
+  {
+    a1 = [MEMORY[0x1E696AAA8] currentHandler];
+    v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *CoreTextLibrary(void)"];
+    [a1 handleFailureInFunction:v2 file:@"WFWorkflowIconDrawerContext.m" lineNumber:18 description:{@"%s", v5[0]}];
+
+    __break(1u);
+    goto LABEL_7;
+  }
+
+  v3 = v5[0];
+  if (v5[0])
+  {
+LABEL_7:
+    free(v3);
+  }
+
+  result = dlsym(v2, "CTFontCreateWithGraphicsFont");
+  *(*(a1[4] + 8) + 24) = result;
+  getCTFontCreateWithGraphicsFontSymbolLoc_ptr = *(*(a1[4] + 8) + 24);
+  return result;
+}
+
+uint64_t __CoreTextLibraryCore_block_invoke_12285(uint64_t a1)
+{
+  result = _sl_dlopen();
+  CoreTextLibraryCore_frameworkLibrary_12284 = result;
+  return result;
+}
+
+void sub_1B1EE23AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__13173(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_1B1EE2570(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 96), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B1EE2DD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void __getWFContentItemClass_block_invoke_13326(uint64_t a1)
+{
+  ContentKitLibrary_13348();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("WFContentItem");
+  if (*(*(*(a1 + 32) + 8) + 24))
+  {
+    getWFContentItemClass_softClass_13325 = *(*(*(a1 + 32) + 8) + 24);
+  }
+
+  else
+  {
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getWFContentItemClass(void)_block_invoke"];
+    [v2 handleFailureInFunction:v3 file:@"WFOnScreenContentNode.m" lineNumber:57 description:{@"Unable to find class %s", "WFContentItem"}];
+
+    __break(1u);
+  }
+}
+
+Class __getLPLinkMetadataClass_block_invoke_13329(uint64_t a1)
+{
+  v9 = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
+  if (!LinkPresentationLibraryCore_frameworkLibrary_13332)
+  {
+    v6[1] = MEMORY[0x1E69E9820];
+    v6[2] = 3221225472;
+    v6[3] = __LinkPresentationLibraryCore_block_invoke_13333;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_1E7B01A20;
+    v8 = 0;
+    LinkPresentationLibraryCore_frameworkLibrary_13332 = _sl_dlopen();
+  }
+
+  if (!LinkPresentationLibraryCore_frameworkLibrary_13332)
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *LinkPresentationLibrary(void)"];
+    [v3 handleFailureInFunction:v4 file:@"WFOnScreenContentNode.m" lineNumber:21 description:{@"%s", v6[0]}];
+
+    goto LABEL_10;
+  }
+
+  if (v6[0])
+  {
+    free(v6[0]);
+  }
+
+  result = objc_getClass("LPLinkMetadata");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  if (!*(*(*(a1 + 32) + 8) + 24))
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getLPLinkMetadataClass(void)_block_invoke"];
+    [v3 handleFailureInFunction:v5 file:@"WFOnScreenContentNode.m" lineNumber:22 description:{@"Unable to find class %s", "LPLinkMetadata"}];
+
+LABEL_10:
+    __break(1u);
+  }
+
+  getLPLinkMetadataClass_softClass_13328 = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+uint64_t __LinkPresentationLibraryCore_block_invoke_13333(uint64_t a1)
+{
+  result = _sl_dlopen();
+  LinkPresentationLibraryCore_frameworkLibrary_13332 = result;
+  return result;
+}
+
+void ContentKitLibrary_13348()
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
+  if (!ContentKitLibraryCore_frameworkLibrary_13351)
+  {
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __ContentKitLibraryCore_block_invoke_13352;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E7B01A08;
+    v5 = 0;
+    ContentKitLibraryCore_frameworkLibrary_13351 = _sl_dlopen();
+  }
+
+  if (!ContentKitLibraryCore_frameworkLibrary_13351)
+  {
+    v1 = [MEMORY[0x1E696AAA8] currentHandler];
+    v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *ContentKitLibrary(void)"];
+    [v1 handleFailureInFunction:v2 file:@"WFOnScreenContentNode.m" lineNumber:25 description:{@"%s", v3[0]}];
+
+    __break(1u);
+    goto LABEL_7;
+  }
+
+  v0 = v3[0];
+  if (v3[0])
+  {
+LABEL_7:
+    free(v0);
+  }
+}
+
+uint64_t __ContentKitLibraryCore_block_invoke_13352(uint64_t a1)
+{
+  result = _sl_dlopen();
+  ContentKitLibraryCore_frameworkLibrary_13351 = result;
+  return result;
+}
+
+void sub_1B1EE36BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void __getWFStringContentItemClass_block_invoke(uint64_t a1)
+{
+  ContentKitLibrary_13348();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("WFStringContentItem");
+  if (*(*(*(a1 + 32) + 8) + 24))
+  {
+    getWFStringContentItemClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  }
+
+  else
+  {
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getWFStringContentItemClass(void)_block_invoke"];
+    [v2 handleFailureInFunction:v3 file:@"WFOnScreenContentNode.m" lineNumber:58 description:{@"Unable to find class %s", "WFStringContentItem"}];
+
+    __break(1u);
+  }
+}
+
+void __getWFURLContentItemClass_block_invoke(uint64_t a1)
+{
+  ContentKitLibrary_13348();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("WFURLContentItem");
+  if (*(*(*(a1 + 32) + 8) + 24))
+  {
+    getWFURLContentItemClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  }
+
+  else
+  {
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getWFURLContentItemClass(void)_block_invoke"];
+    [v2 handleFailureInFunction:v3 file:@"WFOnScreenContentNode.m" lineNumber:59 description:{@"Unable to find class %s", "WFURLContentItem"}];
+
+    __break(1u);
+  }
+}
+
+void __getWFContactContentItemClass_block_invoke(uint64_t a1)
+{
+  ContentKitLibrary_13348();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("WFContactContentItem");
+  if (*(*(*(a1 + 32) + 8) + 24))
+  {
+    getWFContactContentItemClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  }
+
+  else
+  {
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getWFContactContentItemClass(void)_block_invoke"];
+    [v2 handleFailureInFunction:v3 file:@"WFOnScreenContentNode.m" lineNumber:60 description:{@"Unable to find class %s", "WFContactContentItem"}];
+
+    __break(1u);
+  }
+}
+
+void __getWFCNContactClass_block_invoke(uint64_t a1)
+{
+  ContentKitLibrary_13348();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("WFCNContact");
+  if (*(*(*(a1 + 32) + 8) + 24))
+  {
+    getWFCNContactClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  }
+
+  else
+  {
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getWFCNContactClass(void)_block_invoke"];
+    [v2 handleFailureInFunction:v3 file:@"WFOnScreenContentNode.m" lineNumber:62 description:{@"Unable to find class %s", "WFCNContact"}];
+
+    __break(1u);
+  }
+}
+
+void __getWFPhotoMediaContentItemClass_block_invoke(uint64_t a1)
+{
+  ContentKitLibrary_13348();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("WFPhotoMediaContentItem");
+  if (*(*(*(a1 + 32) + 8) + 24))
+  {
+    getWFPhotoMediaContentItemClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  }
+
+  else
+  {
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getWFPhotoMediaContentItemClass(void)_block_invoke"];
+    [v2 handleFailureInFunction:v3 file:@"WFOnScreenContentNode.m" lineNumber:61 description:{@"Unable to find class %s", "WFPhotoMediaContentItem"}];
+
+    __break(1u);
+  }
+}
+
+void sub_1B1EE8330(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void __getRBSAssertionClass_block_invoke(uint64_t a1)
+{
+  RunningBoardServicesLibrary();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("RBSAssertion");
+  if (*(*(*(a1 + 32) + 8) + 24))
+  {
+    getRBSAssertionClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  }
+
+  else
+  {
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getRBSAssertionClass(void)_block_invoke"];
+    [v2 handleFailureInFunction:v3 file:@"WFDispatchSourceTimer.m" lineNumber:16 description:{@"Unable to find class %s", "RBSAssertion"}];
+
+    __break(1u);
+  }
+}
+
+void __getRBSTargetClass_block_invoke(uint64_t a1)
+{
+  RunningBoardServicesLibrary();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("RBSTarget");
+  if (*(*(*(a1 + 32) + 8) + 24))
+  {
+    getRBSTargetClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  }
+
+  else
+  {
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getRBSTargetClass(void)_block_invoke"];
+    [v2 handleFailureInFunction:v3 file:@"WFDispatchSourceTimer.m" lineNumber:18 description:{@"Unable to find class %s", "RBSTarget"}];
+
+    __break(1u);
+  }
+}
+
+void __getRBSDomainAttributeClass_block_invoke(uint64_t a1)
+{
+  RunningBoardServicesLibrary();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("RBSDomainAttribute");
+  if (*(*(*(a1 + 32) + 8) + 24))
+  {
+    getRBSDomainAttributeClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  }
+
+  else
+  {
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getRBSDomainAttributeClass(void)_block_invoke"];
+    [v2 handleFailureInFunction:v3 file:@"WFDispatchSourceTimer.m" lineNumber:17 description:{@"Unable to find class %s", "RBSDomainAttribute"}];
+
+    __break(1u);
+  }
+}
+
+void RunningBoardServicesLibrary()
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
+  if (!RunningBoardServicesLibraryCore_frameworkLibrary)
+  {
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __RunningBoardServicesLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E7B01CD8;
+    v5 = 0;
+    RunningBoardServicesLibraryCore_frameworkLibrary = _sl_dlopen();
+  }
+
+  if (!RunningBoardServicesLibraryCore_frameworkLibrary)
+  {
+    v1 = [MEMORY[0x1E696AAA8] currentHandler];
+    v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *RunningBoardServicesLibrary(void)"];
+    [v1 handleFailureInFunction:v2 file:@"WFDispatchSourceTimer.m" lineNumber:15 description:{@"%s", v3[0]}];
+
+    __break(1u);
+    goto LABEL_7;
+  }
+
+  v0 = v3[0];
+  if (v3[0])
+  {
+LABEL_7:
+    free(v0);
+  }
+}
+
+uint64_t __RunningBoardServicesLibraryCore_block_invoke(uint64_t a1)
+{
+  result = _sl_dlopen();
+  RunningBoardServicesLibraryCore_frameworkLibrary = result;
+  return result;
+}
+
+uint64_t WFMatchActionTypesWithFileTypes(void *a1, void *a2)
+{
+  v31 = *MEMORY[0x1E69E9840];
+  v3 = a1;
+  v4 = a2;
+  if (!v3)
+  {
+    v18 = [MEMORY[0x1E696AAA8] currentHandler];
+    v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL WFMatchActionTypesWithFileTypes(NSSet<UTType *> * _Nonnull __strong, NSArray<UTType *> * _Nullable __strong)"}];
+    [v18 handleFailureInFunction:v19 file:@"WFContextualAction.m" lineNumber:251 description:{@"Invalid parameter not satisfying: %@", @"actionTypes"}];
+  }
+
+  if ([v3 count] && !objc_msgSend(v4, "count"))
+  {
+    v16 = 0;
+  }
+
+  else
+  {
+    v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    v5 = v4;
+    v6 = [v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
+    if (v6)
+    {
+      v7 = v6;
+      v8 = *v26;
+      v20 = v4;
+      while (1)
+      {
+        v9 = 0;
+LABEL_8:
+        if (*v26 != v8)
+        {
+          objc_enumerationMutation(v5);
+        }
+
+        v10 = *(*(&v25 + 1) + 8 * v9);
+        v21 = 0u;
+        v22 = 0u;
+        v23 = 0u;
+        v24 = 0u;
+        v11 = v3;
+        v12 = [v11 countByEnumeratingWithState:&v21 objects:v29 count:16];
+        if (!v12)
+        {
+          break;
+        }
+
+        v13 = v12;
+        v14 = *v22;
+LABEL_12:
+        v15 = 0;
+        while (1)
+        {
+          if (*v22 != v14)
+          {
+            objc_enumerationMutation(v11);
+          }
+
+          if ([v10 conformsToType:*(*(&v21 + 1) + 8 * v15)])
+          {
+            break;
+          }
+
+          if (v13 == ++v15)
+          {
+            v13 = [v11 countByEnumeratingWithState:&v21 objects:v29 count:16];
+            if (v13)
+            {
+              goto LABEL_12;
+            }
+
+            goto LABEL_22;
+          }
+        }
+
+        if (++v9 != v7)
+        {
+          goto LABEL_8;
+        }
+
+        v7 = [v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v16 = 1;
+        v4 = v20;
+        if (!v7)
+        {
+          goto LABEL_24;
+        }
+      }
+
+LABEL_22:
+
+      v16 = 0;
+      v4 = v20;
+    }
+
+    else
+    {
+      v16 = 1;
+    }
+
+LABEL_24:
+  }
+
+  return v16;
+}
+
+void sub_1B1EEAD84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+Class __getNRPairedDeviceRegistryClass_block_invoke(uint64_t a1)
+{
+  v9 = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
+  if (!NanoRegistryLibraryCore_frameworkLibrary)
+  {
+    v6[1] = MEMORY[0x1E69E9820];
+    v6[2] = 3221225472;
+    v6[3] = __NanoRegistryLibraryCore_block_invoke;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_1E7B01E08;
+    v8 = 0;
+    NanoRegistryLibraryCore_frameworkLibrary = _sl_dlopen();
+  }
+
+  if (!NanoRegistryLibraryCore_frameworkLibrary)
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *NanoRegistryLibrary(void)"];
+    [v3 handleFailureInFunction:v4 file:@"WFDevice.m" lineNumber:26 description:{@"%s", v6[0]}];
+
+    goto LABEL_10;
+  }
+
+  if (v6[0])
+  {
+    free(v6[0]);
+  }
+
+  result = objc_getClass("NRPairedDeviceRegistry");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  if (!*(*(*(a1 + 32) + 8) + 24))
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getNRPairedDeviceRegistryClass(void)_block_invoke"];
+    [v3 handleFailureInFunction:v5 file:@"WFDevice.m" lineNumber:27 description:{@"Unable to find class %s", "NRPairedDeviceRegistry"}];
+
+LABEL_10:
+    __break(1u);
+  }
+
+  getNRPairedDeviceRegistryClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+uint64_t __NanoRegistryLibraryCore_block_invoke(uint64_t a1)
+{
+  result = _sl_dlopen();
+  NanoRegistryLibraryCore_frameworkLibrary = result;
+  return result;
+}
+
+void sub_1B1EEBA2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+Class __getMCProfileConnectionClass_block_invoke(uint64_t a1)
+{
+  v9 = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
+  if (!ManagedConfigurationLibraryCore_frameworkLibrary)
+  {
+    v6[1] = MEMORY[0x1E69E9820];
+    v6[2] = 3221225472;
+    v6[3] = __ManagedConfigurationLibraryCore_block_invoke;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_1E7B01DC0;
+    v8 = 0;
+    ManagedConfigurationLibraryCore_frameworkLibrary = _sl_dlopen();
+  }
+
+  if (!ManagedConfigurationLibraryCore_frameworkLibrary)
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *ManagedConfigurationLibrary(void)"];
+    [v3 handleFailureInFunction:v4 file:@"WFDevice.m" lineNumber:47 description:{@"%s", v6[0]}];
+
+    goto LABEL_10;
+  }
+
+  if (v6[0])
+  {
+    free(v6[0]);
+  }
+
+  result = objc_getClass("MCProfileConnection");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  if (!*(*(*(a1 + 32) + 8) + 24))
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getMCProfileConnectionClass(void)_block_invoke"];
+    [v3 handleFailureInFunction:v5 file:@"WFDevice.m" lineNumber:48 description:{@"Unable to find class %s", "MCProfileConnection"}];
+
+LABEL_10:
+    __break(1u);
+  }
+
+  getMCProfileConnectionClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+Class __getVKCRemoveBackgroundRequestHandlerClass_block_invoke_14750(uint64_t a1)
+{
+  v9 = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
+  if (!VisionKitCoreLibraryCore_frameworkLibrary_14751)
+  {
+    v6[1] = MEMORY[0x1E69E9820];
+    v6[2] = 3221225472;
+    v6[3] = __VisionKitCoreLibraryCore_block_invoke_14752;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_1E7B01DD8;
+    v8 = 0;
+    VisionKitCoreLibraryCore_frameworkLibrary_14751 = _sl_dlopen();
+  }
+
+  if (!VisionKitCoreLibraryCore_frameworkLibrary_14751)
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *VisionKitCoreLibrary(void)"];
+    [v3 handleFailureInFunction:v4 file:@"WFDevice.m" lineNumber:54 description:{@"%s", v6[0]}];
+
+    goto LABEL_10;
+  }
+
+  if (v6[0])
+  {
+    free(v6[0]);
+  }
+
+  result = objc_getClass("VKCRemoveBackgroundRequestHandler");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  if (!*(*(*(a1 + 32) + 8) + 24))
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getVKCRemoveBackgroundRequestHandlerClass(void)_block_invoke"];
+    [v3 handleFailureInFunction:v5 file:@"WFDevice.m" lineNumber:55 description:{@"Unable to find class %s", "VKCRemoveBackgroundRequestHandler"}];
+
+LABEL_10:
+    __break(1u);
+  }
+
+  getVKCRemoveBackgroundRequestHandlerClass_softClass_14749 = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+id getCBClientClass()
+{
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2050000000;
+  v0 = getCBClientClass_softClass;
+  v7 = getCBClientClass_softClass;
+  if (!getCBClientClass_softClass)
+  {
+    v3[0] = MEMORY[0x1E69E9820];
+    v3[1] = 3221225472;
+    v3[2] = __getCBClientClass_block_invoke;
+    v3[3] = &unk_1E7B02C60;
+    v3[4] = &v4;
+    __getCBClientClass_block_invoke(v3);
+    v0 = v5[3];
+  }
+
+  v1 = v0;
+  _Block_object_dispose(&v4, 8);
+
+  return v1;
+}
+
+void sub_1B1EEBEE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+Class __getCBClientClass_block_invoke(uint64_t a1)
+{
+  v9 = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
+  if (!CoreBrightnessLibraryCore_frameworkLibrary)
+  {
+    v6[1] = MEMORY[0x1E69E9820];
+    v6[2] = 3221225472;
+    v6[3] = __CoreBrightnessLibraryCore_block_invoke;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_1E7B01DF0;
+    v8 = 0;
+    CoreBrightnessLibraryCore_frameworkLibrary = _sl_dlopen();
+  }
+
+  if (!CoreBrightnessLibraryCore_frameworkLibrary)
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *CoreBrightnessLibrary(void)"];
+    [v3 handleFailureInFunction:v4 file:@"WFDevice.m" lineNumber:62 description:{@"%s", v6[0]}];
+
+    goto LABEL_10;
+  }
+
+  if (v6[0])
+  {
+    free(v6[0]);
+  }
+
+  result = objc_getClass("CBClient");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  if (!*(*(*(a1 + 32) + 8) + 24))
+  {
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getCBClientClass(void)_block_invoke"];
+    [v3 handleFailureInFunction:v5 file:@"WFDevice.m" lineNumber:63 description:{@"Unable to find class %s", "CBClient"}];
+
+LABEL_10:
+    __break(1u);
+  }
+
+  getCBClientClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+uint64_t __CoreBrightnessLibraryCore_block_invoke(uint64_t a1)
+{
+  result = _sl_dlopen();
+  CoreBrightnessLibraryCore_frameworkLibrary = result;
+  return result;
+}
+
+uint64_t __VisionKitCoreLibraryCore_block_invoke_14752(uint64_t a1)
+{
+  result = _sl_dlopen();
+  VisionKitCoreLibraryCore_frameworkLibrary_14751 = result;
+  return result;
+}
+
+uint64_t __ManagedConfigurationLibraryCore_block_invoke(uint64_t a1)
+{
+  result = _sl_dlopen();
+  ManagedConfigurationLibraryCore_frameworkLibrary = result;
+  return result;
+}
+
+uint64_t __Block_byref_object_copy__14950(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+id WFEvaluateMathematicalFunction(void *a1, void *a2)
+{
+  v16[1] = *MEMORY[0x1E69E9840];
+  v3 = a1;
+  v4 = a2;
+  v5 = v4;
+  if (v3)
+  {
+    if (v4)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  else
+  {
+    v12 = [MEMORY[0x1E696AAA8] currentHandler];
+    v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSNumber * _Nonnull WFEvaluateMathematicalFunction(NSString * _Nonnull __strong, NSArray<NSNumber *> * _Nonnull __strong)"}];
+    [v12 handleFailureInFunction:v13 file:@"VCVoiceShortcutClient_ContextualActions.m" lineNumber:186 description:{@"Invalid parameter not satisfying: %@", @"function"}];
+
+    if (v5)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  v14 = [MEMORY[0x1E696AAA8] currentHandler];
+  v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSNumber * _Nonnull WFEvaluateMathematicalFunction(NSString * _Nonnull __strong, NSArray<NSNumber *> * _Nonnull __strong)"}];
+  [v14 handleFailureInFunction:v15 file:@"VCVoiceShortcutClient_ContextualActions.m" lineNumber:187 description:{@"Invalid parameter not satisfying: %@", @"numbers"}];
+
+LABEL_3:
+  v6 = MEMORY[0x1E696ABC8];
+  v7 = [MEMORY[0x1E696ABC8] expressionForConstantValue:v5];
+  v16[0] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+  v9 = [v6 expressionForFunction:v3 arguments:v8];
+
+  v10 = [v9 expressionValueWithObject:0 context:0];
+
+  return v10;
+}
+
+void sub_1B1EEE14C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+{
+  va_start(va, a15);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+id getBMContextualActionParameterClass()
+{
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2050000000;
+  v0 = getBMContextualActionParameterClass_softClass;
+  v7 = getBMContextualActionParameterClass_softClass;
+  if (!getBMContextualActionParameterClass_softClass)
+  {
+    v3[0] = MEMORY[0x1E69E9820];
+    v3[1] = 3221225472;
+    v3[2] = __getBMContextualActionParameterClass_block_invoke;
+    v3[3] = &unk_1E7B02C60;
+    v3[4] = &v4;
+    __getBMContextualActionParameterClass_block_invoke(v3);
+    v0 = v5[3];
+  }
+
+  v1 = v0;
+  _Block_object_dispose(&v4, 8);
+
+  return v1;
+}
+
+void sub_1B1EEE238(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void __getBMContextualActionEventClass_block_invoke(uint64_t a1)
+{
+  BiomeStreamsLibrary();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("BMContextualActionEvent");
+  if (*(*(*(a1 + 32) + 8) + 24))
+  {
+    getBMContextualActionEventClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  }
+
+  else
+  {
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getBMContextualActionEventClass(void)_block_invoke"];
+    [v2 handleFailureInFunction:v3 file:@"VCVoiceShortcutClient_ContextualActions.m" lineNumber:26 description:{@"Unable to find class %s", "BMContextualActionEvent"}];
+
+    __break(1u);
+  }
+}
+
+void __getBMStreamsClass_block_invoke(uint64_t a1)
+{
+  BiomeStreamsLibrary();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("BMStreams");
+  if (*(*(*(a1 + 32) + 8) + 24))
+  {
+    getBMStreamsClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  }
+
+  else
+  {
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getBMStreamsClass(void)_block_invoke"];
+    [v2 handleFailureInFunction:v3 file:@"VCVoiceShortcutClient_ContextualActions.m" lineNumber:29 description:{@"Unable to find class %s", "BMStreams"}];
+
+    __break(1u);
+  }
+}
+
+void BiomeStreamsLibrary()
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
+  if (!BiomeStreamsLibraryCore_frameworkLibrary)
+  {
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __BiomeStreamsLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E7B01F08;
+    v5 = 0;
+    BiomeStreamsLibraryCore_frameworkLibrary = _sl_dlopen();
+  }
+
+  if (!BiomeStreamsLibraryCore_frameworkLibrary)
+  {
+    v1 = [MEMORY[0x1E696AAA8] currentHandler];
+    v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *BiomeStreamsLibrary(void)"];
+    [v1 handleFailureInFunction:v2 file:@"VCVoiceShortcutClient_ContextualActions.m" lineNumber:24 description:{@"%s", v3[0]}];
+
+    __break(1u);
+    goto LABEL_7;
+  }
+
+  v0 = v3[0];
+  if (v3[0])
+  {
+LABEL_7:
+    free(v0);
+  }
+}
+
+uint64_t __BiomeStreamsLibraryCore_block_invoke(uint64_t a1)
+{
+  result = _sl_dlopen();
+  BiomeStreamsLibraryCore_frameworkLibrary = result;
+  return result;
+}
+
+void __getBMContextualActionParameterClass_block_invoke(uint64_t a1)
+{
+  BiomeStreamsLibrary();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("BMContextualActionParameter");
+  if (*(*(*(a1 + 32) + 8) + 24))
+  {
+    getBMContextualActionParameterClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  }
+
+  else
+  {
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getBMContextualActionParameterClass(void)_block_invoke"];
+    [v2 handleFailureInFunction:v3 file:@"VCVoiceShortcutClient_ContextualActions.m" lineNumber:28 description:{@"Unable to find class %s", "BMContextualActionParameter"}];
+
+    __break(1u);
+  }
+}
+
+void sub_1B1EEE780(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void __getBMContextualActionContentClass_block_invoke(uint64_t a1)
+{
+  BiomeStreamsLibrary();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("BMContextualActionContent");
+  if (*(*(*(a1 + 32) + 8) + 24))
+  {
+    getBMContextualActionContentClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  }
+
+  else
+  {
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getBMContextualActionContentClass(void)_block_invoke"];
+    [v2 handleFailureInFunction:v3 file:@"VCVoiceShortcutClient_ContextualActions.m" lineNumber:27 description:{@"Unable to find class %s", "BMContextualActionContent"}];
+
+    __break(1u);
+  }
+}
+
+id WFLocallyFilterActions(void *a1, void *a2)
+{
+  v3 = a1;
+  v4 = a2;
+  v5 = [v3 files];
+  v6 = [v5 if_map:&__block_literal_global_105];
+
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __WFLocallyFilterActions_block_invoke_2;
+  v14[3] = &unk_1E7B01EE8;
+  v15 = v6;
+  v7 = v6;
+  v8 = [v4 if_objectsPassingTest:v14];
+
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __WFLocallyFilterActions_block_invoke_3;
+  v12[3] = &unk_1E7B01EE8;
+  v13 = v3;
+  v9 = v3;
+  v10 = [v8 if_objectsPassingTest:v12];
+
+  return v10;
+}
+
+uint64_t __WFLocallyFilterActions_block_invoke_2(uint64_t a1, void *a2)
+{
+  v3 = [a2 filteringBehavior];
+  v4 = [v3 matchingTypes];
+
+  if (v4)
+  {
+    v5 = [v3 matchingTypes];
+    v6 = WFMatchActionTypesWithFileTypes(v5, *(a1 + 32));
+  }
+
+  else
+  {
+    v6 = 1;
+  }
+
+  return v6;
+}
+
+uint64_t __WFLocallyFilterActions_block_invoke_3(uint64_t a1, void *a2)
+{
+  v3 = [a2 filteringBehavior];
+  v4 = [v3 inClientPredicate];
+
+  if (v4)
+  {
+    [v4 allowEvaluation];
+    v5 = [*(a1 + 32) files];
+    v6 = [v4 evaluateWithObject:v5];
+  }
+
+  else
+  {
+    v6 = 1;
+  }
+
+  return v6;
+}
+
+id __WFLocallyFilterActions_block_invoke(uint64_t a1, void *a2)
+{
+  v2 = a2;
+  v3 = [v2 type];
+  v4 = v3;
+  if (v3)
+  {
+    v5 = v3;
+  }
+
+  else
+  {
+    v6 = [v2 fileURL];
+    v7 = [v6 pathExtension];
+
+    if (!v7 || ([MEMORY[0x1E6982C40] typeWithFilenameExtension:v7], (v5 = objc_claimAutoreleasedReturnValue()) == 0))
+    {
+      v5 = *MEMORY[0x1E6982E48];
+    }
+  }
+
+  return v5;
+}
+
+id WFArrayFromChanges(void *a1)
+{
+  v1 = [a1 if_map:&__block_literal_global_77_15322];
+  v2 = [v1 allObjects];
+
+  return v2;
+}
+
+id WFChangesFromArray(void *a1)
+{
+  v1 = MEMORY[0x1E695DFD8];
+  v2 = [a1 if_map:&__block_literal_global_15331];
+  v3 = [v1 setWithArray:v2];
+
+  return v3;
+}
+
+WFDatabaseObjectDescriptor *__WFChangesFromArray_block_invoke(uint64_t a1, void *a2)
+{
+  v2 = a2;
+  v3 = [[WFDatabaseObjectDescriptor alloc] initWithDictionaryRepresentation:v2];
+
+  return v3;
+}
+
+WFINShortcutRunDescriptor *WFWorkflowRunDescriptorForINShortcut(void *a1)
+{
+  v1 = a1;
+  if (!v1)
+  {
+    v10 = [MEMORY[0x1E696AAA8] currentHandler];
+    v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"WFWorkflowRunDescriptor * _Nonnull WFWorkflowRunDescriptorForINShortcut(INShortcut * _Nonnull __strong)"];
+    [v10 handleFailureInFunction:v11 file:@"WFSpotlightResultWorkflowRunnerClient.m" lineNumber:144 description:{@"Invalid parameter not satisfying: %@", @"shortcut"}];
+  }
+
+  v2 = [v1 intent];
+  if (v2 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    v3 = [WFWorkflowDatabaseRunDescriptor alloc];
+    v4 = [v2 workflow];
+    v5 = [v4 vocabularyIdentifier];
+    v6 = [v2 workflow];
+    v7 = [v6 spokenPhrase];
+    v8 = [(WFWorkflowDatabaseRunDescriptor *)v3 initWithIdentifier:v5 name:v7];
+  }
+
+  else
+  {
+
+    v8 = [[WFINShortcutRunDescriptor alloc] initWithShortcut:v1];
+  }
+
+  return v8;
+}
+
+__CFString *WFRunSourceForSpotlightExecutionContext(unint64_t a1)
+{
+  if (a1 > 0xA)
+  {
+    v1 = @"unknown";
+  }
+
+  else
+  {
+    v1 = off_1E7AFFFD8[a1];
+  }
+
+  v2 = v1;
+  if ([(__CFString *)v2 isEqualToString:@"unknown"])
+  {
+    v3 = @"contextual-action-spotlight-unknown";
+  }
+
+  else
+  {
+    v3 = v2;
+  }
+
+  v4 = v3;
+
+  return v3;
+}
+
+id WFSpotlightResultRunnableAttributeKey()
+{
+  v0 = [objc_alloc(MEMORY[0x1E6964E00]) initWithKeyName:@"com_apple_shortcuts_runnable" searchable:0 searchableByDefault:0 unique:0 multiValued:0];
+
+  return v0;
+}
+
+id WFSpotlightResultRunnableFromData(void *a1)
+{
+  v14 = *MEMORY[0x1E69E9840];
+  if (a1)
+  {
+    v1 = MEMORY[0x1E696ACD0];
+    v2 = MEMORY[0x1E695DFD8];
+    v3 = a1;
+    v4 = [v2 setWithObjects:{objc_opt_class(), 0}];
+    v9 = 0;
+    v5 = [v1 unarchivedObjectOfClasses:v4 fromData:v3 error:&v9];
+
+    v6 = v9;
+    if (!v5)
+    {
+      v7 = getWFVoiceShortcutClientLogObject();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315394;
+        v11 = "WFSpotlightResultRunnableFromData";
+        v12 = 2112;
+        v13 = v6;
+        _os_log_impl(&dword_1B1DE3000, v7, OS_LOG_TYPE_ERROR, "%s Cannot unpack data into runnable: %@", buf, 0x16u);
+      }
+    }
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  return v5;
+}
+
+id WFDataFromSpotlightResultRunnable(void *a1, uint64_t a2)
+{
+  v3 = a1;
+  if (!v3)
+  {
+    v6 = [MEMORY[0x1E696AAA8] currentHandler];
+    v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSData * _Nullable WFDataFromSpotlightResultRunnable(id<WFSpotlightResultRunnable>  _Nonnull __strong, NSError *__autoreleasing  _Nullable * _Nullable)"}];
+    [v6 handleFailureInFunction:v7 file:@"WFSpotlightResultWorkflowRunnerClient.m" lineNumber:48 description:{@"Invalid parameter not satisfying: %@", @"runnable"}];
+  }
+
+  v4 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v3 requiringSecureCoding:1 error:a2];
+
+  return v4;
+}
+
+id WFSpotlightResultRunnableDisplayOrderKey()
+{
+  v0 = [objc_alloc(MEMORY[0x1E6964E00]) initWithKeyName:@"com_apple_shortcuts_runnable_display_order" searchable:0 searchableByDefault:0 unique:0 multiValued:0];
+
+  return v0;
+}
+
+id WFSpotlightResultRunnableAccessorySystemImageNameKey()
+{
+  v0 = [objc_alloc(MEMORY[0x1E6964E00]) initWithKeyName:@"com_apple_shortcuts_runnable_accessory_system_image_name" searchable:0 searchableByDefault:0 unique:0 multiValued:0];
+
+  return v0;
+}
+
+id WFSpotlightResultRunnableIneligibleForTopHit()
+{
+  v0 = [objc_alloc(MEMORY[0x1E6964E00]) initWithKeyName:@"com_apple_shortcuts_runnable_ineligible_for_top_hit" searchable:0 searchableByDefault:0 unique:0 multiValued:0];
+
+  return v0;
+}
+
+id WFSpotlightResultRunnableAssociatedSettingsPreferenceKey()
+{
+  v0 = [objc_alloc(MEMORY[0x1E6964E00]) initWithKeyName:@"com_apple_shortcuts_runnable_associated_settings_preference" searchable:0 searchableByDefault:0 unique:0 multiValued:0];
+
+  return v0;
+}
+
+id WFSpotlightResultRunnableIsAppShortcutTopHit()
+{
+  v0 = [objc_alloc(MEMORY[0x1E6964E00]) initWithKeyName:@"com_apple_shortcuts_runnable_is_app_shortcut_top_hit" searchable:0 searchableByDefault:0 unique:0 multiValued:0];
+
+  return v0;
+}
+
+id WFSpotlightResultRunnableIsAppTopHitExclusive()
+{
+  v0 = [objc_alloc(MEMORY[0x1E6964E00]) initWithKeyName:@"com_apple_shortcuts_runnable_is_app_top_hit_exclusive" searchable:0 searchableByDefault:0 unique:0 multiValued:0];
+
+  return v0;
+}
+
+id WFSpotlightResultRunnableTopHitBadge()
+{
+  v0 = [objc_alloc(MEMORY[0x1E6964E00]) initWithKeyName:@"com_apple_shortcuts_runnable_top_hit_badge" searchable:0 searchableByDefault:0 unique:0 multiValued:0];
+
+  return v0;
+}
+
+id WFSpotlightResultRunnableSubtitle()
+{
+  v0 = [objc_alloc(MEMORY[0x1E6964E00]) initWithKeyName:@"com_apple_shortcuts_runnable_subtitle" searchable:0 searchableByDefault:0 unique:0 multiValued:0];
+
+  return v0;
+}
+
+id WFSpotlightResultRunnableImageDisplayStyle()
+{
+  v0 = [objc_alloc(MEMORY[0x1E6964E00]) initWithKeyName:@"com_apple_shortcuts_runnable_image_display_style" searchable:0 searchableByDefault:0 unique:0 multiValued:0];
+
+  return v0;
+}
+
+id WFSpotlightResultRunnablePrimaryPhrase()
+{
+  v0 = [objc_alloc(MEMORY[0x1E6964E00]) initWithKeyName:@"com_apple_shortcuts_runnable_primary_phrase" searchable:0 searchableByDefault:0 unique:0 multiValued:0];
+
+  return v0;
+}
+
+id WFSpotlightResultRunnableActionIdentifier()
+{
+  v0 = [objc_alloc(MEMORY[0x1E6964E00]) initWithKeyName:@"com_apple_shortcuts_runnable_action_identifier" searchable:0 searchableByDefault:0 unique:0 multiValued:0];
+
+  return v0;
+}
+
+id WFSpotlightResultRunnableLNPropertyIdentifier()
+{
+  v0 = [objc_alloc(MEMORY[0x1E6964E00]) initWithKeyName:@"com_apple_shortcuts_runnable_lnproperty_identifier" searchable:0 searchableByDefault:0 unique:0 multiValued:0];
+
+  return v0;
+}
+
+id WFSpotlightResultRunnableTintColorNameIdentifier()
+{
+  v0 = [objc_alloc(MEMORY[0x1E6964E00]) initWithKeyName:@"com_apple_shortcuts_runnable_tint_color_name" searchable:0 searchableByDefault:0 unique:0 multiValued:0];
+
+  return v0;
+}
+
+id WFSpotlightResultRunnableSettingBiomeStreamIdentifier()
+{
+  v0 = [objc_alloc(MEMORY[0x1E6964E00]) initWithKeyName:@"com_apple_shortcuts_runnable_setting_biome_stream_identifier" searchable:0 searchableByDefault:0 unique:0 multiValued:0];
+
+  return v0;
+}
+
+void sub_1B1EF3470(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+{
+  va_start(va, a17);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v17 - 88), 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t WFTopHitContextualActionTypeForBundleIdentifier(void *a1)
+{
+  v1 = a1;
+  v2 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:v1 allowPlaceholder:0 error:0];
+  if (v2)
+  {
+    v3 = [v1 isEqualToString:@"com.apple.shortcuts"];
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  return v3;
+}
+
+id WFDisambiguableContextualActionClassForType(uint64_t a1)
+{
+  if ((a1 - 1) > 2)
+  {
+    v2 = 0;
+  }
+
+  else
+  {
+    v2 = objc_opt_class();
+  }
+
+  return v2;
+}
+
+void sub_1B1EF62AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  (*(v30 + 16))(v30, a2, a3, a4, a5, a6, a7, a8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v31 - 192), 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__16089(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+double WFContentItemListThumbnailCornerRadiusForRoundingStyle(uint64_t a1, double a2, double a3)
+{
+  v3 = 0.0;
+  if ((a1 - 1) <= 2)
+  {
+    v3 = dbl_1B1F36A40[a1 - 1];
+  }
+
+  if (a2 >= a3)
+  {
+    a2 = a3;
+  }
+
+  return a2 * v3;
+}
+
+void sub_1B1EF872C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void __getISImageDescriptorClass_block_invoke_16607(uint64_t a1)
+{
+  IconServicesLibrary_16610();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("ISImageDescriptor");
+  if (*(*(*(a1 + 32) + 8) + 24))
+  {
+    getISImageDescriptorClass_softClass_16606 = *(*(*(a1 + 32) + 8) + 24);
+  }
+
+  else
+  {
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getISImageDescriptorClass(void)_block_invoke"];
+    [v2 handleFailureInFunction:v3 file:@"VCConfiguredSleepWorkflow.m" lineNumber:18 description:{@"Unable to find class %s", "ISImageDescriptor"}];
+
+    __break(1u);
+  }
+}
+
+void *__getkISImageDescriptorHomeScreenSymbolLoc_block_invoke_16609(uint64_t a1)
+{
+  v2 = IconServicesLibrary_16610();
+  result = dlsym(v2, "kISImageDescriptorHomeScreen");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  getkISImageDescriptorHomeScreenSymbolLoc_ptr_16608 = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+void *IconServicesLibrary_16610()
+{
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
+  if (!IconServicesLibraryCore_frameworkLibrary_16619)
+  {
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __IconServicesLibraryCore_block_invoke_16620;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E7B02138;
+    v6 = 0;
+    IconServicesLibraryCore_frameworkLibrary_16619 = _sl_dlopen();
+  }
+
+  v0 = IconServicesLibraryCore_frameworkLibrary_16619;
+  if (!IconServicesLibraryCore_frameworkLibrary_16619)
+  {
+    v0 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *IconServicesLibrary(void)"];
+    [v0 handleFailureInFunction:v3 file:@"VCConfiguredSleepWorkflow.m" lineNumber:17 description:{@"%s", v4[0]}];
+
+    __break(1u);
+    goto LABEL_7;
+  }
+
+  v1 = v4[0];
+  if (v4[0])
+  {
+LABEL_7:
+    free(v1);
+  }
+
+  return v0;
+}
+
+uint64_t __IconServicesLibraryCore_block_invoke_16620(uint64_t a1)
+{
+  result = _sl_dlopen();
+  IconServicesLibraryCore_frameworkLibrary_16619 = result;
+  return result;
+}
+
+void std::deque<WFDebouncerPokeReason * {__strong}>::pop_front(uint64_t a1)
+{
+  v2 = vaddq_s64(*(a1 + 32), xmmword_1B1F367B0);
+  *(a1 + 32) = v2;
+  if (v2.i64[0] >= 0x400uLL)
+  {
+    operator delete(**(a1 + 8));
+    *(a1 + 8) += 8;
+    *(a1 + 32) -= 512;
+  }
+}
+
+uint64_t std::deque<WFDebouncerPokeReason * {__strong}>::~deque[abi:ne200100](uint64_t a1)
+{
+  v3 = *(a1 + 8);
+  v2 = *(a1 + 16);
+  if (v2 == v3)
+  {
+    v4 = (a1 + 40);
+    v11 = *(a1 + 8);
+  }
+
+  else
+  {
+    v4 = (a1 + 40);
+    v5 = *(a1 + 32);
+    v6 = &v3[v5 >> 9];
+    v7 = (*v6 + 8 * (v5 & 0x1FF));
+    v8 = *(v3 + (((*(a1 + 40) + v5) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((*(a1 + 40) + v5) & 0x1FF);
+    if (v7 != v8)
+    {
+      do
+      {
+        v9 = *v7++;
+
+        if (v7 - *v6 == 4096)
+        {
+          v10 = v6[1];
+          ++v6;
+          v7 = v10;
+        }
+      }
+
+      while (v7 != v8);
+      v3 = *(a1 + 8);
+      v2 = *(a1 + 16);
+    }
+
+    v11 = v2;
+  }
+
+  *v4 = 0;
+  v12 = v11 - v3;
+  if (v12 >= 3)
+  {
+    do
+    {
+      operator delete(*v3);
+      v2 = *(a1 + 16);
+      v3 = (*(a1 + 8) + 8);
+      *(a1 + 8) = v3;
+      v12 = v2 - v3;
+    }
+
+    while (v12 > 2);
+    v11 = v2;
+  }
+
+  if (v12 == 1)
+  {
+    v13 = 256;
+  }
+
+  else
+  {
+    if (v12 != 2)
+    {
+      goto LABEL_17;
+    }
+
+    v13 = 512;
+  }
+
+  *(a1 + 32) = v13;
+LABEL_17:
+  if (v3 != v11)
+  {
+    do
+    {
+      v14 = *v3++;
+      operator delete(v14);
+    }
+
+    while (v3 != v11);
+    v11 = *(a1 + 8);
+    v2 = *(a1 + 16);
+  }
+
+  if (v2 != v11)
+  {
+    *(a1 + 16) = v2 + ((v11 - v2 + 7) & 0xFFFFFFFFFFFFFFF8);
+  }
+
+  if (*a1)
+  {
+    operator delete(*a1);
+  }
+
+  return a1;
+}
+
+void sub_1B1EF9BA8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, __int128 a11)
+{
+  operator delete(v11);
+  if (a11)
+  {
+    operator delete(a11);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void std::__split_buffer<WFDebouncerPokeReason * {__strong}*>::emplace_back<WFDebouncerPokeReason * {__strong}*&>(unint64_t *a1, void *a2)
+{
+  v4 = a1[2];
+  if (v4 == a1[3])
+  {
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
+    {
+      if (v4 == *a1)
+      {
+        v11 = 1;
+      }
+
+      else
+      {
+        v11 = &v4[-*a1] >> 2;
+      }
+
+      std::__allocate_at_least[abi:ne200100]<std::allocator<WFDebouncerPokeReason * {__strong}*>>(v11);
+    }
+
+    v7 = ((v6 >> 3) + 1) / -2;
+    v8 = ((v6 >> 3) + 1) / 2;
+    v9 = &v5[-8 * v8];
+    v10 = v4 - v5;
+    if (v4 != v5)
+    {
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
+    }
+
+    v4 = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
+  }
+
+  *v4 = *a2;
+  a1[2] += 8;
+}
+
+void std::__allocate_at_least[abi:ne200100]<std::allocator<WFDebouncerPokeReason * {__strong}*>>(unint64_t a1)
+{
+  if (!(a1 >> 61))
+  {
+    operator new();
+  }
+
+  std::__throw_bad_array_new_length[abi:ne200100]();
+}
+
+void std::__throw_bad_array_new_length[abi:ne200100]()
+{
+  exception = __cxa_allocate_exception(8uLL);
+  v1 = std::bad_array_new_length::bad_array_new_length(exception);
+  __cxa_throw(v1, MEMORY[0x1E69E5420], MEMORY[0x1E69E52A8]);
+}
+
+id WFShojiSystemActionsContextualActionFromData(void *a1)
+{
+  v13 = *MEMORY[0x1E69E9840];
+  v1 = a1;
+  if (!v1)
+  {
+    v6 = [MEMORY[0x1E696AAA8] currentHandler];
+    v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"WFContextualAction * _Nullable WFShojiSystemActionsContextualActionFromData(NSData * _Nonnull __strong)"];
+    [v6 handleFailureInFunction:v7 file:@"WFShojiSystemActionsRunnerClient.m" lineNumber:21 description:{@"Invalid parameter not satisfying: %@", @"data"}];
+  }
+
+  v8 = 0;
+  v2 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v1 error:&v8];
+  v3 = v8;
+  if (!v2)
+  {
+    v4 = getWFVoiceShortcutClientLogObject();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v10 = "WFShojiSystemActionsContextualActionFromData";
+      v11 = 2112;
+      v12 = v3;
+      _os_log_impl(&dword_1B1DE3000, v4, OS_LOG_TYPE_ERROR, "%s Cannot unpack data into contextual action: %@", buf, 0x16u);
+    }
+  }
+
+  return v2;
+}
+
+id WFShojiSystemActionsDataFromContextualAction(void *a1, uint64_t a2)
+{
+  v3 = a1;
+  if (!v3)
+  {
+    v6 = [MEMORY[0x1E696AAA8] currentHandler];
+    v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSData * _Nullable WFShojiSystemActionsDataFromContextualAction(WFContextualAction * _Nonnull __strong, NSError *__autoreleasing  _Nullable * _Nullable)"}];
+    [v6 handleFailureInFunction:v7 file:@"WFShojiSystemActionsRunnerClient.m" lineNumber:31 description:{@"Invalid parameter not satisfying: %@", @"action"}];
+  }
+
+  v4 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v3 requiringSecureCoding:1 error:a2];
+
+  return v4;
+}
+
+void sub_1B1EFBF04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, id location)
+{
+  objc_destroyWeak((v20 + 32));
+  objc_destroyWeak((v19 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+id WFAbbreviatedNameFromText(void *a1)
+{
+  v17 = *MEMORY[0x1E69E9840];
+  v1 = a1;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v2 = [MEMORY[0x1E696AB08] newlineCharacterSet];
+  v3 = [v1 componentsSeparatedByCharactersInSet:v2];
+
+  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v13;
+LABEL_3:
+    v7 = 0;
+    while (1)
+    {
+      if (*v13 != v6)
+      {
+        objc_enumerationMutation(v3);
+      }
+
+      v8 = *(*(&v12 + 1) + 8 * v7);
+      v9 = [MEMORY[0x1E696AB08] whitespaceCharacterSet];
+      v10 = [v8 stringByTrimmingCharactersInSet:v9];
+
+      if ([v10 length])
+      {
+        break;
+      }
+
+      if (v5 == ++v7)
+      {
+        v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        if (v5)
+        {
+          goto LABEL_3;
+        }
+
+        goto LABEL_9;
+      }
+    }
+
+    if (v10 && [v10 length] >= 0x65)
+    {
+      [v10 substringToIndex:{objc_msgSend(v10, "rangeOfComposedCharacterSequenceAtIndex:", 100)}];
+      v10 = v3 = v10;
+      goto LABEL_13;
+    }
+  }
+
+  else
+  {
+LABEL_9:
+    v10 = 0;
+LABEL_13:
+  }
+
+  return v10;
+}
+
+void sub_1B1EFE9B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __CoreUILibraryCore_block_invoke(uint64_t a1)
+{
+  result = _sl_dlopen();
+  CoreUILibraryCore_frameworkLibrary = result;
+  return result;
+}
+
+id WFExclusivelyForTestingGetResidentCoreGlyphsCatalogs()
+{
+  os_unfair_lock_lock(&WFImageResidentCoreGlyphsCatalogsLock);
+  v0 = WFImageLockedResidentCoreGlyphsCatalogs;
+  os_unfair_lock_unlock(&WFImageResidentCoreGlyphsCatalogsLock);
+
+  return v0;
+}
+
+uint64_t VCPerformOnFirstUnlock(void *a1, void *a2)
+{
+  v3 = a1;
+  v4 = a2;
+  if (!v4)
+  {
+    v8 = [MEMORY[0x1E696AAA8] currentHandler];
+    v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"int VCPerformOnFirstUnlock(dispatch_queue_t  _Nonnull __strong, void (^ _Nonnull __strong)(void))"}];
+    [v8 handleFailureInFunction:v9 file:@"VCUtilities.m" lineNumber:39 description:{@"Invalid parameter not satisfying: %@", @"block"}];
+
+    if (v3)
+    {
+      goto LABEL_3;
+    }
+
+LABEL_5:
+    v10 = [MEMORY[0x1E696AAA8] currentHandler];
+    v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"int VCPerformOnFirstUnlock(dispatch_queue_t  _Nonnull __strong, void (^ _Nonnull __strong)(void))"}];
+    [v10 handleFailureInFunction:v11 file:@"VCUtilities.m" lineNumber:40 description:{@"Invalid parameter not satisfying: %@", @"queue"}];
+
+    goto LABEL_3;
+  }
+
+  if (!v3)
+  {
+    goto LABEL_5;
+  }
+
+LABEL_3:
+  out_token = -1;
+  handler[0] = MEMORY[0x1E69E9820];
+  handler[1] = 3221225472;
+  handler[2] = __VCPerformOnFirstUnlock_block_invoke;
+  handler[3] = &unk_1E7B02380;
+  v13 = v4;
+  v5 = v4;
+  notify_register_dispatch("com.apple.mobile.keybagd.first_unlock", &out_token, v3, handler);
+  v6 = out_token;
+
+  return v6;
+}
+
+uint64_t __VCPerformOnFirstUnlock_block_invoke(uint64_t a1, int token)
+{
+  notify_cancel(token);
+  v3 = *(*(a1 + 32) + 16);
+
+  return v3();
+}
+
+id VCInactiveAppsFromList(void *a1)
+{
+  v18 = *MEMORY[0x1E69E9840];
+  v1 = a1;
+  if ([v1 count])
+  {
+    v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v13 = 0u;
+    v14 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    v3 = v1;
+    v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    if (v4)
+    {
+      v5 = v4;
+      v6 = *v14;
+      do
+      {
+        for (i = 0; i != v5; ++i)
+        {
+          if (*v14 != v6)
+          {
+            objc_enumerationMutation(v3);
+          }
+
+          v8 = MEMORY[0x1E6963608];
+          v9 = *(*(&v13 + 1) + 8 * i);
+          v10 = [v8 defaultWorkspace];
+          v11 = [v10 applicationIsInstalled:v9];
+
+          if ((v11 & 1) == 0)
+          {
+            [v2 addObject:v9];
+          }
+        }
+
+        v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      }
+
+      while (v5);
+    }
+  }
+
+  else
+  {
+    v2 = 0;
+  }
+
+  return v2;
+}
+
+id WFApertureStatusViewControllerIdentityFromRunningContext(void *a1)
+{
+  v1 = [a1 identifier];
+  v2 = [v1 stringByAppendingString:@".WFApertureStatusViewController"];
+
+  return v2;
+}
+
+id getWFStringContentItemClass()
+{
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2050000000;
+  v0 = getWFStringContentItemClass_softClass_18983;
+  v7 = getWFStringContentItemClass_softClass_18983;
+  if (!getWFStringContentItemClass_softClass_18983)
+  {
+    v3[0] = MEMORY[0x1E69E9820];
+    v3[1] = 3221225472;
+    v3[2] = __getWFStringContentItemClass_block_invoke_18984;
+    v3[3] = &unk_1E7B02C60;
+    v3[4] = &v4;
+    __getWFStringContentItemClass_block_invoke_18984(v3);
+    v0 = v5[3];
+  }
+
+  v1 = v0;
+  _Block_object_dispose(&v4, 8);
+
+  return v1;
+}
+
+void sub_1B1F0510C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void __getWFStringContentItemClass_block_invoke_18984(uint64_t a1)
+{
+  ContentKitLibrary_18985();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("WFStringContentItem");
+  if (*(*(*(a1 + 32) + 8) + 24))
+  {
+    getWFStringContentItemClass_softClass_18983 = *(*(*(a1 + 32) + 8) + 24);
+  }
+
+  else
+  {
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getWFStringContentItemClass(void)_block_invoke"];
+    [v2 handleFailureInFunction:v3 file:@"WFOnScreenContentExtractor.m" lineNumber:55 description:{@"Unable to find class %s", "WFStringContentItem"}];
+
+    __break(1u);
+  }
+}
+
+void ContentKitLibrary_18985()
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
+  if (!ContentKitLibraryCore_frameworkLibrary_18996)
+  {
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __ContentKitLibraryCore_block_invoke_18997;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E7B024F0;
+    v5 = 0;
+    ContentKitLibraryCore_frameworkLibrary_18996 = _sl_dlopen();
+  }
+
+  if (!ContentKitLibraryCore_frameworkLibrary_18996)
+  {
+    v1 = [MEMORY[0x1E696AAA8] currentHandler];
+    v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *ContentKitLibrary(void)"];
+    [v1 handleFailureInFunction:v2 file:@"WFOnScreenContentExtractor.m" lineNumber:52 description:{@"%s", v3[0]}];
+
+    __break(1u);
+    goto LABEL_7;
+  }
+
+  v0 = v3[0];
+  if (v3[0])
+  {
+LABEL_7:
+    free(v0);
+  }
+}
+
+uint64_t __ContentKitLibraryCore_block_invoke_18997(uint64_t a1)
+{
+  result = _sl_dlopen();
+  ContentKitLibraryCore_frameworkLibrary_18996 = result;
+  return result;
+}
+
+void sub_1B1F05830(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__19005(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_1B1F05B78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
+{
+  va_start(va, a33);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void __getWFContentItemClass_block_invoke_19009(uint64_t a1)
+{
+  ContentKitLibrary_18985();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("WFContentItem");
+  if (*(*(*(a1 + 32) + 8) + 24))
+  {
+    getWFContentItemClass_softClass_19008 = *(*(*(a1 + 32) + 8) + 24);
+  }
+
+  else
+  {
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getWFContentItemClass(void)_block_invoke"];
+    [v2 handleFailureInFunction:v3 file:@"WFOnScreenContentExtractor.m" lineNumber:53 description:{@"Unable to find class %s", "WFContentItem"}];
+
+    __break(1u);
+  }
+}
+
+id getWFCoercionRequestClass()
+{
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2050000000;
+  v0 = getWFCoercionRequestClass_softClass;
+  v7 = getWFCoercionRequestClass_softClass;
+  if (!getWFCoercionRequestClass_softClass)
+  {
+    v3[0] = MEMORY[0x1E69E9820];
+    v3[1] = 3221225472;
+    v3[2] = __getWFCoercionRequestClass_block_invoke;
+    v3[3] = &unk_1E7B02C60;
+    v3[4] = &v4;
+    __getWFCoercionRequestClass_block_invoke(v3);
+    v0 = v5[3];
+  }
+
+  v1 = v0;
+  _Block_object_dispose(&v4, 8);
+
+  return v1;
+}
+
+void sub_1B1F05E60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B1F06360(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void *__getUIActivityItemsConfigurationMetadataKeyLinkPresentationMetadataSymbolLoc_block_invoke(uint64_t a1)
+{
+  v2 = UIKitLibrary();
+  result = dlsym(v2, "UIActivityItemsConfigurationMetadataKeyLinkPresentationMetadata");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  getUIActivityItemsConfigurationMetadataKeyLinkPresentationMetadataSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+void *UIKitLibrary()
+{
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
+  if (!UIKitLibraryCore_frameworkLibrary_19021)
+  {
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __UIKitLibraryCore_block_invoke_19022;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E7B024D8;
+    v6 = 0;
+    UIKitLibraryCore_frameworkLibrary_19021 = _sl_dlopen();
+  }
+
+  v0 = UIKitLibraryCore_frameworkLibrary_19021;
+  if (!UIKitLibraryCore_frameworkLibrary_19021)
+  {
+    v0 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *UIKitLibrary(void)"];
+    [v0 handleFailureInFunction:v3 file:@"WFOnScreenContentExtractor.m" lineNumber:34 description:{@"%s", v4[0]}];
+
+    __break(1u);
+    goto LABEL_7;
+  }
+
+  v1 = v4[0];
+  if (v4[0])
+  {
+LABEL_7:
+    free(v1);
+  }
+
+  return v0;
+}
+
+uint64_t __UIKitLibraryCore_block_invoke_19022(uint64_t a1)
+{
+  result = _sl_dlopen();
+  UIKitLibraryCore_frameworkLibrary_19021 = result;
+  return result;
+}
+
+void __getWFCoercionRequestClass_block_invoke(uint64_t a1)
+{
+  ContentKitLibrary_18985();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("WFCoercionRequest");
+  if (*(*(*(a1 + 32) + 8) + 24))
+  {
+    getWFCoercionRequestClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  }
+
+  else
+  {
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getWFCoercionRequestClass(void)_block_invoke"];
+    [v2 handleFailureInFunction:v3 file:@"WFOnScreenContentExtractor.m" lineNumber:54 description:{@"Unable to find class %s", "WFCoercionRequest"}];
+
+    __break(1u);
+  }
+}
+
+void sub_1B1F06C38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
+{
+  va_start(va, a36);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void __getUIApplicationClass_block_invoke(uint64_t a1)
+{
+  UIKitLibrary();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("UIApplication");
+  if (*(*(*(a1 + 32) + 8) + 24))
+  {
+    getUIApplicationClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  }
+
+  else
+  {
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getUIApplicationClass(void)_block_invoke"];
+    [v2 handleFailureInFunction:v3 file:@"WFOnScreenContentExtractor.m" lineNumber:35 description:{@"Unable to find class %s", "UIApplication"}];
+
+    __break(1u);
+  }
+}
+
+void __getUIWindowSceneClass_block_invoke(uint64_t a1)
+{
+  UIKitLibrary();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("UIWindowScene");
+  if (*(*(*(a1 + 32) + 8) + 24))
+  {
+    getUIWindowSceneClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  }
+
+  else
+  {
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getUIWindowSceneClass(void)_block_invoke"];
+    [v2 handleFailureInFunction:v3 file:@"WFOnScreenContentExtractor.m" lineNumber:36 description:{@"Unable to find class %s", "UIWindowScene"}];
+
+    __break(1u);
+  }
+}
+
+void sub_1B1F09800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void *__getUIGraphicsPopContextSymbolLoc_block_invoke(uint64_t a1, uint64_t a2)
+{
+  v3 = UIKitLibrary_19507();
+  result = dlsym(v3, "UIGraphicsPopContext");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  getUIGraphicsPopContextSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+void *UIKitLibrary_19507()
+{
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
+  if (!UIKitLibraryCore_frameworkLibrary_19517)
+  {
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __UIKitLibraryCore_block_invoke_19518;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E7B02548;
+    v6 = 0;
+    UIKitLibraryCore_frameworkLibrary_19517 = _sl_dlopen();
+  }
+
+  v0 = UIKitLibraryCore_frameworkLibrary_19517;
+  if (!UIKitLibraryCore_frameworkLibrary_19517)
+  {
+    v0 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *UIKitLibrary(void)"];
+    [v0 handleFailureInFunction:v3 file:@"WFBitmapContext.m" lineNumber:21 description:{@"%s", v4[0]}];
+
+    __break(1u);
+    goto LABEL_7;
+  }
+
+  v1 = v4[0];
+  if (v4[0])
+  {
+LABEL_7:
+    free(v1);
+  }
+
+  return v0;
+}
+
+uint64_t __UIKitLibraryCore_block_invoke_19518(uint64_t a1)
+{
+  result = _sl_dlopen();
+  UIKitLibraryCore_frameworkLibrary_19517 = result;
+  return result;
+}
+
+void sub_1B1F09B84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void *__getUIGraphicsPushContextSymbolLoc_block_invoke(uint64_t a1)
+{
+  v2 = UIKitLibrary_19507();
+  result = dlsym(v2, "UIGraphicsPushContext");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  getUIGraphicsPushContextSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+double WFEffectiveScaleForScale(double result)
+{
+  if (result <= 0.0)
+  {
+    v1 = +[WFDevice currentDevice];
+    [v1 screenScale];
+    v3 = v2;
+
+    return v3;
+  }
+
+  return result;
+}
+
+uint64_t __WFCreateBitmapContext_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (*(a1 + 40) != 1 || *(a2 + 13) != 1)
+  {
+    return 1;
+  }
+
+  v3 = *(a1 + 32);
+  if (v3)
+  {
+    *(a3 + 56) = v3;
+  }
+
+  v4 = *(a3 + 44) - 2;
+  if (v4 > 2)
+  {
+    return 1;
+  }
+
+  result = 0;
+  *(a3 + 44) = dword_1B1F36A28[v4];
+  *(a3 + 64) = 0;
+  return result;
+}
+
+void sub_1B1F0A2A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void *__getUIGraphicsGetCurrentContextSymbolLoc_block_invoke(uint64_t a1)
+{
+  v2 = UIKitLibrary_19507();
+  result = dlsym(v2, "UIGraphicsGetCurrentContext");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  getUIGraphicsGetCurrentContextSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+__CFString *WFDescriptionForDatabaseObjectType(unint64_t a1)
+{
+  if (a1 > 0xC)
+  {
+    return @"Unknown";
+  }
+
+  else
+  {
+    return off_1E7B025D8[a1];
+  }
+}
+
+__CFString *WFDescribeWorkflowOutputBehavior(unint64_t a1)
+{
+  if (a1 > 3)
+  {
+    return @"Unknown";
+  }
+
+  else
+  {
+    return off_1E7B02640[a1];
+  }
+}
+
+void sub_1B1F0E00C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void *__getBiomeLibrarySymbolLoc_block_invoke_20387(void *a1)
+{
+  v8 = *MEMORY[0x1E69E9840];
+  v5[0] = 0;
+  if (!BiomeLibraryLibraryCore_frameworkLibrary_20396)
+  {
+    v5[1] = MEMORY[0x1E69E9820];
+    v5[2] = 3221225472;
+    v5[3] = __BiomeLibraryLibraryCore_block_invoke_20397;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_1E7B026D0;
+    v7 = 0;
+    BiomeLibraryLibraryCore_frameworkLibrary_20396 = _sl_dlopen();
+  }
+
+  v2 = BiomeLibraryLibraryCore_frameworkLibrary_20396;
+  if (!BiomeLibraryLibraryCore_frameworkLibrary_20396)
+  {
+    a1 = [MEMORY[0x1E696AAA8] currentHandler];
+    v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *BiomeLibraryLibrary(void)"];
+    [a1 handleFailureInFunction:v2 file:@"WFToggleAlarmContextualAction.m" lineNumber:18 description:{@"%s", v5[0]}];
+
+    __break(1u);
+    goto LABEL_7;
+  }
+
+  v3 = v5[0];
+  if (v5[0])
+  {
+LABEL_7:
+    free(v3);
+  }
+
+  result = dlsym(v2, "BiomeLibrary");
+  *(*(a1[4] + 8) + 24) = result;
+  getBiomeLibrarySymbolLoc_ptr_20386 = *(*(a1[4] + 8) + 24);
+  return result;
+}
+
+uint64_t __BiomeLibraryLibraryCore_block_invoke_20397(uint64_t a1)
+{
+  result = _sl_dlopen();
+  BiomeLibraryLibraryCore_frameworkLibrary_20396 = result;
+  return result;
+}
+
+void sub_1B1F1047C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, __int128 buf)
+{
+  if (a2 == 1)
+  {
+    v17 = objc_begin_catch(a1);
+    v18 = getWFVoiceShortcutClientLogObject();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+    {
+      LODWORD(buf) = 136315394;
+      *(&buf + 4) = "[WFAllActionOutputsRunResult getActionOutputsWithCompletionHandler:]";
+      WORD6(buf) = 2112;
+      *(&buf + 14) = v17;
+      _os_log_impl(&dword_1B1DE3000, v18, OS_LOG_TYPE_FAULT, "%s Exception thrown when decoding action outputs: %@", &buf, 0x16u);
+    }
+
+    v19 = [v16 unableToDecodeError];
+    (*(v15 + 16))(v15, 0, v19);
+
+    objc_end_catch();
+    JUMPOUT(0x1B1F10448);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_1B1F116DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 112), 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__20936(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_1B1F119A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 128), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B1F11C48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 128), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B1F11ED0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 112), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B1F121C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(&a21, 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 128), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B1F124A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 128), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B1F12944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B1F12CE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
+{
+  va_start(va, a23);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B1F12F34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
+{
+  va_start(va, a23);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B1F1313C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B1F13694(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B1F13BAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 112), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B1F13FD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(&a21, 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 112), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B1F144AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(&a21, 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 160), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B1F15108(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void __getWFGallerySessionManagerClass_block_invoke(uint64_t a1)
+{
+  WorkflowKitLibrary();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("WFGallerySessionManager");
+  if (*(*(*(a1 + 32) + 8) + 24))
+  {
+    getWFGallerySessionManagerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  }
+
+  else
+  {
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getWFGallerySessionManagerClass(void)_block_invoke"];
+    [v2 handleFailureInFunction:v3 file:@"VCVoiceShortcutClient.m" lineNumber:42 description:{@"Unable to find class %s", "WFGallerySessionManager"}];
+
+    __break(1u);
+  }
+}
+
+void __getWFInterchangeURLRequestClass_block_invoke(uint64_t a1)
+{
+  WorkflowKitLibrary();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("WFInterchangeURLRequest");
+  if (*(*(*(a1 + 32) + 8) + 24))
+  {
+    getWFInterchangeURLRequestClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  }
+
+  else
+  {
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getWFInterchangeURLRequestClass(void)_block_invoke"];
+    [v2 handleFailureInFunction:v3 file:@"VCVoiceShortcutClient.m" lineNumber:41 description:{@"Unable to find class %s", "WFInterchangeURLRequest"}];
+
+    __break(1u);
+  }
+}
+
+void sub_1B1F15730(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void __getWFSharedShortcutClass_block_invoke(uint64_t a1)
+{
+  WorkflowKitLibrary();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("WFSharedShortcut");
+  if (*(*(*(a1 + 32) + 8) + 24))
+  {
+    getWFSharedShortcutClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  }
+
+  else
+  {
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getWFSharedShortcutClass(void)_block_invoke"];
+    [v2 handleFailureInFunction:v3 file:@"VCVoiceShortcutClient.m" lineNumber:44 description:{@"Unable to find class %s", "WFSharedShortcut"}];
+
+    __break(1u);
+  }
+}
+
+void __getWFGalleryWorkflowClass_block_invoke(uint64_t a1)
+{
+  WorkflowKitLibrary();
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("WFGalleryWorkflow");
+  if (*(*(*(a1 + 32) + 8) + 24))
+  {
+    getWFGalleryWorkflowClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  }
+
+  else
+  {
+    v2 = [MEMORY[0x1E696AAA8] currentHandler];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getWFGalleryWorkflowClass(void)_block_invoke"];
+    [v2 handleFailureInFunction:v3 file:@"VCVoiceShortcutClient.m" lineNumber:43 description:{@"Unable to find class %s", "WFGalleryWorkflow"}];
+
+    __break(1u);
+  }
+}
+
+void WorkflowKitLibrary()
+{
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
+  if (!WorkflowKitLibraryCore_frameworkLibrary)
+  {
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __WorkflowKitLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E7B02C80;
+    v5 = 0;
+    WorkflowKitLibraryCore_frameworkLibrary = _sl_dlopen();
+  }
+
+  if (!WorkflowKitLibraryCore_frameworkLibrary)
+  {
+    v1 = [MEMORY[0x1E696AAA8] currentHandler];
+    v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *WorkflowKitLibrary(void)"];
+    [v1 handleFailureInFunction:v2 file:@"VCVoiceShortcutClient.m" lineNumber:39 description:{@"%s", v3[0]}];
+
+    __break(1u);
+    goto LABEL_7;
+  }
+
+  v0 = v3[0];
+  if (v3[0])
+  {
+LABEL_7:
+    free(v0);
+  }
+}
+
+uint64_t __WorkflowKitLibraryCore_block_invoke(uint64_t a1)
+{
+  result = _sl_dlopen();
+  WorkflowKitLibraryCore_frameworkLibrary = result;
+  return result;
+}
+
+void VCVoiceShortcutDataDidUpdateNotificationHandler(uint64_t a1, void *a2, void *a3)
+{
+  v13 = *MEMORY[0x1E69E9840];
+  v4 = [a3 isEqualToString:@"com.apple.siri.VoiceShortcuts.DataDidUpdateNotification"];
+  v5 = getWFVoiceShortcutClientLogObject();
+  v6 = v5;
+  if (v4)
+  {
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    {
+      v9 = 136315394;
+      v10 = "VCVoiceShortcutDataDidUpdateNotificationHandler";
+      v11 = 2112;
+      v12 = @"com.apple.siri.VoiceShortcuts.DataDidUpdateNotification";
+      _os_log_impl(&dword_1B1DE3000, v6, OS_LOG_TYPE_DEBUG, "%s Received notification: (%@)", &v9, 0x16u);
+    }
+
+    v7 = MEMORY[0x1E696AD88];
+    v8 = a2;
+    v6 = [v7 defaultCenter];
+    [v6 postNotificationName:@"VCVoiceShortcutClientDataDidUpdateNotification" object:v8];
+  }
+
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  {
+    v9 = 136315394;
+    v10 = "VCVoiceShortcutDataDidUpdateNotificationHandler";
+    v11 = 2112;
+    v12 = @"com.apple.siri.VoiceShortcuts.DataDidUpdateNotification";
+    _os_log_impl(&dword_1B1DE3000, v6, OS_LOG_TYPE_ERROR, "%s Cannot handle unrecognized notification: (%@)", &v9, 0x16u);
+  }
+}
+
+void sub_1B1F17F1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 80), 8);
+  _Unwind_Resume(a1);
+}
+
+__CFString *WFDescribeFinderImageResizeSize(unint64_t a1)
+{
+  if (a1 > 2)
+  {
+    return @"Small";
+  }
+
+  else
+  {
+    return off_1E7B02CC0[a1];
+  }
+}
+
+id WFLocalizedDescribeFinderImageResizeSize(unint64_t a1)
+{
+  if (a1 <= 3)
+  {
+    a1 = WFLocalizedString(off_1E7B02CD8[a1]);
+  }
+
+  return a1;
+}
+
+uint64_t WFFinderImageResizeSizeFromDescription(void *a1)
+{
+  v1 = a1;
+  if ([v1 isEqualToString:@"Small"])
+  {
+    v2 = 3;
+  }
+
+  else if ([v1 isEqualToString:@"Medium"])
+  {
+    v2 = 2;
+  }
+
+  else if ([v1 isEqualToString:@"Large"])
+  {
+    v2 = 1;
+  }
+
+  else
+  {
+    [v1 isEqualToString:@"Original"];
+    v2 = 0;
+  }
+
+  return v2;
+}
+
+__CFString *WFDescribeFinderImageResizeFormat(uint64_t a1)
+{
+  v1 = @"JPEG";
+  if (a1 == 1)
+  {
+    v1 = @"PNG";
+  }
+
+  if (a1 == 2)
+  {
+    return @"HEIF";
+  }
+
+  else
+  {
+    return v1;
+  }
+}
+
+uint64_t WFFinderImageResizeFormatFromDescription(void *a1)
+{
+  v1 = a1;
+  if ([v1 isEqualToString:@"JPEG"])
+  {
+    v2 = 0;
+  }
+
+  else if ([v1 isEqualToString:@"PNG"])
+  {
+    v2 = 1;
+  }
+
+  else if ([v1 isEqualToString:@"HEIF"])
+  {
+    v2 = 2;
+  }
+
+  else
+  {
+    v2 = 0;
+  }
+
+  return v2;
+}
+
+CGRect CGRectApplyAffineTransform(CGRect rect, CGAffineTransform *t)
+{
+  MEMORY[0x1EEDBAD98](t, rect.origin, *&rect.origin.y, rect.size, *&rect.size.height);
+  result.size.height = v5;
+  result.size.width = v4;
+  result.origin.y = v3;
+  result.origin.x = v2;
+  return result;
+}
+
+CGRect CGRectInset(CGRect rect, CGFloat dx, CGFloat dy)
+{
+  MEMORY[0x1EEDBAE30](rect.origin, *&rect.origin.y, rect.size, *&rect.size.height, dx, dy);
+  result.size.height = v6;
+  result.size.width = v5;
+  result.origin.y = v4;
+  result.origin.x = v3;
+  return result;
+}
+
+void operator delete(void *__p)
+{
+    ;
+  }
+}
+
+void operator delete()
+{
+    ;
+  }
+}
+
+void operator new()
+{
+    ;
+  }
 }

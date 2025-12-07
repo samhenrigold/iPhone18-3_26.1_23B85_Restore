@@ -122,17 +122,18 @@
 
 - (id)outputImage
 {
-  if ([(CIColorPolynomialInverse *)self _isInvertible])
+  _isInvertible = [(CIColorPolynomialInverse *)self _isInvertible];
+  if (_isInvertible)
   {
-    v5.receiver = self;
-    v5.super_class = CIColorPolynomialInverse;
-    return [(CIColorPolynomial *)&v5 outputImage];
+    v7.receiver = self;
+    v7.super_class = CIColorPolynomialInverse;
+    return [(CIColorPolynomial *)&v7 outputImage];
   }
 
   else
   {
-    v4 = ci_logger_filter();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = ci_logger_filter(_isInvertible, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(CIColorPolynomialInverse *)self outputImage];
     }

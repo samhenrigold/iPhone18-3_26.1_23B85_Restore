@@ -261,7 +261,7 @@ void __44__ISPlayerItem__updatePlayerContentIfNeeded__block_invoke(uint64_t a1, 
     v39 = 0;
     if (v4)
     {
-      [v4 photoCMTime];
+      objc_msgSend_photoCMTime(v4);
     }
 
     v6 = [v5 photo];
@@ -457,7 +457,7 @@ __n128 __50__ISPlayerItem__setVideoPlayerItem_videoDuration___block_invoke_2(uin
   v2 = *(*(a1 + 32) + 216);
   if (v2)
   {
-    [v2 duration];
+    objc_msgSend_duration(v2);
     v2 = *(*(a1 + 32) + 216);
   }
 
@@ -500,14 +500,14 @@ __n128 __50__ISPlayerItem__setVideoPlayerItem_videoDuration___block_invoke_2(uin
 
 void __91__ISPlayerItem__handleVideoPlayerItemLoadResultWithSuccess_playerItem_videoDuration_error___block_invoke(uint64_t a1, void *a2)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   if (*(a1 + 72) == 1)
   {
     v3 = *(a1 + 32);
-    v10 = *(a1 + 48);
-    v11 = *(a1 + 64);
+    v9 = *(a1 + 48);
+    v10 = *(a1 + 64);
     v4 = a2;
-    [v4 _setVideoPlayerItem:v3 videoDuration:&v10];
+    [v4 _setVideoPlayerItem:v3 videoDuration:&v9];
   }
 
   else
@@ -518,9 +518,9 @@ void __91__ISPlayerItem__handleVideoPlayerItemLoadResultWithSuccess_playerItem_v
     v7 = *(a1 + 40);
     if (v7)
     {
-      v12 = *MEMORY[0x277CCA7E8];
-      v13[0] = v7;
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+      v11 = *MEMORY[0x277CCA7E8];
+      v12[0] = v7;
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
       v4 = [v6 errorWithDomain:@"com.apple.photosplayer" code:102 userInfo:v8];
     }
 
@@ -531,8 +531,6 @@ void __91__ISPlayerItem__handleVideoPlayerItemLoadResultWithSuccess_playerItem_v
 
     [v5 _setError:v4];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateVideoPlayerItemIfNeeded
@@ -563,7 +561,7 @@ void __46__ISPlayerItem__updateVideoPlayerItemIfNeeded__block_invoke_2(uint64_t 
   v16 = 0;
   if (v4)
   {
-    [v4 photoCMTime];
+    objc_msgSend_photoCMTime(v4);
   }
 
   if (v5 && [*(a1 + 32) loadingTarget] >= 1 && objc_msgSend(v3, "status") != 1)
@@ -727,7 +725,7 @@ uint64_t __43__ISPlayerItem_setContentSupportsVitality___block_invoke_2(uint64_t
 
 void __54__ISPlayerItem__updateContentSupportsVitalityIfNeeded__block_invoke_2(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 asset];
   [v4 videoAsset];
@@ -744,9 +742,9 @@ void __54__ISPlayerItem__updateContentSupportsVitalityIfNeeded__block_invoke_2(u
         if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
           v9 = *(a1 + 32);
-          v23 = 138412290;
-          v24 = v9;
-          _os_log_impl(&dword_25E667000, v8, OS_LOG_TYPE_INFO, "Disabling vitality for Live Photo because of PFMetadataIdentifier.quickTimeMetadataLivePhotoVitalityDisabled: %@", &v23, 0xCu);
+          v22 = 138412290;
+          v23 = v9;
+          _os_log_impl(&dword_25E667000, v8, OS_LOG_TYPE_INFO, "Disabling vitality for Live Photo because of PFMetadataIdentifier.quickTimeMetadataLivePhotoVitalityDisabled: %@", &v22, 0xCu);
         }
 
         v10 = 0;
@@ -759,9 +757,9 @@ void __54__ISPlayerItem__updateContentSupportsVitalityIfNeeded__block_invoke_2(u
       v11 = ISGetLog();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v23 = 138412290;
-        v24 = v5;
-        _os_log_error_impl(&dword_25E667000, v11, OS_LOG_TYPE_ERROR, "Unable to read vitality disabled flag from asset: %@.", &v23, 0xCu);
+        v22 = 138412290;
+        v23 = v5;
+        _os_log_error_impl(&dword_25E667000, v11, OS_LOG_TYPE_ERROR, "Unable to read vitality disabled flag from asset: %@.", &v22, 0xCu);
       }
     }
 
@@ -793,13 +791,13 @@ LABEL_24:
           {
             [v17 floatValue];
             v20 = *(a1 + 32);
-            v23 = 134218498;
-            v24 = v21;
-            v25 = 2048;
-            v26 = v14;
-            v27 = 2112;
-            v28 = v20;
-            _os_log_impl(&dword_25E667000, v19, OS_LOG_TYPE_INFO, "Disabling vitality for Live Photo because of PFMetadataIdentifier.quickTimeMetadataVitalityTransitionScore %f < %f: %@", &v23, 0x20u);
+            v22 = 134218498;
+            v23 = v21;
+            v24 = 2048;
+            v25 = v14;
+            v26 = 2112;
+            v27 = v20;
+            _os_log_impl(&dword_25E667000, v19, OS_LOG_TYPE_INFO, "Disabling vitality for Live Photo because of PFMetadataIdentifier.quickTimeMetadataVitalityTransitionScore %f < %f: %@", &v22, 0x20u);
           }
 
           v10 = 0;
@@ -813,9 +811,9 @@ LABEL_24:
       v17 = ISGetLog();
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v23 = 138412290;
-        v24 = v5;
-        _os_log_error_impl(&dword_25E667000, v17, OS_LOG_TYPE_ERROR, "Unable to read vitality transition score from asset: %@.", &v23, 0xCu);
+        v22 = 138412290;
+        v23 = v5;
+        _os_log_error_impl(&dword_25E667000, v17, OS_LOG_TYPE_ERROR, "Unable to read vitality transition score from asset: %@.", &v22, 0xCu);
       }
     }
 
@@ -829,8 +827,6 @@ LABEL_23:
   v10 = 1;
 LABEL_25:
   [v3 setContentSupportsVitality:v10];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_invalidateContentSupportsVitality
@@ -965,7 +961,7 @@ void __40__ISPlayerItem__setVariationIdentifier___block_invoke_2(uint64_t a1)
 
 void __54__ISPlayerItem__updatePlaybackStyleIdentifierIfNeeded__block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [v2 asset];
   v4 = [v3 videoAsset];
@@ -982,9 +978,9 @@ LABEL_6:
     v6 = ISGetLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138412290;
-      v10 = v4;
-      _os_log_error_impl(&dword_25E667000, v6, OS_LOG_TYPE_ERROR, "Unable to read playback style identifier from asset: %@.", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v4;
+      _os_log_error_impl(&dword_25E667000, v6, OS_LOG_TYPE_ERROR, "Unable to read playback style identifier from asset: %@.", &v8, 0xCu);
     }
 
     goto LABEL_6;
@@ -993,8 +989,6 @@ LABEL_6:
 LABEL_7:
   v7 = [v5 playbackVariation];
   [v2 _setVariationIdentifier:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isPlaybackStyleIdentifierValid
@@ -1059,35 +1053,33 @@ uint64_t __50__ISPlayerItem__invalidatePlaybackStyleIdentifier__block_invoke(uin
 
 - (void)_setMinimumClientVersion:(id)version
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   versionCopy = version;
   _minimumClientVersion = [(ISPlayerItem *)self _minimumClientVersion];
   v6 = [versionCopy isEqualToString:_minimumClientVersion];
 
   if ((v6 & 1) == 0)
   {
-    v13 = MEMORY[0x277D85DD0];
-    v14 = 3221225472;
-    v15 = __41__ISPlayerItem__setMinimumClientVersion___block_invoke;
-    v16 = &unk_279A2A348;
+    v12 = MEMORY[0x277D85DD0];
+    v13 = 3221225472;
+    v14 = __41__ISPlayerItem__setMinimumClientVersion___block_invoke;
+    v15 = &unk_279A2A348;
     selfCopy = self;
     v7 = versionCopy;
-    v18 = v7;
-    [(ISPlayerItem *)self _performIvarWrite:&v13];
+    v17 = v7;
+    [(ISPlayerItem *)self _performIvarWrite:&v12];
     if ([v7 integerValue] >= 1)
     {
       v8 = MEMORY[0x277CCA9B8];
-      v19 = *MEMORY[0x277CCA450];
-      selfCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"The current client version of PhotosPlayer is %d, but the media in %@ requires version >= %@", 0, self->_asset, v7, v13, v14, v15, v16, selfCopy];
-      v20[0] = selfCopy;
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+      v18 = *MEMORY[0x277CCA450];
+      selfCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"The current client version of PhotosPlayer is %d, but the media in %@ requires version >= %@", 0, self->_asset, v7, v12, v13, v14, v15, selfCopy];
+      v19[0] = selfCopy;
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
       v11 = [v8 errorWithDomain:@"com.apple.photosplayer" code:104 userInfo:v10];
 
       [(ISPlayerItem *)self _setError:v11];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __41__ISPlayerItem__setMinimumClientVersion___block_invoke(uint64_t a1)
@@ -1116,7 +1108,7 @@ uint64_t __41__ISPlayerItem__setMinimumClientVersion___block_invoke(uint64_t a1)
 
 void __51__ISPlayerItem__updateMinimumClientVersionIfNeeded__block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [v2 asset];
   v4 = [v3 videoAsset];
@@ -1133,9 +1125,9 @@ LABEL_6:
     v6 = ISGetLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v10 = 138412290;
-      v11 = v4;
-      _os_log_debug_impl(&dword_25E667000, v6, OS_LOG_TYPE_DEBUG, "Unable to read minimum client version from source video: %@.", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v4;
+      _os_log_debug_impl(&dword_25E667000, v6, OS_LOG_TYPE_DEBUG, "Unable to read minimum client version from source video: %@.", &v9, 0xCu);
     }
 
     goto LABEL_6;
@@ -1145,8 +1137,6 @@ LABEL_7:
   v7 = [v5 livePhotoMinimumClientVersion];
   v8 = [v7 stringValue];
   [v2 _setMinimumClientVersion:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isMinimumClientVersionValid
@@ -1425,29 +1415,28 @@ void __34__ISPlayerItem__setPlayerContent___block_invoke(uint64_t a1)
 
 void __26__ISPlayerItem__setError___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v7 = MEMORY[0x277D85DD0];
-  v8 = 3221225472;
-  v9 = __26__ISPlayerItem__setError___block_invoke_2;
-  v10 = &unk_279A2A348;
-  v11 = v2;
-  v12 = *(a1 + 40);
-  [v2 _performIvarWrite:&v7];
+  v6 = MEMORY[0x277D85DD0];
+  v7 = 3221225472;
+  v8 = __26__ISPlayerItem__setError___block_invoke_2;
+  v9 = &unk_279A2A348;
+  v10 = v2;
+  v11 = *(a1 + 40);
+  [v2 _performIvarWrite:&v6];
   v3 = ISGetLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = *(a1 + 40);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
     *buf = 138412546;
-    v14 = v5;
-    v15 = 2112;
-    v16 = v6;
+    v13 = v4;
+    v14 = 2112;
+    v15 = v5;
     _os_log_error_impl(&dword_25E667000, v3, OS_LOG_TYPE_ERROR, "%@ did receive error: %@", buf, 0x16u);
   }
 
   [*(a1 + 32) _invalidateStatus];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)decodesAllFramesDuringOrdinaryPlayback
@@ -1665,18 +1654,18 @@ void __48__ISPlayerItem_discardContentBelowLoadingTarget__block_invoke(uint64_t 
   [v4 performChanges:v5];
 }
 
-uint64_t __48__ISPlayerItem_discardContentBelowLoadingTarget__block_invoke_2(uint64_t result)
+void *__48__ISPlayerItem_discardContentBelowLoadingTarget__block_invoke_2(void *result)
 {
-  if (*(result + 40) <= 0)
+  if (result[5] <= 0)
   {
     v7 = v1;
     v8 = v2;
     v3 = result;
-    v4 = *(result + 32);
+    v4 = result[4];
     v5 = *MEMORY[0x277CC0898];
     v6 = *(MEMORY[0x277CC0898] + 16);
     [v4 _setVideoPlayerItem:0 videoDuration:&v5];
-    return [*(v3 + 32) _invalidateVideoPlayerItem];
+    return [v3[4] _invalidateVideoPlayerItem];
   }
 
   return result;
@@ -1796,7 +1785,7 @@ uint64_t __36__ISPlayerItem_setVideoComposition___block_invoke_2(uint64_t a1)
   }
 }
 
-uint64_t __33__ISPlayerItem_setLoadingTarget___block_invoke(uint64_t a1)
+void *__33__ISPlayerItem_setLoadingTarget___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v5[0] = MEMORY[0x277D85DD0];
@@ -1898,7 +1887,7 @@ id __31__ISPlayerItem_performChanges___block_invoke(uint64_t a1)
     photoEXIFOrientation = [assetCopy photoEXIFOrientation];
     if (assetCopy)
     {
-      [assetCopy photoCMTime];
+      objc_msgSend_photoCMTime(assetCopy);
     }
 
     else

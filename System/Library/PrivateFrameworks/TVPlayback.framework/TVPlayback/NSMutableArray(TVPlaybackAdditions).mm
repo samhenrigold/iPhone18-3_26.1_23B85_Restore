@@ -1,11 +1,11 @@
 @interface NSMutableArray(TVPlaybackAdditions)
-- (unint64_t)tvp_shuffle;
+- (char)tvp_shuffle;
 - (void)tvp_addObjectIfNotNil:()TVPlaybackAdditions;
 @end
 
 @implementation NSMutableArray(TVPlaybackAdditions)
 
-- (unint64_t)tvp_shuffle
+- (char)tvp_shuffle
 {
   result = [self count];
   if (result >= 2)
@@ -27,10 +27,10 @@
 {
   if (a3)
   {
-    return [self addObject:?];
+    return [result addObject:?];
   }
 
-  return self;
+  return result;
 }
 
 @end

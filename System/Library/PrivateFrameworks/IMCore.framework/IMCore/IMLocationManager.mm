@@ -23,9 +23,9 @@
 
 - (IMLocationManager)init
 {
-  v15.receiver = self;
-  v15.super_class = IMLocationManager;
-  v2 = [(IMLocationManager *)&v15 init];
+  v9.receiver = self;
+  v9.super_class = IMLocationManager;
+  v2 = [(IMLocationManager *)&v9 init];
   if (v2)
   {
     if (qword_1EB2EA460 != -1)
@@ -33,17 +33,16 @@
       sub_1A84E2BC0();
     }
 
-    v3 = objc_opt_class();
-    v6 = objc_alloc_init(objc_msgSend___CLLocationManagerClass(v3, v4, v5));
-    objc_msgSend_setDelegate_(v6, v7, v2);
-    objc_msgSend_setDesiredAccuracy_(v6, v8, v9, *&qword_1EB2EA458);
+    v3 = objc_alloc_init([objc_opt_class() __CLLocationManagerClass]);
+    [(CLLocationManager *)v3 setDelegate:v2];
+    [(CLLocationManager *)v3 setDesiredAccuracy:*&qword_1EB2EA458];
     locationManager = v2->_locationManager;
-    v2->_locationManager = v6;
-    v11 = v6;
+    v2->_locationManager = v3;
+    v5 = v3;
 
-    v12 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
     handlers = v2->_handlers;
-    v2->_handlers = v12;
+    v2->_handlers = v6;
   }
 
   return v2;
@@ -63,122 +62,121 @@
 
 - (void)startUpdatingCurrentLocationWithForegroundAssertionForBundleIdentifier:(id)identifier withAuthorizedHandler:(id)handler updateHandler:(id)updateHandler
 {
-  v109 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   handlerCopy = handler;
   updateHandlerCopy = updateHandler;
-  v13 = updateHandlerCopy;
+  v11 = updateHandlerCopy;
   if (!handlerCopy || !updateHandlerCopy)
   {
     goto LABEL_40;
   }
 
-  if (objc_msgSend_length(identifierCopy, v11, v12))
+  if ([(__CFString *)identifierCopy length])
   {
     if (IMOSLoggingEnabled())
     {
-      v16 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      v12 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v108 = identifierCopy;
-        _os_log_impl(&dword_1A823F000, v16, OS_LOG_TYPE_INFO, "IMLocationManager taking CLInUseAssertion for %@", buf, 0xCu);
+        v54 = identifierCopy;
+        _os_log_impl(&dword_1A823F000, v12, OS_LOG_TYPE_INFO, "IMLocationManager taking CLInUseAssertion for %@", buf, 0xCu);
       }
     }
 
-    v17 = objc_opt_class();
-    v20 = objc_msgSend___CLInUseAssertionClass(v17, v18, v19);
-    v22 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v21, @"Treating %@ as a foreground process for location sending.", identifierCopy);
-    v24 = objc_msgSend_newAssertionForBundleIdentifier_withReason_level_(v20, v23, identifierCopy, v22, 1);
+    __CLInUseAssertionClass = [objc_opt_class() __CLInUseAssertionClass];
+    identifierCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"Treating %@ as a foreground process for location sending.", identifierCopy];
+    v15 = [__CLInUseAssertionClass newAssertionForBundleIdentifier:identifierCopy withReason:identifierCopy level:1];
 
-    objc_msgSend_setInUseAssertion_(self, v25, v24);
+    [(IMLocationManager *)self setInUseAssertion:v15];
   }
 
-  v26 = objc_msgSend_authorizationStatus(self, v14, v15);
-  if (v26)
+  authorizationStatus = [(IMLocationManager *)self authorizationStatus];
+  if (authorizationStatus)
   {
-    v27 = (v26 - 3) < 2;
-    v28 = IMOSLoggingEnabled();
-    if (v27)
+    v17 = (authorizationStatus - 3) < 2;
+    v18 = IMOSLoggingEnabled();
+    if (v17)
     {
-      if (v28)
+      if (v18)
       {
-        v31 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+        v19 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
         {
-          v34 = objc_msgSend_locationManager(self, v32, v33);
-          v37 = objc_msgSend__limitsPrecision(v34, v35, v36);
-          v38 = @"NO";
-          if (v37)
+          locationManager = [(IMLocationManager *)self locationManager];
+          _limitsPrecision = [locationManager _limitsPrecision];
+          v22 = @"NO";
+          if (_limitsPrecision)
           {
-            v38 = @"YES";
+            v22 = @"YES";
           }
 
           *buf = 138412290;
-          v108 = v38;
-          _os_log_impl(&dword_1A823F000, v31, OS_LOG_TYPE_INFO, "Starting with _limitsPrecision %@", buf, 0xCu);
+          v54 = v22;
+          _os_log_impl(&dword_1A823F000, v19, OS_LOG_TYPE_INFO, "Starting with _limitsPrecision %@", buf, 0xCu);
         }
       }
 
-      v39 = objc_msgSend_locationUpdateTimer(self, v29, v30);
-      v40 = v39 == 0;
+      locationUpdateTimer = [(IMLocationManager *)self locationUpdateTimer];
+      v24 = locationUpdateTimer == 0;
 
-      if (!v40)
+      if (!v24)
       {
-        v43 = objc_msgSend_locationUpdateTimer(self, v41, v42);
-        objc_msgSend_invalidate(v43, v44, v45);
+        locationUpdateTimer2 = [(IMLocationManager *)self locationUpdateTimer];
+        [locationUpdateTimer2 invalidate];
 
-        objc_msgSend_setLocationUpdateTimer_(self, v46, 0);
+        [(IMLocationManager *)self setLocationUpdateTimer:0];
       }
 
-      if (!objc_msgSend_firstAuthorizationCallbackArrived(self, v41, v42))
+      if (![(IMLocationManager *)self firstAuthorizationCallbackArrived])
       {
-        v62 = objc_msgSend_copy(handlerCopy, v47, v48);
+        v31 = [handlerCopy copy];
 
-        v61 = objc_msgSend_copy(v13, v89, v90);
-        v93 = objc_msgSend_handlers(self, v91, v92);
-        v94 = _Block_copy(v62);
-        v105[0] = v94;
-        v95 = _Block_copy(v61);
-        v105[1] = v95;
-        v97 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v96, v105, 2);
-        objc_msgSend_addObject_(v93, v98, v97);
+        v30 = [v11 copy];
+        handlers = [(IMLocationManager *)self handlers];
+        v44 = _Block_copy(v31);
+        v51[0] = v44;
+        v45 = _Block_copy(v30);
+        v51[1] = v45;
+        v46 = [MEMORY[0x1E695DEC8] arrayWithObjects:v51 count:2];
+        [handlers addObject:v46];
 
         goto LABEL_41;
       }
 
-      v49 = objc_msgSend_locationManager(self, v47, v48);
-      if (objc_msgSend__limitsPrecision(v49, v50, v51))
+      locationManager2 = [(IMLocationManager *)self locationManager];
+      if ([locationManager2 _limitsPrecision])
       {
-        v54 = objc_msgSend_inRequestPreciseLocation(self, v52, v53);
+        inRequestPreciseLocation = [(IMLocationManager *)self inRequestPreciseLocation];
 
-        if ((v54 & 1) == 0)
+        if (!inRequestPreciseLocation)
         {
           if (IMOSLoggingEnabled())
           {
-            v57 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
+            v28 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              _os_log_impl(&dword_1A823F000, v57, OS_LOG_TYPE_INFO, "Requesting temporary full precision.", buf, 2u);
+              _os_log_impl(&dword_1A823F000, v28, OS_LOG_TYPE_INFO, "Requesting temporary full precision.", buf, 2u);
             }
           }
 
-          objc_msgSend_setInRequestPreciseLocation_(self, v56, 1);
+          [(IMLocationManager *)self setInRequestPreciseLocation:1];
           objc_initWeak(buf, self);
-          v60 = objc_msgSend_locationManager(self, v58, v59);
-          v101[0] = MEMORY[0x1E69E9820];
-          v101[1] = 3221225472;
-          v101[2] = sub_1A83AAA34;
-          v101[3] = &unk_1E7814220;
-          objc_copyWeak(&v104, buf);
-          v61 = v13;
-          v102 = v61;
-          v62 = handlerCopy;
-          v103 = v62;
-          objc_msgSend_requestTemporaryFullAccuracyAuthorizationWithPurposeKey_completion_(v60, v63, @"SendLocationDescription", v101);
+          locationManager3 = [(IMLocationManager *)self locationManager];
+          v47[0] = MEMORY[0x1E69E9820];
+          v47[1] = 3221225472;
+          v47[2] = sub_1A83AAA34;
+          v47[3] = &unk_1E7814220;
+          objc_copyWeak(&v50, buf);
+          v30 = v11;
+          v48 = v30;
+          v31 = handlerCopy;
+          v49 = v31;
+          [locationManager3 requestTemporaryFullAccuracyAuthorizationWithPurposeKey:@"SendLocationDescription" completion:v47];
 
-          objc_destroyWeak(&v104);
+          objc_destroyWeak(&v50);
           objc_destroyWeak(buf);
           goto LABEL_41;
         }
@@ -188,273 +186,266 @@
       {
       }
 
-      objc_msgSend_setInRequestPreciseLocation_(self, v55, 0);
-      objc_msgSend__startLocationUpdateTimerWithAuthorizedHandler_updateHandler_(self, v99, handlerCopy, v13);
+      [(IMLocationManager *)self setInRequestPreciseLocation:0];
+      [(IMLocationManager *)self _startLocationUpdateTimerWithAuthorizedHandler:handlerCopy updateHandler:v11];
     }
 
     else
     {
-      if (v28)
+      if (v18)
       {
-        v82 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v82, OS_LOG_TYPE_INFO))
+        v38 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_1A823F000, v82, OS_LOG_TYPE_INFO, "IMLocationManager denied when in use location authorization", buf, 2u);
+          _os_log_impl(&dword_1A823F000, v38, OS_LOG_TYPE_INFO, "IMLocationManager denied when in use location authorization", buf, 2u);
         }
       }
 
-      v83 = objc_alloc(MEMORY[0x1E695DF20]);
-      v85 = objc_msgSend_initWithObjectsAndKeys_(v83, v84, @"IMLocationManager does not have location access", *MEMORY[0x1E696A578], 0);
-      v86 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v88 = objc_msgSend_initWithDomain_code_userInfo_(v86, v87, *MEMORY[0x1E69A5F40], 42, v85);
-      (v13)[2](v13, 0, v88);
+      v39 = objc_alloc(MEMORY[0x1E695DF20]);
+      v40 = [v39 initWithObjectsAndKeys:{@"IMLocationManager does not have location access", *MEMORY[0x1E696A578], 0}];
+      v41 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v42 = [v41 initWithDomain:*MEMORY[0x1E69A5F40] code:42 userInfo:v40];
+      (v11)[2](v11, 0, v42);
     }
 
 LABEL_40:
-    v61 = v13;
-    v62 = handlerCopy;
+    v30 = v11;
+    v31 = handlerCopy;
     goto LABEL_41;
   }
 
   if (IMOSLoggingEnabled())
   {
-    v66 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v66, OS_LOG_TYPE_INFO))
+    v32 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A823F000, v66, OS_LOG_TYPE_INFO, "IMLocationManager location authorization not determined, requesting when in use authorization", buf, 2u);
+      _os_log_impl(&dword_1A823F000, v32, OS_LOG_TYPE_INFO, "IMLocationManager location authorization not determined, requesting when in use authorization", buf, 2u);
     }
   }
 
-  v67 = objc_msgSend_locationManager(self, v64, v65);
-  objc_msgSend_requestWhenInUseAuthorization(v67, v68, v69);
+  locationManager4 = [(IMLocationManager *)self locationManager];
+  [locationManager4 requestWhenInUseAuthorization];
 
-  v62 = objc_msgSend_copy(handlerCopy, v70, v71);
-  v61 = objc_msgSend_copy(v13, v72, v73);
+  v31 = [handlerCopy copy];
+  v30 = [v11 copy];
 
-  v76 = objc_msgSend_handlers(self, v74, v75);
-  v77 = _Block_copy(v62);
-  v106[0] = v77;
-  v78 = _Block_copy(v61);
-  v106[1] = v78;
-  v80 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v79, v106, 2);
-  objc_msgSend_addObject_(v76, v81, v80);
+  handlers2 = [(IMLocationManager *)self handlers];
+  v35 = _Block_copy(v31);
+  v52[0] = v35;
+  v36 = _Block_copy(v30);
+  v52[1] = v36;
+  v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:v52 count:2];
+  [handlers2 addObject:v37];
 
 LABEL_41:
-  v100 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startLocationUpdateTimerWithAuthorizedHandler:(id)handler updateHandler:(id)updateHandler
 {
-  v45[2] = *MEMORY[0x1E69E9840];
+  v22[2] = *MEMORY[0x1E69E9840];
   v6 = *(handler + 2);
   updateHandlerCopy = updateHandler;
   handlerCopy = handler;
   v6();
-  v11 = objc_msgSend_copy(handlerCopy, v9, v10);
+  v9 = [handlerCopy copy];
 
-  v14 = objc_msgSend_copy(updateHandlerCopy, v12, v13);
-  v17 = objc_msgSend_handlers(self, v15, v16);
-  v18 = _Block_copy(v11);
-  v45[0] = v18;
-  v19 = _Block_copy(v14);
-  v45[1] = v19;
-  v21 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v20, v45, 2);
-  objc_msgSend_addObject_(v17, v22, v21);
+  v10 = [updateHandlerCopy copy];
+  handlers = [(IMLocationManager *)self handlers];
+  v12 = _Block_copy(v9);
+  v22[0] = v12;
+  v13 = _Block_copy(v10);
+  v22[1] = v13;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
+  [handlers addObject:v14];
 
-  v25 = objc_msgSend_locationUpdateTimer(self, v23, v24);
-  LOBYTE(v17) = v25 == 0;
+  locationUpdateTimer = [(IMLocationManager *)self locationUpdateTimer];
+  LOBYTE(handlers) = locationUpdateTimer == 0;
 
-  if ((v17 & 1) == 0)
+  if ((handlers & 1) == 0)
   {
-    v28 = objc_msgSend_locationUpdateTimer(self, v26, v27);
-    objc_msgSend_invalidate(v28, v29, v30);
+    locationUpdateTimer2 = [(IMLocationManager *)self locationUpdateTimer];
+    [locationUpdateTimer2 invalidate];
 
-    objc_msgSend_setLocationUpdateTimer_(self, v31, 0);
+    [(IMLocationManager *)self setLocationUpdateTimer:0];
   }
 
-  v32 = objc_msgSend_date(MEMORY[0x1E695DF00], v26, v27);
-  objc_msgSend_setLocateStartTime_(self, v33, v32);
+  date = [MEMORY[0x1E695DF00] date];
+  [(IMLocationManager *)self setLocateStartTime:date];
 
-  v35 = objc_msgSend_scheduledTimerWithTimeInterval_target_selector_userInfo_repeats_(MEMORY[0x1E695DFF0], v34, self, sel__locationUpdateTimerFired_, 0, 1, 1.0);
-  objc_msgSend_setLocationUpdateTimer_(self, v36, v35);
-  v39 = objc_msgSend_locationManager(self, v37, v38);
-  objc_msgSend_startUpdatingLocation(v39, v40, v41);
+  v18 = [MEMORY[0x1E695DFF0] scheduledTimerWithTimeInterval:self target:sel__locationUpdateTimerFired_ selector:0 userInfo:1 repeats:1.0];
+  [(IMLocationManager *)self setLocationUpdateTimer:v18];
+  locationManager = [(IMLocationManager *)self locationManager];
+  [locationManager startUpdatingLocation];
 
   if (IMOSLoggingEnabled())
   {
-    v42 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+    v20 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
-      *v44 = 0;
-      _os_log_impl(&dword_1A823F000, v42, OS_LOG_TYPE_INFO, "Started location update", v44, 2u);
+      *v21 = 0;
+      _os_log_impl(&dword_1A823F000, v20, OS_LOG_TYPE_INFO, "Started location update", v21, 2u);
     }
   }
-
-  v43 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)preciseLocationAuthorized
 {
-  v3 = objc_msgSend_locationManager(self, a2, v2);
-  v6 = objc_msgSend_accuracyAuthorization(v3, v4, v5) == 0;
+  locationManager = [(IMLocationManager *)self locationManager];
+  v3 = [locationManager accuracyAuthorization] == 0;
 
-  return v6;
+  return v3;
 }
 
 - (CLLocation)currentLocation
 {
-  v3 = objc_msgSend_locationManager(self, a2, v2);
-  v6 = objc_msgSend_location(v3, v4, v5);
+  locationManager = [(IMLocationManager *)self locationManager];
+  location = [locationManager location];
 
-  return v6;
+  return location;
 }
 
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations
 {
   managerCopy = manager;
   locationsCopy = locations;
-  v10 = objc_msgSend_lastObject(locationsCopy, v8, v9);
-  if (v10)
+  lastObject = [locationsCopy lastObject];
+  if (lastObject)
   {
     if (IMOSLoggingEnabled())
     {
-      v12 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v9 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        *v14 = 0;
-        _os_log_impl(&dword_1A823F000, v12, OS_LOG_TYPE_INFO, "Location manager got updated location", v14, 2u);
+        *v10 = 0;
+        _os_log_impl(&dword_1A823F000, v9, OS_LOG_TYPE_INFO, "Location manager got updated location", v10, 2u);
       }
     }
 
-    objc_msgSend_setLocation_(self, v11, v10);
-    objc_msgSend_setError_(self, v13, 0);
+    [(IMLocationManager *)self setLocation:lastObject];
+    [(IMLocationManager *)self setError:0];
   }
 }
 
 - (void)locationManager:(id)manager didFailWithError:(id)error
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   managerCopy = manager;
   errorCopy = error;
-  if (objc_msgSend_code(errorCopy, v8, v9))
+  if ([errorCopy code])
   {
     if (IMOSLoggingEnabled())
     {
-      v11 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v8 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        v13 = 138412290;
-        v14 = errorCopy;
-        _os_log_impl(&dword_1A823F000, v11, OS_LOG_TYPE_INFO, "Location manager failed with error %@", &v13, 0xCu);
+        v9 = 138412290;
+        v10 = errorCopy;
+        _os_log_impl(&dword_1A823F000, v8, OS_LOG_TYPE_INFO, "Location manager failed with error %@", &v9, 0xCu);
       }
     }
 
-    objc_msgSend__errorHappend_(self, v10, errorCopy);
+    [(IMLocationManager *)self _errorHappend:errorCopy];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_errorHappend:(id)happend
 {
   happendCopy = happend;
-  objc_msgSend_setLocation_(self, v5, 0);
-  objc_msgSend_setError_(self, v6, happendCopy);
+  [(IMLocationManager *)self setLocation:0];
+  [(IMLocationManager *)self setError:happendCopy];
 
-  objc_msgSend__fireCompletionHandlers(self, v7, v8);
-  v13 = objc_msgSend_locationManager(self, v9, v10);
-  objc_msgSend_stopUpdatingLocation(v13, v11, v12);
+  [(IMLocationManager *)self _fireCompletionHandlers];
+  locationManager = [(IMLocationManager *)self locationManager];
+  [locationManager stopUpdatingLocation];
 }
 
 - (void)locationManagerDidChangeAuthorization:(id)authorization
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   authorizationCopy = authorization;
-  v7 = objc_msgSend_authorizationStatus(authorizationCopy, v5, v6);
+  authorizationStatus = [authorizationCopy authorizationStatus];
   if (IMOSLoggingEnabled())
   {
-    v9 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v6 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v12 = objc_msgSend__limitsPrecision(authorizationCopy, v10, v11);
-      v13 = @"NO";
-      if (v12)
+      _limitsPrecision = [authorizationCopy _limitsPrecision];
+      v8 = @"NO";
+      if (_limitsPrecision)
       {
-        v13 = @"YES";
+        v8 = @"YES";
       }
 
       *buf = 67109378;
-      v50 = v7;
-      v51 = 2112;
-      v52 = v13;
-      _os_log_impl(&dword_1A823F000, v9, OS_LOG_TYPE_INFO, "authorization status did change %u, received Coarse Location %@", buf, 0x12u);
+      v27 = authorizationStatus;
+      v28 = 2112;
+      v29 = v8;
+      _os_log_impl(&dword_1A823F000, v6, OS_LOG_TYPE_INFO, "authorization status did change %u, received Coarse Location %@", buf, 0x12u);
     }
   }
 
-  objc_msgSend_setFirstAuthorizationCallbackArrived_(self, v8, 1);
-  objc_msgSend_setAuthorizationStatus_(self, v14, v7);
-  v17 = objc_msgSend_handlers(self, v15, v16);
-  v20 = objc_msgSend_count(v17, v18, v19) == 0;
+  [(IMLocationManager *)self setFirstAuthorizationCallbackArrived:1];
+  [(IMLocationManager *)self setAuthorizationStatus:authorizationStatus];
+  handlers = [(IMLocationManager *)self handlers];
+  v10 = [handlers count] == 0;
 
-  if (!v20)
+  if (!v10)
   {
-    if ((v7 - 3) > 1)
+    if ((authorizationStatus - 3) > 1)
     {
-      if ((v7 - 1) <= 1)
+      if ((authorizationStatus - 1) <= 1)
       {
-        objc_msgSend__locationManagerTimedOut(self, v21, v22);
+        [(IMLocationManager *)self _locationManagerTimedOut];
       }
     }
 
     else
     {
-      v23 = objc_msgSend_handlers(self, v21, v22);
-      v26 = objc_msgSend_copy(v23, v24, v25);
+      handlers2 = [(IMLocationManager *)self handlers];
+      v12 = [handlers2 copy];
 
-      v29 = objc_msgSend_handlers(self, v27, v28);
-      objc_msgSend_removeAllObjects(v29, v30, v31);
+      handlers3 = [(IMLocationManager *)self handlers];
+      [handlers3 removeAllObjects];
 
-      v46 = 0u;
-      v47 = 0u;
-      v44 = 0u;
-      v45 = 0u;
-      v32 = v26;
-      v35 = objc_msgSend_countByEnumeratingWithState_objects_count_(v32, v33, &v44, v48, 16);
-      if (v35)
+      v23 = 0u;
+      v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
+      v14 = v12;
+      v15 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      if (v15)
       {
-        v36 = *v45;
+        v16 = *v22;
         do
         {
-          for (i = 0; i != v35; ++i)
+          for (i = 0; i != v15; ++i)
           {
-            if (*v45 != v36)
+            if (*v22 != v16)
             {
-              objc_enumerationMutation(v32);
+              objc_enumerationMutation(v14);
             }
 
-            v38 = *(*(&v44 + 1) + 8 * i);
-            v39 = objc_msgSend_objectAtIndexedSubscript_(v38, v34, 0, v44);
-            v41 = objc_msgSend_objectAtIndexedSubscript_(v38, v40, 1);
-            objc_msgSend_startUpdatingCurrentLocationWithAuthorizedHandler_updateHandler_(self, v42, v39, v41);
+            v18 = *(*(&v21 + 1) + 8 * i);
+            v19 = [v18 objectAtIndexedSubscript:{0, v21}];
+            v20 = [v18 objectAtIndexedSubscript:1];
+            [(IMLocationManager *)self startUpdatingCurrentLocationWithAuthorizedHandler:v19 updateHandler:v20];
           }
 
-          v35 = objc_msgSend_countByEnumeratingWithState_objects_count_(v32, v34, &v44, v48, 16);
+          v15 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
         }
 
-        while (v35);
+        while (v15);
       }
     }
   }
-
-  v43 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_shouldSendLocation:(id)location timeIntervalSinceStart:(double)start
 {
   locationCopy = location;
-  objc_msgSend_horizontalAccuracy(locationCopy, v6, v7);
+  [locationCopy horizontalAccuracy];
   if (start <= 0.0)
   {
     startCopy = 15.0;
@@ -467,77 +458,77 @@ LABEL_41:
 
   if (locationCopy)
   {
-    v12 = v10 < 25.0 || v10 < 200.0 && v10 < startCopy / 15.0 * 175.0 + 25.0;
-    v13 = objc_msgSend_timestamp(locationCopy, v8, v9);
-    objc_msgSend_timeIntervalSinceNow(v13, v14, v15);
-    v17 = v16;
+    v8 = v6 < 25.0 || v6 < 200.0 && v6 < startCopy / 15.0 * 175.0 + 25.0;
+    timestamp = [locationCopy timestamp];
+    [timestamp timeIntervalSinceNow];
+    v11 = v10;
 
-    if (v17 < 0.0)
+    if (v11 < 0.0)
     {
-      v12 &= -v17 - startCopy <= 300.0;
+      v8 &= -v11 - startCopy <= 300.0;
     }
   }
 
   else
   {
-    v12 = 0;
+    v8 = 0;
   }
 
-  return v12;
+  return v8;
 }
 
 - (void)_locationUpdateTimerFired:(id)fired
 {
   firedCopy = fired;
-  v7 = objc_msgSend_locationManager(self, v5, v6);
-  v10 = objc_msgSend_location(self, v8, v9);
-  objc_msgSend_timeIntervalSinceReferenceDate(MEMORY[0x1E695DF00], v11, v12);
-  v14 = v13;
-  v17 = objc_msgSend_locateStartTime(self, v15, v16);
-  objc_msgSend_timeIntervalSinceReferenceDate(v17, v18, v19);
-  v21 = v14 - v20;
+  locationManager = [(IMLocationManager *)self locationManager];
+  location = [(IMLocationManager *)self location];
+  [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
+  v8 = v7;
+  locateStartTime = [(IMLocationManager *)self locateStartTime];
+  [locateStartTime timeIntervalSinceReferenceDate];
+  v11 = v8 - v10;
 
-  if (objc_msgSend__shouldSendLocation_timeIntervalSinceStart_(self, v22, v10, v21))
+  if ([(IMLocationManager *)self _shouldSendLocation:location timeIntervalSinceStart:v11])
   {
     if (IMOSLoggingEnabled())
     {
-      v25 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+      v12 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A823F000, v25, OS_LOG_TYPE_INFO, "Location update timer fired, got location with desired accuracy", buf, 2u);
+        _os_log_impl(&dword_1A823F000, v12, OS_LOG_TYPE_INFO, "Location update timer fired, got location with desired accuracy", buf, 2u);
       }
     }
 
-    objc_msgSend__fireCompletionHandlers(self, v23, v24);
-    objc_msgSend_stopUpdatingLocation(v7, v26, v27);
+    [(IMLocationManager *)self _fireCompletionHandlers];
+    [locationManager stopUpdatingLocation];
   }
 
   else
   {
-    v28 = IMOSLoggingEnabled();
-    if (v21 >= 15.0)
+    v13 = IMOSLoggingEnabled();
+    if (v11 >= 15.0)
     {
-      if (v28)
+      if (v13)
       {
-        v32 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+        v15 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
-          *v34 = 0;
-          _os_log_impl(&dword_1A823F000, v32, OS_LOG_TYPE_INFO, "Location update timer fired, did not get desired accuracy before timeout. Firing completion handlers", v34, 2u);
+          *v17 = 0;
+          _os_log_impl(&dword_1A823F000, v15, OS_LOG_TYPE_INFO, "Location update timer fired, did not get desired accuracy before timeout. Firing completion handlers", v17, 2u);
         }
       }
 
-      objc_msgSend__locationManagerTimedOut(self, v29, v30);
+      [(IMLocationManager *)self _locationManagerTimedOut];
     }
 
-    else if (v28)
+    else if (v13)
     {
-      v31 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+      v14 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        *v33 = 0;
-        _os_log_impl(&dword_1A823F000, v31, OS_LOG_TYPE_INFO, "Location update timer fired, desired accuracy not obtained but we have time left", v33, 2u);
+        *v16 = 0;
+        _os_log_impl(&dword_1A823F000, v14, OS_LOG_TYPE_INFO, "Location update timer fired, desired accuracy not obtained but we have time left", v16, 2u);
       }
     }
   }
@@ -545,119 +536,117 @@ LABEL_41:
 
 - (void)_locationManagerTimedOut
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v4 = objc_msgSend_locationAuthorizationDenied(self, a2, v2);
-  v5 = @"IMLocationManager Timed Out";
-  if (v4)
+  v15 = *MEMORY[0x1E69E9840];
+  locationAuthorizationDenied = [(IMLocationManager *)self locationAuthorizationDenied];
+  v4 = @"IMLocationManager Timed Out";
+  if (locationAuthorizationDenied)
   {
-    v5 = @"IMLocationManager does not have location authorization";
+    v4 = @"IMLocationManager does not have location authorization";
   }
 
-  v6 = v5;
-  if (objc_msgSend_locationAuthorizationDenied(self, v7, v8))
+  v5 = v4;
+  if ([(IMLocationManager *)self locationAuthorizationDenied])
   {
-    v9 = 42;
+    v6 = 42;
   }
 
   else
   {
-    v9 = 41;
+    v6 = 41;
   }
 
-  v10 = objc_alloc(MEMORY[0x1E695DF20]);
-  v12 = objc_msgSend_initWithObjectsAndKeys_(v10, v11, v6, *MEMORY[0x1E696A578], 0);
-  v13 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v15 = objc_msgSend_initWithDomain_code_userInfo_(v13, v14, *MEMORY[0x1E69A5F40], v9, v12);
-  objc_msgSend_setLocation_(self, v16, 0);
-  objc_msgSend_setError_(self, v17, v15);
+  v7 = objc_alloc(MEMORY[0x1E695DF20]);
+  v8 = [v7 initWithObjectsAndKeys:{v5, *MEMORY[0x1E696A578], 0}];
+  v9 = objc_alloc(MEMORY[0x1E696ABC0]);
+  v10 = [v9 initWithDomain:*MEMORY[0x1E69A5F40] code:v6 userInfo:v8];
+  [(IMLocationManager *)self setLocation:0];
+  [(IMLocationManager *)self setError:v10];
   if (IMOSLoggingEnabled())
   {
-    v20 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    v11 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v28 = v6;
-      _os_log_impl(&dword_1A823F000, v20, OS_LOG_TYPE_INFO, "Location manager timed out. Reason: %@", buf, 0xCu);
+      v14 = v5;
+      _os_log_impl(&dword_1A823F000, v11, OS_LOG_TYPE_INFO, "Location manager timed out. Reason: %@", buf, 0xCu);
     }
   }
 
-  objc_msgSend__fireCompletionHandlers(self, v18, v19);
-  v23 = objc_msgSend_locationManager(self, v21, v22);
-  objc_msgSend_stopUpdatingLocation(v23, v24, v25);
-
-  v26 = *MEMORY[0x1E69E9840];
+  [(IMLocationManager *)self _fireCompletionHandlers];
+  locationManager = [(IMLocationManager *)self locationManager];
+  [locationManager stopUpdatingLocation];
 }
 
 - (void)_fireCompletionHandlers
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
-    v5 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v8 = objc_msgSend_location(self, v6, v7);
-      v11 = objc_msgSend_error(self, v9, v10);
-      v12 = v11;
-      v13 = @"YES";
-      if (!v8)
+      location = [(IMLocationManager *)self location];
+      error = [(IMLocationManager *)self error];
+      v6 = error;
+      v7 = @"YES";
+      if (!location)
       {
-        v13 = @"NO";
+        v7 = @"NO";
       }
 
       *buf = 138412546;
-      v51 = v13;
-      v52 = 2112;
-      v53 = v11;
-      _os_log_impl(&dword_1A823F000, v5, OS_LOG_TYPE_INFO, "Location manager firing completion handlers. Has valid location %@ error %@", buf, 0x16u);
+      v23 = v7;
+      v24 = 2112;
+      v25 = error;
+      _os_log_impl(&dword_1A823F000, v3, OS_LOG_TYPE_INFO, "Location manager firing completion handlers. Has valid location %@ error %@", buf, 0x16u);
     }
   }
 
-  v14 = objc_msgSend_inUseAssertion(self, v3, v4);
+  inUseAssertion = [(IMLocationManager *)self inUseAssertion];
 
-  if (v14)
+  if (inUseAssertion)
   {
     if (IMOSLoggingEnabled())
     {
-      v19 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+      v9 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A823F000, v19, OS_LOG_TYPE_INFO, "Invalidating CLInUseAssertion.", buf, 2u);
+        _os_log_impl(&dword_1A823F000, v9, OS_LOG_TYPE_INFO, "Invalidating CLInUseAssertion.", buf, 2u);
       }
     }
 
-    v20 = objc_msgSend_inUseAssertion(self, v17, v18);
-    objc_msgSend_invalidate(v20, v21, v22);
+    inUseAssertion2 = [(IMLocationManager *)self inUseAssertion];
+    [inUseAssertion2 invalidate];
 
-    objc_msgSend_setInUseAssertion_(self, v23, 0);
+    [(IMLocationManager *)self setInUseAssertion:0];
   }
 
-  v24 = objc_msgSend_location(self, v15, v16);
-  if (v24)
+  location2 = [(IMLocationManager *)self location];
+  if (location2)
   {
   }
 
   else
   {
-    v29 = objc_msgSend_error(self, v25, v26);
-    v30 = v29 == 0;
+    error2 = [(IMLocationManager *)self error];
+    v13 = error2 == 0;
 
-    if (v30)
+    if (v13)
     {
-      goto LABEL_22;
+      return;
     }
   }
 
-  v31 = objc_msgSend_locationUpdateTimer(self, v27, v28);
-  v32 = v31 == 0;
+  locationUpdateTimer = [(IMLocationManager *)self locationUpdateTimer];
+  v15 = locationUpdateTimer == 0;
 
-  if (!v32)
+  if (!v15)
   {
-    v35 = objc_msgSend_locationUpdateTimer(self, v33, v34);
-    objc_msgSend_invalidate(v35, v36, v37);
+    locationUpdateTimer2 = [(IMLocationManager *)self locationUpdateTimer];
+    [locationUpdateTimer2 invalidate];
 
-    objc_msgSend_setLocationUpdateTimer_(self, v38, 0);
+    [(IMLocationManager *)self setLocationUpdateTimer:0];
   }
 
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -665,23 +654,20 @@ LABEL_41:
   aBlock[2] = sub_1A83ABD60;
   aBlock[3] = &unk_1E7814248;
   aBlock[4] = self;
-  v39 = _Block_copy(aBlock);
-  v42 = objc_msgSend_location(self, v40, v41);
-  v43 = v42 == 0;
+  v17 = _Block_copy(aBlock);
+  location3 = [(IMLocationManager *)self location];
+  v19 = location3 == 0;
 
-  if (v43)
+  if (v19)
   {
-    v39[2](v39, 0);
+    v17[2](v17, 0);
   }
 
   else
   {
-    v46 = objc_msgSend_location(self, v44, v45);
-    objc_msgSend_shiftedLocationWithLocation_completion_(self, v47, v46, v39);
+    location4 = [(IMLocationManager *)self location];
+    [(IMLocationManager *)self shiftedLocationWithLocation:location4 completion:v17];
   }
-
-LABEL_22:
-  v48 = *MEMORY[0x1E69E9840];
 }
 
 + (id)locationShifter
@@ -700,35 +686,22 @@ LABEL_22:
 {
   locationCopy = location;
   completionCopy = completion;
-  v8 = objc_opt_class();
-  v11 = objc_msgSend_locationShifter(v8, v9, v10);
-  if (!v11)
+  locationShifter = [objc_opt_class() locationShifter];
+  if (locationShifter && (v9 = locationShifter, [objc_opt_class() locationShifter], v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(objc_opt_class(), "isLocationShiftRequiredForLocation:", locationCopy), v10, v9, v11))
   {
-    goto LABEL_4;
-  }
-
-  v12 = v11;
-  v13 = objc_opt_class();
-  v16 = objc_msgSend_locationShifter(v13, v14, v15);
-  v17 = objc_opt_class();
-  isLocationShiftRequiredForLocation = objc_msgSend_isLocationShiftRequiredForLocation_(v17, v18, locationCopy);
-
-  if (isLocationShiftRequiredForLocation)
-  {
-    v20 = dispatch_get_global_queue(0, 0);
+    v12 = dispatch_get_global_queue(0, 0);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = sub_1A83AC0B0;
     block[3] = &unk_1E7810190;
     block[4] = self;
-    v22 = locationCopy;
-    v23 = completionCopy;
-    dispatch_async(v20, block);
+    v14 = locationCopy;
+    v15 = completionCopy;
+    dispatch_async(v12, block);
   }
 
   else
   {
-LABEL_4:
     (*(completionCopy + 2))(completionCopy, locationCopy);
   }
 }

@@ -74,16 +74,7 @@
   animationSettings = [(TRASettingsActuationContext *)contextCopy animationSettings];
   LODWORD(animationSettings) = [(BSAnimationSettings *)animationSettings isEqual:animationSettings];
 
-  if (!animationSettings)
-  {
-    goto LABEL_8;
-  }
-
-  drawingFence = self->_drawingFence;
-  drawingFence = [(TRASettingsActuationContext *)contextCopy drawingFence];
-  LODWORD(drawingFence) = [drawingFence isEqual:drawingFence];
-
-  if (drawingFence)
+  if (animationSettings && (drawingFence = self->_drawingFence, -[TRASettingsActuationContext drawingFence](contextCopy, "drawingFence"), v8 = objc_claimAutoreleasedReturnValue(), LODWORD(drawingFence) = [drawingFence isEqual:v8], v8, drawingFence))
   {
     preventTouchCancellation = self->_preventTouchCancellation;
     v10 = preventTouchCancellation == [(TRASettingsActuationContext *)contextCopy preventTouchCancellation];

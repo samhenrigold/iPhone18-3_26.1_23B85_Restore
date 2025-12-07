@@ -1,92 +1,17 @@
-void std::vector<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>>::__append(uint64_t a1, unint64_t a2)
+uint64_t *std::vector<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,std::vector<unsigned long long>,std::vector<unsigned long long>>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  v5 = *(a1 + 8);
-  v4 = *(a1 + 16);
-  if (0xAAAAAAAAAAAAAAABLL * ((v4 - v5) >> 4) >= a2)
-  {
-    if (a2)
-    {
-      v10 = 48 * ((48 * a2 - 48) / 0x30) + 48;
-      bzero(*(a1 + 8), v10);
-      v5 += v10;
-    }
-
-    *(a1 + 8) = v5;
-  }
-
-  else
-  {
-    v6 = 0xAAAAAAAAAAAAAAABLL * ((v5 - *a1) >> 4);
-    v7 = v6 + a2;
-    if (v6 + a2 > 0x555555555555555)
-    {
-      std::vector<std::pair<ShaderDebugger::Metadata::MDBase::MetadataType,unsigned long long>>::__throw_length_error[abi:ne200100]();
-    }
-
-    v8 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *a1) >> 4);
-    if (2 * v8 > v7)
-    {
-      v7 = 2 * v8;
-    }
-
-    if (v8 >= 0x2AAAAAAAAAAAAAALL)
-    {
-      v9 = 0x555555555555555;
-    }
-
-    else
-    {
-      v9 = v7;
-    }
-
-    if (v9)
-    {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>>>(a1, v9);
-    }
-
-    v11 = 48 * v6;
-    v12 = 48 * ((48 * a2 - 48) / 0x30) + 48;
-    bzero(v11, v12);
-    v13 = v11 + v12;
-    v14 = *(a1 + 8) - *a1;
-    v15 = v11 - v14;
-    memcpy((v11 - v14), *a1, v14);
-    v16 = *a1;
-    *a1 = v15;
-    *(a1 + 8) = v13;
-    *(a1 + 16) = 0;
-    if (v16)
-    {
-
-      operator delete(v16);
-    }
-  }
-}
-
-void std::__allocate_at_least[abi:ne200100]<std::allocator<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>>>(uint64_t a1, unint64_t a2)
-{
-  if (a2 < 0x555555555555556)
-  {
-    operator new();
-  }
-
-  std::__throw_bad_array_new_length[abi:ne200100]();
-}
-
-void *std::vector<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,std::vector<unsigned long long>,std::vector<unsigned long long>>>::vector[abi:ne200100](void *result, unint64_t a2)
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,std::vector<unsigned long long>,std::vector<unsigned long long>>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,std::vector<unsigned long long>,std::vector<unsigned long long>>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,std::vector<unsigned long long>,std::vector<unsigned long long>>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,std::vector<unsigned long long>,std::vector<unsigned long long>>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x333333333333334)
   {
@@ -656,19 +581,19 @@ BOOL std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,std::_
   return result;
 }
 
-uint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,std::__less<void,void> &>(uint64_t *a1, uint64_t *a2)
+__int128 *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,std::__less<void,void> &>(__int128 *a1, __int128 *a2)
 {
   v2 = a2;
-  v4 = *(a1 + 1);
+  v4 = a1[1];
   v9 = *a1;
   v10 = v4;
-  v11 = *(a1 + 2);
+  v11 = a1[2];
   if (std::__tuple_less<6ul>::operator()[abi:ne200100]<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>>(&v12, &v9, a2 - 6))
   {
     v5 = a1;
     do
     {
-      v5 += 6;
+      v5 += 3;
     }
 
     while (!std::__tuple_less<6ul>::operator()[abi:ne200100]<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>>(&v12, &v9, v5));
@@ -676,7 +601,7 @@ uint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
 
   else
   {
-    v6 = a1 + 6;
+    v6 = a1 + 3;
     do
     {
       v5 = v6;
@@ -686,7 +611,7 @@ uint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
       }
 
       v7 = std::__tuple_less<6ul>::operator()[abi:ne200100]<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>>(&v12, &v9, v6);
-      v6 = v5 + 6;
+      v6 = v5 + 3;
     }
 
     while (!v7);
@@ -696,7 +621,7 @@ uint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
   {
     do
     {
-      v2 -= 6;
+      v2 -= 3;
     }
 
     while (std::__tuple_less<6ul>::operator()[abi:ne200100]<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>>(&v12, &v9, v2));
@@ -707,26 +632,26 @@ uint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
     std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul,4ul,5ul>,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>::swap[abi:ne200100](v5, v2);
     do
     {
-      v5 += 6;
+      v5 += 3;
     }
 
     while (!std::__tuple_less<6ul>::operator()[abi:ne200100]<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>>(&v12, &v9, v5));
     do
     {
-      v2 -= 6;
+      v2 -= 3;
     }
 
     while (std::__tuple_less<6ul>::operator()[abi:ne200100]<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>>(&v12, &v9, v2));
   }
 
-  if (v5 - 6 != a1)
+  if (v5 - 3 != a1)
   {
     *a1 = *(v5 - 6);
-    a1[1] = *(v5 - 5);
-    a1[2] = *(v5 - 4);
-    a1[3] = *(v5 - 3);
-    a1[4] = *(v5 - 2);
-    a1[5] = *(v5 - 1);
+    *(a1 + 1) = *(v5 - 5);
+    *(a1 + 2) = *(v5 - 4);
+    *(a1 + 3) = *(v5 - 3);
+    *(a1 + 4) = *(v5 - 2);
+    *(a1 + 5) = *(v5 - 1);
   }
 
   *(v5 - 3) = v9;
@@ -735,21 +660,21 @@ uint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
   return v5;
 }
 
-uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,std::__less<void,void> &>(uint64_t *a1, uint64_t *a2)
+uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,std::__less<void,void> &>(__int128 *a1, __int128 *a2)
 {
   v4 = 0;
-  v5 = *(a1 + 1);
+  v5 = a1[1];
   v10 = *a1;
   v11 = v5;
-  v12 = *(a1 + 2);
+  v12 = a1[2];
   do
   {
-    v4 += 6;
+    v4 += 3;
   }
 
   while (std::__tuple_less<6ul>::operator()[abi:ne200100]<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>>(&v13, &a1[v4], &v10));
   v6 = &a1[v4];
-  if (v4 == 6)
+  if (v4 == 3)
   {
     do
     {
@@ -758,7 +683,7 @@ uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
         break;
       }
 
-      a2 -= 6;
+      a2 -= 3;
     }
 
     while (!std::__tuple_less<6ul>::operator()[abi:ne200100]<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>>(&v13, a2, &v10));
@@ -768,7 +693,7 @@ uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
   {
     do
     {
-      a2 -= 6;
+      a2 -= 3;
     }
 
     while (!std::__tuple_less<6ul>::operator()[abi:ne200100]<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>>(&v13, a2, &v10));
@@ -802,11 +727,11 @@ uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
   if (v7 - 6 != a1)
   {
     *a1 = *(v7 - 6);
-    a1[1] = *(v7 - 5);
-    a1[2] = *(v7 - 4);
-    a1[3] = *(v7 - 3);
-    a1[4] = *(v7 - 2);
-    a1[5] = *(v7 - 1);
+    *(a1 + 1) = *(v7 - 5);
+    *(a1 + 2) = *(v7 - 4);
+    *(a1 + 3) = *(v7 - 3);
+    *(a1 + 4) = *(v7 - 2);
+    *(a1 + 5) = *(v7 - 1);
   }
 
   *(v7 - 3) = v10;
@@ -910,7 +835,7 @@ LABEL_6:
         v13 -= 48;
         if (!std::__tuple_less<6ul>::operator()[abi:ne200100]<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>>(&v20, &v18, v14 + 6))
         {
-          v15 = a1 + v13 + 144;
+          v15 = (a1 + v13 + 144);
           goto LABEL_20;
         }
       }
@@ -918,9 +843,9 @@ LABEL_6:
       v15 = a1;
 LABEL_20:
       *v15 = v18;
-      *(v15 + 16) = *v19;
-      *(v15 + 24) = *&v19[8];
-      *(v15 + 40) = *&v19[24];
+      v15[2] = *v19;
+      *(v15 + 3) = *&v19[8];
+      v15[5] = *&v19[24];
       if (++v11 == 8)
       {
         return v9 + 6 == a2;
@@ -1030,7 +955,7 @@ uint64_t *std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul,4ul,5ul>,unsign
   return result;
 }
 
-uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *>(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
+uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *>(char *a1, char *a2, uint64_t *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
@@ -1040,7 +965,7 @@ uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__l
     {
       v10 = (v9 - 2) >> 1;
       v11 = v10 + 1;
-      v12 = &a1[6 * v10];
+      v12 = &a1[48 * v10];
       do
       {
         std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *>(a1, a4, v9, v12);
@@ -1073,15 +998,15 @@ uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__l
     {
       v24 = a4;
       v14 = 0xAAAAAAAAAAAAAAABLL * (v8 >> 4);
-      v15 = a2 - 6;
+      v15 = (a2 - 48);
       do
       {
         v16 = *a1;
-        v17 = a1[1];
-        v19 = a1[2];
-        v18 = a1[3];
-        v20 = a1[4];
-        v25 = a1[5];
+        v17 = *(a1 + 1);
+        v19 = *(a1 + 2);
+        v18 = *(a1 + 3);
+        v20 = *(a1 + 4);
+        v25 = *(a1 + 5);
         v21 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *>(a1, v24, v14);
         if (v15 == v21)
         {
@@ -1269,12 +1194,12 @@ double std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void
   return result;
 }
 
-uint64_t std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,false>(uint64_t result, unint64_t *a2, uint64_t a3, uint64_t a4, char a5)
+uint64_t *std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,false>(uint64_t *result, char *a2, uint64_t a3, uint64_t a4, char a5)
 {
   v8 = result;
   v9 = 0x6DB6DB6DB6DB6DB7;
 LABEL_2:
-  v29 = a2 - 7;
+  v29 = (a2 - 56);
   v10 = v8;
 LABEL_3:
   v11 = 1 - a4;
@@ -1289,11 +1214,11 @@ LABEL_3:
       switch(v14)
       {
         case 3uLL:
-          return std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,0>(v10, (v10 + 56), v29);
+          return std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,0>(v10, v10 + 7, v29);
         case 4uLL:
-          return std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,0>(v10, (v10 + 56), (v10 + 112), v29);
+          return std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,0>(v10, v10 + 7, v10 + 14, v29);
         case 5uLL:
-          return std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,0>(v10, (v10 + 56), (v10 + 112), (v10 + 168), v29);
+          return std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,0>(v10, v10 + 7, v10 + 14, v10 + 21, v29);
       }
     }
 
@@ -1307,7 +1232,7 @@ LABEL_3:
       if (v14 == 2)
       {
         v28 = *(a2 - 7);
-        v27 = (a2 - 7);
+        v27 = (a2 - 56);
         v26 = v28;
         if (v28 < *v10)
         {
@@ -1346,7 +1271,7 @@ LABEL_3:
     }
 
     v15 = v14 >> 1;
-    v16 = (v10 + 56 * (v14 >> 1));
+    v16 = &v10[56 * (v14 >> 1)];
     if (v13 < 0x1C01)
     {
       std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,0>(v16, v10, v29);
@@ -1359,13 +1284,13 @@ LABEL_3:
     else
     {
       std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,0>(v10, v16, v29);
-      v17 = v10 + 56;
+      v17 = (v10 + 56);
       v18 = v9;
-      v19 = 56 * v15;
-      v20 = &v8[7 * v15 - 7];
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,0>(v8 + 7, v20, a2 - 14);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,0>(v8 + 14, (v17 + v19), a2 - 21);
-      v21 = (v17 + v19);
+      v19 = 7 * v15;
+      v20 = (56 * v15 + v8 - 56);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,0>((v8 + 56), v20, a2 - 14);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,0>((v8 + 112), &v17[v19], a2 - 21);
+      v21 = &v17[v19];
       v9 = v18;
       std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,0>(v20, v16, v21);
       std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul,4ul,5ul,6ul>,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>::swap[abi:ne200100](v8, v16);
@@ -1375,8 +1300,8 @@ LABEL_3:
       }
     }
 
-    v22 = *(v8 - 7);
-    if (v22 >= *v8 && (*v8 < v22 || !std::__tuple_less<6ul>::operator()[abi:ne200100]<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>>(&v31, v8 - 7, v8)))
+    v22 = *(v8 - 56);
+    if (v22 >= *v8 && (*v8 < v22 || !std::__tuple_less<6ul>::operator()[abi:ne200100]<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>>(&v31, (v8 - 56), v8)))
     {
       result = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,std::__less<void,void> &>(v8, a2);
       v10 = result;
@@ -1392,7 +1317,7 @@ LABEL_20:
 
     v25 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *>(v8, v23);
     v10 = (v23 + 7);
-    result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *>((v23 + 7), a2);
+    result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *>(v23 + 7, a2);
     if (result)
     {
       a4 = -v12;
@@ -1426,7 +1351,7 @@ LABEL_25:
   return result;
 }
 
-BOOL std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,0>(uint64_t *a1, uint64_t *a2, unint64_t *a3)
+BOOL std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,0>(unint64_t *a1, unint64_t *a2, unint64_t *a3)
 {
   v6 = *a2;
   if (*a2 < *a1 || *a1 >= v6 && (v8 = std::__tuple_less<6ul>::operator()[abi:ne200100]<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>>(&v11, a2, a1), v6 = *a2, v8))
@@ -1481,7 +1406,7 @@ LABEL_7:
   return result;
 }
 
-uint64_t *std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,0>(uint64_t *a1, uint64_t *a2, unint64_t *a3, uint64_t *a4)
+uint64_t *std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,0>(unint64_t *a1, unint64_t *a2, unint64_t *a3, unint64_t *a4)
 {
   result = std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,0>(a1, a2, a3);
   if (*a4 < *a3 || *a3 >= *a4 && (result = std::__tuple_less<6ul>::operator()[abi:ne200100]<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>>(&v9, a4, a3), result))
@@ -1509,7 +1434,7 @@ uint64_t *std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,voi
   return result;
 }
 
-uint64_t *std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,0>(uint64_t *a1, uint64_t *a2, unint64_t *a3, uint64_t *a4, uint64_t *a5)
+uint64_t *std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,0>(unint64_t *a1, unint64_t *a2, unint64_t *a3, unint64_t *a4, unint64_t *a5)
 {
   result = std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,0>(a1, a2, a3, a4);
   if (*a5 < *a4 || *a4 >= *a5 && (result = std::__tuple_less<6ul>::operator()[abi:ne200100]<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>>(&v11, a5, a4), result))
@@ -1541,7 +1466,7 @@ uint64_t *std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,voi
   return result;
 }
 
-unint64_t *std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *>(unint64_t *result, unint64_t *a2)
+uint64_t std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *>(uint64_t result, uint64_t a2)
 {
   if (result == a2)
   {
@@ -1551,8 +1476,8 @@ unint64_t *std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__les
   v23 = v2;
   v24 = v3;
   v5 = result;
-  v6 = (result + 7);
-  if (result + 7 == a2)
+  v6 = result + 56;
+  if (result + 56 == a2)
   {
     return result;
   }
@@ -1578,19 +1503,19 @@ unint64_t *std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__les
       }
     }
 
-    v11 = v8[1];
+    v11 = *(v8 + 16);
     v18 = *v8;
     v19 = v11;
-    v20 = v8[2];
-    v21 = *(v8 + 6);
+    v20 = *(v8 + 32);
+    v21 = *(v8 + 48);
     v12 = v9[1];
     v9[7] = *v9;
-    *(v8 + 1) = v12;
-    *(v8 + 2) = v9[2];
-    *(v8 + 3) = v9[3];
-    *(v8 + 4) = v9[4];
-    *(v8 + 5) = v9[5];
-    *(v8 + 6) = v9[6];
+    *(v8 + 8) = v12;
+    *(v8 + 16) = v9[2];
+    *(v8 + 24) = v9[3];
+    *(v8 + 32) = v9[4];
+    *(v8 + 40) = v9[5];
+    *(v8 + 48) = v9[6];
     v13 = v5;
     if (v9 == v5)
     {
@@ -1610,10 +1535,10 @@ unint64_t *std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__les
 LABEL_11:
       v9 -= 7;
       *v15 = v16;
-      v17 = *(v15 - 2);
-      *(v15 + 8) = *(v15 - 3);
+      v17 = *(v15 - 32);
+      *(v15 + 8) = *(v15 - 48);
       *(v15 + 24) = v17;
-      *(v15 + 40) = *(v15 - 1);
+      *(v15 + 40) = *(v15 - 16);
       v14 -= 56;
       if (!v14)
       {
@@ -1642,11 +1567,11 @@ LABEL_18:
     *(v13 + 2) = v20;
     v13[6] = v21;
 LABEL_19:
-    v6 = (v8 + 56);
+    v6 = v8 + 56;
     v7 += 56;
   }
 
-  while ((v8 + 56) != a2);
+  while (v8 + 56 != a2);
   return result;
 }
 
@@ -1717,14 +1642,14 @@ LABEL_14:
   return result;
 }
 
-uint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,std::__less<void,void> &>(uint64_t *a1, uint64_t *a2)
+__int128 *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,std::__less<void,void> &>(__int128 *a1, __int128 *a2)
 {
   v2 = a2;
-  v4 = *(a1 + 1);
+  v4 = a1[1];
   v19 = *a1;
   v20 = v4;
-  v21 = *(a1 + 2);
-  v22 = a1[6];
+  v21 = a1[2];
+  v22 = *(a1 + 6);
   v5 = *(a2 - 7);
   v6 = v19;
   if (v19 >= v5)
@@ -1743,8 +1668,8 @@ uint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
   i = a1;
   while (1)
   {
-    v9 = i[7];
-    i += 7;
+    v9 = *(i + 7);
+    i = (i + 56);
     v8 = v9;
     if (v6 < v9)
     {
@@ -1770,7 +1695,7 @@ LABEL_16:
       do
       {
         v11 = *(v2 - 7);
-        v2 -= 7;
+        v2 = (v2 - 56);
         v10 = v11;
       }
 
@@ -1783,8 +1708,8 @@ LABEL_16:
   while (i < v2)
   {
     std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul,4ul,5ul,6ul>,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>::swap[abi:ne200100](i, v2);
-    v13 = i[7];
-    i += 7;
+    v13 = *(i + 7);
+    i = (i + 56);
     v12 = v13;
     v14 = v19;
     while (v14 >= v12)
@@ -1799,8 +1724,8 @@ LABEL_16:
         v14 = v19;
       }
 
-      v15 = i[7];
-      i += 7;
+      v15 = *(i + 7);
+      i = (i + 56);
       v12 = v15;
     }
 
@@ -1810,7 +1735,7 @@ LABEL_16:
       {
 LABEL_27:
         v17 = *(v2 - 7);
-        v2 -= 7;
+        v2 = (v2 - 56);
         v16 = v17;
       }
 
@@ -1820,42 +1745,42 @@ LABEL_27:
     while (v16 >= v19 && std::__tuple_less<6ul>::operator()[abi:ne200100]<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>>(&v23, &v19, v2));
   }
 
-  if (i - 7 != a1)
+  if ((i - 56) != a1)
   {
     *a1 = *(i - 7);
-    a1[1] = *(i - 6);
-    a1[2] = *(i - 5);
-    a1[3] = *(i - 4);
-    a1[4] = *(i - 3);
-    a1[5] = *(i - 2);
-    a1[6] = *(i - 1);
+    *(a1 + 1) = *(i - 6);
+    *(a1 + 2) = *(i - 5);
+    *(a1 + 3) = *(i - 4);
+    *(a1 + 4) = *(i - 3);
+    *(a1 + 5) = *(i - 2);
+    *(a1 + 6) = *(i - 1);
   }
 
-  *(i - 7) = v19;
-  *(i - 5) = v20;
-  *(i - 3) = v21;
+  *(i - 56) = v19;
+  *(i - 40) = v20;
+  *(i - 24) = v21;
   *(i - 1) = v22;
   return i;
 }
 
-uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,std::__less<void,void> &>(uint64_t *a1, uint64_t *a2)
+uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,std::__less<void,void> &>(__int128 *a1, char *a2)
 {
-  v4 = *(a1 + 1);
+  v4 = a1[1];
   v23 = *a1;
   v24 = v4;
-  v25 = *(a1 + 2);
-  v26 = a1[6];
-  for (i = 7; ; i += 7)
+  v25 = a1[2];
+  v26 = *(a1 + 6);
+  for (i = 56; ; i += 56)
   {
-    v6 = a1[i];
-    if (v6 >= v23 && (v23 < v6 || !std::__tuple_less<6ul>::operator()[abi:ne200100]<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>>(&v27, &a1[i], &v23)))
+    v6 = *(a1 + i);
+    if (v6 >= v23 && (v23 < v6 || !std::__tuple_less<6ul>::operator()[abi:ne200100]<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>>(&v27, (a1 + i), &v23)))
     {
       break;
     }
   }
 
-  v7 = &a1[i];
-  if (i == 7)
+  v7 = a1 + i;
+  if (i == 56)
   {
 LABEL_18:
     if (v7 < a2)
@@ -1863,7 +1788,7 @@ LABEL_18:
       do
       {
         v13 = *(a2 - 7);
-        a2 -= 7;
+        a2 -= 56;
         v12 = v13;
         if (v13 < v23)
         {
@@ -1889,7 +1814,7 @@ LABEL_18:
   else
   {
     v9 = *(a2 - 7);
-    a2 -= 7;
+    a2 -= 56;
     v8 = v9;
     v10 = v23;
     while (v8 >= v10)
@@ -1905,12 +1830,12 @@ LABEL_18:
       }
 
       v11 = *(a2 - 7);
-      a2 -= 7;
+      a2 -= 56;
       v8 = v11;
     }
   }
 
-  v15 = &a1[i];
+  v15 = (a1 + i);
   if (v7 < a2)
   {
     v16 = a2;
@@ -1970,12 +1895,12 @@ LABEL_30:
   if (v15 - 7 != a1)
   {
     *a1 = *(v15 - 7);
-    a1[1] = *(v15 - 6);
-    a1[2] = *(v15 - 5);
-    a1[3] = *(v15 - 4);
-    a1[4] = *(v15 - 3);
-    a1[5] = *(v15 - 2);
-    a1[6] = *(v15 - 1);
+    *(a1 + 1) = *(v15 - 6);
+    *(a1 + 2) = *(v15 - 5);
+    *(a1 + 3) = *(v15 - 4);
+    *(a1 + 4) = *(v15 - 3);
+    *(a1 + 5) = *(v15 - 2);
+    *(a1 + 6) = *(v15 - 1);
   }
 
   *(v15 - 7) = v23;
@@ -1985,21 +1910,21 @@ LABEL_30:
   return result;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *>(uint64_t a1, uint64_t a2)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *>(unint64_t *a1, unint64_t *a2)
 {
-  v4 = 0x6DB6DB6DB6DB6DB7 * ((a2 - a1) >> 3);
+  v4 = 0x6DB6DB6DB6DB6DB7 * (a2 - a1);
   if (v4 > 2)
   {
     switch(v4)
     {
       case 3:
-        std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,0>(a1, (a1 + 56), (a2 - 56));
+        std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,0>(a1, a1 + 7, a2 - 7);
         return 1;
       case 4:
-        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,0>(a1, (a1 + 56), (a1 + 112), (a2 - 56));
+        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,0>(a1, a1 + 7, a1 + 14, a2 - 7);
         return 1;
       case 5:
-        std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,0>(a1, (a1 + 56), (a1 + 112), (a1 + 168), (a2 - 56));
+        std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,0>(a1, a1 + 7, a1 + 14, a1 + 21, a2 - 7);
         return 1;
     }
   }
@@ -2013,8 +1938,8 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
 
     if (v4 == 2)
     {
-      v6 = (a2 - 56);
-      v5 = *(a2 - 56);
+      v6 = (a2 - 7);
+      v5 = *(a2 - 7);
       if (v5 < *a1 || *a1 >= v5 && std::__tuple_less<6ul>::operator()[abi:ne200100]<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>>(v18, v6, a1))
       {
         std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul,4ul,5ul,6ul>,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>::swap[abi:ne200100](a1, v6);
@@ -2024,10 +1949,10 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
     }
   }
 
-  v7 = (a1 + 112);
-  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,0>(a1, (a1 + 56), (a1 + 112));
-  v8 = a1 + 168;
-  if (a1 + 168 == a2)
+  v7 = a1 + 14;
+  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,0>(a1, a1 + 7, a1 + 14);
+  v8 = a1 + 21;
+  if (a1 + 21 == a2)
   {
     return 1;
   }
@@ -2041,18 +1966,18 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
       goto LABEL_26;
     }
 
-    v20 = *(v8 + 48);
-    v11 = *(v8 + 32);
-    *&v18[16] = *(v8 + 16);
+    v20 = v8[6];
+    v11 = *(v8 + 2);
+    *&v18[16] = *(v8 + 1);
     v19 = v11;
     *v18 = *v8;
     *v8 = *v7;
-    *(v8 + 8) = v7[1];
-    *(v8 + 16) = v7[2];
-    *(v8 + 24) = v7[3];
-    *(v8 + 32) = v7[4];
-    *(v8 + 40) = v7[5];
-    *(v8 + 48) = v7[6];
+    v8[1] = v7[1];
+    v8[2] = v7[2];
+    v8[3] = v7[3];
+    v8[4] = v7[4];
+    v8[5] = v7[5];
+    v8[6] = v7[6];
     v12 = v9;
     while (1)
     {
@@ -2064,11 +1989,11 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
       }
 
 LABEL_19:
-      *(v13 + 112) = v14;
-      v15 = *(v13 + 80);
-      *(v13 + 120) = *(v13 + 64);
+      *(v13 + 14) = v14;
+      v15 = *(v13 + 5);
+      *(v13 + 120) = *(v13 + 4);
       *(v13 + 136) = v15;
-      *(v13 + 152) = *(v13 + 96);
+      *(v13 + 152) = *(v13 + 6);
       v12 -= 56;
       if (v12 == -112)
       {
@@ -2083,19 +2008,19 @@ LABEL_19:
       goto LABEL_19;
     }
 
-    v16 = a1 + v12 + 112;
+    v16 = (a1 + v12 + 112);
 LABEL_25:
     *v16 = *v18;
-    *(v16 + 8) = *&v18[8];
-    *(v16 + 24) = *&v18[24];
-    *(v16 + 32) = v19;
-    *(v16 + 48) = v20;
+    *(v16 + 1) = *&v18[8];
+    v16[3] = *&v18[24];
+    *(v16 + 2) = v19;
+    v16[6] = v20;
     if (++v10 != 8)
     {
 LABEL_26:
       v7 = v8;
       v9 += 56;
-      v8 += 56;
+      v8 += 7;
       if (v8 == a2)
       {
         return 1;
@@ -2104,7 +2029,7 @@ LABEL_26:
       continue;
     }
 
-    return v8 + 56 == a2;
+    return v8 + 7 == a2;
   }
 }
 
@@ -2206,17 +2131,17 @@ uint64_t *std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul,4ul,5ul,6ul>,un
   return result;
 }
 
-uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *>(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
+uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *>(char *a1, char *a2, uint64_t *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
     v8 = a2 - a1;
-    v9 = 0x6DB6DB6DB6DB6DB7 * (a2 - a1);
+    v9 = 0x6DB6DB6DB6DB6DB7 * ((a2 - a1) >> 3);
     if (a2 - a1 >= 57)
     {
       v10 = (v9 - 2) >> 1;
       v11 = v10 + 1;
-      v12 = &a1[7 * v10];
+      v12 = &a1[56 * v10];
       do
       {
         std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *>(a1, a4, v9, v12);
@@ -2248,17 +2173,17 @@ uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__l
     if (v8 >= 57)
     {
       v14 = 0x6DB6DB6DB6DB6DB7 * (v8 >> 3);
-      v15 = a2 - 7;
+      v15 = (a2 - 56);
       v16 = a4;
       do
       {
         v18 = *a1;
-        v17 = a1[1];
-        v19 = a1[2];
-        v20 = a1[3];
-        v21 = a1[4];
-        v25 = a1[5];
-        v26 = a1[6];
+        v17 = *(a1 + 1);
+        v19 = *(a1 + 2);
+        v20 = *(a1 + 3);
+        v21 = *(a1 + 4);
+        v25 = *(a1 + 5);
+        v26 = *(a1 + 6);
         v22 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *>(a1, v16, v14);
         if (v15 == v22)
         {
@@ -2287,7 +2212,7 @@ uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__l
           v15[4] = v21;
           v15[5] = v25;
           v15[6] = v26;
-          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *>(a1, (v22 + 7), v16, 0x6DB6DB6DB6DB6DB7 * (v22 + 7 - a1));
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long> *>(a1, (v22 + 7), v16, 0x6DB6DB6DB6DB6DB7 * (((v22 + 7) - a1) >> 3));
         }
 
         v15 -= 7;
@@ -2639,15 +2564,15 @@ BOOL std::__tuple_less<4ul>::operator()[abi:ne200100]<std::tuple<unsigned long l
   return a2[3] < a3[3];
 }
 
-uint64_t std::__tree<std::__value_type<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::vector<std::pair<unsigned long long,unsigned long long>>>,std::__map_value_compare<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::__value_type<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::vector<std::pair<unsigned long long,unsigned long long>>>,std::less<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>,true>,std::allocator<std::__value_type<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::vector<std::pair<unsigned long long,unsigned long long>>>>>::__emplace_unique_key_args<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::piecewise_construct_t const&,std::tuple<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long> const&>,std::tuple<>>(uint64_t a1, void *a2)
+uint64_t std::__tree<std::__value_type<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::vector<std::pair<unsigned long long,unsigned long long>>>,std::__map_value_compare<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::__value_type<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::vector<std::pair<unsigned long long,unsigned long long>>>,std::less<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>,true>,std::allocator<std::__value_type<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::vector<std::pair<unsigned long long,unsigned long long>>>>>::__emplace_unique_key_args<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::piecewise_construct_t const&,std::tuple<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long> const&>,std::tuple<>>(uint64_t **a1, void *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::vector<std::pair<unsigned long long,unsigned long long>>>,std::__map_value_compare<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::__value_type<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::vector<std::pair<unsigned long long,unsigned long long>>>,std::less<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>,true>,std::allocator<std::__value_type<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::vector<std::pair<unsigned long long,unsigned long long>>>>>::__find_equal<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::vector<std::pair<unsigned long long,unsigned long long>>>,std::__map_value_compare<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::__value_type<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::vector<std::pair<unsigned long long,unsigned long long>>>,std::less<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>,true>,std::allocator<std::__value_type<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::vector<std::pair<unsigned long long,unsigned long long>>>>>::__find_equal<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 void *std::__tree<std::__value_type<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::vector<std::pair<unsigned long long,unsigned long long>>>,std::__map_value_compare<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::__value_type<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::vector<std::pair<unsigned long long,unsigned long long>>>,std::less<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>,true>,std::allocator<std::__value_type<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>,std::vector<std::pair<unsigned long long,unsigned long long>>>>>::__find_equal<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>(uint64_t a1, void *a2, void *a3)
@@ -2696,17 +2621,17 @@ LABEL_9:
   return v5;
 }
 
-void *std::vector<std::pair<unsigned long long,unsigned long long>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::pair<unsigned long long,unsigned long long>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, _OWORD *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<DYMTLOriginalProcessBuffer>::__vallocate[abi:ne200100](result, a2);
+    std::vector<DYMTLOriginalProcessBuffer>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_24D706060(_Unwind_Exception *exception_object)
@@ -2721,33 +2646,33 @@ void sub_24D706060(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::__emplace_unique_key_args<unsigned long,unsigned long const&>(void *a1, unint64_t *a2)
+void *std::__hash_table<unsigned long,std::hash<unsigned long>,std::equal_to<unsigned long>,std::allocator<unsigned long>>::__emplace_unique_key_args<unsigned long,unsigned long const&>(void *a1, unint64_t *a2, void *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v6 = *a2;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -2755,44 +2680,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v8[2] != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
 void *std::__tree<std::__value_type<std::tuple<unsigned long long,unsigned long long,unsigned long long>,std::vector<std::pair<unsigned long long,unsigned long long>>>,std::__map_value_compare<std::tuple<unsigned long long,unsigned long long,unsigned long long>,std::__value_type<std::tuple<unsigned long long,unsigned long long,unsigned long long>,std::vector<std::pair<unsigned long long,unsigned long long>>>,std::less<std::tuple<unsigned long long,unsigned long long,unsigned long long>>,true>,std::allocator<std::__value_type<std::tuple<unsigned long long,unsigned long long,unsigned long long>,std::vector<std::pair<unsigned long long,unsigned long long>>>>>::find<std::tuple<unsigned long long,unsigned long long,unsigned long long>>(uint64_t a1, unint64_t *a2)
@@ -2879,15 +2804,15 @@ LABEL_6:
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::tuple<unsigned long long,unsigned long long,unsigned long long>,std::vector<std::pair<unsigned long long,unsigned long long>>>,std::__map_value_compare<std::tuple<unsigned long long,unsigned long long,unsigned long long>,std::__value_type<std::tuple<unsigned long long,unsigned long long,unsigned long long>,std::vector<std::pair<unsigned long long,unsigned long long>>>,std::less<std::tuple<unsigned long long,unsigned long long,unsigned long long>>,true>,std::allocator<std::__value_type<std::tuple<unsigned long long,unsigned long long,unsigned long long>,std::vector<std::pair<unsigned long long,unsigned long long>>>>>::__emplace_unique_key_args<std::tuple<unsigned long long,unsigned long long,unsigned long long>,std::piecewise_construct_t const&,std::tuple<std::tuple<unsigned long long,unsigned long long,unsigned long long> const&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+uint64_t std::__tree<std::__value_type<std::tuple<unsigned long long,unsigned long long,unsigned long long>,std::vector<std::pair<unsigned long long,unsigned long long>>>,std::__map_value_compare<std::tuple<unsigned long long,unsigned long long,unsigned long long>,std::__value_type<std::tuple<unsigned long long,unsigned long long,unsigned long long>,std::vector<std::pair<unsigned long long,unsigned long long>>>,std::less<std::tuple<unsigned long long,unsigned long long,unsigned long long>>,true>,std::allocator<std::__value_type<std::tuple<unsigned long long,unsigned long long,unsigned long long>,std::vector<std::pair<unsigned long long,unsigned long long>>>>>::__emplace_unique_key_args<std::tuple<unsigned long long,unsigned long long,unsigned long long>,std::piecewise_construct_t const&,std::tuple<std::tuple<unsigned long long,unsigned long long,unsigned long long> const&>,std::tuple<>>(uint64_t **a1, unint64_t *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::tuple<unsigned long long,unsigned long long,unsigned long long>,std::vector<std::pair<unsigned long long,unsigned long long>>>,std::__map_value_compare<std::tuple<unsigned long long,unsigned long long,unsigned long long>,std::__value_type<std::tuple<unsigned long long,unsigned long long,unsigned long long>,std::vector<std::pair<unsigned long long,unsigned long long>>>,std::less<std::tuple<unsigned long long,unsigned long long,unsigned long long>>,true>,std::allocator<std::__value_type<std::tuple<unsigned long long,unsigned long long,unsigned long long>,std::vector<std::pair<unsigned long long,unsigned long long>>>>>::__find_equal<std::tuple<unsigned long long,unsigned long long,unsigned long long>>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::tuple<unsigned long long,unsigned long long,unsigned long long>,std::vector<std::pair<unsigned long long,unsigned long long>>>,std::__map_value_compare<std::tuple<unsigned long long,unsigned long long,unsigned long long>,std::__value_type<std::tuple<unsigned long long,unsigned long long,unsigned long long>,std::vector<std::pair<unsigned long long,unsigned long long>>>,std::less<std::tuple<unsigned long long,unsigned long long,unsigned long long>>,true>,std::allocator<std::__value_type<std::tuple<unsigned long long,unsigned long long,unsigned long long>,std::vector<std::pair<unsigned long long,unsigned long long>>>>>::__find_equal<std::tuple<unsigned long long,unsigned long long,unsigned long long>>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 void *std::__tree<std::__value_type<std::tuple<unsigned long long,unsigned long long,unsigned long long>,std::vector<std::pair<unsigned long long,unsigned long long>>>,std::__map_value_compare<std::tuple<unsigned long long,unsigned long long,unsigned long long>,std::__value_type<std::tuple<unsigned long long,unsigned long long,unsigned long long>,std::vector<std::pair<unsigned long long,unsigned long long>>>,std::less<std::tuple<unsigned long long,unsigned long long,unsigned long long>>,true>,std::allocator<std::__value_type<std::tuple<unsigned long long,unsigned long long,unsigned long long>,std::vector<std::pair<unsigned long long,unsigned long long>>>>>::__find_equal<std::tuple<unsigned long long,unsigned long long,unsigned long long>>(uint64_t a1, void *a2, unint64_t *a3)
@@ -2971,11 +2896,11 @@ void sub_24D706D0C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void GPUTraceResourceResolutionDecode(NSDictionary *a1@<X0>, uint64_t a2@<X8>)
+void GPUTraceResourceResolutionDecode(uint64_t *__return_ptr a1@<X8>, NSDictionary *a2@<X0>)
 {
-  v3 = a1;
-  *a2 = xmmword_24D740D90;
-  *(a2 + 16) = 32;
+  v3 = a2;
+  *a1 = xmmword_24D740D90;
+  a1[2] = 32;
   if (v3)
   {
     v7 = v3;
@@ -2984,17 +2909,17 @@ void GPUTraceResourceResolutionDecode(NSDictionary *a1@<X0>, uint64_t a2@<X8>)
     v6 = [(NSDictionary *)v7 objectForKeyedSubscript:@"format"];
     if (v4)
     {
-      *a2 = [v4 unsignedIntegerValue];
+      *a1 = [v4 unsignedIntegerValue];
     }
 
     if (v5)
     {
-      *(a2 + 8) = [v5 unsignedIntegerValue];
+      a1[1] = [v5 unsignedIntegerValue];
     }
 
     if (v6)
     {
-      *(a2 + 16) = [v6 unsignedIntegerValue];
+      a1[2] = [v6 unsignedIntegerValue];
     }
 
     v3 = v7;
@@ -3022,7 +2947,7 @@ BOOL IsFuncEnumPixelHistoryInterestingRenderPassStateItems(int a1)
   return result;
 }
 
-void sub_24D710F44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, void *a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, id a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, void *a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, id a60)
+void sub_24D710F44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, void *a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, id a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, void *a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, id a60)
 {
   _Block_object_dispose(&a26, 8);
   std::__tree<std::__value_type<unsigned long long,DYMTLBoundBufferInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,DYMTLBoundBufferInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,DYMTLBoundBufferInfo>>>::destroy(&a32, a33);
@@ -3084,7 +3009,7 @@ id *DYMTLBoundBufferInfo::operator=(id *location, uint64_t a2)
   return location;
 }
 
-uint64_t std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>::push_back[abi:ne200100](uint64_t *a1, uint64_t a2)
+uint64_t std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>::push_back[abi:ne200100](unint64_t *a1, uint64_t a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -3106,7 +3031,7 @@ uint64_t std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLF
   return result;
 }
 
-void sub_24D711BB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, void *a30)
+void sub_24D711BB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, void *a30)
 {
   _Block_object_dispose(&a23, 8);
   std::__tree<std::__value_type<unsigned long long,DYMTLBoundBufferInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,DYMTLBoundBufferInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,DYMTLBoundBufferInfo>>>::destroy(v32 + 48, a30);
@@ -3126,21 +3051,19 @@ void sub_24D71217C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 __n128 __Block_byref_object_copy__511(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
 
-void sub_24D713A48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, void *a6, uint64_t a7, void *a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_24D713A48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, void *a6, uint64_t a7, void *a8, void *a9, uint64_t a10, uint64_t a11, void *a12, void *a13, uint64_t a14, void *a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
 
   GPUTools::AutoCATransaction::~AutoCATransaction(va);
   _Unwind_Resume(a1);
@@ -3160,9 +3083,9 @@ void sub_24D71416C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_24D7151E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_24D7151E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3183,55 +3106,53 @@ void sub_24D716CD4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::vector<unsigned long long>::resize(void *a1, unint64_t a2)
+void std::vector<unsigned long long>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<unsigned long long>::__append(a1, a2 - v2);
+    std::vector<unsigned long long>::__append(result, a2 - v2);
   }
 }
 
-void sub_24D717F7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, uint64_t a24, char a25)
+void sub_24D717F7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, uint64_t a24, ...)
 {
+  va_start(va, a24);
   if (__p)
   {
     operator delete(__p);
   }
 
-  std::__hash_table<std::__hash_value_type<unsigned long long,BOOL>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,BOOL>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,BOOL>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,BOOL>>>::~__hash_table(&a25);
-  v27 = *(v25 - 120);
-  if (v27)
+  std::__hash_table<std::__hash_value_type<unsigned long long,BOOL>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,BOOL>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,BOOL>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,BOOL>>>::~__hash_table(va);
+  v26 = *(v24 - 120);
+  if (v26)
   {
-    *(v25 - 112) = v27;
-    operator delete(v27);
+    *(v24 - 112) = v26;
+    operator delete(v26);
   }
 
   _Unwind_Resume(a1);
 }
 
-void *std::vector<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>>::reserve(void *result, unint64_t a2)
+void std::vector<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>>::reserve(void *a1, unint64_t a2)
 {
-  if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 4) < a2)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 4) < a2)
   {
     if (a2 < 0x555555555555556)
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long,unsigned long long>>>(a1, a2);
     }
 
     std::vector<std::pair<ShaderDebugger::Metadata::MDBase::MetadataType,unsigned long long>>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void sub_24D7182E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
@@ -3244,17 +3165,17 @@ void sub_24D7182E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::vector<BOOL>::resize(uint64_t a1, unint64_t a2, int a3)
+void std::vector<BOOL>::resize(uint64_t *result, unint64_t a2, int a3)
 {
-  v4 = *(a1 + 8);
+  v4 = result[1];
   v5 = a2 - v4;
   if (a2 <= v4)
   {
-    *(a1 + 8) = a2;
+    result[1] = a2;
     return;
   }
 
-  v7 = *(a1 + 16);
+  v7 = result[2];
   v8 = v7 << 6;
   if (v7 << 6 < v5 || v4 > (v7 << 6) - v5)
   {
@@ -3282,19 +3203,19 @@ void std::vector<BOOL>::resize(uint64_t a1, unint64_t a2, int a3)
     }
 
     std::vector<BOOL>::reserve(&v20, v11);
-    v12 = *a1;
-    v13 = *(a1 + 8);
+    v12 = *result;
+    v13 = result[1];
     *&v21 = v13 + v5;
     v22 = v20;
     v23 = 0;
-    std::__copy_aligned[abi:ne200100]<std::vector<BOOL>,true>(v12, 0, &v12[v13 >> 6], v13 & 0x3F, &v22, &v18);
+    std::__copy_aligned[abi:ne200100]<std::vector<BOOL>,true>(&v18, v12, 0, &v12[v13 >> 6], v13 & 0x3F, &v22);
     v14 = v18;
     LODWORD(v15) = v19;
-    v16 = *a1;
-    *a1 = v20;
+    v16 = *result;
+    *result = v20;
     v20 = v16;
-    v17 = *(a1 + 8);
-    *(a1 + 8) = v21;
+    v17 = *(result + 1);
+    *(result + 1) = v21;
     v21 = v17;
     if (v16)
     {
@@ -3313,9 +3234,9 @@ LABEL_16:
     return;
   }
 
-  v14 = *a1 + 8 * (v4 >> 6);
-  v15 = *(a1 + 8) & 0x3FLL;
-  *(a1 + 8) = a2;
+  v14 = (*result + 8 * (v4 >> 6));
+  v15 = result[1] & 0x3F;
+  result[1] = a2;
   if (a3)
   {
     goto LABEL_16;
@@ -3437,7 +3358,6 @@ void *std::__hash_table<std::__hash_value_type<unsigned long,std::vector<std::pa
   if (!v6 || (result = *v6) == 0)
   {
 LABEL_18:
-    v9 = *a2;
     std::__hash_table<std::__hash_value_type<unsigned long,std::vector<std::pair<unsigned int,unsigned int>>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::vector<std::pair<unsigned int,unsigned int>>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::vector<std::pair<unsigned int,unsigned int>>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::vector<std::pair<unsigned int,unsigned int>>>>>::__construct_node_hash<unsigned long,std::vector<std::pair<unsigned int,unsigned int>>&>();
   }
 
@@ -3500,7 +3420,7 @@ void sub_24D71A244(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::pair<unsigned int,unsigned int>>::__init_with_size[abi:ne200100]<std::pair<unsigned int,unsigned int>*,std::pair<unsigned int,unsigned int>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::pair<unsigned int,unsigned int>>::__init_with_size[abi:ne200100]<std::pair<unsigned int,unsigned int>*,std::pair<unsigned int,unsigned int>*>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3541,7 +3461,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long,std::vector<std::pai
   }
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__erase_unique<unsigned long long>(void *a1, unint64_t *a2)
+uint64_t std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__erase_unique<unsigned long long>(void *a1, unint64_t *a2)
 {
   result = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::find<unsigned long long>(a1, a2);
   if (result)
@@ -3567,33 +3487,33 @@ uint64_t std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo
   return v2;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,EncoderInfo>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,EncoderInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,EncoderInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,EncoderInfo>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,EncoderInfo>(void *a1, unint64_t *a2, void *a3, _OWORD *a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -3601,44 +3521,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 void std::__tree<std::__value_type<objc_object  {objcproto9MTLBuffer}*,std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>>,std::__map_value_compare<objc_object  {objcproto9MTLBuffer}*,std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>,std::less<objc_object  {objcproto9MTLBuffer}*>,true>,std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}><std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>>>::destroy(uint64_t a1, char *a2)
@@ -3665,89 +3585,89 @@ void std::__tree<std::__value_type<unsigned long long,DYMTLBoundBufferInfo>,std:
   }
 }
 
-void *std::__tree<std::__value_type<unsigned long long,DYMTLBoundBufferInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,DYMTLBoundBufferInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,DYMTLBoundBufferInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+uint64_t *std::__tree<std::__value_type<unsigned long long,DYMTLBoundBufferInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,DYMTLBoundBufferInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,DYMTLBoundBufferInfo>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(uint64_t **a1, unint64_t *a2, uint64_t a3, uint64_t **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = a1[1];
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-void *std::__tree<std::__value_type<objc_object  {objcproto9MTLBuffer}*,std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>>,std::__map_value_compare<objc_object  {objcproto9MTLBuffer}*,std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>,std::less<objc_object  {objcproto9MTLBuffer}*>,true>,std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}><std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>>>::__emplace_unique_key_args<objc_object  {objcproto9MTLBuffer}*,std::piecewise_construct_t const&,std::tuple<objc_object  {objcproto9MTLBuffer} const&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+uint64_t *std::__tree<std::__value_type<objc_object  {objcproto9MTLBuffer}*,std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>>,std::__map_value_compare<objc_object  {objcproto9MTLBuffer}*,std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>,std::less<objc_object  {objcproto9MTLBuffer}*>,true>,std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}><std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>>>::__emplace_unique_key_args<objc_object  {objcproto9MTLBuffer}*,std::piecewise_construct_t const&,std::tuple<objc_object  {objcproto9MTLBuffer} const&>,std::tuple<>>(uint64_t **a1, unint64_t *a2, uint64_t a3, uint64_t **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = a1[1];
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>::__emplace_back_slow_path<MTLArgument * {__strong}>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLFunction}* {__strong},MTLArgument * {__strong}>>::__emplace_back_slow_path<MTLArgument * {__strong}>(unint64_t *a1, uint64_t a2)
 {
   v3 = 0xAAAAAAAAAAAAAAALL;
   v4 = *a1;
@@ -3800,9 +3720,9 @@ uint64_t std::vector<std::tuple<unsigned long long,objc_object  {objcproto11MTLF
   return v15;
 }
 
-void sub_24D71A984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_24D71A984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<DYMTLReplayerIAB::Usage>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -3847,33 +3767,33 @@ uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<st
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,CAMetalLayer * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CAMetalLayer * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CAMetalLayer * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CAMetalLayer * {__strong}>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,CAMetalLayer * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CAMetalLayer * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CAMetalLayer * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CAMetalLayer * {__strong}>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -3881,80 +3801,80 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_24D71ACC4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24D71ACC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,unsigned long long &>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,unsigned long long &>(void *a1, unint64_t *a2, void *a3, uint64_t *a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -3962,44 +3882,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 void *std::__hash_table<std::__hash_value_type<unsigned long long,GPUTools::MTL::Utils::DYMTLRenderPassDescriptor>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,GPUTools::MTL::Utils::DYMTLRenderPassDescriptor>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,GPUTools::MTL::Utils::DYMTLRenderPassDescriptor>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,GPUTools::MTL::Utils::DYMTLRenderPassDescriptor>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2)
@@ -4031,7 +3951,6 @@ void *std::__hash_table<std::__hash_value_type<unsigned long long,GPUTools::MTL:
   if (!v6 || (result = *v6) == 0)
   {
 LABEL_18:
-    v9 = *a2;
     std::__hash_table<std::__hash_value_type<unsigned long long,GPUTools::MTL::Utils::DYMTLRenderPassDescriptor>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,GPUTools::MTL::Utils::DYMTLRenderPassDescriptor>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,GPUTools::MTL::Utils::DYMTLRenderPassDescriptor>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,GPUTools::MTL::Utils::DYMTLRenderPassDescriptor>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>();
   }
 
@@ -4137,33 +4056,33 @@ uint64_t _ZNSt3__14pairIKyN8GPUTools3MTL5Utils25DYMTLRenderPassDescriptorEEC2B8n
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,CommandBufferInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CommandBufferInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CommandBufferInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CommandBufferInfo>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,CommandBufferInfo>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,CommandBufferInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,CommandBufferInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,CommandBufferInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,CommandBufferInfo>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,CommandBufferInfo>(void *a1, unint64_t *a2, void *a3, _OWORD *a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -4171,73 +4090,73 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void *std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long &>(void *a1, unint64_t *a2)
+void *std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long &>(void *a1, unint64_t *a2, void *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v6 = *a2;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -4245,44 +4164,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v8[2] != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
 void std::vector<unsigned long long>::__append(uint64_t a1, unint64_t a2)
@@ -4346,9 +4265,9 @@ void std::vector<unsigned long long>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-uint64_t std::vector<BOOL>::reserve(uint64_t result, unint64_t a2)
+void std::vector<BOOL>::reserve(char **a1, unint64_t a2)
 {
-  if (a2 > *(result + 16) << 6)
+  if (a2 > a1[2] << 6)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
@@ -4359,8 +4278,6 @@ uint64_t std::vector<BOOL>::reserve(uint64_t result, unint64_t a2)
 
     std::vector<std::pair<ShaderDebugger::Metadata::MDBase::MetadataType,unsigned long long>>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void sub_24D71B8EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p)
@@ -4373,7 +4290,7 @@ void sub_24D71B8EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -4393,7 +4310,7 @@ void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
   std::vector<std::pair<ShaderDebugger::Metadata::MDBase::MetadataType,unsigned long long>>::__throw_length_error[abi:ne200100]();
 }
 
-void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>>(void *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   v6 = a1[1];
   v7 = v6 + a4;
@@ -4415,9 +4332,9 @@ void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>
 
   v20 = v4;
   v21 = v5;
-  v9 = *(a2 + 8);
+  v9 = *(a2 + 2);
   v10 = *a3;
-  v11 = *(a3 + 8);
+  v11 = *(a3 + 2);
   v12 = *a1 + 8 * (v6 >> 6);
   v18 = *a2;
   v19 = v9;
@@ -4425,7 +4342,7 @@ void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>
   v17 = v11;
   v14 = v12;
   v15 = v6 & 0x3F;
-  std::__copy_move_unwrap_iters[abi:ne200100]<std::__copy_impl,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,0>(&v18, &v16, &v14, &v13);
+  std::__copy_move_unwrap_iters[abi:ne200100]<std::__copy_impl,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,0>(&v18, &v16, &v14, v13);
 }
 
 void std::__copy_move_unwrap_iters[abi:ne200100]<std::__copy_impl,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
@@ -4510,23 +4427,23 @@ void std::__copy_impl::operator()[abi:ne200100]<std::__bit_iterator<std::vector<
   *(a4 + 24) = v6;
 }
 
-unint64_t *std::__copy_aligned[abi:ne200100]<std::vector<BOOL>,true>@<X0>(unint64_t *__src@<X0>, unsigned int a2@<W1>, uint64_t a3@<X2>, unsigned int a4@<W3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+unint64_t *std::__copy_aligned[abi:ne200100]<std::vector<BOOL>,true>@<X0>(unint64_t **__return_ptr a1@<X8>, unint64_t *__src@<X0>, unsigned int a3@<W1>, uint64_t a4@<X2>, unsigned int a5@<W3>, uint64_t a6@<X4>)
 {
-  v8 = a4 - a2 + 8 * (a3 - __src);
+  v8 = a5 - a3 + 8 * (a4 - __src);
   if (v8 <= 0)
   {
-    v16 = *a5;
+    v16 = *a6;
   }
 
   else
   {
     v9 = __src;
-    __src = *a5;
-    if (a2)
+    __src = *a6;
+    if (a3)
     {
-      if (v8 >= (64 - a2))
+      if (v8 >= (64 - a3))
       {
-        v10 = 64 - a2;
+        v10 = 64 - a3;
       }
 
       else
@@ -4536,11 +4453,11 @@ unint64_t *std::__copy_aligned[abi:ne200100]<std::vector<BOOL>,true>@<X0>(unint6
 
       v8 -= v10;
       v11 = *v9++;
-      *__src = *__src & ~((0xFFFFFFFFFFFFFFFFLL >> (64 - a2 - v10)) & (-1 << a2)) | v11 & (0xFFFFFFFFFFFFFFFFLL >> (64 - a2 - v10)) & (-1 << a2);
-      v12 = v10 + *(a5 + 8);
+      *__src = *__src & ~((0xFFFFFFFFFFFFFFFFLL >> (64 - a3 - v10)) & (-1 << a3)) | v11 & (0xFFFFFFFFFFFFFFFFLL >> (64 - a3 - v10)) & (-1 << a3);
+      v12 = v10 + *(a6 + 8);
       __src = (__src + ((v12 >> 3) & 0x3FFFFFF8));
-      *a5 = __src;
-      *(a5 + 8) = v12 & 0x3F;
+      *a6 = __src;
+      *(a6 + 8) = v12 & 0x3F;
     }
 
     if (v8 >= 0)
@@ -4557,21 +4474,21 @@ unint64_t *std::__copy_aligned[abi:ne200100]<std::vector<BOOL>,true>@<X0>(unint6
     if ((v8 + 63) >= 0x7F)
     {
       memmove(__src, v9, 8 * v14);
-      __src = *a5;
+      __src = *a6;
     }
 
     v15 = v8 - (v14 << 6);
     v16 = &__src[v14];
-    *a5 = v16;
+    *a6 = v16;
     if (v15 >= 1)
     {
       *v16 = *v16 & ~(0xFFFFFFFFFFFFFFFFLL >> ((v14 << 6) - v8)) | v9[v14] & (0xFFFFFFFFFFFFFFFFLL >> ((v14 << 6) - v8));
-      *(a5 + 8) = v15;
+      *(a6 + 8) = v15;
     }
   }
 
-  *a6 = v16;
-  *(a6 + 8) = *(a5 + 8);
+  *a1 = v16;
+  *(a1 + 2) = *(a6 + 8);
   return __src;
 }
 
@@ -4800,7 +4717,7 @@ void sub_24D71FE88(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-_OWORD *std::vector<MTLViewport>::assign(void *a1, unint64_t a2, __int128 *a3)
+_OWORD *std::vector<MTLViewport>::assign(uint64_t *a1, unint64_t a2, __int128 *a3)
 {
   v5 = a1[2];
   result = *a1;
@@ -4890,7 +4807,7 @@ _OWORD *std::vector<MTLViewport>::assign(void *a1, unint64_t a2, __int128 *a3)
   return result;
 }
 
-_OWORD *std::vector<MTLScissorRect>::assign(void *a1, unint64_t a2, _OWORD *a3)
+_OWORD *std::vector<MTLScissorRect>::assign(uint64_t *a1, unint64_t a2, _OWORD *a3)
 {
   v5 = a1[2];
   result = *a1;
@@ -5194,7 +5111,7 @@ DYMTLRenderCommandEncoderStateTracker *DYMTLNewStatefulRenderCommandEncoder(void
   return v5;
 }
 
-uint64_t std::vector<MTLViewport>::__init_with_size[abi:ne200100]<MTLViewport*,MTLViewport*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<MTLViewport>::__init_with_size[abi:ne200100]<MTLViewport*,MTLViewport*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5216,7 +5133,7 @@ void sub_24D722CB0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<MTLViewport>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<MTLViewport>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x555555555555556)
   {
@@ -5226,7 +5143,7 @@ void std::vector<MTLViewport>::__vallocate[abi:ne200100](uint64_t a1, unint64_t 
   std::vector<std::pair<ShaderDebugger::Metadata::MDBase::MetadataType,unsigned long long>>::__throw_length_error[abi:ne200100]();
 }
 
-void std::vector<MTLScissorRect>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<MTLScissorRect>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -5246,7 +5163,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<MTLScissorRect>>(uint
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::vector<MTLViewport>::__assign_with_size[abi:ne200100]<MTLViewport const*,MTLViewport const*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<MTLViewport>::__assign_with_size[abi:ne200100]<MTLViewport const*,MTLViewport const*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -5319,10 +5236,10 @@ void *std::vector<MTLViewport>::__assign_with_size[abi:ne200100]<MTLViewport con
       {
         v17 = *v14;
         v18 = *(v14 + 2);
-        *(v16 + 1) = *(v14 + 1);
-        *(v16 + 2) = v18;
+        v16[1] = *(v14 + 1);
+        v16[2] = v18;
         *v16 = v17;
-        v16 += 48;
+        v16 += 3;
         v14 += 48;
         v15 += 48;
       }
@@ -5337,7 +5254,7 @@ void *std::vector<MTLViewport>::__assign_with_size[abi:ne200100]<MTLViewport con
   return result;
 }
 
-void *std::vector<MTLScissorRect>::__assign_with_size[abi:ne200100]<MTLScissorRect const*,MTLScissorRect const*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<MTLScissorRect>::__assign_with_size[abi:ne200100]<MTLScissorRect const*,MTLScissorRect const*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -5411,8 +5328,8 @@ void *std::vector<MTLScissorRect>::__assign_with_size[abi:ne200100]<MTLScissorRe
         v17 = *(v13 + 1);
         v13 += 32;
         *v15 = v16;
-        *(v15 + 1) = v17;
-        v15 += 32;
+        v15[1] = v17;
+        v15 += 2;
         v14 += 32;
       }
 
@@ -5426,33 +5343,33 @@ void *std::vector<MTLScissorRect>::__assign_with_size[abi:ne200100]<MTLScissorRe
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long,DYMTLStoreInfo>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,DYMTLStoreInfo>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,DYMTLStoreInfo>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,DYMTLStoreInfo>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long,DYMTLStoreInfo>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,DYMTLStoreInfo>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,DYMTLStoreInfo>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,DYMTLStoreInfo>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -5460,44 +5377,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t GPUTools::MTL::Utils::DYMTLTranslateGPUAddressToBuffer(void *a1, unint64_t a2)
@@ -5675,232 +5592,213 @@ LABEL_12:
   return result;
 }
 
-__CFData *GPUTools::MTL::Utils::DYMTLConvertIndirectCommandBufferDataToFBufStream(uint64_t a1, void *a2, char a3, unint64_t a4, uint64_t a5, void *a6, __int16 a7)
+__CFData *GPUTools::MTL::Utils::DYMTLConvertIndirectCommandBufferDataToFBufStream(uint64_t *a1, void *a2, uint64_t a3, unint64_t a4, uint64_t a5, void *a6, __int16 a7)
 {
-  v184 = *MEMORY[0x277D85DE8];
-  v145 = a2;
-  v146 = a6;
-  v13 = *a1;
+  v187 = *MEMORY[0x277D85DE8];
+  v148 = a2;
+  v149 = a6;
   if (GPUTools::MTL::Utils::IsIndirectCommandBufferRender())
   {
-    v150 = v145;
-    v14 = v146;
-    v144 = objc_alloc_init(MEMORY[0x277CBEB28]);
-    v15 = GPUTools::FB::Stream::Stream(v179, v144);
-    GPUTools::FB::Stream::Open(v15, @"ConvertIndirectCommandBufferDataToFBufStreamRender");
-    v177 = 0u;
+    v153 = v148;
+    v13 = v149;
+    v147 = objc_alloc_init(MEMORY[0x277CBEB28]);
+    v14 = GPUTools::FB::Stream::Stream(v182, v147);
+    GPUTools::FB::Stream::Open(v14, @"ConvertIndirectCommandBufferDataToFBufStreamRender");
+    v180 = 0u;
+    v181 = 0u;
     v178 = 0u;
-    v175 = 0u;
+    v179 = 0u;
     v176 = 0u;
-    v173 = 0u;
-    v174 = 0u;
-    v172 = 0u;
-    GPUTools::MTL::Utils::DYMTLCreateIndirectCommandEncoder(a1, &v172);
-    v180[0] = 0;
-    v180[1] = 0;
-    v181 = 0;
+    v177 = 0u;
+    v175 = 0u;
+    GPUTools::MTL::Utils::DYMTLCreateIndirectCommandEncoder(a1, &v175);
+    v183[0] = 0;
+    v183[1] = 0;
+    v184 = 0;
     if ((a7 & 0x8004) == 4)
     {
-      v16 = 4;
+      v15 = 4;
     }
 
     else
     {
-      v16 = 32772;
+      v15 = 32772;
     }
 
-    v152 = v16;
-    v148 = a4 + a5;
+    v155 = v15;
+    v151 = a4 + a5;
     if (a4 < a4 + a5)
     {
-      v17 = *(&v178 + 1);
-      v147 = v178;
-      v18 = *(&v176 + 1) + a4 * *(&v178 + 1);
-      v166 = v173 + a4 * *(&v178 + 1);
-      v164 = *(&v173 + 1) + a4 * *(&v178 + 1);
-      v162 = v175 + a4 * *(&v178 + 1);
-      v160 = v174 + a4 * *(&v178 + 1);
-      v158 = *(&v174 + 1) + a4 * *(&v178 + 1);
-      v168 = *(&v175 + 1) + a4 * *(&v178 + 1);
-      v19 = v172;
+      v16 = *(&v181 + 1);
+      v150 = v181;
+      v17 = *(&v179 + 1) + a4 * *(&v181 + 1);
+      v169 = v176 + a4 * *(&v181 + 1);
+      v167 = *(&v176 + 1) + a4 * *(&v181 + 1);
+      v165 = v178 + a4 * *(&v181 + 1);
+      v163 = v177 + a4 * *(&v181 + 1);
+      v161 = *(&v177 + 1) + a4 * *(&v181 + 1);
+      v171 = *(&v178 + 1) + a4 * *(&v181 + 1);
+      v18 = v175;
       do
       {
-        v24 = [v150 bytes];
-        v25 = v24 + a4 * v17;
-        v26 = *(v25 + v19);
-        if (v26)
+        v23 = [v153 bytes];
+        v24 = v23 + a4 * v16;
+        v25 = *(v24 + v18);
+        if (v25)
         {
           if ((*(a1 + 9) & 1) == 0)
           {
-            [v14 renderPipelineIdForUniqueIdentifier:*(v25 + *(&v19 + 1))];
-            GPUTools::FB::Encode(v180, 4294951017, 4, "Ct", v27, v28, v29, v30, a3);
-            GPUTools::FB::Stream::Write(v179, v180);
+            v26 = [v13 renderPipelineIdForUniqueIdentifier:*(v24 + *(&v18 + 1))];
+            GPUTools::FB::Encode(v183, 4294951017, 4, "Ct", v27, v28, v29, v30, a3, v26);
+            GPUTools::FB::Stream::Write(v182);
           }
 
-          v154 = v24 + a4 * v17;
-          if ((*(a1 + 8) & 1) == 0)
+          v157 = v23 + a4 * v16;
+          if ((a1[1] & 1) == 0)
           {
-            v156 = a4;
-            if (*(a1 + 16))
+            v159 = a4;
+            if (a1[2])
             {
               v31 = 0;
-              v32 = v24 + v18;
+              v32 = v23 + v17;
               do
               {
-                [v14 bufferIdAndOffsetForGPUVirtualAddress:*(v24 + v166 + 8 * v31)];
+                v33 = [v13 bufferIdAndOffsetForGPUVirtualAddress:*(v23 + v169 + 8 * v31)];
                 if (*(a1 + 11) != 1 || *(v32 + 8 * v31) == -1)
                 {
-                  GPUTools::FB::Encode(v180, 4294951018, 4, "Ctulul", v33, v34, v35, v36, a3);
+                  GPUTools::FB::Encode(v183, 4294951018, 4, "Ctulul", v35, v36, v37, v38, a3, v33, v34, v31);
                 }
 
                 else
                 {
-                  v129 = *(v32 + 8 * v31);
-                  GPUTools::FB::Encode(v180, 4294952021, 4, "Ctulul", v33, v34, v35, v36, a3);
+                  GPUTools::FB::Encode(v183, 4294952021, 4, "Ctulul", v35, v36, v37, v38, a3, v33, v34, *(v32 + 8 * v31), v31);
                 }
 
-                GPUTools::FB::Stream::Write(v179, v180);
+                GPUTools::FB::Stream::Write(v182);
                 ++v31;
               }
 
-              while (v31 < *(a1 + 16));
+              while (v31 < a1[2]);
             }
 
-            if (*(a1 + 24))
+            if (a1[3])
             {
-              v37 = 0;
+              v39 = 0;
               do
               {
-                [v14 bufferIdAndOffsetForGPUVirtualAddress:*(v24 + v164 + 8 * v37)];
-                GPUTools::FB::Encode(v180, 4294951033, 4, "Ctulul", v38, v39, v40, v41, a3);
-                GPUTools::FB::Stream::Write(v179, v180);
-                ++v37;
+                v40 = [v13 bufferIdAndOffsetForGPUVirtualAddress:*(v23 + v167 + 8 * v39)];
+                GPUTools::FB::Encode(v183, 4294951033, 4, "Ctulul", v42, v43, v44, v45, a3, v40, v41, v39);
+                GPUTools::FB::Stream::Write(v182);
+                ++v39;
               }
 
-              while (v37 < *(a1 + 24));
+              while (v39 < a1[3]);
             }
 
-            a4 = v156;
-            if (*(a1 + 48))
+            a4 = v159;
+            if (a1[6])
             {
-              v42 = 0;
+              v46 = 0;
               do
               {
-                [v14 bufferIdAndOffsetForGPUVirtualAddress:*(v24 + v162 + 8 * v42)];
-                GPUTools::FB::Encode(v180, 4294951154, 4, "Ctulul", v43, v44, v45, v46, a3);
-                GPUTools::FB::Stream::Write(v179, v180);
-                ++v42;
+                v47 = [v13 bufferIdAndOffsetForGPUVirtualAddress:*(v23 + v165 + 8 * v46)];
+                GPUTools::FB::Encode(v183, 4294951154, 4, "Ctulul", v49, v50, v51, v52, a3, v47, v48, v46);
+                GPUTools::FB::Stream::Write(v182);
+                ++v46;
               }
 
-              while (v42 < *(a1 + 48));
+              while (v46 < a1[6]);
             }
 
-            if (*(a1 + 32))
+            if (a1[4])
             {
-              v47 = 0;
+              v53 = 0;
               do
               {
-                [v14 bufferIdAndOffsetForGPUVirtualAddress:*(v24 + v160 + 8 * v47)];
-                GPUTools::FB::Encode(v180, 4294951905, 4, "Ctulul", v48, v49, v50, v51, a3);
-                GPUTools::FB::Stream::Write(v179, v180);
-                ++v47;
+                v54 = [v13 bufferIdAndOffsetForGPUVirtualAddress:*(v23 + v163 + 8 * v53)];
+                GPUTools::FB::Encode(v183, 4294951905, 4, "Ctulul", v56, v57, v58, v59, a3, v54, v55, v53);
+                GPUTools::FB::Stream::Write(v182);
+                ++v53;
               }
 
-              while (v47 < *(a1 + 32));
+              while (v53 < a1[4]);
             }
 
-            if (*(a1 + 40))
+            if (a1[5])
             {
-              v52 = 0;
+              v60 = 0;
               do
               {
-                [v14 bufferIdAndOffsetForGPUVirtualAddress:*(v24 + v158 + 8 * v52)];
-                GPUTools::FB::Encode(v180, 4294951895, 4, "Ctulul", v53, v54, v55, v56, a3);
-                GPUTools::FB::Stream::Write(v179, v180);
-                ++v52;
+                v61 = [v13 bufferIdAndOffsetForGPUVirtualAddress:*(v23 + v161 + 8 * v60)];
+                GPUTools::FB::Encode(v183, 4294951895, 4, "Ctulul", v63, v64, v65, v66, a3, v61, v62, v60);
+                GPUTools::FB::Stream::Write(v182);
+                ++v60;
               }
 
-              while (v52 < *(a1 + 40));
+              while (v60 < a1[5]);
             }
           }
 
-          if (*(a1 + 56))
+          if (a1[7])
           {
-            v57 = 0;
-            v58 = v24 + v168;
+            v67 = 0;
+            v68 = v23 + v171;
             do
             {
-              v122 = *(v58 + 8 * v57);
-              GPUTools::FB::Encode(v180, 4294951915, 0, "Culul", v20, v21, v22, v23, a3);
-              GPUTools::FB::Stream::Write(v179, v180);
-              ++v57;
+              GPUTools::FB::Encode(v183, 4294951915, 0, "Culul", v19, v20, v21, v22, a3, *(v68 + 8 * v67), v67);
+              GPUTools::FB::Stream::Write(v182);
+              ++v67;
             }
 
-            while (v57 < *(a1 + 56));
+            while (v67 < a1[7]);
           }
 
-          if (v26 > 7)
+          if (v25 > 7)
           {
-            switch(v26)
+            switch(v25)
             {
               case 8:
-                [v14 bufferIdAndOffsetForGPUVirtualAddress:*(v154 + v147)];
-                v132 = *(v154 + v147 + 8);
-                GPUTools::FB::Encode(v180, 4294951148, v152, "Ctulul", v63, v64, v65, v66, a3);
-                GPUTools::FB::Stream::Write(v179, v180);
-                v125 = *(v154 + v147 + 16);
-                GPUTools::FB::Encode(v180, 4294951164, v152, "Cf", v67, v68, v69, v70, a3);
-                GPUTools::FB::Stream::Write(v179, v180);
-                [v14 bufferIdAndOffsetForGPUVirtualAddress:*(v154 + v147 + 48)];
-                [v14 bufferIdAndOffsetForGPUVirtualAddress:*(v154 + v147 + 56)];
-                v140 = *(v154 + v147 + 64);
-                v142 = *(v154 + v147 + 72);
-                v133 = *(v154 + v147 + 40);
-                v126 = *(v154 + v147 + 24);
-                GPUTools::FB::Encode(v180, 4294951151, v152, "Cululultultululul", v71, v72, v73, v74, a3);
-                GPUTools::FB::Stream::Write(v179, v180);
+                v78 = [v13 bufferIdAndOffsetForGPUVirtualAddress:*(v157 + v150)];
+                GPUTools::FB::Encode(v183, 4294951148, v155, "Ctulul", v80, v81, v82, v83, a3, v78, v79, *(v157 + v150 + 8));
+                GPUTools::FB::Stream::Write(v182);
+                GPUTools::FB::Encode(v183, 4294951164, v155, "Cf", v84, v85, v86, v87, a3, *(v157 + v150 + 16));
+                GPUTools::FB::Stream::Write(v182);
+                v88 = [v13 bufferIdAndOffsetForGPUVirtualAddress:*(v157 + v150 + 48)];
+                v90 = v89;
+                v91 = [v13 bufferIdAndOffsetForGPUVirtualAddress:*(v157 + v150 + 56)];
+                GPUTools::FB::Encode(v183, 4294951151, v155, "Cululultultululul", v93, v94, v95, v96, a3, *(v157 + v150 + 24), *(v157 + v150 + 32), *(v157 + v150 + 40), v88, v90, v91, v92, *(v157 + v150 + 64), *(v157 + v150 + 72));
+                GPUTools::FB::Stream::Write(v182);
                 break;
               case 128:
-                GPUTools::FB::Encode(v180, 4294951880, v152, "C@3ul@3ul@3ul", v20, v21, v22, v23, a3);
-                GPUTools::FB::Stream::Write(v179, v180);
+                GPUTools::FB::Encode(v183, 4294951880, v155, "C@3ul@3ul@3ul", v19, v20, v21, v22, a3, v157 + v150, v157 + v150 + 24, v157 + v150 + 48);
+                GPUTools::FB::Stream::Write(v182);
                 break;
               case 256:
-                GPUTools::FB::Encode(v180, 4294951882, v152, "C@3ul@3ul@3ul", v20, v21, v22, v23, a3);
-                GPUTools::FB::Stream::Write(v179, v180);
+                GPUTools::FB::Encode(v183, 4294951882, v155, "C@3ul@3ul@3ul", v19, v20, v21, v22, a3, v157 + v150, v157 + v150 + 24, v157 + v150 + 48);
+                GPUTools::FB::Stream::Write(v182);
                 break;
             }
           }
 
           else
           {
-            switch(v26)
+            switch(v25)
             {
               case 1:
-                v136 = *(v154 + v147 + 32);
-                v131 = *(v154 + v147 + 16);
-                v124 = *(v154 + v147);
-                GPUTools::FB::Encode(v180, 4294951078, v152, "Cululululul", v20, v21, v22, v23, a3);
-                GPUTools::FB::Stream::Write(v179, v180);
+                GPUTools::FB::Encode(v183, 4294951078, v155, "Cululululul", v19, v20, v21, v22, a3, *(v157 + v150), *(v157 + v150 + 8), *(v157 + v150 + 16), *(v157 + v150 + 24), *(v157 + v150 + 32));
+                GPUTools::FB::Stream::Write(v182);
                 break;
               case 2:
-                [v14 bufferIdAndOffsetForGPUVirtualAddress:*(v154 + v147 + 24)];
-                v141 = *(v154 + v147 + 48);
-                v138 = *(v154 + v147 + 32);
-                v134 = *(v154 + v147 + 16);
-                v127 = *(v154 + v147);
-                GPUTools::FB::Encode(v180, 4294951079, v152, "Cululultulullul", v75, v76, v77, v78, a3);
-                GPUTools::FB::Stream::Write(v179, v180);
+                v97 = [v13 bufferIdAndOffsetForGPUVirtualAddress:*(v157 + v150 + 24)];
+                GPUTools::FB::Encode(v183, 4294951079, v155, "Cululultulullul", v99, v100, v101, v102, a3, *(v157 + v150), *(v157 + v150 + 8), *(v157 + v150 + 16), v97, v98, *(v157 + v150 + 32), *(v157 + v150 + 40), *(v157 + v150 + 48));
+                GPUTools::FB::Stream::Write(v182);
                 break;
               case 4:
-                [v14 bufferIdAndOffsetForGPUVirtualAddress:*(v154 + v147)];
-                [v14 bufferIdAndOffsetForGPUVirtualAddress:*(v154 + v147 + 48)];
-                v143 = *(v154 + v147 + 8);
-                v139 = *(v154 + v147 + 64);
-                v137 = *(v154 + v147 + 56);
-                v130 = *(v154 + v147 + 40);
-                v123 = *(v154 + v147 + 24);
-                GPUTools::FB::Encode(v180, 4294951344, v152, "Cululultululultulul", v59, v60, v61, v62, a3);
-                GPUTools::FB::Stream::Write(v179, v180);
+                v69 = [v13 bufferIdAndOffsetForGPUVirtualAddress:*(v157 + v150)];
+                v71 = v70;
+                v72 = [v13 bufferIdAndOffsetForGPUVirtualAddress:*(v157 + v150 + 48)];
+                GPUTools::FB::Encode(v183, 4294951344, v155, "Cululultululultulul", v74, v75, v76, v77, a3, *(v157 + v150 + 24), *(v157 + v150 + 32), *(v157 + v150 + 40), v72, v73, *(v157 + v150 + 56), *(v157 + v150 + 64), v69, v71, *(v157 + v150 + 8));
+                GPUTools::FB::Stream::Write(v182);
                 break;
             }
           }
@@ -5908,27 +5806,27 @@ __CFData *GPUTools::MTL::Utils::DYMTLConvertIndirectCommandBufferDataToFBufStrea
 
         else
         {
-          GPUTools::FB::Encode(v180, 4294957079, v152 | 2, "C", v20, v21, v22, v23, a3);
-          GPUTools::FB::Stream::Write(v179, v180);
+          GPUTools::FB::Encode(v183, 4294957079, v155 | 2, "C", v19, v20, v21, v22, a3);
+          GPUTools::FB::Stream::Write(v182);
         }
 
         ++a4;
-        v18 += v17;
-        v166 += v17;
-        v164 += v17;
-        v162 += v17;
-        v160 += v17;
-        v158 += v17;
-        v168 += v17;
+        v17 += v16;
+        v169 += v16;
+        v167 += v16;
+        v165 += v16;
+        v163 += v16;
+        v161 += v16;
+        v171 += v16;
       }
 
-      while (a4 != v148);
+      while (a4 != v151);
     }
 
-    GPUTools::FB::Stream::Flush(v179);
-    GPUTools::FB::Stream::Close(v179);
-    v119 = v180[0];
-    if (!v180[0])
+    GPUTools::FB::Stream::Flush(v182);
+    GPUTools::FB::Stream::Close(v182);
+    v145 = v183[0];
+    if (!v183[0])
     {
       goto LABEL_86;
     }
@@ -5936,225 +5834,221 @@ __CFData *GPUTools::MTL::Utils::DYMTLConvertIndirectCommandBufferDataToFBufStrea
     goto LABEL_85;
   }
 
-  v79 = *a1;
   if (GPUTools::MTL::Utils::IsIndirectCommandBufferCompute())
   {
-    v80 = v145;
-    v169 = v146;
-    v144 = objc_alloc_init(MEMORY[0x277CBEB28]);
-    v81 = GPUTools::FB::Stream::Stream(v179, v144);
-    GPUTools::FB::Stream::Open(v81, @"ConvertIndirectCommandBufferDataToFBufStreamCompute");
-    v177 = 0u;
+    v103 = v148;
+    v172 = v149;
+    v147 = objc_alloc_init(MEMORY[0x277CBEB28]);
+    v104 = GPUTools::FB::Stream::Stream(v182, v147);
+    GPUTools::FB::Stream::Open(v104, @"ConvertIndirectCommandBufferDataToFBufStreamCompute");
+    v180 = 0u;
+    v181 = 0u;
     v178 = 0u;
-    v175 = 0u;
+    v179 = 0u;
     v176 = 0u;
-    v173 = 0u;
-    v174 = 0u;
-    v172 = 0u;
-    GPUTools::MTL::Utils::DYMTLCreateIndirectCommandEncoder(a1, &v172);
-    v170[0] = 0;
-    v170[1] = 0;
-    v171 = 0;
-    v82 = a4 + a5;
+    v177 = 0u;
+    v175 = 0u;
+    GPUTools::MTL::Utils::DYMTLCreateIndirectCommandEncoder(a1, &v175);
+    v173[0] = 0;
+    v173[1] = 0;
+    v174 = 0;
+    v105 = a4 + a5;
     if ((a7 & 0x8004) == 4)
     {
-      v83 = 4;
+      v106 = 4;
     }
 
     else
     {
-      v83 = 32772;
+      v106 = 32772;
     }
 
-    v159 = v82;
-    v153 = v80;
-    if (a4 < v82)
+    v162 = v105;
+    v156 = v103;
+    if (a4 < v105)
     {
-      v84 = *(&v178 + 1);
-      v165 = *(&v176 + 1) + a4 * *(&v178 + 1);
-      v163 = v175 + a4 * *(&v178 + 1);
-      v167 = v176 + a4 * *(&v178 + 1);
-      v85 = v178 + a4 * *(&v178 + 1);
-      v155 = *(&v178 + 1);
-      v86 = v172;
-      v149 = v178;
-      v151 = v83;
+      v107 = *(&v181 + 1);
+      v168 = *(&v179 + 1) + a4 * *(&v181 + 1);
+      v166 = v178 + a4 * *(&v181 + 1);
+      v170 = v179 + a4 * *(&v181 + 1);
+      v108 = v181 + a4 * *(&v181 + 1);
+      v158 = *(&v181 + 1);
+      v109 = v175;
+      v152 = v181;
+      v154 = v106;
       do
       {
-        v87 = v80;
-        v92 = [v80 bytes];
-        v157 = a4;
-        v161 = v92 + a4 * v84;
-        v93 = *(v161 + v86);
-        if (v93)
+        v110 = v103;
+        v115 = [v103 bytes];
+        v160 = a4;
+        v164 = v115 + a4 * v107;
+        v116 = *(v164 + v109);
+        if (v116)
         {
           if ((*(a1 + 9) & 1) == 0)
           {
-            [v169 computePipelineIdForUniqueIdentifier:*(v161 + *(&v86 + 1))];
-            GPUTools::FB::Encode(v170, 4294950959, 4, "Ct", v94, v95, v96, v97, a3);
-            GPUTools::FB::Stream::Write(v179, v170);
+            v117 = [v172 computePipelineIdForUniqueIdentifier:*(v164 + *(&v109 + 1))];
+            GPUTools::FB::Encode(v173, 4294950959, 4, "Ct", v118, v119, v120, v121, a3, v117);
+            GPUTools::FB::Stream::Write(v182);
           }
 
-          if ((*(a1 + 8) & 1) == 0 && *(a1 + 48))
+          if ((a1[1] & 1) == 0 && a1[6])
           {
-            v98 = 0;
-            v99 = v92 + v165;
+            v122 = 0;
+            v123 = v115 + v168;
             do
             {
-              [v169 bufferIdAndOffsetForGPUVirtualAddress:*(v92 + v163 + 8 * v98)];
-              if (*(a1 + 11) != 1 || *(v99 + 8 * v98) == -1)
+              v124 = [v172 bufferIdAndOffsetForGPUVirtualAddress:*(v115 + v166 + 8 * v122)];
+              if (*(a1 + 11) != 1 || *(v123 + 8 * v122) == -1)
               {
-                GPUTools::FB::Encode(v170, 4294950960, 4, "Ctulul", v100, v101, v102, v103, a3);
+                GPUTools::FB::Encode(v173, 4294950960, 4, "Ctulul", v126, v127, v128, v129, a3, v124, v125, v122);
               }
 
               else
               {
-                v135 = *(v99 + 8 * v98);
-                GPUTools::FB::Encode(v170, 4294952012, 4, "Ctulul", v100, v101, v102, v103, a3);
+                GPUTools::FB::Encode(v173, 4294952012, 4, "Ctulul", v126, v127, v128, v129, a3, v124, v125, *(v123 + 8 * v122), v122);
               }
 
-              GPUTools::FB::Stream::Write(v179, v170);
-              ++v98;
+              GPUTools::FB::Stream::Write(v182);
+              ++v122;
             }
 
-            while (v98 < *(a1 + 48));
+            while (v122 < a1[6]);
           }
 
-          v83 = v151;
-          if (*(a1 + 64))
+          v106 = v154;
+          if (a1[8])
           {
-            v104 = 0;
+            v130 = 0;
             do
             {
-              v128 = *(v92 + v167 + 8 * v104);
-              GPUTools::FB::Encode(v170, 4294950968, 0, "Culul", v88, v89, v90, v91, a3);
-              GPUTools::FB::Stream::Write(v179, v170);
-              ++v104;
+              GPUTools::FB::Encode(v173, 4294950968, 0, "Culul", v111, v112, v113, v114, a3, *(v115 + v170 + 8 * v130), v130);
+              GPUTools::FB::Stream::Write(v182);
+              ++v130;
             }
 
-            while (v104 < *(a1 + 64));
+            while (v130 < a1[8]);
           }
 
-          if (v93 == 32)
+          if (v116 == 32)
           {
-            v113 = 0;
-            v114 = v161 + v149;
-            v80 = v153;
+            v139 = 0;
+            v140 = v164 + v152;
+            v103 = v156;
             do
             {
-              v180[v113] = *(v92 + v85 + v113 * 8);
-              ++v113;
+              v183[v139] = *(v115 + v108 + v139 * 8);
+              ++v139;
             }
 
-            while (v113 != 3);
-            v182 = *(v114 + 24);
-            v183 = *(v114 + 40);
-            GPUTools::FB::Encode(v170, 4294951196, v151, "C@6ul", v88, v89, v90, v91, a3);
-            v106 = v157;
-            GPUTools::FB::Stream::Write(v179, v170);
-            if (*(v114 + 64) == 1)
+            while (v139 != 3);
+            v185 = *(v140 + 24);
+            v186 = *(v140 + 40);
+            GPUTools::FB::Encode(v173, 4294951196, v154, "C@6ul", v111, v112, v113, v114, a3, v183);
+            v132 = v160;
+            GPUTools::FB::Stream::Write(v182);
+            if (*(v140 + 64) == 1)
             {
-              GPUTools::FB::Encode(v170, 4294951471, v151 | 2, "C", v115, v116, v117, v118, a3);
-              GPUTools::FB::Stream::Write(v179, v170);
+              GPUTools::FB::Encode(v173, 4294951471, v154 | 2, "C", v141, v142, v143, v144, a3);
+              GPUTools::FB::Stream::Write(v182);
             }
 
-            GPUTools::FB::Encode(v170, 4294950969, v151, "C@3ul@3ul", v115, v116, v117, v118, a3);
-            v84 = v155;
-            GPUTools::FB::Stream::Write(v179, v170);
+            GPUTools::FB::Encode(v173, 4294950969, v154, "C@3ul@3ul", v141, v142, v143, v144, a3, v140 + 72, v140 + 96);
+            v107 = v158;
+            GPUTools::FB::Stream::Write(v182);
           }
 
           else
           {
-            v105 = v93 == 64;
-            v106 = v157;
-            v80 = v153;
-            v84 = v155;
-            if (v105)
+            v131 = v116 == 64;
+            v132 = v160;
+            v103 = v156;
+            v107 = v158;
+            if (v131)
             {
-              v107 = 0;
-              v108 = v161 + v149;
+              v133 = 0;
+              v134 = v164 + v152;
               do
               {
-                v180[v107] = *(v92 + v85 + v107 * 8);
-                ++v107;
+                v183[v133] = *(v115 + v108 + v133 * 8);
+                ++v133;
               }
 
-              while (v107 != 3);
-              v182 = *(v108 + 24);
-              v183 = *(v108 + 40);
-              GPUTools::FB::Encode(v170, 4294951196, v151, "C@6ul", v88, v89, v90, v91, a3);
-              GPUTools::FB::Stream::Write(v179, v170);
-              GPUTools::FB::Encode(v170, 4294951218, v151, "C@3ul@3ul", v109, v110, v111, v112, a3);
-              v84 = v155;
-              GPUTools::FB::Stream::Write(v179, v170);
+              while (v133 != 3);
+              v185 = *(v134 + 24);
+              v186 = *(v134 + 40);
+              GPUTools::FB::Encode(v173, 4294951196, v154, "C@6ul", v111, v112, v113, v114, a3, v183);
+              GPUTools::FB::Stream::Write(v182);
+              GPUTools::FB::Encode(v173, 4294951218, v154, "C@3ul@3ul", v135, v136, v137, v138, a3, v134 + 72, v134 + 96);
+              v107 = v158;
+              GPUTools::FB::Stream::Write(v182);
             }
           }
         }
 
         else
         {
-          GPUTools::FB::Encode(v170, 4294957079, v83 | 2u, "C", v88, v89, v90, v91, a3);
-          v106 = v157;
-          GPUTools::FB::Stream::Write(v179, v170);
+          GPUTools::FB::Encode(v173, 4294957079, v106 | 2u, "C", v111, v112, v113, v114, a3);
+          v132 = v160;
+          GPUTools::FB::Stream::Write(v182);
         }
 
-        a4 = v106 + 1;
-        v165 += v84;
-        v163 += v84;
-        v167 += v84;
-        v85 += v84;
+        a4 = v132 + 1;
+        v168 += v107;
+        v166 += v107;
+        v170 += v107;
+        v108 += v107;
       }
 
-      while (a4 != v159);
+      while (a4 != v162);
     }
 
-    GPUTools::FB::Stream::Flush(v179);
-    GPUTools::FB::Stream::Close(v179);
-    v119 = v170[0];
-    if (!v170[0])
+    GPUTools::FB::Stream::Flush(v182);
+    GPUTools::FB::Stream::Close(v182);
+    v145 = v173[0];
+    if (!v173[0])
     {
       goto LABEL_86;
     }
 
 LABEL_85:
-    free(v119);
+    free(v145);
 LABEL_86:
-    MEMORY[0x253031C40](v179);
+    MEMORY[0x253031C40](v182);
 
     goto LABEL_88;
   }
 
-  v144 = 0;
+  v147 = 0;
 LABEL_88:
 
-  v120 = *MEMORY[0x277D85DE8];
-
-  return v144;
+  return v147;
 }
 
-void sub_24D724318(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, void *a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, void *a37, void *a38)
+void sub_24D724318(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, void *a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, void *a37, void *a38)
 {
-  MEMORY[0x253031C40](v39 - 216);
+  MEMORY[0x253031C40](v39 - 216, a2, a3, a4, a5, a6, a7, a8);
 
   _Unwind_Resume(a1);
 }
 
-void GPUTools::FB::Encode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void GPUTools::FB::Encode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v10 = &a9;
-  GPUTools::FB::VAListArgumentProvider::VAListArgumentProvider(v9, &a9);
+  va_start(va, a8);
+  va_copy(v9, va);
+  GPUTools::FB::VAListArgumentProvider::VAListArgumentProvider(v8, va);
   GPUTools::FB::Encode();
-  GPUTools::FB::VAListArgumentProvider::~VAListArgumentProvider(v9);
+  GPUTools::FB::VAListArgumentProvider::~VAListArgumentProvider(v8);
 }
 
-void sub_24D7244AC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24D7244AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   GPUTools::FB::VAListArgumentProvider::~VAListArgumentProvider(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t GPUTools::FB::Stream::Write(uint64_t a1, unsigned int **a2)
+uint64_t GPUTools::FB::Stream::Write(uint64_t a1)
 {
   for (i = (a1 + 56); atomic_exchange(i, 1u) == 1; i = (a1 + 56))
   {
@@ -6162,7 +6056,6 @@ uint64_t GPUTools::FB::Stream::Write(uint64_t a1, unsigned int **a2)
     }
   }
 
-  v4 = **a2;
   result = GPUTools::FB::Stream::Write_nolock();
   atomic_store(0, (a1 + 56));
   return result;
@@ -6176,7 +6069,6 @@ uint64_t GPUTools::FB::Stream::Flush(GPUTools::FB::Stream *this)
     }
   }
 
-  v3 = *(this + 5);
   result = (*(*(this + 5) + 16))();
   *(this + 2) = *(this + 1) + 8;
   *(this + 60) = 1;
@@ -6184,7 +6076,7 @@ uint64_t GPUTools::FB::Stream::Flush(GPUTools::FB::Stream *this)
   return result;
 }
 
-uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<X0>(const void **a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
+char *std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<X0>(const void **a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
 {
   if (*(a1 + 23) >= 0)
   {
@@ -6207,7 +6099,7 @@ uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator
   }
 
   result = std::string::basic_string[abi:ne200100](a3, v6 + v5);
-  if (*(result + 23) >= 0)
+  if (result[23] >= 0)
   {
     v8 = result;
   }
@@ -6295,7 +6187,7 @@ void ShaderDebugger::Metadata::MDSerializer::addReferencedSourceFile(uint64_t a1
     if (v6)
     {
       v11[0] = a2;
-      v7 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 24), a2);
+      v7 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 24), a2, &std::piecewise_construct, v11, &__p);
       std::string::operator=((v7 + 5), a3);
     }
 
@@ -6328,8 +6220,8 @@ void ShaderDebugger::Metadata::MDSerializer::addReferencedSourceFile(uint64_t a1
           memcpy(p_p, v15, __n);
         }
 
-        v17 = a2;
-        v9 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 24), a2);
+        v18 = a2;
+        v9 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 24), a2, &std::piecewise_construct, &v18, &v17);
         std::string::operator=((v9 + 5), &__p);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
@@ -6356,7 +6248,7 @@ void sub_24D724884(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ShaderDebugger::Metadata::MDSerializer::serializeToBuffer(void *a1, void *a2)
+void ShaderDebugger::Metadata::MDSerializer::serializeToBuffer(void *a1, void **a2)
 {
   v4 = *a2;
   a2[1] = *a2;
@@ -6374,7 +6266,7 @@ void ShaderDebugger::Metadata::MDSerializer::serializeToBuffer(void *a1, void *a
     if (v4 >= v7)
     {
       v8 = *a2;
-      v9 = &v4[-*a2];
+      v9 = (v4 - *a2);
       v10 = (v9 + 1);
       if ((v9 + 1) < 0)
       {
@@ -6403,7 +6295,7 @@ LABEL_108:
         operator new();
       }
 
-      v13 = &v4[-*a2];
+      v13 = v4 - *a2;
       *v9 = *(&v67 + i);
       v4 = v9 + 1;
       memcpy(0, v8, v13);
@@ -6425,7 +6317,7 @@ LABEL_108:
   }
 
   v14 = a2[2] - *a2;
-  if (v14 < &v4[-*a2 + 8])
+  if (v14 < v4 - *a2 + 8)
   {
     std::vector<unsigned char>::reserve(a2, (2 * v14) | 1);
     v4 = a2[1];
@@ -6437,7 +6329,7 @@ LABEL_108:
     if (v4 >= v16)
     {
       v17 = *a2;
-      v18 = &v4[-*a2];
+      v18 = (v4 - *a2);
       v19 = (v18 + 1);
       if ((v18 + 1) < 0)
       {
@@ -6465,7 +6357,7 @@ LABEL_108:
         operator new();
       }
 
-      v22 = &v4[-*a2];
+      v22 = v4 - *a2;
       *v18 = *(a1 + j);
       v4 = v18 + 1;
       memcpy(0, v17, v22);
@@ -6496,7 +6388,7 @@ LABEL_108:
       v67 = v24;
       v25 = a2[1];
       v26 = a2[2] - *a2;
-      if (v26 < &v25[-*a2 + 8])
+      if (v26 < v25 - *a2 + 8)
       {
         std::vector<unsigned char>::reserve(a2, (2 * v26) | 1);
         v25 = a2[1];
@@ -6508,7 +6400,7 @@ LABEL_108:
         if (v25 >= v28)
         {
           v29 = *a2;
-          v30 = &v25[-*a2];
+          v30 = (v25 - *a2);
           v31 = (v30 + 1);
           if ((v30 + 1) < 0)
           {
@@ -6536,7 +6428,7 @@ LABEL_108:
             operator new();
           }
 
-          v34 = &v25[-*a2];
+          v34 = v25 - *a2;
           *v30 = *(&v67 + k);
           v25 = v30 + 1;
           memcpy(0, v29, v34);
@@ -6558,7 +6450,7 @@ LABEL_108:
       }
 
       v35 = a2[2] - *a2;
-      if (v35 < &v25[-*a2 + 8])
+      if (v35 < v25 - *a2 + 8)
       {
         std::vector<unsigned char>::reserve(a2, (2 * v35) | 1);
         v25 = a2[1];
@@ -6570,7 +6462,7 @@ LABEL_108:
         if (v25 >= v37)
         {
           v38 = *a2;
-          v39 = &v25[-*a2];
+          v39 = (v25 - *a2);
           v40 = (v39 + 1);
           if ((v39 + 1) < 0)
           {
@@ -6598,7 +6490,7 @@ LABEL_108:
             operator new();
           }
 
-          v43 = &v25[-*a2];
+          v43 = v25 - *a2;
           *v39 = *(&v66 + m);
           v25 = v39 + 1;
           memcpy(0, v38, v43);
@@ -6653,7 +6545,7 @@ LABEL_108:
 
   v67 = -1;
   v47 = a2[2] - *a2;
-  if (v47 < &v4[-*a2 + 8])
+  if (v47 < v4 - *a2 + 8)
   {
     std::vector<unsigned char>::reserve(a2, (2 * v47) | 1);
     v4 = a2[1];
@@ -6665,7 +6557,7 @@ LABEL_108:
     if (v4 >= v49)
     {
       v50 = *a2;
-      v51 = &v4[-*a2];
+      v51 = (v4 - *a2);
       v52 = (v51 + 1);
       if ((v51 + 1) < 0)
       {
@@ -6693,7 +6585,7 @@ LABEL_108:
         operator new();
       }
 
-      v55 = &v4[-*a2];
+      v55 = v4 - *a2;
       *v51 = *(&v67 + n);
       v4 = v51 + 1;
       memcpy(0, v50, v55);
@@ -6716,7 +6608,7 @@ LABEL_108:
 
   v67 = a1[6];
   v56 = a2[2] - *a2;
-  if (v56 < &v4[-*a2 + 8])
+  if (v56 < v4 - *a2 + 8)
   {
     std::vector<unsigned char>::reserve(a2, (2 * v56) | 1);
     v4 = a2[1];
@@ -6728,7 +6620,7 @@ LABEL_108:
     if (v4 >= v58)
     {
       v59 = *a2;
-      v60 = &v4[-*a2];
+      v60 = (v4 - *a2);
       v61 = (v60 + 1);
       if ((v60 + 1) < 0)
       {
@@ -6756,7 +6648,7 @@ LABEL_108:
         operator new();
       }
 
-      v64 = &v4[-*a2];
+      v64 = v4 - *a2;
       *v60 = *(&v67 + ii);
       v4 = v60 + 1;
       memcpy(0, v59, v64);
@@ -6779,23 +6671,23 @@ LABEL_108:
 
   for (jj = a1[5]; jj; jj = *jj)
   {
-    ShaderDebugger::Metadata::MDSerializer::write<std::string>(a1, a2, (jj + 2));
-    ShaderDebugger::Metadata::MDSerializer::write<std::string>(a1, a2, (jj + 5));
+    ShaderDebugger::Metadata::MDSerializer::write<std::string>(a1, a2, jj + 2);
+    ShaderDebugger::Metadata::MDSerializer::write<std::string>(a1, a2, jj + 5);
   }
 }
 
-void ShaderDebugger::Metadata::MDSerializer::write<std::string>(uint64_t a1, void *a2, uint64_t a3)
+void ShaderDebugger::Metadata::MDSerializer::write<std::string>(uint64_t a1, void **a2, uint64_t *a3)
 {
   v4 = *(a3 + 23);
   if ((v4 & 0x80u) != 0)
   {
-    v4 = *(a3 + 8);
+    v4 = a3[1];
   }
 
   v20 = v4;
   v5 = a2[1];
   v6 = a2[2] - *a2;
-  if (v6 < &v5[-*a2 + 8])
+  if (v6 < v5 - *a2 + 8)
   {
     std::vector<unsigned char>::reserve(a2, (2 * v6) | 1);
     v5 = a2[1];
@@ -6807,7 +6699,7 @@ void ShaderDebugger::Metadata::MDSerializer::write<std::string>(uint64_t a1, voi
     if (v5 >= v8)
     {
       v9 = *a2;
-      v10 = &v5[-*a2];
+      v10 = (v5 - *a2);
       v11 = (v10 + 1);
       if ((v10 + 1) < 0)
       {
@@ -6835,7 +6727,7 @@ void ShaderDebugger::Metadata::MDSerializer::write<std::string>(uint64_t a1, voi
         operator new();
       }
 
-      v14 = &v5[-*a2];
+      v14 = v5 - *a2;
       *v10 = *(&v20 + i);
       v5 = v10 + 1;
       memcpy(0, v9, v14);
@@ -6874,7 +6766,7 @@ void ShaderDebugger::Metadata::MDSerializer::write<std::string>(uint64_t a1, voi
 
   else
   {
-    v17 = *(a3 + 8);
+    v17 = a3[1];
   }
 
   ShaderDebugger::Metadata::MDSerializer::write(a1, a2, v16, v17);
@@ -6939,11 +6831,10 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::getLinearMetadataId(uint64_t a1
   }
 }
 
-uint64_t std::vector<BOOL>::push_back(uint64_t result, _BYTE *a2)
+void std::vector<BOOL>::push_back(uint64_t a1, _BYTE *a2)
 {
-  v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
+  v4 = *(a1 + 8);
+  v5 = *(a1 + 16);
   if (v4 == v5 << 6)
   {
     if ((v4 + 1) < 0)
@@ -6967,29 +6858,28 @@ uint64_t std::vector<BOOL>::push_back(uint64_t result, _BYTE *a2)
       v7 = 0x7FFFFFFFFFFFFFFFLL;
     }
 
-    result = std::vector<BOOL>::reserve(result, v7);
-    v4 = v3[1];
+    std::vector<BOOL>::reserve(a1, v7);
+    v4 = *(a1 + 8);
   }
 
-  v3[1] = v4 + 1;
-  v8 = *v3;
+  *(a1 + 8) = v4 + 1;
+  v8 = *a1;
   v9 = v4 >> 6;
   v10 = 1 << v4;
   if (*a2 == 1)
   {
-    v11 = *(v8 + 8 * v9) | v10;
+    v11 = *&v8[8 * v9] | v10;
   }
 
   else
   {
-    v11 = *(v8 + 8 * v9) & ~v10;
+    v11 = *&v8[8 * v9] & ~v10;
   }
 
-  *(v8 + 8 * v9) = v11;
-  return result;
+  *&v8[8 * v9] = v11;
 }
 
-uint64_t ShaderDebugger::Metadata::MDSerializer::addAndLinearizeMetadataId(uint64_t a1, uint64_t a2, uint64_t a3)
+unint64_t ShaderDebugger::Metadata::MDSerializer::addAndLinearizeMetadataId(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v12 = a3;
   isMetadataIdReserved = ShaderDebugger::Metadata::MDSerializer::isMetadataIdReserved(a1, a2, a3);
@@ -7074,13 +6964,13 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::isMetadataIdReserved(uint64_t a
   return (*(*(a2 + 24) + (((v5 >> 3) >> 3) & 0x1FFFFFFFFFFFFFF8)) >> (v5 >> 3)) & 1;
 }
 
-unint64_t *ShaderDebugger::Metadata::MDSerializer::serializeThreadTracepoint(ShaderDebugger::Metadata::MDSerializer *this, uint64_t a2, uint64_t a3, uint64_t a4)
+unint64_t *ShaderDebugger::Metadata::MDSerializer::serializeThreadTracepoint(uint64_t **this, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v47 = a4;
   v48 = a3;
   v46 = 5;
   v49 = &v46;
-  v6 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(this, &v46);
+  v6 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(this, &v46, &std::piecewise_construct, &v49);
   v7 = v6;
   v9 = (v6 + 5);
   v8 = v6[5];
@@ -7090,8 +6980,7 @@ unint64_t *ShaderDebugger::Metadata::MDSerializer::serializeThreadTracepoint(Sha
   {
     while (*v11 != a2)
     {
-      v11 += 8;
-      if (v11 == v10)
+      if (++v11 == v10)
       {
         v11 = v6[6];
         break;
@@ -7113,7 +7002,7 @@ unint64_t *ShaderDebugger::Metadata::MDSerializer::serializeThreadTracepoint(Sha
   v13 = v7[11];
   v15 = v7[12];
   v16 = v7[13] - v13;
-  if (v16 < &v15[-v13 + 8])
+  if (v16 < v15 - v13 + 8)
   {
     std::vector<unsigned char>::reserve(v7 + 11, (2 * v16) | 1);
     v15 = v7[12];
@@ -7156,10 +7045,10 @@ LABEL_59:
 
       v24 = v15 - *v14;
       *v20 = *(&v49 + i);
-      v15 = v20 + 1;
+      v15 = (v20 + 1);
       memcpy(0, v19, v24);
       v7[11] = 0;
-      v7[12] = v20 + 1;
+      v7[12] = (v20 + 1);
       v7[13] = 0;
       if (v19)
       {
@@ -7169,7 +7058,8 @@ LABEL_59:
 
     else
     {
-      *v15++ = *(&v49 + i);
+      *v15 = *(&v49 + i);
+      v15 = (v15 + 1);
     }
 
     v7[12] = v15;
@@ -7177,7 +7067,7 @@ LABEL_59:
 
   v25 = v7[11];
   v26 = v7[13] - v25;
-  if (v26 < &v15[-v25 + 8])
+  if (v26 < v15 - v25 + 8)
   {
     std::vector<unsigned char>::reserve(v7 + 11, (2 * v26) | 1);
     v15 = v7[12];
@@ -7219,10 +7109,10 @@ LABEL_59:
 
       v34 = v15 - *v14;
       *v30 = *(&v48 + j);
-      v15 = v30 + 1;
+      v15 = (v30 + 1);
       memcpy(0, v29, v34);
       v7[11] = 0;
-      v7[12] = v30 + 1;
+      v7[12] = (v30 + 1);
       v7[13] = 0;
       if (v29)
       {
@@ -7232,7 +7122,8 @@ LABEL_59:
 
     else
     {
-      *v15++ = *(&v48 + j);
+      *v15 = *(&v48 + j);
+      v15 = (v15 + 1);
     }
 
     v7[12] = v15;
@@ -7240,7 +7131,7 @@ LABEL_59:
 
   v35 = v7[11];
   v36 = v7[13] - v35;
-  if (v36 < &v15[-v35 + 8])
+  if (v36 < v15 - v35 + 8)
   {
     std::vector<unsigned char>::reserve(v7 + 11, (2 * v36) | 1);
     v15 = v7[12];
@@ -7282,10 +7173,10 @@ LABEL_59:
 
       v44 = v15 - *v14;
       *v40 = *(&v47 + k);
-      v15 = v40 + 1;
+      v15 = (v40 + 1);
       memcpy(0, v39, v44);
       v7[11] = 0;
-      v7[12] = v40 + 1;
+      v7[12] = (v40 + 1);
       v7[13] = 0;
       if (v39)
       {
@@ -7295,7 +7186,8 @@ LABEL_59:
 
     else
     {
-      *v15++ = *(&v47 + k);
+      *v15 = *(&v47 + k);
+      v15 = (v15 + 1);
     }
 
     v7[12] = v15;
@@ -7304,14 +7196,14 @@ LABEL_59:
   return v49;
 }
 
-uint64_t ShaderDebugger::Metadata::MDSerializer::serializeLocation(uint64_t a1, uint64_t a2, std::string::value_type *a3, uint64_t a4, uint64_t a5, uint64_t a6)
+unint64_t ShaderDebugger::Metadata::MDSerializer::serializeLocation(uint64_t **a1, uint64_t a2, std::string::value_type *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v85 = *MEMORY[0x277D85DE8];
-  v81 = a6;
-  v82 = a5;
-  v78.__r_.__value_.__r.__words[0] = 1;
-  __str.__r_.__value_.__r.__words[0] = &v78;
-  v9 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, &v78);
+  v84 = *MEMORY[0x277D85DE8];
+  v80 = a6;
+  v81 = a5;
+  v77.__r_.__value_.__r.__words[0] = 1;
+  __str.__r_.__value_.__r.__words[0] = &v77;
+  v9 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, &v77, &std::piecewise_construct, &__str);
   v10 = v9;
   v12 = (v9 + 5);
   v11 = v9[5];
@@ -7321,8 +7213,7 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::serializeLocation(uint64_t a1, 
   {
     while (*v14 != a2)
     {
-      v14 += 8;
-      if (v14 == v13)
+      if (++v14 == v13)
       {
         v14 = v9[6];
         break;
@@ -7335,12 +7226,11 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::serializeLocation(uint64_t a1, 
     v15 = v14 - v11;
     if (v14 - v11 != -8 && !ShaderDebugger::Metadata::MDSerializer::isMetadataIdReserved(v9, (v9 + 5), a2))
     {
-      v19 = v15 >> 3;
-      goto LABEL_140;
+      return v15 >> 3;
     }
   }
 
-  v80 = ShaderDebugger::Metadata::MDSerializer::addAndLinearizeMetadataId(a1, v12, a2);
+  v79 = ShaderDebugger::Metadata::MDSerializer::addAndLinearizeMetadataId(a1, v12, a2);
   if (a3[23] < 0)
   {
     std::string::__init_copy_ctor_external(&__str, *a3, *(a3 + 1));
@@ -7353,22 +7243,22 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::serializeLocation(uint64_t a1, 
 
   if (*(a4 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v78, *a4, *(a4 + 8));
+    std::string::__init_copy_ctor_external(&v77, *a4, *(a4 + 8));
   }
 
   else
   {
-    v78 = *a4;
+    v77 = *a4;
   }
 
   LODWORD(v16) = a3[23];
   if ((v16 & 0x80000000) == 0)
   {
-    v77 = *a3;
+    v76 = *a3;
     goto LABEL_17;
   }
 
-  std::string::__init_copy_ctor_external(&v77, *a3, *(a3 + 1));
+  std::string::__init_copy_ctor_external(&v76, *a3, *(a3 + 1));
   LODWORD(v16) = a3[23];
   if ((v16 & 0x80000000) == 0)
   {
@@ -7419,15 +7309,15 @@ LABEL_36:
           v22 = *(a4 + 8);
         }
 
-        std::string::basic_string[abi:ne200100](&v76, v22 + 1);
-        if ((v76.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        std::string::basic_string[abi:ne200100](&v75, v22 + 1);
+        if ((v75.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v23 = &v76;
+          v23 = &v75;
         }
 
         else
         {
-          v23 = v76.__r_.__value_.__r.__words[0];
+          v23 = v75.__r_.__value_.__r.__words[0];
         }
 
         if (v22)
@@ -7467,10 +7357,10 @@ LABEL_36:
           v27 = *(a3 + 1);
         }
 
-        v28 = std::string::append(&v76, v26, v27);
+        v28 = std::string::append(&v75, v26, v27);
         v29 = v28->__r_.__value_.__r.__words[0];
-        *&v83 = v28->__r_.__value_.__l.__size_;
-        *(&v83 + 7) = *(&v28->__r_.__value_.__r.__words[1] + 7);
+        *&v82 = v28->__r_.__value_.__l.__size_;
+        *(&v82 + 7) = *(&v28->__r_.__value_.__r.__words[1] + 7);
         v30 = HIBYTE(v28->__r_.__value_.__r.__words[2]);
         v28->__r_.__value_.__l.__size_ = 0;
         v28->__r_.__value_.__r.__words[2] = 0;
@@ -7481,12 +7371,12 @@ LABEL_36:
         }
 
         __str.__r_.__value_.__r.__words[0] = v29;
-        __str.__r_.__value_.__l.__size_ = v83;
-        *(&__str.__r_.__value_.__r.__words[1] + 7) = *(&v83 + 7);
+        __str.__r_.__value_.__l.__size_ = v82;
+        *(&__str.__r_.__value_.__r.__words[1] + 7) = *(&v82 + 7);
         *(&__str.__r_.__value_.__s + 23) = v30;
-        if (SHIBYTE(v76.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v75.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v76.__r_.__value_.__l.__data_);
+          operator delete(v75.__r_.__value_.__l.__data_);
         }
 
         goto LABEL_57;
@@ -7506,13 +7396,13 @@ LABEL_36:
 
     if (*v21 == 47)
     {
-      std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a4, a3, &v76);
+      std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a4, a3, &v75);
       if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__str.__r_.__value_.__l.__data_);
       }
 
-      __str = v76;
+      __str = v75;
       goto LABEL_57;
     }
 
@@ -7548,58 +7438,58 @@ LABEL_57:
       if (v33)
       {
         v36 = -v33;
-        std::string::basic_string(&v76, &__str, 0, -v33, &v83);
-        if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v78.__r_.__value_.__l.__data_);
-        }
-
-        v78 = v76;
-        std::string::basic_string(&v76, &__str, v36, 0xFFFFFFFFFFFFFFFFLL, &v83);
+        std::string::basic_string(&v75, &__str, 0, -v33, &v82);
         if (SHIBYTE(v77.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(v77.__r_.__value_.__l.__data_);
         }
 
-        v77 = v76;
+        v77 = v75;
+        std::string::basic_string(&v75, &__str, v36, 0xFFFFFFFFFFFFFFFFLL, &v82);
+        if (SHIBYTE(v76.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v76.__r_.__value_.__l.__data_);
+        }
+
+        v76 = v75;
       }
 
       break;
     }
   }
 
-  v37 = SHIBYTE(v78.__r_.__value_.__r.__words[2]);
-  if ((SHIBYTE(v78.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
+  v37 = SHIBYTE(v77.__r_.__value_.__r.__words[2]);
+  if ((SHIBYTE(v77.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
   {
-    v37 = v78.__r_.__value_.__l.__size_;
-    if (!v78.__r_.__value_.__l.__size_)
+    v37 = v77.__r_.__value_.__l.__size_;
+    if (!v77.__r_.__value_.__l.__size_)
     {
       goto LABEL_78;
     }
 
-    v38 = v78.__r_.__value_.__r.__words[0];
+    v38 = v77.__r_.__value_.__r.__words[0];
   }
 
   else
   {
-    if (!*(&v78.__r_.__value_.__s + 23))
+    if (!*(&v77.__r_.__value_.__s + 23))
     {
       goto LABEL_78;
     }
 
-    v38 = &v78;
+    v38 = &v77;
   }
 
   if (v38->__r_.__value_.__s.__data_[v37 - 1] != 47)
   {
-    std::string::append(&v78, "/");
+    std::string::append(&v77, "/");
   }
 
 LABEL_78:
   v39 = v10[12];
   v40 = v10[11];
   v41 = v10[13] - v40;
-  if (v41 < &v39[-v40 + 8])
+  if (v41 < v39 - v40 + 8)
   {
     std::vector<unsigned char>::reserve(v10 + 11, (2 * v41) | 1);
     v39 = v10[12];
@@ -7641,7 +7531,7 @@ LABEL_141:
       }
 
       v49 = v39 - v44;
-      *v45 = *(&v80 + i);
+      *v45 = *(&v79 + i);
       v39 = v45 + 1;
       memcpy(0, v44, v49);
       v10[11] = 0;
@@ -7655,18 +7545,18 @@ LABEL_141:
 
     else
     {
-      *v39++ = *(&v80 + i);
+      *v39++ = *(&v79 + i);
     }
 
     v10[12] = v39;
   }
 
+  ShaderDebugger::Metadata::MDSerializer::write<std::string>(a1, v10 + 11, &v76);
   ShaderDebugger::Metadata::MDSerializer::write<std::string>(a1, v10 + 11, &v77);
-  ShaderDebugger::Metadata::MDSerializer::write<std::string>(a1, v10 + 11, &v78);
   v50 = v10[12];
   v51 = v10[11];
   v52 = v10[13] - v51;
-  if (v52 < &v50[-v51 + 8])
+  if (v52 < v50 - v51 + 8)
   {
     std::vector<unsigned char>::reserve(v10 + 11, (2 * v52) | 1);
     v50 = v10[12];
@@ -7707,7 +7597,7 @@ LABEL_141:
       }
 
       v60 = v50 - v55;
-      *v56 = *(&v82 + j);
+      *v56 = *(&v81 + j);
       v50 = v56 + 1;
       memcpy(0, v55, v60);
       v10[11] = 0;
@@ -7721,7 +7611,7 @@ LABEL_141:
 
     else
     {
-      *v50++ = *(&v82 + j);
+      *v50++ = *(&v81 + j);
     }
 
     v10[12] = v50;
@@ -7729,7 +7619,7 @@ LABEL_141:
 
   v61 = v10[11];
   v62 = v10[13] - v61;
-  if (v62 < &v50[-v61 + 8])
+  if (v62 < v50 - v61 + 8)
   {
     std::vector<unsigned char>::reserve(v10 + 11, (2 * v62) | 1);
     v50 = v10[12];
@@ -7770,7 +7660,7 @@ LABEL_141:
       }
 
       v70 = v50 - v65;
-      *v66 = *(&v81 + k);
+      *v66 = *(&v80 + k);
       v50 = v66 + 1;
       memcpy(0, v65, v70);
       v10[11] = 0;
@@ -7784,35 +7674,40 @@ LABEL_141:
 
     else
     {
-      *v50++ = *(&v81 + k);
+      *v50++ = *(&v80 + k);
     }
 
     v10[12] = v50;
   }
 
-  std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v78.__r_.__value_.__l.__data_, &v77.__r_.__value_.__l.__data_, &v76);
-  v71 = HIBYTE(v76.__r_.__value_.__r.__words[2]);
-  v72 = HIBYTE(v76.__r_.__value_.__r.__words[2]);
-  if ((v76.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v77.__r_.__value_.__l.__data_, &v76.__r_.__value_.__l.__data_, &v75);
+  v71 = HIBYTE(v75.__r_.__value_.__r.__words[2]);
+  v72 = HIBYTE(v75.__r_.__value_.__r.__words[2]);
+  if ((v75.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    v71 = v76.__r_.__value_.__l.__size_;
+    v71 = v75.__r_.__value_.__l.__size_;
   }
 
   if (v71)
   {
-    v83 = 0uLL;
-    v84 = 0;
-    ShaderDebugger::Metadata::MDSerializer::addReferencedSourceFile(a1, &v76, &v83);
-    if (SHIBYTE(v84) < 0)
+    v82 = 0uLL;
+    v83 = 0;
+    ShaderDebugger::Metadata::MDSerializer::addReferencedSourceFile(a1, &v75, &v82);
+    if (SHIBYTE(v83) < 0)
     {
-      operator delete(v83);
+      operator delete(v82);
     }
 
-    v72 = HIBYTE(v76.__r_.__value_.__r.__words[2]);
+    v72 = HIBYTE(v75.__r_.__value_.__r.__words[2]);
   }
 
-  v19 = v80;
+  v19 = v79;
   if (v72 < 0)
+  {
+    operator delete(v75.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v76.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v76.__r_.__value_.__l.__data_);
   }
@@ -7822,18 +7717,11 @@ LABEL_141:
     operator delete(v77.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v78.__r_.__value_.__l.__data_);
-  }
-
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__str.__r_.__value_.__l.__data_);
   }
 
-LABEL_140:
-  v73 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -7857,12 +7745,12 @@ void sub_24D726020(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t ShaderDebugger::Metadata::MDSerializer::serializeSubprogram(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+unint64_t *ShaderDebugger::Metadata::MDSerializer::serializeSubprogram(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t a4)
 {
   v40 = 0;
   v41 = a4;
   v42 = &v40;
-  v7 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, &v40);
+  v7 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, &v40, &std::piecewise_construct, &v42);
   v8 = v7;
   v10 = (v7 + 5);
   v9 = v7[5];
@@ -7872,8 +7760,7 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::serializeSubprogram(uint64_t a1
   {
     while (*v12 != a2)
     {
-      v12 += 8;
-      if (v12 == v11)
+      if (++v12 == v11)
       {
         v12 = v7[6];
         break;
@@ -7886,18 +7773,18 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::serializeSubprogram(uint64_t a1
     v13 = v12 - v9;
     if (v12 - v9 != -8 && !ShaderDebugger::Metadata::MDSerializer::isMetadataIdReserved(v7, (v7 + 5), a2))
     {
-      return v13 >> 3;
+      return (v13 >> 3);
     }
   }
 
   v38 = a1;
   v39 = a3;
   v42 = ShaderDebugger::Metadata::MDSerializer::addAndLinearizeMetadataId(a1, v10, a2);
-  v15 = (v8 + 11);
+  v15 = v8 + 11;
   v14 = v8[11];
   v16 = v8[12];
   v17 = v8[13] - v14;
-  if (v17 < &v16[-v14 + 8])
+  if (v17 < v16 - v14 + 8)
   {
     std::vector<unsigned char>::reserve(v8 + 11, (2 * v17) | 1);
     v16 = v8[12];
@@ -7963,7 +7850,7 @@ LABEL_43:
   v26 = v8[12];
   v27 = v8[11];
   v28 = v8[13] - v27;
-  if (v28 < &v26[-v27 + 8])
+  if (v28 < v26 - v27 + 8)
   {
     std::vector<unsigned char>::reserve(v8 + 11, (2 * v28) | 1);
     v26 = v8[12];
@@ -8027,13 +7914,13 @@ LABEL_43:
   return v42;
 }
 
-unint64_t *ShaderDebugger::Metadata::MDSerializer::serializeSubrange(ShaderDebugger::Metadata::MDSerializer *this, uint64_t a2, uint64_t a3, uint64_t a4)
+unint64_t *ShaderDebugger::Metadata::MDSerializer::serializeSubrange(uint64_t **this, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v47 = a4;
   v48 = a3;
   v46 = 4;
   v49 = &v46;
-  v6 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(this, &v46);
+  v6 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(this, &v46, &std::piecewise_construct, &v49);
   v7 = v6;
   v9 = (v6 + 5);
   v8 = v6[5];
@@ -8043,8 +7930,7 @@ unint64_t *ShaderDebugger::Metadata::MDSerializer::serializeSubrange(ShaderDebug
   {
     while (*v11 != a2)
     {
-      v11 += 8;
-      if (v11 == v10)
+      if (++v11 == v10)
       {
         v11 = v6[6];
         break;
@@ -8066,7 +7952,7 @@ unint64_t *ShaderDebugger::Metadata::MDSerializer::serializeSubrange(ShaderDebug
   v13 = v7[11];
   v15 = v7[12];
   v16 = v7[13] - v13;
-  if (v16 < &v15[-v13 + 8])
+  if (v16 < v15 - v13 + 8)
   {
     std::vector<unsigned char>::reserve(v7 + 11, (2 * v16) | 1);
     v15 = v7[12];
@@ -8109,10 +7995,10 @@ LABEL_59:
 
       v24 = v15 - *v14;
       *v20 = *(&v49 + i);
-      v15 = v20 + 1;
+      v15 = (v20 + 1);
       memcpy(0, v19, v24);
       v7[11] = 0;
-      v7[12] = v20 + 1;
+      v7[12] = (v20 + 1);
       v7[13] = 0;
       if (v19)
       {
@@ -8122,7 +8008,8 @@ LABEL_59:
 
     else
     {
-      *v15++ = *(&v49 + i);
+      *v15 = *(&v49 + i);
+      v15 = (v15 + 1);
     }
 
     v7[12] = v15;
@@ -8130,7 +8017,7 @@ LABEL_59:
 
   v25 = v7[11];
   v26 = v7[13] - v25;
-  if (v26 < &v15[-v25 + 8])
+  if (v26 < v15 - v25 + 8)
   {
     std::vector<unsigned char>::reserve(v7 + 11, (2 * v26) | 1);
     v15 = v7[12];
@@ -8172,10 +8059,10 @@ LABEL_59:
 
       v34 = v15 - *v14;
       *v30 = *(&v48 + j);
-      v15 = v30 + 1;
+      v15 = (v30 + 1);
       memcpy(0, v29, v34);
       v7[11] = 0;
-      v7[12] = v30 + 1;
+      v7[12] = (v30 + 1);
       v7[13] = 0;
       if (v29)
       {
@@ -8185,7 +8072,8 @@ LABEL_59:
 
     else
     {
-      *v15++ = *(&v48 + j);
+      *v15 = *(&v48 + j);
+      v15 = (v15 + 1);
     }
 
     v7[12] = v15;
@@ -8193,7 +8081,7 @@ LABEL_59:
 
   v35 = v7[11];
   v36 = v7[13] - v35;
-  if (v36 < &v15[-v35 + 8])
+  if (v36 < v15 - v35 + 8)
   {
     std::vector<unsigned char>::reserve(v7 + 11, (2 * v36) | 1);
     v15 = v7[12];
@@ -8235,10 +8123,10 @@ LABEL_59:
 
       v44 = v15 - *v14;
       *v40 = *(&v47 + k);
-      v15 = v40 + 1;
+      v15 = (v40 + 1);
       memcpy(0, v39, v44);
       v7[11] = 0;
-      v7[12] = v40 + 1;
+      v7[12] = (v40 + 1);
       v7[13] = 0;
       if (v39)
       {
@@ -8248,7 +8136,8 @@ LABEL_59:
 
     else
     {
-      *v15++ = *(&v47 + k);
+      *v15 = *(&v47 + k);
+      v15 = (v15 + 1);
     }
 
     v7[12] = v15;
@@ -8257,7 +8146,7 @@ LABEL_59:
   return v49;
 }
 
-uint64_t ShaderDebugger::Metadata::MDSerializer::serializeFunctionTracepoint(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+unint64_t *ShaderDebugger::Metadata::MDSerializer::serializeFunctionTracepoint(uint64_t **a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   v84 = a5;
   v85 = a3;
@@ -8265,7 +8154,7 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::serializeFunctionTracepoint(uin
   v83 = a6;
   v81 = 6;
   v86 = &v81;
-  v10 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, &v81);
+  v10 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, &v81, &std::piecewise_construct, &v86);
   v11 = v10;
   v13 = (v10 + 5);
   v12 = v10[5];
@@ -8275,8 +8164,7 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::serializeFunctionTracepoint(uin
   {
     while (*v15 != a2)
     {
-      v15 += 8;
-      if (v15 == v14)
+      if (++v15 == v14)
       {
         v15 = v10[6];
         break;
@@ -8289,7 +8177,7 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::serializeFunctionTracepoint(uin
     v16 = v15 - v12;
     if (v15 - v12 != -8 && !ShaderDebugger::Metadata::MDSerializer::isMetadataIdReserved(v10, (v10 + 5), a2))
     {
-      return v16 >> 3;
+      return (v16 >> 3);
     }
   }
 
@@ -8299,7 +8187,7 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::serializeFunctionTracepoint(uin
   v17 = v11[11];
   v19 = v11[12];
   v20 = v11[13] - v17;
-  if (v20 < &v19[-v17 + 8])
+  if (v20 < v19 - v17 + 8)
   {
     std::vector<unsigned char>::reserve(v11 + 11, (2 * v20) | 1);
     v19 = v11[12];
@@ -8342,10 +8230,10 @@ LABEL_107:
 
       v28 = v19 - *v18;
       *v24 = *(&v86 + i);
-      v19 = v24 + 1;
+      v19 = (v24 + 1);
       memcpy(0, v23, v28);
       v11[11] = 0;
-      v11[12] = v24 + 1;
+      v11[12] = (v24 + 1);
       v11[13] = 0;
       if (v23)
       {
@@ -8355,7 +8243,8 @@ LABEL_107:
 
     else
     {
-      *v19++ = *(&v86 + i);
+      *v19 = *(&v86 + i);
+      v19 = (v19 + 1);
     }
 
     v11[12] = v19;
@@ -8363,7 +8252,7 @@ LABEL_107:
 
   v29 = v11[11];
   v30 = v11[13] - v29;
-  if (v30 < &v19[-v29 + 8])
+  if (v30 < v19 - v29 + 8)
   {
     std::vector<unsigned char>::reserve(v11 + 11, (2 * v30) | 1);
     v19 = v11[12];
@@ -8405,10 +8294,10 @@ LABEL_107:
 
       v38 = v19 - *v18;
       *v34 = *(&v85 + j);
-      v19 = v34 + 1;
+      v19 = (v34 + 1);
       memcpy(0, v33, v38);
       v11[11] = 0;
-      v11[12] = v34 + 1;
+      v11[12] = (v34 + 1);
       v11[13] = 0;
       if (v33)
       {
@@ -8418,7 +8307,8 @@ LABEL_107:
 
     else
     {
-      *v19++ = *(&v85 + j);
+      *v19 = *(&v85 + j);
+      v19 = (v19 + 1);
     }
 
     v11[12] = v19;
@@ -8427,7 +8317,7 @@ LABEL_107:
   v81 = v80;
   v39 = v11[11];
   v40 = v11[13] - v39;
-  if (v40 < &v19[-v39 + 8])
+  if (v40 < v19 - v39 + 8)
   {
     std::vector<unsigned char>::reserve(v11 + 11, (2 * v40) | 1);
     v19 = v11[12];
@@ -8469,10 +8359,10 @@ LABEL_107:
 
       v48 = v19 - *v18;
       *v44 = *(&v81 + k);
-      v19 = v44 + 1;
+      v19 = (v44 + 1);
       memcpy(0, v43, v48);
       v11[11] = 0;
-      v11[12] = v44 + 1;
+      v11[12] = (v44 + 1);
       v11[13] = 0;
       if (v43)
       {
@@ -8482,7 +8372,8 @@ LABEL_107:
 
     else
     {
-      *v19++ = *(&v81 + k);
+      *v19 = *(&v81 + k);
+      v19 = (v19 + 1);
     }
 
     v11[12] = v19;
@@ -8490,7 +8381,7 @@ LABEL_107:
 
   v49 = v11[11];
   v50 = v11[13] - v49;
-  if (v50 < &v19[-v49 + 8])
+  if (v50 < v19 - v49 + 8)
   {
     std::vector<unsigned char>::reserve(v11 + 11, (2 * v50) | 1);
     v19 = v11[12];
@@ -8532,10 +8423,10 @@ LABEL_107:
 
       v58 = v19 - *v18;
       *v54 = *(&v84 + m);
-      v19 = v54 + 1;
+      v19 = (v54 + 1);
       memcpy(0, v53, v58);
       v11[11] = 0;
-      v11[12] = v54 + 1;
+      v11[12] = (v54 + 1);
       v11[13] = 0;
       if (v53)
       {
@@ -8545,7 +8436,8 @@ LABEL_107:
 
     else
     {
-      *v19++ = *(&v84 + m);
+      *v19 = *(&v84 + m);
+      v19 = (v19 + 1);
     }
 
     v11[12] = v19;
@@ -8553,7 +8445,7 @@ LABEL_107:
 
   v59 = v11[11];
   v60 = v11[13] - v59;
-  if (v60 < &v19[-v59 + 8])
+  if (v60 < v19 - v59 + 8)
   {
     std::vector<unsigned char>::reserve(v11 + 11, (2 * v60) | 1);
     v19 = v11[12];
@@ -8595,10 +8487,10 @@ LABEL_107:
 
       v68 = v19 - *v18;
       *v64 = *(&v83 + n);
-      v19 = v64 + 1;
+      v19 = (v64 + 1);
       memcpy(0, v63, v68);
       v11[11] = 0;
-      v11[12] = v64 + 1;
+      v11[12] = (v64 + 1);
       v11[13] = 0;
       if (v63)
       {
@@ -8608,7 +8500,8 @@ LABEL_107:
 
     else
     {
-      *v19++ = *(&v83 + n);
+      *v19 = *(&v83 + n);
+      v19 = (v19 + 1);
     }
 
     v11[12] = v19;
@@ -8616,7 +8509,7 @@ LABEL_107:
 
   v69 = v11[11];
   v70 = v11[13] - v69;
-  if (v70 < &v19[-v69 + 8])
+  if (v70 < v19 - v69 + 8)
   {
     std::vector<unsigned char>::reserve(v11 + 11, (2 * v70) | 1);
     v19 = v11[12];
@@ -8658,10 +8551,10 @@ LABEL_107:
 
       v78 = v19 - *v18;
       *v74 = *(&v82 + ii);
-      v19 = v74 + 1;
+      v19 = (v74 + 1);
       memcpy(0, v73, v78);
       v11[11] = 0;
-      v11[12] = v74 + 1;
+      v11[12] = (v74 + 1);
       v11[13] = 0;
       if (v73)
       {
@@ -8671,7 +8564,8 @@ LABEL_107:
 
     else
     {
-      *v19++ = *(&v82 + ii);
+      *v19 = *(&v82 + ii);
+      v19 = (v19 + 1);
     }
 
     v11[12] = v19;
@@ -8680,13 +8574,13 @@ LABEL_107:
   return v86;
 }
 
-uint64_t ShaderDebugger::Metadata::MDSerializer::serializeWaypointTracepoint(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5)
+unint64_t *ShaderDebugger::Metadata::MDSerializer::serializeWaypointTracepoint(uint64_t **a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5)
 {
   v60 = a5;
   v61 = a3;
   v59 = 9;
   v62 = &v59;
-  v8 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, &v59);
+  v8 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, &v59, &std::piecewise_construct, &v62);
   v9 = v8;
   v11 = (v8 + 5);
   v10 = v8[5];
@@ -8696,8 +8590,7 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::serializeWaypointTracepoint(uin
   {
     while (*v13 != a2)
     {
-      v13 += 8;
-      if (v13 == v12)
+      if (++v13 == v12)
       {
         v13 = v8[6];
         break;
@@ -8710,7 +8603,7 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::serializeWaypointTracepoint(uin
     v14 = v13 - v10;
     if (v13 - v10 != -8 && !ShaderDebugger::Metadata::MDSerializer::isMetadataIdReserved(v8, (v8 + 5), a2))
     {
-      return v14 >> 3;
+      return (v14 >> 3);
     }
   }
 
@@ -8720,7 +8613,7 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::serializeWaypointTracepoint(uin
   v15 = v9[11];
   v17 = v9[12];
   v18 = v9[13] - v15;
-  if (v18 < &v17[-v15 + 8])
+  if (v18 < v17 - v15 + 8)
   {
     std::vector<unsigned char>::reserve(v9 + 11, (2 * v18) | 1);
     v17 = v9[12];
@@ -8763,10 +8656,10 @@ LABEL_75:
 
       v26 = v17 - *v16;
       *v22 = *(&v62 + i);
-      v17 = v22 + 1;
+      v17 = (v22 + 1);
       memcpy(0, v21, v26);
       v9[11] = 0;
-      v9[12] = v22 + 1;
+      v9[12] = (v22 + 1);
       v9[13] = 0;
       if (v21)
       {
@@ -8776,7 +8669,8 @@ LABEL_75:
 
     else
     {
-      *v17++ = *(&v62 + i);
+      *v17 = *(&v62 + i);
+      v17 = (v17 + 1);
     }
 
     v9[12] = v17;
@@ -8784,7 +8678,7 @@ LABEL_75:
 
   v27 = v9[11];
   v28 = v9[13] - v27;
-  if (v28 < &v17[-v27 + 8])
+  if (v28 < v17 - v27 + 8)
   {
     std::vector<unsigned char>::reserve(v9 + 11, (2 * v28) | 1);
     v17 = v9[12];
@@ -8826,10 +8720,10 @@ LABEL_75:
 
       v36 = v17 - *v16;
       *v32 = *(&v61 + j);
-      v17 = v32 + 1;
+      v17 = (v32 + 1);
       memcpy(0, v31, v36);
       v9[11] = 0;
-      v9[12] = v32 + 1;
+      v9[12] = (v32 + 1);
       v9[13] = 0;
       if (v31)
       {
@@ -8839,7 +8733,8 @@ LABEL_75:
 
     else
     {
-      *v17++ = *(&v61 + j);
+      *v17 = *(&v61 + j);
+      v17 = (v17 + 1);
     }
 
     v9[12] = v17;
@@ -8848,7 +8743,7 @@ LABEL_75:
   v59 = v58;
   v37 = v9[11];
   v38 = v9[13] - v37;
-  if (v38 < &v17[-v37 + 8])
+  if (v38 < v17 - v37 + 8)
   {
     std::vector<unsigned char>::reserve(v9 + 11, (2 * v38) | 1);
     v17 = v9[12];
@@ -8890,10 +8785,10 @@ LABEL_75:
 
       v46 = v17 - *v16;
       *v42 = *(&v59 + k);
-      v17 = v42 + 1;
+      v17 = (v42 + 1);
       memcpy(0, v41, v46);
       v9[11] = 0;
-      v9[12] = v42 + 1;
+      v9[12] = (v42 + 1);
       v9[13] = 0;
       if (v41)
       {
@@ -8903,7 +8798,8 @@ LABEL_75:
 
     else
     {
-      *v17++ = *(&v59 + k);
+      *v17 = *(&v59 + k);
+      v17 = (v17 + 1);
     }
 
     v9[12] = v17;
@@ -8911,7 +8807,7 @@ LABEL_75:
 
   v47 = v9[11];
   v48 = v9[13] - v47;
-  if (v48 < &v17[-v47 + 8])
+  if (v48 < v17 - v47 + 8)
   {
     std::vector<unsigned char>::reserve(v9 + 11, (2 * v48) | 1);
     v17 = v9[12];
@@ -8953,10 +8849,10 @@ LABEL_75:
 
       v56 = v17 - *v16;
       *v52 = *(&v60 + m);
-      v17 = v52 + 1;
+      v17 = (v52 + 1);
       memcpy(0, v51, v56);
       v9[11] = 0;
-      v9[12] = v52 + 1;
+      v9[12] = (v52 + 1);
       v9[13] = 0;
       if (v51)
       {
@@ -8966,7 +8862,8 @@ LABEL_75:
 
     else
     {
-      *v17++ = *(&v60 + m);
+      *v17 = *(&v60 + m);
+      v17 = (v17 + 1);
     }
 
     v9[12] = v17;
@@ -8975,14 +8872,14 @@ LABEL_75:
   return v62;
 }
 
-uint64_t ShaderDebugger::Metadata::MDSerializer::serializeDataTracepoint(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, unsigned int a6)
+unint64_t *ShaderDebugger::Metadata::MDSerializer::serializeDataTracepoint(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, unsigned int a6)
 {
   v72 = a4;
   v73 = a3;
   v71 = a5;
   v70 = 8;
   v74 = &v70;
-  v9 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, &v70);
+  v9 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, &v70, &std::piecewise_construct, &v74);
   v10 = v9;
   v12 = (v9 + 5);
   v11 = v9[5];
@@ -8992,8 +8889,7 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::serializeDataTracepoint(uint64_
   {
     while (*v14 != a2)
     {
-      v14 += 8;
-      if (v14 == v13)
+      if (++v14 == v13)
       {
         v14 = v9[6];
         break;
@@ -9006,7 +8902,7 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::serializeDataTracepoint(uint64_
     v15 = v14 - v11;
     if (v14 - v11 != -8 && !ShaderDebugger::Metadata::MDSerializer::isMetadataIdReserved(v9, (v9 + 5), a2))
     {
-      return v15 >> 3;
+      return (v15 >> 3);
     }
   }
 
@@ -9016,7 +8912,7 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::serializeDataTracepoint(uint64_
   v16 = v10[11];
   v18 = v10[12];
   v19 = v10[13] - v16;
-  if (v19 < &v18[-v16 + 8])
+  if (v19 < v18 - v16 + 8)
   {
     std::vector<unsigned char>::reserve(v10 + 11, (2 * v19) | 1);
     v18 = v10[12];
@@ -9059,10 +8955,10 @@ LABEL_91:
 
       v27 = v18 - *v17;
       *v23 = *(&v74 + i);
-      v18 = v23 + 1;
+      v18 = (v23 + 1);
       memcpy(0, v22, v27);
       v10[11] = 0;
-      v10[12] = v23 + 1;
+      v10[12] = (v23 + 1);
       v10[13] = 0;
       if (v22)
       {
@@ -9072,7 +8968,8 @@ LABEL_91:
 
     else
     {
-      *v18++ = *(&v74 + i);
+      *v18 = *(&v74 + i);
+      v18 = (v18 + 1);
     }
 
     v10[12] = v18;
@@ -9080,7 +8977,7 @@ LABEL_91:
 
   v28 = v10[11];
   v29 = v10[13] - v28;
-  if (v29 < &v18[-v28 + 8])
+  if (v29 < v18 - v28 + 8)
   {
     std::vector<unsigned char>::reserve(v10 + 11, (2 * v29) | 1);
     v18 = v10[12];
@@ -9122,10 +9019,10 @@ LABEL_91:
 
       v37 = v18 - *v17;
       *v33 = *(&v73 + j);
-      v18 = v33 + 1;
+      v18 = (v33 + 1);
       memcpy(0, v32, v37);
       v10[11] = 0;
-      v10[12] = v33 + 1;
+      v10[12] = (v33 + 1);
       v10[13] = 0;
       if (v32)
       {
@@ -9135,7 +9032,8 @@ LABEL_91:
 
     else
     {
-      *v18++ = *(&v73 + j);
+      *v18 = *(&v73 + j);
+      v18 = (v18 + 1);
     }
 
     v10[12] = v18;
@@ -9143,7 +9041,7 @@ LABEL_91:
 
   v38 = v10[11];
   v39 = v10[13] - v38;
-  if (v39 < &v18[-v38 + 8])
+  if (v39 < v18 - v38 + 8)
   {
     std::vector<unsigned char>::reserve(v10 + 11, (2 * v39) | 1);
     v18 = v10[12];
@@ -9185,10 +9083,10 @@ LABEL_91:
 
       v47 = v18 - *v17;
       *v43 = *(&v72 + k);
-      v18 = v43 + 1;
+      v18 = (v43 + 1);
       memcpy(0, v42, v47);
       v10[11] = 0;
-      v10[12] = v43 + 1;
+      v10[12] = (v43 + 1);
       v10[13] = 0;
       if (v42)
       {
@@ -9198,7 +9096,8 @@ LABEL_91:
 
     else
     {
-      *v18++ = *(&v72 + k);
+      *v18 = *(&v72 + k);
+      v18 = (v18 + 1);
     }
 
     v10[12] = v18;
@@ -9206,7 +9105,7 @@ LABEL_91:
 
   v48 = v10[11];
   v49 = v10[13] - v48;
-  if (v49 < &v18[-v48 + 4])
+  if (v49 < v18 - v48 + 4)
   {
     std::vector<unsigned char>::reserve(v10 + 11, (2 * v49) | 1);
     v18 = v10[12];
@@ -9248,10 +9147,10 @@ LABEL_91:
 
       v57 = v18 - *v17;
       *v53 = *(&v71 + m);
-      v18 = v53 + 1;
+      v18 = (v53 + 1);
       memcpy(0, v52, v57);
       v10[11] = 0;
-      v10[12] = v53 + 1;
+      v10[12] = (v53 + 1);
       v10[13] = 0;
       if (v52)
       {
@@ -9261,7 +9160,8 @@ LABEL_91:
 
     else
     {
-      *v18++ = *(&v71 + m);
+      *v18 = *(&v71 + m);
+      v18 = (v18 + 1);
     }
 
     v10[12] = v18;
@@ -9270,7 +9170,7 @@ LABEL_91:
   v70 = v69;
   v58 = v10[11];
   v59 = v10[13] - v58;
-  if (v59 < &v18[-v58 + 8])
+  if (v59 < v18 - v58 + 8)
   {
     std::vector<unsigned char>::reserve(v10 + 11, (2 * v59) | 1);
     v18 = v10[12];
@@ -9312,10 +9212,10 @@ LABEL_91:
 
       v67 = v18 - *v17;
       *v63 = *(&v70 + n);
-      v18 = v63 + 1;
+      v18 = (v63 + 1);
       memcpy(0, v62, v67);
       v10[11] = 0;
-      v10[12] = v63 + 1;
+      v10[12] = (v63 + 1);
       v10[13] = 0;
       if (v62)
       {
@@ -9325,7 +9225,8 @@ LABEL_91:
 
     else
     {
-      *v18++ = *(&v70 + n);
+      *v18 = *(&v70 + n);
+      v18 = (v18 + 1);
     }
 
     v10[12] = v18;
@@ -9334,7 +9235,7 @@ LABEL_91:
   return v74;
 }
 
-unint64_t *ShaderDebugger::Metadata::MDSerializer::serializeDataValueTracepoint(ShaderDebugger::Metadata::MDSerializer *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unint64_t *ShaderDebugger::Metadata::MDSerializer::serializeDataValueTracepoint(uint64_t **this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v95 = a4;
   v96 = a3;
@@ -9344,7 +9245,7 @@ unint64_t *ShaderDebugger::Metadata::MDSerializer::serializeDataValueTracepoint(
   v92 = a7;
   v90 = 10;
   v97 = &v90;
-  v10 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(this, &v90);
+  v10 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(this, &v90, &std::piecewise_construct, &v97);
   v11 = v10;
   v13 = (v10 + 5);
   v12 = v10[5];
@@ -9354,8 +9255,7 @@ unint64_t *ShaderDebugger::Metadata::MDSerializer::serializeDataValueTracepoint(
   {
     while (*v15 != a2)
     {
-      v15 += 8;
-      if (v15 == v14)
+      if (++v15 == v14)
       {
         v15 = v10[6];
         break;
@@ -9377,7 +9277,7 @@ unint64_t *ShaderDebugger::Metadata::MDSerializer::serializeDataValueTracepoint(
   v17 = v11[11];
   v19 = v11[12];
   v20 = v11[13] - v17;
-  if (v20 < &v19[-v17 + 8])
+  if (v20 < v19 - v17 + 8)
   {
     std::vector<unsigned char>::reserve(v11 + 11, (2 * v20) | 1);
     v19 = v11[12];
@@ -9420,10 +9320,10 @@ LABEL_123:
 
       v28 = v19 - *v18;
       *v24 = *(&v97 + i);
-      v19 = v24 + 1;
+      v19 = (v24 + 1);
       memcpy(0, v23, v28);
       v11[11] = 0;
-      v11[12] = v24 + 1;
+      v11[12] = (v24 + 1);
       v11[13] = 0;
       if (v23)
       {
@@ -9433,7 +9333,8 @@ LABEL_123:
 
     else
     {
-      *v19++ = *(&v97 + i);
+      *v19 = *(&v97 + i);
+      v19 = (v19 + 1);
     }
 
     v11[12] = v19;
@@ -9441,7 +9342,7 @@ LABEL_123:
 
   v29 = v11[11];
   v30 = v11[13] - v29;
-  if (v30 < &v19[-v29 + 8])
+  if (v30 < v19 - v29 + 8)
   {
     std::vector<unsigned char>::reserve(v11 + 11, (2 * v30) | 1);
     v19 = v11[12];
@@ -9483,10 +9384,10 @@ LABEL_123:
 
       v38 = v19 - *v18;
       *v34 = *(&v96 + j);
-      v19 = v34 + 1;
+      v19 = (v34 + 1);
       memcpy(0, v33, v38);
       v11[11] = 0;
-      v11[12] = v34 + 1;
+      v11[12] = (v34 + 1);
       v11[13] = 0;
       if (v33)
       {
@@ -9496,7 +9397,8 @@ LABEL_123:
 
     else
     {
-      *v19++ = *(&v96 + j);
+      *v19 = *(&v96 + j);
+      v19 = (v19 + 1);
     }
 
     v11[12] = v19;
@@ -9504,7 +9406,7 @@ LABEL_123:
 
   v39 = v11[11];
   v40 = v11[13] - v39;
-  if (v40 < &v19[-v39 + 8])
+  if (v40 < v19 - v39 + 8)
   {
     std::vector<unsigned char>::reserve(v11 + 11, (2 * v40) | 1);
     v19 = v11[12];
@@ -9546,10 +9448,10 @@ LABEL_123:
 
       v48 = v19 - *v18;
       *v44 = *(&v95 + k);
-      v19 = v44 + 1;
+      v19 = (v44 + 1);
       memcpy(0, v43, v48);
       v11[11] = 0;
-      v11[12] = v44 + 1;
+      v11[12] = (v44 + 1);
       v11[13] = 0;
       if (v43)
       {
@@ -9559,7 +9461,8 @@ LABEL_123:
 
     else
     {
-      *v19++ = *(&v95 + k);
+      *v19 = *(&v95 + k);
+      v19 = (v19 + 1);
     }
 
     v11[12] = v19;
@@ -9567,7 +9470,7 @@ LABEL_123:
 
   v49 = v11[11];
   v50 = v11[13] - v49;
-  if (v50 < &v19[-v49 + 8])
+  if (v50 < v19 - v49 + 8)
   {
     std::vector<unsigned char>::reserve(v11 + 11, (2 * v50) | 1);
     v19 = v11[12];
@@ -9609,10 +9512,10 @@ LABEL_123:
 
       v58 = v19 - *v18;
       *v54 = *(&v94 + m);
-      v19 = v54 + 1;
+      v19 = (v54 + 1);
       memcpy(0, v53, v58);
       v11[11] = 0;
-      v11[12] = v54 + 1;
+      v11[12] = (v54 + 1);
       v11[13] = 0;
       if (v53)
       {
@@ -9622,7 +9525,8 @@ LABEL_123:
 
     else
     {
-      *v19++ = *(&v94 + m);
+      *v19 = *(&v94 + m);
+      v19 = (v19 + 1);
     }
 
     v11[12] = v19;
@@ -9630,7 +9534,7 @@ LABEL_123:
 
   v59 = v11[11];
   v60 = v11[13] - v59;
-  if (v60 < &v19[-v59 + 8])
+  if (v60 < v19 - v59 + 8)
   {
     std::vector<unsigned char>::reserve(v11 + 11, (2 * v60) | 1);
     v19 = v11[12];
@@ -9672,10 +9576,10 @@ LABEL_123:
 
       v68 = v19 - *v18;
       *v64 = *(&v93 + n);
-      v19 = v64 + 1;
+      v19 = (v64 + 1);
       memcpy(0, v63, v68);
       v11[11] = 0;
-      v11[12] = v64 + 1;
+      v11[12] = (v64 + 1);
       v11[13] = 0;
       if (v63)
       {
@@ -9685,7 +9589,8 @@ LABEL_123:
 
     else
     {
-      *v19++ = *(&v93 + n);
+      *v19 = *(&v93 + n);
+      v19 = (v19 + 1);
     }
 
     v11[12] = v19;
@@ -9693,7 +9598,7 @@ LABEL_123:
 
   v69 = v11[11];
   v70 = v11[13] - v69;
-  if (v70 < &v19[-v69 + 8])
+  if (v70 < v19 - v69 + 8)
   {
     std::vector<unsigned char>::reserve(v11 + 11, (2 * v70) | 1);
     v19 = v11[12];
@@ -9735,10 +9640,10 @@ LABEL_123:
 
       v78 = v19 - *v18;
       *v74 = *(&v92 + ii);
-      v19 = v74 + 1;
+      v19 = (v74 + 1);
       memcpy(0, v73, v78);
       v11[11] = 0;
-      v11[12] = v74 + 1;
+      v11[12] = (v74 + 1);
       v11[13] = 0;
       if (v73)
       {
@@ -9748,7 +9653,8 @@ LABEL_123:
 
     else
     {
-      *v19++ = *(&v92 + ii);
+      *v19 = *(&v92 + ii);
+      v19 = (v19 + 1);
     }
 
     v11[12] = v19;
@@ -9756,7 +9662,7 @@ LABEL_123:
 
   v79 = v11[11];
   v80 = v11[13] - v79;
-  if (v80 < &v19[-v79 + 8])
+  if (v80 < v19 - v79 + 8)
   {
     std::vector<unsigned char>::reserve(v11 + 11, (2 * v80) | 1);
     v19 = v11[12];
@@ -9798,10 +9704,10 @@ LABEL_123:
 
       v88 = v19 - *v18;
       *v84 = *(&v91 + jj);
-      v19 = v84 + 1;
+      v19 = (v84 + 1);
       memcpy(0, v83, v88);
       v11[11] = 0;
-      v11[12] = v84 + 1;
+      v11[12] = (v84 + 1);
       v11[13] = 0;
       if (v83)
       {
@@ -9811,7 +9717,8 @@ LABEL_123:
 
     else
     {
-      *v19++ = *(&v91 + jj);
+      *v19 = *(&v91 + jj);
+      v19 = (v19 + 1);
     }
 
     v11[12] = v19;
@@ -9820,13 +9727,13 @@ LABEL_123:
   return v97;
 }
 
-uint64_t ShaderDebugger::Metadata::MDSerializer::serializeVariableTracepoint(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5)
+unint64_t *ShaderDebugger::Metadata::MDSerializer::serializeVariableTracepoint(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5)
 {
   v60 = a4;
   v61 = a3;
   v59 = 7;
   v62 = &v59;
-  v8 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, &v59);
+  v8 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, &v59, &std::piecewise_construct, &v62);
   v9 = v8;
   v11 = (v8 + 5);
   v10 = v8[5];
@@ -9836,8 +9743,7 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::serializeVariableTracepoint(uin
   {
     while (*v13 != a2)
     {
-      v13 += 8;
-      if (v13 == v12)
+      if (++v13 == v12)
       {
         v13 = v8[6];
         break;
@@ -9850,7 +9756,7 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::serializeVariableTracepoint(uin
     v14 = v13 - v10;
     if (v13 - v10 != -8 && !ShaderDebugger::Metadata::MDSerializer::isMetadataIdReserved(v8, (v8 + 5), a2))
     {
-      return v14 >> 3;
+      return (v14 >> 3);
     }
   }
 
@@ -9860,7 +9766,7 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::serializeVariableTracepoint(uin
   v15 = v9[11];
   v17 = v9[12];
   v18 = v9[13] - v15;
-  if (v18 < &v17[-v15 + 8])
+  if (v18 < v17 - v15 + 8)
   {
     std::vector<unsigned char>::reserve(v9 + 11, (2 * v18) | 1);
     v17 = v9[12];
@@ -9903,10 +9809,10 @@ LABEL_75:
 
       v26 = v17 - *v16;
       *v22 = *(&v62 + i);
-      v17 = v22 + 1;
+      v17 = (v22 + 1);
       memcpy(0, v21, v26);
       v9[11] = 0;
-      v9[12] = v22 + 1;
+      v9[12] = (v22 + 1);
       v9[13] = 0;
       if (v21)
       {
@@ -9916,7 +9822,8 @@ LABEL_75:
 
     else
     {
-      *v17++ = *(&v62 + i);
+      *v17 = *(&v62 + i);
+      v17 = (v17 + 1);
     }
 
     v9[12] = v17;
@@ -9924,7 +9831,7 @@ LABEL_75:
 
   v27 = v9[11];
   v28 = v9[13] - v27;
-  if (v28 < &v17[-v27 + 8])
+  if (v28 < v17 - v27 + 8)
   {
     std::vector<unsigned char>::reserve(v9 + 11, (2 * v28) | 1);
     v17 = v9[12];
@@ -9966,10 +9873,10 @@ LABEL_75:
 
       v36 = v17 - *v16;
       *v32 = *(&v61 + j);
-      v17 = v32 + 1;
+      v17 = (v32 + 1);
       memcpy(0, v31, v36);
       v9[11] = 0;
-      v9[12] = v32 + 1;
+      v9[12] = (v32 + 1);
       v9[13] = 0;
       if (v31)
       {
@@ -9979,7 +9886,8 @@ LABEL_75:
 
     else
     {
-      *v17++ = *(&v61 + j);
+      *v17 = *(&v61 + j);
+      v17 = (v17 + 1);
     }
 
     v9[12] = v17;
@@ -9987,7 +9895,7 @@ LABEL_75:
 
   v37 = v9[11];
   v38 = v9[13] - v37;
-  if (v38 < &v17[-v37 + 8])
+  if (v38 < v17 - v37 + 8)
   {
     std::vector<unsigned char>::reserve(v9 + 11, (2 * v38) | 1);
     v17 = v9[12];
@@ -10029,10 +9937,10 @@ LABEL_75:
 
       v46 = v17 - *v16;
       *v42 = *(&v60 + k);
-      v17 = v42 + 1;
+      v17 = (v42 + 1);
       memcpy(0, v41, v46);
       v9[11] = 0;
-      v9[12] = v42 + 1;
+      v9[12] = (v42 + 1);
       v9[13] = 0;
       if (v41)
       {
@@ -10042,7 +9950,8 @@ LABEL_75:
 
     else
     {
-      *v17++ = *(&v60 + k);
+      *v17 = *(&v60 + k);
+      v17 = (v17 + 1);
     }
 
     v9[12] = v17;
@@ -10051,7 +9960,7 @@ LABEL_75:
   v59 = v58;
   v47 = v9[11];
   v48 = v9[13] - v47;
-  if (v48 < &v17[-v47 + 8])
+  if (v48 < v17 - v47 + 8)
   {
     std::vector<unsigned char>::reserve(v9 + 11, (2 * v48) | 1);
     v17 = v9[12];
@@ -10093,10 +10002,10 @@ LABEL_75:
 
       v56 = v17 - *v16;
       *v52 = *(&v59 + m);
-      v17 = v52 + 1;
+      v17 = (v52 + 1);
       memcpy(0, v51, v56);
       v9[11] = 0;
-      v9[12] = v52 + 1;
+      v9[12] = (v52 + 1);
       v9[13] = 0;
       if (v51)
       {
@@ -10106,7 +10015,8 @@ LABEL_75:
 
     else
     {
-      *v17++ = *(&v59 + m);
+      *v17 = *(&v59 + m);
+      v17 = (v17 + 1);
     }
 
     v9[12] = v17;
@@ -10115,14 +10025,14 @@ LABEL_75:
   return v62;
 }
 
-void ShaderDebugger::Metadata::MDSerializer::serializeVariableBase(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+void ShaderDebugger::Metadata::MDSerializer::serializeVariableBase(uint64_t a1, void **a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   v51 = a5;
   v52 = a3;
   v50 = a6;
   v8 = a2[1];
   v9 = a2[2] - *a2;
-  if (v9 < &v8[-*a2 + 8])
+  if (v9 < v8 - *a2 + 8)
   {
     std::vector<unsigned char>::reserve(a2, (2 * v9) | 1);
     v8 = a2[1];
@@ -10134,7 +10044,7 @@ void ShaderDebugger::Metadata::MDSerializer::serializeVariableBase(uint64_t a1, 
     if (v8 >= v11)
     {
       v12 = *a2;
-      v13 = &v8[-*a2];
+      v13 = (v8 - *a2);
       v14 = (v13 + 1);
       if ((v13 + 1) < 0)
       {
@@ -10163,7 +10073,7 @@ LABEL_66:
         operator new();
       }
 
-      v17 = &v8[-*a2];
+      v17 = v8 - *a2;
       *v13 = *(&v52 + i);
       v8 = v13 + 1;
       memcpy(0, v12, v17);
@@ -10187,7 +10097,7 @@ LABEL_66:
   ShaderDebugger::Metadata::MDSerializer::write<std::string>(a1, a2, a4);
   v18 = a2[1];
   v19 = a2[2] - *a2;
-  if (v19 < &v18[-*a2 + 8])
+  if (v19 < v18 - *a2 + 8)
   {
     std::vector<unsigned char>::reserve(a2, (2 * v19) | 1);
     v18 = a2[1];
@@ -10199,7 +10109,7 @@ LABEL_66:
     if (v18 >= v21)
     {
       v22 = *a2;
-      v23 = &v18[-*a2];
+      v23 = (v18 - *a2);
       v24 = (v23 + 1);
       if ((v23 + 1) < 0)
       {
@@ -10227,7 +10137,7 @@ LABEL_66:
         operator new();
       }
 
-      v27 = &v18[-*a2];
+      v27 = v18 - *a2;
       *v23 = *(&v51 + j);
       v18 = v23 + 1;
       memcpy(0, v22, v27);
@@ -10249,7 +10159,7 @@ LABEL_66:
   }
 
   v28 = a2[2] - *a2;
-  if (v28 < &v18[-*a2 + 8])
+  if (v28 < v18 - *a2 + 8)
   {
     std::vector<unsigned char>::reserve(a2, (2 * v28) | 1);
     v18 = a2[1];
@@ -10261,7 +10171,7 @@ LABEL_66:
     if (v18 >= v30)
     {
       v31 = *a2;
-      v32 = &v18[-*a2];
+      v32 = (v18 - *a2);
       v33 = (v32 + 1);
       if ((v32 + 1) < 0)
       {
@@ -10289,7 +10199,7 @@ LABEL_66:
         operator new();
       }
 
-      v36 = &v18[-*a2];
+      v36 = v18 - *a2;
       *v32 = *(&v50 + k);
       v18 = v32 + 1;
       memcpy(0, v31, v36);
@@ -10312,7 +10222,7 @@ LABEL_66:
 
   v49 = a7;
   v37 = a2[2] - *a2;
-  if (v37 < &v18[-*a2 + 8])
+  if (v37 < v18 - *a2 + 8)
   {
     std::vector<unsigned char>::reserve(a2, (2 * v37) | 1);
     v18 = a2[1];
@@ -10324,7 +10234,7 @@ LABEL_66:
     if (v18 >= v39)
     {
       v40 = *a2;
-      v41 = &v18[-*a2];
+      v41 = (v18 - *a2);
       v42 = (v41 + 1);
       if ((v41 + 1) < 0)
       {
@@ -10352,7 +10262,7 @@ LABEL_66:
         operator new();
       }
 
-      v45 = &v18[-*a2];
+      v45 = v18 - *a2;
       *v41 = *(&v49 + m);
       v18 = v41 + 1;
       memcpy(0, v40, v45);
@@ -10374,11 +10284,11 @@ LABEL_66:
   }
 }
 
-uint64_t ShaderDebugger::Metadata::MDSerializer::serializeLocalVariable(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6)
+unint64_t ShaderDebugger::Metadata::MDSerializer::serializeLocalVariable(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5, char a6)
 {
-  v31[0] = 2;
-  v31[2] = v31;
-  v12 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, v31);
+  v31 = 2;
+  v32 = &v31;
+  v12 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, &v31, &std::piecewise_construct, &v32);
   v13 = v12;
   v15 = (v12 + 5);
   v14 = v12[5];
@@ -10388,8 +10298,7 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::serializeLocalVariable(uint64_t
   {
     while (*v17 != a2)
     {
-      v17 += 8;
-      if (v17 == v16)
+      if (++v17 == v16)
       {
         v17 = v12[6];
         break;
@@ -10411,7 +10320,7 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::serializeLocalVariable(uint64_t
   v21 = v13[12];
   v20 = v13[13];
   v22 = v13[11];
-  if (v20 - v22 < &v21[-v22 + 1])
+  if (v20 - v22 < v21 - v22 + 1)
   {
     std::vector<unsigned char>::reserve(v13 + 11, (2 * (v20 - v22)) | 1);
     v21 = v13[12];
@@ -10451,10 +10360,10 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::serializeLocalVariable(uint64_t
 
     v29 = v21 - v24;
     *v25 = a6;
-    v23 = v25 + 1;
+    v23 = (v25 + 1);
     memcpy(0, v24, v29);
     v13[11] = 0;
-    v13[12] = v25 + 1;
+    v13[12] = (v25 + 1);
     v13[13] = 0;
     if (v24)
     {
@@ -10465,18 +10374,18 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::serializeLocalVariable(uint64_t
   else
   {
     *v21 = a6;
-    v23 = v21 + 1;
+    v23 = (v21 + 1);
   }
 
   v13[12] = v23;
   return v19;
 }
 
-uint64_t ShaderDebugger::Metadata::MDSerializer::serializeGlobalVariable(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+unint64_t ShaderDebugger::Metadata::MDSerializer::serializeGlobalVariable(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5)
 {
-  v19[0] = 2;
-  v19[2] = v19;
-  v10 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, v19);
+  v19 = 2;
+  v20 = &v19;
+  v10 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, &v19, &std::piecewise_construct, &v20);
   v11 = v10;
   v13 = (v10 + 5);
   v12 = v10[5];
@@ -10486,8 +10395,7 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::serializeGlobalVariable(uint64_
   {
     while (*v15 != a2)
     {
-      v15 += 8;
-      if (v15 == v14)
+      if (++v15 == v14)
       {
         v15 = v10[6];
         break;
@@ -10509,7 +10417,7 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::serializeGlobalVariable(uint64_
   return v17;
 }
 
-void ShaderDebugger::Metadata::MDSerializer::serializeTypeBase(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned __int16 a9, uint64_t a10)
+void ShaderDebugger::Metadata::MDSerializer::serializeTypeBase(uint64_t a1, void **a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned __int16 a9, uint64_t a10)
 {
   v82 = a5;
   v83 = a3;
@@ -10518,7 +10426,7 @@ void ShaderDebugger::Metadata::MDSerializer::serializeTypeBase(uint64_t a1, void
   v79 = a8;
   v11 = a2[1];
   v12 = a2[2] - *a2;
-  if (v12 < &v11[-*a2 + 8])
+  if (v12 < v11 - *a2 + 8)
   {
     std::vector<unsigned char>::reserve(a2, (2 * v12) | 1);
     v11 = a2[1];
@@ -10530,7 +10438,7 @@ void ShaderDebugger::Metadata::MDSerializer::serializeTypeBase(uint64_t a1, void
     if (v11 >= v14)
     {
       v15 = *a2;
-      v16 = &v11[-*a2];
+      v16 = (v11 - *a2);
       v17 = (v16 + 1);
       if ((v16 + 1) < 0)
       {
@@ -10559,7 +10467,7 @@ LABEL_114:
         operator new();
       }
 
-      v20 = &v11[-*a2];
+      v20 = v11 - *a2;
       *v16 = *(&v83 + i);
       v11 = v16 + 1;
       memcpy(0, v15, v20);
@@ -10583,7 +10491,7 @@ LABEL_114:
   ShaderDebugger::Metadata::MDSerializer::write<std::string>(a1, a2, a4);
   v21 = a2[1];
   v22 = a2[2] - *a2;
-  if (v22 < &v21[-*a2 + 8])
+  if (v22 < v21 - *a2 + 8)
   {
     std::vector<unsigned char>::reserve(a2, (2 * v22) | 1);
     v21 = a2[1];
@@ -10595,7 +10503,7 @@ LABEL_114:
     if (v21 >= v24)
     {
       v25 = *a2;
-      v26 = &v21[-*a2];
+      v26 = (v21 - *a2);
       v27 = (v26 + 1);
       if ((v26 + 1) < 0)
       {
@@ -10623,7 +10531,7 @@ LABEL_114:
         operator new();
       }
 
-      v30 = &v21[-*a2];
+      v30 = v21 - *a2;
       *v26 = *(&v82 + j);
       v21 = v26 + 1;
       memcpy(0, v25, v30);
@@ -10645,7 +10553,7 @@ LABEL_114:
   }
 
   v31 = a2[2] - *a2;
-  if (v31 < &v21[-*a2 + 8])
+  if (v31 < v21 - *a2 + 8)
   {
     std::vector<unsigned char>::reserve(a2, (2 * v31) | 1);
     v21 = a2[1];
@@ -10657,7 +10565,7 @@ LABEL_114:
     if (v21 >= v33)
     {
       v34 = *a2;
-      v35 = &v21[-*a2];
+      v35 = (v21 - *a2);
       v36 = (v35 + 1);
       if ((v35 + 1) < 0)
       {
@@ -10685,7 +10593,7 @@ LABEL_114:
         operator new();
       }
 
-      v39 = &v21[-*a2];
+      v39 = v21 - *a2;
       *v35 = *(&v81 + k);
       v21 = v35 + 1;
       memcpy(0, v34, v39);
@@ -10707,7 +10615,7 @@ LABEL_114:
   }
 
   v40 = a2[2] - *a2;
-  if (v40 < &v21[-*a2 + 8])
+  if (v40 < v21 - *a2 + 8)
   {
     std::vector<unsigned char>::reserve(a2, (2 * v40) | 1);
     v21 = a2[1];
@@ -10719,7 +10627,7 @@ LABEL_114:
     if (v21 >= v42)
     {
       v43 = *a2;
-      v44 = &v21[-*a2];
+      v44 = (v21 - *a2);
       v45 = (v44 + 1);
       if ((v44 + 1) < 0)
       {
@@ -10747,7 +10655,7 @@ LABEL_114:
         operator new();
       }
 
-      v48 = &v21[-*a2];
+      v48 = v21 - *a2;
       *v44 = *(&v80 + m);
       v21 = v44 + 1;
       memcpy(0, v43, v48);
@@ -10769,7 +10677,7 @@ LABEL_114:
   }
 
   v49 = a2[2] - *a2;
-  if (v49 < &v21[-*a2 + 8])
+  if (v49 < v21 - *a2 + 8)
   {
     std::vector<unsigned char>::reserve(a2, (2 * v49) | 1);
     v21 = a2[1];
@@ -10781,7 +10689,7 @@ LABEL_114:
     if (v21 >= v51)
     {
       v52 = *a2;
-      v53 = &v21[-*a2];
+      v53 = (v21 - *a2);
       v54 = (v53 + 1);
       if ((v53 + 1) < 0)
       {
@@ -10809,7 +10717,7 @@ LABEL_114:
         operator new();
       }
 
-      v57 = &v21[-*a2];
+      v57 = v21 - *a2;
       *v53 = *(&v79 + n);
       v21 = v53 + 1;
       memcpy(0, v52, v57);
@@ -10832,7 +10740,7 @@ LABEL_114:
 
   v78 = a9;
   v58 = a2[2] - *a2;
-  if (v58 < &v21[-*a2 + 8])
+  if (v58 < v21 - *a2 + 8)
   {
     std::vector<unsigned char>::reserve(a2, (2 * v58) | 1);
     v21 = a2[1];
@@ -10844,7 +10752,7 @@ LABEL_114:
     if (v21 >= v60)
     {
       v61 = *a2;
-      v62 = &v21[-*a2];
+      v62 = (v21 - *a2);
       v63 = (v62 + 1);
       if ((v62 + 1) < 0)
       {
@@ -10872,7 +10780,7 @@ LABEL_114:
         operator new();
       }
 
-      v66 = &v21[-*a2];
+      v66 = v21 - *a2;
       *v62 = *(&v78 + ii);
       v21 = v62 + 1;
       memcpy(0, v61, v66);
@@ -10895,7 +10803,7 @@ LABEL_114:
 
   v78 = a10;
   v67 = a2[2] - *a2;
-  if (v67 < &v21[-*a2 + 8])
+  if (v67 < v21 - *a2 + 8)
   {
     std::vector<unsigned char>::reserve(a2, (2 * v67) | 1);
     v21 = a2[1];
@@ -10907,7 +10815,7 @@ LABEL_114:
     if (v21 >= v69)
     {
       v70 = *a2;
-      v71 = &v21[-*a2];
+      v71 = (v21 - *a2);
       v72 = (v71 + 1);
       if ((v71 + 1) < 0)
       {
@@ -10935,7 +10843,7 @@ LABEL_114:
         operator new();
       }
 
-      v75 = &v21[-*a2];
+      v75 = v21 - *a2;
       *v71 = *(&v78 + jj);
       v21 = v71 + 1;
       memcpy(0, v70, v75);
@@ -10957,11 +10865,11 @@ LABEL_114:
   }
 }
 
-uint64_t ShaderDebugger::Metadata::MDSerializer::serializeBasicType(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unsigned __int16 a8, uint64_t a9)
+unint64_t ShaderDebugger::Metadata::MDSerializer::serializeBasicType(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unsigned __int16 a8, uint64_t a9)
 {
-  v37[0] = 3;
-  v37[2] = v37;
-  v16 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, v37);
+  v37 = 3;
+  v38 = &v37;
+  v16 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, &v37, &std::piecewise_construct, &v38);
   v17 = v16;
   v19 = (v16 + 5);
   v18 = v16[5];
@@ -10971,8 +10879,7 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::serializeBasicType(uint64_t a1,
   {
     while (*v21 != a2)
     {
-      v21 += 8;
-      if (v21 == v20)
+      if (++v21 == v20)
       {
         v21 = v16[6];
         break;
@@ -10994,7 +10901,7 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::serializeBasicType(uint64_t a1,
   v23 = v17[12];
   v24 = v17[11];
   v25 = v17[13] - v24;
-  if (v25 < &v23[-v24 + 4])
+  if (v25 < v23 - v24 + 4)
   {
     std::vector<unsigned char>::reserve(v17 + 11, (2 * v25) | 1);
     v23 = v17[12];
@@ -11036,10 +10943,10 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::serializeBasicType(uint64_t a1,
 
       v33 = v23 - v28;
       *v29 = *(&a9 + i);
-      v23 = v29 + 1;
+      v23 = (v29 + 1);
       memcpy(0, v28, v33);
       v17[11] = 0;
-      v17[12] = v29 + 1;
+      v17[12] = (v29 + 1);
       v17[13] = 0;
       if (v28)
       {
@@ -11049,7 +10956,8 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::serializeBasicType(uint64_t a1,
 
     else
     {
-      *v23++ = *(&a9 + i);
+      *v23 = *(&a9 + i);
+      v23 = (v23 + 1);
     }
 
     v17[12] = v23;
@@ -11058,11 +10966,11 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::serializeBasicType(uint64_t a1,
   return v35;
 }
 
-uint64_t ShaderDebugger::Metadata::MDSerializer::serializeDerivedType(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unsigned __int16 a8, uint64_t a9, unsigned int a10)
+unint64_t ShaderDebugger::Metadata::MDSerializer::serializeDerivedType(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unsigned __int16 a8, uint64_t a9, unsigned int a10)
 {
   v49 = 3;
   v50 = &v49;
-  v17 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, &v49);
+  v17 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, &v49, &std::piecewise_construct, &v50);
   v18 = v17;
   v20 = (v17 + 5);
   v19 = v17[5];
@@ -11072,8 +10980,7 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::serializeDerivedType(uint64_t a
   {
     while (*v22 != a2)
     {
-      v22 += 8;
-      if (v22 == v21)
+      if (++v22 == v21)
       {
         v22 = v17[6];
         break;
@@ -11095,7 +11002,7 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::serializeDerivedType(uint64_t a
   v24 = v18[12];
   v25 = v18[11];
   v26 = v18[13] - v25;
-  if (v26 < &v24[-v25 + 8])
+  if (v26 < v24 - v25 + 8)
   {
     std::vector<unsigned char>::reserve(v18 + 11, (2 * v26) | 1);
     v24 = v18[12];
@@ -11140,10 +11047,10 @@ LABEL_43:
 
       v34 = v24 - v29;
       *v30 = *(&a9 + v27);
-      v24 = v30 + 1;
+      v24 = (v30 + 1);
       memcpy(0, v29, v34);
       v18[11] = 0;
-      v18[12] = v30 + 1;
+      v18[12] = (v30 + 1);
       v18[13] = 0;
       if (v29)
       {
@@ -11153,7 +11060,8 @@ LABEL_43:
 
     else
     {
-      *v24++ = *(&a9 + v27);
+      *v24 = *(&a9 + v27);
+      v24 = (v24 + 1);
     }
 
     v18[12] = v24;
@@ -11164,7 +11072,7 @@ LABEL_43:
   v50 = v48;
   v35 = v18[11];
   v36 = v18[13] - v35;
-  if (v36 < &v24[-v35 + 8])
+  if (v36 < v24 - v35 + 8)
   {
     std::vector<unsigned char>::reserve(v18 + 11, (2 * v36) | 1);
     v24 = v18[12];
@@ -11206,10 +11114,10 @@ LABEL_43:
 
       v44 = v24 - v39;
       *v40 = *(&v50 + i);
-      v24 = v40 + 1;
+      v24 = (v40 + 1);
       memcpy(0, v39, v44);
       v18[11] = 0;
-      v18[12] = v40 + 1;
+      v18[12] = (v40 + 1);
       v18[13] = 0;
       if (v39)
       {
@@ -11219,7 +11127,8 @@ LABEL_43:
 
     else
     {
-      *v24++ = *(&v50 + i);
+      *v24 = *(&v50 + i);
+      v24 = (v24 + 1);
     }
 
     v18[12] = v24;
@@ -11228,11 +11137,11 @@ LABEL_43:
   return v46;
 }
 
-uint64_t ShaderDebugger::Metadata::MDSerializer::serializeCompositeType(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unsigned __int16 a8, uint64_t a9, uint64_t **a10)
+unint64_t ShaderDebugger::Metadata::MDSerializer::serializeCompositeType(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unsigned __int16 a8, uint64_t a9, uint64_t **a10)
 {
   v73 = 3;
   v74 = &v73;
-  v18 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, &v73);
+  v18 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, &v73, &std::piecewise_construct, &v74);
   v19 = v18;
   v21 = (v18 + 5);
   v20 = v18[5];
@@ -11243,8 +11152,7 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::serializeCompositeType(uint64_t
   {
     while (*v23 != a2)
     {
-      v23 += 8;
-      if (v23 == v22)
+      if (++v23 == v22)
       {
         v23 = v18[6];
         break;
@@ -11268,7 +11176,7 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::serializeCompositeType(uint64_t
   v25 = v19[12];
   v26 = v19[11];
   v27 = v19[13] - v26;
-  if (v27 < &v25[-v26 + 8])
+  if (v27 < v25 - v26 + 8)
   {
     std::vector<unsigned char>::reserve(v19 + 11, (2 * v27) | 1);
     v25 = v19[12];
@@ -11311,10 +11219,10 @@ LABEL_77:
 
       v35 = v25 - v30;
       *v31 = *(&a9 + i);
-      v25 = v31 + 1;
+      v25 = (v31 + 1);
       memcpy(0, v30, v35);
       v19[11] = 0;
-      v19[12] = v31 + 1;
+      v19[12] = (v31 + 1);
       v19[13] = 0;
       if (v30)
       {
@@ -11324,7 +11232,8 @@ LABEL_77:
 
     else
     {
-      *v25++ = *(&a9 + i);
+      *v25 = *(&a9 + i);
+      v25 = (v25 + 1);
     }
 
     v19[12] = v25;
@@ -11333,7 +11242,7 @@ LABEL_77:
   v74 = (v71[1] - *v71) >> 4;
   v36 = v19[11];
   v37 = v19[13] - v36;
-  if (v37 < &v25[-v36 + 8])
+  if (v37 < v25 - v36 + 8)
   {
     std::vector<unsigned char>::reserve(v19 + 11, (2 * v37) | 1);
     v25 = v19[12];
@@ -11375,10 +11284,10 @@ LABEL_77:
 
       v45 = v25 - v40;
       *v41 = *(&v74 + j);
-      v25 = v41 + 1;
+      v25 = (v41 + 1);
       memcpy(0, v40, v45);
       v19[11] = 0;
-      v19[12] = v41 + 1;
+      v19[12] = (v41 + 1);
       v19[13] = 0;
       if (v40)
       {
@@ -11388,7 +11297,8 @@ LABEL_77:
 
     else
     {
-      *v25++ = *(&v74 + j);
+      *v25 = *(&v74 + j);
+      v25 = (v25 + 1);
     }
 
     v19[12] = v25;
@@ -11400,7 +11310,7 @@ LABEL_77:
     v74 = *v46;
     v47 = v19[11];
     v48 = v19[13] - v47;
-    if (v48 < &v25[-v47 + 8])
+    if (v48 < v25 - v47 + 8)
     {
       std::vector<unsigned char>::reserve(v19 + 11, (2 * v48) | 1);
       v25 = v19[12];
@@ -11442,10 +11352,10 @@ LABEL_77:
 
         v56 = v25 - v51;
         *v52 = *(&v74 + m);
-        v25 = v52 + 1;
+        v25 = (v52 + 1);
         memcpy(0, v51, v56);
         v19[11] = 0;
-        v19[12] = v52 + 1;
+        v19[12] = (v52 + 1);
         v19[13] = 0;
         if (v51)
         {
@@ -11455,7 +11365,8 @@ LABEL_77:
 
       else
       {
-        *v25++ = *(&v74 + m);
+        *v25 = *(&v74 + m);
+        v25 = (v25 + 1);
       }
 
       v19[12] = v25;
@@ -11464,7 +11375,7 @@ LABEL_77:
     v74 = v46[1];
     v57 = v19[11];
     v58 = v19[13] - v57;
-    if (v58 < &v25[-v57 + 8])
+    if (v58 < v25 - v57 + 8)
     {
       std::vector<unsigned char>::reserve(v19 + 11, (2 * v58) | 1);
       v25 = v19[12];
@@ -11506,10 +11417,10 @@ LABEL_77:
 
         v66 = v25 - v61;
         *v62 = *(&v74 + n);
-        v25 = v62 + 1;
+        v25 = (v62 + 1);
         memcpy(0, v61, v66);
         v19[11] = 0;
-        v19[12] = v62 + 1;
+        v19[12] = (v62 + 1);
         v19[13] = 0;
         if (v61)
         {
@@ -11519,7 +11430,8 @@ LABEL_77:
 
       else
       {
-        *v25++ = *(&v74 + n);
+        *v25 = *(&v74 + n);
+        v25 = (v25 + 1);
       }
 
       v19[12] = v25;
@@ -11529,11 +11441,11 @@ LABEL_77:
   return v70;
 }
 
-uint64_t ShaderDebugger::Metadata::MDSerializer::serializeSubroutineType(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unsigned __int16 a8, uint64_t **a9)
+unint64_t ShaderDebugger::Metadata::MDSerializer::serializeSubroutineType(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unsigned __int16 a8, char **a9)
 {
   v61 = 3;
   v62 = &v61;
-  v17 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, &v61);
+  v17 = std::__tree<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::__map_value_compare<ShaderDebugger::Metadata::MDBase::MetadataType,std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>,std::less<ShaderDebugger::Metadata::MDBase::MetadataType>,true>,std::allocator<std::__value_type<ShaderDebugger::Metadata::MDBase::MetadataType,ShaderDebugger::Metadata::MDSerializer::MetadataTypeContainer>>>::__emplace_unique_key_args<ShaderDebugger::Metadata::MDBase::MetadataType,std::piecewise_construct_t const&,std::tuple<ShaderDebugger::Metadata::MDBase::MetadataType&&>,std::tuple<>>(a1, &v61, &std::piecewise_construct, &v62);
   v18 = v17;
   v20 = (v17 + 5);
   v19 = v17[5];
@@ -11550,8 +11462,7 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::serializeSubroutineType(uint64_
     v22 = v17[5];
     while (*v22 != a2)
     {
-      v22 += 8;
-      if (v22 == v21)
+      if (++v22 == v21)
       {
         v22 = v17[6];
         break;
@@ -11576,7 +11487,7 @@ uint64_t ShaderDebugger::Metadata::MDSerializer::serializeSubroutineType(uint64_
   v25 = v18[12];
   v26 = v18[11];
   v27 = v18[13] - v26;
-  if (v27 < &v25[-v26 + 8])
+  if (v27 < v25 - v26 + 8)
   {
     std::vector<unsigned char>::reserve(v18 + 11, (2 * v27) | 1);
     v25 = v18[12];
@@ -11619,10 +11530,10 @@ LABEL_64:
 
       v35 = v25 - v30;
       *v31 = *(&v62 + i);
-      v25 = v31 + 1;
+      v25 = (v31 + 1);
       memcpy(0, v30, v35);
       v18[11] = 0;
-      v18[12] = v31 + 1;
+      v18[12] = (v31 + 1);
       v18[13] = 0;
       if (v30)
       {
@@ -11632,7 +11543,8 @@ LABEL_64:
 
     else
     {
-      *v25++ = *(&v62 + i);
+      *v25 = *(&v62 + i);
+      v25 = (v25 + 1);
     }
 
     v18[12] = v25;
@@ -11647,7 +11559,7 @@ LABEL_64:
       v62 = *v36;
       v37 = v18[11];
       v38 = v18[13] - v37;
-      if (v38 < &v25[-v37 + 8])
+      if (v38 < v25 - v37 + 8)
       {
         std::vector<unsigned char>::reserve(v18 + 11, (2 * v38) | 1);
         v25 = v18[12];
@@ -11689,10 +11601,10 @@ LABEL_64:
 
           v46 = v25 - v41;
           *v42 = *(&v62 + j);
-          v25 = v42 + 1;
+          v25 = (v42 + 1);
           memcpy(0, v41, v46);
           v18[11] = 0;
-          v18[12] = v42 + 1;
+          v18[12] = (v42 + 1);
           v18[13] = 0;
           if (v41)
           {
@@ -11702,16 +11614,17 @@ LABEL_64:
 
         else
         {
-          *v25++ = *(&v62 + j);
+          *v25 = *(&v62 + j);
+          v25 = (v25 + 1);
         }
 
         v18[12] = v25;
       }
 
-      v62 = v36[1];
+      v62 = *(v36 + 1);
       v47 = v18[11];
       v48 = v18[13] - v47;
-      if (v48 < &v25[-v47 + 8])
+      if (v48 < v25 - v47 + 8)
       {
         std::vector<unsigned char>::reserve(v18 + 11, (2 * v48) | 1);
         v25 = v18[12];
@@ -11753,10 +11666,10 @@ LABEL_64:
 
           v56 = v25 - v51;
           *v52 = *(&v62 + k);
-          v25 = v52 + 1;
+          v25 = (v52 + 1);
           memcpy(0, v51, v56);
           v18[11] = 0;
-          v18[12] = v52 + 1;
+          v18[12] = (v52 + 1);
           v18[13] = 0;
           if (v51)
           {
@@ -11766,13 +11679,14 @@ LABEL_64:
 
         else
         {
-          *v25++ = *(&v62 + k);
+          *v25 = *(&v62 + k);
+          v25 = (v25 + 1);
         }
 
         v18[12] = v25;
       }
 
-      v36 += 2;
+      v36 += 16;
     }
 
     while (v36 != v60);
@@ -11781,11 +11695,11 @@ LABEL_64:
   return v58;
 }
 
-void ShaderDebugger::Metadata::MDSerializer::write(uint64_t a1, void *a2, _BYTE *a3, uint64_t a4)
+void ShaderDebugger::Metadata::MDSerializer::write(uint64_t a1, void **a2, _BYTE *a3, uint64_t a4)
 {
   v4 = a4;
   v7 = a2[2] - *a2;
-  if (v7 < a4 - *a2 + a2[1])
+  if (v7 < a2[1] + a4 - *a2)
   {
     std::vector<unsigned char>::reserve(a2, (2 * v7) | 1);
   }
@@ -11799,7 +11713,7 @@ void ShaderDebugger::Metadata::MDSerializer::write(uint64_t a1, void *a2, _BYTE 
       if (v8 >= v9)
       {
         v10 = *a2;
-        v11 = &v8[-*a2];
+        v11 = (v8 - *a2);
         v12 = (v11 + 1);
         if ((v11 + 1) < 0)
         {
@@ -11827,7 +11741,7 @@ void ShaderDebugger::Metadata::MDSerializer::write(uint64_t a1, void *a2, _BYTE 
           operator new();
         }
 
-        v15 = &v8[-*a2];
+        v15 = v8 - *a2;
         *v11 = *a3;
         v8 = v11 + 1;
         memcpy(0, v10, v15);
@@ -11854,23 +11768,20 @@ void ShaderDebugger::Metadata::MDSerializer::write(uint64_t a1, void *a2, _BYTE 
   }
 }
 
-void *std::vector<unsigned char>::reserve(void *result, unint64_t a2)
+void std::vector<unsigned char>::reserve(void *a1, unint64_t a2)
 {
-  if (result[2] - *result < a2)
+  if (a1[2] - *a1 < a2)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
-      v2 = result[1] - *result;
       operator new();
     }
 
     std::vector<std::pair<ShaderDebugger::Metadata::MDBase::MetadataType,unsigned long long>>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>(void *a1, uint64_t *a2)
 {
   v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
   v5 = a1[1];
@@ -11951,13 +11862,13 @@ char *std::vector<unsigned char>::__insert_with_size[abi:ne200100]<std::__wrap_i
   v7 = __src;
   v9 = *(a1 + 8);
   v10 = *(a1 + 16);
-  if (v10 - v9 >= a5)
+  if ((v10 - v9) >= a5)
   {
     v15 = v9 - __dst;
-    if (v9 - __dst >= a5)
+    if ((v9 - __dst) >= a5)
     {
       v19 = &__dst[a5];
-      v20 = &v9[-a5];
+      v20 = (v9 - a5);
       v21 = *(a1 + 8);
       if (v9 >= a5)
       {
@@ -11992,7 +11903,7 @@ char *std::vector<unsigned char>::__insert_with_size[abi:ne200100]<std::__wrap_i
 
       else
       {
-        v17 = (&v9[a4] - v16);
+        v17 = (&a4[v9] - v16);
         v18 = *(a1 + 8);
         do
         {
@@ -12039,7 +11950,7 @@ char *std::vector<unsigned char>::__insert_with_size[abi:ne200100]<std::__wrap_i
   }
 
   v11 = *a1;
-  v12 = &v9[a5 - *a1];
+  v12 = v9 - *a1 + a5;
   if (v12 < 0)
   {
     std::vector<std::pair<ShaderDebugger::Metadata::MDBase::MetadataType,unsigned long long>>::__throw_length_error[abi:ne200100]();
@@ -12230,7 +12141,7 @@ uint64_t std::__split_buffer<void({block_pointer} {__strong}*)(void),std::alloca
   return a1;
 }
 
-uint64_t std::deque<void({block_pointer} {__strong})(void),std::allocator<void({block_pointer} {__strong})(void)>>::push_back(void *a1, void *a2)
+uint64_t std::deque<void({block_pointer} {__strong})(void),std::allocator<void({block_pointer} {__strong})(void)>>::push_back(unint64_t *a1, void *a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -12264,19 +12175,19 @@ uint64_t std::deque<void({block_pointer} {__strong})(void),std::allocator<void({
   return result;
 }
 
-void *std::deque<void({block_pointer} {__strong})(void),std::allocator<void({block_pointer} {__strong})(void)>>::__add_back_capacity(void *a1)
+void std::deque<void({block_pointer} {__strong})(void),std::allocator<void({block_pointer} {__strong})(void)>>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -12284,25 +12195,25 @@ void *std::deque<void({block_pointer} {__strong})(void),std::allocator<void({blo
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto10MTLTexture}* {__strong}>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto10MTLTexture}* {__strong}>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<void({block_pointer} {__strong}*)(void),std::allocator<void({block_pointer} {__strong}*)(void)>>::emplace_back<void({block_pointer} {__strong}*&)(void)>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<void({block_pointer} {__strong}*)(void),std::allocator<void({block_pointer} {__strong}*)(void)>>::emplace_back<void({block_pointer} {__strong}*&)(void)>(a1, &v9);
 }
 
 void sub_24D72F100(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -12316,27 +12227,26 @@ void sub_24D72F100(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<void({block_pointer} {__strong}*)(void),std::allocator<void({block_pointer} {__strong}*)(void)>>::emplace_back<void({block_pointer} {__strong}*&)(void)>(void *result, void *a2)
+void std::__split_buffer<void({block_pointer} {__strong}*)(void),std::allocator<void({block_pointer} {__strong}*)(void)>>::emplace_back<void({block_pointer} {__strong}*&)(void)>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto10MTLTexture}* {__strong}>>(result, v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto10MTLTexture}* {__strong}>>(a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -12345,28 +12255,26 @@ void *std::__split_buffer<void({block_pointer} {__strong}*)(void),std::allocator
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<void({block_pointer} {__strong}*)(void),std::allocator<void({block_pointer} {__strong}*)(void)>>::emplace_front<void({block_pointer} {__strong}*)(void)>(const void **result, void *a2)
+void std::__split_buffer<void({block_pointer} {__strong}*)(void),std::allocator<void({block_pointer} {__strong}*)(void)>>::emplace_front<void({block_pointer} {__strong}*)(void)>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -12379,52 +12287,50 @@ const void **std::__split_buffer<void({block_pointer} {__strong}*)(void),std::al
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto10MTLTexture}* {__strong}>>(result, v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto10MTLTexture}* {__strong}>>(a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = (v6 + 8 * v8);
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
-  *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  *(v5 - 8) = *a2;
+  a1[1] = a1[1] - 8;
 }
 
-void *std::__split_buffer<void({block_pointer} {__strong}*)(void),std::allocator<void({block_pointer} {__strong}*)(void)> &>::emplace_back<void({block_pointer} {__strong}*)(void)>(void *result, void *a2)
+void std::__split_buffer<void({block_pointer} {__strong}*)(void),std::allocator<void({block_pointer} {__strong}*)(void)> &>::emplace_back<void({block_pointer} {__strong}*)(void)>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto10MTLTexture}* {__strong}>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto10MTLTexture}* {__strong}>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -12433,28 +12339,26 @@ void *std::__split_buffer<void({block_pointer} {__strong}*)(void),std::allocator
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<void({block_pointer} {__strong}*)(void),std::allocator<void({block_pointer} {__strong}*)(void)> &>::emplace_front<void({block_pointer} {__strong}*&)(void)>(const void **result, void *a2)
+void std::__split_buffer<void({block_pointer} {__strong}*)(void),std::allocator<void({block_pointer} {__strong}*)(void)> &>::emplace_front<void({block_pointer} {__strong}*&)(void)>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -12467,29 +12371,28 @@ const void **std::__split_buffer<void({block_pointer} {__strong}*)(void),std::al
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto10MTLTexture}* {__strong}>>(result[4], v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcproto10MTLTexture}* {__strong}>>(a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 uint64_t std::deque<void({block_pointer} {__strong})(void),std::allocator<void({block_pointer} {__strong})(void)>>::pop_front(int64x2_t *a1)

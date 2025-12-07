@@ -109,13 +109,14 @@
 
 - (BOOL)updateRingBufferDuration:(double)duration error:(id *)error
 {
-  if ([(SHMutableSignature *)self clipStyle]!= 1)
+  clipStyle = [(SHMutableSignature *)self clipStyle];
+  if (clipStyle != 1)
   {
-    v24 = sh_log_object();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v25 = sh_log_object(clipStyle);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      *v25 = 0;
-      _os_log_impl(&dword_230F52000, v24, OS_LOG_TYPE_ERROR, "Can't update mutable signature duration as the clip style is not OLD", v25, 2u);
+      *v26 = 0;
+      _os_log_impl(&dword_230F52000, v25, OS_LOG_TYPE_ERROR, "Can't update mutable signature duration as the clip style is not OLD", v26, 2u);
     }
 
     [SHError annotateClientError:error code:500 underlyingError:0];
@@ -125,35 +126,35 @@
   extractorController = [(SHMutableSignature *)self extractorController];
   if (extractorController)
   {
-    v8 = extractorController;
+    v9 = extractorController;
     extractorController2 = [(SHMutableSignature *)self extractorController];
-    *&v10 = duration;
-    v11 = [extractorController2 setRollingBufferSeconds:error error:v10];
+    *&v11 = duration;
+    v12 = [extractorController2 setRollingBufferSeconds:error error:v11];
 
-    if (!v11)
+    if (!v12)
     {
       return 0;
     }
   }
 
   [(SHMutableSignature *)self duration];
-  if (v12 > duration)
+  if (v13 > duration)
   {
     [(SHMutableSignature *)self duration];
-    v14 = v13 - duration;
+    v15 = v14 - duration;
     format = [(SHMutableSignature *)self format];
     [format sampleRate];
-    v17 = (v14 * v16);
+    v18 = (v15 * v17);
 
-    v18 = objc_alloc(MEMORY[0x277CB8428]);
+    v19 = objc_alloc(MEMORY[0x277CB8428]);
     time = [(SHSignature *)self time];
     sampleTime = [time sampleTime];
     format2 = [(SHMutableSignature *)self format];
     [format2 sampleRate];
-    v22 = [v18 initWithSampleTime:sampleTime + v17 atRate:?];
-    [(SHSignature *)self setTime:v22];
+    v23 = [v19 initWithSampleTime:sampleTime + v18 atRate:?];
+    [(SHSignature *)self setTime:v23];
 
-    [(SHMutableSignature *)self setCurrentFrameCount:[(SHMutableSignature *)self currentFrameCount]- v17];
+    [(SHMutableSignature *)self setCurrentFrameCount:[(SHMutableSignature *)self currentFrameCount]- v18];
   }
 
   self->_maximumSeconds = duration;
@@ -199,7 +200,7 @@
 
 - (void)configureWithFormat:(id)format
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   formatCopy = format;
   v5 = os_log_create("com.apple.shazamkit", "feature-extraction");
   v6 = os_signpost_id_generate(v5);
@@ -213,53 +214,54 @@
 
   [(SHMutableSignature *)self setFormat:formatCopy];
   [formatCopy sampleRate];
-  v29 = 0;
-  v9 = [(SHMutableSignature *)self configureSpectralPeaksExtractorWithSampleRate:&v29 error:?];
-  v10 = v29;
+  v30 = 0;
+  v9 = [(SHMutableSignature *)self configureSpectralPeaksExtractorWithSampleRate:&v30 error:?];
+  v10 = v30;
+  v11 = v10;
   if (!v9)
   {
-    v22 = sh_log_object();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v23 = sh_log_object(v10);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v31 = v10;
-      _os_log_impl(&dword_230F52000, v22, OS_LOG_TYPE_ERROR, "Could not configure spectral peaks extractor with error %@", buf, 0xCu);
+      v32 = v11;
+      _os_log_impl(&dword_230F52000, v23, OS_LOG_TYPE_ERROR, "Could not configure spectral peaks extractor with error %@", buf, 0xCu);
     }
 
-    v23 = MEMORY[0x277CBEAD8];
-    v24 = *MEMORY[0x277CBE660];
-    localizedDescription = [v10 localizedDescription];
-    v26 = [v23 exceptionWithName:v24 reason:localizedDescription userInfo:0];
-    v27 = v26;
+    v24 = MEMORY[0x277CBEAD8];
+    v25 = *MEMORY[0x277CBE660];
+    localizedDescription = [v11 localizedDescription];
+    v27 = [v24 exceptionWithName:v25 reason:localizedDescription userInfo:0];
+    v28 = v27;
 
-    objc_exception_throw(v26);
+    objc_exception_throw(v27);
   }
 
   musicalFeaturesConfiguration = [(SHMutableSignature *)self musicalFeaturesConfiguration];
   if (musicalFeaturesConfiguration)
   {
-    v12 = musicalFeaturesConfiguration;
+    v13 = musicalFeaturesConfiguration;
     musicalFeaturesConfiguration2 = [(SHMutableSignature *)self musicalFeaturesConfiguration];
     [formatCopy sampleRate];
-    v28 = 0;
-    v14 = [(SHMutableSignature *)self configureMusicalFeaturesExtractorWithConfiguration:musicalFeaturesConfiguration2 sampleRate:&v28 error:?];
-    v15 = v28;
+    v29 = 0;
+    v15 = [(SHMutableSignature *)self configureMusicalFeaturesExtractorWithConfiguration:musicalFeaturesConfiguration2 sampleRate:&v29 error:?];
+    v16 = v29;
 
-    if (!v14)
+    if (!v15)
     {
-      v16 = sh_log_object();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v18 = sh_log_object(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v31 = v15;
-        _os_log_impl(&dword_230F52000, v16, OS_LOG_TYPE_ERROR, "Could not configure musical features with error %@", buf, 0xCu);
+        v32 = v16;
+        _os_log_impl(&dword_230F52000, v18, OS_LOG_TYPE_ERROR, "Could not configure musical features with error %@", buf, 0xCu);
       }
     }
   }
 
   else
   {
-    v15 = 0;
+    v16 = 0;
   }
 
   spectralOutputConfiguration = [(SHMutableSignature *)self spectralOutputConfiguration];
@@ -270,15 +272,13 @@
     [(SHMutableSignature *)self enableSpectralOutputWithConfiguration:spectralOutputConfiguration2];
   }
 
-  v19 = v8;
-  v20 = v19;
-  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
+  v21 = v8;
+  v22 = v21;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_230F52000, v20, OS_SIGNPOST_INTERVAL_END, v6, "SHMutableSignature_ConfigureWithFormat", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_230F52000, v22, OS_SIGNPOST_INTERVAL_END, v6, "SHMutableSignature_ConfigureWithFormat", "", buf, 2u);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enableSpectralOutputWithConfiguration:(id)configuration
@@ -299,16 +299,14 @@
 
 void __60__SHMutableSignature_enableSpectralOutputWithConfiguration___block_invoke(uint64_t a1, void *a2)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = [a2 subarrayWithRange:{1, 6}];
   v4 = [MEMORY[0x277CCAB98] defaultCenter];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v8 = @"spectralData";
-  v9[0] = v3;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = @"spectralData";
+  v8[0] = v3;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   [v4 postNotificationName:@"com.apple.shazamd.sigx.newspectraloutput" object:WeakRetained userInfo:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disableSpectralOutput
@@ -338,29 +336,27 @@ void __60__SHMutableSignature_enableSpectralOutputWithConfiguration___block_invo
   {
     [(SHMutableSignature *)self maximumSeconds];
     v11 = v10;
-    [(SHMutableSignature *)self duration];
-    v13 = v11 - v12;
-    v14 = sh_log_object();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    duration = [(SHMutableSignature *)self duration];
+    v14 = v11 - v13;
+    v15 = sh_log_object(duration);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       v18 = 134217984;
-      v19 = v13;
-      _os_log_impl(&dword_230F52000, v14, OS_LOG_TYPE_DEBUG, "Audio will be too long we require only %f", &v18, 0xCu);
+      v19 = v14;
+      _os_log_impl(&dword_230F52000, v15, OS_LOG_TYPE_DEBUG, "Audio will be too long we require only %f", &v18, 0xCu);
     }
 
-    v15 = [SHAudioUtilities bufferHead:audioCopy duration:v13];
+    v16 = [SHAudioUtilities bufferHead:audioCopy duration:v14];
 
-    audioCopy = v15;
+    audioCopy = v16;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return audioCopy;
 }
 
 - (BOOL)appendBuffer:(id)buffer atTime:(id)time error:(id *)error
 {
-  v103 = *MEMORY[0x277D85DE8];
+  v105 = *MEMORY[0x277D85DE8];
   bufferCopy = buffer;
   timeCopy = time;
   format = [bufferCopy format];
@@ -383,11 +379,11 @@ void __60__SHMutableSignature_enableSpectralOutputWithConfiguration___block_invo
 
     if (!v16)
     {
-      v25 = sh_log_object();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v26 = sh_log_object(v17);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_230F52000, v25, OS_LOG_TYPE_ERROR, "Failed to convert input buffer to standard format", buf, 2u);
+        _os_log_impl(&dword_230F52000, v26, OS_LOG_TYPE_ERROR, "Failed to convert input buffer to standard format", buf, 2u);
       }
 
       goto LABEL_41;
@@ -397,34 +393,34 @@ void __60__SHMutableSignature_enableSpectralOutputWithConfiguration___block_invo
     {
       format3 = [v16 format];
       [format3 sampleRate];
-      if (v18 == 0.0)
+      if (v19 == 0.0)
       {
-        v24 = 1.0;
+        v25 = 1.0;
       }
 
       else
       {
         format4 = [bufferCopy format];
         [format4 sampleRate];
-        v21 = v20;
+        v22 = v21;
         format5 = [v16 format];
         [format5 sampleRate];
-        v24 = v21 / v23;
+        v25 = v22 / v24;
       }
 
-      v27 = vcvtpd_s64_f64([timeCopy sampleTime] / v24);
-      v28 = MEMORY[0x277CB8428];
+      v28 = vcvtpd_s64_f64([timeCopy sampleTime] / v25);
+      v29 = MEMORY[0x277CB8428];
       format6 = [v16 format];
       [format6 sampleRate];
-      v26 = [v28 timeWithSampleTime:v27 atRate:?];
+      v27 = [v29 timeWithSampleTime:v28 atRate:?];
     }
 
     else
     {
-      v26 = 0;
+      v27 = 0;
     }
 
-    timeCopy = v26;
+    timeCopy = v27;
     bufferCopy = v16;
   }
 
@@ -434,8 +430,8 @@ void __60__SHMutableSignature_enableSpectralOutputWithConfiguration___block_invo
   {
     [(SHSignature *)self setTime:timeCopy];
     time = [(SHSignature *)self time];
-    v32 = [(SHSignature *)self _startDateBasedUponAudioTime:time];
-    [(SHSignature *)self setAudioStartDate:v32];
+    v33 = [(SHSignature *)self _startDateBasedUponAudioTime:time];
+    [(SHSignature *)self setAudioStartDate:v33];
 
     format8 = [bufferCopy format];
     [(SHMutableSignature *)self configureWithFormat:format8];
@@ -443,9 +439,9 @@ void __60__SHMutableSignature_enableSpectralOutputWithConfiguration___block_invo
 
   format9 = [bufferCopy format];
   format10 = [(SHMutableSignature *)self format];
-  v36 = [format9 isEqual:format10];
+  v37 = [format9 isEqual:format10];
 
-  if ((v36 & 1) == 0)
+  if ((v37 & 1) == 0)
   {
     format11 = [bufferCopy format];
     formatDescription = [format11 formatDescription];
@@ -453,58 +449,58 @@ void __60__SHMutableSignature_enableSpectralOutputWithConfiguration___block_invo
     format12 = [(SHMutableSignature *)self format];
     formatDescription2 = [format12 formatDescription];
 
-    v84 = sh_log_object();
-    if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
+    v86 = sh_log_object(v85);
+    if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
     {
       format13 = [bufferCopy format];
       *buf = 138412546;
       formatDescription3 = [format13 formatDescription];
-      v101 = 2112;
-      v102 = formatDescription2;
-      _os_log_impl(&dword_230F52000, v84, OS_LOG_TYPE_ERROR, "Audio format mismatch %@ != %@", buf, 0x16u);
+      v103 = 2112;
+      v104 = formatDescription2;
+      _os_log_impl(&dword_230F52000, v86, OS_LOG_TYPE_ERROR, "Audio format mismatch %@ != %@", buf, 0x16u);
     }
 
-    v86 = MEMORY[0x277CBEAD8];
-    v87 = *MEMORY[0x277CBE660];
-    v88 = [MEMORY[0x277CCACA8] stringWithFormat:@"Supplied audio format %@ does not match existing format %@", formatDescription, formatDescription2];
-    v89 = [v86 exceptionWithName:v87 reason:v88 userInfo:0];
-    v90 = v89;
+    v88 = MEMORY[0x277CBEAD8];
+    v89 = *MEMORY[0x277CBE660];
+    v90 = [MEMORY[0x277CCACA8] stringWithFormat:@"Supplied audio format %@ does not match existing format %@", formatDescription, formatDescription2];
+    v91 = [v88 exceptionWithName:v89 reason:v90 userInfo:0];
+    v92 = v91;
 
-    objc_exception_throw(v89);
+    objc_exception_throw(v91);
   }
 
   [SHAudioUtilities durationOfBuffer:bufferCopy];
-  v38 = v37;
+  v39 = v38;
   [(SHMutableSignature *)self duration];
-  v40 = v39;
+  v41 = v40;
   [(SHMutableSignature *)self maximumSeconds];
-  v42 = v41;
+  v43 = v42;
   [(SHMutableSignature *)self duration];
-  v44 = v38 + v43;
+  v45 = v39 + v44;
   [(SHMutableSignature *)self maximumSeconds];
-  v46 = v45;
+  v47 = v46;
   if ([(SHMutableSignature *)self clipStyle])
   {
     goto LABEL_18;
   }
 
-  if (v40 >= v42)
+  if (v41 >= v43)
   {
-    v75 = sh_log_object();
-    if (os_log_type_enabled(v75, OS_LOG_TYPE_DEBUG))
+    v77 = sh_log_object(0);
+    if (os_log_type_enabled(v77, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_230F52000, v75, OS_LOG_TYPE_DEBUG, "Discarding audio we are at max duration with a discard behaviour", buf, 2u);
+      _os_log_impl(&dword_230F52000, v77, OS_LOG_TYPE_DEBUG, "Discarding audio we are at max duration with a discard behaviour", buf, 2u);
     }
 
-    v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"The signature has reached the max duration"];
-    v97[0] = *MEMORY[0x277CCA470];
-    v97[1] = @"discardedAudioDuration";
-    v98[0] = v25;
-    v76 = [MEMORY[0x277CCABB0] numberWithDouble:v38];
-    v98[1] = v76;
-    v77 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v98 forKeys:v97 count:2];
-    [SHError annotateClientError:error code:201 underlyingError:0 keyOverrides:v77];
+    v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"The signature has reached the max duration"];
+    v99[0] = *MEMORY[0x277CCA470];
+    v99[1] = @"discardedAudioDuration";
+    v100[0] = v26;
+    v78 = [MEMORY[0x277CCABB0] numberWithDouble:v39];
+    v100[1] = v78;
+    v79 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v100 forKeys:v99 count:2];
+    [SHError annotateClientError:error code:201 underlyingError:0 keyOverrides:v79];
 
 LABEL_40:
 LABEL_41:
@@ -512,7 +508,7 @@ LABEL_41:
     goto LABEL_42;
   }
 
-  if (v44 <= v46)
+  if (v45 <= v47)
   {
 LABEL_18:
     if (!timeCopy)
@@ -522,103 +518,102 @@ LABEL_18:
 
     if ([timeCopy isSampleTimeValid])
     {
-      if (!-[SHMutableSignature currentPosition](self, "currentPosition") || (v47 = -[SHMutableSignature currentPosition](self, "currentPosition"), v47 == [timeCopy sampleTime]))
+      if (!-[SHMutableSignature currentPosition](self, "currentPosition") || (v48 = -[SHMutableSignature currentPosition](self, "currentPosition"), v48 == [timeCopy sampleTime]))
       {
 LABEL_22:
         extractorController = [(SHMutableSignature *)self extractorController];
-        v49 = [extractorController flowBuffer:bufferCopy error:error];
+        v50 = [extractorController flowBuffer:bufferCopy error:error];
 
-        if (v49)
+        if (v50)
         {
-          if ([(SHMutableSignature *)self clipStyle]== 1 && v44 > v46)
+          if ([(SHMutableSignature *)self clipStyle]== 1 && v45 > v47)
           {
             [(SHMutableSignature *)self maximumSeconds];
-            v51 = v50;
+            v52 = v51;
             format14 = [(SHMutableSignature *)self format];
             [format14 sampleRate];
-            v54 = (v51 * v53);
+            v55 = (v52 * v54);
 
             LODWORD(format14) = [(SHMutableSignature *)self currentFrameCount];
-            v55 = format14 - v54 + [bufferCopy frameLength];
-            v56 = objc_alloc(MEMORY[0x277CB8428]);
+            v56 = format14 - v55 + [bufferCopy frameLength];
+            v57 = objc_alloc(MEMORY[0x277CB8428]);
             time2 = [(SHSignature *)self time];
             sampleTime = [time2 sampleTime];
             format15 = [(SHMutableSignature *)self format];
             [format15 sampleRate];
-            v60 = [v56 initWithSampleTime:sampleTime + v55 atRate:?];
-            [(SHSignature *)self setTime:v60];
+            v61 = [v57 initWithSampleTime:sampleTime + v56 atRate:?];
+            [(SHSignature *)self setTime:v61];
 
-            [(SHMutableSignature *)self setCurrentFrameCount:[(SHMutableSignature *)self currentFrameCount]- v55];
+            [(SHMutableSignature *)self setCurrentFrameCount:[(SHMutableSignature *)self currentFrameCount]- v56];
           }
 
           -[SHMutableSignature setCurrentFrameCount:](self, "setCurrentFrameCount:", -[SHMutableSignature currentFrameCount](self, "currentFrameCount") + [bufferCopy frameLength]);
-          v61 = 1;
+          v62 = 1;
           goto LABEL_43;
         }
 
 LABEL_42:
-        v61 = 0;
+        v62 = 0;
         goto LABEL_43;
       }
 
-      v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"The current frame position %lld does not equal the sample time %lld", -[SHMutableSignature currentPosition](self, "currentPosition"), objc_msgSend(timeCopy, "sampleTime")];
-      v91 = *MEMORY[0x277CCA470];
-      v92 = v25;
-      v72 = MEMORY[0x277CBEAC0];
-      v73 = &v92;
-      v74 = &v91;
+      v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"The current frame position %lld does not equal the sample time %lld", -[SHMutableSignature currentPosition](self, "currentPosition"), objc_msgSend(timeCopy, "sampleTime")];
+      v93 = *MEMORY[0x277CCA470];
+      v94 = v26;
+      v74 = MEMORY[0x277CBEAC0];
+      v75 = &v94;
+      v76 = &v93;
     }
 
     else
     {
-      v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"The provided time does not have a valid sample time"];
-      v93 = *MEMORY[0x277CCA470];
-      v94 = v25;
-      v72 = MEMORY[0x277CBEAC0];
-      v73 = &v94;
-      v74 = &v93;
+      v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"The provided time does not have a valid sample time"];
+      v95 = *MEMORY[0x277CCA470];
+      v96 = v26;
+      v74 = MEMORY[0x277CBEAC0];
+      v75 = &v96;
+      v76 = &v95;
     }
 
-    v76 = [v72 dictionaryWithObjects:v73 forKeys:v74 count:1];
-    [SHError annotateClientError:error code:101 underlyingError:0 keyOverrides:v76];
+    v78 = [v74 dictionaryWithObjects:v75 forKeys:v76 count:1];
+    [SHError annotateClientError:error code:101 underlyingError:0 keyOverrides:v78];
     goto LABEL_40;
   }
 
-  v62 = [(SHMutableSignature *)self clipExcessAudio:bufferCopy];
+  v63 = [(SHMutableSignature *)self clipExcessAudio:bufferCopy];
 
   extractorController2 = [(SHMutableSignature *)self extractorController];
-  v64 = [extractorController2 flowBuffer:v62 error:error];
+  v65 = [extractorController2 flowBuffer:v63 error:error];
 
-  if (v64)
+  if (v65)
   {
-    v65 = sh_log_object();
-    if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
+    v67 = sh_log_object(v66);
+    if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_230F52000, v65, OS_LOG_TYPE_DEBUG, "Discarding audio we are at max duration with a discard behaviour", buf, 2u);
+      _os_log_impl(&dword_230F52000, v67, OS_LOG_TYPE_DEBUG, "Discarding audio we are at max duration with a discard behaviour", buf, 2u);
     }
 
-    v66 = [MEMORY[0x277CCACA8] stringWithFormat:@"The signature has reached the max duration"];
+    v68 = [MEMORY[0x277CCACA8] stringWithFormat:@"The signature has reached the max duration"];
     [(SHMutableSignature *)self maximumSeconds];
-    v68 = v67;
+    v70 = v69;
     [(SHMutableSignature *)self duration];
-    v95[0] = *MEMORY[0x277CCA470];
-    v95[1] = @"discardedAudioDuration";
-    v96[0] = v66;
-    v70 = [MEMORY[0x277CCABB0] numberWithDouble:v38 - (v68 - v69)];
-    v96[1] = v70;
-    v71 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v96 forKeys:v95 count:2];
-    [SHError annotateClientError:error code:201 underlyingError:0 keyOverrides:v71];
+    v97[0] = *MEMORY[0x277CCA470];
+    v97[1] = @"discardedAudioDuration";
+    v98[0] = v68;
+    v72 = [MEMORY[0x277CCABB0] numberWithDouble:v39 - (v70 - v71)];
+    v98[1] = v72;
+    v73 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v98 forKeys:v97 count:2];
+    [SHError annotateClientError:error code:201 underlyingError:0 keyOverrides:v73];
 
-    -[SHMutableSignature setCurrentFrameCount:](self, "setCurrentFrameCount:", -[SHMutableSignature currentFrameCount](self, "currentFrameCount") + [v62 frameLength]);
+    -[SHMutableSignature setCurrentFrameCount:](self, "setCurrentFrameCount:", -[SHMutableSignature currentFrameCount](self, "currentFrameCount") + [v63 frameLength]);
   }
 
-  v61 = 0;
-  bufferCopy = v62;
+  v62 = 0;
+  bufferCopy = v63;
 LABEL_43:
 
-  v78 = *MEMORY[0x277D85DE8];
-  return v61;
+  return v62;
 }
 
 - (int64_t)currentPosition
@@ -649,20 +644,20 @@ LABEL_43:
   {
     [SHSigUtilities signatureDurationForData:dataRepresentation error:0];
     v7 = v6;
-    [(SHMutableSignature *)self maximumSeconds];
-    if (v7 > v8)
+    maximumSeconds = [(SHMutableSignature *)self maximumSeconds];
+    if (v7 > v9)
     {
-      v9 = sh_log_object();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = sh_log_object(maximumSeconds);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_230F52000, v9, OS_LOG_TYPE_ERROR, "Rolling signature buffer is over maximum seconds, cropping down to duration", buf, 2u);
+        _os_log_impl(&dword_230F52000, v10, OS_LOG_TYPE_ERROR, "Rolling signature buffer is over maximum seconds, cropping down to duration", buf, 2u);
       }
 
       [(SHMutableSignature *)self maximumSeconds];
-      v11 = [SigCrop cropSignature:dataRepresentation atPosition:0 withDuration:0.0 error:v10];
+      v12 = [SigCrop cropSignature:dataRepresentation atPosition:0 withDuration:0.0 error:v11];
 
-      dataRepresentation = v11;
+      dataRepresentation = v12;
     }
   }
 
@@ -670,12 +665,12 @@ LABEL_43:
   {
     if (v4)
     {
-      v12 = sh_log_object();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = sh_log_object(v4);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
         v18 = v5;
-        _os_log_impl(&dword_230F52000, v12, OS_LOG_TYPE_ERROR, "Signature generation error %@", buf, 0xCu);
+        _os_log_impl(&dword_230F52000, v13, OS_LOG_TYPE_ERROR, "Signature generation error %@", buf, 0xCu);
       }
     }
 
@@ -683,8 +678,6 @@ LABEL_43:
     v15.super_class = SHMutableSignature;
     dataRepresentation = [(SHSignature *)&v15 dataRepresentation];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return dataRepresentation;
 }

@@ -44,9 +44,9 @@ LABEL_17:
         goto LABEL_18;
       }
 
-      v10 = [(UIListSeparatorConfiguration *)v7 isEqual:v8];
+      isEqual = objc_msgSend_isEqual_(v7);
 
-      if (!v10)
+      if ((isEqual & 1) == 0)
       {
         goto LABEL_17;
       }

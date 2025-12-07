@@ -16,15 +16,15 @@
 
 void __50__SUIUtilities_prewarmVisionForImageDerivedColors__block_invoke()
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v0 = objc_opt_new();
   [v0 setRevision:2];
   v1 = [MEMORY[0x277CE2E18] globalSession];
-  v11[0] = v0;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
-  v6 = 0;
-  v3 = [v1 prepareForPerformingRequests:v2 error:&v6];
-  v4 = v6;
+  v10[0] = v0;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v5 = 0;
+  v3 = [v1 prepareForPerformingRequests:v2 error:&v5];
+  v4 = v5;
 
   if (os_signpost_enabled(MEMORY[0x277D86220]))
   {
@@ -35,13 +35,11 @@ void __50__SUIUtilities_prewarmVisionForImageDerivedColors__block_invoke()
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
-    v8 = v3;
-    v9 = 2112;
-    v10 = v4;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v4;
     _os_log_impl(&dword_26B8E8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Pre-warmed Vision framework for image-derived colors (success: %d, error: %@)", buf, 0x12u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)setFiltersToSimulateDelete:(id)delete
@@ -179,21 +177,21 @@ uint64_t __35__SUIUtilities_spotlightCacheQueue__block_invoke()
 
 + (void)performDeleteCommand:(id)command
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   itemIdentifiers = [commandCopy itemIdentifiers];
   v6 = [itemIdentifiers count];
 
   if (v6)
   {
-    v7 = SUISGeneralLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = SUISGeneralLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       itemIdentifiers2 = [commandCopy itemIdentifiers];
-      v9 = [itemIdentifiers2 count];
+      v10 = [itemIdentifiers2 count];
       *buf = 134217984;
-      v50 = v9;
-      _os_log_impl(&dword_26B8E8000, v7, OS_LOG_TYPE_DEFAULT, "Deleting expired items (%lu)", buf, 0xCu);
+      v52 = v10;
+      _os_log_impl(&dword_26B8E8000, v8, OS_LOG_TYPE_DEFAULT, "Deleting expired items (%lu)", buf, 0xCu);
     }
 
     defaultSearchableIndex = [MEMORY[0x277CC34A8] defaultSearchableIndex];
@@ -202,63 +200,63 @@ uint64_t __35__SUIUtilities_spotlightCacheQueue__block_invoke()
   }
 
   domainIdentifiers = [commandCopy domainIdentifiers];
-  v13 = [domainIdentifiers count];
+  v14 = [domainIdentifiers count];
 
-  if (v13)
+  if (v14)
   {
     itemIdentifiers4 = [commandCopy itemIdentifiers];
-    v15 = [itemIdentifiers4 count];
+    v16 = [itemIdentifiers4 count];
 
-    if (!v15)
+    if (!v16)
     {
-      v16 = objc_opt_new();
-      v43 = 0u;
-      v44 = 0u;
+      v18 = objc_opt_new();
       v45 = 0u;
       v46 = 0u;
+      v47 = 0u;
+      v48 = 0u;
       domainIdentifiers2 = [commandCopy domainIdentifiers];
-      v18 = [domainIdentifiers2 countByEnumeratingWithState:&v43 objects:v48 count:16];
-      if (v18)
+      v20 = [domainIdentifiers2 countByEnumeratingWithState:&v45 objects:v50 count:16];
+      if (v20)
       {
-        v19 = v18;
-        v20 = *v44;
+        v21 = v20;
+        v22 = *v46;
         do
         {
-          for (i = 0; i != v19; ++i)
+          for (i = 0; i != v21; ++i)
           {
-            if (*v44 != v20)
+            if (*v46 != v22)
             {
               objc_enumerationMutation(domainIdentifiers2);
             }
 
-            v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"_kMDItemDomainIdentifier != %@", *(*(&v43 + 1) + 8 * i)];
-            [v16 addObject:v22];
+            v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"_kMDItemDomainIdentifier != %@", *(*(&v45 + 1) + 8 * i)];
+            [v18 addObject:v24];
           }
 
-          v19 = [domainIdentifiers2 countByEnumeratingWithState:&v43 objects:v48 count:16];
+          v21 = [domainIdentifiers2 countByEnumeratingWithState:&v45 objects:v50 count:16];
         }
 
-        while (v19);
+        while (v21);
       }
 
-      v23 = [v16 componentsJoinedByString:@" && "];
-      v24 = MEMORY[0x277CCACA8];
-      v25 = [MEMORY[0x277CBEAA8] now];
-      [v25 timeIntervalSinceReferenceDate];
-      v27 = [v24 stringWithFormat:@"(%@) || kMDItemLastUsedDate >= %lf", v23, v26];
-      v47 = v27;
-      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v47 count:1];
-      [self setFiltersToSimulateDelete:v28];
+      v25 = [v18 componentsJoinedByString:@" && "];
+      v26 = MEMORY[0x277CCACA8];
+      v27 = [MEMORY[0x277CBEAA8] now];
+      [v27 timeIntervalSinceReferenceDate];
+      v29 = [v26 stringWithFormat:@"(%@) || kMDItemLastUsedDate >= %lf", v25, v28];
+      v49 = v29;
+      v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v49 count:1];
+      [self setFiltersToSimulateDelete:v30];
     }
 
-    v29 = SUISGeneralLog();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v31 = SUISGeneralLog(v17);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       domainIdentifiers3 = [commandCopy domainIdentifiers];
-      v31 = [domainIdentifiers3 count];
+      v33 = [domainIdentifiers3 count];
       *buf = 134217984;
-      v50 = v31;
-      _os_log_impl(&dword_26B8E8000, v29, OS_LOG_TYPE_DEFAULT, "Deleting expired domains (%lu)", buf, 0xCu);
+      v52 = v33;
+      _os_log_impl(&dword_26B8E8000, v31, OS_LOG_TYPE_DEFAULT, "Deleting expired domains (%lu)", buf, 0xCu);
     }
 
     defaultSearchableIndex2 = [MEMORY[0x277CC34A8] defaultSearchableIndex];
@@ -267,41 +265,40 @@ uint64_t __35__SUIUtilities_spotlightCacheQueue__block_invoke()
   }
 
   filesToDelete = [commandCopy filesToDelete];
-  v35 = [filesToDelete count];
+  v37 = [filesToDelete count];
 
-  if (v35)
+  if (v37)
   {
-    v36 = SUISGeneralLog();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+    v39 = SUISGeneralLog(v38);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
     {
       filesToDelete2 = [commandCopy filesToDelete];
-      v38 = [filesToDelete2 count];
+      v41 = [filesToDelete2 count];
       *buf = 134217984;
-      v50 = v38;
-      _os_log_impl(&dword_26B8E8000, v36, OS_LOG_TYPE_DEFAULT, "Deleting expired files (%lu)", buf, 0xCu);
+      v52 = v41;
+      _os_log_impl(&dword_26B8E8000, v39, OS_LOG_TYPE_DEFAULT, "Deleting expired files (%lu)", buf, 0xCu);
     }
 
-    v39 = +[SUIUtilities spotlightCacheQueue];
+    v42 = +[SUIUtilities spotlightCacheQueue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __37__SUIUtilities_performDeleteCommand___block_invoke_266;
     block[3] = &unk_279D10308;
-    v42 = commandCopy;
-    dispatch_async(v39, block);
+    v44 = commandCopy;
+    dispatch_async(v42, block);
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 void __37__SUIUtilities_performDeleteCommand___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = SUISPasteboardIndexingLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = SUISPasteboardIndexingLog(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __37__SUIUtilities_performDeleteCommand___block_invoke_cold_1(v2, v3);
+      __37__SUIUtilities_performDeleteCommand___block_invoke_cold_1(v3, v4);
     }
   }
 }
@@ -309,12 +306,13 @@ void __37__SUIUtilities_performDeleteCommand___block_invoke(uint64_t a1, void *a
 void __37__SUIUtilities_performDeleteCommand___block_invoke_263(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = SUISGeneralLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = SUISGeneralLog(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __37__SUIUtilities_performDeleteCommand___block_invoke_263_cold_1(v2, v3);
+      __37__SUIUtilities_performDeleteCommand___block_invoke_263_cold_1(v3, v4);
     }
   }
 }
@@ -353,14 +351,15 @@ void __37__SUIUtilities_performDeleteCommand___block_invoke_266(uint64_t a1)
           v16 = 0;
           [v2 removeItemAtURL:v9 error:&v16];
           v12 = v16;
+          v13 = v12;
           if (v12)
           {
-            v13 = SUISGeneralLog();
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+            v14 = SUISGeneralLog(v12);
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
             {
               *buf = v15;
-              v22 = v12;
-              _os_log_error_impl(&dword_26B8E8000, v13, OS_LOG_TYPE_ERROR, "failed to delete expired files with error: %@", buf, 0xCu);
+              v22 = v13;
+              _os_log_error_impl(&dword_26B8E8000, v14, OS_LOG_TYPE_ERROR, "failed to delete expired files with error: %@", buf, 0xCu);
             }
           }
         }
@@ -371,8 +370,6 @@ void __37__SUIUtilities_performDeleteCommand___block_invoke_266(uint64_t a1)
 
     while (v6);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)isSWKeyboardHiddenForWindow:(id)window
@@ -397,20 +394,18 @@ void __37__SUIUtilities_performDeleteCommand___block_invoke_266(uint64_t a1)
 
 void __37__SUIUtilities_performDeleteCommand___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_26B8E8000, a2, OS_LOG_TYPE_ERROR, "failed to delete expired items with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_26B8E8000, a2, OS_LOG_TYPE_ERROR, "failed to delete expired items with error: %@", &v2, 0xCu);
 }
 
 void __37__SUIUtilities_performDeleteCommand___block_invoke_263_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_26B8E8000, a2, OS_LOG_TYPE_ERROR, "failed to delete expired domains with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_26B8E8000, a2, OS_LOG_TYPE_ERROR, "failed to delete expired domains with error: %@", &v2, 0xCu);
 }
 
 @end

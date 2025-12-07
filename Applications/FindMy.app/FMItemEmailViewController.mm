@@ -13,7 +13,7 @@
 {
   appearCopy = appear;
   v8.receiver = self;
-  v8.super_class = type metadata accessor for FMItemEmailViewController();
+  v8.super_class = type metadata accessor for FMItemEmailViewController(0);
   v4 = v8.receiver;
   [(FMEmailViewController *)&v8 viewWillAppear:appearCopy];
   sub_10037453C();

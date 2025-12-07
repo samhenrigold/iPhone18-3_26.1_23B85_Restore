@@ -15,7 +15,7 @@
 
 - (void)setEndWaitTime:(double)time
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   impl = self->_impl;
   v5 = fmax(time, 0.25);
   if (time == -1.0)
@@ -45,54 +45,53 @@
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v11 = 136315650;
-    v12 = "SpeexEndpointer.mm";
-    v13 = 1024;
-    v14 = 260;
-    v15 = 2048;
-    v16 = v6;
-    _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_DEBUG, "%25s:%-5d SpeexEndpointer setEndWaitTime: %f", &v11, 0x1Cu);
+    v10 = 136315650;
+    v11 = "SpeexEndpointer.mm";
+    v12 = 1024;
+    v13 = 260;
+    v14 = 2048;
+    v15 = v6;
+    _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_DEBUG, "%25s:%-5d SpeexEndpointer setEndWaitTime: %f", &v10, 0x1Cu);
   }
 
 LABEL_10:
-  if (impl->var0)
+  if (!impl->var0)
   {
-    LODWORD(v5) = self->mFrameRate;
-    v8 = (self->mEndWaitTime * *&v5);
-    *(impl->var0 + 10) = v8;
-    if (kAVVCScope)
-    {
-      v9 = *kAVVCScope;
-      if (!*kAVVCScope)
-      {
-        goto LABEL_17;
-      }
-    }
+    return;
+  }
 
-    else
+  LODWORD(v5) = self->mFrameRate;
+  v8 = (self->mEndWaitTime * *&v5);
+  *(impl->var0 + 10) = v8;
+  if (kAVVCScope)
+  {
+    v9 = *kAVVCScope;
+    if (!*kAVVCScope)
     {
-      v9 = MEMORY[0x1E69E9C10];
-    }
-
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
-    {
-      v11 = 136315650;
-      v12 = "QualityDetector.cpp";
-      v13 = 1024;
-      v14 = 190;
-      v15 = 1024;
-      LODWORD(v16) = v8;
-      _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_INFO, "%25s:%-5d QualityDetector: End Timeout: %u frames", &v11, 0x18u);
+      return;
     }
   }
 
-LABEL_17:
-  v10 = *MEMORY[0x1E69E9840];
+  else
+  {
+    v9 = MEMORY[0x1E69E9C10];
+  }
+
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  {
+    v10 = 136315650;
+    v11 = "QualityDetector.cpp";
+    v12 = 1024;
+    v13 = 190;
+    v14 = 1024;
+    LODWORD(v15) = v8;
+    _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_INFO, "%25s:%-5d QualityDetector: End Timeout: %u frames", &v10, 0x18u);
+  }
 }
 
 - (void)setInterspeechWaitTime:(double)time
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   impl = self->_impl;
   v5 = fmax(time, 0.25);
   if (time == -1.0)
@@ -122,54 +121,53 @@ LABEL_17:
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v11 = 136315650;
-    v12 = "SpeexEndpointer.mm";
-    v13 = 1024;
-    v14 = 246;
-    v15 = 2048;
-    v16 = v6;
-    _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_DEBUG, "%25s:%-5d SpeexEndpointer setInterspeechWaitTime: %f", &v11, 0x1Cu);
+    v10 = 136315650;
+    v11 = "SpeexEndpointer.mm";
+    v12 = 1024;
+    v13 = 246;
+    v14 = 2048;
+    v15 = v6;
+    _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_DEBUG, "%25s:%-5d SpeexEndpointer setInterspeechWaitTime: %f", &v10, 0x1Cu);
   }
 
 LABEL_10:
-  if (impl->var0)
+  if (!impl->var0)
   {
-    LODWORD(v5) = self->mFrameRate;
-    v8 = (self->mInterspeechWaitTime * *&v5);
-    *(impl->var0 + 8) = v8;
-    if (kAVVCScope)
-    {
-      v9 = *kAVVCScope;
-      if (!*kAVVCScope)
-      {
-        goto LABEL_17;
-      }
-    }
+    return;
+  }
 
-    else
+  LODWORD(v5) = self->mFrameRate;
+  v8 = (self->mInterspeechWaitTime * *&v5);
+  *(impl->var0 + 8) = v8;
+  if (kAVVCScope)
+  {
+    v9 = *kAVVCScope;
+    if (!*kAVVCScope)
     {
-      v9 = MEMORY[0x1E69E9C10];
-    }
-
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
-    {
-      v11 = 136315650;
-      v12 = "QualityDetector.cpp";
-      v13 = 1024;
-      v14 = 184;
-      v15 = 1024;
-      LODWORD(v16) = v8;
-      _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_INFO, "%25s:%-5d QualityDetector: Interspeech Timeout: %u frames", &v11, 0x18u);
+      return;
     }
   }
 
-LABEL_17:
-  v10 = *MEMORY[0x1E69E9840];
+  else
+  {
+    v9 = MEMORY[0x1E69E9C10];
+  }
+
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  {
+    v10 = 136315650;
+    v11 = "QualityDetector.cpp";
+    v12 = 1024;
+    v13 = 184;
+    v14 = 1024;
+    LODWORD(v15) = v8;
+    _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_INFO, "%25s:%-5d QualityDetector: Interspeech Timeout: %u frames", &v10, 0x18u);
+  }
 }
 
 - (void)setStartWaitTime:(double)time
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   impl = self->_impl;
   v5 = fmax(time, 0.25);
   if (time == -1.0)
@@ -199,54 +197,53 @@ LABEL_17:
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v11 = 136315650;
-    v12 = "SpeexEndpointer.mm";
-    v13 = 1024;
-    v14 = 232;
-    v15 = 2048;
-    v16 = v6;
-    _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_DEBUG, "%25s:%-5d SpeexEndpointer setStartWaitTime: %f", &v11, 0x1Cu);
+    v10 = 136315650;
+    v11 = "SpeexEndpointer.mm";
+    v12 = 1024;
+    v13 = 232;
+    v14 = 2048;
+    v15 = v6;
+    _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_DEBUG, "%25s:%-5d SpeexEndpointer setStartWaitTime: %f", &v10, 0x1Cu);
   }
 
 LABEL_10:
-  if (impl->var0)
+  if (!impl->var0)
   {
-    LODWORD(v5) = self->mFrameRate;
-    v8 = (self->mStartWaitTime * *&v5);
-    *(impl->var0 + 9) = v8;
-    if (kAVVCScope)
-    {
-      v9 = *kAVVCScope;
-      if (!*kAVVCScope)
-      {
-        goto LABEL_17;
-      }
-    }
+    return;
+  }
 
-    else
+  LODWORD(v5) = self->mFrameRate;
+  v8 = (self->mStartWaitTime * *&v5);
+  *(impl->var0 + 9) = v8;
+  if (kAVVCScope)
+  {
+    v9 = *kAVVCScope;
+    if (!*kAVVCScope)
     {
-      v9 = MEMORY[0x1E69E9C10];
-    }
-
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
-    {
-      v11 = 136315650;
-      v12 = "QualityDetector.cpp";
-      v13 = 1024;
-      v14 = 178;
-      v15 = 1024;
-      LODWORD(v16) = v8;
-      _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_INFO, "%25s:%-5d QualityDetector: Start Timeout: %u frames", &v11, 0x18u);
+      return;
     }
   }
 
-LABEL_17:
-  v10 = *MEMORY[0x1E69E9840];
+  else
+  {
+    v9 = MEMORY[0x1E69E9C10];
+  }
+
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  {
+    v10 = 136315650;
+    v11 = "QualityDetector.cpp";
+    v12 = 1024;
+    v13 = 178;
+    v14 = 1024;
+    LODWORD(v15) = v8;
+    _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_INFO, "%25s:%-5d QualityDetector: Start Timeout: %u frames", &v10, 0x18u);
+  }
 }
 
 - (void)setEndpointMode:(int)mode
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   impl = self->_impl;
   self->mEndpointMode = mode;
   if (kAVVCScope)
@@ -265,13 +262,13 @@ LABEL_17:
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 136315650;
-    v10 = "SpeexEndpointer.mm";
-    v11 = 1024;
-    v12 = 218;
-    v13 = 1024;
+    v8 = 136315650;
+    v9 = "SpeexEndpointer.mm";
+    v10 = 1024;
+    v11 = 218;
+    v12 = 1024;
     modeCopy = mode;
-    _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d SpeexEndpointer setEndpointMode: %d", &v9, 0x18u);
+    _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d SpeexEndpointer setEndpointMode: %d", &v8, 0x18u);
   }
 
 LABEL_7:
@@ -289,8 +286,6 @@ LABEL_7:
 
     *(impl->var0 + 5) = v7;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reset
@@ -322,7 +317,7 @@ LABEL_7:
 
 - (BOOL)configureWithASBD:(AudioStreamBasicDescription *)d andFrameRate:(unsigned int)rate
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (kAVVCScope)
   {
     if ((*(kAVVCScope + 12) & 0x10) != 0)
@@ -332,11 +327,11 @@ LABEL_7:
       {
         if (os_log_type_enabled(*kAVVCScope, OS_LOG_TYPE_DEBUG))
         {
-          v13 = 136315394;
-          v14 = "SpeexEndpointer.mm";
-          v15 = 1024;
-          v16 = 169;
-          _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d SpeexEndpointer configureWithASBD:andFrameRate", &v13, 0x12u);
+          v17 = 136315394;
+          v18 = "SpeexEndpointer.mm";
+          v19 = 1024;
+          v20 = 169;
+          _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d SpeexEndpointer configureWithASBD:andFrameRate", &v17, 0x12u);
         }
       }
     }
@@ -352,7 +347,7 @@ LABEL_7:
   {
     if (kAVVCScope)
     {
-      v11 = *kAVVCScope;
+      v15 = *kAVVCScope;
       if (!*kAVVCScope)
       {
         goto LABEL_9;
@@ -361,31 +356,70 @@ LABEL_7:
 
     else
     {
-      v11 = MEMORY[0x1E69E9C10];
+      v15 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136315394;
-      v14 = "SpeexEndpointer.mm";
-      v15 = 1024;
-      v16 = 175;
-      _os_log_impl(&dword_1BA5AC000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d SpeexEndpointer configureWithSampleRate:andFrameRate: illegal frame rate!", &v13, 0x12u);
+      v17 = 136315394;
+      v18 = "SpeexEndpointer.mm";
+      v19 = 1024;
+      v20 = 175;
+      _os_log_impl(&dword_1BA5AC000, v15, OS_LOG_TYPE_ERROR, "%25s:%-5d SpeexEndpointer configureWithSampleRate:andFrameRate: illegal frame rate!", &v17, 0x12u);
     }
   }
 
 LABEL_9:
   self->mFrameRate = rate;
+  mStartWaitTime = self->mStartWaitTime;
   mInterspeechWaitTime = self->mInterspeechWaitTime;
-  v9 = (self->mStartWaitTime * rate);
-  v10 = (self->mEndWaitTime * rate);
-  self->mEndpointMode;
-  QualityDetectorCreate();
+  if (mInterspeechWaitTime == -1.0)
+  {
+    v10 = 0x7FFFFFFF;
+  }
+
+  else
+  {
+    v10 = (mInterspeechWaitTime * rate);
+  }
+
+  mEndWaitTime = self->mEndWaitTime;
+  if (mStartWaitTime == -1.0)
+  {
+    v12 = 0x7FFFFFFF;
+  }
+
+  else
+  {
+    v12 = (mStartWaitTime * rate);
+  }
+
+  if (mEndWaitTime == -1.0)
+  {
+    v13 = 0x7FFFFFFF;
+  }
+
+  else
+  {
+    v13 = (mEndWaitTime * rate);
+  }
+
+  if (self->mEndpointMode == 1)
+  {
+    v14 = 1;
+  }
+
+  else
+  {
+    v14 = 2;
+  }
+
+  QualityDetectorCreate(v14, v10, v12, v13);
 }
 
 - (BOOL)configureWithSampleRate:(double)rate andFrameRate:(unsigned int)frameRate
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (kAVVCScope)
   {
     if ((*(kAVVCScope + 12) & 0x10) != 0)
@@ -395,11 +429,11 @@ LABEL_9:
       {
         if (os_log_type_enabled(*kAVVCScope, OS_LOG_TYPE_DEBUG))
         {
-          v13 = 136315394;
-          v14 = "SpeexEndpointer.mm";
-          v15 = 1024;
-          v16 = 140;
-          _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d SpeexEndpointer configureWithSampleRate:", &v13, 0x12u);
+          v17 = 136315394;
+          v18 = "SpeexEndpointer.mm";
+          v19 = 1024;
+          v20 = 140;
+          _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d SpeexEndpointer configureWithSampleRate:", &v17, 0x12u);
         }
       }
     }
@@ -415,7 +449,7 @@ LABEL_9:
   {
     if (kAVVCScope)
     {
-      v11 = *kAVVCScope;
+      v15 = *kAVVCScope;
       if (!*kAVVCScope)
       {
         goto LABEL_9;
@@ -424,31 +458,70 @@ LABEL_9:
 
     else
     {
-      v11 = MEMORY[0x1E69E9C10];
+      v15 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136315394;
-      v14 = "SpeexEndpointer.mm";
-      v15 = 1024;
-      v16 = 146;
-      _os_log_impl(&dword_1BA5AC000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d SpeexEndpointer configureWithSampleRate:andFrameRate: illegal frame rate!", &v13, 0x12u);
+      v17 = 136315394;
+      v18 = "SpeexEndpointer.mm";
+      v19 = 1024;
+      v20 = 146;
+      _os_log_impl(&dword_1BA5AC000, v15, OS_LOG_TYPE_ERROR, "%25s:%-5d SpeexEndpointer configureWithSampleRate:andFrameRate: illegal frame rate!", &v17, 0x12u);
     }
   }
 
 LABEL_9:
   self->mFrameRate = frameRate;
+  mStartWaitTime = self->mStartWaitTime;
   mInterspeechWaitTime = self->mInterspeechWaitTime;
-  v9 = (self->mStartWaitTime * frameRate);
-  v10 = (self->mEndWaitTime * frameRate);
-  self->mEndpointMode;
-  QualityDetectorCreate();
+  if (mInterspeechWaitTime == -1.0)
+  {
+    v10 = 0x7FFFFFFF;
+  }
+
+  else
+  {
+    v10 = (mInterspeechWaitTime * frameRate);
+  }
+
+  mEndWaitTime = self->mEndWaitTime;
+  if (mStartWaitTime == -1.0)
+  {
+    v12 = 0x7FFFFFFF;
+  }
+
+  else
+  {
+    v12 = (mStartWaitTime * frameRate);
+  }
+
+  if (mEndWaitTime == -1.0)
+  {
+    v13 = 0x7FFFFFFF;
+  }
+
+  else
+  {
+    v13 = (mEndWaitTime * frameRate);
+  }
+
+  if (self->mEndpointMode == 1)
+  {
+    v14 = 1;
+  }
+
+  else
+  {
+    v14 = 2;
+  }
+
+  QualityDetectorCreate(v14, v10, v12, v13);
 }
 
 - (void)dealloc
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (kAVVCScope)
   {
     if ((*(kAVVCScope + 12) & 0x10) != 0)
@@ -459,9 +532,9 @@ LABEL_9:
         if (os_log_type_enabled(*kAVVCScope, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315394;
-          v11 = "SpeexEndpointer.mm";
-          v12 = 1024;
-          v13 = 128;
+          v10 = "SpeexEndpointer.mm";
+          v11 = 1024;
+          v12 = 128;
           _os_log_impl(&dword_1BA5AC000, v3, OS_LOG_TYPE_DEBUG, "%25s:%-5d SpeexEndpointer dealloc:", buf, 0x12u);
         }
       }
@@ -494,18 +567,17 @@ LABEL_9:
 
   MEMORY[0x1BFAF5800](impl, 0xA0C40BD48D6D6);
   self->_impl = 0;
-  v9.receiver = self;
-  v9.super_class = SpeexEndpointer;
-  [(SpeexEndpointer *)&v9 dealloc];
-  v8 = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = SpeexEndpointer;
+  [(SpeexEndpointer *)&v8 dealloc];
 }
 
 - (SpeexEndpointer)init
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v5.receiver = self;
-  v5.super_class = SpeexEndpointer;
-  if ([(SpeexEndpointer *)&v5 init])
+  v9 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = SpeexEndpointer;
+  if ([(SpeexEndpointer *)&v4 init])
   {
     operator new();
   }
@@ -520,26 +592,25 @@ LABEL_9:
         if (os_log_type_enabled(*kAVVCScope, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315394;
-          v7 = "SpeexEndpointer.mm";
-          v8 = 1024;
-          v9 = 122;
+          v6 = "SpeexEndpointer.mm";
+          v7 = 1024;
+          v8 = 122;
           _os_log_impl(&dword_1BA5AC000, v2, OS_LOG_TYPE_DEBUG, "%25s:%-5d SpeexEndpointer init:", buf, 0x12u);
         }
       }
     }
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (int)getStatus:(float *)status count:(unsigned int)count
 {
-  v78 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   impl = self->_impl;
   if (!impl->var0)
   {
-    CAVerboseAbort();
+    CAVerboseAbort("ASSERTION FAILED: getStatus called before object was configured!", a2, status, *&count);
   }
 
   if (count)
@@ -599,21 +670,21 @@ LABEL_9:
             {
               v25 = status[v6];
               *buf = 136316930;
-              v63 = "SpeexEndpointer.mm";
-              v64 = 1024;
-              v65 = 281;
-              v66 = 1024;
-              v67 = v6;
-              v68 = 1024;
+              v62 = "SpeexEndpointer.mm";
+              v63 = 1024;
+              v64 = 281;
+              v65 = 1024;
+              v66 = v6;
+              v67 = 1024;
               countCopy2 = count;
-              v70 = 2048;
-              v71 = v25;
-              v72 = 2048;
-              v73 = v20;
-              v74 = 2048;
-              v75 = v21;
-              v76 = 1024;
-              v77 = v23;
+              v69 = 2048;
+              v70 = v25;
+              v71 = 2048;
+              v72 = v20;
+              v73 = 2048;
+              v74 = v21;
+              v75 = 1024;
+              v76 = v23;
               _os_log_impl(&dword_1BA5AC000, v24, OS_LOG_TYPE_DEBUG, "%25s:%-5d SpeexEndpointer getStatus: Raw Speex qlty frame %d/%d: %.2f rnng avrg: %.2f, med: %.2f, cls: %d", buf, 0x42u);
             }
           }
@@ -640,12 +711,12 @@ LABEL_9:
                   v39 = *(var0 + 52);
                   v40 = *(var0 + 32);
                   *buf = 136315906;
-                  v63 = "QualityDetector.cpp";
-                  v64 = 1024;
-                  v65 = 139;
-                  v66 = 1024;
-                  v67 = v39;
-                  v68 = 1024;
+                  v62 = "QualityDetector.cpp";
+                  v63 = 1024;
+                  v64 = 139;
+                  v65 = 1024;
+                  v66 = v39;
+                  v67 = 1024;
                   countCopy2 = v40;
                   _os_log_impl(&dword_1BA5AC000, v38, OS_LOG_TYPE_DEBUG, "%25s:%-5d QualityDetector: Speech Ending; End Counter %u / %u", buf, 0x1Eu);
                 }
@@ -677,9 +748,9 @@ LABEL_72:
             if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
             {
               *buf = 136315394;
-              v63 = "QualityDetector.cpp";
-              v64 = 1024;
-              v65 = 143;
+              v62 = "QualityDetector.cpp";
+              v63 = 1024;
+              v64 = 143;
               _os_log_impl(&dword_1BA5AC000, v42, OS_LOG_TYPE_DEBUG, "%25s:%-5d QualityDetector: ENDING => ACTIVE", buf, 0x12u);
             }
 
@@ -708,9 +779,9 @@ LABEL_68:
             if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
             {
               *buf = 136315394;
-              v63 = "QualityDetector.cpp";
-              v64 = 1024;
-              v65 = 147;
+              v62 = "QualityDetector.cpp";
+              v63 = 1024;
+              v64 = 147;
               v53 = v48;
               v54 = "%25s:%-5d QualityDetector: ENDING => ENDED";
               goto LABEL_96;
@@ -739,9 +810,9 @@ LABEL_103:
             if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
             {
               *buf = 136315394;
-              v63 = "SpeexEndpointer.mm";
-              v64 = 1024;
-              v65 = 294;
+              v62 = "SpeexEndpointer.mm";
+              v63 = 1024;
+              v64 = 294;
               _os_log_impl(&dword_1BA5AC000, v56, OS_LOG_TYPE_DEBUG, "%25s:%-5d #### SpeexEndpointer: Detected hard end point ####\n", buf, 0x12u);
             }
 
@@ -764,12 +835,12 @@ LABEL_103:
                   if (os_log_type_enabled(*kAVVCScope, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 136315906;
-                    v63 = "QualityDetector.cpp";
-                    v64 = 1024;
-                    v65 = 111;
-                    v66 = 1024;
-                    v67 = v34;
-                    v68 = 1024;
+                    v62 = "QualityDetector.cpp";
+                    v63 = 1024;
+                    v64 = 111;
+                    v65 = 1024;
+                    v66 = v34;
+                    v67 = 1024;
                     countCopy2 = v35;
                     _os_log_impl(&dword_1BA5AC000, v36, OS_LOG_TYPE_DEBUG, "%25s:%-5d QualityDetector: Active; End Counter %u / %u", buf, 0x1Eu);
                     v34 = *(var0 + 52);
@@ -793,11 +864,11 @@ LABEL_103:
                 if (os_log_type_enabled(*kAVVCScope, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 136315650;
-                  v63 = "QualityDetector.cpp";
-                  v64 = 1024;
-                  v65 = 115;
-                  v66 = 1024;
-                  v67 = v43;
+                  v62 = "QualityDetector.cpp";
+                  v63 = 1024;
+                  v64 = 115;
+                  v65 = 1024;
+                  v66 = v43;
                   _os_log_impl(&dword_1BA5AC000, v44, OS_LOG_TYPE_DEBUG, "%25s:%-5d QualityDetector: Active; Watching for end point (current frame quality: %u)", buf, 0x18u);
                 }
               }
@@ -830,9 +901,9 @@ LABEL_103:
             if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
             {
               *buf = 136315394;
-              v63 = "QualityDetector.cpp";
-              v64 = 1024;
-              v65 = 126;
+              v62 = "QualityDetector.cpp";
+              v63 = 1024;
+              v64 = 126;
               _os_log_impl(&dword_1BA5AC000, v55, OS_LOG_TYPE_DEBUG, "%25s:%-5d QualityDetector: ACTIVE => ENDING", buf, 0x12u);
             }
 
@@ -848,9 +919,9 @@ LABEL_114:
                 if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 136315394;
-                  v63 = "SpeexEndpointer.mm";
-                  v64 = 1024;
-                  v65 = 289;
+                  v62 = "SpeexEndpointer.mm";
+                  v63 = 1024;
+                  v64 = 289;
                   _os_log_impl(&dword_1BA5AC000, v57, OS_LOG_TYPE_DEBUG, "%25s:%-5d #### SpeexEndpointer: Detected soft end point ####\n", buf, 0x12u);
                 }
 
@@ -892,9 +963,9 @@ LABEL_114:
             }
 
             *buf = 136315394;
-            v63 = "QualityDetector.cpp";
-            v64 = 1024;
-            v65 = 120;
+            v62 = "QualityDetector.cpp";
+            v63 = 1024;
+            v64 = 120;
             v53 = v47;
             v54 = "%25s:%-5d QualityDetector: ACTIVE => ENDED";
 LABEL_96:
@@ -920,12 +991,12 @@ LABEL_96:
                   {
                     v50 = *(var0 + 36);
                     *buf = 136315906;
-                    v63 = "QualityDetector.cpp";
-                    v64 = 1024;
-                    v65 = 100;
-                    v66 = 1024;
-                    v67 = v30;
-                    v68 = 1024;
+                    v62 = "QualityDetector.cpp";
+                    v63 = 1024;
+                    v64 = 100;
+                    v65 = 1024;
+                    v66 = v30;
+                    v67 = 1024;
                     countCopy2 = v50;
                     _os_log_impl(&dword_1BA5AC000, v49, OS_LOG_TYPE_DEBUG, "%25s:%-5d QualityDetector: NoSpeech; End Counter %u / %u", buf, 0x1Eu);
                     v30 = *(var0 + 52);
@@ -960,9 +1031,9 @@ LABEL_96:
             }
 
             *buf = 136315394;
-            v63 = "QualityDetector.cpp";
-            v64 = 1024;
-            v65 = 102;
+            v62 = "QualityDetector.cpp";
+            v63 = 1024;
+            v64 = 102;
             v53 = v51;
             v54 = "%25s:%-5d QualityDetector: NONE => ENDED (TIMEOUT AT START)";
             goto LABEL_96;
@@ -977,9 +1048,9 @@ LABEL_74:
             if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
             {
               *buf = 136315394;
-              v63 = "QualityDetector.cpp";
-              v64 = 1024;
-              v65 = 94;
+              v62 = "QualityDetector.cpp";
+              v63 = 1024;
+              v64 = 94;
               _os_log_impl(&dword_1BA5AC000, v32, OS_LOG_TYPE_DEBUG, "%25s:%-5d QualityDetector: NONE => ACTIVE", buf, 0x12u);
               v31 = kAVVCScope;
             }
@@ -1004,9 +1075,9 @@ LABEL_82:
             if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
             {
               *buf = 136315394;
-              v63 = "SpeexEndpointer.mm";
-              v64 = 1024;
-              v65 = 284;
+              v62 = "SpeexEndpointer.mm";
+              v63 = 1024;
+              v64 = 284;
               _os_log_impl(&dword_1BA5AC000, v52, OS_LOG_TYPE_DEBUG, "%25s:%-5d #### SpeexEndpointer: Detected start point ####\n", buf, 0x12u);
             }
 
@@ -1034,7 +1105,6 @@ LABEL_82:
   v7 = 0;
 LABEL_117:
   self->mLastStatus = v7;
-  v58 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

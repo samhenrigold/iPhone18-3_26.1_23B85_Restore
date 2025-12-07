@@ -1,6 +1,6 @@
-void sub_100001240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100001240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -15,20 +15,20 @@ uint64_t sub_100001260(uint64_t result, uint64_t a2)
 void sub_100001278(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  v5 = sub_100001374();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = sub_100001374(v4, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v8 = 138412290;
-    v9 = v4;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "App Clip request finished with error: %@", &v8, 0xCu);
+    v9 = 138412290;
+    v10 = v4;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "App Clip request finished with error: %@", &v9, 0xCu);
   }
 
-  v6 = *(*(a1 + 32) + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = 0;
+  v7 = *(*(a1 + 32) + 8);
+  v8 = *(v7 + 40);
+  *(v7 + 40) = 0;
 }
 
-uint64_t sub_100001374()
+uint64_t sub_100001374(uint64_t a1, uint64_t a2)
 {
   if (qword_10000CDB8 != -1)
   {
@@ -48,10 +48,10 @@ void sub_1000013AC(id a1)
 void sub_1000014F0(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_100001374();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = sub_100001374(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    sub_100002770(v2, v3);
+    sub_100002770(v2, v4);
   }
 }
 
@@ -62,31 +62,32 @@ void sub_1000015D4(uint64_t a1)
   if (objc_opt_isKindOfClass())
   {
     v3 = v2;
-    v13 = 0;
-    v4 = [NSKeyedUnarchiver unarchivedObjectOfClass:objc_opt_class() fromData:v3 error:&v13];
-    v5 = v13;
+    v15 = 0;
+    v4 = [NSKeyedUnarchiver unarchivedObjectOfClass:objc_opt_class() fromData:v3 error:&v15];
+    v5 = v15;
+    v7 = v5;
     if (v4)
     {
-      v6 = objc_alloc_init(UIViewController);
-      [v6 setModalPresentationStyle:5];
-      v7 = *(a1 + 40);
-      v10[0] = _NSConcreteStackBlock;
-      v10[1] = 3221225472;
-      v10[2] = sub_10000175C;
-      v10[3] = &unk_100008338;
-      v10[4] = v7;
-      v11 = v4;
-      v12 = v6;
-      v8 = v6;
-      [v7 presentViewController:v8 animated:1 completion:v10];
+      v8 = objc_alloc_init(UIViewController);
+      [v8 setModalPresentationStyle:5];
+      v9 = *(a1 + 40);
+      v12[0] = _NSConcreteStackBlock;
+      v12[1] = 3221225472;
+      v12[2] = sub_10000175C;
+      v12[3] = &unk_100008338;
+      v12[4] = v9;
+      v13 = v4;
+      v14 = v8;
+      v10 = v8;
+      [v9 presentViewController:v10 animated:1 completion:v12];
     }
 
     else
     {
-      v9 = sub_100001374();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = sub_100001374(v5, v6);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        sub_1000027E8(v5, v9);
+        sub_1000027E8(v7, v11);
       }
     }
   }
@@ -189,9 +190,9 @@ uint64_t sub_100001BE0()
   return v0;
 }
 
-void sub_100001FBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100001FBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -212,33 +213,32 @@ id sub_10000206C(uint64_t a1)
 void sub_100002218(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_100001374();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = sub_100001374(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    sub_100002770(v2, v3);
+    sub_100002770(v2, v4);
   }
 }
 
 void sub_1000022EC(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_100001374();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = sub_100001374(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    sub_1000028E0(v2, v3);
+    sub_1000028E0(v2, v4);
   }
 }
 
-void sub_100002440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100002440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_1000025C8(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10000CDC0 = result;
   return result;

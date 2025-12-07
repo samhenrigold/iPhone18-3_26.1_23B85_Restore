@@ -2,7 +2,9 @@
 + (BOOL)_rewritePlaylistWithParser:(id)parser toURL:(id)l requestedBitrates:(id)bitrates error:(id *)error;
 + (BOOL)rewritePlaylistData:(id)data toURL:(id)l requestedBitrates:(id)bitrates error:(id *)error;
 + (BOOL)rewritePlaylistURL:(id)l toURL:(id)rL requestedBitrates:(id)bitrates error:(id *)error;
++ (id)_playlistUsingParser:(id)parser ignoreSegments:(BOOL)segments error:(id *)error;
 + (id)playlistParsingData:(id)data error:(id *)error;
++ (id)playlistParsingURL:(id)l ignoreSegments:(BOOL)segments error:(id *)error;
 - (BLHLSPlaylist)initWithRequestedBitrates:(id)bitrates;
 - (BOOL)_parseUsingParser:(id)parser error:(id *)error;
 - (BOOL)parserShouldCollectLine:(id)line;
@@ -184,6 +186,29 @@
   return v8;
 }
 
++ (id)_playlistUsingParser:(id)parser ignoreSegments:(BOOL)segments error:(id *)error
+{
+  segmentsCopy = segments;
+  parserCopy = parser;
+  v9 = [[self alloc] initWithRequestedBitrates:0];
+  [v9 setIgnoreSegments:segmentsCopy];
+  LODWORD(error) = [v9 _parseUsingParser:parserCopy error:error];
+
+  if (error)
+  {
+    v10 = v9;
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  v11 = v10;
+
+  return v10;
+}
+
 + (id)playlistParsingData:(id)data error:(id *)error
 {
   dataCopy = data;
@@ -192,6 +217,17 @@
   v8 = [self _playlistUsingParser:v7 ignoreSegments:0 error:error];
 
   return v8;
+}
+
++ (id)playlistParsingURL:(id)l ignoreSegments:(BOOL)segments error:(id *)error
+{
+  segmentsCopy = segments;
+  lCopy = l;
+  v9 = [[BLM3U8Parser alloc] initWithURL:lCopy];
+
+  v10 = [self _playlistUsingParser:v9 ignoreSegments:segmentsCopy error:error];
+
+  return v10;
 }
 
 - (void)parser:(id)parser lineIsURL:(id)l
@@ -236,7 +272,7 @@ LABEL_7:
 
 - (void)parser:(id)parser lineIsTag:(id)tag value:(id)value attributeList:(id)list
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   tagCopy = tag;
   valueCopy = value;
   listCopy = list;
@@ -282,24 +318,24 @@ LABEL_7:
 
     if ([tagCopy isEqualToString:@"#EXT-X-KEY"])
     {
-      v22 = objc_alloc_init(BLHLSKey);
-      [(BLHLSKey *)v22 setPropertiesFromAttributeList:listCopy];
-      if ([(BLHLSKey *)v22 isFormatSupported])
+      v21 = objc_alloc_init(BLHLSKey);
+      [(BLHLSKey *)v21 setPropertiesFromAttributeList:listCopy];
+      if ([(BLHLSKey *)v21 isFormatSupported])
       {
-        [state setCurrentKey:v22];
-        [(NSMutableSet *)self->_uniqueKeys addObject:v22];
+        [state setCurrentKey:v21];
+        [(NSMutableSet *)self->_uniqueKeys addObject:v21];
 LABEL_21:
 
         goto LABEL_10;
       }
 
-      v23 = BLDefaultLog();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      v22 = BLDefaultLog();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
-        keyFormat = [(BLHLSKey *)v22 keyFormat];
-        v28 = 138543362;
-        v29 = keyFormat;
-        _os_log_impl(&dword_241D1F000, v23, OS_LOG_TYPE_DEBUG, "Dropping unsupported key format %{public}@", &v28, 0xCu);
+        keyFormat = [(BLHLSKey *)v21 keyFormat];
+        v27 = 138543362;
+        v28 = keyFormat;
+        _os_log_impl(&dword_241D1F000, v22, OS_LOG_TYPE_DEBUG, "Dropping unsupported key format %{public}@", &v27, 0xCu);
       }
     }
 
@@ -313,7 +349,7 @@ LABEL_21:
         goto LABEL_9;
       }
 
-      if (![tagCopy isEqualToString:@"#EXT-X-SESSION-DATA"] || (objc_msgSend(listCopy, "objectForKeyedSubscript:", @"DATA-ID"), v25 = objc_claimAutoreleasedReturnValue(), v26 = objc_msgSend(v25, "isEqualToString:", @"com.apple.audiobook.rapguid"), v25, !v26))
+      if (![tagCopy isEqualToString:@"#EXT-X-SESSION-DATA"] || (objc_msgSend(listCopy, "objectForKeyedSubscript:", @"DATA-ID"), v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v24, "isEqualToString:", @"com.apple.audiobook.rapguid"), v24, !v25))
       {
         if ([tagCopy isEqualToString:@"#EXT-X-BITRATE"])
         {
@@ -323,27 +359,27 @@ LABEL_21:
         v13 = BLDefaultLog();
         if (os_log_type_enabled(&v13->super, OS_LOG_TYPE_DEBUG))
         {
-          v28 = 138412290;
-          v29 = tagCopy;
-          _os_log_impl(&dword_241D1F000, &v13->super, OS_LOG_TYPE_DEBUG, "Ignoring tag %@", &v28, 0xCu);
+          v27 = 138412290;
+          v28 = tagCopy;
+          _os_log_impl(&dword_241D1F000, &v13->super, OS_LOG_TYPE_DEBUG, "Ignoring tag %@", &v27, 0xCu);
         }
 
         goto LABEL_9;
       }
 
-      v22 = [listCopy objectForKeyedSubscript:@"VALUE"];
-      if ([(BLHLSKey *)v22 length])
+      v21 = [listCopy objectForKeyedSubscript:@"VALUE"];
+      if ([(BLHLSKey *)v21 length])
       {
-        v27 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v22];
-        [(BLHLSPlaylist *)self setRacGUID:v27];
+        v26 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v21];
+        [(BLHLSPlaylist *)self setRacGUID:v26];
       }
 
-      v23 = BLDefaultLog();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v22 = BLDefaultLog();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        v28 = 138412290;
-        v29 = listCopy;
-        _os_log_impl(&dword_241D1F000, v23, OS_LOG_TYPE_DEFAULT, "Found rapguid attribute: %@", &v28, 0xCu);
+        v27 = 138412290;
+        v28 = listCopy;
+        _os_log_impl(&dword_241D1F000, v22, OS_LOG_TYPE_DEFAULT, "Found rapguid attribute: %@", &v27, 0xCu);
       }
     }
 
@@ -356,7 +392,6 @@ LABEL_21:
 LABEL_9:
 
 LABEL_10:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)parserShouldCollectLine:(id)line

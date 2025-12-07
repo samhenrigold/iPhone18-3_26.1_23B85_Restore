@@ -29,26 +29,13 @@
     v15.super_class = DTGPUCounterProfile_GPURawCountersAPS;
     v8 = [(DTGPUCounterProfile *)&v15 initWithProfile:profile device:deviceCopy];
     v9 = v8;
-    if (!v8)
-    {
-      goto LABEL_4;
-    }
-
-    objc_storeStrong(&v8->_device, device);
-    v10 = deviceCopy;
-    v11 = sub_247FFF4F0(v10);
-    gpuConfig = v9->_gpuConfig;
-    v9->_gpuConfig = v11;
-
-    selfCopy = v9->_gpuConfig;
-    if (!selfCopy)
+    if (v8 && (objc_storeStrong(&v8->_device, device), v10 = deviceCopy, sub_247FFF4F0(v10), v11 = objc_claimAutoreleasedReturnValue(), gpuConfig = v9->_gpuConfig, v9->_gpuConfig = v11, gpuConfig, selfCopy = v9->_gpuConfig, v10, !selfCopy))
     {
       self = v9;
     }
 
     else
     {
-LABEL_4:
       self = v9;
       selfCopy = self;
     }
@@ -64,7 +51,7 @@ LABEL_4:
 
 - (void)setAPSCounterConfig:(id)config
 {
-  v89 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   configCopy = config;
   v4 = objc_opt_new();
   rdeSelects = self->_rdeSelects;
@@ -75,80 +62,80 @@ LABEL_4:
   selfCopy = self;
   self->_apsSelects = v6;
 
-  v64 = [configCopy objectForKeyedSubscript:@"RawCounterGRCs"];
+  v63 = [configCopy objectForKeyedSubscript:@"RawCounterGRCs"];
   v8 = 0;
-  memset(v85, 0, sizeof(v85));
-  v86 = 1065353216;
-  while (v8 < [v64 count])
+  memset(v84, 0, sizeof(v84));
+  v85 = 1065353216;
+  while (v8 < [v63 count])
   {
-    v9 = [v64 objectAtIndexedSubscript:v8];
+    v9 = [v63 objectAtIndexedSubscript:v8];
     v10 = [v9 objectForKeyedSubscript:@"Name"];
     v11 = v10;
-    sub_247F85940(v79, [v10 UTF8String]);
-    *__p = *v79;
-    v12 = v80;
-    v79[1] = 0;
-    *&v80 = 0;
-    v79[0] = 0;
-    *&v83 = v12;
-    *(&v83 + 1) = v8;
-    sub_248002504(v85, __p);
-    if (SBYTE7(v83) < 0)
+    sub_247F85940(v78, [v10 UTF8String]);
+    *__p = *v78;
+    v12 = v79;
+    v78[1] = 0;
+    *&v79 = 0;
+    v78[0] = 0;
+    *&v82 = v12;
+    *(&v82 + 1) = v8;
+    sub_248002504(v84, __p, __p);
+    if (SBYTE7(v82) < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (SBYTE7(v80) < 0)
+    if (SBYTE7(v79) < 0)
     {
-      operator delete(v79[0]);
+      operator delete(v78[0]);
     }
 
     ++v8;
   }
 
   *__p = 0u;
-  v83 = 0u;
-  v84 = 1065353216;
-  *v79 = 0u;
-  v80 = 0u;
-  v81 = 1065353216;
+  v82 = 0u;
+  v83 = 1065353216;
+  *v78 = 0u;
+  v79 = 0u;
+  v80 = 1065353216;
   GRCReleaseAllCounterSourceGroup();
-  v59 = GRCCopyAllCounterSourceGroup();
-  if ([v59 count])
+  v58 = GRCCopyAllCounterSourceGroup();
+  if ([v58 count])
   {
-    [v59 firstObject];
+    [v58 firstObject];
+    v76 = 0u;
     v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
-    v58 = v76 = 0u;
-    sourceList = [v58 sourceList];
-    v14 = [sourceList countByEnumeratingWithState:&v75 objects:v88 count:16];
+    v74 = 0u;
+    v57 = v75 = 0u;
+    sourceList = [v57 sourceList];
+    v14 = [sourceList countByEnumeratingWithState:&v74 objects:v87 count:16];
     if (v14)
     {
-      v15 = *v76;
+      v15 = *v75;
       obj = sourceList;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v76 != v15)
+          if (*v75 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v75 + 1) + 8 * i);
+          v17 = *(*(&v74 + 1) + 8 * i);
           name = [v17 name];
           v19 = [name hasPrefix:@"APS_USC"];
 
-          v73 = 0u;
-          v74 = 0u;
-          v71 = 0u;
           v72 = 0u;
+          v73 = 0u;
+          v70 = 0u;
+          v71 = 0u;
           availableCounters = [v17 availableCounters];
-          v21 = [availableCounters countByEnumeratingWithState:&v71 objects:v87 count:16];
+          v21 = [availableCounters countByEnumeratingWithState:&v70 objects:v86 count:16];
           if (v21)
           {
-            v22 = *v72;
+            v22 = *v71;
             if (v19)
             {
               v23 = __p;
@@ -156,34 +143,34 @@ LABEL_4:
 
             else
             {
-              v23 = v79;
+              v23 = v78;
             }
 
             do
             {
               for (j = 0; j != v21; ++j)
               {
-                if (*v72 != v22)
+                if (*v71 != v22)
                 {
                   objc_enumerationMutation(availableCounters);
                 }
 
-                name2 = [*(*(&v71 + 1) + 8 * j) name];
+                name2 = [*(*(&v70 + 1) + 8 * j) name];
                 v26 = name2;
-                sub_247F85940(&v68, [name2 UTF8String]);
-                v27 = sub_247FF8CE4(v85, &v68);
-                if (SHIBYTE(v70) < 0)
+                sub_247F85940(&v67, [name2 UTF8String]);
+                v27 = sub_247FF8CE4(v84, &v67);
+                if (SHIBYTE(v69) < 0)
                 {
-                  operator delete(v68);
+                  operator delete(v67);
                 }
 
                 if (v27)
                 {
-                  sub_2480027C8(v23, v27 + 5);
+                  sub_2480027C8(v23, v27 + 5, v27 + 5);
                 }
               }
 
-              v21 = [availableCounters countByEnumeratingWithState:&v71 objects:v87 count:16];
+              v21 = [availableCounters countByEnumeratingWithState:&v70 objects:v86 count:16];
             }
 
             while (v21);
@@ -191,19 +178,19 @@ LABEL_4:
         }
 
         sourceList = obj;
-        v14 = [obj countByEnumeratingWithState:&v75 objects:v88 count:16];
+        v14 = [obj countByEnumeratingWithState:&v74 objects:v87 count:16];
       }
 
       while (v14);
     }
 
+    v67 = 0;
     v68 = 0;
     v69 = 0;
-    v70 = 0;
-    if (v80)
+    if (v79)
     {
       v28 = 0;
-      v29 = v80;
+      v29 = v79;
       v30 = selfCopy;
       do
       {
@@ -220,9 +207,9 @@ LABEL_4:
       v30 = selfCopy;
     }
 
-    sub_24800158C(&v68, 0, v80, 0, v28);
-    v31 = 126 - 2 * __clz((v69 - v68) >> 3);
-    if (v69 == v68)
+    sub_24800158C(&v67, 0, v79, 0, v28);
+    v31 = 126 - 2 * __clz((v68 - v67) >> 3);
+    if (v68 == v67)
     {
       v32 = 0;
     }
@@ -232,14 +219,14 @@ LABEL_4:
       v32 = v31;
     }
 
-    sub_2480017F0(v68, v69, v32, 1);
+    sub_2480017F0(v67, v68, v32, 1);
+    v64 = 0;
     v65 = 0;
     v66 = 0;
-    v67 = 0;
-    if (v83)
+    if (v82)
     {
       v33 = 0;
-      v34 = v83;
+      v34 = v82;
       do
       {
         ++v33;
@@ -254,9 +241,9 @@ LABEL_4:
       v33 = 0;
     }
 
-    sub_24800158C(&v65, 0, v83, 0, v33);
-    v35 = 126 - 2 * __clz((v66 - v65) >> 3);
-    if (v66 == v65)
+    sub_24800158C(&v64, 0, v82, 0, v33);
+    v35 = 126 - 2 * __clz((v65 - v64) >> 3);
+    if (v65 == v64)
     {
       v36 = 0;
     }
@@ -266,15 +253,15 @@ LABEL_4:
       v36 = v35;
     }
 
-    sub_2480017F0(v65, v66, v36, 1);
+    sub_2480017F0(v64, v65, v36, 1);
     obja = [(NSDictionary *)v30->_gpuConfig objectForKeyedSubscript:@"RawCounterWidth"];
-    v37 = v68;
-    v38 = v69;
-    if (v68 != v69)
+    v37 = v67;
+    v38 = v68;
+    if (v67 != v68)
     {
       do
       {
-        v39 = [v64 objectAtIndexedSubscript:*v37];
+        v39 = [v63 objectAtIndexedSubscript:*v37];
         v40 = [v39 objectForKeyedSubscript:@"Name"];
         v41 = MEMORY[0x277CBEB38];
         v42 = [v39 objectForKeyedSubscript:@"Options"];
@@ -304,13 +291,13 @@ LABEL_4:
       while (v37 != v38);
     }
 
-    v50 = v65;
-    v51 = v66;
-    if (v65 != v66)
+    v50 = v64;
+    v51 = v65;
+    if (v64 != v65)
     {
       do
       {
-        v52 = [v64 objectAtIndexedSubscript:*v50];
+        v52 = [v63 objectAtIndexedSubscript:*v50];
         v53 = [v52 objectForKeyedSubscript:@"Name"];
         v54 = [v52 objectForKeyedSubscript:@"Options"];
         if (v53)
@@ -328,24 +315,22 @@ LABEL_4:
 
     GRCReleaseAllCounterSourceGroup();
 
-    if (v65)
+    if (v64)
     {
-      v66 = v65;
-      operator delete(v65);
+      v65 = v64;
+      operator delete(v64);
     }
 
-    if (v68)
+    if (v67)
     {
-      v69 = v68;
-      operator delete(v68);
+      v68 = v67;
+      operator delete(v67);
     }
   }
 
-  sub_24800277C(v79);
+  sub_24800277C(v78);
   sub_24800277C(__p);
-  sub_247FF8450(v85);
-
-  v57 = *MEMORY[0x277D85DE8];
+  sub_247FF8450(v84);
 }
 
 - (BOOL)_validateAndConfigureRawCounters
@@ -427,38 +412,38 @@ LABEL_10:
 
 - (id)counterProfileForHost
 {
-  v47[2] = *MEMORY[0x277D85DE8];
+  v46[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB38];
-  v46[0] = @"GPUConfigurationVariables";
+  v45[0] = @"GPUConfigurationVariables";
   v4 = [(NSDictionary *)self->_gpuConfig objectForKeyedSubscript:?];
-  v46[1] = @"AcceleratorID";
-  v47[0] = v4;
+  v45[1] = @"AcceleratorID";
+  v46[0] = v4;
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{-[MTLDevice registryID](self->_device, "registryID")}];
-  v47[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:2];
+  v46[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:2];
   v7 = [v3 dictionaryWithDictionary:v6];
 
-  v33 = objc_opt_new();
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
+  v32 = objc_opt_new();
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   sources = [(DTGPUAGXCounterSourceGroup *)self->_agxSource sources];
   obj = sources;
-  v9 = [sources countByEnumeratingWithState:&v39 objects:v45 count:16];
+  v9 = [sources countByEnumeratingWithState:&v38 objects:v44 count:16];
   if (v9)
   {
-    v10 = *v40;
+    v10 = *v39;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v40 != v10)
+        if (*v39 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v39 + 1) + 8 * i);
+        v12 = *(*(&v38 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -486,132 +471,126 @@ LABEL_10:
         else
         {
           v13 = objc_opt_new();
-          v37 = 0u;
-          v38 = 0u;
-          v35 = 0u;
           v36 = 0u;
+          v37 = 0u;
+          v34 = 0u;
+          v35 = 0u;
           selects = [v12 selects];
-          v26 = [selects countByEnumeratingWithState:&v35 objects:v44 count:16];
+          v26 = [selects countByEnumeratingWithState:&v34 objects:v43 count:16];
           if (v26)
           {
-            v27 = *v36;
+            v27 = *v35;
             do
             {
               for (j = 0; j != v26; ++j)
               {
-                if (*v36 != v27)
+                if (*v35 != v27)
                 {
                   objc_enumerationMutation(selects);
                 }
 
-                name = [*(*(&v35 + 1) + 8 * j) name];
+                name = [*(*(&v34 + 1) + 8 * j) name];
                 [v13 addObject:name];
               }
 
-              v26 = [selects countByEnumeratingWithState:&v35 objects:v44 count:16];
+              v26 = [selects countByEnumeratingWithState:&v34 objects:v43 count:16];
             }
 
             while (v26);
           }
 
-          [v33 addObject:v13];
+          [v32 addObject:v13];
         }
       }
 
       sources = obj;
-      v9 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
+      v9 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
     }
 
     while (v9);
   }
 
-  if (v33)
+  if (v32)
   {
-    [v7 setObject:v33 forKeyedSubscript:@"RDERawCounters"];
+    [v7 setObject:v32 forKeyedSubscript:@"RDERawCounters"];
   }
 
-  v43 = v7;
-  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:1];
-
-  v31 = *MEMORY[0x277D85DE8];
+  v42 = v7;
+  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v42 count:1];
 
   return v30;
 }
 
 - (id)sampleSizes
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   sources = [(DTGPUAGXCounterSourceGroup *)self->_agxSource sources];
-  v5 = [sources countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [sources countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(sources);
         }
 
         v8 = MEMORY[0x277CCABB0];
-        selects = [*(*(&v13 + 1) + 8 * i) selects];
+        selects = [*(*(&v12 + 1) + 8 * i) selects];
         v10 = [v8 numberWithUnsignedInteger:{objc_msgSend(selects, "count")}];
         [v3 addObject:v10];
       }
 
-      v5 = [sources countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [sources countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)ringBufferCounts
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   sources = [(DTGPUAGXCounterSourceGroup *)self->_agxSource sources];
-  v5 = [sources countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [sources countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(sources);
         }
 
         v8 = MEMORY[0x277CCABB0];
-        source = [*(*(&v13 + 1) + 8 * i) source];
+        source = [*(*(&v12 + 1) + 8 * i) source];
         v10 = [v8 numberWithUnsignedInt:{objc_msgSend(source, "ringBufferNum")}];
         [v3 addObject:v10];
       }
 
-      v5 = [sources countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [sources countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

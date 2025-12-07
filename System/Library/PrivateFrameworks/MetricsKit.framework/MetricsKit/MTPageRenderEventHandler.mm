@@ -26,7 +26,7 @@
 
 - (id)knownFields
 {
-  v11[24] = *MEMORY[0x277D85DE8];
+  v10[24] = *MEMORY[0x277D85DE8];
   delegate = [(MTEventDataProvider *)self delegate];
   v4 = objc_opt_respondsToSelector();
 
@@ -38,38 +38,36 @@
 
   else
   {
-    v10.receiver = self;
-    v10.super_class = MTPageRenderEventHandler;
-    delegate2 = [(MTEventHandler *)&v10 knownFields];
-    v11[0] = @"pageRequestTime";
-    v11[1] = @"interstitialPageAppearTime";
-    v11[2] = @"pageAppearTime";
-    v11[3] = @"pageUserInteractiveTime";
-    v11[4] = @"pageEndTime";
-    v11[5] = @"primaryDataRequestStartTime";
-    v11[6] = @"primaryDataResponseStartTime";
-    v11[7] = @"primaryDataResponseEndTime";
-    v11[8] = @"primaryDataParseStartTime";
-    v11[9] = @"primaryDataParseEndTime";
-    v11[10] = @"pageInterruptTime";
-    v11[11] = @"modelConstructionStartTime";
-    v11[12] = @"modelConstructionEndTime";
-    v11[13] = @"modelRenderStartTime";
-    v11[14] = @"modelRenderEndTime";
-    v11[15] = @"resourceRequestStartTime";
-    v11[16] = @"resourceRequestEndTime";
-    v11[17] = @"onScreenResourcesAppearEndTime";
-    v11[18] = @"isAppLaunch";
-    v11[19] = @"isPrimaryDataResponseCached";
-    v11[20] = @"launchCorrelationKey";
-    v11[21] = @"preloadStatus";
-    v11[22] = @"xpSessionDuration";
-    v11[23] = @"xpSamplingPercentageUsers";
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:24];
+    v9.receiver = self;
+    v9.super_class = MTPageRenderEventHandler;
+    delegate2 = [(MTEventHandler *)&v9 knownFields];
+    v10[0] = @"pageRequestTime";
+    v10[1] = @"interstitialPageAppearTime";
+    v10[2] = @"pageAppearTime";
+    v10[3] = @"pageUserInteractiveTime";
+    v10[4] = @"pageEndTime";
+    v10[5] = @"primaryDataRequestStartTime";
+    v10[6] = @"primaryDataResponseStartTime";
+    v10[7] = @"primaryDataResponseEndTime";
+    v10[8] = @"primaryDataParseStartTime";
+    v10[9] = @"primaryDataParseEndTime";
+    v10[10] = @"pageInterruptTime";
+    v10[11] = @"modelConstructionStartTime";
+    v10[12] = @"modelConstructionEndTime";
+    v10[13] = @"modelRenderStartTime";
+    v10[14] = @"modelRenderEndTime";
+    v10[15] = @"resourceRequestStartTime";
+    v10[16] = @"resourceRequestEndTime";
+    v10[17] = @"onScreenResourcesAppearEndTime";
+    v10[18] = @"isAppLaunch";
+    v10[19] = @"isPrimaryDataResponseCached";
+    v10[20] = @"launchCorrelationKey";
+    v10[21] = @"preloadStatus";
+    v10[22] = @"xpSessionDuration";
+    v10[23] = @"xpSamplingPercentageUsers";
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:24];
     knownFields = [delegate2 arrayByAddingObjectsFromArray:v7];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return knownFields;
 }

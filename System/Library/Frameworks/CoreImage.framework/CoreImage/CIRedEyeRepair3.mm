@@ -2359,7 +2359,7 @@ LABEL_37:
   self->repairMap.baseAddress = 0;
   self->faceBitmap.baseAddress = 0;
   self->repairs = 0;
-  [CIRedEyeRepair3 settingsWithOptions:options];
+  objc_msgSend_settingsWithOptions_(CIRedEyeRepair3, a2, options);
   v14 = v32;
   *&self->S.transform.a = v31;
   *&self->S.transform.c = v14;
@@ -2438,7 +2438,7 @@ LABEL_37:
   v20 = 0;
   memset(v19, 0, sizeof(v19));
   v18 = 0;
-  [CIRedEyeRepair3 settingsWithOptions:options, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  objc_msgSend_settingsWithOptions_(CIRedEyeRepair3, a2, options, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
   v5 = [array count];
   v6 = v5;
   if (!v5)
@@ -2580,7 +2580,7 @@ LABEL_13:
 
 - (void)printFaceArray
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v85 = *MEMORY[0x1E69E9840];
   v3 = [(NSArray *)self->faceArray count];
   if (v3 >= 1)
   {
@@ -2602,100 +2602,100 @@ LABEL_13:
       v17 = v16;
       v18 = v16;
       [objc_msgSend(v6 objectForKeyedSubscript:{@"mouthCenterX", "floatValue"}];
-      v70 = v19;
+      v80 = v19;
       [objc_msgSend(v6 objectForKeyedSubscript:{@"mouthCenterY", "floatValue"}];
-      v68 = v20;
+      v78 = v20;
       [objc_msgSend(v6 objectForKeyedSubscript:{@"centerX", "floatValue"}];
-      v66 = v21;
+      v76 = v21;
       [objc_msgSend(v6 objectForKeyedSubscript:{@"centerY", "floatValue"}];
-      v64 = v22;
+      v74 = v22;
       [objc_msgSend(v6 objectForKeyedSubscript:{@"noseBridgeX", "floatValue"}];
-      v71 = v23;
+      v81 = v23;
       [objc_msgSend(v6 objectForKeyedSubscript:{@"noseBridgeY", "floatValue"}];
-      v69 = v24;
+      v79 = v24;
       [objc_msgSend(v6 objectForKeyedSubscript:{@"noseTipX", "floatValue"}];
-      v67 = v25;
+      v77 = v25;
       [objc_msgSend(v6 objectForKeyedSubscript:{@"noseTipY", "floatValue"}];
-      v65 = v26;
+      v75 = v26;
       [objc_msgSend(v6 objectForKeyedSubscript:{@"leftEyeLeftX", "floatValue"}];
-      v63 = v27;
+      v73 = v27;
       [objc_msgSend(v6 objectForKeyedSubscript:{@"leftEyeLeftY", "floatValue"}];
-      v62 = v28;
+      v72 = v28;
       [objc_msgSend(v6 objectForKeyedSubscript:{@"leftEyelidUpperX", "floatValue"}];
-      v61 = v29;
+      v71 = v29;
       [objc_msgSend(v6 objectForKeyedSubscript:{@"leftEyelidUpperY", "floatValue"}];
-      v59 = v30;
+      v69 = v30;
       [objc_msgSend(v6 objectForKeyedSubscript:{@"leftEyeRightX", "floatValue"}];
-      v57 = v31;
+      v67 = v31;
       [objc_msgSend(v6 objectForKeyedSubscript:{@"leftEyeRightY", "floatValue"}];
-      v55 = v32;
+      v65 = v32;
       [objc_msgSend(v6 objectForKeyedSubscript:{@"leftEyelidLowerX", "floatValue"}];
-      v53 = v33;
+      v63 = v33;
       [objc_msgSend(v6 objectForKeyedSubscript:{@"leftEyelidLowerY", "floatValue"}];
-      v51 = v34;
+      v61 = v34;
       [objc_msgSend(v6 objectForKeyedSubscript:{@"rightEyeLeftX", "floatValue"}];
-      v60 = v35;
+      v70 = v35;
       [objc_msgSend(v6 objectForKeyedSubscript:{@"rightEyeLeftY", "floatValue"}];
-      v58 = v36;
+      v68 = v36;
       [objc_msgSend(v6 objectForKeyedSubscript:{@"rightEyelidUpperX", "floatValue"}];
-      v56 = v37;
+      v66 = v37;
       [objc_msgSend(v6 objectForKeyedSubscript:{@"rightEyelidUpperY", "floatValue"}];
-      v54 = v38;
+      v64 = v38;
       [objc_msgSend(v6 objectForKeyedSubscript:{@"rightEyeRightX", "floatValue"}];
-      v52 = v39;
+      v62 = v39;
       [objc_msgSend(v6 objectForKeyedSubscript:{@"rightEyeRightY", "floatValue"}];
-      v50 = v40;
+      v60 = v40;
       [objc_msgSend(v6 objectForKeyedSubscript:{@"rightEyelidLowerX", "floatValue"}];
-      v49 = v41;
+      v59 = v41;
       [objc_msgSend(v6 objectForKeyedSubscript:{@"rightEyelidLowerY", "floatValue"}];
-      v48 = v42;
-      snprintf(__str, 0x100uLL, "face %d   left (%.1f, %.1f) right (%.1f, %.1f) IOD %.1f", ++v4, v9, v12, v15, v18, sqrtf(((v17 - v11) * (v17 - v11)) + ((v14 - v8) * (v14 - v8))));
-      v43 = ci_logger_render();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+      v58 = v42;
+      v43 = snprintf(__str, 0x100uLL, "face %d   left (%.1f, %.1f) right (%.1f, %.1f) IOD %.1f", ++v4, v9, v12, v15, v18, sqrtf(((v17 - v11) * (v17 - v11)) + ((v14 - v8) * (v14 - v8))));
+      v45 = ci_logger_render(v43, v44);
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315138;
-        v73 = __str;
-        _os_log_debug_impl(&dword_19CC36000, v43, OS_LOG_TYPE_DEBUG, "%s\n", buf, 0xCu);
+        v83 = __str;
+        _os_log_debug_impl(&dword_19CC36000, v45, OS_LOG_TYPE_DEBUG, "%s\n", buf, 0xCu);
       }
 
       if (self->printFaceArrayLevel >= 2)
       {
-        snprintf(__str, 0x100uLL, "face %d   mouth (%.1f, %.1f) center (%.1f, %.1f)", v4, v70, v68, v66, v64);
-        v44 = ci_logger_render();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
+        v46 = snprintf(__str, 0x100uLL, "face %d   mouth (%.1f, %.1f) center (%.1f, %.1f)", v4, v80, v78, v76, v74);
+        v48 = ci_logger_render(v46, v47);
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315138;
-          v73 = __str;
-          _os_log_debug_impl(&dword_19CC36000, v44, OS_LOG_TYPE_DEBUG, "%s\n", buf, 0xCu);
+          v83 = __str;
+          _os_log_debug_impl(&dword_19CC36000, v48, OS_LOG_TYPE_DEBUG, "%s\n", buf, 0xCu);
         }
 
-        snprintf(__str, 0x100uLL, "face %d   nose bridge (%.1f, %.1f) tip (%.1f, %.1f)", v4, v71, v69, v67, v65);
-        v45 = ci_logger_render();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
+        v49 = snprintf(__str, 0x100uLL, "face %d   nose bridge (%.1f, %.1f) tip (%.1f, %.1f)", v4, v81, v79, v77, v75);
+        v51 = ci_logger_render(v49, v50);
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315138;
-          v73 = __str;
-          _os_log_debug_impl(&dword_19CC36000, v45, OS_LOG_TYPE_DEBUG, "%s\n", buf, 0xCu);
+          v83 = __str;
+          _os_log_debug_impl(&dword_19CC36000, v51, OS_LOG_TYPE_DEBUG, "%s\n", buf, 0xCu);
         }
 
         if (self->printFaceArrayLevel >= 3)
         {
-          snprintf(__str, 0x100uLL, "face %d   left eye l (%.1f, %.1f) u (%.1f, %.1f) r (%.1f, %.1f) d (%.1f, %.1f)", v4, v63, v62, v61, v59, v57, v55, v53, v51);
-          v46 = ci_logger_render();
-          if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
+          v52 = snprintf(__str, 0x100uLL, "face %d   left eye l (%.1f, %.1f) u (%.1f, %.1f) r (%.1f, %.1f) d (%.1f, %.1f)", v4, v73, v72, v71, v69, v67, v65, v63, v61);
+          v54 = ci_logger_render(v52, v53);
+          if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315138;
-            v73 = __str;
-            _os_log_debug_impl(&dword_19CC36000, v46, OS_LOG_TYPE_DEBUG, "%s\n", buf, 0xCu);
+            v83 = __str;
+            _os_log_debug_impl(&dword_19CC36000, v54, OS_LOG_TYPE_DEBUG, "%s\n", buf, 0xCu);
           }
 
-          snprintf(__str, 0x100uLL, "face %d   right eye l (%.1f, %.1f) u (%.1f, %.1f) r (%.1f, %.1f) d (%.1f, %.1f)", v4, v60, v58, v56, v54, v52, v50, v49, v48);
-          v47 = ci_logger_render();
-          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
+          v55 = snprintf(__str, 0x100uLL, "face %d   right eye l (%.1f, %.1f) u (%.1f, %.1f) r (%.1f, %.1f) d (%.1f, %.1f)", v4, v70, v68, v66, v64, v62, v60, v59, v58);
+          v57 = ci_logger_render(v55, v56);
+          if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315138;
-            v73 = __str;
-            _os_log_debug_impl(&dword_19CC36000, v47, OS_LOG_TYPE_DEBUG, "%s\n", buf, 0xCu);
+            v83 = __str;
+            _os_log_debug_impl(&dword_19CC36000, v57, OS_LOG_TYPE_DEBUG, "%s\n", buf, 0xCu);
           }
         }
       }
@@ -2954,7 +2954,7 @@ LABEL_66:
     v51 = 0u;
     v52 = 0u;
     v50 = 0u;
-    [(CIRedEyeRepair3 *)self inverseImageTransformForOrientation:?];
+    objc_msgSend_inverseImageTransformForOrientation_(self);
     v48[0] = v50;
     v48[1] = v51;
     v48[2] = v52;
@@ -7883,7 +7883,7 @@ LABEL_14:
         {
           v41 = x;
           v42 = y;
-          bilinearFloat4LookupComponents(field, &v63, v41, v42);
+          bilinearFloat4LookupComponents(field, v63, v41, v42);
           v43 = 6.28318531 - v64;
           v44 = __sincos_stret(v43);
           x = x + v44.__cosval * 0.5;
@@ -9107,20 +9107,18 @@ LABEL_16:
   if (self->G.nThreads >= 1)
   {
     v6 = 0;
-    v103 = 0;
-    v104[0] = 0;
-    v101 = 0.0;
-    v102 = 0;
+    v101 = 0;
+    v102[0] = 0;
     v99 = 0.0;
-    v100 = 0.0;
+    v100 = 0;
     v97 = 0.0;
     v98 = 0.0;
     v95 = 0.0;
     v96 = 0.0;
+    v93 = 0.0;
     v94 = 0.0;
-    memset(v91, 0, sizeof(v91));
-    v92 = 0u;
-    memset(v93, 0, 460);
+    v92 = 0.0;
+    memset(v91, 0, 508);
     v88 = 0u;
     v89 = 0u;
     memset(v87, 0, sizeof(v87));
@@ -9159,13 +9157,13 @@ LABEL_16:
           [(CIRedEyeRepair3 *)self threadSignedArea:threads centroid:?];
           if (v16 < 0.0)
           {
-            v17 = [(CIRedEyeRepair3 *)self shape:&v103 withThreadAtIndex:v6 centroid:v13, v15];
+            v17 = [(CIRedEyeRepair3 *)self shape:&v101 withThreadAtIndex:v6 centroid:v13, v15];
             if (v17)
             {
               return v17;
             }
 
-            [(CIRedEyeRepair3 *)self slidingWindowAnalysisOfShape:v103 into:v87];
+            [(CIRedEyeRepair3 *)self slidingWindowAnalysisOfShape:v101 into:v87];
             LODWORD(v19) = DWORD1(v87[0]);
             LODWORD(v20) = v87[0];
             v21 = *v87 > 0.62832;
@@ -9202,10 +9200,10 @@ LABEL_16:
               if (v9)
               {
                 puts("\nafter");
-                if (*v103 >= 1)
+                if (*v101 >= 1)
                 {
                   v24 = 0;
-                  v25 = *(v103 + 8);
+                  v25 = *(v101 + 8);
                   do
                   {
                     printf("%3d (%5.1f, %5.1f) %6.4f %6.1f° del %6.1f [%6.1f %6.1f %6.1f %6.1f]\n", v24, *v25, *(v25 + 8), *(v25 + 16), (*(v25 + 20) * 57.296), (*(v25 + 24) * 57.296), (*(v25 + 28) * 57.296), (*(v25 + 32) * 57.296), (*(v25 + 36) * 57.296), (*(v25 + 40) * 57.296));
@@ -9213,7 +9211,7 @@ LABEL_16:
                     v25 += 48;
                   }
 
-                  while (v24 < *v103);
+                  while (v24 < *v101);
                 }
               }
 
@@ -9226,7 +9224,7 @@ LABEL_16:
                 v86[0] = *&self->S.transform.a;
                 v86[1] = v29;
                 v86[2] = *&self->S.transform.tx;
-                [(CIRedEyeRepair3 *)self copyShape:v103 into:v27 transform:v86 height:height];
+                [(CIRedEyeRepair3 *)self copyShape:v101 into:v27 transform:v86 height:height];
               }
 
               if (v9)
@@ -9243,21 +9241,21 @@ LABEL_16:
                 while (!__CFADD__(v30++, 1));
               }
 
-              v17 = [(CIRedEyeRepair3 *)self convexHull:&v102 ofOriented:0 shape:v103, v19, v20, v18];
+              v17 = [(CIRedEyeRepair3 *)self convexHull:&v100 ofOriented:0 shape:v101, v19, v20, v18];
               p_G = v84;
               if (v17)
               {
                 return v17;
               }
 
-              [(CIRedEyeRepair3 *)self measureHull:v102 majorAxis:&v100 majorTo:&v98 majorDiameter:v104 + 4 minorAxis:&v96 minorTo:&v94 minorDiameter:v104];
-              v34 = atan2(v99 - v101, v98 - v100);
-              v35 = atan2(v95 - v97, v94 - v96);
-              v36 = [(CIRedEyeRepair3 *)self color:threads + 52 underConvexHull:v102 saturated:threads + 68];
+              [(CIRedEyeRepair3 *)self measureHull:v100 majorAxis:&v98 majorTo:&v96 majorDiameter:v102 + 4 minorAxis:&v94 minorTo:&v92 minorDiameter:v102];
+              v34 = atan2(v97 - v99, v96 - v98);
+              v35 = atan2(v93 - v95, v92 - v94);
+              v36 = [(CIRedEyeRepair3 *)self color:threads + 52 underConvexHull:v100 saturated:threads + 68];
               if (v36)
               {
                 v11 = v36;
-                [(CIRedEyeRepair3 *)self termHull:v102];
+                [(CIRedEyeRepair3 *)self termHull:v100];
                 return v11;
               }
 
@@ -9289,9 +9287,9 @@ LABEL_16:
               v54 = (self->S.IOD * scale);
               v55 = v54 * 0.032;
               v56 = v54 * 0.14;
-              v57 = HIDWORD(v104[0]);
-              v58 = *(v104 + 1) >= v55 && *(v104 + 1) <= v56;
-              if (v58 || v56 * 1.17 >= *(v104 + 1) && fabs(v42 + -0.333) <= 0.15 && v44 >= 0.45 && v52 >= 75.0)
+              v57 = HIDWORD(v102[0]);
+              v58 = *(v102 + 1) >= v55 && *(v102 + 1) <= v56;
+              if (v58 || v56 * 1.17 >= *(v102 + 1) && fabs(v42 + -0.333) <= 0.15 && v44 >= 0.45 && v52 >= 75.0)
               {
                 v83 = v13;
                 v59 = v34;
@@ -9299,12 +9297,12 @@ LABEL_16:
                 *(threads + 26) = 1;
                 *(threads + 9) = v57;
                 *(threads + 10) = v59;
-                *(threads + 11) = v104[0];
+                *(threads + 11) = v102[0];
                 *(threads + 12) = v60;
                 v61 = v44;
                 v62 = v42;
                 v63 = v46;
-                [(CIRedEyeRepair3 *)self termHull:v102];
+                [(CIRedEyeRepair3 *)self termHull:v100];
                 v65 = v62;
                 *&v66 = v61;
                 if (v62 == 0.0 || v63 == 0.0 || v61 == 1.0 || *(threads + 13) > 255.0)
@@ -9370,11 +9368,11 @@ LABEL_16:
 
     if (v90 == 3)
     {
-      v75 = &v91[7];
-      if (![(CIRedEyeRepair3 *)self hopperElement:v91 isMoreScleraThanElement:&v91[7]])
+      v75 = &v91[1] + 12;
+      if (![(CIRedEyeRepair3 *)self hopperElement:v91 isMoreScleraThanElement:&v91[1] + 12])
       {
-        v75 = &v93[8];
-        if (![(CIRedEyeRepair3 *)self hopperElement:v91 isMoreScleraThanElement:&v93[8]])
+        v75 = &v91[3] + 8;
+        if (![(CIRedEyeRepair3 *)self hopperElement:v91 isMoreScleraThanElement:&v91[3] + 8])
         {
 LABEL_79:
           v74 = v90;
@@ -9387,7 +9385,7 @@ LABEL_80:
             {
               if (v76)
               {
-                *(p_G->threads + 96 * v91[v76 / 4] + 26) = 0;
+                *(p_G->threads + 96 * *(v91 + v76) + 26) = 0;
               }
 
               v76 += 28;
@@ -9397,8 +9395,8 @@ LABEL_80:
 LABEL_86:
             v11 = 0;
             *index = v91[0];
-            *&v78.var0 = __PAIR64__(v91[2], v91[6]);
-            *&v78.var2 = *&v91[3];
+            *&v78.var0 = __PAIR64__(DWORD2(v91[0]), DWORD2(v91[1]));
+            *&v78.var2 = *(v91 + 12);
             *info = v78;
             return v11;
           }
@@ -9421,8 +9419,8 @@ LABEL_85:
         goto LABEL_80;
       }
 
-      v75 = &v91[7];
-      if (![(CIRedEyeRepair3 *)self hopperElement:v91 isMoreScleraThanElement:&v91[7]])
+      v75 = &v91[1] + 12;
+      if (![(CIRedEyeRepair3 *)self hopperElement:v91 isMoreScleraThanElement:&v91[1] + 12])
       {
         goto LABEL_79;
       }

@@ -50,7 +50,7 @@
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_1000622D4(v8);
+  sub_1000622D4(v8, v9);
 }
 
 - (void)deviceDidConnect:(id)connect

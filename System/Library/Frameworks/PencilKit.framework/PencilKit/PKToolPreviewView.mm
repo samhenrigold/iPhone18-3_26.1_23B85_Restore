@@ -68,7 +68,7 @@ LABEL_11:
   v30 = v11[51];
   v11[51] = v29;
 
-  [(PKMetalView *)0.2 installLuminanceColorFilterOnLayer:PKMetalView lightLuma:v11[51] darkLuma:?];
+  [PKMetalView installLuminanceColorFilterOnLayer:0.2 lightLuma:0.8 darkLuma:?];
   [v11[51] setReducesCaptureBitDepth:1];
   [v11[51] setIgnoresScreenClip:1];
   [v11[51] setScale:0.25];

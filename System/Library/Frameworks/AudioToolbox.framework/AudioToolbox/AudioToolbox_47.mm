@@ -1165,7 +1165,7 @@ LABEL_255:
   }
 
   *buf = 0;
-  std::vector<float>::vector[abi:ne200100](v228, (v240 - *(&v239 + 1)) >> 2);
+  std::vector<float>::vector[abi:ne200100](v228, (v240 - *(&v239 + 1)) >> 2, buf);
   if (getAUSMV2Log(void)::onceToken != -1)
   {
     dispatch_once(&getAUSMV2Log(void)::onceToken, &__block_literal_global_9299);
@@ -3213,22 +3213,22 @@ LABEL_174:
 
                 while (1)
                 {
-                  v58 = *(v57 + 1);
+                  v58 = v57[1];
                   if (v58 == v52)
                   {
                     if (*(v57 + 4) == v52)
                     {
-                      if (v57 + 6 == __src)
+                      if (v57 + 3 == __src)
                       {
                         v59 = v140;
-                        v57[18] = v140;
+                        *(v57 + 18) = v140;
                       }
 
                       else
                       {
                         std::vector<unsigned int>::__assign_with_size[abi:ne200100]<unsigned int *,unsigned int *>(v57 + 3, *__src, *&__src[8], (*&__src[8] - *__src) >> 2);
                         std::vector<unsigned int>::__assign_with_size[abi:ne200100]<unsigned int *,unsigned int *>(v57 + 6, *&__src[24], v139, (v139 - *&__src[24]) >> 2);
-                        v57[18] = v140;
+                        *(v57 + 18) = v140;
                         std::vector<unsigned int>::__assign_with_size[abi:ne200100]<unsigned int *,unsigned int *>(v57 + 10, v141, *(&v141 + 1), (*(&v141 + 1) - v141) >> 2);
                         std::vector<unsigned int>::__assign_with_size[abi:ne200100]<unsigned int *,unsigned int *>(v57 + 13, *(&v142 + 1), v143, (v143 - *(&v142 + 1)) >> 2);
                         std::vector<unsigned int>::__assign_with_size[abi:ne200100]<unsigned int *,unsigned int *>(v57 + 16, v144.__begin_, v144.__end_, v144.__end_ - v144.__begin_);
@@ -8178,8 +8178,8 @@ uint64_t AULoudnessNormalizer::SetProperty(AULoudnessNormalizer *this, int a2, i
     v9 = *a5;
     if (*a5 == 2)
     {
-      v14 = atomic_load(this + 1821);
-      if ((v14 & 1) == 0)
+      v15 = atomic_load(this + 1821);
+      if ((v15 & 1) == 0)
       {
         goto LABEL_14;
       }
@@ -8191,9 +8191,9 @@ uint64_t AULoudnessNormalizer::SetProperty(AULoudnessNormalizer *this, int a2, i
       {
         v10 = *(this + 66);
         v11 = (*(*v10 + 152))(v10, 0);
-        DspLib::LoudnessNormalizer::Parameters::expectedLoudnessAfterReset(v11);
+        DspLib::LoudnessNormalizer::Parameters::expectedLoudnessAfterReset(v11, v12);
 LABEL_13:
-        DspLib::LoudnessNormalizer::Algorithm::resetLoudnessHistory(v10, v12);
+        DspLib::LoudnessNormalizer::Algorithm::resetLoudnessHistory(v10, v13);
       }
 
 LABEL_14:
@@ -8202,8 +8202,8 @@ LABEL_14:
     }
 
     v10 = *(this + 66);
-    v15 = (*(*v10 + 152))(v10, 0);
-    v12 = DspLib::LoudnessNormalizer::Parameters::maxGainKneePoint(v15);
+    v16 = (*(*v10 + 152))(v10, 0);
+    v13 = DspLib::LoudnessNormalizer::Parameters::maxGainKneePoint(v16);
     goto LABEL_13;
   }
 
@@ -8349,7 +8349,8 @@ clsp::FirFilter *clsp::FirFilter::FirFilter(clsp::FirFilter *this, CFArrayRef *a
     Count = 0;
   }
 
-  std::vector<float>::vector[abi:ne200100](this, Count);
+  v14 = 0;
+  std::vector<float>::vector[abi:ne200100](this, Count, &v14);
   *(this + 24) = 0u;
   *(this + 40) = 0u;
   *(this + 56) = 0u;
@@ -8375,7 +8376,7 @@ clsp::FirFilter *clsp::FirFilter::FirFilter(clsp::FirFilter *this, CFArrayRef *a
   v12 = DspLib::FFT::resampleFIRfilterSize(((*(this + 1) - *this) >> 2), 48000.0, v11);
   std::vector<float>::resize(this + 3, v12);
   std::vector<float>::resize(this + 6, v12);
-  DspLib::FFT::resampleFIRfilter(*this, (*(this + 1) - *this) >> 2, *(this + 3), 48000.0, v11, (*(this + 4) - *(this + 3)) >> 2, 1);
+  DspLib::FFT::resampleFIRfilter(*this, (*(this + 1) - *this) >> 2, 48000.0, v11, *(this + 3), (*(this + 4) - *(this + 3)) >> 2, 1);
   return this;
 }
 

@@ -1,7 +1,7 @@
 @interface _UIGESGateGestureRecognizer
 - (BOOL)_shouldReceiveTouch:(id)touch withEvent:(id)event;
-- (BOOL)_validateTouchesFailingIfNeeded:(_BOOL8)result;
 - (_UIGESGateGestureRecognizer)initWithTarget:(id)target action:(SEL)action;
+- (void)_validateTouchesFailingIfNeeded:(void *)result;
 - (void)touchesCancelled:(id)cancelled withEvent:(id)event;
 - (void)touchesEnded:(id)ended withEvent:(id)event;
 @end
@@ -56,7 +56,7 @@ LABEL_5:
   return (*(touch + 118) >> 12) & 1;
 }
 
-- (BOOL)_validateTouchesFailingIfNeeded:(_BOOL8)result
+- (void)_validateTouchesFailingIfNeeded:(void *)result
 {
   v16 = *MEMORY[0x1E69E9840];
   if (result)
@@ -97,7 +97,7 @@ LABEL_5:
               }
             }
 
-            return [v2 state] == 5;
+            return ([v2 state] == 5);
           }
         }
 
@@ -111,7 +111,7 @@ LABEL_5:
       }
     }
 
-    return [v2 state] == 5;
+    return ([v2 state] == 5);
   }
 
   return result;
@@ -119,7 +119,7 @@ LABEL_5:
 
 - (void)touchesEnded:(id)ended withEvent:(id)event
 {
-  if (![(_UIGESGateGestureRecognizer *)self _validateTouchesFailingIfNeeded:ended])
+  if (([(_UIGESGateGestureRecognizer *)self _validateTouchesFailingIfNeeded:ended]& 1) == 0)
   {
     _allActiveTouches = [(UIGestureRecognizer *)self _allActiveTouches];
     v6 = [_allActiveTouches count];
@@ -143,7 +143,7 @@ LABEL_5:
 
 - (void)touchesCancelled:(id)cancelled withEvent:(id)event
 {
-  if (![(_UIGESGateGestureRecognizer *)self _validateTouchesFailingIfNeeded:cancelled])
+  if (([(_UIGESGateGestureRecognizer *)self _validateTouchesFailingIfNeeded:cancelled]& 1) == 0)
   {
     _allActiveTouches = [(UIGestureRecognizer *)self _allActiveTouches];
     v6 = [_allActiveTouches count];

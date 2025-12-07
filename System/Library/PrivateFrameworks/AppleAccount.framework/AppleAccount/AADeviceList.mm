@@ -32,11 +32,11 @@
 
 - (void)refreshDeviceList
 {
-  v3 = _AADeviceListLogSystem();
+  v3 = _AADeviceListLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_1B6F6A000, v3, OS_LOG_TYPE_DEFAULT, "Refreshing the device list", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_1B6F6A000, v3, OS_LOG_TYPE_DEFAULT, "Refreshing the device list", v8, 2u);
   }
 
   [(AADeviceList *)self _setDeviceList:0 loadError:0];
@@ -49,14 +49,14 @@
 
   else
   {
-    v5 = _AADeviceListLogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _AADeviceListLogSystem(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [AADeviceList refreshDeviceList];
     }
 
-    v6 = [MEMORY[0x1E696ABC0] aa_errorWithCode:-4404];
-    [(AADeviceList *)self _setDeviceList:0 loadError:v6];
+    v7 = [MEMORY[0x1E696ABC0] aa_errorWithCode:-4404];
+    [(AADeviceList *)self _setDeviceList:0 loadError:v7];
   }
 }
 
@@ -160,7 +160,7 @@ void __31__AADeviceList__loadDeviceList__block_invoke_2(uint64_t a1, void *a2, v
 {
   accountCopy = account;
   handlerCopy = handler;
-  v8 = _AADeviceListLogSystem();
+  v8 = _AADeviceListLogSystem(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -183,7 +183,7 @@ void __31__AADeviceList__loadDeviceList__block_invoke_2(uint64_t a1, void *a2, v
 void __56__AADeviceList__createRequestForAccount_requestHandler___block_invoke(id *a1, int a2, void *a3)
 {
   v5 = a3;
-  v6 = _AADeviceListLogSystem();
+  v6 = _AADeviceListLogSystem(v5);
   v7 = v6;
   if (a2)
   {
@@ -207,30 +207,30 @@ void __56__AADeviceList__createRequestForAccount_requestHandler___block_invoke(i
   v12 = [a1[4] aida_alternateDSID];
   [v11 setAltDSID:v12];
 
-  v13 = _AADeviceListLogSystem();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = _AADeviceListLogSystem(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1B6F6A000, v13, OS_LOG_TYPE_DEFAULT, "Fetching the server resource load delegate", buf, 2u);
+    _os_log_impl(&dword_1B6F6A000, v14, OS_LOG_TYPE_DEFAULT, "Fetching the server resource load delegate", buf, 2u);
   }
 
-  v14 = [a1[5] _authController];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __56__AADeviceList__createRequestForAccount_requestHandler___block_invoke_37;
-  v17[3] = &unk_1E7C9CA78;
-  v15 = a1[6];
-  v18 = v10;
-  v19 = v15;
-  v16 = v10;
-  [v14 getServerUILoadDelegateWithContext:v11 completion:v17];
+  v15 = [a1[5] _authController];
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __56__AADeviceList__createRequestForAccount_requestHandler___block_invoke_37;
+  v18[3] = &unk_1E7C9CA78;
+  v16 = a1[6];
+  v19 = v10;
+  v20 = v16;
+  v17 = v10;
+  [v15 getServerUILoadDelegateWithContext:v11 completion:v18];
 }
 
 void __56__AADeviceList__createRequestForAccount_requestHandler___block_invoke_37(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = _AADeviceListLogSystem();
+  v7 = _AADeviceListLogSystem(v6);
   v8 = v7;
   if (v5)
   {
@@ -240,21 +240,21 @@ void __56__AADeviceList__createRequestForAccount_requestHandler___block_invoke_3
       _os_log_impl(&dword_1B6F6A000, v8, OS_LOG_TYPE_DEFAULT, "Successfully fetched the server resource load delegate", buf, 2u);
     }
 
-    v9 = _AADeviceListLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _AADeviceListLogSystem(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B6F6A000, v9, OS_LOG_TYPE_DEFAULT, "Signing the device list request", buf, 2u);
+      _os_log_impl(&dword_1B6F6A000, v10, OS_LOG_TYPE_DEFAULT, "Signing the device list request", buf, 2u);
     }
 
-    v10 = *(a1 + 32);
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __56__AADeviceList__createRequestForAccount_requestHandler___block_invoke_38;
-    v12[3] = &unk_1E7C9AC08;
-    v13 = v10;
-    v14 = *(a1 + 40);
-    [v5 signRequest:v13 withCompletionHandler:v12];
+    v11 = *(a1 + 32);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __56__AADeviceList__createRequestForAccount_requestHandler___block_invoke_38;
+    v13[3] = &unk_1E7C9AC08;
+    v14 = v11;
+    v15 = *(a1 + 40);
+    [v5 signRequest:v14 withCompletionHandler:v13];
   }
 
   else
@@ -264,10 +264,10 @@ void __56__AADeviceList__createRequestForAccount_requestHandler___block_invoke_3
       __56__AADeviceList__createRequestForAccount_requestHandler___block_invoke_37_cold_1();
     }
 
-    v11 = *(a1 + 40);
-    if (v11)
+    v12 = *(a1 + 40);
+    if (v12)
     {
-      (*(v11 + 16))(v11, 0, v6);
+      (*(v12 + 16))(v12, 0, v6);
     }
   }
 }
@@ -275,7 +275,7 @@ void __56__AADeviceList__createRequestForAccount_requestHandler___block_invoke_3
 void __56__AADeviceList__createRequestForAccount_requestHandler___block_invoke_38(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
-  v6 = _AADeviceListLogSystem();
+  v6 = _AADeviceListLogSystem(v5);
   v7 = v6;
   if (a2)
   {
@@ -313,7 +313,7 @@ void __56__AADeviceList__createRequestForAccount_requestHandler___block_invoke_3
   v15 = handlerCopy;
   v8 = handlerCopy;
   v9 = _Block_copy(aBlock);
-  v10 = _AADeviceListLogSystem();
+  v10 = _AADeviceListLogSystem(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *v13 = 0;
@@ -330,38 +330,39 @@ void __45__AADeviceList__loadRequest_responseHandler___block_invoke(uint64_t a1,
   v8 = a3;
   v9 = a4;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v10 = _AADeviceListLogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _AADeviceListLogSystem(isKindOfClass);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      __45__AADeviceList__loadRequest_responseHandler___block_invoke_cold_1();
+      __45__AADeviceList__loadRequest_responseHandler___block_invoke_cold_1(v8);
     }
 
     goto LABEL_17;
   }
 
-  v10 = v8;
-  v11 = [v10 statusCode];
-  if (v11 == 401)
+  v11 = v8;
+  v12 = [v11 statusCode];
+  if (v12 == 401)
   {
-    v15 = _AADeviceListLogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = _AADeviceListLogSystem(401);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      *v19 = 0;
-      _os_log_impl(&dword_1B6F6A000, v15, OS_LOG_TYPE_DEFAULT, "Failed to fetch the device list from the server - need to renew credentials", v19, 2u);
+      *v20 = 0;
+      _os_log_impl(&dword_1B6F6A000, v16, OS_LOG_TYPE_DEFAULT, "Failed to fetch the device list from the server - need to renew credentials", v20, 2u);
     }
 
     [*(a1 + 32) _renewCredentials];
     goto LABEL_17;
   }
 
-  if (v11 != 200)
+  if (v12 != 200)
   {
-    v16 = _AADeviceListLogSystem();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = _AADeviceListLogSystem(v12);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      __45__AADeviceList__loadRequest_responseHandler___block_invoke_cold_3(v10);
+      __45__AADeviceList__loadRequest_responseHandler___block_invoke_cold_3(v11);
     }
 
     if (!v9)
@@ -370,41 +371,41 @@ void __45__AADeviceList__loadRequest_responseHandler___block_invoke(uint64_t a1,
     }
 
 LABEL_17:
-    v12 = 0;
+    v13 = 0;
     goto LABEL_18;
   }
 
-  v12 = [[AATrustedDeviceListResponse alloc] initWithHTTPResponse:v10 data:v7];
-  v13 = _AADeviceListLogSystem();
-  v14 = v13;
-  if (v12)
+  v13 = [[AATrustedDeviceListResponse alloc] initWithHTTPResponse:v11 data:v7];
+  v14 = _AADeviceListLogSystem(v13);
+  v15 = v14;
+  if (v13)
   {
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B6F6A000, v14, OS_LOG_TYPE_DEFAULT, "Successfully fetched the device list from the server", buf, 2u);
+      _os_log_impl(&dword_1B6F6A000, v15, OS_LOG_TYPE_DEFAULT, "Successfully fetched the device list from the server", buf, 2u);
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       __45__AADeviceList__loadRequest_responseHandler___block_invoke_cold_2();
     }
 
-    v18 = [MEMORY[0x1E696ABC0] aa_errorWithCode:-4402];
+    v19 = [MEMORY[0x1E696ABC0] aa_errorWithCode:-4402];
 
-    v12 = 0;
-    v9 = v18;
+    v13 = 0;
+    v9 = v19;
   }
 
 LABEL_18:
 
-  v17 = *(a1 + 40);
-  if (v17)
+  v18 = *(a1 + 40);
+  if (v18)
   {
-    (*(v17 + 16))(v17, v12, v9);
+    (*(v18 + 16))(v18, v13, v9);
   }
 }
 
@@ -424,11 +425,11 @@ LABEL_18:
     v16[1] = v6;
     v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
 
-    v8 = _AADeviceListLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _AADeviceListLogSystem(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B6F6A000, v8, OS_LOG_TYPE_DEFAULT, "Renewing credentials for AIDA account", buf, 2u);
+      _os_log_impl(&dword_1B6F6A000, v9, OS_LOG_TYPE_DEFAULT, "Renewing credentials for AIDA account", buf, 2u);
     }
 
     _accountStore = [(AADeviceList *)self _accountStore];
@@ -442,23 +443,21 @@ LABEL_18:
 
   else
   {
-    v10 = _AADeviceListLogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v11 = _AADeviceListLogSystem(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      [(AADeviceList *)v10 _renewCredentials];
+      [(AADeviceList *)v11 _renewCredentials];
     }
 
     v7 = [MEMORY[0x1E696ABC0] aa_errorWithCode:-3 underlyingError:0];
     [(AADeviceList *)self _setDeviceList:0 loadError:v7];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __33__AADeviceList__renewCredentials__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
-  v6 = _AADeviceListLogSystem();
+  v6 = _AADeviceListLogSystem(v5);
   v7 = v6;
   if (a2)
   {
@@ -497,58 +496,45 @@ void __33__AADeviceList__renewCredentials__block_invoke(uint64_t a1, uint64_t a2
 
 void __56__AADeviceList__createRequestForAccount_requestHandler___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __56__AADeviceList__createRequestForAccount_requestHandler___block_invoke_37_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __56__AADeviceList__createRequestForAccount_requestHandler___block_invoke_38_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __45__AADeviceList__loadRequest_responseHandler___block_invoke_cold_1()
+void __45__AADeviceList__loadRequest_responseHandler___block_invoke_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_8(&dword_1B6F6A000, v2, v3, "Failed to fetch the device list from the server - unexpected response class: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_8(&dword_1B6F6A000, v3, v4, "Failed to fetch the device list from the server - unexpected response class: %@", v5, v6, v7, v8);
 }
 
 void __45__AADeviceList__loadRequest_responseHandler___block_invoke_cold_3(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   [a1 statusCode];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_8(&dword_1B6F6A000, v1, v2, "Failed to fetch the device list from the server - unexpected status code: %ld", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_8(&dword_1B6F6A000, v1, v2, "Failed to fetch the device list from the server - unexpected status code: %ld", v3, v4, v5, v6);
 }
 
 void __33__AADeviceList__renewCredentials__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

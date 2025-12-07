@@ -7,12 +7,12 @@
 - (void)scene:(id)scene didUpdateClientSettings:(id)settings
 {
   settingsCopy = settings;
-  transitionContext = [settingsCopy transitionContext];
-  remoteAlertActivationContext = [transitionContext remoteAlertActivationContext];
+  v6 = objc_msgSend_transitionContext(settingsCopy);
+  remoteAlertActivationContext = [v6 remoteAlertActivationContext];
 
-  transitionContext2 = [settingsCopy transitionContext];
+  v7 = objc_msgSend_transitionContext(settingsCopy);
 
-  remoteAlertConfigurationContext = [transitionContext2 remoteAlertConfigurationContext];
+  remoteAlertConfigurationContext = [v7 remoteAlertConfigurationContext];
 
   if (remoteAlertActivationContext)
   {

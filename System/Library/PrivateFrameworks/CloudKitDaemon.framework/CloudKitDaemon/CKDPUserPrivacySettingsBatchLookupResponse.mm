@@ -43,37 +43,37 @@
 
 - (id)dictionaryRepresentation
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], a2, v2);
   if (objc_msgSend_count(self->_containerPrivacySettings, v5, v6))
   {
     v7 = objc_alloc(MEMORY[0x277CBEB18]);
     v10 = objc_msgSend_count(self->_containerPrivacySettings, v8, v9);
     v12 = objc_msgSend_initWithCapacity_(v7, v11, v10);
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     v13 = self->_containerPrivacySettings;
-    v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v26, v30, 16);
+    v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v25, v29, 16);
     if (v15)
     {
       v18 = v15;
-      v19 = *v27;
+      v19 = *v26;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v27 != v19)
+          if (*v26 != v19)
           {
             objc_enumerationMutation(v13);
           }
 
-          v21 = objc_msgSend_dictionaryRepresentation(*(*(&v26 + 1) + 8 * i), v16, v17, v26);
+          v21 = objc_msgSend_dictionaryRepresentation(*(*(&v25 + 1) + 8 * i), v16, v17, v25);
           objc_msgSend_addObject_(v12, v22, v21);
         }
 
-        v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v16, &v26, v30, 16);
+        v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v16, &v25, v29, 16);
       }
 
       while (v18);
@@ -82,48 +82,43 @@
     objc_msgSend_setObject_forKey_(v4, v23, v12, @"containerPrivacySettings");
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (void)writeTo:(id)to
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   toCopy = to;
+  v12 = 0u;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
   v5 = self->_containerPrivacySettings;
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v14, v18, 16);
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v12, v16, 16);
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * v10);
         PBDataWriterWriteSubmessage();
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v12, &v14, v18, 16);
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v11, &v12, v16, 16);
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -147,44 +142,43 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v7 = objc_msgSend_allocWithZone_(v5, v6, zone);
   v10 = objc_msgSend_init(v7, v8, v9);
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v11 = self->_containerPrivacySettings;
-  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v22, v26, 16);
+  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v21, v25, 16);
   if (v13)
   {
     v15 = v13;
-    v16 = *v23;
+    v16 = *v22;
     do
     {
       v17 = 0;
       do
       {
-        if (*v23 != v16)
+        if (*v22 != v16)
         {
           objc_enumerationMutation(v11);
         }
 
-        v18 = objc_msgSend_copyWithZone_(*(*(&v22 + 1) + 8 * v17), v14, zone, v22);
+        v18 = objc_msgSend_copyWithZone_(*(*(&v21 + 1) + 8 * v17), v14, zone, v21);
         objc_msgSend_addContainerPrivacySettings_(v10, v19, v18);
 
         ++v17;
       }
 
       while (v15 != v17);
-      v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v22, v26, 16);
+      v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v21, v25, 16);
     }
 
     while (v15);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -217,38 +211,36 @@
 
 - (void)mergeFrom:(id)from
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = *(from + 1);
-  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v12, v16, 16);
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v11, v15, 16);
   if (v6)
   {
     v8 = v6;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v4);
         }
 
-        objc_msgSend_addContainerPrivacySettings_(self, v7, *(*(&v12 + 1) + 8 * v10++), v12);
+        objc_msgSend_addContainerPrivacySettings_(self, v7, *(*(&v11 + 1) + 8 * v10++), v11);
       }
 
       while (v8 != v10);
-      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v7, &v12, v16, 16);
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v7, &v11, v15, 16);
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

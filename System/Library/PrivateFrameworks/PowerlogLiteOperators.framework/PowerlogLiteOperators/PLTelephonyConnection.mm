@@ -6,6 +6,7 @@
 - (__CTServerConnection)connection;
 - (id)currentCallStatus;
 - (id)getProperty:(id)property forTrace:(id)trace;
+- (id)humanReadableCallStatus:(int)status;
 - (id)humanReadableRATName:(__CFString *)name;
 - (void)deregisterForAllTelephonyNotifications;
 - (void)enableDiagLogging;
@@ -42,9 +43,9 @@ void __50__PLTelephonyConnection_sharedTelephonyConnection__block_invoke()
 
 - (PLTelephonyConnection)init
 {
-  v7.receiver = self;
-  v7.super_class = PLTelephonyConnection;
-  v2 = [(PLTelephonyConnection *)&v7 init];
+  v5.receiver = self;
+  v5.super_class = PLTelephonyConnection;
+  v2 = [(PLTelephonyConnection *)&v5 init];
   v3 = v2;
   if (v2)
   {
@@ -52,10 +53,8 @@ void __50__PLTelephonyConnection_sharedTelephonyConnection__block_invoke()
     v2->ctServerPort = 0;
     v2->ctServerSource = 0;
     CFRunLoopGetMain();
-    v4 = *MEMORY[0x277CBF058];
     CTTelephonyCenterSetDefaultRunloop();
     CTTelephonyCenterGetDefault();
-    v5 = *MEMORY[0x277CC4308];
     CTTelephonyCenterAddObserver();
   }
 
@@ -64,12 +63,12 @@ void __50__PLTelephonyConnection_sharedTelephonyConnection__block_invoke()
 
 - (void)getRAT:(id *)t preferredRAT:(id *)aT campedRAT:(id *)rAT
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   if (t && aT && rAT)
   {
-    v33 = 0;
-    v34 = 0;
     v32 = 0;
+    v33 = 0;
+    v31 = 0;
     [(PLTelephonyConnection *)self connection];
     RATSelection = _CTServerConnectionGetRATSelection();
     v10 = HIDWORD(RATSelection);
@@ -102,15 +101,15 @@ void __50__PLTelephonyConnection_sharedTelephonyConnection__block_invoke()
           if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v36 = v13;
+            v35 = v13;
             _os_log_debug_impl(&dword_21A4C6000, v18, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
         }
       }
     }
 
-    *t = [(PLTelephonyConnection *)self humanReadableRATName:v34];
-    *aT = [(PLTelephonyConnection *)self humanReadableRATName:v33];
+    *t = [(PLTelephonyConnection *)self humanReadableRATName:v33];
+    *aT = [(PLTelephonyConnection *)self humanReadableRATName:v32];
     [(PLTelephonyConnection *)self connection];
     RadioAccessTechnology = _CTServerConnectionGetRadioAccessTechnology();
     v20 = HIDWORD(RadioAccessTechnology);
@@ -120,14 +119,14 @@ void __50__PLTelephonyConnection_sharedTelephonyConnection__block_invoke()
       if ([MEMORY[0x277D3F180] debugEnabled])
       {
         v22 = objc_opt_class();
-        v30[0] = MEMORY[0x277D85DD0];
-        v30[1] = 3221225472;
-        v30[2] = __55__PLTelephonyConnection_getRAT_preferredRAT_campedRAT___block_invoke_17;
-        v30[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v30[4] = v22;
+        v29[0] = MEMORY[0x277D85DD0];
+        v29[1] = 3221225472;
+        v29[2] = __55__PLTelephonyConnection_getRAT_preferredRAT_campedRAT___block_invoke_17;
+        v29[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v29[4] = v22;
         if (qword_2811F7F60 != -1)
         {
-          dispatch_once(&qword_2811F7F60, v30);
+          dispatch_once(&qword_2811F7F60, v29);
         }
 
         if (byte_2811F7F39 == 1)
@@ -143,27 +142,25 @@ void __50__PLTelephonyConnection_sharedTelephonyConnection__block_invoke()
           if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v36 = v23;
+            v35 = v23;
             _os_log_debug_impl(&dword_21A4C6000, v28, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
         }
       }
     }
 
-    *rAT = [(PLTelephonyConnection *)self humanReadableRATName:v32];
+    *rAT = [(PLTelephonyConnection *)self humanReadableRATName:v31];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __55__PLTelephonyConnection_getRAT_preferredRAT_campedRAT___block_invoke(uint64_t a1)
+void *__55__PLTelephonyConnection_getRAT_preferredRAT_campedRAT___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   _MergedGlobals_112 = result;
   return result;
 }
 
-uint64_t __55__PLTelephonyConnection_getRAT_preferredRAT_campedRAT___block_invoke_17(uint64_t a1)
+void *__55__PLTelephonyConnection_getRAT_preferredRAT_campedRAT___block_invoke_17(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7F39 = result;
@@ -172,7 +169,7 @@ uint64_t __55__PLTelephonyConnection_getRAT_preferredRAT_campedRAT___block_invok
 
 - (void)enableDiagLogging
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   [(PLTelephonyConnection *)self connection];
   v2 = _CTServerConnectionSetTraceProperty();
   v3 = HIDWORD(v2);
@@ -205,17 +202,15 @@ uint64_t __55__PLTelephonyConnection_getRAT_preferredRAT_campedRAT___block_invok
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v15 = v6;
+          v14 = v6;
           _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __42__PLTelephonyConnection_enableDiagLogging__block_invoke(uint64_t a1)
+void *__42__PLTelephonyConnection_enableDiagLogging__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7F3A = result;
@@ -224,7 +219,7 @@ uint64_t __42__PLTelephonyConnection_enableDiagLogging__block_invoke(uint64_t a1
 
 - (BOOL)requestBasebandStateDump:(id)dump
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dumpCopy = dump;
   [(PLTelephonyConnection *)self connection];
   v5 = _CTServerConnectionDumpBasebandState();
@@ -258,7 +253,7 @@ uint64_t __42__PLTelephonyConnection_enableDiagLogging__block_invoke(uint64_t a1
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v18 = v8;
+          v17 = v8;
           _os_log_debug_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -267,12 +262,10 @@ uint64_t __42__PLTelephonyConnection_enableDiagLogging__block_invoke(uint64_t a1
     [(PLTelephonyConnection *)self teardownConnection];
   }
 
-  result = v6 == 0;
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  return v6 == 0;
 }
 
-uint64_t __50__PLTelephonyConnection_requestBasebandStateDump___block_invoke(uint64_t a1)
+void *__50__PLTelephonyConnection_requestBasebandStateDump___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7F3B = result;
@@ -281,7 +274,7 @@ uint64_t __50__PLTelephonyConnection_requestBasebandStateDump___block_invoke(uin
 
 - (BOOL)requestBasebandCoreDump:(id)dump
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dumpCopy = dump;
   [(PLTelephonyConnection *)self connection];
   v5 = _CTServerConnectionResetModemWithCrashLogs();
@@ -315,7 +308,7 @@ uint64_t __50__PLTelephonyConnection_requestBasebandStateDump___block_invoke(uin
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v18 = v8;
+          v17 = v8;
           _os_log_debug_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -324,12 +317,10 @@ uint64_t __50__PLTelephonyConnection_requestBasebandStateDump___block_invoke(uin
     [(PLTelephonyConnection *)self teardownConnection];
   }
 
-  result = v6 == 0;
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  return v6 == 0;
 }
 
-uint64_t __49__PLTelephonyConnection_requestBasebandCoreDump___block_invoke(uint64_t a1)
+void *__49__PLTelephonyConnection_requestBasebandCoreDump___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7F3C = result;
@@ -338,11 +329,11 @@ uint64_t __49__PLTelephonyConnection_requestBasebandCoreDump___block_invoke(uint
 
 - (id)getProperty:(id)property forTrace:(id)trace
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   traceCopy = trace;
-  v34 = 0;
   v33 = 0;
+  v32 = 0;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v8 = objc_opt_class();
@@ -369,7 +360,7 @@ uint64_t __49__PLTelephonyConnection_requestBasebandCoreDump___block_invoke(uint
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v36 = v9;
+        v35 = v9;
         _os_log_debug_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -386,19 +377,19 @@ uint64_t __49__PLTelephonyConnection_requestBasebandCoreDump___block_invoke(uint
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v18 = objc_opt_class();
-      v27 = MEMORY[0x277D85DD0];
-      v28 = 3221225472;
-      v29 = __46__PLTelephonyConnection_getProperty_forTrace___block_invoke_42;
-      v30 = &__block_descriptor_40_e5_v8__0lu32l8;
-      v31 = v18;
+      v26 = MEMORY[0x277D85DD0];
+      v27 = 3221225472;
+      v28 = __46__PLTelephonyConnection_getProperty_forTrace___block_invoke_42;
+      v29 = &__block_descriptor_40_e5_v8__0lu32l8;
+      v30 = v18;
       if (qword_2811F7F88 != -1)
       {
-        dispatch_once(&qword_2811F7F88, &v27);
+        dispatch_once(&qword_2811F7F88, &v26);
       }
 
       if (byte_2811F7F3E == 1)
       {
-        v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to retrieve property %@ from telephony trace %@ (domain=%d, error=%d)", propertyCopy, traceCopy, v16, HIDWORD(v16), v27, v28, v29, v30, v31];
+        v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unable to retrieve property %@ from telephony trace %@ (domain=%d, error=%d)", propertyCopy, traceCopy, v16, HIDWORD(v16), v26, v27, v28, v29, v30];
         v20 = MEMORY[0x277D3F178];
         v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Compositions/Baseband/PLTelephonyConnection.m"];
         lastPathComponent2 = [v21 lastPathComponent];
@@ -409,7 +400,7 @@ uint64_t __49__PLTelephonyConnection_requestBasebandCoreDump___block_invoke(uint
         if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v36 = v19;
+          v35 = v19;
           _os_log_debug_impl(&dword_21A4C6000, v24, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -420,22 +411,20 @@ uint64_t __49__PLTelephonyConnection_requestBasebandCoreDump___block_invoke(uint
 
   else
   {
-    v17 = v33;
+    v17 = v32;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
 
-uint64_t __46__PLTelephonyConnection_getProperty_forTrace___block_invoke(uint64_t a1)
+void *__46__PLTelephonyConnection_getProperty_forTrace___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7F3D = result;
   return result;
 }
 
-uint64_t __46__PLTelephonyConnection_getProperty_forTrace___block_invoke_42(uint64_t a1)
+void *__46__PLTelephonyConnection_getProperty_forTrace___block_invoke_42(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7F3E = result;
@@ -452,29 +441,105 @@ uint64_t __46__PLTelephonyConnection_getProperty_forTrace___block_invoke_42(uint
 
 - (id)currentCallStatus
 {
-  v3 = *MEMORY[0x277CBECE8];
-  v4 = CTCopyCurrentCalls();
-  v5 = v4;
-  if (v4 && [v4 count])
+  v3 = CTCopyCurrentCalls();
+  v4 = v3;
+  if (v3 && [v3 count])
   {
-    if ([v5 count] <= 1)
+    if ([v4 count] <= 1)
     {
-      [v5 objectAtIndex:0];
-      v6 = [(PLTelephonyConnection *)self humanReadableCallStatus:CTCallGetStatus()];
+      [v4 objectAtIndex:0];
+      v5 = [(PLTelephonyConnection *)self humanReadableCallStatus:CTCallGetStatus()];
     }
 
     else
     {
-      v6 = @"Multiple";
+      v5 = @"Multiple";
     }
   }
 
   else
   {
-    v6 = @"Inactive";
+    v5 = @"Inactive";
   }
 
-  return v6;
+  return v5;
+}
+
+- (id)humanReadableCallStatus:(int)status
+{
+  if (status > 3)
+  {
+    if (status >= 196608)
+    {
+      if (status == 196608)
+      {
+        v4 = @"Alerting";
+
+        return v4;
+      }
+
+      if (status == 0x40000)
+      {
+        v4 = @"Waiting";
+
+        return v4;
+      }
+    }
+
+    else
+    {
+      if (status == 4)
+      {
+        v4 = @"Ringing";
+
+        return v4;
+      }
+
+      if (status == 5)
+      {
+        v4 = @"Disconnected";
+
+        return v4;
+      }
+    }
+
+LABEL_35:
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"<unknown status: %d>", *&status];
+
+    return v4;
+  }
+
+  if (status > 1)
+  {
+    if (status == 2)
+    {
+      v4 = @"Held";
+    }
+
+    else
+    {
+      v4 = @"Sending";
+    }
+  }
+
+  else
+  {
+    if (status)
+    {
+      if (status == 1)
+      {
+        v4 = @"Active";
+
+        return v4;
+      }
+
+      goto LABEL_35;
+    }
+
+    v4 = @"Idle";
+  }
+
+  return v4;
 }
 
 - (id)humanReadableRATName:(__CFString *)name
@@ -588,10 +653,10 @@ uint64_t __46__PLTelephonyConnection_getProperty_forTrace___block_invoke_42(uint
 
 - (__CTServerConnection)connection
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   block[5] = 0;
-  v15 = 0u;
-  v16 = 0;
+  v13 = 0u;
+  v14 = 0;
   block[6] = self;
   result = self->connection;
   if (!result)
@@ -602,21 +667,20 @@ uint64_t __46__PLTelephonyConnection_getProperty_forTrace___block_invoke_42(uint
     if (v4)
     {
       CFRunLoopGetMain();
-      v5 = *MEMORY[0x277CBF058];
       _CTServerConnectionAddToRunLoop();
-      result = self->connection;
+      return self->connection;
     }
 
     else
     {
       if ([MEMORY[0x277D3F180] debugEnabled])
       {
-        v6 = objc_opt_class();
+        v5 = objc_opt_class();
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __35__PLTelephonyConnection_connection__block_invoke;
         block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        block[4] = v6;
+        block[4] = v5;
         if (qword_2811F7F90 != -1)
         {
           dispatch_once(&qword_2811F7F90, block);
@@ -624,32 +688,31 @@ uint64_t __46__PLTelephonyConnection_getProperty_forTrace___block_invoke_42(uint
 
         if (byte_2811F7F3F == 1)
         {
-          v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to allocate a CTServer connection"];
-          v8 = MEMORY[0x277D3F178];
-          v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Compositions/Baseband/PLTelephonyConnection.m"];
-          lastPathComponent = [v9 lastPathComponent];
-          v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLTelephonyConnection connection]"];
-          [v8 logMessage:v7 fromFile:lastPathComponent fromFunction:v11 fromLineNumber:299];
+          v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to allocate a CTServer connection"];
+          v7 = MEMORY[0x277D3F178];
+          v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Compositions/Baseband/PLTelephonyConnection.m"];
+          lastPathComponent = [v8 lastPathComponent];
+          v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLTelephonyConnection connection]"];
+          [v7 logMessage:v6 fromFile:lastPathComponent fromFunction:v10 fromLineNumber:299];
 
-          v12 = PLLogCommon();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+          v11 = PLLogCommon();
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v18 = v7;
-            _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+            v16 = v6;
+            _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
         }
       }
 
-      result = 0;
+      return 0;
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t __35__PLTelephonyConnection_connection__block_invoke(uint64_t a1)
+void *__35__PLTelephonyConnection_connection__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7F3F = result;

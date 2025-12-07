@@ -69,45 +69,46 @@
 
 - (void)setOptimisticValue:(id)value
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   valueCopy = value;
+  v6 = valueCopy;
   if (!self->_optimisticValue)
   {
-    v6 = MCLogCategoryVolume();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = MCLogCategoryVolume(valueCopy);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      [valueCopy floatValue];
+      [v6 floatValue];
       *buf = 138412546;
       selfCopy = self;
-      v17 = 2048;
-      v18 = v7;
-      _os_log_impl(&dword_1A20FC000, v6, OS_LOG_TYPE_DEFAULT, "%@ - Start optimistic state with: %.2f", buf, 0x16u);
+      v18 = 2048;
+      v19 = v8;
+      _os_log_impl(&dword_1A20FC000, v7, OS_LOG_TYPE_DEFAULT, "%@ - Start optimistic state with: %.2f", buf, 0x16u);
     }
   }
 
-  v14.receiver = self;
-  v14.super_class = MRUVolumeController;
-  [(MPVolumeController *)&v14 setDelegate:0];
+  v15.receiver = self;
+  v15.super_class = MRUVolumeController;
+  [(MPVolumeController *)&v15 setDelegate:0];
   objc_storeStrong(&self->_optimisticValue, value);
   WeakRetained = objc_loadWeakRetained(&self->_shadowDelegate);
-  v9 = objc_opt_respondsToSelector();
+  v10 = objc_opt_respondsToSelector();
 
-  if (v9)
+  if (v10)
   {
-    v10 = objc_loadWeakRetained(&self->_shadowDelegate);
-    [valueCopy floatValue];
-    [v10 volumeController:self volumeValueDidChange:?];
+    v11 = objc_loadWeakRetained(&self->_shadowDelegate);
+    [v6 floatValue];
+    [v11 volumeController:self volumeValueDidChange:?];
   }
 
   [(NSTimer *)self->_optimisticTimer invalidate];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __42__MRUVolumeController_setOptimisticValue___block_invoke;
-  v13[3] = &unk_1E7663F10;
-  v13[4] = self;
-  v11 = [MEMORY[0x1E695DFF0] scheduledTimerWithTimeInterval:0 repeats:v13 block:2.0];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __42__MRUVolumeController_setOptimisticValue___block_invoke;
+  v14[3] = &unk_1E7663F10;
+  v14[4] = self;
+  v12 = [MEMORY[0x1E695DFF0] scheduledTimerWithTimeInterval:0 repeats:v14 block:2.0];
   optimisticTimer = self->_optimisticTimer;
-  self->_optimisticTimer = v11;
+  self->_optimisticTimer = v12;
 }
 
 void __42__MRUVolumeController_setOptimisticValue___block_invoke(uint64_t a1)
@@ -123,8 +124,7 @@ void __42__MRUVolumeController_setOptimisticValue___block_invoke(uint64_t a1)
   v7 = *(v6 + 40);
   *(v6 + 40) = 0;
 
-  [*(a1 + 32) restoreDelegate];
-  v8 = MCLogCategoryVolume();
+  v8 = MCLogCategoryVolume([*(a1 + 32) restoreDelegate]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = *(a1 + 32);

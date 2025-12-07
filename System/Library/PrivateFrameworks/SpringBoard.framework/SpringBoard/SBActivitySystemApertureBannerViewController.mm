@@ -206,7 +206,7 @@ void __63__SBActivitySystemApertureBannerViewController_setInvalidated___block_i
   if (!sceneHandle)
   {
     descriptor = [itemCopy descriptor];
-    v7 = SBLogActivity();
+    v7 = SBLogActivity(descriptor);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       identifier = [itemCopy identifier];

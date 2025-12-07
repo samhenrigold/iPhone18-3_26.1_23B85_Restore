@@ -70,7 +70,7 @@
   v9 = _poseidonIconView;
   if (_poseidonIconView)
   {
-    [_poseidonIconView transform];
+    objc_msgSend_transform(_poseidonIconView);
   }
 
   else
@@ -82,7 +82,7 @@
   [v9 setTransform:&v14];
   if (v9)
   {
-    [v9 localTransform];
+    objc_msgSend_localTransform(v9);
   }
 
   else

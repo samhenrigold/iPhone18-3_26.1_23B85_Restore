@@ -5,9 +5,7 @@
 - (id)description;
 - (id)documentID;
 - (id)folderID;
-- (void)documentID;
 - (void)encodeWithCoder:(id)coder;
-- (void)folderID;
 @end
 
 @implementation BRDbRowObjectID
@@ -102,22 +100,6 @@ LABEL_7:
   }
 
   return v5;
-}
-
-- (void)folderID
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_1AE2A9000, v0, v1, "[CRIT] UNREACHABLE: asked the folderID of a BRDbRowObjectID item%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)documentID
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_1AE2A9000, v0, v1, "[CRIT] UNREACHABLE: asked the documentID of a BRDbRowObjectID item%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

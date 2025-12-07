@@ -129,23 +129,22 @@ id __60__SearchResultTableViewCellAccessibility_accessibilityLabel__block_invoke
       {
         v14 = v12;
         v15 = v13;
-        v16 = a1[6];
-        v17 = UIAXPriceRangeDescription();
-        v18 = [v5 stringByReplacingCharactersInRange:v14 withString:{v15, v17}];
+        v16 = UIAXPriceRangeDescription();
+        v17 = [v5 stringByReplacingCharactersInRange:v14 withString:{v15, v16}];
 
-        v5 = v18;
+        v5 = v17;
       }
     }
 
-    v19 = AXStringByReplacingMiddleDots(v5);
+    v18 = AXStringByReplacingMiddleDots(v5);
   }
 
   else
   {
-    v19 = 0;
+    v18 = 0;
   }
 
-  return v19;
+  return v18;
 }
 
 @end

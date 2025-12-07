@@ -214,7 +214,7 @@ void __58__ACHAwardsServer_remote_addOrUpdateTemplates_completion___block_invoke
 
 BOOL __58__ACHAwardsServer_remote_addOrUpdateTemplates_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v5 = [*(a1 + 32) profile];
   v6 = [ACHTemplateEntity allTemplatesWithProfile:v5 error:a3];
 
@@ -226,58 +226,58 @@ BOOL __58__ACHAwardsServer_remote_addOrUpdateTemplates_completion___block_invoke
   else
   {
     v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
-    v30 = v6;
+    v29 = v6;
     v9 = v6;
-    v10 = [v9 countByEnumeratingWithState:&v35 objects:v40 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v34 objects:v39 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v36;
+      v12 = *v35;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v36 != v12)
+          if (*v35 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v35 + 1) + 8 * i);
+          v14 = *(*(&v34 + 1) + 8 * i);
           v15 = [v14 uniqueName];
           [v8 setObject:v14 forKeyedSubscript:v15];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v35 objects:v40 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v34 objects:v39 count:16];
       }
 
       while (v11);
     }
 
     v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
     v17 = *(a1 + 40);
-    v18 = [v17 countByEnumeratingWithState:&v31 objects:v39 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v30 objects:v38 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v32;
+      v20 = *v31;
       do
       {
         for (j = 0; j != v19; ++j)
         {
-          if (*v32 != v20)
+          if (*v31 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v22 = [*(*(&v31 + 1) + 8 * j) uniqueName];
+          v22 = [*(*(&v30 + 1) + 8 * j) uniqueName];
           v23 = [v8 objectForKeyedSubscript:v22];
 
           if (v23)
@@ -286,7 +286,7 @@ BOOL __58__ACHAwardsServer_remote_addOrUpdateTemplates_completion___block_invoke
           }
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v31 objects:v39 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v30 objects:v38 count:16];
       }
 
       while (v19);
@@ -304,10 +304,9 @@ BOOL __58__ACHAwardsServer_remote_addOrUpdateTemplates_completion___block_invoke
       v7 = [ACHTemplateEntity insertTemplates:v26 provenance:0 useLegacySyncIdentity:0 profile:v27 databaseContext:*(a1 + 48) error:a3];
     }
 
-    v6 = v30;
+    v6 = v29;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -1131,43 +1130,41 @@ void __90__ACHAwardsServer_remote_fetchMostRecentEarnedInstancesForTemplateUniqu
 
 BOOL __90__ACHAwardsServer_remote_fetchMostRecentEarnedInstancesForTemplateUniqueNames_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = *(a1 + 32);
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
-        v11 = [ACHEarnedInstanceEntity mostRecentEarnedInstanceForTemplateUniqueName:v10 profile:*(a1 + 40) error:a3, v14];
+        v10 = *(*(&v13 + 1) + 8 * i);
+        v11 = [ACHEarnedInstanceEntity mostRecentEarnedInstanceForTemplateUniqueName:v10 profile:*(a1 + 40) error:a3, v13];
         if (v11)
         {
           [*(*(*(a1 + 48) + 8) + 40) setObject:v11 forKeyedSubscript:v10];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
 
-  result = *a3 == 0;
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return *a3 == 0;
 }
 
 - (void)remote_fetchEarnedInstancesForDateComponentStringsArray:(id)array completion:(id)completion
@@ -1355,44 +1352,41 @@ BOOL __112__ACHAwardsServer_remote_fetchEarnedInstancesForAnniversaryDateCompone
 
 void __87__ACHAwardsServer_remote_fetchEarnedInstancesForEarnedDateComponentsString_completion___block_invoke(uint64_t a1)
 {
-  v21[1] = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v3 = ACHYearMonthDayDateComponentsFromString();
-  if (v3)
+  v19[1] = *MEMORY[0x277D85DE8];
+  v2 = ACHYearMonthDayDateComponentsFromString();
+  if (v2)
   {
-    v4 = [*(a1 + 40) _transactionContextForReadingProtectedDataWithIdentifier:@"Fetch Most Recent Instnace"];
-    v5 = [*(a1 + 40) profile];
-    v6 = [v5 database];
-    v7 = *(*(a1 + 56) + 8);
-    v8 = *(v7 + 40);
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __87__ACHAwardsServer_remote_fetchEarnedInstancesForEarnedDateComponentsString_completion___block_invoke_2;
-    v15[3] = &unk_278491618;
-    v18 = *(a1 + 64);
-    obj = v8;
-    v9 = v3;
-    v10 = *(a1 + 40);
-    v16 = v9;
-    v17 = v10;
-    [v6 performTransactionWithContext:v4 error:&obj block:v15 inaccessibilityHandler:0];
-    objc_storeStrong((v7 + 40), obj);
+    v3 = [*(a1 + 40) _transactionContextForReadingProtectedDataWithIdentifier:@"Fetch Most Recent Instnace"];
+    v4 = [*(a1 + 40) profile];
+    v5 = [v4 database];
+    v6 = *(*(a1 + 56) + 8);
+    v7 = *(v6 + 40);
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __87__ACHAwardsServer_remote_fetchEarnedInstancesForEarnedDateComponentsString_completion___block_invoke_2;
+    v13[3] = &unk_278491618;
+    v16 = *(a1 + 64);
+    obj = v7;
+    v8 = v2;
+    v9 = *(a1 + 40);
+    v14 = v8;
+    v15 = v9;
+    [v5 performTransactionWithContext:v3 error:&obj block:v13 inaccessibilityHandler:0];
+    objc_storeStrong((v6 + 40), obj);
 
-    v11 = v16;
+    v10 = v14;
   }
 
   else
   {
-    v12 = *(a1 + 48);
-    v13 = MEMORY[0x277CCA9B8];
-    v20 = *MEMORY[0x277CCA450];
-    v21[0] = @"Unable to parse date components";
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
-    v11 = [v13 errorWithDomain:@"com.apple.ActivityAchievements" code:133 userInfo:v4];
-    (*(v12 + 16))(v12, MEMORY[0x277CBEBF8], v11);
+    v11 = *(a1 + 48);
+    v12 = MEMORY[0x277CCA9B8];
+    v18 = *MEMORY[0x277CCA450];
+    v19[0] = @"Unable to parse date components";
+    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v10 = [v12 errorWithDomain:@"com.apple.ActivityAchievements" code:133 userInfo:v3];
+    (*(v11 + 16))(v11, MEMORY[0x277CBEBF8], v10);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __87__ACHAwardsServer_remote_fetchEarnedInstancesForEarnedDateComponentsString_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
@@ -1531,28 +1525,28 @@ void __74__ACHAwardsServer_remote_countOfEarnedInstancesForUniqueNames_completio
 
 BOOL __74__ACHAwardsServer_remote_countOfEarnedInstancesForUniqueNames_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   obj = *(a1 + 32);
-  v5 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       v8 = 0;
       do
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * v8);
+        v9 = *(*(&v15 + 1) + 8 * v8);
         v10 = [*(a1 + 40) profile];
         v11 = [ACHEarnedInstanceEntity countOfEarnedInstancesForTemplateUniqueName:v9 profile:v10 error:a3];
 
@@ -1563,45 +1557,40 @@ BOOL __74__ACHAwardsServer_remote_countOfEarnedInstancesForUniqueNames_completio
       }
 
       while (v6 != v8);
-      v6 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
 
-  result = *a3 == 0;
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return *a3 == 0;
 }
 
 - (void)_transactionContextForWritingProtectedDataWithIdentifier:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_221DDC000, a2, OS_LOG_TYPE_ERROR, "Unable to acquire database assertion: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_221DDC000, a2, OS_LOG_TYPE_ERROR, "Unable to acquire database assertion: %@", &v2, 0xCu);
 }
 
 - (void)_transactionContextForReadingProtectedDataWithIdentifier:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_221DDC000, log, OS_LOG_TYPE_ERROR, "Unable to acquire database assertion with identifier %@: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_221DDC000, log, OS_LOG_TYPE_ERROR, "Unable to acquire database assertion with identifier %@: %@", &v3, 0x16u);
 }
 
 void __68__ACHAwardsServer_remote_addTemplates_removingTemplates_completion___block_invoke_2_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_221DDC000, a2, OS_LOG_TYPE_ERROR, "Error removing old template versions: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_221DDC000, a2, OS_LOG_TYPE_ERROR, "Error removing old template versions: %@", &v3, 0xCu);
 }
 
 @end

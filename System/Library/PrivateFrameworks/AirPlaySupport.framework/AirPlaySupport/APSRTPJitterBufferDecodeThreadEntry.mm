@@ -8,10 +8,15 @@ uint64_t ___APSRTPJitterBufferDecodeThreadEntry_block_invoke(uint64_t result)
   if (gLogCategory_APSRTPJitterBuffer <= 30)
   {
     v1 = result;
-    if (gLogCategory_APSRTPJitterBuffer != -1 || (result = _LogCategory_Initialize(), result))
+    if (gLogCategory_APSRTPJitterBuffer != -1)
     {
-      v2 = *(*(v1 + 32) + 16);
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_APSRTPJitterBuffer, "void *_APSRTPJitterBufferDecodeThreadEntry(void *)_block_invoke", 30, "'%@' Decode thread starting\n", *(*(v1 + 32) + 16));
+    }
+
+    result = _LogCategory_Initialize();
+    if (result)
+    {
+      return LogPrintF(&gLogCategory_APSRTPJitterBuffer, "void *_APSRTPJitterBufferDecodeThreadEntry(void *)_block_invoke", 30, "'%@' Decode thread starting\n", *(*(v1 + 32) + 16));
     }
   }
 
@@ -23,10 +28,15 @@ uint64_t ___APSRTPJitterBufferDecodeThreadEntry_block_invoke_2(uint64_t result)
   if (gLogCategory_APSRTPJitterBuffer <= 30)
   {
     v1 = result;
-    if (gLogCategory_APSRTPJitterBuffer != -1 || (result = _LogCategory_Initialize(), result))
+    if (gLogCategory_APSRTPJitterBuffer != -1)
     {
-      v2 = *(*(v1 + 32) + 16);
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_APSRTPJitterBuffer, "void *_APSRTPJitterBufferDecodeThreadEntry(void *)_block_invoke_2", 30, "'%@' Decode thread ending\n", *(*(v1 + 32) + 16));
+    }
+
+    result = _LogCategory_Initialize();
+    if (result)
+    {
+      return LogPrintF(&gLogCategory_APSRTPJitterBuffer, "void *_APSRTPJitterBufferDecodeThreadEntry(void *)_block_invoke_2", 30, "'%@' Decode thread ending\n", *(*(v1 + 32) + 16));
     }
   }
 

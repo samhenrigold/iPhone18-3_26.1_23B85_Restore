@@ -11,49 +11,51 @@
 
 - (MDMPowerAssertion)initWithReason:(id)reason
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
-  v17.receiver = self;
-  v17.super_class = MDMPowerAssertion;
-  v5 = [(DMCPowerAssertion *)&v17 initWithReason:reasonCopy];
-  if (v5)
+  v19.receiver = self;
+  v19.super_class = MDMPowerAssertion;
+  begin = [(DMCPowerAssertion *)&v19 initWithReason:reasonCopy];
+  v6 = begin;
+  if (begin)
   {
-    v6 = objc_opt_new();
-    creationDate = v5->_creationDate;
-    v5->_creationDate = v6;
+    v7 = objc_opt_new();
+    v8 = *(v6 + 32);
+    *(v6 + 32) = v7;
 
-    if (+[DMCMultiUserModeUtilities isSharediPad])
+    v9 = +[DMCMultiUserModeUtilities isSharediPad];
+    if (v9)
     {
-      v8 = [MEMORY[0x1E69DF090] taskWithName:@"MDMBlockingTask" reason:reasonCopy];
-      blockingTask = v5->_blockingTask;
-      v5->_blockingTask = v8;
+      v11 = [MEMORY[0x1E69DF090] taskWithName:@"MDMBlockingTask" reason:reasonCopy];
+      v12 = *(v6 + 40);
+      *(v6 + 40) = v11;
 
-      [(UMUserSwitchBlockingTask *)v5->_blockingTask begin];
+      begin = [*(v6 + 40) begin];
     }
 
     else
     {
-      v10 = DMCLogObjects()[2];
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v13 = DMCLogObjects(v9, v10)[2];
+      begin = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+      if (begin)
       {
         *buf = 138543362;
-        v19 = reasonCopy;
-        _os_log_impl(&dword_1B1630000, v10, OS_LOG_TYPE_DEFAULT, "Starting MDM power assertion with reason: %{public}@", buf, 0xCu);
+        v21 = reasonCopy;
+        _os_log_impl(&dword_1B1630000, v13, OS_LOG_TYPE_DEFAULT, "Starting MDM power assertion with reason: %{public}@", buf, 0xCu);
       }
     }
   }
 
-  v11 = _assertionQueue();
+  v14 = _assertionQueue(begin);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __36__MDMPowerAssertion_initWithReason___block_invoke;
   block[3] = &unk_1E7ADC760;
-  v12 = v5;
-  v16 = v12;
-  dispatch_sync(v11, block);
+  v15 = v6;
+  v18 = v15;
+  dispatch_sync(v14, block);
 
-  v13 = *MEMORY[0x1E69E9840];
-  return v12;
+  return v15;
 }
 
 void __36__MDMPowerAssertion_initWithReason___block_invoke(uint64_t a1)
@@ -64,37 +66,38 @@ void __36__MDMPowerAssertion_initWithReason___block_invoke(uint64_t a1)
 
 - (void)dealloc
 {
-  v12 = *MEMORY[0x1E69E9840];
-  if (+[DMCMultiUserModeUtilities isSharediPad])
+  v14 = *MEMORY[0x1E69E9840];
+  v3 = +[DMCMultiUserModeUtilities isSharediPad];
+  if (v3)
   {
-    [(UMUserSwitchBlockingTask *)self->_blockingTask end];
+    v5 = [(UMUserSwitchBlockingTask *)self->_blockingTask end];
   }
 
   else
   {
-    v3 = DMCLogObjects()[2];
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v6 = DMCLogObjects(v3, v4)[2];
+    v5 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+    if (v5)
     {
-      v4 = v3;
+      v7 = v6;
       reason = [(DMCProcessAssertion *)self reason];
       *buf = 138543362;
-      v11 = reason;
-      _os_log_impl(&dword_1B1630000, v4, OS_LOG_TYPE_DEFAULT, "Ending MDM power assertion with reason: %{public}@", buf, 0xCu);
+      v13 = reason;
+      _os_log_impl(&dword_1B1630000, v7, OS_LOG_TYPE_DEFAULT, "Ending MDM power assertion with reason: %{public}@", buf, 0xCu);
     }
   }
 
-  v6 = _assertionQueue();
+  v9 = _assertionQueue(v5);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __28__MDMPowerAssertion_dealloc__block_invoke;
   block[3] = &unk_1E7ADC760;
   block[4] = self;
-  dispatch_sync(v6, block);
+  dispatch_sync(v9, block);
 
-  v8.receiver = self;
-  v8.super_class = MDMPowerAssertion;
-  [(DMCPowerAssertion *)&v8 dealloc];
-  v7 = *MEMORY[0x1E69E9840];
+  v10.receiver = self;
+  v10.super_class = MDMPowerAssertion;
+  [(DMCPowerAssertion *)&v10 dealloc];
 }
 
 void __28__MDMPowerAssertion_dealloc__block_invoke(uint64_t a1)
@@ -129,7 +132,7 @@ LABEL_7:
 + (id)assertionDescriptions
 {
   v3 = objc_opt_new();
-  v4 = _assertionQueue();
+  v4 = _assertionQueue(v3);
   v8 = MEMORY[0x1E69E9820];
   v9 = 3221225472;
   v10 = __42__MDMPowerAssertion_assertionDescriptions__block_invoke;
@@ -146,28 +149,28 @@ LABEL_7:
 
 void __42__MDMPowerAssertion_assertionDescriptions__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = [*(a1 + 40) _currentAssertions];
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       v6 = 0;
       do
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * v6);
+        v7 = *(*(&v10 + 1) + 8 * v6);
         if (v7)
         {
           v8 = *(a1 + 32);
@@ -179,13 +182,11 @@ void __42__MDMPowerAssertion_assertionDescriptions__block_invoke(uint64_t a1)
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)description

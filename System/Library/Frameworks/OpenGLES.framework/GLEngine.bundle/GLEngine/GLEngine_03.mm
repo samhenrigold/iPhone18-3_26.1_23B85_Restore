@@ -31,12 +31,12 @@ uint64_t glTranslate_Exec(uint64_t result, double a2, double a3, double a4)
   return result;
 }
 
-void glWeightPointerARB_Exec(uint64_t a1, uint64_t a2, int a3, unsigned int a4, uint64_t a5)
+void glWeightPointerARB_Exec(uint64_t result, uint64_t a2, int a3, unsigned int a4, uint64_t a5)
 {
-  v5 = a1 + 28652;
+  v5 = result + 28652;
   if ((a2 - 5) < 0xFFFFFFFC || (a4 & 0x80000000) != 0)
   {
-    if (!*(a1 + 29832))
+    if (!*(result + 29832))
     {
       v20 = 1281;
       goto LABEL_25;
@@ -47,15 +47,15 @@ void glWeightPointerARB_Exec(uint64_t a1, uint64_t a2, int a3, unsigned int a4, 
 
   v7 = a5;
   v8 = a3;
-  v11 = *(a1 + 26384);
-  v12 = *(a1 + 19312);
-  if (!v12 && v11 != *(a1 + 26392) && a5 && !*(a1 + 32502))
+  v11 = *(result + 26384);
+  v12 = *(result + 19312);
+  if (!v12 && v11 != *(result + 26392) && a5 && !*(result + 32502))
   {
-    if (!*(a1 + 29832))
+    if (!*(result + 29832))
     {
       v20 = 1282;
 LABEL_25:
-      *(a1 + 29832) = v20;
+      *(result + 29832) = v20;
       return;
     }
 
@@ -74,7 +74,7 @@ LABEL_25:
 
     if (v13 && (v14 = *(v13 + 20) - 1, (*(v13 + 20) = v14) == 0))
     {
-      gleUnbindAndFreeBufferObject(a1, v13);
+      gleUnbindAndFreeBufferObject(result, v13);
       if (v12)
       {
         goto LABEL_10;
@@ -91,7 +91,7 @@ LABEL_10:
         *(v11 + 912) = v15 | 0x100000;
         if ((*(v11 + 906) & 0x10) != 0)
         {
-          gleUpdateDrawArraysFuncs(a1);
+          gleUpdateDrawArraysFuncs(result);
         }
       }
 
@@ -125,7 +125,7 @@ LABEL_10:
       *(v11 + 912) = v21 & 0xFFFFFFFFFFEFFFFFLL;
       if ((*(v11 + 906) & 0x10) != 0)
       {
-        gleUpdateDrawArraysFuncs(a1);
+        gleUpdateDrawArraysFuncs(result);
       }
     }
 
@@ -162,7 +162,7 @@ LABEL_37:
     *(v11 + 952) |= 0x100000uLL;
 LABEL_38:
     *v5 = 0;
-    *(a1 + 1532) |= 0x1000u;
+    *(result + 1532) |= 0x1000u;
     *(v11 + 944) |= 0x100010uLL;
     *(v11 + 1272) = v12;
 LABEL_39:
@@ -195,18 +195,18 @@ LABEL_39:
     {
       *(v11 + 952) |= 0x100000uLL;
       *(v11 + 248) = v30;
-      *(a1 + 26184) = gleSetVertexArrayFunc;
-      *(a1 + 26192) = gleSetVertexArrayFunc;
-      *(a1 + 26200) = gleSetVertexElemFunc;
-      *(a1 + 26208) = gleSetVertexElemFunc;
+      *(result + 26184) = gleSetVertexArrayFunc;
+      *(result + 26192) = gleSetVertexArrayFunc;
+      *(result + 26200) = gleSetVertexElemFunc;
+      *(result + 26208) = gleSetVertexElemFunc;
       *v5 = 0;
-      *(a1 + 1532) |= 0x1000u;
+      *(result + 1532) |= 0x1000u;
     }
 
     return;
   }
 
-  if (!*(a1 + 29832))
+  if (!*(result + 29832))
   {
     v20 = 1280;
     goto LABEL_25;
@@ -281,21 +281,21 @@ uint64_t gleSetAttrib(uint64_t result, int a2, unsigned __int16 *a3)
         do
         {
           *(v55 - 3) = *v58;
-          *(v55 - 2) = v58[1];
-          *(v55 - 1) = v58[2];
-          *v55 = v58[3];
+          *(v55 - 2) = *(v58 + 1);
+          *(v55 - 1) = *(v58 + 2);
+          *v55 = *(v58 + 3);
           v55 += 4;
-          *v56 = v58[128];
-          v56[1] = v58[129];
-          v56[2] = v58[130];
-          v56[3] = v58[131];
+          *v56 = *(v58 + 128);
+          v56[1] = *(v58 + 129);
+          v56[2] = *(v58 + 130);
+          v56[3] = *(v58 + 131);
           v56 += 4;
-          v58 += 4;
+          v58 += 8;
           --v57;
         }
 
         while (v57);
-        v59 = (a3 + 70);
+        v59 = a3 + 70;
         v60 = (result + 8700);
         v61 = 16;
         do
@@ -304,7 +304,7 @@ uint64_t gleSetAttrib(uint64_t result, int a2, unsigned __int16 *a3)
           *(v60 - 2) = *(v59 - 2);
           *(v60 - 1) = *(v59 - 1);
           v62 = *v59;
-          v59 += 4;
+          v59 += 8;
           *v60 = v62;
           v60 += 8;
           --v61;
@@ -413,10 +413,10 @@ uint64_t gleSetAttrib(uint64_t result, int a2, unsigned __int16 *a3)
         v71 = 8;
         do
         {
-          v69[12] = v70[5];
-          v69[13] = v70[6];
-          v69[14] = v70[7];
-          v69[15] = v70[8];
+          v69[12] = *(v70 + 5);
+          v69[13] = *(v70 + 6);
+          v69[14] = *(v70 + 7);
+          v69[15] = *(v70 + 8);
           *v69 = *(v70 - 7);
           v69[1] = *(v70 - 6);
           v69[2] = *(v70 - 5);
@@ -425,20 +425,20 @@ uint64_t gleSetAttrib(uint64_t result, int a2, unsigned __int16 *a3)
           v69[5] = *(v70 - 2);
           v69[6] = *(v70 - 1);
           v69[7] = *v70;
-          v69[8] = v70[1];
-          v69[9] = v70[2];
-          v69[10] = v70[3];
-          v69[11] = v70[4];
-          v69[16] = v70[9];
-          v69[17] = v70[10];
-          v69[18] = v70[11];
-          v69[23] = v70[12];
-          v69[36] = v70[13];
-          v69[19] = v70[14];
-          v69[20] = v70[15];
-          v69[21] = v70[16];
-          v69[22] = v70[17];
-          v70 += 25;
+          v69[8] = *(v70 + 1);
+          v69[9] = *(v70 + 2);
+          v69[10] = *(v70 + 3);
+          v69[11] = *(v70 + 4);
+          v69[16] = *(v70 + 9);
+          v69[17] = *(v70 + 10);
+          v69[18] = *(v70 + 11);
+          v69[23] = *(v70 + 12);
+          v69[36] = *(v70 + 13);
+          v69[19] = *(v70 + 14);
+          v69[20] = *(v70 + 15);
+          v69[21] = *(v70 + 16);
+          v69[22] = *(v70 + 17);
+          v70 += 50;
           v69 += 40;
           --v71;
         }
@@ -563,7 +563,7 @@ uint64_t gleSetAttrib(uint64_t result, int a2, unsigned __int16 *a3)
             *v7 = *(a3 + 8);
             *(result + 12517) = *(a3 + 9);
             *v6 = *(a3 + 27);
-            v77 = (a3 + 12);
+            v77 = a3 + 12;
             v78 = (result + 17588);
             v79 = 6;
             do
@@ -572,7 +572,7 @@ uint64_t gleSetAttrib(uint64_t result, int a2, unsigned __int16 *a3)
               *(v78 - 2) = *(v77 - 2);
               *(v78 - 1) = *(v77 - 1);
               v80 = *v77;
-              v77 += 4;
+              v77 += 8;
               *v78 = v80;
               v78 += 4;
               --v79;
@@ -902,7 +902,7 @@ LABEL_112:
           v95 = a3 + 576;
           v93 = result + 20776;
           v92 = result + 23808;
-          v23 = (a3 + 584);
+          v23 = a3 + 584;
           do
           {
             v24 = &v95[428 * v22];
@@ -914,7 +914,7 @@ LABEL_112:
             do
             {
               v27 = *v23;
-              v23 += 18;
+              v23 += 36;
               gleBindTexture(v4, v26++, v27, v22);
             }
 
@@ -998,7 +998,7 @@ LABEL_112:
             *(v25 + 68) = *(v24 + 210);
             *(v25 + 72) = *(v24 + 211);
             ++v22;
-            v23 = v96 + 214;
+            v23 = v96 + 428;
           }
 
           while (v22 != 8);
@@ -1047,7 +1047,7 @@ void glLightfv_Exec(float32x4_t *a1, int a2, int a3, float *a4)
           v37 = a4[2];
           a1[10 * v5 + 787].f32[2] = v37;
           a1[10 * v5 + 787] = vmlaq_n_f32(vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(a1[602], v36), a1[601], v35), a1[603], v37), a1[604], a4[3]);
-          v38 = a2 - 0x4000;
+          v38 = (a2 - 0x4000);
 
           gleUpdateLightPosition(a1, v38);
         }
@@ -1065,10 +1065,7 @@ void glLightfv_Exec(float32x4_t *a1, int a2, int a3, float *a4)
         return;
       }
 
-      a1[10 * v5 + 786].f32[0] = *a4;
-      a1[10 * v5 + 786].f32[1] = a4[1];
-      a1[10 * v5 + 786].f32[2] = a4[2];
-      a1[10 * v5 + 786].f32[3] = a4[3];
+      a1[10 * v5 + 786] = *a4;
       *(a1[89].i64[0] + 496) |= 0x10u;
       *(a1[89].i64[1] + 496) |= 0x10u;
       *v4 = 0;
@@ -1153,10 +1150,7 @@ void glLightfv_Exec(float32x4_t *a1, int a2, int a3, float *a4)
 
     if (a3 == 4609)
     {
-      a1[10 * v5 + 785].f32[0] = *a4;
-      a1[10 * v5 + 785].f32[1] = a4[1];
-      a1[10 * v5 + 785].f32[2] = a4[2];
-      a1[10 * v5 + 785].f32[3] = a4[3];
+      a1[10 * v5 + 785] = *a4;
       *(a1[89].i64[0] + 496) |= 8u;
       *(a1[89].i64[1] + 496) |= 8u;
       *v4 = 0;
@@ -1357,18 +1351,18 @@ LABEL_80:
   }
 }
 
-void gleSetEnable_LIGHT(uint64_t a1, int a2, int a3)
+void gleSetEnable_LIGHT(uint64_t result, int a2, int a3)
 {
-  v3 = *(a1 + 14880);
+  v3 = *(result + 14880);
   v4 = v3 & ~(1 << a2) | (a3 << a2);
   if (v3 != v4)
   {
-    *(a1 + 14880) = v4;
-    *(*(a1 + 1424) + 496) = 63;
-    *(*(a1 + 1432) + 496) = 63;
-    gleUpdateLightFast(a1, a2 - 0x4000);
-    *(a1 + 28652) = 0;
-    OUTLINED_FUNCTION_1_7(*(a1 + 1548));
+    *(result + 14880) = v4;
+    *(*(result + 1424) + 496) = 63;
+    *(*(result + 1432) + 496) = 63;
+    gleUpdateLightFast(result, a2 - 0x4000);
+    *(result + 28652) = 0;
+    OUTLINED_FUNCTION_1_7(*(result + 1548));
   }
 }
 
@@ -1542,13 +1536,13 @@ LABEL_34:
   return a1;
 }
 
-void glStencilOp_Exec(uint64_t a1, int a2, int a3, int a4)
+void glStencilOp_Exec(uint64_t result, int a2, int a3, int a4)
 {
-  v4 = (a1 + 28652);
+  v4 = (result + 28652);
   v7 = (a2 - 7680) < 4 || (a2 - 34055) < 2 || a2 == 0 || a2 == 5386;
   if (!v7 || ((a3 - 7680) >= 4 ? (v8 = (a3 - 34055) >= 2) : (v8 = 0), v8 && a3 && a3 != 5386 || ((a4 - 7680) >= 4 ? (v9 = (a4 - 34055) >= 2) : (v9 = 0), v9 && a4 && a4 != 5386)))
   {
-    if (!*(a1 + 29832))
+    if (!*(result + 29832))
     {
       OUTLINED_FUNCTION_1_2(v4);
     }
@@ -1556,40 +1550,40 @@ void glStencilOp_Exec(uint64_t a1, int a2, int a3, int a4)
     return;
   }
 
-  v10 = (a1 + 15606);
-  if (*(a1 + 29776) == 1028)
+  v10 = (result + 15606);
+  if (*(result + 29776) == 1028)
   {
-    if (*v10 != a2 || *(a1 + 15608) != a3 || *(a1 + 15610) != a4 || *(a1 + 15638) != a2 || *(a1 + 15640) != a3 || *(a1 + 15642) != a4)
+    if (*v10 != a2 || *(result + 15608) != a3 || *(result + 15610) != a4 || *(result + 15638) != a2 || *(result + 15640) != a3 || *(result + 15642) != a4)
     {
       *v10 = a2;
-      *(a1 + 15608) = a3;
-      *(a1 + 15610) = a4;
-      *(a1 + 15638) = a2;
-      *(a1 + 15640) = a3;
-      *(a1 + 15642) = a4;
-      v11 = *(a1 + 15644);
+      *(result + 15608) = a3;
+      *(result + 15610) = a4;
+      *(result + 15638) = a2;
+      *(result + 15640) = a3;
+      *(result + 15642) = a4;
+      v11 = *(result + 15644);
       if (v11 == 33)
       {
-        *(a1 + 15644) = 1;
-        *(a1 + 1548) |= 0x8000u;
+        *(result + 15644) = 1;
+        *(result + 1548) |= 0x8000u;
       }
 
       else
       {
-        *(a1 + 15644) = v11 & 0xFFFFFFDF;
+        *(result + 15644) = v11 & 0xFFFFFFDF;
       }
 
       goto LABEL_34;
     }
   }
 
-  else if (*(a1 + 15622) != a2 || *(a1 + 15624) != a3 || *(a1 + 15626) != a4)
+  else if (*(result + 15622) != a2 || *(result + 15624) != a3 || *(result + 15626) != a4)
   {
-    *(a1 + 15622) = a2;
-    *(a1 + 15624) = a3;
-    *(a1 + 15626) = a4;
+    *(result + 15622) = a2;
+    *(result + 15624) = a3;
+    *(result + 15626) = a4;
 LABEL_34:
-    OUTLINED_FUNCTION_3_2(a1, v4);
+    OUTLINED_FUNCTION_3_2(result, v4);
   }
 }
 
@@ -1697,7 +1691,7 @@ LABEL_17:
   return a3;
 }
 
-void *glMatrixMode_Comp(uint64_t a1, int a2)
+_DWORD *glMatrixMode_Comp(uint64_t a1, int a2)
 {
   result = gleAddCommand(a1, glMatrixMode_ListExec, 4);
   *result = a2;
@@ -2116,36 +2110,36 @@ void *gleLightMaterialRGBAChange_F_S(uint64_t a1, void *a2)
   return result;
 }
 
-uint64_t glMaterialf_Exec(uint64_t a1, float a2, int a3, int a4)
+uint64_t glMaterialf_Exec(uint64_t result, int a2, int a3, float a4)
 {
-  if (a4 == 5633)
+  if (a3 == 5633)
   {
-    if (a2 < 0.0 || *(*(a1 + 29032) + 124) < a2)
+    if (a4 < 0.0 || *(*(result + 29032) + 124) < a4)
     {
-      if (*(a1 + 29832))
+      if (*(result + 29832))
       {
-        return a1;
+        return result;
       }
 
       v4 = 1281;
 LABEL_11:
-      *(a1 + 29832) = v4;
-      return a1;
+      *(result + 29832) = v4;
+      return result;
     }
 
-    if (a3 == 1032)
+    if (a2 == 1032)
     {
-      return gleLightMaterialShineChange_FB(a1, a2);
+      return gleLightMaterialShineChange_FB(result, a4);
     }
   }
 
-  if (!*(a1 + 29832))
+  if (!*(result + 29832))
   {
     v4 = 1280;
     goto LABEL_11;
   }
 
-  return a1;
+  return result;
 }
 
 uint64_t gleCullTriangle(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, _DWORD *a6)
@@ -2356,7 +2350,7 @@ float64x2_t gleGetMatrixd(float32x2_t *a1, float64x2_t *a2)
   return result;
 }
 
-unint64_t glReadPixels_Exec(unint64_t result, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, int a7, uint64_t a8)
+unint64_t glReadPixels_Exec(unint64_t result, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v68 = a3;
   v69 = a2;
@@ -2375,6 +2369,7 @@ unint64_t glReadPixels_Exec(unint64_t result, unsigned int a2, unsigned int a3, 
   }
 
   LODWORD(v10) = a7;
+  v11 = a6;
   v13 = result;
   result = glePixelStorageFromFormatType(result, a6, a7);
   v17 = result;
@@ -2387,7 +2382,7 @@ unint64_t glReadPixels_Exec(unint64_t result, unsigned int a2, unsigned int a3, 
     }
   }
 
-  if (a6 == 35359 || a6 == 34233) && (a4)
+  if (v11 == 35359 || v11 == 34233) && (a4)
   {
     if (*(v8 + 200))
     {
@@ -2422,7 +2417,7 @@ LABEL_122:
     }
   }
 
-  result = gleCheckReadPixelsNeeds(v13, a6, 0, (v17 >> 31) & 1);
+  result = gleCheckReadPixelsNeeds(v13, v11, 0, (v17 >> 31) & 1);
   if (!result)
   {
     return result;
@@ -2448,7 +2443,7 @@ LABEL_122:
   v22 = v21 + 88 * *(v8 + 2867);
   v23 = *(v22 + 644);
   v24 = *(v22 + 646);
-  v27 = a6 == 6408 && v23 == 32993 && v24 == 33638;
+  v27 = v11 == 6408 && v23 == 32993 && v24 == 33638;
   v28 = v10 == 32820;
   if (v28 && v27)
   {
@@ -2476,7 +2471,7 @@ LABEL_122:
     v24 = v30;
   }
 
-  if (v23 == a6 && v10 == v24)
+  if (v23 == v11 && v10 == v24)
   {
     goto LABEL_58;
   }
@@ -2488,12 +2483,12 @@ LABEL_122:
   v36 = v32 & 0xFFFE;
   if (v34 < 0xC || v35 < 4 || v36 == 36012 || v33 == 35901 || v33 == 35898)
   {
-    if (a6 == 6408 && v10 == 5126)
+    if (v11 == 6408 && v10 == 5126)
     {
       goto LABEL_58;
     }
 
-    if (a6 != 6407 || (*(*(v13 + 29480) + 578) & 1) == 0)
+    if (v11 != 6407 || (*(*(v13 + 29480) + 578) & 1) == 0)
     {
       goto LABEL_120;
     }
@@ -2532,7 +2527,7 @@ LABEL_86:
     }
 
 LABEL_89:
-    if (a6 == 36249)
+    if (v11 == 36249)
     {
       v58 = 5125;
       goto LABEL_91;
@@ -2568,12 +2563,12 @@ LABEL_108:
       goto LABEL_120;
     }
 
-    if (a6 == 6408 && v10 == 5121)
+    if (v11 == 6408 && v10 == 5121)
     {
       goto LABEL_58;
     }
 
-    if (a6 != 6408 || v10 != 33640)
+    if (v11 != 6408 || v10 != 33640)
     {
       goto LABEL_120;
     }
@@ -2583,7 +2578,7 @@ LABEL_108:
   }
 
 LABEL_118:
-  if (a6 != 36249)
+  if (v11 != 36249)
   {
     goto LABEL_120;
   }
@@ -2596,7 +2591,7 @@ LABEL_91:
   }
 
 LABEL_58:
-  v41 = gleStandardizeIntegerFormat(a6);
+  v41 = gleStandardizeIntegerFormat(v11);
   v42 = *(v13 + 28968);
   v64 = v41;
   if (v42)
@@ -2983,7 +2978,7 @@ float *gleLightMaterialShineChange_FB(uint64_t a1, float a2)
   return result;
 }
 
-uint64_t gleCullPolygonPtrStack(uint64_t a1, float32x2_t **a2, int a3, _DWORD *a4, float *a5)
+uint64_t gleCullPolygonPtrStack(uint64_t a1, float32x2_t **a2, unsigned int a3, _DWORD *a4, float *a5)
 {
   v5 = *a2;
   v6 = (*a2)[8];
@@ -2992,7 +2987,7 @@ uint64_t gleCullPolygonPtrStack(uint64_t a1, float32x2_t **a2, int a3, _DWORD *a
   v8 = v6.f32[0];
   if (a3 >= 2)
   {
-    v10 = (a2 + 1);
+    v10 = a2 + 1;
     v11 = a3 - 1;
     LODWORD(v12) = HIDWORD(*&(*a2)[8]);
     v13 = v6.f32[0];
@@ -3049,7 +3044,7 @@ LABEL_15:
     else
     {
       v23 = -v6.f32[0];
-      v24 = v5[9].f32[0];
+      v24 = *(v5 + 72);
       v25 = 0;
       v26 = v24;
       v27 = v6;
@@ -3099,13 +3094,15 @@ LABEL_24:
   return result;
 }
 
-void glCompressedTexImage2D_Exec(uint64_t a1, int a2, uint64_t a3, uint64_t a4, int a5, int a6, int a7, int a8, uint64_t a9)
+void glCompressedTexImage2D_Exec(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
+  v11 = a6;
   v13 = a4;
+  v15 = a2;
   v16 = a1;
   v17 = a1 + 28652;
   v18 = gleSRGBToFormat(a4);
-  v74 = a9;
+  v73 = a9;
   if (!a9 && *(v16 + 18518))
   {
     if (!*(v17 + 1180))
@@ -3119,7 +3116,7 @@ LABEL_17:
     return;
   }
 
-  v75 = 0;
+  v74 = 0;
   v19 = *(v17 + 3841) & 0x10;
   v20 = v13 == 33776;
   if ((v20 & (v19 >> 4)) != 0)
@@ -3142,8 +3139,8 @@ LABEL_17:
     v22 = v13;
   }
 
-  v67 = v22;
-  v23 = gleCheckCompressedTexImage2DArgs(v16, a2, a3, v22, a5, a6, a7, a8, &v75);
+  v66 = v22;
+  v23 = gleCheckCompressedTexImage2DArgs(v16, v15, a3, v22, a5, v11, a7, a8, &v74);
   if (!v23)
   {
     return;
@@ -3156,11 +3153,11 @@ LABEL_17:
   }
 
   v25 = *(v16 + 19336);
-  v68 = v25;
+  v67 = v25;
   if (v25)
   {
-    v74 = gleHandleUnpackBufferInEngineNoSync(v16, v25, a9 + a8, 1, a9);
-    if (!v74)
+    v73 = gleHandleUnpackBufferInEngineNoSync(v16, v25, a9 + a8, 1, a9);
+    if (!v73)
     {
       return;
     }
@@ -3177,7 +3174,7 @@ LABEL_17:
   }
 
   v28 = *(v24 + 768);
-  v29 = v74;
+  v29 = v73;
   if ((v28 & 0x1C00) == 0x1000)
   {
     goto LABEL_25;
@@ -3192,8 +3189,8 @@ LABEL_17:
   if ((*(v24 + 768) & 0xC00) == 0)
   {
 LABEL_25:
-    v62 = v26;
-    if (a6)
+    v61 = v26;
+    if (v11)
     {
       v30 = a5;
     }
@@ -3203,64 +3200,63 @@ LABEL_25:
       v30 = 0;
     }
 
-    if ((a2 - 34069) >= 6)
+    if ((v15 - 34069) >= 6)
     {
       v31 = 0;
     }
 
     else
     {
-      v31 = (a2 - 34069);
+      v31 = (v15 - 34069);
     }
 
-    v32 = v67 - 35728;
-    v64 = v30;
-    if (v67 - 35728 <= 9)
+    v32 = v66 - 35728;
+    v63 = v30;
+    if (v66 - 35728 <= 9)
     {
-      v63 = a6;
-      v65 = v17;
+      v62 = v11;
+      v64 = v17;
       v33 = dword_23A102BE0[v32];
-      v70 = dword_23A102C08[v32];
-      if (v68 && *(v68 + 192))
+      v69 = dword_23A102C08[v32];
+      if (v67 && *(v67 + 192))
       {
-        gleSynchronizeBufferOnCurrentDevicesForRead(v16, v68 + 40);
-        v29 = v74;
+        gleSynchronizeBufferOnCurrentDevicesForRead(v16, v67 + 40);
+        v29 = v73;
       }
 
-      v72 = v16;
+      v71 = v16;
       v34 = 0;
       v35 = 0;
-      v69 = -a3;
-      v37 = v63;
-      v36 = v64;
-      v38 = v64;
+      v68 = -a3;
+      v37 = v62;
+      v36 = v63;
+      v38 = v63;
       do
       {
         v39 = v24 + 1032 + 480 * v31 + 32 * v34;
-        LOWORD(v60) = 256;
-        v40 = gleEvaluateTextureImageChange(v72, v24, v39, v31, v34, v38, v37, 1, 0, v33, v33, v70, v60, v29);
-        v29 = v74;
-        if (v38 && v74 && (*(v24 + 768) & 0x100) == 0)
+        v40 = gleEvaluateTextureImageChange(v71, v24, v39, v31, v34, v38, v37, 1, 0, v33, v33, v69, 256, v29);
+        v29 = v73;
+        if (v38 && v73 && (*(v24 + 768) & 0x100) == 0)
         {
           if (gfxAllocateTextureLevel())
           {
-            gleCompressedPalettedTextureImagePut(v72, v24, v39, v34, v36, v63, v67, v74);
-            v29 = v74;
-            v36 = v64;
+            gleCompressedPalettedTextureImagePut(v71, v24, v39, v34, v36, v62, v66, v73);
+            v29 = v73;
+            v36 = v63;
             *(v24 + 968) = *(v39 + 16);
             *(v39 + 11) |= 0x10u;
             *(v24 + 996 + 2 * v31) |= *(v24 + 984 + 2 * v31) & (1 << v34);
-            v41 = v24 + 96 + 24 * *(v65 + 3847);
+            v41 = v24 + 96 + 24 * *(v64 + 3847);
             *(v41 + 20) |= 4u;
             *(v41 + 2 * v31 + 8) |= 1 << v34;
           }
 
           else
           {
-            v29 = v74;
-            if (!*(v65 + 1180))
+            v29 = v73;
+            if (!*(v64 + 1180))
             {
-              *(v65 + 1180) = 1285;
+              *(v64 + 1180) = 1285;
             }
           }
         }
@@ -3273,10 +3269,10 @@ LABEL_25:
         v35 |= v40;
         v38 >>= v38 > 1;
         v37 >>= v37 > 1;
-        ++v34;
+        v34 = (v34 + 1);
       }
 
-      while (v34 <= v69);
+      while (v34 <= v68);
       if (v35 < 0)
       {
         v56 = 134356992;
@@ -3287,18 +3283,18 @@ LABEL_25:
         v56 = 139264;
       }
 
-      *v65 = 0;
-      *(v72 + 1548) |= v56;
-      gleDirtyTextureObjectCurrentBindPointsNoFBO(v72, v24);
-      if (*(v65 + 3851))
+      *v64 = 0;
+      *(v71 + 1548) |= v56;
+      gleDirtyTextureObjectCurrentBindPointsNoFBO(v71, v24);
+      if (*(v64 + 3851))
       {
-        *(v72 + 19168) += mach_absolute_time() - v62;
+        *(v71 + 19168) += mach_absolute_time() - v61;
       }
 
       return;
     }
 
-    if (a6)
+    if (v11)
     {
       v42 = a7;
     }
@@ -3309,22 +3305,21 @@ LABEL_25:
     }
 
     v43 = v24 + 480 * v31 + 32 * a3 + 1032;
-    LOWORD(v60) = 256;
-    v71 = v31;
+    v70 = v31;
     v44 = v31;
-    v45 = a6;
-    v46 = gleEvaluateTextureImageChange(v16, v24, v43, v44, a3, v30, a6, 1, v42, v67, v21, 0, v60, v74);
+    v45 = v11;
+    v46 = gleEvaluateTextureImageChange(v16, v24, v43, v44, a3, v30, v11, 1, v42, v66, v21, 0, 256, v73);
     if (!v30)
     {
       LOBYTE(v57) = 0;
-      v55 = v62;
+      v55 = v61;
       goto LABEL_77;
     }
 
-    v47 = v74;
-    if (v74 && (*(v24 + 768) & 0x100) == 0 && *(*(v16 + 29032) + 174) && *(v24 + 976) <= a3 && *(v24 + 978) >= a3 && ((*(v24 + 2 * v71 + 984) >> a3) & 1) != 0)
+    v47 = v73;
+    if (v73 && (*(v24 + 768) & 0x100) == 0 && *(*(v16 + 29032) + 174) && *(v24 + 976) <= a3 && *(v24 + 978) >= a3 && ((*(v24 + 2 * v70 + 984) >> a3) & 1) != 0)
     {
-      v66 = v17;
+      v65 = v17;
       v48 = *(v16 + 8 * *(v16 + 23768) + 23936);
       if (v48)
       {
@@ -3340,17 +3335,17 @@ LABEL_25:
       v51 = (*v49 & 1) == 0;
       *(v24 + 968) = v21;
       *(v24 + 970) = 0;
-      if (v68)
+      if (v67)
       {
         v52 = *(*(v50 + 29448) + 368);
-        v73 = v50;
+        v72 = v50;
         v53 = *(v50 + 29016);
-        v17 = v66;
-        v54 = v52(v53, *(v24 + 8 * *(v66 + 3847)), v71, a3, 0, 0, 0, v30, v45 | 0x100000000, v21, v74, 0, *(v68 + 40 + 8 * *(v66 + 3847)), v51);
+        v17 = v65;
+        v54 = v52(v53, *(v24 + 8 * *(v65 + 3847)), v70, a3, 0, 0, 0, v30, v45 | 0x100000000, v21, v73, 0, *(v67 + 40 + 8 * *(v65 + 3847)), v51);
         if (v54)
         {
-          v16 = v73;
-          v55 = v62;
+          v16 = v72;
+          v55 = v61;
 LABEL_93:
           *(v24 + 536) = *(v16 + 29024);
           *(v43 + 11) |= 0x40u;
@@ -3358,17 +3353,17 @@ LABEL_93:
           goto LABEL_77;
         }
 
-        v50 = v73;
-        if (*(v68 + 192))
+        v50 = v72;
+        if (*(v67 + 192))
         {
-          gleSynchronizeBufferOnCurrentDevicesForRead(v73, v68 + 40);
+          gleSynchronizeBufferOnCurrentDevicesForRead(v72, v67 + 40);
         }
       }
 
-      v54 = (*(*(v50 + 29448) + 368))(*(v50 + 29016), *(v24 + 8 * *(v66 + 3847)), v71, a3, 0, 0, 0, v30, v45 | 0x100000000, v21, v74, 0, 0, v51);
+      v54 = (*(*(v50 + 29448) + 368))(*(v50 + 29016), *(v24 + 8 * *(v65 + 3847)), v70, a3, 0, 0, 0, v30, v45 | 0x100000000, v21, v73, 0, 0, v51);
       v16 = v50;
-      v17 = v66;
-      v55 = v62;
+      v17 = v65;
+      v55 = v61;
       if (v54)
       {
         goto LABEL_93;
@@ -3377,11 +3372,11 @@ LABEL_93:
 
     else
     {
-      v55 = v62;
-      if (v68 && *(v68 + 192))
+      v55 = v61;
+      if (v67 && *(v67 + 192))
       {
-        gleSynchronizeBufferOnCurrentDevicesForRead(v16, v68 + 40);
-        v47 = v74;
+        gleSynchronizeBufferOnCurrentDevicesForRead(v16, v67 + 40);
+        v47 = v73;
       }
 
       if (!v47)
@@ -3394,15 +3389,15 @@ LABEL_93:
     {
       if ((*(v43 + 11) & 1) != 0 || gfxAllocateTextureLevel())
       {
-        LOBYTE(v61) = 0;
-        gleTextureImagePut(v16, v24, v43, 0, 0, 0, v30, v45, 1, v75, v61, 0, v74);
+        LOBYTE(v60) = 0;
+        gleTextureImagePut(v16, v24, v43, 0, 0, 0, v30, v45, 1, v74, v60, 0, v73);
         LOBYTE(v57) = 0;
         *(v24 + 968) = *(v43 + 16);
         *(v43 + 11) |= 0x10u;
-        *(v24 + 2 * v71 + 996) |= *(v24 + 2 * v71 + 984) & (1 << a3);
+        *(v24 + 2 * v70 + 996) |= *(v24 + 2 * v70 + 984) & (1 << a3);
         v58 = v24 + 24 * *(v17 + 3847);
         *(v58 + 116) |= 4u;
-        *(v58 + 2 * v71 + 104) |= 1 << a3;
+        *(v58 + 2 * v70 + 104) |= 1 << a3;
       }
 
       else
@@ -3464,11 +3459,15 @@ LABEL_75:
   }
 }
 
-uint64_t gleCheckCompressedTexImage2DArgs(uint64_t a1, int a2, int a3, unsigned int a4, int a5, int a6, int a7, int a8, unint64_t *a9)
+uint64_t gleCheckCompressedTexImage2DArgs(uint64_t a1, int a2, uint64_t a3, uint64_t a4, int a5, int a6, uint64_t a7, uint64_t a8, unint64_t *a9)
 {
+  v9 = a8;
+  v10 = a7;
+  v13 = a4;
+  v14 = a3;
   v16 = a1 + 28672;
   v17 = gleLookUpTexture2D(a1, a2);
-  v18 = glePixelStorageFromCompressedFormat(a1, a4);
+  v18 = glePixelStorageFromCompressedFormat(a1, v13);
   *a9 = v18;
   if (!v17)
   {
@@ -3497,8 +3496,8 @@ LABEL_36:
     return 0;
   }
 
-  v20 = a5 - 2 * a7;
-  v21 = a6 - 2 * a7;
+  v20 = a5 - 2 * v10;
+  v21 = a6 - 2 * v10;
   v22 = *(v17 + 768) & 0xF;
   if (v22 <= 2)
   {
@@ -3528,13 +3527,13 @@ LABEL_33:
 LABEL_16:
     if ((v20 & 0x80000000) == 0)
     {
-      if ((v20 & (v20 - 1)) == 0 || (v25 = *(v16 + 3829), v25 == 4) || !a3 && (v25 == 3 || (*(*(a1 + 29032) + 578) & 0x10) != 0))
+      if ((v20 & (v20 - 1)) == 0 || (v25 = *(v16 + 3829), v25 == 4) || !v14 && (v25 == 3 || (*(*(a1 + 29032) + 578) & 0x10) != 0))
       {
         v26 = *(a1 + 29032);
         v27 = *(v26 + 160);
         if (v20 <= v27 && (v21 & 0x80000000) == 0)
         {
-          if ((v21 & (v21 - 1)) == 0 || (v28 = *(v16 + 3829), v28 == 4) || !a3 && (v28 == 3 || (*(v26 + 578) & 0x10) != 0))
+          if ((v21 & (v21 - 1)) == 0 || (v28 = *(v16 + 3829), v28 == 4) || !v14 && (v28 == 3 || (*(v26 + 578) & 0x10) != 0))
           {
             if (v21 <= v27)
             {
@@ -3559,12 +3558,12 @@ LABEL_16:
   }
 
 LABEL_9:
-  if (a4 >> 2 == 8853 && (*(v16 + 3829) == 2 || (*(*(a1 + 29032) + 577) & 1) == 0))
+  if (v13 >> 2 == 8853 && (*(v16 + 3829) == 2 || (*(*(a1 + 29032) + 577) & 1) == 0))
   {
     goto LABEL_12;
   }
 
-  if (gleCheckCompressedTexImageArgs(a1, a3, a7, v20, v21, 1, a8, v18, v19))
+  if (gleCheckCompressedTexImageArgs(a1, v14, v10, v20, v21, 1, v9, v18, v19))
   {
     return v17;
   }
@@ -3575,7 +3574,7 @@ LABEL_9:
   }
 }
 
-uint64_t gleCheckCompressedTexImageArgs(uint64_t a1, int a2, int a3, int a4, int a5, int a6, int a7, unint64_t a8, int8x8_t a9)
+uint64_t gleCheckCompressedTexImageArgs(uint64_t a1, int a2, int a3, unsigned int a4, unsigned int a5, int a6, int a7, unint64_t a8, int8x8_t a9)
 {
   if ((a8 & 0x800000000000000) == 0)
   {
@@ -3690,8 +3689,8 @@ LABEL_34:
   while (a4 != 1 || a5 != 1)
   {
     v13 += (a5 * v10 * a4) >> 3;
-    a4 = a4 >> (a4 > 1);
-    a5 = a5 >> (a5 > 1);
+    a4 >>= a4 > 1;
+    a5 >>= a5 > 1;
     ++a2;
     if (!--v14)
     {
@@ -3931,7 +3930,7 @@ LABEL_20:
   return result;
 }
 
-void *glActiveTexture_Comp(uint64_t a1, int a2)
+_DWORD *glActiveTexture_Comp(uint64_t a1, int a2)
 {
   result = gleAddCommand(a1, glActiveTexture_ListExec, 4);
   *result = a2;
@@ -4014,16 +4013,16 @@ float *glBlendColor_Comp(uint64_t a1, float a2, float a3, float a4, float a5)
   return result;
 }
 
-uint64_t glBlendColor_ListExec(uint64_t a1, uint64_t a2, float32x4_t a3, double a4, double a5)
+uint64_t glBlendColor_ListExec(uint64_t a1, float *a2, float32x4_t a3, double a4, double a5)
 {
-  a3.i32[0] = *a2;
-  LODWORD(a4) = *(a2 + 4);
-  LODWORD(a5) = *(a2 + 8);
-  glBlendColor_Exec(a1, a3, a4, a5, *(a2 + 12));
+  a3.f32[0] = *a2;
+  *&a4 = a2[1];
+  *&a5 = a2[2];
+  glBlendColor_Exec(a1, a3, a4, a5, a2[3]);
   return 16;
 }
 
-void *glBlendEquation_Comp(uint64_t a1, int a2)
+_DWORD *glBlendEquation_Comp(uint64_t a1, int a2)
 {
   result = gleAddCommand(a1, glBlendEquation_ListExec, 4);
   *result = a2;
@@ -4077,7 +4076,7 @@ _DWORD *glBlendFuncSeparate_Comp(uint64_t a1, int a2, int a3, int a4, int a5)
   return result;
 }
 
-uint64_t glBlendFuncSeparate_Exec(uint64_t result, int a2, int a3, int a4, int a5)
+uint64_t glBlendFuncSeparate_Exec(uint64_t result, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5)
 {
   v5 = (result + 28652);
   v6 = *(result + 29812);
@@ -4089,12 +4088,12 @@ uint64_t glBlendFuncSeparate_Exec(uint64_t result, int a2, int a3, int a4, int a
 
   if (a2 <= 0x8000)
   {
-    if ((a2 - 770) < 7)
+    if (a2 - 770 < 7)
     {
       goto LABEL_2;
     }
 
-    if ((a2 - 768) >= 2)
+    if (a2 - 768 >= 2)
     {
       goto LABEL_57;
     }
@@ -4102,7 +4101,7 @@ uint64_t glBlendFuncSeparate_Exec(uint64_t result, int a2, int a3, int a4, int a
     goto LABEL_50;
   }
 
-  if ((a2 - 32769) < 4)
+  if (a2 - 32769 < 4)
   {
 LABEL_50:
     if (*(result + 32501) == 2)
@@ -4113,7 +4112,7 @@ LABEL_50:
     goto LABEL_2;
   }
 
-  if ((a2 - 35065) >= 3 && a2 != 34185)
+  if (a2 - 35065 >= 3 && a2 != 34185)
   {
     goto LABEL_57;
   }
@@ -4127,7 +4126,7 @@ LABEL_2:
 
   if (a3 <= 0x8000)
   {
-    if ((a3 - 768) > 8)
+    if (a3 - 768 > 8)
     {
       goto LABEL_57;
     }
@@ -4140,7 +4139,7 @@ LABEL_2:
     goto LABEL_52;
   }
 
-  if ((a3 - 32769) < 4)
+  if (a3 - 32769 < 4)
   {
 LABEL_52:
     if (*(result + 32501) == 2)
@@ -4151,7 +4150,7 @@ LABEL_52:
     goto LABEL_3;
   }
 
-  if ((a3 - 35065) >= 3 && a3 != 34185)
+  if (a3 - 35065 >= 3 && a3 != 34185)
   {
     goto LABEL_57;
   }
@@ -4165,12 +4164,12 @@ LABEL_3:
 
   if (a4 <= 0x8000)
   {
-    if ((a4 - 770) < 7)
+    if (a4 - 770 < 7)
     {
       goto LABEL_4;
     }
 
-    if ((a4 - 768) >= 2)
+    if (a4 - 768 >= 2)
     {
       goto LABEL_57;
     }
@@ -4178,7 +4177,7 @@ LABEL_3:
     goto LABEL_54;
   }
 
-  if ((a4 - 32769) < 4)
+  if (a4 - 32769 < 4)
   {
 LABEL_54:
     if (*(result + 32501) == 2)
@@ -4189,7 +4188,7 @@ LABEL_54:
     goto LABEL_4;
   }
 
-  if ((a4 - 35065) >= 3 && a4 != 34185)
+  if (a4 - 35065 >= 3 && a4 != 34185)
   {
     goto LABEL_57;
   }
@@ -4235,7 +4234,7 @@ LABEL_5:
 
   if (a5 <= 0x8000)
   {
-    if ((a5 - 768) > 8)
+    if (a5 - 768 > 8)
     {
       goto LABEL_57;
     }
@@ -4248,7 +4247,7 @@ LABEL_5:
     goto LABEL_56;
   }
 
-  if ((a5 - 32769) < 4)
+  if (a5 - 32769 < 4)
   {
 LABEL_56:
     if (*(result + 32501) != 2)
@@ -4259,7 +4258,7 @@ LABEL_56:
     goto LABEL_57;
   }
 
-  if ((a5 - 35065) < 3 || a5 == 34185)
+  if (a5 - 35065 < 3 || a5 == 34185)
   {
     v7 |= 0xFFu;
     goto LABEL_5;
@@ -4319,13 +4318,14 @@ uint64_t glBlendEquationSeparateEXT_Exec(uint64_t result, int a2, int a3)
   return result;
 }
 
-void glBindBuffer_Exec(uint64_t a1, int a2, int a3)
+void glBindBuffer_Exec(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   if ((a2 - 34962) < 2)
   {
 LABEL_2:
     os_unfair_lock_lock((*(a1 + 19296) + 324));
-    gleBindBufferObject(a1, a2, a3);
+    gleBindBufferObject(a1, v4, a3);
     v6 = (*(a1 + 19296) + 324);
 
     os_unfair_lock_unlock(v6);
@@ -4357,11 +4357,11 @@ LABEL_12:
   }
 }
 
-void *glBindBuffer_PackThread(void *a1, int a2, int a3)
+void *glBindBuffer_PackThread(void *result, int a2, int a3)
 {
   if ((a2 - 34962) < 2)
   {
-    return gleBindBufferObject_Thread(a1, a2, a3);
+    return gleBindBufferObject_Thread(result, a2, a3);
   }
 
   if (a2 > 35981)
@@ -4377,18 +4377,18 @@ void *glBindBuffer_PackThread(void *a1, int a2, int a3)
     goto LABEL_10;
   }
 
-  if ((*(a1 + 32501) & 0xFE) != 2)
+  if ((*(result + 32501) & 0xFE) != 2)
   {
-    return gleBindBufferObject_Thread(a1, a2, a3);
+    return gleBindBufferObject_Thread(result, a2, a3);
   }
 
 LABEL_10:
-  if (!*(a1 + 14916))
+  if (!*(result + 14916))
   {
-    *(a1 + 14916) = 1280;
+    *(result + 14916) = 1280;
   }
 
-  return a1;
+  return result;
 }
 
 void glDeleteBuffers_Exec(uint64_t a1, unsigned int a2, uint64_t a3)
@@ -5226,8 +5226,10 @@ LABEL_15:
   return result;
 }
 
-uint64_t glBufferData_Exec(uint64_t result, int a2, size_t a3, const void *a4, int a5)
+uint64_t glBufferData_Exec(uint64_t result, uint64_t a2, size_t a3, const void *a4, uint64_t a5)
 {
+  v5 = a5;
+  v8 = a2;
   v9 = result;
   v10 = result + 28672;
   if (a2 > 35344)
@@ -5362,7 +5364,7 @@ LABEL_49:
 
   (*(*(result + 29448) + 1024))(*(result + 29016), *(v14 + 40 + 8 * *(result + 32500)));
   gleOrphanBufferObject(v9, v14 + 40);
-  v15 = gleAcquireBufferData(v9, v14 + 136, a3, a2, a5);
+  v15 = gleAcquireBufferData(v9, v14 + 136, a3, v8, v5);
   gleApplyBufferData(v9, v14 + 40, v15);
   if (!a3)
   {
@@ -5498,11 +5500,11 @@ LABEL_21:
   return result;
 }
 
-void gleApplyBufferData(uint64_t a1, uint64_t a2, uint64_t a3)
+void gleApplyBufferData(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
-    gleBufferObjectAdoptOrphan(a1, a2, a3);
+    gleBufferObjectAdoptOrphan(result, a2, a3);
   }
 
   else
@@ -5517,8 +5519,8 @@ void gleApplyBufferData(uint64_t a1, uint64_t a2, uint64_t a3)
       v4 = 1;
     }
 
-    v5 = *(a1 + 32496);
-    if (*(a1 + 32496))
+    v5 = *(result + 32496);
+    if (*(result + 32496))
     {
       v6 = (a2 + 264);
       do
@@ -5535,10 +5537,10 @@ void gleApplyBufferData(uint64_t a1, uint64_t a2, uint64_t a3)
   *(a2 + 152) = 0;
 }
 
-void *glBufferData_PackThread(void *result, int a2, size_t a3, const void *a4, int a5)
+_OWORD *glBufferData_PackThread(_OWORD *result, int a2, size_t a3, const void *a4, int a5)
 {
   v8 = result;
-  v9 = result + 3584;
+  v9 = result + 1792;
   if (a2 > 35344)
   {
     if (a2 <= 36333)
@@ -5550,7 +5552,7 @@ void *glBufferData_PackThread(void *result, int a2, size_t a3, const void *a4, i
           goto LABEL_42;
         }
 
-        v10 = 3313;
+        v10 = 26504;
         goto LABEL_25;
       }
     }
@@ -5564,7 +5566,7 @@ void *glBufferData_PackThread(void *result, int a2, size_t a3, const void *a4, i
           goto LABEL_42;
         }
 
-        v10 = 3315;
+        v10 = 26520;
       }
 
       else
@@ -5574,15 +5576,15 @@ void *glBufferData_PackThread(void *result, int a2, size_t a3, const void *a4, i
           goto LABEL_42;
         }
 
-        v10 = 3316;
+        v10 = 26528;
       }
 
       goto LABEL_25;
     }
 
-    v10 = 3312;
+    v10 = 26496;
 LABEL_25:
-    v11 = &result[v10];
+    v11 = (result + v10);
     goto LABEL_26;
   }
 
@@ -5590,7 +5592,7 @@ LABEL_25:
   {
     if (a2 == 35051)
     {
-      v10 = 3310;
+      v10 = 26480;
     }
 
     else
@@ -5600,7 +5602,7 @@ LABEL_25:
         goto LABEL_42;
       }
 
-      v10 = 3311;
+      v10 = 26488;
     }
 
     goto LABEL_25;
@@ -5608,7 +5610,7 @@ LABEL_25:
 
   if (a2 == 34962)
   {
-    v10 = 3308;
+    v10 = 26464;
     goto LABEL_25;
   }
 
@@ -5617,7 +5619,7 @@ LABEL_25:
     goto LABEL_42;
   }
 
-  v11 = result[3306];
+  v11 = *(result + 3306);
   if (!v11)
   {
     v11 = result + 3309;
@@ -5697,11 +5699,11 @@ LABEL_35:
   v14 = *(v12 + 32);
   v15 = *(v12 + 48);
   v16 = *v12;
-  *(result + 1) = *(v12 + 16);
-  *(result + 2) = v14;
+  result[1] = *(v12 + 16);
+  result[2] = v14;
   *result = v16;
-  result[6] = v15;
-  result[7] = v13;
+  *(result + 6) = v15;
+  *(result + 7) = v13;
   if (a3)
   {
     v17 = a4 == 0;
@@ -5991,12 +5993,12 @@ LABEL_26:
     gfxWaitBufferOnDevices();
   }
 
-  if (v9[3809] && (*(v14 + 165) || *(v8[3629] + 102)) && (result = (*(v8[3681] + 416))(v8[3627], *(v15 + 8 * v9[3827]), a3, a4, a5), result))
+  if (v9[3809] && (*(v14 + 165) || *(*(v8 + 3629) + 102)) && (result = (*(*(v8 + 3681) + 416))(*(v8 + 3627), *(v15 + 8 * v9[3827]), a3, a4, a5), result))
   {
-    v16 = v8[3628];
+    v16 = *(v8 + 3628);
     *(v14 + 167) = 0;
     *(v14 + 192) = v16;
-    v17 = v8[3298];
+    v17 = *(v8 + 3298);
     if (v17)
     {
       *(v17 + 1216) = 0;
@@ -6012,7 +6014,7 @@ LABEL_26:
 
     else if (*(v14 + 165))
     {
-      (*(v8[3681] + 280))(v8[3627], 3, 0, *(v15 + 8 * v9[3827]));
+      (*(*(v8 + 3681) + 280))(*(v8 + 3627), 3, 0, *(v15 + 8 * v9[3827]));
     }
 
     *(v14 + 167) = 1;
@@ -6976,7 +6978,7 @@ LABEL_26:
   return 4;
 }
 
-uint64_t glGetBufferParameteriv_Exec(uint64_t a1, int a2, int a3, _DWORD *a4)
+uint64_t glGetBufferParameteriv_Exec(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
 {
   v6 = 0;
   result = gleGetBufferParameterCore(a1, a2, a3, &v6);
@@ -7326,8 +7328,10 @@ uint64_t glGetBufferPointerv_ExecThread(uint64_t a1, int a2, int a3, void *a4)
   return glGetBufferPointerv_Exec(a1, a2, a3, a4);
 }
 
-void glBindBufferRange_Exec(uint64_t a1, int a2, unsigned int a3, int a4, uint64_t a5, uint64_t a6)
+void glBindBufferRange_Exec(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
+  v9 = a3;
+  v10 = a2;
   if (a2 != 35982)
   {
     if (a2 != 35345)
@@ -7396,10 +7400,10 @@ LABEL_20:
 
   else
   {
-    gleBindBufferObject(a1, a2, a4);
+    gleBindBufferObject(a1, v10, a4);
     os_unfair_lock_unlock((*(a1 + 19296) + 324));
 
-    gleBindBufferRange(a1, a2, a3, a5, a6);
+    gleBindBufferRange(a1, v10, v9, a5, a6);
   }
 }
 
@@ -7586,13 +7590,14 @@ LABEL_37:
   }
 }
 
-void glBindBufferBase_Exec(uint64_t a1, int a2, unsigned int a3, int a4)
+void glBindBufferBase_Exec(uint64_t result, uint64_t a2, unsigned int a3, uint64_t a4)
 {
+  v6 = a2;
   if (a2 != 35982)
   {
     if (a2 != 35345)
     {
-      if (*(a1 + 29832))
+      if (*(result + 29832))
       {
         return;
       }
@@ -7601,20 +7606,20 @@ void glBindBufferBase_Exec(uint64_t a1, int a2, unsigned int a3, int a4)
       goto LABEL_13;
     }
 
-    if (*(*(a1 + 29480) + 506) > a3)
+    if (*(*(result + 29480) + 506) > a3)
     {
       goto LABEL_15;
     }
 
 LABEL_6:
-    if (*(a1 + 29832))
+    if (*(result + 29832))
     {
       return;
     }
 
     v8 = 1281;
 LABEL_13:
-    *(a1 + 29832) = v8;
+    *(result + 29832) = v8;
     return;
   }
 
@@ -7623,9 +7628,9 @@ LABEL_13:
     goto LABEL_6;
   }
 
-  if (*(*(a1 + 26432) + 42) != -1)
+  if (*(*(result + 26432) + 42) != -1)
   {
-    if (*(a1 + 29832))
+    if (*(result + 29832))
     {
       return;
     }
@@ -7635,15 +7640,17 @@ LABEL_13:
   }
 
 LABEL_15:
-  os_unfair_lock_lock((*(a1 + 19296) + 324));
-  gleBindBufferObject(a1, a2, a4);
-  os_unfair_lock_unlock((*(a1 + 19296) + 324));
+  os_unfair_lock_lock((*(result + 19296) + 324));
+  gleBindBufferObject(result, v6, a4);
+  os_unfair_lock_unlock((*(result + 19296) + 324));
 
-  gleBindBufferRange(a1, a2, a3, 0, 0);
+  gleBindBufferRange(result, v6, a3, 0, 0);
 }
 
-void glBindBufferRange_PackThread(uint64_t a1, int a2, unsigned int a3, int a4, uint64_t a5, uint64_t a6)
+void glBindBufferRange_PackThread(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
+  v8 = a4;
+  v10 = a2;
   if (a2 == 35982)
   {
     if (a3 < 4)
@@ -7662,9 +7669,9 @@ void glBindBufferRange_PackThread(uint64_t a1, int a2, unsigned int a3, int a4, 
       if (!a4)
       {
 LABEL_23:
-        gleBindBufferObject_Thread(a1, a2, a4);
+        gleBindBufferObject_Thread(a1, v10, v8);
         v14 = gleAddCommand(a1, glBindBufferRange_UnpackThread, 24);
-        *v14 = a2;
+        *v14 = v10;
         *(v14 + 1) = a3;
         v14[1] = a5;
         v14[2] = a6;
@@ -7713,7 +7720,7 @@ LABEL_16:
 
 LABEL_21:
   os_unfair_lock_lock((*(a1 + 19296) + 324));
-  if (gleLookupHashObject(*(a1 + 19296) + 264, a4))
+  if (gleLookupHashObject(*(a1 + 19296) + 264, v8))
   {
     os_unfair_lock_unlock((*(a1 + 19296) + 324));
     goto LABEL_23;
@@ -7729,8 +7736,9 @@ LABEL_21:
   os_unfair_lock_unlock(v15);
 }
 
-void *glBindBufferBase_PackThread(void *result, int a2, unsigned int a3, int a4)
+void *glBindBufferBase_PackThread(void *result, uint64_t a2, unsigned int a3, uint64_t a4)
 {
+  v5 = a2;
   v6 = result;
   if (a2 != 35982)
   {
@@ -7781,7 +7789,7 @@ LABEL_13:
 LABEL_14:
   gleBindBufferObject_Thread(result, a2, a4);
   result = gleAddCommand(v6, glBindBufferRange_UnpackThread, 24);
-  *result = a2;
+  *result = v5;
   *(result + 1) = a3;
   result[1] = 0;
   result[2] = 0;
@@ -8866,14 +8874,14 @@ void *glFlushMappedBufferRange_PackThread(uint64_t a1, int a2, uint64_t a3, uint
   return result;
 }
 
-void *glClear_Comp(uint64_t a1, int a2)
+_DWORD *glClear_Comp(uint64_t a1, int a2)
 {
   result = gleAddCommand(a1, glClear_ListExec, 4);
   *result = a2;
   return result;
 }
 
-uint64_t glClearBufferfv_Exec(uint64_t result, int a2, unsigned int a3, float32x4_t *a4, double a5, double a6, double a7)
+uint64_t glClearBufferfv_Exec(uint64_t result, int a2, uint64_t a3, float32x4_t *a4, double a5, double a6, double a7)
 {
   v7 = a4;
   v8 = result;
@@ -9256,7 +9264,7 @@ uint64_t glClearBufferiv_Exec(uint64_t result, int a2, unsigned int a3, float *a
   v10 = *(result + 29480);
   if (!*(v10 + 110))
   {
-    v19.n128_u64[0] = 0;
+    *&v19 = 0;
     switch(a2)
     {
       case 6144:
@@ -9266,7 +9274,7 @@ uint64_t glClearBufferiv_Exec(uint64_t result, int a2, unsigned int a3, float *a
         v14 = 256;
         break;
       case 6146:
-        v19.n128_f32[1] = *a4;
+        *(&v19 + 1) = *a4;
         v14 = 1024;
         v7 = &v19;
         break;
@@ -9387,7 +9395,7 @@ uint64_t glClearBufferuiv_Exec(uint64_t result, int a2, unsigned int a3, float *
   v10 = *(result + 29480);
   if (!*(v10 + 110))
   {
-    v19.n128_u64[0] = 0;
+    *&v19 = 0;
     switch(a2)
     {
       case 6144:
@@ -9397,7 +9405,7 @@ uint64_t glClearBufferuiv_Exec(uint64_t result, int a2, unsigned int a3, float *
         v14 = 256;
         break;
       case 6146:
-        v19.n128_f32[1] = *a4;
+        *(&v19 + 1) = *a4;
         v14 = 1024;
         v7 = &v19;
         break;
@@ -9772,12 +9780,12 @@ float *glClearColor_Comp(uint64_t a1, float a2, float a3, float a4, float a5)
   return result;
 }
 
-uint64_t glClearColor_ListExec(uint64_t a1, uint64_t a2, double a3, double a4, double a5)
+uint64_t glClearColor_ListExec(uint64_t a1, float *a2, double a3, double a4, double a5)
 {
-  LODWORD(a3) = *a2;
-  LODWORD(a4) = *(a2 + 4);
-  LODWORD(a5) = *(a2 + 8);
-  glClearColor_Exec(a1, a3, a4, a5, *(a2 + 12));
+  *&a3 = *a2;
+  *&a4 = a2[1];
+  *&a5 = a2[2];
+  glClearColor_Exec(a1, a3, a4, a5, a2[3]);
   return 16;
 }
 

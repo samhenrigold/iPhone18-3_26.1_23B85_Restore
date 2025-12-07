@@ -57,14 +57,12 @@
   has = self->_has;
   if (has)
   {
-    locationType = self->_locationType;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    percentage = self->_percentage;
 
     PBDataWriterWriteInt32Field();
   }

@@ -8,7 +8,7 @@
 
 - (id)runIndividuallyWithInput:(id)input
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   gUID = [inputCopy GUID];
   if (IMOSLoggingEnabled())
@@ -35,9 +35,9 @@
 
       v10 = v9;
       *buf = 138412546;
-      v46 = v10;
-      v47 = 2112;
-      v48 = gUID;
+      v45 = v10;
+      v46 = 2112;
+      v47 = gUID;
       _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "<IMMessageFromStoragePipelineComponent> Started processing type (%@) for guid %@", buf, 0x16u);
     }
   }
@@ -90,17 +90,17 @@
           internalName = [service internalName];
           broadcaster = self->_broadcaster;
           *buf = 134218498;
-          v46 = v19;
-          v47 = 2112;
-          v48 = internalName;
-          v49 = 2048;
-          v50 = broadcaster;
+          v45 = v19;
+          v46 = 2112;
+          v47 = internalName;
+          v48 = 2048;
+          v49 = broadcaster;
           _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "    Updated messages: %lu for service: %@ with broadcaster: %p", buf, 0x20u);
         }
       }
 
       messageItems2 = [inputCopy messageItems];
-      v44 = IMCreateSerializedItemsFromArray();
+      v43 = IMCreateSerializedItemsFromArray();
 
       v25 = self->_broadcaster;
       account2 = [inputCopy account];
@@ -109,9 +109,9 @@
       chat = [inputCopy chat];
       chatIdentifier = [chat chatIdentifier];
       chat2 = [inputCopy chat];
-      [v25 service:internalName2 chat:chatIdentifier style:objc_msgSend(chat2 messagesUpdated:{"style"), v44}];
+      [v25 service:internalName2 chat:chatIdentifier style:objc_msgSend(chat2 messagesUpdated:{"style"), v43}];
 
-      v11 = v43;
+      v11 = v42;
     }
   }
 
@@ -141,7 +141,7 @@
         {
           v33 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(inputCopy, "isFromStorage")}];
           *buf = 138412290;
-          v46 = v33;
+          v45 = v33;
           _os_log_impl(&dword_22B4CC000, v32, OS_LOG_TYPE_INFO, "    Is from storage (%@)", buf, 0xCu);
         }
       }
@@ -174,16 +174,14 @@
 
       v39 = v38;
       *buf = 138412546;
-      v46 = v39;
-      v47 = 2112;
-      v48 = gUID;
+      v45 = v39;
+      v46 = 2112;
+      v47 = gUID;
       _os_log_impl(&dword_22B4CC000, v35, OS_LOG_TYPE_INFO, "    Processed type (%@) for guid %@", buf, 0x16u);
     }
   }
 
   v40 = [objc_alloc(MEMORY[0x277D18E08]) initWithValue:inputCopy];
-
-  v41 = *MEMORY[0x277D85DE8];
 
   return v40;
 }

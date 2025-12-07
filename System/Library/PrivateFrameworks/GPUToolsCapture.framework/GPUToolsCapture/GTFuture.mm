@@ -57,12 +57,10 @@ id __31__GTFuture_timeoutAfter_label___block_invoke(uint64_t a1)
   return result;
 }
 
-void __29__GTFuture_addResultHandler___block_invoke(void *a1)
+void __29__GTFuture_addResultHandler___block_invoke(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  (*(a1[6] + 16))();
-  v4 = a1[6];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 48);
 }
 
 void __29__GTFuture_addResultHandler___block_invoke_2(uint64_t a1)
@@ -84,12 +82,10 @@ void __29__GTFuture_addResultHandler___block_invoke_2(uint64_t a1)
   dispatch_async(global_queue, block);
 }
 
-void __29__GTFuture_addResultHandler___block_invoke_3(void *a1)
+void __29__GTFuture_addResultHandler___block_invoke_3(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  (*(a1[6] + 16))();
-  v4 = a1[6];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 48);
 }
 
 @end

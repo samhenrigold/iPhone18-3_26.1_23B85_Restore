@@ -475,7 +475,7 @@ uint64_t __64__SBHIconGridContiguousRegion_subcontiguousRegionWithGridRange___bl
   v10 = [v11 appendObject:v9 withName:@"gridRange"];
 }
 
-- (void)contiguousRegionByRemovingGridCellIndexes:(uint64_t *)a3 .cold.1(void *a1, uint64_t a2, uint64_t *a3)
+- (void)contiguousRegionByRemovingGridCellIndexes:(void *)a3 .cold.1(void *a1, uint64_t a2, void **a3)
 {
   v6 = [a1 gridSize];
   if (a1)
@@ -496,7 +496,7 @@ uint64_t __64__SBHIconGridContiguousRegion_subcontiguousRegionWithGridRange___bl
   *a3 = OUTLINED_FUNCTION_1_5(v8, v9, v10, v11, v12, v13, v14, v15, v16, v17);
 }
 
-- (void)contiguousRegionByAddingGridCellIndexes:(uint64_t *)a3 .cold.1(void *a1, uint64_t a2, uint64_t *a3)
+- (void)contiguousRegionByAddingGridCellIndexes:(void *)a3 .cold.1(void *a1, uint64_t a2, void **a3)
 {
   v6 = [a1 gridSize];
   if (a1)

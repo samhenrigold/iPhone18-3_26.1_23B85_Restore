@@ -25,7 +25,7 @@
     dispatchQueue = v2->_dispatchQueue;
     v2->_dispatchQueue = v4;
 
-    v6 = sub_1001DFF60();
+    v6 = sub_1001DFF60(PurchaseManager);
     purchaseInterface = v2->_purchaseInterface;
     v2->_purchaseInterface = v6;
   }

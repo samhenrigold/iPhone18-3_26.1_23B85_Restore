@@ -29,6 +29,7 @@
 - (void)_run;
 - (void)_step;
 - (void)acquireAssertionIfNeeded;
+- (void)action:(id)action didDecideRunningProgressIsAllowed:(BOOL)allowed;
 - (void)action:(id)action didGenerateReversalState:(id)state;
 - (void)action:(id)action handleTestingEvent:(id)event completionHandler:(id)handler;
 - (void)action:(id)action provideInputForParameters:(id)parameters withDefaultStates:(id)states prompts:(id)prompts completionHandler:(id)handler;
@@ -60,6 +61,7 @@
 - (void)setContent:(id)content forPrivateVariableKey:(id)key;
 - (void)setCurrentActionProgress:(id)progress;
 - (void)setEnvironmentValue:(id)value forKey:(id)key;
+- (void)setFinishedRunningWithSuccess:(BOOL)success;
 - (void)setUpProgress;
 - (void)setUpRunState;
 - (void)setWorkflow:(id)workflow;
@@ -67,6 +69,8 @@
 - (void)stop;
 - (void)stopShortcutNotificationReceived:(id)received;
 - (void)stopWithError:(id)error;
+- (void)trackRunActionEventWithKey:(id)key action:(id)action completed:(BOOL)completed error:(id)error;
+- (void)trackRunShortcutEventWithKey:(id)key completed:(BOOL)completed;
 - (void)workflowControllerWillRun:(id)run;
 @end
 
@@ -119,15 +123,15 @@
 
 - (void)invalidateAssertionIfNeeded
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   workflowRunAssertion = [(WFWorkflowController *)self workflowRunAssertion];
 
   if (workflowRunAssertion)
   {
     workflowRunAssertion2 = [(WFWorkflowController *)self workflowRunAssertion];
-    v9 = 0;
-    v5 = [workflowRunAssertion2 invalidateWithError:&v9];
-    v6 = v9;
+    v8 = 0;
+    v5 = [workflowRunAssertion2 invalidateWithError:&v8];
+    v6 = v8;
 
     if ((v5 & 1) == 0)
     {
@@ -135,17 +139,15 @@
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v11 = "[WFWorkflowController invalidateAssertionIfNeeded]";
-        v12 = 2114;
-        v13 = v6;
+        v10 = "[WFWorkflowController invalidateAssertionIfNeeded]";
+        v11 = 2114;
+        v12 = v6;
         _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_ERROR, "%s Failed to invalidate existing workflow run assertion: %{public}@", buf, 0x16u);
       }
     }
 
     [(WFWorkflowController *)self setWorkflowRunAssertion:0];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __28__WFWorkflowController__run__block_invoke_233(uint64_t a1, void *a2, void *a3)
@@ -179,7 +181,7 @@ void __28__WFWorkflowController__run__block_invoke_233(uint64_t a1, void *a2, vo
 
 - (void)_step
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   executionQueue = [(WFWorkflowController *)self executionQueue];
   dispatch_assert_queue_V2(executionQueue);
 
@@ -193,11 +195,11 @@ void __28__WFWorkflowController__run__block_invoke_233(uint64_t a1, void *a2, vo
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v38 = "[WFWorkflowController _step]";
-        v39 = 2048;
+        v37 = "[WFWorkflowController _step]";
+        v38 = 2048;
         currentIndex = [(WFWorkflowController *)self currentIndex];
-        v41 = 2048;
-        v42 = [actions count];
+        v40 = 2048;
+        v41 = [actions count];
         v8 = "%s Step-wise executor: no actions yet (ci: %lu, actions count: %lu), ending step";
 LABEL_20:
         _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_DEFAULT, v8, buf, 0x20u);
@@ -235,11 +237,11 @@ LABEL_20:
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315650;
-          v38 = "[WFWorkflowController _step]";
-          v39 = 2048;
+          v37 = "[WFWorkflowController _step]";
+          v38 = 2048;
           currentIndex = [(WFWorkflowController *)self currentIndex];
-          v41 = 2048;
-          v42 = [actions count];
+          v40 = 2048;
+          v41 = [actions count];
           v8 = "%s Step-wise executor: nowhere to step, holding (ci: %lu, actions count: %lu)";
           goto LABEL_20;
         }
@@ -335,16 +337,16 @@ LABEL_40:
     }
 
     [(WFWorkflowController *)self setStepping:1];
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __29__WFWorkflowController__step__block_invoke;
-    v34[3] = &unk_1E837C1E8;
-    v34[4] = self;
-    v35 = v11;
-    v36 = currentIndex2;
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __29__WFWorkflowController__step__block_invoke;
+    v33[3] = &unk_1E837C1E8;
+    v33[4] = self;
+    v34 = v11;
+    v35 = currentIndex2;
     v28 = currentIndex2;
     v7 = v11;
-    [(WFWorkflowController *)self prepareToRunAction:v7 withInput:v28 completionHandler:v34];
+    [(WFWorkflowController *)self prepareToRunAction:v7 withInput:v28 completionHandler:v33];
 
     goto LABEL_40;
   }
@@ -353,43 +355,41 @@ LABEL_40:
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v38 = "[WFWorkflowController _step]";
+    v37 = "[WFWorkflowController _step]";
     _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_ERROR, "%s Step called while already stepping.", buf, 0xCu);
   }
 
   workflow = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:37 userInfo:0];
   [(WFWorkflowController *)self _finishStepWithError:workflow];
 LABEL_41:
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetEvaluationCriteriaForControlFlowActions
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   workflow = [(WFWorkflowController *)self workflow];
   actions = [workflow actions];
 
-  v5 = [actions countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [actions countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(actions);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * v8);
+        v9 = *(*(&v10 + 1) + 8 * v8);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -400,13 +400,11 @@ LABEL_41:
       }
 
       while (v6 != v8);
-      v6 = [actions countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [actions countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setUpProgress
@@ -501,7 +499,7 @@ LABEL_41:
 
 - (void)_run
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   executionQueue = [(WFWorkflowController *)self executionQueue];
   dispatch_assert_queue_V2(executionQueue);
 
@@ -510,9 +508,9 @@ LABEL_41:
   {
     workflow = [(WFWorkflowController *)self workflow];
     *buf = 136315394;
-    v22 = "[WFWorkflowController _run]";
-    v23 = 2112;
-    v24 = workflow;
+    v21 = "[WFWorkflowController _run]";
+    v22 = 2112;
+    v23 = workflow;
     _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_DEFAULT, "%s Starting workflow execution: %@", buf, 0x16u);
   }
 
@@ -528,9 +526,9 @@ LABEL_41:
       {
         workflow3 = [(WFWorkflowController *)self workflow];
         *buf = 136315394;
-        v22 = "[WFWorkflowController _run]";
-        v23 = 2112;
-        v24 = workflow3;
+        v21 = "[WFWorkflowController _run]";
+        v22 = 2112;
+        v23 = workflow3;
         _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_DEFAULT, "%s Cancelling workflow execution because the device is locked and this workflow is disabled on the lock screen: %@", buf, 0x16u);
       }
 
@@ -547,12 +545,12 @@ LABEL_41:
 
   configurationForContinuityDisplay = [MEMORY[0x1E699FAF8] configurationForContinuityDisplay];
   [configurationForContinuityDisplay setNeedsUserInteractivePriority:1];
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __28__WFWorkflowController__run__block_invoke;
-  v20[3] = &unk_1E837F8C0;
-  v20[4] = self;
-  [configurationForContinuityDisplay setTransitionHandler:v20];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __28__WFWorkflowController__run__block_invoke;
+  v19[3] = &unk_1E837F8C0;
+  v19[4] = self;
+  [configurationForContinuityDisplay setTransitionHandler:v19];
   v13 = [MEMORY[0x1E699FAE0] monitorWithConfiguration:configurationForContinuityDisplay];
   [(WFWorkflowController *)self setDisplayLayoutMonitor:v13];
 
@@ -582,12 +580,12 @@ LABEL_18:
     [(WFWorkflowController *)self setUpRunState];
     [(WFWorkflowController *)self workflowControllerWillRun:self];
     [(WFWorkflowController *)self resetEvaluationCriteriaForControlFlowActions];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __28__WFWorkflowController__run__block_invoke_233;
-    v19[3] = &unk_1E837E750;
-    v19[4] = self;
-    [(WFWorkflowController *)self resolveWorkflowInputWithCompletion:v19];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __28__WFWorkflowController__run__block_invoke_233;
+    v18[3] = &unk_1E837E750;
+    v18[4] = self;
+    [(WFWorkflowController *)self resolveWorkflowInputWithCompletion:v18];
   }
 
   else
@@ -597,16 +595,14 @@ LABEL_18:
     {
       workflow5 = [(WFWorkflowController *)self workflow];
       *buf = 136315394;
-      v22 = "[WFWorkflowController _run]";
-      v23 = 2112;
-      v24 = workflow5;
+      v21 = "[WFWorkflowController _run]";
+      v22 = 2112;
+      v23 = workflow5;
       _os_log_impl(&dword_1CA256000, v16, OS_LOG_TYPE_INFO, "%s Workflow is already running, returning early: %@", buf, 0x16u);
     }
   }
 
 LABEL_19:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)queue_reset
@@ -636,79 +632,79 @@ LABEL_19:
 
 - (void)acquireAssertionIfNeeded
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if ([(WFWorkflowController *)self acquiresAssertionWhileRunning])
   {
     workflowRunAssertion = [(WFWorkflowController *)self workflowRunAssertion];
 
     if (!workflowRunAssertion)
     {
-      v21 = 0;
-      v22 = &v21;
-      v23 = 0x2050000000;
+      v20 = 0;
+      v21 = &v20;
+      v22 = 0x2050000000;
       v4 = getRBSAssertionClass_softClass;
-      v24 = getRBSAssertionClass_softClass;
+      v23 = getRBSAssertionClass_softClass;
       if (!getRBSAssertionClass_softClass)
       {
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = __getRBSAssertionClass_block_invoke;
-        v27 = &unk_1E837FAC0;
-        v28 = &v21;
+        v26 = &unk_1E837FAC0;
+        v27 = &v20;
         __getRBSAssertionClass_block_invoke(buf);
-        v4 = v22[3];
+        v4 = v21[3];
       }
 
       v5 = v4;
-      _Block_object_dispose(&v21, 8);
+      _Block_object_dispose(&v20, 8);
       v6 = [v4 alloc];
-      v21 = 0;
-      v22 = &v21;
-      v23 = 0x2050000000;
+      v20 = 0;
+      v21 = &v20;
+      v22 = 0x2050000000;
       v7 = getRBSTargetClass_softClass;
-      v24 = getRBSTargetClass_softClass;
+      v23 = getRBSTargetClass_softClass;
       if (!getRBSTargetClass_softClass)
       {
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = __getRBSTargetClass_block_invoke;
-        v27 = &unk_1E837FAC0;
-        v28 = &v21;
+        v26 = &unk_1E837FAC0;
+        v27 = &v20;
         __getRBSTargetClass_block_invoke(buf);
-        v7 = v22[3];
+        v7 = v21[3];
       }
 
       v8 = v7;
-      _Block_object_dispose(&v21, 8);
+      _Block_object_dispose(&v20, 8);
       currentProcess = [v7 currentProcess];
-      v21 = 0;
-      v22 = &v21;
-      v23 = 0x2050000000;
+      v20 = 0;
+      v21 = &v20;
+      v22 = 0x2050000000;
       v10 = getRBSDomainAttributeClass_softClass;
-      v24 = getRBSDomainAttributeClass_softClass;
+      v23 = getRBSDomainAttributeClass_softClass;
       if (!getRBSDomainAttributeClass_softClass)
       {
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = __getRBSDomainAttributeClass_block_invoke;
-        v27 = &unk_1E837FAC0;
-        v28 = &v21;
+        v26 = &unk_1E837FAC0;
+        v27 = &v20;
         __getRBSDomainAttributeClass_block_invoke(buf);
-        v10 = v22[3];
+        v10 = v21[3];
       }
 
       v11 = v10;
-      _Block_object_dispose(&v21, 8);
+      _Block_object_dispose(&v20, 8);
       v12 = [v10 attributeWithDomain:@"com.apple.shortcuts" name:@"RunningBackground"];
-      v25 = v12;
-      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
+      v24 = v12;
+      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
       v14 = [v6 initWithExplanation:@"Running shortcuts in background" target:currentProcess attributes:v13];
       [(WFWorkflowController *)self setWorkflowRunAssertion:v14];
 
       workflowRunAssertion2 = [(WFWorkflowController *)self workflowRunAssertion];
-      v20 = 0;
-      v16 = [workflowRunAssertion2 acquireWithError:&v20];
-      v17 = v20;
+      v19 = 0;
+      v16 = [workflowRunAssertion2 acquireWithError:&v19];
+      v17 = v19;
 
       if ((v16 & 1) == 0)
       {
@@ -724,8 +720,6 @@ LABEL_19:
       }
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (NSMapTable)environmentValueTable
@@ -813,7 +807,7 @@ LABEL_19:
 
 void __28__WFWorkflowController__run__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (!a3 && a4)
   {
     v5 = getWFWorkflowExecutionLogObject();
@@ -821,23 +815,21 @@ void __28__WFWorkflowController__run__block_invoke(uint64_t a1, uint64_t a2, uin
     {
       v6 = [*(a1 + 32) workflow];
       *buf = 136315394;
-      v15 = "[WFWorkflowController _run]_block_invoke";
-      v16 = 2112;
-      v17 = v6;
+      v14 = "[WFWorkflowController _run]_block_invoke";
+      v15 = 2112;
+      v16 = v6;
       _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_DEFAULT, "%s Cancelling workflow execution because iPhone Mirroring session was stopped: %@", buf, 0x16u);
     }
 
     v7 = MEMORY[0x1E696ABC0];
-    v12 = *MEMORY[0x1E696A578];
+    v11 = *MEMORY[0x1E696A578];
     v8 = WFLocalizedString(@"Shortcuts was interrupted.");
-    v13 = v8;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
-    v10 = [v7 errorWithDomain:@"WFWorkflowControllerErrorDomain" code:0 userInfo:{v9, v12}];
+    v12 = v8;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
+    v10 = [v7 errorWithDomain:@"WFWorkflowControllerErrorDomain" code:0 userInfo:{v9, v11}];
 
     [*(a1 + 32) stopWithError:v10];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)runningAsStepWiseExecutor
@@ -1115,17 +1107,16 @@ uint64_t __59__WFWorkflowController_resolveWorkflowInputWithCompletion___block_i
 {
   if ([*(a1 + 32) numberOfItems])
   {
-    v2 = *(a1 + 32);
-    v3 = *(*(a1 + 40) + 16);
+    v2 = *(*(a1 + 40) + 16);
 
-    return v3();
+    return v2();
   }
 
   else
   {
-    v5 = *(*(a1 + 48) + 16);
+    v4 = *(*(a1 + 48) + 16);
 
-    return v5();
+    return v4();
   }
 }
 
@@ -1167,18 +1158,17 @@ void __59__WFWorkflowController_resolveWorkflowInputWithCompletion___block_invok
 
 void __37__WFWorkflowController_setUpProgress__block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = getWFWorkflowExecutionLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 136315138;
-    v5 = "[WFWorkflowController setUpProgress]_block_invoke";
-    _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_DEFAULT, "%s Stopping from progress cancellation", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[WFWorkflowController setUpProgress]_block_invoke";
+    _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_DEFAULT, "%s Stopping from progress cancellation", &v3, 0xCu);
   }
 
   [WeakRetained stop];
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void __54__WFWorkflowController_restorePendingStateIfNecessary__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1193,7 +1183,7 @@ void __54__WFWorkflowController_restorePendingStateIfNecessary__block_invoke(uin
 - (void)handleControlFlowActionCompletion:(id)completion actionGroupSkipped:(BOOL)skipped
 {
   skippedCopy = skipped;
-  v84[1] = *MEMORY[0x1E69E9840];
+  v83[1] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   executionQueue = [(WFWorkflowController *)self executionQueue];
   dispatch_assert_queue_V2(executionQueue);
@@ -1287,50 +1277,50 @@ LABEL_33:
     if (_os_feature_enabled_impl())
     {
       v30 = MEMORY[0x1E6996D40];
-      v79 = firstObject;
+      v78 = firstObject;
       v31 = MEMORY[0x1E6996CC0];
-      v75 = [MEMORY[0x1E696AD98] numberWithBool:workflow5];
-      v32 = [v31 itemWithObject:v75];
-      v84[0] = v32;
-      [MEMORY[0x1E695DEC8] arrayWithObjects:v84 count:1];
-      v33 = v78 = groupedCloseAction2;
+      v74 = [MEMORY[0x1E696AD98] numberWithBool:workflow5];
+      v32 = [v31 itemWithObject:v74];
+      v83[0] = v32;
+      [MEMORY[0x1E695DEC8] arrayWithObjects:v83 count:1];
+      v33 = v77 = groupedCloseAction2;
       v34 = [v30 collectionWithItems:v33];
       [(WFWorkflowController *)self actionOutputsByWorkflowIndex];
-      workflow5 = v77 = workflow5;
-      v81 = groupedOpenAction2;
+      workflow5 = v76 = workflow5;
+      v80 = groupedOpenAction2;
       v35 = MEMORY[0x1E696AD98];
       workflow4 = [(WFWorkflowController *)self workflow];
       actions4 = [workflow4 actions];
-      v38 = [v35 numberWithUnsignedInteger:{objc_msgSend(actions4, "indexOfObject:", v81)}];
+      v38 = [v35 numberWithUnsignedInteger:{objc_msgSend(actions4, "indexOfObject:", v80)}];
       [workflow5 setObject:v34 forKeyedSubscript:v38];
 
-      groupedOpenAction2 = v81;
-      LODWORD(workflow5) = v77;
+      groupedOpenAction2 = v80;
+      LODWORD(workflow5) = v76;
 
-      groupedCloseAction2 = v78;
-      firstObject = v79;
+      groupedCloseAction2 = v77;
+      firstObject = v78;
 
-      if (v79)
+      if (v78)
       {
         v39 = MEMORY[0x1E6996D40];
         v40 = MEMORY[0x1E6996CC0];
-        v76 = [MEMORY[0x1E696AD98] numberWithBool:v77 ^ 1u];
-        v41 = [v40 itemWithObject:v76];
-        v83 = v41;
-        v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v83 count:1];
+        v75 = [MEMORY[0x1E696AD98] numberWithBool:v76 ^ 1u];
+        v41 = [v40 itemWithObject:v75];
+        v82 = v41;
+        v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v82 count:1];
         v43 = [v39 collectionWithItems:v42];
         actionOutputsByWorkflowIndex = [(WFWorkflowController *)self actionOutputsByWorkflowIndex];
         v45 = MEMORY[0x1E696AD98];
         workflow5 = [(WFWorkflowController *)self workflow];
         actions5 = [workflow5 actions];
-        v47 = [v45 numberWithUnsignedInteger:{objc_msgSend(actions5, "indexOfObject:", v79)}];
+        v47 = [v45 numberWithUnsignedInteger:{objc_msgSend(actions5, "indexOfObject:", v78)}];
         [actionOutputsByWorkflowIndex setObject:v43 forKeyedSubscript:v47];
 
-        groupedOpenAction2 = v81;
-        LODWORD(workflow5) = v77;
+        groupedOpenAction2 = v80;
+        LODWORD(workflow5) = v76;
 
-        groupedCloseAction2 = v78;
-        firstObject = v79;
+        groupedCloseAction2 = v77;
+        firstObject = v78;
       }
     }
 
@@ -1430,7 +1420,7 @@ LABEL_38:
       actions9 = [workflow10 actions];
       v54 = WFProgressUnitsBetweenActions(actions9, workflow8, actions8);
       [groupedOpenAction progress];
-      v55 = v82 = groupedOpenAction;
+      v55 = v81 = groupedOpenAction;
       [v55 setTotalUnitCount:v54];
 
       output4 = [v8 output];
@@ -1440,15 +1430,13 @@ LABEL_38:
       actions10 = [workflow11 actions];
       -[WFWorkflowController setCurrentIndex:](self, "setCurrentIndex:", [actions10 indexOfObject:workflow8] + 1);
 
-      groupedOpenAction = v82;
+      groupedOpenAction = v81;
     }
 
     goto LABEL_33;
   }
 
 LABEL_45:
-
-  v74 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleError:(id)error fromAction:(id)action completionHandler:(id)handler
@@ -1481,11 +1469,11 @@ LABEL_45:
 LABEL_3:
   domain = [errorCopy domain];
   code = [errorCopy code];
-  v14 = [domain isEqualToString:@"WFActionErrorDomain"];
-  v15 = [domain isEqualToString:*MEMORY[0x1E6997158]];
+  isEqualToString = objc_msgSend_isEqualToString_(domain);
+  v15 = objc_msgSend_isEqualToString_(domain);
   if (code == 2)
   {
-    v16 = v14;
+    v16 = isEqualToString;
   }
 
   else
@@ -1493,7 +1481,7 @@ LABEL_3:
     v16 = 0;
   }
 
-  if (v14 && code == 4)
+  if (isEqualToString && code == 4)
   {
     delegateQueue = [(WFWorkflowController *)self delegateQueue];
     block[0] = MEMORY[0x1E69E9820];
@@ -1689,10 +1677,9 @@ uint64_t __65__WFWorkflowController_handleError_fromAction_completionHandler___b
 {
   [*(a1 + 32) setOutput:*(a1 + 40)];
   [*(a1 + 32) setOutput:*(a1 + 40) onVariableSource:*(a1 + 48)];
-  v2 = *(a1 + 56);
-  v3 = *(*(a1 + 64) + 16);
+  v2 = *(*(a1 + 64) + 16);
 
-  return v3();
+  return v2();
 }
 
 void __65__WFWorkflowController_handleError_fromAction_completionHandler___block_invoke_3(uint64_t a1, void *a2)
@@ -1870,16 +1857,14 @@ uint64_t __62__WFWorkflowController_runAction_withInput_completionHandler___bloc
   [*(a1 + 32) executionVoucher];
   objc_claimAutoreleasedReturnValue();
 
-  v2 = *(a1 + 48);
-  v3 = *(a1 + 40);
-  v4 = *(*(a1 + 56) + 16);
+  v2 = *(*(a1 + 56) + 16);
 
-  return v4();
+  return v2();
 }
 
 - (void)prepareToRunAction:(id)action withInput:(id)input completionHandler:(id)handler
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   inputCopy = input;
   handlerCopy = handler;
@@ -1890,11 +1875,11 @@ uint64_t __62__WFWorkflowController_runAction_withInput_completionHandler___bloc
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v22 = "[WFWorkflowController prepareToRunAction:withInput:completionHandler:]";
-    v23 = 2114;
-    v24 = actionCopy;
-    v25 = 2112;
-    v26 = inputCopy;
+    v21 = "[WFWorkflowController prepareToRunAction:withInput:completionHandler:]";
+    v22 = 2114;
+    v23 = actionCopy;
+    v24 = 2112;
+    v25 = inputCopy;
     _os_log_impl(&dword_1CA256000, v12, OS_LOG_TYPE_INFO, "%s Preparing to run action: %{public}@, with input: %@", buf, 0x20u);
   }
 
@@ -1904,23 +1889,21 @@ uint64_t __62__WFWorkflowController_runAction_withInput_completionHandler___bloc
   if (v14)
   {
     delegateQueue = [(WFWorkflowController *)self delegateQueue];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __71__WFWorkflowController_prepareToRunAction_withInput_completionHandler___block_invoke;
-    v17[3] = &unk_1E837F510;
-    v17[4] = self;
-    v18 = actionCopy;
-    v19 = inputCopy;
-    v20 = handlerCopy;
-    dispatch_async(delegateQueue, v17);
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __71__WFWorkflowController_prepareToRunAction_withInput_completionHandler___block_invoke;
+    v16[3] = &unk_1E837F510;
+    v16[4] = self;
+    v17 = actionCopy;
+    v18 = inputCopy;
+    v19 = handlerCopy;
+    dispatch_async(delegateQueue, v16);
   }
 
   else
   {
     handlerCopy[2](handlerCopy);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __71__WFWorkflowController_prepareToRunAction_withInput_completionHandler___block_invoke(uint64_t a1)
@@ -1947,7 +1930,7 @@ void __71__WFWorkflowController_prepareToRunAction_withInput_completionHandler__
 - (void)didFinishRunningWithError:(id)error cancelled:(BOOL)cancelled
 {
   cancelledCopy = cancelled;
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   executionQueue = [(WFWorkflowController *)self executionQueue];
   dispatch_assert_queue_V2(executionQueue);
@@ -1962,28 +1945,28 @@ void __71__WFWorkflowController_prepareToRunAction_withInput_completionHandler__
   [displayLayoutMonitor invalidate];
 
   [(WFWorkflowController *)self setDisplayLayoutMonitor:0];
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   workflow = [(WFWorkflowController *)self workflow];
   actions = [workflow actions];
 
-  v12 = [actions countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v12 = [actions countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v27;
+    v14 = *v26;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v27 != v14)
+        if (*v26 != v14)
         {
           objc_enumerationMutation(actions);
         }
 
-        v16 = *(*(&v26 + 1) + 8 * i);
+        v16 = *(*(&v25 + 1) + 8 * i);
         extendedOperation = [v16 extendedOperation];
 
         if (extendedOperation)
@@ -1995,7 +1978,7 @@ void __71__WFWorkflowController_prepareToRunAction_withInput_completionHandler__
         }
       }
 
-      v13 = [actions countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v13 = [actions countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v13);
@@ -2009,13 +1992,12 @@ void __71__WFWorkflowController_prepareToRunAction_withInput_completionHandler__
   block[2] = __60__WFWorkflowController_didFinishRunningWithError_cancelled___block_invoke;
   block[3] = &unk_1E8377C58;
   block[4] = self;
-  v24 = errorCopy;
-  v25 = cancelledCopy;
+  v23 = errorCopy;
+  v24 = cancelledCopy;
   v20 = errorCopy;
   dispatch_async(delegateQueue, block);
 
   [(WFWorkflowController *)self invalidateAssertionIfNeeded];
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __60__WFWorkflowController_didFinishRunningWithError_cancelled___block_invoke(uint64_t a1)
@@ -2063,9 +2045,9 @@ void __50__WFWorkflowController_workflowControllerWillRun___block_invoke(uint64_
   object = [received object];
   runningContext = [(WFWorkflowController *)self runningContext];
   identifier = [runningContext identifier];
-  v7 = [object isEqualToString:identifier];
+  isEqualToString = objc_msgSend_isEqualToString_(object);
 
-  if (v7)
+  if (isEqualToString)
   {
     runningContext2 = [(WFWorkflowController *)self runningContext];
     isStepwise = [runningContext2 isStepwise];
@@ -2090,6 +2072,175 @@ void __50__WFWorkflowController_workflowControllerWillRun___block_invoke(uint64_
   }
 }
 
+- (void)trackRunActionEventWithKey:(id)key action:(id)action completed:(BOOL)completed error:(id)error
+{
+  completedCopy = completed;
+  v36 = *MEMORY[0x1E69E9840];
+  actionCopy = action;
+  errorCopy = error;
+  keyCopy = key;
+  v13 = objc_alloc_init(WFRunActionEvent);
+  [(WFRunActionEvent *)v13 setKey:keyCopy];
+
+  metricsIdentifier = [actionCopy metricsIdentifier];
+  [(WFRunActionEvent *)v13 setActionIdentifier:metricsIdentifier];
+
+  externalMetricsBundleIdentifier = [actionCopy externalMetricsBundleIdentifier];
+  [(WFRunActionEvent *)v13 setExternalBundleIdentifier:externalMetricsBundleIdentifier];
+
+  externalMetricsActionIdentifier = [actionCopy externalMetricsActionIdentifier];
+  [(WFRunActionEvent *)v13 setExternalActionIdentifier:externalMetricsActionIdentifier];
+
+  actionIdentifier = [(WFRunActionEvent *)v13 actionIdentifier];
+  LODWORD(keyCopy) = [actionIdentifier wf_isEmpty];
+
+  if (keyCopy)
+  {
+    v18 = getWFEventTrackerLogObject();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+    {
+      workflow = [(WFWorkflowController *)self workflow];
+      source = [workflow source];
+      v32 = 136315394;
+      v33 = "[WFWorkflowController trackRunActionEventWithKey:action:completed:error:]";
+      v34 = 2114;
+      v35 = source;
+      _os_log_impl(&dword_1CA256000, v18, OS_LOG_TYPE_FAULT, "%s Unexpected empty actionIdentifier. Run source: %{public}@", &v32, 0x16u);
+    }
+  }
+
+  runSource = [(WFWorkflowController *)self runSource];
+  [(WFRunActionEvent *)v13 setRunSource:runSource];
+
+  workflow2 = [(WFWorkflowController *)self workflow];
+  source2 = [workflow2 source];
+  [(WFRunActionEvent *)v13 setShortcutSource:source2];
+
+  automationType = [(WFWorkflowController *)self automationType];
+  [(WFRunActionEvent *)v13 setAutomationType:automationType];
+
+  -[WFRunActionEvent setDidRunRemotely:](v13, "setDidRunRemotely:", [actionCopy didRunRemotely]);
+  [(WFRunActionEvent *)v13 setCompleted:completedCopy];
+  runSource2 = [(WFWorkflowController *)self runSource];
+  if (objc_msgSend_isEqualToString_(runSource2))
+  {
+    wf_isUserCancelledError = [errorCopy wf_isUserCancelledError];
+  }
+
+  else
+  {
+    wf_isUserCancelledError = 0;
+  }
+
+  [(WFRunActionEvent *)v13 setIsInvalidatedSystemAction:wf_isUserCancelledError];
+
+  workflow3 = [(WFWorkflowController *)self workflow];
+  record = [workflow3 record];
+  galleryIdentifier = [record galleryIdentifier];
+  [(WFRunActionEvent *)v13 setGalleryIdentifier:galleryIdentifier];
+
+  runningContext = [(WFWorkflowController *)self runningContext];
+  identifier = [runningContext identifier];
+  [(WFRunActionEvent *)v13 setShortcutsId:identifier];
+
+  if ([actionCopy didRunRemotely])
+  {
+    [(WFWorkflowController *)self setActionDidRunRemotely:1];
+  }
+
+  if (errorCopy)
+  {
+    [actionCopy populateFailedRunEventProperties:v13 withRunError:errorCopy];
+  }
+
+  else if (completedCopy)
+  {
+    [actionCopy populateSuccessfulRunEventProperties:v13];
+  }
+
+  [(WFEvent *)v13 track];
+}
+
+- (void)trackRunShortcutEventWithKey:(id)key completed:(BOOL)completed
+{
+  completedCopy = completed;
+  v29 = *MEMORY[0x1E69E9840];
+  keyCopy = key;
+  runSource = [(WFWorkflowController *)self runSource];
+
+  if (!runSource)
+  {
+    v8 = getWFEventTrackerLogObject();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    {
+      v27 = 136315138;
+      v28 = "[WFWorkflowController trackRunShortcutEventWithKey:completed:]";
+      _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_FAULT, "%s Missing run source when tracking WFRunShortcutEvent", &v27, 0xCu);
+    }
+  }
+
+  if (!objc_msgSend_isEqualToString_(keyCopy) || ![(WFWorkflowController *)self resumed])
+  {
+    v9 = objc_alloc_init(WFRunShortcutEvent);
+    [(WFRunShortcutEvent *)v9 setKey:keyCopy];
+    workflow = [(WFWorkflowController *)self workflow];
+    actions = [workflow actions];
+    -[WFRunShortcutEvent setActionCount:](v9, "setActionCount:", [actions count]);
+
+    workflow2 = [(WFWorkflowController *)self workflow];
+    source = [workflow2 source];
+    [(WFRunShortcutEvent *)v9 setShortcutSource:source];
+
+    shortcutSource = [(WFRunShortcutEvent *)v9 shortcutSource];
+
+    if (!shortcutSource)
+    {
+      v15 = getWFEventTrackerLogObject();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      {
+        v27 = 136315138;
+        v28 = "[WFWorkflowController trackRunShortcutEventWithKey:completed:]";
+        _os_log_impl(&dword_1CA256000, v15, OS_LOG_TYPE_ERROR, "%s RunEvent source was unexpectedly nil", &v27, 0xCu);
+      }
+
+      [(WFRunShortcutEvent *)v9 setShortcutSource:@"ShortcutSourceUnknown"];
+    }
+
+    runSource2 = [(WFWorkflowController *)self runSource];
+    [(WFRunShortcutEvent *)v9 setRunSource:runSource2];
+
+    automationType = [(WFWorkflowController *)self automationType];
+    [(WFRunShortcutEvent *)v9 setAutomationType:automationType];
+
+    workflow3 = [(WFWorkflowController *)self workflow];
+    record = [workflow3 record];
+    galleryIdentifier = [record galleryIdentifier];
+    [(WFRunShortcutEvent *)v9 setGalleryIdentifier:galleryIdentifier];
+
+    [(WFRunShortcutEvent *)v9 setCompleted:completedCopy];
+    [(WFRunShortcutEvent *)v9 setDidRunRemotely:[(WFWorkflowController *)self actionDidRunRemotely]];
+    [(WFRunShortcutEvent *)v9 setIsFromAutomationSuggestion:[(WFWorkflowController *)self isAutomationSuggestion]];
+    automationTrialID = [(WFWorkflowController *)self automationTrialID];
+    [(WFRunShortcutEvent *)v9 setAutomationSuggestionsTrialIdentifier:automationTrialID];
+
+    runningContext = [(WFWorkflowController *)self runningContext];
+    originatingBundleIdentifier = [runningContext originatingBundleIdentifier];
+    [(WFRunShortcutEvent *)v9 setScriptingRunBundleIdentifier:originatingBundleIdentifier];
+
+    userInterface = [(WFWorkflowController *)self userInterface];
+    LOBYTE(originatingBundleIdentifier) = objc_opt_respondsToSelector();
+
+    if (originatingBundleIdentifier)
+    {
+      userInterface2 = [(WFWorkflowController *)self userInterface];
+      dialogTransformer = [userInterface2 dialogTransformer];
+      -[WFRunShortcutEvent setNumberOfDialogsPresented:](v9, "setNumberOfDialogsPresented:", [dialogTransformer numberOfDialogsPresented]);
+    }
+
+    [(WFEvent *)v9 track];
+  }
+}
+
 - (BOOL)action:(id)action canProvideInputForParameter:(id)parameter
 {
   parameterCopy = parameter;
@@ -2102,7 +2253,7 @@ void __50__WFWorkflowController_workflowControllerWillRun___block_invoke(uint64_
 
 - (void)action:(id)action provideInputForParameters:(id)parameters withDefaultStates:(id)states prompts:(id)prompts completionHandler:(id)handler
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   parametersCopy = parameters;
   statesCopy = states;
@@ -2114,11 +2265,11 @@ void __50__WFWorkflowController_workflowControllerWillRun___block_invoke(uint64_
     v18 = getWFWorkflowExecutionLogObject();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
-      v20 = 136315394;
-      v21 = "[WFWorkflowController action:provideInputForParameters:withDefaultStates:prompts:completionHandler:]";
-      v22 = 2114;
-      v23 = parametersCopy;
-      _os_log_impl(&dword_1CA256000, v18, OS_LOG_TYPE_INFO, "%s Asking input provider to provide input for parameters: %{public}@", &v20, 0x16u);
+      v19 = 136315394;
+      v20 = "[WFWorkflowController action:provideInputForParameters:withDefaultStates:prompts:completionHandler:]";
+      v21 = 2114;
+      v22 = parametersCopy;
+      _os_log_impl(&dword_1CA256000, v18, OS_LOG_TYPE_INFO, "%s Asking input provider to provide input for parameters: %{public}@", &v19, 0x16u);
     }
 
     [v17 action:actionCopy provideInputForParameters:parametersCopy withDefaultStates:statesCopy prompts:promptsCopy completionHandler:handlerCopy];
@@ -2128,8 +2279,6 @@ void __50__WFWorkflowController_workflowControllerWillRun___block_invoke(uint64_
   {
     (*(handlerCopy + 2))(handlerCopy, 0, 0, 0);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)autoreleaseSelf
@@ -2211,6 +2360,20 @@ void __50__WFWorkflowController_workflowControllerWillRun___block_invoke(uint64_
   return v8;
 }
 
+- (void)action:(id)action didDecideRunningProgressIsAllowed:(BOOL)allowed
+{
+  allowedCopy = allowed;
+  actionCopy = action;
+  delegate = [(WFWorkflowController *)self delegate];
+  v7 = objc_opt_respondsToSelector();
+
+  if (v7)
+  {
+    delegate2 = [(WFWorkflowController *)self delegate];
+    [delegate2 workflowController:self didDecideRunningProgressIsAllowed:allowedCopy forAction:actionCopy];
+  }
+}
+
 - (id)remoteDialogPresenterEndpointForRunWorkflowAction:(id)action
 {
   delegate = [(WFWorkflowController *)self delegate];
@@ -2281,7 +2444,7 @@ void __50__WFWorkflowController_workflowControllerWillRun___block_invoke(uint64_
 
 - (void)requestAccessToFileAtLocations:(id)locations completionHandler:(id)handler
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   locationsCopy = locations;
   handlerCopy = handler;
   v8 = getWFFilesLogObject();
@@ -2297,15 +2460,15 @@ void __50__WFWorkflowController_workflowControllerWillRun___block_invoke(uint64_
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v19 = __Block_byref_object_copy__27632;
-  v20 = __Block_byref_object_dispose__27633;
-  v21 = 0;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __73__WFWorkflowController_requestAccessToFileAtLocations_completionHandler___block_invoke;
-  v13[3] = &unk_1E8377C28;
-  v13[4] = buf;
-  v9 = [locationsCopy if_compactMap:v13];
+  v18 = __Block_byref_object_copy__27632;
+  v19 = __Block_byref_object_dispose__27633;
+  v20 = 0;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __73__WFWorkflowController_requestAccessToFileAtLocations_completionHandler___block_invoke;
+  v12[3] = &unk_1E8377C28;
+  v12[4] = buf;
+  v9 = [locationsCopy if_compactMap:v12];
   if ([v9 count])
   {
     [(WFWorkflowController *)self requestAccessToFileAtURLs:v9 completionHandler:handlerCopy];
@@ -2317,18 +2480,17 @@ void __50__WFWorkflowController_workflowControllerWillRun___block_invoke(uint64_
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = *(*&buf[8] + 40);
-      *v14 = 136315394;
-      v15 = "[WFWorkflowController requestAccessToFileAtLocations:completionHandler:]";
-      v16 = 2112;
-      v17 = v11;
-      _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_DEFAULT, "%s Could not resolve location with error: %@", v14, 0x16u);
+      *v13 = 136315394;
+      v14 = "[WFWorkflowController requestAccessToFileAtLocations:completionHandler:]";
+      v15 = 2112;
+      v16 = v11;
+      _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_DEFAULT, "%s Could not resolve location with error: %@", v13, 0x16u);
     }
 
     (*(handlerCopy + 2))(handlerCopy, 0, 0);
   }
 
   _Block_object_dispose(buf, 8);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 id __73__WFWorkflowController_requestAccessToFileAtLocations_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -2439,6 +2601,41 @@ id __73__WFWorkflowController_requestAccessToFileAtLocations_completionHandler__
   dispatch_sync(executionQueue2, block);
 }
 
+- (void)setFinishedRunningWithSuccess:(BOOL)success
+{
+  successCopy = success;
+  v16 = *MEMORY[0x1E69E9840];
+  executionQueue = [(WFWorkflowController *)self executionQueue];
+  dispatch_assert_queue_V2(executionQueue);
+
+  if (self->_running)
+  {
+    progress = [(WFWorkflowController *)self progress];
+    [progress setUserInfoObject:0 forKey:*MEMORY[0x1E69E1328]];
+
+    [(WFWorkflowController *)self logFinishRunEvent:successCopy];
+    self->_running = 0;
+    v7 = getWFWorkflowExecutionLogObject();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      workflow = [(WFWorkflowController *)self workflow];
+      v9 = @"no";
+      v11 = "[WFWorkflowController setFinishedRunningWithSuccess:]";
+      v10 = 136315650;
+      v12 = 2112;
+      v13 = workflow;
+      if (successCopy)
+      {
+        v9 = @"yes";
+      }
+
+      v14 = 2112;
+      v15 = v9;
+      _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_DEFAULT, "%s Stopping workflow execution: %@. success: %@", &v10, 0x20u);
+    }
+  }
+}
+
 - (void)step
 {
   executionQueue = [(WFWorkflowController *)self executionQueue];
@@ -2508,7 +2705,7 @@ id __73__WFWorkflowController_requestAccessToFileAtLocations_completionHandler__
 
 - (void)_finishStepWithError:(id)error
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   executionQueue = [(WFWorkflowController *)self executionQueue];
   dispatch_assert_queue_V2(executionQueue);
@@ -2517,10 +2714,9 @@ id __73__WFWorkflowController_requestAccessToFileAtLocations_completionHandler__
   [(WFWorkflowController *)self setLastExecutedAction:currentAction];
 
   domain = [errorCopy domain];
-  v6 = *MEMORY[0x1E696A798];
-  if ([domain isEqualToString:*MEMORY[0x1E696A798]])
+  if (objc_msgSend_isEqualToString_(domain))
   {
-    v7 = errorCopy;
+    v6 = errorCopy;
     code = [errorCopy code];
 
     if (code == 37)
@@ -2532,63 +2728,63 @@ id __73__WFWorkflowController_requestAccessToFileAtLocations_completionHandler__
   else
   {
 
-    v7 = errorCopy;
+    v6 = errorCopy;
   }
 
-  domain2 = [v7 domain];
-  if ([domain2 isEqualToString:v6])
+  domain2 = [v6 domain];
+  if (objc_msgSend_isEqualToString_(domain2))
   {
     code2 = [errorCopy code];
 
     if (code2 == 7)
     {
       [(WFWorkflowController *)self setCurrentIndex:0];
-      v11 = dispatch_group_create();
+      v10 = dispatch_group_create();
+      v29 = 0u;
+      v30 = 0u;
       v31 = 0u;
       v32 = 0u;
-      v33 = 0u;
-      v34 = 0u;
       workflow = [(WFWorkflowController *)self workflow];
       actions = [workflow actions];
 
-      v14 = [actions countByEnumeratingWithState:&v31 objects:v35 count:16];
-      if (v14)
+      v13 = [actions countByEnumeratingWithState:&v29 objects:v33 count:16];
+      if (v13)
       {
-        v15 = *v32;
+        v14 = *v30;
         do
         {
-          for (i = 0; i != v14; ++i)
+          for (i = 0; i != v13; ++i)
           {
-            if (*v32 != v15)
+            if (*v30 != v14)
             {
               objc_enumerationMutation(actions);
             }
 
-            v17 = *(*(&v31 + 1) + 8 * i);
-            extendedOperation = [v17 extendedOperation];
+            v16 = *(*(&v29 + 1) + 8 * i);
+            extendedOperation = [v16 extendedOperation];
 
             if (extendedOperation)
             {
-              dispatch_group_enter(v11);
-              objc_initWeak(&location, v17);
-              extendedOperation2 = [v17 extendedOperation];
-              v27[0] = MEMORY[0x1E69E9820];
-              v27[1] = 3221225472;
-              v27[2] = __45__WFWorkflowController__finishStepWithError___block_invoke;
-              v27[3] = &unk_1E8377C00;
-              objc_copyWeak(&v29, &location);
-              v28 = v11;
-              [extendedOperation2 addCompletionHandlerIfRunning:v27];
+              dispatch_group_enter(v10);
+              objc_initWeak(&location, v16);
+              extendedOperation2 = [v16 extendedOperation];
+              v25[0] = MEMORY[0x1E69E9820];
+              v25[1] = 3221225472;
+              v25[2] = __45__WFWorkflowController__finishStepWithError___block_invoke;
+              v25[3] = &unk_1E8377C00;
+              objc_copyWeak(&v27, &location);
+              v26 = v10;
+              [extendedOperation2 addCompletionHandlerIfRunning:v25];
 
-              objc_destroyWeak(&v29);
+              objc_destroyWeak(&v27);
               objc_destroyWeak(&location);
             }
           }
 
-          v14 = [actions countByEnumeratingWithState:&v31 objects:v35 count:16];
+          v13 = [actions countByEnumeratingWithState:&v29 objects:v33 count:16];
         }
 
-        while (v14);
+        while (v13);
       }
 
       executionQueue2 = [(WFWorkflowController *)self executionQueue];
@@ -2597,7 +2793,7 @@ id __73__WFWorkflowController_requestAccessToFileAtLocations_completionHandler__
       block[2] = __45__WFWorkflowController__finishStepWithError___block_invoke_2;
       block[3] = &unk_1E837FA70;
       block[4] = self;
-      dispatch_group_notify(v11, executionQueue2, block);
+      dispatch_group_notify(v10, executionQueue2, block);
 
       goto LABEL_30;
     }
@@ -2607,19 +2803,19 @@ id __73__WFWorkflowController_requestAccessToFileAtLocations_completionHandler__
   {
   }
 
-  v7 = errorCopy;
+  v6 = errorCopy;
   if ([errorCopy wf_isUserCancelledError])
   {
     [(WFWorkflowController *)self didFinishRunningWithError:0 cancelled:1];
     [(WFWorkflowController *)self setCurrentIndex:0];
     progress = [(WFWorkflowController *)self progress];
 LABEL_29:
-    v22 = progress;
+    v21 = progress;
     [progress unpublish];
 
     [(WFWorkflowController *)self setProgress:0];
 LABEL_30:
-    v7 = errorCopy;
+    v6 = errorCopy;
     goto LABEL_31;
   }
 
@@ -2657,8 +2853,6 @@ LABEL_30:
 
   [(WFWorkflowController *)self _step];
 LABEL_31:
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __45__WFWorkflowController__finishStepWithError___block_invoke(uint64_t a1)
@@ -2687,141 +2881,138 @@ void __29__WFWorkflowController__step__block_invoke(uint64_t a1)
   dispatch_assert_queue_V2(v2);
 
   v3 = [*(v1 + 32) progress];
-  v4 = *(v1 + 40);
-  v5 = off_1E836E000;
+  v4 = &off_1E836E000;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && ([*(v1 + 40) mode] || (objc_msgSend(*(v1 + 40), "progress"), v6 = objc_claimAutoreleasedReturnValue(), v6, v6)))
+  if ((objc_opt_isKindOfClass() & 1) != 0 && ([*(v1 + 40) mode] || (objc_msgSend(*(v1 + 40), "progress"), v5 = objc_claimAutoreleasedReturnValue(), v5, v5)))
   {
-    v7 = 0;
+    v6 = 0;
 LABEL_5:
 
-    v3 = v7;
+    v3 = v6;
   }
 
   else
   {
-    v8 = [*(v1 + 32) currentIndex];
-    if (v8 - 1 >= 0)
+    v7 = [*(v1 + 32) currentIndex];
+    if (v7 - 1 >= 0)
     {
-      v9 = v8;
-      v42 = v3;
+      v8 = v7;
+      v39 = v3;
       do
       {
-        --v9;
-        v10 = [*(v1 + 32) workflow];
-        v11 = [v10 actions];
-        v12 = [v11 objectAtIndex:v9];
+        --v8;
+        v9 = [*(v1 + 32) workflow];
+        v10 = [v9 actions];
+        v11 = [v10 objectAtIndex:v8];
 
-        v13 = v5[22];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v14 = [v12 groupedOpenAction];
-          v15 = [v12 groupedCloseAction];
-          v16 = [*(v1 + 32) workflow];
-          v17 = [v16 actions];
-          v18 = [v17 indexOfObject:v14];
-          if (v18 >= [*(v1 + 32) currentIndex])
+          v12 = [v11 groupedOpenAction];
+          v13 = [v11 groupedCloseAction];
+          v14 = [*(v1 + 32) workflow];
+          v15 = [v14 actions];
+          v16 = [v15 indexOfObject:v12];
+          if (v16 >= [*(v1 + 32) currentIndex])
           {
           }
 
           else
           {
-            v19 = [*(v1 + 32) workflow];
-            [v19 actions];
-            v21 = v20 = v5;
-            v43 = [v21 indexOfObject:v15];
-            v44 = v15;
-            v22 = v1;
-            v23 = [*(v1 + 32) currentIndex];
+            v17 = [*(v1 + 32) workflow];
+            [v17 actions];
+            v19 = v18 = v4;
+            v40 = [v19 indexOfObject:v13];
+            v41 = v13;
+            v20 = v1;
+            v21 = [*(v1 + 32) currentIndex];
 
-            v5 = v20;
-            v24 = v43 > v23;
-            v1 = v22;
-            v15 = v44;
-            if (v24)
+            v4 = v18;
+            v22 = v40 > v21;
+            v1 = v20;
+            v13 = v41;
+            if (v22)
             {
-              v7 = [v14 progress];
+              v6 = [v12 progress];
 
-              v3 = v12;
+              v3 = v11;
               goto LABEL_5;
             }
           }
         }
       }
 
-      while (v9 > 0);
-      v3 = v42;
+      while (v8 > 0);
+      v3 = v39;
     }
   }
 
-  if (![*(v1 + 40) hasChildren] || (objc_msgSend(*(v1 + 40), "progress"), v25 = objc_claimAutoreleasedReturnValue(), v25, !v25))
+  if (![*(v1 + 40) hasChildren] || (objc_msgSend(*(v1 + 40), "progress"), v23 = objc_claimAutoreleasedReturnValue(), v23, !v23))
   {
-    v26 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:1];
-    [*(v1 + 40) setProgress:v26];
+    v24 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:1];
+    [*(v1 + 40) setProgress:v24];
   }
 
-  v27 = [*(v1 + 40) progress];
+  v25 = [*(v1 + 40) progress];
 
-  if (v27)
+  if (v25)
   {
-    v28 = [*(v1 + 40) progress];
-    [v3 addChild:v28 withPendingUnitCount:1];
+    v26 = [*(v1 + 40) progress];
+    [v3 addChild:v26 withPendingUnitCount:1];
 
-    v29 = [*(v1 + 40) progress];
-    v30 = v1;
-    v31 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(v1 + 32), "currentIndex")}];
-    [v29 setUserInfoObject:v31 forKey:*MEMORY[0x1E69E1330]];
+    v27 = [*(v1 + 40) progress];
+    v28 = v1;
+    v29 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(v1 + 32), "currentIndex")}];
+    [v27 setUserInfoObject:v29 forKey:*MEMORY[0x1E69E1330]];
 
-    v1 = v30;
-    v32 = [*(v30 + 40) progress];
-    [*(v30 + 32) setCurrentActionProgress:v32];
+    v1 = v28;
+    v30 = [*(v28 + 40) progress];
+    [*(v28 + 32) setCurrentActionProgress:v30];
   }
 
   if ([*(v1 + 32) resumed])
   {
-    v33 = [*(v1 + 40) progress];
-    [v33 setUserInfoObject:MEMORY[0x1E695E118] forKey:@"WFActionDidResume"];
+    v31 = [*(v1 + 40) progress];
+    [v31 setUserInfoObject:MEMORY[0x1E695E118] forKey:@"WFActionDidResume"];
   }
 
   [*(v1 + 40) setDidRunRemotely:0];
   [*(v1 + 32) logStartActionEventWithAction:*(v1 + 40)];
-  v34 = *(v1 + 40);
-  if (v34)
+  v32 = *(v1 + 40);
+  if (v32)
   {
-    v35 = v5[22];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v36 = v34;
+      v33 = v32;
     }
 
     else
     {
-      v36 = 0;
+      v33 = 0;
     }
   }
 
   else
   {
-    v36 = 0;
+    v33 = 0;
   }
 
-  v37 = v36;
+  v34 = v33;
 
-  v38 = [*(v1 + 32) flowTracker];
-  [v37 setControlFlowTracker:v38];
+  v35 = [*(v1 + 32) flowTracker];
+  [v34 setControlFlowTracker:v35];
 
-  v40 = *(v1 + 32);
-  v39 = *(v1 + 40);
-  v41 = *(v1 + 48);
-  v45[0] = MEMORY[0x1E69E9820];
-  v45[1] = 3221225472;
-  v45[2] = __29__WFWorkflowController__step__block_invoke_2;
-  v45[3] = &unk_1E8377BD8;
-  v45[4] = v40;
-  v46 = v39;
-  [v40 runAction:v46 withInput:v41 completionHandler:v45];
+  v37 = *(v1 + 32);
+  v36 = *(v1 + 40);
+  v38 = *(v1 + 48);
+  v42[0] = MEMORY[0x1E69E9820];
+  v42[1] = 3221225472;
+  v42[2] = __29__WFWorkflowController__step__block_invoke_2;
+  v42[3] = &unk_1E8377BD8;
+  v42[4] = v37;
+  v43 = v36;
+  [v37 runAction:v43 withInput:v38 completionHandler:v42];
 }
 
 void __29__WFWorkflowController__step__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
@@ -2837,7 +3028,7 @@ void __29__WFWorkflowController__step__block_invoke_2(uint64_t a1, uint64_t a2, 
     if (v6)
     {
       v7 = [v6 domain];
-      if ([v7 isEqualToString:@"WFActionErrorDomain"])
+      if (objc_msgSend_isEqualToString_(v7))
       {
         v8 = [v6 code];
 
@@ -3031,19 +3222,19 @@ uint64_t __29__WFWorkflowController__step__block_invoke_4(id *a1)
   v8 = v7;
   if (v6 == v7)
   {
-    v3 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v3 = 0;
+    isEqualToString = 0;
     if (v6 && v7)
     {
-      v3 = [v6 isEqualToString:v7];
+      isEqualToString = objc_msgSend_isEqualToString_(v6);
     }
   }
 
-  return v3;
+  return isEqualToString;
 }
 
 - (WFSmartPromptsExfiltrationLogger)exfiltrationLogger
@@ -3251,21 +3442,21 @@ id __71__WFWorkflowController_stateWithActionIndex_input_processedParameters___b
   return v5;
 }
 
-id __71__WFWorkflowController_stateWithActionIndex_input_processedParameters___block_invoke_2()
+id __71__WFWorkflowController_stateWithActionIndex_input_processedParameters___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  if ([MEMORY[0x1E69E0C68] hasExtensionForResourceClassName:v1])
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  if ([MEMORY[0x1E69E0C68] hasExtensionForResourceClassName:v3])
   {
-    v2 = v1;
+    v4 = v3;
   }
 
   else
   {
-    v2 = 0;
+    v4 = 0;
   }
 
-  return v2;
+  return v4;
 }
 
 - (WFWorkflowControllerState)currentState

@@ -22,6 +22,8 @@
 - (void)notifyListener:(uint64_t)listener withAuthorizationChangeForBundleIdentifier:;
 - (void)removeListener:(id)listener;
 - (void)reregisterAfterInterruption:(id)interruption effectiveBundleId:(id)id;
+- (void)setDataCollectionEnabled:(BOOL)enabled;
+- (void)setFirstRunOnboardingCompleted:(BOOL)completed;
 - (void)updateInitialAuthorizationStateIfNeeded;
 @end
 
@@ -76,10 +78,10 @@ SRAuthorizationClient *__39__SRAuthorizationClient_sharedInstance__block_invoke(
 
 - (SRAuthorizationClient)initWithConnection:(id)connection
 {
-  v34 = *MEMORY[0x1E69E9840];
-  v26.receiver = self;
-  v26.super_class = SRAuthorizationClient;
-  v4 = [(SRAuthorizationClient *)&v26 init];
+  v33 = *MEMORY[0x1E69E9840];
+  v25.receiver = self;
+  v25.super_class = SRAuthorizationClient;
+  v4 = [(SRAuthorizationClient *)&v25 init];
   v5 = v4;
   if (v4)
   {
@@ -97,13 +99,13 @@ SRAuthorizationClient *__39__SRAuthorizationClient_sharedInstance__block_invoke(
     -[NSXPCConnection setExportedInterface:](v5->_connection, "setExportedInterface:", [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F48D2D88]);
     [(NSXPCConnection *)v5->_connection setExportedObject:v5];
     objc_initWeak(&location, v5);
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __44__SRAuthorizationClient_initWithConnection___block_invoke;
-    v23[3] = &unk_1E8330FD8;
-    objc_copyWeak(&v24, &location);
-    v23[4] = connection;
-    [(NSXPCConnection *)v5->_connection setInterruptionHandler:v23];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __44__SRAuthorizationClient_initWithConnection___block_invoke;
+    v22[3] = &unk_1E8330FD8;
+    objc_copyWeak(&v23, &location);
+    v22[4] = connection;
+    [(NSXPCConnection *)v5->_connection setInterruptionHandler:v22];
     [(NSXPCConnection *)v5->_connection resume];
     v15 = SRLogAuthorizationClient;
     if (os_log_type_enabled(SRLogAuthorizationClient, OS_LOG_TYPE_DEBUG))
@@ -120,7 +122,7 @@ SRAuthorizationClient *__39__SRAuthorizationClient_sharedInstance__block_invoke(
     handler[1] = 3221225472;
     handler[2] = __56__SRAuthorizationClient_registerForPrerequisitesUpdated__block_invoke;
     handler[3] = &unk_1E83304A8;
-    objc_copyWeak(&v28, &from);
+    objc_copyWeak(&v27, &from);
     v18 = notify_register_dispatch(uTF8String, &v5->_registrationToken, MEMORY[0x1E69E96A0], handler);
     if (v18 || *p_registrationToken == -1)
     {
@@ -129,26 +131,25 @@ SRAuthorizationClient *__39__SRAuthorizationClient_sharedInstance__block_invoke(
       {
         v20 = *p_registrationToken;
         *buf = 67240448;
-        v31 = v18;
-        v32 = 1026;
-        v33 = v20;
+        v30 = v18;
+        v31 = 1026;
+        v32 = v20;
         _os_log_error_impl(&dword_1C914D000, v19, OS_LOG_TYPE_ERROR, "Failed to register for prerequisites notification status %{public}d, registration token %{public}d", buf, 0xEu);
       }
     }
 
-    objc_destroyWeak(&v28);
+    objc_destroyWeak(&v27);
     objc_destroyWeak(&from);
-    objc_destroyWeak(&v24);
+    objc_destroyWeak(&v23);
     objc_destroyWeak(&location);
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 id *__44__SRAuthorizationClient_initWithConnection___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   result = objc_loadWeak((a1 + 40));
   if (result)
   {
@@ -157,54 +158,54 @@ id *__44__SRAuthorizationClient_initWithConnection___block_invoke(uint64_t a1)
     v5 = [MEMORY[0x1E695DFA8] set];
     v6 = v3[3];
     objc_sync_enter(v6);
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v7 = v3[3];
-    v8 = [v7 countByEnumeratingWithState:&v21 objects:v26 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v8)
     {
-      v9 = *v22;
+      v9 = *v21;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v22 != v9)
+          if (*v21 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          [v5 addObject:{objc_msgSend(v3[3], "objectForKey:", *(*(&v21 + 1) + 8 * i))}];
+          [v5 addObject:{objc_msgSend(v3[3], "objectForKey:", *(*(&v20 + 1) + 8 * i))}];
         }
 
-        v8 = [v7 countByEnumeratingWithState:&v21 objects:v26 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v20 objects:v25 count:16];
       }
 
       while (v8);
     }
 
     objc_sync_exit(v6);
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    result = [v5 countByEnumeratingWithState:&v17 objects:v25 count:16];
+    result = [v5 countByEnumeratingWithState:&v16 objects:v24 count:16];
     v11 = result;
     if (result)
     {
-      v12 = *v18;
+      v12 = *v17;
       do
       {
         v13 = 0;
         do
         {
-          if (*v18 != v12)
+          if (*v17 != v12)
           {
             objc_enumerationMutation(v5);
           }
 
-          v14 = *(*(&v17 + 1) + 8 * v13);
+          v14 = *(*(&v16 + 1) + 8 * v13);
           if ([v14 isEqualToString:{objc_msgSend(objc_msgSend(MEMORY[0x1E696AAE8], "mainBundle"), "bundleIdentifier")}])
           {
             v15 = 0;
@@ -220,7 +221,7 @@ id *__44__SRAuthorizationClient_initWithConnection___block_invoke(uint64_t a1)
         }
 
         while (v11 != v13);
-        result = [v5 countByEnumeratingWithState:&v17 objects:v25 count:16];
+        result = [v5 countByEnumeratingWithState:&v16 objects:v24 count:16];
         v11 = result;
       }
 
@@ -228,7 +229,6 @@ id *__44__SRAuthorizationClient_initWithConnection___block_invoke(uint64_t a1)
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -241,7 +241,7 @@ id *__44__SRAuthorizationClient_initWithConnection___block_invoke(uint64_t a1)
 
 - (void)dealloc
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (self)
   {
     registrationToken = self->_registrationToken;
@@ -260,9 +260,9 @@ id *__44__SRAuthorizationClient_initWithConnection___block_invoke(uint64_t a1)
         v5 = SRLogAuthorizationClient;
         if (os_log_type_enabled(SRLogAuthorizationClient, OS_LOG_TYPE_ERROR))
         {
-          v10 = self->_registrationToken;
+          v9 = self->_registrationToken;
           *buf = 67240192;
-          v13 = v10;
+          v12 = v9;
           _os_log_error_impl(&dword_1C914D000, v5, OS_LOG_TYPE_ERROR, "Failed to cancel notification status %{public}d", buf, 8u);
         }
       }
@@ -278,10 +278,9 @@ id *__44__SRAuthorizationClient_initWithConnection___block_invoke(uint64_t a1)
 
   self->_connection = 0;
   objc_setProperty_atomic(self, v8, 0, 48);
-  v11.receiver = self;
-  v11.super_class = SRAuthorizationClient;
-  [(SRAuthorizationClient *)&v11 dealloc];
-  v9 = *MEMORY[0x1E69E9840];
+  v10.receiver = self;
+  v10.super_class = SRAuthorizationClient;
+  [(SRAuthorizationClient *)&v10 dealloc];
 }
 
 - (void)reregisterAfterInterruption:(id)interruption effectiveBundleId:(id)id
@@ -367,7 +366,7 @@ id *__44__SRAuthorizationClient_initWithConnection___block_invoke(uint64_t a1)
 
 uint64_t __64__SRAuthorizationClient_updateInitialAuthorizationStateIfNeeded__block_invoke(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5)
 {
-  v73 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   v7 = *(a1 + 32);
   if (v7)
   {
@@ -379,7 +378,7 @@ uint64_t __64__SRAuthorizationClient_updateInitialAuthorizationStateIfNeeded__bl
     v8 = 0;
   }
 
-  v50 = v8;
+  v49 = v8;
   objc_sync_enter(v8);
   v10 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:a2];
   v11 = *(a1 + 32);
@@ -419,28 +418,28 @@ uint64_t __64__SRAuthorizationClient_updateInitialAuthorizationStateIfNeeded__bl
     }
 
     *buf = 134217984;
-    v69 = [Property integerValue];
+    v68 = [Property integerValue];
     _os_log_impl(&dword_1C914D000, v21, OS_LOG_TYPE_INFO, "Retrieved initial authorization state. prerequisites: %ld", buf, 0xCu);
   }
 
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
   v63 = 0u;
-  v24 = [a2 countByEnumeratingWithState:&v62 objects:v72 count:16];
+  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
+  v24 = [a2 countByEnumeratingWithState:&v61 objects:v71 count:16];
   if (v24)
   {
-    v25 = *v63;
+    v25 = *v62;
     do
     {
       for (i = 0; i != v24; ++i)
       {
-        if (*v63 != v25)
+        if (*v62 != v25)
         {
           objc_enumerationMutation(a2);
         }
 
-        v27 = *(*(&v62 + 1) + 8 * i);
+        v27 = *(*(&v61 + 1) + 8 * i);
         v28 = SRLogAuthorizationClient;
         if (os_log_type_enabled(SRLogAuthorizationClient, OS_LOG_TYPE_INFO))
         {
@@ -452,37 +451,37 @@ uint64_t __64__SRAuthorizationClient_updateInitialAuthorizationStateIfNeeded__bl
 
           v31 = [v30 objectForKeyedSubscript:v27];
           *buf = 138543619;
-          v69 = v27;
-          v70 = 2113;
-          v71 = v31;
+          v68 = v27;
+          v69 = 2113;
+          v70 = v31;
           _os_log_impl(&dword_1C914D000, v28, OS_LOG_TYPE_INFO, "%{public}@ authorized: %{private}@", buf, 0x16u);
         }
       }
 
-      v24 = [a2 countByEnumeratingWithState:&v62 objects:v72 count:16];
+      v24 = [a2 countByEnumeratingWithState:&v61 objects:v71 count:16];
     }
 
     while (v24);
   }
 
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
   v59 = 0u;
-  v32 = [a3 countByEnumeratingWithState:&v58 objects:v67 count:16];
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
+  v32 = [a3 countByEnumeratingWithState:&v57 objects:v66 count:16];
   if (v32)
   {
-    v33 = *v59;
+    v33 = *v58;
     do
     {
       for (j = 0; j != v32; ++j)
       {
-        if (*v59 != v33)
+        if (*v58 != v33)
         {
           objc_enumerationMutation(a3);
         }
 
-        v35 = *(*(&v58 + 1) + 8 * j);
+        v35 = *(*(&v57 + 1) + 8 * j);
         v36 = SRLogAuthorizationClient;
         if (os_log_type_enabled(SRLogAuthorizationClient, OS_LOG_TYPE_INFO))
         {
@@ -494,37 +493,37 @@ uint64_t __64__SRAuthorizationClient_updateInitialAuthorizationStateIfNeeded__bl
 
           v39 = [v38 objectForKeyedSubscript:v35];
           *buf = 138543619;
-          v69 = v35;
-          v70 = 2113;
-          v71 = v39;
+          v68 = v35;
+          v69 = 2113;
+          v70 = v39;
           _os_log_impl(&dword_1C914D000, v36, OS_LOG_TYPE_INFO, "%{public}@ denied: %{private}@", buf, 0x16u);
         }
       }
 
-      v32 = [a3 countByEnumeratingWithState:&v58 objects:v67 count:16];
+      v32 = [a3 countByEnumeratingWithState:&v57 objects:v66 count:16];
     }
 
     while (v32);
   }
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
   v55 = 0u;
-  v40 = [a4 countByEnumeratingWithState:&v54 objects:v66 count:16];
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
+  v40 = [a4 countByEnumeratingWithState:&v53 objects:v65 count:16];
   if (v40)
   {
-    v41 = *v55;
+    v41 = *v54;
     do
     {
       for (k = 0; k != v40; ++k)
       {
-        if (*v55 != v41)
+        if (*v54 != v41)
         {
           objc_enumerationMutation(a4);
         }
 
-        v43 = *(*(&v54 + 1) + 8 * k);
+        v43 = *(*(&v53 + 1) + 8 * k);
         v44 = SRLogAuthorizationClient;
         if (os_log_type_enabled(SRLogAuthorizationClient, OS_LOG_TYPE_INFO))
         {
@@ -536,23 +535,21 @@ uint64_t __64__SRAuthorizationClient_updateInitialAuthorizationStateIfNeeded__bl
 
           v47 = [v46 objectForKeyedSubscript:v43];
           *buf = 138543619;
-          v69 = v43;
-          v70 = 2113;
-          v71 = v47;
+          v68 = v43;
+          v69 = 2113;
+          v70 = v47;
           _os_log_impl(&dword_1C914D000, v44, OS_LOG_TYPE_INFO, "%{public}@ last modified times: %{private}@", buf, 0x16u);
         }
       }
 
-      v40 = [a4 countByEnumeratingWithState:&v54 objects:v66 count:16];
+      v40 = [a4 countByEnumeratingWithState:&v53 objects:v65 count:16];
     }
 
     while (v40);
   }
 
   [*(a1 + 32) setInitialAuthNeeded:0];
-  result = objc_sync_exit(v50);
-  v49 = *MEMORY[0x1E69E9840];
-  return result;
+  return objc_sync_exit(v49);
 }
 
 void __56__SRAuthorizationClient_registerForPrerequisitesUpdated__block_invoke(uint64_t a1)
@@ -606,6 +603,15 @@ void __56__SRAuthorizationClient_registerForPrerequisitesUpdated__block_invoke(u
   return [Property integerValue] & 1;
 }
 
+- (void)setDataCollectionEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  [(SRAuthorizationClient *)self setInitialAuthNeeded:1];
+  syncProxy = [(SRAuthorizationClient *)self syncProxy];
+
+  [syncProxy setDataCollectionEnabled:enabledCopy];
+}
+
 - (BOOL)firstRunOnboardingCompleted
 {
   [(SRAuthorizationClient *)self updateInitialAuthorizationStateIfNeeded];
@@ -622,6 +628,15 @@ void __56__SRAuthorizationClient_registerForPrerequisitesUpdated__block_invoke(u
   return ([Property integerValue] >> 1) & 1;
 }
 
+- (void)setFirstRunOnboardingCompleted:(BOOL)completed
+{
+  completedCopy = completed;
+  [(SRAuthorizationClient *)self setInitialAuthNeeded:1];
+  syncProxy = [(SRAuthorizationClient *)self syncProxy];
+
+  [syncProxy setFirstRunOnboardingCompleted:completedCopy];
+}
+
 - (void)completeEnrollmentForBundleId:(id)id sensors:(id)sensors
 {
   syncProxy = [(SRAuthorizationClient *)self syncProxy];
@@ -631,33 +646,30 @@ void __56__SRAuthorizationClient_registerForPrerequisitesUpdated__block_invoke(u
 
 id __34__SRAuthorizationClient_syncProxy__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = SRLogAuthorizationClient;
   if (os_log_type_enabled(SRLogAuthorizationClient, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138543362;
-    v8 = a2;
-    _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Failed to get sync proxy to daemon, error %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = a2;
+    _os_log_error_impl(&dword_1C914D000, v4, OS_LOG_TYPE_ERROR, "Failed to get sync proxy to daemon, error %{public}@", &v6, 0xCu);
   }
 
   result = a2;
   *(*(*(a1 + 32) + 8) + 40) = result;
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void __34__SRAuthorizationClient_syncProxy__block_invoke_36(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = SRLogAuthorizationClient;
   if (os_log_type_enabled(SRLogAuthorizationClient, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138543362;
-    v6 = a2;
-    _os_log_error_impl(&dword_1C914D000, v3, OS_LOG_TYPE_ERROR, "Failed to get sync proxy to daemon, error %{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = a2;
+    _os_log_error_impl(&dword_1C914D000, v3, OS_LOG_TYPE_ERROR, "Failed to get sync proxy to daemon, error %{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)legacyResearchStudyBundleIDs
@@ -680,7 +692,7 @@ void __34__SRAuthorizationClient_syncProxy__block_invoke_36(uint64_t a1, uint64_
   return v3;
 }
 
-uint64_t __53__SRAuthorizationClient_legacyResearchStudyBundleIDs__block_invoke(uint64_t a1, void *a2)
+void *__53__SRAuthorizationClient_legacyResearchStudyBundleIDs__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 copy];
   *(*(*(a1 + 32) + 8) + 40) = result;
@@ -707,7 +719,7 @@ uint64_t __53__SRAuthorizationClient_legacyResearchStudyBundleIDs__block_invoke(
   return v3;
 }
 
-uint64_t __55__SRAuthorizationClient_legacyResearchStudyEntitlement__block_invoke(uint64_t a1, void *a2)
+void *__55__SRAuthorizationClient_legacyResearchStudyEntitlement__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 copy];
   *(*(*(a1 + 32) + 8) + 40) = result;
@@ -884,19 +896,19 @@ uint64_t __55__SRAuthorizationClient_legacyResearchStudyEntitlement__block_invok
 
 - (void)authorizedServicesDidChange:(id)change deniedServices:(id)services prerequisites:(int64_t)prerequisites lastModifiedTimes:(id)times bundleIdentifier:(id)identifier
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v13 = SRLogAuthorizationClient;
   if (os_log_type_enabled(SRLogAuthorizationClient, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138544387;
     identifierCopy = identifier;
-    v40 = 2050;
+    v39 = 2050;
     prerequisitesCopy = prerequisites;
-    v42 = 2114;
+    v41 = 2114;
     changeCopy = change;
-    v44 = 2114;
+    v43 = 2114;
     servicesCopy = services;
-    v46 = 2113;
+    v45 = 2113;
     timesCopy = times;
     _os_log_impl(&dword_1C914D000, v13, OS_LOG_TYPE_DEFAULT, "Daemon authorization update for bundle: %{public}@, prerequisites: %{public}ld, authorized: %{public}@, denied: %{public}@, last modified times: %{private}@", buf, 0x34u);
   }
@@ -929,7 +941,7 @@ uint64_t __55__SRAuthorizationClient_legacyResearchStudyEntitlement__block_invok
         }
 
         objc_sync_exit(listeners);
-        goto LABEL_32;
+        return;
       }
 
       goto LABEL_16;
@@ -978,39 +990,36 @@ LABEL_17:
     objc_sync_enter(v27);
     v28 = [(NSMapTable *)self->_listeners copy];
     objc_sync_exit(v27);
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
-    v29 = [v28 countByEnumeratingWithState:&v34 objects:buf count:16];
+    v29 = [v28 countByEnumeratingWithState:&v33 objects:buf count:16];
     if (v29)
     {
-      v30 = *v35;
+      v30 = *v34;
       do
       {
         for (i = 0; i != v29; ++i)
         {
-          if (*v35 != v30)
+          if (*v34 != v30)
           {
             objc_enumerationMutation(v28);
           }
 
-          v32 = *(*(&v34 + 1) + 8 * i);
+          v32 = *(*(&v33 + 1) + 8 * i);
           if ([objc_msgSend(v28 objectForKey:{v32), "isEqual:", identifier}])
           {
             [(SRAuthorizationClient *)self notifyListener:v32 withAuthorizationChangeForBundleIdentifier:identifier];
           }
         }
 
-        v29 = [v28 countByEnumeratingWithState:&v34 objects:buf count:16];
+        v29 = [v28 countByEnumeratingWithState:&v33 objects:buf count:16];
       }
 
       while (v29);
     }
   }
-
-LABEL_32:
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -125,62 +125,62 @@ LABEL_9:
 
   if (!v6)
   {
-    v46[0] = @"solidPattern";
-    v42 = +[NSBundle mainBundle];
-    v40 = [v42 localizedStringForKey:@"Solid" value:0 table:0];
-    v47[0] = v40;
-    v46[1] = @"emptyPattern";
-    v38 = +[NSBundle mainBundle];
-    v36 = [v38 localizedStringForKey:@"Empty" value:0 table:0];
-    v47[1] = v36;
-    v46[2] = @"shortDashPattern";
+    v47[0] = @"solidPattern";
+    v43 = +[NSBundle mainBundle];
+    v41 = [v43 localizedStringForKey:@"Solid" value:0 table:0];
+    v48[0] = v41;
+    v47[1] = @"emptyPattern";
+    v39 = +[NSBundle mainBundle];
+    v37 = [v39 localizedStringForKey:@"Empty" value:0 table:0];
+    v48[1] = v37;
+    v47[2] = @"shortDashPattern";
     v7 = +[NSBundle mainBundle];
     v8 = [v7 localizedStringForKey:@"Short dash" value:0 table:0];
-    v47[2] = v8;
-    v46[3] = @"mediumDashPattern";
+    v48[2] = v8;
+    v47[3] = @"mediumDashPattern";
     v9 = +[NSBundle mainBundle];
     v10 = [v9 localizedStringForKey:@"Medium dash" value:0 table:0];
-    v47[3] = v10;
-    v46[4] = @"longDashPattern";
+    v48[3] = v10;
+    v47[4] = @"longDashPattern";
     v11 = +[NSBundle mainBundle];
     v12 = [v11 localizedStringForKey:@"Long dash" value:0 table:0];
-    v47[4] = v12;
-    v46[5] = @"roundDashPattern";
+    v48[4] = v12;
+    v47[5] = @"roundDashPattern";
     v13 = +[NSBundle mainBundle];
     v14 = [v13 localizedStringForKey:@"Rounded dash" value:0 table:0];
-    v47[5] = v14;
-    v15 = [NSDictionary dictionaryWithObjects:v47 forKeys:v46 count:6];
+    v48[5] = v14;
+    v15 = [NSDictionary dictionaryWithObjects:v48 forKeys:v47 count:6];
     v16 = qword_101A353B0;
     qword_101A353B0 = v15;
   }
 
   if (!qword_101A353A8 && !strokeCopy)
   {
-    v44[0] = @"solidPattern";
-    v43 = +[NSBundle mainBundle];
-    v41 = [v43 localizedStringForKey:@"Solid stroke" value:0 table:0];
-    v45[0] = v41;
-    v44[1] = @"emptyPattern";
-    v39 = +[NSBundle mainBundle];
-    v37 = [v39 localizedStringForKey:@"Empty stroke" value:0 table:0];
-    v45[1] = v37;
-    v44[2] = @"shortDashPattern";
+    v45[0] = @"solidPattern";
+    v44 = +[NSBundle mainBundle];
+    v42 = [v44 localizedStringForKey:@"Solid stroke" value:0 table:0];
+    v46[0] = v42;
+    v45[1] = @"emptyPattern";
+    v40 = +[NSBundle mainBundle];
+    v38 = [v40 localizedStringForKey:@"Empty stroke" value:0 table:0];
+    v46[1] = v38;
+    v45[2] = @"shortDashPattern";
     v17 = +[NSBundle mainBundle];
     v18 = [v17 localizedStringForKey:@"Short dash stroke" value:0 table:0];
-    v45[2] = v18;
-    v44[3] = @"mediumDashPattern";
+    v46[2] = v18;
+    v45[3] = @"mediumDashPattern";
     v19 = +[NSBundle mainBundle];
     v20 = [v19 localizedStringForKey:@"Medium dash stroke" value:0 table:0];
-    v45[3] = v20;
-    v44[4] = @"longDashPattern";
+    v46[3] = v20;
+    v45[4] = @"longDashPattern";
     v21 = +[NSBundle mainBundle];
     v22 = [v21 localizedStringForKey:@"Long dash stroke" value:0 table:0];
-    v45[4] = v22;
-    v44[5] = @"roundDashPattern";
+    v46[4] = v22;
+    v45[5] = @"roundDashPattern";
     v23 = +[NSBundle mainBundle];
     v24 = [v23 localizedStringForKey:@"Rounded dash stroke" value:0 table:0];
-    v45[5] = v24;
-    v25 = [NSDictionary dictionaryWithObjects:v45 forKeys:v44 count:6];
+    v46[5] = v24;
+    v25 = [NSDictionary dictionaryWithObjects:v46 forKeys:v45 count:6];
     v26 = qword_101A353A8;
     qword_101A353A8 = v25;
   }
@@ -192,12 +192,12 @@ LABEL_9:
   }
 
   v28 = [*v27 objectForKeyedSubscript:patternCopy];
-  if (CRLAccessibilityShouldPerformValidationChecks())
+  if (CRLAccessibilityShouldPerformValidationChecks(v28, v29))
   {
     if (![v28 length])
     {
-      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-      if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Unrecognized pattern %@, could not get localization key", v30, v31, v32, v33, v34, patternCopy))
+      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(0);
+      if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Unrecognized pattern %@, could not get localization key", v31, v32, v33, v34, v35, patternCopy))
       {
         abort();
       }

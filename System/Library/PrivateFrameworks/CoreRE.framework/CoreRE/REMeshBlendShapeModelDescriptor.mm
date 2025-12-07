@@ -12,8 +12,8 @@
 
 - (REMeshBlendShapeModelDescriptor)initWithMeshBlendShapeData:(const void *)data meshPartCount:(unint64_t)count payloadBuilder:(void *)builder deformationModelData:(void *)modelData
 {
-  v41 = *MEMORY[0x1E69E9840];
-  *&v40[0] = 0;
+  v46 = *MEMORY[0x1E69E9840];
+  *&v45[0] = 0;
   countCopy = count;
 
   if (*(data + 2))
@@ -22,15 +22,15 @@
     v11 = 0;
     do
     {
-      re::BlendShapeModelBuilder::addBlendShapeGroup(v31, *(data + 4) + v10, *(*(data + 4) + v10 + 48), v11++, 0);
+      re::BlendShapeModelBuilder::addBlendShapeGroup(v35, *(data + 4) + v10, *(*(data + 4) + v10 + 48), v11++, 0);
       v10 += 56;
     }
 
     while (v11 < *(data + 2));
   }
 
-  v30 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v29 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v34 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v33 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v12 = *modelData;
   v13 = **modelData;
   if (v12[2])
@@ -41,28 +41,39 @@
     do
     {
       v17 = [[REMeshBlendShapeBufferDescriptor alloc] initWithBlendShapeBufferPayload:v12[3] + v14 indexType:v13 payloadBuilder:builder];
-      [v30 addObject:v17];
+      [v34 addObject:v17];
       v18 = v12[8];
       if (v18 <= v15)
       {
-        v31[2] = 0;
-        memset(v40, 0, sizeof(v40));
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v32 = 136315906;
-        v33 = "operator[]";
-        v34 = 1024;
-        v35 = 468;
-        v36 = 2048;
-        v37 = v15;
-        v38 = 2048;
-        v39 = v18;
-        _os_log_send_and_compose_impl();
+        v36 = 0;
+        memset(v45, 0, sizeof(v45));
+        v27 = MEMORY[0x1E69E9C10];
+        v28 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+        v37 = 136315906;
+        v38 = "operator[]";
+        v39 = 1024;
+        if (v28)
+        {
+          v29 = 3;
+        }
+
+        else
+        {
+          v29 = 2;
+        }
+
+        v40 = 468;
+        v41 = 2048;
+        v42 = v15;
+        v43 = 2048;
+        v44 = v18;
+        _os_log_send_and_compose_impl(v29, &v36, v45, 80, &dword_1E1C61000, v27, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v37, 38, v30, countCopy);
         _os_crash_msg();
         __break(1u);
       }
 
       v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:*(v12[9] + v16)];
-      [v29 addObject:v19];
+      [v33 addObject:v19];
 
       ++v15;
       v16 += 16;
@@ -90,15 +101,15 @@
     while (v23);
   }
 
-  v25 = [(REMeshBlendShapeModelDescriptor *)self initWithBlendShapeIndexType:v13 blendShapeBuffers:v30 perMeshPartBlendShapeBufferIndex:v20 blendGroupNames:v29];
+  v25 = [(REMeshBlendShapeModelDescriptor *)self initWithBlendShapeIndexType:v13 blendShapeBuffers:v34 perMeshPartBlendShapeBufferIndex:v20 blendGroupNames:v33];
 
   return v25;
 }
 
 - (REMeshBlendShapeModelDescriptor)initWithBlendShapeData:(const void *)data meshPartCount:(unint64_t)count payloadBuilder:(void *)builder deformationModelData:(void *)modelData
 {
-  v41 = *MEMORY[0x1E69E9840];
-  *&v40[0] = 0;
+  v46 = *MEMORY[0x1E69E9840];
+  *&v45[0] = 0;
   countCopy = count;
 
   if (*(data + 2))
@@ -107,15 +118,15 @@
     v11 = 0;
     do
     {
-      re::BlendShapeModelBuilder::addBlendShapeGroup(v31, *(data + 4) + v10, *(*(data + 4) + v10 + 48), v11++, 0);
+      re::BlendShapeModelBuilder::addBlendShapeGroup(v35, *(data + 4) + v10, *(*(data + 4) + v10 + 48), v11++, 0);
       v10 += 56;
     }
 
     while (v11 < *(data + 2));
   }
 
-  v30 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v29 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v34 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v33 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v12 = *modelData;
   v13 = **modelData;
   if (v12[2])
@@ -126,28 +137,39 @@
     do
     {
       v17 = [[REMeshBlendShapeBufferDescriptor alloc] initWithBlendShapeBufferPayload:v12[3] + v14 indexType:v13 payloadBuilder:builder];
-      [v30 addObject:v17];
+      [v34 addObject:v17];
       v18 = v12[8];
       if (v18 <= v15)
       {
-        v31[2] = 0;
-        memset(v40, 0, sizeof(v40));
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v32 = 136315906;
-        v33 = "operator[]";
-        v34 = 1024;
-        v35 = 468;
-        v36 = 2048;
-        v37 = v15;
-        v38 = 2048;
-        v39 = v18;
-        _os_log_send_and_compose_impl();
+        v36 = 0;
+        memset(v45, 0, sizeof(v45));
+        v27 = MEMORY[0x1E69E9C10];
+        v28 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+        v37 = 136315906;
+        v38 = "operator[]";
+        v39 = 1024;
+        if (v28)
+        {
+          v29 = 3;
+        }
+
+        else
+        {
+          v29 = 2;
+        }
+
+        v40 = 468;
+        v41 = 2048;
+        v42 = v15;
+        v43 = 2048;
+        v44 = v18;
+        _os_log_send_and_compose_impl(v29, &v36, v45, 80, &dword_1E1C61000, v27, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v37, 38, v30, countCopy);
         _os_crash_msg();
         __break(1u);
       }
 
       v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:*(v12[9] + v16)];
-      [v29 addObject:v19];
+      [v33 addObject:v19];
 
       ++v15;
       v16 += 16;
@@ -175,7 +197,7 @@
     while (v23);
   }
 
-  v25 = [(REMeshBlendShapeModelDescriptor *)self initWithBlendShapeIndexType:v13 blendShapeBuffers:v30 perMeshPartBlendShapeBufferIndex:v20 blendGroupNames:v29];
+  v25 = [(REMeshBlendShapeModelDescriptor *)self initWithBlendShapeIndexType:v13 blendShapeBuffers:v34 perMeshPartBlendShapeBufferIndex:v20 blendGroupNames:v33];
 
   return v25;
 }

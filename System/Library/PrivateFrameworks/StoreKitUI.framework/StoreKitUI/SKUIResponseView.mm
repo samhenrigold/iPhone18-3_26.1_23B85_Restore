@@ -31,23 +31,24 @@
     }
   }
 
-  v23.receiver = self;
-  v23.super_class = SKUIResponseView;
-  height = [(SKUIViewReuseView *)&v23 initWithFrame:x, y, width, height];
+  v25.receiver = self;
+  v25.super_class = SKUIResponseView;
+  height = [(SKUIViewReuseView *)&v25 initWithFrame:x, y, width, height];
+  v18 = height;
   if (height)
   {
-    v17 = MEMORY[0x277D755B8];
-    v18 = SKUIBundle();
-    v19 = [v17 imageNamed:@"Reply" inBundle:v18];
+    v19 = MEMORY[0x277D755B8];
+    v20 = SKUIBundle(height, v17);
+    v21 = [v19 imageNamed:@"Reply" inBundle:v20];
 
-    v20 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v19];
-    replyImageView = height->_replyImageView;
-    height->_replyImageView = v20;
+    v22 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v21];
+    replyImageView = v18->_replyImageView;
+    v18->_replyImageView = v22;
 
-    [(SKUIResponseView *)height addSubview:height->_replyImageView];
+    [(SKUIResponseView *)v18 addSubview:v18->_replyImageView];
   }
 
-  return height;
+  return v18;
 }
 
 + (BOOL)prefetchResourcesForViewElement:(id)element reason:(int64_t)reason context:(id)context
@@ -423,54 +424,54 @@ void __33__SKUIResponseView_sizeThatFits___block_invoke(uint64_t a1, void *a2, u
 
 - (void)layoutSubviews
 {
-  v29.receiver = self;
-  v29.super_class = SKUIResponseView;
-  [(SKUIResponseView *)&v29 layoutSubviews];
-  v3 = storeShouldReverseLayoutDirection() ^ 1;
+  v31.receiver = self;
+  v31.super_class = SKUIResponseView;
+  layoutSubviews = [(SKUIResponseView *)&v31 layoutSubviews];
+  v5 = storeShouldReverseLayoutDirection(layoutSubviews, v4) ^ 1;
   [(SKUIResponseView *)self bounds];
-  v24 = v4;
-  v6 = v5;
+  v26 = v6;
   v8 = v7;
   v10 = v9;
-  [(SKUIResponseView *)self contentInset];
   v12 = v11;
+  [(SKUIResponseView *)self contentInset];
   v14 = v13;
   v16 = v15;
-  v18 = v17 + 17.5;
-  v19 = v8 - (v17 + 17.5) - v15;
+  v18 = v17;
+  v20 = v19 + 17.5;
+  v21 = v10 - (v19 + 17.5) - v17;
   allExistingViews = [(SKUIViewReuseView *)self allExistingViews];
-  v28[0] = 0;
-  v28[1] = v28;
-  v28[2] = 0x2020000000;
-  v28[3] = 0;
-  v27[0] = 0;
-  v27[1] = v27;
-  v27[2] = 0x2020000000;
-  *&v27[3] = v12;
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __34__SKUIResponseView_layoutSubviews__block_invoke;
-  v25[3] = &unk_2781FD348;
-  v25[4] = self;
-  v25[5] = v27;
-  v25[6] = v28;
-  v26 = v3;
-  *&v25[7] = v19;
-  *&v25[8] = v12;
-  *&v25[9] = v18;
-  v25[10] = v14;
-  *&v25[11] = v16;
-  v25[12] = v24;
-  v25[13] = v6;
-  *&v25[14] = v8;
-  v25[15] = v10;
-  [allExistingViews enumerateObjectsUsingBlock:v25];
+  v30[0] = 0;
+  v30[1] = v30;
+  v30[2] = 0x2020000000;
+  v30[3] = 0;
+  v29[0] = 0;
+  v29[1] = v29;
+  v29[2] = 0x2020000000;
+  *&v29[3] = v14;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __34__SKUIResponseView_layoutSubviews__block_invoke;
+  v27[3] = &unk_2781FD348;
+  v27[4] = self;
+  v27[5] = v29;
+  v27[6] = v30;
+  v28 = v5;
+  *&v27[7] = v21;
+  *&v27[8] = v14;
+  *&v27[9] = v20;
+  v27[10] = v16;
+  *&v27[11] = v18;
+  v27[12] = v26;
+  v27[13] = v8;
+  *&v27[14] = v10;
+  v27[15] = v12;
+  [allExistingViews enumerateObjectsUsingBlock:v27];
   replyImageView = [(SKUIResponseView *)self replyImageView];
   [replyImageView sizeThatFits:{*MEMORY[0x277CBF3A8], *(MEMORY[0x277CBF3A8] + 8)}];
-  [replyImageView setFrame:{0.0, v12, v22, v23}];
+  [replyImageView setFrame:{0.0, v14, v24, v25}];
 
-  _Block_object_dispose(v27, 8);
-  _Block_object_dispose(v28, 8);
+  _Block_object_dispose(v29, 8);
+  _Block_object_dispose(v30, 8);
 }
 
 void __34__SKUIResponseView_layoutSubviews__block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -556,24 +557,24 @@ void __34__SKUIResponseView_layoutSubviews__block_invoke(uint64_t a1, void *a2, 
   labelCopy = label;
   contextCopy = context;
   style = [labelCopy style];
-  v8 = SKUIViewElementFontWithStyle(style);
-  if (!v8)
+  v9 = SKUIViewElementFontWithStyle(style);
+  if (!v9)
   {
-    v8 = SKUIFontPreferredFontForTextStyle(21);
+    v9 = SKUIFontPreferredFontForTextStyle(21, v8);
   }
 
   tintColor = [contextCopy tintColor];
-  v10 = SKUIViewElementPlainColorWithStyle(style, tintColor);
+  v11 = SKUIViewElementPlainColorWithStyle(style, tintColor);
 
-  if (!v10)
+  if (!v11)
   {
-    v10 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.3];
+    v11 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.3];
   }
 
   text = [labelCopy text];
-  v12 = [text attributedStringWithDefaultFont:v8 foregroundColor:v10 style:style];
+  v13 = [text attributedStringWithDefaultFont:v9 foregroundColor:v11 style:style];
 
-  return v12;
+  return v13;
 }
 
 - (UIEdgeInsets)contentInset
@@ -587,6 +588,36 @@ void __34__SKUIResponseView_layoutSubviews__block_invoke(uint64_t a1, void *a2, 
   result.left = left;
   result.top = top;
   return result;
+}
+
+- (void)initWithFrame:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIResponseView initWithFrame:]";
+}
+
++ (void)prefetchResourcesForViewElement:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIResponseView prefetchResourcesForViewElement:reason:context:]";
+}
+
++ (void)preferredSizeForViewElement:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIResponseView preferredSizeForViewElement:context:]";
+}
+
++ (void)requestLayoutForViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIResponseView requestLayoutForViewElement:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 viewElement:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIResponseView sizeThatFitsWidth:viewElement:context:]";
 }
 
 @end

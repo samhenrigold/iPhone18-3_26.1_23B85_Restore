@@ -157,7 +157,7 @@ LABEL_21:
 
 - (id)_clipIconURLForAction:(id)action scale:(double)scale
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -167,36 +167,36 @@ LABEL_21:
 
     if (getClipMetadataSynchronously)
     {
-      v23 = 0;
-      v24 = &v23;
-      v25 = 0x3032000000;
-      v26 = __Block_byref_object_copy__0;
-      v27 = __Block_byref_object_dispose__0;
-      v28 = 0;
+      v22 = 0;
+      v23 = &v22;
+      v24 = 0x3032000000;
+      v25 = __Block_byref_object_copy__0;
+      v26 = __Block_byref_object_dispose__0;
+      v27 = 0;
       v8 = dispatch_group_create();
       dispatch_group_enter(v8);
       clipMetadataRequest2 = [actionCopy clipMetadataRequest];
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __51__BCSNotificationIcon__clipIconURLForAction_scale___block_invoke;
-      v19[3] = &unk_278CFF088;
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __51__BCSNotificationIcon__clipIconURLForAction_scale___block_invoke;
+      v18[3] = &unk_278CFF088;
       v10 = v8;
       scaleCopy = scale;
-      v20 = v10;
-      v21 = &v23;
-      [clipMetadataRequest2 requestDownloadedIconWithMetadata:getClipMetadataSynchronously completion:v19];
+      v19 = v10;
+      v20 = &v22;
+      [clipMetadataRequest2 requestDownloadedIconWithMetadata:getClipMetadataSynchronously completion:v18];
 
       v11 = dispatch_time(0, 1000000000);
       dispatch_group_wait(v10, v11);
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
-        v12 = v24[5];
+        v12 = v23[5];
         *buf = 138412290;
-        v30 = v12;
+        v29 = v12;
         _os_log_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "BCSNotificationIcon: processed icon URL after timeout = %@", buf, 0xCu);
       }
 
-      v13 = v24[5];
+      v13 = v23[5];
       if (v13)
       {
         v14 = v13;
@@ -218,7 +218,7 @@ LABEL_21:
         v14 = [v16 URLForResource:v15 withExtension:@"png"];
       }
 
-      _Block_object_dispose(&v23, 8);
+      _Block_object_dispose(&v22, 8);
     }
 
     else
@@ -231,8 +231,6 @@ LABEL_21:
   {
     v14 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -269,7 +267,7 @@ void __51__BCSNotificationIcon__clipIconURLForAction_scale___block_invoke_2(uint
 
 - (id)_notificationIconDataURLForApp:(id)app scale:(float)scale
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   appCopy = app;
   v6 = _bcs_notificationIconBaseURL();
   v7 = MEMORY[0x277CCACA8];
@@ -307,28 +305,28 @@ void __51__BCSNotificationIcon__clipIconURLForAction_scale___block_invoke_2(uint
     v16 = [appCopy iconDataForVariant:v15];
     if (v16)
     {
-      v29 = 0;
-      v30 = &v29;
-      v31 = 0x2020000000;
+      v28 = 0;
+      v29 = &v28;
+      v30 = 0x2020000000;
       v17 = getLICreateIconFromCachedBitmapSymbolLoc(void)::ptr;
-      v32 = getLICreateIconFromCachedBitmapSymbolLoc(void)::ptr;
+      v31 = getLICreateIconFromCachedBitmapSymbolLoc(void)::ptr;
       if (!getLICreateIconFromCachedBitmapSymbolLoc(void)::ptr)
       {
         *buf = MEMORY[0x277D85DD0];
-        v34 = 3221225472;
-        v35 = ___ZL40getLICreateIconFromCachedBitmapSymbolLocv_block_invoke;
-        v36 = &unk_278CFF0B0;
-        v37 = &v29;
+        v33 = 3221225472;
+        v34 = ___ZL40getLICreateIconFromCachedBitmapSymbolLocv_block_invoke;
+        v35 = &unk_278CFF0B0;
+        v36 = &v28;
         ___ZL40getLICreateIconFromCachedBitmapSymbolLocv_block_invoke(buf);
-        v17 = v30[3];
+        v17 = v29[3];
       }
 
-      _Block_object_dispose(&v29, 8);
+      _Block_object_dispose(&v28, 8);
       if (!v17)
       {
         currentHandler = [MEMORY[0x277CCA890] currentHandler];
-        v27 = [MEMORY[0x277CCACA8] stringWithUTF8String:"CGImageRef _LICreateIconFromCachedBitmap(CFDataRef)"];
-        [currentHandler handleFailureInFunction:v27 file:@"BCSNotificationIcon.mm" lineNumber:31 description:{@"%s", dlerror()}];
+        v26 = [MEMORY[0x277CCACA8] stringWithUTF8String:"CGImageRef _LICreateIconFromCachedBitmap(CFDataRef)"];
+        [currentHandler handleFailureInFunction:v26 file:@"BCSNotificationIcon.mm" lineNumber:31 description:{@"%s", dlerror()}];
 
         __break(1u);
       }
@@ -343,9 +341,9 @@ void __51__BCSNotificationIcon__clipIconURLForAction_scale___block_invoke_2(uint
           [BCSNotificationIcon _notificationIconDataURLForApp:scale:];
         }
 
-        v28 = 0;
-        [v20 writeToURL:v10 options:1 error:&v28];
-        v21 = v28;
+        v27 = 0;
+        [v20 writeToURL:v10 options:1 error:&v27];
+        v21 = v27;
         if (v21 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
           _bcs_privacyPreservingDescription = [v21 _bcs_privacyPreservingDescription];
@@ -392,8 +390,6 @@ LABEL_32:
 
   v14 = 0;
 LABEL_33:
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

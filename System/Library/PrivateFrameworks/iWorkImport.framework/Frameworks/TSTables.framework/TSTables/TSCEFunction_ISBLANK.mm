@@ -7,20 +7,20 @@
 + (id)evaluateForArgsWithContext:(id)context functionSpec:(id)spec arguments:(const void *)arguments
 {
   v6 = **arguments;
-  IsBlank_context = objc_msgSend_valueIsBlank_context_(TSCEFunction_ISBLANK, v7, v6, context, v8);
+  IsBlank_context = objc_msgSend_valueIsBlank_context_(TSCEFunction_ISBLANK, v7, v6, context);
   if (v6)
   {
-    objc_msgSend_formatWithContext_(v6, v9, context, v10, v11);
+    objc_msgSend_formatWithContext_(v6, v8, context, v9);
   }
 
   else
   {
-    memset(v15, 0, sizeof(v15));
+    memset(v13, 0, sizeof(v13));
   }
 
-  v13 = objc_msgSend_BOOLValue_format_(TSCEBooleanValue, v9, IsBlank_context, v15, v11);
+  v11 = objc_msgSend_BOOLValue_format_(TSCEBooleanValue, v8, IsBlank_context, v13);
 
-  return v13;
+  return v11;
 }
 
 @end

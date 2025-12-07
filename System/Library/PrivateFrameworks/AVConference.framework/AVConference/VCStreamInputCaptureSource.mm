@@ -828,7 +828,7 @@ LABEL_16:
       OUTLINED_FUNCTION_5_0();
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_29();
-      OUTLINED_FUNCTION_4_15(&dword_1DB56E000, v0, v1, " [%s] %s:%d Unexpected class for key=%@", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_4_15(&dword_1DB56E000, v0, v1, " [%s] %s:%d Unexpected class for key=%@", v2, v3, v4, v5);
     }
   }
 
@@ -846,7 +846,7 @@ LABEL_16:
       OUTLINED_FUNCTION_5_0();
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_29();
-      OUTLINED_FUNCTION_4_15(&dword_1DB56E000, v0, v1, " [%s] %s:%d Missing key=%@ in config", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_4_15(&dword_1DB56E000, v0, v1, " [%s] %s:%d Missing key=%@ in config", v2, v3, v4, v5);
     }
   }
 
@@ -881,7 +881,7 @@ LABEL_16:
       OUTLINED_FUNCTION_5_0();
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_29();
-      OUTLINED_FUNCTION_4_15(&dword_1DB56E000, v0, v1, " [%s] %s:%d Unexpected class for key=%@", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_4_15(&dword_1DB56E000, v0, v1, " [%s] %s:%d Unexpected class for key=%@", v2, v3, v4, v5);
     }
   }
 
@@ -899,7 +899,7 @@ LABEL_16:
       OUTLINED_FUNCTION_5_0();
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_29();
-      OUTLINED_FUNCTION_4_15(&dword_1DB56E000, v0, v1, " [%s] %s:%d Missing key=%@ in config", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_4_15(&dword_1DB56E000, v0, v1, " [%s] %s:%d Missing key=%@ in config", v2, v3, v4, v5);
     }
   }
 
@@ -951,7 +951,7 @@ LABEL_16:
     {
       OUTLINED_FUNCTION_5_0();
       OUTLINED_FUNCTION_6();
-      OUTLINED_FUNCTION_4_15(&dword_1DB56E000, v0, v1, " [%s] %s:%d Incorrect format type typeId=%lu", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_4_15(&dword_1DB56E000, v0, v1, " [%s] %s:%d Incorrect format type typeId=%lu", v2, v3, v4, v5);
     }
   }
 

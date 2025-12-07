@@ -11,6 +11,7 @@
 - (void)saveDraftWithIsClosing:(BOOL)closing;
 - (void)setFeedbackForm:(id)form reply:(id)reply;
 - (void)setShowsCompletionPage:(BOOL)page;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 - (void)viewWillDisappear:(BOOL)disappear;
 @end
@@ -23,10 +24,21 @@
   sub_1B8B8BC7C(disappear);
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for DraftingExtensionViewController();
+  v4 = v5.receiver;
+  [(DraftingExtensionViewController *)&v5 viewDidAppear:appearCopy];
+  sub_1B8C235E8();
+  sub_1B8B8DC94();
+}
+
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1B8B8C3C0();
+  sub_1B8B8C3C0(selfCopy, v2);
 }
 
 - (_TtC8Feedback31DraftingExtensionViewController)initWithNibName:(id)name bundle:(id)bundle

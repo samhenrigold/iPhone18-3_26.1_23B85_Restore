@@ -4,6 +4,7 @@
 - (id)attachToPid:(id)pid eventsMask:(id)mask;
 - (id)preparedEnvironmentForLaunch:(id)launch eventsMask:(id)mask;
 - (void)messageReceived:(id)received;
+- (void)startCollectionWithPid:(int)pid;
 - (void)stopCollection;
 @end
 
@@ -97,6 +98,21 @@
   [(DTAllocationsRecorder *)recorder startAttachingToTask:task recordedEventsMask:intValue errorHandler:v13];
 
   return v11;
+}
+
+- (void)startCollectionWithPid:(int)pid
+{
+  v5 = [DTInstrumentServer taskForPid:*&pid];
+  self->_task = v5;
+  recorder = self->_recorder;
+  v7 = +[DTAllocationsRecorder allEventsMask];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = sub_247FD668C;
+  v8[3] = &unk_278EF3768;
+  v8[4] = self;
+  v8[5] = a2;
+  [(DTAllocationsRecorder *)recorder startAttachingToTask:v5 recordedEventsMask:v7 errorHandler:v8];
 }
 
 - (void)stopCollection

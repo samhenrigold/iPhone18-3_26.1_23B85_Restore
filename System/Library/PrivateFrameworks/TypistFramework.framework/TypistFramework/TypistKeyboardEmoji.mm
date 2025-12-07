@@ -46,58 +46,58 @@
 
 void __42__TypistKeyboardEmoji_findEmojiScrollView__block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277D75678] activeInstance];
   v3 = [v2 _layout];
   v4 = [v3 currentKeyplaneView];
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
-  v17 = v4;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v16 = v4;
   obj = [v4 subviews];
-  v5 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v5 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v25;
+    v7 = *v24;
     do
     {
       v8 = 0;
-      v18 = v6;
+      v17 = v6;
       do
       {
-        if (*v25 != v7)
+        if (*v24 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v24 + 1) + 8 * v8);
+        v9 = *(*(&v23 + 1) + 8 * v8);
         NSClassFromString(&cfstr_Uikeyboardemoj.isa);
         if (objc_opt_isKindOfClass())
         {
-          v22 = 0u;
-          v23 = 0u;
-          v20 = 0u;
           v21 = 0u;
+          v22 = 0u;
+          v19 = 0u;
+          v20 = 0u;
           v10 = [v9 subviews];
-          v11 = [v10 countByEnumeratingWithState:&v20 objects:v28 count:16];
+          v11 = [v10 countByEnumeratingWithState:&v19 objects:v27 count:16];
           if (v11)
           {
             v12 = v11;
-            v13 = *v21;
+            v13 = *v20;
             do
             {
               v14 = 0;
               do
               {
-                if (*v21 != v13)
+                if (*v20 != v13)
                 {
                   objc_enumerationMutation(v10);
                 }
 
-                v15 = *(*(&v20 + 1) + 8 * v14);
+                v15 = *(*(&v19 + 1) + 8 * v14);
                 NSClassFromString(&cfstr_Uikeyboardemoj_0.isa);
                 if (objc_opt_isKindOfClass())
                 {
@@ -108,26 +108,24 @@ void __42__TypistKeyboardEmoji_findEmojiScrollView__block_invoke(uint64_t a1)
               }
 
               while (v12 != v14);
-              v12 = [v10 countByEnumeratingWithState:&v20 objects:v28 count:16];
+              v12 = [v10 countByEnumeratingWithState:&v19 objects:v27 count:16];
             }
 
             while (v12);
           }
 
-          v6 = v18;
+          v6 = v17;
         }
 
         ++v8;
       }
 
       while (v8 != v6);
-      v6 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v6 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v6);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)scrollEmojiKeyboard
@@ -276,7 +274,7 @@ void __42__TypistKeyboardEmoji_scrollEmojiKeyboard__block_invoke(uint64_t a1)
   *(v21 + 40) = v23;
 }
 
-uint64_t __42__TypistKeyboardEmoji_scrollEmojiKeyboard__block_invoke_2(uint64_t a1)
+void *__42__TypistKeyboardEmoji_scrollEmojiKeyboard__block_invoke_2(uint64_t a1)
 {
   *(*(*(a1 + 40) + 8) + 24) = 1;
   [*(a1 + 32) frame];
@@ -296,8 +294,8 @@ void __42__TypistKeyboardEmoji_scrollEmojiKeyboard__block_invoke_3(uint64_t a1, 
   [v14 setSenderProperties:v4];
 
   v5 = NSStringFromCGPoint(*(*(*(a1 + 32) + 8) + 32));
-  v13 = NSStringFromCGPoint(*(*(*(a1 + 40) + 8) + 32));
-  TYLog(@"Scrolling emoji keyboard from %@ to %@", v6, v7, v8, v9, v10, v11, v12, v5);
+  v6 = NSStringFromCGPoint(*(*(*(a1 + 40) + 8) + 32));
+  TYLog(@"Scrolling emoji keyboard from %@ to %@", v7, v8, v9, v10, v11, v12, v13, v5, v6);
 
   [v14 dragWithStartPoint:*(*(*(a1 + 32) + 8) + 32) endPoint:*(*(*(a1 + 32) + 8) + 40) duration:{*(*(*(a1 + 40) + 8) + 32), *(*(*(a1 + 40) + 8) + 40), 0.1}];
 }

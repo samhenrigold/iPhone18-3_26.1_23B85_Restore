@@ -89,7 +89,7 @@ LABEL_13:
     mediaUTI = [v24 initWithURL:mediaURL];
 
     documentAttributes = [mediaUTI documentAttributes];
-    v27 = [documentAttributes objectForKeyedSubscript:*MEMORY[0x1E6978110]];
+    v27 = objc_msgSend_objectForKeyedSubscript_(documentAttributes);
 
     if ([v27 length])
     {

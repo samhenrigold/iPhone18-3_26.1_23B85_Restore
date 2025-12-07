@@ -1,4 +1,5 @@
 @interface SMBFPClient
++ (id)locallyBuildFPDomain:(id)domain displayName:(id)name provider:(id)provider how:(int)how;
 + (id)locallyDestroyFPDomain:(id)domain provider:(id)provider;
 + (id)newClientForProvider:(id)provider;
 - (id)fixupConnectionFor:(id)for;
@@ -39,6 +40,44 @@
   v5 = [[self alloc] initWithProvider:providerCopy];
 
   return v5;
+}
+
++ (id)locallyBuildFPDomain:(id)domain displayName:(id)name provider:(id)provider how:(int)how
+{
+  v6 = *&how;
+  domainCopy = domain;
+  nameCopy = name;
+  providerCopy = provider;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = sub_10002B0C8;
+  v22 = sub_10002B0D8;
+  v23 = 0;
+  v12 = objc_opt_new();
+  v13 = v12;
+  if (v12)
+  {
+    [v12 setProviderName:providerCopy];
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_10002B79C;
+    v17[3] = &unk_10008DF18;
+    v17[4] = &v18;
+    [v13 createDomain:domainCopy displayName:nameCopy how:v6 storageName:domainCopy reply:v17];
+    v14 = v19[5];
+  }
+
+  else
+  {
+    v14 = [NSError errorWithDomain:NSPOSIXErrorDomain code:12 userInfo:0];
+  }
+
+  v15 = v14;
+
+  _Block_object_dispose(&v18, 8);
+
+  return v15;
 }
 
 + (id)locallyDestroyFPDomain:(id)domain provider:(id)provider

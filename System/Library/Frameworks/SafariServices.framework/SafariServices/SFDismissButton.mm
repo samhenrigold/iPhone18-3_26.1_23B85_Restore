@@ -4,10 +4,10 @@
 + (id)accessibilityLabelWithStyle:(uint64_t)style;
 + (id)titleForDismissButtonStyle:(uint64_t)style;
 - (SFDismissButton)init;
-- (uint64_t)_updateButtonStyle;
-- (uint64_t)setStyle:(uint64_t)result;
 - (uint64_t)style;
+- (void)_updateButtonStyle;
 - (void)setPreferredTraitCollection:(id *)collection;
+- (void)setStyle:(void *)result;
 @end
 
 @implementation SFDismissButton
@@ -68,7 +68,7 @@
   return v3;
 }
 
-- (uint64_t)_updateButtonStyle
+- (void)_updateButtonStyle
 {
   if (result)
   {
@@ -78,7 +78,7 @@
       configuration = [v1 configuration];
       v3 = [configuration copy];
 
-      [SFDismissButton _imageForDismissButtonStyle:*(v1 + 752) compatibleWithTraitCollection:?];
+      [SFDismissButton _imageForDismissButtonStyle:*(v1 + 94) compatibleWithTraitCollection:?];
       objc_claimAutoreleasedReturnValue();
       [OUTLINED_FUNCTION_19() setImage:?];
 
@@ -123,13 +123,13 @@
   return v9;
 }
 
-- (uint64_t)setStyle:(uint64_t)result
+- (void)setStyle:(void *)result
 {
   if (result)
   {
-    if (*(result + 744) != a2)
+    if (*(result + 93) != a2)
     {
-      *(result + 744) = a2;
+      *(result + 93) = a2;
       return [(SFDismissButton *)result _updateButtonStyle];
     }
   }

@@ -22,27 +22,27 @@
 
 - (id)fp_valueForKeyPath:(id)path
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   pathCopy = path;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v5 = self->_items;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = [*(*(&v12 + 1) + 8 * i) fp_valueForKeyPath:{pathCopy, v12}];
+        v9 = [*(*(&v11 + 1) + 8 * i) fp_valueForKeyPath:{pathCopy, v11}];
         if (v9)
         {
 
@@ -50,7 +50,7 @@
         }
       }
 
-      v6 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -62,8 +62,6 @@
 
   v9 = 0;
 LABEL_11:
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

@@ -27,22 +27,20 @@
 
 - (void)_initializeCardServiceWithClass:(Class)class
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277CF93F0];
   if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_INFO))
   {
     v6 = v5;
     v7 = NSStringFromClass(class);
-    v11 = 138412290;
-    v12 = v7;
-    _os_log_impl(&dword_243268000, v6, OS_LOG_TYPE_INFO, "Initializing a card service of class %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v7;
+    _os_log_impl(&dword_243268000, v6, OS_LOG_TYPE_INFO, "Initializing a card service of class %@", &v10, 0xCu);
   }
 
   v8 = objc_alloc_init(class);
   cardService = self->_cardService;
   self->_cardService = v8;
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestCard:(id)card reply:(id)reply

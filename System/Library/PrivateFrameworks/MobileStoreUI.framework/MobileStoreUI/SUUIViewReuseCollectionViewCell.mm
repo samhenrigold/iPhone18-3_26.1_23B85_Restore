@@ -100,7 +100,7 @@
 
         v14 = *(*(&v17 + 1) + 8 * i);
         v15 = SUUIReuseIdentifierForView(v14);
-        if (v15 && [identifierCopy isEqualToString:v15])
+        if (v15 && objc_msgSend_isEqualToString_(identifierCopy))
         {
           v16 = 0;
           blockCopy[2](blockCopy, v14, v11, &v16);
@@ -168,7 +168,7 @@ LABEL_14:
 
         v11 = *(*(&v14 + 1) + 8 * i);
         v12 = SUUIReuseIdentifierForView(v11);
-        if (v12 && [identifierCopy isEqualToString:{v12, v14}])
+        if (v12 && objc_msgSend_isEqualToString_(identifierCopy, v14))
         {
           [array addObject:v11];
         }

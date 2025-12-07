@@ -10,7 +10,7 @@
 
 - (void)checkRestrictedCharacteristicsAccessAllowedWithCompletionHandler:(id)handler
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   systemPreferenceReader = [(HMDMTSAuthorizationServer *)self systemPreferenceReader];
   v6 = (systemPreferenceReader)[2](systemPreferenceReader, @"EnableBluetoothCentralMatterClientSkipDeveloperModeRestrictionProfile");
@@ -28,22 +28,20 @@
   {
     v11 = HMFGetLogIdentifier();
     v12 = HMFBooleanToString();
-    v14 = 138543618;
-    v15 = v11;
-    v16 = 2112;
-    v17 = v12;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Restricted characteristics access allowed returning %@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v11;
+    v15 = 2112;
+    v16 = v12;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Restricted characteristics access allowed returning %@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   handlerCopy[2](handlerCopy, bOOLValue);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)showRestrictedCharacteristicsAccessWarningAlert
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -51,7 +49,7 @@
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v14 = v6;
+    v13 = v6;
     _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Showing restricted characteristics access warning", buf, 0xCu);
   }
 
@@ -60,32 +58,29 @@
   accountManager = [(HMDMTSAuthorizationServer *)selfCopy accountManager];
   device = [accountManager device];
   name = [device name];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __76__HMDMTSAuthorizationServer_showRestrictedCharacteristicsAccessWarningAlert__block_invoke;
-  v12[3] = &unk_27868A728;
-  v12[4] = selfCopy;
-  [uiDialogPresenter displayRestrictedBluetoothCharacteristicsWarningWithDeviceName:name completionHandler:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __76__HMDMTSAuthorizationServer_showRestrictedCharacteristicsAccessWarningAlert__block_invoke;
+  v11[3] = &unk_27868A728;
+  v11[4] = selfCopy;
+  [uiDialogPresenter displayRestrictedBluetoothCharacteristicsWarningWithDeviceName:name completionHandler:v11];
 }
 
 void __76__HMDMTSAuthorizationServer_showRestrictedCharacteristicsAccessWarningAlert__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Restricted characteristics access warning dismissed", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Restricted characteristics access warning dismissed", &v6, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDMTSAuthorizationServer)initWithAccountManager:(id)manager
@@ -143,10 +138,9 @@ id __52__HMDMTSAuthorizationServer_initWithAccountManager___block_invoke(uint64_
 
 void __40__HMDMTSAuthorizationServer_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v4_238832;
-  logCategory__hmf_once_v4_238832 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v4_238832;
+  logCategory__hmf_once_v4_238832 = v0;
 }
 
 @end

@@ -13,11 +13,11 @@
 
 - (SFMediaMetadata)initWithProtobuf:(id)protobuf
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v42.receiver = self;
-  v42.super_class = SFMediaMetadata;
-  v5 = [(SFMediaMetadata *)&v42 init];
+  v41.receiver = self;
+  v41.super_class = SFMediaMetadata;
+  v5 = [(SFMediaMetadata *)&v41 init];
   if (v5)
   {
     mediaName = [protobufCopy mediaName];
@@ -60,33 +60,33 @@
       v13 = 0;
     }
 
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     mediaPunchouts2 = [protobufCopy mediaPunchouts];
-    v15 = [mediaPunchouts2 countByEnumeratingWithState:&v38 objects:v44 count:16];
+    v15 = [mediaPunchouts2 countByEnumeratingWithState:&v37 objects:v43 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v39;
+      v17 = *v38;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v39 != v17)
+          if (*v38 != v17)
           {
             objc_enumerationMutation(mediaPunchouts2);
           }
 
-          v19 = [[SFPunchout alloc] initWithProtobuf:*(*(&v38 + 1) + 8 * i)];
+          v19 = [[SFPunchout alloc] initWithProtobuf:*(*(&v37 + 1) + 8 * i)];
           if (v19)
           {
             [v13 addObject:v19];
           }
         }
 
-        v16 = [mediaPunchouts2 countByEnumeratingWithState:&v38 objects:v44 count:16];
+        v16 = [mediaPunchouts2 countByEnumeratingWithState:&v37 objects:v43 count:16];
       }
 
       while (v16);
@@ -104,32 +104,32 @@
       v21 = 0;
     }
 
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     bundleIdentifiersToExcludes2 = [protobufCopy bundleIdentifiersToExcludes];
-    v23 = [bundleIdentifiersToExcludes2 countByEnumeratingWithState:&v34 objects:v43 count:16];
+    v23 = [bundleIdentifiersToExcludes2 countByEnumeratingWithState:&v33 objects:v42 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v35;
+      v25 = *v34;
       do
       {
         for (j = 0; j != v24; ++j)
         {
-          if (*v35 != v25)
+          if (*v34 != v25)
           {
             objc_enumerationMutation(bundleIdentifiersToExcludes2);
           }
 
-          if (*(*(&v34 + 1) + 8 * j))
+          if (*(*(&v33 + 1) + 8 * j))
           {
             [v21 addObject:?];
           }
         }
 
-        v24 = [bundleIdentifiersToExcludes2 countByEnumeratingWithState:&v34 objects:v43 count:16];
+        v24 = [bundleIdentifiersToExcludes2 countByEnumeratingWithState:&v33 objects:v42 count:16];
       }
 
       while (v24);
@@ -155,7 +155,6 @@
     v31 = v5;
   }
 
-  v32 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

@@ -1,4 +1,5 @@
 @interface ACAccount(CalAdditions)
+- (BOOL)calIsDirty;
 - (BOOL)calIsMissingParentAccount;
 - (BOOL)calIsRestrictedForCalendar;
 - (BOOL)removePrincipalWithUID:()CalAdditions;
@@ -29,7 +30,6 @@
 - (uint64_t)_useSSLForSchemeString:()CalAdditions;
 - (uint64_t)calAttachmentDownloadHasTakenPlace;
 - (uint64_t)calIsCalDAVAccount;
-- (uint64_t)calIsDirty;
 - (uint64_t)calIsEnabled;
 - (uint64_t)calIsExchangeAccount;
 - (uint64_t)calIsGenericCalDAVAccount;
@@ -466,9 +466,7 @@ LABEL_10:
 {
   if ([self calIsCalDAVAccount])
   {
-    v5 = [MEMORY[0x1E696AD98] numberWithBool:a3];
-    v6 = *MEMORY[0x1E69597D0];
-    calServerURL = v5;
+    calServerURL = [MEMORY[0x1E696AD98] numberWithBool:a3];
     [self _setCalInternalValue:? forAccountPropertyKey:?];
   }
 
@@ -480,9 +478,9 @@ LABEL_10:
     }
 
     calServerURL = [self calServerURL];
-    v7 = [MEMORY[0x1E696AD98] numberWithBool:a3];
-    v8 = [self _updateURL:calServerURL withHost:0 port:0 useSSL:v7];
-    [self setCalServerURL:v8];
+    v5 = [MEMORY[0x1E696AD98] numberWithBool:a3];
+    v6 = [self _updateURL:calServerURL withHost:0 port:0 useSSL:v5];
+    [self setCalServerURL:v6];
   }
 }
 
@@ -600,7 +598,7 @@ LABEL_10:
   return v3;
 }
 
-- (uint64_t)calIsDirty
+- (BOOL)calIsDirty
 {
   if ([self isDirty])
   {
@@ -746,7 +744,7 @@ LABEL_10:
 
 - (uint64_t)setValue:()CalAdditions forKey:forPrincipalWithUID:
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v8 = a3;
   v9 = a4;
   v10 = a5;
@@ -773,13 +771,13 @@ LABEL_10:
     v13 = +[CalFoundationLogSubsystem accounts];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 138412802;
-      v22 = v9;
-      v23 = 2112;
-      v24 = v10;
-      v25 = 2112;
+      v20 = 138412802;
+      v21 = v9;
+      v22 = 2112;
+      v23 = v10;
+      v24 = 2112;
       selfCopy2 = self;
-      _os_log_impl(&dword_1B990D000, v13, OS_LOG_TYPE_DEFAULT, "Attempting to set %@ on principal with UID %@ by using its current value. This is a no-op change, and we won't dirty the account by making it. %@", &v21, 0x20u);
+      _os_log_impl(&dword_1B990D000, v13, OS_LOG_TYPE_DEFAULT, "Attempting to set %@ on principal with UID %@ by using its current value. This is a no-op change, and we won't dirty the account by making it. %@", &v20, 0x20u);
     }
   }
 
@@ -788,20 +786,19 @@ LABEL_10:
     v13 = +[CalFoundationLogSubsystem accounts];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v21 = 138412802;
-      v22 = v8;
-      v23 = 2112;
-      v24 = v10;
-      v25 = 2112;
+      v20 = 138412802;
+      v21 = v8;
+      v22 = 2112;
+      v23 = v10;
+      v24 = 2112;
       selfCopy2 = self;
-      _os_log_error_impl(&dword_1B990D000, v13, OS_LOG_TYPE_ERROR, "Attempting to set %@ on principal with UID %@ by using a nil key. %@", &v21, 0x20u);
+      _os_log_error_impl(&dword_1B990D000, v13, OS_LOG_TYPE_ERROR, "Attempting to set %@ on principal with UID %@ by using a nil key. %@", &v20, 0x20u);
     }
   }
 
   v14 = 0;
 LABEL_9:
 
-  v19 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -841,7 +838,7 @@ LABEL_9:
 
 - (id)calSyncingAccountUsingChildAccounts:()CalAdditions
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   childAccounts = a3;
   accountType = [self accountType];
   syncableDataclasses = [accountType syncableDataclasses];
@@ -860,26 +857,26 @@ LABEL_9:
       childAccounts = [self childAccounts];
     }
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     childAccounts = childAccounts;
-    v10 = [childAccounts countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v10 = [childAccounts countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v22;
+      v12 = *v21;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v22 != v12)
+          if (*v21 != v12)
           {
             objc_enumerationMutation(childAccounts);
           }
 
-          v14 = *(*(&v21 + 1) + 8 * i);
+          v14 = *(*(&v20 + 1) + 8 * i);
           accountType2 = [v14 accountType];
           syncableDataclasses2 = [accountType2 syncableDataclasses];
           v17 = [syncableDataclasses2 containsObject:v7];
@@ -892,7 +889,7 @@ LABEL_9:
           }
         }
 
-        v11 = [childAccounts countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v11 = [childAccounts countByEnumeratingWithState:&v20 objects:v24 count:16];
         if (v11)
         {
           continue;
@@ -912,8 +909,6 @@ LABEL_9:
   }
 
 LABEL_17:
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return selfCopy;
 }
@@ -1032,9 +1027,9 @@ LABEL_3:
 
 - (id)_diffAccountPropertiesWithAccount:()CalAdditions firstPropertyOnly:
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v6 = a3;
-  v20 = [MEMORY[0x1E695DFA8] set];
+  v19 = [MEMORY[0x1E695DFA8] set];
   v7 = [MEMORY[0x1E695DFA8] set];
   _accountPropertiesKeys = [self _accountPropertiesKeys];
   [v7 unionSet:_accountPropertiesKeys];
@@ -1042,33 +1037,33 @@ LABEL_3:
   _accountPropertiesKeys2 = [v6 _accountPropertiesKeys];
   [v7 unionSet:_accountPropertiesKeys2];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v10 = v7;
-  v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v22;
+    v13 = *v21;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v22 != v13)
+        if (*v21 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v21 + 1) + 8 * i);
+        v15 = *(*(&v20 + 1) + 8 * i);
         v16 = [self valueForAccountPropertyKey:v15];
         v17 = [v6 valueForAccountPropertyKey:v15];
         if (v16 | v17)
         {
           if (([v16 isEqual:v17] & 1) == 0)
           {
-            [v20 addObject:v15];
+            [v19 addObject:v15];
             if (a4)
             {
 
@@ -1078,7 +1073,7 @@ LABEL_3:
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v12)
       {
         continue;
@@ -1090,9 +1085,7 @@ LABEL_3:
 
 LABEL_13:
 
-  v18 = *MEMORY[0x1E69E9840];
-
-  return v20;
+  return v19;
 }
 
 - (id)_diffPropertiesWithAccount:()CalAdditions firstPropertyOnly:
@@ -1545,9 +1538,9 @@ LABEL_90:
     [ACAccount(CalAdditions) _calDAVDataclassProperties];
   }
 
-  v1 = _calDAVDataclassProperties_calDAVDataclassProperties;
+  v2 = _calDAVDataclassProperties_calDAVDataclassProperties;
 
-  return v1;
+  return v2;
 }
 
 - (id)_updateURL:()CalAdditions withHost:port:useSSL:
@@ -1615,58 +1608,46 @@ LABEL_90:
 
 - (void)calHostname
 {
-  v9 = *MEMORY[0x1E69E9840];
   identifier = [a2 identifier];
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setCalHostname:()CalAdditions .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = [a1 identifier];
   objc_opt_class();
   OUTLINED_FUNCTION_1_5();
-  v9 = 2114;
-  v10 = v5;
+  v8 = 2114;
+  v9 = v5;
   v6 = v5;
-  _os_log_fault_impl(&dword_1B990D000, a3, OS_LOG_TYPE_FAULT, "Ignoring attempt to set Hostname for account %{public}@ to something that's not a string (%@, which is a %{public}@)", v8, 0x20u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1B990D000, a3, OS_LOG_TYPE_FAULT, "Ignoring attempt to set Hostname for account %{public}@ to something that's not a string (%@, which is a %{public}@)", v7, 0x20u);
 }
 
 - (void)addPrincipal:()CalAdditions withUID:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E696AF00] callStackSymbols];
   OUTLINED_FUNCTION_1_5();
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)calSyncingAccountUsingChildAccounts:()CalAdditions .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = [a1 identifier];
+  v6 = [a1 identifier];
   OUTLINED_FUNCTION_0_9();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setIsEnabled:()CalAdditions forDataclass:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_1B990D000, log, OS_LOG_TYPE_ERROR, "Attempting to enable/disable %@ on a child account %@.", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_1B990D000, log, OS_LOG_TYPE_ERROR, "Attempting to enable/disable %@ on a child account %@.", &v3, 0x16u);
 }
 
 @end

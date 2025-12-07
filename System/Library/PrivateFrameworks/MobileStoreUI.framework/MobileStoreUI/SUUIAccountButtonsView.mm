@@ -110,7 +110,7 @@
 {
   titleCopy = title;
   v4 = [(SUUILinkButton *)self->_ecommerceButton titleForState:0];
-  if (v4 != titleCopy && ([titleCopy isEqualToString:v4] & 1) == 0)
+  if (v4 != titleCopy && (objc_msgSend_isEqualToString_(titleCopy) & 1) == 0)
   {
     self->_ecommerceVisibilityHidden = titleCopy == 0;
     [SUUILinkButton setTitle:"setTitle:forState:" forState:?];

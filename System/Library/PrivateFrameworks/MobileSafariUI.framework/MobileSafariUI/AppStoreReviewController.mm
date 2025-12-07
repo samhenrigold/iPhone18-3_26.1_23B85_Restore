@@ -120,12 +120,13 @@ void __63__AppStoreReviewController_showAppReviewPromptInSceneIfNeeded___block_i
 {
   v5 = a2;
   v6 = a3;
-  if (v6 || ([v5 BOOLValue] & 1) == 0)
+  v8 = v6;
+  if (v6 || (v6 = [v5 BOOLValue], (v6 & 1) == 0))
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXAppReviewPrompt();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXAppReviewPrompt(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __63__AppStoreReviewController_showAppReviewPromptInSceneIfNeeded___block_invoke_2_cold_1(v7, v6);
+      __63__AppStoreReviewController_showAppReviewPromptInSceneIfNeeded___block_invoke_2_cold_1(v9, v8);
     }
   }
 
@@ -135,7 +136,7 @@ void __63__AppStoreReviewController_showAppReviewPromptInSceneIfNeeded___block_i
     block[1] = 3221225472;
     block[2] = __63__AppStoreReviewController_showAppReviewPromptInSceneIfNeeded___block_invoke_7;
     block[3] = &unk_2781D4D40;
-    v9 = *(a1 + 32);
+    v11 = *(a1 + 32);
     dispatch_async(MEMORY[0x277D85CD0], block);
     [*(*(a1 + 40) + 8) didAttemptPromptReview];
   }

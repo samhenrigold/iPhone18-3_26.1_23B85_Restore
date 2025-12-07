@@ -20,7 +20,7 @@ void __captureSession_IrisStillImageSinkPrepareToCapture_block_invoke(void *a1)
     }
 
 LABEL_8:
-    __captureSession_IrisStillImageSinkPrepareToCapture_block_invoke_cold_5(&v14);
+    __captureSession_IrisStillImageSinkPrepareToCapture_block_invoke_cold_5(&v15);
     goto LABEL_11;
   }
 
@@ -33,40 +33,41 @@ LABEL_8:
 LABEL_3:
   if (v6)
   {
-    if ([v3 isEqualToString:{objc_msgSend(v5, "sinkID")}])
+    [v5 sinkID];
+    if (objc_msgSend_isEqualToString_(v3))
     {
       v8 = [v2 figCaptureStillImageSettingsRepresentation];
       [v8 setClientInitiatedPrepareSettings:1];
       [-[FigCaptureCameraSourcePipeline captureDevice](v7) zoomFactor];
-      v14 = v9;
-      v10 = stillImageSinkPipelineSessionStorage_stillImageOutputDimensionsForSettings(v4, v5, v8, &v14);
+      v15 = v9;
+      v10 = stillImageSinkPipelineSessionStorage_stillImageOutputDimensionsForSettings(v4, v5, v8, &v15);
       captureSession_updateOutputDimensionsAndResolutionFlavor(v10, v7, v8);
-      BWUpdateThumbnailAndPreviewDimensionsForRequestedSettings(v8, v14);
-      v11 = [v6 prepareStillImageCaptureNowWithSettings:v8];
-      if (!v11)
+      BWUpdateThumbnailAndPreviewDimensionsForRequestedSettings(v8, v11, v15);
+      v12 = [v6 prepareStillImageCaptureNowWithSettings:v8];
+      if (!v12)
       {
         return;
       }
 
-      v12 = v11;
+      v13 = v12;
       __captureSession_IrisStillImageSinkPrepareToCapture_block_invoke_cold_3();
 LABEL_14:
-      v13 = cs_notificationPayloadWithSectionIDAndSettingsIDAndErrorStatus(v3, [v2 settingsID], v12);
-      captureSession_postNotificationWithPayload(v1, @"IrisPreparationComplete", v13);
+      v14 = cs_notificationPayloadWithSectionIDAndSettingsIDAndErrorStatus(v3, [v2 settingsID], v13);
+      captureSession_postNotificationWithPayload(v1, @"IrisPreparationComplete", v14);
       return;
     }
 
-    __captureSession_IrisStillImageSinkPrepareToCapture_block_invoke_cold_2(&v14);
+    __captureSession_IrisStillImageSinkPrepareToCapture_block_invoke_cold_2(&v15);
   }
 
   else
   {
-    __captureSession_IrisStillImageSinkPrepareToCapture_block_invoke_cold_4(&v14);
+    __captureSession_IrisStillImageSinkPrepareToCapture_block_invoke_cold_4(&v15);
   }
 
 LABEL_11:
-  v12 = LODWORD(v14);
-  if (v14 != 0.0)
+  v13 = LODWORD(v15);
+  if (v15 != 0.0)
   {
     goto LABEL_14;
   }
@@ -76,14 +77,14 @@ uint64_t __captureSession_IrisStillImageSinkPrepareToCapture_block_invoke_cold_1
 {
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2_5();
-  return FigDebugAssert3();
+  return FigDebugAssert3(v0);
 }
 
 uint64_t __captureSession_IrisStillImageSinkPrepareToCapture_block_invoke_cold_2(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_6();
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v6, v8, v9, v10, v11, v12, vars0, vars8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1ED844048, 0xFFFFBFF0, "<<<< FigCaptureSession >>>>", 0x1D23, v1, v3, v4, v7);
   *a1 = result;
   return result;
 }
@@ -91,8 +92,8 @@ uint64_t __captureSession_IrisStillImageSinkPrepareToCapture_block_invoke_cold_2
 uint64_t __captureSession_IrisStillImageSinkPrepareToCapture_block_invoke_cold_4(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_6();
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v6, v8, v9, v10, v11, v12, vars0, vars8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1ED844048, 0xFFFFCE14, "<<<< FigCaptureSession >>>>", 0x1D22, v1, v3, v4, v7);
   *a1 = result;
   return result;
 }
@@ -100,8 +101,8 @@ uint64_t __captureSession_IrisStillImageSinkPrepareToCapture_block_invoke_cold_4
 uint64_t __captureSession_IrisStillImageSinkPrepareToCapture_block_invoke_cold_5(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_6();
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v6, v8, v9, v10, v11, v12, vars0, vars8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1ED844048, 0xFFFFBFF0, "<<<< FigCaptureSession >>>>", 0x1D21, v1, v3, v4, v7);
   *a1 = result;
   return result;
 }

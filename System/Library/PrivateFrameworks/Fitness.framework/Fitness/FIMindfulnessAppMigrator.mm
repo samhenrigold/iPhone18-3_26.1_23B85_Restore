@@ -26,20 +26,20 @@
 
 - (void)migrateIfNeeded
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v23 = 0;
-  v3 = [(FIMindfulnessAppMigrator *)self _integerForKey:@"MigratedBreathRate" exists:&v23];
+  v27 = *MEMORY[0x277D85DE8];
   v22 = 0;
-  v4 = [(FIMindfulnessAppMigrator *)self _integerForKey:@"MigratedHapticLevel" exists:&v22];
-  if (v23 & 1) != 0 || (v22)
+  v3 = [(FIMindfulnessAppMigrator *)self _integerForKey:@"MigratedBreathRate" exists:&v22];
+  v21 = 0;
+  v4 = [(FIMindfulnessAppMigrator *)self _integerForKey:@"MigratedHapticLevel" exists:&v21];
+  if (v22 & 1) != 0 || (v21)
   {
-    v21 = 0;
-    v5 = [(FIMindfulnessAppMigrator *)self _integerForKey:@"BreathRate" exists:&v21];
     v20 = 0;
-    v6 = [(FIMindfulnessAppMigrator *)self _integerForKey:@"HapticLevel" exists:&v20];
-    if (v21 == 1)
+    v5 = [(FIMindfulnessAppMigrator *)self _integerForKey:@"BreathRate" exists:&v20];
+    v19 = 0;
+    v6 = [(FIMindfulnessAppMigrator *)self _integerForKey:@"HapticLevel" exists:&v19];
+    if (v20 == 1)
     {
-      if (v20 == 1)
+      if (v19 == 1)
       {
         v7 = v6;
         _HKInitializeLogging();
@@ -47,26 +47,26 @@
         if (os_log_type_enabled(*MEMORY[0x277CCC2A8], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218240;
-          *v26 = v5;
-          *&v26[8] = 2048;
-          v27 = v7;
+          *v25 = v5;
+          *&v25[8] = 2048;
+          v26 = v7;
           _os_log_impl(&dword_24B35E000, v8, OS_LOG_TYPE_DEFAULT, "[FIMindfulnessAppMigrator] Values already exist (BreathRate: %ld, HapticLevel: %ld)", buf, 0x16u);
         }
 
         [(FIMindfulnessAppMigrator *)self _removeObjectForKey:@"MigratedBreathRate"];
         [(FIMindfulnessAppMigrator *)self _removeObjectForKey:@"MigratedHapticLevel"];
-        goto LABEL_24;
+        return;
       }
     }
 
-    else if (v23 == 1)
+    else if (v22 == 1)
     {
       _HKInitializeLogging();
       v9 = *MEMORY[0x277CCC2A8];
       if (os_log_type_enabled(*MEMORY[0x277CCC2A8], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        *v26 = v3;
+        *v25 = v3;
         _os_log_impl(&dword_24B35E000, v9, OS_LOG_TYPE_DEFAULT, "[FIMindfulnessAppMigrator] Migrating BreatheRate: %ld", buf, 0xCu);
       }
 
@@ -79,23 +79,23 @@
     if (os_log_type_enabled(*MEMORY[0x277CCC2A8], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      *v26 = v21;
-      *&v26[4] = 1024;
-      *&v26[6] = v23;
+      *v25 = v20;
+      *&v25[4] = 1024;
+      *&v25[6] = v22;
       _os_log_impl(&dword_24B35E000, v10, OS_LOG_TYPE_DEFAULT, "[FIMindfulnessAppMigrator] Not migrating breath rate (existing: %{BOOL}d, migrated: %{BOOL}d)", buf, 0xEu);
     }
 
 LABEL_14:
-    if ((v20 & 1) != 0 || v22 != 1)
+    if ((v19 & 1) != 0 || v21 != 1)
     {
       _HKInitializeLogging();
       v12 = *MEMORY[0x277CCC2A8];
       if (os_log_type_enabled(*MEMORY[0x277CCC2A8], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109376;
-        *v26 = v20;
-        *&v26[4] = 1024;
-        *&v26[6] = v22;
+        *v25 = v19;
+        *&v25[4] = 1024;
+        *&v25[6] = v21;
         _os_log_impl(&dword_24B35E000, v12, OS_LOG_TYPE_DEFAULT, "[FIMindfulnessAppMigrator] Not migrating haptic level (existing: %{BOOL}d, migratedBreathRateExists %{BOOL}d)", buf, 0xEu);
       }
     }
@@ -107,7 +107,7 @@ LABEL_14:
       if (os_log_type_enabled(*MEMORY[0x277CCC2A8], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        *v26 = v4;
+        *v25 = v4;
         _os_log_impl(&dword_24B35E000, v11, OS_LOG_TYPE_DEFAULT, "[FIMindfulnessAppMigrator] Migrating HapticLevel: %ld", buf, 0xCu);
       }
 
@@ -125,28 +125,25 @@ LABEL_14:
 
     v14 = objc_alloc_init(MEMORY[0x277D2BA60]);
     v15 = MEMORY[0x277CBEB98];
-    v24[0] = @"BreathRate";
-    v24[1] = @"HapticLevel";
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+    v23[0] = @"BreathRate";
+    v23[1] = @"HapticLevel";
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
     v17 = [v15 setWithArray:v16];
     [v14 synchronizeUserDefaultsDomain:@"com.apple.Mind" keys:v17 container:@"com.apple.Mind"];
 
     [(FIMindfulnessAppMigrator *)self _removeObjectForKey:@"MigratedBreathRate"];
     [(FIMindfulnessAppMigrator *)self _removeObjectForKey:@"MigratedHapticLevel"];
     notify_post("NanoLifestyleMindfulnessPreferencesChangedNotification");
-    goto LABEL_24;
+    return;
   }
 
   _HKInitializeLogging();
-  v19 = *MEMORY[0x277CCC2A8];
+  v18 = *MEMORY[0x277CCC2A8];
   if (os_log_type_enabled(*MEMORY[0x277CCC2A8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_24B35E000, v19, OS_LOG_TYPE_DEFAULT, "[FIMindfulnessAppMigrator] No keys to migrate", buf, 2u);
+    _os_log_impl(&dword_24B35E000, v18, OS_LOG_TYPE_DEFAULT, "[FIMindfulnessAppMigrator] No keys to migrate", buf, 2u);
   }
-
-LABEL_24:
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)_integerForKey:(id)key exists:(BOOL *)exists
@@ -202,18 +199,17 @@ LABEL_3:
 {
   if (self->_container)
   {
-    v6 = MEMORY[0x277CCABB0];
+    v5 = MEMORY[0x277CCABB0];
     keyCopy = key;
-    [v6 numberWithInteger:integer];
-    container = self->_container;
+    [v5 numberWithInteger:integer];
     _CFPreferencesSetAppValueWithContainer();
   }
 
   else
   {
-    v8 = MEMORY[0x277CBEBD0];
+    v6 = MEMORY[0x277CBEBD0];
     keyCopy2 = key;
-    keyCopy = [v8 standardUserDefaults];
+    keyCopy = [v6 standardUserDefaults];
     [keyCopy setInteger:integer forKey:keyCopy2];
   }
 }

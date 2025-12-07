@@ -47,55 +47,50 @@ BOOL __84__HDMHPromptedAssessmentsManagerServer_remote_getPromptedAssessmentsWit
 
 - (void)remote_startObservingChangesWithCompletion:(id)completion
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC2F0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
+    v6 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_258977000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Registering for extension changes", &v7, 0xCu);
+    _os_log_impl(&dword_258977000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Registering for extension changes", &v6, 0xCu);
   }
 
   [(HDMHPromptedAssessmentsManager *)self->_manager registerObserver:self queue:0];
   completionCopy[2](completionCopy, 1, 0);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_stopObservingChanges
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC2F0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
+    v4 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_258977000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Unregistering for extension changes", &v5, 0xCu);
+    _os_log_impl(&dword_258977000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Unregistering for extension changes", &v4, 0xCu);
   }
 
   [(HDMHPromptedAssessmentsManager *)self->_manager unregisterObserver:self];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)promptedAssessmentsManagerDidUpdatePromptedAssessments:(id)assessments
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC2F0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
+    v6 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_258977000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notifying client of prompted assessment update", &v7, 0xCu);
+    _os_log_impl(&dword_258977000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notifying client of prompted assessment update", &v6, 0xCu);
   }
 
   _clientRemoteObjectProxy = [(HDMHPromptedAssessmentsManagerServer *)self _clientRemoteObjectProxy];
   [_clientRemoteObjectProxy client_promptedAssessmentsManagerDidUpdatePromptedAssessments];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (id)createTaskServerWithUUID:(id)d configuration:(id)configuration client:(id)client delegate:(id)delegate error:(id *)error

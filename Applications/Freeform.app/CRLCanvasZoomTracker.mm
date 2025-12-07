@@ -64,7 +64,7 @@ LABEL_18:
       v26 = v25;
       if (v25)
       {
-        [v25 affineTransform];
+        objc_msgSend_affineTransform(v25);
       }
 
       else
@@ -332,7 +332,7 @@ LABEL_38:
     v100 = v99;
     if (v99)
     {
-      [v99 affineTransform];
+      objc_msgSend_affineTransform(v99);
     }
 
     else
@@ -1436,7 +1436,7 @@ LABEL_226:
     v350 = v424;
     if (v348)
     {
-      [v348 transform];
+      objc_msgSend_transform(v348);
     }
 
     else
@@ -1460,7 +1460,7 @@ LABEL_226:
       v355 = v354;
       if (v354)
       {
-        [v354 transform];
+        objc_msgSend_transform(v354);
       }
 
       else
@@ -1587,7 +1587,7 @@ LABEL_272:
   v24 = v23;
   if (v23)
   {
-    [v23 transform];
+    objc_msgSend_transform(v23);
   }
 
   else

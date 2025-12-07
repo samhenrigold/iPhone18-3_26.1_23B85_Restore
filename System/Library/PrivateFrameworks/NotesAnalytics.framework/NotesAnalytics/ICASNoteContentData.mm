@@ -76,8 +76,8 @@
 
 - (id)toDict
 {
-  v88[27] = *MEMORY[0x277D85DE8];
-  v87[0] = @"characterCount";
+  v87[27] = *MEMORY[0x277D85DE8];
+  v86[0] = @"characterCount";
   characterCount = [(ICASNoteContentData *)self characterCount];
   if (characterCount)
   {
@@ -89,9 +89,9 @@
     characterCount2 = objc_opt_new();
   }
 
-  v85 = characterCount2;
-  v88[0] = characterCount2;
-  v87[1] = @"hasChecklist";
+  v84 = characterCount2;
+  v87[0] = characterCount2;
+  v86[1] = @"hasChecklist";
   hasChecklist = [(ICASNoteContentData *)self hasChecklist];
   if (hasChecklist)
   {
@@ -103,9 +103,9 @@
     hasChecklist2 = objc_opt_new();
   }
 
-  v83 = hasChecklist2;
-  v88[1] = hasChecklist2;
-  v87[2] = @"hasStyleFormatting";
+  v82 = hasChecklist2;
+  v87[1] = hasChecklist2;
+  v86[2] = @"hasStyleFormatting";
   hasStyleFormatting = [(ICASNoteContentData *)self hasStyleFormatting];
   if (hasStyleFormatting)
   {
@@ -117,9 +117,9 @@
     hasStyleFormatting2 = objc_opt_new();
   }
 
-  v81 = hasStyleFormatting2;
-  v88[2] = hasStyleFormatting2;
-  v87[3] = @"hasTable";
+  v80 = hasStyleFormatting2;
+  v87[2] = hasStyleFormatting2;
+  v86[3] = @"hasTable";
   hasTable = [(ICASNoteContentData *)self hasTable];
   if (hasTable)
   {
@@ -131,9 +131,9 @@
     hasTable2 = objc_opt_new();
   }
 
-  v79 = hasTable2;
-  v88[3] = hasTable2;
-  v87[4] = @"hasAttachmentInlineDrawingV1";
+  v78 = hasTable2;
+  v87[3] = hasTable2;
+  v86[4] = @"hasAttachmentInlineDrawingV1";
   hasAttachmentInlineDrawingV1 = [(ICASNoteContentData *)self hasAttachmentInlineDrawingV1];
   if (hasAttachmentInlineDrawingV1)
   {
@@ -145,9 +145,9 @@
     hasAttachmentInlineDrawingV12 = objc_opt_new();
   }
 
-  v77 = hasAttachmentInlineDrawingV12;
-  v88[4] = hasAttachmentInlineDrawingV12;
-  v87[5] = @"hasAttachmentInlineDrawingV2";
+  v76 = hasAttachmentInlineDrawingV12;
+  v87[4] = hasAttachmentInlineDrawingV12;
+  v86[5] = @"hasAttachmentInlineDrawingV2";
   hasAttachmentInlineDrawingV2 = [(ICASNoteContentData *)self hasAttachmentInlineDrawingV2];
   if (hasAttachmentInlineDrawingV2)
   {
@@ -159,9 +159,9 @@
     hasAttachmentInlineDrawingV22 = objc_opt_new();
   }
 
-  v75 = hasAttachmentInlineDrawingV22;
-  v88[5] = hasAttachmentInlineDrawingV22;
-  v87[6] = @"hasAttachmentFullscreenDrawing";
+  v74 = hasAttachmentInlineDrawingV22;
+  v87[5] = hasAttachmentInlineDrawingV22;
+  v86[6] = @"hasAttachmentFullscreenDrawing";
   hasAttachmentFullscreenDrawing = [(ICASNoteContentData *)self hasAttachmentFullscreenDrawing];
   if (hasAttachmentFullscreenDrawing)
   {
@@ -173,9 +173,9 @@
     hasAttachmentFullscreenDrawing2 = objc_opt_new();
   }
 
-  v73 = hasAttachmentFullscreenDrawing2;
-  v88[6] = hasAttachmentFullscreenDrawing2;
-  v87[7] = @"hasAttachmentOther";
+  v72 = hasAttachmentFullscreenDrawing2;
+  v87[6] = hasAttachmentFullscreenDrawing2;
+  v86[7] = @"hasAttachmentOther";
   hasAttachmentOther = [(ICASNoteContentData *)self hasAttachmentOther];
   if (hasAttachmentOther)
   {
@@ -187,9 +187,9 @@
     hasAttachmentOther2 = objc_opt_new();
   }
 
-  v71 = hasAttachmentOther2;
-  v88[7] = hasAttachmentOther2;
-  v87[8] = @"hasAttachedPhoto";
+  v70 = hasAttachmentOther2;
+  v87[7] = hasAttachmentOther2;
+  v86[8] = @"hasAttachedPhoto";
   hasAttachedPhoto = [(ICASNoteContentData *)self hasAttachedPhoto];
   if (hasAttachedPhoto)
   {
@@ -201,9 +201,9 @@
     hasAttachedPhoto2 = objc_opt_new();
   }
 
-  v69 = hasAttachedPhoto2;
-  v88[8] = hasAttachedPhoto2;
-  v87[9] = @"weeksSinceCreation";
+  v68 = hasAttachedPhoto2;
+  v87[8] = hasAttachedPhoto2;
+  v86[9] = @"weeksSinceCreation";
   weeksSinceCreation = [(ICASNoteContentData *)self weeksSinceCreation];
   if (weeksSinceCreation)
   {
@@ -215,9 +215,9 @@
     weeksSinceCreation2 = objc_opt_new();
   }
 
-  v67 = weeksSinceCreation2;
-  v88[9] = weeksSinceCreation2;
-  v87[10] = @"hasAttachmentRichUrl";
+  v66 = weeksSinceCreation2;
+  v87[9] = weeksSinceCreation2;
+  v86[10] = @"hasAttachmentRichUrl";
   hasAttachmentRichUrl = [(ICASNoteContentData *)self hasAttachmentRichUrl];
   if (hasAttachmentRichUrl)
   {
@@ -229,9 +229,9 @@
     hasAttachmentRichUrl2 = objc_opt_new();
   }
 
-  v65 = hasAttachmentRichUrl2;
-  v88[10] = hasAttachmentRichUrl2;
-  v87[11] = @"hasAttachmentMapLink";
+  v64 = hasAttachmentRichUrl2;
+  v87[10] = hasAttachmentRichUrl2;
+  v86[11] = @"hasAttachmentMapLink";
   hasAttachmentMapLink = [(ICASNoteContentData *)self hasAttachmentMapLink];
   if (hasAttachmentMapLink)
   {
@@ -243,9 +243,9 @@
     hasAttachmentMapLink2 = objc_opt_new();
   }
 
-  v63 = hasAttachmentMapLink2;
-  v88[11] = hasAttachmentMapLink2;
-  v87[12] = @"hasTags";
+  v62 = hasAttachmentMapLink2;
+  v87[11] = hasAttachmentMapLink2;
+  v86[12] = @"hasTags";
   hasTags = [(ICASNoteContentData *)self hasTags];
   if (hasTags)
   {
@@ -257,9 +257,9 @@
     hasTags2 = objc_opt_new();
   }
 
-  v61 = hasTags2;
-  v88[12] = hasTags2;
-  v87[13] = @"hasScannedDoc";
+  v60 = hasTags2;
+  v87[12] = hasTags2;
+  v86[13] = @"hasScannedDoc";
   hasScannedDoc = [(ICASNoteContentData *)self hasScannedDoc];
   if (hasScannedDoc)
   {
@@ -271,9 +271,9 @@
     hasScannedDoc2 = objc_opt_new();
   }
 
-  v59 = hasScannedDoc2;
-  v88[13] = hasScannedDoc2;
-  v87[14] = @"countOfTags";
+  v58 = hasScannedDoc2;
+  v87[13] = hasScannedDoc2;
+  v86[14] = @"countOfTags";
   countOfTags = [(ICASNoteContentData *)self countOfTags];
   if (countOfTags)
   {
@@ -285,9 +285,9 @@
     countOfTags2 = objc_opt_new();
   }
 
-  v57 = countOfTags2;
-  v88[14] = countOfTags2;
-  v87[15] = @"countOfDistinctTags";
+  v56 = countOfTags2;
+  v87[14] = countOfTags2;
+  v86[15] = @"countOfDistinctTags";
   countOfDistinctTags = [(ICASNoteContentData *)self countOfDistinctTags];
   if (countOfDistinctTags)
   {
@@ -299,9 +299,9 @@
     countOfDistinctTags2 = objc_opt_new();
   }
 
-  v55 = countOfDistinctTags2;
-  v88[15] = countOfDistinctTags2;
-  v87[16] = @"hasMentions";
+  v54 = countOfDistinctTags2;
+  v87[15] = countOfDistinctTags2;
+  v86[16] = @"hasMentions";
   hasMentions = [(ICASNoteContentData *)self hasMentions];
   if (hasMentions)
   {
@@ -313,9 +313,9 @@
     hasMentions2 = objc_opt_new();
   }
 
-  v53 = hasMentions2;
-  v88[16] = hasMentions2;
-  v87[17] = @"countOfMentions";
+  v52 = hasMentions2;
+  v87[16] = hasMentions2;
+  v86[17] = @"countOfMentions";
   countOfMentions = [(ICASNoteContentData *)self countOfMentions];
   if (countOfMentions)
   {
@@ -327,9 +327,9 @@
     countOfMentions2 = objc_opt_new();
   }
 
-  v51 = countOfMentions2;
-  v88[17] = countOfMentions2;
-  v87[18] = @"countOfDistinctMentions";
+  v50 = countOfMentions2;
+  v87[17] = countOfMentions2;
+  v86[18] = @"countOfDistinctMentions";
   countOfDistinctMentions = [(ICASNoteContentData *)self countOfDistinctMentions];
   if (countOfDistinctMentions)
   {
@@ -341,9 +341,9 @@
     countOfDistinctMentions2 = objc_opt_new();
   }
 
-  v49 = countOfDistinctMentions2;
-  v88[18] = countOfDistinctMentions2;
-  v87[19] = @"hasPaperKitDrawing";
+  v48 = countOfDistinctMentions2;
+  v87[18] = countOfDistinctMentions2;
+  v86[19] = @"hasPaperKitDrawing";
   hasPaperKitDrawing = [(ICASNoteContentData *)self hasPaperKitDrawing];
   if (hasPaperKitDrawing)
   {
@@ -355,9 +355,9 @@
     hasPaperKitDrawing2 = objc_opt_new();
   }
 
-  v47 = hasPaperKitDrawing2;
-  v88[19] = hasPaperKitDrawing2;
-  v87[20] = @"hasPaperDocument";
+  v46 = hasPaperKitDrawing2;
+  v87[19] = hasPaperKitDrawing2;
+  v86[20] = @"hasPaperDocument";
   hasPaperDocument = [(ICASNoteContentData *)self hasPaperDocument];
   if (hasPaperDocument)
   {
@@ -369,9 +369,9 @@
     hasPaperDocument2 = objc_opt_new();
   }
 
-  v45 = hasPaperDocument2;
-  v88[20] = hasPaperDocument2;
-  v87[21] = @"hasPdf";
+  v44 = hasPaperDocument2;
+  v87[20] = hasPaperDocument2;
+  v86[21] = @"hasPdf";
   hasPdf = [(ICASNoteContentData *)self hasPdf];
   if (hasPdf)
   {
@@ -383,9 +383,9 @@
     hasPdf2 = objc_opt_new();
   }
 
-  v43 = hasPdf2;
-  v88[21] = hasPdf2;
-  v87[22] = @"countOfNoteLinks";
+  v42 = hasPdf2;
+  v87[21] = hasPdf2;
+  v86[22] = @"countOfNoteLinks";
   countOfNoteLinks = [(ICASNoteContentData *)self countOfNoteLinks];
   if (countOfNoteLinks)
   {
@@ -398,8 +398,8 @@
   }
 
   v27 = countOfNoteLinks2;
-  v88[22] = countOfNoteLinks2;
-  v87[23] = @"countOfDistinctNoteLinks";
+  v87[22] = countOfNoteLinks2;
+  v86[23] = @"countOfDistinctNoteLinks";
   countOfDistinctNoteLinks = [(ICASNoteContentData *)self countOfDistinctNoteLinks];
   if (countOfDistinctNoteLinks)
   {
@@ -412,8 +412,8 @@
   }
 
   v30 = countOfDistinctNoteLinks2;
-  v88[23] = countOfDistinctNoteLinks2;
-  v87[24] = @"countOfFolderLinks";
+  v87[23] = countOfDistinctNoteLinks2;
+  v86[24] = @"countOfFolderLinks";
   countOfFolderLinks = [(ICASNoteContentData *)self countOfFolderLinks];
   if (countOfFolderLinks)
   {
@@ -426,8 +426,8 @@
   }
 
   v33 = countOfFolderLinks2;
-  v88[24] = countOfFolderLinks2;
-  v87[25] = @"countOfDistinctFolderLinks";
+  v87[24] = countOfFolderLinks2;
+  v86[25] = @"countOfDistinctFolderLinks";
   countOfDistinctFolderLinks = [(ICASNoteContentData *)self countOfDistinctFolderLinks];
   if (countOfDistinctFolderLinks)
   {
@@ -440,8 +440,8 @@
   }
 
   v36 = countOfDistinctFolderLinks2;
-  v88[25] = countOfDistinctFolderLinks2;
-  v87[26] = @"countOfAudioAttachments";
+  v87[25] = countOfDistinctFolderLinks2;
+  v86[26] = @"countOfAudioAttachments";
   countOfAudioAttachments = [(ICASNoteContentData *)self countOfAudioAttachments];
   if (countOfAudioAttachments)
   {
@@ -454,12 +454,10 @@
   }
 
   v39 = countOfAudioAttachments2;
-  v88[26] = countOfAudioAttachments2;
-  v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v88 forKeys:v87 count:27];
+  v87[26] = countOfAudioAttachments2;
+  v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v87 forKeys:v86 count:27];
 
-  v40 = *MEMORY[0x277D85DE8];
-
-  return v42;
+  return v41;
 }
 
 @end

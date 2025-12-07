@@ -77,8 +77,8 @@
 
             else
             {
-              v24 = _CMSILogingFacility();
-              if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+              v25 = _CMSILogingFacility(v24);
+              if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543618;
                 v39 = v19;
@@ -102,12 +102,11 @@
       v13 = v29;
     }
 
-    v25 = [v32 copy];
+    v26 = [v32 copy];
     optionalMethods = v12->_optionalMethods;
-    v12->_optionalMethods = v25;
+    v12->_optionalMethods = v26;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

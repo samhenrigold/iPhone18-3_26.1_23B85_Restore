@@ -21,6 +21,7 @@
 - (id)_lazy_commandQueue;
 - (int)_generateIndicesForNumCircleShapes:(int)shapes withMaxSubdivisionLevel:(float)level startingWithNumSubdivisionLevel:(float)subdivisionLevel forIndices:(unsigned int *)indices atStartIndex:(int)index withFill:(BOOL)fill withCullingForAura:(BOOL)aura forVertices:(id *)self0;
 - (void)_didSkipFrameUpdateWithReason:(id)reason andCount:(unint64_t)count;
+- (void)_loadPipelineLibraries;
 - (void)_prewarmShaders;
 - (void)_reduceMotionStatusChanged:(id)changed;
 - (void)_setPreferredFramesPerSecond;
@@ -2063,6 +2064,13 @@ uint64_t __34__SUICFlamesViewMetal__indexCache__block_invoke()
   v1 = 136315138;
   v2 = "[SUICFlamesViewMetal _initMetalAndSetupDisplayLink:]";
   _os_log_error_impl(&dword_1C432B000, log, OS_LOG_TYPE_ERROR, "%s Metal is not supported on this device", &v1, 0xCu);
+}
+
+- (void)_loadPipelineLibraries
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_0_1(&dword_1C432B000, v0, v1, "%s Failed to create flame pipeline state, error %@", v2, v3, v4, v5, v6);
 }
 
 @end

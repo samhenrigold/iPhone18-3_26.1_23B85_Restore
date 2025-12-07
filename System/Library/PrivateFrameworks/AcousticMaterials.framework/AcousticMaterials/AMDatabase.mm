@@ -88,33 +88,37 @@ LABEL_10:
 
 + (BOOL)checkDatabaseReadAccess:(id *)access
 {
-  if (_dbPtr)
+  result = 1;
+  if (!_dbPtr)
   {
-    return 1;
+    standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
+    v4 = [standardUserDefaults objectForKey:@"com.apple.acousticmaterials.parameterfilter"];
+
+    if (v4 && [v4 unsignedIntValue] <= 7)
+    {
+      unsignedIntValue = [v4 unsignedIntValue];
+    }
+
+    else
+    {
+      unsignedIntValue = 1;
+    }
+
+    _parameterFilter = unsignedIntValue;
+    v6 = [AMDatabase openDatabaseWithAcousticParameterFilter:"openDatabaseWithAcousticParameterFilter:error:" error:?];
+
+    if (!v6)
+    {
+      return 0;
+    }
   }
 
-  standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
-  v4 = [standardUserDefaults objectForKey:@"com.apple.acousticmaterials.parameterfilter"];
-
-  if (v4 && [v4 unsignedIntValue] <= 7)
-  {
-    unsignedIntValue = [v4 unsignedIntValue];
-  }
-
-  else
-  {
-    unsignedIntValue = 1;
-  }
-
-  _parameterFilter = unsignedIntValue;
-  v6 = [AMDatabase openDatabaseWithAcousticParameterFilter:"openDatabaseWithAcousticParameterFilter:error:" error:?];
-
-  return v6;
+  return result;
 }
 
 + (id)materialNamesForAcousticParameterType:(id)type error:(id *)error
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   typeCopy = type;
   if ([AMDatabase checkDatabaseReadAccess:error])
   {
@@ -161,14 +165,12 @@ LABEL_11:
   {
     v14 = MEMORY[0x277CCA9B8];
     v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"Materials for %@ don't exist in the database.", typeCopy, *MEMORY[0x277CCA450]];
-    v20[0] = v15;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v19[0] = v15;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     *error = [v14 errorWithDomain:@"com.apple.acousticmaterials.ErrorDomain" code:8 userInfo:v16];
   }
 
 LABEL_13:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -191,7 +193,7 @@ LABEL_13:
 
 + (id)acousticParameters:(id)parameters forMaterialName:(id)name error:(id *)error
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   nameCopy = name;
   if (![AMDatabase checkDatabaseReadAccess:error])
@@ -239,8 +241,8 @@ LABEL_14:
 
     v17 = MEMORY[0x277CCA9B8];
     v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unknown acoustic parameter type [%@]", parametersCopy, *MEMORY[0x277CCA450]];
-    v23[0] = v18;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+    v22[0] = v18;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
     *error = [v17 errorWithDomain:@"com.apple.acousticmaterials.ErrorDomain" code:8 userInfo:v19];
 
     goto LABEL_14;
@@ -260,14 +262,13 @@ LABEL_11:
 LABEL_15:
 
 LABEL_16:
-  v20 = *MEMORY[0x277D85DE8];
 
   return error;
 }
 
 + (id)acousticParameters:(id)parameters forSemanticLabels:(id)labels error:(id *)error
 {
-  v68[1] = *MEMORY[0x277D85DE8];
+  v67[1] = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   labelsCopy = labels;
   if (!parametersCopy || !labelsCopy || ![parametersCopy count] || !objc_msgSend(labelsCopy, "count"))
@@ -278,10 +279,10 @@ LABEL_16:
     }
 
     v22 = MEMORY[0x277CCA9B8];
-    v67 = *MEMORY[0x277CCA450];
+    v66 = *MEMORY[0x277CCA450];
     v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"At least one query input (parameterTypes, semanticQuery) was empty."];
-    v68[0] = v23;
-    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v68 forKeys:&v67 count:1];
+    v67[0] = v23;
+    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v67 forKeys:&v66 count:1];
     *error = [v22 errorWithDomain:@"com.apple.acousticmaterials.ErrorDomain" code:8 userInfo:v24];
 
     goto LABEL_12;
@@ -305,12 +306,12 @@ LABEL_16:
       goto LABEL_13;
     }
 
-    v27 = MEMORY[0x277CCA9B8];
-    v65 = *MEMORY[0x277CCA450];
-    v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"At least one requested acoustic parameter type not found in database."];
-    v66 = v28;
-    v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
-    *error = [v27 errorWithDomain:@"com.apple.acousticmaterials.ErrorDomain" code:8 userInfo:v29];
+    v26 = MEMORY[0x277CCA9B8];
+    v64 = *MEMORY[0x277CCA450];
+    v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"At least one requested acoustic parameter type not found in database."];
+    v65 = v27;
+    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
+    *error = [v26 errorWithDomain:@"com.apple.acousticmaterials.ErrorDomain" code:8 userInfo:v28];
 
     goto LABEL_12;
   }
@@ -330,12 +331,12 @@ LABEL_16:
       goto LABEL_13;
     }
 
-    v50 = MEMORY[0x277CCA9B8];
-    v63 = *MEMORY[0x277CCA450];
-    v51 = [MEMORY[0x277CCACA8] stringWithFormat:@"At least one requested semantic type not found in database."];
-    v64 = v51;
-    v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
-    *error = [v50 errorWithDomain:@"com.apple.acousticmaterials.ErrorDomain" code:8 userInfo:v52];
+    v49 = MEMORY[0x277CCA9B8];
+    v62 = *MEMORY[0x277CCA450];
+    v50 = [MEMORY[0x277CCACA8] stringWithFormat:@"At least one requested semantic type not found in database."];
+    v63 = v50;
+    v51 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
+    *error = [v49 errorWithDomain:@"com.apple.acousticmaterials.ErrorDomain" code:8 userInfo:v51];
 
 LABEL_12:
     error = 0;
@@ -355,120 +356,118 @@ LABEL_8:
 
   else
   {
-    v30 = [labelsCopy objectForKey:@"ARMeshMaterial"];
+    v29 = [labelsCopy objectForKey:@"ARMeshMaterial"];
 
-    if (v30)
+    if (v29)
     {
-      v31 = [labelsCopy objectForKey:@"ARMeshMaterial"];
+      v30 = [labelsCopy objectForKey:@"ARMeshMaterial"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        longValue = [v31 longValue];
+        longValue = [v30 longValue];
       }
     }
   }
 
   longValue2 = 255;
-  v32 = [labelsCopy objectForKey:@"object"];
-  v33 = v32 == 0;
+  v31 = [labelsCopy objectForKey:@"object"];
+  v32 = v31 == 0;
 
-  if (!v33)
+  if (!v32)
   {
-    v34 = SemanticsTableCached;
-    v35 = [labelsCopy objectForKey:@"object"];
-    [v34 getARMeshClassificationID:v35 ARMeshClassificationID:&longValue2];
+    v33 = SemanticsTableCached;
+    v34 = [labelsCopy objectForKey:@"object"];
+    [v33 getARMeshClassificationID:v34 ARMeshClassificationID:&longValue2];
 LABEL_24:
 
     goto LABEL_25;
   }
 
-  v48 = [labelsCopy objectForKey:@"ARMeshClassification"];
-  v49 = v48 == 0;
+  v47 = [labelsCopy objectForKey:@"ARMeshClassification"];
+  v48 = v47 == 0;
 
-  if (!v49)
+  if (!v48)
   {
-    v35 = [labelsCopy objectForKey:@"ARMeshClassification"];
+    v34 = [labelsCopy objectForKey:@"ARMeshClassification"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      longValue2 = [v35 longValue];
+      longValue2 = [v34 longValue];
     }
 
     goto LABEL_24;
   }
 
 LABEL_25:
-  v59[0] = longValue;
-  v59[1] = longValue2;
+  v58[0] = longValue;
+  v58[1] = longValue2;
   if (longValue >= longValue2)
   {
-    v36 = longValue + longValue * longValue + longValue2;
+    v35 = longValue + longValue * longValue + longValue2;
   }
 
   else
   {
-    v36 = longValue + longValue2 * longValue2;
+    v35 = longValue + longValue2 * longValue2;
   }
 
-  v59[2] = v36;
-  error = [SemanticsTableCached getMaterialsForPair:v59];
+  v58[2] = v35;
+  error = [SemanticsTableCached getMaterialsForPair:v58];
   if (error)
   {
-    v37 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
+    v36 = objc_alloc_init(MEMORY[0x277CBEB38]);
     v56 = 0u;
-    v38 = parametersCopy;
-    v39 = [v38 countByEnumeratingWithState:&v55 objects:v62 count:16];
-    if (v39)
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    v37 = parametersCopy;
+    v38 = [v37 countByEnumeratingWithState:&v54 objects:v61 count:16];
+    if (v38)
     {
-      v40 = *v56;
+      v39 = *v55;
       do
       {
-        for (i = 0; i != v39; ++i)
+        for (i = 0; i != v38; ++i)
         {
-          if (*v56 != v40)
+          if (*v55 != v39)
           {
-            objc_enumerationMutation(v38);
+            objc_enumerationMutation(v37);
           }
 
-          v42 = *(*(&v55 + 1) + 8 * i);
-          v43 = [v42 isEqualToString:@"acoustic absorption"];
+          v41 = *(*(&v54 + 1) + 8 * i);
+          v42 = [v41 isEqualToString:@"acoustic absorption"];
           errorCopy = error;
-          v45 = @"acoustic absorption";
-          if ((v43 & 1) == 0)
+          v44 = @"acoustic absorption";
+          if ((v42 & 1) == 0)
           {
-            v46 = [v42 isEqualToString:{@"acoustic scattering", @"acoustic absorption"}];
+            v45 = [v41 isEqualToString:{@"acoustic scattering", @"acoustic absorption"}];
             errorCopy = error + 1;
-            v45 = @"acoustic scattering";
-            if ((v46 & 1) == 0)
+            v44 = @"acoustic scattering";
+            if ((v45 & 1) == 0)
             {
-              v47 = [v42 isEqualToString:{@"acoustic sound reduction index", @"acoustic scattering"}];
+              v46 = [v41 isEqualToString:{@"acoustic sound reduction index", @"acoustic scattering"}];
               errorCopy = error + 2;
-              v45 = @"acoustic sound reduction index";
-              if (!v47)
+              v44 = @"acoustic sound reduction index";
+              if (!v46)
               {
                 continue;
               }
             }
           }
 
-          [v37 setObject:*errorCopy forKey:v45];
+          [v36 setObject:*errorCopy forKey:v44];
         }
 
-        v39 = [v38 countByEnumeratingWithState:&v55 objects:v62 count:16];
+        v38 = [v37 countByEnumeratingWithState:&v54 objects:v61 count:16];
       }
 
-      while (v39);
+      while (v38);
     }
 
-    error = [v37 copy];
+    error = [v36 copy];
   }
 
 LABEL_13:
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return error;
 }

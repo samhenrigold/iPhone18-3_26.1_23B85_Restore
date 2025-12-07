@@ -1,6 +1,7 @@
 @interface MANode
 - (BOOL)conformsToNodeSchema:(id)schema;
 - (BOOL)hasEdge:(id)edge isIn:(BOOL *)in;
+- (BOOL)hasEdgeWithLabel:(id)label domain:(unsigned __int16)domain;
 - (BOOL)hasEqualPropertiesToNode:(id)node;
 - (BOOL)hasProperties;
 - (BOOL)hasProperties:(id)properties;
@@ -15,15 +16,23 @@
 - (NSDictionary)properties;
 - (NSSet)labels;
 - (NSString)description;
+- (id)anyEdgeOfType:(unint64_t)type withLabel:(id)label domain:(unsigned __int16)domain;
 - (id)anyEdgeOfType:(unint64_t)type withNode:(id)node;
+- (id)anyNeighborNodeThroughEdgesOfType:(unint64_t)type withLabel:(id)label domain:(unsigned __int16)domain;
 - (id)changingPropertiesWithProperties:(id)properties;
+- (id)edgesOfType:(unint64_t)type withLabel:(id)label domain:(unsigned __int16)domain;
 - (id)edgesOfType:(unint64_t)type withNode:(id)node;
+- (id)neighborNodesThroughEdgesOfType:(unint64_t)type withLabel:(id)label domain:(unsigned __int16)domain;
+- (id)neighborNodesWithLabel:(id)label domain:(unsigned __int16)domain;
 - (id)propertyDictionary;
 - (id)propertyForKey:(id)key;
 - (id)propertyForKey:(id)key kindOfClass:(Class)class;
 - (id)propertyKeys;
 - (id)shortDescription;
+- (id)shortestPathToNode:(id)node directed:(BOOL)directed;
+- (id)siblingNodesThroughEdgesWithLabel:(id)label domain:(unsigned __int16)domain;
 - (id)visualStringWithName:(id)name andPropertyKeys:(id)keys;
+- (unint64_t)countOfEdgesWithLabel:(id)label domain:(unsigned __int16)domain;
 - (unint64_t)edgesCount;
 - (unint64_t)hash;
 - (unint64_t)inEdgesCount;
@@ -31,20 +40,28 @@
 - (unint64_t)propertiesCount;
 - (void)enumerateEdgesInDomains:(id)domains usingBlock:(id)block;
 - (void)enumerateEdgesOfType:(unint64_t)type usingBlock:(id)block;
+- (void)enumerateEdgesOfType:(unint64_t)type withLabel:(id)label domain:(unsigned __int16)domain usingBlock:(id)block;
 - (void)enumerateEdgesUsingBlock:(id)block;
 - (void)enumerateEdgesWithDomains:(id)domains usingBlock:(id)block;
+- (void)enumerateEdgesWithLabel:(id)label domain:(unsigned __int16)domain usingBlock:(id)block;
 - (void)enumerateInEdgesUsingBlock:(id)block;
+- (void)enumerateNeighborEdgesAndNodesThroughEdgesOfType:(unint64_t)type withLabel:(id)label inDomain:(unsigned __int16)domain usingBlock:(id)block;
 - (void)enumerateNeighborEdgesAndNodesThroughEdgesWithDomains:(id)domains usingBlock:(id)block;
+- (void)enumerateNeighborEdgesAndNodesThroughEdgesWithLabel:(id)label domain:(unsigned __int16)domain usingBlock:(id)block;
 - (void)enumerateNeighborEdgesAndNodesThroughInEdgesUsingBlock:(id)block;
 - (void)enumerateNeighborEdgesAndNodesThroughOutEdgesUsingBlock:(id)block;
 - (void)enumerateNeighborEdgesAndNodesUsingBlock:(id)block;
+- (void)enumerateNeighborNodesThroughEdgesOfType:(unint64_t)type withLabel:(id)label inDomain:(unsigned __int16)domain usingBlock:(id)block;
 - (void)enumerateNeighborNodesThroughEdgesWithDomains:(id)domains usingBlock:(id)block;
+- (void)enumerateNeighborNodesThroughEdgesWithLabel:(id)label domain:(unsigned __int16)domain usingBlock:(id)block;
 - (void)enumerateNeighborNodesThroughInEdgesUsingBlock:(id)block;
 - (void)enumerateNeighborNodesThroughOutEdgesUsingBlock:(id)block;
 - (void)enumerateNeighborNodesUsingBlock:(id)block;
+- (void)enumerateNeighborNodesWithLabel:(id)label domain:(unsigned __int16)domain usingBlock:(id)block;
 - (void)enumerateOutEdgesUsingBlock:(id)block;
 - (void)enumeratePropertiesUsingBlock:(id)block;
 - (void)enumerateSiblingNodesThroughEdgesWithDomains:(id)domains usingBlock:(id)block;
+- (void)enumerateSiblingNodesThroughEdgesWithLabel:(id)label domain:(unsigned __int16)domain usingBlock:(id)block;
 - (void)setGraphReference:(id)reference;
 @end
 
@@ -95,6 +112,36 @@
   return string;
 }
 
+- (id)shortestPathToNode:(id)node directed:(BOOL)directed
+{
+  directedCopy = directed;
+  nodeCopy = node;
+  graph = [(MANode *)self graph];
+  v8 = [graph shortestPathFromNode:self toNode:nodeCopy directed:directedCopy];
+
+  return v8;
+}
+
+- (void)enumerateSiblingNodesThroughEdgesWithLabel:(id)label domain:(unsigned __int16)domain usingBlock:(id)block
+{
+  domainCopy = domain;
+  labelCopy = label;
+  blockCopy = block;
+  v10 = [(MAElementFilter *)[MAEdgeFilter alloc] initWithLabel:labelCopy domain:domainCopy];
+  implementation = self->_implementation;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __71__MANode_enumerateSiblingNodesThroughEdgesWithLabel_domain_usingBlock___block_invoke;
+  v14[3] = &unk_2797FECE8;
+  v14[4] = self;
+  v15 = labelCopy;
+  v17 = domainCopy;
+  v16 = blockCopy;
+  v12 = blockCopy;
+  v13 = labelCopy;
+  [(MANodeImplementationProtocol *)implementation enumerateNeighborEdgesAndNodesThroughEdgesOfType:3 matchingFilter:v10 usingBlock:v14];
+}
+
 void __71__MANode_enumerateSiblingNodesThroughEdgesWithLabel_domain_usingBlock___block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4)
 {
   v7 = a2;
@@ -118,12 +165,10 @@ void __71__MANode_enumerateSiblingNodesThroughEdgesWithLabel_domain_usingBlock__
 
 void __71__MANode_enumerateSiblingNodesThroughEdgesWithLabel_domain_usingBlock___block_invoke_2(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v10 = a2;
+  v8 = a2;
   v7 = a3;
   if (([v7 isSameNodeAsNode:*(a1 + 32)] & 1) == 0)
   {
-    v8 = *(a1 + 48);
-    v9 = *(a1 + 40);
     (*(*(a1 + 56) + 16))();
     **(a1 + 64) = *a4;
   }
@@ -167,12 +212,10 @@ void __66__MANode_enumerateSiblingNodesThroughEdgesWithDomains_usingBlock___bloc
 
 void __66__MANode_enumerateSiblingNodesThroughEdgesWithDomains_usingBlock___block_invoke_2(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v10 = a2;
+  v8 = a2;
   v7 = a3;
   if (([v7 isSameNodeAsNode:*(a1 + 32)] & 1) == 0)
   {
-    v8 = *(a1 + 48);
-    v9 = *(a1 + 40);
     (*(*(a1 + 56) + 16))();
     **(a1 + 64) = *a4;
   }
@@ -216,6 +259,88 @@ void __67__MANode_enumerateNeighborNodesThroughEdgesWithDomains_usingBlock___blo
 {
   v3 = [a2 oppositeNode:*(a1 + 32)];
   (*(*(a1 + 40) + 16))();
+}
+
+- (id)siblingNodesThroughEdgesWithLabel:(id)label domain:(unsigned __int16)domain
+{
+  domainCopy = domain;
+  v6 = MEMORY[0x277CBEB58];
+  labelCopy = label;
+  v8 = objc_alloc_init(v6);
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __51__MANode_siblingNodesThroughEdgesWithLabel_domain___block_invoke;
+  v11[3] = &unk_2797FEC70;
+  v9 = v8;
+  v12 = v9;
+  [(MANode *)self enumerateSiblingNodesThroughEdgesWithLabel:labelCopy domain:domainCopy usingBlock:v11];
+
+  return v9;
+}
+
+- (id)anyNeighborNodeThroughEdgesOfType:(unint64_t)type withLabel:(id)label domain:(unsigned __int16)domain
+{
+  domainCopy = domain;
+  labelCopy = label;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__2787;
+  v18 = __Block_byref_object_dispose__2788;
+  v19 = 0;
+  v9 = [(MAElementFilter *)[MAEdgeFilter alloc] initWithLabel:labelCopy domain:domainCopy];
+  implementation = self->_implementation;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __61__MANode_anyNeighborNodeThroughEdgesOfType_withLabel_domain___block_invoke;
+  v13[3] = &unk_2797FEC48;
+  v13[4] = &v14;
+  [(MANodeImplementationProtocol *)implementation enumerateNeighborNodesThroughEdgesOfType:type matchingFilter:v9 usingBlock:v13];
+  v11 = v15[5];
+
+  _Block_object_dispose(&v14, 8);
+
+  return v11;
+}
+
+- (id)neighborNodesThroughEdgesOfType:(unint64_t)type withLabel:(id)label domain:(unsigned __int16)domain
+{
+  domainCopy = domain;
+  v8 = MEMORY[0x277CBEB58];
+  labelCopy = label;
+  v10 = objc_alloc_init(v8);
+  v11 = [(MAElementFilter *)[MAEdgeFilter alloc] initWithLabel:labelCopy domain:domainCopy];
+
+  implementation = self->_implementation;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __59__MANode_neighborNodesThroughEdgesOfType_withLabel_domain___block_invoke;
+  v15[3] = &unk_2797FF670;
+  v13 = v10;
+  v16 = v13;
+  [(MANodeImplementationProtocol *)implementation enumerateNeighborNodesThroughEdgesOfType:type matchingFilter:v11 usingBlock:v15];
+
+  return v13;
+}
+
+- (id)neighborNodesWithLabel:(id)label domain:(unsigned __int16)domain
+{
+  domainCopy = domain;
+  v6 = MEMORY[0x277CBEB58];
+  labelCopy = label;
+  v8 = objc_alloc_init(v6);
+  v9 = [(MAElementFilter *)[MANodeFilter alloc] initWithLabel:labelCopy domain:domainCopy];
+
+  implementation = self->_implementation;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __40__MANode_neighborNodesWithLabel_domain___block_invoke;
+  v13[3] = &unk_2797FF670;
+  v11 = v8;
+  v14 = v11;
+  [(MANodeImplementationProtocol *)implementation enumerateNeighborNodesMatchingFilter:v9 usingBlock:v13];
+
+  return v11;
 }
 
 - (BOOL)hasEdge:(id)edge isIn:(BOOL *)in
@@ -321,51 +446,49 @@ LABEL_9:
 
 - (void)enumerateEdgesInDomains:(id)domains usingBlock:(id)block
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   domainsCopy = domains;
   blockCopy = block;
   v8 = objc_alloc_init(MEMORY[0x277CCAB58]);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v9 = domainsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v21;
+    v12 = *v20;
     do
     {
       v13 = 0;
       do
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        [v8 addIndex:{objc_msgSend(*(*(&v20 + 1) + 8 * v13++), "unsignedIntegerValue")}];
+        [v8 addIndex:{objc_msgSend(*(*(&v19 + 1) + 8 * v13++), "unsignedIntegerValue")}];
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v11);
   }
 
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __45__MANode_enumerateEdgesInDomains_usingBlock___block_invoke;
-  v17[3] = &unk_2797FEBF8;
-  v18 = v8;
-  v19 = blockCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __45__MANode_enumerateEdgesInDomains_usingBlock___block_invoke;
+  v16[3] = &unk_2797FEBF8;
+  v17 = v8;
+  v18 = blockCopy;
   v14 = blockCopy;
   v15 = v8;
-  [(MANode *)self enumerateEdgesOfType:3 withLabel:0 domain:0 usingBlock:v17];
-
-  v16 = *MEMORY[0x277D85DE8];
+  [(MANode *)self enumerateEdgesOfType:3 withLabel:0 domain:0 usingBlock:v16];
 }
 
 void __45__MANode_enumerateEdgesInDomains_usingBlock___block_invoke(uint64_t a1, void *a2)
@@ -375,6 +498,46 @@ void __45__MANode_enumerateEdgesInDomains_usingBlock___block_invoke(uint64_t a1,
   {
     (*(*(a1 + 40) + 16))();
   }
+}
+
+- (void)enumerateNeighborEdgesAndNodesThroughEdgesWithLabel:(id)label domain:(unsigned __int16)domain usingBlock:(id)block
+{
+  domainCopy = domain;
+  blockCopy = block;
+  labelCopy = label;
+  v10 = [(MAElementFilter *)[MAEdgeFilter alloc] initWithLabel:labelCopy domain:domainCopy];
+
+  [(MANodeImplementationProtocol *)self->_implementation enumerateNeighborEdgesAndNodesThroughEdgesOfType:3 matchingFilter:v10 usingBlock:blockCopy];
+}
+
+- (void)enumerateNeighborNodesThroughEdgesWithLabel:(id)label domain:(unsigned __int16)domain usingBlock:(id)block
+{
+  domainCopy = domain;
+  blockCopy = block;
+  labelCopy = label;
+  v10 = [(MAElementFilter *)[MAEdgeFilter alloc] initWithLabel:labelCopy domain:domainCopy];
+
+  [(MANodeImplementationProtocol *)self->_implementation enumerateNeighborNodesThroughEdgesOfType:3 matchingFilter:v10 usingBlock:blockCopy];
+}
+
+- (void)enumerateNeighborNodesThroughEdgesOfType:(unint64_t)type withLabel:(id)label inDomain:(unsigned __int16)domain usingBlock:(id)block
+{
+  domainCopy = domain;
+  blockCopy = block;
+  labelCopy = label;
+  v12 = [(MAElementFilter *)[MAEdgeFilter alloc] initWithLabel:labelCopy domain:domainCopy];
+
+  [(MANodeImplementationProtocol *)self->_implementation enumerateNeighborNodesThroughEdgesOfType:type matchingFilter:v12 usingBlock:blockCopy];
+}
+
+- (void)enumerateNeighborEdgesAndNodesThroughEdgesOfType:(unint64_t)type withLabel:(id)label inDomain:(unsigned __int16)domain usingBlock:(id)block
+{
+  domainCopy = domain;
+  blockCopy = block;
+  labelCopy = label;
+  v12 = [(MAElementFilter *)[MAEdgeFilter alloc] initWithLabel:labelCopy domain:domainCopy];
+
+  [(MANodeImplementationProtocol *)self->_implementation enumerateNeighborEdgesAndNodesThroughEdgesOfType:type matchingFilter:v12 usingBlock:blockCopy];
 }
 
 - (void)enumerateNeighborNodesUsingBlock:(id)block
@@ -393,53 +556,61 @@ void __45__MANode_enumerateEdgesInDomains_usingBlock___block_invoke(uint64_t a1,
   [(MANodeImplementationProtocol *)implementation enumerateNeighborEdgesAndNodesMatchingFilter:v5 usingBlock:blockCopy];
 }
 
+- (void)enumerateNeighborNodesWithLabel:(id)label domain:(unsigned __int16)domain usingBlock:(id)block
+{
+  domainCopy = domain;
+  blockCopy = block;
+  labelCopy = label;
+  v10 = [(MAElementFilter *)[MANodeFilter alloc] initWithLabel:labelCopy domain:domainCopy];
+
+  [(MANodeImplementationProtocol *)self->_implementation enumerateNeighborNodesMatchingFilter:v10 usingBlock:blockCopy];
+}
+
 - (void)enumerateEdgesWithDomains:(id)domains usingBlock:(id)block
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   domainsCopy = domains;
   blockCopy = block;
   v8 = objc_alloc_init(MEMORY[0x277CCAB58]);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v9 = domainsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v21;
+    v12 = *v20;
     do
     {
       v13 = 0;
       do
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        [v8 addIndex:{objc_msgSend(*(*(&v20 + 1) + 8 * v13++), "unsignedIntegerValue")}];
+        [v8 addIndex:{objc_msgSend(*(*(&v19 + 1) + 8 * v13++), "unsignedIntegerValue")}];
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v11);
   }
 
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __47__MANode_enumerateEdgesWithDomains_usingBlock___block_invoke;
-  v17[3] = &unk_2797FEBF8;
-  v18 = v8;
-  v19 = blockCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __47__MANode_enumerateEdgesWithDomains_usingBlock___block_invoke;
+  v16[3] = &unk_2797FEBF8;
+  v17 = v8;
+  v18 = blockCopy;
   v14 = blockCopy;
   v15 = v8;
-  [(MANode *)self enumerateEdgesOfType:3 withLabel:0 domain:0 usingBlock:v17];
-
-  v16 = *MEMORY[0x277D85DE8];
+  [(MANode *)self enumerateEdgesOfType:3 withLabel:0 domain:0 usingBlock:v16];
 }
 
 void __47__MANode_enumerateEdgesWithDomains_usingBlock___block_invoke(uint64_t a1, void *a2)
@@ -449,6 +620,16 @@ void __47__MANode_enumerateEdgesWithDomains_usingBlock___block_invoke(uint64_t a
   {
     (*(*(a1 + 40) + 16))();
   }
+}
+
+- (void)enumerateEdgesWithLabel:(id)label domain:(unsigned __int16)domain usingBlock:(id)block
+{
+  domainCopy = domain;
+  blockCopy = block;
+  labelCopy = label;
+  v10 = [(MAElementFilter *)[MAEdgeFilter alloc] initWithLabel:labelCopy domain:domainCopy];
+
+  [(MANodeImplementationProtocol *)self->_implementation enumerateEdgesOfType:3 matchingFilter:v10 usingBlock:blockCopy];
 }
 
 - (void)enumerateOutEdgesUsingBlock:(id)block
@@ -481,6 +662,75 @@ void __47__MANode_enumerateEdgesWithDomains_usingBlock___block_invoke(uint64_t a
   blockCopy = block;
   v5 = +[(MAElementFilter *)MAEdgeFilter];
   [(MANodeImplementationProtocol *)implementation enumerateEdgesOfType:3 matchingFilter:v5 usingBlock:blockCopy];
+}
+
+- (BOOL)hasEdgeWithLabel:(id)label domain:(unsigned __int16)domain
+{
+  domainCopy = domain;
+  labelCopy = label;
+  v7 = [(MAElementFilter *)[MAEdgeFilter alloc] initWithLabel:labelCopy domain:domainCopy];
+
+  LOBYTE(self) = [(MANodeImplementationProtocol *)self->_implementation hasEdgeOfType:3 matchingFilter:v7];
+  return self;
+}
+
+- (unint64_t)countOfEdgesWithLabel:(id)label domain:(unsigned __int16)domain
+{
+  domainCopy = domain;
+  labelCopy = label;
+  v7 = [(MAElementFilter *)[MAEdgeFilter alloc] initWithLabel:labelCopy domain:domainCopy];
+
+  v8 = [(MANodeImplementationProtocol *)self->_implementation countOfEdgesOfType:3 matchingFilter:v7];
+  return v8;
+}
+
+- (id)anyEdgeOfType:(unint64_t)type withLabel:(id)label domain:(unsigned __int16)domain
+{
+  domainCopy = domain;
+  labelCopy = label;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__2787;
+  v16 = __Block_byref_object_dispose__2788;
+  v17 = 0;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __41__MANode_anyEdgeOfType_withLabel_domain___block_invoke;
+  v11[3] = &unk_2797FFB10;
+  v11[4] = &v12;
+  [(MANode *)self enumerateEdgesOfType:type withLabel:labelCopy domain:domainCopy usingBlock:v11];
+  v9 = v13[5];
+  _Block_object_dispose(&v12, 8);
+
+  return v9;
+}
+
+- (id)edgesOfType:(unint64_t)type withLabel:(id)label domain:(unsigned __int16)domain
+{
+  domainCopy = domain;
+  v8 = MEMORY[0x277CBEB58];
+  labelCopy = label;
+  v10 = objc_alloc_init(v8);
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __39__MANode_edgesOfType_withLabel_domain___block_invoke;
+  v13[3] = &unk_2797FFB60;
+  v11 = v10;
+  v14 = v11;
+  [(MANode *)self enumerateEdgesOfType:type withLabel:labelCopy domain:domainCopy usingBlock:v13];
+
+  return v11;
+}
+
+- (void)enumerateEdgesOfType:(unint64_t)type withLabel:(id)label domain:(unsigned __int16)domain usingBlock:(id)block
+{
+  domainCopy = domain;
+  blockCopy = block;
+  labelCopy = label;
+  v12 = [(MAElementFilter *)[MAEdgeFilter alloc] initWithLabel:labelCopy domain:domainCopy];
+
+  [(MANodeImplementationProtocol *)self->_implementation enumerateEdgesOfType:type matchingFilter:v12 usingBlock:blockCopy];
 }
 
 - (id)anyEdgeOfType:(unint64_t)type withNode:(id)node
@@ -928,7 +1178,7 @@ LABEL_13:
 {
   propertyDictionary = [(MANode *)self propertyDictionary];
   [(MANode *)self weight];
-  v5 = [(MAKGWeightConversion *)v4 kgPropertiesForMAProperties:propertyDictionary weight:?];
+  v5 = [MAKGWeightConversion kgPropertiesForMAProperties:propertyDictionary weight:v4];
 
   return v5;
 }

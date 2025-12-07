@@ -11,9 +11,9 @@
 - (UIViewController)initialViewController
 {
   selfCopy = self;
-  v3 = sub_251FC1A58();
+  v4 = sub_251FC1A58(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setInitialViewController:(id)controller
@@ -25,7 +25,7 @@
 
 - (UINavigationController)flowContainerController
 {
-  type metadata accessor for HearingFlowNavigationController();
+  type metadata accessor for HearingFlowNavigationController(0, a2);
   v3 = *((*MEMORY[0x277D85000] & self->super.isa) + 0x70);
   selfCopy = self;
   v5 = v3();
@@ -41,7 +41,7 @@
   *(&self->super.isa + OBJC_IVAR____TtC21HearingModeSettingsUI27HearingAssistFlowController_flowType) = flow;
   *(&self->super.isa + OBJC_IVAR____TtC21HearingModeSettingsUI27HearingAssistFlowController_hmsClient) = client;
   v10.receiver = self;
-  v10.super_class = type metadata accessor for HearingAssistFlowController();
+  v10.super_class = type metadata accessor for HearingAssistFlowController(self, a2);
   deviceCopy = device;
   clientCopy = client;
   return [(HearingAssistFlowController *)&v10 init];

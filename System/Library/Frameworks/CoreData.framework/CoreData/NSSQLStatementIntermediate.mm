@@ -136,7 +136,7 @@
 
 - (BOOL)keypathExpressionIsSafeLHSForIn:(id)in
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   scope = self->super._scope;
   if (scope)
   {
@@ -147,7 +147,6 @@
   {
     scope = self->super._scope;
 LABEL_6:
-    v8 = *MEMORY[0x1E69E9840];
 
     return [(NSSQLIntermediate *)scope keypathExpressionIsSafeLHSForIn:in];
   }
@@ -163,52 +162,52 @@ LABEL_6:
     keyPath = [objc_msgSend(objc_msgSend(in "arguments")];
   }
 
-  v10 = [keyPath componentsSeparatedByString:@"."];
+  v9 = [keyPath componentsSeparatedByString:@"."];
+  v19 = 0u;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
-  if (v11)
+  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  if (v10)
   {
-    v12 = v11;
-    v13 = 0;
-    v14 = *v22;
+    v11 = v10;
+    v12 = 0;
+    v13 = *v20;
 LABEL_12:
-    v15 = 0;
+    v14 = 0;
     while (1)
     {
-      if (*v22 != v14)
+      if (*v20 != v13)
       {
-        objc_enumerationMutation(v10);
+        objc_enumerationMutation(v9);
       }
 
       if (!destinationEntity)
       {
-        goto LABEL_27;
+        return 1;
       }
 
-      v16 = [destinationEntity[5] objectForKey:*(*(&v21 + 1) + 8 * v15)];
-      if (!v16)
+      v15 = [destinationEntity[5] objectForKey:*(*(&v19 + 1) + 8 * v14)];
+      if (!v15)
       {
-        goto LABEL_27;
+        return 1;
       }
 
-      v17 = v16;
-      if ([v16 isToMany])
+      v16 = v15;
+      if ([v15 isToMany])
       {
         break;
       }
 
-      v18 = v17[24];
-      if (v18 == 7)
+      v17 = v16[24];
+      if (v17 == 7)
       {
-        destinationEntity = [v17 destinationEntity];
+        destinationEntity = [v16 destinationEntity];
       }
 
       else
       {
-        if (v18 == 9)
+        if (v17 == 9)
         {
           break;
         }
@@ -217,36 +216,31 @@ LABEL_12:
       }
 
 LABEL_24:
-      if (v12 == ++v15)
+      if (v11 == ++v14)
       {
-        v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
         result = 1;
-        if (v12)
+        if (v11)
         {
           goto LABEL_12;
         }
 
-        goto LABEL_29;
+        return result;
       }
     }
 
-    destinationEntity2 = [v17 destinationEntity];
-    if (v13)
+    destinationEntity2 = [v16 destinationEntity];
+    if (v12)
     {
-      result = 0;
-      goto LABEL_29;
+      return 0;
     }
 
     destinationEntity = destinationEntity2;
-    v13 = 1;
+    v12 = 1;
     goto LABEL_24;
   }
 
-LABEL_27:
-  result = 1;
-LABEL_29:
-  v20 = *MEMORY[0x1E69E9840];
-  return result;
+  return 1;
 }
 
 @end

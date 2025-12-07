@@ -51,6 +51,13 @@ void __105__WBSAutoFillJavaScriptInjectionController_metadataForFormInFrame_webV
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
+- (void)metadataForControl:(uint64_t)a3 andContainingFormInFrame:(uint64_t)a4 webView:(uint64_t)a5 completionHandler:(uint64_t)a6 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[WBSAutoFillJavaScriptInjectionController metadataForControl:andContainingFormInFrame:webView:completionHandler:]";
+  OUTLINED_FUNCTION_0_1(&dword_1C6968000, a1, a3, "Calling %s with nil control ID", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void __114__WBSAutoFillJavaScriptInjectionController_metadataForControl_andContainingFormInFrame_webView_completionHandler___block_invoke_cold_1(uint64_t a1, void *a2)
 {
   OUTLINED_FUNCTION_10(a1, a2);
@@ -71,6 +78,13 @@ void __114__WBSAutoFillJavaScriptInjectionController_metadataForControl_andConta
   _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
 }
 
+- (void)disableSpellCheckInControl:(uint64_t)a3 inFrame:(uint64_t)a4 webView:(uint64_t)a5 completionHandler:(uint64_t)a6 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[WBSAutoFillJavaScriptInjectionController disableSpellCheckInControl:inFrame:webView:completionHandler:]";
+  OUTLINED_FUNCTION_0_1(&dword_1C6968000, a1, a3, "Calling %s with nil control ID", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void __105__WBSAutoFillJavaScriptInjectionController_disableSpellCheckInControl_inFrame_webView_completionHandler___block_invoke_cold_1(void *a1)
 {
   v2 = a1;
@@ -78,6 +92,13 @@ void __105__WBSAutoFillJavaScriptInjectionController_disableSpellCheckInControl_
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_12();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
+}
+
+- (void)setStrongPasswordElements:(uint64_t)a3 viewableIfAppropriate:(uint64_t)a4 inFrame:(uint64_t)a5 webView:(uint64_t)a6 completionHandler:(uint64_t)a7 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[WBSAutoFillJavaScriptInjectionController setStrongPasswordElements:viewableIfAppropriate:inFrame:webView:completionHandler:]";
+  OUTLINED_FUNCTION_0_1(&dword_1C6968000, a1, a3, "Calling %s with nil list of control IDs", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __126__WBSAutoFillJavaScriptInjectionController_setStrongPasswordElements_viewableIfAppropriate_inFrame_webView_completionHandler___block_invoke_cold_1(void *a1)
@@ -116,6 +137,13 @@ void __130__WBSAutoFillJavaScriptInjectionController_autoFillControlsInForm_with
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
+- (void)showAutoFillButtonOfType:(uint64_t)a3 inControlIfFocused:(uint64_t)a4 inFrame:(uint64_t)a5 webView:(uint64_t)a6 completionHandler:(uint64_t)a7 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[WBSAutoFillJavaScriptInjectionController showAutoFillButtonOfType:inControlIfFocused:inFrame:webView:completionHandler:]";
+  OUTLINED_FUNCTION_0_1(&dword_1C6968000, a1, a3, "Calling %s with nil control ID", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void __122__WBSAutoFillJavaScriptInjectionController_showAutoFillButtonOfType_inControlIfFocused_inFrame_webView_completionHandler___block_invoke_cold_1(void *a1)
 {
   v2 = a1;
@@ -123,6 +151,13 @@ void __122__WBSAutoFillJavaScriptInjectionController_showAutoFillButtonOfType_in
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_12();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
+}
+
+- (void)setAutoFillAvailable:(uint64_t)a3 forControl:(uint64_t)a4 inFrame:(uint64_t)a5 webView:(uint64_t)a6 completionHandler:(uint64_t)a7 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[WBSAutoFillJavaScriptInjectionController setAutoFillAvailable:forControl:inFrame:webView:completionHandler:]";
+  OUTLINED_FUNCTION_0_1(&dword_1C6968000, a1, a3, "Calling %s with nil control ID", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __110__WBSAutoFillJavaScriptInjectionController_setAutoFillAvailable_forControl_inFrame_webView_completionHandler___block_invoke_cold_1(uint64_t a1, void *a2)
@@ -134,6 +169,13 @@ void __110__WBSAutoFillJavaScriptInjectionController_setAutoFillAvailable_forCon
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
+- (void)blurControls:(uint64_t)a3 inFrame:(uint64_t)a4 webView:(uint64_t)a5 completionHandler:(uint64_t)a6 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[WBSAutoFillJavaScriptInjectionController blurControls:inFrame:webView:completionHandler:]";
+  OUTLINED_FUNCTION_0_1(&dword_1C6968000, a1, a3, "Calling %s with nil list of control IDs", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void __91__WBSAutoFillJavaScriptInjectionController_blurControls_inFrame_webView_completionHandler___block_invoke_cold_1(void *a1)
 {
   v2 = a1;
@@ -143,6 +185,13 @@ void __91__WBSAutoFillJavaScriptInjectionController_blurControls_inFrame_webView
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
+- (void)clearControls:(uint64_t)a3 inFrame:(uint64_t)a4 webView:(uint64_t)a5 completionHandler:(uint64_t)a6 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[WBSAutoFillJavaScriptInjectionController clearControls:inFrame:webView:completionHandler:]";
+  OUTLINED_FUNCTION_0_1(&dword_1C6968000, a1, a3, "Calling %s with nil list of control IDs", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void __92__WBSAutoFillJavaScriptInjectionController_clearControls_inFrame_webView_completionHandler___block_invoke_cold_1(void *a1)
 {
   v2 = a1;
@@ -150,6 +199,13 @@ void __92__WBSAutoFillJavaScriptInjectionController_clearControls_inFrame_webVie
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_12();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
+}
+
+- (void)clearAndResetAutoFillStatusOfControls:(uint64_t)a3 inFrame:(uint64_t)a4 webView:(uint64_t)a5 completionHandler:(uint64_t)a6 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[WBSAutoFillJavaScriptInjectionController clearAndResetAutoFillStatusOfControls:inFrame:webView:completionHandler:]";
+  OUTLINED_FUNCTION_0_1(&dword_1C6968000, a1, a3, "Calling %s with nil list of control IDs", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __116__WBSAutoFillJavaScriptInjectionController_clearAndResetAutoFillStatusOfControls_inFrame_webView_completionHandler___block_invoke_cold_1(void *a1, void *a2)
@@ -172,6 +228,13 @@ void __102__WBSAutoFillJavaScriptInjectionController_annotateForm_withValues_inF
   _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
 }
 
+- (void)setControls:(uint64_t)a3 asAutoFilled:(uint64_t)a4 inFrame:(uint64_t)a5 webView:(uint64_t)a6 completionHandler:(uint64_t)a7 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[WBSAutoFillJavaScriptInjectionController setControls:asAutoFilled:inFrame:webView:completionHandler:]";
+  OUTLINED_FUNCTION_0_1(&dword_1C6968000, a1, a3, "Calling %s with nil list of control IDs", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void __103__WBSAutoFillJavaScriptInjectionController_setControls_asAutoFilled_inFrame_webView_completionHandler___block_invoke_cold_1(void *a1)
 {
   v2 = a1;
@@ -179,6 +242,13 @@ void __103__WBSAutoFillJavaScriptInjectionController_setControls_asAutoFilled_in
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_12();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
+}
+
+- (void)focusControlForStreamlinedLogin:(uint64_t)a3 inFrame:(uint64_t)a4 webView:(uint64_t)a5 completionHandler:(uint64_t)a6 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[WBSAutoFillJavaScriptInjectionController focusControlForStreamlinedLogin:inFrame:webView:completionHandler:]";
+  OUTLINED_FUNCTION_0_1(&dword_1C6968000, a1, a3, "Calling %s with nil control ID", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __110__WBSAutoFillJavaScriptInjectionController_focusControlForStreamlinedLogin_inFrame_webView_completionHandler___block_invoke_cold_1(void *a1)
@@ -190,6 +260,13 @@ void __110__WBSAutoFillJavaScriptInjectionController_focusControlForStreamlinedL
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
+- (void)selectRange:(uint64_t)a3 inControl:(uint64_t)a4 inFrame:(uint64_t)a5 webView:(uint64_t)a6 completionHandler:(uint64_t)a7 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[WBSAutoFillJavaScriptInjectionController selectRange:inControl:inFrame:webView:completionHandler:]";
+  OUTLINED_FUNCTION_0_1(&dword_1C6968000, a1, a3, "Calling %s with nil control ID", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void __100__WBSAutoFillJavaScriptInjectionController_selectRange_inControl_inFrame_webView_completionHandler___block_invoke_cold_1(uint64_t a1, void *a2)
 {
   OUTLINED_FUNCTION_10(a1, a2);
@@ -197,6 +274,13 @@ void __100__WBSAutoFillJavaScriptInjectionController_selectRange_inControl_inFra
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_0_12();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
+}
+
+- (void)replaceRange:(uint64_t)a3 inControl:(uint64_t)a4 withString:(uint64_t)a5 inFrame:(uint64_t)a6 webView:(uint64_t)a7 completionHandler:(uint64_t)a8 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[WBSAutoFillJavaScriptInjectionController replaceRange:inControl:withString:inFrame:webView:completionHandler:]";
+  OUTLINED_FUNCTION_0_1(&dword_1C6968000, a1, a3, "Calling %s with nil control ID", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __112__WBSAutoFillJavaScriptInjectionController_replaceRange_inControl_withString_inFrame_webView_completionHandler___block_invoke_cold_1(void *a1, void *a2, void *a3)
@@ -243,7 +327,7 @@ void __73__WBSAutoFillJavaScriptInjectionController__handleControlFocusedMessage
 {
   OUTLINED_FUNCTION_9(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1C6968000, v0, v1, "While handling a ControlFocused event from a frame in %p, WebKit returned a nil frame tree", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_1(&dword_1C6968000, v0, v1, "While handling a ControlFocused event from a frame in %p, WebKit returned a nil frame tree", v2, v3, v4, v5);
 }
 
 void __73__WBSAutoFillJavaScriptInjectionController__handleControlFocusedMessage___block_invoke_209_cold_1()
@@ -257,7 +341,7 @@ void __73__WBSAutoFillJavaScriptInjectionController__handleControlBlurredMessage
 {
   OUTLINED_FUNCTION_9(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1C6968000, v0, v1, "While handling a ControlBlurred event from a frame in %p, WebKit returned a nil frame tree", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_1(&dword_1C6968000, v0, v1, "While handling a ControlBlurred event from a frame in %p, WebKit returned a nil frame tree", v2, v3, v4, v5);
 }
 
 void __73__WBSAutoFillJavaScriptInjectionController__handleControlBlurredMessage___block_invoke_210_cold_1()
@@ -271,7 +355,7 @@ void __71__WBSAutoFillJavaScriptInjectionController__handleControlInputMessage__
 {
   OUTLINED_FUNCTION_9(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1C6968000, v0, v1, "While handling a ControlInput event from a frame in %p, WebKit returned a nil frame tree", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_1(&dword_1C6968000, v0, v1, "While handling a ControlInput event from a frame in %p, WebKit returned a nil frame tree", v2, v3, v4, v5);
 }
 
 void __71__WBSAutoFillJavaScriptInjectionController__handleControlInputMessage___block_invoke_211_cold_1()
@@ -285,7 +369,7 @@ void __80__WBSAutoFillJavaScriptInjectionController__handleManualAutoFillRequest
 {
   OUTLINED_FUNCTION_9(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1C6968000, v0, v1, "While handling a ManualAutoFillRequest event from a frame in %p, WebKit returned a nil frame tree", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_1(&dword_1C6968000, v0, v1, "While handling a ManualAutoFillRequest event from a frame in %p, WebKit returned a nil frame tree", v2, v3, v4, v5);
 }
 
 void __80__WBSAutoFillJavaScriptInjectionController__handleManualAutoFillRequestMessage___block_invoke_212_cold_1()
@@ -321,7 +405,7 @@ void __121__WBSAutoFillJavaScriptInjectionController__convertControlBoundingRect
 {
   OUTLINED_FUNCTION_9(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_1(&dword_1C6968000, v0, v1, "Error converting control rect to main frame coordinates in web view %p", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_1(&dword_1C6968000, v0, v1, "Error converting control rect to main frame coordinates in web view %p", v2, v3, v4, v5);
 }
 
 @end

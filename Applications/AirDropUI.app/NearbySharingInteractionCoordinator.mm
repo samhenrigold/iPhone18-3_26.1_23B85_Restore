@@ -18,7 +18,9 @@
   managerCopy = manager;
   selfCopy = self;
   sub_1000A4C38(managerCopy);
+  v6 = v5;
   sub_1000A48AC(v5);
+  v6, v7, v8, v9, v10, v11, v12, v13;
 }
 
 @end

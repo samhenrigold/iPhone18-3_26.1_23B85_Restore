@@ -9,15 +9,15 @@
 
 - (AFSiriIncomingCall)initWithCoder:(id)coder
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"callUUID"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"callProviderIdentifier"];
   v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"callProviderBundleID"];
   v8 = MEMORY[0x1E695DFD8];
-  v19[0] = objc_opt_class();
-  v19[1] = objc_opt_class();
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+  v18[0] = objc_opt_class();
+  v18[1] = objc_opt_class();
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
   v10 = [v8 setWithArray:v9];
   v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"callerContactIdentifiers"];
 
@@ -33,10 +33,9 @@
   }
 
   v14 = [coderCopy decodeBoolForKey:@"isVideo"];
-  LOBYTE(v18) = [coderCopy decodeBoolForKey:@"isCallerIDBlocked"];
-  v15 = [(AFSiriIncomingCall *)self initWithCallUUID:v5 callProviderIdentifier:v6 callProviderBundleID:v7 callerContactIdentifiers:v11 handle:v13 isVideo:v14 isCallerIDBlocked:v18, v19[0]];
+  LOBYTE(v17) = [coderCopy decodeBoolForKey:@"isCallerIDBlocked"];
+  v15 = [(AFSiriIncomingCall *)self initWithCallUUID:v5 callProviderIdentifier:v6 callProviderBundleID:v7 callerContactIdentifiers:v11 handle:v13 isVideo:v14 isCallerIDBlocked:v17, v18[0]];
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

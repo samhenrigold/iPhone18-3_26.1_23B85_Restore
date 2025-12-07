@@ -40,10 +40,10 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  service = [(HFAssociatedServiceTypeOptionItemProvider *)self service];
+  v5 = objc_msgSend_service(self);
   serviceType = [(HFAssociatedServiceTypeOptionItemProvider *)self serviceType];
-  home = [(HFAssociatedServiceTypeOptionItemProvider *)self home];
-  v8 = [v4 initWithService:service serviceType:serviceType home:home];
+  v7 = objc_msgSend_home(self);
+  v8 = [v4 initWithService:v5 serviceType:serviceType home:v7];
 
   return v8;
 }
@@ -119,14 +119,14 @@
 
 id __83__HFAssociatedServiceTypeOptionItemProvider__itemForService_associatedServiceType___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v14[0] = @"title";
-  v14[1] = @"icon";
-  v15 = v2;
-  v14[2] = @"associatedServiceType";
-  v16 = *(a1 + 48);
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:v14 count:3];
+  v13[0] = @"title";
+  v13[1] = @"icon";
+  v14 = v2;
+  v13[2] = @"associatedServiceType";
+  v15 = *(a1 + 48);
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:v13 count:3];
   v4 = [v3 mutableCopy];
 
   if (*(a1 + 56))
@@ -154,8 +154,6 @@ id __83__HFAssociatedServiceTypeOptionItemProvider__itemForService_associatedSer
   }
 
   v11 = [MEMORY[0x277D2C900] futureWithResult:v4];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

@@ -841,7 +841,7 @@ LABEL_5:
   v2 = MEMORY[0x1E69DCAB8];
   v3 = *MEMORY[0x1E696C860];
   mainScreen = [MEMORY[0x1E69DCEB0] mainScreen];
-  [mainScreen scale];
+  objc_msgSend_scale(mainScreen);
   v5 = [v2 _applicationIconImageForBundleIdentifier:v3 format:0 scale:?];
 
   return v5;
@@ -879,7 +879,7 @@ void __66__HKSourceAuthorizationController__reloadTypeAuthorizationRecords__bloc
   objc_opt_class();
   OUTLINED_FUNCTION_1_4();
   v1 = v0;
-  OUTLINED_FUNCTION_2_0(&dword_1C3942000, v2, v3, "%{public}@: failed to get authorization records: %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_1C3942000, v2, v3, "%{public}@: failed to get authorization records: %{public}@", v4, v5, v6, v7);
 }
 
 void __69__HKSourceAuthorizationController_commitObjectAuthorizationStatuses___block_invoke_cold_1()
@@ -888,7 +888,7 @@ void __69__HKSourceAuthorizationController_commitObjectAuthorizationStatuses___b
   v1 = [*(v0 + 32) source];
   v2 = [v1 bundleIdentifier];
   OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_2_0(&dword_1C3942000, v3, v4, "Failed to set status for bundleId %@ with error: %@.", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_2_0(&dword_1C3942000, v3, v4, "Failed to set status for bundleId %@ with error: %@.", v5, v6, v7, v8);
 }
 
 void __67__HKSourceAuthorizationController_resetObjectAuthorizationStatuses__block_invoke_cold_1()
@@ -897,7 +897,7 @@ void __67__HKSourceAuthorizationController_resetObjectAuthorizationStatuses__blo
   v1 = [*(v0 + 32) source];
   v2 = [v1 bundleIdentifier];
   OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_2_0(&dword_1C3942000, v3, v4, "Failed to reset object authorization status for bundle id: %{public}@ with error: %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_2_0(&dword_1C3942000, v3, v4, "Failed to reset object authorization status for bundle id: %{public}@ with error: %{public}@", v5, v6, v7, v8);
 }
 
 - (void)_updateAuthorizationStatusWithTypes:.cold.1()

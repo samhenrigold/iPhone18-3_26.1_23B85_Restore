@@ -52,7 +52,7 @@
 
 - (id)contextMenuInteraction:(id)interaction configurationForMenuAtLocation:(CGPoint)location
 {
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIContextMenuConfiguration);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIContextMenuConfiguration, 0x277D753B0);
   v4 = swift_allocObject();
   swift_unknownObjectWeakInit();
   v5 = UIContextMenuConfiguration.init(identifier:previewProvider:actionProvider:)(0, 0, 0, closure #1 in DOCAttributionPillView.contextMenuInteraction(_:configurationForMenuAtLocation:)partial apply, v4);

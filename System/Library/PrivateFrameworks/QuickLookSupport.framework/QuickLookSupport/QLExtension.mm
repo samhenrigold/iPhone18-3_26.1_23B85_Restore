@@ -72,7 +72,7 @@ void __33__QLExtension_initWithExtension___block_invoke(uint64_t a1)
 
 - (void)_setupConnectionIfNeededWithCompletionHandler:(id)handler
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   dispatch_assert_queue_V2(self->_queue);
   extensionRequestHandlers = self->_extensionRequestHandlers;
@@ -88,15 +88,16 @@ void __33__QLExtension_initWithExtension___block_invoke(uint64_t a1)
   {
     self->_isRequestingExtension = 1;
     extension = self->_extension;
-    v21 = 0;
-    v8 = [(NSExtension *)extension beginExtensionRequestWithOptions:1 inputItems:0 error:&v21];
-    v9 = v21;
+    v23 = 0;
+    v8 = [(NSExtension *)extension beginExtensionRequestWithOptions:1 inputItems:0 error:&v23];
+    v9 = v23;
+    v11 = v9;
     self->_isRequestingExtension = 0;
     if (v8)
     {
       extension = [(QLExtension *)self extension];
-      v11 = [extension _extensionContextForUUID:v8];
-      [(QLExtension *)self setContext:v11];
+      v13 = [extension _extensionContextForUUID:v8];
+      [(QLExtension *)self setContext:v13];
 
       context = [(QLExtension *)self context];
       _auxiliaryConnection = [context _auxiliaryConnection];
@@ -104,43 +105,43 @@ void __33__QLExtension_initWithExtension___block_invoke(uint64_t a1)
 
       [(QLExtension *)self setRequestIdentifier:v8];
       objc_initWeak(location, self);
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __61__QLExtension__setupConnectionIfNeededWithCompletionHandler___block_invoke;
+      v21[3] = &unk_279ADB5C8;
+      objc_copyWeak(&v22, location);
+      connection = [(QLExtension *)self connection];
+      [connection setInterruptionHandler:v21];
+
       v19[0] = MEMORY[0x277D85DD0];
       v19[1] = 3221225472;
-      v19[2] = __61__QLExtension__setupConnectionIfNeededWithCompletionHandler___block_invoke;
+      v19[2] = __61__QLExtension__setupConnectionIfNeededWithCompletionHandler___block_invoke_3;
       v19[3] = &unk_279ADB5C8;
       objc_copyWeak(&v20, location);
-      connection = [(QLExtension *)self connection];
-      [connection setInterruptionHandler:v19];
-
-      v17[0] = MEMORY[0x277D85DD0];
-      v17[1] = 3221225472;
-      v17[2] = __61__QLExtension__setupConnectionIfNeededWithCompletionHandler___block_invoke_3;
-      v17[3] = &unk_279ADB5C8;
-      objc_copyWeak(&v18, location);
       connection2 = [(QLExtension *)self connection];
-      [connection2 setInvalidationHandler:v17];
+      [connection2 setInvalidationHandler:v19];
 
-      objc_destroyWeak(&v18);
       objc_destroyWeak(&v20);
+      objc_destroyWeak(&v22);
       objc_destroyWeak(location);
     }
 
     else
     {
-      v16 = _qlsLogHandle;
+      v18 = _qlsLogHandle;
       if (!_qlsLogHandle)
       {
-        QLSInitLogging();
-        v16 = _qlsLogHandle;
+        QLSInitLogging(v9, v10);
+        v18 = _qlsLogHandle;
       }
 
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
       {
         *location = 138412546;
         *&location[4] = self;
-        v23 = 2112;
-        v24 = v9;
-        _os_log_impl(&dword_2615AE000, v16, OS_LOG_TYPE_FAULT, "%@: error while instantiating extension's object: %@ #Remote", location, 0x16u);
+        v25 = 2112;
+        v26 = v11;
+        _os_log_impl(&dword_2615AE000, v18, OS_LOG_TYPE_FAULT, "%@: error while instantiating extension's object: %@ #Remote", location, 0x16u);
       }
     }
 
@@ -235,22 +236,22 @@ void __61__QLExtension__setupConnectionIfNeededWithCompletionHandler___block_inv
 
 - (void)_invalidateAndCancelExtensionRequest
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   if (self->_connection)
   {
-    v3 = _qlsLogHandle;
+    v5 = _qlsLogHandle;
     if (!_qlsLogHandle)
     {
-      QLSInitLogging();
-      v3 = _qlsLogHandle;
+      QLSInitLogging(v3, v4);
+      v5 = _qlsLogHandle;
     }
 
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v4 = 138412290;
+      v6 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_2615AE000, v3, OS_LOG_TYPE_DEBUG, "%@: cancelling extension request #Extensions", &v4, 0xCu);
+      _os_log_impl(&dword_2615AE000, v5, OS_LOG_TYPE_DEBUG, "%@: cancelling extension request #Extensions", &v6, 0xCu);
     }
 
     if (self->_requestIdentifier)
@@ -268,7 +269,7 @@ void __61__QLExtension__setupConnectionIfNeededWithCompletionHandler___block_inv
   v3 = _qlsLogHandle;
   if (!_qlsLogHandle)
   {
-    QLSInitLogging();
+    QLSInitLogging(self, a2);
     v3 = _qlsLogHandle;
   }
 
@@ -329,7 +330,7 @@ void __30__QLExtension_registerClient___block_invoke(uint64_t a1)
 
 void __32__QLExtension_unregisterClient___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) observers];
   [v2 removeObject:*(a1 + 40)];
 
@@ -338,23 +339,23 @@ void __32__QLExtension_unregisterClient___block_invoke(uint64_t a1)
 
   if (!v4)
   {
-    v5 = _qlsLogHandle;
+    v7 = _qlsLogHandle;
     if (!_qlsLogHandle)
     {
-      QLSInitLogging();
-      v5 = _qlsLogHandle;
+      QLSInitLogging(v5, v6);
+      v7 = _qlsLogHandle;
     }
 
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v6 = *(a1 + 32);
-      v8 = 138412290;
-      v9 = v6;
-      _os_log_impl(&dword_2615AE000, v5, OS_LOG_TYPE_DEBUG, "Arming timer to invalidate QLExtension %@ because there is no more active observer. #Extensions", &v8, 0xCu);
+      v8 = *(a1 + 32);
+      v10 = 138412290;
+      v11 = v8;
+      _os_log_impl(&dword_2615AE000, v7, OS_LOG_TYPE_DEBUG, "Arming timer to invalidate QLExtension %@ because there is no more active observer. #Extensions", &v10, 0xCu);
     }
 
-    v7 = [*(a1 + 32) gracePeriodTimer];
-    [v7 arm];
+    v9 = [*(a1 + 32) gracePeriodTimer];
+    [v9 arm];
   }
 }
 

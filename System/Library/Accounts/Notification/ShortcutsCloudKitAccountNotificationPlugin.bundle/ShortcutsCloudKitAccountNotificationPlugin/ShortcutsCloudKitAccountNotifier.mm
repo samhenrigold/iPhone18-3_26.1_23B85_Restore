@@ -6,7 +6,7 @@
 
 - (void)account:(id)account didChangeWithType:(int)type inStore:(id)store oldAccount:(id)oldAccount
 {
-  v29 = *MEMORY[0x29EDCA608];
+  v28 = *MEMORY[0x29EDCA608];
   accountCopy = account;
   storeCopy = store;
   oldAccountCopy = oldAccount;
@@ -50,9 +50,9 @@ LABEL_6:
         v25 = getWFVoiceShortcutClientLogObject();
         if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
         {
-          v27 = 136315138;
-          v28 = "[ShortcutsCloudKitAccountNotifier account:didChangeWithType:inStore:oldAccount:]";
-          _os_log_impl(&dword_29C914000, v25, OS_LOG_TYPE_INFO, "%s CloudKit account was added. Resetting all local sync state and requesting a resync.", &v27, 0xCu);
+          v26 = 136315138;
+          v27 = "[ShortcutsCloudKitAccountNotifier account:didChangeWithType:inStore:oldAccount:]";
+          _os_log_impl(&dword_29C914000, v25, OS_LOG_TYPE_INFO, "%s CloudKit account was added. Resetting all local sync state and requesting a resync.", &v26, 0xCu);
         }
 
         v24 = MEMORY[0x29EDC82F0];
@@ -68,9 +68,9 @@ LABEL_6:
         v23 = getWFVoiceShortcutClientLogObject();
         if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
-          v27 = 136315138;
-          v28 = "[ShortcutsCloudKitAccountNotifier account:didChangeWithType:inStore:oldAccount:]";
-          _os_log_impl(&dword_29C914000, v23, OS_LOG_TYPE_INFO, "%s CloudKit account was modified. Requesting a resync.", &v27, 0xCu);
+          v26 = 136315138;
+          v27 = "[ShortcutsCloudKitAccountNotifier account:didChangeWithType:inStore:oldAccount:]";
+          _os_log_impl(&dword_29C914000, v23, OS_LOG_TYPE_INFO, "%s CloudKit account was modified. Requesting a resync.", &v26, 0xCu);
         }
 
         v24 = MEMORY[0x29EDC82F8];
@@ -86,8 +86,8 @@ LABEL_6:
         v21 = getWFVoiceShortcutClientLogObject();
         if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
         {
-          v27 = 136315138;
-          v28 = "[ShortcutsCloudKitAccountNotifier account:didChangeWithType:inStore:oldAccount:]";
+          v26 = 136315138;
+          v27 = "[ShortcutsCloudKitAccountNotifier account:didChangeWithType:inStore:oldAccount:]";
           v22 = "%s CloudKit account was deleted. Nothing to do.";
           goto LABEL_22;
         }
@@ -99,8 +99,8 @@ LABEL_23:
         v21 = getWFVoiceShortcutClientLogObject();
         if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
         {
-          v27 = 136315138;
-          v28 = "[ShortcutsCloudKitAccountNotifier account:didChangeWithType:inStore:oldAccount:]";
+          v26 = 136315138;
+          v27 = "[ShortcutsCloudKitAccountNotifier account:didChangeWithType:inStore:oldAccount:]";
           v22 = "%s CloudKit account save failed. Nothing to do.";
           goto LABEL_22;
         }
@@ -110,11 +110,11 @@ LABEL_23:
         v21 = getWFVoiceShortcutClientLogObject();
         if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
         {
-          v27 = 136315138;
-          v28 = "[ShortcutsCloudKitAccountNotifier account:didChangeWithType:inStore:oldAccount:]";
+          v26 = 136315138;
+          v27 = "[ShortcutsCloudKitAccountNotifier account:didChangeWithType:inStore:oldAccount:]";
           v22 = "%s CloudKit warming up. Nothing to do.";
 LABEL_22:
-          _os_log_impl(&dword_29C914000, v21, OS_LOG_TYPE_INFO, v22, &v27, 0xCu);
+          _os_log_impl(&dword_29C914000, v21, OS_LOG_TYPE_INFO, v22, &v26, 0xCu);
           goto LABEL_23;
         }
 
@@ -123,8 +123,6 @@ LABEL_22:
   }
 
 LABEL_28:
-
-  v26 = *MEMORY[0x29EDCA608];
 }
 
 @end

@@ -1,4 +1,4 @@
-unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE3ELj4ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder2EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1, double a2, __n128 a3, __n128 a4, __n128 a5)
+int8x16_t *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE3ELj4ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder2EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1, double a2, __n128 a3, __n128 a4, __n128 a5)
 {
   v51 = *MEMORY[0x29EDCA608];
   AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)3,4u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::decompressMacroblock(v50, *(a1 + 40), *(a1 + 48), a2, a3, a4, a5);
@@ -11,7 +11,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
       v16 = *(a1 + 72);
       v17 = v16 << 6;
       v18 = 8 * *(a1 + 76);
-      v19 = &v50[64 * v16 + v18];
+      v19 = &v50[4 * v16].i8[v18];
       v21 = *(a1 + 56);
       v20 = *(a1 + 64);
       v22 = 8 * *(a1 + 84);
@@ -42,7 +42,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
         }
       }
 
-      else if (v21 < &v50[64 * v14 - 64 + 64 * v16 + v22 + v18] && v19 < v21 + v20 * (v14 - 1) + v22 || v20 < 0)
+      else if (v21 < &v50[4 * v14 - 4 + 4 * v16].u64[v22 / 8 + v18 / 8] && v19 < v21 + v20 * (v14 - 1) + v22 || v20 < 0)
       {
         for (j = 0; j != v14; ++j)
         {
@@ -63,8 +63,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
       {
         v33 = 0;
         v34 = v15 & 3;
-        v35 = &v50[v17 + v18];
-        v36 = &v50[v17 + 16 + v18];
+        v35 = &v50[0].i8[v17 + v18];
+        v36 = &v50[1].i8[v17 + v18];
         v37 = (v21 + 16);
         v38 = (v21 + (v22 & 0x1FFFFFFE0));
         v39 = &v35[v22 & 0x1FFFFFFE0];
@@ -79,7 +79,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
             v7 = *v40;
             *(v41 - 1) = v6;
             *v41 = v7;
-            v41 += 2;
+            v41 += 32;
             v40 += 2;
             v42 -= 32;
           }
@@ -96,7 +96,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
               {
                 v46 = *v44++;
                 *&v6 = v46;
-                *v43++ = v46;
+                *v43 = v46;
+                v43 += 8;
                 v45 -= 8;
               }
 
@@ -109,7 +110,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
               v48 = (v22 & 0xFFFFFFE0) + 1;
               do
               {
-                *(v39 + v47) = *(v38 + v47);
+                v39[v47] = *(v38 + v47);
                 v49 = v22 > v48++;
                 ++v47;
               }
@@ -122,7 +123,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           v36 += 64;
           v37 = (v37 + v20);
           v38 = (v38 + v20);
-          v39 += 8;
+          v39 += 64;
         }
 
         while (v33 != v14);
@@ -131,7 +132,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
       else
       {
         v31 = (v21 + 16);
-        v32 = &v50[v17 + 16 + v18];
+        v32 = (v50[1].i64 + v17 + v18);
         do
         {
           *&v6 = *(v31 - 2);
@@ -160,7 +161,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
   return AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)3,4u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressMacroblock(v50, 64, *(a1 + 40), *(a1 + 48), *(a1 + 88), *(a1 + 89), *&v6, *&v7, v8, v9, v10, v11, v12, v13);
 }
 
-unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE3ELj4ELh1ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder1EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1, double a2, __n128 a3, __n128 a4, __n128 a5)
+char *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE3ELj4ELh1ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder1EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1, double a2, __n128 a3, __n128 a4, __n128 a5)
 {
   v80 = *MEMORY[0x29EDCA608];
   result = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)3,4u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::decompressMacroblock(&v78, *(a1 + 40), *(a1 + 48), a2, a3, a4, a5);
@@ -177,7 +178,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
       v14 = *(a1 + 56);
       v13 = *(a1 + 64);
       v15 = 8 * *(a1 + 84);
-      result = (v15 - 1) >> 32;
+      result = ((v15 - 1) >> 32);
       if (result)
       {
         v16 = 1;
@@ -207,7 +208,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
 
       else
       {
-        result = v15 + v11;
+        result = (v15 + v11);
         if (v14 < &v79[4 * v7 - 5 + 4 * v9] + v15 + v11 && v12 < v14 + v13 * (v7 - 1) + v15 || v13 < 0)
         {
           for (j = 0; j != v7; ++j)
@@ -260,7 +261,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                 do
                 {
                   v74 = *v72++;
-                  *v71++ = v74;
+                  *v71 = v74;
+                  v71 += 8;
                   v73 -= 8;
                 }
 
@@ -273,7 +275,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                 v76 = (v15 & 0xFFFFFFE0) + 1;
                 do
                 {
-                  *(result + v75) = *(v66 + v75);
+                  result[v75] = *(v66 + v75);
                   v77 = v15 > v76++;
                   ++v75;
                 }
@@ -445,7 +447,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
   return result;
 }
 
-unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE3ELj4ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder1EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1, double a2, __n128 a3, __n128 a4, __n128 a5)
+int8x16_t *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE3ELj4ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder1EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1, double a2, __n128 a3, __n128 a4, __n128 a5)
 {
   v51 = *MEMORY[0x29EDCA608];
   AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)3,4u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::decompressMacroblock(v50, *(a1 + 40), *(a1 + 48), a2, a3, a4, a5);
@@ -458,7 +460,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
       v16 = *(a1 + 72);
       v17 = v16 << 6;
       v18 = 8 * *(a1 + 76);
-      v19 = &v50[64 * v16 + v18];
+      v19 = &v50[4 * v16].i8[v18];
       v21 = *(a1 + 56);
       v20 = *(a1 + 64);
       v22 = 8 * *(a1 + 84);
@@ -489,7 +491,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
         }
       }
 
-      else if (v21 < &v50[64 * v14 - 64 + 64 * v16 + v22 + v18] && v19 < v21 + v20 * (v14 - 1) + v22 || v20 < 0)
+      else if (v21 < &v50[4 * v14 - 4 + 4 * v16].u64[v22 / 8 + v18 / 8] && v19 < v21 + v20 * (v14 - 1) + v22 || v20 < 0)
       {
         for (j = 0; j != v14; ++j)
         {
@@ -510,8 +512,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
       {
         v33 = 0;
         v34 = v15 & 3;
-        v35 = &v50[v17 + v18];
-        v36 = &v50[v17 + 16 + v18];
+        v35 = &v50[0].i8[v17 + v18];
+        v36 = &v50[1].i8[v17 + v18];
         v37 = (v21 + 16);
         v38 = (v21 + (v22 & 0x1FFFFFFE0));
         v39 = &v35[v22 & 0x1FFFFFFE0];
@@ -526,7 +528,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
             v7 = *v40;
             *(v41 - 1) = v6;
             *v41 = v7;
-            v41 += 2;
+            v41 += 32;
             v40 += 2;
             v42 -= 32;
           }
@@ -543,7 +545,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
               {
                 v46 = *v44++;
                 *&v6 = v46;
-                *v43++ = v46;
+                *v43 = v46;
+                v43 += 8;
                 v45 -= 8;
               }
 
@@ -556,7 +559,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
               v48 = (v22 & 0xFFFFFFE0) + 1;
               do
               {
-                *(v39 + v47) = *(v38 + v47);
+                v39[v47] = *(v38 + v47);
                 v49 = v22 > v48++;
                 ++v47;
               }
@@ -569,7 +572,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           v36 += 64;
           v37 = (v37 + v20);
           v38 = (v38 + v20);
-          v39 += 8;
+          v39 += 64;
         }
 
         while (v33 != v14);
@@ -578,7 +581,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
       else
       {
         v31 = (v21 + 16);
-        v32 = &v50[v17 + 16 + v18];
+        v32 = (v50[1].i64 + v17 + v18);
         do
         {
           *&v6 = *(v31 - 2);
@@ -1189,7 +1192,7 @@ uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7
   return AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)15,4u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressMacroblock(v36, 128, *(a1 + 40), *(a1 + 48), *(a1 + 88), *(a1 + 89));
 }
 
-unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE13ELj4ELh1ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder2EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
+char *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE13ELj4ELh1ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder2EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
 {
   v57 = *MEMORY[0x29EDCA608];
   result = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)13,4u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::decompressMacroblock(v56, *(a1 + 40), *(a1 + 48));
@@ -1206,7 +1209,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
       v10 = *(a1 + 56);
       v9 = *(a1 + 64);
       v11 = 16 * *(a1 + 84);
-      result = (v11 - 1) >> 32;
+      result = ((v11 - 1) >> 32);
       if (result)
       {
         v12 = 1;
@@ -1236,7 +1239,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
 
       else
       {
-        result = v11 + v7;
+        result = (v11 + v7);
         if (v10 < &v56[8 * v3 - 8 + 8 * v5 + v11 / 0x10 + v7 / 0x10] && v8 < (v10 + v9 * (v3 - 1) + v11) || v9 < 0)
         {
           for (j = 0; j != v3; ++j)
@@ -1301,7 +1304,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                 do
                 {
                   v55 = *v50++;
-                  *v49++ = v55;
+                  *v49 = v55;
+                  v49 += 16;
                   v51 -= 16;
                 }
 
@@ -1314,7 +1318,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                 v53 = (v11 & 0xFFFFFFE0) + 1;
                 do
                 {
-                  *(result + v52) = *(v44 + v52);
+                  result[v52] = *(v44 + v52);
                   v54 = v11 > v53++;
                   ++v52;
                 }
@@ -1386,7 +1390,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
   return result;
 }
 
-unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE13ELj4ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder2EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
+uint32x4_t *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE13ELj4ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder2EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
 {
   v37 = *MEMORY[0x29EDCA608];
   AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)13,4u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::decompressMacroblock(v36, *(a1 + 40), *(a1 + 48));
@@ -1430,7 +1434,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
         }
       }
 
-      else if (v9 < &v36[8 * v2 - 8 + 8 * v4 + v10 / 0x10 + v6] && v7 < (v9 + v8 * (v2 - 1) + v10) || v8 < 0)
+      else if (v9 < &v36[8 * v2 - 8 + 8 * v4 + v10 / 0x10 + v6] && v7 < &v9->i8[v8 * (v2 - 1) + v10] || v8 < 0)
       {
         for (j = 0; j != v2; ++j)
         {
@@ -1463,10 +1467,10 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
       else
       {
         v19 = 0;
-        v20 = v36 + v5 + v6 * 16;
-        v21 = &v36[1] + v5 + v6 * 16;
-        v22 = &v9[1];
-        v23 = (v9 + (v10 & 0x1FFFFFFE0));
+        v20 = &v36[0].i8[v5 + v6 * 16];
+        v21 = &v36[1].i8[v5 + v6 * 16];
+        v22 = v9 + 1;
+        v23 = &v9->i8[v10 & 0x1FFFFFFE0];
         v24 = &v20[v10 & 0x1FFFFFFE0];
         do
         {
@@ -1476,9 +1480,9 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           do
           {
             v28 = *v25;
-            *(v26 - 1) = *(v25 - 1);
+            *(v26 - 1) = v25[-1];
             *v26 = v28;
-            v26 += 2;
+            v26 += 32;
             v25 += 2;
             v27 -= 32;
           }
@@ -1493,7 +1497,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
             {
               do
               {
-                v35 = *v30++;
+                v35 = *v30;
+                v30 += 16;
                 *v29 = v35;
                 v29 += 16;
                 v31 -= 16;
@@ -1508,7 +1513,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
               v33 = (v10 & 0xFFFFFFE0) + 1;
               do
               {
-                v24[v32] = *(v23 + v32);
+                v24[v32] = v23[v32];
                 v34 = v10 > v33++;
                 ++v32;
               }
@@ -1520,7 +1525,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           ++v19;
           v21 += 128;
           v22 = (v22 + v8);
-          v23 = (v23 + v8);
+          v23 += v8;
           v24 += 128;
         }
 
@@ -1532,7 +1537,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
   return AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)13,4u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressMacroblock(v36, 128, *(a1 + 40), *(a1 + 48), *(a1 + 88), *(a1 + 89));
 }
 
-unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE13ELj4ELh1ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder1EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
+char *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE13ELj4ELh1ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder1EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
 {
   v57 = *MEMORY[0x29EDCA608];
   result = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)13,4u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::decompressMacroblock(v56, *(a1 + 40), *(a1 + 48));
@@ -1549,7 +1554,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
       v10 = *(a1 + 56);
       v9 = *(a1 + 64);
       v11 = 16 * *(a1 + 84);
-      result = (v11 - 1) >> 32;
+      result = ((v11 - 1) >> 32);
       if (result)
       {
         v12 = 1;
@@ -1579,7 +1584,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
 
       else
       {
-        result = v11 + v7;
+        result = (v11 + v7);
         if (v10 < &v56[8 * v3 - 8 + 8 * v5 + v11 / 0x10 + v7 / 0x10] && v8 < (v10 + v9 * (v3 - 1) + v11) || v9 < 0)
         {
           for (j = 0; j != v3; ++j)
@@ -1644,7 +1649,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                 do
                 {
                   v55 = *v50++;
-                  *v49++ = v55;
+                  *v49 = v55;
+                  v49 += 16;
                   v51 -= 16;
                 }
 
@@ -1657,7 +1663,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                 v53 = (v11 & 0xFFFFFFE0) + 1;
                 do
                 {
-                  *(result + v52) = *(v44 + v52);
+                  result[v52] = *(v44 + v52);
                   v54 = v11 > v53++;
                   ++v52;
                 }
@@ -1729,7 +1735,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
   return result;
 }
 
-unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE13ELj4ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder1EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
+uint32x4_t *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE13ELj4ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder1EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
 {
   v37 = *MEMORY[0x29EDCA608];
   AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)13,4u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::decompressMacroblock(v36, *(a1 + 40), *(a1 + 48));
@@ -1773,7 +1779,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
         }
       }
 
-      else if (v9 < &v36[8 * v2 - 8 + 8 * v4 + v10 / 0x10 + v6] && v7 < (v9 + v8 * (v2 - 1) + v10) || v8 < 0)
+      else if (v9 < &v36[8 * v2 - 8 + 8 * v4 + v10 / 0x10 + v6] && v7 < &v9->i8[v8 * (v2 - 1) + v10] || v8 < 0)
       {
         for (j = 0; j != v2; ++j)
         {
@@ -1806,10 +1812,10 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
       else
       {
         v19 = 0;
-        v20 = v36 + v5 + v6 * 16;
-        v21 = &v36[1] + v5 + v6 * 16;
-        v22 = &v9[1];
-        v23 = (v9 + (v10 & 0x1FFFFFFE0));
+        v20 = &v36[0].i8[v5 + v6 * 16];
+        v21 = &v36[1].i8[v5 + v6 * 16];
+        v22 = v9 + 1;
+        v23 = &v9->i8[v10 & 0x1FFFFFFE0];
         v24 = &v20[v10 & 0x1FFFFFFE0];
         do
         {
@@ -1819,9 +1825,9 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           do
           {
             v28 = *v25;
-            *(v26 - 1) = *(v25 - 1);
+            *(v26 - 1) = v25[-1];
             *v26 = v28;
-            v26 += 2;
+            v26 += 32;
             v25 += 2;
             v27 -= 32;
           }
@@ -1836,7 +1842,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
             {
               do
               {
-                v35 = *v30++;
+                v35 = *v30;
+                v30 += 16;
                 *v29 = v35;
                 v29 += 16;
                 v31 -= 16;
@@ -1851,7 +1858,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
               v33 = (v10 & 0xFFFFFFE0) + 1;
               do
               {
-                v24[v32] = *(v23 + v32);
+                v24[v32] = v23[v32];
                 v34 = v10 > v33++;
                 ++v32;
               }
@@ -1863,7 +1870,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           ++v19;
           v21 += 128;
           v22 = (v22 + v8);
-          v23 = (v23 + v8);
+          v23 += v8;
           v24 += 128;
         }
 
@@ -2236,9 +2243,9 @@ LABEL_87:
   return result;
 }
 
-unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE0ELj4ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder2EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1, __n128 a2, double a3)
+int8x8_t *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE0ELj4ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder2EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1, __n128 a2, double a3)
 {
-  v67 = *MEMORY[0x29EDCA608];
+  v66[33] = *MEMORY[0x29EDCA608];
   AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)0,4u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::decompressMacroblock(v66, *(a1 + 40), *(a1 + 48), a2, a3);
   v7 = *(a1 + 80);
   if (v7)
@@ -2247,19 +2254,19 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
     if (v8)
     {
       v9 = *(a1 + 72);
-      v10 = 32 * v9;
+      v10 = 4 * v9;
       v11 = 4 * *(a1 + 76);
-      v12 = &v66[32 * v9 + v11];
+      v12 = &v66[4 * v9] + v11;
       v14 = *(a1 + 56);
       v13 = *(a1 + 64);
       v15 = 4 * v8;
-      v16 = &v66[32 * v7 - 32 + 32 * v9 + 4 * v8 + v11];
-      v19 = v12 < v14 + 4 * v8 + v13 * (v7 - 1) && v14 < v16 || v13 < 0;
+      v16 = &v66[4 * v7 - 4 + 4 * v9] + 4 * v8 + v11;
+      v19 = v12 < &v14[4 * v8 + v13 * (v7 - 1)] && v14 < v16 || v13 < 0;
       if (v8 == 1)
       {
         for (i = 0; i != v7; ++i)
         {
-          v21 = v14 + v13 * i;
+          v21 = &v14[v13 * i];
           v22 = &v12[32 * i];
           v23 = -1;
           do
@@ -2280,13 +2287,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           v28 = 0;
           do
           {
-            v12[v28] = *(v14 + v28);
+            v12[v28] = v14[v28];
             ++v28;
           }
 
           while (v15 > v28);
           v12 += 32;
-          v14 = (v14 + v13);
+          v14 += v13;
         }
       }
 
@@ -2297,13 +2304,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           v26 = 0;
           do
           {
-            v12[v26] = *(v14 + v26);
+            v12[v26] = v14[v26];
             ++v26;
           }
 
           while (v15 > v26);
           v12 += 32;
-          v14 = (v14 + v13);
+          v14 += v13;
         }
       }
 
@@ -2316,8 +2323,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           if (v15 == (v15 & 0x1FFFFFFE0))
           {
             v37 = 0;
-            v38 = &v66[v10 + 16 + v11];
-            v39 = (v14 + 2);
+            v38 = &v66[v10 + 2] + v11;
+            v39 = (v14 + 16);
             do
             {
               v40 = v39;
@@ -2347,10 +2354,10 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           {
             v51 = 0;
             v52 = v8 & 6;
-            v53 = &v66[v10 + v11];
-            v54 = &v66[v10 + 16 + v11];
-            v55 = (v14 + 2);
-            v56 = (v14 + v36);
+            v53 = &v66[v10] + v11;
+            v54 = &v66[v10 + 2] + v11;
+            v55 = (v14 + 16);
+            v56 = &v14[v36];
             v57 = &v53[v36];
             do
             {
@@ -2382,7 +2389,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
               {
                 v65 = *v63++;
                 *&v4 = v65;
-                *v62++ = v65;
+                *v62 = v65;
+                v62 += 8;
                 v64 -= 8;
               }
 
@@ -2393,7 +2401,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
 LABEL_63:
                 do
                 {
-                  v12[v61] = *(v14 + v61);
+                  v12[v61] = v14[v61];
                   ++v61;
                 }
 
@@ -2403,10 +2411,10 @@ LABEL_63:
               ++v51;
               v54 += 32;
               v55 = (v55 + v13);
-              v56 = (v56 + v13);
-              v57 += 4;
+              v56 += v13;
+              v57 += 32;
               v12 += 32;
-              v14 = (v14 + v13);
+              v14 += v13;
             }
 
             while (v51 != v7);
@@ -2424,12 +2432,13 @@ LABEL_63:
             {
               v35 = *v33++;
               *&v4 = v35;
-              *v32++ = v35;
+              *v32 = v35;
+              v32 += 8;
               v34 -= 8;
             }
 
             while (v34);
-            v14 = (v14 + v13);
+            v14 += v13;
             v12 += 32;
           }
         }
@@ -2448,7 +2457,8 @@ LABEL_63:
             {
               v49 = *v47++;
               *&v4 = v49;
-              *v46++ = v49;
+              *v46 = v49;
+              v46 += 8;
               v48 -= 8;
             }
 
@@ -2456,13 +2466,13 @@ LABEL_63:
             v50 = v15 & 0x1FFFFFFF8;
             do
             {
-              *v45++ = *(v14 + v50++);
+              *v45++ = v14[v50++];
             }
 
             while (v15 > v50);
             ++v43;
-            v14 = (v14 + v13);
-            v44 += 4;
+            v14 += v13;
+            v44 += 32;
           }
 
           while (v43 != v7);
@@ -2835,9 +2845,9 @@ LABEL_87:
   return result;
 }
 
-unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE0ELj4ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder1EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1, __n128 a2, double a3)
+int8x8_t *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE0ELj4ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder1EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1, __n128 a2, double a3)
 {
-  v67 = *MEMORY[0x29EDCA608];
+  v66[33] = *MEMORY[0x29EDCA608];
   AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)0,4u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::decompressMacroblock(v66, *(a1 + 40), *(a1 + 48), a2, a3);
   v7 = *(a1 + 80);
   if (v7)
@@ -2846,19 +2856,19 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
     if (v8)
     {
       v9 = *(a1 + 72);
-      v10 = 32 * v9;
+      v10 = 4 * v9;
       v11 = 4 * *(a1 + 76);
-      v12 = &v66[32 * v9 + v11];
+      v12 = &v66[4 * v9] + v11;
       v14 = *(a1 + 56);
       v13 = *(a1 + 64);
       v15 = 4 * v8;
-      v16 = &v66[32 * v7 - 32 + 32 * v9 + 4 * v8 + v11];
-      v19 = v12 < v14 + 4 * v8 + v13 * (v7 - 1) && v14 < v16 || v13 < 0;
+      v16 = &v66[4 * v7 - 4 + 4 * v9] + 4 * v8 + v11;
+      v19 = v12 < &v14[4 * v8 + v13 * (v7 - 1)] && v14 < v16 || v13 < 0;
       if (v8 == 1)
       {
         for (i = 0; i != v7; ++i)
         {
-          v21 = v14 + v13 * i;
+          v21 = &v14[v13 * i];
           v22 = &v12[32 * i];
           v23 = -1;
           do
@@ -2879,13 +2889,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           v28 = 0;
           do
           {
-            v12[v28] = *(v14 + v28);
+            v12[v28] = v14[v28];
             ++v28;
           }
 
           while (v15 > v28);
           v12 += 32;
-          v14 = (v14 + v13);
+          v14 += v13;
         }
       }
 
@@ -2896,13 +2906,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           v26 = 0;
           do
           {
-            v12[v26] = *(v14 + v26);
+            v12[v26] = v14[v26];
             ++v26;
           }
 
           while (v15 > v26);
           v12 += 32;
-          v14 = (v14 + v13);
+          v14 += v13;
         }
       }
 
@@ -2915,8 +2925,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           if (v15 == (v15 & 0x1FFFFFFE0))
           {
             v37 = 0;
-            v38 = &v66[v10 + 16 + v11];
-            v39 = (v14 + 2);
+            v38 = &v66[v10 + 2] + v11;
+            v39 = (v14 + 16);
             do
             {
               v40 = v39;
@@ -2946,10 +2956,10 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           {
             v51 = 0;
             v52 = v8 & 6;
-            v53 = &v66[v10 + v11];
-            v54 = &v66[v10 + 16 + v11];
-            v55 = (v14 + 2);
-            v56 = (v14 + v36);
+            v53 = &v66[v10] + v11;
+            v54 = &v66[v10 + 2] + v11;
+            v55 = (v14 + 16);
+            v56 = &v14[v36];
             v57 = &v53[v36];
             do
             {
@@ -2981,7 +2991,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
               {
                 v65 = *v63++;
                 *&v4 = v65;
-                *v62++ = v65;
+                *v62 = v65;
+                v62 += 8;
                 v64 -= 8;
               }
 
@@ -2992,7 +3003,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
 LABEL_63:
                 do
                 {
-                  v12[v61] = *(v14 + v61);
+                  v12[v61] = v14[v61];
                   ++v61;
                 }
 
@@ -3002,10 +3013,10 @@ LABEL_63:
               ++v51;
               v54 += 32;
               v55 = (v55 + v13);
-              v56 = (v56 + v13);
-              v57 += 4;
+              v56 += v13;
+              v57 += 32;
               v12 += 32;
-              v14 = (v14 + v13);
+              v14 += v13;
             }
 
             while (v51 != v7);
@@ -3023,12 +3034,13 @@ LABEL_63:
             {
               v35 = *v33++;
               *&v4 = v35;
-              *v32++ = v35;
+              *v32 = v35;
+              v32 += 8;
               v34 -= 8;
             }
 
             while (v34);
-            v14 = (v14 + v13);
+            v14 += v13;
             v12 += 32;
           }
         }
@@ -3047,7 +3059,8 @@ LABEL_63:
             {
               v49 = *v47++;
               *&v4 = v49;
-              *v46++ = v49;
+              *v46 = v49;
+              v46 += 8;
               v48 -= 8;
             }
 
@@ -3055,13 +3068,13 @@ LABEL_63:
             v50 = v15 & 0x1FFFFFFF8;
             do
             {
-              *v45++ = *(v14 + v50++);
+              *v45++ = v14[v50++];
             }
 
             while (v15 > v50);
             ++v43;
-            v14 = (v14 + v13);
-            v44 += 4;
+            v14 += v13;
+            v44 += 32;
           }
 
           while (v43 != v7);
@@ -3172,7 +3185,7 @@ _OWORD *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7C
   return AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressMacroblock(v30, *(a1 + 40), *(a1 + 48), *(a1 + 88), *(a1 + 89));
 }
 
-uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE20ELj2ELh0ELNS7_13SubblockOrderE3EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder2EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
+int32x4_t *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE20ELj2ELh0ELNS7_13SubblockOrderE3EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder2EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
 {
   v33[113] = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 40);
@@ -3188,8 +3201,8 @@ uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7
     if (v8)
     {
       v9 = *(a1 + 72);
-      v10 = 32 * *(a1 + 76);
-      v11 = &v30[256 * v9 + v10];
+      v10 = 2 * *(a1 + 76);
+      v11 = &v30[16 * v9 + v10];
       v13 = *(a1 + 56);
       v12 = *(a1 + 64);
       v14 = 32 * v8;
@@ -3210,38 +3223,38 @@ uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7
           v17 = 0;
           do
           {
-            v11[v17] = *(v13 + v17);
+            v11->i8[v17] = v13->i8[v17];
             ++v17;
           }
 
           while (v14 > v17);
-          v11 += 256;
-          v13 += v12;
+          v11 += 16;
+          v13 = (v13 + v12);
         }
       }
 
-      else if (v13 < &v30[256 * v7 - 256 + 256 * v9 + v14 + v10] && v11 < v13 + v12 * (v7 - 1) + v14 || v12 < 0)
+      else if (v13 < &v30[16 * v7 - 16 + 16 * v9 + v14 / 0x10 + v10] && v11 < &v13->i8[v12 * (v7 - 1) + v14] || v12 < 0)
       {
         for (j = 0; j != v7; ++j)
         {
           v21 = 0;
           do
           {
-            v11[v21] = *(v13 + v21);
+            v11->i8[v21] = v13->i8[v21];
             ++v21;
           }
 
           while (v14 > v21);
-          v11 += 256;
-          v13 += v12;
+          v11 += 16;
+          v13 = (v13 + v12);
         }
       }
 
       else
       {
         v22 = 0;
-        v23 = &v30[256 * v9 + 16 + v10];
-        v24 = (v13 + 16);
+        v23 = &v30[16 * v9 + 1 + v10];
+        v24 = v13 + 1;
         do
         {
           v25 = v24;
@@ -3250,7 +3263,7 @@ uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7
           do
           {
             v28 = *v25;
-            *(v26 - 1) = *(v25 - 1);
+            v26[-1] = v25[-1];
             *v26 = v28;
             v26 += 2;
             v25 += 2;
@@ -3259,7 +3272,7 @@ uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7
 
           while (v27);
           ++v22;
-          v23 += 256;
+          v23 += 16;
           v24 = (v24 + v12);
         }
 
@@ -3370,7 +3383,7 @@ _OWORD *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7C
   return AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,2u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)0>::compressMacroblock(v30, *(a1 + 40), *(a1 + 48), *(a1 + 88), *(a1 + 89));
 }
 
-uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE20ELj2ELh0ELNS7_13SubblockOrderE3EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder1EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
+int32x4_t *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE20ELj2ELh0ELNS7_13SubblockOrderE3EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder1EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
 {
   v33[113] = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 40);
@@ -3386,8 +3399,8 @@ uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7
     if (v8)
     {
       v9 = *(a1 + 72);
-      v10 = 32 * *(a1 + 76);
-      v11 = &v30[256 * v9 + v10];
+      v10 = 2 * *(a1 + 76);
+      v11 = &v30[16 * v9 + v10];
       v13 = *(a1 + 56);
       v12 = *(a1 + 64);
       v14 = 32 * v8;
@@ -3408,38 +3421,38 @@ uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7
           v17 = 0;
           do
           {
-            v11[v17] = *(v13 + v17);
+            v11->i8[v17] = v13->i8[v17];
             ++v17;
           }
 
           while (v14 > v17);
-          v11 += 256;
-          v13 += v12;
+          v11 += 16;
+          v13 = (v13 + v12);
         }
       }
 
-      else if (v13 < &v30[256 * v7 - 256 + 256 * v9 + v14 + v10] && v11 < v13 + v12 * (v7 - 1) + v14 || v12 < 0)
+      else if (v13 < &v30[16 * v7 - 16 + 16 * v9 + v14 / 0x10 + v10] && v11 < &v13->i8[v12 * (v7 - 1) + v14] || v12 < 0)
       {
         for (j = 0; j != v7; ++j)
         {
           v21 = 0;
           do
           {
-            v11[v21] = *(v13 + v21);
+            v11->i8[v21] = v13->i8[v21];
             ++v21;
           }
 
           while (v14 > v21);
-          v11 += 256;
-          v13 += v12;
+          v11 += 16;
+          v13 = (v13 + v12);
         }
       }
 
       else
       {
         v22 = 0;
-        v23 = &v30[256 * v9 + 16 + v10];
-        v24 = (v13 + 16);
+        v23 = &v30[16 * v9 + 1 + v10];
+        v24 = v13 + 1;
         do
         {
           v25 = v24;
@@ -3448,7 +3461,7 @@ uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7
           do
           {
             v28 = *v25;
-            *(v26 - 1) = *(v25 - 1);
+            v26[-1] = v25[-1];
             *v26 = v28;
             v26 += 2;
             v25 += 2;
@@ -3457,7 +3470,7 @@ uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7
 
           while (v27);
           ++v22;
-          v23 += 256;
+          v23 += 16;
           v24 = (v24 + v12);
         }
 
@@ -3697,7 +3710,7 @@ _OWORD *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7C
   return AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)15,2u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressMacroblock(v53, 128, *(a1 + 40), *(a1 + 48), *(a1 + 88), *(a1 + 89));
 }
 
-unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE14ELj2ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder2EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
+uint32x4_t *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE14ELj2ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder2EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
 {
   v54 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 40);
@@ -3706,7 +3719,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
   v5 = 16;
   do
   {
-    v8 = &v53[512 * *v4 + 32 * *(v4 - 1)];
+    v8 = &v53[32 * *v4 + 2 * *(v4 - 1)];
     v9 = *v3;
     if (v9 == 127)
     {
@@ -3718,13 +3731,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
       v15 = *(v2 + 112);
       v16 = *(v2 + 64);
       *v8 = *v2;
-      *(v8 + 1) = v11;
-      *(v8 + 8) = v10;
-      *(v8 + 9) = v12;
-      *(v8 + 16) = v16;
-      *(v8 + 17) = v14;
-      *(v8 + 24) = v13;
-      *(v8 + 25) = v15;
+      v8[1] = v11;
+      v8[8] = v10;
+      v8[9] = v12;
+      v8[16] = v16;
+      v8[17] = v14;
+      v8[24] = v13;
+      v8[25] = v15;
       v7 = 128;
     }
 
@@ -3732,13 +3745,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
     {
       v6 = vld1q_dup_f32(v2);
       *v8 = v6;
-      *(v8 + 1) = v6;
-      *(v8 + 8) = v6;
-      *(v8 + 9) = v6;
-      *(v8 + 16) = v6;
-      *(v8 + 17) = v6;
-      *(v8 + 24) = v6;
-      *(v8 + 25) = v6;
+      v8[1] = v6;
+      v8[8] = v6;
+      v8[9] = v6;
+      v8[16] = v6;
+      v8[17] = v6;
+      v8[24] = v6;
+      v8[25] = v6;
       v7 = 4;
     }
 
@@ -3751,13 +3764,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
     {
       v7 = 0;
       *v8 = 0u;
-      *(v8 + 1) = 0u;
-      *(v8 + 8) = 0u;
-      *(v8 + 9) = 0u;
-      *(v8 + 16) = 0u;
-      *(v8 + 17) = 0u;
-      *(v8 + 24) = 0u;
-      *(v8 + 25) = 0u;
+      v8[1] = 0u;
+      v8[8] = 0u;
+      v8[9] = 0u;
+      v8[16] = 0u;
+      v8[17] = 0u;
+      v8[24] = 0u;
+      v8[25] = 0u;
     }
 
     v2 += v7;
@@ -3776,7 +3789,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
       v19 = *(a1 + 72);
       v20 = v19 << 7;
       v21 = 8 * *(a1 + 76);
-      v22 = &v53[128 * v19 + v21];
+      v22 = &v53[8 * v19].i8[v21];
       v24 = *(a1 + 56);
       v23 = *(a1 + 64);
       v25 = 8 * *(a1 + 84);
@@ -3809,7 +3822,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
 
       else
       {
-        v30 = v24 < &v53[128 * v17 - 128 + 128 * v19 + v25 + v21] && v22 < v24 + v23 * (v17 - 1) + v25 || v23 < 0;
+        v30 = v24 < &v53[8 * v17 - 8 + 8 * v19].u64[v25 / 8 + v21 / 8] && v22 < v24 + v23 * (v17 - 1) + v25 || v23 < 0;
         if (v30)
         {
           for (j = 0; j != v17; ++j)
@@ -3831,8 +3844,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
         {
           v36 = 0;
           v37 = v18 & 3;
-          v38 = &v53[v20 + v21];
-          v39 = &v53[v20 + 16 + v21];
+          v38 = &v53[0].i8[v20 + v21];
+          v39 = &v53[1].i8[v20 + v21];
           v40 = (v24 + 16);
           v41 = (v24 + (v25 & 0x1FFFFFFE0));
           v42 = &v38[v25 & 0x1FFFFFFE0];
@@ -3846,7 +3859,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
               v46 = *v43;
               *(v44 - 1) = *(v43 - 1);
               *v44 = v46;
-              v44 += 2;
+              v44 += 32;
               v43 += 2;
               v45 -= 32;
             }
@@ -3862,7 +3875,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                 do
                 {
                   v50 = *v48++;
-                  *v47++ = v50;
+                  *v47 = v50;
+                  v47 += 8;
                   v49 -= 8;
                 }
 
@@ -3875,7 +3889,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                 v52 = (v25 & 0xFFFFFFE0) + 1;
                 do
                 {
-                  *(v42 + v51) = *(v41 + v51);
+                  v42[v51] = *(v41 + v51);
                   v30 = v25 > v52++;
                   ++v51;
                 }
@@ -3888,7 +3902,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
             v39 += 128;
             v40 = (v40 + v23);
             v41 = (v41 + v23);
-            v42 += 16;
+            v42 += 128;
           }
 
           while (v36 != v17);
@@ -3897,7 +3911,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
         else
         {
           v34 = (v24 + 16);
-          v35 = &v53[v20 + 16 + v21];
+          v35 = (v53[1].i64 + v20 + v21);
           do
           {
             *(v35 - 2) = *(v34 - 2);
@@ -4152,7 +4166,7 @@ _OWORD *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7C
   return AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)15,2u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressMacroblock(v53, 128, *(a1 + 40), *(a1 + 48), *(a1 + 88), *(a1 + 89));
 }
 
-unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE14ELj2ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder1EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
+uint32x4_t *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE14ELj2ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder1EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
 {
   v54 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 40);
@@ -4161,7 +4175,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
   v5 = 16;
   do
   {
-    v8 = &v53[512 * *v4 + 32 * *(v4 - 1)];
+    v8 = &v53[32 * *v4 + 2 * *(v4 - 1)];
     v9 = *v3;
     if (v9 == 127)
     {
@@ -4173,13 +4187,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
       v15 = *(v2 + 112);
       v16 = *(v2 + 64);
       *v8 = *v2;
-      *(v8 + 1) = v11;
-      *(v8 + 8) = v10;
-      *(v8 + 9) = v12;
-      *(v8 + 16) = v16;
-      *(v8 + 17) = v14;
-      *(v8 + 24) = v13;
-      *(v8 + 25) = v15;
+      v8[1] = v11;
+      v8[8] = v10;
+      v8[9] = v12;
+      v8[16] = v16;
+      v8[17] = v14;
+      v8[24] = v13;
+      v8[25] = v15;
       v7 = 128;
     }
 
@@ -4187,13 +4201,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
     {
       v6 = vld1q_dup_f32(v2);
       *v8 = v6;
-      *(v8 + 1) = v6;
-      *(v8 + 8) = v6;
-      *(v8 + 9) = v6;
-      *(v8 + 16) = v6;
-      *(v8 + 17) = v6;
-      *(v8 + 24) = v6;
-      *(v8 + 25) = v6;
+      v8[1] = v6;
+      v8[8] = v6;
+      v8[9] = v6;
+      v8[16] = v6;
+      v8[17] = v6;
+      v8[24] = v6;
+      v8[25] = v6;
       v7 = 4;
     }
 
@@ -4206,13 +4220,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
     {
       v7 = 0;
       *v8 = 0u;
-      *(v8 + 1) = 0u;
-      *(v8 + 8) = 0u;
-      *(v8 + 9) = 0u;
-      *(v8 + 16) = 0u;
-      *(v8 + 17) = 0u;
-      *(v8 + 24) = 0u;
-      *(v8 + 25) = 0u;
+      v8[1] = 0u;
+      v8[8] = 0u;
+      v8[9] = 0u;
+      v8[16] = 0u;
+      v8[17] = 0u;
+      v8[24] = 0u;
+      v8[25] = 0u;
     }
 
     v2 += v7;
@@ -4231,7 +4245,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
       v19 = *(a1 + 72);
       v20 = v19 << 7;
       v21 = 8 * *(a1 + 76);
-      v22 = &v53[128 * v19 + v21];
+      v22 = &v53[8 * v19].i8[v21];
       v24 = *(a1 + 56);
       v23 = *(a1 + 64);
       v25 = 8 * *(a1 + 84);
@@ -4264,7 +4278,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
 
       else
       {
-        v30 = v24 < &v53[128 * v17 - 128 + 128 * v19 + v25 + v21] && v22 < v24 + v23 * (v17 - 1) + v25 || v23 < 0;
+        v30 = v24 < &v53[8 * v17 - 8 + 8 * v19].u64[v25 / 8 + v21 / 8] && v22 < v24 + v23 * (v17 - 1) + v25 || v23 < 0;
         if (v30)
         {
           for (j = 0; j != v17; ++j)
@@ -4286,8 +4300,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
         {
           v36 = 0;
           v37 = v18 & 3;
-          v38 = &v53[v20 + v21];
-          v39 = &v53[v20 + 16 + v21];
+          v38 = &v53[0].i8[v20 + v21];
+          v39 = &v53[1].i8[v20 + v21];
           v40 = (v24 + 16);
           v41 = (v24 + (v25 & 0x1FFFFFFE0));
           v42 = &v38[v25 & 0x1FFFFFFE0];
@@ -4301,7 +4315,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
               v46 = *v43;
               *(v44 - 1) = *(v43 - 1);
               *v44 = v46;
-              v44 += 2;
+              v44 += 32;
               v43 += 2;
               v45 -= 32;
             }
@@ -4317,7 +4331,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                 do
                 {
                   v50 = *v48++;
-                  *v47++ = v50;
+                  *v47 = v50;
+                  v47 += 8;
                   v49 -= 8;
                 }
 
@@ -4330,7 +4345,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                 v52 = (v25 & 0xFFFFFFE0) + 1;
                 do
                 {
-                  *(v42 + v51) = *(v41 + v51);
+                  v42[v51] = *(v41 + v51);
                   v30 = v25 > v52++;
                   ++v51;
                 }
@@ -4343,7 +4358,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
             v39 += 128;
             v40 = (v40 + v23);
             v41 = (v41 + v23);
-            v42 += 16;
+            v42 += 128;
           }
 
           while (v36 != v17);
@@ -4352,7 +4367,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
         else
         {
           v34 = (v24 + 16);
-          v35 = &v53[v20 + 16 + v21];
+          v35 = (v53[1].i64 + v20 + v21);
           do
           {
             *(v35 - 2) = *(v34 - 2);
@@ -4607,7 +4622,7 @@ _OWORD *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7C
   return AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)15,2u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressMacroblock(v53, 128, *(a1 + 40), *(a1 + 48), *(a1 + 88), *(a1 + 89));
 }
 
-unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE12ELj2ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder2EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
+uint32x4_t *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE12ELj2ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder2EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
 {
   v54 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 40);
@@ -4616,7 +4631,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
   v5 = 16;
   do
   {
-    v8 = &v53[512 * *v4 + 32 * *(v4 - 1)];
+    v8 = &v53[32 * *v4 + 2 * *(v4 - 1)];
     v9 = *v3;
     if (v9 == 127)
     {
@@ -4628,13 +4643,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
       v15 = *(v2 + 112);
       v16 = *(v2 + 64);
       *v8 = *v2;
-      *(v8 + 1) = v11;
-      *(v8 + 8) = v10;
-      *(v8 + 9) = v12;
-      *(v8 + 16) = v16;
-      *(v8 + 17) = v14;
-      *(v8 + 24) = v13;
-      *(v8 + 25) = v15;
+      v8[1] = v11;
+      v8[8] = v10;
+      v8[9] = v12;
+      v8[16] = v16;
+      v8[17] = v14;
+      v8[24] = v13;
+      v8[25] = v15;
       v7 = 128;
     }
 
@@ -4642,13 +4657,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
     {
       v6 = vld1q_dup_f32(v2);
       *v8 = v6;
-      *(v8 + 1) = v6;
-      *(v8 + 8) = v6;
-      *(v8 + 9) = v6;
-      *(v8 + 16) = v6;
-      *(v8 + 17) = v6;
-      *(v8 + 24) = v6;
-      *(v8 + 25) = v6;
+      v8[1] = v6;
+      v8[8] = v6;
+      v8[9] = v6;
+      v8[16] = v6;
+      v8[17] = v6;
+      v8[24] = v6;
+      v8[25] = v6;
       v7 = 4;
     }
 
@@ -4661,13 +4676,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
     {
       v7 = 0;
       *v8 = 0u;
-      *(v8 + 1) = 0u;
-      *(v8 + 8) = 0u;
-      *(v8 + 9) = 0u;
-      *(v8 + 16) = 0u;
-      *(v8 + 17) = 0u;
-      *(v8 + 24) = 0u;
-      *(v8 + 25) = 0u;
+      v8[1] = 0u;
+      v8[8] = 0u;
+      v8[9] = 0u;
+      v8[16] = 0u;
+      v8[17] = 0u;
+      v8[24] = 0u;
+      v8[25] = 0u;
     }
 
     v2 += v7;
@@ -4686,7 +4701,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
       v19 = *(a1 + 72);
       v20 = v19 << 7;
       v21 = 8 * *(a1 + 76);
-      v22 = &v53[128 * v19 + v21];
+      v22 = &v53[8 * v19].i8[v21];
       v24 = *(a1 + 56);
       v23 = *(a1 + 64);
       v25 = 8 * *(a1 + 84);
@@ -4719,7 +4734,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
 
       else
       {
-        v30 = v24 < &v53[128 * v17 - 128 + 128 * v19 + v25 + v21] && v22 < v24 + v23 * (v17 - 1) + v25 || v23 < 0;
+        v30 = v24 < &v53[8 * v17 - 8 + 8 * v19].u64[v25 / 8 + v21 / 8] && v22 < v24 + v23 * (v17 - 1) + v25 || v23 < 0;
         if (v30)
         {
           for (j = 0; j != v17; ++j)
@@ -4741,8 +4756,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
         {
           v36 = 0;
           v37 = v18 & 3;
-          v38 = &v53[v20 + v21];
-          v39 = &v53[v20 + 16 + v21];
+          v38 = &v53[0].i8[v20 + v21];
+          v39 = &v53[1].i8[v20 + v21];
           v40 = (v24 + 16);
           v41 = (v24 + (v25 & 0x1FFFFFFE0));
           v42 = &v38[v25 & 0x1FFFFFFE0];
@@ -4756,7 +4771,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
               v46 = *v43;
               *(v44 - 1) = *(v43 - 1);
               *v44 = v46;
-              v44 += 2;
+              v44 += 32;
               v43 += 2;
               v45 -= 32;
             }
@@ -4772,7 +4787,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                 do
                 {
                   v50 = *v48++;
-                  *v47++ = v50;
+                  *v47 = v50;
+                  v47 += 8;
                   v49 -= 8;
                 }
 
@@ -4785,7 +4801,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                 v52 = (v25 & 0xFFFFFFE0) + 1;
                 do
                 {
-                  *(v42 + v51) = *(v41 + v51);
+                  v42[v51] = *(v41 + v51);
                   v30 = v25 > v52++;
                   ++v51;
                 }
@@ -4798,7 +4814,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
             v39 += 128;
             v40 = (v40 + v23);
             v41 = (v41 + v23);
-            v42 += 16;
+            v42 += 128;
           }
 
           while (v36 != v17);
@@ -4807,7 +4823,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
         else
         {
           v34 = (v24 + 16);
-          v35 = &v53[v20 + 16 + v21];
+          v35 = (v53[1].i64 + v20 + v21);
           do
           {
             *(v35 - 2) = *(v34 - 2);
@@ -5062,7 +5078,7 @@ _OWORD *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7C
   return AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)15,2u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressMacroblock(v53, 128, *(a1 + 40), *(a1 + 48), *(a1 + 88), *(a1 + 89));
 }
 
-unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE12ELj2ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder1EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
+uint32x4_t *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE12ELj2ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder1EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
 {
   v54 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 40);
@@ -5071,7 +5087,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
   v5 = 16;
   do
   {
-    v8 = &v53[512 * *v4 + 32 * *(v4 - 1)];
+    v8 = &v53[32 * *v4 + 2 * *(v4 - 1)];
     v9 = *v3;
     if (v9 == 127)
     {
@@ -5083,13 +5099,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
       v15 = *(v2 + 112);
       v16 = *(v2 + 64);
       *v8 = *v2;
-      *(v8 + 1) = v11;
-      *(v8 + 8) = v10;
-      *(v8 + 9) = v12;
-      *(v8 + 16) = v16;
-      *(v8 + 17) = v14;
-      *(v8 + 24) = v13;
-      *(v8 + 25) = v15;
+      v8[1] = v11;
+      v8[8] = v10;
+      v8[9] = v12;
+      v8[16] = v16;
+      v8[17] = v14;
+      v8[24] = v13;
+      v8[25] = v15;
       v7 = 128;
     }
 
@@ -5097,13 +5113,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
     {
       v6 = vld1q_dup_f32(v2);
       *v8 = v6;
-      *(v8 + 1) = v6;
-      *(v8 + 8) = v6;
-      *(v8 + 9) = v6;
-      *(v8 + 16) = v6;
-      *(v8 + 17) = v6;
-      *(v8 + 24) = v6;
-      *(v8 + 25) = v6;
+      v8[1] = v6;
+      v8[8] = v6;
+      v8[9] = v6;
+      v8[16] = v6;
+      v8[17] = v6;
+      v8[24] = v6;
+      v8[25] = v6;
       v7 = 4;
     }
 
@@ -5116,13 +5132,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
     {
       v7 = 0;
       *v8 = 0u;
-      *(v8 + 1) = 0u;
-      *(v8 + 8) = 0u;
-      *(v8 + 9) = 0u;
-      *(v8 + 16) = 0u;
-      *(v8 + 17) = 0u;
-      *(v8 + 24) = 0u;
-      *(v8 + 25) = 0u;
+      v8[1] = 0u;
+      v8[8] = 0u;
+      v8[9] = 0u;
+      v8[16] = 0u;
+      v8[17] = 0u;
+      v8[24] = 0u;
+      v8[25] = 0u;
     }
 
     v2 += v7;
@@ -5141,7 +5157,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
       v19 = *(a1 + 72);
       v20 = v19 << 7;
       v21 = 8 * *(a1 + 76);
-      v22 = &v53[128 * v19 + v21];
+      v22 = &v53[8 * v19].i8[v21];
       v24 = *(a1 + 56);
       v23 = *(a1 + 64);
       v25 = 8 * *(a1 + 84);
@@ -5174,7 +5190,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
 
       else
       {
-        v30 = v24 < &v53[128 * v17 - 128 + 128 * v19 + v25 + v21] && v22 < v24 + v23 * (v17 - 1) + v25 || v23 < 0;
+        v30 = v24 < &v53[8 * v17 - 8 + 8 * v19].u64[v25 / 8 + v21 / 8] && v22 < v24 + v23 * (v17 - 1) + v25 || v23 < 0;
         if (v30)
         {
           for (j = 0; j != v17; ++j)
@@ -5196,8 +5212,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
         {
           v36 = 0;
           v37 = v18 & 3;
-          v38 = &v53[v20 + v21];
-          v39 = &v53[v20 + 16 + v21];
+          v38 = &v53[0].i8[v20 + v21];
+          v39 = &v53[1].i8[v20 + v21];
           v40 = (v24 + 16);
           v41 = (v24 + (v25 & 0x1FFFFFFE0));
           v42 = &v38[v25 & 0x1FFFFFFE0];
@@ -5211,7 +5227,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
               v46 = *v43;
               *(v44 - 1) = *(v43 - 1);
               *v44 = v46;
-              v44 += 2;
+              v44 += 32;
               v43 += 2;
               v45 -= 32;
             }
@@ -5227,7 +5243,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                 do
                 {
                   v50 = *v48++;
-                  *v47++ = v50;
+                  *v47 = v50;
+                  v47 += 8;
                   v49 -= 8;
                 }
 
@@ -5240,7 +5257,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                 v52 = (v25 & 0xFFFFFFE0) + 1;
                 do
                 {
-                  *(v42 + v51) = *(v41 + v51);
+                  v42[v51] = *(v41 + v51);
                   v30 = v25 > v52++;
                   ++v51;
                 }
@@ -5253,7 +5270,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
             v39 += 128;
             v40 = (v40 + v23);
             v41 = (v41 + v23);
-            v42 += 16;
+            v42 += 128;
           }
 
           while (v36 != v17);
@@ -5262,7 +5279,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
         else
         {
           v34 = (v24 + 16);
-          v35 = &v53[v20 + 16 + v21];
+          v35 = (v53[1].i64 + v20 + v21);
           do
           {
             *(v35 - 2) = *(v34 - 2);
@@ -5582,7 +5599,7 @@ LABEL_72:
   return AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)4,2u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressMacroblock(v74, 64, *(a1 + 40), *(a1 + 48), *(a1 + 88), *(a1 + 89));
 }
 
-unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE9ELj2ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder2EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
+int64x2_t *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE9ELj2ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder2EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
 {
   v75 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 40);
@@ -5591,7 +5608,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
   v5 = 16;
   do
   {
-    v8 = &v74[256 * *v4 + 16 * *(v4 - 1)];
+    v8 = &v74[16 * *v4 + *(v4 - 1)];
     v9 = *v3;
     if (v9 == 63)
     {
@@ -5650,17 +5667,17 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
       v15 = *(a1 + 72);
       v16 = v15 << 6;
       v17 = 4 * *(a1 + 76);
-      v18 = &v74[64 * v15 + v17];
+      v18 = &v74[4 * v15].i8[v17];
       v20 = *(a1 + 56);
       v19 = *(a1 + 64);
       v21 = 4 * v14;
-      v22 = &v74[64 * v13 - 64 + 64 * v15 + 4 * v14 + v17];
-      v25 = v18 < v20 + 4 * v14 + v19 * (v13 - 1) && v20 < v22 || v19 < 0;
+      v22 = &v74[4 * v13 - 4 + 4 * v15].i8[4 * v14 + v17];
+      v25 = v18 < &v20[4 * v14 + v19 * (v13 - 1)] && v20 < v22 || v19 < 0;
       if (v14 == 1)
       {
         for (i = 0; i != v13; ++i)
         {
-          v27 = v20 + v19 * i;
+          v27 = &v20[v19 * i];
           v28 = &v18[64 * i];
           v29 = -1;
           do
@@ -5681,13 +5698,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           v34 = 0;
           do
           {
-            v18[v34] = *(v20 + v34);
+            v18[v34] = v20[v34];
             ++v34;
           }
 
           while (v21 > v34);
           v18 += 64;
-          v20 = (v20 + v19);
+          v20 += v19;
         }
       }
 
@@ -5698,13 +5715,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           v32 = 0;
           do
           {
-            v18[v32] = *(v20 + v32);
+            v18[v32] = v20[v32];
             ++v32;
           }
 
           while (v21 > v32);
           v18 += 64;
-          v20 = (v20 + v19);
+          v20 += v19;
         }
       }
 
@@ -5717,8 +5734,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           if (v21 == (v21 & 0x1FFFFFFE0))
           {
             v43 = 0;
-            v44 = &v74[v16 + 16 + v17];
-            v45 = (v20 + 2);
+            v44 = &v74[1].i8[v16 + v17];
+            v45 = (v20 + 16);
             do
             {
               v46 = v45;
@@ -5729,7 +5746,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                 v49 = *v46;
                 *(v47 - 1) = *(v46 - 1);
                 *v47 = v49;
-                v47 += 2;
+                v47 += 32;
                 v46 += 2;
                 v48 -= 32;
               }
@@ -5747,10 +5764,10 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           {
             v58 = 0;
             v59 = v14 & 6;
-            v60 = &v74[v16 + v17];
-            v61 = &v74[v16 + 16 + v17];
-            v62 = (v20 + 2);
-            v63 = (v20 + v42);
+            v60 = &v74[0].i8[v16 + v17];
+            v61 = &v74[1].i8[v16 + v17];
+            v62 = (v20 + 16);
+            v63 = &v20[v42];
             v64 = &v60[v42];
             do
             {
@@ -5762,7 +5779,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                 v68 = *v65;
                 *(v66 - 1) = *(v65 - 1);
                 *v66 = v68;
-                v66 += 2;
+                v66 += 32;
                 v65 += 2;
                 v67 -= 32;
               }
@@ -5780,7 +5797,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
               do
               {
                 v73 = *v71++;
-                *v70++ = v73;
+                *v70 = v73;
+                v70 += 8;
                 v72 -= 8;
               }
 
@@ -5791,7 +5809,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
 LABEL_72:
                 do
                 {
-                  v18[v69] = *(v20 + v69);
+                  v18[v69] = v20[v69];
                   ++v69;
                 }
 
@@ -5801,10 +5819,10 @@ LABEL_72:
               ++v58;
               v61 += 64;
               v62 = (v62 + v19);
-              v63 = (v63 + v19);
-              v64 += 8;
+              v63 += v19;
+              v64 += 64;
               v18 += 64;
-              v20 = (v20 + v19);
+              v20 += v19;
             }
 
             while (v58 != v13);
@@ -5820,13 +5838,15 @@ LABEL_72:
             v40 = v21;
             do
             {
-              v41 = *v39++;
-              *v38++ = v41;
+              v41 = *v39;
+              v39 += 8;
+              *v38 = v41;
+              v38 += 8;
               v40 -= 8;
             }
 
             while (v40);
-            v20 = (v20 + v19);
+            v20 += v19;
             v18 += 64;
           }
         }
@@ -5843,8 +5863,10 @@ LABEL_72:
             v55 = v21 & 0x1FFFFFFF8;
             do
             {
-              v56 = *v54++;
-              *v53++ = v56;
+              v56 = *v54;
+              v54 += 8;
+              *v53 = v56;
+              v53 += 8;
               v55 -= 8;
             }
 
@@ -5852,13 +5874,13 @@ LABEL_72:
             v57 = v21 & 0x1FFFFFFF8;
             do
             {
-              *v52++ = *(v20 + v57++);
+              *v52++ = v20[v57++];
             }
 
             while (v21 > v57);
             ++v50;
-            v20 = (v20 + v19);
-            v51 += 8;
+            v20 += v19;
+            v51 += 64;
           }
 
           while (v50 != v13);
@@ -6163,7 +6185,7 @@ LABEL_72:
   return AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)4,2u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressMacroblock(v74, 64, *(a1 + 40), *(a1 + 48), *(a1 + 88), *(a1 + 89));
 }
 
-unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE9ELj2ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder1EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
+int64x2_t *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE9ELj2ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder1EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
 {
   v75 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 40);
@@ -6172,7 +6194,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
   v5 = 16;
   do
   {
-    v8 = &v74[256 * *v4 + 16 * *(v4 - 1)];
+    v8 = &v74[16 * *v4 + *(v4 - 1)];
     v9 = *v3;
     if (v9 == 63)
     {
@@ -6231,17 +6253,17 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
       v15 = *(a1 + 72);
       v16 = v15 << 6;
       v17 = 4 * *(a1 + 76);
-      v18 = &v74[64 * v15 + v17];
+      v18 = &v74[4 * v15].i8[v17];
       v20 = *(a1 + 56);
       v19 = *(a1 + 64);
       v21 = 4 * v14;
-      v22 = &v74[64 * v13 - 64 + 64 * v15 + 4 * v14 + v17];
-      v25 = v18 < v20 + 4 * v14 + v19 * (v13 - 1) && v20 < v22 || v19 < 0;
+      v22 = &v74[4 * v13 - 4 + 4 * v15].i8[4 * v14 + v17];
+      v25 = v18 < &v20[4 * v14 + v19 * (v13 - 1)] && v20 < v22 || v19 < 0;
       if (v14 == 1)
       {
         for (i = 0; i != v13; ++i)
         {
-          v27 = v20 + v19 * i;
+          v27 = &v20[v19 * i];
           v28 = &v18[64 * i];
           v29 = -1;
           do
@@ -6262,13 +6284,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           v34 = 0;
           do
           {
-            v18[v34] = *(v20 + v34);
+            v18[v34] = v20[v34];
             ++v34;
           }
 
           while (v21 > v34);
           v18 += 64;
-          v20 = (v20 + v19);
+          v20 += v19;
         }
       }
 
@@ -6279,13 +6301,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           v32 = 0;
           do
           {
-            v18[v32] = *(v20 + v32);
+            v18[v32] = v20[v32];
             ++v32;
           }
 
           while (v21 > v32);
           v18 += 64;
-          v20 = (v20 + v19);
+          v20 += v19;
         }
       }
 
@@ -6298,8 +6320,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           if (v21 == (v21 & 0x1FFFFFFE0))
           {
             v43 = 0;
-            v44 = &v74[v16 + 16 + v17];
-            v45 = (v20 + 2);
+            v44 = &v74[1].i8[v16 + v17];
+            v45 = (v20 + 16);
             do
             {
               v46 = v45;
@@ -6310,7 +6332,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                 v49 = *v46;
                 *(v47 - 1) = *(v46 - 1);
                 *v47 = v49;
-                v47 += 2;
+                v47 += 32;
                 v46 += 2;
                 v48 -= 32;
               }
@@ -6328,10 +6350,10 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           {
             v58 = 0;
             v59 = v14 & 6;
-            v60 = &v74[v16 + v17];
-            v61 = &v74[v16 + 16 + v17];
-            v62 = (v20 + 2);
-            v63 = (v20 + v42);
+            v60 = &v74[0].i8[v16 + v17];
+            v61 = &v74[1].i8[v16 + v17];
+            v62 = (v20 + 16);
+            v63 = &v20[v42];
             v64 = &v60[v42];
             do
             {
@@ -6343,7 +6365,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                 v68 = *v65;
                 *(v66 - 1) = *(v65 - 1);
                 *v66 = v68;
-                v66 += 2;
+                v66 += 32;
                 v65 += 2;
                 v67 -= 32;
               }
@@ -6361,7 +6383,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
               do
               {
                 v73 = *v71++;
-                *v70++ = v73;
+                *v70 = v73;
+                v70 += 8;
                 v72 -= 8;
               }
 
@@ -6372,7 +6395,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
 LABEL_72:
                 do
                 {
-                  v18[v69] = *(v20 + v69);
+                  v18[v69] = v20[v69];
                   ++v69;
                 }
 
@@ -6382,10 +6405,10 @@ LABEL_72:
               ++v58;
               v61 += 64;
               v62 = (v62 + v19);
-              v63 = (v63 + v19);
-              v64 += 8;
+              v63 += v19;
+              v64 += 64;
               v18 += 64;
-              v20 = (v20 + v19);
+              v20 += v19;
             }
 
             while (v58 != v13);
@@ -6401,13 +6424,15 @@ LABEL_72:
             v40 = v21;
             do
             {
-              v41 = *v39++;
-              *v38++ = v41;
+              v41 = *v39;
+              v39 += 8;
+              *v38 = v41;
+              v38 += 8;
               v40 -= 8;
             }
 
             while (v40);
-            v20 = (v20 + v19);
+            v20 += v19;
             v18 += 64;
           }
         }
@@ -6424,8 +6449,10 @@ LABEL_72:
             v55 = v21 & 0x1FFFFFFF8;
             do
             {
-              v56 = *v54++;
-              *v53++ = v56;
+              v56 = *v54;
+              v54 += 8;
+              *v53 = v56;
+              v53 += 8;
               v55 -= 8;
             }
 
@@ -6433,13 +6460,13 @@ LABEL_72:
             v57 = v21 & 0x1FFFFFFF8;
             do
             {
-              *v52++ = *(v20 + v57++);
+              *v52++ = v20[v57++];
             }
 
             while (v21 > v57);
             ++v50;
-            v20 = (v20 + v19);
-            v51 += 8;
+            v20 += v19;
+            v51 += 64;
           }
 
           while (v50 != v13);
@@ -6744,7 +6771,7 @@ LABEL_72:
   return AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)4,2u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressMacroblock(v74, 64, *(a1 + 40), *(a1 + 48), *(a1 + 88), *(a1 + 89));
 }
 
-unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE7ELj2ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder2EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
+int64x2_t *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE7ELj2ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder2EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
 {
   v75 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 40);
@@ -6753,7 +6780,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
   v5 = 16;
   do
   {
-    v8 = &v74[256 * *v4 + 16 * *(v4 - 1)];
+    v8 = &v74[16 * *v4 + *(v4 - 1)];
     v9 = *v3;
     if (v9 == 63)
     {
@@ -6812,17 +6839,17 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
       v15 = *(a1 + 72);
       v16 = v15 << 6;
       v17 = 4 * *(a1 + 76);
-      v18 = &v74[64 * v15 + v17];
+      v18 = &v74[4 * v15].i8[v17];
       v20 = *(a1 + 56);
       v19 = *(a1 + 64);
       v21 = 4 * v14;
-      v22 = &v74[64 * v13 - 64 + 64 * v15 + 4 * v14 + v17];
-      v25 = v18 < v20 + 4 * v14 + v19 * (v13 - 1) && v20 < v22 || v19 < 0;
+      v22 = &v74[4 * v13 - 4 + 4 * v15].i8[4 * v14 + v17];
+      v25 = v18 < &v20[4 * v14 + v19 * (v13 - 1)] && v20 < v22 || v19 < 0;
       if (v14 == 1)
       {
         for (i = 0; i != v13; ++i)
         {
-          v27 = v20 + v19 * i;
+          v27 = &v20[v19 * i];
           v28 = &v18[64 * i];
           v29 = -1;
           do
@@ -6843,13 +6870,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           v34 = 0;
           do
           {
-            v18[v34] = *(v20 + v34);
+            v18[v34] = v20[v34];
             ++v34;
           }
 
           while (v21 > v34);
           v18 += 64;
-          v20 = (v20 + v19);
+          v20 += v19;
         }
       }
 
@@ -6860,13 +6887,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           v32 = 0;
           do
           {
-            v18[v32] = *(v20 + v32);
+            v18[v32] = v20[v32];
             ++v32;
           }
 
           while (v21 > v32);
           v18 += 64;
-          v20 = (v20 + v19);
+          v20 += v19;
         }
       }
 
@@ -6879,8 +6906,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           if (v21 == (v21 & 0x1FFFFFFE0))
           {
             v43 = 0;
-            v44 = &v74[v16 + 16 + v17];
-            v45 = (v20 + 2);
+            v44 = &v74[1].i8[v16 + v17];
+            v45 = (v20 + 16);
             do
             {
               v46 = v45;
@@ -6891,7 +6918,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                 v49 = *v46;
                 *(v47 - 1) = *(v46 - 1);
                 *v47 = v49;
-                v47 += 2;
+                v47 += 32;
                 v46 += 2;
                 v48 -= 32;
               }
@@ -6909,10 +6936,10 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           {
             v58 = 0;
             v59 = v14 & 6;
-            v60 = &v74[v16 + v17];
-            v61 = &v74[v16 + 16 + v17];
-            v62 = (v20 + 2);
-            v63 = (v20 + v42);
+            v60 = &v74[0].i8[v16 + v17];
+            v61 = &v74[1].i8[v16 + v17];
+            v62 = (v20 + 16);
+            v63 = &v20[v42];
             v64 = &v60[v42];
             do
             {
@@ -6924,7 +6951,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                 v68 = *v65;
                 *(v66 - 1) = *(v65 - 1);
                 *v66 = v68;
-                v66 += 2;
+                v66 += 32;
                 v65 += 2;
                 v67 -= 32;
               }
@@ -6942,7 +6969,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
               do
               {
                 v73 = *v71++;
-                *v70++ = v73;
+                *v70 = v73;
+                v70 += 8;
                 v72 -= 8;
               }
 
@@ -6953,7 +6981,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
 LABEL_72:
                 do
                 {
-                  v18[v69] = *(v20 + v69);
+                  v18[v69] = v20[v69];
                   ++v69;
                 }
 
@@ -6963,10 +6991,10 @@ LABEL_72:
               ++v58;
               v61 += 64;
               v62 = (v62 + v19);
-              v63 = (v63 + v19);
-              v64 += 8;
+              v63 += v19;
+              v64 += 64;
               v18 += 64;
-              v20 = (v20 + v19);
+              v20 += v19;
             }
 
             while (v58 != v13);
@@ -6982,13 +7010,15 @@ LABEL_72:
             v40 = v21;
             do
             {
-              v41 = *v39++;
-              *v38++ = v41;
+              v41 = *v39;
+              v39 += 8;
+              *v38 = v41;
+              v38 += 8;
               v40 -= 8;
             }
 
             while (v40);
-            v20 = (v20 + v19);
+            v20 += v19;
             v18 += 64;
           }
         }
@@ -7005,8 +7035,10 @@ LABEL_72:
             v55 = v21 & 0x1FFFFFFF8;
             do
             {
-              v56 = *v54++;
-              *v53++ = v56;
+              v56 = *v54;
+              v54 += 8;
+              *v53 = v56;
+              v53 += 8;
               v55 -= 8;
             }
 
@@ -7014,13 +7046,13 @@ LABEL_72:
             v57 = v21 & 0x1FFFFFFF8;
             do
             {
-              *v52++ = *(v20 + v57++);
+              *v52++ = v20[v57++];
             }
 
             while (v21 > v57);
             ++v50;
-            v20 = (v20 + v19);
-            v51 += 8;
+            v20 += v19;
+            v51 += 64;
           }
 
           while (v50 != v13);
@@ -7325,7 +7357,7 @@ LABEL_72:
   return AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)4,2u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressMacroblock(v74, 64, *(a1 + 40), *(a1 + 48), *(a1 + 88), *(a1 + 89));
 }
 
-unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE7ELj2ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder1EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
+int64x2_t *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE7ELj2ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder1EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
 {
   v75 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 40);
@@ -7334,7 +7366,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
   v5 = 16;
   do
   {
-    v8 = &v74[256 * *v4 + 16 * *(v4 - 1)];
+    v8 = &v74[16 * *v4 + *(v4 - 1)];
     v9 = *v3;
     if (v9 == 63)
     {
@@ -7393,17 +7425,17 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
       v15 = *(a1 + 72);
       v16 = v15 << 6;
       v17 = 4 * *(a1 + 76);
-      v18 = &v74[64 * v15 + v17];
+      v18 = &v74[4 * v15].i8[v17];
       v20 = *(a1 + 56);
       v19 = *(a1 + 64);
       v21 = 4 * v14;
-      v22 = &v74[64 * v13 - 64 + 64 * v15 + 4 * v14 + v17];
-      v25 = v18 < v20 + 4 * v14 + v19 * (v13 - 1) && v20 < v22 || v19 < 0;
+      v22 = &v74[4 * v13 - 4 + 4 * v15].i8[4 * v14 + v17];
+      v25 = v18 < &v20[4 * v14 + v19 * (v13 - 1)] && v20 < v22 || v19 < 0;
       if (v14 == 1)
       {
         for (i = 0; i != v13; ++i)
         {
-          v27 = v20 + v19 * i;
+          v27 = &v20[v19 * i];
           v28 = &v18[64 * i];
           v29 = -1;
           do
@@ -7424,13 +7456,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           v34 = 0;
           do
           {
-            v18[v34] = *(v20 + v34);
+            v18[v34] = v20[v34];
             ++v34;
           }
 
           while (v21 > v34);
           v18 += 64;
-          v20 = (v20 + v19);
+          v20 += v19;
         }
       }
 
@@ -7441,13 +7473,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           v32 = 0;
           do
           {
-            v18[v32] = *(v20 + v32);
+            v18[v32] = v20[v32];
             ++v32;
           }
 
           while (v21 > v32);
           v18 += 64;
-          v20 = (v20 + v19);
+          v20 += v19;
         }
       }
 
@@ -7460,8 +7492,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           if (v21 == (v21 & 0x1FFFFFFE0))
           {
             v43 = 0;
-            v44 = &v74[v16 + 16 + v17];
-            v45 = (v20 + 2);
+            v44 = &v74[1].i8[v16 + v17];
+            v45 = (v20 + 16);
             do
             {
               v46 = v45;
@@ -7472,7 +7504,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                 v49 = *v46;
                 *(v47 - 1) = *(v46 - 1);
                 *v47 = v49;
-                v47 += 2;
+                v47 += 32;
                 v46 += 2;
                 v48 -= 32;
               }
@@ -7490,10 +7522,10 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           {
             v58 = 0;
             v59 = v14 & 6;
-            v60 = &v74[v16 + v17];
-            v61 = &v74[v16 + 16 + v17];
-            v62 = (v20 + 2);
-            v63 = (v20 + v42);
+            v60 = &v74[0].i8[v16 + v17];
+            v61 = &v74[1].i8[v16 + v17];
+            v62 = (v20 + 16);
+            v63 = &v20[v42];
             v64 = &v60[v42];
             do
             {
@@ -7505,7 +7537,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                 v68 = *v65;
                 *(v66 - 1) = *(v65 - 1);
                 *v66 = v68;
-                v66 += 2;
+                v66 += 32;
                 v65 += 2;
                 v67 -= 32;
               }
@@ -7523,7 +7555,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
               do
               {
                 v73 = *v71++;
-                *v70++ = v73;
+                *v70 = v73;
+                v70 += 8;
                 v72 -= 8;
               }
 
@@ -7534,7 +7567,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
 LABEL_72:
                 do
                 {
-                  v18[v69] = *(v20 + v69);
+                  v18[v69] = v20[v69];
                   ++v69;
                 }
 
@@ -7544,10 +7577,10 @@ LABEL_72:
               ++v58;
               v61 += 64;
               v62 = (v62 + v19);
-              v63 = (v63 + v19);
-              v64 += 8;
+              v63 += v19;
+              v64 += 64;
               v18 += 64;
-              v20 = (v20 + v19);
+              v20 += v19;
             }
 
             while (v58 != v13);
@@ -7563,13 +7596,15 @@ LABEL_72:
             v40 = v21;
             do
             {
-              v41 = *v39++;
-              *v38++ = v41;
+              v41 = *v39;
+              v39 += 8;
+              *v38 = v41;
+              v38 += 8;
               v40 -= 8;
             }
 
             while (v40);
-            v20 = (v20 + v19);
+            v20 += v19;
             v18 += 64;
           }
         }
@@ -7586,8 +7621,10 @@ LABEL_72:
             v55 = v21 & 0x1FFFFFFF8;
             do
             {
-              v56 = *v54++;
-              *v53++ = v56;
+              v56 = *v54;
+              v54 += 8;
+              *v53 = v56;
+              v53 += 8;
               v55 -= 8;
             }
 
@@ -7595,13 +7632,13 @@ LABEL_72:
             v57 = v21 & 0x1FFFFFFF8;
             do
             {
-              *v52++ = *(v20 + v57++);
+              *v52++ = v20[v57++];
             }
 
             while (v21 > v57);
             ++v50;
-            v20 = (v20 + v19);
-            v51 += 8;
+            v20 += v19;
+            v51 += 64;
           }
 
           while (v50 != v13);
@@ -7906,7 +7943,7 @@ LABEL_72:
   return AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)4,2u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressMacroblock(v74, 64, *(a1 + 40), *(a1 + 48), *(a1 + 88), *(a1 + 89));
 }
 
-unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE8ELj2ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder2EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
+int64x2_t *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE8ELj2ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder2EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
 {
   v75 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 40);
@@ -7915,7 +7952,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
   v5 = 16;
   do
   {
-    v8 = &v74[256 * *v4 + 16 * *(v4 - 1)];
+    v8 = &v74[16 * *v4 + *(v4 - 1)];
     v9 = *v3;
     if (v9 == 63)
     {
@@ -7974,17 +8011,17 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
       v15 = *(a1 + 72);
       v16 = v15 << 6;
       v17 = 4 * *(a1 + 76);
-      v18 = &v74[64 * v15 + v17];
+      v18 = &v74[4 * v15].i8[v17];
       v20 = *(a1 + 56);
       v19 = *(a1 + 64);
       v21 = 4 * v14;
-      v22 = &v74[64 * v13 - 64 + 64 * v15 + 4 * v14 + v17];
-      v25 = v18 < v20 + 4 * v14 + v19 * (v13 - 1) && v20 < v22 || v19 < 0;
+      v22 = &v74[4 * v13 - 4 + 4 * v15].i8[4 * v14 + v17];
+      v25 = v18 < &v20[4 * v14 + v19 * (v13 - 1)] && v20 < v22 || v19 < 0;
       if (v14 == 1)
       {
         for (i = 0; i != v13; ++i)
         {
-          v27 = v20 + v19 * i;
+          v27 = &v20[v19 * i];
           v28 = &v18[64 * i];
           v29 = -1;
           do
@@ -8005,13 +8042,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           v34 = 0;
           do
           {
-            v18[v34] = *(v20 + v34);
+            v18[v34] = v20[v34];
             ++v34;
           }
 
           while (v21 > v34);
           v18 += 64;
-          v20 = (v20 + v19);
+          v20 += v19;
         }
       }
 
@@ -8022,13 +8059,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           v32 = 0;
           do
           {
-            v18[v32] = *(v20 + v32);
+            v18[v32] = v20[v32];
             ++v32;
           }
 
           while (v21 > v32);
           v18 += 64;
-          v20 = (v20 + v19);
+          v20 += v19;
         }
       }
 
@@ -8041,8 +8078,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           if (v21 == (v21 & 0x1FFFFFFE0))
           {
             v43 = 0;
-            v44 = &v74[v16 + 16 + v17];
-            v45 = (v20 + 2);
+            v44 = &v74[1].i8[v16 + v17];
+            v45 = (v20 + 16);
             do
             {
               v46 = v45;
@@ -8053,7 +8090,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                 v49 = *v46;
                 *(v47 - 1) = *(v46 - 1);
                 *v47 = v49;
-                v47 += 2;
+                v47 += 32;
                 v46 += 2;
                 v48 -= 32;
               }
@@ -8071,10 +8108,10 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           {
             v58 = 0;
             v59 = v14 & 6;
-            v60 = &v74[v16 + v17];
-            v61 = &v74[v16 + 16 + v17];
-            v62 = (v20 + 2);
-            v63 = (v20 + v42);
+            v60 = &v74[0].i8[v16 + v17];
+            v61 = &v74[1].i8[v16 + v17];
+            v62 = (v20 + 16);
+            v63 = &v20[v42];
             v64 = &v60[v42];
             do
             {
@@ -8086,7 +8123,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                 v68 = *v65;
                 *(v66 - 1) = *(v65 - 1);
                 *v66 = v68;
-                v66 += 2;
+                v66 += 32;
                 v65 += 2;
                 v67 -= 32;
               }
@@ -8104,7 +8141,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
               do
               {
                 v73 = *v71++;
-                *v70++ = v73;
+                *v70 = v73;
+                v70 += 8;
                 v72 -= 8;
               }
 
@@ -8115,7 +8153,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
 LABEL_72:
                 do
                 {
-                  v18[v69] = *(v20 + v69);
+                  v18[v69] = v20[v69];
                   ++v69;
                 }
 
@@ -8125,10 +8163,10 @@ LABEL_72:
               ++v58;
               v61 += 64;
               v62 = (v62 + v19);
-              v63 = (v63 + v19);
-              v64 += 8;
+              v63 += v19;
+              v64 += 64;
               v18 += 64;
-              v20 = (v20 + v19);
+              v20 += v19;
             }
 
             while (v58 != v13);
@@ -8144,13 +8182,15 @@ LABEL_72:
             v40 = v21;
             do
             {
-              v41 = *v39++;
-              *v38++ = v41;
+              v41 = *v39;
+              v39 += 8;
+              *v38 = v41;
+              v38 += 8;
               v40 -= 8;
             }
 
             while (v40);
-            v20 = (v20 + v19);
+            v20 += v19;
             v18 += 64;
           }
         }
@@ -8167,8 +8207,10 @@ LABEL_72:
             v55 = v21 & 0x1FFFFFFF8;
             do
             {
-              v56 = *v54++;
-              *v53++ = v56;
+              v56 = *v54;
+              v54 += 8;
+              *v53 = v56;
+              v53 += 8;
               v55 -= 8;
             }
 
@@ -8176,13 +8218,13 @@ LABEL_72:
             v57 = v21 & 0x1FFFFFFF8;
             do
             {
-              *v52++ = *(v20 + v57++);
+              *v52++ = v20[v57++];
             }
 
             while (v21 > v57);
             ++v50;
-            v20 = (v20 + v19);
-            v51 += 8;
+            v20 += v19;
+            v51 += 64;
           }
 
           while (v50 != v13);
@@ -8487,7 +8529,7 @@ LABEL_72:
   return AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)4,2u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressMacroblock(v74, 64, *(a1 + 40), *(a1 + 48), *(a1 + 88), *(a1 + 89));
 }
 
-unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE8ELj2ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder1EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
+int64x2_t *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE8ELj2ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder1EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
 {
   v75 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 40);
@@ -8496,7 +8538,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
   v5 = 16;
   do
   {
-    v8 = &v74[256 * *v4 + 16 * *(v4 - 1)];
+    v8 = &v74[16 * *v4 + *(v4 - 1)];
     v9 = *v3;
     if (v9 == 63)
     {
@@ -8555,17 +8597,17 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
       v15 = *(a1 + 72);
       v16 = v15 << 6;
       v17 = 4 * *(a1 + 76);
-      v18 = &v74[64 * v15 + v17];
+      v18 = &v74[4 * v15].i8[v17];
       v20 = *(a1 + 56);
       v19 = *(a1 + 64);
       v21 = 4 * v14;
-      v22 = &v74[64 * v13 - 64 + 64 * v15 + 4 * v14 + v17];
-      v25 = v18 < v20 + 4 * v14 + v19 * (v13 - 1) && v20 < v22 || v19 < 0;
+      v22 = &v74[4 * v13 - 4 + 4 * v15].i8[4 * v14 + v17];
+      v25 = v18 < &v20[4 * v14 + v19 * (v13 - 1)] && v20 < v22 || v19 < 0;
       if (v14 == 1)
       {
         for (i = 0; i != v13; ++i)
         {
-          v27 = v20 + v19 * i;
+          v27 = &v20[v19 * i];
           v28 = &v18[64 * i];
           v29 = -1;
           do
@@ -8586,13 +8628,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           v34 = 0;
           do
           {
-            v18[v34] = *(v20 + v34);
+            v18[v34] = v20[v34];
             ++v34;
           }
 
           while (v21 > v34);
           v18 += 64;
-          v20 = (v20 + v19);
+          v20 += v19;
         }
       }
 
@@ -8603,13 +8645,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           v32 = 0;
           do
           {
-            v18[v32] = *(v20 + v32);
+            v18[v32] = v20[v32];
             ++v32;
           }
 
           while (v21 > v32);
           v18 += 64;
-          v20 = (v20 + v19);
+          v20 += v19;
         }
       }
 
@@ -8622,8 +8664,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           if (v21 == (v21 & 0x1FFFFFFE0))
           {
             v43 = 0;
-            v44 = &v74[v16 + 16 + v17];
-            v45 = (v20 + 2);
+            v44 = &v74[1].i8[v16 + v17];
+            v45 = (v20 + 16);
             do
             {
               v46 = v45;
@@ -8634,7 +8676,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                 v49 = *v46;
                 *(v47 - 1) = *(v46 - 1);
                 *v47 = v49;
-                v47 += 2;
+                v47 += 32;
                 v46 += 2;
                 v48 -= 32;
               }
@@ -8652,10 +8694,10 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           {
             v58 = 0;
             v59 = v14 & 6;
-            v60 = &v74[v16 + v17];
-            v61 = &v74[v16 + 16 + v17];
-            v62 = (v20 + 2);
-            v63 = (v20 + v42);
+            v60 = &v74[0].i8[v16 + v17];
+            v61 = &v74[1].i8[v16 + v17];
+            v62 = (v20 + 16);
+            v63 = &v20[v42];
             v64 = &v60[v42];
             do
             {
@@ -8667,7 +8709,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                 v68 = *v65;
                 *(v66 - 1) = *(v65 - 1);
                 *v66 = v68;
-                v66 += 2;
+                v66 += 32;
                 v65 += 2;
                 v67 -= 32;
               }
@@ -8685,7 +8727,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
               do
               {
                 v73 = *v71++;
-                *v70++ = v73;
+                *v70 = v73;
+                v70 += 8;
                 v72 -= 8;
               }
 
@@ -8696,7 +8739,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
 LABEL_72:
                 do
                 {
-                  v18[v69] = *(v20 + v69);
+                  v18[v69] = v20[v69];
                   ++v69;
                 }
 
@@ -8706,10 +8749,10 @@ LABEL_72:
               ++v58;
               v61 += 64;
               v62 = (v62 + v19);
-              v63 = (v63 + v19);
-              v64 += 8;
+              v63 += v19;
+              v64 += 64;
               v18 += 64;
-              v20 = (v20 + v19);
+              v20 += v19;
             }
 
             while (v58 != v13);
@@ -8725,13 +8768,15 @@ LABEL_72:
             v40 = v21;
             do
             {
-              v41 = *v39++;
-              *v38++ = v41;
+              v41 = *v39;
+              v39 += 8;
+              *v38 = v41;
+              v38 += 8;
               v40 -= 8;
             }
 
             while (v40);
-            v20 = (v20 + v19);
+            v20 += v19;
             v18 += 64;
           }
         }
@@ -8748,8 +8793,10 @@ LABEL_72:
             v55 = v21 & 0x1FFFFFFF8;
             do
             {
-              v56 = *v54++;
-              *v53++ = v56;
+              v56 = *v54;
+              v54 += 8;
+              *v53 = v56;
+              v53 += 8;
               v55 -= 8;
             }
 
@@ -8757,13 +8804,13 @@ LABEL_72:
             v57 = v21 & 0x1FFFFFFF8;
             do
             {
-              *v52++ = *(v20 + v57++);
+              *v52++ = v20[v57++];
             }
 
             while (v21 > v57);
             ++v50;
-            v20 = (v20 + v19);
-            v51 += 8;
+            v20 += v19;
+            v51 += 64;
           }
 
           while (v50 != v13);
@@ -9068,7 +9115,7 @@ LABEL_72:
   return AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)4,2u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressMacroblock(v74, 64, *(a1 + 40), *(a1 + 48), *(a1 + 88), *(a1 + 89));
 }
 
-unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE10ELj2ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder2EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
+int64x2_t *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE10ELj2ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder2EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
 {
   v75 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 40);
@@ -9077,7 +9124,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
   v5 = 16;
   do
   {
-    v8 = &v74[256 * *v4 + 16 * *(v4 - 1)];
+    v8 = &v74[16 * *v4 + *(v4 - 1)];
     v9 = *v3;
     if (v9 == 63)
     {
@@ -9136,17 +9183,17 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
       v15 = *(a1 + 72);
       v16 = v15 << 6;
       v17 = 4 * *(a1 + 76);
-      v18 = &v74[64 * v15 + v17];
+      v18 = &v74[4 * v15].i8[v17];
       v20 = *(a1 + 56);
       v19 = *(a1 + 64);
       v21 = 4 * v14;
-      v22 = &v74[64 * v13 - 64 + 64 * v15 + 4 * v14 + v17];
-      v25 = v18 < v20 + 4 * v14 + v19 * (v13 - 1) && v20 < v22 || v19 < 0;
+      v22 = &v74[4 * v13 - 4 + 4 * v15].i8[4 * v14 + v17];
+      v25 = v18 < &v20[4 * v14 + v19 * (v13 - 1)] && v20 < v22 || v19 < 0;
       if (v14 == 1)
       {
         for (i = 0; i != v13; ++i)
         {
-          v27 = v20 + v19 * i;
+          v27 = &v20[v19 * i];
           v28 = &v18[64 * i];
           v29 = -1;
           do
@@ -9167,13 +9214,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           v34 = 0;
           do
           {
-            v18[v34] = *(v20 + v34);
+            v18[v34] = v20[v34];
             ++v34;
           }
 
           while (v21 > v34);
           v18 += 64;
-          v20 = (v20 + v19);
+          v20 += v19;
         }
       }
 
@@ -9184,13 +9231,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           v32 = 0;
           do
           {
-            v18[v32] = *(v20 + v32);
+            v18[v32] = v20[v32];
             ++v32;
           }
 
           while (v21 > v32);
           v18 += 64;
-          v20 = (v20 + v19);
+          v20 += v19;
         }
       }
 
@@ -9203,8 +9250,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           if (v21 == (v21 & 0x1FFFFFFE0))
           {
             v43 = 0;
-            v44 = &v74[v16 + 16 + v17];
-            v45 = (v20 + 2);
+            v44 = &v74[1].i8[v16 + v17];
+            v45 = (v20 + 16);
             do
             {
               v46 = v45;
@@ -9215,7 +9262,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                 v49 = *v46;
                 *(v47 - 1) = *(v46 - 1);
                 *v47 = v49;
-                v47 += 2;
+                v47 += 32;
                 v46 += 2;
                 v48 -= 32;
               }
@@ -9233,10 +9280,10 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           {
             v58 = 0;
             v59 = v14 & 6;
-            v60 = &v74[v16 + v17];
-            v61 = &v74[v16 + 16 + v17];
-            v62 = (v20 + 2);
-            v63 = (v20 + v42);
+            v60 = &v74[0].i8[v16 + v17];
+            v61 = &v74[1].i8[v16 + v17];
+            v62 = (v20 + 16);
+            v63 = &v20[v42];
             v64 = &v60[v42];
             do
             {
@@ -9248,7 +9295,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                 v68 = *v65;
                 *(v66 - 1) = *(v65 - 1);
                 *v66 = v68;
-                v66 += 2;
+                v66 += 32;
                 v65 += 2;
                 v67 -= 32;
               }
@@ -9266,7 +9313,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
               do
               {
                 v73 = *v71++;
-                *v70++ = v73;
+                *v70 = v73;
+                v70 += 8;
                 v72 -= 8;
               }
 
@@ -9277,7 +9325,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
 LABEL_72:
                 do
                 {
-                  v18[v69] = *(v20 + v69);
+                  v18[v69] = v20[v69];
                   ++v69;
                 }
 
@@ -9287,10 +9335,10 @@ LABEL_72:
               ++v58;
               v61 += 64;
               v62 = (v62 + v19);
-              v63 = (v63 + v19);
-              v64 += 8;
+              v63 += v19;
+              v64 += 64;
               v18 += 64;
-              v20 = (v20 + v19);
+              v20 += v19;
             }
 
             while (v58 != v13);
@@ -9306,13 +9354,15 @@ LABEL_72:
             v40 = v21;
             do
             {
-              v41 = *v39++;
-              *v38++ = v41;
+              v41 = *v39;
+              v39 += 8;
+              *v38 = v41;
+              v38 += 8;
               v40 -= 8;
             }
 
             while (v40);
-            v20 = (v20 + v19);
+            v20 += v19;
             v18 += 64;
           }
         }
@@ -9329,8 +9379,10 @@ LABEL_72:
             v55 = v21 & 0x1FFFFFFF8;
             do
             {
-              v56 = *v54++;
-              *v53++ = v56;
+              v56 = *v54;
+              v54 += 8;
+              *v53 = v56;
+              v53 += 8;
               v55 -= 8;
             }
 
@@ -9338,13 +9390,13 @@ LABEL_72:
             v57 = v21 & 0x1FFFFFFF8;
             do
             {
-              *v52++ = *(v20 + v57++);
+              *v52++ = v20[v57++];
             }
 
             while (v21 > v57);
             ++v50;
-            v20 = (v20 + v19);
-            v51 += 8;
+            v20 += v19;
+            v51 += 64;
           }
 
           while (v50 != v13);
@@ -9649,7 +9701,7 @@ LABEL_72:
   return AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)4,2u,(unsigned char)1,(AGX::AppleCompressionGen2::SubblockOrder)0,(AGXTextureFootprint)0>::compressMacroblock(v74, 64, *(a1 + 40), *(a1 + 48), *(a1 + 88), *(a1 + 89));
 }
 
-unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE10ELj2ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder1EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
+int64x2_t *___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE10ELj2ELh0ELNS7_13SubblockOrderE0EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder1EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1)
 {
   v75 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 40);
@@ -9658,7 +9710,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
   v5 = 16;
   do
   {
-    v8 = &v74[256 * *v4 + 16 * *(v4 - 1)];
+    v8 = &v74[16 * *v4 + *(v4 - 1)];
     v9 = *v3;
     if (v9 == 63)
     {
@@ -9717,17 +9769,17 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
       v15 = *(a1 + 72);
       v16 = v15 << 6;
       v17 = 4 * *(a1 + 76);
-      v18 = &v74[64 * v15 + v17];
+      v18 = &v74[4 * v15].i8[v17];
       v20 = *(a1 + 56);
       v19 = *(a1 + 64);
       v21 = 4 * v14;
-      v22 = &v74[64 * v13 - 64 + 64 * v15 + 4 * v14 + v17];
-      v25 = v18 < v20 + 4 * v14 + v19 * (v13 - 1) && v20 < v22 || v19 < 0;
+      v22 = &v74[4 * v13 - 4 + 4 * v15].i8[4 * v14 + v17];
+      v25 = v18 < &v20[4 * v14 + v19 * (v13 - 1)] && v20 < v22 || v19 < 0;
       if (v14 == 1)
       {
         for (i = 0; i != v13; ++i)
         {
-          v27 = v20 + v19 * i;
+          v27 = &v20[v19 * i];
           v28 = &v18[64 * i];
           v29 = -1;
           do
@@ -9748,13 +9800,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           v34 = 0;
           do
           {
-            v18[v34] = *(v20 + v34);
+            v18[v34] = v20[v34];
             ++v34;
           }
 
           while (v21 > v34);
           v18 += 64;
-          v20 = (v20 + v19);
+          v20 += v19;
         }
       }
 
@@ -9765,13 +9817,13 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           v32 = 0;
           do
           {
-            v18[v32] = *(v20 + v32);
+            v18[v32] = v20[v32];
             ++v32;
           }
 
           while (v21 > v32);
           v18 += 64;
-          v20 = (v20 + v19);
+          v20 += v19;
         }
       }
 
@@ -9784,8 +9836,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           if (v21 == (v21 & 0x1FFFFFFE0))
           {
             v43 = 0;
-            v44 = &v74[v16 + 16 + v17];
-            v45 = (v20 + 2);
+            v44 = &v74[1].i8[v16 + v17];
+            v45 = (v20 + 16);
             do
             {
               v46 = v45;
@@ -9796,7 +9848,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                 v49 = *v46;
                 *(v47 - 1) = *(v46 - 1);
                 *v47 = v49;
-                v47 += 2;
+                v47 += 32;
                 v46 += 2;
                 v48 -= 32;
               }
@@ -9814,10 +9866,10 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
           {
             v58 = 0;
             v59 = v14 & 6;
-            v60 = &v74[v16 + v17];
-            v61 = &v74[v16 + 16 + v17];
-            v62 = (v20 + 2);
-            v63 = (v20 + v42);
+            v60 = &v74[0].i8[v16 + v17];
+            v61 = &v74[1].i8[v16 + v17];
+            v62 = (v20 + 16);
+            v63 = &v20[v42];
             v64 = &v60[v42];
             do
             {
@@ -9829,7 +9881,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
                 v68 = *v65;
                 *(v66 - 1) = *(v65 - 1);
                 *v66 = v68;
-                v66 += 2;
+                v66 += 32;
                 v65 += 2;
                 v67 -= 32;
               }
@@ -9847,7 +9899,8 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
               do
               {
                 v73 = *v71++;
-                *v70++ = v73;
+                *v70 = v73;
+                v70 += 8;
                 v72 -= 8;
               }
 
@@ -9858,7 +9911,7 @@ unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_
 LABEL_72:
                 do
                 {
-                  v18[v69] = *(v20 + v69);
+                  v18[v69] = v20[v69];
                   ++v69;
                 }
 
@@ -9868,10 +9921,10 @@ LABEL_72:
               ++v58;
               v61 += 64;
               v62 = (v62 + v19);
-              v63 = (v63 + v19);
-              v64 += 8;
+              v63 += v19;
+              v64 += 64;
               v18 += 64;
-              v20 = (v20 + v19);
+              v20 += v19;
             }
 
             while (v58 != v13);
@@ -9887,13 +9940,15 @@ LABEL_72:
             v40 = v21;
             do
             {
-              v41 = *v39++;
-              *v38++ = v41;
+              v41 = *v39;
+              v39 += 8;
+              *v38 = v41;
+              v38 += 8;
               v40 -= 8;
             }
 
             while (v40);
-            v20 = (v20 + v19);
+            v20 += v19;
             v18 += 64;
           }
         }
@@ -9910,8 +9965,10 @@ LABEL_72:
             v55 = v21 & 0x1FFFFFFF8;
             do
             {
-              v56 = *v54++;
-              *v53++ = v56;
+              v56 = *v54;
+              v54 += 8;
+              *v53 = v56;
+              v53 += 8;
               v55 -= 8;
             }
 
@@ -9919,13 +9976,13 @@ LABEL_72:
             v57 = v21 & 0x1FFFFFFF8;
             do
             {
-              *v52++ = *(v20 + v57++);
+              *v52++ = v20[v57++];
             }
 
             while (v21 > v57);
             ++v50;
-            v20 = (v20 + v19);
-            v51 += 8;
+            v20 += v19;
+            v51 += 64;
           }
 
           while (v50 != v13);

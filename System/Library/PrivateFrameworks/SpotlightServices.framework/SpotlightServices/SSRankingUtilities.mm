@@ -12,37 +12,37 @@
 + (void)logItems:(id)items message:(id)message queryId:(unint64_t)id query:(id)query isSearchToolClient:(BOOL)client
 {
   clientCopy = client;
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   messageCopy = message;
   queryCopy = query;
-  if ([itemsCopy count])
+  if (objc_msgSend_count(itemsCopy))
   {
     selfCopy = self;
-    v34 = clientCopy;
+    v33 = clientCopy;
     idCopy = id;
-    v36 = messageCopy;
+    v35 = messageCopy;
     v15 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
     v16 = itemsCopy;
-    v17 = [v16 countByEnumeratingWithState:&v37 objects:v51 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v36 objects:v50 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v38;
+      v19 = *v37;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v38 != v19)
+          if (*v37 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          sectionBundleIdentifier = [*(*(&v37 + 1) + 8 * i) sectionBundleIdentifier];
+          sectionBundleIdentifier = [*(*(&v36 + 1) + 8 * i) sectionBundleIdentifier];
           v22 = sectionBundleIdentifier;
           if (sectionBundleIdentifier)
           {
@@ -69,68 +69,66 @@
           [v15 setObject:v28 forKeyedSubscript:v24];
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v37 objects:v51 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v36 objects:v50 count:16];
       }
 
       while (v18);
     }
 
     v29 = SSGeneralLog();
-    messageCopy = v36;
+    messageCopy = v35;
     if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
-      v30 = SSRedactStringClient(queryCopy, 0, v34);
-      v31 = [selfCopy jsonStringFromDictionary:v15 isSearchToolClient:v34];
+      v30 = SSRedactStringClient(queryCopy, 0, v33);
+      v31 = [selfCopy jsonStringFromDictionary:v15 isSearchToolClient:v33];
       *buf = 134219010;
-      v42 = idCopy;
-      v43 = 2112;
-      v44 = v30;
-      v45 = 2112;
-      v46 = @"SpotlightRanking";
-      v47 = 2112;
-      v48 = v36;
-      v49 = 2112;
-      v50 = v31;
+      v41 = idCopy;
+      v42 = 2112;
+      v43 = v30;
+      v44 = 2112;
+      v45 = @"SpotlightRanking";
+      v46 = 2112;
+      v47 = v35;
+      v48 = 2112;
+      v49 = v31;
       _os_log_impl(&dword_1D9F69000, v29, OS_LOG_TYPE_DEFAULT, "[qid=%llu][%@][%@] %@ items=%@", buf, 0x34u);
     }
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 + (void)logSections:(id)sections message:(id)message queryId:(unint64_t)id query:(id)query isSearchToolClient:(BOOL)client
 {
   clientCopy = client;
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   sectionsCopy = sections;
   messageCopy = message;
   queryCopy = query;
-  if ([sectionsCopy count])
+  if (objc_msgSend_count(sectionsCopy))
   {
-    v30 = clientCopy;
+    v29 = clientCopy;
     idCopy = id;
-    v14 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(sectionsCopy, "count")}];
+    v14 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:objc_msgSend_count(sectionsCopy)];
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
-    v32 = sectionsCopy;
+    v31 = sectionsCopy;
     v15 = sectionsCopy;
-    v16 = [v15 countByEnumeratingWithState:&v33 objects:v47 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v32 objects:v46 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v34;
+      v18 = *v33;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v34 != v18)
+          if (*v33 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v33 + 1) + 8 * i);
+          v20 = *(*(&v32 + 1) + 8 * i);
           v21 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v20, "resultsCount")}];
           bundleIdentifier = [v20 bundleIdentifier];
           if (bundleIdentifier)
@@ -156,7 +154,7 @@
           }
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v33 objects:v47 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v32 objects:v46 count:16];
       }
 
       while (v17);
@@ -165,35 +163,33 @@
     v26 = SSGeneralLog();
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
-      v27 = SSRedactStringClient(queryCopy, 0, v30);
-      v28 = [SSRankingUtilities jsonStringFromDictionary:v14 isSearchToolClient:v30];
+      v27 = SSRedactStringClient(queryCopy, 0, v29);
+      v28 = [SSRankingUtilities jsonStringFromDictionary:v14 isSearchToolClient:v29];
       *buf = 134219010;
-      v38 = idCopy;
-      v39 = 2112;
-      v40 = v27;
-      v41 = 2112;
-      v42 = @"SpotlightRanking";
-      v43 = 2112;
-      v44 = messageCopy;
-      v45 = 2112;
-      v46 = v28;
+      v37 = idCopy;
+      v38 = 2112;
+      v39 = v27;
+      v40 = 2112;
+      v41 = @"SpotlightRanking";
+      v42 = 2112;
+      v43 = messageCopy;
+      v44 = 2112;
+      v45 = v28;
       _os_log_impl(&dword_1D9F69000, v26, OS_LOG_TYPE_DEFAULT, "[qid=%llu][%@][%@] %@ sections=%@", buf, 0x34u);
     }
 
-    sectionsCopy = v32;
+    sectionsCopy = v31;
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 + (void)logStats:(id)stats message:(id)message queryId:(unint64_t)id query:(id)query isSearchToolClient:(BOOL)client
 {
   clientCopy = client;
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   statsCopy = stats;
   messageCopy = message;
   queryCopy = query;
-  v15 = [statsCopy count];
+  v15 = objc_msgSend_count(statsCopy);
   v16 = SSGeneralLog();
   v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
   if (v15)
@@ -202,17 +198,17 @@
     {
       v18 = SSRedactStringClient(queryCopy, 0, clientCopy);
       v19 = [self jsonStringFromDictionary:statsCopy prettyPrinted:0];
-      v21 = 134219010;
+      v20 = 134219010;
       idCopy2 = id;
-      v23 = 2112;
-      v24 = v18;
-      v25 = 2112;
-      v26 = @"SpotlightRanking";
-      v27 = 2112;
-      v28 = messageCopy;
-      v29 = 2112;
-      v30 = v19;
-      _os_log_impl(&dword_1D9F69000, v16, OS_LOG_TYPE_DEFAULT, "[qid=%llu][%@][%@] %@ stats=%@", &v21, 0x34u);
+      v22 = 2112;
+      v23 = v18;
+      v24 = 2112;
+      v25 = @"SpotlightRanking";
+      v26 = 2112;
+      v27 = messageCopy;
+      v28 = 2112;
+      v29 = v19;
+      _os_log_impl(&dword_1D9F69000, v16, OS_LOG_TYPE_DEFAULT, "[qid=%llu][%@][%@] %@ stats=%@", &v20, 0x34u);
 
 LABEL_6:
     }
@@ -221,19 +217,17 @@ LABEL_6:
   else if (v17)
   {
     v18 = SSRedactStringClient(queryCopy, 0, clientCopy);
-    v21 = 134218754;
+    v20 = 134218754;
     idCopy2 = id;
-    v23 = 2112;
-    v24 = v18;
-    v25 = 2112;
-    v26 = @"SpotlightRanking";
-    v27 = 2112;
-    v28 = messageCopy;
-    _os_log_impl(&dword_1D9F69000, v16, OS_LOG_TYPE_DEFAULT, "[qid=%llu][%@][%@] %@ stats=skipped", &v21, 0x2Au);
+    v22 = 2112;
+    v23 = v18;
+    v24 = 2112;
+    v25 = @"SpotlightRanking";
+    v26 = 2112;
+    v27 = messageCopy;
+    _os_log_impl(&dword_1D9F69000, v16, OS_LOG_TYPE_DEFAULT, "[qid=%llu][%@][%@] %@ stats=skipped", &v20, 0x2Au);
     goto LABEL_6;
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 + (id)jsonStringFromDictionary:(id)dictionary prettyPrinted:(BOOL)printed

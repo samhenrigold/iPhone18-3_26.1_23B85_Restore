@@ -127,22 +127,20 @@ uint64_t __34__NWCDailyForecastView_initialize__block_invoke()
 - (void)_applyLayoutConstraints:(id)constraints
 {
   var3 = constraints.var3;
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCAAD0];
   v6 = [(NWCDailyForecastView *)self weekdayLabel:constraints.var0];
   centerXAnchor = [v6 centerXAnchor];
   centerXAnchor2 = [(NWCDailyForecastView *)self centerXAnchor];
   v9 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v16[0] = v9;
+  v15[0] = v9;
   bottomAnchor = [(NWCDailyForecastView *)self bottomAnchor];
   weekdayLabel = [(NWCDailyForecastView *)self weekdayLabel];
   firstBaselineAnchor = [weekdayLabel firstBaselineAnchor];
   v13 = [bottomAnchor constraintEqualToAnchor:firstBaselineAnchor constant:var3];
-  v16[1] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v15[1] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
   [v5 activateConstraints:v14];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

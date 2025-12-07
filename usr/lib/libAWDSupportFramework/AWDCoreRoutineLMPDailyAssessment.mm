@@ -240,7 +240,6 @@ LABEL_9:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -260,7 +259,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  dailyEvents = self->_dailyEvents;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -275,7 +273,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  eventsWithLocation = self->_eventsWithLocation;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -290,7 +287,6 @@ LABEL_5:
   }
 
 LABEL_13:
-  eventsWithMaybeLocation = self->_eventsWithMaybeLocation;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -305,7 +301,6 @@ LABEL_6:
   }
 
 LABEL_14:
-  eventsWithLMPLocation = self->_eventsWithLMPLocation;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -317,7 +312,6 @@ LABEL_7:
     }
 
 LABEL_16:
-    visitMaybeLocation = self->_visitMaybeLocation;
     PBDataWriterWriteInt32Field();
     if ((*&self->_has & 0x20) == 0)
     {
@@ -328,7 +322,6 @@ LABEL_16:
   }
 
 LABEL_15:
-  visitLocation = self->_visitLocation;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if (has < 0)
@@ -343,7 +336,6 @@ LABEL_8:
   }
 
 LABEL_17:
-  visitLMPLocation = self->_visitLMPLocation;
 
   PBDataWriterWriteInt32Field();
 }

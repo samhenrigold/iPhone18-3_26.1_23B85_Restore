@@ -159,7 +159,7 @@ LABEL_20:
 
 - (void)encodeWithCoder:(id)coder
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = coderCopy;
   if (self->_reset)
@@ -193,15 +193,15 @@ LABEL_20:
       while (v8 < self->_recordCount);
     }
 
-    v30 = malloc_type_calloc(1uLL, v7 + 8 * v9, 0x88D65353uLL);
-    if (v30)
+    v29 = malloc_type_calloc(1uLL, v7 + 8 * v9, 0x88D65353uLL);
+    if (v29)
     {
-      v28 = v7 + 8 * v9;
-      v29 = v5;
+      v27 = v7 + 8 * v9;
+      v28 = v5;
       if (self->_recordCount >= 1)
       {
         v11 = 0;
-        v12 = v30;
+        v12 = v29;
         do
         {
           v13 = &self->_records[v11];
@@ -212,31 +212,31 @@ LABEL_20:
           v16 = &self->_records[v11];
           v12[8] = v16->var2;
           *(v12 + 2) = v16->var3;
+          v30 = 0u;
           v31 = 0u;
           v32 = 0u;
           v33 = 0u;
-          v34 = 0u;
           v17 = v14;
-          v18 = [(__CFArray *)v17 countByEnumeratingWithState:&v31 objects:v35 count:16];
+          v18 = [(__CFArray *)v17 countByEnumeratingWithState:&v30 objects:v34 count:16];
           if (v18)
           {
             v19 = v18;
             v20 = 0;
-            v21 = *v32;
+            v21 = *v31;
             do
             {
               for (i = 0; i != v19; ++i)
               {
-                if (*v32 != v21)
+                if (*v31 != v21)
                 {
                   objc_enumerationMutation(v17);
                 }
 
-                [*(*(&v31 + 1) + 8 * i) timeIntervalSinceReferenceDate];
+                [*(*(&v30 + 1) + 8 * i) timeIntervalSinceReferenceDate];
                 *&v12[8 * v20++ + 24] = v23;
               }
 
-              v19 = [(__CFArray *)v17 countByEnumeratingWithState:&v31 objects:v35 count:16];
+              v19 = [(__CFArray *)v17 countByEnumeratingWithState:&v30 objects:v34 count:16];
             }
 
             while (v19);
@@ -249,9 +249,9 @@ LABEL_20:
         while (v11 < self->_recordCount);
       }
 
-      v24 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:v30 length:v28 freeWhenDone:1];
-      v5 = v29;
-      [v29 encodeObject:v24 forKey:@"records"];
+      v24 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:v29 length:v27 freeWhenDone:1];
+      v5 = v28;
+      [v28 encodeObject:v24 forKey:@"records"];
     }
 
     else
@@ -261,17 +261,15 @@ LABEL_20:
       {
         v26 = self->_recordCount;
         *buf = 134218496;
-        v37 = v7 + 8 * v9;
-        v38 = 2048;
-        v39 = v26;
-        v40 = 2048;
-        v41 = v9;
+        v36 = v7 + 8 * v9;
+        v37 = 2048;
+        v38 = v26;
+        v39 = 2048;
+        v40 = v9;
         _os_log_impl(&dword_1DEBB1000, v25, OS_LOG_TYPE_ERROR, "Unable to allocate %lu bytes for encoding change report with %lu records and %lu dates", buf, 0x20u);
       }
     }
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -409,33 +407,33 @@ LABEL_20:
 
 - (void)processChanges:(__CFArray *)changes ofType:(unint64_t)type
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   Mutable = CFDictionaryCreateMutable(0, 0, 0, 0);
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   changesCopy = changes;
-  v9 = [(__CFArray *)changesCopy countByEnumeratingWithState:&v42 objects:v50 count:16];
+  v9 = [(__CFArray *)changesCopy countByEnumeratingWithState:&v41 objects:v49 count:16];
   if (v9)
   {
     v11 = v9;
-    v12 = *v43;
+    v12 = *v42;
     v13 = &CDBChangeReportHandle;
     *&v10 = 67109376;
-    v40 = v10;
+    v39 = v10;
     do
     {
       v14 = 0;
-      v41 = v11;
+      v40 = v11;
       do
       {
-        if (*v43 != v12)
+        if (*v42 != v12)
         {
           objc_enumerationMutation(changesCopy);
         }
 
-        v15 = *(*(&v42 + 1) + 8 * v14);
+        v15 = *(*(&v41 + 1) + 8 * v14);
         RecordID = _CalEntityGetRecordID(v15);
         if (!RecordID)
         {
@@ -465,10 +463,10 @@ LABEL_20:
             }
 
             IsDeleted = CPRecordIsDeleted();
-            *buf = v40;
-            v47 = ID;
-            v48 = 1024;
-            v49 = IsDeleted;
+            *buf = v39;
+            v46 = ID;
+            v47 = 1024;
+            v48 = IsDeleted;
             _os_log_impl(&dword_1DEBB1000, v18, OS_LOG_TYPE_ERROR, "Failed to get recordID for record with rowid [%d], deleted: %{BOOL}d", buf, 0xEu);
             v13 = v24;
             self = selfCopy;
@@ -476,7 +474,7 @@ LABEL_20:
             changesCopy = v21;
             type = typeCopy;
             v12 = v19;
-            v11 = v41;
+            v11 = v40;
           }
 
           goto LABEL_39;
@@ -580,7 +578,7 @@ LABEL_33:
             typeCopy3 = type;
             v32 = 2048;
 LABEL_38:
-            if (![(CalDatabaseChangeReport *)selfCopy3 processChangeOfRelatedRecord:v30 changeType:typeCopy3 flag:v32 ownerGetter:v28 uidToIndex:Mutable, v40])
+            if (![(CalDatabaseChangeReport *)selfCopy3 processChangeOfRelatedRecord:v30 changeType:typeCopy3 flag:v32 ownerGetter:v28 uidToIndex:Mutable, v39])
             {
               goto LABEL_57;
             }
@@ -622,7 +620,7 @@ LABEL_39:
       }
 
       while (v11 != v14);
-      v33 = [(__CFArray *)changesCopy countByEnumeratingWithState:&v42 objects:v50 count:16];
+      v33 = [(__CFArray *)changesCopy countByEnumeratingWithState:&v41 objects:v49 count:16];
       v11 = v33;
     }
 
@@ -630,8 +628,6 @@ LABEL_39:
   }
 
 LABEL_57:
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)processChangeOfRelatedRecord:(void *)record changeType:(unint64_t)type flag:(unint64_t)flag ownerGetter:(void *)getter uidToIndex:(__CFDictionary *)index
@@ -946,7 +942,7 @@ LABEL_64:
 
 - (int)appendNewRecord
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   recordCount = self->_recordCount;
   recordCapacity = self->_recordCapacity;
   self->_recordCount = recordCount + 1;
@@ -975,17 +971,16 @@ LABEL_64:
       if (os_log_type_enabled(CDBChangeReportHandle, OS_LOG_TYPE_ERROR))
       {
         v8 = self->_recordCapacity;
-        v11[0] = 67109120;
-        v11[1] = v8;
-        _os_log_impl(&dword_1DEBB1000, v7, OS_LOG_TYPE_ERROR, "Error allocating %i records", v11, 8u);
+        v10[0] = 67109120;
+        v10[1] = v8;
+        _os_log_impl(&dword_1DEBB1000, v7, OS_LOG_TYPE_ERROR, "Error allocating %i records", v10, 8u);
       }
 
       [(CalDatabaseChangeReport *)self freeRecords];
-      recordCount = -1;
+      return -1;
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return recordCount;
 }
 

@@ -310,7 +310,7 @@ void __39__CKPreviewDispatchCache_snapshotCache__block_invoke(uint64_t a1)
 
 - (void)transferFinished:(id)finished
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   finishedCopy = finished;
   object = [finishedCopy object];
   if (object)
@@ -322,33 +322,32 @@ void __39__CKPreviewDispatchCache_snapshotCache__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v15 = object;
+        v20 = object;
         _os_log_impl(&dword_19020E000, v6, OS_LOG_TYPE_DEBUG, "Transfer %@ finished. Execute its pending operations.", buf, 0xCu);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
-      v13 = object;
-      _CKLog();
+      _CKLog(2u, @"Transfer %@ finished. Execute its pending operations.", v7, v8, v9, v10, v11, v12, object);
     }
 
     guid = [object guid];
     pendingBlocks = [(CKPreviewDispatchCache *)self pendingBlocks];
-    v9 = [pendingBlocks popObjectForKey:guid];
+    v15 = [pendingBlocks popObjectForKey:guid];
 
-    if (v9)
+    if (v15)
     {
       do
       {
-        v9[2](v9);
+        v15[2](v15);
         pendingBlocks2 = [(CKPreviewDispatchCache *)self pendingBlocks];
-        v11 = [pendingBlocks2 popObjectForKey:guid];
+        v17 = [pendingBlocks2 popObjectForKey:guid];
 
-        v9 = v11;
+        v15 = v17;
       }
 
-      while (v11);
+      while (v17);
     }
 
     notificationCenter = [(CKPreviewDispatchCache *)self notificationCenter];
@@ -359,7 +358,7 @@ void __39__CKPreviewDispatchCache_snapshotCache__block_invoke(uint64_t a1)
 
 - (void)transferRemoved:(id)removed
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   removedCopy = removed;
   object = [removedCopy object];
   if (object)
@@ -371,15 +370,14 @@ void __39__CKPreviewDispatchCache_snapshotCache__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v12 = object;
+        v17 = object;
         _os_log_impl(&dword_19020E000, v6, OS_LOG_TYPE_DEBUG, "Transfer %@ removed. Dump its pending operations.", buf, 0xCu);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
-      v10 = object;
-      _CKLog();
+      _CKLog(2u, @"Transfer %@ removed. Dump its pending operations.", v7, v8, v9, v10, v11, v12, object);
     }
 
     guid = [object guid];
@@ -422,77 +420,78 @@ void __39__CKPreviewDispatchCache_snapshotCache__block_invoke(uint64_t a1)
 
 - (void)enqueueSaveBlock:(id)block forMediaObject:(id)object withPriority:(int64_t)priority
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   objectCopy = object;
-  if (CKIsRunningInFullCKClient() || CKIsRunningUnitTests())
+  v10 = CKIsRunningInFullCKClient();
+  if (v10 || CKIsRunningUnitTests(v10, v11))
   {
     dispatchCache = [(CKPreviewDispatchCache *)self dispatchCache];
     transfer = [objectCopy transfer];
     isFileURLFinalized = [transfer isFileURLFinalized];
 
-    v13 = IMOSLoggingEnabled();
+    v15 = IMOSLoggingEnabled();
     if (isFileURLFinalized)
     {
-      if (v13)
-      {
-        CKLogCStringForType(2);
-        v14 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
-        {
-          *buf = 138412290;
-          v26 = objectCopy;
-          _os_log_impl(&dword_19020E000, v14, OS_LOG_TYPE_DEBUG, "%@ save preview.", buf, 0xCu);
-        }
-      }
-
-      if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
-      {
-        _CKLog();
-      }
-
-      v22[0] = MEMORY[0x1E69E9820];
-      v22[1] = 3221225472;
-      v22[2] = __94__CKPreviewDispatchCache_CKMediaObject_Display__enqueueSaveBlock_forMediaObject_withPriority___block_invoke;
-      v22[3] = &unk_1E72EE5D8;
-      v24 = blockCopy;
-      v23 = objectCopy;
-      [dispatchCache enqueueBlock:v22 withPriority:priority];
-
-      v15 = &v24;
-    }
-
-    else
-    {
-      if (v13)
+      if (v15)
       {
         CKLogCStringForType(2);
         v16 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v26 = objectCopy;
-          _os_log_impl(&dword_19020E000, v16, OS_LOG_TYPE_DEBUG, "%@ transfer fileURL isn't finalized so defer saving preview.", buf, 0xCu);
+          v40 = objectCopy;
+          _os_log_impl(&dword_19020E000, v16, OS_LOG_TYPE_DEBUG, "%@ save preview.", buf, 0xCu);
         }
       }
 
       if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
       {
-        _CKLog();
+        _CKLog(2u, @"%@ save preview.", v17, v18, v19, v20, v21, v22, objectCopy);
+      }
+
+      v36[0] = MEMORY[0x1E69E9820];
+      v36[1] = 3221225472;
+      v36[2] = __94__CKPreviewDispatchCache_CKMediaObject_Display__enqueueSaveBlock_forMediaObject_withPriority___block_invoke;
+      v36[3] = &unk_1E72EE5D8;
+      v38 = blockCopy;
+      v37 = objectCopy;
+      [dispatchCache enqueueBlock:v36 withPriority:priority];
+
+      v23 = &v38;
+    }
+
+    else
+    {
+      if (v15)
+      {
+        CKLogCStringForType(2);
+        v24 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+        {
+          *buf = 138412290;
+          v40 = objectCopy;
+          _os_log_impl(&dword_19020E000, v24, OS_LOG_TYPE_DEBUG, "%@ transfer fileURL isn't finalized so defer saving preview.", buf, 0xCu);
+        }
+      }
+
+      if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
+      {
+        _CKLog(2u, @"%@ transfer fileURL isn't finalized so defer saving preview.", v25, v26, v27, v28, v29, v30, objectCopy);
       }
 
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __94__CKPreviewDispatchCache_CKMediaObject_Display__enqueueSaveBlock_forMediaObject_withPriority___block_invoke_201;
       block[3] = &unk_1E72EE8A0;
-      v18[0] = objectCopy;
-      v18[1] = self;
-      v19 = dispatchCache;
-      v20 = blockCopy;
+      v32[0] = objectCopy;
+      v32[1] = self;
+      v33 = dispatchCache;
+      v34 = blockCopy;
       priorityCopy = priority;
       dispatch_async(MEMORY[0x1E69E96A0], block);
 
-      v15 = v18;
+      v23 = v32;
     }
   }
 }

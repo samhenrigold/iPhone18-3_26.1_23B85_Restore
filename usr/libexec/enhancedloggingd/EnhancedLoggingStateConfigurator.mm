@@ -8,6 +8,7 @@
 - (void)addEnrollmentTicketNumber:(id)number;
 - (void)addPayload:(id)payload;
 - (void)addServerSuppliedMetadata:(id)metadata;
+- (void)enrollWithFlush:(BOOL)flush commit:(BOOL)commit;
 - (void)finishWithStatusCode:(int64_t)code metadata:(id)metadata;
 - (void)injectDefaultValuesToParameters:(id)parameters bundleID:(id)d;
 - (void)startWithCompletionHandler:(id)handler;
@@ -71,6 +72,43 @@ LABEL_6:
   [(EnhancedLoggingStateConfigurator *)self setCompletionHandler:0];
 }
 
+- (void)enrollWithFlush:(BOOL)flush commit:(BOOL)commit
+{
+  commitCopy = commit;
+  flushCopy = flush;
+  v7 = +[ELSManager sharedManager];
+  snapshot = [v7 snapshot];
+  status = [snapshot status];
+
+  v21 = status < 2;
+  if (status >= 2)
+  {
+    v13 = sub_1000026D0(v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      sub_100035750(v13, v14, v15, v16, v17, v18, v19, v20);
+    }
+
+    [(EnhancedLoggingStateConfigurator *)self finishWithStatusCode:-1 metadata:0];
+    v12 = 0;
+  }
+
+  else
+  {
+    if (flushCopy)
+    {
+      v11 = +[ELSManager sharedManager];
+      [v11 flush];
+    }
+
+    v12 = [(EnhancedLoggingStateConfigurator *)self formatNewQueueEntries:&v21];
+    if (v21)
+    {
+      [(EnhancedLoggingStateConfigurator *)self updateEnhancedLoggingStateWithNewQueueEntries:v12 commit:commitCopy];
+    }
+  }
+}
+
 - (void)unenroll
 {
   v3 = +[ELSManager sharedManager];
@@ -79,21 +117,21 @@ LABEL_6:
 
   if (status)
   {
-    v6 = +[ELSManager sharedManager];
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = sub_100002C60;
-    v15[3] = &unk_100045140;
-    v15[4] = self;
-    [v6 transactionWithBlock:&stru_100045118 completion:v15];
+    v7 = +[ELSManager sharedManager];
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_100002C60;
+    v16[3] = &unk_100045140;
+    v16[4] = self;
+    [v7 transactionWithBlock:&stru_100045118 completion:v16];
   }
 
   else
   {
-    v7 = sub_1000026D0();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_1000026D0(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_100035788(v7, v8, v9, v10, v11, v12, v13, v14);
+      sub_100035788(v8, v9, v10, v11, v12, v13, v14, v15);
     }
 
     [(EnhancedLoggingStateConfigurator *)self finishWithStatusCode:-2 metadata:0];
@@ -107,34 +145,35 @@ LABEL_6:
   queue = [snapshot queue];
 
   v8 = +[NSMutableArray array];
-  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
   inputs = [(EnhancedLoggingStateConfigurator *)self inputs];
   queue2 = [inputs queue];
 
-  v11 = [queue2 countByEnumeratingWithState:&v19 objects:v25 count:16];
+  v11 = [queue2 countByEnumeratingWithState:&v20 objects:v26 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v20;
+    v13 = *v21;
     while (2)
     {
       for (i = 0; i != v12; i = i + 1)
       {
-        if (*v20 != v13)
+        if (*v21 != v13)
         {
           objc_enumerationMutation(queue2);
         }
 
-        v15 = [(EnhancedLoggingStateConfigurator *)self createQueueEntryInputDictionary:*(*(&v19 + 1) + 8 * i)];
-        if ([queue containsObject:v15])
+        v15 = [(EnhancedLoggingStateConfigurator *)self createQueueEntryInputDictionary:*(*(&v20 + 1) + 8 * i)];
+        v16 = [queue containsObject:v15];
+        if (v16)
         {
-          v16 = sub_1000026D0();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+          v17 = sub_1000026D0(v16);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
-            sub_1000357C0(v23, v15, &v24, v16);
+            sub_1000357C0(v24, v15, &v25, v17);
           }
 
           [(EnhancedLoggingStateConfigurator *)self finishWithStatusCode:-3 metadata:0];
@@ -152,7 +191,7 @@ LABEL_14:
         [v8 addObject:v15];
       }
 
-      v12 = [queue2 countByEnumeratingWithState:&v19 objects:v25 count:16];
+      v12 = [queue2 countByEnumeratingWithState:&v20 objects:v26 count:16];
       if (v12)
       {
         continue;
@@ -164,9 +203,9 @@ LABEL_14:
 
 LABEL_15:
 
-  v17 = [NSArray arrayWithArray:v8];
+  v18 = [NSArray arrayWithArray:v8];
 
-  return v17;
+  return v18;
 }
 
 - (id)createQueueEntryInputDictionary:(id)dictionary
@@ -278,20 +317,20 @@ LABEL_15:
   {
 
 LABEL_5:
-    v11 = +[ELSManager sharedManager];
+    v12 = +[ELSManager sharedManager];
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = sub_1000033AC;
+    v22[3] = &unk_100045168;
+    v25 = commitCopy;
+    v23 = entriesCopy;
+    selfCopy = self;
     v21[0] = _NSConcreteStackBlock;
     v21[1] = 3221225472;
-    v21[2] = sub_1000033AC;
-    v21[3] = &unk_100045168;
-    v24 = commitCopy;
-    v22 = entriesCopy;
-    selfCopy = self;
-    v20[0] = _NSConcreteStackBlock;
-    v20[1] = 3221225472;
-    v20[2] = sub_10000357C;
-    v20[3] = &unk_100045140;
-    v20[4] = self;
-    [v11 transactionWithBlock:v21 completion:v20];
+    v21[2] = sub_10000357C;
+    v21[3] = &unk_100045140;
+    v21[4] = self;
+    [v12 transactionWithBlock:v22 completion:v21];
 
     goto LABEL_6;
   }
@@ -303,10 +342,10 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v12 = sub_1000026D0();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  v13 = sub_1000026D0(v11);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
-    sub_100035838(v12, v13, v14, v15, v16, v17, v18, v19);
+    sub_100035838(v13, v14, v15, v16, v17, v18, v19, v20);
   }
 
   [(EnhancedLoggingStateConfigurator *)self finishWithStatusCode:-4 metadata:0];

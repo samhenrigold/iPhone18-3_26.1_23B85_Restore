@@ -1,6 +1,7 @@
 @interface Context
 + (void)managedContextWithExternalizedContext:(id)context processId:(int)id userId:(unsigned int)userId auditSessionId:(int)sessionId flags:(int64_t)flags checkEntitlementBlock:(id)block reply:(id)reply;
 - (BOOL)_hasProtectedOptions:(id)options;
+- (Context)initWithPlugin:(id)plugin processId:(int)id userId:(unsigned int)userId auditSessionId:(int)sessionId externalizedContext:(id)context;
 - (NSData)externalizedContext;
 - (id)_updateOptionsWithServerProperties:(id)properties policy:(int64_t)policy;
 - (void)allowTransferFromCaller:(id)caller receiverAuditTokenData:(id)data reply:(id)reply;
@@ -10,11 +11,13 @@
 - (void)evaluateRequest:(id)request uiDelegate:(id)delegate originator:(id)originator reply:(id)reply;
 - (void)externalizedContextWithReply:(id)reply;
 - (void)failProcessedEvent:(int64_t)event failureError:(id)error reply:(id)reply;
+- (void)pauseProcessedEvent:(int64_t)event pause:(BOOL)pause reply:(id)reply;
 - (void)retryEvent:(int64_t)event originator:(id)originator reply:(id)reply;
 - (void)serverPropertyForOption:(int64_t)option reply:(id)reply;
 - (void)setCredential:(id)credential forProcessedEvent:(int64_t)event credentialType:(int64_t)type reply:(id)reply;
 - (void)setCredential:(id)credential type:(int64_t)type options:(id)options originator:(id)originator reply:(id)reply;
 - (void)setServerPropertyForOption:(int64_t)option value:(id)value reply:(id)reply;
+- (void)setShowingCoachingHint:(BOOL)hint event:(int64_t)event originator:(id)originator reply:(id)reply;
 - (void)tokenForTransferFromCaller:(id)caller reply:(id)reply;
 @end
 
@@ -81,6 +84,54 @@
   {
     replyCopy[2](replyCopy, 0, v19);
   }
+}
+
+- (Context)initWithPlugin:(id)plugin processId:(int)id userId:(unsigned int)userId auditSessionId:(int)sessionId externalizedContext:(id)context
+{
+  v9 = *&id;
+  pluginCopy = plugin;
+  v28.receiver = self;
+  v28.super_class = Context;
+  v13 = [(Context *)&v28 init];
+  if (v13)
+  {
+    v14 = objc_opt_new();
+    serverProperties = v13->_serverProperties;
+    v13->_serverProperties = v14;
+
+    v16 = objc_opt_new();
+    allowedTransfers = v13->_allowedTransfers;
+    v13->_allowedTransfers = v16;
+
+    objc_storeStrong(&v13->_plugin, plugin);
+    cachedExternalizedContext = [(ContextPlugin *)v13->_plugin cachedExternalizedContext];
+    [cachedExternalizedContext setExternalizationObserver:v13];
+
+    v13->_userId = userId;
+    v13->_auditSessionId = sessionId;
+    v19 = objc_opt_new();
+    uuid = v13->_uuid;
+    v13->_uuid = v19;
+
+    v13->_instanceId = +[Context newInstanceId];
+    v21 = +[NSDate date];
+    v22 = [NSDateFormatter localizedStringFromDate:v21 dateStyle:1 timeStyle:3];
+    v23 = [NSString stringWithFormat:@"com.apple.LocalAuthentication.LAContext (%@ initially acquired by %d at %@)", v13, v9, v22];
+    [v23 UTF8String];
+    v24 = os_transaction_create();
+    transaction = v13->_transaction;
+    v13->_transaction = v24;
+  }
+
+  v26 = LALogForCategory();
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543362;
+    v30 = v13;
+    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "%{public}@ created", buf, 0xCu);
+  }
+
+  return v13;
 }
 
 - (BOOL)_hasProtectedOptions:(id)options
@@ -226,16 +277,16 @@ LABEL_19:
   propertiesCopy = properties;
   v7 = [NSMutableDictionary dictionaryWithDictionary:propertiesCopy];
   v8 = [(NSMutableDictionary *)self->_serverProperties copy];
-  v19[0] = _NSConcreteStackBlock;
-  v19[1] = 3221225472;
-  v19[2] = sub_100012150;
-  v19[3] = &unk_100055570;
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_100012150;
+  v20[3] = &unk_100055570;
   v9 = propertiesCopy;
-  v20 = v9;
+  v21 = v9;
   v10 = v7;
-  v21 = v10;
+  v22 = v10;
   selfCopy = self;
-  [v8 enumerateKeysAndObjectsUsingBlock:v19];
+  [v8 enumerateKeysAndObjectsUsingBlock:v20];
 
   if (policy && LACPolicyLocationBasedDeviceOwnerAuthenticationWithBiometricRatchet != policy)
   {
@@ -248,18 +299,17 @@ LABEL_5:
       goto LABEL_6;
     }
 
-    v16 = [NSNumber numberWithInteger:LACPolicyOptionNotInteractive];
-    v17 = [v10 objectForKeyedSubscript:v16];
-    bOOLValue = [v17 BOOLValue];
+    v17 = [NSNumber numberWithInteger:LACPolicyOptionNotInteractive];
+    v18 = [v10 objectForKeyedSubscript:v17];
+    bOOLValue = [v18 BOOLValue];
 
     if ((bOOLValue & 1) == 0)
     {
-      [v10 setObject:&off_100057FA8 forKey:&off_100057FC0];
-      v11 = sub_1000013FC();
+      v11 = sub_1000013FC([v10 setObject:&off_100057FA8 forKey:&off_100057FC0]);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v24) = 300;
+        LODWORD(v25) = 300;
         _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Injecting LAOptionTimeout = %d", buf, 8u);
       }
 
@@ -268,20 +318,21 @@ LABEL_5:
   }
 
 LABEL_6:
-  if (([v10 isEqual:v9] & 1) == 0)
+  v13 = [v10 isEqual:v9];
+  if ((v13 & 1) == 0)
   {
-    v13 = sub_1000013FC();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_1000013FC(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v24 = v9;
-      v25 = 2114;
-      v26 = v10;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Updated options from %{public}@ to %{public}@", buf, 0x16u);
+      v25 = v9;
+      v26 = 2114;
+      v27 = v10;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Updated options from %{public}@ to %{public}@", buf, 0x16u);
     }
   }
 
-  v14 = v10;
+  v15 = v10;
 
   return v10;
 }
@@ -289,7 +340,7 @@ LABEL_6:
 - (void)serverPropertyForOption:(int64_t)option reply:(id)reply
 {
   replyCopy = reply;
-  v7 = sub_1000013FC();
+  v7 = sub_1000013FC(replyCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v11[0] = 67109378;
@@ -312,48 +363,49 @@ LABEL_6:
   replyCopy = reply;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  v11 = sub_1000013FC();
-  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-  if (isKindOfClass)
+  v11 = isKindOfClass;
+  v12 = sub_1000013FC(isKindOfClass);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+  if (v11)
   {
-    if (v12)
+    if (v13)
     {
-      LODWORD(v17) = 67109634;
-      HIDWORD(v17) = option;
-      *v18 = 2114;
-      *&v18[2] = self;
-      *&v18[10] = 2114;
-      *&v18[12] = valueCopy;
-      v13 = "setting option %d on %{public}@ to %{public}@";
+      LODWORD(v18) = 67109634;
+      HIDWORD(v18) = option;
+      *v19 = 2114;
+      *&v19[2] = self;
+      *&v19[10] = 2114;
+      *&v19[12] = valueCopy;
+      v14 = "setting option %d on %{public}@ to %{public}@";
 LABEL_6:
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, v13, &v17, 0x1Cu);
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, v14, &v18, 0x1Cu);
     }
   }
 
-  else if (v12)
+  else if (v13)
   {
-    LODWORD(v17) = 67109634;
-    HIDWORD(v17) = option;
-    *v18 = 2114;
-    *&v18[2] = self;
-    *&v18[10] = 2112;
-    *&v18[12] = valueCopy;
-    v13 = "setting option %d on %{public}@ to %@";
+    LODWORD(v18) = 67109634;
+    HIDWORD(v18) = option;
+    *v19 = 2114;
+    *&v19[2] = self;
+    *&v19[10] = 2112;
+    *&v19[12] = valueCopy;
+    v14 = "setting option %d on %{public}@ to %@";
     goto LABEL_6;
   }
 
   if (valueCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
     serverProperties = self->_serverProperties;
-    v15 = [NSNumber numberWithInteger:option];
-    [(NSMutableDictionary *)serverProperties setObject:valueCopy forKey:v15];
+    v16 = [NSNumber numberWithInteger:option];
+    [(NSMutableDictionary *)serverProperties setObject:valueCopy forKey:v16];
   }
 
   else
   {
-    v14 = self->_serverProperties;
-    v15 = [NSNumber numberWithInteger:option, v17, *v18, *&v18[16]];
-    [(NSMutableDictionary *)v14 removeObjectForKey:v15];
+    v15 = self->_serverProperties;
+    v16 = [NSNumber numberWithInteger:option, v18, *v19, *&v19[8]];
+    [(NSMutableDictionary *)v15 removeObjectForKey:v16];
   }
 
   replyCopy[2](replyCopy, 1, 0);
@@ -433,6 +485,49 @@ LABEL_13:
   }
 }
 
+- (void)pauseProcessedEvent:(int64_t)event pause:(BOOL)pause reply:(id)reply
+{
+  pauseCopy = pause;
+  replyCopy = reply;
+  v9 = +[AuthenticationManager sharedInstance];
+  plugin = [(Context *)self plugin];
+  v11 = [v9 findMechanismForEvent:event mustBeRunning:1 plugin:plugin];
+
+  if (v11)
+  {
+    v15 = 0;
+    v12 = [v11 pause:pauseCopy forEvent:event error:&v15];
+    v13 = v15;
+    replyCopy[2](replyCopy, v12, v13);
+  }
+
+  else
+  {
+    v14 = [LAErrorHelper errorWithCode:-1008 message:@"Can't toggle event because no suitable mechanism is running."];
+    replyCopy[2](replyCopy, 0, v14);
+  }
+}
+
+- (void)setShowingCoachingHint:(BOOL)hint event:(int64_t)event originator:(id)originator reply:(id)reply
+{
+  hintCopy = hint;
+  replyCopy = reply;
+  v9 = +[AuthenticationManager sharedInstance];
+  plugin = [(Context *)self plugin];
+  v11 = [v9 findMechanismForEvent:event mustBeRunning:1 plugin:plugin];
+
+  if (v11)
+  {
+    [v11 setShowingCoachingHint:hintCopy reply:replyCopy];
+  }
+
+  else
+  {
+    v12 = [LAErrorHelper errorWithCode:-1008 message:@"Can't set coaching, because no suitable mechanism is running."];
+    replyCopy[2](replyCopy, 0, v12);
+  }
+}
+
 - (void)externalizedContextWithReply:(id)reply
 {
   replyCopy = reply;
@@ -473,10 +568,10 @@ LABEL_13:
   v12 = [[AllowedTransfer alloc] initWithReceiverAuditTokenData:dataCopy sender:callerCopy];
 
   [(NSMutableArray *)allowedTransfers addObject:v12];
-  v13 = sub_1000013FC();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v14 = sub_1000013FC(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    sub_100022DFC(p_allowedTransfers, v13, v14, v15, v16, v17, v18, v19);
+    sub_100022DFC(p_allowedTransfers, v14, v15, v16, v17, v18, v19, v20);
   }
 
   replyCopy[2](replyCopy, 1, 0);
@@ -504,10 +599,10 @@ LABEL_13:
     v13 = [[AllowedTransfer alloc] initWithServerToken:v9 sender:callerCopy];
     [(NSMutableArray *)allowedTransfers addObject:v13];
 
-    v14 = sub_1000013FC();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v15 = sub_1000013FC(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      sub_100022DFC(p_allowedTransfers, v14, v15, v16, v17, v18, v19, v20);
+      sub_100022DFC(p_allowedTransfers, v15, v16, v17, v18, v19, v20, v21);
     }
 
     (replyCopy)[2](replyCopy, v9, 0);
@@ -520,95 +615,94 @@ LABEL_13:
   tokenCopy = token;
   dataCopy = data;
   replyCopy = reply;
-  v14 = sub_1000013FC();
+  v14 = sub_1000013FC(replyCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    *v46 = self;
-    *&v46[8] = 1024;
-    *v47 = [callerCopy pid];
+    *v47 = self;
+    *&v47[8] = 1024;
+    *v48 = [callerCopy pid];
     _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "connecting to %{public}@ from %d", buf, 0x12u);
   }
 
-  v15 = sub_1000013FC();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v16 = sub_1000013FC(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
-    v34 = [dataCopy hash];
+    v35 = [dataCopy hash];
     auditTokenData = [callerCopy auditTokenData];
-    v36 = [auditTokenData hash];
-    v37 = [tokenCopy hash];
+    v37 = [auditTokenData hash];
+    v38 = [tokenCopy hash];
     allowedTransfers = self->_allowedTransfers;
     *buf = 67109890;
-    *v46 = v34;
-    *&v46[4] = 1024;
-    *&v46[6] = v36;
-    *v47 = 1024;
-    *&v47[2] = v37;
-    v48 = 2112;
-    v49 = allowedTransfers;
-    _os_log_debug_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "checking access for SAT: %x, RAT: %x, ST: %x against: %@", buf, 0x1Eu);
+    *v47 = v35;
+    *&v47[4] = 1024;
+    *&v47[6] = v37;
+    *v48 = 1024;
+    *&v48[2] = v38;
+    v49 = 2112;
+    v50 = allowedTransfers;
+    _os_log_debug_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "checking access for SAT: %x, RAT: %x, ST: %x against: %@", buf, 0x1Eu);
   }
 
-  v42 = 0u;
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
-  v17 = self->_allowedTransfers;
+  v42 = 0u;
+  v18 = self->_allowedTransfers;
   p_allowedTransfers = &self->_allowedTransfers;
-  v18 = v17;
-  v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v40 objects:v44 count:16];
-  if (!v19)
+  v19 = v18;
+  v20 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v41 objects:v45 count:16];
+  if (!v20)
   {
 
 LABEL_19:
-    v21 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"PID %d is not allowed to connect to this context.", [callerCopy pid]);
-    v33 = [LAErrorHelper errorWithCode:-1007 message:v21];
-    replyCopy[2](replyCopy, 0, v33);
+    v22 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"PID %d is not allowed to connect to this context.", [callerCopy pid]);
+    v34 = [LAErrorHelper errorWithCode:-1007 message:v22];
+    replyCopy[2](replyCopy, 0, v34);
 
     goto LABEL_20;
   }
 
-  v20 = v19;
-  v39 = replyCopy;
-  v21 = 0;
-  v22 = *v41;
+  v21 = v20;
+  v40 = replyCopy;
+  v22 = 0;
+  v23 = *v42;
   do
   {
-    for (i = 0; i != v20; i = i + 1)
+    for (i = 0; i != v21; i = i + 1)
     {
-      if (*v41 != v22)
+      if (*v42 != v23)
       {
-        objc_enumerationMutation(v18);
+        objc_enumerationMutation(v19);
       }
 
-      v24 = *(*(&v40 + 1) + 8 * i);
-      if ([v24 isReceiver:callerCopy allowedToConnectWithServerToken:tokenCopy senderAuditTokenData:dataCopy])
+      v25 = *(*(&v41 + 1) + 8 * i);
+      if ([v25 isReceiver:callerCopy allowedToConnectWithServerToken:tokenCopy senderAuditTokenData:dataCopy])
       {
-        v25 = v24;
+        v26 = v25;
 
-        v21 = v25;
+        v22 = v26;
       }
     }
 
-    v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v40 objects:v44 count:16];
+    v21 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v41 objects:v45 count:16];
   }
 
-  while (v20);
+  while (v21);
 
-  replyCopy = v39;
-  if (!v21)
+  replyCopy = v40;
+  if (!v22)
   {
     goto LABEL_19;
   }
 
-  [(NSMutableArray *)*p_allowedTransfers removeObject:v21];
-  v26 = sub_1000013FC();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+  v27 = sub_1000013FC([(NSMutableArray *)*p_allowedTransfers removeObject:v22]);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
   {
-    sub_100022E6C(p_allowedTransfers, v26, v27, v28, v29, v30, v31, v32);
+    sub_100022E6C(p_allowedTransfers, v27, v28, v29, v30, v31, v32, v33);
   }
 
-  v39[2](v39, 1, 0);
+  v40[2](v40, 1, 0);
 LABEL_20:
 }
 

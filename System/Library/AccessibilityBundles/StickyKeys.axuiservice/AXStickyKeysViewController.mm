@@ -1,5 +1,6 @@
 @interface AXStickyKeysViewController
 - (AXStickyKeysViewController)init;
+- (BOOL)updateWithKeycode:(unsigned __int16)keycode usagePage:(unsigned int)page state:(int64_t)state;
 - (id)_stringForKeycode:(unsigned __int16)keycode usagePage:(unsigned int)page;
 - (void)_removeCapsLockIfNeeded;
 - (void)dealloc;
@@ -49,6 +50,33 @@
 {
   v3 = objc_alloc_init(AXStickyKeysView);
   [(AXStickyKeysViewController *)self setView:v3];
+}
+
+- (BOOL)updateWithKeycode:(unsigned __int16)keycode usagePage:(unsigned int)page state:(int64_t)state
+{
+  v7 = [(AXStickyKeysViewController *)self _stringForKeycode:keycode usagePage:*&page];
+  if (v7)
+  {
+    switch(state)
+    {
+      case 2:
+        _stickyKeysView = [(AXStickyKeysViewController *)self _stickyKeysView];
+        [_stickyKeysView highlightStickyKeyString:v7];
+        goto LABEL_8;
+      case 1:
+        _stickyKeysView = [(AXStickyKeysViewController *)self _stickyKeysView];
+        [_stickyKeysView removeStickyKeyString:v7];
+        goto LABEL_8;
+      case 0:
+        _stickyKeysView = [(AXStickyKeysViewController *)self _stickyKeysView];
+        [_stickyKeysView addStickyKeyString:v7];
+LABEL_8:
+
+        break;
+    }
+  }
+
+  return v7 != 0;
 }
 
 - (void)resetWithCompletion:(id)completion

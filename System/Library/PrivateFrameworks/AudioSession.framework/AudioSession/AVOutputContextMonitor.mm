@@ -10,7 +10,7 @@
 
 - (AVOutputContextMonitor)initWithSessionCore:(weak_ptr<avas:(id)core :client::SessionCore>)a3 routingContextUID:
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a3.__cntrl_;
   v6 = v5;
   if (!v5)
@@ -22,9 +22,9 @@
     }
 
     *buf = 136315394;
-    v20 = "AVOutputContextMonitor.mm";
-    v21 = 1024;
-    v22 = 24;
+    v19 = "AVOutputContextMonitor.mm";
+    v20 = 1024;
+    v21 = 24;
     v14 = "%25s:%-5d Error - routingContextUID is nil";
 LABEL_11:
     _os_log_impl(&dword_1AC8A4000, v13, OS_LOG_TYPE_ERROR, v14, buf, 0x12u);
@@ -47,16 +47,16 @@ LABEL_11:
     }
 
     *buf = 136315394;
-    v20 = "AVOutputContextMonitor.mm";
-    v21 = 1024;
-    v22 = 28;
+    v19 = "AVOutputContextMonitor.mm";
+    v20 = 1024;
+    v21 = 28;
     v14 = "%25s:%-5d Error - client-side caching is disabled";
     goto LABEL_11;
   }
 
-  v18.receiver = self;
-  v18.super_class = AVOutputContextMonitor;
-  v7 = [(AVOutputContextMonitor *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = AVOutputContextMonitor;
+  v7 = [(AVOutputContextMonitor *)&v17 init];
   v8 = v7;
   if (v7)
   {
@@ -76,14 +76,14 @@ LABEL_13:
       goto LABEL_14;
     }
 
-    v17 = *avas::client::gSessionClientLog(v11);
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v16 = *avas::client::gSessionClientLog(v11);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v20 = "AVOutputContextMonitor.mm";
-      v21 = 1024;
-      v22 = 38;
-      _os_log_impl(&dword_1AC8A4000, v17, OS_LOG_TYPE_ERROR, "%25s:%-5d Error in creating AVOutputContext", buf, 0x12u);
+      v19 = "AVOutputContextMonitor.mm";
+      v20 = 1024;
+      v21 = 38;
+      _os_log_impl(&dword_1AC8A4000, v16, OS_LOG_TYPE_ERROR, "%25s:%-5d Error in creating AVOutputContext", buf, 0x12u);
     }
 
     self = v8;
@@ -94,7 +94,6 @@ LABEL_12:
 
 LABEL_14:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -113,7 +112,7 @@ LABEL_14:
 
 - (void)handleAVOutputContextOutputDeviceChange:(id)change
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   cntrl = self->mSessionCore.__cntrl_;
   if (cntrl)
@@ -128,13 +127,13 @@ LABEL_14:
         v8 = *avas::client::gSessionClientLog(cntrl);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
-          v13 = 136315650;
-          v14 = "AVOutputContextMonitor.mm";
-          v15 = 1024;
-          v16 = 78;
-          v17 = 1024;
-          v18 = avas::client::SessionCore::sessionID(ptr);
-          _os_log_impl(&dword_1AC8A4000, v8, OS_LOG_TYPE_INFO, "%25s:%-5d Received AVOutputContextOutputDeviceChange for session 0x%x", &v13, 0x18u);
+          v12 = 136315650;
+          v13 = "AVOutputContextMonitor.mm";
+          v14 = 1024;
+          v15 = 78;
+          v16 = 1024;
+          v17 = avas::client::SessionCore::sessionID(ptr);
+          _os_log_impl(&dword_1AC8A4000, v8, OS_LOG_TYPE_INFO, "%25s:%-5d Received AVOutputContextOutputDeviceChange for session 0x%x", &v12, 0x18u);
         }
 
         v9 = *(ptr + 12);
@@ -156,11 +155,11 @@ LABEL_11:
   v11 = *avas::client::gSessionClientLog(cntrl);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v13 = 136315394;
-    v14 = "AVOutputContextMonitor.mm";
-    v15 = 1024;
-    v16 = 75;
-    _os_log_impl(&dword_1AC8A4000, v11, OS_LOG_TYPE_INFO, "%25s:%-5d Received AVOutputContextOutputDeviceChange but session expired", &v13, 0x12u);
+    v12 = 136315394;
+    v13 = "AVOutputContextMonitor.mm";
+    v14 = 1024;
+    v15 = 75;
+    _os_log_impl(&dword_1AC8A4000, v11, OS_LOG_TYPE_INFO, "%25s:%-5d Received AVOutputContextOutputDeviceChange but session expired", &v12, 0x12u);
   }
 
   if (v6)
@@ -169,13 +168,11 @@ LABEL_11:
   }
 
 LABEL_12:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleAVOutputContextOutputDevicesChange:(id)change
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   cntrl = self->mSessionCore.__cntrl_;
   if (cntrl)
@@ -190,13 +187,13 @@ LABEL_12:
         v8 = *avas::client::gSessionClientLog(cntrl);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
-          v13 = 136315650;
-          v14 = "AVOutputContextMonitor.mm";
-          v15 = 1024;
-          v16 = 92;
-          v17 = 1024;
-          v18 = avas::client::SessionCore::sessionID(ptr);
-          _os_log_impl(&dword_1AC8A4000, v8, OS_LOG_TYPE_INFO, "%25s:%-5d Received AVOutputContextOutputDevicesChange for session 0x%x", &v13, 0x18u);
+          v12 = 136315650;
+          v13 = "AVOutputContextMonitor.mm";
+          v14 = 1024;
+          v15 = 92;
+          v16 = 1024;
+          v17 = avas::client::SessionCore::sessionID(ptr);
+          _os_log_impl(&dword_1AC8A4000, v8, OS_LOG_TYPE_INFO, "%25s:%-5d Received AVOutputContextOutputDevicesChange for session 0x%x", &v12, 0x18u);
         }
 
         v9 = *(ptr + 12);
@@ -218,11 +215,11 @@ LABEL_11:
   v11 = *avas::client::gSessionClientLog(cntrl);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v13 = 136315394;
-    v14 = "AVOutputContextMonitor.mm";
-    v15 = 1024;
-    v16 = 87;
-    _os_log_impl(&dword_1AC8A4000, v11, OS_LOG_TYPE_INFO, "%25s:%-5d Received AVOutputContextOutputDevicesChange but session expired", &v13, 0x12u);
+    v12 = 136315394;
+    v13 = "AVOutputContextMonitor.mm";
+    v14 = 1024;
+    v15 = 87;
+    _os_log_impl(&dword_1AC8A4000, v11, OS_LOG_TYPE_INFO, "%25s:%-5d Received AVOutputContextOutputDevicesChange but session expired", &v12, 0x12u);
   }
 
   if (v6)
@@ -231,8 +228,6 @@ LABEL_11:
   }
 
 LABEL_12:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id).cxx_construct

@@ -11,8 +11,13 @@
 - (float)volumeScalarMappedToHWCurve:(float)curve;
 - (id)lazyInitRoomCongruenceInterface;
 - (id)lazyInitSessionInterface;
+- (id)streamInfoForIndex:(unsigned int)index direction:(unsigned __int8)direction;
+- (int)fadeClientsInSession:(unsigned int)session activating:(BOOL)activating fadeLevel:(float)level fadeTime:(float)time;
+- (int)muteAudioSessionBidirectional:(unsigned int)bidirectional mute:(BOOL)mute inputFadeTime:(float)time outputFadeTime:(float)fadeTime;
+- (int)muteSessionInput:(unsigned int)input mute:(BOOL)mute fadeTime:(float)time;
 - (unsigned)bufferFrameSize;
 - (unsigned)deviceLatencyInFramesForDirection:(unsigned __int8)direction;
+- (void)activateSession:(unsigned int)session activate:(BOOL)activate;
 - (void)dealloc;
 - (void)lazyInitServerManager;
 - (void)refreshInputMuteOnAllSessions:(float)sessions;
@@ -23,78 +28,105 @@
 
 - (OS_os_workgroup)workgroup
 {
-  v11[8] = *MEMORY[0x1E69E9840];
+  v9[8] = *MEMORY[0x1E69E9840];
   lazyInitServerManager = [(ATPhasePlatform *)self lazyInitServerManager];
   v3 = *lazyInitServerManager;
   if (*lazyInitServerManager)
   {
     v4 = lazyInitServerManager;
-    v5 = *(*v3[3] + 32);
     os_unfair_recursive_lock_lock_with_options();
-    v6 = ((*v3)[51])(v3, v4 + 3);
-    (*(*v6 + 88))(v11);
-    v8 = caulk::mach::details::retain_os_object(v11[1], v7);
-    caulk::mach::os_workgroup_managed::~os_workgroup_managed(v11);
+    v5 = (*(*v3 + 408))(v3, v4 + 3);
+    (*(*v5 + 88))(v9);
+    v7 = caulk::mach::details::retain_os_object(v9[1], v6);
+    caulk::mach::os_workgroup_managed::~os_workgroup_managed(v9);
     os_unfair_recursive_lock_unlock();
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
-  return v8;
+  return v7;
 }
 
 - (float)volumeScalarMappedToHWCurve:(float)curve
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   ptr = self->_serverManager.__ptr_;
   if (ptr)
   {
     v5 = *ptr;
     if (*ptr)
     {
-      v6 = *(*v5[3] + 32);
       os_unfair_recursive_lock_lock_with_options();
-      v7 = ((*v5)[51])(v5, ptr + 24);
-      v8.n128_u32[0] = 1.0;
+      v6 = (*(*v5 + 408))(v5, ptr + 24);
+      v7.n128_u32[0] = 1.0;
       if (curve <= 1.0)
       {
-        v8.n128_f32[0] = curve;
+        v7.n128_f32[0] = curve;
       }
 
       if (curve < 0.0)
       {
-        v8.n128_f32[0] = 0.0;
+        v7.n128_f32[0] = 0.0;
       }
 
-      v9 = (*(*v7 + 176))(v7, v8);
+      v8 = (*(*v6 + 176))(v6, v7);
       os_unfair_recursive_lock_unlock();
-      v10 = gPhaseManagerLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v9 = gPhaseManagerLog();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        v13 = 136316162;
-        v14 = "PhaseServerManager.mm";
-        v15 = 1024;
-        v16 = 239;
+        v11 = 136316162;
+        v12 = "PhaseServerManager.mm";
+        v13 = 1024;
+        v14 = 239;
+        v15 = 2048;
+        v16 = ptr;
         v17 = 2048;
-        v18 = ptr;
-        v19 = 2048;
         curveCopy = curve;
-        v21 = 2048;
-        v22 = v9;
-        _os_log_impl(&dword_1B9A08000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d servermgr@%p: volume %.3f, HW mapped volume %.3f", &v13, 0x30u);
+        v19 = 2048;
+        v20 = v8;
+        _os_log_impl(&dword_1B9A08000, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d servermgr@%p: volume %.3f, HW mapped volume %.3f", &v11, 0x30u);
       }
 
-      curve = v9;
+      return v8;
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return curve;
+}
+
+- (int)muteAudioSessionBidirectional:(unsigned int)bidirectional mute:(BOOL)mute inputFadeTime:(float)time outputFadeTime:(float)fadeTime
+{
+  muteCopy = mute;
+  v8 = *&bidirectional;
+  v10 = [ATPhasePlatform muteSessionInput:"muteSessionInput:mute:fadeTime:" mute:? fadeTime:?];
+  LODWORD(v11) = 1.0;
+  if (muteCopy)
+  {
+    *&v11 = 0.0;
+  }
+
+  return [(ATPhasePlatform *)self fadeClientsInSession:v8 activating:0 fadeLevel:v11 fadeTime:COERCE_DOUBLE(LODWORD(fadeTime))]+ v10;
+}
+
+- (int)muteSessionInput:(unsigned int)input mute:(BOOL)mute fadeTime:(float)time
+{
+  muteCopy = mute;
+  v7 = *&input;
+  lazyInitSessionInterface = [(ATPhasePlatform *)self lazyInitSessionInterface];
+
+  if (!lazyInitSessionInterface)
+  {
+    return 0;
+  }
+
+  lazyInitSessionInterface2 = [(ATPhasePlatform *)self lazyInitSessionInterface];
+  *&v11 = time;
+  v12 = [lazyInitSessionInterface2 muteSessionInput:v7 mute:muteCopy fadeTime:v11];
+
+  return v12;
 }
 
 - (void)refreshInputMuteOnAllSessions:(float)sessions
@@ -109,9 +141,41 @@
   }
 }
 
+- (void)activateSession:(unsigned int)session activate:(BOOL)activate
+{
+  activateCopy = activate;
+  v5 = *&session;
+  lazyInitSessionInterface = [(ATPhasePlatform *)self lazyInitSessionInterface];
+
+  if (lazyInitSessionInterface)
+  {
+    lazyInitSessionInterface2 = [(ATPhasePlatform *)self lazyInitSessionInterface];
+    [lazyInitSessionInterface2 activateSession:v5 activate:activateCopy];
+  }
+}
+
+- (int)fadeClientsInSession:(unsigned int)session activating:(BOOL)activating fadeLevel:(float)level fadeTime:(float)time
+{
+  activatingCopy = activating;
+  v9 = *&session;
+  lazyInitSessionInterface = [(ATPhasePlatform *)self lazyInitSessionInterface];
+
+  if (!lazyInitSessionInterface)
+  {
+    return 0;
+  }
+
+  lazyInitSessionInterface2 = [(ATPhasePlatform *)self lazyInitSessionInterface];
+  *&v13 = level;
+  *&v14 = time;
+  v15 = [lazyInitSessionInterface2 fadeClientsInSession:v9 activating:activatingCopy fadeLevel:v13 fadeTime:v14];
+
+  return v15;
+}
+
 - (void)registerTapInterface:(id)interface
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   interfaceCopy = interface;
   tapInterface = self->_tapInterface;
   if (tapInterface != interfaceCopy)
@@ -121,13 +185,13 @@
       v7 = gPhaseManagerLog();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v9 = 136315650;
-        v10 = "ATPhasePlatform.mm";
-        v11 = 1024;
-        v12 = 781;
-        v13 = 2048;
+        v8 = 136315650;
+        v9 = "ATPhasePlatform.mm";
+        v10 = 1024;
+        v11 = 781;
+        v12 = 2048;
         selfCopy = self;
-        _os_log_impl(&dword_1B9A08000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d platform@%p: error: cannot override tapsInterface", &v9, 0x1Cu);
+        _os_log_impl(&dword_1B9A08000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d platform@%p: error: cannot override tapsInterface", &v8, 0x1Cu);
       }
     }
 
@@ -136,51 +200,48 @@
       objc_storeStrong(&self->_tapInterface, interface);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)stop
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = gPhaseManagerLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315650;
-    v7 = "ATPhasePlatform.mm";
-    v8 = 1024;
-    v9 = 764;
-    v10 = 2048;
+    v5 = 136315650;
+    v6 = "ATPhasePlatform.mm";
+    v7 = 1024;
+    v8 = 764;
+    v9 = 2048;
     selfCopy = self;
-    _os_log_impl(&dword_1B9A08000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d platform@%p: stopping IO", &v6, 0x1Cu);
+    _os_log_impl(&dword_1B9A08000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d platform@%p: stopping IO", &v5, 0x1Cu);
   }
 
   Phase::ServerManager::stop([(ATPhasePlatform *)self lazyInitServerManager]);
-  v4 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (BOOL)start
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   lazyInitServerManager = [(ATPhasePlatform *)self lazyInitServerManager];
   v4 = lazyInitServerManager;
   sessionInterface_high = HIDWORD(lazyInitServerManager->_sessionInterface);
   if ((sessionInterface_high & 3) == 0)
   {
-    v8 = -66681;
-    v9 = gPhaseManagerLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v7 = -66681;
+    v8 = gPhaseManagerLog();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       buf[0] = 136315906;
       *&buf[1] = "PhaseServerManager.mm";
-      v31 = 1024;
-      v32 = 427;
-      v33 = 2048;
+      v29 = 1024;
+      v30 = 427;
+      v31 = 2048;
       selfCopy2 = v4;
-      v35 = 1024;
-      v36 = -66681;
-      _os_log_impl(&dword_1B9A08000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d servermgr@%p: both input and output are disabled, err = %d", buf, 0x22u);
+      v33 = 1024;
+      v34 = -66681;
+      _os_log_impl(&dword_1B9A08000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d servermgr@%p: both input and output are disabled, err = %d", buf, 0x22u);
     }
 
     goto LABEL_14;
@@ -188,19 +249,19 @@
 
   if (!lazyInitServerManager[16]._tapInterface)
   {
-    v8 = -66681;
-    v9 = gPhaseManagerLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v7 = -66681;
+    v8 = gPhaseManagerLog();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       buf[0] = 136315906;
       *&buf[1] = "PhaseServerManager.mm";
-      v31 = 1024;
-      v32 = 434;
-      v33 = 2048;
+      v29 = 1024;
+      v30 = 434;
+      v31 = 2048;
       selfCopy2 = v4;
-      v35 = 1024;
-      v36 = -66681;
-      _os_log_impl(&dword_1B9A08000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d servermgr@%p: IOBlock is nil, err = %d", buf, 0x22u);
+      v33 = 1024;
+      v34 = -66681;
+      _os_log_impl(&dword_1B9A08000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d servermgr@%p: IOBlock is nil, err = %d", buf, 0x22u);
     }
 
     goto LABEL_14;
@@ -208,19 +269,19 @@
 
   if (!lazyInitServerManager->super.isa)
   {
-    v8 = -66681;
-    v9 = gPhaseManagerLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v7 = -66681;
+    v8 = gPhaseManagerLog();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       buf[0] = 136315906;
       *&buf[1] = "PhaseServerManager.mm";
-      v31 = 1024;
-      v32 = 440;
-      v33 = 2048;
+      v29 = 1024;
+      v30 = 440;
+      v31 = 2048;
       selfCopy2 = v4;
-      v35 = 1024;
-      v36 = -66681;
-      _os_log_impl(&dword_1B9A08000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d servermgr@%p: error initializing, err = %d", buf, 0x22u);
+      v33 = 1024;
+      v34 = -66681;
+      _os_log_impl(&dword_1B9A08000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d servermgr@%p: error initializing, err = %d", buf, 0x22u);
     }
 
 LABEL_14:
@@ -232,25 +293,24 @@ LABEL_14:
   {
     Phase::ServerManager::maxBufferSizeFrames(lazyInitServerManager);
     std::__optional_destruct_base<CA::AudioBuffersBase,false>::reset[abi:ne200100](&v4[18]);
-    isa_high = HIDWORD(v4[11].super.isa);
-    v7 = ExtendedAudioBufferList_Create();
-    CA::AudioBuffersBase::AudioBuffersBase(&v4[18].super.isa, v7);
+    v6 = ExtendedAudioBufferList_Create();
+    CA::AudioBuffersBase::AudioBuffersBase(&v4[18].super.isa, v6, 1);
     LOBYTE(v4[18]._serverManager.__ptr_) = 1;
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x2020000000;
-    v25 = 0;
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x2020000000;
+    v23 = 0;
     goto LABEL_16;
   }
 
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
-  v25 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 0;
   if ((sessionInterface_high & 2) != 0)
   {
 LABEL_16:
-    (*(v4[8]._tapInterface + 8))(&v21);
+    (*(v4[8]._tapInterface + 8))(&v19);
     operator new();
   }
 
@@ -264,85 +324,84 @@ LABEL_16:
     dispatch_once(&AudioControlQueue(void)::once, &__block_literal_global_8);
   }
 
-  v10 = AudioControlQueue(void)::gAudioControlQueue;
+  v9 = AudioControlQueue(void)::gAudioControlQueue;
   __p[0] = MEMORY[0x1E69E9820];
   __p[1] = 3221225472;
   __p[2] = ___ZN5Phase13ServerManager5startEv_block_invoke_30;
   __p[3] = &unk_1E7ED0258;
-  __p[4] = &v22;
+  __p[4] = &v20;
   __p[5] = v4;
-  AT::DispatchBlock(v10, __p, 0, "start", "PhaseServerManager.mm", 479);
+  AT::DispatchBlock(v9, __p, 0, "start", "PhaseServerManager.mm", 479);
 
-  if (*(v23 + 6))
+  if (*(v21 + 6))
   {
     Phase::ServerManager::stop(v4);
-    v11 = gPhaseManagerLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v10 = gPhaseManagerLog();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v12 = *(v23 + 6);
-      v26[0] = 136315906;
-      *&v26[1] = "PhaseServerManager.mm";
-      LOWORD(v26[3]) = 1024;
-      *(&v26[3] + 2) = 484;
-      HIWORD(v26[4]) = 2048;
-      *&v26[5] = v4;
-      v27 = 1024;
-      v28 = v12;
-      _os_log_impl(&dword_1B9A08000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d servermgr@%p: could not start output client, err = %d", v26, 0x22u);
+      v11 = *(v21 + 6);
+      v24[0] = 136315906;
+      *&v24[1] = "PhaseServerManager.mm";
+      LOWORD(v24[3]) = 1024;
+      *(&v24[3] + 2) = 484;
+      HIWORD(v24[4]) = 2048;
+      *&v24[5] = v4;
+      v25 = 1024;
+      v26 = v11;
+      _os_log_impl(&dword_1B9A08000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d servermgr@%p: could not start output client, err = %d", v24, 0x22u);
     }
 
-    v8 = *(v23 + 6);
+    v7 = *(v21 + 6);
   }
 
   else
   {
 LABEL_24:
-    v8 = 0;
+    v7 = 0;
     LOBYTE(v4->_sessionInterface) = 1;
   }
 
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v20, 8);
 LABEL_26:
-  v13 = gPhaseManagerLog();
-  v14 = v13;
-  if (v8)
+  v12 = gPhaseManagerLog();
+  v13 = v12;
+  if (v7)
   {
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       buf[0] = 136315906;
       *&buf[1] = "ATPhasePlatform.mm";
-      v31 = 1024;
-      v32 = 755;
-      v33 = 2048;
+      v29 = 1024;
+      v30 = 755;
+      v31 = 2048;
       selfCopy2 = self;
-      v35 = 1024;
-      v36 = v8;
-      v15 = "%25s:%-5d platform@%p: failed to start IO, err = %d";
-      v16 = v14;
-      v17 = OS_LOG_TYPE_ERROR;
-      v18 = 34;
+      v33 = 1024;
+      v34 = v7;
+      v14 = "%25s:%-5d platform@%p: failed to start IO, err = %d";
+      v15 = v13;
+      v16 = OS_LOG_TYPE_ERROR;
+      v17 = 34;
 LABEL_31:
-      _os_log_impl(&dword_1B9A08000, v16, v17, v15, buf, v18);
+      _os_log_impl(&dword_1B9A08000, v15, v16, v14, buf, v17);
     }
   }
 
-  else if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     buf[0] = 136315650;
     *&buf[1] = "ATPhasePlatform.mm";
-    v31 = 1024;
-    v32 = 751;
-    v33 = 2048;
+    v29 = 1024;
+    v30 = 751;
+    v31 = 2048;
     selfCopy2 = self;
-    v15 = "%25s:%-5d platform@%p: successfully started IO";
-    v16 = v14;
-    v17 = OS_LOG_TYPE_DEFAULT;
-    v18 = 28;
+    v14 = "%25s:%-5d platform@%p: successfully started IO";
+    v15 = v13;
+    v16 = OS_LOG_TYPE_DEFAULT;
+    v17 = 28;
     goto LABEL_31;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-  return v8 == 0;
+  return v7 == 0;
 }
 
 - (BOOL)registerRouteChangeNotification:(id)notification
@@ -370,30 +429,28 @@ LABEL_31:
 
 - (BOOL)registerOverloadNotification:(id)notification
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (notification)
   {
     v5 = gPhaseManagerLog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315650;
-      v9 = "ATPhasePlatform.mm";
-      v10 = 1024;
-      v11 = 735;
-      v12 = 2048;
+      v7 = 136315650;
+      v8 = "ATPhasePlatform.mm";
+      v9 = 1024;
+      v10 = 735;
+      v11 = 2048;
       selfCopy = self;
-      _os_log_impl(&dword_1B9A08000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d platform@%p: registering overload notification not supported yet!", &v8, 0x1Cu);
+      _os_log_impl(&dword_1B9A08000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d platform@%p: registering overload notification not supported yet!", &v7, 0x1Cu);
     }
   }
 
-  result = notification == 0;
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return notification == 0;
 }
 
 - (BOOL)registerIOBlock:(id)block
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   lazyInitServerManager = [(ATPhasePlatform *)self lazyInitServerManager];
   v6 = blockCopy;
@@ -403,15 +460,15 @@ LABEL_31:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = _Block_copy(v6);
-      v16 = 136315906;
-      v17 = "PhaseServerManager.mm";
-      v18 = 1024;
-      v19 = 146;
-      v20 = 2048;
-      v21 = lazyInitServerManager;
-      v22 = 2048;
-      v23 = v8;
-      _os_log_impl(&dword_1B9A08000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d servermgr@%p: cannot set the block@%p when IO is running!", &v16, 0x26u);
+      v15 = 136315906;
+      v16 = "PhaseServerManager.mm";
+      v17 = 1024;
+      v18 = 146;
+      v19 = 2048;
+      v20 = lazyInitServerManager;
+      v21 = 2048;
+      v22 = v8;
+      _os_log_impl(&dword_1B9A08000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d servermgr@%p: cannot set the block@%p when IO is running!", &v15, 0x26u);
     }
 
     if (!lazyInitServerManager[83])
@@ -444,8 +501,120 @@ LABEL_31:
     v9 = 1;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v9;
+}
+
+- (id)streamInfoForIndex:(unsigned int)index direction:(unsigned __int8)direction
+{
+  directionCopy = direction;
+  v6 = Phase::ServerManager::ioFormat([(ATPhasePlatform *)self lazyInitServerManager], direction);
+  v7 = Phase::ServerManager::deviceLatencyInFrames([(ATPhasePlatform *)self lazyInitServerManager], directionCopy);
+  memset(v29, 0, sizeof(v29));
+  v26 = 0;
+  v27 = 0;
+  v28 = 0;
+  lazyInitServerManager = [(ATPhasePlatform *)self lazyInitServerManager];
+  v9 = *lazyInitServerManager;
+  if (*lazyInitServerManager)
+  {
+    v10 = directionCopy ? 344 : 24;
+    os_unfair_recursive_lock_lock_with_options();
+    v11 = (*(*v9 + 408))(v9, lazyInitServerManager + v10);
+    v12 = directionCopy ? 65 : 1;
+    v13 = (*(*v11 + 296))(v11, v12, &v26);
+    os_unfair_recursive_lock_unlock();
+    if (v13)
+    {
+      if (v26 != v27)
+      {
+        std::vector<unsigned int>::vector[abi:ne200100](v25, 0xAAAAAAAAAAAAAAABLL * ((v27 - v26) >> 2));
+        std::vector<unsigned int>::vector[abi:ne200100](__p, 0xAAAAAAAAAAAAAAABLL * ((v27 - v26) >> 2));
+        if (v27 != v26)
+        {
+          v14 = 0xAAAAAAAAAAAAAAABLL * ((v27 - v26) >> 2);
+          v15 = v25[0];
+          v16 = __p[0];
+          if (v14 <= 1)
+          {
+            v14 = 1;
+          }
+
+          v17 = v26 + 4;
+          do
+          {
+            *v15 = *(v17 - 1);
+            if (v17[4] == 1)
+            {
+              v18 = *v17;
+            }
+
+            else
+            {
+              v18 = 0;
+            }
+
+            *v16++ = v18;
+            ++v15;
+            v17 += 12;
+            --v14;
+          }
+
+          while (v14);
+        }
+
+        applesauce::CF::TypeRefPair::TypeRefPair<char const*,std::vector<unsigned int> &>(&v22, [@"port type" UTF8String], v25);
+        std::vector<applesauce::CF::TypeRefPair>::push_back[abi:ne200100](v29, &v22);
+        if (cf)
+        {
+          CFRelease(cf);
+        }
+
+        if (v22)
+        {
+          CFRelease(v22);
+        }
+
+        applesauce::CF::TypeRefPair::TypeRefPair<char const*,std::vector<unsigned int> &>(&v22, [@"port subtype" UTF8String], __p);
+        std::vector<applesauce::CF::TypeRefPair>::push_back[abi:ne200100](v29, &v22);
+        if (cf)
+        {
+          CFRelease(cf);
+        }
+
+        if (v22)
+        {
+          CFRelease(v22);
+        }
+
+        if (__p[0])
+        {
+          __p[1] = __p[0];
+          operator delete(__p[0]);
+        }
+
+        if (v25[0])
+        {
+          v25[1] = v25[0];
+          operator delete(v25[0]);
+        }
+      }
+    }
+  }
+
+  CFDictionaryRef = applesauce::CF::details::make_CFDictionaryRef(v29);
+  v25[0] = CFDictionaryRef;
+  v20 = [[PHASEStreamInfoImpl alloc] initWithFormat:v6 latencyInFrames:v7 streamDescription:CFDictionaryRef];
+  CFRelease(CFDictionaryRef);
+  if (v26)
+  {
+    v27 = v26;
+    operator delete(v26);
+  }
+
+  v26 = v29;
+  std::vector<applesauce::CF::TypeRefPair>::__destroy_vector::operator()[abi:ne200100](&v26);
+
+  return v20;
 }
 
 - (unsigned)deviceLatencyInFramesForDirection:(unsigned __int8)direction
@@ -521,14 +690,13 @@ LABEL_31:
 
 - (void)lazyInitServerManager
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   result = self->_serverManager.__ptr_;
   if (!result)
   {
     operator new();
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 

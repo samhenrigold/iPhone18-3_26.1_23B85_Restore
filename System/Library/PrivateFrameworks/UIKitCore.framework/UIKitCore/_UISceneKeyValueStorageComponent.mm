@@ -69,9 +69,10 @@
   *(&self->super.super.isa + OBJC_IVAR____TtC5UIKit32_UISceneKeyValueStorageComponent____lazy_storage___controller) = 0;
   *(&self->super.super.isa + OBJC_IVAR____TtC5UIKit32_UISceneKeyValueStorageComponent____lazy_storage___hostInterface) = 0;
   *(&self->super.super.isa + OBJC_IVAR____TtC5UIKit32_UISceneKeyValueStorageComponent____lazy_storage___clientInterface) = 0;
-  v3.receiver = self;
-  v3.super_class = type metadata accessor for _UISceneKeyValueStorageComponent();
-  return [(_UISceneKeyValueStorageComponent *)&v3 init];
+  v3 = type metadata accessor for _UISceneKeyValueStorageComponent();
+  v6.receiver = self;
+  v6.super_class = v4;
+  return [(_UISceneKeyValueStorageComponent *)&v6 init];
 }
 
 @end

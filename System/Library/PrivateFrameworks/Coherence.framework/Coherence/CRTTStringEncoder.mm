@@ -18,103 +18,98 @@
 {
   v6 = sub_1AE23BFEC();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v10 = &v12 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1AE23BF9C();
   selfCopy = self;
-  sub_1ADF8BA0C(v10, clock);
+  sub_1ADF8BA0C(v9, clock);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)addAddedById:(id)id clock:(unsigned int)clock
 {
   v6 = sub_1AE23BFEC();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v10 = &v20 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1AE23BF9C();
-  v11 = *(&self->super.isa + OBJC_IVAR____TtC9Coherence17CRTTStringEncoder_encoder);
   selfCopy = self;
 
-  v13 = sub_1ADDF66A8(v10);
+  v11 = sub_1ADDF66A8(v9);
 
-  v14 = selfCopy + OBJC_IVAR____TtC9Coherence17CRTTStringEncoder_subsequence;
-  v15 = *&selfCopy->sequence[OBJC_IVAR____TtC9Coherence17CRTTStringEncoder_subsequence];
+  v12 = selfCopy + OBJC_IVAR____TtC9Coherence17CRTTStringEncoder_subsequence[0];
+  v13 = *&selfCopy->sequence[OBJC_IVAR____TtC9Coherence17CRTTStringEncoder_subsequence[0]];
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  *(v14 + 1) = v15;
+  *(v12 + 1) = v13;
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v15 = sub_1ADE55F70(0, *(v15 + 2) + 1, 1, v15);
-    *(v14 + 1) = v15;
+    v13 = sub_1ADE55F70(0, *(v13 + 2) + 1, 1, v13);
+    *(v12 + 1) = v13;
   }
 
-  v18 = *(v15 + 2);
-  v17 = *(v15 + 3);
-  if (v18 >= v17 >> 1)
+  v16 = *(v13 + 2);
+  v15 = *(v13 + 3);
+  if (v16 >= v15 >> 1)
   {
-    v15 = sub_1ADE55F70((v17 > 1), v18 + 1, 1, v15);
+    v13 = sub_1ADE55F70((v15 > 1), v16 + 1, 1, v13);
   }
 
-  *(v15 + 2) = v18 + 1;
-  v19 = &v15[16 * v18];
-  *(v19 + 4) = v13;
-  *(v19 + 5) = clock;
-  *(v14 + 1) = v15;
-  (*(v7 + 8))(v10, v6);
+  *(v13 + 2) = v16 + 1;
+  v17 = &v13[16 * v16];
+  *(v17 + 4) = v11;
+  *(v17 + 5) = clock;
+  *(v12 + 1) = v13;
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)addRemovedAddedById:(id)id clock:(unsigned int)clock
 {
   v6 = sub_1AE23BFEC();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v10 = &v20 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1AE23BF9C();
-  v11 = *(&self->super.isa + OBJC_IVAR____TtC9Coherence17CRTTStringEncoder_encoder);
   selfCopy = self;
 
-  v13 = sub_1ADDF66A8(v10);
+  v11 = sub_1ADDF66A8(v9);
 
-  v14 = selfCopy + OBJC_IVAR____TtC9Coherence17CRTTStringEncoder_subsequence;
-  v15 = *&selfCopy->sequence[OBJC_IVAR____TtC9Coherence17CRTTStringEncoder_subsequence + 16];
+  v12 = selfCopy + OBJC_IVAR____TtC9Coherence17CRTTStringEncoder_subsequence[0];
+  v13 = *&selfCopy->sequence[OBJC_IVAR____TtC9Coherence17CRTTStringEncoder_subsequence[0] + 16];
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  *(v14 + 3) = v15;
+  *(v12 + 3) = v13;
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v15 = sub_1ADE55F70(0, *(v15 + 2) + 1, 1, v15);
-    *(v14 + 3) = v15;
+    v13 = sub_1ADE55F70(0, *(v13 + 2) + 1, 1, v13);
+    *(v12 + 3) = v13;
   }
 
-  v18 = *(v15 + 2);
-  v17 = *(v15 + 3);
-  if (v18 >= v17 >> 1)
+  v16 = *(v13 + 2);
+  v15 = *(v13 + 3);
+  if (v16 >= v15 >> 1)
   {
-    v15 = sub_1ADE55F70((v17 > 1), v18 + 1, 1, v15);
+    v13 = sub_1ADE55F70((v15 > 1), v16 + 1, 1, v13);
   }
 
-  *(v15 + 2) = v18 + 1;
-  v19 = &v15[16 * v18];
-  *(v19 + 4) = v13;
-  *(v19 + 5) = clock;
-  *(v14 + 3) = v15;
-  (*(v7 + 8))(v10, v6);
+  *(v13 + 2) = v16 + 1;
+  v17 = &v13[16 * v16];
+  *(v17 + 4) = v11;
+  *(v17 + 5) = clock;
+  *(v12 + 3) = v13;
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)setWithContentOptions:(int64_t)options
 {
-  v3 = self + OBJC_IVAR____TtC9Coherence17CRTTStringEncoder_subsequence;
+  v3 = self + OBJC_IVAR____TtC9Coherence17CRTTStringEncoder_subsequence[0];
   *(v3 + 4) = options;
   v3[40] = options < 3;
 }
 
 - (void)addChildWithId:(unsigned int)id
 {
-  v4 = self + OBJC_IVAR____TtC9Coherence17CRTTStringEncoder_subsequence;
-  v5 = *&self->sequence[OBJC_IVAR____TtC9Coherence17CRTTStringEncoder_subsequence + 8];
+  v4 = self + OBJC_IVAR____TtC9Coherence17CRTTStringEncoder_subsequence[0];
+  v5 = *&self->sequence[OBJC_IVAR____TtC9Coherence17CRTTStringEncoder_subsequence[0] + 8];
   selfCopy = self;
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
   *(v4 + 2) = v5;
@@ -153,7 +148,7 @@
 {
   versionCopy = version;
   selfCopy = self;
-  sub_1ADF8C3E4();
+  sub_1ADF8C3E4(versionCopy);
 }
 
 - (void)setFromVersion:(id)version

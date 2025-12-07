@@ -192,7 +192,7 @@ LABEL_11:
 - (id)_arrowViewForArrowLocation:(int64_t)location arrowSize:(double)size
 {
   v7 = MEMORY[0x1E69DCAB8];
-  v8 = SBHBundle();
+  v8 = SBHBundle(self);
   v9 = [v7 imageNamed:@"PopoverArrow" inBundle:v8];
 
   v10 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithImage:v9];

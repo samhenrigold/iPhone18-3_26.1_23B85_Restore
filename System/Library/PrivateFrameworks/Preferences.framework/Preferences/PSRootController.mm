@@ -73,7 +73,7 @@
 - (void)sendWillBecomeActive
 {
   v7 = *MEMORY[0x1E69E9840];
-  v3 = _PSLoggingFacility();
+  v3 = _PSLoggingFacility(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315138;
@@ -88,87 +88,89 @@
 
 + (void)writePreference:(id)preference
 {
-  v51[1] = *MEMORY[0x1E69E9840];
+  v60[1] = *MEMORY[0x1E69E9840];
   preferenceCopy = preference;
   v4 = [preferenceCopy propertyForKey:@"key"];
   v5 = [preferenceCopy propertyForKey:@"defaults"];
   v6 = [preferenceCopy propertyForKey:@"containerBundleID"];
+  v7 = v6;
   if (v5)
   {
-    v7 = v4 == 0;
+    v8 = v4 == 0;
   }
 
   else
   {
-    v7 = 1;
+    v8 = 1;
   }
 
-  if (v7)
+  if (v8)
   {
-    v8 = _PSLoggingFacility();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _PSLoggingFacility(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_18B008000, v8, OS_LOG_TYPE_DEFAULT, "writePreference: bad dictionary", buf, 2u);
+      _os_log_impl(&dword_18B008000, v9, OS_LOG_TYPE_DEFAULT, "writePreference: bad dictionary", buf, 2u);
     }
   }
 
   else
   {
-    v9 = [preferenceCopy propertyForKey:@"value"];
-    v8 = v9;
-    if (v9 || ([preferenceCopy propertyForKey:@"default"], (v8 = objc_claimAutoreleasedReturnValue()) != 0))
+    v10 = [preferenceCopy propertyForKey:@"value"];
+    v9 = v10;
+    if (v10 || ([preferenceCopy propertyForKey:@"default"], (v9 = objc_claimAutoreleasedReturnValue()) != 0))
     {
-      v10 = [preferenceCopy propertyForKey:@"negate"];
-      bOOLValue = [v10 BOOLValue];
+      v11 = [preferenceCopy propertyForKey:@"negate"];
+      bOOLValue = [v11 BOOLValue];
 
       if (bOOLValue)
       {
-        v12 = [MEMORY[0x1E696AD98] numberWithBool:{-[NSObject BOOLValue](v8, "BOOLValue") ^ 1}];
+        v13 = [MEMORY[0x1E696AD98] numberWithBool:{-[NSObject BOOLValue](v9, "BOOLValue") ^ 1}];
 
-        v8 = v12;
+        v9 = v13;
       }
 
       if ([(__CFString *)v5 isEqualToString:@"STANDARD"])
       {
         standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
-        [standardUserDefaults setObject:v8 forKey:v4];
+        [standardUserDefaults setObject:v9 forKey:v4];
         [standardUserDefaults synchronize];
       }
 
       else
       {
-        v14 = [preferenceCopy propertyForKey:@"isPerGizmo"];
-        bOOLValue2 = [v14 BOOLValue];
+        v15 = [preferenceCopy propertyForKey:@"isPerGizmo"];
+        bOOLValue2 = [v15 BOOLValue];
 
-        v41 = bOOLValue2;
+        v50 = bOOLValue2;
         if (bOOLValue2)
         {
-          v16 = [objc_alloc(getNPSDomainAccessorClass()) initWithDomain:v5];
-          v17 = v16;
-          if (v16)
+          v17 = [objc_alloc(getNPSDomainAccessorClass()) initWithDomain:v5];
+          v18 = v17;
+          if (v17)
           {
-            [v16 setObject:v8 forKey:v4];
-            synchronize = [v17 synchronize];
+            [v17 setObject:v9 forKey:v4];
+            synchronize = [v18 synchronize];
           }
 
           else
           {
-            NSLog(&cfstr_FailedToInstan.isa, v5);
+            v48 = v5;
+            NSLog(&cfstr_FailedToInstan.isa);
           }
         }
 
         else
         {
-          v19 = [preferenceCopy propertyForKey:@"appGroupBundleID"];
+          v20 = [preferenceCopy propertyForKey:@"appGroupBundleID"];
 
-          if (v19 && v6)
+          if (v20 && v7)
           {
-            v40 = [MEMORY[0x1E69635E0] applicationProxyForIdentifier:v5];
-            groupContainerURLs = [v40 groupContainerURLs];
-            v21 = [preferenceCopy propertyForKey:@"appGroupBundleID"];
-            v22 = [groupContainerURLs objectForKey:v21];
-            path = [v22 path];
+            v49 = [MEMORY[0x1E69635E0] applicationProxyForIdentifier:v5];
+            groupContainerURLs = [v49 groupContainerURLs];
+            v22 = [preferenceCopy propertyForKey:@"appGroupBundleID"];
+            v23 = [groupContainerURLs objectForKey:v22];
+            path = [v23 path];
 
             _CFPreferencesSetAppValueWithContainer();
             _CFPreferencesAppSynchronizeWithContainer();
@@ -176,10 +178,10 @@
 
           else
           {
-            if (v6)
+            if (v7)
             {
-              v24 = [MEMORY[0x1E69635E0] applicationProxyForIdentifier:v6];
-              dataContainerURL = [v24 dataContainerURL];
+              v25 = [MEMORY[0x1E69635E0] applicationProxyForIdentifier:v7];
+              dataContainerURL = [v25 dataContainerURL];
               path2 = [dataContainerURL path];
 
               _CFPreferencesSetAppValueWithContainer();
@@ -188,62 +190,62 @@
 
             else
             {
-              v27 = *MEMORY[0x1E695E8B8];
-              v28 = *MEMORY[0x1E695E898];
-              CFPreferencesSetValue(v4, v8, v5, *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E898]);
-              CFPreferencesSynchronize(v5, v27, v28);
+              v28 = *MEMORY[0x1E695E8B8];
+              v29 = *MEMORY[0x1E695E898];
+              CFPreferencesSetValue(v4, v9, v5, *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E898]);
+              CFPreferencesSynchronize(v5, v28, v29);
             }
 
             GSSendAppPreferencesChanged();
           }
         }
 
-        v29 = [preferenceCopy propertyForKey:@"notifyNano"];
-        bOOLValue3 = [v29 BOOLValue];
+        v30 = [preferenceCopy propertyForKey:@"notifyNano"];
+        bOOLValue3 = [v30 BOOLValue];
 
         if (bOOLValue3)
         {
-          v47 = 0;
-          v48 = &v47;
-          v49 = 0x2050000000;
-          v31 = getNPSManagerClass_softClass;
-          v50 = getNPSManagerClass_softClass;
+          v56 = 0;
+          v57 = &v56;
+          v58 = 0x2050000000;
+          v39 = getNPSManagerClass_softClass;
+          v59 = getNPSManagerClass_softClass;
           if (!getNPSManagerClass_softClass)
           {
             *buf = MEMORY[0x1E69E9820];
-            v43 = 3221225472;
-            v44 = __getNPSManagerClass_block_invoke;
-            v45 = &unk_1E71DBC78;
-            v46 = &v47;
-            __getNPSManagerClass_block_invoke(buf);
-            v31 = v48[3];
+            v52 = 3221225472;
+            v53 = __getNPSManagerClass_block_invoke;
+            v54 = &unk_1E71DBC78;
+            v55 = &v56;
+            __getNPSManagerClass_block_invoke(buf, v32, v33, v34, v35, v36, v37, v38, v48);
+            v39 = v57[3];
           }
 
-          v32 = v31;
-          _Block_object_dispose(&v47, 8);
-          v33 = objc_opt_new();
-          if (v41)
+          v40 = v39;
+          _Block_object_dispose(&v56, 8);
+          v41 = objc_opt_new();
+          if (v50)
           {
-            v34 = MEMORY[0x1E695DFD8];
-            v51[0] = v4;
-            v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:v51 count:1];
-            v36 = [v34 setWithArray:v35];
-            [v33 synchronizeNanoDomain:v5 keys:v36];
+            v42 = MEMORY[0x1E695DFD8];
+            v60[0] = v4;
+            v43 = [MEMORY[0x1E695DEC8] arrayWithObjects:v60 count:1];
+            v44 = [v42 setWithArray:v43];
+            [v41 synchronizeNanoDomain:v5 keys:v44];
           }
 
           else
           {
-            v35 = [preferenceCopy propertyForKey:@"containerBundleID"];
-            v36 = [preferenceCopy propertyForKey:@"appGroupBundleID"];
-            v37 = [MEMORY[0x1E695DFD8] setWithObject:v4];
-            [v33 synchronizeUserDefaultsDomain:v5 keys:v37 container:v35 appGroupContainer:v36];
+            v43 = [preferenceCopy propertyForKey:@"containerBundleID"];
+            v44 = [preferenceCopy propertyForKey:@"appGroupBundleID"];
+            v45 = [MEMORY[0x1E695DFD8] setWithObject:v4];
+            [v41 synchronizeUserDefaultsDomain:v5 keys:v45 container:v43 appGroupContainer:v44];
           }
         }
       }
 
-      v38 = [preferenceCopy propertyForKey:@"PostNotification"];
+      v46 = [preferenceCopy propertyForKey:@"PostNotification"];
 
-      if (v38)
+      if (v46)
       {
         DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
         CFNotificationCenterPostNotification(DarwinNotifyCenter, [preferenceCopy propertyForKey:@"PostNotification"], 0, 0, 1u);
@@ -445,7 +447,7 @@ LABEL_31:
 {
   v11 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v5 = _PSLoggingFacility();
+  v5 = _PSLoggingFacility(coderCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -468,7 +470,7 @@ LABEL_31:
 - (PSRootController)initWithNavigationBarClass:(Class)class toolbarClass:(Class)toolbarClass
 {
   v14 = *MEMORY[0x1E69E9840];
-  v7 = _PSLoggingFacility();
+  v7 = _PSLoggingFacility(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -492,7 +494,7 @@ LABEL_31:
 {
   v11 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
-  v5 = _PSLoggingFacility();
+  v5 = _PSLoggingFacility(controllerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -516,7 +518,7 @@ LABEL_31:
 {
   v13 = *MEMORY[0x1E69E9840];
   titleCopy = title;
-  v6 = _PSLoggingFacility();
+  v6 = _PSLoggingFacility(titleCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -626,22 +628,23 @@ LABEL_31:
   animateCopy = animate;
   controllerCopy = controller;
   childViewControllers = [(PSRootController *)self childViewControllers];
-  if ([childViewControllers containsObject:controllerCopy])
+  v8 = [childViewControllers containsObject:controllerCopy];
+  if (v8)
   {
-    v8 = _PSLoggingFacility();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _PSLoggingFacility(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [PSRootController showController:v8 animate:?];
+      [PSRootController showController:v9 animate:?];
     }
 
-    v9 = _PSLoggingFacility();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = _PSLoggingFacility(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [PSRootController showController:animate:];
     }
 
-    v10 = _PSLoggingFacility();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v13 = _PSLoggingFacility(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [PSRootController showController:animate:];
     }
@@ -781,7 +784,7 @@ LABEL_31:
 - (void)sendWillResignActive
 {
   v7 = *MEMORY[0x1E69E9840];
-  v3 = _PSLoggingFacility();
+  v3 = _PSLoggingFacility(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315138;
@@ -955,7 +958,7 @@ void __27__PSRootController_didWake__block_invoke(uint64_t a1, void *a2)
 - (id)aggregateDictionaryPath
 {
   v37 = *MEMORY[0x1E69E9840];
-  if (PSIsRunningInAssistant())
+  if (PSIsRunningInAssistant(self, a2))
   {
     v3 = 0;
   }
@@ -1304,7 +1307,7 @@ LABEL_20:
   }
 }
 
-uint64_t __54__PSRootController__delayedControllerReleaseAfterPop___block_invoke(uint64_t a1)
+void *__54__PSRootController__delayedControllerReleaseAfterPop___block_invoke(uint64_t a1)
 {
   v11 = *MEMORY[0x1E69E9840];
   result = [*(a1 + 32) count];
@@ -1315,7 +1318,7 @@ uint64_t __54__PSRootController__delayedControllerReleaseAfterPop___block_invoke
     do
     {
       v4 = [*(a1 + 32) lastObject];
-      v5 = _PSLoggingFacility();
+      v5 = _PSLoggingFacility(v4);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         v6 = objc_opt_class();
@@ -1348,50 +1351,50 @@ void __54__PSRootController__delayedControllerReleaseAfterPop___block_invoke_188
 
 void __54__PSRootController__delayedControllerReleaseAfterPop___block_invoke_2(uint64_t a1, void *a2, int a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (a3)
   {
-    v15 = 0u;
     v16 = 0u;
-    v13 = 0u;
+    v17 = 0u;
     v14 = 0u;
+    v15 = 0u;
     v6 = [*(a1 + 32) allObjects];
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v21 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v14 objects:v22 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v14;
+      v9 = *v15;
       do
       {
         v10 = 0;
         do
         {
-          if (*v14 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          if (*(*(&v13 + 1) + 8 * v10) == v5)
+          if (*(*(&v14 + 1) + 8 * v10) == v5)
           {
-            v11 = _PSLoggingFacility();
+            v11 = _PSLoggingFacility(v7);
             if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315394;
-              v18 = "[PSRootController _delayedControllerReleaseAfterPop:]_block_invoke_2";
-              v19 = 2112;
-              v20 = v5;
+              v19 = "[PSRootController _delayedControllerReleaseAfterPop:]_block_invoke_2";
+              v20 = 2112;
+              v21 = v5;
               _os_log_error_impl(&dword_18B008000, v11, OS_LOG_TYPE_ERROR, "%s: View controller %@ still exists 15s after being popped from nav stack.", buf, 0x16u);
             }
 
-            v12 = _PSLoggingFacility();
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+            v13 = _PSLoggingFacility(v12);
+            if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
             {
               *buf = 136315394;
-              v18 = "[PSRootController _delayedControllerReleaseAfterPop:]_block_invoke";
-              v19 = 2112;
-              v20 = v5;
-              _os_log_fault_impl(&dword_18B008000, v12, OS_LOG_TYPE_FAULT, "%s: View controller %@ still exists 15s after being popped from nav stack.", buf, 0x16u);
+              v19 = "[PSRootController _delayedControllerReleaseAfterPop:]_block_invoke";
+              v20 = 2112;
+              v21 = v5;
+              _os_log_fault_impl(&dword_18B008000, v13, OS_LOG_TYPE_FAULT, "%s: View controller %@ still exists 15s after being popped from nav stack.", buf, 0x16u);
             }
           }
 
@@ -1399,10 +1402,11 @@ void __54__PSRootController__delayedControllerReleaseAfterPop___block_invoke_2(u
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v13 objects:v21 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v14 objects:v22 count:16];
+        v8 = v7;
       }
 
-      while (v8);
+      while (v7);
     }
   }
 }
@@ -1435,7 +1439,7 @@ void __54__PSRootController__delayedControllerReleaseAfterPop___block_invoke_2(u
   return v4;
 }
 
-uint64_t __46__PSRootController_popViewControllerAnimated___block_invoke(uint64_t a1, void *a2)
+void *__46__PSRootController_popViewControllerAnimated___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isCancelled];
   if (result)
@@ -1731,13 +1735,17 @@ uint64_t __46__PSRootController_popViewControllerAnimated___block_invoke(uint64_
 - (void)showController:animate:.cold.2()
 {
   v0 = [MEMORY[0x1E69DD258] _printHierarchy];
-  OUTLINED_FUNCTION_0_2(&dword_18B008000, v1, v2, "%{public}@", v3, v4, v5, v6, 2u);
+  LODWORD(v7) = 138543362;
+  *(&v7 + 4) = v0;
+  OUTLINED_FUNCTION_0_2(&dword_18B008000, v1, v2, "%{public}@", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 - (void)showController:animate:.cold.3()
 {
   v0 = [MEMORY[0x1E696AF00] callStackSymbols];
-  OUTLINED_FUNCTION_0_2(&dword_18B008000, v1, v2, "%{public}@", v3, v4, v5, v6, 2u);
+  LODWORD(v7) = 138543362;
+  *(&v7 + 4) = v0;
+  OUTLINED_FUNCTION_0_2(&dword_18B008000, v1, v2, "%{public}@", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 @end

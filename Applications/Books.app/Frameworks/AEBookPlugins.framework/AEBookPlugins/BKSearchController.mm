@@ -168,7 +168,7 @@ LABEL_11:
 
 - (id)_newSearchOperationForOrdinal:(int64_t)ordinal
 {
-  v5 = _AESearchLog();
+  v5 = _AESearchLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 134217984;
@@ -209,7 +209,7 @@ LABEL_9:
 
 - (BOOL)_searchOnCandidateOrdinal:(int64_t)ordinal
 {
-  v5 = _AESearchLog();
+  v5 = _AESearchLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -219,36 +219,46 @@ LABEL_9:
 
   if (self->_indexQueryResult)
   {
-    v6 = _AESearchLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _AESearchLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
       ordinalCopy3 = ordinal;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "-- _searchOnCandidateOrdinal _indexQueryResult available for ordinal: %ld", buf, 0xCu);
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "-- _searchOnCandidateOrdinal _indexQueryResult available for ordinal: %ld", buf, 0xCu);
     }
 
-    v15 = 0;
+    v17 = 0;
     searchBook = [(BKSearchController *)self searchBook];
     readingDocumentCount = [searchBook readingDocumentCount];
 
     if (readingDocumentCount > ordinal)
     {
-      *&v9 = 134218498;
-      v14 = v9;
-      while (![(BKTextIndexQueryResult *)self->_indexQueryResult isCandidateOrdinal:ordinal isMissing:&v15, v14]|| ![(BKSearchController *)self _isDocumentOrdinalSearchable:ordinal])
+      *&v10 = 134218498;
+      v16 = v10;
+      while (1)
       {
-        v10 = _AESearchLog();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v11 = [(BKTextIndexQueryResult *)self->_indexQueryResult isCandidateOrdinal:ordinal isMissing:&v17, v16];
+        if (v11)
         {
-          v11 = [NSNumber numberWithBool:[(BKSearchController *)self _isDocumentOrdinalSearchable:ordinal]];
-          v12 = [NSNumber numberWithBool:[(BKTextIndexQueryResult *)self->_indexQueryResult isCandidateOrdinal:ordinal isMissing:&v15]];
-          *buf = v14;
+          v11 = [(BKSearchController *)self _isDocumentOrdinalSearchable:ordinal];
+          if (v11)
+          {
+            break;
+          }
+        }
+
+        v12 = _AESearchLog(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        {
+          v13 = [NSNumber numberWithBool:[(BKSearchController *)self _isDocumentOrdinalSearchable:ordinal]];
+          v14 = [NSNumber numberWithBool:[(BKTextIndexQueryResult *)self->_indexQueryResult isCandidateOrdinal:ordinal isMissing:&v17]];
+          *buf = v16;
           ordinalCopy3 = ordinal;
-          v18 = 2112;
-          v19 = v11;
           v20 = 2112;
-          v21 = v12;
-          _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "-- _searchOnCandidateOrdinal skipping ordinal: %ld isDocumentSearchable: %@ isCandidateOrdinal: %@", buf, 0x20u);
+          v21 = v13;
+          v22 = 2112;
+          v23 = v14;
+          _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "-- _searchOnCandidateOrdinal skipping ordinal: %ld isDocumentSearchable: %@ isCandidateOrdinal: %@", buf, 0x20u);
         }
 
         ++ordinal;
@@ -353,8 +363,7 @@ LABEL_11:
 - (void)beginSearchWithReportAnalytics:(BOOL)analytics
 {
   analyticsCopy = analytics;
-  [(BKSearchController *)self cancelSearch];
-  v5 = _AESearchLog();
+  v5 = _AESearchLog([(BKSearchController *)self cancelSearch]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -436,13 +445,13 @@ LABEL_11:
     searchBook2 = [(BKSearchController *)self searchBook];
     self->_chaptersRemaining = [searchBook2 readingDocumentCount];
 
-    v21 = _AESearchLog();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v22 = _AESearchLog(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       chaptersRemaining = self->_chaptersRemaining;
-      v24 = 134217984;
-      v25 = chaptersRemaining;
-      _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, "-- _startSearchNowWithReportAnalytics _chaptersRemaining: %ld", &v24, 0xCu);
+      v25 = 134217984;
+      v26 = chaptersRemaining;
+      _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "-- _startSearchNowWithReportAnalytics _chaptersRemaining: %ld", &v25, 0xCu);
     }
 
     if ([(BKSearchController *)self contentIsPages])
@@ -623,20 +632,20 @@ LABEL_5:
 
   if (webView)
   {
-    v29 = _AESearchLog();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v30 = _AESearchLog(v29);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
       webView2 = [(BKSearchController *)self webView];
       *buf = 138412290;
-      v39 = webView2;
-      _os_log_impl(&dword_0, v29, OS_LOG_TYPE_DEFAULT, "Reusing web view %@", buf, 0xCu);
+      v40 = webView2;
+      _os_log_impl(&dword_0, v30, OS_LOG_TYPE_DEFAULT, "Reusing web view %@", buf, 0xCu);
     }
 
-    v31 = objc_retainBlock(completionCopy);
-    if (v31)
+    v32 = objc_retainBlock(completionCopy);
+    if (v32)
     {
       webView3 = [(BKSearchController *)self webView];
-      v31[2](v31, webView3, 0);
+      v32[2](v32, webView3, 0);
     }
   }
 
@@ -644,25 +653,25 @@ LABEL_5:
   {
     [(BKSearchController *)self setWebViewTrackingID:[(BKSearchController *)self webViewTrackingID]+ 1];
     webViewTrackingID = [(BKSearchController *)self webViewTrackingID];
-    v34 = _AESearchLog();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    v35 = _AESearchLog(webViewTrackingID);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v39) = webViewTrackingID;
-      _os_log_impl(&dword_0, v34, OS_LOG_TYPE_DEFAULT, "Creating web view for tracking ID: %d", buf, 8u);
+      LODWORD(v40) = webViewTrackingID;
+      _os_log_impl(&dword_0, v35, OS_LOG_TYPE_DEFAULT, "Creating web view for tracking ID: %d", buf, 8u);
     }
 
     objc_initWeak(buf, self);
-    v35[0] = _NSConcreteStackBlock;
-    v35[1] = 3221225472;
-    v35[2] = sub_8F3C8;
-    v35[3] = &unk_1E4E10;
-    objc_copyWeak(v37, buf);
-    v37[1] = webViewTrackingID;
-    v36 = completionCopy;
-    [BEWebViewFactory viewConfiguredForSearch:itemCopy protocolCacheItem:optionsCopy paginationOptions:cleanupOptionsCopy cleanupOptions:cfiOptionsCopy cfiOptions:setCopy stylesheetSet:managerCopy styleManager:x contentSupportMode:y completion:width, height, mode, v35];
+    v36[0] = _NSConcreteStackBlock;
+    v36[1] = 3221225472;
+    v36[2] = sub_8F3C8;
+    v36[3] = &unk_1E4E10;
+    objc_copyWeak(v38, buf);
+    v38[1] = webViewTrackingID;
+    v37 = completionCopy;
+    [BEWebViewFactory viewConfiguredForSearch:itemCopy protocolCacheItem:optionsCopy paginationOptions:cleanupOptionsCopy cleanupOptions:cfiOptionsCopy cfiOptions:setCopy stylesheetSet:managerCopy styleManager:x contentSupportMode:y completion:width, height, mode, v36];
 
-    objc_destroyWeak(v37);
+    objc_destroyWeak(v38);
     objc_destroyWeak(buf);
   }
 }
@@ -671,38 +680,39 @@ LABEL_5:
 {
   viewCopy = view;
   completionCopy = completion;
-  v10 = _AESearchLog();
+  v10 = _AESearchLog(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 67109120;
+    v15 = 67109120;
     dCopy2 = d;
-    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Finished creating web view for tracking ID: %d", &v14, 8u);
+    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Finished creating web view for tracking ID: %d", &v15, 8u);
   }
 
-  if ([(BKSearchController *)self webViewTrackingID]== d)
+  webViewTrackingID = [(BKSearchController *)self webViewTrackingID];
+  if (webViewTrackingID == d)
   {
     [(BKSearchController *)self setWebView:viewCopy];
   }
 
   else
   {
-    v11 = _AESearchLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = _AESearchLog(webViewTrackingID);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      webViewTrackingID = [(BKSearchController *)self webViewTrackingID];
-      v14 = 67109376;
+      webViewTrackingID2 = [(BKSearchController *)self webViewTrackingID];
+      v15 = 67109376;
       dCopy2 = d;
-      v16 = 1024;
-      v17 = webViewTrackingID;
-      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Ignoring web view for old tracking ID: %d (currently: %d)", &v14, 0xEu);
+      v17 = 1024;
+      v18 = webViewTrackingID2;
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Ignoring web view for old tracking ID: %d (currently: %d)", &v15, 0xEu);
     }
   }
 
-  v13 = objc_retainBlock(completionCopy);
+  v14 = objc_retainBlock(completionCopy);
 
-  if (v13)
+  if (v14)
   {
-    v13[2](v13, viewCopy, 1);
+    v14[2](v14, viewCopy, 1);
   }
 }
 
@@ -758,7 +768,7 @@ LABEL_5:
 {
   finishCopy = finish;
   --self->_chaptersRemaining;
-  v5 = _AESearchLog();
+  v5 = _AESearchLog(finishCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     ordinal = [finishCopy ordinal];

@@ -123,9 +123,9 @@
 - (PHSOSViewController)initWithSOSHandles:(id)handles
 {
   handlesCopy = handles;
-  v44.receiver = self;
-  v44.super_class = PHSOSViewController;
-  v6 = [(PHSOSViewController *)&v44 init];
+  v47.receiver = self;
+  v47.super_class = PHSOSViewController;
+  v6 = [(PHSOSViewController *)&v47 init];
   if (!v6)
   {
     goto LABEL_32;
@@ -170,36 +170,36 @@
 
   if (!v21)
   {
-    v29 = +[PHInCallRootViewController dismissalAssertions];
-    v30 = [v29 containsObject:@"PHAlertRestingScreenAssertionReason"];
+    v30 = +[PHInCallRootViewController dismissalAssertions];
+    v31 = [v30 containsObject:@"PHAlertRestingScreenAssertionReason"];
 
-    if (v30)
+    if (v31)
     {
       objc_storeStrong(&v6->_launchedForAssertionReason, @"PHAlertRestingScreenAssertionReason");
       v6->_sosMode = 10;
-      v31 = [[CTStewieStateMonitor alloc] initWithDelegate:v6 queue:&_dispatch_main_q];
+      v33 = [[CTStewieStateMonitor alloc] initWithDelegate:v6 queue:&_dispatch_main_q];
       stewieStateMonitor = v6->_stewieStateMonitor;
-      v6->_stewieStateMonitor = v31;
+      v6->_stewieStateMonitor = v33;
 
       [(CTStewieStateMonitor *)v6->_stewieStateMonitor start];
       getState = [(CTStewieStateMonitor *)v6->_stewieStateMonitor getState];
       stewieState = v6->_stewieState;
       v6->_stewieState = getState;
 
-      v35 = sub_100004F84();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+      v38 = sub_100004F84(v37);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
       {
-        v36 = v6->_stewieState;
+        v39 = v6->_stewieState;
         *buf = 138412290;
-        v46 = v36;
-        _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,Stewie state on launch: %@", buf, 0xCu);
+        v49 = v39;
+        _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,Stewie state on launch: %@", buf, 0xCu);
       }
     }
 
     else
     {
-      v37 = sub_100004F84();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      v40 = sub_100004F84(v32);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
         sub_1002553B8();
       }
@@ -217,26 +217,27 @@
     if ((sosTrigger - 1) < 2)
     {
 LABEL_9:
-      if (+[SOSUtilities isCallWithSideButtonPressesEnabled]&& sub_10008B280() && ([(PHSOSViewController *)v6 coreTelephonyClient], v24 = objc_claimAutoreleasedReturnValue(), v25 = [SOSUtilities shouldForceDisableAutoCallForClient:v24], v24, !v25))
+      v22 = +[SOSUtilities isCallWithSideButtonPressesEnabled];
+      if (v22 && (v22 = sub_10008B280(), v22) && ([(PHSOSViewController *)v6 coreTelephonyClient], v25 = objc_claimAutoreleasedReturnValue(), v26 = [SOSUtilities shouldForceDisableAutoCallForClient:v25], v25, !v26))
       {
-        v26 = 1;
+        v27 = 1;
       }
 
       else
       {
-        v26 = 2;
+        v27 = 2;
       }
 
-      v6->_sosMode = v26;
-      v27 = 352;
-      v28 = 2;
+      v6->_sosMode = v27;
+      v28 = 352;
+      v29 = 2;
       goto LABEL_28;
     }
 
     if (!sosTrigger)
     {
-      v23 = sub_100004F84();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v24 = sub_100004F84(v22);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         sub_1002553EC();
       }
@@ -245,22 +246,22 @@ LABEL_9:
     }
 
 LABEL_25:
-    v38 = sub_100004F84();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    v41 = sub_100004F84(v22);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
     {
-      sub_100255420(&v6->_sosTrigger, v38);
+      sub_100255420(&v6->_sosTrigger, v41);
     }
 
-    v27 = 32;
-    v28 = 2;
+    v28 = 32;
+    v29 = 2;
     goto LABEL_28;
   }
 
   if (sosTrigger == 3)
   {
     v6->_sosMode = 2;
-    v27 = 352;
-    v28 = 1;
+    v28 = 352;
+    v29 = 1;
   }
 
   else
@@ -270,29 +271,29 @@ LABEL_25:
       goto LABEL_25;
     }
 
-    v27 = 32;
-    v28 = 8;
+    v28 = 32;
+    v29 = 8;
   }
 
 LABEL_28:
-  *(&v6->super.super.super.isa + v27) = v28;
+  *(&v6->super.super.super.isa + v28) = v29;
   v6->_shouldDropBioAuthTokenOnDismiss = 1;
 LABEL_29:
-  v39 = sub_100004F84();
-  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+  v42 = sub_100004F84(v22);
+  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
   {
     sosHandles = v6->_sosHandles;
     sosMode = v6->_sosMode;
     *buf = 138412546;
-    v46 = sosHandles;
-    v47 = 2048;
-    v48 = sosMode;
-    _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "Initialized PHSOSViewController with sosHandles: %@ sosMode: %ld", buf, 0x16u);
+    v49 = sosHandles;
+    v50 = 2048;
+    v51 = sosMode;
+    _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Initialized PHSOSViewController with sosHandles: %@ sosMode: %ld", buf, 0x16u);
   }
 
   [(PHSOSViewController *)v6 addObservers];
-  v42 = objc_alloc_init(SPBeaconManager);
-  [(PHSOSViewController *)v6 setBeaconManager:v42];
+  v45 = objc_alloc_init(SPBeaconManager);
+  [(PHSOSViewController *)v6 setBeaconManager:v45];
 
 LABEL_32:
   return v6;
@@ -426,25 +427,27 @@ LABEL_8:
 
 - (void)viewDidLoad
 {
-  v14.receiver = self;
-  v14.super_class = PHSOSViewController;
-  [(PHSOSViewController *)&v14 viewDidLoad];
-  if ([(PHAudioDeviceController *)self->_audioDeviceController speakerRouteAvailable])
+  v16.receiver = self;
+  v16.super_class = PHSOSViewController;
+  [(PHSOSViewController *)&v16 viewDidLoad];
+  speakerRouteAvailable = [(PHAudioDeviceController *)self->_audioDeviceController speakerRouteAvailable];
+  if (speakerRouteAvailable)
   {
     [(PHAudioDeviceController *)self->_audioDeviceController pickSpeakerRoute];
     speakerRouteIsPicked = [(PHAudioDeviceController *)self->_audioDeviceController speakerRouteIsPicked];
-    v4 = sub_100004F84();
-    v5 = v4;
-    if (speakerRouteIsPicked)
+    v5 = speakerRouteIsPicked;
+    v6 = sub_100004F84(speakerRouteIsPicked);
+    v7 = v6;
+    if (v5)
     {
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        *v13 = 0;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,routed audio through speaker", v13, 2u);
+        *v15 = 0;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,routed audio through speaker", v15, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1002554D0();
     }
@@ -452,16 +455,16 @@ LABEL_8:
 
   else
   {
-    v5 = sub_100004F84();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = sub_100004F84(speakerRouteAvailable);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_10025549C();
     }
   }
 
-  v6 = [[PHBottomBarButtonConfiguration alloc] initWithAction:19];
-  v7 = [[PHBottomBarButton alloc] initWithConfiguration:v6 appType:2];
-  [(PHSOSViewController *)self setCancelButton:v7];
+  v8 = [[PHBottomBarButtonConfiguration alloc] initWithAction:19];
+  v9 = [[PHBottomBarButton alloc] initWithConfiguration:v8 appType:2];
+  [(PHSOSViewController *)self setCancelButton:v9];
 
   cancelButton = [(PHSOSViewController *)self cancelButton];
   [cancelButton setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -475,8 +478,8 @@ LABEL_8:
 
   [(PHSOSViewController *)self setUpCancelButtonConstraints];
   [(PHSOSViewController *)self setSosMode:self->_sosMode];
-  v12 = +[SOSManager sharedInstance];
-  [v12 setCurrentSOSInitiationState:1];
+  v14 = +[SOSManager sharedInstance];
+  [v14 setCurrentSOSInitiationState:1];
 
   [(PHSOSViewController *)self updateInteractiveState];
 }
@@ -541,30 +544,31 @@ LABEL_8:
 {
   volumeHUDHiddenPending = [(PHSOSViewController *)self volumeHUDHiddenPending];
   volumeHUDHiddenCurrently = [(PHSOSViewController *)self volumeHUDHiddenCurrently];
-  v5 = sub_100004F84();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-  if (volumeHUDHiddenPending == volumeHUDHiddenCurrently)
+  v5 = volumeHUDHiddenCurrently;
+  v6 = sub_100004F84(volumeHUDHiddenCurrently);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  if (volumeHUDHiddenPending == v5)
   {
-    if (v6)
+    if (v7)
     {
-      v9 = 67109120;
-      v10 = ![(PHSOSViewController *)self volumeHUDHiddenCurrently];
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,setVolumeHUDEnablement,volume HUD enablement already set to %d", &v9, 8u);
+      v10 = 67109120;
+      v11 = ![(PHSOSViewController *)self volumeHUDHiddenCurrently];
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,setVolumeHUDEnablement,volume HUD enablement already set to %d", &v10, 8u);
     }
   }
 
   else
   {
-    if (v6)
+    if (v7)
     {
-      v9 = 67109120;
-      v10 = ![(PHSOSViewController *)self volumeHUDHiddenPending];
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,setVolumeHUDEnablement,volume HUD enabled:%d", &v9, 8u);
+      v10 = 67109120;
+      v11 = ![(PHSOSViewController *)self volumeHUDHiddenPending];
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,setVolumeHUDEnablement,volume HUD enabled:%d", &v10, 8u);
     }
 
     [(PHSOSViewController *)self setVolumeHUDHiddenCurrently:[(PHSOSViewController *)self volumeHUDHiddenPending]];
-    v5 = +[UIApplication sharedApplication];
-    delegate = [v5 delegate];
+    v6 = +[UIApplication sharedApplication];
+    delegate = [v6 delegate];
     currentInCallScene = [delegate currentInCallScene];
     [currentInCallScene _setSystemVolumeHUDEnabled:{-[PHSOSViewController volumeHUDHiddenPending](self, "volumeHUDHiddenPending") ^ 1}];
   }
@@ -584,7 +588,7 @@ LABEL_8:
 
 - (void)handleNetworkUnavailableAlertDidFinishNotification:(id)notification
 {
-  v4 = sub_100004F84();
+  v4 = sub_100004F84(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -596,7 +600,7 @@ LABEL_8:
 
 - (void)handleAlertDisconnectingCallsNotification:(id)notification
 {
-  v4 = sub_100004F84();
+  v4 = sub_100004F84(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -634,12 +638,12 @@ LABEL_8:
     }
 
 LABEL_19:
-    v35[0] = _NSConcreteStackBlock;
-    v35[1] = 3221225472;
-    v35[2] = sub_10008C4A4;
-    v35[3] = &unk_100356988;
-    v35[4] = self;
-    [(PHSOSViewController *)self hideMedicalIDWithCompletion:v35];
+    v36[0] = _NSConcreteStackBlock;
+    v36[1] = 3221225472;
+    v36[2] = sub_10008C4A4;
+    v36[3] = &unk_100356988;
+    v36[4] = self;
+    [(PHSOSViewController *)self hideMedicalIDWithCompletion:v36];
 LABEL_20:
     sosMode = [(PHSOSViewController *)self sosMode];
     if (sosMode <= 8 && ((1 << sosMode) & 0x107) != 0)
@@ -660,14 +664,15 @@ LABEL_20:
         if ((v17 & 1) == 0)
         {
           isEmergency = [object isEmergency];
-          v20 = sub_100004F84();
-          v21 = v20;
-          if (isEmergency)
+          v20 = isEmergency;
+          v21 = sub_100004F84(isEmergency);
+          v22 = v21;
+          if (v20)
           {
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
             {
-              *v34 = 0;
-              _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,interrupted by other emergency call,deactivating SOS", v34, 2u);
+              *v35 = 0;
+              _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,interrupted by other emergency call,deactivating SOS", v35, 2u);
             }
 
             [(PHSOSViewController *)self setShouldDropBioAuthTokenOnDismiss:0];
@@ -676,7 +681,7 @@ LABEL_20:
 
           else
           {
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
             {
               sub_100255584();
             }
@@ -688,16 +693,16 @@ LABEL_20:
     if ([object status] == 1)
     {
       [(PHSOSViewController *)self callDialStartTime];
-      if (v24 > 0.0)
+      if (v25 > 0.0)
       {
         Current = CFAbsoluteTimeGetCurrent();
         [(PHSOSViewController *)self callDialStartTime];
-        [(PHSOSViewController *)self setTimeTillActive:vabdd_f64(Current, v26)];
+        [(PHSOSViewController *)self setTimeTillActive:vabdd_f64(Current, v27)];
       }
 
-      v27 = CFAbsoluteTimeGetCurrent();
+      v28 = CFAbsoluteTimeGetCurrent();
       [(PHSOSViewController *)self sessionStartTime];
-      [(PHSOSViewController *)self setCallConnectTimeSinceSessionStart:vabdd_f64(v27, v28)];
+      [(PHSOSViewController *)self setCallConnectTimeSinceSessionStart:vabdd_f64(v28, v29)];
     }
 
     goto LABEL_59;
@@ -781,8 +786,8 @@ LABEL_20:
     {
       if (sosTrigger != 7)
       {
-        v30 = sub_100004F84();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+        v31 = sub_100004F84(sosTrigger);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
           sub_100255504(self);
         }
@@ -794,19 +799,19 @@ LABEL_20:
       goto LABEL_56;
     }
 
-    v23 = +[SOSUtilities isCallWithVolumeLockHoldEnabled];
+    v24 = +[SOSUtilities isCallWithVolumeLockHoldEnabled];
   }
 
   else
   {
-    v23 = +[SOSUtilities isCallWithSideButtonPressesEnabled];
+    v24 = +[SOSUtilities isCallWithSideButtonPressesEnabled];
   }
 
-  v31 = v23;
+  v32 = v24;
   [object callDuration];
   [(PHSOSViewController *)self setTimeTillCancelCall:?];
   [(PHSOSViewController *)self setWasCallCancelled:0];
-  if (!v31 || ([object callDuration], v32 > 12.0))
+  if (!v32 || ([object callDuration], v33 > 12.0))
   {
 LABEL_56:
     [(PHSOSViewController *)self submitSOSResolutionMetric:0];
@@ -864,14 +869,14 @@ LABEL_59:
   v3 = +[SOSManager sharedInstance];
   currentSOSInteractiveState = [v3 currentSOSInteractiveState];
 
-  v5 = sub_100004F84();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_100004F84(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 134218240;
+    v7 = 134218240;
     currentInteractiveState = [(PHSOSViewController *)self currentInteractiveState];
-    v8 = 2048;
-    v9 = currentSOSInteractiveState;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "PHSOSViewController attempting to set currentInteractiveState from %lu to %lu", &v6, 0x16u);
+    v9 = 2048;
+    v10 = currentSOSInteractiveState;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "PHSOSViewController attempting to set currentInteractiveState from %lu to %lu", &v7, 0x16u);
   }
 
   if ([(PHSOSViewController *)self currentInteractiveState]!= currentSOSInteractiveState)
@@ -898,28 +903,29 @@ LABEL_59:
   currentSOSButtonPressState = [v4 currentSOSButtonPressState];
   [(PHSOSViewController *)self setCurrentButtonPressState:currentSOSButtonPressState];
 
-  v6 = sub_100004F84();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004F84(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     currentButtonPressState = [(PHSOSViewController *)self currentButtonPressState];
-    v8 = 138543362;
-    v9 = currentButtonPressState;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,currentButtonPressState:%{public}@", &v8, 0xCu);
+    v9 = 138543362;
+    v10 = currentButtonPressState;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,currentButtonPressState:%{public}@", &v9, 0xCu);
   }
 }
 
 - (void)dismissSOSNotification:(id)notification
 {
   shouldAllowLockButtonPressesToDismissSOS = [(PHSOSViewController *)self shouldAllowLockButtonPressesToDismissSOS];
-  v5 = sub_100004F84();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v5 = shouldAllowLockButtonPressesToDismissSOS;
+  v6 = sub_100004F84(shouldAllowLockButtonPressesToDismissSOS);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6[0] = 67109120;
-    v6[1] = shouldAllowLockButtonPressesToDismissSOS;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "PHSOSViewController attempting to dismiss SOS due to lock button press; shouldAllowLockButtonPressesToDismissSOS: %d", v6, 8u);
+    v7[0] = 67109120;
+    v7[1] = v5;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "PHSOSViewController attempting to dismiss SOS due to lock button press; shouldAllowLockButtonPressesToDismissSOS: %d", v7, 8u);
   }
 
-  if (shouldAllowLockButtonPressesToDismissSOS)
+  if (v5)
   {
     [(PHSOSViewController *)self deactivateSOSWithSOSDismissalType:1];
   }
@@ -983,7 +989,7 @@ LABEL_3:
 
 - (void)setSosMode:(int64_t)mode
 {
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [(PHSOSViewController *)self nameForSOSMode:mode];
@@ -1321,33 +1327,33 @@ LABEL_26:
   {
     if ([(PHSOSViewController *)self sosTrigger]== 7 && ![(PHSOSViewController *)self isUserResponsive])
     {
-      v9 = 0;
-      v10 = &v9;
-      v11 = 0x2020000000;
-      v12 = -1;
+      v10 = 0;
+      v11 = &v10;
+      v12 = 0x2020000000;
+      v13 = -1;
       sosHandles2 = [(PHSOSViewController *)self sosHandles];
-      v8[0] = _NSConcreteStackBlock;
-      v8[1] = 3221225472;
-      v8[2] = sub_10008D3E0;
-      v8[3] = &unk_1003580A0;
-      v8[4] = &v9;
-      [sosHandles2 enumerateObjectsUsingBlock:v8];
+      v9[0] = _NSConcreteStackBlock;
+      v9[1] = 3221225472;
+      v9[2] = sub_10008D3E0;
+      v9[3] = &unk_1003580A0;
+      v9[4] = &v10;
+      [sosHandles2 enumerateObjectsUsingBlock:v9];
 
-      v6 = v10[3];
-      if (v6 < 0)
+      v7 = v11[3];
+      if (v7 < 0)
       {
-        v7 = sub_100004F84();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v8 = sub_100004F84(v6);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
           sub_1002555B8();
         }
 
-        v6 = 0;
-        v10[3] = 0;
+        v7 = 0;
+        v11[3] = 0;
       }
 
-      [(PHSOSViewController *)self dialSOSNumberAtIndex:v6];
-      _Block_object_dispose(&v9, 8);
+      [(PHSOSViewController *)self dialSOSNumberAtIndex:v7];
+      _Block_object_dispose(&v10, 8);
     }
 
     else
@@ -1366,14 +1372,14 @@ LABEL_26:
 
 - (void)dialSOSNumberAtIndex:(int64_t)index
 {
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     sosHandles = [(PHSOSViewController *)self sosHandles];
     *buf = 134218242;
     indexCopy = index;
-    v37 = 2112;
-    v38 = sosHandles;
+    v38 = 2112;
+    v39 = sosHandles;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "index: %ld self.sosHandles: %@", buf, 0x16u);
   }
 
@@ -1415,7 +1421,7 @@ LABEL_23:
     }
 
 LABEL_12:
-    v19 = sub_100004F84();
+    v19 = sub_100004F84(sosTrigger);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       sub_1002555EC(self);
@@ -1491,51 +1497,52 @@ LABEL_24:
     if ((v26 & 1) == 0)
     {
       sosHandles3 = [(PHSOSViewController *)self sosHandles];
-      v28 = [sosHandles3 objectAtIndexedSubscript:index];
-      handle = [v28 handle];
+      v29 = [sosHandles3 objectAtIndexedSubscript:index];
+      handle = [v29 handle];
       [v14 setHandle:handle];
 
-      if (([v14 isValid] & 1) == 0)
+      isValid = [v14 isValid];
+      if ((isValid & 1) == 0)
       {
-        v30 = sub_100004F84();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+        v31 = sub_100004F84(isValid);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
           indexCopy = v14;
-          _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "[WARN] Dial request %@ is invalid using the chosen handle. Falling back to using a default emergency number", buf, 0xCu);
+          _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "[WARN] Dial request %@ is invalid using the chosen handle. Falling back to using a default emergency number", buf, 0xCu);
         }
 
-        [v14 setHandle:0];
+        isValid = [v14 setHandle:0];
       }
     }
   }
 
-  v31 = sub_100004F84();
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+  v32 = sub_100004F84(isValid);
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     indexCopy = v14;
-    _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "SOSViewController is launching dial request for SOS call: %@", buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "SOSViewController is launching dial request for SOS call: %@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   [(PHSOSViewController *)self setRequestedCallActive:1];
   [(PHSOSViewController *)self setCallDialStartTime:CFAbsoluteTimeGetCurrent()];
-  v32 = +[TUCallCenter sharedInstance];
-  v33[0] = _NSConcreteStackBlock;
-  v33[1] = 3221225472;
-  v33[2] = sub_10008D9D4;
-  v33[3] = &unk_100356F88;
-  objc_copyWeak(&v34, buf);
-  [v32 launchAppForDialRequest:v14 completion:v33];
+  v33 = +[TUCallCenter sharedInstance];
+  v34[0] = _NSConcreteStackBlock;
+  v34[1] = 3221225472;
+  v34[2] = sub_10008D9D4;
+  v34[3] = &unk_100356F88;
+  objc_copyWeak(&v35, buf);
+  [v33 launchAppForDialRequest:v14 completion:v34];
 
-  objc_destroyWeak(&v34);
+  objc_destroyWeak(&v35);
   objc_destroyWeak(buf);
 }
 
 - (void)notifyEmergencyContacts
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -1653,14 +1660,15 @@ LABEL_24:
 - (void)handleVolumeChanges
 {
   volumeMaxedPending = [(PHSOSViewController *)self volumeMaxedPending];
-  if (volumeMaxedPending == [(PHSOSViewController *)self volumeMaxedCurrently])
+  volumeMaxedCurrently = [(PHSOSViewController *)self volumeMaxedCurrently];
+  if (volumeMaxedPending == volumeMaxedCurrently)
   {
-    v4 = sub_100004F84();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100004F84(volumeMaxedCurrently);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5[0] = 67109120;
-      v5[1] = [(PHSOSViewController *)self volumeMaxedCurrently];
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,handleVolumeChanges,volume level already set,maxed:%d", v5, 8u);
+      v6[0] = 67109120;
+      v6[1] = [(PHSOSViewController *)self volumeMaxedCurrently];
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,handleVolumeChanges,volume level already set,maxed:%d", v6, 8u);
     }
   }
 
@@ -1692,38 +1700,40 @@ LABEL_24:
   }
 
   v4 = +[PHAudioDeviceController sharedSystemController];
-  v11 = 0.0;
-  if (([v4 getVolume:&v11 forCategory:@"Audio/Video"] & 1) == 0)
+  v13 = 0.0;
+  v5 = [v4 getVolume:&v13 forCategory:@"Audio/Video"];
+  if ((v5 & 1) == 0)
   {
-    v6 = sub_100004F84();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_100004F84(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_100255670();
     }
 
-    v11 = -1.0;
+    v13 = -1.0;
   }
 
-  *&v5 = v3;
-  v7 = [v4 setVolumeTo:@"Audio/Video" forCategory:v5];
-  v8 = sub_100004F84();
+  *&v6 = v3;
+  v8 = [v4 setVolumeTo:@"Audio/Video" forCategory:v6];
   v9 = v8;
-  if (v7)
+  v10 = sub_100004F84(v8);
+  v11 = v10;
+  if (v9)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v13 = v11;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,changed volume from %f to max", buf, 0xCu);
+      v15 = v13;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,changed volume from %f to max", buf, 0xCu);
     }
 
-    *&v10 = v11;
-    [(PHSOSViewController *)self setPriorSystemVolume:v10];
+    *&v12 = v13;
+    [(PHSOSViewController *)self setPriorSystemVolume:v12];
   }
 
   else
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1002556A4();
     }
@@ -1738,26 +1748,27 @@ LABEL_24:
     v4 = +[PHAudioDeviceController sharedSystemController];
     [(PHSOSViewController *)self priorSystemVolume];
     v5 = [v4 setVolumeTo:@"Audio/Video" forCategory:?];
-    v6 = sub_100004F84();
-    v7 = v6;
-    if (v5)
+    v6 = v5;
+    v7 = sub_100004F84(v5);
+    v8 = v7;
+    if (v6)
     {
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         [(PHSOSViewController *)self priorSystemVolume];
-        v10 = 134217984;
-        v11 = v8;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,set volume back to %f", &v10, 0xCu);
+        v11 = 134217984;
+        v12 = v9;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,set volume back to %f", &v11, 0xCu);
       }
     }
 
-    else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1002556D8(self);
     }
 
-    LODWORD(v9) = -1.0;
-    [(PHSOSViewController *)self setPriorSystemVolume:v9];
+    LODWORD(v10) = -1.0;
+    [(PHSOSViewController *)self setPriorSystemVolume:v10];
   }
 }
 
@@ -1774,7 +1785,7 @@ LABEL_24:
 
     if (sosTrigger == 3)
     {
-      v4 = sub_100004F84();
+      v4 = sub_100004F84(3);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         sub_100255760();
@@ -1783,7 +1794,7 @@ LABEL_24:
 
     else
     {
-      v6 = sub_100004F84();
+      v6 = sub_100004F84(sosTrigger);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         sub_100255794(self);
@@ -2001,13 +2012,14 @@ LABEL_12:
   [(PHSOSViewController *)self transitionToView:countdownView animated:0];
 
   [(PHSOSViewController *)self setUpCountdownViewConstraints];
-  if ((+[TUCallCapabilities isEmergencyCallbackModeEnabled]& 1) != 0)
+  v8 = +[TUCallCapabilities isEmergencyCallbackModeEnabled];
+  if (v8)
   {
-    v8 = sub_100004F84();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100004F84(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Not starting notification countdown due to ECBM mode being shown.", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Not starting notification countdown due to ECBM mode being shown.", v10, 2u);
     }
   }
 
@@ -2121,35 +2133,35 @@ LABEL_7:
 - (void)startStatusHeartbeatTimer
 {
   [(PHSOSViewController *)self clearStatusHeartbeatTimer];
-  if (([(PHSOSViewController *)self sosMode]== 2 || [(PHSOSViewController *)self sosMode]== 9) && ([(PHSOSViewController *)self launchedForAssertionReason], v3 = objc_claimAutoreleasedReturnValue(), v3, v3 == @"PHSOSCallAssertionReason"))
+  if (([(PHSOSViewController *)self sosMode]== 2 || (v3 = [(PHSOSViewController *)self sosMode], v3 == 9)) && ([(PHSOSViewController *)self launchedForAssertionReason], v4 = objc_claimAutoreleasedReturnValue(), v4, v4 == @"PHSOSCallAssertionReason"))
   {
-    v5 = sub_100004F84();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100004F84(v3);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,starting status heartbeat timer", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,starting status heartbeat timer", buf, 2u);
     }
 
     objc_initWeak(buf, self);
-    v7[0] = _NSConcreteStackBlock;
-    v7[1] = 3221225472;
-    v7[2] = sub_10008FF68;
-    v7[3] = &unk_100356CE8;
-    objc_copyWeak(&v8, buf);
-    v6 = [NSTimer scheduledTimerWithTimeInterval:1 repeats:v7 block:30.0];
-    [(PHSOSViewController *)self setStatusHeartbeatTimer:v6];
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_10008FF68;
+    v8[3] = &unk_100356CE8;
+    objc_copyWeak(&v9, buf);
+    v7 = [NSTimer scheduledTimerWithTimeInterval:1 repeats:v8 block:30.0];
+    [(PHSOSViewController *)self setStatusHeartbeatTimer:v7];
 
-    objc_destroyWeak(&v8);
+    objc_destroyWeak(&v9);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    v4 = sub_100004F84();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100004F84(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,not starting status heartbeat timer", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,not starting status heartbeat timer", buf, 2u);
     }
   }
 }
@@ -2160,11 +2172,11 @@ LABEL_7:
 
   if (statusHeartbeatTimer)
   {
-    v4 = sub_100004F84();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100004F84(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,clearing status heartbeat timer", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,clearing status heartbeat timer", v7, 2u);
     }
 
     statusHeartbeatTimer2 = [(PHSOSViewController *)self statusHeartbeatTimer];
@@ -2255,7 +2267,7 @@ LABEL_7:
 - (void)loadMedicalIDWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -2301,38 +2313,39 @@ LABEL_7:
 
 - (void)presentMedicalID
 {
-  if (+[TUCallCapabilities isEmergencyCallbackModeEnabled])
+  v3 = +[TUCallCapabilities isEmergencyCallbackModeEnabled];
+  if (v3)
   {
-    v3 = sub_100004F84();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100004F84(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Not presenting medical ID because going to present ECBM dialer", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Not presenting medical ID because going to present ECBM dialer", buf, 2u);
     }
   }
 
   else
   {
     objc_initWeak(buf, self);
-    v6[0] = _NSConcreteStackBlock;
-    v6[1] = 3221225472;
-    v6[2] = sub_100090C7C;
-    v6[3] = &unk_100356F60;
-    objc_copyWeak(&v7, buf);
-    v4 = objc_retainBlock(v6);
+    v7[0] = _NSConcreteStackBlock;
+    v7[1] = 3221225472;
+    v7[2] = sub_100090C7C;
+    v7[3] = &unk_100356F60;
+    objc_copyWeak(&v8, buf);
+    v5 = objc_retainBlock(v7);
     medicalIDNavigationController = [(PHSOSViewController *)self medicalIDNavigationController];
 
     if (medicalIDNavigationController)
     {
-      (v4[2])(v4);
+      (v5[2])(v5);
     }
 
     else
     {
-      [(PHSOSViewController *)self loadMedicalIDWithCompletion:v4];
+      [(PHSOSViewController *)self loadMedicalIDWithCompletion:v5];
     }
 
-    objc_destroyWeak(&v7);
+    objc_destroyWeak(&v8);
     objc_destroyWeak(buf);
   }
 }
@@ -2601,7 +2614,7 @@ LABEL_44:
 
 - (void)deactivateSOSWithSOSDismissalType:(int64_t)type
 {
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -2636,30 +2649,32 @@ LABEL_44:
   launchedForAssertionReason2 = [(PHSOSViewController *)self launchedForAssertionReason];
   [PHInCallRootViewController releaseDismissalAssertionForReason:launchedForAssertionReason2];
 
-  if (!+[PHSOSViewController isSOSDismissalAssertionActive])
+  v11 = +[PHSOSViewController isSOSDismissalAssertionActive];
+  if ((v11 & 1) == 0)
   {
-    v11 = sub_100004F84();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100004F84(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      *v19 = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,setting SOSInitiationState to Idle", v19, 2u);
+      *v21 = 0;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,setting SOSInitiationState to Idle", v21, 2u);
     }
 
-    v12 = +[SOSManager sharedInstance];
-    [v12 setCurrentSOSInitiationState:0];
+    v13 = +[SOSManager sharedInstance];
+    [v13 setCurrentSOSInitiationState:0];
 
-    v13 = +[UIApplication sharedApplication];
-    delegate = [v13 delegate];
+    v14 = +[UIApplication sharedApplication];
+    delegate = [v14 delegate];
     [delegate setActivationContext:0];
   }
 
-  if (!+[PHSOSViewController isSOSDismissalAssertionActive]&& self->_priorSystemAudioRoute)
+  v16 = +[PHSOSViewController isSOSDismissalAssertionActive];
+  if ((v16 & 1) == 0 && self->_priorSystemAudioRoute)
   {
-    v15 = sub_100004F84();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = sub_100004F84(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      *v18 = 0;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,restoring audio route", v18, 2u);
+      *v20 = 0;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,restoring audio route", v20, 2u);
     }
 
     audioDeviceController = self->_audioDeviceController;
@@ -2685,59 +2700,63 @@ LABEL_44:
 {
   launchedForAssertionReason = [(PHSOSViewController *)self launchedForAssertionReason];
 
-  if (launchedForAssertionReason == @"PHSOSCallAssertionReason" && ([(PHSOSViewController *)self sosTrigger]== 1 || [(PHSOSViewController *)self sosTrigger]== 2 || [(PHSOSViewController *)self sosTrigger]== 3))
+  if (launchedForAssertionReason == @"PHSOSCallAssertionReason")
   {
-    v4 = sub_100004F84();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    sosTrigger = [(PHSOSViewController *)self sosTrigger];
+    if (sosTrigger == 1 || (sosTrigger = [(PHSOSViewController *)self sosTrigger], sosTrigger == 2) || (sosTrigger = [(PHSOSViewController *)self sosTrigger], sosTrigger == 3))
     {
-      *buf = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Raising possible accidental SOS notification", buf, 2u);
+      v5 = sub_100004F84(sosTrigger);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Raising possible accidental SOS notification", buf, 2u);
+      }
+
+      v6 = objc_alloc_init(UNMutableNotificationContent);
+      v7 = +[SOSUtilities accidentalCallNotificationTitle];
+      [v6 setTitle:v7];
+
+      v8 = +[SOSUtilities accidentalCallNotificationBody];
+      [v6 setBody:v8];
+
+      v9 = SOSSettingsURLBaseString;
+      uTF8String = [SOSSettingsURLSourceKey UTF8String];
+      v11 = [v9 stringByAppendingFormat:@"&%s=%s", uTF8String, objc_msgSend(SOSSettingsURLSourceAccCallNotification, "UTF8String")];
+      v12 = [NSURL URLWithString:v11];
+      [v6 setDefaultActionURL:v12];
+
+      [v6 setCategoryIdentifier:@"com.apple.SOSNotification"];
+      v13 = [UNNotificationRequest requestWithIdentifier:@"com.apple.SOSNotificationId" content:v6 trigger:0 destinations:6];
+      v14 = sub_100004F84(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        v22 = v13;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Created SOS notification request:%@", buf, 0xCu);
+      }
+
+      v15 = [[UNUserNotificationCenter alloc] initWithBundleIdentifier:@"com.apple.Preferences"];
+      v16 = +[NSArray array];
+      v17 = +[NSArray array];
+      v18 = [UNNotificationCategory categoryWithIdentifier:@"com.apple.SOSNotification" actions:v16 intentIdentifiers:v17 options:0x20000];
+
+      v19 = [NSSet setWithObject:v18];
+      [v15 setNotificationCategories:v19];
+
+      v20[0] = _NSConcreteStackBlock;
+      v20[1] = 3221225472;
+      v20[2] = sub_1000923AC;
+      v20[3] = &unk_100358278;
+      v20[4] = self;
+      [v15 addNotificationRequest:v13 withCompletionHandler:v20];
     }
-
-    v5 = objc_alloc_init(UNMutableNotificationContent);
-    v6 = +[SOSUtilities accidentalCallNotificationTitle];
-    [v5 setTitle:v6];
-
-    v7 = +[SOSUtilities accidentalCallNotificationBody];
-    [v5 setBody:v7];
-
-    v8 = SOSSettingsURLBaseString;
-    uTF8String = [SOSSettingsURLSourceKey UTF8String];
-    v10 = [v8 stringByAppendingFormat:@"&%s=%s", uTF8String, objc_msgSend(SOSSettingsURLSourceAccCallNotification, "UTF8String")];
-    v11 = [NSURL URLWithString:v10];
-    [v5 setDefaultActionURL:v11];
-
-    [v5 setCategoryIdentifier:@"com.apple.SOSNotification"];
-    v12 = [UNNotificationRequest requestWithIdentifier:@"com.apple.SOSNotificationId" content:v5 trigger:0 destinations:6];
-    v13 = sub_100004F84();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 138412290;
-      v21 = v12;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Created SOS notification request:%@", buf, 0xCu);
-    }
-
-    v14 = [[UNUserNotificationCenter alloc] initWithBundleIdentifier:@"com.apple.Preferences"];
-    v15 = +[NSArray array];
-    v16 = +[NSArray array];
-    v17 = [UNNotificationCategory categoryWithIdentifier:@"com.apple.SOSNotification" actions:v15 intentIdentifiers:v16 options:0x20000];
-
-    v18 = [NSSet setWithObject:v17];
-    [v14 setNotificationCategories:v18];
-
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_1000923AC;
-    v19[3] = &unk_100358278;
-    v19[4] = self;
-    [v14 addNotificationRequest:v12 withCompletionHandler:v19];
   }
 }
 
 - (void)handleCallBufferCompletionNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -2751,30 +2770,30 @@ LABEL_44:
   if (userInfo)
   {
     [(PHSOSViewController *)self setSlidingViewEntryReason:5];
-    v7 = [userInfo objectForKeyedSubscript:@"PHCallBufferCompletionReasonKey"];
-    integerValue = [v7 integerValue];
+    v8 = [userInfo objectForKeyedSubscript:@"PHCallBufferCompletionReasonKey"];
+    integerValue = [v8 integerValue];
 
     if (integerValue == 1)
     {
-      v11 = sub_100004F84();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_100004F84(v10);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        *v18 = 0;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,handleInCallCallBufferNotification,PHCallBufferCompletionReasonCancelled", v18, 2u);
+        *v20 = 0;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,handleInCallCallBufferNotification,PHCallBufferCompletionReasonCancelled", v20, 2u);
       }
 
       [(PHSOSViewController *)self interactiveStartTime];
-      v13 = v12;
-      v14 = -1.0;
-      if (v13 > 0.0)
+      v15 = v14;
+      v16 = -1.0;
+      if (v15 > 0.0)
       {
         +[NSDate timeIntervalSinceReferenceDate];
-        v16 = v15;
+        v18 = v17;
         [(PHSOSViewController *)self interactiveStartTime];
-        v14 = v16 - v17;
+        v16 = v18 - v19;
       }
 
-      [(PHSOSViewController *)self setTimeTillCancelCall:v14];
+      [(PHSOSViewController *)self setTimeTillCancelCall:v16];
       [(PHSOSViewController *)self setWasCallCancelled:1];
       [(PHSOSViewController *)self setClawResolution:6];
       [(PHSOSViewController *)self setSosMode:3];
@@ -2785,11 +2804,11 @@ LABEL_44:
 
     else if (!integerValue)
     {
-      v9 = sub_100004F84();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_100004F84(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        *v19 = 0;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,handleInCallCallBufferNotification,PHCallBufferCompletionReasonTimeout", v19, 2u);
+        *v21 = 0;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,handleInCallCallBufferNotification,PHCallBufferCompletionReasonTimeout", v21, 2u);
       }
 
       [(PHSOSViewController *)self clearStatusHeartbeatTimer];
@@ -2800,11 +2819,11 @@ LABEL_44:
 
   else
   {
-    v10 = sub_100004F84();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100004F84(v7);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      *v20 = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,handleInCallCallBufferNotification,nil userInfo,Early return", v20, 2u);
+      *v22 = 0;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,handleInCallCallBufferNotification,nil userInfo,Early return", v22, 2u);
     }
   }
 }
@@ -2827,9 +2846,9 @@ LABEL_2:
   if (sosHandles)
   {
     sosHandles2 = [(PHSOSViewController *)self sosHandles];
-    v6 = [sosHandles2 count];
+    v7 = [sosHandles2 count];
 
-    if (v6 > 1)
+    if (v7 > 1)
     {
       [(PHSOSViewController *)self setVolumeMaxedPending:0];
       [(PHSOSViewController *)self handleVolumeChanges];
@@ -2839,24 +2858,24 @@ LABEL_2:
     [(PHSOSViewController *)self setVolumeMaxedPending:1];
     [(PHSOSViewController *)self handleVolumeChanges];
     callAutoDialled = [(PHSOSViewController *)self callAutoDialled];
-    v8 = off_100359450;
+    v9 = off_100359450;
     if (!callAutoDialled)
     {
-      v8 = off_100359458;
+      v9 = off_100359458;
     }
 
-    [PHInCallRootViewController obtainDismissalAssertionForReason:*v8];
-    v10 = +[NSNotificationCenter defaultCenter];
-    [v10 postNotificationName:@"PHCallBufferNotification" object:0 userInfo:0];
+    [PHInCallRootViewController obtainDismissalAssertionForReason:*v9];
+    v11 = +[NSNotificationCenter defaultCenter];
+    [v11 postNotificationName:@"PHCallBufferNotification" object:0 userInfo:0];
   }
 
   else
   {
-    v9 = sub_100004F84();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100004F84(v5);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[WARN] PHSOSViewController,animatedSliderCompletion,no SOS handles.Unexpected.return", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[WARN] PHSOSViewController,animatedSliderCompletion,no SOS handles.Unexpected.return", buf, 2u);
     }
 
     [(PHSOSViewController *)self setVolumeMaxedPending:0];
@@ -2961,7 +2980,7 @@ LABEL_2:
   v10[3] = &unk_1003569B0;
   v10[4] = self;
   v3 = objc_retainBlock(v10);
-  v4 = sub_100004F84();
+  v4 = sub_100004F84(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;
@@ -2991,15 +3010,15 @@ LABEL_2:
   changedCopy = changed;
   launchedForAssertionReason = [(PHSOSViewController *)self launchedForAssertionReason];
 
-  v6 = sub_100004F84();
-  v7 = v6;
+  v7 = sub_100004F84(v6);
+  v8 = v7;
   if (launchedForAssertionReason == @"PHAlertRestingScreenAssertionReason")
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = changedCopy;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,Stewie state changed: %@", &v10, 0xCu);
+      v11 = 138412290;
+      v12 = changedCopy;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,Stewie state changed: %@", &v11, 0xCu);
     }
 
     if ([(PHSOSViewController *)self sosMode]== 10)
@@ -3025,7 +3044,7 @@ LABEL_2:
 
   else
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1002558F4();
     }
@@ -3397,7 +3416,7 @@ LABEL_10:
     }
   }
 
-  v9 = sub_100004F84();
+  v9 = sub_100004F84(sosTrigger);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     sub_100255928(self);
@@ -3510,23 +3529,22 @@ LABEL_24:
   }
 
 LABEL_26:
-  v84 = objc_alloc_init(ICSCallAnalyticsLogger);
-  [(ICSCallAnalyticsLogger *)v84 submitCAMetric:v13 viewId:@"com.apple.sos.resolution"];
-  v46 = sub_100004F84();
+  v86 = objc_alloc_init(ICSCallAnalyticsLogger);
+  v46 = sub_100004F84([(ICSCallAnalyticsLogger *)v86 submitCAMetric:v13 viewId:@"com.apple.sos.resolution"]);
   if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
   {
-    v82 = [v13 valueForKey:@"trigger"];
-    intValue = [v82 intValue];
-    v80 = [v13 valueForKey:@"callCancelled"];
-    intValue2 = [v80 intValue];
-    v78 = [v13 valueForKey:@"timeTillCancel"];
-    intValue3 = [v78 intValue];
-    v76 = [v13 valueForKey:@"notificationPosted"];
-    intValue4 = [v76 intValue];
-    v75 = [v13 valueForKey:@"autoCallEnabled"];
-    intValue5 = [v75 intValue];
-    v73 = [v13 valueForKey:@"callDisconnectReason"];
-    intValue6 = [v73 intValue];
+    v84 = [v13 valueForKey:@"trigger"];
+    intValue = [v84 intValue];
+    v82 = [v13 valueForKey:@"callCancelled"];
+    intValue2 = [v82 intValue];
+    v80 = [v13 valueForKey:@"timeTillCancel"];
+    intValue3 = [v80 intValue];
+    v78 = [v13 valueForKey:@"notificationPosted"];
+    intValue4 = [v78 intValue];
+    v77 = [v13 valueForKey:@"autoCallEnabled"];
+    intValue5 = [v77 intValue];
+    v75 = [v13 valueForKey:@"callDisconnectReason"];
+    intValue6 = [v75 intValue];
     v48 = [v13 valueForKey:@"timeTillActive"];
     intValue7 = [v48 intValue];
     v50 = [v13 valueForKey:@"callAutoDialled"];
@@ -3536,71 +3554,71 @@ LABEL_26:
     v54 = [v13 valueForKey:@"clawButtonPressGapFloat"];
     [v54 doubleValue];
     *buf = 67111424;
-    v86 = intValue;
-    v87 = 1024;
-    v88 = intValue2;
+    v88 = intValue;
     v89 = 1024;
-    v90 = intValue3;
+    v90 = intValue2;
     v91 = 1024;
-    v92 = intValue4;
+    v92 = intValue3;
     v93 = 1024;
-    v94 = intValue5;
+    v94 = intValue4;
     v95 = 1024;
-    v96 = intValue6;
+    v96 = intValue5;
     v97 = 1024;
-    v98 = intValue7;
+    v98 = intValue6;
     v99 = 1024;
-    v100 = intValue8;
+    v100 = intValue7;
     v101 = 1024;
-    v102 = intValue9;
-    v103 = 2048;
-    v104 = v55;
+    v102 = intValue8;
+    v103 = 1024;
+    v104 = intValue9;
+    v105 = 2048;
+    v106 = v55;
     _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,SOS Resolution details,trigger,%d,callCancelled,%d,timeTillCancel,%d,notificationPosted,%d,autoCallEnabled,%d,callDisconnectReason,%d,timeTillActive,%d,callAutoDialled,%d,clawButtonPressGap,%d,clawButtonPressGapFloat,%f", buf, 0x42u);
   }
 
-  v56 = sub_100004F84();
-  if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
+  v57 = sub_100004F84(v56);
+  if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
   {
-    v83 = [v13 valueForKey:@"clawResolution"];
-    intValue10 = [v83 intValue];
-    v81 = [v13 valueForKey:@"wasMounted"];
-    intValue11 = [v81 intValue];
-    v57 = [v13 valueForKey:@"wasMountedProbability"];
-    intValue12 = [v57 intValue];
-    v59 = [v13 valueForKey:@"numberEpochs"];
-    intValue13 = [v59 intValue];
-    v61 = [v13 valueForKey:@"timeToReleaseClaw"];
-    intValue14 = [v61 intValue];
-    v63 = [v13 valueForKey:@"clawSwipeAfterRTCTimeout"];
-    intValue15 = [v63 intValue];
+    v85 = [v13 valueForKey:@"clawResolution"];
+    intValue10 = [v85 intValue];
+    v83 = [v13 valueForKey:@"wasMounted"];
+    intValue11 = [v83 intValue];
+    v58 = [v13 valueForKey:@"wasMountedProbability"];
+    intValue12 = [v58 intValue];
+    v60 = [v13 valueForKey:@"numberEpochs"];
+    intValue13 = [v60 intValue];
+    v62 = [v13 valueForKey:@"timeToReleaseClaw"];
+    intValue14 = [v62 intValue];
+    v64 = [v13 valueForKey:@"clawSwipeAfterRTCTimeout"];
+    intValue15 = [v64 intValue];
     *buf = 67110400;
-    v86 = intValue10;
-    v87 = 1024;
-    v88 = intValue11;
+    v88 = intValue10;
     v89 = 1024;
-    v90 = intValue12;
+    v90 = intValue11;
     v91 = 1024;
-    v92 = intValue13;
+    v92 = intValue12;
     v93 = 1024;
-    v94 = intValue14;
+    v94 = intValue13;
     v95 = 1024;
-    v96 = intValue15;
-    _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,SOS Resolution details II,clawResolution,%d,wasMounted,%d,wasMountedProbability,%d,numberEpochs,%d,timeToReleaseClaw,%d, clawSwipeAfterRTCTimeout,%d", buf, 0x26u);
+    v96 = intValue14;
+    v97 = 1024;
+    v98 = intValue15;
+    _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,SOS Resolution details II,clawResolution,%d,wasMounted,%d,wasMountedProbability,%d,numberEpochs,%d,timeToReleaseClaw,%d, clawSwipeAfterRTCTimeout,%d", buf, 0x26u);
   }
 
-  v65 = sub_100004F84();
-  if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
+  v67 = sub_100004F84(v66);
+  if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
   {
-    v66 = +[SOSUtilities isCallWithVolumeLockHoldEnabled];
-    v67 = +[SOSUtilities isCallWithSideButtonPressesEnabled];
-    v68 = +[SOSUtilities shouldPlayAudioDuringCountdown];
+    v68 = +[SOSUtilities isCallWithVolumeLockHoldEnabled];
+    v69 = +[SOSUtilities isCallWithSideButtonPressesEnabled];
+    v70 = +[SOSUtilities shouldPlayAudioDuringCountdown];
     *buf = 67109632;
-    v86 = v66;
-    v87 = 1024;
-    v88 = v67;
+    v88 = v68;
     v89 = 1024;
-    v90 = v68;
-    _os_log_impl(&_mh_execute_header, v65, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,SOS Settings details,isCallWithVolumeLockHoldEnabled:%d,isCallWithSideButtonPressesEnabled:%d,emergencySOSSoundEnabled:%d", buf, 0x14u);
+    v90 = v69;
+    v91 = 1024;
+    v92 = v70;
+    _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_DEFAULT, "PHSOSViewController,SOS Settings details,isCallWithVolumeLockHoldEnabled:%d,isCallWithSideButtonPressesEnabled:%d,emergencySOSSoundEnabled:%d", buf, 0x14u);
   }
 }
 
@@ -3678,8 +3696,7 @@ LABEL_26:
     }
 
     v33 = objc_alloc_init(ICSCallAnalyticsLogger);
-    [(ICSCallAnalyticsLogger *)v33 submitCAMetric:v4 viewId:@"com.apple.sos.user_activity"];
-    v34 = sub_100004F84();
+    v34 = sub_100004F84([(ICSCallAnalyticsLogger *)v33 submitCAMetric:v4 viewId:@"com.apple.sos.user_activity"]);
     if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       v35 = [v4 valueForKey:@"sessionId"];

@@ -3,7 +3,7 @@
 
 @implementation AXSZoomTouchEnabled
 
-uint64_t ___AXSZoomTouchEnabled_block_invoke()
+void *___AXSZoomTouchEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

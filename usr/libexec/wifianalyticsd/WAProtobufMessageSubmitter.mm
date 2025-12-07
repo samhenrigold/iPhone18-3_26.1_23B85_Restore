@@ -381,7 +381,7 @@ LABEL_83:
   }
 
   *(&__dst + v11) = 0;
-  [(WAProtobufMessageSubmitter *)self _fieldNameFromKey:&__dst];
+  objc_msgSend__fieldNameFromKey_(self);
   if (v33 < 0)
   {
     operator delete(__dst);

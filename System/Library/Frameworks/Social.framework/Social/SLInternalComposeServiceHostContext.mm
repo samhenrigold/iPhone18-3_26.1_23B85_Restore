@@ -56,12 +56,11 @@ uint64_t __70__SLInternalComposeServiceHostContext__extensionAuxiliaryHostProtoc
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __74__SLInternalComposeServiceHostContext_shouldShowNetworkActivityIndicator___block_invoke(uint64_t a1)
+void __74__SLInternalComposeServiceHostContext_shouldShowNetworkActivityIndicator___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v3 = *(a1 + 32);
-  _SLLog(v1, 6, @"SLInternalComposeServiceHostContext shouldShowNetworkActivityIndicator: %@");
-  v4 = [MEMORY[0x1E69DC668] sharedApplication];
-  [v4 setNetworkActivityIndicatorVisible:{objc_msgSend(*(a1 + 32), "BOOLValue")}];
+  _SLLog(v8, 6, @"SLInternalComposeServiceHostContext shouldShowNetworkActivityIndicator: %@", a4, a5, a6, a7, a8, *(a1 + 32));
+  v10 = [MEMORY[0x1E69DC668] sharedApplication];
+  [v10 setNetworkActivityIndicatorVisible:{objc_msgSend(*(a1 + 32), "BOOLValue")}];
 }
 
 @end

@@ -171,24 +171,24 @@ LABEL_28:
 
 - (id)description
 {
-  v17[3] = *MEMORY[0x1E69E9840];
+  v16[3] = *MEMORY[0x1E69E9840];
   bundleIdentifier = [(LNEntityIdentifier *)self bundleIdentifier];
 
   if (bundleIdentifier)
   {
-    v16[0] = @"bundleIdentifier";
+    v15[0] = @"bundleIdentifier";
     bundleIdentifier2 = [(LNEntityIdentifier *)self bundleIdentifier];
-    v17[0] = bundleIdentifier2;
-    v16[1] = @"instanceIdentifier";
+    v16[0] = bundleIdentifier2;
+    v15[1] = @"instanceIdentifier";
     instanceIdentifier = [(LNEntityIdentifier *)self instanceIdentifier];
-    v17[1] = instanceIdentifier;
-    v16[2] = @"typeIdentifier";
+    v16[1] = instanceIdentifier;
+    v15[2] = @"typeIdentifier";
     typeIdentifier = [(LNEntityIdentifier *)self typeIdentifier];
-    v17[2] = typeIdentifier;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:3];
+    v16[2] = typeIdentifier;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:3];
 
-    v15 = 0;
-    v8 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v7 options:2 error:&v15];
+    v14 = 0;
+    v8 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v7 options:2 error:&v14];
     v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v8 encoding:4];
   }
 
@@ -199,8 +199,6 @@ LABEL_28:
     instanceIdentifier2 = [(LNEntityIdentifier *)self instanceIdentifier];
     v9 = [v10 stringWithFormat:@"%@/%@", typeIdentifier2, instanceIdentifier2];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -356,7 +354,7 @@ LABEL_37:
 
 - (LNEntityIdentifier)initWithTypeIdentifier:(id)identifier bundleIdentifier:(id)bundleIdentifier instanceIdentifier:(id)instanceIdentifier
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   bundleIdentifierCopy = bundleIdentifier;
   instanceIdentifierCopy = instanceIdentifier;
@@ -384,9 +382,9 @@ LABEL_37:
   [currentHandler2 handleFailureInMethod:a2 object:self file:@"LNEntityIdentifier.m" lineNumber:34 description:{@"Invalid parameter not satisfying: %@", @"instanceIdentifier"}];
 
 LABEL_3:
-  v29.receiver = self;
-  v29.super_class = LNEntityIdentifier;
-  v13 = [(LNEntityIdentifier *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = LNEntityIdentifier;
+  v13 = [(LNEntityIdentifier *)&v28 init];
   if (v13)
   {
     v14 = [identifierCopy copy];
@@ -410,7 +408,7 @@ LABEL_3:
         if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
         {
           *buf = 134217984;
-          v31 = LNEntityIdentifierMaximumValueLength;
+          v30 = LNEntityIdentifierMaximumValueLength;
           _os_log_fault_impl(&dword_18EF7E000, v19, OS_LOG_TYPE_FAULT, "Excessive identifier value length. Identifiers should be %ld characters or less, the supplied value was truncated.", buf, 0xCu);
         }
       }
@@ -428,7 +426,6 @@ LABEL_3:
     v24 = v13;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

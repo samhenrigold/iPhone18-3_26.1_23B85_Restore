@@ -279,14 +279,13 @@ LABEL_22:
     *size = 0;
   }
 
+  v5 = 0;
   v6 = 0;
-  v7 = 0;
-  if (([(DYCaptureStore *)[(DYFunctionPlayer *)self captureStore] requestDataForFilePosition:position buffer:&v6 size:size error:&v7]& 1) != 0)
+  if (([(DYCaptureStore *)[(DYFunctionPlayer *)self captureStore] requestDataForFilePosition:position buffer:&v5 size:size error:&v6]& 1) != 0)
   {
-    return v6;
+    return v5;
   }
 
-  v5 = *MEMORY[0x277D0B240];
   _DYOLog();
   return 0;
 }
@@ -399,7 +398,7 @@ LABEL_22:
           *v19 = [(DYFunctionPlayer *)selfCopy3 requestDataForPosition:v17 dataSize:&v119];
           v20 = v119;
           v120 = v19;
-          std::__hash_table<std::__hash_value_type<void *,unsigned long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void * const&>,std::tuple<>>(&selfCopy3->_dataSizeMap.__table_.__bucket_list_.__ptr_, v19)[3] = v20;
+          std::__hash_table<std::__hash_value_type<void *,unsigned long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void * const&>,std::tuple<>>(&selfCopy3->_dataSizeMap.__table_.__bucket_list_.__ptr_, v19, &std::piecewise_construct, &v120)[3] = v20;
           argumentPointers[v18] = v19;
           end = v8->__end_;
           cap = v8->__cap_;
@@ -596,7 +595,7 @@ LABEL_127:
               v8->__end_ = v52;
               v60 = v119;
               v120 = v48;
-              std::__hash_table<std::__hash_value_type<void *,unsigned long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void * const&>,std::tuple<>>(&self->_dataSizeMap.__table_.__bucket_list_.__ptr_, v48)[3] = v60;
+              std::__hash_table<std::__hash_value_type<void *,unsigned long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void * const&>,std::tuple<>>(&self->_dataSizeMap.__table_.__bucket_list_.__ptr_, v48, &std::piecewise_construct, &v120)[3] = v60;
             }
 
             v61 = *(v7 + 8);
@@ -814,7 +813,7 @@ LABEL_126:
 
         v105 = v119;
         v120 = v13;
-        std::__hash_table<std::__hash_value_type<void *,unsigned long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void * const&>,std::tuple<>>(&selfCopy3->_dataSizeMap.__table_.__bucket_list_.__ptr_, v13)[3] = v105;
+        std::__hash_table<std::__hash_value_type<void *,unsigned long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void * const&>,std::tuple<>>(&selfCopy3->_dataSizeMap.__table_.__bucket_list_.__ptr_, v13, &std::piecewise_construct, &v120)[3] = v105;
         v4 = v12;
         v73 = v116;
       }
@@ -837,7 +836,7 @@ LABEL_126:
       else
       {
         std::allocator_traits<std::allocator<std::pair<std::string,BOOL>>>::construct[abi:ne200100]<std::pair<std::string,BOOL>,std::pair<char const*,BOOL>,0>(v7, *(v7 + 8), &v120);
-        v107 = v106 + 32;
+        v107 = (v106 + 32);
         *(v7 + 8) = v106 + 32;
       }
 
@@ -931,7 +930,7 @@ LABEL_126:
 
           v41 = v119;
           v120 = v27;
-          std::__hash_table<std::__hash_value_type<void *,unsigned long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void * const&>,std::tuple<>>(&selfCopy3->_dataSizeMap.__table_.__bucket_list_.__ptr_, v27)[3] = v41;
+          std::__hash_table<std::__hash_value_type<void *,unsigned long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void * const&>,std::tuple<>>(&selfCopy3->_dataSizeMap.__table_.__bucket_list_.__ptr_, v27, &std::piecewise_construct, &v120)[3] = v41;
         }
 
         else
@@ -950,7 +949,7 @@ LABEL_126:
         else
         {
           std::allocator_traits<std::allocator<std::pair<std::string,BOOL>>>::construct[abi:ne200100]<std::pair<std::string,BOOL>,std::pair<char const*,BOOL>,0>(v7, *(v7 + 8), &v120);
-          v43 = v42 + 32;
+          v43 = (v42 + 32);
           *(v7 + 8) = v42 + 32;
         }
 
@@ -1062,9 +1061,7 @@ LABEL_78:
 - (uint64_t)copyDataForFilename:dataSize:.cold.1()
 {
   OUTLINED_FUNCTION_0_2();
-  v1 = *MEMORY[0x277D0B240];
   [MEMORY[0x277CCACA8] stringWithUTF8String:?];
-  v3 = *v0;
   return _DYOLog();
 }
 

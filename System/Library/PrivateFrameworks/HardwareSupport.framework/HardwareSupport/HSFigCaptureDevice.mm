@@ -94,63 +94,60 @@
 
 - (BOOL)invalidate:(id *)invalidate
 {
-  v24[1] = *MEMORY[0x277D85DE8];
-  underlyingDevice = self->_underlyingDevice;
+  v22[1] = *MEMORY[0x277D85DE8];
   FigBaseObject = FigCaptureDeviceGetFigBaseObject();
   if (FigBaseObject)
   {
-    v7 = FigBaseObject;
+    v6 = FigBaseObject;
     VTable = CMBaseObjectGetVTable();
-    v9 = *(*(VTable + 8) + 24);
+    v8 = *(VTable + 8);
+    FigBaseObject = VTable + 8;
+    v9 = *(v8 + 24);
     if (v9)
     {
-      v10 = *(VTable + 8) + 24;
-      v11 = v9(v7);
-      if (!v11)
+      FigBaseObject = v9(v6);
+      v10 = FigBaseObject;
+      if (!FigBaseObject)
       {
-        result = 1;
-        goto LABEL_12;
+        return 1;
       }
     }
 
     else
     {
-      v11 = 4294954514;
+      v10 = 4294954514;
     }
   }
 
   else
   {
-    v11 = 4294954516;
+    v10 = 4294954516;
   }
 
-  v13 = HSLogHandle();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  v12 = HSLogHandle(FigBaseObject);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    [(HSFigCaptureDevice *)self invalidate:v11];
+    [(HSFigCaptureDevice *)self invalidate:v10];
   }
 
   if (invalidate)
   {
-    v14 = MEMORY[0x277CCACA8];
-    v15 = [objc_opt_class() statusDescription:v11];
-    v16 = [v14 stringWithFormat:@"Failed to invalidate device! %@", v15];
+    v13 = MEMORY[0x277CCACA8];
+    v14 = [objc_opt_class() statusDescription:v10];
+    v15 = [v13 stringWithFormat:@"Failed to invalidate device! %@", v14];
 
-    v17 = MEMORY[0x277CCA9B8];
-    v18 = *MEMORY[0x277CCA590];
-    v23 = *MEMORY[0x277CCA450];
-    v24[0] = v16;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
-    v20 = [v17 errorWithDomain:v18 code:v11 userInfo:v19];
+    v16 = MEMORY[0x277CCA9B8];
+    v17 = *MEMORY[0x277CCA590];
+    v21 = *MEMORY[0x277CCA450];
+    v22[0] = v15;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v19 = [v16 errorWithDomain:v17 code:v10 userInfo:v18];
 
-    v21 = v20;
-    *invalidate = v20;
+    v20 = v19;
+    *invalidate = v19;
   }
 
-  result = 0;
-LABEL_12:
-  v22 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (id)valueForKey:(id)key
@@ -198,9 +195,9 @@ LABEL_12:
 
 - (BOOL)requestControlOfStreams:(id)streams error:(id *)error
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   streamsCopy = streams;
-  v6 = HSLogHandle();
+  v6 = HSLogHandle(streamsCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [(HSFigCaptureDevice *)v6 requestControlOfStreams:v7 error:v8, v9, v10, v11, v12, v13];
@@ -210,18 +207,21 @@ LABEL_12:
   v15 = NSStringFromSelector(sel_underlyingStream);
   v16 = [v14 stringWithFormat:@"self.%@", v15];
 
-  v38 = v16;
-  v39 = [streamsCopy valueForKeyPath:v16];
+  v40 = v16;
+  v41 = [streamsCopy valueForKeyPath:v16];
   v17 = 0;
   do
   {
     underlyingDevice = self->_underlyingDevice;
-    v19 = *(CMBaseObjectGetVTable() + 16);
-    if (*v19 >= 2uLL && (v20 = v19[2]) != 0)
+    VTable = CMBaseObjectGetVTable();
+    v22 = *(VTable + 16);
+    v20 = VTable + 16;
+    v21 = v22;
+    if (*v22 >= 2uLL && (v23 = v21[2]) != 0)
     {
-      v21 = v19[2];
-      v22 = v20(underlyingDevice, v39, 0);
-      if (!v22)
+      v20 = v23(underlyingDevice, v41, 0);
+      v24 = v20;
+      if (!v20)
       {
         errorCopy = 1;
         goto LABEL_16;
@@ -230,72 +230,71 @@ LABEL_12:
 
     else
     {
-      v22 = 4294954514;
+      v24 = 4294954514;
     }
 
-    v23 = HSLogHandle();
+    v25 = HSLogHandle(v20);
     ++v17;
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v43 = streamsCopy;
-      v44 = 1024;
-      *v45 = v17;
-      *&v45[4] = 1024;
-      *&v45[6] = 6;
-      _os_log_impl(&dword_2510E6000, v23, OS_LOG_TYPE_DEFAULT, "Trying to get control of the streams %@. Iteration %d/%d", buf, 0x18u);
+      v45 = streamsCopy;
+      v46 = 1024;
+      *v47 = v17;
+      *&v47[4] = 1024;
+      *&v47[6] = 6;
+      _os_log_impl(&dword_2510E6000, v25, OS_LOG_TYPE_DEFAULT, "Trying to get control of the streams %@. Iteration %d/%d", buf, 0x18u);
     }
 
-    usleep(0x7A120u);
+    v26 = usleep(0x7A120u);
   }
 
   while (v17 != 6);
-  v24 = HSLogHandle();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+  v27 = HSLogHandle(v26);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
   {
-    v36 = [objc_opt_class() statusDescription:v22];
+    v38 = [objc_opt_class() statusDescription:v24];
     *buf = 138413058;
-    v43 = streamsCopy;
-    v44 = 2112;
-    *v45 = self;
-    *&v45[8] = 1024;
-    v46 = 6;
-    v47 = 2112;
-    v48 = v36;
-    _os_log_error_impl(&dword_2510E6000, v24, OS_LOG_TYPE_ERROR, "Failed to request control of streams %@ from device %@ after %d attempts! %@", buf, 0x26u);
+    v45 = streamsCopy;
+    v46 = 2112;
+    *v47 = self;
+    *&v47[8] = 1024;
+    v48 = 6;
+    v49 = 2112;
+    v50 = v38;
+    _os_log_error_impl(&dword_2510E6000, v27, OS_LOG_TYPE_ERROR, "Failed to request control of streams %@ from device %@ after %d attempts! %@", buf, 0x26u);
   }
 
   errorCopy = error;
   if (error)
   {
-    v25 = MEMORY[0x277CCACA8];
-    v26 = [objc_opt_class() statusDescription:v22];
-    v27 = [v25 stringWithFormat:@"Failed to request control of streams %@ from device %@ after %d attempts! %@", streamsCopy, self, 6, v26];
+    v28 = MEMORY[0x277CCACA8];
+    v29 = [objc_opt_class() statusDescription:v24];
+    v30 = [v28 stringWithFormat:@"Failed to request control of streams %@ from device %@ after %d attempts! %@", streamsCopy, self, 6, v29];
 
-    v28 = MEMORY[0x277CCA9B8];
-    v29 = *MEMORY[0x277CCA590];
-    v40 = *MEMORY[0x277CCA450];
-    v41 = v27;
-    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
-    v31 = [v28 errorWithDomain:v29 code:v22 userInfo:v30];
+    v31 = MEMORY[0x277CCA9B8];
+    v32 = *MEMORY[0x277CCA590];
+    v42 = *MEMORY[0x277CCA450];
+    v43 = v30;
+    v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+    v34 = [v31 errorWithDomain:v32 code:v24 userInfo:v33];
 
-    v32 = v31;
-    *error = v31;
+    v35 = v34;
+    *error = v34;
 
     errorCopy = 0;
   }
 
 LABEL_16:
 
-  v34 = *MEMORY[0x277D85DE8];
   return errorCopy;
 }
 
 - (BOOL)relinquishControlOfStreams:(id)streams error:(id *)error
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   streamsCopy = streams;
-  v7 = HSLogHandle();
+  v7 = HSLogHandle(streamsCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [(HSFigCaptureDevice *)v7 relinquishControlOfStreams:v8 error:v9, v10, v11, v12, v13, v14];
@@ -307,12 +306,15 @@ LABEL_16:
 
   v18 = [streamsCopy valueForKeyPath:v17];
   underlyingDevice = self->_underlyingDevice;
-  v20 = *(CMBaseObjectGetVTable() + 16);
-  if (*v20 >= 2uLL && (v21 = v20[3]) != 0)
+  VTable = CMBaseObjectGetVTable();
+  v23 = *(VTable + 16);
+  v21 = VTable + 16;
+  v22 = v23;
+  if (*v23 >= 2uLL && (v24 = v22[3]) != 0)
   {
-    v22 = v20[3];
-    v23 = v21(underlyingDevice, v18, 0);
-    if (!v23)
+    v21 = v24(underlyingDevice, v18, 0);
+    v25 = v21;
+    if (!v21)
     {
       LOBYTE(error) = 1;
       goto LABEL_12;
@@ -321,69 +323,65 @@ LABEL_16:
 
   else
   {
-    v23 = 4294954514;
+    v25 = 4294954514;
   }
 
-  v24 = HSLogHandle();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+  v26 = HSLogHandle(v21);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
   {
-    v35 = [objc_opt_class() statusDescription:v23];
+    v36 = [objc_opt_class() statusDescription:v25];
     *buf = 138412802;
-    v39 = streamsCopy;
-    v40 = 2112;
+    v40 = streamsCopy;
+    v41 = 2112;
     selfCopy = self;
-    v42 = 2112;
-    v43 = v35;
-    _os_log_error_impl(&dword_2510E6000, v24, OS_LOG_TYPE_ERROR, "Failed to relinquish control of streams %@ from device %@! %@", buf, 0x20u);
+    v43 = 2112;
+    v44 = v36;
+    _os_log_error_impl(&dword_2510E6000, v26, OS_LOG_TYPE_ERROR, "Failed to relinquish control of streams %@ from device %@! %@", buf, 0x20u);
   }
 
   if (error)
   {
-    v25 = MEMORY[0x277CCACA8];
-    v26 = [objc_opt_class() statusDescription:v23];
-    v27 = [v25 stringWithFormat:@"Failed to relinquish control of streams %@ from device %@! %@", streamsCopy, self, v26];
+    v27 = MEMORY[0x277CCACA8];
+    v28 = [objc_opt_class() statusDescription:v25];
+    v29 = [v27 stringWithFormat:@"Failed to relinquish control of streams %@ from device %@! %@", streamsCopy, self, v28];
 
-    v28 = MEMORY[0x277CCA9B8];
-    v29 = *MEMORY[0x277CCA590];
-    v36 = *MEMORY[0x277CCA450];
-    v37 = v27;
-    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
-    v31 = [v28 errorWithDomain:v29 code:v23 userInfo:v30];
+    v30 = MEMORY[0x277CCA9B8];
+    v31 = *MEMORY[0x277CCA590];
+    v37 = *MEMORY[0x277CCA450];
+    v38 = v29;
+    v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+    v33 = [v30 errorWithDomain:v31 code:v25 userInfo:v32];
 
-    v32 = v31;
-    *error = v31;
+    v34 = v33;
+    *error = v33;
 
     LOBYTE(error) = 0;
   }
 
 LABEL_12:
 
-  v33 = *MEMORY[0x277D85DE8];
   return error;
 }
 
 - (void)invalidate:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v8 = [objc_opt_class() statusDescription:a2];
+  v7 = [objc_opt_class() statusDescription:a2];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestControlOfStreams:(uint64_t)a3 error:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_2510E6000, a1, a3, "%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[HSFigCaptureDevice requestControlOfStreams:error:]";
+  OUTLINED_FUNCTION_0_0(&dword_2510E6000, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)relinquishControlOfStreams:(uint64_t)a3 error:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_2510E6000, a1, a3, "%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[HSFigCaptureDevice relinquishControlOfStreams:error:]";
+  OUTLINED_FUNCTION_0_0(&dword_2510E6000, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

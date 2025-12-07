@@ -345,9 +345,9 @@ void __71__PKEnhancedMerchantCollectionViewListCell__initializeViewsIfNecessary_
 
 - (void)layoutSubviews
 {
-  v46.receiver = self;
-  v46.super_class = PKEnhancedMerchantCollectionViewListCell;
-  [(PKEnhancedMerchantCollectionViewListCell *)&v46 layoutSubviews];
+  v82.receiver = self;
+  v82.super_class = PKEnhancedMerchantCollectionViewListCell;
+  [(PKEnhancedMerchantCollectionViewListCell *)&v82 layoutSubviews];
   contentView = [(PKEnhancedMerchantCollectionViewListCell *)self contentView];
   _shouldReverseLayoutDirection = [contentView _shouldReverseLayoutDirection];
 
@@ -371,140 +371,165 @@ void __71__PKEnhancedMerchantCollectionViewListCell__initializeViewsIfNecessary_
     v13 = CGRectMinXEdge;
   }
 
-  PKContentAlignmentMake();
-  PKContentAlignmentMake();
+  v14 = PKContentAlignmentMake();
+  v15 = PKContentAlignmentMake();
   [(UIListContentView *)self->_listContentView sizeThatFits:v8 + -48.0 + -10.0, v10];
-  v15 = fmax(v14, 48.0);
-  v47.origin.x = v6;
-  v47.origin.y = v12;
-  v47.size.width = v8;
-  v47.size.height = v10;
-  CGRectDivide(v47, &slice, &remainder, v15, CGRectMinYEdge);
-  memset(&v43, 0, sizeof(v43));
-  v42 = slice;
-  CGRectDivide(slice, &v43, &v42, 58.0, v13);
+  v17 = fmax(v16, 48.0);
+  v83.origin.x = v6;
+  v83.origin.y = v12;
+  v83.size.width = v8;
+  v83.size.height = v10;
+  CGRectDivide(v83, &slice, &remainder, v17, CGRectMinYEdge);
+  memset(&v79, 0, sizeof(v79));
+  v78 = slice;
+  CGRectDivide(slice, &v79, &v78, 58.0, v13);
   imageView = self->_imageView;
-  PKSizeAlignedInRect();
+  v19.n128_u64[0] = *&v79.origin.x;
+  v20.n128_u64[0] = *&v79.origin.y;
+  v21.n128_u64[0] = *&v79.size.width;
+  v22.n128_u64[0] = *&v79.size.height;
+  v23.n128_u64[0] = 0x4048000000000000;
+  v24.n128_u64[0] = 0x4048000000000000;
+  PKSizeAlignedInRect(v15, v23, v24, v19, v20, v21, v22, v25);
   [(UIImageView *)imageView setFrame:?];
-  [(UIListContentView *)self->_listContentView sizeThatFits:v42.size.width, v42.size.height];
+  [(UIListContentView *)self->_listContentView sizeThatFits:v78.size.width, v78.size.height];
+  v27.n128_u64[0] = *&v78.size.height;
+  v26.n128_u64[0] = *&v78.size.width;
+  v29.n128_f64[0] = fmin(v28, v78.size.width);
+  v31.n128_f64[0] = fmin(v30, v78.size.height);
   listContentView = self->_listContentView;
-  PKSizeAlignedInRect();
+  v34.n128_u64[0] = *&v78.origin.y;
+  v33.n128_u64[0] = *&v78.origin.x;
+  PKSizeAlignedInRect(v15, v29, v31, v33, v34, v26, v27, v35);
   [(UIListContentView *)listContentView setFrame:?];
   remainder.origin = vaddq_f64(remainder.origin, xmmword_1BE0D82B0);
   remainder.size.height = remainder.size.height + -16.0;
   [(UILabel *)self->_detailedDescriptionLabel sizeThatFits:remainder.size.width];
-  v48 = remainder;
-  CGRectDivide(remainder, &slice, &remainder, v48.origin.y + 16.0, CGRectMinYEdge);
+  v37 = *&v36;
+  v39 = fmin(remainder.size.width, v38);
+  CGRectDivide(remainder, &slice, &remainder, v36 + 16.0, CGRectMinYEdge);
   detailedDescriptionLabel = self->_detailedDescriptionLabel;
-  PKSizeAlignedInRect();
+  v41.n128_u64[0] = *&slice.origin.x;
+  v42.n128_u64[0] = *&slice.origin.y;
+  v43.n128_u64[0] = *&slice.size.width;
+  v44.n128_u64[0] = *&slice.size.height;
+  v45.n128_f64[0] = v39;
+  v46.n128_u64[0] = v37;
+  PKSizeAlignedInRect(v14, v45, v46, v41, v42, v43, v44, v47);
   [(UILabel *)detailedDescriptionLabel setFrame:?];
   _visibleButtons = [(PKEnhancedMerchantCollectionViewListCell *)self _visibleButtons];
-  v20 = [_visibleButtons count];
-  if (v20)
+  v49 = [_visibleButtons count];
+  if (v49)
   {
-    v21 = v20;
-    v39 = *(MEMORY[0x1E695F050] + 16);
-    v40 = *MEMORY[0x1E695F050];
-    v41.origin = *MEMORY[0x1E695F050];
-    v41.size = v39;
+    v50 = v49;
+    v75 = *(MEMORY[0x1E695F050] + 16);
+    v76 = *MEMORY[0x1E695F050];
+    v77.origin = *MEMORY[0x1E695F050];
+    v77.size = v75;
     Width = CGRectGetWidth(remainder);
-    if (v21 >= 1)
+    if (v50 >= 1)
     {
-      v23 = Width;
-      v24 = 0;
-      v25 = 0;
-      v26 = 0;
-      v27 = *MEMORY[0x1E695F060];
-      v28 = *(MEMORY[0x1E695F060] + 8);
-      v29 = v28;
-      v30 = *MEMORY[0x1E695F060];
+      v52 = Width;
+      v53 = 0;
+      v54 = 0;
+      v55 = 0;
+      v56 = *MEMORY[0x1E695F060];
+      v57 = *(MEMORY[0x1E695F060] + 8);
+      v58 = v57;
+      v59 = *MEMORY[0x1E695F060];
       do
       {
-        v31 = v26;
-        v32 = v25;
-        v26 = [_visibleButtons objectAtIndexedSubscript:{v24, v39, v40}];
+        v60 = v55;
+        v61 = v54;
+        v55 = [_visibleButtons objectAtIndexedSubscript:{v53, v75, v76}];
 
-        if (++v24 >= v21)
+        if (++v53 >= v50)
         {
-          v25 = 0;
+          v54 = 0;
         }
 
         else
         {
-          v25 = [_visibleButtons objectAtIndexedSubscript:v24];
+          v54 = [_visibleButtons objectAtIndexedSubscript:v53];
         }
 
-        if (v30 == v27)
+        if (v59 == v56)
         {
-          v33 = v30;
-          v34 = v29;
-          if (v29 == v28)
+          v62 = v59;
+          v63 = v58;
+          if (v58 == v57)
           {
-            [v26 sizeThatFits:{v23, 1.79769313e308}];
-            if (v35 >= v23)
+            [v55 sizeThatFits:{v52, 1.79769313e308}];
+            if (v64 >= v52)
             {
-              v33 = v23;
+              v62 = v52;
             }
 
             else
             {
-              v33 = v35;
+              v62 = v64;
             }
 
-            v34 = fmax(v36, 28.0);
+            v63 = fmax(v65, 28.0);
           }
         }
 
         else
         {
-          v33 = v30;
-          v34 = v29;
+          v62 = v59;
+          v63 = v58;
         }
 
-        v30 = v27;
-        v29 = v28;
-        if (v25)
+        v59 = v56;
+        v58 = v57;
+        if (v54)
         {
-          [v25 sizeThatFits:{v23, 1.79769313e308}];
-          if (v37 >= v23)
+          [v54 sizeThatFits:{v52, 1.79769313e308}];
+          if (v66 >= v52)
           {
-            v30 = v23;
+            v59 = v52;
           }
 
           else
           {
-            v30 = v37;
+            v59 = v66;
           }
 
-          v29 = fmax(v38, 28.0);
+          v58 = fmax(v67, 28.0);
         }
 
-        if (CGRectIsNull(v41))
+        if (CGRectIsNull(v77))
         {
-          CGRectDivide(remainder, &v41, &remainder, v34, CGRectMinYEdge);
+          CGRectDivide(remainder, &v77, &remainder, v63, CGRectMinYEdge);
         }
 
-        CGRectDivide(v41, &slice, &v41, v33, v13);
-        PKSizeAlignedInRect();
-        [v26 setFrame:?];
-        if (v25)
+        CGRectDivide(v77, &slice, &v77, v62, v13);
+        v68.n128_u64[0] = *&slice.origin.x;
+        v69.n128_u64[0] = *&slice.origin.y;
+        v70.n128_u64[0] = *&slice.size.width;
+        v71.n128_u64[0] = *&slice.size.height;
+        v72.n128_f64[0] = v62;
+        v73.n128_f64[0] = v63;
+        PKSizeAlignedInRect(v15, v72, v73, v68, v69, v70, v71, v74);
+        [v55 setFrame:?];
+        if (v54)
         {
-          if (v30 + 8.0 <= CGRectGetWidth(v41))
+          if (v59 + 8.0 <= CGRectGetWidth(v77))
           {
-            CGRectDivide(v41, &slice, &v41, 8.0, v13);
+            CGRectDivide(v77, &slice, &v77, 8.0, v13);
           }
 
           else
           {
             remainder.origin = vaddq_f64(remainder.origin, xmmword_1BE0D82B0);
             remainder.size.height = remainder.size.height + -16.0;
-            v41.origin = v40;
-            v41.size = v39;
+            v77.origin = v76;
+            v77.size = v75;
           }
         }
       }
 
-      while (v21 != v24);
+      while (v50 != v53);
     }
   }
 }

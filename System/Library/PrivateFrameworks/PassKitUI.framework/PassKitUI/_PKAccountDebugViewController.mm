@@ -27,14 +27,14 @@
   v4 = v2;
   v5 = sub_1BD763778();
 
-  sub_1BD1A8284(v5);
+  v6 = sub_1BD1A8284(v5);
+  v5, v7, v8, v9, v10, v11, v12, v13;
+  v14 = objc_allocWithZone(MEMORY[0x1E695DF20]);
+  v15 = sub_1BE052224();
+  v6, v16, v17, v18, v19, v20, v21, v22;
+  v23 = [v14 initWithDictionary:v15 copyItems:0];
 
-  v6 = objc_allocWithZone(MEMORY[0x1E695DF20]);
-  v7 = sub_1BE052224();
-
-  v8 = [v6 initWithDictionary:v7 copyItems:0];
-
-  return v8;
+  return v23;
 }
 
 - (_PKAccountDebugViewController)initWithNibName:(id)name bundle:(id)bundle

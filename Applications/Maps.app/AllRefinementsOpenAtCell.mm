@@ -14,7 +14,7 @@
 + (NSString)reuseIdentifier
 {
   swift_getObjCClassMetadata();
-  sub_1000CE6B8(&qword_1019266E8);
+  sub_1000CE6B8(&qword_1019266E8, &qword_10120F9A8);
   String.init<A>(describing:)();
   v2 = String._bridgeToObjectiveC()();
 
@@ -61,10 +61,11 @@
 
   v7 = (self + OBJC_IVAR____TtC4Maps24AllRefinementsOpenAtCell_dateSelectionHandler);
   v8 = *(self + OBJC_IVAR____TtC4Maps24AllRefinementsOpenAtCell_dateSelectionHandler);
+  v9 = *(self + OBJC_IVAR____TtC4Maps24AllRefinementsOpenAtCell_dateSelectionHandler + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_1000588AC(v8);
+  sub_1000588AC(v8, v9);
 }
 
 - (void)updatedContentsWithTime:(double)time displayName:(id)name openAtSelected:(BOOL)selected

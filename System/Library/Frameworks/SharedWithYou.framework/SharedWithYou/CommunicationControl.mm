@@ -4,6 +4,7 @@
 - (UIColor)tintColor;
 - (_TtC13SharedWithYou20CommunicationControl)initWithFrame:(CGRect)frame;
 - (id)contextMenuInteraction:(id)interaction configurationForMenuAtLocation:(CGPoint)location;
+- (void)setEnabled:(BOOL)enabled;
 - (void)setTintColor:(id)color;
 - (void)tintColorDidChange;
 - (void)traitCollectionDidChange:(id)change;
@@ -30,6 +31,20 @@
   v3.receiver = self;
   v3.super_class = swift_getObjectType();
   return [(CommunicationControl *)&v3 isEnabled];
+}
+
+- (void)setEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  ObjectType = swift_getObjectType();
+  v9.receiver = self;
+  v9.super_class = ObjectType;
+  selfCopy = self;
+  isEnabled = [(CommunicationControl *)&v9 isEnabled];
+  v8.receiver = selfCopy;
+  v8.super_class = ObjectType;
+  [(CommunicationControl *)&v8 setEnabled:enabledCopy];
+  sub_1BBC32E10(isEnabled);
 }
 
 - (UIColor)tintColor

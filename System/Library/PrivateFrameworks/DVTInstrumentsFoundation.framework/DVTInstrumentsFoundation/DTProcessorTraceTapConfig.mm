@@ -9,8 +9,12 @@
 - (int64_t)recordingMode;
 - (int64_t)target;
 - (void)setCopyImagesMode:(int64_t)mode;
+- (void)setDecodeOnSave:(BOOL)save;
+- (void)setEnableProductionMode:(BOOL)mode;
+- (void)setEnableThrottlingMode:(BOOL)mode;
 - (void)setRecordingMode:(int64_t)mode;
 - (void)setTarget:(int64_t)target;
+- (void)setTargetPid:(int)pid;
 @end
 
 @implementation DTProcessorTraceTapConfig
@@ -66,6 +70,14 @@
   return intValue;
 }
 
+- (void)setTargetPid:(int)pid
+{
+  v3 = *&pid;
+  [(DTProcessorTraceTapConfig *)self setTarget:1];
+  v5 = [MEMORY[0x277CCABB0] numberWithInt:v3];
+  [(DTTapConfig *)self _setSerializableObject:v5 forKey:@"tp"];
+}
+
 - (BOOL)enableProductionMode
 {
   v2 = [(DTTapConfig *)self _getSerializableObjectForKey:@"pm"];
@@ -74,12 +86,24 @@
   return bOOLValue;
 }
 
+- (void)setEnableProductionMode:(BOOL)mode
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:mode];
+  [(DTTapConfig *)self _setSerializableObject:v4 forKey:@"pm"];
+}
+
 - (BOOL)enableThrottlingMode
 {
   v2 = [(DTTapConfig *)self _getSerializableObjectForKey:@"tm"];
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setEnableThrottlingMode:(BOOL)mode
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:mode];
+  [(DTTapConfig *)self _setSerializableObject:v4 forKey:@"tm"];
 }
 
 - (int64_t)recordingMode
@@ -116,6 +140,12 @@
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setDecodeOnSave:(BOOL)save
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:save];
+  [(DTTapConfig *)self _setSerializableObject:v4 forKey:@"de"];
 }
 
 @end

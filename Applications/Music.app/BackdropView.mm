@@ -21,7 +21,7 @@
 
 + (Class)layerClass
 {
-  sub_100009F78(0, &qword_1011908A8);
+  sub_100009F78(0, &qword_1011908A8, CABackdropLayer_ptr);
 
   return swift_getObjCClassFromMetadata();
 }
@@ -29,7 +29,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1004537C0();
+  sub_1004537C0(selfCopy);
 }
 
 - (_TtC5Music12BackdropView)initWithFrame:(CGRect)frame

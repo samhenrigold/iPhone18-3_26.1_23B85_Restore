@@ -1,4 +1,5 @@
 @interface OrgApacheLuceneIndexMultiBits
+- (BOOL)checkLengthWithInt:(int)int withInt:(int)withInt;
 - (BOOL)getWithInt:(int)int;
 - (NSString)description;
 - (OrgApacheLuceneIndexMultiBits)initWithOrgApacheLuceneUtilBitsArray:(id)array withIntArray:(id)intArray withBoolean:(BOOL)boolean;
@@ -17,9 +18,32 @@
   return self;
 }
 
+- (BOOL)checkLengthWithInt:(int)int withInt:(int)withInt
+{
+  starts = self->starts_;
+  if (!starts)
+  {
+    JreThrowNullPointerException();
+  }
+
+  size = starts->super.size_;
+  v6 = (int + 1);
+  if (int + 1 < 0 || v6 >= size)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(size, v6);
+  }
+
+  if (int < 0 || size <= int)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(size, *&int);
+  }
+
+  return 1;
+}
+
 - (BOOL)getWithInt:(int)int
 {
-  v5 = OrgApacheLuceneIndexReaderUtil_subIndexWithInt_withIntArray_(int, self->starts_);
+  v5 = OrgApacheLuceneIndexReaderUtil_subIndexWithInt_withIntArray_(*&int, self->starts_);
   subs = self->subs_;
   if (!subs)
   {
@@ -101,30 +125,27 @@ LABEL_12:
           IOSArray_throwOutOfBoundsWithMsg(v26, i);
         }
 
-        v27 = *(&starts->super.size_ + i + 1);
-        v28 = self->subs_;
-        v29 = v28->super.size_;
-        if (i >= v29)
+        v27 = self->subs_;
+        v28 = v27->super.size_;
+        if (i >= v28)
         {
-          IOSArray_throwOutOfBoundsWithMsg(v29, i);
+          IOSArray_throwOutOfBoundsWithMsg(v28, i);
         }
 
-        v30 = (&v28->elementType_)[i];
-        if (!v30)
+        v29 = (&v27->elementType_)[i];
+        if (!v29)
         {
           goto LABEL_30;
         }
 
-        [(IOSClass *)v30 length];
-        v38 = self->subs_;
-        v39 = v38->super.size_;
-        if (i >= v39)
+        [(IOSClass *)v29 length];
+        v37 = self->subs_->super.size_;
+        if (i >= v37)
         {
-          IOSArray_throwOutOfBoundsWithMsg(v39, i);
+          IOSArray_throwOutOfBoundsWithMsg(v37, i);
         }
 
-        v47 = (&v38->elementType_)[i];
-        v40 = JreStrcat("$I$I$@", v31, v32, v33, v34, v35, v36, v37, @"s=");
+        v38 = JreStrcat("$I$I$@", v30, v31, v32, v33, v34, v35, v36, @"s=");
       }
 
       else
@@ -134,36 +155,34 @@ LABEL_12:
           goto LABEL_30;
         }
 
-        v41 = starts->super.size_;
-        if (i >= v41)
+        v39 = starts->super.size_;
+        if (i >= v39)
         {
-          IOSArray_throwOutOfBoundsWithMsg(v41, i);
+          IOSArray_throwOutOfBoundsWithMsg(v39, i);
         }
 
-        v45 = *(&starts->super.size_ + i + 1);
-        v40 = JreStrcat("$I$", v13, v14, v15, v16, v17, v18, v19, @"s=");
+        v38 = JreStrcat("$I$", v13, v14, v15, v16, v17, v18, v19, @"s=");
       }
 
-      [(JavaLangStringBuilder *)v12 appendWithNSString:v40];
+      [(JavaLangStringBuilder *)v12 appendWithNSString:v38];
       v20 = self->subs_;
       size = v20->super.size_;
     }
   }
 
-  v42 = self->starts_;
-  if (!v42)
+  v40 = self->starts_;
+  if (!v40)
   {
 LABEL_30:
     JreThrowNullPointerException();
   }
 
-  v43 = v42->super.size_;
-  if ((size & 0x80000000) != 0 || size >= v43)
+  v41 = v40->super.size_;
+  if ((size & 0x80000000) != 0 || size >= v41)
   {
-    IOSArray_throwOutOfBoundsWithMsg(v43, size);
+    IOSArray_throwOutOfBoundsWithMsg(v41, size);
   }
 
-  v46 = *(&v42->super.size_ + size + 1);
   [(JavaLangStringBuilder *)v12 appendWithNSString:JreStrcat("$I", v13, v14, v15, v16, v17, v18, v19, @" end=")];
 
   return [(JavaLangStringBuilder *)v12 description];

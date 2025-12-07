@@ -24,10 +24,10 @@
 {
   if (!*a2)
   {
-    v3 = type metadata accessor for Dictionary();
-    if (!v4)
+    v4 = type metadata accessor for Dictionary();
+    if (!v5)
     {
-      atomic_store(v3, a2);
+      atomic_store(v4, a2);
     }
   }
 }
@@ -35,11 +35,10 @@
 - (uint64_t)Any
 {
   v3 = a3;
-  v6 = *(self + 32);
-  v5 = *(self + 40);
+  v5 = *(self + 32);
   if (!a2)
   {
-    memset(v11, 0, sizeof(v11));
+    memset(v10, 0, sizeof(v10));
     if (!a3)
     {
       goto LABEL_4;
@@ -49,8 +48,8 @@
   }
 
   ObjectType = swift_getObjectType();
-  *&v9 = a2;
-  outlined init with take of Any(&v9, v11);
+  *&v8 = a2;
+  outlined init with take of Any(&v8, v10);
   if (v3)
   {
 LABEL_3:
@@ -60,10 +59,10 @@ LABEL_3:
 LABEL_4:
 
   swift_unknownObjectRetain();
-  v7 = v6(v11, v3);
+  v6 = v5(v10, v3);
 
-  outlined destroy of NSObject?(v11, &_sypSgMd, &_sypSgMR);
-  return v7 & 1;
+  outlined destroy of NSObject?(v10, &_sypSgMd, &_sypSgMR);
+  return v6 & 1;
 }
 
 - (void)Swift.AnyObject

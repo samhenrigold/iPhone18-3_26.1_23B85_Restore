@@ -126,8 +126,8 @@ LABEL_7:
   {
     [(UIKBRenderFactory_Monolith *)self controlKeyRectCornerRadius];
     v8 = v7;
-    geometry = [v5 geometry];
-    [geometry setRoundRectRadius:v8];
+    v9 = objc_msgSend_geometry(v5);
+    [v9 setRoundRectRadius:v8];
 
     pillControlKeyPillBackgroundColor = [(UIKBRenderFactory_MonolithLinear *)self pillControlKeyPillBackgroundColor];
     v11 = [UIKBGradient gradientWithFlatColor:pillControlKeyPillBackgroundColor];
@@ -159,8 +159,8 @@ LABEL_7:
 
   if (interactionType == 9)
   {
-    geometry = [v5 geometry];
-    [geometry displayFrame];
+    v14 = objc_msgSend_geometry(v5);
+    [v14 displayFrame];
     [v5 setFloatingContentViewControlFocusedBaseSize:{v15, v16}];
 
     [(UIKBRenderFactory_Monolith *)self letterKeyFocusIncreaseSize];
@@ -173,8 +173,8 @@ LABEL_7:
   {
     [(UIKBRenderFactory_Monolith *)self controlKeyRectCornerRadius];
     v8 = v7;
-    geometry2 = [v5 geometry];
-    [geometry2 setRoundRectRadius:v8];
+    v9 = objc_msgSend_geometry(v5);
+    [v9 setRoundRectRadius:v8];
 
     highlightedVariantPillBackgroundColor = [(UIKBRenderFactory_MonolithLinearSlim *)self highlightedVariantPillBackgroundColor];
     v11 = [UIKBGradient gradientWithFlatColor:highlightedVariantPillBackgroundColor];

@@ -74,7 +74,6 @@
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   return v17 & 1;
 }
 
@@ -146,7 +145,6 @@ LABEL_11:
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   return v17 & 1;
 }
 

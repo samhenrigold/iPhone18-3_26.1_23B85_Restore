@@ -29,19 +29,16 @@
 
 - (void)executePlatformFunction
 {
-  v3 = *&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYFunctionPlayer__function];
-  if (*v3 == -12271)
+  if (**&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYFunctionPlayer__function] == -12271)
   {
-    v4 = **(v3 + 72);
-    v5 = *&self->super.DYGLFunctionPlayer_opaque[OBJC_IVAR___DYFunctionPlayer__ctxID];
     DYHarvestRenderbuffer();
   }
 
   else
   {
-    v6.receiver = self;
-    v6.super_class = DYEAGLOverridingFunctionPlayer;
-    [(DYEAGLFunctionPlayer *)&v6 executePlatformFunction];
+    v3.receiver = self;
+    v3.super_class = DYEAGLOverridingFunctionPlayer;
+    [(DYEAGLFunctionPlayer *)&v3 executePlatformFunction];
   }
 
   [(DYGLExperimentResultsGenerator *)self->_experimentResultsGenerator onPlatformFunctionEnd];

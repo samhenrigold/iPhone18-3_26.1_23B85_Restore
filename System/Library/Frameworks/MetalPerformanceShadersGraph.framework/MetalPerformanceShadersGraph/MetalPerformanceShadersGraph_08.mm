@@ -22,7 +22,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     {
       v9 = &v11 - v3;
       v10 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v10;
       v3 = *(v10 + 16);
       v5 = &v9[v3];
@@ -31,7 +31,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     else
     {
       v8 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v8;
       v3 = *(v8 + 16);
       v5 = &v11;
@@ -61,7 +61,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     {
       v9 = &v11 - v3;
       v10 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v10;
       v3 = *(v10 + 16);
       v5 = &v9[v3];
@@ -70,7 +70,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     else
     {
       v8 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v8;
       v3 = *(v8 + 16);
       v5 = &v11;
@@ -100,7 +100,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     {
       v9 = &v11 - v3;
       v10 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v10;
       v3 = *(v10 + 16);
       v5 = &v9[v3];
@@ -109,7 +109,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     else
     {
       v8 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v8;
       v3 = *(v8 + 16);
       v5 = &v11;
@@ -139,7 +139,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     {
       v9 = &v11 - v3;
       v10 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v10;
       v3 = *(v10 + 16);
       v5 = &v9[v3];
@@ -148,7 +148,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     else
     {
       v8 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v8;
       v3 = *(v8 + 16);
       v5 = &v11;
@@ -178,7 +178,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     {
       v9 = &v11 - v3;
       v10 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v10;
       v3 = *(v10 + 16);
       v5 = &v9[v3];
@@ -187,7 +187,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     else
     {
       v8 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v8;
       v3 = *(v8 + 16);
       v5 = &v11;
@@ -217,7 +217,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     {
       v9 = &v11 - v3;
       v10 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v10;
       v3 = *(v10 + 16);
       v5 = &v9[v3];
@@ -226,7 +226,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     else
     {
       v8 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v8;
       v3 = *(v8 + 16);
       v5 = &v11;
@@ -256,7 +256,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     {
       v9 = &v11 - v3;
       v10 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v10;
       v3 = *(v10 + 16);
       v5 = &v9[v3];
@@ -265,7 +265,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     else
     {
       v8 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v8;
       v3 = *(v8 + 16);
       v5 = &v11;
@@ -528,7 +528,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     {
       v9 = &v11 - v3;
       v10 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v10;
       v3 = *(v10 + 16);
       v5 = &v9[v3];
@@ -537,7 +537,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     else
     {
       v8 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v8;
       v3 = *(v8 + 16);
       v5 = &v11;
@@ -567,7 +567,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     {
       v9 = &v11 - v3;
       v10 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v10;
       v3 = *(v10 + 16);
       v5 = &v9[v3];
@@ -576,7 +576,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     else
     {
       v8 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v8;
       v3 = *(v8 + 16);
       v5 = &v11;
@@ -606,7 +606,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     {
       v9 = &v11 - v3;
       v10 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v10;
       v3 = *(v10 + 16);
       v5 = &v9[v3];
@@ -615,7 +615,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     else
     {
       v8 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v8;
       v3 = *(v8 + 16);
       v5 = &v11;
@@ -645,7 +645,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     {
       v9 = &v11 - v3;
       v10 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v10;
       v3 = *(v10 + 16);
       v5 = &v9[v3];
@@ -654,7 +654,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     else
     {
       v8 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v8;
       v3 = *(v8 + 16);
       v5 = &v11;
@@ -684,7 +684,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     {
       v9 = &v11 - v3;
       v10 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v10;
       v3 = *(v10 + 16);
       v5 = &v9[v3];
@@ -693,7 +693,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     else
     {
       v8 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v8;
       v3 = *(v8 + 16);
       v5 = &v11;
@@ -723,7 +723,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     {
       v9 = &v11 - v3;
       v10 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v10;
       v3 = *(v10 + 16);
       v5 = &v9[v3];
@@ -732,7 +732,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     else
     {
       v8 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v8;
       v3 = *(v8 + 16);
       v5 = &v11;
@@ -762,7 +762,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     {
       v9 = &v11 - v3;
       v10 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v10;
       v3 = *(v10 + 16);
       v5 = &v9[v3];
@@ -771,7 +771,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     else
     {
       v8 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v8;
       v3 = *(v8 + 16);
       v5 = &v11;
@@ -786,7 +786,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
   return result;
 }
 
-void mlir::RewritePatternSet::addImpl<CmpFIntToFPConst,mlir::MLIRContext *&>(void *a1, const void *a2, uint64_t a3, uint64_t *a4)
+void mlir::RewritePatternSet::addImpl<CmpFIntToFPConst,mlir::MLIRContext *&>(void *a1, const void *a2, uint64_t a3, mlir::StringAttr **a4)
 {
   v8 = operator new(0x60uLL);
   v9 = *a4;
@@ -855,7 +855,7 @@ LABEL_3:
     }
   }
 
-  llvm::SmallVectorBase<unsigned int>::grow_pod((v8 + 10), (v8 + 12), v12, 16);
+  llvm::SmallVectorBase<unsigned int>::grow_pod((v8 + 10), v8 + 12, v12, 16);
   LODWORD(v11) = *(v8 + 22);
   if (a3)
   {
@@ -965,24 +965,24 @@ void CmpFIntToFPConst::~CmpFIntToFPConst(CmpFIntToFPConst *this)
 
 uint64_t CmpFIntToFPConst::matchAndRewrite(uint64_t a1, uint64_t a2, uint64_t **a3)
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   v5 = *(*(a2 + 72) + 56);
-  v57 = 0;
-  v58[0] = &v57;
-  v59 = v5;
-  result = mlir::Value::getDefiningOp(&v59);
+  v58 = 0;
+  v59[0] = &v58;
+  v60 = v5;
+  result = mlir::Value::getDefiningOp(&v60);
   if (result)
   {
-    result = mlir::detail::constant_op_binder<mlir::FloatAttr>::match(v58, result);
+    result = mlir::detail::constant_op_binder<mlir::FloatAttr>::match(v59, result);
     if (result)
     {
-      Value = mlir::FloatAttr::getValue(&v57, &v59);
-      v8 = v60;
+      Value = mlir::FloatAttr::getValue(&v60, &v58);
+      v8 = v61;
       v9 = llvm::APFloatBase::PPCDoubleDouble(Value);
-      v10 = v61;
+      v10 = v62;
       if (v9 != v8)
       {
-        v10 = &v59;
+        v10 = &v60;
       }
 
       if ((*(v10 + 28) & 7) == 1)
@@ -991,25 +991,25 @@ uint64_t CmpFIntToFPConst::matchAndRewrite(uint64_t a1, uint64_t a2, uint64_t **
         if (v9 != v8)
         {
 LABEL_7:
-          llvm::detail::IEEEFloat::~IEEEFloat(&v60);
+          llvm::detail::IEEEFloat::~IEEEFloat(&v61);
           return v11;
         }
 
 LABEL_15:
-        llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v60);
+        llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v61);
         return v11;
       }
 
-      v56 = *(*(*(a2 + 72) + 56) + 8) & 0xFFFFFFFFFFFFFFF8;
-      FPMantissaWidth = mlir::FloatType::getFPMantissaWidth(&v56);
+      v57 = *(*(*(a2 + 72) + 56) + 8) & 0xFFFFFFFFFFFFFFF8;
+      FPMantissaWidth = mlir::FloatType::getFPMantissaWidth(&v57);
       if (FPMantissaWidth < 1)
       {
         goto LABEL_13;
       }
 
       v13 = FPMantissaWidth;
-      v58[0] = *(*(a2 + 72) + 24);
-      DefiningOp = mlir::Value::getDefiningOp(v58);
+      v59[0] = *(*(a2 + 72) + 24);
+      DefiningOp = mlir::Value::getDefiningOp(v59);
       if (DefiningOp && *(*(DefiningOp + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::SIToFPOp,void>::id)
       {
         v16 = 0;
@@ -1017,8 +1017,8 @@ LABEL_15:
 
       else
       {
-        v58[0] = *(*(a2 + 72) + 24);
-        DefiningOp = mlir::Value::getDefiningOp(v58);
+        v59[0] = *(*(a2 + 72) + 24);
+        DefiningOp = mlir::Value::getDefiningOp(v59);
         if (!DefiningOp || *(*(DefiningOp + 48) + 16) != &mlir::detail::TypeIDResolver<mlir::arith::UIToFPOp,void>::id)
         {
           goto LABEL_13;
@@ -1028,31 +1028,31 @@ LABEL_15:
       }
 
       v17 = *(*(DefiningOp + 72) + 24);
-      v54 = *(v17 + 8) & 0xFFFFFFFFFFFFFFF8;
-      v55 = v17;
-      Width = mlir::IntegerType::getWidth(&v54);
-      v20 = Width;
-      v21 = v16 ^ 1;
+      v55 = *(v17 + 8) & 0xFFFFFFFFFFFFFFF8;
+      v56 = v17;
+      Width = mlir::IntegerType::getWidth(&v55);
+      v21 = Width;
+      v22 = v16 ^ 1u;
       if (Width > v13)
       {
-        v22 = Width - v21;
-        if (v9 == v60)
+        v23 = Width - v22;
+        if (v9 == v61)
         {
-          v23 = (v61 + 1);
+          v24 = (v62 + 1);
         }
 
         else
         {
-          v23 = &v60;
+          v24 = &v61;
         }
 
-        v24 = llvm::detail::ilogb(v23, v19);
-        if (v24 == 0x7FFFFFFF)
+        v25 = llvm::detail::ilogb(v24, v19, v20);
+        if (v25 == 0x7FFFFFFF)
         {
-          llvm::APFloat::getLargest(v60, 0, v58);
-          v26 = llvm::ilogb(v58, v25);
-          llvm::APFloat::~APFloat(v58);
-          if (v26 >= v22)
+          llvm::APFloat::getLargest(v61, 0, v59);
+          v27 = llvm::ilogb(v59, v26);
+          llvm::APFloat::~APFloat(v59);
+          if (v27 >= v23)
           {
             goto LABEL_29;
           }
@@ -1062,15 +1062,15 @@ LABEL_13:
           goto LABEL_14;
         }
 
-        if (v13 <= v24 && v24 <= v22)
+        if (v13 <= v25 && v25 <= v23)
         {
           goto LABEL_13;
         }
       }
 
 LABEL_29:
-      v58[0] = *(a2 + 64 + 16 * ((*(a2 + 44) >> 23) & 1) + 8);
-      Int = mlir::IntegerAttr::getInt(v58);
+      v59[0] = *(a2 + 64 + 16 * ((*(a2 + 44) >> 23) & 1) + 8);
+      Int = mlir::IntegerAttr::getInt(v59);
       if (Int == 14)
       {
         LOBYTE(__p) = 0;
@@ -1081,45 +1081,45 @@ LABEL_29:
       {
         LOBYTE(__p) = 1;
 LABEL_33:
-        LODWORD(v58[0]) = 1;
-        mlir::RewriterBase::replaceOpWithNewOp<mlir::arith::ConstantIntOp,BOOL,int>(a3, a2, &__p, v58);
+        LODWORD(v59[0]) = 1;
+        mlir::RewriterBase::replaceOpWithNewOp<mlir::arith::ConstantIntOp,BOOL,int>(a3, a2, &__p, v59);
 LABEL_69:
         v15 = 1;
         goto LABEL_14;
       }
 
-      v58[0] = *(a2 + 64 + 16 * ((*(a2 + 44) >> 23) & 1) + 8);
-      v28 = mlir::IntegerAttr::getInt(v58);
-      v29 = CmpFIntToFPConst::convertToIntegerPredicate(v28, v16);
-      v53 = v29;
+      v59[0] = *(a2 + 64 + 16 * ((*(a2 + 44) >> 23) & 1) + 8);
+      v29 = mlir::IntegerAttr::getInt(v59);
+      v30 = CmpFIntToFPConst::convertToIntegerPredicate(v29, v16);
+      v54 = v30;
       if (v16)
       {
-        llvm::APFloat::APFloat(v58, v60);
-        llvm::APInt::getMaxValue(v20, &__p);
-        llvm::APFloat::convertFromAPInt(v58, &__p, 0, 1);
-        if (v51 >= 0x41 && __p)
+        llvm::APFloat::APFloat(v59, v61);
+        llvm::APInt::getMaxValue(v21, &__p);
+        llvm::APFloat::convertFromAPInt(v59, &__p, 0, 1);
+        if (v52 >= 0x41 && __p)
         {
           operator delete[](__p);
         }
 
-        if (llvm::APFloat::operator<(v58, &v59))
+        if (llvm::APFloat::operator<(v59, &v60))
         {
-          if (v29 <= 7)
+          if (v30 <= 7)
           {
-            v30 = 1 << v29;
-            v31 = 194;
+            v31 = 1 << v30;
+            v32 = 194;
             goto LABEL_62;
           }
 
 LABEL_66:
-          LOBYTE(v47) = 0;
+          LOBYTE(v48) = 0;
           goto LABEL_67;
         }
 
-        llvm::APFloat::~APFloat(v58);
-        llvm::APFloat::APFloat(v58, v60);
-        v51 = v20;
-        if (v20 > 0x40)
+        llvm::APFloat::~APFloat(v59);
+        llvm::APFloat::APFloat(v59, v61);
+        v52 = v21;
+        if (v21 > 0x40)
         {
           llvm::APInt::initSlowCase(&__p, 0, 0);
         }
@@ -1129,40 +1129,40 @@ LABEL_66:
           __p = 0;
         }
 
-        llvm::APFloat::convertFromAPInt(v58, &__p, 0, 1);
-        if (v51 >= 0x41 && __p)
+        llvm::APFloat::convertFromAPInt(v59, &__p, 0, 1);
+        if (v52 >= 0x41 && __p)
         {
           operator delete[](__p);
         }
 
-        if (llvm::APFloat::operator>(v58, &v59))
+        if (llvm::APFloat::operator>(v59, &v60))
         {
-          if (v29 > 9)
+          if (v30 > 9)
           {
             goto LABEL_66;
           }
 
-          v30 = 1 << v29;
-          v31 = 770;
+          v31 = 1 << v30;
+          v32 = 770;
           goto LABEL_62;
         }
       }
 
       else
       {
-        llvm::APFloat::APFloat(v58, v60);
-        llvm::APInt::getSignedMaxValue(v20, &__p);
-        llvm::APFloat::convertFromAPInt(v58, &__p, 1, 1);
-        if (v51 >= 0x41 && __p)
+        llvm::APFloat::APFloat(v59, v61);
+        llvm::APInt::getSignedMaxValue(v21, &__p);
+        llvm::APFloat::convertFromAPInt(v59, &__p, 1, 1);
+        if (v52 >= 0x41 && __p)
         {
           operator delete[](__p);
         }
 
-        if (llvm::APFloat::operator<(v58, &v59))
+        if (llvm::APFloat::operator<(v59, &v60))
         {
-          if ((v29 - 1) <= 2)
+          if ((v30 - 1) <= 2)
           {
-            LOBYTE(v47) = 1;
+            LOBYTE(v48) = 1;
 LABEL_67:
             LODWORD(__p) = 1;
             goto LABEL_68;
@@ -1171,32 +1171,32 @@ LABEL_67:
           goto LABEL_66;
         }
 
-        llvm::APFloat::~APFloat(v58);
-        llvm::APFloat::APFloat(v58, v60);
-        llvm::APInt::getSignedMinValue(v20, &__p);
-        llvm::APFloat::convertFromAPInt(v58, &__p, 1, 1);
-        if (v51 >= 0x41 && __p)
+        llvm::APFloat::~APFloat(v59);
+        llvm::APFloat::APFloat(v59, v61);
+        llvm::APInt::getSignedMinValue(v21, &__p);
+        llvm::APFloat::convertFromAPInt(v59, &__p, 1, 1);
+        if (v52 >= 0x41 && __p)
         {
           operator delete[](__p);
         }
 
-        if (llvm::APFloat::operator>(v58, &v59))
+        if (llvm::APFloat::operator>(v59, &v60))
         {
-          if (v29 > 5)
+          if (v30 > 5)
           {
             goto LABEL_66;
           }
 
-          v30 = 1 << v29;
-          v31 = 50;
+          v31 = 1 << v30;
+          v32 = 50;
 LABEL_62:
-          if ((v30 & v31) != 0)
+          if ((v31 & v32) != 0)
           {
-            LOBYTE(v47) = 1;
+            LOBYTE(v48) = 1;
             LODWORD(__p) = 1;
 LABEL_68:
-            mlir::RewriterBase::replaceOpWithNewOp<mlir::arith::ConstantIntOp,BOOL,int>(a3, a2, &v47, &__p);
-            llvm::APFloat::~APFloat(v58);
+            mlir::RewriterBase::replaceOpWithNewOp<mlir::arith::ConstantIntOp,BOOL,int>(a3, a2, &v48, &__p);
+            llvm::APFloat::~APFloat(v59);
             goto LABEL_69;
           }
 
@@ -1204,10 +1204,10 @@ LABEL_68:
         }
       }
 
-      llvm::APFloat::~APFloat(v58);
-      v49 = 0;
-      v51 = v20;
-      if (v20 > 0x40)
+      llvm::APFloat::~APFloat(v59);
+      v50 = 0;
+      v52 = v21;
+      if (v21 > 0x40)
       {
         llvm::APInt::initSlowCase(&__p, 0, 0);
       }
@@ -1217,25 +1217,25 @@ LABEL_68:
         __p = 0;
       }
 
-      v52 = v16;
-      v32 = llvm::APFloat::convertToInteger(&v59, &__p, 0, &v49);
+      v53 = v16;
+      v33 = llvm::APFloat::convertToInteger(&v60, &__p, 0, &v50);
       v15 = 0;
-      if (v32 == 1)
+      if (v33 == 1)
       {
 LABEL_127:
-        if (v51 >= 0x41)
+        if (v52 >= 0x41)
         {
           if (__p)
           {
-            v44 = v15;
+            v45 = v15;
             operator delete[](__p);
-            v15 = v44;
+            v15 = v45;
           }
         }
 
 LABEL_14:
         v11 = v15;
-        if (v9 != v60)
+        if (v9 != v61)
         {
           goto LABEL_7;
         }
@@ -1243,100 +1243,100 @@ LABEL_14:
         goto LABEL_15;
       }
 
-      if (v9 == v60)
+      if (v9 == v61)
       {
-        v33 = v61;
+        v34 = v62;
       }
 
       else
       {
-        v33 = &v59;
+        v34 = &v60;
       }
 
-      if ((*(v33 + 28) & 7) == 3)
+      if ((*(v34 + 28) & 7) == 3)
       {
         goto LABEL_125;
       }
 
-      FloatSemantics = mlir::FloatType::getFloatSemantics(&v56);
-      v48 = mlir::FloatType::getWidth(&v56);
-      if (v48 > 0x40)
+      FloatSemantics = mlir::FloatType::getFloatSemantics(&v57);
+      v49 = mlir::FloatType::getWidth(&v57);
+      if (v49 > 0x40)
       {
-        llvm::APInt::initSlowCase(&v47, 0, 0);
+        llvm::APInt::initSlowCase(&v48, 0, 0);
       }
 
       else
       {
-        v47 = 0;
+        v48 = 0;
       }
 
-      llvm::APFloat::APFloat(v58, FloatSemantics, &v47);
-      if (v48 >= 0x41 && v47)
+      llvm::APFloat::APFloat(v59, FloatSemantics, &v48);
+      if (v49 >= 0x41 && v48)
       {
-        operator delete[](v47);
+        operator delete[](v48);
       }
 
-      llvm::APFloat::convertFromAPInt(v58, &__p, v21, 1);
-      if (!llvm::APFloat::operator==(v58, &v59))
+      llvm::APFloat::convertFromAPInt(v59, &__p, v22, 1);
+      if (!llvm::APFloat::operator==(v59, &v60))
       {
-        if (v29 <= 4)
+        if (v30 <= 4)
         {
-          if (v29 > 1)
+          if (v30 > 1)
           {
-            if (v29 == 2)
+            if (v30 == 2)
             {
-              v40 = &v59;
-              if (v9 == v60)
+              v41 = &v60;
+              if (v9 == v61)
               {
-                v40 = v61;
+                v41 = v62;
               }
 
-              if ((*(v40 + 28) & 8) != 0)
+              if ((*(v41 + 28) & 8) != 0)
               {
                 goto LABEL_124;
               }
 
-              v36 = 3;
+              v37 = 3;
             }
 
-            else if (v29 == 3)
+            else if (v30 == 3)
             {
-              v42 = &v59;
-              if (v9 == v60)
+              v43 = &v60;
+              if (v9 == v61)
               {
-                v42 = v61;
+                v43 = v62;
               }
 
-              if ((*(v42 + 28) & 8) == 0)
+              if ((*(v43 + 28) & 8) == 0)
               {
                 goto LABEL_124;
               }
 
-              v36 = 2;
+              v37 = 2;
             }
 
             else
             {
-              v35 = &v59;
-              if (v9 == v60)
+              v36 = &v60;
+              if (v9 == v61)
               {
-                v35 = v61;
+                v36 = v62;
               }
 
-              if ((*(v35 + 28) & 8) == 0)
+              if ((*(v36 + 28) & 8) == 0)
               {
                 goto LABEL_124;
               }
 
-              v36 = 5;
+              v37 = 5;
             }
 
             goto LABEL_123;
           }
 
-          if (v29)
+          if (v30)
           {
-            if (v29 != 1)
+            if (v30 != 1)
             {
               goto LABEL_124;
             }
@@ -1347,89 +1347,89 @@ LABEL_14:
 LABEL_118:
           LOBYTE(IntegerAttr) = 0;
 LABEL_134:
-          LODWORD(v47) = 1;
-          mlir::RewriterBase::replaceOpWithNewOp<mlir::arith::ConstantIntOp,BOOL,int>(a3, a2, &IntegerAttr, &v47);
-          llvm::APFloat::~APFloat(v58);
+          LODWORD(v48) = 1;
+          mlir::RewriterBase::replaceOpWithNewOp<mlir::arith::ConstantIntOp,BOOL,int>(a3, a2, &IntegerAttr, &v48);
+          llvm::APFloat::~APFloat(v59);
           goto LABEL_126;
         }
 
-        if (v29 <= 6)
+        if (v30 <= 6)
         {
-          if (v29 == 5)
+          if (v30 == 5)
           {
-            v39 = &v59;
-            if (v9 == v60)
+            v40 = &v60;
+            if (v9 == v61)
             {
-              v39 = v61;
+              v40 = v62;
             }
 
-            if ((*(v39 + 28) & 8) != 0)
+            if ((*(v40 + 28) & 8) != 0)
             {
               goto LABEL_124;
             }
 
-            v36 = 4;
+            v37 = 4;
           }
 
           else
           {
-            v38 = &v59;
-            if (v9 == v60)
+            v39 = &v60;
+            if (v9 == v61)
             {
-              v38 = v61;
+              v39 = v62;
             }
 
-            if ((*(v38 + 28) & 8) != 0)
+            if ((*(v39 + 28) & 8) != 0)
             {
               goto LABEL_118;
             }
 
-            v36 = 7;
+            v37 = 7;
           }
 
 LABEL_123:
-          v53 = v36;
+          v54 = v37;
           goto LABEL_124;
         }
 
-        switch(v29)
+        switch(v30)
         {
           case 7:
-            v41 = &v59;
-            if (v9 == v60)
+            v42 = &v60;
+            if (v9 == v61)
             {
-              v41 = v61;
+              v42 = v62;
             }
 
-            if ((*(v41 + 28) & 8) == 0)
+            if ((*(v42 + 28) & 8) == 0)
             {
               break;
             }
 
             goto LABEL_118;
           case 8:
-            v45 = &v59;
-            if (v9 == v60)
+            v46 = &v60;
+            if (v9 == v61)
             {
-              v45 = v61;
+              v46 = v62;
             }
 
-            if ((*(v45 + 28) & 8) == 0)
+            if ((*(v46 + 28) & 8) == 0)
             {
               break;
             }
 
             goto LABEL_133;
           case 9:
-            v37 = &v59;
-            if (v9 == v60)
+            v38 = &v60;
+            if (v9 == v61)
             {
-              v37 = v61;
+              v38 = v62;
             }
 
-            if ((*(v37 + 28) & 8) == 0)
+            if ((*(v38 + 28) & 8) == 0)
             {
-              v36 = 8;
+              v37 = 8;
               goto LABEL_123;
             }
 
@@ -1440,13 +1440,13 @@ LABEL_133:
       }
 
 LABEL_124:
-      llvm::APFloat::~APFloat(v58);
+      llvm::APFloat::~APFloat(v59);
 LABEL_125:
-      v43 = *(a2 + 24);
-      v47 = (*(v17 + 8) & 0xFFFFFFFFFFFFFFF8);
-      IntegerAttr = mlir::Builder::getIntegerAttr((a3 + 1), v47, &__p);
-      v58[0] = mlir::OpBuilder::create<mlir::arith::ConstantOp,mlir::Type,mlir::IntegerAttr>((a3 + 1), v43, &v47, &IntegerAttr);
-      mlir::RewriterBase::replaceOpWithNewOp<mlir::arith::CmpIOp,mlir::arith::CmpIPredicate &,mlir::Value &,mlir::arith::ConstantOp>(a3, a2, &v53, &v55, v58);
+      v44 = *(a2 + 24);
+      v48 = (*(v17 + 8) & 0xFFFFFFFFFFFFFFF8);
+      IntegerAttr = mlir::Builder::getIntegerAttr((a3 + 1), v48, &__p);
+      v59[0] = mlir::OpBuilder::create<mlir::arith::ConstantOp,mlir::Type,mlir::IntegerAttr>((a3 + 1), v44, &v48, &IntegerAttr);
+      mlir::RewriterBase::replaceOpWithNewOp<mlir::arith::CmpIOp,mlir::arith::CmpIPredicate &,mlir::Value &,mlir::arith::ConstantOp>(a3, a2, &v54, &v56, v59);
 LABEL_126:
       v15 = 1;
       goto LABEL_127;
@@ -1462,18 +1462,18 @@ uint64_t llvm::ilogb(llvm *this, const llvm::APFloat *a2)
   v3 = *(this + 1);
   if (llvm::APFloatBase::PPCDoubleDouble(this) == v3)
   {
-    v5 = (*(v2 + 1) + 8);
+    v6 = (*(v2 + 1) + 8);
   }
 
   else
   {
-    v5 = v2;
+    v6 = v2;
   }
 
-  return llvm::detail::ilogb(v5, v4);
+  return llvm::detail::ilogb(v6, v4, v5);
 }
 
-uint64_t mlir::RewriterBase::replaceOpWithNewOp<mlir::arith::ConstantIntOp,BOOL,int>(uint64_t **a1, uint64_t a2, unsigned __int8 *a3, int *a4)
+char *mlir::RewriterBase::replaceOpWithNewOp<mlir::arith::ConstantIntOp,BOOL,int>(uint64_t **a1, uint64_t a2, unsigned __int8 *a3, unsigned int *a4)
 {
   v6 = mlir::OpBuilder::create<mlir::arith::ConstantIntOp,BOOL,int>(a1 + 1, *(a2 + 24), a3, a4);
   ((*a1)[1])(a1, a2, v6);
@@ -1566,31 +1566,31 @@ LABEL_17:
   }
 }
 
-BOOL llvm::APFloat::operator>(void *a1, uint64_t a2)
+BOOL llvm::APFloat::operator>(llvm::APFloatBase *a1, uint64_t a2)
 {
-  v3 = (a1 + 1);
-  v4 = a1[1];
+  v3 = (a1 + 8);
+  v4 = *(a1 + 1);
   v5 = llvm::APFloatBase::PPCDoubleDouble(a1);
-  v6 = (a2 + 8);
+  v8 = (a2 + 8);
   if (v5 == v4)
   {
-    return llvm::detail::DoubleAPFloat::compare(v3, v6) == 2;
+    return llvm::detail::DoubleAPFloat::compare(v3, v8, v6, v7) == 2;
   }
 
   else
   {
-    return llvm::detail::IEEEFloat::compare(v3, v6) == 2;
+    return llvm::detail::IEEEFloat::compare(v3, v8, v6, v7) == 2;
   }
 }
 
-uint64_t mlir::RewriterBase::replaceOpWithNewOp<mlir::arith::CmpIOp,mlir::arith::CmpIPredicate &,mlir::Value &,mlir::arith::ConstantOp>(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, void *a5)
+char *mlir::RewriterBase::replaceOpWithNewOp<mlir::arith::CmpIOp,mlir::arith::CmpIPredicate &,mlir::Value &,mlir::arith::ConstantOp>(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, void *a5)
 {
   v7 = mlir::OpBuilder::create<mlir::arith::CmpIOp,mlir::arith::CmpIPredicate &,mlir::Value &,mlir::arith::ConstantOp>(a1 + 1, *(a2 + 24), a3, a4, a5);
   ((*a1)[1])(a1, a2, v7);
   return v7;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::arith::ConstantOp,mlir::Type,mlir::IntegerAttr>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, void **a4)
+char *mlir::OpBuilder::create<mlir::arith::ConstantOp,mlir::Type,mlir::IntegerAttr>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, void **a4)
 {
   v33[38] = *MEMORY[0x1E69E9840];
   v30 = a2;
@@ -1668,7 +1668,7 @@ LABEL_5:
 LABEL_17:
   mlir::arith::ConstantOp::build(v11, v33, v12, v13, v26);
   v27 = mlir::OpBuilder::create(a1, v33);
-  if (*(*(v27 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::ConstantOp,void>::id)
+  if (*(*(v27 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::ConstantOp,void>::id)
   {
     v28 = v27;
   }
@@ -1720,7 +1720,7 @@ uint64_t mlir::detail::constant_op_binder<mlir::FloatAttr>::match(unint64_t **a1
   return result;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::arith::ConstantIntOp,BOOL,int>(uint64_t **a1, uint64_t a2, unsigned __int8 *a3, int *a4)
+char *mlir::OpBuilder::create<mlir::arith::ConstantIntOp,BOOL,int>(uint64_t **a1, uint64_t a2, unsigned __int8 *a3, unsigned int *a4)
 {
   v17[38] = *MEMORY[0x1E69E9840];
   v14 = a2;
@@ -1734,9 +1734,9 @@ uint64_t mlir::OpBuilder::create<mlir::arith::ConstantIntOp,BOOL,int>(uint64_t *
   mlir::OperationState::OperationState(v17, a2, v9);
   mlir::arith::ConstantIntOp::build(a1, v17, *a3, *a4);
   v11 = mlir::OpBuilder::create(a1, v17);
-  if (v11 && *(*(v11 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::ConstantOp,void>::id)
+  if (v11 && *(*(v11 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::ConstantOp,void>::id)
   {
-    v16[0] = *(v11 - 8) & 0xFFFFFFFFFFFFFFF8;
+    v16[0] = *(v11 - 1) & 0xFFFFFFFFFFFFFFF8;
     v12 = v11;
     if (!mlir::Type::isSignlessInteger(v16))
     {
@@ -1753,7 +1753,7 @@ uint64_t mlir::OpBuilder::create<mlir::arith::ConstantIntOp,BOOL,int>(uint64_t *
   return v12;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::arith::CmpIOp,mlir::arith::CmpIPredicate &,mlir::Value &,mlir::arith::ConstantOp>(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, void *a5)
+char *mlir::OpBuilder::create<mlir::arith::CmpIOp,mlir::arith::CmpIPredicate &,mlir::Value &,mlir::arith::ConstantOp>(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, void *a5)
 {
   v19[38] = *MEMORY[0x1E69E9840];
   v16 = a2;
@@ -1767,7 +1767,7 @@ uint64_t mlir::OpBuilder::create<mlir::arith::CmpIOp,mlir::arith::CmpIPredicate 
   mlir::OperationState::OperationState(v19, a2, v11);
   mlir::arith::CmpIOp::build(a1, v19, *a3, *a4, *a5 - 16);
   v13 = mlir::OpBuilder::create(a1, v19);
-  if (*(*(v13 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::CmpIOp,void>::id)
+  if (*(*(v13 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::CmpIOp,void>::id)
   {
     v14 = v13;
   }
@@ -1781,7 +1781,7 @@ uint64_t mlir::OpBuilder::create<mlir::arith::CmpIOp,mlir::arith::CmpIPredicate 
   return v14;
 }
 
-void mlir::RewritePatternSet::addImpl<SelectToExtUI,mlir::MLIRContext *&>(void *a1, const void *a2, uint64_t a3, uint64_t *a4)
+void mlir::RewritePatternSet::addImpl<SelectToExtUI,mlir::MLIRContext *&>(void *a1, const void *a2, uint64_t a3, mlir::StringAttr **a4)
 {
   v8 = operator new(0x60uLL);
   v9 = *a4;
@@ -1850,7 +1850,7 @@ LABEL_3:
     }
   }
 
-  llvm::SmallVectorBase<unsigned int>::grow_pod((v8 + 10), (v8 + 12), v12, 16);
+  llvm::SmallVectorBase<unsigned int>::grow_pod((v8 + 10), v8 + 12, v12, 16);
   LODWORD(v11) = *(v8 + 22);
   if (a3)
   {
@@ -2056,7 +2056,7 @@ LABEL_13:
   return 0;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::arith::SelectOp,llvm::SmallVector<mlir::Type,4u> &,llvm::SmallVector<mlir::Value,4u> &,llvm::SmallVector<mlir::NamedAttribute,4u> &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+char *mlir::OpBuilder::create<mlir::arith::SelectOp,llvm::SmallVector<mlir::Type,4u> &,llvm::SmallVector<mlir::Value,4u> &,llvm::SmallVector<mlir::NamedAttribute,4u> &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v20[5] = *MEMORY[0x1E69E9840];
   v17 = a2;
@@ -2072,7 +2072,7 @@ uint64_t mlir::OpBuilder::create<mlir::arith::SelectOp,llvm::SmallVector<mlir::T
   v13 = mlir::ValueRange::ValueRange(v19, *a4, *(a4 + 8));
   mlir::arith::ExtSIOp::build(v13, v18, v20[0], v20[1], v19[0], v19[1], *a5, *(a5 + 8));
   v14 = mlir::OpBuilder::create(a1, v18);
-  if (*(*(v14 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::SelectOp,void>::id)
+  if (*(*(v14 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::SelectOp,void>::id)
   {
     v15 = v14;
   }
@@ -2101,7 +2101,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     {
       v9 = &v11 - v3;
       v10 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v10;
       v3 = *(v10 + 16);
       v5 = &v9[v3];
@@ -2110,7 +2110,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     else
     {
       v8 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v8;
       v3 = *(v8 + 16);
       v5 = &v11;
@@ -2140,7 +2140,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     {
       v9 = &v11 - v3;
       v10 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v10;
       v3 = *(v10 + 16);
       v5 = &v9[v3];
@@ -2149,7 +2149,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     else
     {
       v8 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v8;
       v3 = *(v8 + 16);
       v5 = &v11;
@@ -2179,7 +2179,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     {
       v9 = &v11 - v3;
       v10 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v10;
       v3 = *(v10 + 16);
       v5 = &v9[v3];
@@ -2188,7 +2188,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     else
     {
       v8 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v8;
       v3 = *(v8 + 16);
       v5 = &v11;
@@ -2356,7 +2356,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     {
       v9 = &v11 - v3;
       v10 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v10;
       v3 = *(v10 + 16);
       v5 = &v9[v3];
@@ -2365,7 +2365,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     else
     {
       v8 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v8;
       v3 = *(v8 + 16);
       v5 = &v11;
@@ -2395,7 +2395,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     {
       v9 = &v11 - v3;
       v10 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v10;
       v3 = *(v10 + 16);
       v5 = &v9[v3];
@@ -2404,7 +2404,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     else
     {
       v8 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v8;
       v3 = *(v8 + 16);
       v5 = &v11;
@@ -2434,7 +2434,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     {
       v9 = &v11 - v3;
       v10 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v10;
       v3 = *(v10 + 16);
       v5 = &v9[v3];
@@ -2443,7 +2443,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     else
     {
       v8 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v8;
       v3 = *(v8 + 16);
       v5 = &v11;
@@ -2719,7 +2719,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     {
       v9 = &v11 - v3;
       v10 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v10;
       v3 = *(v10 + 16);
       v5 = &v9[v3];
@@ -2728,7 +2728,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     else
     {
       v8 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v8;
       v3 = *(v8 + 16);
       v5 = &v11;
@@ -2758,7 +2758,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     {
       v9 = &v11 - v3;
       v10 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v10;
       v3 = *(v10 + 16);
       v5 = &v9[v3];
@@ -2767,7 +2767,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     else
     {
       v8 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v8;
       v3 = *(v8 + 16);
       v5 = &v11;
@@ -2797,7 +2797,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     {
       v9 = &v11 - v3;
       v10 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v10;
       v3 = *(v10 + 16);
       v5 = &v9[v3];
@@ -2806,7 +2806,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     else
     {
       v8 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v8;
       v3 = *(v8 + 16);
       v5 = &v11;
@@ -2836,7 +2836,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     {
       v9 = &v11 - v3;
       v10 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v10;
       v3 = *(v10 + 16);
       v5 = &v9[v3];
@@ -2845,7 +2845,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     else
     {
       v8 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v8;
       v3 = *(v8 + 16);
       v5 = &v11;
@@ -2875,7 +2875,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     {
       v9 = &v11 - v3;
       v10 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v10;
       v3 = *(v10 + 16);
       v5 = &v9[v3];
@@ -2884,7 +2884,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     else
     {
       v8 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v8;
       v3 = *(v8 + 16);
       v5 = &v11;
@@ -3056,7 +3056,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     {
       v9 = &v11 - v3;
       v10 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v10;
       v3 = *(v10 + 16);
       v5 = &v9[v3];
@@ -3065,7 +3065,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     else
     {
       v8 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v8;
       v3 = *(v8 + 16);
       v5 = &v11;
@@ -3095,7 +3095,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     {
       v9 = &v11 - v3;
       v10 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v10;
       v3 = *(v10 + 16);
       v5 = &v9[v3];
@@ -3104,7 +3104,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     else
     {
       v8 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v8;
       v3 = *(v8 + 16);
       v5 = &v11;
@@ -3119,7 +3119,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
   return result;
 }
 
-__n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous namespace::__mlir_ods_local_attr_constraint_ArithCanonicalization3(mlir::PatternRewriter &,mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>(void ***a1, uint64_t a2)
+__n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous namespace::__mlir_ods_local_attr_constraint_ArithCanonicalization3(mlir::PatternRewriter &,mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>(const void ****a1, uint64_t a2)
 {
   v3 = **a1;
   v2 = (*a1)[1];
@@ -3139,7 +3139,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     {
       v11 = &v15 - v5;
       v12 = v4;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v4 + 16, v4 + 32, v6 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v4 + 16, (v4 + 32), v6 + 1, 24);
       v4 = v12;
       v5 = *(v12 + 16);
       v7 = &v11[v5];
@@ -3148,7 +3148,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     else
     {
       v10 = v4;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v4 + 16, v4 + 32, v6 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v4 + 16, (v4 + 32), v6 + 1, 24);
       v4 = v10;
       v5 = *(v10 + 16);
       v7 = &v15;
@@ -3178,7 +3178,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     {
       v9 = &v11 - v3;
       v10 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v10;
       v3 = *(v10 + 16);
       v5 = &v9[v3];
@@ -3187,7 +3187,7 @@ __n128 llvm::function_ref<void ()(mlir::Diagnostic &)>::callback_fn<anonymous na
     else
     {
       v8 = a2;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, a2 + 32, v4 + 1, 24);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(v2, (a2 + 32), v4 + 1, 24);
       a2 = v8;
       v3 = *(v8 + 16);
       v5 = &v11;
@@ -3447,7 +3447,7 @@ LABEL_74:
   return result;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::arith::XOrIOp,mlir::Value,mlir::arith::ConstantIntOp>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, void *a4)
+char *mlir::OpBuilder::create<mlir::arith::XOrIOp,mlir::Value,mlir::arith::ConstantIntOp>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, void *a4)
 {
   v18[38] = *MEMORY[0x1E69E9840];
   v15 = a2;
@@ -3461,7 +3461,7 @@ uint64_t mlir::OpBuilder::create<mlir::arith::XOrIOp,mlir::Value,mlir::arith::Co
   mlir::OperationState::OperationState(v18, a2, v9);
   mlir::arith::AndIOp::build(v11, v18, *a3, *a4 - 16);
   v12 = mlir::OpBuilder::create(a1, v18);
-  if (*(*(v12 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::XOrIOp,void>::id)
+  if (*(*(v12 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::XOrIOp,void>::id)
   {
     v13 = v12;
   }
@@ -3475,7 +3475,7 @@ uint64_t mlir::OpBuilder::create<mlir::arith::XOrIOp,mlir::Value,mlir::arith::Co
   return v13;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::arith::ConstantIntOp,int,mlir::Type>(mlir::OpBuilder *a1, uint64_t a2, int *a3, uint64_t *a4)
+char *mlir::OpBuilder::create<mlir::arith::ConstantIntOp,int,mlir::Type>(mlir::OpBuilder *a1, uint64_t a2, int *a3, uint64_t *a4)
 {
   v17[38] = *MEMORY[0x1E69E9840];
   v14 = a2;
@@ -3489,9 +3489,9 @@ uint64_t mlir::OpBuilder::create<mlir::arith::ConstantIntOp,int,mlir::Type>(mlir
   mlir::OperationState::OperationState(v17, a2, v9);
   mlir::arith::ConstantIntOp::build(a1, v17, *a3, *a4);
   v11 = mlir::OpBuilder::create(a1, v17);
-  if (v11 && *(*(v11 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::ConstantOp,void>::id)
+  if (v11 && *(*(v11 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::ConstantOp,void>::id)
   {
-    v16[0] = *(v11 - 8) & 0xFFFFFFFFFFFFFFF8;
+    v16[0] = *(v11 - 1) & 0xFFFFFFFFFFFFFFF8;
     v12 = v11;
     if (!mlir::Type::isSignlessInteger(v16))
     {
@@ -3508,7 +3508,7 @@ uint64_t mlir::OpBuilder::create<mlir::arith::ConstantIntOp,int,mlir::Type>(mlir
   return v12;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::arith::ExtUIOp,mlir::Type,mlir::Value>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, void *a4)
+char *mlir::OpBuilder::create<mlir::arith::ExtUIOp,mlir::Type,mlir::Value>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, void *a4)
 {
   v23[28] = *MEMORY[0x1E69E9840];
   v16 = a2;
@@ -3533,7 +3533,7 @@ uint64_t mlir::OpBuilder::create<mlir::arith::ExtUIOp,mlir::Type,mlir::Value>(ml
   *(v20 + 8 * v12) = v11;
   ++v21;
   v13 = mlir::OpBuilder::create(a1, v19);
-  if (*(*(v13 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::ExtUIOp,void>::id)
+  if (*(*(v13 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::ExtUIOp,void>::id)
   {
     v14 = v13;
   }
@@ -3547,7 +3547,7 @@ uint64_t mlir::OpBuilder::create<mlir::arith::ExtUIOp,mlir::Type,mlir::Value>(ml
   return v14;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::arith::ExtUIOp,mlir::Type,mlir::arith::XOrIOp>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, void *a4)
+char *mlir::OpBuilder::create<mlir::arith::ExtUIOp,mlir::Type,mlir::arith::XOrIOp>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, void *a4)
 {
   v23[28] = *MEMORY[0x1E69E9840];
   v16 = a2;
@@ -3572,7 +3572,7 @@ uint64_t mlir::OpBuilder::create<mlir::arith::ExtUIOp,mlir::Type,mlir::arith::XO
   *(v20 + 8 * v12) = v11;
   ++v21;
   v13 = mlir::OpBuilder::create(a1, v19);
-  if (*(*(v13 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::ExtUIOp,void>::id)
+  if (*(*(v13 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::arith::ExtUIOp,void>::id)
   {
     v14 = v13;
   }
@@ -3586,7 +3586,7 @@ uint64_t mlir::OpBuilder::create<mlir::arith::ExtUIOp,mlir::Type,mlir::arith::XO
   return v14;
 }
 
-uint64_t mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::ShLIOp::fold(mlir::arith::ShLIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::ShLIOp::fold(mlir::arith::ShLIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(uint64_t a1, BOOL **a2, uint64_t a3, llvm::APInt *this)
+const void **mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::ShLIOp::fold(mlir::arith::ShLIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::ShLIOp::fold(mlir::arith::ShLIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(uint64_t a1, BOOL **a2, const llvm::APInt *a3, llvm::APInt *this)
 {
   v8 = *(this + 2);
   v9 = this;
@@ -3595,7 +3595,7 @@ uint64_t mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonA
     if (v8 - llvm::APInt::countLeadingZerosSlowCase(this) > 0x40)
     {
       **a2 = 0;
-      v12 = *(a3 + 8);
+      v12 = *(a3 + 2);
       if (v12 <= 0x40)
       {
         goto LABEL_5;
@@ -3610,7 +3610,7 @@ LABEL_7:
   }
 
   **a2 = *v9 < v8;
-  v12 = *(a3 + 8);
+  v12 = *(a3 + 2);
   if (v12 > 0x40)
   {
     goto LABEL_7;
@@ -3626,7 +3626,7 @@ LABEL_8:
   return result;
 }
 
-void mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::ShRUIOp::fold(mlir::arith::ShRUIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::ShRUIOp::fold(mlir::arith::ShRUIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(uint64_t a1, BOOL **a2, uint64_t a3, llvm::APInt *a4)
+void mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::ShRUIOp::fold(mlir::arith::ShRUIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::ShRUIOp::fold(mlir::arith::ShRUIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(uint64_t a1, BOOL **a2, const llvm::APInt *a3, llvm::APInt *a4)
 {
   v8 = *(a4 + 2);
   v9 = a4;
@@ -3635,7 +3635,7 @@ void mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,
     if (v8 - llvm::APInt::countLeadingZerosSlowCase(a4) > 0x40)
     {
       **a2 = 0;
-      v11 = *(a3 + 8);
+      v11 = *(a3 + 2);
       if (v11 <= 0x40)
       {
         goto LABEL_5;
@@ -3650,7 +3650,7 @@ LABEL_7:
   }
 
   **a2 = *v9 < v8;
-  v11 = *(a3 + 8);
+  v11 = *(a3 + 2);
   if (v11 > 0x40)
   {
     goto LABEL_7;
@@ -3665,7 +3665,7 @@ LABEL_8:
   *(a1 + 16) = 1;
 }
 
-unsigned int *mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::ShRSIOp::fold(mlir::arith::ShRSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::ShRSIOp::fold(mlir::arith::ShRSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(uint64_t a1, BOOL **a2, uint64_t a3, llvm::APInt *a4)
+unsigned int *mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::PoisonAttr,mlir::arith::ShRSIOp::fold(mlir::arith::ShRSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0>(llvm::ArrayRef<mlir::Attribute>,mlir::arith::ShRSIOp::fold(mlir::arith::ShRSIOpGenericAdaptor<llvm::ArrayRef<mlir::Attribute>>)::$_0 &&)::{lambda(llvm::APInt,llvm::APInt)#1}::operator()(uint64_t a1, BOOL **a2, const llvm::APInt *a3, llvm::APInt *a4)
 {
   v8 = *(a4 + 2);
   v9 = a4;
@@ -3674,7 +3674,7 @@ unsigned int *mlir::constFoldBinaryOp<mlir::IntegerAttr,llvm::APInt,mlir::ub::Po
     if (v8 - llvm::APInt::countLeadingZerosSlowCase(a4) > 0x40)
     {
       **a2 = 0;
-      v12 = *(a3 + 8);
+      v12 = *(a3 + 2);
       if (v12 <= 0x40)
       {
         goto LABEL_5;
@@ -3689,7 +3689,7 @@ LABEL_7:
   }
 
   **a2 = *v9 < v8;
-  v12 = *(a3 + 8);
+  v12 = *(a3 + 2);
   if (v12 > 0x40)
   {
     goto LABEL_7;
@@ -4068,11 +4068,11 @@ const char *llvm::getTypeName<mlir::arith::detail::AddFOpGenericAdaptorBase::Pro
   return &v2[v3];
 }
 
-BOOL _ZN4llvm12function_refIFNS_11ParseResultERN4mlir9AttributeENS2_4TypeEEE11callback_fnIZNS2_9AsmParser32parseCustomAttributeWithFallbackINS2_5arith17FastMathFlagsAttrEEENSt3__19enable_ifIXsr23detect_has_parse_methodIT_EE5valueES1_E4typeERSF_S5_EUlS4_S5_E_EES1_lS4_S5_(mlir::AsmParser **a1, uint64_t *a2)
+BOOL _ZN4llvm12function_refIFNS_11ParseResultERN4mlir9AttributeENS2_4TypeEEE11callback_fnIZNS2_9AsmParser32parseCustomAttributeWithFallbackINS2_5arith17FastMathFlagsAttrEEENSt3__19enable_ifIXsr23detect_has_parse_methodIT_EE5valueES1_E4typeERSF_S5_EUlS4_S5_E_EES1_lS4_S5_(mlir::AsmParser **a1, uint64_t *a2, uint64_t a3)
 {
-  v3 = mlir::arith::FastMathFlagsAttr::parse(*a1);
-  *a2 = v3;
-  return v3 != 0;
+  v4 = mlir::arith::FastMathFlagsAttr::parse(*a1);
+  *a2 = v4;
+  return v4 != 0;
 }
 
 void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::arith::AddFOp::parse(mlir::OpAsmParser &,mlir::OperationState &)::$_0>(void *a1@<X0>, uint64_t a2@<X8>)
@@ -4093,7 +4093,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
         v22 = &v24 - v30;
         llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
         v5 = v30;
-        v4 = v30 + v22;
+        v4 = (v30 + v22);
       }
 
       else
@@ -4106,7 +4106,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
     v6 = &v5[24 * v31];
     v7 = *v4;
-    *(v6 + 2) = *(v4 + 2);
+    *(v6 + 2) = v4[2];
     *v6 = v7;
     ++v31;
   }
@@ -4133,7 +4133,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
           v23 = &v24 - v30;
           llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
           v11 = v30;
-          v10 = v30 + v23;
+          v10 = (v30 + v23);
         }
 
         else
@@ -4146,7 +4146,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
       v12 = &v11[24 * v31];
       v13 = *v10;
-      *(v12 + 2) = *(v10 + 2);
+      *(v12 + 2) = v10[2];
       *v12 = v13;
       ++v31;
     }
@@ -4310,11 +4310,11 @@ const char *llvm::getTypeName<mlir::arith::detail::AddIOpGenericAdaptorBase::Pro
   return &v2[v3];
 }
 
-BOOL _ZN4llvm12function_refIFNS_11ParseResultERN4mlir9AttributeENS2_4TypeEEE11callback_fnIZNS2_9AsmParser32parseCustomAttributeWithFallbackINS2_5arith24IntegerOverflowFlagsAttrEEENSt3__19enable_ifIXsr23detect_has_parse_methodIT_EE5valueES1_E4typeERSF_S5_EUlS4_S5_E_EES1_lS4_S5_(mlir::AsmParser **a1, uint64_t *a2)
+BOOL _ZN4llvm12function_refIFNS_11ParseResultERN4mlir9AttributeENS2_4TypeEEE11callback_fnIZNS2_9AsmParser32parseCustomAttributeWithFallbackINS2_5arith24IntegerOverflowFlagsAttrEEENSt3__19enable_ifIXsr23detect_has_parse_methodIT_EE5valueES1_E4typeERSF_S5_EUlS4_S5_E_EES1_lS4_S5_(mlir::AsmParser **a1, uint64_t *a2, uint64_t a3)
 {
-  v3 = mlir::arith::IntegerOverflowFlagsAttr::parse(*a1);
-  *a2 = v3;
-  return v3 != 0;
+  v4 = mlir::arith::IntegerOverflowFlagsAttr::parse(*a1);
+  *a2 = v4;
+  return v4 != 0;
 }
 
 void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::arith::AddIOp::parse(mlir::OpAsmParser &,mlir::OperationState &)::$_0>(void *a1@<X0>, uint64_t a2@<X8>)
@@ -4335,7 +4335,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
         v22 = &v24 - v30;
         llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
         v5 = v30;
-        v4 = v30 + v22;
+        v4 = (v30 + v22);
       }
 
       else
@@ -4348,7 +4348,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
     v6 = &v5[24 * v31];
     v7 = *v4;
-    *(v6 + 2) = *(v4 + 2);
+    *(v6 + 2) = v4[2];
     *v6 = v7;
     ++v31;
   }
@@ -4375,7 +4375,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
           v23 = &v24 - v30;
           llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
           v11 = v30;
-          v10 = v30 + v23;
+          v10 = (v30 + v23);
         }
 
         else
@@ -4388,7 +4388,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
       v12 = &v11[24 * v31];
       v13 = *v10;
-      *(v12 + 2) = *(v10 + 2);
+      *(v12 + 2) = v10[2];
       *v12 = v13;
       ++v31;
     }
@@ -4522,7 +4522,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
         v22 = &v24 - v30;
         llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
         v5 = v30;
-        v4 = v30 + v22;
+        v4 = (v30 + v22);
       }
 
       else
@@ -4535,7 +4535,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
     v6 = &v5[24 * v31];
     v7 = *v4;
-    *(v6 + 2) = *(v4 + 2);
+    *(v6 + 2) = v4[2];
     *v6 = v7;
     ++v31;
   }
@@ -4562,7 +4562,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
           v23 = &v24 - v30;
           llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
           v11 = v30;
-          v10 = v30 + v23;
+          v10 = (v30 + v23);
         }
 
         else
@@ -4575,7 +4575,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
       v12 = &v11[24 * v31];
       v13 = *v10;
-      *(v12 + 2) = *(v10 + 2);
+      *(v12 + 2) = v10[2];
       *v12 = v13;
       ++v31;
     }
@@ -4702,7 +4702,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
         v22 = &v24 - v30;
         llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
         v5 = v30;
-        v4 = v30 + v22;
+        v4 = (v30 + v22);
       }
 
       else
@@ -4715,7 +4715,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
     v6 = &v5[24 * v31];
     v7 = *v4;
-    *(v6 + 2) = *(v4 + 2);
+    *(v6 + 2) = v4[2];
     *v6 = v7;
     ++v31;
   }
@@ -4742,7 +4742,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
           v23 = &v24 - v30;
           llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
           v11 = v30;
-          v10 = v30 + v23;
+          v10 = (v30 + v23);
         }
 
         else
@@ -4755,7 +4755,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
       v12 = &v11[24 * v31];
       v13 = *v10;
-      *(v12 + 2) = *(v10 + 2);
+      *(v12 + 2) = v10[2];
       *v12 = v13;
       ++v31;
     }
@@ -4889,7 +4889,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
         v22 = &v24 - v30;
         llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
         v5 = v30;
-        v4 = v30 + v22;
+        v4 = (v30 + v22);
       }
 
       else
@@ -4902,7 +4902,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
     v6 = &v5[24 * v31];
     v7 = *v4;
-    *(v6 + 2) = *(v4 + 2);
+    *(v6 + 2) = v4[2];
     *v6 = v7;
     ++v31;
   }
@@ -4929,7 +4929,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
           v23 = &v24 - v30;
           llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
           v11 = v30;
-          v10 = v30 + v23;
+          v10 = (v30 + v23);
         }
 
         else
@@ -4942,7 +4942,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
       v12 = &v11[24 * v31];
       v13 = *v10;
-      *(v12 + 2) = *(v10 + 2);
+      *(v12 + 2) = v10[2];
       *v12 = v13;
       ++v31;
     }
@@ -5164,7 +5164,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
         v22 = &v24 - v30;
         llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
         v5 = v30;
-        v4 = v30 + v22;
+        v4 = (v30 + v22);
       }
 
       else
@@ -5177,7 +5177,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
     v6 = &v5[24 * v31];
     v7 = *v4;
-    *(v6 + 2) = *(v4 + 2);
+    *(v6 + 2) = v4[2];
     *v6 = v7;
     ++v31;
   }
@@ -5204,7 +5204,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
           v23 = &v24 - v30;
           llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
           v11 = v30;
-          v10 = v30 + v23;
+          v10 = (v30 + v23);
         }
 
         else
@@ -5217,7 +5217,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
       v12 = &v11[24 * v31];
       v13 = *v10;
-      *(v12 + 2) = *(v10 + 2);
+      *(v12 + 2) = v10[2];
       *v12 = v13;
       ++v31;
     }
@@ -5344,7 +5344,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
         v22 = &v24 - v30;
         llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
         v5 = v30;
-        v4 = v30 + v22;
+        v4 = (v30 + v22);
       }
 
       else
@@ -5357,7 +5357,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
     v6 = &v5[24 * v31];
     v7 = *v4;
-    *(v6 + 2) = *(v4 + 2);
+    *(v6 + 2) = v4[2];
     *v6 = v7;
     ++v31;
   }
@@ -5384,7 +5384,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
           v23 = &v24 - v30;
           llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
           v11 = v30;
-          v10 = v30 + v23;
+          v10 = (v30 + v23);
         }
 
         else
@@ -5397,7 +5397,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
       v12 = &v11[24 * v31];
       v13 = *v10;
-      *(v12 + 2) = *(v10 + 2);
+      *(v12 + 2) = v10[2];
       *v12 = v13;
       ++v31;
     }
@@ -5524,7 +5524,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
         v22 = &v24 - v30;
         llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
         v5 = v30;
-        v4 = v30 + v22;
+        v4 = (v30 + v22);
       }
 
       else
@@ -5537,7 +5537,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
     v6 = &v5[24 * v31];
     v7 = *v4;
-    *(v6 + 2) = *(v4 + 2);
+    *(v6 + 2) = v4[2];
     *v6 = v7;
     ++v31;
   }
@@ -5564,7 +5564,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
           v23 = &v24 - v30;
           llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
           v11 = v30;
-          v10 = v30 + v23;
+          v10 = (v30 + v23);
         }
 
         else
@@ -5577,7 +5577,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
       v12 = &v11[24 * v31];
       v13 = *v10;
-      *(v12 + 2) = *(v10 + 2);
+      *(v12 + 2) = v10[2];
       *v12 = v13;
       ++v31;
     }
@@ -5704,7 +5704,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
         v22 = &v24 - v30;
         llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
         v5 = v30;
-        v4 = v30 + v22;
+        v4 = (v30 + v22);
       }
 
       else
@@ -5717,7 +5717,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
     v6 = &v5[24 * v31];
     v7 = *v4;
-    *(v6 + 2) = *(v4 + 2);
+    *(v6 + 2) = v4[2];
     *v6 = v7;
     ++v31;
   }
@@ -5744,7 +5744,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
           v23 = &v24 - v30;
           llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
           v11 = v30;
-          v10 = v30 + v23;
+          v10 = (v30 + v23);
         }
 
         else
@@ -5757,7 +5757,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
       v12 = &v11[24 * v31];
       v13 = *v10;
-      *(v12 + 2) = *(v10 + 2);
+      *(v12 + 2) = v10[2];
       *v12 = v13;
       ++v31;
     }
@@ -5884,7 +5884,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
         v22 = &v24 - v30;
         llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
         v5 = v30;
-        v4 = v30 + v22;
+        v4 = (v30 + v22);
       }
 
       else
@@ -5897,7 +5897,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
     v6 = &v5[24 * v31];
     v7 = *v4;
-    *(v6 + 2) = *(v4 + 2);
+    *(v6 + 2) = v4[2];
     *v6 = v7;
     ++v31;
   }
@@ -5924,7 +5924,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
           v23 = &v24 - v30;
           llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
           v11 = v30;
-          v10 = v30 + v23;
+          v10 = (v30 + v23);
         }
 
         else
@@ -5937,7 +5937,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
       v12 = &v11[24 * v31];
       v13 = *v10;
-      *(v12 + 2) = *(v10 + 2);
+      *(v12 + 2) = v10[2];
       *v12 = v13;
       ++v31;
     }
@@ -6064,7 +6064,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
         v22 = &v24 - v30;
         llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
         v5 = v30;
-        v4 = v30 + v22;
+        v4 = (v30 + v22);
       }
 
       else
@@ -6077,7 +6077,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
     v6 = &v5[24 * v31];
     v7 = *v4;
-    *(v6 + 2) = *(v4 + 2);
+    *(v6 + 2) = v4[2];
     *v6 = v7;
     ++v31;
   }
@@ -6104,7 +6104,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
           v23 = &v24 - v30;
           llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
           v11 = v30;
-          v10 = v30 + v23;
+          v10 = (v30 + v23);
         }
 
         else
@@ -6117,7 +6117,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
       v12 = &v11[24 * v31];
       v13 = *v10;
-      *(v12 + 2) = *(v10 + 2);
+      *(v12 + 2) = v10[2];
       *v12 = v13;
       ++v31;
     }
@@ -6244,7 +6244,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
         v22 = &v24 - v30;
         llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
         v5 = v30;
-        v4 = v30 + v22;
+        v4 = (v30 + v22);
       }
 
       else
@@ -6257,7 +6257,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
     v6 = &v5[24 * v31];
     v7 = *v4;
-    *(v6 + 2) = *(v4 + 2);
+    *(v6 + 2) = v4[2];
     *v6 = v7;
     ++v31;
   }
@@ -6284,7 +6284,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
           v23 = &v24 - v30;
           llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
           v11 = v30;
-          v10 = v30 + v23;
+          v10 = (v30 + v23);
         }
 
         else
@@ -6297,7 +6297,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
       v12 = &v11[24 * v31];
       v13 = *v10;
-      *(v12 + 2) = *(v10 + 2);
+      *(v12 + 2) = v10[2];
       *v12 = v13;
       ++v31;
     }
@@ -6424,7 +6424,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
         v22 = &v24 - v30;
         llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
         v5 = v30;
-        v4 = v30 + v22;
+        v4 = (v30 + v22);
       }
 
       else
@@ -6437,7 +6437,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
     v6 = &v5[24 * v31];
     v7 = *v4;
-    *(v6 + 2) = *(v4 + 2);
+    *(v6 + 2) = v4[2];
     *v6 = v7;
     ++v31;
   }
@@ -6464,7 +6464,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
           v23 = &v24 - v30;
           llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
           v11 = v30;
-          v10 = v30 + v23;
+          v10 = (v30 + v23);
         }
 
         else
@@ -6477,7 +6477,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
       v12 = &v11[24 * v31];
       v13 = *v10;
-      *(v12 + 2) = *(v10 + 2);
+      *(v12 + 2) = v10[2];
       *v12 = v13;
       ++v31;
     }
@@ -6604,7 +6604,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
         v22 = &v24 - v30;
         llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
         v5 = v30;
-        v4 = v30 + v22;
+        v4 = (v30 + v22);
       }
 
       else
@@ -6617,7 +6617,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
     v6 = &v5[24 * v31];
     v7 = *v4;
-    *(v6 + 2) = *(v4 + 2);
+    *(v6 + 2) = v4[2];
     *v6 = v7;
     ++v31;
   }
@@ -6644,7 +6644,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
           v23 = &v24 - v30;
           llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
           v11 = v30;
-          v10 = v30 + v23;
+          v10 = (v30 + v23);
         }
 
         else
@@ -6657,7 +6657,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
       v12 = &v11[24 * v31];
       v13 = *v10;
-      *(v12 + 2) = *(v10 + 2);
+      *(v12 + 2) = v10[2];
       *v12 = v13;
       ++v31;
     }
@@ -6784,7 +6784,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
         v22 = &v24 - v30;
         llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
         v5 = v30;
-        v4 = v30 + v22;
+        v4 = (v30 + v22);
       }
 
       else
@@ -6797,7 +6797,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
     v6 = &v5[24 * v31];
     v7 = *v4;
-    *(v6 + 2) = *(v4 + 2);
+    *(v6 + 2) = v4[2];
     *v6 = v7;
     ++v31;
   }
@@ -6824,7 +6824,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
           v23 = &v24 - v30;
           llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
           v11 = v30;
-          v10 = v30 + v23;
+          v10 = (v30 + v23);
         }
 
         else
@@ -6837,7 +6837,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
       v12 = &v11[24 * v31];
       v13 = *v10;
-      *(v12 + 2) = *(v10 + 2);
+      *(v12 + 2) = v10[2];
       *v12 = v13;
       ++v31;
     }
@@ -6964,7 +6964,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
         v22 = &v24 - v30;
         llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
         v5 = v30;
-        v4 = v30 + v22;
+        v4 = (v30 + v22);
       }
 
       else
@@ -6977,7 +6977,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
     v6 = &v5[24 * v31];
     v7 = *v4;
-    *(v6 + 2) = *(v4 + 2);
+    *(v6 + 2) = v4[2];
     *v6 = v7;
     ++v31;
   }
@@ -7004,7 +7004,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
           v23 = &v24 - v30;
           llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
           v11 = v30;
-          v10 = v30 + v23;
+          v10 = (v30 + v23);
         }
 
         else
@@ -7017,7 +7017,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
       v12 = &v11[24 * v31];
       v13 = *v10;
-      *(v12 + 2) = *(v10 + 2);
+      *(v12 + 2) = v10[2];
       *v12 = v13;
       ++v31;
     }
@@ -7144,7 +7144,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
         v22 = &v24 - v30;
         llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
         v5 = v30;
-        v4 = v30 + v22;
+        v4 = (v30 + v22);
       }
 
       else
@@ -7157,7 +7157,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
     v6 = &v5[24 * v31];
     v7 = *v4;
-    *(v6 + 2) = *(v4 + 2);
+    *(v6 + 2) = v4[2];
     *v6 = v7;
     ++v31;
   }
@@ -7184,7 +7184,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
           v23 = &v24 - v30;
           llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
           v11 = v30;
-          v10 = v30 + v23;
+          v10 = (v30 + v23);
         }
 
         else
@@ -7197,7 +7197,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
       v12 = &v11[24 * v31];
       v13 = *v10;
-      *(v12 + 2) = *(v10 + 2);
+      *(v12 + 2) = v10[2];
       *v12 = v13;
       ++v31;
     }
@@ -7324,7 +7324,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
         v22 = &v24 - v30;
         llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
         v5 = v30;
-        v4 = v30 + v22;
+        v4 = (v30 + v22);
       }
 
       else
@@ -7337,7 +7337,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
     v6 = &v5[24 * v31];
     v7 = *v4;
-    *(v6 + 2) = *(v4 + 2);
+    *(v6 + 2) = v4[2];
     *v6 = v7;
     ++v31;
   }
@@ -7364,7 +7364,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
           v23 = &v24 - v30;
           llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
           v11 = v30;
-          v10 = v30 + v23;
+          v10 = (v30 + v23);
         }
 
         else
@@ -7377,7 +7377,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
       v12 = &v11[24 * v31];
       v13 = *v10;
-      *(v12 + 2) = *(v10 + 2);
+      *(v12 + 2) = v10[2];
       *v12 = v13;
       ++v31;
     }
@@ -7511,7 +7511,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
         v22 = &v24 - v30;
         llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
         v5 = v30;
-        v4 = v30 + v22;
+        v4 = (v30 + v22);
       }
 
       else
@@ -7524,7 +7524,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
     v6 = &v5[24 * v31];
     v7 = *v4;
-    *(v6 + 2) = *(v4 + 2);
+    *(v6 + 2) = v4[2];
     *v6 = v7;
     ++v31;
   }
@@ -7551,7 +7551,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
           v23 = &v24 - v30;
           llvm::SmallVectorBase<unsigned int>::grow_pod(&v30, v33, v31 + 1, 24);
           v11 = v30;
-          v10 = v30 + v23;
+          v10 = (v30 + v23);
         }
 
         else
@@ -7564,7 +7564,7 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::ar
 
       v12 = &v11[24 * v31];
       v13 = *v10;
-      *(v12 + 2) = *(v10 + 2);
+      *(v12 + 2) = v10[2];
       *v12 = v13;
       ++v31;
     }
@@ -7658,7 +7658,7 @@ uint64_t OUTLINED_FUNCTION_8()
   }
 }
 
-void OUTLINED_FUNCTION_10(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t *a23, uint64_t a24)
+void OUTLINED_FUNCTION_10(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
 {
   v27 = *(v25 - 160);
   v28 = *(*v27 + 24);
@@ -7716,9 +7716,9 @@ uint64_t OUTLINED_FUNCTION_13()
   return mlir::detail::OpResultImpl::getNextResultAtOffset(v2, 0);
 }
 
-uint64_t OUTLINED_FUNCTION_14(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+uint64_t OUTLINED_FUNCTION_14(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a17);
+  va_start(va, a22);
 
   return applyToIntegerAttrs(a1, a2, a3, llvm::function_ref<llvm::APInt ()(llvm::APInt const&,llvm::APInt const&)>::callback_fn<std::plus<llvm::APInt>>, va);
 }
@@ -7752,10 +7752,11 @@ uint64_t OUTLINED_FUNCTION_24@<X0>(uint64_t a1@<X8>, uint64_t a2, uint64_t a3, u
   return mlir::Builder::getStringAttr((v7 + 8), &a3);
 }
 
-void OUTLINED_FUNCTION_25(uint64_t a1@<X8>, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void OUTLINED_FUNCTION_25(uint64_t a1@<X8>, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
+  va_start(va, a25);
 
-  llvm::SmallVectorBase<unsigned int>::grow_pod(&a26, v26, a1 + 1, 8);
+  llvm::SmallVectorBase<unsigned int>::grow_pod(va, v25, a1 + 1, 8);
 }
 
 void OUTLINED_FUNCTION_26(uint64_t a1@<X8>)
@@ -7764,10 +7765,11 @@ void OUTLINED_FUNCTION_26(uint64_t a1@<X8>)
   llvm::SmallVectorBase<unsigned int>::grow_pod(v2 - 160, v1, a1 + 1, 8);
 }
 
-void OUTLINED_FUNCTION_27(uint64_t a1@<X8>, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void OUTLINED_FUNCTION_27(uint64_t a1@<X8>, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
+  va_start(va, a25);
 
-  llvm::SmallVectorBase<unsigned int>::grow_pod(&a26, v26, a1 + 1, 8);
+  llvm::SmallVectorBase<unsigned int>::grow_pod(va, v25, a1 + 1, 8);
 }
 
 uint64_t OUTLINED_FUNCTION_28(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33)
@@ -7799,7 +7801,7 @@ void *OUTLINED_FUNCTION_46@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>, uint64_t a3,
   return mlir::NamedAttribute::NamedAttribute((a17 + 16 * a2), a1, v17);
 }
 
-uint64_t OUTLINED_FUNCTION_47(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17)
+char *OUTLINED_FUNCTION_47(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
 {
   a17 = a1;
 
@@ -7821,17 +7823,18 @@ uint64_t OUTLINED_FUNCTION_49()
   return mlir::detail::OpResultImpl::getNextResultAtOffset(v2, 0);
 }
 
-void OUTLINED_FUNCTION_50(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t *a16)
+void OUTLINED_FUNCTION_50(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
   a16 = *(**(v17 - 152) + 24);
 
   mlir::Builder::getFusedLoc((v16 + 8), &a16, 1, 0);
 }
 
-void OUTLINED_FUNCTION_53(uint64_t a1@<X8>, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25)
+void OUTLINED_FUNCTION_53(uint64_t a1@<X8>, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
+  va_start(va, a24);
 
-  llvm::SmallVectorBase<unsigned int>::grow_pod(&a25, v25, a1 + 1, 8);
+  llvm::SmallVectorBase<unsigned int>::grow_pod(va, v24, a1 + 1, 8);
 }
 
 uint64_t OUTLINED_FUNCTION_56@<X0>(uint64_t a1@<X8>, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, __int16 a6)
@@ -7849,37 +7852,38 @@ void OUTLINED_FUNCTION_60(uint64_t a1@<X1>, uint64_t a2@<X8>)
   *(v2 - 136) = a1;
 }
 
-uint64_t OUTLINED_FUNCTION_61(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+uint64_t OUTLINED_FUNCTION_61(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  va_start(va2, a6);
-  va_start(va1, a6);
-  va_start(va, a6);
-  v8 = va_arg(va1, void);
+  va_start(va2, a12);
+  va_start(va1, a12);
+  va_start(va, a12);
+  v14 = va_arg(va1, void);
   va_copy(va2, va1);
-  v10 = va_arg(va2, void);
-  v12 = va_arg(va2, void);
-  v13 = va_arg(va2, void);
-  v14 = va_arg(va2, void);
-  v15 = va_arg(va2, void);
   v16 = va_arg(va2, void);
-  v17 = va_arg(va2, void);
+  v18 = va_arg(va2, void);
+  v19 = va_arg(va2, void);
+  v20 = va_arg(va2, void);
+  v21 = va_arg(va2, void);
+  v22 = va_arg(va2, void);
+  v23 = va_arg(va2, void);
 
   return llvm::SmallVectorTemplateBase<mlir::NamedAttribute,true>::growAndEmplaceBack<mlir::StringAttr,mlir::arith::IntegerOverflowFlagsAttr &>(va2, va, va1);
 }
 
-unint64_t *OUTLINED_FUNCTION_64(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+unint64_t *OUTLINED_FUNCTION_64(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a14);
-  v16 = *(v14 - 208);
-  v17 = *(v14 - 200);
+  va_start(va, a22);
+  v24 = *(v22 - 208);
+  v25 = *(v22 - 200);
 
-  return mlir::ValueRange::ValueRange(va, v16, v17);
+  return mlir::ValueRange::ValueRange(va, v24, v25);
 }
 
-uint64_t OUTLINED_FUNCTION_65(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+uint64_t OUTLINED_FUNCTION_65(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
 
-  return mlir::arith::FastMathFlagsAttr::getValue(&a33);
+  return mlir::arith::FastMathFlagsAttr::getValue(va);
 }
 
 uint64_t OUTLINED_FUNCTION_89@<X0>(uint64_t a1@<X8>)
@@ -7919,27 +7923,27 @@ uint64_t OUTLINED_FUNCTION_114(uint64_t a1, StringRef a2)
   return mlir::Operation::getInherentAttr(v2, a2);
 }
 
-uint64_t OUTLINED_FUNCTION_115(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+uint64_t OUTLINED_FUNCTION_115(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a14);
+  va_start(va, a22);
 
   return mlir::arith::FastMathFlagsAttr::getValue(va);
 }
 
-uint64_t OUTLINED_FUNCTION_116(int a1)
+uint64_t OUTLINED_FUNCTION_116(unsigned int a1)
 {
 
   return mlir::arith::IntegerOverflowFlagsAttr::get(v1, a1 & v2);
 }
 
-uint64_t OUTLINED_FUNCTION_121(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+uint64_t OUTLINED_FUNCTION_121(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
-  va_start(va2, a5);
-  va_start(va1, a5);
-  va_start(va, a5);
-  v7 = va_arg(va1, void);
+  va_start(va2, a10);
+  va_start(va1, a10);
+  va_start(va, a10);
+  v12 = va_arg(va1, void);
   va_copy(va2, va1);
-  v9 = va_arg(va2, void);
+  v14 = va_arg(va2, void);
 
   return llvm::SmallVectorTemplateBase<mlir::NamedAttribute,true>::growAndEmplaceBack<mlir::StringAttr,mlir::arith::IntegerOverflowFlagsAttr &>(va2, va, va1);
 }
@@ -7958,19 +7962,19 @@ void OUTLINED_FUNCTION_128(uint64_t a1@<X8>)
   llvm::SmallVectorBase<unsigned int>::grow_pod(v2 - 152, v1, a1 + 1, 8);
 }
 
-uint64_t OUTLINED_FUNCTION_129(uint64_t a1)
+uint64_t OUTLINED_FUNCTION_129(mlir::detail::OpResultImpl *a1)
 {
 
   return mlir::detail::OpResultImpl::getNextResultAtOffset(a1, 0);
 }
 
-uint64_t OUTLINED_FUNCTION_130(uint64_t a1)
+uint64_t OUTLINED_FUNCTION_130(mlir::detail::OpResultImpl *a1)
 {
 
   return mlir::detail::OpResultImpl::getNextResultAtOffset(a1, 0);
 }
 
-uint64_t mlir::arith::ArithDialect::initialize(int32x2_t *this)
+uint64_t *mlir::arith::ArithDialect::initialize(mlir::arith::ArithDialect *this)
 {
   mlir::Dialect::addOperations<mlir::arith::AddFOp,mlir::arith::AddIOp,mlir::arith::AddUIExtendedOp,mlir::arith::AndIOp,mlir::arith::BitcastOp,mlir::arith::CeilDivSIOp,mlir::arith::CeilDivUIOp,mlir::arith::CmpFOp,mlir::arith::CmpIOp,mlir::arith::ConstantOp,mlir::arith::DivFOp,mlir::arith::DivSIOp,mlir::arith::DivUIOp,mlir::arith::ExtFOp,mlir::arith::ExtSIOp,mlir::arith::ExtUIOp,mlir::arith::FPToSIOp,mlir::arith::FPToUIOp,mlir::arith::FloorDivSIOp,mlir::arith::IndexCastOp,mlir::arith::IndexCastUIOp,mlir::arith::MaxNumFOp,mlir::arith::MaxSIOp,mlir::arith::MaxUIOp,mlir::arith::MaximumFOp,mlir::arith::MinNumFOp,mlir::arith::MinSIOp,mlir::arith::MinUIOp,mlir::arith::MinimumFOp,mlir::arith::MulFOp,mlir::arith::MulIOp,mlir::arith::MulSIExtendedOp,mlir::arith::MulUIExtendedOp,mlir::arith::NegFOp,mlir::arith::OrIOp,mlir::arith::RemFOp,mlir::arith::RemSIOp,mlir::arith::RemUIOp,mlir::arith::SIToFPOp,mlir::arith::ShLIOp,mlir::arith::ShRSIOp,mlir::arith::ShRUIOp,mlir::arith::SubFOp,mlir::arith::SubIOp,mlir::arith::TruncFOp,mlir::arith::TruncIOp,mlir::arith::UIToFPOp,mlir::arith::XOrIOp,mlir::arith::SelectOp>(this);
   mlir::Dialect::addAttribute<mlir::arith::FastMathFlagsAttr>(this);
@@ -8001,14 +8005,14 @@ uint64_t mlir::arith::ArithDialect::initialize(int32x2_t *this)
 
   v7 = &mlir::detail::TypeIDResolver<mlir::arith::ArithDialect,void>::id;
   v8 = mlir::detail::TypeIDResolver<mlir::ConvertToLLVMPatternInterface,void>::resolveTypeID(void)::id;
-  llvm::DenseMapBase<llvm::DenseMap<std::pair<mlir::TypeID,mlir::TypeID>,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<std::pair<mlir::TypeID,mlir::TypeID>,void>,llvm::detail::DenseSetPair<std::pair<mlir::TypeID,mlir::TypeID>>>,std::pair<mlir::TypeID,mlir::TypeID>,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<std::pair<mlir::TypeID,mlir::TypeID>,void>,llvm::detail::DenseSetPair<std::pair<mlir::TypeID,mlir::TypeID>>>::try_emplace<llvm::detail::DenseSetEmpty&>(&this[9], &v7, v9);
+  llvm::DenseMapBase<llvm::DenseMap<std::pair<mlir::TypeID,mlir::TypeID>,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<std::pair<mlir::TypeID,mlir::TypeID>,void>,llvm::detail::DenseSetPair<std::pair<mlir::TypeID,mlir::TypeID>>>,std::pair<mlir::TypeID,mlir::TypeID>,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<std::pair<mlir::TypeID,mlir::TypeID>,void>,llvm::detail::DenseSetPair<std::pair<mlir::TypeID,mlir::TypeID>>>::try_emplace<llvm::detail::DenseSetEmpty&>(this + 9, &v7, v9);
   {
     mlir::arith::ArithDialect::initialize();
   }
 
   v7 = &mlir::detail::TypeIDResolver<mlir::arith::SelectOp,void>::id;
   v8 = mlir::detail::TypeIDResolver<mlir::bufferization::BufferDeallocationOpInterface,void>::resolveTypeID(void)::id;
-  llvm::DenseMapBase<llvm::DenseMap<std::pair<mlir::TypeID,mlir::TypeID>,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<std::pair<mlir::TypeID,mlir::TypeID>,void>,llvm::detail::DenseSetPair<std::pair<mlir::TypeID,mlir::TypeID>>>,std::pair<mlir::TypeID,mlir::TypeID>,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<std::pair<mlir::TypeID,mlir::TypeID>,void>,llvm::detail::DenseSetPair<std::pair<mlir::TypeID,mlir::TypeID>>>::try_emplace<llvm::detail::DenseSetEmpty&>(&this[9], &v7, v9);
+  llvm::DenseMapBase<llvm::DenseMap<std::pair<mlir::TypeID,mlir::TypeID>,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<std::pair<mlir::TypeID,mlir::TypeID>,void>,llvm::detail::DenseSetPair<std::pair<mlir::TypeID,mlir::TypeID>>>,std::pair<mlir::TypeID,mlir::TypeID>,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<std::pair<mlir::TypeID,mlir::TypeID>,void>,llvm::detail::DenseSetPair<std::pair<mlir::TypeID,mlir::TypeID>>>::try_emplace<llvm::detail::DenseSetEmpty&>(this + 9, &v7, v9);
   mlir::Dialect::declarePromisedInterfaces<mlir::bufferization::BufferizableOpInterface,mlir::arith::ConstantOp,mlir::arith::IndexCastOp,mlir::arith::SelectOp>(this);
   return mlir::Dialect::declarePromisedInterfaces<mlir::ValueBoundsOpInterface,mlir::arith::AddIOp,mlir::arith::ConstantOp,mlir::arith::SubIOp,mlir::arith::MulIOp>(this);
 }
@@ -8850,7 +8854,7 @@ LABEL_69:
   return mlir::StorageUniquer::getParametricStorageTypeImpl(AttributeUniquer, &mlir::detail::TypeIDResolver<mlir::arith::FastMathFlagsAttr,void>::id, -348639895 * ((v8 >> 47) ^ v8), llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::arith::detail::FastMathFlagsAttrStorage * mlir::StorageUniquer::get<mlir::arith::detail::FastMathFlagsAttrStorage,mlir::arith::FastMathFlags>(llvm::function_ref<void ()(mlir::arith::detail::FastMathFlagsAttrStorage *)>,mlir::TypeID,mlir::arith::FastMathFlags &&)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v148, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::arith::detail::FastMathFlagsAttrStorage * mlir::StorageUniquer::get<mlir::arith::detail::FastMathFlagsAttrStorage,mlir::arith::FastMathFlags>(llvm::function_ref<void ()(mlir::arith::detail::FastMathFlagsAttrStorage *)>,mlir::TypeID,mlir::arith::FastMathFlags &&)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v146);
 }
 
-void *mlir::arith::FastMathFlagsAttr::print(mlir::arith::FastMathFlagsAttr *this, mlir::AsmPrinter *a2)
+llvm::raw_ostream *mlir::arith::FastMathFlagsAttr::print(mlir::arith::FastMathFlagsAttr *this, mlir::AsmPrinter *a2)
 {
   mlir::Attribute::getContext(this);
   v4 = (*(*a2 + 16))(a2);
@@ -8895,14 +8899,14 @@ void *mlir::arith::FastMathFlagsAttr::print(mlir::arith::FastMathFlagsAttr *this
   }
 
   result = (*(*a2 + 16))(a2);
-  v10 = result[4];
-  if (result[3] == v10)
+  v10 = *(result + 4);
+  if (*(result + 3) == v10)
   {
     return llvm::raw_ostream::write(result, ">", 1uLL);
   }
 
   *v10 = 62;
-  ++result[4];
+  ++*(result + 4);
   return result;
 }
 
@@ -9357,7 +9361,7 @@ LABEL_45:
   return mlir::StorageUniquer::getParametricStorageTypeImpl(AttributeUniquer, &mlir::detail::TypeIDResolver<mlir::arith::IntegerOverflowFlagsAttr,void>::id, -348639895 * ((v8 >> 47) ^ v8), llvm::function_ref<BOOL ()(mlir::StorageUniquer::BaseStorage const*)>::callback_fn<mlir::arith::detail::IntegerOverflowFlagsAttrStorage * mlir::StorageUniquer::get<mlir::arith::detail::IntegerOverflowFlagsAttrStorage,mlir::arith::IntegerOverflowFlags>(llvm::function_ref<void ()(mlir::arith::detail::IntegerOverflowFlagsAttrStorage *)>,mlir::TypeID,mlir::arith::IntegerOverflowFlags &&)::{lambda(mlir::StorageUniquer::BaseStorage const*)#1}>, &v76, llvm::function_ref<mlir::StorageUniquer::BaseStorage * ()(mlir::StorageUniquer::StorageAllocator &)>::callback_fn<mlir::arith::detail::IntegerOverflowFlagsAttrStorage * mlir::StorageUniquer::get<mlir::arith::detail::IntegerOverflowFlagsAttrStorage,mlir::arith::IntegerOverflowFlags>(llvm::function_ref<void ()(mlir::arith::detail::IntegerOverflowFlagsAttrStorage *)>,mlir::TypeID,mlir::arith::IntegerOverflowFlags &&)::{lambda(mlir::StorageUniquer::StorageAllocator &)#1}>, v74);
 }
 
-void *mlir::arith::IntegerOverflowFlagsAttr::print(mlir::arith::IntegerOverflowFlagsAttr *this, mlir::AsmPrinter *a2)
+llvm::raw_ostream *mlir::arith::IntegerOverflowFlagsAttr::print(mlir::arith::IntegerOverflowFlagsAttr *this, mlir::AsmPrinter *a2)
 {
   mlir::Attribute::getContext(this);
   v4 = (*(*a2 + 16))(a2);
@@ -9402,14 +9406,14 @@ void *mlir::arith::IntegerOverflowFlagsAttr::print(mlir::arith::IntegerOverflowF
   }
 
   result = (*(*a2 + 16))(a2);
-  v10 = result[4];
-  if (result[3] == v10)
+  v10 = *(result + 4);
+  if (*(result + 3) == v10)
   {
     return llvm::raw_ostream::write(result, ">", 1uLL);
   }
 
   *v10 = 62;
-  ++result[4];
+  ++*(result + 4);
   return result;
 }
 

@@ -17,17 +17,17 @@
 
   if (stewieEnabled)
   {
-    v8 = CKFrameworkBundle();
-    v9 = [v8 localizedStringForKey:@"TS_STOP_SHARING_STATUS_ITEM" value:&stru_1F04268F8 table:@"TranscriptSharing-SYDROB_FEATURES"];
-    v15 = CKAttributedFormatString(transcriptRegularFontAttributes, transcriptEmphasizedFontAttributes, v9, v10, v11, v12, v13, v14, 0);
+    v9 = CKFrameworkBundle(v8);
+    v10 = [v9 localizedStringForKey:@"TS_STOP_SHARING_STATUS_ITEM" value:&stru_1F04268F8 table:@"TranscriptSharing-SYDROB_FEATURES"];
+    v16 = CKAttributedFormatString(transcriptRegularFontAttributes, transcriptEmphasizedFontAttributes, v10, v11, v12, v13, v14, v15, 0);
   }
 
   else
   {
-    v15 = 0;
+    v16 = 0;
   }
 
-  return v15;
+  return v16;
 }
 
 @end

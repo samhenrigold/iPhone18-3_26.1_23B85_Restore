@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)eventTypeAsString:(int)string;
 - (int)StringAsEventType:(id)type;
 - (int)eventType;
 - (unint64_t)hash;
@@ -262,7 +263,6 @@ LABEL_49:
     goto LABEL_45;
   }
 
-  v5 = *(equalCopy + 144);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 144) & 4) == 0 || self->_eventType != *(equalCopy + 18))
@@ -274,7 +274,7 @@ LABEL_49:
   else if ((*(equalCopy + 144) & 4) != 0)
   {
 LABEL_45:
-    v22 = 0;
+    v19 = 0;
     goto LABEL_46;
   }
 
@@ -338,7 +338,6 @@ LABEL_45:
     }
   }
 
-  v13 = *(equalCopy + 144);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 144) & 2) == 0 || self->_version != *(equalCopy + 2))
@@ -394,7 +393,6 @@ LABEL_45:
     }
   }
 
-  v19 = *(equalCopy + 144);
   if (*&self->_has)
   {
     if ((*(equalCopy + 144) & 1) == 0 || self->_threadQualityOfService != *(equalCopy + 1))
@@ -417,17 +415,17 @@ LABEL_45:
   prewarmEvent = self->_prewarmEvent;
   if (prewarmEvent | *(equalCopy + 15))
   {
-    v22 = [(COMAPPLEPROACTIVEGMSGMSPrewarmEvent *)prewarmEvent isEqual:?];
+    v19 = [(COMAPPLEPROACTIVEGMSGMSPrewarmEvent *)prewarmEvent isEqual:?];
   }
 
   else
   {
-    v22 = 1;
+    v19 = 1;
   }
 
 LABEL_46:
 
-  return v22;
+  return v19;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -621,110 +619,107 @@ LABEL_46:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v5 = toCopy;
   if ((*&self->_has & 4) != 0)
   {
-    eventType = self->_eventType;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_bootSessionUUID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_modelManagerRequestIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_modelManagerSessionIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_inferenceProviderIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_useCaseIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_catalogResourceIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_inferenceEvent)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteInt64Field();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_testKey)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_assetEvent)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_generativeFunctionEvent)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_clientRequestIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_clientSessionIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    threadQualityOfService = self->_threadQualityOfService;
     PBDataWriterWriteInt64Field();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_error)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_prewarmEvent)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v5;
   }
 }
 
@@ -897,6 +892,21 @@ LABEL_46:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)eventTypeAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E86C2D90[string];
   }
 
   return v4;

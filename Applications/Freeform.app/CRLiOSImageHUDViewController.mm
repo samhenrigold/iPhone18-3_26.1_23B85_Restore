@@ -689,8 +689,8 @@ LABEL_15:
   canvasView = [interactiveCanvasController canvasView];
   view = [(CRLiOSImageHUDViewController *)self view];
   [view frame];
-  v90 = v16;
-  v91 = v15;
+  v91 = v16;
+  v92 = v15;
   v17 = objc_loadWeakRetained(&self->_rep);
   v18 = [v17 knobForTag:1];
 
@@ -703,35 +703,35 @@ LABEL_15:
   [v18 position];
   [v27 convertNaturalPointToUnscaledCanvas:?];
   v29 = v28;
-  v88 = v30;
+  v89 = v30;
 
-  v92.origin.x = v20;
-  v92.origin.y = v22;
-  v92.size.width = v24;
-  v92.size.height = v26;
-  MaxX = CGRectGetMaxX(v92);
   v93.origin.x = v20;
   v93.origin.y = v22;
   v93.size.width = v24;
   v93.size.height = v26;
-  MinX = CGRectGetMinX(v93);
+  MaxX = CGRectGetMaxX(v93);
   v94.origin.x = v20;
   v94.origin.y = v22;
   v94.size.width = v24;
   v94.size.height = v26;
-  MaxY = CGRectGetMaxY(v94);
+  MinX = CGRectGetMinX(v94);
   v95.origin.x = v20;
   v95.origin.y = v22;
   v95.size.width = v24;
   v95.size.height = v26;
-  MinY = CGRectGetMinY(v95);
+  MaxY = CGRectGetMaxY(v95);
+  v96.origin.x = v20;
+  v96.origin.y = v22;
+  v96.size.width = v24;
+  v96.size.height = v26;
+  MinY = CGRectGetMinY(v96);
   [interactiveCanvasController viewScale];
   v33 = v32;
-  v96.origin.x = x;
-  v96.origin.y = y;
-  v96.size.width = rect;
-  v96.size.height = height;
-  MidX = CGRectGetMidX(v96);
+  v97.origin.x = x;
+  v97.origin.y = y;
+  v97.size.width = rect;
+  v97.size.height = height;
+  MidX = CGRectGetMidX(v97);
   v35 = x;
   v36 = y;
   rectCopy = rect;
@@ -746,7 +746,7 @@ LABEL_15:
     v39 = CGRectGetMaxY(*&v35);
   }
 
-  v40 = fmax(fmax(fmax(MaxX - v29, v29 - MinX), fmax(MaxY - v88, v88 - MinY)) * v33 + 1.0, 16.0);
+  v40 = fmax(fmax(fmax(MaxX - v29, v29 - MinX), fmax(MaxY - v89, v89 - MinY)) * v33 + 1.0, 16.0);
   v41 = topCopy ^ insideCopy;
   [interactiveCanvasController convertUnscaledToBoundsPoint:{MidX, v39}];
   v43 = v42;
@@ -756,7 +756,7 @@ LABEL_15:
   v48 = v47;
   v50 = v49;
 
-  v51 = -v40 - v90;
+  v51 = -v40 - v91;
   if (!v41)
   {
     v51 = v40;
@@ -775,25 +775,25 @@ LABEL_15:
   v67 = v66;
   v69 = v68;
 
-  v97.origin.x = v63;
-  v97.origin.y = v65;
-  v97.size.width = v67;
-  v97.size.height = v69;
-  v98 = CGRectInset(v97, 5.0, 5.0);
-  v70 = sub_100120B08(v48 + v91 * -0.5, v52, v91, v90, v98.origin.x, v98.origin.y, v98.size.width, v98.size.height);
-  v74 = sub_1001221E0(v70, v71, v72, v73);
-  v76 = v75;
-  v78 = v77;
-  v80 = v79;
+  v98.origin.x = v63;
+  v98.origin.y = v65;
+  v98.size.width = v67;
+  v98.size.height = v69;
+  v99 = CGRectInset(v98, 5.0, 5.0);
+  v70.n128_f64[0] = sub_100120B08(v48 + v92 * -0.5, v52, v92, v91, v99.origin.x, v99.origin.y, v99.size.width, v99.size.height);
+  v75 = sub_1001221E0(v70, v71, v72, v73, v74);
+  v77 = v76;
+  v79 = v78;
+  v81 = v80;
 
-  v81 = v74;
-  v82 = v76;
-  v83 = v78;
-  v84 = v80;
-  result.size.height = v84;
-  result.size.width = v83;
-  result.origin.y = v82;
-  result.origin.x = v81;
+  v82 = v75;
+  v83 = v77;
+  v84 = v79;
+  v85 = v81;
+  result.size.height = v85;
+  result.size.width = v84;
+  result.origin.y = v83;
+  result.origin.x = v82;
   return result;
 }
 

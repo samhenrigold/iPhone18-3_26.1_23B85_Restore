@@ -33,12 +33,12 @@
 
 - (CXCallControllerHostConnection)initWithConnection:(id)connection serialQueue:(id)queue
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   queueCopy = queue;
-  v28.receiver = self;
-  v28.super_class = CXCallControllerHostConnection;
-  v9 = [(CXCallControllerHostConnection *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = CXCallControllerHostConnection;
+  v9 = [(CXCallControllerHostConnection *)&v27 init];
   v10 = v9;
   if (v9)
   {
@@ -67,33 +67,31 @@
     [(NSXPCConnection *)v10->_connection setRemoteObjectInterface:cx_callControllerVendorInterface];
 
     objc_initWeak(&location, v10);
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __65__CXCallControllerHostConnection_initWithConnection_serialQueue___block_invoke;
-    v25[3] = &unk_1E7C06E50;
-    objc_copyWeak(&v26, &location);
-    [(NSXPCConnection *)v10->_connection setInterruptionHandler:v25];
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __65__CXCallControllerHostConnection_initWithConnection_serialQueue___block_invoke_3;
-    v23[3] = &unk_1E7C06E50;
-    objc_copyWeak(&v24, &location);
-    [(NSXPCConnection *)v10->_connection setInvalidationHandler:v23];
-    [(NSXPCConnection *)v10->_connection resume];
-    v20 = CXDefaultLog();
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __65__CXCallControllerHostConnection_initWithConnection_serialQueue___block_invoke;
+    v24[3] = &unk_1E7C06E50;
+    objc_copyWeak(&v25, &location);
+    [(NSXPCConnection *)v10->_connection setInterruptionHandler:v24];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __65__CXCallControllerHostConnection_initWithConnection_serialQueue___block_invoke_3;
+    v22[3] = &unk_1E7C06E50;
+    objc_copyWeak(&v23, &location);
+    [(NSXPCConnection *)v10->_connection setInvalidationHandler:v22];
+    v20 = CXDefaultLog([(NSXPCConnection *)v10->_connection resume]);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v30 = v10;
+      v29 = v10;
       _os_log_impl(&dword_1B47F3000, v20, OS_LOG_TYPE_DEFAULT, "Created %@", buf, 0xCu);
     }
 
-    objc_destroyWeak(&v24);
-    objc_destroyWeak(&v26);
+    objc_destroyWeak(&v23);
+    objc_destroyWeak(&v25);
     objc_destroyWeak(&location);
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -112,19 +110,17 @@ void __65__CXCallControllerHostConnection_initWithConnection_serialQueue___block
 
 uint64_t __65__CXCallControllerHostConnection_initWithConnection_serialQueue___block_invoke_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v7 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Connection interrupted for call controller host connection: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Connection interrupted for call controller host connection: %@", &v5, 0xCu);
   }
 
-  result = [*(*(a1 + 32) + 48) invalidate];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(*(a1 + 32) + 48) invalidate];
 }
 
 void __65__CXCallControllerHostConnection_initWithConnection_serialQueue___block_invoke_3(uint64_t a1)
@@ -142,20 +138,18 @@ void __65__CXCallControllerHostConnection_initWithConnection_serialQueue___block
 
 void __65__CXCallControllerHostConnection_initWithConnection_serialQueue___block_invoke_2_4(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v7 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Connection invalidated for call controller host connection: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Connection invalidated for call controller host connection: %@", &v5, 0xCu);
   }
 
   v4 = [*(a1 + 32) delegate];
   [v4 callControllerHostConnectionInvalidated:*(a1 + 32)];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc

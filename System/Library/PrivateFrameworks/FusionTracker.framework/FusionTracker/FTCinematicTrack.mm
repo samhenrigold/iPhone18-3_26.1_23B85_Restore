@@ -45,7 +45,7 @@
     *(v5 + 4) = [coderCopy decodeInt64ForKey:@"objectKind"];
     if (coderCopy)
     {
-      [coderCopy fusionTracker_decodeCMTimeForKey:@"lastDetectionTime"];
+      objc_msgSend_fusionTracker_decodeCMTimeForKey_(coderCopy);
     }
 
     else
@@ -62,7 +62,7 @@
     *(v5 + 4) = v11;
     if (coderCopy)
     {
-      [coderCopy fusionTracker_decodeCMTimeForKey:@"lastTappedTime"];
+      objc_msgSend_fusionTracker_decodeCMTimeForKey_(coderCopy);
     }
 
     else

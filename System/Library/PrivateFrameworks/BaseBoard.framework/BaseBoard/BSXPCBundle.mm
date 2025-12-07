@@ -8,7 +8,7 @@
 - (NSString)bundleIdentifier;
 - (NSString)bundlePath;
 - (NSString)executablePath;
-- (id)_initWithXPCBundle:(id)bundle;
+- (id)_initWithXPCBundle:(id *)bundle;
 - (id)descriptionBuilderWithMultilinePrefix:(id)prefix;
 - (id)descriptionWithMultilinePrefix:(id)prefix;
 - (id)succinctDescription;
@@ -33,12 +33,12 @@ void __25__BSXPCBundle_mainBundle__block_invoke()
 {
   v0 = [BSXPCBundle alloc];
   main = xpc_bundle_create_main();
-  v1 = [(BSXPCBundle *)v0 _initWithXPCBundle:?];
+  v1 = [(BSXPCBundle *)&v0->super.isa _initWithXPCBundle:?];
   v2 = _MergedGlobals_3;
   _MergedGlobals_3 = v1;
 }
 
-- (id)_initWithXPCBundle:(id)bundle
+- (id)_initWithXPCBundle:(id *)bundle
 {
   v4 = a2;
   v5 = v4;
@@ -48,7 +48,7 @@ void __25__BSXPCBundle_mainBundle__block_invoke()
     v7 = v6;
     if (v6)
     {
-      objc_storeStrong((v6 + 40), a2);
+      objc_storeStrong(v6 + 5, a2);
     }
 
     bundle = v7;
@@ -65,7 +65,7 @@ void __25__BSXPCBundle_mainBundle__block_invoke()
 
 + (id)bundleForPID:(int)d
 {
-  v3 = BSXPCBundleForPID();
+  v3 = BSXPCBundleForPID(*&d);
   v4 = [BSXPCBundle bundleWithXPCBundle:v3];
 
   return v4;

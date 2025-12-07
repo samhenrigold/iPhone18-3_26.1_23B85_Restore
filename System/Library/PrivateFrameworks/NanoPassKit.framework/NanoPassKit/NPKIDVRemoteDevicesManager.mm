@@ -49,16 +49,16 @@
 - (void)deviceDidBecomeActive:(id)active
 {
   activeCopy = active;
-  v5 = pk_Payment_log();
+  v5 = pk_Payment_log(activeCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_Payment_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_Payment_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Handling Device did become active", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Handling Device did become active", v9, 2u);
     }
   }
 
@@ -70,16 +70,16 @@
 
 - (void)noDeviceDidBecomeActive
 {
-  v3 = pk_Payment_log();
+  v3 = pk_Payment_log(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_Payment_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_Payment_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Handling No Device did become active", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Handling No Device did become active", v7, 2u);
     }
   }
 
@@ -88,16 +88,16 @@
 
 - (void)deviceDidBecomeInactive
 {
-  v3 = pk_Payment_log();
+  v3 = pk_Payment_log(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_Payment_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_Payment_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Handling Device did became Inactive", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Handling Device did became Inactive", v7, 2u);
     }
   }
 
@@ -108,16 +108,16 @@
 - (void)deviceDidDeletePass:(id)pass
 {
   passCopy = pass;
-  v5 = pk_Payment_log();
+  v5 = pk_Payment_log(passCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_Payment_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_Payment_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Handling device pass deletion event", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Handling device pass deletion event", v9, 2u);
     }
   }
 
@@ -126,16 +126,16 @@
 
 - (void)_handleDeviceDidUnpair:(id)unpair
 {
-  v4 = pk_Payment_log();
+  v4 = pk_Payment_log(self);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = pk_Payment_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_Payment_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Handling Device did unpair", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: Handling Device did unpair", v8, 2u);
     }
   }
 
@@ -146,25 +146,24 @@
 - (void)remoteDeviceConnectionCoordinator:(id)coordinator didReceivePrearmStatusUpdate:(int64_t)update
 {
   v15 = *MEMORY[0x277D85DE8];
-  v6 = pk_Payment_log();
+  v6 = pk_Payment_log(self);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
   if (v7)
   {
-    v8 = pk_Payment_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = pk_Payment_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = NSStringFromNPKIDVDeviceCredentialPrearmStatus(update);
+      v10 = NSStringFromNPKIDVDeviceCredentialPrearmStatus(update);
       v11 = 138412546;
       selfCopy = self;
       v13 = 2112;
-      v14 = v9;
-      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: :%@ Received credential prearm status update:%@", &v11, 0x16u);
+      v14 = v10;
+      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: NPKIDVRemoteDeviceService: :%@ Received credential prearm status update:%@", &v11, 0x16u);
     }
   }
 
   [(NPKIDVRemoteDeviceServiceEventsCoordinator *)self->_eventsCoordinator setNeedsPrearmCredential:update == 1];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)biometricPassPreflightManagerPairedDeviceOSVersion:(id)version

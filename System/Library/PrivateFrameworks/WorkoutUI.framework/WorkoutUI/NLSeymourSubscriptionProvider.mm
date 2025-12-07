@@ -45,10 +45,10 @@
 {
   v3 = objc_allocWithZone(type metadata accessor for SeymourSubscriptionProvider());
 
-  v4 = SeymourSubscriptionProvider.init(dependencies:)();
+  v5 = SeymourSubscriptionProvider.init(dependencies:)(v4);
   swift_getObjectType();
   swift_deallocPartialClassInstance();
-  return v4;
+  return v5;
 }
 
 - (void)update

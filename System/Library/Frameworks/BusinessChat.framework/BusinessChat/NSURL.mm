@@ -9,53 +9,51 @@
   v20 = *MEMORY[0x277D85DE8];
   if (self)
   {
-    v2 = objc_opt_new();
+    v3 = objc_opt_new();
     fragment = [self fragment];
-    v4 = [fragment componentsSeparatedByString:@"&"];
+    v5 = [fragment componentsSeparatedByString:@"&"];
 
     v17 = 0u;
     v18 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v5 = v4;
-    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
-    if (v6)
+    v6 = v5;
+    v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    if (v7)
     {
-      v7 = v6;
-      v8 = *v16;
+      v8 = v7;
+      v9 = *v16;
       do
       {
-        for (i = 0; i != v7; ++i)
+        for (i = 0; i != v8; ++i)
         {
-          if (*v16 != v8)
+          if (*v16 != v9)
           {
-            objc_enumerationMutation(v5);
+            objc_enumerationMutation(v6);
           }
 
-          v10 = [*(*(&v15 + 1) + 8 * i) componentsSeparatedByString:{@"=", v15}];
-          if ([v10 count] >= 2)
+          v11 = [*(*(&v15 + 1) + 8 * i) componentsSeparatedByString:{@"=", v15}];
+          if ([v11 count] >= 2)
           {
-            v11 = [v10 objectAtIndexedSubscript:1];
-            v12 = [v10 objectAtIndexedSubscript:0];
-            [v2 setObject:v11 forKeyedSubscript:v12];
+            v12 = [v11 objectAtIndexedSubscript:1];
+            v13 = [v11 objectAtIndexedSubscript:0];
+            [v3 setObject:v12 forKeyedSubscript:v13];
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
-      while (v7);
+      while (v8);
     }
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
-  return v2;
+  return v3;
 }
 
 @end

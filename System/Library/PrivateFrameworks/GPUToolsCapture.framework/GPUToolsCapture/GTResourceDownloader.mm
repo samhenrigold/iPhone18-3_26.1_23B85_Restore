@@ -254,7 +254,7 @@ void __66__GTResourceDownloader__downloadRequestOld_atPoint_dispatchGroup___bloc
 
         else if (v16 == 80)
         {
-          DownloadTexture(*(a1 + 40), v3, v11, 1);
+          DownloadTexture(*(a1 + 40), v3, v11, 1u);
         }
       }
 

@@ -180,41 +180,41 @@ void __67__PKPeerPaymentRegistrationFlowController_preflightWithCompletion___blo
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __67__PKPeerPaymentRegistrationFlowController_preflightWithCompletion___block_invoke_2(uint64_t a1)
+void __67__PKPeerPaymentRegistrationFlowController_preflightWithCompletion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (*(a1 + 64) == 1 && !*(a1 + 32))
   {
-    v5 = [[PKPaymentSetupNavigationController alloc] initWithProvisioningController:*(a1 + 40) context:0];
-    [(PKPaymentSetupNavigationController *)v5 setPaymentSetupMode:1];
-    [(PKNavigationController *)v5 setCustomFormSheetPresentationStyleForiPad];
-    [(PKPaymentSetupNavigationController *)v5 setAllowsManualEntry:0];
+    v6 = [[PKPaymentSetupNavigationController alloc] initWithProvisioningController:*(a1 + 40) context:0];
+    [(PKPaymentSetupNavigationController *)v6 setPaymentSetupMode:1];
+    [(PKNavigationController *)v6 setCustomFormSheetPresentationStyleForiPad];
+    [(PKPaymentSetupNavigationController *)v6 setAllowsManualEntry:0];
     WeakRetained = objc_loadWeakRetained((*(a1 + 48) + 40));
-    [(PKPaymentSetupNavigationController *)v5 setSetupDelegate:WeakRetained];
+    [(PKPaymentSetupNavigationController *)v6 setSetupDelegate:WeakRetained];
 
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __67__PKPeerPaymentRegistrationFlowController_preflightWithCompletion___block_invoke_3;
-    v7[3] = &unk_1E80158C0;
-    v8 = v5;
-    v9 = *(a1 + 56);
-    v4 = v5;
-    [(PKPaymentSetupNavigationController *)v4 preflightWithCompletion:v7];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __67__PKPeerPaymentRegistrationFlowController_preflightWithCompletion___block_invoke_3;
+    v8[3] = &unk_1E80158C0;
+    v9 = v6;
+    v10 = *(a1 + 56);
+    v5 = v6;
+    [(PKPaymentSetupNavigationController *)v5 preflightWithCompletion:v8];
   }
 
   else
   {
-    v2 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = [*(a1 + 32) description];
+      v4 = [*(a1 + 32) description];
       *buf = 138412290;
-      v11 = v3;
-      _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Peer Payment associateCredential failed for local device with error:%@", buf, 0xCu);
+      v12 = v4;
+      _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Peer Payment associateCredential failed for local device with error:%@", buf, 0xCu);
     }
 
-    v4 = [PKPaymentSetupNavigationController viewControllerForPresentingPaymentError:*(a1 + 32)];
-    [(PKPaymentSetupNavigationController *)v4 setModalInPresentation:1];
+    v5 = [PKPaymentSetupNavigationController viewControllerForPresentingPaymentError:*(a1 + 32)];
+    [(PKPaymentSetupNavigationController *)v5 setModalInPresentation:1];
     (*(*(a1 + 56) + 16))();
   }
 }

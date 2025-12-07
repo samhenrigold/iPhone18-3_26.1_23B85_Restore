@@ -8,26 +8,26 @@
 {
   listCopy = list;
   v4 = objc_alloc(MEMORY[0x277D80648]);
-  v9 = objc_msgSend_context(listCopy, v5, v6, v7, v8);
-  v13 = objc_msgSend_initWithContext_(v4, v10, v9, v11, v12);
+  v8 = objc_msgSend_context(listCopy, v5, v6, v7);
+  v11 = objc_msgSend_initWithContext_(v4, v9, v8, v10);
 
-  objc_msgSend_setUpgrading_(v13, v14, 1, v15, v16);
+  objc_msgSend_setUpgrading_(v11, v12, 1, v13);
   objc_opt_class();
-  v17 = TSUCheckedDynamicCast();
+  v14 = TSUCheckedDynamicCast();
 
-  if (objc_msgSend_count(v17, v18, v19, v20, v21))
+  if (objc_msgSend_count(v14, v15, v16, v17))
   {
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = sub_22126AAF4;
-    v29[3] = &unk_278462028;
-    v30 = v13;
-    objc_msgSend_enumerateLegacyCustomFormatsUsingBlock_(v17, v25, v29, v26, v27);
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = sub_22126AAF4;
+    v23[3] = &unk_278462028;
+    v24 = v11;
+    objc_msgSend_enumerateLegacyCustomFormatsUsingBlock_(v14, v20, v23, v21);
   }
 
-  objc_msgSend_setUpgrading_(v13, v22, 0, v23, v24);
+  objc_msgSend_setUpgrading_(v11, v18, 0, v19);
 
-  return v13;
+  return v11;
 }
 
 @end

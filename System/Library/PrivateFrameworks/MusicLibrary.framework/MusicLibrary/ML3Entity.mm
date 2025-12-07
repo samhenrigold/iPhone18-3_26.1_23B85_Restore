@@ -408,7 +408,7 @@ LABEL_11:
   return v5;
 }
 
-unint64_t __36__ML3Entity_getValuesForProperties___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__36__ML3Entity_getValuesForProperties___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = [*(a1 + 32) count];
   if (result)
@@ -951,7 +951,7 @@ uint64_t __75__ML3Entity_initWithDictionary_inLibrary_cachedNameOrders_usingConn
   return v15;
 }
 
-uint64_t __75__ML3Entity_initWithDictionary_inLibrary_cachedNameOrders_usingConnection___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__75__ML3Entity_initWithDictionary_inLibrary_cachedNameOrders_usingConnection___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 48) insertValues:a3 intoTable:a2 persistentID:*(a1 + 56) library:*(a1 + 32)];
   if ((result & 1) == 0)
@@ -963,13 +963,13 @@ uint64_t __75__ML3Entity_initWithDictionary_inLibrary_cachedNameOrders_usingConn
   return result;
 }
 
-uint64_t __75__ML3Entity_initWithDictionary_inLibrary_cachedNameOrders_usingConnection___block_invoke_4(uint64_t result, int a2)
+id *__75__ML3Entity_initWithDictionary_inLibrary_cachedNameOrders_usingConnection___block_invoke_4(id *result, int a2)
 {
   if (a2)
   {
     v2 = result;
-    [*(result + 32) notifyEntitiesAddedOrRemoved];
-    v3 = *(v2 + 32);
+    [result[4] notifyEntitiesAddedOrRemoved];
+    v3 = v2[4];
 
     return [v3 notifyContentsDidChange];
   }
@@ -1563,7 +1563,7 @@ uint64_t __104__ML3Entity_deleteFromLibrary_deletionType_canonicalizeCollections
   return count;
 }
 
-uint64_t __64__ML3Entity_deleteFromLibrary_deletionType_persistentIDs_count___block_invoke(uint64_t a1, uint64_t a2)
+void *__64__ML3Entity_deleteFromLibrary_deletionType_persistentIDs_count___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 48) deleteFromLibrary:*(a1 + 32) deletionType:*(a1 + 72) persistentIDs:*(a1 + 56) count:*(a1 + 64) usingConnection:a2];
   *(*(*(a1 + 40) + 8) + 24) = result;

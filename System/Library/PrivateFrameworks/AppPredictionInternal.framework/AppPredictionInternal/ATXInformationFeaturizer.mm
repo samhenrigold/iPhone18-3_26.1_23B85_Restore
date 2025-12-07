@@ -14,41 +14,39 @@
 
 - (id)featurizeInfoSuggestions:(id)suggestions
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   suggestionsCopy = suggestions;
   v5 = objc_opt_new();
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = suggestionsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
-        v12 = [(ATXInformationFeaturizer *)self _featureSetForSuggestion:v11, v16];
+        v11 = *(*(&v15 + 1) + 8 * i);
+        v12 = [(ATXInformationFeaturizer *)self _featureSetForSuggestion:v11, v15];
         v13 = [[ATXFeaturizedInfoSuggestion alloc] initWithSuggestion:v11 featureSet:v12];
         [v5 addObject:v13];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -149,14 +147,14 @@
 
 - (double)_fetchAppLaunchCountForBundleIdentifier:(id)identifier
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if ([identifierCopy length])
   {
     [(ATXInformationFeaturizer *)self _lazyLoadAppLaunchHistogram];
     appLaunchHistory = self->_appLaunchHistory;
-    v11[0] = identifierCopy;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v10[0] = identifierCopy;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
     [(_ATXAppLaunchHistogram *)appLaunchHistory totalLaunchesForBundleIds:v6];
     v8 = v7;
   }
@@ -166,7 +164,6 @@
     v8 = 0.0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

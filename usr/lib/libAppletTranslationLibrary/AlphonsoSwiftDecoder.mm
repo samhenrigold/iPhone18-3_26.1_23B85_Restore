@@ -75,7 +75,7 @@
 - (_TtC24AppletTranslationLibrary20AlphonsoSwiftDecoder)init
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for AlphonsoSwiftDecoder();
+  v3.super_class = type metadata accessor for AlphonsoSwiftDecoder(self, a2);
   return [(AlphonsoSwiftDecoder *)&v3 init];
 }
 

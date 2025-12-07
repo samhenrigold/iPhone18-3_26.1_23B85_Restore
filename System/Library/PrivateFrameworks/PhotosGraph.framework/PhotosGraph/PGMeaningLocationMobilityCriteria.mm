@@ -30,7 +30,7 @@
 
 - (BOOL)isValid
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   locationMobilityType = [(PGMeaningLocationMobilityCriteria *)self locationMobilityType];
   if (!locationMobilityType)
   {
@@ -40,15 +40,13 @@
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_INFO))
     {
       locationMobilityLabel = [(PGMeaningLocationMobilityCriteria *)self locationMobilityLabel];
-      v9 = 138412290;
-      v10 = locationMobilityLabel;
-      _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "[MEANING CRITERIA] Invalid mobility type %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = locationMobilityLabel;
+      _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "[MEANING CRITERIA] Invalid mobility type %@", &v8, 0xCu);
     }
   }
 
-  result = locationMobilityType != 0;
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return locationMobilityType != 0;
 }
 
 - (BOOL)passesForMomentNode:(id)node momentNodeCache:(id)cache

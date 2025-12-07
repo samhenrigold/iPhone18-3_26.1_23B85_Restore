@@ -19,38 +19,44 @@
 
 - (id)BOOLForKey:(id)key
 {
-  sub_100005B60((&self->super.isa + OBJC_IVAR___Bag_bag), *&self->bag[OBJC_IVAR___Bag_bag + 16]);
+  v5 = (&self->super.isa + OBJC_IVAR___Bag_bag);
+  v6 = v5[3];
+  v7 = v5[4];
+  sub_100005B60(v5, v6);
   keyCopy = key;
   selfCopy = self;
-  v7 = sub_1000D06CC();
-  if (v7 == 2)
+  v10 = sub_1000D06CC(keyCopy, v6, v7);
+  if (v10 == 2)
   {
-    v8 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v8 = [objc_allocWithZone(NSNumber) initWithBool:v7 & 1];
+    v11 = [objc_allocWithZone(NSNumber) initWithBool:v10 & 1];
   }
 
-  return v8;
+  return v11;
 }
 
 - (BOOL)BOOLForKey:(id)key defaultValue:(BOOL)value
 {
-  sub_100005B60((&self->super.isa + OBJC_IVAR___Bag_bag), *&self->bag[OBJC_IVAR___Bag_bag + 16]);
+  v7 = (&self->super.isa + OBJC_IVAR___Bag_bag);
+  v8 = v7[3];
+  v9 = v7[4];
+  sub_100005B60(v7, v8);
   keyCopy = key;
   selfCopy = self;
-  v9 = sub_1000D06CC();
+  v12 = sub_1000D06CC(keyCopy, v8, v9);
 
-  if (v9 == 2)
+  if (v12 == 2)
   {
     return value;
   }
 
   else
   {
-    return v9;
+    return v12;
   }
 }
 
@@ -142,55 +148,59 @@
 
 - (id)stringForKey:(id)key
 {
-  sub_100005B60((&self->super.isa + OBJC_IVAR___Bag_bag), *&self->bag[OBJC_IVAR___Bag_bag + 16]);
+  v5 = (&self->super.isa + OBJC_IVAR___Bag_bag);
+  v6 = v5[3];
+  v7 = v5[4];
+  sub_100005B60(v5, v6);
   keyCopy = key;
   selfCopy = self;
-  sub_1000C4F1C();
-  v8 = v7;
+  sub_1000C4F1C(keyCopy, v6, v7);
+  v11 = v10;
 
-  if (v8)
+  if (v11)
   {
-    v9 = String._bridgeToObjectiveC()();
+    v12 = String._bridgeToObjectiveC()();
   }
 
   else
   {
-    v9 = 0;
+    v12 = 0;
   }
 
-  return v9;
+  return v12;
 }
 
 - (id)URLForKey:(id)key
 {
-  v5 = sub_100085D40(&qword_10059CE90);
+  v5 = sub_100085D40(&qword_10059CE90, &unk_100436180);
   __chkstk_darwin(v5 - 8);
-  v7 = &v17 - v6;
-  sub_100005B60((&self->super.isa + OBJC_IVAR___Bag_bag), *&self->bag[OBJC_IVAR___Bag_bag + 16]);
+  v7 = &v18 - v6;
+  v8 = *&self->bag[OBJC_IVAR___Bag_bag + 16];
+  sub_100005B60((&self->super.isa + OBJC_IVAR___Bag_bag), v8);
   keyCopy = key;
   selfCopy = self;
-  sub_1000D0CE8();
+  sub_1000D0CE8(keyCopy, v8);
 
-  v10 = type metadata accessor for URL();
-  v11 = *(v10 - 8);
-  v12 = (*(v11 + 48))(v7, 1, v10);
-  v13 = 0;
-  if (v12 != 1)
+  v11 = type metadata accessor for URL();
+  v12 = *(v11 - 8);
+  v13 = (*(v12 + 48))(v7, 1, v11);
+  v14 = 0;
+  if (v13 != 1)
   {
-    URL._bridgeToObjectiveC()(v12);
-    v15 = v14;
-    (*(v11 + 8))(v7, v10);
-    v13 = v15;
+    URL._bridgeToObjectiveC()(v13);
+    v16 = v15;
+    (*(v12 + 8))(v7, v11);
+    v14 = v16;
   }
 
-  return v13;
+  return v14;
 }
 
 - (id)arrayOfStringsForKey:(id)key
 {
   keyCopy = key;
   selfCopy = self;
-  v6 = sub_1000D0EC0();
+  v6 = sub_1000D0EC0(keyCopy);
 
   if (v6)
   {
@@ -209,11 +219,11 @@
 {
   keyCopy = key;
   selfCopy = self;
-  v6 = sub_1000D11B0();
+  v6 = sub_1000D11B0(keyCopy);
 
   if (v6)
   {
-    sub_10009FAD4(0, &qword_10059CBB0);
+    sub_10009FAD4(0, &qword_10059CBB0, NSNumber_ptr);
     v7.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 

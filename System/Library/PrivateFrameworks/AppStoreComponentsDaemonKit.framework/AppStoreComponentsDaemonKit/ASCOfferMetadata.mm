@@ -5,6 +5,7 @@
 + (ASCOfferMetadata)placeholderMetadata;
 + (id)iconMetadataWithImageName:(id)name animationName:(id)animationName;
 + (id)progressMetadataWithValue:(double)value;
++ (id)progressMetadataWithValue:(double)value cancellable:(BOOL)cancellable;
 + (id)textMetadataWithTitle:(id)title subtitle:(id)subtitle;
 - (ASCOfferMetadata)init;
 - (ASCOfferMetadata)initWithCoder:(id)coder;
@@ -71,6 +72,13 @@
   v3 = [[ASCProgressOfferMetadata alloc] initWithPercent:1 cancellable:value];
 
   return v3;
+}
+
++ (id)progressMetadataWithValue:(double)value cancellable:(BOOL)cancellable
+{
+  v4 = [[ASCProgressOfferMetadata alloc] initWithPercent:cancellable cancellable:value];
+
+  return v4;
 }
 
 + (ASCOfferMetadata)deeplinkMetadata

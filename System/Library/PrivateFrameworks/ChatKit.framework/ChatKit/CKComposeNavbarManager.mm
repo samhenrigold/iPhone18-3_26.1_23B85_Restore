@@ -196,8 +196,8 @@
 
   if ([conversationCopy isBusinessConversation])
   {
-    leftItemView = [view2 leftItemView];
-    [leftItemView setAlpha:0.0];
+    v56 = objc_msgSend_leftItemView(view2);
+    [v56 setAlpha:0.0];
 
     rightItemView = [view2 rightItemView];
     [rightItemView setAlpha:0.0];
@@ -268,7 +268,7 @@ void __93__CKComposeNavbarManager_commitTransitionAnimationWithConversation_shou
     [v2 setAlpha:1.0];
   }
 
-  v3 = [*(a1 + 40) leftItemView];
+  v3 = objc_msgSend_leftItemView(*(a1 + 40));
   [v3 setAlpha:0.0];
 
   v4 = [*(a1 + 40) rightItemView];
@@ -294,7 +294,7 @@ void __93__CKComposeNavbarManager_commitTransitionAnimationWithConversation_shou
 
 void __93__CKComposeNavbarManager_commitTransitionAnimationWithConversation_shouldShowBackButtonView___block_invoke_3(uint64_t a1)
 {
-  v2 = [*(a1 + 32) leftItemView];
+  v2 = objc_msgSend_leftItemView(*(a1 + 32));
   [v2 setAlpha:1.0];
 
   v3 = [*(a1 + 32) rightItemView];

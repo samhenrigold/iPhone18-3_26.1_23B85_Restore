@@ -59,27 +59,7 @@
 - (BOOL)isEqualToFetchOptions:(id)options
 {
   optionsCopy = options;
-  if (!optionsCopy)
-  {
-    goto LABEL_8;
-  }
-
-  [(RTTripClusterMetadataFetchOptions *)self originVisitLatitude];
-  v6 = v5;
-  [optionsCopy originVisitLatitude];
-  v8 = vabdd_f64(v6, v7);
-  [(RTTripClusterMetadataFetchOptions *)self originVisitLongitude];
-  v10 = v9;
-  [optionsCopy originVisitLongitude];
-  v12 = v11;
-  [(RTTripClusterMetadataFetchOptions *)self destinationVisitLatitude];
-  v14 = v13;
-  [optionsCopy destinationVisitLatitude];
-  v16 = v15;
-  [(RTTripClusterMetadataFetchOptions *)self destinationVisitLongitude];
-  v18 = v17;
-  [optionsCopy destinationVisitLongitude];
-  if (v8 < 2.22044605e-16)
+  if (optionsCopy && (-[RTTripClusterMetadataFetchOptions originVisitLatitude](self, "originVisitLatitude"), v6 = v5, [optionsCopy originVisitLatitude], v8 = vabdd_f64(v6, v7), -[RTTripClusterMetadataFetchOptions originVisitLongitude](self, "originVisitLongitude"), v10 = v9, objc_msgSend(optionsCopy, "originVisitLongitude"), v12 = v11, -[RTTripClusterMetadataFetchOptions destinationVisitLatitude](self, "destinationVisitLatitude"), v14 = v13, objc_msgSend(optionsCopy, "destinationVisitLatitude"), v16 = v15, -[RTTripClusterMetadataFetchOptions destinationVisitLongitude](self, "destinationVisitLongitude"), v18 = v17, objc_msgSend(optionsCopy, "destinationVisitLongitude"), v8 < 2.22044605e-16))
   {
     v20 = vabdd_f64(v18, v19);
     v21 = vabdd_f64(v10, v12) < 2.22044605e-16;
@@ -93,7 +73,6 @@
 
   else
   {
-LABEL_8:
     v22 = 0;
   }
 

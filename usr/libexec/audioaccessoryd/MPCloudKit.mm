@@ -1995,7 +1995,7 @@ LABEL_8:
     zoneID = [recordZoneBlob zoneID];
     zoneName = [zoneID zoneName];
     sub_10008DCC4();
-    sub_10009DC38(&_mh_execute_header, v7, v8, ">>> resetOldZones Key Record Zone %@", v9, v10, v11, v12, v62);
+    sub_10009DC38(&_mh_execute_header, v7, v8, ">>> resetOldZones Key Record Zone %@", v9, v10, v11, v12);
   }
 
   cloudKitDatabase = [(MPCloudKit *)self cloudKitDatabase];
@@ -2010,7 +2010,7 @@ LABEL_8:
     zoneID3 = [recordZoneAccessoryDatabase zoneID];
     zoneName2 = [zoneID3 zoneName];
     sub_10008DCC4();
-    sub_10009DC38(&_mh_execute_header, v20, v21, ">>> resetOldZones Accessory Record Zone %@", v22, v23, v24, v25, v62);
+    sub_10009DC38(&_mh_execute_header, v20, v21, ">>> resetOldZones Accessory Record Zone %@", v22, v23, v24, v25);
   }
 
   cloudKitDatabase2 = [(MPCloudKit *)self cloudKitDatabase];
@@ -2030,7 +2030,7 @@ LABEL_8:
       zoneID5 = [recordZoneBlob3 zoneID];
       zoneName3 = [zoneID5 zoneName];
       sub_10008DCC4();
-      sub_10009DC7C(&_mh_execute_header, v35, v36, ">>> resetOldZones Key Record Zone %@", v37, v38, v39, v40, v62);
+      sub_10009DC7C(&_mh_execute_header, v35, v36, ">>> resetOldZones Key Record Zone %@", v37, v38, v39, v40);
     }
 
     v41 = +[MPCloudKit_Manatee sharedInstance];
@@ -2048,7 +2048,7 @@ LABEL_8:
       zoneID7 = [recordZoneBlob5 zoneID];
       zoneName4 = [zoneID7 zoneName];
       sub_10008DCC4();
-      sub_10009DC7C(&_mh_execute_header, v51, v52, " >>> resetOldZones Accessory Record Zone %@", v53, v54, v55, v56, v62);
+      sub_10009DC7C(&_mh_execute_header, v51, v52, " >>> resetOldZones Accessory Record Zone %@", v53, v54, v55, v56);
     }
 
     v57 = +[MPCloudKit_Manatee sharedInstance];
@@ -2070,7 +2070,7 @@ LABEL_8:
     {
       v5 = [tokenCopy base64EncodedStringWithOptions:0];
       sub_10008DCC4();
-      sub_10009DC38(&_mh_execute_header, v6, v7, "Received public token %@ on connection", v8, v9, v10, v11, v12);
+      sub_10009DC38(&_mh_execute_header, v6, v7, "Received public token %@ on connection", v8, v9, v10, v11);
     }
   }
 }

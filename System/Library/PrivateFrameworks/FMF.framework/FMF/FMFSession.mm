@@ -127,6 +127,7 @@
 - (void)setDebugContext:(id)context;
 - (void)setExpiredInitTimestamp;
 - (void)setHandles:(id)handles;
+- (void)setHideMyLocationEnabled:(BOOL)enabled completion:(id)completion;
 - (void)setLocations:(id)locations;
 - (void)showMeDeviceAlert;
 - (void)showShareMyLocationRestrictedAlert;
@@ -159,22 +160,22 @@
 
 void __50__FMFSession_HomeKit__includeDeviceInAutomations___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = LogCategory_Daemon();
+  v6 = LogCategory_Daemon(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
-    v16 = a2;
-    v17 = 2112;
-    v18 = v5;
+    v15 = a2;
+    v16 = 2112;
+    v17 = v5;
     _os_log_impl(&dword_24A33F000, v6, OS_LOG_TYPE_DEFAULT, "includeDeviceInAutomations: %i %@", buf, 0x12u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (!WeakRetained)
   {
-    v9 = LogCategory_Daemon();
+    v9 = LogCategory_Daemon(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -187,20 +188,18 @@ void __50__FMFSession_HomeKit__includeDeviceInAutomations___block_invoke(uint64_
   v8 = *(a1 + 32);
   if (v8)
   {
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __50__FMFSession_HomeKit__includeDeviceInAutomations___block_invoke_1;
-    v11[3] = &unk_278FDDCD8;
-    v13 = v8;
-    v14 = a2;
-    v12 = v5;
-    [WeakRetained dispatchOnDelegateQueue:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __50__FMFSession_HomeKit__includeDeviceInAutomations___block_invoke_1;
+    v10[3] = &unk_278FDDCD8;
+    v12 = v8;
+    v13 = a2;
+    v11 = v5;
+    [WeakRetained dispatchOnDelegateQueue:v10];
 
-    v9 = v13;
+    v9 = v12;
 LABEL_8:
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)iCloudAccountNameWithCompletion:(id)completion
@@ -382,32 +381,31 @@ void __37__FMFSession_Internal__getAllDevices__block_invoke(uint64_t a1, void *a
 
 - (BOOL)shouldHandleErrorInFWK:(id)k
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   kCopy = k;
   v4 = kCopy;
   if (kCopy)
   {
-    code = [kCopy code];
-    v7 = ((code - 1000) > 5 || ((1 << (code + 24)) & 0x2B) == 0) && code != 104;
+    kCopy = [kCopy code];
+    v6 = ((kCopy - 1000) > 5 || ((1 << (kCopy + 24)) & 0x2B) == 0) && kCopy != 104;
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v8 = LogCategory_Daemon();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v7 = LogCategory_Daemon(kCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v11[0] = 67109376;
-    v11[1] = v7;
-    v12 = 2048;
-    code2 = [v4 code];
-    _os_log_impl(&dword_24A33F000, v8, OS_LOG_TYPE_DEFAULT, "shouldHandleErrorInFWK:%d, error.code(%ld)", v11, 0x12u);
+    v9[0] = 67109376;
+    v9[1] = v6;
+    v10 = 2048;
+    code = [v4 code];
+    _os_log_impl(&dword_24A33F000, v7, OS_LOG_TYPE_DEFAULT, "shouldHandleErrorInFWK:%d, error.code(%ld)", v9, 0x12u);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-  return v7;
+  return v6;
 }
 
 - (void)crashDaemon
@@ -493,7 +491,7 @@ void __37__FMFSession_Internal__getAllDevices__block_invoke(uint64_t a1, void *a
 
 - (void)showShareMyLocationRestrictedAlert
 {
-  v3 = LogCategory_Daemon();
+  v3 = LogCategory_Daemon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -506,7 +504,7 @@ void __37__FMFSession_Internal__getAllDevices__block_invoke(uint64_t a1, void *a
 
 - (void)showMeDeviceAlert
 {
-  v3 = LogCategory_Daemon();
+  v3 = LogCategory_Daemon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -620,7 +618,7 @@ uint64_t __51__FMFSession_Locate__locationForHandle_completion___block_invoke_2(
 - (void)getActiveLocationSharingDevice:(id)device
 {
   deviceCopy = device;
-  v5 = LogCategory_Daemon();
+  v5 = LogCategory_Daemon(deviceCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -665,7 +663,7 @@ void __52__FMFSession_Admin__getActiveLocationSharingDevice___block_invoke(uint6
   v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = LogCategory_Daemon();
+  v7 = LogCategory_Daemon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(v11) = 0;
@@ -674,55 +672,53 @@ void __52__FMFSession_Admin__getActiveLocationSharingDevice___block_invoke(uint6
 
   if (*(a1 + 32))
   {
-    v8 = LogCategory_Daemon();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = LogCategory_Daemon(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v11 = 138412546;
       v12 = v5;
       v13 = 2112;
       v14 = v6;
-      _os_log_impl(&dword_24A33F000, v8, OS_LOG_TYPE_DEFAULT, "getActiveLocationSharingDevice calling completion with result: %@, error: %@", &v11, 0x16u);
+      _os_log_impl(&dword_24A33F000, v9, OS_LOG_TYPE_DEFAULT, "getActiveLocationSharingDevice calling completion with result: %@, error: %@", &v11, 0x16u);
     }
 
-    v9 = *(a1 + 32);
+    v10 = *(a1 + 32);
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  (*(v9 + 16))(v9, v5, v6);
-
-  v10 = *MEMORY[0x277D85DE8];
+  (*(v10 + 16))(v10, v5, v6);
 }
 
-void __52__FMFSession_Admin__getActiveLocationSharingDevice___block_invoke_1(uint64_t a1)
+void __52__FMFSession_Admin__getActiveLocationSharingDevice___block_invoke_1(uint64_t a1, uint64_t a2)
 {
-  v2 = LogCategory_Daemon();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = LogCategory_Daemon(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_24A33F000, v2, OS_LOG_TYPE_DEFAULT, "getActiveLocationSharingDevice invalidated. Finishing with error.", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "getActiveLocationSharingDevice invalidated. Finishing with error.", v6, 2u);
   }
 
-  v3 = *(a1 + 32);
-  v4 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.icloud.fmf.error" code:1020 userInfo:0];
-  [v3 finishWithError:v4];
+  v4 = *(a1 + 32);
+  v5 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.icloud.fmf.error" code:1020 userInfo:0];
+  [v4 finishWithError:v5];
 }
 
-void __52__FMFSession_Admin__getActiveLocationSharingDevice___block_invoke_4(uint64_t a1)
+void __52__FMFSession_Admin__getActiveLocationSharingDevice___block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  v2 = LogCategory_Daemon();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = LogCategory_Daemon(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_24A33F000, v2, OS_LOG_TYPE_DEFAULT, "getActiveLocationSharingDevice interrupted. Finishing with error.", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "getActiveLocationSharingDevice interrupted. Finishing with error.", v6, 2u);
   }
 
-  v3 = *(a1 + 32);
-  v4 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.icloud.fmf.error" code:1019 userInfo:0];
-  [v3 finishWithError:v4];
+  v4 = *(a1 + 32);
+  v5 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.icloud.fmf.error" code:1019 userInfo:0];
+  [v4 finishWithError:v5];
 }
 
 void __52__FMFSession_Admin__getActiveLocationSharingDevice___block_invoke_5(uint64_t a1, void *a2, void *a3)
@@ -760,7 +756,7 @@ uint64_t __52__FMFSession_Admin__getActiveLocationSharingDevice___block_invoke_2
 - (void)getThisDeviceAndCompanion:(id)companion
 {
   companionCopy = companion;
-  v5 = LogCategory_Daemon();
+  v5 = LogCategory_Daemon(companionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -781,12 +777,13 @@ void __47__FMFSession_Admin__getThisDeviceAndCompanion___block_invoke(uint64_t a
   v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = LogCategory_Daemon();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = LogCategory_Daemon(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __47__FMFSession_Admin__getThisDeviceAndCompanion___block_invoke_cold_1(v6, v7);
+      __47__FMFSession_Admin__getThisDeviceAndCompanion___block_invoke_cold_1(v7, v8);
     }
 
     (*(*(a1 + 32) + 16))();
@@ -798,54 +795,52 @@ void __47__FMFSession_Admin__getThisDeviceAndCompanion___block_invoke(uint64_t a
     v21 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v8 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
-    if (v8)
+    v9 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    if (v9)
     {
-      v9 = v8;
-      v10 = 0;
+      v10 = v9;
       v11 = 0;
-      v12 = *v19;
+      v12 = 0;
+      v13 = *v19;
       do
       {
-        for (i = 0; i != v9; ++i)
+        for (i = 0; i != v10; ++i)
         {
-          if (*v19 != v12)
+          if (*v19 != v13)
           {
             objc_enumerationMutation(v5);
           }
 
-          v14 = *(*(&v18 + 1) + 8 * i);
-          if ([v14 isThisDevice])
+          v15 = *(*(&v18 + 1) + 8 * i);
+          if ([v15 isThisDevice])
           {
-            v15 = v14;
-
-            v10 = v15;
-          }
-
-          if ([v14 isCompanionDevice])
-          {
-            v16 = v14;
+            v16 = v15;
 
             v11 = v16;
           }
+
+          if ([v15 isCompanionDevice])
+          {
+            v17 = v15;
+
+            v12 = v17;
+          }
         }
 
-        v9 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v10 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
-      while (v9);
+      while (v10);
     }
 
     else
     {
-      v10 = 0;
       v11 = 0;
+      v12 = 0;
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setActiveDevice:(id)device completion:(id)completion
@@ -859,81 +854,82 @@ void __47__FMFSession_Admin__getThisDeviceAndCompanion___block_invoke(uint64_t a
   {
     [serverProxy showRestrictedAlert];
 
-    v11 = LogCategory_Daemon();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = LogCategory_Daemon(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [(FMFSession(Admin) *)v11 setActiveDevice:v12 completion:v13, v14, v15, v16, v17, v18];
+      [(FMFSession(Admin) *)v12 setActiveDevice:v13 completion:v14, v15, v16, v17, v18, v19];
     }
 
     if (completionCopy)
     {
-      v19 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.icloud.fmf.error" code:105 userInfo:0];
-      completionCopy[2](completionCopy, v19);
+      v20 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.icloud.fmf.error" code:105 userInfo:0];
+      completionCopy[2](completionCopy, v20);
     }
   }
 
   else
   {
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __48__FMFSession_Admin__setActiveDevice_completion___block_invoke;
-    v20[3] = &unk_278FDE0E8;
-    v20[4] = self;
-    v22 = completionCopy;
-    v21 = deviceCopy;
-    [v10 isNetworkReachable:v20];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __48__FMFSession_Admin__setActiveDevice_completion___block_invoke;
+    v21[3] = &unk_278FDE0E8;
+    v21[4] = self;
+    v23 = completionCopy;
+    v22 = deviceCopy;
+    [v10 isNetworkReachable:v21];
   }
 }
 
 void __48__FMFSession_Admin__setActiveDevice_completion___block_invoke(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
-    v6 = *(a1 + 32);
+    v7 = *(a1 + 32);
     if (*(a1 + 40))
     {
-      v7 = [*(a1 + 32) serverProxy];
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __48__FMFSession_Admin__setActiveDevice_completion___block_invoke_5;
-      v20[3] = &unk_278FDE098;
-      v8 = *(a1 + 40);
-      v20[4] = *(a1 + 32);
-      v21 = *(a1 + 48);
-      [v7 setActiveDevice:v8 completion:v20];
+      v8 = [*(a1 + 32) serverProxy];
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __48__FMFSession_Admin__setActiveDevice_completion___block_invoke_5;
+      v21[3] = &unk_278FDE098;
+      v9 = *(a1 + 40);
+      v21[4] = *(a1 + 32);
+      v22 = *(a1 + 48);
+      [v8 setActiveDevice:v9 completion:v21];
 
-      v9 = v21;
+      v10 = v22;
     }
 
     else
     {
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __48__FMFSession_Admin__setActiveDevice_completion___block_invoke_8;
-      v22[3] = &unk_278FDE0C0;
-      v22[4] = v6;
-      v23 = *(a1 + 48);
-      [v6 getAllDevices:v22];
-      v9 = v23;
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __48__FMFSession_Admin__setActiveDevice_completion___block_invoke_8;
+      v23[3] = &unk_278FDE0C0;
+      v23[4] = v7;
+      v24 = *(a1 + 48);
+      [v7 getAllDevices:v23];
+      v10 = v24;
     }
   }
 
   else
   {
-    v10 = LogCategory_Daemon();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = LogCategory_Daemon(v5);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      __48__FMFSession_Admin__setActiveDevice_completion___block_invoke_cold_1(v10, v11, v12, v13, v14, v15, v16, v17);
+      __48__FMFSession_Admin__setActiveDevice_completion___block_invoke_cold_1(v11, v12, v13, v14, v15, v16, v17, v18);
     }
 
-    v18 = [*(a1 + 32) serverProxy];
-    [v18 showNetworkOfflineDuringOfferAlert];
+    v19 = [*(a1 + 32) serverProxy];
+    [v19 showNetworkOfflineDuringOfferAlert];
 
-    v19 = *(a1 + 48);
-    if (v19)
+    v20 = *(a1 + 48);
+    if (v20)
     {
-      (*(v19 + 16))(v19, v5);
+      (*(v20 + 16))(v20, v6);
     }
   }
 }
@@ -1048,31 +1044,29 @@ LABEL_6:
 
 void __54__FMFSession_Admin__getHandlesSharingLocationsWithMe___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = LogCategory_Daemon();
+  v7 = LogCategory_Daemon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = v5;
+    v17 = v5;
     _os_log_impl(&dword_24A33F000, v7, OS_LOG_TYPE_DEFAULT, "Handles sharing location with me %@", buf, 0xCu);
   }
 
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __54__FMFSession_Admin__getHandlesSharingLocationsWithMe___block_invoke_14;
-  v13[3] = &unk_278FDDE78;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __54__FMFSession_Admin__getHandlesSharingLocationsWithMe___block_invoke_14;
+  v12[3] = &unk_278FDDE78;
   v8 = *(a1 + 32);
   v9 = *(a1 + 40);
-  v15 = v6;
-  v16 = v9;
-  v14 = v5;
+  v14 = v6;
+  v15 = v9;
+  v13 = v5;
   v10 = v6;
   v11 = v5;
-  [v8 dispatchOnDelegateQueue:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [v8 dispatchOnDelegateQueue:v12];
 }
 
 uint64_t __54__FMFSession_Admin__getHandlesSharingLocationsWithMe___block_invoke_14(void *a1)
@@ -1110,31 +1104,29 @@ uint64_t __54__FMFSession_Admin__getHandlesSharingLocationsWithMe___block_invoke
 
 void __51__FMFSession_Admin__getHandlesFollowingMyLocation___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = LogCategory_Daemon();
+  v7 = LogCategory_Daemon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = v5;
+    v17 = v5;
     _os_log_impl(&dword_24A33F000, v7, OS_LOG_TYPE_DEFAULT, "Handles following my location: %@", buf, 0xCu);
   }
 
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __51__FMFSession_Admin__getHandlesFollowingMyLocation___block_invoke_15;
-  v13[3] = &unk_278FDDE78;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __51__FMFSession_Admin__getHandlesFollowingMyLocation___block_invoke_15;
+  v12[3] = &unk_278FDDE78;
   v8 = *(a1 + 32);
   v9 = *(a1 + 40);
-  v15 = v6;
-  v16 = v9;
-  v14 = v5;
+  v14 = v6;
+  v15 = v9;
+  v13 = v5;
   v10 = v6;
   v11 = v5;
-  [v8 dispatchOnDelegateQueue:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [v8 dispatchOnDelegateQueue:v12];
 }
 
 uint64_t __51__FMFSession_Admin__getHandlesFollowingMyLocation___block_invoke_15(void *a1)
@@ -1154,6 +1146,42 @@ uint64_t __51__FMFSession_Admin__getHandlesFollowingMyLocation___block_invoke_15
   completionCopy = completion;
   v7 = [v5 errorWithDomain:@"com.apple.icloud.fmf.error" code:100 userInfo:0];
   (*(completion + 2))(completionCopy, 0, v7);
+}
+
+- (void)setHideMyLocationEnabled:(BOOL)enabled completion:(id)completion
+{
+  enabledCopy = enabled;
+  completionCopy = completion;
+  v7 = +[FMFSession FMFRestricted];
+  serverProxy = [(FMFSession *)self serverProxy];
+  v9 = serverProxy;
+  if (v7)
+  {
+    [serverProxy showRestrictedAlert];
+
+    v11 = LogCategory_Daemon(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      [(FMFSession(Admin) *)v11 setHideMyLocationEnabled:v12 completion:v13, v14, v15, v16, v17, v18];
+    }
+
+    if (completionCopy)
+    {
+      v19 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.icloud.fmf.error" code:105 userInfo:0];
+      completionCopy[2](completionCopy, v19);
+    }
+  }
+
+  else
+  {
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __57__FMFSession_Admin__setHideMyLocationEnabled_completion___block_invoke;
+    v20[3] = &unk_278FDE098;
+    v20[4] = self;
+    v21 = completionCopy;
+    [v9 setHideMyLocationEnabled:enabledCopy completion:v20];
+  }
 }
 
 void __57__FMFSession_Admin__setHideMyLocationEnabled_completion___block_invoke(uint64_t a1, void *a2)
@@ -1332,31 +1360,32 @@ void __55__FMFSession_Notifications__dataForPayload_completion___block_invoke(ui
   v10 = a3;
   v11 = a4;
   v12 = a5;
+  v13 = v12;
   if (v12)
   {
-    v13 = LogCategory_Daemon();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = LogCategory_Daemon(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      __55__FMFSession_Notifications__dataForPayload_completion___block_invoke_cold_1(v12, v13);
+      __55__FMFSession_Notifications__dataForPayload_completion___block_invoke_cold_1(v13, v14);
     }
   }
 
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __55__FMFSession_Notifications__dataForPayload_completion___block_invoke_1;
-  v20[3] = &unk_278FDE220;
-  v14 = *(a1 + 32);
-  v15 = *(a1 + 40);
-  v24 = v12;
-  v25 = v15;
-  v21 = v9;
-  v22 = v10;
-  v23 = v11;
-  v16 = v12;
-  v17 = v11;
-  v18 = v10;
-  v19 = v9;
-  [v14 dispatchOnDelegateQueue:v20];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __55__FMFSession_Notifications__dataForPayload_completion___block_invoke_1;
+  v21[3] = &unk_278FDE220;
+  v15 = *(a1 + 32);
+  v16 = *(a1 + 40);
+  v25 = v13;
+  v26 = v16;
+  v22 = v9;
+  v23 = v10;
+  v24 = v11;
+  v17 = v13;
+  v18 = v11;
+  v19 = v10;
+  v20 = v9;
+  [v15 dispatchOnDelegateQueue:v21];
 }
 
 uint64_t __55__FMFSession_Notifications__dataForPayload_completion___block_invoke_1(void *a1)
@@ -1436,37 +1465,35 @@ uint64_t __55__FMFSession_Notifications__dataForPayload_completion___block_invok
 
 - (void)_sendFriendshipOfferToHandles:(id)handles groupId:(id)id callerId:(id)callerId endDate:(id)date completion:(id)completion
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   handlesCopy = handles;
   idCopy = id;
   callerIdCopy = callerId;
   dateCopy = date;
   completionCopy = completion;
-  v17 = LogCategory_Daemon();
+  v17 = LogCategory_Daemon(completionCopy);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
     *buf = 138413058;
-    v24 = handlesCopy;
-    v25 = 2112;
-    v26 = dateCopy;
-    v27 = 2112;
-    v28 = idCopy;
-    v29 = 2112;
-    v30 = callerIdCopy;
+    v23 = handlesCopy;
+    v24 = 2112;
+    v25 = dateCopy;
+    v26 = 2112;
+    v27 = idCopy;
+    v28 = 2112;
+    v29 = callerIdCopy;
     _os_log_impl(&dword_24A33F000, v17, OS_LOG_TYPE_INFO, "Sending friend offer for: %@ to date: %@ withGroupId: %@ fromCallerId: %@", buf, 0x2Au);
   }
 
   serverProxy = [(FMFSession *)self serverProxy];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __91__FMFSession_Establish___sendFriendshipOfferToHandles_groupId_callerId_endDate_completion___block_invoke;
-  v21[3] = &unk_278FDE3B0;
-  v21[4] = self;
-  v22 = completionCopy;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __91__FMFSession_Establish___sendFriendshipOfferToHandles_groupId_callerId_endDate_completion___block_invoke;
+  v20[3] = &unk_278FDE3B0;
+  v20[4] = self;
+  v21 = completionCopy;
   v19 = completionCopy;
-  [serverProxy sendFriendshipOfferToHandles:handlesCopy groupId:idCopy callerId:callerIdCopy endDate:dateCopy completion:v21];
-
-  v20 = *MEMORY[0x277D85DE8];
+  [serverProxy sendFriendshipOfferToHandles:handlesCopy groupId:idCopy callerId:callerIdCopy endDate:dateCopy completion:v20];
 }
 
 void __91__FMFSession_Establish___sendFriendshipOfferToHandles_groupId_callerId_endDate_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1526,46 +1553,44 @@ uint64_t __91__FMFSession_Establish___sendFriendshipOfferToHandles_groupId_calle
 
 void __48__FMFSession_Establish___sendAutoSwitchMeDevice__block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = v2;
   if (v2)
   {
     v4 = [v2 code];
-    v5 = LogCategory_Daemon();
+    v5 = LogCategory_Daemon(v4);
     v6 = os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
     if (v4 == 108)
     {
       if (v6)
       {
-        LOWORD(v10) = 0;
+        LOWORD(v9) = 0;
         v7 = "Offer: This device is already set as Me device";
 LABEL_7:
-        _os_log_impl(&dword_24A33F000, v5, OS_LOG_TYPE_INFO, v7, &v10, 2u);
+        _os_log_impl(&dword_24A33F000, v5, OS_LOG_TYPE_INFO, v7, &v9, 2u);
       }
     }
 
     else if (v6)
     {
       v8 = [v3 description];
-      v10 = 138412290;
-      v11 = v8;
-      _os_log_impl(&dword_24A33F000, v5, OS_LOG_TYPE_INFO, "Offer: Error while trying to set this device as Me device, error: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v8;
+      _os_log_impl(&dword_24A33F000, v5, OS_LOG_TYPE_INFO, "Offer: Error while trying to set this device as Me device, error: %@", &v9, 0xCu);
     }
   }
 
   else
   {
-    v5 = LogCategory_Daemon();
+    v5 = LogCategory_Daemon(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v10) = 0;
+      LOWORD(v9) = 0;
       v7 = "Offer: Successfully set this devie as Me device.";
       goto LABEL_7;
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_checkAndDisplayMeDeviceSwitchAlert
@@ -1582,12 +1607,13 @@ void __60__FMFSession_Establish___checkAndDisplayMeDeviceSwitchAlert__block_invo
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = LogCategory_Daemon();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = LogCategory_Daemon(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __60__FMFSession_Establish___checkAndDisplayMeDeviceSwitchAlert__block_invoke_cold_1(v6, v7);
+      __60__FMFSession_Establish___checkAndDisplayMeDeviceSwitchAlert__block_invoke_cold_1(v7, v8);
     }
 
 LABEL_4:
@@ -1595,49 +1621,51 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  if ([v5 isThisDevice] & 1) != 0 || (objc_msgSend(v5, "isCompanionDevice"))
+  v9 = [v5 isThisDevice];
+  if (v9 & 1) != 0 || (v9 = [v5 isCompanionDevice], (v9))
   {
-    v7 = LogCategory_Daemon();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = LogCategory_Daemon(v9);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_24A33F000, v7, OS_LOG_TYPE_INFO, "This device is already MeDevice", buf, 2u);
+      _os_log_impl(&dword_24A33F000, v8, OS_LOG_TYPE_INFO, "This device is already MeDevice", buf, 2u);
     }
 
     goto LABEL_4;
   }
 
-  v8 = LogCategory_Daemon();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v10 = LogCategory_Daemon(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_24A33F000, v8, OS_LOG_TYPE_INFO, "This device is not MeDevice", buf, 2u);
+    _os_log_impl(&dword_24A33F000, v10, OS_LOG_TYPE_INFO, "This device is not MeDevice", buf, 2u);
   }
 
-  v9 = LogCategory_Daemon();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v12 = LogCategory_Daemon(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_24A33F000, v9, OS_LOG_TYPE_INFO, "Showing MeDevice switch alert", buf, 2u);
+    _os_log_impl(&dword_24A33F000, v12, OS_LOG_TYPE_INFO, "Showing MeDevice switch alert", buf, 2u);
   }
 
-  v10 = [*(a1 + 32) serverProxy];
-  v11 = [v5 deviceName];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __60__FMFSession_Establish___checkAndDisplayMeDeviceSwitchAlert__block_invoke_3;
-  v12[3] = &unk_278FDE3F8;
-  v12[4] = *(a1 + 32);
-  [v10 showSwitchMeDeviceAlertUsingCurrentMeDeviceName:v11 completion:v12];
+  v13 = [*(a1 + 32) serverProxy];
+  v14 = [v5 deviceName];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __60__FMFSession_Establish___checkAndDisplayMeDeviceSwitchAlert__block_invoke_3;
+  v15[3] = &unk_278FDE3F8;
+  v15[4] = *(a1 + 32);
+  [v13 showSwitchMeDeviceAlertUsingCurrentMeDeviceName:v14 completion:v15];
 
 LABEL_5:
 }
 
-void __60__FMFSession_Establish___checkAndDisplayMeDeviceSwitchAlert__block_invoke_3(uint64_t a1, int a2)
+void __60__FMFSession_Establish___checkAndDisplayMeDeviceSwitchAlert__block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v4 = LogCategory_Daemon();
+  v2 = a2;
+  v4 = LogCategory_Daemon(a1);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_INFO);
-  if (a2)
+  if (v2)
   {
     if (v5)
     {
@@ -1666,43 +1694,44 @@ void __60__FMFSession_Establish___checkAndDisplayMeDeviceSwitchAlert__block_invo
   dateCopy = date;
   completionCopy = completion;
   verifyRestrictionsAndShowDialogIfRequired = [(FMFSession *)self verifyRestrictionsAndShowDialogIfRequired];
+  v18 = verifyRestrictionsAndShowDialogIfRequired;
   if (verifyRestrictionsAndShowDialogIfRequired)
   {
-    v18 = LogCategory_Daemon();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = LogCategory_Daemon(verifyRestrictionsAndShowDialogIfRequired);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [FMFSession(Establish) sendFriendshipOfferToHandles:groupId:callerId:endDate:completion:];
     }
 
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __90__FMFSession_Establish__sendFriendshipOfferToHandles_groupId_callerId_endDate_completion___block_invoke;
-    v29[3] = &unk_278FDE110;
-    v31 = completionCopy;
-    v30 = verifyRestrictionsAndShowDialogIfRequired;
-    v19 = completionCopy;
-    [(FMFSession *)self dispatchOnDelegateQueue:v29];
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __90__FMFSession_Establish__sendFriendshipOfferToHandles_groupId_callerId_endDate_completion___block_invoke;
+    v30[3] = &unk_278FDE110;
+    v32 = completionCopy;
+    v31 = v18;
+    v20 = completionCopy;
+    [(FMFSession *)self dispatchOnDelegateQueue:v30];
 
-    v20 = v31;
+    v21 = v32;
   }
 
   else
   {
     serverProxy = [(FMFSession *)self serverProxy];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __90__FMFSession_Establish__sendFriendshipOfferToHandles_groupId_callerId_endDate_completion___block_invoke_2;
-    v23[3] = &unk_278FDE448;
-    v23[4] = self;
-    v28 = completionCopy;
-    v24 = handlesCopy;
-    v25 = idCopy;
-    v26 = callerIdCopy;
-    v27 = dateCopy;
-    v22 = completionCopy;
-    [serverProxy isNetworkReachable:v23];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __90__FMFSession_Establish__sendFriendshipOfferToHandles_groupId_callerId_endDate_completion___block_invoke_2;
+    v24[3] = &unk_278FDE448;
+    v24[4] = self;
+    v29 = completionCopy;
+    v25 = handlesCopy;
+    v26 = idCopy;
+    v27 = callerIdCopy;
+    v28 = dateCopy;
+    v23 = completionCopy;
+    [serverProxy isNetworkReachable:v24];
 
-    v20 = v28;
+    v21 = v29;
   }
 }
 
@@ -1720,6 +1749,7 @@ uint64_t __90__FMFSession_Establish__sendFriendshipOfferToHandles_groupId_caller
 void __90__FMFSession_Establish__sendFriendshipOfferToHandles_groupId_callerId_endDate_completion___block_invoke_2(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
     [*(a1 + 32) _sendFriendshipOfferToHandles:*(a1 + 40) groupId:*(a1 + 48) callerId:*(a1 + 56) endDate:*(a1 + 64) completion:*(a1 + 72)];
@@ -1727,19 +1757,19 @@ void __90__FMFSession_Establish__sendFriendshipOfferToHandles_groupId_callerId_e
 
   else
   {
-    v6 = LogCategory_Daemon();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = LogCategory_Daemon(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __90__FMFSession_Establish__sendFriendshipOfferToHandles_groupId_callerId_endDate_completion___block_invoke_2_cold_1();
     }
 
-    v7 = [*(a1 + 32) serverProxy];
-    [v7 showNetworkOfflineDuringOfferAlert];
+    v8 = [*(a1 + 32) serverProxy];
+    [v8 showNetworkOfflineDuringOfferAlert];
 
-    v8 = *(a1 + 72);
-    if (v8)
+    v9 = *(a1 + 72);
+    if (v9)
     {
-      (*(v8 + 16))(v8, 0, v5);
+      (*(v9 + 16))(v9, 0, v6);
     }
   }
 }
@@ -1771,7 +1801,7 @@ void __90__FMFSession_Establish__sendFriendshipOfferToHandles_groupId_callerId_e
   callerIdCopy = callerId;
   dateCopy = date;
   completionCopy = completion;
-  v17 = LogCategory_Daemon();
+  v17 = LogCategory_Daemon(completionCopy);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
@@ -1780,17 +1810,18 @@ void __90__FMFSession_Establish__sendFriendshipOfferToHandles_groupId_callerId_e
   }
 
   verifyRestrictionsAndShowDialogIfRequired = [(FMFSession *)self verifyRestrictionsAndShowDialogIfRequired];
+  v19 = verifyRestrictionsAndShowDialogIfRequired;
   if (verifyRestrictionsAndShowDialogIfRequired)
   {
-    v19 = LogCategory_Daemon();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = LogCategory_Daemon(verifyRestrictionsAndShowDialogIfRequired);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [FMFSession(Establish) sendFriendshipInviteToHandle:groupId:callerId:endDate:completion:];
     }
 
     if (completionCopy)
     {
-      completionCopy[2](completionCopy, 0, verifyRestrictionsAndShowDialogIfRequired);
+      completionCopy[2](completionCopy, 0, v19);
     }
   }
 
@@ -1805,8 +1836,6 @@ void __90__FMFSession_Establish__sendFriendshipOfferToHandles_groupId_callerId_e
     v23 = completionCopy;
     [serverProxy sendFriendshipInviteToHandle:handleCopy groupId:idCopy callerId:callerIdCopy endDate:dateCopy completion:v22];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __90__FMFSession_Establish__sendFriendshipInviteToHandle_groupId_callerId_endDate_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -1866,7 +1895,7 @@ uint64_t __90__FMFSession_Establish__sendFriendshipInviteToHandle_groupId_caller
   idCopy = id;
   callerIdCopy = callerId;
   completionCopy = completion;
-  v14 = LogCategory_Daemon();
+  v14 = LogCategory_Daemon(completionCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
@@ -1875,10 +1904,11 @@ uint64_t __90__FMFSession_Establish__sendFriendshipInviteToHandle_groupId_caller
   }
 
   verifyRestrictionsAndShowDialogIfRequired = [(FMFSession *)self verifyRestrictionsAndShowDialogIfRequired];
+  v16 = verifyRestrictionsAndShowDialogIfRequired;
   if (verifyRestrictionsAndShowDialogIfRequired)
   {
-    v16 = LogCategory_Daemon();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = LogCategory_Daemon(verifyRestrictionsAndShowDialogIfRequired);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [FMFSession(Establish) stopSharingMyLocationWithHandle:groupId:callerId:completion:];
     }
@@ -1888,11 +1918,11 @@ uint64_t __90__FMFSession_Establish__sendFriendshipInviteToHandle_groupId_caller
     v24[2] = __85__FMFSession_Establish__stopSharingMyLocationWithHandle_groupId_callerId_completion___block_invoke;
     v24[3] = &unk_278FDE110;
     v26 = completionCopy;
-    v25 = verifyRestrictionsAndShowDialogIfRequired;
-    v17 = completionCopy;
+    v25 = v16;
+    v18 = completionCopy;
     [(FMFSession *)self dispatchOnDelegateQueue:v24];
 
-    v18 = v26;
+    v19 = v26;
   }
 
   else
@@ -1904,13 +1934,11 @@ uint64_t __90__FMFSession_Establish__sendFriendshipInviteToHandle_groupId_caller
     v22[3] = &unk_278FDE2C0;
     v22[4] = self;
     v23 = completionCopy;
-    v20 = completionCopy;
+    v21 = completionCopy;
     [serverProxy stopSharingMyLocationWithHandle:handleCopy groupId:idCopy callerId:callerIdCopy completion:v22];
 
-    v18 = v23;
+    v19 = v23;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __85__FMFSession_Establish__stopSharingMyLocationWithHandle_groupId_callerId_completion___block_invoke(uint64_t a1)
@@ -1957,7 +1985,7 @@ uint64_t __85__FMFSession_Establish__stopSharingMyLocationWithHandle_groupId_cal
   idCopy = id;
   callerIdCopy = callerId;
   completionCopy = completion;
-  v14 = LogCategory_Daemon();
+  v14 = LogCategory_Daemon(completionCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
@@ -1966,10 +1994,11 @@ uint64_t __85__FMFSession_Establish__stopSharingMyLocationWithHandle_groupId_cal
   }
 
   verifyRestrictionsAndShowDialogIfRequired = [(FMFSession *)self verifyRestrictionsAndShowDialogIfRequired];
+  v16 = verifyRestrictionsAndShowDialogIfRequired;
   if (verifyRestrictionsAndShowDialogIfRequired)
   {
-    v16 = LogCategory_Daemon();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = LogCategory_Daemon(verifyRestrictionsAndShowDialogIfRequired);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [FMFSession(Establish) stopSharingMyLocationWithHandle:groupId:callerId:completion:];
     }
@@ -1979,11 +2008,11 @@ uint64_t __85__FMFSession_Establish__stopSharingMyLocationWithHandle_groupId_cal
     v27[2] = __86__FMFSession_Establish__stopSharingMyLocationWithHandles_groupId_callerId_completion___block_invoke;
     v27[3] = &unk_278FDE110;
     v29 = completionCopy;
-    v28 = verifyRestrictionsAndShowDialogIfRequired;
-    v17 = completionCopy;
+    v28 = v16;
+    v18 = completionCopy;
     [(FMFSession *)self dispatchOnDelegateQueue:v27];
 
-    v18 = v29;
+    v19 = v29;
   }
 
   else
@@ -1998,13 +2027,11 @@ uint64_t __85__FMFSession_Establish__stopSharingMyLocationWithHandle_groupId_cal
     v23 = handlesCopy;
     v24 = idCopy;
     v25 = callerIdCopy;
-    v20 = completionCopy;
+    v21 = completionCopy;
     [serverProxy isNetworkReachable:v22];
 
-    v18 = v26;
+    v19 = v26;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __86__FMFSession_Establish__stopSharingMyLocationWithHandles_groupId_callerId_completion___block_invoke(uint64_t a1)
@@ -2021,36 +2048,37 @@ uint64_t __86__FMFSession_Establish__stopSharingMyLocationWithHandles_groupId_ca
 void __86__FMFSession_Establish__stopSharingMyLocationWithHandles_groupId_callerId_completion___block_invoke_2(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
-    v6 = [*(a1 + 32) serverProxy];
-    v7 = *(a1 + 40);
-    v8 = *(a1 + 48);
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __86__FMFSession_Establish__stopSharingMyLocationWithHandles_groupId_callerId_completion___block_invoke_9;
-    v13[3] = &unk_278FDE2C0;
-    v13[4] = *(a1 + 32);
-    v9 = *(a1 + 56);
-    v14 = *(a1 + 64);
-    [v6 stopSharingMyLocationWithHandles:v7 groupId:v8 callerId:v9 completion:v13];
+    v7 = [*(a1 + 32) serverProxy];
+    v8 = *(a1 + 40);
+    v9 = *(a1 + 48);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __86__FMFSession_Establish__stopSharingMyLocationWithHandles_groupId_callerId_completion___block_invoke_9;
+    v14[3] = &unk_278FDE2C0;
+    v14[4] = *(a1 + 32);
+    v10 = *(a1 + 56);
+    v15 = *(a1 + 64);
+    [v7 stopSharingMyLocationWithHandles:v8 groupId:v9 callerId:v10 completion:v14];
   }
 
   else
   {
-    v10 = LogCategory_Daemon();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = LogCategory_Daemon(v5);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __86__FMFSession_Establish__stopSharingMyLocationWithHandles_groupId_callerId_completion___block_invoke_2_cold_1();
     }
 
-    v11 = [*(a1 + 32) serverProxy];
-    [v11 showNetworkOfflineDuringStopOfferAlert];
+    v12 = [*(a1 + 32) serverProxy];
+    [v12 showNetworkOfflineDuringStopOfferAlert];
 
-    v12 = *(a1 + 64);
-    if (v12)
+    v13 = *(a1 + 64);
+    if (v13)
     {
-      (*(v12 + 16))(v12, 0, v5);
+      (*(v13 + 16))(v13, 0, v6);
     }
   }
 }
@@ -2163,26 +2191,25 @@ uint64_t __86__FMFSession_Establish__stopSharingMyLocationWithHandles_groupId_ca
 
 - (void)_daemonDidLaunch
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = LogCategory_Daemon();
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = LogCategory_Daemon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
     bundleIdentifier = [mainBundle bundleIdentifier];
-    v7 = 138412546;
+    v6 = 138412546;
     selfCopy = self;
-    v9 = 2112;
-    v10 = bundleIdentifier;
-    _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "Received _daemonDidLaunch notification, attempting to restore connection if needed (session: %@ - client bundle id(%@))", &v7, 0x16u);
+    v8 = 2112;
+    v9 = bundleIdentifier;
+    _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "Received _daemonDidLaunch notification, attempting to restore connection if needed (session: %@ - client bundle id(%@))", &v6, 0x16u);
   }
 
   [(FMFSession *)self restoreClientConnection];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)restoreClientConnection
 {
-  v3 = LogCategory_Daemon();
+  v3 = LogCategory_Daemon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -2206,36 +2233,35 @@ void __37__FMFSession_restoreClientConnection__block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = LogCategory_Daemon();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = LogCategory_Daemon(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = [MEMORY[0x277CCA8D8] mainBundle];
-      v4 = [v3 bundleIdentifier];
+      v4 = [MEMORY[0x277CCA8D8] mainBundle];
+      v5 = [v4 bundleIdentifier];
       v9 = 138412546;
-      v10 = WeakRetained;
+      v10 = v2;
       v11 = 2112;
-      v12 = v4;
-      _os_log_impl(&dword_24A33F000, v2, OS_LOG_TYPE_DEFAULT, "FMFSession restoring connection (session: %@ - client bundle id(%@))", &v9, 0x16u);
+      v12 = v5;
+      _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "FMFSession restoring connection (session: %@ - client bundle id(%@))", &v9, 0x16u);
     }
 
-    v5 = [WeakRetained delegate];
+    v6 = [v2 delegate];
 
-    if (v5)
+    if (v6)
     {
-      v6 = [WeakRetained __connection];
-      v7 = [v6 remoteObjectProxyWithErrorHandler:&__block_literal_global_6];
+      v7 = [v2 __connection];
+      v8 = [v7 remoteObjectProxyWithErrorHandler:&__block_literal_global_6];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __37__FMFSession_restoreClientConnection__block_invoke_107(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = LogCategory_Daemon();
+  v3 = LogCategory_Daemon(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __37__FMFSession_restoreClientConnection__block_invoke_107_cold_1();
@@ -2256,8 +2282,8 @@ void __37__FMFSession_restoreClientConnection__block_invoke_107(uint64_t a1, voi
   v13 = *MEMORY[0x277D85DE8];
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterAddObserver(DarwinNotifyCenter, self, _FMFDDaemonDidLaunch, @"com.apple.icloud.fmfd.launched", 0, CFNotificationSuspensionBehaviorDeliverImmediately);
-  v4 = LogCategory_Daemon();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = LogCategory_Daemon(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
     bundleIdentifier = [mainBundle bundleIdentifier];
@@ -2265,13 +2291,11 @@ void __37__FMFSession_restoreClientConnection__block_invoke_107(uint64_t a1, voi
     selfCopy = self;
     v11 = 2112;
     v12 = bundleIdentifier;
-    _os_log_impl(&dword_24A33F000, v4, OS_LOG_TYPE_DEFAULT, "Registered for _FMFDDaemonDidLaunch notification for session: (%@ - client bundle id(%@)", &v9, 0x16u);
+    _os_log_impl(&dword_24A33F000, v5, OS_LOG_TYPE_DEFAULT, "Registered for _FMFDDaemonDidLaunch notification for session: (%@ - client bundle id(%@)", &v9, 0x16u);
   }
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter addObserver:self selector:sel__daemonDidLaunch name:@"FMFSessionDaemonDidLaunchNotification" object:0];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (FMFSession)sharedInstance
@@ -2293,12 +2317,11 @@ void __37__FMFSession_restoreClientConnection__block_invoke_107(uint64_t a1, voi
 
 void __28__FMFSession_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_alloc_init(objc_opt_class());
-  v3 = sharedInstance__instance_1;
-  sharedInstance__instance_1 = v2;
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = sharedInstance__instance_1;
+  sharedInstance__instance_1 = v1;
 
-  v4 = LogCategory_Daemon();
+  v4 = LogCategory_Daemon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *v5 = 0;
@@ -2352,48 +2375,46 @@ void __45__FMFSession_initWithDelegate_delegateQueue___block_invoke()
   sessionCount = 0;
 }
 
-void __45__FMFSession_initWithDelegate_delegateQueue___block_invoke_2()
+void __45__FMFSession_initWithDelegate_delegateQueue___block_invoke_2(uint64_t a1)
 {
-  v0 = sessionCount++;
-  if (v0 >= 9)
+  v1 = sessionCount++;
+  if (v1 >= 9)
   {
-    v1 = LogCategory_Daemon();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
+    v2 = LogCategory_Daemon(a1);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
     {
-      __45__FMFSession_initWithDelegate_delegateQueue___block_invoke_2_cold_1(v1);
+      __45__FMFSession_initWithDelegate_delegateQueue___block_invoke_2_cold_1(v2);
     }
   }
 }
 
 - (void)locatingInProgressChanged:(id)changed
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   object = [changed object];
-  v5 = LogCategory_Daemon();
+  v5 = LogCategory_Daemon(object);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     handle = [object handle];
     *buf = 138412802;
-    v11 = handle;
-    v12 = 2112;
-    v13 = object;
-    v14 = 1024;
+    v10 = handle;
+    v11 = 2112;
+    v12 = object;
+    v13 = 1024;
     isLocatingInProgress = [object isLocatingInProgress];
     _os_log_impl(&dword_24A33F000, v5, OS_LOG_TYPE_DEFAULT, "locatingInProgressChanged: %@, %@, %d", buf, 0x1Cu);
   }
 
   if (object)
   {
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __40__FMFSession_locatingInProgressChanged___block_invoke;
-    v8[3] = &unk_278FDE548;
-    v8[4] = self;
-    v9 = object;
-    dispatch_async(MEMORY[0x277D85CD0], v8);
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __40__FMFSession_locatingInProgressChanged___block_invoke;
+    v7[3] = &unk_278FDE548;
+    v7[4] = self;
+    v8 = object;
+    dispatch_async(MEMORY[0x277D85CD0], v7);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __40__FMFSession_locatingInProgressChanged___block_invoke(uint64_t a1)
@@ -2405,52 +2426,48 @@ void __40__FMFSession_locatingInProgressChanged___block_invoke(uint64_t a1)
 
 - (void)dealloc
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   dispatch_sync(sessionCountQueue, &__block_literal_global_143);
-  v3 = LogCategory_Daemon();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = LogCategory_Daemon(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "Unregistering for _FMFDDaemonDidLaunch notification", buf, 2u);
+    _os_log_impl(&dword_24A33F000, v4, OS_LOG_TYPE_DEFAULT, "Unregistering for _FMFDDaemonDidLaunch notification", buf, 2u);
   }
 
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterRemoveObserver(DarwinNotifyCenter, self, @"com.apple.icloud.fmfd.launched", 0);
-  v5 = LogCategory_Daemon();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v7 = LogCategory_Daemon(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_24A33F000, v5, OS_LOG_TYPE_DEFAULT, "Invalidating connection due to session dealloc", buf, 2u);
+    _os_log_impl(&dword_24A33F000, v7, OS_LOG_TYPE_DEFAULT, "Invalidating connection due to session dealloc", buf, 2u);
   }
 
-  [(NSXPCConnection *)self->_connection invalidate];
-  v6 = LogCategory_Daemon();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v8 = LogCategory_Daemon([(NSXPCConnection *)self->_connection invalidate]);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_24A33F000, v6, OS_LOG_TYPE_DEFAULT, "Deallocating session %@", buf, 0xCu);
+    _os_log_impl(&dword_24A33F000, v8, OS_LOG_TYPE_DEFAULT, "Deallocating session %@", buf, 0xCu);
   }
 
-  v8.receiver = self;
-  v8.super_class = FMFSession;
-  [(FMFSession *)&v8 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = FMFSession;
+  [(FMFSession *)&v9 dealloc];
 }
 
-void __21__FMFSession_dealloc__block_invoke()
+void __21__FMFSession_dealloc__block_invoke(uint64_t a1)
 {
   v4 = *MEMORY[0x277D85DE8];
   --sessionCount;
-  v0 = LogCategory_Daemon();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = LogCategory_Daemon(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     v2 = 134217984;
     v3 = sessionCount;
-    _os_log_impl(&dword_24A33F000, v0, OS_LOG_TYPE_DEFAULT, "FMFSession current session count (%ld)", &v2, 0xCu);
+    _os_log_impl(&dword_24A33F000, v1, OS_LOG_TYPE_DEFAULT, "FMFSession current session count (%ld)", &v2, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addInterruptionHander:(id)hander
@@ -2540,10 +2557,7 @@ void __36__FMFSession_addInvalidationHander___block_invoke(uint64_t a1)
 
 uint64_t __24__FMFSession_connection__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) __connection];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) __connection];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -2606,86 +2620,86 @@ uint64_t __24__FMFSession_connection__block_invoke(uint64_t a1)
     v40 = self->_connection;
     self->_connection = v39;
 
-    v41 = LogCategory_Daemon();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+    v42 = LogCategory_Daemon(v41);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
     {
-      v42 = self->_connection;
+      v43 = self->_connection;
       *buf = 138412290;
-      v79 = v42;
-      _os_log_impl(&dword_24A33F000, v41, OS_LOG_TYPE_DEFAULT, "Created connection: %@", buf, 0xCu);
+      v79 = v43;
+      _os_log_impl(&dword_24A33F000, v42, OS_LOG_TYPE_DEFAULT, "Created connection: %@", buf, 0xCu);
     }
 
-    v43 = objc_opt_new();
-    objc_storeStrong(&self->_sessionInterruptionFuture, v43);
+    v44 = objc_opt_new();
+    objc_storeStrong(&self->_sessionInterruptionFuture, v44);
     v74[0] = MEMORY[0x277D85DD0];
     v74[1] = 3221225472;
     v74[2] = __26__FMFSession___connection__block_invoke;
     v74[3] = &unk_278FDE668;
     objc_copyWeak(&v76, &location);
-    v44 = v43;
-    v75 = v44;
+    v45 = v44;
+    v75 = v45;
     [(NSXPCConnection *)self->_connection setInterruptionHandler:v74];
-    v45 = objc_opt_new();
-    objc_storeStrong(&self->_sessionInvalidationFuture, v45);
+    v46 = objc_opt_new();
+    objc_storeStrong(&self->_sessionInvalidationFuture, v46);
     v71[0] = MEMORY[0x277D85DD0];
     v71[1] = 3221225472;
     v71[2] = __26__FMFSession___connection__block_invoke_2;
     v71[3] = &unk_278FDE668;
     objc_copyWeak(&v73, &location);
-    v46 = v45;
-    v72 = v46;
+    v47 = v46;
+    v72 = v47;
     [(NSXPCConnection *)self->_connection setInvalidationHandler:v71];
-    v47 = [MEMORY[0x277CCAE90] interfaceWithProtocol:v64];
-    [(NSXPCConnection *)self->_connection setRemoteObjectInterface:v47];
-    [v47 setClasses:v69 forSelector:sel_getHandlesSharingLocationsWithMe_ argumentIndex:0 ofReply:1];
-    [v47 setClasses:v69 forSelector:sel_getHandlesSharingLocationsWithMeWithGroupId_completion_ argumentIndex:0 ofReply:1];
-    [v47 setClasses:v69 forSelector:sel_getHandlesSharingMyLocation_ argumentIndex:0 ofReply:1];
-    [v47 setClasses:v69 forSelector:sel_getHandlesSharingMyLocationWithGroupId_completion_ argumentIndex:0 ofReply:1];
-    [v47 setClasses:v67 forSelector:sel_getPendingFriendshipRequestsWithCompletion_ argumentIndex:0 ofReply:1];
-    [v47 setClasses:v67 forSelector:sel_getPendingFriendshipRequestsWithCompletion_ argumentIndex:1 ofReply:1];
-    [v47 setClasses:v69 forSelector:sel_getHandlesWithPendingOffers_ argumentIndex:0 ofReply:1];
-    [v47 setClasses:v68 forSelector:sel_getAllLocations_ argumentIndex:0 ofReply:1];
-    [v47 setClasses:v66 forSelector:sel_allDevices_ argumentIndex:0 ofReply:1];
-    [v47 setClasses:v65 forSelector:sel_favoritesForMaxCount_completion_ argumentIndex:0 ofReply:1];
-    [v47 setClasses:v68 forSelector:sel_nearbyLocationsWithCompletion_ argumentIndex:0 ofReply:1];
-    [v47 setClasses:v69 forSelector:sel_getHandlesWithPendingOffers_ argumentIndex:0 ofReply:1];
-    [v47 setClasses:v69 forSelector:sel_canOfferToHandles_completion_ argumentIndex:0 ofReply:1];
-    v48 = MEMORY[0x277CBEB98];
-    v49 = objc_opt_class();
-    v50 = [v48 setWithObjects:{v49, objc_opt_class(), 0}];
-    [v47 setClasses:v50 forSelector:sel_sendFriendshipOfferToHandles_groupId_callerId_endDate_completion_ argumentIndex:1 ofReply:1];
+    v48 = [MEMORY[0x277CCAE90] interfaceWithProtocol:v64];
+    [(NSXPCConnection *)self->_connection setRemoteObjectInterface:v48];
+    [v48 setClasses:v69 forSelector:sel_getHandlesSharingLocationsWithMe_ argumentIndex:0 ofReply:1];
+    [v48 setClasses:v69 forSelector:sel_getHandlesSharingLocationsWithMeWithGroupId_completion_ argumentIndex:0 ofReply:1];
+    [v48 setClasses:v69 forSelector:sel_getHandlesSharingMyLocation_ argumentIndex:0 ofReply:1];
+    [v48 setClasses:v69 forSelector:sel_getHandlesSharingMyLocationWithGroupId_completion_ argumentIndex:0 ofReply:1];
+    [v48 setClasses:v67 forSelector:sel_getPendingFriendshipRequestsWithCompletion_ argumentIndex:0 ofReply:1];
+    [v48 setClasses:v67 forSelector:sel_getPendingFriendshipRequestsWithCompletion_ argumentIndex:1 ofReply:1];
+    [v48 setClasses:v69 forSelector:sel_getHandlesWithPendingOffers_ argumentIndex:0 ofReply:1];
+    [v48 setClasses:v68 forSelector:sel_getAllLocations_ argumentIndex:0 ofReply:1];
+    [v48 setClasses:v66 forSelector:sel_allDevices_ argumentIndex:0 ofReply:1];
+    [v48 setClasses:v65 forSelector:sel_favoritesForMaxCount_completion_ argumentIndex:0 ofReply:1];
+    [v48 setClasses:v68 forSelector:sel_nearbyLocationsWithCompletion_ argumentIndex:0 ofReply:1];
+    [v48 setClasses:v69 forSelector:sel_getHandlesWithPendingOffers_ argumentIndex:0 ofReply:1];
+    [v48 setClasses:v69 forSelector:sel_canOfferToHandles_completion_ argumentIndex:0 ofReply:1];
+    v49 = MEMORY[0x277CBEB98];
+    v50 = objc_opt_class();
+    v51 = [v49 setWithObjects:{v50, objc_opt_class(), 0}];
+    [v48 setClasses:v51 forSelector:sel_sendFriendshipOfferToHandles_groupId_callerId_endDate_completion_ argumentIndex:1 ofReply:1];
 
-    [v47 setClasses:v61 forSelector:sel_dumpStateWithCompletion_ argumentIndex:0 ofReply:1];
-    [v47 setClasses:v38 forSelector:sel_addFence_completion_ argumentIndex:0 ofReply:1];
-    [v47 setClasses:v38 forSelector:sel_deleteFence_completion_ argumentIndex:0 ofReply:1];
-    [v47 setClasses:v38 forSelector:sel_getFences_ argumentIndex:0 ofReply:1];
-    [v47 setClasses:v38 forSelector:sel_fencesForHandles_completion_ argumentIndex:0 ofReply:1];
-    [v47 setClasses:v63 forSelector:sel_getFavoritesWithCompletion_ argumentIndex:0 ofReply:1];
-    [v47 setClasses:v38 forSelector:sel_triggerWithUUID_forFenceWithID_withStatus_forDate_completion_ argumentIndex:0 ofReply:1];
-    v51 = [[FMFSessionProxy alloc] initWithFMFSession:self];
-    v52 = [MEMORY[0x277CCAE90] interfaceWithProtocol:v62];
-    [(NSXPCConnection *)self->_connection setExportedInterface:v52];
-    [(NSXPCConnection *)self->_connection setExportedObject:v51];
-    [v52 setClasses:v68 forSelector:sel_setLocations_ argumentIndex:0 ofReply:0];
-    [v52 setClasses:v69 forSelector:sel_didUpdatePendingOffersForHandles_ argumentIndex:0 ofReply:0];
-    [v52 setClasses:v66 forSelector:sel_didUpdateActiveDeviceList_ argumentIndex:0 ofReply:0];
-    [v52 setClasses:v69 forSelector:sel_didUpdateFollowers_ argumentIndex:0 ofReply:0];
-    [v52 setClasses:v69 forSelector:sel_didUpdateFollowing_ argumentIndex:0 ofReply:0];
-    [v52 setClasses:v68 forSelector:sel_didUpdateLocations_ argumentIndex:0 ofReply:0];
-    [v52 setClasses:v65 forSelector:sel_didUpdateFavorites_ argumentIndex:0 ofReply:0];
-    [v52 setClasses:v38 forSelector:sel_didUpdateFences_ argumentIndex:0 ofReply:0];
+    [v48 setClasses:v61 forSelector:sel_dumpStateWithCompletion_ argumentIndex:0 ofReply:1];
+    [v48 setClasses:v38 forSelector:sel_addFence_completion_ argumentIndex:0 ofReply:1];
+    [v48 setClasses:v38 forSelector:sel_deleteFence_completion_ argumentIndex:0 ofReply:1];
+    [v48 setClasses:v38 forSelector:sel_getFences_ argumentIndex:0 ofReply:1];
+    [v48 setClasses:v38 forSelector:sel_fencesForHandles_completion_ argumentIndex:0 ofReply:1];
+    [v48 setClasses:v63 forSelector:sel_getFavoritesWithCompletion_ argumentIndex:0 ofReply:1];
+    [v48 setClasses:v38 forSelector:sel_triggerWithUUID_forFenceWithID_withStatus_forDate_completion_ argumentIndex:0 ofReply:1];
+    v52 = [[FMFSessionProxy alloc] initWithFMFSession:self];
+    v53 = [MEMORY[0x277CCAE90] interfaceWithProtocol:v62];
+    [(NSXPCConnection *)self->_connection setExportedInterface:v53];
+    [(NSXPCConnection *)self->_connection setExportedObject:v52];
+    [v53 setClasses:v68 forSelector:sel_setLocations_ argumentIndex:0 ofReply:0];
+    [v53 setClasses:v69 forSelector:sel_didUpdatePendingOffersForHandles_ argumentIndex:0 ofReply:0];
+    [v53 setClasses:v66 forSelector:sel_didUpdateActiveDeviceList_ argumentIndex:0 ofReply:0];
+    [v53 setClasses:v69 forSelector:sel_didUpdateFollowers_ argumentIndex:0 ofReply:0];
+    [v53 setClasses:v69 forSelector:sel_didUpdateFollowing_ argumentIndex:0 ofReply:0];
+    [v53 setClasses:v68 forSelector:sel_didUpdateLocations_ argumentIndex:0 ofReply:0];
+    [v53 setClasses:v65 forSelector:sel_didUpdateFavorites_ argumentIndex:0 ofReply:0];
+    [v53 setClasses:v38 forSelector:sel_didUpdateFences_ argumentIndex:0 ofReply:0];
     [(NSXPCConnection *)self->_connection resume];
-    v53 = [(NSXPCConnection *)self->_connection remoteObjectProxyWithErrorHandler:&__block_literal_global_350];
-    v54 = MEMORY[0x277CCABB0];
+    v54 = [(NSXPCConnection *)self->_connection remoteObjectProxyWithErrorHandler:&__block_literal_global_350];
+    v55 = MEMORY[0x277CCABB0];
     processInfo = [MEMORY[0x277CCAC38] processInfo];
-    v56 = [v54 numberWithInt:{objc_msgSend(processInfo, "processIdentifier")}];
-    [v53 setSessionClientPid:v56];
+    v57 = [v55 numberWithInt:{objc_msgSend(processInfo, "processIdentifier")}];
+    [v54 setSessionClientPid:v57];
 
     mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
     bundleIdentifier = [mainBundle bundleIdentifier];
-    [v53 setSessionClientBundleId:bundleIdentifier];
+    [v54 setSessionClientBundleId:bundleIdentifier];
 
-    [v53 sessionWasCreatedRefresh];
+    [v54 sessionWasCreatedRefresh];
     objc_destroyWeak(&v73);
 
     objc_destroyWeak(&v76);
@@ -2693,20 +2707,18 @@ uint64_t __24__FMFSession_connection__block_invoke(uint64_t a1)
     connection = self->_connection;
   }
 
-  v59 = *MEMORY[0x277D85DE8];
-
   return connection;
 }
 
 void __26__FMFSession___connection__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v3 = LogCategory_Daemon();
+  v3 = LogCategory_Daemon(WeakRetained);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v9 = WeakRetained;
+    v8 = WeakRetained;
     _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "Connection to server interrupted! Session: %@", buf, 0xCu);
   }
 
@@ -2715,14 +2727,12 @@ void __26__FMFSession___connection__block_invoke(uint64_t a1)
   v5 = FMEmptyResult();
   [v4 finishWithResult:v5];
 
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __26__FMFSession___connection__block_invoke_315;
-  v7[3] = &unk_278FDE000;
-  v7[4] = WeakRetained;
-  [WeakRetained dispatchOnDelegateQueue:v7];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __26__FMFSession___connection__block_invoke_315;
+  v6[3] = &unk_278FDE000;
+  v6[4] = WeakRetained;
+  [WeakRetained dispatchOnDelegateQueue:v6];
 }
 
 void __26__FMFSession___connection__block_invoke_315(uint64_t a1)
@@ -2737,13 +2747,13 @@ void __26__FMFSession___connection__block_invoke_315(uint64_t a1)
 
 void __26__FMFSession___connection__block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v3 = LogCategory_Daemon();
+  v3 = LogCategory_Daemon(WeakRetained);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v9 = WeakRetained;
+    v8 = WeakRetained;
     _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "Connection to server invalidated! Session: %@", buf, 0xCu);
   }
 
@@ -2752,14 +2762,12 @@ void __26__FMFSession___connection__block_invoke_2(uint64_t a1)
   v5 = FMEmptyResult();
   [v4 finishWithResult:v5];
 
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __26__FMFSession___connection__block_invoke_318;
-  v7[3] = &unk_278FDE000;
-  v7[4] = WeakRetained;
-  [WeakRetained dispatchOnDelegateQueue:v7];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __26__FMFSession___connection__block_invoke_318;
+  v6[3] = &unk_278FDE000;
+  v6[4] = WeakRetained;
+  [WeakRetained dispatchOnDelegateQueue:v6];
 }
 
 void __26__FMFSession___connection__block_invoke_318(uint64_t a1)
@@ -2775,7 +2783,7 @@ void __26__FMFSession___connection__block_invoke_318(uint64_t a1)
 void __26__FMFSession___connection__block_invoke_2_348(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = LogCategory_Daemon();
+  v3 = LogCategory_Daemon(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __26__FMFSession___connection__block_invoke_2_348_cold_1();
@@ -2793,7 +2801,7 @@ void __26__FMFSession___connection__block_invoke_2_348(uint64_t a1, void *a2)
 void __25__FMFSession_serverProxy__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = LogCategory_Daemon();
+  v3 = LogCategory_Daemon(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __25__FMFSession_serverProxy__block_invoke_cold_1();
@@ -2835,7 +2843,7 @@ uint64_t __38__FMFSession_dispatchOnDelegateQueue___block_invoke(uint64_t a1)
 
 - (void)invalidate
 {
-  v3 = LogCategory_Daemon();
+  v3 = LogCategory_Daemon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -2870,17 +2878,15 @@ void __24__FMFSession_invalidate__block_invoke(uint64_t a1)
       v5 = v2[5];
       v2[5] = 0;
 
-      v6 = LogCategory_Daemon();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = LogCategory_Daemon(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         v8 = 138412290;
         v9 = v4;
-        _os_log_impl(&dword_24A33F000, v6, OS_LOG_TYPE_DEFAULT, "FMFSession did invalidate connection %@.", &v8, 0xCu);
+        _os_log_impl(&dword_24A33F000, v7, OS_LOG_TYPE_DEFAULT, "FMFSession did invalidate connection %@.", &v8, 0xCu);
       }
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)forceRefresh
@@ -2913,45 +2919,42 @@ void __24__FMFSession_invalidate__block_invoke(uint64_t a1)
 
 void __27__FMFSession_setLocations___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * v6);
-        v8 = *(a1 + 40);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
-          [*(a1 + 40) didReceiveLocation:{v7, v10}];
+          [*(a1 + 40) didReceiveLocation:{v7, v8}];
         }
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)failedToGetLocationForHandle:(id)handle error:(id)error
@@ -2994,23 +2997,21 @@ void __49__FMFSession_failedToGetLocationForHandle_error___block_invoke(uint64_t
 
 void __35__FMFSession_didAddFollowerHandle___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) delegate];
-  v3 = LogCategory_Daemon();
+  v3 = LogCategory_Daemon(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 40);
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "didAddFollowerHandle: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "didAddFollowerHandle: %@", &v5, 0xCu);
   }
 
   if (objc_opt_respondsToSelector())
   {
     [v2 didStartSharingMyLocationWithHandle:*(a1 + 40)];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didRemoveFollowerHandle:(id)handle
@@ -3028,23 +3029,21 @@ void __35__FMFSession_didAddFollowerHandle___block_invoke(uint64_t a1)
 
 void __38__FMFSession_didRemoveFollowerHandle___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) delegate];
-  v3 = LogCategory_Daemon();
+  v3 = LogCategory_Daemon(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 40);
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "didRemoveFollowerHandle: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "didRemoveFollowerHandle: %@", &v5, 0xCu);
   }
 
   if (objc_opt_respondsToSelector())
   {
     [v2 didStopSharingMyLocationWithHandle:*(a1 + 40)];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didStartFollowingHandle:(id)handle
@@ -3062,23 +3061,21 @@ void __38__FMFSession_didRemoveFollowerHandle___block_invoke(uint64_t a1)
 
 void __38__FMFSession_didStartFollowingHandle___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) delegate];
-  v3 = LogCategory_Daemon();
+  v3 = LogCategory_Daemon(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 40);
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "didStartFollowingHandle: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "didStartFollowingHandle: %@", &v5, 0xCu);
   }
 
   if (objc_opt_respondsToSelector())
   {
     [v2 didStartAbilityToGetLocationForHandle:*(a1 + 40)];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didStopFollowingHandle:(id)handle
@@ -3096,23 +3093,21 @@ void __38__FMFSession_didStartFollowingHandle___block_invoke(uint64_t a1)
 
 void __37__FMFSession_didStopFollowingHandle___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) delegate];
-  v3 = LogCategory_Daemon();
+  v3 = LogCategory_Daemon(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 40);
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "didStopFollowingHandle: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "didStopFollowingHandle: %@", &v5, 0xCu);
   }
 
   if (objc_opt_respondsToSelector())
   {
     [v2 didStopAbilityToGetLocationForHandle:*(a1 + 40)];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didUpdateFavorites:(id)favorites
@@ -3130,23 +3125,21 @@ void __37__FMFSession_didStopFollowingHandle___block_invoke(uint64_t a1)
 
 void __33__FMFSession_didUpdateFavorites___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) delegate];
-  v3 = LogCategory_Daemon();
+  v3 = LogCategory_Daemon(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 40);
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "didUpdateFavorites: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "didUpdateFavorites: %@", &v5, 0xCu);
   }
 
   if (objc_opt_respondsToSelector())
   {
     [v2 didUpdateFavoriteHandles:*(a1 + 40)];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didUpdateHideFromFollowersStatus:(BOOL)status
@@ -3162,23 +3155,21 @@ void __33__FMFSession_didUpdateFavorites___block_invoke(uint64_t a1)
 
 void __47__FMFSession_didUpdateHideFromFollowersStatus___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) delegate];
-  v3 = LogCategory_Daemon();
+  v3 = LogCategory_Daemon(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 40);
-    v6[0] = 67109120;
-    v6[1] = v4;
-    _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "didUpdateHideFromFollowersStatus: %d", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = v4;
+    _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "didUpdateHideFromFollowersStatus: %d", v5, 8u);
   }
 
   if (objc_opt_respondsToSelector())
   {
     [v2 didUpdateHidingStatus:*(a1 + 40)];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didChangeActiveLocationSharingDevice:(id)device
@@ -3196,23 +3187,21 @@ void __47__FMFSession_didUpdateHideFromFollowersStatus___block_invoke(uint64_t a
 
 void __51__FMFSession_didChangeActiveLocationSharingDevice___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) delegate];
-  v3 = LogCategory_Daemon();
+  v3 = LogCategory_Daemon(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [*(a1 + 40) deviceName];
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "didChangeLocationSharingDevice: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "didChangeLocationSharingDevice: %@", &v5, 0xCu);
   }
 
   if (objc_opt_respondsToSelector())
   {
     [v2 didChangeActiveLocationSharingDevice:*(a1 + 40)];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didUpdateActiveDeviceList:(id)list
@@ -3230,23 +3219,21 @@ void __51__FMFSession_didChangeActiveLocationSharingDevice___block_invoke(uint64
 
 void __40__FMFSession_didUpdateActiveDeviceList___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) delegate];
-  v3 = LogCategory_Daemon();
+  v3 = LogCategory_Daemon(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 40);
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "didUpdateActiveDeviceList: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "didUpdateActiveDeviceList: %@", &v5, 0xCu);
   }
 
   if (objc_opt_respondsToSelector())
   {
     [v2 didUpdateActiveDeviceList:*(a1 + 40)];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didReceiveFriendshipRequest:(id)request
@@ -3264,23 +3251,21 @@ void __40__FMFSession_didUpdateActiveDeviceList___block_invoke(uint64_t a1)
 
 void __42__FMFSession_didReceiveFriendshipRequest___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) delegate];
-  v3 = LogCategory_Daemon();
+  v3 = LogCategory_Daemon(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 40);
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "didReceiveFriendshipRequest: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "didReceiveFriendshipRequest: %@", &v5, 0xCu);
   }
 
   if (objc_opt_respondsToSelector())
   {
     [v2 didReceiveFriendshipRequest:*(a1 + 40)];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didUpdatePendingOffersForHandles:(id)handles
@@ -3298,23 +3283,21 @@ void __42__FMFSession_didReceiveFriendshipRequest___block_invoke(uint64_t a1)
 
 void __47__FMFSession_didUpdatePendingOffersForHandles___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) delegate];
-  v3 = LogCategory_Daemon();
+  v3 = LogCategory_Daemon(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 40);
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "didUpdatePendingOffersForHandles: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "didUpdatePendingOffersForHandles: %@", &v5, 0xCu);
   }
 
   if (objc_opt_respondsToSelector())
   {
     [v2 didUpdatePendingOffersForHandles:*(a1 + 40)];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendMappingPacket:(id)packet toHandle:(id)handle
@@ -3335,23 +3318,21 @@ void __47__FMFSession_didUpdatePendingOffersForHandles___block_invoke(uint64_t a
 
 void __41__FMFSession_sendMappingPacket_toHandle___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) delegate];
-  v3 = LogCategory_Daemon();
+  v3 = LogCategory_Daemon(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 40);
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "sendMappingPacket:toHandle: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "sendMappingPacket:toHandle: %@", &v5, 0xCu);
   }
 
   if (objc_opt_respondsToSelector())
   {
     [v2 sendMappingPacket:*(a1 + 48) toHandle:*(a1 + 40)];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didReceiveServerError:(id)error
@@ -3369,28 +3350,26 @@ void __41__FMFSession_sendMappingPacket_toHandle___block_invoke(uint64_t a1)
 
 void __36__FMFSession_didReceiveServerError___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) delegate];
-  v3 = LogCategory_Daemon();
+  v3 = LogCategory_Daemon(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 40);
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "didReceiveServerError: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "didReceiveServerError: %@", &v5, 0xCu);
   }
 
   if (objc_opt_respondsToSelector())
   {
     [v2 didReceiveServerError:*(a1 + 40)];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)abDidChange
 {
-  v2 = LogCategory_Daemon();
+  v2 = LogCategory_Daemon(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -3403,7 +3382,7 @@ void __36__FMFSession_didReceiveServerError___block_invoke(uint64_t a1)
 
 - (void)abPreferencesDidChange
 {
-  v2 = LogCategory_Daemon();
+  v2 = LogCategory_Daemon(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -3416,82 +3395,80 @@ void __36__FMFSession_didReceiveServerError___block_invoke(uint64_t a1)
 
 - (void)didUpdateFollowers:(id)followers
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   followersCopy = followers;
-  v4 = LogCategory_Daemon();
+  v4 = LogCategory_Daemon(followersCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = followersCopy;
-    _os_log_impl(&dword_24A33F000, v4, OS_LOG_TYPE_DEFAULT, "didUpdateFollowers: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = followersCopy;
+    _os_log_impl(&dword_24A33F000, v4, OS_LOG_TYPE_DEFAULT, "didUpdateFollowers: %@", &v6, 0xCu);
   }
 
   v5 = +[FMFSessionDataManager sharedInstance];
   [v5 setFollowers:followersCopy];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didUpdateFollowing:(id)following
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   followingCopy = following;
-  v4 = LogCategory_Daemon();
+  v4 = LogCategory_Daemon(followingCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = followingCopy;
-    _os_log_impl(&dword_24A33F000, v4, OS_LOG_TYPE_DEFAULT, "didUpdateFollowing: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = followingCopy;
+    _os_log_impl(&dword_24A33F000, v4, OS_LOG_TYPE_DEFAULT, "didUpdateFollowing: %@", &v6, 0xCu);
   }
 
   v5 = +[FMFSessionDataManager sharedInstance];
   [v5 setFollowing:followingCopy];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didUpdateLocations:(id)locations
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   locationsCopy = locations;
-  v5 = LogCategory_Daemon();
+  v5 = LogCategory_Daemon(locationsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = locationsCopy;
+    v11 = locationsCopy;
     _os_log_impl(&dword_24A33F000, v5, OS_LOG_TYPE_DEFAULT, "didUpdateLocations: %@", buf, 0xCu);
   }
 
   v6 = +[FMFSessionDataManager sharedInstance];
   [v6 setLocations:locationsCopy];
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __33__FMFSession_didUpdateLocations___block_invoke;
-  v9[3] = &unk_278FDE548;
-  v9[4] = self;
-  v10 = locationsCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __33__FMFSession_didUpdateLocations___block_invoke;
+  v8[3] = &unk_278FDE548;
+  v8[4] = self;
+  v9 = locationsCopy;
   v7 = locationsCopy;
-  [(FMFSession *)self dispatchOnDelegateQueue:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [(FMFSession *)self dispatchOnDelegateQueue:v8];
 }
 
 void __33__FMFSession_didUpdateLocations___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) delegate];
-  if (![*(a1 + 40) count] && objc_msgSend(v2, "conformsToProtocol:", &unk_285D896E8))
+  if (![*(a1 + 40) count])
   {
-    v3 = LogCategory_Daemon();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v3 = [v2 conformsToProtocol:&unk_285D896E8];
+    if (v3)
     {
-      *v4 = 0;
-      _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "removing all location annotations from map", v4, 2u);
-    }
+      v4 = LogCategory_Daemon(v3);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      {
+        *v5 = 0;
+        _os_log_impl(&dword_24A33F000, v4, OS_LOG_TYPE_DEFAULT, "removing all location annotations from map", v5, 2u);
+      }
 
-    if (objc_opt_respondsToSelector())
-    {
-      [v2 removeAllFriendLocationsFromMap];
+      if (objc_opt_respondsToSelector())
+      {
+        [v2 removeAllFriendLocationsFromMap];
+      }
     }
   }
 }
@@ -3500,18 +3477,19 @@ void __33__FMFSession_didUpdateLocations___block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x277D85DE8];
   fencesCopy = fences;
-  if ((_os_feature_enabled_impl() & 1) == 0)
+  v5 = _os_feature_enabled_impl();
+  if ((v5 & 1) == 0)
   {
-    v5 = LogCategory_Daemon();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = LogCategory_Daemon(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v11 = fencesCopy;
-      _os_log_impl(&dword_24A33F000, v5, OS_LOG_TYPE_DEFAULT, "FMFSession didUpdateFences: %@", buf, 0xCu);
+      _os_log_impl(&dword_24A33F000, v6, OS_LOG_TYPE_DEFAULT, "FMFSession didUpdateFences: %@", buf, 0xCu);
     }
 
-    v6 = +[FMFSessionDataManager sharedInstance];
-    [v6 setFences:fencesCopy];
+    v7 = +[FMFSessionDataManager sharedInstance];
+    [v7 setFences:fencesCopy];
 
     v8[0] = MEMORY[0x277D85DD0];
     v8[1] = 3221225472;
@@ -3521,8 +3499,6 @@ void __33__FMFSession_didUpdateLocations___block_invoke(uint64_t a1)
     v9 = fencesCopy;
     [(FMFSession *)self dispatchOnDelegateQueue:v8];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __30__FMFSession_didUpdateFences___block_invoke(uint64_t a1)
@@ -3536,26 +3512,24 @@ void __30__FMFSession_didUpdateFences___block_invoke(uint64_t a1)
 
 - (void)didUpdatePreferences:(id)preferences
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   preferencesCopy = preferences;
-  v5 = LogCategory_Daemon();
+  v5 = LogCategory_Daemon(preferencesCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v11 = preferencesCopy;
+    v10 = preferencesCopy;
     _os_log_impl(&dword_24A33F000, v5, OS_LOG_TYPE_DEFAULT, "FMFSession didUpdatePreferences: %@", buf, 0xCu);
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __35__FMFSession_didUpdatePreferences___block_invoke;
-  v8[3] = &unk_278FDE548;
-  v8[4] = self;
-  v9 = preferencesCopy;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __35__FMFSession_didUpdatePreferences___block_invoke;
+  v7[3] = &unk_278FDE548;
+  v7[4] = self;
+  v8 = preferencesCopy;
   v6 = preferencesCopy;
-  [(FMFSession *)self dispatchOnDelegateQueue:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  [(FMFSession *)self dispatchOnDelegateQueue:v7];
 }
 
 void __35__FMFSession_didUpdatePreferences___block_invoke(uint64_t a1)
@@ -3570,23 +3544,22 @@ void __35__FMFSession_didUpdatePreferences___block_invoke(uint64_t a1)
 - (void)networkReachabilityUpdated:(BOOL)updated
 {
   updatedCopy = updated;
-  v11 = *MEMORY[0x277D85DE8];
-  v5 = LogCategory_Daemon();
+  v10 = *MEMORY[0x277D85DE8];
+  v5 = LogCategory_Daemon(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v10 = updatedCopy;
+    v9 = updatedCopy;
     _os_log_impl(&dword_24A33F000, v5, OS_LOG_TYPE_DEFAULT, "networkReachabilityUpdated, Is reachable %d", buf, 8u);
   }
 
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __41__FMFSession_networkReachabilityUpdated___block_invoke;
-  v7[3] = &unk_278FDE6B8;
-  v7[4] = self;
-  v8 = updatedCopy;
-  [(FMFSession *)self dispatchOnDelegateQueue:v7];
-  v6 = *MEMORY[0x277D85DE8];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __41__FMFSession_networkReachabilityUpdated___block_invoke;
+  v6[3] = &unk_278FDE6B8;
+  v6[4] = self;
+  v7 = updatedCopy;
+  [(FMFSession *)self dispatchOnDelegateQueue:v6];
 }
 
 void __41__FMFSession_networkReachabilityUpdated___block_invoke(uint64_t a1)
@@ -3663,23 +3636,21 @@ void __21__FMFSession_handles__block_invoke(uint64_t a1)
 
 void __25__FMFSession_addHandles___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = LogCategory_Daemon();
+  v10 = *MEMORY[0x277D85DE8];
+  v2 = LogCategory_Daemon(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v7 = 138412546;
-    v8 = v3;
-    v9 = 2112;
-    v10 = v4;
-    _os_log_impl(&dword_24A33F000, v2, OS_LOG_TYPE_DEFAULT, "Adding handles: %@ to session: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&dword_24A33F000, v2, OS_LOG_TYPE_DEFAULT, "Adding handles: %@ to session: %@", &v6, 0x16u);
   }
 
   v5 = [*(a1 + 40) internalHandles];
   [v5 unionSet:*(a1 + 32)];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeHandles:(id)handles
@@ -3701,23 +3672,21 @@ void __25__FMFSession_addHandles___block_invoke(uint64_t a1)
 
 void __28__FMFSession_removeHandles___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = LogCategory_Daemon();
+  v10 = *MEMORY[0x277D85DE8];
+  v2 = LogCategory_Daemon(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v7 = 138412546;
-    v8 = v3;
-    v9 = 2112;
-    v10 = v4;
-    _os_log_impl(&dword_24A33F000, v2, OS_LOG_TYPE_DEFAULT, "Removing handles: %@ from session: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&dword_24A33F000, v2, OS_LOG_TYPE_DEFAULT, "Removing handles: %@ from session: %@", &v6, 0x16u);
   }
 
   v5 = [*(a1 + 40) internalHandles];
   [v5 minusSet:*(a1 + 32)];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDebugContext:(id)context
@@ -3731,7 +3700,7 @@ void __28__FMFSession_removeHandles___block_invoke(uint64_t a1)
 {
   completionCopy = completion;
   packetCopy = packet;
-  v8 = LogCategory_Daemon();
+  v8 = LogCategory_Daemon(packetCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *v10 = 0;
@@ -3745,7 +3714,7 @@ void __28__FMFSession_removeHandles___block_invoke(uint64_t a1)
 - (void)mappingPacketSendFailed:(id)failed toHandle:(id)handle withError:(id)error
 {
   errorCopy = error;
-  v6 = LogCategory_Daemon();
+  v6 = LogCategory_Daemon(errorCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     [FMFSession mappingPacketSendFailed:errorCopy toHandle:v6 withError:?];
@@ -3790,7 +3759,7 @@ void __28__FMFSession_removeHandles___block_invoke(uint64_t a1)
 
 + (BOOL)isProvisionedForLocationSharing
 {
-  v2 = objc_alloc_init(getACAccountStoreClass());
+  v2 = objc_alloc_init(getACAccountStoreClass(self, a2));
   aa_primaryAppleAccountWithPreloadedDataclasses = [v2 aa_primaryAppleAccountWithPreloadedDataclasses];
   v4 = aa_primaryAppleAccountWithPreloadedDataclasses;
   if (aa_primaryAppleAccountWithPreloadedDataclasses)
@@ -3809,7 +3778,7 @@ void __28__FMFSession_removeHandles___block_invoke(uint64_t a1)
 + (BOOL)isAnyAccountManaged
 {
   v17 = *MEMORY[0x277D85DE8];
-  v2 = objc_alloc_init(getACAccountStoreClass());
+  v2 = objc_alloc_init(getACAccountStoreClass(self, a2));
   [v2 aa_appleAccounts];
   v10 = 0u;
   v11 = 0u;
@@ -3847,15 +3816,14 @@ void __28__FMFSession_removeHandles___block_invoke(uint64_t a1)
 
 LABEL_11:
 
-  v7 = LogCategory_Daemon();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = LogCategory_Daemon(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
     v15 = v4;
-    _os_log_impl(&dword_24A33F000, v7, OS_LOG_TYPE_DEFAULT, "FMFSession: isAnyAccountManaged %d", buf, 8u);
+    _os_log_impl(&dword_24A33F000, v8, OS_LOG_TYPE_DEFAULT, "FMFSession: isAnyAccountManaged %d", buf, 8u);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -3872,16 +3840,15 @@ LABEL_11:
   v3 = +[FMFSessionDataManager sharedInstance];
   following = [v3 following];
 
-  v5 = LogCategory_Daemon();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = LogCategory_Daemon(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412290;
     v9 = following;
-    _os_log_impl(&dword_24A33F000, v5, OS_LOG_TYPE_DEFAULT, "getHandlesSharingLocationsWithMe: %@", &v8, 0xCu);
+    _os_log_impl(&dword_24A33F000, v6, OS_LOG_TYPE_DEFAULT, "getHandlesSharingLocationsWithMe: %@", &v8, 0xCu);
   }
 
   [(FMFSession *)self reloadDataIfNotLoaded];
-  v6 = *MEMORY[0x277D85DE8];
 
   return following;
 }
@@ -3892,55 +3859,51 @@ LABEL_11:
   v3 = +[FMFSessionDataManager sharedInstance];
   followers = [v3 followers];
 
-  v5 = LogCategory_Daemon();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = LogCategory_Daemon(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412290;
     v9 = followers;
-    _os_log_impl(&dword_24A33F000, v5, OS_LOG_TYPE_DEFAULT, "getHandlesFollowingMyLocation: %@", &v8, 0xCu);
+    _os_log_impl(&dword_24A33F000, v6, OS_LOG_TYPE_DEFAULT, "getHandlesFollowingMyLocation: %@", &v8, 0xCu);
   }
 
   [(FMFSession *)self reloadDataIfNotLoaded];
-  v6 = *MEMORY[0x277D85DE8];
 
   return followers;
 }
 
 - (id)getFavoritesSharingLocationWithMe
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__3;
-  v22 = __Block_byref_object_dispose__3;
-  v23 = 0;
+  v25 = *MEMORY[0x277D85DE8];
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__3;
+  v21 = __Block_byref_object_dispose__3;
+  v22 = 0;
   v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[FMFSession(Data) getFavoritesSharingLocationWithMe]"];
   v4 = [[FMFSynchronizer alloc] initWithDescription:v3 andTimeout:1.0];
   serverProxy = [(FMFSession *)self serverProxy];
-  v12 = MEMORY[0x277D85DD0];
-  v13 = 3221225472;
-  v14 = __53__FMFSession_Data__getFavoritesSharingLocationWithMe__block_invoke;
-  v15 = &unk_278FDE7E0;
-  v17 = &v18;
+  v11 = MEMORY[0x277D85DD0];
+  v12 = 3221225472;
+  v13 = __53__FMFSession_Data__getFavoritesSharingLocationWithMe__block_invoke;
+  v14 = &unk_278FDE7E0;
+  v16 = &v17;
   v6 = v4;
-  v16 = v6;
-  [serverProxy favoritesForMaxCount:0 completion:&v12];
+  v15 = v6;
+  [serverProxy favoritesForMaxCount:0 completion:&v11];
 
-  [(FMFSynchronizer *)v6 wait:v12];
-  v7 = LogCategory_Daemon();
+  v7 = LogCategory_Daemon([(FMFSynchronizer *)v6 wait:v11]);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = v19[5];
+    v8 = v18[5];
     *buf = 138412290;
-    v25 = v8;
+    v24 = v8;
     _os_log_impl(&dword_24A33F000, v7, OS_LOG_TYPE_DEFAULT, "getFavoritesSharingLocationWithMe: %@", buf, 0xCu);
   }
 
-  v9 = v19[5];
-  _Block_object_dispose(&v18, 8);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = v18[5];
+  _Block_object_dispose(&v17, 8);
 
   return v9;
 }
@@ -3965,34 +3928,34 @@ void __53__FMFSession_Data__getFavoritesSharingLocationWithMe__block_invoke(uint
     if (idCopy)
     {
       v11 = [v10 isSharingThroughGroupId:idCopy];
+      v12 = v11;
     }
 
     else
     {
-      v11 = 1;
+      v12 = 1;
     }
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  v12 = LogCategory_Daemon();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = LogCategory_Daemon(v11);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v15 = 138412802;
     v16 = handleCopy;
     v17 = 1024;
-    v18 = v11;
+    v18 = v12;
     v19 = 2112;
     v20 = idCopy;
-    _os_log_impl(&dword_24A33F000, v12, OS_LOG_TYPE_DEFAULT, "canShareLocationWithHandle: %@: %d groupId: %@", &v15, 0x1Cu);
+    _os_log_impl(&dword_24A33F000, v13, OS_LOG_TYPE_DEFAULT, "canShareLocationWithHandle: %@: %d groupId: %@", &v15, 0x1Cu);
   }
 
   [(FMFSession *)self reloadDataIfNotLoaded];
-  v13 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v12;
 }
 
 - (BOOL)canGetLocationForHandle:(id)handle groupId:(id)id callerId:(id)callerId
@@ -4008,34 +3971,34 @@ void __53__FMFSession_Data__getFavoritesSharingLocationWithMe__block_invoke(uint
     if (idCopy)
     {
       v11 = [v10 isSharingThroughGroupId:idCopy];
+      v12 = v11;
     }
 
     else
     {
-      v11 = 1;
+      v12 = 1;
     }
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  v12 = LogCategory_Daemon();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = LogCategory_Daemon(v11);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v15 = 138412802;
     v16 = handleCopy;
     v17 = 1024;
-    v18 = v11;
+    v18 = v12;
     v19 = 2112;
     v20 = idCopy;
-    _os_log_impl(&dword_24A33F000, v12, OS_LOG_TYPE_DEFAULT, "canGetLocationForHandle: %@: %d groupId: %@", &v15, 0x1Cu);
+    _os_log_impl(&dword_24A33F000, v13, OS_LOG_TYPE_DEFAULT, "canGetLocationForHandle: %@: %d groupId: %@", &v15, 0x1Cu);
   }
 
   [(FMFSession *)self reloadDataIfNotLoaded];
-  v13 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v12;
 }
 
 - (id)getHandlesWithPendingOffers
@@ -4105,17 +4068,15 @@ void __47__FMFSession_Data__getHandlesWithPendingOffers__block_invoke(uint64_t a
   v4 = +[FMFSessionDataManager sharedInstance];
   v5 = [v4 locationForHandle:handleCopy];
 
-  v6 = LogCategory_Daemon();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = LogCategory_Daemon(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412546;
     v10 = handleCopy;
     v11 = 2112;
     v12 = v5;
-    _os_log_impl(&dword_24A33F000, v6, OS_LOG_TYPE_DEFAULT, "cachedLocationForHandle: %@: %@", &v9, 0x16u);
+    _os_log_impl(&dword_24A33F000, v7, OS_LOG_TYPE_DEFAULT, "cachedLocationForHandle: %@: %@", &v9, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -4128,8 +4089,8 @@ void __47__FMFSession_Data__getHandlesWithPendingOffers__block_invoke(uint64_t a
   v9 = +[FMFSessionDataManager sharedInstance];
   v10 = [v9 offerExpirationForHandle:handleCopy groupId:idCopy];
 
-  v11 = LogCategory_Daemon();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = LogCategory_Daemon(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v14 = 138412802;
     v15 = handleCopy;
@@ -4137,24 +4098,24 @@ void __47__FMFSession_Data__getHandlesWithPendingOffers__block_invoke(uint64_t a
     v17 = idCopy;
     v18 = 2112;
     v19 = v10;
-    _os_log_impl(&dword_24A33F000, v11, OS_LOG_TYPE_DEFAULT, "getOfferExpirationForHandle: %@ groupId: %@ result:%@", &v14, 0x20u);
+    _os_log_impl(&dword_24A33F000, v12, OS_LOG_TYPE_DEFAULT, "getOfferExpirationForHandle: %@ groupId: %@ result:%@", &v14, 0x20u);
   }
 
   [(FMFSession *)self reloadDataIfNotLoaded];
-  v12 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 - (void)reloadDataIfNotLoaded
 {
-  if (![(FMFSession *)self hasModelInitialized])
+  hasModelInitialized = [(FMFSession *)self hasModelInitialized];
+  if ((hasModelInitialized & 1) == 0)
   {
-    v3 = LogCategory_Daemon();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = LogCategory_Daemon(hasModelInitialized);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_24A33F000, v3, OS_LOG_TYPE_DEFAULT, "Reloading Data - Not Loaded", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_24A33F000, v4, OS_LOG_TYPE_DEFAULT, "Reloading Data - Not Loaded", v5, 2u);
     }
 
     [(FMFSession *)self forceRefresh];
@@ -4163,73 +4124,65 @@ void __47__FMFSession_Data__getHandlesWithPendingOffers__block_invoke(uint64_t a
 
 void __47__FMFSession_Admin__getThisDeviceAndCompanion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[FMFSession(Admin) getThisDeviceAndCompanion:]_block_invoke";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_24A33F000, a2, OS_LOG_TYPE_ERROR, "%s: getAllDevices failed, error = %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[FMFSession(Admin) getThisDeviceAndCompanion:]_block_invoke";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_24A33F000, a2, OS_LOG_TYPE_ERROR, "%s: getAllDevices failed, error = %@", &v2, 0x16u);
 }
 
 void __55__FMFSession_Notifications__dataForPayload_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_24A33F000, a2, OS_LOG_TYPE_ERROR, "Error occured when getting dataForPayload for payload %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_24A33F000, a2, OS_LOG_TYPE_ERROR, "Error occured when getting dataForPayload for payload %@", &v2, 0xCu);
 }
 
 void __60__FMFSession_Establish___checkAndDisplayMeDeviceSwitchAlert__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_24A33F000, a2, OS_LOG_TYPE_ERROR, "Error while trying to get active Share My Location device: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_24A33F000, a2, OS_LOG_TYPE_ERROR, "Error while trying to get active Share My Location device: %@", &v2, 0xCu);
 }
 
 void __37__FMFSession_restoreClientConnection__block_invoke_107_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_24A33F000, v0, v1, "Failed to restore connection. %s: error: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_24A33F000, v0, v1, "Failed to restore connection. %s: error: %@", v2, v3, v4, v5, v6);
 }
 
 void __45__FMFSession_initWithDelegate_delegateQueue___block_invoke_2_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 134217984;
-  v3 = sessionCount;
-  _os_log_fault_impl(&dword_24A33F000, log, OS_LOG_TYPE_FAULT, "Too many FMFSession instances (%ld)", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 134217984;
+  v2 = sessionCount;
+  _os_log_fault_impl(&dword_24A33F000, log, OS_LOG_TYPE_FAULT, "Too many FMFSession instances (%ld)", &v1, 0xCu);
 }
 
 void __26__FMFSession___connection__block_invoke_2_348_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_24A33F000, v0, v1, "%s: error: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_24A33F000, v0, v1, "%s: error: %@", v2, v3, v4, v5, v6);
 }
 
 void __25__FMFSession_serverProxy__block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_24A33F000, v0, v1, "%s: error: %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_24A33F000, v0, v1, "%s: error: %@", v2, v3, v4, v5, v6);
 }
 
 - (void)mappingPacketSendFailed:(uint64_t)a1 toHandle:(NSObject *)a2 withError:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_24A33F000, a2, OS_LOG_TYPE_ERROR, "mappingPacketSendFailed: Error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_24A33F000, a2, OS_LOG_TYPE_ERROR, "mappingPacketSendFailed: Error: %@", &v2, 0xCu);
 }
 
 @end

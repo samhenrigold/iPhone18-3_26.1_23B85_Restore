@@ -9,13 +9,13 @@
 
 - (id)_keyMetadataForEvent:(id)event
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   eventCopy = event;
   if ([eventCopy isEqualToString:self->_opportunityEvent])
   {
     v5 = [PETStringPairs alloc];
-    v12[0] = self->_conversionEvent;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+    v11[0] = self->_conversionEvent;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
     v7 = &unk_1F5AB6CF0;
 LABEL_5:
     v8 = [(PETStringPairs *)v5 initWithKeys:v7 values:v6];
@@ -34,8 +34,6 @@ LABEL_5:
 
   v8 = 0;
 LABEL_7:
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

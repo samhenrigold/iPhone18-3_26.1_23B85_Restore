@@ -31,11 +31,11 @@
     if (!fusedNeuronDescriptor)
     {
       selfCopy = self;
-      v6 = MTLReportFailureTypeEnabled();
+      v10 = MTLReportFailureTypeEnabled();
       self = selfCopy;
-      if (v6)
+      if (v10)
       {
-        MTLReportFailure();
+        MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0x67, @"MPSNNNeuronDescriptor for fusing with convoution cannot be nil", v6, v7, v8, v9);
         self = selfCopy;
       }
     }
@@ -57,7 +57,7 @@
     selfCopy2 = self;
     if (v13)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0x71, @"For PReLU, use -setNeuronToPReLUWithParametersA:", v4, v5, v6, v7);
       selfCopy2 = self;
       *&type = v11;
     }
@@ -77,7 +77,7 @@
 {
   if (neuronType == MPSCNNNeuronTypePReLU && (v30 = *&neuronType, v31 = MTLReportFailureTypeEnabled(), *&neuronType = v30, v31))
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0x9C, @"For PReLU, use -setNeuronToPReLUWithParametersA:", v6, v7, v8, v9);
     objc_msgSend_setNeuronType_(self->_fusedNeuronDescriptor, v32, v30, v33, v34, v35, v36, v37);
   }
 
@@ -104,14 +104,14 @@
   v40 = *&type;
   if (type == 10 && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0xA8, @"For PReLU, use -setNeuronToPReLUWithParametersA:", v48, v49, v50, v51);
   }
 
   v41 = MTLReportFailureTypeEnabled();
   *&type = v40;
   if (v41)
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0xAD, @"Use -setNeuronType:parameterA:parameterB instead", v7, v8, v9, v10);
     objc_msgSend_setNeuronType_(self->_fusedNeuronDescriptor, v42, v40, v43, v44, v45, v46, v47);
   }
 
@@ -221,11 +221,11 @@ LABEL_3:
     v4 = groups;
     v5 = MTLReportFailureTypeEnabled();
     groups = v4;
-    v6 = v5;
+    v10 = v5;
     self = selfCopy;
-    if (v6)
+    if (v10)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0x119, @"Number of groups should be 1 for depthwise convolution.", v6, v7, v8, v9);
       self = selfCopy;
       groups = v4;
     }
@@ -239,70 +239,70 @@ LABEL_3:
   if (self->_inputFeatureChannels % groups)
   {
     selfCopy2 = self;
-    v13 = groups;
-    v14 = MTLReportFailureTypeEnabled();
-    groups = v13;
-    v15 = v14;
+    v21 = groups;
+    v22 = MTLReportFailureTypeEnabled();
+    groups = v21;
+    v27 = v22;
     self = selfCopy2;
-    if (v15)
+    if (v27)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0x11D, @"Number of input channels must be divisible by groups parameter", v23, v24, v25, v26);
       self = selfCopy2;
-      groups = v13;
+      groups = v21;
     }
   }
 
   if (self->_outputFeatureChannels % groups)
   {
     selfCopy3 = self;
-    v17 = groups;
-    v18 = MTLReportFailureTypeEnabled();
-    groups = v17;
-    v19 = v18;
+    v29 = groups;
+    v30 = MTLReportFailureTypeEnabled();
+    groups = v29;
+    v35 = v30;
     self = selfCopy3;
-    if (v19)
+    if (v35)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0x11E, @"Number of output channels must be divisible by groups parameter", v31, v32, v33, v34);
       self = selfCopy3;
-      groups = v17;
+      groups = v29;
     }
   }
 
-  v7 = self->_outputFeatureChannels / groups;
+  v11 = self->_outputFeatureChannels / groups;
   if (((self->_inputFeatureChannels / groups) & 3) != 0)
   {
     selfCopy4 = self;
-    v20 = groups;
-    v21 = MTLReportFailureTypeEnabled();
-    groups = v20;
-    v22 = v21;
+    v36 = groups;
+    v37 = MTLReportFailureTypeEnabled();
+    groups = v36;
+    v42 = v37;
     self = selfCopy4;
-    if (v22)
+    if (v42)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0x123, @"Number of input channels in each group must be multiple of 4", v38, v39, v40, v41);
       self = selfCopy4;
-      groups = v20;
+      groups = v36;
     }
   }
 
-  if ((v7 & 3) == 0)
+  if ((v11 & 3) == 0)
   {
     goto LABEL_3;
   }
 
   selfCopy5 = self;
-  v9 = groups;
-  v10 = MTLReportFailureTypeEnabled();
-  groups = v9;
-  v11 = v10;
+  v13 = groups;
+  v14 = MTLReportFailureTypeEnabled();
+  groups = v13;
+  v19 = v14;
   self = selfCopy5;
-  if (!v11)
+  if (!v19)
   {
     goto LABEL_3;
   }
 
-  MTLReportFailure();
-  selfCopy5->_groups = v9;
+  MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0x124, @"Number of output channels in each group must be multiple of 4", v15, v16, v17, v18);
+  selfCopy5->_groups = v13;
 }
 
 - (void)setBatchNormalizationParametersForInferenceWithMean:(const float *)mean variance:(const float *)variance gamma:(const float *)gamma beta:(const float *)beta epsilon:(const float)epsilon
@@ -818,7 +818,7 @@ LABEL_30:
 {
   if (self->_neuron_deprecated && (v78 = self, v79 = MTLReportFailureTypeEnabled(), self = v78, v79))
   {
-    MTLReportFailure();
+    MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0x28D, @"Error: can not add neuron to descriptor that already has one.", v4, v5, v6, v7);
     v9 = objc_msgSend_copyWithZone_(v78, v80, 0, v81, v82, v83, v84, v85);
   }
 
@@ -833,7 +833,7 @@ LABEL_30:
   v33 = objc_msgSend_fusedNeuronDescriptor(v17, v26, v27, v28, v29, v30, v31, v32);
   if (objc_msgSend_neuronType(v33, v34, v35, v36, v37, v38, v39, v40) && MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0x294, @"neuron already set on the convolution descriptor next layer cannot be fused", v43, v44, v45, v46);
   }
 
   objc_msgSend_setNeuronType_(v17[15], v41, info->type, v42, v43, v44, v45, v46);

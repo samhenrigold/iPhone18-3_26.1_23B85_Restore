@@ -93,7 +93,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_100659174(viewCopy);
+  sub_100659174(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 }
@@ -253,7 +253,7 @@ LABEL_8:
 
 - (void)signInController:(id)controller didCompleteWithOperationsResults:(id)results
 {
-  sub_100005744(0, &unk_10098A2C0);
+  sub_100005744(0, &unk_10098A2C0, AIDAServiceOperationResult_ptr);
   v6 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
   selfCopy = self;
@@ -271,7 +271,7 @@ LABEL_8:
 
   v4 = type metadata accessor for OSLogger();
   sub_1000056A8(v4, qword_100990928);
-  sub_10002849C(&unk_100972A10);
+  sub_10002849C(&unk_100972A10, &qword_1007B1EF0);
   type metadata accessor for LogMessage();
   *(swift_allocObject() + 16) = xmmword_1007B1890;
   static LogMessage.identity(_:)();

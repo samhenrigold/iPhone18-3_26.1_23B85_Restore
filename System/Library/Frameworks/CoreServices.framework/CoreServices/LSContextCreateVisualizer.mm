@@ -12,14 +12,14 @@ void ___LSContextCreateVisualizer_block_invoke(uint64_t a1, id *a2)
   }
 }
 
-void ___LSContextCreateVisualizer_block_invoke_17(uint64_t a1, unsigned int a2, void *a3)
+void ___LSContextCreateVisualizer_block_invoke_17(uint64_t a1, int a2, void *a3)
 {
   v9 = a2;
   std::vector<unsigned int>::push_back[abi:nn200100]((*(*(a1 + 32) + 8) + 48), &v9);
   v5 = [a3 copy];
   v6 = *(*(a1 + 40) + 8);
   v10 = &v9;
-  v7 = std::__hash_table<std::__hash_value_type<unsigned int,NSString * {__strong}>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,NSString * {__strong}>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,NSString * {__strong}>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,NSString * {__strong}>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((v6 + 48), &v9);
+  v7 = std::__hash_table<std::__hash_value_type<unsigned int,NSString * {__strong}>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,NSString * {__strong}>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,NSString * {__strong}>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,NSString * {__strong}>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((v6 + 48), &v9, &std::piecewise_construct, &v10);
   v8 = v7[3];
   v7[3] = v5;
 }

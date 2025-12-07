@@ -23,6 +23,7 @@
 - (void)addSurfacedByArticleListID:(id)d;
 - (void)applyConditionalScore:(double)score;
 - (void)applyHeadlineMetadata:(id)metadata configuration:(id)configuration;
+- (void)assignStoryType:(int)type withConfiguration:(id)configuration;
 - (void)enumerateTopicCohortsWithBlock:(id)block;
 - (void)enumerateTopicConversionStatsWithBlock:(id)block;
 - (void)markAsEvergreen;
@@ -115,7 +116,7 @@
 
 - (id)contentWithContext:(id)context
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   pptContext = [contextCopy pptContext];
   isRunningPPT = [pptContext isRunningPPT];
@@ -124,28 +125,27 @@
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Abstract method"];
+      v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Abstract method"];
       *buf = 136315906;
-      v15 = "[FCHeadline contentWithContext:]";
-      v16 = 2080;
-      v17 = "FCHeadline.m";
-      v18 = 1024;
-      v19 = 186;
-      v20 = 2114;
-      v21 = v8;
+      v14 = "[FCHeadline contentWithContext:]";
+      v15 = 2080;
+      v16 = "FCHeadline.m";
+      v17 = 1024;
+      v18 = 186;
+      v19 = 2114;
+      v20 = v7;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
-    v9 = MEMORY[0x1E695DF30];
-    v10 = *MEMORY[0x1E695D930];
-    v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@: %s", @"Abstract method", "-[FCHeadline contentWithContext:]"];
-    v12 = [v9 exceptionWithName:v10 reason:v11 userInfo:0];
-    v13 = v12;
+    v8 = MEMORY[0x1E695DF30];
+    v9 = *MEMORY[0x1E695D930];
+    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@: %s", @"Abstract method", "-[FCHeadline contentWithContext:]"];
+    v11 = [v8 exceptionWithName:v9 reason:v10 userInfo:0];
+    v12 = v11;
 
-    objc_exception_throw(v12);
+    objc_exception_throw(v11);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -239,6 +239,49 @@
 
   surfacedByArticleListIDs2 = [(FCHeadline *)self surfacedByArticleListIDs];
   [surfacedByArticleListIDs2 addObject:dCopy];
+}
+
+- (void)assignStoryType:(int)type withConfiguration:(id)configuration
+{
+  v4 = *&type;
+  configurationCopy = configuration;
+  if (v4 != 5)
+  {
+    date = [MEMORY[0x1E695DF00] date];
+    publishDate = [(FCHeadline *)self publishDate];
+    [date timeIntervalSinceDate:publishDate];
+    v9 = v8;
+    topStoriesConfig = [configurationCopy topStoriesConfig];
+    storyTypeTimeout = [topStoriesConfig storyTypeTimeout];
+
+    if (v9 < storyTypeTimeout)
+    {
+      v4 = v4;
+    }
+
+    else
+    {
+      v4 = 0;
+    }
+  }
+
+  if (v4 != [(FCHeadline *)self storyType])
+  {
+    [(FCHeadline *)self setStoryType:v4];
+    if (v4)
+    {
+      topStoriesConfig2 = [configurationCopy topStoriesConfig];
+      styleConfigurations = [topStoriesConfig2 styleConfigurations];
+      v14 = [MEMORY[0x1E696AD98] numberWithInt:v4];
+      v15 = [styleConfigurations objectForKey:v14];
+      [(FCHeadline *)self setStoryStyle:v15];
+    }
+
+    else
+    {
+      [(FCHeadline *)self setStoryStyle:0];
+    }
+  }
 }
 
 - (void)applyHeadlineMetadata:(id)metadata configuration:(id)configuration
@@ -382,84 +425,80 @@
 
 - (void)enumerateTopicCohortsWithBlock:(id)block
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   if (blockCopy)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     topics = [(FCHeadline *)self topics];
-    v6 = [topics countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v6 = [topics countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v15;
+      v8 = *v14;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v15 != v8)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(topics);
           }
 
-          v10 = *(*(&v14 + 1) + 8 * i);
+          v10 = *(*(&v13 + 1) + 8 * i);
           tagID = [v10 tagID];
           cohorts = [v10 cohorts];
           blockCopy[2](blockCopy, tagID, cohorts);
         }
 
-        v7 = [topics countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [topics countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v7);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enumerateTopicConversionStatsWithBlock:(id)block
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   if (blockCopy)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     topics = [(FCHeadline *)self topics];
-    v6 = [topics countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v6 = [topics countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v15;
+      v8 = *v14;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v15 != v8)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(topics);
           }
 
-          v10 = *(*(&v14 + 1) + 8 * i);
+          v10 = *(*(&v13 + 1) + 8 * i);
           tagID = [v10 tagID];
           conversionStats = [v10 conversionStats];
           blockCopy[2](blockCopy, tagID, conversionStats);
         }
 
-        v7 = [topics countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [topics countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v7);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isFullTrackAvailableToAll

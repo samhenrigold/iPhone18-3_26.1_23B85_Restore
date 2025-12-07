@@ -52,7 +52,8 @@
   }
 
   v9 = +[PHInCallUIUtilities isSpringBoardPasscodeLocked];
-  if (![(TUCall *)self isIncoming])
+  isIncoming = [(TUCall *)self isIncoming];
+  if (!isIncoming)
   {
     if (v9)
     {
@@ -60,11 +61,13 @@
     }
 
 LABEL_10:
-    v4 = [(TUCall *)self isConversation]^ 1 | isOneToOneModeEnabled;
+    isIncoming = [(TUCall *)self isConversation];
+    v4 = isIncoming ^ 1 | isOneToOneModeEnabled;
     goto LABEL_11;
   }
 
-  if (!(v9 & 1 | (([(TUCall *)self isConnecting]& 1) == 0)))
+  isIncoming = [(TUCall *)self isConnecting];
+  if (!(v9 & 1 | ((isIncoming & 1) == 0)))
   {
     goto LABEL_10;
   }
@@ -72,26 +75,26 @@ LABEL_10:
 LABEL_8:
   v4 = 0;
 LABEL_11:
-  v10 = PHDefaultLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = PHDefaultLog(isIncoming);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67110912;
-    v13 = v4 & 1;
-    v14 = 1024;
+    v14 = v4 & 1;
+    v15 = 1024;
     disconnectedReason2 = [(TUCall *)self disconnectedReason];
-    v16 = 1024;
-    isIncoming = [(TUCall *)self isIncoming];
-    v18 = 1024;
+    v17 = 1024;
+    isIncoming2 = [(TUCall *)self isIncoming];
+    v19 = 1024;
     isConnecting = [(TUCall *)self isConnecting];
-    v20 = 1024;
-    v21 = v9;
-    v22 = 1024;
+    v21 = 1024;
+    v22 = v9;
+    v23 = 1024;
     isConversation = [(TUCall *)self isConversation];
-    v24 = 1024;
-    v25 = isOneToOneModeEnabled;
-    v26 = 1024;
-    v27 = v6 == 0;
-    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "disconnectedReasonRequiresCallBackUI = %d (disconnectedReason: %d, isIncoming: %d, isConnecting: %d, isSpringBoardPasscodeLocked: %d, isConversation: %d, isOneToOneModeEnabled: %d, conversationIsNil: %d)", buf, 0x32u);
+    v25 = 1024;
+    v26 = isOneToOneModeEnabled;
+    v27 = 1024;
+    v28 = v6 == 0;
+    _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "disconnectedReasonRequiresCallBackUI = %d (disconnectedReason: %d, isIncoming: %d, isConnecting: %d, isSpringBoardPasscodeLocked: %d, isConversation: %d, isOneToOneModeEnabled: %d, conversationIsNil: %d)", buf, 0x32u);
   }
 
   return v4 & 1;
@@ -176,44 +179,50 @@ LABEL_11:
   v4 = +[LSApplicationWorkspace defaultWorkspace];
   v5 = [v4 applicationsForUserActivityType:@"INSendMessageIntent"];
 
-  v17 = 0u;
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
+  v17 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v21 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v22 count:16];
+  v8 = v7;
   if (v7)
   {
-    v8 = *v16;
+    v9 = *v17;
     while (2)
     {
-      for (i = 0; i != v7; i = i + 1)
+      v10 = 0;
+      do
       {
-        if (*v16 != v8)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
-        v11 = PHDefaultLog();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v11 = *(*(&v16 + 1) + 8 * v10);
+        v12 = PHDefaultLog(v7);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v20 = v10;
-          _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "application %@", buf, 0xCu);
+          v21 = v11;
+          _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "application %@", buf, 0xCu);
         }
 
-        bundleIdentifier2 = [v10 bundleIdentifier];
-        v13 = [bundleIdentifier2 isEqualToString:bundleIdentifier];
+        bundleIdentifier2 = [v11 bundleIdentifier];
+        v14 = [bundleIdentifier2 isEqualToString:bundleIdentifier];
 
-        if (v13)
+        if (v14)
         {
-          LOBYTE(v7) = 1;
+          LOBYTE(v8) = 1;
           goto LABEL_13;
         }
+
+        v10 = v10 + 1;
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v15 objects:v21 count:16];
+      while (v8 != v10);
+      v7 = [v6 countByEnumeratingWithState:&v16 objects:v22 count:16];
+      v8 = v7;
       if (v7)
       {
         continue;
@@ -225,7 +234,7 @@ LABEL_11:
 
 LABEL_13:
 
-  return v7;
+  return v8;
 }
 
 - (BOOL)hasSendCustomMessageCapability
@@ -251,7 +260,7 @@ LABEL_13:
   {
 
 LABEL_13:
-    v17 = 0;
+    v18 = 0;
     goto LABEL_14;
   }
 
@@ -271,8 +280,8 @@ LABEL_13:
   if (([sendMessageIntentExtension_hasQueriedSendMessageIntentExtensionsCache containsObject:self] & 1) == 0)
   {
     [sendMessageIntentExtension_hasQueriedSendMessageIntentExtensionsCache addObject:self];
-    v35 = @"INSendMessageIntent";
-    v6 = [NSArray arrayWithObjects:&v35 count:1];
+    v36 = @"INSendMessageIntent";
+    v6 = [NSArray arrayWithObjects:&v36 count:1];
     v7 = [NSExtension _intents_extensionMatchingAttributesForIntents:v6];
     v8 = [v7 mutableCopy];
 
@@ -281,49 +290,49 @@ LABEL_13:
     path = [bundleURL2 path];
     [v8 setObject:path forKeyedSubscript:NSExtensionContainingAppName];
 
-    v25 = 0;
-    v26 = &v25;
-    v27 = 0x3032000000;
-    v28 = __Block_byref_object_copy__0;
-    v29 = __Block_byref_object_dispose__0;
-    v30 = 0;
+    v26 = 0;
+    v27 = &v26;
+    v28 = 0x3032000000;
+    v29 = __Block_byref_object_copy__0;
+    v30 = __Block_byref_object_dispose__0;
+    v31 = 0;
     v12 = dispatch_semaphore_create(0);
-    v13 = PHDefaultLog();
+    v13 = PHDefaultLog(v12);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v32 = v8;
+      v33 = v8;
       _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Looking up send message intent extension using attributes: %@", buf, 0xCu);
     }
 
-    v19 = _NSConcreteStackBlock;
-    v20 = 3221225472;
-    v21 = __51__TUCall_PHUIUtilities__sendMessageIntentExtension__block_invoke_38;
-    v22 = &unk_4C838;
-    v24 = &v25;
+    v20 = _NSConcreteStackBlock;
+    v21 = 3221225472;
+    v22 = __51__TUCall_PHUIUtilities__sendMessageIntentExtension__block_invoke_38;
+    v23 = &unk_4C838;
+    v25 = &v26;
     v14 = v12;
-    v23 = v14;
-    [NSExtension extensionsWithMatchingAttributes:v8 completion:&v19];
-    dispatch_semaphore_wait(v14, 0xFFFFFFFFFFFFFFFFLL);
-    v15 = PHDefaultLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v24 = v14;
+    [NSExtension extensionsWithMatchingAttributes:v8 completion:&v20];
+    v15 = dispatch_semaphore_wait(v14, 0xFFFFFFFFFFFFFFFFLL);
+    v16 = PHDefaultLog(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = v26[5];
+      v17 = v27[5];
       *buf = 138412546;
-      v32 = v16;
-      v33 = 2112;
+      v33 = v17;
+      v34 = 2112;
       selfCopy = self;
-      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "Found send message intent extension %@ for call %@", buf, 0x16u);
+      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "Found send message intent extension %@ for call %@", buf, 0x16u);
     }
 
-    [sendMessageIntentExtension_sendMessageIntentExtensionsCache setObject:v26[5] forKey:{self, v19, v20, v21, v22}];
-    _Block_object_dispose(&v25, 8);
+    [sendMessageIntentExtension_sendMessageIntentExtensionsCache setObject:v27[5] forKey:{self, v20, v21, v22, v23}];
+    _Block_object_dispose(&v26, 8);
   }
 
-  v17 = [sendMessageIntentExtension_sendMessageIntentExtensionsCache objectForKey:self];
+  v18 = [sendMessageIntentExtension_sendMessageIntentExtensionsCache objectForKey:self];
 LABEL_14:
 
-  return v17;
+  return v18;
 }
 
 void __51__TUCall_PHUIUtilities__sendMessageIntentExtension__block_invoke(id a1)
@@ -343,7 +352,7 @@ void __51__TUCall_PHUIUtilities__sendMessageIntentExtension__block_invoke_38(uin
   v6 = v5;
   if (!a2 || v5)
   {
-    v10 = PHDefaultLog();
+    v10 = PHDefaultLog(v5);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __51__TUCall_PHUIUtilities__sendMessageIntentExtension__block_invoke_38_cold_1();

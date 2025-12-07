@@ -139,7 +139,7 @@
   return v2;
 }
 
-uint64_t __33__PLLibraryServicesManager_state__block_invoke(uint64_t a1)
+void *__33__PLLibraryServicesManager_state__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _state];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -244,9 +244,9 @@ void __77__PLLibraryServicesManager_isBackgroundAppRefreshEnabledForBundleIdenti
   }
 }
 
-void __77__PLLibraryServicesManager_isBackgroundAppRefreshEnabledForBundleIdentifier___block_invoke_2(uint64_t a1)
+void __77__PLLibraryServicesManager_isBackgroundAppRefreshEnabledForBundleIdentifier___block_invoke_2(uint64_t a1, char a2, char a3)
 {
-  v1 = *(a1 + 40);
+  v3 = *(a1 + 40);
   PLRunWithUnfairLock();
 }
 
@@ -734,29 +734,29 @@ void __57__PLLibraryServicesManager__setCameraRollCountedInQuota___block_invoke(
   PLSafeRunWithUnfairLock();
 }
 
-void __80__PLLibraryServicesManager_performFileSystemAssetImporterWorkWithLibrary_block___block_invoke(uint64_t a1)
+void __80__PLLibraryServicesManager_performFileSystemAssetImporterWorkWithLibrary_block___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = PLLibraryServicesGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v12 = *MEMORY[0x1E69E9840];
+  v3 = PLLibraryServicesGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = [*(a1 + 32) logPrefix];
-    v4 = *(a1 + 40);
-    v7 = 138543618;
-    v8 = v3;
-    v9 = 2112;
-    v10 = v4;
-    _os_log_impl(&dword_19BF1F000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Starting file system asset importer work block on library %@", &v7, 0x16u);
+    v4 = [*(a1 + 32) logPrefix];
+    v5 = *(a1 + 40);
+    v8 = 138543618;
+    v9 = v4;
+    v10 = 2112;
+    v11 = v5;
+    _os_log_impl(&dword_19BF1F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Starting file system asset importer work block on library %@", &v8, 0x16u);
   }
 
   (*(*(a1 + 56) + 16))();
-  v5 = PLLibraryServicesGetLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = PLLibraryServicesGetLog();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = [*(a1 + 32) logPrefix];
-    v7 = 138543362;
-    v8 = v6;
-    _os_log_impl(&dword_19BF1F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Completed file system asset importer work block", &v7, 0xCu);
+    v7 = [*(a1 + 32) logPrefix];
+    v8 = 138543362;
+    v9 = v7;
+    _os_log_impl(&dword_19BF1F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Completed file system asset importer work block", &v8, 0xCu);
   }
 }
 
@@ -1244,7 +1244,7 @@ void __69__PLLibraryServicesManager__handleLibraryStateCompletedAllOperations__b
   if (PLCanMoveFromSourceStateToTargetState())
   {
     activeOperations = [(PLLibraryServicesManager *)self activeOperations];
-    v8 = [activeOperations count];
+    v8 = objc_msgSend_count(activeOperations);
 
     if (!v8)
     {
@@ -1333,7 +1333,7 @@ LABEL_9:
   [(PLLibraryServicesManager *)self _invalidate:v9];
 }
 
-uint64_t __60__PLLibraryServicesManager_deactivateWithInvalidationError___block_invoke(uint64_t a1)
+void *__60__PLLibraryServicesManager_deactivateWithInvalidationError___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setActive:0];
   if (*(a1 + 40))
@@ -1719,23 +1719,23 @@ void __52__PLLibraryServicesManager_transitionToState_error___block_invoke(uint6
   return v12;
 }
 
-void __50__PLLibraryServicesManager__enqueueAwaitOperation__block_invoke(uint64_t a1)
+void __50__PLLibraryServicesManager__enqueueAwaitOperation__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v2 = PLLibraryServicesGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v13 = *MEMORY[0x1E69E9840];
+  v3 = PLLibraryServicesGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = [*(a1 + 32) logPrefix];
-    v4 = PLStringFromLibraryServicesState();
+    v4 = [*(a1 + 32) logPrefix];
+    v5 = PLStringFromLibraryServicesState();
     qos_class_self();
-    v5 = PLStringFromQoSClass();
-    v6 = 138543874;
-    v7 = v3;
-    v8 = 2114;
-    v9 = v4;
-    v10 = 2114;
-    v11 = v5;
-    _os_log_impl(&dword_19BF1F000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Running await block, state before enqueue: %{public}@ at QoS: %{public}@)", &v6, 0x20u);
+    v6 = PLStringFromQoSClass();
+    v7 = 138543874;
+    v8 = v4;
+    v9 = 2114;
+    v10 = v5;
+    v11 = 2114;
+    v12 = v6;
+    _os_log_impl(&dword_19BF1F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Running await block, state before enqueue: %{public}@ at QoS: %{public}@)", &v7, 0x20u);
   }
 }
 
@@ -2513,9 +2513,9 @@ LABEL_13:
 {
   nameCopy = name;
   v5 = +[PLComputeCacheManager name];
-  v6 = [nameCopy isEqualToString:v5];
+  isEqualToString = objc_msgSend_isEqualToString_(nameCopy);
 
-  if (v6)
+  if (isEqualToString)
   {
     [(PLLibraryServicesManager *)self computeCacheManager];
   }
@@ -3358,7 +3358,7 @@ void __53__PLLibraryServicesManager_updateSavedLocaleIfNeeded__block_invoke(uint
 
   if (v5)
   {
-    if ([v5 isEqualToString:v7])
+    if (objc_msgSend_isEqualToString_(v5))
     {
       goto LABEL_9;
     }
@@ -4554,7 +4554,7 @@ id __109__PLLibraryServicesManager_initWithLibraryBundle_backgroundJobService_ca
 
 - (id)statusDescription
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   activeOperations = [(PLLibraryServicesManager *)self activeOperations];
   pendingOperations = [(PLLibraryServicesManager *)self pendingOperations];
   v5 = MEMORY[0x1E696AD60];
@@ -4563,96 +4563,97 @@ id __109__PLLibraryServicesManager_initWithLibraryBundle_backgroundJobService_ca
   currentStateNode = [(PLLibraryServicesManager *)self currentStateNode];
   [currentStateNode state];
   v9 = PLStringFromLibraryServicesState();
-  v10 = [v5 stringWithFormat:@"%@ [%@, %d active, %d pending]\n", path, v9, objc_msgSend(activeOperations, "count"), objc_msgSend(pendingOperations, "count")];
+  v10 = objc_msgSend_count(activeOperations);
+  v11 = [v5 stringWithFormat:@"%@ [%@, %d active, %d pending]\n", path, v9, v10, objc_msgSend_count(pendingOperations)];
 
-  v28 = activeOperations;
-  if ([activeOperations count])
+  v29 = activeOperations;
+  if (objc_msgSend_count(activeOperations))
   {
-    [v10 appendFormat:@"  Active operations\n"];
-    v35 = 0u;
+    [v11 appendFormat:@"  Active operations\n"];
     v36 = 0u;
-    v33 = 0u;
+    v37 = 0u;
     v34 = 0u;
-    v11 = activeOperations;
-    v12 = [v11 countByEnumeratingWithState:&v33 objects:v38 count:16];
-    if (v12)
+    v35 = 0u;
+    v12 = activeOperations;
+    v13 = [v12 countByEnumeratingWithState:&v34 objects:v39 count:16];
+    if (v13)
     {
-      v13 = v12;
-      v14 = 0;
-      v15 = *v34;
+      v14 = v13;
+      v15 = 0;
+      v16 = *v35;
       do
       {
-        v16 = 0;
-        v17 = v14;
+        v17 = 0;
+        v18 = v15;
         do
         {
-          if (*v34 != v15)
+          if (*v35 != v16)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v12);
           }
 
-          v14 = (v17 + 1);
-          statusDescription = [*(*(&v33 + 1) + 8 * v16) statusDescription];
-          [v10 appendFormat:@"  %d: %@\n", v17, statusDescription];
+          v15 = (v18 + 1);
+          statusDescription = [*(*(&v34 + 1) + 8 * v17) statusDescription];
+          [v11 appendFormat:@"  %d: %@\n", v18, statusDescription];
 
-          ++v16;
-          v17 = v14;
+          ++v17;
+          v18 = v15;
         }
 
-        while (v13 != v16);
-        v13 = [v11 countByEnumeratingWithState:&v33 objects:v38 count:16];
+        while (v14 != v17);
+        v14 = [v12 countByEnumeratingWithState:&v34 objects:v39 count:16];
       }
 
-      while (v13);
+      while (v14);
     }
 
-    activeOperations = v28;
+    activeOperations = v29;
   }
 
-  if ([pendingOperations count])
+  if (objc_msgSend_count(pendingOperations))
   {
-    [v10 appendFormat:@"  Pending operations\n"];
-    v31 = 0u;
+    [v11 appendFormat:@"  Pending operations\n"];
     v32 = 0u;
-    v29 = 0u;
+    v33 = 0u;
     v30 = 0u;
-    v19 = pendingOperations;
-    v20 = [v19 countByEnumeratingWithState:&v29 objects:v37 count:16];
-    if (v20)
+    v31 = 0u;
+    v20 = pendingOperations;
+    v21 = [v20 countByEnumeratingWithState:&v30 objects:v38 count:16];
+    if (v21)
     {
-      v21 = v20;
-      v22 = 0;
-      v23 = *v30;
+      v22 = v21;
+      v23 = 0;
+      v24 = *v31;
       do
       {
-        v24 = 0;
-        v25 = v22;
+        v25 = 0;
+        v26 = v23;
         do
         {
-          if (*v30 != v23)
+          if (*v31 != v24)
           {
-            objc_enumerationMutation(v19);
+            objc_enumerationMutation(v20);
           }
 
-          v22 = (v25 + 1);
-          statusDescription2 = [*(*(&v29 + 1) + 8 * v24) statusDescription];
-          [v10 appendFormat:@"  %d: %@\n", v25, statusDescription2];
+          v23 = (v26 + 1);
+          statusDescription2 = [*(*(&v30 + 1) + 8 * v25) statusDescription];
+          [v11 appendFormat:@"  %d: %@\n", v26, statusDescription2];
 
-          ++v24;
-          v25 = v22;
+          ++v25;
+          v26 = v23;
         }
 
-        while (v21 != v24);
-        v21 = [v19 countByEnumeratingWithState:&v29 objects:v37 count:16];
+        while (v22 != v25);
+        v22 = [v20 countByEnumeratingWithState:&v30 objects:v38 count:16];
       }
 
-      while (v21);
+      while (v22);
     }
 
-    activeOperations = v28;
+    activeOperations = v29;
   }
 
-  return v10;
+  return v11;
 }
 
 - (NSString)description
@@ -4672,9 +4673,9 @@ id __109__PLLibraryServicesManager_initWithLibraryBundle_backgroundJobService_ca
   infoCopy = info;
   domain = [errorCopy domain];
   v8 = *MEMORY[0x1E69BFF48];
-  v9 = [domain isEqualToString:*MEMORY[0x1E69BFF48]];
+  isEqualToString = objc_msgSend_isEqualToString_(domain);
 
-  if (v9)
+  if (isEqualToString)
   {
     v10 = errorCopy;
   }

@@ -79,7 +79,7 @@
   {
     self->_deviceAuthenticated = authenticated;
     self->_summary = 0;
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](self);
   }
 }
 
@@ -98,39 +98,39 @@
     }
 
     notificationRequests = self->_notificationRequests;
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __47__NCNotificationSummaryContentProvider_summary__block_invoke;
-    v33[3] = &unk_2783705B0;
-    v33[4] = self;
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __47__NCNotificationSummaryContentProvider_summary__block_invoke;
+    v34[3] = &unk_2783705B0;
+    v34[4] = self;
     v9 = v5;
-    v34 = v9;
-    [(NSArray *)notificationRequests enumerateObjectsUsingBlock:v33];
+    v35 = v9;
+    [(NSArray *)notificationRequests enumerateObjectsUsingBlock:v34];
     v10 = [v9 count];
-    v27 = 0;
-    v28 = &v27;
-    v29 = 0x3032000000;
-    v30 = __Block_byref_object_copy__10;
-    v31 = __Block_byref_object_dispose__10;
-    v32 = &stru_282FE84F8;
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x3032000000;
+    v31 = __Block_byref_object_copy__10;
+    v32 = __Block_byref_object_dispose__10;
+    v33 = &stru_282FE84F8;
     v11 = v10 - maxNumberOfSummaryItems;
     if (v10 <= maxNumberOfSummaryItems)
     {
       v12 = [MEMORY[0x277CCAAF0] localizedStringByJoiningStrings:v9];
-      v13 = v28[5];
-      v28[5] = v12;
+      v13 = v29[5];
+      v29[5] = v12;
     }
 
     else
     {
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __47__NCNotificationSummaryContentProvider_summary__block_invoke_6;
-      v26[3] = &unk_278372470;
-      v26[4] = &v27;
-      v26[5] = v10;
-      v26[6] = maxNumberOfSummaryItems;
-      [v9 enumerateObjectsUsingBlock:v26];
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __47__NCNotificationSummaryContentProvider_summary__block_invoke_6;
+      v27[3] = &unk_278372470;
+      v27[4] = &v28;
+      v27[5] = v10;
+      v27[6] = maxNumberOfSummaryItems;
+      [v9 enumerateObjectsUsingBlock:v27];
     }
 
     if (v11 >= 1)
@@ -139,23 +139,23 @@
       v15 = [MEMORY[0x277CCABB0] numberWithInteger:v11];
       v16 = [v14 localizedStringFromNumber:v15 numberStyle:0];
 
-      v17 = v28[5];
+      v17 = v29[5];
       v18 = MEMORY[0x277CCACA8];
-      v19 = NCUserNotificationsUIKitFrameworkBundle();
-      v20 = [v19 localizedStringForKey:@"NOTIFICATION_SUMMARY_COUNT" value:&stru_282FE84F8 table:0];
-      v21 = [v18 stringWithFormat:v20, v16];
-      v22 = [v17 stringByAppendingFormat:@" %@", v21];
-      v23 = v28[5];
-      v28[5] = v22;
+      v20 = NCUserNotificationsUIKitFrameworkBundle(v19);
+      v21 = [v20 localizedStringForKey:@"NOTIFICATION_SUMMARY_COUNT" value:&stru_282FE84F8 table:0];
+      v22 = [v18 stringWithFormat:v21, v16];
+      v23 = [v17 stringByAppendingFormat:@" %@", v22];
+      v24 = v29[5];
+      v29[5] = v23;
     }
 
-    objc_storeStrong(p_summary, v28[5]);
-    _Block_object_dispose(&v27, 8);
+    objc_storeStrong(p_summary, v29[5]);
+    _Block_object_dispose(&v28, 8);
   }
 
-  v24 = *p_summary;
+  v25 = *p_summary;
 
-  return v24;
+  return v25;
 }
 
 uint64_t __47__NCNotificationSummaryContentProvider_summary__block_invoke(uint64_t a1, uint64_t a2)
@@ -181,42 +181,42 @@ void __47__NCNotificationSummaryContentProvider_summary__block_invoke_6(void *a1
   v11 = *(v10 + 40);
   *(v10 + 40) = v9;
 
-  v12 = a1[5];
-  if (v12 - 1 <= a3)
+  v13 = a1[5];
+  if (v13 - 1 <= a3)
   {
-    v14 = a3 + 1;
+    v15 = a3 + 1;
   }
 
   else
   {
-    v13 = a1[6];
-    v14 = a3 + 1;
-    if (v13 > a3 && v14 != v13)
+    v14 = a1[6];
+    v15 = a3 + 1;
+    if (v14 > a3 && v15 != v14)
     {
-      v16 = v12 - 2;
-      v17 = *(a1[4] + 8);
-      v18 = *(v17 + 40);
-      if (v16 == a3)
+      v17 = v13 - 2;
+      v18 = *(a1[4] + 8);
+      v19 = *(v18 + 40);
+      if (v17 == a3)
       {
-        [*(v17 + 40) stringByAppendingString:@" "];
+        [*(v18 + 40) stringByAppendingString:@" "];
       }
 
       else
       {
-        v4 = NCUserNotificationsUIKitFrameworkBundle();
+        v4 = NCUserNotificationsUIKitFrameworkBundle(v12);
         v5 = [v4 localizedStringForKey:@"NOTIFICATION_SUMMARY_CONNECTOR_COMMA" value:&stru_282FE84F8 table:0];
-        [v18 stringByAppendingString:v5];
+        [v19 stringByAppendingString:v5];
       }
-      v19 = ;
-      objc_storeStrong((*(a1[4] + 8) + 40), v19);
+      v20 = ;
+      objc_storeStrong((*(a1[4] + 8) + 40), v20);
 
-      if (v16 != a3)
+      if (v17 != a3)
       {
       }
     }
   }
 
-  if (v14 == a1[6])
+  if (v15 == a1[6])
   {
     *a4 = 1;
   }

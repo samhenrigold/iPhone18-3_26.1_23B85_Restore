@@ -73,8 +73,9 @@
 {
   if (self->_invalidateCalled)
   {
-    NSAppendPrintF();
-    v3 = 0;
+    v15 = 0;
+    NSAppendPrintF(&v15, ", Invalidated");
+    v3 = v15;
   }
 
   else
@@ -84,35 +85,54 @@
 
   if (self->_activeScan)
   {
-    NSAppendPrintF();
-    v4 = v3;
+    v14 = v3;
+    NSAppendPrintF(&v14, ", ActiveScan");
+    v4 = v14;
 
     v3 = v4;
   }
 
   if (self->_needDups)
   {
-    NSAppendPrintF();
-    v5 = v3;
+    v13 = v3;
+    NSAppendPrintF(&v13, ", NeedDups");
+    v5 = v13;
 
     v3 = v5;
   }
 
   if (self->_scanCache)
   {
-    NSAppendPrintF();
-    v6 = v3;
+    v12 = v3;
+    NSAppendPrintF(&v12, ", ScanCache");
+    v6 = v12;
 
     v3 = v6;
   }
 
-  if (self->_payloadFilterData || self->_payloadFilterMask)
+  payloadFilterData = self->_payloadFilterData;
+  payloadFilterMask = self->_payloadFilterMask;
+  if (!payloadFilterData)
   {
-    NSAppendPrintF();
-    v7 = v3;
+    if (!payloadFilterMask)
+    {
+      goto LABEL_16;
+    }
 
-    v3 = v7;
+    payloadFilterData = &stru_100B0F9E0;
   }
+
+  v11 = v3;
+  if (!payloadFilterMask)
+  {
+    payloadFilterMask = &stru_100B0F9E0;
+  }
+
+  NSAppendPrintF(&v11, ", blob <%@>/<%@>", payloadFilterData, payloadFilterMask);
+  v9 = v11;
+
+  v3 = v9;
+LABEL_16:
 
   return v3;
 }
@@ -532,7 +552,7 @@ LABEL_13:
     {
       timeout = self->_timeout;
       *buf = 134217984;
-      v13 = timeout;
+      v15 = timeout;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "[BTVCLinkScanner] Start timeout timer for %f seconds\n", buf, 0xCu);
     }
 
@@ -540,22 +560,22 @@ LABEL_13:
     timeoutTimer = self->_timeoutTimer;
     self->_timeoutTimer = v5;
 
-    v7 = self->_timeoutTimer;
-    if (!v7)
+    v9 = self->_timeoutTimer;
+    if (!v9)
     {
-      sub_100850F00();
+      sub_100850F00(v7, v8);
     }
 
-    v8 = (self->_timeout * 1000000000.0);
-    v9 = dispatch_time(0, v8);
-    dispatch_source_set_timer(v7, v9, v8, v8 >> 2);
-    v10 = self->_timeoutTimer;
+    v10 = (self->_timeout * 1000000000.0);
+    v11 = dispatch_time(0, v10);
+    dispatch_source_set_timer(v9, v11, v10, v10 >> 2);
+    v12 = self->_timeoutTimer;
     handler[0] = _NSConcreteStackBlock;
     handler[1] = 3221225472;
     handler[2] = sub_10060105C;
     handler[3] = &unk_100ADF820;
     handler[4] = self;
-    dispatch_source_set_event_handler(v10, handler);
+    dispatch_source_set_event_handler(v12, handler);
     dispatch_resume(self->_timeoutTimer);
   }
 }

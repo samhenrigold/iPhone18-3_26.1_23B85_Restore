@@ -9,7 +9,7 @@
 - (ADDisparityToDepthFitWorldPoint)getPointFromContainer:(int)container
 {
   v5 = v3;
-  DisparityToDepth::WorldPointsContainer::vector(self->_worldPoints.__ptr_, &v10);
+  DisparityToDepth::WorldPointsContainer::vector(&v10, self->_worldPoints.__ptr_);
   v6 = v10;
   v7 = v11;
   if (v10 == v11)
@@ -52,7 +52,7 @@ LABEL_5:
 
 - (unint64_t)size
 {
-  DisparityToDepth::WorldPointsContainer::vector(self->_worldPoints.__ptr_, v5);
+  DisparityToDepth::WorldPointsContainer::vector(v5, self->_worldPoints.__ptr_);
   v2 = v5[0];
   v3 = v5[1];
   if (v5[0])

@@ -68,7 +68,7 @@ LABEL_14:
 
 - (id)jsonDictionary
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   term = [(BMIntelligencePlatformMessageTermsTermCount *)self term];
   jsonDictionary = [term jsonDictionary];
 
@@ -82,23 +82,23 @@ LABEL_14:
     v5 = 0;
   }
 
-  v11[0] = @"term";
+  v10[0] = @"term";
   null = jsonDictionary;
   if (!jsonDictionary)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v11[1] = @"termCount";
-  v12[0] = null;
+  v10[1] = @"termCount";
+  v11[0] = null;
   null2 = v5;
   if (!v5)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[1] = null2;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v11[1] = null2;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
   if (v5)
   {
     if (jsonDictionary)
@@ -117,14 +117,13 @@ LABEL_14:
   }
 
 LABEL_10:
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (BMIntelligencePlatformMessageTermsTermCount)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"term"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -137,15 +136,15 @@ LABEL_10:
   if (objc_opt_isKindOfClass())
   {
     v10 = v7;
-    v22 = 0;
-    v8 = [[BMIntelligencePlatformMessageTermsTermCountTerm alloc] initWithJSONDictionary:v10 error:&v22];
-    v14 = v22;
-    if (v14)
+    v21 = 0;
+    v8 = [[BMIntelligencePlatformMessageTermsTermCountTerm alloc] initWithJSONDictionary:v10 error:&v21];
+    v13 = v21;
+    if (v13)
     {
       if (error)
       {
-        v14 = v14;
-        *error = v14;
+        v13 = v13;
+        *error = v13;
       }
 
       selfCopy = 0;
@@ -161,13 +160,13 @@ LABEL_4:
       {
         if (error)
         {
-          v18 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v19 = *MEMORY[0x1E698F240];
-          v23 = *MEMORY[0x1E696A578];
-          v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"termCount"];
-          v24 = v20;
-          v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
-          *error = [v18 initWithDomain:v19 code:2 userInfo:v21];
+          v17 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v18 = *MEMORY[0x1E698F240];
+          v22 = *MEMORY[0x1E696A578];
+          v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"termCount"];
+          v23 = v19;
+          v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+          *error = [v17 initWithDomain:v18 code:2 userInfo:v20];
         }
 
         v10 = 0;
@@ -196,19 +195,18 @@ LABEL_8:
     goto LABEL_10;
   }
 
-  v15 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v16 = *MEMORY[0x1E698F240];
-  v25 = *MEMORY[0x1E696A578];
+  v14 = objc_alloc(MEMORY[0x1E696ABC0]);
+  v15 = *MEMORY[0x1E698F240];
+  v24 = *MEMORY[0x1E696A578];
   v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"term"];
-  v26[0] = v8;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
-  v17 = [v15 initWithDomain:v16 code:2 userInfo:v10];
+  v25[0] = v8;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+  v16 = [v14 initWithDomain:v15 code:2 userInfo:v10];
   selfCopy = 0;
-  *error = v17;
+  *error = v16;
 LABEL_9:
 
 LABEL_10:
-  v12 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -233,7 +231,6 @@ LABEL_10:
 
   if (self->_hasTermCount)
   {
-    termCount = self->_termCount;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -441,40 +438,36 @@ LABEL_41:
 
 + (id)protoFields
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"term" number:1 type:14 subMessageClass:objc_opt_class()];
-  v7[0] = v2;
+  v6[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"termCount" number:2 type:2 subMessageClass:0];
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }
 
 + (id)columns
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"term_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_173];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"termCount" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:2 convertedType:0];
-  v7[0] = v2;
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }
 
-id __54__BMIntelligencePlatformMessageTermsTermCount_columns__block_invoke(uint64_t a1, void *a2)
+id __54__BMIntelligencePlatformMessageTermsTermCount_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 term];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 term];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

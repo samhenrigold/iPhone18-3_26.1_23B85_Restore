@@ -12,9 +12,9 @@
     +[NSURL(IconFoundationAdditions_Internal) coreGlyphsBundleURL];
   }
 
-  v1 = coreGlyphsBundleURL_url;
+  v2 = coreGlyphsBundleURL_url;
 
-  return v1;
+  return v2;
 }
 
 + (id)coreGlyphsPrivateBundleURL
@@ -24,9 +24,9 @@
     +[NSURL(IconFoundationAdditions_Internal) coreGlyphsPrivateBundleURL];
   }
 
-  v1 = coreGlyphsPrivateBundleURL_url;
+  v2 = coreGlyphsPrivateBundleURL_url;
 
-  return v1;
+  return v2;
 }
 
 @end

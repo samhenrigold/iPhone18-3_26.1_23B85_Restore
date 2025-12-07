@@ -1,6 +1,5 @@
 @interface TSAudioTimeErrorCorrelatorPostUpsampler
 - (TSAudioTimeErrorCorrelatorPostUpsampler)initWithMaxCorrelationLength:(int64_t)length andUpscaleFactor:(int64_t)factor forSamplingRate:(double)rate;
-- (void)_makeBlock;
 - (void)dealloc;
 @end
 
@@ -14,7 +13,7 @@
   v6 = v5;
   if (v5)
   {
-    [(TSAudioTimeErrorCorrelator *)v5 _calculateUpsamplerCoefficients:&v5->_upsamplerFilterCoefficientsBuffer length:&v5->_upsamplerFilterCoefficientsLength];
+    [TSAudioTimeErrorCorrelator _calculateUpsamplerCoefficients:v5 length:"_calculateUpsamplerCoefficients:length:"];
     v6->_channelABuffer = malloc_type_calloc(2 * v6->super._maxCorrelationLength, 4uLL, 0x100004052888210uLL);
     v6->_scratch1Buffer = malloc_type_calloc(v6->super._maxCorrelationLength, 4uLL, 0x100004052888210uLL);
     v6->_scratch2Buffer = malloc_type_calloc(v6->_upsamplerFilterCoefficientsLength + v6->super._maxCorrelationLength * v6->super._upscaleFactor, 4uLL, 0x100004052888210uLL);
@@ -37,31 +36,6 @@
   }
 
   return v6;
-}
-
-- (void)_makeBlock
-{
-  scratch1Buffer = self->_scratch1Buffer;
-  scratch2Buffer = self->_scratch2Buffer;
-  channelABuffer = self->_channelABuffer;
-  correlationBuffer = self->_correlationBuffer;
-  upsamplerFilterCoefficientsBuffer = self->_upsamplerFilterCoefficientsBuffer;
-  upsamplerFilterCoefficientsLength = self->_upsamplerFilterCoefficientsLength;
-  samplingRate = self->super._samplingRate;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __53__TSAudioTimeErrorCorrelatorPostUpsampler__makeBlock__block_invoke;
-  v9[3] = &__block_descriptor_112_e18_d32__0r_f8r_f16q24l;
-  v10 = *&self->super._maxCorrelationLength;
-  v11 = channelABuffer;
-  v12 = scratch1Buffer;
-  v13 = scratch2Buffer;
-  v14 = upsamplerFilterCoefficientsLength;
-  v15 = correlationBuffer;
-  v16 = upsamplerFilterCoefficientsLength / 2;
-  v17 = upsamplerFilterCoefficientsBuffer;
-  v18 = samplingRate;
-  [(TSAudioTimeErrorCorrelator *)self setCorrelationBlock:v9];
 }
 
 void __53__TSAudioTimeErrorCorrelatorPostUpsampler__makeBlock__block_invoke(uint64_t a1, const float *__A, const float *a3, int64_t __N)
@@ -123,15 +97,10 @@ void __53__TSAudioTimeErrorCorrelatorPostUpsampler__makeBlock__block_invoke(uint
         vDSP_maxvi(*(a1 + 80), 1, &__C, &__I, v9);
         if (__I)
         {
-          v16 = 0.0;
+          v15 = 0.0;
           vDSP_vabs(*(a1 + 80), 1, *(a1 + 80), 1, v9);
-          vDSP_meanv(*(a1 + 80), 1, &v16, v9);
-          if ((__C / v16) >= 2.0)
-          {
-            v15 = (__I - v9 / 2) / (*(a1 + 104) * *(a1 + 40));
-          }
-
-          else
+          vDSP_meanv(*(a1 + 80), 1, &v15, v9);
+          if ((__C / v15) < 2.0)
           {
             printf("insufficient correlation maxValue/meanValue %f/%f %f index %ld\n");
           }

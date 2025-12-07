@@ -78,19 +78,19 @@
 
 - (_ANEPerformanceStats)initWithRequestPerformanceBuffer:(void *)buffer statsBufferSize:(unsigned int *)size
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   if (!buffer || !size)
   {
     v10 = +[_ANELog common];
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v22 = NSStringFromSelector(a2);
+      v21 = NSStringFromSelector(a2);
       *buf = 138412802;
-      v25 = v22;
-      v26 = 2048;
+      v24 = v21;
+      v25 = 2048;
       bufferCopy = buffer;
-      v28 = 2048;
-      v29 = *&size;
+      v27 = 2048;
+      v28 = *&size;
       _os_log_error_impl(&dword_1AD246000, v10, OS_LOG_TYPE_ERROR, "%@: Invalid argument. requestPerfStatsBuffer=%p : requestStatsBufferSize=%p", buf, 0x20u);
     }
 
@@ -107,11 +107,11 @@
     {
       v13 = NSStringFromSelector(a2);
       *buf = 138412802;
-      v25 = v13;
-      v26 = 2048;
+      v24 = v13;
+      v25 = 2048;
       bufferCopy = v9;
-      v28 = 2048;
-      v29 = (v9 / 1000000.0);
+      v27 = 2048;
+      v28 = (v9 / 1000000.0);
       _os_log_impl(&dword_1AD246000, v12, OS_LOG_TYPE_INFO, "%@: HW Execution time: %llu ns (%.2f ms)", buf, 0x20u);
     }
   }
@@ -144,7 +144,7 @@ LABEL_20:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       v19 = NSStringFromSelector(a2);
-      [(_ANEPerformanceStats *)v19 initWithRequestPerformanceBuffer:v23 statsBufferSize:v18];
+      [(_ANEPerformanceStats *)v19 initWithRequestPerformanceBuffer:v22 statsBufferSize:v18];
     }
 
     goto LABEL_23;
@@ -173,7 +173,6 @@ LABEL_24:
   selfCopy = 0;
 LABEL_25:
 
-  v20 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -242,8 +241,8 @@ LABEL_25:
 
 - (void)emitPerfcounterSignpostsWithModelStringID:(unint64_t)d
 {
-  v46 = *MEMORY[0x1E69E9840];
-  v34 = mach_continuous_time();
+  v41 = *MEMORY[0x1E69E9840];
+  v29 = mach_continuous_time();
   v4 = +[_ANELog common];
   spid = os_signpost_id_generate(v4);
 
@@ -259,8 +258,8 @@ LABEL_25:
       perfCounterData3 = [(_ANEPerformanceStats *)self perfCounterData];
       v8 = [perfCounterData3 length] >> 3;
 
-      v35 = v8 - 3 * ((v8 * 0x5555555555555556uLL) >> 64);
-      if (v8 >= v35)
+      v30 = v8 - 3 * ((v8 * 0x5555555555555556uLL) >> 64);
+      if (v8 >= v30)
       {
         v9 = 3 * ((v8 * 0x5555555555555556uLL) >> 64);
       }
@@ -278,94 +277,88 @@ LABEL_25:
       {
         *buf = 134218496;
         dCopy = d;
-        v40 = 2048;
-        v41 = v8;
-        v42 = 2048;
-        v43 = 1;
+        v35 = 2048;
+        v36 = v8;
+        v37 = 2048;
+        v38 = 1;
         _os_signpost_emit_with_name_impl(&dword_1AD246000, v11, OS_SIGNPOST_EVENT, spid, "_ANEF_MODEL_EVAL_PERFCOUNTER_SAMPLE", "modelStringID:%llu numCounters:%lu perfCounterDataVersion:%llu", buf, 0x20u);
       }
 
-      if (v8 > v35)
+      if (v8 > v30)
       {
         v13 = (bytes + 16);
         v14 = 1;
         do
         {
-          v15 = *(v13 - 2);
-          v16 = *(v13 - 1);
-          v17 = *v13;
           kdebug_trace();
-          v18 = +[_ANELog common];
-          v19 = v18;
-          if (v12 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v18))
+          v15 = +[_ANELog common];
+          v16 = v15;
+          if (v12 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v15))
           {
-            v20 = *(v13 - 2);
-            v21 = *(v13 - 1);
-            v22 = *v13;
+            v17 = *(v13 - 2);
+            v18 = *(v13 - 1);
+            v19 = *v13;
             *buf = 134218752;
             dCopy = v14 - 1;
-            v40 = 2048;
-            v41 = v20;
-            v42 = 2048;
-            v43 = v21;
-            v44 = 2048;
-            v45 = v22;
-            _os_signpost_emit_with_name_impl(&dword_1AD246000, v19, OS_SIGNPOST_EVENT, spid, "_ANEF_MODEL_EVAL_PERFCOUNTER_SAMPLE", "i:%lu, counters[i]:%llu, counters[i+1]:%llu, counters[i+2]:%llu", buf, 0x2Au);
+            v35 = 2048;
+            v36 = v17;
+            v37 = 2048;
+            v38 = v18;
+            v39 = 2048;
+            v40 = v19;
+            _os_signpost_emit_with_name_impl(&dword_1AD246000, v16, OS_SIGNPOST_EVENT, spid, "_ANEF_MODEL_EVAL_PERFCOUNTER_SAMPLE", "i:%lu, counters[i]:%llu, counters[i+1]:%llu, counters[i+2]:%llu", buf, 0x2Au);
           }
 
-          v23 = v14 + 2;
+          v20 = v14 + 2;
           v14 += 3;
           v13 += 3;
         }
 
-        while (v23 < v9);
+        while (v20 < v9);
       }
 
-      if (v35)
+      if (v30)
       {
-        v24 = (bytes + 8 * v9);
-        v25 = *v24;
-        if (v35 == 1)
+        v21 = (bytes + 8 * v9);
+        v22 = *v21;
+        if (v30 == 1)
         {
-          v26 = 0;
+          v23 = 0;
         }
 
         else
         {
-          v26 = v24[1];
+          v23 = v21[1];
         }
 
-        v27 = *v24;
         kdebug_trace();
-        v28 = +[_ANELog common];
-        v29 = v28;
-        if (v12 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v28))
+        v24 = +[_ANELog common];
+        v25 = v24;
+        if (v12 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v24))
         {
           *buf = 134218752;
           dCopy = v9;
-          v40 = 2048;
-          v41 = v25;
-          v42 = 2048;
-          v43 = v26;
-          v44 = 2048;
-          v45 = 0;
-          _os_signpost_emit_with_name_impl(&dword_1AD246000, v29, OS_SIGNPOST_EVENT, spid, "_ANEF_MODEL_EVAL_PERFCOUNTER_SAMPLE", "numWrittenCounters:%lu self:%llu a2:%llu d:%llu", buf, 0x2Au);
+          v35 = 2048;
+          v36 = v22;
+          v37 = 2048;
+          v38 = v23;
+          v39 = 2048;
+          v40 = 0;
+          _os_signpost_emit_with_name_impl(&dword_1AD246000, v25, OS_SIGNPOST_EVENT, spid, "_ANEF_MODEL_EVAL_PERFCOUNTER_SAMPLE", "numWrittenCounters:%lu self:%llu a2:%llu d:%llu", buf, 0x2Au);
         }
       }
 
       kdebug_trace();
-      v30 = +[_ANELog common];
-      v31 = v30;
-      if (v12 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v30))
+      v26 = +[_ANELog common];
+      v27 = v26;
+      if (v12 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v26))
       {
         *buf = 134349056;
-        dCopy = v34;
-        _os_signpost_emit_with_name_impl(&dword_1AD246000, v31, OS_SIGNPOST_EVENT, spid, "_ANEF_MODEL_EVAL_PERFCOUNTER_SAMPLE", "%{public, signpost.description:begin_time}llu ", buf, 0xCu);
+        dCopy = v29;
+        _os_signpost_emit_with_name_impl(&dword_1AD246000, v27, OS_SIGNPOST_EVENT, spid, "_ANEF_MODEL_EVAL_PERFCOUNTER_SAMPLE", "%{public, signpost.description:begin_time}llu ", buf, 0xCu);
       }
     }
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithRequestPerformanceBuffer:(os_log_t)log statsBufferSize:.cold.1(void *a1, uint8_t *buf, os_log_t log)

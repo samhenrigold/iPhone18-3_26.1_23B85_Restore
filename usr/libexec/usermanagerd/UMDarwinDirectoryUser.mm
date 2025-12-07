@@ -48,7 +48,7 @@
 
   else
   {
-    nullsub_1(0, a2);
+    nullsub_1();
     v9 = 0;
     v7 = 0;
     v5 = 0;

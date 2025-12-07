@@ -233,17 +233,17 @@ void __62__UIKeyboardPreferencesController_sharedPreferencesController__block_in
 - (int64_t)handBias
 {
   v2 = [(UIKeyboardPreferencesController *)self valueForPreferenceKey:*MEMORY[0x1E69D9810]];
-  if ([@"Left" isEqualToString:v2])
+  if (objc_msgSend_isEqualToString_(@"Left"))
   {
-    v3 = 2;
+    isEqualToString = 2;
   }
 
   else
   {
-    v3 = [@"Right" isEqualToString:v2];
+    isEqualToString = objc_msgSend_isEqualToString_(@"Right");
   }
 
-  return v3;
+  return isEqualToString;
 }
 
 - (id)sb_defaults
@@ -303,9 +303,9 @@ void __46__UIKeyboardPreferencesController_sb_defaults__block_invoke()
 {
   v0 = [MEMORY[0x1E696AAE8] mainBundle];
   v1 = [v0 bundleIdentifier];
-  v2 = [v1 isEqualToString:@"com.apple.springboard"];
+  isEqualToString = objc_msgSend_isEqualToString_(v1);
 
-  if (v2)
+  if (isEqualToString)
   {
     v3 = [MEMORY[0x1E695E000] standardUserDefaults];
   }
@@ -451,9 +451,9 @@ void __64__UIKeyboardPreferencesController_preferencesControllerChanged___block_
   if ([usedCopy length])
   {
     v4 = TIInputModeGetNormalizedIdentifier();
-    v5 = [v4 isEqualToString:@"emoji"];
+    isEqualToString = objc_msgSend_isEqualToString_(v4);
 
-    if (v5)
+    if (isEqualToString)
     {
       preferencesActions = [(UIKeyboardPreferencesController *)self preferencesActions];
       inputModeSelectionSequence = [preferencesActions inputModeSelectionSequence];
@@ -507,7 +507,7 @@ LABEL_14:
     if ((UIKeyboardInputModesEqual(usedCopy, v15) & 1) == 0)
     {
       v16 = TIInputModeGetNormalizedIdentifier();
-      v17 = [v16 isEqualToString:@"emoji"];
+      v17 = objc_msgSend_isEqualToString_(v16);
 
       if ((v17 & 1) == 0)
       {
@@ -515,7 +515,7 @@ LABEL_14:
         {
           v18 = TIInputModeGetBaseLanguage();
           v19 = TIInputModeGetBaseLanguage();
-          v20 = [v18 isEqualToString:v19];
+          v20 = objc_msgSend_isEqualToString_(v18);
 
           if ((v20 & 1) == 0)
           {
@@ -698,7 +698,7 @@ void __69__UIKeyboardPreferencesController_setLanguageAwareInputModeLastUsed___b
 {
   v8 = a2;
   v5 = a3;
-  if (([*(a1 + 32) isEqualToString:v8] & 1) != 0 || (v6 = *(a1 + 32), TIInputModeGetBaseLanguage(), v7 = objc_claimAutoreleasedReturnValue(), LODWORD(v6) = objc_msgSend(v6, "isEqualToString:", v7), v7, v6))
+  if ((objc_msgSend_isEqualToString_(*(a1 + 32)) & 1) != 0 || (v6 = *(a1 + 32), TIInputModeGetBaseLanguage(), v7 = objc_claimAutoreleasedReturnValue(), LODWORD(v6) = objc_msgSend_isEqualToString_(v6), v7, v6))
   {
     objc_storeStrong((*(*(a1 + 56) + 8) + 40), a3);
     if ((UIKeyboardInputModesEqual(*(a1 + 40), v5) & 1) == 0)
@@ -776,7 +776,7 @@ void __51__UIKeyboardPreferencesController_rivenSizeFactor___block_invoke(uint64
 {
   v3 = UIKeyboardGetCurrentInputMode();
   v4 = TIInputModeGetBaseLanguage();
-  if (([v4 isEqualToString:@"zh"] & 1) != 0 || objc_msgSend(v4, "isEqualToString:", @"ja"))
+  if ((objc_msgSend_isEqualToString_(v4) & 1) != 0 || objc_msgSend_isEqualToString_(v4))
   {
     v5 = TIInputModeGetVariant();
     if ([&unk_1EFE2C2B0 containsObject:v5])

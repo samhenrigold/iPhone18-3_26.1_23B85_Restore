@@ -38,7 +38,7 @@
 {
   selfCopy = self;
   openCopy = open;
-  v6 = sub_10007FAA0();
+  v6 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = sub_10007FAFC(selfCopy);
@@ -59,7 +59,7 @@
   if ([requestCopy isEqual:@"hello"])
   {
     selfCopy = self;
-    v15 = sub_10007FAA0();
+    v15 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       v16 = sub_10007FAFC(selfCopy);
@@ -75,7 +75,7 @@
   {
     v17 = [requestCopy isEqual:@"version"];
     selfCopy2 = self;
-    v19 = sub_10007FAA0();
+    v19 = sub_10007FAA0(selfCopy2);
     v20 = v19;
     if (v17)
     {
@@ -120,23 +120,7 @@
 - (BOOL)isExpectedHelloControlMessage:(id)message header:(id)header
 {
   headerCopy = header;
-  if (![message isEqual:@"hello"])
-  {
-    goto LABEL_5;
-  }
-
-  pendingHelloMessageIdentifier = [(DataStreamControlProtocol *)self pendingHelloMessageIdentifier];
-
-  if (!pendingHelloMessageIdentifier)
-  {
-    goto LABEL_5;
-  }
-
-  v8 = [headerCopy objectForKeyedSubscript:@"id"];
-  pendingHelloMessageIdentifier2 = [(DataStreamControlProtocol *)self pendingHelloMessageIdentifier];
-  v10 = [v8 isEqual:pendingHelloMessageIdentifier2];
-
-  if (v10)
+  if ([message isEqual:@"hello"] && (-[DataStreamControlProtocol pendingHelloMessageIdentifier](self, "pendingHelloMessageIdentifier"), v7 = objc_claimAutoreleasedReturnValue(), v7, v7) && (objc_msgSend(headerCopy, "objectForKeyedSubscript:", @"id"), v8 = objc_claimAutoreleasedReturnValue(), -[DataStreamControlProtocol pendingHelloMessageIdentifier](self, "pendingHelloMessageIdentifier"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v8, "isEqual:", v9), v9, v8, v10))
   {
     v11 = [headerCopy objectForKeyedSubscript:@"status"];
     v12 = [v11 isEqual:&off_1002823F8];
@@ -144,7 +128,6 @@
 
   else
   {
-LABEL_5:
     v12 = 0;
   }
 
@@ -159,7 +142,7 @@ LABEL_5:
   if ([(DataStreamControlProtocol *)self isExpectedHelloControlMessage:responseCopy header:header])
   {
     selfCopy = self;
-    v14 = sub_10007FAA0();
+    v14 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       v15 = sub_10007FAFC(selfCopy);
@@ -191,7 +174,7 @@ LABEL_5:
   {
     v17 = [responseCopy isEqual:@"version"];
     selfCopy2 = self;
-    v19 = sub_10007FAA0();
+    v19 = sub_10007FAA0(selfCopy2);
     v20 = os_log_type_enabled(v19, OS_LOG_TYPE_INFO);
     if (v17)
     {

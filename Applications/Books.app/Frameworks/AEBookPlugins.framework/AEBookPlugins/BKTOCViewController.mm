@@ -158,7 +158,7 @@
 - (id)title
 {
   tocContentType = [(BKTOCViewController *)self tocContentType];
-  v3 = AEBundle();
+  v3 = AEBundle(tocContentType);
   v4 = v3;
   v5 = @"Notes";
   if (tocContentType == 1)

@@ -50,10 +50,10 @@ LABEL_6:
 
 - (AMSupportOSURLSession)initWithOptions:(id)options
 {
-  v12 = *MEMORY[0x29EDCA608];
-  v11.receiver = self;
-  v11.super_class = AMSupportOSURLSession;
-  v4 = [(AMSupportOSURLSession *)&v11 init];
+  v11 = *MEMORY[0x29EDCA608];
+  v10.receiver = self;
+  v10.super_class = AMSupportOSURLSession;
+  v4 = [(AMSupportOSURLSession *)&v10 init];
   if (v4)
   {
     v5 = [options objectForKey:@"Timeout"];
@@ -86,13 +86,12 @@ LABEL_6:
     v4->_sslEvalFailed = 0;
   }
 
-  v9 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
 - (void)dealloc
 {
-  v6 = *MEMORY[0x29EDCA608];
+  v5 = *MEMORY[0x29EDCA608];
   queue = self->_queue;
   if (queue)
   {
@@ -100,10 +99,9 @@ LABEL_6:
     self->_queue = 0;
   }
 
-  v5.receiver = self;
-  v5.super_class = AMSupportOSURLSession;
-  [(AMSupportOSURLSession *)&v5 dealloc];
-  v4 = *MEMORY[0x29EDCA608];
+  v4.receiver = self;
+  v4.super_class = AMSupportOSURLSession;
+  [(AMSupportOSURLSession *)&v4 dealloc];
 }
 
 - (id)_urlRequestForHTTPMessage:(__CFHTTPMessage *)message
@@ -149,17 +147,16 @@ LABEL_6:
 
 - (void)sendRequest:(__CFHTTPMessage *)request completion:(id)completion
 {
-  v6[7] = *MEMORY[0x29EDCA608];
+  v5[7] = *MEMORY[0x29EDCA608];
   queue = self->_queue;
-  v6[0] = MEMORY[0x29EDCA5F8];
-  v6[1] = 3221225472;
-  v6[2] = __48__AMSupportOSURLSession_sendRequest_completion___block_invoke;
-  v6[3] = &unk_29EE96B50;
-  v6[5] = completion;
-  v6[6] = request;
-  v6[4] = self;
-  dispatch_sync(queue, v6);
-  v5 = *MEMORY[0x29EDCA608];
+  v5[0] = MEMORY[0x29EDCA5F8];
+  v5[1] = 3221225472;
+  v5[2] = __48__AMSupportOSURLSession_sendRequest_completion___block_invoke;
+  v5[3] = &unk_29EE96B50;
+  v5[5] = completion;
+  v5[6] = request;
+  v5[4] = self;
+  dispatch_sync(queue, v5);
 }
 
 void __48__AMSupportOSURLSession_sendRequest_completion___block_invoke(uint64_t a1)
@@ -168,17 +165,16 @@ void __48__AMSupportOSURLSession_sendRequest_completion___block_invoke(uint64_t 
   v2 = [*(a1 + 32) _urlRequestForHTTPMessage:*(a1 + 48)];
   if (v2)
   {
-    v8 = [*(*(a1 + 32) + 32) dataTaskWithRequest:v2 completionHandler:*(a1 + 40)];
-    LODWORD(v9) = *(*(a1 + 32) + 24);
-    [v8 setPriority:v9];
-    v10 = *MEMORY[0x29EDCA608];
+    v3 = [*(*(a1 + 32) + 32) dataTaskWithRequest:v2 completionHandler:*(a1 + 40)];
+    LODWORD(v4) = *(*(a1 + 32) + 24);
+    [v3 setPriority:v4];
 
-    [v8 resume];
+    [v3 resume];
   }
 
   else
   {
-    AMSupportLogInternal(3, "[AMSupportOSURLSession sendRequest:completion:]_block_invoke", "Could not construct NSURLRequest from message %@", v3, v4, v5, v6, v7, *(a1 + 48));
+    AMSupportLogInternal(3, "[AMSupportOSURLSession sendRequest:completion:]_block_invoke", "Could not construct NSURLRequest from message %@", *(a1 + 48));
     global_queue = dispatch_get_global_queue(0, 0);
     block[0] = MEMORY[0x29EDCA5F8];
     block[1] = 3221225472;
@@ -186,7 +182,6 @@ void __48__AMSupportOSURLSession_sendRequest_completion___block_invoke(uint64_t 
     block[3] = &unk_29EE96B28;
     block[4] = *(a1 + 40);
     dispatch_async(global_queue, block);
-    v12 = *MEMORY[0x29EDCA608];
   }
 }
 
@@ -203,43 +198,41 @@ uint64_t __48__AMSupportOSURLSession_sendRequest_completion___block_invoke_2(uin
 {
   if (error)
   {
-    AMSupportLogInternal(3, "[AMSupportOSURLSession URLSession:didBecomeInvalidWithError:]", "Session %@ became invalid: %@", error, v4, v5, v6, v7, session);
+    AMSupportLogInternal(3, "[AMSupportOSURLSession URLSession:didBecomeInvalidWithError:]", "Session %@ became invalid: %@", session, error);
   }
 }
 
 - (void)URLSession:(id)session didReceiveChallenge:(id)challenge completionHandler:(id)handler
 {
-  v85 = *MEMORY[0x29EDCA608];
+  v38 = *MEMORY[0x29EDCA608];
   protectionSpace = [objc_msgSend(challenge protectionSpace];
-  AMSupportLogInternal(7, "[AMSupportOSURLSession URLSession:didReceiveChallenge:completionHandler:]", "Authentication challenge received.  Method: %@", v9, v10, v11, v12, v13, protectionSpace);
+  AMSupportLogInternal(7, "[AMSupportOSURLSession URLSession:didReceiveChallenge:completionHandler:]", "Authentication challenge received.  Method: %@", protectionSpace);
   if ([challenge previousFailureCount] < 1)
   {
     if ([protectionSpace isEqual:*MEMORY[0x29EDB84E0]] && -[NSDictionary objectForKey:](self->_options, "objectForKey:", @"ClientIdentity"))
     {
-      AMSupportLogInternal(6, "[AMSupportOSURLSession URLSession:didReceiveChallenge:completionHandler:]", "Received client certificate challenge. Client SSL authentication failed.", v24, v25, v26, v27, v28, v75);
+      AMSupportLogInternal(6, "[AMSupportOSURLSession URLSession:didReceiveChallenge:completionHandler:]", "Received client certificate challenge. Client SSL authentication failed.");
     }
 
     else
     {
       if (([protectionSpace isEqual:*MEMORY[0x29EDB84E8]] & 1) == 0)
       {
-        v19 = *(handler + 2);
-        v37 = *MEMORY[0x29EDCA608];
+        v9 = *(handler + 2);
         handlerCopy5 = handler;
-        v22 = 1;
+        v11 = 1;
         goto LABEL_3;
       }
 
-      v29 = [(NSDictionary *)self->_options objectForKey:@"DisableSSLValidation"];
-      if ([v29 isEqual:{objc_msgSend(MEMORY[0x29EDBA070], "numberWithBool:", 1)}])
+      v13 = [(NSDictionary *)self->_options objectForKey:@"DisableSSLValidation"];
+      if ([v13 isEqual:{objc_msgSend(MEMORY[0x29EDBA070], "numberWithBool:", 1)}])
       {
-        AMSupportLogInternal(6, "[AMSupportOSURLSession URLSession:didReceiveChallenge:completionHandler:]", "SSL validation disabled.  Attempting to continue without authentication.", v30, v31, v32, v33, v34, v75);
-        v35 = [MEMORY[0x29EDB8508] credentialForTrust:{objc_msgSend(objc_msgSend(challenge, "protectionSpace"), "serverTrust")}];
-        v19 = *(handler + 2);
-        v36 = *MEMORY[0x29EDCA608];
-        v23 = v35;
+        AMSupportLogInternal(6, "[AMSupportOSURLSession URLSession:didReceiveChallenge:completionHandler:]", "SSL validation disabled.  Attempting to continue without authentication.");
+        v14 = [MEMORY[0x29EDB8508] credentialForTrust:{objc_msgSend(objc_msgSend(challenge, "protectionSpace"), "serverTrust")}];
+        v9 = *(handler + 2);
+        v12 = v14;
         handlerCopy5 = handler;
-        v22 = 0;
+        v11 = 0;
         goto LABEL_4;
       }
 
@@ -251,12 +244,11 @@ uint64_t __48__AMSupportOSURLSession_sendRequest_completion___block_invoke_2(uin
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v40 = [MEMORY[0x29EDB8508] credentialForTrust:{objc_msgSend(objc_msgSend(challenge, "protectionSpace"), "serverTrust")}];
-          v19 = *(handler + 2);
-          v41 = *MEMORY[0x29EDCA608];
-          v23 = v40;
+          v17 = [MEMORY[0x29EDB8508] credentialForTrust:{objc_msgSend(objc_msgSend(challenge, "protectionSpace"), "serverTrust")}];
+          v9 = *(handler + 2);
+          v12 = v17;
           handlerCopy5 = handler;
-          v22 = 1;
+          v11 = 1;
           goto LABEL_4;
         }
       }
@@ -264,7 +256,7 @@ uint64_t __48__AMSupportOSURLSession_sendRequest_completion___block_invoke_2(uin
       [(NSDictionary *)self->_options objectForKey:@"TrustedServerCAs"];
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
-      v39 = [(NSDictionary *)self->_options objectForKey:@"TrustedServerCAs"];
+      v16 = [(NSDictionary *)self->_options objectForKey:@"TrustedServerCAs"];
       selfCopy = self;
       handlerCopy4 = handler;
       if ((isKindOfClass & 1) == 0)
@@ -272,104 +264,101 @@ uint64_t __48__AMSupportOSURLSession_sendRequest_completion___block_invoke_2(uin
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v39 = [MEMORY[0x29EDB8D80] arrayWithObject:{-[NSDictionary objectForKey:](self->_options, "objectForKey:", @"TrustedServerCAs"}];
+          v16 = [MEMORY[0x29EDB8D80] arrayWithObject:{-[NSDictionary objectForKey:](self->_options, "objectForKey:", @"TrustedServerCAs"}];
         }
 
         else
         {
-          v39 = 0;
+          v16 = 0;
         }
       }
 
-      v42 = [MEMORY[0x29EDB8DE8] arrayWithCapacity:{objc_msgSend(v39, "count")}];
-      v81 = 0u;
-      v82 = 0u;
-      v83 = 0u;
-      v84 = 0u;
-      v43 = [v39 countByEnumeratingWithState:&v81 objects:v80 count:16];
-      if (v43)
+      v18 = [MEMORY[0x29EDB8DE8] arrayWithCapacity:{objc_msgSend(v16, "count")}];
+      v34 = 0u;
+      v35 = 0u;
+      v36 = 0u;
+      v37 = 0u;
+      v19 = [v16 countByEnumeratingWithState:&v34 objects:v33 count:16];
+      if (v19)
       {
-        v44 = v43;
-        v45 = *v82;
-        v46 = *MEMORY[0x29EDB8ED8];
+        v20 = v19;
+        v21 = *v35;
+        v22 = *MEMORY[0x29EDB8ED8];
         do
         {
-          for (i = 0; i != v44; ++i)
+          for (i = 0; i != v20; ++i)
           {
-            if (*v82 != v45)
+            if (*v35 != v21)
             {
-              objc_enumerationMutation(v39);
+              objc_enumerationMutation(v16);
             }
 
-            v48 = *(*(&v81 + 1) + 8 * i);
+            v24 = *(*(&v34 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v49 = SecCertificateCreateWithData(v46, v48);
-              if (v49)
+              v25 = SecCertificateCreateWithData(v22, v24);
+              if (v25)
               {
-                v55 = v49;
-                [v42 addObject:v49];
-                CFRelease(v55);
+                v26 = v25;
+                [v18 addObject:v25];
+                CFRelease(v26);
               }
 
               else
               {
-                AMSupportLogInternal(4, "[AMSupportOSURLSession URLSession:didReceiveChallenge:completionHandler:]", "trusted certificate could not be loaded %@", v50, v51, v52, v53, v54, v48);
+                AMSupportLogInternal(4, "[AMSupportOSURLSession URLSession:didReceiveChallenge:completionHandler:]", "trusted certificate could not be loaded %@", v24);
               }
             }
           }
 
-          v44 = [v39 countByEnumeratingWithState:&v81 objects:v80 count:16];
+          v20 = [v16 countByEnumeratingWithState:&v34 objects:v33 count:16];
         }
 
-        while (v44);
+        while (v20);
       }
 
-      v56 = [objc_msgSend(challenge "protectionSpace")];
-      v79 = 0;
-      AMSupportLogInternal(7, "[AMSupportOSURLSession URLSession:didReceiveChallenge:completionHandler:]", "Attempting trust evaluate", v57, v58, v59, v60, v61, v75);
-      v67 = AMSupportX509ChainEvaluateTrust(v56, v42, &v79, v62, v63, v64, v65, v66);
-      if (v67)
+      v27 = [objc_msgSend(challenge "protectionSpace")];
+      v32 = 0;
+      AMSupportLogInternal(7, "[AMSupportOSURLSession URLSession:didReceiveChallenge:completionHandler:]", "Attempting trust evaluate");
+      v28 = AMSupportX509ChainEvaluateTrust(v27, v18, &v32);
+      if (v28)
       {
-        AMSupportLogInternal(3, "[AMSupportOSURLSession URLSession:didReceiveChallenge:completionHandler:]", "trust evaluation failed (OSStatus=%d)", v68, v69, v70, v71, v72, v67);
-        v73 = selfCopy;
+        AMSupportLogInternal(3, "[AMSupportOSURLSession URLSession:didReceiveChallenge:completionHandler:]", "trust evaluation failed (OSStatus=%d)", v28);
+        v29 = selfCopy;
         handler = handlerCopy4;
       }
 
       else
       {
-        v73 = selfCopy;
+        v29 = selfCopy;
         handler = handlerCopy4;
-        if (v79 == 4 || v79 == 1)
+        if (v32 == 4 || v32 == 1)
         {
-          AMSupportLogInternal(7, "[AMSupportOSURLSession URLSession:didReceiveChallenge:completionHandler:]", "Trust evaluation succeeded, proceeding..", v68, v69, v70, v71, v72, v76);
-          (*(handlerCopy4 + 2))(handlerCopy4, 0, [MEMORY[0x29EDB8508] credentialForTrust:v56]);
-          goto LABEL_36;
+          AMSupportLogInternal(7, "[AMSupportOSURLSession URLSession:didReceiveChallenge:completionHandler:]", "Trust evaluation succeeded, proceeding..");
+          (*(handlerCopy4 + 2))(handlerCopy4, 0, [MEMORY[0x29EDB8508] credentialForTrust:v27]);
+          return;
         }
 
-        AMSupportLogInternal(4, "[AMSupportOSURLSession URLSession:didReceiveChallenge:completionHandler:]", "trust evaluation did not result in okay to proceed (result=%d)", v68, v69, v70, v71, v72, v79);
+        AMSupportLogInternal(4, "[AMSupportOSURLSession URLSession:didReceiveChallenge:completionHandler:]", "trust evaluation did not result in okay to proceed (result=%d)", v32);
       }
 
-      v73->_sslEvalFailed = 1;
+      v29->_sslEvalFailed = 1;
     }
 
     (*(handler + 2))(handler, 2, 0);
-LABEL_36:
-    v74 = *MEMORY[0x29EDCA608];
     return;
   }
 
-  AMSupportLogInternal(3, "[AMSupportOSURLSession URLSession:didReceiveChallenge:completionHandler:]", "Multiple challenge failures. Request failed.", v14, v15, v16, v17, v18, v75);
-  v19 = *(handler + 2);
-  v20 = *MEMORY[0x29EDCA608];
+  AMSupportLogInternal(3, "[AMSupportOSURLSession URLSession:didReceiveChallenge:completionHandler:]", "Multiple challenge failures. Request failed.");
+  v9 = *(handler + 2);
   handlerCopy5 = handler;
-  v22 = 2;
+  v11 = 2;
 LABEL_3:
-  v23 = 0;
+  v12 = 0;
 LABEL_4:
 
-  v19(handlerCopy5, v22, v23);
+  v9(handlerCopy5, v11, v12);
 }
 
 @end

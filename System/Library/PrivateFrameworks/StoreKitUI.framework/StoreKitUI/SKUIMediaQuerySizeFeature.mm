@@ -37,26 +37,26 @@
     +[SKUIMediaQuerySizeFeature supportsFeatureName:];
   }
 
-  if ([nameCopy isEqualToString:@"min-width"] & 1) != 0 || (objc_msgSend(nameCopy, "isEqualToString:", @"max-width") & 1) != 0 || (objc_msgSend(nameCopy, "isEqualToString:", @"min-height") & 1) != 0 || (objc_msgSend(nameCopy, "isEqualToString:", @"max-height") & 1) != 0 || (objc_msgSend(nameCopy, "isEqualToString:", @"width"))
+  if (objc_msgSend_isEqualToString_(nameCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(nameCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(nameCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(nameCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(nameCopy))
   {
-    v4 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v4 = [nameCopy isEqualToString:@"height"];
+    isEqualToString = objc_msgSend_isEqualToString_(nameCopy);
   }
 
-  return v4;
+  return isEqualToString;
 }
 
 - (BOOL)evaluateWithValues:(id)values
 {
   valuesCopy = values;
   featureName = [(SKUIMediaQueryFeature *)self featureName];
-  if (![featureName isEqualToString:@"min-width"])
+  if (!objc_msgSend_isEqualToString_(featureName))
   {
-    if ([featureName isEqualToString:@"max-width"])
+    if (objc_msgSend_isEqualToString_(featureName))
     {
       v10 = 0x2827FFCA8;
 LABEL_6:
@@ -66,26 +66,26 @@ LABEL_6:
       goto LABEL_10;
     }
 
-    if ([featureName isEqualToString:@"width"])
+    if (objc_msgSend_isEqualToString_(featureName))
     {
       v12 = 0x2827FFCA8;
     }
 
     else
     {
-      if ([featureName isEqualToString:@"min-height"])
+      if (objc_msgSend_isEqualToString_(featureName))
       {
         v6 = 0x2827FFCC8;
         goto LABEL_3;
       }
 
-      if ([featureName isEqualToString:@"max-height"])
+      if (objc_msgSend_isEqualToString_(featureName))
       {
         v10 = 0x2827FFCC8;
         goto LABEL_6;
       }
 
-      if (![featureName isEqualToString:@"height"])
+      if (!objc_msgSend_isEqualToString_(featureName))
       {
         v9 = 0;
         goto LABEL_11;
@@ -114,7 +114,7 @@ LABEL_11:
 {
   v7[1] = *MEMORY[0x277D85DE8];
   featureName = [(SKUIMediaQueryFeature *)self featureName];
-  if (([featureName isEqualToString:@"min-width"] & 1) != 0 || (objc_msgSend(featureName, "isEqualToString:", @"max-width") & 1) != 0 || objc_msgSend(featureName, "isEqualToString:", @"width"))
+  if ((objc_msgSend_isEqualToString_(featureName) & 1) != 0 || (objc_msgSend_isEqualToString_(featureName) & 1) != 0 || objc_msgSend_isEqualToString_(featureName))
   {
     v7[0] = 0x2827FFCA8;
     v3 = v7;

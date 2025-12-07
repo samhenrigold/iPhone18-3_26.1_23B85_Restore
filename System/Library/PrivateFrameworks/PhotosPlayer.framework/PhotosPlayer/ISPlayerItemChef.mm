@@ -1,6 +1,7 @@
 @interface ISPlayerItemChef
 + (ISPlayerItemChef)defaultChef;
 - (ISPlayerItemChef)init;
+- (int64_t)prepareIrisPlayerItemWithAsset:(id)asset trimmedTimeRange:(id *)range photoTime:(id *)time includeVideo:(BOOL)video includeAudio:(BOOL)audio completion:(id)completion;
 - (int64_t)prepareIrisVideoWithAsset:(id)asset photoTime:(id *)time trimmedTimeRange:(id *)range completion:(id)completion;
 - (void)cancelPreparationOfIrisAssetWithRequestID:(int64_t)d;
 @end
@@ -31,6 +32,51 @@ void __62__ISPlayerItemChef_cancelPreparationOfIrisAssetWithRequestID___block_in
   v4 = *(a1 + 32);
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 40)];
   [v4 removeObjectForKey:v5];
+}
+
+- (int64_t)prepareIrisPlayerItemWithAsset:(id)asset trimmedTimeRange:(id *)range photoTime:(id *)time includeVideo:(BOOL)video includeAudio:(BOOL)audio completion:(id)completion
+{
+  audioCopy = audio;
+  videoCopy = video;
+  completionCopy = completion;
+  assetCopy = asset;
+  v15 = [(ISPlayerItemChef *)self _currentRequestID]+ 1;
+  [(ISPlayerItemChef *)self _setCurrentRequestID:v15];
+  _isolationQueue = [(ISPlayerItemChef *)self _isolationQueue];
+  _operationsByRequestID = [(ISPlayerItemChef *)self _operationsByRequestID];
+  v18 = [_ISPlayerItemChefOperation alloc];
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __115__ISPlayerItemChef_prepareIrisPlayerItemWithAsset_trimmedTimeRange_photoTime_includeVideo_includeAudio_completion___block_invoke;
+  v35[3] = &unk_279A29EE8;
+  v36 = _isolationQueue;
+  v19 = _operationsByRequestID;
+  v38 = completionCopy;
+  v39 = v15;
+  v37 = v19;
+  v20 = *&range->var0.var3;
+  v34[0] = *&range->var0.var0;
+  v34[1] = v20;
+  v34[2] = *&range->var1.var1;
+  v33 = *time;
+  v21 = completionCopy;
+  v22 = _isolationQueue;
+  v23 = [(_ISPlayerItemChefOperation *)v18 initWithAsset:assetCopy trimmedTimeRange:v34 photoTime:&v33 includeAudio:audioCopy includeVideo:videoCopy resultHandler:v35];
+
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __115__ISPlayerItemChef_prepareIrisPlayerItemWithAsset_trimmedTimeRange_photoTime_includeVideo_includeAudio_completion___block_invoke_3;
+  block[3] = &unk_279A29F10;
+  v30 = v19;
+  v31 = v23;
+  v32 = v15;
+  v24 = v23;
+  v25 = v19;
+  dispatch_async(v22, block);
+  _operationQueue = [(ISPlayerItemChef *)self _operationQueue];
+  [_operationQueue addOperation:v24];
+
+  return v15;
 }
 
 void __115__ISPlayerItemChef_prepareIrisPlayerItemWithAsset_trimmedTimeRange_photoTime_includeVideo_includeAudio_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3, __int128 *a4, void *a5)

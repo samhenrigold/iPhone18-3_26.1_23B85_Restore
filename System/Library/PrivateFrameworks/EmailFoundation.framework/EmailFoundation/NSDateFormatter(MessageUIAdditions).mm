@@ -108,9 +108,9 @@ LABEL_22:
     +[NSDateFormatter(MessageUIAdditions) ef_isoDateFormatter];
   }
 
-  v1 = ef_isoDateFormatter_dateFormatter;
+  v2 = ef_isoDateFormatter_dateFormatter;
 
-  return v1;
+  return v2;
 }
 
 + (id)ef_formatDate:()MessageUIAdditions style:

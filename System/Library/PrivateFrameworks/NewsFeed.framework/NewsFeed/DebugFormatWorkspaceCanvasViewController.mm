@@ -135,7 +135,7 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v6 = type metadata accessor for DebugFormatWorkspaceCanvasSection();
+  v6 = type metadata accessor for DebugFormatWorkspaceCanvasSection(0);
   v7 = *(v5 + ((*(*(v6 - 8) + 80) + 32) & ~*(*(v6 - 8) + 80)) + *(*(v6 - 8) + 72) * section + *(v6 + 40));
   if (!(v7 >> 62))
   {
@@ -156,7 +156,7 @@ LABEL_7:
   sub_1D7258D6C();
   viewCopy = view;
   selfCopy = self;
-  v14 = sub_1D677D34C();
+  v14 = sub_1D677D34C(viewCopy, v11);
 
   (*(v8 + 8))(v11, v7);
 
@@ -168,15 +168,15 @@ LABEL_7:
   v6 = sub_1D7258DBC();
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6, v8);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D7258D6C();
   viewCopy = view;
   selfCopy = self;
-  v13 = sub_1D67790EC();
+  v14 = sub_1D67790EC(v13, viewCopy, v10);
 
   (*(v7 + 8))(v10, v6);
 
-  return v13;
+  return v14;
 }
 
 - (void)collectionView:(id)view didSelectItemAtIndexPath:(id)path
@@ -184,11 +184,11 @@ LABEL_7:
   v6 = sub_1D7258DBC();
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6, v8);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D7258D6C();
   viewCopy = view;
   selfCopy = self;
-  sub_1D677D598(v10);
+  sub_1D677D598(v10, v13);
 
   (*(v7 + 8))(v10, v6);
 }

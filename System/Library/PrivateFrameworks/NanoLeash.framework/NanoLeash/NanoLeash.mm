@@ -1,13 +1,13 @@
-id nfm_log()
+id nfm_log(uint64_t a1)
 {
   if (nfm_log_onceToken != -1)
   {
     nfm_log_cold_1();
   }
 
-  v1 = nfm_log___logger;
+  v2 = nfm_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t NFMProtoDidPlaySoundAndFlashLEDResponseReadFrom(uint64_t a1, void *a2)
@@ -532,7 +532,7 @@ LABEL_15:
 
 void NFMPEPLog(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v11 = a3;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -549,18 +549,18 @@ void NFMPEPLog(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uin
   _os_nospin_lock_unlock();
   if (v12 == 1)
   {
-    v18 = 0;
-    memset(&v17, 0, sizeof(v17));
-    localtime_r(&v18, &v17);
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
+    v17 = 0;
+    memset(&v16, 0, sizeof(v16));
+    localtime_r(&v17, &v16);
     v25 = 0u;
-    v22 = 0u;
+    v26 = 0u;
     v23 = 0u;
+    v24 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v20 = 0u;
     *__str = 0u;
-    snprintf(__str, 0x80uLL, "%llu", v18);
+    snprintf(__str, 0x80uLL, "%llu", v17);
     v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:v11 arguments:&a9];
     v14 = [v13 cStringUsingEncoding:4];
     v15 = asl_new(0);
@@ -571,8 +571,6 @@ void NFMPEPLog(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uin
     asl_send(0, v15);
     MEMORY[0x25F8634D0](v15);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __NFMPEPLog_block_invoke(uint64_t a1)
@@ -743,7 +741,7 @@ id NFMProtoSend(void *a1, void *a2, uint64_t a3, void *a4, int a5, void *a6)
   v18 = [v11 sendProtobuf:v12 toDestinations:v17 priority:a3 options:v16 identifier:&v33 error:&v32];
   v19 = v33;
   v20 = v32;
-  v21 = nfm_log();
+  v21 = nfm_log(v20);
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     v22 = [v12 nfmDescription];
@@ -773,17 +771,16 @@ id NFMProtoSend(void *a1, void *a2, uint64_t a3, void *a4, int a5, void *a6)
 
   if (v14 && v18 != 1 && v20)
   {
-    v14[2](v14, v20);
-    v27 = nfm_log();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v27 = v14[2](v14, v20);
+    v28 = nfm_log(v27);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
-      NFMProtoSend_cold_1(v20, v27);
+      NFMProtoSend_cold_1(v20, v28);
     }
   }
 
-  v28 = v19;
+  v29 = v19;
 
-  v29 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -874,9 +871,8 @@ LABEL_15:
 
 void NFMProtoSend_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25B17F000, a2, OS_LOG_TYPE_ERROR, "Did not send! Error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25B17F000, a2, OS_LOG_TYPE_ERROR, "Did not send! Error: %@", &v2, 0xCu);
 }

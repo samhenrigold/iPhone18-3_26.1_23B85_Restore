@@ -14,29 +14,30 @@ void __138___SFAutomaticPasswordInputViewController__inputViewControllerWithAuto
     if (v7)
     {
       v8 = v7;
+      v10 = v8;
     }
 
     else
     {
-      v9 = [MEMORY[0x1E696AAE8] mainBundle];
-      v8 = [v9 bundleIdentifier];
+      v11 = [MEMORY[0x1E696AAE8] mainBundle];
+      v10 = [v11 bundleIdentifier];
     }
 
-    v10 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = WBS_LOG_CHANNEL_PREFIXAutoFill(v8, v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      __138___SFAutomaticPasswordInputViewController__inputViewControllerWithAutoFillContext_passwordRules_overrideApplicationIdentifier_completion___block_invoke_cold_1(v8, v6, v10);
+      __138___SFAutomaticPasswordInputViewController__inputViewControllerWithAutoFillContext_passwordRules_overrideApplicationIdentifier_completion___block_invoke_cold_1(v10, v6, v12);
     }
   }
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __138___SFAutomaticPasswordInputViewController__inputViewControllerWithAutoFillContext_passwordRules_overrideApplicationIdentifier_completion___block_invoke_22;
-  v12[3] = &unk_1E8490818;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __138___SFAutomaticPasswordInputViewController__inputViewControllerWithAutoFillContext_passwordRules_overrideApplicationIdentifier_completion___block_invoke_22;
+  v14[3] = &unk_1E8490818;
+  v15 = v5;
+  v16 = *(a1 + 48);
   v13 = v5;
-  v14 = *(a1 + 48);
-  v11 = v5;
-  dispatch_async(MEMORY[0x1E69E96A0], v12);
+  dispatch_async(MEMORY[0x1E69E96A0], v14);
 }
 
 void __138___SFAutomaticPasswordInputViewController__inputViewControllerWithAutoFillContext_passwordRules_overrideApplicationIdentifier_completion___block_invoke_22(uint64_t a1)

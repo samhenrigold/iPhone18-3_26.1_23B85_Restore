@@ -23,6 +23,7 @@
 - (void)bluetoothLEDiscoverer:(id)discoverer didUpdateDevice:(id)device;
 - (void)cancelledConnectionAttemptOnTransport:(unint64_t)transport;
 - (void)dealloc;
+- (void)handleChangedWirelessDiscoveryState:(BOOL)state;
 - (void)handleDiscoveredVehicle:(id)vehicle;
 - (void)handleRemovedVehicle:(id)vehicle;
 - (void)handleUpdatedVehicle:(id)vehicle;
@@ -124,6 +125,20 @@
 
   bluetoothLEDiscoverer = [(CARVehicleDiscoverer *)self bluetoothLEDiscoverer];
   [bluetoothLEDiscoverer stopDiscovery];
+}
+
+- (void)handleChangedWirelessDiscoveryState:(BOOL)state
+{
+  stateCopy = state;
+  [(CARVehicleDiscoverer *)self setWirelessDiscovering:?];
+  discoveryDelegate = [(CARVehicleDiscoverer *)self discoveryDelegate];
+  v6 = objc_opt_respondsToSelector();
+
+  if (v6)
+  {
+    discoveryDelegate2 = [(CARVehicleDiscoverer *)self discoveryDelegate];
+    [discoveryDelegate2 vehicleDiscoverer:self changedWirelessDiscoveryState:stateCopy];
+  }
 }
 
 - (void)handleDiscoveredVehicle:(id)vehicle

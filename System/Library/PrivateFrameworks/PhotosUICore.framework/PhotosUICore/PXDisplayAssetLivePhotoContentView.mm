@@ -66,7 +66,7 @@
     v5 = PLExifOrientationFromImageOrientation();
     if (asset)
     {
-      [asset duration];
+      objc_msgSend_duration(asset);
       v6 = vcvts_n_f32_s64(v14, 1uLL);
     }
 

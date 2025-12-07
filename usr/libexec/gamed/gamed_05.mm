@@ -1,105 +1,3 @@
-void sub_1000DBF64(uint64_t a1)
-{
-  v1 = *(a1 + 40);
-  v2 = [*(a1 + 32) result];
-  (*(v1 + 16))(v1, v2);
-}
-
-void sub_1000DC24C(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  if (v2)
-  {
-    v3 = *(v2 + 16);
-
-    v3();
-  }
-
-  else
-  {
-    if (!os_log_GKGeneral)
-    {
-      v4 = GKOSLoggers();
-    }
-
-    if (os_log_type_enabled(os_log_GKMatch, OS_LOG_TYPE_ERROR))
-    {
-      sub_10028CBB8();
-    }
-  }
-}
-
-void sub_1000DC554(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  if (v2)
-  {
-    v3 = *(v2 + 16);
-
-    v3();
-  }
-
-  else
-  {
-    if (!os_log_GKGeneral)
-    {
-      v4 = GKOSLoggers();
-    }
-
-    if (os_log_type_enabled(os_log_GKMatch, OS_LOG_TYPE_ERROR))
-    {
-      sub_10028CBF4();
-    }
-  }
-}
-
-void sub_1000DC8A4(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v4 = *(a1 + 32);
-  if (v4)
-  {
-    (*(v4 + 16))(v4, v3);
-  }
-
-  else
-  {
-    if (!os_log_GKGeneral)
-    {
-      v5 = GKOSLoggers();
-    }
-
-    if (os_log_type_enabled(os_log_GKMatch, OS_LOG_TYPE_ERROR))
-    {
-      sub_10028CC30();
-    }
-  }
-}
-
-void sub_1000DCBBC(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  if (v2)
-  {
-    v3 = *(v2 + 16);
-
-    v3();
-  }
-
-  else
-  {
-    if (!os_log_GKGeneral)
-    {
-      v4 = GKOSLoggers();
-    }
-
-    if (os_log_type_enabled(os_log_GKMatch, OS_LOG_TYPE_ERROR))
-    {
-      sub_10028CC6C();
-    }
-  }
-}
-
 void sub_1000DCF6C(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -205,9 +103,9 @@ void sub_1000DD7E4(uint64_t a1, void *a2, void *a3, void *a4)
   _Block_object_dispose(buf, 8);
 }
 
-void sub_1000DDA10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000DDA10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -267,9 +165,9 @@ void sub_1000DDAD8(uint64_t a1, void *a2, void *a3)
   _Block_object_dispose(&v15, 8);
 }
 
-void sub_1000DDC3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000DDC3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -331,9 +229,9 @@ void sub_1000DDCEC(uint64_t a1, void *a2, void *a3, void *a4)
   _Block_object_dispose(&v20, 8);
 }
 
-void sub_1000DDE74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000DDE74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2309,14 +2207,14 @@ void sub_1000E55B8(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = *(a1 + 32);
-  v17[0] = @"session-ids";
-  v17[1] = @"get-game-state";
-  v18[0] = v4;
-  v18[1] = &off_1003824C0;
-  v17[2] = @"get-exchanges";
+  v17 = @"session-ids";
+  v18 = @"get-game-state";
+  v20 = v4;
+  v21 = &off_1003824C0;
+  v19 = @"get-exchanges";
   v5 = [NSNumber numberWithInteger:*(a1 + 72)];
-  v18[2] = v5;
-  v6 = [NSDictionary dictionaryWithObjects:v18 forKeys:v17 count:3];
+  v22 = v5;
+  v6 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
   v7 = +[GKNetworkRequestManager commonNetworkRequestManager];
   v8 = [*(a1 + 40) clientProxy];
@@ -2629,12 +2527,12 @@ void sub_1000E69A4(uint64_t a1, void *a2)
     if (v10)
     {
       v12 = *(a1 + 40);
-      v31[0] = @"session-id";
-      v31[1] = @"guest-id";
-      v32[0] = v12;
+      v31 = @"session-id";
+      v32 = @"guest-id";
+      v33 = v12;
       v13 = [v9 guestIdentifier];
-      v32[1] = v13;
-      v14 = [NSDictionary dictionaryWithObjects:v32 forKeys:v31 count:2];
+      v34 = v13;
+      v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
       v15 = [v11 updateRequestWithPushToken:v14];
     }
 
@@ -2642,7 +2540,7 @@ void sub_1000E69A4(uint64_t a1, void *a2)
     {
       v29 = @"session-id";
       v30 = *(a1 + 40);
-      v13 = [NSDictionary dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+      v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
       v15 = [v11 updateRequestWithPushToken:v13];
     }
   }
@@ -2653,7 +2551,7 @@ void sub_1000E69A4(uint64_t a1, void *a2)
     v17 = *(a1 + 40);
     v27 = @"session-id";
     v28 = v17;
-    v8 = [NSDictionary dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+    v8 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
     v15 = [v16 updateRequestWithPushToken:v8];
   }
 
@@ -2853,24 +2751,24 @@ void sub_1000E7764(uint64_t a1, void *a2)
   v10 = *(a1 + 40);
   if (v8)
   {
-    v25[0] = @"session-id";
-    v25[1] = @"reason";
-    v26[0] = v10;
-    v26[1] = &off_1003824C0;
-    v25[2] = @"guest-id";
+    v27 = @"session-id";
+    v28 = @"reason";
+    v30 = v10;
+    v31 = &off_1003824C0;
+    v29 = @"guest-id";
     v11 = [v7 guestIdentifier];
-    v26[2] = v11;
-    v12 = [NSDictionary dictionaryWithObjects:v26 forKeys:v25 count:3];
+    v32 = v11;
+    v12 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
     v13 = [v9 updateRequestWithPushToken:v12];
   }
 
   else
   {
-    v23[0] = @"session-id";
-    v23[1] = @"reason";
-    v24[0] = v10;
-    v24[1] = &off_1003824C0;
-    v11 = [NSDictionary dictionaryWithObjects:v24 forKeys:v23 count:2];
+    v23 = @"session-id";
+    v24 = @"reason";
+    v25 = v10;
+    v26 = &off_1003824C0;
+    v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
     v13 = [v9 updateRequestWithPushToken:v11];
   }
 
@@ -3030,7 +2928,7 @@ void sub_1000E8318(uint64_t a1, void *a2)
   v6 = *(a1 + 48);
   v18 = @"session-id";
   v19 = v5;
-  v7 = [NSDictionary dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   v8 = [v6 updateRequestWithPushToken:v7];
 
   v9 = +[GKNetworkRequestManager commonNetworkRequestManager];
@@ -3149,7 +3047,7 @@ void sub_1000E8C00(uint64_t a1, void *a2)
   v36 = 0u;
   v37 = 0u;
   v7 = [*(a1 + 48) participants];
-  v8 = [v7 countByEnumeratingWithState:&v36 objects:v45 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v36 objects:v59 count:16];
   if (v8)
   {
     v9 = v8;
@@ -3171,26 +3069,26 @@ void sub_1000E8C00(uint64_t a1, void *a2)
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v36 objects:v45 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v36 objects:v59 count:16];
     }
 
     while (v9);
   }
 
   v14 = *(a1 + 48);
-  v44[0] = *(a1 + 40);
-  v43[0] = @"session-id";
-  v43[1] = @"current-turn-number";
+  v51 = *(a1 + 40);
+  v43 = @"session-id";
+  v44 = @"current-turn-number";
   v15 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v14 turnNumber]);
-  v44[1] = v15;
-  v43[2] = @"turns";
+  v52 = v15;
+  v45 = @"turns";
   v16 = [*(a1 + 56) turnsForParticipantIndexes:*(a1 + 64) turnTimeout:*(a1 + 80)];
-  v44[2] = v16;
-  v43[3] = @"turn-at";
+  v53 = v16;
+  v46 = @"turn-at";
   v32 = v3;
   v17 = [v3 _gkServerTimestamp];
-  v44[3] = v17;
-  v43[4] = @"turn-message";
+  v54 = v17;
+  v47 = @"turn-message";
   v18 = [*(a1 + 48) message];
   v19 = v18;
   v20 = &stru_100374F10;
@@ -3199,8 +3097,8 @@ void sub_1000E8C00(uint64_t a1, void *a2)
     v20 = v18;
   }
 
-  v44[4] = v20;
-  v43[5] = @"localized-turn-message";
+  v55 = v20;
+  v48 = @"localized-turn-message";
   v21 = [*(a1 + 48) localizableMessage];
   v22 = v21;
   v23 = &__NSDictionary0__struct;
@@ -3209,8 +3107,8 @@ void sub_1000E8C00(uint64_t a1, void *a2)
     v23 = v21;
   }
 
-  v44[5] = v23;
-  v43[6] = @"game-state";
+  v56 = v23;
+  v49 = @"game-state";
   v24 = [*(a1 + 48) matchData];
   v25 = v24;
   if (!v24)
@@ -3218,10 +3116,10 @@ void sub_1000E8C00(uint64_t a1, void *a2)
     v25 = +[NSData data];
   }
 
-  v43[7] = @"players";
-  v44[6] = v25;
-  v44[7] = v6;
-  v26 = [NSDictionary dictionaryWithObjects:v44 forKeys:v43 count:8];
+  v50 = @"players";
+  v57 = v25;
+  v58 = v6;
+  v26 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   if (!v24)
   {
   }
@@ -3389,9 +3287,9 @@ void sub_1000E99DC(uint64_t a1, void *a2, void *a3)
   v7 = [GKTurnBasedSessionCacheObject sessionWithID:*(a1 + 32) inManagedObjectContext:v5];
   [v7 expire];
   v8 = *(a1 + 40);
-  v29[0] = *(a1 + 32);
-  v28[0] = @"session-id";
-  v28[1] = @"game-state-version";
+  v32 = *(a1 + 32);
+  v28 = @"session-id";
+  v29 = @"game-state-version";
   v9 = [v8 matchDataVersion];
   v10 = v9;
   v11 = &stru_100374F10;
@@ -3400,8 +3298,8 @@ void sub_1000E99DC(uint64_t a1, void *a2, void *a3)
     v11 = v9;
   }
 
-  v29[1] = v11;
-  v28[2] = @"game-state";
+  v33 = v11;
+  v30 = @"game-state";
   v12 = [*(a1 + 40) matchData];
   v13 = v12;
   if (!v12)
@@ -3409,16 +3307,16 @@ void sub_1000E99DC(uint64_t a1, void *a2, void *a3)
     v13 = +[NSData data];
   }
 
-  v28[3] = @"resolve-exchanges";
+  v31 = @"resolve-exchanges";
   v14 = *(a1 + 48);
   if (!v14)
   {
     v14 = &__NSArray0__struct;
   }
 
-  v29[2] = v13;
-  v29[3] = v14;
-  v15 = [NSDictionary dictionaryWithObjects:v29 forKeys:v28 count:4];
+  v34 = v13;
+  v35 = v14;
+  v15 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   if (!v12)
   {
   }
@@ -3562,12 +3460,12 @@ void sub_1000EA3EC(uint64_t a1, void *a2)
   [v5 clearTurnBasedBulletinsForMatchID:*(a1 + 40)];
 
   v6 = *(a1 + 48);
-  v20[0] = *(a1 + 40);
-  v19[0] = @"session-id";
-  v19[1] = @"player-status-code";
+  v21 = *(a1 + 40);
+  v19 = @"session-id";
+  v20 = @"player-status-code";
   v7 = [NSNumber numberWithUnsignedInteger:*(a1 + 64)];
-  v20[1] = v7;
-  v8 = [NSDictionary dictionaryWithObjects:v20 forKeys:v19 count:2];
+  v22 = v7;
+  v8 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   v9 = [v6 updateRequestWithPushToken:v8];
 
   v10 = +[GKNetworkRequestManager commonNetworkRequestManager];
@@ -3720,12 +3618,12 @@ void sub_1000EB1E4(id *a1, void *a2)
   [v4 performBlockAndWait:v25];
 
   v5 = a1[6];
-  v29[0] = a1[5];
-  v28[0] = @"session-id";
-  v28[1] = @"current-turn-number";
+  v35 = a1[5];
+  v28 = @"session-id";
+  v29 = @"current-turn-number";
   v6 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v5 turnNumber]);
-  v29[1] = v6;
-  v28[2] = @"completion-message";
+  v36 = v6;
+  v30 = @"completion-message";
   v7 = [a1[6] message];
   v8 = v7;
   v9 = &stru_100374F10;
@@ -3734,8 +3632,8 @@ void sub_1000EB1E4(id *a1, void *a2)
     v9 = v7;
   }
 
-  v29[2] = v9;
-  v28[3] = @"localized-completion-message";
+  v37 = v9;
+  v31 = @"localized-completion-message";
   v10 = [a1[6] localizableMessage];
   v11 = v10;
   v12 = &__NSDictionary0__struct;
@@ -3744,8 +3642,8 @@ void sub_1000EB1E4(id *a1, void *a2)
     v12 = v10;
   }
 
-  v29[3] = v12;
-  v28[4] = @"game-state";
+  v38 = v12;
+  v32 = @"game-state";
   v13 = [a1[6] matchData];
   v14 = v13;
   if (!v13)
@@ -3753,14 +3651,14 @@ void sub_1000EB1E4(id *a1, void *a2)
     v14 = +[NSData data];
   }
 
-  v29[4] = v14;
-  v28[5] = @"players";
+  v39 = v14;
+  v33 = @"players";
   v15 = [a1[6] participants];
   v16 = [v15 _gkFilterWithBlock:&stru_1003663B8];
-  v28[6] = @"reason";
-  v29[5] = v16;
-  v29[6] = @"Game Over";
-  v17 = [NSDictionary dictionaryWithObjects:v29 forKeys:v28 count:7];
+  v34 = @"reason";
+  v40 = v16;
+  v41 = @"Game Over";
+  v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
   if (!v13)
   {
@@ -4065,13 +3963,13 @@ void sub_1000EC428(uint64_t a1)
 void sub_1000EC4D4(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v19[0] = @"session-id";
+  v19 = @"session-id";
   v4 = [*(a1 + 32) matchID];
   v5 = *(a1 + 40);
-  v20[0] = v4;
-  v20[1] = v5;
-  v19[1] = @"participants";
-  v19[2] = @"message-timeout";
+  v24 = v4;
+  v25 = v5;
+  v20 = @"participants";
+  v21 = @"message-timeout";
   v6 = [NSNumber _gkServerTimeInterval:*(a1 + 88)];
   v7 = v6;
   v8 = &__NSDictionary0__struct;
@@ -4081,18 +3979,18 @@ void sub_1000EC4D4(uint64_t a1, void *a2)
     v8 = *(a1 + 48);
   }
 
-  v20[2] = v6;
-  v20[3] = v8;
-  v19[3] = @"notification-message";
-  v19[4] = @"data";
+  v26 = v6;
+  v27 = v8;
+  v22 = @"notification-message";
+  v23 = @"data";
   v10 = v9;
   if (!v9)
   {
     v10 = +[NSData data];
   }
 
-  v20[4] = v10;
-  v11 = [NSDictionary dictionaryWithObjects:v20 forKeys:v19 count:5];
+  v28 = v10;
+  v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   if (!v9)
   {
   }
@@ -4478,88 +4376,84 @@ void sub_1000EE700(uint64_t a1)
 void sub_1000EE9E8(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v37[0] = @"session-id";
-  v4 = [*(a1 + 32) matchID];
-  v38[0] = v4;
-  v37[1] = @"num-reservations";
-  v5 = [NSNumber numberWithInteger:*(a1 + 72)];
-  v38[1] = v5;
-  v37[2] = @"min-players";
-  v6 = [NSNumber numberWithInteger:*(a1 + 80)];
-  v38[2] = v6;
-  v37[3] = @"max-players";
-  v7 = [NSNumber numberWithInteger:*(a1 + 88)];
-  v38[3] = v7;
-  v8 = [NSDictionary dictionaryWithObjects:v38 forKeys:v37 count:4];
-  v9 = [NSMutableDictionary dictionaryWithDictionary:v8];
+  v33 = @"session-id";
+  v37 = [*(a1 + 32) matchID];
+  v34 = @"num-reservations";
+  v38 = [NSNumber numberWithInteger:*(a1 + 72)];
+  v35 = @"min-players";
+  v39 = [NSNumber numberWithInteger:*(a1 + 80)];
+  v36 = @"max-players";
+  v40 = [NSNumber numberWithInteger:*(a1 + 88)];
+  v4 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
+  v5 = [NSMutableDictionary dictionaryWithDictionary:v4];
 
   if ([*(a1 + 40) count])
   {
-    v25 = v9;
-    v26 = v3;
-    v10 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [*(a1 + 40) count]);
-    v30 = 0u;
-    v31 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    v11 = *(a1 + 40);
-    v12 = [v11 countByEnumeratingWithState:&v30 objects:v36 count:16];
-    if (v12)
+    v21 = v5;
+    v22 = v3;
+    v6 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [*(a1 + 40) count]);
+    v26 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    v7 = *(a1 + 40);
+    v8 = [v7 countByEnumeratingWithState:&v26 objects:v32 count:16];
+    if (v8)
     {
-      v13 = v12;
-      v14 = *v31;
+      v9 = v8;
+      v10 = *v27;
       do
       {
-        v15 = 0;
+        v11 = 0;
         do
         {
-          if (*v31 != v14)
+          if (*v27 != v10)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v7);
           }
 
-          v16 = *(*(&v30 + 1) + 8 * v15);
-          v34 = @"player-id";
-          v35 = v16;
-          v17 = [NSDictionary dictionaryWithObjects:&v35 forKeys:&v34 count:1];
-          v18 = [NSMutableDictionary dictionaryWithDictionary:v17];
+          v12 = *(*(&v26 + 1) + 8 * v11);
+          v30 = @"player-id";
+          v31 = v12;
+          v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
+          v14 = [NSMutableDictionary dictionaryWithDictionary:v13];
 
-          v19 = *(a1 + 48);
-          if (v19)
+          v15 = *(a1 + 48);
+          if (v15)
           {
-            [v18 setObject:v19 forKeyedSubscript:@"invite-message"];
+            [v14 setObject:v15 forKeyedSubscript:@"invite-message"];
           }
 
-          [v10 addObject:v18];
+          [v6 addObject:v14];
 
-          v15 = v15 + 1;
+          v11 = v11 + 1;
         }
 
-        while (v13 != v15);
-        v13 = [v11 countByEnumeratingWithState:&v30 objects:v36 count:16];
+        while (v9 != v11);
+        v9 = [v7 countByEnumeratingWithState:&v26 objects:v32 count:16];
       }
 
-      while (v13);
+      while (v9);
     }
 
-    v9 = v25;
-    [v25 setObject:v10 forKeyedSubscript:@"invites"];
+    v5 = v21;
+    [v21 setObject:v6 forKeyedSubscript:@"invites"];
 
-    v3 = v26;
+    v3 = v22;
   }
 
-  v20 = +[GKNetworkRequestManager commonNetworkRequestManager];
-  v21 = +[GKDataRequestManager sharedManager];
-  v22 = [v21 updateRequestWithPushToken:v9];
-  v23 = [*(a1 + 56) clientProxy];
-  v27[0] = _NSConcreteStackBlock;
-  v27[1] = 3221225472;
-  v27[2] = sub_1000EED7C;
-  v27[3] = &unk_1003627C8;
-  v28 = *(a1 + 64);
-  v29 = v3;
-  v24 = v3;
-  [v20 issueRequest:v22 bagKey:@"gk-tb-reserve-slots" clientProxy:v23 handler:v27];
+  v16 = +[GKNetworkRequestManager commonNetworkRequestManager];
+  v17 = +[GKDataRequestManager sharedManager];
+  v18 = [v17 updateRequestWithPushToken:v5];
+  v19 = [*(a1 + 56) clientProxy];
+  v23[0] = _NSConcreteStackBlock;
+  v23[1] = 3221225472;
+  v23[2] = sub_1000EED7C;
+  v23[3] = &unk_1003627C8;
+  v24 = *(a1 + 64);
+  v25 = v3;
+  v20 = v3;
+  [v16 issueRequest:v18 bagKey:@"gk-tb-reserve-slots" clientProxy:v19 handler:v23];
 }
 
 uint64_t sub_1000EED7C(uint64_t a1)
@@ -5729,9 +5623,9 @@ id sub_1000F7484(uint64_t a1, void *a2)
   return v5;
 }
 
-void sub_1000F7648(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000F7648(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5750,9 +5644,9 @@ void sub_1000F79DC(id a1)
   _objc_release_x1();
 }
 
-void sub_1000F7C24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000F7C24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6630,14 +6524,14 @@ void sub_1000FBCE4(uint64_t a1, void *a2, void *a3, void *a4)
   }
 }
 
-void sub_1000FCE74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000FCE74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -6804,9 +6698,9 @@ void sub_1000FE67C(uint64_t a1)
   }
 }
 
-void sub_1000FEA10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000FEA10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7041,7 +6935,7 @@ void sub_1000FFCD8(uint64_t a1)
   v44 = 0u;
   v45 = 0u;
   obj = *(v1 + 32);
-  v4 = [obj countByEnumeratingWithState:&v44 objects:v53 count:16];
+  v4 = [obj countByEnumeratingWithState:&v44 objects:v55 count:16];
   v38 = v1;
   if (v4)
   {
@@ -7068,7 +6962,7 @@ void sub_1000FFCD8(uint64_t a1)
           v11 = v10;
           v12 = [GKNetworkRequestManager dictionaryFromTaskDescription:v8];
           *buf = 138412290;
-          v52 = v12;
+          v54 = v12;
           _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "GKNetworkRequestManager setupSessionsAsync task: %@", buf, 0xCu);
         }
 
@@ -7119,7 +7013,7 @@ void sub_1000FFCD8(uint64_t a1)
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v44 objects:v53 count:16];
+      v5 = [obj countByEnumeratingWithState:&v44 objects:v55 count:16];
     }
 
     while (v5);
@@ -7133,7 +7027,7 @@ void sub_1000FFCD8(uint64_t a1)
     v42 = 0u;
     v43 = 0u;
     v24 = [v2 allKeys];
-    v25 = [v24 countByEnumeratingWithState:&v40 objects:v50 count:16];
+    v25 = [v24 countByEnumeratingWithState:&v40 objects:v52 count:16];
     if (v25)
     {
       v26 = v25;
@@ -7158,18 +7052,18 @@ void sub_1000FFCD8(uint64_t a1)
         }
 
         while (v26 != v28);
-        v26 = [v24 countByEnumeratingWithState:&v40 objects:v50 count:16];
+        v26 = [v24 countByEnumeratingWithState:&v40 objects:v52 count:16];
       }
 
       while (v26);
     }
 
-    v48[0] = @"concurrentCount";
+    v48 = @"concurrentCount";
     v32 = [NSNumber numberWithLong:v37];
-    v48[1] = @"concurrentBreakDown";
-    v49[0] = v32;
-    v49[1] = v23;
-    v33 = [NSDictionary dictionaryWithObjects:v49 forKeys:v48 count:2];
+    v49 = @"concurrentBreakDown";
+    v50 = v32;
+    v51 = v23;
+    v33 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
     if (!os_log_GKGeneral)
     {
@@ -7181,7 +7075,7 @@ void sub_1000FFCD8(uint64_t a1)
     if (os_log_type_enabled(os_log_GKDaemon, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v52 = v33;
+      v54 = v33;
       _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_INFO, "GKNetworkRequestManager sending event %@", buf, 0xCu);
     }
 
@@ -7525,7 +7419,7 @@ id sub_100101CA0(uint64_t a1, uint64_t a2, __n128 a3)
 {
   if (!a2)
   {
-    return [*(a1 + 32) _issueRequestForPlayer:*(a1 + 40) preconnect:0 bagKey:*(a1 + 48) clientProxy:*(a1 + 56) locale:*(a1 + 64) playerCredential:*(a1 + 72) handler:*(a1 + 80)];
+    return [*(a1 + 32) _issueRequestForPlayer:*(a1 + 40) preconnect:0 bagKey:*(a1 + 48) clientProxy:*(a1 + 56) locale:*(a1 + 64) playerCredential:*(a1 + 72) handler:{a3.n128_f64[0], *(a1 + 80)}];
   }
 
   v4 = *(*(a1 + 80) + 16);
@@ -7549,7 +7443,7 @@ void sub_100101E2C(void *a1, uint64_t a2, __n128 a3)
     v5 = a1[4];
     v6 = a1[5];
     v7 = a1[6];
-    v8 = [v5 playerCredentialsForClientProxy:v7];
+    v8 = [v5 playerCredentialsForClientProxy:{v7, a3.n128_f64[0]}];
     [v5 _issueRequestForPlayer:0 preconnect:1 bagKey:v6 clientProxy:v7 locale:0 playerCredential:v8 handler:a1[7]];
   }
 }
@@ -7691,7 +7585,7 @@ void sub_10010223C(uint64_t a1, void *a2)
     v23 = *(a1 + 72);
     v45 = NSLocalizedFailureReasonErrorKey;
     v46 = @"Could not create network task";
-    v12 = [NSDictionary dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+    v12 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
     v24 = [NSError userErrorForCode:3 userInfo:v12];
     (*(v23 + 16))(v23, 0, v24, 0.0);
   }
@@ -7720,7 +7614,7 @@ void sub_100102608(uint64_t a1, void *a2, void *a3, void *a4)
 
     v49 = NSLocalizedFailureReasonErrorKey;
     v50 = @"Server returned 520 with a wait period";
-    v17 = [NSDictionary dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+    v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
     v18 = [NSError userErrorForCode:3 userInfo:v17];
 
     goto LABEL_5;
@@ -7736,7 +7630,7 @@ void sub_100102608(uint64_t a1, void *a2, void *a3, void *a4)
   {
     v47 = NSLocalizedFailureReasonErrorKey;
     v48 = @"Empty server response";
-    v14 = [NSDictionary dictionaryWithObjects:&v48 forKeys:&v47 count:1];
+    v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
     v18 = [NSError userErrorForCode:3 userInfo:v14];
 LABEL_5:
 

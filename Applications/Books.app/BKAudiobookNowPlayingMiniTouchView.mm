@@ -51,7 +51,7 @@
   [Strong invalidateIntrinsicContentSize];
 
   sub_1005BC0C8();
-  sub_1000074E0(&v9);
+  sub_1000074E0(v9);
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
@@ -82,7 +82,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1005BB808();
+  sub_1005BB808(selfCopy);
 }
 
 - (NSString)accessibilityLabel
@@ -193,7 +193,7 @@
 
 - (id)transitionControlsViews
 {
-  sub_1001F1160(&qword_100AD7FB0);
+  sub_1001F1160(&qword_100AD7FB0, &unk_100820560);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_100812CF0;
   v4 = *(&self->super.super.super.isa + OBJC_IVAR___BKAudiobookNowPlayingMiniTouchView_skipBackwardButton);
@@ -216,12 +216,12 @@
 
 - (id)transitionCoverViews
 {
-  sub_1001F1160(&qword_100AD7FB0);
+  sub_1001F1160(&qword_100AD7FB0, &unk_100820560);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_10080B690;
   selfCopy = self;
   v5 = sub_1005B7B44();
-  *(v3 + 56) = sub_10000A7C4(0, &qword_100AD7FD0);
+  *(v3 + 56) = sub_10000A7C4(0, &qword_100AD7FD0, UIImageView_ptr);
   *(v3 + 32) = v5;
 
   v6.super.isa = sub_1007A25D4().super.isa;

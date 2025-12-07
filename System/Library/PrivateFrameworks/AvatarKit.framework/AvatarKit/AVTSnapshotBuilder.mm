@@ -4,6 +4,7 @@
 - (AVTSnapshotBuilder)init;
 - (double)deprecated_avtui_fieldOfViewForFramingMode:(id)mode;
 - (id)_imageWithSize:(CGSize)size scale:(double)scale options:(id)options;
+- (id)_imageWithSize:(CGSize)size scale:(double)scale options:(id)options useACopy:(BOOL)copy;
 - (id)animatedImageWithSize:(CGSize)size scale:(double)scale options:(id)options;
 - (id)imageWithSize:(CGSize)size scale:(double)scale options:(id)options;
 - (void)_applyOptions:(id)options;
@@ -55,26 +56,25 @@ uint64_t __36__AVTSnapshotBuilder_sharedInstance__block_invoke()
 
 - (AVTSnapshotBuilder)init
 {
-  v12[1] = *MEMORY[0x1E69E9840];
-  v10.receiver = self;
-  v10.super_class = AVTSnapshotBuilder;
-  v2 = [(AVTSnapshotBuilder *)&v10 init];
+  v12 = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = AVTSnapshotBuilder;
+  v2 = [(AVTSnapshotBuilder *)&v9 init];
   if (v2)
   {
-    v11 = @"AVTRendererOptionInitiallyConfigureForARMode";
-    v12[0] = MEMORY[0x1E695E110];
-    v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
-    v4 = [(VFXRenderer *)AVTRenderer rendererWithDevice:0 options:v3];
+    v10 = @"AVTRendererOptionInitiallyConfigureForARMode";
+    v11 = MEMORY[0x1E695E110];
+    v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+    v4 = [VFXRenderer rendererWithDevice:"rendererWithDevice:options:" options:?];
     renderer = v2->_renderer;
     v2->_renderer = v4;
 
-    [(AVTRenderer *)v2->_renderer setFramingMode:@"cameraDefault"];
+    [(AVTRenderer *)v2->_renderer setFramingMode:?];
     v6 = objc_alloc_init(AVTSnapshotHelper);
     snapshotHelper = v2->_snapshotHelper;
     v2->_snapshotHelper = v6;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -87,7 +87,7 @@ uint64_t __36__AVTSnapshotBuilder_sharedInstance__block_invoke()
 
 - (void)_applyOptions:(id)options
 {
-  v4 = [options objectForKeyedSubscript:@"AVTSnapshotFramingMode"];
+  v4 = [options objectForKeyedSubscript:?];
   v5 = v4;
   v6 = @"cameraHead";
   if (v4)
@@ -97,12 +97,11 @@ uint64_t __36__AVTSnapshotBuilder_sharedInstance__block_invoke()
 
   v7 = v6;
 
-  [(AVTRenderer *)self->_renderer setFramingMode:v7];
+  [(AVTRenderer *)self->_renderer setFramingMode:?];
 }
 
 - (void)setupAvatarWithOptions:(id)options useACopy:(BOOL)copy
 {
-  v60 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   if (!self->_snapshotedAvatar)
   {
@@ -120,170 +119,144 @@ uint64_t __36__AVTSnapshotBuilder_sharedInstance__block_invoke()
     snapshotedAvatar = self->_snapshotedAvatar;
     self->_snapshotedAvatar = v8;
 
-    [(AVTAvatar *)self->_snapshotedAvatar setOptimizeForSnapshot:1];
-    [(AVTRenderer *)self->_renderer setAvatar:self->_snapshotedAvatar];
-    v10 = self->_snapshotedAvatar;
+    [(AVTAvatar *)self->_snapshotedAvatar setOptimizeForSnapshot:?];
+    [(AVTRenderer *)self->_renderer setAvatar:?];
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v11 = self->_avatar;
-    v12 = self->_snapshotedAvatar;
-    if (v12 != v11)
+    v10 = self->_avatar;
+    v11 = self->_snapshotedAvatar;
+    if (v11 != v10)
     {
       for (i = 0; i != 40; ++i)
       {
-        v14 = [(AVTAvatar *)v11 presetForCategory:i];
-        [(AVTAvatar *)v12 setPreset:v14 forCategory:i animated:0];
+        v13 = [(AVTAvatar *)v10 presetForCategory:?];
+        [AVTAvatar setPreset:v11 forCategory:"setPreset:forCategory:animated:" animated:?];
         for (j = 0; j != 3; ++j)
         {
-          v16 = [(AVTAvatar *)v11 colorPresetForCategory:i colorIndex:j];
-          [(AVTAvatar *)v12 setColorPreset:v16 forCategory:i colorIndex:j];
+          v15 = [AVTAvatar colorPresetForCategory:v10 colorIndex:"colorPresetForCategory:colorIndex:"];
+          [AVTAvatar setColorPreset:v11 forCategory:"setColorPreset:forCategory:colorIndex:" colorIndex:?];
         }
       }
 
       if (copy)
       {
-        [(AVTAvatar *)v12 setShowsBody:[(AVTAvatar *)v11 showsBody]];
-        bodyPose = [(AVTAvatar *)v11 bodyPose];
-        [(AVTAvatar *)v12 setBodyPose:bodyPose];
+        [(AVTAvatar *)v10 showsBody];
+        [(AVTAvatar *)v11 setShowsBody:?];
+        bodyPose = [(AVTAvatar *)v10 bodyPose];
+        [(AVTAvatar *)v11 setBodyPose:?];
       }
     }
 
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
-    v53 = 0u;
-    v18 = [optionsCopy objectForKeyedSubscript:@"AVTSnapshotMemojiPresetSubstitutions"];
-    v19 = [v18 countByEnumeratingWithState:&v52 objects:v59 count:16];
-    if (v19)
+    v17 = [optionsCopy objectForKeyedSubscript:?];
+    v18 = [v17 countByEnumeratingWithState:? objects:? count:?];
+    if (v18)
     {
-      v20 = v19;
-      v21 = *v53;
+      v19 = v18;
+      v20 = MEMORY[0];
       do
       {
-        v22 = 0;
-        do
+        for (k = 0; k != v19; k = (k + 1))
         {
-          if (*v53 != v21)
+          if (MEMORY[0] != v20)
           {
-            objc_enumerationMutation(v18);
+            objc_enumerationMutation(v17);
           }
 
-          -[AVTAvatar setPreset:forCategory:animated:](v12, "setPreset:forCategory:animated:", *(*(&v52 + 1) + 8 * v22), [*(*(&v52 + 1) + 8 * v22) category], 0);
-          ++v22;
+          [*(8 * k) category];
+          [AVTAvatar setPreset:v11 forCategory:"setPreset:forCategory:animated:" animated:?];
         }
 
-        while (v20 != v22);
-        v20 = [v18 countByEnumeratingWithState:&v52 objects:v59 count:16];
+        v19 = [v17 countByEnumeratingWithState:? objects:? count:?];
       }
 
-      while (v20);
+      while (v19);
     }
 
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
-    v49 = 0u;
-    v23 = [optionsCopy objectForKeyedSubscript:@"AVTSnapshotMemojiColorPresetSubstitutions"];
-    v24 = [v23 countByEnumeratingWithState:&v48 objects:v58 count:16];
-    if (v24)
+    v22 = [optionsCopy objectForKeyedSubscript:?];
+    v23 = [v22 countByEnumeratingWithState:? objects:? count:?];
+    if (v23)
     {
-      v25 = v24;
-      v26 = *v49;
+      v24 = v23;
+      v25 = MEMORY[0];
       do
       {
-        v27 = 0;
-        do
+        for (m = 0; m != v24; m = (m + 1))
         {
-          if (*v49 != v26)
+          if (MEMORY[0] != v25)
           {
-            objc_enumerationMutation(v23);
+            objc_enumerationMutation(v22);
           }
 
-          -[AVTAvatar setColorPreset:forCategory:colorIndex:](v12, "setColorPreset:forCategory:colorIndex:", *(*(&v48 + 1) + 8 * v27), [*(*(&v48 + 1) + 8 * v27) category], 0);
-          ++v27;
+          [*(8 * m) category];
+          [AVTAvatar setColorPreset:v11 forCategory:"setColorPreset:forCategory:colorIndex:" colorIndex:?];
         }
 
-        while (v25 != v27);
-        v25 = [v23 countByEnumeratingWithState:&v48 objects:v58 count:16];
+        v24 = [v22 countByEnumeratingWithState:? objects:? count:?];
       }
 
-      while (v25);
+      while (v24);
     }
 
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
-    v45 = 0u;
-    v28 = [optionsCopy objectForKeyedSubscript:@"AVTSnapshotMemojiSecondaryColorPresetSubstitutions"];
-    v29 = [v28 countByEnumeratingWithState:&v44 objects:v57 count:16];
-    if (v29)
+    v27 = [optionsCopy objectForKeyedSubscript:?];
+    v28 = [v27 countByEnumeratingWithState:? objects:? count:?];
+    if (v28)
     {
-      v30 = v29;
-      v31 = *v45;
+      v29 = v28;
+      v30 = MEMORY[0];
       do
       {
-        v32 = 0;
-        do
+        for (n = 0; n != v29; n = (n + 1))
         {
-          if (*v45 != v31)
+          if (MEMORY[0] != v30)
           {
-            objc_enumerationMutation(v28);
+            objc_enumerationMutation(v27);
           }
 
-          -[AVTAvatar setColorPreset:forCategory:colorIndex:](v12, "setColorPreset:forCategory:colorIndex:", *(*(&v44 + 1) + 8 * v32), [*(*(&v44 + 1) + 8 * v32) category], 1);
-          ++v32;
+          [*(8 * n) category];
+          [AVTAvatar setColorPreset:v11 forCategory:"setColorPreset:forCategory:colorIndex:" colorIndex:?];
         }
 
-        while (v30 != v32);
-        v30 = [v28 countByEnumeratingWithState:&v44 objects:v57 count:16];
+        v29 = [v27 countByEnumeratingWithState:? objects:? count:?];
       }
 
-      while (v30);
+      while (v29);
     }
 
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
-    v41 = 0u;
-    v33 = [optionsCopy objectForKeyedSubscript:{@"AVTSnapshotMemojiThirdColorPresetSubstitutions", 0}];
-    v34 = [v33 countByEnumeratingWithState:&v40 objects:v56 count:16];
-    if (v34)
+    v32 = [optionsCopy objectForKeyedSubscript:0];
+    v33 = [v32 countByEnumeratingWithState:? objects:? count:?];
+    if (v33)
     {
-      v35 = v34;
-      v36 = *v41;
+      v34 = v33;
+      v35 = MEMORY[0];
       do
       {
-        v37 = 0;
-        do
+        for (ii = 0; ii != v34; ii = (ii + 1))
         {
-          if (*v41 != v36)
+          if (MEMORY[0] != v35)
           {
-            objc_enumerationMutation(v33);
+            objc_enumerationMutation(v32);
           }
 
-          -[AVTAvatar setColorPreset:forCategory:colorIndex:](v12, "setColorPreset:forCategory:colorIndex:", *(*(&v40 + 1) + 8 * v37), [*(*(&v40 + 1) + 8 * v37) category], 2);
-          ++v37;
+          [*(8 * ii) category];
+          [AVTAvatar setColorPreset:v11 forCategory:"setColorPreset:forCategory:colorIndex:" colorIndex:?];
         }
 
-        while (v35 != v37);
-        v35 = [v33 countByEnumeratingWithState:&v40 objects:v56 count:16];
+        v34 = [v32 countByEnumeratingWithState:? objects:? count:?];
       }
 
-      while (v35);
+      while (v34);
     }
   }
 
-  [(AVTAvatar *)self->_snapshotedAvatar updateWithOptions:1];
-  v38 = [optionsCopy objectForKeyedSubscript:@"AVTSnapshotPose"];
-  if (v38)
+  [(AVTAvatar *)self->_snapshotedAvatar updateWithOptions:?];
+  v37 = [optionsCopy objectForKeyedSubscript:?];
+  if (v37)
   {
-    [(AVTAvatar *)self->_snapshotedAvatar setPose:v38];
+    [(AVTAvatar *)self->_snapshotedAvatar setPose:?];
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 + (CGImage)copyRescaledCGImage:(CGImage *)image by:(float)by
@@ -313,56 +286,44 @@ uint64_t __36__AVTSnapshotBuilder_sharedInstance__block_invoke()
 
 - (id)imageWithSize:(CGSize)size scale:(double)scale options:(id)options
 {
-  height = size.height;
-  width = size.width;
   optionsCopy = options;
-  v10 = [optionsCopy valueForKey:@"AVTSnapshotNoCopy"];
-  bOOLValue = [v10 BOOLValue];
+  v7 = [optionsCopy valueForKey:?];
+  [v7 BOOLValue];
 
-  scale = [(AVTSnapshotBuilder *)self _imageWithSize:optionsCopy scale:bOOLValue ^ 1u options:width useACopy:height, scale];
+  v8 = [AVTSnapshotBuilder _imageWithSize:"_imageWithSize:scale:options:useACopy:" scale:? options:? useACopy:?];
 
-  return scale;
+  return v8;
 }
 
 - (id)_imageWithSize:(CGSize)size scale:(double)scale options:(id)options
 {
-  height = size.height;
-  width = size.width;
   optionsCopy = options;
-  v10 = [optionsCopy valueForKey:@"AVTSnapshotNoCopy"];
-  bOOLValue = [v10 BOOLValue];
+  v7 = [optionsCopy valueForKey:?];
+  [v7 BOOLValue];
 
-  scale = [(AVTSnapshotBuilder *)self _imageWithSize:optionsCopy scale:bOOLValue ^ 1u options:width useACopy:height, scale];
+  v8 = [AVTSnapshotBuilder _imageWithSize:"_imageWithSize:scale:options:useACopy:" scale:? options:? useACopy:?];
 
-  return scale;
+  return v8;
 }
 
-- (id)animatedImageWithSize:(CGSize)size scale:(double)scale options:(id)options
+- (id)_imageWithSize:(CGSize)size scale:(double)scale options:(id)options useACopy:(BOOL)copy
 {
   height = size.height;
   width = size.width;
   optionsCopy = options;
-  context = objc_autoreleasePoolPush();
-  [(AVTSnapshotBuilder *)self setupAvatarWithOptions:optionsCopy useACopy:1];
-  v9 = [optionsCopy objectForKeyedSubscript:@"AVTSnapshotPoseAnimation"];
-  v10 = v9;
-  if (v9)
+  v11 = objc_autoreleasePoolPush();
+  v12 = [optionsCopy objectForKeyedSubscript:?];
+  v13 = v12;
+  if (v12)
   {
-    v11 = [v9 addToAvatar:self->_snapshotedAvatar useStaticPhysicsState:0];
-    [v10 duration];
-    v13 = v12;
+    [v12 BOOLValue];
   }
 
-  else
-  {
-    v13 = 2.0;
-  }
-
-  v14 = [optionsCopy objectForKeyedSubscript:@"AVTSnapshotAntialiasedKey"];
-  v52 = v10;
+  [AVTSnapshotBuilder setupAvatarWithOptions:"setupAvatarWithOptions:useACopy:" useACopy:?];
+  v14 = [optionsCopy objectForKeyedSubscript:?];
   if (v14)
   {
-    v15 = [optionsCopy objectForKeyedSubscript:@"AVTSnapshotAntialiasedKey"];
+    v15 = [optionsCopy objectForKeyedSubscript:?];
     if ([v15 BOOLValue])
     {
       v16 = 2;
@@ -379,101 +340,202 @@ uint64_t __36__AVTSnapshotBuilder_sharedInstance__block_invoke()
     v16 = 2;
   }
 
-  [(AVTRenderer *)self->_renderer setJitteringEnabled:0];
-  v17 = [optionsCopy objectForKeyedSubscript:@"AVTSnapshotUpscaleKey"];
+  CFAbsoluteTimeGetCurrent();
+  v17 = [optionsCopy objectForKeyedSubscript:?];
   [v17 floatValue];
   v19 = v18;
 
   if (v19 == 0.0)
   {
-    v20 = 1.5;
+    v19 = 1.0;
+  }
+
+  v20 = [optionsCopy objectForKeyedSubscript:?];
+  [v20 floatValue];
+
+  v21 = [optionsCopy objectForKeyedSubscript:?];
+  v22 = v21;
+  if (v21)
+  {
+    v23 = [v21 addToAvatar:? useStaticPhysicsState:?];
+  }
+
+  [(AVTSnapshotBuilder *)self _applyOptions:?];
+  world = [(AVTRenderer *)self->_renderer world];
+  clock = [world clock];
+  [clock setTime:?];
+
+  [(AVTRenderer *)self->_renderer set_superSamplingFactor:?];
+  v26 = [optionsCopy objectForKeyedSubscript:?];
+  backgroundColor = [(AVTRenderer *)self->_renderer backgroundColor];
+
+  if (backgroundColor != v26)
+  {
+    [(AVTRenderer *)self->_renderer setBackgroundColor:?];
+  }
+
+  [MEMORY[0x1E69DF378] flush];
+  v28 = v19 * scale;
+  v29 = (width * v28);
+  v30 = (height * v28);
+  [(AVTRenderer *)self->_renderer updateAtTime:?];
+  renderer = self->_renderer;
+  snapshotHelper = self->_snapshotHelper;
+  scaleCopy = scale;
+  v39 = 0;
+  v34 = [(AVTSnapshotHelper *)snapshotHelper newImageWithRenderer:v16 antialiasingMode:v29 pixelWidth:v30 pixelHeight:&v39 imagePointSize:width contentScaleFactor:height error:scaleCopy];
+  v35 = v39;
+  v36 = v35;
+  if (!v34)
+  {
+    v37 = avt_default_log(v35);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    {
+      [AVTVariantBatchSnapshotter imageWithOptions:v36 modifications:?];
+    }
+  }
+
+  objc_autoreleasePoolPop(v11);
+
+  return v34;
+}
+
+- (id)animatedImageWithSize:(CGSize)size scale:(double)scale options:(id)options
+{
+  height = size.height;
+  width = size.width;
+  optionsCopy = options;
+  context = objc_autoreleasePoolPush();
+  [AVTSnapshotBuilder setupAvatarWithOptions:"setupAvatarWithOptions:useACopy:" useACopy:?];
+  v9 = [optionsCopy objectForKeyedSubscript:?];
+  v10 = v9;
+  if (v9)
+  {
+    v11 = [v9 addToAvatar:? useStaticPhysicsState:?];
+    [v12 duration];
+    v14 = v13;
   }
 
   else
   {
-    v20 = v19;
+    v14 = 2.0;
   }
 
-  v21 = [optionsCopy objectForKeyedSubscript:@"AVTSnapshotRateKey"];
-  [v21 floatValue];
-  v23 = v22;
-
-  if (v23 == 0.0)
+  v15 = [optionsCopy objectForKeyedSubscript:?];
+  v47 = v10;
+  if (v15)
   {
-    v24 = 60.0;
+    v16 = [optionsCopy objectForKeyedSubscript:?];
+    if ([v16 BOOLValue])
+    {
+      v17 = 2;
+    }
+
+    else
+    {
+      v17 = 0;
+    }
   }
 
   else
   {
-    v24 = v23;
+    v17 = 2;
   }
 
-  v25 = v13 * v24;
-  v26 = vcvtps_s32_f32(v25);
-  v54 = optionsCopy;
-  [(AVTSnapshotBuilder *)self _applyOptions:optionsCopy, *&v13];
+  [(AVTRenderer *)self->_renderer setJitteringEnabled:?];
+  v18 = [optionsCopy objectForKeyedSubscript:?];
+  [v18 floatValue];
+  v20 = v19;
+
+  if (v20 == 0.0)
+  {
+    v21 = 1.5;
+  }
+
+  else
+  {
+    v21 = v20;
+  }
+
+  v22 = [optionsCopy objectForKeyedSubscript:?];
+  [v22 floatValue];
+  v24 = v23;
+
+  if (v24 == 0.0)
+  {
+    v25 = 60.0;
+  }
+
+  else
+  {
+    v25 = v24;
+  }
+
+  v26 = v14 * v25;
+  v27 = vcvtps_s32_f32(v26);
+  v49 = optionsCopy;
+  [(AVTSnapshotBuilder *)self _applyOptions:*&v14];
   [MEMORY[0x1E69DF378] flush];
   array = [MEMORY[0x1E695DF70] array];
-  Current = CFAbsoluteTimeGetCurrent();
-  if (v26 >= 1)
+  CFAbsoluteTimeGetCurrent();
+  if (v27 >= 1)
   {
-    v28 = Current;
-    v29 = 0;
-    v30 = v20 * scale;
-    v31 = (width * v30);
-    v32 = (height * v30);
+    v28 = 0;
+    v29 = v21 * scale;
+    v30 = (width * v29);
+    v31 = (height * v29);
     do
     {
-      v34 = objc_autoreleasePoolPush();
+      v33 = objc_autoreleasePoolPush();
       world = [(AVTRenderer *)self->_renderer world];
       clock = [world clock];
-      [clock setTime:(v29 / v24)];
+      [clock setTime:?];
 
       renderer = self->_renderer;
       world2 = [(AVTRenderer *)renderer world];
       clock2 = [world2 clock];
       [clock2 time];
-      [(AVTRenderer *)renderer updateAtTime:v28 + v40];
+      [(AVTRenderer *)renderer updateAtTime:?];
 
       scaleCopy = scale;
-      v41 = [(AVTSnapshotHelper *)self->_snapshotHelper newImageWithRenderer:v16 antialiasingMode:v31 pixelWidth:v32 pixelHeight:0 imagePointSize:width contentScaleFactor:height error:scaleCopy];
-      v42 = v41;
-      if (v20 != 1.0)
+      v39 = [(AVTSnapshotHelper *)self->_snapshotHelper newImageWithRenderer:v17 antialiasingMode:v30 pixelWidth:v31 pixelHeight:0 imagePointSize:width contentScaleFactor:height error:scaleCopy];
+      v40 = v39;
+      if (v21 != 1.0)
       {
-        cGImage = [v41 CGImage];
-        v44 = objc_opt_class();
-        *&v45 = 1.0 / v20;
-        v46 = [v44 copyRescaledCGImage:cGImage by:v45];
-        v47 = [MEMORY[0x1E69DCAB8] imageWithCGImage:v46];
+        [v39 CGImage];
+        v41 = [objc_opt_class() copyRescaledCGImage:? by:?];
+        v42 = [MEMORY[0x1E69DCAB8] imageWithCGImage:?];
 
-        CGImageRelease(v46);
-        v42 = v47;
+        CGImageRelease(v41);
+        v40 = v42;
       }
 
       if (scale != 1.0)
       {
-        v48 = [MEMORY[0x1E69DCAB8] imageWithCGImage:objc_msgSend(v42 scale:"CGImage") orientation:{0, scale}];
+        v43 = MEMORY[0x1E69DCAB8];
+        [v40 CGImage];
+        v44 = [v43 imageWithCGImage:? scale:? orientation:?];
 
-        v42 = v48;
+        v40 = v44;
       }
 
-      if (v42)
+      if (v40)
       {
-        [array addObject:v42];
+        [array addObject:?];
       }
 
-      objc_autoreleasePoolPop(v34);
-      ++v29;
+      objc_autoreleasePoolPop(v33);
+      ++v28;
     }
 
-    while (v26 != v29);
+    while (v27 != v28);
   }
 
-  v49 = [MEMORY[0x1E69DCAB8] animatedImageWithImages:array duration:v51];
+  v45 = [MEMORY[0x1E69DCAB8] animatedImageWithImages:? duration:?];
 
   objc_autoreleasePoolPop(context);
 
-  return v49;
+  return v45;
 }
 
 - (double)deprecated_avtui_fieldOfViewForFramingMode:(id)mode
@@ -482,7 +544,7 @@ uint64_t __36__AVTSnapshotBuilder_sharedInstance__block_invoke()
   renderer = [(AVTSnapshotBuilder *)self renderer];
   world = [renderer world];
   rootNode = [world rootNode];
-  v8 = [rootNode childNodeWithName:modeCopy recursively:1];
+  v8 = [rootNode childNodeWithName:? recursively:?];
 
   camera = [v8 camera];
   [camera fieldOfView];
@@ -493,23 +555,20 @@ uint64_t __36__AVTSnapshotBuilder_sharedInstance__block_invoke()
 
 - (void)deprecated_avtui_applyModificationsForFramingMode:(id)mode projectionDirectionModification:(int64_t)modification fieldOfViewModification:(double)viewModification lensShiftModification:
 {
-  v6 = v5;
   modeCopy = mode;
   renderer = [(AVTSnapshotBuilder *)self renderer];
   world = [renderer world];
   rootNode = [world rootNode];
-  v13 = [rootNode childNodeWithName:modeCopy recursively:1];
+  v9 = [rootNode childNodeWithName:? recursively:?];
 
-  camera = [v13 camera];
-  *&viewModification = viewModification;
-  LODWORD(v15) = LODWORD(viewModification);
-  [camera setFieldOfView:v15];
+  camera = [v9 camera];
+  [camera setFieldOfView:?];
 
-  camera2 = [v13 camera];
-  [camera2 setProjectionDirection:modification];
+  camera2 = [v9 camera];
+  [camera2 setProjectionDirection:?];
 
-  camera3 = [v13 camera];
-  [camera3 setFilmOffset:v6];
+  camera3 = [v9 camera];
+  [camera3 setFilmOffset:?];
 }
 
 @end

@@ -95,22 +95,22 @@
     v5->_isManagedAppleAccount = [coderCopy decodeBoolForKey:@"isManagedAppleAccount"];
     v5->_isWalletEnabledOnManagedAppleAccount = [coderCopy decodeBoolForKey:@"isWalletEnabledOnManagedAppleAccount"];
     v24 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"ageCategory"];
-    if ([@"under13" isEqualToString:v24])
+    if (objc_msgSend_isEqualToString_(@"under13"))
     {
       v25 = 1;
     }
 
-    else if ([@"under18" isEqualToString:v24])
+    else if (objc_msgSend_isEqualToString_(@"under18"))
     {
       v25 = 2;
     }
 
-    else if ([@"adult" isEqualToString:v24])
+    else if (objc_msgSend_isEqualToString_(@"adult"))
     {
       v25 = 3;
     }
 
-    else if ([@"managedAppleAccount" isEqualToString:v24])
+    else if (objc_msgSend_isEqualToString_(@"managedAppleAccount"))
     {
       v25 = 4;
     }

@@ -5,6 +5,7 @@
 + (BOOL)importOntologyShardEntry:(id)entry shardRegistry:(id)registry error:(id *)error;
 + (id)_visionAssetPathWithRegistry:(id)registry;
 + (id)pruneEntries:(id)entries options:(unint64_t)options shardRegistry:(id)registry error:(id *)error;
++ (int64_t)purgeSpaceForUrgency:(int)urgency shardRegistry:(id)registry;
 + (int64_t)purgeableSpaceForUrgency:(int)urgency shardRegistry:(id)registry;
 @end
 
@@ -45,30 +46,13 @@
   {
     schemaType = [self _visionAssetPathWithRegistry:registryCopy];
     v11 = objc_alloc_init(MEMORY[0x277CCAA00]);
-    if ([v11 fileExistsAtPath:schemaType] && !objc_msgSend(v11, "removeItemAtPath:error:", schemaType, error))
-    {
-      goto LABEL_8;
-    }
-
-    v12 = [MEMORY[0x277CBEBC0] fileURLWithPath:schemaType];
-    v13 = [v11 createDirectoryAtURL:v12 withIntermediateDirectories:1 attributes:0 error:error];
-
-    if (!v13)
-    {
-      goto LABEL_8;
-    }
-
-    v14 = [MEMORY[0x277CBEBC0] fileURLWithPath:schemaType];
-    v15 = [registryCopy unzipStagedShardFileForEntry:entryCopy toURL:v14 error:error];
-
-    if (v15)
+    if ((![v11 fileExistsAtPath:schemaType] || objc_msgSend(v11, "removeItemAtPath:error:", schemaType, error)) && (objc_msgSend(MEMORY[0x277CBEBC0], "fileURLWithPath:", schemaType), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v11, "createDirectoryAtURL:withIntermediateDirectories:attributes:error:", v12, 1, 0, error), v12, v13) && (objc_msgSend(MEMORY[0x277CBEBC0], "fileURLWithPath:", schemaType), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(registryCopy, "unzipStagedShardFileForEntry:toURL:error:", entryCopy, v14, error), v14, v15))
     {
       v16 = [self _validateVisionAssetIntegrity:schemaType error:error];
     }
 
     else
     {
-LABEL_8:
       v16 = 0;
     }
   }
@@ -120,46 +104,69 @@ uint64_t __88__HDOntologyMedsScanningResourcesImporter_willPruneEntries_options_
 
 + (int64_t)purgeableSpaceForUrgency:(int)urgency shardRegistry:(id)registry
 {
-  v21 = *MEMORY[0x277D85DE8];
-  if (urgency == 4)
+  v20 = *MEMORY[0x277D85DE8];
+  if (urgency != 4)
   {
-    v5 = [self _visionAssetPathWithRegistry:registry];
-    v6 = [MEMORY[0x277CBEBC0] fileURLWithPath:v5];
-    v14 = 0;
-    v7 = [v6 hk_fileSizeWithError:&v14];
-    v8 = v14;
-    v9 = v8;
-    if (v7 || ([v8 hk_isCocoaNoSuchFileError] & 1) != 0)
-    {
-      longLongValue = [v7 longLongValue];
-    }
+    return 0;
+  }
 
-    else
-    {
-      _HKInitializeLogging();
-      v13 = HKLogMedication();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 138543874;
-        selfCopy = self;
-        v17 = 2114;
-        v18 = v5;
-        v19 = 2114;
-        v20 = v9;
-        _os_log_error_impl(&dword_25181C000, v13, OS_LOG_TYPE_ERROR, "%{public}@: Error getting size of '%{public}@': %{public}@", buf, 0x20u);
-      }
-
-      longLongValue = 0;
-    }
+  v5 = [self _visionAssetPathWithRegistry:registry];
+  v6 = [MEMORY[0x277CBEBC0] fileURLWithPath:v5];
+  v13 = 0;
+  v7 = [v6 hk_fileSizeWithError:&v13];
+  v8 = v13;
+  v9 = v8;
+  if (v7 || ([v8 hk_isCocoaNoSuchFileError] & 1) != 0)
+  {
+    longLongValue = [v7 longLongValue];
   }
 
   else
   {
+    _HKInitializeLogging();
+    v12 = HKLogMedication();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138543874;
+      selfCopy = self;
+      v16 = 2114;
+      v17 = v5;
+      v18 = 2114;
+      v19 = v9;
+      _os_log_error_impl(&dword_25181C000, v12, OS_LOG_TYPE_ERROR, "%{public}@: Error getting size of '%{public}@': %{public}@", buf, 0x20u);
+    }
+
     longLongValue = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return longLongValue;
+}
+
++ (int64_t)purgeSpaceForUrgency:(int)urgency shardRegistry:(id)registry
+{
+  v4 = *&urgency;
+  registryCopy = registry;
+  v7 = [self purgeableSpaceForUrgency:v4 shardRegistry:registryCopy];
+  if (v7 < 1)
+  {
+    v9 = 0;
+  }
+
+  else
+  {
+    v8 = v7;
+    if ([self _deleteVisionAssetWithShardRegistry:registryCopy reason:@"Max Cache Delete Urgency" error:0])
+    {
+      v9 = v8;
+    }
+
+    else
+    {
+      v9 = 0;
+    }
+  }
+
+  return v9;
 }
 
 + (id)_visionAssetPathWithRegistry:(id)registry
@@ -204,7 +211,7 @@ uint64_t __88__HDOntologyMedsScanningResourcesImporter_willPruneEntries_options_
 
 + (BOOL)_deleteVisionAssetWithShardRegistry:(id)registry reason:(id)reason error:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   v9 = [self _visionAssetPathWithRegistry:registry];
   v10 = objc_alloc_init(MEMORY[0x277CCAA00]);
@@ -214,16 +221,16 @@ uint64_t __88__HDOntologyMedsScanningResourcesImporter_willPruneEntries_options_
   {
     *buf = 138543874;
     selfCopy2 = self;
-    v24 = 2114;
-    v25 = v9;
-    v26 = 2114;
-    v27 = reasonCopy;
+    v23 = 2114;
+    v24 = v9;
+    v25 = 2114;
+    v26 = reasonCopy;
     _os_log_impl(&dword_25181C000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: Removing asset directory '%{public}@' for %{public}@", buf, 0x20u);
   }
 
-  v21 = 0;
-  v12 = [v10 removeItemAtPath:v9 error:&v21];
-  v13 = v21;
+  v20 = 0;
+  v12 = [v10 removeItemAtPath:v9 error:&v20];
+  v13 = v20;
   v14 = v13;
   if (v12 & 1) != 0 || ([v13 hk_isCocoaNoSuchFileError])
   {
@@ -238,12 +245,12 @@ uint64_t __88__HDOntologyMedsScanningResourcesImporter_willPruneEntries_options_
     {
       *buf = 138544130;
       selfCopy2 = self;
-      v24 = 2114;
-      v25 = v9;
-      v26 = 2114;
-      v27 = reasonCopy;
-      v28 = 2114;
-      v29 = v14;
+      v23 = 2114;
+      v24 = v9;
+      v25 = 2114;
+      v26 = reasonCopy;
+      v27 = 2114;
+      v28 = v14;
       _os_log_error_impl(&dword_25181C000, v16, OS_LOG_TYPE_ERROR, "%{public}@: Error removing asset directory for %{public}@ '%{public}@': %{public}@", buf, 0x2Au);
     }
 
@@ -265,7 +272,6 @@ uint64_t __88__HDOntologyMedsScanningResourcesImporter_willPruneEntries_options_
     v15 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v15;
 }
 

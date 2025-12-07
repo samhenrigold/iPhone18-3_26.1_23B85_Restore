@@ -43,50 +43,48 @@
 
 - (NSArray)diagnostics
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB18];
   diagnosticLookup = [(DKDiagnosticRegistry *)self diagnosticLookup];
   v5 = [v3 arrayWithCapacity:{objc_msgSend(diagnosticLookup, "count")}];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   diagnosticLookup2 = [(DKDiagnosticRegistry *)self diagnosticLookup];
   allValues = [diagnosticLookup2 allValues];
 
-  v8 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(allValues);
         }
 
-        extensionAttributes = [*(*(&v15 + 1) + 8 * i) extensionAttributes];
+        extensionAttributes = [*(*(&v14 + 1) + 8 * i) extensionAttributes];
         [v5 addObject:extensionAttributes];
       }
 
-      v9 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (void)addExtensionAdapter:(id)adapter
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   adapterCopy = adapter;
   extensionAttributes = [adapterCopy extensionAttributes];
   diagnosticLookup = [(DKDiagnosticRegistry *)self diagnosticLookup];
@@ -107,17 +105,17 @@
     version = [extensionAttributes version];
     identifier2 = [extensionAttributes identifier];
     version2 = [extensionAttributes2 version];
-    *v27 = 138413314;
-    *&v27[4] = extensionAttributes;
-    *&v27[12] = 2112;
-    *&v27[14] = version;
-    v28 = 2112;
-    v29 = identifier2;
-    v30 = 2112;
-    v31 = extensionAttributes2;
-    v32 = 2112;
-    v33 = version2;
-    _os_log_impl(&dword_248B9D000, v11, OS_LOG_TYPE_DEFAULT, "Attempting to register a diagnostic [%@] with version [%@], but the identifier [%@] is already in use by [%@] with version [%@].", v27, 0x34u);
+    *v26 = 138413314;
+    *&v26[4] = extensionAttributes;
+    *&v26[12] = 2112;
+    *&v26[14] = version;
+    v27 = 2112;
+    v28 = identifier2;
+    v29 = 2112;
+    v30 = extensionAttributes2;
+    v31 = 2112;
+    v32 = version2;
+    _os_log_impl(&dword_248B9D000, v11, OS_LOG_TYPE_DEFAULT, "Attempting to register a diagnostic [%@] with version [%@], but the identifier [%@] is already in use by [%@] with version [%@].", v26, 0x34u);
   }
 
   version3 = [extensionAttributes2 version];
@@ -129,83 +127,80 @@
   {
     identifier3 = [extensionAttributes identifier];
     v20 = "not ";
-    *v27 = 138412802;
-    *&v27[4] = identifier3;
-    *&v27[12] = 2080;
+    *v26 = 138412802;
+    *&v26[4] = identifier3;
+    *&v26[12] = 2080;
     if (v17 == -1)
     {
       v20 = "";
     }
 
-    *&v27[14] = v20;
-    v28 = 2080;
-    v29 = v20;
-    _os_log_impl(&dword_248B9D000, v18, OS_LOG_TYPE_DEFAULT, "New extension for ID [%@] will %sreplace the existing extension because its version is %shigher", v27, 0x20u);
+    *&v26[14] = v20;
+    v27 = 2080;
+    v28 = v20;
+    _os_log_impl(&dword_248B9D000, v18, OS_LOG_TYPE_DEFAULT, "New extension for ID [%@] will %sreplace the existing extension because its version is %shigher", v26, 0x20u);
   }
 
   if (v17 == -1)
   {
 LABEL_9:
-    diagnosticLookup3 = [(DKDiagnosticRegistry *)self diagnosticLookup];
+    v21 = [(DKDiagnosticRegistry *)self diagnosticLookup:*v26];
     identifier4 = [extensionAttributes identifier];
-    [diagnosticLookup3 setObject:adapterCopy forKeyedSubscript:identifier4];
+    [v21 setObject:adapterCopy forKeyedSubscript:identifier4];
 
     v23 = DiagnosticsKitLogHandleForCategory(1);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       identifier5 = [extensionAttributes identifier];
       version5 = [extensionAttributes version];
-      *v27 = 138412802;
-      *&v27[4] = extensionAttributes;
-      *&v27[12] = 2112;
-      *&v27[14] = identifier5;
-      v28 = 2112;
-      v29 = version5;
-      _os_log_impl(&dword_248B9D000, v23, OS_LOG_TYPE_DEFAULT, "Registered diagnostic [%@] with Test ID [%@] and Version [%@]", v27, 0x20u);
+      *v26 = 138412802;
+      *&v26[4] = extensionAttributes;
+      *&v26[12] = 2112;
+      *&v26[14] = identifier5;
+      v27 = 2112;
+      v28 = version5;
+      _os_log_impl(&dword_248B9D000, v23, OS_LOG_TYPE_DEFAULT, "Registered diagnostic [%@] with Test ID [%@] and Version [%@]", v26, 0x20u);
     }
   }
 
   objc_sync_exit(diagnosticLookup);
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumerateExtensionAdaptersWithBlock:(id)block
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   blockCopy = block;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   diagnosticLookup = [(DKDiagnosticRegistry *)self diagnosticLookup];
   allValues = [diagnosticLookup allValues];
 
-  v7 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(allValues);
         }
 
-        blockCopy[2](blockCopy, *(*(&v12 + 1) + 8 * v10++));
+        blockCopy[2](blockCopy, *(*(&v11 + 1) + 8 * v10++));
       }
 
       while (v8 != v10);
-      v8 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

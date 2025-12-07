@@ -14,36 +14,33 @@
 
 - (HMIVideoAnnotator)initWithPixelBuffer:(__CVBuffer *)buffer fontSize:(double)size
 {
-  v8.receiver = self;
-  v8.super_class = HMIVideoAnnotator;
-  v6 = [(HMIVideoAnnotator *)&v8 init];
-  if (v6)
+  v7.receiver = self;
+  v7.super_class = HMIVideoAnnotator;
+  v5 = [(HMIVideoAnnotator *)&v7 init];
+  if (v5)
   {
-    *(v6 + 1) = CVPixelBufferRetain(buffer);
-    *(v6 + 2) = 0;
-    *(v6 + 3) = 0;
-    *(v6 + 4) = [v6 _createFontWithSize:size];
-    *(v6 + 40) = *MEMORY[0x277CBF3A8];
+    *(v5 + 1) = CVPixelBufferRetain(buffer);
+    *(v5 + 2) = 0;
+    *(v5 + 3) = 0;
+    *(v5 + 4) = [v5 _createFontWithSize:?];
+    *(v5 + 40) = *MEMORY[0x277CBF3A8];
   }
 
-  return v6;
+  return v5;
 }
 
 - (__CTFont)_createFontWithSize:(double)size
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   UIFontForLanguage = CTFontCreateUIFontForLanguage(kCTFontUIFontSystem, size, 0);
-  v14 = *MEMORY[0x277CC48D0];
+  v13 = *MEMORY[0x277CC48D0];
   v4 = *MEMORY[0x277CC48C8];
-  v11[0] = *MEMORY[0x277CC48D8];
-  v11[1] = v4;
-  v12[0] = &unk_2840750C0;
-  v12[1] = &unk_2840750D8;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
-  v13 = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
-  v15[0] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v11 = *MEMORY[0x277CC48D8];
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v4 count:{&unk_2840750C0, &unk_2840750D8}];
+  v12 = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+  v14 = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
 
   v8 = CTFontDescriptorCreateWithAttributes(v7);
   CopyWithAttributes = CTFontCreateCopyWithAttributes(UIFontForLanguage, 0.0, 0, v8);
@@ -106,23 +103,16 @@
 {
   y = at.y;
   x = at.x;
-  v18[2] = *MEMORY[0x277D85DE8];
   colorSpace = self->_colorSpace;
   textCopy = text;
   v11 = CGColorCreate(colorSpace, color);
-  font = self->_font;
-  v13 = *MEMORY[0x277CC49C0];
-  v17[0] = *MEMORY[0x277CC4838];
-  v17[1] = v13;
-  v18[0] = font;
-  v18[1] = v11;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
-  v15 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:textCopy attributes:v14];
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+  v13 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:? attributes:?];
 
-  v16 = CTLineCreateWithAttributedString(v15);
+  v14 = CTLineCreateWithAttributedString(v13);
   CGContextSetTextPosition(self->_context, x, y);
-  CTLineDraw(v16, self->_context);
-  CFRelease(v16);
+  CTLineDraw(v14, self->_context);
+  CFRelease(v14);
   CGColorRelease(v11);
 }
 
@@ -161,19 +151,16 @@
 
 - (void)drawTextHeaderBar:(id)bar
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   context = self->_context;
   barCopy = bar;
   CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 1.0);
-  v9.size.width = self->_size.width;
-  v9.origin.y = self->_size.height + -64.0;
-  v9.size.height = 64.0;
-  v9.origin.x = 0.0;
-  CGContextFillRect(context, v9);
-  v6 = self->_size.height + -32.0 + -8.0;
-  v7[0] = xmmword_22D298320;
-  v7[1] = unk_22D298330;
-  [(HMIVideoAnnotator *)self drawText:barCopy at:v7 color:10.0, v6];
+  v7.size.width = self->_size.width;
+  v7.origin.y = self->_size.height + -64.0;
+  v7.size.height = 64.0;
+  v7.origin.x = 0.0;
+  CGContextFillRect(context, v7);
+  [(HMIVideoAnnotator *)self drawText:0x3FF0000000000000 at:0x3FF0000000000000 color:0x3FF0000000000000, unk_22D298338];
 }
 
 - (void)drawBoundingBox:(CGRect)box lineWidth:(double)width text:(id)text color:(const double *)color
@@ -183,57 +170,58 @@
   y = box.origin.y;
   x = box.origin.x;
   textCopy = text;
-  v25.origin.x = x;
-  v25.origin.y = y;
-  v25.size.width = width;
-  v25.size.height = height;
-  if (!CGRectIsNull(v25))
+  v22.origin.x = x;
+  v22.origin.y = y;
+  v22.size.width = width;
+  v22.size.height = height;
+  if (!CGRectIsNull(v22))
   {
     HMICGRectPixelFromNormalized(x, y, width, height, self->_size.width, self->_size.height);
-    v13 = v26.origin.x;
-    v14 = v26.origin.y;
-    v15 = v26.size.width;
-    v16 = v26.size.height;
-    MinX = CGRectGetMinX(v26);
-    v18 = self->_size.height;
-    v27.origin.x = v13;
-    v27.origin.y = v14;
-    v27.size.width = v15;
-    v27.size.height = v16;
-    v19 = v18 - CGRectGetMinY(v27);
-    v28.origin.x = v13;
-    v28.origin.y = v14;
-    v28.size.width = v15;
-    v28.size.height = v16;
-    v20 = CGRectGetWidth(v28);
-    v29.origin.x = v13;
-    v29.origin.y = v14;
-    v29.size.width = v15;
-    v29.size.height = v16;
-    v21 = -CGRectGetHeight(v29);
-    [(HMIVideoAnnotator *)self drawRect:color width:MinX color:v19, v20, v21, width];
+    v11 = v23.origin.x;
+    v12 = v23.origin.y;
+    v13 = v23.size.width;
+    v14 = v23.size.height;
+    MinX = CGRectGetMinX(v23);
+    v16 = self->_size.height;
+    v24.origin.x = v11;
+    v24.origin.y = v12;
+    v24.size.width = v13;
+    v24.size.height = v14;
+    v17 = v16 - CGRectGetMinY(v24);
+    v25.origin.x = v11;
+    v25.origin.y = v12;
+    v25.size.width = v13;
+    v25.size.height = v14;
+    v18 = CGRectGetWidth(v25);
+    v26.origin.x = v11;
+    v26.origin.y = v12;
+    v26.size.width = v13;
+    v26.size.height = v14;
+    v19 = -CGRectGetHeight(v26);
+    [HMIVideoAnnotator drawRect:"drawRect:width:color:" width:? color:?];
     if ([textCopy length])
     {
-      v30.origin.x = MinX;
-      v30.origin.y = v19;
-      v30.size.width = v20;
-      v30.size.height = v21;
-      v22 = CGRectGetMinX(v30) + 4.0;
-      v31.origin.x = MinX;
-      v31.origin.y = v19;
-      v31.size.width = v20;
-      v31.size.height = v21;
-      [(HMIVideoAnnotator *)self drawText:textCopy at:color color:v22, CGRectGetMaxY(v31) + 8.0];
+      v27.origin.x = MinX;
+      v27.origin.y = v17;
+      v27.size.width = v18;
+      v27.size.height = v19;
+      CGRectGetMinX(v27);
+      v28.origin.x = MinX;
+      v28.origin.y = v17;
+      v28.size.width = v18;
+      v28.size.height = v19;
+      CGRectGetMaxY(v28);
+      [HMIVideoAnnotator drawText:"drawText:at:color:" at:? color:?];
     }
   }
 }
 
 - (void)drawPolygonWithNormalizedPoints:(id)points
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   context = self->_context;
   *components = xmmword_22D298320;
-  v13 = unk_22D298330;
+  v12 = *&qword_22D298330;
   pointsCopy = points;
   CGContextSetStrokeColor(context, components);
   CGContextSetLineWidth(context, 3.0);
@@ -241,21 +229,14 @@
   CGContextTranslateCTM(context, 0.0, self->_size.height);
   CGContextScaleCTM(context, 1.0, -1.0);
   CGContextBeginPath(context);
-  v6 = [pointsCopy objectAtIndexedSubscript:0];
+  v6 = [pointsCopy objectAtIndexedSubscript:?];
   [v6 x];
   v8 = v7 * self->_size.width;
-  v9 = [pointsCopy objectAtIndexedSubscript:0];
+  v9 = [pointsCopy objectAtIndexedSubscript:?];
   [v9 y];
   CGContextMoveToPoint(context, v8, v10 * self->_size.height);
 
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __53__HMIVideoAnnotator_drawPolygonWithNormalizedPoints___block_invoke;
-  v11[3] = &unk_278754638;
-  v11[4] = self;
-  v11[5] = context;
-  [pointsCopy na_each:v11];
-
+  [pointsCopy na_each:{MEMORY[0x277D85DD0], 3221225472}];
   CGContextStrokePath(context);
   CGContextRestoreGState(context);
 }

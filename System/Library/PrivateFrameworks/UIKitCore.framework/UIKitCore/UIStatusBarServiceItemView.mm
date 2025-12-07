@@ -68,7 +68,7 @@
     self->_contentType = type;
   }
 
-  if (![stringCopy isEqualToString:self->_serviceString])
+  if (!objc_msgSend_isEqualToString_(stringCopy))
   {
     v19 = [stringCopy copy];
     serviceString = self->_serviceString;
@@ -323,7 +323,7 @@ LABEL_6:
   stringCopy = string;
   if ([stringCopy length])
   {
-    if ([(NSString *)self->_serviceString isEqual:stringCopy])
+    if (objc_msgSend_isEqual_(self->_serviceString))
     {
       v9 = [(UIStatusBarItemView *)self cachedImageWithText:stringCopy truncatedWithEllipsesAtMaxWidth:width letterSpacing:spacing];
     }
@@ -539,7 +539,7 @@ void __63__UIStatusBarServiceItemView__loopAnimationDidStopInDirection___block_i
   [v9 setContentsRect:{0.0, v4, v6, v8}];
 }
 
-uint64_t __63__UIStatusBarServiceItemView__loopAnimationDidStopInDirection___block_invoke_3(uint64_t a1)
+void *__63__UIStatusBarServiceItemView__loopAnimationDidStopInDirection___block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) updateContentsAndWidth];
   *(*(*(a1 + 40) + 8) + 24) = v3;

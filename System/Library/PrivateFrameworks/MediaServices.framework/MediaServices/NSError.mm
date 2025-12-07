@@ -17,7 +17,7 @@ id __43__NSError_MSVErrorAdditions__msv_signature__block_invoke(uint64_t a1, voi
   return v4;
 }
 
-void __51__NSError_MSVErrorAdditions__msv_analyticSignature__block_invoke(uint64_t a1, void *a2, unint64_t a3)
+void __51__NSError_MSVErrorAdditions__msv_analyticSignature__block_invoke(uint64_t a1, void *a2, char *a3)
 {
   v8 = a2;
   objc_opt_class();

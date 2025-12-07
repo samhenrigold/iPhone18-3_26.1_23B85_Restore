@@ -88,7 +88,7 @@ LABEL_16:
   ptr = self->_model.__ptr_;
   if (directoryCopy)
   {
-    [directoryCopy ear_toString];
+    objc_msgSend_ear_toString(directoryCopy);
   }
 
   else
@@ -134,7 +134,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v6 = EarLmLogger();
+  v6 = EarLmLogger(classCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;
@@ -157,7 +157,7 @@ LABEL_13:
 
 - (id)serializedModelWithLanguage:(id)language modelData:(id)data oovs:(id)oovs
 {
-  v26[5] = *MEMORY[0x1E69E9840];
+  v27[5] = *MEMORY[0x1E69E9840];
   languageCopy = language;
   dataCopy = data;
   oovsCopy = oovs;
@@ -185,29 +185,30 @@ LABEL_13:
   v16 = _ear_sha256;
   if (oovsCopy && v11 && v14 && _ear_sha256)
   {
-    v25[0] = @"language";
-    v25[1] = @"assetVersion";
-    v26[0] = v11;
-    v26[1] = v14;
-    v25[2] = @"modelTrainingData";
-    v25[3] = @"dataHash";
-    v26[2] = dataCopy;
-    v26[3] = _ear_sha256;
-    v25[4] = @"oovs";
-    v26[4] = oovsCopy;
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:5];
-    v23 = 0;
-    v18 = [MEMORY[0x1E696AE40] dataWithPropertyList:v17 format:200 options:0 error:&v23];
-    v19 = v23;
+    v26[0] = @"language";
+    v26[1] = @"assetVersion";
+    v27[0] = v11;
+    v27[1] = v14;
+    v26[2] = @"modelTrainingData";
+    v26[3] = @"dataHash";
+    v27[2] = dataCopy;
+    v27[3] = _ear_sha256;
+    v26[4] = @"oovs";
+    v27[4] = oovsCopy;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:5];
+    v24 = 0;
+    v18 = [MEMORY[0x1E696AE40] dataWithPropertyList:v17 format:200 options:0 error:&v24];
+    v19 = v24;
+    v20 = v19;
     if (v18)
     {
-      v20 = v18;
+      v21 = v18;
     }
 
     else
     {
-      v21 = EarLmLogger();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v22 = EarLmLogger(v19);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         [_EARLmModel serializedModelWithLanguage:modelData:oovs:];
       }
@@ -216,13 +217,13 @@ LABEL_13:
 
   else
   {
-    v17 = EarLmLogger();
+    v17 = EarLmLogger(_ear_sha256);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [_EARLmModel serializedModelWithLanguage:modelData:oovs:];
     }
 
-    v19 = 0;
+    v20 = 0;
     v18 = 0;
   }
 
@@ -231,18 +232,19 @@ LABEL_13:
 
 + (id)deserializeModelData:(id)data
 {
-  v8 = 0;
-  v3 = [MEMORY[0x1E696AE40] propertyListWithData:data options:0 format:0 error:&v8];
-  v4 = v8;
+  v9 = 0;
+  v3 = [MEMORY[0x1E696AE40] propertyListWithData:data options:0 format:0 error:&v9];
+  v4 = v9;
+  v5 = v4;
   if (v3)
   {
-    v5 = v3;
+    v6 = v3;
   }
 
   else
   {
-    v6 = EarLmLogger();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = EarLmLogger(v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [_EARLmModel deserializeModelData:];
     }

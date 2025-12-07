@@ -149,31 +149,30 @@ LABEL_11:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if (self->_associationUUID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_objectUUIDs)
   {
     PBDataWriterWriteDataField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_syncIdentity)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt64Field();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 8) == 0)
     {
@@ -192,29 +191,26 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  deleted = self->_deleted;
   PBDataWriterWriteBOOLField();
-  toCopy = v10;
+  toCopy = v6;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_10:
-    creationDate = self->_creationDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_11:
   if (self->_subObjectUUID)
   {
     PBDataWriterWriteDataField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (*&self->_has)
   {
-    behavior = self->_behavior;
     PBDataWriterWriteInt64Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 }
 
@@ -404,7 +400,6 @@ LABEL_5:
       goto LABEL_32;
     }
 
-    v10 = *(equalCopy + 64);
     if (self->_deleted)
     {
       if ((*(equalCopy + 64) & 1) == 0)
@@ -448,12 +443,12 @@ LABEL_5:
     }
 
 LABEL_32:
-    v12 = 0;
+    v11 = 0;
     goto LABEL_33;
   }
 
 LABEL_27:
-  v12 = (v9 & 1) == 0;
+  v11 = (v9 & 1) == 0;
   if (has)
   {
     if ((v9 & 1) == 0 || self->_behavior != *(equalCopy + 1))
@@ -461,12 +456,12 @@ LABEL_27:
       goto LABEL_32;
     }
 
-    v12 = 1;
+    v11 = 1;
   }
 
 LABEL_33:
 
-  return v12;
+  return v11;
 }
 
 - (unint64_t)hash
@@ -573,7 +568,7 @@ LABEL_11:
       goto LABEL_11;
     }
 
-    [(HDCodableSyncIdentity *)syncIdentity mergeFrom:?];
+    syncIdentity = [(HDCodableSyncIdentity *)syncIdentity mergeFrom:?];
   }
 
   else
@@ -583,7 +578,7 @@ LABEL_11:
       goto LABEL_11;
     }
 
-    [(HDCodableTypedObjectAssociation *)self setSyncIdentity:?];
+    syncIdentity = [(HDCodableTypedObjectAssociation *)self setSyncIdentity:?];
   }
 
   fromCopy = v8;
@@ -623,7 +618,7 @@ LABEL_14:
 LABEL_15:
   if (*(fromCopy + 6))
   {
-    [(HDCodableTypedObjectAssociation *)self setSubObjectUUID:?];
+    syncIdentity = [(HDCodableTypedObjectAssociation *)self setSubObjectUUID:?];
     fromCopy = v8;
   }
 
@@ -633,7 +628,7 @@ LABEL_15:
     *&self->_has |= 1u;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](syncIdentity, fromCopy);
 }
 
 - (HDCodableTypedObjectAssociation)initWithIntermediateSyncAssociation:(id)association
@@ -672,7 +667,6 @@ LABEL_15:
 {
   if ((*&self->_has & 2) != 0)
   {
-    creationDate = self->_creationDate;
     v3 = HDDecodeDateForValue();
   }
 

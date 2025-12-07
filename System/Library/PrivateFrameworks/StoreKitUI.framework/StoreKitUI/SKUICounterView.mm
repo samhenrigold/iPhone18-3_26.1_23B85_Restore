@@ -318,149 +318,20 @@ void __55__SKUICounterView_reloadWithViewElement_width_context___block_invoke(ui
 
 - (void)didMoveToWindow
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUICounterView *)v3 didMoveToWindow:v4];
-      }
-    }
-  }
-
-  v11.receiver = self;
-  v11.super_class = SKUICounterView;
-  [(SKUICounterView *)&v11 didMoveToWindow];
-  [(SKUICounterView *)self _reloadUpdateTimer];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUICounterView didMoveToWindow]";
 }
 
 - (void)didMoveToSuperview
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUICounterView *)v3 didMoveToSuperview:v4];
-      }
-    }
-  }
-
-  v11.receiver = self;
-  v11.super_class = SKUICounterView;
-  [(SKUICounterView *)&v11 didMoveToSuperview];
-  [(SKUICounterView *)self _reloadUpdateTimer];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUICounterView didMoveToSuperview]";
 }
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUICounterView *)v3 layoutSubviews:v4];
-      }
-    }
-  }
-
-  [(SKUICounterView *)self bounds];
-  v14 = v13;
-  v16 = v15;
-  v17 = v11;
-  v18 = v12;
-  imageView = self->_imageView;
-  if (imageView)
-  {
-    v20 = v11 - self->_contentInset.left - self->_contentInset.right;
-    v21 = v12 - self->_contentInset.bottom - self->_contentInset.top;
-    [(SKUIImageView *)imageView frame];
-    [(SKUIImageView *)self->_imageView sizeThatFits:v17, v18];
-    SKUIImageRectForBounds();
-    v17 = v22;
-    v18 = v23;
-    v24 = self->_contentInset.left + (v20 - v22) * 0.5;
-    v14 = floorf(v24);
-    v25 = self->_contentInset.top + (v21 - v23) * 0.5;
-    v16 = floorf(v25);
-    [(SKUIImageView *)self->_imageView setFrame:v14, v16, v22, v23];
-  }
-
-  v26 = self->_timeView;
-  v27 = v26;
-  if (v26 && ![(SKUICounterTimeView *)v26 isHidden]|| (v28 = self->_numberView, v27, (v27 = v28) != 0))
-  {
-    if (([v27 isHidden] & 1) == 0)
-    {
-      style = [(SKUICounterViewElement *)self->_counterElement style];
-      v48 = 0;
-      v30 = SKUIViewElementPaddingForStyle(style, &v48);
-      v46 = v31;
-      v47 = v30;
-      v32 = v48;
-      [v27 frame];
-      v34 = v33;
-      [v27 sizeThatFits:{v17, v18}];
-      v36 = v35;
-      v38 = v37;
-      *&v35 = v14 + (v17 - v35) * 0.5;
-      v39 = floorf(*&v35);
-      elementPosition = [style elementPosition];
-      if (elementPosition <= 9)
-      {
-        if (((1 << elementPosition) & 0x309) != 0)
-        {
-          if (v32)
-          {
-            v45 = v46;
-          }
-
-          else
-          {
-            v45 = 4.0;
-          }
-
-          v49.origin.x = v14;
-          v49.origin.y = v16;
-          v49.size.width = v17;
-          v49.size.height = v18;
-          v34 = CGRectGetMaxY(v49) - v38 - v45;
-        }
-
-        else
-        {
-          v41 = v16 + (v18 - v38) * 0.5;
-          v42 = floorf(v41);
-          v43 = 4.0;
-          if (v32)
-          {
-            v43 = v47;
-          }
-
-          v44 = v16 + v43;
-          if (((1 << elementPosition) & 0x32) != 0)
-          {
-            v34 = v42;
-          }
-
-          else
-          {
-            v34 = v44;
-          }
-        }
-      }
-
-      [v27 setFrame:{v39, v34, v36, v38}];
-    }
-  }
-
-  [(SKUICounterView *)self _reloadUpdateTimer];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUICounterView layoutSubviews]";
 }
 
 - (void)setAlpha:(double)alpha
@@ -688,6 +559,72 @@ void __36__SKUICounterView__startUpdateTimer__block_invoke(uint64_t a1)
   {
     return qword_215F40060[format];
   }
+}
+
++ (void)prefetchResourcesForViewElement:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUICounterView prefetchResourcesForViewElement:reason:context:]";
+}
+
++ (void)preferredSizeForViewElement:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUICounterView preferredSizeForViewElement:context:]";
+}
+
++ (void)requestLayoutForViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUICounterView requestLayoutForViewElement:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 viewElement:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUICounterView sizeThatFitsWidth:viewElement:context:]";
+}
+
+- (void)reloadWithViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUICounterView reloadWithViewElement:width:context:]";
+}
+
+- (void)setContentInset:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUICounterView setContentInset:]";
+}
+
+- (void)setImage:(uint64_t)a3 forArtworkRequest:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUICounterView setImage:forArtworkRequest:context:]";
+}
+
+- (void)updateWithItemState:(uint64_t)a3 context:(uint64_t)a4 animated:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUICounterView updateWithItemState:context:animated:]";
+}
+
+- (void)viewForElementIdentifier:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUICounterView viewForElementIdentifier:]";
+}
+
+- (void)setAlpha:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUICounterView setAlpha:]";
+}
+
+- (void)setHidden:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUICounterView setHidden:]";
 }
 
 @end

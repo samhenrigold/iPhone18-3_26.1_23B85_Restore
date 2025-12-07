@@ -2573,10 +2573,11 @@ void __64__PKSpendingSingleSummaryViewController_didUpdateFamilyMembers___block_
 
 - (void)buttonTappedInFooterView:(id)view
 {
-  v15[3] = *MEMORY[0x1E69E9840];
-  if (PKStoreDemoModeEnabled())
+  v18[3] = *MEMORY[0x1E69E9840];
+  v4 = PKStoreDemoModeEnabled();
+  if (v4)
   {
-    v13 = PKUIStoreDemoGatewayViewController();
+    v16 = PKUIStoreDemoGatewayViewController(v4, v5, v6);
     [PKSpendingSingleSummaryViewController presentViewController:"presentViewController:animated:completion:" animated:? completion:?];
   }
 
@@ -2585,28 +2586,28 @@ void __64__PKSpendingSingleSummaryViewController_didUpdateFamilyMembers___block_
     resolutionController = self->_resolutionController;
     if (!resolutionController)
     {
-      v5 = [[PKAccountServiceAccountResolutionController alloc] initWithAccount:self->_account accountUserCollection:self->_accountUserCollection transactionSourceCollection:self->_transactionSourceCollection];
-      v6 = self->_resolutionController;
-      self->_resolutionController = v5;
+      v8 = [[PKAccountServiceAccountResolutionController alloc] initWithAccount:self->_account accountUserCollection:self->_accountUserCollection transactionSourceCollection:self->_transactionSourceCollection];
+      v9 = self->_resolutionController;
+      self->_resolutionController = v8;
 
       [(PKAccountServiceAccountResolutionController *)self->_resolutionController setDelegate:self];
       resolutionController = self->_resolutionController;
     }
 
     [(PKAccountServiceAccountResolutionController *)resolutionController presentFlowForAccountResolution:1 configuration:0 completion:0];
-    v7 = MEMORY[0x1E69B8540];
-    v8 = *MEMORY[0x1E69BA5B0];
-    v9 = *MEMORY[0x1E69BA680];
-    v14[0] = *MEMORY[0x1E69BABE8];
-    v14[1] = v9;
-    v10 = *MEMORY[0x1E69BA6F0];
-    v15[0] = v8;
-    v15[1] = v10;
-    v14[2] = *MEMORY[0x1E69BA440];
-    v15[2] = *MEMORY[0x1E69BB2B0];
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:3];
+    v10 = MEMORY[0x1E69B8540];
+    v11 = *MEMORY[0x1E69BA5B0];
+    v12 = *MEMORY[0x1E69BA680];
+    v17[0] = *MEMORY[0x1E69BABE8];
+    v17[1] = v12;
+    v13 = *MEMORY[0x1E69BA6F0];
+    v18[0] = v11;
+    v18[1] = v13;
+    v17[2] = *MEMORY[0x1E69BA440];
+    v18[2] = *MEMORY[0x1E69BB2B0];
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:3];
     paymentPass = [(PKTransactionSourceCollection *)self->_transactionSourceCollection paymentPass];
-    [v7 reportDashboardEventIfNecessary:v11 forPass:paymentPass];
+    [v10 reportDashboardEventIfNecessary:v14 forPass:paymentPass];
   }
 }
 

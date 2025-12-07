@@ -31,7 +31,7 @@
 - (unint64_t)albumsCount
 {
   albums = [(PLAggregateAlbumList *)self albums];
-  v3 = [albums count];
+  v3 = objc_msgSend_count(albums);
 
   return v3;
 }
@@ -127,7 +127,7 @@
   {
     v9 = objc_autoreleasePoolPush();
     deletedIndexes = [v8 deletedIndexes];
-    if ([deletedIndexes count])
+    if (objc_msgSend_count(deletedIndexes))
     {
       [(PLAggregateAlbumList *)self willChange:3 valuesAtIndexes:deletedIndexes forKey:@"albums"];
       [(NSMutableOrderedSet *)self->_allAlbums removeObjectsAtIndexes:deletedIndexes];
@@ -136,7 +136,7 @@
 
     insertedIndexes = [v8 insertedIndexes];
 
-    if ([insertedIndexes count])
+    if (objc_msgSend_count(insertedIndexes))
     {
       [(PLAggregateAlbumList *)self willChange:2 valuesAtIndexes:insertedIndexes forKey:@"albums"];
       allAlbums = self->_allAlbums;
@@ -148,7 +148,7 @@
 
     changedIndexes = [v8 changedIndexes];
 
-    if ([changedIndexes count])
+    if (objc_msgSend_count(changedIndexes))
     {
       [(PLAggregateAlbumList *)self willChange:1 valuesAtIndexes:changedIndexes forKey:@"albums"];
       [(PLAggregateAlbumList *)self didChange:1 valuesAtIndexes:changedIndexes forKey:@"albums"];
@@ -174,7 +174,7 @@ void __52__PLAggregateAlbumList_assetContainerListDidChange___block_invoke(uint6
   else
   {
     v6 = [a2 albums];
-    *(*(*(a1 + 40) + 8) + 24) += [v6 count];
+    *(*(*(a1 + 40) + 8) + 24) += objc_msgSend_count(v6);
   }
 }
 

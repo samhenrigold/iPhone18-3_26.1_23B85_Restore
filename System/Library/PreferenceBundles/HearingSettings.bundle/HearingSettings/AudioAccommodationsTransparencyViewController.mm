@@ -19,6 +19,7 @@
 - (void)setTransparencyNoiseSuppression:(id)suppression specifier:(id)specifier;
 - (void)setTransparencyTone:(id)tone specifier:(id)specifier;
 - (void)setTransparencyVoiceAmplification:(id)amplification specifier:(id)specifier;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 - (void)willBecomeActive;
 @end
@@ -91,6 +92,14 @@
   v3.receiver = self;
   v3.super_class = AudioAccommodationsTransparencyViewController;
   [(AudioAccommodationsTransparencyViewController *)&v3 willBecomeActive];
+  [(AudioAccommodationsTransparencyViewController *)self reloadSpecifiers];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = AudioAccommodationsTransparencyViewController;
+  [(AudioAccommodationsTransparencyViewController *)&v4 viewDidAppear:appear];
   [(AudioAccommodationsTransparencyViewController *)self reloadSpecifiers];
 }
 

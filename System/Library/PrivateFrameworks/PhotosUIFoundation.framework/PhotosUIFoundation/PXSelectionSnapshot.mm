@@ -249,7 +249,7 @@ uint64_t __59__PXSelectionSnapshot_sectionIndexPathsContainingSelection__block_i
   return [v2 addIndexPath:v5];
 }
 
-uint64_t __59__PXSelectionSnapshot_sectionIndexPathsContainingSelection__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void *__59__PXSelectionSnapshot_sectionIndexPathsContainingSelection__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   result = [a4 count];
   if (result)
@@ -268,7 +268,7 @@ uint64_t __59__PXSelectionSnapshot_sectionIndexPathsContainingSelection__block_i
 
 - (NSObject)firstObject
 {
-  [(PXSelectionSnapshot *)self firstSelectedIndexPath];
+  objc_msgSend_firstSelectedIndexPath(self, a2);
 
   return 0;
 }
@@ -361,11 +361,11 @@ LABEL_7:
   v4 = dataSource;
   v14 = 0u;
   v15 = 0u;
-  if (dataSource && ([dataSource firstItemIndexPath], v14))
+  if (dataSource && (objc_msgSend_firstItemIndexPath(dataSource), v14))
   {
     v12 = 0u;
     v13 = 0u;
-    [v4 lastItemIndexPath];
+    objc_msgSend_lastItemIndexPath(v4);
     v11[0] = v14;
     v11[1] = v15;
     v10[0] = v12;
@@ -387,7 +387,7 @@ LABEL_7:
   return v8;
 }
 
-uint64_t __40__PXSelectionSnapshot_isAnyItemSelected__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, _BYTE *a5)
+void *__40__PXSelectionSnapshot_isAnyItemSelected__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, _BYTE *a5)
 {
   result = [a4 count];
   if (result)
@@ -418,7 +418,7 @@ uint64_t __40__PXSelectionSnapshot_isAnyItemSelected__block_invoke(uint64_t a1, 
   return selectedIndexPaths;
 }
 
-uint64_t __43__PXSelectionSnapshot_isAnySectionSelected__block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__43__PXSelectionSnapshot_isAnySectionSelected__block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 count];
   if (result)
@@ -490,25 +490,25 @@ uint64_t __43__PXSelectionSnapshot_isAnySectionSelected__block_invoke(uint64_t a
 {
   sourceCopy = source;
   pathsCopy = paths;
+  v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  identifier = [sourceCopy identifier];
+  [sourceCopy identifier];
   if (pathsCopy)
   {
-    [pathsCopy firstItemIndexPathForDataSourceIdentifier:identifier];
+    objc_msgSend_firstItemIndexPathForDataSourceIdentifier_(pathsCopy);
   }
 
   else
   {
+    v11 = 0u;
     v12 = 0u;
-    v13 = 0u;
   }
 
-  v11[0] = v12;
-  v11[1] = v13;
-  v9 = [(PXSelectionSnapshot *)self initWithDataSource:sourceCopy selectedIndexPaths:pathsCopy cursorIndexPath:v11];
+  v10[0] = v11;
+  v10[1] = v12;
+  v8 = [(PXSelectionSnapshot *)self initWithDataSource:sourceCopy selectedIndexPaths:pathsCopy cursorIndexPath:v10];
 
-  return v9;
+  return v8;
 }
 
 - (PXSelectionSnapshot)initWithDataSource:(id)source selectedIndexPaths:(id)paths cursorIndexPath:(PXSimpleIndexPath *)path

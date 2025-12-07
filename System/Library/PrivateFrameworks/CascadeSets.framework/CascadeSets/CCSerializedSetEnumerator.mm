@@ -5,6 +5,7 @@
 - (CCSerializedSetEnumerator)initWithCoder:(id)coder;
 - (CCSerializedSetEnumerator)initWithSerializedSetData:(id)data;
 - (CCSerializedSetEnumerator)initWithSerializedSets:(id)sets;
+- (id)allSetsWithOptions:(unsigned __int16)options itemType:(unsigned __int16)type descriptors:(id)descriptors error:(id *)error;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -58,17 +59,17 @@
 {
   typeCopy = type;
   optionsCopy = options;
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   descriptorsCopy = descriptors;
   blockCopy = block;
-  v42 = typeCopy;
+  v41 = typeCopy;
   if (!self->_serializedSetData)
   {
 LABEL_11:
     currentPersonaIdentifier = [MEMORY[0x1E698E9D0] currentPersonaIdentifier];
     currentPersonaIsDefault = [MEMORY[0x1E698E9D0] currentPersonaIsDefault];
     v21 = self->_serializedSets;
-    v41 = descriptorsCopy;
+    v40 = descriptorsCopy;
     if ((optionsCopy & 2) != 0)
     {
       v22 = [(NSArray *)self->_serializedSets sortedArrayUsingComparator:&__block_literal_global_0];
@@ -76,34 +77,34 @@ LABEL_11:
       v21 = v22;
     }
 
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     v13 = v21;
-    v23 = [(NSArray *)v13 countByEnumeratingWithState:&v47 objects:v59 count:16];
+    v23 = [(NSArray *)v13 countByEnumeratingWithState:&v46 objects:v58 count:16];
     if (!v23)
     {
 LABEL_37:
 
       v38 = 1;
-      descriptorsCopy = v41;
+      descriptorsCopy = v40;
       goto LABEL_39;
     }
 
     v24 = v23;
-    v25 = *v48;
+    v25 = *v47;
     obj = v13;
 LABEL_15:
     v26 = 0;
     while (1)
     {
-      if (*v48 != v25)
+      if (*v47 != v25)
       {
         objc_enumerationMutation(obj);
       }
 
-      v27 = *(*(&v47 + 1) + 8 * v26);
+      v27 = *(*(&v46 + 1) + 8 * v26);
       v28 = objc_autoreleasePoolPush();
       if (!currentPersonaIdentifier)
       {
@@ -122,9 +123,9 @@ LABEL_25:
         if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412546;
-          v56 = currentPersonaIdentifier;
-          v57 = 2112;
-          v58 = v27;
+          v55 = currentPersonaIdentifier;
+          v56 = 2112;
+          v57 = v27;
           v31 = v30;
           v32 = "Current persona is default (%@) Skipping serialized set with a nonnull persona: %@";
 LABEL_35:
@@ -144,7 +145,7 @@ LABEL_35:
         personaIdentifier2 = [(NSArray *)v27 personaIdentifier];
         v36 = [personaIdentifier2 isEqual:currentPersonaIdentifier];
 
-        typeCopy = v42;
+        typeCopy = v41;
         if (v36)
         {
           goto LABEL_25;
@@ -154,9 +155,9 @@ LABEL_35:
         if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412546;
-          v56 = v27;
-          v57 = 2112;
-          v58 = currentPersonaIdentifier;
+          v55 = v27;
+          v56 = 2112;
+          v57 = currentPersonaIdentifier;
           v31 = v30;
           v32 = "Skipping serialized set: %@ mismatched to current persona: %@";
           goto LABEL_35;
@@ -168,7 +169,7 @@ LABEL_32:
       if (v24 == ++v26)
       {
         v13 = obj;
-        v37 = [(NSArray *)obj countByEnumeratingWithState:&v47 objects:v59 count:16];
+        v37 = [(NSArray *)obj countByEnumeratingWithState:&v46 objects:v58 count:16];
         v24 = v37;
         if (!v37)
         {
@@ -181,29 +182,29 @@ LABEL_32:
   }
 
   currentPersonaIdentifier = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->_serializedSetData, "count")}];
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
   v13 = self->_serializedSetData;
-  v14 = [(NSArray *)v13 countByEnumeratingWithState:&v51 objects:v60 count:16];
+  v14 = [(NSArray *)v13 countByEnumeratingWithState:&v50 objects:v59 count:16];
   if (!v14)
   {
     goto LABEL_10;
   }
 
   v15 = v14;
-  v16 = *v52;
+  v16 = *v51;
 LABEL_4:
   v17 = 0;
   while (1)
   {
-    if (*v52 != v16)
+    if (*v51 != v16)
     {
       objc_enumerationMutation(v13);
     }
 
-    v18 = [[CCSerializedSet alloc] initWithData:*(*(&v51 + 1) + 8 * v17) error:sets];
+    v18 = [[CCSerializedSet alloc] initWithData:*(*(&v50 + 1) + 8 * v17) error:sets];
     if (!v18)
     {
       break;
@@ -214,7 +215,7 @@ LABEL_4:
 
     if (v15 == ++v17)
     {
-      v15 = [(NSArray *)v13 countByEnumeratingWithState:&v51 objects:v60 count:16];
+      v15 = [(NSArray *)v13 countByEnumeratingWithState:&v50 objects:v59 count:16];
       if (!v15)
       {
 LABEL_10:
@@ -222,7 +223,7 @@ LABEL_10:
         serializedSets = self->_serializedSets;
         self->_serializedSets = currentPersonaIdentifier;
 
-        typeCopy = v42;
+        typeCopy = v41;
         goto LABEL_11;
       }
 
@@ -233,7 +234,6 @@ LABEL_10:
   v38 = 0;
 LABEL_39:
 
-  v39 = *MEMORY[0x1E69E9840];
   return v38;
 }
 
@@ -253,38 +253,64 @@ uint64_t __90__CCSerializedSetEnumerator_enumerateAllSets_withOptions_itemType_d
   return v11;
 }
 
+- (id)allSetsWithOptions:(unsigned __int16)options itemType:(unsigned __int16)type descriptors:(id)descriptors error:(id *)error
+{
+  typeCopy = type;
+  optionsCopy = options;
+  v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __75__CCSerializedSetEnumerator_allSetsWithOptions_itemType_descriptors_error___block_invoke;
+  v14[3] = &unk_1E7C8AE60;
+  v11 = v10;
+  v15 = v11;
+  LODWORD(error) = [(CCSerializedSetEnumerator *)self enumerateAllSets:error withOptions:optionsCopy itemType:typeCopy usingBlock:v14];
+
+  if (error)
+  {
+    v12 = v11;
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  return v12;
+}
+
 - (void)encodeWithCoder:(id)coder
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   if (self->_serializedSetData)
   {
     v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->_serializedSetData, "count")}];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v6 = self->_serializedSetData;
-    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v19;
+      v9 = *v18;
       while (2)
       {
         v10 = 0;
         do
         {
-          if (*v19 != v9)
+          if (*v18 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v18 + 1) + 8 * v10);
+          v11 = *(*(&v17 + 1) + 8 * v10);
           v12 = [CCSerializedSet alloc];
-          v17 = 0;
-          v13 = [(CCSerializedSet *)v12 initWithData:v11 error:&v17];
-          v14 = v17;
+          v16 = 0;
+          v13 = [(CCSerializedSet *)v12 initWithData:v11 error:&v16];
+          v14 = v16;
           if (!v13)
           {
             [coderCopy failWithError:v14];
@@ -298,7 +324,7 @@ uint64_t __90__CCSerializedSetEnumerator_enumerateAllSets_withOptions_itemType_d
         }
 
         while (v8 != v10);
-        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v8 = [(NSArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v8)
         {
           continue;
@@ -314,8 +340,6 @@ uint64_t __90__CCSerializedSetEnumerator_enumerateAllSets_withOptions_itemType_d
 
   [coderCopy encodeObject:self->_serializedSets forKey:@"s"];
 LABEL_13:
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (CCSerializedSetEnumerator)initWithCoder:(id)coder

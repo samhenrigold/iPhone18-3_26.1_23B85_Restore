@@ -15,7 +15,7 @@
 
 - (void)handleLocationAuthorizationChange:(int64_t)change
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDUserActivityStateDetector *)self dataSource];
   queue = [dataSource queue];
   dispatch_assert_queue_V2(queue);
@@ -26,14 +26,13 @@
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v9;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling location authorization changed notification", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v9;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling location authorization changed notification", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
   [(HMDHomeAwayStateDetector *)selfCopy determineStateWithReason:4];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleHomeLocationChanged:(id)changed
@@ -50,22 +49,20 @@
 
 uint64_t __54__HMDHomeAwayStateDetector_handleHomeLocationChanged___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Handling home location changed notification", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Handling home location changed notification", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) determineStateWithReason:11];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) determineStateWithReason:11];
 }
 
 - (void)handleHomeGeofencesRegisteredNotification:(id)notification
@@ -82,27 +79,25 @@ uint64_t __54__HMDHomeAwayStateDetector_handleHomeLocationChanged___block_invoke
 
 uint64_t __70__HMDHomeAwayStateDetector_handleHomeGeofencesRegisteredNotification___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Location for home changed, setting state to unspecified and waiting initial state after new geofence is registered", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Location for home changed, setting state to unspecified and waiting initial state after new geofence is registered", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) setState:0];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) setState:0];
 }
 
 - (void)updateLatestReportWithReason:(unint64_t)reason
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDUserActivityStateDetector *)self dataSource];
   queue = [dataSource queue];
   dispatch_assert_queue_V2(queue);
@@ -119,9 +114,9 @@ uint64_t __70__HMDHomeAwayStateDetector_handleHomeGeofencesRegisteredNotificatio
       if (v11)
       {
         v12 = HMFGetLogIdentifier();
-        v28 = 138543362;
-        v29 = v12;
-        _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@State is unknown, unsetting latestReport", &v28, 0xCu);
+        v27 = 138543362;
+        v28 = v12;
+        _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@State is unknown, unsetting latestReport", &v27, 0xCu);
       }
 
       objc_autoreleasePoolPop(v8);
@@ -146,11 +141,11 @@ uint64_t __70__HMDHomeAwayStateDetector_handleHomeGeofencesRegisteredNotificatio
         }
 
         v21 = v20;
-        v28 = 138543618;
-        v29 = v18;
-        v30 = 2112;
-        v31 = v21;
-        _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@State is %@, updating latestReport", &v28, 0x16u);
+        v27 = 138543618;
+        v28 = v18;
+        v29 = 2112;
+        v30 = v21;
+        _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@State is %@, updating latestReport", &v27, 0x16u);
       }
 
       objc_autoreleasePoolPop(v8);
@@ -175,20 +170,18 @@ uint64_t __70__HMDHomeAwayStateDetector_handleHomeGeofencesRegisteredNotificatio
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       v17 = HMFGetLogIdentifier();
-      v28 = 138543362;
-      v29 = v17;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@State is unspecified. Not updating report or notifying delegate", &v28, 0xCu);
+      v27 = 138543362;
+      v28 = v17;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@State is unspecified. Not updating report or notifying delegate", &v27, 0xCu);
     }
 
     objc_autoreleasePoolPop(v14);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)determineStateWithReason:(unint64_t)reason
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDUserActivityStateDetector *)self dataSource];
   queue = [dataSource queue];
   dispatch_assert_queue_V2(queue);
@@ -199,101 +192,95 @@ uint64_t __70__HMDHomeAwayStateDetector_handleHomeGeofencesRegisteredNotificatio
 
   if (!locationAuthorized)
   {
-    v19 = objc_autoreleasePoolPush();
+    v18 = objc_autoreleasePoolPush();
     selfCopy4 = self;
-    v21 = HMFGetOSLogHandle();
-    if (!os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    v20 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
-LABEL_10:
-
-      objc_autoreleasePoolPop(v19);
-      goto LABEL_14;
+      v21 = HMFGetLogIdentifier();
+      v27 = 138543362;
+      v28 = v21;
+      v22 = "%{public}@Cannot determine state because location authorization is unknown";
+LABEL_9:
+      _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, v22, &v27, 0xCu);
     }
 
-    v22 = HMFGetLogIdentifier();
-    v30 = 138543362;
-    v31 = v22;
-    v23 = "%{public}@Cannot determine state because location authorization is unknown";
-LABEL_9:
-    _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, v23, &v30, 0xCu);
+LABEL_10:
 
-    goto LABEL_10;
+    objc_autoreleasePoolPop(v18);
+    return;
   }
 
   dataSource3 = [(HMDUserActivityStateDetector *)self dataSource];
   location2 = [dataSource3 location];
   locationAuthorized2 = [location2 locationAuthorized];
 
-  if (locationAuthorized2 != 1)
+  if (locationAuthorized2 == 1)
   {
-    v24 = objc_autoreleasePoolPush();
-    selfCopy2 = self;
-    v26 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+    dataSource4 = [(HMDUserActivityStateDetector *)self dataSource];
+    home = [dataSource4 home];
+    homeLocation = [home homeLocation];
+
+    if (homeLocation > 1)
     {
-      v27 = HMFGetLogIdentifier();
-      v30 = 138543362;
-      v31 = v27;
-      _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@Location authorization is not allowed. Setting state to unknown", &v30, 0xCu);
-    }
+      if (homeLocation != 2 && homeLocation != 3)
+      {
+        return;
+      }
 
-    objc_autoreleasePoolPop(v24);
-    [(HMDHomeAwayStateDetector *)selfCopy2 updateState:1 withReason:reason];
-    goto LABEL_14;
-  }
-
-  dataSource4 = [(HMDUserActivityStateDetector *)self dataSource];
-  home = [dataSource4 home];
-  homeLocation = [home homeLocation];
-
-  if (homeLocation > 1)
-  {
-    if (homeLocation == 2 || homeLocation == 3)
-    {
-      v29 = *MEMORY[0x277D85DE8];
-      selfCopy5 = self;
-      v18 = 3;
+      selfCopy3 = self;
+      v17 = 3;
       goto LABEL_18;
     }
 
-LABEL_14:
-    v28 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  if (!homeLocation)
-  {
-    v19 = objc_autoreleasePoolPush();
-    selfCopy4 = self;
-    v21 = HMFGetOSLogHandle();
-    if (!os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    if (homeLocation)
     {
-      goto LABEL_10;
-    }
+      if (homeLocation != 1)
+      {
+        return;
+      }
 
-    v22 = HMFGetLogIdentifier();
-    v30 = 138543362;
-    v31 = v22;
-    v23 = "%{public}@Cannot determine state because home location is unknown";
-    goto LABEL_9;
-  }
-
-  if (homeLocation != 1)
-  {
-    goto LABEL_14;
-  }
-
-  v16 = *MEMORY[0x277D85DE8];
-  selfCopy5 = self;
-  v18 = 2;
+      selfCopy3 = self;
+      v17 = 2;
 LABEL_18:
 
-  [(HMDHomeAwayStateDetector *)selfCopy5 updateState:v18 withReason:reason];
+      [(HMDHomeAwayStateDetector *)selfCopy3 updateState:v17 withReason:reason];
+      return;
+    }
+
+    v18 = objc_autoreleasePoolPush();
+    selfCopy4 = self;
+    v20 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    {
+      v21 = HMFGetLogIdentifier();
+      v27 = 138543362;
+      v28 = v21;
+      v22 = "%{public}@Cannot determine state because home location is unknown";
+      goto LABEL_9;
+    }
+
+    goto LABEL_10;
+  }
+
+  v23 = objc_autoreleasePoolPush();
+  selfCopy5 = self;
+  v25 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+  {
+    v26 = HMFGetLogIdentifier();
+    v27 = 138543362;
+    v28 = v26;
+    _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@Location authorization is not allowed. Setting state to unknown", &v27, 0xCu);
+  }
+
+  objc_autoreleasePoolPop(v23);
+  [(HMDHomeAwayStateDetector *)selfCopy5 updateState:1 withReason:reason];
 }
 
 - (void)updateState:(unint64_t)state withReason:(unint64_t)reason
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDUserActivityStateDetector *)self dataSource];
   queue = [dataSource queue];
   dispatch_assert_queue_V2(queue);
@@ -321,11 +308,11 @@ LABEL_18:
         }
 
         v15 = v14;
-        v17 = 138543618;
-        v18 = v13;
-        v19 = 2112;
-        v20 = v15;
-        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Initial state: %@", &v17, 0x16u);
+        v16 = 138543618;
+        v17 = v13;
+        v18 = 2112;
+        v19 = v15;
+        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Initial state: %@", &v16, 0x16u);
       }
 
       objc_autoreleasePoolPop(v10);
@@ -334,8 +321,6 @@ LABEL_18:
 
     [(HMDHomeAwayStateDetector *)self updateLatestReportWithReason:reason];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerForNotifications
@@ -359,7 +344,7 @@ LABEL_18:
 
 - (void)configureWithCompletion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   dataSource = [(HMDUserActivityStateDetector *)self dataSource];
   queue = [dataSource queue];
@@ -371,9 +356,9 @@ LABEL_18:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = HMFGetLogIdentifier();
-    v19 = 138543362;
-    v20 = v10;
-    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Configuring HomeAwayDetector", &v19, 0xCu);
+    v18 = 138543362;
+    v19 = v10;
+    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Configuring HomeAwayDetector", &v18, 0xCu);
   }
 
   objc_autoreleasePoolPop(v7);
@@ -386,11 +371,11 @@ LABEL_18:
   {
     v14 = HMFGetLogIdentifier();
     v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDHomeAwayStateDetector state](v12, "state")}];
-    v19 = 138543618;
-    v20 = v14;
-    v21 = 2112;
-    v22 = v15;
-    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Configured HomeAwayDetector with initial state %@", &v19, 0x16u);
+    v18 = 138543618;
+    v19 = v14;
+    v20 = 2112;
+    v21 = v15;
+    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Configured HomeAwayDetector with initial state %@", &v18, 0x16u);
   }
 
   objc_autoreleasePoolPop(v11);
@@ -400,8 +385,6 @@ LABEL_18:
   {
     (*(v16 + 2))(v16);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDHomeAwayStateDetector)initWithDataSource:(id)source
@@ -431,10 +414,9 @@ LABEL_18:
 
 void __39__HMDHomeAwayStateDetector_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v14_217166;
-  logCategory__hmf_once_v14_217166 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v14_217166;
+  logCategory__hmf_once_v14_217166 = v0;
 }
 
 @end

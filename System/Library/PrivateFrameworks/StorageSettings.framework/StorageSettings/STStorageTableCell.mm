@@ -3,7 +3,10 @@
 - (STStorageTableCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier specifier:(id)specifier;
 - (void)createLargeFontConstraints;
 - (void)createNormalFontConstraints;
+- (void)setCloudIconHidden:(BOOL)hidden;
+- (void)setEnabled:(BOOL)enabled;
 - (void)setInfo:(id)info;
+- (void)setInfoHidden:(BOOL)hidden;
 - (void)setSize:(int64_t)size;
 - (void)setSizeString:(id)string;
 - (void)setTitle:(id)title;
@@ -302,7 +305,7 @@
 
 - (void)updateConstraints
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   traitCollection = [(STStorageTableCell *)self traitCollection];
   preferredContentSizeCategory = [traitCollection preferredContentSizeCategory];
   IsAccessibilityCategory = UIContentSizeCategoryIsAccessibilityCategory(preferredContentSizeCategory);
@@ -376,8 +379,8 @@
   v21 = MEMORY[0x277CCAAD0];
   if (isHidden2)
   {
-    v33[0] = self->_cloudIconConstraint;
-    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
+    v32[0] = self->_cloudIconConstraint;
+    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
     [v21 deactivateConstraints:v22];
 
     v23 = MEMORY[0x277CCAAD0];
@@ -387,8 +390,8 @@
 
   else
   {
-    v31 = self->_noCloudIconConstraint;
-    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
+    v30 = self->_noCloudIconConstraint;
+    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
     [v21 deactivateConstraints:v25];
 
     v23 = MEMORY[0x277CCAAD0];
@@ -408,12 +411,10 @@
   [(NSLayoutConstraint *)self->_minHeightConstraint setConstant:v27];
   [(NSLayoutConstraint *)self->_minHeightConstraint setActive:1];
   [(NSLayoutConstraint *)self->_iconSizeConstraint setActive:1];
-  v29.receiver = self;
-  v29.super_class = STStorageTableCell;
-  [(STStorageTableCell *)&v29 updateConstraints];
+  v28.receiver = self;
+  v28.super_class = STStorageTableCell;
+  [(STStorageTableCell *)&v28 updateConstraints];
   [(STStorageTableCell *)self setNeedsLayout];
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)traitCollectionDidChange:(id)change
@@ -458,6 +459,13 @@
   [(UILabel *)self->_infoLabel setText:v5];
 
   [(STStorageTableCell *)self setNeedsLayout];
+}
+
+- (void)setInfoHidden:(BOOL)hidden
+{
+  [(UILabel *)self->_infoLabel setHidden:hidden];
+
+  [(STStorageTableCell *)self setNeedsUpdateConstraints];
 }
 
 - (void)setSizeString:(id)string
@@ -552,6 +560,22 @@
     v4 = STFormattedSize();
     [(STStorageTableCell *)self setSizeString:v4];
   }
+}
+
+- (void)setEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v5.receiver = self;
+  v5.super_class = STStorageTableCell;
+  [(STStorageTableCell *)&v5 setEnabled:?];
+  [(UILabel *)self->_titleLabel setEnabled:enabledCopy];
+}
+
+- (void)setCloudIconHidden:(BOOL)hidden
+{
+  [(UIImageView *)self->_cloudIconView setHidden:hidden];
+  contentView = [(STStorageTableCell *)self contentView];
+  [contentView setNeedsUpdateConstraints];
 }
 
 @end

@@ -167,7 +167,7 @@ uint64_t __63__HFItemProviderUtilities_favoriteActionSetsForHome_withLimit___blo
   return v44;
 }
 
-uint64_t __98__HFItemProviderUtilities__servicesForHome_canShowInControlCentre_withLimit_includes_ignoreUUIDs___block_invoke(uint64_t a1, void *a2)
+unint64_t __98__HFItemProviderUtilities__servicesForHome_canShowInControlCentre_withLimit_includes_ignoreUUIDs___block_invoke(uint64_t a1, void *a2)
 {
   if (*(a1 + 32) != 2)
   {
@@ -327,7 +327,7 @@ void __98__HFItemProviderUtilities__servicesForHome_canShowInControlCentre_withL
   v7 = a2;
   if ((*(*(a1 + 48) + 16))())
   {
-    v3 = [v7 home];
+    v3 = objc_msgSend_home(v7);
     v4 = [v3 hf_mediaSystemForAccessory:v7];
 
     if (!v4)

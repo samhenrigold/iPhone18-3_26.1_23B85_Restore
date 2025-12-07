@@ -71,31 +71,29 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if ((*&self->_has & 2) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteUint32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_pairingID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    type = self->_type;
     PBDataWriterWriteUint32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_sessionID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -164,7 +162,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 32);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 32) & 2) == 0 || self->_version != *(equalCopy + 7))
@@ -184,14 +181,13 @@
     if (![(NSString *)pairingID isEqual:?])
     {
 LABEL_17:
-      v10 = 0;
+      v8 = 0;
       goto LABEL_18;
     }
 
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 32);
   if (has)
   {
     if ((*(equalCopy + 32) & 1) == 0 || self->_type != *(equalCopy + 6))
@@ -208,17 +204,17 @@ LABEL_17:
   sessionID = self->_sessionID;
   if (sessionID | *(equalCopy + 2))
   {
-    v10 = [(NSString *)sessionID isEqual:?];
+    v8 = [(NSString *)sessionID isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v8 = 1;
   }
 
 LABEL_18:
 
-  return v10;
+  return v8;
 }
 
 - (unint64_t)hash

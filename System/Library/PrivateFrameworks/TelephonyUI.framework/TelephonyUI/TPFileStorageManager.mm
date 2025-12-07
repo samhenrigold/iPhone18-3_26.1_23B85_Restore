@@ -9,8 +9,6 @@
 - (void)dealloc;
 - (void)deleteStorageAtURLs:(id)ls;
 - (void)saveImage:(id)image withName:(id)name;
-- (void)urlForFileSystem;
-- (void)urlsForLegacyFileSystem;
 @end
 
 @implementation TPFileStorageManager
@@ -63,22 +61,22 @@ uint64_t __38__TPFileStorageManager_sharedInstance__block_invoke(uint64_t a1)
   if (!urlForFileSystem)
   {
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    v11 = 0;
-    v5 = [defaultManager URLForDirectory:13 inDomain:1 appropriateForURL:0 create:1 error:&v11];
-    v6 = v11;
+    v12 = 0;
+    v5 = [defaultManager URLForDirectory:13 inDomain:1 appropriateForURL:0 create:1 error:&v12];
+    v6 = v12;
 
     if (v5)
     {
-      v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%d", @"TelephonyUI", 10];
-      v8 = [v5 URLByAppendingPathComponent:v7];
-      v9 = self->_urlForFileSystem;
-      self->_urlForFileSystem = v8;
+      v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%d", @"TelephonyUI", 10];
+      v9 = [v5 URLByAppendingPathComponent:v8];
+      v10 = self->_urlForFileSystem;
+      self->_urlForFileSystem = v9;
     }
 
     else
     {
-      v7 = TPDefaultLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = TPDefaultLog(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [TPFileStorageManager urlForFileSystem];
       }
@@ -122,38 +120,38 @@ void __43__TPFileStorageManager_saveImage_withName___block_invoke(uint64_t a1)
   v2 = [*(a1 + 32) urlForFileSystem];
   if (v2)
   {
-    v17 = 0;
+    v19 = 0;
     v3 = [MEMORY[0x1E696AC08] defaultManager];
     v4 = [v2 path];
-    v5 = [v3 fileExistsAtPath:v4 isDirectory:&v17];
+    v5 = [v3 fileExistsAtPath:v4 isDirectory:&v19];
 
-    if (!v5 || (v17 & 1) == 0)
+    if (!v5 || (v19 & 1) == 0)
     {
       v6 = [MEMORY[0x1E696AC08] defaultManager];
-      v16 = 0;
-      v7 = [v6 createDirectoryAtURL:v2 withIntermediateDirectories:1 attributes:0 error:&v16];
-      v8 = v16;
+      v18 = 0;
+      v7 = [v6 createDirectoryAtURL:v2 withIntermediateDirectories:1 attributes:0 error:&v18];
+      v8 = v18;
 
       if ((v7 & 1) == 0)
       {
-        v9 = TPDefaultLog();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v10 = TPDefaultLog(v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           __43__TPFileStorageManager_saveImage_withName___block_invoke_cold_1();
         }
       }
     }
 
-    v10 = [v2 URLByAppendingPathComponent:*(a1 + 40)];
-    v11 = UIImagePNGRepresentation(*(a1 + 48));
-    v15 = 0;
-    v12 = [v11 writeToURL:v10 options:268435457 error:&v15];
-    v13 = v15;
+    v11 = [v2 URLByAppendingPathComponent:*(a1 + 40)];
+    v12 = UIImagePNGRepresentation(*(a1 + 48));
+    v17 = 0;
+    v13 = [v12 writeToURL:v11 options:268435457 error:&v17];
+    v14 = v17;
 
-    if ((v12 & 1) == 0)
+    if ((v13 & 1) == 0)
     {
-      v14 = TPDefaultLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = TPDefaultLog(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         __43__TPFileStorageManager_saveImage_withName___block_invoke_cold_2();
       }
@@ -205,8 +203,8 @@ void __38__TPFileStorageManager_imageWithName___block_invoke(uint64_t a1)
     v5 = [v3 fileSystemRepresentation];
     if (!v5)
     {
-      v9 = TPDefaultLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = TPDefaultLog(0);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         __38__TPFileStorageManager_imageWithName___block_invoke_cold_3();
       }
@@ -218,83 +216,84 @@ void __38__TPFileStorageManager_imageWithName___block_invoke(uint64_t a1)
     if (v6 >= 1)
     {
       v7 = v6;
-      memset(&v24, 0, sizeof(v24));
-      if (fstat(v6, &v24))
+      memset(&v25, 0, sizeof(v25));
+      v8 = fstat(v6, &v25);
+      if (v8)
       {
-        v8 = TPDefaultLog();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v9 = TPDefaultLog(v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
-          __38__TPFileStorageManager_imageWithName___block_invoke_cold_1(v7, v8);
+          __38__TPFileStorageManager_imageWithName___block_invoke_cold_1(v7, v9);
         }
 
 LABEL_7:
 
 LABEL_8:
-        v9 = 0;
+        v10 = 0;
         goto LABEL_9;
       }
 
-      if (v24.st_size)
+      if (v25.st_size)
       {
-        v18 = mmap(0, v24.st_size, 1, 1025, v7, 0);
-        if (v18 == -1)
+        v19 = mmap(0, v25.st_size, 1, 1025, v7, 0);
+        if (v19 == -1)
         {
-          v8 = TPDefaultLog();
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+          v9 = TPDefaultLog(-1);
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
           {
-            __38__TPFileStorageManager_imageWithName___block_invoke_cold_2(v7, v8);
+            __38__TPFileStorageManager_imageWithName___block_invoke_cold_2(v7, v9);
           }
 
           goto LABEL_7;
         }
 
-        v19 = v18;
+        v20 = v19;
         context.version = 0;
         memset(&context.retain, 0, 40);
-        context.info = v24.st_size;
+        context.info = v25.st_size;
         context.deallocate = _mmapDeallocatorCallback;
         context.preferredSize = 0;
-        v20 = CFAllocatorCreate(0, &context);
-        if (!v20)
+        v21 = CFAllocatorCreate(0, &context);
+        if (!v21)
         {
           goto LABEL_8;
         }
 
-        v21 = v20;
-        v9 = CFDataCreateWithBytesNoCopy(0, v19, v24.st_size, v20);
-        if (!v9)
+        v22 = v21;
+        v10 = CFDataCreateWithBytesNoCopy(0, v20, v25.st_size, v21);
+        if (!v10)
         {
-          munmap(v19, v24.st_size);
+          munmap(v20, v25.st_size);
         }
 
-        CFRelease(v21);
+        CFRelease(v22);
       }
 
       else
       {
-        v22 = TPDefaultLog();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v23 = TPDefaultLog(v8);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
           LOWORD(context.version) = 0;
-          _os_log_impl(&dword_1B4894000, v22, OS_LOG_TYPE_DEFAULT, "Memory mapping a zero byte file", &context, 2u);
+          _os_log_impl(&dword_1B4894000, v23, OS_LOG_TYPE_DEFAULT, "Memory mapping a zero byte file", &context, 2u);
         }
 
-        v9 = CFDataCreate(0, 0, 0);
+        v10 = CFDataCreate(0, 0, 0);
       }
 
 LABEL_9:
       close(v7);
-      if (v9)
+      if (v10)
       {
-        v10 = [MEMORY[0x1E69DCAB8] imageWithData:v9];
-        v11 = MEMORY[0x1E69DCAB8];
-        v12 = [v10 CGImage];
-        v13 = [MEMORY[0x1E69DCEB0] mainScreen];
-        [v13 scale];
-        v15 = [v11 imageWithCGImage:v12 scale:objc_msgSend(v10 orientation:{"imageOrientation"), v14}];
-        v16 = *(*(a1 + 48) + 8);
-        v17 = *(v16 + 40);
-        *(v16 + 40) = v15;
+        v11 = [MEMORY[0x1E69DCAB8] imageWithData:v10];
+        v12 = MEMORY[0x1E69DCAB8];
+        v13 = [v11 CGImage];
+        v14 = [MEMORY[0x1E69DCEB0] mainScreen];
+        [v14 scale];
+        v16 = [v12 imageWithCGImage:v13 scale:objc_msgSend(v11 orientation:{"imageOrientation"), v15}];
+        v17 = *(*(a1 + 48) + 8);
+        v18 = *(v17 + 40);
+        *(v17 + 40) = v16;
 
 LABEL_13:
       }
@@ -354,24 +353,24 @@ void __49__TPFileStorageManager_clearCacheWithCompletion___block_invoke(uint64_t
 
         if (v13)
         {
-          v14 = v5 == 0;
+          v15 = v5 == 0;
         }
 
         else
         {
-          v14 = 0;
+          v15 = 0;
         }
 
-        if (!v14)
+        if (!v15)
         {
-          v15 = TPDefaultLog();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+          v16 = TPDefaultLog(v14);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
             v26 = v11;
             v27 = 2112;
             v28 = v5;
-            _os_log_error_impl(&dword_1B4894000, v15, OS_LOG_TYPE_ERROR, "Error deleting file %@ %@", buf, 0x16u);
+            _os_log_error_impl(&dword_1B4894000, v16, OS_LOG_TYPE_ERROR, "Error deleting file %@ %@", buf, 0x16u);
           }
         }
 
@@ -386,79 +385,77 @@ void __49__TPFileStorageManager_clearCacheWithCompletion___block_invoke(uint64_t
     while (v7);
   }
 
-  v16 = *(v18 + 40);
-  if (v16)
+  v17 = *(v18 + 40);
+  if (v17)
   {
-    (*(v16 + 16))(v16, v5 == 0, v5);
+    (*(v17 + 16))(v17, v5 == 0, v5);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)urlsForLegacyFileSystem
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v28 = 0;
-  v4 = [defaultManager URLForDirectory:13 inDomain:1 appropriateForURL:0 create:0 error:&v28];
-  v5 = v28;
+  v29 = 0;
+  v4 = [defaultManager URLForDirectory:13 inDomain:1 appropriateForURL:0 create:0 error:&v29];
+  v5 = v29;
 
   if (v4)
   {
     defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-    v27 = v5;
-    v7 = [defaultManager2 contentsOfDirectoryAtURL:v4 includingPropertiesForKeys:0 options:0 error:&v27];
-    v8 = v27;
+    v28 = v5;
+    v8 = [defaultManager2 contentsOfDirectoryAtURL:v4 includingPropertiesForKeys:0 options:0 error:&v28];
+    v9 = v28;
 
-    if (v7)
+    if (v8)
     {
-      v21 = v8;
-      v22 = v4;
-      v25 = 0u;
+      v22 = v9;
+      v23 = v4;
       v26 = 0u;
-      v23 = 0u;
+      v27 = 0u;
       v24 = 0u;
-      v7 = v7;
-      v9 = [v7 countByEnumeratingWithState:&v23 objects:v29 count:16];
-      if (v9)
+      v25 = 0u;
+      v8 = v8;
+      v11 = [v8 countByEnumeratingWithState:&v24 objects:v30 count:16];
+      if (v11)
       {
-        v10 = v9;
-        v11 = *v24;
+        v12 = v11;
+        v13 = *v25;
         do
         {
-          for (i = 0; i != v10; ++i)
+          for (i = 0; i != v12; ++i)
           {
-            if (*v24 != v11)
+            if (*v25 != v13)
             {
-              objc_enumerationMutation(v7);
+              objc_enumerationMutation(v8);
             }
 
-            v13 = *(*(&v23 + 1) + 8 * i);
-            pathComponents = [v13 pathComponents];
+            v15 = *(*(&v24 + 1) + 8 * i);
+            pathComponents = [v15 pathComponents];
             lastObject = [pathComponents lastObject];
-            v16 = [lastObject hasPrefix:@"TelephonyUI"];
+            v18 = [lastObject hasPrefix:@"TelephonyUI"];
 
-            if (v16)
+            if (v18)
             {
-              [v2 addObject:v13];
+              [v2 addObject:v15];
             }
           }
 
-          v10 = [v7 countByEnumeratingWithState:&v23 objects:v29 count:16];
+          v12 = [v8 countByEnumeratingWithState:&v24 objects:v30 count:16];
         }
 
-        while (v10);
+        while (v12);
       }
 
-      v8 = v21;
-      v4 = v22;
+      v9 = v22;
+      v4 = v23;
     }
 
     else
     {
-      v17 = TPDefaultLog();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v19 = TPDefaultLog(v10);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         [TPFileStorageManager urlsForLegacyFileSystem];
       }
@@ -467,30 +464,30 @@ void __49__TPFileStorageManager_clearCacheWithCompletion___block_invoke(uint64_t
 
   else
   {
-    v7 = TPDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = TPDefaultLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [TPFileStorageManager urlsForLegacyFileSystem];
     }
 
-    v8 = v5;
+    v9 = v5;
   }
 
-  v18 = [v2 copy];
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = [v2 copy];
 
-  return v18;
+  return v20;
 }
 
 - (void)clearLegacyStorageIfNecessary
 {
-  if (![(TPFileStorageManager *)self hasClearedLegacyStorage])
+  hasClearedLegacyStorage = [(TPFileStorageManager *)self hasClearedLegacyStorage];
+  if ((hasClearedLegacyStorage & 1) == 0)
   {
-    v3 = TPDefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = TPDefaultLog(hasClearedLegacyStorage);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_1B4894000, v3, OS_LOG_TYPE_DEFAULT, "clear legacy storage", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_1B4894000, v4, OS_LOG_TYPE_DEFAULT, "clear legacy storage", v6, 2u);
     }
 
     urlsForLegacyFileSystem = [(TPFileStorageManager *)self urlsForLegacyFileSystem];
@@ -515,59 +512,59 @@ void __49__TPFileStorageManager_clearCacheWithCompletion___block_invoke(uint64_t
 
 void __44__TPFileStorageManager_deleteStorageAtURLs___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
-  v19 = 0u;
+  v29 = *MEMORY[0x1E69E9840];
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
   v1 = *(a1 + 32);
-  v2 = [v1 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v2)
   {
     v4 = v2;
-    v5 = *v20;
+    v5 = *v21;
     *&v3 = 138412546;
-    v17 = v3;
+    v18 = v3;
     do
     {
       v6 = 0;
       do
       {
-        if (*v20 != v5)
+        if (*v21 != v5)
         {
           objc_enumerationMutation(v1);
         }
 
-        v7 = *(*(&v19 + 1) + 8 * v6);
+        v7 = *(*(&v20 + 1) + 8 * v6);
         v8 = [MEMORY[0x1E696AC08] defaultManager];
         v9 = [v7 path];
         v10 = [v8 fileExistsAtPath:v9];
 
         if (v10)
         {
-          v11 = TPDefaultLog();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+          v12 = TPDefaultLog(v11);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v24 = v7;
-            _os_log_impl(&dword_1B4894000, v11, OS_LOG_TYPE_DEFAULT, "deleting legacy storage at URL: %@", buf, 0xCu);
+            v25 = v7;
+            _os_log_impl(&dword_1B4894000, v12, OS_LOG_TYPE_DEFAULT, "deleting legacy storage at URL: %@", buf, 0xCu);
           }
 
-          v12 = [MEMORY[0x1E696AC08] defaultManager];
-          v18 = 0;
-          v13 = [v12 removeItemAtURL:v7 error:&v18];
-          v14 = v18;
+          v13 = [MEMORY[0x1E696AC08] defaultManager];
+          v19 = 0;
+          v14 = [v13 removeItemAtURL:v7 error:&v19];
+          v15 = v19;
 
-          if ((v13 & 1) == 0)
+          if ((v14 & 1) == 0)
           {
-            v15 = TPDefaultLog();
-            if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+            v17 = TPDefaultLog(v16);
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
-              *buf = v17;
-              v24 = v7;
-              v25 = 2112;
-              v26 = v14;
-              _os_log_error_impl(&dword_1B4894000, v15, OS_LOG_TYPE_ERROR, "Error deleting storage at %@ %@", buf, 0x16u);
+              *buf = v18;
+              v25 = v7;
+              v26 = 2112;
+              v27 = v15;
+              _os_log_error_impl(&dword_1B4894000, v17, OS_LOG_TYPE_ERROR, "Error deleting storage at %@ %@", buf, 0x16u);
             }
           }
         }
@@ -576,75 +573,31 @@ void __44__TPFileStorageManager_deleteStorageAtURLs___block_invoke(uint64_t a1)
       }
 
       while (v4 != v6);
-      v4 = [v1 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v4 = [v1 countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
     while (v4);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
-}
-
-void __43__TPFileStorageManager_saveImage_withName___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_1B4894000, v0, v1, "Error creating directory for mmap images %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __43__TPFileStorageManager_saveImage_withName___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_1B4894000, v0, v1, "Error writing image %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __38__TPFileStorageManager_imageWithName___block_invoke_cold_1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_1B4894000, a2, OS_LOG_TYPE_ERROR, "fstat failed %d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_1B4894000, a2, OS_LOG_TYPE_ERROR, "fstat failed %d", v2, 8u);
 }
 
 void __38__TPFileStorageManager_imageWithName___block_invoke_cold_2(int a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v4 = __error();
   v5 = strerror(*v4);
-  v7[0] = 67109378;
-  v7[1] = a1;
-  v8 = 2080;
-  v9 = v5;
-  _os_log_error_impl(&dword_1B4894000, a2, OS_LOG_TYPE_ERROR, "Could not mmap %d: %s", v7, 0x12u);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __38__TPFileStorageManager_imageWithName___block_invoke_cold_3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_1B4894000, v0, v1, "Can't get file system representation for file path %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)urlForFileSystem
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_1B4894000, v0, v1, "Error getting library cache Directory %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)urlsForLegacyFileSystem
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_1B4894000, v0, v1, "Error getting library Directory %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v6[0] = 67109378;
+  v6[1] = a1;
+  v7 = 2080;
+  v8 = v5;
+  _os_log_error_impl(&dword_1B4894000, a2, OS_LOG_TYPE_ERROR, "Could not mmap %d: %s", v6, 0x12u);
 }
 
 @end

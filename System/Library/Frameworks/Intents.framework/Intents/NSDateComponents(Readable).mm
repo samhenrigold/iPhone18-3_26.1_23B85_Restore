@@ -6,7 +6,6 @@
 
 - (id)_intents_readableTitleWithLocalizer:()Readable metadata:
 {
-  v19 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   v8 = MEMORY[0x1E695DEE8];
@@ -45,8 +44,6 @@
 
     v14 = [MEMORY[0x1E696AB70] localizedStringFromDateComponents:self unitsStyle:0];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

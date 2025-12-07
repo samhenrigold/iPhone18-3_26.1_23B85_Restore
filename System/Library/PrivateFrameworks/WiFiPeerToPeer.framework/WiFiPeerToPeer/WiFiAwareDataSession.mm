@@ -8,7 +8,10 @@
 - (void)datapathFailedToStartWithError:(int64_t)error;
 - (void)datapathPairingDidSucceedWithPairingKeyStoreID:(id)d deviceID:(unint64_t)iD;
 - (void)datapathPairingRequestStartedWithPairingMethod:(int64_t)method pairingAuthenticationInputCompletionHandler:(id)handler;
+- (void)datapathReceivedControlDataAddress:(id)address serviceSpecificInfo:(id)info onInterfaceIndex:(unsigned int)index;
+- (void)datapathStartedWithInstanceID:(unsigned __int8)d initiatorDataAddress:(id)address localInterfaceIndex:(unsigned int)index;
 - (void)datapathTerminatedWithReason:(int64_t)reason;
+- (void)datapathUpdatedPeerRSSI:(int)i;
 - (void)generateCurrentNetworkRecordForInternetSharingSession:(id)session;
 - (void)generateDiversifiedPINWithCompletionHandler:(id)handler;
 - (void)generateStatisticsReportWithCompletionHandler:(id)handler;
@@ -362,6 +365,26 @@ uint64_t __68__WiFiAwareDataSession_generateDiversifiedPINWithCompletionHandler_
   return v9;
 }
 
+- (void)datapathStartedWithInstanceID:(unsigned __int8)d initiatorDataAddress:(id)address localInterfaceIndex:(unsigned int)index
+{
+  dCopy = d;
+  addressCopy = address;
+  datapathID = self->_datapathID;
+  v10 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:dCopy];
+  v11 = self->_datapathID;
+  self->_datapathID = v10;
+
+  initiatorDataAddress = self->_initiatorDataAddress;
+  self->_initiatorDataAddress = addressCopy;
+
+  self->_localInterfaceIndex = index;
+  if (!datapathID)
+  {
+    delegate = [(WiFiAwareDataSession *)self delegate];
+    [delegate dataSessionRequestStarted:self];
+  }
+}
+
 - (void)datapathConfirmedForPeerDataAddress:(id)address serviceSpecificInfo:(id)info
 {
   infoCopy = info;
@@ -382,17 +405,39 @@ uint64_t __68__WiFiAwareDataSession_generateDiversifiedPINWithCompletionHandler_
   }
 }
 
+- (void)datapathReceivedControlDataAddress:(id)address serviceSpecificInfo:(id)info onInterfaceIndex:(unsigned int)index
+{
+  v5 = *&index;
+  addressCopy = address;
+  infoCopy = info;
+  delegate = [(WiFiAwareDataSession *)self delegate];
+  if (objc_opt_respondsToSelector())
+  {
+    [delegate dataSession:self receivedControlDataAddress:addressCopy serviceSpecificInfo:infoCopy onInterfaceIndex:v5];
+  }
+}
+
+- (void)datapathUpdatedPeerRSSI:(int)i
+{
+  v3 = *&i;
+  delegate = [(WiFiAwareDataSession *)self delegate];
+  if (objc_opt_respondsToSelector())
+  {
+    [delegate dataSession:self updatedPeerRSSI:v3];
+  }
+}
+
 - (void)datapathPairingRequestStartedWithPairingMethod:(int64_t)method pairingAuthenticationInputCompletionHandler:(id)handler
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   pairingDelegate = [(WiFiAwareDataSession *)self pairingDelegate];
-  v19[0] = 0;
-  v19[1] = v19;
-  v19[2] = 0x3032000000;
-  v19[3] = __Block_byref_object_copy_;
-  v19[4] = __Block_byref_object_dispose_;
-  v20 = MEMORY[0x2318E0CF0](handlerCopy);
+  v18[0] = 0;
+  v18[1] = v18;
+  v18[2] = 0x3032000000;
+  v18[3] = __Block_byref_object_copy_;
+  v18[4] = __Block_byref_object_dispose_;
+  v19 = MEMORY[0x2318E0CF0](handlerCopy);
   if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     if (pairingDelegate)
@@ -427,24 +472,24 @@ LABEL_3:
     {
       if (objc_opt_respondsToSelector())
       {
-        v16[0] = MEMORY[0x277D85DD0];
-        v16[1] = 3221225472;
-        v16[2] = __115__WiFiAwareDataSession_datapathPairingRequestStartedWithPairingMethod_pairingAuthenticationInputCompletionHandler___block_invoke_121;
-        v16[3] = &unk_2787AAD40;
-        v16[4] = v19;
-        [pairingDelegate pairingRequestStartedForDataSession:self qrCodeScannedCompletionHandler:v16];
+        v15[0] = MEMORY[0x277D85DD0];
+        v15[1] = 3221225472;
+        v15[2] = __115__WiFiAwareDataSession_datapathPairingRequestStartedWithPairingMethod_pairingAuthenticationInputCompletionHandler___block_invoke_121;
+        v15[3] = &unk_2787AAD40;
+        v15[4] = v18;
+        [pairingDelegate pairingRequestStartedForDataSession:self qrCodeScannedCompletionHandler:v15];
         goto LABEL_27;
       }
     }
 
     else if (method == 5 && (objc_opt_respondsToSelector() & 1) != 0)
     {
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __115__WiFiAwareDataSession_datapathPairingRequestStartedWithPairingMethod_pairingAuthenticationInputCompletionHandler___block_invoke_2;
-      v15[3] = &unk_2787AAD40;
-      v15[4] = v19;
-      [pairingDelegate pairingRequestStartedForDataSession:self nfcTagScannedCompletionHandler:v15];
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __115__WiFiAwareDataSession_datapathPairingRequestStartedWithPairingMethod_pairingAuthenticationInputCompletionHandler___block_invoke_2;
+      v14[3] = &unk_2787AAD40;
+      v14[4] = v18;
+      [pairingDelegate pairingRequestStartedForDataSession:self nfcTagScannedCompletionHandler:v14];
       goto LABEL_27;
     }
 
@@ -465,12 +510,12 @@ LABEL_3:
           _os_log_error_impl(&dword_22DFDF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Invoking pairing delegate method pairingRequestStartedForDataSession for Passphrase", buf, 2u);
         }
 
-        v17[0] = MEMORY[0x277D85DD0];
-        v17[1] = 3221225472;
-        v17[2] = __115__WiFiAwareDataSession_datapathPairingRequestStartedWithPairingMethod_pairingAuthenticationInputCompletionHandler___block_invoke_118;
-        v17[3] = &unk_2787AAD18;
-        v17[4] = v19;
-        [pairingDelegate pairingRequestStartedForDataSession:self passphraseInputCompletionHandler:v17];
+        v16[0] = MEMORY[0x277D85DD0];
+        v16[1] = 3221225472;
+        v16[2] = __115__WiFiAwareDataSession_datapathPairingRequestStartedWithPairingMethod_pairingAuthenticationInputCompletionHandler___block_invoke_118;
+        v16[3] = &unk_2787AAD18;
+        v16[4] = v18;
+        [pairingDelegate pairingRequestStartedForDataSession:self passphraseInputCompletionHandler:v16];
         goto LABEL_27;
       }
 
@@ -511,17 +556,15 @@ LABEL_26:
     _os_log_error_impl(&dword_22DFDF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Invoking pairing delegate method pairingRequestStartedForDataSession for PIN", buf, 2u);
   }
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __115__WiFiAwareDataSession_datapathPairingRequestStartedWithPairingMethod_pairingAuthenticationInputCompletionHandler___block_invoke;
-  v18[3] = &unk_2787AACF0;
-  v18[4] = self;
-  v18[5] = v19;
-  [pairingDelegate pairingRequestStartedForDataSession:self pinCodeInputCompletionHandler:v18];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __115__WiFiAwareDataSession_datapathPairingRequestStartedWithPairingMethod_pairingAuthenticationInputCompletionHandler___block_invoke;
+  v17[3] = &unk_2787AACF0;
+  v17[4] = self;
+  v17[5] = v18;
+  [pairingDelegate pairingRequestStartedForDataSession:self pinCodeInputCompletionHandler:v17];
 LABEL_27:
-  _Block_object_dispose(v19, 8);
-
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v18, 8);
 }
 
 void __115__WiFiAwareDataSession_datapathPairingRequestStartedWithPairingMethod_pairingAuthenticationInputCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -584,15 +627,15 @@ void __115__WiFiAwareDataSession_datapathPairingRequestStartedWithPairingMethod_
 
 - (void)datapathPairingDidSucceedWithPairingKeyStoreID:(id)d deviceID:(unint64_t)iD
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412546;
-    v10 = dCopy;
-    v11 = 2048;
+    v8 = 138412546;
+    v9 = dCopy;
+    v10 = 2048;
     iDCopy = iD;
-    _os_log_impl(&dword_22DFDF000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "datapathPairingDidSucceed PairingKeyStoreID: %@ DeviceID: %llu", &v9, 0x16u);
+    _os_log_impl(&dword_22DFDF000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "datapathPairingDidSucceed PairingKeyStoreID: %@ DeviceID: %llu", &v8, 0x16u);
   }
 
   pairingDelegate = [(WiFiAwareDataSession *)self pairingDelegate];
@@ -600,8 +643,6 @@ void __115__WiFiAwareDataSession_datapathPairingRequestStartedWithPairingMethod_
   {
     [pairingDelegate pairingRequestCompletedForDataSession:self pairingKeyStoreID:dCopy deviceID:iD];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)datapathFailedToStartWithError:(int64_t)error

@@ -14,9 +14,9 @@
 - (CMSNetworkActivity)initWithLabel:(unsigned int)label parentUUID:(id)d
 {
   dCopy = d;
-  v15.receiver = self;
-  v15.super_class = CMSNetworkActivity;
-  v7 = [(CMSNetworkActivity *)&v15 init];
+  v13.receiver = self;
+  v13.super_class = CMSNetworkActivity;
+  v7 = [(CMSNetworkActivity *)&v13 init];
   v8 = v7;
   if (v7)
   {
@@ -28,11 +28,9 @@
     v11 = nwActivityFromUUID(dCopy);
     if (v11)
     {
-      v12 = v8->_nwActivity;
       nw_activity_set_parent_activity();
     }
 
-    v13 = v8->_nwActivity;
     nw_activity_activate();
   }
 
@@ -42,9 +40,9 @@
 - (CMSNetworkActivity)initWithLabel:(unsigned int)label parentActivity:(id)activity
 {
   activityCopy = activity;
-  v16.receiver = self;
-  v16.super_class = CMSNetworkActivity;
-  v7 = [(CMSNetworkActivity *)&v16 init];
+  v14.receiver = self;
+  v14.super_class = CMSNetworkActivity;
+  v7 = [(CMSNetworkActivity *)&v14 init];
   v8 = v7;
   if (v7)
   {
@@ -57,12 +55,10 @@
 
     if (nwActivity)
     {
-      v12 = v8->_nwActivity;
       nwActivity2 = [activityCopy nwActivity];
       nw_activity_set_parent_activity();
     }
 
-    v14 = v8->_nwActivity;
     nw_activity_activate();
   }
 
@@ -72,9 +68,9 @@
 - (CMSNetworkActivity)initWithRetry:(id)retry
 {
   retryCopy = retry;
-  v11.receiver = self;
-  v11.super_class = CMSNetworkActivity;
-  v5 = [(CMSNetworkActivity *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = CMSNetworkActivity;
+  v5 = [(CMSNetworkActivity *)&v10 init];
   if (v5)
   {
     v5->_label = [retryCopy label];
@@ -83,7 +79,6 @@
     nwActivity = v5->_nwActivity;
     v5->_nwActivity = retry;
 
-    v9 = v5->_nwActivity;
     nw_activity_activate();
   }
 
@@ -137,16 +132,16 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   [coderCopy encodeInt32:-[CMSNetworkActivity label](self forKey:{"label"), @"label"}];
   nwActivity = [(CMSNetworkActivity *)self nwActivity];
   if (nwActivity)
   {
-    v8[0] = 0;
-    v8[1] = 0;
+    v7[0] = 0;
+    v7[1] = 0;
     nw_activity_get_token();
-    v6 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v8];
+    v6 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v7];
   }
 
   else
@@ -157,7 +152,6 @@
   [coderCopy encodeObject:v6 forKey:@"nwActivityUUID"];
 
   [coderCopy encodeBool:self->_completed forKey:@"completed"];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

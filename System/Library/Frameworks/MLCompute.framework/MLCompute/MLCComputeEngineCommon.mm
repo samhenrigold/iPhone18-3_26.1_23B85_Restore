@@ -275,7 +275,7 @@ LABEL_7:
 
 + (BOOL)forwardSourceTensorToChildLayersFrom:(id)from stopGradientTensorList:(id)list
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   listCopy = list;
   sourceTensors = [fromCopy sourceTensors];
@@ -325,7 +325,7 @@ LABEL_7:
         goto LABEL_50;
       }
 
-      v58 = v15;
+      v57 = v15;
       sourceTensors2 = [fromCopy sourceTensors];
       lastObject2 = [sourceTensors2 lastObject];
 
@@ -348,7 +348,7 @@ LABEL_7:
           }
 
           v14 = 0;
-          v15 = v58;
+          v15 = v57;
           goto LABEL_49;
         }
       }
@@ -389,28 +389,28 @@ LABEL_7:
         while (v27 > 1);
       }
 
-      v56 = listCopy;
-      v57 = fromCopy;
-      v62 = 0u;
-      v63 = 0u;
-      v60 = 0u;
+      v55 = listCopy;
+      v56 = fromCopy;
       v61 = 0u;
+      v62 = 0u;
+      v59 = 0u;
+      v60 = 0u;
       obj = childLayers;
-      v33 = [obj countByEnumeratingWithState:&v60 objects:v64 count:16];
+      v33 = [obj countByEnumeratingWithState:&v59 objects:v63 count:16];
       if (v33)
       {
         v34 = v33;
-        v35 = *v61;
+        v35 = *v60;
         do
         {
           for (i = 0; i != v34; ++i)
           {
-            if (*v61 != v35)
+            if (*v60 != v35)
             {
               objc_enumerationMutation(obj);
             }
 
-            v37 = *(*(&v60 + 1) + 8 * i);
+            v37 = *(*(&v59 + 1) + 8 * i);
             sourceTensors3 = [v37 sourceTensors];
             v39 = [sourceTensors3 count];
 
@@ -433,7 +433,7 @@ LABEL_7:
             }
           }
 
-          v34 = [obj countByEnumeratingWithState:&v60 objects:v64 count:16];
+          v34 = [obj countByEnumeratingWithState:&v59 objects:v63 count:16];
         }
 
         while (v34);
@@ -442,16 +442,16 @@ LABEL_7:
       parentLayers3 = [lastObject2 parentLayers];
       if ([parentLayers3 count])
       {
-        fromCopy = v57;
-        sourceGradientTensors = [v57 sourceGradientTensors];
+        fromCopy = v56;
+        sourceGradientTensors = [v56 sourceGradientTensors];
         v47 = [sourceGradientTensors count];
 
-        v15 = v58;
+        v15 = v57;
         if (!v47)
         {
 LABEL_48:
           v14 = 1;
-          listCopy = v56;
+          listCopy = v55;
 LABEL_49:
 
 LABEL_50:
@@ -468,14 +468,14 @@ LABEL_51:
         parentLayers3 = [lastObject2 parentLayers];
         lastObject5 = [parentLayers3 lastObject];
         sourceGradientTensors3 = [lastObject5 sourceGradientTensors];
-        sourceGradientTensors4 = [v57 sourceGradientTensors];
+        sourceGradientTensors4 = [v56 sourceGradientTensors];
         [sourceGradientTensors3 addObjectsFromArray:sourceGradientTensors4];
       }
 
       else
       {
-        fromCopy = v57;
-        v15 = v58;
+        fromCopy = v56;
+        v15 = v57;
       }
 
       goto LABEL_48;
@@ -500,22 +500,21 @@ LABEL_51:
   v14 = 0;
 LABEL_52:
 
-  v54 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 + (void)applyPatternMatcherForGraph:(id)graph stopGradientTensorList:(id)list startAtLayerIndex:(unint64_t)index forInference:(BOOL)inference
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   listCopy = list;
   if ([graphCopy count] > index)
   {
     *&v9 = 138412546;
-    v27 = v9;
+    v26 = v9;
     do
     {
-      v10 = [graphCopy objectAtIndexedSubscript:{index, v27}];
+      v10 = [graphCopy objectAtIndexedSubscript:{index, v26}];
       if (([v10 skipLayer] & 1) == 0)
       {
         objc_opt_class();
@@ -543,9 +542,9 @@ LABEL_52:
         if (v15 <= 1)
         {
           resultTensors = [MEMORY[0x277CBEBF8] mutableCopy];
-          v32 = 0;
+          v31 = 0;
           v16 = listCopy;
-          if ([MLCPatternMatcher canTransformToReLUNFromLayer:v10 stopGradientTensorList:listCopy fusedLayers:resultTensors alpha:&v32 + 4 beta:&v32])
+          if ([MLCPatternMatcher canTransformToReLUNFromLayer:v10 stopGradientTensorList:listCopy fusedLayers:resultTensors alpha:&v31 + 4 beta:&v31])
           {
             if ([resultTensors count] == 2 || objc_msgSend(resultTensors, "count") == 3)
             {
@@ -562,10 +561,10 @@ LABEL_52:
             if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
             {
               v21 = NSStringFromSelector(a2);
-              *buf = v27;
-              v34 = v21;
-              v35 = 2112;
-              v36 = resultTensors;
+              *buf = v26;
+              v33 = v21;
+              v34 = 2112;
+              v35 = resultTensors;
               _os_log_impl(&dword_238C1D000, v20, OS_LOG_TYPE_INFO, "%@: cannot fuse layers = %@ to ReLUN", buf, 0x16u);
             }
 
@@ -574,9 +573,9 @@ LABEL_52:
 
           v22 = [MEMORY[0x277CBEBF8] mutableCopy];
 
-          v31 = 0;
-          v23 = [MLCPatternMatcher canTransformToHardSwishFromLayer:v10 stopGradientTensorList:v16 fusedLayers:v22 inputTensor:&v31];
-          v19 = v31;
+          v30 = 0;
+          v23 = [MLCPatternMatcher canTransformToHardSwishFromLayer:v10 stopGradientTensorList:v16 fusedLayers:v22 inputTensor:&v30];
+          v19 = v30;
           if (v23)
           {
             [MLCComputeEngineCommon updateLayersAndTensorsForComplexActivationFunction:v22 inputTensor:v19];
@@ -587,9 +586,9 @@ LABEL_52:
           {
             resultTensors = [MEMORY[0x277CBEBF8] mutableCopy];
 
-            v30 = v19;
-            v24 = [MLCPatternMatcher canTransformToGELUFromLayer:v10 stopGradientTensorList:v16 fusedLayers:resultTensors inputTensor:&v30];
-            v25 = v30;
+            v29 = v19;
+            v24 = [MLCPatternMatcher canTransformToGELUFromLayer:v10 stopGradientTensorList:v16 fusedLayers:resultTensors inputTensor:&v29];
+            v25 = v29;
 
             if (v24)
             {
@@ -610,63 +609,46 @@ LABEL_27:
 
     while (index < [graphCopy count]);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 + (void)forwardSourceTensorToChildLayersFrom:(const char *)a1 stopGradientTensorList:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)forwardSourceTensorToChildLayersFrom:(const char *)a1 stopGradientTensorList:.cold.2(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)forwardSourceTensorToChildLayersFrom:(const char *)a1 stopGradientTensorList:.cold.3(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)forwardSourceTensorToChildLayersFrom:(const char *)a1 stopGradientTensorList:.cold.4(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)forwardSourceTensorToChildLayersFrom:(const char *)a1 stopGradientTensorList:.cold.5(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

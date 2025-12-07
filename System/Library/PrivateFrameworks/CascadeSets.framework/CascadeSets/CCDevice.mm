@@ -89,11 +89,10 @@ LABEL_8:
     v8 = @"NO";
   }
 
-  platform = self->_platform;
-  v10 = BMDevicePlatformToString();
-  v11 = [v3 initWithFormat:@"<%@> identifier: %@ idsIdentifier: %@ isLocal: %@ platform: %@", v5, identifier, idsDeviceIdentifier, v8, v10];
+  v9 = BMDevicePlatformToString();
+  v10 = [v3 initWithFormat:@"<%@> identifier: %@ idsIdentifier: %@ isLocal: %@ platform: %@", v5, identifier, idsDeviceIdentifier, v8, v9];
 
-  return v11;
+  return v10;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -237,13 +236,13 @@ LABEL_12:
 
 - (id)dictionaryRepresentation
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E695DF90]);
   deviceUUID = [(CCDevice *)self deviceUUID];
-  v12[0] = deviceUUID;
+  v11[0] = deviceUUID;
   v5 = [MEMORY[0x1E696AD98] numberWithInteger:{-[CCDevice platform](self, "platform")}];
-  v12[1] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
+  v11[1] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
   v7 = [v3 initWithObjects:v6 forKeys:&unk_1F2EC96A8];
 
   idsDeviceIdentifier = [(CCDevice *)self idsDeviceIdentifier];
@@ -254,18 +253,15 @@ LABEL_12:
     [v7 setObject:idsDeviceIdentifier2 forKeyedSubscript:@"idsDeviceId"];
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 - (void)initWithDeviceUUID:(os_log_t)log idsDeviceId:platform:options:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136315138;
-  v3 = "[CCDevice initWithDeviceUUID:idsDeviceId:platform:options:]";
-  _os_log_error_impl(&dword_1B6DB2000, log, OS_LOG_TYPE_ERROR, "%s nil deviceUUID", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136315138;
+  v2 = "[CCDevice initWithDeviceUUID:idsDeviceId:platform:options:]";
+  _os_log_error_impl(&dword_1B6DB2000, log, OS_LOG_TYPE_ERROR, "%s nil deviceUUID", &v1, 0xCu);
 }
 
 @end

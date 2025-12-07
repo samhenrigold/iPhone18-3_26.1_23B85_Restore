@@ -51,29 +51,30 @@
 {
   requestCopy = request;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     newNativeStorePageRequest = [requestCopy newNativeStorePageRequest];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __86__StoreScriptInterface_SUScriptStoreSheetRequest__showStoreSheetWithRequest_animated___block_invoke;
-    v12[3] = &unk_2798FADE0;
-    v12[4] = self;
-    v13 = newNativeStorePageRequest;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __86__StoreScriptInterface_SUScriptStoreSheetRequest__showStoreSheetWithRequest_animated___block_invoke;
+    v15[3] = &unk_2798FADE0;
+    v15[4] = self;
+    v16 = newNativeStorePageRequest;
     animatedCopy = animated;
-    v8 = newNativeStorePageRequest;
-    v9 = SUUIWebCoreFramework();
-    v10 = SUUIWeakLinkedSymbolForString("WebThreadRunOnMainThread", v9);
-    if (v10)
+    v10 = newNativeStorePageRequest;
+    v12 = SUUIWebCoreFramework(v10, v11);
+    v13 = SUUIWeakLinkedSymbolForString("WebThreadRunOnMainThread", v12);
+    if (v13)
     {
-      v10(v12);
+      v13(v15);
     }
   }
 
   else
   {
-    v11 = SUUIWebCoreFramework();
-    [SUUIWeakLinkedClassForString(&cfstr_Webscriptobjec.isa v11)];
+    v14 = SUUIWebCoreFramework(isKindOfClass, v8);
+    [SUUIWeakLinkedClassForString(&cfstr_Webscriptobjec.isa v14)];
   }
 }
 

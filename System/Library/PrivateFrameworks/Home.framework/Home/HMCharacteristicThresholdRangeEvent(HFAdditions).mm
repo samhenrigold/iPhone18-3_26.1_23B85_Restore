@@ -1,10 +1,10 @@
 @interface HMCharacteristicThresholdRangeEvent(HFAdditions)
-- (uint64_t)hf_wouldFireForValue:()HFAdditions;
+- (BOOL)hf_wouldFireForValue:()HFAdditions;
 @end
 
 @implementation HMCharacteristicThresholdRangeEvent(HFAdditions)
 
-- (uint64_t)hf_wouldFireForValue:()HFAdditions
+- (BOOL)hf_wouldFireForValue:()HFAdditions
 {
   if (!a3)
   {
@@ -20,50 +20,16 @@
   thresholdRange = [self thresholdRange];
   minValue = [thresholdRange minValue];
 
-  if (minValue)
+  v26 = 0;
+  if (!minValue || ([self thresholdRange], v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "minValue"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(metadata, "hf_valueRoundedToNearestStepValue:", v11), v12 = objc_claimAutoreleasedReturnValue(), v11, v10, objc_msgSend(v7, "doubleValue"), v14 = v13, objc_msgSend(v12, "doubleValue"), v16 = v15 + -0.00000011920929, v12, v14 >= v16))
   {
     thresholdRange2 = [self thresholdRange];
-    minValue2 = [thresholdRange2 minValue];
-    v12 = [metadata hf_valueRoundedToNearestStepValue:minValue2];
+    maxValue = [thresholdRange2 maxValue];
 
-    [v7 doubleValue];
-    v14 = v13;
-    [v12 doubleValue];
-    v16 = v15 + -0.00000011920929;
-
-    if (v14 < v16)
+    if (!maxValue || ([self thresholdRange], v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "maxValue"), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(metadata, "hf_valueRoundedToNearestStepValue:", v20), v21 = objc_claimAutoreleasedReturnValue(), v20, v19, objc_msgSend(v7, "doubleValue"), v23 = v22, objc_msgSend(v21, "doubleValue"), v25 = v24 + 0.00000011920929, v21, v23 <= v25))
     {
-      goto LABEL_8;
+      v26 = 1;
     }
-  }
-
-  thresholdRange3 = [self thresholdRange];
-  maxValue = [thresholdRange3 maxValue];
-
-  if (!maxValue)
-  {
-    goto LABEL_6;
-  }
-
-  thresholdRange4 = [self thresholdRange];
-  maxValue2 = [thresholdRange4 maxValue];
-  v21 = [metadata hf_valueRoundedToNearestStepValue:maxValue2];
-
-  [v7 doubleValue];
-  v23 = v22;
-  [v21 doubleValue];
-  v25 = v24 + 0.00000011920929;
-
-  if (v23 > v25)
-  {
-LABEL_8:
-    v26 = 0;
-  }
-
-  else
-  {
-LABEL_6:
-    v26 = 1;
   }
 
   return v26;

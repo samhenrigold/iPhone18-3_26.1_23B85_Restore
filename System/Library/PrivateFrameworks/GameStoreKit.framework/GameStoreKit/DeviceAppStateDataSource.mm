@@ -7,7 +7,7 @@
 
 - (void)appQuery:(id)query resultsDidChange:(id)change
 {
-  sub_24E69A5C4(0, &qword_27F22BDE0);
+  sub_24E69A5C4(0, &qword_27F22BDE0, 0x277CEC328);
   v6 = sub_24F92B5A8();
   queryCopy = query;
   selfCopy = self;

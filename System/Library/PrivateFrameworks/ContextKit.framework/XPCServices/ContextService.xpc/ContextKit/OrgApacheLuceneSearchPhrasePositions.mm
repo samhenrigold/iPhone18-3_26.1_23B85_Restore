@@ -63,17 +63,12 @@ LABEL_6:
 
 - (id)description
 {
-  count = self->count_;
-  position = self->position_;
-  offset = self->offset_;
   result = JreStrcat("$I$I$I", a2, v2, v3, v4, v5, v6, v7, @"o:");
-  v21 = result;
+  v16 = result;
   if ((self->rptGroup_ & 0x80000000) == 0)
   {
-    rptInd = self->rptInd_;
-    rptGroup = self->rptGroup_;
-    JreStrAppend(&v21, "$I$I", v10, v11, v12, v13, v14, v15, @" rpt:");
-    return v21;
+    JreStrAppend(&v16, "$I$I", v10, v11, v12, v13, v14, v15, @" rpt:");
+    return v16;
   }
 
   return result;

@@ -37,7 +37,7 @@
 
 - (id)outputImage
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   if (!self->inputImage)
   {
     return 0;
@@ -53,157 +53,157 @@
   else
   {
     [(NSNumber *)self->inputRadius doubleValue];
-    v6 = v5;
-    if (v5 <= 1.12)
+    v7 = v6;
+    if (v6 <= 1.12)
     {
-      v8 = 0;
-      v9 = &v50.f64[1];
-      if (v5 <= 0.7)
+      v9 = 0;
+      v10 = &v51.f64[1];
+      if (v6 <= 0.7)
       {
-        v10 = 3;
+        v11 = 3;
       }
 
       else
       {
-        v10 = 4;
+        v11 = 4;
       }
 
-      v11 = 0.707106781 / v5;
+      v12 = 0.707106781 / v6;
       do
       {
-        v12 = v11 * v8;
-        v13 = v12 + v11 * 0.5;
-        v14 = v12 + v11 * -0.5;
-        if (v12 <= 2.0)
+        v13 = v12 * v9;
+        v14 = v13 + v12 * 0.5;
+        v15 = v13 + v12 * -0.5;
+        if (v13 <= 2.0)
         {
-          v17 = erf(v13);
-          v16 = (v17 - erf(v14)) * 0.5;
+          v18 = erf(v14);
+          v17 = (v18 - erf(v15)) * 0.5;
         }
 
         else
         {
-          v15 = erfc(v13);
-          v16 = (v15 - erfc(v14)) * -0.5;
+          v16 = erfc(v14);
+          v17 = (v16 - erfc(v15)) * -0.5;
         }
 
-        v52.f64[v8++] = v16;
+        v53.f64[v9++] = v17;
       }
 
-      while (v8 != 4);
-      if (v6 <= 0.4)
+      while (v9 != 4);
+      if (v7 <= 0.4)
       {
-        v18 = 2;
+        v19 = 2;
       }
 
       else
       {
-        v18 = v10;
+        v19 = v11;
       }
 
-      v50 = 0u;
       v51 = 0u;
-      v19.f64[0] = vmuld_lane_f64(-2.0, v52, 1);
-      if (v18 == 2)
+      v52 = 0u;
+      v20.f64[0] = vmuld_lane_f64(-2.0, v53, 1);
+      if (v19 == 2)
       {
-        v29 = v19.f64[0] + v52.f64[0] * 2.0 + 1.0;
-        v28 = 0.333333333;
-        v50.f64[0] = v29 * 0.333333333;
-        v27 = v52.f64[1] - v52.f64[0];
+        v30 = v20.f64[0] + v53.f64[0] * 2.0 + 1.0;
+        v29 = 0.333333333;
+        v51.f64[0] = v30 * 0.333333333;
+        v28 = v53.f64[1] - v53.f64[0];
       }
 
       else
       {
-        v19.f64[1] = -v52.f64[0];
-        if (v18 == 3)
+        v20.f64[1] = -v53.f64[0];
+        if (v19 == 3)
         {
           __asm { FMOV            V4.2D, #-2.0 }
 
-          v25 = vmlaq_n_f64(vmlaq_f64(v19, xmmword_19CF26A00, v52), _Q4, v53);
+          v26 = vmlaq_n_f64(vmlaq_f64(v20, xmmword_19CF26A00, v53), _Q4, v54);
           __asm { FMOV            V4.2D, #1.0 }
 
-          v50 = vmulq_f64(vaddq_f64(v25, _Q4), vdupq_n_s64(0x3FC999999999999AuLL));
-          v27 = v53 * 3.0 - (v52.f64[0] - v52.f64[1] * -2.0);
-          v28 = 0.2;
-          v9 = &v51;
+          v51 = vmulq_f64(vaddq_f64(v26, _Q4), vdupq_n_s64(0x3FC999999999999AuLL));
+          v28 = v54 * 3.0 - (v53.f64[0] - v53.f64[1] * -2.0);
+          v29 = 0.2;
+          v10 = &v52;
         }
 
         else
         {
           __asm { FMOV            V5.2D, #-2.0 }
 
-          v31 = vmlaq_n_f64(vmlaq_n_f64(vmlaq_f64(v19, xmmword_19CF269F0, v52), _Q5, v53), _Q5, v54);
+          v32 = vmlaq_n_f64(vmlaq_n_f64(vmlaq_f64(v20, xmmword_19CF269F0, v53), _Q5, v54), _Q5, v55);
           __asm { FMOV            V5.2D, #1.0 }
 
-          v50 = vmulq_f64(vaddq_f64(v31, _Q5), vdupq_n_s64(0x3FC2492492492492uLL));
-          v28 = 0.142857143;
-          *&v51 = (v53 * 5.0 - (v52.f64[0] - v52.f64[1] * -2.0) + v54 * -2.0 + 1.0) * 0.142857143;
-          v27 = v53 * -2.0 - (v52.f64[0] - v52.f64[1] * -2.0) + v54 * 5.0;
-          v9 = &v51 + 1;
+          v51 = vmulq_f64(vaddq_f64(v32, _Q5), vdupq_n_s64(0x3FC2492492492492uLL));
+          v29 = 0.142857143;
+          *&v52 = (v54 * 5.0 - (v53.f64[0] - v53.f64[1] * -2.0) + v55 * -2.0 + 1.0) * 0.142857143;
+          v28 = v54 * -2.0 - (v53.f64[0] - v53.f64[1] * -2.0) + v55 * 5.0;
+          v10 = &v52 + 1;
         }
       }
 
-      v33 = 0;
-      v34 = (2 * v18 - 1);
-      *v9 = (v27 + 1.0) * v28;
-      v35 = v49;
+      v34 = 0;
+      v35 = (2 * v19 - 1);
+      *v10 = (v28 + 1.0) * v29;
+      v36 = v50;
       do
       {
-        if (v33 - v18 >= -1)
+        if (v34 - v19 >= -1)
         {
-          v36 = v33 - v18 + 1;
+          v37 = v34 - v19 + 1;
         }
 
         else
         {
-          v36 = v18 + ~v33;
+          v37 = v19 + ~v34;
         }
 
-        v37 = v50.f64[v36];
-        v38 = (2 * v18 - 1);
-        v39 = -v18;
-        v40 = 1 - v18;
-        v41 = v35;
-        v42 = v18 - 1;
+        v38 = v51.f64[v37];
+        v39 = (2 * v19 - 1);
+        v40 = -v19;
+        v41 = 1 - v19;
+        v42 = v36;
+        v43 = v19 - 1;
         do
         {
-          if (v39 >= -1)
+          if (v40 >= -1)
           {
-            v43 = v40;
+            v44 = v41;
           }
 
           else
           {
-            v43 = v42;
+            v44 = v43;
           }
 
-          *v41++ = v50.f64[v43] * v37;
-          --v42;
+          *v42++ = v51.f64[v44] * v38;
+          --v43;
+          ++v41;
           ++v40;
-          ++v39;
-          --v38;
+          --v39;
         }
 
-        while (v38);
-        ++v33;
-        v35 = (v35 + ((16 * (((2 * v18 - 2) >> 1) & 0x7FFFFFFF)) | 8));
+        while (v39);
+        ++v34;
+        v36 = (v36 + ((16 * (((2 * v19 - 2) >> 1) & 0x7FFFFFFF)) | 8));
       }
 
-      while (v33 != v34);
-      v44 = [CIVector vectorWithValues:v49 count:(v34 * v34)];
-      v45 = off_1E75C2C80[v18 - 2];
+      while (v34 != v35);
+      v45 = [CIVector vectorWithValues:v50 count:(v35 * v35)];
+      v46 = off_1E75C2C80[v19 - 2];
       inputImage = self->inputImage;
-      v47[0] = @"inputWeights";
-      v47[1] = @"inputBias";
-      v48[0] = v44;
-      v48[1] = &unk_1F1083B78;
-      return -[CIImage imageByApplyingFilter:withInputParameters:](inputImage, "imageByApplyingFilter:withInputParameters:", v45, [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:v47 count:2]);
+      v48[0] = @"inputWeights";
+      v48[1] = @"inputBias";
+      v49[0] = v45;
+      v49[1] = &unk_1F1083B78;
+      return -[CIImage imageByApplyingFilter:withInputParameters:](inputImage, "imageByApplyingFilter:withInputParameters:", v46, [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:v48 count:2]);
     }
 
     else
     {
-      v7 = self->inputImage;
+      v8 = self->inputImage;
 
-      return blurImage(v7, v5, v5);
+      return blurImage(v8, v6, v6, v5);
     }
   }
 }

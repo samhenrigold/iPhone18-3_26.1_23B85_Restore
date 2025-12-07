@@ -42,27 +42,27 @@
   objc_storeStrong(location, statistics);
   quantityType = [location[0] quantityType];
   identifier = [quantityType identifier];
-  v10 = [identifier isEqualToString:*MEMORY[0x277CCC918]];
-  MEMORY[0x277D82BD8](identifier);
-  if (v10)
+  v12 = [identifier isEqualToString:*MEMORY[0x277CCC918]];
+  *&v3 = MEMORY[0x277D82BD8](identifier).n128_u64[0];
+  if (v12)
   {
     sumQuantity = [location[0] sumQuantity];
     [sumQuantity doubleValueForUnit:selfCopy->_kcalUnit];
-    selfCopy->_totalActiveCaloriesBurned = v3;
-    MEMORY[0x277D82BD8](sumQuantity);
+    selfCopy->_totalActiveCaloriesBurned = v4;
+    v5 = MEMORY[0x277D82BD8](sumQuantity).n128_u64[0];
   }
 
   else
   {
     identifier2 = [quantityType identifier];
-    v7 = [identifier2 isEqualToString:*MEMORY[0x277CCC960]];
-    MEMORY[0x277D82BD8](identifier2);
-    if (v7)
+    v9 = [identifier2 isEqualToString:*MEMORY[0x277CCC960]];
+    v5 = MEMORY[0x277D82BD8](identifier2).n128_u64[0];
+    if (v9)
     {
       sumQuantity2 = [location[0] sumQuantity];
       [sumQuantity2 doubleValueForUnit:selfCopy->_kcalUnit];
-      selfCopy->_totalBasalCaloriesBurned = v4;
-      MEMORY[0x277D82BD8](sumQuantity2);
+      selfCopy->_totalBasalCaloriesBurned = v6;
+      v5 = MEMORY[0x277D82BD8](sumQuantity2).n128_u64[0];
     }
   }
 

@@ -395,7 +395,7 @@ LABEL_18:
   memset(v10, 0, sizeof(v10));
   if (v6)
   {
-    [v6 defaultCellBackgroundPropertiesForTableViewStyle:0 state:v4 traitCollection:stateCopy];
+    objc_msgSend_defaultCellBackgroundPropertiesForTableViewStyle_state_traitCollection_(v6);
   }
 
   __copy_constructor_8_8_t0w8_s8_s16_s24_t32w41_s80_t88w48(v9, v10);
@@ -417,42 +417,42 @@ LABEL_18:
   objc_opt_self();
   v6 = _UITableConstantsForTraitCollection(stateCopy);
   v7 = +[UIBackgroundConfiguration clearConfiguration];
-  v19 = 0;
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
+  v18 = 0;
   v16 = 0u;
-  v13 = 0u;
+  v17 = 0u;
   v14 = 0u;
-  v11 = 0u;
+  v15 = 0u;
   v12 = 0u;
-  isPinned = [v4 isPinned];
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  [v4 isPinned];
   if (v6)
   {
-    [v6 defaultHeaderFooterBackgroundPropertiesForTableViewStyle:0 cellConfigurationState:v4 traitCollection:stateCopy floating:isPinned];
+    objc_msgSend_defaultHeaderFooterBackgroundPropertiesForTableViewStyle_cellConfigurationState_traitCollection_floating_(v6);
   }
 
   else
   {
-    v19 = 0;
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
+    v18 = 0;
     v16 = 0u;
-    v13 = 0u;
+    v17 = 0u;
     v14 = 0u;
-    v11 = 0u;
+    v15 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
   }
 
-  __copy_constructor_8_8_t0w8_s8_s16_s24_t32w41_s80_t88w48(v10, &v11);
-  _UIBackgroundConfigurationApplyProperties(v7, v10, stateCopy);
+  __copy_constructor_8_8_t0w8_s8_s16_s24_t32w41_s80_t88w48(v9, &v10);
+  _UIBackgroundConfigurationApplyProperties(v7, v9, stateCopy);
   if (v7)
   {
     v7[18] = 2;
   }
 
-  __destructor_8_s8_s16_s24_s80(&v11);
+  __destructor_8_s8_s16_s24_s80(&v10);
 
   return v7;
 }
@@ -489,7 +489,7 @@ LABEL_18:
     memset(v11, 0, sizeof(v11));
     if (v8)
     {
-      [v8 defaultCellBackgroundPropertiesForTableViewStyle:1 state:v4 traitCollection:stateCopy];
+      objc_msgSend_defaultCellBackgroundPropertiesForTableViewStyle_state_traitCollection_(v8);
     }
 
     __copy_constructor_8_8_t0w8_s8_s16_s24_t32w41_s80_t88w48(v10, v11);
@@ -526,7 +526,7 @@ LABEL_18:
   memset(v10, 0, sizeof(v10));
   if (v6)
   {
-    [v6 defaultHeaderFooterBackgroundPropertiesForTableViewStyle:1 cellConfigurationState:v4 traitCollection:stateCopy floating:0];
+    objc_msgSend_defaultHeaderFooterBackgroundPropertiesForTableViewStyle_cellConfigurationState_traitCollection_floating_(v6);
   }
 
   __copy_constructor_8_8_t0w8_s8_s16_s24_t32w41_s80_t88w48(v9, v10);
@@ -583,7 +583,7 @@ LABEL_18:
   v8 = v7;
   if (v7)
   {
-    [v7 defaultSidebarHeaderBackgroundPropertiesWithState:v4 traitCollection:stateCopy];
+    objc_msgSend_defaultSidebarHeaderBackgroundPropertiesWithState_traitCollection_(v7);
   }
 
   else
@@ -626,71 +626,61 @@ LABEL_18:
   stateCopy = state;
   objc_opt_self();
   v8 = +[UIBackgroundConfiguration clearConfiguration];
-  v23 = 0;
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
+  v22 = 0;
   v20 = 0u;
-  v17 = 0u;
+  v21 = 0u;
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v9 = _UITableConstantsForTraitCollection(stateCopy);
   v10 = v9;
   if (v9)
   {
-    if (collection)
-    {
-      v11 = 2;
-    }
-
-    else
-    {
-      v11 = 1;
-    }
-
-    [v9 defaultSidebarCellBackgroundPropertiesForStyle:v11 state:v6 traitCollection:stateCopy];
+    objc_msgSend_defaultSidebarCellBackgroundPropertiesForStyle_state_traitCollection_(v9);
   }
 
   else
   {
-    v23 = 0;
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
+    v22 = 0;
     v20 = 0u;
-    v17 = 0u;
+    v21 = 0u;
     v18 = 0u;
-    v15 = 0u;
+    v19 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
   }
 
-  __copy_constructor_8_8_t0w8_s8_s16_s24_t32w41_s80_t88w48(v14, &v15);
-  _UIBackgroundConfigurationApplyProperties(v8, v14, stateCopy);
+  __copy_constructor_8_8_t0w8_s8_s16_s24_t32w41_s80_t88w48(v13, &v14);
+  _UIBackgroundConfigurationApplyProperties(v8, v13, stateCopy);
   if (v8)
   {
-    v12 = 5;
+    v11 = 5;
     if (collection)
     {
-      v12 = 7;
+      v11 = 7;
     }
 
-    v8[18] = v12;
+    v8[18] = v11;
   }
 
-  __destructor_8_s8_s16_s24_s80(&v15);
+  __destructor_8_s8_s16_s24_s80(&v14);
 
   return v8;
 }
 
 + (id)_sidebarPlainCellConfiguration
 {
-  v0 = objc_opt_self();
-  v1 = [UICellConfigurationState _readonlyCellState:?];
-  v2 = +[UITraitCollection _fallbackTraitCollection];
-  v3 = [(UIBackgroundConfiguration *)v0 _defaultListSidebarPlainCellConfigurationForState:v1 traitCollection:v2];
+  v1 = objc_opt_self();
+  v2 = [UICellConfigurationState _readonlyCellState:?];
+  v3 = +[UITraitCollection _fallbackTraitCollection];
+  v4 = [(UIBackgroundConfiguration *)v1 _defaultListSidebarPlainCellConfigurationForState:v2 traitCollection:v3];
 
-  return v3;
+  return v4;
 }
 
 + (void)_defaultListSidebarPlainCellConfigurationForState:(void *)state traitCollection:
@@ -712,7 +702,7 @@ LABEL_18:
   v8 = v7;
   if (v7)
   {
-    [v7 defaultSidebarCellBackgroundPropertiesForStyle:3 state:v4 traitCollection:stateCopy];
+    objc_msgSend_defaultSidebarCellBackgroundPropertiesForStyle_state_traitCollection_(v7);
   }
 
   else
@@ -2099,9 +2089,9 @@ LABEL_30:
         goto LABEL_26;
       }
 
-      v17 = [(UIVisualEffect *)v12 isEqual:v13];
+      isEqual = objc_msgSend_isEqual_(v12);
 
-      if (!v17)
+      if (!isEqual)
       {
         goto LABEL_28;
       }
@@ -2130,7 +2120,7 @@ LABEL_28:
         goto LABEL_29;
       }
 
-      v22 = [(UIVisualEffect *)v15 isEqual:v21];
+      v22 = objc_msgSend_isEqual_(v15);
 
       if (!v22)
       {
@@ -2153,9 +2143,9 @@ LABEL_23:
 
     if (v25 && v26)
     {
-      v27 = [(UIImage *)v25 isEqual:v26];
+      v27 = objc_msgSend_isEqual_(v25);
 
-      if (!v27)
+      if ((v27 & 1) == 0)
       {
         goto LABEL_30;
       }

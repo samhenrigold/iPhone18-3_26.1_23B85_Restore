@@ -2,6 +2,7 @@
 - (REElementAction)initWithCoder:(id)coder;
 - (REElementActionDelegate)delegate;
 - (id)copyWithZone:(_NSZone *)zone;
+- (void)_didFinish:(BOOL)finish;
 @end
 
 @implementation REElementAction
@@ -25,6 +26,19 @@
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
+}
+
+- (void)_didFinish:(BOOL)finish
+{
+  finishCopy = finish;
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  v6 = objc_opt_respondsToSelector();
+
+  if (v6)
+  {
+    v7 = objc_loadWeakRetained(&self->_delegate);
+    [v7 elementAction:self didFinishTask:finishCopy];
+  }
 }
 
 @end

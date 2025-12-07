@@ -1,26 +1,23 @@
 uint64_t sub_100000D28@<X0>(uint64_t *a1@<X8>)
 {
-  v29 = a1;
-  v27 = type metadata accessor for OS_dispatch_queue_serial.Attributes();
-  v1 = *(*(v27 - 8) + 64);
-  (__chkstk_darwin)();
-  v26 = &v23 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v3 = *(*(type metadata accessor for DispatchQoS() - 8) + 64);
-  (__chkstk_darwin)();
-  v24 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
-  v4 = *(v24 - 8);
-  v5 = *(v4 + 64);
-  (__chkstk_darwin)();
-  v7 = &v23 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v28 = type metadata accessor for CUEnvironmentValues();
-  v8 = *(v28 - 8);
-  v9 = *(v8 + 64);
-  v10 = (__chkstk_darwin)();
-  v12 = &v23 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v10);
-  v14 = &v23 - v13;
+  v23 = a1;
+  v21 = type metadata accessor for OS_dispatch_queue_serial.Attributes();
+  __chkstk_darwin(v21);
+  v20 = &v17 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v2 = type metadata accessor for DispatchQoS();
+  __chkstk_darwin(v2 - 8);
+  v18 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
+  v3 = *(v18 - 8);
+  __chkstk_darwin(v18);
+  v5 = &v17 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v22 = type metadata accessor for CUEnvironmentValues();
+  v6 = *(v22 - 8);
+  v7 = __chkstk_darwin(v22);
+  v9 = &v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v7);
+  v11 = &v17 - v10;
   type metadata accessor for MainActor();
-  v25 = static MainActor.shared.getter();
+  v19 = static MainActor.shared.getter();
   dispatch thunk of Actor.unownedExecutor.getter();
   if ((swift_task_isCurrentExecutor() & 1) == 0)
   {
@@ -33,20 +30,20 @@ uint64_t sub_100000D28@<X0>(uint64_t *a1@<X8>)
 
   String.utf8CString.getter();
 
-  v15 = CUEnterSandbox();
+  v12 = CUEnterSandbox();
 
-  if (!v15)
+  if (!v12)
   {
     exit(1);
   }
 
-  v16 = SIG_IGN.getter();
-  signal(13, v16);
+  v13 = SIG_IGN.getter();
+  signal(13, v13);
   CUEnvironmentValues.init()();
   sub_1000011D8();
-  (*(v4 + 104))(v7, enum case for OS_dispatch_queue.AutoreleaseFrequency.workItem(_:), v24);
+  (*(v3 + 104))(v5, enum case for OS_dispatch_queue.AutoreleaseFrequency.workItem(_:), v18);
   static DispatchQoS.unspecified.getter();
-  v30 = &_swiftEmptyArrayStorage;
+  v24 = &_swiftEmptyArrayStorage;
   sub_100001224();
   sub_10000127C(&qword_100008010, ":");
   sub_1000012C4();
@@ -54,17 +51,15 @@ uint64_t sub_100000D28@<X0>(uint64_t *a1@<X8>)
   OS_dispatch_queue_serial.init(label:qos:attributes:autoreleaseFrequency:target:)();
   CUEnvironmentValues.dispatchQueue.setter();
   CUEnvironmentValues.dispatchQueue.getter();
-  v17 = v28;
-  (*(v8 + 16))(v12, v14, v28);
-  v18 = type metadata accessor for NXDaemon();
-  v19 = *(v18 + 48);
-  v20 = *(v18 + 52);
+  v14 = v22;
+  (*(v6 + 16))(v9, v11, v22);
+  type metadata accessor for NXDaemon();
   swift_allocObject();
-  v21 = NXDaemon.init(dispatchQueue:environment:)();
+  v15 = NXDaemon.init(dispatchQueue:environment:)();
   NXDaemon.activate()();
-  (*(v8 + 8))(v14, v17);
+  (*(v6 + 8))(v11, v14);
 
-  *v29 = v21;
+  *v23 = v15;
   return result;
 }
 
@@ -115,7 +110,6 @@ uint64_t sub_10000127C(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -141,7 +135,6 @@ uint64_t sub_100001328(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }

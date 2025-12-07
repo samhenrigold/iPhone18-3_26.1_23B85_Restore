@@ -100,14 +100,13 @@
 {
   v8 = sub_185B67AFC();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x1EEE9AC00](v8, v11);
-  v13 = &v15 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = _Block_copy(completion);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = &v13 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = _Block_copy(completion);
   sub_185B67ADC();
-  v14[2](v14, 0);
-  _Block_release(v14);
-  (*(v9 + 8))(v13, v8);
+  v12[2](v12, 0);
+  _Block_release(v12);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (void)getIsChallengeCurrentlyRequiredForBundle:(id)bundle completion:(id)completion
@@ -139,25 +138,23 @@
 {
   v6 = sub_185B67AFC();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x1EEE9AC00](v6, v9);
-  v11 = &v13 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = _Block_copy(completion);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = _Block_copy(completion);
   sub_185B67ADC();
-  v12[2](v12, 0);
-  _Block_release(v12);
-  (*(v7 + 8))(v11, v6);
+  v10[2](v10, 0);
+  _Block_release(v10);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)monitorTransactionWithUUID:(id)d invalidationBlock:(id)block
 {
   v4 = sub_185B67AFC();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x1EEE9AC00](v4, v7);
-  v9 = &v10 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v4);
+  v7 = &v8 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_185B67ADC();
-  (*(v5 + 8))(v9, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)getStateDumpWithCompletion:(id)completion
@@ -174,55 +171,51 @@
 {
   v4 = sub_185B67AFC();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v8 = MEMORY[0x1EEE9AC00](v4, v7);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8, v11);
-  v13 = &v15 - v12;
+  v6 = MEMORY[0x1EEE9AC00](v4);
+  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v10 = &v12 - v9;
   sub_185B67ADC();
   sub_185B67ADC();
-  v14 = *(v5 + 8);
-  v14(v10, v4);
-  v14(v13, v4);
+  v11 = *(v5 + 8);
+  v11(v8, v4);
+  v11(v10, v4);
 }
 
 - (void)endMonitoringForMonitorUUID:(id)d
 {
   v3 = sub_185B67AFC();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x1EEE9AC00](v3, v6);
-  v8 = &v9 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v3);
+  v6 = &v7 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_185B67ADC();
-  (*(v4 + 8))(v8, v3);
+  (*(v4 + 8))(v6, v3);
 }
 
 - (void)authenticateForExtensionWithUUID:(id)d reasonDescription:(id)description completion:(id)completion
 {
   v6 = sub_185B67AFC();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x1EEE9AC00](v6, v9);
-  v11 = &v13 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = _Block_copy(completion);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = _Block_copy(completion);
   sub_185B67ADC();
-  v12[2](v12, 1, 0);
-  _Block_release(v12);
-  (*(v7 + 8))(v11, v6);
+  v10[2](v10, 1, 0);
+  _Block_release(v10);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)extensionRequiresAuthentication:(id)authentication completion:(id)completion
 {
   v5 = sub_185B67AFC();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x1EEE9AC00](v5, v8);
-  v10 = &v12 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = _Block_copy(completion);
+  MEMORY[0x1EEE9AC00](v5);
+  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = _Block_copy(completion);
   sub_185B67ADC();
-  v11[2](v11, 1, 0);
-  _Block_release(v11);
-  (*(v6 + 8))(v10, v5);
+  v9[2](v9, 1, 0);
+  _Block_release(v9);
+  (*(v6 + 8))(v8, v5);
 }
 
 @end

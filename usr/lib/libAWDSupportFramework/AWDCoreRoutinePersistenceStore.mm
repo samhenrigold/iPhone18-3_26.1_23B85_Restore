@@ -99,7 +99,6 @@ LABEL_4:
     }
 
 LABEL_6:
-    migratorFailed = self->_migratorFailed;
     PBDataWriterWriteBOOLField();
     if ((*&self->_has & 2) == 0)
     {
@@ -109,7 +108,6 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  timestamp = self->_timestamp;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) != 0)
@@ -124,7 +122,6 @@ LABEL_3:
   }
 
 LABEL_7:
-  migratorDestroyedStoreReason = self->_migratorDestroyedStoreReason;
 
   PBDataWriterWriteInt32Field();
 }
@@ -229,7 +226,6 @@ LABEL_4:
   {
     if ((*(equal + 24) & 4) != 0)
     {
-      v6 = *(equal + 20);
       if (self->_migratorFailed)
       {
         if ((*(equal + 20) & 1) == 0)

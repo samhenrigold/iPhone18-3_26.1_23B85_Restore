@@ -33,19 +33,19 @@
 
 + (id)encodeClass:(id)class andAdditionalData:(id)data
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   classCopy = class;
   dataCopy = data;
-  v14 = 0;
-  v7 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:classCopy requiringSecureCoding:1 error:&v14];
-  v8 = v14;
+  v13 = 0;
+  v7 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:classCopy requiringSecureCoding:1 error:&v13];
+  v8 = v13;
   if (v8)
   {
     v9 = +[AppleCV3DMOVKitLog defaultLog];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v18 = classCopy;
+      v17 = classCopy;
       _os_log_impl(&dword_24016D000, v9, OS_LOG_TYPE_ERROR, "[MetadataWrapper] Data could not be KeyedArchiver serialized: %@", buf, 0xCu);
     }
 
@@ -54,26 +54,24 @@
 
   else
   {
-    v15 = qword_27E3C84C8;
-    v16 = v7;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+    v14 = qword_27E3C84C8;
+    v15 = v7;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
     v11 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:dataCopy];
     [v11 addEntriesFromDictionary:v9];
     v10 = [CVAMetadataWrapper encodeNSCoderObject:v11];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 + (id)encodeNSCoderObject:(id)object
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   objectCopy = object;
-  v11 = 0;
-  v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:objectCopy requiringSecureCoding:1 error:&v11];
-  v5 = v11;
+  v10 = 0;
+  v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:objectCopy requiringSecureCoding:1 error:&v10];
+  v5 = v10;
   if (v5)
   {
     v6 = +[AppleCV3DMOVKitLog defaultLog];
@@ -81,9 +79,9 @@
     {
       localizedDescription = [v5 localizedDescription];
       *buf = 138412546;
-      v13 = localizedDescription;
-      v14 = 2112;
-      v15 = objectCopy;
+      v12 = localizedDescription;
+      v13 = 2112;
+      v14 = objectCopy;
       _os_log_impl(&dword_24016D000, v6, OS_LOG_TYPE_ERROR, "[MetadataWrapper] Data could not be KeyedArchiver serialized: %@ %@", buf, 0x16u);
     }
 
@@ -94,8 +92,6 @@
   {
     v8 = v4;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -118,27 +114,27 @@
 
 + (id)decodeCommon:(id)common
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   commonCopy = common;
   v4 = MEMORY[0x277CCAAC8];
   v5 = +[CVAMetadataWrapper commonSet];
-  v20 = 0;
-  v6 = [v4 unarchivedObjectOfClasses:v5 fromData:commonCopy error:&v20];
-  v7 = v20;
+  v19 = 0;
+  v6 = [v4 unarchivedObjectOfClasses:v5 fromData:commonCopy error:&v19];
+  v7 = v19;
 
   if (v7)
   {
 
-    v19 = 0;
-    v8 = [MEMORY[0x277CCAAA0] JSONObjectWithData:commonCopy options:1 error:&v19];
-    v9 = v19;
+    v18 = 0;
+    v8 = [MEMORY[0x277CCAAA0] JSONObjectWithData:commonCopy options:1 error:&v18];
+    v9 = v18;
     if (v9)
     {
 
+      v16 = 0;
       v17 = 0;
-      v18 = 0;
-      v10 = [MEMORY[0x277CCAC58] propertyListWithData:commonCopy options:0 format:&v18 error:&v17];
-      v11 = v17;
+      v10 = [MEMORY[0x277CCAC58] propertyListWithData:commonCopy options:0 format:&v17 error:&v16];
+      v11 = v16;
       if (v11)
       {
         v12 = +[AppleCV3DMOVKitLog defaultLog];
@@ -146,7 +142,7 @@
         {
           localizedDescription = [v11 localizedDescription];
           *buf = 138412290;
-          v22 = localizedDescription;
+          v21 = localizedDescription;
           _os_log_impl(&dword_24016D000, v12, OS_LOG_TYPE_ERROR, "[MetadataWrapper] Cannot deserialize data: %@", buf, 0xCu);
         }
 
@@ -169,8 +165,6 @@
   {
     v14 = v6;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -211,7 +205,7 @@
   {
     v6 = [CVAMetadataWrapper decodeCommon:locationCopy];
     v7 = [[CVACLLocation alloc] initWithDictionary:v6];
-    [(CVACLLocation *)v7 timestamp];
+    objc_msgSend_timestamp(v7);
     *timestamp = v8;
   }
 
@@ -303,11 +297,11 @@
 
 + (id)decodeNSCoderObject:(id)object classes:(id)classes
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   classesCopy = classes;
-  v21 = 0;
-  v6 = [CVAMetadataWrapper decodeNSCoderObject:object classes:classesCopy error:&v21];
-  v7 = v21;
+  v20 = 0;
+  v6 = [CVAMetadataWrapper decodeNSCoderObject:object classes:classesCopy error:&v20];
+  v7 = v20;
   if (v7)
   {
     v8 = v7;
@@ -316,9 +310,9 @@
     {
       localizedDescription = [v8 localizedDescription];
       *buf = 138412546;
-      v23 = classesCopy;
-      v24 = 2112;
-      v25 = localizedDescription;
+      v22 = classesCopy;
+      v23 = 2112;
+      v24 = localizedDescription;
       _os_log_impl(&dword_24016D000, v9, OS_LOG_TYPE_ERROR, "MetadataWrapper - INFO - cannot deserialize %@ data: %@", buf, 0x16u);
     }
 
@@ -336,9 +330,9 @@ LABEL_12:
   }
 
   v13 = [v6 valueForKey:qword_27E3C84C8];
-  v20 = 0;
-  v14 = [CVAMetadataWrapper decodeNSCoderObject:v13 classes:classesCopy error:&v20];
-  v15 = v20;
+  v19 = 0;
+  v14 = [CVAMetadataWrapper decodeNSCoderObject:v13 classes:classesCopy error:&v19];
+  v15 = v19;
 
   if (!v15)
   {
@@ -351,9 +345,9 @@ LABEL_12:
   {
     localizedDescription2 = [v15 localizedDescription];
     *buf = 138412546;
-    v23 = classesCopy;
-    v24 = 2112;
-    v25 = localizedDescription2;
+    v22 = classesCopy;
+    v23 = 2112;
+    v24 = localizedDescription2;
     _os_log_impl(&dword_24016D000, v16, OS_LOG_TYPE_ERROR, "MetadataWrapper - INFO - cannot deserialize %@ data: %@", buf, 0x16u);
   }
 
@@ -361,39 +355,33 @@ LABEL_12:
   v6 = v14;
 LABEL_13:
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 + (id)decodeNSCoderObject:(id)object class:(Class)class
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEB98];
   classCopy = class;
   v5 = MEMORY[0x277CBEA60];
   objectCopy = object;
   v7 = [v5 arrayWithObjects:&classCopy count:1];
-  v8 = [v4 setWithArray:{v7, classCopy, v13}];
+  v8 = [v4 setWithArray:{v7, classCopy, v12}];
   v9 = [CVAMetadataWrapper decodeNSCoderObject:objectCopy classes:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 + (id)decodeNSCoderObject:(id)object class:(Class)class error:(id *)error
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CBEB98];
   classCopy = class;
   v7 = MEMORY[0x277CBEA60];
   objectCopy = object;
   v9 = [v7 arrayWithObjects:&classCopy count:1];
-  v10 = [v6 setWithArray:{v9, classCopy, v15}];
+  v10 = [v6 setWithArray:{v9, classCopy, v14}];
   v11 = [CVAMetadataWrapper decodeNSCoderObject:objectCopy classes:v10 error:error];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

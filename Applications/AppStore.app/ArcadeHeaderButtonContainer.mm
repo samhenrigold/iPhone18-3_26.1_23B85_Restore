@@ -11,7 +11,7 @@
 - (_TtC8AppStore27ArcadeHeaderButtonContainer)initWithCoder:(id)coder
 {
   v3 = OBJC_IVAR____TtC8AppStore27ArcadeHeaderButtonContainer_stackView;
-  *(&self->super.super.super.isa + v3) = [objc_allocWithZone(sub_10002849C(&qword_1009711E0)) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
+  *(&self->super.super.super.isa + v3) = [objc_allocWithZone(sub_10002849C(&qword_1009711E0 &unk_1007B2710))];
   result = _assertionFailure(_:_:file:line:flags:)();
   __break(1u);
   return result;

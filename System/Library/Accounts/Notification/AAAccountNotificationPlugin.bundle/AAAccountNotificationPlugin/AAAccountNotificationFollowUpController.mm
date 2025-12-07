@@ -127,19 +127,19 @@
 
 - (void)_updateVerifyTermsFollowupForAccountStore:(id)store account:(id)account oldAccount:(id)oldAccount
 {
-  v63 = *MEMORY[0x29EDCA608];
+  v62 = *MEMORY[0x29EDCA608];
   storeCopy = store;
   accountCopy = account;
   oldAccountCopy = oldAccount;
-  v51 = MEMORY[0x29EDCA5F8];
-  v52 = 3221225472;
-  v53 = sub_29C849008;
-  v54 = &unk_29F329710;
+  v50 = MEMORY[0x29EDCA5F8];
+  v51 = 3221225472;
+  v52 = sub_29C849008;
+  v53 = &unk_29F329710;
   v11 = storeCopy;
-  v55 = v11;
+  v54 = v11;
   selfCopy = self;
-  v12 = MEMORY[0x29ED46160](&v51);
-  if (objc_msgSend_aa_needsToVerifyTerms(accountCopy, v13, v14, v15, v16, v51, v52, v53, v54))
+  v12 = MEMORY[0x29ED46160](&v50);
+  if (objc_msgSend_aa_needsToVerifyTerms(accountCopy, v13, v14, v15, v16, v50, v51, v52, v53))
   {
     v21 = objc_msgSend_aa_needsToVerifyTerms(oldAccountCopy, v17, v18, v19, v20) ^ 1;
   }
@@ -218,16 +218,16 @@
       }
 
       *buf = 138412802;
-      v58 = v44;
-      v60 = v47;
-      v59 = 2112;
+      v57 = v44;
+      v59 = v47;
+      v58 = 2112;
       if (hasOptionalTerms)
       {
         v46 = @"YES";
       }
 
-      v61 = 2112;
-      v62 = v46;
+      v60 = 2112;
+      v61 = v46;
       _os_log_impl(&dword_29C844000, v39, OS_LOG_TYPE_DEFAULT, "Terms changed for %@ from %@ to %@", buf, 0x20u);
     }
   }
@@ -256,8 +256,6 @@ LABEL_27:
 
     v12[2](v12);
   }
-
-  v50 = *MEMORY[0x29EDCA608];
 }
 
 - (void)updateChildOrTeenProtoConnectFollowupForAccountStore:(id)store account:(id)account oldAccount:(id)oldAccount

@@ -14,14 +14,14 @@
 
 - (id)_dictionaryRepresentation
 {
-  v11[3] = *MEMORY[0x1E69E9840];
-  v10[0] = @"taskType";
+  v10[3] = *MEMORY[0x1E69E9840];
+  v9[0] = @"taskType";
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:self->_taskType];
-  v11[0] = v3;
-  v10[1] = @"attribute";
+  v10[0] = v3;
+  v9[1] = @"attribute";
   v4 = [MEMORY[0x1E696AD98] numberWithInteger:self->_attribute];
-  v11[1] = v4;
-  v10[2] = @"value";
+  v10[1] = v4;
+  v9[2] = @"value";
   value = self->_value;
   null = value;
   if (!value)
@@ -29,13 +29,11 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v11[2] = null;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:3];
+  v10[2] = null;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:3];
   if (!value)
   {
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

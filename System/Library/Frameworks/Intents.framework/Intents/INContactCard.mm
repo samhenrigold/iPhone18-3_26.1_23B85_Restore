@@ -10,11 +10,11 @@
 
 - (INContactCard)initWithCoder:(id)coder
 {
-  v75[3] = *MEMORY[0x1E69E9840];
+  v74[3] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v60.receiver = self;
-  v60.super_class = INContactCard;
-  v5 = [(INContactCard *)&v60 init];
+  v59.receiver = self;
+  v59.super_class = INContactCard;
+  v5 = [(INContactCard *)&v59 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"contactIdentifier"];
@@ -43,122 +43,122 @@
     v5->_jobTitle = v16;
 
     v18 = MEMORY[0x1E695DFD8];
-    v75[0] = objc_opt_class();
-    v75[1] = getCNLabeledValueClass_60871();
-    v66 = 0;
-    v67 = &v66;
-    v68 = 0x2050000000;
+    v74[0] = objc_opt_class();
+    v74[1] = getCNLabeledValueClass_60871();
+    v65 = 0;
+    v66 = &v65;
+    v67 = 0x2050000000;
     v19 = getCNPhoneNumberClass_softClass;
-    v69 = getCNPhoneNumberClass_softClass;
+    v68 = getCNPhoneNumberClass_softClass;
     if (!getCNPhoneNumberClass_softClass)
     {
-      v61 = MEMORY[0x1E69E9820];
-      v62 = 3221225472;
-      v63 = __getCNPhoneNumberClass_block_invoke;
-      v64 = &unk_1E72888B8;
-      v65 = &v66;
-      __getCNPhoneNumberClass_block_invoke(&v61);
-      v19 = v67[3];
+      v60 = MEMORY[0x1E69E9820];
+      v61 = 3221225472;
+      v62 = __getCNPhoneNumberClass_block_invoke;
+      v63 = &unk_1E72888B8;
+      v64 = &v65;
+      __getCNPhoneNumberClass_block_invoke(&v60);
+      v19 = v66[3];
     }
 
     v20 = v19;
-    _Block_object_dispose(&v66, 8);
-    v75[2] = v19;
-    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v75 count:3];
+    _Block_object_dispose(&v65, 8);
+    v74[2] = v19;
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v74 count:3];
     v22 = [v18 setWithArray:v21];
     v23 = [coderCopy decodeObjectOfClasses:v22 forKey:@"phoneNumbers"];
     phoneNumbers = v5->_phoneNumbers;
     v5->_phoneNumbers = v23;
 
     v25 = MEMORY[0x1E695DFD8];
-    v74[0] = objc_opt_class();
-    v74[1] = getCNLabeledValueClass_60871();
-    v66 = 0;
-    v67 = &v66;
-    v68 = 0x2050000000;
+    v73[0] = objc_opt_class();
+    v73[1] = getCNLabeledValueClass_60871();
+    v65 = 0;
+    v66 = &v65;
+    v67 = 0x2050000000;
     v26 = getCNPostalAddressClass_softClass;
-    v69 = getCNPostalAddressClass_softClass;
+    v68 = getCNPostalAddressClass_softClass;
     if (!getCNPostalAddressClass_softClass)
     {
-      v61 = MEMORY[0x1E69E9820];
-      v62 = 3221225472;
-      v63 = __getCNPostalAddressClass_block_invoke;
-      v64 = &unk_1E72888B8;
-      v65 = &v66;
-      __getCNPostalAddressClass_block_invoke(&v61);
-      v26 = v67[3];
+      v60 = MEMORY[0x1E69E9820];
+      v61 = 3221225472;
+      v62 = __getCNPostalAddressClass_block_invoke;
+      v63 = &unk_1E72888B8;
+      v64 = &v65;
+      __getCNPostalAddressClass_block_invoke(&v60);
+      v26 = v66[3];
     }
 
     v27 = v26;
-    _Block_object_dispose(&v66, 8);
-    v74[2] = v26;
-    v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v74 count:3];
+    _Block_object_dispose(&v65, 8);
+    v73[2] = v26;
+    v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v73 count:3];
     v29 = [v25 setWithArray:v28];
     v30 = [coderCopy decodeObjectOfClasses:v29 forKey:@"postalAddresses"];
     postalAddresses = v5->_postalAddresses;
     v5->_postalAddresses = v30;
 
     v32 = MEMORY[0x1E695DFD8];
-    v73[0] = objc_opt_class();
-    v73[1] = getCNLabeledValueClass_60871();
-    v73[2] = objc_opt_class();
-    v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v73 count:3];
+    v72[0] = objc_opt_class();
+    v72[1] = getCNLabeledValueClass_60871();
+    v72[2] = objc_opt_class();
+    v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v72 count:3];
     v34 = [v32 setWithArray:v33];
     v35 = [coderCopy decodeObjectOfClasses:v34 forKey:@"urlAddresses"];
     urlAddresses = v5->_urlAddresses;
     v5->_urlAddresses = v35;
 
     v37 = MEMORY[0x1E695DFD8];
-    v72[0] = objc_opt_class();
-    v72[1] = getCNLabeledValueClass_60871();
-    v66 = 0;
-    v67 = &v66;
-    v68 = 0x2050000000;
+    v71[0] = objc_opt_class();
+    v71[1] = getCNLabeledValueClass_60871();
+    v65 = 0;
+    v66 = &v65;
+    v67 = 0x2050000000;
     v38 = getCNContactRelationClass_softClass;
-    v69 = getCNContactRelationClass_softClass;
+    v68 = getCNContactRelationClass_softClass;
     if (!getCNContactRelationClass_softClass)
     {
-      v61 = MEMORY[0x1E69E9820];
-      v62 = 3221225472;
-      v63 = __getCNContactRelationClass_block_invoke;
-      v64 = &unk_1E72888B8;
-      v65 = &v66;
-      __getCNContactRelationClass_block_invoke(&v61);
-      v38 = v67[3];
+      v60 = MEMORY[0x1E69E9820];
+      v61 = 3221225472;
+      v62 = __getCNContactRelationClass_block_invoke;
+      v63 = &unk_1E72888B8;
+      v64 = &v65;
+      __getCNContactRelationClass_block_invoke(&v60);
+      v38 = v66[3];
     }
 
     v39 = v38;
-    _Block_object_dispose(&v66, 8);
-    v72[2] = v38;
-    v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:v72 count:3];
+    _Block_object_dispose(&v65, 8);
+    v71[2] = v38;
+    v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:v71 count:3];
     v41 = [v37 setWithArray:v40];
     v42 = [coderCopy decodeObjectOfClasses:v41 forKey:@"contactRelations"];
     contactRelations = v5->_contactRelations;
     v5->_contactRelations = v42;
 
     v44 = MEMORY[0x1E695DFD8];
-    v71[0] = objc_opt_class();
-    v71[1] = getCNLabeledValueClass_60871();
-    v66 = 0;
-    v67 = &v66;
-    v68 = 0x2050000000;
+    v70[0] = objc_opt_class();
+    v70[1] = getCNLabeledValueClass_60871();
+    v65 = 0;
+    v66 = &v65;
+    v67 = 0x2050000000;
     v45 = getCNInstantMessageAddressClass_softClass;
-    v69 = getCNInstantMessageAddressClass_softClass;
+    v68 = getCNInstantMessageAddressClass_softClass;
     if (!getCNInstantMessageAddressClass_softClass)
     {
-      v61 = MEMORY[0x1E69E9820];
-      v62 = 3221225472;
-      v63 = __getCNInstantMessageAddressClass_block_invoke;
-      v64 = &unk_1E72888B8;
-      v65 = &v66;
-      __getCNInstantMessageAddressClass_block_invoke(&v61);
-      v45 = v67[3];
+      v60 = MEMORY[0x1E69E9820];
+      v61 = 3221225472;
+      v62 = __getCNInstantMessageAddressClass_block_invoke;
+      v63 = &unk_1E72888B8;
+      v64 = &v65;
+      __getCNInstantMessageAddressClass_block_invoke(&v60);
+      v45 = v66[3];
     }
 
     v46 = v45;
-    _Block_object_dispose(&v66, 8);
-    v71[2] = v45;
-    v47 = [MEMORY[0x1E695DEC8] arrayWithObjects:v71 count:3];
+    _Block_object_dispose(&v65, 8);
+    v70[2] = v45;
+    v47 = [MEMORY[0x1E695DEC8] arrayWithObjects:v70 count:3];
     v48 = [v44 setWithArray:v47];
     v49 = [coderCopy decodeObjectOfClasses:v48 forKey:@"instantMessageAddresses"];
     instantMessageAddresses = v5->_instantMessageAddresses;
@@ -169,17 +169,16 @@
     v5->_birthday = v51;
 
     v53 = MEMORY[0x1E695DFD8];
-    v70[0] = objc_opt_class();
-    v70[1] = getCNLabeledValueClass_60871();
-    v70[2] = objc_opt_class();
-    v54 = [MEMORY[0x1E695DEC8] arrayWithObjects:v70 count:3];
+    v69[0] = objc_opt_class();
+    v69[1] = getCNLabeledValueClass_60871();
+    v69[2] = objc_opt_class();
+    v54 = [MEMORY[0x1E695DEC8] arrayWithObjects:v69 count:3];
     v55 = [v53 setWithArray:v54];
     v56 = [coderCopy decodeObjectOfClasses:v55 forKey:@"dates"];
     dates = v5->_dates;
     v5->_dates = v56;
   }
 
-  v58 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -212,62 +211,13 @@
   {
     v5 = equalCopy;
     contactIdentifier = self->_contactIdentifier;
-    if (contactIdentifier && v5[1] && ([(NSString *)contactIdentifier isEqual:?]& 1) != 0)
+    v7 = 1;
+    if (!contactIdentifier || !v5[1] || ([(NSString *)contactIdentifier isEqual:?]& 1) == 0)
     {
-      goto LABEL_5;
-    }
-
-    nameComponents = self->_nameComponents;
-    if (nameComponents != v5[2] && ![(NSPersonNameComponents *)nameComponents isEqual:?])
-    {
-      goto LABEL_34;
-    }
-
-    if (self->_isMe != *(v5 + 24))
-    {
-      goto LABEL_34;
-    }
-
-    image = self->_image;
-    if (image != v5[4] && ![(INImage *)image isEqual:?])
-    {
-      goto LABEL_34;
-    }
-
-    organizationName = self->_organizationName;
-    if (organizationName != v5[5] && ![(NSString *)organizationName isEqual:?])
-    {
-      goto LABEL_34;
-    }
-
-    departmentName = self->_departmentName;
-    if (departmentName != v5[6] && ![(NSString *)departmentName isEqual:?])
-    {
-      goto LABEL_34;
-    }
-
-    jobTitle = self->_jobTitle;
-    if (jobTitle != v5[7] && ![(NSString *)jobTitle isEqual:?])
-    {
-      goto LABEL_34;
-    }
-
-    phoneNumbers = self->_phoneNumbers;
-    if (phoneNumbers != v5[8] && ![(NSArray *)phoneNumbers isEqual:?])
-    {
-      goto LABEL_34;
-    }
-
-    if (((emailAddresses = self->_emailAddresses, emailAddresses == v5[9]) || [(NSArray *)emailAddresses isEqual:?]) && ((postalAddresses = self->_postalAddresses, postalAddresses == v5[10]) || [(NSArray *)postalAddresses isEqual:?]) && ((urlAddresses = self->_urlAddresses, urlAddresses == v5[11]) || [(NSArray *)urlAddresses isEqual:?]) && ((contactRelations = self->_contactRelations, contactRelations == v5[12]) || [(NSArray *)contactRelations isEqual:?]) && ((instantMessageAddresses = self->_instantMessageAddresses, instantMessageAddresses == v5[13]) || [(NSArray *)instantMessageAddresses isEqual:?]) && ((birthday = self->_birthday, birthday == v5[14]) || [(NSDateComponents *)birthday isEqual:?]) && ((dates = self->_dates, dates == v5[15]) || [(NSArray *)dates isEqual:?]))
-    {
-LABEL_5:
-      v7 = 1;
-    }
-
-    else
-    {
-LABEL_34:
-      v7 = 0;
+      if ((nameComponents = self->_nameComponents, nameComponents != v5[2]) && ![(NSPersonNameComponents *)nameComponents isEqual:?]|| self->_isMe != *(v5 + 24) || (image = self->_image, image != v5[4]) && ![(INImage *)image isEqual:?]|| (organizationName = self->_organizationName, organizationName != v5[5]) && ![(NSString *)organizationName isEqual:?]|| (departmentName = self->_departmentName, departmentName != v5[6]) && ![(NSString *)departmentName isEqual:?]|| (jobTitle = self->_jobTitle, jobTitle != v5[7]) && ![(NSString *)jobTitle isEqual:?]|| (phoneNumbers = self->_phoneNumbers, phoneNumbers != v5[8]) && ![(NSArray *)phoneNumbers isEqual:?]|| (emailAddresses = self->_emailAddresses, emailAddresses != v5[9]) && ![(NSArray *)emailAddresses isEqual:?]|| (postalAddresses = self->_postalAddresses, postalAddresses != v5[10]) && ![(NSArray *)postalAddresses isEqual:?]|| (urlAddresses = self->_urlAddresses, urlAddresses != v5[11]) && ![(NSArray *)urlAddresses isEqual:?]|| (contactRelations = self->_contactRelations, contactRelations != v5[12]) && ![(NSArray *)contactRelations isEqual:?]|| (instantMessageAddresses = self->_instantMessageAddresses, instantMessageAddresses != v5[13]) && ![(NSArray *)instantMessageAddresses isEqual:?]|| (birthday = self->_birthday, birthday != v5[14]) && ![(NSDateComponents *)birthday isEqual:?]|| (dates = self->_dates, dates != v5[15]) && ![(NSArray *)dates isEqual:?])
+      {
+        v7 = 0;
+      }
     }
   }
 

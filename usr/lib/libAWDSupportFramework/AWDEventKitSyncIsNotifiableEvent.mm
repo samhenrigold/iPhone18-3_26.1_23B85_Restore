@@ -136,7 +136,6 @@ LABEL_6:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -156,7 +155,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  deltaTransitTime = self->_deltaTransitTime;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -171,12 +169,10 @@ LABEL_4:
   }
 
 LABEL_12:
-  deltaProcessingTime = self->_deltaProcessingTime;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_5:
-    willTriggerNotification = self->_willTriggerNotification;
     PBDataWriterWriteBOOLField();
   }
 
@@ -310,7 +306,6 @@ LABEL_6:
     return v5;
   }
 
-  v6 = *(equal + 44);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equal + 44) & 4) == 0 || self->_timestamp != *(equal + 3))
@@ -354,7 +349,6 @@ LABEL_6:
   {
     if ((*(equal + 44) & 8) != 0)
     {
-      v8 = *(equal + 40);
       if (self->_willTriggerNotification)
       {
         if ((*(equal + 40) & 1) == 0)

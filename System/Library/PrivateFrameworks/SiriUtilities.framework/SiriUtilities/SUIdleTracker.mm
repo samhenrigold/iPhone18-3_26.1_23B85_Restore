@@ -46,7 +46,7 @@
 {
   nameCopy = name;
   selfCopy = self;
-  v6 = IdleTracker.track(name:)();
+  v6 = IdleTracker.track(name:)(nameCopy);
 
   return v6;
 }

@@ -43,7 +43,7 @@
 {
   candidateCopy = candidate;
   typeCopy = type;
-  v8 = __atxlog_handle_anchor();
+  v8 = __atxlog_handle_anchor(typeCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [ATXAnchorModelPhase2Trainer trainPhase2ForCandidate:candidateCopy candidateType:v8];
@@ -51,10 +51,10 @@
 
   v9 = [(ATXAnchorModelPhase2Trainer *)self trainClassifierForCandidateId:candidateCopy candidateType:typeCopy];
 
-  v10 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = __atxlog_handle_anchor(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    [ATXAnchorModelPhase2Trainer trainPhase2ForCandidate:candidateCopy candidateType:v10];
+    [ATXAnchorModelPhase2Trainer trainPhase2ForCandidate:candidateCopy candidateType:v11];
   }
 
   return v9;
@@ -124,20 +124,18 @@
 
 - (void)trainPhase2ForCandidate:(uint64_t)a1 candidateType:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "Training Phase 2 Candidate Classifier for candidate: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "Training Phase 2 Candidate Classifier for candidate: %@", &v2, 0xCu);
 }
 
 - (void)trainPhase2ForCandidate:(uint64_t)a1 candidateType:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "Done training Phase 2 Candidate Classifier for candidate: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "Done training Phase 2 Candidate Classifier for candidate: %@", &v2, 0xCu);
 }
 
 @end

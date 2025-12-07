@@ -1,5 +1,6 @@
 @interface TransparencyLogClient
 + (double)timeShift:(id)shift;
+- (BOOL)fetch:(id)fetch shouldRetry:(BOOL)retry allowEmptyData:(BOOL)data useReversePush:(BOOL)push completionHandler:(id)handler;
 - (BOOL)needsReauthorization:(id)reauthorization metadata:(id)metadata;
 - (BOOL)needsTimeShift:(id)shift metadata:(id)metadata;
 - (BOOL)ready;
@@ -213,6 +214,30 @@ LABEL_11:
 
     (*(handlerCopy + 2))(handlerCopy, 0, 0, v14);
   }
+}
+
+- (BOOL)fetch:(id)fetch shouldRetry:(BOOL)retry allowEmptyData:(BOOL)data useReversePush:(BOOL)push completionHandler:(id)handler
+{
+  pushCopy = push;
+  dataCopy = data;
+  fetchCopy = fetch;
+  handlerCopy = handler;
+  session = [(TransparencyLogClient *)self session];
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = sub_100238650;
+  v18[3] = &unk_10032C6E8;
+  retryCopy = retry;
+  v19 = fetchCopy;
+  v20 = handlerCopy;
+  v18[4] = self;
+  v22 = dataCopy;
+  v23 = pushCopy;
+  v15 = fetchCopy;
+  v16 = handlerCopy;
+  LOBYTE(pushCopy) = [session fetch:v15 allowEmptyData:dataCopy useReversePush:pushCopy completionHandler:v18];
+
+  return pushCopy;
 }
 
 - (void)fetchRequest:(id)request completionHandler:(id)handler

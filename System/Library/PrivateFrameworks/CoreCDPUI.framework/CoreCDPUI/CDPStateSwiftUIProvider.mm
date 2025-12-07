@@ -14,7 +14,7 @@
   recoveryCopy = recovery;
   dCopy = d;
   enabledCopy = enabled;
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE0EC88);
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE0EC88, &qword_24525CF00);
   MEMORY[0x28223BE20](v19 - 8);
   v21 = &v35 - v20;
   v22 = _Block_copy(handler);

@@ -75,16 +75,16 @@
   [(SUIKSearchResultCollectionViewListCell *)self setContentConfiguration:subtitleCellConfiguration];
 }
 
-void __72__SUIKSearchResultCollectionViewListCell_updateConfigurationUsingState___block_invoke()
+void __72__SUIKSearchResultCollectionViewListCell_updateConfigurationUsingState___block_invoke(uint64_t a1)
 {
-  v0 = PSBlankIconImage();
-  [v0 size];
-  updateConfigurationUsingState__iconSize_0 = v1;
-  updateConfigurationUsingState__iconSize_1 = v2;
+  v1 = PSBlankIconImage(a1);
+  [v1 size];
+  updateConfigurationUsingState__iconSize_0 = v2;
+  updateConfigurationUsingState__iconSize_1 = v3;
 
-  v3 = objc_alloc_init(MEMORY[0x1E69DCAB8]);
-  v4 = updateConfigurationUsingState__icon;
-  updateConfigurationUsingState__icon = v3;
+  v4 = objc_alloc_init(MEMORY[0x1E69DCAB8]);
+  v5 = updateConfigurationUsingState__icon;
+  updateConfigurationUsingState__icon = v4;
 }
 
 - (void)configureWithSearchableItem:(id)item

@@ -27,25 +27,24 @@
 
 - (RMDummyData)initWithCoder:(id)coder
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v13 = 0;
+  v14 = *MEMORY[0x277D85DE8];
+  v12 = 0;
   coderCopy = coder;
-  v6 = [coder decodeBytesForKey:@"DummyDataEncodingKey" returnedLength:&v13];
+  v6 = [coder decodeBytesForKey:@"DummyDataEncodingKey" returnedLength:&v12];
   selfCopy = 0;
-  if (v6 && v13 == 64)
+  if (v6 && v12 == 64)
   {
     v8 = *v6;
     v9 = v6[1];
     v10 = v6[3];
-    v14[2] = v6[2];
-    v14[3] = v10;
-    v14[0] = v8;
-    v14[1] = v9;
-    self = [(RMDummyData *)self initWithPayload:v14];
+    v13[2] = v6[2];
+    v13[3] = v10;
+    v13[0] = v8;
+    v13[1] = v9;
+    self = [(RMDummyData *)self initWithPayload:v13];
     selfCopy = self;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

@@ -1,4 +1,4 @@
-uint64_t MTDynamicBlurRadiusGraphicsQuality()
+uint64_t MTDynamicBlurRadiusGraphicsQuality(uint64_t a1, uint64_t a2)
 {
   if (MTDynamicBlurRadiusGraphicsQuality_onceToken != -1)
   {
@@ -25,7 +25,7 @@ uint64_t MTCompareBlurInputQualities(void *a1, void *a2)
     MTCompareBlurInputQualities_cold_1();
   }
 
-  if ([(__CFString *)v4 isEqualToString:@"default"])
+  if ([(__CFString *)v4 isEqualToString:?])
   {
     v5 = @"medium";
   }
@@ -37,7 +37,7 @@ uint64_t MTCompareBlurInputQualities(void *a1, void *a2)
 
   v6 = v5;
 
-  if ([(__CFString *)v3 isEqualToString:@"default"])
+  if ([(__CFString *)v3 isEqualToString:?])
   {
     v7 = @"medium";
   }
@@ -49,22 +49,22 @@ uint64_t MTCompareBlurInputQualities(void *a1, void *a2)
 
   v8 = v7;
 
-  if (([(__CFString *)v6 isEqualToString:v8]& 1) != 0)
+  if (([(__CFString *)v6 isEqualToString:?]& 1) != 0)
   {
     v9 = 0;
   }
 
-  else if (([(__CFString *)v6 isEqualToString:@"low"]& 1) != 0)
+  else if (([(__CFString *)v6 isEqualToString:?]& 1) != 0)
   {
     v9 = -1;
   }
 
-  else if (([(__CFString *)v6 isEqualToString:@"high"]& 1) != 0)
+  else if (([(__CFString *)v6 isEqualToString:?]& 1) != 0)
   {
     v9 = 1;
   }
 
-  else if ([(__CFString *)v8 isEqualToString:@"low"])
+  else if ([(__CFString *)v8 isEqualToString:?])
   {
     v9 = 1;
   }
@@ -77,29 +77,29 @@ uint64_t MTCompareBlurInputQualities(void *a1, void *a2)
   return v9;
 }
 
-id MTCAFilterCurvesInputValuesKeys()
+id MTCAFilterCurvesInputValuesKeys(uint64_t a1)
 {
   if (MTCAFilterCurvesInputValuesKeys_onceToken != -1)
   {
     MTCAFilterCurvesInputValuesKeys_cold_1();
   }
 
-  v1 = MTCAFilterCurvesInputValuesKeys___curvesFilterInputValuesKeys;
+  v2 = MTCAFilterCurvesInputValuesKeys___curvesFilterInputValuesKeys;
 
-  return v1;
+  return v2;
 }
 
 uint64_t MTIsValidBlurInputQuality(void *a1)
 {
   v1 = a1;
-  if ([v1 isEqualToString:@"default"] & 1) != 0 || (objc_msgSend(v1, "isEqualToString:", @"low") & 1) != 0 || (objc_msgSend(v1, "isEqualToString:", @"medium"))
+  if ([v1 isEqualToString:?] & 1) != 0 || (objc_msgSend(v1, "isEqualToString:") & 1) != 0 || (objc_msgSend(v1, "isEqualToString:"))
   {
     v2 = 1;
   }
 
   else
   {
-    v2 = [v1 isEqualToString:@"high"];
+    v2 = [v1 isEqualToString:?];
   }
 
   return v2;
@@ -133,11 +133,11 @@ id MTFilterKeyPathForFilter(void *a1)
     v2 = MTFilterKeyPathForFilter___filterKeyCache;
   }
 
-  v5 = [v2 objectForKeyedSubscript:v1];
+  v5 = [v2 objectForKeyedSubscript:?];
   if (!v5)
   {
-    v5 = [@"filters" stringByAppendingFormat:@".%@", v1];
-    [MTFilterKeyPathForFilter___filterKeyCache setObject:v5 forKeyedSubscript:v1];
+    v5 = [@"filters" stringByAppendingFormat:v1];
+    [MTFilterKeyPathForFilter___filterKeyCache setObject:? forKeyedSubscript:?];
   }
 
   return v5;
@@ -147,7 +147,7 @@ __CFString *_IdentityPropertyForFilterType(void *a1)
 {
   v1 = a1;
   v2 = @"inputAmount";
-  if ([v1 isEqualToString:*MEMORY[0x1E6979928]] & 1) != 0 || (objc_msgSend(v1, "isEqualToString:", *MEMORY[0x1E6979D70]))
+  if ([v1 isEqualToString:?] & 1) != 0 || (objc_msgSend(v1, "isEqualToString:"))
   {
     v3 = kMTCAFilterPropertyNameInputRadius;
 LABEL_4:
@@ -158,13 +158,13 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  if ([v1 isEqualToString:*MEMORY[0x1E6979880]])
+  if ([v1 isEqualToString:?])
   {
     v3 = kMTCAFilterPropertyNameInputColorMatrix;
     goto LABEL_4;
   }
 
-  if ([v1 isEqualToString:*MEMORY[0x1E69798B8]])
+  if ([v1 isEqualToString:?])
   {
     v4 = 0;
     goto LABEL_5;
@@ -175,15 +175,15 @@ LABEL_6:
   return v2;
 }
 
-uint64_t _IsIdentityProperty(void *a1, void *a2)
+void *_IsIdentityProperty(void *a1, void *a2)
 {
   v3 = a1;
   v4 = a2;
   v5 = [MEMORY[0x1E6979310] mt_orderedFilterTypes];
-  if ([v5 containsObject:v3])
+  if ([v5 containsObject:?])
   {
     v6 = _IdentityPropertyForFilterType(v3);
-    v7 = [v4 isEqualToString:v6];
+    v7 = [v4 isEqualToString:?];
   }
 
   else
@@ -205,9 +205,9 @@ LABEL_6:
     goto LABEL_10;
   }
 
-  if (![v6 isEqualToString:*MEMORY[0x1E6979880]])
+  if (![v6 isEqualToString:?])
   {
-    if (([v6 isEqualToString:*MEMORY[0x1E6979810]] & 1) == 0)
+    if (([v6 isEqualToString:?] & 1) == 0)
     {
       [v5 floatValue];
       IsIdentity = MTIdentityValueForFilter(v6) == v8;
@@ -219,7 +219,7 @@ LABEL_6:
 
   if (v5)
   {
-    [v5 CAColorMatrixValue];
+    [v10 CAColorMatrixValue];
   }
 
   else
@@ -253,7 +253,7 @@ id MTMaterialCreateDictionaryRepresentation(void *a1, void *a2)
   v6 = objc_alloc_init(v4);
   v7 = _MTRecipeForRecipeWithOptions(v5, v3);
 
-  v8 = [v3 objectForKey:@"MTDictionaryRepresentationOptionsBundleKey"];
+  v8 = [v3 objectForKey:?];
   v9 = MTMaterialSettingsForRecipeFromBundle(v7, v8);
 
   if (v9)
@@ -273,7 +273,7 @@ id MTVisualStylingCreateDictionaryRepresentation(void *a1, void *a2, void *a3, v
   v8 = a3;
   v9 = a4;
   v10 = _MTRecipeForRecipeWithOptions(a1, v9);
-  v11 = [v9 objectForKey:@"MTDictionaryRepresentationOptionsBundleKey"];
+  v11 = [v9 objectForKey:?];
   if (v11)
   {
     MTSharedVisualStyleSetForStyleNameFromBundle(v10, v11);
@@ -285,7 +285,7 @@ id MTVisualStylingCreateDictionaryRepresentation(void *a1, void *a2, void *a3, v
   }
   v12 = ;
   v13 = v12;
-  if (!v12 || ([v12 visualStylingForStyle:v8], (v14 = objc_claimAutoreleasedReturnValue()) == 0) || (v15 = v14, MTVisualStylingSettingsCreateDictionaryRepresentation(v14, v9), v16 = objc_claimAutoreleasedReturnValue(), v15, !v16))
+  if (!v12 || ([v12 visualStylingForStyle:?], (v14 = objc_claimAutoreleasedReturnValue()) == 0) || (v15 = v14, MTVisualStylingSettingsCreateDictionaryRepresentation(v14, v9), v16 = objc_claimAutoreleasedReturnValue(), v15, !v16))
   {
     v16 = objc_alloc_init(MEMORY[0x1E695DF20]);
   }
@@ -298,13 +298,13 @@ __CFString *_MTRecipeForRecipeWithOptions(void *a1, void *a2)
   v3 = a1;
   v4 = a2;
   v5 = v3;
-  v6 = [v4 objectForKey:@"MTDictionaryRepresentationOptionsReduceTransparencyKey"];
+  v6 = [v4 objectForKey:?];
   v7 = [v6 BOOLValue];
 
   v8 = v5;
   if (v7)
   {
-    if (([(__CFString *)v5 isEqualToString:@"platformChromeLight"]& 1) != 0)
+    if (([(__CFString *)v5 isEqualToString:?]& 1) != 0)
     {
       v9 = MTCoreMaterialRecipePlatformChromeLightReduceTransparency;
     }
@@ -312,12 +312,12 @@ __CFString *_MTRecipeForRecipeWithOptions(void *a1, void *a2)
     else
     {
       v8 = v5;
-      if (![(__CFString *)v5 isEqualToString:@"platformChromeDark"])
+      if (![(__CFString *)v5 isEqualToString:?])
       {
         goto LABEL_8;
       }
 
-      v10 = [v4 objectForKey:@"MTDictionaryRepresentationOptionsUserInterfaceLevelKey"];
+      v10 = [v4 objectForKey:?];
       v11 = [v10 integerValue];
 
       v9 = MTCoreMaterialRecipePlatformChromeDarkReduceTransparency;
@@ -341,7 +341,7 @@ id MTMaterialSettingsForRecipeFromBundle(void *a1, void *a2)
   v4 = a2;
   v5 = v3;
   v6 = v4;
-  if (v5 && ([v5 isEqualToString:@"none"] & 1) == 0)
+  if (v5 && ([v5 isEqualToString:?] & 1) == 0)
   {
     v8 = _RecipeNameForCoreMaterialRecipe(v5);
     v9 = v8;
@@ -372,14 +372,14 @@ id _RecipeNameForCoreMaterialRecipe(void *a1)
 {
   v1 = a1;
   v2 = v1;
-  if (v1 && ([v1 isEqualToString:@"none"] & 1) == 0)
+  if (v1 && ([v1 isEqualToString:?] & 1) == 0)
   {
     if (_LoadCoreMaterialRecipeNames_onceToken != -1)
     {
       _RecipeNameForCoreMaterialRecipe_cold_1();
     }
 
-    if ([__coreMaterialRecipeNames containsObject:v2])
+    if ([__coreMaterialRecipeNames containsObject:?])
     {
       v4 = v2;
     }
@@ -424,7 +424,7 @@ id MTSharedVisualStyleSetForRecipeAndCategory(void *a1, void *a2)
 
     v11 = v5;
     v12 = _SharedMaterialSettingsForRecipeWithNameFromBundle(v10, 0);
-    v13 = [v12 styleNameForCategory:v11];
+    v13 = [v12 styleNameForCategory:?];
 
     v6 = MTSharedVisualStyleSetForStyleNameFromBundle(v13, 0);
 
@@ -436,10 +436,10 @@ id MTSharedVisualStyleSetForRecipeAndCategory(void *a1, void *a2)
 
 MTRecipeMaterialSettings *_SharedMaterialSettingsForRecipeWithNameFromBundle(void *a1, void *a2)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
-  if (!v3 || ([v3 isEqualToString:@"none"] & 1) != 0)
+  if (!v3 || ([v3 isEqualToString:?] & 1) != 0)
   {
     v5 = 0;
     goto LABEL_47;
@@ -451,20 +451,19 @@ MTRecipeMaterialSettings *_SharedMaterialSettingsForRecipeWithNameFromBundle(voi
   }
 
   v6 = _RecipeNamesToSharedInstances();
-  v5 = [v6 objectForKey:v3];
+  v5 = [v6 objectForKey:?];
 
   if (!v5)
   {
     os_unfair_lock_lock(&_SharedMaterialSettingsForRecipeWithNameFromBundle___lock);
-    v34 = [MEMORY[0x1E696AAE8] coreMaterialOverrideRecipeBundle];
-    v33 = [MEMORY[0x1E696AAE8] coreMaterialRecipeBundle];
+    v31 = [MEMORY[0x1E696AAE8] coreMaterialOverrideRecipeBundle];
+    v30 = [MEMORY[0x1E696AAE8] coreMaterialRecipeBundle];
     v7 = v3;
     v8 = 0;
     v9 = v7;
-    v32 = v7;
     while (1)
     {
-      v10 = [v4 URLForMaterialRecipeDescendant:v7];
+      v10 = [v4 URLForMaterialRecipeDescendant:?];
       if (v10)
       {
         v11 = v10;
@@ -472,7 +471,7 @@ MTRecipeMaterialSettings *_SharedMaterialSettingsForRecipeWithNameFromBundle(voi
 
       else
       {
-        v12 = [v34 URLForMaterialRecipeDescendant:v7];
+        v12 = [v31 URLForMaterialRecipeDescendant:?];
         v13 = v12;
         if (v12)
         {
@@ -481,24 +480,23 @@ MTRecipeMaterialSettings *_SharedMaterialSettingsForRecipeWithNameFromBundle(voi
 
         else
         {
-          v14 = [v33 URLForMaterialRecipeDescendant:v7];
+          v14 = [v30 URLForMaterialRecipeDescendant:?];
         }
 
         v11 = v14;
 
         if (!v11)
         {
-          v21 = v9;
+          v20 = v9;
 LABEL_32:
-          v24 = [v4 URLForMaterialRecipe:v21];
-          if (v24 || ([v34 URLForMaterialRecipe:v21], (v24 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(v33, "URLForMaterialRecipe:", v21), (v24 = objc_claimAutoreleasedReturnValue()) != 0))
+          v23 = [v4 URLForMaterialRecipe:?];
+          if (v23 || ([v31 URLForMaterialRecipe:?], (v23 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(v30, "URLForMaterialRecipe:"), (v23 = objc_claimAutoreleasedReturnValue()) != 0))
           {
-            v25 = v24;
-            v35 = 0;
-            v26 = [objc_alloc(MEMORY[0x1E695DF20]) initWithContentsOfURL:v24 error:&v35];
-            v27 = v35;
-            v28 = v27;
-            if (!v26 || v27)
+            v24 = v23;
+            v25 = [objc_alloc(MEMORY[0x1E695DF20]) initWithContentsOfURL:? error:?];
+            v26 = 0;
+            v27 = v26;
+            if (!v25 || v26)
             {
               if (os_log_type_enabled(MTLogConfiguration, OS_LOG_TYPE_ERROR))
               {
@@ -515,11 +513,11 @@ LABEL_32:
                 _SharedMaterialSettingsForRecipeWithNameFromBundle_cold_2();
               }
 
-              v5 = [[MTRecipeMaterialSettings alloc] initWithRecipeName:v32 andDescription:v26 descendantDescriptions:v8 bundle:v4];
+              v5 = [MTRecipeMaterialSettings initWithRecipeName:"initWithRecipeName:andDescription:descendantDescriptions:bundle:" andDescription:? descendantDescriptions:? bundle:?];
               if (v5)
               {
-                v29 = _RecipeNamesToSharedInstances();
-                [v29 setObject:v5 forKey:v32];
+                v28 = _RecipeNamesToSharedInstances();
+                [v28 setObject:? forKey:?];
 
                 if (os_log_type_enabled(MTLogConfiguration, OS_LOG_TYPE_DEBUG))
                 {
@@ -540,45 +538,43 @@ LABEL_32:
         }
       }
 
-      v15 = objc_alloc(MEMORY[0x1E695DF20]);
-      v36 = 0;
-      v16 = [v15 initWithContentsOfURL:v11 error:&v36];
-      v17 = v36;
-      v18 = v17;
-      v19 = MTLogConfiguration;
-      if (v16)
+      v15 = [objc_alloc(MEMORY[0x1E695DF20]) initWithContentsOfURL:? error:?];
+      v16 = 0;
+      v17 = v16;
+      v18 = MTLogConfiguration;
+      if (v15)
       {
-        v20 = v17 == 0;
+        v19 = v16 == 0;
       }
 
       else
       {
-        v20 = 0;
+        v19 = 0;
       }
 
-      if (v20)
+      if (v19)
       {
         if (os_log_type_enabled(MTLogConfiguration, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138543362;
-          v38 = v11;
-          _os_log_debug_impl(&dword_1BF527000, v19, OS_LOG_TYPE_DEBUG, "Loaded descendant material recipe plist at URL: %{public}@", buf, 0xCu);
+          v33 = v11;
+          _os_log_debug_impl(&dword_1BF527000, v18, OS_LOG_TYPE_DEBUG, "Loaded descendant material recipe plist at URL: %{public}@", buf, 0xCu);
         }
 
-        v21 = [v16 objectForKey:@"ancestorRecipe"];
+        v20 = [v15 objectForKey:?];
 
-        v22 = [v16 objectForKey:@"descendantDescription"];
-        v23 = v22;
+        v21 = [v15 objectForKey:?];
+        v22 = v21;
         v7 = 0;
-        if (v21 && v22)
+        if (v20 && v21)
         {
           if (!v8)
           {
             v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
           }
 
-          [v8 insertObject:v23 atIndex:0];
-          v7 = v21;
+          [v8 insertObject:? atIndex:?];
+          v7 = v20;
         }
       }
 
@@ -587,17 +583,17 @@ LABEL_32:
         if (os_log_type_enabled(MTLogConfiguration, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543618;
-          v38 = v11;
-          v39 = 2114;
-          v40 = v18;
-          _os_log_error_impl(&dword_1BF527000, v19, OS_LOG_TYPE_ERROR, "Failed to load descendant material recipe plist at URL (%{public}@): %{public}@", buf, 0x16u);
+          v33 = v11;
+          v34 = 2114;
+          v35 = v17;
+          _os_log_error_impl(&dword_1BF527000, v18, OS_LOG_TYPE_ERROR, "Failed to load descendant material recipe plist at URL (%{public}@): %{public}@", buf, 0x16u);
         }
 
         v7 = 0;
-        v21 = v9;
+        v20 = v9;
       }
 
-      v9 = v21;
+      v9 = v20;
       if (!v7)
       {
         goto LABEL_32;
@@ -606,8 +602,6 @@ LABEL_32:
   }
 
 LABEL_47:
-
-  v30 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -631,81 +625,69 @@ id MTTintingFilteringSettingsCreateDictionaryRepresentation(void *a1, void *a2)
   v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
   if (v3)
   {
-    v6 = [v4 objectForKey:@"MTDictionaryRepresentationOptionsIncludeOptimizationsKey"];
+    v6 = [v4 objectForKey:?];
     v7 = [v6 BOOLValue];
 
-    v8 = +[MTColor colorWithCGColor:](MTColor, "colorWithCGColor:", [v3 tintColor]);
+    [v3 tintColor];
+    v8 = [MTColor colorWithCGColor:?];
     [v3 tintAlpha];
     v9 = [v8 colorWithAlphaComponent:?];
-    [v5 setTintColor:v9 includingOptimizations:v7 withAdditionalInfoPromise:0];
+    [v5 setTintColor:? includingOptimizations:? withAdditionalInfoPromise:?];
 
     v10 = [v3 luminanceValues];
     [v3 luminanceAmount];
-    if (v10)
-    {
-      v11 = 0;
-    }
+    [v5 setLuminanceAmount:? values:? ignoringIdentity:? includingOptimizations:? withAdditionalInfoPromise:?];
+    v11 = [v4 objectForKey:?];
+    v12 = [v11 BOOLValue];
 
-    else
-    {
-      v11 = &__block_literal_global_7;
-    }
-
-    [v5 setLuminanceAmount:v10 values:1 ignoringIdentity:v7 includingOptimizations:v11 withAdditionalInfoPromise:?];
-    v12 = [v4 objectForKey:@"MTDictionaryRepresentationOptionsReduceTransparencyKey"];
-    v13 = [v12 BOOLValue];
-
-    if (v13)
+    if (v12)
     {
       [v3 saturation];
-      v14 = 1;
-      [v5 setSaturation:1 ignoringIdentity:v7 includingOptimizations:0 withAdditionalInfoPromise:?];
+      [v5 setSaturation:? ignoringIdentity:? includingOptimizations:? withAdditionalInfoPromise:?];
       [v3 brightness];
-      [v5 setBrightness:1 ignoringIdentity:v7 includingOptimizations:0 withAdditionalInfoPromise:?];
+      [v5 setBrightness:? ignoringIdentity:? includingOptimizations:? withAdditionalInfoPromise:?];
     }
 
     else
     {
       [v3 blurRadius];
-      v16 = v15;
-      v17 = [v3 variableBlurInputMask];
-      v29[0] = MEMORY[0x1E69E9820];
-      v29[1] = 3221225472;
-      v29[2] = __MTTintingFilteringSettingsCreateDictionaryRepresentation_block_invoke_2;
-      v29[3] = &unk_1E80BE028;
-      v31 = v7;
-      v18 = v3;
-      v30 = v18;
-      [v5 setBlurRadius:v17 inputMaskImage:1 ignoringIdentity:v7 includingOptimizations:v29 withAdditionalInfoPromise:v16];
+      [v3 variableBlurInputMask];
+      v22[10] = MEMORY[0x1E69E9820];
+      v22[11] = 3221225472;
+      v22[12] = __MTTintingFilteringSettingsCreateDictionaryRepresentation_block_invoke_2;
+      v22[13] = &unk_1E80BE028;
+      v24 = v7;
+      v23 = v3;
+      [v5 setBlurRadius:? inputMaskImage:? ignoringIdentity:? includingOptimizations:? withAdditionalInfoPromise:?];
 
-      [v18 saturation];
-      [v5 setSaturation:1 ignoringIdentity:v7 includingOptimizations:0 withAdditionalInfoPromise:?];
-      [v18 brightness];
-      [v5 setBrightness:1 ignoringIdentity:v7 includingOptimizations:0 withAdditionalInfoPromise:?];
-      v14 = [v18 isAverageColorEnabled];
+      [v23 saturation];
+      [v5 setSaturation:? ignoringIdentity:? includingOptimizations:? withAdditionalInfoPromise:?];
+      [v23 brightness];
+      [v5 setBrightness:? ignoringIdentity:? includingOptimizations:? withAdditionalInfoPromise:?];
+      [v23 isAverageColorEnabled];
     }
 
-    [v5 setAverageColorEnabled:v14 includingOptimizations:v7 withAdditionalInfoPromise:0];
+    [v5 setAverageColorEnabled:? includingOptimizations:? withAdditionalInfoPromise:?];
     [v3 zoom];
-    [v5 setZoom:1 ignoringIdentity:v7 includingOptimizations:0 withAdditionalInfoPromise:?];
-    [v3 colorMatrix];
-    [v5 setColorMatrix:&v28 ignoringIdentity:1 includingOptimizations:v7 withAdditionalInfoPromise:0];
-    v19 = [v3 curvesValues];
-    [v5 setCurvesInputValues:v19 ignoringIdentity:1 includingOptimizations:v7 withAdditionalInfoPromise:0];
+    [v5 setZoom:? ignoringIdentity:? includingOptimizations:? withAdditionalInfoPromise:?];
+    [v22 colorMatrix];
+    [v5 setColorMatrix:? ignoringIdentity:? includingOptimizations:? withAdditionalInfoPromise:?];
+    v13 = [v3 curvesValues];
+    [v5 setCurvesInputValues:? ignoringIdentity:? includingOptimizations:? withAdditionalInfoPromise:?];
 
     if (v7)
     {
-      v20 = MEMORY[0x1E696AD98];
+      v14 = MEMORY[0x1E696AD98];
       [v3 backdropScale];
-      v21 = [v20 numberWithDouble:?];
-      v22 = [v21 mt_isIdentityValueForMaterialSettingsProperty:@"backdropScale"];
+      v15 = [v14 numberWithDouble:?];
+      v16 = [v15 mt_isIdentityValueForMaterialSettingsProperty:?];
 
-      if ((v22 & 1) == 0)
+      if ((v16 & 1) == 0)
       {
-        v23 = MEMORY[0x1E696AD98];
+        v17 = MEMORY[0x1E696AD98];
         [v3 backdropScale];
-        v24 = [v23 numberWithDouble:?];
-        [v5 setObject:v24 forKey:@"scale"];
+        v18 = [v17 numberWithDouble:?];
+        [v5 setObject:? forKey:?];
       }
     }
 
@@ -718,12 +700,12 @@ id MTTintingFilteringSettingsCreateDictionaryRepresentation(void *a1, void *a2)
     {
       [MEMORY[0x1E6979310] mt_orderedFilterTypes];
     }
-    v25 = ;
-    [v5 sortFiltersWithOrder:v25];
-    v26 = [v3 userInfo];
-    if (v26)
+    v19 = ;
+    [v5 sortFiltersWithOrder:?];
+    v20 = [v3 userInfo];
+    if (v20)
     {
-      [v5 setObject:v26 forKey:@"userInfo"];
+      [v5 setObject:? forKey:?];
     }
   }
 
@@ -732,58 +714,56 @@ id MTTintingFilteringSettingsCreateDictionaryRepresentation(void *a1, void *a2)
 
 MTVisualStyleSet *MTSharedVisualStyleSetForStyleNameFromBundle(void *a1, void *a2)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
+  v5 = v4;
   if (v3)
   {
-    v32 = _StylesToSharedInstances();
-    v5 = [v32 objectForKey:v3];
-    if (!v5)
+    v30 = _StylesToSharedInstances(v4);
+    v6 = [v30 objectForKey:?];
+    if (!v6)
     {
-      obj = v32;
+      obj = v30;
       objc_sync_enter(obj);
-      v33 = [MEMORY[0x1E696AAE8] coreMaterialOverrideRecipeBundle];
-      v31 = [MEMORY[0x1E696AAE8] coreMaterialRecipeBundle];
-      v6 = v3;
-      v7 = 0;
-      *&v8 = 138543362;
-      v28 = v8;
-      v9 = v6;
-      v29 = v6;
+      v31 = [MEMORY[0x1E696AAE8] coreMaterialOverrideRecipeBundle];
+      v29 = [MEMORY[0x1E696AAE8] coreMaterialRecipeBundle];
+      v7 = v3;
+      v8 = 0;
+      *&v9 = 138543362;
+      v27 = v9;
+      v10 = v7;
       do
       {
-        v10 = [v4 URLForVisualStyleSetDescendant:{v6, v28}];
-        if (v10)
+        v11 = [v5 URLForVisualStyleSetDescendant:v27];
+        if (v11)
         {
         }
 
         else
         {
-          v11 = [v33 URLForVisualStyleSetDescendant:v6];
-          v12 = v11;
-          if (v11)
+          v12 = [v31 URLForVisualStyleSetDescendant:?];
+          v13 = v12;
+          if (v12)
           {
-            v13 = v11;
+            v14 = v12;
           }
 
           else
           {
-            v13 = [v31 URLForVisualStyleSetDescendant:v6];
+            v14 = [v29 URLForVisualStyleSetDescendant:?];
           }
 
-          v10 = v13;
+          v11 = v14;
 
-          if (!v10)
+          if (!v11)
           {
             break;
           }
         }
 
-        v14 = objc_alloc(MEMORY[0x1E695DF20]);
-        v35 = 0;
-        v15 = [v14 initWithContentsOfURL:v10 error:&v35];
-        v16 = v35;
+        v15 = [objc_alloc(MEMORY[0x1E695DF20]) initWithContentsOfURL:? error:?];
+        v16 = 0;
         v17 = v16;
         v18 = MTLogConfiguration;
         if (!v15 || v16)
@@ -791,51 +771,50 @@ MTVisualStyleSet *MTSharedVisualStyleSetForStyleNameFromBundle(void *a1, void *a
           if (os_log_type_enabled(MTLogConfiguration, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543618;
-            v37 = v10;
-            v38 = 2114;
-            v39 = v17;
+            v33 = v11;
+            v34 = 2114;
+            v35 = v17;
             _os_log_error_impl(&dword_1BF527000, v18, OS_LOG_TYPE_ERROR, "Failed to load descendant style set plist at URL (%{public}@): %{public}@", buf, 0x16u);
           }
 
-          v6 = 0;
+          v7 = 0;
         }
 
         else
         {
           if (os_log_type_enabled(MTLogConfiguration, OS_LOG_TYPE_DEBUG))
           {
-            *buf = v28;
-            v37 = v10;
+            *buf = v27;
+            v33 = v11;
             _os_log_debug_impl(&dword_1BF527000, v18, OS_LOG_TYPE_DEBUG, "Loaded descendant style set plist at URL: %{public}@", buf, 0xCu);
           }
 
-          v19 = [v15 objectForKey:@"ancestorStyleSet"];
+          v19 = [v15 objectForKey:?];
 
-          v20 = [v15 objectForKey:@"descendantDescription"];
+          v20 = [v15 objectForKey:?];
           v21 = v20;
-          v6 = 0;
+          v7 = 0;
           if (v19 && v20)
           {
-            if (!v7)
+            if (!v8)
             {
-              v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
+              v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
             }
 
-            [v7 insertObject:v21 atIndex:0];
-            v6 = v19;
+            [v8 insertObject:? atIndex:?];
+            v7 = v19;
           }
 
-          v9 = v19;
+          v10 = v19;
         }
       }
 
-      while (v6);
-      v22 = [v4 URLForVisualStyleSet:v9];
-      if (v22 || ([v33 URLForVisualStyleSet:v9], (v22 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(v31, "URLForVisualStyleSet:", v9), (v22 = objc_claimAutoreleasedReturnValue()) != 0))
+      while (v7);
+      v22 = [v5 URLForVisualStyleSet:?];
+      if (v22 || ([v31 URLForVisualStyleSet:?], (v22 = objc_claimAutoreleasedReturnValue()) != 0) || (objc_msgSend(v29, "URLForVisualStyleSet:"), (v22 = objc_claimAutoreleasedReturnValue()) != 0))
       {
-        v34 = 0;
-        v23 = [objc_alloc(MEMORY[0x1E695DF20]) initWithContentsOfURL:v22 error:&v34];
-        v24 = v34;
+        v23 = [objc_alloc(MEMORY[0x1E695DF20]) initWithContentsOfURL:? error:?];
+        v24 = 0;
         v25 = v24;
         if (!v23 || v24)
         {
@@ -844,7 +823,7 @@ MTVisualStyleSet *MTSharedVisualStyleSetForStyleNameFromBundle(void *a1, void *a
             MTSharedVisualStyleSetForStyleNameFromBundle_cold_3();
           }
 
-          v5 = 0;
+          v6 = 0;
         }
 
         else
@@ -854,10 +833,10 @@ MTVisualStyleSet *MTSharedVisualStyleSetForStyleNameFromBundle(void *a1, void *a
             MTSharedVisualStyleSetForStyleNameFromBundle_cold_1();
           }
 
-          v5 = [[MTVisualStyleSet alloc] initWithName:v29 visualStyleSetDescription:v23 andDescendantDescriptions:v7];
-          if (v5)
+          v6 = [MTVisualStyleSet initWithName:"initWithName:visualStyleSetDescription:andDescendantDescriptions:" visualStyleSetDescription:? andDescendantDescriptions:?];
+          if (v6)
           {
-            [obj setObject:v5 forKey:v29];
+            [obj setObject:? forKey:?];
             if (os_log_type_enabled(MTLogConfiguration, OS_LOG_TYPE_DEBUG))
             {
               MTSharedVisualStyleSetForStyleNameFromBundle_cold_2();
@@ -868,7 +847,7 @@ MTVisualStyleSet *MTSharedVisualStyleSetForStyleNameFromBundle(void *a1, void *a
 
       else
       {
-        v5 = 0;
+        v6 = 0;
       }
 
       objc_sync_exit(obj);
@@ -877,29 +856,27 @@ MTVisualStyleSet *MTSharedVisualStyleSetForStyleNameFromBundle(void *a1, void *a
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  v26 = *MEMORY[0x1E69E9840];
-
-  return v5;
+  return v6;
 }
 
-id _StylesToSharedInstances()
+id _StylesToSharedInstances(uint64_t a1)
 {
   if (_StylesToSharedInstances_onceToken != -1)
   {
     _StylesToSharedInstances_cold_1();
   }
 
-  v1 = _StylesToSharedInstances___stylesToSharedInstances;
+  v2 = _StylesToSharedInstances___stylesToSharedInstances;
 
-  return v1;
+  return v2;
 }
 
 double MTIdentityValueForFilter(void *a1)
 {
-  v1 = [a1 isEqualToString:*MEMORY[0x1E6979890]];
+  v1 = [a1 isEqualToString:?];
   result = 0.0;
   if (v1)
   {
@@ -915,12 +892,12 @@ id __MTTintingFilteringSettingsCreateDictionaryRepresentation_block_invoke_2(uin
   {
     v2 = objc_alloc_init(MEMORY[0x1E695DF90]);
     v3 = [*(a1 + 32) blurInputQuality];
-    v4 = [v3 isEqualToString:@"default"];
+    v4 = [v3 isEqualToString:?];
 
     if ((v4 & 1) == 0)
     {
       v5 = [*(a1 + 32) blurInputQuality];
-      [v2 setObject:v5 forKey:@"inputQuality"];
+      [v2 setObject:? forKey:?];
     }
   }
 
@@ -939,77 +916,68 @@ CGColorSpaceRef __GrayColorSpace_block_invoke()
   return result;
 }
 
-id MTAllOrdinalVisualStyles()
+id MTAllOrdinalVisualStyles(uint64_t a1)
 {
   if (MTAllOrdinalVisualStyles_onceToken != -1)
   {
     MTAllOrdinalVisualStyles_cold_1();
   }
 
-  v1 = MTAllOrdinalVisualStyles___visualStyles;
+  v2 = MTAllOrdinalVisualStyles___visualStyles;
 
-  return v1;
+  return v2;
 }
 
 void __MTAllOrdinalVisualStyles_block_invoke()
 {
-  v3[6] = *MEMORY[0x1E69E9840];
-  v3[0] = @"primary";
-  v3[1] = @"secondary";
-  v3[2] = @"tertiary";
-  v3[3] = @"quaternary";
-  v3[4] = @"highlight";
-  v3[5] = @"separator";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:6];
+  v8 = *MEMORY[0x1E69E9840];
+  v2 = @"primary";
+  v3 = @"secondary";
+  v4 = @"tertiary";
+  v5 = @"quaternary";
+  v6 = @"highlight";
+  v7 = @"separator";
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:? count:?];
   v1 = MTAllOrdinalVisualStyles___visualStyles;
   MTAllOrdinalVisualStyles___visualStyles = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t MTCompareObjectsWithOrder(uint64_t a1, void *a2, void *a3)
 {
-  v5 = a3;
-  v6 = a2;
-  v7 = [v5 indexOfObject:a1];
-  v8 = [v5 indexOfObject:v6];
+  v4 = a3;
+  v5 = a2;
+  v6 = [v4 indexOfObject:?];
+  v7 = [v4 indexOfObject:?];
 
-  if (v7 < v8)
+  if (v6 < v7)
   {
     return -1;
   }
 
   else
   {
-    return v7 > v8;
+    return v6 > v7;
   }
 }
 
 void __MTAllPlatformColorVisualStyles_block_invoke()
 {
-  v3[5] = *MEMORY[0x1E69E9840];
-  v3[0] = @"platformGray";
-  v3[1] = @"platformBlue";
-  v3[2] = @"platformTeal";
-  v3[3] = @"platformOrange";
-  v3[4] = @"platformGreen";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:5];
+  v2 = *MEMORY[0x1E69E9840];
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:@"platformGray" count:{@"platformBlue", @"platformTeal", @"platformOrange", @"platformGreen", v2}];
   v1 = MTAllPlatformColorVisualStyles___systemColorVisualStyles;
   MTAllPlatformColorVisualStyles___systemColorVisualStyles = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
-id MTAllPlatformColorVisualStyles()
+id MTAllPlatformColorVisualStyles(uint64_t a1)
 {
   if (MTAllPlatformColorVisualStyles_onceToken != -1)
   {
     MTAllPlatformColorVisualStyles_cold_1();
   }
 
-  v1 = MTAllPlatformColorVisualStyles___systemColorVisualStyles;
+  v2 = MTAllPlatformColorVisualStyles___systemColorVisualStyles;
 
-  return v1;
+  return v2;
 }
 
 id MTVisualStylingSettingsCreateDictionaryRepresentation(void *a1, void *a2)
@@ -1024,18 +992,18 @@ id MTVisualStylingSettingsCreateDictionaryRepresentation(void *a1, void *a2)
     if (v6)
     {
       v7 = [v3 tintColorDescription];
-      [v5 setObject:v7 forKey:@"tintColor"];
+      [v5 setObject:? forKey:?];
 
       v8 = MEMORY[0x1E696AD98];
       [v3 tintAlpha];
       v9 = [v8 numberWithDouble:?];
-      [v5 setObject:v9 forKey:@"tintAlpha"];
+      [v5 setObject:? forKey:?];
     }
 
     v10 = [v3 compositingFilter];
-    if (v10 && ([v4 objectForKey:@"MTDictionaryRepresentationOptionsFiltersRepresentationV2Key"], v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "BOOLValue"), v11, !v12))
+    if (v10 && ([v4 objectForKey:?], v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "BOOLValue"), v11, !v12))
     {
-      [v5 setObject:v10 forKey:@"compositingFilter"];
+      [v5 setObject:? forKey:?];
     }
 
     else
@@ -1043,13 +1011,13 @@ id MTVisualStylingSettingsCreateDictionaryRepresentation(void *a1, void *a2)
       v13 = [v3 filterType];
       v14 = [v3 filterProperties];
       v15 = MTComposedFilterCreateDictionaryRepresentation(v13, v14, v10 != 0);
-      [v5 addEntriesFromDictionary:v15];
+      [v5 addEntriesFromDictionary:?];
     }
 
     v16 = [v3 userInfo];
     if (v16)
     {
-      [v5 setObject:v16 forKey:@"userInfo"];
+      [v5 setObject:? forKey:?];
     }
   }
 
@@ -1058,348 +1026,331 @@ id MTVisualStylingSettingsCreateDictionaryRepresentation(void *a1, void *a2)
 
 id MTComposedFilterCreateDictionaryRepresentation(void *a1, void *a2, uint64_t a3)
 {
-  v100[7] = *MEMORY[0x1E69E9840];
-  v5 = a1;
-  v6 = a2;
-  v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v73 = a3;
-  [v7 setValue:0 forProperty:0 ofFilter:v5 isCompositingFilter:a3];
-  v8 = [v6 mutableCopy];
-  v9 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v10 = v5;
-  v70 = v8;
+  v102 = *MEMORY[0x1E69E9840];
+  v4 = a1;
+  v5 = a2;
+  v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  [v6 setValue:? forProperty:? ofFilter:? isCompositingFilter:?];
+  v7 = [v5 mutableCopy];
+  v8 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v9 = v4;
+  v67 = v7;
+  v10 = v8;
   v11 = v9;
   v12 = v10;
-  v13 = v11;
-  v69 = v6;
-  if ([v10 isEqualToString:*MEMORY[0x1E6979D88]])
+  v66 = v5;
+  if ([v9 isEqualToString:?] || objc_msgSend(v9, "isEqualToString:"))
   {
-    [v13 setObject:@"inputColor0" forKeyedSubscript:@"colorDodge"];
-    v14 = kMTCAFilterPropertyNameInputColorLighten;
+    [v12 setObject:? forKeyedSubscript:?];
+    [v12 setObject:? forKeyedSubscript:?];
+    v13 = v67;
   }
 
   else
   {
-    if (![v10 isEqualToString:*MEMORY[0x1E6979D90]])
+    v13 = v67;
+    if ([v9 isEqualToString:?])
     {
-      v15 = v70;
-      if ([v10 isEqualToString:*MEMORY[0x1E6979D78]])
+      v65 = v12;
+      obja = v6;
+      v37 = objc_alloc(MEMORY[0x1E695DEC8]);
+      v38 = [v67 objectForKeyedSubscript:?];
+      v39 = v38;
+      if (!v38)
       {
-        v68 = v13;
-        obja = v7;
-        v40 = objc_alloc(MEMORY[0x1E695DEC8]);
-        v41 = [v70 objectForKeyedSubscript:?];
-        v42 = v41;
-        if (!v41)
+        v39 = [v67 objectForKeyedSubscript:?];
+      }
+
+      v40 = [v67 objectForKeyedSubscript:?];
+      v41 = v40;
+      if (!v40)
+      {
+        v41 = [v67 objectForKeyedSubscript:?];
+      }
+
+      v42 = [v67 objectForKeyedSubscript:?];
+      v43 = [v67 objectForKeyedSubscript:?];
+      v44 = [v67 objectForKeyedSubscript:?];
+      v45 = v37;
+      v46 = v39;
+      v47 = [v45 initWithObjects:{v41, v42, v43, v44, 0}];
+
+      if (!v40)
+      {
+      }
+
+      v12 = v65;
+      if (!v38)
+      {
+      }
+
+      v95 = @"darkenShadowHighlights";
+      v96 = @"darkenShadows";
+      v97 = @"saturationAdjustment";
+      v98 = @"increaseSaturation";
+      v99 = @"darkenAll";
+      v100 = @"blueYellowContrast";
+      v101 = @"redGreenContrast";
+      v48 = [MEMORY[0x1E695DEC8] arrayWithObjects:? count:?];
+      v13 = v67;
+      [v67 removeObjectsForKeys:?];
+
+      v6 = obja;
+      if ([v47 count] >= 3)
+      {
+        v49 = *(MEMORY[0x1E6979280] + 48);
+        v87 = *(MEMORY[0x1E6979280] + 32);
+        v88 = v49;
+        v89 = *(MEMORY[0x1E6979280] + 64);
+        v50 = *(MEMORY[0x1E6979280] + 16);
+        v85 = *MEMORY[0x1E6979280];
+        v86 = v50;
+        v51 = [v47 firstObject];
+        objc_opt_class();
+        isKindOfClass = objc_opt_isKindOfClass();
+
+        if (isKindOfClass)
         {
-          v42 = [v70 objectForKeyedSubscript:@"darkenShadows"];
-        }
-
-        v43 = [v70 objectForKeyedSubscript:?];
-        v44 = v43;
-        if (!v43)
-        {
-          v44 = [v70 objectForKeyedSubscript:@"increaseSaturation"];
-        }
-
-        v45 = [v70 objectForKeyedSubscript:?];
-        v46 = [v70 objectForKeyedSubscript:?];
-        v47 = [v70 objectForKeyedSubscript:?];
-        v48 = v40;
-        v49 = v42;
-        v50 = [v48 initWithObjects:{v42, v44, v45, v46, v47, 0}];
-
-        if (!v43)
-        {
-        }
-
-        v13 = v68;
-        if (!v41)
-        {
-        }
-
-        v100[0] = @"darkenShadowHighlights";
-        v100[1] = @"darkenShadows";
-        v100[2] = @"saturationAdjustment";
-        v100[3] = @"increaseSaturation";
-        v100[4] = @"darkenAll";
-        v100[5] = @"blueYellowContrast";
-        v100[6] = @"redGreenContrast";
-        v51 = [MEMORY[0x1E695DEC8] arrayWithObjects:v100 count:7];
-        v15 = v70;
-        [v70 removeObjectsForKeys:v51];
-
-        v7 = obja;
-        if ([v50 count] >= 3)
-        {
-          v52 = *(MEMORY[0x1E6979280] + 48);
-          v91 = *(MEMORY[0x1E6979280] + 32);
-          v92 = v52;
-          v93 = *(MEMORY[0x1E6979280] + 64);
-          v53 = *(MEMORY[0x1E6979280] + 16);
-          v89 = *MEMORY[0x1E6979280];
-          v90 = v53;
-          v54 = [v50 firstObject];
-          objc_opt_class();
-          isKindOfClass = objc_opt_isKindOfClass();
-
-          if (isKindOfClass)
+          v83 = 0u;
+          v84 = 0u;
+          v81 = 0u;
+          v82 = 0u;
+          v53 = v47;
+          v54 = [v53 countByEnumeratingWithState:? objects:? count:?];
+          if (v54)
           {
-            v87 = 0u;
-            v88 = 0u;
-            v85 = 0u;
-            v86 = 0u;
-            v56 = v50;
-            v57 = [v56 countByEnumeratingWithState:&v85 objects:&v95 count:16];
-            if (v57)
+            v55 = v54;
+            v56 = *v82;
+            do
             {
-              v58 = v57;
-              v59 = *v86;
-              do
+              for (i = 0; i != v55; i = (i + 1))
               {
-                for (i = 0; i != v58; ++i)
+                if (*v82 != v56)
                 {
-                  if (*v86 != v59)
-                  {
-                    objc_enumerationMutation(v56);
-                  }
-
-                  MTCAColorMatrixMakeWithDictionaryRepresentation(*(*(&v85 + 1) + 8 * i), v84);
-                  v81 = v91;
-                  v82 = v92;
-                  v83 = v93;
-                  v79 = v89;
-                  v80 = v90;
-                  CAColorMatrixConcat();
+                  objc_enumerationMutation(v53);
                 }
 
-                v58 = [v56 countByEnumeratingWithState:&v85 objects:&v95 count:16];
+                MTCAColorMatrixMakeWithDictionaryRepresentation(*(*(&v81 + 1) + 8 * i), v80);
+                v77 = v87;
+                v78 = v88;
+                v79 = v89;
+                v75 = v85;
+                v76 = v86;
+                CAColorMatrixConcat();
               }
 
-              while (v58);
+              v55 = [v53 countByEnumeratingWithState:? objects:? count:?];
             }
+
+            while (v55);
+          }
+        }
+
+        else
+        {
+          v53 = [v47 objectAtIndexedSubscript:?];
+          [v53 floatValue];
+          v59 = v58;
+          v60 = [v47 objectAtIndexedSubscript:?];
+          [v60 floatValue];
+          v61 = [v47 objectAtIndexedSubscript:?];
+          [v61 floatValue];
+          v62 = [v47 count];
+          if (v62 >= 4)
+          {
+            v43 = [v47 objectAtIndexedSubscript:?];
+            [v43 floatValue];
+          }
+
+          if ([v47 count] <= 4)
+          {
+            MTCAColorMatrixMakeWithVibrantShadowAttributes(&v90, v59);
+            v87 = v92;
+            v88 = v93;
+            v89 = v94;
+            v85 = v90;
+            v86 = v91;
           }
 
           else
           {
-            v56 = [v50 objectAtIndexedSubscript:0];
-            [v56 floatValue];
-            v62 = v61;
-            v63 = [v50 objectAtIndexedSubscript:1];
+            v63 = [v47 objectAtIndexedSubscript:?];
             [v63 floatValue];
-            v64 = [v50 objectAtIndexedSubscript:2];
-            [v64 floatValue];
-            v65 = [v50 count];
-            if (v65 >= 4)
-            {
-              v46 = [v50 objectAtIndexedSubscript:3];
-              [v46 floatValue];
-            }
-
-            if ([v50 count] <= 4)
-            {
-              MTCAColorMatrixMakeWithVibrantShadowAttributes(&v95, v62);
-              v91 = v97;
-              v92 = v98;
-              v93 = v99;
-              v89 = v95;
-              v90 = v96;
-            }
-
-            else
-            {
-              v66 = [v50 objectAtIndexedSubscript:4];
-              [v66 floatValue];
-              MTCAColorMatrixMakeWithVibrantShadowAttributes(&v95, v62);
-              v91 = v97;
-              v92 = v98;
-              v93 = v99;
-              v89 = v95;
-              v90 = v96;
-            }
-
-            if (v65 >= 4)
-            {
-            }
-
-            v7 = obja;
-            v13 = v68;
+            MTCAColorMatrixMakeWithVibrantShadowAttributes(&v90, v59);
+            v87 = v92;
+            v88 = v93;
+            v89 = v94;
+            v85 = v90;
+            v86 = v91;
           }
 
-          v84[2] = v91;
-          v84[3] = v92;
-          v84[4] = v93;
-          v84[0] = v89;
-          v84[1] = v90;
-          v67 = MTCAColorMatrixCreateDictionaryRepresentation(v84, *&v90);
-          [v70 setObject:v67 forKeyedSubscript:@"inputColorMatrix"];
+          if (v62 >= 4)
+          {
+          }
+
+          v6 = obja;
+          v12 = v65;
         }
+
+        v80[2] = v87;
+        v80[3] = v88;
+        v80[4] = v89;
+        v80[0] = v85;
+        v80[1] = v86;
+        v64 = MTCAColorMatrixCreateDictionaryRepresentation(v80, *&v86);
+        [v67 setObject:? forKeyedSubscript:?];
       }
-
-      goto LABEL_6;
     }
-
-    [v13 setObject:@"inputColor0" forKeyedSubscript:@"colorBurn"];
-    v14 = kMTCAFilterPropertyNameInputColorDarken;
   }
 
-  [v13 setObject:@"inputColor1" forKeyedSubscript:*v14];
-  v15 = v70;
-LABEL_6:
+  v14 = [v13 allKeys];
+  v15 = [v12 allKeys];
+  v16 = [v14 arrayByAddingObjectsFromArray:?];
 
-  v16 = [v15 allKeys];
-  v17 = [v13 allKeys];
-  v18 = [v16 arrayByAddingObjectsFromArray:v17];
-
-  v77 = 0u;
-  v78 = 0u;
-  v75 = 0u;
-  v76 = 0u;
-  obj = v18;
-  v19 = [obj countByEnumeratingWithState:&v75 objects:v94 count:16];
-  if (!v19)
+  v73 = 0u;
+  v74 = 0u;
+  v71 = 0u;
+  v72 = 0u;
+  obj = v16;
+  v17 = [obj countByEnumeratingWithState:? objects:? count:?];
+  if (v17)
   {
-    goto LABEL_25;
-  }
-
-  v20 = v19;
-  v21 = *v76;
-  do
-  {
-    for (j = 0; j != v20; ++j)
+    v18 = v17;
+    v19 = *v72;
+    do
     {
-      if (*v76 != v21)
+      for (j = 0; j != v18; j = (j + 1))
       {
-        objc_enumerationMutation(obj);
-      }
-
-      v23 = *(*(&v75 + 1) + 8 * j);
-      v24 = v13;
-      v25 = [v13 objectForKey:v23];
-      v26 = v25;
-      if (v25)
-      {
-        v27 = v25;
-      }
-
-      else
-      {
-        v27 = v23;
-      }
-
-      v28 = v27;
-
-      v29 = [v15 objectForKey:v23];
-      if (v29)
-      {
-        v30 = v29;
-        objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        if (*v72 != v19)
         {
-          v31 = v12;
-          v32 = v7;
-          v33 = [MTColor colorWithDescription:v30];
-          v34 = v33;
-          if (v33)
-          {
-            v35 = [v33 CGColor];
-            goto LABEL_20;
-          }
-
-          if (MTCAColorMatrixIsDictionaryRepresentation(v30))
-          {
-            v36 = MEMORY[0x1E696B098];
-            MTCAColorMatrixMakeWithDictionaryRepresentation(v30, v74);
-            v35 = [v36 valueWithBytes:v74 objCType:"{CAColorMatrix=ffffffffffffffffffff}"];
-LABEL_20:
-            v37 = v35;
-
-            v30 = v37;
-          }
-
-          v7 = v32;
-          v12 = v31;
-          v15 = v70;
+          objc_enumerationMutation(obj);
         }
 
-        [v7 setValue:v30 forProperty:v28 ofFilter:v12 isCompositingFilter:v73];
+        v21 = *(*(&v71 + 1) + 8 * j);
+        v22 = v12;
+        v23 = [v12 objectForKey:?];
+        v24 = v23;
+        if (v23)
+        {
+          v25 = v23;
+        }
+
+        else
+        {
+          v25 = v21;
+        }
+
+        v26 = v25;
+
+        v27 = [v13 objectForKey:?];
+        if (v27)
+        {
+          v28 = v27;
+          objc_opt_class();
+          if (objc_opt_isKindOfClass())
+          {
+            v29 = v11;
+            v30 = v6;
+            v31 = [MTColor colorWithDescription:?];
+            v32 = v31;
+            if (v31)
+            {
+              v33 = [v31 CGColor];
+              goto LABEL_18;
+            }
+
+            if (MTCAColorMatrixIsDictionaryRepresentation(v28))
+            {
+              v34 = MEMORY[0x1E696B098];
+              MTCAColorMatrixMakeWithDictionaryRepresentation(v28, v70);
+              v33 = [v34 valueWithBytes:? objCType:?];
+LABEL_18:
+              v35 = v33;
+
+              v28 = v35;
+            }
+
+            v6 = v30;
+            v11 = v29;
+            v13 = v67;
+          }
+
+          [v6 setValue:? forProperty:? ofFilter:? isCompositingFilter:?];
+        }
+
+        v12 = v22;
       }
 
-      v13 = v24;
+      v18 = [obj countByEnumeratingWithState:? objects:? count:?];
     }
 
-    v20 = [obj countByEnumeratingWithState:&v75 objects:v94 count:16];
+    while (v18);
   }
 
-  while (v20);
-LABEL_25:
-
-  v38 = *MEMORY[0x1E69E9840];
-
-  return v7;
+  return v6;
 }
 
 uint64_t MTCAColorMatrixIsDictionaryRepresentation(void *a1)
 {
   v1 = a1;
-  v2 = [v1 objectForKeyedSubscript:@"m11"];
+  v2 = [v1 objectForKeyedSubscript:?];
   if (__MTCAColorMatrixIsDictionaryRepresentation_block_invoke(v2, v2))
   {
-    v3 = [v1 objectForKeyedSubscript:@"m12"];
+    v3 = [v1 objectForKeyedSubscript:?];
     if (__MTCAColorMatrixIsDictionaryRepresentation_block_invoke(v3, v3))
     {
-      v4 = [v1 objectForKeyedSubscript:@"m13"];
+      v4 = [v1 objectForKeyedSubscript:?];
       if (__MTCAColorMatrixIsDictionaryRepresentation_block_invoke(v4, v4))
       {
-        v5 = [v1 objectForKeyedSubscript:@"m14"];
+        v5 = [v1 objectForKeyedSubscript:?];
         if (__MTCAColorMatrixIsDictionaryRepresentation_block_invoke(v5, v5))
         {
-          v6 = [v1 objectForKeyedSubscript:@"m15"];
+          v6 = [v1 objectForKeyedSubscript:?];
           if (__MTCAColorMatrixIsDictionaryRepresentation_block_invoke(v6, v6))
           {
-            v7 = [v1 objectForKeyedSubscript:@"m21"];
+            v7 = [v1 objectForKeyedSubscript:?];
             if (__MTCAColorMatrixIsDictionaryRepresentation_block_invoke(v7, v7))
             {
-              v8 = [v1 objectForKeyedSubscript:@"m22"];
+              v8 = [v1 objectForKeyedSubscript:?];
               if (__MTCAColorMatrixIsDictionaryRepresentation_block_invoke(v8, v8))
               {
-                v9 = [v1 objectForKeyedSubscript:@"m23"];
+                v9 = [v1 objectForKeyedSubscript:?];
                 if (__MTCAColorMatrixIsDictionaryRepresentation_block_invoke(v9, v9))
                 {
-                  v23 = [v1 objectForKeyedSubscript:@"m24"];
+                  v23 = [v1 objectForKeyedSubscript:?];
                   if (__MTCAColorMatrixIsDictionaryRepresentation_block_invoke(v23, v23))
                   {
-                    v22 = [v1 objectForKeyedSubscript:@"m25"];
+                    v22 = [v1 objectForKeyedSubscript:?];
                     if (__MTCAColorMatrixIsDictionaryRepresentation_block_invoke(v22, v22))
                     {
-                      v21 = [v1 objectForKeyedSubscript:@"m31"];
+                      v21 = [v1 objectForKeyedSubscript:?];
                       if (__MTCAColorMatrixIsDictionaryRepresentation_block_invoke(v21, v21))
                       {
-                        v20 = [v1 objectForKeyedSubscript:@"m32"];
+                        v20 = [v1 objectForKeyedSubscript:?];
                         if (__MTCAColorMatrixIsDictionaryRepresentation_block_invoke(v20, v20))
                         {
-                          v19 = [v1 objectForKeyedSubscript:@"m33"];
+                          v19 = [v1 objectForKeyedSubscript:?];
                           if (__MTCAColorMatrixIsDictionaryRepresentation_block_invoke(v19, v19))
                           {
-                            v18 = [v1 objectForKeyedSubscript:@"m34"];
+                            v18 = [v1 objectForKeyedSubscript:?];
                             if (__MTCAColorMatrixIsDictionaryRepresentation_block_invoke(v18, v18))
                             {
-                              v17 = [v1 objectForKeyedSubscript:@"m35"];
+                              v17 = [v1 objectForKeyedSubscript:?];
                               if (__MTCAColorMatrixIsDictionaryRepresentation_block_invoke(v17, v17))
                               {
-                                v16 = [v1 objectForKeyedSubscript:@"m41"];
+                                v16 = [v1 objectForKeyedSubscript:?];
                                 if (__MTCAColorMatrixIsDictionaryRepresentation_block_invoke(v16, v16))
                                 {
-                                  v15 = [v1 objectForKeyedSubscript:@"m42"];
+                                  v15 = [v1 objectForKeyedSubscript:?];
                                   if (__MTCAColorMatrixIsDictionaryRepresentation_block_invoke(v15, v15))
                                   {
-                                    v14 = [v1 objectForKeyedSubscript:@"m43"];
+                                    v14 = [v1 objectForKeyedSubscript:?];
                                     if (__MTCAColorMatrixIsDictionaryRepresentation_block_invoke(v14, v14))
                                     {
-                                      v13 = [v1 objectForKeyedSubscript:@"m44"];
+                                      v13 = [v1 objectForKeyedSubscript:?];
                                       if (__MTCAColorMatrixIsDictionaryRepresentation_block_invoke(v13, v13))
                                       {
-                                        v12 = [v1 objectForKeyedSubscript:@"m45"];
+                                        v12 = [v1 objectForKeyedSubscript:?];
                                         v10 = __MTCAColorMatrixIsDictionaryRepresentation_block_invoke(v12, v12);
                                       }
 
@@ -1542,162 +1493,162 @@ void MTCAColorMatrixMakeWithDictionaryRepresentation(void *a1@<X0>, uint64_t a2@
   if (v3)
   {
     v67 = v3;
-    v7 = [v3 objectForKeyedSubscript:@"m11"];
+    v7 = [v3 objectForKeyedSubscript:?];
     if (v7)
     {
-      v8 = [v67 objectForKeyedSubscript:@"m11"];
+      v8 = [v67 objectForKeyedSubscript:?];
       [v8 floatValue];
       *a2 = v9;
     }
 
-    v10 = [v67 objectForKeyedSubscript:@"m12"];
+    v10 = [v67 objectForKeyedSubscript:?];
     if (v10)
     {
-      v11 = [v67 objectForKeyedSubscript:@"m12"];
+      v11 = [v67 objectForKeyedSubscript:?];
       [v11 floatValue];
       *(a2 + 4) = v12;
     }
 
-    v13 = [v67 objectForKeyedSubscript:@"m13"];
+    v13 = [v67 objectForKeyedSubscript:?];
     if (v13)
     {
-      v14 = [v67 objectForKeyedSubscript:@"m13"];
+      v14 = [v67 objectForKeyedSubscript:?];
       [v14 floatValue];
       *(a2 + 8) = v15;
     }
 
-    v16 = [v67 objectForKeyedSubscript:@"m14"];
+    v16 = [v67 objectForKeyedSubscript:?];
     if (v16)
     {
-      v17 = [v67 objectForKeyedSubscript:@"m14"];
+      v17 = [v67 objectForKeyedSubscript:?];
       [v17 floatValue];
       *(a2 + 12) = v18;
     }
 
-    v19 = [v67 objectForKeyedSubscript:@"m15"];
+    v19 = [v67 objectForKeyedSubscript:?];
     if (v19)
     {
-      v20 = [v67 objectForKeyedSubscript:@"m15"];
+      v20 = [v67 objectForKeyedSubscript:?];
       [v20 floatValue];
       *(a2 + 16) = v21;
     }
 
-    v22 = [v67 objectForKeyedSubscript:@"m21"];
+    v22 = [v67 objectForKeyedSubscript:?];
     if (v22)
     {
-      v23 = [v67 objectForKeyedSubscript:@"m21"];
+      v23 = [v67 objectForKeyedSubscript:?];
       [v23 floatValue];
       *(a2 + 20) = v24;
     }
 
-    v25 = [v67 objectForKeyedSubscript:@"m22"];
+    v25 = [v67 objectForKeyedSubscript:?];
     if (v25)
     {
-      v26 = [v67 objectForKeyedSubscript:@"m22"];
+      v26 = [v67 objectForKeyedSubscript:?];
       [v26 floatValue];
       *(a2 + 24) = v27;
     }
 
-    v28 = [v67 objectForKeyedSubscript:@"m23"];
+    v28 = [v67 objectForKeyedSubscript:?];
     if (v28)
     {
-      v29 = [v67 objectForKeyedSubscript:@"m23"];
+      v29 = [v67 objectForKeyedSubscript:?];
       [v29 floatValue];
       *(a2 + 28) = v30;
     }
 
-    v31 = [v67 objectForKeyedSubscript:@"m24"];
+    v31 = [v67 objectForKeyedSubscript:?];
     if (v31)
     {
-      v32 = [v67 objectForKeyedSubscript:@"m24"];
+      v32 = [v67 objectForKeyedSubscript:?];
       [v32 floatValue];
       *(a2 + 32) = v33;
     }
 
-    v34 = [v67 objectForKeyedSubscript:@"m25"];
+    v34 = [v67 objectForKeyedSubscript:?];
     if (v34)
     {
-      v35 = [v67 objectForKeyedSubscript:@"m25"];
+      v35 = [v67 objectForKeyedSubscript:?];
       [v35 floatValue];
       *(a2 + 36) = v36;
     }
 
-    v37 = [v67 objectForKeyedSubscript:@"m31"];
+    v37 = [v67 objectForKeyedSubscript:?];
     if (v37)
     {
-      v38 = [v67 objectForKeyedSubscript:@"m31"];
+      v38 = [v67 objectForKeyedSubscript:?];
       [v38 floatValue];
       *(a2 + 40) = v39;
     }
 
-    v40 = [v67 objectForKeyedSubscript:@"m32"];
+    v40 = [v67 objectForKeyedSubscript:?];
     if (v40)
     {
-      v41 = [v67 objectForKeyedSubscript:@"m32"];
+      v41 = [v67 objectForKeyedSubscript:?];
       [v41 floatValue];
       *(a2 + 44) = v42;
     }
 
-    v43 = [v67 objectForKeyedSubscript:@"m33"];
+    v43 = [v67 objectForKeyedSubscript:?];
     if (v43)
     {
-      v44 = [v67 objectForKeyedSubscript:@"m33"];
+      v44 = [v67 objectForKeyedSubscript:?];
       [v44 floatValue];
       *(a2 + 48) = v45;
     }
 
-    v46 = [v67 objectForKeyedSubscript:@"m34"];
+    v46 = [v67 objectForKeyedSubscript:?];
     if (v46)
     {
-      v47 = [v67 objectForKeyedSubscript:@"m34"];
+      v47 = [v67 objectForKeyedSubscript:?];
       [v47 floatValue];
       *(a2 + 52) = v48;
     }
 
-    v49 = [v67 objectForKeyedSubscript:@"m35"];
+    v49 = [v67 objectForKeyedSubscript:?];
     if (v49)
     {
-      v50 = [v67 objectForKeyedSubscript:@"m35"];
+      v50 = [v67 objectForKeyedSubscript:?];
       [v50 floatValue];
       *(a2 + 56) = v51;
     }
 
-    v52 = [v67 objectForKeyedSubscript:@"m41"];
+    v52 = [v67 objectForKeyedSubscript:?];
     if (v52)
     {
-      v53 = [v67 objectForKeyedSubscript:@"m41"];
+      v53 = [v67 objectForKeyedSubscript:?];
       [v53 floatValue];
       *(a2 + 60) = v54;
     }
 
-    v55 = [v67 objectForKeyedSubscript:@"m42"];
+    v55 = [v67 objectForKeyedSubscript:?];
     if (v55)
     {
-      v56 = [v67 objectForKeyedSubscript:@"m42"];
+      v56 = [v67 objectForKeyedSubscript:?];
       [v56 floatValue];
       *(a2 + 64) = v57;
     }
 
-    v58 = [v67 objectForKeyedSubscript:@"m43"];
+    v58 = [v67 objectForKeyedSubscript:?];
     if (v58)
     {
-      v59 = [v67 objectForKeyedSubscript:@"m43"];
+      v59 = [v67 objectForKeyedSubscript:?];
       [v59 floatValue];
       *(a2 + 68) = v60;
     }
 
-    v61 = [v67 objectForKeyedSubscript:@"m44"];
+    v61 = [v67 objectForKeyedSubscript:?];
     if (v61)
     {
-      v62 = [v67 objectForKeyedSubscript:@"m44"];
+      v62 = [v67 objectForKeyedSubscript:?];
       [v62 floatValue];
       *(a2 + 72) = v63;
     }
 
-    v64 = [v67 objectForKeyedSubscript:@"m45"];
+    v64 = [v67 objectForKeyedSubscript:?];
     if (v64)
     {
-      v65 = [v67 objectForKeyedSubscript:@"m45"];
+      v65 = [v67 objectForKeyedSubscript:?];
       [v65 floatValue];
       *(a2 + 76) = v66;
     }
@@ -1720,16 +1671,17 @@ uint64_t __MTRegisterCoreMaterialLogging_block_invoke()
   v1 = MTLogMaterials;
   MTLogMaterials = v0;
 
-  MTLogConfiguration = os_log_create(MTLogSubsystem, "Configuration");
+  v2 = os_log_create(MTLogSubsystem, "Configuration");
+  MTLogConfiguration = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2);
 }
 
 void __MTDynamicBlurRadiusGraphicsQuality_block_invoke()
 {
   v0 = _MTLowQualityDevicesForDynamicBlurRadius();
   v1 = _MTCurrentProduct();
-  v2 = [v0 containsObject:v1];
+  v2 = [v0 containsObject:?];
 
   if (v2)
   {
@@ -1737,9 +1689,9 @@ void __MTDynamicBlurRadiusGraphicsQuality_block_invoke()
   }
 }
 
-id _MTLowQualityDevicesForDynamicBlurRadius()
+void *_MTLowQualityDevicesForDynamicBlurRadius()
 {
-  v0 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:{@"iPad5, 1", @"iPad5, 2", @"iPad5, 3", @"iPad5, 4", @"iPad7, 1", @"iPad7, 2", 0}];
+  v0 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:{@"iPad5, 2", @"iPad5, 3", @"iPad5, 4", @"iPad7, 1", @"iPad7, 2", 0}];
 
   return v0;
 }
@@ -1758,24 +1710,17 @@ id _MTCurrentProduct()
 
 CGImageRef MTCGImageCreateWithName(void *a1, void *a2, double a3)
 {
-  v31[1] = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = a2;
   if (!v6)
   {
-    v6 = [MEMORY[0x1E696AAE8] bundleWithIdentifier:@"com.apple.CoreMaterial"];
+    v6 = [MEMORY[0x1E696AAE8] bundleWithIdentifier:?];
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
-  v27 = 0u;
   v7 = v5;
-  v8 = v7;
   if (v7)
   {
-    v31[0] = v7;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:? count:?];
     if (a3 <= 0.0)
     {
       a3 = MTBuiltInScreenScale();
@@ -1783,33 +1728,33 @@ CGImageRef MTCGImageCreateWithName(void *a1, void *a2, double a3)
 
     if (a3 == 0.0)
     {
-      v10 = v9;
+      v9 = v8;
     }
 
     else
     {
-      v10 = [v9 mutableCopy];
-      v11 = a3;
+      v9 = [v8 mutableCopy];
+      v10 = a3;
       if (a3 >= 1)
       {
-        v12 = [v8 stringByAppendingFormat:@"@%ldx", 1];
-        if (v11 != 1)
+        v11 = [v7 stringByAppendingFormat:1];
+        if (v10 != 1)
         {
-          v13 = 2;
+          v12 = 2;
           do
           {
-            [v10 insertObject:v12 atIndex:0];
+            [v9 insertObject:? atIndex:?];
 
-            v12 = [v8 stringByAppendingFormat:@"@%ldx", v13];
-            ++v13;
+            v11 = [v7 stringByAppendingFormat:v12];
+            ++v12;
           }
 
-          while (1 - v11 + v13 != 2);
+          while (1 - v10 + v12 != 2);
         }
 
-        if (v12)
+        if (v11)
         {
-          [v10 insertObject:v12 atIndex:0];
+          [v9 insertObject:? atIndex:?];
         }
       }
     }
@@ -1817,41 +1762,41 @@ CGImageRef MTCGImageCreateWithName(void *a1, void *a2, double a3)
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
-  v14 = MEMORY[0x1E695E0F0];
-  if (v10)
+  v13 = MEMORY[0x1E695E0F0];
+  if (v9)
   {
-    v14 = v10;
+    v13 = v9;
   }
 
-  v15 = v14;
+  v14 = v13;
 
-  v16 = [v15 countByEnumeratingWithState:&v26 objects:v30 count:16];
-  if (v16)
+  v15 = [v14 countByEnumeratingWithState:? objects:? count:?];
+  if (v15)
   {
-    v17 = v16;
-    v18 = *v27;
+    v16 = v15;
+    v17 = MEMORY[0];
     while (2)
     {
-      for (i = 0; i != v17; ++i)
+      for (i = 0; i != v16; i = (i + 1))
       {
-        if (*v27 != v18)
+        if (MEMORY[0] != v17)
         {
-          objc_enumerationMutation(v15);
+          objc_enumerationMutation(v14);
         }
 
-        v20 = [v6 URLForResource:*(*(&v26 + 1) + 8 * i) withExtension:@"png"];
-        if (v20)
+        v19 = [v6 URLForResource:? withExtension:?];
+        if (v19)
         {
-          v21 = v20;
+          v20 = v19;
           goto LABEL_28;
         }
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v26 objects:v30 count:16];
-      if (v17)
+      v16 = [v14 countByEnumeratingWithState:? objects:? count:?];
+      if (v16)
       {
         continue;
       }
@@ -1860,15 +1805,14 @@ CGImageRef MTCGImageCreateWithName(void *a1, void *a2, double a3)
     }
   }
 
-  v21 = 0;
+  v20 = 0;
 LABEL_28:
 
-  v22 = CGDataProviderCreateWithURL(v21);
-  v23 = CGImageCreateWithPNGDataProvider(v22, 0, 0, kCGRenderingIntentDefault);
-  CGDataProviderRelease(v22);
+  v21 = CGDataProviderCreateWithURL(v20);
+  v22 = CGImageCreateWithPNGDataProvider(v21, 0, 0, kCGRenderingIntentDefault);
+  CGDataProviderRelease(v21);
 
-  v24 = *MEMORY[0x1E69E9840];
-  return v23;
+  return v22;
 }
 
 double MTBuiltInScreenScale()
@@ -1904,11 +1848,11 @@ id MTProtocolGetProperties(void *a1, char a2)
     v5 = 0;
   }
 
-  v13 = 0;
+  v14 = 0;
   if ((a2 & 2) != 0)
   {
-    v7 = protocol_copyPropertyList2(v3, &v13, 0, 1);
-    v6 = v13;
+    v7 = protocol_copyPropertyList2(v3, &v14, 0, 1);
+    v6 = v14;
   }
 
   else
@@ -1934,14 +1878,16 @@ id MTProtocolGetProperties(void *a1, char a2)
         v10 = v5;
       }
 
-      v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:property_getName(v10[v9 - v8])];
-      [v4 addObject:v11];
+      v11 = MEMORY[0x1E696AEC0];
+      property_getName(v10[v9 - v8]);
+      v12 = [v11 stringWithUTF8String:?];
+      [v4 addObject:?];
 
       ++v9;
       v8 = outCount;
     }
 
-    while (v9 < v13 + outCount);
+    while (v9 < v14 + outCount);
   }
 
   if (v5)
@@ -1959,25 +1905,23 @@ id MTProtocolGetProperties(void *a1, char a2)
 
 void __MTCAFilterCurvesInputValuesKeys_block_invoke()
 {
-  v5[4] = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E6979B38];
-  v5[0] = *MEMORY[0x1E6979BB0];
-  v5[1] = v0;
+  v4 = *MEMORY[0x1E6979BB0];
+  v5 = v0;
   v1 = *MEMORY[0x1E6979988];
-  v5[2] = *MEMORY[0x1E6979A28];
-  v5[3] = v1;
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:4];
+  v6 = *MEMORY[0x1E6979A28];
+  v7 = v1;
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:? count:?];
   v3 = MTCAFilterCurvesInputValuesKeys___curvesFilterInputValuesKeys;
   MTCAFilterCurvesInputValuesKeys___curvesFilterInputValuesKeys = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t MTDimensionsForContinuousCornerRadiusInBounds(uint64_t result)
+void *MTDimensionsForContinuousCornerRadiusInBounds(void *result)
 {
   if (result)
   {
-    return [MEMORY[0x1E6979398] cornerCurveExpansionFactor:{*MEMORY[0x1E69796E8], 1.0}];
+    return [MEMORY[0x1E6979398] cornerCurveExpansionFactor:?];
   }
 
   return result;
@@ -2007,10 +1951,11 @@ void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, os_log_t log, const char *a4, ..
   _os_log_debug_impl(a1, log, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
 float32x4_t MTCAColorMatrixInterpolate@<Q0>(float32x4_t *a1@<X0>, float32x4_t *a2@<X1>, float32x4_t *a3@<X8>, double a4@<D0>)
@@ -2041,92 +1986,29 @@ float32x4_t MTCAColorMatrixInterpolate@<Q0>(float32x4_t *a1@<X0>, float32x4_t *a
 
 id MTCAColorMatrixCreateDictionaryRepresentation(_DWORD *a1, double a2)
 {
-  v46[20] = *MEMORY[0x1E69E9840];
-  v45[0] = @"m11";
-  LODWORD(a2) = *a1;
-  v44 = [MEMORY[0x1E696AD98] numberWithFloat:a2];
-  v46[0] = v44;
-  v45[1] = @"m12";
-  LODWORD(v3) = a1[1];
-  v43 = [MEMORY[0x1E696AD98] numberWithFloat:v3];
-  v46[1] = v43;
-  v45[2] = @"m13";
-  LODWORD(v4) = a1[2];
-  v42 = [MEMORY[0x1E696AD98] numberWithFloat:v4];
-  v46[2] = v42;
-  v45[3] = @"m14";
-  LODWORD(v5) = a1[3];
-  v41 = [MEMORY[0x1E696AD98] numberWithFloat:v5];
-  v46[3] = v41;
-  v45[4] = @"m15";
-  LODWORD(v6) = a1[4];
-  v40 = [MEMORY[0x1E696AD98] numberWithFloat:v6];
-  v46[4] = v40;
-  v45[5] = @"m21";
-  LODWORD(v7) = a1[5];
-  v39 = [MEMORY[0x1E696AD98] numberWithFloat:v7];
-  v46[5] = v39;
-  v45[6] = @"m22";
-  LODWORD(v8) = a1[6];
-  v38 = [MEMORY[0x1E696AD98] numberWithFloat:v8];
-  v46[6] = v38;
-  v45[7] = @"m23";
-  LODWORD(v9) = a1[7];
-  v37 = [MEMORY[0x1E696AD98] numberWithFloat:v9];
-  v46[7] = v37;
-  v45[8] = @"m24";
-  LODWORD(v10) = a1[8];
-  v36 = [MEMORY[0x1E696AD98] numberWithFloat:v10];
-  v46[8] = v36;
-  v45[9] = @"m25";
-  LODWORD(v11) = a1[9];
-  v35 = [MEMORY[0x1E696AD98] numberWithFloat:v11];
-  v46[9] = v35;
-  v45[10] = @"m31";
-  LODWORD(v12) = a1[10];
-  v34 = [MEMORY[0x1E696AD98] numberWithFloat:v12];
-  v46[10] = v34;
-  v45[11] = @"m32";
-  LODWORD(v13) = a1[11];
-  v14 = [MEMORY[0x1E696AD98] numberWithFloat:v13];
-  v46[11] = v14;
-  v45[12] = @"m33";
-  LODWORD(v15) = a1[12];
-  v16 = [MEMORY[0x1E696AD98] numberWithFloat:v15];
-  v46[12] = v16;
-  v45[13] = @"m34";
-  LODWORD(v17) = a1[13];
-  v18 = [MEMORY[0x1E696AD98] numberWithFloat:v17];
-  v46[13] = v18;
-  v45[14] = @"m35";
-  LODWORD(v19) = a1[14];
-  v20 = [MEMORY[0x1E696AD98] numberWithFloat:v19];
-  v46[14] = v20;
-  v45[15] = @"m41";
-  LODWORD(v21) = a1[15];
-  v22 = [MEMORY[0x1E696AD98] numberWithFloat:v21];
-  v46[15] = v22;
-  v45[16] = @"m42";
-  LODWORD(v23) = a1[16];
-  v24 = [MEMORY[0x1E696AD98] numberWithFloat:v23];
-  v46[16] = v24;
-  v45[17] = @"m43";
-  LODWORD(v25) = a1[17];
-  v26 = [MEMORY[0x1E696AD98] numberWithFloat:v25];
-  v46[17] = v26;
-  v45[18] = @"m44";
-  LODWORD(v27) = a1[18];
-  v28 = [MEMORY[0x1E696AD98] numberWithFloat:v27];
-  v46[18] = v28;
-  v45[19] = @"m45";
-  LODWORD(v29) = a1[19];
-  v30 = [MEMORY[0x1E696AD98] numberWithFloat:v29];
-  v46[19] = v30;
-  v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:v45 count:20];
+  v4 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+  v5 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+  v6 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+  v7 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+  v8 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+  v9 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+  v10 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+  v11 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+  v12 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+  v13 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+  v14 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+  v15 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+  v16 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+  v17 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+  v18 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+  v19 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+  v20 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+  v21 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+  v22 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+  v23 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
 
-  v32 = *MEMORY[0x1E69E9840];
-
-  return v31;
+  return v2;
 }
 
 CGFloat MTCGColorPerceivedLightness(CGColor *a1)
@@ -2170,51 +2052,57 @@ BOOL _CanGenerateVisualStylingDescriptionFromConfigurationSettings(void *a1)
   v2 = MEMORY[0x1E696AD98];
   [v1 luminanceAmount];
   v3 = [v2 numberWithDouble:?];
-  v4 = [v3 mt_isIdentityValueForMaterialSettingsProperty:@"luminanceAmount"];
+  v4 = [v3 mt_isIdentityValueForMaterialSettingsProperty:?];
 
-  v5 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v1, "isAverageColorEnabled")}];
-  v6 = [v5 mt_isIdentityValueForMaterialSettingsProperty:@"averageColorEnabled"];
+  v5 = MEMORY[0x1E696AD98];
+  [v1 isAverageColorEnabled];
+  v6 = [v5 numberWithBool:?];
+  v7 = [v6 mt_isIdentityValueForMaterialSettingsProperty:?];
 
-  v7 = [v1 curvesValues];
+  v8 = [v1 curvesValues];
 
-  v8 = MEMORY[0x1E696AD98];
+  v9 = MEMORY[0x1E696AD98];
   [v1 saturation];
-  v9 = [v8 numberWithDouble:?];
-  v10 = [v9 mt_isIdentityValueForMaterialSettingsProperty:@"saturation"];
+  v10 = [v9 numberWithDouble:?];
+  v11 = [v10 mt_isIdentityValueForMaterialSettingsProperty:?];
 
-  v11 = MEMORY[0x1E696AD98];
+  v12 = MEMORY[0x1E696AD98];
   [v1 brightness];
-  v12 = [v11 numberWithDouble:?];
-  v13 = [v12 mt_isIdentityValueForMaterialSettingsProperty:@"brightness"];
+  v13 = [v12 numberWithDouble:?];
+  v14 = [v13 mt_isIdentityValueForMaterialSettingsProperty:?];
 
-  v14 = [v1 tintColorDescription];
+  v15 = [v1 tintColorDescription];
 
-  v15 = MEMORY[0x1E696B098];
+  v16 = MEMORY[0x1E696B098];
   if (v1)
   {
-    [v1 colorMatrix];
+    [&v22 colorMatrix];
   }
 
   else
   {
-    memset(v21, 0, sizeof(v21));
+    v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    v22 = 0u;
   }
 
-  v16 = v7 != 0;
-  v17 = [v15 valueWithBytes:v21 objCType:"{CAColorMatrix=ffffffffffffffffffff}"];
-  v18 = [v17 mt_isIdentityValueForMaterialSettingsProperty:@"colorMatrix"];
+  v17 = v8 != 0;
+  v18 = [v16 valueWithBytes:v22 objCType:{v23, v24, v25, v26}];
+  v19 = [v18 mt_isIdentityValueForMaterialSettingsProperty:?];
 
-  if ((v1 == 0) | (v4 ^ 1) & 1 | (v6 ^ 1 | v16) & 1 | (v14 != 0) | ((v18 & 1) == 0))
+  if ((v1 == 0) | (v4 ^ 1) & 1 | (v7 ^ 1 | v17) & 1 | (v15 != 0) | ((v19 & 1) == 0))
   {
-    v19 = (v1 == 0) | v4 ^ 1 | v6 ^ 1 | v16;
+    v20 = (v1 == 0) | v4 ^ 1 | v7 ^ 1 | v17;
   }
 
   else
   {
-    v19 = v10 & v13;
+    v20 = v11 & v14;
   }
 
-  return (v19 & 1) == 0;
+  return (v20 & 1) == 0;
 }
 
 uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
@@ -2244,24 +2132,24 @@ float32x4_t _MTCAColorMatrixFloydRound@<Q0>(float32x4_t *a1@<X0>, float32x4_t *a
 void MTCAColorMatrixMakeWithVibrantShadowAttributes(float32x4_t *a1@<X8>, float a2@<S0>)
 {
   MTFloatIsZero(fmaxf(fminf(a2, 0.99902), -0.99902));
-  v3 = *(MEMORY[0x1E6979280] + 48);
-  v12 = *(MEMORY[0x1E6979280] + 32);
-  v13 = v3;
-  v14 = *(MEMORY[0x1E6979280] + 64);
-  v4 = *(MEMORY[0x1E6979280] + 16);
-  v10 = *MEMORY[0x1E6979280];
-  v7 = v12;
-  v8 = v3;
+  v7 = *(MEMORY[0x1E6979280] + 48);
+  v16 = *(MEMORY[0x1E6979280] + 32);
+  v17 = v7;
+  v18 = *(MEMORY[0x1E6979280] + 64);
+  v8 = *(MEMORY[0x1E6979280] + 16);
+  v14 = *MEMORY[0x1E6979280];
+  v11 = v16;
+  v12 = v7;
+  v13 = v18;
   v9 = v14;
-  v5 = v10;
-  v6 = v4;
+  v10 = v8;
   CAColorMatrixConcat();
   CAColorMatrixConcat();
   CAColorMatrixConcat();
   CAColorMatrixConcat();
-  v13 = v8;
-  v11 = v6;
-  _MTCAColorMatrixFloydRound(&v5, a1);
+  v17 = v12;
+  v15 = v10;
+  _MTCAColorMatrixFloydRound(&v9, a1);
 }
 
 CGColorSpaceRef __RGBColorSpace_block_invoke()
@@ -2271,9 +2159,9 @@ CGColorSpaceRef __RGBColorSpace_block_invoke()
   return result;
 }
 
-void sub_1BF537878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BF537878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2282,7 +2170,7 @@ BOOL _CanGenerateMaterialDescriptionForFilteringFromVisualStyling(void *a1)
 {
   v1 = a1;
   v2 = [v1 filterType];
-  if ([v2 isEqualToString:*MEMORY[0x1E6979D78]])
+  if ([v2 isEqualToString:?])
   {
     v3 = [v1 filterProperties];
     v4 = v3 != 0;
@@ -2296,7 +2184,7 @@ BOOL _CanGenerateMaterialDescriptionForFilteringFromVisualStyling(void *a1)
   return v4;
 }
 
-uint64_t MTSupportsDeepColor()
+uint64_t MTSupportsDeepColor(uint64_t a1, uint64_t a2)
 {
   if (MTSupportsDeepColor_onceToken != -1)
   {
@@ -2313,86 +2201,92 @@ uint64_t __MTSupportsDeepColor_block_invoke()
   return result;
 }
 
-double MTEdgeOutsetsForCoreMaterialShadowProperties(double *a1, double a2)
+double MTEdgeOutsetsForCoreMaterialShadowProperties(uint64_t a1, double a2)
 {
-  v2 = a1[3];
-  v3 = a1[2] * a2;
+  v2 = *(a1 + 24);
+  v3 = *(a1 + 16) * a2;
   if (-(v3 - v2 * a2) >= 1.0)
   {
-    v4 = -(v3 - v2 * a2);
+    return -(v3 - v2 * a2);
   }
 
   else
   {
-    v4 = 1.0;
+    return 1.0;
   }
-
-  v5 = a1[1] * a2;
-  return v4;
 }
 
-CGImageRef MTShadowImageCreateWithCoreMaterialShadowProperties(uint64_t a1, int a2, double *a3, CGFloat a4, double a5, double a6, double a7)
+CGImageRef MTShadowImageCreateWithCoreMaterialShadowProperties(double *a1, int a2, double *a3, CGFloat a4, double a5, double a6, double a7)
 {
-  if (*(a1 + 24) <= 0.0)
+  if (a1[3] <= 0.0)
   {
     return 0;
   }
 
-  v14 = MEMORY[0x1E69796E8];
-  v15 = 1.0;
+  v13 = 1.0;
   if (a2)
   {
-    [MEMORY[0x1E6979398] cornerCurveExpansionFactor:{*MEMORY[0x1E69796E8], 1.0}];
+    [MEMORY[0x1E6979398] cornerCurveExpansionFactor:?];
   }
 
-  v55 = a5;
-  v16 = ceil(v15 * a5 * a4) / a4;
-  if (v16 >= a6 * 0.5)
+  v14 = ceil(v13 * a5 * a4) / a4;
+  if (v14 >= a6 * 0.5)
   {
-    v17 = a6 * 0.5;
-  }
-
-  else
-  {
-    v17 = v16;
-  }
-
-  if (v16 >= a7 * 0.5)
-  {
-    v18 = a7 * 0.5;
+    v15 = a6 * 0.5;
   }
 
   else
   {
-    v18 = v16;
+    v15 = v14;
   }
 
-  if (MTFloatEqualToFloat(v17 + v17, a6))
+  if (v14 >= a7 * 0.5)
   {
-    v19 = 0.0;
-  }
-
-  else
-  {
-    v19 = 1.0 / a4;
-  }
-
-  v54 = v19;
-  if (MTFloatEqualToFloat(v18 + v18, a7))
-  {
-    v20 = 0.0;
+    v16 = a7 * 0.5;
   }
 
   else
   {
-    v20 = 1.0 / a4;
+    v16 = v14;
   }
 
-  v21 = *(a1 + 24);
-  v22 = *(a1 + 16) * a4;
-  if (-(v22 - v21 * a4) >= 1.0)
+  if (MTFloatEqualToFloat(v15 + v15, a6))
   {
-    v23 = -(v22 - v21 * a4);
+    v17 = 0.0;
+  }
+
+  else
+  {
+    v17 = 1.0 / a4;
+  }
+
+  v45 = v17;
+  if (MTFloatEqualToFloat(v16 + v16, a7))
+  {
+    v18 = 0.0;
+  }
+
+  else
+  {
+    v18 = 1.0 / a4;
+  }
+
+  v19 = a1[3];
+  v20 = a1[2] * a4;
+  if (-(v20 - v19 * a4) >= 1.0)
+  {
+    v21 = -(v20 - v19 * a4);
+  }
+
+  else
+  {
+    v21 = 1.0;
+  }
+
+  v22 = a1[1] * a4;
+  if (-(v22 - v19 * a4) >= 1.0)
+  {
+    v23 = -(v22 - v19 * a4);
   }
 
   else
@@ -2400,10 +2294,10 @@ CGImageRef MTShadowImageCreateWithCoreMaterialShadowProperties(uint64_t a1, int 
     v23 = 1.0;
   }
 
-  v24 = *(a1 + 8) * a4;
-  if (-(v24 - v21 * a4) >= 1.0)
+  v24 = v20 + v19 * a4;
+  if (v24 >= 1.0)
   {
-    v25 = -(v24 - v21 * a4);
+    v25 = v24;
   }
 
   else
@@ -2411,7 +2305,7 @@ CGImageRef MTShadowImageCreateWithCoreMaterialShadowProperties(uint64_t a1, int 
     v25 = 1.0;
   }
 
-  v26 = v22 + v21 * a4;
+  v26 = v22 + v19 * a4;
   if (v26 >= 1.0)
   {
     v27 = v26;
@@ -2422,107 +2316,88 @@ CGImageRef MTShadowImageCreateWithCoreMaterialShadowProperties(uint64_t a1, int 
     v27 = 1.0;
   }
 
-  v28 = v24 + v21 * a4;
-  if (v28 >= 1.0)
-  {
-    v29 = v28;
-  }
-
-  else
-  {
-    v29 = 1.0;
-  }
-
-  v50 = v17;
-  v30 = v54 + v17 * 2.0;
-  v31 = v20 + v18 * 2.0;
-  v51 = -v25;
-  v57.origin.x = v25;
-  v57.origin.y = v23;
-  v57.size.width = v30;
-  v57.size.height = v31;
-  v49 = v29;
-  v32 = v29 + CGRectGetWidth(v57) + v25;
-  v52 = v30;
-  v53 = v25;
-  v58.origin.x = v25;
-  v58.origin.y = v23;
-  v58.size.width = v30;
-  v58.size.height = v31;
-  v33 = v27 + CGRectGetHeight(v58) + v23;
-  v34 = (v33 * a4);
+  v44 = v15;
+  v28 = v45 + v15 * 2.0;
+  v29 = v18 + v16 * 2.0;
+  v47.origin.x = v23;
+  v47.origin.y = v21;
+  v47.size.width = v28;
+  v47.size.height = v29;
+  v43 = v27;
+  v30 = v27 + CGRectGetWidth(v47) + v23;
+  v48.origin.x = v23;
+  v48.origin.y = v21;
+  v48.size.width = v28;
+  v48.size.height = v29;
+  v31 = v25 + CGRectGetHeight(v48) + v21;
+  v32 = (v31 * a4);
   AlignedBytesPerRow = CGBitmapGetAlignedBytesPerRow();
-  v36 = CGBitmapContextCreate(0, (v32 * a4), v34, 8uLL, AlignedBytesPerRow, 0, 7u);
-  v37 = v36;
-  if (v36)
+  v34 = CGBitmapContextCreate(0, (v30 * a4), v32, 8uLL, AlignedBytesPerRow, 0, 7u);
+  v35 = v34;
+  if (v34)
   {
-    v59.size.width = (v32 * a4);
-    v59.origin.x = 0.0;
-    v59.origin.y = 0.0;
-    v59.size.height = v34;
-    CGContextClearRect(v36, v59);
-    CGContextTranslateCTM(v37, 0.0, v34);
-    CGContextScaleCTM(v37, a4, -a4);
-    CGContextGetCTM(&v56, v37);
+    v49.size.width = (v30 * a4);
+    v49.origin.x = 0.0;
+    v49.origin.y = 0.0;
+    v49.size.height = v32;
+    CGContextClearRect(v34, v49);
+    CGContextTranslateCTM(v35, 0.0, v32);
+    CGContextScaleCTM(v35, a4, -a4);
+    CGContextGetCTM(&v46, v35);
     CGContextSetBaseCTM();
   }
 
-  v38 = objc_alloc_init(MEMORY[0x1E6979398]);
-  v60.origin.x = -v25;
-  v60.origin.y = -v23;
-  v60.size.width = v32;
-  v60.size.height = v33;
-  Width = CGRectGetWidth(v60);
-  v61.origin.x = v51;
-  v61.origin.y = -v23;
-  v61.size.width = v32;
-  v61.size.height = v33;
-  [v38 setFrame:{0.0, 0.0, Width, CGRectGetHeight(v61)}];
-  v40 = objc_alloc_init(MEMORY[0x1E6979398]);
-  [v38 addSublayer:v40];
-  [v40 setFrame:{v53, v23, v52, v31}];
-  v41 = +[MTColor blackColor];
-  [v40 setBackgroundColor:{objc_msgSend(v41, "CGColor")}];
+  v36 = objc_alloc_init(MEMORY[0x1E6979398]);
+  v50.origin.x = -v23;
+  v50.origin.y = -v21;
+  v50.size.width = v30;
+  v50.size.height = v31;
+  CGRectGetWidth(v50);
+  v51.origin.x = -v23;
+  v51.origin.y = -v21;
+  v51.size.width = v30;
+  v51.size.height = v31;
+  CGRectGetHeight(v51);
+  [v36 setFrame:?];
+  v37 = objc_alloc_init(MEMORY[0x1E6979398]);
+  [v36 addSublayer:?];
+  [v37 setFrame:?];
+  v38 = +[MTColor blackColor];
+  [v38 CGColor];
+  [v37 setBackgroundColor:?];
 
-  v42 = MEMORY[0x1E69796E0];
-  if (a2)
-  {
-    v42 = v14;
-  }
+  [v37 setCornerCurve:?];
+  [v37 setCornerRadius:?];
+  [v37 setShadowOpacity:?];
+  [v37 setShadowOffset:?];
+  [v37 setShadowRadius:?];
+  [v36 renderInContext:?];
+  v39 = objc_alloc_init(MEMORY[0x1E6979398]);
+  [v39 setFrame:?];
+  v40 = +[MTColor blackColor];
+  [v40 CGColor];
+  [v39 setBackgroundColor:?];
 
-  v43 = *v42;
-  [v40 setCornerCurve:*v42];
-  [v40 setCornerRadius:v55];
-  LODWORD(v44) = *a1;
-  [v40 setShadowOpacity:v44];
-  [v40 setShadowOffset:{*(a1 + 8), *(a1 + 16)}];
-  [v40 setShadowRadius:*(a1 + 24)];
-  [v38 renderInContext:v37];
-  v45 = objc_alloc_init(MEMORY[0x1E6979398]);
-  [v45 setFrame:{v53, v23, v52, v31}];
-  v46 = +[MTColor blackColor];
-  [v45 setBackgroundColor:{objc_msgSend(v46, "CGColor")}];
-
-  [v45 setCornerCurve:v43];
-  [v45 setCornerRadius:v55];
-  CGContextSetBlendMode(v37, kCGBlendModeClear);
-  [v40 removeFromSuperlayer];
-  [v38 addSublayer:v45];
-  [v38 renderInContext:v37];
-  Image = CGBitmapContextCreateImage(v37);
-  CGContextRelease(v37);
+  [v39 setCornerCurve:?];
+  [v39 setCornerRadius:?];
+  CGContextSetBlendMode(v35, kCGBlendModeClear);
+  [v37 removeFromSuperlayer];
+  [v36 addSublayer:?];
+  [v36 renderInContext:?];
+  Image = CGBitmapContextCreateImage(v35);
+  CGContextRelease(v35);
   if (a3)
   {
-    *a3 = v18 + v23;
-    a3[1] = v50 + v53;
-    a3[2] = v18 + v27;
-    a3[3] = v50 + v49;
+    *a3 = v16 + v21;
+    a3[1] = v44 + v23;
+    a3[2] = v16 + v25;
+    a3[3] = v44 + v43;
   }
 
   return Image;
 }
 
-uint64_t MTDefaultLuminanceColorMap()
+uint64_t MTDefaultLuminanceColorMap(uint64_t a1, uint64_t a2)
 {
   if (MTDefaultLuminanceColorMap_onceToken != -1)
   {
@@ -2539,219 +2414,148 @@ CGImageRef __MTDefaultLuminanceColorMap_block_invoke()
   return result;
 }
 
-IOSurfaceRef MTIOSurfaceCreate(char a1, double a2, double a3)
+IOSurfaceRef MTIOSurfaceCreate(uint64_t a1, uint64_t a2, double a3, double a4)
 {
-  v54 = *MEMORY[0x1E69E9840];
-  v6 = MTSupportsDeepColor();
-  v7 = a2;
-  if (v6)
+  v4 = a1;
+  if (MTSupportsDeepColor(a1, a2))
   {
-    if ((a1 & 1) == 0)
+    if ((v4 & 1) == 0)
     {
-      v24 = llroundf(v7);
-      v25 = a3;
-      v26 = llroundf(v25);
-      v27 = *MEMORY[0x1E696CE58];
-      v28 = MEMORY[0x1BFB5A970](*MEMORY[0x1E696CE58], 4 * v24);
-      v29 = v28 * v26;
-      v13 = _makeIOSurfacePlaneProperties(v24, v26, v28, 0, v28 * v26);
-      v30 = MEMORY[0x1BFB5A970](v27, v24);
-      v31 = v30 * v26;
-      v14 = _makeIOSurfacePlaneProperties(v24, v26, v30, v29, v30 * v26);
-      v42 = *MEMORY[0x1E696D130];
-      v32 = [MEMORY[0x1E696AD98] numberWithLong:v24];
-      v48 = v32;
-      v43 = *MEMORY[0x1E696CF58];
-      v33 = [MEMORY[0x1E696AD98] numberWithLong:v26];
-      v34 = *MEMORY[0x1E696CFC0];
-      v49 = v33;
-      v50 = &unk_1F3E01800;
-      v35 = *MEMORY[0x1E696D0A8];
-      v44 = v34;
-      v45 = v35;
-      v41[0] = v13;
-      v41[1] = v14;
-      v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:2];
-      v51 = v36;
-      v46 = *MEMORY[0x1E696CE30];
-      v37 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v31 + v29];
-      v52 = v37;
-      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v48 forKeys:&v42 count:5];
+      v7 = a3;
+      v11 = llroundf(v7);
+      v12 = a4;
+      v13 = llroundf(v12);
+      v14 = *MEMORY[0x1E696CE58];
+      v15 = MEMORY[0x1BFB5A970](*MEMORY[0x1E696CE58], 4 * v11);
+      v16 = v15 * v13;
+      v8 = _makeIOSurfacePlaneProperties(v11, v13, v15, 0, v15 * v13);
+      v17 = MEMORY[0x1BFB5A970](v14, v11);
+      v9 = _makeIOSurfacePlaneProperties(v11, v13, v17, v16, v17 * v13);
+      v20 = [MEMORY[0x1E696AD98] numberWithLong:?];
+      v21 = [MEMORY[0x1E696AD98] numberWithLong:?];
+      v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:? count:?];
+      v24 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:?];
+      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
 
       goto LABEL_7;
     }
 
-    v8 = llroundf(v7);
-    v9 = a3;
-    v10 = llroundf(v9);
-    AlignedBytesPerRow = CGBitmapGetAlignedBytesPerRow();
-    v12 = (AlignedBytesPerRow * v10);
-    v42 = *MEMORY[0x1E696D130];
-    v13 = [MEMORY[0x1E696AD98] numberWithInt:v8];
-    v48 = v13;
-    v43 = *MEMORY[0x1E696CF58];
-    v14 = [MEMORY[0x1E696AD98] numberWithInt:v10];
-    v49 = v14;
-    v50 = &unk_1F3E017D0;
-    v15 = *MEMORY[0x1E696CE50];
-    v44 = *MEMORY[0x1E696CFC0];
-    v45 = v15;
-    v16 = &unk_1F3E017E8;
+    CGBitmapGetAlignedBytesPerRow();
+    v8 = [MEMORY[0x1E696AD98] numberWithInt:?];
+    v9 = [MEMORY[0x1E696AD98] numberWithInt:?];
   }
 
   else
   {
-    v17 = llroundf(v7);
-    v18 = a3;
-    v19 = llroundf(v18);
-    AlignedBytesPerRow = CGBitmapGetAlignedBytesPerRow();
-    v12 = (AlignedBytesPerRow * v19);
-    v42 = *MEMORY[0x1E696D130];
-    v13 = [MEMORY[0x1E696AD98] numberWithLong:v17];
-    v48 = v13;
-    v43 = *MEMORY[0x1E696CF58];
-    v14 = [MEMORY[0x1E696AD98] numberWithLong:v19];
-    v49 = v14;
-    v50 = &unk_1F3E01818;
-    v20 = *MEMORY[0x1E696CE50];
-    v44 = *MEMORY[0x1E696CFC0];
-    v45 = v20;
-    v16 = &unk_1F3E01830;
+    CGBitmapGetAlignedBytesPerRow();
+    v8 = [MEMORY[0x1E696AD98] numberWithLong:?];
+    v9 = [MEMORY[0x1E696AD98] numberWithLong:?];
   }
 
-  v51 = v16;
-  v46 = *MEMORY[0x1E696CE58];
-  v21 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:AlignedBytesPerRow];
-  v52 = v21;
-  v47 = *MEMORY[0x1E696CE30];
-  v22 = [MEMORY[0x1E696AD98] numberWithInt:v12];
-  v53 = v22;
-  v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v48 forKeys:&v42 count:6];
+  v23 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:?];
+  v25 = [MEMORY[0x1E696AD98] numberWithInt:?];
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
 
 LABEL_7:
-  v38 = IOSurfaceCreate(v23);
+  v18 = IOSurfaceCreate(v10);
 
-  v39 = *MEMORY[0x1E69E9840];
-  return v38;
+  return v18;
 }
 
 id _makeIOSurfacePlaneProperties(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v18[5] = *MEMORY[0x1E69E9840];
-  v17[0] = *MEMORY[0x1E696D0C8];
-  v9 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:a1];
-  v18[0] = v9;
-  v17[1] = *MEMORY[0x1E696D090];
-  v10 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:a2];
-  v18[1] = v10;
-  v17[2] = *MEMORY[0x1E696CFE8];
-  v11 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:a3];
-  v18[2] = v11;
-  v17[3] = *MEMORY[0x1E696D0B0];
-  v12 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:a4];
-  v18[3] = v12;
-  v17[4] = *MEMORY[0x1E696D0B8];
-  v13 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:a5];
-  v18[4] = v13;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:5];
+  v7 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:?];
+  v8 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:?];
+  v9 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:?];
+  v10 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:?];
+  v11 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:?];
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
 
-  v15 = *MEMORY[0x1E69E9840];
-
-  return v14;
+  return v5;
 }
 
-id MTDiscoveredMaterialRecipes()
+id MTDiscoveredMaterialRecipes(uint64_t a1)
 {
   if (MTDiscoveredMaterialRecipes_onceToken != -1)
   {
     MTDiscoveredMaterialRecipes_cold_1();
   }
 
-  v1 = MTDiscoveredMaterialRecipes___materialRecipes;
+  v2 = MTDiscoveredMaterialRecipes___materialRecipes;
 
-  return v1;
+  return v2;
 }
 
 void __MTDiscoveredMaterialRecipes_block_invoke()
 {
-  v29 = *MEMORY[0x1E69E9840];
   v0 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
   if (_DiscoveredMaterialRecipeURLs_onceToken != -1)
   {
     __MTDiscoveredMaterialRecipes_block_invoke_cold_1();
   }
 
   obj = _DiscoveredMaterialRecipeURLs___discoveredMaterialRecipeURLs;
-  v17 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
-  if (v17)
+  v15 = [obj countByEnumeratingWithState:? objects:? count:?];
+  if (v15)
   {
-    v16 = *v24;
+    v14 = MEMORY[0];
     do
     {
       v1 = 0;
       do
       {
-        if (*v24 != v16)
+        if (MEMORY[0] != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v2 = [*(*(&v23 + 1) + 8 * v1) lastPathComponent];
+        v2 = [*(8 * v1) lastPathComponent];
         v3 = [v2 stringByDeletingPathExtension];
 
-        v21 = 0u;
-        v22 = 0u;
-        v19 = 0u;
-        v20 = 0u;
         if (_LoadCoreMaterialRecipeNames_onceToken != -1)
         {
           __MTDiscoveredMaterialRecipes_block_invoke_cold_2();
         }
 
         v4 = __coreMaterialRecipeNames;
-        v5 = [v4 countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v5 = [v4 countByEnumeratingWithState:? objects:? count:?];
         if (!v5)
         {
 
 LABEL_22:
-          [v0 addObject:v3];
+          [v0 addObject:?];
           goto LABEL_23;
         }
 
         v6 = v5;
-        v18 = v1;
+        v16 = v1;
         v7 = 0;
-        v8 = *v20;
+        v8 = MEMORY[0];
         do
         {
-          for (i = 0; i != v6; ++i)
+          for (i = 0; i != v6; i = (i + 1))
           {
-            if (*v20 != v8)
+            if (MEMORY[0] != v8)
             {
               objc_enumerationMutation(v4);
             }
 
-            v10 = *(*(&v19 + 1) + 8 * i);
-            v11 = _RecipeNameForCoreMaterialRecipe(v10);
-            v12 = [v3 isEqualToString:v11];
+            v10 = _RecipeNameForCoreMaterialRecipe(*(8 * i));
+            v11 = [v3 isEqualToString:?];
 
-            if (v12)
+            if (v11)
             {
-              [v0 addObject:v10];
+              [v0 addObject:?];
               v7 = 1;
             }
           }
 
-          v6 = [v4 countByEnumeratingWithState:&v19 objects:v27 count:16];
+          v6 = [v4 countByEnumeratingWithState:? objects:? count:?];
         }
 
         while (v6);
 
-        v1 = v18;
+        v1 = v16;
         if ((v7 & 1) == 0)
         {
           goto LABEL_22;
@@ -2759,20 +2563,18 @@ LABEL_22:
 
 LABEL_23:
 
-        ++v1;
+        v1 = (v1 + 1);
       }
 
-      while (v1 != v17);
-      v17 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+      while (v1 != v15);
+      v15 = [obj countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v17);
+    while (v15);
   }
 
-  v13 = MTDiscoveredMaterialRecipes___materialRecipes;
+  v12 = MTDiscoveredMaterialRecipes___materialRecipes;
   MTDiscoveredMaterialRecipes___materialRecipes = v0;
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 id _MTCoreMaterialRecipeForVisualStyleFromStyleWithNameFromBundleWithProvidedStyles(void *a1, void *a2, void *a3, void *a4)
@@ -2791,20 +2593,20 @@ id _MTCoreMaterialRecipeForVisualStyleFromStyleWithNameFromBundleWithProvidedSty
     if (v14)
     {
       v16 = [v14 visualStyleSetName];
-      v17 = [MTVisualStyleSet recipeNameForRecipeFromStyle:v13 fromStyleSetWithName:v16];
+      v17 = [MTVisualStyleSet recipeNameForRecipeFromStyle:"recipeNameForRecipeFromStyle:fromStyleSetWithName:" fromStyleSetWithName:?];
 
       v18 = _RecipeNamesToSharedInstances();
-      v19 = [v18 objectForKey:v17];
+      v19 = [v18 objectForKey:?];
       if (!v19)
       {
         if (objc_opt_respondsToSelector())
         {
-          v19 = [v14 _newMaterialSettingsForStyle:v13 withProvidedStyles:v15];
+          v19 = [v14 _newMaterialSettingsForStyle:? withProvidedStyles:?];
           if (v19)
           {
             obj = v18;
             objc_sync_enter(obj);
-            [obj setObject:v19 forKey:v17];
+            [obj setObject:? forKey:?];
             objc_sync_exit(obj);
           }
         }
@@ -2841,7 +2643,7 @@ id MTCoreMaterialRecipeForVisualStyleFromRecipeFromBundle(void *a1, void *a2, vo
   v8 = a3;
   v9 = a2;
   v10 = _SharedMaterialSettingsForRecipeWithNameFromBundle(a1, v7);
-  v11 = [v10 styleNameForCategory:v9];
+  v11 = [v10 styleNameForCategory:?];
 
   v17[0] = MEMORY[0x1E69E9820];
   v17[1] = 3221225472;
@@ -2850,7 +2652,7 @@ id MTCoreMaterialRecipeForVisualStyleFromRecipeFromBundle(void *a1, void *a2, vo
   v18 = v10;
   v12 = v10;
   v13 = MEMORY[0x1BFB5AC50](v17);
-  v14 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:3];
+  v14 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:?];
   (v13)[2](v13, @"stroke", v14);
   (v13)[2](v13, @"fill", v14);
   (v13)[2](v13, @"overlay", v14);
@@ -2863,14 +2665,14 @@ void __MTCoreMaterialRecipeForVisualStyleFromRecipeFromBundle_block_invoke(uint6
 {
   v7 = a2;
   v5 = a3;
-  v6 = [*(a1 + 32) styleNameForCategory:v7];
+  v6 = [*(a1 + 32) styleNameForCategory:?];
   if (v6)
   {
-    [v5 setObject:v6 forKey:v7];
+    [v5 setObject:? forKey:?];
   }
 }
 
-id MTSharedVisualStyleSetGeneratedFromRecipe(void *a1)
+void *MTSharedVisualStyleSetGeneratedFromRecipe(void *a1)
 {
   v1 = a1;
   if (v1)
@@ -2890,9 +2692,9 @@ id MTSharedVisualStyleSetGeneratedFromRecipe(void *a1)
 
     v6 = v5;
 
-    v7 = [MTRecipeMaterialSettings styleSetNameForStyleSetFromRecipeWithName:v6];
-    v8 = _StylesToSharedInstances();
-    v9 = [v8 objectForKey:v7];
+    v7 = [MTRecipeMaterialSettings styleSetNameForStyleSetFromRecipeWithName:?];
+    v8 = _StylesToSharedInstances(v7);
+    v9 = [v8 objectForKey:?];
     if (!v9)
     {
       v10 = MTMaterialSettingsForRecipeFromBundle(v6, 0);
@@ -2903,7 +2705,7 @@ id MTSharedVisualStyleSetGeneratedFromRecipe(void *a1)
         {
           v11 = v8;
           objc_sync_enter(v11);
-          [v11 setObject:v9 forKey:v7];
+          [v11 setObject:? forKey:?];
           objc_sync_exit(v11);
         }
       }
@@ -2924,35 +2726,31 @@ id MTSharedVisualStyleSetGeneratedFromRecipe(void *a1)
   return v9;
 }
 
-id MTAllVisualStyleCategories()
+id MTAllVisualStyleCategories(uint64_t a1)
 {
   if (MTAllVisualStyleCategories_onceToken != -1)
   {
     MTAllVisualStyleCategories_cold_1();
   }
 
-  v1 = MTAllVisualStyleCategories___categories;
+  v2 = MTAllVisualStyleCategories___categories;
 
-  return v1;
+  return v2;
 }
 
 void __MTAllVisualStyleCategories_block_invoke()
 {
-  v3[3] = *MEMORY[0x1E69E9840];
-  v3[0] = @"stroke";
-  v3[1] = @"fill";
-  v3[2] = @"overlay";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:3];
+  v2 = *MEMORY[0x1E69E9840];
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:@"stroke" count:{@"fill", @"overlay", v2}];
   v1 = MTAllVisualStyleCategories___categories;
   MTAllVisualStyleCategories___categories = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
-void OUTLINED_FUNCTION_1_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void OUTLINED_FUNCTION_2_1(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -2962,153 +2760,95 @@ void OUTLINED_FUNCTION_2_1(void *a1, uint64_t a2, os_log_t log, const char *a4, 
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-id __MTTintingFilteringSettingsCreateDictionaryRepresentation_block_invoke()
+id __MTTintingFilteringSettingsCreateDictionaryRepresentation_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4[1] = *MEMORY[0x1E69E9840];
-  v3 = @"inputColorMap";
-  v4[0] = MTDefaultLuminanceColorMap();
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:&v3 count:1];
-  v1 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v4 = @"inputColorMap";
+  v5 = MTDefaultLuminanceColorMap(a1, a2);
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
 
-  return v0;
+  return v2;
 }
 
 id MTStylingProvidingSolidColorLayerStyleDictionaryForPlusLAndWhiteTint(CGColor *a1, double a2, double a3)
 {
-  v26[1] = *MEMORY[0x1E69E9840];
-  v19 = 0.0;
-  v20 = 0.0;
-  v18 = 0.0;
-  _ColorGetComponents(a1, &v20, &v19, &v18);
-  v5 = fmin(a2 + a3 * v20, 1.0);
-  if (v5 < 0.0)
-  {
-    v5 = 0.0;
-  }
+  v12[13] = *MEMORY[0x1E69E9840];
+  v11 = 0;
+  v12[0] = 0;
+  v10 = 0;
+  _ColorGetComponents(a1, v12, &v11, &v10);
+  v12[11] = @"tinting";
+  v12[9] = @"tintColor";
+  v12[5] = &unk_1F3E01848;
+  v12[1] = @"alpha";
+  v12[2] = @"red";
+  v3 = [MEMORY[0x1E696AD98] numberWithDouble:?];
+  v12[6] = v3;
+  v12[3] = @"green";
+  v4 = [MEMORY[0x1E696AD98] numberWithDouble:?];
+  v12[7] = v4;
+  v12[4] = @"blue";
+  v5 = [MEMORY[0x1E696AD98] numberWithDouble:?];
+  v12[8] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+  v12[10] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+  v12[12] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
 
-  v6 = fmin(a2 + a3 * v19, 1.0);
-  if (v6 >= 0.0)
-  {
-    v7 = v6;
-  }
-
-  else
-  {
-    v7 = 0.0;
-  }
-
-  v8 = fmin(a2 + a3 * v18, 1.0);
-  if (v8 >= 0.0)
-  {
-    v9 = v8;
-  }
-
-  else
-  {
-    v9 = 0.0;
-  }
-
-  v25 = @"tinting";
-  v23 = @"tintColor";
-  v22[0] = &unk_1F3E01848;
-  v21[0] = @"alpha";
-  v21[1] = @"red";
-  v10 = [MEMORY[0x1E696AD98] numberWithDouble:v5];
-  v22[1] = v10;
-  v21[2] = @"green";
-  v11 = [MEMORY[0x1E696AD98] numberWithDouble:v7];
-  v22[2] = v11;
-  v21[3] = @"blue";
-  v12 = [MEMORY[0x1E696AD98] numberWithDouble:v9];
-  v22[3] = v12;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:4];
-  v24 = v13;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
-  v26[0] = v14;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
-
-  v16 = *MEMORY[0x1E69E9840];
-
-  return v15;
+  return v8;
 }
 
 id MTStylingProvidingSolidColorLayerHighlightStyleDictionary(CGColor *a1)
 {
-  v16[2] = *MEMORY[0x1E69E9840];
-  v1 = MTCGColorPerceivedLightness(a1);
-  v15[0] = @"tinting";
-  v15[1] = @"filtering";
-  v16[0] = &unk_1F3E01948;
-  v14[0] = *MEMORY[0x1E6979D78];
-  v13[0] = @"filterType";
-  v13[1] = @"filterProperties";
-  v11 = @"inputColorMatrix";
-  v2 = qword_1BF53FB60[v1 != 0.0];
+  v7[20] = *MEMORY[0x1E69E9840];
+  MTCGColorPerceivedLightness(a1);
+  v7[16] = @"tinting";
+  v7[17] = @"filtering";
+  v7[18] = &unk_1F3E01948;
+  v7[14] = *MEMORY[0x1E6979D78];
+  v7[12] = @"filterType";
+  v7[13] = @"filterProperties";
+  v7[10] = @"inputColorMatrix";
   CAColorMatrixMakeBrightness();
-  v4 = MTCAColorMatrixCreateDictionaryRepresentation(v10, v3);
-  v12 = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
-  v14[1] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
-  v16[1] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v2 = MTCAColorMatrixCreateDictionaryRepresentation(v7, v1);
+  v7[11] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+  v7[15] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+  v7[19] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
 
-  v8 = *MEMORY[0x1E69E9840];
-
-  return v7;
+  return v5;
 }
 
 id MTStylingProvidingSolidColorLayerStyleDictionaryForPlusDAmount(CGColor *a1, double a2)
 {
-  v26[1] = *MEMORY[0x1E69E9840];
-  v19 = 0.0;
-  v20 = 0.0;
-  v18 = 0.0;
-  _ColorGetComponents(a1, &v20, &v19, &v18);
-  v3 = 1.0 - a2;
-  v4 = fmin(1.0 - a2 + 1.0 - v20, 1.0);
-  if (v4 < 0.0)
-  {
-    v4 = 0.0;
-  }
+  v11[13] = *MEMORY[0x1E69E9840];
+  v10 = 0;
+  v11[0] = 0;
+  v9 = 0;
+  _ColorGetComponents(a1, v11, &v10, &v9);
+  v11[11] = @"tinting";
+  v11[9] = @"tintColor";
+  v11[5] = &unk_1F3E01848;
+  v11[1] = @"alpha";
+  v11[2] = @"red";
+  v2 = [MEMORY[0x1E696AD98] numberWithDouble:?];
+  v11[6] = v2;
+  v11[3] = @"green";
+  v3 = [MEMORY[0x1E696AD98] numberWithDouble:?];
+  v11[7] = v3;
+  v11[4] = @"blue";
+  v4 = [MEMORY[0x1E696AD98] numberWithDouble:?];
+  v11[8] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+  v11[10] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+  v11[12] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
 
-  v5 = 1.0 - v4;
-  v6 = fmin(v3 + 1.0 - v19, 1.0);
-  if (v6 < 0.0)
-  {
-    v6 = 0.0;
-  }
-
-  v7 = 1.0 - v6;
-  v8 = fmin(v3 + 1.0 - v18, 1.0);
-  if (v8 < 0.0)
-  {
-    v8 = 0.0;
-  }
-
-  v9 = 1.0 - v8;
-  v25 = @"tinting";
-  v23 = @"tintColor";
-  v22[0] = &unk_1F3E01848;
-  v21[0] = @"alpha";
-  v21[1] = @"red";
-  v10 = [MEMORY[0x1E696AD98] numberWithDouble:v5];
-  v22[1] = v10;
-  v21[2] = @"green";
-  v11 = [MEMORY[0x1E696AD98] numberWithDouble:v7];
-  v22[2] = v11;
-  v21[3] = @"blue";
-  v12 = [MEMORY[0x1E696AD98] numberWithDouble:v9];
-  v22[3] = v12;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:4];
-  v24 = v13;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
-  v26[0] = v14;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
-
-  v16 = *MEMORY[0x1E69E9840];
-
-  return v15;
+  return v7;
 }
 
 CGFloat _ColorGetComponents(CGColor *a1, void *a2, void *a3, void *a4)
@@ -3154,7 +2894,7 @@ void _MTSetCoreMaterialPlatformConfiguration(void *a1)
   }
 }
 
-double MTPreferredDisplayModeScale()
+double MTPreferredDisplayModeScale(uint64_t a1, uint64_t a2)
 {
   if (MTPreferredDisplayModeScale___once != -1)
   {
@@ -3171,57 +2911,9 @@ void __MTPreferredDisplayModeScale_block_invoke()
   *&MTPreferredDisplayModeScale___cachedScale = [v0 preferredScale];
 }
 
-void _SharedMaterialSettingsForRecipeWithNameFromBundle_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_1BF527000, v0, v1, "Loaded base material recipe plist at URL: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void _SharedMaterialSettingsForRecipeWithNameFromBundle_cold_3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_1BF527000, v0, v1, "Loaded recipe material settings: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void _SharedMaterialSettingsForRecipeWithNameFromBundle_cold_4()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_2_1(&dword_1BF527000, v0, v1, "Failed to load material recipe plist at URL (%{public}@): %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void MTSharedVisualStyleSetForStyleNameFromBundle_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_1BF527000, v0, v1, "Loaded base style set plist at URL: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void MTSharedVisualStyleSetForStyleNameFromBundle_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_1BF527000, v0, v1, "Loaded style set settings: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void MTSharedVisualStyleSetForStyleNameFromBundle_cold_3()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_2_1(&dword_1BF527000, v0, v1, "Failed to load stytle set plist at URL (%{public}@): %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
 void MTCompareBlurInputQualities_cold_1()
 {
   v1 = [MEMORY[0x1E696AAA8] currentHandler];
-  v0 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSComparisonResult MTCompareBlurInputQualities(NSString *__strong, NSString *__strong)"}];
-  [v1 handleFailureInFunction:v0 file:@"MTUtilities.m" lineNumber:53 description:{@"Invalid parameter not satisfying: %@", @"MTIsValidBlurInputQuality(inputQuality1) && MTIsValidBlurInputQuality(inputQuality2)"}];
+  v0 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
+  [v1 handleFailureInFunction:@"MTIsValidBlurInputQuality(inputQuality1) && MTIsValidBlurInputQuality(inputQuality2)" file:? lineNumber:? description:?];
 }

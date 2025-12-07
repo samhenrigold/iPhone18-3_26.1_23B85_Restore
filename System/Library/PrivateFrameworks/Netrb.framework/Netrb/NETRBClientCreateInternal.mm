@@ -3,20 +3,21 @@
 
 @implementation NETRBClientCreateInternal
 
-void ___NETRBClientCreateInternal_block_invoke(uint64_t a1)
+void ___NETRBClientCreateInternal_block_invoke(void *a1)
 {
-  v2 = *(a1 + 48);
+  v2 = a1[6];
   v3 = __netrbClientList;
   if (!__netrbClientList)
   {
-    v7 = *(a1 + 56);
-    v6 = *(a1 + 64);
+    v7 = a1[7];
+    v6 = a1[8];
     __netrbClientList = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, 0);
     if (!__netrbClientList)
     {
       v8 = __error();
       strerror(*v8);
-      goto LABEL_12;
+      NETRBErrorLog("unable to create client list %s");
+      goto LABEL_16;
     }
 
     if (NETRBXPCCreate(v7, v6))
@@ -27,13 +28,13 @@ void ___NETRBClientCreateInternal_block_invoke(uint64_t a1)
         goto LABEL_2;
       }
 
-      NETRBErrorLog();
+      NETRBErrorLog("unable to create xpc endpoint connection");
       NETRBXPCCleanup();
     }
 
     else
     {
-      NETRBErrorLog();
+      NETRBErrorLog("unable to create xpc connnection to daemon");
     }
 
     CFRelease(__netrbClientList);
@@ -43,32 +44,30 @@ void ___NETRBClientCreateInternal_block_invoke(uint64_t a1)
 
 LABEL_2:
   CFArrayAppendValue(v3, v2);
-  *(*(*(a1 + 32) + 8) + 24) = 1;
+  *(*(a1[4] + 8) + 24) = 1;
   v4 = xpc_dictionary_create(0, 0, 0);
   if (!v4)
   {
-    __NETRBClientRemoveFromList(*(a1 + 48));
-LABEL_12:
-    NETRBErrorLog();
+    __NETRBClientRemoveFromList(a1[6]);
+    NETRBErrorLog("xpc_dictionary_create() failed");
 LABEL_16:
-    *(*(*(a1 + 32) + 8) + 24) = 0;
+    *(*(a1[4] + 8) + 24) = 0;
     return;
   }
 
   v5 = v4;
   xpc_dictionary_set_uint64(v4, netrbXPCKey, 0x3E8uLL);
-  v9 = *(a1 + 48);
-  NETRBInfoLog();
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 0x40000000;
-  v10[2] = ___NETRBClientCreateInternal_block_invoke_2;
-  v10[3] = &unk_279967398;
-  v11 = *(a1 + 40);
-  v12 = *(a1 + 72);
-  *(*(*(a1 + 32) + 8) + 24) = NETRBXPCSetupAndSend(0, v5, v10);
-  if ((*(*(*(a1 + 32) + 8) + 24) & 1) == 0)
+  NETRBInfoLog("client %p xpc send -> client create", a1[6]);
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 0x40000000;
+  v9[2] = ___NETRBClientCreateInternal_block_invoke_2;
+  v9[3] = &unk_279967398;
+  v10 = *(a1 + 5);
+  v11 = a1[9];
+  *(*(a1[4] + 8) + 24) = NETRBXPCSetupAndSend(0, v5, v9);
+  if ((*(*(a1[4] + 8) + 24) & 1) == 0)
   {
-    __NETRBClientRemoveFromList(*(a1 + 48));
+    __NETRBClientRemoveFromList(a1[6]);
   }
 
   xpc_release(v5);
@@ -76,8 +75,7 @@ LABEL_16:
 
 void ___NETRBClientCreateInternal_block_invoke_2(uint64_t a1, void *a2)
 {
-  v7 = *(a1 + 40);
-  NETRBInfoLog();
+  NETRBInfoLog("client %p create xpc response received", *(a1 + 40));
   if (!a2)
   {
     goto LABEL_6;

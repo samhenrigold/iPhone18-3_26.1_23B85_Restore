@@ -54,7 +54,7 @@
     v12 = 0u;
     if (zoomablePhotosViewModel)
     {
-      [zoomablePhotosViewModel zoomState];
+      objc_msgSend_zoomState(zoomablePhotosViewModel);
     }
 
     v6 = 0;
@@ -105,7 +105,7 @@
     v6 = zoomablePhotosViewModel;
     if (zoomablePhotosViewModel)
     {
-      [zoomablePhotosViewModel zoomState];
+      objc_msgSend_zoomState(zoomablePhotosViewModel);
       v7 = BYTE8(v12);
     }
 
@@ -124,8 +124,8 @@
     dominantObjectReference = 0;
     if ([(PXViewControllerEventTracker *)self isViewVisible]&& (v7 & 1) == 0)
     {
-      layout = [(PXCuratedLibraryEventTracker *)self layout];
-      dominantObjectReference = [layout dominantObjectReference];
+      v8 = objc_msgSend_layout(self);
+      dominantObjectReference = [v8 dominantObjectReference];
     }
   }
 
@@ -438,7 +438,7 @@ LABEL_10:
 
 - (void)_logDidStartViewingZoomLevel:(int64_t)level
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if ([(PXCuratedLibraryEventTracker *)self currentZoomLevelSignpost])
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -446,8 +446,8 @@ LABEL_10:
   }
 
   -[PXCuratedLibraryEventTracker setCurrentZoomLevelSignpost:](self, "setCurrentZoomLevelSignpost:", [MEMORY[0x1E6991F28] startSignpost]);
-  v6 = *MEMORY[0x1E6991E20];
-  PXCuratedLibraryAnalyticsViewNameForZoomLevel();
+  v7 = *MEMORY[0x1E6991E20];
+  PXCuratedLibraryAnalyticsViewNameForZoomLevel(level);
 }
 
 - (void)setCurrentlyViewedZoomLevel:(int64_t)level

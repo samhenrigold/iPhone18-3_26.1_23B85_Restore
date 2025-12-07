@@ -279,7 +279,7 @@
   [(PXGLayout *)self modifySpritesInRange:localNumberOfSprites << 32 state:v12];
 }
 
-uint64_t __38__PXGScrollLayout__updateLocalContent__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *__38__PXGScrollLayout__updateLocalContent__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v8 = *(a1 + 32);
   v9 = a3 + 32 * v8[218];
@@ -561,20 +561,19 @@ LABEL_12:
   self->_isUpdatingContentLayout = isUpdatingContentLayout;
 }
 
-uint64_t __39__PXGScrollLayout__updateContentLayout__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void __39__PXGScrollLayout__updateContentLayout__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a2)
   {
-    v8 = [MEMORY[0x277CCA890] currentHandler];
-    [v8 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"PXGScrollLayout.m" lineNumber:469 description:@"PXGScrollLayout only supports a single sublayout"];
+    v7 = [MEMORY[0x277CCA890] currentHandler];
+    [v7 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"PXGScrollLayout.m" lineNumber:469 description:@"PXGScrollLayout only supports a single sublayout"];
   }
 
   *(a3 + 32) = *(a1 + 48);
-  result = PXPointSubtract();
-  *(a3 + 48) = v6;
-  *(a3 + 56) = v7;
+  PXPointSubtract();
+  *(a3 + 48) = v5;
+  *(a3 + 56) = v6;
   *(a3 + 64) = 0;
-  return result;
 }
 
 void __39__PXGScrollLayout__updateContentLayout__block_invoke_2(double *a1, void *a2)

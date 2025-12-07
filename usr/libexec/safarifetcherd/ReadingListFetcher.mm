@@ -48,9 +48,9 @@
 
 - (ReadingListFetcher)init
 {
-  v16.receiver = self;
-  v16.super_class = ReadingListFetcher;
-  v2 = [(ReadingListFetcher *)&v16 init];
+  v20.receiver = self;
+  v20.super_class = ReadingListFetcher;
+  v2 = [(ReadingListFetcher *)&v20 init];
   if (v2)
   {
     v2->_readingListCellularFetchingEnabled = MGGetBoolAnswer();
@@ -62,26 +62,28 @@
 
     if (v4)
     {
-      v15 = 0;
-      v5 = [NSPropertyListSerialization propertyListWithData:v4 options:2 format:0 error:&v15];
-      v6 = v15;
+      v19 = 0;
+      v5 = [NSPropertyListSerialization propertyListWithData:v4 options:2 format:0 error:&v19];
+      v6 = v19;
+      v8 = v6;
       if (v5)
       {
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        isKindOfClass = objc_opt_isKindOfClass();
+        if (isKindOfClass)
         {
           objc_storeStrong(&v2->_pendingBookmarkChanges, v5);
-          v7 = [(NSMutableDictionary *)v2->_pendingBookmarkChanges objectForKey:@"CompletedItemCount"];
-          v2->_completedItemCount = [v7 unsignedIntegerValue];
+          v11 = [(NSMutableDictionary *)v2->_pendingBookmarkChanges objectForKey:@"CompletedItemCount"];
+          v2->_completedItemCount = [v11 unsignedIntegerValue];
           [(ReadingListFetcher *)v2 tryApplyPendingBookmarkChanges];
-          v8 = v2;
+          v12 = v2;
 
 LABEL_13:
           goto LABEL_14;
         }
 
-        v10 = sub_100009E64();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+        v14 = sub_100009E64(isKindOfClass, v10);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
           sub_100009EE0();
         }
@@ -89,21 +91,21 @@ LABEL_13:
 
       else
       {
-        v9 = sub_100009E64();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v13 = sub_100009E64(v6, v7);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          [v6 safari_privacyPreservingDescription];
+          [v8 safari_privacyPreservingDescription];
           objc_claimAutoreleasedReturnValue();
           sub_100009F14();
         }
       }
     }
 
-    v11 = objc_alloc_init(NSMutableDictionary);
+    v15 = objc_alloc_init(NSMutableDictionary);
     pendingBookmarkChanges = v2->_pendingBookmarkChanges;
-    v2->_pendingBookmarkChanges = v11;
+    v2->_pendingBookmarkChanges = v15;
 
-    v13 = v2;
+    v17 = v2;
     goto LABEL_13;
   }
 
@@ -144,24 +146,25 @@ LABEL_14:
       mach_timebase_info(&dword_100022D40);
     }
 
-    v3 = mach_absolute_time() * dword_100022D40 / dword_100022D44;
-    v4 = (v3 / 0x3B9ACA00);
-    v5 = sub_100009E64();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v3 = mach_absolute_time();
+    v4 = v3 * dword_100022D40 / dword_100022D44;
+    v5 = (v4 / 0x3B9ACA00);
+    v7 = sub_100009E64(v3, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      sub_100009F58(v5, (v3 / 0x3B9ACA00));
+      sub_100009F58(v7, (v4 / 0x3B9ACA00));
     }
 
-    if (v3 > 0x8BB2C96FFFLL || (+[NSUserDefaults safari_browserDefaults](NSUserDefaults, "safari_browserDefaults"), v6 = objc_claimAutoreleasedReturnValue(), v7 = [v6 BOOLForKey:_SFReadingListFetcherScheduleBackgroundTasksImmediatelyKey], v6, (v7 & 1) != 0))
+    if (v4 > 0x8BB2C96FFFLL || (+[NSUserDefaults safari_browserDefaults](NSUserDefaults, "safari_browserDefaults"), v8 = objc_claimAutoreleasedReturnValue(), v9 = [v8 BOOLForKey:_SFReadingListFetcherScheduleBackgroundTasksImmediatelyKey], v8, (v9 & 1) != 0))
     {
       [(ReadingListFetcher *)self _scheduleOrRemoveBackgroundTaskAgentJobs];
     }
 
     else
     {
-      v8 = [NSTimer scheduledTimerWithTimeInterval:self target:"_scheduleBTATimerFired" selector:0 userInfo:0 repeats:600.0 - v4];
+      v10 = [NSTimer scheduledTimerWithTimeInterval:self target:"_scheduleBTATimerFired" selector:0 userInfo:0 repeats:600.0 - v5];
       delayBeforeSchedulingBTATimer = self->_delayBeforeSchedulingBTATimer;
-      self->_delayBeforeSchedulingBTATimer = v8;
+      self->_delayBeforeSchedulingBTATimer = v10;
     }
   }
 }
@@ -178,7 +181,7 @@ LABEL_14:
 {
   if (self->_bookmarkToFetch)
   {
-    v3 = sub_100009E64();
+    v3 = sub_100009E64(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       sub_100009FD4();
@@ -197,56 +200,59 @@ LABEL_14:
   bookmarkToFetch = self->_bookmarkToFetch;
   self->_bookmarkToFetch = _nextItemToFetch;
 
-  v5 = self->_itemsAttemptedToFetch + 1;
-  self->_itemsAttemptedToFetch = v5;
-  if (v5 >= 6)
+  v7 = self->_itemsAttemptedToFetch + 1;
+  self->_itemsAttemptedToFetch = v7;
+  if (v7 >= 6)
   {
-    v6 = self->_bookmarkToFetch;
-    self->_aborted = v6 != 0;
+    v8 = self->_bookmarkToFetch;
+    self->_aborted = v8 != 0;
     self->_bookmarkToFetch = 0;
   }
 
-  v7 = self->_bookmarkToFetch;
-  v8 = sub_100009E64();
-  if (v7)
+  v9 = self->_bookmarkToFetch;
+  v10 = sub_100009E64(v5, v6);
+  if (v9)
   {
-    v9 = v8;
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v11 = v10;
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       address = [(WebBookmark *)self->_bookmarkToFetch address];
       uUID = [(WebBookmark *)self->_bookmarkToFetch UUID];
-      sub_10000A008(address, uUID, v33, v9);
+      sub_10000A008(address, uUID, v47, v11);
     }
 
-    if ([(ReadingListFetcher *)self _shouldLoadBookmarkConsideringPreviousAttempts:self->_bookmarkToFetch])
+    v14 = [(ReadingListFetcher *)self _shouldLoadBookmarkConsideringPreviousAttempts:self->_bookmarkToFetch];
+    if (v14)
     {
-      if ([(ReadingListFetcher *)self _isDiskSpaceLow])
+      _isDiskSpaceLow = [(ReadingListFetcher *)self _isDiskSpaceLow];
+      if (_isDiskSpaceLow)
       {
-        v12 = sub_100009E64();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+        v18 = sub_100009E64(_isDiskSpaceLow, v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Disk space is low, attempting to reclaim space", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "Disk space is low, attempting to reclaim space", buf, 2u);
         }
 
-        v13 = +[WebBookmarkCollection safariBookmarkCollection];
-        rollOutLastReadingListItem = [v13 rollOutLastReadingListItem];
+        v19 = +[WebBookmarkCollection safariBookmarkCollection];
+        rollOutLastReadingListItem = [v19 rollOutLastReadingListItem];
 
         if ((rollOutLastReadingListItem & 1) == 0)
         {
-          v15 = sub_100009E64();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+          v23 = sub_100009E64(v21, v22);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
             sub_10000A0AC();
           }
 
-          if (+[WebBookmarkCollection lockSync])
+          v24 = +[WebBookmarkCollection lockSync];
+          if (v24)
           {
             [(WebBookmark *)self->_bookmarkToFetch setArchiveStatus:5];
-            v16 = +[WebBookmarkCollection safariBookmarkCollection];
-            v17 = [v16 saveBookmark:self->_bookmarkToFetch startReadingListFetcher:0];
+            v26 = +[WebBookmarkCollection safariBookmarkCollection];
+            v27 = [v26 saveBookmark:self->_bookmarkToFetch startReadingListFetcher:0];
 
-            if ((v17 & 1) == 0)
+            if ((v27 & 1) == 0)
             {
               [(ReadingListFetcher *)self queueChangeForBookmark:self->_bookmarkToFetch archiveStatus:5];
             }
@@ -256,8 +262,8 @@ LABEL_14:
 
           else
           {
-            v28 = sub_100009E64();
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+            v42 = sub_100009E64(v24, v25);
+            if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
             {
               sub_10000A0E0();
             }
@@ -275,24 +281,24 @@ LABEL_14:
 
       else
       {
-        v21 = +[WebBookmarkCollection safariBookmarkCollection];
-        [v21 rollOutReadingListItemIfNeededToMakeRoomForOneNewItem];
+        v33 = +[WebBookmarkCollection safariBookmarkCollection];
+        [v33 rollOutReadingListItemIfNeededToMakeRoomForOneNewItem];
       }
 
-      v31[0] = @"subevent";
-      v31[1] = @"item";
-      v32[0] = @"startItemFetch";
+      v45[0] = @"subevent";
+      v45[1] = @"item";
+      v46[0] = @"startItemFetch";
       uUID2 = [(WebBookmark *)self->_bookmarkToFetch UUID];
-      v32[1] = uUID2;
-      v23 = [NSDictionary dictionaryWithObjects:v32 forKeys:v31 count:2];
-      [(ReadingListFetcher *)self _powerlog:v23];
+      v46[1] = uUID2;
+      v35 = [NSDictionary dictionaryWithObjects:v46 forKeys:v45 count:2];
+      [(ReadingListFetcher *)self _powerlog:v35];
 
       DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
       CFNotificationCenterPostNotification(DarwinNotifyCenter, WebBookmarksReadingListFetchingNotification, 0, 0, 0);
       if (self->_document)
       {
-        v25 = sub_100009E64();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        v39 = sub_100009E64(v37, v38);
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
         {
           sub_10000A114();
         }
@@ -300,9 +306,9 @@ LABEL_14:
         [(ReadingListFetcherDocument *)self->_document clearWebView];
       }
 
-      v26 = objc_alloc_init(ReadingListFetcherDocument);
+      v40 = objc_alloc_init(ReadingListFetcherDocument);
       document = self->_document;
-      self->_document = v26;
+      self->_document = v40;
 
       [(ReadingListFetcherDocument *)self->_document loadBookmark:self->_bookmarkToFetch];
       [(ReadingListFetcher *)self _createOrResetPowerAssertion];
@@ -310,8 +316,8 @@ LABEL_14:
 
     else
     {
-      v20 = sub_100009E64();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v32 = sub_100009E64(v14, v15);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         sub_10000A078();
       }
@@ -320,16 +326,16 @@ LABEL_14:
 
   else
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       sub_10000A148();
     }
 
-    v18 = +[SafariFetcherServer sharedServer];
-    [v18 deliverReadingListFetchingProgress:1.0];
+    v28 = +[SafariFetcherServer sharedServer];
+    [v28 deliverReadingListFetchingProgress:1.0];
 
-    v19 = sub_100009E64();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    v31 = sub_100009E64(v29, v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
     {
       sub_10000A17C();
     }
@@ -347,31 +353,32 @@ LABEL_14:
   attemptsCopy = attempts;
   uUID = [attemptsCopy UUID];
   v6 = [(NSMutableDictionary *)self->_pendingBookmarkChanges objectForKey:uUID];
-  v7 = v6;
+  v8 = v6;
   if (!v6)
   {
-    v13 = sub_100009E64();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v18 = sub_100009E64(0, v7);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v34[0] = uUID;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Attempting initial load of Reading List item with UUID %{public}@", buf, 0xCu);
+      v42[0] = uUID;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "Attempting initial load of Reading List item with UUID %{public}@", buf, 0xCu);
     }
 
-    v14 = [NSMutableDictionary alloc];
-    v15 = [NSNumber numberWithUnsignedShort:1, @"NumFailedLoads"];
-    v32 = v15;
-    v16 = [NSDictionary dictionaryWithObjects:&v32 forKeys:&v31 count:1];
-    v7 = [v14 initWithDictionary:v16];
+    v19 = [NSMutableDictionary alloc];
+    v20 = [NSNumber numberWithUnsignedShort:1, @"NumFailedLoads"];
+    v40 = v20;
+    v21 = [NSDictionary dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+    v8 = [v19 initWithDictionary:v21];
 
-    [(NSMutableDictionary *)self->_pendingBookmarkChanges setObject:v7 forKey:uUID];
-    if (+[WebBookmarkCollection lockSync])
+    [(NSMutableDictionary *)self->_pendingBookmarkChanges setObject:v8 forKey:uUID];
+    v22 = +[WebBookmarkCollection lockSync];
+    if (v22)
     {
       [attemptsCopy setArchiveStatus:3];
-      v17 = +[WebBookmarkCollection safariBookmarkCollection];
-      v18 = [v17 saveBookmark:attemptsCopy startReadingListFetcher:0];
+      v24 = +[WebBookmarkCollection safariBookmarkCollection];
+      v25 = [v24 saveBookmark:attemptsCopy startReadingListFetcher:0];
 
-      if ((v18 & 1) == 0)
+      if ((v25 & 1) == 0)
       {
         [(ReadingListFetcher *)self queueChangeForBookmark:attemptsCopy archiveStatus:3];
       }
@@ -381,85 +388,71 @@ LABEL_14:
 
     else
     {
-      v29 = sub_100009E64();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v37 = sub_100009E64(v22, v23);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
-        sub_10000A2B0(uUID, v29);
+        sub_10000A2B0(uUID, v37);
       }
     }
 
     goto LABEL_22;
   }
 
-  v8 = [v6 objectForKey:@"NumFailedLoads"];
-  unsignedShortValue = [v8 unsignedShortValue];
+  v9 = [v6 objectForKey:@"NumFailedLoads"];
+  unsignedShortValue = [v9 unsignedShortValue];
 
   if (unsignedShortValue < 3)
   {
-    v10 = unsignedShortValue + 1;
-    v11 = [NSNumber numberWithUnsignedShort:v10];
-    [v7 setObject:v11 forKey:@"NumFailedLoads"];
+    v13 = unsignedShortValue + 1;
+    v14 = [NSNumber numberWithUnsignedShort:v13];
+    [v8 setObject:v14 forKey:@"NumFailedLoads"];
 
-    v12 = sub_100009E64();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v17 = sub_100009E64(v15, v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      LODWORD(v34[0]) = v10;
-      WORD2(v34[0]) = 2114;
-      *(v34 + 6) = uUID;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Attempting subsequent load %ud of Reading List item with UUID %{public}@", buf, 0x12u);
+      LODWORD(v42[0]) = v13;
+      WORD2(v42[0]) = 2114;
+      *(v42 + 6) = uUID;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "Attempting subsequent load %ud of Reading List item with UUID %{public}@", buf, 0x12u);
     }
 
-    [(NSMutableDictionary *)self->_pendingBookmarkChanges setObject:v7 forKey:uUID];
+    [(NSMutableDictionary *)self->_pendingBookmarkChanges setObject:v8 forKey:uUID];
 LABEL_22:
     [(ReadingListFetcher *)self _writeChangesInMemoryToPlist];
-    v28 = 1;
+    v36 = 1;
     goto LABEL_23;
   }
 
-  v19 = sub_100009E64();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+  v26 = sub_100009E64(v11, v12);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
   {
-    sub_10000A1B0(uUID, v19);
+    sub_10000A1B0(uUID, v26);
   }
 
-  v20 = +[WebBookmarkCollection lockSync];
-  v21 = v20;
-  if (!v20)
+  v27 = +[WebBookmarkCollection lockSync];
+  v29 = v27;
+  if (!v27 || ([attemptsCopy setArchiveStatus:4], +[NSDate date](NSDate, "date"), v30 = objc_claimAutoreleasedReturnValue(), objc_msgSend(attemptsCopy, "setDateLastArchived:", v30), v30, +[WebBookmarkCollection safariBookmarkCollection](WebBookmarkCollection, "safariBookmarkCollection"), v31 = objc_claimAutoreleasedReturnValue(), v32 = objc_msgSend(v31, "saveBookmark:startReadingListFetcher:", attemptsCopy, 0), v31, v27 = +[WebBookmarkCollection unlockSync](WebBookmarkCollection, "unlockSync"), (v32 & 1) == 0))
   {
-    goto LABEL_16;
-  }
-
-  [attemptsCopy setArchiveStatus:4];
-  v22 = +[NSDate date];
-  [attemptsCopy setDateLastArchived:v22];
-
-  v23 = +[WebBookmarkCollection safariBookmarkCollection];
-  v24 = [v23 saveBookmark:attemptsCopy startReadingListFetcher:0];
-
-  +[WebBookmarkCollection unlockSync];
-  if ((v24 & 1) == 0)
-  {
-LABEL_16:
-    v25 = sub_100009E64();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v33 = sub_100009E64(v27, v28);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
-      sub_10000A228(v21, v25);
+      sub_10000A228(v29, v33);
     }
 
     [(ReadingListFetcher *)self queueChangeForBookmark:attemptsCopy archiveStatus:4];
-    v26 = +[NSDate date];
-    [(ReadingListFetcher *)self queueChangeForBookmark:attemptsCopy dateLastArchived:v26];
+    v34 = +[NSDate date];
+    [(ReadingListFetcher *)self queueChangeForBookmark:attemptsCopy dateLastArchived:v34];
   }
 
-  v27 = +[SafariFetcherServer sharedServer];
-  [v27 deliverReadingListFetchingDidStopForItemWithUUID:uUID];
+  v35 = +[SafariFetcherServer sharedServer];
+  [v35 deliverReadingListFetchingDidStopForItemWithUUID:uUID];
 
   [(ReadingListFetcher *)self didFinishFetchingDocument:0];
-  v28 = 0;
+  v36 = 0;
 LABEL_23:
 
-  return v28;
+  return v36;
 }
 
 - (double)currentProgress
@@ -483,8 +476,8 @@ LABEL_23:
     [(ReadingListFetcher *)self currentProgress];
     [v6 deliverReadingListFetchingProgress:?];
 
-    v7 = sub_100009E64();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v9 = sub_100009E64(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       sub_10000A35C();
     }
@@ -492,7 +485,7 @@ LABEL_23:
 
   else
   {
-    v4 = sub_100009E64();
+    v4 = sub_100009E64(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_10000A328();
@@ -510,7 +503,7 @@ LABEL_23:
 
   else
   {
-    v4 = sub_100009E64();
+    v4 = sub_100009E64(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_10000A390();
@@ -535,12 +528,12 @@ LABEL_23:
   bookmarkToFetch = self->_bookmarkToFetch;
   if (bookmarkToFetch)
   {
-    v19[0] = @"subevent";
-    v19[1] = @"item";
-    v20[0] = @"endItemFetch";
+    v21[0] = @"subevent";
+    v21[1] = @"item";
+    v22[0] = @"endItemFetch";
     uUID = [(WebBookmark *)bookmarkToFetch UUID];
-    v20[1] = uUID;
-    v9 = [NSDictionary dictionaryWithObjects:v20 forKeys:v19 count:2];
+    v22[1] = uUID;
+    v9 = [NSDictionary dictionaryWithObjects:v22 forKeys:v21 count:2];
     [(ReadingListFetcher *)self _powerlog:v9];
   }
 
@@ -553,8 +546,8 @@ LABEL_23:
 
   if (!v6)
   {
-    v17 = sub_100009E64();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = sub_100009E64(v12, v13);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       sub_10000A3C4();
     }
@@ -566,20 +559,20 @@ LABEL_23:
 
 LABEL_15:
     [(ReadingListFetcher *)self _writeChangesInMemoryToPlist];
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_1000037C4;
-    v18[3] = &unk_10001C740;
-    v18[4] = self;
-    dispatch_async(&_dispatch_main_q, v18);
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_1000037C4;
+    v20[3] = &unk_10001C740;
+    v20[4] = self;
+    dispatch_async(&_dispatch_main_q, v20);
     goto LABEL_16;
   }
 
   ++self->_completedItemCount;
   [(ReadingListFetcher *)self _refreshRemainingItemCount];
   pendingBookmarkChanges = self->_pendingBookmarkChanges;
-  v13 = [NSNumber numberWithUnsignedInteger:self->_completedItemCount];
-  [(NSMutableDictionary *)pendingBookmarkChanges setObject:v13 forKey:@"CompletedItemCount"];
+  v15 = [NSNumber numberWithUnsignedInteger:self->_completedItemCount];
+  [(NSMutableDictionary *)pendingBookmarkChanges setObject:v15 forKey:@"CompletedItemCount"];
 
   if (!self->_aborted)
   {
@@ -587,12 +580,12 @@ LABEL_15:
   }
 
   _nextItemToFetch = [(ReadingListFetcher *)self _nextItemToFetch];
-  v15 = _nextItemToFetch == 0;
+  v17 = _nextItemToFetch == 0;
 
-  if (v15)
+  if (v17)
   {
-    v16 = +[SafariFetcherServer sharedServer];
-    [v16 deliverReadingListFetchingProgress:1.0];
+    v18 = +[SafariFetcherServer sharedServer];
+    [v18 deliverReadingListFetchingProgress:1.0];
 
     [(NSMutableDictionary *)self->_pendingBookmarkChanges removeObjectForKey:@"CompletedItemCount"];
     self->_completedItemCount = 0;
@@ -609,7 +602,8 @@ LABEL_16:
 {
   if ([(NSMutableDictionary *)self->_pendingBookmarkChanges count])
   {
-    if ((+[WebBookmarkCollection lockSync]& 1) != 0)
+    v3 = +[WebBookmarkCollection lockSync];
+    if (v3)
     {
       [(NSTimer *)self->_retryBookmarkChangesTimer invalidate];
       retryBookmarkChangesTimer = self->_retryBookmarkChangesTimer;
@@ -626,11 +620,11 @@ LABEL_16:
 
     else
     {
-      v4 = sub_100009E64();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+      v6 = sub_100009E64(v3, v4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        *v5 = 0;
-        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Failed to acquire lock when attempting to apply pending bookmark changes, will retry soon", v5, 2u);
+        *v7 = 0;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Failed to acquire lock when attempting to apply pending bookmark changes, will retry soon", v7, 2u);
       }
 
       if ((byte_100022D48 & 1) == 0)
@@ -646,7 +640,7 @@ LABEL_16:
 
 - (void)applyPendingBookmarkChanges
 {
-  v3 = sub_100009E64();
+  v3 = sub_100009E64(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_10000A3F8();
@@ -671,9 +665,7 @@ LABEL_16:
 - (void)applyPendingBookmarkChangesSoon
 {
   [(NSTimer *)self->_retryBookmarkChangesTimer invalidate];
-  v3 = [NSTimer scheduledTimerWithTimeInterval:self target:"tryApplyPendingBookmarkChanges" selector:0 userInfo:0 repeats:3.0];
-  retryBookmarkChangesTimer = self->_retryBookmarkChangesTimer;
-  self->_retryBookmarkChangesTimer = v3;
+  self->_retryBookmarkChangesTimer = [NSTimer scheduledTimerWithTimeInterval:self target:"tryApplyPendingBookmarkChanges" selector:0 userInfo:0 repeats:3.0];
 
   _objc_release_x1();
 }
@@ -830,8 +822,8 @@ LABEL_21:
     [(ReadingListFetcher *)self currentProgress];
     [v7 deliverReadingListFetchingProgress:?];
 
-    v8 = sub_100009E64();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v10 = sub_100009E64(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       sub_10000A53C();
     }
@@ -864,38 +856,39 @@ LABEL_21:
     v4 = IOPMAssertionSetProperty(powerAssertionID, @"TimeoutSeconds", &off_10001CF18);
     if (v4)
     {
-      v5 = v4;
-      v6 = sub_100009E64();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v6 = v4;
+      v7 = sub_100009E64(v4, v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v7 = mach_error_string(v5);
-        sub_10000A570(v7, v16, v5);
+        v8 = mach_error_string(v6);
+        sub_10000A570(v8, v20, v6);
       }
     }
 
-    v8 = IOPMAssertionSetProperty(*p_powerAssertionID, @"AssertLevel", kCFBooleanTrue);
-    if (v8)
+    v9 = IOPMAssertionSetProperty(*p_powerAssertionID, @"AssertLevel", kCFBooleanTrue);
+    v11 = v9;
+    if (v9)
     {
-      v9 = sub_100009E64();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v12 = sub_100009E64(v9, v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v10 = mach_error_string(v8);
-        sub_10000A5AC(v10, &v15, v8);
+        v13 = mach_error_string(v11);
+        sub_10000A5AC(v13, &v19, v11);
       }
     }
   }
 
   else
   {
-    v11 = IOPMAssertionCreateWithDescription(@"NoIdleSleepAssertion", @"Reading List Fetcher", @"safarifetcherd is archiving reading list items", 0, 0, 90.0, @"TimeoutActionTurnOff", p_powerAssertionID);
-    if (v11)
+    v14 = IOPMAssertionCreateWithDescription(@"NoIdleSleepAssertion", @"Reading List Fetcher", @"safarifetcherd is archiving reading list items", 0, 0, 90.0, @"TimeoutActionTurnOff", p_powerAssertionID);
+    if (v14)
     {
-      v12 = v11;
-      v13 = sub_100009E64();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v16 = v14;
+      v17 = sub_100009E64(v14, v15);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v14 = mach_error_string(v12);
-        sub_10000A5E8(v14, v16, v12);
+        v18 = mach_error_string(v16);
+        sub_10000A5E8(v18, v20, v16);
       }
 
       *p_powerAssertionID = 0;
@@ -1084,9 +1077,9 @@ LABEL_9:
   errorCopy = error;
   if (![(ReadingListFetcher *)self _rescheduleRestartingServiceBTAJobWithJob:errorCopy])
   {
-    [(ReadingListFetcher *)self updateArchivingMode];
-    v6 = sub_100009E64();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    updateArchivingMode = [(ReadingListFetcher *)self updateArchivingMode];
+    v8 = sub_100009E64(updateArchivingMode, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       [errorCopy name];
       objc_claimAutoreleasedReturnValue();
@@ -1124,12 +1117,14 @@ LABEL_9:
     {
       if (self->_highBackgroundTaskAgentJob == unsatisfiedCopy)
       {
-        if (xpc_dictionary_get_BOOL(detailsCopy, kBackgroundTaskAgentJobStatusNetwork))
+        v13 = xpc_dictionary_get_BOOL(detailsCopy, kBackgroundTaskAgentJobStatusNetwork);
+        if (v13)
         {
-          if (xpc_dictionary_get_BOOL(detailsCopy, kBackgroundTaskAgentJobStatusPowerPluggedin))
+          v15 = xpc_dictionary_get_BOOL(detailsCopy, kBackgroundTaskAgentJobStatusPowerPluggedin);
+          if (v15)
           {
-            v8 = sub_100009E64();
-            if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+            v12 = sub_100009E64(v15, v16);
+            if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
             {
               [(BackgroundTaskAgentJob *)unsatisfiedCopy name];
               objc_claimAutoreleasedReturnValue();
@@ -1139,8 +1134,8 @@ LABEL_9:
             goto LABEL_18;
           }
 
-          v9 = sub_100009E64();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+          v17 = sub_100009E64(v15, v16);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
           {
             [(BackgroundTaskAgentJob *)unsatisfiedCopy name];
             objc_claimAutoreleasedReturnValue();
@@ -1150,8 +1145,8 @@ LABEL_9:
           goto LABEL_23;
         }
 
-        v8 = sub_100009E64();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+        v12 = sub_100009E64(v13, v14);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
           goto LABEL_17;
         }
@@ -1161,12 +1156,14 @@ LABEL_9:
 
       if (self->_mediumBackgroundTaskAgentJob == unsatisfiedCopy || self->_lowBackgroundTaskAgentJob == unsatisfiedCopy)
       {
-        if (xpc_dictionary_get_BOOL(detailsCopy, kBackgroundTaskAgentJobStatusNetwork))
+        v8 = xpc_dictionary_get_BOOL(detailsCopy, kBackgroundTaskAgentJobStatusNetwork);
+        if (v8)
         {
-          if (xpc_dictionary_get_BOOL(detailsCopy, kBackgroundTaskAgentJobStatusBatteryLevel))
+          v10 = xpc_dictionary_get_BOOL(detailsCopy, kBackgroundTaskAgentJobStatusBatteryLevel);
+          if (v10)
           {
-            v8 = sub_100009E64();
-            if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+            v12 = sub_100009E64(v10, v11);
+            if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
             {
               [(BackgroundTaskAgentJob *)unsatisfiedCopy name];
               objc_claimAutoreleasedReturnValue();
@@ -1176,8 +1173,8 @@ LABEL_9:
             goto LABEL_18;
           }
 
-          v9 = sub_100009E64();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+          v17 = sub_100009E64(v10, v11);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
           {
             [(BackgroundTaskAgentJob *)unsatisfiedCopy name];
             objc_claimAutoreleasedReturnValue();
@@ -1190,8 +1187,8 @@ LABEL_23:
           goto LABEL_24;
         }
 
-        v8 = sub_100009E64();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+        v12 = sub_100009E64(v8, v9);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
 LABEL_17:
           [(BackgroundTaskAgentJob *)unsatisfiedCopy name];
@@ -1212,20 +1209,20 @@ LABEL_24:
 - (void)_powerlog:(id)_powerlog
 {
   _powerlogCopy = _powerlog;
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x2020000000;
   v4 = off_100022D50;
-  v11 = off_100022D50;
+  v12 = off_100022D50;
   if (!off_100022D50)
   {
     v5 = sub_100005F74();
-    v9[3] = dlsym(v5, "PLShouldLogRegisteredEvent");
-    off_100022D50 = v9[3];
-    v4 = v9[3];
+    v10[3] = dlsym(v5, "PLShouldLogRegisteredEvent");
+    off_100022D50 = v10[3];
+    v4 = v10[3];
   }
 
-  _Block_object_dispose(&v8, 8);
+  _Block_object_dispose(&v9, 8);
   if (v4)
   {
     if (!v4(27, @"MobileSafari-ReadingListFetcher"))
@@ -1235,20 +1232,20 @@ LABEL_9:
       return;
     }
 
-    v8 = 0;
-    v9 = &v8;
-    v10 = 0x2020000000;
+    v9 = 0;
+    v10 = &v9;
+    v11 = 0x2020000000;
     v6 = off_100022D60;
-    v11 = off_100022D60;
+    v12 = off_100022D60;
     if (!off_100022D60)
     {
       v7 = sub_100005F74();
-      v9[3] = dlsym(v7, "PLLogRegisteredEvent");
-      off_100022D60 = v9[3];
-      v6 = v9[3];
+      v10[3] = dlsym(v7, "PLLogRegisteredEvent");
+      off_100022D60 = v10[3];
+      v6 = v10[3];
     }
 
-    _Block_object_dispose(&v8, 8);
+    _Block_object_dispose(&v9, 8);
     if (v6)
     {
       v6(27, @"MobileSafari-ReadingListFetcher", _powerlogCopy, &__NSArray0__struct);
@@ -1256,8 +1253,8 @@ LABEL_9:
     }
   }
 
-  dlerror();
-  abort_report_np();
+  v8 = dlerror();
+  abort_report_np("%s", v8);
   __break(1u);
 }
 
@@ -1282,7 +1279,7 @@ LABEL_9:
 
 - (void)_startFetchingInternal
 {
-  v3 = sub_100009E64();
+  v3 = sub_100009E64(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_10000A818();
@@ -1305,16 +1302,17 @@ LABEL_9:
   v3 = +[SafariFetcherServer sharedServer];
   [v3 deliverReadingListDidFinishFetching];
 
-  v4 = sub_100009E64();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v6 = sub_100009E64(v4, v5);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG);
+  if (v7)
   {
     sub_10000A84C();
   }
 
   if (self->_aborted)
   {
-    v5 = sub_100009E64();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v9 = sub_100009E64(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       sub_10000A880();
     }
@@ -1323,8 +1321,8 @@ LABEL_9:
   }
 
   xpc_transaction_end();
-  v6 = dispatch_time(0, 5000000000);
-  dispatch_after(v6, &_dispatch_main_q, &stru_10001C7F8);
+  v10 = dispatch_time(0, 5000000000);
+  dispatch_after(v10, &_dispatch_main_q, &stru_10001C7F8);
 }
 
 - (void)updateArchivingMode

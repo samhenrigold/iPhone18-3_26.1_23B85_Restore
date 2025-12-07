@@ -22,11 +22,11 @@
 
 - (id)urlComponentsWithStoreURLBag:(id)bag error:(id *)error
 {
-  v25[4] = *MEMORY[0x277D85DE8];
+  v24[4] = *MEMORY[0x277D85DE8];
   bagCopy = bag;
-  v23.receiver = self;
-  v23.super_class = NMAPIFitnessMultiroomRequest;
-  v7 = [(NMAPIRequest *)&v23 urlComponentsWithStoreURLBag:bagCopy error:error];
+  v22.receiver = self;
+  v22.super_class = NMAPIFitnessMultiroomRequest;
+  v7 = [(NMAPIRequest *)&v22 urlComponentsWithStoreURLBag:bagCopy error:error];
   v8 = MusicURLPathStorefrontWithURLBag(bagCopy);
   if (v8)
   {
@@ -35,18 +35,18 @@
     if (v9)
     {
       v11 = MEMORY[0x277CCACA8];
-      v25[0] = @"/v1/editorial";
-      v25[1] = v8;
-      v25[2] = @"multirooms";
-      v25[3] = v9;
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:4];
+      v24[0] = @"/v1/editorial";
+      v24[1] = v8;
+      v24[2] = @"multirooms";
+      v24[3] = v9;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:4];
       v13 = [v11 pathWithComponents:v12];
       [v7 setPath:v13];
 
       queryItems = [v7 queryItems];
       v15 = [MEMORY[0x277CCAD18] queryItemWithName:@"art[url]" value:{@"f, c"}];
-      v24 = v15;
-      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
+      v23 = v15;
+      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
       v17 = [queryItems arrayByAddingObjectsFromArray:v16];
       [v7 setQueryItems:v17];
 
@@ -93,8 +93,6 @@
       v18 = 0;
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

@@ -161,7 +161,7 @@
   return v5;
 }
 
-uint64_t __54__SBCardDropSwitcherModifier_handleSwitcherDropEvent___block_invoke(uint64_t a1)
+void *__54__SBCardDropSwitcherModifier_handleSwitcherDropEvent___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) scaledFrameForIndex:*(a1 + 48)];
   v3 = *(*(a1 + 40) + 8);
@@ -185,10 +185,10 @@ uint64_t __54__SBCardDropSwitcherModifier_handleSwitcherDropEvent___block_invoke
   {
     self->_waitingForReflowAnimation = 0;
     v6 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:64 updateMode:3];
-    v7 = SBAppendSwitcherModifierResponse(v6, v4);
+    v7 = SBAppendSwitcherModifierResponse();
 
     v8 = [[SBTimerEventSwitcherEventResponse alloc] initWithDelay:0 validator:@"SBCardDropSwitcherModifierTimerEventHeaderVisibleReason" reason:0.0];
-    v4 = SBAppendSwitcherModifierResponse(v8, v7);
+    v4 = SBAppendSwitcherModifierResponse();
   }
 
   return v4;
@@ -226,12 +226,12 @@ uint64_t __54__SBCardDropSwitcherModifier_handleSwitcherDropEvent___block_invoke
   return v7;
 }
 
-void __47__SBCardDropSwitcherModifier_handleTimerEvent___block_invoke(uint64_t a1, uint64_t a2)
+void __47__SBCardDropSwitcherModifier_handleTimerEvent___block_invoke(uint64_t a1)
 {
-  v3 = SBAppendSwitcherModifierResponse(a2, *(*(*(a1 + 32) + 8) + 40));
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v2 = SBAppendSwitcherModifierResponse();
+  v3 = *(*(a1 + 32) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 }
 
 - (id)handleSceneReadyEvent:(id)event
@@ -246,7 +246,7 @@ void __47__SBCardDropSwitcherModifier_handleTimerEvent___block_invoke(uint64_t a
   v11.super_class = SBCardDropSwitcherModifier;
   v17 = [(SBSwitcherModifier *)&v11 handleSceneReadyEvent:eventCopy];
   v5 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:64 updateMode:2];
-  v6 = SBAppendSwitcherModifierResponse(v5, v13[5]);
+  v6 = SBAppendSwitcherModifierResponse();
   v7 = v13[5];
   v13[5] = v6;
 
@@ -263,12 +263,12 @@ void __47__SBCardDropSwitcherModifier_handleTimerEvent___block_invoke(uint64_t a
   return v8;
 }
 
-void __52__SBCardDropSwitcherModifier_handleSceneReadyEvent___block_invoke(uint64_t a1, uint64_t a2)
+void __52__SBCardDropSwitcherModifier_handleSceneReadyEvent___block_invoke(uint64_t a1)
 {
-  v3 = SBAppendSwitcherModifierResponse(a2, *(*(*(a1 + 32) + 8) + 40));
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v2 = SBAppendSwitcherModifierResponse();
+  v3 = *(*(a1 + 32) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 }
 
 - (id)handleBlurProgressEvent:(id)event
@@ -283,7 +283,7 @@ void __52__SBCardDropSwitcherModifier_handleSceneReadyEvent___block_invoke(uint6
   v11.super_class = SBCardDropSwitcherModifier;
   v17 = [(SBSwitcherModifier *)&v11 handleBlurProgressEvent:eventCopy];
   v5 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:64 updateMode:2];
-  v6 = SBAppendSwitcherModifierResponse(v5, v13[5]);
+  v6 = SBAppendSwitcherModifierResponse();
   v7 = v13[5];
   v13[5] = v6;
 
@@ -300,12 +300,12 @@ void __52__SBCardDropSwitcherModifier_handleSceneReadyEvent___block_invoke(uint6
   return v8;
 }
 
-void __54__SBCardDropSwitcherModifier_handleBlurProgressEvent___block_invoke(uint64_t a1, uint64_t a2)
+void __54__SBCardDropSwitcherModifier_handleBlurProgressEvent___block_invoke(uint64_t a1)
 {
-  v3 = SBAppendSwitcherModifierResponse(a2, *(*(*(a1 + 32) + 8) + 40));
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v2 = SBAppendSwitcherModifierResponse();
+  v3 = *(*(a1 + 32) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 }
 
 - (id)handleTransitionEvent:(id)event
@@ -381,7 +381,7 @@ void __54__SBCardDropSwitcherModifier_handleBlurProgressEvent___block_invoke(uin
   _Block_object_dispose(&v11, 8);
 }
 
-uint64_t __64__SBCardDropSwitcherModifier__recomputeBlurStateWithCompletion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__64__SBCardDropSwitcherModifier__recomputeBlurStateWithCompletion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) isLayoutRoleContentReady:a2 inAppLayout:*(*(a1 + 32) + 144)];
   if ((result & 1) == 0)
@@ -449,7 +449,7 @@ uint64_t __64__SBCardDropSwitcherModifier__recomputeBlurStateWithCompletion___bl
     topMostLayoutElements2 = [(SBCardDropSwitcherModifier *)&v9 topMostLayoutElements];
     v5 = [v3 initWithArray:topMostLayoutElements2];
 
-    if (self->_finalAppLayout && ([v5 containsObject:?] & 1) == 0)
+    if (self->_finalAppLayout && (objc_msgSend_containsObject_(v5) & 1) == 0)
     {
       [v5 insertObject:self->_finalAppLayout atIndex:0];
     }

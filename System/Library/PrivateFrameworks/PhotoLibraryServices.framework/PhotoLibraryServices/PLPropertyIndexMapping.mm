@@ -143,8 +143,8 @@
   iDCopy = iD;
   oIDCopy = oID;
   keysCopy = keys;
-  entity = [dCopy entity];
-  name = [entity name];
+  v14 = objc_msgSend_entity(dCopy);
+  name = [v14 name];
 
   v16 = [iDCopy objectForKeyedSubscript:dCopy];
   v17 = v16;
@@ -229,7 +229,7 @@ void __93__PLPropertyIndexMapping_recordChangedKeys_forObjectID_inAttributesByOI
   if (values.var0)
   {
     array = [MEMORY[0x1E695DF70] array];
-    if ([v6 count])
+    if (objc_msgSend_count(v6))
     {
       v8 = 0;
       do
@@ -249,7 +249,7 @@ void __93__PLPropertyIndexMapping_recordChangedKeys_forObjectID_inAttributesByOI
         ++v8;
       }
 
-      while (v8 < [v6 count]);
+      while (v8 < objc_msgSend_count(v6));
     }
   }
 
@@ -372,8 +372,8 @@ void __93__PLPropertyIndexMapping_recordChangedKeys_forObjectID_inAttributesByOI
   v50 = [v70 objectForKey:@"relationByIndexByEntity"];
   v58 = [v70 objectForKey:@"toManyRelationsByEntity"];
   attributesByName = [entityCopy attributesByName];
-  v21 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(attributesByName, "count")}];
-  v22 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(attributesByName, "count")}];
+  v21 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(attributesByName)];
+  v22 = [MEMORY[0x1E695DFA8] setWithCapacity:objc_msgSend_count(attributesByName)];
   v93[0] = MEMORY[0x1E69E9820];
   v93[1] = 3221225472;
   v93[2] = __72__PLPropertyIndexMapping__processSubEntityByName_entity_withEntityData___block_invoke;
@@ -384,18 +384,18 @@ void __93__PLPropertyIndexMapping_recordChangedKeys_forObjectID_inAttributesByOI
   v95 = v61;
   [attributesByName enumerateKeysAndObjectsUsingBlock:v93];
   v66 = [v61 sortedArrayUsingSelector:sel_compare_];
-  if ([v66 count] >= 0x41)
+  if (objc_msgSend_count(v66) >= 0x41)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    [currentHandler handleFailureInMethod:a2 object:self file:@"PLPropertyIndexMapping.m" lineNumber:203 description:{@"%@ (%lu) has too many attributes to treat as a single bitfield", nameCopy, objc_msgSend(v66, "count")}];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"PLPropertyIndexMapping.m" lineNumber:203 description:{@"%@ (%lu) has too many attributes to treat as a single bitfield", nameCopy, objc_msgSend_count(v66)}];
   }
 
-  if ([v66 count])
+  if (objc_msgSend_count(v66))
   {
     v89 = 0;
     v90 = &v89;
     v91 = 0x2020000000;
-    v92 = [v63 count];
+    v92 = objc_msgSend_count(v63);
     v85[0] = MEMORY[0x1E69E9820];
     v85[1] = 3221225472;
     v85[2] = __72__PLPropertyIndexMapping__processSubEntityByName_entity_withEntityData___block_invoke_2;
@@ -416,7 +416,7 @@ void __93__PLPropertyIndexMapping_recordChangedKeys_forObjectID_inAttributesByOI
   [v60 setObject:v25 forKey:nameCopy];
 
   relationshipsByName = [entityCopy relationshipsByName];
-  v26 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(relationshipsByName, "count")}];
+  v26 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:objc_msgSend_count(relationshipsByName)];
   array = [MEMORY[0x1E695DF70] array];
   v82[0] = MEMORY[0x1E69E9820];
   v82[1] = 3221225472;
@@ -431,18 +431,18 @@ void __93__PLPropertyIndexMapping_recordChangedKeys_forObjectID_inAttributesByOI
   [v58 setObject:v28 forKey:nameCopy];
 
   v65 = [v56 sortedArrayUsingSelector:sel_compare_];
-  if ([v65 count] >= 0x41)
+  if (objc_msgSend_count(v65) >= 0x41)
   {
     currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
-    [currentHandler2 handleFailureInMethod:a2 object:self file:@"PLPropertyIndexMapping.m" lineNumber:241 description:{@"%@ (%lu) has too many relationships to treat as a single bitfield", nameCopy, objc_msgSend(v65, "count")}];
+    [currentHandler2 handleFailureInMethod:a2 object:self file:@"PLPropertyIndexMapping.m" lineNumber:241 description:{@"%@ (%lu) has too many relationships to treat as a single bitfield", nameCopy, objc_msgSend_count(v65)}];
   }
 
-  if ([v65 count])
+  if (objc_msgSend_count(v65))
   {
     v89 = 0;
     v90 = &v89;
     v91 = 0x2020000000;
-    v92 = [v62 count];
+    v92 = objc_msgSend_count(v62);
     v78[0] = MEMORY[0x1E69E9820];
     v78[1] = 3221225472;
     v78[2] = __72__PLPropertyIndexMapping__processSubEntityByName_entity_withEntityData___block_invoke_4;
@@ -636,7 +636,7 @@ void __72__PLPropertyIndexMapping__processSubEntityByName_entity_withEntityData_
   if (v5)
   {
     entitiesByName = [modelCopy entitiesByName];
-    v6 = [entitiesByName count];
+    v6 = objc_msgSend_count(entitiesByName);
     v34 = modelCopy;
     v7 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:v6];
     v8 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:v6];

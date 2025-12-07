@@ -28,7 +28,7 @@
     v9 = [UIView alloc];
     [(UIView *)self->_iconView frame];
     v10 = [(UIView *)v9 initWithFrame:?];
-    v11 = +[UIColor blackColor];
+    v11 = objc_msgSend_blackColor(UIColor);
     cGColor = [v11 CGColor];
     layer = [(UIView *)v10 layer];
     [layer setBackgroundColor:cGColor];
@@ -37,7 +37,7 @@
     iconSlashMaskShapeLayer = self->_iconSlashMaskShapeLayer;
     self->_iconSlashMaskShapeLayer = layer2;
 
-    v16 = +[UIColor blackColor];
+    v16 = objc_msgSend_blackColor(UIColor);
     -[CAShapeLayer setStrokeColor:](self->_iconSlashMaskShapeLayer, "setStrokeColor:", [v16 CGColor]);
 
     Mutable = CGPathCreateMutable();
@@ -68,7 +68,7 @@
     [(CAShapeLayer *)self->_iconSlashMaskShapeLayer setLineWidth:4.0];
     v22 = *MEMORY[0x1E6979E78];
     [(CAShapeLayer *)self->_iconSlashMaskShapeLayer setLineCap:*MEMORY[0x1E6979E78]];
-    v23 = +[UIColor blackColor];
+    v23 = objc_msgSend_blackColor(UIColor);
     -[CAShapeLayer setStrokeColor:](self->_iconSlashMaskShapeLayer, "setStrokeColor:", [v23 CGColor]);
 
     [(CAShapeLayer *)self->_iconSlashMaskShapeLayer setStrokeEnd:0.0];

@@ -27,29 +27,27 @@
 
 - (void)addHAENotificationEvent:(id)event
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   eventCopy = event;
-  v5 = HAENotificationsLog();
+  v5 = HAENotificationsLog(eventCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     bundleID = self->bundleID;
-    v9 = 138412546;
-    v10 = bundleID;
-    v11 = 2112;
-    v12 = eventCopy;
-    _os_log_impl(&dword_25081E000, v5, OS_LOG_TYPE_DEFAULT, "Sending event from client %@, %@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = bundleID;
+    v10 = 2112;
+    v11 = eventCopy;
+    _os_log_impl(&dword_25081E000, v5, OS_LOG_TYPE_DEFAULT, "Sending event from client %@, %@", &v8, 0x16u);
   }
 
   v7 = [(NSXPCConnection *)self->connection remoteObjectProxyWithErrorHandler:&__block_literal_global_8];
   [v7 addHAENotificationEvent:eventCopy];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __55__HAENotificationCenterClient_addHAENotificationEvent___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = HAENotificationsLog();
+  v3 = HAENotificationsLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __55__HAENotificationCenterClient_addHAENotificationEvent___block_invoke_cold_1(v2, v3);
@@ -79,18 +77,18 @@ void __55__HAENotificationCenterClient_addHAENotificationEvent___block_invoke(ui
   return v3;
 }
 
-void __46__HAENotificationCenterClient_setupConnection__block_invoke()
+void __46__HAENotificationCenterClient_setupConnection__block_invoke(uint64_t a1)
 {
-  v0 = HAENotificationsLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = HAENotificationsLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __46__HAENotificationCenterClient_setupConnection__block_invoke_cold_1(v0, v1, v2, v3, v4, v5, v6, v7);
+    __46__HAENotificationCenterClient_setupConnection__block_invoke_cold_1(v1, v2, v3, v4, v5, v6, v7, v8);
   }
 }
 
 void __46__HAENotificationCenterClient_setupConnection__block_invoke_50(uint64_t a1)
 {
-  v2 = HAENotificationsLog();
+  v2 = HAENotificationsLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __46__HAENotificationCenterClient_setupConnection__block_invoke_50_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
@@ -105,7 +103,7 @@ void __46__HAENotificationCenterClient_setupConnection__block_invoke_50(uint64_t
 
   else
   {
-    v12 = HAENotificationsLog();
+    v12 = HAENotificationsLog(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       __46__HAENotificationCenterClient_setupConnection__block_invoke_50_cold_2(v12, v13, v14, v15, v16, v17, v18, v19);
@@ -115,13 +113,12 @@ void __46__HAENotificationCenterClient_setupConnection__block_invoke_50(uint64_t
 
 void __55__HAENotificationCenterClient_addHAENotificationEvent___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[HAENotificationCenterClient addHAENotificationEvent:]_block_invoke";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_25081E000, a2, OS_LOG_TYPE_ERROR, "%s error: %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[HAENotificationCenterClient addHAENotificationEvent:]_block_invoke";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_25081E000, a2, OS_LOG_TYPE_ERROR, "%s error: %@", &v2, 0x16u);
 }
 
 @end

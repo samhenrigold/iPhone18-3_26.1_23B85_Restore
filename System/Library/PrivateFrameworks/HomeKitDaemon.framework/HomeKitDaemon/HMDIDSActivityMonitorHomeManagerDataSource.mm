@@ -26,7 +26,7 @@
 
 - (void)_handleHomeAdded:(id)added
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   addedCopy = added;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -34,9 +34,9 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Home added, updating", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Home added, updating", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -44,8 +44,6 @@
   {
     [(HMDIDSActivityMonitorHomeManagerDataSource *)selfCopy _updateWithCompletionHandler:?];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateWithCompletionHandler:(uint64_t)handler
@@ -64,7 +62,7 @@
 
 void __75__HMDIDSActivityMonitorHomeManagerDataSource__updateWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = *(a1 + 40);
   if (v1)
@@ -76,26 +74,26 @@ void __75__HMDIDSActivityMonitorHomeManagerDataSource__updateWithCompletionHandl
       v4 = [MEMORY[0x277CBEB58] set];
       v5 = [v1 homeManager];
       v6 = [v5 homes];
-      *&v43 = MEMORY[0x277D85DD0];
-      *(&v43 + 1) = 3221225472;
-      v44 = __82__HMDIDSActivityMonitorHomeManagerDataSource__updateOnQueueWithCompletionHandler___block_invoke;
-      v45 = &unk_27867BF88;
-      v46 = v3;
+      *&v42 = MEMORY[0x277D85DD0];
+      *(&v42 + 1) = 3221225472;
+      v43 = __82__HMDIDSActivityMonitorHomeManagerDataSource__updateOnQueueWithCompletionHandler___block_invoke;
+      v44 = &unk_27867BF88;
+      v45 = v3;
       v7 = v4;
-      v47 = v7;
-      [v6 hmf_enumerateWithAutoreleasePoolUsingBlock:&v43];
+      v46 = v7;
+      [v6 hmf_enumerateWithAutoreleasePoolUsingBlock:&v42];
 
       if ([v7 count])
       {
         objc_initWeak(&location, v1);
         *&aBlock = MEMORY[0x277D85DD0];
         *(&aBlock + 1) = 3221225472;
-        v39 = __82__HMDIDSActivityMonitorHomeManagerDataSource__updateOnQueueWithCompletionHandler___block_invoke_29;
-        v40 = &unk_27867ABE0;
-        objc_copyWeak(&v42, &location);
-        v31 = v2;
-        v41 = v31;
-        v32 = _Block_copy(&aBlock);
+        v38 = __82__HMDIDSActivityMonitorHomeManagerDataSource__updateOnQueueWithCompletionHandler___block_invoke_29;
+        v39 = &unk_27867ABE0;
+        objc_copyWeak(&v41, &location);
+        v30 = v2;
+        v40 = v30;
+        v31 = _Block_copy(&aBlock);
         v8 = [v7 allObjects];
         v9 = objc_autoreleasePoolPush();
         v10 = v1;
@@ -104,9 +102,9 @@ void __75__HMDIDSActivityMonitorHomeManagerDataSource__updateWithCompletionHandl
         {
           v12 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v35 = v12;
-          v36 = 2112;
-          v37 = v8;
+          v34 = v12;
+          v35 = 2112;
+          v36 = v8;
           _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Querying endpoints for these destinations: %@", buf, 0x16u);
         }
 
@@ -115,7 +113,7 @@ void __75__HMDIDSActivityMonitorHomeManagerDataSource__updateWithCompletionHandl
         v14 = +[HMDIDSServiceManager sharedIDSServiceName];
         v15 = [MEMORY[0x277D189C8] refreshIDInfo];
         v16 = *(v1 + 40);
-        v17 = [v13 idInfoForDestinations:v8 service:v14 infoTypes:1 options:v15 listenerID:@"com.apple.homed.idsActivityMonitor" queue:v16 completionBlock:v32];
+        v17 = [v13 idInfoForDestinations:v8 service:v14 infoTypes:1 options:v15 listenerID:@"com.apple.homed.idsActivityMonitor" queue:v16 completionBlock:v31];
 
         if ((v17 & 1) == 0)
         {
@@ -126,17 +124,17 @@ void __75__HMDIDSActivityMonitorHomeManagerDataSource__updateWithCompletionHandl
           {
             v21 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v35 = v21;
-            v36 = 2112;
-            v37 = v8;
+            v34 = v21;
+            v35 = 2112;
+            v36 = v8;
             _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to query somehow: %@", buf, 0x16u);
           }
 
           objc_autoreleasePoolPop(v18);
-          [(HMDIDSActivityMonitorHomeManagerDataSource *)v19 _updatePushTokens:v31 completionHandler:?];
+          [(HMDIDSActivityMonitorHomeManagerDataSource *)v19 _updatePushTokens:v30 completionHandler:?];
         }
 
-        objc_destroyWeak(&v42);
+        objc_destroyWeak(&v41);
         objc_destroyWeak(&location);
       }
 
@@ -166,17 +164,15 @@ void __75__HMDIDSActivityMonitorHomeManagerDataSource__updateWithCompletionHandl
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         v25 = HMFGetLogIdentifier();
-        LODWORD(v43) = 138543362;
-        *(&v43 + 4) = v25;
-        _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Unable to fetch tokens, currentDevice unavailable", &v43, 0xCu);
+        LODWORD(v42) = 138543362;
+        *(&v42 + 4) = v25;
+        _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Unable to fetch tokens, currentDevice unavailable", &v42, 0xCu);
       }
 
       objc_autoreleasePoolPop(v22);
       [(HMDIDSActivityMonitorHomeManagerDataSource *)v23 _updatePushTokens:v2 completionHandler:?];
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updatePushTokens:(void *)tokens completionHandler:
@@ -247,7 +243,7 @@ void __82__HMDIDSActivityMonitorHomeManagerDataSource__updateOnQueueWithCompleti
 
 void __82__HMDIDSActivityMonitorHomeManagerDataSource__updateOnQueueWithCompletionHandler___block_invoke_29(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -255,15 +251,15 @@ void __82__HMDIDSActivityMonitorHomeManagerDataSource__updateOnQueueWithCompleti
   if (WeakRetained)
   {
     v9 = WeakRetained[5];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __82__HMDIDSActivityMonitorHomeManagerDataSource__updateOnQueueWithCompletionHandler___block_invoke_30;
-    v16[3] = &unk_278689AB8;
-    v16[4] = WeakRetained;
-    v17 = v5;
-    v18 = v6;
-    v19 = *(a1 + 32);
-    dispatch_async(v9, v16);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __82__HMDIDSActivityMonitorHomeManagerDataSource__updateOnQueueWithCompletionHandler___block_invoke_30;
+    v15[3] = &unk_278689AB8;
+    v15[4] = WeakRetained;
+    v16 = v5;
+    v17 = v6;
+    v18 = *(a1 + 32);
+    dispatch_async(v9, v15);
   }
 
   else
@@ -275,7 +271,7 @@ void __82__HMDIDSActivityMonitorHomeManagerDataSource__updateOnQueueWithCompleti
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v21 = v13;
+      v20 = v13;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@HMDIDSActivityMonitorHomeManagerDataSource died before IDS returned results", buf, 0xCu);
     }
 
@@ -286,13 +282,11 @@ void __82__HMDIDSActivityMonitorHomeManagerDataSource__updateOnQueueWithCompleti
       (*(v14 + 16))(v14, 1);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __82__HMDIDSActivityMonitorHomeManagerDataSource__updateOnQueueWithCompletionHandler___block_invoke_30(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = *(a1 + 48);
   v3 = *(a1 + 56);
@@ -305,15 +299,15 @@ void __82__HMDIDSActivityMonitorHomeManagerDataSource__updateOnQueueWithCompleti
     if (v4)
     {
       v7 = [MEMORY[0x277CBEB58] set];
-      *v15 = MEMORY[0x277D85DD0];
-      *&v15[8] = 3221225472;
-      *&v15[16] = __93__HMDIDSActivityMonitorHomeManagerDataSource__handleIDSQueryResults_error_completionHandler___block_invoke;
-      v16 = &unk_27867AC30;
-      v17 = v1;
-      v18 = v7;
+      *v14 = MEMORY[0x277D85DD0];
+      *&v14[8] = 3221225472;
+      *&v14[16] = __93__HMDIDSActivityMonitorHomeManagerDataSource__handleIDSQueryResults_error_completionHandler___block_invoke;
+      v15 = &unk_27867AC30;
+      v16 = v1;
+      v17 = v7;
       v8 = v7;
-      [v4 enumerateKeysAndObjectsUsingBlock:v15];
-      v9 = [v8 copy];
+      [v4 enumerateKeysAndObjectsUsingBlock:v14];
+      v9 = objc_msgSend_copy(v8, *v14, *&v14[8], *&v14[16], v15, v16);
       [(HMDIDSActivityMonitorHomeManagerDataSource *)v1 _updatePushTokens:v9 completionHandler:v6];
     }
 
@@ -325,24 +319,22 @@ void __82__HMDIDSActivityMonitorHomeManagerDataSource__updateOnQueueWithCompleti
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         v13 = HMFGetLogIdentifier();
-        *v15 = 138543618;
-        *&v15[4] = v13;
-        *&v15[12] = 2112;
-        *&v15[14] = v5;
-        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch IDS info: %@", v15, 0x16u);
+        *v14 = 138543618;
+        *&v14[4] = v13;
+        *&v14[12] = 2112;
+        *&v14[14] = v5;
+        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch IDS info: %@", v14, 0x16u);
       }
 
       objc_autoreleasePoolPop(v10);
       [(HMDIDSActivityMonitorHomeManagerDataSource *)v11 _updatePushTokens:v6 completionHandler:?];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __93__HMDIDSActivityMonitorHomeManagerDataSource__handleIDSQueryResults_error_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -353,24 +345,22 @@ void __93__HMDIDSActivityMonitorHomeManagerDataSource__handleIDSQueryResults_err
     v10 = HMFGetLogIdentifier();
     v11 = [v6 endpoints];
     *buf = 138543874;
-    v17 = v10;
-    v18 = 2112;
-    v19 = v5;
-    v20 = 2112;
-    v21 = v11;
+    v16 = v10;
+    v17 = 2112;
+    v18 = v5;
+    v19 = 2112;
+    v20 = v11;
     _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEBUG, "%{public}@IDS destination '%@' has endpoints: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v7);
   v12 = [v6 endpoints];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __93__HMDIDSActivityMonitorHomeManagerDataSource__handleIDSQueryResults_error_completionHandler___block_invoke_35;
-  v14[3] = &unk_27867AC08;
-  v15 = *(a1 + 40);
-  [v12 hmf_enumerateWithAutoreleasePoolUsingBlock:v14];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __93__HMDIDSActivityMonitorHomeManagerDataSource__handleIDSQueryResults_error_completionHandler___block_invoke_35;
+  v13[3] = &unk_27867AC08;
+  v14 = *(a1 + 40);
+  [v12 hmf_enumerateWithAutoreleasePoolUsingBlock:v13];
 }
 
 void __93__HMDIDSActivityMonitorHomeManagerDataSource__handleIDSQueryResults_error_completionHandler___block_invoke_35(uint64_t a1, void *a2)
@@ -414,7 +404,7 @@ void __82__HMDIDSActivityMonitorHomeManagerDataSource__updatePushTokens_completi
 
 - (void)_handleCurrentDeviceOrAccountUpdated:(id)updated
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -422,9 +412,9 @@ void __82__HMDIDSActivityMonitorHomeManagerDataSource__updatePushTokens_completi
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Current device or account updated, updating", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Current device or account updated, updating", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -432,13 +422,11 @@ void __82__HMDIDSActivityMonitorHomeManagerDataSource__updatePushTokens_completi
   {
     [(HMDIDSActivityMonitorHomeManagerDataSource *)selfCopy _updateWithCompletionHandler:?];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleDeviceRemoved:(id)removed
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   removedCopy = removed;
   if (self)
   {
@@ -478,11 +466,11 @@ void __82__HMDIDSActivityMonitorHomeManagerDataSource__updatePushTokens_completi
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       v16 = HMFGetLogIdentifier();
-      v18 = 138543618;
-      v19 = v16;
-      v20 = 2112;
-      v21 = v12;
-      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Device removed from account, updating: %@", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v16;
+      v19 = 2112;
+      v20 = v12;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Device removed from account, updating: %@", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
@@ -491,13 +479,11 @@ void __82__HMDIDSActivityMonitorHomeManagerDataSource__updatePushTokens_completi
       [(HMDIDSActivityMonitorHomeManagerDataSource *)selfCopy _updateWithCompletionHandler:?];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleDeviceAdded:(id)added
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   addedCopy = added;
   if (self)
   {
@@ -537,11 +523,11 @@ void __82__HMDIDSActivityMonitorHomeManagerDataSource__updatePushTokens_completi
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       v16 = HMFGetLogIdentifier();
-      v18 = 138543618;
-      v19 = v16;
-      v20 = 2112;
-      v21 = v12;
-      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Device added or updated on account, updating: %@", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v16;
+      v19 = 2112;
+      v20 = v12;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Device added or updated on account, updating: %@", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
@@ -550,8 +536,6 @@ void __82__HMDIDSActivityMonitorHomeManagerDataSource__updatePushTokens_completi
       [(HMDIDSActivityMonitorHomeManagerDataSource *)selfCopy _updateWithCompletionHandler:?];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pushTokensForDevicesObservingSubjectDevice:(id)device subActivity:(id)activity queue:(id)queue completionHandler:(id)handler
@@ -609,16 +593,16 @@ void __125__HMDIDSActivityMonitorHomeManagerDataSource_pushTokensForDevicesObser
   dispatch_async(v9, v12);
 }
 
-void __125__HMDIDSActivityMonitorHomeManagerDataSource_pushTokensForDevicesObservingSubjectDevice_subActivity_queue_completionHandler___block_invoke_2(uint64_t a1)
+void __125__HMDIDSActivityMonitorHomeManagerDataSource_pushTokensForDevicesObservingSubjectDevice_subActivity_queue_completionHandler___block_invoke_2(uint64_t a1, const char *a2)
 {
-  v1 = *(a1 + 40);
-  v2 = [*(a1 + 32) copy];
-  (*(v1 + 16))(v1, v2);
+  v3 = *(a1 + 40);
+  v4 = objc_msgSend_copy(*(a1 + 32), a2);
+  (*(v3 + 16))(v3, v4);
 }
 
 - (void)startWithNotificationCenter:(id)center
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   centerCopy = center;
   homeManager = [(HMDIDSActivityMonitorHomeManagerDataSource *)self homeManager];
   capabilitiesController = [homeManager capabilitiesController];
@@ -635,7 +619,7 @@ void __125__HMDIDSActivityMonitorHomeManagerDataSource_pushTokensForDevicesObser
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v19 = v13;
+      v18 = v13;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Starting", buf, 0xCu);
     }
 
@@ -665,7 +649,7 @@ void __125__HMDIDSActivityMonitorHomeManagerDataSource_pushTokensForDevicesObser
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v19 = v14;
+      v18 = v14;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Not starting on this non-resident-capable device", buf, 0xCu);
     }
 
@@ -687,8 +671,6 @@ void __125__HMDIDSActivityMonitorHomeManagerDataSource_pushTokensForDevicesObser
     block[4] = selfCopy;
     dispatch_async(workQueue, block);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startUpdateTask
@@ -731,7 +713,7 @@ void __125__HMDIDSActivityMonitorHomeManagerDataSource_pushTokensForDevicesObser
 
 void __62__HMDIDSActivityMonitorHomeManagerDataSource__startUpdateTask__block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
@@ -747,9 +729,9 @@ void __62__HMDIDSActivityMonitorHomeManagerDataSource__startUpdateTask__block_in
       if (v10)
       {
         v11 = HMFGetLogIdentifier();
-        v18 = 138543362;
-        v19 = v11;
-        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Deferring background update", &v18, 0xCu);
+        v17 = 138543362;
+        v18 = v11;
+        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Deferring background update", &v17, 0xCu);
       }
 
       objc_autoreleasePoolPop(v7);
@@ -761,9 +743,9 @@ void __62__HMDIDSActivityMonitorHomeManagerDataSource__startUpdateTask__block_in
       if (v10)
       {
         v16 = HMFGetLogIdentifier();
-        v18 = 138543362;
-        v19 = v16;
-        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Performing background update", &v18, 0xCu);
+        v17 = 138543362;
+        v18 = v16;
+        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Performing background update", &v17, 0xCu);
       }
 
       objc_autoreleasePoolPop(v7);
@@ -779,21 +761,19 @@ void __62__HMDIDSActivityMonitorHomeManagerDataSource__startUpdateTask__block_in
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = HMFGetLogIdentifier();
-      v18 = 138543362;
-      v19 = v15;
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@HMDIDSActivityMonitorHomeManagerDataSource died before scheduled activity could run", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v15;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@HMDIDSActivityMonitorHomeManagerDataSource died before scheduled activity could run", &v17, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
     v3[2](v3, 1);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __64__HMDIDSActivityMonitorHomeManagerDataSource_updateTaskInterval__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277D0F8D0] sharedPreferences];
   v3 = [v2 preferenceForKey:@"idsActivityMonitorUpdateInterval"];
   v4 = [v3 numberValue];
@@ -810,19 +790,17 @@ void __64__HMDIDSActivityMonitorHomeManagerDataSource_updateTaskInterval__block_
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         v10 = HMFGetLogIdentifier();
-        v12 = 138543618;
-        v13 = v10;
-        v14 = 2048;
-        v15 = v6;
-        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Overriding default update interval: %f", &v12, 0x16u);
+        v11 = 138543618;
+        v12 = v10;
+        v13 = 2048;
+        v14 = v6;
+        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Overriding default update interval: %f", &v11, 0x16u);
       }
 
       objc_autoreleasePoolPop(v7);
       updateTaskInterval_updateTaskInterval = v6;
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
@@ -875,10 +853,9 @@ void __64__HMDIDSActivityMonitorHomeManagerDataSource_updateTaskInterval__block_
 
 void __57__HMDIDSActivityMonitorHomeManagerDataSource_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v20_140634;
-  logCategory__hmf_once_v20_140634 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v20_140634;
+  logCategory__hmf_once_v20_140634 = v0;
 }
 
 @end

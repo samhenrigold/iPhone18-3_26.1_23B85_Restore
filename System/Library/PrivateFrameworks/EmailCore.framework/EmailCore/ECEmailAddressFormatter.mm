@@ -2,6 +2,8 @@
 - (BOOL)getObjectValue:(id *)value forString:(id)string errorDescription:(id *)description;
 - (ECEmailAddressFormatter)initWithStyle:(int64_t)style;
 - (id)_groupListString:(id)string;
+- (id)_stringFromEmailAddress:(id)address includeDisplayName:(BOOL)name;
+- (id)_stringFromEmailAddressConvertible:(id)convertible includeDisplayName:(BOOL)name;
 - (id)_stringFromEmailAddressList:(id)list includeDisplayName:(BOOL)name;
 - (id)_stringFromGroupEmailAddress:(id)address;
 - (id)_stringFromMailboxAddress:(id)address includeDisplayName:(BOOL)name;
@@ -121,6 +123,56 @@ LABEL_6:
   v5 = [(ECEmailAddressFormatter *)self _stringFromEmailAddressList:listCopy includeDisplayName:[(ECEmailAddressFormatter *)self shouldIncludeDisplayName]];
 
   return v5;
+}
+
+- (id)_stringFromEmailAddress:(id)address includeDisplayName:(BOOL)name
+{
+  nameCopy = name;
+  addressCopy = address;
+  groupList = [addressCopy groupList];
+
+  if (groupList)
+  {
+    [(ECEmailAddressFormatter *)self _stringFromGroupEmailAddress:addressCopy];
+  }
+
+  else
+  {
+    [(ECEmailAddressFormatter *)self _stringFromMailboxAddress:addressCopy includeDisplayName:nameCopy];
+  }
+  v8 = ;
+
+  return v8;
+}
+
+- (id)_stringFromEmailAddressConvertible:(id)convertible includeDisplayName:(BOOL)name
+{
+  nameCopy = name;
+  convertibleCopy = convertible;
+  emailAddressValue = [convertibleCopy emailAddressValue];
+  if (emailAddressValue)
+  {
+    stringValue2 = [(ECEmailAddressFormatter *)self _stringFromEmailAddress:emailAddressValue includeDisplayName:nameCopy];
+  }
+
+  else
+  {
+    if (self->_style == 2)
+    {
+      v9 = MEMORY[0x277D07198];
+      stringValue = [convertibleCopy stringValue];
+      v11 = [v9 fullyOrPartiallyRedactedStringForString:stringValue];
+
+      goto LABEL_7;
+    }
+
+    stringValue2 = [convertibleCopy stringValue];
+  }
+
+  v11 = stringValue2;
+LABEL_7:
+
+  return v11;
 }
 
 - (id)_stringFromEmailAddressList:(id)list includeDisplayName:(BOOL)name

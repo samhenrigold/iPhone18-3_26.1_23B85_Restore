@@ -36,6 +36,7 @@
 - (void)isWebContentRestrictedWithCompletionHandler:(id)handler;
 - (void)lastCommunicationLimitsModifcationDateForDSID:(id)d completionHandler:(id)handler;
 - (void)lastModifcationDateForDSID:(id)d completionHandler:(id)handler;
+- (void)loadRegionRatingsDataForStorefront:(id)storefront includeUnrated:(BOOL)unrated completionHandler:(id)handler;
 - (void)managingGuardianAppleIDsForLocalUserWithCompletionHandler:(id)handler;
 - (void)needsToSetRestrictionsPasscodeWithReplyHandler:(id)handler;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
@@ -50,7 +51,10 @@
 - (void)screenTimeSyncStateWithCompletionHandler:(id)handler;
 - (void)sendPasscodeActivityToParentsWithCompletionHandler:(id)handler;
 - (void)setContactManagementState:(int64_t)state forDSID:(id)d completionHandler:(id)handler;
+- (void)setLocationSharingModificationAllowed:(BOOL)allowed forDSID:(id)d completionHandler:(id)handler;
 - (void)setRestrictionsPasscode:(id)passcode completionHandler:(id)handler;
+- (void)setScreenTimeEnabled:(BOOL)enabled completionHandler:(id)handler;
+- (void)setScreenTimeSyncingEnabled:(BOOL)enabled completionHandler:(id)handler;
 - (void)shouldAllowOneMoreMinuteForBundleIdentifier:(id)identifier replyHandler:(id)handler;
 - (void)shouldAllowOneMoreMinuteForCategoryIdentifier:(id)identifier replyHandler:(id)handler;
 - (void)shouldAllowOneMoreMinuteForWebDomain:(id)domain replyHandler:(id)handler;
@@ -209,6 +213,14 @@
   (*(handler + 2))(handlerCopy, v6, 0);
 }
 
+- (void)setScreenTimeEnabled:(BOOL)enabled completionHandler:(id)handler
+{
+  enabledCopy = enabled;
+  handlerCopy = handler;
+  screenTimeManager = [(STManagementStateServer *)self screenTimeManager];
+  [screenTimeManager setScreenTimeEnabled:enabledCopy completionHandler:handlerCopy];
+}
+
 - (void)enableScreenTimeForDSID:(id)d completionHandler:(id)handler
 {
   handlerCopy = handler;
@@ -240,6 +252,14 @@
   }
 
   (*(handler + 2))(handlerCopy, v6, 0);
+}
+
+- (void)setScreenTimeSyncingEnabled:(BOOL)enabled completionHandler:(id)handler
+{
+  enabledCopy = enabled;
+  handlerCopy = handler;
+  screenTimeManager = [(STManagementStateServer *)self screenTimeManager];
+  [screenTimeManager setScreenTimeSyncingEnabled:enabledCopy completionHandler:handlerCopy];
 }
 
 - (void)isContentPrivacyEnabledForDSID:(id)d completionHandler:(id)handler
@@ -783,7 +803,7 @@
   v16 = v15;
   if (v15)
   {
-    [v15 auditToken];
+    objc_msgSend_auditToken(v15);
   }
 
   else
@@ -807,7 +827,7 @@
   v16 = v15;
   if (v15)
   {
-    [v15 auditToken];
+    objc_msgSend_auditToken(v15);
   }
 
   else
@@ -830,7 +850,7 @@
   v13 = v12;
   if (v12)
   {
-    [v12 auditToken];
+    objc_msgSend_auditToken(v12);
   }
 
   else
@@ -920,6 +940,15 @@
   [screenTimeManager isLocationSharingModificationAllowedForDSID:dCopy completionHandler:handlerCopy];
 }
 
+- (void)setLocationSharingModificationAllowed:(BOOL)allowed forDSID:(id)d completionHandler:(id)handler
+{
+  allowedCopy = allowed;
+  handlerCopy = handler;
+  dCopy = d;
+  screenTimeManager = [(STManagementStateServer *)self screenTimeManager];
+  [screenTimeManager setLocationSharingModificationAllowed:allowedCopy forDSID:dCopy completionHandler:handlerCopy];
+}
+
 - (void)lastCommunicationLimitsModifcationDateForDSID:(id)d completionHandler:(id)handler
 {
   handlerCopy = handler;
@@ -971,6 +1000,15 @@
   handlerCopy = handler;
   screenTimeManager = [(STManagementStateServer *)self screenTimeManager];
   [screenTimeManager managingGuardianAppleIDsForLocalUserWithCompletionHandler:handlerCopy];
+}
+
+- (void)loadRegionRatingsDataForStorefront:(id)storefront includeUnrated:(BOOL)unrated completionHandler:(id)handler
+{
+  unratedCopy = unrated;
+  handlerCopy = handler;
+  storefrontCopy = storefront;
+  v9 = objc_opt_new();
+  [v9 loadRegionRatingsDataForStorefront:storefrontCopy includeUnrated:unratedCopy completionHandler:handlerCopy];
 }
 
 @end

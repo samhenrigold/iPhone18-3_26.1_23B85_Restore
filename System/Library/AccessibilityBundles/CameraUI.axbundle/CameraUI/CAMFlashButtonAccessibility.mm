@@ -183,7 +183,7 @@ void __63__CAMFlashButtonAccessibility_startExpansionWithProposedFrame___block_i
   }
 }
 
-uint64_t __63__CAMFlashButtonAccessibility_startExpansionWithProposedFrame___block_invoke_2(uint64_t a1)
+void *__63__CAMFlashButtonAccessibility_startExpansionWithProposedFrame___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) modeForIndex:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;

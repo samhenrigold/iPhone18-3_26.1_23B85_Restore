@@ -2,8 +2,8 @@
 - (NTKCubicColorCurve)initWithColorCurveElements:(id)elements;
 - (NTKCubicColorCurve)initWithCubicColorCurveElements:(id)elements;
 - (id)colorForFraction:(float)fraction;
-- (uint64_t)rgbfColorForFraction:(uint64_t)result;
 - (void)dealloc;
+- (void)rgbfColorForFraction:(void *)result;
 @end
 
 @implementation NTKCubicColorCurve
@@ -142,13 +142,13 @@ uint64_t __49__NTKCubicColorCurve_initWithColorCurveElements___block_invoke(uint
   CLKUIConvertToUIColorFromRGBf_fast();
 }
 
-- (uint64_t)rgbfColorForFraction:(uint64_t)result
+- (void)rgbfColorForFraction:(void *)result
 {
-  v2 = *(result + 40);
+  v2 = *(result + 5);
   if (v2 != 1)
   {
     v3 = 0;
-    v4 = *(result + 32);
+    v4 = *(result + 4);
     while (1)
     {
       v5 = *(v4 + 4 * v3);
@@ -169,7 +169,7 @@ uint64_t __49__NTKCubicColorCurve_initWithColorCurveElements___block_invoke(uint
 
     v7 = (a2 - v5) / (v6 - v5) + v3;
     *&v7 = v7;
-    return [*(result + 16) interpolateAt:v7];
+    return [*(result + 2) interpolateAt:v7];
   }
 
   return result;

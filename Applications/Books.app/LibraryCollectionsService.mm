@@ -8,7 +8,7 @@
 {
   contentCopy = content;
   selfCopy = self;
-  sub_100489254();
+  sub_100489254(contentCopy);
 }
 
 @end

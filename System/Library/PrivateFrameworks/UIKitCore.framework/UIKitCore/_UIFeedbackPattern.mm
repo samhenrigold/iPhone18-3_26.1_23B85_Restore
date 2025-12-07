@@ -130,15 +130,15 @@
   v7.super_class = _UIFeedbackPattern;
   if ([(_UIFeedback *)&v7 isEqual:equalCopy])
   {
-    v5 = [(NSMutableArray *)self->_feedbacks isEqual:equalCopy[18]];
+    isEqual = objc_msgSend_isEqual_(self->_feedbacks);
   }
 
   else
   {
-    v5 = 0;
+    isEqual = 0;
   }
 
-  return v5;
+  return isEqual;
 }
 
 - (_UIFeedbackPattern)initWithDictionaryRepresentation:(id)representation

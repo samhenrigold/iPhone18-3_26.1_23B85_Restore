@@ -269,12 +269,14 @@ uint64_t __43__PFMetadataStateHandler_initWithMetadata___block_invoke(uint64_t a
   return className_name;
 }
 
-uint64_t __35__PFMetadataStateHandler_className__block_invoke()
+uint64_t __35__PFMetadataStateHandler_className__block_invoke(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  className_name = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  v3 = className_name;
+  className_name = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v3);
 }
 
 @end

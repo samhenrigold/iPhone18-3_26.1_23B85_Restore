@@ -61,7 +61,7 @@
 
 - (void)setDelegate:(id)delegate
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   fInternalQueue = self->fInternalQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
@@ -91,15 +91,15 @@
       dispatch_once(&qword_1EAFE2AE8, &unk_1F0E28060);
     }
 
-    v6 = _os_log_send_and_compose_impl();
+    v8[0] = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2AF0, 2, "[CMNoMovementManager] set delegate", v8, 2);
+    v7 = v6;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMNoMovementManager setDelegate:]", "CoreLocation: %s\n", v6);
-    if (v6 != buf)
+    if (v7 != buf)
     {
-      free(v6);
+      free(v7);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestLatestStateUpdate
@@ -115,30 +115,28 @@
 
 - (void)_connect
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->fInternalQueue);
   if (!self->fLocationdConnection.__ptr_)
   {
     operator new();
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_disconnect
 {
-  v5[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->fInternalQueue);
-  v4 = @"kCLConnectionMessageSubscribeKey";
-  v5[0] = MEMORY[0x1E695E110];
-  v3 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v2, v5, &v4, 1);
-  sub_19B5B79EC();
+  v5 = @"kCLConnectionMessageSubscribeKey";
+  v6[0] = MEMORY[0x1E695E110];
+  v4 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v2, v6, &v5, 1);
+  sub_19B5B79EC(&v3, &v4);
 }
 
 - (void)_handleMessage:(shared_ptr<CLConnectionMessage>)message
 {
   var0 = message.var0;
-  v26 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE2AE8 != -1)
   {
     dispatch_once(&qword_1EAFE2AE8, &unk_1F0E28060);
@@ -159,7 +157,7 @@
     }
 
     *buf = 136315138;
-    v25 = v7;
+    v27 = v7;
     _os_log_impl(&dword_19B41C000, v5, OS_LOG_TYPE_DEFAULT, "[CMNoMovementManager] received message, now handling %s", buf, 0xCu);
   }
 
@@ -172,36 +170,38 @@
       dispatch_once(&qword_1EAFE2AE8, &unk_1F0E28060);
     }
 
-    v9 = CLConnectionMessage::name(*var0);
-    if (*(v9 + 23) >= 0)
+    v9 = qword_1EAFE2AF0;
+    v10 = CLConnectionMessage::name(*var0);
+    if (*(v10 + 23) >= 0)
     {
-      v10 = v9;
+      v11 = v10;
     }
 
     else
     {
-      v10 = *v9;
+      v11 = *v10;
     }
 
-    v22 = 136315138;
-    v23 = v10;
-    v11 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMNoMovementManager _handleMessage:]", "CoreLocation: %s\n", v11);
-    if (v11 != buf)
+    v24 = 136315138;
+    v25 = v11;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v9, 0, "[CMNoMovementManager] received message, now handling %s", &v24);
+    v13 = v12;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "[CMNoMovementManager _handleMessage:]", "CoreLocation: %s\n", v12);
+    if (v13 != buf)
     {
-      free(v11);
+      free(v13);
     }
   }
 
-  v12 = CLConnectionMessage::name(*var0);
-  if (*(v12 + 23) < 0 && *(v12 + 8) == 43 && !memcmp(*v12, "kCLConnectionMessageCheckInNoMovementUpdate", 0x2BuLL))
+  v14 = CLConnectionMessage::name(*var0);
+  if (*(v14 + 23) < 0 && *(v14 + 8) == 43 && !memcmp(*v14, "kCLConnectionMessageCheckInNoMovementUpdate", 0x2BuLL))
   {
     objc_loadWeak(&self->_delegate);
     if (objc_opt_respondsToSelector())
     {
-      v13 = *var0;
-      v14 = objc_opt_class();
-      ObjectOfClass = CLConnectionMessage::getObjectOfClass(v13, v14);
+      v15 = *var0;
+      v16 = objc_opt_class();
+      ObjectOfClass = CLConnectionMessage::getObjectOfClass(v15, v16);
       fInternalQueue = self->fInternalQueue;
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
@@ -219,15 +219,15 @@
         dispatch_once(&qword_1EAFE2AE8, &unk_1F0E28060);
       }
 
-      v17 = qword_1EAFE2AF0;
+      v19 = qword_1EAFE2AF0;
       if (os_log_type_enabled(qword_1EAFE2AF0, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_19B41C000, v17, OS_LOG_TYPE_ERROR, "[CMNoMovementManager] delegate does not respond to didStateUpdate", buf, 2u);
+        _os_log_impl(&dword_19B41C000, v19, OS_LOG_TYPE_ERROR, "[CMNoMovementManager] delegate does not respond to didStateUpdate", buf, 2u);
       }
 
-      v18 = sub_19B420058();
-      if ((*(v18 + 160) & 0x80000000) == 0 || (*(v18 + 164) & 0x80000000) == 0 || (*(v18 + 168) & 0x80000000) == 0 || *(v18 + 152))
+      v20 = sub_19B420058();
+      if ((*(v20 + 160) & 0x80000000) == 0 || (*(v20 + 164) & 0x80000000) == 0 || (*(v20 + 168) & 0x80000000) == 0 || *(v20 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE2AE8 != -1)
@@ -235,18 +235,17 @@
           dispatch_once(&qword_1EAFE2AE8, &unk_1F0E28060);
         }
 
-        LOWORD(v22) = 0;
-        v19 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMNoMovementManager _handleMessage:]", "CoreLocation: %s\n", v19);
-        if (v19 != buf)
+        LOWORD(v24) = 0;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2AF0, 16, "[CMNoMovementManager] delegate does not respond to didStateUpdate", &v24, 2);
+        v22 = v21;
+        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMNoMovementManager _handleMessage:]", "CoreLocation: %s\n", v21);
+        if (v22 != buf)
         {
-          free(v19);
+          free(v22);
         }
       }
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 @end

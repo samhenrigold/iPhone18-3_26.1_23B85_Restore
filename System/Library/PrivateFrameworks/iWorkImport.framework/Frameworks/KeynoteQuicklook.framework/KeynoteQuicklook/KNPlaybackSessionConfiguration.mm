@@ -28,28 +28,23 @@
 
   if (mode == 1)
   {
-    canEnableMetal = objc_msgSend_canEnableMetal(self, v8, v9);
+    canEnableMetal = [self canEnableMetal];
 LABEL_5:
-    v12 = [KNLayerPlaybackSessionConfiguration alloc];
-    isHDREnabled = objc_msgSend_initWithLayerHost_isMetalEnabled_isSceneRenderingEnabled_isHDREnabled_(v12, v13, hostCopy, canEnableMetal, 0, rCopy);
+    v10 = [[KNLayerPlaybackSessionConfiguration alloc] initWithLayerHost:hostCopy isMetalEnabled:canEnableMetal isSceneRenderingEnabled:0 isHDREnabled:rCopy];
     goto LABEL_7;
   }
 
-  isHDREnabled = 0;
+  v10 = 0;
 LABEL_7:
 
-  return isHDREnabled;
+  return v10;
 }
 
 + (KNPlaybackSessionConfiguration)configurationWithOffscreenCGContextBoundsSize:(CGSize)size shouldEnableHDR:(BOOL)r
 {
-  rCopy = r;
-  height = size.height;
-  width = size.width;
-  v7 = [KNOffscreenCGContextPlaybackSessionConfiguration alloc];
-  isHDREnabled = objc_msgSend_initWithOffscreenCGContextBoundsSize_isHDREnabled_(v7, v8, rCopy, width, height);
+  v4 = [[KNOffscreenCGContextPlaybackSessionConfiguration alloc] initWithOffscreenCGContextBoundsSize:r isHDREnabled:size.width, size.height];
 
-  return isHDREnabled;
+  return v4;
 }
 
 - (id)initSuperclass
@@ -62,179 +57,179 @@ LABEL_7:
 - (CGSize)boundsSize
 {
   v2 = MEMORY[0x277D81150];
-  v3 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[KNPlaybackSessionConfiguration boundsSize]");
-  v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNPlaybackSessionConfiguration.m");
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v2, v8, v3, v5, 184, 0, "Abstract method not overridden by %{public}@", v7);
+  v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNPlaybackSessionConfiguration boundsSize]"];
+  v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNPlaybackSessionConfiguration.m"];
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  [v2 handleFailureInFunction:v3 file:v4 lineNumber:184 isFatal:0 description:{"Abstract method not overridden by %{public}@", v6}];
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v9, v10);
-  v11 = MEMORY[0x277CBEAD8];
-  v12 = *MEMORY[0x277CBE658];
-  v13 = MEMORY[0x277CCACA8];
-  v14 = objc_opt_class();
-  v15 = NSStringFromClass(v14);
-  v17 = objc_msgSend_stringWithFormat_(v13, v16, @"Abstract method not overridden by %@: %s", v15, "[KNPlaybackSessionConfiguration boundsSize]");
-  v19 = objc_msgSend_exceptionWithName_reason_userInfo_(v11, v18, v12, v17, 0);
-  v20 = v19;
+  [MEMORY[0x277D81150] logBacktraceThrottled];
+  v7 = MEMORY[0x277CBEAD8];
+  v8 = *MEMORY[0x277CBE658];
+  v9 = MEMORY[0x277CCACA8];
+  v10 = objc_opt_class();
+  v11 = NSStringFromClass(v10);
+  v12 = [v9 stringWithFormat:@"Abstract method not overridden by %@: %s", v11, "-[KNPlaybackSessionConfiguration boundsSize]"];
+  v13 = [v7 exceptionWithName:v8 reason:v12 userInfo:0];
+  v14 = v13;
 
-  objc_exception_throw(v19);
+  objc_exception_throw(v13);
 }
 
 - (double)canvasViewScaleForUnscaledSize:(CGSize)size
 {
   height = size.height;
   width = size.width;
-  objc_msgSend_boundsSize(self, a2, v3);
-  return fmin(v6 / width, v7 / height);
+  [(KNPlaybackSessionConfiguration *)self boundsSize];
+  return fmin(v5 / width, v6 / height);
 }
 
 - (CGColorSpace)colorSpace
 {
   v2 = MEMORY[0x277D81150];
-  v3 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[KNPlaybackSessionConfiguration colorSpace]");
-  v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNPlaybackSessionConfiguration.m");
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v2, v8, v3, v5, 194, 0, "Abstract method not overridden by %{public}@", v7);
+  v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNPlaybackSessionConfiguration colorSpace]"];
+  v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNPlaybackSessionConfiguration.m"];
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  [v2 handleFailureInFunction:v3 file:v4 lineNumber:194 isFatal:0 description:{"Abstract method not overridden by %{public}@", v6}];
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v9, v10);
-  v11 = MEMORY[0x277CBEAD8];
-  v12 = *MEMORY[0x277CBE658];
-  v13 = MEMORY[0x277CCACA8];
-  v14 = objc_opt_class();
-  v15 = NSStringFromClass(v14);
-  v17 = objc_msgSend_stringWithFormat_(v13, v16, @"Abstract method not overridden by %@: %s", v15, "[KNPlaybackSessionConfiguration colorSpace]");
-  v19 = objc_msgSend_exceptionWithName_reason_userInfo_(v11, v18, v12, v17, 0);
-  v20 = v19;
+  [MEMORY[0x277D81150] logBacktraceThrottled];
+  v7 = MEMORY[0x277CBEAD8];
+  v8 = *MEMORY[0x277CBE658];
+  v9 = MEMORY[0x277CCACA8];
+  v10 = objc_opt_class();
+  v11 = NSStringFromClass(v10);
+  v12 = [v9 stringWithFormat:@"Abstract method not overridden by %@: %s", v11, "-[KNPlaybackSessionConfiguration colorSpace]"];
+  v13 = [v7 exceptionWithName:v8 reason:v12 userInfo:0];
+  v14 = v13;
 
-  objc_exception_throw(v19);
+  objc_exception_throw(v13);
 }
 
 - (BOOL)isWideGamut
 {
   v3 = objc_opt_class();
-  v6 = objc_msgSend_colorSpace(self, v4, v5);
+  [(KNPlaybackSessionConfiguration *)self colorSpace];
 
-  return MEMORY[0x2821F9670](v3, sel_isColorSpaceWideGamut_, v6);
+  return MEMORY[0x2821F9670](v3, sel_isColorSpaceWideGamut_);
 }
 
 - (double)pixelAspectRatio
 {
   v2 = MEMORY[0x277D81150];
-  v3 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[KNPlaybackSessionConfiguration pixelAspectRatio]");
-  v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNPlaybackSessionConfiguration.m");
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v2, v8, v3, v5, 202, 0, "Abstract method not overridden by %{public}@", v7);
+  v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNPlaybackSessionConfiguration pixelAspectRatio]"];
+  v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNPlaybackSessionConfiguration.m"];
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  [v2 handleFailureInFunction:v3 file:v4 lineNumber:202 isFatal:0 description:{"Abstract method not overridden by %{public}@", v6}];
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v9, v10);
-  v11 = MEMORY[0x277CBEAD8];
-  v12 = *MEMORY[0x277CBE658];
-  v13 = MEMORY[0x277CCACA8];
-  v14 = objc_opt_class();
-  v15 = NSStringFromClass(v14);
-  v17 = objc_msgSend_stringWithFormat_(v13, v16, @"Abstract method not overridden by %@: %s", v15, "[KNPlaybackSessionConfiguration pixelAspectRatio]");
-  v19 = objc_msgSend_exceptionWithName_reason_userInfo_(v11, v18, v12, v17, 0);
-  v20 = v19;
+  [MEMORY[0x277D81150] logBacktraceThrottled];
+  v7 = MEMORY[0x277CBEAD8];
+  v8 = *MEMORY[0x277CBE658];
+  v9 = MEMORY[0x277CCACA8];
+  v10 = objc_opt_class();
+  v11 = NSStringFromClass(v10);
+  v12 = [v9 stringWithFormat:@"Abstract method not overridden by %@: %s", v11, "-[KNPlaybackSessionConfiguration pixelAspectRatio]"];
+  v13 = [v7 exceptionWithName:v8 reason:v12 userInfo:0];
+  v14 = v13;
 
-  objc_exception_throw(v19);
+  objc_exception_throw(v13);
 }
 
 - (BOOL)isRealtime
 {
-  v3 = objc_msgSend_layerHost(self, a2, v2);
-  v4 = v3 != 0;
+  layerHost = [(KNPlaybackSessionConfiguration *)self layerHost];
+  v3 = layerHost != 0;
 
-  return v4;
+  return v3;
 }
 
 - (BOOL)isMetalEnabled
 {
   v2 = MEMORY[0x277D81150];
-  v3 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[KNPlaybackSessionConfiguration isMetalEnabled]");
-  v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNPlaybackSessionConfiguration.m");
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v2, v8, v3, v5, 210, 0, "Abstract method not overridden by %{public}@", v7);
+  v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNPlaybackSessionConfiguration isMetalEnabled]"];
+  v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNPlaybackSessionConfiguration.m"];
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  [v2 handleFailureInFunction:v3 file:v4 lineNumber:210 isFatal:0 description:{"Abstract method not overridden by %{public}@", v6}];
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v9, v10);
-  v11 = MEMORY[0x277CBEAD8];
-  v12 = *MEMORY[0x277CBE658];
-  v13 = MEMORY[0x277CCACA8];
-  v14 = objc_opt_class();
-  v15 = NSStringFromClass(v14);
-  v17 = objc_msgSend_stringWithFormat_(v13, v16, @"Abstract method not overridden by %@: %s", v15, "[KNPlaybackSessionConfiguration isMetalEnabled]");
-  v19 = objc_msgSend_exceptionWithName_reason_userInfo_(v11, v18, v12, v17, 0);
-  v20 = v19;
+  [MEMORY[0x277D81150] logBacktraceThrottled];
+  v7 = MEMORY[0x277CBEAD8];
+  v8 = *MEMORY[0x277CBE658];
+  v9 = MEMORY[0x277CCACA8];
+  v10 = objc_opt_class();
+  v11 = NSStringFromClass(v10);
+  v12 = [v9 stringWithFormat:@"Abstract method not overridden by %@: %s", v11, "-[KNPlaybackSessionConfiguration isMetalEnabled]"];
+  v13 = [v7 exceptionWithName:v8 reason:v12 userInfo:0];
+  v14 = v13;
 
-  objc_exception_throw(v19);
+  objc_exception_throw(v13);
 }
 
 - (BOOL)isSceneRenderingEnabled
 {
   v2 = MEMORY[0x277D81150];
-  v3 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[KNPlaybackSessionConfiguration isSceneRenderingEnabled]");
-  v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNPlaybackSessionConfiguration.m");
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v2, v8, v3, v5, 214, 0, "Abstract method not overridden by %{public}@", v7);
+  v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNPlaybackSessionConfiguration isSceneRenderingEnabled]"];
+  v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNPlaybackSessionConfiguration.m"];
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  [v2 handleFailureInFunction:v3 file:v4 lineNumber:214 isFatal:0 description:{"Abstract method not overridden by %{public}@", v6}];
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v9, v10);
-  v11 = MEMORY[0x277CBEAD8];
-  v12 = *MEMORY[0x277CBE658];
-  v13 = MEMORY[0x277CCACA8];
-  v14 = objc_opt_class();
-  v15 = NSStringFromClass(v14);
-  v17 = objc_msgSend_stringWithFormat_(v13, v16, @"Abstract method not overridden by %@: %s", v15, "[KNPlaybackSessionConfiguration isSceneRenderingEnabled]");
-  v19 = objc_msgSend_exceptionWithName_reason_userInfo_(v11, v18, v12, v17, 0);
-  v20 = v19;
+  [MEMORY[0x277D81150] logBacktraceThrottled];
+  v7 = MEMORY[0x277CBEAD8];
+  v8 = *MEMORY[0x277CBE658];
+  v9 = MEMORY[0x277CCACA8];
+  v10 = objc_opt_class();
+  v11 = NSStringFromClass(v10);
+  v12 = [v9 stringWithFormat:@"Abstract method not overridden by %@: %s", v11, "-[KNPlaybackSessionConfiguration isSceneRenderingEnabled]"];
+  v13 = [v7 exceptionWithName:v8 reason:v12 userInfo:0];
+  v14 = v13;
 
-  objc_exception_throw(v19);
+  objc_exception_throw(v13);
 }
 
 - (KNPlaybackLayerHost)layerHost
 {
   v2 = MEMORY[0x277D81150];
-  v3 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[KNPlaybackSessionConfiguration layerHost]");
-  v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNPlaybackSessionConfiguration.m");
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v2, v8, v3, v5, 234, 0, "Abstract method not overridden by %{public}@", v7);
+  v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNPlaybackSessionConfiguration layerHost]"];
+  v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNPlaybackSessionConfiguration.m"];
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  [v2 handleFailureInFunction:v3 file:v4 lineNumber:234 isFatal:0 description:{"Abstract method not overridden by %{public}@", v6}];
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v9, v10);
-  v11 = MEMORY[0x277CBEAD8];
-  v12 = *MEMORY[0x277CBE658];
-  v13 = MEMORY[0x277CCACA8];
-  v14 = objc_opt_class();
-  v15 = NSStringFromClass(v14);
-  v17 = objc_msgSend_stringWithFormat_(v13, v16, @"Abstract method not overridden by %@: %s", v15, "[KNPlaybackSessionConfiguration layerHost]");
-  v19 = objc_msgSend_exceptionWithName_reason_userInfo_(v11, v18, v12, v17, 0);
-  v20 = v19;
+  [MEMORY[0x277D81150] logBacktraceThrottled];
+  v7 = MEMORY[0x277CBEAD8];
+  v8 = *MEMORY[0x277CBE658];
+  v9 = MEMORY[0x277CCACA8];
+  v10 = objc_opt_class();
+  v11 = NSStringFromClass(v10);
+  v12 = [v9 stringWithFormat:@"Abstract method not overridden by %@: %s", v11, "-[KNPlaybackSessionConfiguration layerHost]"];
+  v13 = [v7 exceptionWithName:v8 reason:v12 userInfo:0];
+  v14 = v13;
 
-  objc_exception_throw(v19);
+  objc_exception_throw(v13);
 }
 
 - (KNPlaybackSessionConfiguration)configurationWithUpdatedLayerScreenEnvironment
 {
   v2 = MEMORY[0x277D81150];
-  v3 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[KNPlaybackSessionConfiguration configurationWithUpdatedLayerScreenEnvironment]");
-  v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNPlaybackSessionConfiguration.m");
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v2, v8, v3, v5, 246, 0, "Abstract method not overridden by %{public}@", v7);
+  v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNPlaybackSessionConfiguration configurationWithUpdatedLayerScreenEnvironment]"];
+  v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNPlaybackSessionConfiguration.m"];
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  [v2 handleFailureInFunction:v3 file:v4 lineNumber:246 isFatal:0 description:{"Abstract method not overridden by %{public}@", v6}];
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v9, v10);
-  v11 = MEMORY[0x277CBEAD8];
-  v12 = *MEMORY[0x277CBE658];
-  v13 = MEMORY[0x277CCACA8];
-  v14 = objc_opt_class();
-  v15 = NSStringFromClass(v14);
-  v17 = objc_msgSend_stringWithFormat_(v13, v16, @"Abstract method not overridden by %@: %s", v15, "[KNPlaybackSessionConfiguration configurationWithUpdatedLayerScreenEnvironment]");
-  v19 = objc_msgSend_exceptionWithName_reason_userInfo_(v11, v18, v12, v17, 0);
-  v20 = v19;
+  [MEMORY[0x277D81150] logBacktraceThrottled];
+  v7 = MEMORY[0x277CBEAD8];
+  v8 = *MEMORY[0x277CBE658];
+  v9 = MEMORY[0x277CCACA8];
+  v10 = objc_opt_class();
+  v11 = NSStringFromClass(v10);
+  v12 = [v9 stringWithFormat:@"Abstract method not overridden by %@: %s", v11, "-[KNPlaybackSessionConfiguration configurationWithUpdatedLayerScreenEnvironment]"];
+  v13 = [v7 exceptionWithName:v8 reason:v12 userInfo:0];
+  v14 = v13;
 
-  objc_exception_throw(v19);
+  objc_exception_throw(v13);
 }
 
 @end

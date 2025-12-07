@@ -7,18 +7,18 @@
 
 - (_MLCGPUGroupNormalization)initWithDevice:(id)device numOfFeatureChannels:(unint64_t)channels groupCount:(unint64_t)count beta:(id)beta gamma:(id)gamma varianceEpsilon:(float)epsilon
 {
-  v58[2] = *MEMORY[0x277D85DE8];
+  v57[2] = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   betaCopy = beta;
   gammaCopy = gamma;
-  v57.receiver = self;
-  v57.super_class = _MLCGPUGroupNormalization;
-  v13 = [(_MLCGPUGroupNormalization *)&v57 init];
+  v56.receiver = self;
+  v56.super_class = _MLCGPUGroupNormalization;
+  v13 = [(_MLCGPUGroupNormalization *)&v56 init];
   v14 = v13;
   if (v13)
   {
-    v49 = v13;
-    v54 = [MEMORY[0x277CBEBF8] mutableCopy];
+    v48 = v13;
+    v53 = [MEMORY[0x277CBEBF8] mutableCopy];
     deviceList = [deviceCopy deviceList];
     v16 = [deviceList count];
 
@@ -36,7 +36,7 @@
       }
 
       v19 = !v18;
-      v55 = v19;
+      v54 = v19;
       while (1)
       {
         deviceList2 = [deviceCopy deviceList];
@@ -86,7 +86,7 @@ LABEL_18:
         v39 = [MLCMultiGPUDeviceOps multiGPUDeviceOpsWithGPUDeviceOps:v35];
         [v35 setNormalizationMultiGPUChildOps:v39];
 
-        if (!v55)
+        if (!v54)
         {
           *&v40 = epsilon;
           [v35 setVarianceEpsilon:v40];
@@ -95,19 +95,19 @@ LABEL_18:
           [v35 setSourceOfForwardNeededForGradient:0];
           [v35 setResultOfForwardNeededForGradient:0];
 LABEL_17:
-          [v54 addObject:v35];
+          [v53 addObject:v35];
           goto LABEL_18;
         }
 
         [v35 normalizationMultiGPUChildOps];
-        v41 = v50 = v25;
-        v58[0] = gammaCopy;
-        v58[1] = betaCopy;
-        v42 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:2];
+        v41 = v49 = v25;
+        v57[0] = gammaCopy;
+        v57[1] = betaCopy;
+        v42 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:2];
         v43 = [v42 copy];
         GPU_AllocateResourceForMultiGPUTraining(deviceCopy, v41, v43, v17);
 
-        v25 = v50;
+        v25 = v49;
       }
 
       *&v38 = epsilon;
@@ -116,7 +116,7 @@ LABEL_17:
       [v35 setNormalizationSumBetaGammaDeltaKernel:v33];
       [v35 setSourceOfForwardNeededForGradient:0];
       [v35 setResultOfForwardNeededForGradient:0];
-      if (v55)
+      if (v54)
       {
         GPU_AllocateExportableGammaBetaStatesWithDevice(v21, v35, betaCopy, gammaCopy, v17);
       }
@@ -125,14 +125,13 @@ LABEL_17:
     }
 
 LABEL_19:
-    v46 = [v54 copy];
-    v14 = v49;
-    v56.receiver = v49;
-    v56.super_class = _MLCGPUGroupNormalization;
-    [(_MLCGPULayer *)&v56 setDeviceOps:v46];
+    v46 = [v53 copy];
+    v14 = v48;
+    v55.receiver = v48;
+    v55.super_class = _MLCGPUGroupNormalization;
+    [(_MLCGPULayer *)&v55 setDeviceOps:v46];
   }
 
-  v47 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

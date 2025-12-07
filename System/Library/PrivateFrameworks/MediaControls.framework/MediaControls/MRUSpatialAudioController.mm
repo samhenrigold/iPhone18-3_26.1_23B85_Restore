@@ -40,7 +40,7 @@
 
 - (void)updateSpatialAudioModes
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   audioFormatApplication = [(MRNowPlayingAudioFormatController *)self->_audioFormatController audioFormatApplication];
   audioFormatContentInfo = [(MRNowPlayingAudioFormatController *)self->_audioFormatController audioFormatContentInfo];
   bundleID = [audioFormatContentInfo bundleID];
@@ -66,7 +66,7 @@
     goto LABEL_23;
   }
 
-  v35 = isSpatialAudioActive;
+  v36 = isSpatialAudioActive;
   v11 = MEMORY[0x1E695DF70];
   v12 = [[MRUSpatialAudioMode alloc] initWithType:0];
   v13 = [[MRUSpatialAudioMode alloc] initWithType:1];
@@ -83,9 +83,9 @@
     goto LABEL_21;
   }
 
-  if ([v7 mode] != 1 || !v35 || (objc_msgSend(v7, "isHeadTrackingEnabled") & v10 & 1) == 0)
+  if ([v7 mode] != 1 || !v36 || (objc_msgSend(v7, "isHeadTrackingEnabled") & v10 & 1) == 0)
   {
-    if ([v7 mode] == 1 && v35)
+    if ([v7 mode] == 1 && v36)
     {
       v16 = 1;
       goto LABEL_22;
@@ -128,51 +128,52 @@ LABEL_23:
     [WeakRetained spatialAudioController:self didChangeAvailableSpatialModes:self->_availableModes];
   }
 
-  if (![(MRUSpatialAudioMode *)v21 isEqual:v17])
+  v23 = [(MRUSpatialAudioMode *)v21 isEqual:v17];
+  if ((v23 & 1) == 0)
   {
-    v23 = objc_loadWeakRetained(&self->_delegate);
-    [v23 spatialAudioController:self didChangeSelectedSpatialMode:self->_selectedMode];
+    v24 = objc_loadWeakRetained(&self->_delegate);
+    [v24 spatialAudioController:self didChangeSelectedSpatialMode:self->_selectedMode];
   }
 
-  v24 = MCLogCategoryVolume();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  v25 = MCLogCategoryVolume(v23);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
-    v34 = v21;
-    v25 = audioFormatApplication;
-    v26 = objc_opt_class();
+    v35 = v21;
+    v26 = audioFormatApplication;
+    v27 = objc_opt_class();
     isValid = [(NSTimer *)self->_optimisticSpatialAudioActiveTimer isValid];
     isDeviceSpatialAudioSupported = self->_isDeviceSpatialAudioSupported;
     accessoryStereoHFPStatus = self->_accessoryStereoHFPStatus;
-    v36 = v18;
+    v37 = v18;
     isHeadTrackingEnabled = [(MRUSpatialAccessibilityObserver *)self->_accessibilityObserver isHeadTrackingEnabled];
-    v28 = v14;
+    v29 = v14;
     isMonoAudioEnabled = [(MRUSpatialAccessibilityObserver *)self->_accessibilityObserver isMonoAudioEnabled];
     isSplitRoute = [(MRUSystemOutputDeviceRouteController *)self->_outputDeviceRouteController isSplitRoute];
     *buf = 138545666;
-    v38 = v26;
-    audioFormatApplication = v25;
-    v39 = 2114;
-    v40 = v7;
-    v41 = 2114;
-    v42 = v25;
-    v43 = 2114;
-    v44 = audioFormatContentInfo;
-    v45 = 1024;
-    v46 = isValid;
-    v47 = 1024;
-    v48 = isDeviceSpatialAudioSupported;
-    v49 = 1024;
-    v50 = accessoryStereoHFPStatus;
-    v51 = 1024;
-    v52 = isHeadTrackingEnabled;
-    v21 = v34;
-    v18 = v36;
-    v53 = 1024;
-    v54 = isMonoAudioEnabled;
-    v14 = v28;
-    v55 = 1024;
-    v56 = isSplitRoute;
-    _os_log_impl(&dword_1A20FC000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@ update modes - pref: %{public}@ | application: %{public}@ | contentInfo: %{public}@ | OptActive: %{BOOL}u | Supported: %{BOOL}u | HFP: %{PUBLIC}i | HTAcess: %{BOOL}u | Mono: %{BOOL}u | split: %{BOOL}u", buf, 0x4Eu);
+    v39 = v27;
+    audioFormatApplication = v26;
+    v40 = 2114;
+    v41 = v7;
+    v42 = 2114;
+    v43 = v26;
+    v44 = 2114;
+    v45 = audioFormatContentInfo;
+    v46 = 1024;
+    v47 = isValid;
+    v48 = 1024;
+    v49 = isDeviceSpatialAudioSupported;
+    v50 = 1024;
+    v51 = accessoryStereoHFPStatus;
+    v52 = 1024;
+    v53 = isHeadTrackingEnabled;
+    v21 = v35;
+    v18 = v37;
+    v54 = 1024;
+    v55 = isMonoAudioEnabled;
+    v14 = v29;
+    v56 = 1024;
+    v57 = isSplitRoute;
+    _os_log_impl(&dword_1A20FC000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@ update modes - pref: %{public}@ | application: %{public}@ | contentInfo: %{public}@ | OptActive: %{BOOL}u | Supported: %{BOOL}u | HFP: %{PUBLIC}i | HTAcess: %{BOOL}u | Mono: %{BOOL}u | split: %{BOOL}u", buf, 0x4Eu);
   }
 }
 
@@ -354,7 +355,7 @@ LABEL_21:
 
 - (void)updateHeadTrackingAvailable
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   primaryOutputDeviceRoute = [(MRUSystemOutputDeviceRouteController *)self->_outputDeviceRouteController primaryOutputDeviceRoute];
   logicalLeaderOutputDevice = [primaryOutputDeviceRoute logicalLeaderOutputDevice];
 
@@ -366,35 +367,36 @@ LABEL_21:
 
     getStereoHFPSupport = [v7 getStereoHFPSupport];
     headTrackingAvailable = [v7 headTrackingAvailable];
-    v10 = MCLogCategoryVolume();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v10 = headTrackingAvailable;
+    v11 = MCLogCategoryVolume(headTrackingAvailable);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = objc_opt_class();
-      v12 = [logicalLeaderOutputDevice uid];
-      v13 = 138544386;
-      v14 = v11;
-      v15 = 1026;
-      v16 = getStereoHFPSupport;
-      v17 = 1024;
-      v18 = headTrackingAvailable;
-      v19 = 2114;
-      v20 = v12;
-      v21 = 2114;
-      v22 = v7;
-      _os_log_impl(&dword_1A20FC000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ retrieved accessoryStereoHFPStatus: %{public}i | isHeadTrackingAvailable: %{BOOL}u for uid: %{public}@ | device: %{public}@", &v13, 0x2Cu);
+      v12 = objc_opt_class();
+      v13 = [logicalLeaderOutputDevice uid];
+      v14 = 138544386;
+      v15 = v12;
+      v16 = 1026;
+      v17 = getStereoHFPSupport;
+      v18 = 1024;
+      v19 = v10;
+      v20 = 2114;
+      v21 = v13;
+      v22 = 2114;
+      v23 = v7;
+      _os_log_impl(&dword_1A20FC000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ retrieved accessoryStereoHFPStatus: %{public}i | isHeadTrackingAvailable: %{BOOL}u for uid: %{public}@ | device: %{public}@", &v14, 0x2Cu);
     }
   }
 
   else
   {
-    headTrackingAvailable = 0;
+    v10 = 0;
     getStereoHFPSupport = 0;
   }
 
-  if (self->_accessoryStereoHFPStatus != getStereoHFPSupport || self->_isHeadTrackingAvailable != headTrackingAvailable)
+  if (self->_accessoryStereoHFPStatus != getStereoHFPSupport || self->_isHeadTrackingAvailable != v10)
   {
     self->_accessoryStereoHFPStatus = getStereoHFPSupport;
-    self->_isHeadTrackingAvailable = headTrackingAvailable;
+    self->_isHeadTrackingAvailable = v10;
     [(MRUSpatialAudioController *)self updateSpatialAudioModes];
   }
 }
@@ -621,7 +623,7 @@ LABEL_21:
 
 - (id)preferenceForBundleID:(id)d outputDevice:(id)device
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   dCopy = d;
   cache = self->_cache;
   deviceCopy = device;
@@ -634,34 +636,35 @@ LABEL_21:
     v12 = [logicalLeaderOutputDevice uid];
     v13 = [mEMORY[0x1E698F468] deviceFromAddressString:v12];
 
+    v23 = 0;
     v22 = 0;
-    v21 = 0;
-    v14 = [v13 spatialAudioConfig:dCopy spatialMode:&v22 headTracking:&v21];
+    v14 = [v13 spatialAudioConfig:dCopy spatialMode:&v23 headTracking:&v22];
+    v15 = v14;
     if (v14)
     {
-      v15 = [MRUSpatialAudioPreferences alloc];
-      v16 = [(MRUSpatialAudioPreferences *)v15 initWithMode:v22 headTrackingEnabled:v21];
+      v16 = [MRUSpatialAudioPreferences alloc];
+      v17 = [(MRUSpatialAudioPreferences *)v16 initWithMode:v23 headTrackingEnabled:v22];
 
-      [(NSCache *)self->_cache setObject:v16 forKey:dCopy];
-      v9 = v16;
+      v14 = [(NSCache *)self->_cache setObject:v17 forKey:dCopy];
+      v9 = v17;
     }
 
-    v17 = MCLogCategoryVolume();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = MCLogCategoryVolume(v14);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = objc_opt_class();
-      v19 = [logicalLeaderOutputDevice uid];
+      v19 = objc_opt_class();
+      v20 = [logicalLeaderOutputDevice uid];
       *buf = 138544386;
-      v24 = v18;
-      v25 = 2114;
-      v26 = v9;
-      v27 = 2114;
-      v28 = dCopy;
-      v29 = 2114;
-      v30 = v19;
-      v31 = 1024;
-      v32 = v14;
-      _os_log_impl(&dword_1A20FC000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@ retrieved preferences: %{public}@ for bundle id: %{public}@ | uid: %{public}@ | success: %{BOOL}u", buf, 0x30u);
+      v25 = v19;
+      v26 = 2114;
+      v27 = v9;
+      v28 = 2114;
+      v29 = dCopy;
+      v30 = 2114;
+      v31 = v20;
+      v32 = 1024;
+      v33 = v15;
+      _os_log_impl(&dword_1A20FC000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@ retrieved preferences: %{public}@ for bundle id: %{public}@ | uid: %{public}@ | success: %{BOOL}u", buf, 0x30u);
     }
   }
 
@@ -670,7 +673,7 @@ LABEL_21:
 
 - (void)setPreferences:(id)preferences forBundleID:(id)d outputDevice:(id)device
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   preferencesCopy = preferences;
   dCopy = d;
   logicalLeaderOutputDevice = [device logicalLeaderOutputDevice];
@@ -681,27 +684,28 @@ LABEL_21:
     v13 = [mEMORY[0x1E698F468] deviceFromAddressString:v12];
 
     v14 = [v13 setSpatialAudioConfig:dCopy spatialMode:objc_msgSend(preferencesCopy headTracking:{"mode"), objc_msgSend(preferencesCopy, "isHeadTrackingEnabled")}];
+    v15 = v14;
     if (v14)
     {
-      [(NSCache *)self->_cache setObject:preferencesCopy forKey:dCopy];
+      v14 = [(NSCache *)self->_cache setObject:preferencesCopy forKey:dCopy];
     }
 
-    v15 = MCLogCategoryVolume();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = MCLogCategoryVolume(v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = objc_opt_class();
-      v17 = [logicalLeaderOutputDevice uid];
-      v18 = 138544386;
-      v19 = v16;
-      v20 = 2114;
-      v21 = preferencesCopy;
-      v22 = 2114;
-      v23 = dCopy;
-      v24 = 2114;
-      v25 = v17;
-      v26 = 1024;
-      v27 = v14;
-      _os_log_impl(&dword_1A20FC000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ set preferences: %{public}@ for bundle id: %{public}@ | uid: %{public}@ | success: %{BOOL}u", &v18, 0x30u);
+      v17 = objc_opt_class();
+      v18 = [logicalLeaderOutputDevice uid];
+      v19 = 138544386;
+      v20 = v17;
+      v21 = 2114;
+      v22 = preferencesCopy;
+      v23 = 2114;
+      v24 = dCopy;
+      v25 = 2114;
+      v26 = v18;
+      v27 = 1024;
+      v28 = v15;
+      _os_log_impl(&dword_1A20FC000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ set preferences: %{public}@ for bundle id: %{public}@ | uid: %{public}@ | success: %{BOOL}u", &v19, 0x30u);
     }
   }
 }

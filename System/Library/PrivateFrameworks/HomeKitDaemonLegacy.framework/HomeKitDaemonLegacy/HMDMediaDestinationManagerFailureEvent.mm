@@ -8,7 +8,7 @@
 
 - (id)attributeDescriptions
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   failureCode = [(HMDMediaDestinationManagerFailureEvent *)self failureCode];
   v5 = HMDMediaDestinationManagerFailureCodeAsString([failureCode integerValue]);
@@ -16,33 +16,29 @@
   v7 = objc_alloc(MEMORY[0x277D0F778]);
   errorDomain = [(HMDMediaDestinationManagerFailureEvent *)self errorDomain];
   v9 = [v7 initWithName:@"errorDomain" value:errorDomain];
-  v16[1] = v9;
+  v15[1] = v9;
   v10 = objc_alloc(MEMORY[0x277D0F778]);
   errorCode = [(HMDMediaDestinationManagerFailureEvent *)self errorCode];
   v12 = [v10 initWithName:@"errorCode" value:errorCode];
-  v16[2] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v15[2] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
 
   return v13;
 }
 
 - (NSDictionary)coreAnalyticsEventDictionary
 {
-  v10[3] = *MEMORY[0x277D85DE8];
-  v9[0] = @"errorDomain";
+  v9[3] = *MEMORY[0x277D85DE8];
+  v8[0] = @"errorDomain";
   errorDomain = [(HMDMediaDestinationManagerFailureEvent *)self errorDomain];
-  v10[0] = errorDomain;
-  v9[1] = @"errorCode";
+  v9[0] = errorDomain;
+  v8[1] = @"errorCode";
   errorCode = [(HMDMediaDestinationManagerFailureEvent *)self errorCode];
-  v10[1] = errorCode;
-  v9[2] = @"failureCode";
+  v9[1] = errorCode;
+  v8[2] = @"failureCode";
   failureCode = [(HMDMediaDestinationManagerFailureEvent *)self failureCode];
-  v10[2] = failureCode;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[2] = failureCode;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }

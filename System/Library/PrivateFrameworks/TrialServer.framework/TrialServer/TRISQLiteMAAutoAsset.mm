@@ -60,23 +60,22 @@
 
 - (id)determineIfAvailableSync:(id)sync withTimeout:(int64_t)timeout discoveredAttributes:(id *)attributes error:(id *)error
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v8 = [(TRISQLiteMAAutoAsset *)self _sqliteMADatabase:sync];
   v9 = [v8 assetSizeForSelector:self->assetSelector];
 
   if (attributes)
   {
-    v16 = *MEMORY[0x277D28908];
+    v15 = *MEMORY[0x277D28908];
     v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v9];
-    v17[0] = v10;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v16[0] = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
 
     v12 = v11;
     *attributes = v11;
   }
 
   assetSelector = self->assetSelector;
-  v14 = *MEMORY[0x277D85DE8];
 
   return assetSelector;
 }

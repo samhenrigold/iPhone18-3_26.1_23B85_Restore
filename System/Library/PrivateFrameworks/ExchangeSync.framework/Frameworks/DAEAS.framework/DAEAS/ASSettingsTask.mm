@@ -26,7 +26,7 @@
 
 - (id)requestBody
 {
-  v109 = *MEMORY[0x277D85DE8];
+  v108 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   [v3 switchToCodePage:18];
   [v3 openTag:5];
@@ -34,30 +34,30 @@
 
   if (getters)
   {
-    v103 = 0u;
-    v104 = 0u;
-    v101 = 0u;
     v102 = 0u;
+    v103 = 0u;
+    v100 = 0u;
+    v101 = 0u;
     getters2 = [(ASSettingsTask *)self getters];
-    v6 = [getters2 countByEnumeratingWithState:&v101 objects:v108 count:16];
+    v6 = [getters2 countByEnumeratingWithState:&v100 objects:v107 count:16];
     if (!v6)
     {
       goto LABEL_14;
     }
 
     v7 = v6;
-    v8 = *v102;
+    v8 = *v101;
     v9 = *MEMORY[0x277D03EC8];
     while (1)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v102 != v8)
+        if (*v101 != v8)
         {
           objc_enumerationMutation(getters2);
         }
 
-        intValue = [*(*(&v101 + 1) + 8 * i) intValue];
+        intValue = [*(*(&v100 + 1) + 8 * i) intValue];
         if (intValue == 3)
         {
           v12 = 29;
@@ -82,7 +82,7 @@
         [v3 closeTag:v12];
       }
 
-      v7 = [getters2 countByEnumeratingWithState:&v101 objects:v108 count:16];
+      v7 = [getters2 countByEnumeratingWithState:&v100 objects:v107 count:16];
       if (!v7)
       {
 LABEL_14:
@@ -99,46 +99,46 @@ LABEL_14:
     goto LABEL_81;
   }
 
-  v99 = 0u;
-  v100 = 0u;
-  v97 = 0u;
   v98 = 0u;
+  v99 = 0u;
+  v96 = 0u;
+  v97 = 0u;
   setters2 = [(ASSettingsTask *)self setters];
   allKeys = [setters2 allKeys];
 
   obj = allKeys;
-  v16 = [allKeys countByEnumeratingWithState:&v97 objects:v107 count:16];
+  v16 = [allKeys countByEnumeratingWithState:&v96 objects:v106 count:16];
   if (!v16)
   {
     goto LABEL_80;
   }
 
   v17 = v16;
-  v18 = *v98;
+  v18 = *v97;
   v19 = *MEMORY[0x277D03EE8];
   v20 = *MEMORY[0x277D03EF8];
-  v75 = *MEMORY[0x277D03ED8];
-  v74 = *MEMORY[0x277D03EE0];
-  v88 = *MEMORY[0x277D03EB8];
-  v87 = *MEMORY[0x277D03ED0];
-  v86 = *MEMORY[0x277D03EF0];
-  v85 = *MEMORY[0x277D03EC0];
-  v76 = *MEMORY[0x277D03EE8];
-  v77 = *v98;
-  v81 = *MEMORY[0x277D03EF8];
+  v74 = *MEMORY[0x277D03ED8];
+  v73 = *MEMORY[0x277D03EE0];
+  v87 = *MEMORY[0x277D03EB8];
+  v86 = *MEMORY[0x277D03ED0];
+  v85 = *MEMORY[0x277D03EF0];
+  v84 = *MEMORY[0x277D03EC0];
+  v75 = *MEMORY[0x277D03EE8];
+  v76 = *v97;
+  v80 = *MEMORY[0x277D03EF8];
   do
   {
     v21 = 0;
-    v78 = v17;
+    v77 = v17;
     do
     {
-      if (*v98 != v18)
+      if (*v97 != v18)
       {
         objc_enumerationMutation(obj);
       }
 
-      v80 = v21;
-      v22 = *(*(&v97 + 1) + 8 * v21);
+      v79 = v21;
+      v22 = *(*(&v96 + 1) + 8 * v21);
       intValue2 = [v22 intValue];
       if (intValue2)
       {
@@ -155,31 +155,31 @@ LABEL_14:
         {
           [v3 openTag:22];
           [v3 openTag:8];
-          v95 = 0u;
-          v96 = 0u;
-          v93 = 0u;
           v94 = 0u;
+          v95 = 0u;
+          v92 = 0u;
+          v93 = 0u;
           allKeys2 = [v25 allKeys];
-          v28 = [allKeys2 countByEnumeratingWithState:&v93 objects:v106 count:16];
+          v28 = [allKeys2 countByEnumeratingWithState:&v92 objects:v105 count:16];
           if (!v28)
           {
             goto LABEL_48;
           }
 
           v29 = v28;
-          v30 = *v94;
+          v30 = *v93;
           while (1)
           {
             v31 = 0;
-            v82 = v29;
+            v81 = v29;
             do
             {
-              if (*v94 != v30)
+              if (*v93 != v30)
               {
                 objc_enumerationMutation(allKeys2);
               }
 
-              v32 = *(*(&v93 + 1) + 8 * v31);
+              v32 = *(*(&v92 + 1) + 8 * v31);
               intValue3 = [v32 intValue];
               if (intValue3 <= 2)
               {
@@ -247,9 +247,9 @@ LABEL_14:
                 v3 = v39;
                 allKeys2 = v38;
                 v30 = v37;
-                v29 = v82;
+                v29 = v81;
 
-                v20 = v81;
+                v20 = v80;
                 if (sendUserAgentInDeviceInfo)
                 {
                   v34 = 32;
@@ -264,16 +264,16 @@ LABEL_46:
             }
 
             while (v29 != v31);
-            v29 = [allKeys2 countByEnumeratingWithState:&v93 objects:v106 count:16];
+            v29 = [allKeys2 countByEnumeratingWithState:&v92 objects:v105 count:16];
             if (!v29)
             {
 LABEL_48:
 
               [v3 closeTag:8];
               v44 = 22;
-              v19 = v76;
-              v18 = v77;
-              v17 = v78;
+              v19 = v75;
+              v18 = v76;
+              v17 = v77;
               goto LABEL_76;
             }
           }
@@ -307,41 +307,41 @@ LABEL_48:
             [v3 appendTag:11 withStringContent:v51];
           }
 
-          v52 = [v26 objectForKeyedSubscript:v75];
+          v52 = [v26 objectForKeyedSubscript:v74];
 
           if (v52)
           {
-            v53 = [v26 objectForKeyedSubscript:v75];
+            v53 = [v26 objectForKeyedSubscript:v74];
             [v3 appendTag:12 withStringContent:v53];
           }
 
-          v54 = [v26 objectForKeyedSubscript:v74];
+          v54 = [v26 objectForKeyedSubscript:v73];
           v55 = v54;
           if (v54 && [v54 count])
           {
-            v83 = v55;
-            v91 = 0u;
-            v92 = 0u;
-            v89 = 0u;
+            v82 = v55;
             v90 = 0u;
+            v91 = 0u;
+            v88 = 0u;
+            v89 = 0u;
             v56 = v55;
-            v57 = [v56 countByEnumeratingWithState:&v89 objects:v105 count:16];
+            v57 = [v56 countByEnumeratingWithState:&v88 objects:v104 count:16];
             if (v57)
             {
               v58 = v57;
-              v59 = *v90;
+              v59 = *v89;
               do
               {
                 for (j = 0; j != v58; ++j)
                 {
-                  if (*v90 != v59)
+                  if (*v89 != v59)
                   {
                     objc_enumerationMutation(v56);
                   }
 
-                  v61 = *(*(&v89 + 1) + 8 * j);
+                  v61 = *(*(&v88 + 1) + 8 * j);
                   [v3 openTag:13];
-                  v62 = [v61 objectForKeyedSubscript:v88];
+                  v62 = [v61 objectForKeyedSubscript:v87];
                   v63 = v62;
                   if (v62)
                   {
@@ -352,44 +352,44 @@ LABEL_48:
                     }
                   }
 
-                  v65 = [v61 objectForKeyedSubscript:v87];
+                  v65 = [v61 objectForKeyedSubscript:v86];
 
                   if (v65)
                   {
-                    v66 = [v61 objectForKeyedSubscript:v87];
+                    v66 = [v61 objectForKeyedSubscript:v86];
                     [v3 appendTag:17 withIntContent:{objc_msgSend(v66, "intValue")}];
                   }
 
-                  v67 = [v61 objectForKeyedSubscript:v86];
+                  v67 = [v61 objectForKeyedSubscript:v85];
 
                   if (v67)
                   {
-                    v68 = [v61 objectForKeyedSubscript:v86];
+                    v68 = [v61 objectForKeyedSubscript:v85];
                     [v3 appendTag:18 withStringContent:v68];
                   }
 
-                  v69 = [v61 objectForKeyedSubscript:v85];
+                  v69 = [v61 objectForKeyedSubscript:v84];
 
                   if (v69)
                   {
-                    v70 = [v61 objectForKeyedSubscript:v85];
+                    v70 = [v61 objectForKeyedSubscript:v84];
                     [v3 appendTag:19 withStringContent:v70];
                   }
 
                   [v3 closeTag:13];
                 }
 
-                v58 = [v56 countByEnumeratingWithState:&v89 objects:v105 count:16];
+                v58 = [v56 countByEnumeratingWithState:&v88 objects:v104 count:16];
               }
 
               while (v58);
             }
 
-            v19 = v76;
-            v18 = v77;
-            v17 = v78;
-            v20 = v81;
-            v55 = v83;
+            v19 = v75;
+            v18 = v76;
+            v17 = v77;
+            v20 = v80;
+            v55 = v82;
             v26 = v48;
           }
 
@@ -402,11 +402,11 @@ LABEL_76:
       }
 
 LABEL_78:
-      v21 = v80 + 1;
+      v21 = v79 + 1;
     }
 
-    while (v80 + 1 != v17);
-    v17 = [obj countByEnumeratingWithState:&v97 objects:v107 count:16];
+    while (v79 + 1 != v17);
+    v17 = [obj countByEnumeratingWithState:&v96 objects:v106 count:16];
   }
 
   while (v17);
@@ -415,8 +415,6 @@ LABEL_80:
 LABEL_81:
   [v3 closeTag:5];
   data = [v3 data];
-
-  v72 = *MEMORY[0x277D85DE8];
 
   return data;
 }
@@ -431,7 +429,7 @@ LABEL_81:
 
 - (BOOL)processContext:(id)context
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   currentlyParsingItem = [(ASTask *)self currentlyParsingItem];
 
@@ -450,25 +448,25 @@ LABEL_81:
 
     if ([contextCopy currentByte])
     {
-      v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"Expected switch to Settings code page"];
-      v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d - Failure at index %lld:", "/Library/Caches/com.apple.xbs/Sources/ExchangeSync/ActiveSync/ASTasks/ASSettingsTask.m", 186, objc_msgSend(contextCopy, "curOffset")];
-      v15 = DALoggingwithCategory();
-      v16 = *(MEMORY[0x277D03988] + 3);
-      if (os_log_type_enabled(v15, v16))
+      v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"Expected switch to Settings code page"];
+      v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d - Failure at index %lld:", "/Library/Caches/com.apple.xbs/Sources/ExchangeSync/ActiveSync/ASTasks/ASSettingsTask.m", 186, objc_msgSend(contextCopy, "curOffset")];
+      v14 = DALoggingwithCategory();
+      v15 = *(MEMORY[0x277D03988] + 3);
+      if (os_log_type_enabled(v14, v15))
       {
         *buf = 134217984;
         curOffset = [contextCopy curOffset];
-        _os_log_impl(&dword_24A0AC000, v15, v16, "Failure at index %lld:", buf, 0xCu);
+        _os_log_impl(&dword_24A0AC000, v14, v15, "Failure at index %lld:", buf, 0xCu);
       }
 
-      v17 = DALoggingwithCategory();
-      if (!os_log_type_enabled(v17, v16))
+      v16 = DALoggingwithCategory();
+      if (!os_log_type_enabled(v16, v15))
       {
         goto LABEL_21;
       }
 
       *buf = 138412290;
-      curOffset = v13;
+      curOffset = v12;
     }
 
     else
@@ -482,31 +480,31 @@ LABEL_81:
         goto LABEL_3;
       }
 
-      v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"Expected switch to Settings code page"];
-      v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d - Failure at index %lld:", "/Library/Caches/com.apple.xbs/Sources/ExchangeSync/ActiveSync/ASTasks/ASSettingsTask.m", 186, objc_msgSend(contextCopy, "curOffset")];
-      v18 = DALoggingwithCategory();
-      v16 = *(MEMORY[0x277D03988] + 3);
-      if (os_log_type_enabled(v18, v16))
+      v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"Expected switch to Settings code page"];
+      v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d - Failure at index %lld:", "/Library/Caches/com.apple.xbs/Sources/ExchangeSync/ActiveSync/ASTasks/ASSettingsTask.m", 186, objc_msgSend(contextCopy, "curOffset")];
+      v17 = DALoggingwithCategory();
+      v15 = *(MEMORY[0x277D03988] + 3);
+      if (os_log_type_enabled(v17, v15))
       {
         *buf = 134217984;
         curOffset = [contextCopy curOffset];
-        _os_log_impl(&dword_24A0AC000, v18, v16, "Failure at index %lld:", buf, 0xCu);
+        _os_log_impl(&dword_24A0AC000, v17, v15, "Failure at index %lld:", buf, 0xCu);
       }
 
-      v17 = DALoggingwithCategory();
-      if (!os_log_type_enabled(v17, v16))
+      v16 = DALoggingwithCategory();
+      if (!os_log_type_enabled(v16, v15))
       {
 LABEL_21:
 
-        [contextCopy setParseErrorReason:v14];
+        [contextCopy setParseErrorReason:v13];
         goto LABEL_5;
       }
 
       *buf = 138412290;
-      curOffset = v13;
+      curOffset = v12;
     }
 
-    _os_log_impl(&dword_24A0AC000, v17, v16, "failure reason was %@", buf, 0xCu);
+    _os_log_impl(&dword_24A0AC000, v16, v15, "failure reason was %@", buf, 0xCu);
     goto LABEL_21;
   }
 
@@ -524,13 +522,12 @@ LABEL_5:
   v10 = 1;
 LABEL_6:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (void)finishWithError:(id)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = [(ASTask *)self taskStatusForError:errorCopy];
   if (errorCopy)
@@ -543,8 +540,8 @@ LABEL_6:
       if (os_log_type_enabled(v6, v13))
       {
         *buf = 138412290;
-        v25 = objc_opt_class();
-        v14 = v25;
+        v24 = objc_opt_class();
+        v14 = v24;
         _os_log_impl(&dword_24A0AC000, v7, v13, "%@ cancelled", buf, 0xCu);
       }
 
@@ -558,10 +555,10 @@ LABEL_6:
       if (os_log_type_enabled(v6, v8))
       {
         *buf = 138412546;
-        v25 = objc_opt_class();
-        v26 = 2112;
-        v27 = errorCopy;
-        v9 = v25;
+        v24 = objc_opt_class();
+        v25 = 2112;
+        v26 = errorCopy;
+        v9 = v24;
         _os_log_impl(&dword_24A0AC000, v7, v8, "%@ failed: %@", buf, 0x16u);
       }
 
@@ -582,20 +579,18 @@ LABEL_6:
 
   if (![(ASTask *)self attemptRetryWithStatus:v5 error:errorCopy])
   {
-    v16 = MEMORY[0x277D85DD0];
-    v17 = 3221225472;
-    v18 = __34__ASSettingsTask_finishWithError___block_invoke;
-    v19 = &unk_278FC7D70;
+    v15 = MEMORY[0x277D85DD0];
+    v16 = 3221225472;
+    v17 = __34__ASSettingsTask_finishWithError___block_invoke;
+    v18 = &unk_278FC7D70;
     selfCopy = self;
-    v23 = v5;
-    v21 = errorCopy;
-    v22 = v10;
-    [(ASTask *)self finishWithError:v21 afterDelegateCallout:&v16];
+    v22 = v5;
+    v20 = errorCopy;
+    v21 = v10;
+    [(ASTask *)self finishWithError:v20 afterDelegateCallout:&v15];
   }
 
-  [(ASTask *)self setCurrentlyParsingItem:0, v16, v17, v18, v19, selfCopy];
-
-  v15 = *MEMORY[0x277D85DE8];
+  [(ASTask *)self setCurrentlyParsingItem:0, v15, v16, v17, v18, selfCopy];
 }
 
 void __34__ASSettingsTask_finishWithError___block_invoke(void *a1)
@@ -606,32 +601,26 @@ void __34__ASSettingsTask_finishWithError___block_invoke(void *a1)
 
 - (int64_t)taskStatusForExchangeStatus:(int)status
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if ((status - 1) >= 7)
+  v13 = *MEMORY[0x277D85DE8];
+  if ((status - 1) < 7)
   {
-    v5 = DALoggingwithCategory();
-    v6 = *(MEMORY[0x277D03988] + 3);
-    if (os_log_type_enabled(v5, v6))
-    {
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
-      v10 = 138412546;
-      v11 = v8;
-      v12 = 1024;
-      statusCopy = status;
-      _os_log_impl(&dword_24A0AC000, v5, v6, "%@: Unknown status code (%d)", &v10, 0x12u);
-    }
-
-    result = 10;
+    return qword_24A14DC50[status - 1];
   }
 
-  else
+  v5 = DALoggingwithCategory();
+  v6 = *(MEMORY[0x277D03988] + 3);
+  if (os_log_type_enabled(v5, v6))
   {
-    result = qword_24A14DC50[status - 1];
+    v7 = objc_opt_class();
+    v8 = NSStringFromClass(v7);
+    v9 = 138412546;
+    v10 = v8;
+    v11 = 1024;
+    statusCopy = status;
+    _os_log_impl(&dword_24A0AC000, v5, v6, "%@: Unknown status code (%d)", &v9, 0x12u);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return 10;
 }
 
 @end

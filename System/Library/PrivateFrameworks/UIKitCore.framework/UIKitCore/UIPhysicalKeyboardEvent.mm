@@ -117,7 +117,7 @@
     [(UIPhysicalKeyboardEvent *)v5 set_shiftModifiedInput:v8];
 
     v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"commandModifiedInput"];
-    [(UIPhysicalKeyboardEvent *)v5 set_commandModifiedInput:v9];
+    objc_msgSend_set_commandModifiedInput_(v5);
 
     v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"markedInput"];
     [(UIPhysicalKeyboardEvent *)v5 set_markedInput:v10];
@@ -574,9 +574,9 @@
   {
     v48 = [MEMORY[0x1E696AEC0] stringWithCharacters:v89 length:?];
     v49 = _UIMenuLeafKeyboardShortcutGetLocalizedKeyEquivalent(@".");
-    v50 = [v48 isEqualToString:v49];
+    isEqualToString = objc_msgSend_isEqualToString_(v48);
 
-    if (v50)
+    if (isEqualToString)
     {
       v51 = [[_UIPhysicalKeyTranslationMap alloc] initWithKeyCode:v11 action:v86 == 0 modifiers:v46];
       v52 = v79;
@@ -590,7 +590,7 @@
 
     else
     {
-      [(UIPhysicalKeyboardEvent *)self set_commandModifiedInput:v48];
+      objc_msgSend_set_commandModifiedInput_(self);
       v54 = v46;
     }
 
@@ -599,7 +599,7 @@
 
   else
   {
-    [(UIPhysicalKeyboardEvent *)self set_commandModifiedInput:0];
+    objc_msgSend_set_commandModifiedInput_(self);
     v54 = v46;
   }
 
@@ -724,9 +724,9 @@ LABEL_82:
         _keyboardShortcut3 = [leafCopy _keyboardShortcut];
         currentLocalizedKeyCombination2 = [_keyboardShortcut3 currentLocalizedKeyCombination];
         keyEquivalent = [currentLocalizedKeyCombination2 keyEquivalent];
-        v13 = [keyEquivalent isEqualToString:self->_modifiedInput];
+        isEqualToString = objc_msgSend_isEqualToString_(keyEquivalent);
 
-        if (v13)
+        if (isEqualToString)
         {
           goto LABEL_13;
         }
@@ -785,9 +785,9 @@ LABEL_18:
   _keyboardShortcut = [leafCopy _keyboardShortcut];
   currentLocalizedKeyCombination = [_keyboardShortcut currentLocalizedKeyCombination];
   keyEquivalent = [currentLocalizedKeyCombination keyEquivalent];
-  v13 = [v9 isEqualToString:keyEquivalent];
+  isEqualToString = objc_msgSend_isEqualToString_(v9);
 
-  if (!v8 && v13)
+  if (!v8 && isEqualToString)
   {
     if ([mapCopy originalModifiers] == 0x100000)
     {
@@ -944,7 +944,7 @@ LABEL_31:
   return v27;
 }
 
-uint64_t __100__UIPhysicalKeyboardEvent__matchFidelityForKeyboardShortcutLeaf_translationMap_additionalModifiers___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__100__UIPhysicalKeyboardEvent__matchFidelityForKeyboardShortcutLeaf_translationMap_additionalModifiers___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) HIDUsageCodeForCharacter:*(a1 + 56) modifiers:a2];
   if (result != -1)
@@ -980,7 +980,7 @@ uint64_t __100__UIPhysicalKeyboardEvent__matchFidelityForKeyboardShortcutLeaf_tr
   lowercaseString2 = [v22 lowercaseString];
 
   v24 = v17 & 0xBF0000;
-  v25 = [lowercaseString isEqualToString:lowercaseString2] & (modifierFlags == (v17 & 0xBF0000));
+  v25 = objc_msgSend_isEqualToString_(lowercaseString) & (modifierFlags == (v17 & 0xBF0000));
   if (v25)
   {
     v26 = 3;
@@ -1119,9 +1119,9 @@ LABEL_19:
 
           if (v12 && v13)
           {
-            v15 = [v12 isEqual:v13];
+            isEqual = objc_msgSend_isEqual_(v12);
 
-            if (v15)
+            if (isEqual)
             {
               goto LABEL_19;
             }
@@ -1161,21 +1161,21 @@ LABEL_20:
     {
       _modifiedInput = [(UIPhysicalKeyboardEvent *)self _modifiedInput];
       _modifiedInput2 = [v5 _modifiedInput];
-      v10 = [_modifiedInput isEqual:_modifiedInput2];
+      isEqual = objc_msgSend_isEqual_(_modifiedInput);
     }
 
     else
     {
-      v10 = 0;
+      isEqual = 0;
     }
   }
 
   else
   {
-    v10 = 0;
+    isEqual = 0;
   }
 
-  return v10;
+  return isEqual;
 }
 
 - (id)_cloneEvent
@@ -1205,7 +1205,7 @@ LABEL_20:
 
   _commandModifiedInput = [(UIPhysicalKeyboardEvent *)self _commandModifiedInput];
   v13 = [_commandModifiedInput copy];
-  [_init set_commandModifiedInput:v13];
+  objc_msgSend_set_commandModifiedInput_(_init);
 
   _markedInput = [(UIPhysicalKeyboardEvent *)self _markedInput];
   v15 = [_markedInput copy];

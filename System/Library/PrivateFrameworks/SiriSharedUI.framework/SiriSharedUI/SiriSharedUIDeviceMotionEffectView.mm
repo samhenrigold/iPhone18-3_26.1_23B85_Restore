@@ -155,7 +155,7 @@ LABEL_8:
         effectImageView = self->_effectImageView;
         if (effectImageView)
         {
-          [(UIImageView *)effectImageView transform];
+          objc_msgSend_transform(effectImageView);
           effectImageView = self->_effectImageView;
         }
 

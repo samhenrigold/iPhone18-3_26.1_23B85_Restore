@@ -10,40 +10,40 @@
 
 + (id)appSpecifiersFromManager:(id)manager
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
-  v52 = objc_opt_new();
-  [v52 setUnitsStyle:2];
+  v51 = objc_opt_new();
+  [v51 setUnitsStyle:2];
   v4 = objc_opt_new();
   allEvents = [managerCopy allEvents];
   v6 = [managerCopy bundleIDsAndLatestDatesFromEvents:allEvents];
 
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
   v59 = 0u;
-  v51 = v6;
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
+  v50 = v6;
   obj = [v6 allKeys];
-  v53 = [obj countByEnumeratingWithState:&v58 objects:v62 count:16];
-  if (v53)
+  v52 = [obj countByEnumeratingWithState:&v57 objects:v61 count:16];
+  if (v52)
   {
-    v49 = *v59;
-    v48 = *MEMORY[0x277D40008];
-    v47 = *MEMORY[0x277D40020];
-    v46 = *MEMORY[0x277D3FE58];
-    v45 = *MEMORY[0x277D40160];
-    v42 = managerCopy;
-    v44 = v4;
+    v48 = *v58;
+    v47 = *MEMORY[0x277D40008];
+    v46 = *MEMORY[0x277D40020];
+    v45 = *MEMORY[0x277D3FE58];
+    v44 = *MEMORY[0x277D40160];
+    v41 = managerCopy;
+    v43 = v4;
     do
     {
-      for (i = 0; i != v53; ++i)
+      for (i = 0; i != v52; ++i)
       {
-        if (*v59 != v49)
+        if (*v58 != v48)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v58 + 1) + 8 * i);
+        v8 = *(*(&v57 + 1) + 8 * i);
         v9 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:v8 allowPlaceholder:0 error:0];
         localizedName = [v9 localizedName];
 
@@ -61,22 +61,22 @@
         v13 = [v11 preferenceSpecifierNamed:v12 target:self set:0 get:sel_valueForSpecifier_ detail:objc_opt_class() cell:2 edit:0];
         [v13 setIdentifier:v8];
         [v13 setObject:v8 forKeyedSubscript:@"PUIReportAppIDKey"];
-        [v13 setObject:v8 forKeyedSubscript:v48];
-        [v13 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:v47];
+        [v13 setObject:v8 forKeyedSubscript:v47];
+        [v13 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:v46];
         [v13 setObject:managerCopy forKeyedSubscript:@"PUIReportSensorManagerKey"];
-        [v13 setObject:objc_opt_class() forKeyedSubscript:v46];
-        v57[0] = MEMORY[0x277D85DD0];
-        v57[1] = 3221225472;
-        v57[2] = __58__PUIReportSensorListController_appSpecifiersFromManager___block_invoke;
-        v57[3] = &unk_279BA21E0;
-        v57[4] = v8;
-        v54 = [managerCopy eventsFiltered:v57];
+        [v13 setObject:objc_opt_class() forKeyedSubscript:v45];
+        v56[0] = MEMORY[0x277D85DD0];
+        v56[1] = 3221225472;
+        v56[2] = __58__PUIReportSensorListController_appSpecifiersFromManager___block_invoke;
+        v56[3] = &unk_279BA21E0;
+        v56[4] = v8;
+        v53 = [managerCopy eventsFiltered:v56];
         v14 = [managerCopy categoriesAndLatestDatesFromEvents:?];
         allKeys = [v14 allKeys];
 
-        v16 = [v51 objectForKeyedSubscript:v8];
+        v16 = [v50 objectForKeyedSubscript:v8];
         v17 = [MEMORY[0x277CBEAA8] now];
-        v18 = [v52 localizedStringForDate:v16 relativeToDate:v17];
+        v18 = [v51 localizedStringForDate:v16 relativeToDate:v17];
 
         if ([allKeys count])
         {
@@ -100,18 +100,18 @@
               v27 = objc_opt_class();
               v22 = [allKeys objectAtIndexedSubscript:0];
               v23 = [v27 localizedStringForCategory:v22];
-              v39 = v26;
+              v38 = v26;
               v28 = objc_opt_class();
               v29 = [allKeys objectAtIndexedSubscript:1];
               [v28 localizedStringForCategory:v29];
-              v40 = localizedName;
+              v39 = localizedName;
               v31 = v30 = v18;
-              v24 = [v39 stringWithFormat:v20, v30, v23, v31];
+              v24 = [v38 stringWithFormat:v20, v30, v23, v31];
 
               v18 = v30;
-              localizedName = v40;
+              localizedName = v39;
 
-              managerCopy = v42;
+              managerCopy = v41;
             }
 
             else
@@ -121,15 +121,15 @@
               v22 = [allKeys objectAtIndexedSubscript:0];
               v23 = [v32 localizedStringForCategory:v22];
               v33 = objc_opt_class();
-              v41 = [allKeys objectAtIndexedSubscript:1];
-              v34 = [v33 localizedStringForCategory:v41];
+              v40 = [allKeys objectAtIndexedSubscript:1];
+              v34 = [v33 localizedStringForCategory:v40];
               v24 = [v26 localizedStringWithFormat:v20, v18, v23, v34, objc_msgSend(allKeys, "count") - 2];
 
-              managerCopy = v42;
+              managerCopy = v41;
             }
           }
 
-          v4 = v44;
+          v4 = v43;
         }
 
         else
@@ -137,26 +137,24 @@
           v24 = &stru_28771E540;
         }
 
-        [v13 setObject:v24 forKeyedSubscript:v45];
+        [v13 setObject:v24 forKeyedSubscript:v44];
         [v4 addObject:v13];
       }
 
-      v53 = [obj countByEnumeratingWithState:&v58 objects:v62 count:16];
+      v52 = [obj countByEnumeratingWithState:&v57 objects:v61 count:16];
     }
 
-    while (v53);
+    while (v52);
   }
 
-  v55[0] = MEMORY[0x277D85DD0];
-  v55[1] = 3221225472;
-  v55[2] = __58__PUIReportSensorListController_appSpecifiersFromManager___block_invoke_2;
-  v55[3] = &unk_279BA2208;
-  v56 = v51;
+  v54[0] = MEMORY[0x277D85DD0];
+  v54[1] = 3221225472;
+  v54[2] = __58__PUIReportSensorListController_appSpecifiersFromManager___block_invoke_2;
+  v54[3] = &unk_279BA2208;
+  v55 = v50;
   v35 = managerCopy;
-  v36 = v51;
-  [v4 sortUsingComparator:v55];
-
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = v50;
+  [v4 sortUsingComparator:v54];
 
   return v4;
 }
@@ -314,7 +312,7 @@ uint64_t __43__PUIReportSensorListController_specifiers__block_invoke(uint64_t a
   [(PUIReportSensorListController *)self presentViewController:v3 animated:1 completion:0];
 }
 
-uint64_t __48__PUIReportSensorListController_sortByWasTapped__block_invoke(uint64_t a1)
+void *__48__PUIReportSensorListController_sortByWasTapped__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) alphabeticalSort];
   if (result)
@@ -328,7 +326,7 @@ uint64_t __48__PUIReportSensorListController_sortByWasTapped__block_invoke(uint6
   return result;
 }
 
-uint64_t __48__PUIReportSensorListController_sortByWasTapped__block_invoke_2(uint64_t a1)
+void *__48__PUIReportSensorListController_sortByWasTapped__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) alphabeticalSort];
   if ((result & 1) == 0)

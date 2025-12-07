@@ -9,7 +9,7 @@
 
 - (JavaLangExceptionInInitializerError)init
 {
-  JavaLangLinkageError_init(self, a2);
+  JavaLangLinkageError_init(self);
   [(JavaLangThrowable *)self initCauseWithJavaLangThrowable:0];
   return self;
 }
@@ -23,7 +23,7 @@
 
 - (JavaLangExceptionInInitializerError)initWithJavaLangThrowable:(id)throwable
 {
-  JavaLangLinkageError_init(self, a2);
+  JavaLangLinkageError_init(self);
   JreStrongAssign(&self->exception_, throwable);
   [(JavaLangThrowable *)self initCauseWithJavaLangThrowable:throwable];
   return self;

@@ -23,7 +23,7 @@
 
 - (void)updateProcessInfoForRBSProcessHandle:(id)handle usingUpdate:(id)update
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   updateCopy = update;
   v8 = objc_autoreleasePoolPush();
@@ -33,11 +33,11 @@
   {
     v11 = HMFGetLogIdentifier();
     state = [updateCopy state];
-    v21 = 138543618;
-    v22 = v11;
-    v23 = 2112;
-    v24 = state;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Updating process info with new state: %@", &v21, 0x16u);
+    v20 = 138543618;
+    v21 = v11;
+    v22 = 2112;
+    v23 = state;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Updating process info with new state: %@", &v20, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -62,22 +62,20 @@
     {
       v18 = HMFGetLogIdentifier();
       v19 = [handleCopy pid];
-      v21 = 138543618;
-      v22 = v18;
-      v23 = 2048;
-      v24 = v19;
-      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@Cannot find process info with pid %lu", &v21, 0x16u);
+      v20 = 138543618;
+      v21 = v18;
+      v22 = 2048;
+      v23 = v19;
+      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@Cannot find process info with pid %lu", &v20, 0x16u);
     }
 
     objc_autoreleasePoolPop(v15);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateProcessInfo:(id)info withProcessState:(id)state
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   stateCopy = state;
   v8 = [objc_opt_class() applicationStateForProcessInfo:infoCopy rbsProcessState:stateCopy];
@@ -101,11 +99,11 @@
 
       v14 = v13;
       *buf = 138543874;
-      v22 = v12;
-      v23 = 2114;
-      v24 = v14;
-      v25 = 2112;
-      v26 = infoCopy;
+      v21 = v12;
+      v22 = 2114;
+      v23 = v14;
+      v24 = 2112;
+      v25 = infoCopy;
       _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Updating application state to %{public}@ for process: %@", buf, 0x20u);
     }
 
@@ -113,18 +111,16 @@
     [infoCopy _updateState:v8];
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     v16 = HMDProcessMonitorProcessStateDidChangeNotification;
-    v19 = @"processInfo";
-    v20 = infoCopy;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+    v18 = @"processInfo";
+    v19 = infoCopy;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
     [defaultCenter postNotificationName:v16 object:selfCopy userInfo:v17];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeProcess:(id)process
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   processCopy = process;
   os_unfair_lock_lock_with_options();
   processInfos = [(HMDProcessMonitor *)self processInfos];
@@ -134,21 +130,19 @@
   if (isInternalBuild())
   {
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-    v10 = @"processInfo";
-    v11[0] = processCopy;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v9 = @"processInfo";
+    v10[0] = processCopy;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     [defaultCenter postNotificationName:@"HMDProcessMonitorProcessRemovedNotification" object:self userInfo:v7];
   }
 
   applicationInfo = [processCopy applicationInfo];
   [applicationInfo removeProcess:processCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeProcess:(id)process
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   processCopy = process;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -156,11 +150,11 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v18 = 138543618;
-    v19 = v8;
-    v20 = 2112;
-    v21 = processCopy;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Removing process info: %@", &v18, 0x16u);
+    v17 = 138543618;
+    v18 = v8;
+    v19 = 2112;
+    v20 = processCopy;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Removing process info: %@", &v17, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -180,22 +174,20 @@
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         v16 = HMFGetLogIdentifier();
-        v18 = 138543362;
-        v19 = v16;
-        _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Updating application monitor because last process info was removed from application info", &v18, 0xCu);
+        v17 = 138543362;
+        v18 = v16;
+        _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Updating application monitor because last process info was removed from application info", &v17, 0xCu);
       }
 
       objc_autoreleasePoolPop(v13);
       [(HMDProcessMonitor *)selfCopy updateApplicationMonitor];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)processInfoForXPCConnection:(id)connection
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   os_unfair_lock_lock_with_options();
   v5 = -[HMDProcessMonitor _processInfoForPID:](self, [connectionCopy processIdentifier]);
@@ -209,7 +201,7 @@
     v6 = [HMDProcessInfo alloc];
     if (connectionCopy)
     {
-      [connectionCopy auditToken];
+      objc_msgSend_auditToken(connectionCopy);
     }
 
     else
@@ -228,9 +220,9 @@
     if (isInternalBuild())
     {
       defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-      v19 = @"processInfo";
-      v20 = v5;
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+      v18 = @"processInfo";
+      v19 = v5;
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
       [defaultCenter postNotificationName:@"HMDProcessMonitorProcessAddedNotification" object:self userInfo:v10];
     }
 
@@ -257,8 +249,6 @@
 
     objc_autoreleasePoolPop(v13);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -380,26 +370,24 @@ void __45__HMDProcessMonitor_updateApplicationMonitor__block_invoke(uint64_t a1,
 
 void __45__HMDProcessMonitor_updateApplicationMonitor__block_invoke_2(uint64_t a1, void *a2)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   [v3 setPredicates:*(a1 + 32)];
   v4 = objc_alloc_init(MEMORY[0x277D46FB0]);
-  v9[0] = *MEMORY[0x277D0AC90];
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = *MEMORY[0x277D0AC90];
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   [v4 setEndowmentNamespaces:v5];
 
   [v4 setValues:25];
   [v3 setStateDescriptor:v4];
   [v3 setServiceClass:25];
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __45__HMDProcessMonitor_updateApplicationMonitor__block_invoke_3;
-  v7[3] = &unk_27972B320;
-  objc_copyWeak(&v8, (a1 + 40));
-  [v3 setUpdateHandler:v7];
-  objc_destroyWeak(&v8);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __45__HMDProcessMonitor_updateApplicationMonitor__block_invoke_3;
+  v6[3] = &unk_27972B320;
+  objc_copyWeak(&v7, (a1 + 40));
+  [v3 setUpdateHandler:v6];
+  objc_destroyWeak(&v7);
 }
 
 void __45__HMDProcessMonitor_updateApplicationMonitor__block_invoke_2_24(uint64_t a1)
@@ -436,7 +424,7 @@ LABEL_8:
 
 void __45__HMDProcessMonitor_updateApplicationMonitor__block_invoke_3(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -450,8 +438,8 @@ void __45__HMDProcessMonitor_updateApplicationMonitor__block_invoke_3(uint64_t a
     block[2] = __45__HMDProcessMonitor_updateApplicationMonitor__block_invoke_20;
     block[3] = &unk_279734960;
     block[4] = v11;
-    v18 = v8;
-    v19 = v9;
+    v17 = v8;
+    v18 = v9;
     dispatch_async(v12, block);
   }
 
@@ -463,14 +451,12 @@ void __45__HMDProcessMonitor_updateApplicationMonitor__block_invoke_3(uint64_t a
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v21 = v15;
+      v20 = v15;
       _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Lost self for RBSProcessMonitorUpdateInfo", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v13);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -513,17 +499,16 @@ void __45__HMDProcessMonitor_updateApplicationMonitor__block_invoke_3(uint64_t a
 
 uint64_t __32__HMDProcessMonitor_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v15_111685;
-  logCategory__hmf_once_v15_111685 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v15_111685;
+  logCategory__hmf_once_v15_111685 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (unint64_t)applicationStateForProcessInfo:(id)info rbsProcessState:(id)state
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   stateCopy = state;
   if ([infoCopy shouldMonitor])
@@ -543,13 +528,13 @@ uint64_t __32__HMDProcessMonitor_logCategory__block_invoke()
           if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
           {
             v14 = HMFGetLogIdentifier();
-            v21 = 138543874;
-            v22 = v14;
-            v23 = 2112;
-            v24 = infoCopy;
-            v25 = 2112;
-            v26 = v10;
-            _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Upgrading app state to foreground for process %@: %@", &v21, 0x20u);
+            v20 = 138543874;
+            v21 = v14;
+            v22 = 2112;
+            v23 = infoCopy;
+            v24 = 2112;
+            v25 = v10;
+            _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Upgrading app state to foreground for process %@: %@", &v20, 0x20u);
           }
 
           objc_autoreleasePoolPop(v11);
@@ -572,11 +557,11 @@ uint64_t __32__HMDProcessMonitor_logCategory__block_invoke()
           if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
           {
             v18 = HMFGetLogIdentifier();
-            v21 = 138543618;
-            v22 = v18;
-            v23 = 2112;
-            v24 = infoCopy;
-            _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Upgrading app state to foreground as the client has SPI access and is background running: %@", &v21, 0x16u);
+            v20 = 138543618;
+            v21 = v18;
+            v22 = 2112;
+            v23 = infoCopy;
+            _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Upgrading app state to foreground as the client has SPI access and is background running: %@", &v20, 0x16u);
           }
 
           objc_autoreleasePoolPop(v15);
@@ -596,7 +581,6 @@ uint64_t __32__HMDProcessMonitor_logCategory__block_invoke()
     v9 = -1;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -675,27 +659,27 @@ LABEL_11:
 
 + (id)foregroundAssertionReasonForProcessState:(id)state
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   assertions = [state assertions];
-  v4 = [assertions countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v4 = [assertions countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v24;
+    v6 = *v23;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v24 != v6)
+        if (*v23 != v6)
         {
           objc_enumerationMutation(assertions);
         }
 
-        v8 = *(*(&v23 + 1) + 8 * i);
+        v8 = *(*(&v22 + 1) + 8 * i);
         type = [v8 type];
         if (type == 3)
         {
@@ -730,7 +714,7 @@ LABEL_21:
         }
       }
 
-      v5 = [assertions countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v5 = [assertions countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v5)
       {
         continue;
@@ -742,8 +726,6 @@ LABEL_21:
 
   v20 = 0;
 LABEL_22:
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

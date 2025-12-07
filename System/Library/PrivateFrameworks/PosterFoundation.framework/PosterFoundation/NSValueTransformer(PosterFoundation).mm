@@ -17,9 +17,9 @@
     +[NSValueTransformer(PosterFoundation) pf_ISO8601DateTransformer];
   }
 
-  v1 = pf_ISO8601DateTransformer_transformer;
+  v2 = pf_ISO8601DateTransformer_transformer;
 
-  return v1;
+  return v2;
 }
 
 + (uint64_t)pf_dateTransformerForDateFormatter:()PosterFoundation
@@ -50,9 +50,9 @@
     +[NSValueTransformer(PosterFoundation) pf_UUIDToNSStringTransformer];
   }
 
-  v1 = pf_UUIDToNSStringTransformer_transformer;
+  v2 = pf_UUIDToNSStringTransformer_transformer;
 
-  return v1;
+  return v2;
 }
 
 + (id)pf_JSONDictionaryTransformer
@@ -62,9 +62,9 @@
     +[NSValueTransformer(PosterFoundation) pf_JSONDictionaryTransformer];
   }
 
-  v1 = pf_JSONDictionaryTransformer_transformer;
+  v2 = pf_JSONDictionaryTransformer_transformer;
 
-  return v1;
+  return v2;
 }
 
 + (id)pf_JSONArrayTransformer
@@ -74,9 +74,9 @@
     +[NSValueTransformer(PosterFoundation) pf_JSONArrayTransformer];
   }
 
-  v1 = pf_JSONArrayTransformer_transformer;
+  v2 = pf_JSONArrayTransformer_transformer;
 
-  return v1;
+  return v2;
 }
 
 + (PFGenericValueTransformer)pf_identityTransformerForClass:()PosterFoundation
@@ -93,9 +93,9 @@
     +[NSValueTransformer(PosterFoundation) pf_NSKeyedArchivingValueTransformer];
   }
 
-  v1 = pf_NSKeyedArchivingValueTransformer_transformer;
+  v2 = pf_NSKeyedArchivingValueTransformer_transformer;
 
-  return v1;
+  return v2;
 }
 
 @end

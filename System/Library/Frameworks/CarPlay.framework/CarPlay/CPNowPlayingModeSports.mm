@@ -55,25 +55,10 @@
     rightTeam2 = [sportsCopy rightTeam];
     v9 = [rightTeam isEqual:rightTeam2];
 
-    if (!v9)
+    if (!v9 || (-[CPNowPlayingModeSports eventStatus](self, "eventStatus"), v10 = objc_claimAutoreleasedReturnValue(), v10, v10) && (-[CPNowPlayingModeSports eventStatus](self, "eventStatus"), v11 = objc_claimAutoreleasedReturnValue(), [sportsCopy eventStatus], v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v11, "isEqual:", v12), v12, v11, !v13))
     {
-      goto LABEL_9;
-    }
-
-    eventStatus = [(CPNowPlayingModeSports *)self eventStatus];
-
-    if (eventStatus)
-    {
-      eventStatus2 = [(CPNowPlayingModeSports *)self eventStatus];
-      eventStatus3 = [sportsCopy eventStatus];
-      v13 = [eventStatus2 isEqual:eventStatus3];
-
-      if (!v13)
-      {
-LABEL_9:
-        v15 = 0;
-        goto LABEL_10;
-      }
+      v15 = 0;
+      goto LABEL_10;
     }
 
     backgroundArtwork = [(CPNowPlayingModeSports *)self backgroundArtwork];

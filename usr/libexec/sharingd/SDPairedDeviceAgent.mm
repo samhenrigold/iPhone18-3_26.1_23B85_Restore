@@ -141,12 +141,12 @@
 
   if (self->_activateCalled)
   {
-    sub_1000811AC();
+    sub_1000811AC(v5);
   }
 
   else if (self->_invalidateCalled)
   {
-    sub_10008115C();
+    sub_10008115C(v5);
   }
 
   else
@@ -158,17 +158,17 @@
 
     [(SDPairedDeviceAgent *)self _systemStateRegisterObservers];
     [(SDPairedDeviceAgent *)self _testingRegisterNotifications];
-    v10.receiver = self;
-    v10.super_class = SDPairedDeviceAgent;
-    [(SDXPCDaemon *)&v10 onqueue_activate];
-    v7 = dispatch_time(0, 5000000000);
+    v11.receiver = self;
+    v11.super_class = SDPairedDeviceAgent;
+    [(SDXPCDaemon *)&v11 onqueue_activate];
+    v8 = dispatch_time(0, 5000000000);
     dispatchQueue3 = [(SDXPCDaemon *)self dispatchQueue];
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10007BF74;
     block[3] = &unk_1008CDEA0;
     block[4] = self;
-    dispatch_after(v7, dispatchQueue3, block);
+    dispatch_after(v8, dispatchQueue3, block);
   }
 }
 
@@ -197,7 +197,7 @@
 
   if (self->_invalidateCalled)
   {
-    sub_10008124C();
+    sub_10008124C(v5);
   }
 
   else if (self->_activateCalled)
@@ -206,14 +206,14 @@
     [(SDPairedDeviceAgent *)self _idsEnsureCoalescersStopped];
     [(IDSService *)self->_idsService removeDelegate:self];
     [(SDPairedDeviceAgent *)self _systemStateUnregisterObservers];
-    v5.receiver = self;
-    v5.super_class = SDPairedDeviceAgent;
-    [(SDXPCDaemon *)&v5 onqueue_invalidate];
+    v6.receiver = self;
+    v6.super_class = SDPairedDeviceAgent;
+    [(SDXPCDaemon *)&v6 onqueue_invalidate];
   }
 
   else
   {
-    sub_1000811FC();
+    sub_1000811FC(v5);
   }
 }
 
@@ -548,10 +548,8 @@ LABEL_11:
     handler[3] = &unk_1008CDEA0;
     handler[4] = self;
     dispatch_source_set_event_handler(v8, handler);
-    v9 = self->_idsInfoTimer;
     SFDispatchTimerSet();
     dispatch_resume(self->_idsInfoTimer);
-    v10 = self->_idsInfoTimer;
   }
 
   SFDispatchTimerSet();
@@ -945,55 +943,55 @@ LABEL_42:
 - (void)_messageHandleIncomingData:(id)data
 {
   dataCopy = data;
-  v10 = 0;
+  v11 = 0;
   dispatchQueue = [(SDXPCDaemon *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
 
   if (dataCopy)
   {
-    v6 = OPACKDecodeData();
+    v7 = OPACKDecodeData();
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v7 = [(__CFString *)v6 objectForKeyedSubscript:@"met"];
-      v8 = v7;
-      if (v7)
+      v8 = [(__CFString *)v7 objectForKeyedSubscript:@"met"];
+      v9 = v8;
+      if (v8)
       {
-        integerValue = [v7 integerValue];
+        integerValue = [v8 integerValue];
         if (integerValue == 5)
         {
-          [(SDPairedDeviceAgent *)self _messageHandleDashboardEntry:v6];
+          [(SDPairedDeviceAgent *)self _messageHandleDashboardEntry:v7];
         }
 
         else if (integerValue == 4)
         {
-          [(SDPairedDeviceAgent *)self _messageHandlePowerSourceUpdate:v6];
+          [(SDPairedDeviceAgent *)self _messageHandlePowerSourceUpdate:v7];
         }
 
         else if (integerValue == 1)
         {
-          [(SDPairedDeviceAgent *)self _messageHandleAllUpdate:v6];
+          [(SDPairedDeviceAgent *)self _messageHandleAllUpdate:v7];
         }
       }
 
       else
       {
-        sub_10008157C();
+        sub_10008157C(v7);
       }
     }
 
     else
     {
-      sub_100081480(v6);
-      v8 = 0;
+      sub_100081480(v7);
+      v9 = 0;
     }
   }
 
   else
   {
-    sub_100081614();
-    v8 = 0;
-    v6 = 0;
+    sub_100081614(v6);
+    v9 = 0;
+    v7 = 0;
   }
 }
 
@@ -1069,7 +1067,7 @@ LABEL_42:
   v5 = charging_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = NSPrintF();
+    v6 = NSPrintF("%##@", entryCopy);
     *buf = 138412290;
     v13 = v6;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Dashboard entry: %@", buf, 0xCu);
@@ -1257,7 +1255,7 @@ LABEL_42:
 
   else
   {
-    sub_100081800();
+    sub_100081800(0);
   }
 }
 
@@ -1632,20 +1630,20 @@ LABEL_25:
   v3 = +[SDStatusMonitor sharedMonitor];
   watchWristState = [v3 watchWristState];
 
-  v5 = 2;
+  v6 = 2;
   if ((watchWristState & 0xFFFFFFFFFFFFFFFDLL) != 0)
   {
-    v5 = watchWristState;
+    v6 = watchWristState;
   }
 
-  if (self->_wristStateLocal == v5)
+  if (self->_wristStateLocal == v6)
   {
-    sub_1000818C8();
+    sub_1000818C8(v5);
   }
 
   else
   {
-    self->_wristStateLocal = v5;
+    self->_wristStateLocal = v6;
 
     [(SDPairedDeviceAgent *)self _idsTriggerSync];
   }
@@ -1690,7 +1688,7 @@ LABEL_25:
 
   if (self->_lowPowerModeLocal == lowPowerModeEnabled)
   {
-    sub_100081918();
+    sub_100081918(v5);
   }
 
   else
@@ -1957,7 +1955,8 @@ LABEL_17:
       v8 = charging_log();
       if (sub_10008073C(v8))
       {
-        sub_100019C18(&_mh_execute_header, v9, v10, "Invalid lock state in update", v11, v12, v13, v14, 0);
+        v15 = 0;
+        sub_100019C18(&_mh_execute_header, v9, v10, "Invalid lock state in update", v11, v12, v13, v14, v15);
       }
     }
 
@@ -2023,14 +2022,15 @@ LABEL_17:
       self->_animationDateForIDS = 0;
     }
 
-    v18 = [(SDPairedDeviceAgent *)self _messageFromPowerSource:changedCopy, *v31];
+    v18 = [(SDPairedDeviceAgent *)self _messageFromPowerSource:changedCopy, *v31, *&v31[8]];
     powerSourceMessage = self->_powerSourceMessage;
     if (powerSourceMessage && [(NSDictionary *)powerSourceMessage isEqualToDictionary:v18])
     {
       v24 = charging_log();
       if (sub_10008073C(v24))
       {
-        sub_100019C18(&_mh_execute_header, v25, v26, "Power source values we care about didn't change", v27, v28, v29, v30, 0);
+        *v31 = 0;
+        sub_100019C18(&_mh_execute_header, v25, v26, "Power source values we care about didn't change", v27, v28, v29, v30, *v31);
       }
     }
 
@@ -2069,7 +2069,8 @@ LABEL_17:
     v8 = charging_log();
     if (sub_10008073C(v8))
     {
-      sub_100019C18(&_mh_execute_header, v9, v10, "Internal power source lost", v11, v12, v13, v14, 0);
+      v17 = 0;
+      sub_100019C18(&_mh_execute_header, v9, v10, "Internal power source lost", v11, v12, v13, v14, v17);
     }
 
     powerSourceLocal = self->_powerSourceLocal;
@@ -2098,7 +2099,8 @@ LABEL_17:
       v8 = charging_log();
       if (sub_10008073C(v8))
       {
-        sub_100019C18(&_mh_execute_header, v9, v10, "Invalid wrist state in update", v11, v12, v13, v14, 0);
+        v15 = 0;
+        sub_100019C18(&_mh_execute_header, v9, v10, "Invalid wrist state in update", v11, v12, v13, v14, v15);
       }
     }
 

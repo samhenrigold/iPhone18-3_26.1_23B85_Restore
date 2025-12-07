@@ -3,7 +3,7 @@
 
 @implementation AXSShowAudioTranscriptions
 
-uint64_t ___AXSShowAudioTranscriptions_block_invoke()
+void *___AXSShowAudioTranscriptions_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

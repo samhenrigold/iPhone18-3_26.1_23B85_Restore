@@ -941,7 +941,7 @@ void __46__HPCUIListeningModeControl_setListeningMode___block_invoke(uint64_t a1
   swift_getObjectType();
   MEMORY[0x1E69E5928](selection);
   MEMORY[0x1E69E5928](self);
-  HPCUIListeningModeControl.updateListeningModeForSyncSelection(_:)();
+  HPCUIListeningModeControl.updateListeningModeForSyncSelection(_:)(selection);
   MEMORY[0x1E69E5920](self);
   MEMORY[0x1E69E5920](selection);
 }

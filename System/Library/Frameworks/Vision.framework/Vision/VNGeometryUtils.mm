@@ -184,7 +184,7 @@ LABEL_17:
 {
   objc_opt_self();
 
-  return [(VNBoundingCircleAlgorithm *)1.0 boundingCircleForSIMDPoints:points pointCount:pointCount aspectRatioForCentroid:error error:?];
+  return [VNBoundingCircleAlgorithm boundingCircleForSIMDPoints:pointCount pointCount:error aspectRatioForCentroid:1.0 error:?];
 }
 
 + (VNCircle)boundingCircleForPoints:(NSArray *)points error:(NSError *)error
@@ -196,9 +196,8 @@ LABEL_17:
     v6 = v5;
     objc_opt_self();
     v7 = [(NSArray *)v6 count];
-    v22[0] = 0;
-    v22[1] = 0;
-    std::vector<CGPoint>::vector[abi:ne200100](&__p, v7);
+    v22 = 0uLL;
+    std::vector<CGPoint>::vector[abi:ne200100](&__p, v7, &v22);
     if (v7)
     {
       v8 = 0;
@@ -221,10 +220,10 @@ LABEL_17:
       v15 = 1;
     }
 
-    LODWORD(v22[0]) = v15;
-    std::__shuffle[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<CGPoint *>,std::__wrap_iter<CGPoint *>,std::linear_congruential_engine<unsigned int,48271u,0u,2147483647u>>(__p, v21, v22);
+    LODWORD(v22) = v15;
+    std::__shuffle[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<CGPoint *>,std::__wrap_iter<CGPoint *>,std::linear_congruential_engine<unsigned int,48271u,0u,2147483647u>>(__p, v21, &v22);
 
-    v16 = [(VNBoundingCircleAlgorithm *)1.0 _boundingCircleForPoints:&__p aspectRatioForCentroid:?];
+    v16 = [VNBoundingCircleAlgorithm _boundingCircleForPoints:1.0 aspectRatioForCentroid:?];
     v17 = v16;
     if (v16)
     {
@@ -267,7 +266,7 @@ LABEL_17:
     [(VNContour *)v5 aspectRatio];
     v9 = v8;
     objc_opt_self();
-    v10 = [(VNBoundingCircleAlgorithm *)v9 boundingCircleForSIMDPoints:createNormalizedPointsCorrectedForAspectRatio pointCount:pointCount aspectRatioForCentroid:error error:?];
+    v10 = [VNBoundingCircleAlgorithm boundingCircleForSIMDPoints:createNormalizedPointsCorrectedForAspectRatio pointCount:pointCount aspectRatioForCentroid:error error:v9];
     free(createNormalizedPointsCorrectedForAspectRatio);
   }
 

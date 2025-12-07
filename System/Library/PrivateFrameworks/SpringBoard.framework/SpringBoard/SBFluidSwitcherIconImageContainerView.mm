@@ -199,7 +199,7 @@ uint64_t __59__SBFluidSwitcherIconImageContainerView__crossfadeToImage___block_i
   [v7 setCenter:?];
   if (v6)
   {
-    [(UIView *)v6 transform];
+    objc_msgSend_transform(v6);
   }
 
   else

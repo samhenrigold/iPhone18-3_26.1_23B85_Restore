@@ -18,8 +18,18 @@
 - (unint64_t)sleepModeOptions;
 - (void)encodeWithCoder:(id)coder;
 - (void)freeze;
+- (void)setBedtimeReminders:(BOOL)reminders;
+- (void)setChargingReminders:(BOOL)reminders;
 - (void)setLastModifiedDate:(id)date;
+- (void)setScheduledSleepMode:(BOOL)mode;
+- (void)setShareAcrossDevices:(BOOL)devices;
 - (void)setSleepModeOptions:(unint64_t)options;
+- (void)setSleepTracking:(BOOL)tracking;
+- (void)setSpringBoardGreetingDisabled:(BOOL)disabled;
+- (void)setSpringBoardSuggestedPageCreated:(BOOL)created;
+- (void)setTimeInBedTracking:(BOOL)tracking;
+- (void)setWakeUpResults:(BOOL)results;
+- (void)setWatchSleepFeaturesEnabled:(BOOL)enabled;
 @end
 
 @implementation HKSPMutableSleepSettings
@@ -34,18 +44,11 @@
   v7 = [(HKSPObject *)self->_originalObject hksp_valueForProperty:v6];
   if (!NAEqualObjects() || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPSettingsLastModifiedDate"])
   {
-    isRelationshipProperty = [v6 isRelationshipProperty];
-    v9 = off_279C73598;
-    if (!isRelationshipProperty)
-    {
-      v9 = off_279C734F8;
-    }
-
-    v10 = *v9;
-    v11 = objc_opt_class();
+    [v6 isRelationshipProperty];
+    v8 = objc_opt_class();
     changeSet = self->_changeSet;
-    v13 = [[v11 alloc] initWithProperty:v6 changedValue:dateCopy originalValue:v7];
-    [(HKSPChangeSet *)changeSet addChange:v13];
+    v10 = [[v8 alloc] initWithProperty:v6 changedValue:dateCopy originalValue:v7];
+    [(HKSPChangeSet *)changeSet addChange:v10];
   }
 }
 
@@ -69,6 +72,27 @@
   return v6;
 }
 
+- (void)setWatchSleepFeaturesEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  allProperties = [objc_opt_class() allProperties];
+  v6 = HKSPPropertiesByIdentifier(allProperties);
+  v14 = [v6 objectForKeyedSubscript:@"HKSPWatchSleepFeaturesEnabled"];
+
+  v7 = [(HKSPObject *)self->_originalObject hksp_valueForProperty:v14];
+  bOOLValue = [v7 BOOLValue];
+
+  if (bOOLValue != enabledCopy || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPWatchSleepFeaturesEnabled"])
+  {
+    changeSet = self->_changeSet;
+    v10 = [HKSPChange alloc];
+    v11 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+    v12 = [MEMORY[0x277CCABB0] numberWithBool:bOOLValue];
+    v13 = [(HKSPChange *)v10 initWithProperty:v14 changedValue:v11 originalValue:v12];
+    [(HKSPChangeSet *)changeSet addChange:v13];
+  }
+}
+
 - (BOOL)watchSleepFeaturesEnabled
 {
   allProperties = [objc_opt_class() allProperties];
@@ -88,6 +112,27 @@
   bOOLValue = [v6 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setScheduledSleepMode:(BOOL)mode
+{
+  modeCopy = mode;
+  allProperties = [objc_opt_class() allProperties];
+  v6 = HKSPPropertiesByIdentifier(allProperties);
+  v14 = [v6 objectForKeyedSubscript:@"HKSPScheduledSleepMode"];
+
+  v7 = [(HKSPObject *)self->_originalObject hksp_valueForProperty:v14];
+  bOOLValue = [v7 BOOLValue];
+
+  if (bOOLValue != modeCopy || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPScheduledSleepMode"])
+  {
+    changeSet = self->_changeSet;
+    v10 = [HKSPChange alloc];
+    v11 = [MEMORY[0x277CCABB0] numberWithBool:modeCopy];
+    v12 = [MEMORY[0x277CCABB0] numberWithBool:bOOLValue];
+    v13 = [(HKSPChange *)v10 initWithProperty:v14 changedValue:v11 originalValue:v12];
+    [(HKSPChangeSet *)changeSet addChange:v13];
+  }
 }
 
 - (BOOL)scheduledSleepMode
@@ -152,6 +197,27 @@
   return unsignedIntegerValue;
 }
 
+- (void)setSleepTracking:(BOOL)tracking
+{
+  trackingCopy = tracking;
+  allProperties = [objc_opt_class() allProperties];
+  v6 = HKSPPropertiesByIdentifier(allProperties);
+  v14 = [v6 objectForKeyedSubscript:@"HKSPSleepTracking"];
+
+  v7 = [(HKSPObject *)self->_originalObject hksp_valueForProperty:v14];
+  bOOLValue = [v7 BOOLValue];
+
+  if (bOOLValue != trackingCopy || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPSleepTracking"])
+  {
+    changeSet = self->_changeSet;
+    v10 = [HKSPChange alloc];
+    v11 = [MEMORY[0x277CCABB0] numberWithBool:trackingCopy];
+    v12 = [MEMORY[0x277CCABB0] numberWithBool:bOOLValue];
+    v13 = [(HKSPChange *)v10 initWithProperty:v14 changedValue:v11 originalValue:v12];
+    [(HKSPChangeSet *)changeSet addChange:v13];
+  }
+}
+
 - (BOOL)sleepTracking
 {
   allProperties = [objc_opt_class() allProperties];
@@ -171,6 +237,27 @@
   bOOLValue = [v6 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setWakeUpResults:(BOOL)results
+{
+  resultsCopy = results;
+  allProperties = [objc_opt_class() allProperties];
+  v6 = HKSPPropertiesByIdentifier(allProperties);
+  v14 = [v6 objectForKeyedSubscript:@"HKSPWakeUpResults"];
+
+  v7 = [(HKSPObject *)self->_originalObject hksp_valueForProperty:v14];
+  bOOLValue = [v7 BOOLValue];
+
+  if (bOOLValue != resultsCopy || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPWakeUpResults"])
+  {
+    changeSet = self->_changeSet;
+    v10 = [HKSPChange alloc];
+    v11 = [MEMORY[0x277CCABB0] numberWithBool:resultsCopy];
+    v12 = [MEMORY[0x277CCABB0] numberWithBool:bOOLValue];
+    v13 = [(HKSPChange *)v10 initWithProperty:v14 changedValue:v11 originalValue:v12];
+    [(HKSPChangeSet *)changeSet addChange:v13];
+  }
 }
 
 - (BOOL)wakeUpResults
@@ -194,6 +281,27 @@
   return bOOLValue;
 }
 
+- (void)setTimeInBedTracking:(BOOL)tracking
+{
+  trackingCopy = tracking;
+  allProperties = [objc_opt_class() allProperties];
+  v6 = HKSPPropertiesByIdentifier(allProperties);
+  v14 = [v6 objectForKeyedSubscript:@"HKSPTimeInBedTracking"];
+
+  v7 = [(HKSPObject *)self->_originalObject hksp_valueForProperty:v14];
+  bOOLValue = [v7 BOOLValue];
+
+  if (bOOLValue != trackingCopy || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPTimeInBedTracking"])
+  {
+    changeSet = self->_changeSet;
+    v10 = [HKSPChange alloc];
+    v11 = [MEMORY[0x277CCABB0] numberWithBool:trackingCopy];
+    v12 = [MEMORY[0x277CCABB0] numberWithBool:bOOLValue];
+    v13 = [(HKSPChange *)v10 initWithProperty:v14 changedValue:v11 originalValue:v12];
+    [(HKSPChangeSet *)changeSet addChange:v13];
+  }
+}
+
 - (BOOL)timeInBedTracking
 {
   allProperties = [objc_opt_class() allProperties];
@@ -213,6 +321,27 @@
   bOOLValue = [v6 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setBedtimeReminders:(BOOL)reminders
+{
+  remindersCopy = reminders;
+  allProperties = [objc_opt_class() allProperties];
+  v6 = HKSPPropertiesByIdentifier(allProperties);
+  v14 = [v6 objectForKeyedSubscript:@"HKSPBedtimeReminders"];
+
+  v7 = [(HKSPObject *)self->_originalObject hksp_valueForProperty:v14];
+  bOOLValue = [v7 BOOLValue];
+
+  if (bOOLValue != remindersCopy || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPBedtimeReminders"])
+  {
+    changeSet = self->_changeSet;
+    v10 = [HKSPChange alloc];
+    v11 = [MEMORY[0x277CCABB0] numberWithBool:remindersCopy];
+    v12 = [MEMORY[0x277CCABB0] numberWithBool:bOOLValue];
+    v13 = [(HKSPChange *)v10 initWithProperty:v14 changedValue:v11 originalValue:v12];
+    [(HKSPChangeSet *)changeSet addChange:v13];
+  }
 }
 
 - (BOOL)bedtimeReminders
@@ -236,6 +365,27 @@
   return bOOLValue;
 }
 
+- (void)setChargingReminders:(BOOL)reminders
+{
+  remindersCopy = reminders;
+  allProperties = [objc_opt_class() allProperties];
+  v6 = HKSPPropertiesByIdentifier(allProperties);
+  v14 = [v6 objectForKeyedSubscript:@"HKSPChargingReminders"];
+
+  v7 = [(HKSPObject *)self->_originalObject hksp_valueForProperty:v14];
+  bOOLValue = [v7 BOOLValue];
+
+  if (bOOLValue != remindersCopy || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPChargingReminders"])
+  {
+    changeSet = self->_changeSet;
+    v10 = [HKSPChange alloc];
+    v11 = [MEMORY[0x277CCABB0] numberWithBool:remindersCopy];
+    v12 = [MEMORY[0x277CCABB0] numberWithBool:bOOLValue];
+    v13 = [(HKSPChange *)v10 initWithProperty:v14 changedValue:v11 originalValue:v12];
+    [(HKSPChangeSet *)changeSet addChange:v13];
+  }
+}
+
 - (BOOL)chargingReminders
 {
   allProperties = [objc_opt_class() allProperties];
@@ -255,6 +405,27 @@
   bOOLValue = [v6 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setShareAcrossDevices:(BOOL)devices
+{
+  devicesCopy = devices;
+  allProperties = [objc_opt_class() allProperties];
+  v6 = HKSPPropertiesByIdentifier(allProperties);
+  v14 = [v6 objectForKeyedSubscript:@"HKSPShareAcrossDevices"];
+
+  v7 = [(HKSPObject *)self->_originalObject hksp_valueForProperty:v14];
+  bOOLValue = [v7 BOOLValue];
+
+  if (bOOLValue != devicesCopy || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPShareAcrossDevices"])
+  {
+    changeSet = self->_changeSet;
+    v10 = [HKSPChange alloc];
+    v11 = [MEMORY[0x277CCABB0] numberWithBool:devicesCopy];
+    v12 = [MEMORY[0x277CCABB0] numberWithBool:bOOLValue];
+    v13 = [(HKSPChange *)v10 initWithProperty:v14 changedValue:v11 originalValue:v12];
+    [(HKSPChangeSet *)changeSet addChange:v13];
+  }
 }
 
 - (BOOL)shareAcrossDevices
@@ -278,6 +449,27 @@
   return bOOLValue;
 }
 
+- (void)setSpringBoardGreetingDisabled:(BOOL)disabled
+{
+  disabledCopy = disabled;
+  allProperties = [objc_opt_class() allProperties];
+  v6 = HKSPPropertiesByIdentifier(allProperties);
+  v14 = [v6 objectForKeyedSubscript:@"HKSPSpringBoardGreetingDisabled"];
+
+  v7 = [(HKSPObject *)self->_originalObject hksp_valueForProperty:v14];
+  bOOLValue = [v7 BOOLValue];
+
+  if (bOOLValue != disabledCopy || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPSpringBoardGreetingDisabled"])
+  {
+    changeSet = self->_changeSet;
+    v10 = [HKSPChange alloc];
+    v11 = [MEMORY[0x277CCABB0] numberWithBool:disabledCopy];
+    v12 = [MEMORY[0x277CCABB0] numberWithBool:bOOLValue];
+    v13 = [(HKSPChange *)v10 initWithProperty:v14 changedValue:v11 originalValue:v12];
+    [(HKSPChangeSet *)changeSet addChange:v13];
+  }
+}
+
 - (BOOL)springBoardGreetingDisabled
 {
   allProperties = [objc_opt_class() allProperties];
@@ -297,6 +489,27 @@
   bOOLValue = [v6 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setSpringBoardSuggestedPageCreated:(BOOL)created
+{
+  createdCopy = created;
+  allProperties = [objc_opt_class() allProperties];
+  v6 = HKSPPropertiesByIdentifier(allProperties);
+  v14 = [v6 objectForKeyedSubscript:@"HKSPSpringBoardSuggestedPageCreated"];
+
+  v7 = [(HKSPObject *)self->_originalObject hksp_valueForProperty:v14];
+  bOOLValue = [v7 BOOLValue];
+
+  if (bOOLValue != createdCopy || [(HKSPChangeSet *)self->_changeSet hasChangeForPropertyIdentifier:@"HKSPSpringBoardSuggestedPageCreated"])
+  {
+    changeSet = self->_changeSet;
+    v10 = [HKSPChange alloc];
+    v11 = [MEMORY[0x277CCABB0] numberWithBool:createdCopy];
+    v12 = [MEMORY[0x277CCABB0] numberWithBool:bOOLValue];
+    v13 = [(HKSPChange *)v10 initWithProperty:v14 changedValue:v11 originalValue:v12];
+    [(HKSPChangeSet *)changeSet addChange:v13];
+  }
 }
 
 - (BOOL)springBoardSuggestedPageCreated

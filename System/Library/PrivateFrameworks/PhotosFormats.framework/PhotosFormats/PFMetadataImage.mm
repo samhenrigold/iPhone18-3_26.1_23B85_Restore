@@ -238,12 +238,12 @@
   valuesCopy = values;
   dictionaryCopy = dictionary;
   selfCopy = self;
-  v8 = [(NSDictionary *)self->_cgImageProperties mutableCopy];
+  v8 = objc_msgSend_mutableCopy(self->_cgImageProperties);
   v9 = v8;
   if (dictionaryCopy)
   {
     v10 = [(NSDictionary *)v8 objectForKeyedSubscript:dictionaryCopy];
-    v11 = [v10 mutableCopy];
+    v11 = objc_msgSend_mutableCopy(v10);
 
     [(NSDictionary *)v9 setObject:v11 forKeyedSubscript:dictionaryCopy];
   }
@@ -413,7 +413,7 @@
   v6.receiver = self;
   v6.super_class = PFMetadataImage;
   plistForEncoding = [(PFMetadata *)&v6 plistForEncoding];
-  v4 = [plistForEncoding mutableCopy];
+  v4 = objc_msgSend_mutableCopy(plistForEncoding);
 
   [v4 setObject:self->_cgImageProperties forKeyedSubscript:PFMetadataPlistCgImageProperties];
 
@@ -616,7 +616,7 @@ LABEL_8:
   v5.receiver = self;
   v5.super_class = PFMetadataImage;
   syndicationProperties = [(PFMetadata *)&v5 syndicationProperties];
-  v3 = [syndicationProperties mutableCopy];
+  v3 = objc_msgSend_mutableCopy(syndicationProperties);
 
   return v3;
 }
@@ -3452,7 +3452,7 @@ LABEL_17:
 
     v11 = +[PFMetadataImage defaultOptionsForCGImageSource];
     v12 = CGImageSourceCopyPropertiesAtIndex(source, PrimaryImageIndex, v11);
-    v13 = [(__CFDictionary *)v12 mutableCopy];
+    v13 = objc_msgSend_mutableCopy(v12);
 
     v14 = [(PFMetadataImage *)self _configureWithImageProperties:v13];
     if (v14)
@@ -3498,7 +3498,7 @@ LABEL_17:
   if (dataCopy)
   {
     v10 = +[PFMetadataImage defaultOptionsForCGImageSource];
-    v11 = [v10 mutableCopy];
+    v11 = objc_msgSend_mutableCopy(v10);
 
     contentType = [(PFMetadata *)self contentType];
 
@@ -3594,7 +3594,7 @@ LABEL_17:
             {
               path = [lCopy path];
               v21 = CopyMetadataFromFileAtPath();
-              v22 = [v21 mutableCopy];
+              v22 = objc_msgSend_mutableCopy(v21);
 
               v23 = [(PFMetadataImage *)self _configureWithImageProperties:v22];
 LABEL_40:
@@ -3612,7 +3612,7 @@ LABEL_40:
     }
 
     v24 = +[PFMetadataImage defaultOptionsForCGImageSource];
-    v22 = [v24 mutableCopy];
+    v22 = objc_msgSend_mutableCopy(v24);
 
     if ([(PFMetadata *)self shouldLookForXmpSidecar])
     {
@@ -3893,7 +3893,7 @@ LABEL_41:
     dispatch_once(&defaultOptionsForCGImageSource_onceToken, &__block_literal_global_6639);
   }
 
-  v2 = [defaultOptionsForCGImageSource_options mutableCopy];
+  v2 = objc_msgSend_mutableCopy(defaultOptionsForCGImageSource_options);
 
   return v2;
 }

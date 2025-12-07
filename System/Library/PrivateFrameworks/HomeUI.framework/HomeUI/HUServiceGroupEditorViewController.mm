@@ -23,7 +23,7 @@
 
 + (id)forCreatingNewServiceGroupWithServices:(id)services inHome:(id)home
 {
-  sub_20CECF940(0, &qword_27C81AEC0);
+  sub_20CECF940(0, &qword_27C81AEC0, 0x277CD1D90);
   v5 = sub_20D567A78();
   homeCopy = home;
   v7 = _s6HomeUI32ServiceGroupEditorViewControllerC014forCreatingNewcD04with2inACXDSaySo9HMServiceCG_So6HMHomeCtFZ_0(v5, homeCopy);
@@ -229,7 +229,7 @@ LABEL_12:
   v9 = [(HFItemManager *)itemManager displayedItemsInSection:v8];
   if (!v9)
   {
-    sub_20CECF940(0, &qword_281120AC0);
+    sub_20CECF940(0, &qword_281120AC0, 0x277D14748);
     sub_20D567A78();
     v9 = sub_20D567A58();
   }
@@ -239,11 +239,12 @@ LABEL_12:
 
 - (BOOL)shouldShowHeaderForSection:(id)section
 {
-  sub_20D567838();
+  v4 = sub_20D567838();
+  v6 = v5;
   selfCopy = self;
-  v5 = sub_20CED3114();
+  LOBYTE(v4) = sub_20CED3114(v4, v6);
 
-  return v5;
+  return v4 & 1;
 }
 
 - (HUServiceGroupEditorViewController)initWithItemManager:(id)manager collectionViewLayout:(id)layout

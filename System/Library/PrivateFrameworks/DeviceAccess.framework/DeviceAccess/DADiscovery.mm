@@ -63,43 +63,43 @@
 - (DADiscovery)initWithConfiguration:(id)configuration error:(id *)error
 {
   configurationCopy = configuration;
-  v14 = [(DADiscovery *)self init];
-  if (v14)
+  v7 = [(DADiscovery *)self init];
+  if (v7)
   {
-    v15 = [configurationCopy copy];
-    configuration = v14->_configuration;
-    v14->_configuration = v15;
+    v8 = [configurationCopy copy];
+    configuration = v7->_configuration;
+    v7->_configuration = v8;
 
-    v17 = v14;
+    v10 = v7;
   }
 
   else
   {
-    [(DADiscovery *)error initWithConfiguration:v7 error:v8, v9, v10, v11, v12, v13];
+    [DADiscovery initWithConfiguration:error error:?];
   }
 
-  return v14;
+  return v7;
 }
 
 - (DADiscovery)initWithConfigurations:(id)configurations error:(id *)error
 {
   configurationsCopy = configurations;
-  v14 = [(DADiscovery *)self init];
-  if (v14)
+  v7 = [(DADiscovery *)self init];
+  if (v7)
   {
-    v15 = [configurationsCopy copy];
-    configurations = v14->_configurations;
-    v14->_configurations = v15;
+    v8 = [configurationsCopy copy];
+    configurations = v7->_configurations;
+    v7->_configurations = v8;
 
-    v17 = v14;
+    v10 = v7;
   }
 
   else
   {
-    [(DADiscovery *)error initWithConfiguration:v7 error:v8, v9, v10, v11, v12, v13];
+    [DADiscovery initWithConfiguration:error error:?];
   }
 
-  return v14;
+  return v7;
 }
 
 - (void)encodeWithXPCObject:(id)object
@@ -125,33 +125,26 @@
     xpc_dictionary_set_uint64(xdict, "cid", clientID);
   }
 
-  configuration = self->_configuration;
   CUXPCEncodeObject();
-  configurations = self->_configurations;
   CUXPCEncodeNSArrayOfObjects();
   xpc_dictionary_set_uint64(xdict, "dsFs", self->_flags);
 }
 
 - (id)descriptionWithLevel:(int)level
 {
-  v35 = *MEMORY[0x277D85DE8];
-  v33 = 0;
+  v31 = *MEMORY[0x277D85DE8];
+  v29 = 0;
   v4 = objc_opt_class();
-  bundleID = self->_bundleID;
-  deviceOTANameToBroadcast = self->_deviceOTANameToBroadcast;
-  v21 = v4;
-  clientID = self->_clientID;
-  NSAppendPrintF();
-  v5 = 0;
+  NSAppendPrintF(&v29, "%@, CID 0x%X %@, DeviceOTAName:%@", v4, self->_clientID, self->_bundleID, self->_deviceOTANameToBroadcast);
+  v5 = v29;
   v6 = v5;
   extensions = self->_extensions;
   if (extensions)
   {
-    v32 = v5;
+    v28 = v5;
     v8 = extensions;
-    [(NSMutableSet *)v8 count:v21];
-    NSAppendPrintF();
-    v9 = v32;
+    NSAppendPrintF(&v28, ", extensions %d", [(NSMutableSet *)v8 count]);
+    v9 = v28;
 
     v6 = v9;
   }
@@ -159,55 +152,54 @@
   configuration = self->_configuration;
   if (configuration)
   {
-    v31 = v6;
-    v22 = configuration;
-    NSAppendPrintF();
-    v11 = v6;
+    v27 = v6;
+    v11 = configuration;
+    NSAppendPrintF(&v27, ", config: %@", v11);
+    v12 = v27;
 
-    v6 = v11;
+    v6 = v12;
   }
 
-  v12 = self->_configurations;
-  v13 = v12;
-  if (v12)
+  v13 = self->_configurations;
+  v14 = v13;
+  if (v13)
   {
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
-    v28 = 0u;
-    v14 = [(NSArray *)v12 countByEnumeratingWithState:&v27 objects:v34 count:16];
-    if (v14)
+    v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    v15 = [(NSArray *)v13 countByEnumeratingWithState:&v23 objects:v30 count:16];
+    if (v15)
     {
-      v15 = v14;
-      v16 = *v28;
+      v16 = v15;
+      v17 = *v24;
       do
       {
-        v17 = 0;
-        v18 = v6;
+        v18 = 0;
+        v19 = v6;
         do
         {
-          if (*v28 != v16)
+          if (*v24 != v17)
           {
-            objc_enumerationMutation(v13);
+            objc_enumerationMutation(v14);
           }
 
-          v23 = *(*(&v27 + 1) + 8 * v17);
-          NSAppendPrintF();
-          v6 = v18;
+          v20 = *(*(&v23 + 1) + 8 * v18);
+          v22 = v19;
+          NSAppendPrintF(&v22, ", %@", v20);
+          v6 = v22;
 
-          ++v17;
-          v18 = v6;
+          ++v18;
+          v19 = v6;
         }
 
-        while (v15 != v17);
-        v15 = [(NSArray *)v13 countByEnumeratingWithState:&v27 objects:v34 count:16, v23];
+        while (v16 != v18);
+        v16 = [(NSArray *)v14 countByEnumeratingWithState:&v23 objects:v30 count:16];
       }
 
-      while (v15);
+      while (v16);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -252,22 +244,22 @@
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __23__DADiscovery_activate__block_invoke(uint64_t result)
+void *__23__DADiscovery_activate__block_invoke(void *result)
 {
   v1 = result;
   if (gLogCategory_DADiscovery <= 30)
   {
     if (gLogCategory_DADiscovery != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = __23__DADiscovery_activate__block_invoke_cold_1(v1);
+      result = __23__DADiscovery_activate__block_invoke_cold_1();
     }
   }
 
-  v2 = *(v1 + 32);
+  v2 = v1[4];
   if ((*(v2 + 8) & 1) == 0)
   {
     *(v2 + 8) = 1;
-    v3 = *(v1 + 32);
+    v3 = v1[4];
     if (v3[56] == 1)
     {
 
@@ -288,7 +280,7 @@ uint64_t __23__DADiscovery_activate__block_invoke(uint64_t result)
 {
   if (gLogCategory_DADiscovery <= 30 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
   {
-    [DADiscovery _activateDirect];
+    [(DADiscovery *)self _activateDirect];
   }
 
   bundleID = [(DADiscoveryConfiguration *)self->_configuration bundleID];
@@ -303,21 +295,21 @@ uint64_t __23__DADiscovery_activate__block_invoke(uint64_t result)
   self->_activateTimeInterval = CFAbsoluteTimeGetCurrent();
   if (v5)
   {
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __30__DADiscovery__activateDirect__block_invoke;
-    v17[3] = &unk_278F57E20;
-    v17[4] = self;
-    [(DADiscovery *)self _findExtensionPoint:@"com.apple.discovery-extension" bundleID:v5 entitlement:@"com.apple.developer.media-device-discovery-extension" completion:v17];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __30__DADiscovery__activateDirect__block_invoke;
+    v13[3] = &unk_278F57E20;
+    v13[4] = self;
+    [(DADiscovery *)self _findExtensionPoint:@"com.apple.discovery-extension" bundleID:v5 entitlement:@"com.apple.developer.media-device-discovery-extension" completion:v13];
     if ((self->_flags & 4) != 0)
     {
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __30__DADiscovery__activateDirect__block_invoke_2;
-      v15[3] = &unk_278F57E48;
-      v15[4] = self;
-      v16 = v5;
-      [(DADiscovery *)self _findExtensionPoint:@"com.apple.accessory-setup-extension" bundleID:v16 entitlement:@"com.apple.developer.accessory-setup-discovery-extension" completion:v15];
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __30__DADiscovery__activateDirect__block_invoke_2;
+      v11[3] = &unk_278F57E48;
+      v11[4] = self;
+      v12 = v5;
+      [(DADiscovery *)self _findExtensionPoint:@"com.apple.accessory-setup-extension" bundleID:v12 entitlement:@"com.apple.developer.accessory-setup-discovery-extension" completion:v11];
     }
 
     else
@@ -328,103 +320,104 @@ uint64_t __23__DADiscovery_activate__block_invoke(uint64_t result)
 
   else
   {
-    if (gLogCategory_DADiscovery <= 90 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_DADiscovery <= 90)
     {
-      [DADiscovery _activateDirect];
+      if (gLogCategory_DADiscovery != -1 || (v6 = _LogCategory_Initialize(), v6))
+      {
+        [(DADiscovery *)v6 _activateDirect];
+      }
     }
 
-    v12 = DAErrorF(350001, "Bundle does not exist", v6, v7, v8, v9, v10, v11, v14);
-    v13 = [[DAEvent alloc] initWithEventType:10 error:v12];
-    [(DADiscovery *)self _reportEvent:v13];
+    v9 = DAErrorF(350001, "Bundle does not exist");
+    v10 = [[DAEvent alloc] initWithEventType:10 error:v9];
+    [(DADiscovery *)self _reportEvent:v10];
   }
 }
 
 void __30__DADiscovery__activateDirect__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(a1 + 32) _activateExtension:*(*(&v9 + 1) + 8 * v7++)];
+        [*(a1 + 32) _activateExtension:*(*(&v8 + 1) + 8 * v7++)];
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __30__DADiscovery__activateDirect__block_invoke_2(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 count])
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
-    v20 = 0u;
-    v10 = v3;
-    v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
-    if (v11)
+    v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
+    v4 = v3;
+    v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    if (v5)
     {
-      v12 = v11;
-      v13 = *v20;
+      v6 = v5;
+      v7 = *v13;
       do
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v6; ++i)
         {
-          if (*v20 != v13)
+          if (*v13 != v7)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v4);
           }
 
-          [*(a1 + 32) _activateExtension:*(*(&v19 + 1) + 8 * i)];
+          [*(a1 + 32) _activateExtension:*(*(&v12 + 1) + 8 * i)];
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
-      while (v12);
+      while (v6);
     }
 
     goto LABEL_9;
   }
 
-  v16 = *(a1 + 32);
-  if (!v16[11] && !v16[12])
+  v9 = *(a1 + 32);
+  if (!v9[11] && !v9[12])
   {
-    v10 = DAErrorF(350001, "Extension or configurations not available on %@", v4, v5, v6, v7, v8, v9, *(a1 + 40));
-    v17 = *(a1 + 32);
-    v18 = [[DAEvent alloc] initWithEventType:32 error:v10];
-    [v17 _reportEvent:v18];
+    v4 = DAErrorF(350001, "Extension or configurations not available on %@", *(a1 + 40));
+    v10 = *(a1 + 32);
+    v11 = [[DAEvent alloc] initWithEventType:32 error:v4];
+    [v10 _reportEvent:v11];
 
 LABEL_9:
     goto LABEL_10;
   }
 
-  if (([v16 flags] & 0x10) != 0)
+  if (([v9 flags] & 0x10) != 0)
   {
     [gDADaemonServer runUpgradeWithDiscovery:*(a1 + 32)];
   }
@@ -440,8 +433,6 @@ LABEL_9:
   }
 
 LABEL_10:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)runOtherDiscovery
@@ -453,9 +444,9 @@ LABEL_10:
     bundleID = self->_bundleID;
   }
 
-  v14 = bundleID;
+  v8 = bundleID;
 
-  v11 = v14;
+  v5 = v8;
   if ((self->_flags & 0x20) != 0)
   {
     if (self->_configuration || self->_configurations)
@@ -465,12 +456,12 @@ LABEL_10:
 
     else
     {
-      v12 = DAErrorF(350001, "Device discovery configurations not provided for %@", v5, v6, v7, v8, v9, v10, v14);
-      v13 = [[DAEvent alloc] initWithEventType:32 error:v12];
-      [(DADiscovery *)self _reportEvent:v13];
+      v6 = DAErrorF(350001, "Device discovery configurations not provided for %@", v8);
+      v7 = [[DAEvent alloc] initWithEventType:32 error:v6];
+      [(DADiscovery *)self _reportEvent:v7];
     }
 
-    v11 = v14;
+    v5 = v8;
   }
 }
 
@@ -489,7 +480,7 @@ uint64_t __29__DADiscovery_migrateDevices__block_invoke(uint64_t a1)
 {
   if (gLogCategory_DADiscovery <= 30 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
   {
-    __29__DADiscovery_migrateDevices__block_invoke_cold_1(a1);
+    __29__DADiscovery_migrateDevices__block_invoke_cold_1();
   }
 
   v2 = *(a1 + 32);
@@ -501,7 +492,7 @@ uint64_t __29__DADiscovery_migrateDevices__block_invoke(uint64_t a1)
 {
   if (gLogCategory_DADiscovery <= 30 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
   {
-    [DADiscovery finishMigration];
+    [(DADiscovery *)self finishMigration];
   }
 
   xdict = xpc_dictionary_create(0, 0, 0);
@@ -520,7 +511,7 @@ uint64_t __30__DADiscovery_finishMigration__block_invoke(uint64_t a1, void *a2)
     v5 = v2;
     if (gLogCategory_DADiscovery != -1 || (v2 = _LogCategory_Initialize(), v3 = v5, v2))
     {
-      v2 = __30__DADiscovery_finishMigration__block_invoke_cold_1();
+      v2 = __30__DADiscovery_finishMigration__block_invoke_cold_1(v3);
       v3 = v5;
     }
   }
@@ -577,19 +568,21 @@ uint64_t __34__DADiscovery__activateExtension___block_invoke(uint64_t a1)
   {
     if (gLogCategory_DADiscovery <= 30 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
     {
-LABEL_10:
-      [DADiscovery _activateXPCStart:];
+      v4 = "Re-activate XPC: %@";
+LABEL_11:
+      [(DADiscovery *)v4 _activateXPCStart:?];
     }
   }
 
   else if (gLogCategory_DADiscovery <= 30 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
   {
-    goto LABEL_10;
+    v4 = "Activate XPC: %@";
+    goto LABEL_11;
   }
 
-  v4 = xpc_dictionary_create(0, 0, 0);
-  [(DADiscovery *)self encodeWithXPCObject:v4];
-  xpc_dictionary_set_string(v4, "mTyp", "DscA");
+  v5 = xpc_dictionary_create(0, 0, 0);
+  [(DADiscovery *)self encodeWithXPCObject:v5];
+  xpc_dictionary_set_string(v5, "mTyp", "DscA");
   _ensureXPCStarted = [(DADiscovery *)self _ensureXPCStarted];
   dispatchQueue = self->_dispatchQueue;
   handler[0] = MEMORY[0x277D85DD0];
@@ -597,46 +590,45 @@ LABEL_10:
   handler[2] = __33__DADiscovery__activateXPCStart___block_invoke;
   handler[3] = &unk_278F57E90;
   handler[4] = self;
-  xpc_connection_send_message_with_reply(_ensureXPCStarted, v4, dispatchQueue, handler);
+  xpc_connection_send_message_with_reply(_ensureXPCStarted, v5, dispatchQueue, handler);
 }
 
 - (void)_activateXPCCompleted:(id)completed
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   completedCopy = completed;
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x3032000000;
-  v37 = __Block_byref_object_copy__3;
-  v38 = __Block_byref_object_dispose__3;
-  v39 = 0;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x3032000000;
+  v35 = __Block_byref_object_copy__3;
+  v36 = __Block_byref_object_dispose__3;
+  v37 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __37__DADiscovery__activateXPCCompleted___block_invoke;
   aBlock[3] = &unk_278F57EB8;
   aBlock[4] = self;
-  aBlock[5] = &v34;
+  aBlock[5] = &v32;
   v5 = _Block_copy(aBlock);
   v6 = CUXPCDecodeNSErrorIfNeeded();
-  v7 = v35[5];
-  v35[5] = v6;
+  v7 = v33[5];
+  v33[5] = v6;
 
-  if (!v35[5])
+  if (!v33[5])
   {
     if (gLogCategory_DADiscovery <= 30 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
     {
-      selfCopy = self;
-      LogPrintF();
+      LogPrintF(&gLogCategory_DADiscovery, "[DADiscovery _activateXPCCompleted:]", 30, "Activated: %@", self);
     }
 
-    v32 = 0;
+    v30 = 0;
     if (![(DADiscoveryConfiguration *)self->_configuration presenceOnly])
     {
       objc_opt_class();
       CUXPCDecodeNSArrayOfClass();
     }
 
-    if ([v32 count])
+    if ([v30 count])
     {
       os_unfair_lock_lock(&self->_lock);
       if (!self->_deviceMap)
@@ -646,25 +638,25 @@ LABEL_10:
         self->_deviceMap = v8;
       }
 
-      v30 = 0u;
-      v31 = 0u;
       v28 = 0u;
       v29 = 0u;
-      v10 = v32;
-      v11 = [v10 countByEnumeratingWithState:&v28 objects:v41 count:16];
+      v26 = 0u;
+      v27 = 0u;
+      v10 = v30;
+      v11 = [v10 countByEnumeratingWithState:&v26 objects:v39 count:16];
       if (v11)
       {
-        v12 = *v29;
+        v12 = *v27;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v29 != v12)
+            if (*v27 != v12)
             {
               objc_enumerationMutation(v10);
             }
 
-            v14 = *(*(&v28 + 1) + 8 * i);
+            v14 = *(*(&v26 + 1) + 8 * i);
             identifier = [v14 identifier];
             if (identifier)
             {
@@ -672,7 +664,7 @@ LABEL_10:
             }
           }
 
-          v11 = [v10 countByEnumeratingWithState:&v28 objects:v41 count:16];
+          v11 = [v10 countByEnumeratingWithState:&v26 objects:v39 count:16];
         }
 
         while (v11);
@@ -682,29 +674,29 @@ LABEL_10:
     }
 
     [(DADiscovery *)self _reportEventType:10];
-    v26 = 0u;
-    v27 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v16 = v32;
-    v17 = [v16 countByEnumeratingWithState:&v24 objects:v40 count:16];
+    v22 = 0u;
+    v23 = 0u;
+    v16 = v30;
+    v17 = [v16 countByEnumeratingWithState:&v22 objects:v38 count:16];
     if (v17)
     {
-      v18 = *v25;
+      v18 = *v23;
       do
       {
         for (j = 0; j != v17; ++j)
         {
-          if (*v25 != v18)
+          if (*v23 != v18)
           {
             objc_enumerationMutation(v16);
           }
 
-          v20 = [(DAEventDevice *)[DADeviceEvent alloc] initWithEventType:40 device:*(*(&v24 + 1) + 8 * j)];
+          v20 = [(DAEventDevice *)[DADeviceEvent alloc] initWithEventType:40 device:*(*(&v22 + 1) + 8 * j)];
           [(DADiscovery *)self _reportEvent:v20];
         }
 
-        v17 = [v16 countByEnumeratingWithState:&v24 objects:v40 count:16];
+        v17 = [v16 countByEnumeratingWithState:&v22 objects:v38 count:16];
       }
 
       while (v17);
@@ -719,38 +711,24 @@ LABEL_10:
 
   v5[2](v5);
 
-  _Block_object_dispose(&v34, 8);
-  v22 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v32, 8);
 }
 
 void __37__DADiscovery__activateXPCCompleted___block_invoke(uint64_t a1)
 {
-  if (!*(*(*(a1 + 40) + 8) + 40))
+  if (*(*(*(a1 + 40) + 8) + 40))
   {
-    return;
-  }
-
-  if (gLogCategory_DADiscovery <= 90)
-  {
-    if (gLogCategory_DADiscovery == -1)
+    if (gLogCategory_DADiscovery <= 90 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
     {
-      if (!_LogCategory_Initialize())
-      {
-        goto LABEL_7;
-      }
-
-      v4 = *(*(*(a1 + 40) + 8) + 40);
+      v2 = *(a1 + 32);
+      v3 = CUPrintNSError();
+      LogPrintF(&gLogCategory_DADiscovery, "[DADiscovery _activateXPCCompleted:]_block_invoke", 90, "### Activate failed: %@, %@", v2, v3);
     }
 
-    v2 = *(a1 + 32);
-    v5 = CUPrintNSError();
-    LogPrintF();
+    v4 = *(a1 + 32);
+    v5 = [[DAEvent alloc] initWithEventType:10 error:*(*(*(a1 + 40) + 8) + 40)];
+    [v4 _reportEvent:v5];
   }
-
-LABEL_7:
-  v3 = *(a1 + 32);
-  v6 = [[DAEvent alloc] initWithEventType:10 error:*(*(*(a1 + 40) + 8) + 40)];
-  [v3 _reportEvent:v6];
 }
 
 - (id)_ensureXPCStarted
@@ -798,7 +776,7 @@ LABEL_7:
     v7 = v2;
     if (gLogCategory_DADiscovery <= 90 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
     {
-      [DADiscovery _interrupted];
+      [(DADiscovery *)self _interrupted];
     }
 
     [(DADiscovery *)self _reportEventType:60, v3, v7, v4];
@@ -819,10 +797,10 @@ LABEL_7:
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __25__DADiscovery_invalidate__block_invoke(uint64_t result)
+char *__25__DADiscovery_invalidate__block_invoke(char *result)
 {
-  v2 = (result + 32);
-  v1 = *(result + 32);
+  v2 = result + 32;
+  v1 = *(result + 4);
   if ((*(v1 + 32) & 1) == 0)
   {
     *(v1 + 32) = 1;
@@ -887,12 +865,12 @@ void __36__DADiscovery_invalidateWithReason___block_invoke(uint64_t a1)
   }
 }
 
-void __36__DADiscovery_invalidateWithReason___block_invoke_2(uint64_t a1)
+void __36__DADiscovery_invalidateWithReason___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   if (gLogCategory_DADiscovery <= 30 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
   {
-    __36__DADiscovery_invalidateWithReason___block_invoke_2_cold_1();
+    __36__DADiscovery_invalidateWithReason___block_invoke_2_cold_1(v3);
   }
 
   [*(a1 + 32) invalidate];
@@ -909,7 +887,7 @@ void __36__DADiscovery_invalidateWithReason___block_invoke_2(uint64_t a1)
     self->_invalidateDone = 1;
     if (gLogCategory_DADiscovery <= 30 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
     {
-      [DADiscovery _invalidated];
+      [(DADiscovery *)self _invalidated];
     }
   }
 }
@@ -920,7 +898,7 @@ void __36__DADiscovery_invalidateWithReason___block_invoke_2(uint64_t a1)
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (gLogCategory_DADiscovery <= 30 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
   {
-    [DADiscovery _reportEvent:];
+    [DADiscovery _reportEvent:eventCopy];
   }
 
   v4 = _Block_copy(self->_eventHandler);
@@ -1009,7 +987,7 @@ void __36__DADiscovery_getAuthorizedDevices___block_invoke(uint64_t a1)
     if (gLogCategory_DADiscovery <= 30 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
     {
       v11 = CUPrintNSObjectOneLine();
-      LogPrintF();
+      LogPrintF(&gLogCategory_DADiscovery, "[DADiscovery _getAuthorizedDevicesCompleted:completionHandler:]", 30, "GetAuthorizedDevices completed: %@", v11);
     }
 
     (*(v7 + 2))(v7, 0, 0);
@@ -1022,38 +1000,21 @@ void __36__DADiscovery_getAuthorizedDevices___block_invoke(uint64_t a1)
 
 uint64_t __64__DADiscovery__getAuthorizedDevicesCompleted_completionHandler___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  result = *(*(v2 + 8) + 40);
-  if (!result)
+  result = *(*(*(a1 + 40) + 8) + 40);
+  if (result)
   {
-    return result;
-  }
-
-  if (gLogCategory_DADiscovery <= 90)
-  {
-    if (gLogCategory_DADiscovery == -1)
+    if (gLogCategory_DADiscovery <= 90 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
     {
-      v4 = _LogCategory_Initialize();
-      v2 = *(a1 + 40);
-      if (!v4)
-      {
-        goto LABEL_7;
-      }
-
-      v7 = *(*(v2 + 8) + 40);
+      v3 = CUPrintNSError();
+      LogPrintF(&gLogCategory_DADiscovery, "[DADiscovery _getAuthorizedDevicesCompleted:completionHandler:]_block_invoke", 90, "### GetAuthorizedDevices failed: %@", v3);
     }
 
-    v8 = CUPrintNSError();
-    LogPrintF();
+    v4 = *(*(a1 + 32) + 16);
 
-    v2 = *(a1 + 40);
+    return v4();
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = *(*(a1 + 32) + 16);
-
-  return v6();
+  return result;
 }
 
 - (void)respondToBluetoothPairingRequest:(id)request completionHandler:(id)handler
@@ -1077,45 +1038,44 @@ void __66__DADiscovery_respondToBluetoothPairingRequest_completionHandler___bloc
 {
   if (gLogCategory_DADiscovery <= 50 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
   {
-    __66__DADiscovery_respondToBluetoothPairingRequest_completionHandler___block_invoke_cold_1(a1);
+    __66__DADiscovery_respondToBluetoothPairingRequest_completionHandler___block_invoke_cold_1();
   }
 
   v2 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_string(v2, "mTyp", "BTPM");
   xpc_dictionary_set_string(v2, "mSTyp", "BTPRsp");
-  v3 = *(a1 + 32);
   CUXPCEncodeObject();
-  v4 = [*(a1 + 40) _ensureXPCStarted];
-  v5 = *(*(a1 + 40) + 64);
+  v3 = [*(a1 + 40) _ensureXPCStarted];
+  v4 = *(*(a1 + 40) + 64);
   handler[0] = MEMORY[0x277D85DD0];
   handler[1] = 3221225472;
   handler[2] = __66__DADiscovery_respondToBluetoothPairingRequest_completionHandler___block_invoke_2;
   handler[3] = &unk_278F57F58;
-  v7 = *(a1 + 48);
-  xpc_connection_send_message_with_reply(v4, v2, v5, handler);
+  v6 = *(a1 + 48);
+  xpc_connection_send_message_with_reply(v3, v2, v4, handler);
 }
 
-uint64_t __66__DADiscovery_respondToBluetoothPairingRequest_completionHandler___block_invoke_2(uint64_t a1)
+uint64_t __66__DADiscovery_respondToBluetoothPairingRequest_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
-  v6 = v2;
+  v3 = CUXPCDecodeNSErrorIfNeeded();
+  v7 = v3;
   if (gLogCategory_DADiscovery <= 30)
   {
-    if (gLogCategory_DADiscovery != -1 || (v3 = _LogCategory_Initialize(), v2 = v6, v3))
+    if (gLogCategory_DADiscovery != -1 || (v4 = _LogCategory_Initialize(), v3 = v7, v4))
     {
-      __66__DADiscovery_respondToBluetoothPairingRequest_completionHandler___block_invoke_2_cold_1();
-      v2 = v6;
+      __66__DADiscovery_respondToBluetoothPairingRequest_completionHandler___block_invoke_2_cold_1(v3);
+      v3 = v7;
     }
   }
 
-  v4 = *(a1 + 32);
-  if (v4)
+  v5 = *(a1 + 32);
+  if (v5)
   {
-    v4 = (*(v4 + 16))(v4, v6);
-    v2 = v6;
+    v5 = (*(v5 + 16))(v5, v7);
+    v3 = v7;
   }
 
-  return MEMORY[0x2821F96F8](v4, v2);
+  return MEMORY[0x2821F96F8](v5, v3);
 }
 
 - (void)respondToWiFiAwarePairingRequest:(id)request completionHandler:(id)handler
@@ -1139,44 +1099,43 @@ void __66__DADiscovery_respondToWiFiAwarePairingRequest_completionHandler___bloc
 {
   if (gLogCategory_DADiscovery <= 50 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
   {
-    __66__DADiscovery_respondToWiFiAwarePairingRequest_completionHandler___block_invoke_cold_1(a1);
+    __66__DADiscovery_respondToWiFiAwarePairingRequest_completionHandler___block_invoke_cold_1();
   }
 
   v2 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_string(v2, "mTyp", "wFPM");
-  v3 = *(a1 + 32);
   CUXPCEncodeObject();
-  v4 = [*(a1 + 40) _ensureXPCStarted];
-  v5 = *(*(a1 + 40) + 64);
+  v3 = [*(a1 + 40) _ensureXPCStarted];
+  v4 = *(*(a1 + 40) + 64);
   handler[0] = MEMORY[0x277D85DD0];
   handler[1] = 3221225472;
   handler[2] = __66__DADiscovery_respondToWiFiAwarePairingRequest_completionHandler___block_invoke_2;
   handler[3] = &unk_278F57F58;
-  v7 = *(a1 + 48);
-  xpc_connection_send_message_with_reply(v4, v2, v5, handler);
+  v6 = *(a1 + 48);
+  xpc_connection_send_message_with_reply(v3, v2, v4, handler);
 }
 
-uint64_t __66__DADiscovery_respondToWiFiAwarePairingRequest_completionHandler___block_invoke_2(uint64_t a1)
+uint64_t __66__DADiscovery_respondToWiFiAwarePairingRequest_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
-  v6 = v2;
+  v3 = CUXPCDecodeNSErrorIfNeeded();
+  v7 = v3;
   if (gLogCategory_DADiscovery <= 30)
   {
-    if (gLogCategory_DADiscovery != -1 || (v3 = _LogCategory_Initialize(), v2 = v6, v3))
+    if (gLogCategory_DADiscovery != -1 || (v4 = _LogCategory_Initialize(), v3 = v7, v4))
     {
-      __66__DADiscovery_respondToWiFiAwarePairingRequest_completionHandler___block_invoke_2_cold_1();
-      v2 = v6;
+      __66__DADiscovery_respondToWiFiAwarePairingRequest_completionHandler___block_invoke_2_cold_1(v3);
+      v3 = v7;
     }
   }
 
-  v4 = *(a1 + 32);
-  if (v4)
+  v5 = *(a1 + 32);
+  if (v5)
   {
-    v4 = (*(v4 + 16))(v4, v6);
-    v2 = v6;
+    v5 = (*(v5 + 16))(v5, v7);
+    v3 = v7;
   }
 
-  return MEMORY[0x2821F96F8](v4, v2);
+  return MEMORY[0x2821F96F8](v5, v3);
 }
 
 - (void)setState:(int64_t)state device:(id)device simulateApp:(BOOL)app completionHandler:(id)handler
@@ -1206,42 +1165,41 @@ void __61__DADiscovery_setState_device_simulateApp_completionHandler___block_inv
 
   v2 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_string(v2, "mTyp", "SDvS");
-  v3 = *(a1 + 32);
   CUXPCEncodeObject();
   xpc_dictionary_set_int64(v2, "dvSt", *(a1 + 56));
-  v4 = objc_alloc_init(DASession);
-  v5 = [*(*(a1 + 40) + 88) bundleID];
-  v6 = v5;
-  if (!v5)
+  v3 = objc_alloc_init(DASession);
+  v4 = [*(*(a1 + 40) + 88) bundleID];
+  v5 = v4;
+  if (!v4)
   {
-    v6 = *(*(a1 + 40) + 120);
+    v5 = *(*(a1 + 40) + 120);
   }
 
-  [(DASession *)v4 setBundleID:v6];
+  [(DASession *)v3 setBundleID:v5];
 
-  [(DASession *)v4 setClientID:*(*(a1 + 40) + 60)];
+  [(DASession *)v3 setClientID:*(*(a1 + 40) + 60)];
   CUXPCEncodeObject();
-  v7 = [*(a1 + 40) _ensureXPCStarted];
-  v8 = *(*(a1 + 40) + 64);
+  v6 = [*(a1 + 40) _ensureXPCStarted];
+  v7 = *(*(a1 + 40) + 64);
   handler[0] = MEMORY[0x277D85DD0];
   handler[1] = 3221225472;
   handler[2] = __61__DADiscovery_setState_device_simulateApp_completionHandler___block_invoke_2;
   handler[3] = &unk_278F57FA8;
-  v9 = *(a1 + 32);
-  v11 = *(a1 + 48);
-  v10 = *(a1 + 56);
-  v13 = v9;
-  v15 = v10;
-  v14 = v11;
-  xpc_connection_send_message_with_reply(v7, v2, v8, handler);
+  v8 = *(a1 + 32);
+  v10 = *(a1 + 48);
+  v9 = *(a1 + 56);
+  v12 = v8;
+  v14 = v9;
+  v13 = v10;
+  xpc_connection_send_message_with_reply(v6, v2, v7, handler);
 }
 
-void __61__DADiscovery_setState_device_simulateApp_completionHandler___block_invoke_2(uint64_t a1)
+void __61__DADiscovery_setState_device_simulateApp_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   if (gLogCategory_DADiscovery <= 30 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
   {
-    __61__DADiscovery_setState_device_simulateApp_completionHandler___block_invoke_2_cold_1(a1);
+    __61__DADiscovery_setState_device_simulateApp_completionHandler___block_invoke_2_cold_1(a1, v3);
   }
 
   (*(*(a1 + 40) + 16))();
@@ -1285,19 +1243,17 @@ void __63__DADiscovery_setDeviceAppAccessInfo_device_completionHandler___block_i
 
     [(DASession *)v3 setClientID:*(a1[5] + 15)];
     CUXPCEncodeObject();
-    v6 = a1[4];
     CUXPCEncodeObject();
-    v7 = a1[6];
     CUXPCEncodeObject();
-    v8 = [a1[5] _ensureXPCStarted];
-    v9 = *(a1[5] + 8);
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __63__DADiscovery_setDeviceAppAccessInfo_device_completionHandler___block_invoke_2;
-    v10[3] = &unk_278F57F08;
-    v11 = a1[6];
-    v12 = a1[7];
-    xpc_connection_send_message_with_reply(v8, v2, v9, v10);
+    v6 = [a1[5] _ensureXPCStarted];
+    v7 = *(a1[5] + 8);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __63__DADiscovery_setDeviceAppAccessInfo_device_completionHandler___block_invoke_2;
+    v8[3] = &unk_278F57F08;
+    v9 = a1[6];
+    v10 = a1[7];
+    xpc_connection_send_message_with_reply(v6, v2, v7, v8);
   }
 
   else
@@ -1306,12 +1262,12 @@ void __63__DADiscovery_setDeviceAppAccessInfo_device_completionHandler___block_i
   }
 }
 
-void __63__DADiscovery_setDeviceAppAccessInfo_device_completionHandler___block_invoke_2(uint64_t a1)
+void __63__DADiscovery_setDeviceAppAccessInfo_device_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   if (gLogCategory_DADiscovery <= 30 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
   {
-    __63__DADiscovery_setDeviceAppAccessInfo_device_completionHandler___block_invoke_2_cold_1(a1, v2);
+    __63__DADiscovery_setDeviceAppAccessInfo_device_completionHandler___block_invoke_2_cold_1(a1, v3);
   }
 
   (*(*(a1 + 40) + 16))();
@@ -1360,92 +1316,89 @@ void __69__DADiscovery_modifyDeviceWithIdentifier_settings_completionHandler___b
     xpc_dictionary_set_string(v7, "id", v8);
   }
 
-  v9 = *(a1 + 48);
   CUXPCEncodeObject();
   CUXPCEncodeObject();
-  v10 = [*(a1 + 32) _ensureXPCStarted];
-  v11 = *(*(a1 + 32) + 64);
+  v9 = [*(a1 + 32) _ensureXPCStarted];
+  v10 = *(*(a1 + 32) + 64);
   handler[0] = MEMORY[0x277D85DD0];
   handler[1] = 3221225472;
   handler[2] = __69__DADiscovery_modifyDeviceWithIdentifier_settings_completionHandler___block_invoke_2;
   handler[3] = &unk_278F57F58;
-  v13 = *(a1 + 56);
-  xpc_connection_send_message_with_reply(v10, v7, v11, handler);
+  v12 = *(a1 + 56);
+  xpc_connection_send_message_with_reply(v9, v7, v10, handler);
 }
 
-void __69__DADiscovery_modifyDeviceWithIdentifier_settings_completionHandler___block_invoke_2(uint64_t a1)
+void __69__DADiscovery_modifyDeviceWithIdentifier_settings_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v2 = CUXPCDecodeNSErrorIfNeeded();
-  (*(v1 + 16))(v1, v2);
+  v2 = *(a1 + 32);
+  v3 = CUXPCDecodeNSErrorIfNeeded();
+  (*(v2 + 16))(v2, v3);
 }
 
 - (void)reportDeviceChanged:(id)changed appID:(id)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   v6 = [(DAEventDevice *)[DADeviceEvent alloc] initWithEventType:42 device:changedCopy];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v7 = self->_extensions;
-  v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(*(&v13 + 1) + 8 * v11++) reportEventToExtension:{v6, v13}];
+        [*(*(&v12 + 1) + 8 * v11++) reportEventToExtension:{v6, v12}];
       }
 
       while (v9 != v11);
-      v9 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)xpcReceivedMessage:(id)message
 {
   messageCopy = message;
-  v15 = messageCopy;
+  v8 = messageCopy;
   if (gLogCategory_DADiscovery <= 9)
   {
-    if (gLogCategory_DADiscovery != -1 || (v5 = _LogCategory_Initialize(), messageCopy = v15, v5))
+    if (gLogCategory_DADiscovery != -1 || (v5 = _LogCategory_Initialize(), messageCopy = v8, v5))
     {
       [DADiscovery xpcReceivedMessage:];
-      messageCopy = v15;
+      messageCopy = v8;
     }
   }
 
   if (MEMORY[0x24C1DC9E0](messageCopy) == MEMORY[0x277D86468])
   {
-    [(DADiscovery *)self _xpcReceivedMessage:v15];
+    [(DADiscovery *)self _xpcReceivedMessage:v8];
   }
 
-  else if (v15 == MEMORY[0x277D863F0])
+  else if (v8 == MEMORY[0x277D863F0])
   {
     [(DADiscovery *)self _interrupted];
   }
 
-  else if (v15 == MEMORY[0x277D863F8])
+  else if (v8 == MEMORY[0x277D863F8])
   {
     if (!self->_invalidateCalled && gLogCategory_DADiscovery <= 90 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
     {
-      [DADiscovery xpcReceivedMessage:];
+      [DADiscovery xpcReceivedMessage:?];
     }
 
     xpcCnx = self->_xpcCnx;
@@ -1456,10 +1409,10 @@ void __69__DADiscovery_modifyDeviceWithIdentifier_settings_completionHandler___b
 
   else
   {
-    v12 = DAErrorF(350000, "XPC event error", v6, v7, v8, v9, v10, v11, v14);
+    v6 = DAErrorF(350000, "XPC event error");
     if (gLogCategory_DADiscovery <= 90 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
     {
-      [DADiscovery xpcReceivedMessage:];
+      [(DADiscovery *)v6 xpcReceivedMessage:v8, self];
     }
   }
 }
@@ -1470,6 +1423,7 @@ void __69__DADiscovery_modifyDeviceWithIdentifier_settings_completionHandler___b
   string = xpc_dictionary_get_string(messageCopy, "mTyp");
   if (string)
   {
+    v5 = string;
     if (!strcmp(string, "Evnt"))
     {
       [(DADiscovery *)self _xpcReceivedDAEvent:messageCopy];
@@ -1477,13 +1431,13 @@ void __69__DADiscovery_modifyDeviceWithIdentifier_settings_completionHandler___b
 
     else if (gLogCategory_DADiscovery <= 90 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_DADiscovery, "[DADiscovery _xpcReceivedMessage:]", 90, "### XPC unknown message type: '%s', %@", v5, self);
     }
   }
 
   else if (gLogCategory_DADiscovery <= 90 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
   {
-    [DADiscovery _xpcReceivedMessage:];
+    [DADiscovery _xpcReceivedMessage:?];
   }
 }
 
@@ -1503,7 +1457,7 @@ void __69__DADiscovery_modifyDeviceWithIdentifier_settings_completionHandler___b
   {
     if (gLogCategory_DADiscovery <= 30 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
     {
-      [DADiscovery _xpcReceivedDAEvent:];
+      [DADiscovery _xpcReceivedDAEvent:v5];
     }
 
     if (([v5 eventType] - 40) > 2)
@@ -1531,7 +1485,7 @@ LABEL_10:
 
   else
   {
-    [DADiscovery _xpcReceivedDAEvent:?];
+    [gLogCategory_DADiscovery _xpcReceivedDAEvent:v6, self];
   }
 
 LABEL_13:
@@ -1616,27 +1570,27 @@ void __67__DADiscovery__findExtensionPoint_bundleID_entitlement_completion___blo
   dispatch_async(v4, v6);
 }
 
-uint64_t __67__DADiscovery__findExtensionPoint_bundleID_entitlement_completion___block_invoke_2(uint64_t a1)
+uint64_t __67__DADiscovery__findExtensionPoint_bundleID_entitlement_completion___block_invoke_2(uint64_t *a1)
 {
   if (gLogCategory_DADiscovery <= 30 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
   {
     __67__DADiscovery__findExtensionPoint_bundleID_entitlement_completion___block_invoke_2_cold_1(a1);
   }
 
-  if ((*(*(a1 + 48) + 32) & 1) != 0 || ![*(a1 + 40) count])
+  if ((*(a1[6] + 32) & 1) != 0 || ![a1[5] count])
   {
-    v8 = *(*(a1 + 72) + 16);
+    v8 = *(a1[9] + 16);
 
     return v8();
   }
 
   else
   {
-    v3 = *(a1 + 40);
-    v2 = *(a1 + 48);
-    v4 = *(a1 + 56);
-    v5 = *(a1 + 64);
-    v6 = *(a1 + 72);
+    v3 = a1[5];
+    v2 = a1[6];
+    v4 = a1[7];
+    v5 = a1[8];
+    v6 = a1[9];
 
     return [v2 _startExtensions:v3 bundleID:v4 entitlement:v5 completion:v6];
   }
@@ -1644,33 +1598,33 @@ uint64_t __67__DADiscovery__findExtensionPoint_bundleID_entitlement_completion__
 
 - (void)_startExtensions:(id)extensions bundleID:(id)d entitlement:(id)entitlement completion:(id)completion
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   extensionsCopy = extensions;
   dCopy = d;
   entitlementCopy = entitlement;
   completionCopy = completion;
   array = [MEMORY[0x277CBEB18] array];
   v12 = dCopy;
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
   v13 = extensionsCopy;
-  v14 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v29;
+    v16 = *v26;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v29 != v16)
+        if (*v26 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v28 + 1) + 8 * i);
+        v18 = *(*(&v25 + 1) + 8 * i);
         bundleIdentifier = [v18 bundleIdentifier];
         stringByDeletingPathExtension = [bundleIdentifier stringByDeletingPathExtension];
 
@@ -1678,9 +1632,7 @@ uint64_t __67__DADiscovery__findExtensionPoint_bundleID_entitlement_completion__
         {
           if (gLogCategory_DADiscovery <= 30 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
           {
-            v24 = v12;
-            v25 = stringByDeletingPathExtension;
-            LogPrintF();
+            LogPrintF(&gLogCategory_DADiscovery, "[DADiscovery _startExtensions:bundleID:entitlement:completion:]", 30, "Ignoring extension parent bundle mismatch: expected %@ vs %@", v12, stringByDeletingPathExtension);
           }
         }
 
@@ -1701,7 +1653,7 @@ uint64_t __67__DADiscovery__findExtensionPoint_bundleID_entitlement_completion__
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v15);
@@ -1711,34 +1663,32 @@ uint64_t __67__DADiscovery__findExtensionPoint_bundleID_entitlement_completion__
   {
     completionCopy[2](completionCopy, array);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopExtensons
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = self->_extensions;
-  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
-        v9 = [(DADiscovery *)self _uuidFromExtension:v8, v11];
+        v8 = *(*(&v10 + 1) + 8 * i);
+        v9 = [(DADiscovery *)self _uuidFromExtension:v8, v10];
         if (v9)
         {
           [(DADiscovery *)self _updateNEPolicy:v9 remove:1];
@@ -1747,49 +1697,51 @@ uint64_t __67__DADiscovery__findExtensionPoint_bundleID_entitlement_completion__
         [v8 invalidate];
       }
 
-      v5 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateNEPolicy:(id)policy remove:(BOOL)remove
 {
   removeCopy = remove;
-  v121[3] = *MEMORY[0x277D85DE8];
+  v123[3] = *MEMORY[0x277D85DE8];
   policyCopy = policy;
-  if (gLogCategory_DADiscovery <= 30 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
+  v109 = policyCopy;
+  if (gLogCategory_DADiscovery <= 30)
   {
-    [DADiscovery _updateNEPolicy:remove:];
+    if (gLogCategory_DADiscovery != -1 || (policyCopy = _LogCategory_Initialize(), policyCopy))
+    {
+      policyCopy = [DADiscovery _updateNEPolicy:v109 remove:?];
+    }
   }
 
-  if (policyCopy)
+  if (v109)
   {
     if (removeCopy)
     {
       policySessions = self->_policySessions;
       p_policySessions = &self->_policySessions;
-      uUIDString = [policyCopy UUIDString];
-      v9 = [(NSMutableDictionary *)policySessions objectForKeyedSubscript:uUIDString];
+      uUIDString = [v109 UUIDString];
+      v12 = [(NSMutableDictionary *)policySessions objectForKeyedSubscript:uUIDString];
 
-      if (v9)
+      if (v12)
       {
-        if (([v9 removeAllPolicies] & 1) == 0 && gLogCategory_DADiscovery <= 90 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
+        if (([v12 removeAllPolicies] & 1) == 0 && gLogCategory_DADiscovery <= 90 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
         {
-          [DADiscovery _updateNEPolicy:remove:];
+          [DADiscovery _updateNEPolicy:v109 remove:?];
         }
 
-        if (([v9 apply] & 1) == 0 && gLogCategory_DADiscovery <= 90 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
+        if (([v12 apply] & 1) == 0 && gLogCategory_DADiscovery <= 90 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
         {
-          [DADiscovery _updateNEPolicy:remove:];
+          [DADiscovery _updateNEPolicy:v109 remove:?];
         }
 
-        v10 = *p_policySessions;
-        uUIDString2 = [policyCopy UUIDString];
-        [v10 setObject:0 forKeyedSubscript:uUIDString2];
+        v13 = *p_policySessions;
+        uUIDString2 = [v109 UUIDString];
+        [(NSMutableDictionary *)v13 setObject:0 forKeyedSubscript:uUIDString2];
 
         if (gLogCategory_DADiscovery <= 30 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
         {
@@ -1805,232 +1757,232 @@ uint64_t __67__DADiscovery__findExtensionPoint_bundleID_entitlement_completion__
 
     else
     {
-      v9 = objc_alloc_init(MEMORY[0x277CD92F0]);
-      if (v9)
+      v12 = objc_alloc_init(MEMORY[0x277CD92F0]);
+      if (v12)
       {
-        v12 = objc_alloc(MEMORY[0x277CD92D8]);
-        v13 = [MEMORY[0x277CD92E8] skipWithOrder:20];
+        v15 = objc_alloc(MEMORY[0x277CD92D8]);
+        v16 = [MEMORY[0x277CD92E8] skipWithOrder:20];
         allInterfaces = [MEMORY[0x277CD92E0] allInterfaces];
-        v121[0] = allInterfaces;
-        v15 = [MEMORY[0x277CD92E0] customEntitlement:@"com.apple.developer.media-device-discovery-extension"];
-        v121[1] = v15;
-        v16 = [MEMORY[0x277CD92E0] effectiveApplication:policyCopy];
-        v121[2] = v16;
-        v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v121 count:3];
-        v18 = [v12 initWithOrder:0 result:v13 conditions:v17];
+        v123[0] = allInterfaces;
+        v18 = [MEMORY[0x277CD92E0] customEntitlement:@"com.apple.developer.media-device-discovery-extension"];
+        v123[1] = v18;
+        v19 = [MEMORY[0x277CD92E0] effectiveApplication:v109];
+        v123[2] = v19;
+        v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v123 count:3];
+        v21 = [v15 initWithOrder:0 result:v16 conditions:v20];
 
-        v103 = v18;
-        if (![v9 addPolicy:v18] && gLogCategory_DADiscovery <= 90 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
+        v105 = v21;
+        if (![v12 addPolicy:v21] && gLogCategory_DADiscovery <= 90 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
         {
-          [DADiscovery _updateNEPolicy:remove:];
+          [DADiscovery _updateNEPolicy:v109 remove:?];
         }
 
-        v19 = objc_alloc(MEMORY[0x277CD92D8]);
-        v20 = [MEMORY[0x277CD92E8] skipWithOrder:100];
+        v22 = objc_alloc(MEMORY[0x277CD92D8]);
+        v23 = [MEMORY[0x277CD92E8] skipWithOrder:100];
         allInterfaces2 = [MEMORY[0x277CD92E0] allInterfaces];
-        v120[0] = allInterfaces2;
-        v22 = [MEMORY[0x277CD92E0] effectiveApplication:policyCopy];
-        v120[1] = v22;
-        v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v120 count:2];
-        v24 = [v19 initWithOrder:10 result:v20 conditions:v23];
+        v122[0] = allInterfaces2;
+        v25 = [MEMORY[0x277CD92E0] effectiveApplication:v109];
+        v122[1] = v25;
+        v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v122 count:2];
+        v27 = [v22 initWithOrder:10 result:v23 conditions:v26];
 
-        v102 = v24;
-        if (![v9 addPolicy:v24] && gLogCategory_DADiscovery <= 90 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
+        v104 = v27;
+        if (![v12 addPolicy:v27] && gLogCategory_DADiscovery <= 90 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
         {
-          [DADiscovery _updateNEPolicy:remove:];
+          [DADiscovery _updateNEPolicy:v109 remove:?];
         }
 
         selfCopy = self;
-        v25 = objc_alloc(MEMORY[0x277CD92D8]);
-        v26 = [MEMORY[0x277CD92E8] skipWithOrder:65];
+        v28 = objc_alloc(MEMORY[0x277CD92D8]);
+        v29 = [MEMORY[0x277CD92E8] skipWithOrder:65];
         allInterfaces3 = [MEMORY[0x277CD92E0] allInterfaces];
-        v119[0] = allInterfaces3;
-        v28 = [MEMORY[0x277CD92E0] schemeUsingPort:53];
-        v119[1] = v28;
-        v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v119 count:2];
-        v30 = [v25 initWithOrder:25 result:v26 conditions:v29];
+        v121[0] = allInterfaces3;
+        v31 = [MEMORY[0x277CD92E0] schemeUsingPort:53];
+        v121[1] = v31;
+        v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v121 count:2];
+        v33 = [v28 initWithOrder:25 result:v29 conditions:v32];
 
-        v101 = v30;
-        if (![v9 addPolicy:v30] && gLogCategory_DADiscovery <= 90 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
+        v103 = v33;
+        if (![v12 addPolicy:v33] && gLogCategory_DADiscovery <= 90 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
         {
-          [DADiscovery _updateNEPolicy:remove:];
+          [DADiscovery _updateNEPolicy:v109 remove:?];
         }
 
-        v31 = MEMORY[0x277CD92E0];
-        v32 = [MEMORY[0x277CD91B8] endpointWithHostname:@"224.0.0.0" port:@"0"];
-        v105 = [v31 remoteAddress:v32 prefix:4];
-
-        v33 = MEMORY[0x277CD92E0];
-        v34 = [MEMORY[0x277CD91B8] endpointWithHostname:@"ff00::" port:@"0"];
-        v35 = [v33 remoteAddress:v34 prefix:8];
+        v34 = MEMORY[0x277CD92E0];
+        v35 = [MEMORY[0x277CD91B8] endpointWithHostname:@"224.0.0.0" port:@"0"];
+        v107 = [v34 remoteAddress:v35 prefix:4];
 
         v36 = MEMORY[0x277CD92E0];
-        v37 = [MEMORY[0x277CD91B8] endpointWithHostname:@"255.255.255.255" port:@"0"];
-        v38 = [v36 remoteAddress:v37 prefix:32];
+        v37 = [MEMORY[0x277CD91B8] endpointWithHostname:@"ff00::" port:@"0"];
+        v38 = [v36 remoteAddress:v37 prefix:8];
 
         v39 = MEMORY[0x277CD92E0];
-        v40 = [MEMORY[0x277CD91B8] endpointWithHostname:@"224.0.0.0" port:@"0"];
-        v41 = [v39 localAddress:v40 prefix:4];
+        v40 = [MEMORY[0x277CD91B8] endpointWithHostname:@"255.255.255.255" port:@"0"];
+        v41 = [v39 remoteAddress:v40 prefix:32];
 
         v42 = MEMORY[0x277CD92E0];
-        v43 = [MEMORY[0x277CD91B8] endpointWithHostname:@"ff00::" port:@"0"];
-        v44 = [v42 localAddress:v43 prefix:8];
+        v43 = [MEMORY[0x277CD91B8] endpointWithHostname:@"224.0.0.0" port:@"0"];
+        v44 = [v42 localAddress:v43 prefix:4];
 
         v45 = MEMORY[0x277CD92E0];
-        v46 = [MEMORY[0x277CD91B8] endpointWithHostname:@"255.255.255.255" port:@"0"];
-        v47 = [v45 localAddress:v46 prefix:32];
+        v46 = [MEMORY[0x277CD91B8] endpointWithHostname:@"ff00::" port:@"0"];
+        v47 = [v45 localAddress:v46 prefix:8];
 
-        v118[0] = v105;
-        v118[1] = v35;
-        v99 = v38;
-        v100 = v35;
-        v118[2] = v38;
-        v118[3] = v41;
-        v97 = v44;
-        v98 = v41;
-        v118[4] = v44;
-        v118[5] = v47;
-        v96 = v47;
-        [MEMORY[0x277CBEA60] arrayWithObjects:v118 count:6];
-        v108 = 0u;
-        v109 = 0u;
+        v48 = MEMORY[0x277CD92E0];
+        v49 = [MEMORY[0x277CD91B8] endpointWithHostname:@"255.255.255.255" port:@"0"];
+        v50 = [v48 localAddress:v49 prefix:32];
+
+        v120[0] = v107;
+        v120[1] = v38;
+        v101 = v41;
+        v102 = v38;
+        v120[2] = v41;
+        v120[3] = v44;
+        v99 = v47;
+        v100 = v44;
+        v120[4] = v47;
+        v120[5] = v50;
+        v98 = v50;
+        [MEMORY[0x277CBEA60] arrayWithObjects:v120 count:6];
         v110 = 0u;
-        obj = v111 = 0u;
-        v48 = [obj countByEnumeratingWithState:&v108 objects:v117 count:16];
-        if (v48)
+        v111 = 0u;
+        v112 = 0u;
+        obj = v113 = 0u;
+        v51 = [obj countByEnumeratingWithState:&v110 objects:v119 count:16];
+        if (v51)
         {
-          v49 = v48;
-          v50 = *v109;
+          v52 = v51;
+          v53 = *v111;
           do
           {
-            v51 = 0;
+            v54 = 0;
             do
             {
-              if (*v109 != v50)
+              if (*v111 != v53)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v52 = *(*(&v108 + 1) + 8 * v51);
-              v53 = objc_alloc(MEMORY[0x277CD92D8]);
-              v54 = [MEMORY[0x277CD92E8] skipWithOrder:50];
+              v55 = *(*(&v110 + 1) + 8 * v54);
+              v56 = objc_alloc(MEMORY[0x277CD92D8]);
+              v57 = [MEMORY[0x277CD92E8] skipWithOrder:50];
               allInterfaces4 = [MEMORY[0x277CD92E0] allInterfaces];
-              v116[0] = allInterfaces4;
-              v56 = [MEMORY[0x277CD92E0] effectiveApplication:policyCopy];
-              v116[1] = v56;
-              v116[2] = v52;
-              v57 = [MEMORY[0x277CBEA60] arrayWithObjects:v116 count:3];
-              v58 = [v53 initWithOrder:30 result:v54 conditions:v57];
+              v118[0] = allInterfaces4;
+              v59 = [MEMORY[0x277CD92E0] effectiveApplication:v109];
+              v118[1] = v59;
+              v118[2] = v55;
+              v60 = [MEMORY[0x277CBEA60] arrayWithObjects:v118 count:3];
+              v61 = [v56 initWithOrder:30 result:v57 conditions:v60];
 
-              if (![v9 addPolicy:v58] && gLogCategory_DADiscovery <= 90 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
+              if (![v12 addPolicy:v61] && gLogCategory_DADiscovery <= 90 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
               {
-                [DADiscovery _updateNEPolicy:remove:];
+                [DADiscovery _updateNEPolicy:v109 remove:?];
               }
 
-              ++v51;
+              ++v54;
             }
 
-            while (v49 != v51);
-            v59 = [obj countByEnumeratingWithState:&v108 objects:v117 count:16];
-            v49 = v59;
+            while (v52 != v54);
+            v62 = [obj countByEnumeratingWithState:&v110 objects:v119 count:16];
+            v52 = v62;
           }
 
-          while (v59);
+          while (v62);
         }
 
-        v60 = objc_alloc(MEMORY[0x277CD92D8]);
-        v61 = [MEMORY[0x277CD92E8] skipWithOrder:100];
+        v63 = objc_alloc(MEMORY[0x277CD92D8]);
+        v64 = [MEMORY[0x277CD92E8] skipWithOrder:100];
         allInterfaces5 = [MEMORY[0x277CD92E0] allInterfaces];
-        v115[0] = allInterfaces5;
+        v117[0] = allInterfaces5;
         localNetworks = [MEMORY[0x277CD92E0] localNetworks];
-        v115[1] = localNetworks;
-        v64 = [MEMORY[0x277CD92E0] effectiveApplication:policyCopy];
-        v115[2] = v64;
-        v65 = [MEMORY[0x277CBEA60] arrayWithObjects:v115 count:3];
-        v66 = [v60 initWithOrder:35 result:v61 conditions:v65];
+        v117[1] = localNetworks;
+        v67 = [MEMORY[0x277CD92E0] effectiveApplication:v109];
+        v117[2] = v67;
+        v68 = [MEMORY[0x277CBEA60] arrayWithObjects:v117 count:3];
+        v69 = [v63 initWithOrder:35 result:v64 conditions:v68];
 
-        if (![v9 addPolicy:v66] && gLogCategory_DADiscovery <= 90 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
+        if (![v12 addPolicy:v69] && gLogCategory_DADiscovery <= 90 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
         {
-          [DADiscovery _updateNEPolicy:remove:];
+          [DADiscovery _updateNEPolicy:v109 remove:?];
         }
 
-        v67 = objc_alloc(MEMORY[0x277CD92D8]);
+        v70 = objc_alloc(MEMORY[0x277CD92D8]);
         drop = [MEMORY[0x277CD92E8] drop];
         allInterfaces6 = [MEMORY[0x277CD92E0] allInterfaces];
-        v114[0] = allInterfaces6;
-        v70 = [MEMORY[0x277CD92E0] effectiveApplication:policyCopy];
-        v114[1] = v70;
-        v71 = [MEMORY[0x277CBEA60] arrayWithObjects:v114 count:2];
-        v72 = [v67 initWithOrder:40 result:drop conditions:v71];
+        v116[0] = allInterfaces6;
+        v73 = [MEMORY[0x277CD92E0] effectiveApplication:v109];
+        v116[1] = v73;
+        v74 = [MEMORY[0x277CBEA60] arrayWithObjects:v116 count:2];
+        v75 = [v70 initWithOrder:40 result:drop conditions:v74];
 
-        v95 = v72;
-        if (![v9 addPolicy:v72] && gLogCategory_DADiscovery <= 90 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
+        v97 = v75;
+        if (![v12 addPolicy:v75] && gLogCategory_DADiscovery <= 90 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
         {
-          [DADiscovery _updateNEPolicy:remove:];
+          [DADiscovery _updateNEPolicy:v109 remove:?];
         }
 
-        v73 = objc_alloc(MEMORY[0x277CD92D8]);
-        v74 = [MEMORY[0x277CD92E8] skipWithOrder:100];
+        v76 = objc_alloc(MEMORY[0x277CD92D8]);
+        v77 = [MEMORY[0x277CD92E8] skipWithOrder:100];
         allInterfaces7 = [MEMORY[0x277CD92E0] allInterfaces];
-        v113[0] = allInterfaces7;
-        v76 = [MEMORY[0x277CD92E0] customEntitlement:@"com.apple.developer.networking.multicast"];
-        v113[1] = v76;
-        v77 = [MEMORY[0x277CD92E0] effectiveApplication:policyCopy];
-        v113[2] = v77;
-        v78 = [MEMORY[0x277CBEA60] arrayWithObjects:v113 count:3];
-        v79 = [v73 initWithOrder:60 result:v74 conditions:v78];
+        v115[0] = allInterfaces7;
+        v79 = [MEMORY[0x277CD92E0] customEntitlement:@"com.apple.developer.networking.multicast"];
+        v115[1] = v79;
+        v80 = [MEMORY[0x277CD92E0] effectiveApplication:v109];
+        v115[2] = v80;
+        v81 = [MEMORY[0x277CBEA60] arrayWithObjects:v115 count:3];
+        v82 = [v76 initWithOrder:60 result:v77 conditions:v81];
 
-        v80 = v79;
-        if (![v9 addPolicy:v79] && gLogCategory_DADiscovery <= 90 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
+        v83 = v82;
+        if (![v12 addPolicy:v82] && gLogCategory_DADiscovery <= 90 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
         {
-          [DADiscovery _updateNEPolicy:remove:];
+          [DADiscovery _updateNEPolicy:v109 remove:?];
         }
 
-        v81 = objc_alloc(MEMORY[0x277CD92D8]);
+        v84 = objc_alloc(MEMORY[0x277CD92D8]);
         drop2 = [MEMORY[0x277CD92E8] drop];
         allInterfaces8 = [MEMORY[0x277CD92E0] allInterfaces];
-        v112[0] = allInterfaces8;
-        v84 = [MEMORY[0x277CD92E0] effectiveApplication:policyCopy];
-        v112[1] = v84;
-        v85 = [MEMORY[0x277CBEA60] arrayWithObjects:v112 count:2];
-        v86 = [v81 initWithOrder:70 result:drop2 conditions:v85];
+        v114[0] = allInterfaces8;
+        v87 = [MEMORY[0x277CD92E0] effectiveApplication:v109];
+        v114[1] = v87;
+        v88 = [MEMORY[0x277CBEA60] arrayWithObjects:v114 count:2];
+        v89 = [v84 initWithOrder:70 result:drop2 conditions:v88];
 
-        if (![v9 addPolicy:v86] && gLogCategory_DADiscovery <= 90 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
+        if (![v12 addPolicy:v89] && gLogCategory_DADiscovery <= 90 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
         {
-          [DADiscovery _updateNEPolicy:remove:];
+          [DADiscovery _updateNEPolicy:v109 remove:?];
         }
 
-        if ([v9 apply])
+        if ([v12 apply])
         {
-          v87 = &selfCopy->_policySessions;
-          v88 = selfCopy->_policySessions;
-          if (!v88)
+          v90 = &selfCopy->_policySessions;
+          v91 = selfCopy->_policySessions;
+          if (!v91)
           {
-            v89 = objc_alloc_init(MEMORY[0x277CBEB38]);
-            v90 = *v87;
-            *v87 = v89;
+            v92 = objc_alloc_init(MEMORY[0x277CBEB38]);
+            v93 = *v90;
+            *v90 = v92;
 
-            v88 = *v87;
+            v91 = *v90;
           }
 
-          uUIDString3 = [policyCopy UUIDString];
-          [v88 setObject:v9 forKeyedSubscript:uUIDString3];
+          uUIDString3 = [v109 UUIDString];
+          [(NSMutableDictionary *)v91 setObject:v12 forKeyedSubscript:uUIDString3];
 
-          v93 = v101;
-          v92 = v102;
+          v96 = v103;
+          v95 = v104;
           if (gLogCategory_DADiscovery <= 30 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
           {
-            [DADiscovery _updateNEPolicy:v87 remove:?];
+            [DADiscovery _updateNEPolicy:v90 remove:?];
           }
         }
 
         else
         {
-          v93 = v101;
-          v92 = v102;
+          v96 = v103;
+          v95 = v104;
           if (gLogCategory_DADiscovery <= 90 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
           {
-            [DADiscovery _updateNEPolicy:remove:];
+            [DADiscovery _updateNEPolicy:v109 remove:?];
           }
         }
       }
@@ -2044,10 +1996,8 @@ uint64_t __67__DADiscovery__findExtensionPoint_bundleID_entitlement_completion__
 
   else
   {
-    [DADiscovery _updateNEPolicy:remove:];
+    [(DADiscovery *)policyCopy _updateNEPolicy:v7 remove:v8];
   }
-
-  v94 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_uuidFromExtension:(id)extension
@@ -2113,11 +2063,11 @@ uint64_t __34__DADiscovery__uuidFromExtension___block_invoke(uint64_t a1, uint64
       goto LABEL_19;
     }
 
-    v19 = objc_opt_class();
-    v17 = OUTLINED_FUNCTION_8();
+    v13 = objc_opt_class();
+    v11 = OUTLINED_FUNCTION_8();
 LABEL_18:
-    DAErrorF(v17, v18, v8, v9, v10, v11, v12, v13, v19);
-    *error = v15 = 0;
+    DAErrorF(v11, v12, v13);
+    *error = v9 = 0;
     goto LABEL_13;
   }
 
@@ -2128,23 +2078,23 @@ LABEL_18:
       goto LABEL_19;
     }
 
-    v18 = "XPC non-dict";
-    v17 = 350004;
+    v12 = "XPC non-dict";
+    v11 = 350004;
     goto LABEL_18;
   }
 
   CUXPCDecodeNSString();
   CUXPCDecodeNSString();
-  v14 = CUXPCDecodeUInt64RangedEx();
-  if (v14 != 6)
+  v8 = CUXPCDecodeUInt64RangedEx();
+  if (v8 != 6)
   {
-    if (v14 != 5)
+    if (v8 != 5)
     {
       goto LABEL_6;
     }
 
 LABEL_19:
-    v15 = 0;
+    v9 = 0;
     goto LABEL_13;
   }
 
@@ -2173,281 +2123,283 @@ LABEL_6:
     v7->_flags = 0;
   }
 
-  v15 = v7;
+  v9 = v7;
 LABEL_13:
 
-  return v15;
+  return v9;
 }
 
 - (void)_reportASKEvent:(id)event
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   device = [eventCopy device];
-  if (device)
+  if (!device)
   {
-    bundleID = [(DADiscoveryConfiguration *)self->_configuration bundleID];
-    bundleID = bundleID;
-    if (!bundleID)
-    {
-      bundleID = self->_bundleID;
-    }
-
-    v8 = bundleID;
-
-    v9 = [gDADaemonServer getDevicesWithFlags:8 appID:v8];
-    if (gLogCategory_DADiscovery <= 90 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
-    {
-      v42 = v9;
-      LogPrintF();
-    }
-
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
-    v48 = 0u;
-    v10 = v9;
-    v11 = [v10 countByEnumeratingWithState:&v47 objects:v51 count:16];
-    if (v11)
-    {
-      identifier = v11;
-      v13 = *v48;
-      v44 = v8;
-      v45 = eventCopy;
-      obj = v10;
-      selfCopy = self;
-LABEL_10:
-      v10 = 0;
-      while (1)
-      {
-        if (*v48 != v13)
-        {
-          objc_enumerationMutation(obj);
-        }
-
-        v14 = *(*(&v47 + 1) + 8 * v10);
-        eventCopy = [v14 bluetoothIdentifier];
-        bluetoothIdentifier = [device bluetoothIdentifier];
-        v16 = [eventCopy isEqual:bluetoothIdentifier];
-
-        if (v16)
-        {
-          OUTLINED_FUNCTION_5();
-          v8 = v44;
-          if (v35 ^ v36 | v34)
-          {
-            if (v33 != -1)
-            {
-              goto LABEL_36;
-            }
-
-            identifier = v10;
-            if (_LogCategory_Initialize())
-            {
-              goto LABEL_36;
-            }
-          }
-
-          goto LABEL_41;
-        }
-
-        eventCopy = [v14 SSID];
-        sSID = [device SSID];
-        v18 = [eventCopy isEqual:sSID];
-
-        if (v18)
-        {
-          OUTLINED_FUNCTION_5();
-          v8 = v44;
-          if (v35 ^ v36 | v34)
-          {
-            if (v37 != -1)
-            {
-              goto LABEL_36;
-            }
-
-            identifier = v10;
-            if (_LogCategory_Initialize())
-            {
-              goto LABEL_36;
-            }
-          }
-
-          goto LABEL_41;
-        }
-
-        wifiAwareDevicePairingID = [v14 wifiAwareDevicePairingID];
-        if (wifiAwareDevicePairingID)
-        {
-          eventCopy = wifiAwareDevicePairingID;
-          discoveryConfiguration = [v14 discoveryConfiguration];
-          wifiAwareServiceName = [discoveryConfiguration wifiAwareServiceName];
-          discoveryConfiguration2 = [device discoveryConfiguration];
-          wifiAwareServiceName2 = [discoveryConfiguration2 wifiAwareServiceName];
-          v24 = [wifiAwareServiceName isEqual:wifiAwareServiceName2];
-
-          if (v24)
-          {
-            break;
-          }
-        }
-
-        v10 = v10 + 1;
-        if (identifier == v10)
-        {
-          v10 = obj;
-          identifier = [obj countByEnumeratingWithState:&v47 objects:v51 count:16];
-          v8 = v44;
-          eventCopy = v45;
-          self = selfCopy;
-          if (identifier)
-          {
-            goto LABEL_10;
-          }
-
-          goto LABEL_19;
-        }
-      }
-
-      OUTLINED_FUNCTION_5();
-      v8 = v44;
-      if (v35 ^ v36 | v34)
-      {
-        if (v38 != -1 || (identifier = v10, _LogCategory_Initialize()))
-        {
-LABEL_36:
-          LogPrintF();
-          identifier = v10;
-        }
-      }
-    }
-
-    else
-    {
-LABEL_19:
-
-      identifier = [device identifier];
-      if (identifier)
-      {
-        [device setFlags:8];
-        discoveryConfiguration3 = [device discoveryConfiguration];
-
-        if (!discoveryConfiguration3)
-        {
-          v26 = objc_alloc_init(DADiscoveryConfiguration);
-          [(DADiscoveryConfiguration *)v26 setBundleID:v8];
-          [device identifier];
-          objc_claimAutoreleasedReturnValue();
-          [OUTLINED_FUNCTION_4() setAssociationIdentifier:?];
-
-          [device name];
-          objc_claimAutoreleasedReturnValue();
-          [OUTLINED_FUNCTION_4() setDisplayName:?];
-
-          -[DADiscoveryConfiguration setAllowsBluetoothPairing:](v26, "setAllowsBluetoothPairing:", [device allowPairing]);
-          [device bluetoothIdentifier];
-          objc_claimAutoreleasedReturnValue();
-          [OUTLINED_FUNCTION_4() setBluetoothIdentifier:?];
-
-          discoveryConfiguration4 = [device discoveryConfiguration];
-          flags = [discoveryConfiguration4 flags];
-          [(DADiscoveryConfiguration *)v26 setFlags:[(DADiscoveryConfiguration *)v26 flags]| flags];
-
-          discoveryConfiguration5 = [device discoveryConfiguration];
-          [discoveryConfiguration5 wifiAwareServiceName];
-          objc_claimAutoreleasedReturnValue();
-          [OUTLINED_FUNCTION_3() setWifiAwareServiceName:?];
-
-          discoveryConfiguration6 = [device discoveryConfiguration];
-          -[DADiscoveryConfiguration setWifiAwareServiceType:](v26, "setWifiAwareServiceType:", [discoveryConfiguration6 wifiAwareServiceType]);
-
-          discoveryConfiguration7 = [device discoveryConfiguration];
-          [discoveryConfiguration7 wifiAwareModelNameMatch];
-          objc_claimAutoreleasedReturnValue();
-          [OUTLINED_FUNCTION_3() setWifiAwareModelNameMatch:?];
-
-          discoveryConfiguration8 = [device discoveryConfiguration];
-          [discoveryConfiguration8 wifiAwareVendorNameMatch];
-          objc_claimAutoreleasedReturnValue();
-          [OUTLINED_FUNCTION_3() setWifiAwareVendorNameMatch:?];
-
-          [device setDiscoveryConfiguration:v26];
-        }
-
-        [device setDiscoveredInExtension:{1, v42}];
-        if (gLogCategory_DADiscovery <= 30 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
-        {
-          LogPrintF();
-        }
-
-        v39 = _Block_copy(self->_eventHandler);
-        v40 = v39;
-        if (v39)
-        {
-          (*(v39 + 2))(v39, eventCopy);
-        }
-      }
-    }
-
-LABEL_41:
+    goto LABEL_43;
   }
 
-  v41 = *MEMORY[0x277D85DE8];
+  bundleID = [(DADiscoveryConfiguration *)self->_configuration bundleID];
+  bundleID = bundleID;
+  if (!bundleID)
+  {
+    bundleID = self->_bundleID;
+  }
+
+  v8 = bundleID;
+
+  v9 = [gDADaemonServer getDevicesWithFlags:8 appID:v8];
+  if (gLogCategory_DADiscovery <= 90 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF(&gLogCategory_DADiscovery, "[DADiscovery _reportASKEvent:]", 90, " authorizedDevices authorized %@", v9);
+  }
+
+  v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  v10 = v9;
+  v11 = [v10 countByEnumeratingWithState:&v45 objects:v49 count:16];
+  if (!v11)
+  {
+LABEL_19:
+
+    identifier = [device identifier];
+    if (identifier)
+    {
+      [device setFlags:8];
+      discoveryConfiguration = [device discoveryConfiguration];
+
+      if (!discoveryConfiguration)
+      {
+        v26 = objc_alloc_init(DADiscoveryConfiguration);
+        [(DADiscoveryConfiguration *)v26 setBundleID:v8];
+        [device identifier];
+        objc_claimAutoreleasedReturnValue();
+        [OUTLINED_FUNCTION_4() setAssociationIdentifier:?];
+
+        [device name];
+        objc_claimAutoreleasedReturnValue();
+        [OUTLINED_FUNCTION_4() setDisplayName:?];
+
+        -[DADiscoveryConfiguration setAllowsBluetoothPairing:](v26, "setAllowsBluetoothPairing:", [device allowPairing]);
+        [device bluetoothIdentifier];
+        objc_claimAutoreleasedReturnValue();
+        [OUTLINED_FUNCTION_4() setBluetoothIdentifier:?];
+
+        discoveryConfiguration2 = [device discoveryConfiguration];
+        flags = [discoveryConfiguration2 flags];
+        [(DADiscoveryConfiguration *)v26 setFlags:[(DADiscoveryConfiguration *)v26 flags]| flags];
+
+        discoveryConfiguration3 = [device discoveryConfiguration];
+        [discoveryConfiguration3 wifiAwareServiceName];
+        objc_claimAutoreleasedReturnValue();
+        [OUTLINED_FUNCTION_3() setWifiAwareServiceName:?];
+
+        discoveryConfiguration4 = [device discoveryConfiguration];
+        -[DADiscoveryConfiguration setWifiAwareServiceType:](v26, "setWifiAwareServiceType:", [discoveryConfiguration4 wifiAwareServiceType]);
+
+        discoveryConfiguration5 = [device discoveryConfiguration];
+        [discoveryConfiguration5 wifiAwareModelNameMatch];
+        objc_claimAutoreleasedReturnValue();
+        [OUTLINED_FUNCTION_3() setWifiAwareModelNameMatch:?];
+
+        discoveryConfiguration6 = [device discoveryConfiguration];
+        [discoveryConfiguration6 wifiAwareVendorNameMatch];
+        objc_claimAutoreleasedReturnValue();
+        [OUTLINED_FUNCTION_3() setWifiAwareVendorNameMatch:?];
+
+        [device setDiscoveryConfiguration:v26];
+      }
+
+      [device setDiscoveredInExtension:1];
+      if (gLogCategory_DADiscovery <= 30 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
+      {
+        LogPrintF(&gLogCategory_DADiscovery, "[DADiscovery _reportASKEvent:]", 30, "ReportASKEvent: %@", eventCopy);
+      }
+
+      v39 = _Block_copy(self->_eventHandler);
+      v40 = v39;
+      if (v39)
+      {
+        (*(v39 + 2))(v39, eventCopy);
+      }
+    }
+
+    goto LABEL_42;
+  }
+
+  identifier = v11;
+  v13 = *v46;
+  v42 = v8;
+  v43 = eventCopy;
+  obj = v10;
+  selfCopy = self;
+LABEL_10:
+  v10 = 0;
+  while (1)
+  {
+    if (*v46 != v13)
+    {
+      objc_enumerationMutation(obj);
+    }
+
+    v14 = *(*(&v45 + 1) + 8 * v10);
+    eventCopy = [v14 bluetoothIdentifier];
+    bluetoothIdentifier = [device bluetoothIdentifier];
+    v16 = [eventCopy isEqual:bluetoothIdentifier];
+
+    if (v16)
+    {
+      OUTLINED_FUNCTION_5();
+      v8 = v42;
+      if (!(v35 ^ v36 | v34))
+      {
+        goto LABEL_42;
+      }
+
+      if (v33 == -1)
+      {
+        identifier = v10;
+        if (!_LogCategory_Initialize())
+        {
+          goto LABEL_42;
+        }
+      }
+
+      LogPrintF(&gLogCategory_DADiscovery, "[DADiscovery _reportASKEvent:]", 90, "Bluetooth Device already authorized ");
+LABEL_37:
+      identifier = v10;
+      goto LABEL_42;
+    }
+
+    eventCopy = [v14 SSID];
+    sSID = [device SSID];
+    v18 = [eventCopy isEqual:sSID];
+
+    if (v18)
+    {
+      OUTLINED_FUNCTION_5();
+      v8 = v42;
+      if (!(v35 ^ v36 | v34))
+      {
+        goto LABEL_42;
+      }
+
+      if (v37 == -1)
+      {
+        identifier = v10;
+        if (!_LogCategory_Initialize())
+        {
+          goto LABEL_42;
+        }
+      }
+
+      LogPrintF(&gLogCategory_DADiscovery, "[DADiscovery _reportASKEvent:]", 90, "WiFi Device already authorized ");
+      goto LABEL_37;
+    }
+
+    wifiAwareDevicePairingID = [v14 wifiAwareDevicePairingID];
+    if (wifiAwareDevicePairingID)
+    {
+      eventCopy = wifiAwareDevicePairingID;
+      discoveryConfiguration7 = [v14 discoveryConfiguration];
+      wifiAwareServiceName = [discoveryConfiguration7 wifiAwareServiceName];
+      discoveryConfiguration8 = [device discoveryConfiguration];
+      wifiAwareServiceName2 = [discoveryConfiguration8 wifiAwareServiceName];
+      v24 = [wifiAwareServiceName isEqual:wifiAwareServiceName2];
+
+      if (v24)
+      {
+        break;
+      }
+    }
+
+    v10 = v10 + 1;
+    if (identifier == v10)
+    {
+      v10 = obj;
+      identifier = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
+      v8 = v42;
+      eventCopy = v43;
+      self = selfCopy;
+      if (identifier)
+      {
+        goto LABEL_10;
+      }
+
+      goto LABEL_19;
+    }
+  }
+
+  OUTLINED_FUNCTION_5();
+  v8 = v42;
+  if (v35 ^ v36 | v34)
+  {
+    if (v38 != -1 || (identifier = v10, _LogCategory_Initialize()))
+    {
+      LogPrintF(&gLogCategory_DADiscovery, "[DADiscovery _reportASKEvent:]", 90, "Wi-Fi Aware Device already authorized");
+      goto LABEL_37;
+    }
+  }
+
+LABEL_42:
+
+LABEL_43:
 }
 
-- (void)initWithConfiguration:(uint64_t)a3 error:(uint64_t)a4 .cold.1(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+- (void)initWithConfiguration:(void *)result error:.cold.1(void *result)
 {
   if (result)
   {
-    v8 = result;
-    result = DAErrorF(350000, "init failed", a3, a4, a5, a6, a7, a8, v9);
-    *v8 = result;
+    v1 = result;
+    result = DAErrorF(350000, "init failed");
+    *v1 = result;
   }
 
   return result;
 }
 
-void __36__DADiscovery_invalidateWithReason___block_invoke_2_cold_1()
+void __36__DADiscovery_invalidateWithReason___block_invoke_2_cold_1(uint64_t a1)
 {
-  v0 = CUPrintNSError();
-  LogPrintF();
+  v1 = CUPrintNSError();
+  LogPrintF(&gLogCategory_DADiscovery, "[DADiscovery invalidateWithReason:]_block_invoke_2", 30, "invalidateWithReason completed: %@", v1);
 }
 
-void __66__DADiscovery_respondToBluetoothPairingRequest_completionHandler___block_invoke_2_cold_1()
+void __66__DADiscovery_respondToBluetoothPairingRequest_completionHandler___block_invoke_2_cold_1(uint64_t a1)
 {
-  v0 = CUPrintNSError();
-  LogPrintF();
+  v1 = CUPrintNSError();
+  LogPrintF(&gLogCategory_DADiscovery, "[DADiscovery respondToBluetoothPairingRequest:completionHandler:]_block_invoke_2", 30, "respondToBluetoothPairingRequest completed: %@", v1);
 }
 
-void __66__DADiscovery_respondToWiFiAwarePairingRequest_completionHandler___block_invoke_2_cold_1()
+void __66__DADiscovery_respondToWiFiAwarePairingRequest_completionHandler___block_invoke_2_cold_1(uint64_t a1)
 {
-  v0 = CUPrintNSError();
-  LogPrintF();
+  v1 = CUPrintNSError();
+  LogPrintF(&gLogCategory_DADiscovery, "[DADiscovery respondToWiFiAwarePairingRequest:completionHandler:]_block_invoke_2", 30, "respondToWiFiAwarePairingRequest completed: %@", v1);
 }
 
 void __61__DADiscovery_setState_device_simulateApp_completionHandler___block_invoke_cold_1(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   DADeviceStateToString(*(a1 + 56));
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
-  LogPrintF();
+  LogPrintF(&gLogCategory_DADiscovery, "[DADiscovery setState:device:simulateApp:completionHandler:]_block_invoke", 30, "SetDeviceState start: %@, state %@");
 }
 
-void __61__DADiscovery_setState_device_simulateApp_completionHandler___block_invoke_2_cold_1(uint64_t a1)
+void __61__DADiscovery_setState_device_simulateApp_completionHandler___block_invoke_2_cold_1(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v3 = DADeviceStateToString(*(a1 + 48));
-  v2 = CUPrintNSError();
-  LogPrintF();
+  v2 = *(a1 + 32);
+  v4 = DADeviceStateToString(*(a1 + 48));
+  v3 = CUPrintNSError();
+  LogPrintF(&gLogCategory_DADiscovery, "[DADiscovery setState:device:simulateApp:completionHandler:]_block_invoke_2", 30, "SetDeviceState completed: %@, state %@, %@", v2, v4, v3);
 }
 
 void __63__DADiscovery_setDeviceAppAccessInfo_device_completionHandler___block_invoke_cold_1(uint64_t a1)
 {
   v1 = *(a1 + 56);
   v2 = OUTLINED_FUNCTION_8();
-  v11 = DAErrorF(v2, v3, v4, v5, v6, v7, v8, v9, v10);
-  (*(v1 + 16))(v1, v11);
+  v4 = DAErrorF(v2, v3);
+  (*(v1 + 16))(v1, v4);
 }
 
 void __63__DADiscovery_setDeviceAppAccessInfo_device_completionHandler___block_invoke_2_cold_1(uint64_t a1, uint64_t a2)
@@ -2456,7 +2408,7 @@ void __63__DADiscovery_setDeviceAppAccessInfo_device_completionHandler___block_i
   CUPrintNSError();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
-  LogPrintF();
+  LogPrintF(&gLogCategory_DADiscovery, "[DADiscovery setDeviceAppAccessInfo:device:completionHandler:]_block_invoke_2", 30, "SetDeviceAppAccessInfo completed: %@, %@");
 }
 
 - (void)xpcReceivedMessage:.cold.1()
@@ -2464,14 +2416,14 @@ void __63__DADiscovery_setDeviceAppAccessInfo_device_completionHandler___block_i
   CUPrintXPC();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
-  LogPrintF();
+  LogPrintF(&gLogCategory_DADiscovery, "[DADiscovery xpcReceivedMessage:]", 9, "XPC event: %@, %@");
 }
 
-- (void)xpcReceivedMessage:.cold.2()
+- (void)xpcReceivedMessage:(uint64_t)a3 .cold.2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v1 = CUPrintNSError();
-  v0 = CUPrintXPC();
-  LogPrintF();
+  v5 = CUPrintNSError();
+  v4 = CUPrintXPC();
+  LogPrintF(&gLogCategory_DADiscovery, "[DADiscovery xpcReceivedMessage:]", 90, "### XPC error: %@, %@, %@", a3, v5, v4);
 }
 
 - (void)_xpcReceivedDAEvent:.cold.1()
@@ -2479,9 +2431,9 @@ void __63__DADiscovery_setDeviceAppAccessInfo_device_completionHandler___block_i
   if (gLogCategory_DADiscovery <= 90)
   {
     OUTLINED_FUNCTION_6();
-    if (!v0 || _LogCategory_Initialize())
+    if (!v1 || _LogCategory_Initialize())
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_DADiscovery, "[DADiscovery _xpcReceivedDAEvent:]", 90, "### XPC event non-dict: %@", v0);
     }
   }
 }
@@ -2491,19 +2443,19 @@ void __63__DADiscovery_setDeviceAppAccessInfo_device_completionHandler___block_i
   if (gLogCategory_DADiscovery <= 90)
   {
     OUTLINED_FUNCTION_6();
-    if (!v0 || _LogCategory_Initialize())
+    if (!v1 || _LogCategory_Initialize())
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_DADiscovery, "[DADiscovery _xpcReceivedDAEvent:]", 90, "### XPC device event bad class: %@", v0);
     }
   }
 }
 
-- (void)_xpcReceivedDAEvent:(int)a1 .cold.4(int a1)
+- (void)_xpcReceivedDAEvent:(uint64_t)a3 .cold.4(int a1, uint64_t a2, uint64_t a3)
 {
   if (a1 <= 90 && (a1 != -1 || _LogCategory_Initialize()))
   {
-    v1 = CUPrintNSError();
-    LogPrintF();
+    v4 = CUPrintNSError();
+    LogPrintF(&gLogCategory_DADiscovery, "[DADiscovery _xpcReceivedDAEvent:]", 90, "### XPC DAEvent decode failed: %@, %@", a3, v4);
   }
 }
 
@@ -2512,31 +2464,23 @@ void __63__DADiscovery_setDeviceAppAccessInfo_device_completionHandler___block_i
   if (gLogCategory_DADiscovery <= 90)
   {
     OUTLINED_FUNCTION_6();
-    if (!v0 || _LogCategory_Initialize())
+    if (!v1 || _LogCategory_Initialize())
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_DADiscovery, "[DADiscovery _xpcReceivedDeviceEvent:]", 90, "### XPC device event no ID: %@", v0);
     }
   }
-}
-
-uint64_t __67__DADiscovery__findExtensionPoint_bundleID_entitlement_completion___block_invoke_2_cold_1(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  [*(a1 + 40) count];
-  return LogPrintF();
 }
 
 - (void)_startExtensions:(void *)a1 bundleID:entitlement:completion:.cold.1(void *a1)
 {
   v1 = [a1 bundleIdentifier];
-  LogPrintF();
+  LogPrintF(&gLogCategory_DADiscovery, "[DADiscovery _startExtensions:bundleID:entitlement:completion:]", 30, "Ignoring extension without entitlement: %@", v1);
 }
 
-- (void)_updateNEPolicy:(uint64_t *)a1 remove:.cold.11(uint64_t *a1)
+- (void)_updateNEPolicy:(void *)a1 remove:.cold.11(void *a1)
 {
-  v1 = *a1;
-  v2 = CUPrintNSObjectOneLine();
-  LogPrintF();
+  v1 = CUPrintNSObjectOneLine();
+  LogPrintF(&gLogCategory_DADiscovery, "[DADiscovery _updateNEPolicy:remove:]", 30, "NEPolicySession added to policy dictionary: %@", v1);
 }
 
 - (void)_updateNEPolicy:remove:.cold.12()
@@ -2544,18 +2488,17 @@ uint64_t __67__DADiscovery__findExtensionPoint_bundleID_entitlement_completion__
   if (gLogCategory_DADiscovery <= 90)
   {
     OUTLINED_FUNCTION_6();
-    if (!v0 || _LogCategory_Initialize())
+    if (!v1 || _LogCategory_Initialize())
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_DADiscovery, "[DADiscovery _updateNEPolicy:remove:]", 90, "### Failed to create NEPolicy session for extensionID: %@", v0);
     }
   }
 }
 
-- (void)_updateNEPolicy:(uint64_t *)a1 remove:.cold.15(uint64_t *a1)
+- (void)_updateNEPolicy:(void *)a1 remove:.cold.15(void *a1)
 {
-  v1 = *a1;
-  v2 = CUPrintNSObjectOneLine();
-  LogPrintF();
+  v1 = CUPrintNSObjectOneLine();
+  LogPrintF(&gLogCategory_DADiscovery, "[DADiscovery _updateNEPolicy:remove:]", 30, "NEPolicySession removed from device dictionary: %@", v1);
 }
 
 - (void)_updateNEPolicy:remove:.cold.16()
@@ -2563,18 +2506,18 @@ uint64_t __67__DADiscovery__findExtensionPoint_bundleID_entitlement_completion__
   if (gLogCategory_DADiscovery <= 90)
   {
     OUTLINED_FUNCTION_6();
-    if (!v0 || _LogCategory_Initialize())
+    if (!v1 || _LogCategory_Initialize())
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_DADiscovery, "[DADiscovery _updateNEPolicy:remove:]", 90, "### Failed to get current session for extensionID: %@", v0);
     }
   }
 }
 
-- (void)_updateNEPolicy:remove:.cold.17()
+- (void)_updateNEPolicy:(uint64_t)a3 remove:.cold.17(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (gLogCategory_DADiscovery <= 90 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_11();
+    OUTLINED_FUNCTION_11(&gLogCategory_DADiscovery, "[DADiscovery _updateNEPolicy:remove:]", a3, "### Invalid extensionID");
   }
 }
 

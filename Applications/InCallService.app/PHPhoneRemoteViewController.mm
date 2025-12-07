@@ -14,7 +14,7 @@
   handlerCopy = handler;
   viewControllerClassName = [self viewControllerClassName];
   serviceBundleIdentifier = [self serviceBundleIdentifier];
-  v7 = sub_100004F84();
+  v7 = sub_100004F84(serviceBundleIdentifier);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 138412546;

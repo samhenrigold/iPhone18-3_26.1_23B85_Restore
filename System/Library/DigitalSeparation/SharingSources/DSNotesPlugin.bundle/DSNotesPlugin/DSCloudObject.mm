@@ -55,19 +55,18 @@
 
 - (NSString)displayDetail
 {
-  v2 = *(&self->super.isa + OBJC_IVAR____TtC13DSNotesPlugin13DSCloudObject_cloudSyncingObject);
   objc_opt_self();
   if (swift_dynamicCastObjCClass() || (objc_opt_self(), swift_dynamicCastObjCClass()))
   {
-    v3 = sub_1128C();
+    v2 = sub_1128C();
   }
 
   else
   {
-    v3 = 0;
+    v2 = 0;
   }
 
-  return v3;
+  return v2;
 }
 
 - (NSArray)participants

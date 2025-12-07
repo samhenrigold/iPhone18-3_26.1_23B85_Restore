@@ -31,7 +31,7 @@
 - (BOOL)_shouldAnimatePropertyWithKey:(id)key
 {
   keyCopy = key;
-  if ([keyCopy isEqualToString:@"filters.gaussianBlur.inputRadius"] & 1) != 0 || (objc_msgSend(keyCopy, "isEqualToString:", @"filters.gaussianBlur.inputQuality") & 1) != 0 || (objc_msgSend(keyCopy, "isEqualToString:", @"filters.colorSaturate.inputAmount") & 1) != 0 || (objc_msgSend(keyCopy, "isEqualToString:", @"filters.colorMatrix.inputColorMatrix") & 1) != 0 || (objc_msgSend(keyCopy, "isEqualToString:", @"enabled") & 1) != 0 || (objc_msgSend(keyCopy, "isEqualToString:", @"meshTransform"))
+  if (objc_msgSend_isEqualToString_(keyCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(keyCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(keyCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(keyCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(keyCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(keyCopy))
   {
     v5 = 1;
   }
@@ -50,24 +50,24 @@
 {
   keyCopy = key;
   NSLog(&cfstr_WarningCalling.isa, keyCopy);
-  if ([keyCopy isEqualToString:@"filters.gaussianBlur.inputRadius"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v5 = &unk_1EFE2F470;
     goto LABEL_12;
   }
 
-  if ([keyCopy isEqualToString:@"filters.gaussianBlur.inputQuality"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v5 = @"default";
     goto LABEL_12;
   }
 
-  if ([keyCopy isEqualToString:@"filters.colorSaturate.inputAmount"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     goto LABEL_6;
   }
 
-  if ([keyCopy isEqualToString:@"filters.colorMatrix.inputColorMatrix"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v9 = 1065353216;
     v11 = 0;
@@ -85,7 +85,7 @@
 
   else
   {
-    if ([keyCopy isEqualToString:@"enabled"])
+    if (objc_msgSend_isEqualToString_(keyCopy))
     {
 LABEL_6:
       v5 = &unk_1EFE2F488;

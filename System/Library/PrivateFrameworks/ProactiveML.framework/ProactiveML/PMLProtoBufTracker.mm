@@ -50,25 +50,22 @@
 
 - (id)toPlistWithChunks:(id)chunks
 {
-  v12[2] = *MEMORY[0x277D85DE8];
-  v11[0] = @"TRACKER_ADAPTER_CLASS";
-  adapter = self->_adapter;
-  v5 = objc_opt_class();
-  v6 = NSStringFromClass(v5);
-  v11[1] = @"TRACKER_QUANTIZATION_BUCKETS";
-  v12[0] = v6;
-  v7 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_quantizationNumberOfBuckets];
-  v12[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v10[2] = *MEMORY[0x277D85DE8];
+  v9[0] = @"TRACKER_ADAPTER_CLASS";
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  v9[1] = @"TRACKER_QUANTIZATION_BUCKETS";
+  v10[0] = v5;
+  v6 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_quantizationNumberOfBuckets];
+  v10[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
 
-  v9 = *MEMORY[0x277D85DE8];
-
-  return v8;
+  return v7;
 }
 
 - (id)trackPrecisionAtK:(id)k minibatchStats:(id)stats
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   statsCopy = stats;
   kCopy = k;
   v8 = objc_opt_new();
@@ -80,25 +77,24 @@
   [v8 setTimestamp:v11];
 
   [v8 setMinibatchStats:statsCopy];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __55__PMLProtoBufTracker_trackPrecisionAtK_minibatchStats___block_invoke;
-  v17[3] = &unk_279AC06A0;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __55__PMLProtoBufTracker_trackPrecisionAtK_minibatchStats___block_invoke;
+  v16[3] = &unk_279AC06A0;
   v12 = v8;
-  v18 = v12;
-  [kCopy enumerateKeysAndObjectsUsingBlock:v17];
+  v17 = v12;
+  [kCopy enumerateKeysAndObjectsUsingBlock:v16];
 
   v13 = PML_LogHandle();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     modelInfo = self->_modelInfo;
     *buf = 138412290;
-    v20 = modelInfo;
+    v19 = modelInfo;
     _os_log_debug_impl(&dword_260D68000, v13, OS_LOG_TYPE_DEBUG, "Sending evaluation metrics for %@", buf, 0xCu);
   }
 
   [(PMLTrackerAdapterProtocol *)self->_adapter postMetricId:5636102 message:v12];
-  v14 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -129,7 +125,7 @@ void __55__PMLProtoBufTracker_trackPrecisionAtK_minibatchStats___block_invoke(ui
 
 - (id)trackEvaluationMetrics:(id)metrics minibatchStats:(id)stats
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   statsCopy = stats;
   metricsCopy = metrics;
   v8 = objc_opt_new();
@@ -147,19 +143,18 @@ void __55__PMLProtoBufTracker_trackPrecisionAtK_minibatchStats___block_invoke(ui
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     modelInfo = self->_modelInfo;
-    v16 = 138412290;
-    v17 = modelInfo;
-    _os_log_debug_impl(&dword_260D68000, v12, OS_LOG_TYPE_DEBUG, "Sending evaluation metrics for %@", &v16, 0xCu);
+    v15 = 138412290;
+    v16 = modelInfo;
+    _os_log_debug_impl(&dword_260D68000, v12, OS_LOG_TYPE_DEBUG, "Sending evaluation metrics for %@", &v15, 0xCu);
   }
 
   [(PMLTrackerAdapterProtocol *)self->_adapter postMetricId:5636102 message:v8];
-  v13 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (id)trackGradient:(id)gradient scaleFactor:(float)factor minibatchStats:(id)stats evaluationMetrics:(id)metrics serverIteration:(unint64_t)iteration
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   modelInfo = self->_modelInfo;
   metricsCopy = metrics;
   statsCopy = stats;
@@ -171,20 +166,19 @@ void __55__PMLProtoBufTracker_trackPrecisionAtK_minibatchStats___block_invoke(ui
   v19 = PML_LogHandle();
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
-    v22 = self->_modelInfo;
-    v23 = 138412290;
-    v24 = v22;
-    _os_log_debug_impl(&dword_260D68000, v19, OS_LOG_TYPE_DEBUG, "Sending gradient for model %@", &v23, 0xCu);
+    v21 = self->_modelInfo;
+    v22 = 138412290;
+    v23 = v21;
+    _os_log_debug_impl(&dword_260D68000, v19, OS_LOG_TYPE_DEBUG, "Sending gradient for model %@", &v22, 0xCu);
   }
 
   [(PMLTrackerAdapterProtocol *)self->_adapter postMetricId:5636101 message:v18];
-  v20 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (id)trackWeights:(id)weights scaleFactor:(float)factor minibatchStats:(id)stats evaluationMetrics:(id)metrics
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   modelInfo = self->_modelInfo;
   metricsCopy = metrics;
   statsCopy = stats;
@@ -196,14 +190,13 @@ void __55__PMLProtoBufTracker_trackPrecisionAtK_minibatchStats___block_invoke(ui
   v17 = PML_LogHandle();
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
-    v20 = self->_modelInfo;
-    v21 = 138412290;
-    v22 = v20;
-    _os_log_debug_impl(&dword_260D68000, v17, OS_LOG_TYPE_DEBUG, "Sending weights for model %@", &v21, 0xCu);
+    v19 = self->_modelInfo;
+    v20 = 138412290;
+    v21 = v19;
+    _os_log_debug_impl(&dword_260D68000, v17, OS_LOG_TYPE_DEBUG, "Sending weights for model %@", &v20, 0xCu);
   }
 
   [(PMLTrackerAdapterProtocol *)self->_adapter postMetricId:5636100 message:v16];
-  v18 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

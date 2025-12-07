@@ -233,15 +233,15 @@ LABEL_81:
                 goto LABEL_76;
               }
 
-              v92[0] = @"statusCode";
+              v92 = @"statusCode";
               v57 = [NSNumber numberWithInteger:statusCode];
-              v93[0] = v57;
-              v92[1] = @"serverResult";
+              v95 = v57;
+              v93 = @"serverResult";
               v58 = [NSNumber numberWithLong:v74];
-              v92[2] = @"serverMessage";
-              v93[1] = v58;
-              v93[2] = v76;
-              v40 = [NSDictionary dictionaryWithObjects:v93 forKeys:v92 count:3];
+              v94 = @"serverMessage";
+              v96 = v58;
+              v97 = v76;
+              v40 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
               if (!os_log_GKGeneral)
               {

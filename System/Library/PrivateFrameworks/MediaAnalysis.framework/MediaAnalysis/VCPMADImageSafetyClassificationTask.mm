@@ -317,7 +317,8 @@ LABEL_37:
         __asm { FMOV            V0.2D, #1.0 }
 
         *&buf[8] = _Q0;
-        *v48 = 0uLL;
+        v48[0] = 0.0;
+        v48[1] = 0.0;
         *&buf[24] = 0;
         goto LABEL_38;
       }
@@ -564,7 +565,7 @@ LABEL_34:
 
 - (int)run
 {
-  v138[1] = *MEMORY[0x1E69E9840];
+  v144[1] = *MEMORY[0x1E69E9840];
   if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     LOWORD(buf) = 0;
@@ -597,9 +598,9 @@ LABEL_34:
     v11 = v10;
 
     [(VCPMADImageSafetyClassificationTask *)self logMemoryWithMessage:@"[ImageSafety] Before decode"];
-    v120 = 0;
-    v119 = 0;
-    if ([(VCPMADServiceImageAsset *)self->_imageAsset loadLowResPixelBuffer:&v120 orientation:&v119])
+    v126 = 0;
+    v125 = 0;
+    if ([(VCPMADServiceImageAsset *)self->_imageAsset loadLowResPixelBuffer:&v126 orientation:&v125])
     {
       if (MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
@@ -609,17 +610,17 @@ LABEL_34:
 
       request = self->_request;
       v13 = MEMORY[0x1E696ABC0];
-      v137 = *MEMORY[0x1E696A578];
+      v143 = *MEMORY[0x1E696A578];
       v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Image loading failed"];
-      v138[0] = v14;
-      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v138 forKeys:&v137 count:1];
+      v144[0] = v14;
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v144 forKeys:&v143 count:1];
       v16 = [v13 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v15];
       [(MADImageSafetyClassificationRequest *)request setError:v16];
 
       goto LABEL_15;
     }
 
-    v17 = [(VCPMADImageSafetyClassificationTask *)self performQRCodeForPixelBuffer:v120 orientation:v119 detections:v8 | v7 results:v5];
+    v17 = [(VCPMADImageSafetyClassificationTask *)self performQRCodeForPixelBuffer:v126 orientation:v125 detections:v8 | v7 results:v5];
     if (v17)
     {
       v18 = [(VCPMADImageSafetyClassificationTask *)self fetchCachedResultsForDetections:v17 results:v5];
@@ -630,21 +631,22 @@ LABEL_34:
         v21 = +[VCPMADResourceManager sharedManager];
         v22 = [v21 activateResource:v20];
 
-        v23 = VCPSignPostLog();
-        v24 = os_signpost_id_generate(v23);
+        v24 = VCPSignPostLog(v23);
+        v25 = os_signpost_id_generate(v24);
 
-        v25 = VCPSignPostLog();
-        v26 = v25;
-        if (v24 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
+        v27 = VCPSignPostLog(v26);
+        v28 = v27;
+        if (v25 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
         {
           signpostPayload = self->_signpostPayload;
           LODWORD(buf) = 138412290;
           *(&buf + 4) = signpostPayload;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v26, OS_SIGNPOST_INTERVAL_BEGIN, v24, "CommSafetyHandler_scale", "%@", &buf, 0xCu);
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v28, OS_SIGNPOST_INTERVAL_BEGIN, v25, "CommSafetyHandler_scale", "%@", &buf, 0xCu);
         }
 
-        v118 = 0;
-        if ([(VCPMADImageSafetyClassificationTask *)self scalePixelBuffer:v120 output:&v118 width:299 height:299 format:1111970369])
+        v124 = 0;
+        v30 = [(VCPMADImageSafetyClassificationTask *)self scalePixelBuffer:v126 output:&v124 width:299 height:299 format:1111970369];
+        if (v30)
         {
           if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
@@ -652,43 +654,44 @@ LABEL_34:
             _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "VCPMADImageSafetyClassificationTask image pre-processing failed", &buf, 2u);
           }
 
-          v28 = self->_request;
-          v29 = MEMORY[0x1E696ABC0];
-          v133 = *MEMORY[0x1E696A578];
-          v30 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Image pre-processing failed"];
-          v134 = v30;
-          v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v134 forKeys:&v133 count:1];
-          v32 = [v29 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v31];
-          [(MADImageSafetyClassificationRequest *)v28 setError:v32];
+          v31 = self->_request;
+          v32 = MEMORY[0x1E696ABC0];
+          v139 = *MEMORY[0x1E696A578];
+          v33 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Image pre-processing failed"];
+          v140 = v33;
+          v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v140 forKeys:&v139 count:1];
+          v35 = [v32 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v34];
+          [(MADImageSafetyClassificationRequest *)v31 setError:v35];
         }
 
         else
         {
-          v47 = VCPSignPostLog();
-          v48 = v47;
-          if (v24 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v47))
+          v50 = VCPSignPostLog(v30);
+          v51 = v50;
+          if (v25 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v50))
           {
-            v49 = self->_signpostPayload;
+            v52 = self->_signpostPayload;
             LODWORD(buf) = 138412290;
-            *(&buf + 4) = v49;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v48, OS_SIGNPOST_INTERVAL_END, v24, "CommSafetyHandler_scale", "%@", &buf, 0xCu);
+            *(&buf + 4) = v52;
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v51, OS_SIGNPOST_INTERVAL_END, v25, "CommSafetyHandler_scale", "%@", &buf, 0xCu);
           }
 
-          v50 = VCPSignPostLog();
-          v51 = os_signpost_id_generate(v50);
+          v54 = VCPSignPostLog(v53);
+          v55 = os_signpost_id_generate(v54);
 
-          v52 = VCPSignPostLog();
-          v53 = v52;
-          if (v51 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v52))
+          v57 = VCPSignPostLog(v56);
+          v58 = v57;
+          if (v55 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v57))
           {
-            v54 = self->_signpostPayload;
+            v59 = self->_signpostPayload;
             LODWORD(buf) = 138412290;
-            *(&buf + 4) = v54;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v53, OS_SIGNPOST_INTERVAL_BEGIN, v51, "CommSafetyHandler_affine", "%@", &buf, 0xCu);
+            *(&buf + 4) = v59;
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v58, OS_SIGNPOST_INTERVAL_BEGIN, v55, "CommSafetyHandler_affine", "%@", &buf, 0xCu);
           }
 
           cf = 0;
-          if ([(VCPMADImageSafetyClassificationTask *)self createUprightPixelBuffer:&cf fromSourceBuffer:v118 andOrientation:v119])
+          v60 = [(VCPMADImageSafetyClassificationTask *)self createUprightPixelBuffer:&cf fromSourceBuffer:v124 andOrientation:v125];
+          if (v60)
           {
             if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
@@ -696,35 +699,41 @@ LABEL_34:
               _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "VCPMADImageSafetyClassificationTask image affine transform failed", &buf, 2u);
             }
 
-            v55 = self->_request;
-            v56 = MEMORY[0x1E696ABC0];
-            v131 = *MEMORY[0x1E696A578];
-            v57 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Image affine transform failed"];
-            v132 = v57;
-            v58 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v132 forKeys:&v131 count:1];
-            v59 = [v56 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v58];
-            [(MADImageSafetyClassificationRequest *)v55 setError:v59];
+            v61 = self->_request;
+            v62 = MEMORY[0x1E696ABC0];
+            v137 = *MEMORY[0x1E696A578];
+            v63 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Image affine transform failed"];
+            v138 = v63;
+            v64 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v138 forKeys:&v137 count:1];
+            v65 = [v62 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v64];
+            [(MADImageSafetyClassificationRequest *)v61 setError:v65];
           }
 
           else
           {
-            v60 = VCPSignPostLog();
-            v61 = v60;
-            if (v51 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v60))
+            v66 = VCPSignPostLog(v60);
+            v67 = v66;
+            if (v55 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v66))
             {
-              v62 = self->_signpostPayload;
+              v68 = self->_signpostPayload;
               LODWORD(buf) = 138412290;
-              *(&buf + 4) = v62;
-              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v61, OS_SIGNPOST_INTERVAL_END, v51, "CommSafetyHandler_affine", "%@", &buf, 0xCu);
+              *(&buf + 4) = v68;
+              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v67, OS_SIGNPOST_INTERVAL_END, v55, "CommSafetyHandler_affine", "%@", &buf, 0xCu);
             }
 
             [(VCPMADImageSafetyClassificationTask *)self logMemoryWithMessage:@"[ImageSafety] Before inference"];
             *&buf = 0;
             *(&buf + 1) = &buf;
-            v127 = 0x3032000000;
-            v128 = __Block_byref_object_copy__8;
-            v129 = __Block_byref_object_dispose__8;
-            v130 = 0;
+            v133 = 0x3032000000;
+            v134 = __Block_byref_object_copy__8;
+            v135 = __Block_byref_object_dispose__8;
+            v136 = 0;
+            v117 = 0;
+            v118 = &v117;
+            v119 = 0x3032000000;
+            v120 = __Block_byref_object_copy__8;
+            v121 = __Block_byref_object_dispose__8;
+            v122 = 0;
             v111 = 0;
             v112 = &v111;
             v113 = 0x3032000000;
@@ -737,22 +746,36 @@ LABEL_34:
             v108 = __Block_byref_object_copy__8;
             v109 = __Block_byref_object_dispose__8;
             v110 = 0;
-            v99 = 0;
-            v100 = &v99;
-            v101 = 0x3032000000;
-            v102 = __Block_byref_object_copy__8;
-            v103 = __Block_byref_object_dispose__8;
-            v104 = 0;
             queue = dispatch_queue_create("com.apple.mediaanalysis.VCPMADImageSafetyClassification", MEMORY[0x1E69E96A8]);
-            v63 = dispatch_group_create();
+            v69 = dispatch_group_create();
             if (v19)
             {
               block[0] = MEMORY[0x1E69E9820];
               block[1] = 3321888768;
               block[2] = __42__VCPMADImageSafetyClassificationTask_run__block_invoke;
               block[3] = &unk_1F496A420;
-              v94 = v20;
+              v100 = v20;
               selfCopy = self;
+              v104 = cf;
+              if (cf)
+              {
+                CFRetain(cf);
+              }
+
+              v102 = &v111;
+              p_buf = &buf;
+              dispatch_group_async(v69, queue, block);
+              CF<__CVBuffer *>::~CF(&v104);
+            }
+
+            if ((v19 & 2) != 0)
+            {
+              v90 = MEMORY[0x1E69E9820];
+              v91 = 3321888768;
+              v92 = __42__VCPMADImageSafetyClassificationTask_run__block_invoke_387;
+              v93 = &unk_1F496A420;
+              v94 = v20;
+              selfCopy2 = self;
               v98 = cf;
               if (cf)
               {
@@ -760,93 +783,73 @@ LABEL_34:
               }
 
               v96 = &v105;
-              p_buf = &buf;
-              dispatch_group_async(v63, queue, block);
+              v97 = &v117;
+              dispatch_group_async(v69, queue, &v90);
               CF<__CVBuffer *>::~CF(&v98);
             }
 
-            if ((v19 & 2) != 0)
-            {
-              v84 = MEMORY[0x1E69E9820];
-              v85 = 3321888768;
-              v86 = __42__VCPMADImageSafetyClassificationTask_run__block_invoke_387;
-              v87 = &unk_1F496A420;
-              v88 = v20;
-              selfCopy2 = self;
-              v92 = cf;
-              if (cf)
-              {
-                CFRetain(cf);
-              }
-
-              v90 = &v99;
-              v91 = &v111;
-              dispatch_group_async(v63, queue, &v84);
-              CF<__CVBuffer *>::~CF(&v92);
-            }
-
-            dispatch_group_wait(v63, 0xFFFFFFFFFFFFFFFFLL);
+            dispatch_group_wait(v69, 0xFFFFFFFFFFFFFFFFLL);
             [(VCPMADImageSafetyClassificationTask *)self logMemoryWithMessage:@"[ImageSafety] After inference"];
             if ((v19 & 1) != 0 && !*(*(&buf + 1) + 40))
             {
               if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
               {
-                v75 = objc_opt_class();
-                v76 = [v106[5] description];
-                *v122 = 138412546;
-                v123 = v75;
-                v124 = 2112;
-                v125 = v76;
-                _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] safetyHandlerTypeN failed (%@)", v122, 0x16u);
+                v81 = objc_opt_class();
+                v82 = [v112[5] description];
+                *v128 = 138412546;
+                v129 = v81;
+                v130 = 2112;
+                v131 = v82;
+                _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] safetyHandlerTypeN failed (%@)", v128, 0x16u);
               }
 
-              v77 = self->_request;
-              v78 = [v106[5] copy];
-              [(MADImageSafetyClassificationRequest *)v77 setError:v78];
+              v83 = self->_request;
+              v84 = [v112[5] copy];
+              [(MADImageSafetyClassificationRequest *)v83 setError:v84];
             }
 
-            else if ((v19 & 2) != 0 && !v112[5])
+            else if ((v19 & 2) != 0 && !v118[5])
             {
               if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
               {
-                v79 = objc_opt_class();
-                v80 = [v100[5] description];
-                *v122 = 138412546;
-                v123 = v79;
-                v124 = 2112;
-                v125 = v80;
-                _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] safetyHandlerTypeGV failed (%@)", v122, 0x16u);
+                v85 = objc_opt_class();
+                v86 = [v106[5] description];
+                *v128 = 138412546;
+                v129 = v85;
+                v130 = 2112;
+                v131 = v86;
+                _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@] safetyHandlerTypeGV failed (%@)", v128, 0x16u);
               }
 
-              v81 = self->_request;
-              v82 = [v100[5] copy];
-              [(MADImageSafetyClassificationRequest *)v81 setError:v82];
+              v87 = self->_request;
+              v88 = [v106[5] copy];
+              [(MADImageSafetyClassificationRequest *)v87 setError:v88];
             }
 
             else
             {
-              v64 = *(*(&buf + 1) + 40);
-              v65 = MEMORY[0x1E69AE2E0];
-              if (v64)
+              v70 = *(*(&buf + 1) + 40);
+              v71 = MEMORY[0x1E69AE2E0];
+              if (v70)
               {
-                [v5 setObject:v64 forKeyedSubscript:*MEMORY[0x1E69AE2E0]];
+                [v5 setObject:v70 forKeyedSubscript:*MEMORY[0x1E69AE2E0]];
               }
 
-              v66 = v112[5];
-              v67 = MEMORY[0x1E69AE2D8];
-              if (v66)
+              v72 = v118[5];
+              v73 = MEMORY[0x1E69AE2D8];
+              if (v72)
               {
-                [v5 setObject:v66 forKeyedSubscript:*MEMORY[0x1E69AE2D8]];
+                [v5 setObject:v72 forKeyedSubscript:*MEMORY[0x1E69AE2D8]];
               }
 
-              v68 = self->_request;
-              v69 = objc_alloc(MEMORY[0x1E69AE340]);
-              v70 = [v5 objectForKeyedSubscript:*v65];
-              v71 = [v5 objectForKeyedSubscript:*v67];
-              v72 = [v69 initWithIsSensitiveNudity:v70 isSensitiveGoreViolence:v71];
-              v121 = v72;
-              v73 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v121 count:1];
-              [(MADImageSafetyClassificationRequest *)v68 setResults:v73];
+              v74 = self->_request;
+              v75 = objc_alloc(MEMORY[0x1E69AE340]);
+              v76 = [v5 objectForKeyedSubscript:*v71];
+              v77 = [v5 objectForKeyedSubscript:*v73];
+              v78 = [v75 initWithIsSensitiveNudity:v76 isSensitiveGoreViolence:v77];
+              v127 = v78;
+              v79 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v127 count:1];
+              [(MADImageSafetyClassificationRequest *)v74 setResults:v79];
 
               [v22 reset];
               clientBundleID = [(VCPMADServiceImageAsset *)self->_imageAsset clientBundleID];
@@ -854,34 +857,34 @@ LABEL_34:
 
               if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
               {
-                *v122 = 0;
-                _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "VCPMADImageSafetyClassificationTask complete", v122, 2u);
+                *v128 = 0;
+                _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "VCPMADImageSafetyClassificationTask complete", v128, 2u);
               }
             }
 
-            _Block_object_dispose(&v99, 8);
             _Block_object_dispose(&v105, 8);
-
             _Block_object_dispose(&v111, 8);
+
+            _Block_object_dispose(&v117, 8);
             _Block_object_dispose(&buf, 8);
           }
 
           CF<__CVBuffer *>::~CF(&cf);
         }
 
-        CF<__CVBuffer *>::~CF(&v118);
+        CF<__CVBuffer *>::~CF(&v124);
 
         goto LABEL_15;
       }
 
-      v40 = self->_request;
-      v41 = objc_alloc(MEMORY[0x1E69AE340]);
-      v42 = [v5 objectForKeyedSubscript:*MEMORY[0x1E69AE2E0]];
-      v43 = [v5 objectForKeyedSubscript:*MEMORY[0x1E69AE2D8]];
-      v44 = [v41 initWithIsSensitiveNudity:v42 isSensitiveGoreViolence:v43];
-      v135 = v44;
-      v45 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v135 count:1];
-      [(MADImageSafetyClassificationRequest *)v40 setResults:v45];
+      v43 = self->_request;
+      v44 = objc_alloc(MEMORY[0x1E69AE340]);
+      v45 = [v5 objectForKeyedSubscript:*MEMORY[0x1E69AE2E0]];
+      v46 = [v5 objectForKeyedSubscript:*MEMORY[0x1E69AE2D8]];
+      v47 = [v44 initWithIsSensitiveNudity:v45 isSensitiveGoreViolence:v46];
+      v141 = v47;
+      v48 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v141 count:1];
+      [(MADImageSafetyClassificationRequest *)v43 setResults:v48];
 
       clientBundleID2 = [(VCPMADServiceImageAsset *)self->_imageAsset clientBundleID];
       MADPLLogIVSProcessing(clientBundleID2, 1, [(VCPMADServiceImageAsset *)self->_imageAsset assetType], v11);
@@ -889,24 +892,24 @@ LABEL_34:
       if (MediaAnalysisLogLevel() < 6 || !os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
       {
 LABEL_15:
-        CF<__CVBuffer *>::~CF(&v120);
+        CF<__CVBuffer *>::~CF(&v126);
         goto LABEL_16;
       }
 
       LOWORD(buf) = 0;
-      v39 = MEMORY[0x1E69E9C10];
+      v42 = MEMORY[0x1E69E9C10];
     }
 
     else
     {
-      v33 = self->_request;
-      v34 = objc_alloc(MEMORY[0x1E69AE340]);
-      v35 = [v5 objectForKeyedSubscript:*MEMORY[0x1E69AE2E0]];
-      v36 = [v5 objectForKeyedSubscript:*MEMORY[0x1E69AE2D8]];
-      v37 = [v34 initWithIsSensitiveNudity:v35 isSensitiveGoreViolence:v36];
-      v136 = v37;
-      v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v136 count:1];
-      [(MADImageSafetyClassificationRequest *)v33 setResults:v38];
+      v36 = self->_request;
+      v37 = objc_alloc(MEMORY[0x1E69AE340]);
+      v38 = [v5 objectForKeyedSubscript:*MEMORY[0x1E69AE2E0]];
+      v39 = [v5 objectForKeyedSubscript:*MEMORY[0x1E69AE2D8]];
+      v40 = [v37 initWithIsSensitiveNudity:v38 isSensitiveGoreViolence:v39];
+      v142 = v40;
+      v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v142 count:1];
+      [(MADImageSafetyClassificationRequest *)v36 setResults:v41];
 
       if (MediaAnalysisLogLevel() < 6 || !os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
       {
@@ -914,10 +917,10 @@ LABEL_15:
       }
 
       LOWORD(buf) = 0;
-      v39 = MEMORY[0x1E69E9C10];
+      v42 = MEMORY[0x1E69E9C10];
     }
 
-    _os_log_impl(&dword_1C9B70000, v39, OS_LOG_TYPE_INFO, "VCPMADImageSafetyClassificationTask complete", &buf, 2u);
+    _os_log_impl(&dword_1C9B70000, v42, OS_LOG_TYPE_INFO, "VCPMADImageSafetyClassificationTask complete", &buf, 2u);
     goto LABEL_15;
   }
 
@@ -928,42 +931,43 @@ LABEL_16:
 
 void __42__VCPMADImageSafetyClassificationTask_run__block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) safetyHandlerTypeN];
+  v3 = v2;
   if (v2)
   {
-    v3 = VCPSignPostLog();
-    v4 = os_signpost_id_generate(v3);
+    v4 = VCPSignPostLog(v2);
+    v5 = os_signpost_id_generate(v4);
 
-    v5 = VCPSignPostLog();
-    v6 = v5;
-    if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+    v7 = VCPSignPostLog(v6);
+    v8 = v7;
+    if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
     {
-      v7 = *(*(a1 + 40) + 24);
+      v9 = *(*(a1 + 40) + 24);
       *buf = 138412290;
-      v26 = v7;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "CommSafetyHandlerTypeN_analyzePixelBuffer", "%@", buf, 0xCu);
+      v29 = v9;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v5, "CommSafetyHandlerTypeN_analyzePixelBuffer", "%@", buf, 0xCu);
     }
 
-    v8 = *(a1 + 64);
-    v9 = *(*(a1 + 48) + 8);
-    obj = *(v9 + 40);
-    v10 = [v2 analyzePixelBuffer:v8 error:&obj];
-    objc_storeStrong((v9 + 40), obj);
-    v11 = VCPSignPostLog();
-    v12 = v11;
-    if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+    v10 = *(a1 + 64);
+    v11 = *(*(a1 + 48) + 8);
+    obj = *(v11 + 40);
+    v12 = [v3 analyzePixelBuffer:v10 error:&obj];
+    objc_storeStrong((v11 + 40), obj);
+    v14 = VCPSignPostLog(v13);
+    v15 = v14;
+    if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
     {
-      v13 = *(*(a1 + 40) + 24);
+      v16 = *(*(a1 + 40) + 24);
       *buf = 138412290;
-      v26 = v13;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v12, OS_SIGNPOST_INTERVAL_END, v4, "CommSafetyHandlerTypeN_analyzePixelBuffer", "%@", buf, 0xCu);
+      v29 = v16;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v15, OS_SIGNPOST_INTERVAL_END, v5, "CommSafetyHandlerTypeN_analyzePixelBuffer", "%@", buf, 0xCu);
     }
 
-    v14 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v10, "sensitiveExplicit")}];
-    v15 = *(*(a1 + 56) + 8);
-    v16 = *(v15 + 40);
-    *(v15 + 40) = v14;
+    v17 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v12, "sensitiveExplicit")}];
+    v18 = *(*(a1 + 56) + 8);
+    v19 = *(v18 + 40);
+    *(v18 + 40) = v17;
   }
 
   else
@@ -971,72 +975,73 @@ void __42__VCPMADImageSafetyClassificationTask_run__block_invoke(uint64_t a1)
     if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v26 = objc_opt_class();
-      v17 = v26;
+      v29 = objc_opt_class();
+      v20 = v29;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ safetyHandlerTypeN unavailable for analyze pixel buffer", buf, 0xCu);
     }
 
-    v18 = MEMORY[0x1E696ABC0];
-    v23 = *MEMORY[0x1E696A578];
-    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ safetyHandlerTypeN unavailable", objc_opt_class()];
-    v24 = v10;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
-    v19 = [v18 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v16];
-    v20 = *(*(a1 + 48) + 8);
-    v21 = *(v20 + 40);
-    *(v20 + 40) = v19;
+    v21 = MEMORY[0x1E696ABC0];
+    v26 = *MEMORY[0x1E696A578];
+    v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ safetyHandlerTypeN unavailable", objc_opt_class()];
+    v27 = v12;
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    v22 = [v21 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v19];
+    v23 = *(*(a1 + 48) + 8);
+    v24 = *(v23 + 40);
+    *(v23 + 40) = v22;
   }
 }
 
 void __42__VCPMADImageSafetyClassificationTask_run__block_invoke_387(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) safetyHandlerTypeGV];
+  v3 = v2;
   if (v2)
   {
-    v3 = VCPSignPostLog();
-    v4 = os_signpost_id_generate(v3);
+    v4 = VCPSignPostLog(v2);
+    v5 = os_signpost_id_generate(v4);
 
-    v5 = VCPSignPostLog();
-    v6 = v5;
-    if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+    v7 = VCPSignPostLog(v6);
+    v8 = v7;
+    if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
     {
-      v7 = *(*(a1 + 40) + 24);
+      v9 = *(*(a1 + 40) + 24);
       *buf = 138412290;
-      v28 = v7;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "CommSafetyHandlerTypeGV_analyzePixelBuffer", "%@", buf, 0xCu);
+      v31 = v9;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v5, "CommSafetyHandlerTypeGV_analyzePixelBuffer", "%@", buf, 0xCu);
     }
 
-    v8 = *(a1 + 64);
-    v9 = *(*(a1 + 48) + 8);
-    obj = *(v9 + 40);
-    v10 = [v2 analyzePixelBuffer:v8 error:&obj];
-    objc_storeStrong((v9 + 40), obj);
-    v11 = VCPSignPostLog();
-    v12 = v11;
-    if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+    v10 = *(a1 + 64);
+    v11 = *(*(a1 + 48) + 8);
+    obj = *(v11 + 40);
+    v12 = [v3 analyzePixelBuffer:v10 error:&obj];
+    objc_storeStrong((v11 + 40), obj);
+    v14 = VCPSignPostLog(v13);
+    v15 = v14;
+    if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
     {
-      v13 = *(*(a1 + 40) + 24);
+      v16 = *(*(a1 + 40) + 24);
       *buf = 138412290;
-      v28 = v13;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v12, OS_SIGNPOST_INTERVAL_END, v4, "CommSafetyHandlerTypeGV_analyzePixelBuffer", "%@", buf, 0xCu);
+      v31 = v16;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v15, OS_SIGNPOST_INTERVAL_END, v5, "CommSafetyHandlerTypeGV_analyzePixelBuffer", "%@", buf, 0xCu);
     }
 
-    v14 = MEMORY[0x1E696AD98];
-    if ([v10 sensitiveGore])
+    v17 = MEMORY[0x1E696AD98];
+    if ([v12 sensitiveGore])
     {
-      v15 = 1;
+      v18 = 1;
     }
 
     else
     {
-      v15 = [v10 sensitiveViolence];
+      v18 = [v12 sensitiveViolence];
     }
 
-    v22 = [v14 numberWithBool:v15];
-    v23 = *(*(a1 + 56) + 8);
-    v18 = *(v23 + 40);
-    *(v23 + 40) = v22;
+    v25 = [v17 numberWithBool:v18];
+    v26 = *(*(a1 + 56) + 8);
+    v21 = *(v26 + 40);
+    *(v26 + 40) = v25;
   }
 
   else
@@ -1044,20 +1049,20 @@ void __42__VCPMADImageSafetyClassificationTask_run__block_invoke_387(uint64_t a1
     if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v28 = objc_opt_class();
-      v16 = v28;
+      v31 = objc_opt_class();
+      v19 = v31;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ safetyHandlerTypeGV unavailable for classifying pixel buffer", buf, 0xCu);
     }
 
-    v17 = MEMORY[0x1E696ABC0];
-    v25 = *MEMORY[0x1E696A578];
-    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ safetyHandlerTypeGV unavailable", objc_opt_class()];
-    v26 = v10;
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-    v19 = [v17 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v18];
-    v20 = *(*(a1 + 48) + 8);
-    v21 = *(v20 + 40);
-    *(v20 + 40) = v19;
+    v20 = MEMORY[0x1E696ABC0];
+    v28 = *MEMORY[0x1E696A578];
+    v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ safetyHandlerTypeGV unavailable", objc_opt_class()];
+    v29 = v12;
+    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+    v22 = [v20 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v21];
+    v23 = *(*(a1 + 48) + 8);
+    v24 = *(v23 + 40);
+    *(v23 + 40) = v22;
   }
 }
 

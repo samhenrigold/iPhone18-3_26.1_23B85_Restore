@@ -489,14 +489,14 @@ void __42__CKRecipientSelectionController_loadView__block_invoke()
   loadView_attributes = v3;
 
   v5 = objc_alloc(MEMORY[0x1E696AAB0]);
-  v6 = CKFrameworkBundle();
+  v6 = CKFrameworkBundle(v5);
   v7 = [v6 localizedStringForKey:@"TO" value:&stru_1F04268F8 table:@"ChatKit"];
   v8 = [v5 initWithString:v7 attributes:loadView_attributes];
   v9 = loadView_toText;
   loadView_toText = v8;
 
   v10 = objc_alloc(MEMORY[0x1E696AAB0]);
-  v11 = CKFrameworkBundle();
+  v11 = CKFrameworkBundle(v10);
   v12 = [v11 localizedStringForKey:@"No Recipients" value:&stru_1F04268F8 table:@"ChatKit"];
   v13 = [v10 initWithString:v12 attributes:loadView_attributes];
   v14 = loadView_placeHolderText;
@@ -2161,7 +2161,7 @@ void __69__CKRecipientSelectionController__openStewieAppForRoadsideIfRequired__b
 
 - (char)serviceTypeForRecipient:(id)recipient
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   recipientCopy = recipient;
   supportsBusinessChat = [MEMORY[0x1E69A8020] supportsBusinessChat];
   normalizedAddress = [recipientCopy normalizedAddress];
@@ -2177,9 +2177,9 @@ void __69__CKRecipientSelectionController__openStewieAppForRoadsideIfRequired__b
     {
       normalizedAddress2 = [recipientCopy normalizedAddress];
       *buf = 138412546;
-      v38 = normalizedAddress2;
-      v39 = 2048;
-      v40 = v9;
+      v42 = normalizedAddress2;
+      v43 = 2048;
+      v44 = v9;
       _os_log_impl(&dword_19020E000, v10, OS_LOG_TYPE_INFO, "IDS status for recipinet address %@ is %ld", buf, 0x16u);
     }
   }
@@ -2205,8 +2205,8 @@ void __69__CKRecipientSelectionController__openStewieAppForRoadsideIfRequired__b
 
       if (v24)
       {
-        v36 = v24;
-        v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v36 count:1];
+        v40 = v24;
+        v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v40 count:1];
         v26 = [v19 conversationForHandles:v25 displayName:0 joinedChatsOnly:1 create:0];
 
         if (v26)
@@ -2219,35 +2219,33 @@ void __69__CKRecipientSelectionController__openStewieAppForRoadsideIfRequired__b
             if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
             {
               *buf = 138412546;
-              v38 = v24;
-              v39 = 2112;
-              v40 = sendingService;
+              v42 = v24;
+              v43 = 2112;
+              v44 = sendingService;
               _os_log_impl(&dword_19020E000, v28, OS_LOG_TYPE_INFO, "Updating service color in recipient search list for handle: %@, with service: %@", buf, 0x16u);
             }
           }
 
           if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
           {
-            v34 = v24;
-            v35 = sendingService;
-            _CKLogExternal();
+            _CKLogExternal(0x13u, @"Updating service color in recipient search list for handle: %@, with service: %@", v29, v30, v31, v32, v33, v34, v24);
           }
 
           LOBYTE(v16) = [sendingService __ck_serviceType];
           isBusiness = [v24 isBusiness];
           if (supportsBusinessChat)
           {
-            v30 = 4;
+            v36 = 4;
           }
 
           else
           {
-            v30 = 0;
+            v36 = 0;
           }
 
           if (isBusiness)
           {
-            LOBYTE(v16) = v30;
+            LOBYTE(v16) = v36;
           }
 
           goto LABEL_37;
@@ -2256,13 +2254,13 @@ void __69__CKRecipientSelectionController__openStewieAppForRoadsideIfRequired__b
 
       else if (IMOSLoggingEnabled())
       {
-        v31 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+        v37 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
         {
           normalizedAddress4 = [recipientCopy normalizedAddress];
           *buf = 138412290;
-          v38 = normalizedAddress4;
-          _os_log_impl(&dword_19020E000, v31, OS_LOG_TYPE_INFO, "ServiceTypeForRecipient: Handle is nil for recipient address: %@", buf, 0xCu);
+          v42 = normalizedAddress4;
+          _os_log_impl(&dword_19020E000, v37, OS_LOG_TYPE_INFO, "ServiceTypeForRecipient: Handle is nil for recipient address: %@", buf, 0xCu);
         }
       }
 
@@ -3633,7 +3631,7 @@ void __54__CKRecipientSelectionController__dismissPeoplePicker__block_invoke(uin
     [toField3 titleLabelBaselineAlignmentRectForLabel:self->_toFieldPlaceholderLabel];
     v23 = v22;
     v25 = v24;
-    v48 = v26;
+    v49 = v26;
 
     toField4 = [(CKRecipientSelectionController *)self toField];
     addButton = [toField4 addButton];
@@ -3649,12 +3647,12 @@ void __54__CKRecipientSelectionController__dismissPeoplePicker__block_invoke(uin
 
     if ([*MEMORY[0x1E69DDA98] userInterfaceLayoutDirection] == 1)
     {
-      v51.origin.x = v30;
-      v51.origin.y = v32;
-      v51.size.width = v34;
-      v51.size.height = v36;
-      MaxX = CGRectGetMaxX(v51);
-      v41 = v39 + *&v48 - MaxX;
+      v52.origin.x = v30;
+      v52.origin.y = v32;
+      v52.size.width = v34;
+      v52.size.height = v36;
+      MaxX = CGRectGetMaxX(v52);
+      v41 = v39 + *&v49 - MaxX;
     }
 
     else
@@ -3673,9 +3671,9 @@ void __54__CKRecipientSelectionController__dismissPeoplePicker__block_invoke(uin
     lightGrayColor = [MEMORY[0x1E69DC888] lightGrayColor];
     [(UILabel *)self->_toFieldPlaceholderLabel setTextColor:lightGrayColor];
 
-    v46 = CKFrameworkBundle();
-    v47 = [v46 localizedStringForKey:@"GAME_CENTER_TO_FIELD_PLACEHOLDER" value:&stru_1F04268F8 table:@"ChatKit"];
-    [(UILabel *)self->_toFieldPlaceholderLabel setText:v47];
+    v47 = CKFrameworkBundle(v46);
+    v48 = [v47 localizedStringForKey:@"GAME_CENTER_TO_FIELD_PLACEHOLDER" value:&stru_1F04268F8 table:@"ChatKit"];
+    [(UILabel *)self->_toFieldPlaceholderLabel setText:v48];
 
     [(UILabel *)self->_toFieldPlaceholderLabel setUserInteractionEnabled:0];
     toField7 = [(CKRecipientSelectionController *)self toField];
@@ -4448,13 +4446,13 @@ void __103__CKRecipientSelectionController_refreshComposeSendingServiceForAddres
   }
 }
 
-uint64_t __47__CKRecipientSelectionController_addRecipient___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6)
+id *__47__CKRecipientSelectionController_addRecipient___block_invoke(id *result, uint64_t a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6)
 {
   if (a6 == 1 && a5)
   {
     v7 = result;
-    [*(result + 32) _showOneTimeErrorAlertForAddedRecipient:*(result + 40) service:a2 withError:1];
-    v8 = *(v7 + 32);
+    [result[4] _showOneTimeErrorAlertForAddedRecipient:result[5] service:a2 withError:1];
+    v8 = v7[4];
 
     return [v8 _adjustToFieldPositionIfNecessary];
   }
@@ -5693,7 +5691,7 @@ LABEL_17:
   {
     rawAddress = [v6 rawAddress];
     v10 = MEMORY[0x1E696AEC0];
-    v11 = CKFrameworkBundle();
+    v11 = CKFrameworkBundle(rawAddress);
     v12 = [v11 localizedStringForKey:@"RECIPIENT_AVAILABILITY_TIMEOUT_ERROR_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
     v13 = [v10 stringWithFormat:v12, rawAddress];
 
@@ -5813,40 +5811,41 @@ void __73__CKRecipientSelectionController__recipientCausingTooManyRecipientsErro
 
   if (serviceCopy)
   {
-    if ([serviceCopy __ck_isiMessage])
+    __ck_isiMessage = [serviceCopy __ck_isiMessage];
+    if (__ck_isiMessage)
     {
 LABEL_5:
-      v11 = CKFrameworkBundle();
-      v12 = [v11 localizedStringForKey:@"ADDRESS_LIST_FULL" value:&stru_1F04268F8 table:@"ChatKit"];
+      v12 = CKFrameworkBundle(__ck_isiMessage);
+      v13 = [v12 localizedStringForKey:@"ADDRESS_LIST_FULL" value:&stru_1F04268F8 table:@"ChatKit"];
 
       iMessageService = [MEMORY[0x1E69A5C90] iMessageService];
       lastAddressedHandle = [(CKConversation *)self->_conversation lastAddressedHandle];
       lastAddressedSIMID = [(CKConversation *)self->_conversation lastAddressedSIMID];
-      v16 = [iMessageService __ck_maxRecipientCountForHandle:lastAddressedHandle simID:lastAddressedSIMID];
+      v17 = [iMessageService __ck_maxRecipientCountForHandle:lastAddressedHandle simID:lastAddressedSIMID];
 
-      v17 = MEMORY[0x1E696ADA0];
-      v18 = [MEMORY[0x1E696AD98] numberWithInteger:v16];
-      v19 = [v17 localizedStringFromNumber:v18 numberStyle:1];
+      v18 = MEMORY[0x1E696ADA0];
+      v19 = [MEMORY[0x1E696AD98] numberWithInteger:v17];
+      v20 = [v18 localizedStringFromNumber:v19 numberStyle:1];
 
-      v20 = MEMORY[0x1E696AEC0];
-      v21 = CKFrameworkBundle();
-      v22 = [v21 localizedStringForKey:@"ERR_TOO_MANY_RECIPIENTS_FOR_IMESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
-      v23 = [v20 stringWithFormat:v22, v19];
+      v21 = MEMORY[0x1E696AEC0];
+      v23 = CKFrameworkBundle(v22);
+      v24 = [v23 localizedStringForKey:@"ERR_TOO_MANY_RECIPIENTS_FOR_IMESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
+      v25 = [v21 stringWithFormat:v24, v20];
 
       mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
       userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
       if (userInterfaceLayoutDirection == 1)
       {
-        v26 = @"\u200F";
+        v28 = @"\u200F";
       }
 
       else
       {
-        v26 = @"\u200E";
+        v28 = @"\u200E";
       }
 
-      v27 = [(__CFString *)v26 stringByAppendingString:v23];
+      v29 = [(__CFString *)v28 stringByAppendingString:v25];
       goto LABEL_29;
     }
   }
@@ -5854,9 +5853,9 @@ LABEL_5:
   else
   {
     previousSendingService = [(CKPendingConversation *)self->_conversation previousSendingService];
-    __ck_isiMessage = [previousSendingService __ck_isiMessage];
+    __ck_isiMessage2 = [previousSendingService __ck_isiMessage];
 
-    if (__ck_isiMessage)
+    if (__ck_isiMessage2)
     {
       goto LABEL_5;
     }
@@ -5872,11 +5871,11 @@ LABEL_5:
     _recipientCausingTooManyRecipientsError = recipientCopy;
   }
 
-  v23 = _recipientCausingTooManyRecipientsError;
+  v25 = _recipientCausingTooManyRecipientsError;
   smsService = [MEMORY[0x1E69A5CA0] smsService];
-  v32 = [(CKRecipientSelectionController *)self _availibilityForRecipient:recipientCopy onService:smsService];
+  v34 = [(CKRecipientSelectionController *)self _availibilityForRecipient:recipientCopy onService:smsService];
 
-  if (v32 == 1)
+  if (v34 == 1)
   {
     smsService2 = [MEMORY[0x1E69A5CA0] smsService];
   }
@@ -5891,88 +5890,88 @@ LABEL_5:
     smsService2 = [(CKPendingConversation *)self->_conversation previousSendingService];
   }
 
-  v34 = smsService2;
-  compositeName = [v23 compositeName];
+  v36 = smsService2;
+  compositeName = [v25 compositeName];
   lastAddressedHandle2 = [(CKConversation *)self->_conversation lastAddressedHandle];
   lastAddressedSIMID2 = [(CKConversation *)self->_conversation lastAddressedSIMID];
-  v60 = v34;
-  v38 = [v34 __ck_maxRecipientCountForHandle:lastAddressedHandle2 simID:lastAddressedSIMID2];
+  v65 = v36;
+  v40 = [v36 __ck_maxRecipientCountForHandle:lastAddressedHandle2 simID:lastAddressedSIMID2];
 
-  v39 = MEMORY[0x1E696ADA0];
-  v40 = [MEMORY[0x1E696AD98] numberWithInteger:v38];
-  v19 = [v39 localizedStringFromNumber:v40 numberStyle:1];
+  v41 = MEMORY[0x1E696ADA0];
+  v42 = [MEMORY[0x1E696AD98] numberWithInteger:v40];
+  v20 = [v41 localizedStringFromNumber:v42 numberStyle:1];
 
-  if (compositeName && ([compositeName isEqualToString:&stru_1F04268F8] & 1) == 0)
+  if (compositeName && (v43 = [compositeName isEqualToString:&stru_1F04268F8], (v43 & 1) == 0))
   {
-    v43 = MEMORY[0x1E696AEC0];
-    v44 = CKFrameworkBundle();
-    v45 = [v44 localizedStringForKey:@"CANNOT_ADD_RECIPIENT_NAME" value:&stru_1F04268F8 table:@"ChatKit"];
-    v41 = [v43 stringWithFormat:v45, compositeName];
+    v46 = MEMORY[0x1E696AEC0];
+    v47 = CKFrameworkBundle(v43);
+    v48 = [v47 localizedStringForKey:@"CANNOT_ADD_RECIPIENT_NAME" value:&stru_1F04268F8 table:@"ChatKit"];
+    v44 = [v46 stringWithFormat:v48, compositeName];
 
     mEMORY[0x1E69DC668]2 = [MEMORY[0x1E69DC668] sharedApplication];
     userInterfaceLayoutDirection2 = [mEMORY[0x1E69DC668]2 userInterfaceLayoutDirection];
 
     if (userInterfaceLayoutDirection2 == 1)
     {
-      v48 = @"\u200F";
+      v51 = @"\u200F";
     }
 
     else
     {
-      v48 = @"\u200E";
+      v51 = @"\u200E";
     }
 
-    v42 = [(__CFString *)v48 stringByAppendingString:v41];
+    v45 = [(__CFString *)v51 stringByAppendingString:v44];
   }
 
   else
   {
-    v41 = CKFrameworkBundle();
-    v42 = [v41 localizedStringForKey:@"CANNOT_ADD_RECIPIENT" value:&stru_1F04268F8 table:@"ChatKit"];
+    v44 = CKFrameworkBundle(v43);
+    v45 = [v44 localizedStringForKey:@"CANNOT_ADD_RECIPIENT" value:&stru_1F04268F8 table:@"ChatKit"];
   }
 
-  v12 = v42;
+  v13 = v45;
 
-  v49 = MEMORY[0x1E696AEC0];
-  v50 = CKFrameworkBundle();
-  v51 = [v50 localizedStringForKey:@"ERR_ALL_RECIPIENTS_NEED_IMESSAGE_OR_RCS" value:&stru_1F04268F8 table:@"ChatKit"];
-  v52 = [v49 stringWithFormat:v51, v19];
+  v52 = MEMORY[0x1E696AEC0];
+  v54 = CKFrameworkBundle(v53);
+  v55 = [v54 localizedStringForKey:@"ERR_ALL_RECIPIENTS_NEED_IMESSAGE_OR_RCS" value:&stru_1F04268F8 table:@"ChatKit"];
+  v56 = [v52 stringWithFormat:v55, v20];
 
   mEMORY[0x1E69DC668]3 = [MEMORY[0x1E69DC668] sharedApplication];
   userInterfaceLayoutDirection3 = [mEMORY[0x1E69DC668]3 userInterfaceLayoutDirection];
 
   if (userInterfaceLayoutDirection3 == 1)
   {
-    v55 = @"\u200F";
+    v59 = @"\u200F";
   }
 
   else
   {
-    v55 = @"\u200E";
+    v59 = @"\u200E";
   }
 
-  v27 = [(__CFString *)v55 stringByAppendingString:v52];
+  v29 = [(__CFString *)v59 stringByAppendingString:v56];
 
 LABEL_29:
-  v56 = CKFrameworkBundle();
-  v57 = [v56 localizedStringForKey:@"OK" value:&stru_1F04268F8 table:@"ChatKit"];
+  v61 = CKFrameworkBundle(v60);
+  v62 = [v61 localizedStringForKey:@"OK" value:&stru_1F04268F8 table:@"ChatKit"];
 
   objc_initWeak(&location, self);
-  v61[0] = MEMORY[0x1E69E9820];
-  v61[1] = 3221225472;
-  v61[2] = __92__CKRecipientSelectionController__showOneTimeErrorAlertForAddedRecipient_service_withError___block_invoke;
-  v61[3] = &unk_1E72EC698;
-  objc_copyWeak(&v62, &location);
-  v58 = CKCreateAlertControllerWithError(0, v12, v27, v57, v61);
-  v59 = v58;
-  if (v58)
+  v66[0] = MEMORY[0x1E69E9820];
+  v66[1] = 3221225472;
+  v66[2] = __92__CKRecipientSelectionController__showOneTimeErrorAlertForAddedRecipient_service_withError___block_invoke;
+  v66[3] = &unk_1E72EC698;
+  objc_copyWeak(&v67, &location);
+  v63 = CKCreateAlertControllerWithError(0, v13, v29, v62, v66);
+  v64 = v63;
+  if (v63)
   {
-    [v58 presentFromViewController:self animated:1 completion:0];
+    [v63 presentFromViewController:self animated:1 completion:0];
   }
 
   self->_didShowOneTimeErrorAlert = 1;
 
-  objc_destroyWeak(&v62);
+  objc_destroyWeak(&v67);
   objc_destroyWeak(&location);
 
 LABEL_32:
@@ -5988,19 +5987,19 @@ void __92__CKRecipientSelectionController__showOneTimeErrorAlertForAddedRecipien
 
 - (void)_presentBusinessChatNotSupportedError
 {
-  v3 = CKFrameworkBundle();
+  v3 = CKFrameworkBundle(self);
   v4 = [v3 localizedStringForKey:@"CANNOT_USE_MESSAGES_FOR_BUSINESS" value:&stru_1F04268F8 table:@"ChatKit"];
-  v5 = CKFrameworkBundle();
+  v5 = CKFrameworkBundle(v4);
   v6 = [v5 localizedStringForKey:@"BUSINESS_CHAT_IS_CURRENTLY_NOT_SUPPORTED" value:&stru_1F04268F8 table:@"ChatKit"];
-  v10 = [CKAlertController alertControllerWithTitle:v4 message:v6 preferredStyle:1];
+  v11 = [CKAlertController alertControllerWithTitle:v4 message:v6 preferredStyle:1];
 
-  v7 = CKFrameworkBundle();
-  v8 = [v7 localizedStringForKey:@"OK" value:&stru_1F04268F8 table:@"ChatKit"];
-  v9 = [CKAlertAction actionWithTitle:v8 style:0 handler:0];
+  v8 = CKFrameworkBundle(v7);
+  v9 = [v8 localizedStringForKey:@"OK" value:&stru_1F04268F8 table:@"ChatKit"];
+  v10 = [CKAlertAction actionWithTitle:v9 style:0 handler:0];
 
-  [v10 addAction:v9];
-  [v10 setPreferredAction:v9];
-  [v10 presentFromViewController:self animated:1 completion:0];
+  [v11 addAction:v10];
+  [v11 setPreferredAction:v10];
+  [v11 presentFromViewController:self animated:1 completion:0];
 }
 
 - (void)_refreshActionSheet
@@ -6049,13 +6048,13 @@ void __92__CKRecipientSelectionController__showOneTimeErrorAlertForAddedRecipien
   {
     [recipientCopy commentedAddress];
   }
-  v30 = ;
+  v32 = ;
   v6 = MEMORY[0x1E696AEC0];
-  v7 = CKFrameworkBundle();
+  v7 = CKFrameworkBundle(v32);
   v8 = [v7 localizedStringForKey:@"ADDRESS_NOT_REGISTERED_WITH_MADRID" value:&stru_1F04268F8 table:@"ChatKit"];
-  v9 = CKFrameworkBundle();
+  v9 = CKFrameworkBundle(v8);
   v10 = [v9 localizedStringForKey:@"MADRID" value:&stru_1F04268F8 table:@"ChatKit"];
-  v11 = [v6 stringWithFormat:v8, v30, v10];
+  v11 = [v6 stringWithFormat:v8, v32, v10];
 
   mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
   userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
@@ -6070,55 +6069,55 @@ void __92__CKRecipientSelectionController__showOneTimeErrorAlertForAddedRecipien
     v14 = @"\u200E";
   }
 
-  v32 = [(__CFString *)v14 stringByAppendingString:v11];
+  v34 = [(__CFString *)v14 stringByAppendingString:v11];
 
-  v15 = [CKAlertController alertControllerWithTitle:v32 message:0 preferredStyle:0];
+  v15 = [CKAlertController alertControllerWithTitle:v34 message:0 preferredStyle:0];
   toField = [(CKRecipientSelectionController *)self toField];
   v17 = [toField atomViewForRecipient:recipientCopy];
 
   allKeys = [v5 allKeys];
-  v38[0] = MEMORY[0x1E69E9820];
-  v38[1] = 3221225472;
-  v38[2] = __77__CKRecipientSelectionController_presentAlternateAddressesAlertForRecipient___block_invoke;
-  v38[3] = &unk_1E72EC6E8;
-  v39 = v15;
-  v40 = v5;
+  v40[0] = MEMORY[0x1E69E9820];
+  v40[1] = 3221225472;
+  v40[2] = __77__CKRecipientSelectionController_presentAlternateAddressesAlertForRecipient___block_invoke;
+  v40[3] = &unk_1E72EC6E8;
+  v41 = v15;
+  v42 = v5;
   selfCopy = self;
   v19 = recipientCopy;
-  v42 = v19;
-  v31 = v5;
+  v44 = v19;
+  v33 = v5;
   v20 = v15;
-  [allKeys enumerateObjectsUsingBlock:v38];
+  [allKeys enumerateObjectsUsingBlock:v40];
 
-  v21 = CKFrameworkBundle();
-  v22 = [v21 localizedStringForKey:@"REMOVE" value:&stru_1F04268F8 table:@"ChatKit"];
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __77__CKRecipientSelectionController_presentAlternateAddressesAlertForRecipient___block_invoke_3;
-  v36[3] = &unk_1E72EC710;
-  v36[4] = self;
-  v37 = v19;
-  v23 = v19;
-  v24 = [CKAlertAction actionWithTitle:v22 style:2 handler:v36];
-  [v20 addAction:v24];
+  v22 = CKFrameworkBundle(v21);
+  v23 = [v22 localizedStringForKey:@"REMOVE" value:&stru_1F04268F8 table:@"ChatKit"];
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __77__CKRecipientSelectionController_presentAlternateAddressesAlertForRecipient___block_invoke_3;
+  v38[3] = &unk_1E72EC710;
+  v38[4] = self;
+  v39 = v19;
+  v24 = v19;
+  v25 = [CKAlertAction actionWithTitle:v23 style:2 handler:v38];
+  [v20 addAction:v25];
 
-  v25 = CKFrameworkBundle();
-  v26 = [v25 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __77__CKRecipientSelectionController_presentAlternateAddressesAlertForRecipient___block_invoke_4;
-  v33[3] = &unk_1E72EC710;
-  v34 = v17;
+  v27 = CKFrameworkBundle(v26);
+  v28 = [v27 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __77__CKRecipientSelectionController_presentAlternateAddressesAlertForRecipient___block_invoke_4;
+  v35[3] = &unk_1E72EC710;
+  v36 = v17;
   selfCopy2 = self;
-  v27 = v17;
-  v28 = [CKAlertAction actionWithTitle:v26 style:1 handler:v33];
-  [v20 addAction:v28];
+  v29 = v17;
+  v30 = [CKAlertAction actionWithTitle:v28 style:1 handler:v35];
+  [v20 addAction:v30];
 
   popoverPresentationController = [v20 popoverPresentationController];
-  [popoverPresentationController setSourceView:v27];
+  [popoverPresentationController setSourceView:v29];
 
   [v20 presentFromViewController:self animated:1 completion:0];
-  [v27 setSelected:1 animated:1];
+  [v29 setSelected:1 animated:1];
   [(CKRecipientSelectionController *)self setAlternateAddressesAlertController:v20];
 }
 
@@ -6126,7 +6125,7 @@ void __77__CKRecipientSelectionController_presentAlternateAddressesAlertForRecip
 {
   v3 = a2;
   v4 = MEMORY[0x1E696AEC0];
-  v5 = CKFrameworkBundle();
+  v5 = CKFrameworkBundle(v3);
   v6 = [v5 localizedStringForKey:@"USE_ALTERNATE_MADRID_ADDRESS" value:&stru_1F04268F8 table:@"ChatKit"];
   v7 = [v4 stringWithFormat:v6, v3];
 
@@ -6377,7 +6376,7 @@ LABEL_13:
       }
 
       contentViewController = [(CKChatBotInfoController *)v13 contentViewController];
-      v22 = CKFrameworkBundle();
+      v22 = CKFrameworkBundle(contentViewController);
       v31 = [v22 localizedStringForKey:@"REMOVE_RECENT" value:&stru_1F04268F8 table:@"ChatKit"];
       cardBottomGroup = [contentViewController cardBottomGroup];
       [contentViewController addActionWithTitle:v31 target:self selector:sel__removeRecent inGroup:cardBottomGroup destructive:1];
@@ -6598,7 +6597,7 @@ void __69__CKRecipientSelectionController__showDetailsForRecipient_canDelete___b
   [MEMORY[0x1E69DD250] animateWithDuration:v35 animations:0.200000003];
 }
 
-uint64_t __61__CKRecipientSelectionController__updateRecipientViewLayouts__block_invoke(uint64_t a1)
+void *__61__CKRecipientSelectionController__updateRecipientViewLayouts__block_invoke(uint64_t a1)
 {
   if (*(a1 + 72) == 1)
   {
@@ -7155,7 +7154,7 @@ LABEL_13:
 
 - (void)_updateAddressBookProperties
 {
-  v6 = CKPreferredAddressTypes();
+  v6 = CKPreferredAddressTypes(self);
   if ([v6 count] == 2 && objc_msgSend(v6, "containsObject:", *MEMORY[0x1E695C330]) && (objc_msgSend(v6, "containsObject:", *MEMORY[0x1E695C208]) & 1) != 0)
   {
     v3 = 7;
@@ -7203,7 +7202,7 @@ LABEL_13:
     [(CNContactPickerViewController *)v4 setDisplayedPropertyKeys:v6];
 
     navigationItem = [(CKCNContactPickerViewController *)v4 navigationItem];
-    v8 = CKFrameworkBundle();
+    v8 = CKFrameworkBundle(navigationItem);
     v9 = [v8 localizedStringForKey:@"NEW_MESSAGE_PROMPT" value:&stru_1F04268F8 table:@"ChatKit"];
     [navigationItem setPrompt:v9];
 
@@ -7394,13 +7393,17 @@ void __81__CKRecipientSelectionController_observeValueForKeyPath_ofObject_change
 void __70__CKRecipientSelectionController__openStewieAppForEmergencyIfRequired__block_invoke_431_cold_1(void *a1)
 {
   v1 = [a1 localizedDescription];
-  OUTLINED_FUNCTION_0_5(&dword_19020E000, v2, v3, "Request Stewie error: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_5(&dword_19020E000, v2, v3, "Request Stewie error: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void __69__CKRecipientSelectionController__openStewieAppForRoadsideIfRequired__block_invoke_434_cold_1(void *a1)
 {
   v1 = [a1 localizedDescription];
-  OUTLINED_FUNCTION_0_5(&dword_19020E000, v2, v3, "Request Stewie error: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_5(&dword_19020E000, v2, v3, "Request Stewie error: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

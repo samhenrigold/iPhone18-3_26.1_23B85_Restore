@@ -90,7 +90,7 @@ void __105__CUUserNotificationSession_userNotificationCenter_didReceiveNotificat
           v33 = *(*(a1 + 40) + 72);
         }
 
-        LogPrintF(v33, "[CUUserNotificationSession userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:]_block_invoke", 0x5Au, "### Response failed: %{error}\n", v28, v29, v30, v31, v32);
+        LogPrintF(v33, "[CUUserNotificationSession userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:]_block_invoke", 90, "### Response failed: %{error}\n", v28, v29, v30, v31, v32);
 LABEL_26:
         (*(*(a1 + 56) + 16))();
 
@@ -110,7 +110,7 @@ LABEL_26:
           v36 = *(*(a1 + 40) + 72);
         }
 
-        LogPrintF(v36, "[CUUserNotificationSession userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:]_block_invoke", 0x1Eu, "Response wrong ID: %@ vs %@\n", v21, v22, v23, v24, v20);
+        LogPrintF(v36, "[CUUserNotificationSession userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:]_block_invoke", 30, "Response wrong ID: %@ vs %@\n", v21, v22, v23, v24, v20);
       }
 
 LABEL_24:
@@ -133,7 +133,7 @@ LABEL_27:
         v34 = *(*(a1 + 40) + 72);
       }
 
-      LogPrintF(v34, "[CUUserNotificationSession userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:]_block_invoke", 0x1Eu, "Response wrong category: %@ vs %@\n", v16, v17, v18, v19, v15);
+      LogPrintF(v34, "[CUUserNotificationSession userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:]_block_invoke", 30, "Response wrong category: %@ vs %@\n", v16, v17, v18, v19, v15);
     }
 
 LABEL_22:
@@ -157,7 +157,7 @@ LABEL_28:
       v11 = *(*(a1 + 40) + 72);
     }
 
-    LogPrintF(v11, "[CUUserNotificationSession userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:]_block_invoke", 0x1Eu, "Response wrong center: %{ptr} vs %{ptr}\n", a5, a6, a7, a8, v9);
+    LogPrintF(v11, "[CUUserNotificationSession userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:]_block_invoke", 30, "Response wrong center: %{ptr} vs %{ptr}\n", a5, a6, a7, a8, v9);
   }
 
 LABEL_15:
@@ -206,7 +206,7 @@ LABEL_21:
           ucat = self->_ucat;
         }
 
-        LogPrintF(ucat, "[CUUserNotificationSession _runResponse:error:]", 0x1Eu, "Request action default: %@\n", v22, v23, v24, v25, v19);
+        LogPrintF(ucat, "[CUUserNotificationSession _runResponse:error:]", 30, "Request action default: %@\n", v22, v23, v24, v25, v19);
         goto LABEL_16;
       }
 
@@ -246,7 +246,7 @@ LABEL_28:
           v33 = self->_ucat;
         }
 
-        LogPrintF(v33, "[CUUserNotificationSession _runResponse:error:]", 0x1Eu, "Request action dismiss: %@\n", v29, v30, v31, v32, v19);
+        LogPrintF(v33, "[CUUserNotificationSession _runResponse:error:]", 30, "Request action dismiss: %@\n", v29, v30, v31, v32, v19);
         goto LABEL_19;
       }
 
@@ -267,7 +267,7 @@ LABEL_28:
             v42 = self->_ucat;
           }
 
-          LogPrintF(v42, "[CUUserNotificationSession _runResponse:error:]", 0x1Eu, "Request action: %@, %@\n", v37, v38, v39, v40, v19);
+          LogPrintF(v42, "[CUUserNotificationSession _runResponse:error:]", 30, "Request action: %@, %@\n", v37, v38, v39, v40, v19);
         }
 
 LABEL_24:
@@ -343,7 +343,7 @@ LABEL_29:
       goto LABEL_53;
     }
 
-    v21 = objc_alloc_init(getUNMutableNotificationContentClass[0]());
+    v21 = objc_alloc_init(getUNMutableNotificationContentClass());
     v28 = self->_categoryID;
     v29 = v28 != 0;
     if (!v28)
@@ -363,43 +363,43 @@ LABEL_29:
       [v21 setHeader:v30];
     }
 
-    v82 = v28 != 0;
+    v83 = v28 != 0;
     v31 = self->_icon;
     if (v31)
     {
       [v21 setIcon:v31];
     }
 
-    v79 = v31;
+    v80 = v31;
     v32 = self->_iconAppIdentifier;
-    v83 = v32;
+    v84 = v32;
     if (v32)
     {
-      v33 = [getUNNotificationIconClass[0]() iconForApplicationIdentifier:v32];
+      v33 = [getUNNotificationIconClass() iconForApplicationIdentifier:v32];
       [v21 setIcon:v33];
     }
 
     v34 = self->_iconName;
-    v78 = v34;
+    v79 = v34;
     if (v34)
     {
-      v35 = [getUNNotificationIconClass[0]() iconNamed:v34];
+      v35 = [getUNNotificationIconClass() iconNamed:v34];
       [v21 setIcon:v35];
     }
 
     v36 = self->_iconPath;
-    v77 = v36;
+    v78 = v36;
     if (v36)
     {
-      v37 = [getUNNotificationIconClass[0]() iconAtPath:v36];
+      v37 = [getUNNotificationIconClass() iconAtPath:v36];
       [v21 setIcon:v37];
     }
 
     v38 = self->_iconSystemName;
-    v76 = v38;
+    v77 = v38;
     if (v38)
     {
-      v39 = [getUNNotificationIconClass[0]() iconForSystemImageNamed:v38];
+      v39 = [getUNNotificationIconClass() iconForSystemImageNamed:v38];
       [v21 setIcon:v39];
     }
 
@@ -411,7 +411,7 @@ LABEL_29:
     }
 
     v42 = self->_subtitleKey;
-    v74 = v42;
+    v75 = v42;
     if (v42)
     {
       v43 = [MEMORY[0x1E696AEC0] localizedUserNotificationStringForKey:v42 arguments:self->_subtitleArguments];
@@ -419,7 +419,7 @@ LABEL_29:
     }
 
     v44 = self->_bodyKey;
-    v73 = v44;
+    v74 = v44;
     if (v44)
     {
       v45 = [MEMORY[0x1E696AEC0] localizedUserNotificationStringForKey:v44 arguments:self->_bodyArguments];
@@ -436,11 +436,11 @@ LABEL_29:
       [v21 setShouldAuthenticateDefaultAction:1];
     }
 
-    [v21 setShouldBackgroundDefaultAction:1];
+    v46 = [v21 setShouldBackgroundDefaultAction:1];
     flags = self->_flags;
     if ((flags & 8) != 0)
     {
-      [v21 setShouldSuppressDefaultAction:1];
+      v46 = [v21 setShouldSuppressDefaultAction:1];
       flags = self->_flags;
       if ((flags & 0x10) == 0)
       {
@@ -459,7 +459,7 @@ LABEL_28:
       goto LABEL_28;
     }
 
-    [v21 setShouldIgnoreDoNotDisturb:1];
+    v46 = [v21 setShouldIgnoreDoNotDisturb:1];
     flags = self->_flags;
     if ((flags & 0x40) == 0)
     {
@@ -473,28 +473,28 @@ LABEL_29:
     }
 
 LABEL_44:
-    [v21 setShouldShowSubordinateIcon:1];
+    v46 = [v21 setShouldShowSubordinateIcon:1];
     if ((self->_flags & 0x80) == 0)
     {
 LABEL_31:
       if (self->_sound)
       {
-        [v21 setSound:?];
+        v46 = [v21 setSound:?];
       }
 
-      v80 = v30;
+      v81 = v30;
       soundAlertType = self->_soundAlertType;
       if (soundAlertType)
       {
-        v48 = [getUNNotificationSoundClass[0]() soundWithAlertType:soundAlertType];
-        [v21 setSound:v48];
+        v49 = [getUNNotificationSoundClass(v46) soundWithAlertType:soundAlertType];
+        [v21 setSound:v49];
       }
 
-      v75 = v40;
-      v49 = self->_userInfo;
-      if (v49)
+      v76 = v40;
+      v50 = self->_userInfo;
+      if (v50)
       {
-        [v21 setUserInfo:v49];
+        [v21 setUserInfo:v50];
       }
 
       uUIDString = self->_identifier;
@@ -507,7 +507,7 @@ LABEL_31:
       }
 
       ucat = self->_ucat;
-      v57 = v83;
+      v58 = v84;
       if (ucat->var0 > 30)
       {
         goto LABEL_47;
@@ -523,59 +523,59 @@ LABEL_31:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUUserNotificationSession _runRequestAddStart:]", 0x1Eu, "Request add start: Category %@, ID %@\n", v50, v51, v52, v53, v28);
+      LogPrintF(ucat, "[CUUserNotificationSession _runRequestAddStart:]", 30, "Request add start: Category %@, ID %@\n", v51, v52, v53, v54, v28);
 LABEL_47:
-      v81 = v28;
+      v82 = v28;
       objc_storeStrong(&self->_requestIdentifier, uUIDString);
-      v58 = [getUNNotificationRequestClass[0]() requestWithIdentifier:uUIDString content:v21 trigger:0];
-      v59 = self->_unCenter;
-      v85[0] = MEMORY[0x1E69E9820];
-      v85[1] = 3221225472;
-      v85[2] = __49__CUUserNotificationSession__runRequestAddStart___block_invoke;
-      v85[3] = &unk_1E73A4200;
-      v85[4] = self;
-      v85[5] = v59;
-      v60 = uUIDString;
-      v86 = v60;
-      [(UNUserNotificationCenter *)v59 addNotificationRequest:v58 withCompletionHandler:v85];
+      v59 = [(objc_class *)getUNNotificationRequestClass() requestWithIdentifier:uUIDString content:v21 trigger:0];
+      v60 = self->_unCenter;
+      v86[0] = MEMORY[0x1E69E9820];
+      v86[1] = 3221225472;
+      v86[2] = __49__CUUserNotificationSession__runRequestAddStart___block_invoke;
+      v86[3] = &unk_1E73A4200;
+      v86[4] = self;
+      v86[5] = v60;
+      v61 = uUIDString;
+      v87 = v61;
+      [(UNUserNotificationCenter *)v60 addNotificationRequest:v59 withCompletionHandler:v86];
       if (self->_timeoutSeconds > 0.0)
       {
-        v72 = v14;
-        v61 = v13;
-        v62 = v12;
+        v73 = v14;
+        v62 = v13;
+        v63 = v12;
         timer = self->_timer;
         if (timer)
         {
-          v64 = timer;
-          dispatch_source_cancel(v64);
-          v65 = self->_timer;
+          v65 = timer;
+          dispatch_source_cancel(v65);
+          v66 = self->_timer;
           self->_timer = 0;
         }
 
-        v66 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_dispatchQueue);
-        v67 = self->_timer;
-        self->_timer = v66;
-        v68 = v66;
+        v67 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_dispatchQueue);
+        v68 = self->_timer;
+        self->_timer = v67;
+        v69 = v67;
 
         handler[0] = MEMORY[0x1E69E9820];
         handler[1] = 3221225472;
         handler[2] = __49__CUUserNotificationSession__runRequestAddStart___block_invoke_3;
         handler[3] = &unk_1E73A49F0;
-        handler[4] = v68;
+        handler[4] = v69;
         handler[5] = self;
-        dispatch_source_set_event_handler(v68, handler);
-        v69 = dispatch_time(0, (self->_timeoutSeconds * 1000000000.0));
-        dispatch_source_set_timer(v68, v69, 0xFFFFFFFFFFFFFFFFLL, 0x3B9ACA00uLL);
-        dispatch_activate(v68);
+        dispatch_source_set_event_handler(v69, handler);
+        v70 = dispatch_time(0, (self->_timeoutSeconds * 1000000000.0));
+        dispatch_source_set_timer(v69, v70, 0xFFFFFFFFFFFFFFFFLL, 0x3B9ACA00uLL);
+        dispatch_activate(v69);
 
-        v12 = v62;
-        v13 = v61;
-        v14 = v72;
-        v57 = v83;
+        v12 = v63;
+        v13 = v62;
+        v14 = v73;
+        v58 = v84;
       }
 
-      v29 = v82;
-      v28 = v81;
+      v29 = v83;
+      v28 = v82;
 LABEL_52:
 
 LABEL_53:
@@ -583,13 +583,13 @@ LABEL_53:
     }
 
 LABEL_30:
-    [v21 setShouldDisplayActionsInline:1];
+    v46 = [v21 setShouldDisplayActionsInline:1];
     goto LABEL_31;
   }
 
   if (start)
   {
-    NSErrorWithOSStatusF(4294960591, "No bundleID", v6, v7, v8, v9, v10, v11, v71);
+    NSErrorWithOSStatusF(4294960591, "No bundleID", v6, v7, v8, v9, v10, v11, v72);
     *start = v29 = 0;
   }
 
@@ -644,10 +644,10 @@ void *__49__CUUserNotificationSession__runRequestAddStart___block_invoke_3(uint6
   return result;
 }
 
-uint64_t __49__CUUserNotificationSession__runRequestAddStart___block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *__49__CUUserNotificationSession__runRequestAddStart___block_invoke_2(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *(result + 40);
-  if (*(result + 32) != *(v9 + 64))
+  v9 = result[5];
+  if (result[4] != *(v9 + 64))
   {
     return result;
   }
@@ -659,7 +659,7 @@ uint64_t __49__CUUserNotificationSession__runRequestAddStart___block_invoke_2(ui
     if (*v11 == -1)
     {
       v12 = _LogCategory_Initialize(v11, 0x1Eu);
-      v9 = *(v10 + 40);
+      v9 = v10[5];
       if (!v12)
       {
         goto LABEL_6;
@@ -668,12 +668,12 @@ uint64_t __49__CUUserNotificationSession__runRequestAddStart___block_invoke_2(ui
       v11 = *(v9 + 72);
     }
 
-    LogPrintF(v11, "[CUUserNotificationSession _runRequestAddStart:]_block_invoke_2", 0x1Eu, "Request added: %@, %{error}\n", a5, a6, a7, a8, *(v10 + 48));
-    v9 = *(v10 + 40);
+    LogPrintF(v11, "[CUUserNotificationSession _runRequestAddStart:]_block_invoke_2", 30, "Request added: %@, %{error}\n", a5, a6, a7, a8, v10[6]);
+    v9 = v10[5];
   }
 
 LABEL_6:
-  if (*(v10 + 56))
+  if (v10[7])
   {
     v13 = 3;
   }
@@ -684,8 +684,8 @@ LABEL_6:
   }
 
   *(v9 + 48) = v13;
-  objc_storeStrong((*(v10 + 40) + 40), *(v10 + 56));
-  v14 = *(v10 + 40);
+  objc_storeStrong((v10[5] + 40), v10[7]);
+  v14 = v10[5];
 
   return [v14 _run];
 }
@@ -705,7 +705,7 @@ LABEL_6:
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUUserNotificationSession _runAuthorizeRequestStart]", 0x1Eu, "Authorize request\n", v2, v3, v4, v5, v11[0]);
+    LogPrintF(ucat, "[CUUserNotificationSession _runAuthorizeRequestStart]", 30, "Authorize request\n", v2, v3, v4, v5, v11[0]);
   }
 
 LABEL_5:
@@ -741,10 +741,10 @@ void __54__CUUserNotificationSession__runAuthorizeRequestStart__block_invoke(int
   dispatch_async(v8, v10);
 }
 
-uint64_t __54__CUUserNotificationSession__runAuthorizeRequestStart__block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *__54__CUUserNotificationSession__runAuthorizeRequestStart__block_invoke_2(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *(result + 40);
-  if (*(result + 32) != *(v9 + 64))
+  v9 = result[5];
+  if (result[4] != *(v9 + 64))
   {
     return result;
   }
@@ -762,13 +762,13 @@ LABEL_4:
         v12 = "yes";
       }
 
-      LogPrintF(v11, "[CUUserNotificationSession _runAuthorizeRequestStart]_block_invoke_2", 0x1Eu, "Authorize response: Granted %s, %{error}\n", a5, a6, a7, a8, v12);
-      v9 = *(v10 + 40);
+      LogPrintF(v11, "[CUUserNotificationSession _runAuthorizeRequestStart]_block_invoke_2", 30, "Authorize response: Granted %s, %{error}\n", a5, a6, a7, a8, v12);
+      v9 = v10[5];
       goto LABEL_8;
     }
 
     v13 = _LogCategory_Initialize(v11, 0x1Eu);
-    v9 = *(v10 + 40);
+    v9 = v10[5];
     if (v13)
     {
       v11 = *(v9 + 72);
@@ -788,8 +788,8 @@ LABEL_8:
   }
 
   *(v9 + 48) = v14;
-  objc_storeStrong((*(v10 + 40) + 40), *(v10 + 48));
-  v15 = *(v10 + 40);
+  objc_storeStrong((v10[5] + 40), v10[6]);
+  v15 = v10[5];
 
   return [v15 _run];
 }
@@ -809,7 +809,7 @@ LABEL_8:
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUUserNotificationSession _runAuthorizeCheckStart]", 0x1Eu, "Authorization status request\n", v2, v3, v4, v5, v11[0]);
+    LogPrintF(ucat, "[CUUserNotificationSession _runAuthorizeCheckStart]", 30, "Authorization status request\n", v2, v3, v4, v5, v11[0]);
   }
 
 LABEL_5:
@@ -843,10 +843,10 @@ void __52__CUUserNotificationSession__runAuthorizeCheckStart__block_invoke(int8x
   dispatch_async(v6, block);
 }
 
-uint64_t __52__CUUserNotificationSession__runAuthorizeCheckStart__block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *__52__CUUserNotificationSession__runAuthorizeCheckStart__block_invoke_2(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *(result + 40);
-  if (*(result + 32) != *(v9 + 64))
+  v9 = result[5];
+  if (result[4] != *(v9 + 64))
   {
     return result;
   }
@@ -862,10 +862,10 @@ uint64_t __52__CUUserNotificationSession__runAuthorizeCheckStart__block_invoke_2
         goto LABEL_10;
       }
 
-      v11 = *(*(v10 + 40) + 72);
+      v11 = *(v10[5] + 72);
     }
 
-    v12 = *(v10 + 48);
+    v12 = v10[6];
     if (v12 > 3)
     {
       v13 = "?";
@@ -876,14 +876,14 @@ uint64_t __52__CUUserNotificationSession__runAuthorizeCheckStart__block_invoke_2
       v13 = off_1E73A41B0[v12];
     }
 
-    LogPrintF(v11, "[CUUserNotificationSession _runAuthorizeCheckStart]_block_invoke_2", 0x1Eu, "Authorization status response: %s\n", a5, a6, a7, a8, v13);
+    LogPrintF(v11, "[CUUserNotificationSession _runAuthorizeCheckStart]_block_invoke_2", 30, "Authorization status response: %s\n", a5, a6, a7, a8, v13);
   }
 
 LABEL_10:
-  v14 = *(v10 + 48);
+  v14 = v10[6];
   if ((v14 - 2) < 2)
   {
-    v15 = *(v10 + 40);
+    v15 = v10[5];
     v16 = 2;
   }
 
@@ -891,22 +891,22 @@ LABEL_10:
   {
     if (v14 == 1)
     {
-      *(*(v10 + 40) + 48) = 3;
+      *(v10[5] + 48) = 3;
       v17 = NSErrorWithOSStatusF(4294896150, "Authorization status denied", a3, a4, a5, a6, a7, a8, v21);
-      v18 = *(v10 + 40);
+      v18 = v10[5];
       v19 = *(v18 + 40);
       *(v18 + 40) = v17;
 
       goto LABEL_16;
     }
 
-    v15 = *(v10 + 40);
+    v15 = v10[5];
     v16 = 4;
   }
 
   *(v15 + 48) = v16;
 LABEL_16:
-  v20 = *(v10 + 40);
+  v20 = v10[5];
 
   return [v20 _run];
 }
@@ -919,7 +919,7 @@ LABEL_16:
     v18 = self->_categoryID;
     if (v18)
     {
-      v25 = [objc_alloc(getUNUserNotificationCenterClass[0]()) initWithBundleIdentifier:v11];
+      v25 = [objc_alloc(getUNUserNotificationCenterClass()) initWithBundleIdentifier:v11];
       v26 = v25 != 0;
       if (v25)
       {
@@ -1107,7 +1107,7 @@ LABEL_34:
     if (ucat->var0 != -1)
     {
 LABEL_3:
-      LogPrintF(ucat, "[CUUserNotificationSession _reportTimeout]", 0x1Eu, "Timeout\n", v2, v3, v4, v5, v10);
+      LogPrintF(ucat, "[CUUserNotificationSession _reportTimeout]", 30, "Timeout\n", v2, v3, v4, v5, v10);
       goto LABEL_5;
     }
 
@@ -1156,7 +1156,7 @@ LABEL_5:
       v10 = off_1E73A4128[state];
     }
 
-    LogPrintF(ucat, "[CUUserNotificationSession _reportError:]", 0x5Au, "### Failed: %s, %{error}\n", v4, v5, v6, v7, v10);
+    LogPrintF(ucat, "[CUUserNotificationSession _reportError:]", 90, "### Failed: %s, %{error}\n", v4, v5, v6, v7, v10);
   }
 
 LABEL_9:
@@ -1173,8 +1173,8 @@ LABEL_9:
 {
   if (self->_actionsChanged)
   {
-    v12[9] = v2;
-    v12[10] = v3;
+    v13[9] = v2;
+    v13[10] = v3;
     categoryID = self->_categoryID;
     if (categoryID)
     {
@@ -1182,15 +1182,15 @@ LABEL_9:
       v7 = categoryID;
       v8 = objc_alloc_init(v6);
       actions = self->_actions;
-      v12[0] = MEMORY[0x1E69E9820];
-      v12[1] = 3221225472;
-      v12[2] = __52__CUUserNotificationSession__updateActionCategories__block_invoke;
-      v12[3] = &unk_1E73A4018;
-      v12[4] = v8;
-      [(NSMutableDictionary *)actions enumerateKeysAndObjectsUsingBlock:v12];
-      v11 = [getUNNotificationCategoryClass[0]() categoryWithIdentifier:v7 actions:v8 intentIdentifiers:MEMORY[0x1E695E0F0] options:1];
-      v10 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:&v11 count:1];
-      [(UNUserNotificationCenter *)self->_unCenter setNotificationCategories:v10];
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = __52__CUUserNotificationSession__updateActionCategories__block_invoke;
+      v13[3] = &unk_1E73A4018;
+      v13[4] = v8;
+      v10 = [(NSMutableDictionary *)actions enumerateKeysAndObjectsUsingBlock:v13];
+      v12 = [getUNNotificationCategoryClass(v10) categoryWithIdentifier:v7 actions:v8 intentIdentifiers:MEMORY[0x1E695E0F0] options:1];
+      v11 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:&v12 count:1];
+      [(UNUserNotificationCenter *)self->_unCenter setNotificationCategories:v11];
       self->_actionsChanged = 0;
     }
   }
@@ -1224,7 +1224,7 @@ void *__45__CUUserNotificationSession_removeAllActions__block_invoke(uint64_t a1
     {
 LABEL_3:
       v4 = [*(v2 + 8) count];
-      LogPrintF(v3, "[CUUserNotificationSession removeAllActions]_block_invoke", 0x1Eu, "Remove all actions: %d total\n", v5, v6, v7, v8, v4);
+      LogPrintF(v3, "[CUUserNotificationSession removeAllActions]_block_invoke", 30, "Remove all actions: %d total\n", v5, v6, v7, v8, v4);
       v2 = *(a1 + 32);
       goto LABEL_5;
     }
@@ -1280,7 +1280,7 @@ LABEL_3:
       v4 = *(a1 + 40);
       v5 = [v12 action];
       v11 = [v5 title];
-      LogPrintF(v3, "[CUUserNotificationSession removeActionWithIdentifier:]_block_invoke", 0x1Eu, "Remove action: %@, '%@'\n", v6, v7, v8, v9, v4);
+      LogPrintF(v3, "[CUUserNotificationSession removeActionWithIdentifier:]_block_invoke", 30, "Remove action: %@, '%@'\n", v6, v7, v8, v9, v4);
 
       v2 = *(a1 + 32);
       goto LABEL_5;
@@ -1307,7 +1307,7 @@ LABEL_5:
   identifierCopy = identifier;
   titleCopy = title;
   handlerCopy = handler;
-  v13 = [getUNNotificationActionClass[0]() actionWithIdentifier:identifierCopy title:titleCopy options:flags & 7];
+  v13 = [(objc_class *)getUNNotificationActionClass() actionWithIdentifier:identifierCopy title:titleCopy options:flags & 7];
   dispatchQueue = self->_dispatchQueue;
   v19[0] = MEMORY[0x1E69E9820];
   v19[1] = 3221225472;
@@ -1362,7 +1362,7 @@ void __73__CUUserNotificationSession_addActionWithIdentifier_title_flags_handler
         v11 = v10[9];
       }
 
-      LogPrintF(v11, "[CUUserNotificationSession addActionWithIdentifier:title:flags:handler:]_block_invoke", 0x1Eu, "Add action: %@, '%@', %#{flags}\n", v6, v7, v8, v9, a1[6]);
+      LogPrintF(v11, "[CUUserNotificationSession addActionWithIdentifier:title:flags:handler:]_block_invoke", 30, "Add action: %@, '%@', %#{flags}\n", v6, v7, v8, v9, a1[6]);
       v10 = a1[5];
     }
 
@@ -1399,7 +1399,7 @@ LABEL_8:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUUserNotificationSession _invalidated]", 0x1Eu, "Invalidated\n", v6, v7, v8, v9, v12);
+      LogPrintF(ucat, "[CUUserNotificationSession _invalidated]", 30, "Invalidated\n", v6, v7, v8, v9, v12);
     }
   }
 }
@@ -1424,7 +1424,7 @@ LABEL_8:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUUserNotificationSession _invalidate]", 0x1Eu, "Removing request: %@\n", v4, v5, v6, v7, v8);
+      LogPrintF(ucat, "[CUUserNotificationSession _invalidate]", 30, "Removing request: %@\n", v4, v5, v6, v7, v8);
     }
 
 LABEL_6:
@@ -1463,9 +1463,9 @@ LABEL_6:
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __39__CUUserNotificationSession_invalidate__block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *__39__CUUserNotificationSession_invalidate__block_invoke(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *(result + 32);
+  v9 = result[4];
   if (*(v9 + 18))
   {
     return result;
@@ -1473,14 +1473,14 @@ uint64_t __39__CUUserNotificationSession_invalidate__block_invoke(uint64_t resul
 
   v10 = result;
   *(v9 + 18) = 1;
-  v11 = *(result + 32);
+  v11 = result[4];
   v12 = v11[9];
   if (*v12 <= 30)
   {
     if (*v12 == -1)
     {
       v13 = _LogCategory_Initialize(v11[9], 0x1Eu);
-      v11 = *(v10 + 32);
+      v11 = v10[4];
       if (!v13)
       {
         goto LABEL_6;
@@ -1489,8 +1489,8 @@ uint64_t __39__CUUserNotificationSession_invalidate__block_invoke(uint64_t resul
       v12 = v11[9];
     }
 
-    LogPrintF(v12, "[CUUserNotificationSession invalidate]_block_invoke", 0x1Eu, "Invalidate: BundleID %@, Category %@\n", a5, a6, a7, a8, v11[14]);
-    v11 = *(v10 + 32);
+    LogPrintF(v12, "[CUUserNotificationSession invalidate]_block_invoke", 30, "Invalidate: BundleID %@, Category %@\n", a5, a6, a7, a8, v11[14]);
+    v11 = v10[4];
   }
 
 LABEL_6:
@@ -1534,7 +1534,7 @@ uint64_t __37__CUUserNotificationSession_activate__block_invoke(uint64_t result,
     if (*result != -1)
     {
 LABEL_4:
-      result = LogPrintF_safe(result, "[CUUserNotificationSession activate]_block_invoke", 0x1Eu, "Activate: bundleID=%@, category=%@, mockID=%@", a5, a6, a7, a8, *(v10 + 112));
+      result = LogPrintF_safe(result, "[CUUserNotificationSession activate]_block_invoke", 30, "Activate: bundleID=%@, category=%@, mockID=%@", a5, a6, a7, a8, *(v10 + 112));
       goto LABEL_6;
     }
 

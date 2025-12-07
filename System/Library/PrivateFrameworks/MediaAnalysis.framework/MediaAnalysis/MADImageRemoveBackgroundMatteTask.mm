@@ -479,7 +479,7 @@ LABEL_45:
 
 void __40__MADImageRemoveBackgroundMatteTask_run__block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v2 = +[MADImageRemoveBackgroundResource sharedResource];
   v3 = *(*(a1 + 40) + 8);
   v4 = *(v3 + 40);
@@ -492,36 +492,36 @@ void __40__MADImageRemoveBackgroundMatteTask_run__block_invoke(uint64_t a1)
   v8 = *(v7 + 40);
   *(v7 + 40) = v6;
 
-  v9 = VCPSignPostLog();
-  v10 = os_signpost_id_generate(v9);
+  v10 = VCPSignPostLog(v9);
+  v11 = os_signpost_id_generate(v10);
 
-  v11 = VCPSignPostLog();
-  v12 = v11;
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  v13 = VCPSignPostLog(v12);
+  v14 = v13;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
-    v13 = [*(a1 + 32) signpostPayload];
-    v24 = 138412290;
-    v25 = v13;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v10, "VNImageRequestHandler_init", "%@", &v24, 0xCu);
+    v15 = [*(a1 + 32) signpostPayload];
+    v27 = 138412290;
+    v28 = v15;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v11, "VNImageRequestHandler_init", "%@", &v27, 0xCu);
   }
 
-  v14 = objc_alloc(MEMORY[0x1E69845B8]);
-  v15 = *(a1 + 64);
-  v16 = *(a1 + 72);
-  v17 = [*(*(*(a1 + 40) + 8) + 40) session];
-  v18 = [v14 initWithCVPixelBuffer:v15 orientation:v16 options:MEMORY[0x1E695E0F8] session:v17];
-  v19 = *(*(a1 + 56) + 8);
-  v20 = *(v19 + 40);
-  *(v19 + 40) = v18;
+  v16 = objc_alloc(MEMORY[0x1E69845B8]);
+  v17 = *(a1 + 64);
+  v18 = *(a1 + 72);
+  v19 = [*(*(*(a1 + 40) + 8) + 40) session];
+  v20 = [v16 initWithCVPixelBuffer:v17 orientation:v18 options:MEMORY[0x1E695E0F8] session:v19];
+  v21 = *(*(a1 + 56) + 8);
+  v22 = *(v21 + 40);
+  *(v21 + 40) = v20;
 
-  v21 = VCPSignPostLog();
-  v22 = v21;
-  if (v10 - 1 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v21))
+  v24 = VCPSignPostLog(v23);
+  v25 = v24;
+  if (v11 - 1 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v24))
   {
-    v23 = [*(a1 + 32) signpostPayload];
-    v24 = 138412290;
-    v25 = v23;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v22, OS_SIGNPOST_INTERVAL_END, v10, "VNImageRequestHandler_init", "%@", &v24, 0xCu);
+    v26 = [*(a1 + 32) signpostPayload];
+    v27 = 138412290;
+    v28 = v26;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v25, OS_SIGNPOST_INTERVAL_END, v11, "VNImageRequestHandler_init", "%@", &v27, 0xCu);
   }
 }
 

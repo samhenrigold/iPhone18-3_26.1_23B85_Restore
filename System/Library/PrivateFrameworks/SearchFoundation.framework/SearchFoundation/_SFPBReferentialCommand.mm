@@ -153,9 +153,7 @@ LABEL_8:
 
 - (void)setReferenceIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  referenceIdentifier = self->_referenceIdentifier;
-  self->_referenceIdentifier = v4;
+  self->_referenceIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }

@@ -19,7 +19,7 @@
   }
 
   v9 = [MEMORY[0x1E695DF70] arrayWithCapacity:numberOfClusters];
-  v10 = [datasetCopy count] / numberOfClusters;
+  v10 = objc_msgSend_count(datasetCopy) / numberOfClusters;
   v11 = vcvtps_u32_f32(v10);
   v29 = 0;
   v30 = &v29;
@@ -41,7 +41,7 @@
   v14 = datasetCopy;
   v24 = v14;
   [v14 enumerateObjectsUsingBlock:&v19];
-  if ([v30[5] count])
+  if (objc_msgSend_count(v30[5], v19, v20, v21, v22))
   {
     v15 = [PLDataCluster clusterWithObjects:v30[5]];
     [v12 addObject:v15];
@@ -57,10 +57,10 @@
 
 void __57__PLSamplingClustering_performWithDataset_progressBlock___block_invoke(uint64_t a1, void *a2, unint64_t a3, uint64_t a4)
 {
-  v14 = a2;
+  v15 = a2;
   v7 = a3;
   v8 = (a3 / *(a1 + 72)) - 1;
-  if (v8 == [*(a1 + 32) count])
+  if (v8 == objc_msgSend_count(*(a1 + 32)))
   {
     v9 = [PLDataCluster clusterWithObjects:*(*(*(a1 + 56) + 8) + 40)];
     [*(a1 + 32) addObject:v9];
@@ -72,11 +72,12 @@ void __57__PLSamplingClustering_performWithDataset_progressBlock___block_invoke(
     v13 = *(a1 + 48);
     if (v13)
     {
-      (*(v13 + 16))(v13, a4, (v7 / [*(a1 + 40) count]));
+      v14 = objc_msgSend_count(*(a1 + 40));
+      (*(v13 + 16))(v13, a4, (v7 / v14));
     }
   }
 
-  [*(*(*(a1 + 56) + 8) + 40) addObject:v14];
+  [*(*(*(a1 + 56) + 8) + 40) addObject:v15];
 }
 
 @end

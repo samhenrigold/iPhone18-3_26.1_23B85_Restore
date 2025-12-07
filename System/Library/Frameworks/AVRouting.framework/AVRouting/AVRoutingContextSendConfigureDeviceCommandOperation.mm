@@ -33,7 +33,7 @@
 
 - (void)start
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if ([(AVRoutingOperation *)self evaluateDependenciesAndMarkAsExecuting])
   {
     v3 = objc_alloc_init(AVRoutingContextCommandOutputDeviceConfigurationModification);
@@ -60,8 +60,6 @@
       v8(routingContext, *MEMORY[0x1E69624A0], routingContextCommandPayload, AVSendCommandCompletion, selfCopy);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (AVRoutingContextSendConfigureDeviceCommandOperation)initWithRoutingContext:(OpaqueFigRoutingContext *)context configuratorBlock:(id)block

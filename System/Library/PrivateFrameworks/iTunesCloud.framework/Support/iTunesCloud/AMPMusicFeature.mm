@@ -88,11 +88,11 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v7 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v7;
   }
 
   p_values = &self->_values;
@@ -101,9 +101,8 @@
     v6 = 0;
     do
     {
-      v7 = p_values->list[v6];
       PBDataWriterWriteFloatField();
-      toCopy = v8;
+      toCopy = v7;
       ++v6;
     }
 

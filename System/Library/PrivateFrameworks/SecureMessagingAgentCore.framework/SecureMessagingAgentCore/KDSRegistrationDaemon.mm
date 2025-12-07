@@ -10,7 +10,7 @@
 
 - (void)setupXPCConnectionWithClient:(id)client uniqueClientIdentifier:(id)identifier clientIdentifier:(id)clientIdentifier simUniqueID:(id)d simLabelID:(id)iD uriSupportedState:(id)state testPhoneNumber:(id)number completion:(id)self0
 {
-  v45 = _Block_copy(completion);
+  v52 = _Block_copy(completion);
   identifierCopy = identifier;
   clientIdentifierCopy = clientIdentifier;
   dCopy = d;
@@ -20,16 +20,16 @@
   swift_unknownObjectRetain();
   numberCopy = number;
   v23 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-  v48 = v24;
-  v49 = v23;
+  v55 = v24;
+  v56 = v23;
 
   v25 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v43 = v26;
-  v44 = v25;
+  v50 = v26;
+  v51 = v25;
 
   v27 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v41 = v28;
-  v42 = v27;
+  v48 = v28;
+  v49 = v27;
 
   v29 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v31 = v30;
@@ -49,20 +49,20 @@
     v37 = 0;
   }
 
-  *(swift_allocObject() + 16) = v45;
+  *(swift_allocObject() + 16) = v52;
   type metadata accessor for KDSRegistration.ClientCreationError();
   v38 = swift_allocObject();
   v38[2] = v32;
   v38[3] = v34;
-  v38[4] = v49;
-  v38[5] = v48;
-  v38[6] = v42;
-  v38[7] = v41;
+  v38[4] = v56;
+  v38[5] = v55;
+  v38[6] = v49;
+  v38[7] = v48;
   v38[8] = v29;
   v38[9] = v31;
   v39 = swift_allocObject();
-  v39[2] = v44;
-  v39[3] = v43;
+  v39[2] = v51;
+  v39[3] = v50;
   v39[4] = selfCopy;
   v39[5] = v35;
   v39[6] = v37;
@@ -70,18 +70,18 @@
   v40 = swift_allocObject();
   *(v40 + 16) = &closure #2 in KDSRegistrationDaemon.setupXPCConnection(client:uniqueClientIdentifier:clientIdentifier:simUniqueID:simLabelID:uriSupportedState:testPhoneNumber:completion:)partial apply;
   *(v40 + 24) = v39;
-  v47 = selfCopy;
+  v54 = selfCopy;
   swift_unknownObjectRetain();
   outlined copy of Data._Representation(v32, v34);
-  outlined copy of Data._Representation(v49, v48);
+  outlined copy of Data._Representation(v56, v55);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_SS15SecureMessaging15KDSRegistrationO17URISupportedStateOAC22UniqueClientIdentifierVtMd, &_sSS_SS15SecureMessaging15KDSRegistrationO17URISupportedStateOAC22UniqueClientIdentifierVtMR);
-  _s15SecureMessaging17RegistrationActorCACScAAAWlTm_1(&lazy protocol witness table cache variable for type KDSRegistration.ClientCreationError and conformance KDSRegistration.ClientCreationError, MEMORY[0x277D4CA88]);
+  _s15SecureMessaging17RegistrationActorCACScAAAWlTm_1(&lazy protocol witness table cache variable for type KDSRegistration.ClientCreationError and conformance KDSRegistration.ClientCreationError, MEMORY[0x277D4CA88], MEMORY[0x277D4CA80]);
   static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventBlock:)();
 
   outlined consume of Data._Representation(v32, v34);
-  outlined consume of Data._Representation(v49, v48);
+  outlined consume of Data._Representation(v56, v55);
 
-  swift_unknownObjectRelease();
+  swift_unknownObjectRelease(client, v41, v42, v43, v44, v45, v46, v47);
 }
 
 - (void)updateWithSimUniqueID:(id)d simLabelID:(id)iD supportedState:(id)state uniqueClientIdentifier:(id)identifier completion:(id)completion
@@ -122,8 +122,8 @@
   outlined copy of Data._Representation(v22, v24);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_SS15SecureMessaging15KDSRegistrationO17URISupportedStateOAC22UniqueClientIdentifierVtMd, &_sSS_SS15SecureMessaging15KDSRegistrationO17URISupportedStateOAC22UniqueClientIdentifierVtMR);
   type metadata accessor for KDSRegistration.SupportedStateUpdateProcessedContext();
-  _s15SecureMessaging17RegistrationActorCACScAAAWlTm_1(&lazy protocol witness table cache variable for type KDSRegistration.UpdateSupportedStateError and conformance KDSRegistration.UpdateSupportedStateError, MEMORY[0x277D4CBA0]);
-  _s15SecureMessaging17RegistrationActorCACScAAAWlTm_1(&lazy protocol witness table cache variable for type KDSRegistration.SupportedStateUpdateProcessedContext and conformance KDSRegistration.SupportedStateUpdateProcessedContext, MEMORY[0x277D4CC10]);
+  _s15SecureMessaging17RegistrationActorCACScAAAWlTm_1(&lazy protocol witness table cache variable for type KDSRegistration.UpdateSupportedStateError and conformance KDSRegistration.UpdateSupportedStateError, MEMORY[0x277D4CBA0], MEMORY[0x277D4CB98]);
+  _s15SecureMessaging17RegistrationActorCACScAAAWlTm_1(&lazy protocol witness table cache variable for type KDSRegistration.SupportedStateUpdateProcessedContext and conformance KDSRegistration.SupportedStateUpdateProcessedContext, MEMORY[0x277D4CC10], MEMORY[0x277D4CC18]);
   static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventBlock:)();
 
   outlined consume of Data._Representation(v22, v24);
@@ -156,8 +156,8 @@
   outlined copy of Data._Representation(v13, v15);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_15SecureMessaging15KDSRegistrationO19IsRegisteredContextVSgtMd, &_sSS_15SecureMessaging15KDSRegistrationO19IsRegisteredContextVSgtMR);
   type metadata accessor for KDSRegistration.IsRegisteredResult();
-  _s15SecureMessaging17RegistrationActorCACScAAAWlTm_1(&lazy protocol witness table cache variable for type KDSRegistration.IsRegisteredError and conformance KDSRegistration.IsRegisteredError, MEMORY[0x277D4CA10]);
-  _s15SecureMessaging17RegistrationActorCACScAAAWlTm_1(&lazy protocol witness table cache variable for type KDSRegistration.IsRegisteredResult and conformance KDSRegistration.IsRegisteredResult, MEMORY[0x277D4CA70]);
+  _s15SecureMessaging17RegistrationActorCACScAAAWlTm_1(&lazy protocol witness table cache variable for type KDSRegistration.IsRegisteredError and conformance KDSRegistration.IsRegisteredError, MEMORY[0x277D4CA10], MEMORY[0x277D4CA08]);
+  _s15SecureMessaging17RegistrationActorCACScAAAWlTm_1(&lazy protocol witness table cache variable for type KDSRegistration.IsRegisteredResult and conformance KDSRegistration.IsRegisteredResult, MEMORY[0x277D4CA70], MEMORY[0x277D4CA78]);
   static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventBlock:)();
 
   outlined consume of Data._Representation(v13, v15);
@@ -189,8 +189,8 @@
   outlined copy of Data._Representation(v13, v15);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_15SecureMessaging15KDSRegistrationO12SigningInputVtMd, &_sSS_15SecureMessaging15KDSRegistrationO12SigningInputVtMR);
   type metadata accessor for KDSRegistration.SigningOutput();
-  _s15SecureMessaging17RegistrationActorCACScAAAWlTm_1(&lazy protocol witness table cache variable for type KDSRegistration.SignWithParticipantKeyError and conformance KDSRegistration.SignWithParticipantKeyError, MEMORY[0x277D4CBC8]);
-  _s15SecureMessaging17RegistrationActorCACScAAAWlTm_1(&lazy protocol witness table cache variable for type KDSRegistration.SigningOutput and conformance KDSRegistration.SigningOutput, MEMORY[0x277D4C978]);
+  _s15SecureMessaging17RegistrationActorCACScAAAWlTm_1(&lazy protocol witness table cache variable for type KDSRegistration.SignWithParticipantKeyError and conformance KDSRegistration.SignWithParticipantKeyError, MEMORY[0x277D4CBC8], MEMORY[0x277D4CBC0]);
+  _s15SecureMessaging17RegistrationActorCACScAAAWlTm_1(&lazy protocol witness table cache variable for type KDSRegistration.SigningOutput and conformance KDSRegistration.SigningOutput, MEMORY[0x277D4C978], MEMORY[0x277D4C980]);
   static XPCUtils.decodeAndSendReply<A, B, C>(errorType:replyBlock:decodeBlock:eventBlock:)();
 
   outlined consume of Data._Representation(v13, v15);

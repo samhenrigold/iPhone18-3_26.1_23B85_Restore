@@ -19,24 +19,25 @@
   payloadCopy = payload;
   [(MSDServerRequest *)self getResponseClass];
   v8 = objc_opt_new();
+  v9 = v8;
   if (errorCopy)
   {
-    v9 = sub_100063A54();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100063A54(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_1000E5D38(self, errorCopy, v9);
+      sub_1000E5D38(self, errorCopy, v10);
     }
   }
 
   else
   {
-    v10 = [payloadCopy objectForKey:@"data"];
-    [v8 setData:v10];
+    v11 = [payloadCopy objectForKey:@"data"];
+    [v9 setData:v11];
   }
 
-  [v8 setError:errorCopy];
+  [v9 setError:errorCopy];
 
-  return v8;
+  return v9;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

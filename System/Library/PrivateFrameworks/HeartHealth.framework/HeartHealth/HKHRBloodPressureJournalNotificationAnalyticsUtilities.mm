@@ -22,15 +22,15 @@
 
 - (void)submitAnalyticsEvent:(unint64_t)event forJournal:(id)journal windowType:(id)type
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   journalCopy = journal;
   v10 = [[HKHRBloodPressureJournalNotificationAnalyticsEvent alloc] initWithAction:event latestActiveJournal:journalCopy windowType:typeCopy];
 
   eventSubmissionManager = self->_eventSubmissionManager;
-  v24 = 0;
-  v12 = [(HKAnalyticsEventSubmissionManager *)eventSubmissionManager submitEvent:v10 error:&v24];
-  v13 = v24;
+  v23 = 0;
+  v12 = [(HKAnalyticsEventSubmissionManager *)eventSubmissionManager submitEvent:v10 error:&v23];
+  v13 = v23;
   _HKInitializeLogging();
   v14 = HKLogBloodPressureJournal();
   v15 = v14;
@@ -48,9 +48,9 @@
       v17 = v20;
       eventName = [(HKHRBloodPressureJournalNotificationAnalyticsEvent *)v10 eventName];
       *buf = 138543618;
-      v26 = v20;
-      v27 = 2114;
-      v28 = eventName;
+      v25 = v20;
+      v26 = 2114;
+      v27 = eventName;
       v21 = "[%{public}@:%{public}@] Event submitted";
     }
 
@@ -65,9 +65,9 @@
       v17 = v22;
       eventName = [(HKHRBloodPressureJournalNotificationAnalyticsEvent *)v10 eventName];
       *buf = 138543618;
-      v26 = v22;
-      v27 = 2114;
-      v28 = eventName;
+      v25 = v22;
+      v26 = 2114;
+      v27 = eventName;
       v21 = "[%{public}@:%{public}@] Event not submitted but no error";
     }
 
@@ -81,18 +81,16 @@
     v17 = v16;
     eventName = [(HKHRBloodPressureJournalNotificationAnalyticsEvent *)v10 eventName];
     *buf = 138543874;
-    v26 = v16;
-    v27 = 2114;
-    v28 = eventName;
-    v29 = 2114;
-    v30 = v13;
+    v25 = v16;
+    v26 = 2114;
+    v27 = eventName;
+    v28 = 2114;
+    v29 = v13;
     _os_log_error_impl(&dword_228942000, v15, OS_LOG_TYPE_ERROR, "[%{public}@:%{public}@] Analytic submission failed with error: %{public}@", buf, 0x20u);
 LABEL_10:
   }
 
 LABEL_11:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 @end

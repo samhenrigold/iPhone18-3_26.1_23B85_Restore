@@ -10,15 +10,15 @@
 - (_MTLIOHandleRaw)initWithDevice:(id)device path:(const char *)path error:(id *)error uncached:(BOOL)uncached
 {
   uncachedCopy = uncached;
-  v32[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   if (error)
   {
     *error = 0;
   }
 
-  v26.receiver = self;
-  v26.super_class = _MTLIOHandleRaw;
-  v10 = [(_MTLObjectWithLabel *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = _MTLIOHandleRaw;
+  v10 = [(_MTLObjectWithLabel *)&v25 init];
   if (v10)
   {
     v10->_device = device;
@@ -30,11 +30,11 @@
       {
         v12 = MEMORY[0x1E696ABC0];
         v13 = *__error();
-        v31 = *MEMORY[0x1E696A578];
+        v30 = *MEMORY[0x1E696A578];
         v14 = MEMORY[0x1E696AEC0];
         v15 = __error();
-        v32[0] = [v14 stringWithFormat:@"%s", strerror(*v15)];
-        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+        v31[0] = [v14 stringWithFormat:@"%s", strerror(*v15)];
+        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
         v17 = v12;
         v18 = v13;
 LABEL_19:
@@ -42,16 +42,16 @@ LABEL_19:
       }
     }
 
-    else if (fstat(v11, &v25) < 0)
+    else if (fstat(v11, &v24) < 0)
     {
       if (error)
       {
         v19 = MEMORY[0x1E696ABC0];
-        v29 = *MEMORY[0x1E696A578];
-        v30 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Internal Error"];
+        v28 = *MEMORY[0x1E696A578];
+        v29 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Internal Error"];
         v20 = MEMORY[0x1E695DF20];
-        v21 = &v30;
-        v22 = &v29;
+        v21 = &v29;
+        v22 = &v28;
 LABEL_18:
         v16 = [v20 dictionaryWithObjects:v21 forKeys:v22 count:1];
         v17 = v19;
@@ -62,7 +62,7 @@ LABEL_18:
 
     else
     {
-      if ((v25.st_mode & 0xF000) == 0x8000)
+      if ((v24.st_mode & 0xF000) == 0x8000)
       {
         if (uncachedCopy)
         {
@@ -80,26 +80,24 @@ LABEL_18:
           }
         }
 
-        goto LABEL_21;
+        return v10;
       }
 
       if (error)
       {
         v19 = MEMORY[0x1E696ABC0];
-        v27 = *MEMORY[0x1E696A578];
-        v28 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Not a regular file"];
+        v26 = *MEMORY[0x1E696A578];
+        v27 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Not a regular file"];
         v20 = MEMORY[0x1E695DF20];
-        v21 = &v28;
-        v22 = &v27;
+        v21 = &v27;
+        v22 = &v26;
         goto LABEL_18;
       }
     }
 
-    v10 = 0;
+    return 0;
   }
 
-LABEL_21:
-  v23 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

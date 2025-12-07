@@ -50,7 +50,11 @@
 - (void)dealloc;
 - (void)deviceWasUnlocked;
 - (void)handleGuestPassSessionChanged:(BOOL)changed;
+- (void)notifyBackboardIsMakingEmergencyCall:(BOOL)call;
+- (void)notifyBackboardSBMiniAlertIsShowing:(BOOL)showing;
 - (void)setCurrentMultitaskingMode:(int64_t)mode;
+- (void)setPreviouslyEnabledStageManager:(BOOL)manager;
+- (void)setPreviouslyEnabledWindowedApps:(BOOL)apps;
 - (void)setRequiringWallpaper:(BOOL)wallpaper;
 - (void)setupGuestPassSessionMonitoring;
 @end
@@ -605,7 +609,7 @@
     }
 
 LABEL_32:
-    [v25 transform];
+    objc_msgSend_transform(v25);
     v39 = v69 + *&v71;
     goto LABEL_38;
   }
@@ -654,30 +658,29 @@ LABEL_38:
   hostedApplicationWindow = [(GAXSpringboard *)self hostedApplicationWindow];
   if (contextHostWrappers | hostedApplicationWindow)
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v5 = contextHostWrappers;
-    v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v12;
+      v8 = *v11;
       do
       {
-        for (i = 0; i != v7; i = i + 1)
+        for (i = 0; i != v7; ++i)
         {
-          if (*v12 != v8)
+          if (*v11 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v11 + 1) + 8 * i);
           AXPerformSafeBlock();
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v7);
@@ -687,6 +690,24 @@ LABEL_38:
     [(GAXSpringboard *)self setHostedApplicationWindow:0];
     [(GAXSpringboard *)self setContextHostWrappers:0];
   }
+}
+
+- (void)notifyBackboardSBMiniAlertIsShowing:(BOOL)showing
+{
+  v6 = @"GAXIPCPayloadKeyOverrideAllTouchValue";
+  v4 = [NSNumber numberWithBool:showing];
+  v7 = v4;
+  v5 = [NSDictionary dictionaryWithObjects:&v7 forKeys:&v6 count:1];
+  [(GAXSpringboard *)self _sendSimpleMessageToBackboardWithIdentifier:13014 payload:v5 description:@"SB Mini alert Showing"];
+}
+
+- (void)notifyBackboardIsMakingEmergencyCall:(BOOL)call
+{
+  v6 = @"GAXIPCPayloadKeyOverrideAllTouchValue";
+  v4 = [NSNumber numberWithBool:call];
+  v7 = v4;
+  v5 = [NSDictionary dictionaryWithObjects:&v7 forKeys:&v6 count:1];
+  [(GAXSpringboard *)self _sendSimpleMessageToBackboardWithIdentifier:13015 payload:v5 description:@"Making emergency call"];
 }
 
 - (void)deviceWasUnlocked
@@ -1245,12 +1266,26 @@ LABEL_14:
   return v3;
 }
 
+- (void)setPreviouslyEnabledStageManager:(BOOL)manager
+{
+  managerCopy = manager;
+  springBoardDefaults = [(GAXSpringboard *)self springBoardDefaults];
+  [springBoardDefaults setBool:managerCopy forKey:@"GAXSBChamoisWindowingPreviouslyEnabled"];
+}
+
 - (BOOL)previouslyEnabledWindowedApps
 {
   springBoardDefaults = [(GAXSpringboard *)self springBoardDefaults];
   v3 = [springBoardDefaults BOOLForKey:@"GAXSBMedusaMultitaskingPreviouslyEnabled"];
 
   return v3;
+}
+
+- (void)setPreviouslyEnabledWindowedApps:(BOOL)apps
+{
+  appsCopy = apps;
+  springBoardDefaults = [(GAXSpringboard *)self springBoardDefaults];
+  [springBoardDefaults setBool:appsCopy forKey:@"GAXSBMedusaMultitaskingPreviouslyEnabled"];
 }
 
 - (void)_handleDeviceWasLockedNotification:(id)notification
@@ -1552,119 +1587,103 @@ LABEL_14:
   payload = [applicationsCopy payload];
   v5 = [payload objectForKeyedSubscript:@"GAXIPCPayloadKeyAppsNotToTerminate"];
 
-  v43 = applicationsCopy;
+  v41 = applicationsCopy;
   payload2 = [applicationsCopy payload];
   v7 = [payload2 objectForKeyedSubscript:@"GAXIPCPayloadKeyAppTerminationReason"];
 
   v8 = [AXSafeClassFromString() safeValueForKey:@"sharedInstance"];
   buf[0] = 0;
   objc_opt_class();
-  v42 = v8;
+  v40 = v8;
   v9 = [v8 safeValueForKey:@"runningApplications"];
   v10 = __UIAccessibilityCastAsClass();
 
+  v50 = 0u;
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
-  v55 = 0u;
   obj = v10;
-  v11 = [obj countByEnumeratingWithState:&v52 objects:v61 count:16];
+  v11 = [obj countByEnumeratingWithState:&v50 objects:v59 count:16];
   if (v11)
   {
     v12 = v11;
     v13 = @"SBApplication";
-    v14 = *v53;
-    v15 = &SecTaskCopyValueForEntitlement_ptr;
-    v44 = *v53;
+    v14 = *v51;
+    v42 = *v51;
     do
     {
-      v16 = 0;
-      v45 = v12;
+      v15 = 0;
+      v43 = v12;
       do
       {
-        if (*v53 != v14)
+        if (*v51 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v52 + 1) + 8 * v16);
+        v16 = *(*(&v50 + 1) + 8 * v15);
         buf[0] = 0;
-        v18 = __UIAccessibilitySafeClass();
-        if (buf[0] == 1)
+        v17 = __UIAccessibilitySafeClass();
+        if (buf[0] == 1 || (v18 = v17, v16, buf[0] = 0, objc_opt_class(), [v18 safeValueForKey:@"bundleIdentifier"], v19 = objc_claimAutoreleasedReturnValue(), __UIAccessibilityCastAsClass(), v20 = objc_claimAutoreleasedReturnValue(), v19, buf[0] == 1))
         {
-          goto LABEL_34;
-        }
-
-        v19 = v18;
-
-        buf[0] = 0;
-        v20 = v15[152];
-        objc_opt_class();
-        v21 = [v19 safeValueForKey:@"bundleIdentifier"];
-        v22 = __UIAccessibilityCastAsClass();
-
-        if (buf[0] == 1)
-        {
-LABEL_34:
           abort();
         }
 
-        if (([v5 containsObject:v22] & 1) == 0)
+        if (([v5 containsObject:v20] & 1) == 0)
         {
-          v23 = v13;
-          v24 = v5;
-          v25 = GAXLogCommon();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+          v21 = v13;
+          v22 = v5;
+          v23 = GAXLogCommon();
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v58 = v22;
-            v59 = 2112;
-            v60 = v7;
-            _os_log_impl(&dword_0, v25, OS_LOG_TYPE_DEFAULT, "Terminating %@ because %@", buf, 0x16u);
+            v56 = v20;
+            v57 = 2112;
+            v58 = v7;
+            _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "Terminating %@ because %@", buf, 0x16u);
           }
 
-          v50 = 0u;
-          v51 = 0u;
           v48 = 0u;
           v49 = 0u;
-          v26 = +[FBProcessManager sharedInstance];
-          v27 = [v26 applicationProcessesForBundleIdentifier:v22];
+          v46 = 0u;
+          v47 = 0u;
+          v24 = +[FBProcessManager sharedInstance];
+          v25 = [v24 applicationProcessesForBundleIdentifier:v20];
 
-          v28 = [v27 countByEnumeratingWithState:&v48 objects:v56 count:16];
-          if (v28)
+          v26 = [v25 countByEnumeratingWithState:&v46 objects:v54 count:16];
+          if (v26)
           {
-            v29 = v28;
-            v30 = *v49;
+            v27 = v26;
+            v28 = *v47;
             do
             {
-              for (i = 0; i != v29; i = i + 1)
+              for (i = 0; i != v27; i = i + 1)
               {
-                if (*v49 != v30)
+                if (*v47 != v28)
                 {
-                  objc_enumerationMutation(v27);
+                  objc_enumerationMutation(v25);
                 }
 
-                [*(*(&v48 + 1) + 8 * i) killForReason:5 andReport:0 withDescription:v7];
+                [*(*(&v46 + 1) + 8 * i) killForReason:5 andReport:0 withDescription:v7];
               }
 
-              v29 = [v27 countByEnumeratingWithState:&v48 objects:v56 count:16];
+              v27 = [v25 countByEnumeratingWithState:&v46 objects:v54 count:16];
             }
 
-            while (v29);
+            while (v27);
           }
 
-          v5 = v24;
-          v13 = v23;
-          v14 = v44;
-          v12 = v45;
-          v15 = &SecTaskCopyValueForEntitlement_ptr;
+          v5 = v22;
+          v13 = v21;
+          v14 = v42;
+          v12 = v43;
         }
 
-        v16 = v16 + 1;
+        v15 = v15 + 1;
       }
 
-      while (v16 != v12);
-      v12 = [obj countByEnumeratingWithState:&v52 objects:v61 count:16];
+      while (v15 != v12);
+      v12 = [obj countByEnumeratingWithState:&v50 objects:v59 count:16];
     }
 
     while (v12);
@@ -1672,32 +1691,32 @@ LABEL_34:
 
   if (([v5 containsObject:@"com.apple.shortcuts"] & 1) == 0)
   {
-    v32 = [RBSTerminateRequest alloc];
-    v33 = [RBSProcessPredicate predicateMatchingBundleIdentifier:@"com.apple.WorkflowKit.BackgroundShortcutRunner"];
-    v34 = [[RBSTerminateContext alloc] initWithExplanation:v7];
-    v35 = [v32 initWithPredicate:v33 context:v34];
+    v30 = [RBSTerminateRequest alloc];
+    v31 = [RBSProcessPredicate predicateMatchingBundleIdentifier:@"com.apple.WorkflowKit.BackgroundShortcutRunner"];
+    v32 = [[RBSTerminateContext alloc] initWithExplanation:v7];
+    v33 = [v30 initWithPredicate:v31 context:v32];
 
-    v47 = 0;
-    LODWORD(v34) = [v35 execute:&v47];
-    v36 = v47;
-    v37 = v36;
-    if (v34)
+    v45 = 0;
+    LODWORD(v32) = [v33 execute:&v45];
+    v34 = v45;
+    v35 = v34;
+    if (v32)
     {
-      v38 = GAXLogCommon();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+      v36 = GAXLogCommon();
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v58 = v7;
-        _os_log_impl(&dword_0, v38, OS_LOG_TYPE_DEFAULT, "Terminated BackgroundShortcutRunner for reason %@", buf, 0xCu);
+        v56 = v7;
+        _os_log_impl(&dword_0, v36, OS_LOG_TYPE_DEFAULT, "Terminated BackgroundShortcutRunner for reason %@", buf, 0xCu);
       }
     }
 
     else
     {
-      domain = [v36 domain];
+      domain = [v34 domain];
       if ([domain isEqualToString:RBSRequestErrorDomain])
       {
-        code = [v37 code];
+        code = [v35 code];
 
         if (code == &dword_0 + 3)
         {
@@ -1709,8 +1728,8 @@ LABEL_34:
       {
       }
 
-      v38 = GAXLogCommon();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+      v36 = GAXLogCommon();
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
         sub_167B0();
       }

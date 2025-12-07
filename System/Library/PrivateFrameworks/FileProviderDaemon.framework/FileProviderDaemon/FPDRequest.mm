@@ -1,12 +1,16 @@
 @interface FPDRequest
 + (id)UUIDForSystemExecutablePath:(id)path;
 + (id)fixupProcessName:(id)name;
++ (id)requestForPID:(int)d auditToken:(id *)token fromPOSIX:(BOOL)x;
++ (id)requestForPID:(int)d auditToken:(id *)token fromPOSIX:(BOOL)x kernelFileInfo:(id)info;
++ (id)requestForPID:(int)d fromPOSIX:(BOOL)x kernelFileInfo:(id)info;
 + (id)requestForXPCConnection:(id)connection;
 - ($0AC6E346AE4835514AAA8AC86D8F4844)providedExtent;
 - ($0AC6E346AE4835514AAA8AC86D8F4844)requestedExtent;
 - ($115C4C562B26FF47E01F9F4EA65B5887)audit_token;
 - (BOOL)isPermittedToAttributeRequestingExecutable:(id)executable;
 - (FPDRequest)initWithPID:(int)d auditToken:(id *)token fromPOSIX:(BOOL)x withExtent:(id)extent;
+- (id)nsfpRequestForSession:(id)session isSpeculative:(BOOL)speculative;
 - (void)setAudit_token:(id *)audit_token;
 @end
 
@@ -18,7 +22,7 @@
   processIdentifier = [connectionCopy processIdentifier];
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   else
@@ -31,38 +35,85 @@
   return v6;
 }
 
++ (id)requestForPID:(int)d auditToken:(id *)token fromPOSIX:(BOOL)x
+{
+  v5 = *&token->var0[4];
+  v8[0] = *token->var0;
+  v8[1] = v5;
+  v6 = [self requestForPID:*&d auditToken:v8 fromPOSIX:x kernelFileInfo:0];
+
+  return v6;
+}
+
++ (id)requestForPID:(int)d fromPOSIX:(BOOL)x kernelFileInfo:(id)info
+{
+  *&v5 = -1;
+  *(&v5 + 1) = -1;
+  v8[0] = v5;
+  v8[1] = v5;
+  v6 = [self requestForPID:*&d auditToken:v8 fromPOSIX:x kernelFileInfo:info];
+
+  return v6;
+}
+
++ (id)requestForPID:(int)d auditToken:(id *)token fromPOSIX:(BOOL)x kernelFileInfo:(id)info
+{
+  xCopy = x;
+  v8 = *&d;
+  if (info)
+  {
+    infoCopy = info;
+    offset = [infoCopy offset];
+    v11 = [infoCopy size];
+  }
+
+  else
+  {
+    offset = -1;
+    v11 = -1;
+  }
+
+  v12 = objc_alloc(objc_opt_class());
+  v13 = *&token->var0[4];
+  v16[0] = *token->var0;
+  v16[1] = v13;
+  v14 = [v12 initWithPID:v8 auditToken:v16 fromPOSIX:xCopy withExtent:{offset, v11}];
+
+  return v14;
+}
+
 - (FPDRequest)initWithPID:(int)d auditToken:(id *)token fromPOSIX:(BOOL)x withExtent:(id)extent
 {
-  v6 = MEMORY[0x1EEE9AC00](self);
+  *&v6 = MEMORY[0x1EEE9AC00](self).n128_u64[0];
   v8 = v7;
   v10 = v9;
   v12 = v11;
   v14 = v13;
   v16 = v15;
   v37 = *MEMORY[0x1E69E9840];
-  v34.receiver = v6;
+  v34.receiver = v17;
   v34.super_class = FPDRequest;
-  v17 = [(FPDRequest *)&v34 init];
-  v18 = v17;
-  if (v17)
+  v18 = [(FPDRequest *)&v34 init];
+  v19 = v18;
+  if (v18)
   {
-    v17->_fromPOSIX = v12;
-    v19 = [MEMORY[0x1E695DF00] now];
-    date = v18->_date;
-    v18->_date = v19;
+    v18->_fromPOSIX = v12;
+    v20 = [MEMORY[0x1E695DF00] now];
+    date = v19->_date;
+    v19->_date = v20;
 
-    v18->_qos = qos_class_self();
-    *&v18->_selectedForMaterialization = 0;
-    v18->_requestedExtent.location = v10;
-    v18->_requestedExtent.length = v8;
-    v18->_providedExtent.location = -1;
-    v18->_providedExtent.length = -1;
+    v19->_qos = qos_class_self();
+    *&v19->_selectedForMaterialization = 0;
+    v19->_requestedExtent.location = v10;
+    v19->_requestedExtent.length = v8;
+    v19->_providedExtent.location = -1;
+    v19->_providedExtent.length = -1;
     if (!v16)
     {
       v16 = getpid();
     }
 
-    v18->_pid = v16;
+    v19->_pid = v16;
     if (v16 > -1001)
     {
       if ((v16 & 0x80000000) == 0)
@@ -70,55 +121,53 @@
         memset(buffer, 0, sizeof(buffer));
         if ((proc_name(v16, buffer, 0x20u) & 0x80000000) == 0 && LOBYTE(buffer[0]))
         {
-          v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:buffer];
-          processName = v18->_processName;
-          v18->_processName = v23;
+          v24 = [MEMORY[0x1E696AEC0] stringWithUTF8String:buffer];
+          processName = v19->_processName;
+          v19->_processName = v24;
         }
 
         bzero(v35, 0x1000uLL);
-        if (proc_pidpath(v18->_pid, v35, 0x1000u) < 0 || !v35[0])
+        if (proc_pidpath(v19->_pid, v35, 0x1000u) < 0 || !v35[0])
         {
           goto LABEL_16;
         }
 
-        v25 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v35];
+        v26 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v35];
 LABEL_15:
-        executablePath = v18->_executablePath;
-        v18->_executablePath = v25;
+        executablePath = v19->_executablePath;
+        v19->_executablePath = v26;
 
 LABEL_16:
-        v29 = [FPDRequest fixupProcessName:v18->_processName];
-        userProcessName = v18->_userProcessName;
-        v18->_userProcessName = v29;
+        v30 = [FPDRequest fixupProcessName:v19->_processName];
+        userProcessName = v19->_userProcessName;
+        v19->_userProcessName = v30;
 
-        v31 = *v14;
-        *&v18->_audit_token.val[4] = v14[1];
-        *v18->_audit_token.val = v31;
-        goto LABEL_17;
+        v32 = *v14;
+        *&v19->_audit_token.val[4] = v14[1];
+        *v19->_audit_token.val = v32;
+        return v19;
       }
 
-      v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"TestProcess%d", v16];
-      v27 = v18->_processName;
-      v18->_processName = v26;
+      v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"TestProcess%d", v16];
+      v28 = v19->_processName;
+      v19->_processName = v27;
 
-      [MEMORY[0x1E696AEC0] stringWithFormat:@"/path/to/TestProcess%d.app", v18->_pid];
+      [MEMORY[0x1E696AEC0] stringWithFormat:@"/path/to/TestProcess%d.app", v19->_pid];
     }
 
     else
     {
-      v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"UnresponsiveTestProcess%d", v16];
-      v22 = v18->_processName;
-      v18->_processName = v21;
+      v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"UnresponsiveTestProcess%d", v16];
+      v23 = v19->_processName;
+      v19->_processName = v22;
 
-      [MEMORY[0x1E696AEC0] stringWithFormat:@"/path/to/UnresponsiveTestProcess%d.app", v18->_pid];
+      [MEMORY[0x1E696AEC0] stringWithFormat:@"/path/to/UnresponsiveTestProcess%d.app", v19->_pid];
     }
-    v25 = ;
+    v26 = ;
     goto LABEL_15;
   }
 
-LABEL_17:
-  v32 = *MEMORY[0x1E69E9840];
-  return v18;
+  return v19;
 }
 
 + (id)fixupProcessName:(id)name
@@ -150,36 +199,76 @@ LABEL_17:
   return v4;
 }
 
+- (id)nsfpRequestForSession:(id)session isSpeculative:(BOOL)speculative
+{
+  v5 = [objc_opt_new() initWithIsSpeculativeDownload:speculative];
+  pid = self->_pid;
+  if (!pid || pid == getpid())
+  {
+    if (self->_executablePath)
+    {
+      _fpdIdentifier = [MEMORY[0x1E6967518] _fpdIdentifier];
+LABEL_9:
+      v8 = _fpdIdentifier;
+      goto LABEL_10;
+    }
+
+LABEL_8:
+    _fpdIdentifier = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:&UUID_NULL];
+    goto LABEL_9;
+  }
+
+  if (!self->_executablePath)
+  {
+    goto LABEL_8;
+  }
+
+  v8 = [FPDRequest UUIDForSystemExecutablePath:?];
+  if (!v8)
+  {
+    v9 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:&UUID_NULL];
+    [v5 setRequestingApplicationIdentifier:v9];
+
+    goto LABEL_11;
+  }
+
+LABEL_10:
+  [v5 setRequestingApplicationIdentifier:v8];
+LABEL_11:
+
+  return v5;
+}
+
 + (id)UUIDForSystemExecutablePath:(id)path
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if (hardcodedUUIDs_onceToken != -1)
   {
     +[FPDRequest UUIDForSystemExecutablePath:];
   }
 
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = hardcodedUUIDs_ret;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
-        if ([pathCopy hasPrefix:{v9, v13}])
+        v9 = *(*(&v12 + 1) + 8 * i);
+        if ([pathCopy hasPrefix:{v9, v12}])
         {
           _filesIdentifier = [v4 objectForKeyedSubscript:v9];
 
@@ -187,7 +276,7 @@ LABEL_17:
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -208,8 +297,6 @@ LABEL_17:
   }
 
 LABEL_16:
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return _filesIdentifier;
 }

@@ -28,8 +28,7 @@
 {
   v4 = sub_2755EC58C();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
+  MEMORY[0x28223BE20](v4, v6);
   v8 = &v9[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
   sub_2755EC54C();
   sub_2755EC76C();
@@ -44,8 +43,7 @@
 - (void)fetchResponseForURL:(NSURL *)l completion:(id)completion
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2809F9CE8, &qword_2755F3690);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
+  MEMORY[0x28223BE20](v7 - 8, v8);
   v10 = &v17 - v9;
   v11 = _Block_copy(completion);
   v12 = swift_allocObject();

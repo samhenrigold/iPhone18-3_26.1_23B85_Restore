@@ -1,6 +1,6 @@
 @interface NSObject(CAAnimatableValue)
 - (CGColor)CA_addValue:()CAAnimatableValue multipliedBy:;
-- (CGColor)CA_interpolateValue:()CAAnimatableValue byFraction:;
+- (CGPathRef)CA_interpolateValue:()CAAnimatableValue byFraction:;
 - (double)CA_distanceToValue:()CAAnimatableValue;
 - (id)CA_interpolateValues:()CAAnimatableValue ::interpolator:;
 @end
@@ -101,7 +101,7 @@ LABEL_10:
   return [self CA_interpolateValue:a4 byFraction:v15];
 }
 
-- (CGColor)CA_interpolateValue:()CAAnimatableValue byFraction:
+- (CGPathRef)CA_interpolateValue:()CAAnimatableValue byFraction:
 {
   v24 = *MEMORY[0x1E69E9840];
   v7 = CFGetTypeID(self);

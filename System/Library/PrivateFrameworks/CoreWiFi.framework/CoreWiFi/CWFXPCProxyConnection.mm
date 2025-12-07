@@ -22,29 +22,7 @@
     queue = v5->_queue;
     v5->_queue = v9;
 
-    if (!v5->_queue)
-    {
-      goto LABEL_7;
-    }
-
-    v11 = objc_alloc_init(CWFXPCProxy);
-    XPCProxy = v5->_XPCProxy;
-    v5->_XPCProxy = v11;
-
-    v13 = v5->_XPCProxy;
-    if (!v13)
-    {
-      goto LABEL_7;
-    }
-
-    [(CWFXPCProxy *)v13 setTarget:targetCopy];
-    [(CWFXPCProxy *)v5->_XPCProxy setQueue:v5->_queue];
-    v14 = objc_alloc_init(CWFXPCProxy);
-    synchronousXPCProxy = v5->_synchronousXPCProxy;
-    v5->_synchronousXPCProxy = v14;
-
-    v16 = v5->_synchronousXPCProxy;
-    if (v16)
+    if (v5->_queue && (v11 = objc_alloc_init(CWFXPCProxy), XPCProxy = v5->_XPCProxy, v5->_XPCProxy = v11, XPCProxy, (v13 = v5->_XPCProxy) != 0) && ([(CWFXPCProxy *)v13 setTarget:targetCopy], [(CWFXPCProxy *)v5->_XPCProxy setQueue:v5->_queue], v14 = objc_alloc_init(CWFXPCProxy), synchronousXPCProxy = v5->_synchronousXPCProxy, v5->_synchronousXPCProxy = v14, synchronousXPCProxy, (v16 = v5->_synchronousXPCProxy) != 0))
     {
       [(CWFXPCProxy *)v16 setSynchronous:1];
       [(CWFXPCProxy *)v5->_synchronousXPCProxy setTarget:targetCopy];
@@ -53,7 +31,6 @@
 
     else
     {
-LABEL_7:
 
       p_super = &v5->super;
       v5 = 0;

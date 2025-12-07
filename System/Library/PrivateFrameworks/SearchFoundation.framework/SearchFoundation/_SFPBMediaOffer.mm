@@ -388,18 +388,14 @@ LABEL_24:
 
 - (void)setOfferIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  offerIdentifier = self->_offerIdentifier;
-  self->_offerIdentifier = v4;
+  self->_offerIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setSublabel:(id)sublabel
 {
-  v4 = [sublabel copy];
-  sublabel = self->_sublabel;
-  self->_sublabel = v4;
+  self->_sublabel = [sublabel copy];
 
   MEMORY[0x1EEE66BB8]();
 }

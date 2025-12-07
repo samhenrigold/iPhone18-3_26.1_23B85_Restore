@@ -9,7 +9,7 @@
 
 - (void)_handleAccessoryIsReachable:(id)reachable
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   reachableCopy = reachable;
   object = [reachableCopy object];
   objc_opt_class();
@@ -32,39 +32,35 @@
   {
     v11 = HMFGetLogIdentifier();
     shortDescription = [v7 shortDescription];
-    v14 = 138543618;
-    v15 = v11;
-    v16 = 2112;
-    v17 = shortDescription;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Accessory became reachable: %@.", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v11;
+    v15 = 2112;
+    v16 = shortDescription;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Accessory became reachable: %@.", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   [(HMDBackgroundOperationManagerDataSource *)selfCopy notifyDataSourceChanged];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)values
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   owner = [(HMDBackgroundOperationManagerDataSource *)self owner];
   homeManager = [owner homeManager];
   pairedAccessories = [homeManager pairedAccessories];
 
   v5 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(pairedAccessories, "count")}];
-  v10 = MEMORY[0x277D85DD0];
-  v11 = 3221225472;
-  v12 = __58__HMDBackgroundOperationAccessoryManagerDataSource_values__block_invoke;
-  v13 = &unk_27867B478;
-  v14 = v5;
+  v9 = MEMORY[0x277D85DD0];
+  v10 = 3221225472;
+  v11 = __58__HMDBackgroundOperationAccessoryManagerDataSource_values__block_invoke;
+  v12 = &unk_27867B478;
+  v13 = v5;
   v6 = v5;
-  [pairedAccessories hmf_enumerateWithAutoreleasePoolUsingBlock:&v10];
-  v15 = @"visibleAccessories";
-  v16[0] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:{1, v10, v11, v12, v13}];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [pairedAccessories hmf_enumerateWithAutoreleasePoolUsingBlock:&v9];
+  v14 = @"visibleAccessories";
+  v15[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:{1, v9, v10, v11, v12}];
 
   return v7;
 }

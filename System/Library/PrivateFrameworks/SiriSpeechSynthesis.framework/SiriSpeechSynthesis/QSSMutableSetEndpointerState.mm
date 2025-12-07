@@ -2,9 +2,16 @@
 - (BOOL)enable_server_side_endpoint;
 - (QSSMutableSetEndpointerState)init;
 - (id)copyWithZone:(_NSZone *)zone;
+- (void)setEnable_server_side_endpoint:(BOOL)enable_server_side_endpoint;
 @end
 
 @implementation QSSMutableSetEndpointerState
+
+- (void)setEnable_server_side_endpoint:(BOOL)enable_server_side_endpoint
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:enable_server_side_endpoint];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
 
 - (BOOL)enable_server_side_endpoint
 {

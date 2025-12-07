@@ -23,7 +23,7 @@
 
 - (BOOL)nextWithError:(id *)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   table = [(SKStateMachine *)self table];
   state = [(SKStateMachine *)self state];
   event = [(SKStateMachine *)self event];
@@ -37,15 +37,15 @@
       state2 = [(SKStateMachine *)self state];
       event2 = [(SKStateMachine *)self event];
       nextState = [v9 nextState];
-      v29 = 136315906;
-      v30 = "[SKStateMachine nextWithError:]";
-      v31 = 2112;
-      v32 = state2;
-      v33 = 2112;
-      v34 = event2;
-      v35 = 2112;
-      v36 = nextState;
-      _os_log_impl(&dword_26BBB8000, v10, OS_LOG_TYPE_DEBUG, "%s: State transition (%@,%@)->%@", &v29, 0x2Au);
+      v28 = 136315906;
+      v29 = "[SKStateMachine nextWithError:]";
+      v30 = 2112;
+      v31 = state2;
+      v32 = 2112;
+      v33 = event2;
+      v34 = 2112;
+      v35 = nextState;
+      _os_log_impl(&dword_26BBB8000, v10, OS_LOG_TYPE_DEBUG, "%s: State transition (%@,%@)->%@", &v28, 0x2Au);
     }
 
     action = [v9 action];
@@ -107,7 +107,6 @@ LABEL_14:
   v21 = [SKError failWithSKErrorCode:102 error:error];
 LABEL_15:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v21;
 }
 

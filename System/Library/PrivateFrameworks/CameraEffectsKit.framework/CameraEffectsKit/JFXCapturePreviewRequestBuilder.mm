@@ -328,7 +328,7 @@ LABEL_42:
   v86 = previewProperties5;
   if (previewProperties5)
   {
-    [previewProperties5 renderTime];
+    objc_msgSend_renderTime(previewProperties5);
   }
 
   else
@@ -392,7 +392,7 @@ LABEL_42:
   *&buf[16] = v97;
   v157 = *&v131->tx;
   [(JFXEffectsPreviewGenerationRequest *)v118 setUserSourceTransform:buf];
-  [(JFXCapturePreviewRequestBuilder *)v134 requestTransformAnimation];
+  objc_msgSend_requestTransformAnimation(v134);
   *buf = v137;
   *&buf[16] = v138;
   v157 = v139;

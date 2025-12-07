@@ -38,47 +38,45 @@
 
 - (id)description
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAB68];
-  v17.receiver = self;
-  v17.super_class = CoreCECPhysicalDevice;
-  v4 = [(CoreCECPhysicalDevice *)&v17 description];
-  v19[0] = CECPhysicalAddressStringWithAddress(self->_physicalAddress);
-  v5 = objc_msgSend(v3, "stringWithFormat:", @"%@ %s ("), v4, v19;
+  v16.receiver = self;
+  v16.super_class = CoreCECPhysicalDevice;
+  v4 = [(CoreCECPhysicalDevice *)&v16 description];
+  v18[0] = CECPhysicalAddressStringWithAddress(self->_physicalAddress);
+  v5 = objc_msgSend(v3, "stringWithFormat:", @"%@ %s ("), v4, v18;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   logicalDevices = [(CoreCECPhysicalDevice *)self logicalDevices];
-  v7 = [(NSSet *)logicalDevices countByEnumeratingWithState:&v13 objects:v18 count:16];
+  v7 = [(NSSet *)logicalDevices countByEnumeratingWithState:&v12 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(logicalDevices);
         }
 
-        [v5 appendFormat:@" %u", objc_msgSend(*(*(&v13 + 1) + 8 * v10++), "logicalAddress")];
+        [v5 appendFormat:@" %u", objc_msgSend(*(*(&v12 + 1) + 8 * v10++), "logicalAddress")];
       }
 
       while (v8 != v10);
-      v8 = [(NSSet *)logicalDevices countByEnumeratingWithState:&v13 objects:v18 count:16];
+      v8 = [(NSSet *)logicalDevices countByEnumeratingWithState:&v12 objects:v17 count:16];
     }
 
     while (v8);
   }
 
   [v5 appendString:@""]);
-  result = [MEMORY[0x277CCACA8] stringWithString:v5];
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return [MEMORY[0x277CCACA8] stringWithString:v5];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -159,28 +157,28 @@
 
 + (id)physicalDeviceTreeWithLogicalDevices:(id)devices
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v26 = [[CoreCECPhysicalDevice alloc] initWithPhysicalAddress:0];
-  v4 = [objc_alloc(MEMORY[0x277CBEB58]) initWithObjects:{v26, 0}];
+  v36 = *MEMORY[0x277D85DE8];
+  v25 = [[CoreCECPhysicalDevice alloc] initWithPhysicalAddress:0];
+  v4 = [objc_alloc(MEMORY[0x277CBEB58]) initWithObjects:{v25, 0}];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  v5 = [devices countByEnumeratingWithState:&v31 objects:v36 count:16];
+  v5 = [devices countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v32;
+    v7 = *v31;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v32 != v7)
+        if (*v31 != v7)
         {
           objc_enumerationMutation(devices);
         }
 
-        v9 = *(*(&v31 + 1) + 8 * i);
+        v9 = *(*(&v30 + 1) + 8 * i);
         if ([v9 physicalAddress] != 0xFFFF)
         {
           v10 = [v4 physicalDeviceWithAddress:{objc_msgSend(v9, "physicalAddress")}];
@@ -200,32 +198,32 @@
         }
       }
 
-      v6 = [devices countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v6 = [devices countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
     while (v6);
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v12 = [MEMORY[0x277CBEB98] setWithSet:v4];
-  v13 = [v12 countByEnumeratingWithState:&v27 objects:v35 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v26 objects:v34 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v28;
+    v15 = *v27;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v28 != v15)
+        if (*v27 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v27 + 1) + 8 * j);
+        v17 = *(*(&v26 + 1) + 8 * j);
         physicalAddress = [(CoreCECPhysicalDevice *)v17 physicalAddress];
         if (physicalAddress)
         {
@@ -269,36 +267,32 @@
             v22 = v17;
           }
 
-          [(CoreCECPhysicalDevice *)v26 addChild:v22];
+          [(CoreCECPhysicalDevice *)v25 addChild:v22];
         }
 
 LABEL_29:
         ;
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v26 objects:v34 count:16];
     }
 
     while (v14);
   }
 
-  result = v26;
-  v25 = *MEMORY[0x277D85DE8];
-  return result;
+  return v25;
 }
 
 - (id)propertyList
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v4 = MEMORY[0x277CCACA8];
-  v7[0] = CECPhysicalAddressStringWithAddress(self->_physicalAddress);
-  [dictionary setValue:objc_msgSend(v4 forKey:{"stringWithUTF8String:", v7), @"physical address"}];
+  v6[0] = CECPhysicalAddressStringWithAddress(self->_physicalAddress);
+  [dictionary setValue:objc_msgSend(v4 forKey:{"stringWithUTF8String:", v6), @"physical address"}];
   [dictionary setValue:-[NSArray valueForKey:](-[CoreCECPhysicalDevice children](self forKey:{"children"), "valueForKey:", @"propertyList", @"children"}];
   [dictionary setValue:objc_msgSend(-[NSSet valueForKey:](-[CoreCECPhysicalDevice logicalDevices](self forKey:{"logicalDevices"), "valueForKey:", @"logicalAddress", "allObjects"), @"logical addresses"}];
-  result = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:dictionary];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return [MEMORY[0x277CBEAC0] dictionaryWithDictionary:dictionary];
 }
 
 @end

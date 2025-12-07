@@ -31,9 +31,11 @@
 
 void __50__SoundActionsPracticeAudioManager_sharedInstance__block_invoke(id a1)
 {
-  sharedInstance___SharedManager = objc_alloc_init(SoundActionsPracticeAudioManager);
+  v1 = objc_alloc_init(SoundActionsPracticeAudioManager);
+  v2 = sharedInstance___SharedManager;
+  sharedInstance___SharedManager = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 - (SoundActionsPracticeAudioManager)init

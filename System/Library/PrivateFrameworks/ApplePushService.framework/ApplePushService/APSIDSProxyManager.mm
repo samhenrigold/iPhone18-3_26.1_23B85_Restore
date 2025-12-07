@@ -27,14 +27,19 @@
 - (void)sendLargeMessageSize:(unint64_t)size guid:(id)guid environmentName:(id)name;
 - (void)sendMessage:(id)message guid:(id)guid environmentName:(id)name;
 - (void)sendMessageSize:(unint64_t)size guid:(id)guid environmentName:(id)name;
+- (void)sendMessageTracingStatus:(int)status topic:(id)topic tracingUUID:(id)d token:(id)token guid:(id)guid environmentName:(id)name;
 - (void)sendPresenceWithEnvironmentName:(id)name guid:(id)guid token:(id)token hwVersion:(id)version swVersion:(id)swVersion swBuild:(id)build certificates:(id)certificates nonce:(id)self0 signature:(id)self1 additionalFlags:(int)self2 hostCertificateInfo:(id)self3;
+- (void)sendProxyIsConnected:(BOOL)connected guid:(id)guid environmentName:(id)name;
 - (void)sendProxyMessage:(id)message forAPSMessage:(id)sMessage;
+- (void)sendPubSubChannelList:(id)list messageID:(unsigned int)d token:(id)token connectionType:(int64_t)type environmentName:(id)name guid:(id)guid;
 - (void)sendPubSubChannelListRequest:(int64_t)request environmentName:(id)name guid:(id)guid;
 - (void)sendPubSubChannelListResponse:(id)response environmentName:(id)name guid:(id)guid;
 - (void)sendPubSubUpdateMessage:(id)message connectionType:(int64_t)type environmentName:(id)name guid:(id)guid;
 - (void)sendPushToken:(id)token guid:(id)guid environmentName:(id)name;
 - (void)sendReceivedPush:(id)push forConnectionType:(int64_t)type generation:(unint64_t)generation guid:(id)guid environmentName:(id)name;
+- (void)sendResponse:(int)response messageId:(id)id token:(id)token connectionType:(int64_t)type generation:(unint64_t)generation guid:(id)guid environmentName:(id)name;
 - (void)sendReversePushResponse:(int64_t)response messageGUID:(id)d messageId:(unint64_t)id guid:(id)guid environmentName:(id)name;
+- (void)sendTokenGenerateMessageWithTopicHash:(id)hash baseToken:(id)token appId:(unsigned __int16)id expirationTTL:(unsigned int)l vapidPublicKeyHash:(id)keyHash type:(int64_t)type guid:(id)guid environmentName:(id)self0;
 - (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error;
 - (void)service:(id)service account:(id)account incomingData:(id)data fromID:(id)d context:(id)context;
 - (void)service:(id)service devicesChanged:(id)changed;
@@ -605,6 +610,27 @@ LABEL_6:
   [(APSIDSProxyManager *)self sendProxyMessage:v22];
 }
 
+- (void)sendPubSubChannelList:(id)list messageID:(unsigned int)d token:(id)token connectionType:(int64_t)type environmentName:(id)name guid:(id)guid
+{
+  v12 = *&d;
+  listCopy = list;
+  tokenCopy = token;
+  nameCopy = name;
+  guidCopy = guid;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    selfCopy = self;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%@ asked to send pubsub channel list", buf, 0xCu);
+  }
+
+  v18 = [NSNumber numberWithUnsignedInt:v12];
+  v19 = [NSNumber numberWithInteger:type];
+  v20 = [NSDictionary dictionaryWithObjectsAndKeys:&off_1001978F0, @"c", listCopy, @"cl", v18, @"mI", tokenCopy, @"t", v19, @"i", nameCopy, @"e", guidCopy, @"pG", 0];
+
+  [(APSIDSProxyManager *)self sendProxyMessage:v20];
+}
+
 - (void)sendPubSubChannelListResponse:(id)response environmentName:(id)name guid:(id)guid
 {
   responseCopy = response;
@@ -660,6 +686,89 @@ LABEL_6:
 {
   v5 = [NSDictionary dictionaryWithObjectsAndKeys:&off_100197950, @"c", guid, @"pG", name, @"e", 0];
   [(APSIDSProxyManager *)self sendProxyMessage:v5];
+}
+
+- (void)sendResponse:(int)response messageId:(id)id token:(id)token connectionType:(int64_t)type generation:(unint64_t)generation guid:(id)guid environmentName:(id)name
+{
+  v14 = *&response;
+  nameCopy = name;
+  guidCopy = guid;
+  tokenCopy = token;
+  idCopy = id;
+  v19 = [NSNumber numberWithUnsignedInt:v14];
+  v20 = [NSNumber numberWithInteger:type];
+  v21 = [NSNumber numberWithUnsignedInteger:generation];
+  v23 = [NSDictionary dictionaryWithObjectsAndKeys:&off_100197968, @"c", guidCopy, @"pG", nameCopy, @"e", v19, @"r", v20, @"i", v21, @"g", tokenCopy, @"t", idCopy, @"mI", 0];
+
+  [(APSIDSProxyManager *)self sendProxyMessage:v23];
+}
+
+- (void)sendMessageTracingStatus:(int)status topic:(id)topic tracingUUID:(id)d token:(id)token guid:(id)guid environmentName:(id)name
+{
+  v12 = *&status;
+  nameCopy = name;
+  guidCopy = guid;
+  tokenCopy = token;
+  dCopy = d;
+  topicCopy = topic;
+  v19 = [NSNumber numberWithUnsignedInt:v12];
+  v20 = [NSDictionary dictionaryWithObjectsAndKeys:&off_100197980, @"c", guidCopy, @"pG", nameCopy, @"e", v19, @"r", dCopy, @"u", tokenCopy, @"t", topicCopy, @"tS", 0];
+
+  [(APSIDSProxyManager *)self sendProxyMessage:v20];
+}
+
+- (void)sendTokenGenerateMessageWithTopicHash:(id)hash baseToken:(id)token appId:(unsigned __int16)id expirationTTL:(unsigned int)l vapidPublicKeyHash:(id)keyHash type:(int64_t)type guid:(id)guid environmentName:(id)self0
+{
+  v12 = *&l;
+  idCopy = id;
+  hashCopy = hash;
+  tokenCopy = token;
+  keyHashCopy = keyHash;
+  guidCopy = guid;
+  nameCopy = name;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138413826;
+    selfCopy = self;
+    v27 = 2112;
+    v28 = hashCopy;
+    v29 = 2112;
+    v30 = tokenCopy;
+    v31 = 1024;
+    v32 = idCopy;
+    v33 = 1024;
+    v34 = v12;
+    v35 = 2112;
+    v36 = keyHashCopy;
+    v37 = 2048;
+    typeCopy = type;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%@ asked to send filter with topic hash %@ base token %@ appId %hu expiration %u vapidHash %@ type %lu", buf, 0x40u);
+  }
+
+  if ([hashCopy length] >= 0x14)
+  {
+    v21 = [NSNumber numberWithInteger:type];
+    v22 = [NSMutableDictionary dictionaryWithObjectsAndKeys:&off_100197998, @"c", guidCopy, @"pG", nameCopy, @"e", hashCopy, @"tH", tokenCopy, @"t", v21, @"tT", 0];
+
+    if (keyHashCopy)
+    {
+      [v22 setObject:keyHashCopy forKeyedSubscript:@"vPK"];
+    }
+
+    if (v12)
+    {
+      v23 = [NSNumber numberWithUnsignedInt:v12];
+      [v22 setObject:v23 forKeyedSubscript:@"eTTL"];
+    }
+
+    if (idCopy)
+    {
+      v24 = [NSNumber numberWithUnsignedShort:?];
+      [v22 setObject:v24 forKeyedSubscript:@"a"];
+    }
+
+    [(APSIDSProxyManager *)self sendProxyMessage:v22];
+  }
 }
 
 - (void)sendMessage:(id)message guid:(id)guid environmentName:(id)name
@@ -733,6 +842,22 @@ LABEL_6:
   }
 
   [(APSIDSProxyManager *)self sendProxyMessage:v13];
+}
+
+- (void)sendProxyIsConnected:(BOOL)connected guid:(id)guid environmentName:(id)name
+{
+  connectedCopy = connected;
+  nameCopy = name;
+  guidCopy = guid;
+  v11 = objc_opt_new();
+  [v11 setObject:&off_100197A10 forKey:@"c"];
+  [v11 setObject:guidCopy forKey:@"pG"];
+
+  [v11 setObject:nameCopy forKey:@"e"];
+  v10 = [NSNumber numberWithBool:connectedCopy];
+  [v11 setObject:v10 forKey:@"cS"];
+
+  [(APSIDSProxyManager *)self sendProxyMessage:v11];
 }
 
 - (void)removeAllPendingAPSMessages
@@ -1499,7 +1624,7 @@ LABEL_87:
     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%s: isNearby: %@ shouldAssertWiFi: %@ assertWiFi: %@", v9, 0x2Au);
   }
 
-  v7 = +[PCPersistentInterfaceManager sharedInstance];
+  v7 = [PCPersistentInterfaceManager sharedInstance:*v9];
   [v7 enableWiFiAutoAssociation:!nearby forDelegate:self];
 
   v8 = +[PCPersistentInterfaceManager sharedInstance];

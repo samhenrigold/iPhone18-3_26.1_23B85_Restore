@@ -42,15 +42,16 @@
   setting = [(HPSResult *)self setting];
   if (setting)
   {
-    v12 = 0;
-    v8 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:setting requiringSecureCoding:1 error:&v12];
-    v9 = v12;
+    v13 = 0;
+    v8 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:setting requiringSecureCoding:1 error:&v13];
+    v9 = v13;
+    v10 = v9;
     if (v9)
     {
-      v10 = _HPSLoggingFacility();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = _HPSLoggingFacility(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [(HPSResult *)v9 encodeWithCoder:v10];
+        [(HPSResult *)v10 encodeWithCoder:v11];
       }
     }
 
@@ -97,21 +98,8 @@ LABEL_13:
     }
   }
 
-  if (![coderCopy containsValueForKey:@"Value"])
+  if (![coderCopy containsValueForKey:@"Value"] || (objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"Value"), v9 = objc_claimAutoreleasedReturnValue(), v17 = 0, objc_msgSend(MEMORY[0x277CCAAC8], "unarchivedObjectOfClass:fromData:error:", objc_opt_class(), v9, &v17), v10 = objc_claimAutoreleasedReturnValue(), v11 = v17, setting = v5->_setting, v5->_setting = v10, setting, v11, v9, !v11))
   {
-    goto LABEL_17;
-  }
-
-  v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"Value"];
-  v17 = 0;
-  v10 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v9 error:&v17];
-  v11 = v17;
-  setting = v5->_setting;
-  v5->_setting = v10;
-
-  if (!v11)
-  {
-LABEL_17:
     if ([coderCopy containsValueForKey:@"Error"])
     {
       v14 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"Error"];
@@ -151,11 +139,10 @@ LABEL_14:
 
 - (void)encodeWithCoder:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2542B7000, a2, OS_LOG_TYPE_ERROR, "Encoding result failed with error %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2542B7000, a2, OS_LOG_TYPE_ERROR, "Encoding result failed with error %@", &v2, 0xCu);
 }
 
 @end

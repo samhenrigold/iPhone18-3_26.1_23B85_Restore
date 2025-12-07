@@ -55,7 +55,7 @@ void __85__MROptimisticState_initWithInitialState_expectedState_timeout_queue_ti
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   timer = [(MROptimisticState *)self timer];
   [timer invalidate];
 
@@ -67,10 +67,9 @@ void __85__MROptimisticState_initWithInitialState_expectedState_timeout_queue_ti
     _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "[MROptimisticState]<%p> dealloc", buf, 0xCu);
   }
 
-  v6.receiver = self;
-  v6.super_class = MROptimisticState;
-  [(MROptimisticState *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = MROptimisticState;
+  [(MROptimisticState *)&v5 dealloc];
 }
 
 - (void)initWithInitialState:(uint64_t)a1 expectedState:(uint64_t)a2 timeout:queue:timeoutHandler:.cold.1(uint64_t a1, uint64_t a2)

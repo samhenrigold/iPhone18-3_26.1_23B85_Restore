@@ -137,52 +137,72 @@
   v7 = bounds.size.height + -18.0;
   memset(&slice, 0, sizeof(slice));
   [(PKSpendingSummaryAccountUserCell *)self _shouldReverseLayoutDirection];
-  v17.origin.x = v5;
-  v17.origin.y = v6;
-  v17.size.width = width + -24.0;
-  v17.size.height = v7;
-  v20.origin.x = v5;
-  v20.origin.y = v6;
-  v20.size.width = width + -24.0;
-  v20.size.height = v7;
-  CGRectDivide(v20, &slice, &v17, 24.0, CGRectMinYEdge);
+  v45.origin.x = v5;
+  v45.origin.y = v6;
+  v45.size.width = width + -24.0;
+  v45.size.height = v7;
+  v48.origin.x = v5;
+  v48.origin.y = v6;
+  v48.size.width = width + -24.0;
+  v48.size.height = v7;
+  CGRectDivide(v48, &slice, &v45, 24.0, CGRectMinYEdge);
   if (!self->_isTemplateLayout)
   {
     avatarView = self->_avatarView;
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
+    v9 = PKContentAlignmentMake();
+    v10.n128_u64[0] = *&slice.origin.x;
+    v11.n128_u64[0] = *&slice.origin.y;
+    v12.n128_u64[0] = *&slice.size.width;
+    v13.n128_u64[0] = *&slice.size.height;
+    v14.n128_u64[0] = 24.0;
+    v15.n128_u64[0] = 24.0;
+    PKSizeAlignedInRect(v9, v14, v15, v10, v11, v12, v13, v16);
     [(UIImageView *)avatarView setFrame:?];
   }
 
-  CGRectDivide(v17, &slice, &v17, 2.0, CGRectMinYEdge);
-  [(UILabel *)self->_nameLabel sizeThatFits:v17.size.width, v17.size.height];
-  v10 = v9;
-  CGRectDivide(v17, &slice, &v17, v9, CGRectMinYEdge);
+  CGRectDivide(v45, &slice, &v45, 2.0, CGRectMinYEdge);
+  [(UILabel *)self->_nameLabel sizeThatFits:v45.size.width, v45.size.height];
+  v18 = v17;
+  v20 = v19;
+  CGRectDivide(v45, &slice, &v45, v19, CGRectMinYEdge);
   if (!self->_isTemplateLayout)
   {
     nameLabel = self->_nameLabel;
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
+    v22 = PKContentAlignmentMake();
+    v23.n128_u64[0] = *&slice.origin.x;
+    v24.n128_u64[0] = *&slice.origin.y;
+    v25.n128_u64[0] = *&slice.size.width;
+    v26.n128_u64[0] = *&slice.size.height;
+    v27.n128_u64[0] = v18;
+    v28.n128_f64[0] = v20;
+    PKSizeAlignedInRect(v22, v27, v28, v23, v24, v25, v26, v29);
     [(UILabel *)nameLabel setFrame:?];
   }
 
-  CGRectDivide(v17, &slice, &v17, 0.0, CGRectMinYEdge);
-  [(UILabel *)self->_amountLabel sizeThatFits:v17.size.width, v17.size.height];
-  v13 = v12;
-  CGRectDivide(v17, &slice, &v17, v12, CGRectMinYEdge);
+  CGRectDivide(v45, &slice, &v45, 0.0, CGRectMinYEdge);
+  [(UILabel *)self->_amountLabel sizeThatFits:v45.size.width, v45.size.height];
+  v31 = v30;
+  v33 = v32;
+  CGRectDivide(v45, &slice, &v45, v32, CGRectMinYEdge);
   if (!self->_isTemplateLayout)
   {
     amountLabel = self->_amountLabel;
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
+    v35 = PKContentAlignmentMake();
+    v36.n128_u64[0] = *&slice.origin.x;
+    v37.n128_u64[0] = *&slice.origin.y;
+    v38.n128_u64[0] = *&slice.size.width;
+    v39.n128_u64[0] = *&slice.size.height;
+    v40.n128_u64[0] = v31;
+    v41.n128_f64[0] = v33;
+    PKSizeAlignedInRect(v35, v40, v41, v36, v37, v38, v39, v42);
     [(UILabel *)amountLabel setFrame:?];
   }
 
-  CGRectDivide(v17, &slice, &v17, 0.0, CGRectMinYEdge);
-  v15 = v10 + 0.0 + 37.0 + v13 + 7.0;
-  v16 = width;
-  result.height = v15;
-  result.width = v16;
+  CGRectDivide(v45, &slice, &v45, 0.0, CGRectMinYEdge);
+  v43 = v20 + 0.0 + 37.0 + v33 + 7.0;
+  v44 = width;
+  result.height = v43;
+  result.width = v44;
   return result;
 }
 

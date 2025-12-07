@@ -20,7 +20,13 @@
     *error = 0;
   }
 
+  v18 = 0;
+  v16[1] = _NSConcreteStackBlock;
+  v16[2] = 3221225472;
+  v16[3] = sub_10007A95C;
+  v16[4] = &unk_1000DDED0;
   v6 = updaterCopy;
+  v17 = v6;
   v7 = DDIUpdateLocalUsersAndGroups();
   v8 = 0;
   if ((v7 & 1) == 0)
@@ -33,6 +39,7 @@
     v9 = qword_1000EB4F0;
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
+      v16[0] = 0;
       v10 = sub_1000011A8(0);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
@@ -46,7 +53,9 @@
 
       if (v11)
       {
-        v12 = _os_log_send_and_compose_impl();
+        v19 = 138543362;
+        v20 = v8;
+        v12 = _os_log_send_and_compose_impl(v11, v16, 0, 0, &_mh_execute_header, v9, 16, "Failed to update DarwinDirectory local users and groups: %{public}@", &v19, 12);
         v13 = v12;
         if (v12)
         {

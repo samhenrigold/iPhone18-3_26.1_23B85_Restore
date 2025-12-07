@@ -618,7 +618,7 @@ LABEL_15:
 
 - (id)onStart
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_dispatchQueue);
   [(VCAnsweringMachine *)self setUpRealtimeDefaults];
   reportingGenericEvent();
@@ -648,8 +648,8 @@ LABEL_15:
   }
 
   VCAudioMachineLearningCoordinator_SetReadyForCaptioning(self->_realtimeContext.audioMachineLearningCoordinator, v4);
-  [(VCAnsweringMachine *)self setupPeriodicReporting];
-  [VCPowerManager_DefaultManager() registerForThermalEvents:self];
+  setupPeriodicReporting = [(VCAnsweringMachine *)self setupPeriodicReporting];
+  [VCPowerManager_DefaultManager(setupPeriodicReporting v6)];
   start = [(VCAudioIO *)self->_audioIO start];
   if (start)
   {
@@ -669,39 +669,39 @@ LABEL_15:
     {
       if (objc_opt_respondsToSelector())
       {
-        v6 = [(VCAnsweringMachine *)self performSelector:sel_logPrefix];
+        v8 = [(VCAnsweringMachine *)self performSelector:sel_logPrefix];
       }
 
       else
       {
-        v6 = &stru_1F570E008;
+        v8 = &stru_1F570E008;
       }
 
       if (VRTraceGetErrorLogLevelForModule() >= 3)
       {
-        v7 = VRTraceErrorLogLevelToCSTR();
-        v8 = *MEMORY[0x1E6986650];
+        v9 = VRTraceErrorLogLevelToCSTR();
+        v10 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
         {
-          v10 = 136316418;
-          v11 = v7;
-          v12 = 2080;
-          v13 = "[VCAnsweringMachine onStart]";
-          v14 = 1024;
-          v15 = 447;
-          v16 = 2112;
-          v17 = v6;
-          v18 = 2048;
-          selfCopy = self;
+          v14 = 136316418;
+          v15 = v9;
+          v16 = 2080;
+          v17 = "[VCAnsweringMachine onStart]";
+          v18 = 1024;
+          v19 = 447;
           v20 = 2112;
-          v21 = start;
-          _os_log_error_impl(&dword_1DB56E000, v8, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) AudioIO start failed. error=%@", &v10, 0x3Au);
+          v21 = v8;
+          v22 = 2048;
+          selfCopy = self;
+          v24 = 2112;
+          v25 = start;
+          _os_log_error_impl(&dword_1DB56E000, v10, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) AudioIO start failed. error=%@", &v14, 0x3Au);
         }
       }
     }
 
-    [(VCAnsweringMachine *)self cleanupPeriodicReporting];
-    [VCPowerManager_DefaultManager() unregisterForThermalEvents:self];
+    cleanupPeriodicReporting = [(VCAnsweringMachine *)self cleanupPeriodicReporting];
+    [VCPowerManager_DefaultManager(cleanupPeriodicReporting v12)];
   }
 
   return start;
@@ -724,8 +724,8 @@ LABEL_15:
       [(VCAnsweringMachine *)self stopMediaRecording];
     }
 
-    [(VCAnsweringMachine *)self cleanupPeriodicReporting];
-    [VCPowerManager_DefaultManager() unregisterForThermalEvents:self];
+    cleanupPeriodicReporting = [(VCAnsweringMachine *)self cleanupPeriodicReporting];
+    [VCPowerManager_DefaultManager(cleanupPeriodicReporting v5)];
   }
 
   return stop;
@@ -949,6 +949,7 @@ LABEL_12:
   *buf = d;
   *v17 = 0;
   *&v17[4] = uUIDString;
+  *&v17[12] = 0;
   v18 = 12;
   memset(v19, 0, sizeof(v19));
   v20 = 0;
@@ -1046,7 +1047,7 @@ void __52__VCAnsweringMachine_setupReportingAgentWithCallID___block_invoke(uint6
 {
   if (self)
   {
-    [(VCAnsweringMachine *)self defaultAudioFormat];
+    objc_msgSend_defaultAudioFormat(self, a2);
   }
 
   else
@@ -1187,7 +1188,7 @@ void __52__VCAnsweringMachine_setupReportingAgentWithCallID___block_invoke(uint6
   v6 = v3;
   if (self)
   {
-    [(VCAnsweringMachine *)self defaultAudioIOConfiguration:v6];
+    objc_msgSend_defaultAudioIOConfiguration(self, a2, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18, v19, v20);
   }
 
   else
@@ -1237,7 +1238,7 @@ void __52__VCAnsweringMachine_setupReportingAgentWithCallID___block_invoke(uint6
     [(VCAudioInjectorConfig *)v5 setFromBeginning:1];
     if (self)
     {
-      [(VCAnsweringMachine *)self defaultAudioFormat];
+      objc_msgSend_defaultAudioFormat(self);
     }
 
     else
@@ -1770,16 +1771,16 @@ LABEL_11:
   }
 }
 
-uint64_t ___VCAnsweringMachine_StartMediaRecording_block_invoke(uint64_t result)
+void *___VCAnsweringMachine_StartMediaRecording_block_invoke(void *result)
 {
   v6 = *MEMORY[0x1E69E9840];
-  if ((*(*(result + 32) + 401) & 1) == 0)
+  if ((*(result[4] + 401) & 1) == 0)
   {
     v1 = result;
-    v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{*(result + 56), @"vcMomentsTransactionID", @"vcMomentsInitiatorID", @"vcMomentsRequestMode", @"vcMomentsRequestState", @"vcMomentsMediaType", @"vcMomentsRequestTimestamp", *(result + 40), *(result + 48), &unk_1F5799600, &unk_1F5799600, &unk_1F5799630}];
+    v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{*(result + 14), @"vcMomentsTransactionID", @"vcMomentsInitiatorID", @"vcMomentsRequestMode", @"vcMomentsRequestState", @"vcMomentsMediaType", @"vcMomentsRequestTimestamp", result[5], result[6], &unk_1F5799600, &unk_1F5799600, &unk_1F5799630}];
     v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v4 forKeys:&v3 count:6];
     reportingGenericEvent();
-    return [*(*(v1 + 32) + 264) processRequest:v2];
+    return [*(v1[4] + 264) processRequest:v2];
   }
 
   return result;

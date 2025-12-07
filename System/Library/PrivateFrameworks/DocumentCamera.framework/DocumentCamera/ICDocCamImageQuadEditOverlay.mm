@@ -281,7 +281,7 @@
           memset(&v32, 0, sizeof(v32));
           if (v15)
           {
-            [v15 transform];
+            objc_msgSend_transform(v15);
           }
 
           memset(&v31, 0, sizeof(v31));

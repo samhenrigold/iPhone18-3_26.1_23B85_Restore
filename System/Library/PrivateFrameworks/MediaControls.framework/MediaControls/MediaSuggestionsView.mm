@@ -30,7 +30,7 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v8 = type metadata accessor for MediaSuggestionsView();
+  v8 = type metadata accessor for MediaSuggestionsView(self, a2);
   v23.receiver = self;
   v23.super_class = v8;
   selfCopy = self;
@@ -60,7 +60,7 @@
 - (CGRect)frame
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for MediaSuggestionsView();
+  v6.super_class = type metadata accessor for MediaSuggestionsView(self, a2);
   [(MediaSuggestionsView *)&v6 frame];
   result.size.height = v5;
   result.size.width = v4;
@@ -76,15 +76,15 @@
 
   v2(selfCopy, &off_1F1442798);
 
-  v4.receiver = selfCopy;
-  v4.super_class = type metadata accessor for MediaSuggestionsView();
-  [(MediaSuggestionsView *)&v4 dealloc];
+  v6.receiver = selfCopy;
+  v6.super_class = type metadata accessor for MediaSuggestionsView(v4, v5);
+  [(MediaSuggestionsView *)&v6 dealloc];
 }
 
 - (void)layoutSubviews
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for MediaSuggestionsView();
+  v4.super_class = type metadata accessor for MediaSuggestionsView(self, a2);
   v2 = v4.receiver;
   [(MediaSuggestionsView *)&v4 layoutSubviews];
   v3 = *&v2[OBJC_IVAR____TtC13MediaControls20MediaSuggestionsView_collectionView];
@@ -129,7 +129,7 @@
   sub_1A22E5698();
   viewCopy = view;
   selfCopy = self;
-  sub_1A22B2224(viewCopy);
+  sub_1A22B2224(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 }

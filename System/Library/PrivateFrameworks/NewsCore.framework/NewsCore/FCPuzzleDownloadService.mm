@@ -50,7 +50,7 @@
 
 - (id)fetchCachedPuzzleWithID:(id)d completionHandler:(id)handler
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   dCopy = d;
   handlerCopy = handler;
   v8 = [FCOfflinePuzzleFetchOperation alloc];
@@ -59,96 +59,90 @@
 
   [(FCOperation *)v10 setQualityOfService:9];
   [(FCOfflinePuzzleFetchOperation *)v10 setCachedOnly:1];
-  v27[0] = 0;
-  v27[1] = v27;
-  v27[2] = 0x3032000000;
-  v27[3] = __Block_byref_object_copy_;
-  v27[4] = __Block_byref_object_dispose_;
-  v28 = +[FCContentArchive empty];
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __69__FCPuzzleDownloadService_fetchCachedPuzzleWithID_completionHandler___block_invoke;
-  v26[3] = &unk_1E7C36EF0;
-  v26[4] = v27;
-  [(FCOfflinePuzzleFetchOperation *)v10 setArchiveHandler:v26];
-  v19 = MEMORY[0x1E69E9820];
-  v20 = 3221225472;
-  v21 = __69__FCPuzzleDownloadService_fetchCachedPuzzleWithID_completionHandler___block_invoke_2;
-  v22 = &unk_1E7C36F18;
+  v26[0] = 0;
+  v26[1] = v26;
+  v26[2] = 0x3032000000;
+  v26[3] = __Block_byref_object_copy_;
+  v26[4] = __Block_byref_object_dispose_;
+  v27 = +[FCContentArchive empty];
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __69__FCPuzzleDownloadService_fetchCachedPuzzleWithID_completionHandler___block_invoke;
+  v25[3] = &unk_1E7C36EF0;
+  v25[4] = v26;
+  [(FCOfflinePuzzleFetchOperation *)v10 setArchiveHandler:v25];
+  v18 = MEMORY[0x1E69E9820];
+  v19 = 3221225472;
+  v20 = __69__FCPuzzleDownloadService_fetchCachedPuzzleWithID_completionHandler___block_invoke_2;
+  v21 = &unk_1E7C36F18;
   v11 = dCopy;
-  v23 = v11;
+  v22 = v11;
   v12 = handlerCopy;
-  v24 = v12;
-  v25 = v27;
-  [(FCOfflinePuzzleFetchOperation *)v10 setFetchCompletionHandler:&v19];
+  v23 = v12;
+  v24 = v26;
+  [(FCOfflinePuzzleFetchOperation *)v10 setFetchCompletionHandler:&v18];
   v13 = FCOfflineDownloadsLog;
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = [(FCOperation *)v10 shortOperationDescription:v19];
+    v14 = [(FCOperation *)v10 shortOperationDescription:v18];
     *buf = 138543618;
-    v30 = v11;
-    v31 = 2114;
-    v32 = v14;
+    v29 = v11;
+    v30 = 2114;
+    v31 = v14;
     _os_log_impl(&dword_1B63EF000, v13, OS_LOG_TYPE_DEFAULT, "Will check cache for puzzle %{public}@ with operation %{public}@", buf, 0x16u);
   }
 
   [FCTaskScheduler scheduleBackgroundDownloadOperation:v10];
-  v15 = v24;
+  v15 = v23;
   v16 = v10;
 
-  _Block_object_dispose(v27, 8);
-  v17 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v26, 8);
 
   return v16;
 }
 
 void __69__FCPuzzleDownloadService_fetchCachedPuzzleWithID_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v10[2] = *MEMORY[0x1E69E9840];
-  v10[0] = *(*(*(a1 + 32) + 8) + 40);
-  v10[1] = a2;
+  v9[2] = *MEMORY[0x1E69E9840];
+  v9[0] = *(*(*(a1 + 32) + 8) + 40);
+  v9[1] = a2;
   v3 = MEMORY[0x1E695DEC8];
   v4 = a2;
-  v5 = [v3 arrayWithObjects:v10 count:2];
+  v5 = [v3 arrayWithObjects:v9 count:2];
   v6 = [FCContentArchive archiveWithChildArchives:v5];
   v7 = *(*(a1 + 32) + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = v6;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
-void __69__FCPuzzleDownloadService_fetchCachedPuzzleWithID_completionHandler___block_invoke_2(void *a1, void *a2, void *a3)
+void __69__FCPuzzleDownloadService_fetchCachedPuzzleWithID_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = FCOfflineDownloadsLog;
   if (os_log_type_enabled(FCOfflineDownloadsLog, OS_LOG_TYPE_DEFAULT))
   {
     v8 = @"not cached";
-    v9 = a1[4];
+    v9 = *(a1 + 32);
     if (!v6)
     {
       v8 = @"success";
     }
 
-    v12 = 138543618;
-    v13 = v9;
-    v14 = 2114;
-    v15 = v8;
-    _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "Concluded cache check for puzzle %{public}@ with status %{public}@", &v12, 0x16u);
+    v10 = 138543618;
+    v11 = v9;
+    v12 = 2114;
+    v13 = v8;
+    _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "Concluded cache check for puzzle %{public}@ with status %{public}@", &v10, 0x16u);
   }
 
-  v10 = *(*(a1[6] + 8) + 40);
-  (*(a1[5] + 16))();
-
-  v11 = *MEMORY[0x1E69E9840];
+  (*(*(a1 + 40) + 16))();
 }
 
 - (BOOL)isPuzzleDownloadedEnoughToUse:(id)use
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   useCopy = use;
   context = [(FCPuzzleDownloadService *)self context];
   internalContentContext = [context internalContentContext];
@@ -166,15 +160,15 @@ void __69__FCPuzzleDownloadService_fetchCachedPuzzleWithID_completionHandler___b
 
     if (!v14)
     {
-      v44[0] = MEMORY[0x1E69E9820];
-      v44[1] = 3221225472;
-      v44[2] = __57__FCPuzzleDownloadService_isPuzzleDownloadedEnoughToUse___block_invoke_19;
-      v44[3] = &unk_1E7C36F68;
-      v45 = useCopy;
-      v46 = v9;
-      v27 = __57__FCPuzzleDownloadService_isPuzzleDownloadedEnoughToUse___block_invoke_19(v44);
+      v43[0] = MEMORY[0x1E69E9820];
+      v43[1] = 3221225472;
+      v43[2] = __57__FCPuzzleDownloadService_isPuzzleDownloadedEnoughToUse___block_invoke_19;
+      v43[3] = &unk_1E7C36F68;
+      v44 = useCopy;
+      v45 = v9;
+      v27 = __57__FCPuzzleDownloadService_isPuzzleDownloadedEnoughToUse___block_invoke_19(v43);
 
-      v15 = v45;
+      v15 = v44;
 LABEL_19:
 
       goto LABEL_20;
@@ -186,18 +180,18 @@ LABEL_19:
     dataResourceID = [v9 dataResourceID];
     v19 = [flintResourceManager cachedResourceWithIdentifier:dataResourceID];
 
-    v31 = v19;
+    v30 = v19;
     if (!v19)
     {
-      v41[0] = MEMORY[0x1E69E9820];
-      v41[1] = 3221225472;
-      v41[2] = __57__FCPuzzleDownloadService_isPuzzleDownloadedEnoughToUse___block_invoke_20;
-      v41[3] = &unk_1E7C36F68;
-      v42 = useCopy;
-      v43 = v9;
-      v27 = __57__FCPuzzleDownloadService_isPuzzleDownloadedEnoughToUse___block_invoke_20(v41);
+      v40[0] = MEMORY[0x1E69E9820];
+      v40[1] = 3221225472;
+      v40[2] = __57__FCPuzzleDownloadService_isPuzzleDownloadedEnoughToUse___block_invoke_20;
+      v40[3] = &unk_1E7C36F68;
+      v41 = useCopy;
+      v42 = v9;
+      v27 = __57__FCPuzzleDownloadService_isPuzzleDownloadedEnoughToUse___block_invoke_20(v40);
 
-      v20 = v42;
+      v20 = v41;
 LABEL_18:
 
       goto LABEL_19;
@@ -220,7 +214,7 @@ LABEL_18:
           if (os_log_type_enabled(FCOfflineDownloadsLog, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v50 = useCopy;
+            v49 = useCopy;
             _os_log_impl(&dword_1B63EF000, v26, OS_LOG_TYPE_DEFAULT, "Puzzle %{public}@ is usable", buf, 0xCu);
           }
 
@@ -228,42 +222,42 @@ LABEL_18:
           goto LABEL_17;
         }
 
-        v32[0] = MEMORY[0x1E69E9820];
-        v32[1] = 3221225472;
-        v32[2] = __57__FCPuzzleDownloadService_isPuzzleDownloadedEnoughToUse___block_invoke_23;
-        v32[3] = &unk_1E7C36F68;
-        v33 = useCopy;
-        v34 = v25;
-        v27 = __57__FCPuzzleDownloadService_isPuzzleDownloadedEnoughToUse___block_invoke_23(v32);
+        v31[0] = MEMORY[0x1E69E9820];
+        v31[1] = 3221225472;
+        v31[2] = __57__FCPuzzleDownloadService_isPuzzleDownloadedEnoughToUse___block_invoke_23;
+        v31[3] = &unk_1E7C36F68;
+        v32 = useCopy;
+        v33 = v25;
+        v27 = __57__FCPuzzleDownloadService_isPuzzleDownloadedEnoughToUse___block_invoke_23(v31);
 
-        v28 = v33;
+        v28 = v32;
       }
 
       else
       {
-        v35[0] = MEMORY[0x1E69E9820];
-        v35[1] = 3221225472;
-        v35[2] = __57__FCPuzzleDownloadService_isPuzzleDownloadedEnoughToUse___block_invoke_22;
-        v35[3] = &unk_1E7C36F68;
-        v36 = useCopy;
-        v37 = v20;
-        v27 = __57__FCPuzzleDownloadService_isPuzzleDownloadedEnoughToUse___block_invoke_22(v35);
+        v34[0] = MEMORY[0x1E69E9820];
+        v34[1] = 3221225472;
+        v34[2] = __57__FCPuzzleDownloadService_isPuzzleDownloadedEnoughToUse___block_invoke_22;
+        v34[3] = &unk_1E7C36F68;
+        v35 = useCopy;
+        v36 = v20;
+        v27 = __57__FCPuzzleDownloadService_isPuzzleDownloadedEnoughToUse___block_invoke_22(v34);
 
-        v28 = v36;
+        v28 = v35;
       }
     }
 
     else
     {
-      v38[0] = MEMORY[0x1E69E9820];
-      v38[1] = 3221225472;
-      v38[2] = __57__FCPuzzleDownloadService_isPuzzleDownloadedEnoughToUse___block_invoke_21;
-      v38[3] = &unk_1E7C36F68;
-      v39 = useCopy;
-      v40 = v15;
-      v27 = __57__FCPuzzleDownloadService_isPuzzleDownloadedEnoughToUse___block_invoke_21(v38);
+      v37[0] = MEMORY[0x1E69E9820];
+      v37[1] = 3221225472;
+      v37[2] = __57__FCPuzzleDownloadService_isPuzzleDownloadedEnoughToUse___block_invoke_21;
+      v37[3] = &unk_1E7C36F68;
+      v38 = useCopy;
+      v39 = v15;
+      v27 = __57__FCPuzzleDownloadService_isPuzzleDownloadedEnoughToUse___block_invoke_21(v37);
 
-      v25 = v39;
+      v25 = v38;
     }
 
 LABEL_17:
@@ -271,39 +265,37 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v47[0] = MEMORY[0x1E69E9820];
-  v47[1] = 3221225472;
-  v47[2] = __57__FCPuzzleDownloadService_isPuzzleDownloadedEnoughToUse___block_invoke;
-  v47[3] = &unk_1E7C36F40;
-  v48 = useCopy;
-  __57__FCPuzzleDownloadService_isPuzzleDownloadedEnoughToUse___block_invoke(v47);
+  v46[0] = MEMORY[0x1E69E9820];
+  v46[1] = 3221225472;
+  v46[2] = __57__FCPuzzleDownloadService_isPuzzleDownloadedEnoughToUse___block_invoke;
+  v46[3] = &unk_1E7C36F40;
+  v47 = useCopy;
+  __57__FCPuzzleDownloadService_isPuzzleDownloadedEnoughToUse___block_invoke(v46);
   v27 = 0;
-  v9 = v48;
+  v9 = v47;
 LABEL_20:
 
-  v29 = *MEMORY[0x1E69E9840];
   return v27;
 }
 
 uint64_t __57__FCPuzzleDownloadService_isPuzzleDownloadedEnoughToUse___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = FCOfflineDownloadsLog;
   if (os_log_type_enabled(FCOfflineDownloadsLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "Puzzle %{public}@ is not usable because its puzzle record is not cached", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "Puzzle %{public}@ is not usable because its puzzle record is not cached", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 uint64_t __57__FCPuzzleDownloadService_isPuzzleDownloadedEnoughToUse___block_invoke_19(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = FCOfflineDownloadsLog;
   if (os_log_type_enabled(FCOfflineDownloadsLog, OS_LOG_TYPE_DEFAULT))
   {
@@ -311,20 +303,19 @@ uint64_t __57__FCPuzzleDownloadService_isPuzzleDownloadedEnoughToUse___block_inv
     v3 = *(a1 + 40);
     v5 = v2;
     v6 = [v3 puzzleTypeID];
-    v9 = 138543618;
-    v10 = v4;
-    v11 = 2114;
-    v12 = v6;
-    _os_log_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEFAULT, "Puzzle %{public}@ is not usable because its puzzle type record is not cached, type=%{public}@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v4;
+    v10 = 2114;
+    v11 = v6;
+    _os_log_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEFAULT, "Puzzle %{public}@ is not usable because its puzzle type record is not cached, type=%{public}@", &v8, 0x16u);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 uint64_t __57__FCPuzzleDownloadService_isPuzzleDownloadedEnoughToUse___block_invoke_20(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = FCOfflineDownloadsLog;
   if (os_log_type_enabled(FCOfflineDownloadsLog, OS_LOG_TYPE_DEFAULT))
   {
@@ -332,18 +323,37 @@ uint64_t __57__FCPuzzleDownloadService_isPuzzleDownloadedEnoughToUse___block_inv
     v3 = *(a1 + 40);
     v5 = v2;
     v6 = [v3 dataResourceID];
-    v9 = 138543618;
-    v10 = v4;
-    v11 = 2114;
-    v12 = v6;
-    _os_log_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEFAULT, "Puzzle %{public}@ is not usable because its data resource is not cached, resource=%{public}@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v4;
+    v10 = 2114;
+    v11 = v6;
+    _os_log_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEFAULT, "Puzzle %{public}@ is not usable because its data resource is not cached, resource=%{public}@", &v8, 0x16u);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 uint64_t __57__FCPuzzleDownloadService_isPuzzleDownloadedEnoughToUse___block_invoke_21(uint64_t a1)
+{
+  v12 = *MEMORY[0x1E69E9840];
+  v2 = FCOfflineDownloadsLog;
+  if (os_log_type_enabled(FCOfflineDownloadsLog, OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = *(a1 + 32);
+    v3 = *(a1 + 40);
+    v5 = v2;
+    v6 = [v3 engineResourceID];
+    v8 = 138543618;
+    v9 = v4;
+    v10 = 2114;
+    v11 = v6;
+    _os_log_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEFAULT, "Puzzle %{public}@ is not usable because its engine resource is not cached, resource=%{public}@", &v8, 0x16u);
+  }
+
+  return 0;
+}
+
+uint64_t __57__FCPuzzleDownloadService_isPuzzleDownloadedEnoughToUse___block_invoke_22(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
   v2 = FCOfflineDownloadsLog;
@@ -352,43 +362,21 @@ uint64_t __57__FCPuzzleDownloadService_isPuzzleDownloadedEnoughToUse___block_inv
     v4 = *(a1 + 32);
     v3 = *(a1 + 40);
     v5 = v2;
-    v6 = [v3 engineResourceID];
+    v6 = [v3 assetHandle];
+    v7 = [v6 uniqueKey];
     v9 = 138543618;
     v10 = v4;
     v11 = 2114;
-    v12 = v6;
-    _os_log_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEFAULT, "Puzzle %{public}@ is not usable because its engine resource is not cached, resource=%{public}@", &v9, 0x16u);
+    v12 = v7;
+    _os_log_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEFAULT, "Puzzle %{public}@ is not usable because its data asset is not cached, asset=%{public}@", &v9, 0x16u);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-  return 0;
-}
-
-uint64_t __57__FCPuzzleDownloadService_isPuzzleDownloadedEnoughToUse___block_invoke_22(uint64_t a1)
-{
-  v14 = *MEMORY[0x1E69E9840];
-  v2 = FCOfflineDownloadsLog;
-  if (os_log_type_enabled(FCOfflineDownloadsLog, OS_LOG_TYPE_DEFAULT))
-  {
-    v4 = *(a1 + 32);
-    v3 = *(a1 + 40);
-    v5 = v2;
-    v6 = [v3 assetHandle];
-    v7 = [v6 uniqueKey];
-    v10 = 138543618;
-    v11 = v4;
-    v12 = 2114;
-    v13 = v7;
-    _os_log_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEFAULT, "Puzzle %{public}@ is not usable because its data asset is not cached, asset=%{public}@", &v10, 0x16u);
-  }
-
-  v8 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 uint64_t __57__FCPuzzleDownloadService_isPuzzleDownloadedEnoughToUse___block_invoke_23(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = FCOfflineDownloadsLog;
   if (os_log_type_enabled(FCOfflineDownloadsLog, OS_LOG_TYPE_DEFAULT))
   {
@@ -397,14 +385,13 @@ uint64_t __57__FCPuzzleDownloadService_isPuzzleDownloadedEnoughToUse___block_inv
     v5 = v2;
     v6 = [v3 assetHandle];
     v7 = [v6 uniqueKey];
-    v10 = 138543618;
-    v11 = v4;
-    v12 = 2114;
-    v13 = v7;
-    _os_log_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEFAULT, "Puzzle %{public}@ is not usable because its engine asset is not cached, asset=%{public}@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v4;
+    v11 = 2114;
+    v12 = v7;
+    _os_log_impl(&dword_1B63EF000, v5, OS_LOG_TYPE_DEFAULT, "Puzzle %{public}@ is not usable because its engine asset is not cached, asset=%{public}@", &v9, 0x16u);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

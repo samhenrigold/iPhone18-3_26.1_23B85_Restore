@@ -35,34 +35,34 @@
 
 - (id)dictionaryMetrics
 {
-  v19[9] = *MEMORY[0x277D85DE8];
+  v18[9] = *MEMORY[0x277D85DE8];
   voiceDownloadKey = self->_voiceDownloadKey;
   if (!voiceDownloadKey)
   {
     voiceDownloadKey = &stru_2881D71A8;
   }
 
-  v19[0] = voiceDownloadKey;
-  v18[0] = @"voice_asset_key";
-  v18[1] = @"allowing_cellular";
+  v18[0] = voiceDownloadKey;
+  v17[0] = @"voice_asset_key";
+  v17[1] = @"allowing_cellular";
   v4 = [MEMORY[0x277CCABB0] numberWithBool:self->_isCellularAllowed];
-  v19[1] = v4;
-  v18[2] = @"discretionary";
+  v18[1] = v4;
+  v17[2] = @"discretionary";
   v5 = [MEMORY[0x277CCABB0] numberWithBool:self->_discretionary];
   downloadSize = self->_downloadSize;
-  v19[2] = v5;
-  v19[3] = downloadSize;
-  v18[3] = @"download_size";
-  v18[4] = @"download_duration";
+  v18[2] = v5;
+  v18[3] = downloadSize;
+  v17[3] = @"download_size";
+  v17[4] = @"download_duration";
   v7 = MEMORY[0x277CCABB0];
   [(VSDownloadMetrics *)self downloadDuration];
   v8 = [v7 numberWithDouble:?];
-  v19[4] = v8;
-  v18[5] = @"download_progress";
+  v18[4] = v8;
+  v17[5] = @"download_progress";
   *&v9 = self->_downloadProgress;
   v10 = [MEMORY[0x277CCABB0] numberWithFloat:v9];
-  v19[5] = v10;
-  v18[6] = @"error_code";
+  v18[5] = v10;
+  v17[6] = @"error_code";
   v11 = [MEMORY[0x277CCABB0] numberWithInteger:self->_errorCode];
   v12 = v11;
   clientBundleIdentifier = self->_clientBundleIdentifier;
@@ -71,15 +71,13 @@
     clientBundleIdentifier = &stru_2881D71A8;
   }
 
-  v19[6] = v11;
-  v19[7] = clientBundleIdentifier;
-  v18[7] = @"client_bundle_identifier";
-  v18[8] = @"setup_duration";
+  v18[6] = v11;
+  v18[7] = clientBundleIdentifier;
+  v17[7] = @"client_bundle_identifier";
+  v17[8] = @"setup_duration";
   v14 = [MEMORY[0x277CCABB0] numberWithDouble:self->_setupTimeInterval];
-  v19[8] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:9];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v18[8] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:9];
 
   return v15;
 }

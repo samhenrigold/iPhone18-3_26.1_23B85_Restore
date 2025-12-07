@@ -9,8 +9,9 @@
 {
   height = size.height;
   width = size.width;
-  sub_1A43ACA40();
-  PhotosDynamicHeaderSpec.headerHeight(for:)(width, height);
+  v5.n128_u64[1] = *(sub_1A43ACA40() + 1);
+  v5.n128_f64[0] = height;
+  PhotosDynamicHeaderSpec.headerHeight(for:)(width, v5);
   return result;
 }
 

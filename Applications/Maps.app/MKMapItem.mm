@@ -1248,7 +1248,7 @@ LABEL_15:
     v10 = closeUpView;
     if (closeUpView)
     {
-      [closeUpView lookAt];
+      objc_msgSend_lookAt(closeUpView);
     }
 
     GEOLocationCoordinate2DFromOrientedPosition();

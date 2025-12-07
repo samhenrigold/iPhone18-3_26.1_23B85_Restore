@@ -89,80 +89,79 @@
 
 - (id)setPIRConfig:(id)config error:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   configCopy = config;
-  v31 = 0;
+  v30 = 0;
   connection = [(CMLPIRClient *)self connection];
-  v10 = [CMLXPC syncProxyToConnection:connection error:&v31];
+  v10 = [CMLXPC syncProxyToConnection:connection error:&v30];
 
   objc_storeStrong(&self->_pirConfig, config);
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy__3;
-  v29 = __Block_byref_object_dispose__3;
-  v30 = 0;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__3;
-  v23 = __Block_byref_object_dispose__3;
   v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__3;
+  v28 = __Block_byref_object_dispose__3;
+  v29 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__3;
+  v22 = __Block_byref_object_dispose__3;
+  v23 = 0;
   v11 = +[CMLLog client];
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = NSStringFromSelector(a2);
     *buf = 138543362;
-    v33 = v12;
+    v32 = v12;
     _os_log_impl(&dword_224E26000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ Sending XPC request", buf, 0xCu);
   }
 
   clientConfig = [(CMLPIRClient *)self clientConfig];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __35__CMLPIRClient_setPIRConfig_error___block_invoke;
-  v18[3] = &unk_278541A50;
-  v18[4] = &v19;
-  v18[5] = &v25;
-  v18[6] = a2;
-  [v10 setPIRConfig:configCopy clientConfig:clientConfig reply:v18];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __35__CMLPIRClient_setPIRConfig_error___block_invoke;
+  v17[3] = &unk_278541A50;
+  v17[4] = &v18;
+  v17[5] = &v24;
+  v17[6] = a2;
+  [v10 setPIRConfig:configCopy clientConfig:clientConfig reply:v17];
 
   if (error)
   {
-    v14 = v31;
-    if (!v31)
+    v14 = v30;
+    if (!v30)
     {
-      v14 = v26[5];
+      v14 = v25[5];
     }
 
     *error = v14;
   }
 
-  v15 = v20[5];
-  _Block_object_dispose(&v19, 8);
+  v15 = v19[5];
+  _Block_object_dispose(&v18, 8);
 
-  _Block_object_dispose(&v25, 8);
-  v16 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v24, 8);
 
   return v15;
 }
 
 void __35__CMLPIRClient_setPIRConfig_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   v8 = +[CMLLog client];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = NSStringFromSelector(*(a1 + 48));
-    v14 = 138543874;
-    v15 = v9;
-    v16 = 1024;
-    v17 = v6 != 0;
-    v18 = 2114;
-    v19 = v7;
-    _os_log_impl(&dword_224E26000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ XPC request complete, success(%d) error:%{public}@", &v14, 0x1Cu);
+    v13 = 138543874;
+    v14 = v9;
+    v15 = 1024;
+    v16 = v6 != 0;
+    v17 = 2114;
+    v18 = v7;
+    _os_log_impl(&dword_224E26000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ XPC request complete, success(%d) error:%{public}@", &v13, 0x1Cu);
   }
 
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
@@ -173,85 +172,82 @@ void __35__CMLPIRClient_setPIRConfig_error___block_invoke(uint64_t a1, void *a2,
     v12 = *(v11 + 40);
     *(v11 + 40) = v10;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)generateEvaluationKey:(id *)key
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v29 = 0;
-  connection = [(CMLPIRClient *)self connection];
-  v7 = [CMLXPC syncProxyToConnection:connection error:&v29];
-
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy__3;
-  v27 = __Block_byref_object_dispose__3;
+  v31 = *MEMORY[0x277D85DE8];
   v28 = 0;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__3;
-  v21 = __Block_byref_object_dispose__3;
+  connection = [(CMLPIRClient *)self connection];
+  v7 = [CMLXPC syncProxyToConnection:connection error:&v28];
+
   v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__3;
+  v26 = __Block_byref_object_dispose__3;
+  v27 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__3;
+  v20 = __Block_byref_object_dispose__3;
+  v21 = 0;
   v8 = +[CMLLog client];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = NSStringFromSelector(a2);
     *buf = 138543362;
-    v31 = v9;
+    v30 = v9;
     _os_log_impl(&dword_224E26000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ Sending XPC request", buf, 0xCu);
   }
 
   pirConfig = [(CMLPIRClient *)self pirConfig];
   clientConfig = [(CMLPIRClient *)self clientConfig];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __38__CMLPIRClient_generateEvaluationKey___block_invoke;
-  v16[3] = &unk_278541A50;
-  v16[4] = &v17;
-  v16[5] = &v23;
-  v16[6] = a2;
-  [v7 generateEvaluationKey:pirConfig clientConfig:clientConfig reply:v16];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __38__CMLPIRClient_generateEvaluationKey___block_invoke;
+  v15[3] = &unk_278541A50;
+  v15[4] = &v16;
+  v15[5] = &v22;
+  v15[6] = a2;
+  [v7 generateEvaluationKey:pirConfig clientConfig:clientConfig reply:v15];
 
   if (key)
   {
-    v12 = v29;
-    if (!v29)
+    v12 = v28;
+    if (!v28)
     {
-      v12 = v24[5];
+      v12 = v23[5];
     }
 
     *key = v12;
   }
 
-  v13 = v18[5];
-  _Block_object_dispose(&v17, 8);
+  v13 = v17[5];
+  _Block_object_dispose(&v16, 8);
 
-  _Block_object_dispose(&v23, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v22, 8);
 
   return v13;
 }
 
 void __38__CMLPIRClient_generateEvaluationKey___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   v8 = +[CMLLog client];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = NSStringFromSelector(*(a1 + 48));
-    v14 = 138543874;
-    v15 = v9;
-    v16 = 1024;
-    v17 = v6 != 0;
-    v18 = 2114;
-    v19 = v7;
-    _os_log_impl(&dword_224E26000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ XPC request complete, success(%d) error:%{public}@", &v14, 0x1Cu);
+    v13 = 138543874;
+    v14 = v9;
+    v15 = 1024;
+    v16 = v6 != 0;
+    v17 = 2114;
+    v18 = v7;
+    _os_log_impl(&dword_224E26000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ XPC request complete, success(%d) error:%{public}@", &v13, 0x1Cu);
   }
 
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
@@ -262,8 +258,6 @@ void __38__CMLPIRClient_generateEvaluationKey___block_invoke(uint64_t a1, void *
     v12 = *(v11 + 40);
     *(v11 + 40) = v10;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -28,7 +28,7 @@ void ___HandleClearScreen_block_invoke_2(uint64_t a1)
   if (v3)
   {
     v4 = [*(a1 + 32) delegate];
-    [v4 videoStreamIsCleared:1 forRenderer:*(a1 + 32)];
+    [v4 videoStreamIsCleared:? forRenderer:?];
   }
 }
 

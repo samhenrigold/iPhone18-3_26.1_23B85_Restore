@@ -2,6 +2,7 @@
 - (SwiftUIContainerCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier specifier:(id)specifier;
 - (void)prepareForReuse;
 - (void)refreshCellContentsWithSpecifier:(id)specifier;
+- (void)reloadWithSpecifier:(id)specifier animated:(BOOL)animated;
 - (void)setNewSwiftUIViewFromSpecifier:(id)specifier;
 - (void)setSeparatorStyle:(int64_t)style;
 @end
@@ -30,6 +31,16 @@
   specifierCopy = specifier;
   [(SwiftUIContainerCell *)&v5 refreshCellContentsWithSpecifier:specifierCopy];
   [(SwiftUIContainerCell *)self setNewSwiftUIViewFromSpecifier:specifierCopy, v5.receiver, v5.super_class];
+}
+
+- (void)reloadWithSpecifier:(id)specifier animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v7.receiver = self;
+  v7.super_class = SwiftUIContainerCell;
+  specifierCopy = specifier;
+  [(SwiftUIContainerCell *)&v7 reloadWithSpecifier:specifierCopy animated:animatedCopy];
+  [(SwiftUIContainerCell *)self setNewSwiftUIViewFromSpecifier:specifierCopy, v7.receiver, v7.super_class];
 }
 
 - (void)prepareForReuse

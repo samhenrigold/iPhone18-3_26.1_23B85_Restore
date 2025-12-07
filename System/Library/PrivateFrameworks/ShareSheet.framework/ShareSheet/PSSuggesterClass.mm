@@ -15,7 +15,7 @@ Class __get_PSSuggesterClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __get_PSSuggesterClass_block_invoke_cold_1();
+    __get_PSSuggesterClass_block_invoke_cold_1();
     return OUTLINED_FUNCTION_0_4(v3, v4);
   }
 

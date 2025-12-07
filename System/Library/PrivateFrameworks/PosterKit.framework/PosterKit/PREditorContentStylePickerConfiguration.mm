@@ -20,9 +20,9 @@
   promptCopy = prompt;
   styleCopy = style;
   paletteCopy = palette;
-  v24.receiver = self;
-  v24.super_class = PREditorContentStylePickerConfiguration;
-  v16 = [(PREditorContentStylePickerConfiguration *)&v24 init];
+  v25.receiver = self;
+  v25.super_class = PREditorContentStylePickerConfiguration;
+  v16 = [(PREditorContentStylePickerConfiguration *)&v25 init];
   if (v16)
   {
     if (identifierCopy)
@@ -40,17 +40,17 @@
 
     if (promptCopy)
     {
-      v19 = promptCopy;
+      v20 = promptCopy;
       prompt = v16->_prompt;
-      v16->_prompt = v19;
+      v16->_prompt = v20;
     }
 
     else
     {
-      prompt = PRBundle();
-      v21 = [prompt localizedStringForKey:@"EDIT_COLOR_PICKER_DEFAULT_PROMPT" value:&stru_1F1C13D90 table:@"PosterKit"];
-      v22 = v16->_prompt;
-      v16->_prompt = v21;
+      prompt = PRBundle(v19);
+      v22 = [prompt localizedStringForKey:@"EDIT_COLOR_PICKER_DEFAULT_PROMPT" value:&stru_1F1C13D90 table:@"PosterKit"];
+      v23 = v16->_prompt;
+      v16->_prompt = v22;
     }
 
     objc_storeStrong(&v16->_selectedStyle, style);

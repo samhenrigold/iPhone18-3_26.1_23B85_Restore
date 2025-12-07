@@ -64,24 +64,23 @@
 
 - (void)dealloc
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (![(STStatusDomainPublisher *)self isInvalidated])
   {
     v3 = STSystemStatusLogPublishing();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       statusDomainName = [objc_opt_class() statusDomainName];
-      v6 = STSystemStatusDescriptionForDomain(statusDomainName);
+      v5 = STSystemStatusDescriptionForDomain(statusDomainName);
       *buf = 138543362;
-      v9 = v6;
+      v8 = v5;
       _os_log_fault_impl(&dword_1DA9C2000, v3, OS_LOG_TYPE_FAULT, "SYSTEMSTATUS CLIENT ERROR: %{public}@ publisher was deallocated without being invalidated", buf, 0xCu);
     }
   }
 
-  v7.receiver = self;
-  v7.super_class = STStatusDomainPublisher;
-  [(STStatusDomainPublisher *)&v7 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = STStatusDomainPublisher;
+  [(STStatusDomainPublisher *)&v6 dealloc];
 }
 
 - (STStatusDomainData)data
@@ -112,7 +111,7 @@
 
 - (void)invalidate
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_lock);
   lock_invalidated = self->_lock_invalidated;
   self->_lock_invalidated = 1;
@@ -123,26 +122,23 @@
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       statusDomainName = [objc_opt_class() statusDomainName];
-      v8 = STSystemStatusDescriptionForDomain(statusDomainName);
+      v6 = STSystemStatusDescriptionForDomain(statusDomainName);
       *buf = 138543362;
-      v11 = v8;
+      v9 = v6;
       _os_log_fault_impl(&dword_1DA9C2000, v4, OS_LOG_TYPE_FAULT, "Attempted to invalidate %{public}@ publisher which was already invalidated", buf, 0xCu);
     }
-
-    v5 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v9 = self->_serverHandle;
-    -[STStatusDomainPublisherServerHandle removePublisherClient:forDomain:](v9, "removePublisherClient:forDomain:", self, [objc_opt_class() statusDomainName]);
-    v6 = *MEMORY[0x1E69E9840];
+    v7 = self->_serverHandle;
+    -[STStatusDomainPublisherServerHandle removePublisherClient:forDomain:](v7, "removePublisherClient:forDomain:", self, [objc_opt_class() statusDomainName]);
   }
 }
 
 - (void)_setData:(void *)data withChangeContext:(void *)context completion:
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v7 = a2;
   dataCopy = data;
   contextCopy = context;
@@ -154,10 +150,10 @@
       if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
         statusDomainName = [objc_opt_class() statusDomainName];
-        v16 = STSystemStatusDescriptionForDomain(statusDomainName);
-        v17 = 138543362;
-        v18 = v16;
-        _os_log_fault_impl(&dword_1DA9C2000, v10, OS_LOG_TYPE_FAULT, "%{public}@ publisher attempted to set data after being invalidated", &v17, 0xCu);
+        v15 = STSystemStatusDescriptionForDomain(statusDomainName);
+        v16 = 138543362;
+        v17 = v15;
+        _os_log_fault_impl(&dword_1DA9C2000, v10, OS_LOG_TYPE_FAULT, "%{public}@ publisher attempted to set data after being invalidated", &v16, 0xCu);
       }
 
       if (contextCopy)
@@ -174,8 +170,6 @@
       [v12 publishData:v13 forPublisherClient:self domain:objc_msgSend(objc_opt_class() withChangeContext:"statusDomainName") completion:{v11, contextCopy}];
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateDataWithBlock:(id)block
@@ -192,7 +186,7 @@
 
 - (void)_updateDataWithBlock:(void *)block completion:
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   blockCopy = block;
   if (self)
@@ -206,9 +200,9 @@
         if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
         {
           statusDomainName = [objc_opt_class() statusDomainName];
-          v13 = STSystemStatusDescriptionForDomain(statusDomainName);
+          v12 = STSystemStatusDescriptionForDomain(statusDomainName);
           *buf = 138543362;
-          v17 = v13;
+          v16 = v12;
           _os_log_fault_impl(&dword_1DA9C2000, v10, OS_LOG_TYPE_FAULT, "%{public}@ publisher attempted to update data after being invalidated", buf, 0xCu);
         }
       }
@@ -223,17 +217,15 @@
     {
       v8 = self[2];
       statusDomainName2 = [objc_opt_class() statusDomainName];
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __59__STStatusDomainPublisher__updateDataWithBlock_completion___block_invoke;
-      v14[3] = &unk_1E85DE818;
-      v14[4] = self;
-      v15 = v5;
-      [v8 updateDataForPublisherClient:self domain:statusDomainName2 usingDiffProvider:v14 completion:blockCopy];
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = __59__STStatusDomainPublisher__updateDataWithBlock_completion___block_invoke;
+      v13[3] = &unk_1E85DE818;
+      v13[4] = self;
+      v14 = v5;
+      [v8 updateDataForPublisherClient:self domain:statusDomainName2 usingDiffProvider:v13 completion:blockCopy];
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateDataWithBlock:(id)block completion:(id)completion
@@ -276,7 +268,7 @@
 
 - (void)_setVolatileData:(void *)data withChangeContext:(void *)context completion:
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v7 = a2;
   dataCopy = data;
   contextCopy = context;
@@ -288,10 +280,10 @@
       if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
         statusDomainName = [objc_opt_class() statusDomainName];
-        v16 = STSystemStatusDescriptionForDomain(statusDomainName);
-        v17 = 138543362;
-        v18 = v16;
-        _os_log_fault_impl(&dword_1DA9C2000, v10, OS_LOG_TYPE_FAULT, "%{public}@ publisher attempted to set volatile data after being invalidated", &v17, 0xCu);
+        v15 = STSystemStatusDescriptionForDomain(statusDomainName);
+        v16 = 138543362;
+        v17 = v15;
+        _os_log_fault_impl(&dword_1DA9C2000, v10, OS_LOG_TYPE_FAULT, "%{public}@ publisher attempted to set volatile data after being invalidated", &v16, 0xCu);
       }
 
       if (contextCopy)
@@ -308,8 +300,6 @@
       [v12 publishVolatileData:v13 forPublisherClient:self domain:objc_msgSend(objc_opt_class() withChangeContext:"statusDomainName") completion:{v11, contextCopy}];
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateVolatileDataWithBlock:(id)block
@@ -326,7 +316,7 @@
 
 - (void)_updateVolatileDataWithBlock:(void *)block completion:
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   blockCopy = block;
   if (self)
@@ -340,9 +330,9 @@
         if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
         {
           statusDomainName = [objc_opt_class() statusDomainName];
-          v13 = STSystemStatusDescriptionForDomain(statusDomainName);
+          v12 = STSystemStatusDescriptionForDomain(statusDomainName);
           *buf = 138543362;
-          v17 = v13;
+          v16 = v12;
           _os_log_fault_impl(&dword_1DA9C2000, v10, OS_LOG_TYPE_FAULT, "%{public}@ publisher attempted to update volatile data after being invalidated", buf, 0xCu);
         }
       }
@@ -357,17 +347,15 @@
     {
       v8 = self[2];
       statusDomainName2 = [objc_opt_class() statusDomainName];
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __67__STStatusDomainPublisher__updateVolatileDataWithBlock_completion___block_invoke;
-      v14[3] = &unk_1E85DE818;
-      v14[4] = self;
-      v15 = v5;
-      [v8 updateVolatileDataForPublisherClient:self domain:statusDomainName2 usingDiffProvider:v14 completion:blockCopy];
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = __67__STStatusDomainPublisher__updateVolatileDataWithBlock_completion___block_invoke;
+      v13[3] = &unk_1E85DE818;
+      v13[4] = self;
+      v14 = v5;
+      [v8 updateVolatileDataForPublisherClient:self domain:statusDomainName2 usingDiffProvider:v13 completion:blockCopy];
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateVolatileDataWithBlock:(id)block completion:(id)completion
@@ -423,38 +411,36 @@ id __59__STStatusDomainPublisher__updateDataWithBlock_completion___block_invoke(
 {
   v5 = a2;
   v6 = [v5 mutableCopyWithZone:0];
-  v7 = *(a1 + 32);
-  v8 = [objc_opt_class() emptyChangeContext];
-  v9 = [v8 mutableCopyWithZone:0];
+  v7 = [objc_opt_class() emptyChangeContext];
+  v8 = [v7 mutableCopyWithZone:0];
 
   (*(*(a1 + 40) + 16))();
   if (a3)
   {
-    *a3 = [v9 copyWithZone:0];
+    *a3 = [v8 copyWithZone:0];
   }
 
-  v10 = [v6 diffFromData:v5];
+  v9 = [v6 diffFromData:v5];
 
-  return v10;
+  return v9;
 }
 
 id __67__STStatusDomainPublisher__updateVolatileDataWithBlock_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = [v5 mutableCopyWithZone:0];
-  v7 = *(a1 + 32);
-  v8 = [objc_opt_class() emptyChangeContext];
-  v9 = [v8 mutableCopyWithZone:0];
+  v7 = [objc_opt_class() emptyChangeContext];
+  v8 = [v7 mutableCopyWithZone:0];
 
   (*(*(a1 + 40) + 16))();
   if (a3)
   {
-    *a3 = [v9 copyWithZone:0];
+    *a3 = [v8 copyWithZone:0];
   }
 
-  v10 = [v6 diffFromData:v5];
+  v9 = [v6 diffFromData:v5];
 
-  return v10;
+  return v9;
 }
 
 @end

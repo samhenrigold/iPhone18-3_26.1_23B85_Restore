@@ -83,41 +83,13 @@
   v17.receiver = self;
   v17.super_class = CVAFilterColorAlphaToFgBg;
   v6 = [(CVAFilterColorAlphaToFgBg *)&v17 init];
-  if (!v6)
-  {
-    goto LABEL_6;
-  }
-
-  v7 = objc_opt_class();
-  v8 = NSStringFromClass(v7);
-  label = v6->_label;
-  v6->_label = v8;
-
-  v10 = objc_opt_new();
-  v16 = 1;
-  [v10 setConstantValue:&v16 type:53 withName:@"kWriteForeground"];
-  sub_1DED422A0(&v6->_splitFgBgKernel_rgba, contextCopy, @"splitFgBg_rgba", v10);
-  splitFgBgKernel_rgba = v6->_splitFgBgKernel_rgba;
-
-  if (!splitFgBgKernel_rgba)
-  {
-    goto LABEL_6;
-  }
-
-  v12 = objc_opt_new();
-  v16 = 0;
-  [v12 setConstantValue:&v16 type:53 withName:@"kWriteForeground"];
-  sub_1DED422A0(&v6->_splitBgKernel_rgba, contextCopy, @"splitFgBg_rgba", v12);
-  splitBgKernel_rgba = v6->_splitBgKernel_rgba;
-
-  if (splitBgKernel_rgba && (sub_1DED422A0(&v6->_splitFgKernel_rgba, contextCopy, @"splitFg_rgba", 0), v6->_splitFgKernel_rgba))
+  if (v6 && (v7 = objc_opt_class(), NSStringFromClass(v7), v8 = objc_claimAutoreleasedReturnValue(), label = v6->_label, v6->_label = v8, label, v10 = objc_opt_new(), v16 = 1, [v10 setConstantValue:&v16 type:53 withName:@"kWriteForeground"], sub_1DED422A0(&v6->_splitFgBgKernel_rgba, contextCopy, @"splitFgBg_rgba", v10), splitFgBgKernel_rgba = v6->_splitFgBgKernel_rgba, v10, splitFgBgKernel_rgba) && (v12 = objc_opt_new(), v16 = 0, objc_msgSend(v12, "setConstantValue:type:withName:", &v16, 53, @"kWriteForeground"), sub_1DED422A0(&v6->_splitBgKernel_rgba, contextCopy, @"splitFgBg_rgba", v12), splitBgKernel_rgba = v6->_splitBgKernel_rgba, v12, splitBgKernel_rgba) && (sub_1DED422A0(&v6->_splitFgKernel_rgba, contextCopy, @"splitFg_rgba", 0), v6->_splitFgKernel_rgba))
   {
     v14 = v6;
   }
 
   else
   {
-LABEL_6:
     v14 = 0;
   }
 

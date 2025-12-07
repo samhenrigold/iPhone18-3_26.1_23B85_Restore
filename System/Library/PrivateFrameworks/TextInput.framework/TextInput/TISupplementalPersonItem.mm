@@ -237,9 +237,9 @@
 - (TISupplementalPersonItem)initWithContact:(id)contact
 {
   contactCopy = contact;
-  v69.receiver = self;
-  v69.super_class = TISupplementalPersonItem;
-  v5 = [(TISupplementalItem *)&v69 init];
+  v70.receiver = self;
+  v70.super_class = TISupplementalPersonItem;
+  v5 = [(TISupplementalItem *)&v70 init];
   if (!v5)
   {
 LABEL_53:
@@ -247,26 +247,26 @@ LABEL_53:
     return v5;
   }
 
-  v75 = 0;
-  v76 = &v75;
-  v77 = 0x2020000000;
+  v76 = 0;
+  v77 = &v76;
+  v78 = 0x2020000000;
   v6 = getCNContactGivenNameKeySymbolLoc_ptr;
-  v78 = getCNContactGivenNameKeySymbolLoc_ptr;
+  v79 = getCNContactGivenNameKeySymbolLoc_ptr;
   if (!getCNContactGivenNameKeySymbolLoc_ptr)
   {
-    v70 = MEMORY[0x1E69E9820];
-    v71 = 3221225472;
-    v72 = __getCNContactGivenNameKeySymbolLoc_block_invoke;
-    v73 = &unk_1E6F4D960;
-    v74 = &v75;
+    v71 = MEMORY[0x1E69E9820];
+    v72 = 3221225472;
+    v73 = __getCNContactGivenNameKeySymbolLoc_block_invoke;
+    v74 = &unk_1E6F4D960;
+    v75 = &v76;
     v7 = ContactsLibrary();
     v8 = dlsym(v7, "CNContactGivenNameKey");
-    *(v74[1] + 24) = v8;
-    getCNContactGivenNameKeySymbolLoc_ptr = *(v74[1] + 24);
-    v6 = v76[3];
+    *(v75[1] + 24) = v8;
+    getCNContactGivenNameKeySymbolLoc_ptr = *(v75[1] + 24);
+    v6 = v77[3];
   }
 
-  _Block_object_dispose(&v75, 8);
+  _Block_object_dispose(&v76, 8);
   if (v6)
   {
     if ([contactCopy isKeyAvailable:*v6])
@@ -277,26 +277,26 @@ LABEL_53:
       v5->_givenName = v10;
     }
 
-    v75 = 0;
-    v76 = &v75;
-    v77 = 0x2020000000;
+    v76 = 0;
+    v77 = &v76;
+    v78 = 0x2020000000;
     v12 = getCNContactPhoneticGivenNameKeySymbolLoc_ptr;
-    v78 = getCNContactPhoneticGivenNameKeySymbolLoc_ptr;
+    v79 = getCNContactPhoneticGivenNameKeySymbolLoc_ptr;
     if (!getCNContactPhoneticGivenNameKeySymbolLoc_ptr)
     {
-      v70 = MEMORY[0x1E69E9820];
-      v71 = 3221225472;
-      v72 = __getCNContactPhoneticGivenNameKeySymbolLoc_block_invoke;
-      v73 = &unk_1E6F4D960;
-      v74 = &v75;
+      v71 = MEMORY[0x1E69E9820];
+      v72 = 3221225472;
+      v73 = __getCNContactPhoneticGivenNameKeySymbolLoc_block_invoke;
+      v74 = &unk_1E6F4D960;
+      v75 = &v76;
       v13 = ContactsLibrary();
       v14 = dlsym(v13, "CNContactPhoneticGivenNameKey");
-      *(v74[1] + 24) = v14;
-      getCNContactPhoneticGivenNameKeySymbolLoc_ptr = *(v74[1] + 24);
-      v12 = v76[3];
+      *(v75[1] + 24) = v14;
+      getCNContactPhoneticGivenNameKeySymbolLoc_ptr = *(v75[1] + 24);
+      v12 = v77[3];
     }
 
-    _Block_object_dispose(&v75, 8);
+    _Block_object_dispose(&v76, 8);
     if (v12)
     {
       if ([contactCopy isKeyAvailable:*v12])
@@ -307,26 +307,26 @@ LABEL_53:
         v5->_phoneticGivenName = v16;
       }
 
-      v75 = 0;
-      v76 = &v75;
-      v77 = 0x2020000000;
+      v76 = 0;
+      v77 = &v76;
+      v78 = 0x2020000000;
       v18 = getCNContactMiddleNameKeySymbolLoc_ptr;
-      v78 = getCNContactMiddleNameKeySymbolLoc_ptr;
+      v79 = getCNContactMiddleNameKeySymbolLoc_ptr;
       if (!getCNContactMiddleNameKeySymbolLoc_ptr)
       {
-        v70 = MEMORY[0x1E69E9820];
-        v71 = 3221225472;
-        v72 = __getCNContactMiddleNameKeySymbolLoc_block_invoke;
-        v73 = &unk_1E6F4D960;
-        v74 = &v75;
+        v71 = MEMORY[0x1E69E9820];
+        v72 = 3221225472;
+        v73 = __getCNContactMiddleNameKeySymbolLoc_block_invoke;
+        v74 = &unk_1E6F4D960;
+        v75 = &v76;
         v19 = ContactsLibrary();
         v20 = dlsym(v19, "CNContactMiddleNameKey");
-        *(v74[1] + 24) = v20;
-        getCNContactMiddleNameKeySymbolLoc_ptr = *(v74[1] + 24);
-        v18 = v76[3];
+        *(v75[1] + 24) = v20;
+        getCNContactMiddleNameKeySymbolLoc_ptr = *(v75[1] + 24);
+        v18 = v77[3];
       }
 
-      _Block_object_dispose(&v75, 8);
+      _Block_object_dispose(&v76, 8);
       if (v18)
       {
         if ([contactCopy isKeyAvailable:*v18])
@@ -337,26 +337,26 @@ LABEL_53:
           v5->_middleName = v22;
         }
 
-        v75 = 0;
-        v76 = &v75;
-        v77 = 0x2020000000;
+        v76 = 0;
+        v77 = &v76;
+        v78 = 0x2020000000;
         v24 = getCNContactPhoneticMiddleNameKeySymbolLoc_ptr;
-        v78 = getCNContactPhoneticMiddleNameKeySymbolLoc_ptr;
+        v79 = getCNContactPhoneticMiddleNameKeySymbolLoc_ptr;
         if (!getCNContactPhoneticMiddleNameKeySymbolLoc_ptr)
         {
-          v70 = MEMORY[0x1E69E9820];
-          v71 = 3221225472;
-          v72 = __getCNContactPhoneticMiddleNameKeySymbolLoc_block_invoke;
-          v73 = &unk_1E6F4D960;
-          v74 = &v75;
+          v71 = MEMORY[0x1E69E9820];
+          v72 = 3221225472;
+          v73 = __getCNContactPhoneticMiddleNameKeySymbolLoc_block_invoke;
+          v74 = &unk_1E6F4D960;
+          v75 = &v76;
           v25 = ContactsLibrary();
           v26 = dlsym(v25, "CNContactPhoneticMiddleNameKey");
-          *(v74[1] + 24) = v26;
-          getCNContactPhoneticMiddleNameKeySymbolLoc_ptr = *(v74[1] + 24);
-          v24 = v76[3];
+          *(v75[1] + 24) = v26;
+          getCNContactPhoneticMiddleNameKeySymbolLoc_ptr = *(v75[1] + 24);
+          v24 = v77[3];
         }
 
-        _Block_object_dispose(&v75, 8);
+        _Block_object_dispose(&v76, 8);
         if (v24)
         {
           if ([contactCopy isKeyAvailable:*v24])
@@ -367,26 +367,26 @@ LABEL_53:
             v5->_phoneticMiddleName = v28;
           }
 
-          v75 = 0;
-          v76 = &v75;
-          v77 = 0x2020000000;
+          v76 = 0;
+          v77 = &v76;
+          v78 = 0x2020000000;
           v30 = getCNContactFamilyNameKeySymbolLoc_ptr;
-          v78 = getCNContactFamilyNameKeySymbolLoc_ptr;
+          v79 = getCNContactFamilyNameKeySymbolLoc_ptr;
           if (!getCNContactFamilyNameKeySymbolLoc_ptr)
           {
-            v70 = MEMORY[0x1E69E9820];
-            v71 = 3221225472;
-            v72 = __getCNContactFamilyNameKeySymbolLoc_block_invoke;
-            v73 = &unk_1E6F4D960;
-            v74 = &v75;
+            v71 = MEMORY[0x1E69E9820];
+            v72 = 3221225472;
+            v73 = __getCNContactFamilyNameKeySymbolLoc_block_invoke;
+            v74 = &unk_1E6F4D960;
+            v75 = &v76;
             v31 = ContactsLibrary();
             v32 = dlsym(v31, "CNContactFamilyNameKey");
-            *(v74[1] + 24) = v32;
-            getCNContactFamilyNameKeySymbolLoc_ptr = *(v74[1] + 24);
-            v30 = v76[3];
+            *(v75[1] + 24) = v32;
+            getCNContactFamilyNameKeySymbolLoc_ptr = *(v75[1] + 24);
+            v30 = v77[3];
           }
 
-          _Block_object_dispose(&v75, 8);
+          _Block_object_dispose(&v76, 8);
           if (v30)
           {
             if ([contactCopy isKeyAvailable:*v30])
@@ -397,26 +397,26 @@ LABEL_53:
               v5->_familyName = v34;
             }
 
-            v75 = 0;
-            v76 = &v75;
-            v77 = 0x2020000000;
+            v76 = 0;
+            v77 = &v76;
+            v78 = 0x2020000000;
             v36 = getCNContactPhoneticFamilyNameKeySymbolLoc_ptr;
-            v78 = getCNContactPhoneticFamilyNameKeySymbolLoc_ptr;
+            v79 = getCNContactPhoneticFamilyNameKeySymbolLoc_ptr;
             if (!getCNContactPhoneticFamilyNameKeySymbolLoc_ptr)
             {
-              v70 = MEMORY[0x1E69E9820];
-              v71 = 3221225472;
-              v72 = __getCNContactPhoneticFamilyNameKeySymbolLoc_block_invoke;
-              v73 = &unk_1E6F4D960;
-              v74 = &v75;
+              v71 = MEMORY[0x1E69E9820];
+              v72 = 3221225472;
+              v73 = __getCNContactPhoneticFamilyNameKeySymbolLoc_block_invoke;
+              v74 = &unk_1E6F4D960;
+              v75 = &v76;
               v37 = ContactsLibrary();
               v38 = dlsym(v37, "CNContactPhoneticFamilyNameKey");
-              *(v74[1] + 24) = v38;
-              getCNContactPhoneticFamilyNameKeySymbolLoc_ptr = *(v74[1] + 24);
-              v36 = v76[3];
+              *(v75[1] + 24) = v38;
+              getCNContactPhoneticFamilyNameKeySymbolLoc_ptr = *(v75[1] + 24);
+              v36 = v77[3];
             }
 
-            _Block_object_dispose(&v75, 8);
+            _Block_object_dispose(&v76, 8);
             if (v36)
             {
               if ([contactCopy isKeyAvailable:*v36])
@@ -427,26 +427,26 @@ LABEL_53:
                 v5->_phoneticFamilyName = v40;
               }
 
-              v75 = 0;
-              v76 = &v75;
-              v77 = 0x2020000000;
+              v76 = 0;
+              v77 = &v76;
+              v78 = 0x2020000000;
               v42 = getCNContactPreviousFamilyNameKeySymbolLoc_ptr;
-              v78 = getCNContactPreviousFamilyNameKeySymbolLoc_ptr;
+              v79 = getCNContactPreviousFamilyNameKeySymbolLoc_ptr;
               if (!getCNContactPreviousFamilyNameKeySymbolLoc_ptr)
               {
-                v70 = MEMORY[0x1E69E9820];
-                v71 = 3221225472;
-                v72 = __getCNContactPreviousFamilyNameKeySymbolLoc_block_invoke;
-                v73 = &unk_1E6F4D960;
-                v74 = &v75;
+                v71 = MEMORY[0x1E69E9820];
+                v72 = 3221225472;
+                v73 = __getCNContactPreviousFamilyNameKeySymbolLoc_block_invoke;
+                v74 = &unk_1E6F4D960;
+                v75 = &v76;
                 v43 = ContactsLibrary();
                 v44 = dlsym(v43, "CNContactPreviousFamilyNameKey");
-                *(v74[1] + 24) = v44;
-                getCNContactPreviousFamilyNameKeySymbolLoc_ptr = *(v74[1] + 24);
-                v42 = v76[3];
+                *(v75[1] + 24) = v44;
+                getCNContactPreviousFamilyNameKeySymbolLoc_ptr = *(v75[1] + 24);
+                v42 = v77[3];
               }
 
-              _Block_object_dispose(&v75, 8);
+              _Block_object_dispose(&v76, 8);
               if (v42)
               {
                 if ([contactCopy isKeyAvailable:*v42])
@@ -457,26 +457,26 @@ LABEL_53:
                   v5->_previousFamilyName = v46;
                 }
 
-                v75 = 0;
-                v76 = &v75;
-                v77 = 0x2020000000;
+                v76 = 0;
+                v77 = &v76;
+                v78 = 0x2020000000;
                 v48 = getCNContactOrganizationNameKeySymbolLoc_ptr;
-                v78 = getCNContactOrganizationNameKeySymbolLoc_ptr;
+                v79 = getCNContactOrganizationNameKeySymbolLoc_ptr;
                 if (!getCNContactOrganizationNameKeySymbolLoc_ptr)
                 {
-                  v70 = MEMORY[0x1E69E9820];
-                  v71 = 3221225472;
-                  v72 = __getCNContactOrganizationNameKeySymbolLoc_block_invoke;
-                  v73 = &unk_1E6F4D960;
-                  v74 = &v75;
+                  v71 = MEMORY[0x1E69E9820];
+                  v72 = 3221225472;
+                  v73 = __getCNContactOrganizationNameKeySymbolLoc_block_invoke;
+                  v74 = &unk_1E6F4D960;
+                  v75 = &v76;
                   v49 = ContactsLibrary();
                   v50 = dlsym(v49, "CNContactOrganizationNameKey");
-                  *(v74[1] + 24) = v50;
-                  getCNContactOrganizationNameKeySymbolLoc_ptr = *(v74[1] + 24);
-                  v48 = v76[3];
+                  *(v75[1] + 24) = v50;
+                  getCNContactOrganizationNameKeySymbolLoc_ptr = *(v75[1] + 24);
+                  v48 = v77[3];
                 }
 
-                _Block_object_dispose(&v75, 8);
+                _Block_object_dispose(&v76, 8);
                 if (v48)
                 {
                   if ([contactCopy isKeyAvailable:*v48])
@@ -487,26 +487,26 @@ LABEL_53:
                     v5->_organizationName = v52;
                   }
 
-                  v75 = 0;
-                  v76 = &v75;
-                  v77 = 0x2020000000;
+                  v76 = 0;
+                  v77 = &v76;
+                  v78 = 0x2020000000;
                   v54 = getCNContactPhoneticOrganizationNameKeySymbolLoc_ptr;
-                  v78 = getCNContactPhoneticOrganizationNameKeySymbolLoc_ptr;
+                  v79 = getCNContactPhoneticOrganizationNameKeySymbolLoc_ptr;
                   if (!getCNContactPhoneticOrganizationNameKeySymbolLoc_ptr)
                   {
-                    v70 = MEMORY[0x1E69E9820];
-                    v71 = 3221225472;
-                    v72 = __getCNContactPhoneticOrganizationNameKeySymbolLoc_block_invoke;
-                    v73 = &unk_1E6F4D960;
-                    v74 = &v75;
+                    v71 = MEMORY[0x1E69E9820];
+                    v72 = 3221225472;
+                    v73 = __getCNContactPhoneticOrganizationNameKeySymbolLoc_block_invoke;
+                    v74 = &unk_1E6F4D960;
+                    v75 = &v76;
                     v55 = ContactsLibrary();
                     v56 = dlsym(v55, "CNContactPhoneticOrganizationNameKey");
-                    *(v74[1] + 24) = v56;
-                    getCNContactPhoneticOrganizationNameKeySymbolLoc_ptr = *(v74[1] + 24);
-                    v54 = v76[3];
+                    *(v75[1] + 24) = v56;
+                    getCNContactPhoneticOrganizationNameKeySymbolLoc_ptr = *(v75[1] + 24);
+                    v54 = v77[3];
                   }
 
-                  _Block_object_dispose(&v75, 8);
+                  _Block_object_dispose(&v76, 8);
                   if (v54)
                   {
                     if ([contactCopy isKeyAvailable:*v54])
@@ -517,26 +517,26 @@ LABEL_53:
                       v5->_phoneticOrganizationName = v58;
                     }
 
-                    v75 = 0;
-                    v76 = &v75;
-                    v77 = 0x2020000000;
+                    v76 = 0;
+                    v77 = &v76;
+                    v78 = 0x2020000000;
                     v60 = getCNContactNicknameKeySymbolLoc_ptr;
-                    v78 = getCNContactNicknameKeySymbolLoc_ptr;
+                    v79 = getCNContactNicknameKeySymbolLoc_ptr;
                     if (!getCNContactNicknameKeySymbolLoc_ptr)
                     {
-                      v70 = MEMORY[0x1E69E9820];
-                      v71 = 3221225472;
-                      v72 = __getCNContactNicknameKeySymbolLoc_block_invoke;
-                      v73 = &unk_1E6F4D960;
-                      v74 = &v75;
+                      v71 = MEMORY[0x1E69E9820];
+                      v72 = 3221225472;
+                      v73 = __getCNContactNicknameKeySymbolLoc_block_invoke;
+                      v74 = &unk_1E6F4D960;
+                      v75 = &v76;
                       v61 = ContactsLibrary();
                       v62 = dlsym(v61, "CNContactNicknameKey");
-                      *(v74[1] + 24) = v62;
-                      getCNContactNicknameKeySymbolLoc_ptr = *(v74[1] + 24);
-                      v60 = v76[3];
+                      *(v75[1] + 24) = v62;
+                      getCNContactNicknameKeySymbolLoc_ptr = *(v75[1] + 24);
+                      v60 = v77[3];
                     }
 
-                    _Block_object_dispose(&v75, 8);
+                    _Block_object_dispose(&v76, 8);
                     if (v60)
                     {
                       if ([contactCopy isKeyAvailable:*v60])
@@ -560,9 +560,9 @@ LABEL_53:
     }
   }
 
-  dlerror();
-  v68 = abort_report_np();
-  return __getCNContactGivenNameKeySymbolLoc_block_invoke(v68);
+  v68 = dlerror();
+  v69 = abort_report_np("%s", v68);
+  return __getCNContactGivenNameKeySymbolLoc_block_invoke(v69);
 }
 
 @end

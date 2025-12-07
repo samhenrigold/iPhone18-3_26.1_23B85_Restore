@@ -57,26 +57,24 @@
   delegateCopy = delegate;
   dCopy = d;
   v13 = +[Caller current];
-  v22.receiver = self;
-  v22.super_class = EvaluationRequest;
-  v14 = [(Request *)&v22 initWithCaller:v13];
+  v20.receiver = self;
+  v20.super_class = EvaluationRequest;
+  v14 = [(Request *)&v20 initWithCaller:v13];
 
   if (v14)
   {
     v14->_policy = policy;
     v14->_customUI = delegateCopy != 0;
     [(EvaluationRequest *)v14 updateOptions:optionsCopy];
-    policy = v14->_policy;
-    options = v14->_options;
-    v17 = LALogForPolicy();
-    [(Request *)v14 setLog:v17];
+    v15 = LALogForPolicy();
+    [(Request *)v14 setLog:v15];
 
-    v18 = objc_opt_new();
-    [(EvaluationRequest *)v14 setAnalyticsData:v18];
+    v16 = objc_opt_new();
+    [(EvaluationRequest *)v14 setAnalyticsData:v16];
 
-    v19 = [[LAAnalyticsEvaluation alloc] initWithEvaluationRequest:v14];
+    v17 = [[LAAnalyticsEvaluation alloc] initWithEvaluationRequest:v14];
     analytics = v14->_analytics;
-    v14->_analytics = v19;
+    v14->_analytics = v17;
 
     objc_storeStrong(&v14->_contextID, d);
   }
@@ -92,9 +90,9 @@
   delegateCopy = delegate;
   dCopy = d;
   v18 = +[Caller current];
-  v26.receiver = self;
-  v26.super_class = EvaluationRequest;
-  v19 = [(Request *)&v26 initWithCaller:v18];
+  v25.receiver = self;
+  v25.super_class = EvaluationRequest;
+  v19 = [(Request *)&v25 initWithCaller:v18];
 
   if (v19)
   {
@@ -102,16 +100,15 @@
     objc_storeStrong(&v19->_aclOperation, operation);
     v19->_customUI = delegateCopy != 0;
     [(EvaluationRequest *)v19 updateOptions:optionsCopy];
-    options = v19->_options;
-    v21 = LALogForPolicy();
-    [(Request *)v19 setLog:v21];
+    v20 = LALogForPolicy();
+    [(Request *)v19 setLog:v20];
 
-    v22 = objc_opt_new();
-    [(EvaluationRequest *)v19 setAnalyticsData:v22];
+    v21 = objc_opt_new();
+    [(EvaluationRequest *)v19 setAnalyticsData:v21];
 
-    v23 = [[LAAnalyticsEvaluation alloc] initWithEvaluationRequest:v19];
+    v22 = [[LAAnalyticsEvaluation alloc] initWithEvaluationRequest:v19];
     analytics = v19->_analytics;
-    v19->_analytics = v23;
+    v19->_analytics = v22;
 
     objc_storeStrong(&v19->_contextID, d);
   }
@@ -283,7 +280,7 @@
 
 - (void)_updateDTOStatus
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   dtoEnvironment = self->_dtoEnvironment;
   v4 = [(Request *)self log];
   dtoAnalytics = v4;
@@ -292,9 +289,9 @@
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v6 = self->_dtoEnvironment;
-      v9 = 138412290;
-      v10 = v6;
-      _os_log_impl(&dword_238B7F000, &dtoAnalytics->super.super, OS_LOG_TYPE_DEFAULT, "Received DTO environment: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v6;
+      _os_log_impl(&dword_238B7F000, &dtoAnalytics->super.super, OS_LOG_TYPE_DEFAULT, "Received DTO environment: %@", &v8, 0xCu);
     }
 
     v7 = [[LAAnalyticsDTO alloc] initWithEvaluationRequest:self];
@@ -306,8 +303,6 @@
   {
     [(EvaluationRequest *)&dtoAnalytics->super.super _updateDTOStatus];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isPurposeInAppPayment

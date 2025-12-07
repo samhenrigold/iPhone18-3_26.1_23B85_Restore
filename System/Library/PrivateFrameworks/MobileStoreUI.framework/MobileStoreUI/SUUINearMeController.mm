@@ -213,17 +213,17 @@ uint64_t __40__SUUINearMeController_sharedController__block_invoke()
   {
     if (!self->_locationManager)
     {
-      v3 = SUUICoreLocationFramework();
-      v4 = objc_alloc_init(SUUIWeakLinkedClassForString(&cfstr_Cllocationmana.isa, v3));
+      v4 = SUUICoreLocationFramework(0, v3);
+      v5 = objc_alloc_init(SUUIWeakLinkedClassForString(&cfstr_Cllocationmana.isa, v4));
       locationManager = self->_locationManager;
-      self->_locationManager = v4;
+      self->_locationManager = v5;
 
-      [(CLLocationManager *)self->_locationManager setDelegate:self];
-      v6 = SUUICoreLocationFramework();
-      v7 = SUUIWeakLinkedSymbolForString("kCLLocationAccuracyBest", v6);
-      if (v7)
+      v7 = [(CLLocationManager *)self->_locationManager setDelegate:self];
+      v9 = SUUICoreLocationFramework(v7, v8);
+      v10 = SUUIWeakLinkedSymbolForString("kCLLocationAccuracyBest", v9);
+      if (v10)
       {
-        [(CLLocationManager *)self->_locationManager setDesiredAccuracy:*v7];
+        [(CLLocationManager *)self->_locationManager setDesiredAccuracy:*v10];
       }
     }
 
@@ -239,23 +239,23 @@ uint64_t __40__SUUINearMeController_sharedController__block_invoke()
     if (!self->_locationTimeoutTimer)
     {
       objc_initWeak(&location, self);
-      v9 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, MEMORY[0x277D85CD0]);
+      v12 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, MEMORY[0x277D85CD0]);
       locationTimeoutTimer = self->_locationTimeoutTimer;
-      self->_locationTimeoutTimer = v9;
+      self->_locationTimeoutTimer = v12;
 
-      v11 = self->_locationTimeoutTimer;
-      v12 = dispatch_time(0, 2500000000);
-      dispatch_source_set_timer(v11, v12, 0, 0);
-      v13 = self->_locationTimeoutTimer;
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __48__SUUINearMeController__startMonitoringLocation__block_invoke;
-      v14[3] = &unk_2798F67A0;
-      objc_copyWeak(&v15, &location);
-      dispatch_source_set_event_handler(v13, v14);
+      v14 = self->_locationTimeoutTimer;
+      v15 = dispatch_time(0, 2500000000);
+      dispatch_source_set_timer(v14, v15, 0, 0);
+      v16 = self->_locationTimeoutTimer;
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __48__SUUINearMeController__startMonitoringLocation__block_invoke;
+      v17[3] = &unk_2798F67A0;
+      objc_copyWeak(&v18, &location);
+      dispatch_source_set_event_handler(v16, v17);
       dispatch_resume(self->_locationTimeoutTimer);
       self->_locationTimeoutCount = 0;
-      objc_destroyWeak(&v15);
+      objc_destroyWeak(&v18);
       objc_destroyWeak(&location);
     }
   }

@@ -90,7 +90,7 @@ LABEL_5:
 
 - (void)noteUpdatedHeartbeatTTL:(double)l
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   serverBag = [(PDSHeartbeatTracker *)self serverBag];
   v6 = arc4random_uniform([serverBag ttlWindowFromBag]);
 
@@ -110,14 +110,13 @@ LABEL_5:
   v10 = pds_defaultLog();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 134217984;
-    v13 = v9;
-    _os_log_impl(&dword_25DED8000, v10, OS_LOG_TYPE_DEFAULT, "Scheduling heartbeat in: %f", &v12, 0xCu);
+    v11 = 134217984;
+    v12 = v9;
+    _os_log_impl(&dword_25DED8000, v10, OS_LOG_TYPE_DEFAULT, "Scheduling heartbeat in: %f", &v11, 0xCu);
   }
 
   [(PDSHeartbeatTracker *)self _markNextCheckpointTimeWithTTL:v9];
   [(PDSHeartbeatTracker *)self noteShouldTrackHeartbeat];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupMaintenanceActivity
@@ -141,7 +140,7 @@ LABEL_5:
 
 void __48__PDSHeartbeatTracker__setupMaintenanceActivity__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   state = xpc_activity_get_state(v3);
@@ -176,7 +175,7 @@ LABEL_10:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v6;
+      v12 = v6;
       _os_log_impl(&dword_25DED8000, v9, OS_LOG_TYPE_DEFAULT, "Scheduling heartbeat XPC activity %@", buf, 0xCu);
     }
 
@@ -184,8 +183,6 @@ LABEL_10:
   }
 
 LABEL_11:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __48__PDSHeartbeatTracker__setupMaintenanceActivity__block_invoke_22(uint64_t a1)
@@ -259,14 +256,14 @@ void __47__PDSHeartbeatTracker_noteShouldTrackHeartbeat__block_invoke(uint64_t a
 
 - (BOOL)isPassedTrackedHeartbeatDate
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   trackedHeartbeatDate = [(PDSHeartbeatTracker *)self trackedHeartbeatDate];
   v3 = pds_defaultLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = trackedHeartbeatDate;
-    _os_log_impl(&dword_25DED8000, v3, OS_LOG_TYPE_DEFAULT, "Next checkpoint time %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = trackedHeartbeatDate;
+    _os_log_impl(&dword_25DED8000, v3, OS_LOG_TYPE_DEFAULT, "Next checkpoint time %@", &v10, 0xCu);
   }
 
   if (trackedHeartbeatDate)
@@ -283,14 +280,13 @@ void __47__PDSHeartbeatTracker_noteShouldTrackHeartbeat__block_invoke(uint64_t a
     v6 = pds_defaultLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_25DED8000, v6, OS_LOG_TYPE_DEFAULT, "No checkpoint time saved. Heartbeating", &v11, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&dword_25DED8000, v6, OS_LOG_TYPE_DEFAULT, "No checkpoint time saved. Heartbeating", &v10, 2u);
     }
 
     v8 = 1;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

@@ -67,7 +67,7 @@ LABEL_7:
   }
 
   selfCopy = self;
-  sub_100190518(v7, v9, location, length);
+  sub_100190518(v7, v9, location, length, v11);
 }
 
 - (void)insertText:(id)text
@@ -81,27 +81,27 @@ LABEL_7:
 - (id)_accessibilityResponderElement
 {
   selfCopy = self;
-  sub_100190830(v10);
+  sub_100190830(v11);
 
-  v3 = v11;
-  if (v11)
+  v3 = v12;
+  if (v12)
   {
-    v4 = sub_10000CA14(v10, v11);
+    v4 = sub_10000CA14(v11, v12);
     v5 = *(v3 - 8);
-    __chkstk_darwin(v4);
-    v7 = v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v5 + 16))(v7);
-    v8 = _bridgeAnythingToObjectiveC<A>(_:)();
-    (*(v5 + 8))(v7, v3);
-    sub_10000BA7C(v10);
+    v6 = __chkstk_darwin(v4);
+    v8 = v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v5 + 16))(v8, v6);
+    v9 = _bridgeAnythingToObjectiveC<A>(_:)();
+    (*(v5 + 8))(v8, v3);
+    sub_10000BA7C(v11);
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 - (_TtC7Journal22CanvasMomentsTitleView)initWithFrame:(CGRect)frame textContainer:(id)container

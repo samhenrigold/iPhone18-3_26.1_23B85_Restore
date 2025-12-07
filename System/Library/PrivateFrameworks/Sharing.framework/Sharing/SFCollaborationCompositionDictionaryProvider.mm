@@ -8,17 +8,17 @@
 
 - (SFCollaborationCompositionDictionaryProvider)initWithItemProvider:(id)provider delegate:(id)delegate
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   providerCopy = provider;
   delegateCopy = delegate;
-  v23.receiver = self;
-  v23.super_class = SFCollaborationCompositionDictionaryProvider;
-  v8 = [(SFCollaborationCompositionDictionaryProvider *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = SFCollaborationCompositionDictionaryProvider;
+  v8 = [(SFCollaborationCompositionDictionaryProvider *)&v22 init];
   if (v8)
   {
     v9 = [SFCollaborationItemsProvider alloc];
-    v24[0] = providerCopy;
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
+    v23[0] = providerCopy;
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
     v11 = [(SFCollaborationItemsProvider *)v9 initWithActivityItems:v10 delegate:v8];
     collaborationItemsProvider = v8->_collaborationItemsProvider;
     v8->_collaborationItemsProvider = v11;
@@ -41,19 +41,16 @@
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (id)collaborationItemsProvider:(id)provider resolveActivityItem:(id)item
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  v9[0] = item;
+  v8[1] = *MEMORY[0x1E69E9840];
+  v8[0] = item;
   v4 = MEMORY[0x1E695DEC8];
   itemCopy = item;
-  v6 = [v4 arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = [v4 arrayWithObjects:v8 count:1];
 
   return v6;
 }
@@ -61,69 +58,66 @@
 - (void)observable:(id)observable didChange:(unint64_t)change
 {
   changeCopy = change;
-  v29[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   observableCopy = observable;
   if ((changeCopy & 4) != 0)
   {
-    v23 = 0;
-    v24 = &v23;
-    v25 = 0x3032000000;
-    v26 = __Block_byref_object_copy__15;
-    v27 = __Block_byref_object_dispose__15;
-    v28 = [SFCollaborationUtilities baseCollaborationDictionaryFromCollaborationItem:observableCopy];
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x3032000000;
+    v24 = __Block_byref_object_copy__15;
+    v25 = __Block_byref_object_dispose__15;
+    v26 = [SFCollaborationUtilities baseCollaborationDictionaryFromCollaborationItem:observableCopy];
     if ([observableCopy type] == 1)
     {
       objc_initWeak(&location, self);
       itemProvider = [observableCopy itemProvider];
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = __69__SFCollaborationCompositionDictionaryProvider_observable_didChange___block_invoke;
-      v20[3] = &unk_1E78901B8;
-      objc_copyWeak(&v21, &location);
-      v20[4] = &v23;
-      [SFCollaborationUtilities loadCKShareItemProvider:itemProvider completionHandler:v20];
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __69__SFCollaborationCompositionDictionaryProvider_observable_didChange___block_invoke;
+      v18[3] = &unk_1E78901B8;
+      objc_copyWeak(&v19, &location);
+      v18[4] = &v21;
+      [SFCollaborationUtilities loadCKShareItemProvider:itemProvider completionHandler:v18];
 
-      objc_destroyWeak(&v21);
+      objc_destroyWeak(&v19);
       objc_destroyWeak(&location);
     }
 
     else if ([observableCopy type] == 2)
     {
       pendingCollaboration = [observableCopy pendingCollaboration];
-      [v24[5] setObject:pendingCollaboration forKeyedSubscript:@"SFPendingCollaborationKey"];
+      [v22[5] setObject:pendingCollaboration forKeyedSubscript:@"SFPendingCollaborationKey"];
 
       delegate = [(SFCollaborationCompositionDictionaryProvider *)self delegate];
-      [delegate dictionaryDidBecomeAvailable:v24[5] forProvider:self];
+      [delegate dictionaryDidBecomeAvailable:v22[5] forProvider:self];
     }
 
     else if (![observableCopy type] && objc_msgSend(observableCopy, "conformsToProtocol:", &unk_1F1D8B9D0))
     {
       fileURL = [observableCopy fileURL];
-      v29[0] = fileURL;
-      v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
+      v27[0] = fileURL;
+      v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
       v12 = [SFCollaborationUtilities fileShareDictionaryFromFileURLItems:v11];
-      [v24[5] setObject:v12 forKeyedSubscript:@"fileObjects"];
+      [v22[5] setObject:v12 forKeyedSubscript:@"fileObjects"];
 
       fileURL2 = [observableCopy fileURL];
       v14 = fileURL2;
       [fileURL2 fileSystemRepresentation];
-      v15 = *MEMORY[0x1E69E9BB0];
-      v16 = sandbox_extension_issue_file();
+      v15 = sandbox_extension_issue_file();
 
-      if (v16)
+      if (v15)
       {
-        v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v16];
-        [v24[5] setObject:v17 forKeyedSubscript:@"token"];
+        v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v15];
+        [v22[5] setObject:v16 forKeyedSubscript:@"token"];
       }
 
       delegate2 = [(SFCollaborationCompositionDictionaryProvider *)self delegate];
-      [delegate2 dictionaryDidBecomeAvailable:v24[5] forProvider:self];
+      [delegate2 dictionaryDidBecomeAvailable:v22[5] forProvider:self];
     }
 
-    _Block_object_dispose(&v23, 8);
+    _Block_object_dispose(&v21, 8);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __69__SFCollaborationCompositionDictionaryProvider_observable_didChange___block_invoke(uint64_t a1, void *a2, void *a3)

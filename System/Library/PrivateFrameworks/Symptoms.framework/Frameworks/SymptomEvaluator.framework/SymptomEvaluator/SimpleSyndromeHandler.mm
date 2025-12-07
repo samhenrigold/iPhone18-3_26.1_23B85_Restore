@@ -13,7 +13,7 @@
 
 + (id)objectWithName:(id)name
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v4 = [ConfigurationHandler objectForName:nameCopy];
   if (!v4)
@@ -43,15 +43,13 @@ LABEL_8:
   {
     v6 = nameCopy;
     v7 = v5;
-    v12 = 136315138;
+    v11 = 136315138;
     uTF8String = [nameCopy UTF8String];
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "Attempted reuse of name %s", &v12, 0xCu);
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "Attempted reuse of name %s", &v11, 0xCu);
   }
 
   v8 = 0;
 LABEL_9:
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -92,7 +90,7 @@ LABEL_9:
 
 - (int)configureInstance:(id)instance
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   instanceCopy = instance;
   v5 = [instanceCopy objectForKey:@"SYNDROME_DAMPENING_INTERVAL"];
   v6 = v5;
@@ -120,8 +118,8 @@ LABEL_9:
   v12 = [instanceCopy objectForKey:@"SYNDROME_RESET_SOURCES"];
   if (v12)
   {
-    v40 = v6;
-    v41 = instanceCopy;
+    v39 = v6;
+    v40 = instanceCopy;
     if (!self->_resetSources)
     {
       v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -130,45 +128,45 @@ LABEL_9:
     }
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
-    v39 = v12;
+    v38 = v12;
     v16 = v12;
-    v17 = [v16 countByEnumeratingWithState:&v43 objects:v51 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v42 objects:v50 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v44;
+      v19 = *v43;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v44 != v19)
+          if (*v43 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v43 + 1) + 8 * i);
-          v42[0] = MEMORY[0x277D85DD0];
-          v42[1] = 3221225472;
-          v42[2] = __43__SimpleSyndromeHandler_configureInstance___block_invoke;
-          v42[3] = &unk_27898A690;
-          v42[4] = self;
-          v22 = [defaultCenter addObserverForName:v21 object:0 queue:0 usingBlock:{v42, v39}];
+          v21 = *(*(&v42 + 1) + 8 * i);
+          v41[0] = MEMORY[0x277D85DD0];
+          v41[1] = 3221225472;
+          v41[2] = __43__SimpleSyndromeHandler_configureInstance___block_invoke;
+          v41[3] = &unk_27898A690;
+          v41[4] = self;
+          v22 = [defaultCenter addObserverForName:v21 object:0 queue:0 usingBlock:{v41, v38}];
           [(NSMutableArray *)self->_resetSources addObject:v22];
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v43 objects:v51 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v42 objects:v50 count:16];
       }
 
       while (v18);
     }
 
-    v6 = v40;
-    instanceCopy = v41;
-    v12 = v39;
+    v6 = v39;
+    instanceCopy = v40;
+    v12 = v38;
   }
 
   v23 = defaultNextStageClass;
@@ -183,7 +181,7 @@ LABEL_9:
       v35 = v33;
       uTF8String = [(NSString *)v25 UTF8String];
       *buf = 136315138;
-      v48 = uTF8String;
+      v47 = uTF8String;
       _os_log_impl(&dword_23255B000, v35, OS_LOG_TYPE_ERROR, "Failure to get class for %s", buf, 0xCu);
     }
 
@@ -205,9 +203,9 @@ LABEL_9:
         v30 = self->_nextStage;
         syndromeName = self->_syndromeName;
         *buf = 134218242;
-        v48 = v30;
-        v49 = 2112;
-        v50 = syndromeName;
+        v47 = v30;
+        v48 = 2112;
+        v49 = syndromeName;
         _os_log_impl(&dword_23255B000, v29, OS_LOG_TYPE_DEBUG, "Got %p for next stage for %@", buf, 0x16u);
       }
     }
@@ -215,7 +213,6 @@ LABEL_9:
     v32 = 0;
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return v32;
 }
 
@@ -300,7 +297,7 @@ void __43__SimpleSyndromeHandler_configureInstance___block_invoke(uint64_t a1, v
 
 - (void)didReceiveSyndrome:(id)syndrome
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   syndromeCopy = syndrome;
   date = [MEMORY[0x277CBEAA8] date];
   [date timeIntervalSince1970];
@@ -325,11 +322,11 @@ void __43__SimpleSyndromeHandler_configureInstance___block_invoke(uint64_t a1, v
       {
         v16 = self->_dampeningInterval;
         syndromeUTF8Name = self->_syndromeUTF8Name;
-        v26 = 67109378;
-        *v27 = v16;
-        *&v27[4] = 2080;
-        *&v27[6] = syndromeUTF8Name;
-        _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEBUG, "Set dampening to %d for syndrome %s", &v26, 0x12u);
+        v25 = 67109378;
+        *v26 = v16;
+        *&v26[4] = 2080;
+        *&v26[6] = syndromeUTF8Name;
+        _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEBUG, "Set dampening to %d for syndrome %s", &v25, 0x12u);
       }
     }
 
@@ -349,11 +346,11 @@ void __43__SimpleSyndromeHandler_configureInstance___block_invoke(uint64_t a1, v
         v22 = [(NSString *)syndromeName description];
         uTF8String = [v22 UTF8String];
         reason = [syndromeCopy reason];
-        v26 = 136315394;
-        *v27 = uTF8String;
-        *&v27[8] = 2080;
-        *&v27[10] = reason;
-        _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_ERROR, "No NEXT STAGE, Received syndrome %s triggered by %s", &v26, 0x16u);
+        v25 = 136315394;
+        *v26 = uTF8String;
+        *&v26[8] = 2080;
+        *&v26[10] = reason;
+        _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_ERROR, "No NEXT STAGE, Received syndrome %s triggered by %s", &v25, 0x16u);
       }
     }
   }
@@ -366,17 +363,15 @@ void __43__SimpleSyndromeHandler_configureInstance___block_invoke(uint64_t a1, v
       v10 = self->_syndromeUTF8Name;
       v11 = (v7 - self->_lastReportTime);
       v12 = self->_dampeningInterval;
-      v26 = 136315650;
-      *v27 = v10;
-      *&v27[8] = 1024;
-      *&v27[10] = v11;
-      *&v27[14] = 1024;
-      *&v27[16] = v12;
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "Ignore syndrome  %s, too close in time to previous evaluation (%d secs, need %d secs)", &v26, 0x18u);
+      v25 = 136315650;
+      *v26 = v10;
+      *&v26[8] = 1024;
+      *&v26[10] = v11;
+      *&v26[14] = 1024;
+      *&v26[16] = v12;
+      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "Ignore syndrome  %s, too close in time to previous evaluation (%d secs, need %d secs)", &v25, 0x18u);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 @end

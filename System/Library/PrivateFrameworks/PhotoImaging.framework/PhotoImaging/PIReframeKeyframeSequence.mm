@@ -1,11 +1,11 @@
 @interface PIReframeKeyframeSequence
 - (PIReframeKeyframeSequence)initWithKeyframeArray:(id)array;
-- (uint64_t)homographyAtTime:(__int128 *)time;
+- (void)homographyAtTime:(__int128 *)time;
 @end
 
 @implementation PIReframeKeyframeSequence
 
-- (uint64_t)homographyAtTime:(__int128 *)time
+- (void)homographyAtTime:(__int128 *)time
 {
   v3 = *(self + 8);
   v5 = *time;
@@ -51,7 +51,7 @@
         v15 = *(*(&v31 + 1) + 8 * v12);
         if (v15)
         {
-          [*(*(&v31 + 1) + 8 * v12) time];
+          objc_msgSend_time(*(*(&v31 + 1) + 8 * v12));
         }
 
         else

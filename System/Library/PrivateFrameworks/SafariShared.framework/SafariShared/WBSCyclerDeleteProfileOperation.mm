@@ -7,26 +7,27 @@
 
 - (void)executeWithContext:(id)context completionHandler:(id)handler
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   handlerCopy = handler;
   tabGroupsParent = [contextCopy tabGroupsParent];
+  v10 = tabGroupsParent;
   if (tabGroupsParent)
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXCycler();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v11 = WBS_LOG_CHANNEL_PREFIXCycler(tabGroupsParent, v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v10 = v9;
-      title = [tabGroupsParent title];
-      uniqueIdentifier = [tabGroupsParent uniqueIdentifier];
-      v15 = 138543618;
-      v16 = title;
-      v17 = 2112;
-      v18 = uniqueIdentifier;
-      _os_log_impl(&dword_1BB6F3000, v10, OS_LOG_TYPE_INFO, "Deleting profile with title %{public}@ (%@)", &v15, 0x16u);
+      v12 = v11;
+      title = [v10 title];
+      uniqueIdentifier = [v10 uniqueIdentifier];
+      v17 = 138543618;
+      v18 = title;
+      v19 = 2112;
+      v20 = uniqueIdentifier;
+      _os_log_impl(&dword_1BB6F3000, v12, OS_LOG_TYPE_INFO, "Deleting profile with title %{public}@ (%@)", &v17, 0x16u);
     }
 
-    uniqueIdentifier2 = [tabGroupsParent uniqueIdentifier];
+    uniqueIdentifier2 = [v10 uniqueIdentifier];
     [(WBSCyclerDeleteProfileOperation *)self _deleteItemWithIdentifier:uniqueIdentifier2 inContext:contextCopy completionHandler:handlerCopy];
   }
 

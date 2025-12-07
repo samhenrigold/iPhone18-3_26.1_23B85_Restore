@@ -44,7 +44,7 @@
 - (void)setPreferredBackgroundStyle:(int64_t)style
 {
   selfCopy = self;
-  sub_21AC02850();
+  sub_21AC02850(style);
 }
 
 - (PXPhotosPreferredColumnCountsDelegate)preferredColumnCountsDelegate

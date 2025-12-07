@@ -69,7 +69,7 @@
   v5 = equalCopy;
   if (equalCopy == self)
   {
-    LOBYTE(v8) = 1;
+    LOBYTE(isEqual) = 1;
   }
 
   else
@@ -83,7 +83,7 @@
         v7 = v6;
         if (((*&v6->_flags ^ *&self->_flags) & 3) != 0)
         {
-          LOBYTE(v8) = 0;
+          LOBYTE(isEqual) = 0;
 LABEL_26:
 
           goto LABEL_27;
@@ -99,15 +99,15 @@ LABEL_26:
 
         else
         {
-          LOBYTE(v8) = 0;
+          LOBYTE(isEqual) = 0;
           if (!v10 || !v11)
           {
             goto LABEL_25;
           }
 
-          v8 = [(UIImageConfiguration *)v10 isEqual:v11];
+          isEqual = objc_msgSend_isEqual_(v10);
 
-          if (!v8)
+          if (!isEqual)
           {
             goto LABEL_26;
           }
@@ -128,27 +128,27 @@ LABEL_20:
           v12 = v17;
           if (v10 == v17)
           {
-            LOBYTE(v8) = 1;
+            LOBYTE(isEqual) = 1;
           }
 
           else
           {
-            LOBYTE(v8) = 0;
+            LOBYTE(isEqual) = 0;
             if (v10 && v17)
             {
-              LOBYTE(v8) = [(UIImageConfiguration *)v10 isEqual:v17];
+              LOBYTE(isEqual) = objc_msgSend_isEqual_(v10);
             }
           }
 
           goto LABEL_25;
         }
 
-        LOBYTE(v8) = 0;
+        LOBYTE(isEqual) = 0;
         if (v10 && v14)
         {
-          v8 = [(UIImageConfiguration *)v10 isEqual:v14];
+          isEqual = objc_msgSend_isEqual_(v10);
 
-          if (!v8)
+          if (!isEqual)
           {
             goto LABEL_26;
           }
@@ -162,12 +162,12 @@ LABEL_25:
       }
     }
 
-    LOBYTE(v8) = 0;
+    LOBYTE(isEqual) = 0;
   }
 
 LABEL_27:
 
-  return v8;
+  return isEqual;
 }
 
 - (id)description

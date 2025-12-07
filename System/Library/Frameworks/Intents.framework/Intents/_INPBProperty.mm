@@ -147,7 +147,6 @@ LABEL_13:
 
   if (role)
   {
-    role = self->_role;
     PBDataWriterWriteStringField();
   }
 }

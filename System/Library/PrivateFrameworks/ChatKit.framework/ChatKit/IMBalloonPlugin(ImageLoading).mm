@@ -58,7 +58,7 @@
   v2 = [self __ck_browserImageName:&v6];
   if (v6)
   {
-    CKFrameworkBundle();
+    CKFrameworkBundle(v2);
   }
 
   else
@@ -95,9 +95,9 @@
     +[IMBalloonPlugin(ImageLoading) __ck_placeholderImageForInterfaceStyle:];
   }
 
-  v1 = __ck_placeholderImageForInterfaceStyle__placeholderImage;
+  v2 = __ck_placeholderImageForInterfaceStyle__placeholderImage;
 
-  return v1;
+  return v2;
 }
 
 - (id)__ck_cachedAssetCatalogImageForInterfaceStyle:()ImageLoading
@@ -123,30 +123,31 @@
 
 - (id)__ck_generateAssetCatalogImageForInterfaceStyle:()ImageLoading
 {
-  v13 = 0;
-  v5 = [self __ck_browserImageName:&v13];
-  if (v13)
+  v14 = 0;
+  v5 = [self __ck_browserImageName:&v14];
+  v6 = v5;
+  if (v14)
   {
-    CKFrameworkBundle();
+    CKFrameworkBundle(v5);
   }
 
   else
   {
     [self pluginBundle];
   }
-  v6 = ;
-  v7 = [MEMORY[0x1E69DCAB8] imageNamed:v5 inBundle:v6];
-  v8 = [v7 iconForInterfaceStyle:a3];
+  v7 = ;
+  v8 = [MEMORY[0x1E69DCAB8] imageNamed:v6 inBundle:v7];
+  v9 = [v8 iconForInterfaceStyle:a3];
 
-  if (v8)
+  if (v9)
   {
-    v9 = [self __ck_cacheKeyForInterfaceStyle:a3];
-    v10 = +[CKBalloonPluginManager sharedInstance];
-    iconCache = [v10 iconCache];
-    [iconCache setObject:v8 forKey:v9];
+    v10 = [self __ck_cacheKeyForInterfaceStyle:a3];
+    v11 = +[CKBalloonPluginManager sharedInstance];
+    iconCache = [v11 iconCache];
+    [iconCache setObject:v9 forKey:v10];
   }
 
-  return v8;
+  return v9;
 }
 
 - (id)__ck_iconServicesIconForInterfaceStyle:()ImageLoading
@@ -165,19 +166,19 @@
   {
     __ck_iconServicesBundleIdentifier = [self __ck_iconServicesBundleIdentifier];
     v11 = [objc_alloc(MEMORY[0x1E69A8A00]) initWithBundleIdentifier:__ck_iconServicesBundleIdentifier];
-    objc_initWeak(&location, self);
-    v12 = iconGenerationForDisplayQueue();
+    inited = objc_initWeak(&location, self);
+    v13 = iconGenerationForDisplayQueue(inited);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __72__IMBalloonPlugin_ImageLoading____ck_iconServicesIconForInterfaceStyle___block_invoke;
     block[3] = &unk_1E72EBB98;
-    objc_copyWeak(&v16, &location);
+    objc_copyWeak(&v17, &location);
     v9 = v11;
-    v15 = v9;
-    dispatch_async(v12, block);
+    v16 = v9;
+    dispatch_async(v13, block);
 
     [iconCache setObject:v9 forKey:v7];
-    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v17);
     objc_destroyWeak(&location);
   }
 
@@ -238,7 +239,7 @@
 
 - (id)__ckImageForInterfaceStyle:()ImageLoading generateSynchronously:allowPlaceholder:
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   if ([self __ck_preferIconServices])
   {
     __ck_iconServicesDescriptor = [self __ck_iconServicesDescriptor];
@@ -294,17 +295,17 @@ LABEL_15:
     }
   }
 
-  objc_initWeak(location, self);
-  v15 = iconGenerationForDisplayQueue();
-  v21 = MEMORY[0x1E69E9820];
-  v22 = 3221225472;
-  v23 = __99__IMBalloonPlugin_ImageLoading____ckImageForInterfaceStyle_generateSynchronously_allowPlaceholder___block_invoke;
-  v24 = &unk_1E72F13B8;
-  objc_copyWeak(v25, location);
-  v25[1] = a3;
-  dispatch_async(v15, &v21);
+  inited = objc_initWeak(location, self);
+  v16 = iconGenerationForDisplayQueue(inited);
+  v22 = MEMORY[0x1E69E9820];
+  v23 = 3221225472;
+  v24 = __99__IMBalloonPlugin_ImageLoading____ckImageForInterfaceStyle_generateSynchronously_allowPlaceholder___block_invoke;
+  v25 = &unk_1E72F13B8;
+  objc_copyWeak(v26, location);
+  v26[1] = a3;
+  dispatch_async(v16, &v22);
 
-  objc_destroyWeak(v25);
+  objc_destroyWeak(v26);
   objc_destroyWeak(location);
   v14 = 0;
 LABEL_19:
@@ -312,26 +313,26 @@ LABEL_19:
   {
     if (IMOSLoggingEnabled())
     {
-      v16 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      v17 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
         identifier = [self identifier];
-        v18 = identifier;
-        v19 = @"NO";
+        v19 = identifier;
+        v20 = @"NO";
         if (a4)
         {
-          v19 = @"YES";
+          v20 = @"YES";
         }
 
         *location = 138412546;
         *&location[4] = identifier;
-        v27 = 2112;
-        v28 = v19;
-        _os_log_impl(&dword_19020E000, v16, OS_LOG_TYPE_INFO, "Didn't get an icon for identifier %@ synchronous:%@", location, 0x16u);
+        v28 = 2112;
+        v29 = v20;
+        _os_log_impl(&dword_19020E000, v17, OS_LOG_TYPE_INFO, "Didn't get an icon for identifier %@ synchronous:%@", location, 0x16u);
       }
     }
 
-    v14 = [MEMORY[0x1E69A5AC0] __ck_placeholderImageForInterfaceStyle:{a3, v21, v22, v23, v24}];
+    v14 = [MEMORY[0x1E69A5AC0] __ck_placeholderImageForInterfaceStyle:{a3, v22, v23, v24, v25}];
   }
 
 LABEL_27:
@@ -704,9 +705,9 @@ LABEL_13:
     [IMBalloonPlugin(ImageLoading) appStoreBadgeIcon];
   }
 
-  v1 = appStoreBadgeIcon_sBehavior;
+  v2 = appStoreBadgeIcon_sBehavior;
 
-  return v1;
+  return v2;
 }
 
 - (id)recentsBadgeIcon
@@ -716,9 +717,9 @@ LABEL_13:
     [IMBalloonPlugin(ImageLoading) recentsBadgeIcon];
   }
 
-  v1 = recentsBadgeIcon_sBehavior;
+  v2 = recentsBadgeIcon_sBehavior;
 
-  return v1;
+  return v2;
 }
 
 @end

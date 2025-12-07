@@ -33,16 +33,16 @@
   segments = self->_segments;
   if (!segments)
   {
-    v5 = MEMORY[0x277D81150];
-    v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[KNSlideLayoutPrintHelper pageCount]");
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideLayoutPrintHelper.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v9, v6, v8, 35, 0, "invalid nil value for '%{public}s'", "_segments");
+    v4 = MEMORY[0x277D81150];
+    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNSlideLayoutPrintHelper pageCount]"];
+    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideLayoutPrintHelper.m"];
+    [v4 handleFailureInFunction:v5 file:v6 lineNumber:35 isFatal:0 description:{"invalid nil value for '%{public}s'", "_segments"}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v10, v11);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
     segments = self->_segments;
   }
 
-  return objc_msgSend_count(segments, a2, v2);
+  return [(NSArray *)segments count];
 }
 
 - (void)resetPage
@@ -56,55 +56,55 @@
   if (!self->_segments)
   {
     v3 = MEMORY[0x277D81150];
-    v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[KNSlideLayoutPrintHelper incrementPage]");
-    v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideLayoutPrintHelper.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v3, v7, v4, v6, 44, 0, "invalid nil value for '%{public}s'", "_segments");
+    v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNSlideLayoutPrintHelper incrementPage]"];
+    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNSlideLayoutPrintHelper.m"];
+    [v3 handleFailureInFunction:v4 file:v5 lineNumber:44 isFatal:0 description:{"invalid nil value for '%{public}s'", "_segments"}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v8, v9);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
   segments = self->_segments;
   currentSegment = self->_currentSegment;
   if (currentSegment)
   {
-    v12 = objc_msgSend_indexOfObject_(segments, a2, currentSegment) + 1;
-    if (v12 >= objc_msgSend_count(self->_segments, v13, v14))
+    v8 = [(NSArray *)segments indexOfObject:?]+ 1;
+    if (v8 >= [(NSArray *)self->_segments count])
     {
-      v15 = 0;
+      v9 = 0;
       goto LABEL_8;
     }
 
     segments = self->_segments;
-    currentSegment = v12;
+    currentSegment = v8;
   }
 
-  v15 = objc_msgSend_objectAtIndexedSubscript_(segments, a2, currentSegment);
+  v9 = [(NSArray *)segments objectAtIndexedSubscript:currentSegment];
 LABEL_8:
-  v16 = self->_currentSegment;
-  self->_currentSegment = v15;
+  v10 = self->_currentSegment;
+  self->_currentSegment = v9;
 
   return self->_currentSegment != 0;
 }
 
 - (BOOL)shouldDrawSlide
 {
-  v4 = objc_msgSend_commentsPageIndex(self, a2, v2);
-  v7 = objc_msgSend_buildIndex(self, v5, v6);
-  v10 = v7;
-  if (v4)
+  commentsPageIndex = [(KNSlideLayoutPrintHelper *)self commentsPageIndex];
+  buildIndex = [(KNSlideLayoutPrintHelper *)self buildIndex];
+  v5 = buildIndex;
+  if (commentsPageIndex)
   {
-    v11 = v4 == 0x7FFFFFFFFFFFFFFFLL;
+    v6 = commentsPageIndex == 0x7FFFFFFFFFFFFFFFLL;
   }
 
   else
   {
-    v11 = 1;
+    v6 = 1;
   }
 
-  v12 = v11;
-  if (v7 || ((objc_msgSend_notesPageIndex(self, v8, v9) == 0) & v12) == 0)
+  v7 = v6;
+  if (buildIndex || (([(KNSlideLayoutPrintHelper *)self notesPageIndex]== 0) & v7) == 0)
   {
-    return (v10 != 0) & v12;
+    return (v5 != 0) & v7;
   }
 
   else
@@ -122,46 +122,46 @@ LABEL_8:
   if (WeakRetained != obj)
   {
     objc_storeWeak(&self->_dataSource, obj);
-    objc_msgSend_p_segmentSlideNodes(self, v6, v7);
+    [(KNSlideLayoutPrintHelper *)self p_segmentSlideNodes];
     v5 = obj;
   }
 }
 
 - (void)setCurrentSlideNode:(id)node
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
   v5 = self->_segments;
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v15, v19, 16);
-  if (v7)
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v6)
   {
-    v10 = v7;
-    v11 = *v16;
+    v7 = v6;
+    v8 = *v13;
     while (2)
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v11)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v13 = *(*(&v15 + 1) + 8 * i);
-        v14 = objc_msgSend_slideNode(v13, v8, v9, v15);
+        v10 = *(*(&v12 + 1) + 8 * i);
+        slideNode = [v10 slideNode];
 
-        if (v14 == nodeCopy)
+        if (slideNode == nodeCopy)
         {
-          objc_storeStrong(&self->_currentSegment, v13);
+          objc_storeStrong(&self->_currentSegment, v10);
           goto LABEL_11;
         }
       }
 
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v8, &v15, v19, 16);
-      if (v10)
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      if (v7)
       {
         continue;
       }
@@ -175,7 +175,7 @@ LABEL_11:
 
 - (void)p_segmentSlideNodes
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   segments = self->_segments;
   self->_segments = 0;
 
@@ -186,168 +186,159 @@ LABEL_11:
   if (WeakRetained)
   {
     v6 = objc_loadWeakRetained(&self->_dataSource);
-    v8 = objc_msgSend_slideNodesForPrintHelper_(v6, v7, self);
+    v7 = [v6 slideNodesForPrintHelper:self];
 
-    v11 = objc_msgSend_array(MEMORY[0x277CBEB18], v9, v10);
-    v22 = 0u;
-    v23 = 0u;
-    v24 = 0u;
-    v25 = 0u;
-    v12 = v8;
-    v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v22, v26, 16);
-    if (v14)
+    array = [MEMORY[0x277CBEB18] array];
+    v16 = 0u;
+    v17 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    v9 = v7;
+    v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    if (v10)
     {
-      v16 = v14;
-      v17 = *v23;
+      v11 = v10;
+      v12 = *v17;
       do
       {
-        v18 = 0;
+        v13 = 0;
         do
         {
-          if (*v23 != v17)
+          if (*v17 != v12)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(v9);
           }
 
-          v19 = objc_msgSend_p_segmentsForSlideNode_(self, v15, *(*(&v22 + 1) + 8 * v18), v22);
-          objc_msgSend_addObjectsFromArray_(v11, v20, v19);
+          v14 = [(KNSlideLayoutPrintHelper *)self p_segmentsForSlideNode:*(*(&v16 + 1) + 8 * v13), v16];
+          [(NSArray *)array addObjectsFromArray:v14];
 
-          ++v18;
+          ++v13;
         }
 
-        while (v16 != v18);
-        v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v15, &v22, v26, 16);
+        while (v11 != v13);
+        v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
-      while (v16);
+      while (v11);
     }
 
-    v21 = self->_segments;
-    self->_segments = v11;
+    v15 = self->_segments;
+    self->_segments = array;
   }
 }
 
 - (id)p_segmentsForSlideNode:(id)node
 {
   nodeCopy = node;
-  v7 = objc_msgSend_array(MEMORY[0x277CBEB18], v5, v6);
+  array = [MEMORY[0x277CBEB18] array];
   WeakRetained = objc_loadWeakRetained(&self->_renderingExporter);
-  if (objc_msgSend_isPrintingComments(WeakRetained, v9, v10))
+  if ([WeakRetained isPrintingComments])
   {
-    v11 = objc_loadWeakRetained(&self->_dataSource);
-    v13 = objc_msgSend_printHelper_commentsPageCountForSlideNode_(v11, v12, self, nodeCopy);
+    v7 = objc_loadWeakRetained(&self->_dataSource);
+    v8 = [v7 printHelper:self commentsPageCountForSlideNode:nodeCopy];
   }
 
   else
   {
-    v13 = 0;
+    v8 = 0;
   }
 
   objc_opt_class();
-  v14 = objc_loadWeakRetained(&self->_renderingExporter);
-  v15 = TSUDynamicCast();
+  v9 = objc_loadWeakRetained(&self->_renderingExporter);
+  v10 = TSUDynamicCast();
 
   objc_opt_class();
-  v16 = objc_loadWeakRetained(&self->_renderingExporter);
-  v75 = TSUDynamicCast();
+  v11 = objc_loadWeakRetained(&self->_renderingExporter);
+  v30 = TSUDynamicCast();
 
-  if ((v15 || objc_msgSend_isPrintingNotes(v75, v17, v18)) && objc_msgSend_hasNote(nodeCopy, v17, v18))
+  if ((v10 || [v30 isPrintingNotes]) && objc_msgSend(nodeCopy, "hasNote"))
   {
-    v19 = objc_loadWeakRetained(&self->_dataSource);
-    selfCopy = self;
-    v21 = objc_msgSend_printHelper_noteSegmentsForSlideNode_(v19, v20, self, nodeCopy);
+    v12 = objc_loadWeakRetained(&self->_dataSource);
+    v13 = [v12 printHelper:self noteSegmentsForSlideNode:nodeCopy];
 
-    if (v13)
+    if (v8)
     {
-      v73 = v15;
-      v24 = 0;
-      v76 = v21;
+      v29 = v10;
+      v14 = 0;
+      v31 = v13;
       do
       {
-        if (v24 >= objc_msgSend_count(v21, v22, v23, v73))
+        if (v14 >= [v13 count])
         {
-          v43 = [KNPrintSegment alloc];
-          v41 = objc_msgSend_initWithSlideNode_buildIndex_notesIndex_commentsPageIndex_span_(v43, v44, nodeCopy, 0, 0, v24, 0);
+          v18 = [[KNPrintSegment alloc] initWithSlideNode:nodeCopy buildIndex:0 notesIndex:0 commentsPageIndex:v14 span:0];
         }
 
         else
         {
-          v26 = objc_msgSend_objectAtIndexedSubscript_(v21, v25, v24);
-          v27 = [KNPrintSegment alloc];
-          v30 = objc_msgSend_slideNode(v26, v28, v29);
-          v33 = objc_msgSend_buildIndex(v26, v31, v32);
-          v36 = objc_msgSend_notesIndex(v26, v34, v35);
-          v39 = objc_msgSend_span(v26, v37, v38);
-          v41 = objc_msgSend_initWithSlideNode_buildIndex_notesIndex_commentsPageIndex_span_(v27, v40, v30, v33, v36, v24, v39);
+          v15 = [v13 objectAtIndexedSubscript:v14];
+          v16 = [KNPrintSegment alloc];
+          slideNode = [v15 slideNode];
+          v18 = -[KNPrintSegment initWithSlideNode:buildIndex:notesIndex:commentsPageIndex:span:](v16, "initWithSlideNode:buildIndex:notesIndex:commentsPageIndex:span:", slideNode, [v15 buildIndex], objc_msgSend(v15, "notesIndex"), v14, objc_msgSend(v15, "span"));
 
-          v21 = v76;
+          v13 = v31;
         }
 
-        objc_msgSend_addObject_(v7, v42, v41);
+        [array addObject:v18];
 
-        ++v24;
+        ++v14;
       }
 
-      while (v13 != v24);
-      v15 = v73;
-      if (v13 < objc_msgSend_count(v21, v22, v23))
+      while (v8 != v14);
+      v10 = v29;
+      if (v8 < [v13 count])
       {
-        v46 = v13;
+        v19 = v8;
         do
         {
-          v47 = objc_msgSend_objectAtIndexedSubscript_(v21, v45, v46);
-          objc_msgSend_addObject_(v7, v48, v47);
+          v20 = [v13 objectAtIndexedSubscript:v19];
+          [array addObject:v20];
 
-          ++v46;
+          ++v19;
         }
 
-        while (v46 < objc_msgSend_count(v21, v49, v50));
+        while (v19 < [v13 count]);
       }
     }
 
     else
     {
-      objc_msgSend_addObjectsFromArray_(v7, v22, v21);
+      [array addObjectsFromArray:v13];
     }
-
-    self = selfCopy;
   }
 
-  v51 = objc_msgSend_count(v7, v17, v18) != 0;
-  v52 = objc_loadWeakRetained(&self->_renderingExporter);
-  if (objc_msgSend_isPrintingBuilds(v52, v53, v54) && objc_msgSend_safeHasBuildEvents(nodeCopy, v55, v56))
+  v21 = [array count] != 0;
+  v22 = objc_loadWeakRetained(&self->_renderingExporter);
+  if ([v22 isPrintingBuilds] && objc_msgSend(nodeCopy, "safeHasBuildEvents"))
   {
-    v59 = objc_msgSend_safeBuildEventCount(nodeCopy, v57, v58);
+    safeBuildEventCount = [nodeCopy safeBuildEventCount];
   }
 
   else
   {
-    v59 = 0;
+    safeBuildEventCount = 0;
   }
 
-  for (; v51 <= v59; ++v51)
+  for (; v21 <= safeBuildEventCount; ++v21)
   {
-    if (v13)
+    if (v8)
     {
-      for (i = 0; i != v13; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        v63 = [KNPrintSegment alloc];
-        v65 = objc_msgSend_initWithSlideNode_buildIndex_notesIndex_commentsPageIndex_span_(v63, v64, nodeCopy, v51, 0, i, 0);
-        objc_msgSend_addObject_(v7, v66, v65);
+        v25 = [[KNPrintSegment alloc] initWithSlideNode:nodeCopy buildIndex:v21 notesIndex:0 commentsPageIndex:i span:0];
+        [array addObject:v25];
       }
     }
 
     else
     {
-      v67 = [KNPrintSegment alloc];
-      v69 = objc_msgSend_initWithSlideNode_buildIndex_notesIndex_span_(v67, v68, nodeCopy, v51, 0, 0);
-      objc_msgSend_addObject_(v7, v70, v69);
+      v26 = [[KNPrintSegment alloc] initWithSlideNode:nodeCopy buildIndex:v21 notesIndex:0 span:0];
+      [array addObject:v26];
     }
   }
 
-  v71 = objc_msgSend_copy(v7, v60, v61);
+  v27 = [array copy];
 
-  return v71;
+  return v27;
 }
 
 - (KNSlideLayoutPrintHelperDataSource)dataSource

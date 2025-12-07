@@ -40,8 +40,8 @@
   coderCopy = coder;
   [(ARLocationEstimationData *)self heading];
   [coderCopy encodeDouble:@"ARLocationEstimateData_headingKey" forKey:?];
-  location = [(ARLocationEstimationData *)self location];
-  [coderCopy encodeObject:location forKey:@"ARLocationEstimateData_locationKey"];
+  v5 = objc_msgSend_location(self);
+  [coderCopy encodeObject:v5 forKey:@"ARLocationEstimateData_locationKey"];
 }
 
 - (ARLocationEstimationData)initWithCoder:(id)coder

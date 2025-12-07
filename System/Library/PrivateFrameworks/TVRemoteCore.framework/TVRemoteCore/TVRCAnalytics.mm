@@ -41,14 +41,12 @@ uint64_t __31__TVRCAnalytics_sharedInstance__block_invoke()
 
 - (id)_presentationSourceEventDictionaryFor:(id)for
 {
-  v9[1] = *MEMORY[0x277D85DE8];
-  v8 = @"source";
-  v9[0] = for;
+  v8[1] = *MEMORY[0x277D85DE8];
+  v7 = @"source";
+  v8[0] = for;
   v3 = MEMORY[0x277CBEAC0];
   forCopy = for;
-  v5 = [v3 dictionaryWithObjects:v9 forKeys:&v8 count:1];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = [v3 dictionaryWithObjects:v8 forKeys:&v7 count:1];
 
   return v5;
 }
@@ -79,27 +77,23 @@ id __43__TVRCAnalytics_logConnectingSpinnerShown___block_invoke(uint64_t a1)
 
 - (id)_spinnerShownDictionaryFor:(id)for
 {
-  v9[1] = *MEMORY[0x277D85DE8];
-  v8 = @"type";
-  v9[0] = for;
+  v8[1] = *MEMORY[0x277D85DE8];
+  v7 = @"type";
+  v8[0] = for;
   v3 = MEMORY[0x277CBEAC0];
   forCopy = for;
-  v5 = [v3 dictionaryWithObjects:v9 forKeys:&v8 count:1];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = [v3 dictionaryWithObjects:v8 forKeys:&v7 count:1];
 
   return v5;
 }
 
 id __37__TVRCAnalytics_logDeviceQueryCount___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v5 = @"deviceQueryCount";
+  v5[1] = *MEMORY[0x277D85DE8];
+  v4 = @"deviceQueryCount";
   v1 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -175,12 +169,11 @@ id __37__TVRCAnalytics_logDeviceQueryCount___block_invoke(uint64_t a1)
 
 id __46__TVRCAnalytics_logShortcutActionRunWithType___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  v5 = @"type";
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = @"type";
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }

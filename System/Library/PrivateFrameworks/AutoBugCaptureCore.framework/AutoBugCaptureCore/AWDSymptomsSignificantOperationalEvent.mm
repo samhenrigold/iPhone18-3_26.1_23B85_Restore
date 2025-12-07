@@ -3,6 +3,9 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)errorAsString:(int)string;
+- (id)nameAsString:(int)string;
+- (id)statusAsString:(int)string;
 - (int)StringAsError:(id)error;
 - (int)StringAsName:(id)name;
 - (int)StringAsStatus:(id)status;
@@ -62,6 +65,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)nameAsString:(int)string
+{
+  if ((string - 1) >= 0xB)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278CF0100[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsName:(id)name
@@ -158,6 +176,21 @@
   *&self->_has = *&self->_has & 0xFB | v3;
 }
 
+- (id)errorAsString:(int)string
+{
+  if ((string - 1) >= 7)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278CF0158[string - 1];
+  }
+
+  return v4;
+}
+
 - (int)StringAsError:(id)error
 {
   errorCopy = error;
@@ -230,6 +263,21 @@
   }
 
   *&self->_has = *&self->_has & 0xEF | v3;
+}
+
+- (id)statusAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278CF0190[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsStatus:(id)status
@@ -360,14 +408,12 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 8) != 0)
   {
-    name = self->_name;
     PBDataWriterWriteInt32Field();
   }
 
@@ -378,7 +424,6 @@
 
   if ((*&self->_has & 4) != 0)
   {
-    error = self->_error;
     PBDataWriterWriteInt32Field();
   }
 
@@ -387,17 +432,15 @@
     PBDataWriterWriteStringField();
   }
 
-  v8 = self->_has;
-  if (v8)
+  v5 = self->_has;
+  if (v5)
   {
-    errorCode = self->_errorCode;
     PBDataWriterWriteInt64Field();
-    v8 = self->_has;
+    v5 = self->_has;
   }
 
-  if ((v8 & 0x10) != 0)
+  if ((v5 & 0x10) != 0)
   {
-    status = self->_status;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -511,7 +554,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 56);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 56) & 2) == 0 || self->_timestamp != *(equalCopy + 2))
@@ -549,7 +591,6 @@
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 56);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 56) & 4) == 0 || self->_error != *(equalCopy + 8))
@@ -573,7 +614,7 @@
     }
 
 LABEL_32:
-    v10 = 0;
+    v8 = 0;
     goto LABEL_33;
   }
 
@@ -591,7 +632,7 @@ LABEL_23:
     goto LABEL_32;
   }
 
-  v10 = (*(equalCopy + 56) & 0x10) == 0;
+  v8 = (*(equalCopy + 56) & 0x10) == 0;
   if ((has & 0x10) != 0)
   {
     if ((*(equalCopy + 56) & 0x10) == 0 || self->_status != *(equalCopy + 13))
@@ -599,12 +640,12 @@ LABEL_23:
       goto LABEL_32;
     }
 
-    v10 = 1;
+    v8 = 1;
   }
 
 LABEL_33:
 
-  return v10;
+  return v8;
 }
 
 - (unint64_t)hash

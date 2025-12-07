@@ -627,7 +627,7 @@ uint64_t __60__VNFaceBBoxAligner_completeInitializationForSession_error___block_
     v10 = [*(*(a1 + 32) + 80) length];
     memset(v16, 0, sizeof(v16));
     v17 = 1065353216;
-    cvml::util::binserialized_table_of_contents::init(v16, v9, v10);
+    cvml::util::binserialized_table_of_contents::init(v16, v9, v10, 0);
     memset(v14, 0, sizeof(v14));
     v15 = 1065353216;
     cvml::util::binserialized_contents::init_model_values(v14, v16, 0, vision::mod::FaceBoxPoseAligner<signed char>::modelFileInfo(void)::fileInfo);

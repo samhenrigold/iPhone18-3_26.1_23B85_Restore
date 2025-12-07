@@ -8,7 +8,7 @@
 
 + (id)ringLayerWithBlendMode:(id)mode diameter:(double)diameter lineWidth:(double)width brightnessAmount:(double)amount saturationAmount:(double)saturationAmount
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   modeCopy = mode;
   v13 = [self ringWithDiameter:diameter lineWidth:width];
   [v13 setOpacity:0.0];
@@ -19,12 +19,10 @@
   [v13 setCompositingFilter:v14];
   v15 = [MEMORY[0x277CD9EA0] brightnessFilterWithAmount:amount];
   v16 = [MEMORY[0x277CD9EA0] saturationFilterWithAmount:saturationAmount];
-  v20[0] = v15;
-  v20[1] = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+  v19[0] = v15;
+  v19[1] = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
   [v13 setFilters:v17];
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

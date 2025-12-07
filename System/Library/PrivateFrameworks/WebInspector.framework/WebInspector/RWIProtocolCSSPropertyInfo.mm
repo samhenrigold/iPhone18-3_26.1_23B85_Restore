@@ -6,6 +6,7 @@
 - (NSString)name;
 - (RWIProtocolCSSPropertyInfo)initWithName:(id)name;
 - (void)setAliases:(id)aliases;
+- (void)setInherited:(BOOL)inherited;
 - (void)setLonghands:(id)longhands;
 - (void)setName:(id)name;
 - (void)setValues:(id)values;
@@ -143,6 +144,13 @@
   v2 = Inspector::toObjCStringArray(&v5);
   [(RWIProtocolCSSPseudoIdMatches *)v2 matches];
   return v2;
+}
+
+- (void)setInherited:(BOOL)inherited
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolCSSPropertyInfo;
+  [(RWIProtocolJSONObject *)&v3 setBool:inherited forKey:@"inherited"];
 }
 
 - (BOOL)inherited

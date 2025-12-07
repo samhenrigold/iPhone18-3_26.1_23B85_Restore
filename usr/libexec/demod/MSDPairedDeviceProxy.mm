@@ -2,6 +2,7 @@
 - (MSDPairedDeviceProxy)init;
 - (NSString)lastSeenDate;
 - (void)bootstrap;
+- (void)didUpdateDeviceReachability:(BOOL)reachability;
 - (void)handleDeviceDidBeginPairingNotification:(id)notification;
 - (void)handleDeviceDidBeginUnpairingNotification:(id)notification;
 - (void)handleDeviceDidPairNotification:(id)notification;
@@ -50,7 +51,7 @@
 
 - (void)bootstrap
 {
-  v2 = sub_100063A54();
+  v2 = sub_100063A54(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138543362;
@@ -58,6 +59,42 @@
     v3 = v5;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Bootstrapping %{public}@...", &v4, 0xCu);
   }
+}
+
+- (void)didUpdateDeviceReachability:(BOOL)reachability
+{
+  reachabilityCopy = reachability;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  reachable = [(MSDPairedDeviceProxy *)selfCopy reachable];
+  if (reachable != reachabilityCopy)
+  {
+    v6 = sub_100063A54(reachable);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      v9[0] = 67109376;
+      v9[1] = [(MSDPairedDeviceProxy *)selfCopy reachable];
+      v10 = 1024;
+      v11 = reachabilityCopy;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Paired device reachability changed to from %{BOOL}d to %{BOOL}d", v9, 0xEu);
+    }
+
+    if (reachabilityCopy)
+    {
+      [(MSDPairedDeviceProxy *)selfCopy savePairedDeviceLastSeenDate:0];
+    }
+
+    else
+    {
+      v7 = +[NSDate now];
+      toString = [v7 toString];
+      [(MSDPairedDeviceProxy *)selfCopy savePairedDeviceLastSeenDate:toString];
+    }
+
+    [(MSDPairedDeviceProxy *)selfCopy setReachable:reachabilityCopy];
+  }
+
+  objc_sync_exit(selfCopy);
 }
 
 - (void)updatePairedDeviceInfo
@@ -93,7 +130,7 @@
 
 - (void)handleDeviceDidBeginPairingNotification:(id)notification
 {
-  v3 = sub_100063A54();
+  v3 = sub_100063A54(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315138;
@@ -107,7 +144,7 @@
 
 - (void)handleDeviceDidPairNotification:(id)notification
 {
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315138;
@@ -122,7 +159,7 @@
 
 - (void)handleDeviceDidBeginUnpairingNotification:(id)notification
 {
-  v3 = sub_100063A54();
+  v3 = sub_100063A54(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315138;
@@ -136,7 +173,7 @@
 
 - (void)handleDeviceDidUnpairNotification:(id)notification
 {
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136315138;

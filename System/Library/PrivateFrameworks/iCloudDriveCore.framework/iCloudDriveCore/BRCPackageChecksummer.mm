@@ -25,7 +25,7 @@
 
 - (BOOL)addItem:(id)item error:(id *)error
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   if ([itemCopy type] == 4)
   {
@@ -63,13 +63,13 @@ LABEL_43:
         goto LABEL_16;
       }
 
-      v42 = "(passed to caller)";
+      v41 = "(passed to caller)";
       *buf = 136315906;
       *&buf[4] = "[BRCPackageChecksummer addItem:error:]";
-      v46 = 2080;
+      v45 = 2080;
       if (!error)
       {
-        v42 = "(ignored by caller)";
+        v41 = "(ignored by caller)";
       }
 
       goto LABEL_57;
@@ -80,8 +80,8 @@ LABEL_43:
       quarantineInfo = [itemCopy quarantineInfo];
       br_qtnFlags = [quarantineInfo br_qtnFlags];
 
-      v44 = br_qtnFlags;
-      if (!br_qtnFlags || [(BRCChecksummingOutputStream *)*p_stream write:&v44 maxLength:4]!= -1 && [(BRCChecksummingOutputStream *)*p_stream write:&addItem_error__nul maxLength:1]!= -1)
+      v43 = br_qtnFlags;
+      if (!br_qtnFlags || [(BRCChecksummingOutputStream *)*p_stream write:&v43 maxLength:4]!= -1 && [(BRCChecksummingOutputStream *)*p_stream write:&addItem_error__nul maxLength:1]!= -1)
       {
         if ([itemCopy type] == 3)
         {
@@ -104,9 +104,9 @@ LABEL_31:
             goto LABEL_31;
           }
 
-          v40 = brc_bread_crumbs();
-          v41 = brc_default_log();
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_FAULT))
+          v39 = brc_bread_crumbs();
+          v40 = brc_default_log();
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_FAULT))
           {
             [BRCPackageChecksummer addItem:error:];
           }
@@ -133,21 +133,21 @@ LABEL_16:
             goto LABEL_17;
           }
 
-          v42 = "(passed to caller)";
+          v41 = "(passed to caller)";
           *buf = 136315906;
           *&buf[4] = "[BRCPackageChecksummer addItem:error:]";
-          v46 = 2080;
+          v45 = 2080;
           if (!error)
           {
-            v42 = "(ignored by caller)";
+            v41 = "(ignored by caller)";
           }
 
 LABEL_57:
-          v47 = v42;
-          v48 = 2112;
-          v49 = streamError;
-          v50 = 2112;
-          v51 = v19;
+          v46 = v41;
+          v47 = 2112;
+          v48 = streamError;
+          v49 = 2112;
+          v50 = v19;
           _os_log_error_impl(&dword_223E7A000, v20, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
           goto LABEL_16;
         }
@@ -168,7 +168,7 @@ LABEL_33:
           bytes = [signature2 bytes];
 
           v26 = 2 * v23;
-          v27 = &v43 - ((2 * v23 + 16) & 0xFFFFFFFFFFFFFFF0);
+          v27 = &v42 - ((2 * v23 + 16) & 0xFFFFFFFFFFFFFFF0);
           if (v23)
           {
             v28 = v27 + 1;
@@ -218,20 +218,20 @@ LABEL_34:
     v34 = brc_default_log();
     if (os_log_type_enabled(v34, 0x90u))
     {
-      v39 = "(passed to caller)";
+      v38 = "(passed to caller)";
       *buf = 136315906;
       *&buf[4] = "[BRCPackageChecksummer addItem:error:]";
-      v46 = 2080;
+      v45 = 2080;
       if (!error)
       {
-        v39 = "(ignored by caller)";
+        v38 = "(ignored by caller)";
       }
 
-      v47 = v39;
-      v48 = 2112;
-      v49 = streamError;
-      v50 = 2112;
-      v51 = v33;
+      v46 = v38;
+      v47 = 2112;
+      v48 = streamError;
+      v49 = 2112;
+      v50 = v33;
       _os_log_error_impl(&dword_223E7A000, v34, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
     }
   }
@@ -247,40 +247,35 @@ LABEL_42:
   v36 = 0;
 LABEL_44:
 
-  v37 = *MEMORY[0x277D85DE8];
   return v36;
 }
 
 - (void)addItem:error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_15_0(v0, v1, v2, v3, v4);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addItem:error:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_15_0(v0, v1, v2, v3, v4);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addItem:(void *)a1 error:(void *)a2 .cold.3(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v4 = brc_bread_crumbs();
   v5 = brc_default_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_2_3(&dword_223E7A000, v6, v7, "[CRIT] Assertion failed: _stream%@", v8, v9, v10, v11, 2u);
+    LODWORD(v12) = 138412290;
+    *(&v12 + 4) = v4;
+    OUTLINED_FUNCTION_2_3(&dword_223E7A000, v6, v7, "[CRIT] Assertion failed: _stream%@", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   *a2 = *a1;
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

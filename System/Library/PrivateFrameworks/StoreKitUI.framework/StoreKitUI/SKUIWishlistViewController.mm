@@ -144,20 +144,20 @@
 
 - (void)loadView
 {
-  v13 = objc_alloc_init(MEMORY[0x277D75D18]);
+  v15 = objc_alloc_init(MEMORY[0x277D75D18]);
   clearColor = [MEMORY[0x277D75348] clearColor];
-  [v13 setBackgroundColor:clearColor];
+  [v15 setBackgroundColor:clearColor];
 
   currentDevice = [MEMORY[0x277D75418] currentDevice];
   if ([currentDevice userInterfaceIdiom])
   {
     mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
     keyWindow = [mEMORY[0x277D75128] keyWindow];
-    [keyWindow bounds];
-    v8 = v7;
-    v9 = SKUICompactThreshold();
+    bounds = [keyWindow bounds];
+    v9 = v8;
+    v11 = SKUICompactThreshold(bounds, v10);
 
-    if (v8 > v9)
+    if (v9 > v11)
     {
       goto LABEL_8;
     }
@@ -170,16 +170,16 @@
   backdropView = self->_backdropView;
   if (!backdropView)
   {
-    v11 = [objc_alloc(MEMORY[0x277D75DE8]) initWithPrivateStyle:10060];
-    v12 = self->_backdropView;
-    self->_backdropView = v11;
+    v13 = [objc_alloc(MEMORY[0x277D75DE8]) initWithPrivateStyle:10060];
+    v14 = self->_backdropView;
+    self->_backdropView = v13;
 
     backdropView = self->_backdropView;
   }
 
-  [v13 addSubview:backdropView];
+  [v15 addSubview:backdropView];
 LABEL_8:
-  [(SKUIWishlistViewController *)self setView:v13];
+  [(SKUIWishlistViewController *)self setView:v15];
   [(SKUIWishlistViewController *)self _reloadChildView];
 }
 
@@ -513,9 +513,9 @@ void __48__SKUIWishlistViewController__emptyWishlistView__block_invoke(uint64_t 
     if ([errorCopy code] == 1)
     {
       domain = [errorCopy domain];
-      v10 = [domain isEqualToString:*MEMORY[0x277D6A678]];
+      isEqualToString = objc_msgSend_isEqualToString_(domain);
 
-      if (v10)
+      if (isEqualToString)
       {
         self->_wishlistState = 1;
 LABEL_4:
@@ -830,11 +830,11 @@ LABEL_25:
     {
       mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
       keyWindow = [mEMORY[0x277D75128] keyWindow];
-      [keyWindow bounds];
-      v25 = v24;
-      v26 = SKUICompactThreshold();
+      bounds = [keyWindow bounds];
+      v26 = v25;
+      v28 = SKUICompactThreshold(bounds, v27);
 
-      if (v25 > v26)
+      if (v26 > v28)
       {
         goto LABEL_27;
       }
@@ -844,10 +844,10 @@ LABEL_25:
     {
     }
 
-    v27 = objc_alloc_init(MEMORY[0x277D751E0]);
-    [v27 setAction:sel__doneAction_];
-    [v27 setStyle:2];
-    [v27 setTarget:self];
+    v29 = objc_alloc_init(MEMORY[0x277D751E0]);
+    [v29 setAction:sel__doneAction_];
+    [v29 setStyle:2];
+    [v29 setTarget:self];
     if (clientContext)
     {
       [clientContext localizedStringForKey:@"WISH_LIST_DONE_BUTTON"];
@@ -857,20 +857,20 @@ LABEL_25:
     {
       [SKUIClientContext localizedStringForKey:@"WISH_LIST_DONE_BUTTON" inBundles:0];
     }
-    v28 = ;
-    [v27 setTitle:v28];
+    v30 = ;
+    [v29 setTitle:v30];
 
-    [navigationItem setRightBarButtonItem:v27 animated:animatedCopy];
+    [navigationItem setRightBarButtonItem:v29 animated:animatedCopy];
   }
 
 LABEL_27:
   navigationController = [(SKUIWishlistViewController *)self navigationController];
   view = [navigationController view];
-  [view setSemanticContentAttribute:storeSemanticContentAttribute()];
+  [view setSemanticContentAttribute:{storeSemanticContentAttribute(view, v33)}];
 
   navigationController2 = [(SKUIWishlistViewController *)self navigationController];
   navigationBar = [navigationController2 navigationBar];
-  [navigationBar setSemanticContentAttribute:storeSemanticContentAttribute()];
+  [navigationBar setSemanticContentAttribute:{storeSemanticContentAttribute(navigationBar, v36)}];
 }
 
 - (void)_reloadWishlist
@@ -908,16 +908,16 @@ LABEL_27:
 
     objc_initWeak(&location, self);
     v7 = self->_syncOperation;
-    v9 = MEMORY[0x277D85DD0];
-    v10 = 3221225472;
-    v11 = __43__SKUIWishlistViewController__syncWishlist__block_invoke;
-    v12 = &unk_2781FE5E8;
-    objc_copyWeak(&v13, &location);
-    [(SKUISyncWishlistOperation *)v7 setResultBlock:&v9];
-    v8 = SKUIWishlistOperationQueue();
-    [v8 addOperation:{self->_syncOperation, v9, v10, v11, v12}];
+    v11 = MEMORY[0x277D85DD0];
+    v12 = 3221225472;
+    v13 = __43__SKUIWishlistViewController__syncWishlist__block_invoke;
+    v14 = &unk_2781FE5E8;
+    objc_copyWeak(&v15, &location);
+    v8 = [(SKUISyncWishlistOperation *)v7 setResultBlock:&v11];
+    v10 = SKUIWishlistOperationQueue(v8, v9);
+    [v10 addOperation:{self->_syncOperation, v11, v12, v13, v14}];
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v15);
     objc_destroyWeak(&location);
   }
 }

@@ -60,10 +60,10 @@
 
 - (void)connection:(id)connection didReceiveData:(id)data
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   dataCopy = data;
-  v53 = objc_alloc_init(MKTime);
+  v52 = objc_alloc_init(MKTime);
   v7 = self->_requests;
   objc_sync_enter(v7);
   requests = self->_requests;
@@ -86,12 +86,12 @@
     v11 = v14;
   }
 
-  v58 = v11;
+  v57 = v11;
   headers = [v11 headers];
   v15 = objc_alloc_init(MKHTTPResponse);
   method = [headers method];
   path = [headers path];
-  body = [v58 body];
+  body = [v57 body];
   isClosed = [headers isClosed];
   contentLength = [headers contentLength];
   v17 = [body length];
@@ -108,7 +108,7 @@
     objc_sync_enter(v33);
     v34 = self->_requests;
     identifier2 = [connectionCopy identifier];
-    [(NSMutableDictionary *)v34 setObject:v58 forKey:identifier2];
+    [(NSMutableDictionary *)v34 setObject:v57 forKey:identifier2];
 
     objc_sync_exit(v33);
   }
@@ -124,20 +124,20 @@
     goto LABEL_6;
   }
 
-  v65 = 0;
   v64 = 0;
-  v49 = [(MKHTTPParser *)self->_parser chunk:body offset:&v65 done:&v64];
-  [v58 setChunkedTransferCompleted:v64];
-  chunk = [v58 chunk];
-  [v58 setChunkOffset:{objc_msgSend(v58, "chunkOffset") + objc_msgSend(chunk, "length")}];
+  v63 = 0;
+  v48 = [(MKHTTPParser *)self->_parser chunk:body offset:&v64 done:&v63];
+  [v57 setChunkedTransferCompleted:v63];
+  chunk = [v57 chunk];
+  [v57 setChunkOffset:{objc_msgSend(v57, "chunkOffset") + objc_msgSend(chunk, "length")}];
 
-  [v58 setChunk:v49];
-  if (v65)
+  [v57 setChunk:v48];
+  if (v64)
   {
-    [v58 sliceData:?];
+    [v57 sliceData:?];
   }
 
-  if (v64)
+  if (v63)
   {
 
 LABEL_6:
@@ -157,37 +157,37 @@ LABEL_6:
 
     if (identifier3)
     {
-      [v24 server:self didReceiveRequest:v58 response:v15];
+      [v24 server:self didReceiveRequest:v57 response:v15];
     }
 
     else
     {
       v26 = self->_parser;
       boundary2 = [headers boundary];
-      v28 = [(MKHTTPParser *)v26 parts:body boundary:boundary2 container:v58];
+      v28 = [(MKHTTPParser *)v26 parts:body boundary:boundary2 container:v57];
 
-      v62 = 0u;
-      v63 = 0u;
-      v60 = 0u;
       v61 = 0u;
+      v62 = 0u;
+      v59 = 0u;
+      v60 = 0u;
       v29 = v28;
-      v30 = [v29 countByEnumeratingWithState:&v60 objects:v66 count:16];
+      v30 = [v29 countByEnumeratingWithState:&v59 objects:v65 count:16];
       if (v30)
       {
-        v31 = *v61;
+        v31 = *v60;
         do
         {
           for (i = 0; i != v30; ++i)
           {
-            if (*v61 != v31)
+            if (*v60 != v31)
             {
               objc_enumerationMutation(v29);
             }
 
-            [v24 server:self didReceiveRequest:*(*(&v60 + 1) + 8 * i) response:v15];
+            [v24 server:self didReceiveRequest:*(*(&v59 + 1) + 8 * i) response:v15];
           }
 
-          v30 = [v29 countByEnumeratingWithState:&v60 objects:v66 count:16];
+          v30 = [v29 countByEnumeratingWithState:&v59 objects:v65 count:16];
         }
 
         while (v30);
@@ -196,7 +196,7 @@ LABEL_6:
 
     headers3 = [(MKHTTPResponse *)v15 headers];
     serverTiming = [headers3 serverTiming];
-    [(MKTime *)v53 elapsedTimeInSeconds];
+    [(MKTime *)v52 elapsedTimeInSeconds];
     v39 = v38;
     [serverTiming response];
     [serverTiming setResponse:v39 + v40];
@@ -239,16 +239,15 @@ LABEL_6:
     goto LABEL_28;
   }
 
-  if ([v49 length])
+  if ([v48 length])
   {
-    v51 = [(MKHTTPRequestMultiplexer *)self routerForMethod:method path:path];
-    [v51 server:self didReceiveRequest:v58 response:v15];
+    v50 = [(MKHTTPRequestMultiplexer *)self routerForMethod:method path:path];
+    [v50 server:self didReceiveRequest:v57 response:v15];
   }
 
   [(MKListener *)self->_listener readData:connectionCopy];
 
 LABEL_28:
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 - (MKHTTPServerDelegate)delegate

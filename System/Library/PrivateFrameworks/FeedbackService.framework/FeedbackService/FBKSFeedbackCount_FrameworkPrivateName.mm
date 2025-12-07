@@ -25,7 +25,7 @@
   v4 = sub_1B014CA8C();
   v6 = v5;
 
-  v7 = _s15FeedbackService17FBKSFeedbackCountC8fromJSON4dataACSg10Foundation4DataV_tFZ_0();
+  v7 = _s15FeedbackService17FBKSFeedbackCountC8fromJSON4dataACSg10Foundation4DataV_tFZ_0(v4, v6);
   sub_1B00D2024(v4, v6);
 
   return v7;

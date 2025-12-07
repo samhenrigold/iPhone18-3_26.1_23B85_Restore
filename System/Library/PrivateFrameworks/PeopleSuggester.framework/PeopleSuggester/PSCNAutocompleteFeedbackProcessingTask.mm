@@ -5,50 +5,47 @@
 
 void __96___PSCNAutocompleteFeedbackProcessingTask_runWithInferredEnterAndExit_overImplicit_eventFilter___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = +[_PSLogging feedbackChannel];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1B5ED1000, v3, OS_LOG_TYPE_INFO, "_PSCNAutocompleteFeedbackTracker: Communicating the following impression to CoreAnalytics: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1B5ED1000, v3, OS_LOG_TYPE_INFO, "_PSCNAutocompleteFeedbackTracker: Communicating the following impression to CoreAnalytics: %@", &v4, 0xCu);
   }
 
   AnalyticsSendEvent();
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __96___PSCNAutocompleteFeedbackProcessingTask_runWithInferredEnterAndExit_overImplicit_eventFilter___block_invoke_52(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = +[_PSLogging feedbackChannel];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1B5ED1000, v3, OS_LOG_TYPE_INFO, "_PSCNAutocompleteFeedbackTracker: Communicating the following submodel impression to CoreAnalytics: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1B5ED1000, v3, OS_LOG_TYPE_INFO, "_PSCNAutocompleteFeedbackTracker: Communicating the following submodel impression to CoreAnalytics: %@", &v4, 0xCu);
   }
 
   AnalyticsSendEvent();
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __96___PSCNAutocompleteFeedbackProcessingTask_runWithInferredEnterAndExit_overImplicit_eventFilter___block_invoke_55(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = +[_PSLogging feedbackChannel];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1B5ED1000, v3, OS_LOG_TYPE_INFO, "_PSCNAutocompleteFeedbackTracker: Communicating the following action to CoreAnalytics: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1B5ED1000, v3, OS_LOG_TYPE_INFO, "_PSCNAutocompleteFeedbackTracker: Communicating the following action to CoreAnalytics: %@", &v4, 0xCu);
   }
 
   AnalyticsSendEvent();
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __96___PSCNAutocompleteFeedbackProcessingTask_runWithInferredEnterAndExit_overImplicit_eventFilter___block_invoke_59(uint64_t a1, void *a2)
@@ -199,22 +196,19 @@ BOOL __58___PSCNAutocompleteFeedbackProcessingTask_runOverExplicit__block_invoke
 
 void __96___PSCNAutocompleteFeedbackProcessingTask_runWithInferredEnterAndExit_overImplicit_eventFilter___block_invoke_59_cold_1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_1B5ED1000, v0, OS_LOG_TYPE_DEBUG, "_PSCNAutocompleteFeedbackProcessingTask: Skipping feedback event - %@.", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1B5ED1000, v0, OS_LOG_TYPE_DEBUG, "_PSCNAutocompleteFeedbackProcessingTask: Skipping feedback event - %@.", v1, 0xCu);
 }
 
 void __96___PSCNAutocompleteFeedbackProcessingTask_runWithInferredEnterAndExit_overImplicit_eventFilter___block_invoke_71_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [a1 error];
   v4 = [v3 description];
   [v4 UTF8String];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "_PSCNAutocompleteFeedbackProcessingTask: Error: %s", v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "_PSCNAutocompleteFeedbackProcessingTask: Error: %s", v5, 0xCu);
 }
 
 @end

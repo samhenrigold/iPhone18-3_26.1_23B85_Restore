@@ -255,14 +255,14 @@ LABEL_6:
   LODWORD(v16) = *(MEMORY[0x1E69B38F0] + 60);
   [v12 setLuminanceWeights:{v13, v14, v15, v16}];
   memset(buf, 0, 32);
-  [imageCopy extent];
+  objc_msgSend_extent(imageCopy);
   NUPixelRectFromCGRect();
   bGRA8 = [MEMORY[0x1E69B3BF0] BGRA8];
   v18 = [bGRA8 alignedRowBytesForWidth:0];
 
   v19 = [MEMORY[0x1E695DF88] dataWithLength:0];
   mutableBytes = [v19 mutableBytes];
-  [imageCopy extent];
+  objc_msgSend_extent(imageCopy);
   [v11 render:imageCopy toBitmap:mutableBytes rowBytes:v18 bounds:*MEMORY[0x1E695F8A8] format:space colorSpace:?];
   v21 = objc_alloc(MEMORY[0x1E69B3988]);
   bGRA82 = [MEMORY[0x1E69B3BF0] BGRA8];
@@ -331,12 +331,12 @@ LABEL_6:
       {
         v30 = [(PISemanticStyleFilter *)self curveImageWithData:v29];
         v47 = [MEMORY[0x1E695F688] vectorWithX:0.0 Y:1.0];
-        [v30 extent];
+        objc_msgSend_extent(v30);
         v32 = [MEMORY[0x1E695F688] vectorWithX:(v31 + -1.0) / v31 Y:0.5 / v31];
         imageByUnpremultiplyingAlpha = [dictionaryCopy imageByUnpremultiplyingAlpha];
 
         gtcKernel = [(PISemanticStyleFilter *)self gtcKernel];
-        [imageByUnpremultiplyingAlpha extent];
+        objc_msgSend_extent(imageByUnpremultiplyingAlpha);
         v36 = v35;
         v38 = v37;
         v40 = v39;
@@ -997,7 +997,7 @@ LABEL_18:
         }
 
         v40 = MEMORY[0x1E695F688];
-        [*(*(&v182 + 1) + 8 * i) extent];
+        objc_msgSend_extent(*(*(&v182 + 1) + 8 * i));
         v41 = [v40 vectorWithCGRect:?];
         [v34 addObject:v41];
       }
@@ -1110,7 +1110,7 @@ LABEL_18:
   [v42 setObject:v71 forKeyedSubscript:@"faceBasedGlobalExposureBoostRatio"];
 
   inputImage2 = [(PISemanticStyleFilter *)self inputImage];
-  [inputImage2 extent];
+  objc_msgSend_extent(inputImage2);
   v181 = 0;
   v73 = [(CIImageProcessorKernel *)PISemanticStyleProcessor applyWithExtent:v35 inputs:v42 arguments:&v181 error:?];
 
@@ -1121,8 +1121,8 @@ id __36__PISemanticStyleFilter_outputImage__block_invoke(void *a1, void *a2)
 {
   v3 = a2;
   v4 = a1;
-  [v4 extent];
-  [v3 extent];
+  objc_msgSend_extent(v4);
+  objc_msgSend_extent(v3);
 
   NUCGAffineTransformByMappingFromRectToRect();
   v5 = [v4 imageByApplyingTransform:&v7];

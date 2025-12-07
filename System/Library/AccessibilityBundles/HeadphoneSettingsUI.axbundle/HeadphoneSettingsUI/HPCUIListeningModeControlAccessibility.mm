@@ -28,25 +28,23 @@
 
 - (id)accessibilityElements
 {
-  v10[1] = *MEMORY[0x29EDCA608];
+  v9[1] = *MEMORY[0x29EDCA608];
   v3 = [(HPCUIListeningModeControlAccessibility *)self safeUIViewForKey:@"_segmentedControl"];
   v4 = v3;
   if (v3)
   {
-    v10[0] = v3;
-    accessibilityElements = [MEMORY[0x29EDB8D80] arrayWithObjects:v10 count:1];
+    v9[0] = v3;
+    accessibilityElements = [MEMORY[0x29EDB8D80] arrayWithObjects:v9 count:1];
   }
 
   else
   {
-    v9.receiver = self;
-    v9.super_class = HPCUIListeningModeControlAccessibility;
-    accessibilityElements = [(HPCUIListeningModeControlAccessibility *)&v9 accessibilityElements];
+    v8.receiver = self;
+    v8.super_class = HPCUIListeningModeControlAccessibility;
+    accessibilityElements = [(HPCUIListeningModeControlAccessibility *)&v8 accessibilityElements];
   }
 
   v6 = accessibilityElements;
-
-  v7 = *MEMORY[0x29EDCA608];
 
   return v6;
 }
@@ -90,7 +88,7 @@
   }
 }
 
-uint64_t __61__HPCUIListeningModeControlAccessibility__axSetSegmentLabels__block_invoke(uint64_t a1)
+void *__61__HPCUIListeningModeControlAccessibility__axSetSegmentLabels__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) getListeningModeFromIndex:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;

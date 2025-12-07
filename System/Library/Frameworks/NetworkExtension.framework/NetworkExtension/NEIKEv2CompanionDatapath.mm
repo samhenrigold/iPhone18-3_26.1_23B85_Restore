@@ -13,7 +13,7 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (self && self->_state == 3)
   {
     v3 = ne_log_obj();
@@ -36,10 +36,9 @@
     }
   }
 
-  v5.receiver = self;
-  v5.super_class = NEIKEv2CompanionDatapath;
-  [(NEIKEv2CompanionDatapath *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = NEIKEv2CompanionDatapath;
+  [(NEIKEv2CompanionDatapath *)&v4 dealloc];
 }
 
 - (id)description
@@ -130,14 +129,14 @@ LABEL_13:
 
 - (void)resetConnectionLocked
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   os_unfair_lock_assert_owner((self + 12));
   v2 = ne_log_obj();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
+    v5 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_DEFAULT, "%@: reset-connection", &v6, 0xCu);
+    _os_log_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_DEFAULT, "%@: reset-connection", &v5, 0xCu);
   }
 
   v3 = *(self + 32);
@@ -147,8 +146,6 @@ LABEL_13:
     v4 = *(self + 32);
     *(self + 32) = 0;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)getStopReasonFromConnectionError:(uint64_t)error
@@ -223,7 +220,7 @@ LABEL_10:
 
 - (void)setupConnectionLocked
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   os_unfair_lock_assert_owner((self + 12));
   v2 = ne_log_obj();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
@@ -233,11 +230,10 @@ LABEL_10:
     _os_log_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_DEFAULT, "%@: starting", buf, 0xCu);
   }
 
-  v3 = *MEMORY[0x1E6977EB8];
   legacy_tcp_socket = nw_parameters_create_legacy_tcp_socket();
-  v5 = nw_parameters_copy_default_protocol_stack(legacy_tcp_socket);
-  v6 = MEMORY[0x1BFAFB680]();
-  nw_protocol_stack_set_transport_protocol(v5, v6);
+  v4 = nw_parameters_copy_default_protocol_stack(legacy_tcp_socket);
+  v5 = MEMORY[0x1BFAFB680]();
+  nw_protocol_stack_set_transport_protocol(v4, v5);
 
   nw_parameters_set_required_interface_subtype();
   nw_parameters_set_effective_bundle_id();
@@ -246,36 +242,35 @@ LABEL_10:
 
   nw_parameters_set_reuse_local_address(legacy_tcp_socket, 1);
   copyCEndpoint2 = [*(self + 56) copyCEndpoint];
-  v9 = nw_connection_create(copyCEndpoint2, legacy_tcp_socket);
+  v8 = nw_connection_create(copyCEndpoint2, legacy_tcp_socket);
 
-  nw_connection_set_queue(v9, *(self + 72));
+  nw_connection_set_queue(v8, *(self + 72));
   objc_initWeak(buf, self);
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __49__NEIKEv2CompanionDatapath_setupConnectionLocked__block_invoke;
-  v17[3] = &unk_1E7F08710;
-  objc_copyWeak(&v19, buf);
-  v10 = v9;
-  v18 = v10;
-  MEMORY[0x1BFAFAEA0](v10, v17, v11, v12);
-  nw_connection_start(v10);
-  v13 = *(self + 32);
-  *(self + 32) = v10;
-  v14 = v10;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __49__NEIKEv2CompanionDatapath_setupConnectionLocked__block_invoke;
+  v15[3] = &unk_1E7F08710;
+  objc_copyWeak(&v17, buf);
+  v9 = v8;
+  v16 = v9;
+  MEMORY[0x1BFAFAEA0](v9, v15, v10, v11);
+  nw_connection_start(v9);
+  v12 = *(self + 32);
+  *(self + 32) = v9;
+  v13 = v9;
 
   ++*(self + 10);
-  v15 = *(self + 96);
+  v14 = *(self + 96);
   *(self + 96) = 0;
 
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(buf);
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
-void __49__NEIKEv2CompanionDatapath_setupConnectionLocked__block_invoke(uint64_t a1, int a2, void *a3)
+void __49__NEIKEv2CompanionDatapath_setupConnectionLocked__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v4 = a2;
+  v37 = *MEMORY[0x1E69E9840];
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v8 = WeakRetained;
@@ -287,19 +282,19 @@ void __49__NEIKEv2CompanionDatapath_setupConnectionLocked__block_invoke(uint64_t
       goto LABEL_4;
     }
 
-    if (v6 || (a2 & 0xFFFFFFFE) == 4)
+    if (v6 || (v4 & 0xFFFFFFFE) == 4)
     {
       objc_storeStrong((v8 + 96), a3);
-      v18 = ne_log_obj();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v17 = ne_log_obj();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412802;
         *&buf[4] = v8;
         *&buf[12] = 2112;
         *&buf[14] = v6;
         *&buf[22] = 2080;
-        v35 = nw_connection_state_to_string();
-        _os_log_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_DEFAULT, "%@: connection error %@ state %s", buf, 0x20u);
+        v34 = nw_connection_state_to_string();
+        _os_log_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_DEFAULT, "%@: connection error %@ state %s", buf, 0x20u);
       }
 
       if (nw_error_get_error_code(v6) == 48)
@@ -308,31 +303,31 @@ void __49__NEIKEv2CompanionDatapath_setupConnectionLocked__block_invoke(uint64_t
         if (*(v8 + 10) <= 5u)
         {
           objc_initWeak(buf, v8);
-          v19 = dispatch_time(0x8000000000000000, 1000000000 * *(v8 + 10));
-          v20 = *(v8 + 72);
+          v18 = dispatch_time(0x8000000000000000, 1000000000 * *(v8 + 10));
+          v19 = *(v8 + 72);
           block[0] = MEMORY[0x1E69E9820];
           block[1] = 3221225472;
           block[2] = __49__NEIKEv2CompanionDatapath_setupConnectionLocked__block_invoke_26;
           block[3] = &unk_1E7F0A020;
-          v21 = v20;
-          objc_copyWeak(&v29, buf);
-          v28 = *(a1 + 32);
-          dispatch_after(v19, v21, block);
+          v20 = v19;
+          objc_copyWeak(&v28, buf);
+          v27 = *(a1 + 32);
+          dispatch_after(v18, v20, block);
 
           os_unfair_lock_unlock((v8 + 12));
-          objc_destroyWeak(&v29);
+          objc_destroyWeak(&v28);
           objc_destroyWeak(buf);
           goto LABEL_5;
         }
       }
 
-      else if (a2 == 4 && *(v8 + 8) == 1)
+      else if (v4 == 4 && *(v8 + 8) == 1)
       {
-        v22 = objc_loadWeakRetained((v8 + 88));
-        v23 = v22;
-        if (v22)
+        v21 = objc_loadWeakRetained((v8 + 88));
+        v22 = v21;
+        if (v21)
         {
-          [(NEIKEv2PacketTunnelProvider *)v22 handleCompanionProxyDatapathFailure:?];
+          [(NEIKEv2PacketTunnelProvider *)v21 handleCompanionProxyDatapathFailure:?];
           os_unfair_lock_unlock((v8 + 12));
 
           goto LABEL_5;
@@ -343,7 +338,7 @@ void __49__NEIKEv2CompanionDatapath_setupConnectionLocked__block_invoke(uint64_t
       goto LABEL_4;
     }
 
-    if (a2 != 3)
+    if (v4 != 3)
     {
 LABEL_4:
       os_unfair_lock_unlock((v8 + 12));
@@ -352,62 +347,62 @@ LABEL_4:
 
     objc_storeStrong((v8 + 96), 0);
     *(v8 + 8) = 513;
-    v10 = *(a1 + 32);
-    v11 = nw_proxy_copy_shoes_definition();
-    v12 = nw_connection_copy_protocol_metadata(v10, v11);
+    v9 = *(a1 + 32);
+    v10 = nw_proxy_copy_shoes_definition();
+    v11 = nw_connection_copy_protocol_metadata(v9, v10);
 
-    if (!v12)
+    if (!v11)
     {
-      v24 = ne_log_obj();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+      v23 = ne_log_obj();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412290;
         *&buf[4] = v8;
-        _os_log_fault_impl(&dword_1BA83C000, v24, OS_LOG_TYPE_FAULT, "%@: no connection metadata found", buf, 0xCu);
+        _os_log_fault_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_FAULT, "%@: no connection metadata found", buf, 0xCu);
       }
 
       [(NEIKEv2CompanionDatapath *)v8 cancelLocked];
       goto LABEL_33;
     }
 
-    v13 = nw_shoes_metadata_copy_remote_endpoint();
-    v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_endpoint_get_hostname(v13)];
-    objc_storeStrong((v8 + 40), v14);
+    v12 = nw_shoes_metadata_copy_remote_endpoint();
+    v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_endpoint_get_hostname(v12)];
+    objc_storeStrong((v8 + 40), v13);
 
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v35 = __Block_byref_object_copy__12503;
-    v36 = __Block_byref_object_dispose__12504;
-    v37 = 0;
-    v15 = v8;
+    v34 = __Block_byref_object_copy__12503;
+    v35 = __Block_byref_object_dispose__12504;
+    v36 = 0;
+    v14 = v8;
     nw_shoes_metadata_enumerate_resolved_endpoints();
-    objc_storeStrong(v15 + 6, *(*&buf[8] + 40));
-    v16 = nw_connection_copy_current_path(*(a1 + 32));
-    if (MEMORY[0x1BFAFB430](v16, 1))
+    objc_storeStrong(v14 + 6, *(*&buf[8] + 40));
+    v15 = nw_connection_copy_current_path(*(a1 + 32));
+    if (MEMORY[0x1BFAFB430](v15, 1))
     {
-      v17 = 1;
+      v16 = 1;
     }
 
     else
     {
-      if (!MEMORY[0x1BFAFB430](v16, 2))
+      if (!MEMORY[0x1BFAFB430](v15, 2))
       {
 LABEL_28:
-        if (MEMORY[0x1BFAFB430](v16, 3))
+        if (MEMORY[0x1BFAFB430](v15, 3))
         {
-          v15[3] = 3;
+          v14[3] = 3;
         }
 
-        v25 = ne_log_obj();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        v24 = ne_log_obj();
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
-          v26 = v15[6];
-          *v30 = 138412546;
-          v31 = v15;
-          v32 = 2112;
-          v33 = v26;
-          _os_log_impl(&dword_1BA83C000, v25, OS_LOG_TYPE_DEFAULT, "%@: connected w/resolved endpoints %@", v30, 0x16u);
+          v25 = v14[6];
+          *v29 = 138412546;
+          v30 = v14;
+          v31 = 2112;
+          v32 = v25;
+          _os_log_impl(&dword_1BA83C000, v24, OS_LOG_TYPE_DEFAULT, "%@: connected w/resolved endpoints %@", v29, 0x16u);
         }
 
         _Block_object_dispose(buf, 8);
@@ -417,16 +412,14 @@ LABEL_33:
         goto LABEL_4;
       }
 
-      v17 = 2;
+      v16 = 2;
     }
 
-    v15[3] = v17;
+    v14[3] = v16;
     goto LABEL_28;
   }
 
 LABEL_5:
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __49__NEIKEv2CompanionDatapath_setupConnectionLocked__block_invoke_26(uint64_t a1)
@@ -462,32 +455,20 @@ uint64_t __49__NEIKEv2CompanionDatapath_setupConnectionLocked__block_invoke_27(u
   if (nw_endpoint_get_type(v3) == nw_endpoint_type_address)
   {
     v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_endpoint_get_hostname(v3)];
-    v5 = v4;
-    v6 = *(a1 + 32);
-    if (v6)
+    if ((objc_msgSend_isEqualToString_(v4) & 1) == 0)
     {
-      v7 = *(v6 + 40);
-    }
-
-    else
-    {
-      v7 = 0;
-    }
-
-    if (([v4 isEqualToString:v7] & 1) == 0)
-    {
-      v8 = *(*(*(a1 + 40) + 8) + 40);
-      if (!v8)
+      v5 = *(*(*(a1 + 40) + 8) + 40);
+      if (!v5)
       {
-        v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
-        v10 = *(*(a1 + 40) + 8);
-        v11 = *(v10 + 40);
-        *(v10 + 40) = v9;
+        v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
+        v7 = *(*(a1 + 40) + 8);
+        v8 = *(v7 + 40);
+        *(v7 + 40) = v6;
 
-        v8 = *(*(*(a1 + 40) + 8) + 40);
+        v5 = *(*(*(a1 + 40) + 8) + 40);
       }
 
-      [v8 addObject:v5];
+      [v5 addObject:v4];
     }
   }
 

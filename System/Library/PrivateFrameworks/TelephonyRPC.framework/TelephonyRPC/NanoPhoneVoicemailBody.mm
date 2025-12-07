@@ -68,8 +68,6 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  voicemailNumber = self->_voicemailNumber;
-  v6 = toCopy;
   PBDataWriterWriteInt64Field();
   if (self->_voicemailRecording)
   {

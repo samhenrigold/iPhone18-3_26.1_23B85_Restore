@@ -19,9 +19,11 @@
 {
   if (objc_opt_class() == self)
   {
-    DSLog_0 = os_log_create("com.apple.DigitalSeparation", "DSRemoteUILoader");
+    v2 = os_log_create("com.apple.DigitalSeparation", "DSRemoteUILoader");
+    v3 = DSLog_0;
+    DSLog_0 = v2;
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](v2, v3);
   }
 }
 
@@ -55,13 +57,13 @@
 
 - (DSRemoteUILoader)initWithAccountManager:(id)manager presenter:(id)presenter delegate:(id)delegate
 {
-  v43[3] = *MEMORY[0x277D85DE8];
+  v42[3] = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   presenterCopy = presenter;
   delegateCopy = delegate;
-  v33.receiver = self;
-  v33.super_class = DSRemoteUILoader;
-  v12 = [(DSRemoteUILoader *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = DSRemoteUILoader;
+  v12 = [(DSRemoteUILoader *)&v32 init];
   if (v12)
   {
     v13 = DSLog_0;
@@ -82,53 +84,53 @@
     currentAccount = v12->_currentAccount;
     v12->_currentAccount = aa_primaryAppleAccount;
 
-    v39 = 0;
-    v40 = &v39;
-    v41 = 0x2050000000;
+    v38 = 0;
+    v39 = &v38;
+    v40 = 0x2050000000;
     v19 = getAAUIAuthKitPasswordChangeHookClass_softClass;
-    v42 = getAAUIAuthKitPasswordChangeHookClass_softClass;
+    v41 = getAAUIAuthKitPasswordChangeHookClass_softClass;
     if (!getAAUIAuthKitPasswordChangeHookClass_softClass)
     {
       *buf = MEMORY[0x277D85DD0];
-      v35 = 3221225472;
-      v36 = __getAAUIAuthKitPasswordChangeHookClass_block_invoke;
-      v37 = &unk_278F75430;
-      v38 = &v39;
+      v34 = 3221225472;
+      v35 = __getAAUIAuthKitPasswordChangeHookClass_block_invoke;
+      v36 = &unk_278F75430;
+      v37 = &v38;
       __getAAUIAuthKitPasswordChangeHookClass_block_invoke(buf);
-      v19 = v40[3];
+      v19 = v39[3];
     }
 
     v20 = v19;
-    _Block_object_dispose(&v39, 8);
+    _Block_object_dispose(&v38, 8);
     v21 = [v19 alloc];
     aa_altDSID = [(ACAccount *)v12->_currentAccount aa_altDSID];
     v23 = [v21 initWithAltDSID:aa_altDSID];
 
-    v43[0] = v23;
+    v42[0] = v23;
     v24 = objc_opt_new();
-    v43[1] = v24;
+    v42[1] = v24;
     v25 = objc_opt_new();
-    v43[2] = v25;
-    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:3];
+    v42[2] = v25;
+    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:3];
 
-    v39 = 0;
-    v40 = &v39;
-    v41 = 0x2050000000;
+    v38 = 0;
+    v39 = &v38;
+    v40 = 0x2050000000;
     v27 = getAAUIGrandSlamRemoteUIPresenterClass_softClass;
-    v42 = getAAUIGrandSlamRemoteUIPresenterClass_softClass;
+    v41 = getAAUIGrandSlamRemoteUIPresenterClass_softClass;
     if (!getAAUIGrandSlamRemoteUIPresenterClass_softClass)
     {
       *buf = MEMORY[0x277D85DD0];
-      v35 = 3221225472;
-      v36 = __getAAUIGrandSlamRemoteUIPresenterClass_block_invoke;
-      v37 = &unk_278F75430;
-      v38 = &v39;
+      v34 = 3221225472;
+      v35 = __getAAUIGrandSlamRemoteUIPresenterClass_block_invoke;
+      v36 = &unk_278F75430;
+      v37 = &v38;
       __getAAUIGrandSlamRemoteUIPresenterClass_block_invoke(buf);
-      v27 = v40[3];
+      v27 = v39[3];
     }
 
     v28 = v27;
-    _Block_object_dispose(&v39, 8);
+    _Block_object_dispose(&v38, 8);
     v29 = [[v27 alloc] initWithAccountManager:v12->_accountManager presenter:presenterCopy hooks:v26];
     privacyRepairPresenter = v12->_privacyRepairPresenter;
     v12->_privacyRepairPresenter = v29;
@@ -136,13 +138,12 @@
     [(AAUIGrandSlamRemoteUIPresenter *)v12->_privacyRepairPresenter setDelegate:v12];
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (void)loadRemoteUI
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   dynamicURL = self->_dynamicURL;
   if (dynamicURL)
   {
@@ -161,14 +162,12 @@
   v7 = DSLog_0;
   if (os_log_type_enabled(DSLog_0, OS_LOG_TYPE_INFO))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_impl(&dword_248C7E000, v7, OS_LOG_TYPE_INFO, "Loading Remote UI request, %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_impl(&dword_248C7E000, v7, OS_LOG_TYPE_INFO, "Loading Remote UI request, %@", &v8, 0xCu);
   }
 
   [(AAUIGrandSlamRemoteUIPresenter *)self->_privacyRepairPresenter loadRequest:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteUIWillLoadRequest:(id)request
@@ -225,7 +224,7 @@
 
 - (void)remoteUIRequestComplete:(id)complete error:(id)error
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   completeCopy = complete;
   errorCopy = error;
   v7 = DSLog_0;
@@ -239,85 +238,80 @@
 
   else if (os_log_type_enabled(DSLog_0, OS_LOG_TYPE_INFO))
   {
-    v9 = 138412290;
-    v10 = completeCopy;
-    _os_log_impl(&dword_248C7E000, v7, OS_LOG_TYPE_INFO, "Loading Remote UI request, %@,  success", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = completeCopy;
+    _os_log_impl(&dword_248C7E000, v7, OS_LOG_TYPE_INFO, "Loading Remote UI request, %@,  success", &v8, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteUIDidEndFlow:(id)flow
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = DSLog_0;
   if (os_log_type_enabled(DSLog_0, OS_LOG_TYPE_INFO))
   {
     v6 = v5;
     v7 = NSStringFromSelector(a2);
-    v10 = 138412290;
-    v11 = v7;
-    _os_log_impl(&dword_248C7E000, v6, OS_LOG_TYPE_INFO, "%@, Ending the Remote UI flow and moving on", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v7;
+    _os_log_impl(&dword_248C7E000, v6, OS_LOG_TYPE_INFO, "%@, Ending the Remote UI flow and moving on", &v9, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained pushNextPane];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)accountsForAccountManager:(id)manager
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   currentAccount = self->_currentAccount;
-  v7 = *MEMORY[0x277CED1A0];
-  v8[0] = currentAccount;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277CED1A0];
+  v7[0] = currentAccount;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
 
   return v4;
 }
 
 - (void)remoteUIWillPresentObjectModel:(id)model modally:(BOOL)modally
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (modally)
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     allPages = [model allPages];
-    v5 = [allPages countByEnumeratingWithState:&v23 objects:v29 count:16];
+    v5 = [allPages countByEnumeratingWithState:&v22 objects:v28 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v24;
+      v7 = *v23;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v24 != v7)
+          if (*v23 != v7)
           {
             objc_enumerationMutation(allPages);
           }
 
-          v9 = *(*(&v23 + 1) + 8 * i);
+          v9 = *(*(&v22 + 1) + 8 * i);
           rightNavigationBarButtonItem = [v9 rightNavigationBarButtonItem];
 
           if (!rightNavigationBarButtonItem)
           {
             v11 = objc_alloc(MEMORY[0x277D461B8]);
-            v27[0] = @"label";
+            v26[0] = @"label";
             v12 = DSUILocStringForKey(@"QUICK_EXIT");
-            v28[0] = v12;
-            v28[1] = @"navigationBar";
-            v27[1] = @"parentBar";
-            v27[2] = @"position";
-            v27[3] = @"type";
-            v28[2] = @"right";
-            v28[3] = @"linkBarItem";
-            v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:4];
+            v27[0] = v12;
+            v27[1] = @"navigationBar";
+            v26[1] = @"parentBar";
+            v26[2] = @"position";
+            v26[3] = @"type";
+            v27[2] = @"right";
+            v27[3] = @"linkBarItem";
+            v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:4];
             pageElement = [v9 pageElement];
             v15 = [v11 initWithAttributes:v13 parent:pageElement];
             [v9 setRightNavigationBarButtonItem:v15];
@@ -333,14 +327,12 @@
           }
         }
 
-        v6 = [allPages countByEnumeratingWithState:&v23 objects:v29 count:16];
+        v6 = [allPages countByEnumeratingWithState:&v22 objects:v28 count:16];
       }
 
       while (v6);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (DSNavigationDelegate)delegate
@@ -352,22 +344,20 @@
 
 - (void)remoteUIDidReceiveHTTPResponse:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_248C7E000, a2, OS_LOG_TYPE_ERROR, "Loading Remote UI request with response: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_248C7E000, a2, OS_LOG_TYPE_ERROR, "Loading Remote UI request with response: %@", &v2, 0xCu);
 }
 
 - (void)remoteUIRequestComplete:(os_log_t)log error:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_248C7E000, log, OS_LOG_TYPE_ERROR, "Loading Remote UI request, %@, with error, %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_248C7E000, log, OS_LOG_TYPE_ERROR, "Loading Remote UI request, %@, with error, %@", &v3, 0x16u);
 }
 
 @end

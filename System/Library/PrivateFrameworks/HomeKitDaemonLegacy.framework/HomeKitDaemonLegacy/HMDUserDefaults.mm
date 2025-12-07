@@ -10,33 +10,33 @@
 
 - (void)migrateProtectedKeys:(id)keys
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = keysCopy;
-  v6 = [obj countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v6 = [obj countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v25;
+    v9 = *v24;
     *&v7 = 138543618;
-    v21 = v7;
-    v22 = standardUserDefaults;
+    v20 = v7;
+    v21 = standardUserDefaults;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v25 != v9)
+        if (*v24 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v24 + 1) + 8 * i);
-        v12 = [standardUserDefaults objectForKey:{v11, v21}];
+        v11 = *(*(&v23 + 1) + 8 * i);
+        v12 = [standardUserDefaults objectForKey:{v11, v20}];
         if (v12)
         {
           v13 = objc_autoreleasePoolPush();
@@ -48,16 +48,16 @@
             v16 = v8;
             v17 = v9;
             v19 = v18 = self;
-            *buf = v21;
-            v29 = v19;
-            v30 = 2112;
-            v31 = v11;
+            *buf = v20;
+            v28 = v19;
+            v29 = 2112;
+            v30 = v11;
             _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Migrating key: %@", buf, 0x16u);
 
             self = v18;
             v9 = v17;
             v8 = v16;
-            standardUserDefaults = v22;
+            standardUserDefaults = v21;
           }
 
           objc_autoreleasePoolPop(v13);
@@ -66,24 +66,20 @@
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v8 = [obj countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v8);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)migrateProtectedKeys
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"HMDHomeManagerHomesAwaitingHH2AutoAcceptKey";
-  v5[1] = @"HMDHomeManagerSharedHomesNotYetMigratedKey";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"HMDHomeManagerHomesAwaitingHH2AutoAcceptKey";
+  v4[1] = @"HMDHomeManagerSharedHomesNotYetMigratedKey";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
   [(HMDUserDefaults *)self migrateProtectedKeys:v3];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDUserDefaults)initWithSuiteName:(id)name
@@ -114,12 +110,11 @@
 
 uint64_t __30__HMDUserDefaults_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v4_165301;
-  logCategory__hmf_once_v4_165301 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v4_165301;
+  logCategory__hmf_once_v4_165301 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)protectedUserDefaults

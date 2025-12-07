@@ -120,38 +120,38 @@ LABEL_3:
 
 - (id)cameraSourcePipelineWithSourceID:(id)d
 {
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   cameraSourcePipelines = self->_cameraSourcePipelines;
-  v5 = [(NSMutableArray *)cameraSourcePipelines countByEnumeratingWithState:&v12 objects:v11 count:16];
-  if (!v5)
+  v4 = [(NSMutableArray *)cameraSourcePipelines countByEnumeratingWithState:&v11 objects:v10 count:16];
+  if (!v4)
   {
     return 0;
   }
 
-  v6 = v5;
-  v7 = *v13;
+  v5 = v4;
+  v6 = *v12;
 LABEL_3:
-  v8 = 0;
+  v7 = 0;
   while (1)
   {
-    if (*v13 != v7)
+    if (*v12 != v6)
     {
       objc_enumerationMutation(cameraSourcePipelines);
     }
 
-    v9 = *(*(&v12 + 1) + 8 * v8);
-    if ([objc_msgSend(v9 "sourceID")])
+    v8 = *(*(&v11 + 1) + 8 * v7);
+    if (objc_msgSend_isEqualToString_([v8 sourceID]))
     {
-      return v9;
+      return v8;
     }
 
-    if (v6 == ++v8)
+    if (v5 == ++v7)
     {
-      v6 = [(NSMutableArray *)cameraSourcePipelines countByEnumeratingWithState:&v12 objects:v11 count:16];
-      if (v6)
+      v5 = [(NSMutableArray *)cameraSourcePipelines countByEnumeratingWithState:&v11 objects:v10 count:16];
+      if (v5)
       {
         goto LABEL_3;
       }
@@ -258,38 +258,38 @@ LABEL_3:
 
 - (id)previewSinkPipelineWithSinkID:(id)d
 {
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   previewSinkPipelines = self->_previewSinkPipelines;
-  v5 = [(NSMutableArray *)previewSinkPipelines countByEnumeratingWithState:&v12 objects:v11 count:16];
-  if (!v5)
+  v4 = [(NSMutableArray *)previewSinkPipelines countByEnumeratingWithState:&v11 objects:v10 count:16];
+  if (!v4)
   {
     return 0;
   }
 
-  v6 = v5;
-  v7 = *v13;
+  v5 = v4;
+  v6 = *v12;
 LABEL_3:
-  v8 = 0;
+  v7 = 0;
   while (1)
   {
-    if (*v13 != v7)
+    if (*v12 != v6)
     {
       objc_enumerationMutation(previewSinkPipelines);
     }
 
-    v9 = *(*(&v12 + 1) + 8 * v8);
-    if ([objc_msgSend(v9 "sinkID")])
+    v8 = *(*(&v11 + 1) + 8 * v7);
+    if (objc_msgSend_isEqualToString_([v8 sinkID]))
     {
-      return v9;
+      return v8;
     }
 
-    if (v6 == ++v8)
+    if (v5 == ++v7)
     {
-      v6 = [(NSMutableArray *)previewSinkPipelines countByEnumeratingWithState:&v12 objects:v11 count:16];
-      if (v6)
+      v5 = [(NSMutableArray *)previewSinkPipelines countByEnumeratingWithState:&v11 objects:v10 count:16];
+      if (v5)
       {
         goto LABEL_3;
       }
@@ -301,38 +301,38 @@ LABEL_3:
 
 - (id)previewSinkPipelineWithSourceID:(id)d sourceDeviceType:(int)type
 {
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   previewSinkPipelines = self->_previewSinkPipelines;
-  v7 = [(NSMutableArray *)previewSinkPipelines countByEnumeratingWithState:&v14 objects:v13 count:16];
-  if (!v7)
+  v6 = [(NSMutableArray *)previewSinkPipelines countByEnumeratingWithState:&v13 objects:v12 count:16];
+  if (!v6)
   {
     return 0;
   }
 
-  v8 = v7;
-  v9 = *v15;
+  v7 = v6;
+  v8 = *v14;
 LABEL_3:
-  v10 = 0;
+  v9 = 0;
   while (1)
   {
-    if (*v15 != v9)
+    if (*v14 != v8)
     {
       objc_enumerationMutation(previewSinkPipelines);
     }
 
-    v11 = *(*(&v14 + 1) + 8 * v10);
-    if ([v11 sourceDeviceType] == type && (objc_msgSend(objc_msgSend(v11, "sourceID"), "isEqualToString:", d) & 1) != 0)
+    v10 = *(*(&v13 + 1) + 8 * v9);
+    if ([v10 sourceDeviceType] == type && (objc_msgSend_isEqualToString_(objc_msgSend(v10, "sourceID")) & 1) != 0)
     {
-      return v11;
+      return v10;
     }
 
-    if (v8 == ++v10)
+    if (v7 == ++v9)
     {
-      v8 = [(NSMutableArray *)previewSinkPipelines countByEnumeratingWithState:&v14 objects:v13 count:16];
-      if (v8)
+      v7 = [(NSMutableArray *)previewSinkPipelines countByEnumeratingWithState:&v13 objects:v12 count:16];
+      if (v7)
       {
         goto LABEL_3;
       }
@@ -356,38 +356,38 @@ LABEL_3:
 
 - (id)videoDataSinkPipelineWithSinkID:(id)d
 {
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   videoDataSinkPipelines = self->_videoDataSinkPipelines;
-  v5 = [(NSMutableArray *)videoDataSinkPipelines countByEnumeratingWithState:&v12 objects:v11 count:16];
-  if (!v5)
+  v4 = [(NSMutableArray *)videoDataSinkPipelines countByEnumeratingWithState:&v11 objects:v10 count:16];
+  if (!v4)
   {
     return 0;
   }
 
-  v6 = v5;
-  v7 = *v13;
+  v5 = v4;
+  v6 = *v12;
 LABEL_3:
-  v8 = 0;
+  v7 = 0;
   while (1)
   {
-    if (*v13 != v7)
+    if (*v12 != v6)
     {
       objc_enumerationMutation(videoDataSinkPipelines);
     }
 
-    v9 = *(*(&v12 + 1) + 8 * v8);
-    if ([objc_msgSend(v9 "sinkID")])
+    v8 = *(*(&v11 + 1) + 8 * v7);
+    if (objc_msgSend_isEqualToString_([v8 sinkID]))
     {
-      return v9;
+      return v8;
     }
 
-    if (v6 == ++v8)
+    if (v5 == ++v7)
     {
-      v6 = [(NSMutableArray *)videoDataSinkPipelines countByEnumeratingWithState:&v12 objects:v11 count:16];
-      if (v6)
+      v5 = [(NSMutableArray *)videoDataSinkPipelines countByEnumeratingWithState:&v11 objects:v10 count:16];
+      if (v5)
       {
         goto LABEL_3;
       }
@@ -404,33 +404,40 @@ LABEL_3:
   v14 = 0u;
   v15 = 0u;
   videoDataSinkPipelines = self->_videoDataSinkPipelines;
-  v7 = [(NSMutableArray *)videoDataSinkPipelines countByEnumeratingWithState:&v14 objects:v13 count:16];
-  if (!v7)
+  v6 = [(NSMutableArray *)videoDataSinkPipelines countByEnumeratingWithState:&v14 objects:v13 count:16];
+  if (!v6)
   {
     return 0;
   }
 
-  v8 = v7;
-  v9 = *v15;
+  v7 = v6;
+  v8 = *v15;
 LABEL_3:
-  v10 = 0;
+  v9 = 0;
   while (1)
   {
-    if (*v15 != v9)
+    if (*v15 != v8)
     {
       objc_enumerationMutation(videoDataSinkPipelines);
     }
 
-    v11 = *(*(&v14 + 1) + 8 * v10);
-    if (-[FigCaptureVideoDataSinkPipeline sourceDeviceType](v11) == type && [-[FigCaptureVideoDataSinkPipeline sourceID](v11) isEqualToString:d] && (-[FigCaptureVideoDataSinkPipeline faceTrackingVideoCaptureOutput](v11) || -[FigCaptureVideoDataSinkPipeline offlineVISMotionDataCaptureOutput](v11)))
+    v10 = *(*(&v14 + 1) + 8 * v9);
+    if ([(FigCaptureVideoDataSinkPipeline *)v10 sourceDeviceType]== type)
     {
-      return v11;
+      sourceID = [(FigCaptureVideoDataSinkPipeline *)v10 sourceID];
+      if (objc_msgSend_isEqualToString_(sourceID))
+      {
+        if ([(FigCaptureVideoDataSinkPipeline *)v10 faceTrackingVideoCaptureOutput]|| [(FigCaptureVideoDataSinkPipeline *)v10 offlineVISMotionDataCaptureOutput])
+        {
+          return v10;
+        }
+      }
     }
 
-    if (v8 == ++v10)
+    if (v7 == ++v9)
     {
-      v8 = [(NSMutableArray *)videoDataSinkPipelines countByEnumeratingWithState:&v14 objects:v13 count:16];
-      if (v8)
+      v7 = [(NSMutableArray *)videoDataSinkPipelines countByEnumeratingWithState:&v14 objects:v13 count:16];
+      if (v7)
       {
         goto LABEL_3;
       }
@@ -448,31 +455,35 @@ LABEL_3:
   v18 = 0u;
   v19 = 0u;
   videoDataSinkPipelines = self->_videoDataSinkPipelines;
-  v9 = [(NSMutableArray *)videoDataSinkPipelines countByEnumeratingWithState:&v16 objects:v15 count:16];
-  if (v9)
+  v8 = [(NSMutableArray *)videoDataSinkPipelines countByEnumeratingWithState:&v16 objects:v15 count:16];
+  if (v8)
   {
-    v10 = v9;
-    v11 = *v17;
+    v9 = v8;
+    v10 = *v17;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v11)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(videoDataSinkPipelines);
         }
 
-        v13 = *(*(&v16 + 1) + 8 * i);
-        if (-[FigCaptureVideoDataSinkPipeline sourceDeviceType](v13) == type && [-[FigCaptureVideoDataSinkPipeline sourceID](v13) isEqualToString:d])
+        v12 = *(*(&v16 + 1) + 8 * i);
+        if ([(FigCaptureVideoDataSinkPipeline *)v12 sourceDeviceType]== type)
         {
-          [array addObject:v13];
+          sourceID = [(FigCaptureVideoDataSinkPipeline *)v12 sourceID];
+          if (objc_msgSend_isEqualToString_(sourceID))
+          {
+            [array addObject:v12];
+          }
         }
       }
 
-      v10 = [(NSMutableArray *)videoDataSinkPipelines countByEnumeratingWithState:&v16 objects:v15 count:16];
+      v9 = [(NSMutableArray *)videoDataSinkPipelines countByEnumeratingWithState:&v16 objects:v15 count:16];
     }
 
-    while (v10);
+    while (v9);
   }
 
   return array;
@@ -492,38 +503,38 @@ LABEL_3:
 
 - (id)movieFileSinkPipelineWithSinkID:(id)d
 {
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   movieFileSinkPipelines = self->_movieFileSinkPipelines;
-  v5 = [(NSMutableArray *)movieFileSinkPipelines countByEnumeratingWithState:&v12 objects:v11 count:16];
-  if (!v5)
+  v4 = [(NSMutableArray *)movieFileSinkPipelines countByEnumeratingWithState:&v11 objects:v10 count:16];
+  if (!v4)
   {
     return 0;
   }
 
-  v6 = v5;
-  v7 = *v13;
+  v5 = v4;
+  v6 = *v12;
 LABEL_3:
-  v8 = 0;
+  v7 = 0;
   while (1)
   {
-    if (*v13 != v7)
+    if (*v12 != v6)
     {
       objc_enumerationMutation(movieFileSinkPipelines);
     }
 
-    v9 = *(*(&v12 + 1) + 8 * v8);
-    if ([objc_msgSend(v9 "sinkID")])
+    v8 = *(*(&v11 + 1) + 8 * v7);
+    if (objc_msgSend_isEqualToString_([v8 sinkID]))
     {
-      return v9;
+      return v8;
     }
 
-    if (v6 == ++v8)
+    if (v5 == ++v7)
     {
-      v6 = [(NSMutableArray *)movieFileSinkPipelines countByEnumeratingWithState:&v12 objects:v11 count:16];
-      if (v6)
+      v5 = [(NSMutableArray *)movieFileSinkPipelines countByEnumeratingWithState:&v11 objects:v10 count:16];
+      if (v5)
       {
         goto LABEL_3;
       }
@@ -540,33 +551,37 @@ LABEL_3:
   v14 = 0u;
   v15 = 0u;
   movieFileSinkPipelines = self->_movieFileSinkPipelines;
-  v7 = [(NSMutableArray *)movieFileSinkPipelines countByEnumeratingWithState:&v14 objects:v13 count:16];
-  if (!v7)
+  v6 = [(NSMutableArray *)movieFileSinkPipelines countByEnumeratingWithState:&v14 objects:v13 count:16];
+  if (!v6)
   {
     return 0;
   }
 
-  v8 = v7;
-  v9 = *v15;
+  v7 = v6;
+  v8 = *v15;
 LABEL_3:
-  v10 = 0;
+  v9 = 0;
   while (1)
   {
-    if (*v15 != v9)
+    if (*v15 != v8)
     {
       objc_enumerationMutation(movieFileSinkPipelines);
     }
 
-    v11 = *(*(&v14 + 1) + 8 * v10);
-    if (-[FigCaptureMovieFileSinkPipeline videoSourceDeviceType](v11) == type && ([-[FigCaptureMovieFileSinkPipeline videoSourceID](v11) isEqualToString:d] & 1) != 0)
+    v10 = *(*(&v14 + 1) + 8 * v9);
+    if ([(FigCaptureMovieFileSinkPipeline *)v10 videoSourceDeviceType]== type)
     {
-      return v11;
+      videoSourceID = [(FigCaptureMovieFileSinkPipeline *)v10 videoSourceID];
+      if (objc_msgSend_isEqualToString_(videoSourceID))
+      {
+        return v10;
+      }
     }
 
-    if (v8 == ++v10)
+    if (v7 == ++v9)
     {
-      v8 = [(NSMutableArray *)movieFileSinkPipelines countByEnumeratingWithState:&v14 objects:v13 count:16];
-      if (v8)
+      v7 = [(NSMutableArray *)movieFileSinkPipelines countByEnumeratingWithState:&v14 objects:v13 count:16];
+      if (v7)
       {
         goto LABEL_3;
       }
@@ -774,38 +789,38 @@ LABEL_3:
 
 - (id)stillImageSinkPipelineSessionStorageWithSinkID:(id)d
 {
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   stillImageSinkPipelineStorages = self->_stillImageSinkPipelineStorages;
-  v5 = [(NSMutableArray *)stillImageSinkPipelineStorages countByEnumeratingWithState:&v12 objects:v11 count:16];
-  if (!v5)
+  v4 = [(NSMutableArray *)stillImageSinkPipelineStorages countByEnumeratingWithState:&v11 objects:v10 count:16];
+  if (!v4)
   {
     return 0;
   }
 
-  v6 = v5;
-  v7 = *v13;
+  v5 = v4;
+  v6 = *v12;
 LABEL_3:
-  v8 = 0;
+  v7 = 0;
   while (1)
   {
-    if (*v13 != v7)
+    if (*v12 != v6)
     {
       objc_enumerationMutation(stillImageSinkPipelineStorages);
     }
 
-    v9 = *(*(&v12 + 1) + 8 * v8);
-    if ([objc_msgSend(objc_msgSend(v9 "primaryStillImageSinkPipeline")])
+    v8 = *(*(&v11 + 1) + 8 * v7);
+    if (objc_msgSend_isEqualToString_([objc_msgSend(v8 "primaryStillImageSinkPipeline")]))
     {
-      return v9;
+      return v8;
     }
 
-    if (v6 == ++v8)
+    if (v5 == ++v7)
     {
-      v6 = [(NSMutableArray *)stillImageSinkPipelineStorages countByEnumeratingWithState:&v12 objects:v11 count:16];
-      if (v6)
+      v5 = [(NSMutableArray *)stillImageSinkPipelineStorages countByEnumeratingWithState:&v11 objects:v10 count:16];
+      if (v5)
       {
         goto LABEL_3;
       }
@@ -903,38 +918,38 @@ LABEL_8:
 
 - (id)depthDataSinkPipelineWithSinkID:(id)d
 {
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   depthDataSinkPipelines = self->_depthDataSinkPipelines;
-  v5 = [(NSMutableArray *)depthDataSinkPipelines countByEnumeratingWithState:&v12 objects:v11 count:16];
-  if (!v5)
+  v4 = [(NSMutableArray *)depthDataSinkPipelines countByEnumeratingWithState:&v11 objects:v10 count:16];
+  if (!v4)
   {
     return 0;
   }
 
-  v6 = v5;
-  v7 = *v13;
+  v5 = v4;
+  v6 = *v12;
 LABEL_3:
-  v8 = 0;
+  v7 = 0;
   while (1)
   {
-    if (*v13 != v7)
+    if (*v12 != v6)
     {
       objc_enumerationMutation(depthDataSinkPipelines);
     }
 
-    v9 = *(*(&v12 + 1) + 8 * v8);
-    if ([objc_msgSend(v9 "sinkID")])
+    v8 = *(*(&v11 + 1) + 8 * v7);
+    if (objc_msgSend_isEqualToString_([v8 sinkID]))
     {
-      return v9;
+      return v8;
     }
 
-    if (v6 == ++v8)
+    if (v5 == ++v7)
     {
-      v6 = [(NSMutableArray *)depthDataSinkPipelines countByEnumeratingWithState:&v12 objects:v11 count:16];
-      if (v6)
+      v5 = [(NSMutableArray *)depthDataSinkPipelines countByEnumeratingWithState:&v11 objects:v10 count:16];
+      if (v5)
       {
         goto LABEL_3;
       }
@@ -946,38 +961,38 @@ LABEL_3:
 
 - (id)depthDataSinkPipelineWithSourceID:(id)d sourceDeviceType:(int)type
 {
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   depthDataSinkPipelines = self->_depthDataSinkPipelines;
-  v7 = [(NSMutableArray *)depthDataSinkPipelines countByEnumeratingWithState:&v14 objects:v13 count:16];
-  if (!v7)
+  v6 = [(NSMutableArray *)depthDataSinkPipelines countByEnumeratingWithState:&v13 objects:v12 count:16];
+  if (!v6)
   {
     return 0;
   }
 
-  v8 = v7;
-  v9 = *v15;
+  v7 = v6;
+  v8 = *v14;
 LABEL_3:
-  v10 = 0;
+  v9 = 0;
   while (1)
   {
-    if (*v15 != v9)
+    if (*v14 != v8)
     {
       objc_enumerationMutation(depthDataSinkPipelines);
     }
 
-    v11 = *(*(&v14 + 1) + 8 * v10);
-    if ([v11 sourceDeviceType] == type && (objc_msgSend(objc_msgSend(v11, "sourceID"), "isEqualToString:", d) & 1) != 0)
+    v10 = *(*(&v13 + 1) + 8 * v9);
+    if ([v10 sourceDeviceType] == type && (objc_msgSend_isEqualToString_(objc_msgSend(v10, "sourceID")) & 1) != 0)
     {
-      return v11;
+      return v10;
     }
 
-    if (v8 == ++v10)
+    if (v7 == ++v9)
     {
-      v8 = [(NSMutableArray *)depthDataSinkPipelines countByEnumeratingWithState:&v14 objects:v13 count:16];
-      if (v8)
+      v7 = [(NSMutableArray *)depthDataSinkPipelines countByEnumeratingWithState:&v13 objects:v12 count:16];
+      if (v7)
       {
         goto LABEL_3;
       }
@@ -1001,38 +1016,38 @@ LABEL_3:
 
 - (id)videoThumbnailSinkPipelineWithSinkID:(id)d
 {
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   videoThumbnailSinkPipelines = self->_videoThumbnailSinkPipelines;
-  v5 = [(NSMutableArray *)videoThumbnailSinkPipelines countByEnumeratingWithState:&v12 objects:v11 count:16];
-  if (!v5)
+  v4 = [(NSMutableArray *)videoThumbnailSinkPipelines countByEnumeratingWithState:&v11 objects:v10 count:16];
+  if (!v4)
   {
     return 0;
   }
 
-  v6 = v5;
-  v7 = *v13;
+  v5 = v4;
+  v6 = *v12;
 LABEL_3:
-  v8 = 0;
+  v7 = 0;
   while (1)
   {
-    if (*v13 != v7)
+    if (*v12 != v6)
     {
       objc_enumerationMutation(videoThumbnailSinkPipelines);
     }
 
-    v9 = *(*(&v12 + 1) + 8 * v8);
-    if ([objc_msgSend(v9 "sinkID")])
+    v8 = *(*(&v11 + 1) + 8 * v7);
+    if (objc_msgSend_isEqualToString_([v8 sinkID]))
     {
-      return v9;
+      return v8;
     }
 
-    if (v6 == ++v8)
+    if (v5 == ++v7)
     {
-      v6 = [(NSMutableArray *)videoThumbnailSinkPipelines countByEnumeratingWithState:&v12 objects:v11 count:16];
-      if (v6)
+      v5 = [(NSMutableArray *)videoThumbnailSinkPipelines countByEnumeratingWithState:&v11 objects:v10 count:16];
+      if (v5)
       {
         goto LABEL_3;
       }
@@ -1078,38 +1093,38 @@ LABEL_3:
 
 - (id)metadataSinkPipelineWithSinkID:(id)d
 {
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   metadataSinkPipelines = self->_metadataSinkPipelines;
-  v5 = [(NSMutableArray *)metadataSinkPipelines countByEnumeratingWithState:&v12 objects:v11 count:16];
-  if (!v5)
+  v4 = [(NSMutableArray *)metadataSinkPipelines countByEnumeratingWithState:&v11 objects:v10 count:16];
+  if (!v4)
   {
     return 0;
   }
 
-  v6 = v5;
-  v7 = *v13;
+  v5 = v4;
+  v6 = *v12;
 LABEL_3:
-  v8 = 0;
+  v7 = 0;
   while (1)
   {
-    if (*v13 != v7)
+    if (*v12 != v6)
     {
       objc_enumerationMutation(metadataSinkPipelines);
     }
 
-    v9 = *(*(&v12 + 1) + 8 * v8);
-    if ([objc_msgSend(v9 "sinkID")])
+    v8 = *(*(&v11 + 1) + 8 * v7);
+    if (objc_msgSend_isEqualToString_([v8 sinkID]))
     {
-      return v9;
+      return v8;
     }
 
-    if (v6 == ++v8)
+    if (v5 == ++v7)
     {
-      v6 = [(NSMutableArray *)metadataSinkPipelines countByEnumeratingWithState:&v12 objects:v11 count:16];
-      if (v6)
+      v5 = [(NSMutableArray *)metadataSinkPipelines countByEnumeratingWithState:&v11 objects:v10 count:16];
+      if (v5)
       {
         goto LABEL_3;
       }
@@ -1126,33 +1141,37 @@ LABEL_3:
   v14 = 0u;
   v15 = 0u;
   metadataSinkPipelines = self->_metadataSinkPipelines;
-  v7 = [(NSMutableArray *)metadataSinkPipelines countByEnumeratingWithState:&v14 objects:v13 count:16];
-  if (!v7)
+  v6 = [(NSMutableArray *)metadataSinkPipelines countByEnumeratingWithState:&v14 objects:v13 count:16];
+  if (!v6)
   {
     return 0;
   }
 
-  v8 = v7;
-  v9 = *v15;
+  v7 = v6;
+  v8 = *v15;
 LABEL_3:
-  v10 = 0;
+  v9 = 0;
   while (1)
   {
-    if (*v15 != v9)
+    if (*v15 != v8)
     {
       objc_enumerationMutation(metadataSinkPipelines);
     }
 
-    v11 = *(*(&v14 + 1) + 8 * v10);
-    if (-[FigCaptureMetadataSinkPipeline sourceDeviceType](v11) == type && ([-[FigCaptureMetadataSinkPipeline sourceID](v11) isEqualToString:d] & 1) != 0)
+    v10 = *(*(&v14 + 1) + 8 * v9);
+    if ([(FigCaptureMetadataSinkPipeline *)v10 sourceDeviceType]== type)
     {
-      return v11;
+      sourceID = [(FigCaptureMetadataSinkPipeline *)v10 sourceID];
+      if (objc_msgSend_isEqualToString_(sourceID))
+      {
+        return v10;
+      }
     }
 
-    if (v8 == ++v10)
+    if (v7 == ++v9)
     {
-      v8 = [(NSMutableArray *)metadataSinkPipelines countByEnumeratingWithState:&v14 objects:v13 count:16];
-      if (v8)
+      v7 = [(NSMutableArray *)metadataSinkPipelines countByEnumeratingWithState:&v14 objects:v13 count:16];
+      if (v7)
       {
         goto LABEL_3;
       }
@@ -1176,38 +1195,38 @@ LABEL_3:
 
 - (id)visionDataSinkPipelineWithSinkID:(id)d
 {
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   visionDataSinkPipelines = self->_visionDataSinkPipelines;
-  v5 = [(NSMutableArray *)visionDataSinkPipelines countByEnumeratingWithState:&v12 objects:v11 count:16];
-  if (!v5)
+  v4 = [(NSMutableArray *)visionDataSinkPipelines countByEnumeratingWithState:&v11 objects:v10 count:16];
+  if (!v4)
   {
     return 0;
   }
 
-  v6 = v5;
-  v7 = *v13;
+  v5 = v4;
+  v6 = *v12;
 LABEL_3:
-  v8 = 0;
+  v7 = 0;
   while (1)
   {
-    if (*v13 != v7)
+    if (*v12 != v6)
     {
       objc_enumerationMutation(visionDataSinkPipelines);
     }
 
-    v9 = *(*(&v12 + 1) + 8 * v8);
-    if ([objc_msgSend(v9 "sinkID")])
+    v8 = *(*(&v11 + 1) + 8 * v7);
+    if (objc_msgSend_isEqualToString_([v8 sinkID]))
     {
-      return v9;
+      return v8;
     }
 
-    if (v6 == ++v8)
+    if (v5 == ++v7)
     {
-      v6 = [(NSMutableArray *)visionDataSinkPipelines countByEnumeratingWithState:&v12 objects:v11 count:16];
-      if (v6)
+      v5 = [(NSMutableArray *)visionDataSinkPipelines countByEnumeratingWithState:&v11 objects:v10 count:16];
+      if (v5)
       {
         goto LABEL_3;
       }
@@ -1231,38 +1250,38 @@ LABEL_3:
 
 - (id)audioDataSinkPipelineWithSinkID:(id)d
 {
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   audioDataSinkPipelines = self->_audioDataSinkPipelines;
-  v5 = [(NSMutableArray *)audioDataSinkPipelines countByEnumeratingWithState:&v12 objects:v11 count:16];
-  if (!v5)
+  v4 = [(NSMutableArray *)audioDataSinkPipelines countByEnumeratingWithState:&v11 objects:v10 count:16];
+  if (!v4)
   {
     return 0;
   }
 
-  v6 = v5;
-  v7 = *v13;
+  v5 = v4;
+  v6 = *v12;
 LABEL_3:
-  v8 = 0;
+  v7 = 0;
   while (1)
   {
-    if (*v13 != v7)
+    if (*v12 != v6)
     {
       objc_enumerationMutation(audioDataSinkPipelines);
     }
 
-    v9 = *(*(&v12 + 1) + 8 * v8);
-    if ([objc_msgSend(v9 "sinkID")])
+    v8 = *(*(&v11 + 1) + 8 * v7);
+    if (objc_msgSend_isEqualToString_([v8 sinkID]))
     {
-      return v9;
+      return v8;
     }
 
-    if (v6 == ++v8)
+    if (v5 == ++v7)
     {
-      v6 = [(NSMutableArray *)audioDataSinkPipelines countByEnumeratingWithState:&v12 objects:v11 count:16];
-      if (v6)
+      v5 = [(NSMutableArray *)audioDataSinkPipelines countByEnumeratingWithState:&v11 objects:v10 count:16];
+      if (v5)
       {
         goto LABEL_3;
       }
@@ -1286,38 +1305,38 @@ LABEL_3:
 
 - (id)audioFileSinkPipelineWithSinkID:(id)d
 {
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   audioFileSinkPipelines = self->_audioFileSinkPipelines;
-  v5 = [(NSMutableArray *)audioFileSinkPipelines countByEnumeratingWithState:&v12 objects:v11 count:16];
-  if (!v5)
+  v4 = [(NSMutableArray *)audioFileSinkPipelines countByEnumeratingWithState:&v11 objects:v10 count:16];
+  if (!v4)
   {
     return 0;
   }
 
-  v6 = v5;
-  v7 = *v13;
+  v5 = v4;
+  v6 = *v12;
 LABEL_3:
-  v8 = 0;
+  v7 = 0;
   while (1)
   {
-    if (*v13 != v7)
+    if (*v12 != v6)
     {
       objc_enumerationMutation(audioFileSinkPipelines);
     }
 
-    v9 = *(*(&v12 + 1) + 8 * v8);
-    if ([objc_msgSend(v9 "sinkID")])
+    v8 = *(*(&v11 + 1) + 8 * v7);
+    if (objc_msgSend_isEqualToString_([v8 sinkID]))
     {
-      return v9;
+      return v8;
     }
 
-    if (v6 == ++v8)
+    if (v5 == ++v7)
     {
-      v6 = [(NSMutableArray *)audioFileSinkPipelines countByEnumeratingWithState:&v12 objects:v11 count:16];
-      if (v6)
+      v5 = [(NSMutableArray *)audioFileSinkPipelines countByEnumeratingWithState:&v11 objects:v10 count:16];
+      if (v5)
       {
         goto LABEL_3;
       }
@@ -1384,38 +1403,38 @@ LABEL_3:
 
 - (id)pointCloudDataSinkPipelineWithSinkID:(id)d
 {
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   pointCloudDataSinkPipelines = self->_pointCloudDataSinkPipelines;
-  v5 = [(NSMutableArray *)pointCloudDataSinkPipelines countByEnumeratingWithState:&v12 objects:v11 count:16];
-  if (!v5)
+  v4 = [(NSMutableArray *)pointCloudDataSinkPipelines countByEnumeratingWithState:&v11 objects:v10 count:16];
+  if (!v4)
   {
     return 0;
   }
 
-  v6 = v5;
-  v7 = *v13;
+  v5 = v4;
+  v6 = *v12;
 LABEL_3:
-  v8 = 0;
+  v7 = 0;
   while (1)
   {
-    if (*v13 != v7)
+    if (*v12 != v6)
     {
       objc_enumerationMutation(pointCloudDataSinkPipelines);
     }
 
-    v9 = *(*(&v12 + 1) + 8 * v8);
-    if ([objc_msgSend(v9 "sinkID")])
+    v8 = *(*(&v11 + 1) + 8 * v7);
+    if (objc_msgSend_isEqualToString_([v8 sinkID]))
     {
-      return v9;
+      return v8;
     }
 
-    if (v6 == ++v8)
+    if (v5 == ++v7)
     {
-      v6 = [(NSMutableArray *)pointCloudDataSinkPipelines countByEnumeratingWithState:&v12 objects:v11 count:16];
-      if (v6)
+      v5 = [(NSMutableArray *)pointCloudDataSinkPipelines countByEnumeratingWithState:&v11 objects:v10 count:16];
+      if (v5)
       {
         goto LABEL_3;
       }
@@ -1439,38 +1458,38 @@ LABEL_3:
 
 - (id)cameraCalibrationDataSinkPipelineWithSinkID:(id)d
 {
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   cameraCalibrationDataSinkPipelines = self->_cameraCalibrationDataSinkPipelines;
-  v5 = [(NSMutableArray *)cameraCalibrationDataSinkPipelines countByEnumeratingWithState:&v12 objects:v11 count:16];
-  if (!v5)
+  v4 = [(NSMutableArray *)cameraCalibrationDataSinkPipelines countByEnumeratingWithState:&v11 objects:v10 count:16];
+  if (!v4)
   {
     return 0;
   }
 
-  v6 = v5;
-  v7 = *v13;
+  v5 = v4;
+  v6 = *v12;
 LABEL_3:
-  v8 = 0;
+  v7 = 0;
   while (1)
   {
-    if (*v13 != v7)
+    if (*v12 != v6)
     {
       objc_enumerationMutation(cameraCalibrationDataSinkPipelines);
     }
 
-    v9 = *(*(&v12 + 1) + 8 * v8);
-    if ([objc_msgSend(v9 "sinkID")])
+    v8 = *(*(&v11 + 1) + 8 * v7);
+    if (objc_msgSend_isEqualToString_([v8 sinkID]))
     {
-      return v9;
+      return v8;
     }
 
-    if (v6 == ++v8)
+    if (v5 == ++v7)
     {
-      v6 = [(NSMutableArray *)cameraCalibrationDataSinkPipelines countByEnumeratingWithState:&v12 objects:v11 count:16];
-      if (v6)
+      v5 = [(NSMutableArray *)cameraCalibrationDataSinkPipelines countByEnumeratingWithState:&v11 objects:v10 count:16];
+      if (v5)
       {
         goto LABEL_3;
       }
@@ -1499,33 +1518,34 @@ LABEL_3:
   v12 = 0u;
   v13 = 0u;
   cinematographyPipelines = self->_cinematographyPipelines;
-  v5 = [(NSMutableArray *)cinematographyPipelines countByEnumeratingWithState:&v12 objects:v11 count:16];
-  if (!v5)
+  v4 = [(NSMutableArray *)cinematographyPipelines countByEnumeratingWithState:&v12 objects:v11 count:16];
+  if (!v4)
   {
     return 0;
   }
 
-  v6 = v5;
-  v7 = *v13;
+  v5 = v4;
+  v6 = *v13;
 LABEL_3:
-  v8 = 0;
+  v7 = 0;
   while (1)
   {
-    if (*v13 != v7)
+    if (*v13 != v6)
     {
       objc_enumerationMutation(cinematographyPipelines);
     }
 
-    v9 = *(*(&v12 + 1) + 8 * v8);
-    if ([-[FigCaptureCinematographyPipeline sourceID](v9) isEqualToString:d])
+    v8 = *(*(&v12 + 1) + 8 * v7);
+    sourceID = [(FigCaptureCinematographyPipeline *)v8 sourceID];
+    if (objc_msgSend_isEqualToString_(sourceID))
     {
-      return v9;
+      return v8;
     }
 
-    if (v6 == ++v8)
+    if (v5 == ++v7)
     {
-      v6 = [(NSMutableArray *)cinematographyPipelines countByEnumeratingWithState:&v12 objects:v11 count:16];
-      if (v6)
+      v5 = [(NSMutableArray *)cinematographyPipelines countByEnumeratingWithState:&v12 objects:v11 count:16];
+      if (v5)
       {
         goto LABEL_3;
       }
@@ -1549,38 +1569,38 @@ LABEL_3:
 
 - (id)lidarDepthPipelineWithRGBCameraSourceID:(id)d
 {
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   lidarDepthPipelines = self->_lidarDepthPipelines;
-  v5 = [(NSMutableArray *)lidarDepthPipelines countByEnumeratingWithState:&v12 objects:v11 count:16];
-  if (!v5)
+  v4 = [(NSMutableArray *)lidarDepthPipelines countByEnumeratingWithState:&v11 objects:v10 count:16];
+  if (!v4)
   {
     return 0;
   }
 
-  v6 = v5;
-  v7 = *v13;
+  v5 = v4;
+  v6 = *v12;
 LABEL_3:
-  v8 = 0;
+  v7 = 0;
   while (1)
   {
-    if (*v13 != v7)
+    if (*v12 != v6)
     {
       objc_enumerationMutation(lidarDepthPipelines);
     }
 
-    v9 = *(*(&v12 + 1) + 8 * v8);
-    if ([objc_msgSend(v9 "rgbCameraSourceID")])
+    v8 = *(*(&v11 + 1) + 8 * v7);
+    if (objc_msgSend_isEqualToString_([v8 rgbCameraSourceID]))
     {
-      return v9;
+      return v8;
     }
 
-    if (v6 == ++v8)
+    if (v5 == ++v7)
     {
-      v6 = [(NSMutableArray *)lidarDepthPipelines countByEnumeratingWithState:&v12 objects:v11 count:16];
-      if (v6)
+      v5 = [(NSMutableArray *)lidarDepthPipelines countByEnumeratingWithState:&v11 objects:v10 count:16];
+      if (v5)
       {
         goto LABEL_3;
       }

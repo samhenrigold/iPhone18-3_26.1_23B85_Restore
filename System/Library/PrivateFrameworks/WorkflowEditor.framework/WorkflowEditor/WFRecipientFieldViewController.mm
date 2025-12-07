@@ -70,15 +70,15 @@ void __63__WFRecipientFieldViewController_requestContactsAccessIfNeeded__block_i
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-void __63__WFRecipientFieldViewController_requestContactsAccessIfNeeded__block_invoke_2(uint64_t a1)
+void __63__WFRecipientFieldViewController_requestContactsAccessIfNeeded__block_invoke_2(uint64_t a1, uint64_t a2)
 {
   [*(a1 + 32) setContactAuthorizationStatus:WFCNContactAuthorizationStatus()];
-  v2 = [*(a1 + 32) searchManager];
-  [v2 setSearchTypes:{objc_msgSend(*(a1 + 32), "preferredSearchResultTypes")}];
+  v3 = [*(a1 + 32) searchManager];
+  [v3 setSearchTypes:{objc_msgSend(*(a1 + 32), "preferredSearchResultTypes")}];
 
-  v3 = *(a1 + 32);
-  v4 = [v3 currentSearchTerm];
-  [v3 _startSearch:v4];
+  v4 = *(a1 + 32);
+  v5 = [v4 currentSearchTerm];
+  [v4 _startSearch:v5];
 }
 
 - (void)configureBackgroundView

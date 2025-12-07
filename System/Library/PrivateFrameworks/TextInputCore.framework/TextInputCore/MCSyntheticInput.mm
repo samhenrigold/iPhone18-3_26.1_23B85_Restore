@@ -96,24 +96,13 @@ LABEL_15:
   committedText = [(MCSyntheticInput *)self committedText];
   v7 = [committedText length];
 
-  if (cursorIndex <= v7)
-  {
-    goto LABEL_6;
-  }
-
-  committedText2 = [(MCSyntheticInput *)self committedText];
-  v9 = [committedText2 length];
-
-  syllables = [(MCSyntheticInput *)self syllables];
-  v11 = [syllables count];
-
-  if (v11)
+  if (cursorIndex > v7 && (-[MCSyntheticInput committedText](self, "committedText"), v8 = objc_claimAutoreleasedReturnValue(), v9 = [v8 length], v8, -[MCSyntheticInput syllables](self, "syllables"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "count"), v10, v11))
   {
     v12 = 0;
     while (1)
     {
-      syllables2 = [(MCSyntheticInput *)self syllables];
-      v14 = [syllables2 objectAtIndexedSubscript:v12];
+      syllables = [(MCSyntheticInput *)self syllables];
+      v14 = [syllables objectAtIndexedSubscript:v12];
       v15 = [v14 length] + v9;
       cursorIndex2 = [(MCSyntheticInput *)self cursorIndex];
 
@@ -122,13 +111,13 @@ LABEL_15:
         break;
       }
 
-      syllables3 = [(MCSyntheticInput *)self syllables];
-      v18 = [syllables3 objectAtIndexedSubscript:v12];
+      syllables2 = [(MCSyntheticInput *)self syllables];
+      v18 = [syllables2 objectAtIndexedSubscript:v12];
       v9 += [v18 length];
 
       ++v12;
-      syllables4 = [(MCSyntheticInput *)self syllables];
-      v20 = [syllables4 count];
+      syllables3 = [(MCSyntheticInput *)self syllables];
+      v20 = [syllables3 count];
 
       if (v20 <= v12)
       {

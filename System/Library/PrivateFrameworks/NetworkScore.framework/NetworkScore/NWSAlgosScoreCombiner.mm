@@ -71,41 +71,41 @@
   }
 
   combinerData = self->combinerData;
-  std::string::basic_string[abi:ne200100]<0>(v18, [typeCopy cStringUsingEncoding:4]);
-  std::string::basic_string[abi:ne200100]<0>(v16, -[__CFString cStringUsingEncoding:](v12, "cStringUsingEncoding:", 4));
-  AlgosScoreCombinerFrameRow::AlgosScoreCombinerFrameRow(v20, v18, v16, score, weight);
+  std::string::basic_string[abi:ne200100]<0>(&v17, [typeCopy cStringUsingEncoding:4]);
+  std::string::basic_string[abi:ne200100]<0>(&v16, -[__CFString cStringUsingEncoding:](v12, "cStringUsingEncoding:", 4));
+  AlgosScoreCombinerFrameRow::AlgosScoreCombinerFrameRow(&v18, &v17, &v16, score, weight);
   v14 = combinerData[1];
   if (v14 >= combinerData[2])
   {
-    v15 = std::vector<AlgosScoreCombinerFrameRow>::__emplace_back_slow_path<AlgosScoreCombinerFrameRow>(combinerData, v20);
+    v15 = std::vector<AlgosScoreCombinerFrameRow>::__emplace_back_slow_path<AlgosScoreCombinerFrameRow>(combinerData, &v18);
   }
 
   else
   {
-    AlgosScoreCombinerFrameRow::AlgosScoreCombinerFrameRow(combinerData[1], v20);
+    AlgosScoreCombinerFrameRow::AlgosScoreCombinerFrameRow(combinerData[1], &v18);
     v15 = v14 + 64;
-    combinerData[1] = v14 + 64;
+    combinerData[1] = (v14 + 64);
   }
 
   combinerData[1] = v15;
-  if (v23 < 0)
+  if (v20 < 0)
   {
     operator delete(__p);
   }
 
-  if (v21 < 0)
+  if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v20[0]);
+    operator delete(v18.__r_.__value_.__l.__data_);
   }
 
-  if (v17 < 0)
+  if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v16[0]);
+    operator delete(v16.__r_.__value_.__l.__data_);
   }
 
-  if (v19 < 0)
+  if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v18[0]);
+    operator delete(v17.__r_.__value_.__l.__data_);
   }
 }
 
@@ -388,7 +388,7 @@ uint64_t __51__NWSAlgosScoreCombiner_signedMeanSquaredDeviation__block_invoke_2(
     v47 = self->combinerData;
     v48 = *v47;
     v49 = v47[1];
-    v50 = *(*v47 + 7);
+    v50 = *&(*v47)[2].__r_.__value_.__l.__size_;
     v51 = v50;
     while (v48 != v49)
     {

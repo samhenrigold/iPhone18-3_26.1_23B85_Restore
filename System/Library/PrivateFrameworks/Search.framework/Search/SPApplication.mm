@@ -5,7 +5,6 @@
 - (SPApplication)initWithCoder:(id)coder;
 - (id)description;
 - (void)copyToSearchFoundationResult:(id)result;
-- (void)displayName;
 - (void)encodeWithCoder:(id)coder;
 - (void)setLongDisplayName:(id)name;
 @end
@@ -31,7 +30,7 @@
     [(SPApplication *)self setDisplayNameInternal:displayNameInternal];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
     {
-      [(SPApplication *)&self->_displayIdentifier displayName];
+      [SPApplication displayName];
     }
   }
 
@@ -106,9 +105,11 @@ uint64_t __31__SPApplication_initWithCoder___block_invoke()
 {
   v0 = MEMORY[0x1E695DFD8];
   v1 = objc_opt_class();
-  initWithCoder__objectClasses = [v0 setWithObjects:{v1, objc_opt_class(), 0}];
+  v2 = [v0 setWithObjects:{v1, objc_opt_class(), 0}];
+  v3 = initWithCoder__objectClasses;
+  initWithCoder__objectClasses = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v3);
 }
 
 - (id)description
@@ -266,10 +267,10 @@ LABEL_25:
 
 - (void)copyToSearchFoundationResult:(id)result
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   v5 = objc_alloc_init(MEMORY[0x1E69CA4F0]);
-  v6 = SPLogForSPLogCategoryDefault();
+  v6 = SPLogForSPLogCategoryDefault(v5);
   v7 = v6;
   if (gSPLogDebugAsDefault)
   {
@@ -285,9 +286,9 @@ LABEL_25:
   {
     displayName = [(SPApplication *)self displayName];
     *buf = 138412546;
-    v27 = displayName;
-    v28 = 2112;
-    v29 = resultCopy;
+    v26 = displayName;
+    v27 = 2112;
+    v28 = resultCopy;
     _os_log_impl(&dword_1C81BF000, v7, v8, "Set title %@ for result %@", buf, 0x16u);
   }
 
@@ -307,8 +308,8 @@ LABEL_25:
     subtitle2 = [(SPApplication *)self subtitle];
     v15 = [v13 textWithString:subtitle2];
 
-    v25 = v15;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
+    v24 = v15;
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
     [resultCopy setDescriptions:v16];
   }
 
@@ -347,17 +348,6 @@ LABEL_25:
 
   [resultCopy setSectionBundleIdentifier:v23];
   [resultCopy setIsLocalApplicationResult:1];
-
-  v24 = *MEMORY[0x1E69E9840];
-}
-
-- (void)displayName
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *self;
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

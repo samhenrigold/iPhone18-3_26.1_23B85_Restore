@@ -359,97 +359,103 @@ uint64_t __55__MapsSuggestionsObservers_unregisterObserver_handler___block_invok
 
 - (BOOL)callBlock:(id)block
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   blockCopy = block;
+  v6 = blockCopy;
   if (blockCopy)
   {
-    if (MapsSuggestionsLoggingIsVerbose())
+    if (MapsSuggestionsLoggingIsVerbose(blockCopy, v5))
     {
-      v5 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v7 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         name = self->_name;
         *buf = 138412290;
-        v16 = name;
-        _os_log_impl(&dword_1C5126000, v5, OS_LOG_TYPE_DEBUG, "{%@}enumerateWithBlock", buf, 0xCu);
+        v18 = name;
+        _os_log_impl(&dword_1C5126000, v7, OS_LOG_TYPE_DEBUG, "{%@}enumerateWithBlock", buf, 0xCu);
       }
     }
 
-    v7 = objc_autoreleasePoolPush();
+    v9 = objc_autoreleasePoolPush();
     _synchronizedSnapshot = [(MapsSuggestionsObservers *)&self->super.isa _synchronizedSnapshot];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __38__MapsSuggestionsObservers_callBlock___block_invoke;
-    v12[3] = &unk_1E81F74D0;
-    v13 = _synchronizedSnapshot;
-    v14 = blockCopy;
-    v9 = _synchronizedSnapshot;
-    MSg::Queue::async<MapsSuggestionsObservers>(&self->_callbackQueue, self, v12);
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __38__MapsSuggestionsObservers_callBlock___block_invoke;
+    v14[3] = &unk_1E81F74D0;
+    v15 = _synchronizedSnapshot;
+    v16 = v6;
+    v11 = _synchronizedSnapshot;
+    MSg::Queue::async<MapsSuggestionsObservers>(&self->_callbackQueue, self, v14);
 
-    objc_autoreleasePoolPop(v7);
+    objc_autoreleasePoolPop(v9);
   }
 
   else
   {
-    v10 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446978;
-      v16 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsObservers.mm";
-      v17 = 1024;
-      v18 = 132;
-      v19 = 2082;
-      v20 = "[MapsSuggestionsObservers callBlock:]";
+      v18 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsObservers.mm";
+      v19 = 1024;
+      v20 = 132;
       v21 = 2082;
-      v22 = "nil == (block)";
-      _os_log_impl(&dword_1C5126000, v10, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a block", buf, 0x26u);
+      v22 = "[MapsSuggestionsObservers callBlock:]";
+      v23 = 2082;
+      v24 = "nil == (block)";
+      _os_log_impl(&dword_1C5126000, v12, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a block", buf, 0x26u);
     }
   }
 
-  return blockCopy != 0;
+  return v6 != 0;
 }
 
 void __38__MapsSuggestionsObservers_callBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v11 = 0u;
-  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v19 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v21 count:16];
+  v7 = v5;
   if (v5)
   {
-    v6 = *v12;
+    v8 = *v14;
     do
     {
-      for (i = 0; i != v5; ++i)
+      v9 = 0;
+      do
       {
-        if (*v12 != v6)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
-        if (MapsSuggestionsLoggingIsVerbose())
+        v10 = *(*(&v13 + 1) + 8 * v9);
+        if (MapsSuggestionsLoggingIsVerbose(v5, v6))
         {
-          v9 = GEOFindOrCreateLog();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+          v11 = GEOFindOrCreateLog();
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
           {
-            v10 = v3[1];
+            v12 = v3[1];
             *buf = 138412546;
-            v16 = v10;
-            v17 = 2112;
-            v18 = v8;
-            _os_log_impl(&dword_1C5126000, v9, OS_LOG_TYPE_DEBUG, "{%@}enumerateWithBlock[%@]", buf, 0x16u);
+            v18 = v12;
+            v19 = 2112;
+            v20 = v10;
+            _os_log_impl(&dword_1C5126000, v11, OS_LOG_TYPE_DEBUG, "{%@}enumerateWithBlock[%@]", buf, 0x16u);
           }
         }
 
-        (*(*(a1 + 40) + 16))();
+        v5 = (*(*(a1 + 40) + 16))();
+        ++v9;
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v11 objects:v19 count:16];
+      while (v7 != v9);
+      v5 = [v4 countByEnumeratingWithState:&v13 objects:v21 count:16];
+      v7 = v5;
     }
 
     while (v5);
@@ -458,92 +464,98 @@ void __38__MapsSuggestionsObservers_callBlock___block_invoke(uint64_t a1, void *
 
 - (BOOL)synchronouslyCallBlock:(id)block
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   blockCopy = block;
+  v6 = blockCopy;
   if (blockCopy)
   {
-    if (MapsSuggestionsLoggingIsVerbose())
+    if (MapsSuggestionsLoggingIsVerbose(blockCopy, v5))
     {
-      v5 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v7 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         name = self->_name;
         *buf = 138412290;
-        v12 = name;
-        _os_log_impl(&dword_1C5126000, v5, OS_LOG_TYPE_DEBUG, "{%@}synchronouslyEnumerateWithBlock", buf, 0xCu);
+        v14 = name;
+        _os_log_impl(&dword_1C5126000, v7, OS_LOG_TYPE_DEBUG, "{%@}synchronouslyEnumerateWithBlock", buf, 0xCu);
       }
     }
 
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __51__MapsSuggestionsObservers_synchronouslyCallBlock___block_invoke;
-    v9[3] = &unk_1E81F5528;
-    v9[4] = self;
-    v10 = blockCopy;
-    dispatch_sync(self->_callbackQueue._innerQueue, v9);
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __51__MapsSuggestionsObservers_synchronouslyCallBlock___block_invoke;
+    v11[3] = &unk_1E81F5528;
+    v11[4] = self;
+    v12 = v6;
+    dispatch_sync(self->_callbackQueue._innerQueue, v11);
   }
 
   else
   {
-    v7 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446978;
-      v12 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsObservers.mm";
-      v13 = 1024;
-      v14 = 150;
-      v15 = 2082;
-      v16 = "[MapsSuggestionsObservers synchronouslyCallBlock:]";
+      v14 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsObservers.mm";
+      v15 = 1024;
+      v16 = 150;
       v17 = 2082;
-      v18 = "nil == (block)";
-      _os_log_impl(&dword_1C5126000, v7, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a block", buf, 0x26u);
+      v18 = "[MapsSuggestionsObservers synchronouslyCallBlock:]";
+      v19 = 2082;
+      v20 = "nil == (block)";
+      _os_log_impl(&dword_1C5126000, v9, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a block", buf, 0x26u);
     }
   }
 
-  return blockCopy != 0;
+  return v6 != 0;
 }
 
 void __51__MapsSuggestionsObservers_synchronouslyCallBlock___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   context = objc_autoreleasePoolPush();
   [(MapsSuggestionsObservers *)*(a1 + 32) _synchronizedSnapshot];
+  v14 = 0u;
+  v15 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
-  v2 = v11 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v18 count:16];
+  v2 = v13 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v20 count:16];
+  v5 = v3;
   if (v3)
   {
-    v4 = *v11;
+    v6 = *v13;
     do
     {
-      for (i = 0; i != v3; ++i)
+      v7 = 0;
+      do
       {
-        if (*v11 != v4)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v10 + 1) + 8 * i);
-        if (MapsSuggestionsLoggingIsVerbose())
+        v8 = *(*(&v12 + 1) + 8 * v7);
+        if (MapsSuggestionsLoggingIsVerbose(v3, v4))
         {
-          v7 = GEOFindOrCreateLog();
-          if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+          v9 = GEOFindOrCreateLog();
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
           {
-            v8 = *(*(a1 + 32) + 8);
+            v10 = *(*(a1 + 32) + 8);
             *buf = 138412546;
-            v15 = v8;
-            v16 = 2112;
-            v17 = v6;
-            _os_log_impl(&dword_1C5126000, v7, OS_LOG_TYPE_DEBUG, "{%@}synchronouslyEnumerateWithBlock[%@]", buf, 0x16u);
+            v17 = v10;
+            v18 = 2112;
+            v19 = v8;
+            _os_log_impl(&dword_1C5126000, v9, OS_LOG_TYPE_DEBUG, "{%@}synchronouslyEnumerateWithBlock[%@]", buf, 0x16u);
           }
         }
 
-        (*(*(a1 + 40) + 16))();
+        v3 = (*(*(a1 + 40) + 16))();
+        ++v7;
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v10 objects:v18 count:16];
+      while (v5 != v7);
+      v3 = [v2 countByEnumeratingWithState:&v12 objects:v20 count:16];
+      v5 = v3;
     }
 
     while (v3);

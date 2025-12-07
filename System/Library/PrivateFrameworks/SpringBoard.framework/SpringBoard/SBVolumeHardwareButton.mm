@@ -100,7 +100,7 @@
   v10 = *MEMORY[0x277D85DE8];
   pressCopy = press;
   state = [pressCopy state];
-  v6 = SBLogButtonsVolume();
+  v6 = SBLogButtonsVolume(state);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v9[0] = 67109120;
@@ -128,7 +128,7 @@
   v10 = *MEMORY[0x277D85DE8];
   pressCopy = press;
   state = [pressCopy state];
-  v6 = SBLogButtonsVolume();
+  v6 = SBLogButtonsVolume(state);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v9[0] = 67109120;
@@ -169,19 +169,19 @@
 
 - (void)_rawVolumePress:(id)press
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   pressCopy = press;
   latestPressType = [pressCopy latestPressType];
   latestPressPhase = [pressCopy latestPressPhase];
 
   if (latestPressPhase > 4 || ((1 << latestPressPhase) & 0x19) == 0)
   {
-    v8 = SBLogButtonsVolume();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = SBLogButtonsVolume(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 134217984;
-      v10 = latestPressPhase;
-      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Ignoring rawVolumePress phase: %li", &v9, 0xCu);
+      v10 = 134217984;
+      v11 = latestPressPhase;
+      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Ignoring rawVolumePress phase: %li", &v10, 0xCu);
     }
   }
 
@@ -202,7 +202,7 @@
 {
   pressCopy = press;
   v12 = *MEMORY[0x277D85DE8];
-  v5 = SBLogButtonsVolume();
+  v5 = SBLogButtonsVolume(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v11[0] = 67109120;
@@ -237,7 +237,7 @@
 {
   pressCopy = press;
   v12 = *MEMORY[0x277D85DE8];
-  v5 = SBLogButtonsVolume();
+  v5 = SBLogButtonsVolume(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v11[0] = 67109120;
@@ -281,7 +281,7 @@
 
 - (BOOL)gestureRecognizerShouldBegin:(id)begin
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   beginCopy = begin;
   if (self->_rawVolumeButtonPressGestureRecognizer != beginCopy)
   {
@@ -291,71 +291,72 @@
 
     if ((hardwareButtonCoordinator & 1) == 0)
     {
-      v8 = SBLogButtonsVolume();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = SBLogButtonsVolume(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v17) = 0;
-        _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Ignoring volume buttons events because hardware button coordinator says nope", &v17, 2u);
+        LOWORD(v19) = 0;
+        _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Ignoring volume buttons events because hardware button coordinator says nope", &v19, 2u);
       }
 
-      v13 = 0;
+      v14 = 0;
       goto LABEL_14;
     }
 
     restartManager = [SBApp restartManager];
-    v8 = restartManager;
-    if (restartManager && ([restartManager startupTransition], v9 = objc_claimAutoreleasedReturnValue(), v9, !v9))
+    v9 = restartManager;
+    if (restartManager && ([restartManager startupTransition], v10 = objc_claimAutoreleasedReturnValue(), v10, !v10))
     {
-      isPendingExit = [v8 isPendingExit];
-      v10 = SBLogButtonsVolume();
-      v16 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
-      if (!isPendingExit)
+      isPendingExit = [v9 isPendingExit];
+      v17 = isPendingExit;
+      v11 = SBLogButtonsVolume(isPendingExit);
+      v18 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+      if (!v17)
       {
-        if (v16)
+        if (v18)
         {
-          LOWORD(v17) = 0;
-          _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "will begin volume button press", &v17, 2u);
+          LOWORD(v19) = 0;
+          _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "will begin volume button press", &v19, 2u);
         }
 
-        v13 = 1;
+        v14 = 1;
         goto LABEL_9;
       }
 
-      if (v16)
+      if (v18)
       {
-        pendingRestartTransitionRequest = [v8 pendingRestartTransitionRequest];
-        v17 = 138412290;
-        v18 = pendingRestartTransitionRequest;
-        v12 = "Ignoring volume buttons event because we are pending a restart: %@";
+        pendingRestartTransitionRequest = [v9 pendingRestartTransitionRequest];
+        v19 = 138412290;
+        v20 = pendingRestartTransitionRequest;
+        v13 = "Ignoring volume buttons event because we are pending a restart: %@";
         goto LABEL_7;
       }
     }
 
     else
     {
-      v10 = SBLogButtonsVolume();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = SBLogButtonsVolume(restartManager);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        pendingRestartTransitionRequest = [v8 startupTransition];
-        v17 = 138412290;
-        v18 = pendingRestartTransitionRequest;
-        v12 = "Ignoring volume buttons events because we're in a startup transition: %@";
+        pendingRestartTransitionRequest = [v9 startupTransition];
+        v19 = 138412290;
+        v20 = pendingRestartTransitionRequest;
+        v13 = "Ignoring volume buttons events because we're in a startup transition: %@";
 LABEL_7:
-        _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, v12, &v17, 0xCu);
+        _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, v13, &v19, 0xCu);
       }
     }
 
-    v13 = 0;
+    v14 = 0;
 LABEL_9:
 
 LABEL_14:
     goto LABEL_15;
   }
 
-  v13 = 1;
+  v14 = 1;
 LABEL_15:
 
-  return v13;
+  return v14;
 }
 
 - (BOOL)gestureRecognizer:(id)recognizer shouldRequireFailureOfGestureRecognizer:(id)gestureRecognizer
@@ -391,7 +392,7 @@ LABEL_15:
       v9 = 0;
     }
 
-    v10 = SBLogButtonsVolume();
+    v10 = SBLogButtonsVolume(gestureRecognizerCopy);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v17[0] = 67109120;

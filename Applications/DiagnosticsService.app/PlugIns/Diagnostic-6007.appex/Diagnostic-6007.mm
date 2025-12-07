@@ -7,14 +7,13 @@ id sub_100001320()
 
 void sub_10000134C(uint64_t a1, uint64_t a2)
 {
-  v4 = *(v2 + OBJC_IVAR___OnDemandAudioDiagnosticTriggerController_responder);
   *(v2 + OBJC_IVAR___OnDemandAudioDiagnosticTriggerController_responder) = a2;
   swift_unknownObjectRetain();
   swift_unknownObjectRelease();
-  if (a1 && (type metadata accessor for OnDemandAudioDiagnosticTriggerInputs(), (v5 = swift_dynamicCastClass()) != 0))
+  if (a1 && (type metadata accessor for OnDemandAudioDiagnosticTriggerInputs(), (v4 = swift_dynamicCastClass()) != 0))
   {
-    v6 = *(v2 + OBJC_IVAR___OnDemandAudioDiagnosticTriggerController_inputs);
-    *(v2 + OBJC_IVAR___OnDemandAudioDiagnosticTriggerController_inputs) = v5;
+    v5 = *(v2 + OBJC_IVAR___OnDemandAudioDiagnosticTriggerController_inputs);
+    *(v2 + OBJC_IVAR___OnDemandAudioDiagnosticTriggerController_inputs) = v4;
     swift_unknownObjectRetain();
   }
 
@@ -30,125 +29,118 @@ void sub_100001498()
   v1 = v0;
   v2 = sub_100003BDC();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   __chkstk_darwin(v2);
-  v48 = &v42 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v49 = sub_100003C0C();
-  v47 = *(v49 - 8);
-  v6 = *(v47 + 64);
-  __chkstk_darwin(v49);
-  v8 = &v42 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = sub_100003C2C();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
+  v41 = &v35 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v42 = sub_100003C0C();
+  v40 = *(v42 - 8);
+  __chkstk_darwin(v42);
+  v6 = &v35 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = sub_100003C2C();
+  v8 = *(v7 - 8);
+  v9 = __chkstk_darwin(v7);
+  v11 = &v35 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = __chkstk_darwin(v9);
-  v14 = &v42 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = __chkstk_darwin(v12);
-  v17 = &v42 - v16;
-  v18 = OBJC_IVAR___OnDemandAudioDiagnosticTriggerController_responder;
-  v19 = *&v0[OBJC_IVAR___OnDemandAudioDiagnosticTriggerController_responder];
-  if (!v19)
+  v14 = &v35 - v13;
+  v15 = OBJC_IVAR___OnDemandAudioDiagnosticTriggerController_responder;
+  v16 = *&v0[OBJC_IVAR___OnDemandAudioDiagnosticTriggerController_responder];
+  if (!v16)
   {
     __break(1u);
     goto LABEL_9;
   }
 
-  v46 = v8;
-  v20 = OBJC_IVAR___OnDemandAudioDiagnosticTriggerController_inputs;
-  v21 = *&v1[OBJC_IVAR___OnDemandAudioDiagnosticTriggerController_inputs];
-  if (!v21)
+  v39 = v6;
+  v17 = OBJC_IVAR___OnDemandAudioDiagnosticTriggerController_inputs;
+  v18 = *&v1[OBJC_IVAR___OnDemandAudioDiagnosticTriggerController_inputs];
+  if (!v18)
   {
 LABEL_9:
     __break(1u);
     goto LABEL_10;
   }
 
-  v22 = (v21 + OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_hostAppDisconnectTimeout);
-  if (v22[1])
+  if (*(v18 + OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_hostAppDisconnectTimeout + 8))
   {
 LABEL_10:
     __break(1u);
     goto LABEL_11;
   }
 
-  v23 = v15;
-  v44 = v3;
-  v45 = v2;
-  v24 = *v22;
+  v19 = v12;
+  v37 = v3;
+  v38 = v2;
   swift_unknownObjectRetain();
   isa = sub_100003CFC().super.super.isa;
-  [v19 allowSessionAccessoryDisconnectForDuration:isa];
+  [v16 allowSessionAccessoryDisconnectForDuration:isa];
   swift_unknownObjectRelease();
 
-  v26 = *&v1[v18];
-  if (!v26)
+  v21 = *&v1[v15];
+  if (!v21)
   {
 LABEL_11:
     __break(1u);
     goto LABEL_12;
   }
 
-  v27 = swift_allocObject();
-  *(v27 + 16) = v1;
-  v54 = sub_100002DFC;
-  v55 = v27;
+  v22 = swift_allocObject();
+  *(v22 + 16) = v1;
+  v47 = sub_100002DFC;
+  v48 = v22;
   aBlock = _NSConcreteStackBlock;
-  v51 = 1107296256;
-  v52 = sub_1000021C8;
-  v53 = &unk_100008448;
-  v28 = _Block_copy(&aBlock);
-  v29 = v1;
+  v44 = 1107296256;
+  v45 = sub_1000021C8;
+  v46 = &unk_100008448;
+  v23 = _Block_copy(&aBlock);
+  v24 = v1;
   swift_unknownObjectRetain();
 
-  [v26 requestSessionAccessoryIdentifierWithCompletion:v28];
-  _Block_release(v28);
+  [v21 requestSessionAccessoryIdentifierWithCompletion:v23];
+  _Block_release(v23);
   swift_unknownObjectRelease();
   sub_100002B98();
-  v30 = sub_100003CDC();
+  v25 = sub_100003CDC();
   sub_100003C1C();
-  v31 = *&v1[v20];
-  if (!v31)
+  v26 = *&v1[v17];
+  if (!v26)
   {
 LABEL_12:
     __break(1u);
     goto LABEL_13;
   }
 
-  v43 = v30;
-  v32 = v31 + OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_triggerTimeout;
-  if ((*(v32 + 8) & 1) == 0)
+  v36 = v25;
+  if ((*(v26 + OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_triggerTimeout + 8) & 1) == 0)
   {
-    v33 = *v32;
     sub_100003C3C();
-    v34 = *(v10 + 8);
-    v35 = v23;
-    v34(v14, v23);
-    v36 = swift_allocObject();
+    v27 = *(v8 + 8);
+    v28 = v19;
+    v27(v11, v19);
+    v29 = swift_allocObject();
     swift_unknownObjectWeakInit();
-    v54 = sub_100002E04;
-    v55 = v36;
+    v47 = sub_100002E04;
+    v48 = v29;
     aBlock = _NSConcreteStackBlock;
-    v51 = 1107296256;
-    v52 = sub_100003480;
-    v53 = &unk_100008470;
-    v37 = _Block_copy(&aBlock);
+    v44 = 1107296256;
+    v45 = sub_100003480;
+    v46 = &unk_100008470;
+    v30 = _Block_copy(&aBlock);
 
-    v38 = v46;
+    v31 = v39;
     sub_100003BFC();
     aBlock = &_swiftEmptyArrayStorage;
     sub_100002C78();
     sub_100002CD0(&qword_10000CA70, &qword_100004328);
     sub_100002D18();
-    v39 = v48;
-    v40 = v45;
+    v32 = v41;
+    v33 = v38;
     sub_100003D0C();
-    v41 = v43;
+    v34 = v36;
     sub_100003CCC();
-    _Block_release(v37);
+    _Block_release(v30);
 
-    (*(v44 + 8))(v39, v40);
-    (*(v47 + 8))(v38, v49);
-    v34(v17, v35);
+    (*(v37 + 8))(v32, v33);
+    (*(v40 + 8))(v31, v42);
+    v27(v14, v28);
     return;
   }
 
@@ -156,22 +148,22 @@ LABEL_13:
   __break(1u);
 }
 
-void sub_100001994()
+void sub_100001994(uint64_t a1)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
-    if ([v1 isFinished])
+    v2 = Strong;
+    if ([v2 isFinished])
     {
     }
 
     else
     {
-      v2 = [v1 isCancelled];
+      v3 = [v2 isCancelled];
 
-      if ((v2 & 1) == 0)
+      if ((v3 & 1) == 0)
       {
         sub_100003CAC();
         if (qword_10000C9B0 != -1)
@@ -357,69 +349,63 @@ LABEL_22:
 
 void sub_10000215C(uint64_t a1, void *a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v5 = a2;
-  v4(a2);
+  v4 = a2;
+  v3(a2);
 }
 
 void sub_1000021C8(uint64_t a1, uint64_t a2, void *a3)
 {
-  v5 = *(a1 + 32);
-  v4 = *(a1 + 40);
-  v6 = sub_100003C6C();
-  v8 = v7;
+  v4 = *(a1 + 32);
+  v5 = sub_100003C6C();
+  v7 = v6;
 
-  v9 = a3;
-  v5(v6, v8, a3);
+  v8 = a3;
+  v4(v5, v7, a3);
 }
 
 id sub_10000225C(unsigned __int8 a1)
 {
   v2 = sub_100003BDC();
-  v47 = *(v2 - 8);
-  v48 = v2;
-  v3 = *(v47 + 64);
-  (__chkstk_darwin)();
-  v44 = &v40 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_100003C0C();
-  v45 = *(v5 - 8);
-  v46 = v5;
-  v6 = *(v45 + 64);
-  (__chkstk_darwin)();
-  v43 = &v40 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v42 = sub_100003C2C();
-  v8 = *(v42 - 8);
-  v9 = *(v8 + 64);
-  v10 = (__chkstk_darwin)();
-  v12 = &v40 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v10);
-  v14 = &v40 - v13;
-  v15 = sub_100003BEC();
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  result = __chkstk_darwin(v15);
-  v20 = &v40 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = a1;
+  v43 = *(v2 - 8);
+  v44 = v2;
+  __chkstk_darwin(v2);
+  v40 = &v36 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = sub_100003C0C();
+  v41 = *(v4 - 8);
+  v42 = v4;
+  __chkstk_darwin(v4);
+  v39 = &v36 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v38 = sub_100003C2C();
+  v6 = *(v38 - 8);
+  v7 = __chkstk_darwin(v38);
+  v9 = &v36 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v7);
+  v11 = &v36 - v10;
+  v12 = sub_100003BEC();
+  v13 = *(v12 - 8);
+  result = __chkstk_darwin(v12);
+  v16 = &v36 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = a1;
   if (a1 > 2u)
   {
     if (a1 == 3)
     {
-      v22 = 0;
-      v23 = -2;
+      v18 = 0;
+      v19 = -2;
     }
 
     else
     {
-      v41 = 0;
+      v37 = 0;
       if (a1 != 4)
       {
         goto LABEL_16;
       }
 
-      v22 = 0;
-      v23 = -1;
+      v18 = 0;
+      v19 = -1;
     }
   }
 
@@ -427,32 +413,32 @@ id sub_10000225C(unsigned __int8 a1)
   {
     if (a1 == 1)
     {
-      v41 = -900;
-      v22 = 1;
+      v37 = -900;
+      v18 = 1;
       goto LABEL_12;
     }
 
-    v22 = 0;
-    v23 = -3;
+    v18 = 0;
+    v19 = -3;
   }
 
   else
   {
-    v22 = 0;
-    v23 = -901;
+    v18 = 0;
+    v19 = -901;
   }
 
-  v41 = v23;
+  v37 = v19;
 LABEL_12:
-  v24 = sub_100003CAC();
+  v20 = sub_100003CAC();
   if (qword_10000C9B0 != -1)
   {
-    LODWORD(v40) = v24;
+    LODWORD(v36) = v20;
     swift_once();
   }
 
   sub_100003BCC();
-  result = *(v49 + OBJC_IVAR___OnDemandAudioDiagnosticTriggerController_responder);
+  result = *(v45 + OBJC_IVAR___OnDemandAudioDiagnosticTriggerController_responder);
   if (!result)
   {
     __break(1u);
@@ -460,17 +446,17 @@ LABEL_12:
   }
 
   result = [result clearAllowSessionAccessoryDisconnect];
-  v25 = 0.0;
-  if ((v22 & 1) == 0)
+  v21 = 0.0;
+  if ((v18 & 1) == 0)
   {
 LABEL_16:
-    v26 = *(v49 + OBJC_IVAR___OnDemandAudioDiagnosticTriggerController_inputs);
-    if (v26)
+    v22 = *(v45 + OBJC_IVAR___OnDemandAudioDiagnosticTriggerController_inputs);
+    if (v22)
     {
-      v27 = v26 + OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_delayExitWorkaroundDuration;
-      if ((*(v27 + 8) & 1) == 0)
+      v23 = v22 + OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_delayExitWorkaroundDuration;
+      if ((*(v23 + 8) & 1) == 0)
       {
-        v25 = *v27;
+        v21 = *v23;
         goto LABEL_19;
       }
 
@@ -485,62 +471,62 @@ LABEL_25:
   }
 
 LABEL_19:
-  v28 = sub_100003CBC();
+  v24 = sub_100003CBC();
   if (qword_10000C9B0 != -1)
   {
     swift_once();
   }
 
-  v29 = qword_10000CC20;
-  if (os_log_type_enabled(qword_10000CC20, v28))
+  v25 = qword_10000CC20;
+  if (os_log_type_enabled(qword_10000CC20, v24))
   {
-    v30 = swift_slowAlloc();
-    *v30 = 134218240;
-    *(v30 + 4) = v41;
-    *(v30 + 12) = 2048;
-    *(v30 + 14) = v25;
-    _os_log_impl(&_mh_execute_header, v29, v28, "Test finished with status code %ld. Will end test after %f seconds", v30, 0x16u);
+    v26 = swift_slowAlloc();
+    *v26 = 134218240;
+    *(v26 + 4) = v37;
+    *(v26 + 12) = 2048;
+    *(v26 + 14) = v21;
+    _os_log_impl(&_mh_execute_header, v25, v24, "Test finished with status code %ld. Will end test after %f seconds", v26, 0x16u);
   }
 
   sub_100002B98();
-  (*(v16 + 104))(v20, enum case for DispatchQoS.QoSClass.default(_:), v15);
-  v40 = sub_100003CEC();
-  (*(v16 + 8))(v20, v15);
+  (*(v13 + 104))(v16, enum case for DispatchQoS.QoSClass.default(_:), v12);
+  v36 = sub_100003CEC();
+  (*(v13 + 8))(v16, v12);
   sub_100003C1C();
-  v31 = v14;
+  v27 = v11;
   sub_100003C3C();
-  v41 = *(v8 + 8);
-  v32 = v42;
-  (v41)(v12, v42);
-  v33 = swift_allocObject();
+  v37 = *(v6 + 8);
+  v28 = v38;
+  (v37)(v9, v38);
+  v29 = swift_allocObject();
   swift_unknownObjectWeakInit();
-  v34 = swift_allocObject();
-  *(v34 + 16) = v33;
-  *(v34 + 24) = v21;
+  v30 = swift_allocObject();
+  *(v30 + 16) = v29;
+  *(v30 + 24) = v17;
   aBlock[4] = sub_100002C54;
-  aBlock[5] = v34;
+  aBlock[5] = v30;
   aBlock[0] = _NSConcreteStackBlock;
   aBlock[1] = 1107296256;
   aBlock[2] = sub_100003480;
   aBlock[3] = &unk_1000083F8;
-  v35 = _Block_copy(aBlock);
+  v31 = _Block_copy(aBlock);
 
-  v36 = v43;
+  v32 = v39;
   sub_100003BFC();
-  v50 = &_swiftEmptyArrayStorage;
+  v46 = &_swiftEmptyArrayStorage;
   sub_100002C78();
   sub_100002CD0(&qword_10000CA70, &qword_100004328);
   sub_100002D18();
-  v37 = v44;
-  v38 = v48;
+  v33 = v40;
+  v34 = v44;
   sub_100003D0C();
-  v39 = v40;
+  v35 = v36;
   sub_100003CCC();
-  _Block_release(v35);
+  _Block_release(v31);
 
-  (*(v47 + 8))(v37, v38);
-  (*(v45 + 8))(v36, v46);
-  (v41)(v31, v32);
+  (*(v43 + 8))(v33, v34);
+  (*(v41 + 8))(v32, v42);
+  (v37)(v27, v28);
 }
 
 void sub_1000028D0(uint64_t a1, char a2)
@@ -549,8 +535,8 @@ void sub_1000028D0(uint64_t a1, char a2)
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v4 = Strong;
-    if (([v4 isFinished] & 1) == 0)
+    v3 = Strong;
+    if (([v3 isFinished] & 1) == 0)
     {
       sub_100003CBC();
       if (qword_10000C9B0 != -1)
@@ -559,12 +545,11 @@ void sub_1000028D0(uint64_t a1, char a2)
       }
 
       sub_100003BCC();
-      v5 = [v4 result];
-      v6 = qword_100004370[a2];
+      v4 = [v3 result];
       isa = sub_100003C9C().super.super.isa;
-      [v5 setStatusCode:isa];
+      [v4 setStatusCode:isa];
 
-      [v4 setFinished:1];
+      [v3 setFinished:1];
     }
   }
 }
@@ -572,9 +557,8 @@ void sub_1000028D0(uint64_t a1, char a2)
 uint64_t sub_100002A14(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
 
-  v1(v3);
+  v1(v2);
 }
 
 id sub_100002AE4()
@@ -606,7 +590,6 @@ uint64_t sub_100002BE4()
 
 uint64_t sub_100002C1C()
 {
-  v1 = *(v0 + 16);
 
   return _swift_deallocObject(v0, 25, 7);
 }
@@ -636,7 +619,6 @@ uint64_t sub_100002CD0(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -662,7 +644,6 @@ uint64_t sub_100002D7C(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -676,7 +657,7 @@ uint64_t sub_100002DC4()
   return _swift_deallocObject(v0, 24, 7);
 }
 
-uint64_t sub_100002E14(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_100002E14(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_100002F2C(v11, 0, 0, 1, a1, a2);
@@ -712,15 +693,17 @@ LABEL_4:
   return v7;
 }
 
-uint64_t sub_100002EE0(uint64_t *a1)
+uint64_t sub_100002EE0(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 unint64_t sub_100002F2C(unint64_t *a1, void *__dst, uint64_t a3, char a4, uint64_t a5, unint64_t a6)
@@ -795,11 +778,9 @@ uint64_t sub_100003038(uint64_t a1, uint64_t a2)
 
 char *sub_100003094(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_1000030E0(a1, a2);
+  v3 = sub_1000030E0(a1, a2);
   sub_100003210(&off_100008380);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_1000030E0(uint64_t a1, unint64_t a2)
@@ -899,7 +880,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -913,15 +893,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_100003370(result, v12, 1, v3);
+  result = sub_100003370(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -936,15 +916,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -953,12 +933,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -1149,64 +1129,63 @@ LABEL_20:
   return 1;
 }
 
-id sub_1000037D0()
+id sub_1000037D0(uint64_t a1)
 {
-  v1 = &v0[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_triggerTimeoutKey];
-  strcpy(&v0[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_triggerTimeoutKey], "triggerTimeout");
-  v1[15] = -18;
-  *&v0[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_triggerTimeoutMin] = 1;
-  *&v0[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_triggerTimeoutMax] = 60;
-  *&v0[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_triggerTimeoutDefault] = 10;
-  v2 = &v0[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_retryCountKey];
-  *v2 = 0x756F437972746572;
-  *(v2 + 1) = 0xEA0000000000746ELL;
-  *&v0[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_retryCountMin] = 1;
-  *&v0[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_retryCountMax] = -1;
-  *&v0[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_retryCountDefault] = 1;
-  v3 = &v0[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_hostAppDisconnectTimeoutKey];
-  *v3 = 0xD000000000000018;
-  *(v3 + 1) = 0x8000000100004A30;
-  *&v0[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_hostAppDisconnectTimeoutMin] = 30;
-  *&v0[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_hostAppDisconnectTimeoutMax] = 600;
-  *&v0[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_hostAppDisconnectTimeoutDefault] = 300;
-  v4 = &v0[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_delayExitWorkaroundDurationKey];
-  *v4 = 0xD00000000000001BLL;
-  *(v4 + 1) = 0x8000000100004A50;
-  *&v0[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_delayExitWorkaroundDurationMin] = 0;
-  *&v0[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_delayExitWorkaroundDurationMax] = 60;
-  *&v0[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_delayExitWorkaroundDurationDefault] = 0;
-  v5 = &v0[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_triggerTimeout];
-  *v5 = 0;
-  v5[8] = 1;
-  v6 = &v0[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_retryCount];
+  v2 = &v1[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_triggerTimeoutKey];
+  strcpy(&v1[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_triggerTimeoutKey], "triggerTimeout");
+  v2[15] = -18;
+  *&v1[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_triggerTimeoutMin] = 1;
+  *&v1[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_triggerTimeoutMax] = 60;
+  *&v1[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_triggerTimeoutDefault] = 10;
+  v3 = &v1[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_retryCountKey];
+  *v3 = 0x756F437972746572;
+  *(v3 + 1) = 0xEA0000000000746ELL;
+  *&v1[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_retryCountMin] = 1;
+  *&v1[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_retryCountMax] = -1;
+  *&v1[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_retryCountDefault] = 1;
+  v4 = &v1[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_hostAppDisconnectTimeoutKey];
+  *v4 = 0xD000000000000018;
+  *(v4 + 1) = 0x8000000100004A30;
+  *&v1[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_hostAppDisconnectTimeoutMin] = 30;
+  *&v1[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_hostAppDisconnectTimeoutMax] = 600;
+  *&v1[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_hostAppDisconnectTimeoutDefault] = 300;
+  v5 = &v1[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_delayExitWorkaroundDurationKey];
+  *v5 = 0xD00000000000001BLL;
+  *(v5 + 1) = 0x8000000100004A50;
+  *&v1[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_delayExitWorkaroundDurationMin] = 0;
+  *&v1[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_delayExitWorkaroundDurationMax] = 60;
+  *&v1[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_delayExitWorkaroundDurationDefault] = 0;
+  v6 = &v1[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_triggerTimeout];
   *v6 = 0;
   v6[8] = 1;
-  v7 = &v0[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_hostAppDisconnectTimeout];
+  v7 = &v1[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_retryCount];
   *v7 = 0;
   v7[8] = 1;
-  v8 = &v0[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_delayExitWorkaroundDuration];
+  v8 = &v1[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_hostAppDisconnectTimeout];
   *v8 = 0;
   v8[8] = 1;
-  v10.receiver = v0;
-  v10.super_class = type metadata accessor for OnDemandAudioDiagnosticTriggerInputs();
-  return objc_msgSendSuper2(&v10, "init");
+  v9 = &v1[OBJC_IVAR___OnDemandAudioDiagnosticTriggerInputs_delayExitWorkaroundDuration];
+  *v9 = 0;
+  v9[8] = 1;
+  v11.receiver = v1;
+  v11.super_class = type metadata accessor for OnDemandAudioDiagnosticTriggerInputs();
+  return objc_msgSendSuper2(&v11, "init");
 }
 
-id sub_1000039C8()
+id sub_1000039C8(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for OnDemandAudioDiagnosticTriggerInputs();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for OnDemandAudioDiagnosticTriggerInputs();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 unint64_t sub_100003A9C(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
   sub_100003D5C();
   sub_100003C7C();
-  v6 = sub_100003D6C();
+  v4 = sub_100003D6C();
 
-  return sub_100003B14(a1, a2, v6);
+  return sub_100003B14(a1, a2, v4);
 }
 
 unint64_t sub_100003B14(uint64_t a1, uint64_t a2, uint64_t a3)

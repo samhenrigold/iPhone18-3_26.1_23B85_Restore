@@ -7,7 +7,7 @@ void sub_1B58BBA40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-BOOL kaldi::quasar::BPE::IsIntraWord(uint64_t a1, uint64_t **a2)
+BOOL kaldi::quasar::BPE::IsIntraWord(uint64_t a1, uint64_t ***a2)
 {
   v2 = *(a2 + 23);
   v3 = a2[1];
@@ -33,7 +33,7 @@ BOOL kaldi::quasar::BPE::IsIntraWord(uint64_t a1, uint64_t **a2)
   }
 
   v9 = v4 >= v6;
-  v7 = v4 - v6;
+  v7 = (v4 - v6);
   if (!v9)
   {
     return 0;
@@ -90,11 +90,11 @@ LABEL_36:
     v13 = *(a1 + 136);
   }
 
-  v14 = memcmp(a2 + v7, v13, v11);
+  v14 = memcmp(v7 + a2, v13, v11);
   return v11 == v6 && v14 == 0;
 }
 
-void kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::SuppressedIds(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X3>, void *a5@<X8>)
+void kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::SuppressedIds(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t **a4@<X3>, void *a5@<X8>)
 {
   kaldi::quasar::MultiLangDecorator::GetTags(a1 + 120, a2, a3, &v23);
   v20 = 0;
@@ -110,7 +110,7 @@ void kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::S
   {
     v10 = kaldi::quasar::TorchEncoderDecoder::OutputSymbols(*(a1 + 136));
     LODWORD(v19[0]) = (*(*v10 + 96))(v10, v8) - 1;
-    std::__tree<int>::__emplace_unique_key_args<int,int const&>(a5, v19);
+    std::__tree<int>::__emplace_unique_key_args<int,int const&>(a5, v19, v19);
     v8 += 24;
   }
 
@@ -150,7 +150,7 @@ void kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::S
     }
 
     LODWORD(v19[0]) = v14 - 1;
-    std::__tree<int>::__emplace_unique_key_args<int,int const&>(a5, v19);
+    std::__tree<int>::__emplace_unique_key_args<int,int const&>(a5, v19, v19);
     v12 += 24;
   }
 
@@ -162,12 +162,12 @@ void kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::S
   }
 }
 
-void kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::AddInitialHypToCurrent<fst::BackoffDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(uint64_t a1, uint64_t a2)
+void kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::AddInitialHypToCurrent<fst::BackoffDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(uint64_t a1, uint64_t a2, int a3, float a4)
 {
-  v3 = *(a2 + 200);
-  if (v3)
+  v5 = *(a2 + 200);
+  if (v5)
   {
-    (**v3)(v3);
+    (**v5)(v5, a4);
   }
 
   if (*(a2 + 184) == 2)
@@ -178,26 +178,26 @@ void kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::A
   operator new();
 }
 
-uint64_t std::vector<kaldi::Matrix<float>>::push_back[abi:ne200100](uint64_t *a1, uint64_t a2)
+uint64_t std::vector<kaldi::Matrix<float>>::push_back[abi:ne200100](uint64_t a1, int *a2)
 {
-  v3 = a1[1];
-  if (v3 >= a1[2])
+  v3 = *(a1 + 8);
+  if (v3 >= *(a1 + 16))
   {
     result = std::vector<kaldi::Matrix<float>>::__emplace_back_slow_path<kaldi::Matrix<float>>(a1, a2);
   }
 
   else
   {
-    kaldi::Matrix<float>::Matrix(a1[1], a2);
+    kaldi::Matrix<float>::Matrix(*(a1 + 8), a2);
     result = v3 + 40;
-    a1[1] = v3 + 40;
+    *(a1 + 8) = v3 + 40;
   }
 
-  a1[1] = result;
+  *(a1 + 8) = result;
   return result;
 }
 
-uint64_t std::vector<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::HeapElement,std::allocator<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::HeapElement>>::push_back[abi:ne200100](uint64_t *a1, uint64_t a2)
+uint64_t std::vector<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::HeapElement,std::allocator<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::HeapElement>>::push_back[abi:ne200100](unint64_t *a1, uint64_t a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -233,14 +233,14 @@ uint64_t std::vector<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEn
   return result;
 }
 
-uint64_t std::vector<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::HeapElement,std::allocator<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::HeapElement>>::__construct_one_at_end[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::HeapElement const&>(uint64_t a1, uint64_t a2)
+uint64_t *std::vector<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::HeapElement,std::allocator<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::HeapElement>>::__construct_one_at_end[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::HeapElement const&>(uint64_t a1, uint64_t a2)
 {
   v4 = *(a1 + 8);
   *v4 = *a2;
   *(v4 + 16) = 0;
   *(v4 + 24) = 0;
   *(v4 + 8) = 0;
-  result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v4 + 8, *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 2);
+  result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((v4 + 8), *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 2);
   v6 = *(a2 + 32);
   *(v4 + 40) = *(a2 + 40);
   *(v4 + 32) = v6;
@@ -248,7 +248,7 @@ uint64_t std::vector<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEn
   return result;
 }
 
-uint64_t std::vector<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::HeapElement,std::allocator<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::HeapElement>>::__emplace_back_slow_path<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::HeapElement const&>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::HeapElement,std::allocator<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::HeapElement>>::__emplace_back_slow_path<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::HeapElement const&>(unint64_t *a1, uint64_t a2)
 {
   v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 4);
   v3 = v2 + 1;
@@ -286,7 +286,7 @@ uint64_t std::vector<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEn
   *(v7 + 16) = 0;
   *(v7 + 24) = 0;
   *(v7 + 8) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v7 + 8, *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((v7 + 8), *(a2 + 8), *(a2 + 16), (*(a2 + 16) - *(a2 + 8)) >> 2);
   v8 = *(a2 + 32);
   *(v7 + 40) = *(a2 + 40);
   *(v7 + 32) = v8;
@@ -307,9 +307,9 @@ uint64_t std::vector<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEn
   return v14;
 }
 
-void sub_1B58BC230(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B58BC230(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement,std::allocator<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement> &>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -440,26 +440,26 @@ uint64_t std::vector<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEn
   return v14;
 }
 
-void sub_1B58BC48C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B58BC48C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement,std::allocator<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement> &>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::MinHeapCompare,std::__wrap_iter<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::HeapElement *>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::MinHeapCompare,std::__wrap_iter<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::HeapElement *>>(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4 >= 2)
   {
     v8 = *a1;
-    v7 = *(a1 + 8);
-    v10 = *(a1 + 16);
-    v9 = *(a1 + 24);
-    *(a1 + 16) = 0;
-    *(a1 + 24) = 0;
-    *(a1 + 8) = 0;
-    v18 = *(a1 + 32);
-    v19 = *(a1 + 40);
+    v7 = a1[1];
+    v10 = a1[2];
+    v9 = a1[3];
+    a1[2] = 0;
+    a1[3] = 0;
+    a1[1] = 0;
+    v18 = a1[4];
+    v19 = *(a1 + 10);
     v11 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,std::__wrap_iter<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>>(a1, a3, a4);
     v12 = v11;
     if ((a2 - 48) == v11)
@@ -522,32 +522,32 @@ void sub_1B58BC5F4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::HeapElement *,false>(uint64_t *a1, unint64_t a2, uint64_t a3, uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::HeapElement *,false>(std::vector<int> *a1, char *a2, uint64_t a3, uint64_t a4, char a5, __n128 a6)
 {
-  v7 = a2;
-  v8 = a1;
-  v60 = a2;
-  v61 = a1;
+  v8 = a2;
+  v9 = a1;
+  v61 = a2;
+  v62 = a1;
 LABEL_2:
   for (i = 1 - a4; ; ++i)
   {
-    v10 = v7 - v8;
-    v11 = 0xAAAAAAAAAAAAAAABLL * ((v7 - v8) >> 4);
-    if (v11 <= 2)
+    v11 = v8 - v9;
+    v12 = 0xAAAAAAAAAAAAAAABLL * ((v8 - v9) >> 4);
+    if (v12 <= 2)
     {
-      if (v11 < 2)
+      if (v12 < 2)
       {
         return;
       }
 
-      if (v11 == 2)
+      if (v12 == 2)
       {
-        v52 = *(v7 - 12);
-        v60 = v7 - 6;
-        if (v52 > *v8)
+        v53 = *(v8 - 12);
+        v61 = v8 - 48;
+        if (v53 > *&v9->__begin_)
         {
-          v53 = &v61;
-          v54 = &v60;
+          v54 = &v62;
+          v55 = &v61;
           goto LABEL_94;
         }
 
@@ -557,38 +557,38 @@ LABEL_2:
       goto LABEL_10;
     }
 
-    if (v11 == 3)
+    if (v12 == 3)
     {
       break;
     }
 
-    if (v11 == 4)
+    if (v12 == 4)
     {
-      v60 = v7 - 6;
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *,0>(v8, v8 + 6, v8 + 12, v7 - 12);
+      v61 = v8 - 48;
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *,0>(v9, &v9[2], &v9[4], v8 - 12);
       return;
     }
 
-    if (v11 == 5)
+    if (v12 == 5)
     {
-      v60 = v7 - 6;
-      v65 = (v8 + 6);
-      v66 = v8;
-      v63 = (v8 + 18);
-      v64 = (v8 + 12);
-      v62 = v7 - 6;
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *,0>(v8, v8 + 6, v8 + 12, v8 + 36);
-      if (*(v7 - 12) > *(v8 + 36))
+      v61 = v8 - 48;
+      v66 = &v9[2];
+      v67 = v9;
+      v64 = &v9[6];
+      v65 = &v9[4];
+      v63 = v8 - 48;
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *,0>(v9, &v9[2], &v9[4], &v9[6]);
+      if (*(v8 - 12) > *&v9[6].__begin_)
       {
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v63, &v62);
-        if (*v63 > *(v8 + 24))
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v64, &v63);
+        if (*v64 > *&v9[4].__begin_)
         {
-          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v64, &v63);
-          if (*v64 > *(v8 + 12))
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v65, &v64);
+          if (*v65 > *&v9[2].__begin_)
           {
-            std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v65, &v64);
-            v55 = *v65;
-            v56 = *v8;
+            std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v66, &v65);
+            v56 = *v66;
+            v57 = *&v9->__begin_;
             goto LABEL_92;
           }
         }
@@ -598,16 +598,16 @@ LABEL_2:
     }
 
 LABEL_10:
-    if (v10 <= 1151)
+    if (v11 <= 1151)
     {
       if (a5)
       {
-        std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(v8, v7);
+        std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(v9, v8);
       }
 
       else
       {
-        std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(v8, v7);
+        std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(v9, v8);
       }
 
       return;
@@ -615,33 +615,33 @@ LABEL_10:
 
     if (i == 1)
     {
-      if (v8 != v7)
+      if (v9 != v8)
       {
-        std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::HeapElement *,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::HeapElement *>(v8, v7, v7, a3);
+        std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::HeapElement *,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::HeapElement *>(v9, v8, v8, a3, a6);
       }
 
       return;
     }
 
-    v12 = v11 >> 1;
-    v13 = &v8[6 * (v11 >> 1)];
-    v14 = (v7 - 6);
-    if (v10 < 0x1801)
+    v13 = v12 >> 1;
+    v14 = &v9[2 * (v12 >> 1)];
+    v15 = (v8 - 48);
+    if (v11 < 0x1801)
     {
-      v65 = v8;
-      v66 = v13;
-      v64 = (v7 - 6);
-      v19 = *v8;
-      v20 = *v14;
-      if (*v8 <= *v13)
+      v66 = v9;
+      v67 = v14;
+      v65 = (v8 - 48);
+      v20 = *&v9->__begin_;
+      v21 = *v15;
+      if (*&v9->__begin_ <= *&v14->__begin_)
       {
-        if (v20 > v19)
+        if (v21 > v20)
         {
-          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v65, &v64);
-          if (*v65 > *v66)
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v66, &v65);
+          if (*v66 > *v67)
           {
-            v21 = &v66;
-            v22 = &v65;
+            v22 = &v67;
+            v23 = &v66;
             goto LABEL_35;
           }
         }
@@ -649,20 +649,20 @@ LABEL_10:
 
       else
       {
-        v21 = &v66;
-        if (v20 > v19)
+        v22 = &v67;
+        if (v21 > v20)
         {
           goto LABEL_22;
         }
 
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v66, &v65);
-        if (*v64 > *v65)
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v67, &v66);
+        if (*v65 > *v66)
         {
-          v21 = &v65;
+          v22 = &v66;
 LABEL_22:
-          v22 = &v64;
+          v23 = &v65;
 LABEL_35:
-          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(v21, v22);
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(v22, v23);
         }
       }
 
@@ -674,361 +674,361 @@ LABEL_35:
       goto LABEL_63;
     }
 
-    v65 = v13;
-    v66 = v8;
-    v64 = (v7 - 6);
-    v15 = *v13;
-    v16 = *v14;
-    if (*v13 > *v8)
+    v66 = v14;
+    v67 = v9;
+    v65 = (v8 - 48);
+    v16 = *&v14->__begin_;
+    v17 = *v15;
+    if (*&v14->__begin_ > *&v9->__begin_)
     {
-      v17 = &v66;
-      if (v16 <= v15)
+      v18 = &v67;
+      if (v17 <= v16)
       {
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v66, &v65);
-        if (*v64 <= *v65)
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v67, &v66);
+        if (*v65 <= *v66)
         {
           goto LABEL_27;
         }
 
-        v17 = &v65;
+        v18 = &v66;
       }
 
-      v18 = &v64;
+      v19 = &v65;
       goto LABEL_26;
     }
 
-    if (v16 > v15)
+    if (v17 > v16)
     {
-      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v65, &v64);
-      if (*v65 > *v66)
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v66, &v65);
+      if (*v66 > *v67)
       {
-        v17 = &v66;
-        v18 = &v65;
+        v18 = &v67;
+        v19 = &v66;
 LABEL_26:
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(v17, v18);
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(v18, v19);
       }
     }
 
 LABEL_27:
-    v23 = &v8[6 * v12];
-    v25 = *(v23 - 12);
-    v24 = v23 - 6;
-    v26 = v25;
-    v27 = *(v8 + 12);
-    v65 = v24;
-    v66 = (v8 + 6);
-    v28 = *(v7 - 24);
-    v64 = (v7 - 12);
-    if (v25 > v27)
+    v24 = &v9[2 * v13];
+    v26 = *&v24[-2].__begin_;
+    v25 = &v24[-2];
+    v27 = v26;
+    v28 = *&v9[2].__begin_;
+    v66 = v25;
+    v67 = &v9[2];
+    v29 = *(v8 - 24);
+    v65 = (v8 - 96);
+    if (v26 > v28)
     {
-      v29 = &v66;
-      if (v28 <= v26)
+      v30 = &v67;
+      if (v29 <= v27)
       {
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v66, &v65);
-        if (*v64 <= *v65)
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v67, &v66);
+        if (*v65 <= *v66)
         {
           goto LABEL_42;
         }
 
-        v29 = &v65;
+        v30 = &v66;
       }
 
-      v30 = &v64;
+      v31 = &v65;
       goto LABEL_41;
     }
 
-    if (v28 > v26)
+    if (v29 > v27)
     {
-      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v65, &v64);
-      if (*v65 > *v66)
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v66, &v65);
+      if (*v66 > *v67)
       {
-        v29 = &v66;
-        v30 = &v65;
+        v30 = &v67;
+        v31 = &v66;
 LABEL_41:
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(v29, v30);
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(v30, v31);
       }
     }
 
 LABEL_42:
-    v31 = &v8[6 * v12];
-    v33 = *(v31 + 12);
-    v32 = v31 + 6;
-    v34 = v33;
-    v35 = *(v8 + 24);
-    v65 = v32;
-    v66 = (v8 + 12);
-    v36 = *(v7 - 36);
-    v64 = (v7 - 18);
-    if (v33 > v35)
+    v32 = &v9[2 * v13];
+    v34 = *&v32[2].__begin_;
+    v33 = &v32[2];
+    v35 = v34;
+    v36 = *&v9[4].__begin_;
+    v66 = v33;
+    v67 = &v9[4];
+    v37 = *(v8 - 36);
+    v65 = (v8 - 144);
+    if (v34 > v36)
     {
-      v37 = &v66;
-      if (v36 <= v34)
+      v38 = &v67;
+      if (v37 <= v35)
       {
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v66, &v65);
-        if (*v64 <= *v65)
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v67, &v66);
+        if (*v65 <= *v66)
         {
           goto LABEL_51;
         }
 
-        v37 = &v65;
+        v38 = &v66;
       }
 
-      v38 = &v64;
+      v39 = &v65;
       goto LABEL_50;
     }
 
-    if (v36 > v34)
+    if (v37 > v35)
     {
-      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v65, &v64);
-      if (*v65 > *v66)
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v66, &v65);
+      if (*v66 > *v67)
       {
-        v37 = &v66;
-        v38 = &v65;
+        v38 = &v67;
+        v39 = &v66;
 LABEL_50:
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(v37, v38);
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(v38, v39);
       }
     }
 
 LABEL_51:
-    v65 = v13;
-    v66 = v24;
-    v64 = v32;
-    v39 = *v13;
-    v40 = *v32;
-    if (*v13 <= *v24)
+    v66 = v14;
+    v67 = v25;
+    v65 = v33;
+    v40 = *&v14->__begin_;
+    v41 = *v33;
+    if (*&v14->__begin_ <= *v25)
     {
-      if (v40 <= v39)
+      if (v41 <= v40)
       {
         goto LABEL_60;
       }
 
-      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v65, &v64);
-      if (*v65 <= *v66)
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v66, &v65);
+      if (*v66 <= *v67)
       {
         goto LABEL_60;
       }
 
-      v41 = &v66;
-      v42 = &v65;
+      v42 = &v67;
+      v43 = &v66;
     }
 
     else
     {
-      v41 = &v66;
-      if (v40 <= v39)
+      v42 = &v67;
+      if (v41 <= v40)
       {
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v66, &v65);
-        if (*v64 <= *v65)
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v67, &v66);
+        if (*v65 <= *v66)
         {
           goto LABEL_60;
         }
 
-        v41 = &v65;
+        v42 = &v66;
       }
 
-      v42 = &v64;
+      v43 = &v65;
     }
 
-    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(v41, v42);
+    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(v42, v43);
 LABEL_60:
-    v43 = *v8;
-    v59 = *(v8 + 1);
-    v8[1] = 0;
-    v45 = v8[3];
-    v44 = v8[4];
-    v8[2] = 0;
-    v8[3] = 0;
-    v66 = v44;
-    v67 = *(v8 + 10);
-    *v8 = *v13;
-    std::vector<int>::__move_assign((v8 + 1), (v13 + 1));
-    v46 = v13[4];
-    *(v8 + 10) = *(v13 + 10);
-    v8[4] = v46;
-    *v13 = v43;
-    v47 = v13[1];
-    if (v47)
+    begin = v9->__begin_;
+    v60 = *&v9->__end_;
+    v9->__end_ = 0;
+    v46 = v9[1].__begin_;
+    end = v9[1].__end_;
+    v9->__end_cap_.__value_ = 0;
+    v9[1].__begin_ = 0;
+    v67 = end;
+    value = v9[1].__end_cap_.__value_;
+    v9->__begin_ = v14->__begin_;
+    std::vector<int>::__move_assign(&v9->__end_, &v14->__end_);
+    v47 = v14[1].__end_;
+    LODWORD(v9[1].__end_cap_.__value_) = v14[1].__end_cap_.__value_;
+    v9[1].__end_ = v47;
+    v14->__begin_ = begin;
+    v48 = v14->__end_;
+    if (v48)
     {
-      v13[2] = v47;
-      operator delete(v47);
+      v14->__end_cap_.__value_ = v48;
+      operator delete(v48);
     }
 
-    *(v13 + 1) = v59;
-    v13[3] = v45;
-    v48 = v66;
-    *(v13 + 10) = v67;
-    v13[4] = v48;
-    v8 = v61;
+    *&v14->__end_ = v60;
+    v14[1].__begin_ = v46;
+    v49 = v67;
+    LODWORD(v14[1].__end_cap_.__value_) = value;
+    v14[1].__end_ = v49;
+    v9 = v62;
     if (a5)
     {
 LABEL_37:
-      v7 = v60;
+      v8 = v61;
       goto LABEL_64;
     }
 
 LABEL_63:
-    v7 = v60;
-    if (*(v8 - 12) <= *v8)
+    v8 = v61;
+    if (*&v9[-2].__begin_ <= *&v9->__begin_)
     {
-      v8 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &>(v8, v60);
+      v9 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &>(v9, v61);
       goto LABEL_73;
     }
 
 LABEL_64:
-    v49 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &>(v8, v7);
-    if ((v50 & 1) == 0)
+    v50 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &>(v9, v8);
+    if ((v51 & 1) == 0)
     {
       goto LABEL_71;
     }
 
-    v51 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(v8, v49);
-    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(v49 + 6, v7))
+    v52 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(v9, v50);
+    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(&v50[2], v8))
     {
-      if (v51)
+      if (v52)
       {
         return;
       }
 
-      v60 = v49;
-      v7 = v49;
+      v61 = v50;
+      v8 = v50;
     }
 
     else
     {
-      if (!v51)
+      if (!v52)
       {
 LABEL_71:
-        std::__introsort<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::HeapElement *,false>(v8, v49, a3, -i, a5 & 1);
-        v8 = v49 + 6;
+        std::__introsort<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::HeapElement *,false>(v9, v50, a3, -i, a5 & 1);
+        v9 = v50 + 2;
 LABEL_73:
         a5 = 0;
-        v61 = v8;
+        v62 = v9;
         a4 = -i;
         goto LABEL_2;
       }
 
-      v61 = v49 + 6;
-      v8 = v49 + 6;
+      v62 = &v50[2];
+      v9 = v50 + 2;
     }
   }
 
-  v57 = *(v8 + 12);
-  v65 = (v8 + 6);
-  v66 = v8;
-  v58 = *(v7 - 12);
-  v64 = (v7 - 6);
-  if (v57 > *v8)
+  v58 = *&v9[2].__begin_;
+  v66 = &v9[2];
+  v67 = v9;
+  v59 = *(v8 - 12);
+  v65 = (v8 - 48);
+  if (v58 > *&v9->__begin_)
   {
-    v53 = &v66;
-    if (v58 <= v57)
+    v54 = &v67;
+    if (v59 <= v58)
     {
-      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v66, &v65);
-      if (*v64 <= *v65)
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v67, &v66);
+      if (*v65 <= *v66)
       {
         return;
       }
 
-      v53 = &v65;
+      v54 = &v66;
     }
 
-    v54 = &v64;
+    v55 = &v65;
     goto LABEL_94;
   }
 
-  if (v58 > v57)
+  if (v59 > v58)
   {
-    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v65, &v64);
-    v55 = *v65;
+    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v66, &v65);
     v56 = *v66;
+    v57 = *v67;
 LABEL_92:
-    if (v55 > v56)
+    if (v56 > v57)
     {
-      v53 = &v66;
-      v54 = &v65;
+      v54 = &v67;
+      v55 = &v66;
 LABEL_94:
-      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(v53, v54);
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(v54, v55);
     }
   }
 }
 
-uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::HeapElement *,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::HeapElement *>(float *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
+uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::HeapElement *,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::HeapElement *>(float *a1, char *a2, uint64_t *a3, uint64_t a4, __n128 a5)
 {
-  v18 = a1;
+  v19 = a1;
   if (a1 != a2)
   {
-    v6 = a2;
-    v7 = a1;
-    v8 = a2 - a1;
-    v9 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 4);
+    v7 = a2;
+    v8 = a1;
+    v9 = a2 - a1;
+    v10 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 4);
     if (a2 - a1 >= 49)
     {
-      v10 = (v9 - 2) >> 1;
-      v11 = v10 + 1;
-      v12 = &a1[12 * v10];
+      v11 = (v10 - 2) >> 1;
+      v12 = v11 + 1;
+      v13 = &a1[12 * v11];
       do
       {
-        std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(v7, a4, v9, v12);
-        v12 -= 48;
-        --v11;
+        std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(v8, a4, v10, v13);
+        v13 -= 12;
+        --v12;
       }
 
-      while (v11);
+      while (v12);
     }
 
-    v17 = v6;
-    v13 = v6;
-    if (v6 != a3)
+    v18 = v7;
+    v14 = v7;
+    if (v7 != a3)
     {
       do
       {
-        if (*v13 > *v18)
+        if (*v14 > *v19)
         {
-          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v17, &v18);
-          std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(v18, a4, v9, v18);
-          v13 = v17;
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *&>(&v18, &v19);
+          std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(v19, a4, v10, v19);
+          v14 = v18;
         }
 
-        v13 += 6;
-        v17 = v13;
+        v14 += 6;
+        v18 = v14;
       }
 
-      while (v13 != a3);
-      v7 = v18;
-      v8 = v6 - v18;
+      while (v14 != a3);
+      v8 = v19;
+      v9 = v7 - v19;
     }
 
-    if (v8 >= 49)
+    if (v9 >= 49)
     {
-      v14 = 0xAAAAAAAAAAAAAAABLL * (v8 >> 4);
+      v15 = 0xAAAAAAAAAAAAAAABLL * (v9 >> 4);
       do
       {
-        std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::MinHeapCompare,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::HeapElement *>(v7, v6, a4, v14);
-        v6 -= 6;
+        std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::MinHeapCompare,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::HeapElement *>(v8, v7, a4, v15);
+        v7 -= 6;
       }
 
-      while (v14-- > 2);
-      return v17;
+      while (v15-- > 2);
+      return v18;
     }
 
-    return v13;
+    return v14;
   }
 
   return a3;
 }
 
-void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::MinHeapCompare,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::HeapElement *>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::MinHeapCompare,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::HeapElement *>(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4 >= 2)
   {
     v8 = *a1;
-    v7 = *(a1 + 8);
-    v10 = *(a1 + 16);
-    v9 = *(a1 + 24);
-    *(a1 + 16) = 0;
-    *(a1 + 24) = 0;
-    *(a1 + 8) = 0;
-    v18 = *(a1 + 32);
-    v19 = *(a1 + 40);
+    v7 = a1[1];
+    v10 = a1[2];
+    v9 = a1[3];
+    a1[2] = 0;
+    a1[3] = 0;
+    a1[1] = 0;
+    v18 = a1[4];
+    v19 = *(a1 + 10);
     v11 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::MinHeapCompare &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::HeapElement *>(a1, a3, a4);
     v12 = v11;
     if (v11 == (a2 - 48))
@@ -1098,7 +1098,7 @@ __n128 std::vector<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEnco
   *(v4 + 24) = 0;
   *(v4 + 32) = 0;
   *(v4 + 16) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v4 + 16, *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((v4 + 16), *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 2);
   result = *(a2 + 40);
   *(v4 + 40) = result;
   *(a1 + 8) = v4 + 56;
@@ -1143,7 +1143,7 @@ uint64_t std::vector<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEn
   *(v7 + 24) = 0;
   *(v7 + 32) = 0;
   *(v7 + 16) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v7 + 16, *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((v7 + 16), *(a2 + 16), *(a2 + 24), (*(a2 + 24) - *(a2 + 16)) >> 2);
   *(v7 + 40) = *(a2 + 40);
   *&v16 = v16 + 56;
   v8 = a1[1];
@@ -1162,9 +1162,9 @@ uint64_t std::vector<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEn
   return v13;
 }
 
-void sub_1B58BD104(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B58BD104(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement,std::allocator<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement> &>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1230,32 +1230,32 @@ uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<st
   return a1;
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::ScoreElement *,false>(__int128 *a1, unint64_t a2, uint64_t a3, uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::ScoreElement *,false>(std::vector<int> *a1, char *a2, uint64_t a3, uint64_t a4, char a5, __n128 a6)
 {
-  v7 = a2;
-  v8 = a1;
-  v57 = a2;
-  v58 = a1;
+  v8 = a2;
+  v9 = a1;
+  v58 = a2;
+  v59 = a1;
 LABEL_2:
   for (i = 1 - a4; ; ++i)
   {
-    v10 = v7 - v8;
-    v11 = 0x6DB6DB6DB6DB6DB7 * ((v7 - v8) >> 3);
-    if (v11 <= 2)
+    v11 = v8 - v9;
+    v12 = 0x6DB6DB6DB6DB6DB7 * ((v8 - v9) >> 3);
+    if (v12 <= 2)
     {
-      if (v11 < 2)
+      if (v12 < 2)
       {
         return;
       }
 
-      if (v11 == 2)
+      if (v12 == 2)
       {
-        v49 = *(v7 - 14);
-        v57 = (v7 - 56);
-        if (v49 < *v8)
+        v50 = *(v8 - 14);
+        v58 = v8 - 56;
+        if (v50 < *&v9->__begin_)
         {
-          v50 = &v58;
-          v51 = &v57;
+          v51 = &v59;
+          v52 = &v58;
           goto LABEL_94;
         }
 
@@ -1265,38 +1265,38 @@ LABEL_2:
       goto LABEL_10;
     }
 
-    if (v11 == 3)
+    if (v12 == 3)
     {
       break;
     }
 
-    if (v11 == 4)
+    if (v12 == 4)
     {
-      v57 = (v7 - 56);
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *,0>(v8, (v8 + 56), v8 + 7, v7 - 14);
+      v58 = v8 - 56;
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *,0>(v9, &v9[2].__end_, &v9[4].__end_cap_, v8 - 14);
       return;
     }
 
-    if (v11 == 5)
+    if (v12 == 5)
     {
-      v57 = (v7 - 56);
-      *&v63 = v8;
-      v61 = (v8 + 7);
-      *&v62 = v8 + 56;
-      v59 = v7 - 56;
-      v60 = v8 + 42;
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *,0>(v8, (v8 + 56), v8 + 7, v8 + 42);
-      if (*(v7 - 14) < *(v8 + 42))
+      v58 = v8 - 56;
+      *&v64 = v9;
+      p_end_cap = &v9[4].__end_cap_;
+      *&v63 = v9 + 56;
+      v60 = v8 - 56;
+      v61 = &v9[7];
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *,0>(v9, &v9[2].__end_, &v9[4].__end_cap_, &v9[7]);
+      if (*(v8 - 14) < *&v9[7].__begin_)
       {
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v60, &v59);
-        if (*v60 < *(v8 + 28))
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v61, &v60);
+        if (*v61 < *&v9[4].__end_cap_.__value_)
         {
-          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v61, &v60);
-          if (*v61 < *(v8 + 14))
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&p_end_cap, &v61);
+          if (*p_end_cap < *&v9[2].__end_)
           {
-            std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v62, &v61);
-            v52 = *v62;
-            v53 = *v8;
+            std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v63, &p_end_cap);
+            v53 = *v63;
+            v54 = *&v9->__begin_;
             goto LABEL_92;
           }
         }
@@ -1306,16 +1306,16 @@ LABEL_2:
     }
 
 LABEL_10:
-    if (v10 <= 1343)
+    if (v11 <= 1343)
     {
       if (a5)
       {
-        std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>(v8, v7);
+        std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>(v9, v8);
       }
 
       else
       {
-        std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>(v8, v7);
+        std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>(v9, v8);
       }
 
       return;
@@ -1323,33 +1323,33 @@ LABEL_10:
 
     if (i == 1)
     {
-      if (v8 != v7)
+      if (v9 != v8)
       {
-        std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::ScoreElement *,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::ScoreElement *>(v8, v7, v7, a3);
+        std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::ScoreElement *,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::ScoreElement *>(v9, v8, v8, a3, a6);
       }
 
       return;
     }
 
-    v12 = v11 >> 1;
-    v13 = v8 + 56 * (v11 >> 1);
-    v14 = v7 - 14;
-    if (v10 < 0x1C01)
+    v13 = v12 >> 1;
+    v14 = v9 + 56 * (v12 >> 1);
+    v15 = (v8 - 56);
+    if (v11 < 0x1C01)
     {
-      *&v63 = v13;
-      v61 = v7 - 14;
-      *&v62 = v8;
-      v19 = *v8;
-      v20 = *v14;
-      if (*v8 >= *v13)
+      *&v64 = v14;
+      p_end_cap = (v8 - 56);
+      *&v63 = v9;
+      v20 = *&v9->__begin_;
+      v21 = *v15;
+      if (*&v9->__begin_ >= *v14)
       {
-        if (v20 < v19)
+        if (v21 < v20)
         {
-          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v62, &v61);
-          if (*v62 < *v63)
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v63, &p_end_cap);
+          if (*v63 < *v64)
           {
-            v21 = &v63;
-            v22 = &v62;
+            v22 = &v64;
+            p_p_end_cap = &v63;
             goto LABEL_35;
           }
         }
@@ -1357,20 +1357,20 @@ LABEL_10:
 
       else
       {
-        v21 = &v63;
-        if (v20 < v19)
+        v22 = &v64;
+        if (v21 < v20)
         {
           goto LABEL_22;
         }
 
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v63, &v62);
-        if (*v61 < *v62)
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v64, &v63);
+        if (*p_end_cap < *v63)
         {
-          v21 = &v62;
+          v22 = &v63;
 LABEL_22:
-          v22 = &v61;
+          p_p_end_cap = &p_end_cap;
 LABEL_35:
-          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(v21, v22);
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(v22, p_p_end_cap);
         }
       }
 
@@ -1382,354 +1382,354 @@ LABEL_35:
       goto LABEL_63;
     }
 
-    *&v63 = v8;
-    v61 = v7 - 14;
-    *&v62 = v13;
-    v15 = *v13;
+    *&v64 = v9;
+    p_end_cap = (v8 - 56);
+    *&v63 = v14;
     v16 = *v14;
-    if (*v13 < *v8)
+    v17 = *v15;
+    if (*v14 < *&v9->__begin_)
     {
-      v17 = &v63;
-      if (v16 >= v15)
+      v18 = &v64;
+      if (v17 >= v16)
       {
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v63, &v62);
-        if (*v61 >= *v62)
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v64, &v63);
+        if (*p_end_cap >= *v63)
         {
           goto LABEL_27;
         }
 
-        v17 = &v62;
+        v18 = &v63;
       }
 
-      v18 = &v61;
+      v19 = &p_end_cap;
       goto LABEL_26;
     }
 
-    if (v16 < v15)
+    if (v17 < v16)
     {
-      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v62, &v61);
-      if (*v62 < *v63)
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v63, &p_end_cap);
+      if (*v63 < *v64)
       {
-        v17 = &v63;
-        v18 = &v62;
+        v18 = &v64;
+        v19 = &v63;
 LABEL_26:
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(v17, v18);
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(v18, v19);
       }
     }
 
 LABEL_27:
-    v23 = v8 + 14 * v12;
-    v25 = *(v23 - 14);
-    v24 = v23 - 14;
-    v26 = v25;
-    v27 = *(v8 + 14);
-    *&v63 = v8 + 56;
-    *&v62 = v24;
-    v28 = *(v7 - 28);
-    v61 = (v7 - 7);
-    if (v25 < v27)
+    v24 = (v9 + 56 * v13);
+    v26 = *(v24 - 14);
+    v25 = v24 - 14;
+    v27 = v26;
+    v28 = *&v9[2].__end_;
+    *&v64 = v9 + 56;
+    *&v63 = v25;
+    v29 = *(v8 - 28);
+    p_end_cap = (v8 - 112);
+    if (v26 < v28)
     {
-      v29 = &v63;
-      if (v28 >= v26)
+      v30 = &v64;
+      if (v29 >= v27)
       {
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v63, &v62);
-        if (*v61 >= *v62)
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v64, &v63);
+        if (*p_end_cap >= *v63)
         {
           goto LABEL_42;
         }
 
-        v29 = &v62;
+        v30 = &v63;
       }
 
-      v30 = &v61;
+      v31 = &p_end_cap;
       goto LABEL_41;
     }
 
-    if (v28 < v26)
+    if (v29 < v27)
     {
-      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v62, &v61);
-      if (*v62 < *v63)
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v63, &p_end_cap);
+      if (*v63 < *v64)
       {
-        v29 = &v63;
-        v30 = &v62;
+        v30 = &v64;
+        v31 = &v63;
 LABEL_41:
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(v29, v30);
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(v30, v31);
       }
     }
 
 LABEL_42:
-    v31 = v8 + 14 * v12;
-    v33 = v31[14];
-    v32 = (v31 + 14);
-    v34 = v33;
-    v35 = *(v8 + 28);
-    *&v63 = v8 + 7;
-    *&v62 = v32;
-    v36 = *(v7 - 42);
-    v61 = v7 - 42;
-    if (v33 < v35)
+    v32 = (v9 + 56 * v13);
+    v34 = v32[14];
+    v33 = (v32 + 14);
+    v35 = v34;
+    v36 = *&v9[4].__end_cap_.__value_;
+    *&v64 = v9 + 112;
+    *&v63 = v33;
+    v37 = *(v8 - 42);
+    p_end_cap = (v8 - 168);
+    if (v34 < v36)
     {
-      v37 = &v63;
-      if (v36 >= v34)
+      v38 = &v64;
+      if (v37 >= v35)
       {
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v63, &v62);
-        if (*v61 >= *v62)
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v64, &v63);
+        if (*p_end_cap >= *v63)
         {
           goto LABEL_51;
         }
 
-        v37 = &v62;
+        v38 = &v63;
       }
 
-      v38 = &v61;
+      v39 = &p_end_cap;
       goto LABEL_50;
     }
 
-    if (v36 < v34)
+    if (v37 < v35)
     {
-      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v62, &v61);
-      if (*v62 < *v63)
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v63, &p_end_cap);
+      if (*v63 < *v64)
       {
-        v37 = &v63;
-        v38 = &v62;
+        v38 = &v64;
+        v39 = &v63;
 LABEL_50:
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(v37, v38);
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(v38, v39);
       }
     }
 
 LABEL_51:
-    *&v63 = v24;
-    v61 = v32;
-    *&v62 = v13;
-    v39 = *v13;
-    v40 = *v32;
-    if (*v13 >= *v24)
+    *&v64 = v25;
+    p_end_cap = v33;
+    *&v63 = v14;
+    v40 = *v14;
+    v41 = *v33;
+    if (*v14 >= *v25)
     {
-      if (v40 >= v39)
+      if (v41 >= v40)
       {
         goto LABEL_60;
       }
 
-      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v62, &v61);
-      if (*v62 >= *v63)
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v63, &p_end_cap);
+      if (*v63 >= *v64)
       {
         goto LABEL_60;
       }
 
-      v41 = &v63;
-      v42 = &v62;
+      v42 = &v64;
+      v43 = &v63;
     }
 
     else
     {
-      v41 = &v63;
-      if (v40 >= v39)
+      v42 = &v64;
+      if (v41 >= v40)
       {
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v63, &v62);
-        if (*v61 >= *v62)
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v64, &v63);
+        if (*p_end_cap >= *v63)
         {
           goto LABEL_60;
         }
 
-        v41 = &v62;
+        v42 = &v63;
       }
 
-      v42 = &v61;
+      v43 = &p_end_cap;
     }
 
-    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(v41, v42);
+    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(v42, v43);
 LABEL_60:
-    v43 = *v8;
-    v56 = v8[1];
-    v44 = *(v8 + 4);
-    *(v8 + 2) = 0;
-    *(v8 + 3) = 0;
-    *(v8 + 4) = 0;
-    v62 = *(v8 + 40);
-    v63 = v43;
-    *v8 = *v13;
-    std::vector<int>::__move_assign((v8 + 1), v13 + 1);
-    *(v8 + 40) = *(v13 + 40);
-    *v13 = v63;
-    v45 = *(v13 + 2);
-    if (v45)
+    v44 = *&v9->__begin_;
+    v57 = *&v9->__end_cap_.__value_;
+    end = v9[1].__end_;
+    v9->__end_cap_.__value_ = 0;
+    v9[1].__begin_ = 0;
+    v9[1].__end_ = 0;
+    v63 = *&v9[1].__end_cap_.__value_;
+    v64 = v44;
+    *&v9->__begin_ = *v14;
+    std::vector<int>::__move_assign(&v9->__end_cap_, v14 + 1);
+    *&v9[1].__end_cap_.__value_ = *(v14 + 40);
+    *v14 = v64;
+    v46 = *(v14 + 2);
+    if (v46)
     {
-      *(v13 + 3) = v45;
-      operator delete(v45);
+      *(v14 + 3) = v46;
+      operator delete(v46);
     }
 
-    *(v13 + 1) = v56;
-    *(v13 + 4) = v44;
-    *(v13 + 40) = v62;
-    v8 = v58;
+    *(v14 + 1) = v57;
+    *(v14 + 4) = end;
+    *(v14 + 40) = v63;
+    v9 = v59;
     if (a5)
     {
 LABEL_37:
-      v7 = v57;
+      v8 = v58;
       goto LABEL_64;
     }
 
 LABEL_63:
-    v7 = v57;
-    if (*(v8 - 14) >= *v8)
+    v8 = v58;
+    if (*&v9[-3].__end_cap_.__value_ >= *&v9->__begin_)
     {
-      v8 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *,std::__less<void,void> &>(v8, v57);
+      v9 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *,std::__less<void,void> &>(v9, v58);
       goto LABEL_73;
     }
 
 LABEL_64:
-    v46 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *,std::__less<void,void> &>(v8, v7);
-    if ((v47 & 1) == 0)
+    v47 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *,std::__less<void,void> &>(v9, v8);
+    if ((v48 & 1) == 0)
     {
       goto LABEL_71;
     }
 
-    v48 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>(v8, v46);
-    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>((v46 + 56), v7))
+    v49 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>(v9, v47);
+    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>((v47 + 56), v8))
     {
-      if (v48)
+      if (v49)
       {
         return;
       }
 
-      v57 = v46;
-      v7 = v46;
+      v58 = v47;
+      v8 = v47;
     }
 
     else
     {
-      if (!v48)
+      if (!v49)
       {
 LABEL_71:
-        std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::ScoreElement *,false>(v8, v46, a3, -i, a5 & 1);
-        v8 = (v46 + 56);
+        std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::ScoreElement *,false>(v9, v47, a3, -i, a5 & 1);
+        v9 = (v47 + 56);
 LABEL_73:
         a5 = 0;
-        v58 = v8;
+        v59 = v9;
         a4 = -i;
         goto LABEL_2;
       }
 
-      v58 = (v46 + 56);
-      v8 = (v46 + 56);
+      v59 = (v47 + 56);
+      v9 = (v47 + 56);
     }
   }
 
-  *&v63 = v8;
-  v54 = *(v8 + 14);
-  *&v62 = v8 + 56;
-  v55 = *(v7 - 14);
-  v61 = v7 - 14;
-  if (v54 < *v8)
+  *&v64 = v9;
+  v55 = *&v9[2].__end_;
+  *&v63 = v9 + 56;
+  v56 = *(v8 - 14);
+  p_end_cap = (v8 - 56);
+  if (v55 < *&v9->__begin_)
   {
-    v50 = &v63;
-    if (v55 >= v54)
+    v51 = &v64;
+    if (v56 >= v55)
     {
-      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v63, &v62);
-      if (*v61 >= *v62)
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v64, &v63);
+      if (*p_end_cap >= *v63)
       {
         return;
       }
 
-      v50 = &v62;
+      v51 = &v63;
     }
 
-    v51 = &v61;
+    v52 = &p_end_cap;
     goto LABEL_94;
   }
 
-  if (v55 < v54)
+  if (v56 < v55)
   {
-    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v62, &v61);
-    v52 = *v62;
+    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v63, &p_end_cap);
     v53 = *v63;
+    v54 = *v64;
 LABEL_92:
-    if (v52 < v53)
+    if (v53 < v54)
     {
-      v50 = &v63;
-      v51 = &v62;
+      v51 = &v64;
+      v52 = &v63;
 LABEL_94:
-      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(v50, v51);
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(v51, v52);
     }
   }
 }
 
-__int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::ScoreElement *,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::ScoreElement *>(float *a1, __int128 *a2, __int128 *a3, uint64_t a4)
+__int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::ScoreElement *,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::ScoreElement *>(float *a1, char *a2, __int128 *a3, uint64_t a4, __n128 a5)
 {
-  v18 = a1;
+  v19 = a1;
   if (a1 != a2)
   {
-    v6 = a2;
-    v7 = a1;
-    v8 = a2 - a1;
-    v9 = 0x6DB6DB6DB6DB6DB7 * ((a2 - a1) >> 3);
+    v7 = a2;
+    v8 = a1;
+    v9 = a2 - a1;
+    v10 = 0x6DB6DB6DB6DB6DB7 * ((a2 - a1) >> 3);
     if (a2 - a1 >= 57)
     {
-      v10 = (v9 - 2) >> 1;
-      v11 = v10 + 1;
-      v12 = &a1[14 * v10];
+      v11 = (v10 - 2) >> 1;
+      v12 = v11 + 1;
+      v13 = &a1[14 * v11];
       do
       {
-        std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>(v7, a4, v9, v12);
-        v12 -= 56;
-        --v11;
+        std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>(v8, a4, v10, v13);
+        v13 -= 14;
+        --v12;
       }
 
-      while (v11);
+      while (v12);
     }
 
-    v17 = v6;
-    v13 = v6;
-    if (v6 != a3)
+    v18 = v7;
+    v14 = v7;
+    if (v7 != a3)
     {
       do
       {
-        if (*v13 < *v18)
+        if (*v14 < *v19)
         {
-          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v17, &v18);
-          std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>(v18, a4, v9, v18);
-          v13 = v17;
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *&>(&v18, &v19);
+          std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>(v19, a4, v10, v19);
+          v14 = v18;
         }
 
-        v13 = (v13 + 56);
-        v17 = v13;
+        v14 = (v14 + 56);
+        v18 = v14;
       }
 
-      while (v13 != a3);
-      v7 = v18;
-      v8 = v6 - v18;
+      while (v14 != a3);
+      v8 = v19;
+      v9 = v7 - v19;
     }
 
-    if (v8 >= 57)
+    if (v9 >= 57)
     {
-      v14 = 0x6DB6DB6DB6DB6DB7 * (v8 >> 3);
+      v15 = 0x6DB6DB6DB6DB6DB7 * (v9 >> 3);
       do
       {
-        std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void>,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::ScoreElement *>(v7, v6, a4, v14);
-        v6 = (v6 - 56);
+        std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void>,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::ScoreElement *>(v8, v7, a4, v15);
+        v7 = (v7 - 56);
       }
 
-      while (v14-- > 2);
-      return v17;
+      while (v15-- > 2);
+      return v18;
     }
 
-    return v13;
+    return v14;
   }
 
   return a3;
 }
 
-__n128 std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void>,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::ScoreElement *>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+__n128 std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void>,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::ScoreElement *>(__int128 *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4 >= 2)
   {
     v7 = *a1;
-    v8 = *(a1 + 16);
-    v9 = *(a1 + 24);
-    v10 = *(a1 + 32);
-    *(a1 + 16) = 0;
-    *(a1 + 24) = 0;
-    *(a1 + 32) = 0;
+    v8 = *(a1 + 2);
+    v9 = *(a1 + 3);
+    v10 = *(a1 + 4);
+    *(a1 + 2) = 0;
+    *(a1 + 3) = 0;
+    *(a1 + 4) = 0;
     v18 = *(a1 + 40);
     v19 = v7;
     v11 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ScoreElement *>(a1, a3, a4);
@@ -1800,7 +1800,7 @@ uint64_t kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
   *(a1 + 24) = 0;
-  std::vector<kaldi::CuMatrix<float>>::__init_with_size[abi:ne200100]<kaldi::CuMatrix<float>*,kaldi::CuMatrix<float>*>(a1 + 8, *(a6 + 8), *(a6 + 16), 0xAAAAAAAAAAAAAAABLL * ((*(a6 + 16) - *(a6 + 8)) >> 4));
+  std::vector<kaldi::CuMatrix<float>>::__init_with_size[abi:ne200100]<kaldi::CuMatrix<float>*,kaldi::CuMatrix<float>*>((a1 + 8), *(a6 + 8), *(a6 + 16), 0xAAAAAAAAAAAAAAABLL * ((*(a6 + 16) - *(a6 + 8)) >> 4));
   v14 = *(a6 + 44);
   *(a1 + 56) = 0;
   *(a1 + 32) = a2;
@@ -1840,19 +1840,19 @@ uint64_t kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder
   return a1;
 }
 
-void sub_1B58BDCC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1B58BDCC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
-  kaldi::CuMatrix<float>::~CuMatrix(v8);
+  va_start(va, a11);
+  kaldi::CuMatrix<float>::~CuMatrix(v13);
   std::vector<kaldi::Vector<float>>::__destroy_vector::operator()[abi:ne200100](va);
-  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table(v6 + 160);
-  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table(v6 + 120);
-  std::__hash_table<std::__hash_value_type<kaldi::quasar::AbstractAttribute *,std::vector<std::pair<int,int>>>,std::__unordered_map_hasher<kaldi::quasar::AbstractAttribute *,std::__hash_value_type<kaldi::quasar::AbstractAttribute *,std::vector<std::pair<int,int>>>,kaldi::quasar::AttributeHash,kaldi::quasar::AttributeEquality,true>,std::__unordered_map_equal<kaldi::quasar::AbstractAttribute *,std::__hash_value_type<kaldi::quasar::AbstractAttribute *,std::vector<std::pair<int,int>>>,kaldi::quasar::AttributeEquality,kaldi::quasar::AttributeHash,true>,std::allocator<std::__hash_value_type<kaldi::quasar::AbstractAttribute *,std::vector<std::pair<int,int>>>>>::~__hash_table((v7 + 3));
-  v10 = *v7;
-  if (*v7)
+  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table(v11 + 160);
+  std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table(v11 + 120);
+  std::__hash_table<std::__hash_value_type<kaldi::quasar::AbstractAttribute *,std::vector<std::pair<int,int>>>,std::__unordered_map_hasher<kaldi::quasar::AbstractAttribute *,std::__hash_value_type<kaldi::quasar::AbstractAttribute *,std::vector<std::pair<int,int>>>,kaldi::quasar::AttributeHash,kaldi::quasar::AttributeEquality,true>,std::__unordered_map_equal<kaldi::quasar::AbstractAttribute *,std::__hash_value_type<kaldi::quasar::AbstractAttribute *,std::vector<std::pair<int,int>>>,kaldi::quasar::AttributeEquality,kaldi::quasar::AttributeHash,true>,std::allocator<std::__hash_value_type<kaldi::quasar::AbstractAttribute *,std::vector<std::pair<int,int>>>>>::~__hash_table(v12 + 3);
+  v15 = *v12;
+  if (*v12)
   {
-    *(v6 + 64) = v10;
-    operator delete(v10);
+    *(v11 + 64) = v15;
+    operator delete(v15);
   }
 
   std::vector<kaldi::CuMatrix<float>>::__destroy_vector::operator()[abi:ne200100](va);
@@ -1866,7 +1866,7 @@ uint64_t kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder
   std::vector<kaldi::Vector<float>>::__destroy_vector::operator()[abi:ne200100](&v4);
   std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table(a1 + 160);
   std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table(a1 + 120);
-  std::__hash_table<std::__hash_value_type<kaldi::quasar::AbstractAttribute *,std::vector<std::pair<int,int>>>,std::__unordered_map_hasher<kaldi::quasar::AbstractAttribute *,std::__hash_value_type<kaldi::quasar::AbstractAttribute *,std::vector<std::pair<int,int>>>,kaldi::quasar::AttributeHash,kaldi::quasar::AttributeEquality,true>,std::__unordered_map_equal<kaldi::quasar::AbstractAttribute *,std::__hash_value_type<kaldi::quasar::AbstractAttribute *,std::vector<std::pair<int,int>>>,kaldi::quasar::AttributeEquality,kaldi::quasar::AttributeHash,true>,std::allocator<std::__hash_value_type<kaldi::quasar::AbstractAttribute *,std::vector<std::pair<int,int>>>>>::~__hash_table(a1 + 80);
+  std::__hash_table<std::__hash_value_type<kaldi::quasar::AbstractAttribute *,std::vector<std::pair<int,int>>>,std::__unordered_map_hasher<kaldi::quasar::AbstractAttribute *,std::__hash_value_type<kaldi::quasar::AbstractAttribute *,std::vector<std::pair<int,int>>>,kaldi::quasar::AttributeHash,kaldi::quasar::AttributeEquality,true>,std::__unordered_map_equal<kaldi::quasar::AbstractAttribute *,std::__hash_value_type<kaldi::quasar::AbstractAttribute *,std::vector<std::pair<int,int>>>,kaldi::quasar::AttributeEquality,kaldi::quasar::AttributeHash,true>,std::allocator<std::__hash_value_type<kaldi::quasar::AbstractAttribute *,std::vector<std::pair<int,int>>>>>::~__hash_table((a1 + 80));
   v2 = *(a1 + 56);
   if (v2)
   {
@@ -2062,7 +2062,7 @@ LABEL_81:
         MEMORY[0x1B8C84C00](v48, v49);
         kaldi::KaldiLogMessage::~KaldiLogMessage(&__p);
 LABEL_82:
-        kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::Read<fst::BackoffDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(a1, a2, &v59, 0);
+        kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::Read<fst::BackoffDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(a1, a2, &v59, 0, 0.0);
       }
 
       std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](&__p);
@@ -2455,104 +2455,104 @@ void kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::Symbolize(uint
   }
 }
 
-void kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::Read<fst::BackoffDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+void kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::Read<fst::BackoffDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(uint64_t a1, uint64_t a2, uint64_t a3, int a4, float a5)
 {
   if (kaldi::g_kaldi_verbose_level >= 3)
   {
-    kaldi::KaldiVlogMessage::KaldiVlogMessage(v28, 3);
-    v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, "entered Read to process #tokens: ", 33);
-    MEMORY[0x1B8C84C30](v8, (*(a3 + 8) - *a3) >> 2);
-    kaldi::KaldiVlogMessage::~KaldiVlogMessage(v28);
+    kaldi::KaldiVlogMessage::KaldiVlogMessage(v30, 3);
+    v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, "entered Read to process #tokens: ", 33);
+    MEMORY[0x1B8C84C30](v10, (*(a3 + 8) - *a3) >> 2);
+    kaldi::KaldiVlogMessage::~KaldiVlogMessage(v30);
   }
 
-  v9 = *(a1 + 4952);
-  if (0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 4960) - v9) >> 3) <= a4)
+  v11 = *(a1 + 4952);
+  if (0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 4960) - v11) >> 3) <= a4)
   {
     std::vector<kaldi::Matrix<float>>::resize((a1 + 4952), a4 + 1);
-    v9 = *(a1 + 4952);
+    v11 = *(a1 + 4952);
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v24 = &unk_1F2D0EE38;
-  v27 = 0;
-  v10 = kaldi::MatrixBase<float>::NumRows(v9 + 40 * a4);
-  kaldi::Matrix<float>::Resize(*(a1 + 4952) + 40 * a4, v10 + ((*(a3 + 8) - *a3) >> 2), 1, 2, 0);
-  v11 = *a3;
-  v12 = *(a1 + 4952);
-  v13 = *(a3 + 8) - *a3;
-  if (v13)
+  v27 = 0u;
+  v28 = 0u;
+  v26 = &unk_1F2D0EE38;
+  v29 = 0;
+  v12 = kaldi::MatrixBase<float>::NumRows(v11 + 40 * a4);
+  kaldi::Matrix<float>::Resize((*(a1 + 4952) + 40 * a4), v12 + ((*(a3 + 8) - *a3) >> 2), 1, 2, 0);
+  v13 = *a3;
+  v14 = *(a1 + 4952);
+  v15 = *(a3 + 8) - *a3;
+  if (v15)
   {
-    v14 = v13 >> 2;
-    v15 = v12 + 40 * a4;
-    v16 = *(v15 + 8);
-    v17 = *(v15 + 16);
-    if ((v13 >> 2) <= 1)
+    v16 = v15 >> 2;
+    v17 = v14 + 40 * a4;
+    v18 = *(v17 + 8);
+    v19 = *(v17 + 16);
+    if ((v15 >> 2) <= 1)
     {
-      v14 = 1;
+      v16 = 1;
     }
 
-    v18 = (*v15 + 4 * v17 * v10);
+    v20 = (*v17 + 4 * v19 * v12);
     do
     {
-      v19 = *v11++;
-      *v18 = v19;
-      v18 += v17;
-      --v14;
+      v21 = *v13++;
+      *v20 = v21;
+      v20 += v19;
+      --v16;
     }
 
-    while (v14);
+    while (v16);
   }
 
   else
   {
-    v16 = *(v12 + 40 * a4 + 8);
+    v18 = *(v14 + 40 * a4 + 8);
   }
 
-  kaldi::SubMatrix<float>::SubMatrix(v28, v12 + 40 * a4, v10, v13 >> 2, 0, v16);
-  kaldi::CuMatrix<float>::operator=(&v24, v28);
-  quasar::Bitmap::~Bitmap(v28);
-  if (v10)
+  kaldi::SubMatrix<float>::SubMatrix(v30, v14 + 40 * a4, v12, v15 >> 2, 0, v18);
+  kaldi::CuMatrix<float>::operator=(&v26, v30);
+  quasar::Bitmap::~Bitmap(v30);
+  if (v12)
   {
     kaldi::quasar::Encdec::EncFeedforward();
   }
 
   if (kaldi::g_kaldi_verbose_level >= 1)
   {
-    kaldi::KaldiVlogMessage::KaldiVlogMessage(v28, 1);
-    v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, "shortlist with biasing #tokens: ", 32);
-    MEMORY[0x1B8C84C30](v20, (*(a1 + 5848) - *(a1 + 5840)) >> 2);
-    kaldi::KaldiVlogMessage::~KaldiVlogMessage(v28);
+    kaldi::KaldiVlogMessage::KaldiVlogMessage(v30, 1);
+    v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, "shortlist with biasing #tokens: ", 32);
+    MEMORY[0x1B8C84C30](v22, (*(a1 + 5848) - *(a1 + 5840)) >> 2);
+    kaldi::KaldiVlogMessage::~KaldiVlogMessage(v30);
   }
 
-  v21 = *(a1 + 136);
-  v22 = *(a2 + 288);
-  v23 = *(a2 + 292);
-  kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::SuppressedIds(a1, a2 + 64, a2 + 88, (a2 + 328), v28);
-  kaldi::quasar::Encdec::ConstrainSoftmax(v21, a2 + 264, v22, v23, a3, (a1 + 5840), v28);
-  std::__tree<int>::destroy(v28, v28[1].__locale_);
+  v23 = *(a1 + 136);
+  v24 = *(a2 + 288);
+  v25 = *(a2 + 292);
+  kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::SuppressedIds(a1, a2 + 64, a2 + 88, (a2 + 328), v30);
+  kaldi::quasar::Encdec::ConstrainSoftmax(v23, (a2 + 264), v24, v25, a3, (a1 + 5840), v30);
+  std::__tree<int>::destroy(v30, v30[1].__locale_);
   kaldi::quasar::Encdec::ResetHistoryState(*(a1 + 136));
   if (*(a2 + 300))
   {
     kaldi::quasar::Encdec::EncFeedforward();
   }
 
-  kaldi::quasar::Encdec::StartFeedforward(*(a1 + 136), &v24, a4, 0);
-  kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::AddInitialHypToCurrent<fst::BackoffDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(a1, a2);
+  kaldi::quasar::Encdec::StartFeedforward(*(a1 + 136), &v26, a4, 0);
+  kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::AddInitialHypToCurrent<fst::BackoffDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(a1, a2, a4, a5);
 }
 
-void sub_1B58BEFFC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B58BEFFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   kaldi::CuMatrix<float>::~CuMatrix(va);
   _Unwind_Resume(a1);
 }
 
-void kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::PruneCurrentHyps(uint64_t a1, int a2)
+void kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::PruneCurrentHyps(void *result, int a2)
 {
   v3 = a2;
-  v4 = *(a1 + 5792);
-  v5 = *(a1 + 5784);
+  v4 = result[724];
+  v5 = result[723];
   v6 = (v4 - v5) >> 3;
   if (v6 > a2)
   {
@@ -2564,8 +2564,8 @@ void kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::PruneCurrentHy
       {
         v9 = kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::Hyp::~Hyp(v8);
         MEMORY[0x1B8C85350](v9, 0x10B0C406F3D429DLL);
-        v4 = *(a1 + 5792);
-        v5 = *(a1 + 5784);
+        v4 = result[724];
+        v5 = result[723];
       }
 
       ++v7;
@@ -2578,7 +2578,7 @@ void kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::PruneCurrentHy
   if (v6 > v3)
   {
 
-    std::vector<fst::QueueBase<int> *,std::allocator<fst::QueueBase<int> *>>::resize((a1 + 5784), v3);
+    std::vector<fst::QueueBase<int> *,std::allocator<fst::QueueBase<int> *>>::resize(result + 723, v3);
   }
 }
 
@@ -2636,8 +2636,8 @@ void kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::J
           do
           {
             *&v63 = vadd_f32(*(v5 + 80), *&v63);
-            std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int *>,std::__wrap_iter<int *>>(&v63 + 8, __dst, *(v5 + 88), *(v5 + 96), (*(v5 + 96) - *(v5 + 88)) >> 2);
-            std::vector<float>::__insert_with_size[abi:ne200100]<std::__wrap_iter<float *>,std::__wrap_iter<float *>>(&v69 + 8, v70, *(v5 + 184), *(v5 + 192), (*(v5 + 192) - *(v5 + 184)) >> 2);
+            std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int *>,std::__wrap_iter<int *>>(&v63 + 1, __dst, *(v5 + 88), *(v5 + 96), (*(v5 + 96) - *(v5 + 88)) >> 2);
+            std::vector<float>::__insert_with_size[abi:ne200100]<std::__wrap_iter<float *>,std::__wrap_iter<float *>>(&v69 + 1, v70, *(v5 + 184), *(v5 + 192), (*(v5 + 192) - *(v5 + 184)) >> 2);
             v7 = *(v5 + 23);
             if (v7 >= 0)
             {
@@ -3024,8 +3024,8 @@ void kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::JoinBPEUnitsIn
           do
           {
             *&v63 = vadd_f32(*(v5 + 80), *&v63);
-            std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int *>,std::__wrap_iter<int *>>(&v63 + 8, __dst, *(v5 + 88), *(v5 + 96), (*(v5 + 96) - *(v5 + 88)) >> 2);
-            std::vector<float>::__insert_with_size[abi:ne200100]<std::__wrap_iter<float *>,std::__wrap_iter<float *>>(&v69 + 8, v70, *(v5 + 184), *(v5 + 192), (*(v5 + 192) - *(v5 + 184)) >> 2);
+            std::vector<int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<int *>,std::__wrap_iter<int *>>(&v63 + 1, __dst, *(v5 + 88), *(v5 + 96), (*(v5 + 96) - *(v5 + 88)) >> 2);
+            std::vector<float>::__insert_with_size[abi:ne200100]<std::__wrap_iter<float *>,std::__wrap_iter<float *>>(&v69 + 1, v70, *(v5 + 184), *(v5 + 192), (*(v5 + 192) - *(v5 + 184)) >> 2);
             v7 = *(v5 + 23);
             if (v7 >= 0)
             {
@@ -3517,7 +3517,7 @@ LABEL_91:
 
   if (v6[800] == 1)
   {
-    kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::DecodeSymbolized<fst::BackoffDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(a1, &v46, a3);
+    kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::DecodeSymbolized<fst::BackoffDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(a1, &v46, a3, a4, 0);
   }
 
 LABEL_68:
@@ -3685,156 +3685,156 @@ uint64_t kaldi::quasar::MultiLangDecorator::NumTagTokens(kaldi::quasar::MultiLan
 
 uint64_t kaldi::quasar::DecodeOptions<fst::BackoffDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::LanguageInfo(uint64_t a1)
 {
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v25);
-  v2 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v26, "Source locale ", 14);
-  v3 = *(a1 + 39);
-  if (v3 >= 0)
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v26);
+  v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v27, "Source locale ", 14);
+  v4 = *(a1 + 39);
+  if (v4 >= 0)
   {
-    v4 = a1 + 16;
+    v5 = a1 + 16;
   }
 
   else
   {
-    v4 = *(a1 + 16);
+    v5 = *(a1 + 16);
   }
 
-  if (v3 >= 0)
+  if (v4 >= 0)
   {
-    v5 = *(a1 + 39);
+    v6 = *(a1 + 39);
   }
 
   else
   {
-    v5 = *(a1 + 24);
+    v6 = *(a1 + 24);
   }
 
-  v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v2, v4, v5);
-  v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, ", Target locale ", 16);
-  v8 = *(a1 + 63);
-  if (v8 >= 0)
+  v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, v5, v6);
+  v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, ", Target locale ", 16);
+  v9 = *(a1 + 63);
+  if (v9 >= 0)
   {
-    v9 = a1 + 40;
+    v10 = a1 + 40;
   }
 
   else
   {
-    v9 = *(a1 + 40);
+    v10 = *(a1 + 40);
   }
 
-  if (v8 >= 0)
+  if (v9 >= 0)
   {
-    v10 = *(a1 + 63);
+    v11 = *(a1 + 63);
   }
 
   else
   {
-    v10 = *(a1 + 48);
+    v11 = *(a1 + 48);
   }
 
-  v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, v9, v10);
-  v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, " source tag ", 12);
-  v13 = *(a1 + 87);
-  if (v13 >= 0)
+  v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, v10, v11);
+  v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, " source tag ", 12);
+  v14 = *(a1 + 87);
+  if (v14 >= 0)
   {
-    v14 = a1 + 64;
+    v15 = a1 + 64;
   }
 
   else
   {
-    v14 = *(a1 + 64);
+    v15 = *(a1 + 64);
   }
 
-  if (v13 >= 0)
+  if (v14 >= 0)
   {
-    v15 = *(a1 + 87);
+    v16 = *(a1 + 87);
   }
 
   else
   {
-    v15 = *(a1 + 72);
+    v16 = *(a1 + 72);
   }
 
-  v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, v14, v15);
-  v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, " target locale ", 15);
-  v18 = *(a1 + 111);
-  if (v18 >= 0)
+  v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, v15, v16);
+  v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, " target locale ", 15);
+  v19 = *(a1 + 111);
+  if (v19 >= 0)
   {
-    v19 = a1 + 88;
+    v20 = a1 + 88;
   }
 
   else
   {
-    v19 = *(a1 + 88);
+    v20 = *(a1 + 88);
   }
 
-  if (v18 >= 0)
+  if (v19 >= 0)
   {
-    v20 = *(a1 + 111);
+    v21 = *(a1 + 111);
   }
 
   else
   {
-    v20 = *(a1 + 96);
+    v21 = *(a1 + 96);
   }
 
-  v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, v19, v20);
-  v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, ", # of phrasebooks ", 19);
-  MEMORY[0x1B8C84C30](v22, (*(a1 + 248) - *(a1 + 240)) >> 4);
+  v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, v20, v21);
+  v23 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, ", # of phrasebooks ", 19);
+  MEMORY[0x1B8C84C30](v23, (*(a1 + 248) - *(a1 + 240)) >> 4);
   std::stringbuf::str();
-  v25[0] = *MEMORY[0x1E69E54D8];
-  v23 = *(MEMORY[0x1E69E54D8] + 72);
-  *(v25 + *(v25[0] - 24)) = *(MEMORY[0x1E69E54D8] + 64);
-  v26 = v23;
-  v27 = MEMORY[0x1E69E5548] + 16;
-  if (v29 < 0)
+  v26[0] = *MEMORY[0x1E69E54D8];
+  v24 = *(MEMORY[0x1E69E54D8] + 72);
+  *(v26 + *(v26[0] - 24)) = *(MEMORY[0x1E69E54D8] + 64);
+  v27 = v24;
+  v28 = MEMORY[0x1E69E5548] + 16;
+  if (v30 < 0)
   {
-    operator delete(v28[7].__locale_);
+    operator delete(v29[7].__locale_);
   }
 
-  v27 = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(v28);
+  v28 = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(v29);
   std::iostream::~basic_iostream();
-  return MEMORY[0x1B8C85200](&v30);
+  return MEMORY[0x1B8C85200](&v31);
 }
 
-void sub_1B58C16AC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B58C16AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
 
-void kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::DecodeSymbolized<fst::BackoffDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(uint64_t a1, uint64_t a2, uint64_t a3)
+void kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::DecodeSymbolized<fst::BackoffDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(uint64_t a1, char **a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
 {
-  v8 = 0;
-  v9 = 0;
-  v7 = &v8;
+  v11 = 0;
+  v12 = 0;
+  v10 = &v11;
   if (*(a3 + 308) == 1)
   {
-    kaldi::quasar::TorchEncoderDecoder::GetTiming(*(a1 + 136), &v4);
-    std::__tree<std::string>::destroy(&v7, v8);
-    v3 = v5;
-    v7 = v4;
-    v8 = v5;
-    v9 = v6;
-    if (v6)
+    kaldi::quasar::TorchEncoderDecoder::GetTiming(&v6, *(a1 + 136));
+    std::__tree<std::string>::destroy(&v10, v11);
+    v5 = v7;
+    v10 = v6;
+    v11 = v7;
+    v12 = v8;
+    if (v8)
     {
-      *(v5 + 16) = &v8;
-      v4 = &v5;
+      *(v7 + 16) = &v11;
+      v6 = &v7;
+      v7 = 0;
+      v8 = 0;
       v5 = 0;
-      v6 = 0;
-      v3 = 0;
     }
 
     else
     {
-      v7 = &v8;
+      v10 = &v11;
     }
 
-    std::__tree<std::string>::destroy(&v4, v3);
+    std::__tree<std::string>::destroy(&v6, v5);
   }
 
-  fst::VectorFst<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>,std::allocator<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::VectorFst();
+  fst::VectorFst<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>,std::allocator<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::VectorFst(&v9);
 }
 
 void sub_1B58C1AA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, uint64_t a10, std::locale a11)
@@ -3847,7 +3847,7 @@ void sub_1B58C1AA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-float kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::PostProcessNbestList<fst::BackoffDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(uint64_t a1, const std::string *a2, uint64_t a3, uint64_t a4)
+float kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::PostProcessNbestList<fst::BackoffDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(uint64_t a1, const std::string *a2, uint64_t a3, uint64_t **a4)
 {
   v8 = *(a1 + 136);
   if (v8 && *(v8 + 3922) == 1)
@@ -3894,7 +3894,7 @@ float kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::
   }
 
   v13 = *a4;
-  v14 = *(a4 + 8);
+  v14 = a4[1];
   while (v13 != v14)
   {
     std::string::operator=(v13 + 5, a2);
@@ -3912,7 +3912,7 @@ float kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::
 
   kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::ConfidenceScore(a1, a4, *(a3 + 176));
   v15 = *(a3 + 172);
-  if (v15 && 0xF0F0F0F0F0F0F0F1 * ((*(a4 + 8) - *a4) >> 4) > v15)
+  if (v15 && 0xF0F0F0F0F0F0F0F1 * ((a4[1] - *a4) >> 4) > v15)
   {
     std::vector<kaldi::quasar::TranslationUtil::NbestElement>::resize(a4, v15);
   }
@@ -3920,9 +3920,9 @@ float kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::
   return v10;
 }
 
-void sub_1B58C1D14(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B58C1D14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   kaldi::KaldiLogMessage::~KaldiLogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3930,88 +3930,89 @@ void sub_1B58C1D14(_Unwind_Exception *a1, uint64_t a2, ...)
 float kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::DecodeCore<fst::BackoffDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
   std::string::basic_string[abi:ne200100]<0>(&__p, "");
-  kaldi::quasar::TimeBlock::TimeBlock(v30, (a1 + 4856), a1 + 5680, &__p);
-  if (SHIBYTE(v26) < 0)
+  kaldi::quasar::TimeBlock::TimeBlock(v31, (a1 + 4856), a1 + 5680, &__p);
+  if (SHIBYTE(v27) < 0)
   {
     operator delete(__p);
   }
 
   if (kaldi::g_kaldi_verbose_level >= 3)
   {
-    v27 = 0;
     v28 = 0;
     v29 = 0;
-    kaldi::JoinVectorToString<int>(a2, ",", &v27);
+    v30 = 0;
+    kaldi::JoinVectorToString<int>(a2, ",", &v28);
     if (kaldi::g_kaldi_verbose_level >= 3)
     {
       kaldi::KaldiVlogMessage::KaldiVlogMessage(&__p, 3);
       v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p, "Input : ", 8);
-      if (v29 >= 0)
+      if (v30 >= 0)
       {
-        v9 = &v27;
+        v9 = &v28;
       }
 
       else
       {
-        v9 = v27;
+        v9 = v28;
       }
 
-      if (v29 >= 0)
+      if (v30 >= 0)
       {
-        v10 = HIBYTE(v29);
+        v10 = HIBYTE(v30);
       }
 
       else
       {
-        v10 = v28;
+        v10 = v29;
       }
 
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, v9, v10);
       kaldi::KaldiVlogMessage::~KaldiVlogMessage(&__p);
     }
 
-    if (SHIBYTE(v29) < 0)
+    if (SHIBYTE(v30) < 0)
     {
-      operator delete(v27);
+      operator delete(v28);
     }
   }
 
   v11 = (((a2[1] - *a2) >> 2) - (*(a3 + 236) + *(a1 + 5204)));
-  if ((*(a1 + 5200) * v11) <= 1)
+  v12 = (*(a1 + 5200) * v11);
+  if (v12 <= 1)
   {
-    v12 = 1;
+    v13 = 1;
   }
 
   else
   {
-    v12 = (*(a1 + 5200) * v11);
+    v13 = v12;
   }
 
-  v13 = *(a1 + 5188);
-  v14 = *(a1 + 5192);
-  if (v14 != -1.0)
+  v14 = *(a1 + 5188);
+  v15 = *(a1 + 5192);
+  if (v15 != -1.0)
   {
-    v15 = (v14 * v11);
-    if (*(a1 + 5196) > v15)
+    v16 = (v15 * v11);
+    if (*(a1 + 5196) > v16)
     {
-      v15 = *(a1 + 5196);
+      v16 = *(a1 + 5196);
     }
 
-    if (v15 >= v13)
+    if (v16 >= v14)
     {
-      v13 = v13;
+      v14 = v14;
     }
 
     else
     {
-      v13 = v15;
+      v14 = v16;
     }
   }
 
-  kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::SelectModel((a1 + 136), a3 + 136, (a3 + 88), &v23);
-  if (v24)
+  kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::SelectModel((a1 + 136), (a3 + 136), (a3 + 88), &v24);
+  if (v25)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v24);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v25);
   }
 
   if (*(a3 + 160))
@@ -4024,8 +4025,8 @@ float kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::
     }
 
     kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::Init<fst::BackoffDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(a1, a3, a4);
-    kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::Read<fst::BackoffDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(a1, a3, a2, 0);
-    v17 = kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::Write<fst::BackoffDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(a1, a3, v13, 1);
+    kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::Read<fst::BackoffDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(a1, a3, a2, 0, 0.0);
+    v18 = kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::Write<fst::BackoffDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(a1, a3, v14, 1);
   }
 
   else
@@ -4038,14 +4039,14 @@ float kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::
     }
 
     kaldi::quasar::TorchEncoderDecoder::Start(*(a1 + 136), *(a3 + 312), a3 + 112);
-    v18 = *(a1 + 136);
-    v19 = *(a3 + 288);
-    v20 = *(a3 + 292);
+    v19 = *(a1 + 136);
+    v20 = *(a3 + 288);
+    v21 = *(a3 + 292);
     __p = 0uLL;
-    v26 = 0;
-    kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::SuppressedIds(a1, a3 + 64, a3 + 88, (a3 + 328), &v27);
-    kaldi::quasar::TorchEncoderDecoder::ConstrainSoftmax(v18, a3 + 264, v19, v20, a2, &__p, &v27);
-    std::__tree<int>::destroy(&v27, v28);
+    v27 = 0;
+    kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::SuppressedIds(a1, a3 + 64, a3 + 88, (a3 + 328), &v28);
+    kaldi::quasar::TorchEncoderDecoder::ConstrainSoftmax(v19, (a3 + 264), v20, v21, a2, &__p, &v28);
+    std::__tree<int>::destroy(&v28, v29);
     if (__p)
     {
       *(&__p + 1) = __p;
@@ -4054,9 +4055,9 @@ float kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::
 
     (*(*a4 + 224))(a4);
     __p = 0uLL;
-    v26 = 0;
-    v17 = kaldi::quasar::TMTools::GreedyDecode<kaldi::quasar::TorchEncoderDecoder>(*(a1 + 136), a2, &__p, a3 + 112, a4, v12, v13);
-    kaldi::quasar::TorchEncoderDecoder::Finish(*(a1 + 136), v21);
+    v27 = 0;
+    v18 = kaldi::quasar::TMTools::GreedyDecode<kaldi::quasar::TorchEncoderDecoder>(*(a1 + 136), a2, &__p, a3 + 112, a4, v13, v14);
+    kaldi::quasar::TorchEncoderDecoder::Finish(*(a1 + 136), v22);
     if (__p)
     {
       *(&__p + 1) = __p;
@@ -4064,8 +4065,8 @@ float kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::
     }
   }
 
-  kaldi::quasar::TimeBlock::~TimeBlock(v30, v16);
-  return v17;
+  kaldi::quasar::TimeBlock::~TimeBlock(v31, v17);
+  return v18;
 }
 
 void sub_1B58C2090(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
@@ -4075,7 +4076,7 @@ void sub_1B58C2090(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::__stable_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement *>,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::NbestCompare>(const kaldi::quasar::TranslationUtil::NbestElement *a1, const kaldi::quasar::TranslationUtil::NbestElement *a2, float *a3)
+void std::__stable_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement *>,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::NbestCompare>(kaldi::quasar::TranslationUtil::NbestElement *a1, const kaldi::quasar::TranslationUtil::NbestElement *a2, float *a3)
 {
   v6 = 0xF0F0F0F0F0F0F0F1 * ((a2 - a1) >> 4);
   if (a2 - a1 < 1)
@@ -4129,7 +4130,7 @@ void sub_1B58C2224(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::__stable_sort<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::NbestCompare &,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement *>>(const kaldi::quasar::TranslationUtil::NbestElement *a1, const kaldi::quasar::TranslationUtil::NbestElement *a2, float *a3, unint64_t a4, kaldi::quasar::TranslationUtil::NbestElement *a5, uint64_t a6)
+void std::__stable_sort<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::NbestCompare &,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement *>>(kaldi::quasar::TranslationUtil::NbestElement *a1, const kaldi::quasar::TranslationUtil::NbestElement *a2, float *a3, unint64_t a4, kaldi::quasar::TranslationUtil::NbestElement *a5, int64_t a6)
 {
   v19 = a1;
   if (a4 >= 2)
@@ -4153,7 +4154,7 @@ void std::__stable_sort<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSea
     {
       v11 = a5;
       v12 = a4 >> 1;
-      v13 = a1 + 272 * (a4 >> 1);
+      v13 = (a1 + 272 * (a4 >> 1));
       if (a4 <= a6)
       {
         std::__stable_sort_move<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::NbestCompare &,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement *>>(a1, (a1 + 272 * (a4 >> 1)), a3, a4 >> 1, a5);
@@ -4187,9 +4188,9 @@ void std::__stable_sort<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSea
   }
 }
 
-void sub_1B58C2440(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B58C2440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<kaldi::quasar::TranslationUtil::NbestElement,std::__destruct_n &>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4201,7 +4202,7 @@ BOOL kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::N
   if (*a1)
   {
     v7 = (*(a2 + 200) - *(a2 + 192)) >> 2;
-    if (LODWORD(v5) == 2)
+    if (v5 == 2)
     {
       v9 = a1[1];
       v10 = a1[2];
@@ -4214,7 +4215,7 @@ BOOL kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::N
     else
     {
       v8 = 1.0;
-      if (LODWORD(v5) == 1)
+      if (v5 == 1)
       {
         v6 = (v7 + 1);
         v8 = (((*(a3 + 200) - *(a3 + 192)) >> 2) + 1);
@@ -4244,7 +4245,7 @@ void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::T
 {
   if (a1 != a2)
   {
-    v5 = a1 + 272;
+    v5 = (a1 + 272);
     if ((a1 + 272) != a2)
     {
       v7 = 0;
@@ -4268,7 +4269,7 @@ void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::T
             v10 -= 272;
             if (!kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::NbestCompare::operator()(a3, v12, a1 + v10))
             {
-              v11 = a1 + v10 + 272;
+              v11 = (a1 + v10 + 272);
               goto LABEL_10;
             }
           }
@@ -4279,7 +4280,7 @@ LABEL_10:
           kaldi::quasar::TranslationUtil::NbestElement::~NbestElement(v12);
         }
 
-        v5 = v8 + 272;
+        v5 = (v8 + 272);
         v7 += 272;
       }
 
@@ -4319,7 +4320,7 @@ const kaldi::quasar::TranslationUtil::NbestElement *std::__stable_sort_move<std:
     else if (a4 > 8)
     {
       std::__stable_sort<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::NbestCompare &,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement *>>(result, result + 272 * (a4 >> 1), a3, a4 >> 1, this, a4 >> 1);
-      std::__stable_sort<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::NbestCompare &,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement *>>(v9 + 272 * (a4 >> 1), a2, a3, a4 - (a4 >> 1), this + 272 * (a4 >> 1), a4 - (a4 >> 1));
+      std::__stable_sort<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::NbestCompare &,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement *>>((v9 + 272 * (a4 >> 1)), a2, a3, a4 - (a4 >> 1), (this + 272 * (a4 >> 1)), a4 - (a4 >> 1));
 
       return std::__merge_move_construct[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::NbestCompare &,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement *>,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement *>>(v9, (v9 + 272 * (a4 >> 1)), (v9 + 272 * (a4 >> 1)), a2, this, a3);
     }
@@ -4334,9 +4335,9 @@ const kaldi::quasar::TranslationUtil::NbestElement *std::__stable_sort_move<std:
   return result;
 }
 
-void sub_1B58C287C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B58C287C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<kaldi::quasar::TranslationUtil::NbestElement,std::__destruct_n &>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4389,7 +4390,7 @@ LABEL_10:
   return result;
 }
 
-void std::__inplace_merge<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::NbestCompare &,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement *>>(kaldi::quasar::TranslationUtil::NbestElement *a1, uint64_t a2, kaldi::quasar::TranslationUtil::NbestElement *a3, float *a4, uint64_t a5, uint64_t a6, kaldi::quasar::TranslationUtil::NbestElement *a7, uint64_t a8)
+void std::__inplace_merge<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::NbestCompare &,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement *>>(kaldi::quasar::TranslationUtil::NbestElement *a1, kaldi::quasar::TranslationUtil::NbestElement *a2, kaldi::quasar::TranslationUtil::NbestElement *a3, float *a4, int64_t a5, uint64_t a6, kaldi::quasar::TranslationUtil::NbestElement *a7, int64_t a8)
 {
   v37 = a2;
   v38 = a1;
@@ -4501,7 +4502,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamS
 
       a5 = -v16 - v21;
       v31 = v9 - v19;
-      if ((v21 + v19) >= (v9 - (v21 + v19) - v16))
+      if (v21 + v19 >= v9 - (v21 + v19) - v16)
       {
         std::__inplace_merge<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::NbestCompare &,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement *>>(v30, v13, v34, a4, -v16 - v21, v31, a7, v35);
         v13 = v20;
@@ -4623,9 +4624,9 @@ const kaldi::quasar::TranslationUtil::NbestElement *std::__insertion_sort_move[a
   return result;
 }
 
-void sub_1B58C2E84(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B58C2E84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<kaldi::quasar::TranslationUtil::NbestElement,std::__destruct_n &>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4683,9 +4684,9 @@ LABEL_10:
   return result;
 }
 
-void sub_1B58C2FBC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B58C2FBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<kaldi::quasar::TranslationUtil::NbestElement,std::__destruct_n &>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4787,9 +4788,9 @@ LABEL_11:
   }
 }
 
-void sub_1B58C3198(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1B58C3198(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::unique_ptr<kaldi::quasar::TranslationUtil::NbestElement,std::__destruct_n &>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5001,7 +5002,7 @@ void kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::S
   }
 }
 
-float kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::Rescore<fst::BackoffDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(uint64_t a1, const kaldi::quasar::TranslationUtil::NbestElement **a2, void **a3, float a4, float a5, float a6)
+float kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::Rescore<fst::BackoffDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(uint64_t a1, uint64_t *a2, void **a3, float a4, float a5, float a6)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "");
   kaldi::quasar::TimeBlock::TimeBlock(v87, (a1 + 4856), a1 + 5688, __p);
@@ -5147,11 +5148,11 @@ LABEL_8:
       do
       {
         v29 = (**a3)(a3);
-        if ((*(v27 + 14) - 5) > 1)
+        if ((*(v27 + 56) - 5) > 1)
         {
           v31 = v29;
           v33 = *v27;
-          v32 = *(v27 + 1);
+          v32 = *(v27 + 8);
           v34 = 0.0;
           while (v33 != v32)
           {
@@ -5194,7 +5195,7 @@ LABEL_8:
 
                 else
                 {
-                  v41 = *(v33 + 8);
+                  v41 = *(v33 + 1);
                 }
 
                 v42 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v38, v40, v41);
@@ -5210,26 +5211,26 @@ LABEL_8:
 
             v31 = HIDWORD(v78);
             v34 = v34 + *&v78;
-            v33 += 240;
+            v33 += 60;
           }
 
           v45 = ((*a3)[2])(a3, v31);
-          v46 = *(v27 + 7);
-          v81[0] = *(v27 + 6);
+          v46 = *(v27 + 28);
+          v81[0] = *(v27 + 24);
           v81[1] = v46;
           v47 = v28 * v46;
-          *(v27 + 6) = (v34 + v45) * a4;
-          *(v27 + 7) = v47;
-          *(v27 + 8) = v45 * a4;
-          *(v27 + 9) = v28 * *(v27 + 9);
+          *(v27 + 24) = (v34 + v45) * a4;
+          *(v27 + 28) = v47;
+          *(v27 + 32) = v45 * a4;
+          *(v27 + 36) = v28 * *(v27 + 36);
           v80[0] = (v34 + v45) * a4;
           v80[1] = v47;
           v77 = 0;
           v78 = 0;
           v79 = 0;
           v48 = kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::NbestToString(v76, v27, &v77);
-          v49 = *(v27 + 8);
-          v50 = *(v27 + 9);
+          v49 = *(v27 + 32);
+          v50 = *(v27 + 36);
           if ((kaldi::g_kaldi_verbose_level & 0x80000000) == 0)
           {
             kaldi::KaldiWarnMessage::KaldiWarnMessage(__p);
@@ -5260,7 +5261,7 @@ LABEL_8:
 
             v58 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v55, v56, v57);
             v59 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v58, " finalcost=", 11);
-            fst::operator<<<float>(v59, v27 + 8);
+            fst::operator<<<float>(v59, (v27 + 32));
             kaldi::KaldiLogMessage::~KaldiLogMessage(__p);
           }
 
@@ -5277,14 +5278,14 @@ LABEL_8:
 
         else
         {
-          v30 = *(v27 + 7);
-          if ((*(v27 + 6) + v30) < v14)
+          v30 = *(v27 + 28);
+          if ((*(v27 + 24) + v30) < v14)
           {
-            v14 = *(v27 + 6) + v30;
+            v14 = *(v27 + 24) + v30;
           }
         }
 
-        v27 = (v27 + 272);
+        v27 += 272;
       }
 
       while (v27 != v26);
@@ -5306,9 +5307,9 @@ LABEL_8:
       v67 = powf(*&v78 + 1.0, *(&v77 + 1));
       do
       {
-        v68 = *(v62 + 6);
-        v69 = *(v62 + 7);
-        v70 = (*(v62 + 25) - *(v62 + 24)) >> 2;
+        v68 = *(v62 + 24);
+        v69 = *(v62 + 28);
+        v70 = (*(v62 + 200) - *(v62 + 192)) >> 2;
         if (v64 == 2)
         {
           v71 = powf(v66 + v70, v65) / v67;
@@ -5323,8 +5324,8 @@ LABEL_8:
           }
         }
 
-        *(v62 + 10) = (v68 + v69) / v71;
-        v62 = (v62 + 272);
+        *(v62 + 40) = (v68 + v69) / v71;
+        v62 += 272;
       }
 
       while (v62 != v63);
@@ -5352,8 +5353,9 @@ void sub_1B58C3C84(_Unwind_Exception *a1, clockid_t a2, int a3, int a4, int a5, 
   _Unwind_Resume(a1);
 }
 
-void kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::ConfidenceScore(uint64_t a1, const kaldi::quasar::TranslationUtil::NbestElement **a2, int a3)
+void kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::ConfidenceScore(uint64_t a1, const kaldi::quasar::TranslationUtil::NbestElement **a2, uint64_t a3)
 {
+  v3 = a3;
   std::string::basic_string[abi:ne200100]<0>(__p, "");
   kaldi::quasar::TimeBlock::TimeBlock(v11, (a1 + 4856), a1 + 5696, __p);
   if (v10 < 0)
@@ -5369,12 +5371,12 @@ void kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::C
     {
       if (*(a1 + 5673) == 1)
       {
-        kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::AssignConfidencesFromConfidenceModel(a1, v7, a3);
+        kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::AssignConfidencesFromConfidenceModel(a1, v7, v3);
       }
 
       else
       {
-        kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::AssignConfidencesFromTranslationModel(a1, v7, a3);
+        kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::AssignConfidencesFromTranslationModel(a1, v7, v3);
       }
     }
 
@@ -5418,7 +5420,7 @@ void std::vector<kaldi::quasar::TranslationUtil::NbestElement>::resize(kaldi::qu
   }
 }
 
-float kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::NbestToString(uint64_t a1, uint64_t *a2, uint64_t a3)
+float kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::NbestToString(uint64_t a1, float **a2, uint64_t a3)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v17);
   v5 = *a2;
@@ -5496,9 +5498,9 @@ float kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::
   return v7;
 }
 
-void sub_1B58C414C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B58C414C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -5523,7 +5525,7 @@ uint64_t kaldi::quasar::NNMTTransliterator::Transliterate<std::vector<kaldi::qua
         while (v4 != v3)
         {
           memset(&v16, 0, sizeof(v16));
-          kaldi::SplitStringToVector(v4, "\", 1, &v16);
+          kaldi::SplitStringToVector(v4, "\"", 1, &v16);
           if (v16.__r_.__value_.__l.__size_ != v16.__r_.__value_.__r.__words[0])
           {
             __p[0] = 0;
@@ -5633,7 +5635,7 @@ uint64_t kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder
   kaldi::Matrix<float>::Matrix(&v58);
   if (*(a1 + 5136) == *(a1 + 5128) || *(a1 + 5675) != 1)
   {
-    kaldi::quasar::TorchEncoderDecoder::Align(*(a1 + 136), (a2 + 168), (a2 + 192), a1 + 5632, &v58);
+    kaldi::quasar::TorchEncoderDecoder::Align(*(a1 + 136), (a2 + 168), a2 + 192, a1 + 5632, &v58);
     if (kaldi::g_kaldi_verbose_level >= 1)
     {
       kaldi::KaldiVlogMessage::KaldiVlogMessage(&v48, 1);
@@ -5708,7 +5710,7 @@ uint64_t kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder
         v17 = v52[v15];
         v18 = kaldi::MatrixBase<float>::NumCols(&v58);
         v16 = v59;
-        *(v58 + 4 * v61 * v15++ + 4 * v18 - 4) = v17;
+        *&v58[4 * v61 * v15++ - 4 + 4 * v18] = v17;
         v19 = (v56 - v55) >> 2;
       }
 
@@ -5767,7 +5769,7 @@ uint64_t kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder
   kaldi::CuMatrixBase<float>::CopyToMat<float>(v45, &v58, 111);
   for (i = 0; i != kaldi::MatrixBase<float>::NumRows(&v58); ++i)
   {
-    std::vector<float>::push_back[abi:ne200100]((a2 + 216), (v58 + 4 * v61 * i + 4));
+    std::vector<float>::push_back[abi:ne200100]((a2 + 216), &v58[4 * v61 * i + 4]);
   }
 
   v29 = *(a2 + 8);
@@ -5846,25 +5848,26 @@ uint64_t kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder
   return kaldi::Matrix<float>::~Matrix(&v58);
 }
 
-void sub_1B58C4AB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_1B58C4AB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   quasar::Bitmap::~Bitmap(&a9);
-  kaldi::Matrix<float>::~Matrix(&a15);
-  v17 = *(v15 - 168);
+  kaldi::Matrix<float>::~Matrix(va);
+  v16 = *(v14 - 168);
+  if (v16)
+  {
+    *(v14 - 160) = v16;
+    operator delete(v16);
+  }
+
+  v17 = *(v14 - 144);
   if (v17)
   {
-    *(v15 - 160) = v17;
+    *(v14 - 136) = v17;
     operator delete(v17);
   }
 
-  v18 = *(v15 - 144);
-  if (v18)
-  {
-    *(v15 - 136) = v18;
-    operator delete(v18);
-  }
-
-  kaldi::Matrix<float>::~Matrix(v15 - 120);
+  kaldi::Matrix<float>::~Matrix(v14 - 120);
   _Unwind_Resume(a1);
 }
 
@@ -5878,8 +5881,8 @@ void kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::A
     {
       if (*(a2 + 88) == 1)
       {
-        v7 = *(v6 + 23);
-        v8 = *(v6 + 24);
+        v7 = *(v6 + 184);
+        v8 = *(v6 + 192);
         if (v7 == v8)
         {
           goto LABEL_9;
@@ -5896,8 +5899,8 @@ void kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::A
         }
 
         while (v7 != v8);
-        v12 = *(v6 + 23);
-        v13 = *(v6 + 24);
+        v12 = *(v6 + 184);
+        v13 = *(v6 + 192);
         if (v12 == v13)
         {
 LABEL_9:
@@ -5912,10 +5915,10 @@ LABEL_9:
 
       else
       {
-        LODWORD(v14) = llround(expf(-*(v6 + 21)) * 998.0 + 1.0);
+        LODWORD(v14) = llround(expf(-*(v6 + 84)) * 998.0 + 1.0);
       }
 
-      *(v6 + 58) = v14;
+      *(v6 + 232) = v14;
       v6 += 240;
     }
 
@@ -5930,7 +5933,7 @@ LABEL_9:
     v16 = 0xEEEEEEEEEEEEEEEFLL * ((v5 - v6) >> 4);
     do
     {
-      v15 = *(v6 + 58) + v15;
+      v15 = *(v6 + 232) + v15;
       v6 += 240;
     }
 
@@ -5995,7 +5998,7 @@ void sub_1B58C4DDC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::__stable_sort<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::ConfidenceScore(std::vector<kaldi::quasar::TranslationUtil::NbestElement> *,int)::{lambda(kaldi::quasar::TranslationUtil::NbestElement,kaldi::quasar::TranslationUtil::NbestElement const&)#1} &,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement*>>(const kaldi::quasar::TranslationUtil::NbestElement *a1, const kaldi::quasar::TranslationUtil::NbestElement *a2, uint64_t a3, unint64_t a4, kaldi::quasar::TranslationUtil::NbestElement *a5, uint64_t a6)
+void std::__stable_sort<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::ConfidenceScore(std::vector<kaldi::quasar::TranslationUtil::NbestElement> *,int)::{lambda(kaldi::quasar::TranslationUtil::NbestElement,kaldi::quasar::TranslationUtil::NbestElement const&)#1} &,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement*>>(const kaldi::quasar::TranslationUtil::NbestElement *a1, const kaldi::quasar::TranslationUtil::NbestElement *a2, uint64_t a3, unint64_t a4, kaldi::quasar::TranslationUtil::NbestElement *a5, int64_t a6)
 {
   v28 = a1;
   if (a4 >= 2)
@@ -6060,7 +6063,7 @@ void std::__stable_sort<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSea
     {
       v14 = a5;
       v15 = a4 >> 1;
-      v16 = a1 + 272 * (a4 >> 1);
+      v16 = (a1 + 272 * (a4 >> 1));
       if (a4 <= a6)
       {
         std::__stable_sort_move<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::ConfidenceScore(std::vector<kaldi::quasar::TranslationUtil::NbestElement> *,int)::{lambda(kaldi::quasar::TranslationUtil::NbestElement,kaldi::quasar::TranslationUtil::NbestElement const&)#1} &,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement*>>(a1, (a1 + 272 * (a4 >> 1)), a3, a4 >> 1, a5);
@@ -6094,9 +6097,9 @@ void std::__stable_sort<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSea
   }
 }
 
-void sub_1B58C5088(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B58C5088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<kaldi::quasar::TranslationUtil::NbestElement,std::__destruct_n &>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6187,8 +6190,8 @@ void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::T
             }
 
             v5 = (v5 - 272);
-            v19 = *(v15 - 264);
-            v20 = *(v15 - 272);
+            v19 = *(v15 - 33);
+            v20 = *(v15 - 34);
             if (v19 == v20)
             {
               LODWORD(v23) = 0;
@@ -6229,6 +6232,13 @@ LABEL_30:
       while ((v6 + 272) != a2);
     }
   }
+}
+
+void sub_1B58C5288(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, ...)
+{
+  va_start(va, a42);
+  kaldi::quasar::TranslationUtil::NbestElement::~NbestElement(va);
+  _Unwind_Resume(a1);
 }
 
 const kaldi::quasar::TranslationUtil::NbestElement *std::__stable_sort_move<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::ConfidenceScore(std::vector<kaldi::quasar::TranslationUtil::NbestElement> *,int)::{lambda(kaldi::quasar::TranslationUtil::NbestElement,kaldi::quasar::TranslationUtil::NbestElement const&)#1} &,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement*>>(const kaldi::quasar::TranslationUtil::NbestElement *result, kaldi::quasar::TranslationUtil::NbestElement *a2, uint64_t a3, unint64_t a4, kaldi::quasar::TranslationUtil::NbestElement *this)
@@ -6307,7 +6317,7 @@ const kaldi::quasar::TranslationUtil::NbestElement *std::__stable_sort_move<std:
     else if (a4 > 8)
     {
       std::__stable_sort<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::ConfidenceScore(std::vector<kaldi::quasar::TranslationUtil::NbestElement> *,int)::{lambda(kaldi::quasar::TranslationUtil::NbestElement,kaldi::quasar::TranslationUtil::NbestElement const&)#1} &,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement*>>(result, result + 272 * (a4 >> 1), a3, a4 >> 1, this, a4 >> 1);
-      std::__stable_sort<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::ConfidenceScore(std::vector<kaldi::quasar::TranslationUtil::NbestElement> *,int)::{lambda(kaldi::quasar::TranslationUtil::NbestElement,kaldi::quasar::TranslationUtil::NbestElement const&)#1} &,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement*>>(v8 + 272 * (a4 >> 1), a2, a3, a4 - (a4 >> 1), this + 272 * (a4 >> 1), a4 - (a4 >> 1));
+      std::__stable_sort<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::ConfidenceScore(std::vector<kaldi::quasar::TranslationUtil::NbestElement> *,int)::{lambda(kaldi::quasar::TranslationUtil::NbestElement,kaldi::quasar::TranslationUtil::NbestElement const&)#1} &,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement*>>((v8 + 272 * (a4 >> 1)), a2, a3, a4 - (a4 >> 1), (this + 272 * (a4 >> 1)), a4 - (a4 >> 1));
 
       return std::__merge_move_construct[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::ConfidenceScore(std::vector<kaldi::quasar::TranslationUtil::NbestElement> *,int)::{lambda(kaldi::quasar::TranslationUtil::NbestElement,kaldi::quasar::TranslationUtil::NbestElement const&)#1} &,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement*>,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement*>>(v8, (v8 + 272 * (a4 >> 1)), (v8 + 272 * (a4 >> 1)), a2, this);
     }
@@ -6411,7 +6421,7 @@ LABEL_20:
   return result;
 }
 
-void std::__inplace_merge<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::ConfidenceScore(std::vector<kaldi::quasar::TranslationUtil::NbestElement> *,int)::{lambda(kaldi::quasar::TranslationUtil::NbestElement,kaldi::quasar::TranslationUtil::NbestElement const&)#1} &,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement*>>(const kaldi::quasar::TranslationUtil::NbestElement *a1, uint64_t a2, kaldi::quasar::TranslationUtil::NbestElement *a3, uint64_t a4, uint64_t a5, uint64_t a6, kaldi::quasar::TranslationUtil::NbestElement *a7, uint64_t a8)
+void std::__inplace_merge<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::ConfidenceScore(std::vector<kaldi::quasar::TranslationUtil::NbestElement> *,int)::{lambda(kaldi::quasar::TranslationUtil::NbestElement,kaldi::quasar::TranslationUtil::NbestElement const&)#1} &,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement*>>(const kaldi::quasar::TranslationUtil::NbestElement *a1, kaldi::quasar::TranslationUtil::NbestElement *a2, kaldi::quasar::TranslationUtil::NbestElement *a3, uint64_t a4, uint64_t a5, uint64_t a6, kaldi::quasar::TranslationUtil::NbestElement *a7, uint64_t a8)
 {
   v35 = a2;
   v36 = a1;
@@ -6530,7 +6540,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamS
 
       a5 -= v24;
       v9 -= v22;
-      if (v24 + v22 >= a5 + v9)
+      if ((v24 + v22) >= a5 + v9)
       {
         std::__inplace_merge<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::ConfidenceScore(std::vector<kaldi::quasar::TranslationUtil::NbestElement> *,int)::{lambda(kaldi::quasar::TranslationUtil::NbestElement,kaldi::quasar::TranslationUtil::NbestElement const&)#1} &,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement*>>(v28, v13, v30, a4, a5, v9, a7, v31);
         v13 = v23;
@@ -6875,9 +6885,9 @@ LABEL_11:
   }
 }
 
-void sub_1B58C5EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1B58C5EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::unique_ptr<kaldi::quasar::TranslationUtil::NbestElement,std::__destruct_n &>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6912,7 +6922,7 @@ char *std::__upper_bound[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::Tra
 
       v9 = &v3[272 * (v5 >> 1)];
       v11 = *v9;
-      v10 = v9[1];
+      v10 = *(v9 + 1);
       if (v10 == *v9)
       {
         LODWORD(v13) = 0;
@@ -6939,7 +6949,7 @@ char *std::__upper_bound[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::Tra
 
       else
       {
-        v3 = (v9 + 34);
+        v3 = v9 + 272;
         v5 += ~(v5 >> 1);
       }
     }
@@ -7284,9 +7294,9 @@ kaldi::quasar::TranslationUtil::NbestElement *std::vector<kaldi::quasar::Transla
   return result;
 }
 
-void sub_1B58C6528(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B58C6528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<kaldi::quasar::TranslationUtil::NbestElement>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7509,7 +7519,7 @@ LABEL_91:
 
   if (v6[800] == 1)
   {
-    kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::DecodeSymbolized<fst::BackoffDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(a1, &v45, a3);
+    kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::DecodeSymbolized<fst::BackoffDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(a1, &v45, a3, a4, 0);
   }
 
 LABEL_68:
@@ -7642,37 +7652,37 @@ LABEL_11:
   }
 }
 
-void kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::DecodeSymbolized<fst::BackoffDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(uint64_t a1, uint64_t a2, uint64_t a3)
+void kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::DecodeSymbolized<fst::BackoffDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(uint64_t a1, char **a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
 {
-  v8 = 0;
-  v9 = 0;
-  v7 = &v8;
+  v11 = 0;
+  v12 = 0;
+  v10 = &v11;
   if (*(a3 + 308) == 1)
   {
-    kaldi::quasar::Encdec::GetTiming(*(a1 + 136), &v4);
-    std::__tree<std::string>::destroy(&v7, v8);
-    v3 = v5;
-    v7 = v4;
-    v8 = v5;
-    v9 = v6;
-    if (v6)
+    kaldi::quasar::Encdec::GetTiming(&v6, *(a1 + 136));
+    std::__tree<std::string>::destroy(&v10, v11);
+    v5 = v7;
+    v10 = v6;
+    v11 = v7;
+    v12 = v8;
+    if (v8)
     {
-      *(v5 + 16) = &v8;
-      v4 = &v5;
+      *(v7 + 16) = &v11;
+      v6 = &v7;
+      v7 = 0;
+      v8 = 0;
       v5 = 0;
-      v6 = 0;
-      v3 = 0;
     }
 
     else
     {
-      v7 = &v8;
+      v10 = &v11;
     }
 
-    std::__tree<std::string>::destroy(&v4, v3);
+    std::__tree<std::string>::destroy(&v6, v5);
   }
 
-  fst::VectorFst<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>,std::allocator<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::VectorFst();
+  fst::VectorFst<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>,std::allocator<fst::ArcTpl<fst::LatticeWeightWithStateTpl<fst::LatticeWeightTpl<float>,float,std::vector<float>>,int>>>>::VectorFst(&v9);
 }
 
 void sub_1B58C7090(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, uint64_t a10, std::locale a11)
@@ -7758,37 +7768,37 @@ float kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::PostProcessNb
   return v10;
 }
 
-void sub_1B58C72FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B58C72FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   kaldi::KaldiLogMessage::~KaldiLogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void kaldi::quasar::Encdec::GetTiming(const void **this@<X0>, void *a2@<X8>)
+void kaldi::quasar::Encdec::GetTiming(uint64_t *__return_ptr a1@<X8>, const void **this@<X0>)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v14[4] = *MEMORY[0x1E69E9840];
   std::string::basic_string[abi:ne200100]<0>(v5, "time total");
   v5[3] = this[287];
   std::string::basic_string[abi:ne200100]<0>(v6, "time start feedforward");
-  v7 = this[288];
-  std::string::basic_string[abi:ne200100]<0>(v8, "time start ff graph");
-  v9 = this[289];
-  std::string::basic_string[abi:ne200100]<0>(v10, "time start ff input graph");
-  v11 = this[290];
-  std::string::basic_string[abi:ne200100]<0>(v12, "time start ff handover graph");
-  v13 = this[291];
-  std::string::basic_string[abi:ne200100]<0>(v14, "time get history state");
-  v15 = this[292];
-  std::string::basic_string[abi:ne200100]<0>(v16, "time set history state");
-  v17 = this[293];
-  std::string::basic_string[abi:ne200100]<0>(v18, "time feed forward");
-  v19 = this[294];
-  std::string::basic_string[abi:ne200100]<0>(v20, "time ff graph");
-  v21 = this[295];
-  std::string::basic_string[abi:ne200100]<0>(v22, "time ff readout");
-  v23 = this[296];
-  std::map<std::string,double>::map[abi:ne200100](a2, v5, 10);
+  v6[3] = this[288];
+  std::string::basic_string[abi:ne200100]<0>(v7, "time start ff graph");
+  v7[3] = this[289];
+  std::string::basic_string[abi:ne200100]<0>(v8, "time start ff input graph");
+  v8[3] = this[290];
+  std::string::basic_string[abi:ne200100]<0>(v9, "time start ff handover graph");
+  v9[3] = this[291];
+  std::string::basic_string[abi:ne200100]<0>(v10, "time get history state");
+  v10[3] = this[292];
+  std::string::basic_string[abi:ne200100]<0>(v11, "time set history state");
+  v11[3] = this[293];
+  std::string::basic_string[abi:ne200100]<0>(v12, "time feed forward");
+  v12[3] = this[294];
+  std::string::basic_string[abi:ne200100]<0>(v13, "time ff graph");
+  v13[3] = this[295];
+  std::string::basic_string[abi:ne200100]<0>(v14, "time ff readout");
+  v14[3] = this[296];
+  std::map<std::string,double>::map[abi:ne200100](a1, v5, 10);
   v4 = 40;
   do
   {
@@ -7829,88 +7839,89 @@ void sub_1B58C74F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 float kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::DecodeCore<fst::BackoffDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
   std::string::basic_string[abi:ne200100]<0>(&__p, "");
-  kaldi::quasar::TimeBlock::TimeBlock(v30, (a1 + 4856), a1 + 5680, &__p);
-  if (SHIBYTE(v26) < 0)
+  kaldi::quasar::TimeBlock::TimeBlock(v31, (a1 + 4856), a1 + 5680, &__p);
+  if (SHIBYTE(v27) < 0)
   {
     operator delete(__p);
   }
 
   if (kaldi::g_kaldi_verbose_level >= 3)
   {
-    v27 = 0;
     v28 = 0;
     v29 = 0;
-    kaldi::JoinVectorToString<int>(a2, ",", &v27);
+    v30 = 0;
+    kaldi::JoinVectorToString<int>(a2, ",", &v28);
     if (kaldi::g_kaldi_verbose_level >= 3)
     {
       kaldi::KaldiVlogMessage::KaldiVlogMessage(&__p, 3);
       v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p, "Input : ", 8);
-      if (v29 >= 0)
+      if (v30 >= 0)
       {
-        v9 = &v27;
+        v9 = &v28;
       }
 
       else
       {
-        v9 = v27;
+        v9 = v28;
       }
 
-      if (v29 >= 0)
+      if (v30 >= 0)
       {
-        v10 = HIBYTE(v29);
+        v10 = HIBYTE(v30);
       }
 
       else
       {
-        v10 = v28;
+        v10 = v29;
       }
 
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, v9, v10);
       kaldi::KaldiVlogMessage::~KaldiVlogMessage(&__p);
     }
 
-    if (SHIBYTE(v29) < 0)
+    if (SHIBYTE(v30) < 0)
     {
-      operator delete(v27);
+      operator delete(v28);
     }
   }
 
   v11 = (((a2[1] - *a2) >> 2) - (*(a3 + 236) + *(a1 + 5204)));
-  if ((*(a1 + 5200) * v11) <= 1)
+  v12 = (*(a1 + 5200) * v11);
+  if (v12 <= 1)
   {
-    v12 = 1;
+    v13 = 1;
   }
 
   else
   {
-    v12 = (*(a1 + 5200) * v11);
+    v13 = v12;
   }
 
-  v13 = *(a1 + 5188);
-  v14 = *(a1 + 5192);
-  if (v14 != -1.0)
+  v14 = *(a1 + 5188);
+  v15 = *(a1 + 5192);
+  if (v15 != -1.0)
   {
-    v15 = (v14 * v11);
-    if (*(a1 + 5196) > v15)
+    v16 = (v15 * v11);
+    if (*(a1 + 5196) > v16)
     {
-      v15 = *(a1 + 5196);
+      v16 = *(a1 + 5196);
     }
 
-    if (v15 >= v13)
+    if (v16 >= v14)
     {
-      v13 = v13;
+      v14 = v14;
     }
 
     else
     {
-      v13 = v15;
+      v14 = v16;
     }
   }
 
-  kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::SelectModel((a1 + 136), a3 + 136, a3 + 88, 0, &v23);
-  if (v24)
+  kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::SelectModel((a1 + 136), (a3 + 136), (a3 + 88), 0, &v24);
+  if (v25)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v24);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v25);
   }
 
   if (*(a3 + 160))
@@ -7923,7 +7934,7 @@ float kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::DecodeCore<fs
     }
 
     kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::Init<fst::BackoffDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(a1, a3, a4);
-    kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::Read<fst::BackoffDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(a1, a3, a2, 0);
+    kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::Read<fst::BackoffDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(a1, a3, a2, 0, 0.0);
   }
 
   if (kaldi::g_kaldi_verbose_level >= 5)
@@ -7934,14 +7945,14 @@ float kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::DecodeCore<fs
   }
 
   kaldi::quasar::Encdec::Start(*(a1 + 136), *(a3 + 312), (a3 + 112));
-  v16 = *(a1 + 136);
-  v17 = *(a3 + 288);
-  v18 = *(a3 + 292);
+  v17 = *(a1 + 136);
+  v18 = *(a3 + 288);
+  v19 = *(a3 + 292);
   __p = 0uLL;
-  v26 = 0;
-  kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::SuppressedIds(a1, a3 + 64, a3 + 88, (a3 + 328), &v27);
-  kaldi::quasar::Encdec::ConstrainSoftmax(v16, a3 + 264, v17, v18, a2, &__p, &v27);
-  std::__tree<int>::destroy(&v27, v28);
+  v27 = 0;
+  kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::SuppressedIds(a1, a3 + 64, a3 + 88, (a3 + 328), &v28);
+  kaldi::quasar::Encdec::ConstrainSoftmax(v17, (a3 + 264), v18, v19, a2, &__p, &v28);
+  std::__tree<int>::destroy(&v28, v29);
   if (__p)
   {
     *(&__p + 1) = __p;
@@ -7950,17 +7961,17 @@ float kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::DecodeCore<fs
 
   (*(*a4 + 224))(a4);
   __p = 0uLL;
-  v26 = 0;
-  v19 = kaldi::quasar::TMTools::GreedyDecode<kaldi::quasar::Encdec>(*(a1 + 136), a2, &__p, (a3 + 112), a4, v12, v13);
-  kaldi::quasar::Encdec::Finish(*(a1 + 136), v20);
+  v27 = 0;
+  v20 = kaldi::quasar::TMTools::GreedyDecode<kaldi::quasar::Encdec>(*(a1 + 136), a2, &__p, (a3 + 112), a4, v13, v14);
+  kaldi::quasar::Encdec::Finish(*(a1 + 136), v21);
   if (__p)
   {
     *(&__p + 1) = __p;
     operator delete(__p);
   }
 
-  kaldi::quasar::TimeBlock::~TimeBlock(v30, v21);
-  return v19;
+  kaldi::quasar::TimeBlock::~TimeBlock(v31, v22);
+  return v20;
 }
 
 void sub_1B58C78AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
@@ -7970,18 +7981,18 @@ void sub_1B58C78AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::map<std::string,double>::map[abi:ne200100](void *a1, const void **a2, uint64_t a3)
+uint64_t std::map<std::string,double>::map[abi:ne200100](uint64_t a1, const void **a2, uint64_t a3)
 {
-  a1[1] = 0;
-  v4 = (a1 + 1);
-  a1[2] = 0;
-  *a1 = a1 + 1;
+  *(a1 + 8) = 0;
+  v4 = a1 + 8;
+  *(a1 + 16) = 0;
+  *a1 = a1 + 8;
   if (a3)
   {
     v6 = 32 * a3;
     do
     {
-      std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,double> const&>(a1, v4, a2);
+      std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,double> const&>(a1, v4, a2, a2);
       a2 += 4;
       v6 -= 32;
     }
@@ -7992,8 +8003,9 @@ void *std::map<std::string,double>::map[abi:ne200100](void *a1, const void **a2,
   return a1;
 }
 
-float kaldi::quasar::TMTools::GreedyDecode<kaldi::quasar::Encdec>(uint64_t a1, uint64_t *a2, uint64_t a3, const std::string *a4, uint64_t a5, int a6, uint64_t a7)
+float kaldi::quasar::TMTools::GreedyDecode<kaldi::quasar::Encdec>(uint64_t a1, uint64_t *a2, const void **a3, const std::string *a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
+  v8 = a6;
   v25 = 0u;
   v24 = 0u;
   v23 = &unk_1F2D0EE38;
@@ -8022,12 +8034,12 @@ float kaldi::quasar::TMTools::GreedyDecode<kaldi::quasar::Encdec>(uint64_t a1, u
     while (v18 != v17);
   }
 
-  v21 = kaldi::quasar::TMTools::GreedyDecode<kaldi::quasar::Encdec>(a1, &v23, a3, a4, a5, a6, a7);
+  v21 = kaldi::quasar::TMTools::GreedyDecode<kaldi::quasar::Encdec>(a1, &v23, a3, a4, a5, v8, a7);
   kaldi::CuMatrix<float>::~CuMatrix(&v23);
   return v21;
 }
 
-float kaldi::quasar::TMTools::GreedyDecode<kaldi::quasar::Encdec>(uint64_t a1, uint64_t a2, uint64_t a3, const std::string *a4, uint64_t a5, int a6, uint64_t a7)
+float kaldi::quasar::TMTools::GreedyDecode<kaldi::quasar::Encdec>(uint64_t a1, uint64_t a2, const void **a3, const std::string *a4, uint64_t a5, int a6, uint64_t a7)
 {
   kaldi::quasar::Encdec::ResetHistoryState(a1);
   kaldi::quasar::Encdec::Start(a1, 1, a4);
@@ -8215,7 +8227,7 @@ LABEL_41:
 
   v36 = (*(*a5 + 200))(a5);
   (*(*a5 + 176))(a5, v36);
-  if (*(a3 + 8) == *a3)
+  if (a3[1] == *a3)
   {
     v38 = 0;
   }
@@ -8228,7 +8240,7 @@ LABEL_41:
     do
     {
       v40 = (*(*a5 + 200))(a5);
-      if (v38 >= (v70 - v69) >> 2 || v38 >= (*(a3 + 8) - *a3) >> 2)
+      if (v38 >= (v70 - v69) >> 2 || v38 >= (a3[1] - *a3) >> 2)
       {
         std::vector<int>::__throw_out_of_range[abi:ne200100]();
       }
@@ -8240,7 +8252,7 @@ LABEL_41:
 
       v36 = v40;
       v41 = *(v69 + v38);
-      v42 = *(*a3 + 4 * v38);
+      v42 = *(*a3 + v38);
       v43 = *(v63 + v38);
       v50 = 0;
       v51 = 0;
@@ -8283,7 +8295,7 @@ LABEL_41:
       v39 = v36;
     }
 
-    while (v38 != (*(a3 + 8) - *a3) >> 2);
+    while (v38 != (a3[1] - *a3) >> 2);
   }
 
   v44 = -*(v63 + v38);
@@ -8318,8 +8330,9 @@ LABEL_41:
   return -v15;
 }
 
-void sub_1B58C8218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, void *a51, uint64_t a52, uint64_t a53, uint64_t a54, void *__p, uint64_t a56, uint64_t a57, char a58, uint64_t a59, uint64_t a60, void *a61, uint64_t a62, uint64_t a63)
+void sub_1B58C8218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char *a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, void *a51, uint64_t a52, uint64_t a53, uint64_t a54, void *__p, uint64_t a56, uint64_t a57, char a58, uint64_t a59, uint64_t a60, void *a61, uint64_t a62, uint64_t a63, ...)
 {
+  va_start(va, a63);
   if (__p)
   {
     a56 = __p;
@@ -8334,8 +8347,8 @@ void sub_1B58C8218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a61);
   }
 
-  kaldi::CuMatrix<float>::~CuMatrix(&a64);
-  kaldi::CuMatrix<float>::~CuMatrix(v64 - 232);
+  kaldi::CuMatrix<float>::~CuMatrix(va);
+  kaldi::CuMatrix<float>::~CuMatrix(v63 - 232);
   _Unwind_Resume(a1);
 }
 
@@ -8393,7 +8406,7 @@ void sub_1B58C8438(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::__stable_sort<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::NbestCompare &,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement *>>(const kaldi::quasar::TranslationUtil::NbestElement *a1, const kaldi::quasar::TranslationUtil::NbestElement *a2, float *a3, unint64_t a4, kaldi::quasar::TranslationUtil::NbestElement *a5, uint64_t a6)
+void std::__stable_sort<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::NbestCompare &,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement *>>(const kaldi::quasar::TranslationUtil::NbestElement *a1, const kaldi::quasar::TranslationUtil::NbestElement *a2, float *a3, unint64_t a4, kaldi::quasar::TranslationUtil::NbestElement *a5, int64_t a6)
 {
   v19 = a1;
   if (a4 >= 2)
@@ -8417,7 +8430,7 @@ void std::__stable_sort<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSea
     {
       v11 = a5;
       v12 = a4 >> 1;
-      v13 = a1 + 272 * (a4 >> 1);
+      v13 = (a1 + 272 * (a4 >> 1));
       if (a4 <= a6)
       {
         std::__stable_sort_move<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::NbestCompare &,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement *>>(a1, (a1 + 272 * (a4 >> 1)), a3, a4 >> 1, a5);
@@ -8451,9 +8464,9 @@ void std::__stable_sort<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSea
   }
 }
 
-void sub_1B58C8654(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B58C8654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<kaldi::quasar::TranslationUtil::NbestElement,std::__destruct_n &>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8462,7 +8475,7 @@ void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::T
 {
   if (a1 != a2)
   {
-    v5 = a1 + 272;
+    v5 = (a1 + 272);
     if ((a1 + 272) != a2)
     {
       v7 = 0;
@@ -8486,7 +8499,7 @@ void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::T
             v10 -= 272;
             if (!kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::NbestCompare::operator()(a3, v12, a1 + v10))
             {
-              v11 = a1 + v10 + 272;
+              v11 = (a1 + v10 + 272);
               goto LABEL_10;
             }
           }
@@ -8497,7 +8510,7 @@ LABEL_10:
           kaldi::quasar::TranslationUtil::NbestElement::~NbestElement(v12);
         }
 
-        v5 = v8 + 272;
+        v5 = (v8 + 272);
         v7 += 272;
       }
 
@@ -8537,7 +8550,7 @@ const kaldi::quasar::TranslationUtil::NbestElement *std::__stable_sort_move<std:
     else if (a4 > 8)
     {
       std::__stable_sort<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::NbestCompare &,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement *>>(result, result + 272 * (a4 >> 1), a3, a4 >> 1, this, a4 >> 1);
-      std::__stable_sort<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::NbestCompare &,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement *>>(v9 + 272 * (a4 >> 1), a2, a3, a4 - (a4 >> 1), this + 272 * (a4 >> 1), a4 - (a4 >> 1));
+      std::__stable_sort<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::NbestCompare &,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement *>>((v9 + 272 * (a4 >> 1)), a2, a3, a4 - (a4 >> 1), (this + 272 * (a4 >> 1)), a4 - (a4 >> 1));
 
       return std::__merge_move_construct[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::NbestCompare &,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement *>,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement *>>(v9, (v9 + 272 * (a4 >> 1)), (v9 + 272 * (a4 >> 1)), a2, this, a3);
     }
@@ -8552,14 +8565,14 @@ const kaldi::quasar::TranslationUtil::NbestElement *std::__stable_sort_move<std:
   return result;
 }
 
-void sub_1B58C8924(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B58C8924(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<kaldi::quasar::TranslationUtil::NbestElement,std::__destruct_n &>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void std::__inplace_merge<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::NbestCompare &,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement *>>(kaldi::quasar::TranslationUtil::NbestElement *a1, uint64_t a2, kaldi::quasar::TranslationUtil::NbestElement *a3, float *a4, uint64_t a5, uint64_t a6, kaldi::quasar::TranslationUtil::NbestElement *a7, uint64_t a8)
+void std::__inplace_merge<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::NbestCompare &,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement *>>(kaldi::quasar::TranslationUtil::NbestElement *a1, uint64_t a2, kaldi::quasar::TranslationUtil::NbestElement *a3, float *a4, int64_t a5, uint64_t a6, kaldi::quasar::TranslationUtil::NbestElement *a7, int64_t a8)
 {
   v37 = a2;
   v38 = a1;
@@ -8633,7 +8646,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamS
 
             if (v27)
             {
-              v13 = (v26 + 272);
+              v13 = v26 + 272;
             }
           }
 
@@ -8656,7 +8669,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamS
         v20 = std::__upper_bound[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::NbestCompare &,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement *>,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement *>,kaldi::quasar::TranslationUtil::NbestElement,std::__identity>(v15 + v14, v13, v13 + 272 * (v9 / 2), a4);
         v21 = 0xF0F0F0F0F0F0F0F1 * ((v20 - v15 - v14) >> 4);
         v22 = v13;
-        v13 = (v13 + 272 * (v9 / 2));
+        v13 += 272 * (v9 / 2);
       }
 
       v30 = v13;
@@ -8671,7 +8684,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamS
 
       a5 = -v16 - v21;
       v31 = v9 - v19;
-      if ((v21 + v19) >= (v9 - (v21 + v19) - v16))
+      if (v21 + v19 >= v9 - (v21 + v19) - v16)
       {
         std::__inplace_merge<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::NbestCompare &,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement *>>(v30, v13, v34, a4, -v16 - v21, v31, a7, v35);
         v13 = v20;
@@ -8759,9 +8772,9 @@ const kaldi::quasar::TranslationUtil::NbestElement *std::__insertion_sort_move[a
   return result;
 }
 
-void sub_1B58C8D44(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B58C8D44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<kaldi::quasar::TranslationUtil::NbestElement,std::__destruct_n &>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8819,9 +8832,9 @@ LABEL_10:
   return result;
 }
 
-void sub_1B58C8E7C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B58C8E7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<kaldi::quasar::TranslationUtil::NbestElement,std::__destruct_n &>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8899,14 +8912,14 @@ LABEL_11:
   }
 }
 
-void sub_1B58C8FF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1B58C8FF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::unique_ptr<kaldi::quasar::TranslationUtil::NbestElement,std::__destruct_n &>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-float kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::Rescore<fst::BackoffDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(uint64_t a1, const kaldi::quasar::TranslationUtil::NbestElement **a2, void **a3, float a4, float a5, float a6)
+float kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::Rescore<fst::BackoffDeterministicOnDemandFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(uint64_t a1, uint64_t *a2, void **a3, float a4, float a5, float a6)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "");
   v75 = a1;
@@ -9051,11 +9064,11 @@ LABEL_8:
       do
       {
         v28 = (**a3)(a3);
-        if ((*(v26 + 14) - 5) > 1)
+        if ((*(v26 + 56) - 5) > 1)
         {
           v30 = v28;
           v32 = *v26;
-          v31 = *(v26 + 1);
+          v31 = *(v26 + 8);
           v33 = 0.0;
           while (v32 != v31)
           {
@@ -9098,7 +9111,7 @@ LABEL_8:
 
                 else
                 {
-                  v40 = *(v32 + 8);
+                  v40 = *(v32 + 1);
                 }
 
                 v41 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v37, v39, v40);
@@ -9114,26 +9127,26 @@ LABEL_8:
 
             v30 = HIDWORD(v77);
             v33 = v33 + *&v77;
-            v32 += 240;
+            v32 += 60;
           }
 
           v44 = ((*a3)[2])(a3, v30);
-          v45 = *(v26 + 7);
-          v80[0] = *(v26 + 6);
+          v45 = *(v26 + 28);
+          v80[0] = *(v26 + 24);
           v80[1] = v45;
           v46 = v27 * v45;
-          *(v26 + 6) = (v33 + v44) * a4;
-          *(v26 + 7) = v46;
-          *(v26 + 8) = v44 * a4;
-          *(v26 + 9) = v27 * *(v26 + 9);
+          *(v26 + 24) = (v33 + v44) * a4;
+          *(v26 + 28) = v46;
+          *(v26 + 32) = v44 * a4;
+          *(v26 + 36) = v27 * *(v26 + 36);
           v79[0] = (v33 + v44) * a4;
           v79[1] = v46;
           v76 = 0;
           v77 = 0;
           v78 = 0;
           v47 = kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::NbestToString(v75, v26, &v76);
-          v48 = *(v26 + 8);
-          v49 = *(v26 + 9);
+          v48 = *(v26 + 32);
+          v49 = *(v26 + 36);
           if ((kaldi::g_kaldi_verbose_level & 0x80000000) == 0)
           {
             kaldi::KaldiWarnMessage::KaldiWarnMessage(__p);
@@ -9164,7 +9177,7 @@ LABEL_8:
 
             v57 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v54, v55, v56);
             v58 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v57, " finalcost=", 11);
-            fst::operator<<<float>(v58, v26 + 8);
+            fst::operator<<<float>(v58, (v26 + 32));
             kaldi::KaldiLogMessage::~KaldiLogMessage(__p);
           }
 
@@ -9181,14 +9194,14 @@ LABEL_8:
 
         else
         {
-          v29 = *(v26 + 7);
-          if ((*(v26 + 6) + v29) < v14)
+          v29 = *(v26 + 28);
+          if ((*(v26 + 24) + v29) < v14)
           {
-            v14 = *(v26 + 6) + v29;
+            v14 = *(v26 + 24) + v29;
           }
         }
 
-        v26 = (v26 + 272);
+        v26 += 272;
       }
 
       while (v26 != v25);
@@ -9210,9 +9223,9 @@ LABEL_8:
       v66 = powf(*&v77 + 1.0, *(&v76 + 1));
       do
       {
-        v67 = *(v61 + 6);
-        v68 = *(v61 + 7);
-        v69 = (*(v61 + 25) - *(v61 + 24)) >> 2;
+        v67 = *(v61 + 24);
+        v68 = *(v61 + 28);
+        v69 = (*(v61 + 200) - *(v61 + 192)) >> 2;
         if (v63 == 2)
         {
           v70 = powf(v65 + v69, v64) / v66;
@@ -9227,8 +9240,8 @@ LABEL_8:
           }
         }
 
-        *(v61 + 10) = (v67 + v68) / v70;
-        v61 = (v61 + 272);
+        *(v61 + 40) = (v67 + v68) / v70;
+        v61 += 272;
       }
 
       while (v61 != v62);
@@ -9256,8 +9269,9 @@ void sub_1B58C972C(_Unwind_Exception *a1, clockid_t a2, int a3, int a4, int a5, 
   _Unwind_Resume(a1);
 }
 
-void kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ConfidenceScore(uint64_t a1, const kaldi::quasar::TranslationUtil::NbestElement **a2, int a3)
+void kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ConfidenceScore(uint64_t a1, const kaldi::quasar::TranslationUtil::NbestElement **a2, uint64_t a3)
 {
+  v3 = a3;
   std::string::basic_string[abi:ne200100]<0>(__p, "");
   kaldi::quasar::TimeBlock::TimeBlock(v11, (a1 + 4856), a1 + 5696, __p);
   if (v10 < 0)
@@ -9273,12 +9287,12 @@ void kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ConfidenceScor
     {
       if (*(a1 + 5673) == 1)
       {
-        kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::AssignConfidencesFromConfidenceModel(a1, v7, a3);
+        kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::AssignConfidencesFromConfidenceModel(a1, v7, v3);
       }
 
       else
       {
-        kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::AssignConfidencesFromTranslationModel(a1, v7, a3);
+        kaldi::quasar::TranslationBeamSearch<kaldi::quasar::TorchEncoderDecoder>::AssignConfidencesFromTranslationModel(a1, v7, v3);
       }
     }
 
@@ -9298,7 +9312,7 @@ void kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ConfidenceScor
   kaldi::quasar::TimeBlock::~TimeBlock(v11, v6);
 }
 
-float kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::NbestToString(uint64_t a1, uint64_t *a2, uint64_t a3)
+float kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::NbestToString(uint64_t a1, float **a2, uint64_t a3)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v17);
   v5 = *a2;
@@ -9376,9 +9390,9 @@ float kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::NbestToString
   return v7;
 }
 
-void sub_1B58C9B68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B58C9B68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -9462,7 +9476,7 @@ uint64_t kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::AssignConf
         v17 = v52[v15];
         v18 = kaldi::MatrixBase<float>::NumCols(&v58);
         v16 = v59;
-        *(v58 + 4 * v61 * v15++ + 4 * v18 - 4) = v17;
+        *&v58[4 * v61 * v15++ - 4 + 4 * v18] = v17;
         v19 = (v56 - v55) >> 2;
       }
 
@@ -9521,7 +9535,7 @@ uint64_t kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::AssignConf
   kaldi::CuMatrixBase<float>::CopyToMat<float>(v45, &v58, 111);
   for (i = 0; i != kaldi::MatrixBase<float>::NumRows(&v58); ++i)
   {
-    std::vector<float>::push_back[abi:ne200100]((a2 + 216), (v58 + 4 * v61 * i + 4));
+    std::vector<float>::push_back[abi:ne200100]((a2 + 216), &v58[4 * v61 * i + 4]);
   }
 
   v29 = *(a2 + 8);
@@ -9600,25 +9614,26 @@ uint64_t kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::AssignConf
   return kaldi::Matrix<float>::~Matrix(&v58);
 }
 
-void sub_1B58CA0A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_1B58CA0A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   quasar::Bitmap::~Bitmap(&a9);
-  kaldi::Matrix<float>::~Matrix(&a15);
-  v17 = *(v15 - 168);
+  kaldi::Matrix<float>::~Matrix(va);
+  v16 = *(v14 - 168);
+  if (v16)
+  {
+    *(v14 - 160) = v16;
+    operator delete(v16);
+  }
+
+  v17 = *(v14 - 144);
   if (v17)
   {
-    *(v15 - 160) = v17;
+    *(v14 - 136) = v17;
     operator delete(v17);
   }
 
-  v18 = *(v15 - 144);
-  if (v18)
-  {
-    *(v15 - 136) = v18;
-    operator delete(v18);
-  }
-
-  kaldi::Matrix<float>::~Matrix(v15 - 120);
+  kaldi::Matrix<float>::~Matrix(v14 - 120);
   _Unwind_Resume(a1);
 }
 
@@ -9676,7 +9691,7 @@ void sub_1B58CA27C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::__stable_sort<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ConfidenceScore(std::vector<kaldi::quasar::TranslationUtil::NbestElement> *,int)::{lambda(kaldi::quasar::TranslationUtil::NbestElement,kaldi::quasar::TranslationUtil::NbestElement const&)#1} &,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement*>>(const kaldi::quasar::TranslationUtil::NbestElement *a1, const kaldi::quasar::TranslationUtil::NbestElement *a2, uint64_t a3, unint64_t a4, kaldi::quasar::TranslationUtil::NbestElement *a5, uint64_t a6)
+void std::__stable_sort<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ConfidenceScore(std::vector<kaldi::quasar::TranslationUtil::NbestElement> *,int)::{lambda(kaldi::quasar::TranslationUtil::NbestElement,kaldi::quasar::TranslationUtil::NbestElement const&)#1} &,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement*>>(const kaldi::quasar::TranslationUtil::NbestElement *a1, const kaldi::quasar::TranslationUtil::NbestElement *a2, uint64_t a3, unint64_t a4, kaldi::quasar::TranslationUtil::NbestElement *a5, int64_t a6)
 {
   v28 = a1;
   if (a4 >= 2)
@@ -9741,7 +9756,7 @@ void std::__stable_sort<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSea
     {
       v14 = a5;
       v15 = a4 >> 1;
-      v16 = a1 + 272 * (a4 >> 1);
+      v16 = (a1 + 272 * (a4 >> 1));
       if (a4 <= a6)
       {
         std::__stable_sort_move<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSearch<kaldi::quasar::Encdec>::ConfidenceScore(std::vector<kaldi::quasar::TranslationUtil::NbestElement> *,int)::{lambda(kaldi::quasar::TranslationUtil::NbestElement,kaldi::quasar::TranslationUtil::NbestElement const&)#1} &,std::__wrap_iter<kaldi::quasar::TranslationUtil::NbestElement*>>(a1, (a1 + 272 * (a4 >> 1)), a3, a4 >> 1, a5);
@@ -9775,9 +9790,9 @@ void std::__stable_sort<std::_ClassicAlgPolicy,kaldi::quasar::TranslationBeamSea
   }
 }
 
-void sub_1B58CA528(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B58CA528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<kaldi::quasar::TranslationUtil::NbestElement,std::__destruct_n &>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9868,8 +9883,8 @@ void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,kaldi::quasar::T
             }
 
             v5 = (v5 - 272);
-            v19 = *(v15 - 264);
-            v20 = *(v15 - 272);
+            v19 = *(v15 - 33);
+            v20 = *(v15 - 34);
             if (v19 == v20)
             {
               LODWORD(v23) = 0;

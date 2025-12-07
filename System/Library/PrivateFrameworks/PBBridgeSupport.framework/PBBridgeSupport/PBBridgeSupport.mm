@@ -5,7 +5,7 @@ uint64_t __PBIsInternalInstall_block_invoke()
   return result;
 }
 
-uint64_t PBIsInternalInstall()
+uint64_t PBIsInternalInstall(uint64_t a1, uint64_t a2)
 {
   if (PBIsInternalInstall___onceToken != -1)
   {
@@ -73,7 +73,7 @@ uint64_t PBShouldOfferBetterTogetherFlow()
 
 void __PBShouldOfferBetterTogetherFlow_block_invoke()
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (PBIsInternalInstall___onceToken != -1)
   {
     PBIsInternalInstall_cold_1();
@@ -90,7 +90,8 @@ void __PBShouldOfferBetterTogetherFlow_block_invoke()
     v1 = 0;
   }
 
-  if ((_os_feature_enabled_impl() & 1) != 0 || v1)
+  MSDKManagedDeviceClass = _os_feature_enabled_impl();
+  if ((MSDKManagedDeviceClass & 1) != 0 || v1)
   {
     MSDKManagedDeviceClass = getMSDKManagedDeviceClass();
     if (MSDKManagedDeviceClass)
@@ -105,15 +106,13 @@ void __PBShouldOfferBetterTogetherFlow_block_invoke()
     }
   }
 
-  v5 = pbb_setupflow_log();
+  v5 = pbb_setupflow_log(MSDKManagedDeviceClass);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109120;
-    v7[1] = PBShouldOfferBetterTogetherFlow_shouldOfferBetterTogetherFlow;
-    _os_log_impl(&dword_25DE64000, v5, OS_LOG_TYPE_DEFAULT, "PBShouldOfferBetterTogetherFlow %d", v7, 8u);
+    v6[0] = 67109120;
+    v6[1] = PBShouldOfferBetterTogetherFlow_shouldOfferBetterTogetherFlow;
+    _os_log_impl(&dword_25DE64000, v5, OS_LOG_TYPE_DEFAULT, "PBShouldOfferBetterTogetherFlow %d", v6, 8u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 id getMSDKManagedDeviceClass()
@@ -140,31 +139,31 @@ id getMSDKManagedDeviceClass()
   return v1;
 }
 
-void sub_25DE66624(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25DE66624(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getMSDKManagedDeviceClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   if (!MobileStoreDemoKitLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = __MobileStoreDemoKitLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_2799F3F10;
-    v7 = 0;
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = __MobileStoreDemoKitLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_2799F3F10;
+    v6 = 0;
     MobileStoreDemoKitLibraryCore_frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (MobileStoreDemoKitLibraryCore_frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -172,7 +171,7 @@ Class __getMSDKManagedDeviceClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -187,20 +186,19 @@ LABEL_4:
   }
 
   getMSDKManagedDeviceClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-id pbb_setupflow_log()
+id pbb_setupflow_log(uint64_t a1)
 {
   if (pbb_setupflow_log_onceToken != -1)
   {
     pbb_setupflow_log_cold_1();
   }
 
-  v1 = pbb_setupflow_log___logger;
+  v2 = pbb_setupflow_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __pbb_setupflow_log_block_invoke()
@@ -218,16 +216,16 @@ BOOL PBHasSetupDevice()
   return v1;
 }
 
-id pbb_setup_log()
+id pbb_setup_log(uint64_t a1)
 {
   if (pbb_setup_log_onceToken != -1)
   {
     pbb_setup_log_cold_1();
   }
 
-  v1 = pbb_setup_log___logger;
+  v2 = pbb_setup_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __pbb_setup_log_block_invoke()
@@ -1521,98 +1519,96 @@ id PBProtoSend(void *a1, void *a2, uint64_t a3, void *a4, int a5, void *a6)
   v12 = a2;
   v13 = a4;
   v14 = a6;
-  kdebug_trace();
+  v15 = kdebug_trace();
   if (v11)
   {
-    v15 = [MEMORY[0x277CBEB38] dictionary];
-    v16 = v15;
+    v16 = [MEMORY[0x277CBEB38] dictionary];
+    v17 = v16;
     if (v13)
     {
-      [v15 setObject:v13 forKeyedSubscript:*MEMORY[0x277D18610]];
+      [v16 setObject:v13 forKeyedSubscript:*MEMORY[0x277D18610]];
     }
 
     v33 = v13;
     if (a5)
     {
-      [v16 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:*MEMORY[0x277D185B0]];
+      [v17 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:*MEMORY[0x277D185B0]];
     }
 
-    v17 = MEMORY[0x277CBEB98];
-    v18 = [v11 pb_defaultPairedDeviceIDIncludingTinkerDevices];
-    v19 = [v17 setWithObject:v18];
+    v18 = MEMORY[0x277CBEB98];
+    v19 = [v11 pb_defaultPairedDeviceIDIncludingTinkerDevices];
+    v20 = [v18 setWithObject:v19];
 
     v34 = 0;
     v35 = 0;
-    v20 = [v11 sendProtobuf:v12 toDestinations:v19 priority:a3 options:v16 identifier:&v35 error:&v34];
-    v21 = v35;
-    v22 = v34;
-    v23 = pbb_setupflow_log();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v21 = [v11 sendProtobuf:v12 toDestinations:v20 priority:a3 options:v17 identifier:&v35 error:&v34];
+    v22 = v35;
+    v23 = v34;
+    v24 = pbb_setupflow_log(v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       [v12 pbDescription];
-      v24 = v32 = v12;
+      v25 = v32 = v12;
       *buf = 138414082;
       v37 = v11;
       v38 = 2112;
-      v39 = v24;
+      v39 = v25;
       v40 = 2112;
-      v41 = v19;
+      v41 = v20;
       v42 = 1024;
       v43 = a3;
       v44 = 2112;
-      v45 = v16;
+      v45 = v17;
       v46 = 2112;
-      v47 = v21;
+      v47 = v22;
       v48 = 1024;
-      v49 = v20;
+      v49 = v21;
       v50 = 2112;
-      v51 = v22;
-      _os_log_impl(&dword_25DE64000, v23, OS_LOG_TYPE_DEFAULT, "Service %@ sent protobuf (%@) destinations %@ priority %d options %@:  identifier %@ success %d error %@", buf, 0x4Au);
+      v51 = v23;
+      _os_log_impl(&dword_25DE64000, v24, OS_LOG_TYPE_DEFAULT, "Service %@ sent protobuf (%@) destinations %@ priority %d options %@:  identifier %@ success %d error %@", buf, 0x4Au);
 
       v12 = v32;
     }
 
-    if (v14 && v20 != 1 && v22)
+    if (v14 && v21 != 1 && v23)
     {
-      v14[2](v14, v22);
+      v14[2](v14, v23);
     }
 
-    v25 = v21;
+    v26 = v22;
 
-    v26 = v25;
+    v27 = v26;
     v13 = v33;
     goto LABEL_17;
   }
 
-  v27 = pbb_setupflow_log();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  v28 = pbb_setupflow_log(v15);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
-    v28 = [v12 pbDescription];
+    v29 = [v12 pbDescription];
     *buf = 138412290;
-    v37 = v28;
-    _os_log_impl(&dword_25DE64000, v27, OS_LOG_TYPE_DEFAULT, "Service is nil!!! Failing to send protobuf (%@)", buf, 0xCu);
+    v37 = v29;
+    _os_log_impl(&dword_25DE64000, v28, OS_LOG_TYPE_DEFAULT, "Service is nil!!! Failing to send protobuf (%@)", buf, 0xCu);
   }
 
   if (v14)
   {
-    v29 = MEMORY[0x277CCA9B8];
+    v30 = MEMORY[0x277CCA9B8];
     v52 = *MEMORY[0x277CCA450];
     v53[0] = @"Service is nil!!!";
-    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:&v52 count:1];
-    v22 = [v29 errorWithDomain:@"com.apple.Bridge" code:163 userInfo:v25];
-    v14[2](v14, v22);
-    v26 = 0;
+    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:&v52 count:1];
+    v23 = [v30 errorWithDomain:@"com.apple.Bridge" code:163 userInfo:v26];
+    v14[2](v14, v23);
+    v27 = 0;
 LABEL_17:
 
     goto LABEL_18;
   }
 
-  v26 = 0;
+  v27 = 0;
 LABEL_18:
 
-  v30 = *MEMORY[0x277D85DE8];
-
-  return v26;
+  return v27;
 }
 
 __CFString *PBBCMessageDescription(int a1)
@@ -1975,28 +1971,27 @@ uint64_t __PBGetSetupCompletedDevicesWeShouldList_block_invoke(uint64_t a1, void
 
 BOOL PBPairedSyncComplete()
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v0 = PBPairedSyncCompleteState();
   v1 = v0 - 1;
-  v2 = pbb_setupflow_log();
+  v2 = pbb_setupflow_log(v0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [MEMORY[0x277CCABB0] numberWithBool:v1 < 2];
     v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v0];
-    v7 = 138412546;
-    v8 = v3;
-    v9 = 2112;
-    v10 = v4;
-    _os_log_impl(&dword_25DE64000, v2, OS_LOG_TYPE_DEFAULT, "PBPairedSyncComplete(): %@ State: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&dword_25DE64000, v2, OS_LOG_TYPE_DEFAULT, "PBPairedSyncComplete(): %@ State: %@", &v6, 0x16u);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v1 < 2;
 }
 
 uint64_t PBPairedSyncCompleteState()
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277D37B50] sharedInstance];
   v1 = [MEMORY[0x277D37B50] activeDeviceSelectorBlock];
   v2 = [v0 getAllDevicesWithArchivedAltAccountDevicesMatching:v1];
@@ -2018,7 +2013,8 @@ uint64_t PBPairedSyncCompleteState()
     v14 = v13;
     if (v13)
     {
-      v8 = [v13 integerValue] == 3;
+      v13 = [v13 integerValue];
+      v8 = v13 == 3;
     }
 
     else if ((v7 == 4) | v5 & 1)
@@ -2031,26 +2027,25 @@ uint64_t PBPairedSyncCompleteState()
       v8 = 2;
     }
 
-    v15 = pbb_setupflow_log();
+    v15 = pbb_setupflow_log(v13);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v8];
       v17 = NRPairedDeviceRegistryStatusCodeString();
-      v20 = 138413314;
-      v21 = v11;
-      v22 = 2112;
-      v23 = v16;
-      v24 = 2112;
-      v25 = v12;
-      v26 = 2112;
-      v27 = v14;
-      v28 = 2112;
-      v29 = v17;
-      _os_log_impl(&dword_25DE64000, v15, OS_LOG_TYPE_DEFAULT, "Progress: %@ -- SyncState: %@ -- Version: %@ --  State: %@ -- NanoRegistry status: %@", &v20, 0x34u);
+      v19 = 138413314;
+      v20 = v11;
+      v21 = 2112;
+      v22 = v16;
+      v23 = 2112;
+      v24 = v12;
+      v25 = 2112;
+      v26 = v14;
+      v27 = 2112;
+      v28 = v17;
+      _os_log_impl(&dword_25DE64000, v15, OS_LOG_TYPE_DEFAULT, "Progress: %@ -- SyncState: %@ -- Version: %@ --  State: %@ -- NanoRegistry status: %@", &v19, 0x34u);
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -2071,35 +2066,32 @@ id PBHexStringFromOOBData(void *a1)
   v2 = [v1 length];
   v3 = [MEMORY[0x277CCAB68] stringWithCapacity:2 * v2];
   v4 = [v1 bytes];
-  if ([v1 length])
+  v5 = [v1 length];
+  if (v5)
   {
-    v5 = 0;
-    do
+    for (i = 0; i < v5; ++i)
     {
-      [v3 appendFormat:@"%02X", *(v4 + v5++)];
+      [v3 appendFormat:@"%02X", *(v4 + i)];
+      v5 = [v1 length];
     }
-
-    while (v5 < [v1 length]);
   }
 
-  v6 = pbb_setupflow_log();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = pbb_setupflow_log(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     v10 = v1;
     v11 = 2112;
     v12 = v3;
-    _os_log_impl(&dword_25DE64000, v6, OS_LOG_TYPE_DEFAULT, "PBHexStringFromOOBData - Data: (%@) to String: (%@)", buf, 0x16u);
+    _os_log_impl(&dword_25DE64000, v7, OS_LOG_TYPE_DEFAULT, "PBHexStringFromOOBData - Data: (%@) to String: (%@)", buf, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 id PBOOBDataFromHexString(void *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [v1 UTF8String];
   v3 = strlen(v2);
@@ -2135,22 +2127,20 @@ id PBOOBDataFromHexString(void *a1)
   }
 
   v8 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v6 length:v5 freeWhenDone:1];
-  v9 = pbb_setupflow_log();
+  v9 = pbb_setupflow_log(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v13 = v1;
-    v14 = 2112;
-    v15 = v8;
+    v12 = v1;
+    v13 = 2112;
+    v14 = v8;
     _os_log_impl(&dword_25DE64000, v9, OS_LOG_TYPE_DEFAULT, "PBOOBDataFromHexString - String: (%@) to Data: (%@) ", buf, 0x16u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
-uint64_t PBLogPerformanceMetrics()
+uint64_t PBLogPerformanceMetrics(uint64_t a1, uint64_t a2)
 {
   if (PBLogPerformanceMetrics___onceToken != -1)
   {
@@ -2160,14 +2150,14 @@ uint64_t PBLogPerformanceMetrics()
   return PBLogPerformanceMetrics___logPerformanceMetrics;
 }
 
-void __PBLogPerformanceMetrics_block_invoke()
+void __PBLogPerformanceMetrics_block_invoke(uint64_t a1)
 {
   PBLogPerformanceMetrics___logPerformanceMetrics = 1;
-  v0 = pbb_setupflow_log();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = pbb_setupflow_log(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_25DE64000, v0, OS_LOG_TYPE_DEFAULT, "PBLogPerformanceMetrics Enabled", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_25DE64000, v1, OS_LOG_TYPE_DEFAULT, "PBLogPerformanceMetrics Enabled", v2, 2u);
   }
 }
 
@@ -2180,105 +2170,103 @@ void __PBNotifyClientOfActivity_block_invoke()
 void PBDumpLogsWithBlock(void *a1)
 {
   v1 = a1;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2050000000;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2050000000;
   v2 = getOSASyncProxyClientClass_softClass;
-  v25 = getOSASyncProxyClientClass_softClass;
+  v26 = getOSASyncProxyClientClass_softClass;
   if (!getOSASyncProxyClientClass_softClass)
   {
     *keyExistsAndHasValidFormat = MEMORY[0x277D85DD0];
-    v18 = 3221225472;
-    v19 = __getOSASyncProxyClientClass_block_invoke;
-    v20 = &unk_2799F3EB8;
-    v21 = &v22;
+    v19 = 3221225472;
+    v20 = __getOSASyncProxyClientClass_block_invoke;
+    v21 = &unk_2799F3EB8;
+    v22 = &v23;
     __getOSASyncProxyClientClass_block_invoke(keyExistsAndHasValidFormat);
-    v2 = v23[3];
+    v2 = v24[3];
   }
 
   v3 = v2;
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v23, 8);
   if (v2)
   {
     keyExistsAndHasValidFormat[0] = 0;
     AppIntegerValue = CFPreferencesGetAppIntegerValue(@"logCollectionType", @"com.apple.Bridge", keyExistsAndHasValidFormat);
     if (keyExistsAndHasValidFormat[0])
     {
-      v5 = AppIntegerValue == 20;
+      v6 = AppIntegerValue == 20;
     }
 
     else
     {
-      v5 = 1;
+      v6 = 1;
     }
 
-    v6 = v5;
-    v7 = dispatch_get_global_queue(25, 0);
+    v7 = v6;
+    v8 = dispatch_get_global_queue(25, 0);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __PBDumpLogsWithBlock_block_invoke;
     block[3] = &unk_2799F3E68;
-    v16 = v6;
-    v15 = v2;
-    v14 = v1;
-    dispatch_async(v7, block);
+    v17 = v7;
+    v16 = v2;
+    v15 = v1;
+    dispatch_async(v8, block);
 
-    v8 = v14;
+    v9 = v15;
     goto LABEL_15;
   }
 
-  v9 = pbb_setupflow_log();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v10 = pbb_setupflow_log(v4);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     PBDumpLogsWithBlock_cold_1();
   }
 
   if (v1)
   {
-    v10 = dispatch_get_global_queue(25, 0);
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __PBDumpLogsWithBlock_block_invoke_297;
-    v11[3] = &unk_2799F3E90;
-    v12 = v1;
-    dispatch_async(v10, v11);
+    v11 = dispatch_get_global_queue(25, 0);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __PBDumpLogsWithBlock_block_invoke_297;
+    v12[3] = &unk_2799F3E90;
+    v13 = v1;
+    dispatch_async(v11, v12);
 
-    v8 = v12;
+    v9 = v13;
 LABEL_15:
   }
 }
 
 void __PBDumpLogsWithBlock_block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v2 = pbb_setupflow_log();
+  v13 = *MEMORY[0x277D85DE8];
+  v2 = pbb_setupflow_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 48);
     *buf = 67109120;
-    v13 = v3;
+    v12 = v3;
     _os_log_impl(&dword_25DE64000, v2, OS_LOG_TYPE_DEFAULT, "Copying watch analytics collectAllLogs=%d...", buf, 8u);
   }
 
   v4 = objc_alloc_init(*(a1 + 40));
-  v10 = @"allFiles";
+  v9 = @"allFiles";
   v5 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 48)];
-  v11 = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __PBDumpLogsWithBlock_block_invoke_293;
-  v8[3] = &unk_2799F3E40;
-  v9 = *(a1 + 32);
-  [v4 request:0 transferGroupWithOptions:v6 onComplete:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v10 = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __PBDumpLogsWithBlock_block_invoke_293;
+  v7[3] = &unk_2799F3E40;
+  v8 = *(a1 + 32);
+  [v4 request:0 transferGroupWithOptions:v6 onComplete:v7];
 }
 
 void __PBDumpLogsWithBlock_block_invoke_293(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  v5 = pbb_setupflow_log();
+  v5 = pbb_setupflow_log(v4);
   v6 = v5;
   if (v4)
   {
@@ -2356,15 +2344,13 @@ void __PBStoreDemoContentIsFrozen_block_invoke()
     PBStoreDemoContentIsFrozen_storeDemoContentIsFrozen = 1;
   }
 
-  v4 = pbb_setupflow_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = pbb_setupflow_log(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6[0] = 67109120;
     v6[1] = PBStoreDemoContentIsFrozen_storeDemoContentIsFrozen;
-    _os_log_impl(&dword_25DE64000, v4, OS_LOG_TYPE_DEFAULT, "PBStoreDemoContentIsFrozen %d", v6, 8u);
+    _os_log_impl(&dword_25DE64000, v5, OS_LOG_TYPE_DEFAULT, "PBStoreDemoContentIsFrozen %d", v6, 8u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t PBIsEarlyPairedSyncSupportedForDevice(void *a1)
@@ -2382,7 +2368,7 @@ uint64_t PBIsEarlyPairedSyncSupportedForDevice(void *a1)
 
   else
   {
-    v8 = pbb_setupflow_log();
+    v8 = pbb_setupflow_log(v1);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       PBIsEarlyPairedSyncSupportedForDevice_cold_1();
@@ -2420,7 +2406,7 @@ uint64_t PBIsEarlyPairedSyncSupportedForPDRDevice(void *a1)
 
   else
   {
-    v6 = pbb_setupflow_log();
+    v6 = pbb_setupflow_log(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       PBIsEarlyPairedSyncSupportedForPDRDevice_cold_2();
@@ -2439,8 +2425,8 @@ id PBLocalizedAppleWatchModelStringForDeviceDescription(void *a1)
   v2 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.PBBridgeSupport"];
   v3 = [v2 localizedStringForKey:v1 value:&stru_286FA8098 table:@"DeviceModels"];
 
-  v4 = pbb_setupflow_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = pbb_setupflow_log(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136315650;
     v8 = "NSString *PBLocalizedAppleWatchModelStringForDeviceDescription(NSString *__strong)";
@@ -2448,10 +2434,8 @@ id PBLocalizedAppleWatchModelStringForDeviceDescription(void *a1)
     v10 = v1;
     v11 = 2112;
     v12 = v3;
-    _os_log_impl(&dword_25DE64000, v4, OS_LOG_TYPE_DEFAULT, "%s - ModelName (%@) localized to (%@)", &v7, 0x20u);
+    _os_log_impl(&dword_25DE64000, v5, OS_LOG_TYPE_DEFAULT, "%s - ModelName (%@) localized to (%@)", &v7, 0x20u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -2489,22 +2473,22 @@ uint64_t __PBGetPairedDevicesWeShouldList_block_invoke(uint64_t a1, void *a2)
 
 Class __getOSASyncProxyClientClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   if (!OSASyncProxyClientLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = __OSASyncProxyClientLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_2799F3ED8;
-    v7 = 0;
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = __OSASyncProxyClientLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_2799F3ED8;
+    v6 = 0;
     OSASyncProxyClientLibraryCore_frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (OSASyncProxyClientLibraryCore_frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -2512,7 +2496,7 @@ Class __getOSASyncProxyClientClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -2527,27 +2511,20 @@ LABEL_4:
   }
 
   getOSASyncProxyClientClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __OSASyncProxyClientLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   OSASyncProxyClientLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __MobileStoreDemoKitLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   MobileStoreDemoKitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3542,10 +3519,11 @@ LABEL_15:
   return [a2 hasError] ^ 1;
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 uint64_t PBBProtoSiriEnabledReadFrom(uint64_t a1, void *a2)
@@ -4438,7 +4416,7 @@ LABEL_30:
   return [a2 hasError] ^ 1;
 }
 
-uint64_t PBGetVersionNumber()
+uint64_t PBGetVersionNumber(uint64_t a1)
 {
   v7 = *MEMORY[0x277D85DE8];
   if (PBGetVersionNumber_networkRelayFeatureFlagOnceToken != -1)
@@ -4453,20 +4431,18 @@ uint64_t PBGetVersionNumber()
 
   if (PBGetVersionNumber_keyExists)
   {
-    v0 = pbb_setupflow_log();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+    v1 = pbb_setupflow_log(a1);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
     {
       v3 = 134218240;
       v4 = PBGetVersionNumber_versionNumber;
       v5 = 2048;
       v6 = 3;
-      _os_log_impl(&dword_25DE64000, v0, OS_LOG_TYPE_DEFAULT, "PBBridgeSupport::PBGetVersionNumber: pairing version overridden with value %ld. Default value was %ld.", &v3, 0x16u);
+      _os_log_impl(&dword_25DE64000, v1, OS_LOG_TYPE_DEFAULT, "PBBridgeSupport::PBGetVersionNumber: pairing version overridden with value %ld. Default value was %ld.", &v3, 0x16u);
     }
   }
 
-  result = PBGetVersionNumber_versionNumber;
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
+  return PBGetVersionNumber_versionNumber;
 }
 
 uint64_t __PBGetVersionNumber_block_invoke()
@@ -4494,89 +4470,86 @@ CFIndex __PBGetVersionNumber_block_invoke_2()
 
 id PBBridgeMagicCodeString(void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v7 = a1;
   v8 = a2;
   if ([v8 length])
   {
-    v36 = v7;
+    v41 = v7;
     v9 = v7;
     v10 = [v9 length];
     v11 = [MEMORY[0x277CCAB68] stringWithCapacity:2 * v10];
     v12 = [v9 bytes];
-    if ([v9 length])
+    v13 = [v9 length];
+    if (v13)
     {
-      v13 = 0;
-      do
+      for (i = 0; i < v13; ++i)
       {
-        [v11 appendFormat:@"%02X", *(v12 + v13++)];
+        [v11 appendFormat:@"%02X", *(v12 + i)];
+        v13 = [v9 length];
       }
-
-      while (v13 < [v9 length]);
     }
 
-    v14 = pbb_setupflow_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = pbb_setupflow_log(v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v40 = v9;
-      v41 = 2048;
-      v42 = [v9 length];
-      v43 = 2112;
-      v44 = v11;
-      _os_log_impl(&dword_25DE64000, v14, OS_LOG_TYPE_DEFAULT, "HexStringFromOOBData - Data: (%@ (%lu)) to String: (%@)", buf, 0x20u);
+      v45 = v9;
+      v46 = 2048;
+      v47 = [v9 length];
+      v48 = 2112;
+      v49 = v11;
+      _os_log_impl(&dword_25DE64000, v15, OS_LOG_TYPE_DEFAULT, "HexStringFromOOBData - Data: (%@ (%lu)) to String: (%@)", buf, 0x20u);
     }
 
-    v15 = [MEMORY[0x277D2BD08] systemVersions];
-    v16 = [v15 maxPairingCompatibilityVersion];
+    v16 = [MEMORY[0x277D2BD08] systemVersions];
+    v17 = [v16 maxPairingCompatibilityVersion];
 
-    v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:PBGetVersionNumber()];
-    v38[0] = v17;
-    v18 = [MEMORY[0x277CCABB0] numberWithInteger:v16];
-    v38[1] = v18;
-    v38[2] = v8;
-    v38[3] = v11;
-    v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a3];
-    v38[4] = v19;
-    v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a4];
-    v38[5] = v20;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:6];
-    v22 = [v21 componentsJoinedByString:@"--"];
+    v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:PBGetVersionNumber(v18)];
+    v43[0] = v19;
+    v20 = [MEMORY[0x277CCABB0] numberWithInteger:v17];
+    v43[1] = v20;
+    v43[2] = v8;
+    v43[3] = v11;
+    v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a3];
+    v43[4] = v21;
+    v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a4];
+    v43[5] = v22;
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:6];
+    v24 = [v23 componentsJoinedByString:@"--"];
 
-    v37[0] = v22;
-    v23 = osVersion();
-    v37[1] = v23;
-    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
-    v25 = [v24 componentsJoinedByString:@"&&"];
+    v42[0] = v24;
+    v26 = osVersion(v25);
+    v42[1] = v26;
+    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:2];
+    v28 = [v27 componentsJoinedByString:@"&&"];
 
-    if (PBIsInternalInstall())
+    if (PBIsInternalInstall(v29, v30))
     {
       CFPreferencesSetAppValue(@"GIZ", v8, @"com.apple.nanobuddy.automationhelper");
       CFPreferencesSetAppValue(@"BT", v11, @"com.apple.nanobuddy.automationhelper");
-      v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:PBGetVersionNumber()];
-      CFPreferencesSetAppValue(@"QR_VERS", v26, @"com.apple.nanobuddy.automationhelper");
-      CFPreferencesSetAppValue(@"PAIRING_VERS", [MEMORY[0x277CCABB0] numberWithInteger:v16], @"com.apple.nanobuddy.automationhelper");
-      CFPreferencesSetAppValue(@"MAGIC_CODE", v25, @"com.apple.nanobuddy.automationhelper");
+      v32 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:PBGetVersionNumber(v31)];
+      CFPreferencesSetAppValue(@"QR_VERS", v32, @"com.apple.nanobuddy.automationhelper");
+      CFPreferencesSetAppValue(@"PAIRING_VERS", [MEMORY[0x277CCABB0] numberWithInteger:v17], @"com.apple.nanobuddy.automationhelper");
+      CFPreferencesSetAppValue(@"MAGIC_CODE", v28, @"com.apple.nanobuddy.automationhelper");
       CFPreferencesAppSynchronize(@"com.apple.nanobuddy.automationhelper");
     }
 
-    v7 = v36;
+    v7 = v41;
   }
 
   else
   {
-    v11 = pbb_setupflow_log();
+    v11 = pbb_setupflow_log(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      PBBridgeMagicCodeString_cold_1(v11, v27, v28, v29, v30, v31, v32, v33);
+      PBBridgeMagicCodeString_cold_1(v11, v33, v34, v35, v36, v37, v38, v39);
     }
 
-    v25 = 0;
+    v28 = 0;
   }
 
-  v34 = *MEMORY[0x277D85DE8];
-
-  return v25;
+  return v28;
 }
 
 id PBBridgeMagicCodeDecoder(void *a1)
@@ -4614,36 +4587,34 @@ id PBBridgeMagicCodeDecoder(void *a1)
 
 id _PBBridgeMagicCodeString(void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v24[6] = *MEMORY[0x277D85DE8];
+  v25[6] = *MEMORY[0x277D85DE8];
   v7 = MEMORY[0x277D2BD08];
   v8 = a2;
   v9 = a1;
   v10 = [v7 systemVersions];
   v11 = [v10 maxPairingCompatibilityVersion];
 
-  v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:PBGetVersionNumber()];
-  v24[0] = v12;
-  v13 = [MEMORY[0x277CCABB0] numberWithInteger:v11];
-  v24[1] = v13;
-  v24[2] = v8;
-  v24[3] = v9;
-  v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a3];
-  v24[4] = v14;
-  v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a4];
-  v24[5] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:6];
-  v17 = [v16 componentsJoinedByString:@"--"];
+  v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:PBGetVersionNumber(v12)];
+  v25[0] = v13;
+  v14 = [MEMORY[0x277CCABB0] numberWithInteger:v11];
+  v25[1] = v14;
+  v25[2] = v8;
+  v25[3] = v9;
+  v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a3];
+  v25[4] = v15;
+  v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a4];
+  v25[5] = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:6];
+  v18 = [v17 componentsJoinedByString:@"--"];
 
-  v23[0] = v17;
-  v18 = osVersion();
-  v23[1] = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+  v24[0] = v18;
+  v20 = osVersion(v19);
+  v24[1] = v20;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
 
-  v20 = [v19 componentsJoinedByString:@"&&"];
+  v22 = [v21 componentsJoinedByString:@"&&"];
 
-  v21 = *MEMORY[0x277D85DE8];
-
-  return v20;
+  return v22;
 }
 
 id PBCleanedAdvertisingName(void *a1)
@@ -4667,118 +4638,120 @@ id PBCleanedAdvertisingName(void *a1)
 
 id PBStringRepresentationFromInteger(unint64_t a1)
 {
-  if ([@"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890" length] <= a1)
+  v2 = [@"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890" length];
+  if (v2 <= a1)
   {
-    v3 = pbb_setupflow_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = pbb_setupflow_log(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      PBStringRepresentationFromInteger_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+      PBStringRepresentationFromInteger_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
     }
 
-    v2 = 0;
+    v3 = 0;
   }
 
   else
   {
-    v2 = [@"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890" substringWithRange:{a1, 1}];
+    v3 = [@"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890" substringWithRange:{a1, 1}];
   }
 
-  return v2;
+  return v3;
 }
 
 uint64_t PBIntegerValueRepresentationFromString(void *a1)
 {
   v1 = a1;
-  if ([v1 length] == 1)
+  v2 = [v1 length];
+  if (v2 == 1)
   {
-    v2 = [@"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890" rangeOfString:v1];
+    v3 = [@"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890" rangeOfString:v1];
   }
 
   else
   {
-    v3 = pbb_setupflow_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = pbb_setupflow_log(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      PBIntegerValueRepresentationFromString_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
+      PBIntegerValueRepresentationFromString_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
     }
 
-    v2 = 0x7FFFFFFFFFFFFFFFLL;
+    v3 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  return v2;
+  return v3;
 }
 
 id PBAdvertisingInfoFromPayload(void *a1)
 {
-  v29[4] = *MEMORY[0x277D85DE8];
+  v30[4] = *MEMORY[0x277D85DE8];
   v1 = a1;
-  if ([v1 length] == 8)
+  v2 = [v1 length];
+  if (v2 == 8)
   {
-    v2 = [v1 substringWithRange:{0, 5}];
-    v3 = [v1 substringWithRange:{5, 1}];
-    v4 = PBIntegerValueRepresentationFromString(v3);
+    v3 = [v1 substringWithRange:{0, 5}];
+    v4 = [v1 substringWithRange:{5, 1}];
+    v5 = PBIntegerValueRepresentationFromString(v4);
 
-    v5 = [v1 substringWithRange:{6, 1}];
-    v6 = PBIntegerValueRepresentationFromString(v5);
+    v6 = [v1 substringWithRange:{6, 1}];
+    v7 = PBIntegerValueRepresentationFromString(v6);
 
-    v7 = [v1 substringWithRange:{7, 1}];
-    v8 = PBIntegerValueRepresentationFromString(v7);
+    v8 = [v1 substringWithRange:{7, 1}];
+    v9 = PBIntegerValueRepresentationFromString(v8);
 
-    if ([v2 length]!= 5 || v4 == 0x7FFFFFFFFFFFFFFFLL || v6 == 0x7FFFFFFFFFFFFFFFLL || v8 == 0x7FFFFFFFFFFFFFFFLL)
+    v10 = [v3 length];
+    if (v10 != 5 || v5 == 0x7FFFFFFFFFFFFFFFLL || v7 == 0x7FFFFFFFFFFFFFFFLL || v9 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v9 = pbb_setupflow_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      v11 = pbb_setupflow_log(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
-        v15 = [MEMORY[0x277CCABB0] numberWithInteger:v4];
-        v16 = [MEMORY[0x277CCABB0] numberWithInteger:v6];
-        v17 = [MEMORY[0x277CCABB0] numberWithInteger:v8];
-        v18 = 138413314;
-        v19 = v1;
-        v20 = 2112;
-        v21 = v2;
-        v22 = 2112;
-        v23 = v15;
-        v24 = 2112;
-        v25 = v16;
-        v26 = 2112;
-        v27 = v17;
-        _os_log_fault_impl(&dword_25DE64000, v9, OS_LOG_TYPE_FAULT, "Invalid Advertising Payload %@ - %@ %@ %@ %@", &v18, 0x34u);
+        v16 = [MEMORY[0x277CCABB0] numberWithInteger:v5];
+        v17 = [MEMORY[0x277CCABB0] numberWithInteger:v7];
+        v18 = [MEMORY[0x277CCABB0] numberWithInteger:v9];
+        v19 = 138413314;
+        v20 = v1;
+        v21 = 2112;
+        v22 = v3;
+        v23 = 2112;
+        v24 = v16;
+        v25 = 2112;
+        v26 = v17;
+        v27 = 2112;
+        v28 = v18;
+        _os_log_fault_impl(&dword_25DE64000, v11, OS_LOG_TYPE_FAULT, "Invalid Advertising Payload %@ - %@ %@ %@ %@", &v19, 0x34u);
       }
 
-      v12 = 0;
+      v14 = 0;
     }
 
     else
     {
-      v29[0] = v2;
-      v28[0] = @"n";
-      v28[1] = @"v";
-      v9 = [MEMORY[0x277CCABB0] numberWithInteger:v4];
-      v29[1] = v9;
-      v28[2] = @"m";
-      v10 = [MEMORY[0x277CCABB0] numberWithInteger:v6];
-      v29[2] = v10;
-      v28[3] = @"s";
-      v11 = [MEMORY[0x277CCABB0] numberWithInteger:v8];
-      v29[3] = v11;
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:4];
+      v30[0] = v3;
+      v29[0] = @"n";
+      v29[1] = @"v";
+      v11 = [MEMORY[0x277CCABB0] numberWithInteger:v5];
+      v30[1] = v11;
+      v29[2] = @"m";
+      v12 = [MEMORY[0x277CCABB0] numberWithInteger:v7];
+      v30[2] = v12;
+      v29[3] = @"s";
+      v13 = [MEMORY[0x277CCABB0] numberWithInteger:v9];
+      v30[3] = v13;
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:4];
     }
   }
 
   else
   {
-    v2 = pbb_setupflow_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = pbb_setupflow_log(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      PBAdvertisingInfoFromPayload_cold_1(v1, v2);
+      PBAdvertisingInfoFromPayload_cold_1(v1, v3);
     }
 
-    v12 = 0;
+    v14 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
-  return v12;
+  return v14;
 }
 
 BOOL PBIsNetworkRelayPairingFromAdvertisedName(void *a1)
@@ -4790,16 +4763,16 @@ BOOL PBIsNetworkRelayPairingFromAdvertisedName(void *a1)
   return v3 == 4;
 }
 
-id osVersion()
+id osVersion(uint64_t a1)
 {
   if (osVersion_onceToken != -1)
   {
     osVersion_cold_1();
   }
 
-  v1 = osVersion_osVersion;
+  v2 = osVersion_osVersion;
 
-  return v1;
+  return v2;
 }
 
 void __osVersion_block_invoke()
@@ -5448,16 +5421,15 @@ void PBBAddToBufferAndLog(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t
   v12 = a1;
   v13 = [[v10 alloc] initWithFormat:v11 arguments:&a9];
 
-  v14 = pbb_setup_log();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = pbb_setup_log(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     v17 = v13;
-    _os_log_impl(&dword_25DE64000, v14, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
+    _os_log_impl(&dword_25DE64000, v15, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
   }
 
   [v12 appendFormat:@"%@\n", v13];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t PBBProtoTinkerWirelessCredentialsReadFrom(void *a1, void *a2)
@@ -6295,16 +6267,16 @@ LABEL_15:
   return [a2 hasError] ^ 1;
 }
 
-id pbb_activation_log()
+id pbb_activation_log(uint64_t a1)
 {
   if (pbb_activation_log_onceToken != -1)
   {
     pbb_activation_log_cold_1();
   }
 
-  v1 = pbb_activation_log___logger;
+  v2 = pbb_activation_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __pbb_activation_log_block_invoke()
@@ -6314,16 +6286,16 @@ uint64_t __pbb_activation_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id pbb_accountsignin_log()
+id pbb_accountsignin_log(uint64_t a1)
 {
   if (pbb_accountsignin_log_onceToken != -1)
   {
     pbb_accountsignin_log_cold_1();
   }
 
-  v1 = pbb_accountsignin_log___logger;
+  v2 = pbb_accountsignin_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __pbb_accountsignin_log_block_invoke()
@@ -6333,16 +6305,16 @@ uint64_t __pbb_accountsignin_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id pbb_manualunpairing_log()
+id pbb_manualunpairing_log(uint64_t a1)
 {
   if (pbb_manualunpairing_log_onceToken != -1)
   {
     pbb_manualunpairing_log_cold_1();
   }
 
-  v1 = pbb_manualunpairing_log___logger;
+  v2 = pbb_manualunpairing_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __pbb_manualunpairing_log_block_invoke()
@@ -6352,16 +6324,16 @@ uint64_t __pbb_manualunpairing_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id pbb_discover_log()
+id pbb_discover_log(uint64_t a1)
 {
   if (pbb_discover_log_onceToken != -1)
   {
     pbb_discover_log_cold_1();
   }
 
-  v1 = pbb_discover_log___logger;
+  v2 = pbb_discover_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __pbb_discover_log_block_invoke()
@@ -6371,16 +6343,16 @@ uint64_t __pbb_discover_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id pbb_proxcard_log()
+id pbb_proxcard_log(uint64_t a1)
 {
   if (pbb_proxcard_log_onceToken != -1)
   {
     pbb_proxcard_log_cold_1();
   }
 
-  v1 = pbb_proxcard_log___logger;
+  v2 = pbb_proxcard_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __pbb_proxcard_log_block_invoke()
@@ -6390,16 +6362,16 @@ uint64_t __pbb_proxcard_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id pbb_devicemanagement_log()
+id pbb_devicemanagement_log(uint64_t a1)
 {
   if (pbb_devicemanagement_log_onceToken != -1)
   {
     pbb_devicemanagement_log_cold_1();
   }
 
-  v1 = pbb_devicemanagement_log___logger;
+  v2 = pbb_devicemanagement_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __pbb_devicemanagement_log_block_invoke()
@@ -6789,9 +6761,9 @@ LABEL_55:
   return [a2 hasError] ^ 1;
 }
 
-void sub_25DE87B2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25DE87B2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6808,22 +6780,22 @@ uint64_t PBBSourceTypeFromDNDSourceType(uint64_t result)
 
 Class __getBBSettingsGatewayClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   if (!BulletinBoardLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = __BulletinBoardLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_2799F4950;
-    v7 = 0;
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = __BulletinBoardLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_2799F4950;
+    v6 = 0;
     BulletinBoardLibraryCore_frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (BulletinBoardLibraryCore_frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -6831,7 +6803,7 @@ Class __getBBSettingsGatewayClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -6846,17 +6818,13 @@ LABEL_4:
   }
 
   getBBSettingsGatewayClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __BulletinBoardLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   BulletinBoardLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7004,43 +6972,42 @@ id getAFPreferencesClass()
   return v1;
 }
 
-void sub_25DE8C54C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25DE8C54C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 double CleanIntendedFireTimeOffset(double a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = a1 - CFAbsoluteTimeGetCurrent();
-  v3 = pbb_setupflow_log();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = pbb_setupflow_log(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 134218496;
-    v9 = a1;
-    v10 = 2048;
+    v9 = 134218496;
+    v10 = a1;
+    v11 = 2048;
     Current = CFAbsoluteTimeGetCurrent();
-    v12 = 2048;
-    v13 = v2;
-    _os_log_impl(&dword_25DE64000, v3, OS_LOG_TYPE_DEFAULT, "Intended Fire Time: (%f) Current Time: (%f) Time Offset: (%f)", &v8, 0x20u);
+    v13 = 2048;
+    v14 = v2;
+    _os_log_impl(&dword_25DE64000, v4, OS_LOG_TYPE_DEFAULT, "Intended Fire Time: (%f) Current Time: (%f) Time Offset: (%f)", &v9, 0x20u);
   }
 
   if (v2 < 0.0 || v2 > *&PBBridgeAnimationSyncOffsetMaximumTime)
   {
-    v5 = pbb_setupflow_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = pbb_setupflow_log(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 134217984;
-      v9 = v2;
-      _os_log_impl(&dword_25DE64000, v5, OS_LOG_TYPE_DEFAULT, "Cleaned Time Offset from %f to 0", &v8, 0xCu);
+      v9 = 134217984;
+      v10 = v2;
+      _os_log_impl(&dword_25DE64000, v7, OS_LOG_TYPE_DEFAULT, "Cleaned Time Offset from %f to 0", &v9, 0xCu);
     }
 
-    v2 = 0.0;
+    return 0.0;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -7060,22 +7027,22 @@ void sub_25DE91E04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 Class __getAFPreferencesClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   if (!AssistantServicesLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = __AssistantServicesLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_2799F4AE0;
-    v7 = 0;
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = __AssistantServicesLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_2799F4AE0;
+    v6 = 0;
     AssistantServicesLibraryCore_frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (AssistantServicesLibraryCore_frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -7083,7 +7050,7 @@ Class __getAFPreferencesClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -7098,24 +7065,21 @@ LABEL_4:
   }
 
   getAFPreferencesClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __AssistantServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AssistantServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t PBBProtoTellGizmoToSetCrownOrientationReadFrom(uint64_t a1, void *a2)
@@ -7938,6 +7902,37 @@ LABEL_32:
   return [a2 hasError] ^ 1;
 }
 
+void sub_25DE9C65C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, __int128 buf)
+{
+  if (a2 == 1)
+  {
+    v21 = objc_begin_catch(a1);
+    v22 = pbb_activation_log(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    {
+      v23 = v22;
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      {
+        v25 = [v19 request];
+        v26 = [v25 length];
+        LODWORD(buf) = 138543618;
+        *(&buf + 4) = v21;
+        WORD6(buf) = 2048;
+        *(&buf + 14) = v26;
+        _os_log_error_impl(&dword_25DE64000, v23, OS_LOG_TYPE_ERROR, "Caught exception (%{public}@) decoding request (%ld bytes)", &buf, 0x16u);
+      }
+    }
+
+    WeakRetained = objc_loadWeakRetained((v20 + 104));
+    [WeakRetained remoteDidFailActivation:4 description:@"Exception decoding request from Gizmo"];
+
+    objc_end_catch();
+    JUMPOUT(0x25DE9C4F0);
+  }
+
+  _Unwind_Resume(a1);
+}
+
 __CFString *_ResponseFilePathForTestType(int a1)
 {
   if ((a1 - 1) > 4)
@@ -7987,10 +7982,11 @@ __CFString *PBActivationGranularStateDescription(__int16 a1)
   }
 }
 
-void OUTLINED_FUNCTION_4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x20u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x20u);
 }
 
 uint64_t PBBProtoTinkerFitnessRouteTrackingEnabledReadFrom(uint64_t a1, void *a2)
@@ -8664,29 +8660,12 @@ LABEL_15:
   return [a2 hasError] ^ 1;
 }
 
-void __PBDumpLogsWithBlock_block_invoke_293_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void PBIsEarlyPairedSyncSupportedForDevice_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 void PBAdvertisingInfoFromPayload_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_25DE64000, a2, OS_LOG_TYPE_FAULT, "Invalid Advertising Payload %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_25DE64000, a2, OS_LOG_TYPE_FAULT, "Invalid Advertising Payload %@", &v2, 0xCu);
 }
 
 CGRect CGPathGetPathBoundingBox(CGPathRef path)

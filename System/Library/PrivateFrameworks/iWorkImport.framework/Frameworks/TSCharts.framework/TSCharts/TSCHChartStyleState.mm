@@ -866,7 +866,7 @@ LABEL_28:
     if (v8 == 5)
     {
       v15 = MEMORY[0x277CCACA8];
-      v48 = objc_msgSend_index(tagCopy, v9, v10, v11, v12);
+      v47 = objc_msgSend_index(tagCopy, v10, v11, v12);
       v20 = @"    Value Axis Style (%2lu)";
     }
 
@@ -878,12 +878,12 @@ LABEL_28:
       }
 
       v15 = MEMORY[0x277CCACA8];
-      v48 = objc_msgSend_index(tagCopy, v9, v10, v11, v12);
+      v47 = objc_msgSend_index(tagCopy, v10, v11, v12);
       v20 = @" Category Axis Style (%2lu)";
     }
 
 LABEL_22:
-    objc_msgSend_stringWithFormat_(v15, v16, v17, v18, v19, v20, v48);
+    objc_msgSend_stringWithFormat_(v15, v16, v17, v18, v19, v20, v47);
     v13 = LABEL_23:;
     goto LABEL_24;
   }
@@ -893,7 +893,7 @@ LABEL_22:
     if (v8 == 9)
     {
       v15 = MEMORY[0x277CCACA8];
-      v48 = objc_msgSend_index(tagCopy, v9, v10, v11, v12);
+      v47 = objc_msgSend_index(tagCopy, v10, v11, v12);
       v20 = @"  Theme Series Style (%2lu)";
     }
 
@@ -905,7 +905,7 @@ LABEL_22:
       }
 
       v15 = MEMORY[0x277CCACA8];
-      v48 = objc_msgSend_index(tagCopy, v9, v10, v11, v12);
+      v47 = objc_msgSend_index(tagCopy, v10, v11, v12);
       v20 = @"Private Series Style (%2lu)";
     }
 
@@ -915,7 +915,7 @@ LABEL_22:
   if (v8 == 12)
   {
     v15 = MEMORY[0x277CCACA8];
-    v48 = objc_msgSend_index(tagCopy, v9, v10, v11, v12);
+    v47 = objc_msgSend_index(tagCopy, v10, v11, v12);
     v20 = @"     Paragraph Style (%2lu)";
     goto LABEL_22;
   }
@@ -931,13 +931,13 @@ LABEL_22:
     goto LABEL_23;
   }
 
-  v22 = objc_msgSend_index(tagCopy, v9, v10, v11, v12);
+  v22 = objc_msgSend_index(tagCopy, v10, v11, v12);
   v27 = objc_msgSend_axisIDFromStyleSwapOrStyleOwnerIndex_(TSCHReferenceLine, v23, v24, v25, v26, v22);
-  v32 = objc_msgSend_index(tagCopy, v28, v29, v30, v31);
-  v37 = objc_msgSend_refLineIndexFromStyleSwapOrStyleOwnerIndex_(TSCHReferenceLine, v33, v34, v35, v36, v32);
-  v38 = MEMORY[0x277CCACA8];
-  v43 = objc_msgSend_debuggingName(v27, v39, v40, v41, v42);
-  v13 = objc_msgSend_stringWithFormat_(v38, v44, v45, v46, v47, @" RefLine Style (%2@, %2lu)", v43, v37);
+  v31 = objc_msgSend_index(tagCopy, v28, v29, v30);
+  v36 = objc_msgSend_refLineIndexFromStyleSwapOrStyleOwnerIndex_(TSCHReferenceLine, v32, v33, v34, v35, v31);
+  v37 = MEMORY[0x277CCACA8];
+  v42 = objc_msgSend_debuggingName(v27, v38, v39, v40, v41);
+  v13 = objc_msgSend_stringWithFormat_(v37, v43, v44, v45, v46, @" RefLine Style (%2@, %2lu)", v42, v36);
 
 LABEL_24:
 
@@ -1603,24 +1603,24 @@ LABEL_15:
       {
         if (!values)
         {
-          v158 = objc_msgSend_chartStyle(self, v17, v18, v19, v20);
-          v163 = objc_msgSend_beforeValue(tupleCopy, v159, v160, v161, v162);
+          v154 = objc_msgSend_chartStyle(self, v17, v18, v19, v20);
+          v159 = objc_msgSend_beforeValue(tupleCopy, v155, v156, v157, v158);
 
-          if (v158 != v163)
+          if (v154 != v159)
           {
-            v168 = MEMORY[0x277D81150];
-            v169 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v164, v165, v166, v167, "[TSCHChartStyleState applyStyleSwapTuple:ignoringBeforeValues:]");
-            v174 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v170, v171, v172, v173, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartStyleState.m");
-            objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v168, v175, v176, v177, v178, v169, v174, 263, 0, "Inconsistent - mismatched chart style");
+            v164 = MEMORY[0x277D81150];
+            v165 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v160, v161, v162, v163, "[TSCHChartStyleState applyStyleSwapTuple:ignoringBeforeValues:]");
+            v170 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v166, v167, v168, v169, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartStyleState.m");
+            objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v164, v171, v172, v173, v174, v165, v170, 263, 0, "Inconsistent - mismatched chart style");
 
-            objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v179, v180, v181, v182);
+            objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v175, v176, v177, v178);
           }
         }
 
         objc_opt_class();
-        v50 = objc_msgSend_afterValue(tupleCopy, v183, v184, v185, v186);
+        v50 = objc_msgSend_afterValue(tupleCopy, v179, v180, v181, v182);
         v51 = TSUCheckedDynamicCast();
-        objc_msgSend_setChartStyle_(self, v187, v188, v189, v190, v51);
+        objc_msgSend_setChartStyle_(self, v183, v184, v185, v186, v51);
         goto LABEL_33;
       }
 
@@ -1656,24 +1656,24 @@ LABEL_15:
     {
       if (!values)
       {
-        v191 = objc_msgSend_beforeValue(tupleCopy, v17, v18, v19, v20);
-        v196 = objc_msgSend_valueAxisStyles(self, v192, v193, v194, v195);
-        v201 = objc_msgSend_index(tupleCopy, v197, v198, v199, v200);
-        v202 = sub_27626B504(v191, v196, v201, 0);
+        v187 = objc_msgSend_beforeValue(tupleCopy, v17, v18, v19, v20);
+        v192 = objc_msgSend_valueAxisStyles(self, v188, v189, v190, v191);
+        v196 = objc_msgSend_index(tupleCopy, v193, v194, v195);
+        v197 = sub_27626B504(v187, v192, v196, 0);
 
-        if ((v202 & 1) == 0)
+        if ((v197 & 1) == 0)
         {
-          v203 = MEMORY[0x277D81150];
-          v204 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, v18, v19, v20, "[TSCHChartStyleState applyStyleSwapTuple:ignoringBeforeValues:]");
-          v209 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v205, v206, v207, v208, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartStyleState.m");
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v203, v210, v211, v212, v213, v204, v209, 279, 0, "Inconsistent - mismatched value axis style");
+          v198 = MEMORY[0x277D81150];
+          v199 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, v18, v19, v20, "[TSCHChartStyleState applyStyleSwapTuple:ignoringBeforeValues:]");
+          v204 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v200, v201, v202, v203, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartStyleState.m");
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v198, v205, v206, v207, v208, v199, v204, 279, 0, "Inconsistent - mismatched value axis style");
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v214, v215, v216, v217);
+          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v209, v210, v211, v212);
         }
       }
 
-      v117 = objc_msgSend_afterValue(tupleCopy, v17, v18, v19, v20);
-      v121 = &OBJC_IVAR___TSCHPropertyValueStorageContainer__valueAxisStyles;
+      v115 = objc_msgSend_afterValue(tupleCopy, v17, v18, v19, v20);
+      v119 = &OBJC_IVAR___TSCHPropertyValueStorageContainer__valueAxisStyles;
     }
 
     else
@@ -1687,32 +1687,32 @@ LABEL_15:
       {
         v89 = objc_msgSend_beforeValue(tupleCopy, v17, v18, v19, v20);
         v94 = objc_msgSend_categoryAxisStyles(self, v90, v91, v92, v93);
-        v99 = objc_msgSend_index(tupleCopy, v95, v96, v97, v98);
-        v100 = sub_27626B504(v89, v94, v99, 0);
+        v98 = objc_msgSend_index(tupleCopy, v95, v96, v97);
+        v99 = sub_27626B504(v89, v94, v98, 0);
 
-        if ((v100 & 1) == 0)
+        if ((v99 & 1) == 0)
         {
-          v101 = MEMORY[0x277D81150];
-          v102 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, v18, v19, v20, "[TSCHChartStyleState applyStyleSwapTuple:ignoringBeforeValues:]");
-          v107 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v103, v104, v105, v106, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartStyleState.m");
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v101, v108, v109, v110, v111, v102, v107, 284, 0, "Inconsistent - mismatched category axis style");
+          v100 = MEMORY[0x277D81150];
+          v101 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, v18, v19, v20, "[TSCHChartStyleState applyStyleSwapTuple:ignoringBeforeValues:]");
+          v106 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v102, v103, v104, v105, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartStyleState.m");
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v100, v107, v108, v109, v110, v101, v106, 284, 0, "Inconsistent - mismatched category axis style");
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v112, v113, v114, v115);
+          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v111, v112, v113, v114);
         }
       }
 
-      v117 = objc_msgSend_afterValue(tupleCopy, v17, v18, v19, v20);
-      v121 = &OBJC_IVAR___TSCHPropertyValueStorageContainer__categoryAxisStyles;
+      v115 = objc_msgSend_afterValue(tupleCopy, v17, v18, v19, v20);
+      v119 = &OBJC_IVAR___TSCHPropertyValueStorageContainer__categoryAxisStyles;
     }
 
 LABEL_46:
-    v272 = *(&self->super.super.isa + *v121);
-    v154 = objc_msgSend_index(tupleCopy, v116, v118, v119, v120);
-    v155 = v117;
-    v156 = v272;
-    v157 = 0;
+    v265 = *(&self->super.super.isa + *v119);
+    v150 = objc_msgSend_index(tupleCopy, v116, v117, v118);
+    v151 = v115;
+    v152 = v265;
+    v153 = 0;
 LABEL_47:
-    sub_27626B5EC(v155, v156, v154, v157);
+    sub_27626B5EC(v151, v152, v150, v153);
     goto LABEL_48;
   }
 
@@ -1752,34 +1752,34 @@ LABEL_33:
         goto LABEL_56;
       }
 
-      v274 = objc_msgSend_index(tupleCopy, v17, v18, v19, v20);
-      v117 = objc_msgSend_axisIDFromStyleSwapOrStyleOwnerIndex_(TSCHReferenceLine, v275, v276, v277, v278, v274);
-      v283 = objc_msgSend_index(tupleCopy, v279, v280, v281, v282);
-      v288 = objc_msgSend_refLineIndexFromStyleSwapOrStyleOwnerIndex_(TSCHReferenceLine, v284, v285, v286, v287, v283);
+      v267 = objc_msgSend_index(tupleCopy, v18, v19, v20);
+      v115 = objc_msgSend_axisIDFromStyleSwapOrStyleOwnerIndex_(TSCHReferenceLine, v268, v269, v270, v271, v267);
+      v275 = objc_msgSend_index(tupleCopy, v272, v273, v274);
+      v280 = objc_msgSend_refLineIndexFromStyleSwapOrStyleOwnerIndex_(TSCHReferenceLine, v276, v277, v278, v279, v275);
       objc_opt_class();
       referenceLineStyles = self->super._referenceLineStyles;
-      v290 = objc_opt_class();
-      v295 = objc_msgSend_tsu_objectForKey_withDefaultOfClass_(referenceLineStyles, v291, v292, v293, v294, v117, v290);
-      v296 = TSUCheckedDynamicCast();
+      v282 = objc_opt_class();
+      v287 = objc_msgSend_tsu_objectForKey_withDefaultOfClass_(referenceLineStyles, v283, v284, v285, v286, v115, v282);
+      v288 = TSUCheckedDynamicCast();
 
       if (!values)
       {
-        v301 = objc_msgSend_beforeValue(tupleCopy, v297, v298, v299, v300);
-        v302 = sub_27626B504(v301, v296, v288, 1);
+        v293 = objc_msgSend_beforeValue(tupleCopy, v289, v290, v291, v292);
+        v294 = sub_27626B504(v293, v288, v280, 1);
 
-        if ((v302 & 1) == 0)
+        if ((v294 & 1) == 0)
         {
-          v303 = MEMORY[0x277D81150];
-          v304 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v297, v298, v299, v300, "[TSCHChartStyleState applyStyleSwapTuple:ignoringBeforeValues:]");
-          v309 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v305, v306, v307, v308, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartStyleState.m");
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v303, v310, v311, v312, v313, v304, v309, 302, 0, "Inconsistent - mismatched reference line style");
+          v295 = MEMORY[0x277D81150];
+          v296 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v289, v290, v291, v292, "[TSCHChartStyleState applyStyleSwapTuple:ignoringBeforeValues:]");
+          v301 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v297, v298, v299, v300, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartStyleState.m");
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v295, v302, v303, v304, v305, v296, v301, 302, 0, "Inconsistent - mismatched reference line style");
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v314, v315, v316, v317);
+          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v306, v307, v308, v309);
         }
       }
 
-      v318 = objc_msgSend_afterValue(tupleCopy, v297, v298, v299, v300);
-      sub_27626B5EC(v318, v296, v288, 1);
+      v310 = objc_msgSend_afterValue(tupleCopy, v289, v290, v291, v292);
+      sub_27626B5EC(v310, v288, v280, 1);
 
 LABEL_48:
       goto LABEL_49;
@@ -1787,24 +1787,24 @@ LABEL_48:
 
     if (!values)
     {
-      v218 = objc_msgSend_beforeValue(tupleCopy, v17, v18, v19, v20);
-      v223 = objc_msgSend_paragraphStyles(self, v219, v220, v221, v222);
-      v228 = objc_msgSend_index(tupleCopy, v224, v225, v226, v227);
-      v229 = sub_27626B504(v218, v223, v228, 0);
+      v213 = objc_msgSend_beforeValue(tupleCopy, v17, v18, v19, v20);
+      v218 = objc_msgSend_paragraphStyles(self, v214, v215, v216, v217);
+      v222 = objc_msgSend_index(tupleCopy, v219, v220, v221);
+      v223 = sub_27626B504(v213, v218, v222, 0);
 
-      if ((v229 & 1) == 0)
+      if ((v223 & 1) == 0)
       {
-        v230 = MEMORY[0x277D81150];
-        v231 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, v18, v19, v20, "[TSCHChartStyleState applyStyleSwapTuple:ignoringBeforeValues:]");
-        v236 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v232, v233, v234, v235, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartStyleState.m");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v230, v237, v238, v239, v240, v231, v236, 307, 0, "Inconsistent - mismatched paragraph style");
+        v224 = MEMORY[0x277D81150];
+        v225 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, v18, v19, v20, "[TSCHChartStyleState applyStyleSwapTuple:ignoringBeforeValues:]");
+        v230 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v226, v227, v228, v229, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartStyleState.m");
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v224, v231, v232, v233, v234, v225, v230, 307, 0, "Inconsistent - mismatched paragraph style");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v241, v242, v243, v244);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v235, v236, v237, v238);
       }
     }
 
-    v117 = objc_msgSend_afterValue(tupleCopy, v17, v18, v19, v20);
-    v121 = &OBJC_IVAR___TSCHPropertyValueStorageContainer__paragraphStyles;
+    v115 = objc_msgSend_afterValue(tupleCopy, v17, v18, v19, v20);
+    v119 = &OBJC_IVAR___TSCHPropertyValueStorageContainer__paragraphStyles;
     goto LABEL_46;
   }
 
@@ -1812,24 +1812,24 @@ LABEL_48:
   {
     if (!values)
     {
-      v245 = objc_msgSend_beforeValue(tupleCopy, v17, v18, v19, v20);
-      v250 = objc_msgSend_seriesThemeStyles(self, v246, v247, v248, v249);
-      v255 = objc_msgSend_index(tupleCopy, v251, v252, v253, v254);
-      v256 = sub_27626B504(v245, v250, v255, 0);
+      v239 = objc_msgSend_beforeValue(tupleCopy, v17, v18, v19, v20);
+      v244 = objc_msgSend_seriesThemeStyles(self, v240, v241, v242, v243);
+      v248 = objc_msgSend_index(tupleCopy, v245, v246, v247);
+      v249 = sub_27626B504(v239, v244, v248, 0);
 
-      if ((v256 & 1) == 0)
+      if ((v249 & 1) == 0)
       {
-        v257 = MEMORY[0x277D81150];
-        v258 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, v18, v19, v20, "[TSCHChartStyleState applyStyleSwapTuple:ignoringBeforeValues:]");
-        v263 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v259, v260, v261, v262, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartStyleState.m");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v257, v264, v265, v266, v267, v258, v263, 289, 0, "Inconsistent - mismatched series theme style");
+        v250 = MEMORY[0x277D81150];
+        v251 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, v18, v19, v20, "[TSCHChartStyleState applyStyleSwapTuple:ignoringBeforeValues:]");
+        v256 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v252, v253, v254, v255, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartStyleState.m");
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v250, v257, v258, v259, v260, v251, v256, 289, 0, "Inconsistent - mismatched series theme style");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v268, v269, v270, v271);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v261, v262, v263, v264);
       }
     }
 
-    v117 = objc_msgSend_afterValue(tupleCopy, v17, v18, v19, v20);
-    v121 = &OBJC_IVAR___TSCHPropertyValueStorageContainer__seriesThemeStyles;
+    v115 = objc_msgSend_afterValue(tupleCopy, v17, v18, v19, v20);
+    v119 = &OBJC_IVAR___TSCHPropertyValueStorageContainer__seriesThemeStyles;
     goto LABEL_46;
   }
 
@@ -1837,39 +1837,39 @@ LABEL_48:
   {
     if (!values)
     {
-      v122 = objc_msgSend_beforeValue(tupleCopy, v17, v18, v19, v20);
-      v127 = objc_msgSend_seriesPrivateStyles(self, v123, v124, v125, v126);
-      v132 = objc_msgSend_index(tupleCopy, v128, v129, v130, v131);
-      v133 = sub_27626B504(v122, v127, v132, 0);
+      v120 = objc_msgSend_beforeValue(tupleCopy, v17, v18, v19, v20);
+      v125 = objc_msgSend_seriesPrivateStyles(self, v121, v122, v123, v124);
+      v129 = objc_msgSend_index(tupleCopy, v126, v127, v128);
+      v130 = sub_27626B504(v120, v125, v129, 0);
 
-      if ((v133 & 1) == 0)
+      if ((v130 & 1) == 0)
       {
-        v134 = MEMORY[0x277D81150];
-        v135 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, v18, v19, v20, "[TSCHChartStyleState applyStyleSwapTuple:ignoringBeforeValues:]");
-        v140 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v136, v137, v138, v139, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartStyleState.m");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v134, v141, v142, v143, v144, v135, v140, 294, 0, "Inconsistent - mismatched series private style");
+        v131 = MEMORY[0x277D81150];
+        v132 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, v18, v19, v20, "[TSCHChartStyleState applyStyleSwapTuple:ignoringBeforeValues:]");
+        v137 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v133, v134, v135, v136, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartStyleState.m");
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v131, v138, v139, v140, v141, v132, v137, 294, 0, "Inconsistent - mismatched series private style");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v145, v146, v147, v148);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v142, v143, v144, v145);
       }
     }
 
-    v117 = objc_msgSend_afterValue(tupleCopy, v17, v18, v19, v20);
+    v115 = objc_msgSend_afterValue(tupleCopy, v17, v18, v19, v20);
     seriesPrivateStyles = self->super._seriesPrivateStyles;
-    v154 = objc_msgSend_index(tupleCopy, v150, v151, v152, v153);
-    v155 = v117;
-    v156 = seriesPrivateStyles;
-    v157 = 1;
+    v150 = objc_msgSend_index(tupleCopy, v147, v148, v149);
+    v151 = v115;
+    v152 = seriesPrivateStyles;
+    v153 = 1;
     goto LABEL_47;
   }
 
 LABEL_56:
-  v319 = MEMORY[0x277D81150];
-  v320 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, v18, v19, v20, "[TSCHChartStyleState applyStyleSwapTuple:ignoringBeforeValues:]");
-  v325 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v321, v322, v323, v324, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartStyleState.m");
-  v330 = objc_msgSend_swapType(tupleCopy, v326, v327, v328, v329);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v319, v331, v332, v333, v334, v320, v325, 312, 0, "Unexpected swap type %ld", v330);
+  v311 = MEMORY[0x277D81150];
+  v312 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, v18, v19, v20, "[TSCHChartStyleState applyStyleSwapTuple:ignoringBeforeValues:]");
+  v317 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v313, v314, v315, v316, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartStyleState.m");
+  v322 = objc_msgSend_swapType(tupleCopy, v318, v319, v320, v321);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v311, v323, v324, v325, v326, v312, v317, 312, 0, "Unexpected swap type %ld", v322);
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v335, v336, v337, v338);
+  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v327, v328, v329, v330);
 LABEL_49:
 
   return v11;
@@ -2947,7 +2947,7 @@ LABEL_3:
   tagCopy = tag;
   if (objc_msgSend_type(tagCopy, v5, v6, v7, v8) == 10)
   {
-    v13 = objc_msgSend_index(tagCopy, v9, v10, v11, v12);
+    v13 = objc_msgSend_index(tagCopy, v10, v11, v12);
 
     v18 = objc_msgSend_seriesThemeStyles(self, v14, v15, v16, v17);
     v23 = objc_msgSend_count(v18, v19, v20, v21, v22);
@@ -2982,34 +2982,34 @@ LABEL_3:
     {
       if (v9 == 13)
       {
-        v102 = objc_msgSend_index(tagCopy, v10, v11, v12, v13);
-        v93 = objc_msgSend_axisIDFromStyleSwapOrStyleOwnerIndex_(TSCHReferenceLine, v103, v104, v105, v106, v102);
-        v111 = objc_msgSend_index(tagCopy, v107, v108, v109, v110);
-        v116 = objc_msgSend_refLineIndexFromStyleSwapOrStyleOwnerIndex_(TSCHReferenceLine, v112, v113, v114, v115, v111);
+        v98 = objc_msgSend_index(tagCopy, v11, v12, v13);
+        v89 = objc_msgSend_axisIDFromStyleSwapOrStyleOwnerIndex_(TSCHReferenceLine, v99, v100, v101, v102, v98);
+        v106 = objc_msgSend_index(tagCopy, v103, v104, v105);
+        v111 = objc_msgSend_refLineIndexFromStyleSwapOrStyleOwnerIndex_(TSCHReferenceLine, v107, v108, v109, v110, v106);
         objc_opt_class();
-        v121 = objc_msgSend_referenceLineStyles(self, v117, v118, v119, v120);
-        v126 = objc_msgSend_objectForKeyedSubscript_(v121, v122, v123, v124, v125, v93);
-        v127 = TSUCheckedDynamicCast();
+        v116 = objc_msgSend_referenceLineStyles(self, v112, v113, v114, v115);
+        v121 = objc_msgSend_objectForKeyedSubscript_(v116, v117, v118, v119, v120, v89);
+        v122 = TSUCheckedDynamicCast();
 
-        v92 = objc_msgSend_objectAtIndexedSubscript_(v127, v128, v129, v130, v131, v116);
+        v88 = objc_msgSend_objectAtIndexedSubscript_(v122, v123, v124, v125, v126, v111);
 
         goto LABEL_27;
       }
 
       if (v9 == 15)
       {
-        if (objc_msgSend_index(tagCopy, v10, v11, v12, v13))
+        if (objc_msgSend_index(tagCopy, v11, v12, v13))
         {
-          v48 = MEMORY[0x277D81150];
-          v49 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v44, v45, v46, v47, "[TSCHChartStyleState styleForSemanticTag:]");
-          v54 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v50, v51, v52, v53, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartStyleState.m");
-          v59 = objc_msgSend_index(tagCopy, v55, v56, v57, v58);
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v48, v60, v61, v62, v63, v49, v54, 847, 0, "Index mismatch expects 0 got %lu", v59);
+          v46 = MEMORY[0x277D81150];
+          v47 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v42, v43, v44, v45, "[TSCHChartStyleState styleForSemanticTag:]");
+          v52 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v48, v49, v50, v51, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartStyleState.m");
+          v56 = objc_msgSend_index(tagCopy, v53, v54, v55);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v46, v57, v58, v59, v60, v47, v52, 847, 0, "Index mismatch expects 0 got %lu", v56);
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v64, v65, v66, v67);
+          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v61, v62, v63, v64);
         }
 
-        v38 = objc_msgSend_referenceLineThemeStyle(self, v44, v45, v46, v47);
+        v37 = objc_msgSend_referenceLineThemeStyle(self, v42, v43, v44, v45);
         goto LABEL_23;
       }
     }
@@ -3018,17 +3018,17 @@ LABEL_3:
     {
       if (v9 == 9)
       {
-        v39 = objc_msgSend_seriesThemeStyles(self, v10, v11, v12, v13);
+        v38 = objc_msgSend_seriesThemeStyles(self, v10, v11, v12, v13);
         goto LABEL_26;
       }
 
       if (v9 == 10)
       {
-        v39 = objc_msgSend_seriesPrivateStyles(self, v10, v11, v12, v13);
+        v38 = objc_msgSend_seriesPrivateStyles(self, v10, v11, v12, v13);
 LABEL_26:
-        v93 = v39;
-        v94 = objc_msgSend_index(tagCopy, v40, v41, v42, v43);
-        v92 = objc_msgSend_tsu_rangeCheckedObjectAtIndex_(v93, v95, v96, v97, v98, v94);
+        v89 = v38;
+        v90 = objc_msgSend_index(tagCopy, v39, v40, v41);
+        v88 = objc_msgSend_tsu_rangeCheckedObjectAtIndex_(v89, v91, v92, v93, v94, v90);
 LABEL_27:
 
         goto LABEL_28;
@@ -3042,37 +3042,37 @@ LABEL_27:
     {
       if (v9 == 1)
       {
-        if (objc_msgSend_index(tagCopy, v10, v11, v12, v13))
+        if (objc_msgSend_index(tagCopy, v11, v12, v13))
         {
-          v72 = MEMORY[0x277D81150];
-          v73 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v68, v69, v70, v71, "[TSCHChartStyleState styleForSemanticTag:]");
-          v78 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v74, v75, v76, v77, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartStyleState.m");
-          v83 = objc_msgSend_index(tagCopy, v79, v80, v81, v82);
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v72, v84, v85, v86, v87, v73, v78, 821, 0, "Index mismatch expects 0 got %lu", v83);
+          v69 = MEMORY[0x277D81150];
+          v70 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v65, v66, v67, v68, "[TSCHChartStyleState styleForSemanticTag:]");
+          v75 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v71, v72, v73, v74, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartStyleState.m");
+          v79 = objc_msgSend_index(tagCopy, v76, v77, v78);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v69, v80, v81, v82, v83, v70, v75, 821, 0, "Index mismatch expects 0 got %lu", v79);
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v88, v89, v90, v91);
+          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v84, v85, v86, v87);
         }
 
-        v38 = objc_msgSend_chartStyle(self, v68, v69, v70, v71);
+        v37 = objc_msgSend_chartStyle(self, v65, v66, v67, v68);
         goto LABEL_23;
       }
 
       if (v9 == 3)
       {
-        if (objc_msgSend_index(tagCopy, v10, v11, v12, v13))
+        if (objc_msgSend_index(tagCopy, v11, v12, v13))
         {
           v18 = MEMORY[0x277D81150];
           v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, v15, v16, v17, "[TSCHChartStyleState styleForSemanticTag:]");
           v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, v21, v22, v23, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartStyleState.m");
-          v29 = objc_msgSend_index(tagCopy, v25, v26, v27, v28);
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v18, v30, v31, v32, v33, v19, v24, 826, 0, "Index mismatch expects 0 got %lu", v29);
+          v28 = objc_msgSend_index(tagCopy, v25, v26, v27);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v18, v29, v30, v31, v32, v19, v24, 826, 0, "Index mismatch expects 0 got %lu", v28);
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v34, v35, v36, v37);
+          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v33, v34, v35, v36);
         }
 
-        v38 = objc_msgSend_legendStyle(self, v14, v15, v16, v17);
+        v37 = objc_msgSend_legendStyle(self, v14, v15, v16, v17);
 LABEL_23:
-        v92 = v38;
+        v88 = v37;
         goto LABEL_28;
       }
 
@@ -3081,30 +3081,30 @@ LABEL_23:
 
     if (v9 == 5)
     {
-      v39 = objc_msgSend_valueAxisStyles(self, v10, v11, v12, v13);
+      v38 = objc_msgSend_valueAxisStyles(self, v10, v11, v12, v13);
       goto LABEL_26;
     }
 
     if (v9 == 7)
     {
-      v39 = objc_msgSend_categoryAxisStyles(self, v10, v11, v12, v13);
+      v38 = objc_msgSend_categoryAxisStyles(self, v10, v11, v12, v13);
       goto LABEL_26;
     }
   }
 
 LABEL_32:
-  v132 = MEMORY[0x277D81150];
-  v133 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, v11, v12, v13, "[TSCHChartStyleState styleForSemanticTag:]");
-  v138 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v134, v135, v136, v137, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartStyleState.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v132, v139, v140, v141, v142, v133, v138, 860, 0, "Invalid semantic type from tag %@", tagCopy);
+  v127 = MEMORY[0x277D81150];
+  v128 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, v11, v12, v13, "[TSCHChartStyleState styleForSemanticTag:]");
+  v133 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v129, v130, v131, v132, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartStyleState.m");
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v127, v134, v135, v136, v137, v128, v133, 860, 0, "Invalid semantic type from tag %@", tagCopy);
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v143, v144, v145, v146);
-  v92 = 0;
+  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v138, v139, v140, v141);
+  v88 = 0;
 LABEL_28:
-  v99 = objc_opt_class();
-  v100 = sub_2762CD788(v99, v92);
+  v95 = objc_opt_class();
+  v96 = sub_2762CD788(v95, v88);
 
-  return v100;
+  return v96;
 }
 
 - (id)styleToUseForSemanticTag:(id)tag
@@ -3160,25 +3160,25 @@ LABEL_28:
   switch(objc_msgSend_type(tagCopy, v7, v8, v9, v10))
   {
     case 0u:
-      v107 = MEMORY[0x277D81150];
+      v104 = MEMORY[0x277D81150];
       v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, v12, v13, v14, "[TSCHChartStyleState setStyle:withSemanticTag:]");
-      v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v108, v109, v110, v111, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartStyleState.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v107, v112, v113, v114, v115, v16, v21, 929, 0, "unknown or unimplemented swap type");
+      v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v105, v106, v107, v108, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartStyleState.m");
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v104, v109, v110, v111, v112, v16, v21, 929, 0, "unknown or unimplemented swap type");
       goto LABEL_3;
     case 1u:
-      if (objc_msgSend_index(tagCopy, v11, v12, v13, v14))
+      if (objc_msgSend_index(tagCopy, v12, v13, v14))
       {
-        v120 = MEMORY[0x277D81150];
-        v121 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v116, v117, v118, v119, "[TSCHChartStyleState setStyle:withSemanticTag:]");
-        v126 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v122, v123, v124, v125, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartStyleState.m");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v120, v127, v128, v129, v130, v121, v126, 895, 0, "Invalid indexing for style swap");
+        v117 = MEMORY[0x277D81150];
+        v118 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v113, v114, v115, v116, "[TSCHChartStyleState setStyle:withSemanticTag:]");
+        v123 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v119, v120, v121, v122, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartStyleState.m");
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v117, v124, v125, v126, v127, v118, v123, 895, 0, "Invalid indexing for style swap");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v131, v132, v133, v134);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v128, v129, v130, v131);
       }
 
       objc_opt_class();
       v35 = TSUCheckedDynamicCast();
-      objc_msgSend_setChartStyle_(self, v135, v136, v137, v138, v35);
+      objc_msgSend_setChartStyle_(self, v132, v133, v134, v135, v35);
       goto LABEL_19;
     case 2u:
     case 4u:
@@ -3195,85 +3195,85 @@ LABEL_3:
       objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v27, v28, v29);
       break;
     case 3u:
-      if (objc_msgSend_index(tagCopy, v11, v12, v13, v14))
+      if (objc_msgSend_index(tagCopy, v12, v13, v14))
       {
-        v151 = MEMORY[0x277D81150];
-        v152 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v147, v148, v149, v150, "[TSCHChartStyleState setStyle:withSemanticTag:]");
-        v157 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v153, v154, v155, v156, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartStyleState.m");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v151, v158, v159, v160, v161, v152, v157, 899, 0, "Invalid indexing for style swap");
+        v148 = MEMORY[0x277D81150];
+        v149 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v144, v145, v146, v147, "[TSCHChartStyleState setStyle:withSemanticTag:]");
+        v154 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v150, v151, v152, v153, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartStyleState.m");
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v148, v155, v156, v157, v158, v149, v154, 899, 0, "Invalid indexing for style swap");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v162, v163, v164, v165);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v159, v160, v161, v162);
       }
 
       objc_opt_class();
       v35 = TSUCheckedDynamicCast();
-      objc_msgSend_setLegendStyle_(self, v166, v167, v168, v169, v35);
+      objc_msgSend_setLegendStyle_(self, v163, v164, v165, v166, v35);
       goto LABEL_19;
     case 5u:
       objc_opt_class();
       v35 = TSUCheckedDynamicCast();
-      v62 = objc_msgSend_valueAxisStyles(self, v80, v81, v82, v83);
+      v61 = objc_msgSend_valueAxisStyles(self, v77, v78, v79, v80);
       goto LABEL_17;
     case 7u:
       objc_opt_class();
       v35 = TSUCheckedDynamicCast();
-      v62 = objc_msgSend_categoryAxisStyles(self, v143, v144, v145, v146);
+      v61 = objc_msgSend_categoryAxisStyles(self, v140, v141, v142, v143);
       goto LABEL_17;
     case 9u:
       objc_opt_class();
       v35 = TSUCheckedDynamicCast();
-      v62 = objc_msgSend_seriesThemeStyles(self, v58, v59, v60, v61);
+      v61 = objc_msgSend_seriesThemeStyles(self, v57, v58, v59, v60);
       goto LABEL_17;
     case 0xAu:
       objc_opt_class();
       v35 = TSUCheckedDynamicCast();
-      v71 = objc_msgSend_seriesPrivateStyles(self, v67, v68, v69, v70);
-      v76 = objc_msgSend_index(tagCopy, v72, v73, v74, v75);
-      v77 = v35;
-      v78 = v71;
-      v79 = 1;
+      v69 = objc_msgSend_seriesPrivateStyles(self, v65, v66, v67, v68);
+      v73 = objc_msgSend_index(tagCopy, v70, v71, v72);
+      v74 = v35;
+      v75 = v69;
+      v76 = 1;
       goto LABEL_18;
     case 0xCu:
       objc_opt_class();
       v35 = TSUCheckedDynamicCast();
-      v62 = objc_msgSend_paragraphStyles(self, v139, v140, v141, v142);
+      v61 = objc_msgSend_paragraphStyles(self, v136, v137, v138, v139);
 LABEL_17:
-      v71 = v62;
-      v76 = objc_msgSend_index(tagCopy, v63, v64, v65, v66);
-      v77 = v35;
-      v78 = v71;
-      v79 = 0;
+      v69 = v61;
+      v73 = objc_msgSend_index(tagCopy, v62, v63, v64);
+      v74 = v35;
+      v75 = v69;
+      v76 = 0;
 LABEL_18:
-      sub_27626B5EC(v77, v78, v76, v79);
+      sub_27626B5EC(v74, v75, v73, v76);
 
       goto LABEL_19;
     case 0xDu:
-      v30 = objc_msgSend_index(tagCopy, v11, v12, v13, v14);
+      v30 = objc_msgSend_index(tagCopy, v12, v13, v14);
       v35 = objc_msgSend_axisIDFromStyleSwapOrStyleOwnerIndex_(TSCHReferenceLine, v31, v32, v33, v34, v30);
-      v40 = objc_msgSend_index(tagCopy, v36, v37, v38, v39);
-      v45 = objc_msgSend_refLineIndexFromStyleSwapOrStyleOwnerIndex_(TSCHReferenceLine, v41, v42, v43, v44, v40);
+      v39 = objc_msgSend_index(tagCopy, v36, v37, v38);
+      v44 = objc_msgSend_refLineIndexFromStyleSwapOrStyleOwnerIndex_(TSCHReferenceLine, v40, v41, v42, v43, v39);
       objc_opt_class();
-      v50 = objc_msgSend_referenceLineStyles(self, v46, v47, v48, v49);
-      v51 = objc_opt_class();
-      v56 = objc_msgSend_tsu_objectForKey_withDefaultOfClass_(v50, v52, v53, v54, v55, v35, v51);
-      v57 = TSUCheckedDynamicCast();
+      v49 = objc_msgSend_referenceLineStyles(self, v45, v46, v47, v48);
+      v50 = objc_opt_class();
+      v55 = objc_msgSend_tsu_objectForKey_withDefaultOfClass_(v49, v51, v52, v53, v54, v35, v50);
+      v56 = TSUCheckedDynamicCast();
 
-      sub_27626B5EC(styleCopy, v57, v45, 1);
+      sub_27626B5EC(styleCopy, v56, v44, 1);
       goto LABEL_19;
     case 0xFu:
-      if (objc_msgSend_index(tagCopy, v11, v12, v13, v14))
+      if (objc_msgSend_index(tagCopy, v12, v13, v14))
       {
-        v88 = MEMORY[0x277D81150];
-        v89 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v84, v85, v86, v87, "[TSCHChartStyleState setStyle:withSemanticTag:]");
-        v94 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v90, v91, v92, v93, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartStyleState.m");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v88, v95, v96, v97, v98, v89, v94, 925, 0, "Invalid indexing for style swap");
+        v85 = MEMORY[0x277D81150];
+        v86 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v81, v82, v83, v84, "[TSCHChartStyleState setStyle:withSemanticTag:]");
+        v91 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v87, v88, v89, v90, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartStyleState.m");
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v85, v92, v93, v94, v95, v86, v91, 925, 0, "Invalid indexing for style swap");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v99, v100, v101, v102);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v96, v97, v98, v99);
       }
 
       objc_opt_class();
       v35 = TSUCheckedDynamicCast();
-      objc_msgSend_setReferenceLineThemeStyle_(self, v103, v104, v105, v106, v35);
+      objc_msgSend_setReferenceLineThemeStyle_(self, v100, v101, v102, v103, v35);
 LABEL_19:
 
       break;
@@ -3406,17 +3406,17 @@ LABEL_19:
     if ((v9 - 9) < 2)
     {
       v14 = objc_msgSend_type(tagCopy, v10, v11, v12, v13);
-      v19 = objc_msgSend_index(tagCopy, v15, v16, v17, v18);
-      v24 = objc_msgSend_seriesThemeStyles(self, v20, v21, v22, v23);
-      v29 = objc_msgSend_count(v24, v25, v26, v27, v28);
-      v34 = objc_msgSend_styleSemanticTagWithType_index_(TSCHStyleSemanticTag, v30, v31, v32, v33, v14, v19 % v29);
+      v18 = objc_msgSend_index(tagCopy, v15, v16, v17);
+      v23 = objc_msgSend_seriesThemeStyles(self, v19, v20, v21, v22);
+      v28 = objc_msgSend_count(v23, v24, v25, v26, v27);
+      v33 = objc_msgSend_styleSemanticTagWithType_index_(TSCHStyleSemanticTag, v29, v30, v31, v32, v14, v18 % v28);
 
       goto LABEL_12;
     }
 
     if (v9 == 13)
     {
-      v34 = objc_msgSend_styleSemanticTagWithType_index_(TSCHStyleSemanticTag, v10, v11, v12, v13, 15, 0);
+      v33 = objc_msgSend_styleSemanticTagWithType_index_(TSCHStyleSemanticTag, v10, v11, v12, v13, 15, 0);
       goto LABEL_12;
     }
 
@@ -3425,34 +3425,34 @@ LABEL_19:
 
   if (v9 == 5)
   {
-    v35 = objc_msgSend_type(tagCopy, v10, v11, v12, v13);
-    v40 = objc_msgSend_valueAxisStyles(self, v45, v46, v47, v48);
+    v34 = objc_msgSend_type(tagCopy, v10, v11, v12, v13);
+    v39 = objc_msgSend_valueAxisStyles(self, v44, v45, v46, v47);
     goto LABEL_10;
   }
 
   if (v9 == 7)
   {
-    v35 = objc_msgSend_type(tagCopy, v10, v11, v12, v13);
-    v40 = objc_msgSend_categoryAxisStyles(self, v36, v37, v38, v39);
+    v34 = objc_msgSend_type(tagCopy, v10, v11, v12, v13);
+    v39 = objc_msgSend_categoryAxisStyles(self, v35, v36, v37, v38);
 LABEL_10:
-    v49 = v40;
-    v50 = objc_msgSend_count(v40, v41, v42, v43, v44);
-    v34 = objc_msgSend_styleSemanticTagWithType_index_(TSCHStyleSemanticTag, v51, v52, v53, v54, v35, v50 - 1);
+    v48 = v39;
+    v49 = objc_msgSend_count(v39, v40, v41, v42, v43);
+    v33 = objc_msgSend_styleSemanticTagWithType_index_(TSCHStyleSemanticTag, v50, v51, v52, v53, v34, v49 - 1);
 
     goto LABEL_12;
   }
 
 LABEL_11:
-  v55 = MEMORY[0x277D81150];
-  v56 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, v11, v12, v13, "[TSCHChartStyleState fallbackSemanticTagForSemanticTag:]");
-  v61 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v57, v58, v59, v60, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartStyleState.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v55, v62, v63, v64, v65, v56, v61, 972, 0, "Missing semantic use of paragraph style in preset; This preset might be mal-formed.");
+  v54 = MEMORY[0x277D81150];
+  v55 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, v11, v12, v13, "[TSCHChartStyleState fallbackSemanticTagForSemanticTag:]");
+  v60 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v56, v57, v58, v59, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartStyleState.m");
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v54, v61, v62, v63, v64, v55, v60, 972, 0, "Missing semantic use of paragraph style in preset; This preset might be mal-formed.");
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v66, v67, v68, v69);
-  v34 = 0;
+  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v65, v66, v67, v68);
+  v33 = 0;
 LABEL_12:
 
-  return v34;
+  return v33;
 }
 
 - (id)fallbackSemanticUsageForSemanticUsage:(id)usage

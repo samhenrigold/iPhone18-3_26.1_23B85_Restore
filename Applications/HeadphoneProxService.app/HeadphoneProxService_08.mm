@@ -4,26 +4,25 @@ CGColorRef sub_1000C8DBC()
   v1 = *(v0 + 40);
   if (v1)
   {
-    v2 = v0;
-    v3 = *sub_10000E7E4((v0 + 16), v1);
-    v4 = sub_10006D658();
-    v5 = v2 + OBJC_IVAR____TtC20HeadphoneProxService18HeadphonePresenter_model;
+    sub_10000E7E4((v0 + 16), v1);
+    v2 = sub_10006D658();
+    v3 = v0 + OBJC_IVAR____TtC20HeadphoneProxService18HeadphonePresenter_model;
     swift_beginAccess();
-    v6 = *(v5 + *(type metadata accessor for HeadphoneModel(0) + 136));
-    v7 = objc_opt_self();
-    v8 = [v7 powerBeatsPro];
-    v9 = [v8 productID];
+    v4 = *(v3 + *(type metadata accessor for HeadphoneModel(0) + 136));
+    v5 = objc_opt_self();
+    v6 = [v5 powerBeatsPro];
+    v7 = [v6 productID];
 
-    if (v9 == v6)
+    if (v7 == v4)
     {
-      if ((v4 & 0xFu) > 0xD)
+      if ((v2 & 0xFu) > 0xD)
       {
-        v10 = 0;
+        v8 = 0;
       }
 
       else
       {
-        v10 = dword_1000DA700[v4 & 0xF];
+        v8 = dword_1000DA700[v2 & 0xF];
       }
 
       if (qword_10011C770 != -1)
@@ -31,51 +30,51 @@ CGColorRef sub_1000C8DBC()
         swift_once();
       }
 
-      v18 = type metadata accessor for Logger();
-      sub_10000A570(v18, qword_10011FDE0);
-      v19 = Logger.logObject.getter();
-      v20 = static os_log_type_t.default.getter();
-      if (!os_log_type_enabled(v19, v20))
+      v16 = type metadata accessor for Logger();
+      sub_10000A570(v16, qword_10011FDE0);
+      v17 = Logger.logObject.getter();
+      v18 = static os_log_type_t.default.getter();
+      if (!os_log_type_enabled(v17, v18))
       {
         goto LABEL_33;
       }
 
-      v21 = swift_slowAlloc();
-      v22 = swift_slowAlloc();
-      v38 = v22;
-      *v21 = 16777986;
-      *(v21 + 4) = v4;
-      *(v21 + 5) = 256;
-      *(v21 + 7) = v4 & 0xF;
-      *(v21 + 8) = 2080;
+      v19 = swift_slowAlloc();
+      v20 = swift_slowAlloc();
+      v36 = v20;
+      *v19 = 16777986;
+      *(v19 + 4) = v2;
+      *(v19 + 5) = 256;
+      *(v19 + 7) = v2 & 0xF;
+      *(v19 + 8) = 2080;
       sub_100008438(&qword_10011EA80, &unk_1000DA490);
-      v23 = swift_allocObject();
-      *(v23 + 16) = xmmword_1000D5250;
-      *(v23 + 56) = &type metadata for UInt32;
-      *(v23 + 64) = &protocol witness table for UInt32;
-      *(v23 + 32) = v10;
-      v24 = String.init(format:_:)();
-      v26 = sub_100078978(v24, v25, &v38);
+      v21 = swift_allocObject();
+      *(v21 + 16) = xmmword_1000D5250;
+      *(v21 + 56) = &type metadata for UInt32;
+      *(v21 + 64) = &protocol witness table for UInt32;
+      *(v21 + 32) = v8;
+      v22 = String.init(format:_:)();
+      v24 = sub_100078978(v22, v23, &v36);
 
-      *(v21 + 10) = v26;
-      v27 = "Mute Call: B444 Color Code: %hhu, Color ID: %hhu, Color Hex: %s";
+      *(v19 + 10) = v24;
+      v25 = "Mute Call: B444 Color Code: %hhu, Color ID: %hhu, Color Hex: %s";
     }
 
     else
     {
-      v16 = [v7 b494];
-      v17 = [v16 productID];
+      v14 = [v5 b494];
+      v15 = [v14 productID];
 
-      if (v17 == v6)
+      if (v15 == v4)
       {
-        if ((v4 & 0xFu) > 9)
+        if ((v2 & 0xFu) > 9)
         {
-          v10 = 0;
+          v8 = 0;
         }
 
         else
         {
-          v10 = dword_1000DA6D8[v4 & 0xF];
+          v8 = dword_1000DA6D8[v2 & 0xF];
         }
 
         if (qword_10011C770 != -1)
@@ -83,52 +82,52 @@ CGColorRef sub_1000C8DBC()
           swift_once();
         }
 
-        v28 = type metadata accessor for Logger();
-        sub_10000A570(v28, qword_10011FDE0);
-        v19 = Logger.logObject.getter();
-        v20 = static os_log_type_t.default.getter();
-        if (!os_log_type_enabled(v19, v20))
+        v26 = type metadata accessor for Logger();
+        sub_10000A570(v26, qword_10011FDE0);
+        v17 = Logger.logObject.getter();
+        v18 = static os_log_type_t.default.getter();
+        if (!os_log_type_enabled(v17, v18))
         {
           goto LABEL_33;
         }
 
-        v21 = swift_slowAlloc();
-        v22 = swift_slowAlloc();
-        v38 = v22;
-        *v21 = 16777986;
-        *(v21 + 4) = v4;
-        *(v21 + 5) = 256;
-        *(v21 + 7) = v4 & 0xF;
-        *(v21 + 8) = 2080;
+        v19 = swift_slowAlloc();
+        v20 = swift_slowAlloc();
+        v36 = v20;
+        *v19 = 16777986;
+        *(v19 + 4) = v2;
+        *(v19 + 5) = 256;
+        *(v19 + 7) = v2 & 0xF;
+        *(v19 + 8) = 2080;
         sub_100008438(&qword_10011EA80, &unk_1000DA490);
-        v29 = swift_allocObject();
-        *(v29 + 16) = xmmword_1000D5250;
-        *(v29 + 56) = &type metadata for UInt32;
-        *(v29 + 64) = &protocol witness table for UInt32;
-        *(v29 + 32) = v10;
-        v30 = String.init(format:_:)();
-        v32 = sub_100078978(v30, v31, &v38);
+        v27 = swift_allocObject();
+        *(v27 + 16) = xmmword_1000D5250;
+        *(v27 + 56) = &type metadata for UInt32;
+        *(v27 + 64) = &protocol witness table for UInt32;
+        *(v27 + 32) = v8;
+        v28 = String.init(format:_:)();
+        v30 = sub_100078978(v28, v29, &v36);
 
-        *(v21 + 10) = v32;
-        v27 = "Mute Call: B494 Color Code: %hhu, Color ID: %hhu, Color Hex: %s";
+        *(v19 + 10) = v30;
+        v25 = "Mute Call: B494 Color Code: %hhu, Color ID: %hhu, Color Hex: %s";
       }
 
       else
       {
-        if (v6 != 8221)
+        if (v4 != 8221)
         {
-          v10 = 0;
-          return CGColorCreateGenericRGB(HIWORD(v10) / 255.0, BYTE1(v10) / 255.0, v10 / 255.0, 1.0);
+          v8 = 0;
+          return CGColorCreateGenericRGB(HIWORD(v8) / 255.0, BYTE1(v8) / 255.0, v8 / 255.0, 1.0);
         }
 
-        if ((v4 & 0xFu) > 0xD)
+        if ((v2 & 0xFu) > 0xD)
         {
-          v10 = 0;
+          v8 = 0;
         }
 
         else
         {
-          v10 = dword_1000DA700[v4 & 0xF];
+          v8 = dword_1000DA700[v2 & 0xF];
         }
 
         if (qword_10011C770 != -1)
@@ -136,41 +135,41 @@ CGColorRef sub_1000C8DBC()
           swift_once();
         }
 
-        v33 = type metadata accessor for Logger();
-        sub_10000A570(v33, qword_10011FDE0);
-        v19 = Logger.logObject.getter();
-        v20 = static os_log_type_t.default.getter();
-        if (!os_log_type_enabled(v19, v20))
+        v31 = type metadata accessor for Logger();
+        sub_10000A570(v31, qword_10011FDE0);
+        v17 = Logger.logObject.getter();
+        v18 = static os_log_type_t.default.getter();
+        if (!os_log_type_enabled(v17, v18))
         {
 LABEL_33:
 
-          return CGColorCreateGenericRGB(HIWORD(v10) / 255.0, BYTE1(v10) / 255.0, v10 / 255.0, 1.0);
+          return CGColorCreateGenericRGB(HIWORD(v8) / 255.0, BYTE1(v8) / 255.0, v8 / 255.0, 1.0);
         }
 
-        v21 = swift_slowAlloc();
-        v22 = swift_slowAlloc();
-        v38 = v22;
-        *v21 = 16777986;
-        *(v21 + 4) = v4;
-        *(v21 + 5) = 256;
-        *(v21 + 7) = v4 & 0xF;
-        *(v21 + 8) = 2080;
+        v19 = swift_slowAlloc();
+        v20 = swift_slowAlloc();
+        v36 = v20;
+        *v19 = 16777986;
+        *(v19 + 4) = v2;
+        *(v19 + 5) = 256;
+        *(v19 + 7) = v2 & 0xF;
+        *(v19 + 8) = 2080;
         sub_100008438(&qword_10011EA80, &unk_1000DA490);
-        v34 = swift_allocObject();
-        *(v34 + 16) = xmmword_1000D5250;
-        *(v34 + 56) = &type metadata for UInt32;
-        *(v34 + 64) = &protocol witness table for UInt32;
-        *(v34 + 32) = v10;
-        v35 = String.init(format:_:)();
-        v37 = sub_100078978(v35, v36, &v38);
+        v32 = swift_allocObject();
+        *(v32 + 16) = xmmword_1000D5250;
+        *(v32 + 56) = &type metadata for UInt32;
+        *(v32 + 64) = &protocol witness table for UInt32;
+        *(v32 + 32) = v8;
+        v33 = String.init(format:_:)();
+        v35 = sub_100078978(v33, v34, &v36);
 
-        *(v21 + 10) = v37;
-        v27 = "Mute Call: B498 Color Code: %hhu, Color ID: %hhu, Color Hex: %s";
+        *(v19 + 10) = v35;
+        v25 = "Mute Call: B498 Color Code: %hhu, Color ID: %hhu, Color Hex: %s";
       }
     }
 
-    _os_log_impl(&_mh_execute_header, v19, v20, v27, v21, 0x12u);
-    sub_10000EA94(v22);
+    _os_log_impl(&_mh_execute_header, v17, v18, v25, v19, 0x12u);
+    sub_10000EA94(v20);
 
     goto LABEL_33;
   }
@@ -180,15 +179,15 @@ LABEL_33:
     swift_once();
   }
 
-  v11 = type metadata accessor for Logger();
-  sub_10000A570(v11, qword_10011FDE0);
-  v12 = Logger.logObject.getter();
-  v13 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v12, v13))
+  v9 = type metadata accessor for Logger();
+  sub_10000A570(v9, qword_10011FDE0);
+  v10 = Logger.logObject.getter();
+  v11 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v10, v11))
   {
-    v14 = swift_slowAlloc();
-    *v14 = 0;
-    _os_log_impl(&_mh_execute_header, v12, v13, "Cannot Get Tint Color", v14, 2u);
+    v12 = swift_slowAlloc();
+    *v12 = 0;
+    _os_log_impl(&_mh_execute_header, v10, v11, "Cannot Get Tint Color", v12, 2u);
   }
 
   return 0;
@@ -196,93 +195,90 @@ LABEL_33:
 
 uint64_t sub_1000C9424@<X0>(uint64_t a1@<X8>)
 {
-  v173 = a1;
-  v172 = sub_100008438(&qword_10011FFD8, &qword_1000DA4C8);
-  v2 = *(*(v172 - 8) + 64);
-  __chkstk_darwin(v172);
-  v4 = &v152[-v3];
-  v183 = type metadata accessor for HeadphoneBatteryInfo(0);
-  v5 = *(v183 - 8);
-  v6 = *(v5 + 64);
-  v7 = __chkstk_darwin(v183);
-  v156 = &v152[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v169 = a1;
+  v168 = sub_100008438(&qword_10011FFD8, &qword_1000DA4C8);
+  __chkstk_darwin(v168);
+  v3 = &v148[-v2];
+  v179 = type metadata accessor for HeadphoneBatteryInfo(0);
+  v4 = *(v179 - 8);
+  v5 = __chkstk_darwin(v179);
+  v152 = &v148[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v7 = __chkstk_darwin(v5);
+  v156 = &v148[-v8];
   v9 = __chkstk_darwin(v7);
-  v160 = &v152[-v10];
+  v153 = &v148[-v10];
   v11 = __chkstk_darwin(v9);
-  v157 = &v152[-v12];
+  v157 = &v148[-v12];
   v13 = __chkstk_darwin(v11);
-  v161 = &v152[-v14];
+  v155 = &v148[-v14];
   v15 = __chkstk_darwin(v13);
-  v159 = &v152[-v16];
+  v154 = &v148[-v16];
   v17 = __chkstk_darwin(v15);
-  v158 = &v152[-v18];
+  v165 = &v148[-v18];
   v19 = __chkstk_darwin(v17);
-  v169 = &v152[-v20];
+  v164 = &v148[-v20];
   v21 = __chkstk_darwin(v19);
-  v168 = &v152[-v22];
+  v160 = &v148[-v22];
   v23 = __chkstk_darwin(v21);
-  v164 = &v152[-v24];
-  v25 = __chkstk_darwin(v23);
-  v27 = &v152[-v26];
-  v28 = __chkstk_darwin(v25);
-  v30 = &v152[-v29];
-  v31 = __chkstk_darwin(v28);
-  v33 = &v152[-v32];
-  __chkstk_darwin(v31);
-  v35 = &v152[-v34];
-  v178 = sub_100008438(&unk_10011FFE0, &unk_1000DA4D0);
-  v36 = *(*(v178 - 8) + 64);
-  v37 = __chkstk_darwin(v178);
-  v162 = &v152[-((v38 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v39 = __chkstk_darwin(v37);
-  v163 = &v152[-v40];
-  v41 = __chkstk_darwin(v39);
-  v167 = &v152[-v42];
-  v43 = __chkstk_darwin(v41);
-  v166 = &v152[-v44];
-  v45 = __chkstk_darwin(v43);
-  v165 = &v152[-v46];
-  v47 = __chkstk_darwin(v45);
-  v177 = &v152[-v48];
-  v49 = __chkstk_darwin(v47);
-  v176 = &v152[-v50];
-  v51 = __chkstk_darwin(v49);
-  v175 = &v152[-v52];
-  v53 = __chkstk_darwin(v51);
-  v171 = &v152[-v54];
-  v55 = __chkstk_darwin(v53);
-  v179 = &v152[-v56];
-  v57 = __chkstk_darwin(v55);
-  v181 = &v152[-v58];
-  v59 = __chkstk_darwin(v57);
-  v182 = &v152[-v60];
-  __chkstk_darwin(v59);
-  v180 = &v152[-v61];
-  v62 = v1 + OBJC_IVAR____TtC20HeadphoneProxService18HeadphonePresenter_model;
+  v25 = &v148[-v24];
+  v26 = __chkstk_darwin(v23);
+  v28 = &v148[-v27];
+  v29 = __chkstk_darwin(v26);
+  v31 = &v148[-v30];
+  __chkstk_darwin(v29);
+  v33 = &v148[-v32];
+  v174 = sub_100008438(&unk_10011FFE0, &unk_1000DA4D0);
+  v34 = __chkstk_darwin(v174);
+  v158 = &v148[-((v35 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v36 = __chkstk_darwin(v34);
+  v159 = &v148[-v37];
+  v38 = __chkstk_darwin(v36);
+  v163 = &v148[-v39];
+  v40 = __chkstk_darwin(v38);
+  v162 = &v148[-v41];
+  v42 = __chkstk_darwin(v40);
+  v161 = &v148[-v43];
+  v44 = __chkstk_darwin(v42);
+  v173 = &v148[-v45];
+  v46 = __chkstk_darwin(v44);
+  v172 = &v148[-v47];
+  v48 = __chkstk_darwin(v46);
+  v171 = &v148[-v49];
+  v50 = __chkstk_darwin(v48);
+  v167 = &v148[-v51];
+  v52 = __chkstk_darwin(v50);
+  v175 = &v148[-v53];
+  v54 = __chkstk_darwin(v52);
+  v177 = &v148[-v55];
+  v56 = __chkstk_darwin(v54);
+  v178 = &v148[-v57];
+  __chkstk_darwin(v56);
+  v176 = &v148[-v58];
+  v59 = v1 + OBJC_IVAR____TtC20HeadphoneProxService18HeadphonePresenter_model;
   swift_beginAccess();
-  v63 = *(v62 + 128);
-  v64 = *(v63 + 16);
+  v60 = *(v59 + 128);
+  v61 = *(v60 + 16);
 
-  v174 = v4;
-  if (v64)
+  v170 = v3;
+  if (v61)
   {
-    v65 = 0;
-    while (v65 < *(v63 + 16))
+    v62 = 0;
+    while (v62 < *(v60 + 16))
     {
-      sub_1000CE178(v63 + ((*(v5 + 80) + 32) & ~*(v5 + 80)) + *(v5 + 72) * v65, v35, type metadata accessor for HeadphoneBatteryInfo);
-      if (*(v35 + 9) == 4)
+      sub_1000CE178(v60 + ((*(v4 + 80) + 32) & ~*(v4 + 80)) + *(v4 + 72) * v62, v33, type metadata accessor for HeadphoneBatteryInfo);
+      if (*(v33 + 9) == 4)
       {
 
-        v68 = v180;
-        sub_1000CE240(v35, v180, type metadata accessor for HeadphoneBatteryInfo);
-        v67 = v68;
-        v66 = 0;
+        v65 = v176;
+        sub_1000CE240(v33, v176, type metadata accessor for HeadphoneBatteryInfo);
+        v64 = v65;
+        v63 = 0;
         goto LABEL_8;
       }
 
-      ++v65;
-      sub_1000CE1E0(v35, type metadata accessor for HeadphoneBatteryInfo);
-      if (v64 == v65)
+      ++v62;
+      sub_1000CE1E0(v33, type metadata accessor for HeadphoneBatteryInfo);
+      if (v61 == v62)
       {
         goto LABEL_6;
       }
@@ -293,31 +289,31 @@ uint64_t sub_1000C9424@<X0>(uint64_t a1@<X8>)
 
 LABEL_6:
 
-  v66 = 1;
-  v67 = v180;
+  v63 = 1;
+  v64 = v176;
 LABEL_8:
-  v69 = *(v5 + 56);
-  v69(v67, v66, 1, v183);
-  v70 = *(v62 + 128);
-  v35 = *(v70 + 16);
+  v66 = *(v4 + 56);
+  v66(v64, v63, 1, v179);
+  v67 = *(v59 + 128);
+  v33 = *(v67 + 16);
 
-  if (v35)
+  if (v33)
   {
-    v4 = 0;
-    while (v4 < *(v70 + 16))
+    v3 = 0;
+    while (v3 < *(v67 + 16))
     {
-      sub_1000CE178(v70 + ((*(v5 + 80) + 32) & ~*(v5 + 80)) + *(v5 + 72) * v4, v33, type metadata accessor for HeadphoneBatteryInfo);
-      if (!v33[9])
+      sub_1000CE178(v67 + ((*(v4 + 80) + 32) & ~*(v4 + 80)) + *(v4 + 72) * v3, v31, type metadata accessor for HeadphoneBatteryInfo);
+      if (!v31[9])
       {
 
-        sub_1000CE240(v33, v182, type metadata accessor for HeadphoneBatteryInfo);
-        v71 = 0;
+        sub_1000CE240(v31, v178, type metadata accessor for HeadphoneBatteryInfo);
+        v68 = 0;
         goto LABEL_15;
       }
 
-      ++v4;
-      sub_1000CE1E0(v33, type metadata accessor for HeadphoneBatteryInfo);
-      if (v35 == v4)
+      ++v3;
+      sub_1000CE1E0(v31, type metadata accessor for HeadphoneBatteryInfo);
+      if (v33 == v3)
       {
         goto LABEL_13;
       }
@@ -328,30 +324,30 @@ LABEL_8:
 
 LABEL_13:
 
-  v71 = 1;
+  v68 = 1;
 LABEL_15:
-  v69(v182, v71, 1, v183);
-  v72 = *(v62 + 128);
-  v73 = *(v72 + 16);
+  v66(v178, v68, 1, v179);
+  v69 = *(v59 + 128);
+  v70 = *(v69 + 16);
 
-  v4 = v180;
-  if (v73)
+  v3 = v176;
+  if (v70)
   {
-    v35 = 0;
-    while (v35 < *(v72 + 16))
+    v33 = 0;
+    while (v33 < *(v69 + 16))
     {
-      sub_1000CE178(v72 + ((*(v5 + 80) + 32) & ~*(v5 + 80)) + *(v5 + 72) * v35, v30, type metadata accessor for HeadphoneBatteryInfo);
-      if (*(v30 + 9) == 1)
+      sub_1000CE178(v69 + ((*(v4 + 80) + 32) & ~*(v4 + 80)) + *(v4 + 72) * v33, v28, type metadata accessor for HeadphoneBatteryInfo);
+      if (*(v28 + 9) == 1)
       {
 
-        sub_1000CE240(v30, v181, type metadata accessor for HeadphoneBatteryInfo);
-        v74 = 0;
+        sub_1000CE240(v28, v177, type metadata accessor for HeadphoneBatteryInfo);
+        v71 = 0;
         goto LABEL_22;
       }
 
-      ++v35;
-      sub_1000CE1E0(v30, type metadata accessor for HeadphoneBatteryInfo);
-      if (v73 == v35)
+      ++v33;
+      sub_1000CE1E0(v28, type metadata accessor for HeadphoneBatteryInfo);
+      if (v70 == v33)
       {
         goto LABEL_20;
       }
@@ -362,36 +358,35 @@ LABEL_15:
 
 LABEL_20:
 
-  v74 = 1;
+  v71 = 1;
 LABEL_22:
-  v75 = 1;
-  v69(v181, v74, 1, v183);
-  v76 = *(v62 + 128);
-  v35 = *(v76 + 16);
-  if (v35)
+  v72 = 1;
+  v66(v177, v71, 1, v179);
+  v73 = *(v59 + 128);
+  v33 = *(v73 + 16);
+  if (v33)
   {
-    v77 = v76 + ((*(v5 + 80) + 32) & ~*(v5 + 80));
-    v78 = *(v62 + 128);
+    v74 = v73 + ((*(v4 + 80) + 32) & ~*(v4 + 80));
 
-    v30 = 0;
-    v62 = v179;
-    while (v30 < *(v76 + 16))
+    v28 = 0;
+    v59 = v175;
+    while (v28 < *(v73 + 16))
     {
-      sub_1000CE178(v77 + *(v5 + 72) * v30, v27, type metadata accessor for HeadphoneBatteryInfo);
-      if (*(v27 + 9) == 2 && *v27 > 0.0)
+      sub_1000CE178(v74 + *(v4 + 72) * v28, v25, type metadata accessor for HeadphoneBatteryInfo);
+      if (*(v25 + 9) == 2 && *v25 > 0.0)
       {
 
-        sub_1000CE240(v27, v62, type metadata accessor for HeadphoneBatteryInfo);
-        v75 = 0;
+        sub_1000CE240(v25, v59, type metadata accessor for HeadphoneBatteryInfo);
+        v72 = 0;
         goto LABEL_31;
       }
 
-      ++v30;
-      sub_1000CE1E0(v27, type metadata accessor for HeadphoneBatteryInfo);
-      if (v35 == v30)
+      ++v28;
+      sub_1000CE1E0(v25, type metadata accessor for HeadphoneBatteryInfo);
+      if (v33 == v28)
       {
 
-        v75 = 1;
+        v72 = 1;
         goto LABEL_31;
       }
     }
@@ -408,334 +403,332 @@ LABEL_68:
     goto LABEL_32;
   }
 
-  v62 = v179;
+  v59 = v175;
 LABEL_31:
-  v69(v62, v75, 1, v183);
-  v30 = v175;
-  v35 = v176;
+  v66(v59, v72, 1, v179);
+  v28 = v171;
+  v33 = v172;
   if (qword_10011C770 != -1)
   {
     goto LABEL_68;
   }
 
 LABEL_32:
-  v79 = type metadata accessor for Logger();
-  v80 = sub_10000A570(v79, qword_10011FDE0);
-  v81 = v171;
-  sub_10000E88C(v4, v171, &unk_10011FFE0, &unk_1000DA4D0);
-  sub_10000E88C(v182, v30, &unk_10011FFE0, &unk_1000DA4D0);
-  sub_10000E88C(v181, v35, &unk_10011FFE0, &unk_1000DA4D0);
-  v82 = v62;
-  v83 = v62;
-  v84 = v177;
-  sub_10000E88C(v83, v177, &unk_10011FFE0, &unk_1000DA4D0);
-  v170 = v80;
-  v85 = Logger.logObject.getter();
-  v86 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v85, v86))
+  v75 = type metadata accessor for Logger();
+  v76 = sub_10000A570(v75, qword_10011FDE0);
+  v77 = v167;
+  sub_10000E88C(v3, v167, &unk_10011FFE0, &unk_1000DA4D0);
+  sub_10000E88C(v178, v28, &unk_10011FFE0, &unk_1000DA4D0);
+  sub_10000E88C(v177, v33, &unk_10011FFE0, &unk_1000DA4D0);
+  v78 = v59;
+  v79 = v59;
+  v80 = v173;
+  sub_10000E88C(v79, v173, &unk_10011FFE0, &unk_1000DA4D0);
+  v166 = v76;
+  v81 = Logger.logObject.getter();
+  v82 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v81, v82))
   {
-    v87 = swift_slowAlloc();
-    v155 = swift_slowAlloc();
-    v184 = v155;
-    *v87 = 136315906;
-    v154 = v85;
-    v88 = v165;
-    sub_10000E88C(v81, v165, &unk_10011FFE0, &unk_1000DA4D0);
-    v89 = v166;
-    sub_10000E88C(v88, v166, &unk_10011FFE0, &unk_1000DA4D0);
-    v90 = String.init<A>(reflecting:)();
-    v153 = v86;
-    v91 = v90;
-    v93 = v92;
-    sub_10000E950(v88, &unk_10011FFE0, &unk_1000DA4D0);
-    sub_10000E950(v81, &unk_10011FFE0, &unk_1000DA4D0);
-    v94 = sub_100078978(v91, v93, &v184);
+    v83 = swift_slowAlloc();
+    v151 = swift_slowAlloc();
+    v180 = v151;
+    *v83 = 136315906;
+    v150 = v81;
+    v84 = v161;
+    sub_10000E88C(v77, v161, &unk_10011FFE0, &unk_1000DA4D0);
+    v85 = v162;
+    sub_10000E88C(v84, v162, &unk_10011FFE0, &unk_1000DA4D0);
+    v86 = String.init<A>(reflecting:)();
+    v149 = v82;
+    v87 = v86;
+    v89 = v88;
+    sub_10000E950(v84, &unk_10011FFE0, &unk_1000DA4D0);
+    sub_10000E950(v77, &unk_10011FFE0, &unk_1000DA4D0);
+    v90 = sub_100078978(v87, v89, &v180);
 
-    *(v87 + 4) = v94;
-    *(v87 + 12) = 2080;
-    v95 = v175;
-    sub_10000E88C(v175, v88, &unk_10011FFE0, &unk_1000DA4D0);
-    sub_10000E88C(v88, v89, &unk_10011FFE0, &unk_1000DA4D0);
-    v96 = String.init<A>(reflecting:)();
-    v98 = v97;
-    sub_10000E950(v88, &unk_10011FFE0, &unk_1000DA4D0);
-    sub_10000E950(v95, &unk_10011FFE0, &unk_1000DA4D0);
-    v99 = sub_100078978(v96, v98, &v184);
+    *(v83 + 4) = v90;
+    *(v83 + 12) = 2080;
+    v91 = v171;
+    sub_10000E88C(v171, v84, &unk_10011FFE0, &unk_1000DA4D0);
+    sub_10000E88C(v84, v85, &unk_10011FFE0, &unk_1000DA4D0);
+    v92 = String.init<A>(reflecting:)();
+    v94 = v93;
+    sub_10000E950(v84, &unk_10011FFE0, &unk_1000DA4D0);
+    sub_10000E950(v91, &unk_10011FFE0, &unk_1000DA4D0);
+    v95 = sub_100078978(v92, v94, &v180);
 
-    *(v87 + 14) = v99;
-    *(v87 + 22) = 2080;
-    v100 = v176;
-    sub_10000E88C(v176, v88, &unk_10011FFE0, &unk_1000DA4D0);
-    sub_10000E88C(v88, v89, &unk_10011FFE0, &unk_1000DA4D0);
-    v101 = String.init<A>(reflecting:)();
-    v103 = v102;
-    sub_10000E950(v88, &unk_10011FFE0, &unk_1000DA4D0);
-    sub_10000E950(v100, &unk_10011FFE0, &unk_1000DA4D0);
-    v104 = sub_100078978(v101, v103, &v184);
+    *(v83 + 14) = v95;
+    *(v83 + 22) = 2080;
+    v96 = v172;
+    sub_10000E88C(v172, v84, &unk_10011FFE0, &unk_1000DA4D0);
+    sub_10000E88C(v84, v85, &unk_10011FFE0, &unk_1000DA4D0);
+    v97 = String.init<A>(reflecting:)();
+    v99 = v98;
+    sub_10000E950(v84, &unk_10011FFE0, &unk_1000DA4D0);
+    sub_10000E950(v96, &unk_10011FFE0, &unk_1000DA4D0);
+    v100 = sub_100078978(v97, v99, &v180);
 
-    *(v87 + 24) = v104;
-    *(v87 + 32) = 2080;
-    v105 = v179;
-    v106 = v177;
-    sub_10000E88C(v177, v88, &unk_10011FFE0, &unk_1000DA4D0);
-    sub_10000E88C(v88, v89, &unk_10011FFE0, &unk_1000DA4D0);
-    v107 = String.init<A>(reflecting:)();
-    v109 = v108;
-    sub_10000E950(v88, &unk_10011FFE0, &unk_1000DA4D0);
-    v4 = v180;
-    sub_10000E950(v106, &unk_10011FFE0, &unk_1000DA4D0);
-    v110 = sub_100078978(v107, v109, &v184);
+    *(v83 + 24) = v100;
+    *(v83 + 32) = 2080;
+    v101 = v175;
+    v102 = v173;
+    sub_10000E88C(v173, v84, &unk_10011FFE0, &unk_1000DA4D0);
+    sub_10000E88C(v84, v85, &unk_10011FFE0, &unk_1000DA4D0);
+    v103 = String.init<A>(reflecting:)();
+    v105 = v104;
+    sub_10000E950(v84, &unk_10011FFE0, &unk_1000DA4D0);
+    v3 = v176;
+    sub_10000E950(v102, &unk_10011FFE0, &unk_1000DA4D0);
+    v106 = sub_100078978(v103, v105, &v180);
 
-    *(v87 + 34) = v110;
-    v111 = v154;
-    _os_log_impl(&_mh_execute_header, v154, v153, "Battery: createBatteryConfigurationForAABattery showing new battery info %s %s %s %s", v87, 0x2Au);
+    *(v83 + 34) = v106;
+    v107 = v150;
+    _os_log_impl(&_mh_execute_header, v150, v149, "Battery: createBatteryConfigurationForAABattery showing new battery info %s %s %s %s", v83, 0x2Au);
     swift_arrayDestroy();
 
-    v112 = v174;
-    v113 = v172;
+    v108 = v170;
+    v109 = v168;
   }
 
   else
   {
 
-    sub_10000E950(v84, &unk_10011FFE0, &unk_1000DA4D0);
-    sub_10000E950(v35, &unk_10011FFE0, &unk_1000DA4D0);
-    sub_10000E950(v30, &unk_10011FFE0, &unk_1000DA4D0);
-    sub_10000E950(v81, &unk_10011FFE0, &unk_1000DA4D0);
-    v112 = v174;
-    v113 = v172;
-    v105 = v82;
+    sub_10000E950(v80, &unk_10011FFE0, &unk_1000DA4D0);
+    sub_10000E950(v33, &unk_10011FFE0, &unk_1000DA4D0);
+    sub_10000E950(v28, &unk_10011FFE0, &unk_1000DA4D0);
+    sub_10000E950(v77, &unk_10011FFE0, &unk_1000DA4D0);
+    v108 = v170;
+    v109 = v168;
+    v101 = v78;
   }
 
-  v114 = v113[12];
-  v115 = v113[16];
-  v116 = v113[20];
-  sub_10000E88C(v4, v112, &unk_10011FFE0, &unk_1000DA4D0);
-  sub_10000E88C(v182, &v114[v112], &unk_10011FFE0, &unk_1000DA4D0);
-  sub_10000E88C(v181, v112 + v115, &unk_10011FFE0, &unk_1000DA4D0);
-  sub_10000E88C(v105, v112 + v116, &unk_10011FFE0, &unk_1000DA4D0);
-  v117 = *(v5 + 48);
-  v118 = v183;
-  if (v117(v112, 1, v183) != 1)
+  v110 = v109[12];
+  v111 = v109[16];
+  v112 = v109[20];
+  sub_10000E88C(v3, v108, &unk_10011FFE0, &unk_1000DA4D0);
+  sub_10000E88C(v178, &v110[v108], &unk_10011FFE0, &unk_1000DA4D0);
+  sub_10000E88C(v177, v108 + v111, &unk_10011FFE0, &unk_1000DA4D0);
+  sub_10000E88C(v101, v108 + v112, &unk_10011FFE0, &unk_1000DA4D0);
+  v113 = *(v4 + 48);
+  v114 = v179;
+  if (v113(v108, 1, v179) != 1)
   {
-    v119 = v167;
-    sub_10000E88C(v112, v167, &unk_10011FFE0, &unk_1000DA4D0);
-    if (v117(v112 + v116, 1, v118) != 1)
+    v115 = v163;
+    sub_10000E88C(v108, v163, &unk_10011FFE0, &unk_1000DA4D0);
+    if (v113(v108 + v112, 1, v114) != 1)
     {
-      sub_1000CE240(v119, v168, type metadata accessor for HeadphoneBatteryInfo);
-      sub_1000CE240(v112 + v116, v169, type metadata accessor for HeadphoneBatteryInfo);
-      v128 = Logger.logObject.getter();
-      v129 = static os_log_type_t.default.getter();
-      if (os_log_type_enabled(v128, v129))
+      sub_1000CE240(v115, v164, type metadata accessor for HeadphoneBatteryInfo);
+      sub_1000CE240(v108 + v112, v165, type metadata accessor for HeadphoneBatteryInfo);
+      v124 = Logger.logObject.getter();
+      v125 = static os_log_type_t.default.getter();
+      if (os_log_type_enabled(v124, v125))
       {
-        v130 = swift_slowAlloc();
-        *v130 = 0;
-        _os_log_impl(&_mh_execute_header, v128, v129, "Battery: createBatteryConfigurationForAABattery combinedWithCase", v130, 2u);
+        v126 = swift_slowAlloc();
+        *v126 = 0;
+        _os_log_impl(&_mh_execute_header, v124, v125, "Battery: createBatteryConfigurationForAABattery combinedWithCase", v126, 2u);
       }
 
-      sub_10000E950(v105, &unk_10011FFE0, &unk_1000DA4D0);
-      sub_10000E950(v181, &unk_10011FFE0, &unk_1000DA4D0);
-      sub_10000E950(v182, &unk_10011FFE0, &unk_1000DA4D0);
-      sub_10000E950(v4, &unk_10011FFE0, &unk_1000DA4D0);
-      v131 = *(sub_100008438(&qword_10011D0C0, &unk_1000D8D60) + 48);
-      v132 = v173;
-      sub_1000CE240(v168, v173, type metadata accessor for HeadphoneBatteryInfo);
-      sub_1000CE240(v169, v132 + v131, type metadata accessor for HeadphoneBatteryInfo);
+      sub_10000E950(v101, &unk_10011FFE0, &unk_1000DA4D0);
+      sub_10000E950(v177, &unk_10011FFE0, &unk_1000DA4D0);
+      sub_10000E950(v178, &unk_10011FFE0, &unk_1000DA4D0);
+      sub_10000E950(v3, &unk_10011FFE0, &unk_1000DA4D0);
+      v127 = *(sub_100008438(&qword_10011D0C0, &unk_1000D8D60) + 48);
+      v128 = v169;
+      sub_1000CE240(v164, v169, type metadata accessor for HeadphoneBatteryInfo);
+      sub_1000CE240(v165, v128 + v127, type metadata accessor for HeadphoneBatteryInfo);
       type metadata accessor for HeadphoneViewModel.BatteryConfiguration(0);
       goto LABEL_50;
     }
 
-    v120 = v164;
-    sub_1000CE240(v119, v164, type metadata accessor for HeadphoneBatteryInfo);
-    v121 = Logger.logObject.getter();
-    v122 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v121, v122))
+    v116 = v160;
+    sub_1000CE240(v115, v160, type metadata accessor for HeadphoneBatteryInfo);
+    v117 = Logger.logObject.getter();
+    v118 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v117, v118))
     {
-      v123 = swift_slowAlloc();
-      *v123 = 0;
-      _os_log_impl(&_mh_execute_header, v121, v122, "Battery: createBatteryConfigurationForAABattery combinedWithoutCase", v123, 2u);
+      v119 = swift_slowAlloc();
+      *v119 = 0;
+      _os_log_impl(&_mh_execute_header, v117, v118, "Battery: createBatteryConfigurationForAABattery combinedWithoutCase", v119, 2u);
     }
 
 LABEL_43:
 
-    sub_10000E950(v105, &unk_10011FFE0, &unk_1000DA4D0);
-    sub_10000E950(v181, &unk_10011FFE0, &unk_1000DA4D0);
-    sub_10000E950(v182, &unk_10011FFE0, &unk_1000DA4D0);
-    sub_10000E950(v4, &unk_10011FFE0, &unk_1000DA4D0);
-    sub_1000CE240(v120, v173, type metadata accessor for HeadphoneBatteryInfo);
+    sub_10000E950(v101, &unk_10011FFE0, &unk_1000DA4D0);
+    sub_10000E950(v177, &unk_10011FFE0, &unk_1000DA4D0);
+    sub_10000E950(v178, &unk_10011FFE0, &unk_1000DA4D0);
+    sub_10000E950(v3, &unk_10011FFE0, &unk_1000DA4D0);
+    sub_1000CE240(v116, v169, type metadata accessor for HeadphoneBatteryInfo);
     type metadata accessor for HeadphoneViewModel.BatteryConfiguration(0);
 LABEL_50:
     swift_storeEnumTagMultiPayload();
-    sub_10000E950(v112 + v115, &unk_10011FFE0, &unk_1000DA4D0);
-    v133 = &v114[v112];
+    sub_10000E950(v108 + v111, &unk_10011FFE0, &unk_1000DA4D0);
+    v129 = &v110[v108];
     goto LABEL_51;
   }
 
-  if (v117(&v114[v112], 1, v118) != 1)
+  if (v113(&v110[v108], 1, v114) != 1)
   {
-    v124 = v163;
-    sub_10000E88C(&v114[v112], v163, &unk_10011FFE0, &unk_1000DA4D0);
-    if (v117(v112 + v115, 1, v118) == 1)
+    v120 = v159;
+    sub_10000E88C(&v110[v108], v159, &unk_10011FFE0, &unk_1000DA4D0);
+    if (v113(v108 + v111, 1, v114) == 1)
     {
-      sub_10000E950(v105, &unk_10011FFE0, &unk_1000DA4D0);
-      sub_10000E950(v181, &unk_10011FFE0, &unk_1000DA4D0);
-      sub_10000E950(v182, &unk_10011FFE0, &unk_1000DA4D0);
-      sub_10000E950(v4, &unk_10011FFE0, &unk_1000DA4D0);
-      sub_1000CE1E0(v124, type metadata accessor for HeadphoneBatteryInfo);
+      sub_10000E950(v101, &unk_10011FFE0, &unk_1000DA4D0);
+      sub_10000E950(v177, &unk_10011FFE0, &unk_1000DA4D0);
+      sub_10000E950(v178, &unk_10011FFE0, &unk_1000DA4D0);
+      sub_10000E950(v3, &unk_10011FFE0, &unk_1000DA4D0);
+      sub_1000CE1E0(v120, type metadata accessor for HeadphoneBatteryInfo);
       goto LABEL_46;
     }
 
-    v180 = v114;
-    v135 = v162;
-    sub_10000E88C(v112 + v115, v162, &unk_10011FFE0, &unk_1000DA4D0);
-    if (v117(v112 + v116, 1, v118) == 1)
+    v176 = v110;
+    v131 = v158;
+    sub_10000E88C(v108 + v111, v158, &unk_10011FFE0, &unk_1000DA4D0);
+    if (v113(v108 + v112, 1, v114) == 1)
     {
-      v136 = v157;
-      sub_1000CE240(v124, v157, type metadata accessor for HeadphoneBatteryInfo);
-      sub_1000CE240(v135, v160, type metadata accessor for HeadphoneBatteryInfo);
-      v137 = Logger.logObject.getter();
-      v138 = static os_log_type_t.default.getter();
-      if (os_log_type_enabled(v137, v138))
+      v132 = v153;
+      sub_1000CE240(v120, v153, type metadata accessor for HeadphoneBatteryInfo);
+      sub_1000CE240(v131, v156, type metadata accessor for HeadphoneBatteryInfo);
+      v133 = Logger.logObject.getter();
+      v134 = static os_log_type_t.default.getter();
+      if (os_log_type_enabled(v133, v134))
       {
-        v139 = swift_slowAlloc();
-        *v139 = 0;
-        _os_log_impl(&_mh_execute_header, v137, v138, "Battery: createBatteryConfigurationForAABattery splitWithoutCase", v139, 2u);
+        v135 = swift_slowAlloc();
+        *v135 = 0;
+        _os_log_impl(&_mh_execute_header, v133, v134, "Battery: createBatteryConfigurationForAABattery splitWithoutCase", v135, 2u);
       }
 
-      sub_10000E950(v105, &unk_10011FFE0, &unk_1000DA4D0);
-      sub_10000E950(v181, &unk_10011FFE0, &unk_1000DA4D0);
-      sub_10000E950(v182, &unk_10011FFE0, &unk_1000DA4D0);
-      sub_10000E950(v4, &unk_10011FFE0, &unk_1000DA4D0);
-      v140 = *(sub_100008438(&qword_10011D0B8, &unk_1000D8D50) + 48);
-      v141 = v136;
-      v142 = v173;
-      sub_1000CE240(v141, v173, type metadata accessor for HeadphoneBatteryInfo);
-      sub_1000CE240(v160, v142 + v140, type metadata accessor for HeadphoneBatteryInfo);
+      sub_10000E950(v101, &unk_10011FFE0, &unk_1000DA4D0);
+      sub_10000E950(v177, &unk_10011FFE0, &unk_1000DA4D0);
+      sub_10000E950(v178, &unk_10011FFE0, &unk_1000DA4D0);
+      sub_10000E950(v3, &unk_10011FFE0, &unk_1000DA4D0);
+      v136 = *(sub_100008438(&qword_10011D0B8, &unk_1000D8D50) + 48);
+      v137 = v132;
+      v138 = v169;
+      sub_1000CE240(v137, v169, type metadata accessor for HeadphoneBatteryInfo);
+      sub_1000CE240(v156, v138 + v136, type metadata accessor for HeadphoneBatteryInfo);
       type metadata accessor for HeadphoneViewModel.BatteryConfiguration(0);
     }
 
     else
     {
-      sub_1000CE240(v124, v158, type metadata accessor for HeadphoneBatteryInfo);
-      sub_1000CE240(v135, v159, type metadata accessor for HeadphoneBatteryInfo);
-      sub_1000CE240(v112 + v116, v161, type metadata accessor for HeadphoneBatteryInfo);
-      v145 = Logger.logObject.getter();
-      v146 = static os_log_type_t.default.getter();
-      if (os_log_type_enabled(v145, v146))
+      sub_1000CE240(v120, v154, type metadata accessor for HeadphoneBatteryInfo);
+      sub_1000CE240(v131, v155, type metadata accessor for HeadphoneBatteryInfo);
+      sub_1000CE240(v108 + v112, v157, type metadata accessor for HeadphoneBatteryInfo);
+      v141 = Logger.logObject.getter();
+      v142 = static os_log_type_t.default.getter();
+      if (os_log_type_enabled(v141, v142))
       {
-        v147 = swift_slowAlloc();
-        *v147 = 0;
-        _os_log_impl(&_mh_execute_header, v145, v146, "Battery: createBatteryConfigurationForAABattery splitWithCase", v147, 2u);
+        v143 = swift_slowAlloc();
+        *v143 = 0;
+        _os_log_impl(&_mh_execute_header, v141, v142, "Battery: createBatteryConfigurationForAABattery splitWithCase", v143, 2u);
       }
 
-      sub_10000E950(v105, &unk_10011FFE0, &unk_1000DA4D0);
-      sub_10000E950(v181, &unk_10011FFE0, &unk_1000DA4D0);
-      sub_10000E950(v182, &unk_10011FFE0, &unk_1000DA4D0);
-      sub_10000E950(v4, &unk_10011FFE0, &unk_1000DA4D0);
-      v148 = sub_100008438(&unk_10011FFF0, &unk_1000D63B0);
-      v149 = *(v148 + 48);
-      v150 = *(v148 + 64);
-      v151 = v173;
-      sub_1000CE240(v158, v173, type metadata accessor for HeadphoneBatteryInfo);
-      sub_1000CE240(v159, v151 + v149, type metadata accessor for HeadphoneBatteryInfo);
-      sub_1000CE240(v161, v151 + v150, type metadata accessor for HeadphoneBatteryInfo);
+      sub_10000E950(v101, &unk_10011FFE0, &unk_1000DA4D0);
+      sub_10000E950(v177, &unk_10011FFE0, &unk_1000DA4D0);
+      sub_10000E950(v178, &unk_10011FFE0, &unk_1000DA4D0);
+      sub_10000E950(v3, &unk_10011FFE0, &unk_1000DA4D0);
+      v144 = sub_100008438(&unk_10011FFF0, &unk_1000D63B0);
+      v145 = *(v144 + 48);
+      v146 = *(v144 + 64);
+      v147 = v169;
+      sub_1000CE240(v154, v169, type metadata accessor for HeadphoneBatteryInfo);
+      sub_1000CE240(v155, v147 + v145, type metadata accessor for HeadphoneBatteryInfo);
+      sub_1000CE240(v157, v147 + v146, type metadata accessor for HeadphoneBatteryInfo);
       type metadata accessor for HeadphoneViewModel.BatteryConfiguration(0);
     }
 
     swift_storeEnumTagMultiPayload();
-    sub_10000E950(v112 + v115, &unk_10011FFE0, &unk_1000DA4D0);
-    v133 = &v180[v112];
+    sub_10000E950(v108 + v111, &unk_10011FFE0, &unk_1000DA4D0);
+    v129 = &v176[v108];
 LABEL_51:
-    sub_10000E950(v133, &unk_10011FFE0, &unk_1000DA4D0);
-    v127 = v112;
-    v125 = &unk_10011FFE0;
-    v126 = &unk_1000DA4D0;
-    return sub_10000E950(v127, v125, v126);
+    sub_10000E950(v129, &unk_10011FFE0, &unk_1000DA4D0);
+    v123 = v108;
+    v121 = &unk_10011FFE0;
+    v122 = &unk_1000DA4D0;
+    return sub_10000E950(v123, v121, v122);
   }
 
-  if (v117(v112 + v115, 1, v118) == 1 && v117(v112 + v116, 1, v118) != 1)
+  if (v113(v108 + v111, 1, v114) == 1 && v113(v108 + v112, 1, v114) != 1)
   {
-    v120 = v156;
-    sub_1000CE240(v112 + v116, v156, type metadata accessor for HeadphoneBatteryInfo);
-    v121 = Logger.logObject.getter();
-    v143 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v121, v143))
+    v116 = v152;
+    sub_1000CE240(v108 + v112, v152, type metadata accessor for HeadphoneBatteryInfo);
+    v117 = Logger.logObject.getter();
+    v139 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v117, v139))
     {
-      v144 = swift_slowAlloc();
-      *v144 = 0;
-      _os_log_impl(&_mh_execute_header, v121, v143, "Battery: createBatteryConfigurationForAABattery headsetOnly", v144, 2u);
+      v140 = swift_slowAlloc();
+      *v140 = 0;
+      _os_log_impl(&_mh_execute_header, v117, v139, "Battery: createBatteryConfigurationForAABattery headsetOnly", v140, 2u);
     }
 
     goto LABEL_43;
   }
 
-  sub_10000E950(v105, &unk_10011FFE0, &unk_1000DA4D0);
-  sub_10000E950(v181, &unk_10011FFE0, &unk_1000DA4D0);
-  sub_10000E950(v182, &unk_10011FFE0, &unk_1000DA4D0);
-  sub_10000E950(v4, &unk_10011FFE0, &unk_1000DA4D0);
+  sub_10000E950(v101, &unk_10011FFE0, &unk_1000DA4D0);
+  sub_10000E950(v177, &unk_10011FFE0, &unk_1000DA4D0);
+  sub_10000E950(v178, &unk_10011FFE0, &unk_1000DA4D0);
+  sub_10000E950(v3, &unk_10011FFE0, &unk_1000DA4D0);
 LABEL_46:
   type metadata accessor for HeadphoneViewModel.BatteryConfiguration(0);
   swift_storeEnumTagMultiPayload();
-  v125 = &qword_10011FFD8;
-  v126 = &qword_1000DA4C8;
-  v127 = v112;
-  return sub_10000E950(v127, v125, v126);
+  v121 = &qword_10011FFD8;
+  v122 = &qword_1000DA4C8;
+  v123 = v108;
+  return sub_10000E950(v123, v121, v122);
 }
 
-id sub_1000CAAE4(uint64_t a1, uint64_t a2)
+id sub_1000CAAE4(uint64_t a1, uint64_t a2, __n128 a3)
 {
-  v3 = type metadata accessor for Date();
-  v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  __chkstk_darwin(v3);
-  v55 = &v52 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = type metadata accessor for Date();
+  v5 = *(v4 - 8);
+  __chkstk_darwin(v4);
+  v54 = &v51 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = sub_100008438(&qword_10011DE30, &qword_1000D79F0);
-  v8 = *(*(v7 - 8) + 64);
-  v9 = __chkstk_darwin(v7 - 8);
-  v11 = &v52 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v9);
-  v13 = &v52 - v12;
-  v14 = sub_100046AA8();
+  v8 = __chkstk_darwin(v7 - 8);
+  v10 = &v51 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v8);
+  v12 = &v51 - v11;
+  v13 = sub_100046AA8();
   if (qword_10011C770 != -1)
   {
     swift_once();
   }
 
-  v15 = type metadata accessor for Logger();
-  v16 = sub_10000A570(v15, qword_10011FDE0);
+  v14 = type metadata accessor for Logger();
+  v15 = sub_10000A570(v14, qword_10011FDE0);
 
-  v54 = v16;
-  v17 = Logger.logObject.getter();
-  v18 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v17, v18))
+  v53 = v15;
+  v16 = Logger.logObject.getter();
+  v17 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v16, v17))
   {
-    v19 = swift_slowAlloc();
-    v56 = v14;
-    v20 = a2;
-    v21 = v19;
-    *v19 = 67109632;
-    *(v19 + 4) = v56;
-    v53 = v11;
-    v57 = v4;
-    *(v19 + 8) = 1024;
-    *(v19 + 10) = sub_100046AA8();
+    v18 = swift_slowAlloc();
+    v55 = v13;
+    v19 = a2;
+    v20 = v18;
+    *v18 = 67109632;
+    *(v18 + 4) = v55;
+    v52 = v10;
+    v56 = v5;
+    *(v18 + 8) = 1024;
+    *(v18 + 10) = sub_100046AA8();
 
-    *(v21 + 14) = 1024;
-    v22 = v20 + OBJC_IVAR____TtC20HeadphoneProxService18HeadphonePresenter_model;
+    *(v20 + 14) = 1024;
+    v21 = v19 + OBJC_IVAR____TtC20HeadphoneProxService18HeadphonePresenter_model;
     swift_beginAccess();
-    v23 = type metadata accessor for HeadphoneModel(0);
-    sub_10000E88C(v22 + *(v23 + 152), v13, &qword_10011DE30, &qword_1000D79F0);
-    LODWORD(v22) = (*(v57 + 48))(v13, 1, v3) != 1;
-    v4 = v57;
-    v11 = v53;
-    sub_10000E950(v13, &qword_10011DE30, &qword_1000D79F0);
-    *(v21 + 16) = v22;
-    v24 = v20;
-    LOBYTE(v20) = v56;
+    v22 = type metadata accessor for HeadphoneModel(0);
+    sub_10000E88C(v21 + *(v22 + 152), v12, &qword_10011DE30, &qword_1000D79F0);
+    LODWORD(v21) = (*(v56 + 48))(v12, 1, v4) != 1;
+    v5 = v56;
+    v10 = v52;
+    sub_10000E950(v12, &qword_10011DE30, &qword_1000D79F0);
+    *(v20 + 16) = v21;
+    v23 = v19;
+    LOBYTE(v19) = v55;
 
-    _os_log_impl(&_mh_execute_header, v17, v18, "OBC Charging status should show:%{BOOL}d obcCharging: %{BOOL}d obcDeadline:%{BOOL}d", v21, 0x14u);
+    _os_log_impl(&_mh_execute_header, v16, v17, "OBC Charging status should show:%{BOOL}d obcCharging: %{BOOL}d obcDeadline:%{BOOL}d", v20, 0x14u);
 
-    if ((v20 & 1) == 0)
+    if ((v19 & 1) == 0)
     {
       return 0;
     }
@@ -744,90 +737,90 @@ id sub_1000CAAE4(uint64_t a1, uint64_t a2)
   else
   {
 
-    v24 = a2;
+    v23 = a2;
 
-    if (!v14)
+    if (!v13)
     {
       return 0;
     }
   }
 
-  v26 = [objc_allocWithZone(NSTextAttachment) init];
-  v27 = String._bridgeToObjectiveC()();
-  v28 = [objc_opt_self() systemImageNamed:v27];
+  v25 = [objc_allocWithZone(NSTextAttachment) init];
+  v26 = String._bridgeToObjectiveC()();
+  v27 = [objc_opt_self() systemImageNamed:v26];
 
-  if (v28)
+  if (v27)
   {
-    v29 = [v28 imageWithRenderingMode:2];
+    v28 = [v27 imageWithRenderingMode:2];
   }
 
   else
   {
-    v29 = 0;
+    v28 = 0;
   }
 
-  [v26 setImage:v29];
+  [v25 setImage:v28];
 
   sub_1000084D4(0, &qword_10011FFD0, NSMutableAttributedString_ptr);
-  v25 = [swift_getObjCClassFromMetadata() attributedStringWithAttachment:v26];
-  v30 = v24 + OBJC_IVAR____TtC20HeadphoneProxService18HeadphonePresenter_model;
+  v24 = [swift_getObjCClassFromMetadata() attributedStringWithAttachment:v25];
+  v29 = v23 + OBJC_IVAR____TtC20HeadphoneProxService18HeadphonePresenter_model;
   swift_beginAccess();
-  v31 = type metadata accessor for HeadphoneModel(0);
-  sub_10000E88C(v30 + *(v31 + 152), v11, &qword_10011DE30, &qword_1000D79F0);
-  if ((*(v4 + 48))(v11, 1, v3) == 1)
+  v30 = type metadata accessor for HeadphoneModel(0);
+  sub_10000E88C(v29 + *(v30 + 152), v10, &qword_10011DE30, &qword_1000D79F0);
+  if ((*(v5 + 48))(v10, 1, v4) == 1)
   {
-    sub_10000E950(v11, &qword_10011DE30, &qword_1000D79F0);
-    v32 = Logger.logObject.getter();
-    v33 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v32, v33))
+    sub_10000E950(v10, &qword_10011DE30, &qword_1000D79F0);
+    v31 = Logger.logObject.getter();
+    v32 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v31, v32))
     {
-      v34 = swift_slowAlloc();
-      *v34 = 0;
-      _os_log_impl(&_mh_execute_header, v32, v33, "Missing full charge deadline, unexpected when showing OBC status.", v34, 2u);
+      v33 = swift_slowAlloc();
+      *v33 = 0;
+      _os_log_impl(&_mh_execute_header, v31, v32, "Missing full charge deadline, unexpected when showing OBC status.", v33, 2u);
     }
   }
 
   else
   {
-    v35 = v55;
-    (*(v4 + 32))(v55, v11, v3);
-    v36 = objc_opt_self();
+    v34 = v54;
+    (*(v5 + 32))(v54, v10, v4);
+    v35 = objc_opt_self();
     isa = Date._bridgeToObjectiveC()().super.isa;
-    v38 = [v36 localizedStringFromDate:isa dateStyle:0 timeStyle:1];
+    v37 = [v35 localizedStringFromDate:isa dateStyle:0 timeStyle:1];
 
-    v39 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v41 = v40;
+    v38 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v40 = v39;
 
-    v58 = 32;
-    v59 = 0xE100000000000000;
+    v57 = 32;
+    v58 = 0xE100000000000000;
     sub_100008438(&qword_10011EA80, &unk_1000DA490);
-    v42 = swift_allocObject();
-    *(v42 + 16) = xmmword_1000D5250;
-    *(v42 + 56) = &type metadata for String;
-    *(v42 + 64) = sub_1000CDFF8();
-    *(v42 + 32) = v39;
-    *(v42 + 40) = v41;
-    v43 = sub_1000364D8(v42, 25);
-    v44 = v4;
-    v46 = v45;
+    v41 = swift_allocObject();
+    *(v41 + 16) = xmmword_1000D5250;
+    *(v41 + 56) = &type metadata for String;
+    *(v41 + 64) = sub_1000CDFF8();
+    *(v41 + 32) = v38;
+    *(v41 + 40) = v40;
+    v42 = sub_1000364D8(v41, 25);
+    v43 = v5;
+    v45 = v44;
 
-    v47._countAndFlagsBits = v43;
-    v47._object = v46;
-    String.append(_:)(v47);
+    v46._countAndFlagsBits = v42;
+    v46._object = v45;
+    String.append(_:)(v46);
 
-    v48 = objc_allocWithZone(NSAttributedString);
-    v49 = String._bridgeToObjectiveC()();
+    v47 = objc_allocWithZone(NSAttributedString);
+    v48 = String._bridgeToObjectiveC()();
 
-    v50 = [v48 initWithString:v49];
+    v49 = [v47 initWithString:v48];
 
-    [v25 appendAttributedString:v50];
-    (*(v44 + 8))(v35, v3);
+    [v24 appendAttributedString:v49];
+    (*(v43 + 8))(v34, v4);
   }
 
-  return v25;
+  return v24;
 }
 
-void *sub_1000CB184(uint64_t a1, void **a2)
+id sub_1000CB184(uint64_t a1, void **a2)
 {
   v3 = sub_100046C58();
   if (qword_10011C770 != -1)
@@ -1053,114 +1046,110 @@ LABEL_40:
 uint64_t sub_1000CB8E0@<X0>(char a1@<W0>, uint64_t a2@<X8>)
 {
   v4 = type metadata accessor for HeadphoneAssets(0);
-  v25 = *(v4 - 1);
-  v5 = *(v25 + 64);
+  v23 = *(v4 - 1);
   __chkstk_darwin(v4);
-  v7 = &v24 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for URL();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  __chkstk_darwin(v8);
-  v12 = &v24 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v22 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for URL();
+  v8 = *(v7 - 8);
+  __chkstk_darwin(v7);
+  v10 = &v22 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   if ((a1 & 0xFE) == 2)
   {
     URL.init(fileURLWithPath:)();
-    v13 = *(v9 + 16);
-    v13(v7, v12, v8);
-    v13(&v7[v4[5]], v12, v8);
-    (*(v9 + 56))(&v7[v4[6]], 1, 1, v8);
-    v14 = v4[7];
-    v15 = type metadata accessor for HeadphoneAssets.Feature(0);
-    (*(*(v15 - 8) + 56))(&v7[v14], 1, 1, v15);
-    v16 = v4[8];
-    *&v7[v16] = _swiftEmptyArrayStorage;
-    *&v7[v4[9]] = 0;
-    v17 = &v7[v4[10]];
-    *v17 = 0;
-    *(v17 + 1) = 0;
-    v18 = [objc_opt_self() configurationWithPointSize:88.0];
-    v19 = String._bridgeToObjectiveC()();
-    v20 = [objc_opt_self() systemImageNamed:v19 withConfiguration:v18];
+    v11 = *(v8 + 16);
+    v11(v6, v10, v7);
+    v11(&v6[v4[5]], v10, v7);
+    (*(v8 + 56))(&v6[v4[6]], 1, 1, v7);
+    v12 = v4[7];
+    v13 = type metadata accessor for HeadphoneAssets.Feature(0);
+    (*(*(v13 - 8) + 56))(&v6[v12], 1, 1, v13);
+    v14 = v4[8];
+    *&v6[v14] = _swiftEmptyArrayStorage;
+    *&v6[v4[9]] = 0;
+    v15 = &v6[v4[10]];
+    *v15 = 0;
+    *(v15 + 1) = 0;
+    v16 = [objc_opt_self() configurationWithPointSize:88.0];
+    v17 = String._bridgeToObjectiveC()();
+    v18 = [objc_opt_self() systemImageNamed:v17 withConfiguration:v16];
 
-    if (v20)
+    if (v18)
     {
       sub_100008438(&unk_10011D960, &qword_1000D5CF0);
-      v21 = swift_allocObject();
-      *(v21 + 16) = xmmword_1000D78E0;
-      *(v21 + 32) = v20;
+      v19 = swift_allocObject();
+      *(v19 + 16) = xmmword_1000D78E0;
+      *(v19 + 32) = v18;
 
-      (*(v9 + 8))(v12, v8);
-      *&v7[v16] = v21;
+      (*(v8 + 8))(v10, v7);
+      *&v6[v14] = v19;
     }
 
     else
     {
-      (*(v9 + 8))(v12, v8);
+      (*(v8 + 8))(v10, v7);
     }
 
-    sub_1000CE178(v7, a2, type metadata accessor for HeadphoneAssets);
-    (*(v25 + 56))(a2, 0, 1, v4);
-    return sub_1000CE1E0(v7, type metadata accessor for HeadphoneAssets);
+    sub_1000CE178(v6, a2, type metadata accessor for HeadphoneAssets);
+    (*(v23 + 56))(a2, 0, 1, v4);
+    return sub_1000CE1E0(v6, type metadata accessor for HeadphoneAssets);
   }
 
   else
   {
-    v22 = *(v25 + 56);
+    v20 = *(v23 + 56);
 
-    return v22(a2, 1, 1, v4);
+    return v20(a2, 1, 1, v4);
   }
 }
 
 uint64_t sub_1000CBCA4()
 {
   v0 = type metadata accessor for HeadphoneViewModel(0);
-  v1 = *(*(v0 - 8) + 64);
   __chkstk_darwin(v0);
-  v3 = &v20 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = type metadata accessor for DispatchPredicate();
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4);
-  v8 = (&v20 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v2 = &v18 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = type metadata accessor for DispatchPredicate();
+  v4 = *(v3 - 8);
+  __chkstk_darwin(v3);
+  v6 = (&v18 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
   if (qword_10011C720 != -1)
   {
     swift_once();
   }
 
-  v9 = type metadata accessor for Logger();
-  sub_10000A570(v9, qword_1001231C0);
-  v10 = Logger.logObject.getter();
-  v11 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v10, v11))
+  v7 = type metadata accessor for Logger();
+  sub_10000A570(v7, qword_1001231C0);
+  v8 = Logger.logObject.getter();
+  v9 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v8, v9))
   {
-    v12 = swift_slowAlloc();
-    *v12 = 0;
-    _os_log_impl(&_mh_execute_header, v10, v11, "HeadphonePresenter: handleMultipleDevicesDetected", v12, 2u);
+    v10 = swift_slowAlloc();
+    *v10 = 0;
+    _os_log_impl(&_mh_execute_header, v8, v9, "HeadphonePresenter: handleMultipleDevicesDetected", v10, 2u);
   }
 
   sub_1000084D4(0, &qword_10011D240, OS_dispatch_queue_ptr);
-  *v8 = static OS_dispatch_queue.main.getter();
-  (*(v5 + 104))(v8, enum case for DispatchPredicate.onQueue(_:), v4);
-  v13 = _dispatchPreconditionTest(_:)();
-  result = (*(v5 + 8))(v8, v4);
-  if (v13)
+  *v6 = static OS_dispatch_queue.main.getter();
+  (*(v4 + 104))(v6, enum case for DispatchPredicate.onQueue(_:), v3);
+  v11 = _dispatchPreconditionTest(_:)();
+  result = (*(v4 + 8))(v6, v3);
+  if (v11)
   {
     result = swift_unknownObjectWeakLoadStrong();
     if (result)
     {
-      v15 = result + OBJC_IVAR____TtC20HeadphoneProxService15HeadphoneRouter_currentView;
+      v13 = result + OBJC_IVAR____TtC20HeadphoneProxService15HeadphoneRouter_currentView;
       Strong = swift_unknownObjectWeakLoadStrong();
-      v17 = *(v15 + 8);
+      v15 = *(v13 + 8);
       result = swift_unknownObjectRelease();
       if (Strong)
       {
         ObjectType = swift_getObjectType();
-        v19 = (*(v17 + 32))(ObjectType, v17);
-        sub_1000BB69C(v19, v3);
-        v3[*(v0 + 96)] = 1;
-        (*(v17 + 48))(v3, ObjectType, v17);
+        v17 = (*(v15 + 32))(ObjectType, v15);
+        sub_1000BB69C(v17, v2);
+        v2[*(v0 + 96)] = 1;
+        (*(v15 + 48))(v2, ObjectType, v15);
         swift_unknownObjectRelease();
-        return sub_1000CE1E0(v3, type metadata accessor for HeadphoneViewModel);
+        return sub_1000CE1E0(v2, type metadata accessor for HeadphoneViewModel);
       }
     }
   }
@@ -1224,11 +1213,11 @@ id sub_1000CC0D4(id result)
   return result;
 }
 
-void sub_1000CC0E4(id a1)
+void sub_1000CC0E4(id result)
 {
-  if (a1 != 16)
+  if (result != 16)
   {
-    sub_1000CC0F4(a1);
+    sub_1000CC0F4(result);
   }
 }
 
@@ -1295,7 +1284,7 @@ char *sub_1000CC104(char *result, int64_t a2, char a3, char *a4)
 
   else
   {
-    v10 = &_swiftEmptyArrayStorage;
+    v10 = _swiftEmptyArrayStorage;
   }
 
   v13 = v10 + 32;
@@ -1374,7 +1363,7 @@ char *sub_1000CC210(char *result, int64_t a2, char a3, char *a4)
 
   else
   {
-    v10 = &_swiftEmptyArrayStorage;
+    v10 = _swiftEmptyArrayStorage;
   }
 
   v13 = v10 + 32;
@@ -1705,7 +1694,7 @@ char *sub_1000CC694(char *result, int64_t a2, char a3, char *a4)
   return v10;
 }
 
-size_t sub_1000CC7D4(size_t result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8)
+void *sub_1000CC7D4(void *result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8)
 {
   v11 = result;
   if (a3)
@@ -1765,7 +1754,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (result - v18 == 0x8000000000000000 && v17 == -1)
+  if ((result - v18) == 0x8000000000000000 && v17 == -1)
   {
     goto LABEL_29;
   }
@@ -2021,7 +2010,7 @@ char *sub_1000CCC48(char *result, int64_t a2, char a3, char *a4)
   return v10;
 }
 
-size_t sub_1000CCD74(size_t result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t *a6, uint64_t (*a7)(void))
+void *sub_1000CCD74(void *result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t *a6, uint64_t (*a7)(void))
 {
   v9 = result;
   if (a3)
@@ -2081,7 +2070,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (result - v16 == 0x8000000000000000 && v15 == -1)
+  if ((result - v16) == 0x8000000000000000 && v15 == -1)
   {
     goto LABEL_29;
   }
@@ -2208,22 +2197,21 @@ uint64_t sub_1000CD0E4@<X0>(uint64_t (*a1)(void)@<X0>, _DWORD *a2@<X8>)
 
 unint64_t sub_1000CD118(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v6 = Hasher._finalize()();
-
-  return sub_1000CD2D0(a1, a2, v6);
-}
-
-unint64_t sub_1000CD190(unsigned __int8 a1)
-{
-  v3 = *(v1 + 40);
-  Hasher.init(_seed:)();
-  Hasher._combine(_:)(a1);
   v4 = Hasher._finalize()();
 
-  return sub_1000CD388(a1, v4);
+  return sub_1000CD2D0(a1, a2, v4);
+}
+
+unint64_t sub_1000CD190(uint64_t a1)
+{
+  v1 = a1;
+  Hasher.init(_seed:)();
+  Hasher._combine(_:)(v1);
+  v2 = Hasher._finalize()();
+
+  return sub_1000CD388(v1, v2);
 }
 
 unint64_t sub_1000CD1FC(uint64_t a1)
@@ -2236,13 +2224,12 @@ unint64_t sub_1000CD1FC(uint64_t a1)
 
 unint64_t sub_1000CD240(uint64_t a1)
 {
-  v3 = *(v1 + 40);
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v4 = Hasher._finalize()();
+  v2 = Hasher._finalize()();
 
-  return sub_1000CD4C0(a1, v4);
+  return sub_1000CD4C0(a1, v2);
 }
 
 unint64_t sub_1000CD2D0(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -2332,17 +2319,16 @@ unint64_t sub_1000CD4C0(uint64_t a1, uint64_t a2)
     v5 = ~v3;
     while (1)
     {
-      v6 = *(*(v2 + 48) + 8 * v4);
-      v7 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v9 = v8;
-      if (v7 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v9 == v10)
+      v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v8 = v7;
+      if (v6 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v8 == v9)
       {
         break;
       }
 
-      v12 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v11 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-      if ((v12 & 1) == 0)
+      if ((v11 & 1) == 0)
       {
         v4 = (v4 + 1) & v5;
         if ((*(v2 + 64 + ((v4 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v4))
@@ -2358,42 +2344,42 @@ unint64_t sub_1000CD4C0(uint64_t a1, uint64_t a2)
   return v4;
 }
 
-void *sub_1000CD5C4(void *a1, int64_t a2, char a3)
+void *sub_1000CD5C4(void *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_1000CD684(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
 
-char *sub_1000CD5E4(char *a1, int64_t a2, char a3)
+char *sub_1000CD5E4(char *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_1000CD7B8(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
 
-size_t sub_1000CD604(size_t a1, int64_t a2, char a3)
+void *sub_1000CD604(void *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_1000CD8BC(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
 
-char *sub_1000CD624(char *a1, int64_t a2, char a3)
+char *sub_1000CD624(char *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_1000CDAAC(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
 
-size_t sub_1000CD644(size_t a1, int64_t a2, char a3)
+void *sub_1000CD644(void *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_1000CDBB8(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
 
-void *sub_1000CD664(void *a1, int64_t a2, char a3)
+void *sub_1000CD664(void *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_1000CDD90(a1, a2, a3, *v3);
   *v3 = result;
@@ -2557,7 +2543,7 @@ char *sub_1000CD7B8(char *result, int64_t a2, char a3, char *a4)
   return v10;
 }
 
-size_t sub_1000CD8BC(size_t result, int64_t a2, char a3, void *a4)
+void *sub_1000CD8BC(void *result, int64_t a2, char a3, void *a4)
 {
   v5 = result;
   if (a3)
@@ -2617,7 +2603,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (result - v12 == 0x8000000000000000 && v11 == -1)
+  if ((result - v12) == 0x8000000000000000 && v11 == -1)
   {
     goto LABEL_29;
   }
@@ -2728,7 +2714,7 @@ char *sub_1000CDAAC(char *result, int64_t a2, char a3, char *a4)
   return v10;
 }
 
-size_t sub_1000CDBB8(size_t result, int64_t a2, char a3, void *a4)
+void *sub_1000CDBB8(void *result, int64_t a2, char a3, void *a4)
 {
   v5 = result;
   if (a3)
@@ -2788,7 +2774,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (result - v12 == 0x8000000000000000 && v11 == -1)
+  if ((result - v12) == 0x8000000000000000 && v11 == -1)
   {
     goto LABEL_29;
   }
@@ -2977,7 +2963,7 @@ unint64_t sub_1000CDFF8()
   return result;
 }
 
-uint64_t sub_1000CE04C(uint64_t a1, uint64_t a2, void *a3, unsigned __int8 a4)
+double sub_1000CE04C(uint64_t a1, uint64_t a2, void *a3, unsigned __int8 a4)
 {
   if (a4 <= 2u)
   {
@@ -3059,16 +3045,14 @@ uint64_t sub_1000CE370(uint64_t a1, uint64_t a2)
 id sub_1000CE398()
 {
   v0 = sub_100008438(&qword_10011CF08, &unk_1000D7310);
-  v1 = *(*(v0 - 8) + 64);
   __chkstk_darwin(v0 - 8);
-  v3 = &v18[-v2];
-  v4 = type metadata accessor for URL();
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4);
-  v8 = &v18[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v2 = &v16[-v1];
+  v3 = type metadata accessor for URL();
+  v4 = *(v3 - 8);
+  __chkstk_darwin(v3);
+  v6 = &v16[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
   URL.init(string:)();
-  result = (*(v5 + 48))(v3, 1, v4);
+  result = (*(v4 + 48))(v2, 1, v3);
   if (result == 1)
   {
     __break(1u);
@@ -3076,22 +3060,22 @@ id sub_1000CE398()
 
   else
   {
-    (*(v5 + 32))(v8, v3, v4);
+    (*(v4 + 32))(v6, v2, v3);
     result = [objc_opt_self() defaultWorkspace];
     if (result)
     {
-      v11 = result;
-      URL._bridgeToObjectiveC()(v10);
-      v13 = v12;
+      v9 = result;
+      URL._bridgeToObjectiveC()(v8);
+      v11 = v10;
       sub_100008438(&unk_100120060, &unk_1000DA520);
       inited = swift_initStackObject();
       *(inited + 16) = xmmword_1000D66A0;
       *(inited + 32) = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      *(inited + 40) = v15;
+      *(inited + 40) = v13;
       *(inited + 72) = &type metadata for Bool;
       *(inited + 48) = 1;
       *(inited + 80) = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      *(inited + 88) = v16;
+      *(inited + 88) = v14;
       *(inited + 120) = &type metadata for Bool;
       *(inited + 96) = 1;
       sub_1000A3634(inited);
@@ -3100,9 +3084,9 @@ id sub_1000CE398()
       swift_arrayDestroy();
       isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
-      [v11 openSensitiveURL:v13 withOptions:isa];
+      [v9 openSensitiveURL:v11 withOptions:isa];
 
-      return (*(v5 + 8))(v8, v4);
+      return (*(v4 + 8))(v6, v3);
     }
   }
 
@@ -3120,25 +3104,14 @@ id sub_1000CE65C(id result, char a2)
   return result;
 }
 
-uint64_t sub_1000CE680(char a1)
-{
-  v2 = *(v1 + 24);
-  v3 = *(v1 + 32);
-  return sub_1000B9A58(a1, *(v1 + 16));
-}
-
 uint64_t sub_1000CE704()
 {
-  v1 = *(v0 + 24);
-
-  v2 = *(v0 + 32);
 
   return _swift_deallocObject(v0, 40, 7);
 }
 
 uint64_t sub_1000CE74C()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
@@ -3441,31 +3414,21 @@ void sub_1000CF770(int a1, NSObject *a2)
 
 void sub_1000CF95C(void *a1)
 {
-  v2 = [a1 assetStatus];
-  if (v2 <= 3)
-  {
-    v3 = off_1001028C8[v2];
-  }
-
-  v7 = [a1 displayName];
+  [a1 assetStatus];
+  v5 = [a1 displayName];
   [a1 isSuggested];
-  v4 = [a1 locale];
-  v5 = [a1 locale];
-  v6 = [v5 localeIdentifier];
+  v2 = [a1 locale];
+  v3 = [a1 locale];
+  v4 = [v3 localeIdentifier];
   LogPrintF();
 }
 
 void sub_1000CFA90(void *a1)
 {
-  v2 = [a1 assetStatus];
-  if (v2 <= 3)
-  {
-    v3 = off_1001028C8[v2];
-  }
-
-  v5 = [a1 displayName];
+  [a1 assetStatus];
+  v3 = [a1 displayName];
   [a1 isSuggested];
-  v4 = [a1 locale];
+  v2 = [a1 locale];
   LogPrintF();
 }
 

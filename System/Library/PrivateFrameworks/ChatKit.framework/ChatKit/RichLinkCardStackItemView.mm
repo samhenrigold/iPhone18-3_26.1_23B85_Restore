@@ -84,13 +84,13 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1908DE89C();
+  sub_1908DE89C(selfCopy);
 }
 
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_1908DEDA4();
+  sub_1908DEDA4(selfCopy);
 }
 
 - (void)openAppFromNotificationExtensionWith:(id)with

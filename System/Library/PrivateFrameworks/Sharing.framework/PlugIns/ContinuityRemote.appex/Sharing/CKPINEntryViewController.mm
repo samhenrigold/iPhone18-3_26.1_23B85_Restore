@@ -4,6 +4,9 @@
 - (void)handlePasscodeFieldTextChanged;
 - (void)handleTap:(id)tap;
 - (void)showWithFlags:(unsigned int)flags throttleSeconds:(int)seconds;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation CKPINEntryViewController
@@ -46,17 +49,117 @@
   }
 }
 
-- (void)handlePasscodeFieldTextChanged
+- (void)viewWillAppear:(BOOL)appear
 {
-  if (gLogCategory_ContinuityKeyboard <= 30 && (gLogCategory_ContinuityKeyboard != -1 || _LogCategory_Initialize()))
+  appearCopy = appear;
+  selfCopy = self;
+  if (gLogCategory_ContinuityKeyboard <= 30)
   {
-    sub_100005E50();
+    if (gLogCategory_ContinuityKeyboard != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_100005DFC(self, a2, appear);
+    }
   }
 
-  text = [(TVRPasscodeField *)self->_passcodeField text];
+  v16.receiver = selfCopy;
+  v16.super_class = CKPINEntryViewController;
+  [(CKPINEntryViewController *)&v16 viewWillAppear:appearCopy];
+  v5 = SFLocalizedStringForKey();
+  [(UILabel *)selfCopy->_infoLabel setText:v5];
+
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2050000000;
+  v6 = qword_100011F10;
+  v21 = qword_100011F10;
+  if (!qword_100011F10)
+  {
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_100004DA0;
+    v17[3] = &unk_10000C568;
+    v17[4] = &v18;
+    sub_100004DA0(v17);
+    v6 = v19[3];
+  }
+
+  v7 = v6;
+  _Block_object_dispose(&v18, 8);
+  v8 = objc_alloc_init(v6);
+  passcodeField = selfCopy->_passcodeField;
+  selfCopy->_passcodeField = v8;
+
+  [(TVRPasscodeField *)selfCopy->_passcodeField setAutoresizingMask:2];
+  [(TVRPasscodeField *)selfCopy->_passcodeField setTranslatesAutoresizingMaskIntoConstraints:0];
+  [(TVRPasscodeField *)selfCopy->_passcodeField setUseSystemColors:1];
+  [(UIView *)selfCopy->_pinEntryView addSubview:selfCopy->_passcodeField];
+  pinEntryView = selfCopy->_pinEntryView;
+  v11 = [NSLayoutConstraint constraintWithItem:selfCopy->_passcodeField attribute:3 relatedBy:0 toItem:pinEntryView attribute:3 multiplier:1.0 constant:0.0];
+  v22[0] = v11;
+  v12 = [NSLayoutConstraint constraintWithItem:selfCopy->_passcodeField attribute:4 relatedBy:0 toItem:selfCopy->_pinEntryView attribute:4 multiplier:1.0 constant:0.0];
+  v22[1] = v12;
+  v13 = [NSLayoutConstraint constraintWithItem:selfCopy->_passcodeField attribute:1 relatedBy:0 toItem:selfCopy->_pinEntryView attribute:1 multiplier:1.0 constant:0.0];
+  v22[2] = v13;
+  v14 = [NSLayoutConstraint constraintWithItem:selfCopy->_passcodeField attribute:2 relatedBy:0 toItem:selfCopy->_pinEntryView attribute:2 multiplier:1.0 constant:0.0];
+  v22[3] = v14;
+  v15 = [NSArray arrayWithObjects:v22 count:4];
+  [(UIView *)pinEntryView addConstraints:v15];
+
+  [(TVRPasscodeField *)selfCopy->_passcodeField addTarget:selfCopy action:"handlePasscodeFieldTextChanged" forControlEvents:0x20000];
+  [(CKPINEntryViewController *)selfCopy showWithFlags:0 throttleSeconds:0xFFFFFFFFLL];
+  [(TVRPasscodeField *)selfCopy->_passcodeField becomeFirstResponder];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  selfCopy = self;
+  if (gLogCategory_ContinuityKeyboard <= 30)
+  {
+    if (gLogCategory_ContinuityKeyboard != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_100005E18(self, a2, disappear);
+    }
+  }
+
+  [(TVRPasscodeField *)selfCopy->_passcodeField removeTarget:selfCopy forEvents:0x20000];
+  v5.receiver = selfCopy;
+  v5.super_class = CKPINEntryViewController;
+  [(CKPINEntryViewController *)&v5 viewWillDisappear:disappearCopy];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  selfCopy = self;
+  if (gLogCategory_ContinuityKeyboard <= 30)
+  {
+    if (gLogCategory_ContinuityKeyboard != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_100005E34(self, a2, appear);
+    }
+  }
+
+  v5.receiver = selfCopy;
+  v5.super_class = CKPINEntryViewController;
+  [(CKPINEntryViewController *)&v5 viewDidAppear:appearCopy];
+}
+
+- (void)handlePasscodeFieldTextChanged
+{
+  selfCopy = self;
+  if (gLogCategory_ContinuityKeyboard <= 30)
+  {
+    if (gLogCategory_ContinuityKeyboard != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_100005E50(self, a2, v2);
+    }
+  }
+
+  text = [(TVRPasscodeField *)selfCopy->_passcodeField text];
   if ([text length] == 4)
   {
-    [(CKPINEntryViewController *)self handlePINEntered:text];
+    [(CKPINEntryViewController *)selfCopy handlePINEntered:text];
   }
 }
 
@@ -65,7 +168,7 @@
   enteredCopy = entered;
   if (gLogCategory_ContinuityKeyboard <= 30 && (gLogCategory_ContinuityKeyboard != -1 || _LogCategory_Initialize()))
   {
-    sub_100005E6C();
+    sub_100005E6C(enteredCopy);
   }
 
   if ([self->super._mainController testFlags])
@@ -93,31 +196,39 @@
 - (void)_handlePairingSucceededWithCompletion:(id)completion
 {
   completionCopy = completion;
-  if (gLogCategory_ContinuityKeyboard <= 30 && (gLogCategory_ContinuityKeyboard != -1 || _LogCategory_Initialize()))
+  v7 = completionCopy;
+  if (gLogCategory_ContinuityKeyboard <= 30)
   {
-    sub_100005EAC();
+    if (gLogCategory_ContinuityKeyboard != -1 || (completionCopy = _LogCategory_Initialize(), completionCopy))
+    {
+      sub_100005EAC(completionCopy, v5, v6);
+    }
   }
 
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_1000048B4;
-  v8[3] = &unk_10000C2C0;
-  v8[4] = self;
-  v6[0] = _NSConcreteStackBlock;
-  v6[1] = 3221225472;
-  v6[2] = sub_100004910;
-  v6[3] = &unk_10000C540;
-  v7 = completionCopy;
-  v5 = completionCopy;
-  [UIView animateWithDuration:v8 animations:v6 completion:0.4];
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_1000048B4;
+  v11[3] = &unk_10000C2C0;
+  v11[4] = self;
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_100004910;
+  v9[3] = &unk_10000C540;
+  v10 = v7;
+  v8 = v7;
+  [UIView animateWithDuration:v11 animations:v9 completion:0.4];
 }
 
 - (void)handleTap:(id)tap
 {
   tapCopy = tap;
-  if (gLogCategory_ContinuityKeyboard <= 30 && (gLogCategory_ContinuityKeyboard != -1 || _LogCategory_Initialize()))
+  v7 = tapCopy;
+  if (gLogCategory_ContinuityKeyboard <= 30)
   {
-    sub_100005EC8();
+    if (gLogCategory_ContinuityKeyboard != -1 || (tapCopy = _LogCategory_Initialize(), tapCopy))
+    {
+      sub_100005EC8(tapCopy, v5, v6);
+    }
   }
 
   [(TVRPasscodeField *)self->_passcodeField becomeFirstResponder];

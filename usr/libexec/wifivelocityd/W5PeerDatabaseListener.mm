@@ -8,9 +8,9 @@
 - (W5PeerDatabaseListener)initWithDatabaseAccessManager:(id)manager
 {
   managerCopy = manager;
-  v10.receiver = self;
-  v10.super_class = W5PeerDatabaseListener;
-  v6 = [(W5PeerDatabaseListener *)&v10 init];
+  v12.receiver = self;
+  v12.super_class = W5PeerDatabaseListener;
+  v6 = [(W5PeerDatabaseListener *)&v12 init];
   v7 = v6;
   if (!v6 || (objc_storeStrong(&v6->_databaseManager, manager), !v7->_databaseManager))
   {
@@ -18,7 +18,9 @@
     v8 = sub_100098A04();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      _os_log_send_and_compose_impl();
+      v11[0] = 0;
+      v10 = 2;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v8, 0, "[wifivelocity] init error!", v11, v10);
     }
 
     v7 = 0;
@@ -38,17 +40,15 @@
     v8 = sub_100098A04();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v21 = 136315906;
-      *&v21[4] = "[W5PeerDatabaseListener handleClientRequest:]";
-      *&v21[12] = 2112;
-      *&v21[14] = requestCopy;
-      *&v21[22] = 2112;
-      v22 = v6;
-      v23 = 2112;
-      v24 = version;
-      LODWORD(v20) = 42;
-      v19 = v21;
-      _os_log_send_and_compose_impl();
+      *v20 = 136315906;
+      *&v20[4] = "[W5PeerDatabaseListener handleClientRequest:]";
+      *&v20[12] = 2112;
+      *&v20[14] = requestCopy;
+      *&v20[22] = 2112;
+      v21 = v6;
+      v22 = 2112;
+      v23 = version;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v8, 0, "[wifivelocity] %s: incoming request='%@', payload='%@' version='%@'", v20, 42);
     }
 
     v9 = objc_alloc_init(W5PeerDatabaseResponsePayload);
@@ -71,24 +71,22 @@
         [(W5PeerDatabaseResponsePayload *)v9 setFetchedResults:v15];
 
         [(W5DatabaseManager *)self->_databaseManager releaseMoc];
-LABEL_14:
+LABEL_13:
         handler = [requestCopy handler];
         (handler)[2](handler, v9, 0);
 
-        goto LABEL_15;
+        goto LABEL_14;
       }
 
       v16 = sub_100098A04();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        *v21 = 136315394;
-        *&v21[4] = "[W5PeerDatabaseListener handleClientRequest:]";
-        *&v21[12] = 2112;
-        *&v21[14] = requestCopy;
-        LODWORD(v20) = 22;
-        v19 = v21;
-LABEL_12:
-        _os_log_send_and_compose_impl();
+        *v20 = 136315394;
+        *&v20[4] = "[W5PeerDatabaseListener handleClientRequest:]";
+        *&v20[12] = 2112;
+        *&v20[14] = requestCopy;
+        LODWORD(v19) = 22;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v16, 0, "[wifivelocity] %s: invalid fetchRequest %@", v20, v19, *v20, *&v20[8]);
       }
     }
 
@@ -97,20 +95,19 @@ LABEL_12:
       v16 = sub_100098A04();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        *v21 = 136315394;
-        *&v21[4] = "[W5PeerDatabaseListener handleClientRequest:]";
-        *&v21[12] = 2112;
-        *&v21[14] = version;
-        LODWORD(v20) = 22;
-        v19 = v21;
-        goto LABEL_12;
+        *v20 = 136315394;
+        *&v20[4] = "[W5PeerDatabaseListener handleClientRequest:]";
+        *&v20[12] = 2112;
+        *&v20[14] = version;
+        LODWORD(v19) = 22;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v16, 0, "[wifivelocity] %s: Unsupported W5PeerDatabaseRequestVersion %@", v20, v19, *v20, *&v20[8]);
       }
     }
 
-    goto LABEL_14;
+    goto LABEL_13;
   }
 
-LABEL_15:
+LABEL_14:
 
   return 1;
 }

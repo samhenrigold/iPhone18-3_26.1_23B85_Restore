@@ -152,14 +152,12 @@ LABEL_10:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 0x10) != 0)
   {
-    wasPrimary = self->_wasPrimary;
     PBDataWriterWriteBOOLField();
   }
 
@@ -168,8 +166,8 @@ LABEL_10:
     PBDataWriterWriteStringField();
   }
 
-  v7 = self->_has;
-  if ((v7 & 2) == 0)
+  v5 = self->_has;
+  if ((v5 & 2) == 0)
   {
     if ((*&self->_has & 8) == 0)
     {
@@ -177,7 +175,6 @@ LABEL_10:
     }
 
 LABEL_12:
-    totalMessages = self->_totalMessages;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 1) == 0)
     {
@@ -187,22 +184,20 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  timeTaken = self->_timeTaken;
   PBDataWriterWriteUint64Field();
-  v7 = self->_has;
-  if ((v7 & 8) != 0)
+  v5 = self->_has;
+  if ((v5 & 8) != 0)
   {
     goto LABEL_12;
   }
 
 LABEL_9:
-  if ((v7 & 1) == 0)
+  if ((v5 & 1) == 0)
   {
     return;
   }
 
 LABEL_13:
-  linkType = self->_linkType;
 
   PBDataWriterWriteUint64Field();
 }
@@ -329,7 +324,6 @@ LABEL_8:
   }
 
   has = self->_has;
-  v7 = *(equal + 52);
   if ((has & 4) != 0)
   {
     if ((*(equal + 52) & 4) == 0 || self->_timestamp != *(equal + 3))
@@ -347,7 +341,6 @@ LABEL_8:
   {
     if ((*(equal + 52) & 0x10) != 0)
     {
-      v9 = *(equal + 48);
       if (self->_wasPrimary)
       {
         if ((*(equal + 48) & 1) == 0)

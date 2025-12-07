@@ -1,4 +1,6 @@
 @interface LACEnvironmentState
++ (id)companionsForUser:(unsigned int)user;
++ (id)environmentStateForUser:(unsigned int)user auditToken:(id *)token dependencies:(id)dependencies error:(id *)error;
 - (BOOL)isEqual:(id)equal;
 - (LACEnvironmentState)initWithBiometry:(id)biometry userPassword:(id)password companions:(id)companions;
 - (LACEnvironmentState)initWithCoder:(id)coder;
@@ -25,6 +27,51 @@
   }
 
   return v13;
+}
+
++ (id)environmentStateForUser:(unsigned int)user auditToken:(id *)token dependencies:(id)dependencies error:(id *)error
+{
+  v7 = *&user;
+  dependenciesCopy = dependencies;
+  v10 = [LACEnvironmentState alloc];
+  v11 = *&token->var0[4];
+  v18 = *token->var0;
+  v19 = v11;
+  v12 = [LACEnvironmentMechanismBiometry environmentMechanismForUser:v7 auditToken:&v18 dependencies:dependenciesCopy error:0];
+  v13 = *&token->var0[4];
+  v18 = *token->var0;
+  v19 = v13;
+  v14 = [LACEnvironmentMechanismUserPassword environmentMechanismForUser:v7 auditToken:&v18 dependencies:dependenciesCopy error:0];
+
+  v15 = [self companionsForUser:v7];
+  v16 = [(LACEnvironmentState *)v10 initWithBiometry:v12 userPassword:v14 companions:v15];
+
+  return v16;
+}
+
++ (id)companionsForUser:(unsigned int)user
+{
+  v3 = *&user;
+  v4 = objc_opt_new();
+  v5 = [LACEnvironmentMechanismCompanion companionForUser:v3 type:1 error:0];
+  if (v5)
+  {
+    [v4 addObject:v5];
+  }
+
+  v6 = [LACEnvironmentMechanismCompanion companionForUser:v3 type:2 error:0];
+  if (v6)
+  {
+    [v4 addObject:v6];
+  }
+
+  v7 = [LACEnvironmentMechanismCompanion companionForUser:v3 type:4 error:0];
+  if (v7)
+  {
+    [v4 addObject:v7];
+  }
+
+  return v4;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -59,26 +106,24 @@
 
 - (id)description
 {
-  v19[3] = *MEMORY[0x1E69E9840];
-  v18 = MEMORY[0x1E696AEC0];
+  v18[3] = *MEMORY[0x1E69E9840];
+  v17 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   v4 = MEMORY[0x1E696AEC0];
   biometry = [(LACEnvironmentState *)self biometry];
   v6 = [v4 stringWithFormat:@"biometry: %@", biometry];
-  v19[0] = v6;
+  v18[0] = v6;
   v7 = MEMORY[0x1E696AEC0];
   userPassword = [(LACEnvironmentState *)self userPassword];
   v9 = [v7 stringWithFormat:@"userPassword: %@", userPassword];
-  v19[1] = v9;
+  v18[1] = v9;
   v10 = MEMORY[0x1E696AEC0];
   companions = [(LACEnvironmentState *)self companions];
   v12 = [v10 stringWithFormat:@"companions: %@", companions];
-  v19[2] = v12;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:3];
+  v18[2] = v12;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:3];
   v14 = [v13 componentsJoinedByString:@" "];;
-  v15 = [v18 stringWithFormat:@"<%@ %p %@>", v3, self, v14];;
-
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = [v17 stringWithFormat:@"<%@ %p %@>", v3, self, v14];;
 
   return v15;
 }

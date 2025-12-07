@@ -10,9 +10,9 @@ uint64_t __96___UIViewServiceClientSceneComponent_configureAuxiliaryConnectionFo
 
   v5 = [*(a1 + 32) clientScene];
   v6 = [v5 identityToken];
-  v7 = [v4 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v4);
 
-  return v7;
+  return isEqual;
 }
 
 @end

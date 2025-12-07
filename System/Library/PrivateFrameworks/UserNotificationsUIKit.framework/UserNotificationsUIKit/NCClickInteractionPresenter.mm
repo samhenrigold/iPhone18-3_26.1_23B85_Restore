@@ -464,12 +464,12 @@ uint64_t __53__NCClickInteractionPresenter__setUpPresentedControl__block_invoke(
   v8 = v7;
   v10 = v9;
   [(UIView *)self->_containerView bounds];
-  v33 = CGRectInset(v32, 8.0, 8.0);
-  y = v33.origin.y;
-  x = v33.origin.x;
-  height = v33.size.height;
-  width = v33.size.width;
-  [(NCClickInteractionPresentedControl *)self->_presentedControl sizeThatFits:v33.size.width, v33.size.height];
+  v35 = CGRectInset(v34, 8.0, 8.0);
+  y = v35.origin.y;
+  x = v35.origin.x;
+  height = v35.size.height;
+  width = v35.size.width;
+  [(NCClickInteractionPresentedControl *)self->_presentedControl sizeThatFits:v35.size.width, v35.size.height];
   BSRectWithSize();
   v11 = v6;
   v12 = v8;
@@ -481,26 +481,26 @@ uint64_t __53__NCClickInteractionPresenter__setUpPresentedControl__block_invoke(
   v21 = v20;
   if (([(UIView *)self->_containerView _shouldReverseLayoutDirection]& 1) == 0)
   {
-    v34.origin.x = v4;
-    v34.origin.y = v11;
-    v34.size.width = v12;
-    v34.size.height = v13;
-    MaxX = CGRectGetMaxX(v34);
-    v35.origin.x = v15;
-    v35.origin.y = v17;
-    v35.size.width = v19;
-    v35.size.height = v21;
-    v15 = MaxX - CGRectGetWidth(v35);
+    v36.origin.x = v4;
+    v36.origin.y = v11;
+    v36.size.width = v12;
+    v36.size.height = v13;
+    MaxX = CGRectGetMaxX(v36);
+    v37.origin.x = v15;
+    v37.origin.y = v17;
+    v37.size.width = v19;
+    v37.size.height = v21;
+    v15 = MaxX - CGRectGetWidth(v37);
   }
 
   NCRectConfinedToRect(v15, v17, v19, v21, x, y, width, height);
-  _NCMainScreenScale();
+  _NCMainScreenScale(v23, v24);
 
   UIRectIntegralWithScale();
-  result.size.height = v26;
-  result.size.width = v25;
-  result.origin.y = v24;
-  result.origin.x = v23;
+  result.size.height = v28;
+  result.size.width = v27;
+  result.origin.y = v26;
+  result.origin.x = v25;
   return result;
 }
 

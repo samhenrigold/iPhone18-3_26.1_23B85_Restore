@@ -18,7 +18,7 @@
 - (void)contentSizeCategoryDidChange
 {
   selfCopy = self;
-  sub_1C8399620();
+  sub_1C8399620(selfCopy);
 }
 
 - (void)layoutSubviews
@@ -51,13 +51,13 @@
 - (void)accessoryButtonTapped
 {
   selfCopy = self;
-  sub_1C83A359C();
+  sub_1C83A359C(selfCopy);
 }
 
 - (void)detachedButtonTapped
 {
   selfCopy = self;
-  sub_1C83A364C();
+  sub_1C83A364C(selfCopy);
 }
 
 - (CGSize)intrinsicContentSize
@@ -77,7 +77,7 @@
 {
   editingCopy = editing;
   selfCopy = self;
-  LOBYTE(self) = sub_1C83A37EC();
+  LOBYTE(self) = sub_1C83A37EC(selfCopy);
 
   return self & 1;
 }
@@ -86,14 +86,14 @@
 {
   editingCopy = editing;
   selfCopy = self;
-  sub_1C83A38B0();
+  sub_1C83A38B0(selfCopy);
 }
 
 - (void)textViewDidEndEditing:(id)editing
 {
   editingCopy = editing;
   selfCopy = self;
-  sub_1C83A3978();
+  sub_1C83A3978(selfCopy);
 }
 
 - (void)textViewDidChange:(id)change

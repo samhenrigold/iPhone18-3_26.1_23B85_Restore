@@ -113,7 +113,7 @@ LABEL_11:
 
 + (BOOL)_handleApplyingDeletedUnlistedDirectoryIfNecessary:(id)necessary localItem:(id)item parent:(id)parent
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   necessaryCopy = necessary;
   itemCopy = item;
   parentCopy = parent;
@@ -148,13 +148,13 @@ LABEL_11:
   v18 = brc_default_log();
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
-    v29 = 138412802;
-    v30 = necessaryCopy;
-    v31 = 2112;
-    v32 = parentCopy;
-    v33 = 2112;
-    v34 = v17;
-    _os_log_debug_impl(&dword_223E7A000, v18, OS_LOG_TYPE_DEBUG, "[DEBUG] New item %@ older than a deleted directory %@ so marking dead%@", &v29, 0x20u);
+    v28 = 138412802;
+    v29 = necessaryCopy;
+    v30 = 2112;
+    v31 = parentCopy;
+    v32 = 2112;
+    v33 = v17;
+    _os_log_debug_impl(&dword_223E7A000, v18, OS_LOG_TYPE_DEBUG, "[DEBUG] New item %@ older than a deleted directory %@ so marking dead%@", &v28, 0x20u);
   }
 
   itemCopy = [necessaryCopy newLocalItemWithDBRowID:{objc_msgSend(0, "dbRowID")}];
@@ -181,14 +181,13 @@ LABEL_11:
   v11 = 1;
 LABEL_12:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 + (BOOL)serverItemWouldBeParentedToDeadFolder:(id)folder si:(id)si rank:(int64_t)rank scheduler:(id)scheduler zone:(id)zone diffs:(unint64_t)diffs
 {
   diffsCopy = diffs;
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   folderCopy = folder;
   siCopy = si;
   schedulerCopy = scheduler;
@@ -212,9 +211,9 @@ LABEL_12:
 
         if (!v24)
         {
-          v30 = brc_bread_crumbs();
-          v31 = brc_default_log();
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+          v29 = brc_bread_crumbs();
+          v30 = brc_default_log();
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
           {
             +[BRCServerChangesApplyUtil_Private serverItemWouldBeParentedToDeadFolder:si:rank:scheduler:zone:diffs:];
           }
@@ -225,7 +224,7 @@ LABEL_12:
           parentZoneOnFS = [siCopy parentZoneOnFS];
           clientZone2 = [parentZoneOnFS clientZone];
           parentItemIDOnFS2 = [siCopy parentItemIDOnFS];
-          v35 = [clientZone2 fetchParentChainIfNecessaryWithParentItemID:parentItemIDOnFS2 isUserWaiting:0];
+          v34 = [clientZone2 fetchParentChainIfNecessaryWithParentItemID:parentItemIDOnFS2 isUserWaiting:0];
 
           goto LABEL_14;
         }
@@ -238,20 +237,20 @@ LABEL_12:
       {
         if (v19)
         {
-          v36 = [MEMORY[0x277CCACA8] stringWithFormat:@" parent = %@", v19];
+          v35 = [MEMORY[0x277CCACA8] stringWithFormat:@" parent = %@", v19];
         }
 
         else
         {
-          v36 = &stru_2837504F0;
+          v35 = &stru_2837504F0;
         }
 
         *buf = 134218498;
         rankCopy = rank;
-        v39 = 2112;
-        v40 = v36;
-        v41 = 2112;
-        v42 = v25;
+        v38 = 2112;
+        v39 = v35;
+        v40 = 2112;
+        v41 = v25;
         _os_log_debug_impl(&dword_223E7A000, v26, OS_LOG_TYPE_DEBUG, "[DEBUG] Apply Changes[%lld]: postponing rank (missing parent)%@%@", buf, 0x20u);
         if (v19)
         {
@@ -284,7 +283,6 @@ LABEL_8:
   v21 = 0;
 LABEL_16:
 
-  v28 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -329,7 +327,7 @@ LABEL_16:
 
 + (BOOL)localItemHasUnsyncedChanges:(id)changes si:(id)si rank:(int64_t)rank scheduler:(id)scheduler clientZone:(id)zone zone:(id)a8 isDeleteOfShareRoot:(BOOL)root session:(id)self0
 {
-  v88 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   changesCopy = changes;
   siCopy = si;
   schedulerCopy = scheduler;
@@ -375,9 +373,9 @@ LABEL_16:
       isDead = [changesCopy isDead];
       if (([changesCopy isDirectory] & 1) == 0 && isDead)
       {
-        v32 = brc_bread_crumbs();
-        v33 = brc_default_log();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+        v31 = brc_bread_crumbs();
+        v32 = brc_default_log();
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
         {
           +[BRCServerChangesApplyUtil_Private localItemHasUnsyncedChanges:si:rank:scheduler:clientZone:zone:isDeleteOfShareRoot:session:];
         }
@@ -399,9 +397,9 @@ LABEL_14:
 
       if (([siCopy isBRAlias] & isDead) == 1)
       {
-        v52 = brc_bread_crumbs();
-        v53 = brc_default_log();
-        if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
+        v51 = brc_bread_crumbs();
+        v52 = brc_default_log();
+        if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
         {
           +[BRCServerChangesApplyUtil_Private localItemHasUnsyncedChanges:si:rank:scheduler:clientZone:zone:isDeleteOfShareRoot:session:];
         }
@@ -424,9 +422,9 @@ LABEL_14:
 
       if (isDocumentsFolder)
       {
-        v37 = brc_bread_crumbs();
-        v38 = brc_default_log();
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+        v36 = brc_bread_crumbs();
+        v37 = brc_default_log();
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
         {
           +[BRCServerChangesApplyUtil_Private localItemHasUnsyncedChanges:si:rank:scheduler:clientZone:zone:isDeleteOfShareRoot:session:];
         }
@@ -447,69 +445,69 @@ LABEL_14:
     {
     }
 
-    v42 = brc_bread_crumbs();
-    v43 = brc_default_log();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+    v41 = brc_bread_crumbs();
+    v42 = brc_default_log();
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
     {
       isDead2 = [siCopy isDead];
-      v73 = "";
+      v72 = "";
       *buf = 138412802;
-      v83 = changesCopy;
+      v82 = changesCopy;
       if (isDead2)
       {
-        v73 = "\n(dead in server truth)";
+        v72 = "\n(dead in server truth)";
       }
 
-      v84 = 2080;
-      v85 = v73;
-      v86 = 2112;
-      v87 = v42;
-      _os_log_debug_impl(&dword_223E7A000, v43, OS_LOG_TYPE_DEBUG, "[DEBUG] Suspending rank for item with conflicts: %@%s%@", buf, 0x20u);
+      v83 = 2080;
+      v84 = v72;
+      v85 = 2112;
+      v86 = v41;
+      _os_log_debug_impl(&dword_223E7A000, v42, OS_LOG_TYPE_DEBUG, "[DEBUG] Suspending rank for item with conflicts: %@%s%@", buf, 0x20u);
     }
 
     if ([changesCopy isMigratingToFPFS])
     {
-      v44 = 15;
+      v43 = 15;
     }
 
     else
     {
-      v44 = 22;
+      v43 = 22;
     }
 
     dbRowID3 = [v19 dbRowID];
-    [schedulerCopy setState:v44 forRank:rank zoneRowID:dbRowID3];
+    [schedulerCopy setState:v43 forRank:rank zoneRowID:dbRowID3];
 
     if (!siCopy)
     {
 LABEL_58:
       if ([changesCopy isSharedToMeChildItem])
       {
-        v57 = [changesCopy st];
-        ckInfo = [v57 ckInfo];
+        v56 = [changesCopy st];
+        ckInfo = [v56 ckInfo];
 
         if (!ckInfo)
         {
           localDiffs = [changesCopy localDiffs];
           clientZone = [changesCopy clientZone];
           dbRowID4 = [clientZone dbRowID];
-          v62 = [changesCopy inFlightSyncUpDiffsInZoneRowID:dbRowID4] | localDiffs;
+          v61 = [changesCopy inFlightSyncUpDiffsInZoneRowID:dbRowID4] | localDiffs;
 
-          if (v62)
+          if (v61)
           {
-            if ((v62 & 0xFEFFFFFFFFFFE5FFLL) == 0)
+            if ((v61 & 0xFEFFFFFFFFFFE5FFLL) == 0)
             {
-              v63 = brc_bread_crumbs();
-              v64 = brc_default_log();
-              if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
+              v62 = brc_bread_crumbs();
+              v63 = brc_default_log();
+              if (os_log_type_enabled(v63, OS_LOG_TYPE_DEBUG))
               {
                 +[BRCServerChangesApplyUtil_Private localItemHasUnsyncedChanges:si:rank:scheduler:clientZone:zone:isDeleteOfShareRoot:session:];
               }
 
-              v65 = [siCopy st];
-              ckInfo2 = [v65 ckInfo];
-              v67 = [changesCopy st];
-              [v67 setCkInfo:ckInfo2];
+              v64 = [siCopy st];
+              ckInfo2 = [v64 ckInfo];
+              v66 = [changesCopy st];
+              [v66 setCkInfo:ckInfo2];
 
               [changesCopy saveToDBForServerEdit:1 keepAliases:1];
               containerScheduler = [sessionCopy containerScheduler];
@@ -542,9 +540,9 @@ LABEL_71:
       }
 
       syncUpScheduler = [sessionCopy syncUpScheduler];
-      v81 = [syncUpScheduler jobStateFor:changesCopy];
+      v80 = [syncUpScheduler jobStateFor:changesCopy];
 
-      if (v81 != 50)
+      if (v80 != 50)
       {
         goto LABEL_14;
       }
@@ -563,23 +561,23 @@ LABEL_82:
         }
 
         itemID3 = brc_bread_crumbs();
-        v77 = brc_default_log();
-        if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
+        v76 = brc_default_log();
+        if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
         {
           clientZone4 = [changesCopy clientZone];
           *buf = 138412546;
-          v83 = clientZone4;
-          v84 = 2112;
-          v85 = itemID3;
-          _os_log_impl(&dword_223E7A000, v77, OS_LOG_TYPE_DEFAULT, "[WARNING] client zone %@ forgot to sync up!%@", buf, 0x16u);
+          v82 = clientZone4;
+          v83 = 2112;
+          v84 = itemID3;
+          _os_log_impl(&dword_223E7A000, v76, OS_LOG_TYPE_DEFAULT, "[WARNING] client zone %@ forgot to sync up!%@", buf, 0x16u);
         }
       }
 
       goto LABEL_82;
     }
 
-    v46 = [changesCopy st];
-    ckInfo3 = [v46 ckInfo];
+    v45 = [changesCopy st];
+    ckInfo3 = [v45 ckInfo];
     if (ckInfo3 || ([v19 isPrivateZone] & 1) == 0)
     {
       if (![changesCopy isDocument])
@@ -600,13 +598,13 @@ LABEL_82:
         goto LABEL_54;
       }
 
-      v80 = v46;
+      v79 = v45;
       asDocument = [changesCopy asDocument];
       currentVersion = [asDocument currentVersion];
       ckInfo4 = [currentVersion ckInfo];
       if (ckInfo4)
       {
-        v51 = ckInfo4;
+        v50 = ckInfo4;
         if (([changesCopy sharingOptions] & 0x7C) != 4)
         {
 
@@ -623,21 +621,21 @@ LABEL_82:
         goto LABEL_54;
       }
 
-      v46 = v80;
+      v45 = v79;
     }
 
 LABEL_54:
-    v55 = brc_bread_crumbs();
-    v56 = brc_default_log();
-    if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
+    v54 = brc_bread_crumbs();
+    v55 = brc_default_log();
+    if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412802;
-      v83 = changesCopy;
-      v84 = 2112;
-      v85 = siCopy;
-      v86 = 2112;
-      v87 = v55;
-      _os_log_debug_impl(&dword_223E7A000, v56, OS_LOG_TYPE_DEBUG, "[DEBUG] Learning sharing options on local item %@ from %@%@", buf, 0x20u);
+      v82 = changesCopy;
+      v83 = 2112;
+      v84 = siCopy;
+      v85 = 2112;
+      v86 = v54;
+      _os_log_debug_impl(&dword_223E7A000, v55, OS_LOG_TYPE_DEBUG, "[DEBUG] Learning sharing options on local item %@ from %@%@", buf, 0x20u);
     }
 
     [changesCopy setSharingOptions:{objc_msgSend(siCopy, "sharingOptions")}];
@@ -658,96 +656,7 @@ LABEL_5:
   v23 = 0;
 LABEL_15:
 
-  v29 = *MEMORY[0x277D85DE8];
   return v23;
-}
-
-+ (void)itemUndergoingCZMToAnotherZone:si:clientZone:rank:scheduler:zone:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4_2();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Apply Changes[%lld]: postponing rank (item CZM processing)%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)appLibraryUndergoingCZM:zone:rank:parentID:scheduler:session:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4_2();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Apply Changes[%lld]: postponing rank (ongoing cross-zone migration)%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)serverItemWouldBeParentedToDeadFolder:si:rank:scheduler:zone:diffs:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4_2();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Apply Changes[%lld]: postponing rank (missing parent while greedy)%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)serverItemDeadWithNoLiveLocalItem:si:rank:scheduler:clientZone:zone:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Dead item doesn't need any action%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)localItemHasUnsyncedChanges:si:rank:scheduler:clientZone:zone:isDeleteOfShareRoot:session:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Suspending rank for item which needs an OOB sync ack %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)localItemHasUnsyncedChanges:si:rank:scheduler:clientZone:zone:isDeleteOfShareRoot:session:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Forcing deletion of item dead in both client and server truth %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)localItemHasUnsyncedChanges:si:rank:scheduler:clientZone:zone:isDeleteOfShareRoot:session:.cold.3()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Learning structure etag on item with only side car diffs %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)localItemHasUnsyncedChanges:si:rank:scheduler:clientZone:zone:isDeleteOfShareRoot:session:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Removing local diffs of auto-created documents directory%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)localItemHasUnsyncedChanges:si:rank:scheduler:clientZone:zone:isDeleteOfShareRoot:session:.cold.5()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Ignoring deletion of share alias with a locally dead item%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)localItemHasUnsyncedChanges:si:rank:scheduler:clientZone:zone:isDeleteOfShareRoot:session:.cold.6()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Not suspending download of an item that needs CZM processing %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)localItemHasUnsyncedChanges:si:rank:scheduler:clientZone:zone:isDeleteOfShareRoot:session:.cold.7()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Don't suspend delete of shared to me item %@%@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

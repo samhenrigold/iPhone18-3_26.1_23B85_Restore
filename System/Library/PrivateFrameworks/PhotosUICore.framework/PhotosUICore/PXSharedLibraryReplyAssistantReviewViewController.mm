@@ -45,7 +45,7 @@
   v5 = viewModel;
   if (viewModel)
   {
-    [viewModel shareCounts];
+    objc_msgSend_shareCounts(viewModel);
   }
 
   else

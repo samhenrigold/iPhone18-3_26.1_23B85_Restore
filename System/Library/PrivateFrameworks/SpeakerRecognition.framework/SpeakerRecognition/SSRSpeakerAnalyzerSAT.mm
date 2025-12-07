@@ -4,6 +4,7 @@
 - (id)_getAnalyzedResult;
 - (id)_getSuperVectorWithEndPoint:(unint64_t)point;
 - (id)_processSuperVector:(id)vector withSize:(unint64_t)size processedAudioDurationMs:(unint64_t)ms isFinal:(BOOL)final;
+- (id)_updateScoreCardForFinalResult:(BOOL)result;
 - (id)getVoiceRecognizerResults;
 - (id)resetForNewRequest;
 - (void)dealloc;
@@ -23,41 +24,41 @@
 - (id)_processSuperVector:(id)vector withSize:(unint64_t)size processedAudioDurationMs:(unint64_t)ms isFinal:(BOOL)final
 {
   finalCopy = final;
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   vectorCopy = vector;
-  v42 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{-[NSArray count](self->_satScorers, "count")}];
-  v38 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{-[NSArray count](self->_satScorers, "count")}];
   v41 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{-[NSArray count](self->_satScorers, "count")}];
+  v37 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{-[NSArray count](self->_satScorers, "count")}];
+  v40 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{-[NSArray count](self->_satScorers, "count")}];
   msCopy = ms;
   v9 = [(SSRSpeakerRecognitionContext *)self->_context recognitionStyle]== 1 && !self->_triggerPhraseDetectedOnTap;
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   obj = self->_satScorers;
-  v10 = [(NSArray *)obj countByEnumeratingWithState:&v44 objects:v52 count:16];
+  v10 = [(NSArray *)obj countByEnumeratingWithState:&v43 objects:v51 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v45;
+    v12 = *v44;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v45 != v12)
+        if (*v44 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v44 + 1) + 8 * i);
+        v14 = *(*(&v43 + 1) + 8 * i);
         [v14 analyzeSuperVector:vectorCopy withDimensions:size withThresholdType:v9];
         v15 = [MEMORY[0x277CCABB0] numberWithFloat:?];
         profileID = [v14 profileID];
-        [v42 setObject:v15 forKeyedSubscript:profileID];
+        [v41 setObject:v15 forKeyedSubscript:profileID];
 
         v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v14, "getSATVectorCount")}];
         profileID2 = [v14 profileID];
-        [v41 setObject:v17 forKeyedSubscript:profileID2];
+        [v40 setObject:v17 forKeyedSubscript:profileID2];
 
         if (finalCopy)
         {
@@ -77,7 +78,7 @@
               [v14 analyzeSuperVector:vectorCopy withDimensions:size withThresholdType:v9];
               v25 = [MEMORY[0x277CCABB0] numberWithFloat:?];
               profileID5 = [v14 profileID];
-              [v38 setObject:v25 forKeyedSubscript:profileID5];
+              [v37 setObject:v25 forKeyedSubscript:profileID5];
             }
           }
         }
@@ -88,34 +89,32 @@
         [v14 resetScorerWithModelFilePath:v29];
       }
 
-      v11 = [(NSArray *)obj countByEnumeratingWithState:&v44 objects:v52 count:16];
+      v11 = [(NSArray *)obj countByEnumeratingWithState:&v43 objects:v51 count:16];
     }
 
     while (v11);
   }
 
-  v50[0] = @"configPath";
+  v49[0] = @"configPath";
   path = [(NSURL *)self->_configFilePath path];
-  v50[1] = @"numSpeakerVectors";
-  v51[0] = path;
-  v51[1] = v41;
-  v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:2];
+  v49[1] = @"numSpeakerVectors";
+  v50[0] = path;
+  v50[1] = v40;
+  v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:2];
 
-  v48[0] = @"spIdKnownUserSATScores";
-  v48[1] = @"spIdKnownUserSATExpScores";
-  v49[0] = v42;
-  v49[1] = v38;
-  v48[2] = @"spIdUnknownUserScore";
+  v47[0] = @"spIdKnownUserSATScores";
+  v47[1] = @"spIdKnownUserSATExpScores";
+  v48[0] = v41;
+  v48[1] = v37;
+  v47[2] = @"spIdUnknownUserScore";
   v32 = [MEMORY[0x277CCABB0] numberWithInt:0xFFFFFFFFLL];
-  v49[2] = v32;
-  v48[3] = @"spIdAudioProcessedDuration";
+  v48[2] = v32;
+  v47[3] = @"spIdAudioProcessedDuration";
   v33 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:msCopy];
-  v48[4] = @"satContext";
-  v49[3] = v33;
-  v49[4] = v31;
-  v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:5];
-
-  v35 = *MEMORY[0x277D85DE8];
+  v47[4] = @"satContext";
+  v48[3] = v33;
+  v48[4] = v31;
+  v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:5];
 
   return v34;
 }
@@ -173,6 +172,54 @@
   return v3;
 }
 
+- (id)_updateScoreCardForFinalResult:(BOOL)result
+{
+  resultCopy = result;
+  v21[1] = *MEMORY[0x277D85DE8];
+  _getAnalyzedResult = [(SSRSpeakerAnalyzerSAT *)self _getAnalyzedResult];
+  numSamplesProcessed = self->_numSamplesProcessed;
+  [MEMORY[0x277D016E0] inputRecordingSampleRate];
+  if (_getAnalyzedResult)
+  {
+    v8 = v7;
+    v9 = [_getAnalyzedResult objectForKeyedSubscript:@"best_end"];
+    v10 = -[SSRSpeakerAnalyzerSAT _getSuperVectorWithEndPoint:](self, "_getSuperVectorWithEndPoint:", [v9 integerValue]);
+
+    if (v10 && [v10 length])
+    {
+      v11 = -[SSRSpeakerAnalyzerSAT _processSuperVector:withSize:processedAudioDurationMs:isFinal:](self, "_processSuperVector:withSize:processedAudioDurationMs:isFinal:", v10, [v10 length] >> 2, (numSamplesProcessed * 1000.0 / v8), resultCopy);
+      objc_storeStrong(&self->_scoreCard, v11);
+      v12 = 0;
+    }
+
+    else
+    {
+      v13 = MEMORY[0x277CCACA8];
+      sessionId = [(SSRSpeakerRecognitionContext *)self->_context sessionId];
+      v15 = [v13 stringWithFormat:@"ERR: %@ failed to get valid supervector", sessionId];
+
+      v16 = MEMORY[0x277CCA9B8];
+      v20 = *MEMORY[0x277CCA450];
+      v21[0] = v15;
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+      v12 = [v16 errorWithDomain:@"com.apple.speakerrecognition" code:743 userInfo:v17];
+
+      logAggregator = [(SSRSpeakerRecognitionContext *)self->_context logAggregator];
+      [logAggregator setSpeakerRecognitionSATProcessingStatus:743];
+
+      v11 = 0;
+    }
+  }
+
+  else
+  {
+    v11 = 0;
+    v12 = 0;
+  }
+
+  return v12;
+}
+
 - (id)getVoiceRecognizerResults
 {
   v6 = 0;
@@ -197,43 +244,40 @@
 
 - (id)resetForNewRequest
 {
-  v20 = *MEMORY[0x277D85DE8];
-  novDetect = self->_novDetect;
-  v4 = nd_reset();
+  v18 = *MEMORY[0x277D85DE8];
+  v3 = nd_reset();
   self->_numSamplesProcessed = 0;
   self->_triggerPhraseDetectedOnTap = 0;
-  if (v4)
+  if (v3)
   {
-    v5 = v4;
+    v4 = v3;
     logAggregator = [(SSRSpeakerRecognitionContext *)self->_context logAggregator];
     [logAggregator setSpeakerRecognitionSATProcessingStatus:753];
 
-    v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed with errorcode : %d", v5];
-    v8 = *MEMORY[0x277D015C8];
+    v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed with errorcode : %d", v4];
+    v7 = *MEMORY[0x277D015C8];
     if (os_log_type_enabled(*MEMORY[0x277D015C8], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v17 = "[SSRSpeakerAnalyzerSAT resetForNewRequest]";
-      v18 = 2114;
-      v19 = v7;
-      _os_log_impl(&dword_225E12000, v8, OS_LOG_TYPE_DEFAULT, "%s %{public}@", buf, 0x16u);
+      v15 = "[SSRSpeakerAnalyzerSAT resetForNewRequest]";
+      v16 = 2114;
+      v17 = v6;
+      _os_log_impl(&dword_225E12000, v7, OS_LOG_TYPE_DEFAULT, "%s %{public}@", buf, 0x16u);
     }
 
-    v9 = MEMORY[0x277CCA9B8];
-    v14 = @"reason";
-    v15 = v7;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
-    v11 = [v9 errorWithDomain:@"com.apple.speakerrecognition" code:753 userInfo:v10];
+    v8 = MEMORY[0x277CCA9B8];
+    v12 = @"reason";
+    v13 = v6;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+    v10 = [v8 errorWithDomain:@"com.apple.speakerrecognition" code:753 userInfo:v9];
   }
 
   else
   {
-    v11 = 0;
+    v10 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
-  return v11;
+  return v10;
 }
 
 - (void)endAudio
@@ -249,18 +293,18 @@
 
 void __33__SSRSpeakerAnalyzerSAT_endAudio__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _updateScoreCardForFinalResult:1];
   if (v2)
   {
     v3 = *MEMORY[0x277D015C8];
     if (os_log_type_enabled(*MEMORY[0x277D015C8], OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315394;
-      v9 = "[SSRSpeakerAnalyzerSAT endAudio]_block_invoke";
-      v10 = 2114;
-      v11 = v2;
-      _os_log_impl(&dword_225E12000, v3, OS_LOG_TYPE_DEFAULT, "%s ERR: Failed to get score card with error: %{public}@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[SSRSpeakerAnalyzerSAT endAudio]_block_invoke";
+      v9 = 2114;
+      v10 = v2;
+      _os_log_impl(&dword_225E12000, v3, OS_LOG_TYPE_DEFAULT, "%s ERR: Failed to get score card with error: %{public}@", &v7, 0x16u);
     }
   }
 
@@ -275,8 +319,6 @@ void __33__SSRSpeakerAnalyzerSAT_endAudio__block_invoke(uint64_t a1)
       [v6 voiceRecognitionSATAnalyzerFinishedProcessing:*(a1 + 32) withVoiceRecognitionInfo:*(*(a1 + 32) + 88)];
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processAudioData:(id)data numSamples:(unint64_t)samples
@@ -299,24 +341,22 @@ void __53__SSRSpeakerAnalyzerSAT_processAudioData_numSamples___block_invoke(uint
   v2 = *(a1 + 32);
   if (v2 && [v2 bytes] && objc_msgSend(*(a1 + 32), "length"))
   {
-    v3 = *(*(a1 + 40) + 8);
     [*(a1 + 32) bytes];
-    v4 = *(a1 + 48);
     nd_wavedata();
     *(*(a1 + 40) + 16) += *(a1 + 48);
-    v5 = [*(a1 + 40) _updateScoreCardForFinalResult:0];
-    if (!v5)
+    v3 = [*(a1 + 40) _updateScoreCardForFinalResult:0];
+    if (!v3)
     {
       WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 32));
-      v7 = objc_opt_respondsToSelector();
+      v5 = objc_opt_respondsToSelector();
 
-      v5 = 0;
-      if (v7)
+      v3 = 0;
+      if (v5)
       {
-        v8 = objc_loadWeakRetained((*(a1 + 40) + 32));
-        [v8 voiceRecognitionSATAnalyzer:*(a1 + 40) hasVoiceRecognitionInfo:*(*(a1 + 40) + 88)];
+        v6 = objc_loadWeakRetained((*(a1 + 40) + 32));
+        [v6 voiceRecognitionSATAnalyzer:*(a1 + 40) hasVoiceRecognitionInfo:*(*(a1 + 40) + 88)];
 
-        v5 = 0;
+        v3 = 0;
       }
     }
   }
@@ -324,13 +364,13 @@ void __53__SSRSpeakerAnalyzerSAT_processAudioData_numSamples___block_invoke(uint
 
 - (void)dealloc
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D015C8];
   if (os_log_type_enabled(*MEMORY[0x277D015C8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v7 = "[SSRSpeakerAnalyzerSAT dealloc]";
-    v8 = 2112;
+    v6 = "[SSRSpeakerAnalyzerSAT dealloc]";
+    v7 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_225E12000, v3, OS_LOG_TYPE_DEFAULT, "%s %@: dealloc", buf, 0x16u);
   }
@@ -341,20 +381,19 @@ void __53__SSRSpeakerAnalyzerSAT_processAudioData_numSamples___block_invoke(uint
     self->_novDetect = 0;
   }
 
-  v5.receiver = self;
-  v5.super_class = SSRSpeakerAnalyzerSAT;
-  [(SSRSpeakerAnalyzerSAT *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = SSRSpeakerAnalyzerSAT;
+  [(SSRSpeakerAnalyzerSAT *)&v4 dealloc];
 }
 
 - (SSRSpeakerAnalyzerSAT)initWithVoiceRecognitionContext:(id)context delegate:(id)delegate
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   delegateCopy = delegate;
-  v49.receiver = self;
-  v49.super_class = SSRSpeakerAnalyzerSAT;
-  v9 = [(SSRSpeakerAnalyzerSAT *)&v49 init];
+  v47.receiver = self;
+  v47.super_class = SSRSpeakerAnalyzerSAT;
+  v9 = [(SSRSpeakerAnalyzerSAT *)&v47 init];
   if (!v9)
   {
     goto LABEL_21;
@@ -370,12 +409,12 @@ void __53__SSRSpeakerAnalyzerSAT_processAudioData_numSamples___block_invoke(uint
 
   if (!v12)
   {
-    v44 = *MEMORY[0x277D015C8];
+    v43 = *MEMORY[0x277D015C8];
     if (os_log_type_enabled(*MEMORY[0x277D015C8], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v51 = "[SSRSpeakerAnalyzerSAT initWithVoiceRecognitionContext:delegate:]";
-      _os_log_impl(&dword_225E12000, v44, OS_LOG_TYPE_DEFAULT, "%s ERR: modelContext is nil! - Bailing out", buf, 0xCu);
+      v49 = "[SSRSpeakerAnalyzerSAT initWithVoiceRecognitionContext:delegate:]";
+      _os_log_impl(&dword_225E12000, v43, OS_LOG_TYPE_DEFAULT, "%s ERR: modelContext is nil! - Bailing out", buf, 0xCu);
     }
 
     goto LABEL_16;
@@ -413,17 +452,17 @@ void __53__SSRSpeakerAnalyzerSAT_processAudioData_numSamples___block_invoke(uint
   v31 = v9->_satScorers;
   if (!v31 || ![(NSArray *)v31 count])
   {
-    v43 = *MEMORY[0x277D015C8];
+    v42 = *MEMORY[0x277D015C8];
     if (os_log_type_enabled(*MEMORY[0x277D015C8], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v51 = "[SSRSpeakerAnalyzerSAT initWithVoiceRecognitionContext:delegate:]";
-      _os_log_impl(&dword_225E12000, v43, OS_LOG_TYPE_DEFAULT, "%s ERR: Cannot create Voice Scorers", buf, 0xCu);
+      v49 = "[SSRSpeakerAnalyzerSAT initWithVoiceRecognitionContext:delegate:]";
+      _os_log_impl(&dword_225E12000, v42, OS_LOG_TYPE_DEFAULT, "%s ERR: Cannot create Voice Scorers", buf, 0xCu);
     }
 
     logAggregator = [contextCopy logAggregator];
-    v41 = logAggregator;
-    v42 = 106;
+    v40 = logAggregator;
+    v41 = 106;
     goto LABEL_13;
   }
 
@@ -432,17 +471,17 @@ void __53__SSRSpeakerAnalyzerSAT_processAudioData_numSamples___block_invoke(uint
   v9->_novDetect = v32;
   if (!v32)
   {
-    v46 = *MEMORY[0x277D015C8];
+    v45 = *MEMORY[0x277D015C8];
     if (os_log_type_enabled(*MEMORY[0x277D015C8], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v51 = "[SSRSpeakerAnalyzerSAT initWithVoiceRecognitionContext:delegate:]";
-      _os_log_impl(&dword_225E12000, v46, OS_LOG_TYPE_DEFAULT, "%s ERR: Failed to create NovDetect", buf, 0xCu);
+      v49 = "[SSRSpeakerAnalyzerSAT initWithVoiceRecognitionContext:delegate:]";
+      _os_log_impl(&dword_225E12000, v45, OS_LOG_TYPE_DEFAULT, "%s ERR: Failed to create NovDetect", buf, 0xCu);
     }
 
     logAggregator = [contextCopy logAggregator];
-    v41 = logAggregator;
-    v42 = 105;
+    v40 = logAggregator;
+    v41 = 105;
     goto LABEL_13;
   }
 
@@ -456,37 +495,35 @@ void __53__SSRSpeakerAnalyzerSAT_processAudioData_numSamples___block_invoke(uint
   {
 
 LABEL_21:
-    v45 = v9;
+    v44 = v9;
     goto LABEL_22;
   }
 
   v36 = *MEMORY[0x277D015C8];
   if (os_log_type_enabled(*MEMORY[0x277D015C8], OS_LOG_TYPE_DEFAULT))
   {
-    novDetect = v9->_novDetect;
-    v38 = v36;
-    v39 = nd_error();
+    v37 = v36;
+    v38 = nd_error();
     *buf = 136315650;
-    v51 = "[SSRSpeakerAnalyzerSAT initWithVoiceRecognitionContext:delegate:]";
-    v52 = 1026;
-    v53 = v35;
-    v54 = 2082;
-    v55 = v39;
-    _os_log_impl(&dword_225E12000, v38, OS_LOG_TYPE_DEFAULT, "%s ERR: Failed to initialize _novDetect: err=[%{public}d]:%{public}s", buf, 0x1Cu);
+    v49 = "[SSRSpeakerAnalyzerSAT initWithVoiceRecognitionContext:delegate:]";
+    v50 = 1026;
+    v51 = v35;
+    v52 = 2082;
+    v53 = v38;
+    _os_log_impl(&dword_225E12000, v37, OS_LOG_TYPE_DEFAULT, "%s ERR: Failed to initialize _novDetect: err=[%{public}d]:%{public}s", buf, 0x1Cu);
   }
 
   logAggregator = [contextCopy logAggregator];
-  v41 = logAggregator;
-  v42 = 104;
+  v40 = logAggregator;
+  v41 = 104;
 LABEL_13:
-  [logAggregator setSpeakerRecognitionSATProcessingStatus:v42];
+  [logAggregator setSpeakerRecognitionSATProcessingStatus:v41];
 
 LABEL_16:
-  v45 = 0;
+  v44 = 0;
 LABEL_22:
 
-  v47 = *MEMORY[0x277D85DE8];
-  return v45;
+  return v44;
 }
 
 @end

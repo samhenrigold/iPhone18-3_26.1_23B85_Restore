@@ -46,7 +46,7 @@
   if (v6 && v7)
   {
     v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"bundleIdentifier"];
-    [v8 if_auditToken];
+    objc_msgSend_if_auditToken(v8);
     self = [(LNConnectionListenerEndpoint *)self initWithProcessInstanceIdentifier:v5 bundleIdentifier:v10 xpcListenerEndpoint:v6 auditToken:&v13];
 
     selfCopy = self;
@@ -75,7 +75,7 @@
   [coderCopy encodeObject:xpcListenerEndpoint forKey:@"xpcListenerEndpoint"];
 
   v8 = MEMORY[0x1E695DEF0];
-  [(LNConnectionListenerEndpoint *)self auditToken];
+  objc_msgSend_auditToken(self);
   v9 = [v8 if_dataWithAuditToken:&v11];
   [coderCopy encodeObject:v9 forKey:@"auditToken"];
 }

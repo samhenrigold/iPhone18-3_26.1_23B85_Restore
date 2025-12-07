@@ -21,7 +21,7 @@ void __66__NSArray_TaskLoop__enumerateTaskParallelly_blockCompleteAllTask___bloc
   [v9 addObject:v10];
 }
 
-uint64_t __66__NSArray_TaskLoop__enumerateTaskParallelly_blockCompleteAllTask___block_invoke_2(uint64_t a1)
+void *__66__NSArray_TaskLoop__enumerateTaskParallelly_blockCompleteAllTask___block_invoke_2(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = _Block_copy(*(*(*(a1 + 56) + 8) + 40));
@@ -34,7 +34,7 @@ uint64_t __66__NSArray_TaskLoop__enumerateTaskParallelly_blockCompleteAllTask___
     result = *(a1 + 48);
     if (result)
     {
-      v6 = *(result + 16);
+      v6 = result[2];
 
       return v6();
     }

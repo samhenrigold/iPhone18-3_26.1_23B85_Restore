@@ -23,6 +23,7 @@
 - (void)dealloc;
 - (void)reloadSpecifiers;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation CSLPRFStingSettingsViewController
@@ -73,6 +74,21 @@
   [(CSLPRFStingSettingsViewController *)self setTitle:v7];
 
   [(CSLPRFStingSettingsViewController *)self _registerMandrakeSettingsListener];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v9.receiver = self;
+  v9.super_class = CSLPRFStingSettingsViewController;
+  [(CSLPRFStingSettingsViewController *)&v9 viewWillAppear:appear];
+  v3 = [_NSLocalizedStringResource alloc];
+  v4 = +[NSLocale currentLocale];
+  v5 = [NSBundle bundleWithIdentifier:@"com.apple.Bridge"];
+  bundleURL = [v5 bundleURL];
+  v7 = [v3 initWithKey:@"STING_TITLE" table:@"Localizable-N199" locale:v4 bundleURL:bundleURL];
+
+  v8 = [NSURL URLWithString:@"bridge:root=ACTION_BUTTON_ID"];
+  [BPSWatchSettingsNavigationDonation emitNavigationEventForSystemSettingWithIconSpecifierIdentifier:@"ACTION_BUTTON_ID" title:v7 localizedNavigationComponents:&__NSArray0__struct deepLink:v8];
 }
 
 - (id)specifiers

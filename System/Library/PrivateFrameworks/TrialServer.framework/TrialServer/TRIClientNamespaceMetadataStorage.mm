@@ -5,20 +5,20 @@
 
 void __85__TRIClientNamespaceMetadataStorage_Server__mergeNamespaceMetadata_forNamespaceName___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) loadNamespaceMetadataForNamespaceName:*(a1 + 40) error:0];
   v3 = v2;
   if (v2 && (v4 = [v2 compatibilityVersion], v4 == objc_msgSend(*(a1 + 48), "compatibilityVersion")))
   {
     v5 = v3;
     v6 = [*(a1 + 48) factorNamePurgeabilityLevels];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __85__TRIClientNamespaceMetadataStorage_Server__mergeNamespaceMetadata_forNamespaceName___block_invoke_2;
-    v22[3] = &unk_279DE2798;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __85__TRIClientNamespaceMetadataStorage_Server__mergeNamespaceMetadata_forNamespaceName___block_invoke_2;
+    v21[3] = &unk_279DE2798;
     v7 = v5;
-    v23 = v7;
-    [v6 enumerateKeysAndEnumsUsingBlock:v22];
+    v22 = v7;
+    [v6 enumerateKeysAndEnumsUsingBlock:v21];
   }
 
   else
@@ -37,8 +37,8 @@ void __85__TRIClientNamespaceMetadataStorage_Server__mergeNamespaceMetadata_forN
   v10 = [v7 data];
   if (!v10)
   {
-    v19 = [MEMORY[0x277CCA890] currentHandler];
-    [v19 handleFailureInMethod:*(a1 + 64) object:*(a1 + 32) file:@"TRIClientNamespaceMetadataStorage+Server.m" lineNumber:51 description:{@"Expression was unexpectedly nil/false: %@", @"[mergedNamespaceMetadata data]"}];
+    v18 = [MEMORY[0x277CCA890] currentHandler];
+    [v18 handleFailureInMethod:*(a1 + 64) object:*(a1 + 32) file:@"TRIClientNamespaceMetadataStorage+Server.m" lineNumber:51 description:{@"Expression was unexpectedly nil/false: %@", @"[mergedNamespaceMetadata data]"}];
   }
 
   v11 = [v9 URLByDeletingLastPathComponent];
@@ -46,8 +46,8 @@ void __85__TRIClientNamespaceMetadataStorage_Server__mergeNamespaceMetadata_forN
 
   if (!v12)
   {
-    v20 = [MEMORY[0x277CCA890] currentHandler];
-    [v20 handleFailureInMethod:*(a1 + 64) object:*(a1 + 32) file:@"TRIClientNamespaceMetadataStorage+Server.m" lineNumber:52 description:{@"Expression was unexpectedly nil/false: %@", @"[[metadataURL URLByDeletingLastPathComponent] path]"}];
+    v19 = [MEMORY[0x277CCA890] currentHandler];
+    [v19 handleFailureInMethod:*(a1 + 64) object:*(a1 + 32) file:@"TRIClientNamespaceMetadataStorage+Server.m" lineNumber:52 description:{@"Expression was unexpectedly nil/false: %@", @"[[metadataURL URLByDeletingLastPathComponent] path]"}];
   }
 
   if (([MEMORY[0x277CCAA00] triIdempotentCreateDirectoryOrFaultWithPath:v12] & 1) == 0)
@@ -55,29 +55,27 @@ void __85__TRIClientNamespaceMetadataStorage_Server__mergeNamespaceMetadata_forN
     *(*(*(a1 + 56) + 8) + 24) = 0;
   }
 
-  v21 = 0;
-  v13 = [v10 writeToURL:v9 options:268435457 error:&v21];
-  v14 = v21;
+  v20 = 0;
+  v13 = [v10 writeToURL:v9 options:268435457 error:&v20];
+  v14 = v20;
   if ((v13 & 1) == 0)
   {
     v15 = TRILogCategory_Server();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v17 = *(a1 + 40);
-      v18 = [*(a1 + 48) compatibilityVersion];
+      v16 = *(a1 + 40);
+      v17 = [*(a1 + 48) compatibilityVersion];
       *buf = 138543874;
-      v25 = v17;
-      v26 = 1024;
-      v27 = v18;
-      v28 = 2114;
-      v29 = v14;
+      v24 = v16;
+      v25 = 1024;
+      v26 = v17;
+      v27 = 2114;
+      v28 = v14;
       _os_log_error_impl(&dword_26F567000, v15, OS_LOG_TYPE_ERROR, "Failed to write TRIClientNamespaceMetadata for namespace %{public}@ and compatibility version %u: %{public}@", buf, 0x1Cu);
     }
 
     *(*(*(a1 + 56) + 8) + 24) = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __85__TRIClientNamespaceMetadataStorage_Server__mergeNamespaceMetadata_forNamespaceName___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
@@ -90,12 +88,12 @@ void __85__TRIClientNamespaceMetadataStorage_Server__mergeNamespaceMetadata_forN
 
 void __121__TRIClientNamespaceMetadataStorage_Server__removeOutdatedNamespaceMetadataForNamespaceName_currentCompatibilityVersion___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v17 = 0;
-  v4 = [v2 loadNamespaceMetadataForNamespaceName:v3 error:&v17];
-  v5 = v17;
+  v16 = 0;
+  v4 = [v2 loadNamespaceMetadataForNamespaceName:v3 error:&v16];
+  v5 = v16;
   if (v5)
   {
     *(*(*(a1 + 48) + 8) + 24) = 0;
@@ -110,34 +108,34 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v9 = [*(a1 + 32) urlForNamespaceMetadataForNamespaceName:*(a1 + 40)];
-  v7 = [v9 path];
+  v8 = [*(a1 + 32) urlForNamespaceMetadataForNamespaceName:*(a1 + 40)];
+  v7 = [v8 path];
 
   if (!v7)
   {
-    v16 = [MEMORY[0x277CCA890] currentHandler];
-    [v16 handleFailureInMethod:*(a1 + 56) object:*(a1 + 32) file:@"TRIClientNamespaceMetadataStorage+Server.m" lineNumber:90 description:{@"Expression was unexpectedly nil/false: %@", @"[[self urlForNamespaceMetadataForNamespaceName:namespaceName] path]"}];
+    v15 = [MEMORY[0x277CCA890] currentHandler];
+    [v15 handleFailureInMethod:*(a1 + 56) object:*(a1 + 32) file:@"TRIClientNamespaceMetadataStorage+Server.m" lineNumber:90 description:{@"Expression was unexpectedly nil/false: %@", @"[[self urlForNamespaceMetadataForNamespaceName:namespaceName] path]"}];
   }
 
   if (unlink([v7 fileSystemRepresentation]) && *__error() != 2)
   {
-    v10 = TRILogCategory_Server();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = TRILogCategory_Server();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 40);
-      v12 = [v4 compatibilityVersion];
-      v13 = __error();
-      v14 = strerror(*v13);
-      v15 = *__error();
+      v10 = *(a1 + 40);
+      v11 = [v4 compatibilityVersion];
+      v12 = __error();
+      v13 = strerror(*v12);
+      v14 = *__error();
       *buf = 138544130;
-      v19 = v11;
-      v20 = 1024;
-      v21 = v12;
-      v22 = 2080;
-      v23 = v14;
-      v24 = 1024;
-      v25 = v15;
-      _os_log_error_impl(&dword_26F567000, v10, OS_LOG_TYPE_ERROR, "Failed to delete outdated TRIClientNamespaceMetadata for namespace %{public}@ and compatibility version %u: %s (%d)", buf, 0x22u);
+      v18 = v10;
+      v19 = 1024;
+      v20 = v11;
+      v21 = 2080;
+      v22 = v13;
+      v23 = 1024;
+      v24 = v14;
+      _os_log_error_impl(&dword_26F567000, v9, OS_LOG_TYPE_ERROR, "Failed to delete outdated TRIClientNamespaceMetadata for namespace %{public}@ and compatibility version %u: %s (%d)", buf, 0x22u);
     }
 
     v6 = 0;
@@ -145,8 +143,6 @@ LABEL_6:
   }
 
 LABEL_7:
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -23,10 +23,10 @@
 
 - (AppleSTDP2700Bootstrap)bootstrapWithOptions:(id)options
 {
-  memset(&v23, 0, sizeof(v23));
+  memset(&v18, 0, sizeof(v18));
   p_delegate = &self->_delegate;
   [(FudPluginDelegate *)self->_delegate log:5 format:@"%s\n", "[AppleSTDP2700Bootstrap bootstrapWithOptions:]"];
-  if (stat("/usr/standalone/firmware/STDP2700/runtime", &v23))
+  if (stat("/usr/standalone/firmware/STDP2700/runtime", &v18))
   {
     [(FudPluginDelegate *)*p_delegate log:3 format:@"%s: firmware not found: %s\n", "[AppleSTDP2700Bootstrap bootstrapWithOptions:]", "/usr/standalone/firmware/STDP2700/runtime"];
   }
@@ -61,16 +61,16 @@
 
           else
           {
-            v19 = DPFUSessionInstallFilePayload(v12, "/usr/standalone/firmware/STDP2700/runtime", 0, v14, v15, v16, v17, v18);
-            if (v19)
+            v14 = DPFUSessionInstallFilePayload(v12, "/usr/standalone/firmware/STDP2700/runtime", 0);
+            if (v14)
             {
-              [(AppleSTDP2700Bootstrap *)p_delegate bootstrapWithOptions:v19];
+              [(AppleSTDP2700Bootstrap *)p_delegate bootstrapWithOptions:v14];
             }
 
             else
             {
-              v20 = DPFUSessionLeaveUpdateMode(v12);
-              if (!v20)
+              v15 = DPFUSessionLeaveUpdateMode(v12);
+              if (!v15)
               {
                 CFRelease(v10);
                 CFRelease(v12);
@@ -78,7 +78,7 @@
                 return [(FudPluginDelegate *)*p_delegate didBootstrap:v5 info:0 error:0];
               }
 
-              [(AppleSTDP2700Bootstrap *)p_delegate bootstrapWithOptions:v20];
+              [(AppleSTDP2700Bootstrap *)p_delegate bootstrapWithOptions:v15];
             }
           }
 
@@ -94,8 +94,8 @@
         CFRelease(v12);
         [(FudPluginDelegate *)*p_delegate log:3 format:@"%s: retrying after 1 second...\n", "[AppleSTDP2700Bootstrap bootstrapWithOptions:]"];
         sleep(1u);
-        v21 = IORegistryEntryIDMatching(v6);
-        v9 = IOServiceGetMatchingService(kIOMasterPortDefault, v21);
+        v16 = IORegistryEntryIDMatching(v6);
+        v9 = IOServiceGetMatchingService(kIOMasterPortDefault, v16);
         if (!v9)
         {
           goto LABEL_17;

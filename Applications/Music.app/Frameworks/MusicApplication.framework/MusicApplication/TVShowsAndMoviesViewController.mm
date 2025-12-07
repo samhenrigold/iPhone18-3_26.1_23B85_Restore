@@ -17,7 +17,7 @@
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_8B524();
+  sub_8B524(selfCopy);
 }
 
 - (id)contentScrollView
@@ -36,7 +36,7 @@
   [(TVShowsAndMoviesViewController *)&v11 traitCollectionDidChange:changeCopy];
   navigationItem = [v5 navigationItem];
   traitCollection = [v5 traitCollection];
-  v8 = sub_2B51D8();
+  v8 = sub_2B51D8(traitCollection);
   v10 = v9;
 
   sub_387430(v8, v10);

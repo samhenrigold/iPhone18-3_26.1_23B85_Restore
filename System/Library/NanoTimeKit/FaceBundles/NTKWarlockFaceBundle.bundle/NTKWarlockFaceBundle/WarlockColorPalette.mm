@@ -9,10 +9,12 @@
 
 - (id)swatchImageForSize:(CGSize)size
 {
+  height = size.height;
+  width = size.width;
   selfCopy = self;
-  v4 = sub_138C8();
+  v6 = sub_138C8(selfCopy, width, height);
 
-  return v4;
+  return v6;
 }
 
 - (_TtC20NTKWarlockFaceBundle19WarlockColorPalette)init

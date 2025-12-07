@@ -15,17 +15,19 @@
 
 - (MIOImageSizeConstraint)init
 {
-  v8.receiver = self;
-  v8.super_class = MIOImageSizeConstraint;
-  v2 = [(MIOImageSizeConstraint *)&v8 init];
+  v10.receiver = self;
+  v10.super_class = MIOImageSizeConstraint;
+  v2 = [(MIOImageSizeConstraint *)&v10 init];
   v3 = v2;
   if (v2)
   {
     v2->_type = 0;
-    v2->_pixelsWideRange.lowerBound = MIOMakeRange(0x7FFFFFFFFFFFFFFFLL, -1);
-    v3->_pixelsWideRange.upperBound = v4;
-    v3->_pixelsHighRange.lowerBound = MIOMakeRange(0x7FFFFFFFFFFFFFFFLL, -1);
-    v3->_pixelsHighRange.upperBound = v5;
+    MIOMakeRange();
+    v3->_pixelsWideRange.lowerBound = v4;
+    v3->_pixelsWideRange.upperBound = v5;
+    MIOMakeRange();
+    v3->_pixelsHighRange.lowerBound = v6;
+    v3->_pixelsHighRange.upperBound = v7;
     enumeratedImageSizes = v3->_enumeratedImageSizes;
     v3->_enumeratedImageSizes = MEMORY[0x1E695E0F0];
   }
@@ -54,9 +56,9 @@
 
 - (MIOImageSizeConstraint)initWithEnumeratedImageSizes:(id)sizes
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   sizesCopy = sizes;
-  v25 = [(MIOImageSizeConstraint *)self init];
+  v26 = [(MIOImageSizeConstraint *)self init];
   if ([sizesCopy count])
   {
     if ([sizesCopy count] == 1)
@@ -73,27 +75,27 @@
 
         if (!pixelsHigh)
         {
-          goto LABEL_25;
+          goto LABEL_23;
         }
       }
     }
 
-    if (v25)
+    if (v26)
     {
-      v25->_type = 2;
+      v26->_type = 2;
       v7 = [sizesCopy sortedArrayUsingSelector:sel_compare_];
-      enumeratedImageSizes = v25->_enumeratedImageSizes;
-      v25->_enumeratedImageSizes = v7;
+      enumeratedImageSizes = v26->_enumeratedImageSizes;
+      v26->_enumeratedImageSizes = v7;
 
-      v28 = 0u;
       v29 = 0u;
-      v26 = 0u;
+      v30 = 0u;
       v27 = 0u;
+      v28 = 0u;
       v9 = sizesCopy;
-      v10 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v27 objects:v31 count:16];
       if (v10)
       {
-        v11 = *v27;
+        v11 = *v28;
         v12 = 0x7FFFFFFFFFFFFFFFLL;
         v13 = 0x8000000000000000;
         v14 = 0x8000000000000000;
@@ -102,12 +104,12 @@
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v27 != v11)
+            if (*v28 != v11)
             {
               objc_enumerationMutation(v9);
             }
 
-            v17 = *(*(&v26 + 1) + 8 * i);
+            v17 = *(*(&v27 + 1) + 8 * i);
             pixelsHigh2 = [v17 pixelsHigh];
             pixelsWide = [v17 pixelsWide];
             if (pixelsWide < v15)
@@ -131,40 +133,32 @@
             }
           }
 
-          v10 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
+          v10 = [v9 countByEnumeratingWithState:&v27 objects:v31 count:16];
         }
 
         while (v10);
       }
 
-      else
-      {
-
-        v14 = 0x8000000000000000;
-        v15 = 0x7FFFFFFFFFFFFFFFLL;
-        v12 = 0x7FFFFFFFFFFFFFFFLL;
-        v13 = 0x8000000000000000;
-      }
-
-      v25->_pixelsWideRange.lowerBound = MIOMakeRange(v15, v14);
-      v25->_pixelsWideRange.upperBound = v20;
-      v25->_pixelsHighRange.lowerBound = MIOMakeRange(v12, v13);
-      v25->_pixelsHighRange.upperBound = v21;
+      MIOMakeRange();
+      v26->_pixelsWideRange.lowerBound = v20;
+      v26->_pixelsWideRange.upperBound = v21;
+      MIOMakeRange();
+      v26->_pixelsHighRange.lowerBound = v22;
+      v26->_pixelsHighRange.upperBound = v23;
     }
   }
 
-LABEL_25:
+LABEL_23:
 
-  v22 = *MEMORY[0x1E69E9840];
-  return v25;
+  return v26;
 }
 
 - (MIOImageSizeConstraint)initWithSpecification:(const void *)specification
 {
-  v35[1] = *MEMORY[0x1E69E9840];
-  CoreML::Specification::ImageFeatureType_ImageSize::ImageFeatureType_ImageSize(v33, 0, 0);
-  v34 = *(specification + 1);
-  v5 = [[MIOImageSize alloc] initWithSpecification:v33];
+  v26[1] = *MEMORY[0x1E69E9840];
+  CoreML::Specification::ImageFeatureType_ImageSize::ImageFeatureType_ImageSize(v24, 0, 0);
+  v25 = *(specification + 1);
+  v5 = [[MIOImageSize alloc] initWithSpecification:v24];
   if ([(MIOImageSize *)v5 pixelsWide])
   {
     v6 = [(MIOImageSize *)v5 pixelsHigh]!= 0;
@@ -181,53 +175,51 @@ LABEL_25:
     case 0:
       if (!v6)
       {
-        v22 = [(MIOImageSizeConstraint *)self init];
-LABEL_41:
-        self = v22;
-        break;
+        v14 = [(MIOImageSizeConstraint *)self init];
+        goto LABEL_28;
       }
 
-      v35[0] = v5;
-      array = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:1];
-      v30 = [(MIOImageSizeConstraint *)self initWithEnumeratedImageSizes:array];
-      goto LABEL_39;
+      v26[0] = v5;
+      array = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
+      v22 = [(MIOImageSizeConstraint *)self initWithEnumeratedImageSizes:array];
+      goto LABEL_26;
     case 21:
       array = [MEMORY[0x1E695DF70] array];
       if (*(specification + 13) == 21)
       {
-        v24 = *(specification + 5);
+        v16 = *(specification + 5);
       }
 
       else
       {
-        v24 = &CoreML::Specification::_ImageFeatureType_EnumeratedImageSizes_default_instance_;
+        v16 = &CoreML::Specification::_ImageFeatureType_EnumeratedImageSizes_default_instance_;
       }
 
-      v25 = v24[4];
-      if (v25)
+      v17 = v16[4];
+      if (v17)
       {
-        v26 = v25 + 1;
+        v18 = v17 + 1;
       }
 
       else
       {
-        v26 = 0;
+        v18 = 0;
       }
 
-      v27 = *(v24 + 6);
-      if (v27)
+      v19 = *(v16 + 6);
+      if (v19)
       {
-        v28 = 8 * v27;
+        v20 = 8 * v19;
         do
         {
-          v29 = [[MIOImageSize alloc] initWithSpecification:*v26];
-          [array addObject:v29];
+          v21 = [[MIOImageSize alloc] initWithSpecification:*v18];
+          [array addObject:v21];
 
-          ++v26;
-          v28 -= 8;
+          ++v18;
+          v20 -= 8;
         }
 
-        while (v28);
+        while (v20);
       }
 
       if (![array count])
@@ -245,67 +237,23 @@ LABEL_41:
         [array addObject:v5];
       }
 
-      v30 = [(MIOImageSizeConstraint *)self initWithEnumeratedImageSizes:array];
-LABEL_39:
-      self = v30;
+      v22 = [(MIOImageSizeConstraint *)self initWithEnumeratedImageSizes:array];
+LABEL_26:
+      self = v22;
 
       break;
     case 31:
-      v8 = *(*(specification + 5) + 16);
-      if (!v8)
-      {
-        v8 = &CoreML::Specification::_SizeRange_default_instance_;
-      }
-
-      v9 = v8[2];
-      v10 = v8[3];
-      if (v10 <= 0)
-      {
-        v11 = -1;
-      }
-
-      else
-      {
-        v11 = v10;
-      }
-
-      v12 = MIOMakeRange(v9, v11);
-      v14 = v13;
-      if (*(specification + 13) == 31)
-      {
-        v15 = *(specification + 5);
-      }
-
-      else
-      {
-        v15 = &CoreML::Specification::_ImageFeatureType_ImageSizeRange_default_instance_;
-      }
-
-      v16 = v15[3];
-      if (!v16)
-      {
-        v16 = &CoreML::Specification::_SizeRange_default_instance_;
-      }
-
-      v17 = v16[2];
-      v18 = v16[3];
-      if (v18 <= 0)
-      {
-        v19 = -1;
-      }
-
-      else
-      {
-        v19 = v18;
-      }
-
-      v20 = MIOMakeRange(v17, v19);
-      v22 = [(MIOImageSizeConstraint *)self initWithPixelsWideRange:v12 pixelsHighRange:v14, v20, v21];
-      goto LABEL_41;
+      MIOMakeRange();
+      v9 = v8;
+      v11 = v10;
+      MIOMakeRange();
+      v14 = [(MIOImageSizeConstraint *)self initWithPixelsWideRange:v9 pixelsHighRange:v11, v12, v13];
+LABEL_28:
+      self = v14;
+      break;
   }
 
-  CoreML::Specification::ImageFeatureType_ImageSize::~ImageFeatureType_ImageSize(v33);
-  v31 = *MEMORY[0x1E69E9840];
+  CoreML::Specification::ImageFeatureType_ImageSize::~ImageFeatureType_ImageSize(v24);
   return self;
 }
 

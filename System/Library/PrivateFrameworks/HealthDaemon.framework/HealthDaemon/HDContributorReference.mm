@@ -33,11 +33,11 @@
     if (v10)
     {
       v10[1] = a2;
-      v11 = [typeCopy copy];
+      v11 = objc_msgSend_copy(typeCopy);
       v12 = self[2];
       self[2] = v11;
 
-      v13 = [v9 copy];
+      v13 = objc_msgSend_copy(v9);
       v14 = self[3];
       self[3] = v13;
     }

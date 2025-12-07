@@ -114,7 +114,7 @@
   v17 = [v10 stringWithFormat:@"Catalyst.IDSServiceConnection.%@", uUID];
 
   v18 = dispatch_queue_create([v17 UTF8String], 0);
-  v19 = CATGetCatalystQueue();
+  v19 = CATGetCatalystQueue(v18);
   v20 = objc_opt_new();
   v21 = [(CATIDSServiceConnectionTerminal *)self initWithIDSPrimitives:primitivesCopy assertionProvider:providerCopy timerSource:v20 workQueue:v18 delegateQueue:v19 sourceAppleID:dCopy connectionConfiguration:configurationCopy];
 
@@ -151,40 +151,38 @@
 
 void __41__CATIDSServiceConnectionTerminal_resume__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if ((*(*(a1 + 32) + 88) & 1) == 0)
   {
-    v2 = _CATLogGeneral_5();
+    v2 = _CATLogGeneral_5(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
       v3 = *(a1 + 32);
       *buf = 138543362;
-      v14 = v3;
+      v13 = v3;
       _os_log_impl(&dword_24329F000, v2, OS_LOG_TYPE_INFO, "%{public}@ resuming", buf, 0xCu);
     }
 
     *(*(a1 + 32) + 88) = 1;
     v4 = *(*(a1 + 32) + 8);
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __41__CATIDSServiceConnectionTerminal_resume__block_invoke_18;
-    v10[3] = &unk_278DA7930;
-    v11 = *(a1 + 40);
-    objc_copyWeak(&v12, (a1 + 56));
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __41__CATIDSServiceConnectionTerminal_resume__block_invoke_3;
-    v6[3] = &unk_278DA7958;
-    v7 = *(a1 + 40);
-    objc_copyWeak(&v9, (a1 + 56));
-    v8 = *(a1 + 48);
-    [v4 addMessageHandler:v10 completion:v6];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __41__CATIDSServiceConnectionTerminal_resume__block_invoke_18;
+    v9[3] = &unk_278DA7930;
+    v10 = *(a1 + 40);
+    objc_copyWeak(&v11, (a1 + 56));
+    v5[0] = MEMORY[0x277D85DD0];
+    v5[1] = 3221225472;
+    v5[2] = __41__CATIDSServiceConnectionTerminal_resume__block_invoke_3;
+    v5[3] = &unk_278DA7958;
+    v6 = *(a1 + 40);
+    objc_copyWeak(&v8, (a1 + 56));
+    v7 = *(a1 + 48);
+    [v4 addMessageHandler:v9 completion:v5];
 
-    objc_destroyWeak(&v9);
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v8);
+    objc_destroyWeak(&v11);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __41__CATIDSServiceConnectionTerminal_resume__block_invoke_18(uint64_t a1, void *a2, void *a3, void *a4)
@@ -260,7 +258,7 @@ void __41__CATIDSServiceConnectionTerminal_resume__block_invoke_4(uint64_t a1)
       v4 = (a1 + 40);
       if (*(a1 + 40))
       {
-        v5 = _CATLogGeneral_5();
+        v5 = _CATLogGeneral_5(WeakRetained);
         if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
           __41__CATIDSServiceConnectionTerminal_resume__block_invoke_4_cold_1(v3, v4, v5);
@@ -309,7 +307,7 @@ void __41__CATIDSServiceConnectionTerminal_resume__block_invoke_21(uint64_t a1)
   v4[3] = &unk_278DA72D0;
   v4[4] = self;
   v2 = v4;
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(v2);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __CATPerformBlock_block_invoke_12;
@@ -320,16 +318,16 @@ void __41__CATIDSServiceConnectionTerminal_resume__block_invoke_21(uint64_t a1)
 
 void __42__CATIDSServiceConnectionTerminal_suspend__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 32) + 88) == 1)
   {
-    v2 = _CATLogGeneral_5();
+    v2 = _CATLogGeneral_5(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
       v3 = *(a1 + 32);
-      v7 = 138543362;
-      v8 = v3;
-      _os_log_impl(&dword_24329F000, v2, OS_LOG_TYPE_INFO, "%{public}@ suspending", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v3;
+      _os_log_impl(&dword_24329F000, v2, OS_LOG_TYPE_INFO, "%{public}@ suspending", &v6, 0xCu);
     }
 
     *(*(a1 + 32) + 88) = 0;
@@ -339,16 +337,14 @@ void __42__CATIDSServiceConnectionTerminal_suspend__block_invoke(uint64_t a1)
     v5 = *(v4 + 80);
     *(v4 + 80) = 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)inviteAppleIDToConnect:(id)connect userInfo:(id)info
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   connectCopy = connect;
   infoCopy = info;
-  v8 = _CATLogGeneral_5();
+  v8 = _CATLogGeneral_5(infoCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 138543874;
@@ -356,44 +352,43 @@ void __42__CATIDSServiceConnectionTerminal_suspend__block_invoke(uint64_t a1)
     *&buf[12] = 2114;
     *&buf[14] = connectCopy;
     *&buf[22] = 2114;
-    v25 = infoCopy;
+    v24 = infoCopy;
     _os_log_impl(&dword_24329F000, v8, OS_LOG_TYPE_INFO, "%{public}@ inviting appleID %{public}@ with userInfo %{public}@", buf, 0x20u);
   }
 
   uUID = [MEMORY[0x277CCAD78] UUID];
   mWorkQueue = self->mWorkQueue;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __67__CATIDSServiceConnectionTerminal_inviteAppleIDToConnect_userInfo___block_invoke;
-  v20[3] = &unk_278DA79A8;
-  v20[4] = self;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __67__CATIDSServiceConnectionTerminal_inviteAppleIDToConnect_userInfo___block_invoke;
+  v19[3] = &unk_278DA79A8;
+  v19[4] = self;
   v11 = uUID;
-  v21 = v11;
-  v22 = connectCopy;
-  v23 = infoCopy;
-  v12 = v20;
+  v20 = v11;
+  v21 = connectCopy;
+  v22 = infoCopy;
+  v12 = v19;
   *buf = MEMORY[0x277D85DD0];
   *&buf[8] = 3221225472;
   *&buf[16] = __CATPerformBlock_block_invoke_12;
-  v25 = &unk_278DA7208;
-  v26 = v12;
+  v24 = &unk_278DA7208;
+  v25 = v12;
   v13 = mWorkQueue;
   v14 = infoCopy;
   v15 = connectCopy;
   dispatch_async(v13, buf);
 
-  v16 = v23;
+  v16 = v22;
   v17 = v11;
 
-  v18 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (void)cancelInvitationWithIdentifier:(id)identifier
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
-  v5 = _CATLogGeneral_5();
+  v5 = _CATLogGeneral_5(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138543618;
@@ -404,29 +399,27 @@ void __42__CATIDSServiceConnectionTerminal_suspend__block_invoke(uint64_t a1)
   }
 
   mWorkQueue = self->mWorkQueue;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __66__CATIDSServiceConnectionTerminal_cancelInvitationWithIdentifier___block_invoke;
-  v11[3] = &unk_278DA7470;
-  v11[4] = self;
-  v12 = identifierCopy;
-  v7 = v11;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __66__CATIDSServiceConnectionTerminal_cancelInvitationWithIdentifier___block_invoke;
+  v10[3] = &unk_278DA7470;
+  v10[4] = self;
+  v11 = identifierCopy;
+  v7 = v10;
   *buf = MEMORY[0x277D85DD0];
   *&buf[8] = 3221225472;
   *&buf[16] = __CATPerformBlock_block_invoke_12;
-  v14 = &unk_278DA7208;
-  v15 = v7;
+  v13 = &unk_278DA7208;
+  v14 = v7;
   v8 = mWorkQueue;
   v9 = identifierCopy;
   dispatch_async(v8, buf);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelAllInvitations
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = _CATLogGeneral_5();
+  v12 = *MEMORY[0x277D85DE8];
+  v3 = _CATLogGeneral_5(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     LODWORD(buf) = 138543362;
@@ -435,21 +428,19 @@ void __42__CATIDSServiceConnectionTerminal_suspend__block_invoke(uint64_t a1)
   }
 
   mWorkQueue = self->mWorkQueue;
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __55__CATIDSServiceConnectionTerminal_cancelAllInvitations__block_invoke;
-  v8[3] = &unk_278DA72D0;
-  v8[4] = self;
-  v5 = v8;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __55__CATIDSServiceConnectionTerminal_cancelAllInvitations__block_invoke;
+  v7[3] = &unk_278DA72D0;
+  v7[4] = self;
+  v5 = v7;
   *&buf = MEMORY[0x277D85DD0];
   *(&buf + 1) = 3221225472;
-  v10 = __CATPerformBlock_block_invoke_12;
-  v11 = &unk_278DA7208;
-  v12 = v5;
+  v9 = __CATPerformBlock_block_invoke_12;
+  v10 = &unk_278DA7208;
+  v11 = v5;
   v6 = mWorkQueue;
   dispatch_async(v6, &buf);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectionInvitationInbox:(id)inbox shouldConnectToAppleID:(id)d connectionIdentifier:(id)identifier userInfo:(id)info responseHandler:(id)handler
@@ -682,7 +673,7 @@ void __121__CATIDSServiceConnectionTerminal_connectionInvitationOutbox_receivedA
 
 - (void)processMessage:(id)message senderAppleID:(id)d senderAddress:(id)address
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   dCopy = d;
   addressCopy = address;
@@ -690,31 +681,31 @@ void __121__CATIDSServiceConnectionTerminal_connectionInvitationOutbox_receivedA
   if (self->mIsActive)
   {
     v11 = [(NSHashTable *)self->mBroadcastHandlers copy];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     objectEnumerator = [v11 objectEnumerator];
-    v13 = [objectEnumerator countByEnumeratingWithState:&v28 objects:v34 count:16];
+    v13 = [objectEnumerator countByEnumeratingWithState:&v27 objects:v33 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v29;
+      v15 = *v28;
       do
       {
         v16 = 0;
         do
         {
-          if (*v29 != v15)
+          if (*v28 != v15)
           {
             objc_enumerationMutation(objectEnumerator);
           }
 
-          [*(*(&v28 + 1) + 8 * v16++) processMessage:messageCopy senderAppleID:dCopy senderAddress:addressCopy];
+          [*(*(&v27 + 1) + 8 * v16++) processMessage:messageCopy senderAppleID:dCopy senderAddress:addressCopy];
         }
 
         while (v14 != v16);
-        v14 = [objectEnumerator countByEnumeratingWithState:&v28 objects:v34 count:16];
+        v14 = [objectEnumerator countByEnumeratingWithState:&v27 objects:v33 count:16];
       }
 
       while (v14);
@@ -722,27 +713,25 @@ void __121__CATIDSServiceConnectionTerminal_connectionInvitationOutbox_receivedA
 
     v17 = self->mWorkQueue;
     mDelegateQueue = self->mDelegateQueue;
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __78__CATIDSServiceConnectionTerminal_processMessage_senderAppleID_senderAddress___block_invoke;
-    v23[3] = &unk_278DA7A48;
-    v23[4] = self;
-    v24 = dCopy;
-    v25 = v17;
-    v26 = messageCopy;
-    v27 = addressCopy;
-    v19 = v23;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __78__CATIDSServiceConnectionTerminal_processMessage_senderAppleID_senderAddress___block_invoke;
+    v22[3] = &unk_278DA7A48;
+    v22[4] = self;
+    v23 = dCopy;
+    v24 = v17;
+    v25 = messageCopy;
+    v26 = addressCopy;
+    v19 = v22;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __CATPerformBlock_block_invoke_12;
     block[3] = &unk_278DA7208;
-    v33 = v19;
+    v32 = v19;
     v20 = mDelegateQueue;
     v21 = v17;
     dispatch_async(v20, block);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __78__CATIDSServiceConnectionTerminal_processMessage_senderAppleID_senderAddress___block_invoke(uint64_t a1)
@@ -918,12 +907,13 @@ LABEL_24:
 void __71__CATIDSServiceConnectionTerminal_sendContent_toAddress_forInvitation___block_invoke(void *a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _CATLogGeneral_5();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _CATLogGeneral_5(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __71__CATIDSServiceConnectionTerminal_sendContent_toAddress_forInvitation___block_invoke_cold_1(a1, v3, v4);
+      __71__CATIDSServiceConnectionTerminal_sendContent_toAddress_forInvitation___block_invoke_cold_1(a1, v4, v5);
     }
   }
 }
@@ -943,15 +933,13 @@ void __71__CATIDSServiceConnectionTerminal_sendContent_toAddress_forInvitation__
 
 void __41__CATIDSServiceConnectionTerminal_resume__block_invoke_4_cold_1(uint64_t a1, id *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [*a2 verboseDescription];
-  v7 = 138543618;
-  v8 = a1;
-  v9 = 2114;
-  v10 = v5;
-  _os_log_error_impl(&dword_24329F000, a3, OS_LOG_TYPE_ERROR, "%{public}@ failed to begin listeneing for IDS messages. Error: %{public}@.", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = a1;
+  v8 = 2114;
+  v9 = v5;
+  _os_log_error_impl(&dword_24329F000, a3, OS_LOG_TYPE_ERROR, "%{public}@ failed to begin listeneing for IDS messages. Error: %{public}@.", &v6, 0x16u);
 }
 
 void __78__CATIDSServiceConnectionTerminal_processMessage_senderAppleID_senderAddress___block_invoke_2_cold_1()
@@ -1028,22 +1016,20 @@ void __78__CATIDSServiceConnectionTerminal_processMessage_senderAppleID_senderAd
 
 void __71__CATIDSServiceConnectionTerminal_sendContent_toAddress_forInvitation___block_invoke_cold_1(void *a1, void *a2, NSObject *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = a1[4];
   v5 = a1[5];
   v6 = a1[6];
   v7 = [a2 verboseDescription];
-  v9 = 138544130;
-  v10 = v4;
-  v11 = 2114;
-  v12 = v5;
-  v13 = 2114;
-  v14 = v6;
-  v15 = 2114;
-  v16 = v7;
-  _os_log_error_impl(&dword_24329F000, a3, OS_LOG_TYPE_ERROR, "%{public}@ failed to send IDS message %{public}@ to address %{public}@. Error: %{public}@", &v9, 0x2Au);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138544130;
+  v9 = v4;
+  v10 = 2114;
+  v11 = v5;
+  v12 = 2114;
+  v13 = v6;
+  v14 = 2114;
+  v15 = v7;
+  _os_log_error_impl(&dword_24329F000, a3, OS_LOG_TYPE_ERROR, "%{public}@ failed to send IDS message %{public}@ to address %{public}@. Error: %{public}@", &v8, 0x2Au);
 }
 
 @end

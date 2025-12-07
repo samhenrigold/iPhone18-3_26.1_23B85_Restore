@@ -658,9 +658,9 @@ LABEL_11:
 {
   screenshotCopy = screenshot;
   orientationString = [screenshotCopy orientationString];
-  v6 = [orientationString isEqualToString:@"landscape"];
+  isEqualToString = objc_msgSend_isEqualToString_(orientationString);
 
-  if (v6)
+  if (isEqualToString)
   {
     p_landscapeScreenshotPlaceholderImage = &self->_landscapeScreenshotPlaceholderImage;
     landscapeScreenshotPlaceholderImage = self->_landscapeScreenshotPlaceholderImage;
@@ -854,9 +854,9 @@ LABEL_17:
     v6 = objc_alloc_init(SKUIArtworkRequest);
     [(SKUIArtworkRequest *)v6 setDelegate:self];
     orientationString = [v4 orientationString];
-    v8 = [orientationString isEqualToString:@"landscape"];
+    isEqualToString = objc_msgSend_isEqualToString_(orientationString);
 
-    if (v8)
+    if (isEqualToString)
     {
       [(SKUIItemCollectionController *)self landscapeScreenshotDataConsumer];
     }

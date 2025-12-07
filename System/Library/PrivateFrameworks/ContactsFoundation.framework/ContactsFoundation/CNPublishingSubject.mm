@@ -101,7 +101,7 @@
 
 - (void)observerDidReceiveResult:(id)result
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   v5 = +[CNObservableContractEnforcement shouldSwizzleNilResults];
   if (!resultCopy && v5)
@@ -124,118 +124,114 @@
   enforcement = [(CNPublishingSubject *)self enforcement];
   [enforcement observerDidReceiveResult:resultCopy];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   _allObservers = [(CNPublishingSubject *)self _allObservers];
-  v10 = [_allObservers countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v10 = [_allObservers countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v16;
+    v12 = *v15;
     do
     {
       v13 = 0;
       do
       {
-        if (*v16 != v12)
+        if (*v15 != v12)
         {
           objc_enumerationMutation(_allObservers);
         }
 
-        [*(*(&v15 + 1) + 8 * v13++) observerDidReceiveResult:resultCopy];
+        [*(*(&v14 + 1) + 8 * v13++) observerDidReceiveResult:resultCopy];
       }
 
       while (v11 != v13);
-      v11 = [_allObservers countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v11 = [_allObservers countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v11);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)observerDidComplete
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   enforcement = [(CNPublishingSubject *)self enforcement];
   [enforcement observerDidComplete];
 
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   _allObservers = [(CNPublishingSubject *)self _allObservers];
-  v5 = [_allObservers countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [_allObservers countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(_allObservers);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) observerDidComplete];
+        [*(*(&v9 + 1) + 8 * v8++) observerDidComplete];
       }
 
       while (v6 != v8);
-      v6 = [_allObservers countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [_allObservers countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
 
   [(CNPublishingSubject *)self cleanUpAfterTermination];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)observerDidFailWithError:(id)error
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   enforcement = [(CNPublishingSubject *)self enforcement];
   [enforcement observerDidFailWithError:errorCopy];
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   _allObservers = [(CNPublishingSubject *)self _allObservers];
-  v7 = [_allObservers countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [_allObservers countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(_allObservers);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) observerDidFailWithError:errorCopy];
+        [*(*(&v11 + 1) + 8 * v10++) observerDidFailWithError:errorCopy];
       }
 
       while (v8 != v10);
-      v8 = [_allObservers countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [_allObservers countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
 
   [(CNPublishingSubject *)self cleanUpAfterTermination];
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cleanUpAfterTermination

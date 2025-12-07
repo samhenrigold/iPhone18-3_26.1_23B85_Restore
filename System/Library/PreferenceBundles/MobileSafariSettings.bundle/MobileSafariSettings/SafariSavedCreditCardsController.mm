@@ -17,17 +17,20 @@
 - (void)_createVirtualCardSectionSpecifiers;
 - (void)_deleteButtonTapped;
 - (void)_deleteSelectedItems;
+- (void)_showEditBarButtonItemAnimated:(BOOL)animated;
 - (void)_toggleEditing;
 - (void)_updateDeleteButton;
 - (void)_updateEditButton;
 - (void)_viewVirtualCardInWallet:(id)wallet;
 - (void)dealloc;
 - (void)deleteItemsForSpecifiers:(id)specifiers;
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated;
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path;
 - (void)tableView:(id)view didDeselectRowAtIndexPath:(id)path;
 - (void)tableView:(id)view didEndEditingRowAtIndexPath:(id)path;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)tableView:(id)view willBeginEditingRowAtIndexPath:(id)path;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation SafariSavedCreditCardsController
@@ -238,16 +241,16 @@ id __71__SafariSavedCreditCardsController__createVirtualCardSectionSpecifiers__b
   urlToListOfCardsInWallet = [v3 urlToListOfCardsInWallet];
 
   v5 = +[LSApplicationWorkspace defaultWorkspace];
-  v8 = 0;
-  [v5 openSensitiveURL:urlToListOfCardsInWallet withOptions:0 error:&v8];
-  v6 = v8;
+  v10 = 0;
+  [v5 openSensitiveURL:urlToListOfCardsInWallet withOptions:0 error:&v10];
+  v6 = v10;
 
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXAutoFill(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(SafariSavedCreditCardsController *)v7 _viewVirtualCardInWallet:v6];
+      [(SafariSavedCreditCardsController *)v9 _viewVirtualCardInWallet:v6];
     }
   }
 }
@@ -429,6 +432,32 @@ LABEL_7:
   return v3;
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  if (([(SafariSavedCreditCardsController *)self isMovingToParentViewController]& 1) == 0 && ([(SafariSavedCreditCardsController *)self isEditing]& 1) == 0)
+  {
+    [(SafariSavedCreditCardsController *)self reloadSpecifiers];
+  }
+
+  table = [(SafariSavedCreditCardsController *)self table];
+  if ([(SafariSavedCreditCardsController *)self isEditing])
+  {
+    indexPathForSelectedRow = [table indexPathForSelectedRow];
+    if (indexPathForSelectedRow)
+    {
+      v7 = indexPathForSelectedRow;
+      [table selectRowAtIndexPath:indexPathForSelectedRow animated:0 scrollPosition:0];
+    }
+  }
+
+  [(SafariSavedCreditCardsController *)self _showEditBarButtonItemAnimated:0];
+  [(SafariSavedCreditCardsController *)self _updateEditButton];
+  v8.receiver = self;
+  v8.super_class = SafariSavedCreditCardsController;
+  [(SafariSavedCreditCardsController *)&v8 viewWillAppear:appearCopy];
+}
+
 - (id)deleteConfirmationTitle
 {
   table = [(SafariSavedCreditCardsController *)self table];
@@ -548,6 +577,94 @@ LABEL_7:
       while (v10);
     }
   }
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  editingCopy = editing;
+  v23.receiver = self;
+  v23.super_class = SafariSavedCreditCardsController;
+  [SafariSavedCreditCardsController setEditing:"setEditing:animated:" animated:?];
+  navigationItem = [(SafariSavedCreditCardsController *)self navigationItem];
+  [navigationItem setHidesBackButton:editingCopy animated:animatedCopy];
+  if (editingCopy)
+  {
+    [(SafariSavedCreditCardsController *)self _updateDeleteButton];
+    _deleteBarButtonItem = [(SafariSavedCreditCardsController *)self _deleteBarButtonItem];
+    [navigationItem setLeftBarButtonItem:_deleteBarButtonItem animated:animatedCopy];
+
+    _cancelBarButtonItem = [(SafariSavedCreditCardsController *)self _cancelBarButtonItem];
+    v25 = _cancelBarButtonItem;
+    v10 = [NSArray arrayWithObjects:&v25 count:1];
+    [navigationItem setRightBarButtonItems:v10 animated:animatedCopy];
+  }
+
+  else
+  {
+    [(SafariSavedCreditCardsController *)self _updateEditButton];
+    [navigationItem setLeftBarButtonItem:0 animated:animatedCopy];
+    [(SafariSavedCreditCardsController *)self _showEditBarButtonItemAnimated:animatedCopy];
+  }
+
+  table = [(SafariSavedCreditCardsController *)self table];
+  [table setAllowsMultipleSelectionDuringEditing:editingCopy];
+  [table setEditing:editingCopy animated:animatedCopy];
+  if (editingCopy)
+  {
+    v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    _specifiersToAddOrRemoveWhenTogglingEditButton = [(SafariSavedCreditCardsController *)self _specifiersToAddOrRemoveWhenTogglingEditButton];
+    v13 = [_specifiersToAddOrRemoveWhenTogglingEditButton countByEnumeratingWithState:&v19 objects:v24 count:16];
+    if (v13)
+    {
+      v14 = v13;
+      v15 = *v20;
+      do
+      {
+        for (i = 0; i != v14; i = i + 1)
+        {
+          if (*v20 != v15)
+          {
+            objc_enumerationMutation(_specifiersToAddOrRemoveWhenTogglingEditButton);
+          }
+
+          [(SafariSavedCreditCardsController *)self removeSpecifier:*(*(&v19 + 1) + 8 * i) animated:1];
+        }
+
+        v14 = [_specifiersToAddOrRemoveWhenTogglingEditButton countByEnumeratingWithState:&v19 objects:v24 count:16];
+      }
+
+      while (v14);
+    }
+  }
+
+  else
+  {
+    specifiersForAddItem = self->_specifiersForAddItem;
+    if (specifiersForAddItem)
+    {
+      [(SafariSavedCreditCardsController *)self addSpecifiersFromArray:specifiersForAddItem animated:1];
+    }
+
+    specifiersForVirtualCardSection = self->_specifiersForVirtualCardSection;
+    if (specifiersForVirtualCardSection)
+    {
+      [(SafariSavedCreditCardsController *)self insertContiguousSpecifiers:specifiersForVirtualCardSection atIndex:0 animated:1];
+    }
+  }
+}
+
+- (void)_showEditBarButtonItemAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  navigationItem = [(SafariSavedCreditCardsController *)self navigationItem];
+  _editBarButtonItem = [(SafariSavedCreditCardsController *)self _editBarButtonItem];
+  v8 = _editBarButtonItem;
+  v7 = [NSArray arrayWithObjects:&v8 count:1];
+  [navigationItem setRightBarButtonItems:v7 animated:animatedCopy];
 }
 
 - (void)_toggleEditing

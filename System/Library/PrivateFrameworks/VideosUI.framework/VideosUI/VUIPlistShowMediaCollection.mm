@@ -18,17 +18,17 @@
   identifier = [showCopy identifier];
   v14 = [(VUIPlistMediaEntityIdentifier *)v12 initWithIdentifier:identifier type:4];
 
-  v15 = VUIPlistShowMediaKind();
-  v18.receiver = self;
-  v18.super_class = VUIPlistShowMediaCollection;
-  v16 = [(VUIMediaEntity *)&v18 initWithMediaLibrary:libraryCopy identifier:v14 requestedProperties:propertiesCopy kind:v15];
+  v16 = VUIPlistShowMediaKind(v15);
+  v19.receiver = self;
+  v19.super_class = VUIPlistShowMediaCollection;
+  v17 = [(VUIMediaEntity *)&v19 initWithMediaLibrary:libraryCopy identifier:v14 requestedProperties:propertiesCopy kind:v16];
 
-  if (v16)
+  if (v17)
   {
-    objc_storeStrong(&v16->_databaseShow, show);
+    objc_storeStrong(&v17->_databaseShow, show);
   }
 
-  return v16;
+  return v17;
 }
 
 - (VUIPlistShowMediaCollection)initWithMediaLibrary:(id)library identifier:(id)identifier requestedProperties:(id)properties kind:(id)kind

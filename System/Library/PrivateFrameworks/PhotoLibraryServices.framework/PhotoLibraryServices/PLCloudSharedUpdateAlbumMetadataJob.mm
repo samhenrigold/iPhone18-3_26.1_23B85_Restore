@@ -92,7 +92,7 @@
     v78 = v8;
     v79 = libraryCopy;
     v75 = v10;
-    if ([v80 count])
+    if (objc_msgSend_count(v80))
     {
       v71 = intValue;
       v73 = [v80 objectForKey:@"kPLAlbumOwnerHashedPersonIDKey"];
@@ -520,7 +520,7 @@ void __110__PLCloudSharedUpdateAlbumMetadataJob__updateSharedStreamCollectionSha
 
     v23 = [dictionaryCopy objectForKey:@"kPLAlbumOwnerDictionaryKey"];
     v90 = v23;
-    if ([(__CFString *)v23 count])
+    if (objc_msgSend_count(v23))
     {
       v24 = PLPhotoSharingGetLog();
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
@@ -930,7 +930,7 @@ void __52__PLCloudSharedUpdateAlbumMetadataJob_runDaemonSide__block_invoke_37(ui
   v9.super_class = PLCloudSharedUpdateAlbumMetadataJob;
   [(PLDaemonJob *)&v9 encodeToXPCObject:objectCopy];
   metadata = [(PLCloudSharedUpdateAlbumMetadataJob *)self metadata];
-  if ([metadata count])
+  if (objc_msgSend_count(metadata))
   {
     v6 = objc_autoreleasePoolPush();
     v7 = [(PLCloudSharedUpdateAlbumMetadataJob *)self _argumentsDictionaryAsData:metadata];

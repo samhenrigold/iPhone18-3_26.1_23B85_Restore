@@ -107,24 +107,22 @@ void __68__ASCompanionBulletinPostingManager_registerNotificationCategories___bl
 
 - (id)_activityDataNotificationCategories
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CE2010] actionWithIdentifier:@"Reply" title:&stru_2850E59E8 options:1];
   v3 = MEMORY[0x277CE1F98];
   v4 = *MEMORY[0x277CE9198];
-  v10[0] = v2;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v9[0] = v2;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   v6 = [v3 categoryWithIdentifier:v4 actions:v5 intentIdentifiers:MEMORY[0x277CBEBF8] options:0];
 
   v7 = [MEMORY[0x277CBEB98] setWithObject:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (void)postNotificationRequest:(id)request
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   ASLoggingInitialize();
   v5 = MEMORY[0x277CE8FF8];
@@ -134,7 +132,7 @@ void __68__ASCompanionBulletinPostingManager_registerNotificationCategories___bl
     v7 = v6;
     identifier = [requestCopy identifier];
     *buf = 138412290;
-    v15 = identifier;
+    v14 = identifier;
     _os_log_impl(&dword_23E5E3000, v7, OS_LOG_TYPE_DEFAULT, "Adding notification request with identifier %@", buf, 0xCu);
   }
 
@@ -142,13 +140,13 @@ void __68__ASCompanionBulletinPostingManager_registerNotificationCategories___bl
   {
     objc_initWeak(buf, self);
     userNotificationCenter = self->_userNotificationCenter;
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __61__ASCompanionBulletinPostingManager_postNotificationRequest___block_invoke;
-    v12[3] = &unk_278C4C438;
-    objc_copyWeak(&v13, buf);
-    [(UNUserNotificationCenter *)userNotificationCenter addNotificationRequest:requestCopy withCompletionHandler:v12];
-    objc_destroyWeak(&v13);
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __61__ASCompanionBulletinPostingManager_postNotificationRequest___block_invoke;
+    v11[3] = &unk_278C4C438;
+    objc_copyWeak(&v12, buf);
+    [(UNUserNotificationCenter *)userNotificationCenter addNotificationRequest:requestCopy withCompletionHandler:v11];
+    objc_destroyWeak(&v12);
     objc_destroyWeak(buf);
   }
 
@@ -162,8 +160,6 @@ void __68__ASCompanionBulletinPostingManager_registerNotificationCategories___bl
       _os_log_impl(&dword_23E5E3000, v10, OS_LOG_TYPE_DEFAULT, "Activity sharing notifications disabled in settings", buf, 2u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __61__ASCompanionBulletinPostingManager_postNotificationRequest___block_invoke(uint64_t a1, void *a2)
@@ -182,7 +178,7 @@ void __61__ASCompanionBulletinPostingManager_postNotificationRequest___block_inv
 
 - (void)enqueueBulletins:(id)bulletins withPostingSyle:(int64_t)syle
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   bulletinsCopy = bulletins;
   mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
   fitnessMode = [mEMORY[0x277CCDD30] fitnessMode];
@@ -194,65 +190,61 @@ void __61__ASCompanionBulletinPostingManager_postNotificationRequest___block_inv
     if (os_log_type_enabled(*MEMORY[0x277CE8FF8], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v22 = bulletinsCopy;
+      v21 = bulletinsCopy;
       _os_log_impl(&dword_23E5E3000, v8, OS_LOG_TYPE_DEFAULT, "CompanionBulletinPostingManager enqueuing bulletins %@", buf, 0xCu);
     }
 
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     allObjects = [bulletinsCopy allObjects];
-    v10 = [allObjects countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v10 = [allObjects countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v17;
+      v12 = *v16;
       do
       {
         v13 = 0;
         do
         {
-          if (*v17 != v12)
+          if (*v16 != v12)
           {
             objc_enumerationMutation(allObjects);
           }
 
-          v14 = [(ASCompanionBulletinPostingManager *)self _notificationRequestForCodableBulletin:*(*(&v16 + 1) + 8 * v13)];
+          v14 = [(ASCompanionBulletinPostingManager *)self _notificationRequestForCodableBulletin:*(*(&v15 + 1) + 8 * v13)];
           [(ASCompanionBulletinPostingManager *)self postNotificationRequest:v14];
 
           ++v13;
         }
 
         while (v11 != v13);
-        v11 = [allObjects countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v11 = [allObjects countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v11);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeNotificationWithIdentifier:(id)identifier
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   ASLoggingInitialize();
   v5 = *MEMORY[0x277CE8FF8];
   if (os_log_type_enabled(*MEMORY[0x277CE8FF8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v10 = identifierCopy;
+    v9 = identifierCopy;
     _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "Withdrawing bulletin with identifier %@", buf, 0xCu);
   }
 
-  v8 = identifierCopy;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v8 count:1];
+  v7 = identifierCopy;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v7 count:1];
   [(ASCompanionBulletinPostingManager *)self _withdrawNotificationRequestsWithIdentifiers:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)topicIdentifiers
@@ -287,16 +279,16 @@ void __61__ASCompanionBulletinPostingManager_postNotificationRequest___block_inv
 
 - (void)handleNotificationResponse:(id)response completion:(id)completion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   completionCopy = completion;
   ASLoggingInitialize();
   v8 = *MEMORY[0x277CE8FF8];
   if (os_log_type_enabled(*MEMORY[0x277CE8FF8], OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138543362;
-    v14 = responseCopy;
-    _os_log_impl(&dword_23E5E3000, v8, OS_LOG_TYPE_DEFAULT, "CompanionBulletinPostingManager received notification response: %{public}@", &v13, 0xCu);
+    v12 = 138543362;
+    v13 = responseCopy;
+    _os_log_impl(&dword_23E5E3000, v8, OS_LOG_TYPE_DEFAULT, "CompanionBulletinPostingManager received notification response: %{public}@", &v12, 0xCu);
   }
 
   actionIdentifier = [responseCopy actionIdentifier];
@@ -314,8 +306,6 @@ void __61__ASCompanionBulletinPostingManager_postNotificationRequest___block_inv
   }
 
   completionCopy[2](completionCopy, 1, 0);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleActivityDataNotificationResponse:(id)response
@@ -468,7 +458,7 @@ LABEL_27:
 
 void __77__ASCompanionBulletinPostingManager__handleActivityDataNotificationResponse___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) contact];
   v4 = [v3 primaryDestinationForMessaging];
@@ -479,12 +469,10 @@ void __77__ASCompanionBulletinPostingManager__handleActivityDataNotificationResp
   if (os_log_type_enabled(*MEMORY[0x277CE8FF8], OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 48);
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "CompanionBulletinPostingManager sent message payload for notification response: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "CompanionBulletinPostingManager sent message payload for notification response: %{public}@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_notificationRequestForCodableBulletin:(id)bulletin
@@ -714,13 +702,13 @@ LABEL_6:
 
 - (id)_activitySnapshotForSnapshotData:(id)data
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAAC8];
   dataCopy = data;
-  v11 = 0;
-  v5 = [[v3 alloc] initForReadingFromData:dataCopy error:&v11];
+  v10 = 0;
+  v5 = [[v3 alloc] initForReadingFromData:dataCopy error:&v10];
 
-  v6 = v11;
+  v6 = v10;
   if (v6)
   {
     _HKInitializeLogging();
@@ -728,15 +716,13 @@ LABEL_6:
     if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v6;
+      v12 = v6;
       _os_log_impl(&dword_23E5E3000, v7, OS_LOG_TYPE_DEFAULT, "Error creating archiver for summary data: %@", buf, 0xCu);
     }
   }
 
   v8 = [v5 decodeObjectOfClass:objc_opt_class() forKey:*MEMORY[0x277CCA308]];
   [v5 finishDecoding];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -762,68 +748,24 @@ LABEL_6:
 
 void __61__ASCompanionBulletinPostingManager_postNotificationRequest___block_invoke_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   objc_opt_class();
   OUTLINED_FUNCTION_1_0();
-  v11 = 2114;
-  v12 = a3;
+  v10 = 2114;
+  v11 = a3;
   v8 = v7;
-  _os_log_error_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_ERROR, "%{public}@ error requesting notification request %{public}@", v10, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_handleActivityDataNotificationResponse:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23E5E3000, v0, v1, "CompanionBulletinPostingManager found unexpected ASBulletinType for notification response: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_handleActivityDataNotificationResponse:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23E5E3000, v0, v1, "CompanionBulletinPostingManager failed to create message payload for notification response: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_handleActivityDataNotificationResponse:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23E5E3000, v0, v1, "CompanionBulletinPostingManager failed to decode friend for notification response: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_handleActivityDataNotificationResponse:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23E5E3000, v0, v1, "CompanionBulletinPostingManager failed to decode friend list data for notification response: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_handleActivityDataNotificationResponse:.cold.5()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23E5E3000, v0, v1, "CompanionBulletinPostingManager failed to decode reply for notification response: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_ERROR, "%{public}@ error requesting notification request %{public}@", v9, 0x16u);
 }
 
 - (void)_subtitleBodyPairForAchievementCodableBulletin:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 achievementData];
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&dword_23E5E3000, v3, OS_LOG_TYPE_ERROR, "CompanionBulletinPostingManager unable to decode achievement data %@", v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_23E5E3000, v3, OS_LOG_TYPE_ERROR, "CompanionBulletinPostingManager unable to decode achievement data %@", v5, 0xCu);
 }
 
 @end

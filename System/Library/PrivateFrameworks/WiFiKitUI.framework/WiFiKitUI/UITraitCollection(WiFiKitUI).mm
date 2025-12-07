@@ -1,10 +1,10 @@
 @interface UITraitCollection(WiFiKitUI)
-- (uint64_t)isLargeTextTraitCollection;
+- (BOOL)isLargeTextTraitCollection;
 @end
 
 @implementation UITraitCollection(WiFiKitUI)
 
-- (uint64_t)isLargeTextTraitCollection
+- (BOOL)isLargeTextTraitCollection
 {
   preferredContentSizeCategory = [self preferredContentSizeCategory];
   v3 = *MEMORY[0x277D76800];

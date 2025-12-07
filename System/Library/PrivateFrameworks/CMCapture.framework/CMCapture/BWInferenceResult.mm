@@ -89,7 +89,7 @@
   inferenceType = [result inferenceType];
   if (result)
   {
-    [result timestamp];
+    objc_msgSend_timestamp(result);
   }
 
   else

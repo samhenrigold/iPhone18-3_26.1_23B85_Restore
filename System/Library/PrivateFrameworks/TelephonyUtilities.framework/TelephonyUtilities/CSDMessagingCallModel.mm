@@ -230,7 +230,6 @@ LABEL_9:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    supportsHolding = self->_supportsHolding;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((has & 4) == 0)
@@ -250,7 +249,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  supportsGrouping = self->_supportsGrouping;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -265,7 +263,6 @@ LABEL_4:
   }
 
 LABEL_14:
-  supportsUngrouping = self->_supportsUngrouping;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 2) == 0)
@@ -280,7 +277,6 @@ LABEL_5:
   }
 
 LABEL_15:
-  supportsDTMF = self->_supportsDTMF;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -295,7 +291,6 @@ LABEL_6:
   }
 
 LABEL_16:
-  supportsUnambiguousMultiPartyState = self->_supportsUnambiguousMultiPartyState;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 1) == 0)
@@ -310,12 +305,10 @@ LABEL_7:
   }
 
 LABEL_17:
-  supportsAddCall = self->_supportsAddCall;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_8:
-    supportsSendingToVoicemail = self->_supportsSendingToVoicemail;
     PBDataWriterWriteBOOLField();
   }
 
@@ -534,7 +527,6 @@ LABEL_8:
       goto LABEL_56;
     }
 
-    v6 = equalCopy[11];
     if (self->_supportsHolding)
     {
       if ((equalCopy[11] & 1) == 0)
@@ -561,7 +553,6 @@ LABEL_8:
       goto LABEL_56;
     }
 
-    v7 = equalCopy[10];
     if (self->_supportsGrouping)
     {
       if ((equalCopy[10] & 1) == 0)
@@ -588,7 +579,6 @@ LABEL_8:
       goto LABEL_56;
     }
 
-    v8 = equalCopy[14];
     if (self->_supportsUngrouping)
     {
       if ((equalCopy[14] & 1) == 0)
@@ -615,7 +605,6 @@ LABEL_8:
       goto LABEL_56;
     }
 
-    v9 = equalCopy[9];
     if (self->_supportsDTMF)
     {
       if ((equalCopy[9] & 1) == 0)
@@ -642,7 +631,6 @@ LABEL_8:
       goto LABEL_56;
     }
 
-    v10 = equalCopy[13];
     if (self->_supportsUnambiguousMultiPartyState)
     {
       if ((equalCopy[13] & 1) == 0)
@@ -679,7 +667,6 @@ LABEL_56:
     goto LABEL_56;
   }
 
-  v11 = equalCopy[8];
   if (self->_supportsAddCall)
   {
     if ((equalCopy[8] & 1) == 0)

@@ -1,6 +1,6 @@
-void sub_100000FC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100000FC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -30,7 +30,7 @@ Class sub_10000118C(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -41,7 +41,7 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "DEAttachmentItem");
   }
 
   qword_100008150 = *(*(*(a1 + 32) + 8) + 24);
@@ -50,7 +50,6 @@ LABEL_4:
 
 uint64_t sub_1000012D8(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100008158 = result;
   return result;

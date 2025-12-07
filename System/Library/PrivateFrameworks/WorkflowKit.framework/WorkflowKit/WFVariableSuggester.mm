@@ -29,34 +29,34 @@
 
 - (void)availableVariablesDidChange
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   outputActions = [(WFVariableSuggester *)self outputActions];
   userDefinedVariableNames = [(WFVariableSuggester *)self userDefinedVariableNames];
   currentVariables = [(WFVariableSuggester *)self currentVariables];
-  v33 = [currentVariables if_compactMap:&__block_literal_global_51092];
+  v32 = [currentVariables if_compactMap:&__block_literal_global_51092];
 
-  v4 = [MEMORY[0x1E695DFD8] setWithArray:v33];
+  v4 = [MEMORY[0x1E695DFD8] setWithArray:v32];
   v5 = objc_opt_new();
   v6 = objc_opt_new();
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   reverseObjectEnumerator = [outputActions reverseObjectEnumerator];
-  v8 = [reverseObjectEnumerator countByEnumeratingWithState:&v43 objects:v47 count:16];
+  v8 = [reverseObjectEnumerator countByEnumeratingWithState:&v42 objects:v46 count:16];
   if (v8)
   {
-    v9 = *v44;
+    v9 = *v43;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v44 != v9)
+        if (*v43 != v9)
         {
           objc_enumerationMutation(reverseObjectEnumerator);
         }
 
-        v11 = *(*(&v43 + 1) + 8 * i);
+        v11 = *(*(&v42 + 1) + 8 * i);
         outputName = [v11 outputName];
         if (([v5 containsObject:outputName] & 1) == 0)
         {
@@ -73,7 +73,7 @@
         }
       }
 
-      v8 = [reverseObjectEnumerator countByEnumeratingWithState:&v43 objects:v47 count:16];
+      v8 = [reverseObjectEnumerator countByEnumeratingWithState:&v42 objects:v46 count:16];
     }
 
     while (v8);
@@ -115,37 +115,36 @@
   }
 
   v21 = [v6 subarrayWithRange:{0, v20}];
-  v35 = [v21 mutableCopy];
+  v34 = [v21 mutableCopy];
 
-  v22 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v35];
-  v41[0] = MEMORY[0x1E69E9820];
-  v41[1] = 3221225472;
-  v41[2] = __50__WFVariableSuggester_availableVariablesDidChange__block_invoke_2;
-  v41[3] = &unk_1E837B6E0;
-  v31 = v22;
-  v42 = v31;
-  v23 = [v6 if_compactMap:v41];
-  v40[0] = 0;
-  v40[1] = v40;
-  v40[2] = 0x2020000000;
-  v40[3] = 0;
-  reverseObjectEnumerator2 = [v35 reverseObjectEnumerator];
+  v22 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v34];
+  v40[0] = MEMORY[0x1E69E9820];
+  v40[1] = 3221225472;
+  v40[2] = __50__WFVariableSuggester_availableVariablesDidChange__block_invoke_2;
+  v40[3] = &unk_1E837B6E0;
+  v30 = v22;
+  v41 = v30;
+  v23 = [v6 if_compactMap:v40];
+  v39[0] = 0;
+  v39[1] = v39;
+  v39[2] = 0x2020000000;
+  v39[3] = 0;
+  reverseObjectEnumerator2 = [v34 reverseObjectEnumerator];
   allObjects = [reverseObjectEnumerator2 allObjects];
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __50__WFVariableSuggester_availableVariablesDidChange__block_invoke_3;
-  v36[3] = &unk_1E837B708;
-  v39 = v40;
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __50__WFVariableSuggester_availableVariablesDidChange__block_invoke_3;
+  v35[3] = &unk_1E837B708;
+  v38 = v39;
   v26 = v23;
-  v37 = v26;
+  v36 = v26;
   selfCopy = self;
-  v27 = [allObjects if_map:v36];
+  v27 = [allObjects if_map:v35];
   reverseObjectEnumerator3 = [v27 reverseObjectEnumerator];
   allObjects2 = [reverseObjectEnumerator3 allObjects];
   [(WFVariableSuggester *)self setSuggestedVariables:allObjects2];
 
-  _Block_object_dispose(v40, 8);
-  v30 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v39, 8);
 }
 
 void *__50__WFVariableSuggester_availableVariablesDidChange__block_invoke_2(uint64_t a1, void *a2)
@@ -153,9 +152,9 @@ void *__50__WFVariableSuggester_availableVariablesDidChange__block_invoke_2(uint
   v3 = a2;
   v4 = [v3 outputName];
   v5 = [v3 localizedDefaultOutputName];
-  v6 = [v4 isEqualToString:v5];
+  isEqualToString = objc_msgSend_isEqualToString_(v4);
 
-  if (([*(a1 + 32) containsObject:v3] | v6))
+  if (([*(a1 + 32) containsObject:v3] | isEqualToString))
   {
     v7 = 0;
   }
@@ -175,10 +174,10 @@ WFActionOutputVariable *__50__WFVariableSuggester_availableVariablesDidChange__b
   v3 = a2;
   v4 = [v3 outputName];
   v5 = [v3 localizedDefaultOutputName];
-  v6 = [v4 isEqualToString:v5];
+  isEqualToString = objc_msgSend_isEqualToString_(v4);
 
   v7 = *(*(*(a1 + 48) + 8) + 24);
-  if (v7 <= 4 && ((v7 < [*(a1 + 32) count]) & v6) == 1)
+  if (v7 <= 4 && ((v7 < [*(a1 + 32) count]) & isEqualToString) == 1)
   {
     v8 = [*(a1 + 32) objectAtIndexedSubscript:{objc_msgSend(*(a1 + 32), "count") + ~*(*(*(a1 + 48) + 8) + 24)}];
 

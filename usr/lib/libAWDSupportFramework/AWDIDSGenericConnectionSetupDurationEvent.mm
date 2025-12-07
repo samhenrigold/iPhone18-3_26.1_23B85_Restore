@@ -180,7 +180,6 @@ LABEL_7:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x10) == 0)
@@ -200,7 +199,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  linkType = self->_linkType;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -215,7 +213,6 @@ LABEL_4:
   }
 
 LABEL_10:
-  connectionSetupDuration = self->_connectionSetupDuration;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -227,7 +224,6 @@ LABEL_5:
     }
 
 LABEL_12:
-    errorCode = self->_errorCode;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 4) == 0)
     {
@@ -238,7 +234,6 @@ LABEL_12:
   }
 
 LABEL_11:
-  success = self->_success;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 8) != 0)
@@ -253,7 +248,6 @@ LABEL_6:
   }
 
 LABEL_13:
-  connectionType = self->_connectionType;
 
   PBDataWriterWriteUint32Field();
 }
@@ -487,7 +481,6 @@ LABEL_33:
     goto LABEL_33;
   }
 
-  v6 = *(equal + 36);
   if (self->_success)
   {
     if ((*(equal + 36) & 1) == 0)

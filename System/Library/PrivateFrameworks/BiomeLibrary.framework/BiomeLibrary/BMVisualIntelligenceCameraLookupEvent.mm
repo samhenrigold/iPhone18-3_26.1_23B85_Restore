@@ -145,7 +145,7 @@ LABEL_23:
 
 - (id)jsonDictionary
 {
-  v28[6] = *MEMORY[0x1E69E9840];
+  v27[6] = *MEMORY[0x1E69E9840];
   sessionId = [(BMVisualIntelligenceCameraLookupEvent *)self sessionId];
   dimensionContext = [(BMVisualIntelligenceCameraLookupEvent *)self dimensionContext];
   jsonDictionary = [dimensionContext jsonDictionary];
@@ -162,58 +162,58 @@ LABEL_23:
   userInteractionDetected = [(BMVisualIntelligenceCameraLookupEvent *)self userInteractionDetected];
   jsonDictionary5 = [userInteractionDetected jsonDictionary];
 
-  v27[0] = @"sessionId";
+  v26[0] = @"sessionId";
   null = sessionId;
   if (!sessionId)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25 = null;
-  v26 = sessionId;
-  v28[0] = null;
-  v27[1] = @"dimensionContext";
+  v24 = null;
+  v25 = sessionId;
+  v27[0] = null;
+  v26[1] = @"dimensionContext";
   null2 = jsonDictionary;
   if (!jsonDictionary)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23 = null2;
-  v28[1] = null2;
-  v27[2] = @"visualIntelligenceContext";
+  v22 = null2;
+  v27[1] = null2;
+  v26[2] = @"visualIntelligenceContext";
   null3 = jsonDictionary2;
   if (!jsonDictionary2)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v28[2] = null3;
-  v27[3] = @"serverRequestContext";
+  v27[2] = null3;
+  v26[3] = @"serverRequestContext";
   null4 = jsonDictionary3;
   if (!jsonDictionary3)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v28[3] = null4;
-  v27[4] = @"displayContext";
+  v27[3] = null4;
+  v26[4] = @"displayContext";
   null5 = jsonDictionary4;
   if (!jsonDictionary4)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v28[4] = null5;
-  v27[5] = @"userInteractionDetected";
+  v27[4] = null5;
+  v26[5] = @"userInteractionDetected";
   null6 = jsonDictionary5;
   if (!jsonDictionary5)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v28[5] = null6;
-  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:{6, v23}];
+  v27[5] = null6;
+  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:{6, v22}];
   if (jsonDictionary5)
   {
     if (jsonDictionary4)
@@ -271,18 +271,16 @@ LABEL_17:
 LABEL_27:
 
 LABEL_18:
-  if (!v26)
+  if (!v25)
   {
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
 
 - (BMVisualIntelligenceCameraLookupEvent)initWithJSONDictionary:(id)dictionary error:(id *)p_isa
 {
-  v71[1] = *MEMORY[0x1E69E9840];
+  v70[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"sessionId"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -303,26 +301,26 @@ LABEL_82:
           goto LABEL_83;
         }
 
-        v44 = p_isa;
+        v43 = p_isa;
         v25 = v8;
         v26 = objc_alloc(MEMORY[0x1E696ABC0]);
         v27 = *MEMORY[0x1E698F240];
-        v68 = *MEMORY[0x1E696A578];
+        v67 = *MEMORY[0x1E696A578];
         v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"dimensionContext"];
-        v69 = v19;
-        v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
+        v68 = v19;
+        v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v68 forKeys:&v67 count:1];
         v29 = v26;
         v8 = v25;
-        *v44 = [v29 initWithDomain:v27 code:2 userInfo:v28];
+        *v43 = [v29 initWithDomain:v27 code:2 userInfo:v28];
 
         v16 = 0;
         goto LABEL_80;
       }
 
       v17 = v9;
-      v59 = 0;
-      v54 = [[BMVisualIntelligenceCameraLookupEventDimensionContext alloc] initWithJSONDictionary:v17 error:&v59];
-      v18 = v59;
+      v58 = 0;
+      v53 = [[BMVisualIntelligenceCameraLookupEventDimensionContext alloc] initWithJSONDictionary:v17 error:&v58];
+      v18 = v58;
       if (v18)
       {
         if (p_isa)
@@ -332,14 +330,14 @@ LABEL_82:
         }
 
         v16 = 0;
-        v19 = v54;
+        v19 = v53;
         goto LABEL_81;
       }
     }
 
     else
     {
-      v54 = 0;
+      v53 = 0;
     }
 
     v10 = [dictionaryCopy objectForKeyedSubscript:@"visualIntelligenceContext"];
@@ -352,7 +350,7 @@ LABEL_82:
       {
         if (!p_isa)
         {
-          v19 = v54;
+          v19 = v53;
 LABEL_79:
 
 LABEL_80:
@@ -360,30 +358,30 @@ LABEL_80:
           goto LABEL_81;
         }
 
-        v52 = v8;
+        v51 = v8;
         v31 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v45 = p_isa;
+        v44 = p_isa;
         v32 = *MEMORY[0x1E698F240];
-        v66 = *MEMORY[0x1E696A578];
-        v67 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"visualIntelligenceContext"];
-        v15 = v67;
-        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
+        v65 = *MEMORY[0x1E696A578];
+        v66 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"visualIntelligenceContext"];
+        v15 = v66;
+        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
         v33 = v31;
-        v8 = v52;
+        v8 = v51;
         v34 = [v33 initWithDomain:v32 code:2 userInfo:v11];
         v16 = 0;
-        *v45 = v34;
-        v19 = v54;
+        *v44 = v34;
+        v19 = v53;
         goto LABEL_78;
       }
 
       v11 = v10;
-      v58 = 0;
-      v15 = [[BMVisualIntelligenceCameraLookupEventVisualIntelligenceContext alloc] initWithJSONDictionary:v11 error:&v58];
-      v20 = v58;
+      v57 = 0;
+      v15 = [[BMVisualIntelligenceCameraLookupEventVisualIntelligenceContext alloc] initWithJSONDictionary:v11 error:&v57];
+      v20 = v57;
       if (v20)
       {
-        v19 = v54;
+        v19 = v53;
         if (v16)
         {
           v20 = v20;
@@ -394,38 +392,38 @@ LABEL_80:
         goto LABEL_78;
       }
 
-      v49 = v15;
+      v48 = v15;
 
       p_isa = &v16->super.super.isa;
     }
 
     else
     {
-      v49 = 0;
+      v48 = 0;
     }
 
     v11 = [dictionaryCopy objectForKeyedSubscript:@"serverRequestContext"];
-    v51 = v8;
+    v50 = v8;
     if (!v11 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v50 = 0;
+      v49 = 0;
 LABEL_13:
       v12 = [dictionaryCopy objectForKeyedSubscript:@"displayContext"];
       if (!v12 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {
-        v47 = 0;
+        v46 = 0;
 LABEL_16:
         v13 = [dictionaryCopy objectForKeyedSubscript:@"userInteractionDetected"];
         if (!v13 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
         {
           v14 = 0;
 LABEL_19:
-          v15 = v49;
-          v16 = [(BMVisualIntelligenceCameraLookupEvent *)selfCopy initWithSessionId:v51 dimensionContext:v54 visualIntelligenceContext:v49 serverRequestContext:v50 displayContext:v47 userInteractionDetected:v14];
+          v15 = v48;
+          v16 = [(BMVisualIntelligenceCameraLookupEvent *)selfCopy initWithSessionId:v50 dimensionContext:v53 visualIntelligenceContext:v48 serverRequestContext:v49 displayContext:v46 userInteractionDetected:v14];
           selfCopy = v16;
 LABEL_63:
 
-          v19 = v54;
+          v19 = v53;
 LABEL_76:
 
           goto LABEL_77;
@@ -435,9 +433,9 @@ LABEL_76:
         if (objc_opt_isKindOfClass())
         {
           v35 = v13;
-          v55 = 0;
-          v14 = [[BMVisualIntelligenceCameraLookupEventUserInteractionDetected alloc] initWithJSONDictionary:v35 error:&v55];
-          v36 = v55;
+          v54 = 0;
+          v14 = [[BMVisualIntelligenceCameraLookupEventUserInteractionDetected alloc] initWithJSONDictionary:v35 error:&v54];
+          v36 = v54;
           if (!v36)
           {
 
@@ -452,19 +450,19 @@ LABEL_76:
 
 LABEL_62:
           v16 = 0;
-          v15 = v49;
+          v15 = v48;
           goto LABEL_63;
         }
 
         if (p_isa)
         {
-          v46 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v43 = *MEMORY[0x1E698F240];
-          v60 = *MEMORY[0x1E696A578];
+          v45 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v42 = *MEMORY[0x1E698F240];
+          v59 = *MEMORY[0x1E696A578];
           v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"userInteractionDetected"];
-          v61 = v14;
-          v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
-          *p_isa = [v46 initWithDomain:v43 code:2 userInfo:v35];
+          v60 = v14;
+          v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
+          *p_isa = [v45 initWithDomain:v42 code:2 userInfo:v35];
           goto LABEL_62;
         }
 
@@ -476,12 +474,12 @@ LABEL_62:
       if (objc_opt_isKindOfClass())
       {
         v13 = v12;
-        v56 = 0;
-        v47 = [[BMVisualIntelligenceCameraLookupEventDisplayContext alloc] initWithJSONDictionary:v13 error:&v56];
-        v30 = v56;
+        v55 = 0;
+        v46 = [[BMVisualIntelligenceCameraLookupEventDisplayContext alloc] initWithJSONDictionary:v13 error:&v55];
+        v30 = v55;
         if (v30)
         {
-          v19 = v54;
+          v19 = v53;
           if (p_isa)
           {
             v30 = v30;
@@ -497,18 +495,18 @@ LABEL_62:
 
       if (p_isa)
       {
-        v42 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v41 = objc_alloc(MEMORY[0x1E696ABC0]);
         v39 = *MEMORY[0x1E698F240];
-        v62 = *MEMORY[0x1E696A578];
-        v47 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"displayContext"];
-        v63 = v47;
-        v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
+        v61 = *MEMORY[0x1E696A578];
+        v46 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"displayContext"];
+        v62 = v46;
+        v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
         v16 = 0;
-        *p_isa = [v42 initWithDomain:v39 code:2 userInfo:v13];
+        *p_isa = [v41 initWithDomain:v39 code:2 userInfo:v13];
 LABEL_74:
-        v19 = v54;
+        v19 = v53;
 LABEL_75:
-        v15 = v49;
+        v15 = v48;
         goto LABEL_76;
       }
 
@@ -521,12 +519,12 @@ LABEL_75:
     if (objc_opt_isKindOfClass())
     {
       v12 = v11;
-      v57 = 0;
-      v50 = [[BMVisualIntelligenceCameraLookupEventServerRequestContext alloc] initWithJSONDictionary:v12 error:&v57];
-      v24 = v57;
+      v56 = 0;
+      v49 = [[BMVisualIntelligenceCameraLookupEventServerRequestContext alloc] initWithJSONDictionary:v12 error:&v56];
+      v24 = v56;
       if (v24)
       {
-        v19 = v54;
+        v19 = v53;
         if (p_isa)
         {
           v24 = v24;
@@ -542,27 +540,27 @@ LABEL_75:
 
     if (p_isa)
     {
-      v48 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v47 = objc_alloc(MEMORY[0x1E696ABC0]);
       v37 = *MEMORY[0x1E698F240];
-      v64 = *MEMORY[0x1E696A578];
-      v50 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"serverRequestContext"];
-      v65 = v50;
-      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
-      v38 = [v48 initWithDomain:v37 code:2 userInfo:v12];
+      v63 = *MEMORY[0x1E696A578];
+      v49 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"serverRequestContext"];
+      v64 = v49;
+      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
+      v38 = [v47 initWithDomain:v37 code:2 userInfo:v12];
       v16 = 0;
       *p_isa = v38;
 LABEL_70:
-      v19 = v54;
+      v19 = v53;
 LABEL_71:
-      v15 = v49;
+      v15 = v48;
 LABEL_77:
 
-      v8 = v51;
+      v8 = v50;
       goto LABEL_78;
     }
 
-    v19 = v54;
-    v15 = v49;
+    v19 = v53;
+    v15 = v48;
 LABEL_78:
 
     self = selfCopy;
@@ -580,10 +578,10 @@ LABEL_78:
   {
     v21 = objc_alloc(MEMORY[0x1E696ABC0]);
     v22 = *MEMORY[0x1E698F240];
-    v70 = *MEMORY[0x1E696A578];
+    v69 = *MEMORY[0x1E696A578];
     v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"sessionId"];
-    v71[0] = v17;
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v71 forKeys:&v70 count:1];
+    v70[0] = v17;
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v70 forKeys:&v69 count:1];
     v23 = [v21 initWithDomain:v22 code:2 userInfo:v19];
     v8 = 0;
     v16 = 0;
@@ -598,7 +596,6 @@ LABEL_81:
   v16 = 0;
 LABEL_83:
 
-  v40 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -906,96 +903,92 @@ LABEL_47:
 
 + (id)protoFields
 {
-  v11[6] = *MEMORY[0x1E69E9840];
+  v10[6] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"sessionId" number:1 type:13 subMessageClass:0];
-  v11[0] = v2;
+  v10[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"dimensionContext" number:2 type:14 subMessageClass:objc_opt_class()];
-  v11[1] = v3;
+  v10[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"visualIntelligenceContext" number:3 type:14 subMessageClass:objc_opt_class()];
-  v11[2] = v4;
+  v10[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"serverRequestContext" number:4 type:14 subMessageClass:objc_opt_class()];
-  v11[3] = v5;
+  v10[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"displayContext" number:5 type:14 subMessageClass:objc_opt_class()];
-  v11[4] = v6;
+  v10[4] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"userInteractionDetected" number:6 type:14 subMessageClass:objc_opt_class()];
-  v11[5] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:6];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10[5] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:6];
 
   return v8;
 }
 
 + (id)columns
 {
-  v11[6] = *MEMORY[0x1E69E9840];
+  v10[6] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"sessionId" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"dimensionContext_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_688];
   v4 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"visualIntelligenceContext_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_690];
   v5 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"serverRequestContext_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_692];
   v6 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"displayContext_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_694];
   v7 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"userInteractionDetected_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_696];
-  v11[0] = v2;
-  v11[1] = v3;
-  v11[2] = v4;
-  v11[3] = v5;
-  v11[4] = v6;
-  v11[5] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:6];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10[0] = v2;
+  v10[1] = v3;
+  v10[2] = v4;
+  v10[3] = v5;
+  v10[4] = v6;
+  v10[5] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:6];
 
   return v8;
 }
 
-id __48__BMVisualIntelligenceCameraLookupEvent_columns__block_invoke_5(uint64_t a1, void *a2)
+id __48__BMVisualIntelligenceCameraLookupEvent_columns__block_invoke_5(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 userInteractionDetected];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 userInteractionDetected];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
-id __48__BMVisualIntelligenceCameraLookupEvent_columns__block_invoke_4(uint64_t a1, void *a2)
+id __48__BMVisualIntelligenceCameraLookupEvent_columns__block_invoke_4(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 displayContext];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 displayContext];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
-id __48__BMVisualIntelligenceCameraLookupEvent_columns__block_invoke_3(uint64_t a1, void *a2)
+id __48__BMVisualIntelligenceCameraLookupEvent_columns__block_invoke_3(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 serverRequestContext];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 serverRequestContext];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
-id __48__BMVisualIntelligenceCameraLookupEvent_columns__block_invoke_2(uint64_t a1, void *a2)
+id __48__BMVisualIntelligenceCameraLookupEvent_columns__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 visualIntelligenceContext];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 visualIntelligenceContext];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
-id __48__BMVisualIntelligenceCameraLookupEvent_columns__block_invoke(uint64_t a1, void *a2)
+id __48__BMVisualIntelligenceCameraLookupEvent_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 dimensionContext];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 dimensionContext];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

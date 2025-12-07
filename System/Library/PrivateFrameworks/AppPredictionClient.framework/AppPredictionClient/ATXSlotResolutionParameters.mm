@@ -66,7 +66,7 @@
               }
 
               v25 = *(*(&v52 + 1) + 8 * i);
-              if (!parameters3 || [parameters3 containsObject:*(*(&v52 + 1) + 8 * i)])
+              if (!parameters3 || objc_msgSend_containsObject_(parameters3))
               {
                 v26 = [v25 hash];
                 v27 = [atx_nonNilParametersByName objectForKeyedSubscript:v25];

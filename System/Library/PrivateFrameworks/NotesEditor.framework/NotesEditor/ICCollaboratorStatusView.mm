@@ -24,7 +24,7 @@
   y = test.y;
   x = test.x;
   v13.receiver = self;
-  v13.super_class = type metadata accessor for CollaboratorStatusView();
+  v13.super_class = type metadata accessor for CollaboratorStatusView(0);
   v7 = v13.receiver;
   eventCopy = event;
   v9 = [(ICCollaboratorStatusView *)&v13 hitTest:eventCopy withEvent:x, y];
@@ -35,7 +35,7 @@
   }
 
   v10 = v9;
-  sub_2151A6C9C(0, &qword_2811994D0);
+  sub_2151A6C9C(0, &qword_2811994D0, 0x277D75D18);
   v11 = v7;
   v7 = v10;
   LOBYTE(v10) = sub_2154A291C();

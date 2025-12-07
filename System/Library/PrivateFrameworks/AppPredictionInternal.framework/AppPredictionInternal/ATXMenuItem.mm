@@ -18,21 +18,18 @@
 
 - (NSString)bundleID
 {
-  v2 = *(self + OBJC_IVAR___ATXMenuItem_bundleID);
-  v3 = *(self + OBJC_IVAR___ATXMenuItem_bundleID + 8);
 
-  v4 = sub_2268363F8();
+  v2 = sub_2268363F8();
 
-  return v4;
+  return v2;
 }
 
 - (NSArray)menuHierarchyComponents
 {
-  v2 = *(self + OBJC_IVAR___ATXMenuItem_menuHierarchyComponents);
 
-  v3 = sub_226836558();
+  v2 = sub_226836558();
 
-  return v3;
+  return v2;
 }
 
 - (NSArray)fullMenuPath
@@ -51,7 +48,7 @@
   selfCopy = self;
   v2();
   __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D7A1CC0, qword_226873D50);
-  sub_2267A0610(&qword_27D7A1A90, &unk_27D7A1CC0, qword_226873D50);
+  sub_2267A0610(&qword_27D7A1A90, &unk_27D7A1CC0, qword_226873D50, MEMORY[0x277D83958]);
   sub_226836388();
 
   v4 = sub_2268363F8();
@@ -73,9 +70,8 @@
 {
   v4 = sub_226836408();
   v5 = (self + OBJC_IVAR___ATXMenuItem____lazy_storage___identifierForIndexing);
-  v6 = *(self + OBJC_IVAR___ATXMenuItem____lazy_storage___identifierForIndexing + 8);
   *v5 = v4;
-  v5[1] = v7;
+  v5[1] = v6;
 }
 
 - (ATXMenuItem)initWithBundleID:(id)d identifier:(id)identifier localizedTitle:(id)title standaloneTitle:(id)standaloneTitle menuHierarchyComponents:(id)components
@@ -177,7 +173,7 @@ LABEL_8:
 {
   sub_226836568();
   __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D7A1CC0, qword_226873D50);
-  sub_2267A0610(&qword_27D7A1A90, &unk_27D7A1CC0, qword_226873D50);
+  sub_2267A0610(&qword_27D7A1A90, &unk_27D7A1CC0, qword_226873D50, MEMORY[0x277D83958]);
   sub_226836388();
 
   v3 = sub_2268363F8();

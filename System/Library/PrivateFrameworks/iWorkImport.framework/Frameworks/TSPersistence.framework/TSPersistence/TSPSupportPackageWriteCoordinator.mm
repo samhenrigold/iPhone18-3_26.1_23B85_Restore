@@ -2,6 +2,7 @@
 - (BOOL)isComponentExternalWithIdentifier:(int64_t)identifier wasCopied:(BOOL *)copied componentReadVersion:(unint64_t *)version;
 - (BOOL)shouldEnqueueComponent:(id)component;
 - (BOOL)wasComponentCopied:(int64_t)copied;
+- (TSPSupportPackageWriteCoordinator)initWithContext:(id)context archiverClass:(Class)class archiverFlags:(char)flags documentRevision:(id)revision saveToken:(unint64_t)token fileFormatVersion:(unint64_t)version metadataObject:(id)object packageWriteCoordinator:(id)self0;
 - (TSPSupportPackageWriteCoordinator)initWithContext:(id)context archiverClass:(Class)class archiverFlags:(char)flags documentRevision:(id)revision saveToken:(unint64_t)token packageIdentifier:(unsigned __int8)identifier fileFormatVersion:(unint64_t)version preferredPackageType:(int64_t)self0 metadataObject:(id)self1;
 - (id)objectForIdentifier:(int64_t)identifier;
 - (int64_t)componentIdentifierForObjectIdentifier:(int64_t)identifier objectOrNil:(id)nil objectUUIDOrNil:(id)orNil outComponentIsVersioned:(BOOL *)versioned;
@@ -27,6 +28,42 @@
   v28 = v27;
 
   objc_exception_throw(v27);
+}
+
+- (TSPSupportPackageWriteCoordinator)initWithContext:(id)context archiverClass:(Class)class archiverFlags:(char)flags documentRevision:(id)revision saveToken:(unint64_t)token fileFormatVersion:(unint64_t)version metadataObject:(id)object packageWriteCoordinator:(id)self0
+{
+  flagsCopy = flags;
+  contextCopy = context;
+  revisionCopy = revision;
+  objectCopy = object;
+  coordinatorCopy = coordinator;
+  if (coordinatorCopy)
+  {
+    v32.receiver = self;
+    v32.super_class = TSPSupportPackageWriteCoordinator;
+    v21 = [(TSPPackageWriteCoordinator *)&v32 initWithContext:contextCopy archiverClass:class archiverFlags:flagsCopy documentRevision:revisionCopy saveToken:token packageIdentifier:2 fileFormatVersion:version preferredPackageType:0 metadataObject:objectCopy packageWriteCoordinator:coordinatorCopy captureSnapshots:0];
+    v22 = v21;
+    if (v21)
+    {
+      objc_storeStrong(&v21->_packageWriteCoordinator, coordinator);
+    }
+
+    self = v22;
+    selfCopy = self;
+  }
+
+  else
+  {
+    v24 = MEMORY[0x277D81150];
+    v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "[TSPSupportPackageWriteCoordinator initWithContext:archiverClass:archiverFlags:documentRevision:saveToken:fileFormatVersion:metadataObject:packageWriteCoordinator:]");
+    v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v26, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageWriteCoordinator.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v24, v28, v25, v27, 2970, 0, "|packageWriteCoordinator| must be defined when initializing TSPSupportPackageWriteCoordinator.");
+
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v29, v30);
+    selfCopy = 0;
+  }
+
+  return selfCopy;
 }
 
 - (BOOL)shouldEnqueueComponent:(id)component

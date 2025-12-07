@@ -455,7 +455,7 @@ void __264__PFParallaxIntermediateLayout_initWithVisibleRect_inactiveRect_zoomSt
 - (id)updateWithConfiguration:(id)configuration
 {
   configurationCopy = configuration;
-  v5 = [(PFParallaxIntermediateLayout *)self mutableCopy];
+  v5 = objc_msgSend_mutableCopy(self);
   configurationCopy[2](configurationCopy, v5);
 
   return v5;
@@ -470,7 +470,7 @@ void __264__PFParallaxIntermediateLayout_initWithVisibleRect_inactiveRect_zoomSt
   if (v5)
   {
     v6 = v5;
-    v7 = [(PFParallaxIntermediateLayout *)v5 mutableCopy];
+    v7 = objc_msgSend_mutableCopy(v5);
     configurationCopy[2](configurationCopy, v7);
   }
 

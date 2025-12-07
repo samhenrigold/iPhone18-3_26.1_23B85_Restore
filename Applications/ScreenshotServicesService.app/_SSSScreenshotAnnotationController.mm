@@ -845,7 +845,7 @@ LABEL_16:
   v9 = v8;
   if (v8)
   {
-    [v8 cropInfo];
+    objc_msgSend_cropInfo(v8);
   }
 
   else

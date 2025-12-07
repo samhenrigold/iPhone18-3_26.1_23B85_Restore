@@ -16,9 +16,8 @@
 - (TSClock)init
 {
   v3 = MEMORY[0x277CBEAD8];
-  v4 = *MEMORY[0x277CBE660];
-  v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSClock init]"];
-  [v3 raise:v4 format:{@"Do not call %@", v5}];
+  v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:?];
+  [v3 raise:v4 format:?];
 
   return 0;
 }
@@ -39,7 +38,7 @@
     v8 = MEMORY[0x277CCACA8];
     v9 = objc_opt_class();
     v10 = NSStringFromClass(v9);
-    identifier = [v8 stringWithFormat:@"com.apple.TimeSync.%@.0x%016llx.notification", v10, identifier];
+    identifier = [v8 stringWithFormat:v10, identifier];
     v12 = dispatch_queue_create([identifier UTF8String], 0);
     notificationsQueue = v5->_notificationsQueue;
     v5->_notificationsQueue = v12;
@@ -78,7 +77,7 @@
 
   if (error)
   {
-    *error = [MEMORY[0x277CCA9B8] errorWithDomain:@"TSErrorDomain" code:-536870201 userInfo:0];
+    *error = [MEMORY[0x277CCA9B8] errorWithDomain:? code:? userInfo:?];
   }
 
   return 0;
@@ -108,7 +107,7 @@
 
   if (error)
   {
-    *error = [MEMORY[0x277CCA9B8] errorWithDomain:@"TSErrorDomain" code:-536870201 userInfo:0];
+    *error = [MEMORY[0x277CCA9B8] errorWithDomain:? code:? userInfo:?];
   }
 
   return 0;
@@ -116,7 +115,7 @@
 
 - (void)addClient:(id)client
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
@@ -124,61 +123,50 @@
     uTF8String = [v5 UTF8String];
     v7 = [(TSClock *)self description];
     *buf = 136315394;
-    v14 = uTF8String;
-    v15 = 2080;
+    v13 = uTF8String;
+    v14 = 2080;
     uTF8String2 = [v7 UTF8String];
     _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Adding Client %s to clock %s\n", buf, 0x16u);
   }
 
   notificationQueue = [(TSClock *)self notificationQueue];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __21__TSClock_addClient___block_invoke;
-  v11[3] = &unk_279DBD738;
-  v11[4] = self;
-  v12 = clientCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __21__TSClock_addClient___block_invoke;
+  v10[3] = &unk_279DBD738;
+  v10[4] = self;
+  v11 = clientCopy;
   v9 = clientCopy;
-  dispatch_sync(notificationQueue, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  dispatch_sync(notificationQueue, v10);
 }
 
 void __21__TSClock_addClient___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   [*(*(a1 + 32) + 8) compact];
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
-  v10 = 0u;
   v3 = *(*(a1 + 32) + 8);
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:0 objects:? count:?];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = MEMORY[0];
     while (2)
     {
-      v7 = 0;
-      do
+      for (i = 0; i != v5; i = (i + 1))
       {
-        if (*v10 != v6)
+        if (MEMORY[0] != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        if (*(a1 + 40) == *(*(&v9 + 1) + 8 * v7))
+        if (*(a1 + 40) == *(8 * i))
         {
 
           goto LABEL_11;
         }
-
-        ++v7;
       }
 
-      while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [v3 countByEnumeratingWithState:? objects:? count:?];
       if (v5)
       {
         continue;
@@ -188,15 +176,14 @@ void __21__TSClock_addClient___block_invoke(uint64_t a1)
     }
   }
 
-  [*(*(a1 + 32) + 8) addPointer:{*(a1 + 40), v9}];
+  [*(*(a1 + 32) + 8) addPointer:?];
 LABEL_11:
   objc_autoreleasePoolPop(v2);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeClient:(id)client
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
@@ -204,41 +191,34 @@ LABEL_11:
     uTF8String = [v5 UTF8String];
     v7 = [(TSClock *)self description];
     *buf = 136315394;
-    v14 = uTF8String;
-    v15 = 2080;
+    v13 = uTF8String;
+    v14 = 2080;
     uTF8String2 = [v7 UTF8String];
     _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Removing Client %s from clock %s\n", buf, 0x16u);
   }
 
   notificationQueue = [(TSClock *)self notificationQueue];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __24__TSClock_removeClient___block_invoke;
-  v11[3] = &unk_279DBD738;
-  v11[4] = self;
-  v12 = clientCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __24__TSClock_removeClient___block_invoke;
+  v10[3] = &unk_279DBD738;
+  v10[4] = self;
+  v11 = clientCopy;
   v9 = clientCopy;
-  dispatch_sync(notificationQueue, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  dispatch_sync(notificationQueue, v10);
 }
 
 void __24__TSClock_removeClient___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   [*(*(a1 + 32) + 8) compact];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
-  v12 = 0u;
   v3 = *(*(a1 + 32) + 8);
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:0 objects:? count:?];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v12;
+    v7 = MEMORY[0];
     while (2)
     {
       v8 = 0;
@@ -246,24 +226,24 @@ void __24__TSClock_removeClient___block_invoke(uint64_t a1)
       v6 += v5;
       do
       {
-        if (*v12 != v7)
+        if (MEMORY[0] != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        if (*(a1 + 40) == *(*(&v11 + 1) + 8 * v8))
+        if (*(a1 + 40) == *(8 * v8))
         {
 
-          [*(*(a1 + 32) + 8) removePointerAtIndex:{v9, v11}];
+          [*(*(a1 + 32) + 8) removePointerAtIndex:?];
           goto LABEL_11;
         }
 
         ++v9;
-        ++v8;
+        v8 = (v8 + 1);
       }
 
       while (v5 != v8);
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:? objects:? count:?];
       if (v5)
       {
         continue;
@@ -275,46 +255,38 @@ void __24__TSClock_removeClient___block_invoke(uint64_t a1)
 
 LABEL_11:
   objc_autoreleasePoolPop(v2);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (NSMutableArray)clients
 {
-  v16 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   [(NSPointerArray *)self->_clients compact];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
-  v12 = 0u;
   v4 = self->_clients;
-  v5 = [(NSPointerArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [NSPointerArray countByEnumeratingWithState:v4 objects:"countByEnumeratingWithState:objects:count:" count:0];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = MEMORY[0];
     do
     {
-      for (i = 0; i != v6; ++i)
+      for (i = 0; i != v6; i = (i + 1))
       {
-        if (*v12 != v7)
+        if (MEMORY[0] != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        if (*(*(&v11 + 1) + 8 * i))
+        if (*(8 * i))
         {
-          [array addObject:v11];
+          [array addObject:?];
         }
       }
 
-      v6 = [(NSPointerArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [NSPointerArray countByEnumeratingWithState:v4 objects:"countByEnumeratingWithState:objects:count:" count:?];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -324,7 +296,7 @@ LABEL_11:
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v6 = [v3 stringWithFormat:@"%@ 0x%016llx", v5, -[TSClock clockIdentifier](self, "clockIdentifier")];
+  v6 = [v3 stringWithFormat:v5, -[TSClock clockIdentifier](self, "clockIdentifier")];
 
   return v6;
 }
@@ -335,20 +307,20 @@ LABEL_11:
   indentCopy = indent;
   infoCopy = info;
   string = [v5 string];
-  v9 = [infoCopy objectForKeyedSubscript:@"ClockName"];
-  [string appendFormat:@"%@%@\n", indentCopy, v9];
+  v9 = [infoCopy objectForKeyedSubscript:?];
+  [string appendFormat:indentCopy, v9];
 
-  [string appendFormat:@"%@    Clock Identifier: ", indentCopy];
-  v10 = [infoCopy objectForKeyedSubscript:@"ClockIdentifier"];
+  [string appendFormat:indentCopy];
+  v10 = [infoCopy objectForKeyedSubscript:?];
 
   if (v10)
   {
-    [string appendFormat:@"0x%016llx\n", objc_msgSend(v10, "unsignedLongLongValue")];
+    [string appendFormat:objc_msgSend(v10, "unsignedLongLongValue")];
   }
 
   else
   {
-    [string appendString:@"Could not read property\n"];
+    [string appendString:?];
   }
 
   return string;
@@ -359,7 +331,7 @@ LABEL_11:
   v4 = MEMORY[0x277CCACA8];
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
-  identifier = [v4 stringWithFormat:@"%@ 0x%016llx", v6, identifier];
+  identifier = [v4 stringWithFormat:v6, identifier];
 
   return identifier;
 }

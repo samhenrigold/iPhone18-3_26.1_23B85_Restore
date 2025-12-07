@@ -103,7 +103,7 @@
 
 - (void)completeRequestWithAvailableRoomTypes:(id)types completionHandler:(id)handler
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   typesCopy = types;
   handlerCopy = handler;
   if ([(EKVirtualConferenceExtensionContext *)self requestType]!= 1)
@@ -112,40 +112,40 @@
   }
 
   v7 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(typesCopy, "count")}];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = typesCopy;
-  v8 = [obj countByEnumeratingWithState:&v21 objects:v27 count:16];
+  v8 = [obj countByEnumeratingWithState:&v20 objects:v26 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v22;
+    v10 = *v21;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * i);
+        v12 = *(*(&v20 + 1) + 8 * i);
         v13 = objc_alloc_init(MEMORY[0x1E696ABE0]);
-        v25[0] = @"_EKVirtualConferenceRoomTypeTitleKey";
+        v24[0] = @"_EKVirtualConferenceRoomTypeTitleKey";
         title = [v12 title];
-        v25[1] = @"_EKVirtualConferenceRoomTypeIdentifierKey";
-        v26[0] = title;
+        v24[1] = @"_EKVirtualConferenceRoomTypeIdentifierKey";
+        v25[0] = title;
         identifier = [v12 identifier];
-        v26[1] = identifier;
-        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:2];
+        v25[1] = identifier;
+        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:2];
         [v13 setUserInfo:v16];
 
         [v7 addObject:v13];
       }
 
-      v9 = [obj countByEnumeratingWithState:&v21 objects:v27 count:16];
+      v9 = [obj countByEnumeratingWithState:&v20 objects:v26 count:16];
     }
 
     while (v9);
@@ -162,13 +162,11 @@
   }
 
   [(EKVirtualConferenceExtensionContext *)self completeRequestReturningItems:v17 completionHandler:handlerCopy];
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)completeRequestWithVirtualConference:(id)conference completionHandler:(id)handler
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   conferenceCopy = conference;
   handlerCopy = handler;
   if ([(EKVirtualConferenceExtensionContext *)self requestType]!= 2)
@@ -179,29 +177,29 @@
   selfCopy = self;
   v7 = MEMORY[0x1E695DF70];
   uRLDescriptors = [conferenceCopy URLDescriptors];
-  v36 = [v7 arrayWithCapacity:{objc_msgSend(uRLDescriptors, "count") + 1}];
+  v35 = [v7 arrayWithCapacity:{objc_msgSend(uRLDescriptors, "count") + 1}];
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
-  v34 = conferenceCopy;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v33 = conferenceCopy;
   obj = [conferenceCopy URLDescriptors];
-  v9 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v9 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v38;
+    v11 = *v37;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v38 != v11)
+        if (*v37 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v37 + 1) + 8 * i);
+        v13 = *(*(&v36 + 1) + 8 * i);
         v14 = objc_alloc_init(MEMORY[0x1E696ABE0]);
         v15 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:3];
         [v15 setObject:@"_EKVirtualConferenceJoinMethodTypeIdentifierKey" forKey:@"_EKVirtualConferenceTypeIdentifierKey"];
@@ -218,36 +216,36 @@
         }
 
         [v14 setUserInfo:v15];
-        [v36 addObject:v14];
+        [v35 addObject:v14];
       }
 
-      v10 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v10 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
     }
 
     while (v10);
   }
 
-  uRLDescriptors2 = [v34 URLDescriptors];
+  uRLDescriptors2 = [v33 URLDescriptors];
   v21 = [uRLDescriptors2 count];
 
   if (v21)
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];
-    title3 = [v34 title];
+    title3 = [v33 title];
     v24 = [title3 length];
 
     if (v24)
     {
-      title4 = [v34 title];
+      title4 = [v33 title];
       [dictionary setObject:title4 forKey:@"_EKVirtualConferenceInfoTitleKey"];
     }
 
-    conferenceDetails = [v34 conferenceDetails];
+    conferenceDetails = [v33 conferenceDetails];
     v27 = [conferenceDetails length];
 
     if (v27)
     {
-      conferenceDetails2 = [v34 conferenceDetails];
+      conferenceDetails2 = [v33 conferenceDetails];
       [dictionary setObject:conferenceDetails2 forKey:@"_EKVirtualConferenceInfoDetailsKey"];
     }
 
@@ -256,13 +254,13 @@
       [dictionary setObject:@"_EKVirtualConferenceInfoTypeIdentifierKey" forKey:@"_EKVirtualConferenceTypeIdentifierKey"];
       v29 = objc_alloc_init(MEMORY[0x1E696ABE0]);
       [v29 setUserInfo:dictionary];
-      [v36 addObject:v29];
+      [v35 addObject:v29];
     }
   }
 
-  if ([v36 count])
+  if ([v35 count])
   {
-    v30 = v36;
+    v30 = v35;
   }
 
   else
@@ -271,14 +269,12 @@
   }
 
   [(EKVirtualConferenceExtensionContext *)selfCopy completeRequestReturningItems:v30 completionHandler:handlerCopy];
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (void)completeRequestWithInvalidationSuccess:(BOOL)success error:(id)error completionHandler:(id)handler
 {
   successCopy = success;
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if ([(EKVirtualConferenceExtensionContext *)self requestType]!= 5)
   {
@@ -288,36 +284,34 @@
   v8 = objc_alloc_init(MEMORY[0x1E696ABE0]);
   if (successCopy)
   {
-    v18 = @"_EKVirtualConferenceInvalidationResultKey";
-    v19[0] = @"_EKVirtualConferenceInvalidationResultSucceeded";
+    v17 = @"_EKVirtualConferenceInvalidationResultKey";
+    v18[0] = @"_EKVirtualConferenceInvalidationResultSucceeded";
     v9 = MEMORY[0x1E695DF20];
-    v10 = v19;
-    v11 = &v18;
+    v10 = v18;
+    v11 = &v17;
   }
 
   else
   {
-    v16 = @"_EKVirtualConferenceInvalidationResultKey";
-    v17 = @"_EKVirtualConferenceInvalidationResultFailed";
+    v15 = @"_EKVirtualConferenceInvalidationResultKey";
+    v16 = @"_EKVirtualConferenceInvalidationResultFailed";
     v9 = MEMORY[0x1E695DF20];
-    v10 = &v17;
-    v11 = &v16;
+    v10 = &v16;
+    v11 = &v15;
   }
 
   v12 = [v9 dictionaryWithObjects:v10 forKeys:v11 count:1];
   [v8 setUserInfo:v12];
 
-  v15 = v8;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1];
+  v14 = v8;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v14 count:1];
   [(EKVirtualConferenceExtensionContext *)self completeRequestReturningItems:v13 completionHandler:handlerCopy];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)completeRequestWithRenewalSuccess:(BOOL)success error:(id)error completionHandler:(id)handler
 {
   successCopy = success;
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   errorCopy = error;
   handlerCopy = handler;
   if ([(EKVirtualConferenceExtensionContext *)self requestType]!= 4)
@@ -345,11 +339,9 @@
   }
 
   [v10 setUserInfo:v12];
-  v16[0] = v10;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+  v15[0] = v10;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
   [(EKVirtualConferenceExtensionContext *)self completeRequestReturningItems:v14 completionHandler:handlerCopy];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)completeRequestWithAvailableRoomTypes:completionHandler:.cold.1()

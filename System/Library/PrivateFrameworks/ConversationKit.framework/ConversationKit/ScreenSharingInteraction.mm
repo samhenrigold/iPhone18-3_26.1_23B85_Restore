@@ -9,7 +9,7 @@
 
 - (UIView)view
 {
-  v2 = ScreenSharingInteraction.view.getter();
+  v2 = ScreenSharingInteraction.view.getter(self);
 
   return v2;
 }

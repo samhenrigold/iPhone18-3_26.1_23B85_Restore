@@ -10,7 +10,7 @@
 
 - (FCPuzzleHistoryItem)initWithEntryID:(id)d puzzleID:(id)iD puzzleTypeID:(id)typeID progressData:(id)data progressLevel:(int64_t)level score:(id)score scoreType:(id)type rankID:(id)self0 usedReveal:(id)self1 playDuration:(int64_t)self2 lastPlayedDate:(id)self3 completedDate:(id)self4 firstCompletedDate:(id)self5 firstPlayDuration:(id)self6 bestScore:(id)self7 progressMovesDescription:(id)self8 difficulty:(id)self9 publishDate:(id)publishDate behaviorFlags:(id)flags
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   dCopy = d;
   iDCopy = iD;
   typeIDCopy = typeID;
@@ -32,15 +32,15 @@
   flagsCopy = flags;
   if (!dCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v44 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"puzzle history item must have an identifier"];
+    v43 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"puzzle history item must have an identifier"];
     *buf = 136315906;
-    v63 = "[FCPuzzleHistoryItem initWithEntryID:puzzleID:puzzleTypeID:progressData:progressLevel:score:scoreType:rankID:usedReveal:playDuration:lastPlayedDate:completedDate:firstCompletedDate:firstPlayDuration:bestScore:progressMovesDescription:difficulty:publishDate:behaviorFlags:]";
-    v64 = 2080;
-    v65 = "FCPuzzleHistoryItem.m";
-    v66 = 1024;
-    v67 = 33;
-    v68 = 2114;
-    v69 = v44;
+    v62 = "[FCPuzzleHistoryItem initWithEntryID:puzzleID:puzzleTypeID:progressData:progressLevel:score:scoreType:rankID:usedReveal:playDuration:lastPlayedDate:completedDate:firstCompletedDate:firstPlayDuration:bestScore:progressMovesDescription:difficulty:publishDate:behaviorFlags:]";
+    v63 = 2080;
+    v64 = "FCPuzzleHistoryItem.m";
+    v65 = 1024;
+    v66 = 33;
+    v67 = 2114;
+    v68 = v43;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (iDCopy)
@@ -56,36 +56,36 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v45 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"puzzle history item must have a puzzle ID"];
+    v44 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"puzzle history item must have a puzzle ID"];
     *buf = 136315906;
-    v63 = "[FCPuzzleHistoryItem initWithEntryID:puzzleID:puzzleTypeID:progressData:progressLevel:score:scoreType:rankID:usedReveal:playDuration:lastPlayedDate:completedDate:firstCompletedDate:firstPlayDuration:bestScore:progressMovesDescription:difficulty:publishDate:behaviorFlags:]";
-    v64 = 2080;
-    v65 = "FCPuzzleHistoryItem.m";
-    v66 = 1024;
-    v67 = 34;
-    v68 = 2114;
-    v69 = v45;
+    v62 = "[FCPuzzleHistoryItem initWithEntryID:puzzleID:puzzleTypeID:progressData:progressLevel:score:scoreType:rankID:usedReveal:playDuration:lastPlayedDate:completedDate:firstCompletedDate:firstPlayDuration:bestScore:progressMovesDescription:difficulty:publishDate:behaviorFlags:]";
+    v63 = 2080;
+    v64 = "FCPuzzleHistoryItem.m";
+    v65 = 1024;
+    v66 = 34;
+    v67 = 2114;
+    v68 = v44;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
   if (!typeIDCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v46 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"puzzle history item must have a puzzleType ID"];
+    v45 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"puzzle history item must have a puzzleType ID"];
     *buf = 136315906;
-    v63 = "[FCPuzzleHistoryItem initWithEntryID:puzzleID:puzzleTypeID:progressData:progressLevel:score:scoreType:rankID:usedReveal:playDuration:lastPlayedDate:completedDate:firstCompletedDate:firstPlayDuration:bestScore:progressMovesDescription:difficulty:publishDate:behaviorFlags:]";
-    v64 = 2080;
-    v65 = "FCPuzzleHistoryItem.m";
-    v66 = 1024;
-    v67 = 35;
-    v68 = 2114;
-    v69 = v46;
+    v62 = "[FCPuzzleHistoryItem initWithEntryID:puzzleID:puzzleTypeID:progressData:progressLevel:score:scoreType:rankID:usedReveal:playDuration:lastPlayedDate:completedDate:firstCompletedDate:firstPlayDuration:bestScore:progressMovesDescription:difficulty:publishDate:behaviorFlags:]";
+    v63 = 2080;
+    v64 = "FCPuzzleHistoryItem.m";
+    v65 = 1024;
+    v66 = 35;
+    v67 = 2114;
+    v68 = v45;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v61.receiver = self;
-  v61.super_class = FCPuzzleHistoryItem;
-  v32 = [(FCPuzzleHistoryItem *)&v61 init];
+  v60.receiver = self;
+  v60.super_class = FCPuzzleHistoryItem;
+  v32 = [(FCPuzzleHistoryItem *)&v60 init];
   v33 = v32;
   if (v32)
   {
@@ -132,7 +132,6 @@ LABEL_6:
     }
   }
 
-  v42 = *MEMORY[0x1E69E9840];
   return v33;
 }
 
@@ -254,21 +253,21 @@ uint64_t __33__FCPuzzleHistoryItem_asCKRecord__block_invoke()
 
 - (id)dictionaryRepresentation
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   puzzleID = [self puzzleID];
 
   if (!puzzleID && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v40 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"puzzleHistoryItem must have a puzzleID"];
-    v41 = 136315906;
-    v42 = "[FCPuzzleHistoryItem(PuzzleHistory) dictionaryRepresentation]";
-    v43 = 2080;
-    v44 = "FCPuzzleHistory.m";
-    v45 = 1024;
-    v46 = 1123;
-    v47 = 2114;
-    v48 = v40;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v41, 0x26u);
+    v39 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"puzzleHistoryItem must have a puzzleID"];
+    v40 = 136315906;
+    v41 = "[FCPuzzleHistoryItem(PuzzleHistory) dictionaryRepresentation]";
+    v42 = 2080;
+    v43 = "FCPuzzleHistory.m";
+    v44 = 1024;
+    v45 = 1123;
+    v46 = 2114;
+    v47 = v39;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v40, 0x26u);
   }
 
   dictionary = [MEMORY[0x1E695DF90] dictionary];
@@ -405,8 +404,6 @@ uint64_t __33__FCPuzzleHistoryItem_asCKRecord__block_invoke()
     behaviorFlags2 = [self behaviorFlags];
     [dictionary setObject:behaviorFlags2 forKey:@"behaviorFlags"];
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }

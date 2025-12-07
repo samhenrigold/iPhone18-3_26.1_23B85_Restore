@@ -322,19 +322,17 @@ void __157__WFArrayParameterState_Convenience__processValues_context_processingC
 {
   if (*(*(*(a1 + 64) + 8) + 24) == 1)
   {
-    v2 = *(a1 + 48);
-    v3 = *(*(*(a1 + 72) + 8) + 40);
-    v7 = [objc_alloc(*(a1 + 80)) initWithValues:*(a1 + 32)];
-    (*(v2 + 16))(v2, v3, v7);
+    v1 = *(a1 + 48);
+    v2 = *(*(*(a1 + 72) + 8) + 40);
+    v4 = [objc_alloc(*(a1 + 80)) initWithValues:*(a1 + 32)];
+    (*(v1 + 16))(v1, v2, v4);
   }
 
   else
   {
-    v4 = *(a1 + 56);
-    v5 = *(a1 + 40);
-    v6 = *(*(a1 + 56) + 16);
+    v3 = *(*(a1 + 56) + 16);
 
-    v6();
+    v3();
   }
 }
 

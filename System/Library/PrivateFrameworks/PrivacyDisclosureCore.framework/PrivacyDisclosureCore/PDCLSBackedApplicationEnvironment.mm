@@ -27,26 +27,27 @@
 - (id)applicationRecordForBundleIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v9 = 0;
-  v4 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:identifierCopy allowPlaceholder:0 error:&v9];
-  v5 = v9;
+  v11 = 0;
+  v4 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:identifierCopy allowPlaceholder:0 error:&v11];
+  v5 = v11;
+  v7 = v5;
   if (v5)
   {
-    v6 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureCore();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureCore(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(PDCLSBackedApplicationEnvironment *)identifierCopy applicationRecordForBundleIdentifier:v5, v6];
+      [(PDCLSBackedApplicationEnvironment *)identifierCopy applicationRecordForBundleIdentifier:v7, v8];
     }
 
-    v7 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v7 = v4;
+    v9 = v4;
   }
 
-  return v7;
+  return v9;
 }
 
 - (id)applicationIdentityForIdentityString:(id)string
@@ -71,13 +72,12 @@
 
 - (void)applicationRecordForBundleIdentifier:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_25F701000, log, OS_LOG_TYPE_ERROR, "Failed to look up record for app %@, error %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_25F701000, log, OS_LOG_TYPE_ERROR, "Failed to look up record for app %@, error %@", &v3, 0x16u);
 }
 
 @end

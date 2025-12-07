@@ -1,10 +1,12 @@
 @interface CESRTaskCoalescer
 + (BOOL)isTaskCoalescenceDisabled;
++ (void)setTaskCoalescenceDisabled:(BOOL)disabled;
 - (BOOL)_didIncomingTask:(id)task arriveInCoalescingWindowWithLastTask:(id)lastTask;
 - (CESRTaskCoalescer)init;
 - (CESRTaskCoalescer)initWithManagerName:(id)name coalescenceInterval:(double)interval coalescenceDelay:(double)delay executionQueue:(id)queue;
 - (void)_beginTransaction;
 - (void)_endTransaction;
+- (void)submitTaskWithId:(unsigned __int16)id taskBlock:(id)block completion:(id)completion;
 - (void)wait;
 @end
 
@@ -26,7 +28,7 @@
 
 - (void)_endTransaction
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v3 = selfCopy->_transactionCounter - 1;
@@ -38,13 +40,13 @@
     {
       managerName = selfCopy->_managerName;
       transaction = selfCopy->_transaction;
-      v9 = 136315650;
-      v10 = "[CESRTaskCoalescer _endTransaction]";
-      v11 = 2112;
-      v12 = managerName;
-      v13 = 2112;
-      v14 = transaction;
-      _os_log_debug_impl(&dword_225EEB000, v4, OS_LOG_TYPE_DEBUG, "%s (%@) Releasing OS transaction: %@", &v9, 0x20u);
+      v8 = 136315650;
+      v9 = "[CESRTaskCoalescer _endTransaction]";
+      v10 = 2112;
+      v11 = managerName;
+      v12 = 2112;
+      v13 = transaction;
+      _os_log_debug_impl(&dword_225EEB000, v4, OS_LOG_TYPE_DEBUG, "%s (%@) Releasing OS transaction: %@", &v8, 0x20u);
     }
 
     v5 = selfCopy->_transaction;
@@ -52,13 +54,11 @@
   }
 
   objc_sync_exit(selfCopy);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_beginTransaction
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   transactionCounter = selfCopy->_transactionCounter;
@@ -73,20 +73,18 @@
     if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEBUG))
     {
       managerName = selfCopy->_managerName;
-      v9 = selfCopy->_transaction;
-      v10 = 136315650;
-      v11 = "[CESRTaskCoalescer _beginTransaction]";
-      v12 = 2112;
-      v13 = managerName;
-      v14 = 2112;
-      v15 = v9;
-      _os_log_debug_impl(&dword_225EEB000, v6, OS_LOG_TYPE_DEBUG, "%s (%@) Acquired OS transaction: %@", &v10, 0x20u);
+      v8 = selfCopy->_transaction;
+      v9 = 136315650;
+      v10 = "[CESRTaskCoalescer _beginTransaction]";
+      v11 = 2112;
+      v12 = managerName;
+      v13 = 2112;
+      v14 = v8;
+      _os_log_debug_impl(&dword_225EEB000, v6, OS_LOG_TYPE_DEBUG, "%s (%@) Acquired OS transaction: %@", &v9, 0x20u);
     }
   }
 
   objc_sync_exit(selfCopy);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)wait
@@ -95,6 +93,60 @@
   taskExecutionQueue = self->_taskExecutionQueue;
 
   dispatch_sync(taskExecutionQueue, &__block_literal_global_55);
+}
+
+- (void)submitTaskWithId:(unsigned __int16)id taskBlock:(id)block completion:(id)completion
+{
+  idCopy = id;
+  v40 = *MEMORY[0x277D85DE8];
+  blockCopy = block;
+  completionCopy = completion;
+  [(CESRTaskCoalescer *)self _beginTransaction];
+  v10 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:idCopy];
+  v11 = MEMORY[0x277CCABB0];
+  atomic_fetch_add(&self->_eventIdCounter, 1u);
+  v12 = [v11 numberWithUnsignedInteger:?];
+  v13 = *MEMORY[0x277CEF0E8];
+  if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEBUG))
+  {
+    managerName = self->_managerName;
+    *buf = 136315906;
+    v33 = "[CESRTaskCoalescer submitTaskWithId:taskBlock:completion:]";
+    v34 = 2112;
+    v35 = managerName;
+    v36 = 2112;
+    v37 = v10;
+    v38 = 2112;
+    v39 = v12;
+    _os_log_debug_impl(&dword_225EEB000, v13, OS_LOG_TYPE_DEBUG, "%s (%@) Received task with taskId: %@ and eventId: %@", buf, 0x2Au);
+  }
+
+  v14 = [MEMORY[0x277CBEAA8] now];
+  aBlock[0] = MEMORY[0x277D85DD0];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __59__CESRTaskCoalescer_submitTaskWithId_taskBlock_completion___block_invoke;
+  aBlock[3] = &unk_27857FF48;
+  aBlock[4] = self;
+  v31 = completionCopy;
+  v15 = completionCopy;
+  v16 = _Block_copy(aBlock);
+  taskRegistryQueue = self->_taskRegistryQueue;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __59__CESRTaskCoalescer_submitTaskWithId_taskBlock_completion___block_invoke_2;
+  v24[3] = &unk_27857F1A8;
+  v24[4] = self;
+  v25 = v10;
+  v26 = v12;
+  v27 = v14;
+  v28 = v16;
+  v29 = blockCopy;
+  v18 = blockCopy;
+  v19 = v14;
+  v20 = v16;
+  v21 = v12;
+  v22 = v10;
+  dispatch_async(taskRegistryQueue, v24);
 }
 
 uint64_t __59__CESRTaskCoalescer_submitTaskWithId_taskBlock_completion___block_invoke(uint64_t a1)
@@ -113,7 +165,7 @@ uint64_t __59__CESRTaskCoalescer_submitTaskWithId_taskBlock_completion___block_i
 
 void __59__CESRTaskCoalescer_submitTaskWithId_taskBlock_completion___block_invoke_2(uint64_t a1)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v2 = +[CESRTaskCoalescer isTaskCoalescenceDisabled];
   if (v2)
   {
@@ -124,13 +176,13 @@ void __59__CESRTaskCoalescer_submitTaskWithId_taskBlock_completion___block_invok
       v5 = *(*(a1 + 32) + 8);
       v6 = *(a1 + 48);
       *buf = 136315906;
-      v29 = "[CESRTaskCoalescer submitTaskWithId:taskBlock:completion:]_block_invoke_2";
-      v30 = 2112;
-      v31 = v5;
-      v32 = 2112;
-      v33 = v4;
-      v34 = 2112;
-      v35 = v6;
+      v28 = "[CESRTaskCoalescer submitTaskWithId:taskBlock:completion:]_block_invoke_2";
+      v29 = 2112;
+      v30 = v5;
+      v31 = 2112;
+      v32 = v4;
+      v33 = 2112;
+      v34 = v6;
       _os_log_impl(&dword_225EEB000, v3, OS_LOG_TYPE_INFO, "%s (%@) Task coalescence is currently disabled (taskId: %@ eventId: %@)", buf, 0x2Au);
     }
   }
@@ -156,13 +208,13 @@ void __59__CESRTaskCoalescer_submitTaskWithId_taskBlock_completion___block_invok
       v18 = *MEMORY[0x277CEF0E8];
       if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEBUG))
       {
-        v25 = *(*(a1 + 32) + 8);
+        v24 = *(*(a1 + 32) + 8);
         *buf = 136315650;
-        v29 = "[CESRTaskCoalescer submitTaskWithId:taskBlock:completion:]_block_invoke";
-        v30 = 2112;
-        v31 = v25;
-        v32 = 2112;
-        v33 = v10;
+        v28 = "[CESRTaskCoalescer submitTaskWithId:taskBlock:completion:]_block_invoke";
+        v29 = 2112;
+        v30 = v24;
+        v31 = 2112;
+        v32 = v10;
         _os_log_debug_impl(&dword_225EEB000, v18, OS_LOG_TYPE_DEBUG, "%s (%@) Enqueueing incoming task for execution - %@", buf, 0x20u);
       }
 
@@ -171,7 +223,7 @@ void __59__CESRTaskCoalescer_submitTaskWithId_taskBlock_completion___block_invok
       block[1] = 3221225472;
       block[2] = __59__CESRTaskCoalescer_submitTaskWithId_taskBlock_completion___block_invoke_53;
       block[3] = &unk_27857FFE8;
-      v27 = v10;
+      v26 = v10;
       dispatch_async(v19, block);
     }
 
@@ -187,13 +239,13 @@ void __59__CESRTaskCoalescer_submitTaskWithId_taskBlock_completion___block_invok
         v16 = v11;
         v17 = [v14 numberWithDouble:v15];
         *buf = 136315906;
-        v29 = "[CESRTaskCoalescer submitTaskWithId:taskBlock:completion:]_block_invoke";
-        v30 = 2112;
-        v31 = v13;
-        v32 = 2112;
-        v33 = v17;
-        v34 = 2112;
-        v35 = v10;
+        v28 = "[CESRTaskCoalescer submitTaskWithId:taskBlock:completion:]_block_invoke";
+        v29 = 2112;
+        v30 = v13;
+        v31 = 2112;
+        v32 = v17;
+        v33 = 2112;
+        v34 = v10;
         _os_log_impl(&dword_225EEB000, v16, OS_LOG_TYPE_INFO, "%s (%@) Delaying %@s before executing incoming task within coalescing window - (%@)", buf, 0x2Au);
       }
 
@@ -210,32 +262,30 @@ void __59__CESRTaskCoalescer_submitTaskWithId_taskBlock_completion___block_invok
       v22 = *(*(a1 + 32) + 8);
       v23 = *(a1 + 48);
       *buf = 136316162;
-      v29 = "[CESRTaskCoalescer submitTaskWithId:taskBlock:completion:]_block_invoke";
-      v30 = 2112;
-      v31 = v22;
-      v32 = 2112;
-      v33 = v21;
-      v34 = 2112;
-      v35 = v23;
-      v36 = 2112;
-      v37 = v8;
+      v28 = "[CESRTaskCoalescer submitTaskWithId:taskBlock:completion:]_block_invoke";
+      v29 = 2112;
+      v30 = v22;
+      v31 = 2112;
+      v32 = v21;
+      v33 = 2112;
+      v34 = v23;
+      v35 = 2112;
+      v36 = v8;
       _os_log_impl(&dword_225EEB000, v20, OS_LOG_TYPE_INFO, "%s (%@) Dropping incoming task (taskId: %@ eventId: %@) as a task with the same taskId is already enqueued and has not been executed: (%@)", buf, 0x34u);
     }
 
     (*(*(a1 + 64) + 16))();
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (CESRTaskCoalescer)initWithManagerName:(id)name coalescenceInterval:(double)interval coalescenceDelay:(double)delay executionQueue:(id)queue
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   queueCopy = queue;
-  v34.receiver = self;
-  v34.super_class = CESRTaskCoalescer;
-  v12 = [(CESRTaskCoalescer *)&v34 init];
+  v33.receiver = self;
+  v33.super_class = CESRTaskCoalescer;
+  v12 = [(CESRTaskCoalescer *)&v33 init];
   if (!v12)
   {
     goto LABEL_6;
@@ -252,9 +302,9 @@ void __59__CESRTaskCoalescer_submitTaskWithId_taskBlock_completion___block_invok
     {
       v24 = v12->_managerName;
       *buf = 136315394;
-      v36 = "[CESRTaskCoalescer initWithManagerName:coalescenceInterval:coalescenceDelay:executionQueue:]";
-      v37 = 2112;
-      v38 = v24;
+      v35 = "[CESRTaskCoalescer initWithManagerName:coalescenceInterval:coalescenceDelay:executionQueue:]";
+      v36 = 2112;
+      v37 = v24;
       _os_log_error_impl(&dword_225EEB000, v23, OS_LOG_TYPE_ERROR, "%s Manager name must be nonempty. Received: %@", buf, 0x16u);
     }
 
@@ -285,9 +335,9 @@ LABEL_12:
     v27 = v25;
     v28 = [v26 numberWithDouble:interval];
     *buf = 136315394;
-    v36 = "[CESRTaskCoalescer initWithManagerName:coalescenceInterval:coalescenceDelay:executionQueue:]";
-    v37 = 2112;
-    v38 = v28;
+    v35 = "[CESRTaskCoalescer initWithManagerName:coalescenceInterval:coalescenceDelay:executionQueue:]";
+    v36 = 2112;
+    v37 = v28;
     v29 = "%s Coalescence interval must be greater than 0. Received: %@";
 LABEL_15:
     _os_log_error_impl(&dword_225EEB000, v27, OS_LOG_TYPE_ERROR, v29, buf, 0x16u);
@@ -304,13 +354,13 @@ LABEL_15:
       goto LABEL_12;
     }
 
-    v33 = MEMORY[0x277CCABB0];
+    v32 = MEMORY[0x277CCABB0];
     v27 = v30;
-    v28 = [v33 numberWithDouble:delay];
+    v28 = [v32 numberWithDouble:delay];
     *buf = 136315394;
-    v36 = "[CESRTaskCoalescer initWithManagerName:coalescenceInterval:coalescenceDelay:executionQueue:]";
-    v37 = 2112;
-    v38 = v28;
+    v35 = "[CESRTaskCoalescer initWithManagerName:coalescenceInterval:coalescenceDelay:executionQueue:]";
+    v36 = 2112;
+    v37 = v28;
     v29 = "%s Coalescence delay must be greater than 0. Received: %@";
     goto LABEL_15;
   }
@@ -326,7 +376,6 @@ LABEL_6:
   v22 = v12;
 LABEL_13:
 
-  v31 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -334,6 +383,31 @@ LABEL_13:
 {
   v2 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE658] reason:@"init unsupported" userInfo:MEMORY[0x277CBEC10]];
   objc_exception_throw(v2);
+}
+
++ (void)setTaskCoalescenceDisabled:(BOOL)disabled
+{
+  disabledCopy = disabled;
+  v12 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277CEF0E8];
+  if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_INFO))
+  {
+    v5 = @"Enabling";
+    if (disabledCopy)
+    {
+      v5 = @"Disabling";
+    }
+
+    v8 = 136315394;
+    v9 = "+[CESRTaskCoalescer setTaskCoalescenceDisabled:]";
+    v10 = 2112;
+    v11 = v5;
+    _os_log_impl(&dword_225EEB000, v4, OS_LOG_TYPE_INFO, "%s %@ task coalescence.", &v8, 0x16u);
+  }
+
+  standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  v7 = [MEMORY[0x277CCABB0] numberWithBool:disabledCopy];
+  [standardUserDefaults setObject:v7 forKey:@"Disable Coalescence"];
 }
 
 + (BOOL)isTaskCoalescenceDisabled

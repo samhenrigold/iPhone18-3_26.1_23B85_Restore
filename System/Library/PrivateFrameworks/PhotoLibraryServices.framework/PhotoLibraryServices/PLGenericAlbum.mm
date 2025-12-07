@@ -713,9 +713,9 @@ LABEL_8:
   path = [uRIRepresentation path];
   pathComponents = [path pathComponents];
 
-  if ([pathComponents count] >= 2)
+  if (objc_msgSend_count(pathComponents) >= 2)
   {
-    v8 = [pathComponents subarrayWithRange:{objc_msgSend(pathComponents, "count") - 2, 2}];
+    v8 = [pathComponents subarrayWithRange:{objc_msgSend_count(pathComponents) - 2, 2}];
 
     pathComponents = v8;
   }
@@ -910,12 +910,12 @@ LABEL_47:
   if (v14 && ([v14 isDeleted] & 1) == 0)
   {
     v108 = managerCopy;
-    entity = [v15 entity];
+    v16 = objc_msgSend_entity(v15);
     v17 = MEMORY[0x1E695D5B8];
     v18 = +[PLManagedFolder entityName];
     managedObjectContext = [libraryCopy managedObjectContext];
     v20 = [v17 entityForName:v18 inManagedObjectContext:managedObjectContext];
-    v21 = [entity isKindOfEntity:v20];
+    v21 = [v16 isKindOfEntity:v20];
 
     if ((v21 & 1) == 0)
     {
@@ -1017,7 +1017,7 @@ LABEL_47:
         }
       }
 
-      v68 = [childCollections count];
+      v68 = objc_msgSend_count(childCollections);
       if (v106)
       {
         v107 = objectID;
@@ -1053,7 +1053,7 @@ LABEL_77:
     v31 = [v108 findIndexForAlbumWithID:v24 newOrderValue:v29 inFolderWithID:objectID hasOrderValueConflictWithAlbumID:&v111 inContext:managedObjectContext2];
     v103 = v111;
 
-    v32 = [childCollections count];
+    v32 = objc_msgSend_count(childCollections);
     v33 = v31;
     v102 = v31;
     if (v31 > v32)
@@ -1064,7 +1064,7 @@ LABEL_77:
         if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
         {
           v35 = [MEMORY[0x1E696AD98] numberWithLongLong:v101];
-          v36 = [childCollections count];
+          v36 = objc_msgSend_count(childCollections);
           *buf = 138413314;
           v113 = v35;
           v114 = 2112;
@@ -1079,7 +1079,7 @@ LABEL_77:
         }
       }
 
-      v33 = [childCollections count];
+      v33 = objc_msgSend_count(childCollections);
     }
 
     v37 = childCollections;
@@ -1323,7 +1323,7 @@ LABEL_33:
               }
             }
 
-            if (v97 >= [childCollections count])
+            if (v97 >= objc_msgSend_count(childCollections))
             {
               v89 = v97;
             }
@@ -1673,7 +1673,7 @@ LABEL_12:
     while (v9);
   }
 
-  if ([array count])
+  if (objc_msgSend_count(array))
   {
     v14 = MEMORY[0x1E695D5E0];
     v15 = +[PLManagedAsset entityName];
@@ -1700,7 +1700,7 @@ LABEL_12:
   assets = [(PLGenericAlbum *)self assets];
   if (objc_opt_respondsToSelector())
   {
-    v6 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(indexesCopy, "count")}];
+    v6 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(indexesCopy)];
     managedObjectContext = [(PLGenericAlbum *)self managedObjectContext];
     v13[0] = MEMORY[0x1E69E9820];
     v13[1] = 3221225472;
@@ -1881,7 +1881,7 @@ LABEL_33:
     v22 = [managedObjectContext executeFetchRequest:v15 error:&v56];
     v23 = v56;
 
-    v11 = [v22 count] != 1;
+    v11 = objc_msgSend_count(v22) != 1;
     v7 = v44;
 
     v6 = v46;
@@ -1976,7 +1976,7 @@ LABEL_24:
                 v39 = [managedObjectContext3 objectWithID:v37];
 
                 [v28 addObject:v39];
-                v40 = [v28 count];
+                v40 = objc_msgSend_count(v28);
                 keyAssetsMaxCount = [(PLGenericAlbum *)self keyAssetsMaxCount];
 
                 if (v40 >= keyAssetsMaxCount)
@@ -2113,7 +2113,7 @@ LABEL_34:
 {
   v3 = objc_autoreleasePoolPush();
   assets = [(PLGenericAlbum *)self assets];
-  v5 = [assets count];
+  v5 = objc_msgSend_count(assets);
 
   objc_autoreleasePoolPop(v3);
   return v5;
@@ -2123,7 +2123,7 @@ LABEL_34:
 {
   v3 = objc_autoreleasePoolPush();
   assets = [(PLGenericAlbum *)self assets];
-  v5 = [assets count];
+  v5 = objc_msgSend_count(assets);
 
   objc_autoreleasePoolPop(v3);
   return v5;
@@ -2194,7 +2194,7 @@ LABEL_34:
 - (BOOL)_checkLastModifiedDateIfNeeded
 {
   changedValues = [(PLGenericAlbum *)self changedValues];
-  if ([changedValues count] && (objc_msgSend(changedValues, "objectForKeyedSubscript:", @"lastModifiedDate"), v4 = objc_claimAutoreleasedReturnValue(), v4, !v4) && -[PLGenericAlbum _isValidChangeSourceForUpdate](self, "_isValidChangeSourceForUpdate") && -[PLGenericAlbum _isValidLibraryRoleForUpdate](self, "_isValidLibraryRoleForUpdate"))
+  if (objc_msgSend_count(changedValues) && ([changedValues objectForKeyedSubscript:@"lastModifiedDate"], v4 = objc_claimAutoreleasedReturnValue(), v4, !v4) && -[PLGenericAlbum _isValidChangeSourceForUpdate](self, "_isValidChangeSourceForUpdate") && -[PLGenericAlbum _isValidLibraryRoleForUpdate](self, "_isValidLibraryRoleForUpdate"))
   {
     v5 = MEMORY[0x1E695DFD8];
     allKeys = [changedValues allKeys];
@@ -2588,7 +2588,7 @@ LABEL_33:
   }
 
   [v12 setIncludesPendingChanges:0];
-  if ([dsCopy count] >= 0x65)
+  if (objc_msgSend_count(dsCopy) >= 0x65)
   {
     [v12 setFetchBatchSize:100];
   }
@@ -2596,7 +2596,7 @@ LABEL_33:
   dsCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K IN %@", @"uuid", dsCopy];
   [v12 setPredicate:dsCopy];
 
-  [v12 setFetchLimit:{objc_msgSend(dsCopy, "count")}];
+  [v12 setFetchLimit:objc_msgSend_count(dsCopy)];
   v18 = 0;
   v14 = [contextCopy executeFetchRequest:v12 error:&v18];
 
@@ -2714,7 +2714,7 @@ LABEL_6:
   array = [MEMORY[0x1E695DF70] array];
   v7 = [self entityInManagedObjectContext:contextCopy];
   subentities = [v7 subentities];
-  v9 = [subentities count];
+  v9 = objc_msgSend_count(subentities);
 
   v32 = v7;
   if (v9)
@@ -2743,8 +2743,8 @@ LABEL_6:
           }
 
           v17 = *(*(&v37 + 1) + 8 * i);
-          entity = [v17 entity];
-          v19 = [registeredObjects2 indexOfObjectIdenticalTo:entity];
+          v18 = objc_msgSend_entity(v17);
+          v19 = [registeredObjects2 indexOfObjectIdenticalTo:v18];
 
           if (v19 != 0x7FFFFFFFFFFFFFFFLL)
           {
@@ -2786,9 +2786,9 @@ LABEL_6:
           }
 
           v26 = *(*(&v33 + 1) + 8 * j);
-          entity2 = [v26 entity];
+          v27 = objc_msgSend_entity(v26);
 
-          v28 = entity2 == v32;
+          v28 = v27 == v32;
           v7 = v32;
           if (v28)
           {
@@ -3329,7 +3329,7 @@ LABEL_52:
       v9 = __CPLAssetsdOSLogDomain();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v10 = [foldersCopy count];
+        v10 = objc_msgSend_count(foldersCopy);
         *buf = 134218242;
         v26 = v10;
         v27 = 2112;
@@ -3495,11 +3495,11 @@ LABEL_12:
   albumsCopy = albums;
   v7 = [MEMORY[0x1E695DF70] arrayWithArray:albumsCopy];
   v8 = [self _unpushedParentsOfAlbums:albumsCopy];
-  if ([v8 count])
+  if (objc_msgSend_count(v8))
   {
     do
     {
-      v9 = [MEMORY[0x1E696AC90] indexSetWithIndexesInRange:{0, objc_msgSend(v8, "count")}];
+      v9 = [MEMORY[0x1E696AC90] indexSetWithIndexesInRange:{0, objc_msgSend_count(v8)}];
       [v7 insertObjects:v8 atIndexes:v9];
 
       v10 = [self _unpushedParentsOfAlbums:v8];
@@ -3507,7 +3507,7 @@ LABEL_12:
       v8 = v10;
     }
 
-    while ([v10 count]);
+    while (objc_msgSend_count(v10));
   }
 
   else
@@ -3519,7 +3519,7 @@ LABEL_12:
   [v11 addObjectsFromArray:v7];
   array = [v11 array];
   v13 = MEMORY[0x1E696AC90];
-  v14 = [array count];
+  v14 = objc_msgSend_count(array);
   if (v14 >= limit)
   {
     limitCopy = limit;
@@ -3607,7 +3607,7 @@ LABEL_12:
     managedObjectContext = [libraryCopy managedObjectContext];
     v10 = [PLGenericAlbum _albumsMatchingPredicate:nameCopy expectedResultCount:&unk_1F0FBBD10 inManagedObjectContext:managedObjectContext];
 
-    if ([v10 count])
+    if (objc_msgSend_count(v10))
     {
       v11 = [v10 objectAtIndex:0];
     }
@@ -3775,7 +3775,7 @@ LABEL_12:
   v34[1] = *MEMORY[0x1E69E9840];
   albumsCopy = albums;
   libraryCopy = library;
-  if ([albumsCopy count])
+  if (objc_msgSend_count(albumsCopy))
   {
     v8 = MEMORY[0x1E695D5E0];
     v9 = +[PLManagedAlbum entityName];
@@ -3848,16 +3848,16 @@ LABEL_12:
   lCopy = l;
   v4 = objc_autoreleasePoolPush();
   scheme = [lCopy scheme];
-  if (([scheme isEqualToString:@"assets-library"] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(scheme) & 1) == 0)
   {
 
     goto LABEL_19;
   }
 
   host = [lCopy host];
-  v7 = [host isEqualToString:@"group"];
+  isEqualToString = objc_msgSend_isEqualToString_(host);
 
-  if (!v7)
+  if (!isEqualToString)
   {
 LABEL_19:
     v20 = 0;
@@ -3900,11 +3900,11 @@ LABEL_18:
       }
 
       v15 = [*(*(&v25 + 1) + 8 * i) componentsSeparatedByString:{@"=", v22}];
-      if ([v15 count] >= 2)
+      if (objc_msgSend_count(v15) >= 2)
       {
         v16 = [v15 objectAtIndex:0];
         v17 = [v15 objectAtIndex:1];
-        if ([v16 isEqualToString:v13])
+        if (objc_msgSend_isEqualToString_(v16))
         {
           v18 = v13;
           v19 = v17;
@@ -3935,7 +3935,7 @@ LABEL_20:
   dCopy = d;
   if (!dCopy)
   {
-    if (![dsCopy count] && !objc_msgSend(iDsCopy, "count"))
+    if (!objc_msgSend_count(dsCopy) && !objc_msgSend_count(iDsCopy))
     {
       v12 = 1;
       goto LABEL_14;
@@ -3953,11 +3953,11 @@ LABEL_20:
     v13 = v16;
     if (v15 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      if ([v16 count] != count)
+      if (objc_msgSend_count(v16) != count)
       {
 LABEL_12:
         v18 = dsCopy;
-        v14 = [v18 subarrayWithRange:{1, objc_msgSend(v18, "count") - 1}];
+        v14 = [v18 subarrayWithRange:{1, objc_msgSend_count(v18) - 1}];
 
 LABEL_13:
         v12 = [v14 isEqualToArray:v13];
@@ -3965,7 +3965,7 @@ LABEL_13:
         goto LABEL_14;
       }
 
-      v17 = [v13 subarrayWithRange:{0, objc_msgSend(v13, "count") - 1}];
+      v17 = [v13 subarrayWithRange:{0, objc_msgSend_count(v13) - 1}];
     }
 
     else
@@ -4377,9 +4377,9 @@ LABEL_32:
   v9.super_class = &OBJC_METACLASS___PLGenericAlbum;
   keyCopy = key;
   v4 = objc_msgSendSuper2(&v9, sel_keyPathsForValuesAffectingValueForKey_, keyCopy);
-  v5 = [keyCopy isEqualToString:{@"kindValue", v9.receiver, v9.super_class}];
+  isEqualToString = objc_msgSend_isEqualToString_(keyCopy, v9.receiver, v9.super_class);
 
-  if (v5)
+  if (isEqualToString)
   {
     v6 = [MEMORY[0x1E695DFD8] setWithObject:@"kind"];
     v7 = [v4 setByAddingObjectsFromSet:v6];
@@ -4457,9 +4457,9 @@ LABEL_32:
   if (name)
   {
     title = [(PLGenericAlbum *)self title];
-    v9 = [title isEqualToString:name];
+    isEqualToString = objc_msgSend_isEqualToString_(title);
 
-    if ((v9 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       [(PLGenericAlbum *)self setTitle:name];
     }
@@ -4789,7 +4789,7 @@ id __68__PLGenericAlbum_CPL__cplAlbumChangeInPhotoLibrary_orderKeyManager___bloc
   v16[2] = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   libraryCopy = library;
-  if (dsCopy && ![dsCopy count])
+  if (dsCopy && !objc_msgSend_count(dsCopy))
   {
     v14 = MEMORY[0x1E695E0F0];
   }
@@ -4804,7 +4804,7 @@ id __68__PLGenericAlbum_CPL__cplAlbumChangeInPhotoLibrary_orderKeyManager___bloc
     v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
     v12 = [v10 andPredicateWithSubpredicates:v11];
 
-    v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(dsCopy, "count")}];
+    v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:objc_msgSend_count(dsCopy)];
     v14 = [self albumsMatchingPredicate:v12 expectedResultCount:v13 inLibrary:libraryCopy];
   }
 

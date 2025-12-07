@@ -6,6 +6,7 @@
 - (id)shortDescription;
 - (unint64_t)reachabilityPath;
 - (void)dealloc;
+- (void)handleNetworkReachabilityChange:(unsigned int)change;
 @end
 
 @implementation __HMFNetAddressMonitor
@@ -26,16 +27,16 @@
 
 - (__HMFNetAddressMonitor)initWithNetAddress:(id)address
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   addressCopy = address;
-  v36.receiver = self;
-  v36.super_class = __HMFNetAddressMonitor;
-  v7 = [(HMFNetMonitor *)&v36 initWithNetAddress:addressCopy];
+  v37.receiver = self;
+  v37.super_class = __HMFNetAddressMonitor;
+  v7 = [(HMFNetMonitor *)&v37 initWithNetAddress:addressCopy];
   v8 = v7;
   if (!v7)
   {
 LABEL_16:
-    v32 = v8;
+    v34 = v8;
     goto LABEL_22;
   }
 
@@ -66,35 +67,35 @@ LABEL_4:
       v16 = SCNetworkReachabilityGetFlags(v8->_networkReachabilityRef, &flags);
       v17 = objc_autoreleasePoolPush();
       v18 = v8;
-      v19 = HMFGetOSLogHandle();
-      v20 = v19;
+      v20 = HMFGetOSLogHandle(v18, v19);
+      v21 = v20;
       if (v16)
       {
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
         {
-          v21 = HMFGetLogIdentifier(v18);
-          v22 = __SCNetworkReachabilityFlagsToString(flags);
+          v22 = HMFGetLogIdentifier(v18);
+          v23 = __SCNetworkReachabilityFlagsToString(flags);
           *buf = 138543618;
-          v38 = v21;
-          v39 = 2112;
-          v40 = v22;
-          _os_log_impl(&dword_22ADEC000, v20, OS_LOG_TYPE_INFO, "%{public}@Initial flags: %@", buf, 0x16u);
+          v39 = v22;
+          v40 = 2112;
+          v41 = v23;
+          _os_log_impl(&dword_22ADEC000, v21, OS_LOG_TYPE_INFO, "%{public}@Initial flags: %@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v17);
-        v23 = flags;
+        v24 = flags;
         v18->_currentNetworkFlags = flags;
-        v18->super._reachable = (v23 & 2) != 0;
+        v18->super._reachable = (v24 & 2) != 0;
       }
 
       else
       {
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
-          v31 = HMFGetLogIdentifier(v18);
+          v33 = HMFGetLogIdentifier(v18);
           *buf = 138543362;
-          v38 = v31;
-          _os_log_impl(&dword_22ADEC000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to get initial reachability", buf, 0xCu);
+          v39 = v33;
+          _os_log_impl(&dword_22ADEC000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to get initial reachability", buf, 0xCu);
         }
 
         objc_autoreleasePoolPop(v17);
@@ -107,48 +108,47 @@ LABEL_4:
   else
   {
     *&context.version = xmmword_22AE829D0;
-    v24 = SCNetworkReachabilityCreateWithAddress(0, &context);
-    v8->_networkReachabilityRef = v24;
-    if (v24)
+    v25 = SCNetworkReachabilityCreateWithAddress(0, &context);
+    v8->_networkReachabilityRef = v25;
+    if (v25)
     {
       goto LABEL_4;
     }
   }
 
-  v25 = objc_autoreleasePoolPush();
-  v26 = v8;
-  v27 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+  v26 = objc_autoreleasePoolPush();
+  v27 = v8;
+  v29 = HMFGetOSLogHandle(v27, v28);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
   {
-    v28 = HMFGetLogIdentifier(v26);
+    v30 = HMFGetLogIdentifier(v27);
     if (addressCopy)
     {
-      v29 = MEMORY[0x277CCACA8];
+      v31 = MEMORY[0x277CCACA8];
       addressString2 = [addressCopy addressString];
-      v30 = [v29 stringWithFormat:@"for %@", addressString2];
+      v32 = [v31 stringWithFormat:@"for %@", addressString2];
     }
 
     else
     {
-      v30 = &stru_283EBDA30;
+      v32 = &stru_283EBDA30;
     }
 
     LODWORD(context.version) = 138543618;
-    *(&context.version + 4) = v28;
+    *(&context.version + 4) = v30;
     WORD2(context.info) = 2112;
-    *(&context.info + 6) = v30;
-    _os_log_impl(&dword_22ADEC000, v27, OS_LOG_TYPE_ERROR, "%{public}@Failed to create network reachability monitor%@.", &context, 0x16u);
+    *(&context.info + 6) = v32;
+    _os_log_impl(&dword_22ADEC000, v29, OS_LOG_TYPE_ERROR, "%{public}@Failed to create network reachability monitor%@.", &context, 0x16u);
     if (addressCopy)
     {
     }
   }
 
-  objc_autoreleasePoolPop(v25);
-  v32 = 0;
+  objc_autoreleasePoolPop(v26);
+  v34 = 0;
 LABEL_22:
 
-  v33 = *MEMORY[0x277D85DE8];
-  return v32;
+  return v34;
 }
 
 - (void)dealloc
@@ -189,14 +189,12 @@ LABEL_22:
 
 - (id)attributeDescriptions
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = [HMFAttributeDescription alloc];
   netAddress = [(__HMFNetAddressMonitor *)self netAddress];
   v5 = [(HMFAttributeDescription *)v3 initWithName:@"Address" value:netAddress];
-  v9[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
 
   return v6;
 }
@@ -223,6 +221,55 @@ LABEL_22:
 
   os_unfair_lock_unlock(&self->super._lock);
   return v5;
+}
+
+- (void)handleNetworkReachabilityChange:(unsigned int)change
+{
+  v3 = *&change;
+  v24 = *MEMORY[0x277D85DE8];
+  v5 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v8 = HMFGetOSLogHandle(selfCopy, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  {
+    v9 = HMFGetLogIdentifier(selfCopy);
+    v10 = __SCNetworkReachabilityFlagsToString(v3);
+    v20 = 138543618;
+    v21 = v9;
+    v22 = 2112;
+    v23 = v10;
+    _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Received notification of updated flags: %@", &v20, 0x16u);
+  }
+
+  objc_autoreleasePoolPop(v5);
+  currentNetworkFlags = [(__HMFNetAddressMonitor *)selfCopy currentNetworkFlags];
+  v12 = v3 & 2;
+  [(__HMFNetAddressMonitor *)selfCopy setCurrentNetworkFlags:v3];
+  if (((currentNetworkFlags >> 1) & 1) != v12 >> 1)
+  {
+    v13 = objc_autoreleasePoolPush();
+    v14 = selfCopy;
+    v16 = HMFGetOSLogHandle(v14, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    {
+      v17 = HMFGetLogIdentifier(v14);
+      v18 = v17;
+      v19 = @"unreachable";
+      if (v12)
+      {
+        v19 = @"reachable";
+      }
+
+      v20 = 138543618;
+      v21 = v17;
+      v22 = 2112;
+      v23 = v19;
+      _os_log_impl(&dword_22ADEC000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@Updating reachability to: %@", &v20, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v13);
+    [(HMFNetMonitor *)v14 setReachable:v12 != 0];
+  }
 }
 
 - (id)logIdentifier

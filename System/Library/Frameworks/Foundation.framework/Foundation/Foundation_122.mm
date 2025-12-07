@@ -2,7 +2,7 @@ uint64_t Morphology.GrammaticalCase.encode(to:)(void *a1)
 {
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   dispatch thunk of Encoder.singleValueContainer()();
-  __swift_mutable_project_boxed_opaque_existential_1(v2, v3);
+  __swift_mutable_project_boxed_opaque_existential_1(v2, v2[3]);
   dispatch thunk of SingleValueEncodingContainer.encode(_:)();
   return __swift_destroy_boxed_opaque_existential_1(v2);
 }
@@ -337,32 +337,6 @@ LABEL_81:
   return result;
 }
 
-uint64_t Morphology.Determination.encode(to:)(void *a1)
-{
-  return Morphology.Determination.encode(to:)(a1);
-}
-
-{
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  dispatch thunk of Encoder.singleValueContainer()();
-  __swift_mutable_project_boxed_opaque_existential_1(v2, v3);
-  dispatch thunk of SingleValueEncodingContainer.encode(_:)();
-  return __swift_destroy_boxed_opaque_existential_1(v2);
-}
-
-uint64_t protocol witness for Encodable.encode(to:) in conformance Morphology.Determination(void *a1)
-{
-  return protocol witness for Encodable.encode(to:) in conformance Morphology.Determination(a1);
-}
-
-{
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  dispatch thunk of Encoder.singleValueContainer()();
-  __swift_mutable_project_boxed_opaque_existential_1(v2, v3);
-  dispatch thunk of SingleValueEncodingContainer.encode(_:)();
-  return __swift_destroy_boxed_opaque_existential_1(v2);
-}
-
 id Morphology.Definiteness.init(from:)@<X0>(void *a1@<X0>, char *a2@<X8>)
 {
   v53[5] = *MEMORY[0x1E69E9840];
@@ -691,6 +665,24 @@ LABEL_47:
 LABEL_81:
   __break(1u);
   return result;
+}
+
+uint64_t Morphology.Determination.encode(to:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  dispatch thunk of Encoder.singleValueContainer()();
+  __swift_mutable_project_boxed_opaque_existential_1(v6, v6[3]);
+  dispatch thunk of SingleValueEncodingContainer.encode(_:)();
+  return __swift_destroy_boxed_opaque_existential_1(v6);
+}
+
+uint64_t protocol witness for Encodable.encode(to:) in conformance Morphology.Determination(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  dispatch thunk of Encoder.singleValueContainer()();
+  __swift_mutable_project_boxed_opaque_existential_1(v8, v8[3]);
+  dispatch thunk of SingleValueEncodingContainer.encode(_:)();
+  return __swift_destroy_boxed_opaque_existential_1(v8);
 }
 
 id Morphology.GrammaticalPerson.init(from:)@<X0>(void *a1@<X0>, char *a2@<X8>)
@@ -1038,7 +1030,7 @@ uint64_t Morphology.GrammaticalPerson.encode(to:)(void *a1)
 {
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   dispatch thunk of Encoder.singleValueContainer()();
-  __swift_mutable_project_boxed_opaque_existential_1(v2, v3);
+  __swift_mutable_project_boxed_opaque_existential_1(v2, v2[3]);
   dispatch thunk of SingleValueEncodingContainer.encode(_:)();
   return __swift_destroy_boxed_opaque_existential_1(v2);
 }
@@ -1384,6 +1376,15 @@ LABEL_86:
   return result;
 }
 
+uint64_t Morphology.GrammaticalGender.encode(to:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5)
+{
+  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  dispatch thunk of Encoder.singleValueContainer()();
+  __swift_mutable_project_boxed_opaque_existential_1(v6, v6[3]);
+  dispatch thunk of SingleValueEncodingContainer.encode(_:)();
+  return __swift_destroy_boxed_opaque_existential_1(v6);
+}
+
 uint64_t InflectionRule.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
@@ -1423,7 +1424,7 @@ uint64_t InflectionRule.encode(to:)(void *a1)
   v2 = *(v1 + 8);
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   dispatch thunk of Encoder.singleValueContainer()();
-  __swift_mutable_project_boxed_opaque_existential_1(v4, v5);
+  __swift_mutable_project_boxed_opaque_existential_1(v4, v4[3]);
   if (v2)
   {
     lazy protocol witness table accessor for type Morphology and conformance Morphology();
@@ -1742,7 +1743,7 @@ LABEL_5:
         else
         {
           v151 = v34;
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation10MorphologyV14_CustomPronounVGMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation10MorphologyV14_CustomPronounVGMd, &_ss18_DictionaryStorageCySS10Foundation10MorphologyV14_CustomPronounVGMR);
           v125 = static _DictionaryStorage.copy(original:)();
           v41 = v125;
           if (*(v33 + 16))
@@ -2291,7 +2292,7 @@ LABEL_155:
     else
     {
       v155 = v3;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation10MorphologyV14_CustomPronounVGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation10MorphologyV14_CustomPronounVGMd, &_ss18_DictionaryStorageCySS10Foundation10MorphologyV14_CustomPronounVGMR);
       v98 = static _DictionaryStorage.copy(original:)();
       v11 = v98;
       if (*(v10 + 16))
@@ -2390,18 +2391,18 @@ LABEL_125:
   }
 }
 
-double closure #1 in Morphology.setCustomPronoun(_:forLanguage:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, __int128 *a3@<X2>, uint64_t a4@<X8>)
+double closure #1 in Morphology.setCustomPronoun(_:forLanguage:)@<D0>(__int128 *a1@<X2>, uint64_t a2@<X8>, uint64_t a3@<X0>, uint64_t a4@<X1>)
 {
-  if (specialized static Morphology.CustomPronoun.keyPath(forObjectiveCKey:)(a1, a2))
+  if (specialized static Morphology.CustomPronoun.keyPath(forObjectiveCKey:)(a3, a4))
   {
-    v6 = a3[3];
-    v15 = a3[2];
+    v6 = a1[3];
+    v15 = a1[2];
     v16 = v6;
-    v17 = a3[4];
-    v7 = a3[1];
-    v13 = *a3;
+    v17 = a1[4];
+    v7 = a1[1];
+    v13 = *a1;
     v14 = v7;
-    outlined init with copy of Morphology.CustomPronoun(a3, v11);
+    outlined init with copy of Morphology.CustomPronoun(a1, v11);
     swift_getAtKeyPath();
     v18[2] = v15;
     v18[3] = v16;
@@ -2413,17 +2414,17 @@ double closure #1 in Morphology.setCustomPronoun(_:forLanguage:)@<D0>(uint64_t a
     if (v12)
     {
       v9 = v11[10];
-      *(a4 + 24) = MEMORY[0x1E69E6158];
+      *(a2 + 24) = MEMORY[0x1E69E6158];
 
-      *a4 = v9;
-      *(a4 + 8) = v8;
+      *a2 = v9;
+      *(a2 + 8) = v8;
       return result;
     }
   }
 
   result = 0.0;
-  *a4 = 0u;
-  *(a4 + 16) = 0u;
+  *a2 = 0u;
+  *(a2 + 16) = 0u;
   return result;
 }
 
@@ -2465,7 +2466,7 @@ void __swiftcall Morphology.CustomPronoun.init()(Foundation::Morphology::CustomP
   retstr->_pronoun.subjectForm = 0u;
 }
 
-id static InflectionRule.canInflect(language:)(uint64_t a1, uint64_t a2, uint64_t a3, SEL *a4)
+id static InflectionRule.canInflect(language:)(uint64_t a1, uint64_t a2, void *a3, SEL *a4)
 {
   v5 = objc_opt_self();
   v6 = [v5 *a4];
@@ -2491,7 +2492,7 @@ void static Morphology.CustomPronoun.requiredKeys(forLanguage:)()
       v4 = v1;
     }
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
     v5 = swift_dynamicCastClass();
     if (v5)
     {
@@ -2734,9 +2735,9 @@ uint64_t Morphology.CustomPronoun.reflexiveForm.modify(uint64_t *a1, char a2)
   return result;
 }
 
-uint64_t Morphology.CustomPronoun.init(from:)@<X0>(uint64_t a1@<X0>, _OWORD *a2@<X8>)
+uint64_t Morphology.CustomPronoun.init(from:)@<X0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation10MorphologyV14_CustomPronounV10CodingKeys33_9BF4E61D20F3D06745C690C5DBBDE434LLOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation10MorphologyV14_CustomPronounV10CodingKeys33_9BF4E61D20F3D06745C690C5DBBDE434LLOGMd, &_ss22KeyedDecodingContainerVy10Foundation10MorphologyV14_CustomPronounV10CodingKeys33_9BF4E61D20F3D06745C690C5DBBDE434LLOGMR);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v28 - v7;
@@ -2823,7 +2824,7 @@ uint64_t Morphology.CustomPronoun.init(from:)@<X0>(uint64_t a1@<X0>, _OWORD *a2@
 
 uint64_t Morphology.CustomPronoun.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation10MorphologyV14_CustomPronounV10CodingKeys33_9BF4E61D20F3D06745C690C5DBBDE434LLOGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation10MorphologyV14_CustomPronounV10CodingKeys33_9BF4E61D20F3D06745C690C5DBBDE434LLOGMd, &_ss22KeyedEncodingContainerVy10Foundation10MorphologyV14_CustomPronounV10CodingKeys33_9BF4E61D20F3D06745C690C5DBBDE434LLOGMR);
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v6 = v13 - v5;
@@ -2863,7 +2864,7 @@ uint64_t Morphology.CustomPronoun.encode(to:)(void *a1)
 
 uint64_t Morphology._CustomPronoun.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation10MorphologyV14_CustomPronounV10CodingKeys33_9BF4E61D20F3D06745C690C5DBBDE434LLOGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation10MorphologyV14_CustomPronounV10CodingKeys33_9BF4E61D20F3D06745C690C5DBBDE434LLOGMd, &_ss22KeyedEncodingContainerVy10Foundation10MorphologyV14_CustomPronounV10CodingKeys33_9BF4E61D20F3D06745C690C5DBBDE434LLOGMR);
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v6 = &v8[-v5];
@@ -2888,13 +2889,13 @@ uint64_t Morphology._CustomPronoun.encode(to:)(void *a1)
   return (*(v4 + 8))(v6, v3);
 }
 
-void Morphology._CustomPronoun.hash(into:)()
+void Morphology._CustomPronoun.hash(into:)(uint64_t a1)
 {
-  if (v0[1])
+  if (v1[1])
   {
     Hasher._combine(_:)(1u);
     String.hash(into:)();
-    if (v0[3])
+    if (v1[3])
     {
       goto LABEL_3;
     }
@@ -2903,12 +2904,12 @@ void Morphology._CustomPronoun.hash(into:)()
   else
   {
     Hasher._combine(_:)(0);
-    if (v0[3])
+    if (v1[3])
     {
 LABEL_3:
       Hasher._combine(_:)(1u);
       String.hash(into:)();
-      if (v0[5])
+      if (v1[5])
       {
         goto LABEL_4;
       }
@@ -2918,19 +2919,19 @@ LABEL_3:
   }
 
   Hasher._combine(_:)(0);
-  if (v0[5])
+  if (v1[5])
   {
 LABEL_4:
     Hasher._combine(_:)(1u);
     String.hash(into:)();
-    if (v0[7])
+    if (v1[7])
     {
       goto LABEL_5;
     }
 
 LABEL_12:
     Hasher._combine(_:)(0);
-    if (v0[9])
+    if (v1[9])
     {
       goto LABEL_6;
     }
@@ -2942,7 +2943,7 @@ LABEL_13:
 
 LABEL_11:
   Hasher._combine(_:)(0);
-  if (!v0[7])
+  if (!v1[7])
   {
     goto LABEL_12;
   }
@@ -2950,7 +2951,7 @@ LABEL_11:
 LABEL_5:
   Hasher._combine(_:)(1u);
   String.hash(into:)();
-  if (!v0[9])
+  if (!v1[9])
   {
     goto LABEL_13;
   }
@@ -3167,10 +3168,10 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance Morpho
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance Morphology._CustomPronoun.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance Morphology._CustomPronoun.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized Morphology._CustomPronoun.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized Morphology._CustomPronoun.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -3188,19 +3189,19 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x1EEE6BB78](a1, v2);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Morphology.CustomPronoun()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Morphology.CustomPronoun(uint64_t a1)
 {
-  v1 = v0[1];
-  v2 = v0[3];
-  v3 = v0[5];
-  v4 = v0[7];
-  v5 = v0[9];
+  v2 = v1[1];
+  v3 = v1[3];
+  v4 = v1[5];
+  v5 = v1[7];
+  v6 = v1[9];
   Hasher.init(_seed:)();
-  if (v1)
+  if (v2)
   {
     Hasher._combine(_:)(1u);
     String.hash(into:)();
-    if (v2)
+    if (v3)
     {
       goto LABEL_3;
     }
@@ -3209,12 +3210,12 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Mor
   else
   {
     Hasher._combine(_:)(0);
-    if (v2)
+    if (v3)
     {
 LABEL_3:
       Hasher._combine(_:)(1u);
       String.hash(into:)();
-      if (v3)
+      if (v4)
       {
         goto LABEL_4;
       }
@@ -3224,19 +3225,19 @@ LABEL_3:
   }
 
   Hasher._combine(_:)(0);
-  if (v3)
+  if (v4)
   {
 LABEL_4:
     Hasher._combine(_:)(1u);
     String.hash(into:)();
-    if (v4)
+    if (v5)
     {
       goto LABEL_5;
     }
 
 LABEL_10:
     Hasher._combine(_:)(0);
-    if (v5)
+    if (v6)
     {
       goto LABEL_6;
     }
@@ -3248,7 +3249,7 @@ LABEL_11:
 
 LABEL_9:
   Hasher._combine(_:)(0);
-  if (!v4)
+  if (!v5)
   {
     goto LABEL_10;
   }
@@ -3256,7 +3257,7 @@ LABEL_9:
 LABEL_5:
   Hasher._combine(_:)(1u);
   String.hash(into:)();
-  if (!v5)
+  if (!v6)
   {
     goto LABEL_11;
   }
@@ -3267,18 +3268,18 @@ LABEL_6:
   return Hasher._finalize()();
 }
 
-__n128 protocol witness for Decodable.init(from:) in conformance Morphology._CustomPronoun@<Q0>(void *a1@<X0>, uint64_t a2@<X8>)
+__n128 protocol witness for Decodable.init(from:) in conformance Morphology._CustomPronoun@<Q0>(uint64_t a1@<X8>, void *a2@<X0>)
 {
-  specialized Morphology._CustomPronoun.init(from:)(a1, v6);
+  specialized Morphology._CustomPronoun.init(from:)(a2, v6);
   if (!v2)
   {
     v5 = v6[3];
-    *(a2 + 32) = v6[2];
-    *(a2 + 48) = v5;
-    *(a2 + 64) = v6[4];
+    *(a1 + 32) = v6[2];
+    *(a1 + 48) = v5;
+    *(a1 + 64) = v6[4];
     result = v6[1];
-    *a2 = v6[0];
-    *(a2 + 16) = result;
+    *a1 = v6[0];
+    *(a1 + 16) = result;
   }
 
   return result;
@@ -3362,7 +3363,7 @@ void __swiftcall Morphology.Pronoun.init(pronoun:morphology:dependentMorphology:
   *&retstr->dependentMorphology.value.grammaticalCase.value = v7;
 }
 
-uint64_t protocol witness for CodingKey.stringValue.getter in conformance Morphology.Pronoun.CodingKeys()
+unint64_t protocol witness for CodingKey.stringValue.getter in conformance Morphology.Pronoun.CodingKeys()
 {
   v1 = 0x6F6C6F6870726F6DLL;
   if (*v0 != 1)
@@ -3381,10 +3382,10 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance Morpho
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance Morphology.Pronoun.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance Morphology.Pronoun.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized Morphology.Pronoun.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized Morphology.Pronoun.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -3404,7 +3405,7 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 uint64_t Morphology.Pronoun.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation10MorphologyV7PronounV10CodingKeys33_9BF4E61D20F3D06745C690C5DBBDE434LLOGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation10MorphologyV7PronounV10CodingKeys33_9BF4E61D20F3D06745C690C5DBBDE434LLOGMd, &_ss22KeyedEncodingContainerVy10Foundation10MorphologyV7PronounV10CodingKeys33_9BF4E61D20F3D06745C690C5DBBDE434LLOGMR);
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v6 = &v15 - v5;
@@ -3686,7 +3687,7 @@ Swift::Int Morphology.Pronoun.hashValue.getter()
 
 uint64_t Morphology.Pronoun.init(from:)@<X0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation10MorphologyV7PronounV10CodingKeys33_9BF4E61D20F3D06745C690C5DBBDE434LLOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation10MorphologyV7PronounV10CodingKeys33_9BF4E61D20F3D06745C690C5DBBDE434LLOGMd, &_ss22KeyedDecodingContainerVy10Foundation10MorphologyV7PronounV10CodingKeys33_9BF4E61D20F3D06745C690C5DBBDE434LLOGMR);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v19 - v7;
@@ -3746,35 +3747,24 @@ uint64_t Morphology.Pronoun.init(from:)@<X0>(void *a1@<X0>, _OWORD *a2@<X8>)
   }
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Morphology.Pronoun()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Morphology.Pronoun(uint64_t a1)
 {
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 17);
-  v3 = *(v0 + 18);
-  v4 = *(v0 + 24);
-  v5 = *(v0 + 32);
-  v6 = *(v0 + 33);
-  v7 = *(v0 + 34);
-  v9 = *(v0 + 35);
-  v12 = *(v0 + 36);
-  v13 = *(v0 + 48);
-  v14 = *(v0 + 40);
-  v11 = *(v0 + 60);
-  v10 = *(v0 + 56);
+  v2 = *(v1 + 16);
+  v3 = *(v1 + 17);
+  v4 = *(v1 + 18);
+  v5 = *(v1 + 24);
+  v6 = *(v1 + 32);
+  v7 = *(v1 + 33);
+  v8 = *(v1 + 34);
+  v10 = *(v1 + 35);
+  v13 = *(v1 + 36);
+  v14 = *(v1 + 48);
+  v15 = *(v1 + 40);
+  v12 = *(v1 + 60);
+  v11 = *(v1 + 56);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  if (v1 == 3)
-  {
-    Hasher._combine(_:)(0);
-  }
-
-  else
-  {
-    Hasher._combine(_:)(1u);
-    MEMORY[0x1865CD060](v1 + 1);
-  }
-
-  if (v2 == 14)
+  if (v2 == 3)
   {
     Hasher._combine(_:)(0);
   }
@@ -3785,7 +3775,7 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Mor
     MEMORY[0x1865CD060](v2 + 1);
   }
 
-  if (v3 == 6)
+  if (v3 == 14)
   {
     Hasher._combine(_:)(0);
   }
@@ -3796,8 +3786,7 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Mor
     MEMORY[0x1865CD060](v3 + 1);
   }
 
-  specialized Dictionary<>.hash(into:)(v15, v4);
-  if (v5 == 14)
+  if (v4 == 6)
   {
     Hasher._combine(_:)(0);
   }
@@ -3805,10 +3794,11 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Mor
   else
   {
     Hasher._combine(_:)(1u);
-    MEMORY[0x1865CD060](v5 + 1);
+    MEMORY[0x1865CD060](v4 + 1);
   }
 
-  if (v6 == 3)
+  specialized Dictionary<>.hash(into:)(v16, v5);
+  if (v6 == 14)
   {
     Hasher._combine(_:)(0);
   }
@@ -3830,7 +3820,7 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Mor
     MEMORY[0x1865CD060](v7 + 1);
   }
 
-  if (v9 == 2)
+  if (v8 == 3)
   {
     Hasher._combine(_:)(0);
   }
@@ -3838,10 +3828,10 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Mor
   else
   {
     Hasher._combine(_:)(1u);
-    MEMORY[0x1865CD060]((v9 & 1) + 1);
+    MEMORY[0x1865CD060](v8 + 1);
   }
 
-  if (v12 == 2)
+  if (v10 == 2)
   {
     Hasher._combine(_:)(0);
   }
@@ -3849,10 +3839,21 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Mor
   else
   {
     Hasher._combine(_:)(1u);
-    MEMORY[0x1865CD060]((v12 & 1) + 1);
+    MEMORY[0x1865CD060]((v10 & 1) + 1);
   }
 
-  specialized Optional<A>.hash(into:)(v15, v14, v13, (v10 | (v11 << 32)) & 0xFFFFFFFFFFLL);
+  if (v13 == 2)
+  {
+    Hasher._combine(_:)(0);
+  }
+
+  else
+  {
+    Hasher._combine(_:)(1u);
+    MEMORY[0x1865CD060]((v13 & 1) + 1);
+  }
+
+  specialized Optional<A>.hash(into:)(v16, v15, v14, (v11 | (v12 << 32)) & 0xFFFFFFFFFFLL);
   return Hasher._finalize()();
 }
 
@@ -4259,7 +4260,7 @@ void __swiftcall Morphology._bridgeToObjectiveC()(NSMorphology *__return_ptr ret
 {
   v5[0] = *v1;
   *(v5 + 13) = *(v1 + 13);
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSMorphology);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSMorphology, off_1E69EE650);
   outlined init with copy of Morphology(v5, v4);
   v2 = v1;
   NSMorphology.init(_:)(v3, *&v2);
@@ -4274,7 +4275,7 @@ void __swiftcall Morphology.CustomPronoun._bridgeToObjectiveC()(NSMorphologyCust
   v3 = v1[1];
   v6.subjectForm = *v1;
   v6.objectForm = v3;
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSMorphologyCustomPronoun);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSMorphologyCustomPronoun, off_1E69EE658);
   outlined init with copy of Morphology._CustomPronoun(&v6, &v5);
   NSMorphologyCustomPronoun.init(_:)(v4, &v6);
 }
@@ -4288,7 +4289,7 @@ __n128 static Morphology.CustomPronoun._forceBridgeFromObjectiveC(_:result:)(voi
   v5 = a2[1];
   v9[0] = *a2;
   v9[1] = v5;
-  outlined destroy of TermOfAddress?(v9, &_s10Foundation10MorphologyV13CustomPronounVSgMd);
+  outlined destroy of TermOfAddress?(v9, &_s10Foundation10MorphologyV13CustomPronounVSgMd, &_s10Foundation10MorphologyV13CustomPronounVSgMR);
   v6 = a1;
   specialized Morphology._CustomPronoun.init(_:)(a1, v10);
   v7 = v10[3];
@@ -4310,7 +4311,7 @@ uint64_t static Morphology.CustomPronoun._conditionallyBridgeFromObjectiveC(_:re
   v5 = a2[1];
   v10[0] = *a2;
   v10[1] = v5;
-  outlined destroy of TermOfAddress?(v10, &_s10Foundation10MorphologyV13CustomPronounVSgMd);
+  outlined destroy of TermOfAddress?(v10, &_s10Foundation10MorphologyV13CustomPronounVSgMd, &_s10Foundation10MorphologyV13CustomPronounVSgMR);
   v6 = a1;
   specialized Morphology._CustomPronoun.init(_:)(a1, v11);
   v7 = v11[3];
@@ -4360,52 +4361,52 @@ void protocol witness for _ObjectiveCBridgeable._bridgeToObjectiveC() in conform
   v2 = v0[1];
   v5.subjectForm = *v0;
   v5.objectForm = v2;
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSMorphologyCustomPronoun);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSMorphologyCustomPronoun, off_1E69EE658);
   outlined init with copy of Morphology._CustomPronoun(&v5, &v4);
   NSMorphologyCustomPronoun.init(_:)(v3, &v5);
 }
 
-__n128 protocol witness for static _ObjectiveCBridgeable._forceBridgeFromObjectiveC(_:result:) in conformance Morphology.CustomPronoun(void *a1, _OWORD *a2, uint64_t a3, uint64_t a4, uint64_t *a5)
+__n128 protocol witness for static _ObjectiveCBridgeable._forceBridgeFromObjectiveC(_:result:) in conformance Morphology.CustomPronoun(void *a1, _OWORD *a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t *a6)
 {
-  v7 = a2[3];
-  v12[2] = a2[2];
-  v12[3] = v7;
-  v12[4] = a2[4];
-  v8 = a2[1];
-  v12[0] = *a2;
-  v12[1] = v8;
-  outlined destroy of TermOfAddress?(v12, a5);
-  v9 = a1;
-  specialized Morphology._CustomPronoun.init(_:)(a1, v13);
-  v10 = v13[3];
-  a2[2] = v13[2];
-  a2[3] = v10;
-  a2[4] = v13[4];
-  result = v13[1];
-  *a2 = v13[0];
+  v8 = a2[3];
+  v13[2] = a2[2];
+  v13[3] = v8;
+  v13[4] = a2[4];
+  v9 = a2[1];
+  v13[0] = *a2;
+  v13[1] = v9;
+  outlined destroy of TermOfAddress?(v13, a5, a6);
+  v10 = a1;
+  specialized Morphology._CustomPronoun.init(_:)(a1, v14);
+  v11 = v14[3];
+  a2[2] = v14[2];
+  a2[3] = v11;
+  a2[4] = v14[4];
+  result = v14[1];
+  *a2 = v14[0];
   a2[1] = result;
   return result;
 }
 
-uint64_t protocol witness for static _ObjectiveCBridgeable._conditionallyBridgeFromObjectiveC(_:result:) in conformance Morphology.CustomPronoun(void *a1, _OWORD *a2, uint64_t a3, uint64_t a4, uint64_t *a5)
+uint64_t protocol witness for static _ObjectiveCBridgeable._conditionallyBridgeFromObjectiveC(_:result:) in conformance Morphology.CustomPronoun(void *a1, _OWORD *a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t *a6)
 {
-  v7 = a2[3];
-  v13[2] = a2[2];
-  v13[3] = v7;
-  v13[4] = a2[4];
-  v8 = a2[1];
-  v13[0] = *a2;
-  v13[1] = v8;
-  outlined destroy of TermOfAddress?(v13, a5);
-  v9 = a1;
-  specialized Morphology._CustomPronoun.init(_:)(a1, v14);
-  v10 = v14[3];
-  a2[2] = v14[2];
-  a2[3] = v10;
-  a2[4] = v14[4];
-  v11 = v14[1];
-  *a2 = v14[0];
-  a2[1] = v11;
+  v8 = a2[3];
+  v14[2] = a2[2];
+  v14[3] = v8;
+  v14[4] = a2[4];
+  v9 = a2[1];
+  v14[0] = *a2;
+  v14[1] = v9;
+  outlined destroy of TermOfAddress?(v14, a5, a6);
+  v10 = a1;
+  specialized Morphology._CustomPronoun.init(_:)(a1, v15);
+  v11 = v15[3];
+  a2[2] = v15[2];
+  a2[3] = v11;
+  a2[4] = v15[4];
+  v12 = v15[1];
+  *a2 = v15[0];
+  a2[1] = v12;
   return 1;
 }
 
@@ -4416,7 +4417,7 @@ NSMorphologyPronoun __swiftcall Morphology.Pronoun._bridgeToObjectiveC()()
   v3[1] = v1;
   v4[0] = *(v0 + 32);
   *(v4 + 13) = *(v0 + 45);
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSMorphologyPronoun);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSMorphologyPronoun, off_1E69EE660);
   outlined init with copy of Morphology.Pronoun(v3, &v2);
   return NSMorphologyPronoun.init(_:)(v0);
 }
@@ -4429,7 +4430,7 @@ id static Morphology.Pronoun._forceBridgeFromObjectiveC(_:result:)(void *a1, uin
   v35[1] = v4;
   v36[0] = *(a2 + 32);
   *(v36 + 13) = *(a2 + 45);
-  outlined destroy of TermOfAddress?(v35, &_s10Foundation10MorphologyV7PronounVSgMd);
+  outlined destroy of TermOfAddress?(v35, &_s10Foundation10MorphologyV7PronounVSgMd, &_s10Foundation10MorphologyV7PronounVSgMR);
   v5 = a1;
   v6 = [v5 pronoun];
   if (!v6)
@@ -4575,7 +4576,7 @@ uint64_t static Morphology.Pronoun._conditionallyBridgeFromObjectiveC(_:result:)
   v35[1] = v4;
   v36[0] = *(a2 + 32);
   *(v36 + 13) = *(a2 + 45);
-  outlined destroy of TermOfAddress?(v35, &_s10Foundation10MorphologyV7PronounVSgMd);
+  outlined destroy of TermOfAddress?(v35, &_s10Foundation10MorphologyV7PronounVSgMd, &_s10Foundation10MorphologyV7PronounVSgMR);
   v5 = a1;
   v6 = [v5 pronoun];
   if (!v6)
@@ -4863,7 +4864,7 @@ unint64_t protocol witness for _ObjectiveCBridgeable._bridgeToObjectiveC() in co
   v7[1] = v1;
   v8[0] = v0[2];
   *(v8 + 13) = *(v0 + 45);
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSMorphologyPronoun);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSMorphologyPronoun, off_1E69EE660);
   v2 = v0[1];
   v5[0] = *v0;
   v5[1] = v2;
@@ -4880,7 +4881,7 @@ double protocol witness for static _ObjectiveCBridgeable._forceBridgeFromObjecti
   v7[1] = v4;
   v8[0] = a2[2];
   *(v8 + 13) = *(a2 + 45);
-  outlined destroy of TermOfAddress?(v7, &_s10Foundation10MorphologyV7PronounVSgMd);
+  outlined destroy of TermOfAddress?(v7, &_s10Foundation10MorphologyV7PronounVSgMd, &_s10Foundation10MorphologyV7PronounVSgMR);
   v10.super.isa = a1;
   Morphology.Pronoun.init(_:)(&v9, v10);
   v5 = *&v9.morphology.grammaticalGender.value;
@@ -4899,7 +4900,7 @@ uint64_t protocol witness for static _ObjectiveCBridgeable._conditionallyBridgeF
   v7[1] = v4;
   v8[0] = a2[2];
   *(v8 + 13) = *(a2 + 45);
-  outlined destroy of TermOfAddress?(v7, &_s10Foundation10MorphologyV7PronounVSgMd);
+  outlined destroy of TermOfAddress?(v7, &_s10Foundation10MorphologyV7PronounVSgMd, &_s10Foundation10MorphologyV7PronounVSgMR);
   v10.super.isa = a1;
   Morphology.Pronoun.init(_:)(&v9, v10);
   v5 = *&v9.morphology.grammaticalGender.value;
@@ -4935,7 +4936,7 @@ NSInflectionRule __swiftcall InflectionRule._bridgeToObjectiveC()()
     v4 = *v0;
     v5 = *v0 >> 8;
     v6 = *v0 >> 16;
-    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSMorphology);
+    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSMorphology, off_1E69EE650);
     v18[0] = v4;
     v18[1] = v5;
     v18[2] = v6;
@@ -4988,7 +4989,7 @@ void static InflectionRule._unconditionallyBridgeFromObjectiveC(_:)(void *a1@<X0
     goto LABEL_8;
   }
 
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSInflectionRule);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSInflectionRule, off_1E69EE518);
   v6 = a1;
   v7 = static NSObject.== infix(_:_:)();
 
@@ -5022,7 +5023,7 @@ LABEL_8:
   _StringGuts.grow(_:)(39);
 
   v14 = v6;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo16NSInflectionRuleCSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo16NSInflectionRuleCSgMd, &_sSo16NSInflectionRuleCSgMR);
   v15 = String.init<A>(describing:)();
   MEMORY[0x1865CB0E0](v15);
 
@@ -5040,7 +5041,7 @@ id protocol witness for _ObjectiveCBridgeable._bridgeToObjectiveC() in conforman
     v4 = *v0;
     v5 = *v0 >> 8;
     v6 = *v0 >> 16;
-    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSMorphology);
+    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSMorphology, off_1E69EE650);
     v18[0] = v4;
     v18[1] = v5;
     v18[2] = v6;
@@ -5093,7 +5094,7 @@ void protocol witness for _ObjectiveCBridgeable._bridgeToObjectiveC() in conform
 {
   v5[0] = *v0;
   *(v5 + 13) = *(v0 + 13);
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSMorphology);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSMorphology, off_1E69EE650);
   v4[0] = *v0;
   *(v4 + 13) = *(v0 + 13);
   outlined init with copy of Morphology(v5, v3);
@@ -5642,7 +5643,7 @@ LABEL_41:
 
 uint64_t specialized Morphology._CustomPronoun.init(from:)@<X0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation10MorphologyV14_CustomPronounV10CodingKeys33_9BF4E61D20F3D06745C690C5DBBDE434LLOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation10MorphologyV14_CustomPronounV10CodingKeys33_9BF4E61D20F3D06745C690C5DBBDE434LLOGMd, &_ss22KeyedDecodingContainerVy10Foundation10MorphologyV14_CustomPronounV10CodingKeys33_9BF4E61D20F3D06745C690C5DBBDE434LLOGMR);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v28 - v7;
@@ -6558,7 +6559,7 @@ void specialized static InflectionRule._forceBridgeFromObjectiveC(_:result:)(voi
   if (v6)
   {
     v7 = v6;
-    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSInflectionRule);
+    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSInflectionRule, off_1E69EE518);
     v8 = v5;
     v9 = static NSObject.== infix(_:_:)();
 
@@ -6591,7 +6592,7 @@ LABEL_6:
 
   _StringGuts.grow(_:)(39);
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo16NSInflectionRuleCSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo16NSInflectionRuleCSgMd, &_sSo16NSInflectionRuleCSgMR);
   v16 = String.init<A>(describing:)();
   MEMORY[0x1865CB0E0](v16);
 
@@ -6608,7 +6609,7 @@ uint64_t specialized static InflectionRule._conditionallyBridgeFromObjectiveC(_:
   if (v6)
   {
     v7 = v6;
-    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSInflectionRule);
+    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSInflectionRule, off_1E69EE518);
     v8 = v5;
     v9 = static NSObject.== infix(_:_:)();
 
@@ -6641,7 +6642,7 @@ LABEL_6:
 
   _StringGuts.grow(_:)(39);
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo16NSInflectionRuleCSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo16NSInflectionRuleCSgMd, &_sSo16NSInflectionRuleCSgMR);
   v17 = String.init<A>(describing:)();
   MEMORY[0x1865CB0E0](v17);
 
@@ -6949,11 +6950,11 @@ uint64_t storeEnumTagSinglePayload for Morphology.CustomPronoun(uint64_t result,
 
 uint64_t specialized Collection.underestimatedCount.getter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd, &_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMR);
   v156 = *(v1 - 8);
   MEMORY[0x1EEE9AC00](v1);
   v3 = &v124 - v2;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR);
   v155 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
   v6 = &v124 - v5;
@@ -6964,7 +6965,7 @@ uint64_t specialized Collection.underestimatedCount.getter()
   v11 = v0[26];
   v157 = v0[23];
   v158 = v11;
-  result = type metadata accessor for AttributedString.Runs();
+  result = type metadata accessor for AttributedString.Runs(0);
   if (*(v0 + *(result + 28)) == 1)
   {
     v132 = v1;
@@ -7782,7 +7783,7 @@ uint64_t specialized SetAlgebra.subtracting(_:)@<X0>(uint64_t result@<X0>, uint6
   return result;
 }
 
-uint64_t specialized SetAlgebra.subtracting(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
+uint64_t specialized SetAlgebra.subtracting(_:)@<X0>(uint64_t a1@<X0>, id *a2@<X1>, uint64_t *a3@<X8>)
 {
   v6[1] = a2;
   v5[0] = a1;
@@ -7851,7 +7852,7 @@ LABEL_9:
   return result;
 }
 
-uint64_t *IndexSet.RangeView.init(indexSet:intersecting:)@<X0>(uint64_t *result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char a4@<W3>, void *a5@<X8>)
+id **IndexSet.RangeView.init(indexSet:intersecting:)@<X0>(id **result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char a4@<W3>, void *a5@<X8>)
 {
   v6 = *result;
   if (a4)
@@ -7862,7 +7863,7 @@ uint64_t *IndexSet.RangeView.init(indexSet:intersecting:)@<X0>(uint64_t *result@
   if (!__OFSUB__(a3, a2))
   {
     v7 = [objc_allocWithZone(NSIndexSet) initWithIndexesInRange_];
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMd, &_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMR);
     inited = swift_initStackObject();
     *(inited + 16) = v7;
     *(inited + 24) = 0;
@@ -7872,7 +7873,7 @@ uint64_t *IndexSet.RangeView.init(indexSet:intersecting:)@<X0>(uint64_t *result@
 
     v6 = v10;
 LABEL_4:
-    result = [*(v6 + 16) rangeCount];
+    result = [v6[2] rangeCount];
     *a5 = 0;
     a5[1] = result;
     a5[2] = v6;
@@ -8047,9 +8048,9 @@ uint64_t IndexSet.Index.description.getter()
   return result;
 }
 
-void IndexSet.hash(into:)()
+void IndexSet.hash(into:)(uint64_t a1)
 {
-  v1 = *(*v0 + 16);
+  v2 = *(*v1 + 16);
   NSObject.hash(into:)();
 }
 
@@ -8065,23 +8066,23 @@ id IndexSet.rangeView.getter@<X0>(void *a1@<X8>)
   return result;
 }
 
-uint64_t *IndexSet.rangeView(of:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+id **IndexSet.rangeView(of:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   v8 = *v3;
 
   return IndexSet.RangeView.init(indexSet:intersecting:)(&v8, a1, a2, 0, a3);
 }
 
-uint64_t *IndexSet.rangeView<A>(of:)@<X0>(void *a1@<X8>)
+id **IndexSet.rangeView<A>(of:)@<X0>(void *a3@<X8>)
 {
-  v3 = *v1;
-  v5[1] = 0x7FFFFFFFFFFFFFFFLL;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSnySiGMd);
+  v5 = *v3;
+  v7[1] = 0x7FFFFFFFFFFFFFFFLL;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSnySiGMd, &_sSnySiGMR);
   lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>();
   dispatch thunk of RangeExpression.relative<A>(to:)();
-  v5[0] = v3;
+  v7[0] = v5;
 
-  return IndexSet.RangeView.init(indexSet:intersecting:)(v5, v5[2], v5[3], 0, a1);
+  return IndexSet.RangeView.init(indexSet:intersecting:)(v7, v7[2], v7[3], 0, a3);
 }
 
 uint64_t IndexSet.subscript.getter@<X0>(_OWORD *a1@<X0>, uint64_t a2@<X8>)
@@ -8359,12 +8360,12 @@ LABEL_20:
   return result;
 }
 
-char *IndexSet.indexRange<A>(in:)@<X0>(uint64_t a1@<X8>)
+char *IndexSet.indexRange<A>(in:)@<X0>(uint64_t a3@<X8>)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSnySiGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSnySiGMd, &_sSnySiGMR);
   lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>();
   dispatch thunk of RangeExpression.relative<A>(to:)();
-  return IndexSet.indexRange(in:)(v3, v4, a1);
+  return IndexSet.indexRange(in:)(v5, v6, a3);
 }
 
 id IndexSet.count(in:)(uint64_t a1, uint64_t a2)
@@ -8390,17 +8391,17 @@ id IndexSet.count(in:)(uint64_t a1, uint64_t a2)
   return result;
 }
 
-id IndexSet.count<A>(in:)()
+id IndexSet.count<A>(in:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v1 = *v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSnySiGMd);
+  v4 = *v3;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSnySiGMd, &_sSnySiGMR);
   lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>();
   dispatch thunk of RangeExpression.relative<A>(to:)();
-  result = *(v1 + 16);
-  v3 = __OFSUB__(v5, v4);
-  if (*(v1 + 24))
+  result = *(v4 + 16);
+  v6 = __OFSUB__(v8, v7);
+  if (*(v4 + 24))
   {
-    if (!v3)
+    if (!v6)
     {
       return [result countOfIndexesInRange_];
     }
@@ -8408,7 +8409,7 @@ id IndexSet.count<A>(in:)()
     __break(1u);
   }
 
-  if (!v3)
+  if (!v6)
   {
     return [result countOfIndexesInRange_];
   }
@@ -8428,7 +8429,7 @@ id IndexSet.contains(integersIn:)(uint64_t *a1)
     [v4 copy];
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSIndexSet);
+    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSIndexSet, off_1E69EE508);
     swift_dynamicCast();
     v6 = v11;
     v7 = [v5 containsIndexes_];
@@ -8441,7 +8442,7 @@ id IndexSet.contains(integersIn:)(uint64_t *a1)
     [v8 copy];
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSIndexSet);
+    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSIndexSet, off_1E69EE508);
     swift_dynamicCast();
     v6 = v11;
     v7 = [v9 containsIndexes_];
@@ -8476,7 +8477,7 @@ id IndexSet.contains(integersIn:)(uint64_t a1, uint64_t a2, SEL *a3)
 id IndexSet.contains<A>(integersIn:)(uint64_t a1, uint64_t a2, uint64_t a3, SEL *a4)
 {
   v6 = *v4;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSnySiGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSnySiGMd, &_sSnySiGMR);
   lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>();
   dispatch thunk of RangeExpression.relative<A>(to:)();
   result = *(v6 + 16);
@@ -8500,7 +8501,7 @@ id IndexSet.contains<A>(integersIn:)(uint64_t a1, uint64_t a2, uint64_t a3, SEL 
   return result;
 }
 
-char *IndexSet.index(before:)@<X0>(void **a1@<X0>, char **a2@<X8>)
+char *IndexSet.index(before:)@<X0>(char **a1@<X0>, char **a2@<X8>)
 {
   v5 = *a1;
   result = a1[1];
@@ -8602,9 +8603,9 @@ LABEL_6:
     [v5 mutableCopy];
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSMutableIndexSet);
+    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSMutableIndexSet, off_1E69EE678);
     swift_dynamicCast();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMd, &_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMR);
     v6 = swift_allocObject();
     *(v6 + 16) = v10;
     *(v6 + 24) = 1;
@@ -8657,9 +8658,9 @@ LABEL_4:
       [v8 mutableCopy];
       _bridgeAnyObjectToAny(_:)();
       swift_unknownObjectRelease();
-      type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSMutableIndexSet);
+      type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSMutableIndexSet, off_1E69EE678);
       swift_dynamicCast();
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMd, &_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMR);
       v9 = swift_allocObject();
       *(v9 + 16) = v13;
       *(v9 + 24) = 1;
@@ -8730,14 +8731,14 @@ LABEL_18:
     {
       if (v16)
       {
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMd, &_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMR);
         v18 = swift_allocObject();
         v19 = v16;
         [v19 copy];
         _bridgeAnyObjectToAny(_:)();
         swift_unknownObjectRelease();
 
-        type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSIndexSet);
+        type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSIndexSet, off_1E69EE508);
         swift_dynamicCast();
         *(v18 + 16) = v32;
         *(v18 + 24) = 0;
@@ -8756,7 +8757,7 @@ LABEL_15:
       else
       {
         v29 = [objc_allocWithZone(NSIndexSet) init];
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMd, &_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMR);
         v18 = swift_allocObject();
         *(v18 + 16) = v29;
         *(v18 + 24) = 0;
@@ -8799,14 +8800,14 @@ LABEL_15:
   {
     if (v25)
     {
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMd, &_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMR);
       v18 = swift_allocObject();
       v27 = v25;
       [v27 copy];
       _bridgeAnyObjectToAny(_:)();
       swift_unknownObjectRelease();
 
-      type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSIndexSet);
+      type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSIndexSet, off_1E69EE508);
       swift_dynamicCast();
       *(v18 + 16) = v32;
       *(v18 + 24) = 0;
@@ -8821,7 +8822,7 @@ LABEL_15:
     else
     {
       v30 = [objc_allocWithZone(NSIndexSet) init];
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMd, &_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMR);
       v18 = swift_allocObject();
       *(v18 + 16) = v30;
       *(v18 + 24) = 0;
@@ -8867,9 +8868,9 @@ LABEL_8:
     [v7 mutableCopy];
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSMutableIndexSet);
+    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSMutableIndexSet, off_1E69EE678);
     swift_dynamicCast();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMd, &_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMR);
     v8 = swift_allocObject();
     *(v8 + 16) = v10;
     *(v8 + 24) = 1;
@@ -8901,7 +8902,7 @@ Swift::Int IndexSet.hashValue.getter()
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for SetAlgebra.intersection(_:) in conformance IndexSet@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t protocol witness for SetAlgebra.intersection(_:) in conformance IndexSet@<X0>(id **a1@<X0>, uint64_t *a2@<X8>)
 {
   IndexSet.intersection(_:)(a1, a2);
 }
@@ -8927,7 +8928,7 @@ uint64_t protocol witness for SetAlgebra.formUnion(_:) in conformance IndexSet(v
   v5 = *v4;
   v7[0] = *a1;
   v7[1] = v5;
-  a4(&v8, v7);
+  (a4)(&v8, v7, a2, a3);
 
   *v4 = v8;
 }
@@ -8937,7 +8938,7 @@ uint64_t protocol witness for SetAlgebra.subtracting(_:) in conformance IndexSet
   specialized SetAlgebra.subtracting(_:)(*a1, *v2, a2);
 }
 
-uint64_t protocol witness for SetAlgebra.isSubset(of:) in conformance IndexSet(uint64_t *a1)
+uint64_t protocol witness for SetAlgebra.isSubset(of:) in conformance IndexSet(id **a1)
 {
   v2 = *a1;
   v6 = *v1;
@@ -8950,7 +8951,7 @@ uint64_t protocol witness for SetAlgebra.isSubset(of:) in conformance IndexSet(u
   return v3 & 1;
 }
 
-BOOL protocol witness for SetAlgebra.isDisjoint(with:) in conformance IndexSet(uint64_t *a1)
+BOOL protocol witness for SetAlgebra.isDisjoint(with:) in conformance IndexSet(id **a1)
 {
   v4 = *a1;
 
@@ -9075,7 +9076,7 @@ uint64_t IndexSet.customMirror.getter()
   v2 = *(v1 - 8);
   MEMORY[0x1EEE9AC00](v1);
   v4 = &v22[-1] - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6MirrorV12DisplayStyleOSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6MirrorV12DisplayStyleOSgMd, &_ss6MirrorV12DisplayStyleOSgMR);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v22[-1] - v6;
   v8 = *v0;
@@ -9083,7 +9084,7 @@ uint64_t IndexSet.customMirror.getter()
 
   v10 = specialized _copyCollectionToContiguousArray<A>(_:)(0, [v9 rangeCount], v8);
 
-  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySnySiGGMd);
+  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySnySiGGMd, &_sSaySnySiGGMR);
   *&v23 = v10;
   v21 = xmmword_1812E1510;
   outlined init with take of Any(&v23, v22);
@@ -9111,8 +9112,8 @@ uint64_t IndexSet.customMirror.getter()
   (*(v19 + 56))(v7, 0, 1, v18);
   (*(v2 + 104))(v4, *MEMORY[0x1E69E75D8], v1);
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSSg5label_yp5valuetGMd);
-  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type [(label: String?, value: Any)] and conformance [A], &_sSaySSSg5label_yp5valuetGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSSg5label_yp5valuetGMd, &_sSaySSSg5label_yp5valuetGMR);
+  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type [(label: String?, value: Any)] and conformance [A], &_sSaySSSg5label_yp5valuetGMd, &_sSaySSSg5label_yp5valuetGMR, MEMORY[0x1E69E6340]);
   return Mirror.init<A, B>(_:children:displayStyle:ancestorRepresentation:)();
 }
 
@@ -9127,12 +9128,12 @@ uint64_t protocol witness for IteratorProtocol.next() in conformance IndexSetBou
 uint64_t static IndexSet._forceBridgeFromObjectiveC(_:result:)(void *a1, uint64_t *a2)
 {
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMd, &_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMR);
   v4 = swift_allocObject();
   [a1 copy];
   _bridgeAnyObjectToAny(_:)();
   swift_unknownObjectRelease();
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSIndexSet);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSIndexSet, off_1E69EE508);
   result = swift_dynamicCast();
   *(v4 + 16) = v6;
   *(v4 + 24) = 0;
@@ -9143,12 +9144,12 @@ uint64_t static IndexSet._forceBridgeFromObjectiveC(_:result:)(void *a1, uint64_
 uint64_t static IndexSet._conditionallyBridgeFromObjectiveC(_:result:)(void *a1, uint64_t *a2)
 {
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMd, &_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMR);
   v4 = swift_allocObject();
   [a1 copy];
   _bridgeAnyObjectToAny(_:)();
   swift_unknownObjectRelease();
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSIndexSet);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSIndexSet, off_1E69EE508);
   swift_dynamicCast();
   *(v4 + 16) = v6;
   *(v4 + 24) = 0;
@@ -9161,7 +9162,7 @@ uint64_t protocol witness for _ObjectiveCBridgeable._bridgeToObjectiveC() in con
   [*(*v0 + 16) copy];
   _bridgeAnyObjectToAny(_:)();
   swift_unknownObjectRelease();
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSIndexSet);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSIndexSet, off_1E69EE508);
   swift_dynamicCast();
   return v2;
 }
@@ -9169,12 +9170,12 @@ uint64_t protocol witness for _ObjectiveCBridgeable._bridgeToObjectiveC() in con
 uint64_t protocol witness for static _ObjectiveCBridgeable._forceBridgeFromObjectiveC(_:result:) in conformance IndexSet(void *a1, uint64_t *a2)
 {
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMd, &_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMR);
   v4 = swift_allocObject();
   [a1 copy];
   _bridgeAnyObjectToAny(_:)();
   swift_unknownObjectRelease();
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSIndexSet);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSIndexSet, off_1E69EE508);
   result = swift_dynamicCast();
   *(v4 + 16) = v6;
   *(v4 + 24) = 0;
@@ -9185,12 +9186,12 @@ uint64_t protocol witness for static _ObjectiveCBridgeable._forceBridgeFromObjec
 uint64_t protocol witness for static _ObjectiveCBridgeable._conditionallyBridgeFromObjectiveC(_:result:) in conformance IndexSet(void *a1, uint64_t *a2)
 {
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMd, &_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMR);
   v4 = swift_allocObject();
   [a1 copy];
   _bridgeAnyObjectToAny(_:)();
   swift_unknownObjectRelease();
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSIndexSet);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSIndexSet, off_1E69EE508);
   swift_dynamicCast();
   *(v4 + 16) = v6;
   *(v4 + 24) = 0;
@@ -9200,14 +9201,14 @@ uint64_t protocol witness for static _ObjectiveCBridgeable._conditionallyBridgeF
 
 uint64_t NSIndexSet._toCustomAnyHashable()()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMd, &_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMR);
   v1 = swift_allocObject();
   v2 = v0;
   [v2 copy];
   _bridgeAnyObjectToAny(_:)();
   swift_unknownObjectRelease();
 
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSIndexSet);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSIndexSet, off_1E69EE508);
   swift_dynamicCast();
   *(v1 + 16) = v4;
   *(v1 + 24) = 0;
@@ -9299,11 +9300,11 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 uint64_t IndexSet.init(from:)@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   v25 = a2;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation8IndexSetV15RangeCodingKeys33_2D7761BAEB66DCEF0A109CF42C1440A7LLOGMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation8IndexSetV15RangeCodingKeys33_2D7761BAEB66DCEF0A109CF42C1440A7LLOGMd, &_ss22KeyedDecodingContainerVy10Foundation8IndexSetV15RangeCodingKeys33_2D7761BAEB66DCEF0A109CF42C1440A7LLOGMR);
   v24 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
   v6 = &v21 - v5;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation8IndexSetV10CodingKeys33_2D7761BAEB66DCEF0A109CF42C1440A7LLOGMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation8IndexSetV10CodingKeys33_2D7761BAEB66DCEF0A109CF42C1440A7LLOGMd, &_ss22KeyedDecodingContainerVy10Foundation8IndexSetV10CodingKeys33_2D7761BAEB66DCEF0A109CF42C1440A7LLOGMR);
   v8 = *(v7 - 8);
   MEMORY[0x1EEE9AC00](v7);
   v10 = &v21 - v9;
@@ -9321,7 +9322,7 @@ uint64_t IndexSet.init(from:)@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
   KeyedDecodingContainer.nestedUnkeyedContainer(forKey:)();
   v22 = v7;
   v12 = [objc_allocWithZone(NSIndexSet) init];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMd, &_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMR);
   v13 = swift_allocObject();
   *(v13 + 16) = v12;
   *(v13 + 24) = 0;
@@ -9381,11 +9382,11 @@ LABEL_11:
 char *IndexSet.encode(to:)(void *a1)
 {
   v3 = v2;
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation8IndexSetV15RangeCodingKeys33_2D7761BAEB66DCEF0A109CF42C1440A7LLOGMd);
+  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation8IndexSetV15RangeCodingKeys33_2D7761BAEB66DCEF0A109CF42C1440A7LLOGMd, &_ss22KeyedEncodingContainerVy10Foundation8IndexSetV15RangeCodingKeys33_2D7761BAEB66DCEF0A109CF42C1440A7LLOGMR);
   v25 = *(v27 - 8);
   MEMORY[0x1EEE9AC00](v27);
   v6 = &v21 - v5;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation8IndexSetV10CodingKeys33_2D7761BAEB66DCEF0A109CF42C1440A7LLOGMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation8IndexSetV10CodingKeys33_2D7761BAEB66DCEF0A109CF42C1440A7LLOGMd, &_ss22KeyedEncodingContainerVy10Foundation8IndexSetV10CodingKeys33_2D7761BAEB66DCEF0A109CF42C1440A7LLOGMR);
   v22 = *(v7 - 8);
   MEMORY[0x1EEE9AC00](v7);
   v9 = &v21 - v8;
@@ -9448,10 +9449,10 @@ char *IndexSet.encode(to:)(void *a1)
         goto LABEL_22;
       }
 
-      __swift_mutable_project_boxed_opaque_existential_1(v28, v29);
+      __swift_mutable_project_boxed_opaque_existential_1(v28, v28[3]);
       lazy protocol witness table accessor for type IndexSet.RangeCodingKeys and conformance IndexSet.RangeCodingKeys();
       dispatch thunk of UnkeyedEncodingContainer.nestedContainer<A>(keyedBy:)();
-      v30 = 0;
+      v29 = 0;
       KeyedEncodingContainer.encode(_:forKey:)();
       if (v3)
       {
@@ -9465,7 +9466,7 @@ char *IndexSet.encode(to:)(void *a1)
         goto LABEL_23;
       }
 
-      v30 = 1;
+      v29 = 1;
       v20 = v27;
       KeyedEncodingContainer.encode(_:forKey:)();
       (*v25)(v6, v20);
@@ -9505,19 +9506,19 @@ LABEL_20:
 void *IndexSet.init(integersIn:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   v33 = a2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVySi_GGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVySi_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVySi_GGMR);
   MEMORY[0x1EEE9AC00](v3);
   v5 = v32 - v4;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVySi_GMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVySi_GMd, &_ss8RangeSetV6RangesVySi_GMR);
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
   v9 = v32 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v10);
   v12 = v32 - v11;
-  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVySiGMd);
+  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVySiGMd, &_ss8RangeSetVySiGMR);
   v35 = a1;
   RangeSet.ranges.getter();
-  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<Int>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVySi_GMd);
+  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type RangeSet<Int>.Ranges and conformance RangeSet<A>.Ranges, &_ss8RangeSetV6RangesVySi_GMd, &_ss8RangeSetV6RangesVySi_GMR, MEMORY[0x1E69E7BC8]);
   dispatch thunk of Collection.startIndex.getter();
   dispatch thunk of Collection.endIndex.getter();
   if (v37 == v36[0])
@@ -9545,7 +9546,7 @@ void *IndexSet.init(integersIn:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   }
 
   v17 = [objc_allocWithZone(NSIndexSet) init];
-  v32[1] = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMd);
+  v32[1] = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMd, &_s10Foundation18_MutablePairHandle33_2D7761BAEB66DCEF0A109CF42C1440A7LLCySo10NSIndexSetCSo014NSMutableIndexM0CGMR);
   v18 = swift_allocObject();
   *(v18 + 16) = v17;
   *(v18 + 24) = 0;
@@ -9585,7 +9586,7 @@ LABEL_15:
       [v26 mutableCopy];
       _bridgeAnyObjectToAny(_:)();
       swift_unknownObjectRelease();
-      type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSMutableIndexSet);
+      type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSMutableIndexSet, off_1E69EE678);
       swift_dynamicCast();
       v27 = v37;
       v28 = swift_allocObject();
@@ -9623,7 +9624,7 @@ LABEL_19:
       [v26 mutableCopy];
       _bridgeAnyObjectToAny(_:)();
       swift_unknownObjectRelease();
-      type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSMutableIndexSet);
+      type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSMutableIndexSet, off_1E69EE678);
       swift_dynamicCast();
       v31 = v37;
       v28 = swift_allocObject();
@@ -9661,7 +9662,7 @@ LABEL_24:
   return result;
 }
 
-uint64_t RangeSet<>.init(_:)(uint64_t a1)
+uint64_t RangeSet<>.init(_:)(uint64_t *a1)
 {
   [*(*a1 + 16) rangeCount];
   lazy protocol witness table accessor for type IndexSet.RangeView and conformance IndexSet.RangeView();
@@ -9679,7 +9680,7 @@ id specialized static IndexSet.== infix(_:_:)(uint64_t a1, uint64_t *a2)
     [v4 copy];
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSIndexSet);
+    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSIndexSet, off_1E69EE508);
     swift_dynamicCast();
     v6 = v11;
     v7 = [v5 isEqualToIndexSet_];
@@ -9692,7 +9693,7 @@ id specialized static IndexSet.== infix(_:_:)(uint64_t a1, uint64_t *a2)
     [v8 copy];
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
-    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSIndexSet);
+    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSIndexSet, off_1E69EE508);
     swift_dynamicCast();
     v6 = v11;
     v7 = [v9 isEqualToIndexSet_];
@@ -9812,17 +9813,17 @@ unint64_t lazy protocol witness table accessor for type IndexSet.RangeCodingKeys
 
 uint64_t outlined destroy of IndexingIterator<RangeSet<Int>.Ranges>(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVySi_GGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVys8RangeSetV6RangesVySi_GGMd, &_ss16IndexingIteratorVys8RangeSetV6RangesVySi_GGMR);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
-uint64_t lazy protocol witness table accessor for type DefaultIndices<IndexSet.RangeView> and conformance <> DefaultIndices<A>(unint64_t *a1, uint64_t *a2)
+uint64_t lazy protocol witness table accessor for type DefaultIndices<IndexSet.RangeView> and conformance <> DefaultIndices<A>(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
     lazy protocol witness table accessor for type IndexSet.RangeView and conformance IndexSet.RangeView();
     result = swift_getWitnessTable();
     atomic_store(result, a1);
@@ -9841,12 +9842,12 @@ unint64_t instantiation function for generic protocol witness table for IndexSet
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Slice<IndexSet> and conformance <> Slice<A>(unint64_t *a1, uint64_t *a2)
+uint64_t lazy protocol witness table accessor for type Slice<IndexSet> and conformance <> Slice<A>(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
     lazy protocol witness table accessor for type IndexSet and conformance IndexSet();
     result = swift_getWitnessTable();
     atomic_store(result, a1);

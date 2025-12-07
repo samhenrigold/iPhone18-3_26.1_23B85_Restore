@@ -37,10 +37,9 @@
 {
   v7 = sub_100008B68();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
   __chkstk_darwin(v7);
-  v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = _Block_copy(completion);
+  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = _Block_copy(completion);
   if (*(&self->super.super.isa + OBJC_IVAR____TtC20ClockPosterExtension30ClockPosterExtensionController_clockFaceController))
   {
     editorCopy = editor;
@@ -48,19 +47,19 @@
 
     sub_100008968();
 
-    sub_100007CE0(v11, [editorCopy environment]);
+    sub_100007CE0(v10, [editorCopy environment]);
     swift_unknownObjectRelease();
-    (*(v8 + 8))(v11, v7);
-    v12[2](v12);
+    (*(v8 + 8))(v10, v7);
+    v11[2](v11);
 
-    _Block_release(v12);
+    _Block_release(v11);
   }
 
   else
   {
     editorCopy2 = editor;
     selfCopy2 = self;
-    _Block_release(v12);
+    _Block_release(v11);
     __break(1u);
   }
 }

@@ -105,7 +105,6 @@ LABEL_4:
     goto LABEL_19;
   }
 
-  v5 = *(equalCopy + 40);
   if (*&self->_has)
   {
     if ((*(equalCopy + 40) & 1) == 0 || self->_majorVersion != *(equalCopy + 1))
@@ -117,7 +116,7 @@ LABEL_4:
   else if (*(equalCopy + 40))
   {
 LABEL_19:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_20;
   }
 
@@ -150,17 +149,17 @@ LABEL_19:
   buildVersion = self->_buildVersion;
   if (buildVersion | *(equalCopy + 4))
   {
-    v7 = [(NSString *)buildVersion isEqual:?];
+    v6 = [(NSString *)buildVersion isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_20:
 
-  return v7;
+  return v6;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -258,12 +257,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    majorVersion = self->_majorVersion;
     PBDataWriterWriteInt64Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -282,22 +280,20 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  minorVersion = self->_minorVersion;
   PBDataWriterWriteInt64Field();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_4:
-    updateVersion = self->_updateVersion;
     PBDataWriterWriteInt64Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:
   if (self->_buildVersion)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 

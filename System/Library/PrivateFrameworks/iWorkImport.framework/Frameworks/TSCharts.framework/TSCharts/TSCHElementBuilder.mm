@@ -1962,24 +1962,24 @@ LABEL_32:
 
   if (!seriesCopy)
   {
-    v96 = MEMORY[0x277D81150];
-    v97 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, *&v15, v16.width, v17, "[TSCHElementBuilder trendlineElementForSeries:forBodyLayout:outElementBounds:outElementClipRect:outElementPath:]");
-    v102 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v98, v99, v100, v101, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHElementBuilder.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v96, v103, v104, v105, v106, v97, v102, 198, 0, "invalid nil value for '%{public}s'", "series");
+    v95 = MEMORY[0x277D81150];
+    v96 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, *&v15, v16.width, v17, "[TSCHElementBuilder trendlineElementForSeries:forBodyLayout:outElementBounds:outElementClipRect:outElementPath:]");
+    v101 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v97, v98, v99, v100, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHElementBuilder.m");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v95, v102, v103, v104, v105, v96, v101, 198, 0, "invalid nil value for '%{public}s'", "series");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v107, v108, v109, v110);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v106, v107, v108, v109);
     if (v18)
     {
       goto LABEL_35;
     }
 
 LABEL_34:
-    v111 = MEMORY[0x277D81150];
-    v112 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, *&v15, v16.width, v17, "[TSCHElementBuilder trendlineElementForSeries:forBodyLayout:outElementBounds:outElementClipRect:outElementPath:]");
-    v117 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v113, v114, v115, v116, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHElementBuilder.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v111, v118, v119, v120, v121, v112, v117, 199, 0, "invalid nil value for '%{public}s'", "bodyLayout");
+    v110 = MEMORY[0x277D81150];
+    v111 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, *&v15, v16.width, v17, "[TSCHElementBuilder trendlineElementForSeries:forBodyLayout:outElementBounds:outElementClipRect:outElementPath:]");
+    v116 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v112, v113, v114, v115, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHElementBuilder.m");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v110, v117, v118, v119, v120, v111, v116, 199, 0, "invalid nil value for '%{public}s'", "bodyLayout");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v122, v123, v124, v125);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v121, v122, v123, v124);
     goto LABEL_35;
   }
 
@@ -2000,35 +2000,35 @@ LABEL_34:
       v40 = *(MEMORY[0x277CBF398] + 8);
       v41 = *(MEMORY[0x277CBF398] + 16);
       v42 = *(MEMORY[0x277CBF398] + 24);
-      v127 = 1;
-      v126 = 0;
-      objc_msgSend_p_trendlineInfoForSeries_forBodyLayout_outVertical_outOffsetInBody_(self, v35, v36, v37, v38, seriesCopy, v18, &v127, &v126);
+      v126 = 1;
+      v125 = 0;
+      objc_msgSend_p_trendlineInfoForSeries_forBodyLayout_outVertical_outOffsetInBody_(self, v35, v36, v37, v38, seriesCopy, v18, &v126, &v125);
       if (rect || bounds || path)
       {
         objc_msgSend_rootedLayoutRect(v18, v43, v44, v45, v46);
-        v51 = objc_msgSend_trendLinePathForChartRect_offsetInBody_vertical_(v24, v47, v48, v49, v50, v127);
+        v51 = objc_msgSend_trendLinePathForChartRect_offsetInBody_vertical_(v24, v47, v48, v49, v50, v126);
         v56 = v51;
         if (v51 && (objc_msgSend_isEmpty(v51, v52, v53, v54, v55) & 1) == 0)
         {
-          objc_msgSend_bounds(v56, v57, v58, v59, v60);
-          v39 = v61;
-          v40 = v62;
-          v41 = v63;
-          v42 = v64;
+          objc_msgSend_bounds(v56, v57, v58, v59);
+          v39 = v60;
+          v40 = v61;
+          v41 = v62;
+          v42 = v63;
         }
 
         if (path)
         {
-          v65 = v56;
+          v64 = v56;
           *path = v56;
         }
       }
 
-      v128.origin.x = v39;
-      v128.origin.y = v40;
-      v128.size.width = v41;
-      v128.size.height = v42;
-      if (!CGRectIsNull(v128))
+      v127.origin.x = v39;
+      v127.origin.y = v40;
+      v127.size.width = v41;
+      v127.size.height = v42;
+      if (!CGRectIsNull(v127))
       {
         if (bounds)
         {
@@ -2040,43 +2040,43 @@ LABEL_34:
 
         if (rect)
         {
-          v70 = objc_msgSend_objectValueForProperty_(seriesCopy, v66, v67, v68, v69, 1198);
-          shouldRender = objc_msgSend_shouldRender(v34, v71, v72, v73, v74);
-          v79 = 0.0;
+          v69 = objc_msgSend_objectValueForProperty_(seriesCopy, v65, v66, v67, v68, 1198);
+          shouldRender = objc_msgSend_shouldRender(v34, v70, v71, v72, v73);
+          v78 = 0.0;
           if (shouldRender)
           {
-            objc_msgSend_width(v34, v76, 0.0, v77, v78);
+            objc_msgSend_width(v34, v75, 0.0, v76, v77);
           }
 
-          v80 = -v79;
-          v129.origin.x = v39;
-          v129.origin.y = v40;
-          v129.size.width = v41;
-          v129.size.height = v42;
-          v130 = CGRectInset(v129, v80, v80);
-          x = v130.origin.x;
-          y = v130.origin.y;
-          width = v130.size.width;
-          height = v130.size.height;
-          hasShadow = objc_msgSend_hasShadow_(TSCHStyleUtilities, v85, v130.origin.x, v130.origin.y, v130.size.width, v70);
-          v88 = x;
-          v89 = y;
-          v90 = width;
-          v91 = height;
+          v79 = -v78;
+          v128.origin.x = v39;
+          v128.origin.y = v40;
+          v128.size.width = v41;
+          v128.size.height = v42;
+          v129 = CGRectInset(v128, v79, v79);
+          x = v129.origin.x;
+          y = v129.origin.y;
+          width = v129.size.width;
+          height = v129.size.height;
+          hasShadow = objc_msgSend_hasShadow_(TSCHStyleUtilities, v84, v129.origin.x, v129.origin.y, v129.size.width, v69);
+          v87 = x;
+          v88 = y;
+          v89 = width;
+          v90 = height;
           if (hasShadow)
           {
-            objc_msgSend_shadowBoundsForRect_(v70, v87, x, y, width, height, x, y, width, height);
+            objc_msgSend_shadowBoundsForRect_(v69, v86, x, y, width, height, x, y, width, height);
+            v87 = v91;
             v88 = v92;
             v89 = v93;
             v90 = v94;
-            v91 = v95;
           }
 
-          v131.origin.x = x;
-          v131.origin.y = y;
-          v131.size.width = width;
-          v131.size.height = height;
-          *rect = CGRectUnion(v131, *&v88);
+          v130.origin.x = x;
+          v130.origin.y = y;
+          v130.size.width = width;
+          v130.size.height = height;
+          *rect = CGRectUnion(v130, *&v87);
         }
       }
     }
@@ -2332,7 +2332,7 @@ LABEL_50:
     *&retstr->c = 0u;
     *&retstr->tx = 0u;
     aStr = 0;
-    objc_msgSend_p_transformForRenderingTrendlineTextNotR2_forSeries_forAreaLayout_outElementSize_outClipRect_outParagraphStyle_outString_(self, v17, 0.0, v19, v20, 0, layoutCopy, sizeCopy, rect, style, string, &aStr);
+    objc_msgSend_p_transformForRenderingTrendlineTextNotR2_forSeries_forAreaLayout_outElementSize_outClipRect_outParagraphStyle_outString_(self, 0.0, v15, v16, &aStr);
     String = aStr;
     if (aStr)
     {
@@ -2348,7 +2348,7 @@ LABEL_50:
     *&retstr->c = 0u;
     *&retstr->tx = 0u;
     aStr = 0;
-    objc_msgSend_p_transformForRenderingTrendlineTextNotR2_forSeries_forAreaLayout_outElementSize_outClipRect_outParagraphStyle_outString_(self, v17, 0.0, v19, v20, 0, layoutCopy, sizeCopy, rect, style, string, &aStr);
+    objc_msgSend_p_transformForRenderingTrendlineTextNotR2_forSeries_forAreaLayout_outElementSize_outClipRect_outParagraphStyle_outString_(self, 0.0, v15, v16, &aStr);
   }
 
   if (aStr)

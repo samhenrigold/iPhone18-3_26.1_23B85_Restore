@@ -78,78 +78,74 @@
 
 - (void)resume
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (!self->_activateOnResume)
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"resume is not supported on a wrapped BSServiceConnection"];
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"resume is not supported on a wrapped BSServiceConnection"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = NSStringFromSelector(a2);
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
-      v10 = 138544642;
-      v11 = v6;
-      v12 = 2114;
-      v13 = v8;
-      v14 = 2048;
+      v5 = NSStringFromSelector(a2);
+      v6 = objc_opt_class();
+      v7 = NSStringFromClass(v6);
+      v9 = 138544642;
+      v10 = v5;
+      v11 = 2114;
+      v12 = v7;
+      v13 = 2048;
       selfCopy = self;
-      v16 = 2114;
-      v17 = @"BSNSXPCTransport.m";
-      v18 = 1024;
-      v19 = 720;
-      v20 = 2114;
-      v21 = v5;
-      _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v10, 0x3Au);
+      v15 = 2114;
+      v16 = @"BSNSXPCTransport.m";
+      v17 = 1024;
+      v18 = 720;
+      v19 = 2114;
+      v20 = v4;
+      _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v9, 0x3Au);
     }
 
-    v9 = v5;
-    [v5 UTF8String];
+    v8 = v4;
+    [v4 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A82DCA8);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 
   [(BSNSXPCTransport *)self activate];
 }
 
 - (void)activate
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   [(_BSNSXPCCallbackTracking *)self->_callbackTracking captureConnection];
   [(BSXPCServiceConnection *)self->_connection activateNowOrWhenReady:?];
   if (!self->_queue)
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"setTargetQueue not called before activate"];
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"setTargetQueue not called before activate"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = NSStringFromSelector(a2);
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
-      v10 = 138544642;
-      v11 = v6;
-      v12 = 2114;
-      v13 = v8;
-      v14 = 2048;
+      v5 = NSStringFromSelector(a2);
+      v6 = objc_opt_class();
+      v7 = NSStringFromClass(v6);
+      v9 = 138544642;
+      v10 = v5;
+      v11 = 2114;
+      v12 = v7;
+      v13 = 2048;
       selfCopy = self;
-      v16 = 2114;
-      v17 = @"BSNSXPCTransport.m";
-      v18 = 1024;
-      v19 = 696;
-      v20 = 2114;
-      v21 = v5;
-      _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v10, 0x3Au);
+      v15 = 2114;
+      v16 = @"BSNSXPCTransport.m";
+      v17 = 1024;
+      v18 = 696;
+      v19 = 2114;
+      v20 = v4;
+      _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v9, 0x3Au);
     }
 
-    v9 = v5;
-    [v5 UTF8String];
+    v8 = v4;
+    [v4 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A82E16CLL);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancel
@@ -237,67 +233,62 @@ void __92__BSNSXPCTransport__initWithConnection_configurator_assertionProvider_o
 
 void __92__BSNSXPCTransport__initWithConnection_configurator_assertionProvider_outWrappedConnection___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v34 = *MEMORY[0x1E69E9840];
-  v21 = a2;
+  v30 = *MEMORY[0x1E69E9840];
+  v17 = a2;
   v5 = a3;
   v6 = [v5 domain];
   v7 = BSEqualObjects();
 
   if ((v7 & 1) == 0)
   {
-    v12 = MEMORY[0x1E696AEC0];
-    v13 = [v5 domain];
-    v14 = [v12 stringWithFormat:@"unexpected error domain: %@", v13];
+    v9 = MEMORY[0x1E696AEC0];
+    v10 = [v5 domain];
+    v11 = [v9 stringWithFormat:@"unexpected error domain: %@", v10];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v15 = NSStringFromSelector(*(a1 + 48));
-      v16 = *(a1 + 32);
-      v17 = objc_opt_class();
-      v18 = NSStringFromClass(v17);
-      v19 = *(a1 + 32);
+      v12 = NSStringFromSelector(*(a1 + 48));
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
+      v15 = *(a1 + 32);
       *buf = 138544642;
+      v19 = v12;
+      v20 = 2114;
+      v21 = v14;
+      v22 = 2048;
       v23 = v15;
       v24 = 2114;
-      v25 = v18;
-      v26 = 2048;
-      v27 = v19;
+      v25 = @"BSNSXPCTransport.m";
+      v26 = 1024;
+      v27 = 278;
       v28 = 2114;
-      v29 = @"BSNSXPCTransport.m";
-      v30 = 1024;
-      v31 = 278;
-      v32 = 2114;
-      v33 = v14;
+      v29 = v11;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v20 = v14;
-    [v14 UTF8String];
+    v16 = v11;
+    [v11 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A838A2CLL);
   }
 
-  v8 = [v5 code];
-  v9 = *(a1 + 40);
-  if (v8 == 1)
+  if ([v5 code] == 1)
   {
-    v10 = 2;
+    v8 = 2;
   }
 
   else
   {
-    v10 = 1;
+    v8 = 1;
   }
 
-  [(_BSNSXPCCallbackTracking *)*(a1 + 40) sendError:v10 isOnQueue:1];
-
-  v11 = *MEMORY[0x1E69E9840];
+  [(_BSNSXPCCallbackTracking *)*(a1 + 40) sendError:v8 isOnQueue:1];
 }
 
 - (void)_newAcquiredAssertionWithAttributes:(void *)attributes
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (!v3)
   {
@@ -313,12 +304,12 @@ void __92__BSNSXPCTransport__initWithConnection_configurator_assertionProvider_o
       *&buf[14] = v25;
       *&buf[22] = 2048;
       attributesCopy2 = attributes;
-      *v44 = 2114;
-      *&v44[2] = @"BSNSXPCTransport.m";
-      v45 = 1024;
-      v46 = 303;
-      v47 = 2114;
-      v48 = v22;
+      *v43 = 2114;
+      *&v43[2] = @"BSNSXPCTransport.m";
+      v44 = 1024;
+      v45 = 303;
+      v46 = 2114;
+      v47 = v22;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
@@ -351,24 +342,24 @@ LABEL_30:
 
   else
   {
-    v38 = 0;
-    v39 = &v38;
-    v40 = 0x2050000000;
+    v37 = 0;
+    v38 = &v37;
+    v39 = 0x2050000000;
     v8 = _MergedGlobals_4;
-    v41 = _MergedGlobals_4;
+    v40 = _MergedGlobals_4;
     if (!_MergedGlobals_4)
     {
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __getRBSAssertionClass_block_invoke_1;
       attributesCopy2 = &unk_1E75200F8;
-      *v44 = &v38;
+      *v43 = &v37;
       __getRBSAssertionClass_block_invoke_1(buf);
-      v8 = v39[3];
+      v8 = v38[3];
     }
 
     v9 = v8;
-    _Block_object_dispose(&v38, 8);
+    _Block_object_dispose(&v37, 8);
     v7 = [[v8 alloc] initWithExplanation:attributes[2] target:v5 attributes:v3];
   }
 
@@ -387,12 +378,12 @@ LABEL_30:
       *&buf[14] = v30;
       *&buf[22] = 2048;
       attributesCopy2 = attributes;
-      *v44 = 2114;
-      *&v44[2] = @"BSNSXPCTransport.m";
-      v45 = 1024;
-      v46 = 314;
-      v47 = 2114;
-      v48 = v27;
+      *v43 = 2114;
+      *&v43[2] = @"BSNSXPCTransport.m";
+      v44 = 1024;
+      v45 = 314;
+      v46 = 2114;
+      v47 = v27;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
@@ -403,9 +394,9 @@ LABEL_30:
     JUMPOUT(0x19A838FD4);
   }
 
-  v37 = 0;
-  v11 = [v7 acquireWithError:&v37];
-  v12 = v37;
+  v36 = 0;
+  v11 = [v7 acquireWithError:&v36];
+  v12 = v36;
   v13 = v12;
   if (v11)
   {
@@ -413,26 +404,26 @@ LABEL_30:
   }
 
   domain = [v12 domain];
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x2020000000;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x2020000000;
   v15 = qword_1ED4A7BC8;
-  v41 = qword_1ED4A7BC8;
+  v40 = qword_1ED4A7BC8;
   if (!qword_1ED4A7BC8)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getRBSAssertionErrorDomainSymbolLoc_block_invoke_0;
     attributesCopy2 = &unk_1E75200F8;
-    *v44 = &v38;
+    *v43 = &v37;
     v16 = RunningBoardServicesLibrary_1();
     v17 = dlsym(v16, "RBSAssertionErrorDomain");
-    *(*(*v44 + 8) + 24) = v17;
-    qword_1ED4A7BC8 = *(*(*v44 + 8) + 24);
-    v15 = v39[3];
+    *(*(*v43 + 8) + 24) = v17;
+    qword_1ED4A7BC8 = *(*(*v43 + 8) + 24);
+    v15 = v38[3];
   }
 
-  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(&v37, 8);
   if (!v15)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -452,15 +443,15 @@ LABEL_29:
 
     if (v19)
     {
-      v36[0] = MEMORY[0x1E69E9820];
-      v36[1] = 3221225472;
-      v36[2] = __56__BSNSXPCTransport__newAcquiredAssertionWithAttributes___block_invoke;
-      v36[3] = &unk_1E75205F8;
-      v36[4] = attributes;
-      v36[5] = v13;
-      v36[6] = v3;
-      v36[7] = sel__newAcquiredAssertionWithAttributes_;
-      __56__BSNSXPCTransport__newAcquiredAssertionWithAttributes___block_invoke(v36);
+      v35[0] = MEMORY[0x1E69E9820];
+      v35[1] = 3221225472;
+      v35[2] = __56__BSNSXPCTransport__newAcquiredAssertionWithAttributes___block_invoke;
+      v35[3] = &unk_1E75205F8;
+      v35[4] = attributes;
+      v35[5] = v13;
+      v35[6] = v3;
+      v35[7] = sel__newAcquiredAssertionWithAttributes_;
+      __56__BSNSXPCTransport__newAcquiredAssertionWithAttributes___block_invoke(v35);
     }
   }
 
@@ -484,39 +475,36 @@ LABEL_29:
 LABEL_21:
 LABEL_31:
 
-  v34 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 void __56__BSNSXPCTransport__newAcquiredAssertionWithAttributes___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 40);
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ failed to acquire assertion : error=%@  attributes=%@", *(*(a1 + 32) + 16), *(a1 + 40), *(a1 + 48)];
+  v20 = *MEMORY[0x1E69E9840];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ failed to acquire assertion : error=%@  attributes=%@", *(*(a1 + 32) + 16), *(a1 + 40), *(a1 + 48)];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v4 = NSStringFromSelector(*(a1 + 56));
-    v5 = *(a1 + 32);
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
-    v8 = *(a1 + 32);
+    v3 = NSStringFromSelector(*(a1 + 56));
+    v4 = objc_opt_class();
+    v5 = NSStringFromClass(v4);
+    v6 = *(a1 + 32);
     *buf = 138544642;
-    v11 = v4;
-    v12 = 2114;
-    v13 = v7;
-    v14 = 2048;
-    v15 = v8;
-    v16 = 2114;
-    v17 = @"BSNSXPCTransport.m";
-    v18 = 1024;
-    v19 = 320;
-    v20 = 2114;
-    v21 = v3;
+    v9 = v3;
+    v10 = 2114;
+    v11 = v5;
+    v12 = 2048;
+    v13 = v6;
+    v14 = 2114;
+    v15 = @"BSNSXPCTransport.m";
+    v16 = 1024;
+    v17 = 320;
+    v18 = 2114;
+    v19 = v2;
     _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  v9 = v3;
-  [v3 UTF8String];
+  v7 = v2;
+  [v2 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -596,36 +584,36 @@ uint64_t __49__BSNSXPCTransport__newMessageSessionWithReason___block_invoke(uint
 
 - (void)_sendMessage:(int)message asNotification:
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (self)
   {
     v6 = *(self + 8);
     if (v6 && [*(v6 + 192) isNonLaunching] && (*(self + 84) & 1) == 0)
     {
-      v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot send to non-launching services without specifying launching attributes"];
+      v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot send to non-launching services without specifying launching attributes"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v16 = NSStringFromSelector(sel__sendMessage_asNotification_);
-        v17 = objc_opt_class();
-        v18 = NSStringFromClass(v17);
+        v15 = NSStringFromSelector(sel__sendMessage_asNotification_);
+        v16 = objc_opt_class();
+        v17 = NSStringFromClass(v16);
         *buf = 138544642;
-        v26 = v16;
-        v27 = 2114;
-        v28 = v18;
-        v29 = 2048;
+        v25 = v15;
+        v26 = 2114;
+        v27 = v17;
+        v28 = 2048;
         selfCopy = self;
-        v31 = 2114;
-        v32 = @"BSNSXPCTransport.m";
-        v33 = 1024;
-        v34 = 355;
-        v35 = 2114;
-        v36 = v15;
+        v30 = 2114;
+        v31 = @"BSNSXPCTransport.m";
+        v32 = 1024;
+        v33 = 355;
+        v34 = 2114;
+        v35 = v14;
         _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v19 = v15;
-      [v15 UTF8String];
+      v18 = v14;
+      [v14 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x19A8397C4);
@@ -657,11 +645,11 @@ uint64_t __49__BSNSXPCTransport__newMessageSessionWithReason___block_invoke(uint
         newValue[2] = __48__BSNSXPCTransport__sendMessage_asNotification___block_invoke;
         newValue[3] = &unk_1E75203F0;
         v11 = v10;
-        v24 = v11;
+        v23 = v11;
         if (v8)
         {
           objc_setProperty_nonatomic_copy(v8, v12, newValue, 80);
-          v11 = v24;
+          v11 = v23;
         }
       }
 
@@ -673,14 +661,14 @@ uint64_t __49__BSNSXPCTransport__newMessageSessionWithReason___block_invoke(uint
       v13 = *(self + 56);
       if (v13)
       {
-        v20[0] = MEMORY[0x1E69E9820];
-        v20[1] = 3221225472;
-        v20[2] = __48__BSNSXPCTransport__sendMessage_asNotification___block_invoke_2;
-        v20[3] = &unk_1E75205A8;
-        v20[4] = self;
-        v21 = v8;
-        v22 = v10;
-        [v13 performAsync:v20];
+        v19[0] = MEMORY[0x1E69E9820];
+        v19[1] = 3221225472;
+        v19[2] = __48__BSNSXPCTransport__sendMessage_asNotification___block_invoke_2;
+        v19[3] = &unk_1E75205A8;
+        v19[4] = self;
+        v20 = v8;
+        v21 = v10;
+        [v13 performAsync:v19];
       }
 
       else
@@ -689,8 +677,6 @@ uint64_t __49__BSNSXPCTransport__newMessageSessionWithReason___block_invoke(uint
       }
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __48__BSNSXPCTransport__sendMessage_asNotification___block_invoke_2(void *a1)
@@ -830,37 +816,37 @@ LABEL_8:
 
 - (void)setSendingQueue:(id)queue
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   if (!queueCopy)
   {
-    v6 = MEMORY[0x1E696AEC0];
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v9 = [v6 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"sendingQueue", v8];
+    v5 = MEMORY[0x1E696AEC0];
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
+    v8 = [v5 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"sendingQueue", v7];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v10 = NSStringFromSelector(a2);
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
+      v9 = NSStringFromSelector(a2);
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
       *buf = 138544642;
-      v26 = v10;
-      v27 = 2114;
-      v28 = v12;
-      v29 = 2048;
+      v25 = v9;
+      v26 = 2114;
+      v27 = v11;
+      v28 = 2048;
       selfCopy2 = self;
-      v31 = 2114;
-      v32 = @"BSNSXPCTransport.m";
-      v33 = 1024;
-      v34 = 459;
-      v35 = 2114;
-      v36 = v9;
+      v30 = 2114;
+      v31 = @"BSNSXPCTransport.m";
+      v32 = 1024;
+      v33 = 459;
+      v34 = 2114;
+      v35 = v8;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v13 = v9;
-    [v9 UTF8String];
+    v12 = v8;
+    [v8 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A839DFCLL);
@@ -869,52 +855,51 @@ LABEL_8:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v14 = MEMORY[0x1E696AEC0];
+    v13 = MEMORY[0x1E696AEC0];
     classForCoder = [queueCopy classForCoder];
     if (!classForCoder)
     {
       classForCoder = objc_opt_class();
     }
 
-    v16 = NSStringFromClass(classForCoder);
-    v17 = objc_opt_class();
-    v18 = NSStringFromClass(v17);
-    v19 = [v14 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"sendingQueue", v16, v18];
+    v15 = NSStringFromClass(classForCoder);
+    v16 = objc_opt_class();
+    v17 = NSStringFromClass(v16);
+    v18 = [v13 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"sendingQueue", v15, v17];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v20 = NSStringFromSelector(a2);
-      v21 = objc_opt_class();
-      v22 = NSStringFromClass(v21);
+      v19 = NSStringFromSelector(a2);
+      v20 = objc_opt_class();
+      v21 = NSStringFromClass(v20);
       *buf = 138544642;
-      v26 = v20;
-      v27 = 2114;
-      v28 = v22;
-      v29 = 2048;
+      v25 = v19;
+      v26 = 2114;
+      v27 = v21;
+      v28 = 2048;
       selfCopy2 = self;
-      v31 = 2114;
-      v32 = @"BSNSXPCTransport.m";
-      v33 = 1024;
-      v34 = 459;
-      v35 = 2114;
-      v36 = v19;
+      v30 = 2114;
+      v31 = @"BSNSXPCTransport.m";
+      v32 = 1024;
+      v33 = 459;
+      v34 = 2114;
+      v35 = v18;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v23 = v19;
-    [v19 UTF8String];
+    v22 = v18;
+    [v18 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A839F44);
   }
 
   [(BSNSXPCTransport *)self _setSendingQueue:queueCopy];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setEventObserver:(id)observer
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   os_unfair_lock_assert_owner(&self->_lock);
   callbackTracking = self->_callbackTracking;
@@ -924,29 +909,29 @@ LABEL_8:
   {
     if (!v6)
     {
-      v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"observer"];
+      v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"observer"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v9 = NSStringFromSelector(sel_setEventObserver_);
-        v10 = objc_opt_class();
-        v11 = NSStringFromClass(v10);
+        v8 = NSStringFromSelector(sel_setEventObserver_);
+        v9 = objc_opt_class();
+        v10 = NSStringFromClass(v9);
         *buf = 138544642;
-        v15 = v9;
-        v16 = 2114;
-        v17 = v11;
-        v18 = 2048;
-        v19 = callbackTracking;
-        v20 = 2114;
-        v21 = @"BSNSXPCTransport.m";
-        v22 = 1024;
-        v23 = 161;
-        v24 = 2114;
-        v25 = v8;
+        v14 = v8;
+        v15 = 2114;
+        v16 = v10;
+        v17 = 2048;
+        v18 = callbackTracking;
+        v19 = 2114;
+        v20 = @"BSNSXPCTransport.m";
+        v21 = 1024;
+        v22 = 161;
+        v23 = 2114;
+        v24 = v7;
         _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v12 = v8;
-      [v8 UTF8String];
+      v11 = v7;
+      [v7 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x19A83A19CLL);
@@ -961,39 +946,37 @@ LABEL_8:
     os_unfair_lock_unlock(&callbackTracking->_lock);
     v6 = obj;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setSendingQueue:(id)queue
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   if (!queueCopy)
   {
-    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"sendingQueue"];
+    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"sendingQueue"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v10 = NSStringFromSelector(a2);
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
+      v9 = NSStringFromSelector(a2);
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
       *buf = 138544642;
-      v15 = v10;
-      v16 = 2114;
-      v17 = v12;
-      v18 = 2048;
+      v14 = v9;
+      v15 = 2114;
+      v16 = v11;
+      v17 = 2048;
       selfCopy = self;
-      v20 = 2114;
-      v21 = @"BSNSXPCTransport.m";
-      v22 = 1024;
-      v23 = 471;
-      v24 = 2114;
-      v25 = v9;
+      v19 = 2114;
+      v20 = @"BSNSXPCTransport.m";
+      v21 = 1024;
+      v22 = 471;
+      v23 = 2114;
+      v24 = v8;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v13 = v9;
-    [v9 UTF8String];
+    v12 = v8;
+    [v8 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A83A360);
@@ -1003,7 +986,6 @@ LABEL_8:
   os_unfair_lock_assert_owner(&self->_lock);
   sendingQueue = self->_sendingQueue;
   self->_sendingQueue = v6;
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)newExternalMessageSessionWithReason:(id)reason
@@ -1028,43 +1010,41 @@ LABEL_8:
 
 - (void)setMessageHandler:(id)handler
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (!handlerCopy)
   {
-    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"handler"];
+    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"handler"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[BSNSXPCTransport setMessageHandler:]"];
+      v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[BSNSXPCTransport setMessageHandler:]"];
       *buf = 138544130;
-      v14 = v9;
-      v15 = 2114;
-      v16 = @"BSNSXPCTransport.m";
-      v17 = 1024;
-      v18 = 490;
-      v19 = 2114;
-      v20 = v8;
+      v13 = v8;
+      v14 = 2114;
+      v15 = @"BSNSXPCTransport.m";
+      v16 = 1024;
+      v17 = 490;
+      v18 = 2114;
+      v19 = v7;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    v10 = v8;
-    [v8 UTF8String];
+    v9 = v7;
+    [v7 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A83A5D0);
   }
 
   connection = self->_connection;
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __38__BSNSXPCTransport_setMessageHandler___block_invoke;
-  v11[3] = &unk_1E7520488;
-  v11[4] = self;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __38__BSNSXPCTransport_setMessageHandler___block_invoke;
+  v10[3] = &unk_1E7520488;
+  v10[4] = self;
   v6 = handlerCopy;
-  v12 = v6;
-  [(BSXPCServiceConnection *)connection configure:v11];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v11 = v6;
+  [(BSXPCServiceConnection *)connection configure:v10];
 }
 
 void __38__BSNSXPCTransport_setMessageHandler___block_invoke(uint64_t a1, uint64_t a2)
@@ -1089,7 +1069,7 @@ void __38__BSNSXPCTransport_setMessageHandler___block_invoke(uint64_t a1, uint64
 
 void __38__BSNSXPCTransport_setMessageHandler___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = [v4 createReply];
   v6 = [v4 decodeBoolForKey:@"BSNSXPCReplyIsInternal"];
@@ -1117,13 +1097,13 @@ void __38__BSNSXPCTransport_setMessageHandler___block_invoke_2(uint64_t a1, uint
       v11 = BSServiceXPCErrorsLog();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v14 = *(*(a1 + 32) + 16);
-        v15 = [v4 message];
-        v16 = 138543618;
-        v17 = v14;
-        v18 = 2112;
-        v19 = v15;
-        _os_log_error_impl(&dword_19A821000, v11, OS_LOG_TYPE_ERROR, "%{public}@ failed to decode underlying message : message=%@", &v16, 0x16u);
+        v13 = *(*(a1 + 32) + 16);
+        v14 = [v4 message];
+        v15 = 138543618;
+        v16 = v13;
+        v17 = 2112;
+        v18 = v14;
+        _os_log_error_impl(&dword_19A821000, v11, OS_LOG_TYPE_ERROR, "%{public}@ failed to decode underlying message : message=%@", &v15, 0x16u);
       }
 
       v7 = 0;
@@ -1137,91 +1117,87 @@ void __38__BSNSXPCTransport_setMessageHandler___block_invoke_2(uint64_t a1, uint
     {
       v9 = *(*(a1 + 32) + 16);
       v10 = [v4 message];
-      v16 = 138543618;
-      v17 = v9;
-      v18 = 2112;
-      v19 = v10;
-      _os_log_debug_impl(&dword_19A821000, v7, OS_LOG_TYPE_DEBUG, "%{public}@ dropping message received after invalidation callback : message=%@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v9;
+      v17 = 2112;
+      v18 = v10;
+      _os_log_debug_impl(&dword_19A821000, v7, OS_LOG_TYPE_DEBUG, "%{public}@ dropping message received after invalidation callback : message=%@", &v15, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setErrorHandler:(id)handler
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (!handlerCopy)
   {
-    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"handler"];
+    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"handler"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[BSNSXPCTransport setErrorHandler:]"];
+      v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[BSNSXPCTransport setErrorHandler:]"];
       *buf = 138544130;
-      v14 = v9;
-      v15 = 2114;
-      v16 = @"BSNSXPCTransport.m";
-      v17 = 1024;
-      v18 = 516;
-      v19 = 2114;
-      v20 = v8;
+      v13 = v8;
+      v14 = 2114;
+      v15 = @"BSNSXPCTransport.m";
+      v16 = 1024;
+      v17 = 516;
+      v18 = 2114;
+      v19 = v7;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    v10 = v8;
-    [v8 UTF8String];
+    v9 = v7;
+    [v7 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A83AACCLL);
   }
 
   connection = self->_connection;
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __36__BSNSXPCTransport_setErrorHandler___block_invoke;
-  v11[3] = &unk_1E7520488;
-  v11[4] = self;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __36__BSNSXPCTransport_setErrorHandler___block_invoke;
+  v10[3] = &unk_1E7520488;
+  v10[4] = self;
   v6 = handlerCopy;
-  v12 = v6;
-  [(BSXPCServiceConnection *)connection configure:v11];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v11 = v6;
+  [(BSXPCServiceConnection *)connection configure:v10];
 }
 
 void __36__BSNSXPCTransport_setErrorHandler___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v1 = *(*(a1 + 32) + 72);
   v2 = *(a1 + 40);
   if (v1)
   {
-    v11 = v2;
+    v10 = v2;
     if (!v2)
     {
-      v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"handler"];
+      v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"handler"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v7 = NSStringFromSelector(sel_setErrorHandler_);
-        v8 = objc_opt_class();
-        v9 = NSStringFromClass(v8);
+        v6 = NSStringFromSelector(sel_setErrorHandler_);
+        v7 = objc_opt_class();
+        v8 = NSStringFromClass(v7);
         *buf = 138544642;
-        v13 = v7;
-        v14 = 2114;
-        v15 = v9;
-        v16 = 2048;
-        v17 = v1;
-        v18 = 2114;
-        v19 = @"BSNSXPCTransport.m";
-        v20 = 1024;
-        v21 = 153;
-        v22 = 2114;
-        v23 = v6;
+        v12 = v6;
+        v13 = 2114;
+        v14 = v8;
+        v15 = 2048;
+        v16 = v1;
+        v17 = 2114;
+        v18 = @"BSNSXPCTransport.m";
+        v19 = 1024;
+        v20 = 153;
+        v21 = 2114;
+        v22 = v5;
         _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v10 = v6;
-      [v6 UTF8String];
+      v9 = v5;
+      [v5 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x19A83ACB8);
@@ -1230,49 +1206,47 @@ void __36__BSNSXPCTransport_setErrorHandler___block_invoke(uint64_t a1)
     os_unfair_lock_lock((v1 + 40));
     if ((*(v1 + 44) & 1) == 0)
     {
-      v3 = [v11 copy];
+      v3 = [v10 copy];
       v4 = *(v1 + 24);
       *(v1 + 24) = v3;
     }
 
     os_unfair_lock_unlock((v1 + 40));
-    v2 = v11;
+    v2 = v10;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendMessage:(id)message
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   v6 = messageCopy;
   xdict = messageCopy;
   if (!messageCopy || (v7 = MEMORY[0x19A908710](messageCopy), v6 = xdict, v7 != MEMORY[0x1E69E9E80]))
   {
-    v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"xMessage was invalid : %@", v6];
+    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"xMessage was invalid : %@", v6];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v12 = NSStringFromSelector(a2);
-      v13 = objc_opt_class();
-      v14 = NSStringFromClass(v13);
+      v11 = NSStringFromSelector(a2);
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
       *buf = 138544642;
-      v18 = v12;
-      v19 = 2114;
-      v20 = v14;
-      v21 = 2048;
+      v17 = v11;
+      v18 = 2114;
+      v19 = v13;
+      v20 = 2048;
       selfCopy = self;
-      v23 = 2114;
-      v24 = @"BSNSXPCTransport.m";
-      v25 = 1024;
-      v26 = 524;
-      v27 = 2114;
-      v28 = v11;
+      v22 = 2114;
+      v23 = @"BSNSXPCTransport.m";
+      v24 = 1024;
+      v25 = 524;
+      v26 = 2114;
+      v27 = v10;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v15 = v11;
-    [v11 UTF8String];
+    v14 = v10;
+    [v10 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A83AECCLL);
@@ -1289,40 +1263,38 @@ void __36__BSNSXPCTransport_setErrorHandler___block_invoke(uint64_t a1)
   {
     [(BSNSXPCTransport *)self _sendMessage:0 asNotification:?];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)sendMessageWithReplySync:(id)sync
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   syncCopy = sync;
   v6 = syncCopy;
   if (!syncCopy || MEMORY[0x19A908710](syncCopy) != MEMORY[0x1E69E9E80])
   {
-    v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"xMessage was invalid : %@", v6];
+    v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"xMessage was invalid : %@", v6];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v29 = NSStringFromSelector(a2);
-      v30 = objc_opt_class();
-      v31 = NSStringFromClass(v30);
+      v28 = NSStringFromSelector(a2);
+      v29 = objc_opt_class();
+      v30 = NSStringFromClass(v29);
       *buf = 138544642;
-      *&buf[4] = v29;
+      *&buf[4] = v28;
       *&buf[12] = 2114;
-      *&buf[14] = v31;
+      *&buf[14] = v30;
       *&buf[22] = 2048;
       selfCopy3 = self;
-      LOWORD(v49) = 2114;
-      *(&v49 + 2) = @"BSNSXPCTransport.m";
-      WORD5(v49) = 1024;
-      HIDWORD(v49) = 535;
-      v50 = 2114;
-      v51 = v28;
+      LOWORD(v48) = 2114;
+      *(&v48 + 2) = @"BSNSXPCTransport.m";
+      WORD5(v48) = 1024;
+      HIDWORD(v48) = 535;
+      v49 = 2114;
+      v50 = v27;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v32 = v28;
-    [v28 UTF8String];
+    v31 = v27;
+    [v27 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A83B2CCLL);
@@ -1332,29 +1304,29 @@ void __36__BSNSXPCTransport_setErrorHandler___block_invoke(uint64_t a1)
 
   if (v7)
   {
-    v33 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot send a reply via sendMessageWithReplySync:"];
+    v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot send a reply via sendMessageWithReplySync:"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v34 = NSStringFromSelector(a2);
-      v35 = objc_opt_class();
-      v36 = NSStringFromClass(v35);
+      v33 = NSStringFromSelector(a2);
+      v34 = objc_opt_class();
+      v35 = NSStringFromClass(v34);
       *buf = 138544642;
-      *&buf[4] = v34;
+      *&buf[4] = v33;
       *&buf[12] = 2114;
-      *&buf[14] = v36;
+      *&buf[14] = v35;
       *&buf[22] = 2048;
       selfCopy3 = self;
-      LOWORD(v49) = 2114;
-      *(&v49 + 2) = @"BSNSXPCTransport.m";
-      WORD5(v49) = 1024;
-      HIDWORD(v49) = 536;
-      v50 = 2114;
-      v51 = v33;
+      LOWORD(v48) = 2114;
+      *(&v48 + 2) = @"BSNSXPCTransport.m";
+      WORD5(v48) = 1024;
+      HIDWORD(v48) = 536;
+      v49 = 2114;
+      v50 = v32;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v37 = v33;
-    [v33 UTF8String];
+    v36 = v32;
+    [v32 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A83B3C4);
@@ -1363,29 +1335,29 @@ void __36__BSNSXPCTransport_setErrorHandler___block_invoke(uint64_t a1)
   connection = self->_connection;
   if (connection && [(BSXPCServiceConnectionContext *)connection->_context isNonLaunching]&& (self->_messageOptions & 1) == 0)
   {
-    v38 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot send to non-launching services without specifying launching attributes"];
+    v37 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot send to non-launching services without specifying launching attributes"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v39 = NSStringFromSelector(a2);
-      v40 = objc_opt_class();
-      v41 = NSStringFromClass(v40);
+      v38 = NSStringFromSelector(a2);
+      v39 = objc_opt_class();
+      v40 = NSStringFromClass(v39);
       *buf = 138544642;
-      *&buf[4] = v39;
+      *&buf[4] = v38;
       *&buf[12] = 2114;
-      *&buf[14] = v41;
+      *&buf[14] = v40;
       *&buf[22] = 2048;
       selfCopy3 = self;
-      LOWORD(v49) = 2114;
-      *(&v49 + 2) = @"BSNSXPCTransport.m";
-      WORD5(v49) = 1024;
-      HIDWORD(v49) = 537;
-      v50 = 2114;
-      v51 = v38;
+      LOWORD(v48) = 2114;
+      *(&v48 + 2) = @"BSNSXPCTransport.m";
+      WORD5(v48) = 1024;
+      HIDWORD(v48) = 537;
+      v49 = 2114;
+      v50 = v37;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v42 = v38;
-    [v38 UTF8String];
+    v41 = v37;
+    [v37 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A83B4BCLL);
@@ -1400,22 +1372,22 @@ void __36__BSNSXPCTransport_setErrorHandler___block_invoke(uint64_t a1)
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
     selfCopy3 = __Block_byref_object_copy__0;
-    *&v49 = __Block_byref_object_dispose__0;
-    *(&v49 + 1) = 0;
+    *&v48 = __Block_byref_object_dispose__0;
+    *(&v48 + 1) = 0;
     v13 = [(BSXPCServiceConnection *)self->_connection createMessageWithOptions:?];
     [v13 encodeXPCObject:v6 forKey:@"BSNSXPCMessage"];
     v14 = [(BSNSXPCTransport *)self _newMessageSessionWithReason:?];
     sendingQueue = self->_sendingQueue;
     if (sendingQueue)
     {
-      v44[0] = MEMORY[0x1E69E9820];
-      v44[1] = 3221225472;
-      v44[2] = __45__BSNSXPCTransport_sendMessageWithReplySync___block_invoke_207;
-      v44[3] = &unk_1E75204B0;
-      v44[4] = self;
-      v45 = v13;
-      v46 = buf;
-      [(BSNSXPCSending *)sendingQueue performAsyncAndWait:v44];
+      v43[0] = MEMORY[0x1E69E9820];
+      v43[1] = 3221225472;
+      v43[2] = __45__BSNSXPCTransport_sendMessageWithReplySync___block_invoke_207;
+      v43[3] = &unk_1E75204B0;
+      v43[4] = self;
+      v44 = v13;
+      v45 = buf;
+      [(BSNSXPCSending *)sendingQueue performAsyncAndWait:v43];
 
 LABEL_19:
       [v14 invalidate];
@@ -1436,9 +1408,9 @@ LABEL_19:
       goto LABEL_23;
     }
 
-    v43 = 0;
-    v16 = [v13 sendSynchronouslyWithError:&v43];
-    v17 = v43;
+    v42 = 0;
+    v16 = [v13 sendSynchronouslyWithError:&v42];
+    v17 = v42;
     v18 = v17;
     if (v16)
     {
@@ -1475,8 +1447,6 @@ LABEL_18:
   v11 = MEMORY[0x1E69E9E20];
   v12 = MEMORY[0x1E69E9E20];
 LABEL_23:
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -1524,7 +1494,7 @@ LABEL_8:
 
 - (void)sendMessageWithReply:(id)reply onQueue:(id)queue replyHandler:(id)handler
 {
-  v79 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   replyCopy = reply;
   queueCopy = queue;
   handlerCopy = handler;
@@ -1533,25 +1503,25 @@ LABEL_8:
     replyCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"xMessage was invalid : %@", replyCopy];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v25 = NSStringFromSelector(a2);
-      v26 = objc_opt_class();
-      v27 = NSStringFromClass(v26);
+      v24 = NSStringFromSelector(a2);
+      v25 = objc_opt_class();
+      v26 = NSStringFromClass(v25);
       *buf = 138544642;
-      v68 = v25;
-      v69 = 2114;
-      v70 = v27;
-      v71 = 2048;
+      v67 = v24;
+      v68 = 2114;
+      v69 = v26;
+      v70 = 2048;
       selfCopy6 = self;
-      v73 = 2114;
-      v74 = @"BSNSXPCTransport.m";
-      v75 = 1024;
-      v76 = 596;
-      v77 = 2114;
-      v78 = replyCopy;
+      v72 = 2114;
+      v73 = @"BSNSXPCTransport.m";
+      v74 = 1024;
+      v75 = 596;
+      v76 = 2114;
+      v77 = replyCopy;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v28 = replyCopy;
+    v27 = replyCopy;
     [replyCopy UTF8String];
     _bs_set_crash_log_message();
     __break(0);
@@ -1562,29 +1532,29 @@ LABEL_8:
 
   if (v12)
   {
-    v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot send a reply via sendMessageWithReply:onQueue:replyHandler:"];
+    v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot send a reply via sendMessageWithReply:onQueue:replyHandler:"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v30 = NSStringFromSelector(a2);
-      v31 = objc_opt_class();
-      v32 = NSStringFromClass(v31);
+      v29 = NSStringFromSelector(a2);
+      v30 = objc_opt_class();
+      v31 = NSStringFromClass(v30);
       *buf = 138544642;
-      v68 = v30;
-      v69 = 2114;
-      v70 = v32;
-      v71 = 2048;
+      v67 = v29;
+      v68 = 2114;
+      v69 = v31;
+      v70 = 2048;
       selfCopy6 = self;
-      v73 = 2114;
-      v74 = @"BSNSXPCTransport.m";
-      v75 = 1024;
-      v76 = 597;
-      v77 = 2114;
-      v78 = v29;
+      v72 = 2114;
+      v73 = @"BSNSXPCTransport.m";
+      v74 = 1024;
+      v75 = 597;
+      v76 = 2114;
+      v77 = v28;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v33 = v29;
-    [v29 UTF8String];
+    v32 = v28;
+    [v28 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A83BC08);
@@ -1592,29 +1562,29 @@ LABEL_8:
 
   if (!queueCopy)
   {
-    v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"queue"];
+    v33 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"queue"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v35 = NSStringFromSelector(a2);
-      v36 = objc_opt_class();
-      v37 = NSStringFromClass(v36);
+      v34 = NSStringFromSelector(a2);
+      v35 = objc_opt_class();
+      v36 = NSStringFromClass(v35);
       *buf = 138544642;
-      v68 = v35;
-      v69 = 2114;
-      v70 = v37;
-      v71 = 2048;
+      v67 = v34;
+      v68 = 2114;
+      v69 = v36;
+      v70 = 2048;
       selfCopy6 = self;
-      v73 = 2114;
-      v74 = @"BSNSXPCTransport.m";
-      v75 = 1024;
-      v76 = 598;
-      v77 = 2114;
-      v78 = v34;
+      v72 = 2114;
+      v73 = @"BSNSXPCTransport.m";
+      v74 = 1024;
+      v75 = 598;
+      v76 = 2114;
+      v77 = v33;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v38 = v34;
-    [v34 UTF8String];
+    v37 = v33;
+    [v33 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A83BD0CLL);
@@ -1622,29 +1592,29 @@ LABEL_8:
 
   if (!handlerCopy)
   {
-    v39 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"handler"];
+    v38 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"handler"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v40 = NSStringFromSelector(a2);
-      v41 = objc_opt_class();
-      v42 = NSStringFromClass(v41);
+      v39 = NSStringFromSelector(a2);
+      v40 = objc_opt_class();
+      v41 = NSStringFromClass(v40);
       *buf = 138544642;
-      v68 = v40;
-      v69 = 2114;
-      v70 = v42;
-      v71 = 2048;
+      v67 = v39;
+      v68 = 2114;
+      v69 = v41;
+      v70 = 2048;
       selfCopy6 = self;
-      v73 = 2114;
-      v74 = @"BSNSXPCTransport.m";
-      v75 = 1024;
-      v76 = 599;
-      v77 = 2114;
-      v78 = v39;
+      v72 = 2114;
+      v73 = @"BSNSXPCTransport.m";
+      v74 = 1024;
+      v75 = 599;
+      v76 = 2114;
+      v77 = v38;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v43 = v39;
-    [v39 UTF8String];
+    v42 = v38;
+    [v38 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A83BE10);
@@ -1653,29 +1623,29 @@ LABEL_8:
   connection = self->_connection;
   if (connection && [(BSXPCServiceConnectionContext *)connection->_context isNonLaunching]&& (self->_messageOptions & 1) == 0)
   {
-    v49 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot send to non-launching services without specifying launching attributes"];
+    v48 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot send to non-launching services without specifying launching attributes"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v50 = NSStringFromSelector(a2);
-      v51 = objc_opt_class();
-      v52 = NSStringFromClass(v51);
+      v49 = NSStringFromSelector(a2);
+      v50 = objc_opt_class();
+      v51 = NSStringFromClass(v50);
       *buf = 138544642;
-      v68 = v50;
-      v69 = 2114;
-      v70 = v52;
-      v71 = 2048;
+      v67 = v49;
+      v68 = 2114;
+      v69 = v51;
+      v70 = 2048;
       selfCopy6 = self;
-      v73 = 2114;
-      v74 = @"BSNSXPCTransport.m";
-      v75 = 1024;
-      v76 = 600;
-      v77 = 2114;
-      v78 = v49;
+      v72 = 2114;
+      v73 = @"BSNSXPCTransport.m";
+      v74 = 1024;
+      v75 = 600;
+      v76 = 2114;
+      v77 = v48;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v53 = v49;
-    [v49 UTF8String];
+    v52 = v48;
+    [v48 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A83C008);
@@ -1685,29 +1655,29 @@ LABEL_8:
 
   if (queue != queueCopy)
   {
-    v44 = [MEMORY[0x1E696AEC0] stringWithFormat:@"queue does not match configured queue : param=%@ config=%@", queueCopy, self->_queue];
+    v43 = [MEMORY[0x1E696AEC0] stringWithFormat:@"queue does not match configured queue : param=%@ config=%@", queueCopy, self->_queue];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v45 = NSStringFromSelector(a2);
-      v46 = objc_opt_class();
-      v47 = NSStringFromClass(v46);
+      v44 = NSStringFromSelector(a2);
+      v45 = objc_opt_class();
+      v46 = NSStringFromClass(v45);
       *buf = 138544642;
-      v68 = v45;
-      v69 = 2114;
-      v70 = v47;
-      v71 = 2048;
+      v67 = v44;
+      v68 = 2114;
+      v69 = v46;
+      v70 = 2048;
       selfCopy6 = self;
-      v73 = 2114;
-      v74 = @"BSNSXPCTransport.m";
-      v75 = 1024;
-      v76 = 602;
-      v77 = 2114;
-      v78 = v44;
+      v72 = 2114;
+      v73 = @"BSNSXPCTransport.m";
+      v74 = 1024;
+      v75 = 602;
+      v76 = 2114;
+      v77 = v43;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v48 = v44;
-    [v44 UTF8String];
+    v47 = v43;
+    [v43 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A83BF10);
@@ -1721,15 +1691,15 @@ LABEL_8:
     sendingQueue = self->_sendingQueue;
     if (sendingQueue)
     {
-      v64[0] = MEMORY[0x1E69E9820];
-      v64[1] = 3221225472;
-      v64[2] = __62__BSNSXPCTransport_sendMessageWithReply_onQueue_replyHandler___block_invoke;
-      v64[3] = &unk_1E7520648;
-      v65 = queueCopy;
-      v66 = handlerCopy;
-      [(BSNSXPCSending *)sendingQueue performAsync:v64];
+      v63[0] = MEMORY[0x1E69E9820];
+      v63[1] = 3221225472;
+      v63[2] = __62__BSNSXPCTransport_sendMessageWithReply_onQueue_replyHandler___block_invoke;
+      v63[3] = &unk_1E7520648;
+      v64 = queueCopy;
+      v65 = handlerCopy;
+      [(BSNSXPCSending *)sendingQueue performAsync:v63];
 
-      v17 = v65;
+      v17 = v64;
     }
 
     else
@@ -1738,9 +1708,9 @@ LABEL_8:
       block[1] = 3221225472;
       block[2] = __62__BSNSXPCTransport_sendMessageWithReply_onQueue_replyHandler___block_invoke_3;
       block[3] = &unk_1E7520620;
-      v63 = handlerCopy;
+      v62 = handlerCopy;
       dispatch_async(queueCopy, block);
-      v17 = v63;
+      v17 = v62;
     }
   }
 
@@ -1754,9 +1724,9 @@ LABEL_8:
     newValue[2] = __62__BSNSXPCTransport_sendMessageWithReply_onQueue_replyHandler___block_invoke_4;
     newValue[3] = &unk_1E7520670;
     v19 = v18;
-    v60 = v19;
+    v59 = v19;
     v21 = handlerCopy;
-    v61 = v21;
+    v60 = v21;
     if (v17)
     {
       objc_setProperty_nonatomic_copy(v17, v20, newValue, 80);
@@ -1765,16 +1735,16 @@ LABEL_8:
     v22 = self->_sendingQueue;
     if (v22)
     {
-      v54[0] = MEMORY[0x1E69E9820];
-      v54[1] = 3221225472;
-      v54[2] = __62__BSNSXPCTransport_sendMessageWithReply_onQueue_replyHandler___block_invoke_5;
-      v54[3] = &unk_1E75204D8;
-      v54[4] = self;
-      v55 = v17;
-      v56 = v19;
-      v57 = queueCopy;
-      v58 = v21;
-      [(BSNSXPCSending *)v22 performAsync:v54];
+      v53[0] = MEMORY[0x1E69E9820];
+      v53[1] = 3221225472;
+      v53[2] = __62__BSNSXPCTransport_sendMessageWithReply_onQueue_replyHandler___block_invoke_5;
+      v53[3] = &unk_1E75204D8;
+      v53[4] = self;
+      v54 = v17;
+      v55 = v19;
+      v56 = queueCopy;
+      v57 = v21;
+      [(BSNSXPCSending *)v22 performAsync:v53];
     }
 
     else
@@ -1782,8 +1752,6 @@ LABEL_8:
       [v17 send];
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __62__BSNSXPCTransport_sendMessageWithReply_onQueue_replyHandler___block_invoke(uint64_t a1)
@@ -1844,35 +1812,35 @@ void __62__BSNSXPCTransport_sendMessageWithReply_onQueue_replyHandler___block_in
 
 - (void)sendNotification:(id)notification
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   v6 = notificationCopy;
   xdict = notificationCopy;
   if (!notificationCopy || (v7 = MEMORY[0x19A908710](notificationCopy), v6 = xdict, v7 != MEMORY[0x1E69E9E80]))
   {
-    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"xMessage was invalid : %@", v6];
+    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"xMessage was invalid : %@", v6];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v11 = NSStringFromSelector(a2);
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
+      v10 = NSStringFromSelector(a2);
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
       *buf = 138544642;
-      v22 = v11;
-      v23 = 2114;
-      v24 = v13;
-      v25 = 2048;
+      v21 = v10;
+      v22 = 2114;
+      v23 = v12;
+      v24 = 2048;
       selfCopy2 = self;
-      v27 = 2114;
-      v28 = @"BSNSXPCTransport.m";
-      v29 = 1024;
-      v30 = 661;
-      v31 = 2114;
-      v32 = v10;
+      v26 = 2114;
+      v27 = @"BSNSXPCTransport.m";
+      v28 = 1024;
+      v29 = 661;
+      v30 = 2114;
+      v31 = v9;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v14 = v10;
-    [v10 UTF8String];
+    v13 = v9;
+    [v9 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A83C598);
@@ -1882,36 +1850,35 @@ void __62__BSNSXPCTransport_sendMessageWithReply_onQueue_replyHandler___block_in
 
   if (v8)
   {
-    v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot send a reply via sendNotification:"];
+    v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot send a reply via sendNotification:"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v16 = NSStringFromSelector(a2);
-      v17 = objc_opt_class();
-      v18 = NSStringFromClass(v17);
+      v15 = NSStringFromSelector(a2);
+      v16 = objc_opt_class();
+      v17 = NSStringFromClass(v16);
       *buf = 138544642;
-      v22 = v16;
-      v23 = 2114;
-      v24 = v18;
-      v25 = 2048;
+      v21 = v15;
+      v22 = 2114;
+      v23 = v17;
+      v24 = 2048;
       selfCopy2 = self;
-      v27 = 2114;
-      v28 = @"BSNSXPCTransport.m";
-      v29 = 1024;
-      v30 = 662;
-      v31 = 2114;
-      v32 = v15;
+      v26 = 2114;
+      v27 = @"BSNSXPCTransport.m";
+      v28 = 1024;
+      v29 = 662;
+      v30 = 2114;
+      v31 = v14;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v19 = v15;
-    [v15 UTF8String];
+    v18 = v14;
+    [v14 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A83C690);
   }
 
   [(BSNSXPCTransport *)self _sendMessage:1 asNotification:?];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendBarrierBlock:(id)block
@@ -1938,33 +1905,33 @@ void __62__BSNSXPCTransport_sendMessageWithReply_onQueue_replyHandler___block_in
 
 - (void)setTargetQueue:(id)queue
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   if (!queueCopy)
   {
-    v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"targetQueue"];
+    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"targetQueue"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v12 = NSStringFromSelector(a2);
-      v13 = objc_opt_class();
-      v14 = NSStringFromClass(v13);
+      v11 = NSStringFromSelector(a2);
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
       *buf = 138544642;
-      v21 = v12;
-      v22 = 2114;
-      v23 = v14;
-      v24 = 2048;
+      v20 = v11;
+      v21 = 2114;
+      v22 = v13;
+      v23 = 2048;
       selfCopy = self;
-      v26 = 2114;
-      v27 = @"BSNSXPCTransport.m";
-      v28 = 1024;
-      v29 = 677;
-      v30 = 2114;
-      v31 = v11;
+      v25 = 2114;
+      v26 = @"BSNSXPCTransport.m";
+      v27 = 1024;
+      v28 = 677;
+      v29 = 2114;
+      v30 = v10;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v15 = v11;
-    [v11 UTF8String];
+    v14 = v10;
+    [v10 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A83CA4CLL);
@@ -1978,22 +1945,20 @@ void __62__BSNSXPCTransport_sendMessageWithReply_onQueue_replyHandler___block_in
     block[2] = __35__BSNSXPCTransport_setTargetQueue___block_invoke;
     block[3] = &unk_1E75205D0;
     v7 = queueCopy;
-    v19 = v7;
+    v18 = v7;
     dispatch_async(v7, block);
     v6 = [BSServiceDispatchQueue _queueWithDispatchQueue:v7];
   }
 
   connection = self->_connection;
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __35__BSNSXPCTransport_setTargetQueue___block_invoke_2;
-  v16[3] = &unk_1E7520500;
-  v16[4] = self;
-  v17 = v6;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __35__BSNSXPCTransport_setTargetQueue___block_invoke_2;
+  v15[3] = &unk_1E7520500;
+  v15[4] = self;
+  v16 = v6;
   v9 = v6;
-  [(BSXPCServiceConnection *)connection configure:v16];
-
-  v10 = *MEMORY[0x1E69E9840];
+  [(BSXPCServiceConnection *)connection configure:v15];
 }
 
 void __35__BSNSXPCTransport_setTargetQueue___block_invoke_2(uint64_t a1, void *a2)
@@ -2005,32 +1970,32 @@ void __35__BSNSXPCTransport_setTargetQueue___block_invoke_2(uint64_t a1, void *a
 
 - (void)suspend
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (!self->_faultOnSuspend)
   {
-    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"suspend is not supported on a wrapped BSServiceConnection"];
+    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"suspend is not supported on a wrapped BSServiceConnection"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v9 = NSStringFromSelector(a2);
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
-      v13 = 138544642;
-      v14 = v9;
-      v15 = 2114;
-      v16 = v11;
-      v17 = 2048;
+      v8 = NSStringFromSelector(a2);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
+      v12 = 138544642;
+      v13 = v8;
+      v14 = 2114;
+      v15 = v10;
+      v16 = 2048;
       selfCopy = self;
-      v19 = 2114;
-      v20 = @"BSNSXPCTransport.m";
-      v21 = 1024;
-      v22 = 712;
-      v23 = 2114;
-      v24 = v8;
-      _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v13, 0x3Au);
+      v18 = 2114;
+      v19 = @"BSNSXPCTransport.m";
+      v20 = 1024;
+      v21 = 712;
+      v22 = 2114;
+      v23 = v7;
+      _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v12, 0x3Au);
     }
 
-    v12 = v8;
-    [v8 UTF8String];
+    v11 = v7;
+    [v7 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A83CCF0);
@@ -2053,12 +2018,10 @@ void __35__BSNSXPCTransport_setTargetQueue___block_invoke_2(uint64_t a1, void *a
   if (os_log_type_enabled(v4, v3))
   {
     explanation = self->_explanation;
-    v13 = 138543362;
-    v14 = explanation;
-    _os_log_impl(&dword_19A821000, v4, v3, "%{public}@ cannot suspend this type of transport", &v13, 0xCu);
+    v12 = 138543362;
+    v13 = explanation;
+    _os_log_impl(&dword_19A821000, v4, v3, "%{public}@ cannot suspend this type of transport", &v12, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __26__BSNSXPCTransport_cancel__block_invoke(uint64_t a1)

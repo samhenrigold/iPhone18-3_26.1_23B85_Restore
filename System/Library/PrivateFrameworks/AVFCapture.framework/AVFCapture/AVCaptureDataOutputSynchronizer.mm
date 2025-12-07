@@ -35,7 +35,7 @@
 LABEL_45:
     v26 = [v23 exceptionWithName:v24 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
 
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v27, v28))
     {
       objc_exception_throw(v26);
     }
@@ -51,26 +51,26 @@ LABEL_45:
     goto LABEL_45;
   }
 
+  v40 = 0u;
+  v41 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v36 = 0u;
-  v37 = 0u;
-  v5 = [(NSArray *)dataOutputs countByEnumeratingWithState:&v36 objects:v35 count:16];
+  v5 = [(NSArray *)dataOutputs countByEnumeratingWithState:&v38 objects:v37 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v37;
+    v8 = *v39;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v37 != v8)
+        if (*v39 != v8)
         {
           objc_enumerationMutation(dataOutputs);
         }
 
-        v10 = *(*(&v36 + 1) + 8 * i);
+        v10 = *(*(&v38 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -140,7 +140,7 @@ LABEL_45:
         }
       }
 
-      v6 = [(NSArray *)dataOutputs countByEnumeratingWithState:&v36 objects:v35 count:16];
+      v6 = [(NSArray *)dataOutputs countByEnumeratingWithState:&v38 objects:v37 count:16];
       if (v6)
       {
         continue;
@@ -150,9 +150,9 @@ LABEL_45:
     }
   }
 
-  v34.receiver = self;
-  v34.super_class = AVCaptureDataOutputSynchronizer;
-  v12 = [(AVCaptureDataOutputSynchronizer *)&v34 init];
+  v36.receiver = self;
+  v36.super_class = AVCaptureDataOutputSynchronizer;
+  v12 = [(AVCaptureDataOutputSynchronizer *)&v36 init];
   if (!v12)
   {
     return 0;
@@ -170,28 +170,28 @@ LABEL_45:
   v13->_internal->delegateCallbackHelper = [[AVCaptureDataOutputDelegateCallbackHelper alloc] initWithQueueName:@"com.apple.avfoundation.dataoutputsynchronizer.queue" canSetClientDelegateCallbackQueueWhenRunningInsideMediaserverd:1];
   v13->_internal->weakReference = [objc_alloc(MEMORY[0x1E6988198]) initWithReferencedObject:v13];
   v15 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](dataOutputs, "count")}];
-  v30 = 0u;
-  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v16 = dataOutputs;
-  v17 = [(NSArray *)dataOutputs countByEnumeratingWithState:&v30 objects:v29 count:16];
+  v17 = [(NSArray *)dataOutputs countByEnumeratingWithState:&v32 objects:v31 count:16];
   if (v17)
   {
     v18 = v17;
     v19 = 0;
-    v28 = 0;
-    v20 = *v31;
+    v30 = 0;
+    v20 = *v33;
     do
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v31 != v20)
+        if (*v33 != v20)
         {
           objc_enumerationMutation(dataOutputs);
         }
 
-        v22 = [[AVCDOSDataOutputStorage alloc] initWithDataOutput:*(*(&v30 + 1) + 8 * j)];
+        v22 = [[AVCDOSDataOutputStorage alloc] initWithDataOutput:*(*(&v32 + 1) + 8 * j)];
         [(NSArray *)v15 addObject:v22];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -204,18 +204,18 @@ LABEL_45:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            LOBYTE(v28) = 1;
+            LOBYTE(v30) = 1;
           }
 
           else
           {
             objc_opt_class();
-            HIDWORD(v28) |= objc_opt_isKindOfClass();
+            HIDWORD(v30) |= objc_opt_isKindOfClass();
           }
         }
       }
 
-      v18 = [(NSArray *)dataOutputs countByEnumeratingWithState:&v30 objects:v29 count:16];
+      v18 = [(NSArray *)dataOutputs countByEnumeratingWithState:&v32 objects:v31 count:16];
     }
 
     while (v18);
@@ -224,7 +224,7 @@ LABEL_45:
   else
   {
     v19 = 0;
-    v28 = 0;
+    v30 = 0;
   }
 
   v25 = v13;
@@ -233,8 +233,8 @@ LABEL_45:
   v13->_internal->leaderSynchronizedDataQueueMaxDepth = [(AVCaptureDataOutputSynchronizer *)v13 _computedLeaderSynchronizedDataQueueMaxDepthForDataOutputs:v16];
   v13->_internal->dataOutputsStorageMutex = FigSimpleMutexCreate();
   [(AVCaptureDataOutputSynchronizer *)v13 _assignTimestampAdjustmentQueueToDataOutputStorageWithCommonProvenance];
-  v13->_internal->synchronizingVideoAndDepth = v19 & v28 & 1;
-  v13->_internal->synchronizingVideoAndVisionData = v19 & BYTE4(v28) & 1;
+  v13->_internal->synchronizingVideoAndDepth = v19 & v30 & 1;
+  v13->_internal->synchronizingVideoAndVisionData = v19 & BYTE4(v30) & 1;
   return v25;
 }
 
@@ -255,8 +255,8 @@ LABEL_45:
 - (void)setDelegate:(id)delegate queue:(dispatch_queue_t)delegateCallbackQueue
 {
   [(AVCaptureDataOutputSynchronizer *)self willChangeValueForKey:@"delegate"];
-  v8 = 0;
-  if ([(AVCaptureDataOutputDelegateCallbackHelper *)self->_internal->delegateCallbackHelper setClientDelegate:delegate clientCallbackQueue:delegateCallbackQueue exceptionReason:&v8])
+  v10 = 0;
+  if ([(AVCaptureDataOutputDelegateCallbackHelper *)self->_internal->delegateCallbackHelper setClientDelegate:delegate clientCallbackQueue:delegateCallbackQueue exceptionReason:&v10])
   {
     [(AVCaptureDataOutputSynchronizer *)self _overrideDataOutputDelegatesForDelegateCallbackQueue:delegateCallbackQueue];
     [(AVCaptureDataOutputSynchronizer *)self didChangeValueForKey:@"delegate"];
@@ -265,8 +265,8 @@ LABEL_45:
   else
   {
     v7 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    [(AVCaptureDataOutputSynchronizer *)self didChangeValueForKey:@"delegate"];
-    if (AVCaptureShouldThrowForAPIViolations())
+    v8 = [(AVCaptureDataOutputSynchronizer *)self didChangeValueForKey:@"delegate"];
+    if (AVCaptureShouldThrowForAPIViolations(v8, v9))
     {
       objc_exception_throw(v7);
     }
@@ -338,14 +338,14 @@ LABEL_5:
     return CMTimeCompare(&time1, &v5);
   }
 
-  [a2 time];
+  objc_msgSend_time(a2);
   if (!a3)
   {
     goto LABEL_5;
   }
 
 LABEL_3:
-  [a3 time];
+  objc_msgSend_time(a3);
   return CMTimeCompare(&time1, &v5);
 }
 
@@ -693,7 +693,7 @@ LABEL_3:
               v8 = *(*(&v48 + 1) + 8 * j);
               if (v8)
               {
-                [*(*(&v48 + 1) + 8 * j) adjustedTimestamp];
+                objc_msgSend_adjustedTimestamp(*(*(&v48 + 1) + 8 * j));
                 if ((v45 & 0x100000000) != 0)
                 {
                   continue;
@@ -735,7 +735,7 @@ LABEL_3:
                   v15 = *(*(&v39 + 1) + 8 * k);
                   if (v15)
                   {
-                    [*(*(&v39 + 1) + 8 * k) timestamp];
+                    objc_msgSend_timestamp(*(*(&v39 + 1) + 8 * k));
                     if (v8)
                     {
                       goto LABEL_23;
@@ -748,7 +748,7 @@ LABEL_3:
                     if (v8)
                     {
 LABEL_23:
-                      [v8 timestamp];
+                      objc_msgSend_timestamp(v8);
                       goto LABEL_26;
                     }
                   }
@@ -759,7 +759,7 @@ LABEL_26:
                   {
                     if (v15)
                     {
-                      [v15 timestamp];
+                      objc_msgSend_timestamp(v15);
                     }
 
                     else
@@ -774,7 +774,7 @@ LABEL_26:
 
                   if (v15)
                   {
-                    [v15 timestamp];
+                    objc_msgSend_timestamp(v15);
                     if (v8)
                     {
                       goto LABEL_29;
@@ -787,7 +787,7 @@ LABEL_26:
                     if (v8)
                     {
 LABEL_29:
-                      [v8 timestamp];
+                      objc_msgSend_timestamp(v8);
                       goto LABEL_32;
                     }
                   }
@@ -799,7 +799,7 @@ LABEL_32:
                     memset(&time1, 0, sizeof(time1));
                     if (v8)
                     {
-                      [v8 timestamp];
+                      objc_msgSend_timestamp(v8);
                     }
 
                     else
@@ -812,7 +812,7 @@ LABEL_32:
                     memset(&time2, 0, sizeof(time2));
                     if (v15)
                     {
-                      [v15 timestamp];
+                      objc_msgSend_timestamp(v15);
                       if (v8)
                       {
                         goto LABEL_48;
@@ -831,7 +831,7 @@ LABEL_50:
                       }
 
 LABEL_48:
-                      [v8 timestamp];
+                      objc_msgSend_timestamp(v8);
                     }
 
                     CMTimeSubtract(&time2, &rhs, &v33);
@@ -841,7 +841,7 @@ LABEL_48:
                     {
                       if (v15)
                       {
-                        [v15 timestamp];
+                        objc_msgSend_timestamp(v15);
                       }
 
                       else
@@ -869,7 +869,7 @@ LABEL_58:
 
                   if (v15)
                   {
-                    [v15 timestamp];
+                    objc_msgSend_timestamp(v15);
                   }
 
                   else
@@ -915,16 +915,16 @@ LABEL_61:
                       if (v19)
                       {
                         v22 = v21;
-                        [v19 adjustedTimestamp];
+                        objc_msgSend_adjustedTimestamp(v19);
                         if (v30)
                         {
                           if (v22)
                           {
-                            [v22 adjustedTimestamp];
+                            objc_msgSend_adjustedTimestamp(v22);
                             if (v29)
                             {
-                              [v19 adjustedTimestamp];
-                              [v22 adjustedTimestamp];
+                              objc_msgSend_adjustedTimestamp(v19);
+                              objc_msgSend_adjustedTimestamp(v22);
                               if (!CMTimeCompare(&v43, &time1))
                               {
                                 [v19 addSynchronizedData:v22];
@@ -1000,13 +1000,13 @@ LABEL_12:
     if (v11)
     {
       v12 = v11;
-      [v11 adjustedTimestamp];
+      objc_msgSend_adjustedTimestamp(v11);
       if (v15.flags)
       {
         goto LABEL_10;
       }
 
-      [v12 timestamp];
+      objc_msgSend_timestamp(v12);
     }
 
     else
@@ -1063,13 +1063,13 @@ LABEL_12:
     memset(&v18, 0, sizeof(v18));
     if (v11)
     {
-      [v11 adjustedTimestamp];
+      objc_msgSend_adjustedTimestamp(v11);
       if (v18.flags)
       {
         goto LABEL_9;
       }
 
-      [v12 timestamp];
+      objc_msgSend_timestamp(v12);
     }
 
     else
@@ -1129,34 +1129,34 @@ void __74__AVCaptureDataOutputSynchronizer__dispatchSynchronizedDataWithTimestam
   v3 = [-[NSArray objectAtIndexedSubscript:](self->_internal->dataOutputsStorage objectAtIndexedSubscript:{0), "synchronizedDataQueue"}];
   if ([v3 count])
   {
-    memset(&v30, 0, sizeof(v30));
+    memset(&v32, 0, sizeof(v32));
     v4 = [v3 objectAtIndexedSubscript:0];
     if (v4)
     {
-      [v4 timestamp];
+      objc_msgSend_timestamp(v4);
     }
 
     else
     {
-      memset(&v30, 0, sizeof(v30));
+      memset(&v32, 0, sizeof(v32));
     }
 
-    memset(&v29, 0, sizeof(v29));
-    [(AVCaptureDataOutputSynchronizer *)self _earliestFollowerSynchronizedDataQueueTimestamp];
+    memset(&v31, 0, sizeof(v31));
+    objc_msgSend__earliestFollowerSynchronizedDataQueueTimestamp(self);
     *&time1.value = 0uLL;
     for (i = 0; ; i = time1.epoch)
     {
       time1.epoch = i;
-      v26 = v30;
-      if ((CMTimeCompare(&time1, &v26) & 0x80000000) == 0)
+      v28 = v32;
+      if ((CMTimeCompare(&time1, &v28) & 0x80000000) == 0)
       {
         break;
       }
 
-      time1 = v29;
+      time1 = v31;
       [(AVCaptureDataOutputSynchronizer *)self _dispatchSynchronizedDataWithTimestamp:&time1];
-      [(AVCaptureDataOutputSynchronizer *)self _earliestFollowerSynchronizedDataQueueTimestamp];
-      v29 = time1;
+      objc_msgSend__earliestFollowerSynchronizedDataQueueTimestamp(self);
+      v31 = time1;
     }
 
     if ([OUTLINED_FUNCTION_0_6() _allFollowerSynchronizedDataOutputsContainTimestampEqualToOrGreaterThanLeaderTimestamp:?])
@@ -1169,10 +1169,10 @@ void __74__AVCaptureDataOutputSynchronizer__dispatchSynchronizedDataWithTimestam
           break;
         }
 
-        timestamp = [v3 objectAtIndexedSubscript:0];
-        if (timestamp)
+        v7 = [v3 objectAtIndexedSubscript:0];
+        if (v7)
         {
-          timestamp = [timestamp timestamp];
+          v7 = objc_msgSend_timestamp(v7);
         }
 
         else
@@ -1180,8 +1180,8 @@ void __74__AVCaptureDataOutputSynchronizer__dispatchSynchronizedDataWithTimestam
           memset(&time1, 0, sizeof(time1));
         }
 
-        *&time1.value = OUTLINED_FUNCTION_1_9(timestamp, v8, v9, v10, v11, v12, v13, v14, v26.value, *&v26.timescale, v26.epoch, v27, v15, time1.value);
-        time1.epoch = v16;
+        *&time1.value = OUTLINED_FUNCTION_1_9(v7, v8, v9, v10, v11, v12, v13, v14, v15, v28.value, *&v28.timescale, v28.epoch, v29, v16, time1.value);
+        time1.epoch = v17;
         if (![(AVCaptureDataOutputSynchronizer *)self _allFollowerSynchronizedDataOutputsContainTimestampEqualToOrGreaterThanLeaderTimestamp:&time1])
         {
           goto LABEL_20;
@@ -1200,10 +1200,10 @@ LABEL_20:
           break;
         }
 
-        timestamp2 = [v3 objectAtIndexedSubscript:0];
-        if (timestamp2)
+        v18 = [v3 objectAtIndexedSubscript:0];
+        if (v18)
         {
-          timestamp2 = [timestamp2 timestamp];
+          v18 = objc_msgSend_timestamp(v18);
         }
 
         else
@@ -1211,7 +1211,7 @@ LABEL_20:
           memset(&time1, 0, sizeof(time1));
         }
 
-        *&v6 = OUTLINED_FUNCTION_1_9(timestamp2, v18, v19, v20, v21, v22, v23, v24, v26.value, *&v26.timescale, v26.epoch, v27, v25, time1.value).n128_u64[0];
+        *&v6 = OUTLINED_FUNCTION_1_9(v18, v19, v20, v21, v22, v23, v24, v25, v26, v28.value, *&v28.timescale, v28.epoch, v29, v27, time1.value).n128_u64[0];
       }
     }
   }

@@ -1,9 +1,49 @@
 @interface OTModifyUserControllableViewStatusOperation
 - (OTModifyUserControllableViewStatusOperation)initWithDependencies:(id)dependencies intendedViewStatus:(int)status intendedState:(id)state peerMissingState:(id)missingState errorState:(id)errorState;
 - (void)groupStart;
+- (void)performWithStatus:(int)status;
 @end
 
 @implementation OTModifyUserControllableViewStatusOperation
+
+- (void)performWithStatus:(int)status
+{
+  v3 = *&status;
+  objc_initWeak(&location, self);
+  v5 = sub_100006274("octagon-ckks");
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    intendedViewStatus = [(OTModifyUserControllableViewStatusOperation *)self intendedViewStatus];
+    if (intendedViewStatus >= 4)
+    {
+      v7 = [NSString stringWithFormat:@"(unknown: %i)", intendedViewStatus];
+    }
+
+    else
+    {
+      v7 = *(&off_100335FF8 + intendedViewStatus);
+    }
+
+    *buf = 138412290;
+    v17 = v7;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Setting user-controllable views to %@", buf, 0xCu);
+  }
+
+  deps = [(OTModifyUserControllableViewStatusOperation *)self deps];
+  cuttlefishXPCWrapper = [deps cuttlefishXPCWrapper];
+  deps2 = [(OTModifyUserControllableViewStatusOperation *)self deps];
+  activeAccount = [deps2 activeAccount];
+  v12 = [NSNumber numberWithInt:v3];
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_100097EDC;
+  v13[3] = &unk_100344998;
+  objc_copyWeak(&v14, &location);
+  [cuttlefishXPCWrapper updateWithSpecificUser:activeAccount forceRefetch:0 deviceName:0 serialNumber:0 osVersion:0 policyVersion:0 policySecrets:0 syncUserControllableViews:v12 secureElementIdentity:0 walrusSetting:0 webAccess:0 reply:v13];
+
+  objc_destroyWeak(&v14);
+  objc_destroyWeak(&location);
+}
 
 - (void)groupStart
 {

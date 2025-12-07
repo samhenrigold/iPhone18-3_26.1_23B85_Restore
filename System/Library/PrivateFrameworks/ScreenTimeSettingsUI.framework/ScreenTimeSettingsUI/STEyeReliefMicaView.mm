@@ -10,7 +10,7 @@
 - (_TtC20ScreenTimeSettingsUI19STEyeReliefMicaView)initWithCoder:(id)coder
 {
   v5 = OBJC_IVAR____TtC20ScreenTimeSettingsUI19STEyeReliefMicaView_animator;
-  type metadata accessor for STMicaAnimator();
+  type metadata accessor for STMicaAnimator(0);
   swift_allocObject();
   coderCopy = coder;
   *(&self->super.super.super.super.isa + v5) = STMicaAnimator.init(states:delay:)(qword_28766BB28, 1000000000000000000, 0);

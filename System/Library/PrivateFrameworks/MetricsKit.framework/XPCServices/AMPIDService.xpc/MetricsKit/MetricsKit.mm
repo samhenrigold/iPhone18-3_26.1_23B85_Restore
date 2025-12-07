@@ -1,6 +1,6 @@
-void sub_10000123C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000123C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -14,7 +14,7 @@ uint64_t sub_100001264(uint64_t result, uint64_t a2)
 
 void sub_10000127C(uint64_t a1)
 {
-  v2 = MTMetricsKitOSLog();
+  v2 = MTMetricsKitOSLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
@@ -40,11 +40,11 @@ void sub_100001358(uint64_t a1)
   v4 = objc_loadWeakRetained(&location);
   if (!v4)
   {
-    v5 = MTMetricsKitOSLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = MTMetricsKitOSLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      *v6 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "MetricsKit: AMPIDService shared secret store released", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "MetricsKit: AMPIDService shared secret store released", v7, 2u);
     }
   }
 
@@ -53,7 +53,7 @@ void sub_100001358(uint64_t a1)
 
 void sub_10000141C(id a1)
 {
-  v1 = MTMetricsKitOSLog();
+  v1 = MTMetricsKitOSLog(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     *v2 = 0;
@@ -67,27 +67,28 @@ void setupSandbox()
   v1 = [v0 bundleIdentifier];
 
   [v1 UTF8String];
-  if (_set_user_dir_suffix())
+  v2 = _set_user_dir_suffix();
+  if (v2)
   {
-    v2 = NSTemporaryDirectory();
+    v3 = NSTemporaryDirectory();
   }
 
   else
   {
-    v3 = MTMetricsKitOSLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = MTMetricsKitOSLog(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v4 = *__error();
-      v5[0] = 67109120;
-      v5[1] = v4;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to setup dir suffix for sandbox environment (error code: %d)", v5, 8u);
+      v5 = *__error();
+      v6[0] = 67109120;
+      v6[1] = v5;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to setup dir suffix for sandbox environment (error code: %d)", v6, 8u);
     }
   }
 }
 
 int main(int argc, const char **argv, const char **envp)
 {
-  v3 = MTMetricsKitOSLog();
+  v3 = MTMetricsKitOSLog(*&argc);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     *v7 = 0;
@@ -128,16 +129,16 @@ uint64_t sub_100002C1C(uint64_t a1)
   return result;
 }
 
-id MTMetricsKitOSLog()
+id MTMetricsKitOSLog(uint64_t a1)
 {
   if (qword_1000280E8 != -1)
   {
     sub_100012C60();
   }
 
-  v1 = qword_1000280E0;
+  v2 = qword_1000280E0;
 
-  return v1;
+  return v2;
 }
 
 void sub_100002DC4(id a1)
@@ -205,7 +206,7 @@ LABEL_4:
     if (v12 <= 199)
     {
       atomic_fetch_add_explicit(&dword_1000280F4, 1u, memory_order_relaxed);
-      v11 = MTMetricsKitOSLog();
+      v11 = MTMetricsKitOSLog(v9);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         v13 = [v10 code];
@@ -631,27 +632,27 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v9 = MTMetricsKitOSLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = MTMetricsKitOSLog(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v10 = *(a1 + 32);
+    v11 = *(a1 + 32);
     *buf = 138412290;
-    v19 = v10;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "MetricsKit: Creating new zone with ID %@", buf, 0xCu);
+    v20 = v11;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "MetricsKit: Creating new zone with ID %@", buf, 0xCu);
   }
 
-  v11 = [[CKRecordZone alloc] initWithZoneID:*(a1 + 32)];
-  v12 = objc_loadWeakRetained((a1 + 40));
-  v13 = [v12 container];
-  v14 = [v13 privateCloudDatabase];
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = sub_1000062D0;
-  v16[3] = &unk_100020828;
-  objc_copyWeak(&v17, (a1 + 40));
-  [v14 saveRecordZone:v11 completionHandler:v16];
+  v12 = [[CKRecordZone alloc] initWithZoneID:*(a1 + 32)];
+  v13 = objc_loadWeakRetained((a1 + 40));
+  v14 = [v13 container];
+  v15 = [v14 privateCloudDatabase];
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_1000062D0;
+  v17[3] = &unk_100020828;
+  objc_copyWeak(&v18, (a1 + 40));
+  [v15 saveRecordZone:v12 completionHandler:v17];
 
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v18);
 LABEL_8:
 }
 
@@ -666,21 +667,22 @@ void sub_1000064B8(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = v5;
+  v7 = v6;
+  v8 = v5;
   if (v6)
   {
-    v8 = MTMetricsKitOSLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = MTMetricsKitOSLog(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138412290;
-      v10 = v6;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to fetch records with ID. error %@", &v9, 0xCu);
+      v10 = 138412290;
+      v11 = v7;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to fetch records with ID. error %@", &v10, 0xCu);
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  [*(a1 + 32) finishWithResult:v7 error:v6];
+  [*(a1 + 32) finishWithResult:v8 error:v7];
 }
 
 void sub_1000067E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
@@ -807,9 +809,9 @@ void sub_1000075F0(uint64_t a1)
   }
 }
 
-void sub_1000079F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000079F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -844,7 +846,7 @@ void sub_100007F54(uint64_t a1)
 {
   if (*(a1 + 32))
   {
-    v2 = MTMetricsKitOSLog();
+    v2 = MTMetricsKitOSLog(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       v3 = [*(a1 + 48) recordID];
@@ -1113,30 +1115,30 @@ id sub_10000D580(uint64_t a1, void *a2)
   v4 = v3;
   if (v3)
   {
-    v31 = 0u;
     v32 = 0u;
-    v29 = 0u;
+    v33 = 0u;
     v30 = 0u;
-    v5 = [v3 countByEnumeratingWithState:&v29 objects:v38 count:16];
+    v31 = 0u;
+    v5 = [v3 countByEnumeratingWithState:&v30 objects:v39 count:16];
     if (!v5)
     {
       goto LABEL_19;
     }
 
     v7 = v5;
-    v8 = *v30;
+    v8 = *v31;
     *&v6 = 138412546;
-    v27 = v6;
+    v28 = v6;
     while (1)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v30 != v8)
+        if (*v31 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = [v4 objectForKeyedSubscript:{*(*(&v29 + 1) + 8 * i), v27}];
+        v10 = [v4 objectForKeyedSubscript:{*(*(&v30 + 1) + 8 * i), v28}];
         v11 = v10;
         if (v10)
         {
@@ -1153,25 +1155,25 @@ id sub_10000D580(uint64_t a1, void *a2)
             {
               [v11 mt_setSynchronized:1];
               v17 = [*(a1 + 32) localDB];
-              v28 = 0;
-              v18 = [v17 writeRecord:v11 error:&v28];
-              v19 = v28;
+              v29 = 0;
+              v18 = [v17 writeRecord:v11 error:&v29];
+              v19 = v29;
 
               if ((v18 & 1) == 0)
               {
-                v20 = MTMetricsKitOSLog();
-                if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+                v21 = MTMetricsKitOSLog(v20);
+                if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
                 {
-                  v21 = [v11 recordID];
-                  [v21 recordName];
-                  v23 = v22 = a1;
-                  *buf = v27;
-                  v35 = v23;
-                  v36 = 2112;
-                  v37 = v19;
-                  _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to save local record data with ID %@ error %@", buf, 0x16u);
+                  v22 = [v11 recordID];
+                  [v22 recordName];
+                  v24 = v23 = a1;
+                  *buf = v28;
+                  v36 = v24;
+                  v37 = 2112;
+                  v38 = v19;
+                  _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to save local record data with ID %@ error %@", buf, 0x16u);
 
-                  a1 = v22;
+                  a1 = v23;
                   goto LABEL_14;
                 }
 
@@ -1182,10 +1184,10 @@ id sub_10000D580(uint64_t a1, void *a2)
             else
             {
               v19 = [*(a1 + 32) syncEngine];
-              v20 = [v11 recordID];
-              v33 = v20;
-              v21 = [NSArray arrayWithObjects:&v33 count:1];
-              [v19 deleteRecordsWithIDs:v21];
+              v21 = [v11 recordID];
+              v34 = v21;
+              v22 = [NSArray arrayWithObjects:&v34 count:1];
+              [v19 deleteRecordsWithIDs:v22];
 LABEL_14:
 
 LABEL_15:
@@ -1194,26 +1196,26 @@ LABEL_15:
         }
       }
 
-      v7 = [v4 countByEnumeratingWithState:&v29 objects:v38 count:16];
+      v7 = [v4 countByEnumeratingWithState:&v30 objects:v39 count:16];
       if (!v7)
       {
 LABEL_19:
-        v24 = &__kCFBooleanTrue;
+        v25 = &__kCFBooleanTrue;
         goto LABEL_21;
       }
     }
   }
 
-  v24 = &__kCFBooleanFalse;
+  v25 = &__kCFBooleanFalse;
 LABEL_21:
-  v25 = [MTPromise promiseWithResult:v24];
+  v26 = [MTPromise promiseWithResult:v25];
 
-  return v25;
+  return v26;
 }
 
-void sub_10000E73C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_10000E73C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1228,7 +1230,7 @@ uint64_t sub_10000E75C(uint64_t result, uint64_t a2)
 id sub_10000E774(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = MTMetricsKitOSLog();
+  v4 = MTMetricsKitOSLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = [*(a1 + 32) idNamespace];
@@ -1236,16 +1238,16 @@ id sub_10000E774(uint64_t a1, void *a2)
     v7 = [v3 mt_isSynchronized];
     v8 = @"unsynchronized";
     *buf = 138412802;
-    v34 = v5;
-    v35 = 2112;
+    v35 = v5;
+    v36 = 2112;
     if (v7)
     {
       v8 = @"synchronized";
     }
 
-    v36 = v6;
-    v37 = 2112;
-    v38 = v8;
+    v37 = v6;
+    v38 = 2112;
+    v39 = v8;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "MetricsKit: Loaded reference record for scheme %@ with id %@, synchronized: %@", buf, 0x20u);
   }
 
@@ -1253,20 +1255,21 @@ id sub_10000E774(uint64_t a1, void *a2)
   {
     v10 = [v3 mt_secretValue];
     v14 = -[MTIDSecret initWithValue:effectiveDate:expirationDate:isSynchronize:]([MTIDSecret alloc], "initWithValue:effectiveDate:expirationDate:isSynchronize:", v10, 0, 0, [v3 mt_isSynchronized]);
-    if ([*(a1 + 48) canSyncBetweenDevices])
+    v16 = [*(a1 + 48) canSyncBetweenDevices];
+    if (v16)
     {
-      v16 = [*(a1 + 48) localDB];
-      v17 = [v16 syncStatusCode];
-      [(MTIDSecret *)v14 setSyncStatusCode:v17];
+      v17 = [*(a1 + 48) localDB];
+      v18 = [v17 syncStatusCode];
+      [(MTIDSecret *)v14 setSyncStatusCode:v18];
     }
 
-    v18 = MTMetricsKitOSLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    v19 = MTMetricsKitOSLog(v16);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
-      v19 = [*(a1 + 32) idNamespace];
+      v20 = [*(a1 + 32) idNamespace];
       *buf = 138412290;
-      v34 = v19;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "MetricsKit: Returning secret for scheme %@", buf, 0xCu);
+      v35 = v20;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "MetricsKit: Returning secret for scheme %@", buf, 0xCu);
     }
 
     v15 = [MTPromise promiseWithResult:v14];
@@ -1284,29 +1287,29 @@ id sub_10000E774(uint64_t a1, void *a2)
 
     [*(a1 + 48) generateFutureRecordsForScheme:*(a1 + 32) referenceRecord:v3];
     v14 = [*(a1 + 48) spanRecordForScheme:*(a1 + 32) span:*(*(*(a1 + 56) + 8) + 40) timeout:*(a1 + 72) existingOnly:25 qualityOfService:v3 referenceRecord:*(a1 + 64)];
-    v29[0] = _NSConcreteStackBlock;
-    v29[1] = 3221225472;
-    v29[2] = sub_10000EB6C;
-    v29[3] = &unk_100020C80;
-    v30 = *(a1 + 32);
-    v31 = v3;
-    v32 = *(a1 + 48);
-    v15 = [(MTIDSecret *)v14 thenWithBlock:v29];
+    v30[0] = _NSConcreteStackBlock;
+    v30[1] = 3221225472;
+    v30[2] = sub_10000EB6C;
+    v30[3] = &unk_100020C80;
+    v31 = *(a1 + 32);
+    v32 = v3;
+    v33 = *(a1 + 48);
+    v15 = [(MTIDSecret *)v14 thenWithBlock:v30];
 
 LABEL_14:
     goto LABEL_15;
   }
 
-  v21 = MTMetricsKitOSLog();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+  v22 = MTMetricsKitOSLog(0);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
   {
-    v22 = [*(a1 + 32) idNamespace];
+    v23 = [*(a1 + 32) idNamespace];
     *buf = 138412290;
-    v34 = v22;
-    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "MetricsKit: Reference date is null, returning error. Scheme: %@", buf, 0xCu);
+    v35 = v23;
+    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "MetricsKit: Reference date is null, returning error. Scheme: %@", buf, 0xCu);
   }
 
-  v10 = MTError(703, @"Namespace date is null, are you sending multiple reset requests too quickly?", v23, v24, v25, v26, v27, v28, v29[0]);
+  v10 = MTError(703, @"Namespace date is null, are you sending multiple reset requests too quickly?", v24, v25, v26, v27, v28, v29, v30[0]);
   v15 = [MTPromise promiseWithError:v10];
 LABEL_15:
 
@@ -1316,12 +1319,12 @@ LABEL_15:
 id sub_10000EB6C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = MTMetricsKitOSLog();
+  v4 = MTMetricsKitOSLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = [*(a1 + 32) idNamespace];
     *buf = 138412290;
-    v21 = v5;
+    v22 = v5;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "MetricsKit: Span record obtained for scheme %@", buf, 0xCu);
   }
 
@@ -1344,25 +1347,26 @@ id sub_10000EB6C(uint64_t a1, void *a2)
 
   v13 = [(MTIDSecret *)v9 initWithValue:v8 effectiveDate:v10 expirationDate:v11 isSynchronize:v12];
 
-  if ([*(a1 + 48) canSyncBetweenDevices])
+  v14 = [*(a1 + 48) canSyncBetweenDevices];
+  if (v14)
   {
-    v14 = [*(a1 + 48) localDB];
-    v15 = [v14 syncStatusCode];
-    [(MTIDSecret *)v13 setSyncStatusCode:v15];
+    v15 = [*(a1 + 48) localDB];
+    v16 = [v15 syncStatusCode];
+    [(MTIDSecret *)v13 setSyncStatusCode:v16];
   }
 
-  v16 = MTMetricsKitOSLog();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+  v17 = MTMetricsKitOSLog(v14);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
-    v17 = [*(a1 + 32) idNamespace];
+    v18 = [*(a1 + 32) idNamespace];
     *buf = 138412290;
-    v21 = v17;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "MetricsKit: Returning secret for scheme %@", buf, 0xCu);
+    v22 = v18;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "MetricsKit: Returning secret for scheme %@", buf, 0xCu);
   }
 
-  v18 = [MTPromise promiseWithResult:v13];
+  v19 = [MTPromise promiseWithResult:v13];
 
-  return v18;
+  return v19;
 }
 
 void sub_10000F210(id *a1)

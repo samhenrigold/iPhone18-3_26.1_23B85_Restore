@@ -259,33 +259,33 @@
 - (NSURL)url
 {
   internalParameters = [(NWParameters *)self internalParameters];
-  url = nw_parameters_get_url(internalParameters, v3);
+  url = nw_parameters_get_url(internalParameters);
 
   if (url)
   {
-    v5 = MEMORY[0x1E695DFF8];
-    v6 = nw_nsstring(url);
-    v7 = [v5 URLWithString:v6];
+    v4 = MEMORY[0x1E695DFF8];
+    v5 = nw_nsstring(url);
+    v6 = [v4 URLWithString:v5];
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  return v7;
+  return v6;
 }
 
 - (NSURL)sanitizedURL
 {
   internalParameters = [(NWParameters *)self internalParameters];
-  sanitized_url = nw_parameters_get_sanitized_url(internalParameters, v3);
+  sanitized_url = nw_parameters_get_sanitized_url(internalParameters);
 
   if (sanitized_url)
   {
-    v5 = objc_alloc(MEMORY[0x1E695DFF8]);
-    v6 = nw_nsstring(sanitized_url);
-    sanitized_url = [v5 initWithString:v6];
+    v4 = objc_alloc(MEMORY[0x1E695DFF8]);
+    v5 = nw_nsstring(sanitized_url);
+    sanitized_url = [v4 initWithString:v5];
   }
 
   return sanitized_url;
@@ -510,7 +510,7 @@
 - (id)copyCParameters
 {
   internalParameters = [(NWParameters *)self internalParameters];
-  v3 = _nw_parameters_copy(internalParameters);
+  v3 = _nw_parameters_copy();
 
   return v3;
 }
@@ -526,7 +526,7 @@
 - (void)setAllowDuplicateStateUpdates:(BOOL)updates
 {
   internalParameters = [(NWParameters *)self internalParameters];
-  nw_parameters_set_allow_duplicate_state_updates(internalParameters, updates);
+  nw_parameters_set_allow_duplicate_state_updates(internalParameters);
 }
 
 - (BOOL)allowJoiningConnectedFd
@@ -540,7 +540,7 @@
 - (void)setAllowJoiningConnectedFd:(BOOL)fd
 {
   internalParameters = [(NWParameters *)self internalParameters];
-  nw_parameters_set_allow_joining_connected_fd(internalParameters, fd);
+  nw_parameters_set_allow_joining_connected_fd(internalParameters);
 }
 
 - (BOOL)prohibitJoiningProtocols
@@ -583,7 +583,7 @@
 - (void)setHttpsProxyOverTLS:(BOOL)s
 {
   internalParameters = [(NWParameters *)self internalParameters];
-  nw_parameters_set_https_proxy_over_tls(internalParameters, s);
+  nw_parameters_set_https_proxy_over_tls(internalParameters);
 }
 
 - (BOOL)httpsProxyIsOpaque
@@ -597,7 +597,7 @@
 - (void)setHttpsProxyIsOpaque:(BOOL)opaque
 {
   internalParameters = [(NWParameters *)self internalParameters];
-  nw_parameters_set_https_proxy_is_opaque(internalParameters, opaque);
+  nw_parameters_set_https_proxy_is_opaque(internalParameters);
 }
 
 - (BOOL)preferNoProxy
@@ -625,7 +625,7 @@
 - (void)setAllowUnusableAddresses:(BOOL)addresses
 {
   internalParameters = [(NWParameters *)self internalParameters];
-  nw_parameters_set_allow_unusable_addresses(internalParameters, addresses);
+  nw_parameters_set_allow_unusable_addresses(internalParameters);
 }
 
 - (id)createProtocolBufferObject
@@ -1271,7 +1271,7 @@ uint64_t __45__NWParameters_copyRequiredAgentsDescription__block_invoke(uint64_t
 - (void)setDiscretionary:(BOOL)discretionary
 {
   internalParameters = [(NWParameters *)self internalParameters];
-  nw_parameters_set_discretionary(internalParameters, discretionary);
+  nw_parameters_set_discretionary(internalParameters);
 }
 
 - (BOOL)isDiscretionary
@@ -1285,7 +1285,7 @@ uint64_t __45__NWParameters_copyRequiredAgentsDescription__block_invoke(uint64_t
 - (void)setProhibitFallback:(BOOL)fallback
 {
   internalParameters = [(NWParameters *)self internalParameters];
-  nw_parameters_set_no_fallback(internalParameters, fallback);
+  nw_parameters_set_no_fallback(internalParameters);
 }
 
 - (BOOL)prohibitFallback
@@ -1382,7 +1382,7 @@ LABEL_8:
   v7 = gLogObj;
   *buf = 136446210;
   v21 = "[NWParameters setInitialDataPayload:]";
-  v8 = _os_log_send_and_compose_impl();
+  v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v7, 16, "%{public}s NWCreateDispatchDataFromNSData failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v18 = 0;
@@ -1476,7 +1476,7 @@ LABEL_9:
 {
   dCopy = d;
   internalParameters = [(NWParameters *)self internalParameters];
-  nw_parameters_set_source_application_by_bundle_id_internal(internalParameters, [dCopy UTF8String]);
+  nw_parameters_set_source_application_by_bundle_id_internal(internalParameters, [dCopy UTF8String], 0);
 }
 
 - (void)setSourceApplicationWithToken:(id *)token
@@ -1490,18 +1490,18 @@ LABEL_9:
 
 - (void)setMaximumSSLProtocolVersion:(unint64_t)version
 {
-  [(NWParameters *)self tlsVersionWithSSLProtocol:?];
+  v5 = [(NWParameters *)self tlsVersionWithSSLProtocol:?];
   [(NWParameters *)self setMaximumSSLProtocolVersionInternal:version];
   internalParameters = [(NWParameters *)self internalParameters];
-  nw_parameters_set_maximum_tls_protocol_version(internalParameters);
+  nw_parameters_set_maximum_tls_protocol_version(internalParameters, v5);
 }
 
 - (void)setMinimumSSLProtocolVersion:(unint64_t)version
 {
-  [(NWParameters *)self tlsVersionWithSSLProtocol:?];
+  v5 = [(NWParameters *)self tlsVersionWithSSLProtocol:?];
   [(NWParameters *)self setMinimumSSLProtocolVersionInternal:version];
   internalParameters = [(NWParameters *)self internalParameters];
-  nw_parameters_set_minimum_tls_protocol_version(internalParameters);
+  nw_parameters_set_minimum_tls_protocol_version(internalParameters, v5);
 }
 
 - (unsigned)tlsVersionWithSSLProtocol:(int)protocol
@@ -1591,8 +1591,9 @@ LABEL_16:
 
 - (void)setKeepAliveOffload:(BOOL)offload
 {
+  offloadCopy = offload;
   internalParameters = [(NWParameters *)self internalParameters];
-  nw_parameters_set_keepalive_offload(internalParameters, offload);
+  nw_parameters_set_keepalive_offload(internalParameters, offloadCopy);
 }
 
 - (BOOL)keepAliveOffload
@@ -1633,8 +1634,9 @@ LABEL_16:
 
 - (void)setKeepAlive:(BOOL)alive
 {
+  aliveCopy = alive;
   internalParameters = [(NWParameters *)self internalParameters];
-  nw_parameters_set_keepalive_enabled(internalParameters, alive);
+  nw_parameters_set_keepalive_enabled(internalParameters, aliveCopy);
 }
 
 - (BOOL)keepAlive
@@ -1647,14 +1649,14 @@ LABEL_16:
 
 - (void)setSSLCipherSuites:(id)suites
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   suitesCopy = suites;
   [(NWParameters *)self setSSLCipherSuitesInternal:suitesCopy];
   if (![suitesCopy count])
   {
     internalParameters = [(NWParameters *)self internalParameters];
     nw_parameters_set_ssl_cipher_suites(internalParameters, 0, 0);
-LABEL_13:
+LABEL_16:
 
     return;
   }
@@ -1663,20 +1665,27 @@ LABEL_13:
   v6 = [internalParameters count];
   if (!v6)
   {
-    v16 = __nwlog_obj();
-    os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
-    *buf = 136446210;
-    v21 = "[NWParameters setSSLCipherSuites:]";
-    LODWORD(v19) = 12;
-    v18 = buf;
-    v17 = _os_log_send_and_compose_impl();
-
-    if (__nwlog_should_abort(v17))
+    v18 = __nwlog_obj();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_16;
+      v19 = 3;
     }
 
-    free(v17);
+    else
+    {
+      v19 = 2;
+    }
+
+    *buf = 136446210;
+    v23 = "[NWParameters setSSLCipherSuites:]";
+    v20 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &dword_181A37000, v18, 16, "%{public}s strict_calloc called with size 0", buf, 12);
+
+    if (__nwlog_should_abort(v20))
+    {
+      goto LABEL_22;
+    }
+
+    free(v20);
   }
 
   v7 = malloc_type_calloc(2uLL, v6, 0xD001139FuLL);
@@ -1687,49 +1696,60 @@ LABEL_13:
     {
       for (i = 0; i != v6; v8[i++] = unsignedIntValue)
       {
-        v10 = [internalParameters objectAtIndexedSubscript:{i, v18, v19}];
+        v10 = [internalParameters objectAtIndexedSubscript:i];
         unsignedIntValue = [v10 unsignedIntValue];
       }
     }
 
-    v12 = [(NWParameters *)self internalParameters:v18];
-    nw_parameters_set_ssl_cipher_suites(v12, v8, v6);
+    internalParameters2 = [(NWParameters *)self internalParameters];
+    nw_parameters_set_ssl_cipher_suites(internalParameters2, v8, v6);
 
     free(v8);
-    goto LABEL_13;
+    goto LABEL_16;
   }
 
   pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
   networkd_settings_init();
   v13 = gLogObj;
-  os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
+  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
   *buf = 136446722;
-  v21 = "[NWParameters setSSLCipherSuites:]";
-  v22 = 2048;
-  v23 = 2;
-  v24 = 2048;
-  v25 = v6;
-  v14 = _os_log_send_and_compose_impl();
-
-  if (!__nwlog_should_abort(v14))
+  v23 = "[NWParameters setSSLCipherSuites:]";
+  if (v14)
   {
-    free(v14);
-    pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
-    networkd_settings_init();
-    v15 = gLogObj;
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136446466;
-      v21 = "[NWParameters setSSLCipherSuites:]";
-      v22 = 1024;
-      LODWORD(v23) = v6;
-      _os_log_impl(&dword_181A37000, v15, OS_LOG_TYPE_ERROR, "%{public}s Could not allocate array for %u SSL cipher suites", buf, 0x12u);
-    }
-
-    goto LABEL_13;
+    v15 = 3;
   }
 
-LABEL_16:
+  else
+  {
+    v15 = 2;
+  }
+
+  v24 = 2048;
+  v25 = 2;
+  v26 = 2048;
+  v27 = v6;
+  LODWORD(v21) = 32;
+  v16 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &dword_181A37000, v13, 16, "%{public}s strict_calloc(%zu, %zu) failed", buf, v21);
+
+  if (!__nwlog_should_abort(v16))
+  {
+    free(v16);
+    pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
+    networkd_settings_init();
+    v17 = gLogObj;
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446466;
+      v23 = "[NWParameters setSSLCipherSuites:]";
+      v24 = 1024;
+      LODWORD(v25) = v6;
+      _os_log_impl(&dword_181A37000, v17, OS_LOG_TYPE_ERROR, "%{public}s Could not allocate array for %u SSL cipher suites", buf, 0x12u);
+    }
+
+    goto LABEL_16;
+  }
+
+LABEL_22:
   __break(1u);
 }
 
@@ -1760,8 +1780,9 @@ LABEL_16:
 
 - (void)setNoProxy:(BOOL)proxy
 {
+  proxyCopy = proxy;
   internalParameters = [(NWParameters *)self internalParameters];
-  nw_parameters_set_no_proxy(internalParameters, proxy);
+  nw_parameters_set_no_proxy(internalParameters, proxyCopy);
 }
 
 - (BOOL)noProxy
@@ -1789,7 +1810,7 @@ LABEL_16:
 - (void)setMultipathForceEnable:(BOOL)enable
 {
   internalParameters = [(NWParameters *)self internalParameters];
-  nw_parameters_set_multipath_force_enable(internalParameters, enable);
+  nw_parameters_set_multipath_force_enable(internalParameters);
 }
 
 - (BOOL)multipathForceEnable
@@ -1835,7 +1856,7 @@ LABEL_16:
 - (void)setResolvePTR:(BOOL)r
 {
   internalParameters = [(NWParameters *)self internalParameters];
-  nw_parameters_set_resolve_ptr(internalParameters, r);
+  nw_parameters_set_resolve_ptr(internalParameters);
 }
 
 - (void)setUseP2P:(BOOL)p
@@ -1847,15 +1868,14 @@ LABEL_16:
 
 - (void)setUseAWDL:(BOOL)l
 {
-  lCopy = l;
   internalParameters = [(NWParameters *)self internalParameters];
-  nw_parameters_set_use_awdl(internalParameters, lCopy);
+  nw_parameters_set_use_awdl(internalParameters);
 }
 
 - (void)setIgnoreResolverStats:(BOOL)stats
 {
   internalParameters = [(NWParameters *)self internalParameters];
-  nw_parameters_set_ignore_resolver_stats(internalParameters, stats);
+  nw_parameters_set_ignore_resolver_stats(internalParameters);
 }
 
 - (BOOL)ignoreResolverStats
@@ -1869,19 +1889,21 @@ LABEL_16:
 - (void)setUseLongOutstandingQueries:(BOOL)queries
 {
   internalParameters = [(NWParameters *)self internalParameters];
-  nw_parameters_set_use_long_outstanding_queries(internalParameters, queries);
+  nw_parameters_set_use_long_outstanding_queries(internalParameters);
 }
 
 - (void)setDisableNagleAlgorithm:(BOOL)algorithm
 {
+  algorithmCopy = algorithm;
   internalParameters = [(NWParameters *)self internalParameters];
-  nw_parameters_set_no_delay(internalParameters, algorithm);
+  nw_parameters_set_no_delay(internalParameters, algorithmCopy);
 }
 
 - (void)setReduceBuffering:(BOOL)buffering
 {
+  bufferingCopy = buffering;
   internalParameters = [(NWParameters *)self internalParameters];
-  nw_parameters_set_reduce_buffering(internalParameters, buffering);
+  nw_parameters_set_reduce_buffering(internalParameters, bufferingCopy);
 }
 
 - (BOOL)reduceBuffering
@@ -1894,8 +1916,9 @@ LABEL_16:
 
 - (void)setFastOpenForceEnable:(BOOL)enable
 {
+  enableCopy = enable;
   internalParameters = [(NWParameters *)self internalParameters];
-  nw_parameters_set_fast_open_force_enable(internalParameters, enable);
+  nw_parameters_set_fast_open_force_enable(internalParameters, enableCopy);
 }
 
 - (BOOL)fastOpenForceEnable
@@ -1908,8 +1931,9 @@ LABEL_16:
 
 - (void)setEnableTFONoCookie:(BOOL)cookie
 {
+  cookieCopy = cookie;
   internalParameters = [(NWParameters *)self internalParameters];
-  nw_parameters_set_tfo_no_cookie(internalParameters, cookie);
+  nw_parameters_set_tfo_no_cookie(internalParameters, cookieCopy);
 }
 
 - (BOOL)enableTFONoCookie
@@ -1922,8 +1946,9 @@ LABEL_16:
 
 - (void)setEnableTFO:(BOOL)o
 {
+  oCopy = o;
   internalParameters = [(NWParameters *)self internalParameters];
-  nw_parameters_set_tfo(internalParameters, o);
+  nw_parameters_set_tfo(internalParameters, oCopy);
 }
 
 - (void)avoidNetworkAgentWithDomain:(id)domain type:(id)type
@@ -2174,7 +2199,7 @@ LABEL_16:
 
 - (void)prohibitNetworkAgentsWithDomain:(id)domain type:(id)type
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   domainCopy = domain;
   typeCopy = type;
   v8 = typeCopy;
@@ -2206,16 +2231,14 @@ LABEL_16:
     networkd_settings_init();
     v16 = gLogObj;
     *buf = 136446466;
-    v45 = "[NWParameters prohibitNetworkAgentsWithDomain:type:]";
-    v46 = 2114;
-    v47 = domainCopy;
-    LODWORD(v40) = 22;
-    v38 = buf;
-    v17 = _os_log_send_and_compose_impl();
+    v42 = "[NWParameters prohibitNetworkAgentsWithDomain:type:]";
+    v43 = 2114;
+    v44 = domainCopy;
+    v17 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v16, 16, "%{public}s Failed to get UTF8String from domain %{public}@", buf, 22);
 
     type = OS_LOG_TYPE_ERROR;
-    v42 = 0;
-    if (!__nwlog_fault(v17, &type, &v42))
+    v39 = 0;
+    if (!__nwlog_fault(v17, &type, &v39))
     {
 LABEL_22:
       if (v17)
@@ -2229,8 +2252,8 @@ LABEL_24:
       {
         xpc_array_set_string(v12, 0xFFFFFFFFFFFFFFFFLL, uTF8String2);
 LABEL_42:
-        v37 = [(NWParameters *)self internalParameters:v39];
-        nw_parameters_set_prohibited_netagent_classes(v37, v10, v12);
+        internalParameters3 = [(NWParameters *)self internalParameters];
+        nw_parameters_set_prohibited_netagent_classes(internalParameters3, v10, v12);
 
         goto LABEL_43;
       }
@@ -2239,16 +2262,15 @@ LABEL_42:
       networkd_settings_init();
       v27 = gLogObj;
       *buf = 136446466;
-      v45 = "[NWParameters prohibitNetworkAgentsWithDomain:type:]";
-      v46 = 2114;
-      v47 = v8;
-      LODWORD(v41) = 22;
-      v39 = buf;
-      v28 = _os_log_send_and_compose_impl();
+      v42 = "[NWParameters prohibitNetworkAgentsWithDomain:type:]";
+      v43 = 2114;
+      v44 = v8;
+      LODWORD(v38) = 22;
+      v28 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v27, 16, "%{public}s Failed to get UTF8String from type %{public}@", buf, v38);
 
       type = OS_LOG_TYPE_ERROR;
-      v42 = 0;
-      if (!__nwlog_fault(v28, &type, &v42))
+      v39 = 0;
+      if (!__nwlog_fault(v28, &type, &v39))
       {
 LABEL_40:
         if (v28)
@@ -2268,9 +2290,9 @@ LABEL_40:
         if (os_log_type_enabled(v29, type))
         {
           *buf = 136446466;
-          v45 = "[NWParameters prohibitNetworkAgentsWithDomain:type:]";
-          v46 = 2114;
-          v47 = v8;
+          v42 = "[NWParameters prohibitNetworkAgentsWithDomain:type:]";
+          v43 = 2114;
+          v44 = v8;
           v31 = "%{public}s Failed to get UTF8String from type %{public}@";
 LABEL_37:
           v35 = v29;
@@ -2282,7 +2304,7 @@ LABEL_38:
 
       else
       {
-        if (v42 == 1)
+        if (v39 == 1)
         {
           backtrace_string = __nw_create_backtrace_string();
           pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
@@ -2295,11 +2317,11 @@ LABEL_38:
             if (v34)
             {
               *buf = 136446722;
-              v45 = "[NWParameters prohibitNetworkAgentsWithDomain:type:]";
-              v46 = 2114;
-              v47 = v8;
-              v48 = 2082;
-              v49 = backtrace_string;
+              v42 = "[NWParameters prohibitNetworkAgentsWithDomain:type:]";
+              v43 = 2114;
+              v44 = v8;
+              v45 = 2082;
+              v46 = backtrace_string;
               _os_log_impl(&dword_181A37000, v29, typeCopy3, "%{public}s Failed to get UTF8String from type %{public}@, dumping backtrace:%{public}s", buf, 0x20u);
             }
 
@@ -2313,9 +2335,9 @@ LABEL_38:
           }
 
           *buf = 136446466;
-          v45 = "[NWParameters prohibitNetworkAgentsWithDomain:type:]";
-          v46 = 2114;
-          v47 = v8;
+          v42 = "[NWParameters prohibitNetworkAgentsWithDomain:type:]";
+          v43 = 2114;
+          v44 = v8;
           v31 = "%{public}s Failed to get UTF8String from type %{public}@, no backtrace";
           v35 = v29;
           v36 = typeCopy3;
@@ -2329,9 +2351,9 @@ LABEL_38:
         if (os_log_type_enabled(v29, type))
         {
           *buf = 136446466;
-          v45 = "[NWParameters prohibitNetworkAgentsWithDomain:type:]";
-          v46 = 2114;
-          v47 = v8;
+          v42 = "[NWParameters prohibitNetworkAgentsWithDomain:type:]";
+          v43 = 2114;
+          v44 = v8;
           v31 = "%{public}s Failed to get UTF8String from type %{public}@, backtrace limit exceeded";
           goto LABEL_37;
         }
@@ -2351,9 +2373,9 @@ LABEL_39:
       if (os_log_type_enabled(v18, type))
       {
         *buf = 136446466;
-        v45 = "[NWParameters prohibitNetworkAgentsWithDomain:type:]";
-        v46 = 2114;
-        v47 = domainCopy;
+        v42 = "[NWParameters prohibitNetworkAgentsWithDomain:type:]";
+        v43 = 2114;
+        v44 = domainCopy;
         v20 = "%{public}s Failed to get UTF8String from domain %{public}@";
 LABEL_19:
         v24 = v18;
@@ -2365,7 +2387,7 @@ LABEL_20:
 
     else
     {
-      if (v42 == 1)
+      if (v39 == 1)
       {
         v21 = __nw_create_backtrace_string();
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
@@ -2378,11 +2400,11 @@ LABEL_20:
           if (v23)
           {
             *buf = 136446722;
-            v45 = "[NWParameters prohibitNetworkAgentsWithDomain:type:]";
-            v46 = 2114;
-            v47 = domainCopy;
-            v48 = 2082;
-            v49 = v21;
+            v42 = "[NWParameters prohibitNetworkAgentsWithDomain:type:]";
+            v43 = 2114;
+            v44 = domainCopy;
+            v45 = 2082;
+            v46 = v21;
             _os_log_impl(&dword_181A37000, v18, typeCopy6, "%{public}s Failed to get UTF8String from domain %{public}@, dumping backtrace:%{public}s", buf, 0x20u);
           }
 
@@ -2396,9 +2418,9 @@ LABEL_20:
         }
 
         *buf = 136446466;
-        v45 = "[NWParameters prohibitNetworkAgentsWithDomain:type:]";
-        v46 = 2114;
-        v47 = domainCopy;
+        v42 = "[NWParameters prohibitNetworkAgentsWithDomain:type:]";
+        v43 = 2114;
+        v44 = domainCopy;
         v20 = "%{public}s Failed to get UTF8String from domain %{public}@, no backtrace";
         v24 = v18;
         v25 = typeCopy6;
@@ -2412,9 +2434,9 @@ LABEL_20:
       if (os_log_type_enabled(v18, type))
       {
         *buf = 136446466;
-        v45 = "[NWParameters prohibitNetworkAgentsWithDomain:type:]";
-        v46 = 2114;
-        v47 = domainCopy;
+        v42 = "[NWParameters prohibitNetworkAgentsWithDomain:type:]";
+        v43 = 2114;
+        v44 = domainCopy;
         v20 = "%{public}s Failed to get UTF8String from domain %{public}@, backtrace limit exceeded";
         goto LABEL_19;
       }
@@ -2518,7 +2540,7 @@ LABEL_43:
 - (void)setProhibitRoaming:(BOOL)roaming
 {
   internalParameters = [(NWParameters *)self internalParameters];
-  nw_parameters_set_prohibit_roaming(internalParameters, roaming);
+  nw_parameters_set_prohibit_roaming(internalParameters);
 }
 
 - (void)setProhibitConstrainedPaths:(BOOL)paths
@@ -2758,14 +2780,14 @@ uint64_t __25__NWParameters_parentIDs__block_invoke(uint64_t a1, uint64_t a2)
 - (void)setTrustInvalidCertificates:(BOOL)certificates
 {
   internalParameters = [(NWParameters *)self internalParameters];
-  nw_parameters_set_should_trust_invalid_certificates(internalParameters, certificates);
+  nw_parameters_set_should_trust_invalid_certificates(internalParameters);
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [NWParameters allocWithZone:zone];
   internalParameters = [(NWParameters *)self internalParameters];
-  v6 = _nw_parameters_copy(internalParameters);
+  v6 = _nw_parameters_copy();
   v7 = [(NWParameters *)v4 initWithParameters:v6];
 
   return v7;
@@ -3240,7 +3262,7 @@ LABEL_6:
     v14 = __nwlog_obj();
     *buf = 136446210;
     v27 = "[NWParameters initWithParameters:]";
-    v15 = _os_log_send_and_compose_impl();
+    v15 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v14, 16, "%{public}s [super init] failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v24 = 0;
@@ -3319,7 +3341,7 @@ LABEL_38:
   v9 = __nwlog_obj();
   *buf = 136446210;
   v27 = "[NWParameters initWithParameters:]";
-  v10 = _os_log_send_and_compose_impl();
+  v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s called with null parameters", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v24 = 0;
@@ -3410,7 +3432,7 @@ LABEL_4:
     v18 = __nwlog_obj();
     *buf = 136446210;
     v28 = "[NWParameters init]";
-    v7 = _os_log_send_and_compose_impl();
+    v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v18, 16, "%{public}s [super init] failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v24 = 0;
@@ -3506,7 +3528,7 @@ LABEL_15:
     v6 = gLogObj;
     *buf = 136446210;
     v28 = "[NWParameters init]";
-    v7 = _os_log_send_and_compose_impl();
+    v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s nw_parameters_create failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v24 = 0;
@@ -3639,7 +3661,7 @@ LABEL_43:
       v24 = gLogObj;
       *applier = 136446210;
       *&applier[4] = "[NWParameters encodeWithCoder:]";
-      v25 = _os_log_send_and_compose_impl();
+      v25 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v24, 16, "%{public}s NWUtilsCreateNSDictionaryFromXPCDictionary failed", applier, 12);
 
       type = OS_LOG_TYPE_ERROR;
       v34 = 0;
@@ -3739,7 +3761,7 @@ LABEL_40:
   v14 = gLogObj;
   *applier = 136446210;
   *&applier[4] = "[NWParameters encodeWithCoder:]";
-  v15 = _os_log_send_and_compose_impl();
+  v15 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v14, 16, "%{public}s nw_parameters_copy_dictionary failed", applier, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v34 = 0;
@@ -3837,11 +3859,11 @@ LABEL_44:
 
 - (NWParameters)initWithCoder:(id)coder
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v57.receiver = self;
-  v57.super_class = NWParameters;
-  v5 = [(NWParameters *)&v57 init];
+  v58.receiver = self;
+  v58.super_class = NWParameters;
+  v5 = [(NWParameters *)&v58 init];
   if (v5)
   {
     v6 = objc_alloc(MEMORY[0x1E695DFD8]);
@@ -3887,11 +3909,12 @@ LABEL_48:
         v37 = gLogObj;
         *length = 136446210;
         *&length[4] = "[NWParameters initWithCoder:]";
-        v30 = _os_log_send_and_compose_impl();
+        LODWORD(v55) = 12;
+        v30 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v37, 16, "%{public}s nw_parameters_create_from_dictionary failed", length, v55);
 
         type = OS_LOG_TYPE_ERROR;
-        v55 = 0;
-        if (!__nwlog_fault(v30, &type, &v55))
+        v56 = 0;
+        if (!__nwlog_fault(v30, &type, &v56))
         {
 LABEL_45:
           if (!v30)
@@ -3923,7 +3946,7 @@ LABEL_46:
           goto LABEL_55;
         }
 
-        if (v55 != 1)
+        if (v56 != 1)
         {
           pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
           networkd_settings_init();
@@ -3952,8 +3975,8 @@ LABEL_46:
           {
             *length = 136446466;
             *&length[4] = "[NWParameters initWithCoder:]";
-            v59 = 2082;
-            v60 = backtrace_string;
+            v60 = 2082;
+            v61 = backtrace_string;
             v41 = "%{public}s nw_parameters_create_from_dictionary failed, dumping backtrace:%{public}s";
             goto LABEL_43;
           }
@@ -3977,11 +4000,12 @@ LABEL_46:
         v29 = gLogObj;
         *length = 136446210;
         *&length[4] = "[NWParameters initWithCoder:]";
-        v30 = _os_log_send_and_compose_impl();
+        LODWORD(v55) = 12;
+        v30 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v29, 16, "%{public}s NWUtilsCreateXPCDictionaryFromNSDictionary failed", length, v55);
 
         type = OS_LOG_TYPE_ERROR;
-        v55 = 0;
-        if (!__nwlog_fault(v30, &type, &v55))
+        v56 = 0;
+        if (!__nwlog_fault(v30, &type, &v56))
         {
           goto LABEL_45;
         }
@@ -4008,7 +4032,7 @@ LABEL_56:
           goto LABEL_57;
         }
 
-        if (v55 != 1)
+        if (v56 != 1)
         {
           pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
           networkd_settings_init();
@@ -4037,8 +4061,8 @@ LABEL_56:
           {
             *length = 136446466;
             *&length[4] = "[NWParameters initWithCoder:]";
-            v59 = 2082;
-            v60 = backtrace_string;
+            v60 = 2082;
+            v61 = backtrace_string;
             v41 = "%{public}s NWUtilsCreateXPCDictionaryFromNSDictionary failed, dumping backtrace:%{public}s";
 LABEL_43:
             _os_log_impl(&dword_181A37000, v31, v39, v41, length, 0x16u);
@@ -4077,11 +4101,12 @@ LABEL_57:
     v24 = gLogObj;
     *length = 136446210;
     *&length[4] = "[NWParameters initWithCoder:]";
-    v25 = _os_log_send_and_compose_impl();
+    LODWORD(v55) = 12;
+    v25 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v24, 16, "%{public}s decodeObjectOfClasses:forKey failed", length, v55);
 
     type = OS_LOG_TYPE_ERROR;
-    v55 = 0;
-    if (__nwlog_fault(v25, &type, &v55))
+    v56 = 0;
+    if (__nwlog_fault(v25, &type, &v56))
     {
       if (type == OS_LOG_TYPE_FAULT)
       {
@@ -4103,7 +4128,7 @@ LABEL_35:
         goto LABEL_36;
       }
 
-      if (v55 != 1)
+      if (v56 != 1)
       {
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
         networkd_settings_init();
@@ -4154,8 +4179,8 @@ LABEL_36:
       {
         *length = 136446466;
         *&length[4] = "[NWParameters initWithCoder:]";
-        v59 = 2082;
-        v60 = v34;
+        v60 = 2082;
+        v61 = v34;
         _os_log_impl(&dword_181A37000, v26, v35, "%{public}s decodeObjectOfClasses:forKey failed, dumping backtrace:%{public}s", length, 0x16u);
       }
 
@@ -4179,11 +4204,11 @@ LABEL_23:
   v48 = __nwlog_obj();
   *length = 136446210;
   *&length[4] = "[NWParameters initWithCoder:]";
-  v49 = _os_log_send_and_compose_impl();
+  v49 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v48, 16, "%{public}s [super init] failed", length, 12);
 
   type = OS_LOG_TYPE_ERROR;
-  v55 = 0;
-  if (__nwlog_fault(v49, &type, &v55))
+  v56 = 0;
+  if (__nwlog_fault(v49, &type, &v56))
   {
     if (type == OS_LOG_TYPE_FAULT)
     {
@@ -4201,7 +4226,7 @@ LABEL_79:
 
     else
     {
-      if (v55 == 1)
+      if (v56 == 1)
       {
         v53 = __nw_create_backtrace_string();
         v50 = __nwlog_obj();
@@ -4213,8 +4238,8 @@ LABEL_79:
           {
             *length = 136446466;
             *&length[4] = "[NWParameters initWithCoder:]";
-            v59 = 2082;
-            v60 = v53;
+            v60 = 2082;
+            v61 = v53;
             _os_log_impl(&dword_181A37000, v50, v51, "%{public}s [super init] failed, dumping backtrace:%{public}s", length, 0x16u);
           }
 
@@ -4271,7 +4296,7 @@ LABEL_50:
     v21 = gLogObj;
     *buf = 136446210;
     v104 = "+[NWParameters parametersWithProtocolBufferData:]";
-    v22 = _os_log_send_and_compose_impl();
+    v22 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v21, 16, "%{public}s [NWPBParameters initWithData:] failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v97 = 0;
@@ -4655,7 +4680,7 @@ LABEL_85:
 {
   parametersCopy = parameters;
   v4 = [NWParameters alloc];
-  v5 = _nw_parameters_copy(parametersCopy);
+  v5 = _nw_parameters_copy();
 
   v6 = [(NWParameters *)v4 initWithParameters:v5];
 

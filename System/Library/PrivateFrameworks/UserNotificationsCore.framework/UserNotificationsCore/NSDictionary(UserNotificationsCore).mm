@@ -12,10 +12,10 @@
 
 - (id)unc_safeCastObjectForKey:()UserNotificationsCore class:
 {
-  v1 = [self objectForKey:?];
-  v2 = UNSafeCast();
+  v4 = [self objectForKey:a3];
+  v5 = UNSafeCast();
 
-  return v2;
+  return v5;
 }
 
 - (id)unc_safeCastObjectForKey:()UserNotificationsCore classes:

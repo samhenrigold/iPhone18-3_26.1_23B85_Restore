@@ -197,29 +197,29 @@
         return *MEMORY[0x1E695E4D0];
       }
 
-      if ([key isEqualToString:?])
+      if (objc_msgSend_isEqualToString_(key, a2))
       {
         goto LABEL_10;
       }
 
-      if ([key isEqualToString:@"new"])
+      if (objc_msgSend_isEqualToString_(key))
       {
         return self->_details.newValue;
       }
 
-      if ([key isEqualToString:@"old"])
+      if (objc_msgSend_isEqualToString_(key))
       {
         return self->_details.oldValue;
       }
 
-      if ([key isEqualToString:@"indexes"])
+      if (objc_msgSend_isEqualToString_(key))
       {
         return self->_details.indexes;
       }
 
-      if (![key isEqualToString:0x1EEF09E30])
+      if (!objc_msgSend_isEqualToString_(key))
       {
-        if (![key isEqualToString:@"notificationIsPrior"])
+        if (!objc_msgSend_isEqualToString_(key))
         {
           return 0;
         }

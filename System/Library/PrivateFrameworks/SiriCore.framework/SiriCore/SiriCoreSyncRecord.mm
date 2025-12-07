@@ -1,5 +1,6 @@
 @interface SiriCoreSyncRecord
 + (id)syncRecordWithKey:(id)key identifier:(id)identifier;
++ (id)syncRecordWithKey:(id)key identifier:(id)identifier priority:(int)priority debugValue:(id)value dataValue:(id)dataValue addedValue:(id)addedValue appMeta:(id)meta;
 - (SiriCoreSyncRecord)initWithKey:(id)key identifier:(id)identifier priority:(int)priority debugValue:(id)value dataValue:(id)dataValue addedValue:(id)addedValue appMeta:(id)meta;
 - (id)description;
 - (void)setUpdateTimeToNow;
@@ -27,7 +28,7 @@
 
 - (void)updateHash
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   CC_SHA256(&self->_itemPriority, 4u, md);
   if (self->_identifier)
   {
@@ -56,8 +57,6 @@
   v7 = [MEMORY[0x277CBEA90] dataWithBytes:md length:8];
   checkHash = self->_checkHash;
   self->_checkHash = v7;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (SiriCoreSyncRecord)initWithKey:(id)key identifier:(id)identifier priority:(int)priority debugValue:(id)value dataValue:(id)dataValue addedValue:(id)addedValue appMeta:(id)meta
@@ -95,6 +94,20 @@
   v7 = [[SiriCoreSyncRecord alloc] initWithKey:keyCopy identifier:identifierCopy priority:0 debugValue:0 dataValue:0 addedValue:0 appMeta:0];
 
   return v7;
+}
+
++ (id)syncRecordWithKey:(id)key identifier:(id)identifier priority:(int)priority debugValue:(id)value dataValue:(id)dataValue addedValue:(id)addedValue appMeta:(id)meta
+{
+  v12 = *&priority;
+  metaCopy = meta;
+  addedValueCopy = addedValue;
+  dataValueCopy = dataValue;
+  valueCopy = value;
+  identifierCopy = identifier;
+  keyCopy = key;
+  v21 = [[SiriCoreSyncRecord alloc] initWithKey:keyCopy identifier:identifierCopy priority:v12 debugValue:valueCopy dataValue:dataValueCopy addedValue:addedValueCopy appMeta:metaCopy];
+
+  return v21;
 }
 
 @end

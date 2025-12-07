@@ -8,6 +8,7 @@
 - (void)_declineButtonTapped;
 - (void)_setNavigationItems;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation TSCellularPlanUserConsentViewController
@@ -15,6 +16,7 @@
 + (void)calculateTitleAndDetailsWithName:(id)name consentType:(unint64_t)type title:(id *)title details:(id *)details
 {
   nameCopy = name;
+  v10 = nameCopy;
   if (type <= 1)
   {
     if (type)
@@ -27,24 +29,24 @@
 
     else
     {
-      v27 = _TSLogDomain();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v28 = _TSLogDomain(nameCopy);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        [TSCellularPlanUserConsentViewController calculateTitleAndDetailsWithName:v27 consentType:? title:? details:?];
+        [TSCellularPlanUserConsentViewController calculateTitleAndDetailsWithName:v28 consentType:? title:? details:?];
       }
     }
 
-    v28 = MEMORY[0x277CCACA8];
-    v29 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v30 = [v29 localizedStringForKey:@"ACTIVATE_ESIM" value:&stru_28753DF48 table:@"Localizable"];
-    *title = [v28 stringWithFormat:v30];
+    v29 = MEMORY[0x277CCACA8];
+    v30 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v31 = [v30 localizedStringForKey:@"ACTIVATE_ESIM" value:&stru_28753DF48 table:@"Localizable"];
+    *title = [v29 stringWithFormat:v31];
 
-    if (nameCopy)
+    if (v10)
     {
-      v13 = MEMORY[0x277CCACA8];
-      v14 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v15 = v14;
-      v16 = @"APP_USER_CONSENT_DETAIL_%@";
+      v14 = MEMORY[0x277CCACA8];
+      v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v16 = v15;
+      v17 = @"APP_USER_CONSENT_DETAIL_%@";
       goto LABEL_20;
     }
 
@@ -54,66 +56,66 @@
   switch(type)
   {
     case 2uLL:
-      v17 = MEMORY[0x277CCACA8];
-      v18 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v19 = [v18 localizedStringForKey:@"CONSENT_NEW_PROFILE_POLICY_TITLE" value:&stru_28753DF48 table:@"Localizable"];
-      *title = [v17 stringWithFormat:v19];
+      v18 = MEMORY[0x277CCACA8];
+      v19 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v20 = [v19 localizedStringForKey:@"CONSENT_NEW_PROFILE_POLICY_TITLE" value:&stru_28753DF48 table:@"Localizable"];
+      *title = [v18 stringWithFormat:v20];
 
-      v20 = MEMORY[0x277CCACA8];
-      v21 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      if (nameCopy)
+      v21 = MEMORY[0x277CCACA8];
+      v22 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      if (v10)
       {
-        v22 = @"CONSENT_NEW_PLAN_CANNOT_BE_DELETED_%@_%@";
+        v23 = @"CONSENT_NEW_PLAN_CANNOT_BE_DELETED_%@_%@";
 LABEL_14:
-        v26 = [v21 localizedStringForKey:v22 value:&stru_28753DF48 table:@"Localizable"];
-        [v20 stringWithFormat:v26, nameCopy, nameCopy];
+        v27 = [v22 localizedStringForKey:v23 value:&stru_28753DF48 table:@"Localizable"];
+        [v21 stringWithFormat:v27, v10, v10];
         *details = LABEL_24:;
 
         goto LABEL_25;
       }
 
-      v32 = @"CONSENT_NEW_PLAN_CANNOT_BE_DELETED_NO_NAME";
+      v33 = @"CONSENT_NEW_PLAN_CANNOT_BE_DELETED_NO_NAME";
 LABEL_23:
-      v26 = [v21 localizedStringForKey:v32 value:&stru_28753DF48 table:@"Localizable"];
-      [v20 stringWithFormat:v26, v33, v34];
+      v27 = [v22 localizedStringForKey:v33 value:&stru_28753DF48 table:@"Localizable"];
+      [v21 stringWithFormat:v27, v34, v35];
       goto LABEL_24;
     case 3uLL:
-      v23 = MEMORY[0x277CCACA8];
-      v24 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v25 = [v24 localizedStringForKey:@"CONSENT_NEW_PROFILE_POLICY_TITLE" value:&stru_28753DF48 table:@"Localizable"];
-      *title = [v23 stringWithFormat:v25];
+      v24 = MEMORY[0x277CCACA8];
+      v25 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v26 = [v25 localizedStringForKey:@"CONSENT_NEW_PROFILE_POLICY_TITLE" value:&stru_28753DF48 table:@"Localizable"];
+      *title = [v24 stringWithFormat:v26];
 
-      v20 = MEMORY[0x277CCACA8];
-      v21 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      if (nameCopy)
+      v21 = MEMORY[0x277CCACA8];
+      v22 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      if (v10)
       {
-        v22 = @"CONSENT_NEW_PLAN_CANNOT_BE_DISABLED_%@_%@";
+        v23 = @"CONSENT_NEW_PLAN_CANNOT_BE_DISABLED_%@_%@";
         goto LABEL_14;
       }
 
-      v32 = @"CONSENT_NEW_PLAN_CANNOT_BE_DISABLED_NO_NAME";
+      v33 = @"CONSENT_NEW_PLAN_CANNOT_BE_DISABLED_NO_NAME";
       goto LABEL_23;
     case 4uLL:
-      v10 = MEMORY[0x277CCACA8];
-      v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v12 = [v11 localizedStringForKey:@"ACTIVATE_ESIM" value:&stru_28753DF48 table:@"Localizable"];
-      *title = [v10 stringWithFormat:v12];
+      v11 = MEMORY[0x277CCACA8];
+      v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v13 = [v12 localizedStringForKey:@"ACTIVATE_ESIM" value:&stru_28753DF48 table:@"Localizable"];
+      *title = [v11 stringWithFormat:v13];
 
-      if (nameCopy)
+      if (v10)
       {
-        v13 = MEMORY[0x277CCACA8];
-        v14 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v15 = v14;
-        v16 = @"GENERAL_USER_CONSENT_COMMON_DETAIL_%@";
+        v14 = MEMORY[0x277CCACA8];
+        v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v16 = v15;
+        v17 = @"GENERAL_USER_CONSENT_COMMON_DETAIL_%@";
 LABEL_20:
-        v31 = [v14 localizedStringForKey:v16 value:&stru_28753DF48 table:@"Localizable"];
-        *details = [v13 stringWithFormat:v31, nameCopy];
+        v32 = [v15 localizedStringForKey:v17 value:&stru_28753DF48 table:@"Localizable"];
+        *details = [v14 stringWithFormat:v32, v10];
 
         break;
       }
 
-      v21 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      *details = [v21 localizedStringForKey:@"GENERAL_USER_CONSENT_COMMON_DETAIL" value:&stru_28753DF48 table:@"Localizable"];
+      v22 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      *details = [v22 localizedStringForKey:@"GENERAL_USER_CONSENT_COMMON_DETAIL" value:&stru_28753DF48 table:@"Localizable"];
 LABEL_25:
 
       break;
@@ -250,6 +252,37 @@ LABEL_11:
   [(TSCellularPlanUserConsentViewController *)self _setNavigationItems];
 }
 
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v17.receiver = self;
+  v17.super_class = TSCellularPlanUserConsentViewController;
+  v4 = [(OBBaseWelcomeController *)&v17 viewWillDisappear:disappear];
+  if (!self->_didReceiveResponse)
+  {
+    v5 = _TSLogDomain(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    {
+      [(TSCellularPlanUserConsentViewController *)v5 viewWillDisappear:v6, v7, v8, v9, v10, v11, v12];
+    }
+
+    consentType = self->_consentType;
+    v14 = +[TSCellularPlanManagerCache sharedInstance];
+    v15 = v14;
+    if (consentType == 1)
+    {
+      [v14 resumePlanProvisioning:0 userConsent:0];
+    }
+
+    else
+    {
+      [v14 provideUserResponse:2 confirmationCode:&stru_28753DF48];
+    }
+  }
+
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained receivedResponse];
+}
+
 - (void)_setNavigationItems
 {
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -284,7 +317,7 @@ LABEL_9:
 
 - (void)_acceptButtonTapped
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (*(self + 1248))
   {
     v2 = "Yes";
@@ -295,26 +328,25 @@ LABEL_9:
     v2 = "No";
   }
 
-  v4 = 136315394;
-  v5 = v2;
-  v6 = 2080;
-  v7 = "[TSCellularPlanUserConsentViewController _acceptButtonTapped]";
-  _os_log_debug_impl(&dword_262AA8000, a2, OS_LOG_TYPE_DEBUG, "[Db] more consent: %s @%s", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 136315394;
+  v4 = v2;
+  v5 = 2080;
+  v6 = "[TSCellularPlanUserConsentViewController _acceptButtonTapped]";
+  _os_log_debug_impl(&dword_262AA8000, a2, OS_LOG_TYPE_DEBUG, "[Db] more consent: %s @%s", &v3, 0x16u);
 }
 
 - (void)_declineButtonTapped
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3(&dword_262AA8000, self, a3, "[Db] declined @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSCellularPlanUserConsentViewController _declineButtonTapped]";
+  OUTLINED_FUNCTION_0_3(&dword_262AA8000, self, a3, "[Db] declined @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_cancelButtonTapped
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3(&dword_262AA8000, self, a3, "[Db] cancelled @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSCellularPlanUserConsentViewController _cancelButtonTapped]";
+  OUTLINED_FUNCTION_0_3(&dword_262AA8000, self, a3, "[Db] cancelled @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (TSSIMSetupFlowDelegate)delegate
@@ -326,18 +358,17 @@ LABEL_9:
 
 + (void)calculateTitleAndDetailsWithName:(os_log_t)log consentType:title:details:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "+[TSCellularPlanUserConsentViewController calculateTitleAndDetailsWithName:consentType:title:details:]";
-  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]No conent type, default to general consent @%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "+[TSCellularPlanUserConsentViewController calculateTitleAndDetailsWithName:consentType:title:details:]";
+  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]No conent type, default to general consent @%s", &v1, 0xCu);
 }
 
 - (void)viewWillDisappear:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3(&dword_262AA8000, a1, a3, "[Db] No user response, cancelling @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[TSCellularPlanUserConsentViewController viewWillDisappear:]";
+  OUTLINED_FUNCTION_0_3(&dword_262AA8000, a1, a3, "[Db] No user response, cancelling @%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

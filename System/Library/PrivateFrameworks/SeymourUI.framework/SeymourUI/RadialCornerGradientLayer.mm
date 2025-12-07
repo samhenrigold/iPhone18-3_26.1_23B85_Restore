@@ -25,7 +25,7 @@
 - (void)layoutSublayers
 {
   selfCopy = self;
-  sub_20BCA0708();
+  sub_20BCA0708(selfCopy);
 }
 
 - (_TtC9SeymourUI25RadialCornerGradientLayer)init

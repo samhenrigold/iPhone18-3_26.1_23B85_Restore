@@ -5,6 +5,7 @@
 - (id)_resultForCommand:(const char *)command;
 - (void)_getDefaultGateway:(id *)gateway iface:(id *)iface;
 - (void)_handleMessage:(id)message;
+- (void)_logAnalysisForURL:(id)l failedIFaceIndex:(id)index sendBufferSize:(id)size isUserFailure:(BOOL)failure isWWANPreferred:(BOOL)preferred isRetrySuccess:(BOOL)success;
 - (void)_pingHost:(id)host time:(double *)time sentPackets:(int64_t *)packets droppedPackets:(int64_t *)droppedPackets;
 - (void)_startAnalysisWithMessage:(id)message;
 - (void)runAnalysis;
@@ -128,6 +129,213 @@ LABEL_17:
   }
 
 LABEL_18:
+}
+
+- (void)_logAnalysisForURL:(id)l failedIFaceIndex:(id)index sendBufferSize:(id)size isUserFailure:(BOOL)failure isWWANPreferred:(BOOL)preferred isRetrySuccess:(BOOL)success
+{
+  successCopy = success;
+  preferredCopy = preferred;
+  failureCopy = failure;
+  lCopy = l;
+  indexCopy = index;
+  sizeCopy = size;
+  v14 = +[NSMutableDictionary dictionary];
+  v15 = [NSNumber numberWithBool:failureCopy];
+  [v14 setObject:v15 forKey:@"User Failure"];
+
+  v16 = [NSNumber numberWithBool:preferredCopy];
+  [v14 setObject:v16 forKey:@"WWAN Preferred"];
+
+  v17 = [NSNumber numberWithBool:successCopy];
+  [v14 setObject:v17 forKey:@"Retry Success"];
+
+  if (indexCopy)
+  {
+    v18 = sub_100001CB0([indexCopy intValue]);
+    v19 = v18;
+    if (v18)
+    {
+      if ([v18 isEqualToString:@"pdp_ip0"])
+      {
+        v20 = 1;
+      }
+
+      else
+      {
+        v20 = 2;
+      }
+
+      v21 = [NSNumber numberWithInt:v20];
+      [v14 setObject:v21 forKey:@"Connection Interface"];
+    }
+  }
+
+  else
+  {
+    v19 = 0;
+  }
+
+  if (sizeCopy)
+  {
+    [v14 setObject:sizeCopy forKey:@"Send buffer size"];
+  }
+
+  v74[0] = 0;
+  v74[1] = v74;
+  v74[2] = 0x3032000000;
+  v74[3] = sub_100001D38;
+  v74[4] = sub_100001D48;
+  v75 = 0;
+  v72[0] = 0;
+  v72[1] = v72;
+  v72[2] = 0x3032000000;
+  v72[3] = sub_100001D38;
+  v72[4] = sub_100001D48;
+  v73 = 0;
+  v70 = 0;
+  v71 = 0;
+  [(AFAnalyzer *)self _getDefaultGateway:&v71 iface:&v70];
+  v22 = v71;
+  v47 = v70;
+  if (![v22 length])
+  {
+    v27 = objc_msgSend_numberWithInteger_(NSNumber);
+    [v14 setObject:v27 forKey:@"Gateway availability status"];
+    goto LABEL_28;
+  }
+
+  v23 = AFSiriLogContextAnalysis;
+  if (os_log_type_enabled(AFSiriLogContextAnalysis, OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315650;
+    v77 = "[AFAnalyzer _logAnalysisForURL:failedIFaceIndex:sendBufferSize:isUserFailure:isWWANPreferred:isRetrySuccess:]";
+    v78 = 2112;
+    v79 = v22;
+    v80 = 2112;
+    v81 = v47;
+    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "%s Gateway is %@ on interface %@", buf, 0x20u);
+  }
+
+  v24 = [v47 isEqualToString:{@"pdp_ip0", v19}];
+  if (v24)
+  {
+    v25 = 1;
+  }
+
+  else
+  {
+    v25 = 2;
+  }
+
+  v26 = [NSNumber numberWithInt:v25];
+  [v14 setObject:v26 forKey:@"Gateway availability status"];
+
+  v27 = dispatch_group_create();
+  v28 = dispatch_get_global_queue(0, 0);
+  v29 = dispatch_queue_create(0, 0);
+  v30 = objc_alloc_init(NSMutableDictionary);
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_100001D50;
+  block[3] = &unk_100008438;
+  block[4] = self;
+  v31 = v29;
+  v68 = v31;
+  v32 = v30;
+  v69 = v32;
+  dispatch_group_async(v27, v28, block);
+  if ((v24 & 1) == 0)
+  {
+    v61[0] = _NSConcreteStackBlock;
+    v61[1] = 3221225472;
+    v61[2] = sub_100001E2C;
+    v61[3] = &unk_100008488;
+    v61[4] = self;
+    v62 = v22;
+    v65 = v74;
+    v66 = v72;
+    v63 = v31;
+    v64 = v32;
+    dispatch_group_async(v27, v28, v61);
+  }
+
+  v57[0] = _NSConcreteStackBlock;
+  v57[1] = 3221225472;
+  v57[2] = sub_100001F58;
+  v57[3] = &unk_1000084B0;
+  v57[4] = self;
+  v33 = lCopy;
+  v58 = v33;
+  v34 = v31;
+  v59 = v34;
+  v35 = v32;
+  v60 = v35;
+  dispatch_group_async(v27, v28, v57);
+  uRLByDeletingLastPathComponent = [v33 URLByDeletingLastPathComponent];
+  v37 = [uRLByDeletingLastPathComponent URLByAppendingPathComponent:@"salt"];
+
+  if (v37)
+  {
+    v53[0] = _NSConcreteStackBlock;
+    v53[1] = 3221225472;
+    v53[2] = sub_100002008;
+    v53[3] = &unk_1000084B0;
+    v53[4] = self;
+    v54 = v37;
+    v55 = v34;
+    v56 = v35;
+    dispatch_group_async(v27, v28, v53);
+  }
+
+  v38 = dispatch_time(0, 20000000000);
+  v39 = dispatch_group_wait(v27, v38);
+  v40 = AFSiriLogContextAnalysis;
+  v41 = os_log_type_enabled(AFSiriLogContextAnalysis, OS_LOG_TYPE_INFO);
+  if (v39)
+  {
+    if (v41)
+    {
+      *buf = 136315138;
+      v77 = "[AFAnalyzer _logAnalysisForURL:failedIFaceIndex:sendBufferSize:isUserFailure:isWWANPreferred:isRetrySuccess:]";
+      v42 = "%s Failed waiting for network";
+LABEL_26:
+      _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_INFO, v42, buf, 0xCu);
+    }
+  }
+
+  else if (v41)
+  {
+    *buf = 136315138;
+    v77 = "[AFAnalyzer _logAnalysisForURL:failedIFaceIndex:sendBufferSize:isUserFailure:isWWANPreferred:isRetrySuccess:]";
+    v42 = "%s Dispatch group finished waiting";
+    goto LABEL_26;
+  }
+
+  v50[0] = _NSConcreteStackBlock;
+  v50[1] = 3221225472;
+  v50[2] = sub_1000020B8;
+  v50[3] = &unk_1000084D8;
+  v51 = v35;
+  v52 = v14;
+  v43 = v35;
+  dispatch_sync(v34, v50);
+
+  v19 = v45;
+LABEL_28:
+
+  v44 = AFSiriLogContextAnalysis;
+  if (os_log_type_enabled(AFSiriLogContextAnalysis, OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315394;
+    v77 = "[AFAnalyzer _logAnalysisForURL:failedIFaceIndex:sendBufferSize:isUserFailure:isWWANPreferred:isRetrySuccess:]";
+    v78 = 2112;
+    v79 = v14;
+    _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_INFO, "%s %@", buf, 0x16u);
+  }
+
+  _Block_object_dispose(v72, 8);
+
+  _Block_object_dispose(v74, 8);
 }
 
 - (double)_measureTimeToLoadURL:(id)l withMethod:(id)method

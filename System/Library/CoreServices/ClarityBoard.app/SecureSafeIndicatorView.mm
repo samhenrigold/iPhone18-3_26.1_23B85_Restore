@@ -8,7 +8,7 @@
 
 + (Class)layerClass
 {
-  sub_10002C9FC(0, &qword_10032FE08);
+  sub_10002C9FC(0, &qword_10032FE08, CASecureIndicatorLayer_ptr);
 
   return swift_getObjCClassFromMetadata();
 }

@@ -1,10 +1,67 @@
 @interface IDSLocalPairingRecord
 - (IDSLocalPairingRecord)initWithCoder:(id)coder;
 - (IDSLocalPairingRecord)initWithIdentityDataClassA:(id)a classC:(id)c classD:(id)d;
+- (id)identityDataForDataProtectionClass:(unsigned int)class error:(id *)error;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation IDSLocalPairingRecord
+
+- (id)identityDataForDataProtectionClass:(unsigned int)class error:(id *)error
+{
+  v5 = *&class;
+  v22[1] = *MEMORY[0x1E69E9840];
+  protectionClassIdentityDataMap = [(IDSLocalPairingRecord *)self protectionClassIdentityDataMap];
+  v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v5];
+  v8 = [protectionClassIdentityDataMap objectForKeyedSubscript:v7];
+
+  if (v8)
+  {
+    identityData = [v8 identityData];
+    if (identityData)
+    {
+
+      goto LABEL_5;
+    }
+
+    error = [v8 error];
+
+    if (error)
+    {
+LABEL_5:
+      error2 = [v8 error];
+      if (!error)
+      {
+        goto LABEL_7;
+      }
+
+      goto LABEL_6;
+    }
+  }
+
+  v15 = MEMORY[0x1E696AEC0];
+  v16 = IDSDataProtectionClassStringFromDataProtectionClass();
+  v17 = [v15 stringWithFormat:@"Missing identity for class-%@", v16];
+
+  v18 = MEMORY[0x1E696ABC0];
+  v19 = *MEMORY[0x1E69A4CB8];
+  v21 = *MEMORY[0x1E696A278];
+  v22[0] = v17;
+  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+  error2 = [v18 errorWithDomain:v19 code:7 userInfo:v20];
+
+  if (error)
+  {
+LABEL_6:
+    v12 = error2;
+    *error = error2;
+  }
+
+LABEL_7:
+  identityData2 = [v8 identityData];
+
+  return identityData2;
+}
 
 - (IDSLocalPairingRecord)initWithIdentityDataClassA:(id)a classC:(id)c classD:(id)d
 {

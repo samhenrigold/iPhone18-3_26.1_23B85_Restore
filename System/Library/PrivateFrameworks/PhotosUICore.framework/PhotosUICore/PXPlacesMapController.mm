@@ -1724,7 +1724,7 @@ void __40__PXPlacesMapController_removePipeline___block_invoke_2(uint64_t a1)
   *(v3 + 40) = v2;
 }
 
-uint64_t __40__PXPlacesMapController_removePipeline___block_invoke_3(void *a1)
+void *__40__PXPlacesMapController_removePipeline___block_invoke_3(void *a1)
 {
   [*(*(a1[5] + 8) + 40) removeObject:a1[4]];
   result = [*(*(a1[5] + 8) + 40) count];
@@ -1864,11 +1864,11 @@ void __42__PXPlacesMapController_removeDataSource___block_invoke_3(void *a1)
   }
 }
 
-uint64_t __42__PXPlacesMapController_removeDataSource___block_invoke_4(uint64_t result)
+id *__42__PXPlacesMapController_removeDataSource___block_invoke_4(id *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
-    return [*(result + 40) addObject:?];
+    return [result[5] addObject:?];
   }
 
   return result;

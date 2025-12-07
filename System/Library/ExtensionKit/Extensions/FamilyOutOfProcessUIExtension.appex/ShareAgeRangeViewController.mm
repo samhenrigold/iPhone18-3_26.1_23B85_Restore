@@ -50,15 +50,14 @@
 {
   v6 = sub_10001B410();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10001B3F0();
   viewCopy = view;
   selfCopy = self;
-  sub_10001A288(v10);
+  sub_10001A288(v9);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (int64_t)numberOfSectionsInTableView:(id)view
@@ -72,17 +71,16 @@
 {
   v6 = sub_10001B410();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10001B3F0();
   viewCopy = view;
   selfCopy = self;
-  v13 = sub_100018690(viewCopy, v10);
+  v12 = sub_100018690(viewCopy, v9);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 
-  return v13;
+  return v12;
 }
 
 - (id)tableView:viewForHeaderInSection:

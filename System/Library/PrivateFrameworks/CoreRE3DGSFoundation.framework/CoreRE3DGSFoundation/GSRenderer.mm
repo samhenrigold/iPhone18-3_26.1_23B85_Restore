@@ -42,7 +42,7 @@
   ptr = self->_impl.__ptr_;
   if (sorterCopy)
   {
-    [sorterCopy impl];
+    objc_msgSend_impl(sorterCopy);
     v17 = v22;
   }
 
@@ -52,7 +52,7 @@
     v23 = 0;
   }
 
-  [renderDescriptorCopy impl];
+  objc_msgSend_impl(renderDescriptorCopy);
   v18 = apple3dgs::Renderer::EncodeSplatting(ptr, splattingCopy, v17, descriptorCopy, v20, error);
   if (v21 && !atomic_fetch_add(&v21->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {

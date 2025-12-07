@@ -27,12 +27,10 @@
 
 + (id)genSQLCreateStatements
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (%@ varchar PRIMARY KEY, %@ varchar NULLABLE, %@ integer NULLABLE, %@ blob NULLABLE, CHECK ((CASE WHEN %@ IS NULL THEN 0 ELSE 1 END + CASE WHEN %@ IS NULL THEN 0 ELSE 1 END + CASE WHEN %@ IS NULL THEN 0 ELSE 1 END) = 1))", @"keyvalue", @"key", @"string_value", @"integer_value", @"data_value", @"string_value", @"integer_value", @"data_value"];;
-  v6[0] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 
   return v3;
 }

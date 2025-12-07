@@ -7,7 +7,7 @@
 
 + (id)dateFormatterWithFormat:()FCAdditions localeIdentifier:timezone:forReuse:
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v9 = a3;
   v10 = a4;
   v11 = a5;
@@ -15,15 +15,15 @@
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "format != nil"];
+      v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "format != nil"];
       *buf = 136315906;
-      v26 = "+[NSDateFormatter(FCAdditions) dateFormatterWithFormat:localeIdentifier:timezone:forReuse:]";
-      v27 = 2080;
-      v28 = "NSDateFormatter+FCAdditions.m";
-      v29 = 1024;
-      v30 = 30;
-      v31 = 2114;
-      v32 = v22;
+      v25 = "+[NSDateFormatter(FCAdditions) dateFormatterWithFormat:localeIdentifier:timezone:forReuse:]";
+      v26 = 2080;
+      v27 = "NSDateFormatter+FCAdditions.m";
+      v28 = 1024;
+      v29 = 30;
+      v30 = 2114;
+      v31 = v21;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       if (!v10)
@@ -31,15 +31,15 @@
 LABEL_9:
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "localeIdentifier != nil"];
+          v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "localeIdentifier != nil"];
           *buf = 136315906;
-          v26 = "+[NSDateFormatter(FCAdditions) dateFormatterWithFormat:localeIdentifier:timezone:forReuse:]";
-          v27 = 2080;
-          v28 = "NSDateFormatter+FCAdditions.m";
-          v29 = 1024;
-          v30 = 31;
-          v31 = 2114;
-          v32 = v23;
+          v25 = "+[NSDateFormatter(FCAdditions) dateFormatterWithFormat:localeIdentifier:timezone:forReuse:]";
+          v26 = 2080;
+          v27 = "NSDateFormatter+FCAdditions.m";
+          v28 = 1024;
+          v29 = 31;
+          v30 = 2114;
+          v31 = v22;
           _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
         }
       }
@@ -75,11 +75,11 @@ LABEL_9:
   v18 = [dictionary objectForKey:v17];
   if (!v18)
   {
-    v21 = [objc_alloc(MEMORY[0x1E696AB78]) initWithFormat:v9 localeIdentifier:v10];
-    v18 = v21;
+    v20 = [objc_alloc(MEMORY[0x1E696AB78]) initWithFormat:v9 localeIdentifier:v10];
+    v18 = v20;
     if (v11)
     {
-      [v21 setTimeZone:v11];
+      [v20 setTimeZone:v11];
     }
 
     if (v18)
@@ -94,15 +94,15 @@ LABEL_9:
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "formatter"];
+        v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "formatter"];
         *buf = 136315906;
-        v26 = "+[NSDateFormatter(FCAdditions) dateFormatterWithFormat:localeIdentifier:timezone:forReuse:]";
-        v27 = 2080;
-        v28 = "NSDateFormatter+FCAdditions.m";
-        v29 = 1024;
-        v30 = 57;
-        v31 = 2114;
-        v32 = v24;
+        v25 = "+[NSDateFormatter(FCAdditions) dateFormatterWithFormat:localeIdentifier:timezone:forReuse:]";
+        v26 = 2080;
+        v27 = "NSDateFormatter+FCAdditions.m";
+        v28 = 1024;
+        v29 = 57;
+        v30 = 2114;
+        v31 = v23;
         _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
       }
 
@@ -111,7 +111,6 @@ LABEL_9:
   }
 
 LABEL_12:
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }

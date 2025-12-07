@@ -1,6 +1,7 @@
 @interface PPSSQLiteDatabase
 + (BOOL)_stepStatement:(sqlite3_stmt *)statement hasRow:(BOOL *)row error:(id *)error;
 - (BOOL)_prepareStatementForSQL:(id)l shouldCache:(BOOL)cache error:(id *)error usingBlock:(id)block;
+- (BOOL)executeSQL:(id)l shouldCache:(BOOL)cache error:(id *)error bindingHandler:(id)handler enumerationHandler:(id)enumerationHandler;
 - (BOOL)tableWithName:(id)name containsColumnWithName:(id)withName;
 - (PPSSQLiteDatabase)initWithDatabaseURL:(id)l;
 - (id)columnNamesForTable:(id)table;
@@ -22,13 +23,14 @@
   db = self->_db;
   if (db)
   {
-    if (sqlite3_close_v2(db))
+    v4 = sqlite3_close_v2(db);
+    if (v4)
     {
-      v4 = logHandle();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+      v5 = logHandle(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        *v5 = 0;
-        _os_log_impl(&dword_25E225000, v4, OS_LOG_TYPE_INFO, "failed to close database.", v5, 2u);
+        *v6 = 0;
+        _os_log_impl(&dword_25E225000, v5, OS_LOG_TYPE_INFO, "failed to close database.", v6, 2u);
       }
     }
 
@@ -124,6 +126,24 @@
   }
 
   return 0;
+}
+
+- (BOOL)executeSQL:(id)l shouldCache:(BOOL)cache error:(id *)error bindingHandler:(id)handler enumerationHandler:(id)enumerationHandler
+{
+  cacheCopy = cache;
+  handlerCopy = handler;
+  enumerationHandlerCopy = enumerationHandler;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __84__PPSSQLiteDatabase_executeSQL_shouldCache_error_bindingHandler_enumerationHandler___block_invoke;
+  v17[3] = &unk_279A11450;
+  v18 = handlerCopy;
+  v19 = enumerationHandlerCopy;
+  v14 = enumerationHandlerCopy;
+  v15 = handlerCopy;
+  LOBYTE(error) = [(PPSSQLiteDatabase *)self _prepareStatementForSQL:l shouldCache:cacheCopy error:error usingBlock:v17];
+
+  return error;
 }
 
 BOOL __84__PPSSQLiteDatabase_executeSQL_shouldCache_error_bindingHandler_enumerationHandler___block_invoke(uint64_t a1, sqlite3_stmt *a2, void *a3)
@@ -225,7 +245,7 @@ LABEL_12:
   return v7;
 }
 
-uint64_t __41__PPSSQLiteDatabase_columnNamesForTable___block_invoke(uint64_t a1, uint64_t a2)
+uint64_t __41__PPSSQLiteDatabase_columnNamesForTable___block_invoke(uint64_t a1, PPSSQLiteRow *a2)
 {
   v4 = objc_autoreleasePoolPush();
   v5 = PPSSQLiteColumnValueAsString(a2, 1);
@@ -275,7 +295,7 @@ uint64_t __41__PPSSQLiteDatabase_columnNamesForTable___block_invoke(uint64_t a1,
   return v6;
 }
 
-uint64_t __31__PPSSQLiteDatabase_tableNames__block_invoke(uint64_t a1, uint64_t a2)
+uint64_t __31__PPSSQLiteDatabase_tableNames__block_invoke(uint64_t a1, PPSSQLiteRow *a2)
 {
   v4 = objc_autoreleasePoolPush();
   v5 = PPSSQLiteColumnValueAsString(a2, 0);
@@ -326,7 +346,7 @@ uint64_t __31__PPSSQLiteDatabase_tableNames__block_invoke(uint64_t a1, uint64_t 
   return v11;
 }
 
-uint64_t __49__PPSSQLiteDatabase_typeForColumn_inTable_error___block_invoke(uint64_t a1, uint64_t a2)
+uint64_t __49__PPSSQLiteDatabase_typeForColumn_inTable_error___block_invoke(uint64_t a1, PPSSQLiteRow *a2)
 {
   v4 = objc_autoreleasePoolPush();
   v5 = PPSSQLiteColumnValueAsString(a2, 1);
@@ -392,15 +412,15 @@ uint64_t __49__PPSSQLiteDatabase_typeForColumn_inTable_error___block_invoke(uint
 
 uint64_t __74__PPSSQLiteDatabase__prepareStatementForSQL_shouldCache_error_usingBlock___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) _statementForSQL:*(a1 + 40) shouldCache:*(a1 + 72) error:*(a1 + 64)];
   if (result)
   {
     v3 = result;
     v4 = *(a1 + 48);
-    v8 = 0;
+    v7 = 0;
     v5 = (*(v4 + 16))();
-    v6 = v8;
+    v6 = v7;
     *(*(*(a1 + 56) + 8) + 24) = v5;
     if ((*(*(*(a1 + 56) + 8) + 24) & 1) == 0 && *(a1 + 64))
     {
@@ -412,118 +432,107 @@ uint64_t __74__PPSSQLiteDatabase__prepareStatementForSQL_shouldCache_error_using
     result = sqlite3_clear_bindings(v3);
     if ((*(a1 + 72) & 1) == 0)
     {
-      result = sqlite3_finalize(v3);
+      return sqlite3_finalize(v3);
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 + (BOOL)_stepStatement:(sqlite3_stmt *)statement hasRow:(BOOL *)row error:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (row)
   {
     *row = 0;
   }
 
-  if (statement)
+  if (!statement)
   {
-    while (1)
+    return 1;
+  }
+
+  while (1)
+  {
+    v8 = sqlite3_step(statement);
+    if (v8 == 9)
     {
-      v8 = sqlite3_step(statement);
-      if (v8 == 9)
+      goto LABEL_20;
+    }
+
+    if (v8 == 101)
+    {
+      return 1;
+    }
+
+    if (v8 == 100)
+    {
+      break;
+    }
+
+    v9 = v8;
+    if (v8 - 5 >= 2)
+    {
+      v10 = logHandle(v8);
+      v11 = v10;
+      if (v9 == 19)
       {
-        goto LABEL_20;
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+        {
+          v13 = sqlite3_sql(statement);
+          v14 = sqlite3_db_handle(statement);
+          v15 = sqlite3_errmsg(v14);
+          [(PPSSQLiteDatabase *)v15 _stepStatement:v13 hasRow:v11 error:?];
+        }
       }
 
-      if (v8 == 101)
+      else if (v9 == 11)
       {
-        goto LABEL_12;
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        {
+          [PPSSQLiteDatabase _stepStatement:v11 hasRow:? error:?];
+        }
       }
 
-      if (v8 == 100)
+      else if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        break;
+        v16 = sqlite3_sql(statement);
+        v17 = sqlite3_db_handle(statement);
+        v18 = 136315650;
+        v19 = v16;
+        v20 = 1024;
+        v21 = v9;
+        v22 = 2080;
+        v23 = sqlite3_errmsg(v17);
+        _os_log_debug_impl(&dword_25E225000, v11, OS_LOG_TYPE_DEBUG, "Step failed: %s: [%d, %s]", &v18, 0x1Cu);
       }
-
-      v9 = v8;
-      if (v8 - 5 >= 2)
-      {
-        v10 = logHandle();
-        v11 = v10;
-        if (v9 == 19)
-        {
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
-          {
-            v13 = sqlite3_sql(statement);
-            v14 = sqlite3_db_handle(statement);
-            v15 = sqlite3_errmsg(v14);
-            [(PPSSQLiteDatabase *)v15 _stepStatement:v13 hasRow:v11 error:?];
-          }
-        }
-
-        else if (v9 == 11)
-        {
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-          {
-            [PPSSQLiteDatabase _stepStatement:v11 hasRow:? error:?];
-          }
-        }
-
-        else if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
-        {
-          v17 = sqlite3_sql(statement);
-          v18 = sqlite3_db_handle(statement);
-          v19 = 136315650;
-          v20 = v17;
-          v21 = 1024;
-          v22 = v9;
-          v23 = 2080;
-          v24 = sqlite3_errmsg(v18);
-          _os_log_debug_impl(&dword_25E225000, v11, OS_LOG_TYPE_DEBUG, "Step failed: %s: [%d, %s]", &v19, 0x1Cu);
-        }
 
 LABEL_20:
-        if (error)
-        {
-          sqlite3_db_handle(statement);
-          result = 0;
-          *error = 0;
-        }
-
-        else
-        {
-          result = 0;
-        }
-
-        goto LABEL_23;
+      if (!error)
+      {
+        return 0;
       }
-    }
 
-    result = 1;
-    if (row)
-    {
-      *row = 1;
+      sqlite3_db_handle(statement);
+      result = 0;
+      *error = 0;
+      return result;
     }
   }
 
-  else
+  result = 1;
+  if (row)
   {
-LABEL_12:
-    result = 1;
+    *row = 1;
   }
 
-LABEL_23:
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (sqlite3_stmt)_statementForSQL:(id)l shouldCache:(BOOL)cache error:(id *)error
 {
   cacheCopy = cache;
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   lCopy = l;
   ppStmt = 0;
   if (!cacheCopy || (v9 = self->_statementCache) == 0 || (Value = CFDictionaryGetValue(v9, lCopy), (ppStmt = Value) == 0))
@@ -552,15 +561,15 @@ LABEL_23:
     if (v15)
     {
       v17 = lastErrorForDatabase(self->_db, v15);
-      v18 = logHandle();
+      v18 = logHandle(v17);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         *pzTail = 138412802;
         *&pzTail[4] = lCopy;
-        v25 = 1024;
-        v26 = v16;
-        v27 = 2112;
-        v28 = v17;
+        v24 = 1024;
+        v25 = v16;
+        v26 = 2112;
+        v27 = v17;
         _os_log_debug_impl(&dword_25E225000, v18, OS_LOG_TYPE_DEBUG, "Could not prepare statement: %@: [%d, %@]", pzTail, 0x1Cu);
       }
 
@@ -595,7 +604,6 @@ LABEL_20:
     Value = ppStmt;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return Value;
 }
 

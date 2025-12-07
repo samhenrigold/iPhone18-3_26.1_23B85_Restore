@@ -38,24 +38,22 @@
 
 - (id)_accessibilitySupplementaryFooterViews
 {
-  v9[1] = *MEMORY[0x29EDCA608];
+  v8[1] = *MEMORY[0x29EDCA608];
   v3 = [(SKUIGiftDateTableViewCellAccessibility *)self safeValueForKey:@"_datePicker"];
   if ([v3 isDescendantOfView:self])
   {
-    v9[0] = v3;
-    _accessibilitySupplementaryFooterViews = [MEMORY[0x29EDB8D80] arrayWithObjects:v9 count:1];
+    v8[0] = v3;
+    _accessibilitySupplementaryFooterViews = [MEMORY[0x29EDB8D80] arrayWithObjects:v8 count:1];
   }
 
   else
   {
-    v8.receiver = self;
-    v8.super_class = SKUIGiftDateTableViewCellAccessibility;
-    _accessibilitySupplementaryFooterViews = [(SKUIGiftDateTableViewCellAccessibility *)&v8 _accessibilitySupplementaryFooterViews];
+    v7.receiver = self;
+    v7.super_class = SKUIGiftDateTableViewCellAccessibility;
+    _accessibilitySupplementaryFooterViews = [(SKUIGiftDateTableViewCellAccessibility *)&v7 _accessibilitySupplementaryFooterViews];
   }
 
   v5 = _accessibilitySupplementaryFooterViews;
-
-  v6 = *MEMORY[0x29EDCA608];
 
   return v5;
 }

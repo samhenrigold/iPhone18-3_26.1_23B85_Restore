@@ -91,14 +91,14 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  [(AVScheduledParameterRamp *)self timeRange];
+  objc_msgSend_timeRange(self);
   if (!equal)
   {
     goto LABEL_7;
   }
 
 LABEL_4:
-  [equal timeRange];
+  objc_msgSend_timeRange(equal);
 LABEL_8:
   v5 = CMTimeRangeEqual(&range1, &v7);
   if (v5)

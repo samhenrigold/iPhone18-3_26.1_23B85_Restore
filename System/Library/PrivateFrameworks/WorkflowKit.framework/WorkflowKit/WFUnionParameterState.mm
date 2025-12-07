@@ -65,7 +65,7 @@
     {
       which = [(WFUnionParameterState *)equalCopy which];
       which2 = [(WFUnionParameterState *)self which];
-      if ([which isEqualToString:which2])
+      if (objc_msgSend_isEqualToString_(which))
       {
         v7 = 0;
       }
@@ -89,55 +89,53 @@
 
 - (WFPropertyListObject)serializedRepresentation
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   states = [(WFUnionParameterState *)self states];
-  v5 = [states countByEnumeratingWithState:&v17 objects:v23 count:16];
+  v5 = [states countByEnumeratingWithState:&v16 objects:v22 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v17;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(states);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * i);
+        v9 = *(*(&v16 + 1) + 8 * i);
         states2 = [(WFUnionParameterState *)self states];
         v11 = [states2 objectForKey:v9];
         serializedRepresentation = [v11 serializedRepresentation];
         [dictionary setObject:serializedRepresentation forKey:v9];
       }
 
-      v6 = [states countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v6 = [states countByEnumeratingWithState:&v16 objects:v22 count:16];
     }
 
     while (v6);
   }
 
-  v21[0] = @"which";
+  v20[0] = @"which";
   which = [(WFUnionParameterState *)self which];
-  v21[1] = @"states";
-  v22[0] = which;
-  v22[1] = dictionary;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:2];
-
-  v15 = *MEMORY[0x1E69E9840];
+  v20[1] = @"states";
+  v21[0] = which;
+  v21[1] = dictionary;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
 
   return v14;
 }
 
 - (WFUnionParameterState)initWithSerializedRepresentation:(id)representation variableProvider:(id)provider parameter:(id)parameter
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   providerCopy = provider;
   parameterCopy = parameter;
@@ -163,33 +161,33 @@
 
   else
   {
-    v32 = parameterCopy;
+    v31 = parameterCopy;
     selfCopy = self;
-    v34 = representationCopy;
-    v30 = [v11 objectForKey:@"which"];
-    v31 = v11;
+    v33 = representationCopy;
+    v29 = [v11 objectForKey:@"which"];
+    v30 = v11;
     v17 = [v11 objectForKey:@"states"];
     dictionary = [MEMORY[0x1E695DF90] dictionary];
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
     v18 = v17;
-    v19 = [v18 countByEnumeratingWithState:&v37 objects:v41 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v36 objects:v40 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v38;
+      v21 = *v37;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v38 != v21)
+          if (*v37 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v23 = *(*(&v37 + 1) + 8 * i);
+          v23 = *(*(&v36 + 1) + 8 * i);
           v24 = [v18 objectForKey:v23];
           v25 = [v14 subdefinitionForType:v23];
           if (v25)
@@ -200,20 +198,19 @@
           }
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v37 objects:v41 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v36 objects:v40 count:16];
       }
 
       while (v20);
     }
 
-    self = [(WFUnionParameterState *)selfCopy initWithWhich:v30 states:dictionary];
+    self = [(WFUnionParameterState *)selfCopy initWithWhich:v29 states:dictionary];
     selfCopy2 = self;
-    representationCopy = v34;
-    v11 = v31;
-    parameterCopy = v32;
+    representationCopy = v33;
+    v11 = v30;
+    parameterCopy = v31;
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return selfCopy2;
 }
 

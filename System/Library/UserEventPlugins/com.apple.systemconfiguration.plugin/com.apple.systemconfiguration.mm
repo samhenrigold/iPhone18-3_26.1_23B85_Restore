@@ -2,7 +2,7 @@ void sub_640(uint64_t a1, uint64_t a2, void *a3)
 {
   if (a1 == 1)
   {
-    memset(&v19, 0, sizeof(v19));
+    memset(&v18, 0, sizeof(v18));
     v8 = malloc_type_calloc(1uLL, 0x30uLL, 0x10E0040A9AA122CuLL);
     *(v8 + 1) = a2;
     *(v8 + 10) = 2;
@@ -53,15 +53,14 @@ void sub_640(uint64_t a1, uint64_t a2, void *a3)
       v17 = *(v8 + 2);
     }
 
-    v19.version = 0;
-    memset(&v19.retain, 0, 24);
-    v19.info = v8;
-    if (!SCPreferencesSetCallback(v17, sub_924, &v19))
+    v18.version = 0;
+    memset(&v18.retain, 0, 24);
+    v18.info = v8;
+    if (!SCPreferencesSetCallback(v17, sub_924, &v18))
     {
       _os_assumes_log();
     }
 
-    v18 = *(v8 + 2);
     xpc_event_provider_get_queue();
   }
 
@@ -110,7 +109,6 @@ void sub_8E0()
 {
   if (qword_4130)
   {
-    v0 = *(qword_4130 + 8);
     xpc_event_provider_token_fire();
   }
 }
@@ -168,7 +166,6 @@ void sub_924(const __SCPreferences *a1, int a2, uint64_t a3)
       {
         SCPreferencesSynchronize(a1);
 LABEL_15:
-        v15 = *(a3 + 8);
 
         xpc_event_provider_token_fire();
       }

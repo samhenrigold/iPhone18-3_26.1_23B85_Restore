@@ -85,25 +85,7 @@
 
     [v11 setAdjustsFontSizeToFitWidth:1];
     [v7 addSubview:v11];
-    if (!self->_finance)
-    {
-      goto LABEL_5;
-    }
-
-    v14 = MEMORY[0x277D755B8];
-    v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v16 = [v14 imageNamed:@"YahooFinance" inBundle:v15];
-
-    v17 = [v16 imageWithRenderingMode:2];
-
-    v18 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v17];
-    labelColor2 = [MEMORY[0x277D75348] labelColor];
-    [v18 setTintColor:labelColor2];
-
-    [v18 setTranslatesAutoresizingMaskIntoConstraints:0];
-    [(UIView *)self->_mainView addSubview:v18];
-
-    if (v18)
+    if (self->_finance && (v14 = MEMORY[0x277D755B8], [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()], v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "imageNamed:inBundle:", @"YahooFinance", v15), v16 = objc_claimAutoreleasedReturnValue(), v15, objc_msgSend(v16, "imageWithRenderingMode:", 2), v17 = objc_claimAutoreleasedReturnValue(), v16, v18 = objc_msgSend(objc_alloc(MEMORY[0x277D755E8]), "initWithImage:", v17), objc_msgSend(MEMORY[0x277D75348], "labelColor"), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "setTintColor:", v19), v19, objc_msgSend(v18, "setTranslatesAutoresizingMaskIntoConstraints:", 0), -[UIView addSubview:](self->_mainView, "addSubview:", v18), v17, v18))
     {
       v20 = _NSDictionaryOfVariableBindings(&cfstr_TitleSubtitleT.isa, v8, v11, v7, v18, 0);
 
@@ -112,7 +94,6 @@
 
     else
     {
-LABEL_5:
       v20 = _NSDictionaryOfVariableBindings(&cfstr_TitleSubtitleT_0.isa, v8, v11, v7, 0);
       v65 = 1;
     }

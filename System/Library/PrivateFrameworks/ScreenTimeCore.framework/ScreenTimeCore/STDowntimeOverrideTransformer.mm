@@ -92,13 +92,11 @@ LABEL_10:
 
 + (void)downtimeOverrideFromCoreDowntimeOverride:(void *)a1 inContext:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [a1 calendarIdentifier];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "Failed to get calendar from persisted identifier: %@. Falling back to current.", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "Failed to get calendar from persisted identifier: %@. Falling back to current.", &v4, 0xCu);
 }
 
 @end

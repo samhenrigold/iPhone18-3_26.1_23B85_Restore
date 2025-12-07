@@ -31,7 +31,7 @@
 
 - (_SFPBActionItem)initWithFacade:(id)facade
 {
-  v82 = *MEMORY[0x1E69E9840];
+  v81 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_SFPBActionItem *)self init];
 
@@ -69,33 +69,33 @@
       v11 = 0;
     }
 
-    v79 = 0u;
-    v80 = 0u;
-    v77 = 0u;
     v78 = 0u;
+    v79 = 0u;
+    v76 = 0u;
+    v77 = 0u;
     storeIdentifiers2 = [facadeCopy storeIdentifiers];
-    v13 = [storeIdentifiers2 countByEnumeratingWithState:&v77 objects:v81 count:16];
+    v13 = [storeIdentifiers2 countByEnumeratingWithState:&v76 objects:v80 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v78;
+      v15 = *v77;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v78 != v15)
+          if (*v77 != v15)
           {
             objc_enumerationMutation(storeIdentifiers2);
           }
 
-          v17 = *(*(&v77 + 1) + 8 * i);
+          v17 = *(*(&v76 + 1) + 8 * i);
           if (v17)
           {
             [v11 addObject:v17];
           }
         }
 
-        v14 = [storeIdentifiers2 countByEnumeratingWithState:&v77 objects:v81 count:16];
+        v14 = [storeIdentifiers2 countByEnumeratingWithState:&v76 objects:v80 count:16];
       }
 
       while (v14);
@@ -318,17 +318,16 @@
     v74 = v5;
   }
 
-  v75 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (_SFPBActionItem)initWithDictionary:(id)dictionary
 {
-  v100 = *MEMORY[0x1E69E9840];
+  v99 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v98.receiver = self;
-  v98.super_class = _SFPBActionItem;
-  v5 = [(_SFPBActionItem *)&v98 init];
+  v97.receiver = self;
+  v97.super_class = _SFPBActionItem;
+  v5 = [(_SFPBActionItem *)&v97 init];
 
   if (v5)
   {
@@ -350,38 +349,38 @@
 
     v10 = [dictionaryCopy objectForKeyedSubscript:@"isOverlay"];
     objc_opt_class();
-    v93 = v10;
+    v92 = v10;
     if (objc_opt_isKindOfClass())
     {
       -[_SFPBActionItem setIsOverlay:](v5, "setIsOverlay:", [v10 BOOLValue]);
     }
 
-    v76 = v8;
+    v75 = v8;
     v11 = [dictionaryCopy objectForKeyedSubscript:@"storeIdentifiers"];
     objc_opt_class();
-    v92 = v11;
+    v91 = v11;
     if (objc_opt_isKindOfClass())
     {
-      v96 = 0u;
-      v97 = 0u;
-      v94 = 0u;
       v95 = 0u;
+      v96 = 0u;
+      v93 = 0u;
+      v94 = 0u;
       v12 = v11;
-      v13 = [v12 countByEnumeratingWithState:&v94 objects:v99 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v93 objects:v98 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v95;
+        v15 = *v94;
         do
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v95 != v15)
+            if (*v94 != v15)
             {
               objc_enumerationMutation(v12);
             }
 
-            v17 = *(*(&v94 + 1) + 8 * i);
+            v17 = *(*(&v93 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -390,7 +389,7 @@
             }
           }
 
-          v14 = [v12 countByEnumeratingWithState:&v94 objects:v99 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v93 objects:v98 count:16];
         }
 
         while (v14);
@@ -404,7 +403,7 @@
       -[_SFPBActionItem setRequiresLocalMedia:](v5, "setRequiresLocalMedia:", [v19 BOOLValue]);
     }
 
-    v75 = v19;
+    v74 = v19;
     v20 = [dictionaryCopy objectForKeyedSubscript:@"localMediaIdentifier"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -431,7 +430,7 @@
 
     v26 = [dictionaryCopy objectForKeyedSubscript:@"contactIdentifier"];
     objc_opt_class();
-    v91 = v26;
+    v90 = v26;
     if (objc_opt_isKindOfClass())
     {
       v27 = [v26 copy];
@@ -440,7 +439,7 @@
 
     v28 = [dictionaryCopy objectForKeyedSubscript:@"phoneNumber"];
     objc_opt_class();
-    v90 = v28;
+    v89 = v28;
     if (objc_opt_isKindOfClass())
     {
       v29 = [v28 copy];
@@ -449,7 +448,7 @@
 
     v30 = [dictionaryCopy objectForKeyedSubscript:@"email"];
     objc_opt_class();
-    v89 = v30;
+    v88 = v30;
     if (objc_opt_isKindOfClass())
     {
       v31 = [v30 copy];
@@ -458,7 +457,7 @@
 
     v32 = [dictionaryCopy objectForKeyedSubscript:@"mapsData"];
     objc_opt_class();
-    v88 = v32;
+    v87 = v32;
     if (objc_opt_isKindOfClass())
     {
       v33 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBase64EncodedString:v32 options:0];
@@ -467,7 +466,7 @@
 
     v34 = [dictionaryCopy objectForKeyedSubscript:@"latitude"];
     objc_opt_class();
-    v87 = v34;
+    v86 = v34;
     if (objc_opt_isKindOfClass())
     {
       v35 = [[_SFPBGraphicalFloat alloc] initWithDictionary:v34];
@@ -476,7 +475,7 @@
 
     v36 = [dictionaryCopy objectForKeyedSubscript:@"longitude"];
     objc_opt_class();
-    v86 = v36;
+    v85 = v36;
     if (objc_opt_isKindOfClass())
     {
       v37 = [[_SFPBGraphicalFloat alloc] initWithDictionary:v36];
@@ -485,7 +484,7 @@
 
     v38 = [dictionaryCopy objectForKeyedSubscript:@"provider"];
     objc_opt_class();
-    v85 = v38;
+    v84 = v38;
     if (objc_opt_isKindOfClass())
     {
       v39 = [v38 copy];
@@ -494,7 +493,7 @@
 
     v40 = [dictionaryCopy objectForKeyedSubscript:@"offerType"];
     objc_opt_class();
-    v84 = v40;
+    v83 = v40;
     if (objc_opt_isKindOfClass())
     {
       v41 = [v40 copy];
@@ -503,7 +502,7 @@
 
     v42 = [dictionaryCopy objectForKeyedSubscript:@"type"];
     objc_opt_class();
-    v83 = v42;
+    v82 = v42;
     if (objc_opt_isKindOfClass())
     {
       v43 = [v42 copy];
@@ -512,7 +511,7 @@
 
     v44 = [dictionaryCopy objectForKeyedSubscript:@"labelITunes"];
     objc_opt_class();
-    v82 = v44;
+    v81 = v44;
     if (objc_opt_isKindOfClass())
     {
       v45 = [v44 copy];
@@ -526,10 +525,10 @@
       -[_SFPBActionItem setIsITunes:](v5, "setIsITunes:", [v46 BOOLValue]);
     }
 
-    v72 = v46;
+    v71 = v46;
     v47 = [dictionaryCopy objectForKeyedSubscript:@"icon"];
     objc_opt_class();
-    v81 = v47;
+    v80 = v47;
     if (objc_opt_isKindOfClass())
     {
       v48 = [[_SFPBImage alloc] initWithDictionary:v47];
@@ -538,7 +537,7 @@
 
     v49 = [dictionaryCopy objectForKeyedSubscript:@"baseIcon"];
     objc_opt_class();
-    v80 = v49;
+    v79 = v49;
     if (objc_opt_isKindOfClass())
     {
       v50 = [[_SFPBImage alloc] initWithDictionary:v49];
@@ -547,7 +546,7 @@
 
     v51 = [dictionaryCopy objectForKeyedSubscript:@"location"];
     objc_opt_class();
-    v79 = v51;
+    v78 = v51;
     if (objc_opt_isKindOfClass())
     {
       v52 = [[_SFPBLatLng alloc] initWithDictionary:v51];
@@ -556,14 +555,14 @@
 
     v53 = [dictionaryCopy objectForKeyedSubscript:@"messageIdentifier"];
     objc_opt_class();
-    v78 = v53;
+    v77 = v53;
     if (objc_opt_isKindOfClass())
     {
       v54 = [v53 copy];
       [(_SFPBActionItem *)v5 setMessageIdentifier:v54];
     }
 
-    v74 = v20;
+    v73 = v20;
     v55 = [dictionaryCopy objectForKeyedSubscript:@"messageURL"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -580,7 +579,7 @@
       [(_SFPBActionItem *)v5 setPersistentID:v58];
     }
 
-    v73 = v22;
+    v72 = v22;
     v59 = [dictionaryCopy objectForKeyedSubscript:@"mediaEntityType"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -612,7 +611,7 @@
       [(_SFPBActionItem *)v5 setCustomDirectionsPunchout:v65];
     }
 
-    v77 = v6;
+    v76 = v6;
     v66 = [dictionaryCopy objectForKeyedSubscript:@"shouldSearchDirectionsAlongCurrentRoute"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -630,7 +629,6 @@
     v68 = v5;
   }
 
-  v69 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -1735,7 +1733,7 @@ LABEL_132:
 
 - (void)writeTo:(id)to
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   toCopy = to;
   label = [(_SFPBActionItem *)self label];
   if (label)
@@ -1755,32 +1753,31 @@ LABEL_132:
   }
 
   storeIdentifiers = [(_SFPBActionItem *)self storeIdentifiers];
+  v34 = 0u;
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
-  v39 = 0u;
-  v8 = [storeIdentifiers countByEnumeratingWithState:&v36 objects:v40 count:16];
+  v8 = [storeIdentifiers countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v37;
+    v10 = *v35;
     do
     {
       v11 = 0;
       do
       {
-        if (*v37 != v10)
+        if (*v35 != v10)
         {
           objc_enumerationMutation(storeIdentifiers);
         }
 
-        v12 = *(*(&v36 + 1) + 8 * v11);
         PBDataWriterWriteStringField();
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [storeIdentifiers countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v9 = [storeIdentifiers countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
     while (v9);
@@ -1942,132 +1939,102 @@ LABEL_132:
   {
     PBDataWriterWriteInt32Field();
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setInteractionContentType:(id)type
 {
-  v4 = [type copy];
-  interactionContentType = self->_interactionContentType;
-  self->_interactionContentType = v4;
+  self->_interactionContentType = [type copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setUniversalLibraryID:(id)d
 {
-  v4 = [d copy];
-  universalLibraryID = self->_universalLibraryID;
-  self->_universalLibraryID = v4;
+  self->_universalLibraryID = [d copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setPersistentID:(id)d
 {
-  v4 = [d copy];
-  persistentID = self->_persistentID;
-  self->_persistentID = v4;
+  self->_persistentID = [d copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setMessageIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  messageIdentifier = self->_messageIdentifier;
-  self->_messageIdentifier = v4;
+  self->_messageIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setLabelITunes:(id)tunes
 {
-  v4 = [tunes copy];
-  labelITunes = self->_labelITunes;
-  self->_labelITunes = v4;
+  self->_labelITunes = [tunes copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setType:(id)type
 {
-  v4 = [type copy];
-  type = self->_type;
-  self->_type = v4;
+  self->_type = [type copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setOfferType:(id)type
 {
-  v4 = [type copy];
-  offerType = self->_offerType;
-  self->_offerType = v4;
+  self->_offerType = [type copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setProvider:(id)provider
 {
-  v4 = [provider copy];
-  provider = self->_provider;
-  self->_provider = v4;
+  self->_provider = [provider copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setMapsData:(id)data
 {
-  v4 = [data copy];
-  mapsData = self->_mapsData;
-  self->_mapsData = v4;
+  self->_mapsData = [data copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setEmail:(id)email
 {
-  v4 = [email copy];
-  email = self->_email;
-  self->_email = v4;
+  self->_email = [email copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setPhoneNumber:(id)number
 {
-  v4 = [number copy];
-  phoneNumber = self->_phoneNumber;
-  self->_phoneNumber = v4;
+  self->_phoneNumber = [number copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setContactIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  contactIdentifier = self->_contactIdentifier;
-  self->_contactIdentifier = v4;
+  self->_contactIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setApplicationBundleIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  applicationBundleIdentifier = self->_applicationBundleIdentifier;
-  self->_applicationBundleIdentifier = v4;
+  self->_applicationBundleIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setLocalMediaIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  localMediaIdentifier = self->_localMediaIdentifier;
-  self->_localMediaIdentifier = v4;
+  self->_localMediaIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -2092,27 +2059,21 @@ LABEL_132:
 
 - (void)setStoreIdentifiers:(id)identifiers
 {
-  v4 = [identifiers copy];
-  storeIdentifiers = self->_storeIdentifiers;
-  self->_storeIdentifiers = v4;
+  self->_storeIdentifiers = [identifiers copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setLabelForLocalMedia:(id)media
 {
-  v4 = [media copy];
-  labelForLocalMedia = self->_labelForLocalMedia;
-  self->_labelForLocalMedia = v4;
+  self->_labelForLocalMedia = [media copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setLabel:(id)label
 {
-  v4 = [label copy];
-  label = self->_label;
-  self->_label = v4;
+  self->_label = [label copy];
 
   MEMORY[0x1EEE66BB8]();
 }

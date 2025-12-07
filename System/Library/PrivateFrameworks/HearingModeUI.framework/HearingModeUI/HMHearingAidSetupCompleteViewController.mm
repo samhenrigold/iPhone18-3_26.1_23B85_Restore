@@ -39,25 +39,24 @@
 
 - (void)viewDidLoad
 {
-  v13[1] = *MEMORY[0x277D85DE8];
-  v12.receiver = self;
-  v12.super_class = HMHearingAidSetupCompleteViewController;
-  [(OBBaseWelcomeController *)&v12 viewDidLoad];
+  v12[1] = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = HMHearingAidSetupCompleteViewController;
+  [(OBBaseWelcomeController *)&v11 viewDidLoad];
   [(HMHearingAidSetupCompleteViewController *)self updateImage];
   objc_initWeak(&location, self);
-  v13[0] = objc_opt_class();
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
-  v6 = MEMORY[0x277D85DD0];
-  v7 = 3221225472;
-  v8 = __54__HMHearingAidSetupCompleteViewController_viewDidLoad__block_invoke;
-  v9 = &unk_2796F3CA0;
-  objc_copyWeak(&v10, &location);
-  v4 = [(HMHearingAidSetupCompleteViewController *)self registerForTraitChanges:v3 withHandler:&v6];
+  v12[0] = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v5 = MEMORY[0x277D85DD0];
+  v6 = 3221225472;
+  v7 = __54__HMHearingAidSetupCompleteViewController_viewDidLoad__block_invoke;
+  v8 = &unk_2796F3CA0;
+  objc_copyWeak(&v9, &location);
+  v4 = [(HMHearingAidSetupCompleteViewController *)self registerForTraitChanges:v3 withHandler:&v5];
 
-  [(HMHearingAidSetupCompleteViewController *)self updateButtonTray:v6];
-  objc_destroyWeak(&v10);
+  [(HMHearingAidSetupCompleteViewController *)self updateButtonTray:v5];
+  objc_destroyWeak(&v9);
   objc_destroyWeak(&location);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __54__HMHearingAidSetupCompleteViewController_viewDidLoad__block_invoke(uint64_t a1)

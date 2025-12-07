@@ -22,7 +22,7 @@
   if (v11)
   {
     v12 = [elementCopy getAttribute:@"type"];
-    v11->_giftType = [v12 isEqualToString:@"product"];
+    v11->_giftType = objc_msgSend_isEqualToString_(v12);
     v13 = [elementCopy getAttribute:@"buyParams"];
     productBuyParams = v11->_productBuyParams;
     v11->_productBuyParams = v13;

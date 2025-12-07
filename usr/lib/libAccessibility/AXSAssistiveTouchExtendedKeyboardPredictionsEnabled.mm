@@ -3,7 +3,7 @@
 
 @implementation AXSAssistiveTouchExtendedKeyboardPredictionsEnabled
 
-uint64_t ___AXSAssistiveTouchExtendedKeyboardPredictionsEnabled_block_invoke()
+void *___AXSAssistiveTouchExtendedKeyboardPredictionsEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

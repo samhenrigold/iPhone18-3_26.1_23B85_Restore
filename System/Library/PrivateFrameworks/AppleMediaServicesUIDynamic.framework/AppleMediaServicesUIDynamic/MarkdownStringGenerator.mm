@@ -32,13 +32,13 @@
   parserCopy = parser;
   occurredCopy = occurred;
   selfCopy = self;
-  sub_1CA16924C();
+  sub_1CA16924C(selfCopy, occurredCopy);
 }
 
 - (void)parser:(id)parser didStartElement:(unint64_t)element attributes:(id)attributes
 {
   type metadata accessor for MarkdownAttributeName(0);
-  sub_1CA16BA04(&qword_1EE03C1B0, type metadata accessor for MarkdownAttributeName);
+  sub_1CA16BA04(&qword_1EE03C1B0, type metadata accessor for MarkdownAttributeName, &unk_1CA1A073C);
   v8 = sub_1CA19C018();
   parserCopy = parser;
   selfCopy = self;

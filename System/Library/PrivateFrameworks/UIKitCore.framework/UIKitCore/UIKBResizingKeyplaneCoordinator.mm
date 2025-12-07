@@ -397,17 +397,17 @@
   }
 }
 
-uint64_t __55__UIKBResizingKeyplaneCoordinator_handleResizeGesture___block_invoke(uint64_t result, unsigned int a2)
+id *__55__UIKBResizingKeyplaneCoordinator_handleResizeGesture___block_invoke(id *result, unsigned int a2)
 {
   if (a2 <= 4)
   {
     v2 = result;
     if (((1 << a2) & 0x19) != 0)
     {
-      *(*(result + 32) + 56) = 0;
-      result = [*(result + 32) resizeKeyplaneWithOffset:1 andRedraw:*(result + 40)];
-      v3 = *(v2 + 40);
-      v4 = *(*(v2 + 32) + 8);
+      *(result[4] + 56) = 0;
+      result = [result[4] resizeKeyplaneWithOffset:1 andRedraw:*(result + 5)];
+      v3 = *(v2 + 5);
+      v4 = *(v2[4] + 1);
       if (v3 != v4)
       {
         if (v3 <= v4)
@@ -428,12 +428,12 @@ uint64_t __55__UIKBResizingKeyplaneCoordinator_handleResizeGesture___block_invok
 
     else
     {
-      v7 = [*(*(result + 32) + 32) animations];
+      v7 = [*(result[4] + 4) animations];
       v8 = [v7 firstObject];
       [v8 value];
       v10 = v9;
 
-      v11 = *(v2 + 32);
+      v11 = v2[4];
 
       return [v11 resizeKeyplaneWithOffset:0 andRedraw:v10];
     }

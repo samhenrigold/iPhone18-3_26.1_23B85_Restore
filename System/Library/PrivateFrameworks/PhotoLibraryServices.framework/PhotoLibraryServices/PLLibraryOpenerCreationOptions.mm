@@ -207,7 +207,7 @@ LABEL_22:
 
   if (v4 && [v4 integerValue] != 2)
   {
-    if ([v4 integerValue] == 3 && (!v5 || (objc_msgSend(v5, "isEqualToString:", @"com.apple.photos") & 1) == 0))
+    if ([v4 integerValue] == 3 && (!v5 || (objc_msgSend_isEqualToString_(v5) & 1) == 0))
     {
       v6 = 3;
       goto LABEL_11;
@@ -216,7 +216,7 @@ LABEL_22:
     goto LABEL_9;
   }
 
-  if (v5 && ![v5 isEqualToString:@"com.apple.photos"])
+  if (v5 && !objc_msgSend_isEqualToString_(v5))
   {
 LABEL_9:
     v6 = 0;

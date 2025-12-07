@@ -7,7 +7,7 @@
 
 - (void)main
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   configuration = [(HDCloudSyncOperation *)self configuration];
   repository = [configuration repository];
   syncAvailability = [repository syncAvailability];
@@ -21,23 +21,23 @@
     repository2 = [configuration3 repository];
     primaryCKContainer = [repository2 primaryCKContainer];
     containerIdentifier = [primaryCKContainer containerIdentifier];
-    v26 = 0;
-    v13 = [cachedCloudState privateMetadataZoneForContainerID:containerIdentifier error:&v26];
-    v14 = v26;
+    v25 = 0;
+    v13 = [cachedCloudState privateMetadataZoneForContainerID:containerIdentifier error:&v25];
+    v14 = v25;
 
     if (!v13 && v14)
     {
       [(HDCloudSyncOperation *)self finishWithSuccess:0 error:v14];
 LABEL_15:
 
-      goto LABEL_16;
+      return;
     }
 
     if (v13)
     {
-      v25 = 0;
-      v16 = [v13 recordsForClass:objc_opt_class() error:&v25];
-      v17 = v25;
+      v24 = 0;
+      v16 = [v13 recordsForClass:objc_opt_class() error:&v24];
+      v17 = v24;
       v18 = v17;
       if (!v16)
       {
@@ -57,18 +57,18 @@ LABEL_15:
     configuration4 = [(HDCloudSyncOperation *)self configuration];
     v21 = [(HDCloudSyncSharedSummaryMergeLocalAndCloudParticipantsOperation *)v19 initWithConfiguration:configuration4 privateMetadataZone:v13 participants:v18];
 
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __64__HDCloudSyncSharedSummarySynchronizeParticipantsOperation_main__block_invoke;
-    v24[3] = &unk_278628BE0;
-    v24[4] = self;
-    [(HDCloudSyncOperation *)v21 setOnSuccess:v24];
     v23[0] = MEMORY[0x277D85DD0];
     v23[1] = 3221225472;
-    v23[2] = __64__HDCloudSyncSharedSummarySynchronizeParticipantsOperation_main__block_invoke_2;
-    v23[3] = &unk_278628C08;
+    v23[2] = __64__HDCloudSyncSharedSummarySynchronizeParticipantsOperation_main__block_invoke;
+    v23[3] = &unk_278628BE0;
     v23[4] = self;
-    [(HDCloudSyncOperation *)v21 setOnError:v23];
+    [(HDCloudSyncOperation *)v21 setOnSuccess:v23];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __64__HDCloudSyncSharedSummarySynchronizeParticipantsOperation_main__block_invoke_2;
+    v22[3] = &unk_278628C08;
+    v22[4] = self;
+    [(HDCloudSyncOperation *)v21 setOnError:v22];
     [(HDCloudSyncOperation *)v21 start];
 
 LABEL_14:
@@ -85,8 +85,6 @@ LABEL_14:
   }
 
   [(HDCloudSyncOperation *)self finishWithSuccess:1 error:0];
-LABEL_16:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __64__HDCloudSyncSharedSummarySynchronizeParticipantsOperation_main__block_invoke(uint64_t a1, void *a2)
@@ -103,20 +101,18 @@ void __64__HDCloudSyncSharedSummarySynchronizeParticipantsOperation_main__block_
 
 void __64__HDCloudSyncSharedSummarySynchronizeParticipantsOperation_main__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
   {
-    v7 = 138543362;
-    v8 = v4;
-    _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "[summary-sharing] Failed to merge local & cloud participants %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v4;
+    _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "[summary-sharing] Failed to merge local & cloud participants %{public}@", &v6, 0xCu);
   }
 
   [*(a1 + 32) finishWithSuccess:0 error:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateRequiredLocalEntries:(id)entries participants:(id)participants updatedAuthorizationRecords:(id)records updatedRecordIDs:(id)ds

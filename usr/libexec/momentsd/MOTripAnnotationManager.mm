@@ -4354,16 +4354,15 @@ void __52__MOTripAnnotationManager_updateSummaryTripMonitor___block_invoke(uint6
 
 void __59__MOTripAnnotationManager_loadSummaryTripMonitorFromStore___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v5 = *(a1 + 32);
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  v8 = 138412802;
-  v9 = v7;
-  v10 = 2112;
-  v11 = @"SummaryTripMonitor";
-  v12 = 2112;
-  v13 = a2;
-  _os_log_error_impl(&_mh_execute_header, a3, OS_LOG_TYPE_ERROR, "%@: fetchFSMWithName, %@, error, %@", &v8, 0x20u);
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  v7 = 138412802;
+  v8 = v6;
+  v9 = 2112;
+  v10 = @"SummaryTripMonitor";
+  v11 = 2112;
+  v12 = a2;
+  _os_log_error_impl(&_mh_execute_header, a3, OS_LOG_TYPE_ERROR, "%@: fetchFSMWithName, %@, error, %@", &v7, 0x20u);
 }
 
 @end

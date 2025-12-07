@@ -3,6 +3,7 @@
 - (id)_init;
 - (id)_managedAssetForAssetType:(id)type;
 - (void)_handleDarwinNotification:(id)notification;
+- (void)_refreshAssetCatalogForAssetType:(id)type withOverrideTimeout:(id)timeout forceCatalogRefresh:(BOOL)refresh;
 - (void)_updateAssetForAssetType:(id)type;
 - (void)registerManagedAsset:(id)asset;
 - (void)registerManagedAssets:(id)assets;
@@ -201,6 +202,15 @@
 LABEL_11:
 
   return v6;
+}
+
+- (void)_refreshAssetCatalogForAssetType:(id)type withOverrideTimeout:(id)timeout forceCatalogRefresh:(BOOL)refresh
+{
+  refreshCopy = refresh;
+  timeoutCopy = timeout;
+  v10 = [(AXAssetsDaemon *)self _managedAssetForAssetType:type];
+  v9 = +[AXManagedAssetTaskContext contextWithXPCClient];
+  [v10 enqueueCatalogRefreshTaskWithOverrideTimeout:timeoutCopy forceCatalogRefresh:refreshCopy context:v9];
 }
 
 - (void)_updateAssetForAssetType:(id)type

@@ -46,10 +46,10 @@
 
 - (void)viewDidLoad
 {
-  v16[1] = *MEMORY[0x277D85DE8];
-  v15.receiver = self;
-  v15.super_class = WLTipsListViewController;
-  [(OBTableWelcomeController *)&v15 viewDidLoad];
+  v15[1] = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = WLTipsListViewController;
+  [(OBTableWelcomeController *)&v14 viewDidLoad];
   v3 = objc_alloc(MEMORY[0x277D75B40]);
   v4 = [v3 initWithFrame:0 style:{*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)}];
   [(OBTableWelcomeController *)self setTableView:v4];
@@ -71,11 +71,9 @@
   [tableView5 setTranslatesAutoresizingMaskIntoConstraints:0];
 
   v11 = objc_opt_self();
-  v16[0] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v15[0] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
   v13 = [(WLTipsListViewController *)self registerForTraitChanges:v12 withAction:sel_userInterfaceStyleDidChange];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userInterfaceStyleDidChange

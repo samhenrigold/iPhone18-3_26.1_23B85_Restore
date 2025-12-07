@@ -23,11 +23,13 @@
 - (void)pushDebugGroup:(id)group;
 - (void)setBlendColorRed:(float)red green:(float)green blue:(float)blue alpha:(float)alpha;
 - (void)setColorResolveTexture:(id)texture slice:(unint64_t)slice depthPlane:(unint64_t)plane level:(unint64_t)level atIndex:(unint64_t)index;
+- (void)setColorResolveTexture:(id)texture slice:(unint64_t)slice depthPlane:(unint64_t)plane level:(unint64_t)level yInvert:(BOOL)invert atIndex:(unint64_t)index;
 - (void)setColorStoreAction:(unint64_t)action atIndex:(unint64_t)index;
 - (void)setCullMode:(unint64_t)mode;
 - (void)setDepthBias:(float)bias slopeScale:(float)scale clamp:(float)clamp;
 - (void)setDepthClipMode:(unint64_t)mode;
 - (void)setDepthResolveTexture:(id)texture slice:(unint64_t)slice depthPlane:(unint64_t)plane level:(unint64_t)level;
+- (void)setDepthResolveTexture:(id)texture slice:(unint64_t)slice depthPlane:(unint64_t)plane level:(unint64_t)level yInvert:(BOOL)invert;
 - (void)setDepthStencilState:(id)state;
 - (void)setDepthStoreAction:(unint64_t)action;
 - (void)setFragmentBuffer:(id)buffer offset:(unint64_t)offset atIndex:(unint64_t)index;
@@ -47,7 +49,10 @@
 - (void)setRenderPipelineState:(id)state;
 - (void)setScissorRect:(id *)rect;
 - (void)setScissorRects:(id *)rects count:(unint64_t)count;
+- (void)setStencilFrontReferenceValue:(unsigned int)value backReferenceValue:(unsigned int)referenceValue;
+- (void)setStencilReferenceValue:(unsigned int)value;
 - (void)setStencilResolveTexture:(id)texture slice:(unint64_t)slice depthPlane:(unint64_t)plane level:(unint64_t)level;
+- (void)setStencilResolveTexture:(id)texture slice:(unint64_t)slice depthPlane:(unint64_t)plane level:(unint64_t)level yInvert:(BOOL)invert;
 - (void)setStencilStoreAction:(unint64_t)action;
 - (void)setTessellationFactorBuffer:(id)buffer offset:(unint64_t)offset instanceStride:(unint64_t)stride;
 - (void)setTessellationFactorScale:(float)scale;
@@ -1889,6 +1894,75 @@
   [(MTLCountersTraceRenderCommandEncoder *)v9 setDepthStencilState:state];
 }
 
+- (void)setStencilReferenceValue:(unsigned int)value
+{
+  v3 = *&value;
+  if (*(&self->_APITimingEnabled + 4))
+  {
+    v5 = mach_absolute_time();
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  self->_traceEncoder->super._timer = v5;
+  [-[MTLToolsObject baseObject](self "baseObject")];
+  if (*(&self->_APITimingEnabled + 4))
+  {
+    v6 = mach_absolute_time();
+    traceEncoder = self->_traceEncoder;
+    v8 = v6 - traceEncoder->super._timer;
+  }
+
+  else
+  {
+    v8 = 0;
+    traceEncoder = self->_traceEncoder;
+  }
+
+  traceEncoder->super._timer = v8;
+  v9 = self->_traceEncoder;
+
+  [(MTLCountersTraceRenderCommandEncoder *)v9 setStencilReferenceValue:v3];
+}
+
+- (void)setStencilFrontReferenceValue:(unsigned int)value backReferenceValue:(unsigned int)referenceValue
+{
+  v4 = *&referenceValue;
+  v5 = *&value;
+  if (*(&self->_APITimingEnabled + 4))
+  {
+    v7 = mach_absolute_time();
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  self->_traceEncoder->super._timer = v7;
+  [-[MTLToolsObject baseObject](self "baseObject")];
+  if (*(&self->_APITimingEnabled + 4))
+  {
+    v8 = mach_absolute_time();
+    traceEncoder = self->_traceEncoder;
+    v10 = v8 - traceEncoder->super._timer;
+  }
+
+  else
+  {
+    v10 = 0;
+    traceEncoder = self->_traceEncoder;
+  }
+
+  traceEncoder->super._timer = v10;
+  v11 = self->_traceEncoder;
+
+  [(MTLCountersTraceRenderCommandEncoder *)v11 setStencilFrontReferenceValue:v5 backReferenceValue:v4];
+}
+
 - (void)setColorStoreAction:(unint64_t)action atIndex:(unint64_t)index
 {
   if (*(&self->_APITimingEnabled + 4))
@@ -2070,6 +2144,14 @@
   [baseObject setColorResolveTexture:texture slice:slice depthPlane:plane level:level atIndex:index];
 }
 
+- (void)setColorResolveTexture:(id)texture slice:(unint64_t)slice depthPlane:(unint64_t)plane level:(unint64_t)level yInvert:(BOOL)invert atIndex:(unint64_t)index
+{
+  invertCopy = invert;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setColorResolveTexture:texture slice:slice depthPlane:plane level:level yInvert:invertCopy atIndex:index];
+}
+
 - (void)setDepthResolveTexture:(id)texture slice:(unint64_t)slice depthPlane:(unint64_t)plane level:(unint64_t)level
 {
   baseObject = [(MTLToolsObject *)self baseObject];
@@ -2077,11 +2159,27 @@
   [baseObject setDepthResolveTexture:texture slice:slice depthPlane:plane level:level];
 }
 
+- (void)setDepthResolveTexture:(id)texture slice:(unint64_t)slice depthPlane:(unint64_t)plane level:(unint64_t)level yInvert:(BOOL)invert
+{
+  invertCopy = invert;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setDepthResolveTexture:texture slice:slice depthPlane:plane level:level yInvert:invertCopy];
+}
+
 - (void)setStencilResolveTexture:(id)texture slice:(unint64_t)slice depthPlane:(unint64_t)plane level:(unint64_t)level
 {
   baseObject = [(MTLToolsObject *)self baseObject];
 
   [baseObject setStencilResolveTexture:texture slice:slice depthPlane:plane level:level];
+}
+
+- (void)setStencilResolveTexture:(id)texture slice:(unint64_t)slice depthPlane:(unint64_t)plane level:(unint64_t)level yInvert:(BOOL)invert
+{
+  invertCopy = invert;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setStencilResolveTexture:texture slice:slice depthPlane:plane level:level yInvert:invertCopy];
 }
 
 - (void)drawPrimitives:(unint64_t)primitives vertexStart:(unint64_t)start vertexCount:(unint64_t)count instanceCount:(unint64_t)instanceCount

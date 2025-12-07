@@ -63,16 +63,14 @@
 
 - (NSDictionary)configurationsByApplicationDescriptor
 {
-  v3 = OBJC_IVAR____TtC9AACClient26AECAssessmentConfiguration_configurationsByApplicationDescriptor;
   swift_beginAccess();
-  v4 = *(self + v3);
   sub_236DFE044(0, &qword_27DE856B8, 0x277CE46E0);
   sub_236DFE044(0, &qword_27DE856C0, 0x277CE46E8);
   sub_236E14C5C();
 
-  v5 = sub_236E16070();
+  v2 = sub_236E16070();
 
-  return v5;
+  return v2;
 }
 
 - (void)setConfigurationsByApplicationDescriptor:(id)descriptor
@@ -83,7 +81,6 @@
   v4 = sub_236E16080();
   v5 = OBJC_IVAR____TtC9AACClient26AECAssessmentConfiguration_configurationsByApplicationDescriptor;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 

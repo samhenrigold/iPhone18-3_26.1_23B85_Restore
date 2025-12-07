@@ -114,7 +114,7 @@
 {
   if (degrees >= 0x10F)
   {
-    [BWVideoOrientationMetadataNode updateRotationDegrees:];
+    [(BWVideoOrientationMetadataNode *)self updateRotationDegrees:a2];
   }
 
   else
@@ -130,15 +130,15 @@
   }
 }
 
-void __56__BWVideoOrientationMetadataNode_updateRotationDegrees___block_invoke(uint64_t a1)
+void __56__BWVideoOrientationMetadataNode_updateRotationDegrees___block_invoke(uint64_t result)
 {
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v2 = *(result + 32);
+  v3 = *(result + 40);
   if (*(v2 + 144) != v3)
   {
     *(v2 + 144) = v3;
-    [(BWVideoOrientationMetadataNode *)*(a1 + 32) _determineExifOrientation];
-    v5 = *(a1 + 32);
+    [(BWVideoOrientationMetadataNode *)*(result + 32) _determineExifOrientation];
+    v5 = *(result + 32);
 
     [(BWVideoOrientationMetadataNode *)v5 _emitBufferForNewStateIfRecording];
   }
@@ -156,15 +156,15 @@ void __56__BWVideoOrientationMetadataNode_updateRotationDegrees___block_invoke(u
   dispatch_async(emitSamplesDispatchQueue, v4);
 }
 
-void __54__BWVideoOrientationMetadataNode_updateVideoMirrored___block_invoke(uint64_t a1)
+void __54__BWVideoOrientationMetadataNode_updateVideoMirrored___block_invoke(uint64_t result)
 {
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v2 = *(result + 32);
+  v3 = *(result + 40);
   if (*(v2 + 148) != v3)
   {
     *(v2 + 148) = v3;
-    [(BWVideoOrientationMetadataNode *)*(a1 + 32) _determineExifOrientation];
-    v5 = *(a1 + 32);
+    [(BWVideoOrientationMetadataNode *)*(result + 32) _determineExifOrientation];
+    v5 = *(result + 32);
 
     [(BWVideoOrientationMetadataNode *)v5 _emitBufferForNewStateIfRecording];
   }
@@ -432,15 +432,15 @@ void __62__BWVideoOrientationMetadataNode_renderSampleBuffer_forInput___block_in
 
 - (void)_emitBufferForNewStateIfRecording
 {
-  if (self && *(self + 175) == 1)
+  if (result && HIBYTE(result[7].value) == 1)
   {
     memset(&v3, 0, sizeof(v3));
-    CMClockGetTime(&v2, *(self + 128));
-    CMSyncConvertTime(&v3, &v2, *(self + 128), *(self + 136));
+    CMClockGetTime(&v2, *&result[5].timescale);
+    CMSyncConvertTime(&v3, &v2, *&result[5].timescale, result[5].epoch);
     if (v3.flags)
     {
       v2 = v3;
-      [(BWVideoOrientationMetadataNode *)self _emitValidatedVideoOrientationSampleBufferForBoxedFormatOutputAtTime:?];
+      [(BWVideoOrientationMetadataNode *)result _emitValidatedVideoOrientationSampleBufferForBoxedFormatOutputAtTime:?];
     }
   }
 }
@@ -477,10 +477,10 @@ void __62__BWVideoOrientationMetadataNode_renderSampleBuffer_forInput___block_in
       if ((v3 - 9) >= 0xFFFFFFF8)
       {
         v4 = v3 - 1;
-        v5 = v3;
+        v5 = *(time + 176);
         if (!*(time + 184 + 8 * (v3 - 1)))
         {
-          BoxedVideoOrientationBlockBuffer = FigCaptureMetadataUtilitiesCreateBoxedVideoOrientationBlockBuffer();
+          BoxedVideoOrientationBlockBuffer = FigCaptureMetadataUtilitiesCreateBoxedVideoOrientationBlockBuffer(v3, *(time + 160), *(time + 168));
           if (!BoxedVideoOrientationBlockBuffer)
           {
             return;
@@ -490,14 +490,14 @@ void __62__BWVideoOrientationMetadataNode_renderSampleBuffer_forInput___block_in
         }
 
         OUTLINED_FUNCTION_2_10();
-        v9 = FigCaptureMetadataUtilitiesCreateVideoOrientationSampleBuffer(&v13, v7, v5, v8);
-        if (v9)
+        v10 = FigCaptureMetadataUtilitiesCreateVideoOrientationSampleBuffer(&v14, v7, v5, v8, v9);
+        if (v10)
         {
-          v10 = v9;
-          *&v11 = OUTLINED_FUNCTION_2_10().n128_u64[0];
-          [v12 addItemToCacheWithPTS:&v13 exifOrientation:v11];
-          [*(time + 16) emitSampleBuffer:v10];
-          CFRelease(v10);
+          v11 = v10;
+          *&v12 = OUTLINED_FUNCTION_2_10().n128_u64[0];
+          [v13 addItemToCacheWithPTS:&v14 exifOrientation:v12];
+          [*(time + 16) emitSampleBuffer:v11];
+          CFRelease(v11);
         }
       }
     }

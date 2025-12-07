@@ -5,13 +5,14 @@
 - (BOOL)hasSuggestionUUID;
 - (BOOL)isEqual:(id)equal;
 - (__CFString)typeAsString:(__CFString *)string;
+- (id)clearSerializedTriggers;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
 - (id)serializedTriggersAtIndex:(id *)index;
+- (id)serializedTriggersCount;
 - (uint64_t)StringAsType:(uint64_t)type;
 - (uint64_t)addSerializedTriggers:(uint64_t)triggers;
-- (uint64_t)clearSerializedTriggers;
 - (uint64_t)hasOrigin;
 - (uint64_t)hasShouldSuggestTriggers;
 - (uint64_t)hasType;
@@ -21,7 +22,6 @@
 - (uint64_t)originAnchorType;
 - (uint64_t)originBundleId;
 - (uint64_t)serializedTriggers;
-- (uint64_t)serializedTriggersCount;
 - (uint64_t)setHasOrigin:(uint64_t)result;
 - (uint64_t)setHasShouldSuggestTriggers:(uint64_t)result;
 - (uint64_t)setHasType:(uint64_t)result;
@@ -737,11 +737,11 @@ LABEL_4:
   return result;
 }
 
-- (uint64_t)clearSerializedTriggers
+- (id)clearSerializedTriggers
 {
   if (result)
   {
-    return [*(result + 48) removeAllObjects];
+    return [result[6] removeAllObjects];
   }
 
   return result;
@@ -771,11 +771,11 @@ LABEL_4:
   return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
-- (uint64_t)serializedTriggersCount
+- (id)serializedTriggersCount
 {
   if (result)
   {
-    return [*(result + 48) count];
+    return [result[6] count];
   }
 
   return result;

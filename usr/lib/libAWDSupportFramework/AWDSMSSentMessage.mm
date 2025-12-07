@@ -262,7 +262,6 @@ LABEL_10:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -282,7 +281,6 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  fzError = self->_fzError;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -297,7 +295,6 @@ LABEL_6:
   }
 
 LABEL_14:
-  ctError = self->_ctError;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -312,7 +309,6 @@ LABEL_7:
   }
 
 LABEL_15:
-  isGroupMessage = self->_isGroupMessage;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -327,7 +323,6 @@ LABEL_8:
   }
 
 LABEL_16:
-  isToPhoneNumber = self->_isToPhoneNumber;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -339,7 +334,6 @@ LABEL_9:
     }
 
 LABEL_18:
-    hasAttachments = self->_hasAttachments;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 0x80) == 0)
     {
@@ -350,7 +344,6 @@ LABEL_18:
   }
 
 LABEL_17:
-  isToEmail = self->_isToEmail;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) != 0)
@@ -365,7 +358,6 @@ LABEL_10:
   }
 
 LABEL_19:
-  sendDuration = self->_sendDuration;
 
   PBDataWriterWriteUint32Field();
 }

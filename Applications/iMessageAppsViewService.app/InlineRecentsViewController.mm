@@ -4,6 +4,7 @@
 - (void)stickerRecentsController:(id)controller didTapSticker:(id)sticker;
 - (void)stickerRecentsControllerDidRequestMemojiEditor:(id)editor;
 - (void)stickerRecentsControllerDidTapAppButton:(id)button;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -154,6 +155,15 @@
     _hostApplicationBundleIdentifier = [(InlineRecentsViewController *)self _hostApplicationBundleIdentifier];
     [v21 trackStickerSentFromHostBundleIdentifier:_hostApplicationBundleIdentifier];
   }
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = InlineRecentsViewController;
+  [(InlineRecentsViewController *)&v5 viewDidDisappear:disappear];
+  _remoteViewControllerProxy = [(InlineRecentsViewController *)self _remoteViewControllerProxy];
+  [_remoteViewControllerProxy dismissCard];
 }
 
 + (id)_remoteViewControllerInterface

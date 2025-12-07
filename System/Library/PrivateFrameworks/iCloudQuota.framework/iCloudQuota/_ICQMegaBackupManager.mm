@@ -53,7 +53,7 @@
 
 - (id)_quotaBackupCheckURLForAccount:(id)account
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   v4 = [accountCopy propertiesForDataclass:@"com.apple.Dataclass.Quota"];
   v5 = [v4 objectForKey:@"quotaBackupCheckURL"];
@@ -77,9 +77,9 @@
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v16 = v8;
-        v17 = 2112;
-        v18 = accountCopy;
+        v15 = v8;
+        v16 = 2112;
+        v17 = accountCopy;
         _os_log_impl(&dword_275572000, v12, OS_LOG_TYPE_DEFAULT, "invalid URL string %@ for quotaBackupCheckURL account %@", buf, 0x16u);
       }
     }
@@ -91,14 +91,12 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v16 = accountCopy;
+      v15 = accountCopy;
       _os_log_impl(&dword_275572000, v8, OS_LOG_TYPE_DEFAULT, "missing quotaBackupCheckURL for account %@", buf, 0xCu);
     }
 
     v10 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -128,7 +126,7 @@
 
 - (id)_updateStatusURLForAccount:(id)account
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   v4 = [accountCopy propertiesForDataclass:@"com.apple.Dataclass.Quota"];
   v5 = [v4 objectForKey:@"quotaBackupUpdateStatusURL"];
@@ -152,9 +150,9 @@
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v16 = v8;
-        v17 = 2112;
-        v18 = accountCopy;
+        v15 = v8;
+        v16 = 2112;
+        v17 = accountCopy;
         _os_log_impl(&dword_275572000, v12, OS_LOG_TYPE_DEFAULT, "Invalid URL string for update status: %@, account %@", buf, 0x16u);
       }
     }
@@ -166,14 +164,12 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v16 = accountCopy;
+      v15 = accountCopy;
       _os_log_impl(&dword_275572000, v8, OS_LOG_TYPE_DEFAULT, "missing updateStatusURL for account %@", buf, 0xCu);
     }
 
     v10 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -205,7 +201,7 @@
 
 - (id)_extendExpirationURLForAccount:(id)account
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   v4 = [accountCopy propertiesForDataclass:@"com.apple.Dataclass.Quota"];
   v5 = [v4 objectForKey:@"quotaBackupExtensionURL"];
@@ -229,9 +225,9 @@
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v16 = v8;
-        v17 = 2112;
-        v18 = accountCopy;
+        v15 = v8;
+        v16 = 2112;
+        v17 = accountCopy;
         _os_log_impl(&dword_275572000, v12, OS_LOG_TYPE_DEFAULT, "Invalid URL string for extend expiration: %@, account %@", buf, 0x16u);
       }
     }
@@ -243,14 +239,12 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v16 = accountCopy;
+      v15 = accountCopy;
       _os_log_impl(&dword_275572000, v8, OS_LOG_TYPE_DEFAULT, "missing extendExpirationURL for account: %@", buf, 0xCu);
     }
 
     v10 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

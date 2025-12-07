@@ -24,7 +24,7 @@
 
 - (id)computeSensitivityOfPixelBuffer:(__CVBuffer *)buffer
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -35,54 +35,54 @@
   v6 = +[VCPMADResourceManager sharedManager];
   v7 = [v6 activateResource:v5];
 
-  v8 = VCPSignPostLog();
-  v9 = os_signpost_id_generate(v8);
+  v9 = VCPSignPostLog(v8);
+  v10 = os_signpost_id_generate(v9);
 
-  v10 = VCPSignPostLog();
-  v11 = v10;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = VCPSignPostLog(v11);
+  v13 = v12;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     signpostPayload = [(MADImageRemoveBackgroundTask *)self signpostPayload];
     *buf = 138412290;
-    v24 = signpostPayload;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "SCMLHandler_analyzePixelBuffer", "%@", buf, 0xCu);
+    v27 = signpostPayload;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v10, "SCMLHandler_analyzePixelBuffer", "%@", buf, 0xCu);
   }
 
   safetyHandlerTypeN = [v5 safetyHandlerTypeN];
-  v22 = 0;
-  v14 = [safetyHandlerTypeN analyzePixelBuffer:buffer error:&v22];
-  v15 = v22;
+  v25 = 0;
+  v16 = [safetyHandlerTypeN analyzePixelBuffer:buffer error:&v25];
+  v17 = v25;
 
-  v16 = VCPSignPostLog();
-  v17 = v16;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  v19 = VCPSignPostLog(v18);
+  v20 = v19;
+  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
   {
     signpostPayload2 = [(MADImageRemoveBackgroundTask *)self signpostPayload];
     *buf = 138412290;
-    v24 = signpostPayload2;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v17, OS_SIGNPOST_INTERVAL_END, v9, "SCMLHandler_analyzePixelBuffer", "%@", buf, 0xCu);
+    v27 = signpostPayload2;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v20, OS_SIGNPOST_INTERVAL_END, v10, "SCMLHandler_analyzePixelBuffer", "%@", buf, 0xCu);
   }
 
   [v7 reset];
-  if (v14)
+  if (v16)
   {
-    v19 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v14, "sensitive")}];
+    v22 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v16, "sensitive")}];
   }
 
   else
   {
     if (MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
-      v20 = [v15 description];
+      v23 = [v17 description];
       *buf = 138412290;
-      v24 = v20;
+      v27 = v23;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[RemoveBackground|IVS] Failed to check eligibility (%@)", buf, 0xCu);
     }
 
-    v19 = 0;
+    v22 = 0;
   }
 
-  return v19;
+  return v22;
 }
 
 - (BOOL)computeRegionOfInterest:(CGRect *)interest pixelBuffer:(__CVBuffer *)buffer orientation:(unsigned int)orientation error:(id *)error
@@ -196,11 +196,11 @@ LABEL_16:
   width = interest.size.width;
   y = interest.origin.y;
   x = interest.origin.x;
-  v45 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v12 = objc_alloc_init(MEMORY[0x1E6984560]);
-  [v12 setRevision:1];
-  if (DeviceHasANE())
+  v13 = [v12 setRevision:1];
+  if (DeviceHasANE(v13, v14))
   {
     defaultANEDevice = [MEMORY[0x1E6984608] defaultANEDevice];
     [v12 setProcessingDevice:defaultANEDevice];
@@ -210,59 +210,58 @@ LABEL_16:
 
   if (preferredMetalDevice)
   {
-    v15 = MEMORY[0x1E6984608];
+    v17 = MEMORY[0x1E6984608];
     preferredMetalDevice2 = [(MADImageRemoveBackgroundTask *)self preferredMetalDevice];
-    v17 = [v15 deviceForMetalDevice:preferredMetalDevice2];
-    [v12 setProcessingDevice:v17];
+    v19 = [v17 deviceForMetalDevice:preferredMetalDevice2];
+    [v12 setProcessingDevice:v19];
 
     if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
     {
       processingDevice = [v12 processingDevice];
       preferredMetalDevice3 = [(MADImageRemoveBackgroundTask *)self preferredMetalDevice];
       *buf = 138412546;
-      v42 = processingDevice;
-      v43 = 2112;
-      v44 = preferredMetalDevice3;
+      v46 = processingDevice;
+      v47 = 2112;
+      v48 = preferredMetalDevice3;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[RemoveBackground|Mask] Set VNProcessingDevice: %@ (%@)", buf, 0x16u);
     }
   }
 
-  [v12 setRegionOfInterest:{x, y, width, height}];
-  v20 = VCPSignPostLog();
-  v21 = os_signpost_id_generate(v20);
+  v22 = VCPSignPostLog([v12 setRegionOfInterest:{x, y, width, height}]);
+  v23 = os_signpost_id_generate(v22);
 
-  v22 = VCPSignPostLog();
-  v23 = v22;
-  if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
+  v25 = VCPSignPostLog(v24);
+  v26 = v25;
+  if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
   {
     signpostPayload = self->_signpostPayload;
     *buf = 138412290;
-    v42 = signpostPayload;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v23, OS_SIGNPOST_INTERVAL_BEGIN, v21, "VNImageRequestHandler_performRequests", "%@", buf, 0xCu);
+    v46 = signpostPayload;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v26, OS_SIGNPOST_INTERVAL_BEGIN, v23, "VNImageRequestHandler_performRequests", "%@", buf, 0xCu);
   }
 
-  v40 = v12;
-  v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v40 count:1];
-  v39 = 0;
-  v26 = [handlerCopy performRequests:v25 error:&v39];
-  v27 = v39;
+  v44 = v12;
+  v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v44 count:1];
+  v43 = 0;
+  v29 = [handlerCopy performRequests:v28 error:&v43];
+  v30 = v43;
 
-  v28 = VCPSignPostLog();
-  v29 = v28;
-  if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
+  v32 = VCPSignPostLog(v31);
+  v33 = v32;
+  if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v32))
   {
-    v30 = self->_signpostPayload;
+    v34 = self->_signpostPayload;
     *buf = 138412290;
-    v42 = v30;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v29, OS_SIGNPOST_INTERVAL_END, v21, "VNImageRequestHandler_performRequests", "%@", buf, 0xCu);
+    v46 = v34;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v33, OS_SIGNPOST_INTERVAL_END, v23, "VNImageRequestHandler_performRequests", "%@", buf, 0xCu);
   }
 
-  if (v26)
+  if (v29)
   {
     results = [v12 results];
-    v32 = [results count] == 0;
+    v36 = [results count] == 0;
 
-    if (!v32)
+    if (!v36)
     {
       results2 = [v12 results];
       firstObject = [results2 firstObject];
@@ -281,15 +280,15 @@ LABEL_16:
   {
     if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
-      v35 = [v27 description];
+      v39 = [v30 description];
       *buf = 138412290;
-      v42 = v35;
+      v46 = v39;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[RemoveBackground|Mask] Mask generation failed (%@)", buf, 0xCu);
     }
 
-    v36 = [v27 copy];
-    v37 = *error;
-    *error = v36;
+    v40 = [v30 copy];
+    v41 = *error;
+    *error = v40;
   }
 
   firstObject = 0;

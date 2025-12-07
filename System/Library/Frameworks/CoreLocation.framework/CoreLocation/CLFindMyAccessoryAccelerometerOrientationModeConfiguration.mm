@@ -22,18 +22,18 @@
 
 - (CLFindMyAccessoryAccelerometerOrientationModeConfiguration)initWithCoder:(id)coder
 {
-  [coder decodeIntForKey:@"threshold"];
-  [coder decodeIntForKey:@"sleepDuration"];
+  v6 = objc_msgSend_decodeIntForKey_(coder, a2, @"threshold", v3);
+  v9 = objc_msgSend_decodeIntForKey_(coder, v7, @"sleepDuration", v8);
 
-  return MEMORY[0x1EEE66B58](self, sel_initWithThreshold_sleepDuration_);
+  return MEMORY[0x1EEE66B58](self, sel_initWithThreshold_sleepDuration_, v6, v9);
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  [coder encodeInt:self->_threshold forKey:@"threshold"];
+  objc_msgSend_encodeInt_forKey_(coder, a2, self->_threshold, @"threshold");
   sleepDuration_ms = self->_sleepDuration_ms;
 
-  [coder encodeInt:sleepDuration_ms forKey:@"sleepDuration"];
+  objc_msgSend_encodeInt_forKey_(coder, v5, sleepDuration_ms, @"sleepDuration");
 }
 
 @end

@@ -57,7 +57,7 @@
 - (void)checkOutTileForIdentifier:(PXTileIdentifier *)identifier layout:(id)layout
 {
   layoutCopy = layout;
-  +[PXWidgetBarLayout tileIdentifier];
+  objc_msgSend_tileIdentifier(PXWidgetBarLayout);
   v8 = *&identifier->index[5];
   v18[2] = *&identifier->index[3];
   v18[3] = v8;

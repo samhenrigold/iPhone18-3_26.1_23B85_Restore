@@ -24,19 +24,17 @@
 - (id)createRandomUUID
 {
   v2 = 0;
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
-  v5[1] = 0;
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
+  v4[1] = 0;
   do
   {
-    *(v5 + v2) = arc4random();
+    *(v4 + v2) = arc4random();
     v2 += 4;
   }
 
   while (v2 != 16);
-  result = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v5];
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v4];
 }
 
 - (__CFUUID)_createKeyUUIDWithAccount:(id)account password:(id)password
@@ -296,14 +294,14 @@ id __24__MDKeyRing_allKeyUUIDs__block_invoke(uint64_t a1)
 
 void __20__MDKeyRing_getKey___block_invoke(uint64_t a1)
 {
-  v6[2] = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
   *(*(*(a1 + 48) + 8) + 24) = [*(*(a1 + 32) + 24) objectForKey:*(a1 + 40)];
   if (*(*(*(a1 + 48) + 8) + 24) == *MEMORY[0x277CBEEE8])
   {
-    v6[0] = 0;
-    v6[1] = 0;
-    [*(a1 + 40) getUUIDBytes:v6];
-    v2 = [MEMORY[0x277CBEA90] dataWithBytes:v6 length:16];
+    v5[0] = 0;
+    v5[1] = 0;
+    [*(a1 + 40) getUUIDBytes:v5];
+    v2 = [MEMORY[0x277CBEA90] dataWithBytes:v5 length:16];
     v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{*MEMORY[0x277CDC438], *MEMORY[0x277CDC428], *MEMORY[0x277CDC250], *MEMORY[0x277CDC228], *MEMORY[0x277CDC008], *MEMORY[0x277CDBFE0], v2, *MEMORY[0x277CDBF28], *MEMORY[0x277CBED28], *MEMORY[0x277CDC568], 0, 0}];
 
     *(*(*(a1 + 48) + 8) + 24) = 0;
@@ -315,8 +313,6 @@ void __20__MDKeyRing_getKey___block_invoke(uint64_t a1)
       CFRelease(*(*(*(a1 + 48) + 8) + 24));
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scheduleAccessToKey:(__CFUUID *)key onQueue:(id)global_queue usingBlock:(id)block
@@ -427,24 +423,22 @@ LABEL_5:
 - (id)createRandomAESKey
 {
   v2 = 0;
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
-  v5[1] = 0;
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
+  v4[1] = 0;
   do
   {
-    *(v5 + v2) = arc4random();
+    *(v4 + v2) = arc4random();
     v2 += 4;
   }
 
   while (v2 != 16);
-  result = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v5 length:16];
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v4 length:16];
 }
 
 - (BOOL)createKeychainItemForKey:(id)key
 {
-  v28[2] = *MEMORY[0x277D85DE8];
+  v27[2] = *MEMORY[0x277D85DE8];
   keysByUUID = [(MDKeyRing *)self keysByUUID];
   if (!keysByUUID)
   {
@@ -478,10 +472,10 @@ LABEL_5:
     addStandardKeychainAttributesToDictionary(v6);
     v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ (%@)", @"Spotlight Metadata Privacy", objc_msgSend(key, "UUIDString")];
     [v6 setObject:v16 forKey:*MEMORY[0x277CDC080]];
-    v28[0] = 0;
-    v28[1] = 0;
-    [key getUUIDBytes:v28];
-    v17 = [MEMORY[0x277CBEA90] dataWithBytes:v28 length:16];
+    v27[0] = 0;
+    v27[1] = 0;
+    [key getUUIDBytes:v27];
+    v17 = [MEMORY[0x277CBEA90] dataWithBytes:v27 length:16];
     [v6 setObject:v17 forKey:*MEMORY[0x277CDBF28]];
   }
 
@@ -494,9 +488,7 @@ LABEL_5:
     }
   }
 
-  result = createRandomAESKey != 0;
-  v27 = *MEMORY[0x277D85DE8];
-  return result;
+  return createRandomAESKey != 0;
 }
 
 - (void)writeToKeychain:(id)keychain

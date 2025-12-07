@@ -1,6 +1,7 @@
 @interface SFCollaborationUserDefaults
 + (id)sharedDefaults;
 - (id)existingCollaborativeModeForContentIdentifier:(id)identifier;
+- (void)setCollaborativeMode:(BOOL)mode contentIdentifier:(id)identifier;
 @end
 
 @implementation SFCollaborationUserDefaults
@@ -24,6 +25,33 @@ void __45__SFCollaborationUserDefaults_sharedDefaults__block_invoke()
   sharedDefaults_sharedDefaults = v0;
 }
 
+- (void)setCollaborativeMode:(BOOL)mode contentIdentifier:(id)identifier
+{
+  modeCopy = mode;
+  v15 = *MEMORY[0x1E69E9840];
+  identifierCopy = identifier;
+  identifierCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.%@", @"SFCollaborationUserDefaults", identifierCopy];
+  v7 = share_sheet_log(identifierCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = "no";
+    if (modeCopy)
+    {
+      v8 = "yes";
+    }
+
+    *buf = 136315394;
+    v12 = v8;
+    v13 = 2112;
+    v14 = identifierCopy;
+    _os_log_impl(&dword_1A9662000, v7, OS_LOG_TYPE_DEFAULT, "Saving collaborative mode:%s for contentIdentifier:%@", buf, 0x16u);
+  }
+
+  standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
+  v10 = [MEMORY[0x1E696AD98] numberWithBool:modeCopy];
+  [standardUserDefaults setObject:v10 forKey:identifierCopy];
+}
+
 - (id)existingCollaborativeModeForContentIdentifier:(id)identifier
 {
   v16 = *MEMORY[0x1E69E9840];
@@ -32,24 +60,22 @@ void __45__SFCollaborationUserDefaults_sharedDefaults__block_invoke()
   standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
   v6 = [standardUserDefaults objectForKey:identifierCopy];
 
-  v7 = share_sheet_log();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = share_sheet_log(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     bOOLValue = [v6 BOOLValue];
-    v9 = "no";
+    v10 = "no";
     if (bOOLValue)
     {
-      v9 = "yes";
+      v10 = "yes";
     }
 
     *buf = 136315394;
-    v13 = v9;
+    v13 = v10;
     v14 = 2112;
     v15 = identifierCopy;
-    _os_log_impl(&dword_1A9662000, v7, OS_LOG_TYPE_DEFAULT, "Retrieving collaborative mode:%s for contentIdentifier:%@", buf, 0x16u);
+    _os_log_impl(&dword_1A9662000, v8, OS_LOG_TYPE_DEFAULT, "Retrieving collaborative mode:%s for contentIdentifier:%@", buf, 0x16u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

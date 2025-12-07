@@ -21,7 +21,7 @@ void __44___PUVideoHighlightStripView_layoutSubviews__block_invoke(uint64_t a1, 
     v7 = v6;
     if (v6)
     {
-      [v6 CMTimeRangeValue];
+      objc_msgSend_CMTimeRangeValue(v6);
     }
 
     else
@@ -93,7 +93,7 @@ void __58___PUVideoHighlightStripView__updateCurrentTimeRangeIndex__block_invoke
   memset(&v11, 0, sizeof(v11));
   if (v7)
   {
-    [v7 CMTimeRangeValue];
+    objc_msgSend_CMTimeRangeValue(v7);
   }
 
   range = v11;

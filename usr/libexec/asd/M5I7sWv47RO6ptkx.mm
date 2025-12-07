@@ -90,7 +90,7 @@
     v14 = dispatch_time(0, 1800000000);
     if (dispatch_group_wait(v13, v14))
     {
-      sub_1000313F4(-32006);
+      sub_1000313F4(4294935290);
     }
   }
 

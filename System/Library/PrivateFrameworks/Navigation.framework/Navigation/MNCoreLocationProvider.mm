@@ -25,6 +25,7 @@
 - (void)setCLParameters:(id)parameters;
 - (void)setDesiredAccuracy:(double)accuracy;
 - (void)setDistanceFilter:(double)filter;
+- (void)setHeadingOrientation:(int)orientation;
 - (void)startUpdatingHeading;
 - (void)startUpdatingLocation;
 - (void)startUpdatingVehicleHeading;
@@ -132,7 +133,7 @@
 
 - (void)locationManagerDidChangeAuthorization:(id)authorization
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   authorizationCopy = authorization;
   coarseModeEnabled = [(MNCoreLocationProvider *)self coarseModeEnabled];
   authorizationStatus = [authorizationCopy authorizationStatus];
@@ -143,15 +144,14 @@
   {
     identifier = self->_identifier;
     *buf = 138412802;
-    v17 = identifier;
+    v15 = identifier;
+    v16 = 1024;
+    v17 = authorizationStatus;
     v18 = 1024;
-    v19 = authorizationStatus;
-    v20 = 1024;
-    v21 = accuracyAuthorization;
+    v19 = accuracyAuthorization;
     _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEFAULT, "[%@] CoreLocation changed authorization: %d, accuracy authorization: %d", buf, 0x18u);
   }
 
-  authorizationIsolater = self->_authorizationIsolater;
   geo_isolate_sync_data();
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained locationProviderDidChangeAuthorizationStatus:self];
@@ -159,12 +159,10 @@
   coarseModeEnabled2 = [(MNCoreLocationProvider *)self coarseModeEnabled];
   if (coarseModeEnabled != coarseModeEnabled2)
   {
-    v13 = coarseModeEnabled2;
-    v14 = objc_loadWeakRetained(&self->_delegate);
-    [v14 locationProvider:self didChangeCoarseMode:v13];
+    v12 = coarseModeEnabled2;
+    v13 = objc_loadWeakRetained(&self->_delegate);
+    [v13 locationProvider:self didChangeCoarseMode:v12];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __64__MNCoreLocationProvider_locationManagerDidChangeAuthorization___block_invoke(uint64_t result)
@@ -177,23 +175,21 @@ uint64_t __64__MNCoreLocationProvider_locationManagerDidChangeAuthorization___bl
 
 - (void)locationManager:(id)manager didFailWithError:(id)error
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v6 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     identifier = self->_identifier;
-    v10 = 138412547;
-    v11 = identifier;
-    v12 = 2113;
-    v13 = errorCopy;
-    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "[%@] CoreLocation error: %{private}@", &v10, 0x16u);
+    v9 = 138412547;
+    v10 = identifier;
+    v11 = 2113;
+    v12 = errorCopy;
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "[%@] CoreLocation error: %{private}@", &v9, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained locationProvider:self didReceiveError:errorCopy];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)locationManager:(id)manager didUpdateHeading:(id)heading
@@ -205,15 +201,15 @@ uint64_t __64__MNCoreLocationProvider_locationManagerDidChangeAuthorization___bl
 
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   locationsCopy = locations;
   v6 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     identifier = self->_identifier;
-    v20 = 138412290;
-    v21 = identifier;
-    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_INFO, "[%@] locationManager:didUpdateLocations", &v20, 0xCu);
+    v19 = 138412290;
+    v20 = identifier;
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_INFO, "[%@] locationManager:didUpdateLocations", &v19, 0xCu);
   }
 
   v8 = MNGetMNLocationProviderLog();
@@ -222,8 +218,8 @@ uint64_t __64__MNCoreLocationProvider_locationManagerDidChangeAuthorization___bl
   v11 = v10;
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
-    LOWORD(v20) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1D311E000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "DidUpdateLocations", "", &v20, 2u);
+    LOWORD(v19) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1D311E000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "DidUpdateLocations", "", &v19, 2u);
   }
 
   lastObject = [locationsCopy lastObject];
@@ -234,9 +230,9 @@ uint64_t __64__MNCoreLocationProvider_locationManagerDidChangeAuthorization___bl
   if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     uuid = [(MNLocation *)v13 uuid];
-    v20 = 138412290;
-    v21 = uuid;
-    _os_log_impl(&dword_1D311E000, v14, OS_LOG_TYPE_INFO, "[MN] [%@] - Received - from MNCoreLocationProvider", &v20, 0xCu);
+    v19 = 138412290;
+    v20 = uuid;
+    _os_log_impl(&dword_1D311E000, v14, OS_LOG_TYPE_INFO, "[MN] [%@] - Received - from MNCoreLocationProvider", &v19, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -246,169 +242,176 @@ uint64_t __64__MNCoreLocationProvider_locationManagerDidChangeAuthorization___bl
   v18 = v17;
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
   {
-    LOWORD(v20) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1D311E000, v18, OS_SIGNPOST_INTERVAL_END, v9, "DidUpdateLocations", "", &v20, 2u);
+    LOWORD(v19) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1D311E000, v18, OS_SIGNPOST_INTERVAL_END, v9, "DidUpdateLocations", "", &v19, 2u);
+  }
+}
+
+- (void)setHeadingOrientation:(int)orientation
+{
+  v3 = *&orientation;
+  v11 = *MEMORY[0x1E69E9840];
+  v5 = GEOFindOrCreateLog();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    identifier = self->_identifier;
+    v7 = 138412546;
+    v8 = identifier;
+    v9 = 1024;
+    v10 = v3;
+    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "[%@] setHeadingOrientation: %d", &v7, 0x12u);
   }
 
-  v19 = *MEMORY[0x1E69E9840];
+  [(CLLocationManager *)self->_clLocationManager setHeadingOrientation:v3];
 }
 
 - (void)resetForActiveTileGroupChanged
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     identifier = self->_identifier;
-    v6 = 138412290;
-    v7 = identifier;
-    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_DEFAULT, "[%@] resetForActiveTileGroupChanged", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = identifier;
+    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_DEFAULT, "[%@] resetForActiveTileGroupChanged", &v5, 0xCu);
   }
 
   [(CLLocationManager *)self->_clLocationManager requestLocation];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopUpdatingVehicleHeading
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     identifier = self->_identifier;
-    v6 = 138412290;
-    v7 = identifier;
-    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_DEFAULT, "[%@] stopUpdatingVehicleHeading", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = identifier;
+    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_DEFAULT, "[%@] stopUpdatingVehicleHeading", &v5, 0xCu);
   }
 
   [(CLLocationManager *)self->_clLocationManager stopUpdatingVehicleHeading];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startUpdatingVehicleHeading
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     identifier = self->_identifier;
-    v6 = 138412290;
-    v7 = identifier;
-    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_DEFAULT, "[%@] startUpdatingVehicleHeading", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = identifier;
+    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_DEFAULT, "[%@] startUpdatingVehicleHeading", &v5, 0xCu);
   }
 
   [(CLLocationManager *)self->_clLocationManager startUpdatingVehicleHeading];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopUpdatingVehicleSpeed
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     identifier = self->_identifier;
-    v6 = 138412290;
-    v7 = identifier;
-    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_DEFAULT, "[%@] stopUpdatingVehicleSpeed", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = identifier;
+    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_DEFAULT, "[%@] stopUpdatingVehicleSpeed", &v5, 0xCu);
   }
 
   [(CLLocationManager *)self->_clLocationManager stopUpdatingVehicleSpeed];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startUpdatingVehicleSpeed
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     identifier = self->_identifier;
-    v6 = 138412290;
-    v7 = identifier;
-    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_DEFAULT, "[%@] startUpdatingVehicleSpeed", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = identifier;
+    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_DEFAULT, "[%@] startUpdatingVehicleSpeed", &v5, 0xCu);
   }
 
   [(CLLocationManager *)self->_clLocationManager startUpdatingVehicleSpeed];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopUpdatingHeading
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     identifier = self->_identifier;
-    v6 = 138412290;
-    v7 = identifier;
-    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_DEFAULT, "[%@] stopUpdatingHeading", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = identifier;
+    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_DEFAULT, "[%@] stopUpdatingHeading", &v5, 0xCu);
   }
 
   [(CLLocationManager *)self->_clLocationManager stopUpdatingHeading];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startUpdatingHeading
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     identifier = self->_identifier;
-    v6 = 138412290;
-    v7 = identifier;
-    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_DEFAULT, "[%@] startUpdatingHeading", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = identifier;
+    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_DEFAULT, "[%@] startUpdatingHeading", &v5, 0xCu);
   }
 
   [(CLLocationManager *)self->_clLocationManager startUpdatingHeading];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestLocation
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     identifier = self->_identifier;
-    v6 = 138412290;
-    v7 = identifier;
-    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_DEFAULT, "[%@] requestLocation", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = identifier;
+    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_DEFAULT, "[%@] requestLocation", &v5, 0xCu);
   }
 
   [(CLLocationManager *)self->_clLocationManager requestLocation];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopUpdatingLocation
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     identifier = self->_identifier;
-    v6 = 138412290;
-    v7 = identifier;
-    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_DEFAULT, "[%@] stopUpdatingLocation", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = identifier;
+    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_DEFAULT, "[%@] stopUpdatingLocation", &v5, 0xCu);
   }
 
   [(CLLocationManager *)self->_clLocationManager stopUpdatingLocation];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startUpdatingLocationWithDeterminedAuthorization
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (![(MNCoreLocationProvider *)self isAuthorized])
   {
     v3 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       identifier = self->_identifier;
-      v8 = 138412290;
-      v9 = identifier;
-      _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_ERROR, "[%@] Trying to start Navigation location updates without location authorization", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = identifier;
+      _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_ERROR, "[%@] Trying to start Navigation location updates without location authorization", &v7, 0xCu);
     }
   }
 
@@ -416,18 +419,17 @@ uint64_t __64__MNCoreLocationProvider_locationManagerDidChangeAuthorization___bl
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = self->_identifier;
-    v8 = 138412290;
-    v9 = v6;
-    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "[%@] Calling [CLLocationManager startUpdatingLocation]", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "[%@] Calling [CLLocationManager startUpdatingLocation]", &v7, 0xCu);
   }
 
   [(CLLocationManager *)self->_clLocationManager startUpdatingLocation];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startUpdatingLocation
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -439,15 +441,14 @@ uint64_t __64__MNCoreLocationProvider_locationManagerDidChangeAuthorization___bl
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v14 = 0x2020000000;
-  v15 = 0;
-  authorizationIsolater = self->_authorizationIsolater;
-  v10[1] = MEMORY[0x1E69E9820];
-  v10[2] = 3221225472;
-  v10[3] = __47__MNCoreLocationProvider_startUpdatingLocation__block_invoke;
-  v10[4] = &unk_1E8430960;
-  v10[5] = self;
-  v10[6] = &buf;
+  v12 = 0x2020000000;
+  v13 = 0;
+  v8[1] = MEMORY[0x1E69E9820];
+  v8[2] = 3221225472;
+  v8[3] = __47__MNCoreLocationProvider_startUpdatingLocation__block_invoke;
+  v8[4] = &unk_1E8430960;
+  v8[5] = self;
+  v8[6] = &buf;
   geo_isolate_sync_data();
   if (*(*(&buf + 1) + 24))
   {
@@ -456,28 +457,27 @@ uint64_t __64__MNCoreLocationProvider_locationManagerDidChangeAuthorization___bl
 
   else
   {
-    v6 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v5 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v7 = self->_identifier;
-      *v11 = 138412290;
-      v12 = v7;
-      _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEBUG, "[%@] Authorization not determined, updating manually.", v11, 0xCu);
+      v6 = self->_identifier;
+      *v9 = 138412290;
+      v10 = v6;
+      _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEBUG, "[%@] Authorization not determined, updating manually.", v9, 0xCu);
     }
 
-    objc_initWeak(v11, self);
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __47__MNCoreLocationProvider_startUpdatingLocation__block_invoke_53;
-    v9[3] = &unk_1E8430EA0;
-    objc_copyWeak(v10, v11);
-    [(MNCoreLocationProvider *)self _forceUpdateAuthorizationStatusWithCompletionHandler:v9];
-    objc_destroyWeak(v10);
-    objc_destroyWeak(v11);
+    objc_initWeak(v9, self);
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __47__MNCoreLocationProvider_startUpdatingLocation__block_invoke_53;
+    v7[3] = &unk_1E8430EA0;
+    objc_copyWeak(v8, v9);
+    [(MNCoreLocationProvider *)self _forceUpdateAuthorizationStatusWithCompletionHandler:v7];
+    objc_destroyWeak(v8);
+    objc_destroyWeak(v9);
   }
 
   _Block_object_dispose(&buf, 8);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __47__MNCoreLocationProvider_startUpdatingLocation__block_invoke_53(uint64_t a1)
@@ -504,55 +504,51 @@ void __47__MNCoreLocationProvider_startUpdatingLocation__block_invoke_53(uint64_
 
 - (void)_forceUpdateAuthorizationStatusWithCompletionHandler:(id)handler
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     identifier = self->_identifier;
     *buf = 138412290;
-    v13 = identifier;
+    v12 = identifier;
     _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "[%@] Force updating authorization status.", buf, 0xCu);
   }
 
   locationsQueue = self->_locationsQueue;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __79__MNCoreLocationProvider__forceUpdateAuthorizationStatusWithCompletionHandler___block_invoke;
-  v10[3] = &unk_1E842F580;
-  v10[4] = self;
-  v11 = handlerCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __79__MNCoreLocationProvider__forceUpdateAuthorizationStatusWithCompletionHandler___block_invoke;
+  v9[3] = &unk_1E842F580;
+  v9[4] = self;
+  v10 = handlerCopy;
   v8 = handlerCopy;
-  dispatch_async(locationsQueue, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  dispatch_async(locationsQueue, v9);
 }
 
 uint64_t __79__MNCoreLocationProvider__forceUpdateAuthorizationStatusWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = *(*(a1 + 32) + 56);
+  v7 = *MEMORY[0x1E69E9840];
   geo_isolate_sync_data();
-  v3 = GEOFindOrCreateLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v2 = GEOFindOrCreateLog();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(*(a1 + 32) + 64);
+    v3 = *(*(a1 + 32) + 64);
     *buf = 138412290;
-    v8 = v4;
-    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_DEFAULT, "[%@] Finished force updating authorization status.", buf, 0xCu);
+    v6 = v3;
+    _os_log_impl(&dword_1D311E000, v2, OS_LOG_TYPE_DEFAULT, "[%@] Finished force updating authorization status.", buf, 0xCu);
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t __79__MNCoreLocationProvider__forceUpdateAuthorizationStatusWithCompletionHandler___block_invoke_2(uint64_t a1)
+void *__79__MNCoreLocationProvider__forceUpdateAuthorizationStatusWithCompletionHandler___block_invoke_2(uint64_t a1)
 {
   *(*(a1 + 32) + 40) = [*(*(a1 + 32) + 8) authorizationStatus];
   result = [*(*(a1 + 32) + 8) accuracyAuthorization];
@@ -562,7 +558,7 @@ uint64_t __79__MNCoreLocationProvider__forceUpdateAuthorizationStatusWithComplet
 
 - (void)_updateForCLParameters:(id)parameters
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   v5 = parametersCopy;
   if (parametersCopy && self->_clLocationManager)
@@ -582,26 +578,24 @@ uint64_t __79__MNCoreLocationProvider__forceUpdateAuthorizationStatusWithComplet
       [v5 distanceFilter];
       v10 = v9;
       [v5 desiredAccuracy];
-      v14 = 138413570;
-      v15 = identifier;
-      v16 = 1024;
-      v17 = activityType;
-      v18 = 2048;
-      v19 = v10;
-      v20 = 2048;
-      v21 = v11;
-      v22 = 1024;
+      v13 = 138413570;
+      v14 = identifier;
+      v15 = 1024;
+      v16 = activityType;
+      v17 = 2048;
+      v18 = v10;
+      v19 = 2048;
+      v20 = v11;
+      v21 = 1024;
       matchInfoEnabled = [v5 matchInfoEnabled];
-      v24 = 1024;
+      v23 = 1024;
       fusionInfoEnabled = [v5 fusionInfoEnabled];
-      _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "[%@] MNCoreLocationProvider setting CL parameters:\nactivityType:%d, distanceFilter:%g, desiredAccuracy:%g, matchInfoEnabled:%d, fusionInfoEnabled:%d", &v14, 0x32u);
+      _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEFAULT, "[%@] MNCoreLocationProvider setting CL parameters:\nactivityType:%d, distanceFilter:%g, desiredAccuracy:%g, matchInfoEnabled:%d, fusionInfoEnabled:%d", &v13, 0x32u);
     }
 
     clParameters = self->_clParameters;
     self->_clParameters = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setCLParameters:(id)parameters
@@ -621,7 +615,7 @@ uint64_t __79__MNCoreLocationProvider__forceUpdateAuthorizationStatusWithComplet
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   [(CLLocationManager *)self->_clLocationManager stopUpdatingLocation];
   [(CLLocationManager *)self->_clLocationManager stopUpdatingHeading];
   [(CLLocationManager *)self->_clLocationManager setDelegate:0];
@@ -630,19 +624,18 @@ uint64_t __79__MNCoreLocationProvider__forceUpdateAuthorizationStatusWithComplet
   {
     identifier = self->_identifier;
     *buf = 138412290;
-    v8 = identifier;
+    v7 = identifier;
     _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_DEFAULT, "[%@] Deallocated.", buf, 0xCu);
   }
 
-  v6.receiver = self;
-  v6.super_class = MNCoreLocationProvider;
-  [(MNCoreLocationProvider *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = MNCoreLocationProvider;
+  [(MNCoreLocationProvider *)&v5 dealloc];
 }
 
 - (MNCoreLocationProvider)initWithEffectiveBundleIdentifier:(id)identifier
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v6 = [(MNCoreLocationProvider *)self init];
   v7 = v6;
@@ -652,9 +645,9 @@ uint64_t __79__MNCoreLocationProvider__forceUpdateAuthorizationStatusWithComplet
     v8 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412290;
-      v15 = identifierCopy;
-      _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEFAULT, "[MNCoreLocationProvider initWithEffectiveBundleIdentifier:] - %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = identifierCopy;
+      _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEFAULT, "[MNCoreLocationProvider initWithEffectiveBundleIdentifier:] - %@", &v13, 0xCu);
     }
 
     v9 = [objc_alloc(MEMORY[0x1E695FBE8]) initWithEffectiveBundleIdentifier:identifierCopy delegate:v7 onQueue:v7->_locationsQueue];
@@ -665,13 +658,12 @@ uint64_t __79__MNCoreLocationProvider__forceUpdateAuthorizationStatusWithComplet
     v11 = v7;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (MNCoreLocationProvider)initWithEffectiveBundle:(id)bundle
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   bundleCopy = bundle;
   v5 = [(MNCoreLocationProvider *)self init];
   if (v5)
@@ -684,9 +676,9 @@ uint64_t __79__MNCoreLocationProvider__forceUpdateAuthorizationStatusWithComplet
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       bundleIdentifier2 = [bundleCopy bundleIdentifier];
-      v17 = 138412290;
-      v18 = bundleIdentifier2;
-      _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEFAULT, "[MNCoreLocationProvider initWithEffectiveBundle:] - %@", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = bundleIdentifier2;
+      _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_DEFAULT, "[MNCoreLocationProvider initWithEffectiveBundle:] - %@", &v16, 0xCu);
     }
 
     v10 = objc_alloc(MEMORY[0x1E695FBE8]);
@@ -699,7 +691,6 @@ uint64_t __79__MNCoreLocationProvider__forceUpdateAuthorizationStatusWithComplet
     v14 = v5;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -727,7 +718,7 @@ uint64_t __79__MNCoreLocationProvider__forceUpdateAuthorizationStatusWithComplet
 
 - (void)locationManager:(id)manager didUpdateVehicleHeading:(id)heading
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   headingCopy = heading;
   v6 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
@@ -736,13 +727,13 @@ uint64_t __79__MNCoreLocationProvider__forceUpdateAuthorizationStatusWithComplet
     [headingCopy trueHeading];
     v9 = v8;
     timestamp = [headingCopy timestamp];
-    v16 = 138412803;
-    v17 = identifier;
-    v18 = 2048;
-    v19 = v9;
-    v20 = 2113;
-    v21 = timestamp;
-    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEBUG, "[%@] Got vehicle heading: %g | %{private}@", &v16, 0x20u);
+    v15 = 138412803;
+    v16 = identifier;
+    v17 = 2048;
+    v18 = v9;
+    v19 = 2113;
+    v20 = timestamp;
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEBUG, "[%@] Got vehicle heading: %g | %{private}@", &v15, 0x20u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -750,13 +741,11 @@ uint64_t __79__MNCoreLocationProvider__forceUpdateAuthorizationStatusWithComplet
   v13 = v12;
   timestamp2 = [headingCopy timestamp];
   [WeakRetained locationProvider:self didUpdateVehicleHeading:timestamp2 timestamp:v13];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)locationManager:(id)manager didUpdateVehicleSpeed:(id)speed
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   speedCopy = speed;
   v6 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
@@ -765,13 +754,13 @@ uint64_t __79__MNCoreLocationProvider__forceUpdateAuthorizationStatusWithComplet
     [speedCopy speed];
     v9 = v8;
     timestamp = [speedCopy timestamp];
-    v16 = 138412803;
-    v17 = identifier;
-    v18 = 2048;
-    v19 = v9;
-    v20 = 2113;
-    v21 = timestamp;
-    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEBUG, "[%@] Got vehicle speed: %g | %{private}@", &v16, 0x20u);
+    v15 = 138412803;
+    v16 = identifier;
+    v17 = 2048;
+    v18 = v9;
+    v19 = 2113;
+    v20 = timestamp;
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEBUG, "[%@] Got vehicle speed: %g | %{private}@", &v15, 0x20u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -779,8 +768,6 @@ uint64_t __79__MNCoreLocationProvider__forceUpdateAuthorizationStatusWithComplet
   v13 = v12;
   timestamp2 = [speedCopy timestamp];
   [WeakRetained locationProvider:self didUpdateVehicleSpeed:timestamp2 timestamp:v13];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 @end

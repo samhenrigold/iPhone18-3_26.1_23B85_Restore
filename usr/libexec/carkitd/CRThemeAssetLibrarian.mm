@@ -188,17 +188,7 @@ LABEL_16:
           if (v10)
           {
             assetOverrider = [(CRThemeAssetLibrarian *)self assetOverrider];
-            if (!assetOverrider)
-            {
-              goto LABEL_13;
-            }
-
-            v12 = assetOverrider;
-            assetOverrider2 = [(CRThemeAssetLibrarian *)self assetOverrider];
-            assetIdentifier = [v10 assetIdentifier];
-            v15 = [assetOverrider2 hasOverrideAssetForAssetIdentifier:assetIdentifier];
-
-            if (v15)
+            if (assetOverrider && (v12 = assetOverrider, -[CRThemeAssetLibrarian assetOverrider](self, "assetOverrider"), v13 = objc_claimAutoreleasedReturnValue(), [v10 assetIdentifier], v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v13, "hasOverrideAssetForAssetIdentifier:", v14), v14, v13, v12, v15))
             {
               v16 = CarThemeAssetsLogging();
               if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
@@ -211,7 +201,6 @@ LABEL_16:
 
             else
             {
-LABEL_13:
               v17 = CarThemeAssetsLogging();
               if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
               {

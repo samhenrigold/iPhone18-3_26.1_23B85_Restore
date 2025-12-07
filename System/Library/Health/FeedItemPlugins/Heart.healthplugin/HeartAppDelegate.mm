@@ -55,9 +55,10 @@ LABEL_3:
 LABEL_4:
   applicationCopy = application;
   selfCopy = self;
-  v13 = sub_29D8A7140(application, v8, v10, optionsCopy);
+  sub_29D8A7140(application, v8, v10, optionsCopy);
+  v14 = v13;
 
-  return v13 & 1;
+  return v14 & 1;
 }
 
 @end

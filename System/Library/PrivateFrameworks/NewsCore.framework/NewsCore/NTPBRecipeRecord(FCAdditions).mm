@@ -39,17 +39,7 @@
 {
   v4 = a3;
   contentURL = [self contentURL];
-  if (!contentURL)
-  {
-    goto LABEL_7;
-  }
-
-  v6 = contentURL;
-  v7 = MEMORY[0x1E695DFF8];
-  contentURL2 = [self contentURL];
-  v9 = [v7 URLWithString:contentURL2];
-
-  if (v9)
+  if (contentURL && (v6 = contentURL, v7 = MEMORY[0x1E695DFF8], [self contentURL], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "URLWithString:", v8), v9 = objc_claimAutoreleasedReturnValue(), v8, v6, v9))
   {
     base = [self base];
     cacheLifetimeHint = [base cacheLifetimeHint];
@@ -68,7 +58,6 @@
 
   else
   {
-LABEL_7:
     v13 = 0;
   }
 

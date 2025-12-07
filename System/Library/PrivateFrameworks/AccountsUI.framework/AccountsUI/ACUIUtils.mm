@@ -84,7 +84,6 @@
   objc_storeStrong(&v25, 0);
   objc_storeStrong(&v26, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 + (id)_accountGroupIdentifier:(id)identifier ignoringGroups:(id)groups
@@ -461,7 +460,6 @@ uint64_t __40__ACUIUtils_sortedAccountsFromAccounts___block_invoke(id *a1, void 
   objc_storeStrong(&v79, 0);
   objc_storeStrong(&v80, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 @end

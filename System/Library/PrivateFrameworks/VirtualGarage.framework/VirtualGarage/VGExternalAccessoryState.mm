@@ -29,7 +29,7 @@
 
 - (void)_updateWithVehicleInfo:(id)info
 {
-  v129 = *MEMORY[0x277D85DE8];
+  v128 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v5 = *MEMORY[0x277CC5F00];
   v6 = [infoCopy objectForKeyedSubscript:*MEMORY[0x277CC5F00]];
@@ -217,32 +217,32 @@
   }
 
   selfCopy = self;
-  v123 = v92;
+  v122 = v92;
   if (_updateWithVehicleInfo__onceToken != -1)
   {
     dispatch_once(&_updateWithVehicleInfo__onceToken, &__block_literal_global_459);
   }
 
-  v126 = 0u;
-  v127 = 0u;
-  v124 = 0u;
   v125 = 0u;
+  v126 = 0u;
+  v123 = 0u;
+  v124 = 0u;
   v93 = _updateWithVehicleInfo__powerKeys;
-  v94 = [v93 countByEnumeratingWithState:&v124 objects:v128 count:16];
+  v94 = [v93 countByEnumeratingWithState:&v123 objects:v127 count:16];
   if (v94)
   {
     v95 = v94;
-    v96 = *v125;
+    v96 = *v124;
     do
     {
       for (i = 0; i != v95; ++i)
       {
-        if (*v125 != v96)
+        if (*v124 != v96)
         {
           objc_enumerationMutation(v93);
         }
 
-        v98 = *(*(&v124 + 1) + 8 * i);
+        v98 = *(*(&v123 + 1) + 8 * i);
         v99 = [infoCopy objectForKeyedSubscript:{v98, selfCopy}];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -255,20 +255,20 @@
           v105 = v104 = v37;
           v106 = [v103 initWithDoubleValue:v105 unit:v101];
           v107 = [_updateWithVehicleInfo__powerKeys objectForKeyedSubscript:v98];
-          [v123 setObject:v106 forKeyedSubscript:v107];
+          [v122 setObject:v106 forKeyedSubscript:v107];
 
           infoCopy = v102;
           v37 = v104;
         }
       }
 
-      v95 = [v93 countByEnumeratingWithState:&v124 objects:v128 count:16];
+      v95 = [v93 countByEnumeratingWithState:&v123 objects:v127 count:16];
     }
 
     while (v95);
   }
 
-  v108 = [v123 copy];
+  v108 = [v122 copy];
   v109 = selfCopy;
   v110 = selfCopy->_powerByConnector;
   selfCopy->_powerByConnector = v108;
@@ -298,40 +298,36 @@
     activeConnector = v109->_activeConnector;
     v109->_activeConnector = v119;
   }
-
-  v121 = *MEMORY[0x277D85DE8];
 }
 
 void __51__VGExternalAccessoryState__updateWithVehicleInfo___block_invoke()
 {
-  v8[9] = *MEMORY[0x277D85DE8];
+  v7[9] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CC5F50];
-  v7[0] = *MEMORY[0x277CC5F48];
-  v7[1] = v0;
-  v8[0] = &unk_2880E5C50;
-  v8[1] = &unk_2880E5C68;
+  v6[0] = *MEMORY[0x277CC5F48];
+  v6[1] = v0;
+  v7[0] = &unk_2880E5C50;
+  v7[1] = &unk_2880E5C68;
   v1 = *MEMORY[0x277CC5F58];
-  v7[2] = *MEMORY[0x277CC5F70];
-  v7[3] = v1;
-  v8[2] = &unk_2880E5C80;
-  v8[3] = &unk_2880E5C98;
+  v6[2] = *MEMORY[0x277CC5F70];
+  v6[3] = v1;
+  v7[2] = &unk_2880E5C80;
+  v7[3] = &unk_2880E5C98;
   v2 = *MEMORY[0x277CC5F68];
-  v7[4] = *MEMORY[0x277CC5F78];
-  v7[5] = v2;
-  v8[4] = &unk_2880E5CB0;
-  v8[5] = &unk_2880E5CC8;
+  v6[4] = *MEMORY[0x277CC5F78];
+  v6[5] = v2;
+  v7[4] = &unk_2880E5CB0;
+  v7[5] = &unk_2880E5CC8;
   v3 = *MEMORY[0x277CC5F88];
-  v7[6] = *MEMORY[0x277CC5F60];
-  v7[7] = v3;
-  v8[6] = &unk_2880E5CE0;
-  v8[7] = &unk_2880E5CF8;
-  v7[8] = *MEMORY[0x277CC5F80];
-  v8[8] = &unk_2880E5D10;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:9];
+  v6[6] = *MEMORY[0x277CC5F60];
+  v6[7] = v3;
+  v7[6] = &unk_2880E5CE0;
+  v7[7] = &unk_2880E5CF8;
+  v6[8] = *MEMORY[0x277CC5F80];
+  v7[8] = &unk_2880E5D10;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:9];
   v5 = _updateWithVehicleInfo__powerKeys;
   _updateWithVehicleInfo__powerKeys = v4;
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

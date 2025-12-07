@@ -58,46 +58,45 @@ uint64_t __40__SUTransactionManager_copyTransactions__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)dealloc
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   allKeys = [(NSMutableDictionary *)self->_openTransactions allKeys];
-  v4 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [allKeys countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        [(SUTransactionManager *)self endTransaction:*(*(&v10 + 1) + 8 * v7++)];
+        [(SUTransactionManager *)self endTransaction:*(*(&v9 + 1) + 8 * v7++)];
       }
 
       while (v5 != v7);
-      v5 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [allKeys countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
 
-  v9.receiver = self;
-  v9.super_class = SUTransactionManager;
-  [(SUTransactionManager *)&v9 dealloc];
-  v8 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = SUTransactionManager;
+  [(SUTransactionManager *)&v8 dealloc];
 }
 
 - (SUTransactionManager)init
@@ -127,9 +126,11 @@ uint64_t __40__SUTransactionManager_copyTransactions__block_invoke(uint64_t a1)
 
 uint64_t __38__SUTransactionManager_sharedInstance__block_invoke()
 {
-  sharedInstance___instance_2 = objc_alloc_init(SUTransactionManager);
+  v0 = objc_alloc_init(SUTransactionManager);
+  v1 = sharedInstance___instance_2;
+  sharedInstance___instance_2 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (void)beginTransaction:(id)transaction keepAlive:(BOOL)alive
@@ -149,24 +150,21 @@ uint64_t __38__SUTransactionManager_sharedInstance__block_invoke()
 
 void __51__SUTransactionManager_beginTransaction_keepAlive___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _hasOpenTransactionForName:*(a1 + 40)];
-  v10 = *(a1 + 40);
-  *(a1 + 48);
-  if (v2)
+  if ([*(a1 + 32) _hasOpenTransactionForName:*(a1 + 40)])
   {
-    SULogDebug(@"ERROR: trying to start a transaction with already used name %@%@", v3, v4, v5, v6, v7, v8, v9, *(a1 + 40));
+    SULogDebug(@"ERROR: trying to start a transaction with already used name %@%@", v2, v3, v4, v5, v6, v7, v8, *(a1 + 40));
   }
 
   else
   {
-    SULogDebug(@"Beginning transaction: %@%@", v3, v4, v5, v6, v7, v8, v9, *(a1 + 40));
-    v14 = [MEMORY[0x277CCAB68] stringWithString:@"com.apple.SoftwareUpdateServices."];
-    [v14 appendString:*(a1 + 40)];
-    v11 = *(*(a1 + 32) + 8);
-    v12 = v14;
-    [v14 UTF8String];
-    v13 = os_transaction_create();
-    [v11 setSafeObject:v13 forKey:*(a1 + 40)];
+    SULogDebug(@"Beginning transaction: %@%@", v2, v3, v4, v5, v6, v7, v8, *(a1 + 40));
+    v12 = [MEMORY[0x277CCAB68] stringWithString:@"com.apple.SoftwareUpdateServices."];
+    [v12 appendString:*(a1 + 40)];
+    v9 = *(*(a1 + 32) + 8);
+    v10 = v12;
+    [v12 UTF8String];
+    v11 = os_transaction_create();
+    [v9 setSafeObject:v11 forKey:*(a1 + 40)];
 
     if (*(a1 + 48) == 1)
     {
@@ -192,24 +190,22 @@ void __51__SUTransactionManager_beginTransaction_keepAlive___block_invoke(uint64
 
 void __39__SUTransactionManager_endTransaction___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _hasOpenTransactionForName:*(a1 + 40)];
-  v10 = *(a1 + 40);
-  if (v2)
+  if ([*(a1 + 32) _hasOpenTransactionForName:*(a1 + 40)])
   {
-    SULogDebug(@"Ended transaction: %@", v3, v4, v5, v6, v7, v8, v9, *(a1 + 40));
+    SULogDebug(@"Ended transaction: %@", v2, v3, v4, v5, v6, v7, v8, *(a1 + 40));
     [*(*(a1 + 32) + 8) removeObjectForKey:*(a1 + 40)];
     if ([*(*(a1 + 32) + 16) containsObject:*(a1 + 40)])
     {
       [*(*(a1 + 32) + 16) removeObject:*(a1 + 40)];
-      v11 = *(a1 + 32);
+      v9 = *(a1 + 32);
 
-      [v11 _toggleKeepAliveStatus];
+      [v9 _toggleKeepAliveStatus];
     }
   }
 
   else
   {
-    SULogDebug(@"ERROR: trying to end a non existent transaction with name %@", v3, v4, v5, v6, v7, v8, v9, *(a1 + 40));
+    SULogDebug(@"ERROR: trying to end a non existent transaction with name %@", v2, v3, v4, v5, v6, v7, v8, *(a1 + 40));
   }
 }
 
@@ -236,7 +232,7 @@ void __39__SUTransactionManager_endTransaction___block_invoke(uint64_t a1)
   return workQueue;
 }
 
-uint64_t __50__SUTransactionManager_hasOpenTransactionForName___block_invoke(uint64_t a1)
+void *__50__SUTransactionManager_hasOpenTransactionForName___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _hasOpenTransactionForName:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -274,7 +270,7 @@ uint64_t __50__SUTransactionManager_hasOpenTransactionForName___block_invoke(uin
   return v3;
 }
 
-uint64_t __42__SUTransactionManager_isKeepAliveEnabled__block_invoke(uint64_t a1)
+void *__42__SUTransactionManager_isKeepAliveEnabled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _isKeepAliveEnabled:0];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -293,7 +289,7 @@ uint64_t __42__SUTransactionManager_isKeepAliveEnabled__block_invoke(uint64_t a1
   dispatch_sync(workQueue, v4);
 }
 
-uint64_t __50__SUTransactionManager_clearKeepAliveIfNecessary___block_invoke(uint64_t a1)
+void *__50__SUTransactionManager_clearKeepAliveIfNecessary___block_invoke(uint64_t a1)
 {
   if ((*(a1 + 40) & 1) != 0 || (result = [*(*(a1 + 32) + 16) count]) == 0)
   {

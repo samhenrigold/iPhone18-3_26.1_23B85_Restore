@@ -1,5 +1,6 @@
 @interface FKUtility
 + (BOOL)isRomanString:(id)string;
++ (BOOL)shouldAllowAddingFriendWithRecordID:(int)d withFriendListManager:(id)manager addressBook:(void *)book personValueCache:(id)cache;
 + (id)_nameFormatter;
 + (id)compressPhoneNumberString:(id)string;
 + (id)hashFromData:(id)data;
@@ -8,6 +9,54 @@
 @end
 
 @implementation FKUtility
+
++ (BOOL)shouldAllowAddingFriendWithRecordID:(int)d withFriendListManager:(id)manager addressBook:(void *)book personValueCache:(id)cache
+{
+  v8 = *&d;
+  managerCopy = manager;
+  cacheCopy = cache;
+  if (managerCopy)
+  {
+    PersonWithRecordID = ABAddressBookGetPersonWithRecordID(book, v8);
+    v12 = ABRecordCopyValue(PersonWithRecordID, *MEMORY[0x277CE9950]);
+    v13 = [managerCopy containsFriendWithABRecordGUID:v12] ^ 1;
+
+    if (!book)
+    {
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+    v13 = 1;
+    if (!book)
+    {
+      goto LABEL_9;
+    }
+  }
+
+  if (v13)
+  {
+    v14 = [MEMORY[0x277CCABB0] numberWithInt:v8];
+    v15 = [cacheCopy objectForKey:v14];
+    if (!v15)
+    {
+      v16 = ABAddressBookGetPersonWithRecordID(book, v8);
+      v17 = MEMORY[0x277CCABB0];
+      v18 = [FKPerson allValuesForPerson:v16];
+      v15 = [v17 numberWithUnsignedInteger:{objc_msgSend(v18, "count")}];
+
+      [cacheCopy setObject:v15 forKey:v14];
+    }
+
+    LOBYTE(v13) = [v15 unsignedIntegerValue] != 0;
+  }
+
+LABEL_9:
+
+  return v13;
+}
 
 + (id)_nameFormatter
 {
@@ -23,9 +72,11 @@
 
 uint64_t __27__FKUtility__nameFormatter__block_invoke()
 {
-  _nameFormatter_sNameFormatter = objc_alloc_init(MEMORY[0x277CCAC08]);
+  v0 = objc_alloc_init(MEMORY[0x277CCAC08]);
+  v1 = _nameFormatter_sNameFormatter;
+  _nameFormatter_sNameFormatter = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)initialsForPerson:(void *)person
@@ -126,10 +177,9 @@ LABEL_6:
   if (v5)
   {
     v7 = v5;
-    v8 = *MEMORY[0x277CBECE8];
     String = CFPhoneNumberCreateString();
-    v10 = CFPhoneNumberCopyCountryCode();
-    [v10 isEqualToString:v4];
+    v9 = CFPhoneNumberCopyCountryCode();
+    [v9 isEqualToString:v4];
     v6 = PNCreateFormattedStringWithCountry();
 
     CFRelease(v7);
@@ -140,7 +190,7 @@ LABEL_6:
 
 + (id)hashFromData:(id)data
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   bytes = [dataCopy bytes];
   v5 = [dataCopy length];
@@ -148,8 +198,6 @@ LABEL_6:
   CC_SHA1(bytes, v5, md);
   v6 = [MEMORY[0x277CBEA90] dataWithBytes:md length:20];
   v7 = [v6 base64EncodedStringWithOptions:1];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

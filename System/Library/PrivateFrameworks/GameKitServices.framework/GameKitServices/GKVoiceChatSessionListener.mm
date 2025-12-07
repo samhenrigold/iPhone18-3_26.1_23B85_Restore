@@ -5,6 +5,7 @@
 - (void)receivedNewVoiceChatOOBMessage:(id)message fromPeerID:(id)d;
 - (void)registerNewGKVoiceChatSession:(id)session;
 - (void)removeSession:(id)session;
+- (void)session:(id)session peer:(id)peer didChangeState:(unsigned int)state;
 @end
 
 @implementation GKVoiceChatSessionListener
@@ -47,7 +48,7 @@
 
 - (void)removeSession:(id)session
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   [(GKRWLock *)self->_rwlock wrlock];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
@@ -55,21 +56,20 @@
     v6 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315906;
-      v9 = v5;
-      v10 = 2080;
-      v11 = "[GKVoiceChatSessionListener removeSession:]";
-      v12 = 1024;
-      v13 = 50;
-      v14 = 2048;
+      v7 = 136315906;
+      v8 = v5;
+      v9 = 2080;
+      v10 = "[GKVoiceChatSessionListener removeSession:]";
+      v11 = 1024;
+      v12 = 50;
+      v13 = 2048;
       sessionCopy = session;
-      _os_log_impl(&dword_24E50C000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKVoiceChatSessionListener removing listener %p", &v8, 0x26u);
+      _os_log_impl(&dword_24E50C000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKVoiceChatSessionListener removing listener %p", &v7, 0x26u);
     }
   }
 
   [(NSMutableArray *)self->_conferenceList removeObject:session];
   [(GKRWLock *)self->_rwlock unlock];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)currentSessions
@@ -82,28 +82,28 @@
 
 - (void)receivedNewVoiceChatOOBMessage:(id)message fromPeerID:(id)d
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   [(GKRWLock *)self->_rwlock rdlock];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   conferenceList = self->_conferenceList;
-  v8 = [(NSMutableArray *)conferenceList countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [(NSMutableArray *)conferenceList countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(conferenceList);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * i);
+        v12 = *(*(&v14 + 1) + 8 * i);
         conferenceID = [v12 conferenceID];
         if (conferenceID == [message conferenceID])
         {
@@ -111,14 +111,49 @@
         }
       }
 
-      v9 = [(NSMutableArray *)conferenceList countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [(NSMutableArray *)conferenceList countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
 
   [(GKRWLock *)self->_rwlock unlock];
-  v14 = *MEMORY[0x277D85DE8];
+}
+
+- (void)session:(id)session peer:(id)peer didChangeState:(unsigned int)state
+{
+  v5 = *&state;
+  v18 = *MEMORY[0x277D85DE8];
+  [(GKRWLock *)self->_rwlock rdlock];
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  conferenceList = self->_conferenceList;
+  v9 = [(NSMutableArray *)conferenceList countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v14;
+    do
+    {
+      for (i = 0; i != v10; ++i)
+      {
+        if (*v14 != v11)
+        {
+          objc_enumerationMutation(conferenceList);
+        }
+
+        [*(*(&v13 + 1) + 8 * i) session:self->_gkSession peer:peer didChangeState:v5];
+      }
+
+      v10 = [(NSMutableArray *)conferenceList countByEnumeratingWithState:&v13 objects:v17 count:16];
+    }
+
+    while (v10);
+  }
+
+  [(GKRWLock *)self->_rwlock unlock];
 }
 
 @end

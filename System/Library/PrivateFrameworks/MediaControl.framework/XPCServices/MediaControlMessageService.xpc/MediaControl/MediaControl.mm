@@ -14,34 +14,32 @@ uint64_t sub_100000EC0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   sub_1000020F0(0);
   v6 = sub_1000035C8(v5);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
   sub_10000352C();
   sub_1000035BC();
-  v9 = sub_1000036E4();
-  v10 = sub_100003518(v9);
-  v12 = v11;
-  v14 = *(v13 + 64);
+  v7 = sub_1000036E4();
+  sub_100003518();
+  v9 = v8;
   __chkstk_darwin(v10);
   sub_10000352C();
-  v17 = (v16 - v15);
+  v13 = (v12 - v11);
   if (qword_100008440 != -1)
   {
     sub_1000034F8(&qword_100008440);
   }
 
-  v18 = *(qword_1000085E0 + 32);
-  *v17 = v18;
-  (*(v12 + 104))(v17, enum case for DispatchPredicate.onQueue(_:), v9);
-  v19 = v18;
-  LOBYTE(v18) = sub_1000036F4();
-  result = (*(v12 + 8))(v17, v9);
-  if (v18)
+  v14 = *(qword_1000085E0 + 32);
+  *v13 = v14;
+  (*(v9 + 104))(v13, enum case for DispatchPredicate.onQueue(_:), v7);
+  v15 = v14;
+  LOBYTE(v14) = sub_1000036F4();
+  result = (*(v9 + 8))(v13, v7);
+  if (v14)
   {
     sub_10000196C(a1, v2);
-    sub_100002124();
-    v22 = v21;
-    if (sub_1000021F0(v2, 1, v21) == 1)
+    sub_100002124(0);
+    v18 = v17;
+    if (sub_1000021F0(v2, 1, v17) == 1)
     {
       result = sub_1000023A0(v2, sub_1000020F0);
       *a2 = 0u;
@@ -51,10 +49,10 @@ uint64_t sub_100000EC0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
     else
     {
-      *(a2 + 24) = v22;
-      *(a2 + 32) = sub_1000034B0(&qword_1000083D0, sub_100002124);
-      v23 = sub_100002218(a2);
-      return (*(*(v22 - 8) + 32))(v23, v2, v22);
+      *(a2 + 24) = v18;
+      *(a2 + 32) = sub_1000034B0(&qword_1000083D0, sub_100002124, &protocol conformance descriptor for IPCMessage<A>);
+      v19 = sub_100002218(a2);
+      return (*(*(v18 - 8) + 32))(v19, v2, v18);
     }
   }
 
@@ -69,10 +67,9 @@ uint64_t sub_100000EC0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 uint64_t sub_1000010F0()
 {
   v1 = sub_1000036E4();
-  v2 = sub_100003518(v1);
-  v4 = v3;
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v2);
+  sub_100003518();
+  v3 = v2;
+  __chkstk_darwin(v4);
   sub_10000352C();
   sub_1000035BC();
   if (qword_100008440 != -1)
@@ -80,13 +77,13 @@ uint64_t sub_1000010F0()
     sub_1000034F8(&qword_100008440);
   }
 
-  v7 = *(qword_1000085E0 + 32);
-  *v0 = v7;
-  (*(v4 + 104))(v0, enum case for DispatchPredicate.onQueue(_:), v1);
-  v8 = v7;
-  LOBYTE(v7) = sub_1000036F4();
-  result = (*(v4 + 8))(v0, v1);
-  if ((v7 & 1) == 0)
+  v5 = *(qword_1000085E0 + 32);
+  *v0 = v5;
+  (*(v3 + 104))(v0, enum case for DispatchPredicate.onQueue(_:), v1);
+  v6 = v5;
+  LOBYTE(v5) = sub_1000036F4();
+  result = (*(v3 + 8))(v0, v1);
+  if ((v5 & 1) == 0)
   {
     __break(1u);
   }
@@ -94,26 +91,25 @@ uint64_t sub_1000010F0()
   return result;
 }
 
-uint64_t sub_100001214()
+uint64_t sub_100001214(uint64_t a1)
 {
   sub_1000035F4();
   sub_10000353C();
-  sub_1000034B0(v0, v1);
+  sub_1000034B0(v1, v2, &protocol conformance descriptor for UUID);
   return sub_100003704();
 }
 
 uint64_t sub_100001288()
 {
-  v1 = *(v0 + 2);
 
-  v2 = OBJC_IVAR____TtCC26MediaControlMessageService10MainServer9XPCClient_identifier;
-  v3 = sub_1000035F4();
-  sub_1000035AC(v3);
-  (*(v4 + 8))(&v0[v2]);
-  v5 = *(*v0 + 48);
-  v6 = *(*v0 + 52);
+  v1 = OBJC_IVAR____TtCC26MediaControlMessageService10MainServer9XPCClient_identifier;
+  sub_1000035F4();
+  sub_1000035AC();
+  (*(v2 + 8))(v0 + v1);
+  v3 = *(*v0 + 48);
+  v4 = *(*v0 + 52);
 
-  return _swift_deallocClassInstance(v0, v5, v6);
+  return _swift_deallocClassInstance(v0, v3, v4);
 }
 
 Swift::Int sub_100001324()
@@ -121,24 +117,16 @@ Swift::Int sub_100001324()
   sub_100003844();
   sub_1000035F4();
   sub_10000353C();
-  sub_1000034B0(v0, v1);
+  sub_1000034B0(v0, v1, &protocol conformance descriptor for UUID);
   sub_100003704();
   return sub_100003854();
 }
 
-Swift::Int sub_100001434()
+Swift::Int sub_100001434(uint64_t a1)
 {
   sub_100003844();
-  v1 = *v0;
-  sub_100001214();
+  sub_100001214(v2);
   return sub_100003854();
-}
-
-uint64_t sub_100001474(uint64_t *a1, uint64_t *a2)
-{
-  v2 = *a1;
-  v3 = *a2;
-  return sub_100001200() & 1;
 }
 
 void *sub_100001498()
@@ -168,31 +156,28 @@ void *sub_1000014D4()
 
 void *sub_100001514()
 {
-  v1 = sub_100003724();
-  v2 = sub_1000035AC(v1);
-  v4 = *(v3 + 64);
-  __chkstk_darwin(v2);
+  sub_100003724();
+  sub_1000035AC();
+  __chkstk_darwin(v1);
   sub_10000352C();
-  v5 = sub_1000036D4();
-  v6 = sub_1000035C8(v5);
-  v8 = *(v7 + 64);
-  __chkstk_darwin(v6);
+  v2 = sub_1000036D4();
+  v3 = sub_1000035C8(v2);
+  __chkstk_darwin(v3);
   sub_10000352C();
-  v9 = sub_100003734();
-  v10 = sub_100003518(v9);
-  v12 = v11;
-  v14 = *(v13 + 64);
-  __chkstk_darwin(v10);
+  v4 = sub_100003734();
+  sub_100003518();
+  v6 = v5;
+  __chkstk_darwin(v7);
   sub_10000352C();
-  v17 = v16 - v15;
+  v10 = v9 - v8;
   sub_1000033D4();
   v0[2] = 0;
   v0[3] = 0;
-  (*(v12 + 104))(v17, enum case for OS_dispatch_queue.AutoreleaseFrequency.workItem(_:), v9);
+  (*(v6 + 104))(v10, enum case for OS_dispatch_queue.AutoreleaseFrequency.workItem(_:), v4);
   sub_1000036C4();
-  sub_1000034B0(&qword_100008428, &type metadata accessor for OS_dispatch_queue.Attributes);
+  sub_1000034B0(&qword_100008428, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
   sub_100003418(0);
-  sub_1000034B0(&qword_100008438, sub_100003418);
+  sub_1000034B0(&qword_100008438, sub_100003418, &protocol conformance descriptor for [A]);
   sub_100003754();
   v0[4] = sub_100003744();
   return v0;
@@ -202,71 +187,61 @@ uint64_t sub_100001748()
 {
   v1 = sub_100003674();
   v2 = sub_1000035C8(v1);
-  v4 = *(v3 + 64);
   __chkstk_darwin(v2);
   sub_10000352C();
   sub_1000035BC();
-  v5 = *(v0 + 32);
+  v3 = *(v0 + 32);
 
   sub_100003664();
-  v6 = sub_1000036A4();
-  v7 = *(v6 + 48);
-  v8 = *(v6 + 52);
+  sub_1000036A4();
   swift_allocObject();
-  v9 = sub_100003694();
-  v10 = *(v0 + 24);
-  *(v0 + 24) = v9;
+  *(v0 + 24) = sub_100003694();
 }
 
 uint64_t sub_1000018F4(uint64_t a1)
 {
-  v5 = sub_1000014D4();
+  v4 = sub_1000014D4();
 
-  sub_1000023F8(&v6, a1);
+  sub_1000023F8(&v5, a1);
 
-  v3 = *(v1 + 16);
-  *(v1 + 16) = v5;
+  *(v1 + 16) = v4;
 }
 
 uint64_t sub_10000196C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v61 = a1;
-  v62 = a2;
-  v3 = sub_100003644();
-  v4 = sub_100003518(v3);
-  v59 = v5;
-  v60 = v4;
-  v7 = *(v6 + 64);
-  __chkstk_darwin(v4);
+  v50 = a1;
+  v51 = a2;
+  sub_100003644();
+  sub_100003518();
+  v48 = v4;
+  v49 = v3;
+  __chkstk_darwin(v3);
   sub_10000352C();
-  v10 = v9 - v8;
-  v11 = sub_100003654();
-  v57 = sub_100003518(v11);
-  v58 = v12;
-  v14 = *(v13 + 64);
-  v15 = __chkstk_darwin(v57);
-  v17 = &v56 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v15);
-  v19 = &v56 - v18;
+  v7 = v6 - v5;
+  sub_100003654();
+  sub_100003518();
+  v46 = v8;
+  v47 = v9;
+  v10 = __chkstk_darwin(v8);
+  v12 = &v45 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v10);
+  v14 = &v45 - v13;
   sub_100002278(0);
-  v21 = sub_1000035C8(v20);
-  v23 = *(v22 + 64);
-  __chkstk_darwin(v21);
+  v16 = sub_1000035C8(v15);
+  __chkstk_darwin(v16);
+  sub_10000352C();
+  v19 = v18 - v17;
+  sub_1000022AC(0);
+  v21 = v20;
+  sub_100003518();
+  v45 = v22;
+  __chkstk_darwin(v23);
   sub_10000352C();
   v26 = v25 - v24;
-  sub_1000022AC();
-  v28 = v27;
-  v29 = sub_100003518(v27);
-  v56 = v30;
-  v32 = *(v31 + 64);
-  __chkstk_darwin(v29);
-  sub_10000352C();
-  v35 = v34 - v33;
-  v36 = sub_1000036E4();
-  v37 = sub_100003518(v36);
-  v39 = v38;
-  v41 = *(v40 + 64);
-  __chkstk_darwin(v37);
+  v27 = sub_1000036E4();
+  sub_100003518();
+  v29 = v28;
+  __chkstk_darwin(v30);
   sub_10000352C();
   sub_1000035BC();
   if (qword_100008440 != -1)
@@ -274,53 +249,53 @@ uint64_t sub_10000196C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
     sub_1000034F8(&qword_100008440);
   }
 
-  v42 = *(qword_1000085E0 + 32);
-  *v2 = v42;
-  (*(v39 + 104))(v2, enum case for DispatchPredicate.onQueue(_:), v36);
-  v43 = v42;
-  LOBYTE(v42) = sub_1000036F4();
-  result = (*(v39 + 8))(v2, v36);
-  if (v42)
+  v31 = *(qword_1000085E0 + 32);
+  *v2 = v31;
+  (*(v29 + 104))(v2, enum case for DispatchPredicate.onQueue(_:), v27);
+  v32 = v31;
+  LOBYTE(v31) = sub_1000036F4();
+  result = (*(v29 + 8))(v2, v27);
+  if (v31)
   {
-    sub_1000034B0(&qword_1000083F8, sub_1000022AC);
+    sub_1000034B0(&qword_1000083F8, sub_1000022AC, &protocol conformance descriptor for IPCMessage<A>);
     sub_1000036B4();
-    sub_100002378(v26, 0, 1, v28);
-    v45 = v56;
-    (*(v56 + 32))(v35, v26, v28);
+    sub_100002378(v19, 0, 1, v21);
+    v34 = v45;
+    (*(v45 + 32))(v26, v19, v21);
     sub_100003614();
-    v46 = v57;
-    v47 = v58;
-    (*(v58 + 16))(v17, v19, v57);
-    v48 = (*(v47 + 88))(v17, v46);
-    v51 = *(v47 + 8);
-    v49 = v47 + 8;
-    v50 = v51;
-    v52 = v62;
-    if (v48 == enum case for MessageService.IPCServerMessage.hello(_:))
+    v35 = v46;
+    v36 = v47;
+    (*(v47 + 16))(v12, v14, v46);
+    v37 = (*(v36 + 88))(v12, v35);
+    v40 = *(v36 + 8);
+    v38 = v36 + 8;
+    v39 = v40;
+    v41 = v51;
+    if (v37 == enum case for MessageService.IPCServerMessage.hello(_:))
     {
-      v50(v17, v46);
+      v39(v12, v35);
       sub_100003634();
-      (*(v59 + 104))(v10, enum case for MessageService.IPCClientMessage.reply(_:), v60);
+      (*(v48 + 104))(v7, enum case for MessageService.IPCClientMessage.reply(_:), v49);
       sub_10000356C();
-      sub_1000034B0(v53, v46);
-      v58 = v49;
+      sub_1000034B0(v42, v35, &protocol conformance descriptor for MessageService.IPCClientMessage);
+      v47 = v38;
       sub_100003584(&qword_1000083C8);
       sub_100003604();
-      v50(v19, v57);
-      (*(v45 + 8))(v35, v28);
-      v54 = 0;
+      v39(v14, v46);
+      (*(v34 + 8))(v26, v21);
+      v43 = 0;
     }
 
     else
     {
-      v50(v19, v46);
-      (*(v45 + 8))(v35, v28);
-      v50(v17, v46);
-      v54 = 1;
+      v39(v14, v35);
+      (*(v34 + 8))(v26, v21);
+      v39(v12, v35);
+      v43 = 1;
     }
 
-    sub_100002124();
-    return sub_100002378(v52, v54, 1, v55);
+    sub_100002124(0);
+    return sub_100002378(v41, v43, 1, v44);
   }
 
   else
@@ -333,9 +308,6 @@ uint64_t sub_10000196C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
 uint64_t sub_100001F3C()
 {
-  v1 = *(v0 + 16);
-
-  v2 = *(v0 + 24);
 
   return v0;
 }
@@ -347,7 +319,7 @@ uint64_t sub_100001F6C()
   return _swift_deallocClassInstance(v0, 40, 7);
 }
 
-uint64_t type metadata accessor for MainServer.XPCClient()
+uint64_t type metadata accessor for MainServer.XPCClient(uint64_t a1)
 {
   result = qword_100008450;
   if (!qword_100008450)
@@ -358,12 +330,11 @@ uint64_t type metadata accessor for MainServer.XPCClient()
   return result;
 }
 
-uint64_t sub_100002018()
+uint64_t sub_100002018(uint64_t a1)
 {
   result = sub_1000035F4();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v2 = *(result - 8) + 64;
     result = swift_updateClassMetadata2();
     if (!result)
     {
@@ -374,17 +345,17 @@ uint64_t sub_100002018()
   return result;
 }
 
-void sub_100002124()
+void sub_100002124(uint64_t a1)
 {
   if (!qword_1000083B8)
   {
     sub_100003644();
-    sub_1000034B0(&qword_1000083C0, &type metadata accessor for MessageService.IPCClientMessage);
-    sub_1000034B0(&qword_1000083C8, &type metadata accessor for MessageService.IPCClientMessage);
-    v0 = sub_100003624();
-    if (!v1)
+    sub_1000034B0(&qword_1000083C0, &type metadata accessor for MessageService.IPCClientMessage, &protocol conformance descriptor for MessageService.IPCClientMessage);
+    sub_1000034B0(&qword_1000083C8, &type metadata accessor for MessageService.IPCClientMessage, &protocol conformance descriptor for MessageService.IPCClientMessage);
+    v1 = sub_100003624();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1000083B8);
+      atomic_store(v1, &qword_1000083B8);
     }
   }
 }
@@ -401,26 +372,26 @@ uint64_t *sub_100002218(uint64_t *a1)
   return v1;
 }
 
-void sub_1000022AC()
+void sub_1000022AC(uint64_t a1)
 {
   if (!qword_1000083E0)
   {
     sub_100003654();
-    sub_1000034B0(&qword_1000083E8, &type metadata accessor for MessageService.IPCServerMessage);
-    sub_1000034B0(&qword_1000083F0, &type metadata accessor for MessageService.IPCServerMessage);
-    v0 = sub_100003624();
-    if (!v1)
+    sub_1000034B0(&qword_1000083E8, &type metadata accessor for MessageService.IPCServerMessage, &protocol conformance descriptor for MessageService.IPCServerMessage);
+    sub_1000034B0(&qword_1000083F0, &type metadata accessor for MessageService.IPCServerMessage, &protocol conformance descriptor for MessageService.IPCServerMessage);
+    v1 = sub_100003624();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1000083E0);
+      atomic_store(v1, &qword_1000083E0);
     }
   }
 }
 
 uint64_t sub_1000023A0(uint64_t a1, uint64_t (*a2)(void))
 {
-  v3 = a2(0);
-  sub_1000035AC(v3);
-  (*(v4 + 8))(a1);
+  a2(0);
+  sub_1000035AC();
+  (*(v3 + 8))(a1);
   return a1;
 }
 
@@ -445,10 +416,10 @@ uint64_t sub_1000023F8(void *a1, uint64_t a2)
     if (v8)
     {
 
-      type metadata accessor for MainServer.XPCClient();
+      type metadata accessor for MainServer.XPCClient(0);
       swift_dynamicCast();
       result = 0;
-      *a1 = v23;
+      *a1 = v20;
     }
 
     else
@@ -461,16 +432,16 @@ uint64_t sub_1000023F8(void *a1, uint64_t a2)
 
       else
       {
-        v16 = sub_100002674(v7, result + 1);
-        v17 = *(v16 + 16);
-        if (*(v16 + 24) <= v17)
+        v14 = sub_100002674(v7, result + 1);
+        v15 = *(v14 + 16);
+        if (*(v14 + 24) <= v15)
         {
-          sub_100002898(v17 + 1);
+          sub_100002898(v15 + 1);
         }
 
-        sub_100002B2C(v18, v16);
+        sub_100002B2C(v16, v14);
 
-        *v3 = v16;
+        *v3 = v14;
         *a1 = a2;
         return 1;
       }
@@ -479,41 +450,37 @@ uint64_t sub_1000023F8(void *a1, uint64_t a2)
 
   else
   {
-    v10 = *(v6 + 40);
     sub_100003844();
     sub_1000035F4();
-    sub_1000034B0(&qword_1000083A8, &type metadata accessor for UUID);
+    sub_1000034B0(&qword_1000083A8, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
     sub_100003704();
-    v11 = sub_100003854();
-    v12 = ~(-1 << *(v6 + 32));
+    v10 = sub_100003854();
+    v11 = ~(-1 << *(v6 + 32));
     while (1)
     {
-      v13 = v11 & v12;
-      if (((*(v6 + 56 + (((v11 & v12) >> 3) & 0xFFFFFFFFFFFFFF8)) >> (v11 & v12)) & 1) == 0)
+      v12 = v10 & v11;
+      if (((*(v6 + 56 + (((v10 & v11) >> 3) & 0xFFFFFFFFFFFFFF8)) >> (v10 & v11)) & 1) == 0)
       {
-        v19 = *v3;
         isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-        v24 = *v3;
+        v21 = *v2;
 
-        sub_100002C20(v21, v13, isUniquelyReferenced_nonNull_native);
-        *v3 = v24;
+        sub_100002C20(v18, v12, isUniquelyReferenced_nonNull_native);
+        *v2 = v21;
         *a1 = a2;
         return 1;
       }
 
-      v14 = *(*(v6 + 48) + 8 * v13);
+      v13 = sub_1000035D4();
 
-      v15 = sub_1000035D4();
-
-      if (v15)
+      if (v13)
       {
         break;
       }
 
-      v11 = v13 + 1;
+      v10 = v12 + 1;
     }
 
-    *a1 = *(*(v6 + 48) + 8 * v13);
+    *a1 = *(*(v6 + 48) + 8 * v12);
 
     return 0;
   }
@@ -525,9 +492,9 @@ Swift::Int sub_100002674(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    sub_1000031F8();
+    sub_1000031F8(0);
     v2 = sub_1000037D4();
-    v16 = v2;
+    v15 = v2;
     sub_100003774();
     while (1)
     {
@@ -537,7 +504,7 @@ Swift::Int sub_100002674(uint64_t a1, uint64_t a2)
         return v2;
       }
 
-      type metadata accessor for MainServer.XPCClient();
+      type metadata accessor for MainServer.XPCClient(0);
       swift_dynamicCast();
       v3 = *(v2 + 16);
       if (*(v2 + 24) <= v3)
@@ -545,44 +512,43 @@ Swift::Int sub_100002674(uint64_t a1, uint64_t a2)
         sub_100002898(v3 + 1);
       }
 
-      v2 = v16;
-      v4 = *(v16 + 40);
+      v2 = v15;
       sub_100003844();
       sub_1000035F4();
-      sub_1000034B0(&qword_1000083A8, &type metadata accessor for UUID);
+      sub_1000034B0(&qword_1000083A8, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
       sub_100003704();
       result = sub_100003854();
-      v6 = v16 + 56;
-      v7 = -1 << *(v16 + 32);
-      v8 = result & ~v7;
-      v9 = v8 >> 6;
-      if (((-1 << v8) & ~*(v16 + 56 + 8 * (v8 >> 6))) == 0)
+      v5 = v15 + 56;
+      v6 = -1 << *(v15 + 32);
+      v7 = result & ~v6;
+      v8 = v7 >> 6;
+      if (((-1 << v7) & ~*(v15 + 56 + 8 * (v7 >> 6))) == 0)
       {
         break;
       }
 
-      v10 = __clz(__rbit64((-1 << v8) & ~*(v16 + 56 + 8 * (v8 >> 6)))) | v8 & 0x7FFFFFFFFFFFFFC0;
+      v9 = __clz(__rbit64((-1 << v7) & ~*(v15 + 56 + 8 * (v7 >> 6)))) | v7 & 0x7FFFFFFFFFFFFFC0;
 LABEL_15:
-      *(v6 + ((v10 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v10;
-      *(*(v16 + 48) + 8 * v10) = v15;
-      ++*(v16 + 16);
+      *(v5 + ((v9 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v9;
+      *(*(v15 + 48) + 8 * v9) = v14;
+      ++*(v15 + 16);
     }
 
-    v11 = 0;
-    v12 = (63 - v7) >> 6;
-    while (++v9 != v12 || (v11 & 1) == 0)
+    v10 = 0;
+    v11 = (63 - v6) >> 6;
+    while (++v8 != v11 || (v10 & 1) == 0)
     {
-      v13 = v9 == v12;
-      if (v9 == v12)
+      v12 = v8 == v11;
+      if (v8 == v11)
       {
-        v9 = 0;
+        v8 = 0;
       }
 
-      v11 |= v13;
-      v14 = *(v6 + 8 * v9);
-      if (v14 != -1)
+      v10 |= v12;
+      v13 = *(v5 + 8 * v8);
+      if (v13 != -1)
       {
-        v10 = __clz(__rbit64(~v14)) + (v9 << 6);
+        v9 = __clz(__rbit64(~v13)) + (v8 << 6);
         goto LABEL_15;
       }
     }
@@ -603,147 +569,138 @@ uint64_t sub_100002898(uint64_t a1)
 {
   v2 = v1;
   v3 = *v1;
-  if (*(*v1 + 24) > a1)
-  {
-    v4 = *(*v1 + 24);
-  }
-
-  sub_1000031F8();
+  sub_1000031F8(0);
   result = sub_1000037C4();
-  v6 = result;
+  v5 = result;
   if (!*(v3 + 16))
   {
-LABEL_29:
+LABEL_27:
 
-    *v2 = v6;
+    *v2 = v5;
     return result;
   }
 
-  v28 = v2;
-  v7 = 0;
-  v8 = (v3 + 56);
-  v9 = 1 << *(v3 + 32);
-  if (v9 < 64)
+  v6 = 0;
+  v7 = (v3 + 56);
+  v8 = 1 << *(v3 + 32);
+  if (v8 < 64)
   {
-    v10 = ~(-1 << v9);
+    v9 = ~(-1 << v8);
   }
 
   else
   {
-    v10 = -1;
+    v9 = -1;
   }
 
-  v11 = v10 & *(v3 + 56);
-  v12 = (v9 + 63) >> 6;
-  v13 = result + 56;
-  if (!v11)
+  v10 = v9 & *(v3 + 56);
+  v11 = (v8 + 63) >> 6;
+  v12 = result + 56;
+  if (!v10)
   {
-LABEL_9:
-    v15 = v7;
+LABEL_7:
+    v14 = v6;
     while (1)
     {
-      v7 = v15 + 1;
-      if (__OFADD__(v15, 1))
+      v6 = v14 + 1;
+      if (__OFADD__(v14, 1))
       {
         __break(1u);
-        goto LABEL_31;
+        goto LABEL_29;
       }
 
-      if (v7 >= v12)
+      if (v6 >= v11)
       {
         break;
       }
 
-      v16 = v8[v7];
-      ++v15;
-      if (v16)
+      v15 = v7[v6];
+      ++v14;
+      if (v15)
       {
-        v14 = __clz(__rbit64(v16));
-        v11 = (v16 - 1) & v16;
-        goto LABEL_14;
+        v13 = __clz(__rbit64(v15));
+        v10 = (v15 - 1) & v15;
+        goto LABEL_12;
       }
     }
 
-    v27 = 1 << *(v3 + 32);
-    if (v27 >= 64)
+    v25 = 1 << *(v3 + 32);
+    if (v25 >= 64)
     {
-      sub_100002DDC(0, (v27 + 63) >> 6, v3 + 56);
+      sub_100002DDC(0, (v25 + 63) >> 6, v3 + 56);
     }
 
     else
     {
-      *v8 = -1 << v27;
+      *v7 = -1 << v25;
     }
 
-    v2 = v28;
+    v2 = v1;
     *(v3 + 16) = 0;
-    goto LABEL_29;
+    goto LABEL_27;
   }
 
   while (1)
   {
-    v14 = __clz(__rbit64(v11));
-    v11 &= v11 - 1;
-LABEL_14:
-    v17 = *(*(v3 + 48) + 8 * (v14 | (v7 << 6)));
-    v18 = *(v6 + 40);
+    v13 = __clz(__rbit64(v10));
+    v10 &= v10 - 1;
+LABEL_12:
+    v16 = *(*(v3 + 48) + 8 * (v13 | (v6 << 6)));
     sub_100003844();
     sub_1000035F4();
-    sub_1000034B0(&qword_1000083A8, &type metadata accessor for UUID);
+    sub_1000034B0(&qword_1000083A8, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
     sub_100003704();
     result = sub_100003854();
-    v19 = -1 << *(v6 + 32);
-    v20 = result & ~v19;
-    v21 = v20 >> 6;
-    if (((-1 << v20) & ~*(v13 + 8 * (v20 >> 6))) == 0)
+    v17 = -1 << *(v5 + 32);
+    v18 = result & ~v17;
+    v19 = v18 >> 6;
+    if (((-1 << v18) & ~*(v12 + 8 * (v18 >> 6))) == 0)
     {
       break;
     }
 
-    v22 = __clz(__rbit64((-1 << v20) & ~*(v13 + 8 * (v20 >> 6)))) | v20 & 0x7FFFFFFFFFFFFFC0;
-LABEL_23:
-    *(v13 + ((v22 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v22;
-    *(*(v6 + 48) + 8 * v22) = v17;
-    ++*(v6 + 16);
-    if (!v11)
+    v20 = __clz(__rbit64((-1 << v18) & ~*(v12 + 8 * (v18 >> 6)))) | v18 & 0x7FFFFFFFFFFFFFC0;
+LABEL_21:
+    *(v12 + ((v20 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v20;
+    *(*(v5 + 48) + 8 * v20) = v16;
+    ++*(v5 + 16);
+    if (!v10)
     {
-      goto LABEL_9;
+      goto LABEL_7;
     }
   }
 
-  v23 = 0;
-  v24 = (63 - v19) >> 6;
-  while (++v21 != v24 || (v23 & 1) == 0)
+  v21 = 0;
+  v22 = (63 - v17) >> 6;
+  while (++v19 != v22 || (v21 & 1) == 0)
   {
-    v25 = v21 == v24;
-    if (v21 == v24)
+    v23 = v19 == v22;
+    if (v19 == v22)
     {
-      v21 = 0;
+      v19 = 0;
     }
 
-    v23 |= v25;
-    v26 = *(v13 + 8 * v21);
-    if (v26 != -1)
+    v21 |= v23;
+    v24 = *(v12 + 8 * v19);
+    if (v24 != -1)
     {
-      v22 = __clz(__rbit64(~v26)) + (v21 << 6);
-      goto LABEL_23;
+      v20 = __clz(__rbit64(~v24)) + (v19 << 6);
+      goto LABEL_21;
     }
   }
 
-LABEL_31:
+LABEL_29:
   __break(1u);
   return result;
 }
 
 unint64_t sub_100002B2C(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a2 + 40);
   sub_100003844();
   sub_1000035F4();
-  sub_1000034B0(&qword_1000083A8, &type metadata accessor for UUID);
+  sub_1000034B0(&qword_1000083A8, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
   sub_100003704();
   sub_100003854();
-  v5 = -1 << *(a2 + 32);
   result = sub_100003764();
   *(a2 + 56 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << result;
   *(*(a2 + 48) + 8 * result) = a1;
@@ -751,7 +708,7 @@ unint64_t sub_100002B2C(uint64_t a1, uint64_t a2)
   return result;
 }
 
-Swift::Int sub_100002C20(Swift::Int result, unint64_t a2, char a3)
+unint64_t sub_100002C20(unint64_t result, unint64_t a2, char a3)
 {
   v5 = result;
   v6 = *(*v3 + 16);
@@ -769,27 +726,25 @@ Swift::Int sub_100002C20(Swift::Int result, unint64_t a2, char a3)
       sub_100002F84(v6 + 1);
 LABEL_8:
       v8 = *v3;
-      v9 = *(*v3 + 40);
       sub_100003844();
       sub_1000035F4();
-      sub_1000034B0(&qword_1000083A8, &type metadata accessor for UUID);
+      sub_1000034B0(&qword_1000083A8, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
       sub_100003704();
       result = sub_100003854();
-      v10 = ~(-1 << *(v8 + 32));
+      v9 = ~(-1 << *(v8 + 32));
       while (1)
       {
-        a2 = result & v10;
-        if (((*(v8 + 56 + (((result & v10) >> 3) & 0xFFFFFFFFFFFFFF8)) >> (result & v10)) & 1) == 0)
+        a2 = result & v9;
+        if (((*(v8 + 56 + (((result & v9) >> 3) & 0xFFFFFFFFFFFFFF8)) >> (result & v9)) & 1) == 0)
         {
           goto LABEL_12;
         }
 
-        type metadata accessor for MainServer.XPCClient();
-        v11 = *(*(v8 + 48) + 8 * a2);
+        type metadata accessor for MainServer.XPCClient(0);
 
-        v12 = sub_1000035D4();
+        v10 = sub_1000035D4();
 
-        if (v12)
+        if (v10)
         {
           goto LABEL_15;
         }
@@ -802,13 +757,13 @@ LABEL_8:
   }
 
 LABEL_12:
-  v13 = *v3;
+  v11 = *v3;
   *(*v3 + 8 * (a2 >> 6) + 56) |= 1 << a2;
-  *(*(v13 + 48) + 8 * a2) = v5;
-  v14 = *(v13 + 16);
-  v15 = __OFADD__(v14, 1);
-  v16 = v14 + 1;
-  if (v15)
+  *(*(v11 + 48) + 8 * a2) = v5;
+  v12 = *(v11 + 16);
+  v13 = __OFADD__(v12, 1);
+  v14 = v12 + 1;
+  if (v13)
   {
     __break(1u);
 LABEL_15:
@@ -818,7 +773,7 @@ LABEL_15:
 
   else
   {
-    *(v13 + 16) = v16;
+    *(v11 + 16) = v14;
   }
 
   return result;
@@ -865,7 +820,7 @@ uint64_t sub_100002DDC(uint64_t result, uint64_t a2, uint64_t a3)
 void *sub_100002E40()
 {
   v1 = v0;
-  sub_1000031F8();
+  sub_1000031F8(0);
   v2 = *v0;
   v3 = sub_1000037B4();
   v4 = v3;
@@ -944,115 +899,108 @@ uint64_t sub_100002F84(uint64_t a1)
 {
   v2 = v1;
   v3 = *v1;
-  if (*(*v1 + 24) > a1)
-  {
-    v4 = *(*v1 + 24);
-  }
-
-  sub_1000031F8();
+  sub_1000031F8(0);
   result = sub_1000037C4();
-  v6 = result;
+  v5 = result;
   if (*(v3 + 16))
   {
-    v27 = v2;
-    v28 = v3;
-    v7 = 0;
-    v8 = v3 + 56;
-    v9 = 1 << *(v3 + 32);
-    if (v9 < 64)
+    v25 = v3;
+    v6 = 0;
+    v7 = v3 + 56;
+    v8 = 1 << *(v3 + 32);
+    if (v8 < 64)
     {
-      v10 = ~(-1 << v9);
+      v9 = ~(-1 << v8);
     }
 
     else
     {
-      v10 = -1;
+      v9 = -1;
     }
 
-    v11 = v10 & *(v3 + 56);
-    v12 = (v9 + 63) >> 6;
-    v13 = result + 56;
-    if (v11)
+    v10 = v9 & *(v3 + 56);
+    v11 = (v8 + 63) >> 6;
+    v12 = result + 56;
+    if (v10)
     {
       while (1)
       {
-        v14 = __clz(__rbit64(v11));
-        v11 &= v11 - 1;
-LABEL_14:
-        v17 = *(*(v3 + 48) + 8 * (v14 | (v7 << 6)));
-        v18 = *(v6 + 40);
+        v13 = __clz(__rbit64(v10));
+        v10 &= v10 - 1;
+LABEL_12:
+        v16 = *(*(v3 + 48) + 8 * (v13 | (v6 << 6)));
         sub_100003844();
         sub_1000035F4();
-        sub_1000034B0(&qword_1000083A8, &type metadata accessor for UUID);
+        sub_1000034B0(&qword_1000083A8, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
 
         sub_100003704();
         result = sub_100003854();
-        v19 = -1 << *(v6 + 32);
-        v20 = result & ~v19;
-        v21 = v20 >> 6;
-        if (((-1 << v20) & ~*(v13 + 8 * (v20 >> 6))) == 0)
+        v17 = -1 << *(v5 + 32);
+        v18 = result & ~v17;
+        v19 = v18 >> 6;
+        if (((-1 << v18) & ~*(v12 + 8 * (v18 >> 6))) == 0)
         {
           break;
         }
 
-        v22 = __clz(__rbit64((-1 << v20) & ~*(v13 + 8 * (v20 >> 6)))) | v20 & 0x7FFFFFFFFFFFFFC0;
-LABEL_23:
-        *(v13 + ((v22 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v22;
-        *(*(v6 + 48) + 8 * v22) = v17;
-        ++*(v6 + 16);
-        v3 = v28;
-        if (!v11)
+        v20 = __clz(__rbit64((-1 << v18) & ~*(v12 + 8 * (v18 >> 6)))) | v18 & 0x7FFFFFFFFFFFFFC0;
+LABEL_21:
+        *(v12 + ((v20 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v20;
+        *(*(v5 + 48) + 8 * v20) = v16;
+        ++*(v5 + 16);
+        v3 = v25;
+        if (!v10)
         {
-          goto LABEL_9;
+          goto LABEL_7;
         }
       }
 
-      v23 = 0;
-      v24 = (63 - v19) >> 6;
-      while (++v21 != v24 || (v23 & 1) == 0)
+      v21 = 0;
+      v22 = (63 - v17) >> 6;
+      while (++v19 != v22 || (v21 & 1) == 0)
       {
-        v25 = v21 == v24;
-        if (v21 == v24)
+        v23 = v19 == v22;
+        if (v19 == v22)
         {
-          v21 = 0;
+          v19 = 0;
         }
 
-        v23 |= v25;
-        v26 = *(v13 + 8 * v21);
-        if (v26 != -1)
+        v21 |= v23;
+        v24 = *(v12 + 8 * v19);
+        if (v24 != -1)
         {
-          v22 = __clz(__rbit64(~v26)) + (v21 << 6);
-          goto LABEL_23;
+          v20 = __clz(__rbit64(~v24)) + (v19 << 6);
+          goto LABEL_21;
         }
       }
     }
 
     else
     {
-LABEL_9:
-      v15 = v7;
+LABEL_7:
+      v14 = v6;
       while (1)
       {
-        v7 = v15 + 1;
-        if (__OFADD__(v15, 1))
+        v6 = v14 + 1;
+        if (__OFADD__(v14, 1))
         {
           break;
         }
 
-        if (v7 >= v12)
+        if (v6 >= v11)
         {
 
-          v2 = v27;
-          goto LABEL_27;
+          v2 = v1;
+          goto LABEL_25;
         }
 
-        v16 = *(v8 + 8 * v7);
-        ++v15;
-        if (v16)
+        v15 = *(v7 + 8 * v6);
+        ++v14;
+        if (v15)
         {
-          v14 = __clz(__rbit64(v16));
-          v11 = (v16 - 1) & v16;
-          goto LABEL_14;
+          v13 = __clz(__rbit64(v15));
+          v10 = (v15 - 1) & v15;
+          goto LABEL_12;
         }
       }
 
@@ -1065,32 +1013,32 @@ LABEL_9:
   else
   {
 
-LABEL_27:
-    *v2 = v6;
+LABEL_25:
+    *v2 = v5;
   }
 
   return result;
 }
 
-void sub_1000031F8()
+void sub_1000031F8(uint64_t a1)
 {
   if (!qword_100008400)
   {
-    type metadata accessor for MainServer.XPCClient();
-    sub_1000034B0(&qword_100008408, type metadata accessor for MainServer.XPCClient);
-    v0 = sub_1000037E4();
-    if (!v1)
+    type metadata accessor for MainServer.XPCClient(255);
+    sub_1000034B0(&qword_100008408, type metadata accessor for MainServer.XPCClient, &unk_100003A94);
+    v1 = sub_1000037E4();
+    if (!v2)
     {
-      atomic_store(v0, &qword_100008400);
+      atomic_store(v1, &qword_100008400);
     }
   }
 }
 
 uint64_t sub_10000328C()
 {
-  type metadata accessor for MainServer.XPCClient();
+  type metadata accessor for MainServer.XPCClient(0);
   sub_100003554();
-  sub_1000034B0(v0, v1);
+  sub_1000034B0(v0, v1, &unk_100003AD4);
   return sub_100003684();
 }
 
@@ -1108,15 +1056,13 @@ void sub_100003314()
 
 uint64_t sub_100003368@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
-  v4 = type metadata accessor for MainServer.XPCClient();
-  v5 = *(v4 + 48);
-  v6 = *(v4 + 52);
-  v7 = swift_allocObject();
+  type metadata accessor for MainServer.XPCClient(0);
+  v4 = swift_allocObject();
   sub_1000035E4();
-  *(v7 + 16) = a1;
+  *(v4 + 16) = a1;
 
-  result = sub_1000018F4(v7);
-  *a2 = v7;
+  result = sub_1000018F4(v4);
+  *a2 = v4;
   return result;
 }
 
@@ -1146,7 +1092,7 @@ void sub_10000344C(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_
   }
 }
 
-uint64_t sub_1000034B0(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1000034B0(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1168,5 +1114,5 @@ uint64_t sub_1000034F8(uint64_t a1)
 uint64_t sub_100003584(unint64_t *a1)
 {
 
-  return sub_1000034B0(a1, v1);
+  return sub_1000034B0(a1, v1, &protocol conformance descriptor for MessageService.IPCClientMessage);
 }

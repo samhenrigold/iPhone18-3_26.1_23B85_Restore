@@ -12,9 +12,9 @@
     +[SSVFairPlaySAPSession(ISFairPlaySAPSession) sharedDefaultSession];
   }
 
-  v1 = sharedDefaultSession_sSession;
+  v2 = sharedDefaultSession_sSession;
 
-  return v1;
+  return v2;
 }
 
 + (id)sharedPrimeSession
@@ -24,9 +24,9 @@
     +[SSVFairPlaySAPSession(ISFairPlaySAPSession) sharedPrimeSession];
   }
 
-  v1 = sharedPrimeSession_sSession;
+  v2 = sharedPrimeSession_sSession;
 
-  return v1;
+  return v2;
 }
 
 @end

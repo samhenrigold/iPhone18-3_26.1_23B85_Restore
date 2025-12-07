@@ -391,7 +391,6 @@ LABEL_14:
   has = self->_has;
   if ((has & 0x400) != 0)
   {
-    userCount = self->_userCount;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 0x800) == 0)
@@ -411,7 +410,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  userDur = self->_userDur;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -426,7 +424,6 @@ LABEL_4:
   }
 
 LABEL_19:
-  roamCount = self->_roamCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -441,7 +438,6 @@ LABEL_5:
   }
 
 LABEL_20:
-  roamDur = self->_roamDur;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -456,7 +452,6 @@ LABEL_6:
   }
 
 LABEL_21:
-  assocCount = self->_assocCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -471,7 +466,6 @@ LABEL_7:
   }
 
 LABEL_22:
-  assocDur = self->_assocDur;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -486,7 +480,6 @@ LABEL_8:
   }
 
 LABEL_23:
-  pnoBSSIDCount = self->_pnoBSSIDCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -501,7 +494,6 @@ LABEL_9:
   }
 
 LABEL_24:
-  pnoBSSIDDur = self->_pnoBSSIDDur;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -516,7 +508,6 @@ LABEL_10:
   }
 
 LABEL_25:
-  pnoSSIDCount = self->_pnoSSIDCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -531,7 +522,6 @@ LABEL_11:
   }
 
 LABEL_26:
-  pnoSSIDDur = self->_pnoSSIDDur;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -546,12 +536,10 @@ LABEL_12:
   }
 
 LABEL_27:
-  otherCount = self->_otherCount;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_13:
-    otherDur = self->_otherDur;
     PBDataWriterWriteUint32Field();
   }
 

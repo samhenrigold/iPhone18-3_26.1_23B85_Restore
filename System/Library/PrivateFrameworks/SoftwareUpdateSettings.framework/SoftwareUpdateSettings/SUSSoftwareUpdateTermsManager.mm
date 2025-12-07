@@ -177,22 +177,19 @@
   objc_storeStrong(&v44, 0);
   objc_storeStrong(&v43, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 id __66__SUSSoftwareUpdateTermsManager__finishTermsWithAcceptance_error___block_invoke(uint64_t a1)
 {
   if (*(*(a1 + 32) + 24))
   {
-    v1 = *(a1 + 40);
-    v2 = *(a1 + 48) & 1;
     (*(*(*(a1 + 32) + 24) + 16))();
   }
 
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 24);
-  *(v3 + 24) = 0;
-  MEMORY[0x277D82BD8](v4);
+  v1 = *(a1 + 32);
+  v2 = *(v1 + 24);
+  *(v1 + 24) = 0;
+  MEMORY[0x277D82BD8](v2);
   objc_storeStrong((*(a1 + 32) + 48), 0);
   objc_storeStrong((*(a1 + 32) + 56), 0);
   objc_storeStrong((*(a1 + 32) + 16), 0);
@@ -238,7 +235,6 @@ id __66__SUSSoftwareUpdateTermsManager__finishTermsWithAcceptance_error___block_
   [(SUSSoftwareUpdateTermsManager *)selfCopy _presentModalController:selfCopy->_showProgressViewController];
   objc_storeStrong(&v11, 0);
   objc_storeStrong(v12, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)presentTermsIfNecessaryForUpdate:(id)update overController:(id)controller showLoadSpinner:(BOOL)spinner completion:(id)completion
@@ -374,7 +370,6 @@ void __108__SUSSoftwareUpdateTermsManager_presentTermsIfNecessaryForUpdate_overC
   objc_storeStrong(&v12, 0);
   objc_storeStrong(&v11, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __108__SUSSoftwareUpdateTermsManager_presentTermsIfNecessaryForUpdate_overController_showLoadSpinner_completion___block_invoke_443(id *a1)
@@ -556,7 +551,6 @@ void __108__SUSSoftwareUpdateTermsManager_presentTermsIfNecessaryForUpdate_overC
 
   objc_storeStrong(&v44, 0);
   objc_storeStrong(v45, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_loadRemoteUITermsWithCloudAtURL:(id)l
@@ -653,7 +647,6 @@ void __108__SUSSoftwareUpdateTermsManager_presentTermsIfNecessaryForUpdate_overC
   objc_storeStrong(&v36, 0);
   objc_storeStrong(&v37, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __66__SUSSoftwareUpdateTermsManager__loadRemoteUITermsWithCloudAtURL___block_invoke(void *a1, void *a2, void *a3, void *a4)
@@ -728,7 +721,6 @@ void __66__SUSSoftwareUpdateTermsManager__loadRemoteUITermsWithCloudAtURL___bloc
   objc_storeStrong(&v36, 0);
   objc_storeStrong(&v37, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __66__SUSSoftwareUpdateTermsManager__loadRemoteUITermsWithCloudAtURL___block_invoke_2(uint64_t a1)
@@ -847,7 +839,6 @@ void __66__SUSSoftwareUpdateTermsManager__loadRemoteUITermsWithCloudAtURL___bloc
   objc_storeStrong(&oslog, 0);
   [(SUSSoftwareUpdateTermsManager *)selfCopy _loadTermsFromUpdateAsset];
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteUIControllerDidDismiss:(id)dismiss
@@ -1138,7 +1129,6 @@ void __66__SUSSoftwareUpdateTermsManager__loadRemoteUITermsWithCloudAtURL___bloc
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __61__SUSSoftwareUpdateTermsManager__handleAgreeFromObjectModel___block_invoke(uint64_t a1, void *a2)
@@ -1222,7 +1212,6 @@ void __61__SUSSoftwareUpdateTermsManager__handleAgreeFromObjectModel___block_inv
   objc_storeStrong(&v20, 0);
   objc_storeStrong(&v21, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __61__SUSSoftwareUpdateTermsManager__handleAgreeFromObjectModel___block_invoke_558(uint64_t a1)
@@ -1263,7 +1252,6 @@ void __61__SUSSoftwareUpdateTermsManager__handleAgreeFromObjectModel___block_inv
 
   *(*(a1 + 32) + 41) = 0;
   objc_storeStrong(v7, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_acceptedTermsFromAsset
@@ -1369,7 +1357,6 @@ void __64__SUSSoftwareUpdateTermsManager__handleDisagreeFromObjectModel___block_
   objc_storeStrong(&v12, 0);
   objc_storeStrong(&v13, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_reportTermsUserAction:(id)action
@@ -1440,7 +1427,6 @@ void __64__SUSSoftwareUpdateTermsManager__handleDisagreeFromObjectModel___block_
 
   objc_storeStrong(&v19, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 @end

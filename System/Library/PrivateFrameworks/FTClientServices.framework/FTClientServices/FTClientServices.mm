@@ -26,33 +26,35 @@ void sub_24A9ACE54(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5,
     }
 
     v10 = objc_alloc(MEMORY[0x277CCAB68]);
-    v11 = [v10 initWithCapacity:2 * qword_27EF7F7C8 + 3];
+    v15 = objc_msgSend_initWithCapacity_(v10, v11, 2 * qword_27EF7F7C8 + 3, v12);
     if (qword_27EF7F7C8)
     {
-      v12 = 0;
+      v16 = 0;
       do
       {
-        [v11 appendString:@"  "];
-        ++v12;
+        objc_msgSend_appendString_(v15, v13, @"  ", v14);
+        ++v16;
       }
 
-      while (v12 < qword_27EF7F7C8);
+      while (v16 < qword_27EF7F7C8);
     }
 
-    [v11 appendString:@"=> "];
-    if (v11)
+    objc_msgSend_appendString_(v15, v13, @"=> ", v14);
+    if (v15)
     {
-      v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@%@", v11, a2];
+      v17 = objc_alloc(MEMORY[0x277CCACA8]);
+      v20 = objc_msgSend_initWithFormat_(v17, v18, @"%@%@", v19, v15, a2);
     }
 
     else
     {
 LABEL_8:
-      v13 = a2;
-      v11 = 0;
+      v20 = a2;
+      v15 = 0;
     }
 
-    v14 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:v13 arguments:&a9];
+    v21 = objc_alloc(MEMORY[0x277CCACA8]);
+    v23 = objc_msgSend_initWithFormat_arguments_(v21, v22, v20, &a9);
     MarcoLogRegistration();
   }
 }
@@ -65,14 +67,14 @@ void sub_24A9ACFA4()
   }
 }
 
-uint64_t FTCServiceTypeForServiceName(void *a1)
+uint64_t FTCServiceTypeForServiceName(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  if ([a1 isEqualToString:@"iMessage"])
+  if (objc_msgSend_isEqualToString_(a1, a2, @"iMessage", a4))
   {
     return 1;
   }
 
-  if ([a1 isEqualToString:@"Calling"])
+  if (objc_msgSend_isEqualToString_(a1, v5, @"Calling", v6))
   {
     return 2;
   }
@@ -87,9 +89,9 @@ FTCServiceAvailabilityCenter *sub_24A9AD018()
   return result;
 }
 
-uint64_t sub_24A9ADCC8(uint64_t a1)
+uint64_t sub_24A9ADCC8(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v1 = [*(a1 + 32) object];
+  v4 = objc_msgSend_object(*(a1 + 32), a2, a3, a4);
 
-  return MEMORY[0x2821F9670](v1, sel_updateAvailability);
+  return MEMORY[0x2821F9670](v4, sel_updateAvailability, v5, v6);
 }

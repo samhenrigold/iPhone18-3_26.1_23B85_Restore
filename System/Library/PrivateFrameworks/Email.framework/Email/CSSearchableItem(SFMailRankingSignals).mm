@@ -7,33 +7,33 @@
 
 - (id)em_mailRankingSignals
 {
-  v65 = *MEMORY[0x1E69E9840];
-  v60 = 0;
-  v61 = &v60;
-  v62 = 0x2050000000;
+  v64 = *MEMORY[0x1E69E9840];
+  v59 = 0;
+  v60 = &v59;
+  v61 = 0x2050000000;
   v2 = getSFMailRankingSignalsClass_softClass;
-  v63 = getSFMailRankingSignalsClass_softClass;
+  v62 = getSFMailRankingSignalsClass_softClass;
   if (!getSFMailRankingSignalsClass_softClass)
   {
-    v59[0] = MEMORY[0x1E69E9820];
-    v59[1] = 3221225472;
-    v59[2] = __getSFMailRankingSignalsClass_block_invoke;
-    v59[3] = &unk_1E826C010;
-    v59[4] = &v60;
-    __getSFMailRankingSignalsClass_block_invoke(v59);
-    v2 = v61[3];
+    v58[0] = MEMORY[0x1E69E9820];
+    v58[1] = 3221225472;
+    v58[2] = __getSFMailRankingSignalsClass_block_invoke;
+    v58[3] = &unk_1E826C010;
+    v58[4] = &v59;
+    __getSFMailRankingSignalsClass_block_invoke(v58);
+    v2 = v60[3];
   }
 
   v3 = v2;
-  _Block_object_dispose(&v60, 8);
-  v53 = objc_alloc_init(v2);
+  _Block_object_dispose(&v59, 8);
+  v52 = objc_alloc_init(v2);
   attributeSet = [self attributeSet];
   attributeDictionary = [attributeSet attributeDictionary];
-  v50 = [attributeDictionary valueForKey:*MEMORY[0x1E6964DB0]];
+  v49 = [attributeDictionary valueForKey:*MEMORY[0x1E6964DB0]];
 
-  [v53 setIsSemanticMatch:{(objc_msgSend(v50, "integerValue") >> 1) & 1}];
-  [v53 setIsSyntacticMatch:{objc_msgSend(v50, "integerValue") & 1}];
-  if ([v53 isSemanticMatch])
+  [v52 setIsSemanticMatch:{(objc_msgSend(v49, "integerValue") >> 1) & 1}];
+  [v52 setIsSyntacticMatch:{objc_msgSend(v49, "integerValue") & 1}];
+  if ([v52 isSemanticMatch])
   {
     attributeSet2 = [self attributeSet];
     attributeDictionary2 = [attributeSet2 attributeDictionary];
@@ -58,7 +58,7 @@
           {
             *&v14 = (v13 * -0.5) + 1.0;
             v15 = [MEMORY[0x1E696AD98] numberWithFloat:v14];
-            [v53 setSemanticScore:v15];
+            [v52 setSemanticScore:v15];
           }
         }
       }
@@ -69,48 +69,48 @@
   mailResultScoreL1 = [attributeSet mailResultScoreL1];
   [mailResultScoreL1 doubleValue];
   v18 = [v16 numberWithDouble:?];
-  [v53 setSyntacticScore:v18];
+  [v52 setSyntacticScore:v18];
 
   mailFlagged = [attributeSet mailFlagged];
-  [v53 setIsFlagged:{objc_msgSend(mailFlagged, "BOOLValue")}];
+  [v52 setIsFlagged:{objc_msgSend(mailFlagged, "BOOLValue")}];
 
   mailRepliedTo = [attributeSet mailRepliedTo];
-  [v53 setIsRepliedTo:{objc_msgSend(mailRepliedTo, "BOOLValue")}];
+  [v52 setIsRepliedTo:{objc_msgSend(mailRepliedTo, "BOOLValue")}];
 
   v21 = MEMORY[0x1E696AD98];
   mailResultScoreL12 = [attributeSet mailResultScoreL1];
   [mailResultScoreL12 doubleValue];
   v23 = [v21 numberWithDouble:?];
-  [v53 setL1Score:v23];
+  [v52 setL1Score:v23];
 
   v24 = MEMORY[0x1E696AD98];
   mailResultScoreL2 = [attributeSet mailResultScoreL2];
   [mailResultScoreL2 doubleValue];
   v26 = [v24 numberWithDouble:?];
-  [v53 setL2Score:v26];
+  [v52 setL2Score:v26];
 
   mailUseCount = [attributeSet mailUseCount];
-  [v53 setNumEngagements:{objc_msgSend(mailUseCount, "unsignedLongLongValue")}];
+  [v52 setNumEngagements:{objc_msgSend(mailUseCount, "unsignedLongLongValue")}];
 
   mailDateReceived = [attributeSet mailDateReceived];
-  [v53 setDaysSinceReceipt:{objc_msgSend(self, "_daysSinceDate:", mailDateReceived)}];
+  [v52 setDaysSinceReceipt:{objc_msgSend(self, "_daysSinceDate:", mailDateReceived)}];
 
   v29 = objc_alloc(MEMORY[0x1E695DFA8]);
   mailUsedDates = [attributeSet mailUsedDates];
   v31 = [v29 initWithCapacity:{objc_msgSend(mailUsedDates, "count")}];
 
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
   v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
   mailUsedDates2 = [attributeSet mailUsedDates];
-  v33 = [mailUsedDates2 countByEnumeratingWithState:&v55 objects:v64 count:16];
+  v33 = [mailUsedDates2 countByEnumeratingWithState:&v54 objects:v63 count:16];
   if (v33)
   {
     v34 = 0;
     v35 = 0;
-    v54 = 0;
-    v36 = *v56;
+    v53 = 0;
+    v36 = *v55;
     v37 = -1.0;
     v38 = -1.0;
     v39 = -1.0;
@@ -119,12 +119,12 @@
     {
       for (i = 0; i != v33; ++i)
       {
-        if (*v56 != v36)
+        if (*v55 != v36)
         {
           objc_enumerationMutation(mailUsedDates2);
         }
 
-        v42 = [self _daysSinceDate:*(*(&v55 + 1) + 8 * i)];
+        v42 = [self _daysSinceDate:*(*(&v54 + 1) + 8 * i)];
         if (v42 <= 0x1E)
         {
           v43 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v42];
@@ -139,14 +139,14 @@
                 if (v42 != 30)
                 {
                   v40 = v40 + v42 + 1.0;
-                  LODWORD(v54) = v54 + 1;
+                  LODWORD(v53) = v53 + 1;
                 }
               }
 
               else
               {
                 v39 = v39 + v42 + 1.0;
-                ++HIDWORD(v54);
+                ++HIDWORD(v53);
               }
             }
 
@@ -165,7 +165,7 @@
         }
       }
 
-      v33 = [mailUsedDates2 countByEnumeratingWithState:&v55 objects:v64 count:16];
+      v33 = [mailUsedDates2 countByEnumeratingWithState:&v54 objects:v63 count:16];
     }
 
     while (v33);
@@ -180,14 +180,14 @@
       v38 = (v38 + 1.0) / v35;
     }
 
-    if (SHIDWORD(v54) >= 1)
+    if (SHIDWORD(v53) >= 1)
     {
-      v39 = (v39 + 1.0) / HIDWORD(v54);
+      v39 = (v39 + 1.0) / HIDWORD(v53);
     }
 
-    if (v54 >= 1)
+    if (v53 >= 1)
     {
-      v40 = (v40 + 1.0) / v54;
+      v40 = (v40 + 1.0) / v53;
     }
   }
 
@@ -201,21 +201,20 @@
   }
 
   v44 = [MEMORY[0x1E696AD98] numberWithDouble:v37];
-  [v53 setAverageEngagementAgeLast7Days:v44];
+  [v52 setAverageEngagementAgeLast7Days:v44];
 
   v45 = [MEMORY[0x1E696AD98] numberWithDouble:v38];
-  [v53 setAverageEngagementAgeLast14Days:v45];
+  [v52 setAverageEngagementAgeLast14Days:v45];
 
   v46 = [MEMORY[0x1E696AD98] numberWithDouble:v39];
-  [v53 setAverageEngagementAgeLast21Days:v46];
+  [v52 setAverageEngagementAgeLast21Days:v46];
 
   v47 = [MEMORY[0x1E696AD98] numberWithDouble:v40];
-  [v53 setAverageEngagementAgeLast30Days:v47];
+  [v52 setAverageEngagementAgeLast30Days:v47];
 
-  [v53 setNumDaysEngagedLast30Days:{objc_msgSend(v31, "count")}];
-  v48 = *MEMORY[0x1E69E9840];
+  [v52 setNumDaysEngagedLast30Days:{objc_msgSend(v31, "count")}];
 
-  return v53;
+  return v52;
 }
 
 - (uint64_t)_daysSinceDate:()SFMailRankingSignals

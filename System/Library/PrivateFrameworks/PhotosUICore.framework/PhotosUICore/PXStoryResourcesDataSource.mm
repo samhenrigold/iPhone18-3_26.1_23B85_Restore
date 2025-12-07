@@ -356,7 +356,7 @@ LABEL_6:
   v7 = 0u;
   if (referenceCopy)
   {
-    [referenceCopy indexPath];
+    objc_msgSend_indexPath(referenceCopy, 0);
   }
 
   v9.length = [displayAssets count];
@@ -608,7 +608,7 @@ LABEL_16:
     *&v21->_overallDurationInfo.specificDurationInfo.preferredDuration.value = v23;
     *&v21->_overallDurationInfo.specificDurationInfo.minimumDuration.timescale = v22;
     v21->_lock._os_unfair_lock_opaque = 0;
-    v21->_shouldOptimizeForInlinePlayback = ([configurationCopy options] & 0x8000) != 0;
+    v21->_shouldOptimizeForInlinePlayback = (objc_msgSend_options(configurationCopy) & 0x8000) != 0;
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __202__PXStoryResourcesDataSource_initWithKeyAsset_displayAssets_availableDisplayAssets_movieHighlights_detailedSaliency_chapterCollection_audioAssets_assetCollection_overallDurationInfo_storyConfiguration___block_invoke;

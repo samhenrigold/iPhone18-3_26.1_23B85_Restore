@@ -1,6 +1,6 @@
 void MOLogWriteV(uint64_t a1, int a2, uint64_t a3, const __CFString *a4, va_list a5)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v10 = __dst;
   memcpy(__dst, "Error creating CFString", sizeof(__dst));
   v11 = CFStringCreateWithFormatAndArguments(0, 0, a4, a5);
@@ -22,9 +22,9 @@ void MOLogWriteV(uint64_t a1, int a2, uint64_t a3, const __CFString *a4, va_list
 
     maxBufLen = 0;
     Length = CFStringGetLength(v12);
-    v28.location = 0;
-    v28.length = Length;
-    Bytes = CFStringGetBytes(v12, v28, 0x8000100u, 0, 0, 0, 0, &maxBufLen);
+    v27.location = 0;
+    v27.length = Length;
+    Bytes = CFStringGetBytes(v12, v27, 0x8000100u, 0, 0, 0, 0, &maxBufLen);
     if (maxBufLen >= 1 && Bytes == Length)
     {
       v17 = malloc_type_malloc(maxBufLen + 1, 0xC7FA48C7uLL);
@@ -32,9 +32,9 @@ void MOLogWriteV(uint64_t a1, int a2, uint64_t a3, const __CFString *a4, va_list
       {
         v10 = v17;
         usedBufLen = 0;
-        v29.location = 0;
-        v29.length = Length;
-        v18 = CFStringGetBytes(v12, v29, 0x8000100u, 0, 0, v17, maxBufLen, &usedBufLen);
+        v28.location = 0;
+        v28.length = Length;
+        v18 = CFStringGetBytes(v12, v28, 0x8000100u, 0, 0, v17, maxBufLen, &usedBufLen);
         v19 = v18 == Length;
         if (v18 == Length)
         {
@@ -87,7 +87,7 @@ LABEL_16:
     block[3] = &__block_descriptor_tmp_19_0;
     block[4] = a1;
     block[5] = a3;
-    v23 = a2;
+    v22 = a2;
     block[6] = v10;
     block[7] = v14;
     dispatch_sync(v20, block);
@@ -102,13 +102,11 @@ LABEL_16:
   {
     CFRelease(v12);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void *MOXPCTransportOpen(const char *a1, unsigned int a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   memcpy(__dst, "com.apple.MobileSystemServices.XPCConnectionQueue.", sizeof(__dst));
   __strlcat_chk();
   v4 = dispatch_queue_create(__dst, MEMORY[0x277D85CD8]);
@@ -130,7 +128,7 @@ void *MOXPCTransportOpen(const char *a1, unsigned int a2)
       handler[2] = __MOXPCTransportOpen_block_invoke;
       handler[3] = &__block_descriptor_tmp_15;
       handler[4] = v12;
-      v18 = a2;
+      v16 = a2;
       xpc_connection_set_event_handler(v10, handler);
     }
 
@@ -142,11 +140,10 @@ void *MOXPCTransportOpen(const char *a1, unsigned int a2)
 
   else
   {
-    MOLogWrite(0, 3, "MOXPCTransportOpen", @"Failed to create xpc_connection!", v6, v7, v8, v9, v16);
-    v12 = 0;
+    MOLogWrite(0, 3, "MOXPCTransportOpen", @"Failed to create xpc_connection!", v6, v7, v8, v9);
+    return 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -239,7 +236,7 @@ void __MOXPCTransportOpen_block_invoke(uint64_t a1, void *a2, uint64_t a3, uint6
       v38 = @"Got dictionary on listener connection! Ignoring.";
 LABEL_31:
 
-      MOLogWrite(0, 3, "MOXPCTransportOpen_block_invoke", v38, v13, v14, v15, v16, a9);
+      MOLogWrite(0, 3, "MOXPCTransportOpen_block_invoke", v38, v13, v14, v15, v16);
       return;
     }
 
@@ -361,13 +358,13 @@ void _HandleIncomingMessage(uint64_t a1, _xpc_connection_s *a2, void *a3, uint64
       v26 = @"Message received was not a CFDictionary";
     }
 
-    MOLogWrite(0, 3, "_HandleIncomingMessage", v26, v19, v20, v21, v22, v28);
+    MOLogWrite(0, 3, "_HandleIncomingMessage", v26, v19, v20, v21, v22);
 LABEL_18:
     CFRelease(v17);
     return;
   }
 
-  MOLogWrite(0, 3, "_HandleIncomingMessage", @"Payload data received from client did not contain a CF object or failed to deserialize.", v13, v14, v15, v16, a9);
+  MOLogWrite(0, 3, "_HandleIncomingMessage", @"Payload data received from client did not contain a CF object or failed to deserialize.", v13, v14, v15, v16);
 }
 
 void *MOXPCTransportSetConnectionAuthHandler(uint64_t a1, dispatch_object_t object, void *aBlock)
@@ -552,28 +549,28 @@ void MOXPCTransportClose(uint64_t *a1)
   free(a1);
 }
 
-BOOL MOXPCTransportSendMessageOnConnection(_xpc_connection_s *a1)
+BOOL MOXPCTransportSendMessageOnConnection(_xpc_connection_s *a1, uint64_t a2)
 {
-  v6 = _CFXPCCreateXPCMessageWithCFObject();
-  if (v6)
+  v7 = _CFXPCCreateXPCMessageWithCFObject();
+  if (v7)
   {
-    xpc_connection_send_message(a1, v6);
-    xpc_release(v6);
+    xpc_connection_send_message(a1, v7);
+    xpc_release(v7);
   }
 
   else
   {
-    MOLogWrite(0, 3, "MOXPCTransportSendMessageOnConnection", @"Failed to create xpc dictionary", v2, v3, v4, v5, v8);
+    MOLogWrite(0, 3, "MOXPCTransportSendMessageOnConnection", @"Failed to create xpc dictionary", v3, v4, v5, v6);
   }
 
-  return v6 != 0;
+  return v7 != 0;
 }
 
 BOOL MOXPCTransportSendMessage(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (*(a1 + 64))
   {
-    MOLogWrite(0, 3, "MOXPCTransportSendMessage", @"Can't send a message on a server transport handle!", a5, a6, a7, a8, v8);
+    MOLogWrite(0, 3, "MOXPCTransportSendMessage", @"Can't send a message on a server transport handle!", a5, a6, a7, a8, v8, v9);
     return 0;
   }
 
@@ -581,7 +578,7 @@ BOOL MOXPCTransportSendMessage(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a
   {
     v10 = *(a1 + 8);
 
-    return MOXPCTransportSendMessageOnConnection(v10);
+    return MOXPCTransportSendMessageOnConnection(v10, a2);
   }
 }
 
@@ -695,7 +692,7 @@ LABEL_28:
     goto LABEL_19;
   }
 
-  MOLogWrite(0, 3, "MOXPCTransportReceiveMessage", @"Can't call MOXPCTransportReceiveMessage with a message handler set!", a5, a6, a7, a8, v28);
+  MOLogWrite(0, 3, "MOXPCTransportReceiveMessage", @"Can't call MOXPCTransportReceiveMessage with a message handler set!", a5, a6, a7, a8);
   return 0;
 }
 
@@ -715,22 +712,22 @@ char *MOLogOpen(const char *a1, int a2)
   *(v4 + 11) = a2;
   *(v4 + 12) = a2;
   *(v4 + 36) = -1;
-  v14 = 0;
-  asprintf(&v14, "com.apple.MobileSystemServices.Logging.%s", a1);
-  handler[0] = MEMORY[0x277D85DD0];
-  handler[1] = 0x40000000;
-  handler[2] = __MOLogOpen_block_invoke;
-  handler[3] = &__block_descriptor_tmp_0;
-  handler[4] = v4;
-  v5 = v14;
+  v18 = 0;
+  asprintf(&v18, "com.apple.MobileSystemServices.Logging.%s", a1);
+  handler = MEMORY[0x277D85DD0];
+  v14 = 0x40000000;
+  v15 = __MOLogOpen_block_invoke;
+  v16 = &__block_descriptor_tmp_0;
+  v17 = v4;
+  v5 = v18;
   global_queue = dispatch_get_global_queue(0, 0);
-  if (notify_register_dispatch(v5, v4 + 10, global_queue, handler))
+  if (notify_register_dispatch(v5, v4 + 10, global_queue, &handler))
   {
-    MOLogWrite(v4, 5, 0, @"failed to register for %s notification", v7, v8, v9, v10, v14);
+    MOLogWrite(v4, 5, 0, @"failed to register for %s notification", v7, v8, v9, v10, v18, handler, v14, v15, v16, v17);
     *(v4 + 10) = -1;
   }
 
-  free(v14);
+  free(v18);
   v11 = *v4;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 0x40000000;
@@ -751,9 +748,7 @@ void __MOLogOpen_block_invoke(uint64_t a1)
   block[3] = &__block_descriptor_tmp_28;
   block[4] = v2;
   dispatch_sync(v3, block);
-  v4 = *(a1 + 32);
-  v9 = levelNames[*(v4 + 44)];
-  MOLogWrite(v4, 5, 0, @"%s: set log level to %s", v5, v6, v7, v8, *(v4 + 16));
+  MOLogWrite(*(a1 + 32), 5, 0, @"%s: set log level to %s", v4, v5, v6, v7, *(*(a1 + 32) + 16), levelNames[*(*(a1 + 32) + 44)]);
 }
 
 void MOLogEnableDiskLogging(NSObject **a1, uint64_t a2, int a3, uint64_t a4)
@@ -831,23 +826,21 @@ void MOLogClose(uint64_t a1)
   free(a1);
 }
 
-uint64_t __MOLogWriteV_block_invoke(uint64_t result)
+void *__MOLogWriteV_block_invoke(void *result)
 {
-  v35 = *MEMORY[0x277D85DE8];
-  if (*(*(result + 32) + 8))
+  v30 = *MEMORY[0x277D85DE8];
+  if (*(result[4] + 8))
   {
     v1 = result;
-    v26 = 0;
-    time(&v26);
-    v2 = ctime(&v26);
+    v21 = 0;
+    time(&v21);
+    v2 = ctime(&v21);
     v2[strlen(v2) - 1] = 0;
-    v3 = *(v1 + 40);
+    v3 = v1[5];
     getpid();
-    v4 = levelNames[*(v1 + 64)];
     pthread_self();
     if (v3)
     {
-      v5 = *(v1 + 40);
       snprintf(__str, 0x400uLL, "%s [%d] <%s> (%p) %s: ");
     }
 
@@ -856,31 +849,29 @@ uint64_t __MOLogWriteV_block_invoke(uint64_t result)
       snprintf(__str, 0x400uLL, "%s [%d] <%s> (%p) ");
     }
 
-    v6 = *(v1 + 32);
-    v7 = *(v6 + 36);
-    if (v7 != -1)
+    v4 = *(v1[4] + 36);
+    if (v4 != -1)
     {
       goto LABEL_23;
     }
 
-    v8 = *(v6 + 8);
     __strlcpy_chk();
     if (__s.__pn_.__r_.__value_.__s.__data_[0])
     {
-      v9 = (&__s + strlen(&__s) - 1);
-      while (v9 > &__s)
+      v5 = (&__s + strlen(&__s) - 1);
+      while (v5 > &__s)
       {
-        v10 = v9->__pn_.__r_.__value_.__s.__data_[0];
-        v9 = (v9 - 1);
-        if (v10 != 47)
+        v6 = v5->__pn_.__r_.__value_.__s.__data_[0];
+        v5 = (v5 - 1);
+        if (v6 != 47)
         {
-          while (v9 > &__s)
+          while (v5 > &__s)
           {
-            v11 = v9->__pn_.__r_.__value_.__s.__data_[0];
-            v9 = (v9 - 1);
-            if (v11 == 47)
+            v7 = v5->__pn_.__r_.__value_.__s.__data_[0];
+            v5 = (v5 - 1);
+            if (v7 == 47)
             {
-              v9 = (v9 + 1);
+              v5 = (v5 + 1);
               goto LABEL_13;
             }
           }
@@ -890,104 +881,103 @@ uint64_t __MOLogWriteV_block_invoke(uint64_t result)
       }
 
 LABEL_13:
-      if (v9 != &__s)
+      if (v5 != &__s)
       {
-        v12 = &v9[-1].__pn_.__r_.__value_.__r.__words[2] + 7;
+        v8 = &v5[-1].__pn_.__r_.__value_.__r.__words[2] + 7;
         do
         {
-          v13 = v9;
-          if (v12 <= &__s)
+          v9 = v5;
+          if (v8 <= &__s)
           {
             break;
           }
 
-          v14 = *v12--;
-          v9 = (v9 - 1);
+          v10 = *v8--;
+          v5 = (v5 - 1);
         }
 
-        while (v14 == 47);
-        v13->__pn_.__r_.__value_.__s.__data_[0] = 0;
+        while (v10 == 47);
+        v9->__pn_.__r_.__value_.__s.__data_[0] = 0;
         goto LABEL_22;
       }
 
 LABEL_18:
       if (__s.__pn_.__r_.__value_.__s.__data_[0] == 47)
       {
-        v15 = 47;
+        v11 = 47;
       }
 
       else
       {
-        v15 = 46;
+        v11 = 46;
       }
 
-      LOWORD(__s.__pn_.__r_.__value_.__l.__data_) = v15;
+      LOWORD(__s.__pn_.__r_.__value_.__l.__data_) = v11;
     }
 
 LABEL_22:
     mkpath_np(&__s, 0x1EDu);
-    snprintf(&__s, 0x400uLL, "%s.0", *(*(v1 + 32) + 8));
+    snprintf(&__s, 0x400uLL, "%s.0", *(v1[4] + 8));
     result = open(&__s, 521, 420);
-    v7 = result;
-    *(*(v1 + 32) + 36) = result;
+    v4 = result;
+    *(v1[4] + 36) = result;
     if (result != -1)
     {
 LABEL_23:
-      v16 = strlen(__str);
-      memset(&v25, 0, sizeof(v25));
-      v27.iov_base = __str;
-      v27.iov_len = v16;
-      v17 = *(v1 + 56);
-      v28 = *(v1 + 48);
-      v29 = v17;
-      v30 = "\n";
-      v31 = 1;
-      writev(v7, &v27, 3);
-      result = fstat(*(*(v1 + 32) + 36), &v25);
+      v12 = strlen(__str);
+      memset(&v20, 0, sizeof(v20));
+      v22.iov_base = __str;
+      v22.iov_len = v12;
+      v13 = v1[7];
+      v23 = v1[6];
+      v24 = v13;
+      v25 = "\n";
+      v26 = 1;
+      writev(v4, &v22, 3);
+      result = fstat(*(v1[4] + 36), &v20);
       if (!result)
       {
-        v18 = *(v1 + 32);
-        if (v25.st_size >= *(v18 + 24))
+        v14 = v1[4];
+        if (v20.st_size >= *(v14 + 24))
         {
-          close(*(v18 + 36));
-          v19 = *(v1 + 32);
-          *(v19 + 36) = -1;
-          snprintf(&__s, 0x400uLL, "%s.%d", *(v19 + 8), *(v19 + 32));
+          close(*(v14 + 36));
+          v15 = v1[4];
+          *(v15 + 36) = -1;
+          snprintf(&__s, 0x400uLL, "%s.%d", *(v15 + 8), *(v15 + 32));
           result = unlink(&__s);
-          v20 = *(*(v1 + 32) + 32) - 1;
-          if (v20 >= 0)
+          v16 = *(v1[4] + 32) - 1;
+          if (v16 >= 0)
           {
             do
             {
-              snprintf(&__s, 0x400uLL, "%s.%d", *(*(v1 + 32) + 8), v20);
-              v21 = v20 + 1;
-              snprintf(&__to, 0x400uLL, "%s.%d", *(*(v1 + 32) + 8), v20 + 1);
-              rename(&__s, &__to, v22);
+              snprintf(&__s, 0x400uLL, "%s.%d", *(v1[4] + 8), v16);
+              v17 = v16 + 1;
+              snprintf(&__to, 0x400uLL, "%s.%d", *(v1[4] + 8), v16 + 1);
+              rename(&__s, &__to, v18);
               result = open(&__to, 265);
               if (result != -1)
               {
-                v23 = result;
+                v19 = result;
                 fcntl(result, 64, 3);
-                result = close(v23);
+                result = close(v19);
               }
 
-              v20 = v21 - 2;
+              v16 = v17 - 2;
             }
 
-            while (v21 - 1 > 0);
+            while (v17 - 1 > 0);
           }
         }
       }
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t MOLogSetLogLevel(const char *a1, unsigned int a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   valuePtr = a2;
   if (sysconf(71) == -1)
   {
@@ -995,65 +985,59 @@ uint64_t MOLogSetLogLevel(const char *a1, unsigned int a2)
   }
 
   v4 = MEMORY[0x28223BE20]();
-  memset(&v15, 0, sizeof(v15));
-  v14 = 0;
-  if (getpwnam_r("mobile", &v15, &v13 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0), v5, &v14))
+  memset(&v14, 0, sizeof(v14));
+  v13 = 0;
+  if (getpwnam_r("mobile", &v14, &v12 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0), v5, &v13))
   {
     v6 = 1;
   }
 
   else
   {
-    v6 = v14 == 0;
+    v6 = v13 == 0;
   }
 
-  if (v6 || geteuid() == v15.pw_uid)
+  if (!v6 && geteuid() != v14.pw_uid)
   {
-    v7 = CFStringCreateWithFormat(0, 0, @"MobileSystemServices-%s-%s", a1, "LogLevel");
-    if (a2 == -1)
-    {
-      v8 = 0;
-    }
+    return 1;
+  }
 
-    else
-    {
-      if ((a2 & 0x80000000) != 0)
-      {
-        valuePtr = 0;
-      }
-
-      else if (a2 >= 8)
-      {
-        valuePtr = 7;
-      }
-
-      v8 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
-    }
-
-    v10 = *MEMORY[0x277CBF008];
-    v11 = *MEMORY[0x277CBF030];
-    CFPreferencesSetValue(v7, v8, *MEMORY[0x277CBF008], @"mobile", *MEMORY[0x277CBF030]);
-    CFPreferencesSynchronize(v10, @"mobile", v11);
-    if (v8)
-    {
-      CFRelease(v8);
-    }
-
-    CFRelease(v7);
-    v13 = 0;
-    asprintf(&v13, "com.apple.MobileSystemServices.Logging.%s", a1);
-    notify_post(v13);
-    free(v13);
-    result = 0;
+  v7 = CFStringCreateWithFormat(0, 0, @"MobileSystemServices-%s-%s", a1, "LogLevel");
+  if (a2 == -1)
+  {
+    v8 = 0;
   }
 
   else
   {
-    result = 1;
+    if ((a2 & 0x80000000) != 0)
+    {
+      valuePtr = 0;
+    }
+
+    else if (a2 >= 8)
+    {
+      valuePtr = 7;
+    }
+
+    v8 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  v10 = *MEMORY[0x277CBF008];
+  v11 = *MEMORY[0x277CBF030];
+  CFPreferencesSetValue(v7, v8, *MEMORY[0x277CBF008], @"mobile", *MEMORY[0x277CBF030]);
+  CFPreferencesSynchronize(v10, @"mobile", v11);
+  if (v8)
+  {
+    CFRelease(v8);
+  }
+
+  CFRelease(v7);
+  v12 = 0;
+  asprintf(&v12, "com.apple.MobileSystemServices.Logging.%s", a1);
+  notify_post(v12);
+  free(v12);
+  return 0;
 }
 
 uint64_t MOLogGetLogLevel(uint64_t a1)
@@ -1172,7 +1156,7 @@ CFPropertyListRef MOCreateCFTypeFromSerializedBuffer(UInt8 *bytes, CFIndex lengt
 
   else
   {
-    MOLogWrite(0, 3, "MOCreateCFTypeFromSerializedBuffer", @"Failed to create data from buffer", v4, v5, v6, v7, v15);
+    MOLogWrite(0, 3, "MOCreateCFTypeFromSerializedBuffer", @"Failed to create data from buffer", v4, v5, v6, v7);
     return 0;
   }
 

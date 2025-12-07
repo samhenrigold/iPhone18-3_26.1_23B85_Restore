@@ -9,6 +9,7 @@
 - (int64_t)greyEvent;
 - (int64_t)motionPointerEdge;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation WatchControlActionDetailController
@@ -42,7 +43,7 @@
 
 - (id)specifiers
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D3FC48];
   v4 = *(&self->super.super.super.super.super.super.isa + v3);
   if (v4)
@@ -51,7 +52,7 @@
   }
 
   actionDetailControllerDelegate = [(WatchControlActionDetailController *)self actionDetailControllerDelegate];
-  v41 = [actionDetailControllerDelegate selectedActionForDetailController:self];
+  v40 = [actionDetailControllerDelegate selectedActionForDetailController:self];
 
   array = [MEMORY[0x277CBEB18] array];
   specifier = [(WatchControlActionDetailController *)self specifier];
@@ -63,20 +64,20 @@
     v9 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:0 target:self set:0 get:0 detail:0 cell:0 edit:0];
     [v9 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FFE8]];
     [array addObject:v9];
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
-    v39 = v8;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v38 = v8;
     v10 = v8;
-    v11 = [v10 countByEnumeratingWithState:&v47 objects:v52 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v46 objects:v51 count:16];
     if (v11)
     {
       v12 = v11;
-      v37 = v9;
-      v38 = v3;
+      v36 = v9;
+      v37 = v3;
       v13 = 0;
-      v14 = *v48;
+      v14 = *v47;
       v15 = *MEMORY[0x277D3FFC0];
       v16 = *MEMORY[0x277D401A8];
       obj = v10;
@@ -84,12 +85,12 @@
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v48 != v14)
+          if (*v47 != v14)
           {
             objc_enumerationMutation(obj);
           }
 
-          unsignedIntegerValue = [*(*(&v47 + 1) + 8 * i) unsignedIntegerValue];
+          unsignedIntegerValue = [*(*(&v46 + 1) + 8 * i) unsignedIntegerValue];
           v19 = MEMORY[0x277D3FAD8];
           v20 = WCNameForAction();
           v21 = [v19 preferenceSpecifierNamed:v20 target:0 set:0 get:0 detail:0 cell:3 edit:0];
@@ -100,7 +101,7 @@
           v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue];
           [v21 setProperty:v23 forKey:v16];
 
-          if (unsignedIntegerValue == v41)
+          if (unsignedIntegerValue == v40)
           {
             v24 = v21;
 
@@ -110,20 +111,20 @@
           [array addObject:v21];
         }
 
-        v12 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
+        v12 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
       }
 
       while (v12);
 
-      v3 = v38;
-      v8 = v39;
-      v9 = v37;
+      v3 = v37;
+      v8 = v38;
+      v9 = v36;
       if (!v13)
       {
         goto LABEL_16;
       }
 
-      [v37 setProperty:v13 forKey:*MEMORY[0x277D40090]];
+      [v36 setProperty:v13 forKey:*MEMORY[0x277D40090]];
     }
 
     else
@@ -134,26 +135,26 @@
 LABEL_16:
   }
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   v25 = WCAvailableActionGroupsForSettings();
-  v26 = [v25 countByEnumeratingWithState:&v43 objects:v51 count:16];
+  v26 = [v25 countByEnumeratingWithState:&v42 objects:v50 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v44;
+    v28 = *v43;
     do
     {
       for (j = 0; j != v27; ++j)
       {
-        if (*v44 != v28)
+        if (*v43 != v28)
         {
           objc_enumerationMutation(v25);
         }
 
-        unsignedIntegerValue2 = [*(*(&v43 + 1) + 8 * j) unsignedIntegerValue];
+        unsignedIntegerValue2 = [*(*(&v42 + 1) + 8 * j) unsignedIntegerValue];
         actionDetailControllerDelegate2 = [(WatchControlActionDetailController *)self actionDetailControllerDelegate];
         v32 = [actionDetailControllerDelegate2 canShowActionGroup:unsignedIntegerValue2 forDetailController:self];
 
@@ -167,7 +168,7 @@ LABEL_16:
         }
       }
 
-      v27 = [v25 countByEnumeratingWithState:&v43 objects:v51 count:16];
+      v27 = [v25 countByEnumeratingWithState:&v42 objects:v50 count:16];
     }
 
     while (v27);
@@ -178,9 +179,89 @@ LABEL_16:
 
   v4 = *(&self->super.super.super.super.super.super.isa + v3);
 LABEL_29:
-  v35 = *MEMORY[0x277D85DE8];
 
   return v4;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v32[3] = *MEMORY[0x277D85DE8];
+  v30.receiver = self;
+  v30.super_class = WatchControlActionDetailController;
+  [(AccessibilityBridgeBaseController *)&v30 viewWillAppear:appear];
+  v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  specifier = [(WatchControlActionDetailController *)self specifier];
+  identifier = [specifier identifier];
+
+  specifier2 = [(WatchControlActionDetailController *)self specifier];
+  userInfo = [specifier2 userInfo];
+  v9 = [userInfo objectForKeyedSubscript:@"GreyEvent"];
+
+  specifier3 = [(WatchControlActionDetailController *)self specifier];
+  userInfo2 = [specifier3 userInfo];
+  v12 = [userInfo2 objectForKeyedSubscript:@"MotionPointerEdge"];
+
+  v13 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL = [v4 bundleURL];
+  v16 = [v13 initWithKey:@"ACCESSIBILITY_TITLE" table:@"AccessibilitySettings" locale:currentLocale bundleURL:bundleURL];
+
+  v17 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL2 = [v4 bundleURL];
+  v20 = [v17 initWithKey:@"WATCH_CONTROL_ROW_TITLE" table:@"AccessibilitySettings-watchcontrol" locale:currentLocale2 bundleURL:bundleURL2];
+
+  if (v9)
+  {
+    v21 = +[WatchControlStringLookup stringResouceForGreyEvent:](WatchControlStringLookup, "stringResouceForGreyEvent:", [v9 integerValue]);
+    if (!v21 || !identifier)
+    {
+      goto LABEL_10;
+    }
+
+    v28 = v12;
+    v22 = [WatchControlStringLookup stringResourceForKey:@"input.source.grey"];
+    v23 = MEMORY[0x277CF3470];
+    v32[0] = v16;
+    v32[1] = v20;
+    v32[2] = v22;
+    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:3];
+    v25 = MEMORY[0x277CBEBC0];
+    v29 = identifier;
+    [MEMORY[0x277CCACA8] stringWithFormat:@"bridge:root=ACCESSIBILITY_ID&path=WATCH_CONTROL_ROW_ID/GREY_INPUT_ID/%@", identifier];
+    v26 = LABEL_9:;
+    v27 = [v25 URLWithString:v26];
+    [v23 emitNavigationEventForSystemSettingWithIconSpecifierIdentifier:@"ACCESSIBILITY_ID" title:v21 localizedNavigationComponents:v24 deepLink:v27];
+
+    v12 = v28;
+    identifier = v29;
+LABEL_10:
+
+    goto LABEL_11;
+  }
+
+  if (v12)
+  {
+    v21 = +[WatchControlStringLookup stringResouceForMotionPointerEdge:](WatchControlStringLookup, "stringResouceForMotionPointerEdge:", [v12 integerValue]);
+    if (!v21 || !identifier)
+    {
+      goto LABEL_10;
+    }
+
+    v28 = v12;
+    v22 = [WatchControlStringLookup stringResourceForKey:@"input.source.motion.pointer"];
+    v23 = MEMORY[0x277CF3470];
+    v31[0] = v16;
+    v31[1] = v20;
+    v31[2] = v22;
+    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:3];
+    v25 = MEMORY[0x277CBEBC0];
+    v29 = identifier;
+    [MEMORY[0x277CCACA8] stringWithFormat:@"bridge:root=ACCESSIBILITY_ID&path=WATCH_CONTROL_ROW_ID/MOTION_POINTER_ID/%@", identifier];
+    goto LABEL_9;
+  }
+
+LABEL_11:
 }
 
 - (id)_createSpecifiersForActionGroup:(unint64_t)group
@@ -201,35 +282,35 @@ LABEL_29:
 
 - (id)_createGenericSpecifiersForActionGroup:(unint64_t)group
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   actionDetailControllerDelegate = [(WatchControlActionDetailController *)self actionDetailControllerDelegate];
-  v26 = [actionDetailControllerDelegate selectedActionForDetailController:self];
+  v25 = [actionDetailControllerDelegate selectedActionForDetailController:self];
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   obj = WCDefaultActionsForActionGroup();
-  v5 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v5 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v5)
   {
     v6 = v5;
-    v27 = 0;
-    v7 = *v31;
-    v25 = *MEMORY[0x277D3FFC0];
+    v26 = 0;
+    v7 = *v30;
+    v24 = *MEMORY[0x277D3FFC0];
     v8 = *MEMORY[0x277D401A8];
     v9 = *MEMORY[0x277D3FD80];
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v31 != v7)
+        if (*v30 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        unsignedIntegerValue = [*(*(&v30 + 1) + 8 * i) unsignedIntegerValue];
+        unsignedIntegerValue = [*(*(&v29 + 1) + 8 * i) unsignedIntegerValue];
         actionDetailControllerDelegate2 = [(WatchControlActionDetailController *)self actionDetailControllerDelegate];
         v13 = [actionDetailControllerDelegate2 canShowAction:unsignedIntegerValue forDetailController:self];
 
@@ -240,23 +321,23 @@ LABEL_29:
           v16 = [v14 preferenceSpecifierNamed:v15 target:0 set:0 get:0 detail:0 cell:3 edit:0];
 
           v17 = WCImageForAction();
-          [v16 setProperty:v17 forKey:v25];
+          [v16 setProperty:v17 forKey:v24];
           v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue];
           [v16 setProperty:v18 forKey:v8];
 
           [v16 setProperty:MEMORY[0x277CBEC38] forKey:v9];
-          if (unsignedIntegerValue == v26)
+          if (unsignedIntegerValue == v25)
           {
             v19 = v16;
 
-            v27 = v19;
+            v26 = v19;
           }
 
           [array addObject:v16];
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v6 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v6);
@@ -264,7 +345,7 @@ LABEL_29:
 
   else
   {
-    v27 = 0;
+    v26 = 0;
   }
 
   if ([array count])
@@ -274,61 +355,59 @@ LABEL_29:
     v22 = [v20 preferenceSpecifierNamed:v21 target:self set:0 get:0 detail:0 cell:0 edit:0];
 
     [v22 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FFE8]];
-    if (v27)
+    if (v26)
     {
-      [v22 setProperty:v27 forKey:*MEMORY[0x277D40090]];
+      [v22 setProperty:v26 forKey:*MEMORY[0x277D40090]];
     }
 
     [array insertObject:v22 atIndex:0];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (id)_createSiriShortcutsSpecifiersForActionGroup:(unint64_t)group
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   customActionDetailControllerDelegate = [(WatchControlActionDetailController *)self customActionDetailControllerDelegate];
 
   if (customActionDetailControllerDelegate)
   {
     array = [MEMORY[0x277CBEB18] array];
     customActionDetailControllerDelegate2 = [(WatchControlActionDetailController *)self customActionDetailControllerDelegate];
-    v39 = [customActionDetailControllerDelegate2 selectedActionForDetailController:self];
+    v38 = [customActionDetailControllerDelegate2 selectedActionForDetailController:self];
 
     customActionDetailControllerDelegate3 = [(WatchControlActionDetailController *)self customActionDetailControllerDelegate];
     selfCopy = self;
     v7 = [customActionDetailControllerDelegate3 selectedCustomActionIdentifierForCustomActionType:1 forDetailController:self];
 
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     v8 = [MEMORY[0x277CE7E38] shortcutsManagerForSource:1];
     shortcuts = [v8 shortcuts];
 
     obj = shortcuts;
-    v10 = [shortcuts countByEnumeratingWithState:&v41 objects:v45 count:16];
+    v10 = [shortcuts countByEnumeratingWithState:&v40 objects:v44 count:16];
     if (v10)
     {
       v11 = v10;
-      v34 = 0;
-      v37 = *MEMORY[0x277D76A28];
-      v38 = *v42;
-      v36 = *MEMORY[0x277D3FFC0];
+      v33 = 0;
+      v36 = *MEMORY[0x277D76A28];
+      v37 = *v41;
+      v35 = *MEMORY[0x277D3FFC0];
       v12 = *MEMORY[0x277D401A8];
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v42 != v38)
+          if (*v41 != v37)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v41 + 1) + 8 * i);
+          v14 = *(*(&v40 + 1) + 8 * i);
           v15 = MEMORY[0x277D3FAD8];
           shortcutName = [v14 shortcutName];
           v17 = [v15 preferenceSpecifierNamed:shortcutName target:0 set:0 get:0 detail:0 cell:3 edit:0];
@@ -338,19 +417,19 @@ LABEL_29:
           if ([v18 length])
           {
             v19 = MEMORY[0x277D755B8];
-            v20 = [MEMORY[0x277D755D0] configurationWithTextStyle:v37];
+            v20 = [MEMORY[0x277D755D0] configurationWithTextStyle:v36];
             v21 = [v19 _systemImageNamed:v18 withConfiguration:v20];
 
             whiteColor = [MEMORY[0x277D75348] whiteColor];
             v23 = [v21 imageWithTintColor:whiteColor renderingMode:1];
 
-            [v17 setProperty:v23 forKey:v36];
+            [v17 setProperty:v23 forKey:v35];
           }
 
           identifier = [v14 identifier];
           [v17 setProperty:identifier forKey:v12];
 
-          if (v39 == 10020)
+          if (v38 == 10020)
           {
             if ([v7 length])
             {
@@ -361,7 +440,7 @@ LABEL_29:
               {
                 v27 = v17;
 
-                v34 = v27;
+                v33 = v27;
               }
             }
           }
@@ -369,7 +448,7 @@ LABEL_29:
           [array addObject:v17];
         }
 
-        v11 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
+        v11 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
       }
 
       while (v11);
@@ -377,7 +456,7 @@ LABEL_29:
 
     else
     {
-      v34 = 0;
+      v33 = 0;
     }
 
     if ([array count])
@@ -388,9 +467,9 @@ LABEL_29:
 
       [v30 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FFE8]];
       [v30 setProperty:&unk_284E7E408 forKey:@"CustomActionType"];
-      if (v34)
+      if (v33)
       {
-        [v30 setProperty:v34 forKey:*MEMORY[0x277D40090]];
+        [v30 setProperty:v33 forKey:*MEMORY[0x277D40090]];
       }
 
       [array insertObject:v30 atIndex:0];
@@ -401,8 +480,6 @@ LABEL_29:
   {
     array = MEMORY[0x277CBEBF8];
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return array;
 }

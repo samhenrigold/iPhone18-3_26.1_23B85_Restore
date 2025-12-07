@@ -119,7 +119,7 @@ LABEL_4:
 
 void __99__WFFinderImageResizer_unsafeComputeResizedSizesForImageContentItems_inSizes_intoSizesTable_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock((*(*(a1 + 56) + 8) + 32));
   v4 = *(*(*(a1 + 64) + 8) + 40);
   os_unfair_lock_unlock((*(*(a1 + 56) + 8) + 32));
@@ -131,18 +131,18 @@ void __99__WFFinderImageResizer_unsafeComputeResizedSizesForImageContentItems_in
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v19 = "[WFFinderImageResizer unsafeComputeResizedSizesForImageContentItems:inSizes:intoSizesTable:error:]_block_invoke";
-      v20 = 2112;
-      v21 = v5;
-      v22 = 2112;
-      v23 = v6;
+      v18 = "[WFFinderImageResizer unsafeComputeResizedSizesForImageContentItems:inSizes:intoSizesTable:error:]_block_invoke";
+      v19 = 2112;
+      v20 = v5;
+      v21 = 2112;
+      v22 = v6;
       _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_INFO, "%s Starting resizing image %@ (descriptor: %@) for size estimation...", buf, 0x20u);
     }
 
-    v17 = 0;
-    v8 = WFConvertImage(v5, v6, &v17);
-    v9 = v17;
-    v10 = v17;
+    v16 = 0;
+    v8 = WFConvertImage(v5, v6, &v16);
+    v9 = v16;
+    v10 = v16;
     os_unfair_lock_lock((*(*(a1 + 56) + 8) + 32));
     v11 = getWFActionsLogObject();
     v12 = v11;
@@ -152,13 +152,13 @@ void __99__WFFinderImageResizer_unsafeComputeResizedSizesForImageContentItems_in
       {
         v13 = [v8 fileSize];
         *buf = 136315906;
-        v19 = "[WFFinderImageResizer unsafeComputeResizedSizesForImageContentItems:inSizes:intoSizesTable:error:]_block_invoke";
-        v20 = 2112;
-        v21 = v5;
-        v22 = 2112;
-        v23 = v6;
-        v24 = 2048;
-        v25 = v13;
+        v18 = "[WFFinderImageResizer unsafeComputeResizedSizesForImageContentItems:inSizes:intoSizesTable:error:]_block_invoke";
+        v19 = 2112;
+        v20 = v5;
+        v21 = 2112;
+        v22 = v6;
+        v23 = 2048;
+        v24 = v13;
         _os_log_impl(&dword_1CA256000, v12, OS_LOG_TYPE_INFO, "%s Computed size for %@ (descriptor: %@): %lld", buf, 0x2Au);
       }
 
@@ -180,11 +180,11 @@ void __99__WFFinderImageResizer_unsafeComputeResizedSizesForImageContentItems_in
       if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315650;
-        v19 = "[WFFinderImageResizer unsafeComputeResizedSizesForImageContentItems:inSizes:intoSizesTable:error:]_block_invoke";
-        v20 = 2112;
-        v21 = v5;
-        v22 = 2112;
-        v23 = v6;
+        v18 = "[WFFinderImageResizer unsafeComputeResizedSizesForImageContentItems:inSizes:intoSizesTable:error:]_block_invoke";
+        v19 = 2112;
+        v20 = v5;
+        v21 = 2112;
+        v22 = v6;
         _os_log_impl(&dword_1CA256000, v12, OS_LOG_TYPE_FAULT, "%s Error updating file sizes for image %@, descriptor: %@", buf, 0x20u);
       }
 
@@ -192,8 +192,6 @@ void __99__WFFinderImageResizer_unsafeComputeResizedSizesForImageContentItems_in
       os_unfair_lock_unlock((*(*(a1 + 56) + 8) + 32));
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)resizeImages:(id)images toSize:(id)size completion:(id)completion
@@ -261,39 +259,38 @@ LABEL_4:
   return v14;
 }
 
-void __55__WFFinderImageResizer_resizeImages_toSize_completion___block_invoke(uint64_t a1)
+void __55__WFFinderImageResizer_resizeImages_toSize_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  v4[0] = MEMORY[0x1E69E9820];
-  v4[1] = 3221225472;
-  v4[2] = __55__WFFinderImageResizer_resizeImages_toSize_completion___block_invoke_2;
-  v4[3] = &unk_1E837FF18;
-  v7 = *(a1 + 56);
-  v5 = *(a1 + 40);
-  v6 = *(a1 + 48);
-  [v2 generateCollectionByCoercingToItemClass:v3 completionHandler:v4];
+  v3 = *(a1 + 32);
+  v4 = objc_opt_class();
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __55__WFFinderImageResizer_resizeImages_toSize_completion___block_invoke_2;
+  v5[3] = &unk_1E837FF18;
+  v8 = *(a1 + 56);
+  v6 = *(a1 + 40);
+  v7 = *(a1 + 48);
+  [v3 generateCollectionByCoercingToItemClass:v4 completionHandler:v5];
 }
 
 void __55__WFFinderImageResizer_resizeImages_toSize_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   if (a2)
   {
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = __55__WFFinderImageResizer_resizeImages_toSize_completion___block_invoke_3;
-    v6[3] = &unk_1E837C320;
-    v7 = *(a1 + 32);
-    v8 = *(a1 + 40);
-    [a2 transformItemsUsingBlock:v6 completionHandler:*(a1 + 48)];
+    v5[0] = MEMORY[0x1E69E9820];
+    v5[1] = 3221225472;
+    v5[2] = __55__WFFinderImageResizer_resizeImages_toSize_completion___block_invoke_3;
+    v5[3] = &unk_1E837C320;
+    v6 = *(a1 + 32);
+    v7 = *(a1 + 40);
+    [a2 transformItemsUsingBlock:v5 completionHandler:*(a1 + 48)];
   }
 
   else
   {
-    v4 = *(a1 + 48);
-    v5 = *(*(a1 + 48) + 16);
+    v4 = *(*(a1 + 48) + 16);
 
-    v5();
+    v4();
   }
 }
 
@@ -368,38 +365,38 @@ LABEL_4:
   dispatch_async(queue, block);
 }
 
-void __72__WFFinderImageResizer_computeResizedSizesForImages_inSizes_completion___block_invoke(uint64_t a1)
+void __72__WFFinderImageResizer_computeResizedSizesForImages_inSizes_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __72__WFFinderImageResizer_computeResizedSizesForImages_inSizes_completion___block_invoke_2;
-  v7[3] = &unk_1E837C2D0;
-  v4 = *(a1 + 56);
-  v5 = *(a1 + 40);
-  v6 = *(a1 + 48);
-  v9 = v4;
-  v7[4] = v5;
-  v8 = v6;
-  v10 = *(a1 + 64);
-  [v2 generateCollectionByCoercingToItemClass:v3 completionHandler:v7];
+  v3 = *(a1 + 32);
+  v4 = objc_opt_class();
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __72__WFFinderImageResizer_computeResizedSizesForImages_inSizes_completion___block_invoke_2;
+  v8[3] = &unk_1E837C2D0;
+  v5 = *(a1 + 56);
+  v6 = *(a1 + 40);
+  v7 = *(a1 + 48);
+  v10 = v5;
+  v8[4] = v6;
+  v9 = v7;
+  v11 = *(a1 + 64);
+  [v3 generateCollectionByCoercingToItemClass:v4 completionHandler:v8];
 }
 
 void __72__WFFinderImageResizer_computeResizedSizesForImages_inSizes_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v3 = [a2 items];
     v4 = objc_opt_new();
     v5 = *(a1 + 32);
     v6 = [*(a1 + 40) firstObject];
-    v22[0] = v6;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
-    v21 = 0;
-    v8 = [v5 unsafeComputeResizedSizesForImageContentItems:v3 inSizes:v7 intoSizesTable:v4 error:&v21];
-    v9 = v21;
+    v19[0] = v6;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+    v18 = 0;
+    v8 = [v5 unsafeComputeResizedSizesForImageContentItems:v3 inSizes:v7 intoSizesTable:v4 error:&v18];
+    v9 = v18;
 
     if (v8)
     {
@@ -407,9 +404,9 @@ void __72__WFFinderImageResizer_computeResizedSizesForImages_inSizes_completion_
       {
         v10 = *(a1 + 32);
         v11 = [*(a1 + 40) subarrayWithRange:{1, objc_msgSend(*(a1 + 40), "count") - 1}];
-        v20 = v9;
-        v12 = [v10 unsafeComputeResizedSizesForImageContentItems:v3 inSizes:v11 intoSizesTable:v4 error:&v20];
-        v13 = v20;
+        v17 = v9;
+        v12 = [v10 unsafeComputeResizedSizesForImageContentItems:v3 inSizes:v11 intoSizesTable:v4 error:&v17];
+        v13 = v17;
 
         if ((v12 & 1) == 0)
         {
@@ -433,15 +430,12 @@ void __72__WFFinderImageResizer_computeResizedSizesForImages_inSizes_completion_
 
 LABEL_11:
 
-    v19 = *MEMORY[0x1E69E9840];
     return;
   }
 
-  v16 = *(a1 + 48);
-  v17 = *(*(a1 + 48) + 16);
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *(*(a1 + 48) + 16);
 
-  v17();
+  v16();
 }
 
 - (WFFinderImageResizer)init

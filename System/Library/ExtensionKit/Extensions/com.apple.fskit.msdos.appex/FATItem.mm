@@ -9,6 +9,7 @@
 - (unint64_t)getFileID;
 - (void)purgeMetaBlocksFromCache:(id)cache;
 - (void)setDeleted;
+- (void)setFirstCluster:(unsigned int)cluster;
 @end
 
 @implementation FATItem
@@ -38,11 +39,11 @@
   dataCopy = data;
   nameCopy = name;
   v35 = 0;
-  v36[0] = &v35;
-  v36[1] = 0x3032000000;
-  v36[2] = sub_100018340;
-  v36[3] = sub_100018350;
-  v37 = 0;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  v38 = sub_100018340;
+  v39 = sub_100018350;
+  v40 = 0;
   v31 = 0;
   v32 = &v31;
   v33 = 0x2020000000;
@@ -76,11 +77,11 @@
       v25[6] = &v27;
       [v18 clusterChainLength:v17 replyHandler:v25];
 
-      if (*(v36[0] + 40))
+      if (v36[5])
       {
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
-          sub_100031A84(v36);
+          sub_100031A84();
         }
 
         goto LABEL_9;
@@ -131,6 +132,16 @@ LABEL_10:
 
     [(FATItem *)self setIncludedInVolumeOUFiles:1];
   }
+}
+
+- (void)setFirstCluster:(unsigned int)cluster
+{
+  v3 = *&cluster;
+  self->_firstCluster = cluster;
+  entryData = [(FATItem *)self entryData];
+  volume = [(FATItem *)self volume];
+  systemInfo = [volume systemInfo];
+  [entryData setFirstCluster:v3 fileSystemInfo:systemInfo];
 }
 
 - (id)getAttributes:(id)attributes

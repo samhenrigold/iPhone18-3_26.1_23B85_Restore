@@ -5,14 +5,14 @@
 
 void ___EnablePowerMonitoring_block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (!sPowerMonitoringTimers)
   {
     v2 = +[PCLog timer];
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_25E3EF000, v2, OS_LOG_TYPE_DEFAULT, "PCSimpleTimer - enabling power monitoring", &v10, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&dword_25E3EF000, v2, OS_LOG_TYPE_DEFAULT, "PCSimpleTimer - enabling power monitoring", &v9, 2u);
     }
 
     v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -36,14 +36,12 @@ void ___EnablePowerMonitoring_block_invoke(uint64_t a1)
   {
     v7 = *(a1 + 32);
     v8 = [sPowerMonitoringTimers count];
-    v10 = 138543618;
-    v11 = v7;
-    v12 = 2048;
-    v13 = v8;
-    _os_log_impl(&dword_25E3EF000, v6, OS_LOG_TYPE_DEFAULT, "Enabling power monitoring for %{public}@ - %lu timers", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v7;
+    v11 = 2048;
+    v12 = v8;
+    _os_log_impl(&dword_25E3EF000, v6, OS_LOG_TYPE_DEFAULT, "Enabling power monitoring for %{public}@ - %lu timers", &v9, 0x16u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

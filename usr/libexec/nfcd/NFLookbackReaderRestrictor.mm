@@ -4,6 +4,7 @@
 - (NFLookbackReaderRestrictor)initWithThermalMonitor:(id)monitor delegate:(id)delegate;
 - (double)getCooloffTime;
 - (double)maxReaderTime;
+- (float)getMaxOnTimeAtIndex:(int)index;
 - (id)_allOperationsSince:(double)since referenceTime:(id)time;
 - (id)description;
 - (void)_getReaderOnTime:(double *)time andOff:(double *)off since:(double)since referenceTime:(id)referenceTime;
@@ -427,9 +428,9 @@ LABEL_17:
   result = 20.0;
   if ((thermalPressureNominal & 1) == 0)
   {
-    thermalPressureBackoff = [(NFReaderRestrictor *)self thermalPressureBackoff];
+    v5 = objc_msgSend_thermalPressureBackoff(self, 20.0);
     result = 0.0;
-    if (thermalPressureBackoff)
+    if (v5)
     {
       return 7.0;
     }
@@ -686,6 +687,81 @@ LABEL_18:
   *off = v36;
 }
 
+- (float)getMaxOnTimeAtIndex:(int)index
+{
+  v3 = *&index;
+  if (self->_maxTimeWindows <= index)
+  {
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    Logger = NFLogGetLogger();
+    if (Logger)
+    {
+      v8 = Logger;
+      Class = object_getClass(self);
+      isMetaClass = class_isMetaClass(Class);
+      ClassName = object_getClassName(self);
+      Name = sel_getName(a2);
+      v12 = 45;
+      if (isMetaClass)
+      {
+        v12 = 43;
+      }
+
+      v8(3, "%c[%{public}s %{public}s]:%i Error : invalid index %d", v12, ClassName, Name, 245, v3);
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v13 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      v14 = object_getClass(self);
+      if (class_isMetaClass(v14))
+      {
+        v15 = 43;
+      }
+
+      else
+      {
+        v15 = 45;
+      }
+
+      *buf = 67110146;
+      v19 = v15;
+      v20 = 2082;
+      v21 = object_getClassName(self);
+      v22 = 2082;
+      v23 = sel_getName(a2);
+      v24 = 1024;
+      v25 = 245;
+      v26 = 1024;
+      v27 = v3;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Error : invalid index %d", buf, 0x28u);
+    }
+
+    return 0.0;
+  }
+
+  else if ([(NFReaderRestrictor *)self thermalPressureCritical])
+  {
+    return self->_maxOnTimesCritical[v3];
+  }
+
+  else
+  {
+    if (objc_msgSend_thermalPressureBackoff(self))
+    {
+      v16 = 88;
+    }
+
+    else
+    {
+      v16 = 80;
+    }
+
+    return (*(&self->super.super.isa + v16))[v3];
+  }
+}
+
 - (double)getCooloffTime
 {
   v18.receiver = self;
@@ -852,7 +928,7 @@ LABEL_23:
     v11 = @"\t Current window = Critical\n";
   }
 
-  else if ([(NFReaderRestrictor *)self thermalPressureBackoff])
+  else if (objc_msgSend_thermalPressureBackoff(self))
   {
     v11 = @"\t Current window = Backoff\n";
   }
@@ -876,9 +952,9 @@ LABEL_23:
       v15 = &OBJC_IVAR___NFLookbackReaderRestrictor__maxOnTimesCritical;
       if ((thermalPressureCritical & 1) == 0)
       {
-        thermalPressureBackoff = [(NFReaderRestrictor *)self thermalPressureBackoff];
+        v16 = objc_msgSend_thermalPressureBackoff(self);
         v17 = 2;
-        if (thermalPressureBackoff)
+        if (v16)
         {
           v17 = 3;
         }

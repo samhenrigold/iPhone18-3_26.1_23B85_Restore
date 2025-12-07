@@ -24,19 +24,17 @@
 
 uint64_t __54___INVocabulary_removeAllVocabularyStringsOnBehalfOf___block_invoke(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 8);
-  v3 = objc_opt_class();
-  v4 = *(a1 + 40);
+  v2 = objc_opt_class();
+  v3 = *(a1 + 40);
 
-  return [v3 clearAllCustomVocabularyOnBehalfOf:v4];
+  return [v2 clearAllCustomVocabularyOnBehalfOf:v3];
 }
 
 uint64_t __43___INVocabulary_removeAllVocabularyStrings__block_invoke(uint64_t a1)
 {
-  v1 = *(*(a1 + 32) + 8);
-  v2 = objc_opt_class();
+  v1 = objc_opt_class();
 
-  return [v2 clearAllCustomVocabulary];
+  return [v1 clearAllCustomVocabulary];
 }
 
 void __50___INVocabulary__setVocabulary_ofType_onBehalfOf___block_invoke(uint64_t a1)
@@ -83,39 +81,39 @@ void __58___INVocabulary_setValidatedVocabulary_ofType_onBehalfOf___block_invoke
 
 uint64_t __33___INVocabulary_sharedVocabulary__block_invoke(uint64_t a1)
 {
-  sharedVocabulary_sSharedInstance = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = sharedVocabulary_sSharedInstance;
+  sharedVocabulary_sSharedInstance = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 void __47___INVocabulary_supportedVocabularyStringTypes__block_invoke()
 {
-  v3[20] = *MEMORY[0x1E69E9840];
-  v3[0] = @"ContactNameType";
-  v3[1] = @"ContactGroupNameType";
-  v3[2] = @"PhotoTagsType";
-  v3[3] = @"PhotoAlbumNameType";
-  v3[4] = @"PhotoMemoryNameType";
-  v3[5] = @"HealthActivityNameType";
-  v3[6] = @"CarProfileNameType";
-  v3[7] = @"CarNameType";
-  v3[8] = @"PaymentsOrganizationNameType";
-  v3[9] = @"PaymentsAccountNicknameType";
-  v3[10] = @"NotebookItemTitleType";
-  v3[11] = @"NotebookItemGroupNameType";
-  v3[12] = @"VoiceCommandNameType";
-  v3[13] = @"AutoShortcutNameType";
-  v3[14] = @"PlaylistTitleType";
-  v3[15] = @"MusicArtistNameType";
-  v3[16] = @"AudiobookTitleType";
-  v3[17] = @"AudiobookAuthorNameType";
-  v3[18] = @"ShowTitleType";
-  v3[19] = @"MediaUserContextType";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:20];
+  v2[20] = *MEMORY[0x1E69E9840];
+  v2[0] = @"ContactNameType";
+  v2[1] = @"ContactGroupNameType";
+  v2[2] = @"PhotoTagsType";
+  v2[3] = @"PhotoAlbumNameType";
+  v2[4] = @"PhotoMemoryNameType";
+  v2[5] = @"HealthActivityNameType";
+  v2[6] = @"CarProfileNameType";
+  v2[7] = @"CarNameType";
+  v2[8] = @"PaymentsOrganizationNameType";
+  v2[9] = @"PaymentsAccountNicknameType";
+  v2[10] = @"NotebookItemTitleType";
+  v2[11] = @"NotebookItemGroupNameType";
+  v2[12] = @"VoiceCommandNameType";
+  v2[13] = @"AutoShortcutNameType";
+  v2[14] = @"PlaylistTitleType";
+  v2[15] = @"MusicArtistNameType";
+  v2[16] = @"AudiobookTitleType";
+  v2[17] = @"AudiobookAuthorNameType";
+  v2[18] = @"ShowTitleType";
+  v2[19] = @"MediaUserContextType";
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:20];
   v1 = supportedVocabularyStringTypes_stAllTypes;
   supportedVocabularyStringTypes_stAllTypes = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setVocabulary:(NSOrderedSet *)vocabulary ofType:(INVocabularyStringType)type

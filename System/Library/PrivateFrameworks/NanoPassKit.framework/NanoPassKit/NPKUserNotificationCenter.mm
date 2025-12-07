@@ -1,6 +1,8 @@
 @interface NPKUserNotificationCenter
 + (id)sharedInstance;
 - (NPKUserNotificationCenter)initWithNotificationBundleIdentifier:(id)identifier;
+- (id)_requestWithNotificationIdentifier:(id)identifier title:(id)title body:(id)body categoryIdentifier:(id)categoryIdentifier userInfo:(id)info wantsBadgedIcon:(BOOL)icon suppressed:(BOOL)suppressed;
+- (void)_addNotificationWithNotificationIdentifier:(id)identifier title:(id)title body:(id)body categoryIdentifier:(id)categoryIdentifier userInfo:(id)info wantsBadgedIcon:(BOOL)icon suppressed:(BOOL)suppressed completion:(id)self0;
 - (void)_requestNotificationAuthorizationWithOptions:(unint64_t)options completion:(id)completion;
 - (void)_requestNotificationAuthorizationWithPreconditionCheck:(id)check completion:(id)completion;
 - (void)addNotification:(id)notification completion:(id)completion;
@@ -118,28 +120,27 @@ uint64_t __68__NPKUserNotificationCenter_fetchAuthorizationStatusWithCompletion_
 {
   v12 = *MEMORY[0x277D85DE8];
   v3 = [a2 authorizationStatus];
-  v4 = pk_General_log();
+  v4 = pk_General_log(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = pk_General_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_General_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = UNAuthorizationStatusString();
+      v8 = UNAuthorizationStatusString();
       v10 = 138412290;
-      v11 = v7;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Notification Authorization Status is: %@", &v10, 0xCu);
+      v11 = v8;
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Notification Authorization Status is: %@", &v10, 0xCu);
     }
   }
 
   result = *(a1 + 32);
   if (result)
   {
-    result = (*(result + 16))(result, v3);
+    return (*(result + 16))(result, v3);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -190,7 +191,7 @@ LABEL_5:
 
 - (void)addNotification:(id)notification completion:(id)completion
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   completionCopy = completion;
   v8 = completionCopy;
@@ -202,8 +203,8 @@ LABEL_5:
     notificationCategoryIdentifier = [notificationCopy notificationCategoryIdentifier];
     userInfo = [notificationCopy userInfo];
     wantsBadgedIcon = [notificationCopy wantsBadgedIcon];
-    LOBYTE(v18) = [notificationCopy isSuppressed];
-    [(NPKUserNotificationCenter *)self _addNotificationWithNotificationIdentifier:identifier title:title body:body categoryIdentifier:notificationCategoryIdentifier userInfo:userInfo wantsBadgedIcon:wantsBadgedIcon suppressed:v18 completion:v8];
+    LOBYTE(v17) = [notificationCopy isSuppressed];
+    [(NPKUserNotificationCenter *)self _addNotificationWithNotificationIdentifier:identifier title:title body:body categoryIdentifier:notificationCategoryIdentifier userInfo:userInfo wantsBadgedIcon:wantsBadgedIcon suppressed:v17 completion:v8];
 
 LABEL_5:
     goto LABEL_6;
@@ -212,9 +213,9 @@ LABEL_5:
   if (completionCopy)
   {
     v15 = MEMORY[0x277CCA9B8];
-    v19 = *MEMORY[0x277CCA450];
-    v20[0] = @"Notification type not supported";
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v18 = *MEMORY[0x277CCA450];
+    v19[0] = @"Notification type not supported";
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     identifier = [v15 errorWithDomain:@"NPKUserNotificationsErrorDomain" code:-2001 userInfo:v16];
 
     (v8)[2](v8, identifier);
@@ -222,79 +223,144 @@ LABEL_5:
   }
 
 LABEL_6:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userNotificationCenter:(id)center didChangeSettings:(id)settings
 {
   v13 = *MEMORY[0x277D85DE8];
-  self->_authorizationStatus = [settings authorizationStatus];
-  v5 = pk_General_log();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  authorizationStatus = [settings authorizationStatus];
+  self->_authorizationStatus = authorizationStatus;
+  v6 = pk_General_log(authorizationStatus);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
-  if (v6)
+  if (v7)
   {
-    v7 = pk_General_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = pk_General_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      authorizationStatus = self->_authorizationStatus;
-      v9 = UNAuthorizationStatusString();
+      v10 = UNAuthorizationStatusString();
       v11 = 138412290;
-      v12 = v9;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Notification Authorization Status did change: %@", &v11, 0xCu);
+      v12 = v10;
+      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: Notification Authorization Status did change: %@", &v11, 0xCu);
     }
   }
+}
 
-  v10 = *MEMORY[0x277D85DE8];
+- (void)_addNotificationWithNotificationIdentifier:(id)identifier title:(id)title body:(id)body categoryIdentifier:(id)categoryIdentifier userInfo:(id)info wantsBadgedIcon:(BOOL)icon suppressed:(BOOL)suppressed completion:(id)self0
+{
+  iconCopy = icon;
+  identifierCopy = identifier;
+  titleCopy = title;
+  bodyCopy = body;
+  infoCopy = info;
+  completionCopy = completion;
+  LOBYTE(v28) = suppressed;
+  v21 = [(NPKUserNotificationCenter *)self _requestWithNotificationIdentifier:identifierCopy title:titleCopy body:bodyCopy categoryIdentifier:categoryIdentifier userInfo:infoCopy wantsBadgedIcon:iconCopy suppressed:v28];
+  notificationCenter = self->_notificationCenter;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __149__NPKUserNotificationCenter__addNotificationWithNotificationIdentifier_title_body_categoryIdentifier_userInfo_wantsBadgedIcon_suppressed_completion___block_invoke;
+  v29[3] = &unk_27994A9F8;
+  v30 = identifierCopy;
+  v31 = titleCopy;
+  v32 = bodyCopy;
+  v33 = infoCopy;
+  v34 = completionCopy;
+  v23 = completionCopy;
+  v24 = infoCopy;
+  v25 = bodyCopy;
+  v26 = titleCopy;
+  v27 = identifierCopy;
+  [(UNUserNotificationCenter *)notificationCenter addNotificationRequest:v21 withCompletionHandler:v29];
 }
 
 void __149__NPKUserNotificationCenter__addNotificationWithNotificationIdentifier_title_body_categoryIdentifier_userInfo_wantsBadgedIcon_suppressed_completion___block_invoke(void *a1, void *a2)
 {
   v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = pk_General_log();
+  v4 = pk_General_log(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = pk_General_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_General_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = a1[4];
-      v8 = a1[5];
-      v9 = a1[6];
-      v10 = a1[7];
+      v8 = a1[4];
+      v9 = a1[5];
+      v10 = a1[6];
+      v11 = a1[7];
       v13 = 136316418;
       v14 = "[NPKUserNotificationCenter _addNotificationWithNotificationIdentifier:title:body:categoryIdentifier:userInfo:wantsBadgedIcon:suppressed:completion:]_block_invoke";
       v15 = 2112;
-      v16 = v7;
+      v16 = v8;
       v17 = 2112;
-      v18 = v8;
+      v18 = v9;
       v19 = 2112;
-      v20 = v9;
+      v20 = v10;
       v21 = 2112;
-      v22 = v10;
+      v22 = v11;
       v23 = 2112;
       v24 = v3;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: %s Scheduled notification with notification ID: %@, title: %@, body: %@, userInfo: %@. Error: %@", &v13, 0x3Eu);
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: %s Scheduled notification with notification ID: %@, title: %@, body: %@, userInfo: %@. Error: %@", &v13, 0x3Eu);
     }
   }
 
-  v11 = a1[8];
-  if (v11)
+  v12 = a1[8];
+  if (v12)
   {
-    (*(v11 + 16))(v11, v3);
+    (*(v12 + 16))(v12, v3);
+  }
+}
+
+- (id)_requestWithNotificationIdentifier:(id)identifier title:(id)title body:(id)body categoryIdentifier:(id)categoryIdentifier userInfo:(id)info wantsBadgedIcon:(BOOL)icon suppressed:(BOOL)suppressed
+{
+  iconCopy = icon;
+  v14 = MEMORY[0x277CE1F60];
+  infoCopy = info;
+  categoryIdentifierCopy = categoryIdentifier;
+  bodyCopy = body;
+  titleCopy = title;
+  identifierCopy = identifier;
+  v20 = objc_alloc_init(v14);
+  [v20 setTitle:titleCopy];
+
+  [v20 setBody:bodyCopy];
+  [v20 setCategoryIdentifier:categoryIdentifierCopy];
+
+  [v20 setUserInfo:infoCopy];
+  v21 = [MEMORY[0x277CBEAA8] now];
+  [v20 setDate:v21];
+
+  [v20 setShouldShowSubordinateIcon:iconCopy];
+  v22 = [MEMORY[0x277CE1F70] soundWithAlertType:20];
+  [v22 setAlertTopic:*MEMORY[0x277D71FB8]];
+  [v20 setSound:v22];
+  v23 = [MEMORY[0x277CE1FB0] iconForApplicationIdentifier:@"com.apple.NanoPassbook"];
+  [v20 setIcon:v23];
+
+  [v20 setInterruptionLevel:1];
+  if (suppressed)
+  {
+    v24 = 4;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v24 = 15;
+  }
+
+  v25 = [MEMORY[0x277CE1FC0] requestWithIdentifier:identifierCopy content:v20 trigger:0 destinations:v24];
+
+  return v25;
 }
 
 - (void)_requestNotificationAuthorizationWithPreconditionCheck:(id)check completion:(id)completion
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   checkCopy = check;
   completionCopy = completion;
+  v8 = completionCopy;
   authorizationStatus = self->_authorizationStatus;
   if (authorizationStatus > 2)
   {
@@ -310,96 +376,94 @@ void __149__NPKUserNotificationCenter__addNotificationWithNotificationIdentifier
     {
       if (authorizationStatus == 2)
       {
-        v9 = pk_General_log();
-        v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+        v10 = pk_General_log(completionCopy);
+        v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
-        if (v10)
+        if (v11)
         {
-          v11 = pk_General_log();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+          v13 = pk_General_log(v12);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
-            LOWORD(v23) = 0;
-            _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: Notification Authorization already authorized", &v23, 2u);
+            LOWORD(v26) = 0;
+            _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Notification Authorization already authorized", &v26, 2u);
           }
         }
 
-        if (completionCopy)
+        if (v8)
         {
-          completionCopy[2](completionCopy, 1, 0);
+          v8[2](v8, 1, 0);
         }
       }
 
       goto LABEL_28;
     }
 
-    v20 = pk_General_log();
-    v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
+    v23 = pk_General_log(completionCopy);
+    v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
 
-    if (!v21)
+    if (!v24)
     {
       goto LABEL_26;
     }
 
-    v18 = pk_General_log();
-    if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v21 = pk_General_log(v25);
+    if (!os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_25;
     }
 
-    LOWORD(v23) = 0;
-    v19 = "Notice: Notification Authorization already denied";
+    LOWORD(v26) = 0;
+    v22 = "Notice: Notification Authorization already denied";
     goto LABEL_24;
   }
 
-  v12 = checkCopy[2](checkCopy);
-  v13 = pk_General_log();
-  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+  v14 = checkCopy[2](checkCopy);
+  v15 = v14;
+  v16 = pk_General_log(v14);
+  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
 
-  if (!v12)
+  if (!v15)
   {
-    if (!v14)
+    if (!v17)
     {
       goto LABEL_26;
     }
 
-    v18 = pk_General_log();
-    if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v21 = pk_General_log(v18);
+    if (!os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
 LABEL_25:
 
 LABEL_26:
-      if (completionCopy)
+      if (v8)
       {
-        completionCopy[2](completionCopy, 0, 0);
+        v8[2](v8, 0, 0);
       }
 
       goto LABEL_28;
     }
 
-    LOWORD(v23) = 0;
-    v19 = "Notice: Notification Authorization not required; precondition not satisfied.";
+    LOWORD(v26) = 0;
+    v22 = "Notice: Notification Authorization not required; precondition not satisfied.";
 LABEL_24:
-    _os_log_impl(&dword_25B300000, v18, OS_LOG_TYPE_DEFAULT, v19, &v23, 2u);
+    _os_log_impl(&dword_25B300000, v21, OS_LOG_TYPE_DEFAULT, v22, &v26, 2u);
     goto LABEL_25;
   }
 
-  if (v14)
+  if (v17)
   {
-    v15 = pk_General_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v19 = pk_General_log(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = self->_authorizationStatus;
-      v17 = UNAuthorizationStatusString();
-      v23 = 138412290;
-      v24 = v17;
-      _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Notice: Notification Authorization status was: %@ Full Authorization being requested", &v23, 0xCu);
+      v20 = UNAuthorizationStatusString();
+      v26 = 138412290;
+      v27 = v20;
+      _os_log_impl(&dword_25B300000, v19, OS_LOG_TYPE_DEFAULT, "Notice: Notification Authorization status was: %@ Full Authorization being requested", &v26, 0xCu);
     }
   }
 
-  [(NPKUserNotificationCenter *)self _requestNotificationAuthorizationWithOptions:7 completion:completionCopy];
+  [(NPKUserNotificationCenter *)self _requestNotificationAuthorizationWithOptions:7 completion:v8];
 LABEL_28:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_requestNotificationAuthorizationWithOptions:(unint64_t)options completion:(id)completion
@@ -418,58 +482,56 @@ LABEL_28:
 
 void __85__NPKUserNotificationCenter__requestNotificationAuthorizationWithOptions_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
     *(*(a1 + 32) + 16) = 2;
   }
 
-  v6 = pk_General_log();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  v7 = pk_General_log(v5);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
-  if (v7)
+  if (v8)
   {
-    v8 = pk_General_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = pk_General_log(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = @"NO";
+      v11 = @"NO";
       if (a2)
       {
-        v9 = @"YES";
+        v11 = @"YES";
       }
 
-      v17 = 138412546;
-      v18 = v9;
-      v19 = 2112;
-      v20 = v5;
-      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Notification Authorization was granted: %@ error: %@", &v17, 0x16u);
+      v18 = 138412546;
+      v19 = v11;
+      v20 = 2112;
+      v21 = v6;
+      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Notification Authorization was granted: %@ error: %@", &v18, 0x16u);
     }
   }
 
-  v10 = pk_General_log();
-  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+  v12 = pk_General_log(v9);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
 
-  if (v11)
+  if (v13)
   {
-    v12 = pk_General_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v15 = pk_General_log(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = *(*(a1 + 32) + 16);
-      v14 = UNAuthorizationStatusString();
-      v17 = 138412290;
-      v18 = v14;
-      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Notification Authorization Status is: %@", &v17, 0xCu);
+      v16 = UNAuthorizationStatusString();
+      v18 = 138412290;
+      v19 = v16;
+      _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Notice: Notification Authorization Status is: %@", &v18, 0xCu);
     }
   }
 
-  v15 = *(a1 + 40);
-  if (v15)
+  v17 = *(a1 + 40);
+  if (v17)
   {
-    (*(v15 + 16))(v15, a2, v5);
+    (*(v17 + 16))(v17, a2, v6);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

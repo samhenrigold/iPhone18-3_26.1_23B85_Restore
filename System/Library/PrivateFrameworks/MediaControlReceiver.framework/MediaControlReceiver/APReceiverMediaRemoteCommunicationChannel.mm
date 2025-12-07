@@ -26,16 +26,16 @@
   {
     APSLogErrorAt();
     v8 = 0;
-    v10 = -6709;
+    LODWORD(v11) = -6709;
 LABEL_14:
     if (!handler)
     {
       goto LABEL_17;
     }
 
-    v11 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:v10 userInfo:0];
+    v12 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:v11 userInfo:0];
 LABEL_16:
-    (*(handler + 2))(handler, v11);
+    (*(handler + 2))(handler, v12);
 LABEL_17:
     if (!v8)
     {
@@ -50,7 +50,7 @@ LABEL_17:
   if (!Mutable)
   {
     APSLogErrorAt();
-    v10 = -6728;
+    LODWORD(v11) = -6728;
     goto LABEL_14;
   }
 
@@ -58,17 +58,17 @@ LABEL_17:
   CFDictionarySetValue(v8, @"data", data);
   if (gLogCategory_APReceiverMediaRemoteXPCClient <= 50 && (gLogCategory_APReceiverMediaRemoteXPCClient != -1 || _LogCategory_Initialize()))
   {
-    CFDataGetLength(data);
-    LogPrintF();
+    Length = CFDataGetLength(data);
+    LogPrintF(&gLogCategory_APReceiverMediaRemoteXPCClient, "[APReceiverMediaRemoteCommunicationChannel sendData:completionHandler:]", 33554482, "Sending out %d bytes from receiver\n", Length);
   }
 
-  v9 = APSXPCClientSendCommandCreatingReply();
-  if (v9)
+  v10 = APSXPCClientSendCommandCreatingReply();
+  if (v10)
   {
-    v10 = v9;
+    v11 = v10;
     if (gLogCategory_APReceiverMediaRemoteXPCClient <= 90 && (gLogCategory_APReceiverMediaRemoteXPCClient != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APReceiverMediaRemoteXPCClient, "[APReceiverMediaRemoteCommunicationChannel sendData:completionHandler:]", 33554522, "SendData failed with error: %#m\n", v11);
     }
 
     goto LABEL_14;
@@ -76,7 +76,7 @@ LABEL_17:
 
   if (handler)
   {
-    v11 = 0;
+    v12 = 0;
     goto LABEL_16;
   }
 

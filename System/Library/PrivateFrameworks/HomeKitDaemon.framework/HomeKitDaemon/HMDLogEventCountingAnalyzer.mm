@@ -188,7 +188,7 @@ void __43__HMDLogEventCountingAnalyzer_runDailyTask__block_invoke(uint64_t a1)
   os_unfair_lock_lock_with_options();
   if (seconds - self->_tickSecondsLastLogged >= self->_loggingPeriodicitySeconds)
   {
-    v5 = [(NSMutableDictionary *)self->_currentPeriodCounters copy];
+    v5 = objc_msgSend_copy(self->_currentPeriodCounters);
     [(NSMutableDictionary *)self->_currentPeriodCounters removeAllObjects];
     self->_tickSecondsLastLogged = seconds;
   }
@@ -312,7 +312,7 @@ void __44__HMDLogEventCountingAnalyzer_observeEvent___block_invoke(uint64_t a1)
 
 void __105__HMDLogEventCountingAnalyzer_initWithEventCountersManager_dailyScheduler_dateProvider_systemInfo_queue___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -321,19 +321,18 @@ void __105__HMDLogEventCountingAnalyzer_initWithEventCountersManager_dailySchedu
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = HMFGetLogIdentifier();
-    v12 = 138544130;
-    v13 = v10;
-    v14 = 1024;
-    v15 = 15;
-    v16 = 2112;
-    v17 = v6;
-    v18 = 2112;
-    v19 = v5;
-    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@[Logging Period = %d Minutes] Metric event counts on current device: %@ %@", &v12, 0x26u);
+    v11 = 138544130;
+    v12 = v10;
+    v13 = 1024;
+    v14 = 15;
+    v15 = 2112;
+    v16 = v6;
+    v17 = 2112;
+    v18 = v5;
+    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@[Logging Period = %d Minutes] Metric event counts on current device: %@ %@", &v11, 0x26u);
   }
 
   objc_autoreleasePoolPop(v7);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

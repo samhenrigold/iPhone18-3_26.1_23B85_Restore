@@ -13,7 +13,7 @@
 
 - (id)cd_generateValueForProperty:(id)property managedObjectField:(id)field context:(id)context
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   fieldCopy = field;
   contextCopy = context;
@@ -74,9 +74,9 @@ LABEL_15:
 
     if (![fieldCopy isEqualToString:@"ownedHome"])
     {
-      v41.receiver = self;
-      v41.super_class = HMDUserModel;
-      null = [(HMDBackingStoreModelObject *)&v41 cd_generateValueForProperty:propertyCopy managedObjectField:fieldCopy context:contextCopy];
+      v40.receiver = self;
+      v40.super_class = HMDUserModel;
+      null = [(HMDBackingStoreModelObject *)&v40 cd_generateValueForProperty:propertyCopy managedObjectField:fieldCopy context:contextCopy];
       goto LABEL_23;
     }
 
@@ -95,47 +95,47 @@ LABEL_23:
 
 LABEL_35:
       parentUUID = [(HMDBackingStoreModelObject *)self parentUUID];
-      v42 = 0;
-      null2 = [HMDBackingStore cdlsFetchManagedObjectWithUUID:parentUUID ofManagedObjectType:objc_opt_class() error:&v42];
-      v14 = v42;
+      v41 = 0;
+      null2 = [HMDBackingStore cdlsFetchManagedObjectWithUUID:parentUUID ofManagedObjectType:objc_opt_class() error:&v41];
+      v14 = v41;
 
       if (null2)
       {
-        v30 = null2;
+        v29 = null2;
       }
 
       else
       {
-        v36 = objc_autoreleasePoolPush();
+        v35 = objc_autoreleasePoolPush();
         selfCopy = self;
-        v38 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+        v37 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
-          v39 = HMFGetLogIdentifier();
+          v38 = HMFGetLogIdentifier();
           parentUUID2 = [(HMDBackingStoreModelObject *)selfCopy parentUUID];
           *buf = 138543874;
-          v45 = v39;
-          v46 = 2112;
-          v47 = parentUUID2;
-          v48 = 2112;
-          v49 = v14;
-          _os_log_impl(&dword_229538000, v38, OS_LOG_TYPE_ERROR, "%{public}@Unable to find MKFHome with UUID %@: %@", buf, 0x20u);
+          v44 = v38;
+          v45 = 2112;
+          v46 = parentUUID2;
+          v47 = 2112;
+          v48 = v14;
+          _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_ERROR, "%{public}@Unable to find MKFHome with UUID %@: %@", buf, 0x20u);
         }
 
-        objc_autoreleasePoolPop(v36);
+        objc_autoreleasePoolPop(v35);
       }
 
       goto LABEL_28;
     }
 
     uuid = [(HMDBackingStoreModelObject *)self uuid];
-    v43 = 0;
-    v26 = [HMDBackingStore cdlsFetchManagedObjectWithUUID:uuid ofManagedObjectType:objc_opt_class() error:&v43];
-    v14 = v43;
+    v42 = 0;
+    v25 = [HMDBackingStore cdlsFetchManagedObjectWithUUID:uuid ofManagedObjectType:objc_opt_class() error:&v42];
+    v14 = v42;
 
-    if (v26)
+    if (v25)
     {
-      privilege2 = [v26 privilege];
+      privilege2 = [v25 privilege];
       unsignedIntegerValue2 = [privilege2 unsignedIntegerValue];
 
       if (unsignedIntegerValue2 == 3)
@@ -149,23 +149,23 @@ LABEL_35:
 
     else
     {
-      v31 = objc_autoreleasePoolPush();
+      v30 = objc_autoreleasePoolPush();
       selfCopy2 = self;
-      v33 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      v32 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
-        v34 = HMFGetLogIdentifier();
+        v33 = HMFGetLogIdentifier();
         uuid2 = [(HMDBackingStoreModelObject *)selfCopy2 uuid];
         *buf = 138543874;
-        v45 = v34;
-        v46 = 2112;
-        v47 = uuid2;
-        v48 = 2112;
-        v49 = v14;
-        _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_ERROR, "%{public}@Unable to find MKFUser with UUID %@: %@", buf, 0x20u);
+        v44 = v33;
+        v45 = 2112;
+        v46 = uuid2;
+        v47 = 2112;
+        v48 = v14;
+        _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_ERROR, "%{public}@Unable to find MKFUser with UUID %@: %@", buf, 0x20u);
       }
 
-      objc_autoreleasePoolPop(v31);
+      objc_autoreleasePoolPop(v30);
       null2 = 0;
     }
 
@@ -191,8 +191,6 @@ LABEL_21:
   }
 
 LABEL_29:
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return null2;
 }
@@ -273,7 +271,7 @@ LABEL_17:
 
 - (id)cd_fetchManagedObjectInContext:(id)context error:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   managedObject = [(HMDBackingStoreModelObject *)self managedObject];
   if (managedObject)
@@ -291,15 +289,15 @@ LABEL_17:
         v12 = HMFGetLogIdentifier();
         uuid = [(HMDBackingStoreModelObject *)selfCopy uuid];
         parentUUID = [(HMDBackingStoreModelObject *)selfCopy parentUUID];
-        v26 = 138544130;
-        v27 = v12;
-        v28 = 2112;
-        v29 = castIfMemberIsUser2;
-        v30 = 2112;
-        v31 = uuid;
-        v32 = 2112;
-        v33 = parentUUID;
-        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_FAULT, "%{public}@[User/Guest] Managed object context appears to be reset on this object %@, someone did something very bad: %@/%@", &v26, 0x2Au);
+        v25 = 138544130;
+        v26 = v12;
+        v27 = 2112;
+        v28 = castIfMemberIsUser2;
+        v29 = 2112;
+        v30 = uuid;
+        v31 = 2112;
+        v32 = parentUUID;
+        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_FAULT, "%{public}@[User/Guest] Managed object context appears to be reset on this object %@, someone did something very bad: %@/%@", &v25, 0x2Au);
       }
 
       objc_autoreleasePoolPop(v9);
@@ -340,9 +338,9 @@ LABEL_17:
           if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
             v23 = HMFGetLogIdentifier();
-            v26 = 138543362;
-            v27 = v23;
-            _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Got the home member which is neither User nor Guest.", &v26, 0xCu);
+            v25 = 138543362;
+            v26 = v23;
+            _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Got the home member which is neither User nor Guest.", &v25, 0xCu);
           }
 
           objc_autoreleasePoolPop(v20);
@@ -357,22 +355,20 @@ LABEL_17:
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return castIfMemberIsUser2;
 }
 
 + (id)shareTokenFromKeyedArchiveData:(id)data
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if (dataCopy)
   {
     v5 = MEMORY[0x277CCAAC8];
     v6 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
-    v16 = 0;
-    v7 = [v5 _strictlyUnarchivedObjectOfClasses:v6 fromData:dataCopy error:&v16];
-    v8 = v16;
+    v15 = 0;
+    v7 = [v5 _strictlyUnarchivedObjectOfClasses:v6 fromData:dataCopy error:&v15];
+    v8 = v15;
 
     if (v7)
     {
@@ -388,9 +384,9 @@ LABEL_17:
       {
         v13 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v18 = v13;
-        v19 = 2112;
-        v20 = v8;
+        v17 = v13;
+        v18 = 2112;
+        v19 = v8;
         _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Unable to unarchive share token : %@", buf, 0x16u);
       }
 
@@ -402,8 +398,6 @@ LABEL_17:
   {
     v7 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -425,7 +419,7 @@ LABEL_17:
 
 + (id)cd_getHMDUserFromMKFUser:(id)user
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   userCopy = user;
   if (!userCopy)
   {
@@ -439,9 +433,9 @@ LABEL_17:
   modelID2 = [home modelID];
   v10 = [(HMDBackingStoreModelObject *)v6 initWithUUID:modelID parentUUID:modelID2];
 
-  v20 = 0;
-  LOBYTE(home) = [(HMDBackingStoreModelObject *)v10 cd_populateFromManagedObject:v5 error:&v20];
-  v11 = v20;
+  v19 = 0;
+  LOBYTE(home) = [(HMDBackingStoreModelObject *)v10 cd_populateFromManagedObject:v5 error:&v19];
+  v11 = v19;
   if (home)
   {
     v12 = [[HMDUser alloc] initWithModelObject:v10];
@@ -456,11 +450,11 @@ LABEL_17:
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v22 = v16;
-      v23 = 2112;
-      v24 = v5;
-      v25 = 2112;
-      v26 = v11;
+      v21 = v16;
+      v22 = 2112;
+      v23 = v5;
+      v24 = 2112;
+      v25 = v11;
       _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Unable to populate HMDUserModel from %@, error: %@", buf, 0x20u);
     }
 
@@ -470,14 +464,12 @@ LABEL_17:
 
   v17 = v12;
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 + (id)cd_getMKFUserFromUUID:(id)d
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (!dCopy)
   {
@@ -485,9 +477,9 @@ LABEL_17:
   }
 
   v5 = dCopy;
-  v17 = 0;
-  v6 = [HMDBackingStore cdlsFetchManagedObjectWithUUID:dCopy ofManagedObjectType:objc_opt_class() error:&v17];
-  v7 = v17;
+  v16 = 0;
+  v6 = [HMDBackingStore cdlsFetchManagedObjectWithUUID:dCopy ofManagedObjectType:objc_opt_class() error:&v16];
+  v7 = v16;
   v8 = v7;
   if (v6)
   {
@@ -513,19 +505,17 @@ LABEL_17:
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v19 = v13;
-      v20 = 2112;
-      v21 = v5;
-      v22 = 2112;
-      v23 = v8;
+      v18 = v13;
+      v19 = 2112;
+      v20 = v5;
+      v21 = 2112;
+      v22 = v8;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Unable to find mkfUser with UUID %@: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v10);
     v14 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -544,186 +534,184 @@ LABEL_17:
 
 void __26__HMDUserModel_properties__block_invoke()
 {
-  v62[58] = *MEMORY[0x277D85DE8];
-  v61[0] = @"accountHandle";
-  v60 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[0] = v60;
-  v61[1] = @"accountIdentifier";
+  v61[58] = *MEMORY[0x277D85DE8];
+  v60[0] = @"accountHandle";
   v59 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[1] = v59;
-  v61[2] = @"pairingIdentity";
+  v61[0] = v59;
+  v60[1] = @"accountIdentifier";
   v58 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[2] = v58;
-  v61[3] = @"privilege";
+  v61[1] = v58;
+  v60[2] = @"pairingIdentity";
   v57 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[3] = v57;
-  v61[4] = @"remoteAccessAllowed";
+  v61[2] = v57;
+  v60[3] = @"privilege";
   v56 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[4] = v56;
-  v61[5] = @"presenceAuthorizationStatus";
+  v61[3] = v56;
+  v60[4] = @"remoteAccessAllowed";
   v55 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[5] = v55;
-  v61[6] = @"changeTag";
+  v61[4] = v55;
+  v60[5] = @"presenceAuthorizationStatus";
   v54 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[6] = v54;
-  v61[7] = @"userID";
-  v53 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class() logging:0];
-  v62[7] = v53;
-  v61[8] = @"camerasAccessLevel";
-  v52 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[8] = v52;
-  v61[9] = @"announceAccessAllowed";
+  v61[5] = v54;
+  v60[6] = @"changeTag";
+  v53 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
+  v61[6] = v53;
+  v60[7] = @"userID";
+  v52 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class() logging:0];
+  v61[7] = v52;
+  v60[8] = @"camerasAccessLevel";
   v51 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[9] = v51;
-  v61[10] = @"announceAccessLevel";
+  v61[8] = v51;
+  v60[9] = @"announceAccessAllowed";
   v50 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[10] = v50;
-  v61[11] = @"analysisAccessSelection";
+  v61[9] = v50;
+  v60[10] = @"announceAccessLevel";
   v49 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[11] = v49;
-  v61[12] = @"matterCASEAuthenticatedTagID";
+  v61[10] = v49;
+  v60[11] = @"analysisAccessSelection";
   v48 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[12] = v48;
-  v61[13] = @"matCredIPKExternalRepresentation";
+  v61[11] = v48;
+  v60[12] = @"matterCASEAuthenticatedTagID";
   v47 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[13] = v47;
-  v61[14] = @"uniqueIDForAccessories";
+  v61[12] = v47;
+  v60[13] = @"matCredIPKExternalRepresentation";
   v46 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[14] = v46;
-  v61[15] = @"idsMergeIdentifier";
+  v61[13] = v46;
+  v60[14] = @"uniqueIDForAccessories";
   v45 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[15] = v45;
-  v61[16] = @"reverseShareID";
+  v61[14] = v45;
+  v60[15] = @"idsMergeIdentifier";
   v44 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[16] = v44;
-  v61[17] = @"reverseShareToken";
+  v61[15] = v44;
+  v60[16] = @"reverseShareID";
   v43 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[17] = v43;
-  v61[18] = @"allowExplicitContent";
+  v61[16] = v43;
+  v60[17] = @"reverseShareToken";
   v42 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[18] = v42;
-  v61[19] = @"allowiTunesAccount";
+  v61[17] = v42;
+  v60[18] = @"allowExplicitContent";
   v41 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[19] = v41;
-  v61[20] = @"dolbyAtmosEnabled";
+  v61[18] = v41;
+  v60[19] = @"allowiTunesAccount";
   v40 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[20] = v40;
-  v61[21] = @"losslessMusicEnabled";
+  v61[19] = v40;
+  v60[20] = @"dolbyAtmosEnabled";
   v39 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[21] = v39;
-  v61[22] = @"playbackInfluencesEnabled";
+  v61[20] = v39;
+  v60[21] = @"losslessMusicEnabled";
   v38 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[22] = v38;
-  v61[23] = @"siriIdentifyVoiceEnabled";
+  v61[21] = v38;
+  v60[22] = @"playbackInfluencesEnabled";
   v37 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[23] = v37;
-  v61[24] = @"crossfadeEnabled";
+  v61[22] = v37;
+  v60[23] = @"siriIdentifyVoiceEnabled";
   v36 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[24] = v36;
-  v61[25] = @"crossfadeDuration";
+  v61[23] = v36;
+  v60[24] = @"crossfadeEnabled";
   v35 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[25] = v35;
-  v61[26] = @"ownerAddSceneButtonPresentedCount";
+  v61[24] = v35;
+  v60[25] = @"crossfadeDuration";
   v34 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[26] = v34;
-  v61[27] = @"ownerCompletedSwitchingHomesOnboardingUI";
+  v61[25] = v34;
+  v60[26] = @"ownerAddSceneButtonPresentedCount";
   v33 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[27] = v33;
-  v61[28] = @"ownerDismissed2024EnergyOnboarding";
+  v61[26] = v33;
+  v60[27] = @"ownerCompletedSwitchingHomesOnboardingUI";
   v32 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[28] = v32;
-  v61[29] = @"ownerDismissedAccessCodeOnboarding";
+  v61[27] = v32;
+  v60[28] = @"ownerDismissed2024EnergyOnboarding";
   v31 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[29] = v31;
-  v61[30] = @"ownerDismissedAccessoryFirmwareUpdateOnboarding";
+  v61[28] = v31;
+  v60[29] = @"ownerDismissedAccessCodeOnboarding";
   v30 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[30] = v30;
-  v61[31] = @"ownerDismissedAnnounceOnboarding";
+  v61[29] = v30;
+  v60[30] = @"ownerDismissedAccessoryFirmwareUpdateOnboarding";
   v29 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[31] = v29;
-  v61[32] = @"ownerDismissedCameraRecordingOnboarding";
+  v61[30] = v29;
+  v60[31] = @"ownerDismissedAnnounceOnboarding";
   v28 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[32] = v28;
-  v61[33] = @"ownerDismissedCameraRecordingSetupBanner";
+  v61[31] = v28;
+  v60[32] = @"ownerDismissedCameraRecordingOnboarding";
   v27 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[33] = v27;
-  v61[34] = @"ownerDismissedCameraUpgradeOfferBanner";
+  v61[32] = v27;
+  v60[33] = @"ownerDismissedCameraRecordingSetupBanner";
   v26 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[34] = v26;
-  v61[35] = @"ownerDismissedHomeTheaterOnboarding";
+  v61[33] = v26;
+  v60[34] = @"ownerDismissedCameraUpgradeOfferBanner";
   v25 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[35] = v25;
-  v61[36] = @"ownerDismissedIdentifyVoiceOnboarding";
+  v61[34] = v25;
+  v60[35] = @"ownerDismissedHomeTheaterOnboarding";
   v24 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[36] = v24;
-  v61[37] = @"ownerDismissedIdentifyVoiceSetupBanner";
+  v61[35] = v24;
+  v60[36] = @"ownerDismissedIdentifyVoiceOnboarding";
   v23 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[37] = v23;
-  v61[38] = @"ownerDismissedNaturalLightingOnboarding";
+  v61[36] = v23;
+  v60[37] = @"ownerDismissedIdentifyVoiceSetupBanner";
   v22 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[38] = v22;
-  v61[39] = @"ownerDismissedTVViewingProfileOnboarding";
+  v61[37] = v22;
+  v60[38] = @"ownerDismissedNaturalLightingOnboarding";
   v21 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[39] = v21;
-  v61[40] = @"ownerDismissedTVViewingProfileSetupBanner";
+  v61[38] = v21;
+  v60[39] = @"ownerDismissedTVViewingProfileOnboarding";
   v20 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[40] = v20;
-  v61[41] = @"ownerDismissedUserSplitMediaAccountWarning";
+  v61[39] = v20;
+  v60[40] = @"ownerDismissedTVViewingProfileSetupBanner";
   v19 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[41] = v19;
-  v61[42] = @"ownerDismissedWalletKeyExpressModeOnboarding";
+  v61[40] = v19;
+  v60[41] = @"ownerDismissedUserSplitMediaAccountWarning";
   v18 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[42] = v18;
-  v61[43] = @"ownerDismissedWelcomeUI";
+  v61[41] = v18;
+  v60[42] = @"ownerDismissedWalletKeyExpressModeOnboarding";
   v17 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[43] = v17;
-  v61[44] = @"ownerHasUserSeenRMVNewLanguageNotification";
+  v61[42] = v17;
+  v60[43] = @"ownerDismissedWelcomeUI";
   v16 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[44] = v16;
-  v61[45] = @"activityNotificationsEnabledForPersonalRequests";
+  v61[43] = v16;
+  v60[44] = @"ownerHasUserSeenRMVNewLanguageNotification";
   v15 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[45] = v15;
-  v61[46] = @"accessoriesWithPersonalRequestsEnabled";
+  v61[44] = v15;
+  v60[45] = @"activityNotificationsEnabledForPersonalRequests";
   v14 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[46] = v14;
-  v61[47] = @"accessoriesWithMediaContentProfileEnabled";
+  v61[45] = v14;
+  v60[46] = @"accessoriesWithPersonalRequestsEnabled";
   v13 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[47] = v13;
-  v61[48] = @"accessoriesWithListeningHistoryEnabled";
+  v61[46] = v13;
+  v60[47] = @"accessoriesWithMediaContentProfileEnabled";
   v12 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[48] = v12;
-  v61[49] = @"photosPersonDataZoneUUIDString";
+  v61[47] = v12;
+  v60[48] = @"accessoriesWithListeningHistoryEnabled";
   v11 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[49] = v11;
-  v61[50] = @"sharePhotosFaceClassifications";
+  v61[48] = v11;
+  v60[49] = @"photosPersonDataZoneUUIDString";
+  v10 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
+  v61[49] = v10;
+  v60[50] = @"sharePhotosFaceClassifications";
   v0 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[50] = v0;
-  v61[51] = @"ownerCharacteristicAuthorizationData";
+  v61[50] = v0;
+  v60[51] = @"ownerCharacteristicAuthorizationData";
   v1 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[51] = v1;
-  v61[52] = @"presenceRegionStatus";
+  v61[51] = v1;
+  v60[52] = @"presenceRegionStatus";
   v2 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[52] = v2;
-  v61[53] = @"presenceUpdateTimeStamp";
+  v61[52] = v2;
+  v60[53] = @"presenceUpdateTimeStamp";
   v3 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[53] = v3;
-  v61[54] = @"iCloudAltDSID";
+  v61[53] = v3;
+  v60[54] = @"iCloudAltDSID";
   v4 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[54] = v4;
-  v61[55] = @"firstName";
+  v61[54] = v4;
+  v60[55] = @"firstName";
   v5 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[55] = v5;
-  v61[56] = @"lastName";
+  v61[55] = v5;
+  v60[56] = @"lastName";
   v6 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[56] = v6;
-  v61[57] = @"adaptiveTemperatureAutomationsDisclosureStatus";
+  v61[56] = v6;
+  v60[57] = @"adaptiveTemperatureAutomationsDisclosureStatus";
   v7 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v62[57] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v62 forKeys:v61 count:58];
+  v61[57] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v61 forKeys:v60 count:58];
   v9 = properties__properties_1772;
   properties__properties_1772 = v8;
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

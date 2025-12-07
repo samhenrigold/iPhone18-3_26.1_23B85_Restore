@@ -10,26 +10,25 @@
 
 - (TGTextGenerationPrompt)initWithInstructionText:(id)text
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   textCopy = text;
-  v13.receiver = self;
-  v13.super_class = TGTextGenerationPrompt;
-  v5 = [(TGTextGenerationPrompt *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = TGTextGenerationPrompt;
+  v5 = [(TGTextGenerationPrompt *)&v12 init];
   if (v5)
   {
     v6 = [textCopy copy];
     instructionText = v5->_instructionText;
     v5->_instructionText = v6;
 
-    v14 = @"instructionText";
-    v15[0] = textCopy;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v13 = @"instructionText";
+    v14[0] = textCopy;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     v9 = [v8 description];
     description = v5->_description;
     v5->_description = v9;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

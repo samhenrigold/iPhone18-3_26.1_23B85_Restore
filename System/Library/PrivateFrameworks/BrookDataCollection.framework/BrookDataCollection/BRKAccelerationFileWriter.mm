@@ -25,13 +25,12 @@
 
 - (void)_lock_writeX:(double)x y:(double)y z:(double)z timestamp:(double)timestamp
 {
-  v7[4] = *MEMORY[0x277D85DE8];
-  *v7 = timestamp;
-  *&v7[1] = x;
-  *&v7[2] = y;
-  *&v7[3] = z;
-  [(NSOutputStream *)self->_outputStream write:v7 maxLength:32];
-  v6 = *MEMORY[0x277D85DE8];
+  v6[4] = *MEMORY[0x277D85DE8];
+  *v6 = timestamp;
+  *&v6[1] = x;
+  *&v6[2] = y;
+  *&v6[3] = z;
+  [(NSOutputStream *)self->_outputStream write:v6 maxLength:32];
 }
 
 - (void)openWithDataCount:(unint64_t)count

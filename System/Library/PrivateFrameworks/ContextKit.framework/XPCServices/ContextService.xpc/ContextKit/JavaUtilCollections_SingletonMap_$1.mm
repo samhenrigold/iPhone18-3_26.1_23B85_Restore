@@ -9,18 +9,19 @@
 
 - (BOOL)containsWithId:(id)id
 {
-  if (![JavaUtilMap_Entry_class_() isInstance:id])
+  v5 = [JavaUtilMap_Entry_class_(self a2)];
+  if (!v5)
   {
     return 0;
   }
 
-  v5 = JavaUtilMap_Entry_class_();
+  v7 = JavaUtilMap_Entry_class_(v5, v6);
   if (!id)
   {
     JreThrowNullPointerException();
   }
 
-  if (([v5 isInstance:id] & 1) == 0)
+  if (([v7 isInstance:id] & 1) == 0)
   {
     JreThrowClassCastException();
   }
@@ -30,10 +31,10 @@
     return 0;
   }
 
-  v6 = self->this$0_;
+  v8 = self->this$0_;
   getValue = [id getValue];
 
-  return [(JavaUtilCollections_SingletonMap *)v6 containsValueWithId:getValue];
+  return [(JavaUtilCollections_SingletonMap *)v8 containsValueWithId:getValue];
 }
 
 - (id)iterator

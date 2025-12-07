@@ -17,6 +17,7 @@
 - (id)saveData;
 - (unint64_t)trajectoryIndexForTime:(double)time;
 - (void)analyticsLogTorchButtonPresented;
+- (void)analyticsLogTorchChangedState:(BOOL)state;
 - (void)dealloc;
 - (void)deleteTrajectoryWaypointsBeforeTime:(double)time;
 - (void)devicePoseUpdated:(id)updated;
@@ -28,6 +29,8 @@
 - (void)logEstimatorInput:(id)input;
 - (void)logRangeEstimate:(id)estimate;
 - (void)logTargetEstimates:(id)estimates;
+- (void)logTargetIsMovingChange:(BOOL)change;
+- (void)performFilteringWithEstimatorInput:(id)input targetMoving:(BOOL)moving deviceMoving:(BOOL)deviceMoving;
 - (void)presentRangeEstimate:(id)estimate;
 - (void)presentTargetEstimate:(id)estimate;
 - (void)rangingRequestDidUpdateStatus:(unint64_t)status;
@@ -41,6 +44,7 @@
 - (void)sendItemLocalizerChangedActivity:(unint64_t)activity;
 - (void)sendItemLocalizerChangedState:(unint64_t)state;
 - (void)sendPRItemState:(unint64_t)state;
+- (void)setDegeneratePath:(BOOL)path;
 - (void)setLastSolution:(BatchSolution *)solution;
 - (void)updateDelegateWithSelector:(SEL)selector object:(id)object;
 @end
@@ -124,22 +128,22 @@ LABEL_3:
 
 - (BOOL)configureForDeviceWithId:(id)id
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   idCopy = id;
   uUIDString = [idCopy UUIDString];
   logger = self->_logger;
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v16 = uUIDString;
+    v15 = uUIDString;
     _os_log_impl(&dword_2613DF000, logger, OS_LOG_TYPE_DEFAULT, "ItemLocalizer configuring for item %@", buf, 0xCu);
   }
 
   if ([objc_opt_class() isInternalBuild])
   {
-    v13 = @"deviceId";
-    v14 = uUIDString;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+    v12 = @"deviceId";
+    v13 = uUIDString;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
     analytics = [(PRItemLocalizer *)self analytics];
     [analytics setCustomData:v7];
   }
@@ -148,13 +152,12 @@ LABEL_3:
   [(PRItemLocalizer *)self setRemoteDevice:v9];
 
   v10 = [(PRItemLocalizer *)self commonConfigure:0];
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (BOOL)configureForItem:(id)item
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   uuid = [itemCopy uuid];
   productUUID = [itemCopy productUUID];
@@ -178,18 +181,18 @@ LABEL_3:
       uUIDString2 = [productUUID3 UUIDString];
       v15 = uUIDString2;
       v16 = "true";
-      v23 = 138412802;
-      v24 = uUIDString;
+      v22 = 138412802;
+      v23 = uUIDString;
       if (isOwned)
       {
         v16 = "false";
       }
 
-      v25 = 2112;
-      v26 = uUIDString2;
-      v27 = 2080;
-      v28 = v16;
-      _os_log_impl(&dword_2613DF000, v10, OS_LOG_TYPE_DEFAULT, "ItemLocalizer configuring for item %@ with productUUID %@, isUT: %s", &v23, 0x20u);
+      v24 = 2112;
+      v25 = uUIDString2;
+      v26 = 2080;
+      v27 = v16;
+      _os_log_impl(&dword_2613DF000, v10, OS_LOG_TYPE_DEFAULT, "ItemLocalizer configuring for item %@ with productUUID %@, isUT: %s", &v22, 0x20u);
     }
   }
 
@@ -203,21 +206,20 @@ LABEL_3:
       v19 = "false";
     }
 
-    v23 = 138412546;
-    v24 = uUIDString3;
-    v25 = 2080;
-    v26 = v19;
-    _os_log_impl(&dword_2613DF000, v10, OS_LOG_TYPE_DEFAULT, "ItemLocalizer configuring for item %@ with no productUUID, isUT: %s", &v23, 0x16u);
+    v22 = 138412546;
+    v23 = uUIDString3;
+    v24 = 2080;
+    v25 = v19;
+    _os_log_impl(&dword_2613DF000, v10, OS_LOG_TYPE_DEFAULT, "ItemLocalizer configuring for item %@ with no productUUID, isUT: %s", &v22, 0x16u);
   }
 
   v20 = [(PRItemLocalizer *)self configureForDeviceWithId:uuid];
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 - (BOOL)commonConfigure:(id)configure
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   configureCopy = configure;
   if (self->_clientState == 1)
   {
@@ -231,7 +233,7 @@ LABEL_3:
 
     uUID = [MEMORY[0x277CCAD78] UUID];
     *buf = 0;
-    v32 = 0;
+    v31 = 0;
     [uUID getUUIDBytes:buf];
     v7 = vceqz_s8(*buf);
     if (v7.i8[0])
@@ -295,8 +297,8 @@ LABEL_3:
       {
         if (v18)
         {
-          *v30 = 0;
-          _os_log_impl(&dword_2613DF000, v17, OS_LOG_TYPE_DEFAULT, "#companion-retry Setting gatt ranging to true", v30, 2u);
+          *v29 = 0;
+          _os_log_impl(&dword_2613DF000, v17, OS_LOG_TYPE_DEFAULT, "#companion-retry Setting gatt ranging to true", v29, 2u);
         }
 
         v19 = [MEMORY[0x277CCABB0] numberWithBool:1];
@@ -307,8 +309,8 @@ LABEL_3:
       {
         if (v18)
         {
-          *v30 = 0;
-          _os_log_impl(&dword_2613DF000, v17, OS_LOG_TYPE_DEFAULT, "#companion-retry Setting gatt ranging to false", v30, 2u);
+          *v29 = 0;
+          _os_log_impl(&dword_2613DF000, v17, OS_LOG_TYPE_DEFAULT, "#companion-retry Setting gatt ranging to false", v29, 2u);
         }
 
         v19 = [MEMORY[0x277CCABB0] numberWithBool:0];
@@ -348,19 +350,18 @@ LABEL_3:
     }
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
 - (BOOL)startWithDevicePoseProvider:(id)provider error:(id *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   logger = self->_logger;
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v31 = providerCopy;
+    v30 = providerCopy;
     _os_log_impl(&dword_2613DF000, logger, OS_LOG_TYPE_DEFAULT, "ItemLocalizer start with pose provider %@", buf, 0xCu);
   }
 
@@ -388,20 +389,20 @@ LABEL_3:
     block[1] = 3221225472;
     block[2] = __53__PRItemLocalizer_startWithDevicePoseProvider_error___block_invoke;
     block[3] = &unk_279AD60B0;
-    objc_copyWeak(&v29, buf);
+    objc_copyWeak(&v28, buf);
     dispatch_async(estimatorQueue, block);
 
     [(PRItemLocalizer *)self setDeviceIsMoving:1];
     deviceActivityManager = [(PRItemLocalizer *)self deviceActivityManager];
     activityQueue = [(PRItemLocalizer *)self activityQueue];
-    v23 = MEMORY[0x277D85DD0];
-    v24 = 3221225472;
-    v25 = __53__PRItemLocalizer_startWithDevicePoseProvider_error___block_invoke_2;
-    v26 = &unk_279AD61A0;
-    objc_copyWeak(&v27, buf);
-    [deviceActivityManager startActivityUpdatesToQueue:activityQueue withHandler:&v23];
+    v22 = MEMORY[0x277D85DD0];
+    v23 = 3221225472;
+    v24 = __53__PRItemLocalizer_startWithDevicePoseProvider_error___block_invoke_2;
+    v25 = &unk_279AD61A0;
+    objc_copyWeak(&v26, buf);
+    [deviceActivityManager startActivityUpdatesToQueue:activityQueue withHandler:&v22];
 
-    v13 = [(PRItemLocalizer *)self analytics:v23];
+    v13 = [(PRItemLocalizer *)self analytics:v22];
     [v13 start];
 
     [(PRItemLocalizer *)self setUsageFirstRange:0];
@@ -430,8 +431,8 @@ LABEL_3:
 
     v19 = 1;
 LABEL_13:
-    objc_destroyWeak(&v27);
-    objc_destroyWeak(&v29);
+    objc_destroyWeak(&v26);
+    objc_destroyWeak(&v28);
     objc_destroyWeak(buf);
     goto LABEL_14;
   }
@@ -447,7 +448,6 @@ LABEL_13:
 
 LABEL_14:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -584,42 +584,40 @@ void __24__PRItemLocalizer_stop___block_invoke(uint64_t a1)
 
 - (void)presentTargetEstimate:(id)estimate
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   estimateCopy = estimate;
   v5 = self->_logger;
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     [estimateCopy vector];
-    v19 = v6;
+    v18 = v6;
     [estimateCopy vector];
-    v18 = v7;
+    v17 = v7;
     [estimateCopy vector];
-    v17 = v8;
+    v16 = v8;
     [estimateCopy uncertainty];
     v11 = v10;
     [estimateCopy weight];
     v13 = v12;
     [estimateCopy timestamp];
     *buf = 134219264;
-    v21 = v19;
-    v22 = 2048;
-    v23 = v18;
-    v24 = 2048;
-    v25 = v17;
-    v26 = 2048;
-    v27 = v11;
-    v28 = 2048;
-    v29 = v13;
-    v30 = 2048;
-    v31 = v14;
+    v20 = v18;
+    v21 = 2048;
+    v22 = v17;
+    v23 = 2048;
+    v24 = v16;
+    v25 = 2048;
+    v26 = v11;
+    v27 = 2048;
+    v28 = v13;
+    v29 = 2048;
+    v30 = v14;
     _os_log_impl(&dword_2613DF000, v5, OS_LOG_TYPE_DEFAULT, "Sending target to delegate: (%f, %f, %f), uncertainty = %f, weight = %f, time %f", buf, 0x3Eu);
   }
 
   [(PRItemLocalizer *)self updateDelegateWithSelector:sel_didUpdateItemPosition_ object:estimateCopy];
   analytics = [(PRItemLocalizer *)self analytics];
   [analytics targetComputed:estimateCopy];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)revokeTargetEstimateWithLastSolution:(BatchSolution *)solution
@@ -720,7 +718,7 @@ void __24__PRItemLocalizer_stop___block_invoke(uint64_t a1)
 
 - (void)presentRangeEstimate:(id)estimate
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   estimateCopy = estimate;
   MachTimeSeconds = PRCommonGetMachTimeSeconds();
   [estimateCopy timestamp];
@@ -734,9 +732,9 @@ void __24__PRItemLocalizer_stop___block_invoke(uint64_t a1)
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         [analytics range];
-        v26 = 134217984;
-        v27 = v24;
-        _os_log_impl(&dword_2613DF000, v20, OS_LOG_TYPE_DEFAULT, "Sending range to delegate: %f", &v26, 0xCu);
+        v25 = 134217984;
+        v26 = v24;
+        _os_log_impl(&dword_2613DF000, v20, OS_LOG_TYPE_DEFAULT, "Sending range to delegate: %f", &v25, 0xCu);
       }
     }
 
@@ -758,11 +756,11 @@ void __24__PRItemLocalizer_stop___block_invoke(uint64_t a1)
         [analytics range];
         v22 = v21;
         [(PRProximity *)v19 range];
-        v26 = 134218240;
-        v27 = v22;
-        v28 = 2048;
-        v29 = v23;
-        _os_log_impl(&dword_2613DF000, v20, OS_LOG_TYPE_DEFAULT, "PresentRangeEstimate overriding negative range = %f. Sending range = %f to delegate", &v26, 0x16u);
+        v25 = 134218240;
+        v26 = v22;
+        v27 = 2048;
+        v28 = v23;
+        _os_log_impl(&dword_2613DF000, v20, OS_LOG_TYPE_DEFAULT, "PresentRangeEstimate overriding negative range = %f. Sending range = %f to delegate", &v25, 0x16u);
       }
 
       analytics = v19;
@@ -777,18 +775,16 @@ void __24__PRItemLocalizer_stop___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       [estimateCopy timestamp];
-      v26 = 134218240;
-      v27 = MachTimeSeconds;
-      v28 = 2048;
-      v29 = v8;
-      _os_log_impl(&dword_2613DF000, v7, OS_LOG_TYPE_DEFAULT, "Not presenting too stale range estimate to the delegate, current time = %f, range estimate time = %f", &v26, 0x16u);
+      v25 = 134218240;
+      v26 = MachTimeSeconds;
+      v27 = 2048;
+      v28 = v8;
+      _os_log_impl(&dword_2613DF000, v7, OS_LOG_TYPE_DEFAULT, "Not presenting too stale range estimate to the delegate, current time = %f, range estimate time = %f", &v25, 0x16u);
     }
 
     analytics = [(PRItemLocalizer *)self analytics];
     [analytics revokeRangeEstimate];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (id)saveData
@@ -807,7 +803,7 @@ void __24__PRItemLocalizer_stop___block_invoke(uint64_t a1)
 
 - (void)recordUsage
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   usageFirstRange = [(PRItemLocalizer *)self usageFirstRange];
   if (usageFirstRange && ([(PRItemLocalizer *)self usageStartTimestamp], v5 = objc_claimAutoreleasedReturnValue(), v5, usageFirstRange, v5))
   {
@@ -822,18 +818,18 @@ void __24__PRItemLocalizer_stop___block_invoke(uint64_t a1)
       usageFirstRange2 = [(PRItemLocalizer *)self usageFirstRange];
       [usageFirstRange2 doubleValue];
       *buf = 134218240;
-      v25 = v12;
-      v26 = 2048;
-      v27 = v9;
+      v24 = v12;
+      v25 = 2048;
+      v26 = v9;
       _os_log_impl(&dword_2613DF000, v10, OS_LOG_TYPE_DEFAULT, "Record usage: first range %0.1f m, session duration %0.1f s", buf, 0x16u);
     }
 
     usageFirstRange3 = [(PRItemLocalizer *)self usageFirstRange];
-    v23[0] = usageFirstRange3;
-    v22[1] = @"SessionDuration";
+    v22[0] = usageFirstRange3;
+    v21[1] = @"SessionDuration";
     v14 = [MEMORY[0x277CCABB0] numberWithDouble:v9];
-    v23[1] = v14;
-    v22[2] = @"ProductUUID";
+    v22[1] = v14;
+    v21[2] = @"ProductUUID";
     productUUID = [(PRItemLocalizer *)self productUUID];
     if (productUUID)
     {
@@ -846,8 +842,8 @@ void __24__PRItemLocalizer_stop___block_invoke(uint64_t a1)
       uUIDString = @"UNKNOWN";
     }
 
-    v23[2] = uUIDString;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:3];
+    v22[2] = uUIDString;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
     if (productUUID)
     {
     }
@@ -869,7 +865,6 @@ void __24__PRItemLocalizer_stop___block_invoke(uint64_t a1)
 
   [(PRItemLocalizer *)self setUsageFirstRange:0];
   [(PRItemLocalizer *)self setUsageStartTimestamp:0];
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)trajectoryIndexForTime:(double)time
@@ -923,7 +918,7 @@ uint64_t __42__PRItemLocalizer_trajectoryIndexForTime___block_invoke(uint64_t a1
 
 - (id)estimatorInputForProximity:(id)proximity
 {
-  v113 = *MEMORY[0x277D85DE8];
+  v112 = *MEMORY[0x277D85DE8];
   proximityCopy = proximity;
   v5 = proximityCopy;
   if (!proximityCopy)
@@ -962,122 +957,122 @@ LABEL_4:
       if (v29 != v30)
       {
         [lastObject timestamp];
-        v35 = v34;
+        v34 = v33;
         [firstObject timestamp];
-        if (v35 == v36)
+        if (v34 == v35)
         {
-          v105[0] = @"prior";
-          v105[1] = @"subsequent";
-          v106[0] = firstObject;
-          v106[1] = lastObject;
-          [MEMORY[0x277CBEAC0] dictionaryWithObjects:v106 forKeys:v105 count:2];
-          v86 = [MEMORY[0x277CBEAD8] exceptionWithName:@"TimingErrorException" reason:@"Invalid timestamp found on device pose waypoint" userInfo:objc_claimAutoreleasedReturnValue()];
-          v87 = v86;
-          objc_exception_throw(v86);
+          v104[0] = @"prior";
+          v104[1] = @"subsequent";
+          v105[0] = firstObject;
+          v105[1] = lastObject;
+          [MEMORY[0x277CBEAC0] dictionaryWithObjects:v105 forKeys:v104 count:2];
+          v85 = [MEMORY[0x277CBEAD8] exceptionWithName:@"TimingErrorException" reason:@"Invalid timestamp found on device pose waypoint" userInfo:objc_claimAutoreleasedReturnValue()];
+          v86 = v85;
+          objc_exception_throw(v85);
         }
 
         [v5 mach_absolute_time_sec];
-        v38 = v37;
+        v37 = v36;
         [firstObject timestamp];
-        v40 = v39;
+        v39 = v38;
         [lastObject timestamp];
-        v42 = v41;
+        v41 = v40;
         [firstObject timestamp];
-        v44 = v43;
+        v43 = v42;
         [firstObject pose];
-        v98 = v46;
-        v101 = v45;
-        v92 = v48;
-        v94 = v47;
+        v97 = v45;
+        v100 = v44;
+        v91 = v47;
+        v93 = v46;
         [lastObject pose];
-        v90 = v50;
-        v91 = v49;
-        v88 = v52;
-        v89 = v51;
-        v49.f32[0] = (v38 - v40) / (v42 - v44);
-        v104 = v49.f32[0];
-        v115.columns[1] = v98;
-        v115.columns[0] = v101;
-        v115.columns[3] = v92;
-        v115.columns[2] = v94;
+        v89 = v49;
+        v90 = v48;
+        v87 = v51;
+        v88 = v50;
+        v48.f32[0] = (v37 - v39) / (v41 - v43);
+        v103 = v48.f32[0];
+        v114.columns[1] = v97;
+        v114.columns[0] = v100;
+        v114.columns[3] = v91;
+        v114.columns[2] = v93;
+        *v52.i64 = simd_quaternion(v114);
+        v101 = v52;
+        v115.columns[1] = v89;
+        v115.columns[0] = v90;
+        v115.columns[3] = v87;
+        v115.columns[2] = v88;
         *v53.i64 = simd_quaternion(v115);
-        v102 = v53;
-        v116.columns[1] = v90;
-        v116.columns[0] = v91;
-        v116.columns[3] = v88;
-        v116.columns[2] = v89;
-        *v54.i64 = simd_quaternion(v116);
-        v55 = vmulq_f32(v102, v54);
-        v56 = vextq_s8(v55, v55, 8uLL);
-        *v55.f32 = vadd_f32(*v55.f32, *v56.f32);
-        v55.f32[0] = vaddv_f32(*v55.f32);
-        v56.i64[0] = 0;
-        v57 = vbslq_s8(vdupq_lane_s32(*&vmvnq_s8(vcgeq_f32(v55, v56)), 0), vnegq_f32(v54), v54);
-        v58 = 1.0;
-        v59 = 1.0 - v104;
-        v60 = vsubq_f32(v102, v57);
-        v61 = vmulq_f32(v60, v60);
-        v99 = v57;
-        v62 = vaddq_f32(v102, v57);
-        v63 = vmulq_f32(v62, v62);
-        v64 = atan2f(sqrtf(vaddv_f32(vadd_f32(*v61.i8, *&vextq_s8(v61, v61, 8uLL)))), sqrtf(vaddv_f32(vadd_f32(*v63.i8, *&vextq_s8(v63, v63, 8uLL)))));
-        v65 = v64 + v64;
-        v66 = (v64 + v64) == 0.0;
-        v67 = 1.0;
-        if (!v66)
+        v54 = vmulq_f32(v101, v53);
+        v55 = vextq_s8(v54, v54, 8uLL);
+        *v54.f32 = vadd_f32(*v54.f32, *v55.f32);
+        v54.f32[0] = vaddv_f32(*v54.f32);
+        v55.i64[0] = 0;
+        v56 = vbslq_s8(vdupq_lane_s32(*&vmvnq_s8(vcgeq_f32(v54, v55)), 0), vnegq_f32(v53), v53);
+        v57 = 1.0;
+        v58 = 1.0 - v103;
+        v59 = vsubq_f32(v101, v56);
+        v60 = vmulq_f32(v59, v59);
+        v98 = v56;
+        v61 = vaddq_f32(v101, v56);
+        v62 = vmulq_f32(v61, v61);
+        v63 = atan2f(sqrtf(vaddv_f32(vadd_f32(*v60.i8, *&vextq_s8(v60, v60, 8uLL)))), sqrtf(vaddv_f32(vadd_f32(*v62.i8, *&vextq_s8(v62, v62, 8uLL)))));
+        v64 = v63 + v63;
+        v65 = (v63 + v63) == 0.0;
+        v66 = 1.0;
+        if (!v65)
         {
-          v67 = sinf(v65) / v65;
+          v66 = sinf(v64) / v64;
         }
 
-        v68 = LODWORD(v67);
-        v69 = vrecpe_f32(LODWORD(v67));
-        v70 = vmul_f32(v69, vrecps_f32(v68, v69));
-        LODWORD(v71) = vmul_f32(v70, vrecps_f32(v68, v70)).u32[0];
-        if ((v59 * v65) != 0.0)
+        v67 = LODWORD(v66);
+        v68 = vrecpe_f32(LODWORD(v66));
+        v69 = vmul_f32(v68, vrecps_f32(v67, v68));
+        LODWORD(v70) = vmul_f32(v69, vrecps_f32(v67, v69)).u32[0];
+        if ((v58 * v64) != 0.0)
         {
-          v95 = v71;
-          v70.f32[0] = sinf(v59 * v65);
-          v71 = v95;
-          v58 = v70.f32[0] / (v59 * v65);
+          v94 = v70;
+          v69.f32[0] = sinf(v58 * v64);
+          v70 = v94;
+          v57 = v69.f32[0] / (v58 * v64);
         }
 
-        v70.f32[0] = v59 * (v71 * v58);
-        v72 = vdupq_lane_s32(v70, 0);
-        v73 = v104;
-        v74 = v65 * v104;
-        v75 = 1.0;
-        if (v74 != 0.0)
+        v69.f32[0] = v58 * (v70 * v57);
+        v71 = vdupq_lane_s32(v69, 0);
+        v72 = v103;
+        v73 = v64 * v103;
+        v74 = 1.0;
+        if (v73 != 0.0)
         {
-          v93 = v72;
-          v96 = v71;
-          v76 = sinf(v74);
-          v73 = v104;
-          v72 = v93;
-          v71 = v96;
-          v75 = v76 / v74;
+          v92 = v71;
+          v95 = v70;
+          v75 = sinf(v73);
+          v72 = v103;
+          v71 = v92;
+          v70 = v95;
+          v74 = v75 / v73;
         }
 
-        v77 = vmlaq_f32(vmulq_n_f32(v99, (v71 * v75) * v73), v102, v72);
-        v78 = vmulq_f32(v77, v77);
-        v79 = vadd_f32(*v78.i8, *&vextq_s8(v78, v78, 8uLL));
-        if (vaddv_f32(v79) == 0.0)
+        v76 = vmlaq_f32(vmulq_n_f32(v98, (v70 * v74) * v72), v101, v71);
+        v77 = vmulq_f32(v76, v76);
+        v78 = vadd_f32(*v77.i8, *&vextq_s8(v77, v77, 8uLL));
+        if (vaddv_f32(v78) == 0.0)
         {
-          v80 = 0;
+          v79 = 0;
         }
 
         else
         {
-          v81 = vadd_f32(v79, vdup_lane_s32(v79, 1)).u32[0];
-          v82 = vrsqrte_f32(v81);
-          v83 = vmul_f32(v82, vrsqrts_f32(v81, vmul_f32(v82, v82)));
-          v80 = vmulq_n_f32(v77, vmul_f32(v83, vrsqrts_f32(v81, vmul_f32(v83, v83))).f32[0]).u64[0];
+          v80 = vadd_f32(v78, vdup_lane_s32(v78, 1)).u32[0];
+          v81 = vrsqrte_f32(v80);
+          v82 = vmul_f32(v81, vrsqrts_f32(v80, vmul_f32(v81, v81)));
+          v79 = vmulq_n_f32(v76, vmul_f32(v82, vrsqrts_f32(v80, vmul_f32(v82, v82))).f32[0]).u64[0];
         }
 
-        v103 = *&v80;
+        v102 = *&v79;
         [firstObject pose];
-        v100 = v84;
+        v99 = v83;
         [lastObject pose];
-        v97 = v85;
+        v96 = v84;
         v9 = objc_alloc_init(PREstimatorInput);
         [v5 mach_absolute_time_sec];
         [(PREstimatorInput *)v9 setTimestamp:?];
@@ -1085,8 +1080,8 @@ LABEL_4:
         [(PREstimatorInput *)v9 setPriorTimestamp:?];
         [lastObject timestamp];
         [(PREstimatorInput *)v9 setSubsequentTimestamp:?];
-        [(PREstimatorInput *)v9 setRotation:v103];
-        [(PREstimatorInput *)v9 setTranslation:*vmlaq_n_f32(v100, vsubq_f32(v97, v100), v104).i64];
+        [(PREstimatorInput *)v9 setRotation:v102];
+        [(PREstimatorInput *)v9 setTranslation:*vmlaq_n_f32(v99, vsubq_f32(v96, v99), v103).i64];
         [(PREstimatorInput *)v9 setProximity:v5];
         goto LABEL_15;
       }
@@ -1100,7 +1095,7 @@ LABEL_4:
 
     [v5 mach_absolute_time_sec];
     *buf = 134217984;
-    v108 = v31;
+    v107 = v31;
     v20 = "ItemLocalizer skipping proximity measurement due to pose timestamp equality at time %f";
     v21 = v14;
     v22 = 12;
@@ -1128,11 +1123,11 @@ LABEL_4:
     v18 = v17;
     [lastObject timestamp];
     *buf = 134218496;
-    v108 = v16;
-    v109 = 2048;
-    v110 = v18;
-    v111 = 2048;
-    v112 = v19;
+    v107 = v16;
+    v108 = 2048;
+    v109 = v18;
+    v110 = 2048;
+    v111 = v19;
     v20 = "ItemLocalizer failed to match sensor inputs at time %f (Measurement is earlier than the first cached pose). Cached pose time range: %f -> %f";
     v21 = v14;
     v22 = 32;
@@ -1146,7 +1141,6 @@ LABEL_14:
 LABEL_15:
 
 LABEL_16:
-  v32 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -1313,51 +1307,48 @@ LABEL_12:
   ptr = self->_rangeFilter.__ptr_;
   if (*ptr == 1)
   {
-    CurrentState = RoseSyntheticApertureFiltering::PRRoseRangeFilter::getCurrentState(ptr, v23);
+    CurrentState = RoseSyntheticApertureFiltering::PRRoseRangeFilter::getCurrentState(ptr, v20);
     v7 = self->_itemLocationFilter.__ptr_;
     [poseCopy timestamp];
     v9 = v8;
     [poseCopy pose];
-    RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::updateCurrentBatchSolution(v7, v9, v10, v20);
-    if (v20[0] == 5)
+    RoseSyntheticApertureFiltering::PRRoseSyntheticApertureBatchFilter::updateCurrentBatchSolution(v7, v9, v10, v17);
+    if (v17[0] == 5)
     {
-      v11 = *__p;
-      v12 = *(__p + 1);
-      v13 = *(__p + 2);
       [poseCopy pose];
       [poseCopy timestamp];
-      v17 = [PRProximity alloc];
+      v14 = [PRProximity alloc];
       [poseCopy timestamp];
-      v18 = [PRProximity initWithTime:v17 range:"initWithTime:range:"];
+      v15 = [PRProximity initWithTime:v14 range:"initWithTime:range:"];
     }
 
     else
     {
-      v15 = [PRProximity alloc];
-      HIDWORD(v16) = HIDWORD(v24);
-      *&v16 = v24;
-      v18 = [(PRProximity *)v15 initWithTime:v25 range:v16];
+      v12 = [PRProximity alloc];
+      HIDWORD(v13) = HIDWORD(v21);
+      *&v13 = v21;
+      v15 = [(PRProximity *)v12 initWithTime:v22 range:v13];
     }
 
-    v14 = v18;
+    v11 = v15;
     if (__p)
     {
-      v22 = __p;
+      v19 = __p;
       operator delete(__p);
     }
   }
 
   else
   {
-    v14 = 0;
+    v11 = 0;
   }
 
-  return v14;
+  return v11;
 }
 
 - (void)logEstimatorInput:(id)input
 {
-  v110 = *MEMORY[0x277D85DE8];
+  v109 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   proximity = [inputCopy proximity];
   if ([proximity az_valid])
@@ -1371,19 +1362,19 @@ LABEL_12:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         [inputCopy rotation];
-        v74 = v9;
+        v73 = v9;
         [inputCopy rotation];
-        v70 = v10;
+        v69 = v10;
         [inputCopy rotation];
-        v69 = v11;
+        v68 = v11;
         [inputCopy rotation];
-        v67 = v12;
+        v66 = v12;
         [inputCopy translation];
-        v63 = v13;
+        v62 = v13;
         [inputCopy translation];
-        v62 = v14;
+        v61 = v14;
         [inputCopy translation];
-        v61 = v15;
+        v60 = v15;
         proximity3 = [inputCopy proximity];
         [proximity3 range_m];
         v18 = v17;
@@ -1412,39 +1403,39 @@ LABEL_12:
         proximity11 = [inputCopy proximity];
         [proximity11 sweep_angle_deg];
         *buf = 134222080;
-        v79 = v74;
-        v80 = 2048;
-        v81 = v70;
-        v82 = 2048;
-        v83 = v69;
-        v84 = 2048;
-        v85 = v67;
-        v86 = 2048;
-        v87 = v63;
-        v88 = 2048;
-        v89 = v62;
-        v90 = 2048;
-        v91 = v61;
-        v92 = 2048;
-        v93 = v18;
-        v94 = 2048;
-        v95 = v20;
-        v96 = 2048;
-        *v97 = v22;
-        *&v97[8] = 2048;
-        *&v97[10] = v25;
-        v98 = 2048;
-        v99 = v28;
-        v100 = 2048;
-        v101 = v31;
-        v102 = 1024;
-        v103 = antenna_type;
-        v104 = 2048;
-        v105 = v35;
-        v106 = 2048;
-        v107 = v38;
-        v108 = 2048;
-        v109 = v40;
+        v78 = v73;
+        v79 = 2048;
+        v80 = v69;
+        v81 = 2048;
+        v82 = v68;
+        v83 = 2048;
+        v84 = v66;
+        v85 = 2048;
+        v86 = v62;
+        v87 = 2048;
+        v88 = v61;
+        v89 = 2048;
+        v90 = v60;
+        v91 = 2048;
+        v92 = v18;
+        v93 = 2048;
+        v94 = v20;
+        v95 = 2048;
+        *v96 = v22;
+        *&v96[8] = 2048;
+        *&v96[10] = v25;
+        v97 = 2048;
+        v98 = v28;
+        v99 = 2048;
+        v100 = v31;
+        v101 = 1024;
+        v102 = antenna_type;
+        v103 = 2048;
+        v104 = v35;
+        v105 = 2048;
+        v106 = v38;
+        v107 = 2048;
+        v108 = v40;
         _os_log_impl(&dword_2613DF000, v8, OS_LOG_TYPE_DEFAULT, "Estimator input: quat = (%f, %f, %f, %f), trans = (%f, %f, %f), range_m = %f, range_unc_m = %f, az_deg = %f, az_unc_deg = %f, el_deg = %f, el_unc_deg = %f, antenna = %d, time = %f, track_score = %f, sweep_angle_deg = %f", buf, 0xA8u);
       }
 
@@ -1460,19 +1451,19 @@ LABEL_12:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     [inputCopy rotation];
-    v77 = v41;
+    v76 = v41;
     [inputCopy rotation];
-    v75 = v42;
+    v74 = v42;
     [inputCopy rotation];
-    v73 = v43;
+    v72 = v43;
     [inputCopy rotation];
-    v71 = v44;
+    v70 = v44;
     [inputCopy translation];
-    v68 = v45;
+    v67 = v45;
     [inputCopy translation];
-    v66 = v46;
+    v65 = v46;
     [inputCopy translation];
-    v65 = v47;
+    v64 = v47;
     proximity12 = [inputCopy proximity];
     [proximity12 range_m];
     v50 = v49;
@@ -1483,27 +1474,27 @@ LABEL_12:
     antenna_type2 = [proximity14 antenna_type];
     [inputCopy timestamp];
     *buf = 134220544;
-    v79 = v77;
-    v80 = 2048;
-    v81 = v75;
-    v82 = 2048;
-    v83 = v73;
-    v84 = 2048;
-    v85 = v71;
-    v86 = 2048;
-    v87 = v68;
-    v88 = 2048;
-    v89 = v66;
-    v90 = 2048;
-    v91 = v65;
-    v92 = 2048;
-    v93 = v50;
-    v94 = 2048;
-    v95 = v53;
-    v96 = 1024;
-    *v97 = antenna_type2;
-    *&v97[4] = 2048;
-    *&v97[6] = v56;
+    v78 = v76;
+    v79 = 2048;
+    v80 = v74;
+    v81 = 2048;
+    v82 = v72;
+    v83 = 2048;
+    v84 = v70;
+    v85 = 2048;
+    v86 = v67;
+    v87 = 2048;
+    v88 = v65;
+    v89 = 2048;
+    v90 = v64;
+    v91 = 2048;
+    v92 = v50;
+    v93 = 2048;
+    v94 = v53;
+    v95 = 1024;
+    *v96 = antenna_type2;
+    *&v96[4] = 2048;
+    *&v96[6] = v56;
     _os_log_impl(&dword_2613DF000, v8, OS_LOG_TYPE_DEFAULT, "Estimator input: quat = (%f, %f, %f, %f), trans = (%f, %f, %f), range_m = %f, range_unc_m = %f, antenna = %d, time = %f", buf, 0x6Cu);
   }
 
@@ -1517,8 +1508,6 @@ LABEL_8:
     dataRecorder2 = [(PRItemLocalizer *)self dataRecorder];
     [dataRecorder2 recordEstimatorInput:inputCopy];
   }
-
-  v60 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logAndPresentSolution:(BatchSolution *)solution withTimeStamp:(double)stamp
@@ -1556,35 +1545,35 @@ LABEL_8:
 
 - (void)logTargetEstimates:(id)estimates
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   estimatesCopy = estimates;
-  v5 = [estimatesCopy countByEnumeratingWithState:&v27 objects:v45 count:16];
+  v5 = [estimatesCopy countByEnumeratingWithState:&v26 objects:v44 count:16];
   if (v5)
   {
-    v6 = *v28;
+    v6 = *v27;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v28 != v6)
+        if (*v27 != v6)
         {
           objc_enumerationMutation(estimatesCopy);
         }
 
-        v8 = *(*(&v27 + 1) + 8 * i);
+        v8 = *(*(&v26 + 1) + 8 * i);
         v9 = self->_logger;
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           [v8 vector];
-          v26 = v10;
+          v25 = v10;
           [v8 vector];
-          v25 = v11;
+          v24 = v11;
           [v8 vector];
-          v24 = v12;
+          v23 = v12;
           [v8 uncertainty];
           v14 = v13;
           [v8 weight];
@@ -1593,24 +1582,24 @@ LABEL_8:
           v18 = v17;
           verticalState = [v8 verticalState];
           *buf = 134219520;
-          v32 = v26;
-          v33 = 2048;
-          v34 = v25;
-          v35 = 2048;
-          v36 = v24;
-          v37 = 2048;
-          v38 = v14;
-          v39 = 2048;
-          v40 = v16;
-          v41 = 2048;
-          v42 = v18;
-          v43 = 2048;
-          v44 = verticalState;
+          v31 = v25;
+          v32 = 2048;
+          v33 = v24;
+          v34 = 2048;
+          v35 = v23;
+          v36 = 2048;
+          v37 = v14;
+          v38 = 2048;
+          v39 = v16;
+          v40 = 2048;
+          v41 = v18;
+          v42 = 2048;
+          v43 = verticalState;
           _os_log_impl(&dword_2613DF000, v9, OS_LOG_TYPE_DEFAULT, "Target: estimate = (%f, %f, %f), uncertainty = %f, weight = %f, time %f, verticalState %lu", buf, 0x48u);
         }
       }
 
-      v5 = [estimatesCopy countByEnumeratingWithState:&v27 objects:v45 count:16];
+      v5 = [estimatesCopy countByEnumeratingWithState:&v26 objects:v44 count:16];
     }
 
     while (v5);
@@ -1624,13 +1613,11 @@ LABEL_8:
     dataRecorder2 = [(PRItemLocalizer *)self dataRecorder];
     [dataRecorder2 recordTargetEstimates:estimatesCopy];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logRangeEstimate:(id)estimate
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   estimateCopy = estimate;
   v5 = self->_logger;
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -1638,11 +1625,11 @@ LABEL_8:
     [estimateCopy range];
     v7 = v6;
     [estimateCopy timestamp];
-    v13 = 134218240;
-    v14 = v7;
-    v15 = 2048;
-    v16 = v8;
-    _os_log_impl(&dword_2613DF000, v5, OS_LOG_TYPE_DEFAULT, "RangeEstimator output: range = %f, time %f", &v13, 0x16u);
+    v12 = 134218240;
+    v13 = v7;
+    v14 = 2048;
+    v15 = v8;
+    _os_log_impl(&dword_2613DF000, v5, OS_LOG_TYPE_DEFAULT, "RangeEstimator output: range = %f, time %f", &v12, 0x16u);
   }
 
   dataRecorder = [(PRItemLocalizer *)self dataRecorder];
@@ -1653,8 +1640,32 @@ LABEL_8:
     dataRecorder2 = [(PRItemLocalizer *)self dataRecorder];
     [dataRecorder2 recordRangeEstimate:estimateCopy];
   }
+}
 
-  v12 = *MEMORY[0x277D85DE8];
+- (void)logTargetIsMovingChange:(BOOL)change
+{
+  changeCopy = change;
+  v11 = *MEMORY[0x277D85DE8];
+  logger = self->_logger;
+  if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
+  {
+    v10[0] = 67109120;
+    v10[1] = changeCopy;
+    _os_log_impl(&dword_2613DF000, logger, OS_LOG_TYPE_DEFAULT, "TargetMovingState = %d", v10, 8u);
+  }
+
+  analytics = [(PRItemLocalizer *)self analytics];
+  [analytics targetMovingStateChanged:changeCopy];
+
+  dataRecorder = [(PRItemLocalizer *)self dataRecorder];
+  LOBYTE(analytics) = dataRecorder == 0;
+
+  if ((analytics & 1) == 0)
+  {
+    MachContinuousTimeSeconds = PRCommonGetMachContinuousTimeSeconds();
+    dataRecorder2 = [(PRItemLocalizer *)self dataRecorder];
+    [dataRecorder2 recordTargetMovingStateChanged:changeCopy atTime:MachContinuousTimeSeconds];
+  }
 }
 
 - (void)updateDelegateWithSelector:(SEL)selector object:(id)object
@@ -1707,7 +1718,7 @@ LABEL_8:
 
 void __37__PRItemLocalizer_devicePoseUpdated___block_invoke(uint64_t x0_0)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((x0_0 + 48));
   v3 = WeakRetained;
   if (!WeakRetained)
@@ -1737,30 +1748,30 @@ void __37__PRItemLocalizer_devicePoseUpdated___block_invoke(uint64_t x0_0)
     if (v8 - v9 >= 0.5)
     {
       [*(x0_0 + 32) pose];
-      *&v10 = simd_quaternion(v42);
-      v24 = v10;
+      *&v10 = simd_quaternion(v41);
+      v23 = v10;
       [*(x0_0 + 32) pose];
-      v23 = v11;
+      v22 = v11;
       v12 = *(*(x0_0 + 40) + 24);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         [*(x0_0 + 32) timestamp];
         *buf = 134219776;
-        *&buf[4] = *&v24;
+        *&buf[4] = *&v23;
         *&buf[12] = 2048;
-        *v31 = *(&v24 + 1);
-        *&v31[8] = 2048;
-        *&v32 = *(&v24 + 2);
-        v33 = 2048;
-        *v34 = *(&v24 + 3);
-        *&v34[8] = 2048;
-        *&v34[10] = *&v23;
-        v35 = 2048;
-        v36 = *(&v23 + 1);
-        v37 = 2048;
-        v38 = *(&v23 + 2);
-        v39 = 2048;
-        v40 = v13;
+        *v30 = *(&v23 + 1);
+        *&v30[8] = 2048;
+        *&v31 = *(&v23 + 2);
+        v32 = 2048;
+        *v33 = *(&v23 + 3);
+        *&v33[8] = 2048;
+        *&v33[10] = *&v22;
+        v34 = 2048;
+        v35 = *(&v22 + 1);
+        v36 = 2048;
+        v37 = *(&v22 + 2);
+        v38 = 2048;
+        v39 = v13;
         _os_log_impl(&dword_2613DF000, v12, OS_LOG_TYPE_DEFAULT, "VIO pose: quat = (%f, %f, %f, %f), trans = (%f, %f, %f), time = %f", buf, 0x52u);
       }
 
@@ -1769,7 +1780,7 @@ void __37__PRItemLocalizer_devicePoseUpdated___block_invoke(uint64_t x0_0)
     }
   }
 
-  v14 = [v3 produceBlendedRangeEstimateForPose:{*(x0_0 + 32), v23}];
+  v14 = [v3 produceBlendedRangeEstimateForPose:{*(x0_0 + 32), v22}];
   if (v14)
   {
     [v3 logRangeEstimate:v14];
@@ -1788,41 +1799,41 @@ void __37__PRItemLocalizer_devicePoseUpdated___block_invoke(uint64_t x0_0)
       goto LABEL_20;
     }
 
-    *v25 = *buf;
-    *&v25[5] = *&buf[5];
-    memset(v26, 0, 24);
-    std::vector<RoseSyntheticApertureFiltering::BatchSolutionParticle>::__init_with_size[abi:ne200100]<RoseSyntheticApertureFiltering::BatchSolutionParticle*,RoseSyntheticApertureFiltering::BatchSolutionParticle*>(v26, *&v31[2], v32, 0xCF3CF3CF3CF3CF3DLL * ((v32 - *&v31[2]) >> 3));
-    v26[3] = *&v34[6];
+    *v24 = *buf;
+    *&v24[5] = *&buf[5];
+    memset(v25, 0, 24);
+    std::vector<RoseSyntheticApertureFiltering::BatchSolutionParticle>::__init_with_size[abi:ne200100]<RoseSyntheticApertureFiltering::BatchSolutionParticle*,RoseSyntheticApertureFiltering::BatchSolutionParticle*>(v25, *&v30[2], v31, 0xCF3CF3CF3CF3CF3DLL * ((v31 - *&v30[2]) >> 3));
+    v25[3] = *&v33[6];
     [*(x0_0 + 32) timestamp];
-    [v3 logAndPresentSolution:v25 withTimeStamp:?];
-    v19 = v26[0];
-    if (!v26[0])
+    [v3 logAndPresentSolution:v24 withTimeStamp:?];
+    v19 = v25[0];
+    if (!v25[0])
     {
       goto LABEL_20;
     }
 
-    v20 = v25;
+    v20 = v24;
     goto LABEL_19;
   }
 
   v21 = *(x0_0 + 40);
   if (v21)
   {
-    [v21 lastSolution];
+    objc_msgSend_lastSolution(v21);
   }
 
   else
   {
     *__p = 0u;
-    v29 = 0u;
-    v27 = 0u;
+    v28 = 0u;
+    v26 = 0u;
   }
 
-  [v3 revokeTargetEstimateWithLastSolution:&v27];
+  [v3 revokeTargetEstimateWithLastSolution:&v26];
   v19 = __p[0];
   if (__p[0])
   {
-    v20 = &v27;
+    v20 = &v26;
 LABEL_19:
     *(v20 + 3) = v19;
     operator delete(v19);
@@ -1830,14 +1841,197 @@ LABEL_19:
 
 LABEL_20:
   [v3 updateDelegateWithSelector:sel_didUpdateDevicePose_ object:*(x0_0 + 32)];
-  if (*&v31[2])
+  if (*&v30[2])
   {
-    v32 = *&v31[2];
-    operator delete(*&v31[2]);
+    v31 = *&v30[2];
+    operator delete(*&v30[2]);
   }
 
 LABEL_23:
-  v22 = *MEMORY[0x277D85DE8];
+}
+
+- (void)setDegeneratePath:(BOOL)path
+{
+  pathCopy = path;
+  v8 = *MEMORY[0x277D85DE8];
+  if ([(PRItemLocalizer *)self pathIsDegenerate]!= path)
+  {
+    logger = self->_logger;
+    if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
+    {
+      v7[0] = 67109120;
+      v7[1] = pathCopy;
+      _os_log_impl(&dword_2613DF000, logger, OS_LOG_TYPE_DEFAULT, "Informing delegate that degenerate path state changed to %d", v7, 8u);
+    }
+
+    [(PRItemLocalizer *)self setPathIsDegenerate:pathCopy];
+    v6 = [MEMORY[0x277CCABB0] numberWithBool:pathCopy];
+    [(PRItemLocalizer *)self updateDelegateWithSelector:sel_pathIsDegenerate_ object:v6];
+  }
+}
+
+- (void)performFilteringWithEstimatorInput:(id)input targetMoving:(BOOL)moving deviceMoving:(BOOL)deviceMoving
+{
+  deviceMovingCopy = deviceMoving;
+  inputCopy = input;
+  v9 = inputCopy;
+  if (moving)
+  {
+    proximity = [inputCopy proximity];
+    v11 = [(PRItemLocalizer *)self performRangeFilteringWithoutVIO:proximity targetMoving:1 deviceMoving:deviceMovingCopy];
+
+    goto LABEL_30;
+  }
+
+  objc_msgSend_performLocationFiltering_(self);
+  if (LODWORD(v44[0]) == 3)
+  {
+    [(PRItemLocalizer *)self setDegeneratePath:1];
+    objc_msgSend_lastSolution(self);
+    [(PRItemLocalizer *)self revokeTargetEstimateWithLastSolution:v28];
+    v22 = v29;
+    if (!v29)
+    {
+      goto LABEL_28;
+    }
+
+    v30 = v29;
+LABEL_27:
+    operator delete(v22);
+    goto LABEL_28;
+  }
+
+  if (LODWORD(v44[0]) == 6)
+  {
+    logger = self->_logger;
+    if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_2613DF000, logger, OS_LOG_TYPE_DEFAULT, "RESET_FROM_HIGH_RESIDUALS detected: Resetting VIO & estimators.", buf, 2u);
+    }
+
+    objc_msgSend_lastSolution(self);
+    v18 = v32;
+    v19 = v33;
+    if (v32)
+    {
+      v33 = v32;
+      operator delete(v32);
+    }
+
+    if (v18 != v19)
+    {
+      v20 = self->_logger;
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_2613DF000, v20, OS_LOG_TYPE_DEFAULT, "Revoke solution due to high residual reset", buf, 2u);
+      }
+    }
+
+    [(PRItemLocalizer *)self setDegeneratePath:0];
+    poseProvider = [(PRItemLocalizer *)self poseProvider];
+    [poseProvider reset];
+
+    [(PRItemLocalizer *)self reset];
+    [(PRItemLocalizer *)self revokeTargetEstimate:5];
+    goto LABEL_28;
+  }
+
+  if (LODWORD(v44[0]) != 5)
+  {
+    [(PRItemLocalizer *)self setDegeneratePath:0];
+    objc_msgSend_lastSolution(self);
+    [(PRItemLocalizer *)self revokeTargetEstimateWithLastSolution:&v25];
+    v22 = v26;
+    if (!v26)
+    {
+      goto LABEL_28;
+    }
+
+    v27 = v26;
+    goto LABEL_27;
+  }
+
+  v39[0] = v44[0];
+  *(v39 + 5) = *(v44 + 5);
+  v40 = 0;
+  v41 = 0;
+  v42 = 0;
+  std::vector<RoseSyntheticApertureFiltering::BatchSolutionParticle>::__init_with_size[abi:ne200100]<RoseSyntheticApertureFiltering::BatchSolutionParticle*,RoseSyntheticApertureFiltering::BatchSolutionParticle*>(&v40, v45, v46, 0xCF3CF3CF3CF3CF3DLL * ((v46 - v45) >> 3));
+  v43 = v47;
+  proximity2 = [v9 proximity];
+  [proximity2 mach_absolute_time_sec];
+  [(PRItemLocalizer *)self logAndPresentSolution:v39 withTimeStamp:?];
+
+  if (v40)
+  {
+    v41 = v40;
+    operator delete(v40);
+  }
+
+  [(PRItemLocalizer *)self setDegeneratePath:0];
+  v34[0] = v44[0];
+  *(v34 + 5) = *(v44 + 5);
+  __p = 0;
+  v36 = 0;
+  v37 = 0;
+  std::vector<RoseSyntheticApertureFiltering::BatchSolutionParticle>::__init_with_size[abi:ne200100]<RoseSyntheticApertureFiltering::BatchSolutionParticle*,RoseSyntheticApertureFiltering::BatchSolutionParticle*>(&__p, v45, v46, 0xCF3CF3CF3CF3CF3DLL * ((v46 - v45) >> 3));
+  v38 = v47;
+  [(PRItemLocalizer *)self setLastSolution:v34];
+  if (__p)
+  {
+    v36 = __p;
+    operator delete(__p);
+  }
+
+  objc_msgSend_lastSolution(self);
+  v13 = *(v32 + 40);
+  v33 = v32;
+  operator delete(v32);
+  if (v13)
+  {
+    if (v13 == 1 && ![(PRItemLocalizer *)self firstRangeArrow])
+    {
+      [(PRItemLocalizer *)self setFirstRangeArrow:1];
+      analytics = [(PRItemLocalizer *)self analytics];
+      [analytics firstArrowFromRange];
+
+      v15 = self->_logger;
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        v16 = "First arrow from SA";
+LABEL_34:
+        _os_log_impl(&dword_2613DF000, v15, OS_LOG_TYPE_DEFAULT, v16, buf, 2u);
+      }
+    }
+  }
+
+  else if (![(PRItemLocalizer *)self firstAoAArrow])
+  {
+    [(PRItemLocalizer *)self setFirstAoAArrow:1];
+    analytics2 = [(PRItemLocalizer *)self analytics];
+    [analytics2 firstArrowFromAoA];
+
+    v15 = self->_logger;
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      v16 = "First arrow from AoA";
+      goto LABEL_34;
+    }
+  }
+
+LABEL_28:
+  v23 = [(PRItemLocalizer *)self performRangeFilteringWithVIO:v9];
+  if (v45)
+  {
+    v46 = v45;
+    operator delete(v45);
+  }
+
+LABEL_30:
 }
 
 - (void)reset
@@ -1872,7 +2066,7 @@ void __24__PRItemLocalizer_reset__block_invoke(uint64_t a1)
     _os_log_impl(&dword_2613DF000, logger, OS_LOG_TYPE_DEFAULT, "invalidPoseDetected: Resetting location estimator", v8, 2u);
   }
 
-  [(PRItemLocalizer *)self lastSolution];
+  objc_msgSend_lastSolution(self);
   v4 = v9;
   v5 = v10;
   if (v9)
@@ -1899,13 +2093,13 @@ void __24__PRItemLocalizer_reset__block_invoke(uint64_t a1)
 
 - (void)didReceiveNewSolutions:(id)solutions
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   solutionsCopy = solutions;
   v5 = self->_logger;
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v62) = [solutionsCopy count];
+    LODWORD(v61) = [solutionsCopy count];
     _os_log_impl(&dword_2613DF000, v5, OS_LOG_TYPE_DEFAULT, "Received %d solutions from Proximity", buf, 8u);
   }
 
@@ -1932,19 +2126,19 @@ void __24__PRItemLocalizer_reset__block_invoke(uint64_t a1)
         previous_solution_is_bad = [v7 previous_solution_is_bad];
         [v7 sweep_angle_deg];
         *buf = 134219520;
-        v62 = v10;
-        v63 = 2048;
-        v64 = v12;
-        v65 = 2048;
-        v66 = v14;
-        v67 = 2048;
-        v68 = v16;
-        v69 = 2048;
-        v70 = v18;
-        v71 = 1024;
-        v72 = previous_solution_is_bad;
-        v73 = 2048;
-        v74 = v20;
+        v61 = v10;
+        v62 = 2048;
+        v63 = v12;
+        v64 = 2048;
+        v65 = v14;
+        v66 = 2048;
+        v67 = v16;
+        v68 = 2048;
+        v69 = v18;
+        v70 = 1024;
+        v71 = previous_solution_is_bad;
+        v72 = 2048;
+        v73 = v20;
         v21 = "Found raw measurement with range_m %f m, az_deg %f deg, el_deg %f deg for time %f, track score %f, prev_solution_is_bad %d, sweep_angle_deg %f";
         v22 = v8;
         v23 = 68;
@@ -1962,9 +2156,9 @@ LABEL_10:
         v25 = v24;
         [v7 mach_absolute_time_sec];
         *buf = 134218240;
-        v62 = v25;
-        v63 = 2048;
-        v64 = v26;
+        v61 = v25;
+        v62 = 2048;
+        v63 = v26;
         v21 = "Found raw measurement with range_m %f m for time %f";
         v22 = v8;
         v23 = 22;
@@ -2044,18 +2238,16 @@ LABEL_10:
       block[1] = 3221225472;
       block[2] = __42__PRItemLocalizer_didReceiveNewSolutions___block_invoke_86;
       block[3] = &unk_279AD6230;
-      objc_copyWeak(&v58, buf);
-      v57 = v7;
-      v59 = dataRecorder;
-      v60 = deviceIsMoving;
+      objc_copyWeak(&v57, buf);
+      v56 = v7;
+      v58 = dataRecorder;
+      v59 = deviceIsMoving;
       dispatch_async(estimatorQueue, block);
 
-      objc_destroyWeak(&v58);
+      objc_destroyWeak(&v57);
       objc_destroyWeak(buf);
     }
   }
-
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __42__PRItemLocalizer_didReceiveNewSolutions___block_invoke(uint64_t a1, void *a2)
@@ -2212,7 +2404,7 @@ void __42__PRItemLocalizer_didReceiveNewSolutions___block_invoke_86(uint64_t a1)
 - (void)rangingServiceDidUpdateState:(unint64_t)state cause:(int64_t)cause
 {
   v5 = 0;
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (state <= 1)
   {
     if (state)
@@ -2265,7 +2457,7 @@ void __42__PRItemLocalizer_didReceiveNewSolutions___block_invoke_86(uint64_t a1)
         {
           clientState = self->_clientState;
           *buf = 67109120;
-          v32 = clientState;
+          v31 = clientState;
           _os_log_impl(&dword_2613DF000, v14, OS_LOG_TYPE_DEFAULT, "#companion-retry rangingServiceDidUpdateState PRRangingServiceStateReady _clientState=%i", buf, 8u);
         }
 
@@ -2309,9 +2501,9 @@ void __42__PRItemLocalizer_didReceiveNewSolutions___block_invoke_86(uint64_t a1)
         }
 
         v22 = MEMORY[0x277CCA9B8];
-        v29 = *MEMORY[0x277CCA450];
-        v30 = @"Received RangingServiceStateError";
-        v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+        v28 = *MEMORY[0x277CCA450];
+        v29 = @"Received RangingServiceStateError";
+        v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
         v24 = [v22 errorWithDomain:*MEMORY[0x277D433A8] code:999 userInfo:v23];
 
         [(PRItemLocalizer *)self didFailWithError:v24];
@@ -2330,16 +2522,16 @@ void __42__PRItemLocalizer_didReceiveNewSolutions___block_invoke_86(uint64_t a1)
         {
           v8 = self->_clientState;
           *buf = 67109120;
-          v32 = v8;
+          v31 = v8;
           _os_log_impl(&dword_2613DF000, v7, OS_LOG_TYPE_DEFAULT, "#companion-retry rangingServiceDidUpdateState PRRangingServiceStateOff _clientState=%i", buf, 8u);
         }
 
         if ((self->_clientState - 1) <= 3)
         {
           v9 = MEMORY[0x277CCA9B8];
-          v27 = *MEMORY[0x277CCA450];
-          v28 = @"Received RangingServiceStateOff after at least attempting to config";
-          v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+          v26 = *MEMORY[0x277CCA450];
+          v27 = @"Received RangingServiceStateOff after at least attempting to config";
+          v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
           v11 = [v9 errorWithDomain:*MEMORY[0x277D433A8] code:999 userInfo:v10];
 
           [(PRItemLocalizer *)self didFailWithError:v11];
@@ -2351,7 +2543,6 @@ void __42__PRItemLocalizer_didReceiveNewSolutions___block_invoke_86(uint64_t a1)
   }
 
   [(PRItemLocalizer *)self sendItemLocalizerChangedState:v5];
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendPRItemState:(unint64_t)state
@@ -2388,7 +2579,7 @@ void __42__PRItemLocalizer_didReceiveNewSolutions___block_invoke_86(uint64_t a1)
 
 void __35__PRItemLocalizer_sendPRItemState___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -2397,15 +2588,13 @@ void __35__PRItemLocalizer_sendPRItemState___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 48);
-      v7 = 134217984;
-      v8 = v5;
-      _os_log_impl(&dword_2613DF000, v4, OS_LOG_TYPE_DEFAULT, "#companion-retry Remote item changed state: %lu", &v7, 0xCu);
+      v6 = 134217984;
+      v7 = v5;
+      _os_log_impl(&dword_2613DF000, v4, OS_LOG_TYPE_DEFAULT, "#companion-retry Remote item changed state: %lu", &v6, 0xCu);
     }
 
     [*(a1 + 32) itemChangedState:*(a1 + 48)];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendItemLocalizerChangedActivity:(unint64_t)activity
@@ -2442,7 +2631,7 @@ void __35__PRItemLocalizer_sendPRItemState___block_invoke(uint64_t a1)
 
 void __52__PRItemLocalizer_sendItemLocalizerChangedActivity___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -2451,15 +2640,13 @@ void __52__PRItemLocalizer_sendItemLocalizerChangedActivity___block_invoke(uint6
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 48);
-      v7 = 134217984;
-      v8 = v5;
-      _os_log_impl(&dword_2613DF000, v4, OS_LOG_TYPE_DEFAULT, "#companion-retry ItemLocalizer changed activity: %lu", &v7, 0xCu);
+      v6 = 134217984;
+      v7 = v5;
+      _os_log_impl(&dword_2613DF000, v4, OS_LOG_TYPE_DEFAULT, "#companion-retry ItemLocalizer changed activity: %lu", &v6, 0xCu);
     }
 
     [*(a1 + 32) itemLocalizerChangedActivity:*(a1 + 48)];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendItemLocalizerChangedState:(unint64_t)state
@@ -2496,7 +2683,7 @@ void __52__PRItemLocalizer_sendItemLocalizerChangedActivity___block_invoke(uint6
 
 void __49__PRItemLocalizer_sendItemLocalizerChangedState___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -2505,15 +2692,13 @@ void __49__PRItemLocalizer_sendItemLocalizerChangedState___block_invoke(uint64_t
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 48);
-      v7 = 134217984;
-      v8 = v5;
-      _os_log_impl(&dword_2613DF000, v4, OS_LOG_TYPE_DEFAULT, "#companion-retry ItemLocalizer changed state: %lu", &v7, 0xCu);
+      v6 = 134217984;
+      v7 = v5;
+      _os_log_impl(&dword_2613DF000, v4, OS_LOG_TYPE_DEFAULT, "#companion-retry ItemLocalizer changed state: %lu", &v6, 0xCu);
     }
 
     [*(a1 + 32) itemLocalizerChangedState:*(a1 + 48)];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)rangingRequestDidUpdateStatus:(unint64_t)status
@@ -2591,7 +2776,7 @@ LABEL_17:
 
 - (void)remoteDevice:(id)device didChangeState:(int64_t)state
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   remoteDevice = [(PRItemLocalizer *)self remoteDevice];
   uUID = [remoteDevice UUID];
@@ -2654,7 +2839,7 @@ LABEL_22:
         {
           clientState = self->_clientState;
           *buf = 67109120;
-          v30 = clientState;
+          v29 = clientState;
           _os_log_impl(&dword_2613DF000, v13, OS_LOG_TYPE_DEFAULT, "#companion-retry remoteDeviceDidChangeState _clientState=%i", buf, 8u);
         }
 
@@ -2670,9 +2855,9 @@ LABEL_22:
 
           session = [(PRItemLocalizer *)self session];
           remoteDevice2 = [(PRItemLocalizer *)self remoteDevice];
-          v28 = 0;
-          v22 = [session startCompanionRanging:remoteDevice2 options:0 error:&v28];
-          v23 = v28;
+          v27 = 0;
+          v22 = [session startCompanionRanging:remoteDevice2 options:0 error:&v27];
+          v23 = v27;
 
           if (v22)
           {
@@ -2726,8 +2911,6 @@ LABEL_22:
   }
 
 LABEL_35:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteDeviceDidMove
@@ -2741,7 +2924,7 @@ LABEL_35:
 
   [(PRItemLocalizer *)self setTargetIsMoving:1];
   [(PRItemLocalizer *)self sendPRItemState:4];
-  [(PRItemLocalizer *)self lastSolution];
+  objc_msgSend_lastSolution(self);
   v4 = v11;
   v5 = v12;
   if (v11)
@@ -2809,7 +2992,7 @@ void __38__PRItemLocalizer_remoteDeviceDidMove__block_invoke_2(uint64_t a1, void
 
 - (void)didFailWithError:(id)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   analytics = [(PRItemLocalizer *)self analytics];
   [analytics rangingFailedWithError:errorCopy];
@@ -2818,7 +3001,7 @@ void __38__PRItemLocalizer_remoteDeviceDidMove__block_invoke_2(uint64_t a1, void
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v24 = *&errorCopy;
+    v23 = *&errorCopy;
     _os_log_impl(&dword_2613DF000, logger, OS_LOG_TYPE_DEFAULT, "#companion-retry received didFailWithError error:%@", buf, 0xCu);
   }
 
@@ -2834,7 +3017,7 @@ void __38__PRItemLocalizer_remoteDeviceDidMove__block_invoke_2(uint64_t a1, void
     {
       code = [errorCopy code];
       *buf = 134217984;
-      v24 = *&code;
+      v23 = *&code;
       _os_log_impl(&dword_2613DF000, v7, OS_LOG_TYPE_DEFAULT, "#companion-retry ItemLocalizer received error code %lld", buf, 0xCu);
     }
 
@@ -2880,7 +3063,7 @@ void __38__PRItemLocalizer_remoteDeviceDidMove__block_invoke_2(uint64_t a1, void
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v24 = v14;
+          v23 = v14;
           _os_log_impl(&dword_2613DF000, v15, OS_LOG_TYPE_DEFAULT, "#companion-retry Attempting retry at the backoff rate.  It has been %lf seconds since last successful configure or init.  ", buf, 0xCu);
         }
       }
@@ -2892,15 +3075,13 @@ void __38__PRItemLocalizer_remoteDeviceDidMove__block_invoke_2(uint64_t a1, void
       block[2] = __36__PRItemLocalizer_didFailWithError___block_invoke;
       block[3] = &unk_279AD6258;
       block[4] = self;
-      objc_copyWeak(&v21, &location);
+      objc_copyWeak(&v20, &location);
       dispatch_after(v16, proximityQueue, block);
 
-      objc_destroyWeak(&v21);
+      objc_destroyWeak(&v20);
       objc_destroyWeak(&location);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __36__PRItemLocalizer_didFailWithError___block_invoke(uint64_t a1)
@@ -2957,6 +3138,28 @@ void __36__PRItemLocalizer_didFailWithError___block_invoke(uint64_t a1)
   [analytics torchButtonPresented];
 }
 
+- (void)analyticsLogTorchChangedState:(BOOL)state
+{
+  stateCopy = state;
+  v10 = *MEMORY[0x277D85DE8];
+  logger = self->_logger;
+  if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = @"off";
+    if (stateCopy)
+    {
+      v6 = @"on";
+    }
+
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_impl(&dword_2613DF000, logger, OS_LOG_TYPE_DEFAULT, "PRItemLocalizer logging external TorchChangedState event with state = %@", &v8, 0xCu);
+  }
+
+  analytics = [(PRItemLocalizer *)self analytics];
+  [analytics torchChangedState:stateCopy];
+}
+
 - (PRItemLocalizerDelegate)delegate
 {
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -2983,7 +3186,7 @@ void __36__PRItemLocalizer_didFailWithError___block_invoke(uint64_t a1)
   *(&self->_lastSolution.isVerticalResolved + 1) = v5;
   if (&self->_lastSolution != solution)
   {
-    std::vector<RoseSyntheticApertureFiltering::BatchSolutionParticle>::__assign_with_size[abi:ne200100]<RoseSyntheticApertureFiltering::BatchSolutionParticle*,RoseSyntheticApertureFiltering::BatchSolutionParticle*>(&self->_lastSolution.BatchSolutionList.__begin_, solution->BatchSolutionList.__begin_, solution->BatchSolutionList.__end_, 0xCF3CF3CF3CF3CF3DLL * ((solution->BatchSolutionList.__end_ - solution->BatchSolutionList.__begin_) >> 3));
+    std::vector<RoseSyntheticApertureFiltering::BatchSolutionParticle>::__assign_with_size[abi:ne200100]<RoseSyntheticApertureFiltering::BatchSolutionParticle*,RoseSyntheticApertureFiltering::BatchSolutionParticle*>(&self->_lastSolution.BatchSolutionList, solution->BatchSolutionList.__begin_, solution->BatchSolutionList.__end_, 0xCF3CF3CF3CF3CF3DLL * ((solution->BatchSolutionList.__end_ - solution->BatchSolutionList.__begin_) >> 3));
   }
 
   self->_lastSolution.lastTestStatisticValue = solution->lastTestStatisticValue;

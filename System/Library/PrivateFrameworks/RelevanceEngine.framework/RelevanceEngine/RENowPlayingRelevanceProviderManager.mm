@@ -49,15 +49,13 @@
 
 + (id)_features
 {
-  v8[3] = *MEMORY[0x277D85DE8];
+  v7[3] = *MEMORY[0x277D85DE8];
   v2 = +[REFeature nowPlayingStateFeature];
   v3 = +[REFeature currentlyPlayingMediaDonationFeature];
-  v8[1] = v3;
+  v7[1] = v3;
   v4 = +[REFeature currentlyPlayingFromAppFeature];
-  v8[2] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:3];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[2] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:3];
 
   return v5;
 }
@@ -212,7 +210,7 @@ LABEL_36:
 - (void)resume
 {
   [(MPRequestResponseController *)self->_requestResponseController beginAutomaticResponseLoading];
-  if (MediaPlayerLibraryCore())
+  if (MediaPlayerLibraryCore(0))
   {
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     v4 = getMPAVRoutingControllerActiveSystemRouteDidChangeNotification();
@@ -225,7 +223,7 @@ LABEL_36:
 - (void)pause
 {
   [(MPRequestResponseController *)self->_requestResponseController endAutomaticResponseLoading];
-  if (MediaPlayerLibraryCore())
+  if (MediaPlayerLibraryCore(0))
   {
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     v3 = getMPAVRoutingControllerActiveSystemRouteDidChangeNotification();

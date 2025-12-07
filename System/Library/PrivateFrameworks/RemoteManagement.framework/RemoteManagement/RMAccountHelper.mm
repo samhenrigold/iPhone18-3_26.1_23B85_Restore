@@ -79,7 +79,7 @@ void __87__RMAccountHelper_createAccountWithEnrollmentURL_username_personaID_des
 
 + (id)_createAccountWithEnrollmentURL:(id)l username:(id)username personaID:(id)d description:(id)description error:(id *)error
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   lCopy = l;
   usernameCopy = username;
   dCopy = d;
@@ -92,35 +92,35 @@ void __87__RMAccountHelper_createAccountWithEnrollmentURL_username_personaID_des
     [v16 rm_setPersonaIdentifier:dCopy];
   }
 
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy_;
-  v35 = __Block_byref_object_dispose_;
-  v36 = 0;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy_;
+  v34 = __Block_byref_object_dispose_;
+  v35 = 0;
   v18 = objc_opt_new();
-  v25 = MEMORY[0x1E69E9820];
-  v26 = 3221225472;
-  v27 = __88__RMAccountHelper__createAccountWithEnrollmentURL_username_personaID_description_error___block_invoke;
-  v28 = &unk_1E8705EA0;
-  v30 = &v31;
+  v24 = MEMORY[0x1E69E9820];
+  v25 = 3221225472;
+  v26 = __88__RMAccountHelper__createAccountWithEnrollmentURL_username_personaID_description_error___block_invoke;
+  v27 = &unk_1E8705EA0;
+  v29 = &v30;
   v19 = v18;
-  v29 = v19;
-  [rm_defaultStore saveAccount:v17 withCompletionHandler:&v25];
+  v28 = v19;
+  [rm_defaultStore saveAccount:v17 withCompletionHandler:&v24];
   [v19 waitForCompletion];
-  if (v32[5])
+  if (v31[5])
   {
     v20 = +[RMLog accountHelper];
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [v17 identifier];
       objc_claimAutoreleasedReturnValue();
-      [v32[5] description];
+      [v31[5] description];
       objc_claimAutoreleasedReturnValue();
       +[RMAccountHelper _createAccountWithEnrollmentURL:username:personaID:description:error:];
     }
 
-    if (error && (v21 = v32[5]) != 0)
+    if (error && (v21 = v31[5]) != 0)
     {
       identifier = 0;
       *error = v21;
@@ -137,8 +137,7 @@ void __87__RMAccountHelper_createAccountWithEnrollmentURL_username_personaID_des
     identifier = [v17 identifier];
   }
 
-  _Block_object_dispose(&v31, 8);
-  v23 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v30, 8);
 
   return identifier;
 }
@@ -260,28 +259,28 @@ void __77__RMAccountHelper_updateAccountWithIdentifier_enrollmentURL_personaID_e
 
 + (BOOL)_removeAccount:(id)account store:(id)store error:(id *)error
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   storeCopy = store;
   if (accountCopy)
   {
-    v25 = 0;
-    v26 = &v25;
-    v27 = 0x3032000000;
-    v28 = __Block_byref_object_copy_;
-    v29 = __Block_byref_object_dispose_;
-    v30 = 0;
+    v24 = 0;
+    v25 = &v24;
+    v26 = 0x3032000000;
+    v27 = __Block_byref_object_copy_;
+    v28 = __Block_byref_object_dispose_;
+    v29 = 0;
     v9 = objc_opt_new();
-    v19 = MEMORY[0x1E69E9820];
-    v20 = 3221225472;
-    v21 = __46__RMAccountHelper__removeAccount_store_error___block_invoke;
-    v22 = &unk_1E8705EA0;
-    v24 = &v25;
+    v18 = MEMORY[0x1E69E9820];
+    v19 = 3221225472;
+    v20 = __46__RMAccountHelper__removeAccount_store_error___block_invoke;
+    v21 = &unk_1E8705EA0;
+    v23 = &v24;
     v10 = v9;
-    v23 = v10;
-    [storeCopy removeAccount:accountCopy withCompletionHandler:&v19];
+    v22 = v10;
+    [storeCopy removeAccount:accountCopy withCompletionHandler:&v18];
     [v10 waitForCompletion];
-    v11 = v26[5];
+    v11 = v25[5];
     v12 = v11 == 0;
     if (v11)
     {
@@ -290,14 +289,14 @@ void __77__RMAccountHelper_updateAccountWithIdentifier_enrollmentURL_personaID_e
       {
         [accountCopy identifier];
         objc_claimAutoreleasedReturnValue();
-        [v26[5] description];
+        [v25[5] description];
         objc_claimAutoreleasedReturnValue();
         +[RMAccountHelper _createAccountWithEnrollmentURL:username:personaID:description:error:];
       }
 
       if (error)
       {
-        v14 = v26[5];
+        v14 = v25[5];
         if (v14)
         {
           *error = v14;
@@ -314,7 +313,7 @@ void __77__RMAccountHelper_updateAccountWithIdentifier_enrollmentURL_personaID_e
       }
     }
 
-    _Block_object_dispose(&v25, 8);
+    _Block_object_dispose(&v24, 8);
   }
 
   else
@@ -328,7 +327,6 @@ void __77__RMAccountHelper_updateAccountWithIdentifier_enrollmentURL_personaID_e
     v12 = 1;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -354,22 +352,6 @@ void __46__RMAccountHelper__removeAccount_store_error___block_invoke(uint64_t a1
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_0(v2, v3, v4, 5.8382e-34);
   _os_log_error_impl(&dword_1E1168000, v6, OS_LOG_TYPE_ERROR, "Failed to remove account: %{public}@. Error: %{public}@", v5, 0x16u);
-}
-
-+ (void)removeAccountWithIdentifier:error:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)removeAccountWithEnrollmentURL:error:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

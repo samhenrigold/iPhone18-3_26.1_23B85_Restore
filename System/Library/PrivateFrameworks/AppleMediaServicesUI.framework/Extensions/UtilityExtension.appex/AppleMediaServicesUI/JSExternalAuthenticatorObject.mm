@@ -22,7 +22,7 @@
 {
   planCopy = plan;
   selfCopy = self;
-  v6 = sub_100018F94();
+  v6 = sub_100018F94(planCopy);
 
   return v6;
 }
@@ -31,7 +31,7 @@
 {
   credentialsCopy = credentials;
   selfCopy = self;
-  v6 = sub_10001A644();
+  v6 = sub_10001A644(credentialsCopy);
 
   return v6;
 }
@@ -40,7 +40,7 @@
 {
   infoCopy = info;
   selfCopy = self;
-  v6 = sub_10001AC60();
+  v6 = sub_10001AC60(infoCopy);
 
   return v6;
 }
@@ -49,7 +49,7 @@
 {
   outCopy = out;
   selfCopy = self;
-  v6 = sub_10001BA14();
+  v6 = sub_10001BA14(outCopy);
 
   return v6;
 }

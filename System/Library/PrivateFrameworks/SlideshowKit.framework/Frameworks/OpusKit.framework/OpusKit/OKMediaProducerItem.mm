@@ -156,7 +156,7 @@ uint64_t __59__OKMediaProducerItem_createMetadataWithCompletionHandler___block_i
   return [v4 pluginWithIdentifier:v5 progressBlock:v9 completionBlock:v8];
 }
 
-uint64_t __59__OKMediaProducerItem_createMetadataWithCompletionHandler___block_invoke_3(uint64_t a1, _BYTE *a2)
+void *__59__OKMediaProducerItem_createMetadataWithCompletionHandler___block_invoke_3(uint64_t a1, _BYTE *a2)
 {
   result = [*(a1 + 32) isCancelled];
   *a2 = result;
@@ -194,10 +194,11 @@ void __59__OKMediaProducerItem_createMetadataWithCompletionHandler___block_invok
     v5 = [MEMORY[0x277CE6650] URLAssetWithURL:a2 options:0];
     if (!v5)
     {
-      goto LABEL_18;
+      goto LABEL_19;
     }
 
-    goto LABEL_3;
+    objc_msgSend_duration(v5);
+    goto LABEL_4;
   }
 
   if (UTTypeConformsTo(v4, *MEMORY[0x277CC20B0]) == 1)
@@ -257,18 +258,17 @@ void __59__OKMediaProducerItem_createMetadataWithCompletionHandler___block_invok
         }
 
         [*(a1 + 32) setResolution:{v20, v21}];
-        v5 = v14;
-LABEL_3:
-        [v5 duration];
+        objc_msgSend_duration(v14);
+LABEL_4:
         [*(a1 + 32) setDuration:CMTimeGetSeconds(&time)];
-        goto LABEL_18;
+        goto LABEL_19;
       }
 
       [*(a1 + 32) setType:1];
     }
   }
 
-LABEL_18:
+LABEL_19:
   v16 = objc_alloc_init(MEMORY[0x277CCAA00]);
   time.value = 0;
   v17 = [v16 attributesOfItemAtPath:objc_msgSend(a2 error:{"relativePath"), &time}];
@@ -388,7 +388,7 @@ uint64_t __88__OKMediaProducerItem_createThumbnailImageForResolution_withMetadat
   return [v4 pluginWithIdentifier:v5 progressBlock:v9 completionBlock:v8];
 }
 
-uint64_t __88__OKMediaProducerItem_createThumbnailImageForResolution_withMetadata_completionHandler___block_invoke_3(uint64_t a1, _BYTE *a2)
+void *__88__OKMediaProducerItem_createThumbnailImageForResolution_withMetadata_completionHandler___block_invoke_3(uint64_t a1, _BYTE *a2)
 {
   result = [*(a1 + 32) isCancelled];
   *a2 = result;
@@ -415,18 +415,18 @@ uint64_t __88__OKMediaProducerItem_createThumbnailImageForResolution_withMetadat
   return [v5 finish];
 }
 
-uint64_t __88__OKMediaProducerItem_createThumbnailImageForResolution_withMetadata_completionHandler___block_invoke_5(uint64_t result)
+uint64_t __88__OKMediaProducerItem_createThumbnailImageForResolution_withMetadata_completionHandler___block_invoke_5(uint64_t result, uint64_t a2)
 {
-  v1 = result;
-  v2 = *(result + 40);
-  if (v2 == 3)
+  v2 = result;
+  v3 = *(result + 40);
+  if (v3 == 3)
   {
     result = OFAVAssetCreateThumbnailWithURL();
   }
 
   else
   {
-    if (v2 != 2)
+    if (v3 != 2)
     {
       return result;
     }
@@ -442,7 +442,7 @@ uint64_t __88__OKMediaProducerItem_createThumbnailImageForResolution_withMetadat
     }
   }
 
-  *(*(*(v1 + 32) + 8) + 24) = result;
+  *(*(*(v2 + 32) + 8) + 24) = result;
   return result;
 }
 
@@ -556,7 +556,7 @@ uint64_t __67__OKMediaProducerItem_importMediaToDirectoryURL_completionHandler__
   return [v4 pluginWithIdentifier:v5 progressBlock:v9 completionBlock:v8];
 }
 
-uint64_t __67__OKMediaProducerItem_importMediaToDirectoryURL_completionHandler___block_invoke_3(uint64_t a1, _BYTE *a2)
+void *__67__OKMediaProducerItem_importMediaToDirectoryURL_completionHandler___block_invoke_3(uint64_t a1, _BYTE *a2)
 {
   result = [*(a1 + 32) isCancelled];
   *a2 = result;
@@ -583,7 +583,7 @@ uint64_t __67__OKMediaProducerItem_importMediaToDirectoryURL_completionHandler__
   return [v5 finish];
 }
 
-uint64_t __67__OKMediaProducerItem_importMediaToDirectoryURL_completionHandler___block_invoke_5(void *a1, void *a2, void *a3)
+void *__67__OKMediaProducerItem_importMediaToDirectoryURL_completionHandler___block_invoke_5(void *a1, void *a2, void *a3)
 {
   v5 = a1[4];
   v6 = [a2 relativePath];
@@ -598,7 +598,7 @@ uint64_t __67__OKMediaProducerItem_importMediaToDirectoryURL_completionHandler__
   return result;
 }
 
-uint64_t __67__OKMediaProducerItem_importMediaToDirectoryURL_completionHandler___block_invoke_6(uint64_t a1, _BYTE *a2)
+void *__67__OKMediaProducerItem_importMediaToDirectoryURL_completionHandler___block_invoke_6(uint64_t a1, _BYTE *a2)
 {
   [*(a1 + 32) setProgress:?];
   result = [*(a1 + 32) isCancelled];
@@ -672,7 +672,7 @@ uint64_t __56__OKMediaProducerItem_resourceURLWithCompletionHandler___block_invo
   return [v4 pluginWithIdentifier:v5 progressBlock:v9 completionBlock:v8];
 }
 
-uint64_t __56__OKMediaProducerItem_resourceURLWithCompletionHandler___block_invoke_3(uint64_t a1, _BYTE *a2)
+void *__56__OKMediaProducerItem_resourceURLWithCompletionHandler___block_invoke_3(uint64_t a1, _BYTE *a2)
 {
   result = [*(a1 + 32) isCancelled];
   *a2 = result;

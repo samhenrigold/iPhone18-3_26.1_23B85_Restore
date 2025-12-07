@@ -7,7 +7,7 @@
 
 - (void)updateMapsSyncPlaceItemsMatchingMapItem:(id)item withStorageFrom:(id)from
 {
-  v7 = sub_1000CE6B8(&unk_10190BA50);
+  v7 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v7 - 8);
   v9 = &v21 - v8;
   v10 = *(&self->super.isa + OBJC_IVAR____TtC4Maps34MapsSyncPlaceItemMapStorageUpdater_libraryDataOperationsProvider);

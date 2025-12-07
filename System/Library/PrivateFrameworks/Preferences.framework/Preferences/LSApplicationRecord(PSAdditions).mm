@@ -6,7 +6,7 @@
 
 - (uint64_t)supportsJournalingSuggestions
 {
-  if (!MomentsOnboardingAndSettingsLibraryCore())
+  if (!MomentsOnboardingAndSettingsLibraryCore(0))
   {
     return 0;
   }

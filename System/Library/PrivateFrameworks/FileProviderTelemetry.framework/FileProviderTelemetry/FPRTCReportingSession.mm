@@ -216,10 +216,9 @@ void __61__FPRTCReportingSession_flushMessagesSynchronouslyWithError___block_inv
 
 - (void)initWithWithCommonProperties:manager:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_24ABCC000, v0, OS_LOG_TYPE_DEBUG, "[DEBUG] %{public}@ RTC session start", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_24ABCC000, v0, OS_LOG_TYPE_DEBUG, "[DEBUG] %{public}@ RTC session start", v1, 0xCu);
 }
 
 @end

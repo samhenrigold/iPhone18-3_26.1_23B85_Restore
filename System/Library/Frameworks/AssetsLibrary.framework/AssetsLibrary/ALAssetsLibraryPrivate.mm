@@ -53,65 +53,65 @@ uint64_t __58__ALAssetsLibraryPrivate_registerAlbum_assetGroupPrivate___block_in
 
 - (void)photoLibraryDidChange:(id)change
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   userInfo = [change userInfo];
   if (userInfo)
   {
     v5 = userInfo;
     dictionary = [MEMORY[0x277CBEB38] dictionary];
-    v40 = [MEMORY[0x277CBEB58] set];
+    v39 = [MEMORY[0x277CBEB58] set];
+    v57 = 0u;
     v58 = 0u;
     v59 = 0u;
     v60 = 0u;
-    v61 = 0u;
-    v38 = v5;
+    v37 = v5;
     v6 = [v5 objectForKey:@"insertedAssetGroups"];
-    v7 = [v6 countByEnumeratingWithState:&v58 objects:v66 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v57 objects:v65 count:16];
     if (v7)
     {
-      v8 = *v59;
+      v8 = *v58;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v59 != v8)
+          if (*v58 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          groupURL = [*(*(&v58 + 1) + 8 * i) groupURL];
+          groupURL = [*(*(&v57 + 1) + 8 * i) groupURL];
           if (groupURL)
           {
-            [v40 addObject:groupURL];
+            [v39 addObject:groupURL];
           }
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v58 objects:v66 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v57 objects:v65 count:16];
       }
 
       while (v7);
     }
 
     v11 = [MEMORY[0x277CBEB58] set];
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
     v55 = 0u;
-    v12 = [v38 objectForKey:@"updatedAssetGroups"];
-    v13 = [v12 countByEnumeratingWithState:&v54 objects:v65 count:16];
+    v56 = 0u;
+    v53 = 0u;
+    v54 = 0u;
+    v12 = [v37 objectForKey:@"updatedAssetGroups"];
+    v13 = [v12 countByEnumeratingWithState:&v53 objects:v64 count:16];
     if (v13)
     {
-      v14 = *v55;
+      v14 = *v54;
       do
       {
         for (j = 0; j != v13; ++j)
         {
-          if (*v55 != v14)
+          if (*v54 != v14)
           {
             objc_enumerationMutation(v12);
           }
 
-          v16 = *(*(&v54 + 1) + 8 * j);
+          v16 = *(*(&v53 + 1) + 8 * j);
           groupURL2 = [v16 groupURL];
           if (groupURL2)
           {
@@ -120,41 +120,41 @@ uint64_t __58__ALAssetsLibraryPrivate_registerAlbum_assetGroupPrivate___block_in
 
           if ([v16 conformsToProtocol:&unk_2849B1E10])
           {
-            v53[0] = MEMORY[0x277D85DD0];
-            v53[1] = 3221225472;
-            v53[2] = __48__ALAssetsLibraryPrivate_photoLibraryDidChange___block_invoke;
-            v53[3] = &unk_278A07850;
-            v53[4] = v11;
-            [v16 enumerateDerivedAlbums:v53];
+            v52[0] = MEMORY[0x277D85DD0];
+            v52[1] = 3221225472;
+            v52[2] = __48__ALAssetsLibraryPrivate_photoLibraryDidChange___block_invoke;
+            v52[3] = &unk_278A07850;
+            v52[4] = v11;
+            [v16 enumerateDerivedAlbums:v52];
           }
         }
 
-        v13 = [v12 countByEnumeratingWithState:&v54 objects:v65 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v53 objects:v64 count:16];
       }
 
       while (v13);
     }
 
     v18 = [MEMORY[0x277CBEB58] set];
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
     v50 = 0u;
-    v19 = [v38 objectForKey:@"deletedAssetGroups"];
-    v20 = [v19 countByEnumeratingWithState:&v49 objects:v64 count:16];
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v19 = [v37 objectForKey:@"deletedAssetGroups"];
+    v20 = [v19 countByEnumeratingWithState:&v48 objects:v63 count:16];
     if (v20)
     {
-      v21 = *v50;
+      v21 = *v49;
       do
       {
         for (k = 0; k != v20; ++k)
         {
-          if (*v50 != v21)
+          if (*v49 != v21)
           {
             objc_enumerationMutation(v19);
           }
 
-          v23 = *(*(&v49 + 1) + 8 * k);
+          v23 = *(*(&v48 + 1) + 8 * k);
           v24 = -[NSMutableDictionary objectForKey:](self->_groupURLSByAlbumOID, "objectForKey:", [v23 objectID]);
           if (v24)
           {
@@ -163,47 +163,47 @@ uint64_t __58__ALAssetsLibraryPrivate_registerAlbum_assetGroupPrivate___block_in
           }
         }
 
-        v20 = [v19 countByEnumeratingWithState:&v49 objects:v64 count:16];
+        v20 = [v19 countByEnumeratingWithState:&v48 objects:v63 count:16];
       }
 
       while (v20);
     }
 
     v25 = [MEMORY[0x277CBEB58] set];
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
     v46 = 0u;
-    v26 = [v38 objectForKey:@"updatedAssets"];
-    v27 = [v26 countByEnumeratingWithState:&v45 objects:v63 count:16];
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    v26 = [v37 objectForKey:@"updatedAssets"];
+    v27 = [v26 countByEnumeratingWithState:&v44 objects:v62 count:16];
     if (v27)
     {
-      v28 = *v46;
+      v28 = *v45;
       do
       {
         for (m = 0; m != v27; ++m)
         {
-          if (*v46 != v28)
+          if (*v45 != v28)
           {
             objc_enumerationMutation(v26);
           }
 
-          assetURL = [*(*(&v45 + 1) + 8 * m) assetURL];
+          assetURL = [*(*(&v44 + 1) + 8 * m) assetURL];
           if (assetURL)
           {
             [v25 addObject:assetURL];
           }
         }
 
-        v27 = [v26 countByEnumeratingWithState:&v45 objects:v63 count:16];
+        v27 = [v26 countByEnumeratingWithState:&v44 objects:v62 count:16];
       }
 
       while (v27);
     }
 
-    if ([v40 count])
+    if ([v39 count])
     {
-      [dictionary setObject:v40 forKey:@"ALAssetLibraryInsertedAssetGroupsKey"];
+      [dictionary setObject:v39 forKey:@"ALAssetLibraryInsertedAssetGroupsKey"];
     }
 
     if ([v11 count])
@@ -232,28 +232,28 @@ uint64_t __58__ALAssetsLibraryPrivate_registerAlbum_assetGroupPrivate___block_in
     {
       assetGroupInternals = self->_assetGroupInternals;
       objc_sync_enter(assetGroupInternals);
+      v40 = 0u;
       v41 = 0u;
       v42 = 0u;
       v43 = 0u;
-      v44 = 0u;
       v33 = self->_assetGroupInternals;
-      v34 = [(NSHashTable *)v33 countByEnumeratingWithState:&v41 objects:v62 count:16];
+      v34 = [(NSHashTable *)v33 countByEnumeratingWithState:&v40 objects:v61 count:16];
       if (v34)
       {
-        v35 = *v42;
+        v35 = *v41;
         do
         {
           for (n = 0; n != v34; ++n)
           {
-            if (*v42 != v35)
+            if (*v41 != v35)
             {
               objc_enumerationMutation(v33);
             }
 
-            [*(*(&v41 + 1) + 8 * n) libraryDidChange];
+            [*(*(&v40 + 1) + 8 * n) libraryDidChange];
           }
 
-          v34 = [(NSHashTable *)v33 countByEnumeratingWithState:&v41 objects:v62 count:16];
+          v34 = [(NSHashTable *)v33 countByEnumeratingWithState:&v40 objects:v61 count:16];
         }
 
         while (v34);
@@ -264,7 +264,6 @@ uint64_t __58__ALAssetsLibraryPrivate_registerAlbum_assetGroupPrivate___block_in
   }
 
   [objc_msgSend(MEMORY[0x277CCAB98] "defaultCenter")];
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __48__ALAssetsLibraryPrivate_photoLibraryDidChange___block_invoke(uint64_t a1, void *a2)

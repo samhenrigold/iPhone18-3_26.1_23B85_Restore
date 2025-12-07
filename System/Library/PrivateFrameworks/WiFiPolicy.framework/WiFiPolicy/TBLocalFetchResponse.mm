@@ -44,12 +44,12 @@
 
 - (TBLocalFetchResponse)initWithResults:(id)results entityDescription:(id)description
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   descriptionCopy = description;
-  v52.receiver = self;
-  v52.super_class = TBLocalFetchResponse;
-  v8 = [(TBLocalFetchResponse *)&v52 init];
+  v51.receiver = self;
+  v51.super_class = TBLocalFetchResponse;
+  v8 = [(TBLocalFetchResponse *)&v51 init];
   v9 = v8;
   if (descriptionCopy && v8)
   {
@@ -61,27 +61,27 @@
     {
       dictionary = [MEMORY[0x277CBEB38] dictionary];
       array = [MEMORY[0x277CBEB18] array];
+      v47 = 0u;
       v48 = 0u;
       v49 = 0u;
       v50 = 0u;
-      v51 = 0u;
-      v43 = resultsCopy;
+      v42 = resultsCopy;
       v15 = resultsCopy;
-      v16 = [v15 countByEnumeratingWithState:&v48 objects:v54 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v47 objects:v53 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v49;
+        v18 = *v48;
         do
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v49 != v18)
+            if (*v48 != v18)
             {
               objc_enumerationMutation(v15);
             }
 
-            v20 = *(*(&v48 + 1) + 8 * i);
+            v20 = *(*(&v47 + 1) + 8 * i);
             network = [v20 network];
             [(NSArray *)array addObject:network];
 
@@ -90,7 +90,7 @@
             [(NSDictionary *)dictionary setObject:network2 forKey:bSSID];
           }
 
-          v17 = [v15 countByEnumeratingWithState:&v48 objects:v54 count:16];
+          v17 = [v15 countByEnumeratingWithState:&v47 objects:v53 count:16];
         }
 
         while (v17);
@@ -103,7 +103,7 @@
       resultsByBSSID = v9->_resultsByBSSID;
       v9->_resultsByBSSID = dictionary;
 
-      resultsCopy = v43;
+      resultsCopy = v42;
       goto LABEL_23;
     }
 
@@ -128,30 +128,30 @@ LABEL_23:
     if (v33)
     {
       v34 = [MEMORY[0x277CBEB58] set];
+      v43 = 0u;
       v44 = 0u;
       v45 = 0u;
       v46 = 0u;
-      v47 = 0u;
       v35 = resultsCopy;
-      v36 = [v35 countByEnumeratingWithState:&v44 objects:v53 count:16];
+      v36 = [v35 countByEnumeratingWithState:&v43 objects:v52 count:16];
       if (v36)
       {
         v37 = v36;
-        v38 = *v45;
+        v38 = *v44;
         do
         {
           for (j = 0; j != v37; ++j)
           {
-            if (*v45 != v38)
+            if (*v44 != v38)
             {
               objc_enumerationMutation(v35);
             }
 
-            v40 = [[TBLocalFetchTileItem alloc] initWithTile:*(*(&v44 + 1) + 8 * j) error:0];
+            v40 = [[TBLocalFetchTileItem alloc] initWithTile:*(*(&v43 + 1) + 8 * j) error:0];
             [(NSSet *)v34 addObject:v40];
           }
 
-          v37 = [v35 countByEnumeratingWithState:&v44 objects:v53 count:16];
+          v37 = [v35 countByEnumeratingWithState:&v43 objects:v52 count:16];
         }
 
         while (v37);
@@ -165,7 +165,6 @@ LABEL_23:
 
 LABEL_24:
 
-  v41 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

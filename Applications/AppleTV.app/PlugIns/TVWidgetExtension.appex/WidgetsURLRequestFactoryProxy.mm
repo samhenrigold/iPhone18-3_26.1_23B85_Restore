@@ -7,7 +7,7 @@
 
 + (void)createRoute:(NSString *)route completion:(id)completion
 {
-  v7 = sub_100006334(&qword_100125288);
+  v7 = sub_100006334(&qword_100125288, &qword_1000E6710);
   __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(completion);

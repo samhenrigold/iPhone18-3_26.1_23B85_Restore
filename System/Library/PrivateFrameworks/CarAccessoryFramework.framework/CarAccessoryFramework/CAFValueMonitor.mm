@@ -61,7 +61,7 @@
   return selfCopy;
 }
 
-uint64_t __36__CAFValueMonitor_receivedAllValues__block_invoke(uint64_t a1)
+void *__36__CAFValueMonitor_receivedAllValues__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _locked_receivedAllValues];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -106,10 +106,11 @@ void __35__CAFValueMonitor_monitorForValue___block_invoke(uint64_t a1)
   v4 = (a1 + 40);
   [v3 addObject:v5];
 
-  if ([*v2 signaledReadyToMonitor])
+  v6 = [*v2 signaledReadyToMonitor];
+  if (v6)
   {
-    v6 = CAFValueMonitorLogging();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = CAFValueMonitorLogging(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       __35__CAFValueMonitor_monitorForValue___block_invoke_cold_1(v2, v4);
     }
@@ -127,13 +128,13 @@ void __35__CAFValueMonitor_monitorForValue___block_invoke(uint64_t a1)
   dispatch_async(monitorQueue, block);
 }
 
-uint64_t __39__CAFValueMonitor_signalReadyToMonitor__block_invoke(uint64_t a1)
+void *__39__CAFValueMonitor_signalReadyToMonitor__block_invoke(uint64_t a1)
 {
   v1 = (a1 + 32);
   result = [*(a1 + 32) signaledReadyToMonitor];
   if ((result & 1) == 0)
   {
-    v3 = CAFValueMonitorLogging();
+    v3 = CAFValueMonitorLogging(result);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       __39__CAFValueMonitor_signalReadyToMonitor__block_invoke_cold_1(v1, v3);
@@ -181,9 +182,10 @@ void __36__CAFValueMonitor_valueReceivedFor___block_invoke(uint64_t a1)
     v7 = [v6 monitoringForValue];
     [v7 removeObject:*(a1 + 40)];
 
-    *(*(*(a1 + 48) + 8) + 24) = [*(a1 + 32) _locked_receivedAllValues];
-    v8 = CAFValueMonitorLogging();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v8 = [*(a1 + 32) _locked_receivedAllValues];
+    *(*(*(a1 + 48) + 8) + 24) = v8;
+    v9 = CAFValueMonitorLogging(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       __36__CAFValueMonitor_valueReceivedFor___block_invoke_cold_1(v2, v4);
     }
@@ -206,7 +208,7 @@ void __36__CAFValueMonitor_valueReceivedFor___block_invoke(uint64_t a1)
 
     else
     {
-      v3 = CAFGeneralLogging();
+      v3 = CAFGeneralLogging(self);
       if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
       {
         [CAFValueMonitor setSignaledReadyToMonitor:v3];
@@ -224,21 +226,35 @@ void __36__CAFValueMonitor_valueReceivedFor___block_invoke(uint64_t a1)
 
 void __35__CAFValueMonitor_monitorForValue___block_invoke_cold_1(id *a1, uint64_t *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
   v4 = [*a1 delegate];
   v5 = [v4 uniqueIdentifier];
-  [*a1 signaledReadyToMonitor];
-  v6 = *a2;
-  v7 = [*a1 monitoringForValue];
-  [v7 count];
-  OUTLINED_FUNCTION_0_2(&dword_231618000, v8, v9, "%s %@%@ added %@ monitoring.count=%ld ", v10, v11, v12, v13, 2u);
+  if ([*a1 signaledReadyToMonitor])
+  {
+    v6 = @"!!signaledReadyToMonitor!!";
+  }
 
-  v14 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v6 = &stru_284626CA8;
+  }
+
+  v7 = *a2;
+  v8 = [*a1 monitoringForValue];
+  *v15 = 136316162;
+  *&v15[4] = "[CAFValueMonitor monitorForValue:]_block_invoke";
+  *&v15[12] = 2112;
+  *&v15[14] = v5;
+  *&v15[22] = 2112;
+  *v16 = 2112;
+  *&v16[2] = v7;
+  *&v16[10] = 2048;
+  *&v16[12] = [v8 count];
+  OUTLINED_FUNCTION_0_2(&dword_231618000, v9, v10, "%s %@%@ added %@ monitoring.count=%ld ", v11, v12, v13, v14, *v15, *&v15[8], *&v15[16], v6, *v16, *&v16[8], *&v16[16]);
 }
 
 void __39__CAFValueMonitor_signalReadyToMonitor__block_invoke_cold_1(id *a1, NSObject *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = [*a1 delegate];
   v5 = [v4 uniqueIdentifier];
   v6 = [*a1 monitoringForValue];
@@ -246,31 +262,40 @@ void __39__CAFValueMonitor_signalReadyToMonitor__block_invoke_cold_1(id *a1, NSO
   v8 = [*a1 monitoringForValue];
   v9 = [v8 allObjects];
   v10 = [v9 componentsJoinedByString:{@", "}];
-  v12 = 136315906;
-  v13 = "[CAFValueMonitor signalReadyToMonitor]_block_invoke";
-  v14 = 2112;
-  v15 = v5;
-  v16 = 2048;
-  v17 = v7;
-  v18 = 2112;
-  v19 = v10;
-  _os_log_debug_impl(&dword_231618000, a2, OS_LOG_TYPE_DEBUG, "%s %@ %ld [%@]", &v12, 0x2Au);
-
-  v11 = *MEMORY[0x277D85DE8];
+  v11 = 136315906;
+  v12 = "[CAFValueMonitor signalReadyToMonitor]_block_invoke";
+  v13 = 2112;
+  v14 = v5;
+  v15 = 2048;
+  v16 = v7;
+  v17 = 2112;
+  v18 = v10;
+  _os_log_debug_impl(&dword_231618000, a2, OS_LOG_TYPE_DEBUG, "%s %@ %ld [%@]", &v11, 0x2Au);
 }
 
-void __36__CAFValueMonitor_valueReceivedFor___block_invoke_cold_1(id *a1, uint64_t *a2)
+void __36__CAFValueMonitor_valueReceivedFor___block_invoke_cold_1(id *a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
   v4 = [*a1 delegate];
   v5 = [v4 uniqueIdentifier];
   v6 = [*a1 monitoringForValue];
-  [v6 count];
-  [*a1 signaledReadyToMonitor];
-  v7 = *a2;
-  OUTLINED_FUNCTION_0_2(&dword_231618000, v8, v9, "%s %@ count=%ld signaledReadyToMonitor=%@ recieved %@", v10, v11, v12, v13, 2u);
+  v7 = [v6 count];
+  v8 = [*a1 signaledReadyToMonitor];
+  v15 = @"NO";
+  *v16 = 136316162;
+  *&v16[4] = "[CAFValueMonitor valueReceivedFor:]_block_invoke";
+  *&v16[12] = 2112;
+  if (v8)
+  {
+    v15 = @"YES";
+  }
 
-  v14 = *MEMORY[0x277D85DE8];
+  *&v16[14] = v5;
+  *&v16[22] = 2048;
+  *v17 = 2112;
+  *&v17[2] = v15;
+  *&v17[10] = 2112;
+  *&v17[12] = *a2;
+  OUTLINED_FUNCTION_0_2(&dword_231618000, v9, v10, "%s %@ count=%ld signaledReadyToMonitor=%@ recieved %@", v11, v12, v13, v14, *v16, *&v16[8], *&v16[16], v7, *v17, *&v17[8], HIDWORD(*a2));
 }
 
 @end

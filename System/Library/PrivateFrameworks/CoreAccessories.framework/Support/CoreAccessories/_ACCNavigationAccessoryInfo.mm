@@ -8,6 +8,7 @@
 - (void)componentIdList;
 - (void)dealloc;
 - (void)setComponent:(id)component options:(unint64_t)options;
+- (void)setComponent:(id)component started:(BOOL)started;
 - (void)startedComponentList;
 @end
 
@@ -149,6 +150,56 @@
   unsignedLongLongValue = [v4 unsignedLongLongValue];
 
   return unsignedLongLongValue;
+}
+
+- (void)setComponent:(id)component started:(BOOL)started
+{
+  startedCopy = started;
+  componentCopy = component;
+  if (gLogObjects)
+  {
+    v7 = gNumLogObjects < 5;
+  }
+
+  else
+  {
+    v7 = 1;
+  }
+
+  if (v7)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      platform_connectionInfo_configStreamGetCategories_cold_2();
+    }
+
+    v9 = &_os_log_default;
+    v8 = &_os_log_default;
+  }
+
+  else
+  {
+    v9 = *(gLogObjects + 32);
+  }
+
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  {
+    componentList = self->_componentList;
+    v13 = 138412802;
+    v14 = componentCopy;
+    v15 = 1024;
+    v16 = startedCopy;
+    v17 = 2112;
+    v18 = componentList;
+    _os_log_debug_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "[#Navigation] _ACCNavigationAccessoryInfo: setComponent: %@ started: %d, comopnentList %@", &v13, 0x1Cu);
+  }
+
+  if (componentCopy)
+  {
+    v10 = [(NSDictionary *)self->_componentList objectForKey:componentCopy];
+    v11 = [NSNumber numberWithBool:startedCopy];
+    [v10 setObject:v11 forKey:__kComponentStartedKey];
+  }
 }
 
 - (BOOL)componentStarted:(id)started

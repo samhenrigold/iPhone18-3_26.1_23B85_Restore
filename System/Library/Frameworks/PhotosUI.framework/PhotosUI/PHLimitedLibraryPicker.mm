@@ -1,6 +1,7 @@
 @interface PHLimitedLibraryPicker
 + (id)firstKeyWindow:(id)window;
 + (id)topmostPresentedViewController:(id)controller;
++ (void)presentLimitedLibraryPicker:(id)picker waitForDismissal:(BOOL)dismissal;
 + (void)presentLimitedLibraryPicker:(id)picker waitForDismissal:(BOOL)dismissal viewController:(id)controller photoLibrary:(id)library completionHandler:(id)handler;
 + (void)presentLimitedLibraryPickerFromViewController:(id)controller options:(id)options completionHandler:(id)handler;
 @end
@@ -36,64 +37,63 @@
 
 + (id)firstKeyWindow:(id)window
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   [window connectedScenes];
+  v24 = 0u;
+  v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v3 = v29 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v3 = v27 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v27;
+    v6 = *v25;
     v7 = 0x1E69DD000uLL;
-    v21 = v3;
+    v19 = v3;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v27 != v6)
+      if (*v25 != v6)
       {
         objc_enumerationMutation(v3);
       }
 
-      v9 = *(*(&v26 + 1) + 8 * v8);
-      v10 = *(v7 + 752);
+      v9 = *(*(&v24 + 1) + 8 * v8);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) != 0 && [v9 activationState] != -1)
       {
-        v11 = v9;
-        windows = [v11 windows];
+        v10 = v9;
+        windows = [v10 windows];
+        v20 = 0u;
+        v21 = 0u;
         v22 = 0u;
         v23 = 0u;
-        v24 = 0u;
-        v25 = 0u;
-        v13 = windows;
-        v14 = [v13 countByEnumeratingWithState:&v22 objects:v30 count:16];
-        if (v14)
+        v12 = windows;
+        v13 = [v12 countByEnumeratingWithState:&v20 objects:v28 count:16];
+        if (v13)
         {
-          v15 = v7;
-          v16 = *v23;
+          v14 = v7;
+          v15 = *v21;
           while (2)
           {
-            for (i = 0; i != v14; i = i + 1)
+            for (i = 0; i != v13; i = i + 1)
             {
-              if (*v23 != v16)
+              if (*v21 != v15)
               {
-                objc_enumerationMutation(v13);
+                objc_enumerationMutation(v12);
               }
 
-              v18 = *(*(&v22 + 1) + 8 * i);
-              if ([v18 isKeyWindow])
+              v17 = *(*(&v20 + 1) + 8 * i);
+              if ([v17 isKeyWindow])
               {
-                v14 = v18;
+                v13 = v17;
                 goto LABEL_18;
               }
             }
 
-            v14 = [v13 countByEnumeratingWithState:&v22 objects:v30 count:16];
-            if (v14)
+            v13 = [v12 countByEnumeratingWithState:&v20 objects:v28 count:16];
+            if (v13)
             {
               continue;
             }
@@ -102,11 +102,11 @@ LABEL_3:
           }
 
 LABEL_18:
-          v7 = v15;
-          v3 = v21;
+          v7 = v14;
+          v3 = v19;
         }
 
-        if (v14)
+        if (v13)
         {
           break;
         }
@@ -114,7 +114,7 @@ LABEL_18:
 
       if (++v8 == v5)
       {
-        v5 = [v3 countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v24 objects:v29 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -128,12 +128,10 @@ LABEL_18:
   else
   {
 LABEL_22:
-    v14 = 0;
+    v13 = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
-  return v14;
+  return v13;
 }
 
 + (void)presentLimitedLibraryPickerFromViewController:(id)controller options:(id)options completionHandler:(id)handler
@@ -143,6 +141,60 @@ LABEL_22:
   v11 = [options objectForKeyedSubscript:@"PHLimitedLibraryPickerClientApplicationIdentifier"];
   imagePickerPhotoLibrary = [MEMORY[0x1E69789A8] imagePickerPhotoLibrary];
   [self presentLimitedLibraryPicker:v11 waitForDismissal:0 viewController:controllerCopy photoLibrary:imagePickerPhotoLibrary completionHandler:handlerCopy];
+}
+
++ (void)presentLimitedLibraryPicker:(id)picker waitForDismissal:(BOOL)dismissal
+{
+  dismissalCopy = dismissal;
+  pickerCopy = picker;
+  mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
+  v8 = [self firstKeyWindow:mEMORY[0x1E69DC668]];
+
+  if (v8)
+  {
+    rootViewController = [v8 rootViewController];
+    v10 = [self topmostPresentedViewController:rootViewController];
+    if (v10)
+    {
+      rootViewController2 = v10;
+
+LABEL_8:
+      imagePickerPhotoLibrary = [MEMORY[0x1E69789A8] imagePickerPhotoLibrary];
+      [self presentLimitedLibraryPicker:pickerCopy waitForDismissal:dismissalCopy viewController:rootViewController2 photoLibrary:imagePickerPhotoLibrary completionHandler:0];
+
+      goto LABEL_9;
+    }
+
+    rootViewController2 = [v8 rootViewController];
+
+    if (rootViewController2)
+    {
+      goto LABEL_8;
+    }
+
+    rootViewController2 = PLBackendGetLog();
+    if (!os_log_type_enabled(rootViewController2, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_9;
+    }
+
+    v16 = 0;
+    v12 = "Failed to access application top most view controller, unable to present library picker";
+    v13 = &v16;
+    goto LABEL_6;
+  }
+
+  rootViewController2 = PLBackendGetLog();
+  if (os_log_type_enabled(rootViewController2, OS_LOG_TYPE_ERROR))
+  {
+    v15 = 0;
+    v12 = "Failed to access application key window, unable to present library picker";
+    v13 = &v15;
+LABEL_6:
+    _os_log_impl(&dword_1D2128000, rootViewController2, OS_LOG_TYPE_ERROR, v12, v13, 2u);
+  }
+
+LABEL_9:
 }
 
 + (void)presentLimitedLibraryPicker:(id)picker waitForDismissal:(BOOL)dismissal viewController:(id)controller photoLibrary:(id)library completionHandler:(id)handler
@@ -258,13 +310,13 @@ void __117__PHLimitedLibraryPicker_presentLimitedLibraryPicker_waitForDismissal_
   }
 }
 
-void __117__PHLimitedLibraryPicker_presentLimitedLibraryPicker_waitForDismissal_viewController_photoLibrary_completionHandler___block_invoke_32()
+void __117__PHLimitedLibraryPicker_presentLimitedLibraryPicker_waitForDismissal_viewController_photoLibrary_completionHandler___block_invoke_32(uint64_t a1)
 {
-  v0 = PLBackendGetLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = PLBackendGetLog();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1D2128000, v0, OS_LOG_TYPE_DEBUG, "Presented limited library picker", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_1D2128000, v1, OS_LOG_TYPE_DEBUG, "Presented limited library picker", v2, 2u);
   }
 }
 

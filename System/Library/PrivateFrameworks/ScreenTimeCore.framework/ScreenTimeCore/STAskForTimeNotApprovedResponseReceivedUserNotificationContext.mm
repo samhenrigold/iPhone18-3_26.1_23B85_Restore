@@ -78,25 +78,23 @@
 
 uint64_t __115__STAskForTimeNotApprovedResponseReceivedUserNotificationContext_customizeNotificationContent_withCompletionBlock___block_invoke(uint64_t a1)
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = [*(a1 + 40) parentName];
-  v13[0] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+  v12[0] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
   v5 = [v2 localizedUserNotificationStringForKey:@"AskForTimeNotApprovedResposeReceivedNotificationTitle" arguments:v4];
   [*(a1 + 32) setTitle:v5];
 
   v6 = MEMORY[0x1E696AEC0];
   v7 = [*(a1 + 40) requestedResourceName];
-  v12 = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:1];
+  v11 = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v11 count:1];
   v9 = [v6 localizedUserNotificationStringForKey:@"AskForTimeNotApprovedResposeReceivedNotificationBody" arguments:v8];
   [*(a1 + 32) setBody:v9];
 
   [*(a1 + 32) setInterruptionLevel:2];
-  result = (*(*(a1 + 48) + 16))();
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 @end

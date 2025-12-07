@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)uiSurfaceAsString:(int)string;
 - (int)StringAsUiSurface:(id)surface;
 - (int)uiSurface;
 - (unint64_t)hash;
@@ -136,6 +137,21 @@
   }
 
   *&self->_has = *&self->_has & 0xBF | v3;
+}
+
+- (id)uiSurfaceAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_2782B5E80[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsUiSurface:(id)surface
@@ -325,26 +341,24 @@ LABEL_12:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v14 = toCopy;
+  v6 = toCopy;
   if ((*&self->_has & 0x80000000) != 0)
   {
-    isProductionModel = self->_isProductionModel;
     PBDataWriterWriteBOOLField();
-    toCopy = v14;
+    toCopy = v6;
   }
 
   if (self->_modelName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v14;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    ttrDaily = self->_ttrDaily;
     PBDataWriterWriteDoubleField();
-    toCopy = v14;
+    toCopy = v6;
     has = self->_has;
     if ((has & 0x20) == 0)
     {
@@ -363,9 +377,8 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  ttrWeekly = self->_ttrWeekly;
   PBDataWriterWriteDoubleField();
-  toCopy = v14;
+  toCopy = v6;
   has = self->_has;
   if ((has & 1) == 0)
   {
@@ -379,9 +392,8 @@ LABEL_8:
   }
 
 LABEL_27:
-  coverageDaily = self->_coverageDaily;
   PBDataWriterWriteDoubleField();
-  toCopy = v14;
+  toCopy = v6;
   has = self->_has;
   if ((has & 2) == 0)
   {
@@ -395,9 +407,8 @@ LABEL_9:
   }
 
 LABEL_28:
-  coverageWeekly = self->_coverageWeekly;
   PBDataWriterWriteDoubleField();
-  toCopy = v14;
+  toCopy = v6;
   has = self->_has;
   if ((has & 4) == 0)
   {
@@ -411,47 +422,44 @@ LABEL_10:
   }
 
 LABEL_29:
-  ndcgDaily = self->_ndcgDaily;
   PBDataWriterWriteDoubleField();
-  toCopy = v14;
+  toCopy = v6;
   if ((*&self->_has & 8) != 0)
   {
 LABEL_11:
-    ndcgWeekly = self->_ndcgWeekly;
     PBDataWriterWriteDoubleField();
-    toCopy = v14;
+    toCopy = v6;
   }
 
 LABEL_12:
   if (self->_metricDefinitionVersion)
   {
     PBDataWriterWriteStringField();
-    toCopy = v14;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 0x40) != 0)
   {
-    uiSurface = self->_uiSurface;
     PBDataWriterWriteInt32Field();
-    toCopy = v14;
+    toCopy = v6;
   }
 
   if (self->_trialDeploymentId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v14;
+    toCopy = v6;
   }
 
   if (self->_trialExperimentId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v14;
+    toCopy = v6;
   }
 
   if (self->_trialTreatmentId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v14;
+    toCopy = v6;
   }
 }
 
@@ -714,7 +722,6 @@ LABEL_10:
       goto LABEL_58;
     }
 
-    v8 = equalCopy[100];
     if (self->_isProductionModel)
     {
       if ((equalCopy[100] & 1) == 0)
@@ -745,7 +752,6 @@ LABEL_10:
     *&has = self->_has;
   }
 
-  v9 = equalCopy[104];
   if ((*&has & 0x10) != 0)
   {
     if ((equalCopy[104] & 0x10) == 0 || self->_ttrDaily != *(equalCopy + 5))
@@ -834,12 +840,11 @@ LABEL_10:
     }
 
 LABEL_58:
-    v15 = 0;
+    v12 = 0;
     goto LABEL_59;
   }
 
 LABEL_47:
-  v11 = equalCopy[104];
   if ((*&has & 0x40) != 0)
   {
     if ((equalCopy[104] & 0x40) == 0 || self->_uiSurface != *(equalCopy + 24))
@@ -871,17 +876,17 @@ LABEL_47:
   trialTreatmentId = self->_trialTreatmentId;
   if (trialTreatmentId | *(equalCopy + 11))
   {
-    v15 = [(NSString *)trialTreatmentId isEqual:?];
+    v12 = [(NSString *)trialTreatmentId isEqual:?];
   }
 
   else
   {
-    v15 = 1;
+    v12 = 1;
   }
 
 LABEL_59:
 
-  return v15;
+  return v12;
 }
 
 - (unint64_t)hash

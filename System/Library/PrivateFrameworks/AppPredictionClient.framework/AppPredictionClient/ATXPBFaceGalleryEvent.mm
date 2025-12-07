@@ -3,18 +3,18 @@
 - (BOOL)hasConfiguration;
 - (BOOL)isEqual:(id)equal;
 - (__CFString)eventTypeAsString:(__CFString *)string;
+- (id)clearItems;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
 - (id)itemsAtIndex:(id *)index;
+- (id)itemsCount;
 - (uint64_t)StringAsEventType:(uint64_t)type;
 - (uint64_t)addItems:(uint64_t)items;
-- (uint64_t)clearItems;
 - (uint64_t)configuration;
 - (uint64_t)eventType;
 - (uint64_t)hasEventType;
 - (uint64_t)items;
-- (uint64_t)itemsCount;
 - (uint64_t)setEventType:(uint64_t)result;
 - (uint64_t)setHasEventType:(uint64_t)result;
 - (unint64_t)hash;
@@ -389,11 +389,11 @@ LABEL_4:
   return result;
 }
 
-- (uint64_t)clearItems
+- (id)clearItems
 {
   if (result)
   {
-    return [*(result + 24) removeAllObjects];
+    return [result[3] removeAllObjects];
   }
 
   return result;
@@ -423,11 +423,11 @@ LABEL_4:
   return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
-- (uint64_t)itemsCount
+- (id)itemsCount
 {
   if (result)
   {
-    return [*(result + 24) count];
+    return [result[3] count];
   }
 
   return result;

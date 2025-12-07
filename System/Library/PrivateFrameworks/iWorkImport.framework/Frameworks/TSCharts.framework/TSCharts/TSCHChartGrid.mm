@@ -1974,30 +1974,30 @@ LABEL_21:
     objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23, v24, v25);
   }
 
-  v26 = objc_msgSend_direction(self, v7, v8, v9, v10);
-  if (v26 == objc_msgSend_direction(v6, v27, v28, v29, v30) && (v35 = objc_msgSend_numberOfColumns(self, v31, v32, v33, v34), v35 == objc_msgSend_numberOfColumns(v6, v36, v37, v38, v39)) && (v40 = objc_msgSend_numberOfRows(self, v31, v32, v33, v34), v40 == objc_msgSend_numberOfRows(v6, v41, v42, v43, v44)) && objc_msgSend_isEqualToArray_(self->_columnNames, v31, v32, v33, v34, v6[3]) && (objc_msgSend_isEqualToArray_(self->_rowNames, v31, v32, v33, v34, v6[2]) & 1) != 0)
+  v26 = objc_msgSend_direction(self, v8, v9, v10);
+  if (v26 == objc_msgSend_direction(v6, v27, v28, v29) && (v34 = objc_msgSend_numberOfColumns(self, v30, v31, v32, v33), v34 == objc_msgSend_numberOfColumns(v6, v35, v36, v37, v38)) && (v39 = objc_msgSend_numberOfRows(self, v30, v31, v32, v33), v39 == objc_msgSend_numberOfRows(v6, v40, v41, v42, v43)) && objc_msgSend_isEqualToArray_(self->_columnNames, v30, v31, v32, v33, v6[3]) && (objc_msgSend_isEqualToArray_(self->_rowNames, v30, v31, v32, v33, v6[2]) & 1) != 0)
   {
-    v45 = 4;
-    v46 = 3;
+    v44 = 4;
+    v45 = 3;
   }
 
   else
   {
-    v46 = 2;
     v45 = 2;
+    v44 = 2;
   }
 
-  if (objc_msgSend_isEqualToArray_(self->_values, v31, v32, v33, v34, v6[4]))
+  if (objc_msgSend_isEqualToArray_(self->_values, v30, v31, v32, v33, v6[4]))
   {
-    v47 = v45;
+    v46 = v44;
   }
 
   else
   {
-    v47 = v46;
+    v46 = v45;
   }
 
-  return v47;
+  return v46;
 }
 
 - (id)mixedObjectWithFraction:(double)fraction ofObject:(id)object
@@ -2006,63 +2006,63 @@ LABEL_21:
   objc_opt_class();
   v7 = TSUDynamicCast();
   v8 = objc_alloc_init(TSCHChartGrid);
-  v13 = objc_msgSend_direction(self, v9, v10, v11, v12);
-  objc_msgSend_setDirection_(v8, v14, v15, v16, v17, v13);
-  if (objc_msgSend_numberOfRows(self, v18, v19, v20, v21))
+  v12 = objc_msgSend_direction(self, v9, v10, v11);
+  objc_msgSend_setDirection_(v8, v13, v14, v15, v16, v12);
+  if (objc_msgSend_numberOfRows(self, v17, v18, v19, v20))
   {
-    v26 = 0;
+    v25 = 0;
     do
     {
-      v27 = objc_msgSend_nameForRow_(self, v22, v23, v24, v25, v26);
-      v32 = objc_msgSend_createUUID(self, v28, v29, v30, v31);
-      objc_msgSend_insertRow_withName_withId_(v8, v33, v34, v35, v36, v26, v27, v32);
+      v26 = objc_msgSend_nameForRow_(self, v21, v22, v23, v24, v25);
+      v31 = objc_msgSend_createUUID(self, v27, v28, v29, v30);
+      objc_msgSend_insertRow_withName_withId_(v8, v32, v33, v34, v35, v25, v26, v31);
 
-      ++v26;
+      ++v25;
     }
 
-    while (v26 < objc_msgSend_numberOfRows(self, v37, v38, v39, v40));
+    while (v25 < objc_msgSend_numberOfRows(self, v36, v37, v38, v39));
   }
 
-  if (objc_msgSend_numberOfColumns(self, v22, v23, v24, v25))
+  if (objc_msgSend_numberOfColumns(self, v21, v22, v23, v24))
   {
-    v45 = 0;
+    v44 = 0;
     do
     {
-      v46 = objc_msgSend_nameForColumn_(self, v41, v42, v43, v44, v45);
-      v51 = objc_msgSend_createUUID(self, v47, v48, v49, v50);
-      objc_msgSend_insertColumn_withName_withId_(v8, v52, v53, v54, v55, v45, v46, v51);
+      v45 = objc_msgSend_nameForColumn_(self, v40, v41, v42, v43, v44);
+      v50 = objc_msgSend_createUUID(self, v46, v47, v48, v49);
+      objc_msgSend_insertColumn_withName_withId_(v8, v51, v52, v53, v54, v44, v45, v50);
 
-      ++v45;
+      ++v44;
     }
 
-    while (v45 < objc_msgSend_numberOfColumns(self, v56, v57, v58, v59));
+    while (v44 < objc_msgSend_numberOfColumns(self, v55, v56, v57, v58));
   }
 
-  if (objc_msgSend_numberOfColumns(self, v41, v42, v43, v44))
+  if (objc_msgSend_numberOfColumns(self, v40, v41, v42, v43))
   {
-    v64 = 0;
+    v63 = 0;
     do
     {
-      if (objc_msgSend_numberOfRows(self, v60, v61, v62, v63))
+      if (objc_msgSend_numberOfRows(self, v59, v60, v61, v62))
       {
-        v69 = 0;
+        v68 = 0;
         do
         {
-          v70 = objc_msgSend_valueForRow_column_(self, v65, v66, v67, v68, v69, v64);
-          v75 = objc_msgSend_valueForRow_column_(v7, v71, v72, v73, v74, v69, v64);
-          v79 = objc_msgSend_mixedObjectWithFraction_ofObject_(v70, v76, fraction, v77, v78, v75);
-          objc_msgSend_setValue_forRow_column_(v8, v80, v81, v82, v83, v79, v69, v64);
+          v69 = objc_msgSend_valueForRow_column_(self, v64, v65, v66, v67, v68, v63);
+          v74 = objc_msgSend_valueForRow_column_(v7, v70, v71, v72, v73, v68, v63);
+          v78 = objc_msgSend_mixedObjectWithFraction_ofObject_(v69, v75, fraction, v76, v77, v74);
+          objc_msgSend_setValue_forRow_column_(v8, v79, v80, v81, v82, v78, v68, v63);
 
-          ++v69;
+          ++v68;
         }
 
-        while (v69 < objc_msgSend_numberOfRows(self, v84, v85, v86, v87));
+        while (v68 < objc_msgSend_numberOfRows(self, v83, v84, v85, v86));
       }
 
-      ++v64;
+      ++v63;
     }
 
-    while (v64 < objc_msgSend_numberOfColumns(self, v65, v66, v67, v68));
+    while (v63 < objc_msgSend_numberOfColumns(self, v64, v65, v66, v67));
   }
 
   return v8;
@@ -2416,7 +2416,7 @@ LABEL_43:
       v8 = *(v8 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v7 = google::protobuf::Arena::CreateMaybeMessage<TSCH::ChartGridArchive>(v8);
+    v7 = google::protobuf::Arena::CreateMaybeMessage<TSCH::ChartGridArchive>(v8, a2);
     *(archive + 26) = v7;
   }
 

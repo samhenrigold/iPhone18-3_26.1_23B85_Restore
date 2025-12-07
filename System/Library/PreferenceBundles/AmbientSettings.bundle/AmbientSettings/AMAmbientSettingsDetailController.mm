@@ -10,10 +10,12 @@
 - (id)_primaryNotificationsGroupSpecifier;
 - (id)_secondaryDisplayGroupSpecifier;
 - (id)_secondaryNotificationsGroupSpecifier;
+- (id)_updatesForSpecifiers:(id)specifiers ambientModeEnabled:(BOOL)enabled animated:(BOOL)animated;
 - (id)specifiers;
 - (void)_setAmbientModeEnabled:(id)enabled specifier:(id)specifier;
 - (void)_setNotificationsEnabled:(id)enabled specifier:(id)specifier;
 - (void)emitNavigationEvent;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -47,8 +49,7 @@
 - (id)_ambientModeGroupSpecifier
 {
   v3 = [PSSpecifier groupSpecifierWithName:&stru_86A0];
-  [v3 setProperty:@"AMBIENT_MODE_ENABLED_GROUP" forKey:PSIDKey];
-  v4 = AMAmbientSettingsBundle();
+  v4 = AMAmbientSettingsBundle([v3 setProperty:@"AMBIENT_MODE_ENABLED_GROUP" forKey:PSIDKey]);
   v5 = [v4 localizedStringForKey:@"AMBIENT_MODE_ENABLED_FOOTER" value:&stru_86A0 table:@"AmbientSettings"];
   _ambientFeatureName = [(AMAmbientSettingsDetailController *)self _ambientFeatureName];
   v7 = [NSString stringWithFormat:v5, _ambientFeatureName];
@@ -60,17 +61,18 @@
 - (id)_primaryDisplayGroupSpecifier
 {
   v3 = [PSSpecifier groupSpecifierWithID:@"PRIMARY_DISPLAY_GROUP"];
-  if (![(AMAmbientSettingsDetailController *)self _supportsAlwaysOn])
+  _supportsAlwaysOn = [(AMAmbientSettingsDetailController *)self _supportsAlwaysOn];
+  if ((_supportsAlwaysOn & 1) == 0)
   {
-    v4 = AMAmbientSettingsBundle();
-    v5 = [v4 localizedStringForKey:@"DISPLAY_SETTINGS_GROUP_HEADER" value:&stru_86A0 table:@"AmbientSettings"];
-    [v3 setName:v5];
+    v5 = AMAmbientSettingsBundle(_supportsAlwaysOn);
+    v6 = [v5 localizedStringForKey:@"DISPLAY_SETTINGS_GROUP_HEADER" value:&stru_86A0 table:@"AmbientSettings"];
+    [v3 setName:v6];
 
-    v6 = AMAmbientSettingsBundle();
-    v7 = [v6 localizedStringForKey:@"NIGHT_MODE_ENABLED_FOOTER" value:&stru_86A0 table:@"AmbientSettings"];
+    v8 = AMAmbientSettingsBundle(v7);
+    v9 = [v8 localizedStringForKey:@"NIGHT_MODE_ENABLED_FOOTER" value:&stru_86A0 table:@"AmbientSettings"];
     _ambientFeatureName = [(AMAmbientSettingsDetailController *)self _ambientFeatureName];
-    v9 = [NSString stringWithFormat:v7, _ambientFeatureName];
-    [v3 setProperty:v9 forKey:PSFooterTextGroupKey];
+    v11 = [NSString stringWithFormat:v9, _ambientFeatureName];
+    [v3 setProperty:v11 forKey:PSFooterTextGroupKey];
   }
 
   return v3;
@@ -100,7 +102,7 @@
 
 - (id)_alwaysOnDisplayLinkSpecifier
 {
-  v2 = AMAmbientSettingsBundle();
+  v2 = AMAmbientSettingsBundle(self);
   v3 = [v2 localizedStringForKey:@"ALWAYS_ON_DISPLAY_OPTIONS" value:&stru_86A0 table:@"AmbientSettings"];
   v4 = [PSSpecifier preferenceSpecifierNamed:v3 target:0 set:0 get:0 detail:objc_opt_class() cell:1 edit:0];
 
@@ -112,7 +114,7 @@
 
 - (id)_nightModeSwitchSpecifier
 {
-  v3 = AMAmbientSettingsBundle();
+  v3 = AMAmbientSettingsBundle(self);
   v4 = [v3 localizedStringForKey:@"NIGHT_MODE_ENABLED" value:&stru_86A0 table:@"AmbientSettings"];
   v5 = [PSSpecifier preferenceSpecifierNamed:v4 target:self set:"setPreferenceValue:specifier:" get:"readPreferenceValue:" detail:0 cell:6 edit:0];
 
@@ -127,24 +129,24 @@
 
 - (id)_primaryNotificationsGroupSpecifier
 {
-  v3 = AMAmbientSettingsBundle();
+  v3 = AMAmbientSettingsBundle(self);
   v4 = [v3 localizedStringForKey:@"NOTIFICATIONS_ENABLED_FOOTER" value:&stru_86A0 table:@"AmbientSettings"];
   _ambientFeatureName = [(AMAmbientSettingsDetailController *)self _ambientFeatureName];
   v6 = [NSString stringWithFormat:v4, _ambientFeatureName];
 
-  v7 = AMAmbientSettingsBundle();
-  v8 = [v7 localizedStringForKey:@"NOTIFICATIONS_GROUP_HEADER" value:&stru_86A0 table:@"AmbientSettings"];
-  v9 = [PSSpecifier groupSpecifierWithName:v8];
+  v8 = AMAmbientSettingsBundle(v7);
+  v9 = [v8 localizedStringForKey:@"NOTIFICATIONS_GROUP_HEADER" value:&stru_86A0 table:@"AmbientSettings"];
+  v10 = [PSSpecifier groupSpecifierWithName:v9];
 
-  [v9 setProperty:@"PRIMARY_NOTIFICATION_GROUP" forKey:PSIDKey];
-  [v9 setProperty:v6 forKey:PSFooterTextGroupKey];
+  [v10 setProperty:@"PRIMARY_NOTIFICATION_GROUP" forKey:PSIDKey];
+  [v10 setProperty:v6 forKey:PSFooterTextGroupKey];
 
-  return v9;
+  return v10;
 }
 
 - (id)_secondaryNotificationsGroupSpecifier
 {
-  v3 = AMAmbientSettingsBundle();
+  v3 = AMAmbientSettingsBundle(self);
   v4 = [v3 localizedStringForKey:@"NOTIFICATIONS_PREVIEW_FOOTER" value:&stru_86A0 table:@"AmbientSettings"];
   _ambientFeatureName = [(AMAmbientSettingsDetailController *)self _ambientFeatureName];
   v6 = [NSString stringWithFormat:v4, _ambientFeatureName];
@@ -158,7 +160,7 @@
 
 - (id)_notificationsSpecifier
 {
-  v3 = AMAmbientSettingsBundle();
+  v3 = AMAmbientSettingsBundle(self);
   v4 = [v3 localizedStringForKey:@"NOTIFICATIONS_ENABLED" value:&stru_86A0 table:@"AmbientSettings"];
   v5 = [PSSpecifier preferenceSpecifierNamed:v4 target:self set:"_setNotificationsEnabled:specifier:" get:"readPreferenceValue:" detail:0 cell:6 edit:0];
 
@@ -173,7 +175,7 @@
 
 - (id)_notificationsPreviewSpecifier
 {
-  v3 = AMAmbientSettingsBundle();
+  v3 = AMAmbientSettingsBundle(self);
   v4 = [v3 localizedStringForKey:@"NOTIFICATIONS_PREVIEW" value:&stru_86A0 table:@"AmbientSettings"];
   v5 = [PSSpecifier preferenceSpecifierNamed:v4 target:self set:"setPreferenceValue:specifier:" get:"readPreferenceValue:" detail:0 cell:6 edit:0];
 
@@ -184,6 +186,66 @@
   [v5 setProperty:&__kCFBooleanFalse forKey:PSDefaultValueKey];
 
   return v5;
+}
+
+- (id)_updatesForSpecifiers:(id)specifiers ambientModeEnabled:(BOOL)enabled animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  enabledCopy = enabled;
+  specifiersCopy = specifiers;
+  v9 = [PSSpecifierUpdates updatesWithSpecifiers:specifiersCopy];
+  _supportsAlwaysOn = [(AMAmbientSettingsDetailController *)self _supportsAlwaysOn];
+  if (enabledCopy)
+  {
+    v11 = _supportsAlwaysOn;
+    v12 = objc_alloc_init(NSMutableArray);
+    _primaryDisplayGroupSpecifier = [(AMAmbientSettingsDetailController *)self _primaryDisplayGroupSpecifier];
+    [v12 addObject:_primaryDisplayGroupSpecifier];
+
+    if (v11)
+    {
+      [(AMAmbientSettingsDetailController *)self _alwaysOnDisplayLinkSpecifier];
+    }
+
+    else
+    {
+      _nightModeSwitchSpecifier = [(AMAmbientSettingsDetailController *)self _nightModeSwitchSpecifier];
+      [v12 addObject:_nightModeSwitchSpecifier];
+
+      [(AMAmbientSettingsDetailController *)self _secondaryDisplayGroupSpecifier];
+    }
+    v15 = ;
+    [v12 addObject:v15];
+
+    _primaryNotificationsGroupSpecifier = [(AMAmbientSettingsDetailController *)self _primaryNotificationsGroupSpecifier];
+    [v12 addObject:_primaryNotificationsGroupSpecifier];
+
+    _notificationsSpecifier = [(AMAmbientSettingsDetailController *)self _notificationsSpecifier];
+    [v12 addObject:_notificationsSpecifier];
+    performGetter = [_notificationsSpecifier performGetter];
+    bOOLValue = [performGetter BOOLValue];
+
+    if (bOOLValue)
+    {
+      _secondaryNotificationsGroupSpecifier = [(AMAmbientSettingsDetailController *)self _secondaryNotificationsGroupSpecifier];
+      [v12 addObject:_secondaryNotificationsGroupSpecifier];
+
+      _notificationsPreviewSpecifier = [(AMAmbientSettingsDetailController *)self _notificationsPreviewSpecifier];
+      [v12 addObject:_notificationsPreviewSpecifier];
+    }
+
+    [v9 insertContiguousSpecifiers:v12 afterSpecifierWithID:@"AMBIENT_MODE_ENABLED"];
+  }
+
+  else
+  {
+    [v9 removeSpecifiersInRange:{objc_msgSend(specifiersCopy, "indexOfSpecifierWithID:", @"PRIMARY_DISPLAY_GROUP", objc_msgSend(specifiersCopy, "count") - 2}];
+  }
+
+  context = [v9 context];
+  [context setAnimated:animatedCopy];
+
+  return v9;
 }
 
 - (void)_setAmbientModeEnabled:(id)enabled specifier:(id)specifier
@@ -230,7 +292,7 @@
 
 - (id)_ambientFeatureName
 {
-  v2 = AMAmbientSettingsBundle();
+  v2 = AMAmbientSettingsBundle(self);
   v3 = [v2 localizedStringForKey:@"AMBIENT_FEATURE_NAME" value:&stru_86A0 table:@"AmbientSettings"];
 
   return v3;
@@ -243,6 +305,14 @@
   [(AMAmbientSettingsDetailController *)&v4 viewDidLoad];
   _ambientFeatureName = [(AMAmbientSettingsDetailController *)self _ambientFeatureName];
   [(AMAmbientSettingsDetailController *)self setTitle:_ambientFeatureName];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = AMAmbientSettingsDetailController;
+  [(AMAmbientSettingsDetailController *)&v4 viewDidAppear:appear];
+  [(AMAmbientSettingsDetailController *)self emitNavigationEvent];
 }
 
 - (void)emitNavigationEvent

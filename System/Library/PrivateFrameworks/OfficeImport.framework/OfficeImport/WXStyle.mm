@@ -68,9 +68,9 @@ void __40__WXStyle_tableStyleOverrideTypeEnumMap__block_invoke()
   {
     v65 = 1;
     styleTypeEnumMap = [self styleTypeEnumMap];
-    v16 = readEnumProperty<WDStyleType>(from, "type", styleTypeEnumMap, &v65);
+    Enum = readEnumProperty<WDStyleType>(from, "type", styleTypeEnumMap, &v65);
 
-    if (v16)
+    if (Enum)
     {
       if (v65 > 2)
       {

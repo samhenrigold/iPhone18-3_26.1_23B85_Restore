@@ -19,34 +19,34 @@
 
 void __52__MTMediaActivityEventHandler_didCreateMetricsData___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (_block_invoke_onceToken != -1)
   {
     __52__MTMediaActivityEventHandler_didCreateMetricsData___block_invoke_cold_1();
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v3 = _block_invoke_mediaTimeFieldNames;
-  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
-        v9 = [v2 objectForKeyedSubscript:{v8, v13}];
+        v8 = *(*(&v12 + 1) + 8 * i);
+        v9 = [v2 objectForKeyedSubscript:{v8, v12}];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -70,67 +70,63 @@ void __52__MTMediaActivityEventHandler_didCreateMetricsData___block_invoke(uint6
 LABEL_13:
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __52__MTMediaActivityEventHandler_didCreateMetricsData___block_invoke_2()
 {
-  v5[8] = *MEMORY[0x277D85DE8];
-  v5[0] = @"startTime";
-  v5[1] = @"length";
-  v5[4] = @"startPosition";
-  v5[5] = @"startOverallPosition";
-  v5[2] = @"position";
-  v5[3] = @"overallPosition";
-  v5[6] = @"duration";
-  v5[7] = @"overallPosition";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:8];
+  v4[8] = *MEMORY[0x277D85DE8];
+  v4[0] = @"startTime";
+  v4[1] = @"length";
+  v4[4] = @"startPosition";
+  v4[5] = @"startOverallPosition";
+  v4[2] = @"position";
+  v4[3] = @"overallPosition";
+  v4[6] = @"duration";
+  v4[7] = @"overallPosition";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:8];
   v1 = _block_invoke_mediaTimeFieldNames;
   _block_invoke_mediaTimeFieldNames = v0;
 
   v2 = objc_alloc_init(MEMORY[0x277CCABB8]);
   v3 = _block_invoke_numberFormatter;
   _block_invoke_numberFormatter = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)metricsDataForStartActionWithPosition:(unint64_t)position overallPosition:(unint64_t)overallPosition type:(id)type reason:(id)reason eventData:(id)data
 {
-  v26[4] = *MEMORY[0x277D85DE8];
+  v25[4] = *MEMORY[0x277D85DE8];
   typeCopy = type;
   reasonCopy = reason;
-  v25[0] = @"position";
+  v24[0] = @"position";
   v14 = MEMORY[0x277CCABB0];
   dataCopy = data;
   v16 = [v14 numberWithLongLong:position];
-  v26[0] = v16;
-  v25[1] = @"overallPosition";
+  v25[0] = v16;
+  v24[1] = @"overallPosition";
   v17 = [MEMORY[0x277CCABB0] numberWithLongLong:overallPosition];
-  v26[1] = v17;
-  v25[2] = @"startType";
+  v25[1] = v17;
+  v24[2] = @"startType";
   null = typeCopy;
   if (!typeCopy)
   {
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v26[2] = null;
-  v25[3] = @"startReason";
+  v25[2] = null;
+  v24[3] = @"startReason";
   null2 = reasonCopy;
   if (!reasonCopy)
   {
     null2 = [MEMORY[0x277CBEB68] null];
   }
 
-  v26[3] = null2;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:4];
+  v25[3] = null2;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:4];
   if (reasonCopy)
   {
     if (typeCopy)
@@ -149,46 +145,44 @@ void __52__MTMediaActivityEventHandler_didCreateMetricsData___block_invoke_2()
   }
 
 LABEL_7:
-  v24.receiver = self;
-  v24.super_class = MTMediaActivityEventHandler;
-  v21 = [(MTEventHandler *)&v24 metricsDataWithFields:v20, dataCopy, 0];
-
-  v22 = *MEMORY[0x277D85DE8];
+  v23.receiver = self;
+  v23.super_class = MTMediaActivityEventHandler;
+  v21 = [(MTEventHandler *)&v23 metricsDataWithFields:v20, dataCopy, 0];
 
   return v21;
 }
 
 - (id)metricsDataForStopActionWithPosition:(unint64_t)position overallPosition:(unint64_t)overallPosition type:(id)type reason:(id)reason startMetricsData:(id)data eventData:(id)eventData
 {
-  v31[4] = *MEMORY[0x277D85DE8];
+  v30[4] = *MEMORY[0x277D85DE8];
   typeCopy = type;
   reasonCopy = reason;
-  v30[0] = @"position";
+  v29[0] = @"position";
   v16 = MEMORY[0x277CCABB0];
   eventDataCopy = eventData;
   dataCopy = data;
   v19 = [v16 numberWithLongLong:position];
-  v31[0] = v19;
-  v30[1] = @"overallPosition";
+  v30[0] = v19;
+  v29[1] = @"overallPosition";
   v20 = [MEMORY[0x277CCABB0] numberWithLongLong:overallPosition];
-  v31[1] = v20;
-  v30[2] = @"stopType";
+  v30[1] = v20;
+  v29[2] = @"stopType";
   null = typeCopy;
   if (!typeCopy)
   {
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v31[2] = null;
-  v30[3] = @"stopReason";
+  v30[2] = null;
+  v29[3] = @"stopReason";
   null2 = reasonCopy;
   if (!reasonCopy)
   {
     null2 = [MEMORY[0x277CBEB68] null];
   }
 
-  v31[3] = null2;
-  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:4];
+  v30[3] = null2;
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:4];
   if (reasonCopy)
   {
     if (typeCopy)
@@ -209,16 +203,14 @@ LABEL_7:
 LABEL_7:
   toDictionary = [dataCopy toDictionary];
 
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __123__MTMediaActivityEventHandler_metricsDataForStopActionWithPosition_overallPosition_type_reason_startMetricsData_eventData___block_invoke;
-  v29[3] = &unk_2798CD570;
-  v29[4] = self;
-  v25 = [toDictionary thenWithBlock:v29];
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __123__MTMediaActivityEventHandler_metricsDataForStopActionWithPosition_overallPosition_type_reason_startMetricsData_eventData___block_invoke;
+  v28[3] = &unk_2798CD570;
+  v28[4] = self;
+  v25 = [toDictionary thenWithBlock:v28];
 
   v26 = [(MTEventHandler *)self metricsDataWithFields:v25, v23, eventDataCopy, 0];
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
@@ -305,7 +297,7 @@ id __123__MTMediaActivityEventHandler_metricsDataForStopActionWithPosition_overa
 
 - (id)knownFields
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   delegate = [(MTEventDataProvider *)self delegate];
   v4 = objc_opt_respondsToSelector();
 
@@ -317,15 +309,13 @@ id __123__MTMediaActivityEventHandler_metricsDataForStopActionWithPosition_overa
 
   else
   {
-    v10.receiver = self;
-    v10.super_class = MTMediaActivityEventHandler;
-    delegate2 = [(MTEventHandler *)&v10 knownFields];
-    v11[0] = @"actionType";
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v9.receiver = self;
+    v9.super_class = MTMediaActivityEventHandler;
+    delegate2 = [(MTEventHandler *)&v9 knownFields];
+    v10[0] = @"actionType";
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
     knownFields = [delegate2 arrayByAddingObjectsFromArray:v7];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return knownFields;
 }

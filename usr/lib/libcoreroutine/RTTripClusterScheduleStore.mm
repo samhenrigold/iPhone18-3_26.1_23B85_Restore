@@ -1459,7 +1459,7 @@ void __64__RTTripClusterScheduleStore_updateTripClusterSchedule_handler___block_
   objc_autoreleasePoolPop(v12);
 }
 
-void __98__RTTripClusterScheduleStore__updateTripClusterScheduleWithPredicate_tripClusterSchedule_handler___block_invoke(uint64_t a1, void *a2)
+void __98__RTTripClusterScheduleStore__updateTripClusterScheduleWithPredicate_tripClusterSchedule_handler___block_invoke(void *a1, void *a2)
 {
   v21 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBE380];
@@ -1473,7 +1473,7 @@ void __98__RTTripClusterScheduleStore__updateTripClusterScheduleWithPredicate_tr
   [v8 setObject:v9 forKeyedSubscript:@"count"];
 
   [v7 setPropertiesToUpdate:v8];
-  if (*(a1 + 32))
+  if (a1[4])
   {
     [v7 setPredicate:?];
   }
@@ -1499,7 +1499,7 @@ void __98__RTTripClusterScheduleStore__updateTripClusterScheduleWithPredicate_tr
     }
   }
 
-  (*(*(a1 + 48) + 16))();
+  (*(a1[6] + 16))();
 }
 
 + (id)_predicateForClusterID:(id)d

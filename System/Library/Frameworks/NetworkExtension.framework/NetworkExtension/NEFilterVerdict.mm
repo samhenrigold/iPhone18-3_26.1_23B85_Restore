@@ -2,6 +2,7 @@
 - (NEFilterVerdict)initWithCoder:(id)coder;
 - (NEFilterVerdict)initWithDrop:(BOOL)drop remediate:(BOOL)remediate;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (int64_t)filterAction;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -45,6 +46,40 @@
   }
 
   return result;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  [v7 appendPrettyBOOL:-[NEFilterVerdict drop](self withName:"drop") andIndent:@"drop" options:{v5, options}];
+  if (self)
+  {
+    [v7 appendPrettyBOOL:self->_remediate withName:@"remediate" andIndent:v5 options:options];
+    [v7 appendPrettyBOOL:-[NEFilterVerdict needRules](self withName:"needRules") andIndent:@"needRules" options:{v5, options}];
+    [v7 appendPrettyBOOL:-[NEFilterVerdict shouldReport](self withName:"shouldReport") andIndent:@"shouldReport" options:{v5, options}];
+    [v7 appendPrettyBOOL:self->_pause withName:@"pause" andIndent:v5 options:options];
+    [v7 appendPrettyBOOL:self->_urlAppendString withName:@"urlAppendString" andIndent:v5 options:options];
+    [v7 appendPrettyObject:objc_getProperty(self withName:v8 andIndent:32 options:{1), @"urlAppendStringMapKey", v5, options}];
+    [v7 appendPrettyObject:objc_getProperty(self withName:v9 andIndent:16 options:{1), @"remediationURLMapKey", v5, options}];
+    Property = objc_getProperty(self, v10, 24, 1);
+  }
+
+  else
+  {
+    [v7 appendPrettyBOOL:0 withName:@"remediate" andIndent:v5 options:options];
+    [v7 appendPrettyBOOL:objc_msgSend(0 withName:"needRules") andIndent:@"needRules" options:{v5, options}];
+    [v7 appendPrettyBOOL:objc_msgSend(0 withName:"shouldReport") andIndent:@"shouldReport" options:{v5, options}];
+    [v7 appendPrettyBOOL:0 withName:@"pause" andIndent:v5 options:options];
+    [v7 appendPrettyBOOL:0 withName:@"urlAppendString" andIndent:v5 options:options];
+    [v7 appendPrettyObject:0 withName:@"urlAppendStringMapKey" andIndent:v5 options:options];
+    [v7 appendPrettyObject:0 withName:@"remediationURLMapKey" andIndent:v5 options:options];
+    Property = 0;
+  }
+
+  [v7 appendPrettyObject:Property withName:@"remediationButtonTextMapKey" andIndent:v5 options:options];
+
+  return v7;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

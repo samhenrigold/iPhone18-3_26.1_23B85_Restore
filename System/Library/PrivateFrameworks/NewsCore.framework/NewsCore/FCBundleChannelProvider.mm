@@ -52,17 +52,17 @@
 
 - (id)initWithLocalStore:(void *)store appActivityMonitor:(void *)monitor configurationManager:(void *)manager contentContext:
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v10 = a2;
   storeCopy = store;
   monitorCopy = monitor;
   managerCopy = manager;
-  if (self && (v42.receiver = self, v42.super_class = FCBundleChannelProvider, (v14 = objc_msgSendSuper2(&v42, sel_init)) != 0))
+  if (self && (v41.receiver = self, v41.super_class = FCBundleChannelProvider, (v14 = objc_msgSendSuper2(&v41, sel_init)) != 0))
   {
     v15 = v14;
-    v38 = managerCopy;
-    v39 = monitorCopy;
-    v41 = v10;
+    v37 = managerCopy;
+    v38 = monitorCopy;
+    v40 = v10;
     objc_storeStrong(v14 + 2, a2);
     objc_storeStrong(v15 + 4, monitor);
     objc_storeStrong(v15 + 5, manager);
@@ -70,7 +70,7 @@
     v17 = v15[3];
     v15[3] = v16;
 
-    v40 = storeCopy;
+    v39 = storeCopy;
     [storeCopy addObserver:v15];
     array = [MEMORY[0x1E695DEC8] array];
     [v15 setBundleChannelIDs:array];
@@ -80,26 +80,26 @@
 
     v20 = v15;
     v21 = v15[2];
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
     allKeys = [v21 allKeys];
-    v23 = [allKeys countByEnumeratingWithState:&v43 objects:v47 count:16];
+    v23 = [allKeys countByEnumeratingWithState:&v42 objects:v46 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v44;
+      v25 = *v43;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v44 != v25)
+          if (*v43 != v25)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v27 = *(*(&v43 + 1) + 8 * i);
+          v27 = *(*(&v42 + 1) + 8 * i);
           objc_opt_class();
           v28 = [v21 objectForKey:v27];
           if (v28)
@@ -157,16 +157,16 @@
           }
         }
 
-        v24 = [allKeys countByEnumeratingWithState:&v43 objects:v47 count:16];
+        v24 = [allKeys countByEnumeratingWithState:&v42 objects:v46 count:16];
       }
 
       while (v24);
     }
 
-    storeCopy = v40;
-    v10 = v41;
-    managerCopy = v38;
-    monitorCopy = v39;
+    storeCopy = v39;
+    v10 = v40;
+    managerCopy = v37;
+    monitorCopy = v38;
   }
 
   else
@@ -174,7 +174,6 @@
     v20 = 0;
   }
 
-  v36 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -232,7 +231,7 @@ void __65__FCBundleChannelProvider_refreshBundleChannelIDsWithCompletion___block
 
 void __65__FCBundleChannelProvider_refreshBundleChannelIDsWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   v4 = a2;
   v5 = [v3 paidBundleConfig];
@@ -246,31 +245,31 @@ void __65__FCBundleChannelProvider_refreshBundleChannelIDsWithCompletion___block
     v10 = [v9 contentStoreFrontID];
     v11 = [v8 stringWithFormat:@"%@-%@", v7, v10];
 
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __65__FCBundleChannelProvider_refreshBundleChannelIDsWithCompletion___block_invoke_12;
-    v20[3] = &unk_1E7C40D50;
-    v21 = v11;
-    v22 = v4;
-    v23 = *(a1 + 40);
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __65__FCBundleChannelProvider_refreshBundleChannelIDsWithCompletion___block_invoke_12;
+    v19[3] = &unk_1E7C40D50;
+    v20 = v11;
+    v21 = v4;
+    v22 = *(a1 + 40);
     v12 = v11;
-    v13 = v20;
+    v13 = v19;
     if (v4)
     {
       v14 = v12;
       v15 = [FCPurchaseLookupFetchOperation alloc];
-      v28[0] = v14;
-      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
+      v27[0] = v14;
+      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
       v17 = [(FCPurchaseLookupFetchOperation *)v15 initWithPurchaseIDs:v16 contentContext:v4[5]];
 
       [(FCOperation *)v17 setQualityOfService:25];
       [(FCOperation *)v17 setRelativePriority:1];
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __69__FCBundleChannelProvider_fetchBundleTagIDsForPurchaseID_completion___block_invoke;
-      v26[3] = &unk_1E7C37A38;
-      v27 = v13;
-      [(FCFetchOperation *)v17 setFetchCompletionBlock:v26];
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __69__FCBundleChannelProvider_fetchBundleTagIDsForPurchaseID_completion___block_invoke;
+      v25[3] = &unk_1E7C37A38;
+      v26 = v13;
+      [(FCFetchOperation *)v17 setFetchCompletionBlock:v25];
       v18 = [MEMORY[0x1E696ADC8] fc_sharedConcurrentQueue];
       [v18 addOperation:v17];
     }
@@ -278,16 +277,14 @@ void __65__FCBundleChannelProvider_refreshBundleChannelIDsWithCompletion___block
 
   else
   {
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __65__FCBundleChannelProvider_refreshBundleChannelIDsWithCompletion___block_invoke_3;
-    v24[3] = &unk_1E7C379C8;
-    v25 = *(a1 + 40);
-    __65__FCBundleChannelProvider_refreshBundleChannelIDsWithCompletion___block_invoke_3(v24);
-    v12 = v25;
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __65__FCBundleChannelProvider_refreshBundleChannelIDsWithCompletion___block_invoke_3;
+    v23[3] = &unk_1E7C379C8;
+    v24 = *(a1 + 40);
+    __65__FCBundleChannelProvider_refreshBundleChannelIDsWithCompletion___block_invoke_3(v23);
+    v12 = v24;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __65__FCBundleChannelProvider_refreshBundleChannelIDsWithCompletion___block_invoke_3(uint64_t a1)

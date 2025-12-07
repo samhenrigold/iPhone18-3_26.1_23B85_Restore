@@ -124,26 +124,24 @@ void __63__AMUISelectedConfigurations_initWithDictionaryRepresentation___block_i
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{-[NSMutableDictionary count](self->_selections, "count")}];
   selections = self->_selections;
-  v10 = MEMORY[0x277D85DD0];
-  v11 = 3221225472;
-  v12 = __54__AMUISelectedConfigurations_dictionaryRepresentation__block_invoke;
-  v13 = &unk_278C761A8;
-  v14 = v3;
+  v9 = MEMORY[0x277D85DD0];
+  v10 = 3221225472;
+  v11 = __54__AMUISelectedConfigurations_dictionaryRepresentation__block_invoke;
+  v12 = &unk_278C761A8;
+  v13 = v3;
   v5 = v3;
-  [(NSMutableDictionary *)selections enumerateKeysAndObjectsUsingBlock:&v10];
-  v15[0] = @"lastUseDate";
-  v15[1] = @"lastUpdateDate";
+  [(NSMutableDictionary *)selections enumerateKeysAndObjectsUsingBlock:&v9];
+  v14[0] = @"lastUseDate";
+  v14[1] = @"lastUpdateDate";
   lastUpdateDate = self->_lastUpdateDate;
-  v16[0] = self->_lastUseDate;
-  v16[1] = lastUpdateDate;
-  v15[2] = @"selections";
-  v16[2] = v5;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:{3, v10, v11, v12, v13}];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v15[0] = self->_lastUseDate;
+  v15[1] = lastUpdateDate;
+  v14[2] = @"selections";
+  v15[2] = v5;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:{3, v9, v10, v11, v12}];
 
   return v7;
 }

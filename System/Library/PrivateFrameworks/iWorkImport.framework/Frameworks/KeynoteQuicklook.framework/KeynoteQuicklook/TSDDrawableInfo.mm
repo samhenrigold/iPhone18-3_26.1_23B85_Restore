@@ -26,238 +26,238 @@
 - (KNSlide)slide
 {
   objc_opt_class();
-  v4 = objc_msgSend_parentSlideForInfo_(KNAbstractSlide, v3, self);
-  v5 = TSUDynamicCast();
+  v3 = [KNAbstractSlide parentSlideForInfo:self];
+  v4 = TSUDynamicCast();
 
-  return v5;
+  return v4;
 }
 
 - (BOOL)hasActionBuilds
 {
-  v3 = objc_msgSend_actionBuilds(self, a2, v2);
-  v6 = objc_msgSend_count(v3, v4, v5) != 0;
+  actionBuilds = [(TSDDrawableInfo *)self actionBuilds];
+  v3 = [actionBuilds count] != 0;
 
-  return v6;
+  return v3;
 }
 
 - (NSSet)actionBuilds
 {
-  v4 = objc_msgSend_abstractSlide(self, a2, v2);
-  v6 = objc_msgSend_buildsForDrawable_type_(v4, v5, self, 4);
+  abstractSlide = [(TSDDrawableInfo *)self abstractSlide];
+  v4 = [abstractSlide buildsForDrawable:self type:4];
 
-  return v6;
+  return v4;
 }
 
 - (BOOL)hasContentBuilds
 {
-  v3 = objc_msgSend_contentBuilds(self, a2, v2);
-  v6 = objc_msgSend_count(v3, v4, v5) != 0;
+  contentBuilds = [(TSDDrawableInfo *)self contentBuilds];
+  v3 = [contentBuilds count] != 0;
 
-  return v6;
+  return v3;
 }
 
 - (NSSet)contentBuilds
 {
-  v4 = objc_msgSend_abstractSlide(self, a2, v2);
-  v6 = objc_msgSend_buildsForDrawable_type_(v4, v5, self, 5);
+  abstractSlide = [(TSDDrawableInfo *)self abstractSlide];
+  v4 = [abstractSlide buildsForDrawable:self type:5];
 
-  return v6;
+  return v4;
 }
 
 - (KNBuild)buildIn
 {
-  v4 = objc_msgSend_abstractSlide(self, a2, v2);
-  v6 = objc_msgSend_inBuildForDrawable_(v4, v5, self);
+  abstractSlide = [(TSDDrawableInfo *)self abstractSlide];
+  v4 = [abstractSlide inBuildForDrawable:self];
 
-  return v6;
+  return v4;
 }
 
 - (KNBuild)buildOut
 {
-  v4 = objc_msgSend_abstractSlide(self, a2, v2);
-  v6 = objc_msgSend_outBuildForDrawable_(v4, v5, self);
+  abstractSlide = [(TSDDrawableInfo *)self abstractSlide];
+  v4 = [abstractSlide outBuildForDrawable:self];
 
-  return v6;
+  return v4;
 }
 
 - (unint64_t)buildCount
 {
-  v3 = objc_msgSend_builds(self, a2, v2);
-  v6 = v3;
-  if (v3)
+  builds = [(TSDDrawableInfo *)self builds];
+  v3 = builds;
+  if (builds)
   {
-    v7 = objc_msgSend_count(v3, v4, v5);
+    v4 = [builds count];
   }
 
   else
   {
-    v7 = 0;
+    v4 = 0;
   }
 
-  return v7;
+  return v4;
 }
 
 - (BOOL)hasBuildOfAnimationType:(int64_t)type
 {
-  v5 = objc_msgSend_abstractSlide(self, a2, type);
-  v9 = objc_msgSend_buildsForDrawable_type_(v5, v6, self, type);
-  if (v9)
+  abstractSlide = [(TSDDrawableInfo *)self abstractSlide];
+  v6 = [abstractSlide buildsForDrawable:self type:type];
+  if (v6)
   {
-    v10 = objc_msgSend_abstractSlide(self, v7, v8);
-    v12 = objc_msgSend_buildsForDrawable_type_(v10, v11, self, type);
-    v15 = objc_msgSend_count(v12, v13, v14) != 0;
+    abstractSlide2 = [(TSDDrawableInfo *)self abstractSlide];
+    v8 = [abstractSlide2 buildsForDrawable:self type:type];
+    v9 = [v8 count] != 0;
   }
 
   else
   {
-    v15 = 0;
+    v9 = 0;
   }
 
-  return v15;
+  return v9;
 }
 
 - (NSSet)builds
 {
-  v4 = objc_msgSend_abstractSlide(self, a2, v2);
-  v6 = objc_msgSend_buildsForDrawable_type_(v4, v5, self, 0);
+  abstractSlide = [(TSDDrawableInfo *)self abstractSlide];
+  v4 = [abstractSlide buildsForDrawable:self type:0];
 
-  return v6;
+  return v4;
 }
 
 - (id)validBuildsInBuilds:(id)builds
 {
   buildsCopy = builds;
-  v7 = objc_msgSend_animationFilters(self, v5, v6);
-  v8 = MEMORY[0x277CCAC30];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = sub_275E396C8;
-  v15[3] = &unk_27A6996A0;
-  v16 = v7;
-  v9 = v7;
-  v11 = objc_msgSend_predicateWithBlock_(v8, v10, v15);
-  v13 = objc_msgSend_filteredSetUsingPredicate_(buildsCopy, v12, v11);
+  animationFilters = [(TSDDrawableInfo *)self animationFilters];
+  v6 = MEMORY[0x277CCAC30];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = sub_275E396C8;
+  v11[3] = &unk_27A6996A0;
+  v12 = animationFilters;
+  v7 = animationFilters;
+  v8 = [v6 predicateWithBlock:v11];
+  v9 = [buildsCopy filteredSetUsingPredicate:v8];
 
-  return v13;
+  return v9;
 }
 
 - (NSArray)activeBuildChunks
 {
-  v4 = objc_msgSend_abstractSlide(self, a2, v2);
-  v6 = objc_msgSend_activeChunksForDrawable_(v4, v5, self);
+  abstractSlide = [(TSDDrawableInfo *)self abstractSlide];
+  v4 = [abstractSlide activeChunksForDrawable:self];
 
-  return v6;
+  return v4;
 }
 
 - (NSArray)actionBuildChunks
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v3 = objc_msgSend_buildChunks(self, a2, v2);
-  v6 = objc_msgSend_array(MEMORY[0x277CBEB18], v4, v5);
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v7 = v3;
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v21, v25, 16);
-  if (v9)
+  v18 = *MEMORY[0x277D85DE8];
+  buildChunks = [(TSDDrawableInfo *)self buildChunks];
+  array = [MEMORY[0x277CBEB18] array];
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v4 = buildChunks;
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v5)
   {
-    v12 = v9;
-    v13 = *v22;
+    v6 = v5;
+    v7 = *v14;
     do
     {
-      for (i = 0; i != v12; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v22 != v13)
+        if (*v14 != v7)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v4);
         }
 
-        v15 = *(*(&v21 + 1) + 8 * i);
-        v16 = objc_msgSend_build(v15, v10, v11, v21);
-        isActionBuild = objc_msgSend_isActionBuild(v16, v17, v18);
+        v9 = *(*(&v13 + 1) + 8 * i);
+        build = [v9 build];
+        isActionBuild = [build isActionBuild];
 
         if (isActionBuild)
         {
-          objc_msgSend_addObject_(v6, v10, v15);
+          [array addObject:v9];
         }
       }
 
-      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v10, &v21, v25, 16);
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
-    while (v12);
+    while (v6);
   }
 
-  return v6;
+  return array;
 }
 
 - (NSArray)buildChunks
 {
-  v3 = objc_msgSend_builds(self, a2, v2);
-  v5 = objc_msgSend_chunksInBuilds_(KNBuildUtility, v4, v3);
+  builds = [(TSDDrawableInfo *)self builds];
+  v3 = [KNBuildUtility chunksInBuilds:builds];
 
-  return v5;
+  return v3;
 }
 
 - (id)buildChunksForAnimationType:(int64_t)type
 {
-  v5 = objc_msgSend_abstractSlide(self, a2, type);
-  v7 = objc_msgSend_chunksForDrawable_animationType_(v5, v6, self, type);
-
-  return v7;
-}
-
-- (NSArray)ghostInfos
-{
-  v4 = objc_msgSend_abstractSlide(self, a2, v2);
-  v6 = objc_msgSend_ghostInfosForDrawable_(v4, v5, self);
+  abstractSlide = [(TSDDrawableInfo *)self abstractSlide];
+  v6 = [abstractSlide chunksForDrawable:self animationType:type];
 
   return v6;
 }
 
+- (NSArray)ghostInfos
+{
+  abstractSlide = [(TSDDrawableInfo *)self abstractSlide];
+  v4 = [abstractSlide ghostInfosForDrawable:self];
+
+  return v4;
+}
+
 - (BOOL)swizzled_matchesObjectPlaceholderGeometry
 {
-  v4 = objc_msgSend_slide(self, a2, v2);
-  v7 = v4;
-  if (v4)
+  slide = [(TSDDrawableInfo *)self slide];
+  v4 = slide;
+  if (slide)
   {
-    v8 = objc_msgSend_infosUsingObjectPlaceholderGeometry(v4, v5, v6);
-    v10 = objc_msgSend_containsObject_(v8, v9, self);
+    infosUsingObjectPlaceholderGeometry = [slide infosUsingObjectPlaceholderGeometry];
+    v6 = [infosUsingObjectPlaceholderGeometry containsObject:self];
   }
 
   else
   {
-    v10 = 0;
+    v6 = 0;
   }
 
-  return v10;
+  return v6;
 }
 
 - (void)swizzled_setMatchesObjectPlaceholderGeometry:(BOOL)geometry
 {
   geometryCopy = geometry;
-  v5 = objc_msgSend_slide(self, a2, geometry);
-  if (v5)
+  slide = [(TSDDrawableInfo *)self slide];
+  if (slide)
   {
-    v12 = v5;
-    v8 = objc_msgSend_infosUsingObjectPlaceholderGeometry(v5, v6, v7);
-    v10 = objc_msgSend_containsObject_(v8, v9, self);
+    v8 = slide;
+    infosUsingObjectPlaceholderGeometry = [slide infosUsingObjectPlaceholderGeometry];
+    v7 = [infosUsingObjectPlaceholderGeometry containsObject:self];
 
-    v5 = v12;
-    if (v10 != geometryCopy)
+    slide = v8;
+    if (v7 != geometryCopy)
     {
       if (geometryCopy)
       {
-        objc_msgSend_addInfoUsingObjectPlaceholderGeometry_(v12, v11, self);
+        [v8 addInfoUsingObjectPlaceholderGeometry:self];
       }
 
       else
       {
-        objc_msgSend_removeInfoUsingObjectPlaceholderGeometry_(v12, v11, self);
+        [v8 removeInfoUsingObjectPlaceholderGeometry:self];
       }
 
-      v5 = v12;
+      slide = v8;
     }
   }
 }
@@ -281,25 +281,25 @@
 
 - (BOOL)isRightToLeft
 {
-  v3 = objc_msgSend_slide(self, a2, v2);
-  v6 = v3;
-  if (v3)
+  slide = [(TSDDrawableInfo *)self slide];
+  v3 = slide;
+  if (slide)
   {
-    IsRTL = objc_msgSend_documentIsRTL(v3, v4, v5);
+    documentIsRTL = [slide documentIsRTL];
   }
 
   else
   {
-    v8 = MEMORY[0x277D81150];
-    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSDDrawableInfo(KNAdditions) isRightToLeft]");
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/TSDDrawableInfo-KNAdditions.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v12, v9, v11, 187, 0, "invalid nil value for '%{public}s'", "slide");
+    v5 = MEMORY[0x277D81150];
+    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSDDrawableInfo(KNAdditions) isRightToLeft]"];
+    v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/TSDDrawableInfo-KNAdditions.m"];
+    [v5 handleFailureInFunction:v6 file:v7 lineNumber:187 isFatal:0 description:{"invalid nil value for '%{public}s'", "slide"}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v13, v14);
-    IsRTL = 0;
+    [MEMORY[0x277D81150] logBacktraceThrottled];
+    documentIsRTL = 0;
   }
 
-  return IsRTL;
+  return documentIsRTL;
 }
 
 @end

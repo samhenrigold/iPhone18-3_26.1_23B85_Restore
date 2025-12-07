@@ -3,100 +3,59 @@
 + (id)identityForSubscription:(id)subscription usingClient:(id)client error:(id *)error;
 - (id)copyWithRoaming:(BOOL)roaming;
 - (id)description;
-- (id)initWithSIMIdentity:(char)identity roaming:;
 - (id)initWithSIMIdentity:(char)identity roaming:(void *)roaming defaultsKey:;
+- (id)initWithSIMIdentity:(uint64_t)identity roaming:;
 @end
 
 @implementation ASDCellularIdentity
 
 + (id)identityForSubscription:(id)subscription usingClient:(id)client error:(id *)error
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   subscriptionCopy = subscription;
   clientCopy = client;
   v9 = clientCopy;
   v10 = 0;
-  if (!subscriptionCopy)
+  if (!subscriptionCopy || !clientCopy || (v19 = 0, v11 = [clientCopy copySIMIdentity:subscriptionCopy error:&v19], v10 = v19, !v11) || (!objc_msgSend(v11, "length") ? (objc_msgSend(self, "nullIdentity"), nullIdentity = objc_claimAutoreleasedReturnValue()) : ((v18 = v10, objc_msgSend(v9, "getDataStatus:error:", subscriptionCopy, &v18), v12 = objc_claimAutoreleasedReturnValue(), v13 = v18, v10, !v12) ? (v14 = 0) : (v14 = objc_msgSend(v12, "inHomeCountry") ^ 1), nullIdentity = -[ASDCellularIdentity initWithSIMIdentity:roaming:]([ASDCellularIdentity alloc], v11, v14), v12, v10 = v13), v11, !nullIdentity))
   {
-    goto LABEL_11;
-  }
-
-  if (!clientCopy)
-  {
-    goto LABEL_11;
-  }
-
-  v20 = 0;
-  v11 = [clientCopy copySIMIdentity:subscriptionCopy error:&v20];
-  v10 = v20;
-  if (!v11)
-  {
-    goto LABEL_11;
-  }
-
-  if ([v11 length])
-  {
-    v19 = v10;
-    v12 = [v9 getDataStatus:subscriptionCopy error:&v19];
-    v13 = v19;
-
-    v14 = v12 ? [v12 inHomeCountry] ^ 1 : 0;
-    nullIdentity = [[ASDCellularIdentity alloc] initWithSIMIdentity:v11 roaming:v14];
-
-    v10 = v13;
-  }
-
-  else
-  {
-    nullIdentity = [self nullIdentity];
-  }
-
-  if (!nullIdentity)
-  {
-LABEL_11:
     v16 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v22 = v10;
+      v21 = v10;
       _os_log_error_impl(&dword_1B8220000, v16, OS_LOG_TYPE_ERROR, "[Cellular] Returning 'null' identity after error occurred: %{public}@", buf, 0xCu);
     }
 
     nullIdentity = [self nullIdentity];
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return nullIdentity;
 }
 
-- (id)initWithSIMIdentity:(char)identity roaming:
+- (id)initWithSIMIdentity:(uint64_t)identity roaming:
 {
-  v15 = *MEMORY[0x1E69E9840];
-  if (self)
+  v14 = *MEMORY[0x1E69E9840];
+  if (!self)
   {
-    v5 = a2;
-    v6 = [v5 dataUsingEncoding:4];
-    objc_opt_self();
-    CC_MD5([v6 bytes], objc_msgSend(v6, "length"), md);
-    v7 = [MEMORY[0x1E696AD60] stringWithCapacity:32];
-    for (i = 0; i != 16; ++i)
-    {
-      [v7 appendFormat:@"%02x", md[i]];
-    }
-
-    v9 = [v7 copy];
-
-    v10 = [(ASDCellularIdentity *)self initWithSIMIdentity:v5 roaming:identity defaultsKey:v9];
-    v11 = v10;
+    return 0;
   }
 
-  else
+  identityCopy = identity;
+  v5 = a2;
+  v6 = [v5 dataUsingEncoding:4];
+  objc_opt_self();
+  CC_MD5([v6 bytes], objc_msgSend(v6, "length"), md);
+  v7 = [MEMORY[0x1E696AD60] stringWithCapacity:32];
+  for (i = 0; i != 16; ++i)
   {
-    v11 = 0;
+    [v7 appendFormat:@"%02x", md[i]];
   }
 
-  v12 = *MEMORY[0x1E69E9840];
+  v9 = [v7 copy];
+
+  v10 = [(ASDCellularIdentity *)self initWithSIMIdentity:v5 roaming:identityCopy defaultsKey:v9];
+  v11 = v10;
+
   return v11;
 }
 

@@ -53,18 +53,15 @@
     v10 = 0;
   }
 
-  memset(&v13, 0, sizeof(v13));
-  v11 = *&time->var0;
-  var3 = time->var3;
-  [(CHChannelBase *)self convertGlobalToLocal:&v11];
+  objc_msgSend_convertGlobalToLocal_(self, time->var0, *&time->var1, time->var3, 0, 0, 0);
   if (x)
   {
-    *x = OZChannel::getCurveValue((v10 + 136), &v13, 0);
+    *x = OZChannel::getCurveValue((v10 + 136), &v11, 0);
   }
 
   if (y)
   {
-    *y = OZChannel::getCurveValue((v10 + 288), &v13, 0);
+    *y = OZChannel::getCurveValue((v10 + 288), &v11, 0);
   }
 }
 

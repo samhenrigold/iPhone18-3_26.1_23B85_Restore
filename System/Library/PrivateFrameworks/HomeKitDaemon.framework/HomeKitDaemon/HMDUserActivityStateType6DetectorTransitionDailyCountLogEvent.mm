@@ -7,46 +7,44 @@
 
 - (NSDictionary)coreAnalyticsEventDictionary
 {
-  v19[12] = *MEMORY[0x277D85DE8];
-  v18[0] = @"countNotStartedAndEndedAtHome";
+  v18[12] = *MEMORY[0x277D85DE8];
+  v17[0] = @"countNotStartedAndEndedAtHome";
   countNotStartedAndEndedAtHome = [(HMDUserActivityStateType6DetectorTransitionDailyCountLogEvent *)self countNotStartedAndEndedAtHome];
-  v19[0] = countNotStartedAndEndedAtHome;
-  v18[1] = @"countStartedAndEndedAtHome";
+  v18[0] = countNotStartedAndEndedAtHome;
+  v17[1] = @"countStartedAndEndedAtHome";
   countStartedAndEndedAtHome = [(HMDUserActivityStateType6DetectorTransitionDailyCountLogEvent *)self countStartedAndEndedAtHome];
-  v19[1] = countStartedAndEndedAtHome;
-  v18[2] = @"durationBetweenInitialETAAndActualArrivalTime";
+  v18[1] = countStartedAndEndedAtHome;
+  v17[2] = @"durationBetweenInitialETAAndActualArrivalTime";
   durationBetweenInitialETAAndActualArrivalTime = [(HMDUserActivityStateType6DetectorTransitionDailyCountLogEvent *)self durationBetweenInitialETAAndActualArrivalTime];
-  v19[2] = durationBetweenInitialETAAndActualArrivalTime;
-  v18[3] = @"durationBetweenStartingComingHomeAndActualArrivalTime";
+  v18[2] = durationBetweenInitialETAAndActualArrivalTime;
+  v17[3] = @"durationBetweenStartingComingHomeAndActualArrivalTime";
   durationBetweenStartingComingHomeAndActualArrivalTime = [(HMDUserActivityStateType6DetectorTransitionDailyCountLogEvent *)self durationBetweenStartingComingHomeAndActualArrivalTime];
-  v19[3] = durationBetweenStartingComingHomeAndActualArrivalTime;
-  v18[4] = @"countStartedAndEndedNotAtHome";
+  v18[3] = durationBetweenStartingComingHomeAndActualArrivalTime;
+  v17[4] = @"countStartedAndEndedNotAtHome";
   countStartedAndEndedNotAtHome = [(HMDUserActivityStateType6DetectorTransitionDailyCountLogEvent *)self countStartedAndEndedNotAtHome];
-  v19[4] = countStartedAndEndedNotAtHome;
-  v18[5] = @"durationBetweenStartingComingHomeAndCancellingComingHome";
+  v18[4] = countStartedAndEndedNotAtHome;
+  v17[5] = @"durationBetweenStartingComingHomeAndCancellingComingHome";
   durationBetweenStartingComingHomeAndCancellingComingHome = [(HMDUserActivityStateType6DetectorTransitionDailyCountLogEvent *)self durationBetweenStartingComingHomeAndCancellingComingHome];
-  v19[5] = durationBetweenStartingComingHomeAndCancellingComingHome;
-  v18[6] = @"durationBetweenCancellingComingHomeAndEstimatedArrivalTime";
+  v18[5] = durationBetweenStartingComingHomeAndCancellingComingHome;
+  v17[6] = @"durationBetweenCancellingComingHomeAndEstimatedArrivalTime";
   durationBetweenCancellingComingHomeAndEstimatedArrivalTime = [(HMDUserActivityStateType6DetectorTransitionDailyCountLogEvent *)self durationBetweenCancellingComingHomeAndEstimatedArrivalTime];
-  v19[6] = durationBetweenCancellingComingHomeAndEstimatedArrivalTime;
-  v18[7] = @"countEndDateUpdated";
+  v18[6] = durationBetweenCancellingComingHomeAndEstimatedArrivalTime;
+  v17[7] = @"countEndDateUpdated";
   countEndDateUpdated = [(HMDUserActivityStateType6DetectorTransitionDailyCountLogEvent *)self countEndDateUpdated];
-  v19[7] = countEndDateUpdated;
-  v18[8] = @"countPausedNotMakingProgress";
+  v18[7] = countEndDateUpdated;
+  v17[8] = @"countPausedNotMakingProgress";
   countPausedNotMakingProgress = [(HMDUserActivityStateType6DetectorTransitionDailyCountLogEvent *)self countPausedNotMakingProgress];
-  v19[8] = countPausedNotMakingProgress;
-  v18[9] = @"durationBetweenStartingComingHomeAndPausingComingHome";
+  v18[8] = countPausedNotMakingProgress;
+  v17[9] = @"durationBetweenStartingComingHomeAndPausingComingHome";
   durationBetweenStartingComingHomeAndPausingComingHome = [(HMDUserActivityStateType6DetectorTransitionDailyCountLogEvent *)self durationBetweenStartingComingHomeAndPausingComingHome];
-  v19[9] = durationBetweenStartingComingHomeAndPausingComingHome;
-  v18[10] = @"durationBetweenPausingComingHomeAndEstimatedArrivalTime";
+  v18[9] = durationBetweenStartingComingHomeAndPausingComingHome;
+  v17[10] = @"durationBetweenPausingComingHomeAndEstimatedArrivalTime";
   durationBetweenPausingComingHomeAndEstimatedArrivalTime = [(HMDUserActivityStateType6DetectorTransitionDailyCountLogEvent *)self durationBetweenPausingComingHomeAndEstimatedArrivalTime];
-  v19[10] = durationBetweenPausingComingHomeAndEstimatedArrivalTime;
-  v18[11] = @"countResumedAfterPaused";
+  v18[10] = durationBetweenPausingComingHomeAndEstimatedArrivalTime;
+  v17[11] = @"countResumedAfterPaused";
   countResumedAfterPaused = [(HMDUserActivityStateType6DetectorTransitionDailyCountLogEvent *)self countResumedAfterPaused];
-  v19[11] = countResumedAfterPaused;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:12];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v18[11] = countResumedAfterPaused;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:12];
 
   return v12;
 }

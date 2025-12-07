@@ -26,7 +26,7 @@
   *(&self->super.super.super.super.super.super.isa + OBJC_IVAR____TtC11PosterBoard41PosterGalleryAffordanceCollectionViewCell_addButton) = 0;
   *(&self->super.super.super.super.super.super.isa + OBJC_IVAR____TtC11PosterBoard41PosterGalleryAffordanceCollectionViewCell_glassBackgroundView) = 0;
   v11.receiver = self;
-  v11.super_class = type metadata accessor for PosterGalleryAffordanceCollectionViewCell();
+  v11.super_class = type metadata accessor for PosterGalleryAffordanceCollectionViewCell(0);
   return [(PosterCollectionViewCell *)&v11 initWithFrame:x, y, width, height];
 }
 

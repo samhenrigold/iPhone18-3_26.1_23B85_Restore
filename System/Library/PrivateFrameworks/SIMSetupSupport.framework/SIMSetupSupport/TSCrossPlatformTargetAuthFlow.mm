@@ -3,7 +3,6 @@
 - (id)nextViewControllerFrom:(id)from;
 - (void)backButtonClicked:(id)clicked;
 - (void)deactiveCrossPlatformTransport;
-- (void)firstViewController;
 - (void)firstViewController:(id)controller;
 - (void)showQRCodePane:(id)pane;
 - (void)transferEventUpdate:(id)update;
@@ -15,7 +14,7 @@
 
 - (id)firstViewController
 {
-  v2 = _TSLogDomain();
+  v2 = _TSLogDomain(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     [TSCrossPlatformTargetAuthFlow firstViewController];
@@ -26,7 +25,7 @@
 
 - (void)firstViewController:(id)controller
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   if (controllerCopy)
   {
@@ -34,14 +33,14 @@
     [v5 setCode:0];
 
     v6 = objc_alloc_init(CrossPlatformTargetQRCodeWarningViewController);
-    v7 = _TSLogDomain();
+    v7 = _TSLogDomain(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412546;
-      v10 = objc_opt_class();
-      v11 = 2080;
-      v12 = "[TSCrossPlatformTargetAuthFlow firstViewController:]";
-      _os_log_impl(&dword_262AA8000, v7, OS_LOG_TYPE_DEFAULT, "first view - %@ @%s", &v9, 0x16u);
+      v8 = 138412546;
+      v9 = objc_opt_class();
+      v10 = 2080;
+      v11 = "[TSCrossPlatformTargetAuthFlow firstViewController:]";
+      _os_log_impl(&dword_262AA8000, v7, OS_LOG_TYPE_DEFAULT, "first view - %@ @%s", &v8, 0x16u);
     }
 
     [(CrossPlatformTargetQRCodeWarningViewController *)v6 setDelegate:self];
@@ -51,14 +50,12 @@
 
   else
   {
-    v6 = _TSLogDomain();
+    v6 = _TSLogDomain(0);
     if (os_log_type_enabled(&v6->super.super.super.super.super.super, OS_LOG_TYPE_ERROR))
     {
       [TSCrossPlatformTargetAuthFlow firstViewController:];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)showQRCodePane:(id)pane
@@ -101,7 +98,7 @@ void __48__TSCrossPlatformTargetAuthFlow_showQRCodePane___block_invoke(uint64_t 
       goto LABEL_8;
     }
 
-    v6 = _TSLogDomain();
+    v6 = _TSLogDomain(WeakRetained);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __48__TSCrossPlatformTargetAuthFlow_showQRCodePane___block_invoke_cold_1(v3, v6);
@@ -117,12 +114,13 @@ void __48__TSCrossPlatformTargetAuthFlow_showQRCodePane___block_invoke_23(uint64
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v8 = WeakRetained;
   if (WeakRetained)
   {
     if (v6)
     {
-      v8 = _TSLogDomain();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = _TSLogDomain(WeakRetained);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         __48__TSCrossPlatformTargetAuthFlow_showQRCodePane___block_invoke_23_cold_1();
       }
@@ -132,24 +130,24 @@ void __48__TSCrossPlatformTargetAuthFlow_showQRCodePane___block_invoke_23(uint64
     {
       if ([v5 length])
       {
-        v10 = +[DCTCodeManager shared];
-        [v10 setCode:v5];
+        v11 = +[DCTCodeManager shared];
+        [v11 setCode:v5];
 
-        v9 = *(*(a1 + 32) + 16);
+        v10 = *(*(a1 + 32) + 16);
         goto LABEL_7;
       }
 
-      v8 = _TSLogDomain();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = _TSLogDomain(0);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         __48__TSCrossPlatformTargetAuthFlow_showQRCodePane___block_invoke_23_cold_2();
       }
     }
   }
 
-  v9 = *(*(a1 + 32) + 16);
+  v10 = *(*(a1 + 32) + 16);
 LABEL_7:
-  v9();
+  v10();
 }
 
 - (void)backButtonClicked:(id)clicked
@@ -188,8 +186,8 @@ void __63__TSCrossPlatformTargetAuthFlow_deactiveCrossPlatformTransport__block_i
 
   if (v3)
   {
-    v6 = _TSLogDomain();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _TSLogDomain(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __63__TSCrossPlatformTargetAuthFlow_deactiveCrossPlatformTransport__block_invoke_cold_1();
     }
@@ -206,7 +204,7 @@ void __63__TSCrossPlatformTargetAuthFlow_deactiveCrossPlatformTransport__block_i
 
 - (id)nextViewControllerFrom:(id)from
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   fromCopy = from;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -228,11 +226,11 @@ void __63__TSCrossPlatformTargetAuthFlow_deactiveCrossPlatformTransport__block_i
       else
       {
         v10 = [TSSubFlowViewController alloc];
-        v17[0] = @"FlowTypeKey";
-        v17[1] = @"IsSourceKey";
-        v18[0] = &unk_287583A48;
-        v18[1] = MEMORY[0x277CBEC28];
-        v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+        v16[0] = @"FlowTypeKey";
+        v16[1] = @"IsSourceKey";
+        v17[0] = &unk_287583A48;
+        v17[1] = MEMORY[0x277CBEC28];
+        v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
         navigationController = [v6 navigationController];
         v5 = [(TSSubFlowViewController *)v10 initWithOptions:v11 navigationController:navigationController delegate:self];
       }
@@ -244,11 +242,11 @@ void __63__TSCrossPlatformTargetAuthFlow_deactiveCrossPlatformTransport__block_i
       if (objc_opt_isKindOfClass())
       {
         v7 = [TSSubFlowViewController alloc];
-        v15[0] = @"FlowTypeKey";
-        v15[1] = @"IsSourceKey";
-        v16[0] = &unk_287583A48;
-        v16[1] = MEMORY[0x277CBEC28];
-        v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
+        v14[0] = @"FlowTypeKey";
+        v14[1] = @"IsSourceKey";
+        v15[0] = &unk_287583A48;
+        v15[1] = MEMORY[0x277CBEC28];
+        v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
         navigationController2 = [fromCopy navigationController];
         v5 = [(TSSubFlowViewController *)v7 initWithOptions:v8 navigationController:navigationController2 delegate:self];
       }
@@ -259,8 +257,6 @@ void __63__TSCrossPlatformTargetAuthFlow_deactiveCrossPlatformTransport__block_i
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -311,7 +307,7 @@ id __59__TSCrossPlatformTargetAuthFlow_viewControllerDidComplete___block_invoke(
 {
   v44 = *MEMORY[0x277D85DE8];
   updateCopy = update;
-  v5 = _TSLogDomain();
+  v5 = _TSLogDomain(updateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -338,9 +334,9 @@ id __59__TSCrossPlatformTargetAuthFlow_viewControllerDidComplete___block_invoke(
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v10 = v8;
-              v11 = +[DCTCodeManager shared];
-              [v11 setCode:v10];
+              v11 = v8;
+              v12 = +[DCTCodeManager shared];
+              [v12 setCode:v11];
 
               topViewController = [(TSSIMSetupFlow *)self topViewController];
               objc_opt_class();
@@ -368,41 +364,41 @@ id __59__TSCrossPlatformTargetAuthFlow_viewControllerDidComplete___block_invoke(
 
           else
           {
-            v17 = [updateCopy objectForKey:@"kCrossTransferTimeout"];
-            if (v17)
+            v18 = [updateCopy objectForKey:@"kCrossTransferTimeout"];
+            if (v18)
             {
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
                 v34 = MEMORY[0x277D75110];
-                v18 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-                v19 = [v18 localizedStringForKey:@"CROSSTRANSFER_TIMEOUT_TITLE" value:&stru_28753DF48 table:@"Localizable"];
-                v20 = +[TSUtilities isGreenTeaCapable];
-                v21 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-                v22 = v21;
-                if (v20)
+                v19 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+                v20 = [v19 localizedStringForKey:@"CROSSTRANSFER_TIMEOUT_TITLE" value:&stru_28753DF48 table:@"Localizable"];
+                v21 = +[TSUtilities isGreenTeaCapable];
+                v22 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+                v23 = v22;
+                if (v21)
                 {
-                  v23 = @"CROSSTRANSFER_TIMEOUT_DETAIL_WLAN";
+                  v24 = @"CROSSTRANSFER_TIMEOUT_DETAIL_WLAN";
                 }
 
                 else
                 {
-                  v23 = @"CROSSTRANSFER_TIMEOUT_DETAIL_WIFI";
+                  v24 = @"CROSSTRANSFER_TIMEOUT_DETAIL_WIFI";
                 }
 
-                v24 = [v21 localizedStringForKey:v23 value:&stru_28753DF48 table:@"Localizable"];
-                v35 = [v34 alertControllerWithTitle:v19 message:v24 preferredStyle:1];
+                v25 = [v22 localizedStringForKey:v24 value:&stru_28753DF48 table:@"Localizable"];
+                v35 = [v34 alertControllerWithTitle:v20 message:v25 preferredStyle:1];
 
-                v25 = MEMORY[0x277D750F8];
-                v26 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-                v27 = [v26 localizedStringForKey:@"ERROR_OK" value:&stru_28753DF48 table:@"Localizable"];
+                v26 = MEMORY[0x277D750F8];
+                v27 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+                v28 = [v27 localizedStringForKey:@"ERROR_OK" value:&stru_28753DF48 table:@"Localizable"];
                 v38[0] = MEMORY[0x277D85DD0];
                 v38[1] = 3221225472;
                 v38[2] = __53__TSCrossPlatformTargetAuthFlow_transferEventUpdate___block_invoke_2;
                 v38[3] = &unk_279B44B38;
                 v38[4] = self;
-                v28 = [v25 actionWithTitle:v27 style:1 handler:v38];
-                [v35 addAction:v28];
+                v29 = [v26 actionWithTitle:v28 style:1 handler:v38];
+                [v35 addAction:v29];
 
                 block[0] = MEMORY[0x277D85DD0];
                 block[1] = 3221225472;
@@ -410,7 +406,7 @@ id __59__TSCrossPlatformTargetAuthFlow_viewControllerDidComplete___block_invoke(
                 block[3] = &unk_279B44490;
                 block[4] = self;
                 v37 = v35;
-                v29 = v35;
+                v30 = v35;
                 dispatch_async(MEMORY[0x277D85CD0], block);
               }
             }
@@ -428,12 +424,12 @@ id __59__TSCrossPlatformTargetAuthFlow_viewControllerDidComplete___block_invoke(
           {
 
 LABEL_27:
-            v32 = _TSLogDomain();
-            if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+            v33 = _TSLogDomain(v10);
+            if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315138;
               v41 = "[TSCrossPlatformTargetAuthFlow transferEventUpdate:]";
-              _os_log_impl(&dword_262AA8000, v32, OS_LOG_TYPE_DEFAULT, "Target cross transfer devices connected @%s", buf, 0xCu);
+              _os_log_impl(&dword_262AA8000, v33, OS_LOG_TYPE_DEFAULT, "Target cross transfer devices connected @%s", buf, 0xCu);
             }
 
             topViewController5 = [(TSSIMSetupFlow *)self topViewController];
@@ -445,9 +441,9 @@ LABEL_30:
 
           topViewController6 = [(TSSIMSetupFlow *)self topViewController];
           objc_opt_class();
-          v31 = objc_opt_isKindOfClass();
+          v32 = objc_opt_isKindOfClass();
 
-          if (v31)
+          if (v32)
           {
             goto LABEL_27;
           }
@@ -457,8 +453,6 @@ LABEL_31:
       }
     }
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __53__TSCrossPlatformTargetAuthFlow_transferEventUpdate___block_invoke_3(uint64_t a1)
@@ -467,59 +461,30 @@ void __53__TSCrossPlatformTargetAuthFlow_transferEventUpdate___block_invoke_3(ui
   [v2 presentViewController:*(a1 + 40) animated:1 completion:0];
 }
 
-- (void)firstViewController
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)firstViewController:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 void __48__TSCrossPlatformTargetAuthFlow_showQRCodePane___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v5 = 136315650;
-  v6 = CTPlanTransferEndpointAsString();
-  v7 = 2112;
-  v8 = a1;
-  v9 = 2080;
-  v10 = "[TSCrossPlatformTargetAuthFlow showQRCodePane:]_block_invoke";
-  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]activate transport for %s failed with error: %@ @%s", &v5, 0x20u);
-  v4 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
+  v4 = 136315650;
+  v5 = CTPlanTransferEndpointAsString();
+  v6 = 2112;
+  v7 = a1;
+  v8 = 2080;
+  v9 = "[TSCrossPlatformTargetAuthFlow showQRCodePane:]_block_invoke";
+  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]activate transport for %s failed with error: %@ @%s", &v4, 0x20u);
 }
 
 void __48__TSCrossPlatformTargetAuthFlow_showQRCodePane___block_invoke_23_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __48__TSCrossPlatformTargetAuthFlow_showQRCodePane___block_invoke_23_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __63__TSCrossPlatformTargetAuthFlow_deactiveCrossPlatformTransport__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

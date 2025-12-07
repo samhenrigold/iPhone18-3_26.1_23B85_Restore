@@ -1,5 +1,6 @@
 @interface WBSettingsTask
 + (id)taskForDeletingAllWebsiteDataInProfileWithIdentifier:(id)identifier;
++ (id)taskForDeletingHistoryAfterDate:(id)date beforeDate:(id)beforeDate forProfileIdentifier:(id)identifier clearAllProfiles:(BOOL)profiles;
 + (id)taskForDeletingIndividualWebsiteDataWithRecord:(id)record;
 + (id)taskWithType:(int64_t)type;
 - (WBSettingsTask)initWithType:(int64_t)type afterDate:(id)date beforeDate:(id)beforeDate profileIdentifier:(id)identifier clearAllProfiles:(BOOL)profiles;
@@ -29,6 +30,17 @@
   v4 = [[WBSettingsTask alloc] initWithType:0 websiteDataRecord:0 profileIdentifier:identifierCopy];
 
   return v4;
+}
+
++ (id)taskForDeletingHistoryAfterDate:(id)date beforeDate:(id)beforeDate forProfileIdentifier:(id)identifier clearAllProfiles:(BOOL)profiles
+{
+  profilesCopy = profiles;
+  identifierCopy = identifier;
+  beforeDateCopy = beforeDate;
+  dateCopy = date;
+  v12 = [[WBSettingsTask alloc] initWithType:4 afterDate:dateCopy beforeDate:beforeDateCopy profileIdentifier:identifierCopy clearAllProfiles:profilesCopy];
+
+  return v12;
 }
 
 - (WBSettingsTask)initWithType:(int64_t)type websiteDataRecord:(id)record profileIdentifier:(id)identifier

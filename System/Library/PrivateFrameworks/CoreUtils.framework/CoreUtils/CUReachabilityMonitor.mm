@@ -23,7 +23,7 @@
   {
     if (gLogCategory_CUReachability <= 60 && (gLogCategory_CUReachability != -1 || _LogCategory_Initialize(&gLogCategory_CUReachability, 0x3Cu)))
     {
-      LogPrintF(&gLogCategory_CUReachability, "[CUReachabilityMonitor URLSession:task:didCompleteWithError:]", 0x3Cu, "### CFURL timeout for <%@>: %{error}, retrying...\n", v6, v7, v8, v9, self->_destinationURL);
+      LogPrintF(&gLogCategory_CUReachability, "[CUReachabilityMonitor URLSession:task:didCompleteWithError:]", 60, "### CFURL timeout for <%@>: %{error}, retrying...\n", v6, v7, v8, v9, self->_destinationURL);
     }
 
     [(NSURLSession *)self->_urlSession invalidateAndCancel];
@@ -81,7 +81,7 @@
           self->_downloadStatus = 0;
           if (gLogCategory_CUReachability <= 30 && (gLogCategory_CUReachability != -1 || _LogCategory_Initialize(&gLogCategory_CUReachability, 0x1Eu)))
           {
-            LogPrintF(&gLogCategory_CUReachability, "[CUReachabilityMonitor URLSession:downloadTask:didFinishDownloadingToURL:]", 0x1Eu, "Downloaded to <%@>, %lld bytes\n", v21, v22, v23, v24, lCopy);
+            LogPrintF(&gLogCategory_CUReachability, "[CUReachabilityMonitor URLSession:downloadTask:didFinishDownloadingToURL:]", 30, "Downloaded to <%@>, %lld bytes\n", v21, v22, v23, v24, lCopy);
           }
 
           goto LABEL_19;
@@ -90,7 +90,7 @@
         v13 = 301048;
         if (gLogCategory_CUReachability <= 60 && (gLogCategory_CUReachability != -1 || _LogCategory_Initialize(&gLogCategory_CUReachability, 0x3Cu)))
         {
-          LogPrintF(&gLogCategory_CUReachability, "[CUReachabilityMonitor URLSession:downloadTask:didFinishDownloadingToURL:]", 0x3Cu, "### Downloaded content mismatch:\n%.2H\n", v17, v18, v19, v20, bytes);
+          LogPrintF(&gLogCategory_CUReachability, "[CUReachabilityMonitor URLSession:downloadTask:didFinishDownloadingToURL:]", 60, "### Downloaded content mismatch:\n%.2H\n", v17, v18, v19, v20, bytes);
         }
       }
 
@@ -109,7 +109,7 @@
   self->_downloadStatus = v13;
   if (gLogCategory_CUReachability <= 60 && (gLogCategory_CUReachability != -1 || _LogCategory_Initialize(&gLogCategory_CUReachability, 0x3Cu)))
   {
-    LogPrintF(&gLogCategory_CUReachability, "[CUReachabilityMonitor URLSession:downloadTask:didFinishDownloadingToURL:]", 0x3Cu, "### Downloaded to <%@> bad: %#m\n", v7, v8, v9, v10, lCopy);
+    LogPrintF(&gLogCategory_CUReachability, "[CUReachabilityMonitor URLSession:downloadTask:didFinishDownloadingToURL:]", 60, "### Downloaded to <%@> bad: %#m\n", v7, v8, v9, v10, lCopy);
   }
 
 LABEL_19:
@@ -130,7 +130,7 @@ void __35__CUReachabilityMonitor_invalidate__block_invoke(uint64_t a1, uint64_t 
 {
   if (gLogCategory_CUReachability <= 30 && (gLogCategory_CUReachability != -1 || _LogCategory_Initialize(&gLogCategory_CUReachability, 0x1Eu)))
   {
-    LogPrintF(&gLogCategory_CUReachability, "[CUReachabilityMonitor invalidate]_block_invoke", 0x1Eu, "Invalidate\n", a5, a6, a7, a8, v10);
+    LogPrintF(&gLogCategory_CUReachability, "[CUReachabilityMonitor invalidate]_block_invoke", 30, "Invalidate\n", a5, a6, a7, a8, v10);
   }
 
   v9 = *(a1 + 32);
@@ -176,7 +176,7 @@ LABEL_6:
         v24 = _completeCopy;
         if (gLogCategory_CUReachability != -1 || (v14 = _LogCategory_Initialize(&gLogCategory_CUReachability, 0x3Cu), _completeCopy = v24, v14))
         {
-          LogPrintF(&gLogCategory_CUReachability, "[CUReachabilityMonitor _complete:]", 0x3Cu, "### Not reachable <%@>: %{error}\n", v7, v8, v9, v10, self->_destinationURL);
+          LogPrintF(&gLogCategory_CUReachability, "[CUReachabilityMonitor _complete:]", 60, "### Not reachable <%@>: %{error}\n", v7, v8, v9, v10, self->_destinationURL);
           _completeCopy = v24;
         }
       }
@@ -193,7 +193,7 @@ LABEL_20:
 LABEL_13:
     if (gLogCategory_CUReachability <= 30 && (gLogCategory_CUReachability != -1 || _LogCategory_Initialize(&gLogCategory_CUReachability, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_CUReachability, "[CUReachabilityMonitor _complete:]", 0x1Eu, "Reachable: <%@>\n", v7, v8, v9, v10, self->_destinationURL);
+      LogPrintF(&gLogCategory_CUReachability, "[CUReachabilityMonitor _complete:]", 30, "Reachable: <%@>\n", v7, v8, v9, v10, self->_destinationURL);
     }
 
     _completeCopy = 0;
@@ -336,23 +336,23 @@ LABEL_5:
 
 - (BOOL)_captiveDetectedCheck
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   captiveNotifyToken = self->_captiveNotifyToken;
-  v13[0] = 0;
-  notify_get_state(captiveNotifyToken, v13);
-  v4 = v13[0];
+  v8[0] = 0;
+  notify_get_state(captiveNotifyToken, v8);
+  v4 = v8[0];
   v5 = logger_7532();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    LODWORD(v13[0]) = 67109120;
-    HIDWORD(v13[0]) = v4 == 1;
-    _os_log_impl(&dword_191EAF000, v5, OS_LOG_TYPE_DEFAULT, "Captive network state: detected=%{BOOL}d", v13, 8u);
+    LODWORD(v8[0]) = 67109120;
+    HIDWORD(v8[0]) = v4 == 1;
+    _os_log_impl(&dword_191EAF000, v5, OS_LOG_TYPE_DEFAULT, "Captive network state: detected=%{BOOL}d", v8, 8u);
   }
 
   if (v4 == 1)
   {
-    v11 = NSErrorF_safe(*MEMORY[0x1E696A768], 301047, "Captive network detected", v6, v7, v8, v9, v10, v13[0]);
-    [(CUReachabilityMonitor *)self _complete:v11];
+    v6 = NSErrorF_safe(*MEMORY[0x1E696A768], 301047, "Captive network detected");
+    [(CUReachabilityMonitor *)self _complete:v6];
   }
 
   return v4 == 1;
@@ -447,8 +447,8 @@ void __34__CUReachabilityMonitor__activate__block_invoke(uint64_t a1)
 void __34__CUReachabilityMonitor__activate__block_invoke_2(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v6 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960574, "Timeout", v1, v2, v3, v4, v5, v7);
-  [WeakRetained _complete:v6];
+  v1 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960574, "Timeout");
+  [WeakRetained _complete:v1];
 }
 
 - (void)activate

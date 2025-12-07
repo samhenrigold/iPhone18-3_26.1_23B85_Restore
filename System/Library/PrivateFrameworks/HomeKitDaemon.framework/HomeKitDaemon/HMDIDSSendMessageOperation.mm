@@ -17,7 +17,7 @@
 - (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error context:(id)context
 {
   successCopy = success;
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   accountCopy = account;
   identifierCopy = identifier;
@@ -34,9 +34,9 @@
       if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
         v23 = HMFGetLogIdentifier();
-        v29 = 138543362;
-        v30 = v23;
-        _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@Successfully sent message", &v29, 0xCu);
+        v28 = 138543362;
+        v29 = v23;
+        _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@Successfully sent message", &v28, 0xCu);
       }
 
       objc_autoreleasePoolPop(v19);
@@ -48,11 +48,11 @@
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         v24 = HMFGetLogIdentifier();
-        v29 = 138543618;
-        v30 = v24;
-        v31 = 2112;
-        v32 = errorCopy;
-        _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to send message with error: %@", &v29, 0x16u);
+        v28 = 138543618;
+        v29 = v24;
+        v30 = 2112;
+        v31 = errorCopy;
+        _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to send message with error: %@", &v28, 0x16u);
       }
 
       objc_autoreleasePoolPop(v19);
@@ -63,8 +63,6 @@
       [(HMFOperation *)selfCopy cancelWithError:v27];
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (id)logIdentifier
@@ -77,7 +75,7 @@
 
 - (void)main
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -85,7 +83,7 @@
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v56 = v6;
+    v55 = v6;
     _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Starting", buf, 0xCu);
   }
 
@@ -97,17 +95,17 @@
   v11 = [HMDRemoteMessageTransport remoteMessageFromMessage:message secure:isSecureRemote accountRegistry:v10];
 
   [v11 setResponseRestriction:1];
-  v52 = 0;
-  v12 = [HMDRemoteMessageSerialization dictionaryForMessage:v11 isHH2Payload:1 error:&v52];
-  v13 = v52;
+  v51 = 0;
+  v12 = [HMDRemoteMessageSerialization dictionaryForMessage:v11 isHH2Payload:1 error:&v51];
+  v13 = v51;
   v14 = v13;
   if (v12)
   {
 
-    v53 = *MEMORY[0x277D18650];
+    v52 = *MEMORY[0x277D18650];
     v15 = [MEMORY[0x277CCABB0] numberWithDouble:selfCopy->_timeout];
-    v54 = v15;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
+    v53 = v15;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
 
     v16 = +[HMDRemoteDestinationFormatter defaultFormatter];
     v17 = [v16 stringForObjectValue:selfCopy->_destination];
@@ -116,11 +114,11 @@
     {
       service = selfCopy->_service;
       v19 = [MEMORY[0x277CBEB98] setWithObject:v17];
+      v49 = 0;
       v50 = 0;
-      v51 = 0;
-      v20 = [(HMDIDSService *)service sendMessage:v12 toDestinations:v19 priority:300 options:v14 identifier:&v51 error:&v50];
-      v21 = v51;
-      v22 = v50;
+      v20 = [(HMDIDSService *)service sendMessage:v12 toDestinations:v19 priority:300 options:v14 identifier:&v50 error:&v49];
+      v21 = v50;
+      v22 = v49;
 
       if (v20)
       {
@@ -135,9 +133,9 @@
         {
           v28 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v56 = v28;
-          v57 = 2112;
-          v58 = v21;
+          v55 = v28;
+          v56 = 2112;
+          v57 = v21;
           _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_INFO, "%{public}@Sent message with identifier: %@", buf, 0x16u);
         }
 
@@ -156,9 +154,9 @@
         {
           v46 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v56 = v46;
-          v57 = 2112;
-          v58 = v22;
+          v55 = v46;
+          v56 = 2112;
+          v57 = v22;
           _os_log_impl(&dword_229538000, v45, OS_LOG_TYPE_ERROR, "%{public}@Failed to send message with error: %@", buf, 0x16u);
         }
 
@@ -181,9 +179,9 @@
         v38 = HMFGetLogIdentifier();
         destination = selfCopy->_destination;
         *buf = 138543618;
-        v56 = v38;
-        v57 = 2112;
-        v58 = destination;
+        v55 = v38;
+        v56 = 2112;
+        v57 = destination;
         _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_ERROR, "%{public}@Failed to generate destination for: %@", buf, 0x16u);
       }
 
@@ -206,9 +204,9 @@
     {
       v34 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v56 = v34;
-      v57 = 2112;
-      v58 = v14;
+      v55 = v34;
+      v56 = 2112;
+      v57 = v14;
       _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_ERROR, "%{public}@Failed to serialize message with error: %@", buf, 0x16u);
     }
 
@@ -216,18 +214,14 @@
     v17 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1 description:0 reason:0 suggestion:0 underlyingError:v14];
     [(HMFOperation *)v32 cancelWithError:v17];
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)attributeDescriptions
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277D0F778]) initWithName:@"Message" value:self->_message options:1 formatter:0];
-  v6[0] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
 
   return v3;
 }
@@ -256,7 +250,7 @@
 
 - (HMDIDSSendMessageOperation)initWithMessage:(id)message service:(id)service
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   serviceCopy = service;
   destination = [messageCopy destination];
@@ -273,9 +267,9 @@
       v28 = HMFGetLogIdentifier();
       destination2 = [messageCopy destination];
       *buf = 138543618;
-      v34 = v28;
-      v35 = 2112;
-      v36 = destination2;
+      v33 = v28;
+      v34 = 2112;
+      v35 = destination2;
       _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Invalid message destination: %@", buf, 0x16u);
 
 LABEL_16:
@@ -297,7 +291,7 @@ LABEL_17:
     {
       v28 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v34 = v28;
+      v33 = v28;
       _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Invalid service", buf, 0xCu);
       goto LABEL_16;
     }
@@ -332,9 +326,9 @@ LABEL_17:
 
   [(__objc2_class *)v15 timeout];
   v17 = v16;
-  v32.receiver = self;
-  v32.super_class = HMDIDSSendMessageOperation;
-  v18 = [(HMFOperation *)&v32 initWithTimeout:?];
+  v31.receiver = self;
+  v31.super_class = HMDIDSSendMessageOperation;
+  v18 = [(HMFOperation *)&v31 initWithTimeout:?];
   v19 = v18;
   if (v18)
   {
@@ -355,7 +349,6 @@ LABEL_17:
   v25 = selfCopy2;
 LABEL_18:
 
-  v30 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
@@ -383,10 +376,9 @@ LABEL_18:
 
 void __41__HMDIDSSendMessageOperation_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v9_67129;
-  logCategory__hmf_once_v9_67129 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v9_67129;
+  logCategory__hmf_once_v9_67129 = v0;
 }
 
 + (id)shortDescription

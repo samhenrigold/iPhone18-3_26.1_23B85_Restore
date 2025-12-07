@@ -7,22 +7,23 @@
 
 - (id)describeProperties
 {
-  v10.receiver = self;
-  v10.super_class = AAProximityPairingStatusPayloadB444;
-  describeProperties = [(AAProximityPairingStatusPayloadBeatsUntethered *)&v10 describeProperties];
-  leftColor = [(AAProximityPairingStatusPayloadB444 *)self leftColor];
-  NSAppendPrintF_safe();
-  v3 = describeProperties;
+  v12.receiver = self;
+  v12.super_class = AAProximityPairingStatusPayloadB444;
+  describeProperties = [(AAProximityPairingStatusPayloadBeatsUntethered *)&v12 describeProperties];
+  v11 = describeProperties;
+  NSAppendPrintF_safe(&v11, ", L col: %d", [(AAProximityPairingStatusPayloadB444 *)self leftColor]);
+  v4 = v11;
 
-  rightColor = [(AAProximityPairingStatusPayloadB444 *)self rightColor];
-  NSAppendPrintF_safe();
-  v4 = v3;
+  v10 = v4;
+  NSAppendPrintF_safe(&v10, ", R col: %d", [(AAProximityPairingStatusPayloadB444 *)self rightColor]);
+  v5 = v10;
 
-  [(AAProximityPairingStatusPayloadB444 *)self caseColor];
-  NSAppendPrintF_safe();
-  v5 = v4;
+  v9 = v5;
+  NSAppendPrintF_safe(&v9, ", C col: %d", [(AAProximityPairingStatusPayloadB444 *)self caseColor]);
+  v6 = v9;
+  v7 = v9;
 
-  return v4;
+  return v6;
 }
 
 - (unsigned)colorBest

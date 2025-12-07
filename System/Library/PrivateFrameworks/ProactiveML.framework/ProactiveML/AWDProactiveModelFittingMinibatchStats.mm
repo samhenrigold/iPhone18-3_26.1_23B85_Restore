@@ -20,25 +20,23 @@
 
 - (id)toDictionary
 {
-  v10[2] = *MEMORY[0x277D85DE8];
-  v9[0] = @"size";
+  v9[2] = *MEMORY[0x277D85DE8];
+  v8[0] = @"size";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{-[AWDProactiveModelFittingMinibatchStats batchSize](self, "batchSize")}];
-  v9[1] = @"support";
-  v10[0] = v3;
+  v8[1] = @"support";
+  v9[0] = v3;
   v4 = MEMORY[0x277CCABB0];
   [(AWDProactiveModelFittingMinibatchStats *)self support];
   v5 = [v4 numberWithFloat:?];
-  v10[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
 
   return v6;
 }
 
 - (void)mergeFrom:(id)from
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   v5 = fromCopy;
   v6 = *(fromCopy + 28);
@@ -55,35 +53,33 @@
     *&self->_has |= 1u;
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = *(fromCopy + 2);
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(AWDProactiveModelFittingMinibatchStats *)self addPerLabelSupport:*(*(&v13 + 1) + 8 * i), v13];
+        [(AWDProactiveModelFittingMinibatchStats *)self addPerLabelSupport:*(*(&v12 + 1) + 8 * i), v12];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)hash
@@ -147,7 +143,6 @@
     goto LABEL_14;
   }
 
-  v5 = *(equalCopy + 28);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 28) & 2) == 0 || self->_support != *(equalCopy + 6))
@@ -159,7 +154,7 @@
   else if ((*(equalCopy + 28) & 2) != 0)
   {
 LABEL_14:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_15;
   }
 
@@ -179,22 +174,22 @@ LABEL_14:
   perLabelSupports = self->_perLabelSupports;
   if (perLabelSupports | *(equalCopy + 2))
   {
-    v7 = [(NSMutableArray *)perLabelSupports isEqual:?];
+    v6 = [(NSMutableArray *)perLabelSupports isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_15:
 
-  return v7;
+  return v6;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   has = self->_has;
@@ -211,36 +206,35 @@ LABEL_15:
     *(v5 + 28) |= 1u;
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v8 = self->_perLabelSupports;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [*(*(&v16 + 1) + 8 * i) copyWithZone:{zone, v16}];
+        v13 = [*(*(&v15 + 1) + 8 * i) copyWithZone:{zone, v15}];
         [v6 addPerLabelSupport:v13];
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -280,57 +274,52 @@ LABEL_15:
 
 - (void)writeTo:(id)to
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   toCopy = to;
   has = self->_has;
   if ((has & 2) != 0)
   {
-    support = self->_support;
     PBDataWriterWriteFloatField();
     has = self->_has;
   }
 
   if (has)
   {
-    batchSize = self->_batchSize;
     PBDataWriterWriteUint64Field();
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v8 = self->_perLabelSupports;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v9)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_perLabelSupports;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v16;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v11)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v15 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v10);
+    while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dictionaryRepresentation
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   has = self->_has;
   if ((has & 2) != 0)
@@ -351,30 +340,30 @@ LABEL_15:
   if ([(NSMutableArray *)self->_perLabelSupports count])
   {
     v8 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_perLabelSupports, "count")}];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v9 = self->_perLabelSupports;
-    v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v18;
+      v12 = *v17;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v18 != v12)
+          if (*v17 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          dictionaryRepresentation = [*(*(&v17 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v16 + 1) + 8 * i) dictionaryRepresentation];
           [v8 addObject:dictionaryRepresentation];
         }
 
-        v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v11);
@@ -382,8 +371,6 @@ LABEL_15:
 
     [dictionary setObject:v8 forKey:@"perLabelSupport"];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -435,28 +422,28 @@ LABEL_15:
 
 - (float)supportForLabel:(unint64_t)label
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   perLabelSupports = [(AWDProactiveModelFittingMinibatchStats *)self perLabelSupports];
-  v5 = [perLabelSupports countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [perLabelSupports countByEnumeratingWithState:&v13 objects:v17 count:16];
   v6 = 0.0;
   if (v5)
   {
     v7 = v5;
-    v8 = *v15;
+    v8 = *v14;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(perLabelSupports);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         if ([v10 label] == label)
         {
           [v10 support];
@@ -465,7 +452,7 @@ LABEL_15:
         }
       }
 
-      v7 = [perLabelSupports countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [perLabelSupports countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v7)
       {
         continue;
@@ -477,7 +464,6 @@ LABEL_15:
 
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -499,33 +485,33 @@ LABEL_11:
 
 + (AWDProactiveModelFittingMinibatchStats)statsWithPerLabelCounts:(id)counts
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   countsCopy = counts;
   v4 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   allValues = [countsCopy allValues];
-  v6 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v8 += [*(*(&v17 + 1) + 8 * i) unsignedIntegerValue];
+        v8 += [*(*(&v16 + 1) + 8 * i) unsignedIntegerValue];
       }
 
-      v7 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
@@ -537,16 +523,14 @@ LABEL_11:
   }
 
   [v4 setBatchSize:v8];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __85__AWDProactiveModelFittingMinibatchStats_VisibleForTesting__statsWithPerLabelCounts___block_invoke;
-  v14[3] = &unk_279AC0860;
-  v16 = v8;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __85__AWDProactiveModelFittingMinibatchStats_VisibleForTesting__statsWithPerLabelCounts___block_invoke;
+  v13[3] = &unk_279AC0860;
+  v15 = v8;
   v11 = v4;
-  v15 = v11;
-  [countsCopy enumerateKeysAndObjectsUsingBlock:v14];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v14 = v11;
+  [countsCopy enumerateKeysAndObjectsUsingBlock:v13];
 
   return v11;
 }

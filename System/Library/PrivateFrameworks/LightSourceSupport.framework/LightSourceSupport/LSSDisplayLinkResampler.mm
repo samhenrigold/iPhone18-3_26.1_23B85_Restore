@@ -12,13 +12,13 @@
 
 - (LSSDisplayLinkResampler)initWithProvider:(id)provider display:(id)display inUpdateInterval:(double)interval outUpdateInterval:(double)updateInterval delegate:(id)delegate
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   displayCopy = display;
   delegateCopy = delegate;
-  v25.receiver = self;
-  v25.super_class = LSSDisplayLinkResampler;
-  v16 = [(LSSDisplayLinkResampler *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = LSSDisplayLinkResampler;
+  v16 = [(LSSDisplayLinkResampler *)&v24 init];
   v17 = v16;
   if (v16)
   {
@@ -64,7 +64,7 @@ LABEL_6:
 
     *buf = 134218240;
     intervalCopy = interval;
-    v28 = 2048;
+    v27 = 2048;
     updateIntervalCopy = updateInterval;
     _os_log_impl(&dword_255E8B000, v18, OS_LOG_TYPE_DEFAULT, "inUpdateInterval: %f outUpdateInterval: %f", buf, 0x16u);
     goto LABEL_6;
@@ -72,7 +72,6 @@ LABEL_6:
 
 LABEL_7:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -90,7 +89,7 @@ LABEL_7:
 - (void)updateLightDirection:(id)direction
 {
   var0 = direction.var0;
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = [(LSSProvider *)self->_provider queue:*&direction.var0];
   dispatch_assert_queue_V2(v5);
 
@@ -107,15 +106,15 @@ LABEL_7:
 
   eventQueue = self->_eventQueue;
   v8 = *(*&var0 + 48);
-  v13[2] = *(*&var0 + 32);
-  v13[3] = v8;
+  v12[2] = *(*&var0 + 32);
+  v12[3] = v8;
   v9 = *(*&var0 + 80);
-  v13[4] = *(*&var0 + 64);
-  v13[5] = v9;
+  v12[4] = *(*&var0 + 64);
+  v12[5] = v9;
   v10 = *(*&var0 + 16);
-  v13[0] = **&var0;
-  v13[1] = v10;
-  [(LSSEventQueue *)eventQueue schedule:v13];
+  v12[0] = **&var0;
+  v12[1] = v10;
+  [(LSSEventQueue *)eventQueue schedule:v12];
   if ([(LSSDisplayLink *)self->_displayLink paused])
   {
     if (qword_280D2F4C0 == -1)
@@ -125,7 +124,7 @@ LABEL_7:
       {
 LABEL_8:
         [(LSSDisplayLink *)self->_displayLink setPaused:0];
-        goto LABEL_9;
+        return;
       }
     }
 
@@ -139,29 +138,25 @@ LABEL_8:
       }
     }
 
-    LOWORD(v13[0]) = 0;
-    _os_log_impl(&dword_255E8B000, v11, OS_LOG_TYPE_DEFAULT, "resume", v13, 2u);
+    LOWORD(v12[0]) = 0;
+    _os_log_impl(&dword_255E8B000, v11, OS_LOG_TYPE_DEFAULT, "resume", v12, 2u);
     goto LABEL_8;
   }
-
-LABEL_9:
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)provider:(id)provider updatedLight:(id)light
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = *(*&light.var0 + 48);
-  v8[2] = *(*&light.var0 + 32);
-  v8[3] = v4;
+  v7[2] = *(*&light.var0 + 32);
+  v7[3] = v4;
   v5 = *(*&light.var0 + 80);
-  v8[4] = *(*&light.var0 + 64);
-  v8[5] = v5;
+  v7[4] = *(*&light.var0 + 64);
+  v7[5] = v5;
   v6 = *(*&light.var0 + 16);
-  v8[0] = **&light.var0;
-  v8[1] = v6;
-  [(LSSDisplayLinkResampler *)self updateLightDirection:v8];
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = **&light.var0;
+  v7[1] = v6;
+  [(LSSDisplayLinkResampler *)self updateLightDirection:v7];
 }
 
 - (void)invalidate
@@ -184,7 +179,7 @@ LABEL_9:
 
 - (void)_fire
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v2 = LSSMediaTime();
@@ -192,10 +187,10 @@ LABEL_9:
     [(LSSEventQueue *)*(self + 16) intervalForTime:v2];
     if (*&__src[12])
     {
-      memset(v7, 0, sizeof(v7));
-      memcpy(v6, __src, sizeof(v6));
-      LSSLightDirectionFromTimeInInterval(v6, v7, v2);
-      if (!DWORD1(v7[5]) && *&__src[12] == 1 && ([*(self + 8) paused] & 1) == 0)
+      memset(v6, 0, sizeof(v6));
+      memcpy(v5, __src, sizeof(v5));
+      LSSLightDirectionFromTimeInInterval(v5, v6, v2);
+      if (!DWORD1(v6[5]) && *&__src[12] == 1 && ([*(self + 8) paused] & 1) == 0)
       {
         if (qword_280D2F4C0 != -1)
         {
@@ -205,20 +200,18 @@ LABEL_9:
         v3 = _MergedGlobals_0;
         if (os_log_type_enabled(_MergedGlobals_0, OS_LOG_TYPE_DEFAULT))
         {
-          *v6 = 0;
-          _os_log_impl(&dword_255E8B000, v3, OS_LOG_TYPE_DEFAULT, "pause", v6, 2u);
+          *v5 = 0;
+          _os_log_impl(&dword_255E8B000, v3, OS_LOG_TYPE_DEFAULT, "pause", v5, 2u);
         }
 
         [*(self + 8) setPaused:1];
       }
 
       WeakRetained = objc_loadWeakRetained((self + 32));
-      memcpy(v6, v7, 0x60uLL);
-      [WeakRetained provider:self updatedLight:v6];
+      memcpy(v5, v6, 0x60uLL);
+      [WeakRetained provider:self updatedLight:v5];
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

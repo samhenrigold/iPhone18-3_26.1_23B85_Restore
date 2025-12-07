@@ -5,11 +5,14 @@
 - (TransparencyGPBUInt32ObjectDictionary)initWithObjects:(const void *)objects forKeys:(const unsigned int *)keys count:(unint64_t)count;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)deepCopyWithZone:(_NSZone *)zone;
+- (id)objectForKey:(unsigned int)key;
 - (unint64_t)computeSerializedSizeAsField:(id)field;
 - (void)addEntriesFromDictionary:(id)dictionary;
 - (void)dealloc;
 - (void)enumerateForTextFormat:(id)format;
 - (void)enumerateKeysAndObjectsUsingBlock:(id)block;
+- (void)removeObjectForKey:(unsigned int)key;
+- (void)setObject:(id)object forKey:(unsigned int)key;
 - (void)setTransparencyGPBGenericValue:(id *)value forTransparencyGPBGenericValueKey:(id *)key;
 - (void)writeToCodedOutputStream:(id)stream asField:(id)field;
 @end
@@ -280,6 +283,14 @@ LABEL_9:
   [(TransparencyGPBUInt32ObjectDictionary *)self enumerateKeysAndObjectsUsingBlock:v3];
 }
 
+- (id)objectForKey:(unsigned int)key
+{
+  dictionary = self->_dictionary;
+  v4 = [NSNumber numberWithUnsignedInt:*&key];
+
+  return [(NSMutableDictionary *)dictionary objectForKey:v4];
+}
+
 - (void)addEntriesFromDictionary:(id)dictionary
 {
   if (dictionary)
@@ -292,6 +303,31 @@ LABEL_9:
       sub_1000E2C68(autocreator, self);
     }
   }
+}
+
+- (void)setObject:(id)object forKey:(unsigned int)key
+{
+  v4 = *&key;
+  if (!object)
+  {
+    [NSException raise:NSInvalidArgumentException format:@"Attempting to add nil object to a Dictionary"];
+  }
+
+  [(NSMutableDictionary *)self->_dictionary setObject:object forKey:[NSNumber numberWithUnsignedInt:v4]];
+  autocreator = self->_autocreator;
+  if (autocreator)
+  {
+
+    sub_1000E2C68(autocreator, self);
+  }
+}
+
+- (void)removeObjectForKey:(unsigned int)key
+{
+  dictionary = self->_dictionary;
+  v4 = [NSNumber numberWithUnsignedInt:*&key];
+
+  [(NSMutableDictionary *)dictionary removeObjectForKey:v4];
 }
 
 @end

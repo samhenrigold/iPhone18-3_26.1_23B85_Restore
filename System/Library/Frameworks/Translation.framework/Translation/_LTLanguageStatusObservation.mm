@@ -177,27 +177,25 @@ LABEL_14:
 
 + (id)describeObservations:(id)observations
 {
-  v17[3] = *MEMORY[0x277D85DE8];
-  v16[0] = &unk_284DC9948;
-  v16[1] = &unk_284DC9960;
-  v17[0] = @"🔴";
-  v17[1] = @"🟡";
-  v16[2] = &unk_284DC9978;
-  v17[2] = @"🟢";
+  v16[3] = *MEMORY[0x277D85DE8];
+  v15[0] = &unk_284DC9948;
+  v15[1] = &unk_284DC9960;
+  v16[0] = @"🔴";
+  v16[1] = @"🟡";
+  v15[2] = &unk_284DC9978;
+  v16[2] = @"🟢";
   v3 = MEMORY[0x277CBEAC0];
   observationsCopy = observations;
-  v5 = [v3 dictionaryWithObjects:v17 forKeys:v16 count:3];
-  v11 = MEMORY[0x277D85DD0];
-  v12 = 3221225472;
-  v13 = __53___LTLanguageStatusObservation_describeObservations___block_invoke;
-  v14 = &unk_278B6D2B0;
-  v15 = v5;
+  v5 = [v3 dictionaryWithObjects:v16 forKeys:v15 count:3];
+  v10 = MEMORY[0x277D85DD0];
+  v11 = 3221225472;
+  v12 = __53___LTLanguageStatusObservation_describeObservations___block_invoke;
+  v13 = &unk_278B6D2B0;
+  v14 = v5;
   v6 = v5;
-  v7 = [observationsCopy _ltCompactMap:&v11];
+  v7 = [observationsCopy _ltCompactMap:&v10];
 
-  v8 = [v7 componentsJoinedByString:{@" ", v11, v12, v13, v14}];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = [v7 componentsJoinedByString:{@" ", v10, v11, v12, v13}];
 
   return v8;
 }

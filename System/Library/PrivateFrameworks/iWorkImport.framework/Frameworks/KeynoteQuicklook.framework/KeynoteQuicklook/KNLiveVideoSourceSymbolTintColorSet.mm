@@ -45,7 +45,7 @@
 
   v6 = sub_275E56C94(v8);
 
-  sub_275E573B0(v8, &qword_280A3BE70);
+  sub_275E573B0(v8, &qword_280A3BE70, &qword_275E7C450);
   return v6 & 1;
 }
 

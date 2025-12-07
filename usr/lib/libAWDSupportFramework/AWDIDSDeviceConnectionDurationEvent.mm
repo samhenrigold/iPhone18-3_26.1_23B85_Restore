@@ -275,7 +275,6 @@ LABEL_13:
 {
   if ((*&self->_has & 0x80) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -287,7 +286,6 @@ LABEL_13:
   has = self->_has;
   if ((has & 0x100) != 0)
   {
-    success = self->_success;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((has & 2) == 0)
@@ -307,7 +305,6 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  clientInitToDaemonOpenSocket = self->_clientInitToDaemonOpenSocket;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -322,7 +319,6 @@ LABEL_8:
   }
 
 LABEL_16:
-  clientInitToClientOpenSocketHandler = self->_clientInitToClientOpenSocketHandler;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -337,7 +333,6 @@ LABEL_9:
   }
 
 LABEL_17:
-  clientOpenSocketHandlerToIncomingFirstPacket = self->_clientOpenSocketHandlerToIncomingFirstPacket;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -352,7 +347,6 @@ LABEL_10:
   }
 
 LABEL_18:
-  daemonOpenSocketToDaemonCompletionHandler = self->_daemonOpenSocketToDaemonCompletionHandler;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -364,7 +358,6 @@ LABEL_11:
     }
 
 LABEL_20:
-    daemonCompletionHandlerToIncomingFirstPacket = self->_daemonCompletionHandlerToIncomingFirstPacket;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 8) == 0)
     {
@@ -375,7 +368,6 @@ LABEL_20:
   }
 
 LABEL_19:
-  daemonCompletionHandlerToClientOpenSocketCompletion = self->_daemonCompletionHandlerToClientOpenSocketCompletion;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x20) != 0)
@@ -390,7 +382,6 @@ LABEL_12:
   }
 
 LABEL_21:
-  connectionInitToIncomingFirstPacket = self->_connectionInitToIncomingFirstPacket;
 
   PBDataWriterWriteUint64Field();
 }
@@ -679,7 +670,6 @@ LABEL_11:
   {
     if ((*(equal + 42) & 0x100) != 0)
     {
-      v10 = *(equal + 80);
       if (self->_success)
       {
         if ((*(equal + 80) & 1) == 0)

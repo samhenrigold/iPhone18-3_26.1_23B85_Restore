@@ -9,30 +9,42 @@
 {
   if ((level & 0x8000000) != 0)
   {
-    v4 = 0;
+    v3 = 8;
   }
 
   else
   {
-    v10 = [objc_opt_class() description];
-    CUAppendF();
-    v4 = 0;
+    v3 = 12;
   }
 
-  basicConfig = self->_basicConfig;
-  v11 = CUPrintNSObjectOneLine();
-  CUAppendF();
-  v6 = v4;
-
-  v7 = &stru_2877689A8;
-  if (v6)
+  v13 = v3;
+  if ((level & 0x8000000) != 0)
   {
-    v7 = v6;
+    v5 = 0;
   }
 
-  v8 = v7;
+  else
+  {
+    v12 = 0;
+    v4 = [objc_opt_class() description];
+    CUAppendF(&v12, &v13, "%@", v4);
+    v5 = v12;
+  }
 
-  return v8;
+  v11 = v5;
+  v6 = CUPrintNSObjectOneLine();
+  CUAppendF(&v11, &v13, "%@", v6);
+  v7 = v11;
+
+  v8 = &stru_2877689A8;
+  if (v7)
+  {
+    v8 = v7;
+  }
+
+  v9 = v8;
+
+  return v9;
 }
 
 - (SKEventBasicConfigUpdated)initWithBasicConfig:(id)config

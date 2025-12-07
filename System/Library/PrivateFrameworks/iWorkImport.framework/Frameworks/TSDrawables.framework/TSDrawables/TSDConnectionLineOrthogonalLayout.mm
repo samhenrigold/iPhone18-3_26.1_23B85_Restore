@@ -86,64 +86,64 @@
 
 - (id)createConnectedPathFrom:(id)from to:(id)to withControlPoints:(CGPoint)points[3]
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   toCopy = to;
   for (i = 0; i != 6; i += 2)
   {
     TSUMultiplyPointScalar();
-    v10 = &v80[i];
+    v10 = &v82[i];
     *v10 = v11;
     *(v10 + 1) = v12;
   }
 
+  v80 = 0u;
+  v81 = 0u;
+  v13 = v82[0];
+  sub_27677AEFC(v82[0], v82[1], 0, 0, &v80);
   v78 = 0u;
   v79 = 0u;
-  v13 = v80[0];
-  sub_27677AEFC(v80[0], v80[1], 0, 0, &v78);
-  v76 = 0u;
-  v77 = 0u;
-  v14 = v81;
-  sub_27677AEFC(v81, v82, 0, 0, &v76);
-  v67 = v78;
-  v68 = v79;
+  v14 = v83;
+  sub_27677AEFC(v83, v84, 0, 0, &v78);
+  v69 = v80;
+  v70 = v81;
   v15 = sub_27677AECC(v13);
   v17 = v16;
-  v69 = v15;
-  v70 = v16;
-  v71 = 0u;
-  v72 = 0u;
+  v71 = v15;
+  v72 = v16;
   v73 = 0u;
   v74 = 0u;
-  v75 = 0;
-  v58 = v76;
-  v59 = v77;
+  v75 = 0u;
+  v76 = 0u;
+  v77 = 0;
+  v60 = v78;
+  v61 = v79;
   v20 = sub_27677AECC(v14);
   v21 = v18;
-  v60 = v20;
-  v61 = v18;
-  v62 = 0u;
-  v63 = 0u;
+  v62 = v20;
+  v63 = v18;
   v64 = 0u;
   v65 = 0u;
-  v66 = 0;
+  v66 = 0u;
+  v67 = 0u;
+  v68 = 0;
   if (fromCopy)
   {
     objc_msgSend_outsetFrom(self, v18, v19);
     objc_msgSend_orthoRectOfLayout_outset_(self, v22, fromCopy);
-    v23 = sub_27677AF98(&v67);
+    v23 = sub_27677AF98(&v69);
     objc_msgSend_centerForConnecting(fromCopy, v24, v25, v23);
     sub_27677AED8(v26, v27, 10.0);
     v15 = v28;
     v17 = v29;
-    v69 = v28;
-    v70 = v29;
-    v44 = v67;
-    v45 = v68;
-    sub_2766F6800(&v44, v28, v29, &v67);
-    if (v68 >= 1 && *(&v68 + 1) >= 1)
+    v71 = v28;
+    v72 = v29;
+    v46 = v69;
+    v47 = v70;
+    sub_2766F6800(&v46, v28, v29, &v69);
+    if (v70 >= 1 && *(&v70 + 1) >= 1)
     {
-      *&v71 = 200;
+      *&v73 = 200;
     }
   }
 
@@ -151,63 +151,63 @@
   {
     objc_msgSend_outsetTo(self, v18, v19);
     objc_msgSend_orthoRectOfLayout_outset_(self, v30, toCopy);
-    v31 = sub_27677AF98(&v58);
+    v31 = sub_27677AF98(&v60);
     objc_msgSend_centerForConnecting(toCopy, v32, v33, v31);
     sub_27677AED8(v34, v35, 10.0);
     v20 = v36;
     v21 = v37;
-    v60 = v36;
-    v61 = v37;
-    v44 = v58;
-    v45 = v59;
-    sub_2766F6800(&v44, v36, v37, &v58);
-    if (v59 >= 1 && *(&v59 + 1) >= 1)
+    v62 = v36;
+    v63 = v37;
+    v46 = v60;
+    v47 = v61;
+    sub_2766F6800(&v46, v36, v37, &v60);
+    if (v61 >= 1 && *(&v61 + 1) >= 1)
     {
-      *&v62 = 200;
+      *&v64 = 200;
     }
   }
 
   objc_msgSend_i_setVisibleLine_(self, v18, 1);
+  v57 = 0;
+  v58 = 0;
+  v59 = 0;
+  v54 = 0;
   v55 = 0;
   v56 = 0;
-  v57 = 0;
+  v46.n128_f64[0] = v15;
+  sub_2766F6D98(&v57, &v46);
+  v46.n128_f64[0] = v17;
+  sub_2766F6D98(&v54, &v46);
+  v46.n128_f64[0] = v20;
+  sub_2766F6D98(&v57, &v46);
+  v46.n128_f64[0] = v21;
+  sub_2766F6D98(&v54, &v46);
+  v38 = v82[2];
+  v39 = v82[3];
   v52 = 0;
   v53 = 0;
-  v54 = 0;
-  v44.n128_f64[0] = v15;
-  sub_2766F6D98(&v55, &v44);
-  v44.n128_f64[0] = v17;
-  sub_2766F6D98(&v52, &v44);
-  v44.n128_f64[0] = v20;
-  sub_2766F6D98(&v55, &v44);
-  v44.n128_f64[0] = v21;
-  sub_2766F6D98(&v52, &v44);
-  v38 = v80[2];
-  v39 = v80[3];
-  v50 = 0;
   v51 = 0;
-  v49 = 0;
-  sub_2766F9448(&v49, v55, v56, (v56 - v55) >> 3);
+  sub_2766F9448(&v51, v57, v58, (v58 - v57) >> 3);
   __p = 0;
-  v47 = 0;
-  v48 = 0;
-  sub_2766F9448(&__p, v52, v53, (v53 - v52) >> 3);
-  objc_msgSend_axisSnapPoint_toXs_toYs_withThreshold_(self, v40, &v49, &__p, v38, v39, 20.0);
+  v49 = 0;
+  v50 = 0;
+  sub_2766F9448(&__p, v54, v55, (v55 - v54) >> 3);
+  objc_msgSend_axisSnapPoint_toXs_toYs_withThreshold_(self, v40, &v51, &__p, v38, v39, 20.0);
   v42 = v41;
   if (__p)
   {
-    v47 = __p;
+    v49 = __p;
     operator delete(__p);
   }
 
-  if (v49)
+  if (v51)
   {
-    v50 = v49;
-    operator delete(v49);
+    v52 = v51;
+    operator delete(v51);
   }
 
-  sub_27677AECC(v42);
-  sub_2766F6E78();
+  v43 = sub_27677AECC(v42);
+  sub_2766F6E78(&v69, v43, v44, &v60);
 }
 
 - (CGPoint)controlPointForPointA:(CGPoint)a pointB:(CGPoint)b andOriginalA:(CGPoint)originalA originalB:(CGPoint)originalB

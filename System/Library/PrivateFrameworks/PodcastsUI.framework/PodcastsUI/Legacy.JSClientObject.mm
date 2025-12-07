@@ -102,9 +102,9 @@
 {
   v5 = sub_21B4C9708();
   v7 = v6;
-  sub_21B4C9708();
+  v8 = sub_21B4C9708();
   selfCopy = self;
-  sub_21B46348C(v5, v7);
+  sub_21B46348C(v5, v7, v8);
 }
 
 - (_TtCO10PodcastsUI6Legacy14JSClientObject)init

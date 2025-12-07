@@ -11,9 +11,9 @@
 {
   forCopy = for;
   selfCopy = self;
-  v6 = sub_1D1301818();
+  v7 = sub_1D1301818(v6);
 
-  return v6;
+  return v7;
 }
 
 - (void)updateDataSourceWithGraphView:(id)view displayType:(id)type timeScope:(int64_t)scope

@@ -62,13 +62,13 @@
 
 void __64__VSFeaturedIdentityProviderLimitingOperation_executionDidBegin__block_invoke(uint64_t a1)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = objc_loadWeakRetained((a1 + 40));
   v4 = [WeakRetained value];
   objc_opt_class();
-  v24 = WeakRetained;
-  v22 = v4;
+  v23 = WeakRetained;
+  v21 = v4;
   if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
   {
     v5 = [v4 integerValue] + 1;
@@ -79,47 +79,47 @@ void __64__VSFeaturedIdentityProviderLimitingOperation_executionDidBegin__block_
     v5 = 16;
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
-  v23 = v3;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v22 = v3;
   obj = [v3 unlimitedIdentityProviders];
-  v6 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+  v6 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v6)
   {
     v7 = v6;
-    v26 = *v32;
+    v25 = *v31;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v32 != v26)
+        if (*v31 != v25)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v31 + 1) + 8 * i);
+        v9 = *(*(&v30 + 1) + 8 * i);
+        v26 = 0u;
         v27 = 0u;
         v28 = 0u;
         v29 = 0u;
-        v30 = 0u;
         v10 = [v9 storefronts];
-        v11 = [v10 countByEnumeratingWithState:&v27 objects:v35 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v26 objects:v34 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v28;
+          v13 = *v27;
           do
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v28 != v13)
+              if (*v27 != v13)
               {
                 objc_enumerationMutation(v10);
               }
 
-              v15 = *(*(&v27 + 1) + 8 * j);
+              v15 = *(*(&v26 + 1) + 8 * j);
               v16 = [v15 sortOrdinal];
               v17 = [v16 unsignedIntegerValue];
 
@@ -129,26 +129,25 @@ void __64__VSFeaturedIdentityProviderLimitingOperation_executionDidBegin__block_
               }
             }
 
-            v12 = [v10 countByEnumeratingWithState:&v27 objects:v35 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v26 objects:v34 count:16];
           }
 
           while (v12);
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v7 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
     while (v7);
   }
 
   v18 = MEMORY[0x277CE2298];
-  v19 = [v23 unlimitedIdentityProviders];
+  v19 = [v22 unlimitedIdentityProviders];
   v20 = [v18 optionalWithObject:v19];
-  [v23 setResult:v20];
+  [v22 setResult:v20];
 
-  [v23 finishExecutionIfPossible];
-  v21 = *MEMORY[0x277D85DE8];
+  [v22 finishExecutionIfPossible];
 }
 
 @end

@@ -62,14 +62,15 @@
 {
   if (l)
   {
-    v11 = 0;
-    v4 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:l options:0 error:&v11];
-    v5 = v11;
+    v12 = 0;
+    v4 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:l options:0 error:&v12];
+    v5 = v12;
+    v6 = v5;
     if (v4)
     {
-      v6 = [[WCDProtoUserInfoTransfer alloc] initWithData:v4];
-      p_super = &v6->super.super;
-      if (v6 && [(WCDProtoUserInfoTransfer *)v6 hasTransferIdentifier]&& [p_super hasClientData])
+      v7 = [[WCDProtoUserInfoTransfer alloc] initWithData:v4];
+      p_super = &v7->super.super;
+      if (v7 && [(WCDProtoUserInfoTransfer *)v7 hasTransferIdentifier]&& [p_super hasClientData])
       {
         transferIdentifier = [p_super transferIdentifier];
         self = [(WCSessionUserInfoTransfer *)self initWithTranferIdentifier:transferIdentifier complicationTransferIdentifier:0 currentComplication:0];
@@ -81,10 +82,10 @@
 
     else
     {
-      p_super = wc_log();
+      p_super = wc_log(v5);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
       {
-        [(WCSessionUserInfoTransfer *)v5 initWithProtoBufFileURL:?];
+        [(WCSessionUserInfoTransfer *)v6 initWithProtoBufFileURL:?];
       }
     }
   }
@@ -298,15 +299,13 @@
 
 - (void)initWithProtoBufFileURL:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = NSPrintF();
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = NSPrintF("%{error}", a1);
   *buf = 136446466;
-  v6 = "[WCSessionUserInfoTransfer initWithProtoBufFileURL:]";
-  v7 = 2114;
-  v8 = v3;
+  v5 = "[WCSessionUserInfoTransfer initWithProtoBufFileURL:]";
+  v6 = 2114;
+  v7 = v3;
   _os_log_error_impl(&dword_23B2FA000, a2, OS_LOG_TYPE_ERROR, "%{public}s %{public}@", buf, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

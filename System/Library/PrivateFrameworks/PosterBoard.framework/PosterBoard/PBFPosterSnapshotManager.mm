@@ -391,10 +391,10 @@ void __74__PBFPosterSnapshotManager__enqueueSnapshotForRequestIfNeeded_completio
   v5 = [v3 allKeys];
   [v4 removeObjectsForKeys:v5];
 
-  v6 = PBFLogCommon();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = PBFLogCommon(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    __74__PBFPosterSnapshotManager__enqueueSnapshotForRequestIfNeeded_completion___block_invoke_3_cold_1(a1, (a1 + 32), v6);
+    __74__PBFPosterSnapshotManager__enqueueSnapshotForRequestIfNeeded_completion___block_invoke_3_cold_1(a1, (a1 + 32), v7);
   }
 
   if ([*(a1 + 32) count])
@@ -635,7 +635,7 @@ void __91__PBFPosterSnapshotManager__lock_fireDidUpdateSnapshotForPath_snapshotI
 - (void)_lock_cleanupAfterCompletionForRequest:(id)request shouldTerminateProcess:(BOOL)process
 {
   processCopy = process;
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   if (requestCopy)
   {
@@ -650,15 +650,15 @@ void __91__PBFPosterSnapshotManager__lock_fireDidUpdateSnapshotForPath_snapshotI
 
     [(NSMapTable *)self->_lock_requestToCompletion removeObjectForKey:requestCopy];
     [(BSMutableOrderedDictionary *)self->_lock_activeRequestToSnapshotRequests removeObjectForKey:requestCopy];
-    [(BSMutableOrderedDictionary *)self->_lock_enqueuedRequestToSnapshotRequests removeObjectForKey:requestCopy];
+    v9 = [(BSMutableOrderedDictionary *)self->_lock_enqueuedRequestToSnapshotRequests removeObjectForKey:requestCopy];
     if (!v8 || processCopy)
     {
-      v12 = PBFLogSnapshotter();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = PBFLogSnapshotter(v9);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = 138543362;
-        v14 = requestCopy;
-        _os_log_impl(&dword_21B526000, v12, OS_LOG_TYPE_DEFAULT, "_lock_cleanupAfterCompletionForRequest: %{public}@, performing post-invalidation cleanup now", &v13, 0xCu);
+        v14 = 138543362;
+        v15 = requestCopy;
+        _os_log_impl(&dword_21B526000, v13, OS_LOG_TYPE_DEFAULT, "_lock_cleanupAfterCompletionForRequest: %{public}@, performing post-invalidation cleanup now", &v14, 0xCu);
       }
 
       [(PBFPosterSnapshotManager *)self _lock_cleanupAfterSceneInvalidationForRequest:requestCopy snapshotter:v7 shouldTerminateProcess:processCopy];
@@ -666,17 +666,17 @@ void __91__PBFPosterSnapshotManager__lock_fireDidUpdateSnapshotForPath_snapshotI
 
     else if (v7)
     {
-      v9 = PBFLogSnapshotter();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = PBFLogSnapshotter(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = 138543362;
-        v14 = requestCopy;
-        _os_log_impl(&dword_21B526000, v9, OS_LOG_TYPE_DEFAULT, "_lock_cleanupAfterCompletionForRequest: %{public}@, waiting until scene invalidates for post-invalidation cleanup", &v13, 0xCu);
+        v14 = 138543362;
+        v15 = requestCopy;
+        _os_log_impl(&dword_21B526000, v10, OS_LOG_TYPE_DEFAULT, "_lock_cleanupAfterCompletionForRequest: %{public}@, waiting until scene invalidates for post-invalidation cleanup", &v14, 0xCu);
       }
 
       lock_snapshotterToSnapshotInvalidationWrapper = self->_lock_snapshotterToSnapshotInvalidationWrapper;
-      v11 = [[_PBFPosterSnapshotInvalidationWrapper alloc] initWithSnapshotRequest:requestCopy shouldTerminateProcess:0];
-      [(NSMapTable *)lock_snapshotterToSnapshotInvalidationWrapper setObject:v11 forKey:v7];
+      v12 = [[_PBFPosterSnapshotInvalidationWrapper alloc] initWithSnapshotRequest:requestCopy shouldTerminateProcess:0];
+      [(NSMapTable *)lock_snapshotterToSnapshotInvalidationWrapper setObject:v12 forKey:v7];
     }
   }
 }
@@ -704,7 +704,7 @@ void __91__PBFPosterSnapshotManager__lock_fireDidUpdateSnapshotForPath_snapshotI
           v25 = 0;
           v15 = [extensionInstance terminateWithExplanation:@"process failed to complete snapshot" error:&v25];
           v16 = v25;
-          v17 = PBFLogSnapshotter();
+          v17 = PBFLogSnapshotter(v16);
           v18 = os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
           if (v15)
           {
@@ -1349,7 +1349,7 @@ void __78__PBFPosterSnapshotManager__lock_teardownAssertionsAndSnapshottersIfNec
   v12 = 0;
   v2 = [a2 terminateWithExplanation:@"process failed to complete snapshot" error:&v12];
   v3 = v12;
-  v4 = PBFLogSnapshotter();
+  v4 = PBFLogSnapshotter(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
   if (v2)
   {
@@ -1367,27 +1367,27 @@ void __78__PBFPosterSnapshotManager__lock_teardownAssertionsAndSnapshottersIfNec
 
 - (void)_lock_kickoffNextOperation
 {
-  v57 = *MEMORY[0x277D85DE8];
-  [(PFOSUnfairLock *)self->_lock assertOwner];
+  v59 = *MEMORY[0x277D85DE8];
+  assertOwner = [(PFOSUnfairLock *)self->_lock assertOwner];
   if (!self->_lock_invalidated)
   {
     lock_preventKickCount = self->_lock_preventKickCount;
-    v4 = PBFLogSnapshotter();
-    processInfo = v4;
+    v5 = PBFLogSnapshotter(assertOwner);
+    processInfo = v5;
     if (lock_preventKickCount)
     {
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        v6 = self->_lock_preventKickCount;
+        v7 = self->_lock_preventKickCount;
         *buf = 134349056;
-        v48 = v6;
+        v50 = v7;
         _os_log_impl(&dword_21B526000, processInfo, OS_LOG_TYPE_DEFAULT, "bailing kickoffNextOperation because of preventKickCount (%{public}lu)", buf, 0xCu);
       }
     }
 
     else
     {
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
         _os_log_impl(&dword_21B526000, processInfo, OS_LOG_TYPE_INFO, "kickoffNextOperation is running...", buf, 2u);
@@ -1397,31 +1397,32 @@ void __78__PBFPosterSnapshotManager__lock_teardownAssertionsAndSnapshottersIfNec
       processInfo = [MEMORY[0x277CCAC38] processInfo];
       thermalState = [processInfo thermalState];
       isLowPowerModeEnabled = [processInfo isLowPowerModeEnabled];
-      if (thermalState == 3 || (!isForeground ? (v10 = 4) : (v10 = 12), !isForeground ? (v11 = 2) : (v11 = 4), isLowPowerModeEnabled))
+      if (thermalState == 3 || (!isForeground ? (v11 = 4) : (v11 = 12), !isForeground ? (v12 = 2) : (v12 = 4), isLowPowerModeEnabled))
       {
-        v12 = PBFLogSnapshotter();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v13 = PBFLogSnapshotter(isLowPowerModeEnabled);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           [PBFPosterSnapshotManager _lock_kickoffNextOperation];
         }
 
-        v11 = 1;
-        v10 = 3;
+        v12 = 1;
+        v11 = 3;
       }
 
-      if (self->_lock_numberOfRunningSnapshotters <= v10)
+      if (self->_lock_numberOfRunningSnapshotters <= v11)
       {
-        v15 = [(BSMutableOrderedDictionary *)self->_lock_enqueuedRequestToSnapshotRequests count];
-        v16 = [(BSMutableOrderedDictionary *)self->_lock_activeRequestToSnapshotRequests count];
-        if (self->_lock_posterBoardPrewarmAssertion || ![(BSMutableOrderedDictionary *)self->_lock_enqueuedRequestToSnapshotRequests count])
+        v16 = [(BSMutableOrderedDictionary *)self->_lock_enqueuedRequestToSnapshotRequests count];
+        v17 = [(BSMutableOrderedDictionary *)self->_lock_activeRequestToSnapshotRequests count];
+        v18 = v17;
+        if (self->_lock_posterBoardPrewarmAssertion || (v17 = [(BSMutableOrderedDictionary *)self->_lock_enqueuedRequestToSnapshotRequests count]) == 0)
         {
-          if (!(v15 | v16))
+          if (!(v16 | v18))
           {
-            v17 = PBFLogSnapshotter();
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+            v19 = PBFLogSnapshotter(v17);
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_21B526000, v17, OS_LOG_TYPE_DEFAULT, "tearing down snapshot manager assertions...", buf, 2u);
+              _os_log_impl(&dword_21B526000, v19, OS_LOG_TYPE_DEFAULT, "tearing down snapshot manager assertions...", buf, 2u);
             }
 
             [(PBFPosterSnapshotManager *)self _lock_teardownAssertionsAndSnapshottersIfNecessary];
@@ -1431,136 +1432,136 @@ void __78__PBFPosterSnapshotManager__lock_teardownAssertionsAndSnapshottersIfNec
 
         else
         {
-          v18 = PBFLogSnapshotter();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+          v20 = PBFLogSnapshotter(v17);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_21B526000, v18, OS_LOG_TYPE_DEFAULT, "spinning up snapshot manager assertions...", buf, 2u);
+            _os_log_impl(&dword_21B526000, v20, OS_LOG_TYPE_DEFAULT, "spinning up snapshot manager assertions...", buf, 2u);
           }
 
           [(PFPosterExtensionProvider *)self->_extensionProvider start];
           runtimeAssertionProvider = self->_runtimeAssertionProvider;
           currentProcess = [MEMORY[0x277D47008] currentProcess];
-          v21 = [(PBFRuntimeAssertionProviding *)runtimeAssertionProvider acquirePrewarmRuntimeAssertionForReason:@"Snapshotter is snapshotting" target:currentProcess invalidationHandler:0];
+          v23 = [(PBFRuntimeAssertionProviding *)runtimeAssertionProvider acquirePrewarmRuntimeAssertionForReason:@"Snapshotter is snapshotting" target:currentProcess invalidationHandler:0];
           lock_posterBoardPrewarmAssertion = self->_lock_posterBoardPrewarmAssertion;
-          self->_lock_posterBoardPrewarmAssertion = v21;
+          self->_lock_posterBoardPrewarmAssertion = v23;
 
           os_activity_scope_enter(self->_snapshotActivity, &self->_snapshotActivityState);
         }
 
-        v41 = processInfo;
-        v23 = PBFLogSnapshotter();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v43 = processInfo;
+        v25 = PBFLogSnapshotter(v17);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
-          v24 = @"BACKGROUND";
+          v26 = @"BACKGROUND";
           *buf = 138544386;
           if (isForeground)
           {
-            v24 = @"FOREGROUND";
+            v26 = @"FOREGROUND";
           }
 
-          v48 = v24;
-          v49 = 2048;
-          v50 = v10;
+          v50 = v26;
           v51 = 2048;
           v52 = v11;
           v53 = 2048;
-          v54 = v15;
+          v54 = v12;
           v55 = 2048;
           v56 = v16;
-          _os_log_impl(&dword_21B526000, v23, OS_LOG_TYPE_DEFAULT, "snapshot manager operating %{public}@; %lu max snapshotters w/ %lu max snapshotters per provider w/ queue currently of %lu and %lu active snapshotters", buf, 0x34u);
+          v57 = 2048;
+          v58 = v18;
+          _os_log_impl(&dword_21B526000, v25, OS_LOG_TYPE_DEFAULT, "snapshot manager operating %{public}@; %lu max snapshotters w/ %lu max snapshotters per provider w/ queue currently of %lu and %lu active snapshotters", buf, 0x34u);
         }
 
-        v25 = self->_lock;
+        v27 = self->_lock;
         aBlock[0] = MEMORY[0x277D85DD0];
         aBlock[1] = 3221225472;
         aBlock[2] = __54__PBFPosterSnapshotManager__lock_kickoffNextOperation__block_invoke;
         aBlock[3] = &unk_2782C8238;
         aBlock[4] = self;
-        v46 = v11;
-        v40 = v25;
-        v45 = v40;
-        v26 = _Block_copy(aBlock);
+        v48 = v12;
+        v42 = v27;
+        v47 = v42;
+        v28 = _Block_copy(aBlock);
         allKeys = [(BSMutableOrderedDictionary *)self->_lock_enqueuedRequestToSnapshotRequests allKeys];
-        v28 = [allKeys mutableCopy];
+        v30 = [allKeys mutableCopy];
 
         if (isForeground)
         {
           currentApplicationContext = [(PBFApplicationStateMonitor *)self->_applicationStateMonitor currentApplicationContext];
           posterUUIDs = [currentApplicationContext posterUUIDs];
-          v31 = [posterUUIDs count];
+          v33 = [posterUUIDs count];
 
-          if (v31)
+          if (v33)
           {
-            v42[0] = MEMORY[0x277D85DD0];
-            v42[1] = 3221225472;
-            v42[2] = __54__PBFPosterSnapshotManager__lock_kickoffNextOperation__block_invoke_2_152;
-            v42[3] = &unk_2782C5C60;
-            v43 = currentApplicationContext;
-            v32 = [v28 bs_filter:v42];
-            v33 = [v32 mutableCopy];
+            v44[0] = MEMORY[0x277D85DD0];
+            v44[1] = 3221225472;
+            v44[2] = __54__PBFPosterSnapshotManager__lock_kickoffNextOperation__block_invoke_2_152;
+            v44[3] = &unk_2782C5C60;
+            v45 = currentApplicationContext;
+            v34 = [v30 bs_filter:v44];
+            v35 = [v34 mutableCopy];
 
-            while ([v28 count])
+            while ([v30 count])
             {
-              if (![v33 count])
+              if (![v35 count])
               {
                 break;
               }
 
-              if (self->_lock_numberOfRunningSnapshotters >= v10)
+              if (self->_lock_numberOfRunningSnapshotters >= v11)
               {
                 break;
               }
 
-              firstObject = [v33 firstObject];
-              v26[2](v26, firstObject);
-              [v28 removeObject:firstObject];
-              [v33 removeObjectAtIndex:0];
+              firstObject = [v35 firstObject];
+              v28[2](v28, firstObject);
+              [v30 removeObject:firstObject];
+              [v35 removeObjectAtIndex:0];
             }
           }
         }
 
-        v35 = 0;
+        v37 = 0;
         do
         {
-          v36 = v35;
-          objectEnumerator = [v28 objectEnumerator];
+          v38 = v37;
+          objectEnumerator = [v30 objectEnumerator];
           allObjects = [objectEnumerator allObjects];
-          v35 = [allObjects bs_firstObjectPassingTest:&__block_literal_global_156_0];
+          v37 = [allObjects bs_firstObjectPassingTest:&__block_literal_global_156_0];
 
-          if (!v35)
+          if (!v37)
           {
             break;
           }
 
-          v26[2](v26, v35);
-          [v28 removeObject:v35];
-          if (![v28 count])
+          v28[2](v28, v37);
+          [v30 removeObject:v37];
+          if (![v30 count])
           {
             break;
           }
         }
 
-        while (self->_lock_numberOfRunningSnapshotters < v10);
-        while ([v28 count] && self->_lock_numberOfRunningSnapshotters < v10)
+        while (self->_lock_numberOfRunningSnapshotters < v11);
+        while ([v30 count] && self->_lock_numberOfRunningSnapshotters < v11)
         {
-          firstObject2 = [v28 firstObject];
-          v26[2](v26, firstObject2);
-          [v28 removeObject:firstObject2];
+          firstObject2 = [v30 firstObject];
+          v28[2](v28, firstObject2);
+          [v30 removeObject:firstObject2];
         }
 
-        processInfo = v41;
+        processInfo = v43;
       }
 
       else
       {
-        v13 = PBFLogSnapshotter();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v14 = PBFLogSnapshotter(isLowPowerModeEnabled);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           lock_numberOfRunningSnapshotters = self->_lock_numberOfRunningSnapshotters;
           *buf = 134349056;
-          v48 = lock_numberOfRunningSnapshotters;
-          _os_log_impl(&dword_21B526000, v13, OS_LOG_TYPE_DEFAULT, "bailing kickoffNextOperation because of _lock_numberOfRunningSnapshotters (%{public}lu)", buf, 0xCu);
+          v50 = lock_numberOfRunningSnapshotters;
+          _os_log_impl(&dword_21B526000, v14, OS_LOG_TYPE_DEFAULT, "bailing kickoffNextOperation because of _lock_numberOfRunningSnapshotters (%{public}lu)", buf, 0xCu);
         }
       }
     }
@@ -1715,69 +1716,70 @@ void __54__PBFPosterSnapshotManager__lock_kickoffNextOperation__block_invoke_2(u
 
 void __54__PBFPosterSnapshotManager__lock_kickoffNextOperation__block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  if ([*(a1 + 32) signal])
+  v7 = [*(a1 + 32) signal];
+  if (v7)
   {
-    v7 = [*(a1 + 40) displayContext];
-    v8 = [PBFPosterSnapshotContext snapshotContextForDisplayContext:v7 definition:*(a1 + 48)];
+    v8 = [*(a1 + 40) displayContext];
+    v9 = [PBFPosterSnapshotContext snapshotContextForDisplayContext:v8 definition:*(a1 + 48)];
 
     if (v6)
     {
-      v9 = PBFLogSnapshotter();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = PBFLogSnapshotter(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        __54__PBFPosterSnapshotManager__lock_kickoffNextOperation__block_invoke_3_cold_2((a1 + 48), v6, v9);
+        __54__PBFPosterSnapshotManager__lock_kickoffNextOperation__block_invoke_3_cold_2((a1 + 48), v6, v11);
       }
 
-      v10 = [[PBFPosterSnapshotReservation alloc] initWithError:v6 snapshotContext:v8];
+      v12 = [[PBFPosterSnapshotReservation alloc] initWithError:v6 snapshotContext:v9];
     }
 
     else
     {
-      v11 = objc_alloc(MEMORY[0x277D3EF70]);
-      v12 = [*(a1 + 48) levelSets];
-      v13 = [v12 firstObject];
-      v14 = [v13 levels];
-      v15 = [v11 initWithSet:v14];
+      v13 = objc_alloc(MEMORY[0x277D3EF70]);
+      v14 = [*(a1 + 48) levelSets];
+      v15 = [v14 firstObject];
+      v16 = [v15 levels];
+      v17 = [v13 initWithSet:v16];
 
-      v16 = [v5 snapshotBundle];
-      v17 = [v16 snapshotURLForLevelSet:v15];
+      v18 = [v5 snapshotBundle];
+      v19 = [v18 snapshotURLForLevelSet:v17];
 
-      if (v17)
+      if (v19)
       {
-        v10 = [[PBFPosterSnapshotReservation alloc] initWithURL:v17 snapshotContext:v8];
+        v12 = [[PBFPosterSnapshotReservation alloc] initWithURL:v19 snapshotContext:v9];
       }
 
       else
       {
-        v18 = PBFLogSnapshotter();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v21 = PBFLogSnapshotter(v20);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
-          __54__PBFPosterSnapshotManager__lock_kickoffNextOperation__block_invoke_3_cold_3(a1 + 48, v18, v19, v20, v21, v22, v23, v24);
+          __54__PBFPosterSnapshotManager__lock_kickoffNextOperation__block_invoke_3_cold_3((a1 + 48), v21, v22, v23, v24, v25, v26, v27);
         }
 
-        v28 = *MEMORY[0x277CCA470];
-        v29[0] = @"Snapshot succeeded but the resulting imageURL was nil.";
-        v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
-        v26 = [MEMORY[0x277CCA9B8] pbf_generalErrorWithCode:10 userInfo:v25];
-        v10 = [[PBFPosterSnapshotReservation alloc] initWithError:v26 snapshotContext:v8];
+        v31 = *MEMORY[0x277CCA470];
+        v32[0] = @"Snapshot succeeded but the resulting imageURL was nil.";
+        v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+        v29 = [MEMORY[0x277CCA9B8] pbf_generalErrorWithCode:10 userInfo:v28];
+        v12 = [[PBFPosterSnapshotReservation alloc] initWithError:v29 snapshotContext:v9];
       }
     }
 
-    v27 = *(a1 + 56);
-    objc_sync_enter(v27);
-    [*(a1 + 56) setObject:v10 forKeyedSubscript:*(a1 + 48)];
-    objc_sync_exit(v27);
+    v30 = *(a1 + 56);
+    objc_sync_enter(v30);
+    [*(a1 + 56) setObject:v12 forKeyedSubscript:*(a1 + 48)];
+    objc_sync_exit(v30);
 
     dispatch_group_leave(*(a1 + 64));
   }
 
   else
   {
-    v10 = PBFLogSnapshotter();
-    if (os_log_type_enabled(&v10->super, OS_LOG_TYPE_DEBUG))
+    v12 = PBFLogSnapshotter(v7);
+    if (os_log_type_enabled(&v12->super, OS_LOG_TYPE_DEBUG))
     {
       __54__PBFPosterSnapshotManager__lock_kickoffNextOperation__block_invoke_3_cold_1();
     }
@@ -1928,7 +1930,7 @@ LABEL_3:
 
 - (void)snapshotterDidInvalidateScene:(id)scene didWaitForSceneInvalidation:(BOOL)invalidation forRequest:(id)request
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   sceneCopy = scene;
   requestCopy = request;
   [(PFOSUnfairLock *)self->_lock lock];
@@ -1944,39 +1946,40 @@ LABEL_3:
 
   if (v13)
   {
-    v14 = PBFLogSnapshotter();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = PBFLogSnapshotter(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = NSStringFromSelector(a2);
+      v16 = NSStringFromSelector(a2);
       *buf = 138543618;
-      v22 = v15;
-      v23 = 2114;
-      v24 = sceneCopy;
-      _os_log_impl(&dword_21B526000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@]: %{public}@, but we're still expecting more work from this snapshotter", buf, 0x16u);
+      v24 = v16;
+      v25 = 2114;
+      v26 = sceneCopy;
+      _os_log_impl(&dword_21B526000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}@]: %{public}@, but we're still expecting more work from this snapshotter", buf, 0x16u);
     }
   }
 
   else
   {
-    v14 = [(NSMapTable *)self->_lock_snapshotterToSnapshotInvalidationWrapper objectForKey:sceneCopy];
-    if (v14)
+    v17 = [(NSMapTable *)self->_lock_snapshotterToSnapshotInvalidationWrapper objectForKey:sceneCopy];
+    v15 = v17;
+    if (v17)
     {
-      v16 = PBFLogSnapshotter();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = PBFLogSnapshotter(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = NSStringFromSelector(a2);
-        snapshotRequest = [v14 snapshotRequest];
+        v19 = NSStringFromSelector(a2);
+        snapshotRequest = [v15 snapshotRequest];
         *buf = 138543874;
-        v22 = v17;
-        v23 = 2114;
-        v24 = sceneCopy;
+        v24 = v19;
         v25 = 2114;
-        v26 = snapshotRequest;
-        _os_log_impl(&dword_21B526000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@]: %{public}@, now cleaning up after request: %{public}@", buf, 0x20u);
+        v26 = sceneCopy;
+        v27 = 2114;
+        v28 = snapshotRequest;
+        _os_log_impl(&dword_21B526000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@]: %{public}@, now cleaning up after request: %{public}@", buf, 0x20u);
       }
 
-      snapshotRequest2 = [v14 snapshotRequest];
-      [(PBFPosterSnapshotManager *)self _lock_cleanupAfterSceneInvalidationForRequest:snapshotRequest2 snapshotter:sceneCopy shouldTerminateProcess:[v14 shouldTerminateProcess]];
+      snapshotRequest2 = [v15 snapshotRequest];
+      [(PBFPosterSnapshotManager *)self _lock_cleanupAfterSceneInvalidationForRequest:snapshotRequest2 snapshotter:sceneCopy shouldTerminateProcess:[v15 shouldTerminateProcess]];
 
       [(NSMapTable *)self->_lock_snapshotterToSnapshotInvalidationWrapper removeObjectForKey:sceneCopy];
     }
@@ -1987,7 +1990,7 @@ LABEL_3:
 
 - (BOOL)ingestSnapshotCollection:(id)collection forConfiguration:(id)configuration error:(id *)error
 {
-  v148 = *MEMORY[0x277D85DE8];
+  v153 = *MEMORY[0x277D85DE8];
   collectionCopy = collection;
   configurationCopy = configuration;
   v11 = collectionCopy;
@@ -2024,13 +2027,14 @@ LABEL_3:
   if (surface)
   {
     IsVolatile = PUIIOSurfaceIsVolatile();
-    v17 = PBFLogSnapshotter();
-    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+    v18 = IsVolatile;
+    v19 = PBFLogSnapshotter(IsVolatile);
+    v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
     errorCopy = error;
-    v108 = v12;
-    if (IsVolatile)
+    v113 = v12;
+    if (v18)
     {
-      if (!v18)
+      if (!v20)
       {
         goto LABEL_17;
       }
@@ -2038,17 +2042,17 @@ LABEL_3:
       serverIdentity = [_path serverIdentity];
       posterUUID = [serverIdentity posterUUID];
       *buf = 138412546;
-      v145 = surface;
-      v146 = 2114;
-      v147 = posterUUID;
-      v21 = "Attempting to ingest *VOLATILE* Surface %@ for path %{public}@";
-      v22 = v17;
-      v23 = 22;
+      v150 = surface;
+      v151 = 2114;
+      v152 = posterUUID;
+      v23 = "Attempting to ingest *VOLATILE* Surface %@ for path %{public}@";
+      v24 = v19;
+      v25 = 22;
     }
 
     else
     {
-      if (!v18)
+      if (!v20)
       {
         goto LABEL_17;
       }
@@ -2056,314 +2060,316 @@ LABEL_3:
       serverIdentity = [_path serverIdentity];
       posterUUID = [serverIdentity posterUUID];
       *buf = 138543362;
-      v145 = posterUUID;
-      v21 = "Attempting to ingest Surface for path %{public}@";
-      v22 = v17;
-      v23 = 12;
+      v150 = posterUUID;
+      v23 = "Attempting to ingest Surface for path %{public}@";
+      v24 = v19;
+      v25 = 12;
     }
 
-    _os_log_impl(&dword_21B526000, v22, OS_LOG_TYPE_DEFAULT, v21, buf, v23);
+    _os_log_impl(&dword_21B526000, v24, OS_LOG_TYPE_DEFAULT, v23, buf, v25);
 
 LABEL_17:
     interfaceStyle = [v11 interfaceStyle];
-    v31 = interfaceStyle == 1;
+    v33 = interfaceStyle == 1;
     if (interfaceStyle == 2)
     {
-      v31 = 2;
+      v33 = 2;
     }
 
-    v121 = v31;
+    v126 = v33;
     accessibilityContrast = [v11 accessibilityContrast];
     if (accessibilityContrast == 1)
     {
-      v33 = 0;
+      v35 = 0;
     }
 
     else
     {
-      v33 = -1;
+      v35 = -1;
     }
 
     if (accessibilityContrast == 2)
     {
-      v33 = 1;
+      v35 = 1;
     }
 
-    v120 = v33;
-    v34 = [surface attachmentForKey:@"kPaperboardIOSurfaceDeviceOrientationPropertiesKey"];
-    unsignedIntegerValue = [v34 unsignedIntegerValue];
+    v125 = v35;
+    v36 = [surface attachmentForKey:@"kPaperboardIOSurfaceDeviceOrientationPropertiesKey"];
+    unsignedIntegerValue = [v36 unsignedIntegerValue];
 
-    v123 = surface;
-    v35 = [surface attachmentForKey:@"kPaperboardIOSurfaceInterfaceOrientationPropertiesKey"];
-    unsignedIntegerValue2 = [v35 unsignedIntegerValue];
+    v128 = surface;
+    v37 = [surface attachmentForKey:@"kPaperboardIOSurfaceInterfaceOrientationPropertiesKey"];
+    unsignedIntegerValue2 = [v37 unsignedIntegerValue];
 
     [v11 snapshotScale];
-    v37 = v36;
+    v39 = v38;
     snapshotDisplayIdentity = [v11 snapshotDisplayIdentity];
-    v122 = [MEMORY[0x277D0ACE0] pui_displayConfigurationForIdentity:?];
-    v38 = +[PBFPosterSnapshotDefinition switcherSnapshotDefinition];
-    v39 = +[PBFPosterSnapshotDefinition switcherFloatingLayerSnapshotDefinition];
-    v105 = [(PBFPosterSnapshotManager *)self snapshotCoordinatorForPath:_path];
-    v109 = v11;
+    v127 = [MEMORY[0x277D0ACE0] pui_displayConfigurationForIdentity:?];
+    v40 = +[PBFPosterSnapshotDefinition switcherSnapshotDefinition];
+    v41 = +[PBFPosterSnapshotDefinition switcherFloatingLayerSnapshotDefinition];
+    v110 = [(PBFPosterSnapshotManager *)self snapshotCoordinatorForPath:_path];
+    v114 = v11;
     [v11 salientContentRectangle];
-    v41 = v40;
     v43 = v42;
     v45 = v44;
     v47 = v46;
-    v110 = [MEMORY[0x277CBEBC0] pf_temporaryDirectoryURLWithBasenamePrefix:@"SnapshotManagerIngest"];
-    [v110 pf_markPurgableInOneHourWithError:0];
-    v132 = 0u;
-    v133 = 0u;
-    v134 = 0u;
-    v135 = 0u;
-    v140[0] = v38;
-    v140[1] = v39;
-    v125 = v39;
-    obj = [MEMORY[0x277CBEA60] arrayWithObjects:v140 count:2];
-    v48 = [obj countByEnumeratingWithState:&v132 objects:v141 count:16];
-    if (v48)
+    v49 = v48;
+    v115 = [MEMORY[0x277CBEBC0] pf_temporaryDirectoryURLWithBasenamePrefix:@"SnapshotManagerIngest"];
+    [v115 pf_markPurgableInOneHourWithError:0];
+    v137 = 0u;
+    v138 = 0u;
+    v139 = 0u;
+    v140 = 0u;
+    v145[0] = v40;
+    v145[1] = v41;
+    v130 = v41;
+    obj = [MEMORY[0x277CBEA60] arrayWithObjects:v145 count:2];
+    v50 = [obj countByEnumeratingWithState:&v137 objects:v146 count:16];
+    if (v50)
     {
-      v49 = v48;
-      v50 = 0;
-      v51 = *v133;
-      v117 = *MEMORY[0x277D3F010];
-      v116 = *MEMORY[0x277D3F018];
-      v115 = *MEMORY[0x277D3F008];
-      v114 = *MEMORY[0x277D3F020];
-      v113 = *MEMORY[0x277D3EFF0];
-      v112 = *MEMORY[0x277D3EFF8];
-      v111 = *MEMORY[0x277D3F000];
+      v51 = v50;
+      v52 = 0;
+      v53 = *v138;
+      v122 = *MEMORY[0x277D3F010];
+      v121 = *MEMORY[0x277D3F018];
+      v120 = *MEMORY[0x277D3F008];
+      v119 = *MEMORY[0x277D3F020];
+      v118 = *MEMORY[0x277D3EFF0];
+      v117 = *MEMORY[0x277D3EFF8];
+      v116 = *MEMORY[0x277D3F000];
       while (1)
       {
-        v52 = 0;
-        v126 = v49;
+        v54 = 0;
+        v131 = v51;
         do
         {
-          if (*v133 != v51)
+          if (*v138 != v53)
           {
             objc_enumerationMutation(obj);
           }
 
-          v53 = *(*(&v132 + 1) + 8 * v52);
-          if (!v50)
+          v55 = *(*(&v137 + 1) + 8 * v54);
+          if (!v52)
           {
-            v54 = objc_alloc(MEMORY[0x277D3EF78]);
-            pui_displayConfigurationIdentifier = [v122 pui_displayConfigurationIdentifier];
-            v50 = [v54 initWithHardwareIdentifier:pui_displayConfigurationIdentifier userInterfaceStyle:v121 interfaceOrientation:unsignedIntegerValue2 deviceOrientation:unsignedIntegerValue];
+            v56 = objc_alloc(MEMORY[0x277D3EF78]);
+            pui_displayConfigurationIdentifier = [v127 pui_displayConfigurationIdentifier];
+            v52 = [v56 initWithHardwareIdentifier:pui_displayConfigurationIdentifier userInterfaceStyle:v126 interfaceOrientation:unsignedIntegerValue2 deviceOrientation:unsignedIntegerValue];
 
-            [v50 updateWithPoster:_path];
-            v56 = [MEMORY[0x277CCABB0] numberWithInteger:v120];
-            [v50 setObject:v56 forKeyedSubscript:v117];
+            [v52 updateWithPoster:_path];
+            v58 = [MEMORY[0x277CCABB0] numberWithInteger:v125];
+            [v52 setObject:v58 forKeyedSubscript:v122];
 
-            uniqueIdentifier = [v53 uniqueIdentifier];
-            [v50 setObject:uniqueIdentifier forKeyedSubscript:v116];
+            uniqueIdentifier = [v55 uniqueIdentifier];
+            [v52 setObject:uniqueIdentifier forKeyedSubscript:v121];
 
-            v58 = [MEMORY[0x277CCABB0] numberWithDouble:v37];
-            [v50 setObject:v58 forKeyedSubscript:v115];
+            v60 = [MEMORY[0x277CCABB0] numberWithDouble:v39];
+            [v52 setObject:v60 forKeyedSubscript:v120];
 
-            v59 = [MEMORY[0x277CCABB0] numberWithInteger:v121];
-            [v50 setObject:v59 forKeyedSubscript:v114];
+            v61 = [MEMORY[0x277CCABB0] numberWithInteger:v126];
+            [v52 setObject:v61 forKeyedSubscript:v119];
 
-            v60 = [MEMORY[0x277CCABB0] numberWithInteger:unsignedIntegerValue];
-            [v50 setObject:v60 forKeyedSubscript:v113];
+            v62 = [MEMORY[0x277CCABB0] numberWithInteger:unsignedIntegerValue];
+            [v52 setObject:v62 forKeyedSubscript:v118];
 
-            v61 = [MEMORY[0x277CCABB0] numberWithInteger:unsignedIntegerValue2];
-            [v50 setObject:v61 forKeyedSubscript:v112];
+            v63 = [MEMORY[0x277CCABB0] numberWithInteger:unsignedIntegerValue2];
+            [v52 setObject:v63 forKeyedSubscript:v117];
 
-            if (PUICGRectIsValidSalientContentRectangle())
+            IsValidSalientContentRectangle = PUICGRectIsValidSalientContentRectangle();
+            if (IsValidSalientContentRectangle)
             {
-              v62 = PBFLogDataStore();
-              if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
+              v65 = PBFLogDataStore(IsValidSalientContentRectangle);
+              if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
               {
-                v149.origin.x = v41;
-                v149.origin.y = v43;
-                v149.size.width = v45;
-                v149.size.height = v47;
-                v63 = NSStringFromCGRect(v149);
+                v154.origin.x = v43;
+                v154.origin.y = v45;
+                v154.size.width = v47;
+                v154.size.height = v49;
+                v66 = NSStringFromCGRect(v154);
                 *buf = 138543362;
-                v145 = v63;
-                _os_log_impl(&dword_21B526000, v62, OS_LOG_TYPE_DEFAULT, "Ingesting salient content rect: %{public}@", buf, 0xCu);
+                v150 = v66;
+                _os_log_impl(&dword_21B526000, v65, OS_LOG_TYPE_DEFAULT, "Ingesting salient content rect: %{public}@", buf, 0xCu);
               }
 
-              v150.origin.x = v41;
-              v150.origin.y = v43;
-              v150.size.width = v45;
-              v150.size.height = v47;
-              v64 = NSStringFromCGRect(v150);
-              [v50 setObject:v64 forKeyedSubscript:v111];
+              v155.origin.x = v43;
+              v155.origin.y = v45;
+              v155.size.width = v47;
+              v155.size.height = v49;
+              v67 = NSStringFromCGRect(v155);
+              [v52 setObject:v67 forKeyedSubscript:v116];
             }
 
-            v49 = v126;
+            v51 = v131;
           }
 
-          if (v38 == v53)
+          if (v40 == v55)
           {
-            v66 = v123;
+            v69 = v128;
             allLevelsExceptFloating = [MEMORY[0x277D3EF70] allLevelsExceptFloating];
 LABEL_41:
-            v67 = allLevelsExceptFloating;
+            v70 = allLevelsExceptFloating;
             goto LABEL_42;
           }
 
-          v65 = surface2;
+          v68 = surface2;
           if (!surface2)
           {
             goto LABEL_47;
           }
 
-          v66 = v65;
-          if (v125 == v53)
+          v69 = v68;
+          if (v130 == v55)
           {
             allLevelsExceptFloating = [MEMORY[0x277D3EF70] floatingLevelSet];
             goto LABEL_41;
           }
 
-          v67 = 0;
+          v70 = 0;
 LABEL_42:
-          v131 = 0;
-          [v50 captureSurface:v66 sceneSettings:0 forLevelSet:v67 persistenceScale:&v131 error:1.0];
-          v69 = v131;
-          if (v69)
+          v136 = 0;
+          [v52 captureSurface:v69 sceneSettings:0 forLevelSet:v70 persistenceScale:&v136 error:1.0];
+          v72 = v136;
+          v73 = v72;
+          if (v72)
           {
-            v70 = v38;
-            v71 = PBFLogSnapshotter();
-            if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
+            v74 = v40;
+            v75 = PBFLogSnapshotter(v72);
+            if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
             {
-              uniqueIdentifier2 = [v53 uniqueIdentifier];
+              uniqueIdentifier2 = [v55 uniqueIdentifier];
               *buf = 138543618;
-              v145 = uniqueIdentifier2;
-              v146 = 2114;
-              v147 = v69;
-              _os_log_error_impl(&dword_21B526000, v71, OS_LOG_TYPE_ERROR, "failed to capture snapshot collection definition %{public}@: %{public}@", buf, 0x16u);
+              v150 = uniqueIdentifier2;
+              v151 = 2114;
+              v152 = v73;
+              _os_log_error_impl(&dword_21B526000, v75, OS_LOG_TYPE_ERROR, "failed to capture snapshot collection definition %{public}@: %{public}@", buf, 0x16u);
             }
 
-            v38 = v70;
+            v40 = v74;
           }
 
 LABEL_47:
-          ++v52;
+          ++v54;
         }
 
-        while (v49 != v52);
-        v49 = [obj countByEnumeratingWithState:&v132 objects:v141 count:16];
-        if (!v49)
+        while (v51 != v54);
+        v51 = [obj countByEnumeratingWithState:&v137 objects:v146 count:16];
+        if (!v51)
         {
           goto LABEL_51;
         }
       }
     }
 
-    v50 = 0;
+    v52 = 0;
 LABEL_51:
 
-    v73 = MEMORY[0x277CCACA8];
-    uniqueIdentifier3 = [v38 uniqueIdentifier];
-    v75 = [v73 stringWithFormat:@"Snapshot-%@.pks", uniqueIdentifier3];
-    v76 = [v110 URLByAppendingPathComponent:v75];
+    v77 = MEMORY[0x277CCACA8];
+    uniqueIdentifier3 = [v40 uniqueIdentifier];
+    v79 = [v77 stringWithFormat:@"Snapshot-%@.pks", uniqueIdentifier3];
+    v80 = [v115 URLByAppendingPathComponent:v79];
     defaultFormat = [MEMORY[0x277D3EF60] defaultFormat];
-    v130 = 0;
-    v78 = [v50 buildWithOutputURL:v76 diskFormat:defaultFormat error:&v130];
-    v79 = v130;
+    v135 = 0;
+    v82 = [v52 buildWithOutputURL:v80 diskFormat:defaultFormat error:&v135];
+    v83 = v135;
 
-    v12 = v108;
-    if (!v79 && v78)
+    v12 = v113;
+    if (!v83 && v82)
     {
       goto LABEL_53;
     }
 
-    v95 = PBFLogSnapshotter();
-    if (os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
+    v100 = PBFLogSnapshotter(v84);
+    if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
     {
-      [(PBFPosterSnapshotManager *)v79 ingestSnapshotCollection:v95 forConfiguration:v96 error:v97, v98, v99, v100, v101];
+      [(PBFPosterSnapshotManager *)v83 ingestSnapshotCollection:v100 forConfiguration:v101 error:v102, v103, v104, v105, v106];
     }
 
-    if (v79)
+    if (v83)
     {
-      v83 = v79;
+      v88 = v83;
     }
 
     else
     {
-      v102 = MEMORY[0x277CCA9B8];
-      v138 = *MEMORY[0x277CCA470];
-      v139 = @"Snapshot bundle could not be built";
-      v103 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v139 forKeys:&v138 count:1];
-      v83 = [v102 pbf_generalErrorWithCode:0 userInfo:v103];
+      v107 = MEMORY[0x277CCA9B8];
+      v143 = *MEMORY[0x277CCA470];
+      v144 = @"Snapshot bundle could not be built";
+      v108 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v144 forKeys:&v143 count:1];
+      v88 = [v107 pbf_generalErrorWithCode:0 userInfo:v108];
 
-      if (!v83)
+      if (!v88)
       {
 LABEL_53:
-        v129 = 0;
-        v80 = [v105 ingestSnapshotBundle:v78 error:&v129];
-        v81 = v129;
-        v82 = v81;
-        if (v81 || (v83 = 0, (v80 & 1) == 0))
+        v134 = 0;
+        v85 = [v110 ingestSnapshotBundle:v82 error:&v134];
+        v86 = v134;
+        v87 = v86;
+        if (v86 || (v88 = 0, (v85 & 1) == 0))
         {
-          if (!v81)
+          if (!v86)
           {
-            v84 = MEMORY[0x277CCA9B8];
-            v136 = *MEMORY[0x277CCA470];
-            v137 = @"Snapshot bundle could not be ingested";
-            v85 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v137 forKeys:&v136 count:1];
-            v82 = [v84 pbf_generalErrorWithCode:0 userInfo:v85];
+            v89 = MEMORY[0x277CCA9B8];
+            v141 = *MEMORY[0x277CCA470];
+            v142 = @"Snapshot bundle could not be ingested";
+            v90 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v142 forKeys:&v141 count:1];
+            v87 = [v89 pbf_generalErrorWithCode:0 userInfo:v90];
           }
 
-          v86 = PBFLogSnapshotter();
-          if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+          v91 = PBFLogSnapshotter(v86);
+          if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
           {
-            [(PBFPosterSnapshotManager *)v82 ingestSnapshotCollection:v86 forConfiguration:v87 error:v88, v89, v90, v91, v92];
+            [(PBFPosterSnapshotManager *)v87 ingestSnapshotCollection:v91 forConfiguration:v92 error:v93, v94, v95, v96, v97];
           }
 
-          v83 = v82;
+          v88 = v87;
         }
 
         defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-        [defaultManager removeItemAtURL:v110 error:0];
+        [defaultManager removeItemAtURL:v115 error:0];
 
-        v29 = v83 == 0;
-        if (errorCopy && v83)
+        v31 = v88 == 0;
+        if (errorCopy && v88)
         {
-          v94 = v83;
-          *errorCopy = v83;
+          v99 = v88;
+          *errorCopy = v88;
         }
 
         goto LABEL_70;
       }
     }
 
-    v29 = 0;
+    v31 = 0;
 LABEL_70:
 
-    v11 = v109;
-    surface = v123;
-    v28 = snapshotDisplayIdentity;
+    v11 = v114;
+    surface = v128;
+    v30 = snapshotDisplayIdentity;
     goto LABEL_71;
   }
 
   if (error)
   {
-    v24 = MEMORY[0x277CCA9B8];
-    v142 = *MEMORY[0x277CCA470];
-    v143 = @"unable to ingest snapshotCollection which does not possess snapshots backed by IOSurface";
-    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v143 forKeys:&v142 count:1];
-    v26 = [v24 pbf_dataStoreErrorWithCode:-2214 userInfo:v25];
+    v26 = MEMORY[0x277CCA9B8];
+    v147 = *MEMORY[0x277CCA470];
+    v148 = @"unable to ingest snapshotCollection which does not possess snapshots backed by IOSurface";
+    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v148 forKeys:&v147 count:1];
+    v28 = [v26 pbf_dataStoreErrorWithCode:-2214 userInfo:v27];
 
-    v27 = v26;
-    *error = v26;
+    v29 = v28;
+    *error = v28;
   }
 
-  v28 = PBFLogSnapshotter();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+  v30 = PBFLogSnapshotter(v16);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v145 = v11;
-    _os_log_impl(&dword_21B526000, v28, OS_LOG_TYPE_DEFAULT, "Snapshotter could not ingest snapshotCollection because it is not backed by an IOSurface: %@", buf, 0xCu);
+    v150 = v11;
+    _os_log_impl(&dword_21B526000, v30, OS_LOG_TYPE_DEFAULT, "Snapshotter could not ingest snapshotCollection because it is not backed by an IOSurface: %@", buf, 0xCu);
   }
 
-  v29 = 0;
+  v31 = 0;
 LABEL_71:
 
-  return v29;
+  return v31;
 }
 
 - (void)fetchPosterSnapshotForRequest:(id)request definition:(id)definition completion:(id)completion
@@ -2454,7 +2460,7 @@ void __80__PBFPosterSnapshotManager_fetchPosterSnapshotForRequest_definition_com
   v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = PBFLogCommon();
+  v7 = PBFLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     v11 = *(a1 + 32);
@@ -2630,7 +2636,7 @@ uint64_t __54__PBFPosterSnapshotManager_enqueueRequest_completion___block_invoke
 
 - (void)_enqueueSnapshotForRequestIfNeeded:(char *)a1 completion:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"request"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2638,7 +2644,7 @@ uint64_t __54__PBFPosterSnapshotManager_enqueueRequest_completion___block_invoke
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"request", v11, v12);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -2649,7 +2655,7 @@ uint64_t __54__PBFPosterSnapshotManager_enqueueRequest_completion___block_invoke
 
 - (void)_enqueueSnapshotForRequestIfNeeded:(char *)a1 completion:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"completion"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2657,7 +2663,7 @@ uint64_t __54__PBFPosterSnapshotManager_enqueueRequest_completion___block_invoke
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"completion", v11, v12);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11, v12);
   }
 
   v10 = v2;
@@ -2681,11 +2687,25 @@ void __74__PBFPosterSnapshotManager__enqueueSnapshotForRequestIfNeeded_completio
   _os_log_debug_impl(&dword_21B526000, a3, OS_LOG_TYPE_DEBUG, "<%p> [_enqueueSnapshotForRequestIfNeeded]: [remainingRequests count]: %lu. [request identifier]: %@", &v8, 0x20u);
 }
 
+- (void)_lock_cleanupAfterSceneInvalidationForRequest:(uint64_t)a3 snapshotter:(uint64_t)a4 shouldTerminateProcess:(uint64_t)a5 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2(&dword_21B526000, a2, a3, "[_lock_cleanupAfterSceneInvalidationForRequest] failed to terminate snapshot instance with error: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 - (void)_lock_cleanupAfterSceneInvalidationForRequest:snapshotter:shouldTerminateProcess:.cold.2()
 {
   OUTLINED_FUNCTION_5_1();
   OUTLINED_FUNCTION_3_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+}
+
+void __78__PBFPosterSnapshotManager__lock_teardownAssertionsAndSnapshottersIfNecessary__block_invoke_2_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2(&dword_21B526000, a2, a3, "[_lock_teardownAssertionsAndSnapshottersIfNecessary] failed to terminate snapshot instance with error: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __78__PBFPosterSnapshotManager__lock_teardownAssertionsAndSnapshottersIfNecessary__block_invoke_2_cold_2()
@@ -2722,9 +2742,16 @@ void __54__PBFPosterSnapshotManager__lock_kickoffNextOperation__block_invoke_3_c
   _os_log_error_impl(&dword_21B526000, log, OS_LOG_TYPE_ERROR, "Snapshot request failed for definition %@: %@", &v4, 0x16u);
 }
 
+void __54__PBFPosterSnapshotManager__lock_kickoffNextOperation__block_invoke_3_cold_3(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_2(&dword_21B526000, a2, a3, "Snapshot succeeded but imageURL was nil for definition: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 - (void)ingestSnapshotCollection:(char *)a1 forConfiguration:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRSPosterSnapshotCollectionClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2732,7 +2759,7 @@ void __54__PBFPosterSnapshotManager__lock_kickoffNextOperation__block_invoke_3_c
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PRSPosterSnapshotCollectionClass]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2742,7 +2769,7 @@ void __54__PBFPosterSnapshotManager__lock_kickoffNextOperation__block_invoke_3_c
 
 - (void)ingestSnapshotCollection:(char *)a1 forConfiguration:error:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRPosterConfigurationClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2750,7 +2777,7 @@ void __54__PBFPosterSnapshotManager__lock_kickoffNextOperation__block_invoke_3_c
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PRPosterConfigurationClass]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2758,9 +2785,23 @@ void __54__PBFPosterSnapshotManager__lock_kickoffNextOperation__block_invoke_3_c
   __break(0);
 }
 
+- (void)ingestSnapshotCollection:(uint64_t)a3 forConfiguration:(uint64_t)a4 error:(uint64_t)a5 .cold.3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2(&dword_21B526000, a2, a3, "failed to build snapshot bundle: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)ingestSnapshotCollection:(uint64_t)a3 forConfiguration:(uint64_t)a4 error:(uint64_t)a5 .cold.4(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2(&dword_21B526000, a2, a3, "failed to ingest snapshot bundle: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 - (void)ingestSnapshotCollection:(char *)a1 forConfiguration:error:.cold.5(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2768,7 +2809,7 @@ void __54__PBFPosterSnapshotManager__lock_kickoffNextOperation__block_invoke_3_c
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2778,7 +2819,7 @@ void __54__PBFPosterSnapshotManager__lock_kickoffNextOperation__block_invoke_3_c
 
 - (void)ingestSnapshotCollection:(char *)a1 forConfiguration:error:.cold.6(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2786,7 +2827,7 @@ void __54__PBFPosterSnapshotManager__lock_kickoffNextOperation__block_invoke_3_c
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2796,7 +2837,7 @@ void __54__PBFPosterSnapshotManager__lock_kickoffNextOperation__block_invoke_3_c
 
 - (void)fetchPosterSnapshotForRequest:(char *)a1 definition:completion:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PBFPosterSnapshotRequestClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2804,7 +2845,7 @@ void __54__PBFPosterSnapshotManager__lock_kickoffNextOperation__block_invoke_3_c
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PBFPosterSnapshotRequestClass]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2814,7 +2855,7 @@ void __54__PBFPosterSnapshotManager__lock_kickoffNextOperation__block_invoke_3_c
 
 - (void)fetchPosterSnapshotForRequest:(char *)a1 definition:completion:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PBFPosterSnapshotDefinitionClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2822,7 +2863,7 @@ void __54__PBFPosterSnapshotManager__lock_kickoffNextOperation__block_invoke_3_c
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PBFPosterSnapshotDefinitionClass]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2832,7 +2873,7 @@ void __54__PBFPosterSnapshotManager__lock_kickoffNextOperation__block_invoke_3_c
 
 - (void)fetchPosterSnapshotForRequest:(char *)a1 definition:completion:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2840,7 +2881,7 @@ void __54__PBFPosterSnapshotManager__lock_kickoffNextOperation__block_invoke_3_c
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2850,7 +2891,7 @@ void __54__PBFPosterSnapshotManager__lock_kickoffNextOperation__block_invoke_3_c
 
 - (void)fetchPosterSnapshotForRequest:(char *)a1 definition:completion:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -2858,7 +2899,7 @@ void __54__PBFPosterSnapshotManager__lock_kickoffNextOperation__block_invoke_3_c
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

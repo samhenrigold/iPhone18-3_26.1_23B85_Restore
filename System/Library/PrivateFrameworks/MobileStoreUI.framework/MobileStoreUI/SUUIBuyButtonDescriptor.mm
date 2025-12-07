@@ -66,19 +66,19 @@
     variantIdentifier = [v5 variantIdentifier];
     variantIdentifier2 = [(SUUIBuyButtonDescriptor *)self variantIdentifier];
     v14 = variantIdentifier2;
-    v15 = 1;
+    isEqualToString = 1;
     if (variantIdentifier && variantIdentifier2)
     {
-      v15 = [variantIdentifier isEqualToString:variantIdentifier2];
+      isEqualToString = objc_msgSend_isEqualToString_(variantIdentifier);
     }
   }
 
   else
   {
-    v15 = 0;
+    isEqualToString = 0;
   }
 
-  return v15;
+  return isEqualToString;
 }
 
 - (BOOL)canPerformLocalActionWithItemState:(id)state

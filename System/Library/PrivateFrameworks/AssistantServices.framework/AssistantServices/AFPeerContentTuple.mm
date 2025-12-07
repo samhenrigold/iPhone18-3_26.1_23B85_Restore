@@ -22,28 +22,27 @@
 
 - (AFPeerContentTuple)initWithCoder:(id)coder
 {
-  v13[12] = *MEMORY[0x1E69E9840];
+  v12[12] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"AFPeerContentTuple.info"];
   v6 = MEMORY[0x1E695DFD8];
-  v13[0] = objc_opt_class();
-  v13[1] = objc_opt_class();
-  v13[2] = objc_opt_class();
-  v13[3] = objc_opt_class();
-  v13[4] = objc_opt_class();
-  v13[5] = objc_opt_class();
-  v13[6] = objc_opt_class();
-  v13[7] = objc_opt_class();
-  v13[8] = objc_opt_class();
-  v13[9] = objc_opt_class();
-  v13[10] = objc_opt_class();
-  v13[11] = objc_opt_class();
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:12];
+  v12[0] = objc_opt_class();
+  v12[1] = objc_opt_class();
+  v12[2] = objc_opt_class();
+  v12[3] = objc_opt_class();
+  v12[4] = objc_opt_class();
+  v12[5] = objc_opt_class();
+  v12[6] = objc_opt_class();
+  v12[7] = objc_opt_class();
+  v12[8] = objc_opt_class();
+  v12[9] = objc_opt_class();
+  v12[10] = objc_opt_class();
+  v12[11] = objc_opt_class();
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:12];
   v8 = [v6 setWithArray:v7];
   v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"AFPeerContentTuple.content"];
 
   v10 = [(AFPeerContentTuple *)self initWithInfo:v5 content:v9];
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

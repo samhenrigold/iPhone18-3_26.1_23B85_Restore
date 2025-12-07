@@ -521,20 +521,22 @@ LABEL_21:
     window2 = [(BCUIRowView *)self window];
     screen = [window2 screen];
     [screen scale];
+    v9 = v8;
   }
 
   else
   {
     window2 = [MEMORY[0x1E69DCEB0] mainScreen];
     [window2 scale];
+    v9 = v10;
   }
 
   [(BCUIRowView *)self bounds];
-  Height = CGRectGetHeight(v33);
+  Height = CGRectGetHeight(v43);
   _shouldReverseLayoutDirection = [(BCUIRowView *)self _shouldReverseLayoutDirection];
-  v10 = [objc_opt_class() isAX3PlusLayoutRequiredForContentSizeCategory:categoryCopy];
+  v13 = [objc_opt_class() isAX3PlusLayoutRequiredForContentSizeCategory:categoryCopy];
 
-  if (v10)
+  if (v13)
   {
     if ((_shouldReverseLayoutDirection & 1) == 0)
     {
@@ -543,61 +545,77 @@ LABEL_21:
 
     percentChargeLabel = self->_percentChargeLabel;
     [(BCUIRowView *)self bounds];
-    [(UILabel *)percentChargeLabel sizeThatFits:CGRectGetWidth(v34) + -80.0 + -8.0, Height * 0.5 + -16.0];
+    [(UILabel *)percentChargeLabel sizeThatFits:CGRectGetWidth(v44) + -80.0 + -8.0, Height * 0.5 + -16.0];
     if (_shouldReverseLayoutDirection)
     {
       [(BCUIRowView *)self bounds];
-      CGRectGetWidth(v35);
+      CGRectGetWidth(v45);
     }
 
     [(BCUIRowView *)self bounds];
-    CGRectGetWidth(v36);
+    CGRectGetWidth(v46);
     UIRectCenteredYInRectScale();
   }
 
   else
   {
     [(BCUIRowView *)self bounds];
-    v16 = BCUI6x8ColumnWidthForBounds(v12, v13, v14, v15);
+    v19 = BCUI6x8ColumnWidthForBounds(v15, v16, v17, v18);
     BSRectWithSize();
-    v18 = v17;
-    v20 = v19;
-    v22 = v21;
+    v21 = v20;
+    v23 = v22;
+    v25 = v24;
     if (_shouldReverseLayoutDirection)
     {
-      v23 = v16 + 16.0;
+      v26 = v19 + 16.0;
     }
 
     else
     {
       [(BCUIRowView *)self bounds];
-      v23 = CGRectGetWidth(v37) + -16.0 + v16 * -2.0;
+      v26 = CGRectGetWidth(v47) + -16.0 + v19 * -2.0;
     }
 
-    v28 = self->_percentChargeLabel;
+    v31 = self->_percentChargeLabel;
     [(BCUIRowView *)self bounds];
-    [(UILabel *)v28 sizeThatFits:v29, v30];
-    v32 = v31;
-    v38.origin.x = v23;
-    v38.origin.y = v18;
-    v38.size.width = v20;
-    v38.size.height = v22;
-    if (!((v32 <= CGRectGetWidth(v38)) | _shouldReverseLayoutDirection & 1))
+    [(UILabel *)v31 sizeThatFits:v32, v33];
+    v35 = v34;
+    v48.origin.x = v26;
+    v48.origin.y = v21;
+    v48.size.width = v23;
+    v48.size.height = v25;
+    Width = CGRectGetWidth(v48);
+    if (v35 > Width)
     {
-      v39.origin.x = v23;
-      v39.origin.y = v18;
-      v39.size.width = v20;
-      v39.size.height = v22;
-      CGRectGetWidth(v39);
+      v40 = v35;
     }
 
-    UIRectIntegralWithScale();
+    else
+    {
+      v40 = v23;
+    }
+
+    if (!((v35 <= Width) | _shouldReverseLayoutDirection & 1))
+    {
+      v49.origin.x = v26;
+      v49.origin.y = v21;
+      v49.size.width = v23;
+      v49.size.height = v25;
+      v26 = v26 - (v35 - CGRectGetWidth(v49));
+      v40 = v35;
+    }
+
+    v41.width = v26;
+    v41.height = v21;
+    v42.width = v25;
+    v42.height = v9;
+    UIRectIntegralWithScale(v36, v37, v41, v40, v42, v38);
   }
 
-  result.size.height = v27;
-  result.size.width = v26;
-  result.origin.y = v25;
-  result.origin.x = v24;
+  result.size.height = v30;
+  result.size.width = v29;
+  result.origin.y = v28;
+  result.origin.x = v27;
   return result;
 }
 
@@ -614,68 +632,90 @@ LABEL_21:
     window2 = [(BCUIRowView *)self window];
     screen = [window2 screen];
     [screen scale];
+    v14 = v13;
   }
 
   else
   {
     window2 = [MEMORY[0x1E69DCEB0] mainScreen];
     [window2 scale];
+    v14 = v15;
   }
 
   [(BCUIRowView *)self bounds];
-  CGRectGetHeight(v23);
-  v13 = [objc_opt_class() isAX3PlusLayoutRequiredForContentSizeCategory:sizeCopy];
+  v16 = CGRectGetHeight(v46);
+  v17 = [objc_opt_class() isAX3PlusLayoutRequiredForContentSizeCategory:sizeCopy];
 
   [(BCUIRowView *)self bounds];
-  if (v13)
+  if (v17)
   {
-    CGRectGetWidth(*&v14);
+    v22 = CGRectGetWidth(*&v18) + -80.0 + -16.0;
+    v23 = v16 * 0.5;
     BSRectWithSize();
     if ([(BCUIRowView *)self _shouldReverseLayoutDirection])
     {
       [(BCUIRowView *)self bounds];
-      CGRectGetWidth(v24);
-    }
-
-    [(BCUIRowView *)self bounds];
-    CGRectGetWidth(v28);
-  }
-
-  else
-  {
-    BCUI6x8ColumnWidthForBounds(v14, v15, v16, v17);
-    BSRectWithSize();
-    if ([(BCUIRowView *)self _shouldReverseLayoutDirection])
-    {
-      [(BCUIRowView *)self bounds];
-      CGRectGetWidth(v25);
-      v26.origin.x = x;
-      v26.origin.y = y;
-      v26.size.width = width;
-      v26.size.height = height;
-      CGRectGetMaxX(v26);
-      v27.origin.x = x;
-      v27.origin.y = y;
-      v27.size.width = width;
-      v27.size.height = height;
-      CGRectGetMaxX(v27);
+      MaxX = CGRectGetWidth(v47) + -80.0 + -8.0 - v22;
     }
 
     else
     {
-      v29.origin.x = x;
-      v29.origin.y = y;
-      v29.size.width = width;
-      v29.size.height = height;
-      CGRectGetMinX(v29);
+      MaxX = 88.0;
     }
+
+    [(BCUIRowView *)self bounds];
+    v34 = CGRectGetWidth(v51) + -80.0;
+    v27 = 8.0;
   }
 
-  UIRectIntegralWithScale();
-  result.size.height = v21;
-  result.size.width = v20;
-  result.origin.y = v19;
-  result.origin.x = v18;
+  else
+  {
+    v44 = v14;
+    v25 = BCUI6x8ColumnWidthForBounds(v18, v19, v20, v21);
+    BSRectWithSize();
+    v27 = v26;
+    v23 = v28;
+    if ([(BCUIRowView *)self _shouldReverseLayoutDirection])
+    {
+      [(BCUIRowView *)self bounds];
+      v29 = CGRectGetWidth(v48);
+      v49.origin.x = x;
+      v49.origin.y = y;
+      v49.size.width = width;
+      v49.size.height = height;
+      MinX = v29 - CGRectGetMaxX(v49);
+      v50.origin.x = x;
+      v50.origin.y = y;
+      v50.size.width = width;
+      v50.size.height = height;
+      MaxX = CGRectGetMaxX(v50);
+    }
+
+    else
+    {
+      v52.origin.x = x;
+      v52.origin.y = y;
+      v52.size.width = width;
+      v52.size.height = height;
+      MinX = CGRectGetMinX(v52);
+      MaxX = v25 + 16.0;
+    }
+
+    v34 = MinX - v25;
+    v14 = v44;
+  }
+
+  v35 = v34 + -16.0;
+  v36 = MaxX;
+  v37 = v27;
+  v38 = v23;
+  v39 = v14;
+
+  UIRectIntegralWithScale(v31, v32, *&v36, v35, *&v38, v33);
+  result.size.height = v43;
+  result.size.width = v42;
+  result.origin.y = v41;
+  result.origin.x = v40;
   return result;
 }
 
@@ -769,8 +809,18 @@ LABEL_21:
   {
     sizeCopy = size;
     [(BCUIRowView *)self bounds];
-    BCUI6x8ColumnWidthForBounds(v5, v6, v7, v8);
-    [objc_opt_class() isAX3PlusLayoutRequiredForContentSizeCategory:sizeCopy];
+    v9 = BCUI6x8ColumnWidthForBounds(v5, v6, v7, v8);
+    v10 = [objc_opt_class() isAX3PlusLayoutRequiredForContentSizeCategory:sizeCopy];
+
+    if (v10)
+    {
+      v11 = 80.0;
+    }
+
+    else
+    {
+      v11 = v9 + 16.0;
+    }
 
     window = [(BCUIRowView *)self window];
     if (window)
@@ -778,34 +828,43 @@ LABEL_21:
       window2 = [(BCUIRowView *)self window];
       screen = [window2 screen];
       [screen scale];
+      v16 = v15;
     }
 
     else
     {
       window2 = [MEMORY[0x1E69DCEB0] mainScreen];
       [window2 scale];
+      v16 = v21;
     }
 
     [(BCUIRowView *)self bounds];
-    CGRectGetWidth(v16);
-    [(BCUIRowView *)self _shouldReverseLayoutDirection];
+    v22 = CGRectGetWidth(v28) - v11;
+    if ([(BCUIRowView *)self _shouldReverseLayoutDirection])
+    {
+      v11 = 0.0;
+    }
+
     [(BCUIRowView *)self bounds];
-    CGRectGetHeight(v17);
-    UIRectIntegralWithScale();
+    v26.height = CGRectGetHeight(v29) - 1.0 / v16;
+    v26.width = v11;
+    v27.width = 1.0 / v16;
+    v27.height = v16;
+    UIRectIntegralWithScale(v23, v24, v26, v22, v27, v25);
   }
 
   else
   {
-    v12 = *MEMORY[0x1E695F050];
-    v13 = *(MEMORY[0x1E695F050] + 8);
-    v14 = *(MEMORY[0x1E695F050] + 16);
-    v15 = *(MEMORY[0x1E695F050] + 24);
+    v17 = *MEMORY[0x1E695F050];
+    v18 = *(MEMORY[0x1E695F050] + 8);
+    v19 = *(MEMORY[0x1E695F050] + 16);
+    v20 = *(MEMORY[0x1E695F050] + 24);
   }
 
-  result.size.height = v15;
-  result.size.width = v14;
-  result.origin.y = v13;
-  result.origin.x = v12;
+  result.size.height = v20;
+  result.size.width = v19;
+  result.origin.y = v18;
+  result.origin.x = v17;
   return result;
 }
 

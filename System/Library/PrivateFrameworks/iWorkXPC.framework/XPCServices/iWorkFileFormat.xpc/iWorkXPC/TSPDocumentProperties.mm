@@ -14,6 +14,8 @@
 - (NSUUID)versionUUID;
 - (TSPDocumentProperties)init;
 - (TSPDocumentProperties)initWithDocumentBundleURL:(id)l allowMissingPropertyList:(BOOL)list error:(id *)error;
+- (TSPDocumentProperties)initWithDocumentFileURL:(id)l allowMissingPropertyList:(BOOL)list error:(id *)error;
+- (TSPDocumentProperties)initWithDocumentURL:(id)l allowMissingPropertyList:(BOOL)list error:(id *)error;
 - (TSPDocumentProperties)initWithFilePackageURL:(id)l zipArchive:(id)archive allowMissingPropertyList:(BOOL)list error:(id *)error;
 - (TSPDocumentProperties)initWithPropertiesURL:(id)l error:(id *)error;
 - (id)UUIDFromDocumentProperties:(id)properties key:(id)key;
@@ -44,6 +46,25 @@
   }
 
   return v3;
+}
+
+- (TSPDocumentProperties)initWithDocumentURL:(id)l allowMissingPropertyList:(BOOL)list error:(id *)error
+{
+  listCopy = list;
+  lCopy = l;
+  if ([TSPDirectoryPackage isValidPackageAtURL:lCopy]|| [TSPExpandedDirectoryPackage isValidPackageAtURL:lCopy])
+  {
+    v9 = [(TSPDocumentProperties *)self initWithDocumentBundleURL:lCopy allowMissingPropertyList:listCopy error:error];
+  }
+
+  else
+  {
+    v9 = [(TSPDocumentProperties *)self initWithDocumentFileURL:lCopy allowMissingPropertyList:listCopy error:error];
+  }
+
+  v10 = v9;
+
+  return v10;
 }
 
 - (TSPDocumentProperties)initWithDocumentBundleURL:(id)l allowMissingPropertyList:(BOOL)list error:(id *)error
@@ -84,6 +105,37 @@ LABEL_8:
 LABEL_9:
 
   return v9;
+}
+
+- (TSPDocumentProperties)initWithDocumentFileURL:(id)l allowMissingPropertyList:(BOOL)list error:(id *)error
+{
+  listCopy = list;
+  lCopy = l;
+  v9 = [TSUZipFileArchive zipArchiveFromURL:lCopy options:5 error:error];
+  if (!v9)
+  {
+    goto LABEL_6;
+  }
+
+  if (![TSPFilePackage isValidPackageAtZipArchive:v9])
+  {
+    if (error)
+    {
+      [NSError tsp_readCorruptedDocumentErrorWithUserInfo:0];
+      *error = selfCopy = 0;
+      goto LABEL_7;
+    }
+
+LABEL_6:
+    selfCopy = 0;
+    goto LABEL_7;
+  }
+
+  self = [(TSPDocumentProperties *)self initWithFilePackageURL:lCopy zipArchive:v9 allowMissingPropertyList:listCopy error:error];
+  selfCopy = self;
+LABEL_7:
+
+  return selfCopy;
 }
 
 - (TSPDocumentProperties)initWithFilePackageURL:(id)l zipArchive:(id)archive allowMissingPropertyList:(BOOL)list error:(id *)error
@@ -234,7 +286,7 @@ LABEL_16:
   v31 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v23 = sub_10002CA60();
+  v23 = sub_10002CA60(v22);
   v24 = [v23 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v24)
   {
@@ -571,7 +623,7 @@ LABEL_11:
   privateUUID = self->_privateUUID;
   self->_privateUUID = v5;
 
-  _objc_release_x1();
+  _objc_release_x1(v5, privateUUID);
 }
 
 - (void)updateDocumentUUIDAndPreserveShareUUID:(BOOL)d preserveStableDocumentUUID:(BOOL)iD
@@ -608,7 +660,7 @@ LABEL_11:
   versionUUID = self->_versionUUID;
   self->_versionUUID = v3;
 
-  _objc_release_x1();
+  _objc_release_x1(v3, versionUUID);
 }
 
 - (NSUUID)shareUUID
@@ -694,7 +746,7 @@ LABEL_11:
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  obj = sub_10002CA60();
+  obj = sub_10002CA60(propertiesCopy);
   v4 = [obj countByEnumeratingWithState:&v18 objects:v32 count:16];
   if (v4)
   {

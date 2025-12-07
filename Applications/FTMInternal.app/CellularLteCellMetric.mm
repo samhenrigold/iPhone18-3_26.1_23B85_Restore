@@ -241,7 +241,6 @@ LABEL_7:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x10) == 0)
@@ -261,7 +260,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  version = self->_version;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -276,7 +274,6 @@ LABEL_4:
   }
 
 LABEL_19:
-  durationSeconds = self->_durationSeconds;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -291,48 +288,44 @@ LABEL_5:
   }
 
 LABEL_20:
-  mcc = self->_mcc;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_6:
-    mnc = self->_mnc;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_7:
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v7 = self->_lteMetrics;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
-  if (v8)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_lteMetrics;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v19;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v9; i = i + 1)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v10)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 
   if ((*&self->_has & 0x20) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 }
@@ -557,7 +550,6 @@ LABEL_8:
     goto LABEL_34;
   }
 
-  v5 = *(equalCopy + 48);
   if (*&self->_has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -569,7 +561,7 @@ LABEL_8:
   else if (*(equalCopy + 48))
   {
 LABEL_34:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_35;
   }
 
@@ -641,17 +633,17 @@ LABEL_34:
   lteMetrics = self->_lteMetrics;
   if (lteMetrics | *(equalCopy + 3))
   {
-    v7 = [(NSMutableArray *)lteMetrics isEqual:?];
+    v6 = [(NSMutableArray *)lteMetrics isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_35:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

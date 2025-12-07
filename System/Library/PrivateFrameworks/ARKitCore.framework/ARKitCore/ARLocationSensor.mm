@@ -51,7 +51,7 @@
     v5->_lastLocationUpdateTimestamp = -1.0;
     *&v5->_isLiveSensor = 1;
     v5->_startTimestamp = 0.0;
-    v13 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.locationSensor.locationManager");
+    v13 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.locationSensor.locationManager", 0);
     locationManagerQueue = v5->_locationManagerQueue;
     v5->_locationManagerQueue = v13;
 
@@ -69,25 +69,25 @@
 
 - (void)configureForReplay
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   self->_isLiveSensor = 0;
   v3 = objc_opt_new();
   locationPlayer = self->_locationPlayer;
   self->_locationPlayer = v3;
 
-  v5 = _ARLogSensor_2();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = _ARLogSensor_2(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
-    v8 = self->_locationPlayer;
-    v9 = 138543874;
-    v10 = v7;
-    v11 = 2048;
+    v7 = objc_opt_class();
+    v8 = NSStringFromClass(v7);
+    v9 = self->_locationPlayer;
+    v10 = 138543874;
+    v11 = v8;
+    v12 = 2048;
     selfCopy = self;
-    v13 = 2048;
-    v14 = v8;
-    _os_log_impl(&dword_1C241C000, v5, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Created _CLLocationPlayer: %p", &v9, 0x20u);
+    v14 = 2048;
+    v15 = v9;
+    _os_log_impl(&dword_1C241C000, v6, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Created _CLLocationPlayer: %p", &v10, 0x20u);
   }
 
   [(_CLLocationPlayer *)self->_locationPlayer setSimulationEnabled:0];
@@ -97,7 +97,7 @@
 - (void)start
 {
   v13 = *MEMORY[0x1E69E9840];
-  v3 = _ARLogSensor_2();
+  v3 = _ARLogSensor_2(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = objc_opt_class();
@@ -129,7 +129,7 @@ void __25__ARLocationSensor_start__block_invoke(uint64_t a1)
 
 - (void)_start
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (!self->_isRunning)
   {
     kdebug_trace();
@@ -164,22 +164,22 @@ LABEL_14:
       kdebug_trace();
       self->_startTimestamp = ARGetSystemUpTime();
       self->_isRunning = 1;
-      v8 = _ARLogSensor_2();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v9 = _ARLogSensor_2(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        v9 = objc_opt_class();
-        v10 = NSStringFromClass(v9);
-        v13 = 138543618;
-        v14 = v10;
-        v15 = 2048;
+        v10 = objc_opt_class();
+        v11 = NSStringFromClass(v10);
+        v14 = 138543618;
+        v15 = v11;
+        v16 = 2048;
         selfCopy = self;
-        _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Started location updates", &v13, 0x16u);
+        _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Started location updates", &v14, 0x16u);
       }
 
       delegate2 = [(ARLocationSensor *)self delegate];
-      v12 = objc_opt_respondsToSelector();
+      v13 = objc_opt_respondsToSelector();
 
-      if ((v12 & 1) == 0)
+      if ((v13 & 1) == 0)
       {
         goto LABEL_13;
       }
@@ -202,8 +202,7 @@ LABEL_13:
   [v3 setDesiredAccuracy:*MEMORY[0x1E6985C78]];
   [v3 setDistanceFilter:*MEMORY[0x1E6985C70]];
   [v3 _setGroundAltitudeEnabled:1];
-  [v3 _setFusionInfoEnabled:1];
-  v4 = _ARLogSensor_2();
+  v4 = _ARLogSensor_2([v3 _setFusionInfoEnabled:1]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = objc_opt_class();
@@ -222,59 +221,65 @@ LABEL_13:
 
 - (id)_validateLocationAuthorization
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_locationManagerQueue);
-  if (([MEMORY[0x1E695FBE8] locationServicesEnabled] & 1) == 0)
+  locationServicesEnabled = [MEMORY[0x1E695FBE8] locationServicesEnabled];
+  if ((locationServicesEnabled & 1) == 0)
   {
-    v15 = *MEMORY[0x1E696A588];
-    v3 = ARKitCoreBundle();
-    v4 = [v3 localizedStringForKey:@"Location use is restricted on this device." value:&stru_1F4208A80 table:@"Localizable"];
-    v16[0] = v4;
-    v5 = MEMORY[0x1E695DF20];
-    v6 = v16;
-    v7 = &v15;
+    v18 = *MEMORY[0x1E696A588];
+    v6 = ARKitCoreBundle(locationServicesEnabled);
+    v7 = [v6 localizedStringForKey:@"Location use is restricted on this device." value:&stru_1F4208A80 table:@"Localizable"];
+    v19[0] = v7;
+    v8 = MEMORY[0x1E695DF20];
+    v9 = v19;
+    v10 = &v18;
     goto LABEL_7;
   }
 
-  if ([(CLLocationManager *)self->_locationManager authorizationStatus]!= kCLAuthorizationStatusAuthorizedAlways && [(CLLocationManager *)self->_locationManager authorizationStatus]!= kCLAuthorizationStatusAuthorizedWhenInUse)
+  if ([(CLLocationManager *)self->_locationManager authorizationStatus]!= kCLAuthorizationStatusAuthorizedAlways)
   {
-    v13 = *MEMORY[0x1E696A588];
-    v3 = ARKitCoreBundle();
-    v4 = [v3 localizedStringForKey:@"Location authorization denied by the user." value:&stru_1F4208A80 table:@"Localizable"];
-    v14 = v4;
-    v5 = MEMORY[0x1E695DF20];
-    v6 = &v14;
-    v7 = &v13;
-    goto LABEL_7;
+    authorizationStatus = [(CLLocationManager *)self->_locationManager authorizationStatus];
+    if (authorizationStatus != 4)
+    {
+      v16 = *MEMORY[0x1E696A588];
+      v6 = ARKitCoreBundle(authorizationStatus);
+      v7 = [v6 localizedStringForKey:@"Location authorization denied by the user." value:&stru_1F4208A80 table:@"Localizable"];
+      v17 = v7;
+      v8 = MEMORY[0x1E695DF20];
+      v9 = &v17;
+      v10 = &v16;
+      goto LABEL_7;
+    }
   }
 
-  if ([(CLLocationManager *)self->_locationManager accuracyAuthorization])
+  accuracyAuthorization = [(CLLocationManager *)self->_locationManager accuracyAuthorization];
+  if (accuracyAuthorization)
   {
-    v11 = *MEMORY[0x1E696A588];
-    v3 = ARKitCoreBundle();
-    v4 = [v3 localizedStringForKey:@"Usage of precise location denied by user." value:&stru_1F4208A80 table:@"Localizable"];
-    v12 = v4;
-    v5 = MEMORY[0x1E695DF20];
-    v6 = &v12;
-    v7 = &v11;
+    v14 = *MEMORY[0x1E696A588];
+    v6 = ARKitCoreBundle(accuracyAuthorization);
+    v7 = [v6 localizedStringForKey:@"Usage of precise location denied by user." value:&stru_1F4208A80 table:@"Localizable"];
+    v15 = v7;
+    v8 = MEMORY[0x1E695DF20];
+    v9 = &v15;
+    v10 = &v14;
 LABEL_7:
-    v8 = [v5 dictionaryWithObjects:v6 forKeys:v7 count:1];
+    v11 = [v8 dictionaryWithObjects:v9 forKeys:v10 count:1];
 
-    v9 = ARErrorWithCodeAndUserInfo(101, v8);
+    v12 = ARErrorWithCodeAndUserInfo(101, v11);
 
     goto LABEL_8;
   }
 
-  v9 = 0;
+  v12 = 0;
 LABEL_8:
 
-  return v9;
+  return v12;
 }
 
 - (void)stop
 {
   v16 = *MEMORY[0x1E69E9840];
-  v3 = _ARLogSensor_2();
+  v3 = _ARLogSensor_2(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = objc_opt_class();
@@ -290,8 +295,7 @@ LABEL_8:
   v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"ARLocationSensor(%p):", self];
   if (!self->_isLiveSensor)
   {
-    [(_CLLocationPlayer *)self->_locationPlayer stop];
-    v7 = _ARLogSensor_2();
+    v7 = _ARLogSensor_2([(_CLLocationPlayer *)self->_locationPlayer stop]);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
@@ -324,7 +328,7 @@ LABEL_8:
 
 void __24__ARLocationSensor_stop__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained && (*(WeakRetained + 41) & 1) != 0)
@@ -332,14 +336,14 @@ void __24__ARLocationSensor_stop__block_invoke(uint64_t a1)
     [WeakRetained[2] stopUpdatingLocation];
     *(v3 + 41) = 0;
     v3[6] = 0;
-    kdebug_trace();
-    v4 = _ARLogSensor_2();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v4 = kdebug_trace();
+    v5 = _ARLogSensor_2(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v5 = *(a1 + 32);
-      v6 = 138412290;
-      v7 = v5;
-      _os_log_impl(&dword_1C241C000, v4, OS_LOG_TYPE_INFO, "%@ Stopped location updates", &v6, 0xCu);
+      v6 = *(a1 + 32);
+      v7 = 138412290;
+      v8 = v6;
+      _os_log_impl(&dword_1C241C000, v5, OS_LOG_TYPE_INFO, "%@ Stopped location updates", &v7, 0xCu);
     }
   }
 
@@ -359,15 +363,15 @@ void __24__ARLocationSensor_stop__block_invoke(uint64_t a1)
 
 - (void)dealloc
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = _ARLogSensor_2();
+  v13 = *MEMORY[0x1E69E9840];
+  v3 = _ARLogSensor_2(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = objc_opt_class();
     v5 = NSStringFromClass(v4);
     *buf = 138543618;
-    v9 = v5;
-    v10 = 2048;
+    v10 = v5;
+    v11 = 2048;
     selfCopy = self;
     _os_log_impl(&dword_1C241C000, v3, OS_LOG_TYPE_INFO, "%{public}@ <%p>: dealloc", buf, 0x16u);
   }
@@ -375,17 +379,17 @@ void __24__ARLocationSensor_stop__block_invoke(uint64_t a1)
   kdebug_trace();
   [(_CLLocationPlayer *)self->_locationPlayer stop];
   [(CLLocationManager *)self->_locationManager stopUpdatingLocation];
-  kdebug_trace();
-  v6 = _ARLogSensor_2();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v6 = kdebug_trace();
+  v7 = _ARLogSensor_2(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1C241C000, v6, OS_LOG_TYPE_INFO, "Stopped location updates", buf, 2u);
+    _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_INFO, "Stopped location updates", buf, 2u);
   }
 
-  v7.receiver = self;
-  v7.super_class = ARLocationSensor;
-  [(ARLocationSensor *)&v7 dealloc];
+  v8.receiver = self;
+  v8.super_class = ARLocationSensor;
+  [(ARLocationSensor *)&v8 dealloc];
 }
 
 - (void)updateARSessionState:(unint64_t)state
@@ -394,7 +398,7 @@ void __24__ARLocationSensor_stop__block_invoke(uint64_t a1)
   switch(state)
   {
     case 2uLL:
-      v5 = _ARLogSensor_2();
+      v5 = _ARLogSensor_2(self);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
         v10 = objc_opt_class();
@@ -409,7 +413,7 @@ void __24__ARLocationSensor_stop__block_invoke(uint64_t a1)
 
       goto LABEL_11;
     case 1uLL:
-      v5 = _ARLogSensor_2();
+      v5 = _ARLogSensor_2(self);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
         v9 = objc_opt_class();
@@ -434,7 +438,7 @@ LABEL_11:
       dispatch_async(locationManagerQueue, v21);
       return;
     case 0uLL:
-      v5 = _ARLogSensor_2();
+      v5 = _ARLogSensor_2(self);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
         v6 = objc_opt_class();
@@ -459,7 +463,7 @@ LABEL_10:
   }
 
   v12 = ARShouldUseLogTypeError_internalOSVersion_1;
-  v13 = _ARLogSensor_2();
+  v13 = _ARLogSensor_2(self);
   v14 = v13;
   if (v12 == 1)
   {
@@ -508,7 +512,7 @@ uint64_t __41__ARLocationSensor_updateARSessionState___block_invoke(uint64_t a1)
 
 - (void)updateEstimationFromVIOPose:(id)pose imageData:(id)data
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   poseCopy = pose;
   dataCopy = data;
   worldTrackingState = [poseCopy worldTrackingState];
@@ -524,31 +528,31 @@ uint64_t __41__ARLocationSensor_updateARSessionState___block_invoke(uint64_t a1)
     {
       self->_lastVIOUpdateTimestamp = v10;
       [dataCopy cameraIntrinsics];
-      v28 = v13;
       v29 = v14;
       v30 = v15;
+      v31 = v16;
       [dataCopy imageResolution];
       locationManagerQueue = self->_locationManagerQueue;
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __58__ARLocationSensor_updateEstimationFromVIOPose_imageData___block_invoke;
       block[3] = &unk_1E817BE00;
-      v42 = v10;
-      v32 = DWORD2(v28);
-      v35 = DWORD2(v29);
-      block[4] = v28;
-      v33 = 0;
-      v34 = v29;
-      v36 = 0;
-      v38 = DWORD2(v30);
-      v37 = v30;
-      v39 = 0;
-      v43 = v17;
+      v43 = v10;
+      v33 = DWORD2(v29);
+      v36 = DWORD2(v30);
+      block[4] = v29;
+      v34 = 0;
+      v35 = v30;
+      v37 = 0;
+      v39 = DWORD2(v31);
+      v38 = v31;
+      v40 = 0;
       v44 = v18;
-      v40 = poseCopy;
+      v45 = v19;
+      v41 = poseCopy;
       selfCopy = self;
       dispatch_async(locationManagerQueue, block);
-      v19 = v40;
+      v20 = v41;
 LABEL_12:
 
       goto LABEL_13;
@@ -559,50 +563,50 @@ LABEL_12:
       [ARLocationSensor updateARSessionState:];
     }
 
-    v20 = ARShouldUseLogTypeError_internalOSVersion_1;
-    v21 = _ARLogSensor_2();
-    v19 = v21;
-    if (v20 == 1)
+    v21 = ARShouldUseLogTypeError_internalOSVersion_1;
+    v22 = _ARLogSensor_2(v13);
+    v20 = v22;
+    if (v21 == 1)
     {
-      if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_12;
       }
 
-      v22 = objc_opt_class();
-      v23 = NSStringFromClass(v22);
+      v23 = objc_opt_class();
+      v24 = NSStringFromClass(v23);
       *buf = 138543874;
-      v46 = v23;
-      v47 = 2048;
+      v47 = v24;
+      v48 = 2048;
       selfCopy3 = self;
-      v49 = 2048;
-      v50 = v10;
-      v24 = "%{public}@ <%p>: World tracking state is missing inertial state: %f";
-      v25 = v19;
-      v26 = OS_LOG_TYPE_ERROR;
+      v50 = 2048;
+      v51 = v10;
+      v25 = "%{public}@ <%p>: World tracking state is missing inertial state: %f";
+      v26 = v20;
+      v27 = OS_LOG_TYPE_ERROR;
     }
 
     else
     {
-      if (!os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+      if (!os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         goto LABEL_12;
       }
 
-      v27 = objc_opt_class();
-      v23 = NSStringFromClass(v27);
+      v28 = objc_opt_class();
+      v24 = NSStringFromClass(v28);
       *buf = 138543874;
-      v46 = v23;
-      v47 = 2048;
+      v47 = v24;
+      v48 = 2048;
       selfCopy3 = self;
-      v49 = 2048;
-      v50 = v10;
-      v24 = "Error: %{public}@ <%p>: World tracking state is missing inertial state: %f";
-      v25 = v19;
-      v26 = OS_LOG_TYPE_INFO;
+      v50 = 2048;
+      v51 = v10;
+      v25 = "Error: %{public}@ <%p>: World tracking state is missing inertial state: %f";
+      v26 = v20;
+      v27 = OS_LOG_TYPE_INFO;
     }
 
-    _os_log_impl(&dword_1C241C000, v25, v26, v24, buf, 0x20u);
+    _os_log_impl(&dword_1C241C000, v26, v27, v25, buf, 0x20u);
 
     goto LABEL_12;
   }
@@ -641,7 +645,7 @@ void __58__ARLocationSensor_updateEstimationFromVIOPose_imageData___block_invoke
   v57 = 0u;
   if (v7)
   {
-    [v7 orientation];
+    objc_msgSend_orientation(v7);
     v11 = v56;
     v10 = v57;
     v13 = v58;
@@ -671,7 +675,7 @@ void __58__ARLocationSensor_updateEstimationFromVIOPose_imageData___block_invoke
   v18 = 0;
   if (v8)
   {
-    [v8 gyroscopeBias];
+    objc_msgSend_gyroscopeBias(v8);
     v19 = v54;
     v20 = vextq_s8(v19, v19, 8uLL).u64[0];
     v21 = v55;
@@ -690,7 +694,7 @@ void __58__ARLocationSensor_updateEstimationFromVIOPose_imageData___block_invoke
   v22 = [MEMORY[0x1E695DEF0] dataWithBytes:&v68 length:24];
   if (v8)
   {
-    [v8 velocity];
+    objc_msgSend_velocity(v8);
     v23 = v52;
     v24 = vextq_s8(v23, v23, 8uLL).u64[0];
     v18 = v53;
@@ -709,7 +713,7 @@ void __58__ARLocationSensor_updateEstimationFromVIOPose_imageData___block_invoke
   v26 = 0;
   if (v8)
   {
-    [v8 accelerometerBias];
+    objc_msgSend_accelerometerBias(v8);
     v27 = v50;
     v28 = vextq_s8(v27, v27, 8uLL).u64[0];
     v29 = v51;
@@ -728,7 +732,7 @@ void __58__ARLocationSensor_updateEstimationFromVIOPose_imageData___block_invoke
   v30 = [MEMORY[0x1E695DEF0] dataWithBytes:&v64 length:24];
   if (v8)
   {
-    [v8 position];
+    objc_msgSend_position(v8);
     v31 = v48;
     v32 = vextq_s8(v31, v31, 8uLL).u64[0];
     v26 = v49;
@@ -787,7 +791,7 @@ void __58__ARLocationSensor_updateEstimationFromVIOPose_imageData___block_invoke
 {
   longitude = coordinate.longitude;
   latitude = coordinate.latitude;
-  v142 = *MEMORY[0x1E69E9840];
+  v149 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   handlerCopy = handler;
   dispatch_assert_queue_V2(self->_locationManagerQueue);
@@ -813,52 +817,53 @@ void __58__ARLocationSensor_updateEstimationFromVIOPose_imageData___block_invoke
 
   dateCopy = [MEMORY[0x1E695DF00] date];
 LABEL_3:
-  if (![MEMORY[0x1E695FBE8] locationServicesEnabled] || -[CLLocationManager authorizationStatus](self->_locationManager, "authorizationStatus") != kCLAuthorizationStatusAuthorizedAlways && -[CLLocationManager authorizationStatus](self->_locationManager, "authorizationStatus") != kCLAuthorizationStatusAuthorizedWhenInUse || -[CLLocationManager accuracyAuthorization](self->_locationManager, "accuracyAuthorization"))
+  locationServicesEnabled = [MEMORY[0x1E695FBE8] locationServicesEnabled];
+  if (!locationServicesEnabled || [(CLLocationManager *)self->_locationManager authorizationStatus]!= kCLAuthorizationStatusAuthorizedAlways && (locationServicesEnabled = [(CLLocationManager *)self->_locationManager authorizationStatus], locationServicesEnabled != 4) || (locationServicesEnabled = [(CLLocationManager *)self->_locationManager accuracyAuthorization]) != CLAccuracyAuthorizationFullAccuracy)
   {
     if (ARShouldUseLogTypeError_onceToken_1 != -1)
     {
       [ARLocationSensor updateARSessionState:];
     }
 
-    v13 = ARShouldUseLogTypeError_internalOSVersion_1;
-    v14 = _ARLogSensor_2();
-    v15 = v14;
-    if (v13 == 1)
+    v14 = ARShouldUseLogTypeError_internalOSVersion_1;
+    v15 = _ARLogSensor_2(locationServicesEnabled);
+    v16 = v15;
+    if (v14 == 1)
     {
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        v16 = objc_opt_class();
-        v17 = NSStringFromClass(v16);
+        v17 = objc_opt_class();
+        v18 = NSStringFromClass(v17);
         *buf = 138543618;
-        v137 = v17;
-        v138 = 2048;
+        v144 = v18;
+        v145 = 2048;
         selfCopy17 = self;
-        v18 = "%{public}@ <%p>: Precise location permissions must be enabled to use geo tracking features.";
-        v19 = v15;
-        v20 = OS_LOG_TYPE_ERROR;
+        v19 = "%{public}@ <%p>: Precise location permissions must be enabled to use geo tracking features.";
+        v20 = v16;
+        v21 = OS_LOG_TYPE_ERROR;
 LABEL_14:
-        _os_log_impl(&dword_1C241C000, v19, v20, v18, buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v20, v21, v19, buf, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      v21 = objc_opt_class();
-      v17 = NSStringFromClass(v21);
+      v22 = objc_opt_class();
+      v18 = NSStringFromClass(v22);
       *buf = 138543618;
-      v137 = v17;
-      v138 = 2048;
+      v144 = v18;
+      v145 = 2048;
       selfCopy17 = self;
-      v18 = "Error: %{public}@ <%p>: Precise location permissions must be enabled to use geo tracking features.";
-      v19 = v15;
-      v20 = OS_LOG_TYPE_INFO;
+      v19 = "Error: %{public}@ <%p>: Precise location permissions must be enabled to use geo tracking features.";
+      v20 = v16;
+      v21 = OS_LOG_TYPE_INFO;
       goto LABEL_14;
     }
 
-    v22 = @"FailedDueToMissingPermissions";
-    v23 = 0.0;
+    v23 = @"FailedDueToMissingPermissions";
+    v24 = 0.0;
 LABEL_16:
-    [ARSessionMetrics recordAltitudeLookupAttemptWithDuration:v22 andResult:v23];
+    [ARSessionMetrics recordAltitudeLookupAttemptWithDuration:v23 andResult:v24];
 LABEL_17:
     handlerCopy[2](handlerCopy, 0);
     goto LABEL_18;
@@ -867,87 +872,88 @@ LABEL_17:
   currentLocation = self->_currentLocation;
   if (currentLocation)
   {
-    location = [(ARLocationData *)currentLocation location];
-    [location coordinate];
-    v30 = ARLInfinityAngularDistance(latitude, longitude, v28, v29);
+    v28 = objc_msgSend_location(currentLocation);
+    [v28 coordinate];
+    v31 = ARLInfinityAngularDistance(latitude, longitude, v29, v30);
 
-    v31 = _ARLogSensor_2();
-    v32 = os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG);
-    if (v30 > 0.05)
+    v33 = _ARLogSensor_2(v32);
+    v34 = os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG);
+    if (v31 > 0.05)
     {
-      if (v32)
+      if (v34)
       {
-        v33 = objc_opt_class();
-        v34 = NSStringFromClass(v33);
+        v35 = objc_opt_class();
+        v36 = NSStringFromClass(v35);
         *buf = 138543875;
-        v137 = v34;
-        v138 = 2048;
+        v144 = v36;
+        v145 = 2048;
         selfCopy17 = self;
-        v140 = 2049;
-        *v141 = 0x3FA999999999999ALL;
-        _os_log_impl(&dword_1C241C000, v31, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Lookup coordinate too far away (>%{private}f degrees) from current location to perform CL altitude lookup", buf, 0x20u);
+        v147 = 2049;
+        *v148 = 0x3FA999999999999ALL;
+        _os_log_impl(&dword_1C241C000, v33, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Lookup coordinate too far away (>%{private}f degrees) from current location to perform CL altitude lookup", buf, 0x20u);
       }
 
       goto LABEL_17;
     }
 
-    if (v32)
+    if (v34)
     {
-      v42 = objc_opt_class();
-      v43 = NSStringFromClass(v42);
+      v44 = objc_opt_class();
+      v45 = NSStringFromClass(v44);
       *buf = 138544387;
-      v137 = v43;
-      v138 = 2048;
+      v144 = v45;
+      v145 = 2048;
       selfCopy17 = self;
-      v140 = 1024;
-      *v141 = count + 1;
-      *&v141[4] = 2049;
-      *&v141[6] = latitude;
-      *&v141[14] = 2049;
-      *&v141[16] = longitude;
-      _os_log_impl(&dword_1C241C000, v31, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Performing CL altitude look up attempt #%d at coordinate: %{private}f, %{private}f", buf, 0x30u);
+      v147 = 1024;
+      *v148 = count + 1;
+      *&v148[4] = 2049;
+      *&v148[6] = latitude;
+      *&v148[14] = 2049;
+      *&v148[16] = longitude;
+      _os_log_impl(&dword_1C241C000, v33, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Performing CL altitude look up attempt #%d at coordinate: %{private}f, %{private}f", buf, 0x30u);
     }
 
-    v127 = 0u;
-    v128 = 0u;
-    v125 = 0u;
-    v126 = 0u;
-    v44 = self->_altitudeSkipTiles;
-    v45 = [(NSMutableArray *)v44 countByEnumeratingWithState:&v125 objects:v135 count:16];
-    if (v45)
+    v134 = 0u;
+    v135 = 0u;
+    v132 = 0u;
+    v133 = 0u;
+    v46 = self->_altitudeSkipTiles;
+    v47 = [(NSMutableArray *)v46 countByEnumeratingWithState:&v132 objects:v142 count:16];
+    if (v47)
     {
-      v46 = v45;
-      v47 = *v126;
+      v48 = v47;
+      v49 = *v133;
       while (2)
       {
-        for (i = 0; i != v46; ++i)
+        for (i = 0; i != v48; ++i)
         {
-          if (*v126 != v47)
+          if (*v133 != v49)
           {
-            objc_enumerationMutation(v44);
+            objc_enumerationMutation(v46);
           }
 
-          if ([*(*(&v125 + 1) + 8 * i) isInside:{latitude, longitude}])
+          v51 = [*(*(&v132 + 1) + 8 * i) isInside:{latitude, longitude}];
+          if (v51)
           {
-            v65 = _ARLogSensor_2();
-            if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
+            v70 = _ARLogSensor_2(v51);
+            if (os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG))
             {
-              v66 = objc_opt_class();
-              v67 = NSStringFromClass(v66);
+              v71 = objc_opt_class();
+              v72 = NSStringFromClass(v71);
               *buf = 138543618;
-              v137 = v67;
-              v138 = 2048;
+              v144 = v72;
+              v145 = 2048;
               selfCopy17 = self;
-              _os_log_impl(&dword_1C241C000, v65, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Tile hasn't been loaded. Skipping look up.", buf, 0x16u);
+              _os_log_impl(&dword_1C241C000, v70, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Tile hasn't been loaded. Skipping look up.", buf, 0x16u);
             }
 
-            longitude = 0;
+            v55 = 0;
             goto LABEL_57;
           }
         }
 
-        v46 = [(NSMutableArray *)v44 countByEnumeratingWithState:&v125 objects:v135 count:16];
-        if (v46)
+        v48 = [(NSMutableArray *)v46 countByEnumeratingWithState:&v132 objects:v142 count:16];
+        if (v48)
         {
           continue;
         }
@@ -956,87 +962,88 @@ LABEL_17:
       }
     }
 
-    v49 = 0;
+    v52 = 0;
     do
     {
-      v50 = self->_locationManager;
-      v51 = [objc_alloc(MEMORY[0x1E6985C40]) initWithLatitude:latitude longitude:longitude];
-      longitude = [(CLLocationManager *)v50 _groundAltitudeAtLocation:v51];
+      v53 = self->_locationManager;
+      v54 = [objc_alloc(MEMORY[0x1E6985C40]) initWithLatitude:latitude longitude:longitude];
+      v55 = [(CLLocationManager *)v53 _groundAltitudeAtLocation:v54];
 
-      if (longitude)
+      if (v55)
       {
-        v53 = 1;
+        v56 = 1;
       }
 
       else
       {
-        v53 = v49 >= 7;
+        v56 = v52 >= 7;
       }
 
-      ++v49;
+      ++v52;
     }
 
-    while (!v53);
-    if (longitude)
+    while (!v56);
+    if (v55)
     {
-      if (([(ARSkipTileBounds *)longitude isAltitudeWgs84Available]& 1) != 0)
+      isAltitudeWgs84Available = [v55 isAltitudeWgs84Available];
+      if (isAltitudeWgs84Available)
       {
-        v54 = _ARLogSensor_2();
-        if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
+        v58 = _ARLogSensor_2(isAltitudeWgs84Available);
+        if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
         {
-          v55 = objc_opt_class();
-          v56 = NSStringFromClass(v55);
+          v59 = objc_opt_class();
+          v60 = NSStringFromClass(v59);
           *buf = 138544131;
-          v137 = v56;
-          v138 = 2048;
+          v144 = v60;
+          v145 = 2048;
           selfCopy17 = self;
-          v140 = 2049;
-          *v141 = latitude;
-          *&v141[8] = 2049;
-          *&v141[10] = longitude;
-          _os_log_impl(&dword_1C241C000, v54, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Look up succeeded at coordinate: %{private}f, %{private}f", buf, 0x2Au);
+          v147 = 2049;
+          *v148 = latitude;
+          *&v148[8] = 2049;
+          *&v148[10] = longitude;
+          _os_log_impl(&dword_1C241C000, v58, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Look up succeeded at coordinate: %{private}f, %{private}f", buf, 0x2Au);
         }
 
         [dateCopy timeIntervalSinceNow];
-        [ARSessionMetrics recordAltitudeLookupAttemptWithDuration:@"Success" andResult:fabs(v57)];
-        location2 = [(ARLocationData *)self->_currentLocation location];
-        [location2 coordinate];
-        v61 = ARLInfinityDistance(latitude, longitude, v59, v60);
+        [ARSessionMetrics recordAltitudeLookupAttemptWithDuration:@"Success" andResult:fabs(v61)];
+        v62 = objc_msgSend_location(self->_currentLocation);
+        [v62 coordinate];
+        v65 = ARLInfinityDistance(latitude, longitude, v63, v64);
 
-        if (v61 > 60.0)
+        if (v65 > 60.0)
         {
-          v62 = _ARLogSensor_2();
-          if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
+          v67 = _ARLogSensor_2(v66);
+          if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
           {
-            v63 = objc_opt_class();
-            v64 = NSStringFromClass(v63);
+            v68 = objc_opt_class();
+            v69 = NSStringFromClass(v68);
             *buf = 138543875;
-            v137 = v64;
-            v138 = 2048;
+            v144 = v69;
+            v145 = 2048;
             selfCopy17 = self;
-            v140 = 2049;
-            *v141 = 0x404E000000000000;
-            _os_log_impl(&dword_1C241C000, v62, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Look up coordinate too far away (>%{private}f meters) from current location to perform VL altitude look up", buf, 0x20u);
+            v147 = 2049;
+            *v148 = 0x404E000000000000;
+            _os_log_impl(&dword_1C241C000, v67, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Look up coordinate too far away (>%{private}f meters) from current location to perform VL altitude look up", buf, 0x20u);
           }
 
-          (handlerCopy)[2](handlerCopy, longitude);
+          (handlerCopy)[2](handlerCopy, v55);
           goto LABEL_96;
         }
 
         localizer = self->_localizer;
-        v110 = [objc_alloc(MEMORY[0x1E6985C40]) initWithLatitude:latitude longitude:longitude];
+        v117 = [objc_alloc(MEMORY[0x1E6985C40]) initWithLatitude:latitude longitude:longitude];
         locationManagerQueue = self->_locationManagerQueue;
-        v114[0] = MEMORY[0x1E69E9820];
-        v114[1] = 3221225472;
-        v114[2] = __102__ARLocationSensor__attemptAltitudeLookupAtCoordinate_attemptCount_lookupStartDate_completionHandler___block_invoke_65;
-        v114[3] = &unk_1E817BE78;
-        v114[4] = self;
-        v115 = longitude;
-        v116 = handlerCopy;
-        longitude = longitude;
-        [(VLLocalizer *)localizer determineAltitudesAtLocation:v110 callbackQueue:locationManagerQueue callback:v114];
+        v121[0] = MEMORY[0x1E69E9820];
+        v121[1] = 3221225472;
+        v121[2] = __102__ARLocationSensor__attemptAltitudeLookupAtCoordinate_attemptCount_lookupStartDate_completionHandler___block_invoke_65;
+        v121[3] = &unk_1E817BE78;
+        v121[4] = self;
+        v122 = v55;
+        v123 = handlerCopy;
+        v55 = v55;
+        [(VLLocalizer *)localizer determineAltitudesAtLocation:v117 callbackQueue:locationManagerQueue callback:v121];
 
-        v78 = v116;
+        v85 = v123;
         goto LABEL_65;
       }
 
@@ -1045,101 +1052,102 @@ LABEL_17:
         [ARLocationSensor _attemptAltitudeLookupAtCoordinate:attemptCount:lookupStartDate:completionHandler:];
       }
 
-      v101 = ARShouldUseLogTypeError_internalOSVersion_1;
-      v102 = _ARLogSensor_2();
-      v103 = v102;
-      if (v101 == 1)
+      v108 = ARShouldUseLogTypeError_internalOSVersion_1;
+      v109 = _ARLogSensor_2(isAltitudeWgs84Available);
+      v110 = v109;
+      if (v108 == 1)
       {
-        if (os_log_type_enabled(v102, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v109, OS_LOG_TYPE_ERROR))
         {
-          v104 = objc_opt_class();
-          v105 = NSStringFromClass(v104);
+          v111 = objc_opt_class();
+          v112 = NSStringFromClass(v111);
           *buf = 138543618;
-          v137 = v105;
-          v138 = 2048;
+          v144 = v112;
+          v145 = 2048;
           selfCopy17 = self;
-          v106 = "%{public}@ <%p>: Altitude value is not available. Giving up.";
-          v107 = v103;
-          v108 = OS_LOG_TYPE_ERROR;
+          v113 = "%{public}@ <%p>: Altitude value is not available. Giving up.";
+          v114 = v110;
+          v115 = OS_LOG_TYPE_ERROR;
 LABEL_93:
-          _os_log_impl(&dword_1C241C000, v107, v108, v106, buf, 0x16u);
+          _os_log_impl(&dword_1C241C000, v114, v115, v113, buf, 0x16u);
         }
       }
 
-      else if (os_log_type_enabled(v102, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v109, OS_LOG_TYPE_INFO))
       {
-        v112 = objc_opt_class();
-        v105 = NSStringFromClass(v112);
+        v119 = objc_opt_class();
+        v112 = NSStringFromClass(v119);
         *buf = 138543618;
-        v137 = v105;
-        v138 = 2048;
+        v144 = v112;
+        v145 = 2048;
         selfCopy17 = self;
-        v106 = "Error: %{public}@ <%p>: Altitude value is not available. Giving up.";
-        v107 = v103;
-        v108 = OS_LOG_TYPE_INFO;
+        v113 = "Error: %{public}@ <%p>: Altitude value is not available. Giving up.";
+        v114 = v110;
+        v115 = OS_LOG_TYPE_INFO;
         goto LABEL_93;
       }
 
       [dateCopy timeIntervalSinceNow];
-      v99 = fabs(v113);
-      v100 = @"FailedDueToUnavailableAltitude";
+      v106 = fabs(v120);
+      v107 = @"FailedDueToUnavailableAltitude";
       goto LABEL_95;
     }
 
     longitude = [[ARSkipTileBounds alloc] initWithCoordinate:latitude, longitude];
+    v55 = longitude;
 LABEL_57:
-    v68 = count + 1;
+    v74 = count + 1;
     if (count + 1 <= 5)
     {
-      v69 = _attemptAltitudeLookupAtCoordinate_attemptCount_lookupStartDate_completionHandler__kDelayTimes[v68];
-      v70 = _ARLogSensor_2();
-      if (os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG))
+      v75 = _attemptAltitudeLookupAtCoordinate_attemptCount_lookupStartDate_completionHandler__kDelayTimes[v74];
+      v76 = _ARLogSensor_2(longitude);
+      if (os_log_type_enabled(v76, OS_LOG_TYPE_DEBUG))
       {
-        v71 = objc_opt_class();
-        v72 = NSStringFromClass(v71);
+        v77 = objc_opt_class();
+        v78 = NSStringFromClass(v77);
         *buf = 138543874;
-        v137 = v72;
-        v138 = 2048;
+        v144 = v78;
+        v145 = 2048;
         selfCopy17 = self;
-        v140 = 2048;
-        *v141 = v69;
-        _os_log_impl(&dword_1C241C000, v70, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: CL Look up failed. Scheduling another attempt in %f seconds.", buf, 0x20u);
+        v147 = 2048;
+        *v148 = v75;
+        _os_log_impl(&dword_1C241C000, v76, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: CL Look up failed. Scheduling another attempt in %f seconds.", buf, 0x20u);
       }
 
-      if (longitude)
+      if (v55)
       {
-        v73 = _ARLogSensor_2();
-        if (os_log_type_enabled(v73, OS_LOG_TYPE_DEBUG))
+        v80 = _ARLogSensor_2(v79);
+        if (os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG))
         {
-          v74 = objc_opt_class();
-          v75 = NSStringFromClass(v74);
+          v81 = objc_opt_class();
+          v82 = NSStringFromClass(v81);
           *buf = 138543618;
-          v137 = v75;
-          v138 = 2048;
+          v144 = v82;
+          v145 = 2048;
           selfCopy17 = self;
-          _os_log_impl(&dword_1C241C000, v73, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Storing DEM bounds.", buf, 0x16u);
+          _os_log_impl(&dword_1C241C000, v80, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Storing DEM bounds.", buf, 0x16u);
         }
 
-        [(NSMutableArray *)self->_altitudeSkipTiles addObject:longitude];
+        [(NSMutableArray *)self->_altitudeSkipTiles addObject:v55];
       }
 
-      v76 = dispatch_time(0, (v69 * 1000000000.0));
-      v77 = self->_locationManagerQueue;
-      v117[0] = MEMORY[0x1E69E9820];
-      v117[1] = 3221225472;
-      v117[2] = __102__ARLocationSensor__attemptAltitudeLookupAtCoordinate_attemptCount_lookupStartDate_completionHandler___block_invoke_55;
-      v117[3] = &unk_1E817BE50;
-      v118 = longitude;
+      v83 = dispatch_time(0, (v75 * 1000000000.0));
+      v84 = self->_locationManagerQueue;
+      v124[0] = MEMORY[0x1E69E9820];
+      v124[1] = 3221225472;
+      v124[2] = __102__ARLocationSensor__attemptAltitudeLookupAtCoordinate_attemptCount_lookupStartDate_completionHandler___block_invoke_55;
+      v124[3] = &unk_1E817BE50;
+      v125 = v55;
       selfCopy12 = self;
-      v122 = latitude;
-      v123 = longitude;
-      v124 = v68;
-      v120 = dateCopy;
-      v121 = handlerCopy;
-      longitude = longitude;
-      dispatch_after(v76, v77, v117);
+      v129 = latitude;
+      v130 = longitude;
+      v131 = v74;
+      v127 = dateCopy;
+      v128 = handlerCopy;
+      v55 = v55;
+      dispatch_after(v83, v84, v124);
 
-      v78 = v118;
+      v85 = v125;
 LABEL_65:
 
 LABEL_96:
@@ -1151,51 +1159,51 @@ LABEL_96:
       [ARLocationSensor _attemptAltitudeLookupAtCoordinate:attemptCount:lookupStartDate:completionHandler:];
     }
 
-    v87 = ARShouldUseLogTypeError_internalOSVersion_1;
-    v88 = _ARLogSensor_2();
-    v89 = v88;
-    if (v87 == 1)
+    v94 = ARShouldUseLogTypeError_internalOSVersion_1;
+    v95 = _ARLogSensor_2(longitude);
+    v96 = v95;
+    if (v94 == 1)
     {
-      if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
       {
-        v90 = objc_opt_class();
-        v91 = NSStringFromClass(v90);
+        v97 = objc_opt_class();
+        v98 = NSStringFromClass(v97);
         *buf = 138543618;
-        v137 = v91;
-        v138 = 2048;
+        v144 = v98;
+        v145 = 2048;
         selfCopy17 = self;
-        v92 = "%{public}@ <%p>: All CL altitude look up attempts have failed. Giving up.";
-        v93 = v89;
-        v94 = OS_LOG_TYPE_ERROR;
+        v99 = "%{public}@ <%p>: All CL altitude look up attempts have failed. Giving up.";
+        v100 = v96;
+        v101 = OS_LOG_TYPE_ERROR;
 LABEL_82:
-        _os_log_impl(&dword_1C241C000, v93, v94, v92, buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v100, v101, v99, buf, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v88, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v95, OS_LOG_TYPE_INFO))
     {
-      v97 = objc_opt_class();
-      v91 = NSStringFromClass(v97);
+      v104 = objc_opt_class();
+      v98 = NSStringFromClass(v104);
       *buf = 138543618;
-      v137 = v91;
-      v138 = 2048;
+      v144 = v98;
+      v145 = 2048;
       selfCopy17 = self;
-      v92 = "Error: %{public}@ <%p>: All CL altitude look up attempts have failed. Giving up.";
-      v93 = v89;
-      v94 = OS_LOG_TYPE_INFO;
+      v99 = "Error: %{public}@ <%p>: All CL altitude look up attempts have failed. Giving up.";
+      v100 = v96;
+      v101 = OS_LOG_TYPE_INFO;
       goto LABEL_82;
     }
 
     [dateCopy timeIntervalSinceNow];
-    v99 = fabs(v98);
-    v100 = @"FailedDueToTimeout";
+    v106 = fabs(v105);
+    v107 = @"FailedDueToTimeout";
 LABEL_95:
-    [ARSessionMetrics recordAltitudeLookupAttemptWithDuration:v100 andResult:v99];
+    [ARSessionMetrics recordAltitudeLookupAttemptWithDuration:v107 andResult:v106];
     handlerCopy[2](handlerCopy, 0);
     goto LABEL_96;
   }
 
-  v35 = count + 1;
+  v37 = count + 1;
   if (count + 1 > 5)
   {
     if (ARShouldUseLogTypeError_onceToken_1 != -1)
@@ -1203,75 +1211,75 @@ LABEL_95:
       [ARLocationSensor updateARSessionState:];
     }
 
-    v79 = ARShouldUseLogTypeError_internalOSVersion_1;
-    v80 = _ARLogSensor_2();
-    v81 = v80;
-    if (v79 == 1)
+    v86 = ARShouldUseLogTypeError_internalOSVersion_1;
+    v87 = _ARLogSensor_2(currentLocation);
+    v88 = v87;
+    if (v86 == 1)
     {
-      if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
       {
-        v82 = objc_opt_class();
-        v83 = NSStringFromClass(v82);
+        v89 = objc_opt_class();
+        v90 = NSStringFromClass(v89);
         *buf = 138543618;
-        v137 = v83;
-        v138 = 2048;
+        v144 = v90;
+        v145 = 2048;
         selfCopy17 = self;
-        v84 = "%{public}@ <%p>: All CL altitude look up attempts have failed (no current location). Giving up.";
-        v85 = v81;
-        v86 = OS_LOG_TYPE_ERROR;
+        v91 = "%{public}@ <%p>: All CL altitude look up attempts have failed (no current location). Giving up.";
+        v92 = v88;
+        v93 = OS_LOG_TYPE_ERROR;
 LABEL_78:
-        _os_log_impl(&dword_1C241C000, v85, v86, v84, buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v92, v93, v91, buf, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v80, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v87, OS_LOG_TYPE_INFO))
     {
-      v95 = objc_opt_class();
-      v83 = NSStringFromClass(v95);
+      v102 = objc_opt_class();
+      v90 = NSStringFromClass(v102);
       *buf = 138543618;
-      v137 = v83;
-      v138 = 2048;
+      v144 = v90;
+      v145 = 2048;
       selfCopy17 = self;
-      v84 = "Error: %{public}@ <%p>: All CL altitude look up attempts have failed (no current location). Giving up.";
-      v85 = v81;
-      v86 = OS_LOG_TYPE_INFO;
+      v91 = "Error: %{public}@ <%p>: All CL altitude look up attempts have failed (no current location). Giving up.";
+      v92 = v88;
+      v93 = OS_LOG_TYPE_INFO;
       goto LABEL_78;
     }
 
     [dateCopy timeIntervalSinceNow];
-    v23 = fabs(v96);
-    v22 = @"FailedDueToNoLocation";
+    v24 = fabs(v103);
+    v23 = @"FailedDueToNoLocation";
     goto LABEL_16;
   }
 
-  v36 = _attemptAltitudeLookupAtCoordinate_attemptCount_lookupStartDate_completionHandler__kDelayTimes[v35];
-  v37 = _ARLogSensor_2();
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+  v38 = _attemptAltitudeLookupAtCoordinate_attemptCount_lookupStartDate_completionHandler__kDelayTimes[v37];
+  v39 = _ARLogSensor_2(0);
+  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
   {
-    v38 = objc_opt_class();
-    v39 = NSStringFromClass(v38);
+    v40 = objc_opt_class();
+    v41 = NSStringFromClass(v40);
     *buf = 138543874;
-    v137 = v39;
-    v138 = 2048;
+    v144 = v41;
+    v145 = 2048;
     selfCopy17 = self;
-    v140 = 2048;
-    *v141 = v36;
-    _os_log_impl(&dword_1C241C000, v37, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Anchor altitude lookup is too soon; current location hasn't been set yet. Trying again in %f seconds.", buf, 0x20u);
+    v147 = 2048;
+    *v148 = v38;
+    _os_log_impl(&dword_1C241C000, v39, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Anchor altitude lookup is too soon; current location hasn't been set yet. Trying again in %f seconds.", buf, 0x20u);
   }
 
-  v40 = dispatch_time(0, (v36 * 1000000000.0));
-  v41 = self->_locationManagerQueue;
+  v42 = dispatch_time(0, (v38 * 1000000000.0));
+  v43 = self->_locationManagerQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __102__ARLocationSensor__attemptAltitudeLookupAtCoordinate_attemptCount_lookupStartDate_completionHandler___block_invoke;
   block[3] = &unk_1E817BE28;
   block[4] = self;
-  v132 = latitude;
-  v133 = longitude;
-  v134 = v35;
-  v130 = dateCopy;
-  v131 = handlerCopy;
-  dispatch_after(v40, v41, block);
+  v139 = latitude;
+  v140 = longitude;
+  v141 = v37;
+  v137 = dateCopy;
+  v138 = handlerCopy;
+  dispatch_after(v42, v43, block);
 
 LABEL_18:
 }
@@ -1295,59 +1303,59 @@ uint64_t __102__ARLocationSensor__attemptAltitudeLookupAtCoordinate_attemptCount
 
 void __102__ARLocationSensor__attemptAltitudeLookupAtCoordinate_attemptCount_lookupStartDate_completionHandler___block_invoke_65(uint64_t a1, void *a2, void *a3)
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
-  if (!v5 || v6 || ![v5 count])
+  if (!v5 || v6 || (v6 = [v5 count]) == 0)
   {
     if (ARShouldUseLogTypeError_onceToken_1 != -1)
     {
       [ARLocationSensor updateARSessionState:];
     }
 
-    v37 = ARShouldUseLogTypeError_internalOSVersion_1;
-    v38 = _ARLogSensor_2();
-    v39 = v38;
-    if (v37 == 1)
+    v38 = ARShouldUseLogTypeError_internalOSVersion_1;
+    v39 = _ARLogSensor_2(v6);
+    v40 = v39;
+    if (v38 == 1)
     {
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
-        v40 = objc_opt_class();
-        v41 = NSStringFromClass(v40);
-        v42 = *(a1 + 32);
-        v50 = 138543874;
-        v51 = v41;
-        v52 = 2048;
-        v53 = v42;
-        v54 = 2112;
-        v55 = v7;
-        v43 = "%{public}@ <%p>: High resolution (VL) altitude lookup failed, error=%@";
-        v44 = v39;
-        v45 = OS_LOG_TYPE_ERROR;
+        v41 = objc_opt_class();
+        v42 = NSStringFromClass(v41);
+        v43 = *(a1 + 32);
+        v51 = 138543874;
+        v52 = v42;
+        v53 = 2048;
+        v54 = v43;
+        v55 = 2112;
+        v56 = v7;
+        v44 = "%{public}@ <%p>: High resolution (VL) altitude lookup failed, error=%@";
+        v45 = v40;
+        v46 = OS_LOG_TYPE_ERROR;
 LABEL_19:
-        _os_log_impl(&dword_1C241C000, v44, v45, v43, &v50, 0x20u);
+        _os_log_impl(&dword_1C241C000, v45, v46, v44, &v51, 0x20u);
       }
     }
 
-    else if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
     {
-      v46 = objc_opt_class();
-      v41 = NSStringFromClass(v46);
-      v47 = *(a1 + 32);
-      v50 = 138543874;
-      v51 = v41;
-      v52 = 2048;
-      v53 = v47;
-      v54 = 2112;
-      v55 = v7;
-      v43 = "Error: %{public}@ <%p>: High resolution (VL) altitude lookup failed, error=%@";
-      v44 = v39;
-      v45 = OS_LOG_TYPE_INFO;
+      v47 = objc_opt_class();
+      v42 = NSStringFromClass(v47);
+      v48 = *(a1 + 32);
+      v51 = 138543874;
+      v52 = v42;
+      v53 = 2048;
+      v54 = v48;
+      v55 = 2112;
+      v56 = v7;
+      v44 = "Error: %{public}@ <%p>: High resolution (VL) altitude lookup failed, error=%@";
+      v45 = v40;
+      v46 = OS_LOG_TYPE_INFO;
       goto LABEL_19;
     }
 
-    (*(*(a1 + 48) + 16))(*(a1 + 48), *(a1 + 40), v48, v49);
+    (*(*(a1 + 48) + 16))(*(a1 + 48), *(a1 + 40), v49, v50);
     goto LABEL_21;
   }
 
@@ -1357,61 +1365,59 @@ LABEL_19:
   [*(a1 + 40) altitudeWgs84];
   v12 = v11;
 
-  v13 = 0;
-  if ([v5 count] >= 2)
+  v13 = [v5 count];
+  v14 = 0;
+  if (v13 >= 2)
   {
-    v13 = 0;
-    v14 = vabdd_f64(v10, v12);
-    v15 = 1;
-    do
+    v14 = 0;
+    v15 = vabdd_f64(v10, v12);
+    for (i = 1; i < v13; ++i)
     {
-      v16 = [v5 objectAtIndexedSubscript:v15];
-      [v16 doubleValue];
-      v18 = v17;
+      v17 = [v5 objectAtIndexedSubscript:i];
+      [v17 doubleValue];
+      v19 = v18;
       [*(a1 + 40) altitudeWgs84];
-      v20 = vabdd_f64(v18, v19);
+      v21 = vabdd_f64(v19, v20);
 
-      if (v20 < v14)
+      if (v21 < v15)
       {
-        v14 = v20;
-        v13 = v15;
+        v15 = v21;
+        v14 = i;
       }
 
-      ++v15;
+      v13 = [v5 count];
     }
-
-    while (v15 < [v5 count]);
   }
 
-  v21 = _ARLogSensor_2();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+  v22 = _ARLogSensor_2(v13);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
   {
-    v22 = objc_opt_class();
-    v23 = NSStringFromClass(v22);
-    v24 = *(a1 + 32);
+    v23 = objc_opt_class();
+    v24 = NSStringFromClass(v23);
+    v25 = *(a1 + 32);
     [*(a1 + 40) altitude];
-    v26 = v25;
-    v27 = [v5 objectAtIndexedSubscript:v13];
-    [v27 doubleValue];
-    v50 = 138544131;
-    v51 = v23;
-    v52 = 2048;
-    v53 = v24;
-    v54 = 2049;
-    v55 = v26;
-    v56 = 2049;
-    v57 = v28;
-    _os_log_impl(&dword_1C241C000, v21, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: High Resolution Altitude Lookup: SUCCESS (%{private}f :> %{private}f)", &v50, 0x2Au);
+    v27 = v26;
+    v28 = [v5 objectAtIndexedSubscript:v14];
+    [v28 doubleValue];
+    v51 = 138544131;
+    v52 = v24;
+    v53 = 2048;
+    v54 = v25;
+    v55 = 2049;
+    v56 = v27;
+    v57 = 2049;
+    v58 = v29;
+    _os_log_impl(&dword_1C241C000, v22, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: High Resolution Altitude Lookup: SUCCESS (%{private}f :> %{private}f)", &v51, 0x2Au);
   }
 
-  v29 = objc_alloc(MEMORY[0x1E6985C58]);
-  v30 = [v5 objectAtIndexedSubscript:v13];
-  [v30 doubleValue];
-  v32 = v31;
+  v30 = objc_alloc(MEMORY[0x1E6985C58]);
+  v31 = [v5 objectAtIndexedSubscript:v14];
+  [v31 doubleValue];
+  v33 = v32;
   [*(a1 + 40) undulation];
-  v34 = ARWGS84ToMSLAltitude(v32, v33);
+  v35 = ARWGS84ToMSLAltitude(v33, v34);
   [*(a1 + 40) undulation];
-  v36 = [v29 initWithEstimate:objc_msgSend(*(a1 + 40) uncertainty:"undulationModel") undulation:v34 undulationModel:{-1.0, v35}];
+  v37 = [v30 initWithEstimate:objc_msgSend(*(a1 + 40) uncertainty:"undulationModel") undulation:v35 undulationModel:{-1.0, v36}];
 
   (*(*(a1 + 48) + 16))();
 LABEL_21:
@@ -1437,39 +1443,39 @@ LABEL_21:
 
 - (void)updateFromVisualLocalizationResult:(id)result
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   v5 = resultCopy;
-  if (self->_isLiveSensor && ([resultCopy isSecure] & 1) == 0)
+  if (self->_isLiveSensor && (v6 = [resultCopy isSecure], (v6 & 1) == 0))
   {
-    v9 = _ARLogSensor_2();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = _ARLogSensor_2(v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
       *buf = 138543618;
-      v15 = v11;
-      v16 = 2048;
+      v16 = v12;
+      v17 = 2048;
       selfCopy = self;
-      _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Skipping update due to insecure location data.", buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v10, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Skipping update due to insecure location data.", buf, 0x16u);
     }
   }
 
   else
   {
-    [v5 timestamp];
-    if (v6 > self->_lastVLUpdateTimestamp)
+    objc_msgSend_timestamp(v5);
+    if (v7 > self->_lastVLUpdateTimestamp)
     {
-      [v5 timestamp];
-      self->_lastVLUpdateTimestamp = v7;
+      objc_msgSend_timestamp(v5);
+      self->_lastVLUpdateTimestamp = v8;
       locationManagerQueue = self->_locationManagerQueue;
-      v12[0] = MEMORY[0x1E69E9820];
-      v12[1] = 3221225472;
-      v12[2] = __55__ARLocationSensor_updateFromVisualLocalizationResult___block_invoke;
-      v12[3] = &unk_1E817BEC8;
-      v12[4] = self;
-      v13 = v5;
-      dispatch_async(locationManagerQueue, v12);
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = __55__ARLocationSensor_updateFromVisualLocalizationResult___block_invoke;
+      v13[3] = &unk_1E817BEC8;
+      v13[4] = self;
+      v14 = v5;
+      dispatch_async(locationManagerQueue, v13);
     }
   }
 }
@@ -1477,7 +1483,7 @@ LABEL_21:
 void __55__ARLocationSensor_updateFromVisualLocalizationResult___block_invoke(uint64_t a1)
 {
   v30 = *MEMORY[0x1E69E9840];
-  v2 = _ARLogSensor_2();
+  v2 = _ARLogSensor_2(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     v3 = objc_opt_class();
@@ -1487,7 +1493,7 @@ void __55__ARLocationSensor_updateFromVisualLocalizationResult___block_invoke(ui
     v7 = v6;
     if (v6)
     {
-      [v6 location];
+      objc_msgSend_location(v6);
       v8 = v27;
       v9 = v28;
     }
@@ -1506,7 +1512,7 @@ void __55__ARLocationSensor_updateFromVisualLocalizationResult___block_invoke(ui
     v12 = v11;
     if (v11)
     {
-      [v11 transform];
+      objc_msgSend_transform(v11);
     }
 
     else
@@ -1516,7 +1522,7 @@ void __55__ARLocationSensor_updateFromVisualLocalizationResult___block_invoke(ui
 
     v13.n128_f64[0] = ARMatrix4x4DoubleToFloat(v26);
     v17 = ARMatrix4x4Description(1, v13, v14, v15, v16);
-    [*(a1 + 40) timestamp];
+    objc_msgSend_timestamp(*(a1 + 40));
     LODWORD(v26[0].f64[0]) = 138544387;
     *(v26[0].f64 + 4) = v4;
     WORD2(v26[0].f64[1]) = 2048;
@@ -1531,7 +1537,7 @@ void __55__ARLocationSensor_updateFromVisualLocalizationResult___block_invoke(ui
   }
 
   v19 = objc_alloc(MEMORY[0x1E695FC58]);
-  [*(a1 + 40) timestamp];
+  objc_msgSend_timestamp(*(a1 + 40));
   v21 = v20;
   v22 = [*(a1 + 40) localizationResult];
   v23 = [v19 initWithTimestamp:v22 localizationResult:v21];
@@ -1548,12 +1554,12 @@ void __55__ARLocationSensor_updateFromVisualLocalizationResult___block_invoke(ui
 
 - (id)updateFromLocationData:(id)data
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v5 = dataCopy;
   if (self->_isLiveSensor)
   {
-    v6 = _ARLogSensor_2();
+    v6 = _ARLogSensor_2(dataCopy);
     if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
 LABEL_5:
@@ -1565,41 +1571,42 @@ LABEL_6:
 
     v7 = objc_opt_class();
     v8 = NSStringFromClass(v7);
-    v42 = 138543618;
-    v43 = v8;
-    v44 = 2048;
+    v44 = 138543618;
+    v45 = v8;
+    v46 = 2048;
     selfCopy7 = self;
     v9 = "%{public}@ <%p>: updateFromLocationData is only intended for use during replay; skipping.";
     v10 = v6;
     v11 = OS_LOG_TYPE_DEBUG;
 LABEL_4:
-    _os_log_impl(&dword_1C241C000, v10, v11, v9, &v42, 0x16u);
+    _os_log_impl(&dword_1C241C000, v10, v11, v9, &v44, 0x16u);
 
     goto LABEL_5;
   }
 
-  if ([dataCopy isSecure])
+  isSecure = [dataCopy isSecure];
+  if (isSecure)
   {
     if (ARShouldUseLogTypeError_onceToken_1 != -1)
     {
       [ARLocationSensor updateARSessionState:];
     }
 
-    v14 = ARShouldUseLogTypeError_internalOSVersion_1;
-    v15 = _ARLogSensor_2();
-    v6 = v15;
-    if (v14 == 1)
+    v15 = ARShouldUseLogTypeError_internalOSVersion_1;
+    v16 = _ARLogSensor_2(isSecure);
+    v6 = v16;
+    if (v15 == 1)
     {
-      if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_5;
       }
 
-      v16 = objc_opt_class();
-      v8 = NSStringFromClass(v16);
-      v42 = 138543618;
-      v43 = v8;
-      v44 = 2048;
+      v17 = objc_opt_class();
+      v8 = NSStringFromClass(v17);
+      v44 = 138543618;
+      v45 = v8;
+      v46 = 2048;
       selfCopy7 = self;
       v9 = "%{public}@ <%p>: updateFromLocationData expects insecure data.";
       v10 = v6;
@@ -1608,16 +1615,16 @@ LABEL_4:
 
     else
     {
-      if (!os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      if (!os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
         goto LABEL_5;
       }
 
-      v32 = objc_opt_class();
-      v8 = NSStringFromClass(v32);
-      v42 = 138543618;
-      v43 = v8;
-      v44 = 2048;
+      v34 = objc_opt_class();
+      v8 = NSStringFromClass(v34);
+      v44 = 138543618;
+      v45 = v8;
+      v46 = 2048;
       selfCopy7 = self;
       v9 = "Error: %{public}@ <%p>: updateFromLocationData expects insecure data.";
       v10 = v6;
@@ -1627,104 +1634,105 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  [v5 timestamp];
-  if (v17 <= self->_lastLocationUpdateTimestamp)
+  objc_msgSend_timestamp(v5);
+  if (v18 <= self->_lastLocationUpdateTimestamp)
   {
     goto LABEL_6;
   }
 
-  [v5 timestamp];
-  self->_lastLocationUpdateTimestamp = v18;
+  objc_msgSend_timestamp(v5);
+  self->_lastLocationUpdateTimestamp = v19;
   locationPlayer = self->_locationPlayer;
-  location = [v5 location];
-  [v5 timestamp];
-  v21 = [(_CLLocationPlayer *)locationPlayer _getFusedLocationFrom:location machAbsTime:?];
+  v21 = objc_msgSend_location(v5);
+  objc_msgSend_timestamp(v5);
+  v22 = [(_CLLocationPlayer *)locationPlayer _getFusedLocationFrom:v21 machAbsTime:?];
 
-  v22 = v5;
-  v23 = v22;
-  if (!v21)
+  v23 = v5;
+  v24 = v23;
+  if (!v22)
   {
     if (ARShouldUseLogTypeError_onceToken_1 != -1)
     {
       [ARLocationSensor updateARSessionState:];
     }
 
-    v33 = ARShouldUseLogTypeError_internalOSVersion_1;
-    v34 = _ARLogSensor_2();
-    v25 = v34;
-    if (v33 == 1)
+    v35 = ARShouldUseLogTypeError_internalOSVersion_1;
+    v36 = _ARLogSensor_2(v23);
+    v27 = v36;
+    if (v35 == 1)
     {
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
-        v35 = objc_opt_class();
-        v36 = NSStringFromClass(v35);
-        v42 = 138543618;
-        v43 = v36;
-        v44 = 2048;
+        v37 = objc_opt_class();
+        v38 = NSStringFromClass(v37);
+        v44 = 138543618;
+        v45 = v38;
+        v46 = 2048;
         selfCopy7 = self;
-        v37 = "%{public}@ <%p>: Location fusion failed.";
-        v38 = v25;
-        v39 = OS_LOG_TYPE_ERROR;
+        v39 = "%{public}@ <%p>: Location fusion failed.";
+        v40 = v27;
+        v41 = OS_LOG_TYPE_ERROR;
 LABEL_33:
-        _os_log_impl(&dword_1C241C000, v38, v39, v37, &v42, 0x16u);
+        _os_log_impl(&dword_1C241C000, v40, v41, v39, &v44, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
     {
-      v41 = objc_opt_class();
-      v36 = NSStringFromClass(v41);
-      v42 = 138543618;
-      v43 = v36;
-      v44 = 2048;
+      v43 = objc_opt_class();
+      v38 = NSStringFromClass(v43);
+      v44 = 138543618;
+      v45 = v38;
+      v46 = 2048;
       selfCopy7 = self;
-      v37 = "Error: %{public}@ <%p>: Location fusion failed.";
-      v38 = v25;
-      v39 = OS_LOG_TYPE_INFO;
+      v39 = "Error: %{public}@ <%p>: Location fusion failed.";
+      v40 = v27;
+      v41 = OS_LOG_TYPE_INFO;
       goto LABEL_33;
     }
 
-    v12 = v23;
+    v12 = v24;
     goto LABEL_35;
   }
 
-  v12 = [v22 copy];
+  v12 = [v23 copy];
 
-  [v12 setLocation:v21];
-  isCoordinateFused = [v21 isCoordinateFused];
-  v25 = _ARLogSensor_2();
-  v26 = os_log_type_enabled(v25, OS_LOG_TYPE_INFO);
-  if (isCoordinateFused)
+  [v12 setLocation:v22];
+  isCoordinateFused = [v22 isCoordinateFused];
+  v26 = isCoordinateFused;
+  v27 = _ARLogSensor_2(isCoordinateFused);
+  v28 = os_log_type_enabled(v27, OS_LOG_TYPE_INFO);
+  if (v26)
   {
-    if (v26)
+    if (v28)
     {
-      v27 = objc_opt_class();
-      v28 = NSStringFromClass(v27);
-      v42 = 138543875;
-      v43 = v28;
-      v44 = 2048;
+      v29 = objc_opt_class();
+      v30 = NSStringFromClass(v29);
+      v44 = 138543875;
+      v45 = v30;
+      v46 = 2048;
       selfCopy7 = self;
-      v46 = 2113;
-      v47 = v12;
-      v29 = "%{public}@ <%p>: Updated to fused location: %{private}@.";
-      v30 = v25;
-      v31 = 32;
+      v48 = 2113;
+      v49 = v12;
+      v31 = "%{public}@ <%p>: Updated to fused location: %{private}@.";
+      v32 = v27;
+      v33 = 32;
 LABEL_30:
-      _os_log_impl(&dword_1C241C000, v30, OS_LOG_TYPE_INFO, v29, &v42, v31);
+      _os_log_impl(&dword_1C241C000, v32, OS_LOG_TYPE_INFO, v31, &v44, v33);
     }
   }
 
-  else if (v26)
+  else if (v28)
   {
-    v40 = objc_opt_class();
-    v28 = NSStringFromClass(v40);
-    v42 = 138543618;
-    v43 = v28;
-    v44 = 2048;
+    v42 = objc_opt_class();
+    v30 = NSStringFromClass(v42);
+    v44 = 138543618;
+    v45 = v30;
+    v46 = 2048;
     selfCopy7 = self;
-    v29 = "%{public}@ <%p>: Fusion did not produce fused location.";
-    v30 = v25;
-    v31 = 22;
+    v31 = "%{public}@ <%p>: Fusion did not produce fused location.";
+    v32 = v27;
+    v33 = 22;
     goto LABEL_30;
   }
 
@@ -1738,73 +1746,73 @@ LABEL_7:
 
 - (void)locationManagerDidChangeAuthorization:(id)authorization
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   authorizationCopy = authorization;
   dispatch_assert_queue_V2(self->_locationManagerQueue);
-  v5 = _ARLogSensor_2();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = _ARLogSensor_2(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
+    v7 = objc_opt_class();
+    v8 = NSStringFromClass(v7);
     authorizationStatus = [authorizationCopy authorizationStatus];
     accuracyAuthorization = [authorizationCopy accuracyAuthorization];
-    v10 = @"No";
-    *v16 = 138544130;
-    *&v16[12] = 2048;
-    *&v16[4] = v7;
+    v11 = @"No";
+    *v17 = 138544130;
+    *&v17[12] = 2048;
+    *&v17[4] = v8;
     if (!accuracyAuthorization)
     {
-      v10 = @"Yes";
+      v11 = @"Yes";
     }
 
-    *&v16[14] = self;
-    v17 = 1024;
-    v18 = authorizationStatus;
-    v19 = 2112;
-    v20 = v10;
-    _os_log_impl(&dword_1C241C000, v5, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: authorization status changed: %i with precise location: %@", v16, 0x26u);
+    *&v17[14] = self;
+    v18 = 1024;
+    v19 = authorizationStatus;
+    v20 = 2112;
+    v21 = v11;
+    _os_log_impl(&dword_1C241C000, v6, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: authorization status changed: %i with precise location: %@", v17, 0x26u);
   }
 
   locationManagerDelegate = [(ARLocationSensor *)self locationManagerDelegate];
-  v12 = objc_opt_respondsToSelector();
+  v13 = objc_opt_respondsToSelector();
 
-  if (v12)
+  if (v13)
   {
     locationManagerDelegate2 = [(ARLocationSensor *)self locationManagerDelegate];
     [locationManagerDelegate2 locationManagerDidChangeAuthorization:authorizationCopy];
   }
 
-  _validateLocationAuthorization = [(ARLocationSensor *)self _validateLocationAuthorization];
-  if (_validateLocationAuthorization)
+  v15 = [(ARLocationSensor *)self _validateLocationAuthorization:*v17];
+  if (v15)
   {
     delegate = [(ARLocationSensor *)self delegate];
-    [delegate sensor:self didFailWithError:_validateLocationAuthorization];
+    [delegate sensor:self didFailWithError:v15];
   }
 }
 
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   locationsCopy = locations;
   dispatch_assert_queue_V2(self->_locationManagerQueue);
   if (self->_startTimestamp > 0.0)
   {
-    v6 = ARGetSystemUpTime();
+    v7 = ARGetSystemUpTime();
     startTimestamp = self->_startTimestamp;
-    kdebug_trace();
+    v9 = kdebug_trace();
     self->_startTimestamp = 0.0;
-    v8 = _ARLogSensor_2();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v10 = _ARLogSensor_2(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
-      v25 = 138543874;
-      v26 = v10;
-      v27 = 2048;
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
+      v28 = 138543874;
+      v29 = v12;
+      v30 = 2048;
       selfCopy3 = self;
-      v29 = 2048;
-      v30 = v6 - startTimestamp;
-      _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_INFO, "%{public}@ <%p>: first location update received after %f seconds", &v25, 0x20u);
+      v32 = 2048;
+      v33 = v7 - startTimestamp;
+      _os_log_impl(&dword_1C241C000, v10, OS_LOG_TYPE_INFO, "%{public}@ <%p>: first location update received after %f seconds", &v28, 0x20u);
     }
   }
 
@@ -1812,42 +1820,42 @@ LABEL_7:
   {
     [locationsCopy count];
     kdebug_trace();
-    v11 = [ARLocationData alloc];
+    v13 = [ARLocationData alloc];
     lastObject = [locationsCopy lastObject];
-    v13 = [(ARLocationData *)v11 initWithLocation:lastObject];
+    v15 = [(ARLocationData *)v13 initWithLocation:lastObject];
 
-    v14 = _ARLogSensor_2();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v17 = _ARLogSensor_2(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      v15 = objc_opt_class();
-      v16 = NSStringFromClass(v15);
-      v17 = [v13 description];
-      v25 = 138543874;
-      v26 = v16;
-      v27 = 2048;
+      v18 = objc_opt_class();
+      v19 = NSStringFromClass(v18);
+      v20 = [v15 description];
+      v28 = 138543874;
+      v29 = v19;
+      v30 = 2048;
       selfCopy3 = self;
-      v29 = 2112;
-      v30 = *&v17;
-      _os_log_impl(&dword_1C241C000, v14, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: location update received: %@", &v25, 0x20u);
+      v32 = 2112;
+      v33 = *&v20;
+      _os_log_impl(&dword_1C241C000, v17, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: location update received: %@", &v28, 0x20u);
     }
 
-    [(ARLocationSensor *)self setCurrentLocation:v13];
-    [v13 timestamp];
-    location = [v13 location];
-    [location coordinate];
-    location2 = [v13 location];
-    [location2 coordinate];
-    location3 = [v13 location];
-    [location3 horizontalAccuracy];
+    [(ARLocationSensor *)self setCurrentLocation:v15];
+    objc_msgSend_timestamp(v15);
+    v21 = objc_msgSend_location(v15);
+    [v21 coordinate];
+    v22 = objc_msgSend_location(v15);
+    [v22 coordinate];
+    v23 = objc_msgSend_location(v15);
+    [v23 horizontalAccuracy];
     kdebug_trace();
 
     delegate = [(ARLocationSensor *)self delegate];
-    LOBYTE(location) = objc_opt_respondsToSelector();
+    LOBYTE(v21) = objc_opt_respondsToSelector();
 
-    if (location)
+    if (v21)
     {
       delegate2 = [(ARLocationSensor *)self delegate];
-      [delegate2 sensor:self didOutputSensorData:v13];
+      [delegate2 sensor:self didOutputSensorData:v15];
     }
 
     kdebug_trace();
@@ -1856,16 +1864,16 @@ LABEL_7:
 
   else
   {
-    v13 = _ARLogSensor_2();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v15 = _ARLogSensor_2(v6);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      v23 = objc_opt_class();
-      v24 = NSStringFromClass(v23);
-      v25 = 138543618;
-      v26 = v24;
-      v27 = 2048;
+      v26 = objc_opt_class();
+      v27 = NSStringFromClass(v26);
+      v28 = 138543618;
+      v29 = v27;
+      v30 = 2048;
       selfCopy3 = self;
-      _os_log_impl(&dword_1C241C000, v13, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Ignoring location update for stopped sensor", &v25, 0x16u);
+      _os_log_impl(&dword_1C241C000, v15, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Ignoring location update for stopped sensor", &v28, 0x16u);
     }
   }
 }

@@ -928,7 +928,7 @@ void __59__PXStoryPPTPerformer_runExportTestWithElement_completion___block_invok
   _Block_object_dispose(v16, 8);
 }
 
-uint64_t __74__PXStoryPPTPerformer__skipToSegmentWithTestElement_direction_completion___block_invoke(uint64_t a1, void *a2)
+void *__74__PXStoryPPTPerformer__skipToSegmentWithTestElement_direction_completion___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 skipToSegmentWithOffset:*(a1 + 40)];
   *(*(*(a1 + 32) + 8) + 24) = result;

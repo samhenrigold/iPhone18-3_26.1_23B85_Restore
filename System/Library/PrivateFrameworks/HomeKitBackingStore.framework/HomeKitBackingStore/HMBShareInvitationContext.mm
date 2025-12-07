@@ -126,7 +126,7 @@
 
 - (id)attributeDescriptions
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   participantClientIdentifier = [(HMBShareInvitationContext *)self participantClientIdentifier];
   v5 = [v3 initWithName:@"User Client Identifier" value:participantClientIdentifier];
@@ -134,15 +134,13 @@
   [(HMBShareInvitationContext *)self shouldGrantWriteAccess];
   v7 = HMFBooleanToString();
   v8 = [v6 initWithName:@"Should Grant Write Access" value:v7];
-  v16[1] = v8;
+  v15[1] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   lookupInfo = [(HMBShareInvitationContext *)self lookupInfo];
   defaultFormatter = [MEMORY[0x277D0F8D8] defaultFormatter];
   v12 = [v9 initWithName:@"Lookup Info" value:lookupInfo options:2 formatter:defaultFormatter];
-  v16[2] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v15[2] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
 
   return v13;
 }

@@ -255,20 +255,20 @@ void __81__STStatusItemsStatusDomainData__descriptionBuilderWithMultilinePrefix_
 
 - (STStatusItemsStatusDomainData)initWithCoder:(id)coder
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"statusItemAttributions"];
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2020000000;
-  v19 = 0;
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __47__STStatusItemsStatusDomainData_initWithCoder___block_invoke_2;
-  v15[3] = &unk_1E85DF198;
-  v15[4] = &v16;
-  [v5 enumerateObjectsUsingBlock:v15];
-  if (v17[3])
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 0;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __47__STStatusItemsStatusDomainData_initWithCoder___block_invoke_2;
+  v14[3] = &unk_1E85DF198;
+  v14[4] = &v15;
+  [v5 enumerateObjectsUsingBlock:v14];
+  if (v16[3])
   {
     v6 = 0;
   }
@@ -278,14 +278,14 @@ void __81__STStatusItemsStatusDomainData__descriptionBuilderWithMultilinePrefix_
     v6 = v5;
   }
 
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v15, 8);
 
   v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"visualDescriptorsByIdentifier"];
 
-  v21[0] = objc_opt_class();
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
-  v20 = objc_opt_class();
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
+  v20[0] = objc_opt_class();
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
+  v19 = objc_opt_class();
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v19 count:1];
   v10 = [v7 validateObjectsAndKeysWithValidObjectClasses:v8 keyClasses:v9];
 
   if (((v6 != 0) & v10) == 1)
@@ -299,14 +299,13 @@ void __81__STStatusItemsStatusDomainData__descriptionBuilderWithMultilinePrefix_
     v12 = STSystemStatusLogDataIntegrity();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v15[0]) = 0;
-      _os_log_error_impl(&dword_1DA9C2000, v12, OS_LOG_TYPE_ERROR, "decoded invalid status items domain data", v15, 2u);
+      LOWORD(v14[0]) = 0;
+      _os_log_error_impl(&dword_1DA9C2000, v12, OS_LOG_TYPE_ERROR, "decoded invalid status items domain data", v14, 2u);
     }
 
     selfCopy = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

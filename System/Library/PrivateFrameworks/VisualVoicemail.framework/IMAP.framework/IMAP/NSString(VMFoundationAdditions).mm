@@ -1,10 +1,10 @@
 @interface NSString(VMFoundationAdditions)
-- (uint64_t)vf_lossyDefaultCStringBytes;
+- (_BYTE)vf_lossyDefaultCStringBytes;
 @end
 
 @implementation NSString(VMFoundationAdditions)
 
-- (uint64_t)vf_lossyDefaultCStringBytes
+- (_BYTE)vf_lossyDefaultCStringBytes
 {
   mutableBytes = [self _fastCStringContents:1];
   if (!mutableBytes)

@@ -45,11 +45,10 @@
     }
 
     v4 = *&self->textMessage_MessageSummaryInfo[OBJC_IVAR___BlastDoorTextMessage_MessageSummaryInfo_textMessage_MessageSummaryInfo + 24];
-    v5 = *&self->textMessage_MessageSummaryInfo[OBJC_IVAR___BlastDoorTextMessage_MessageSummaryInfo_textMessage_MessageSummaryInfo + 32];
 
-    v6 = sub_2146D9588();
+    v5 = sub_2146D9588();
     sub_213FDC6D0(v4, v2);
-    v3 = v6;
+    v3 = v5;
   }
 
   else
@@ -73,11 +72,10 @@
     }
 
     v4 = *&self->textMessage_MessageSummaryInfo[OBJC_IVAR___BlastDoorTextMessage_MessageSummaryInfo_textMessage_MessageSummaryInfo + 64];
-    v5 = *&self->textMessage_MessageSummaryInfo[OBJC_IVAR___BlastDoorTextMessage_MessageSummaryInfo_textMessage_MessageSummaryInfo + 72];
 
-    v6 = sub_2146D9588();
+    v5 = sub_2146D9588();
     sub_213FDC6D0(v4, v2);
-    v3 = v6;
+    v3 = v5;
   }
 
   else

@@ -3,6 +3,7 @@
 + (id)cachedConceptRelationshipKeyPaths;
 + (id)defaultDisplayString;
 + (id)diagnosticTestReportWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 country:(id)self2 state:(unint64_t)self3 diagnosticTestCodingCollection:(id)self4 results:(id)self5 effectiveStartDate:(id)self6 statusCoding:(id)self7 effectiveEndDate:(id)self8 issueDate:(id)self9;
++ (id)diagnosticTestReportWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 diagnosticTestCodingCollection:(id)self5 results:(id)self6 effectiveStartDate:(id)self7 statusCoding:(id)self8 effectiveEndDate:(id)self9 issueDate:(id)issueDate;
 + (id)indexableConceptKeyPaths;
 - (BOOL)applyConcepts:(id)concepts forKeyPath:(id)path error:(id *)error;
 - (BOOL)isEquivalent:(id)equivalent;
@@ -52,7 +53,7 @@
 
 - (id)codingsForKeyPath:(id)path error:(id *)error
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v7 = [HKConceptIndexUtilities firstComponentForKeyPath:pathCopy error:error];
   v8 = v7;
@@ -66,8 +67,8 @@
   {
     diagnosticTestCodingCollection = [(HKDiagnosticTestReport *)self diagnosticTestCodingCollection];
     v10 = [HKIndexableObject indexableObjectWithObject:diagnosticTestCodingCollection];
-    v17[0] = v10;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+    v16[0] = v10;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
 LABEL_7:
 
     goto LABEL_9;
@@ -78,18 +79,16 @@ LABEL_7:
     diagnosticTestCodingCollection = [(HKDiagnosticTestReport *)self statusCoding];
     v10 = [HKMedicalCodingCollection collectionWithCoding:diagnosticTestCodingCollection];
     v12 = [HKIndexableObject indexableObjectWithObject:v10];
-    v16 = v12;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:1];
+    v15 = v12;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1];
 
     goto LABEL_7;
   }
 
-  v15.receiver = self;
-  v15.super_class = HKDiagnosticTestReport;
-  v11 = [(HKMedicalRecord *)&v15 codingsForKeyPath:pathCopy error:error];
+  v14.receiver = self;
+  v14.super_class = HKDiagnosticTestReport;
+  v11 = [(HKMedicalRecord *)&v14 codingsForKeyPath:pathCopy error:error];
 LABEL_9:
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -207,6 +206,13 @@ LABEL_11:
   return v3;
 }
 
++ (id)diagnosticTestReportWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 diagnosticTestCodingCollection:(id)self5 results:(id)self6 effectiveStartDate:(id)self7 statusCoding:(id)self8 effectiveEndDate:(id)self9 issueDate:(id)issueDate
+{
+  v20 = [self _newDiagnosticTestReportWithType:type note:note enteredInError:error modifiedDate:date originIdentifier:identifier locale:locale extractionVersion:version device:device metadata:metadata sortDate:sortDate country:country state:state diagnosticTestCodingCollection:collection results:results effectiveStartDate:startDate statusCoding:coding effectiveEndDate:endDate issueDate:issueDate config:0];
+
+  return v20;
+}
+
 + (id)_newDiagnosticTestReportWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 diagnosticTestCodingCollection:(id)self5 results:(id)self6 effectiveStartDate:(id)self7 statusCoding:(id)self8 effectiveEndDate:(id)self9 issueDate:(id)issueDate config:(id)config
 {
   errorCopy = error;
@@ -301,14 +307,12 @@ void __278__HKDiagnosticTestReport__newDiagnosticTestReportWithType_note_entered
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v11.receiver = self;
-  v11.super_class = HKDiagnosticTestReport;
-  v6 = [(HKSample *)&v11 description];
-  diagnosticTestCodingCollection = self->_diagnosticTestCodingCollection;
-  effectiveEndDate = self->_effectiveEndDate;
-  v9 = [v3 stringWithFormat:@"<%@:%p super=%@diagnosticTestCodingCollection = %@results = %@effectiveStartDate = %@statusCoding = %@effectiveEndDate = %@issueDate = %@>", v5, self, v6, diagnosticTestCodingCollection, self->_results, self->_effectiveStartDate, self->_statusCoding, effectiveEndDate, self->_issueDate];
+  v9.receiver = self;
+  v9.super_class = HKDiagnosticTestReport;
+  v6 = [(HKSample *)&v9 description];
+  v7 = [v3 stringWithFormat:@"<%@:%p super=%@diagnosticTestCodingCollection = %@results = %@effectiveStartDate = %@statusCoding = %@effectiveEndDate = %@issueDate = %@>", v5, self, v6, self->_diagnosticTestCodingCollection, self->_results, self->_effectiveStartDate, self->_statusCoding, self->_effectiveEndDate, self->_issueDate];
 
-  return v9;
+  return v7;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -700,17 +704,17 @@ LABEL_46:
   testCopy = test;
   if (!testCopy)
   {
-    _HKInitializeLogging();
-    v5 = HKLogHealthRecords;
+    _HKInitializeLogging(0, v4);
+    v6 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_FAULT))
     {
-      [HKDiagnosticTestReport _setDiagnosticTest:v5];
+      [HKDiagnosticTestReport _setDiagnosticTest:v6];
     }
   }
 
-  v6 = [testCopy copy];
+  v7 = [testCopy copy];
   diagnosticTest = self->_diagnosticTest;
-  self->_diagnosticTest = v6;
+  self->_diagnosticTest = v7;
 }
 
 - (HKConcept)status
@@ -735,17 +739,17 @@ LABEL_46:
   statusCopy = status;
   if (!statusCopy)
   {
-    _HKInitializeLogging();
-    v5 = HKLogHealthRecords;
+    _HKInitializeLogging(0, v4);
+    v6 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_FAULT))
     {
-      [HKDiagnosticTestReport _setStatus:v5];
+      [HKDiagnosticTestReport _setStatus:v6];
     }
   }
 
-  v6 = [statusCopy copy];
+  v7 = [statusCopy copy];
   status = self->_status;
-  self->_status = v6;
+  self->_status = v7;
 }
 
 - (id)_validateWithConfiguration:(HKObjectValidationConfiguration)configuration

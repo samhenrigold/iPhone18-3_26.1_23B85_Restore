@@ -119,86 +119,80 @@
 
 - (void)writeTo:(id)to
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_expectedHash)
   {
     PBDataWriterWriteSubmessage();
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
-  v26 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v5 = self->_uniqueIDs;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v26;
+    v8 = *v21;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v26 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v25 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v7);
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v11 = self->_manifestHashes;
-  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v21 objects:v29 count:16];
-  if (v12)
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v10 = self->_manifestHashes;
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  if (v11)
   {
-    v13 = v12;
-    v14 = *v22;
+    v12 = v11;
+    v13 = *v17;
     do
     {
-      for (j = 0; j != v13; ++j)
+      for (j = 0; j != v12; ++j)
       {
-        if (*v22 != v14)
+        if (*v17 != v13)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v21 + 1) + 8 * j);
         PBDataWriterWriteDataField();
       }
 
-      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
-    while (v13);
+    while (v12);
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    fullResyncNeeded = self->_fullResyncNeeded;
     PBDataWriterWriteBOOLField();
     has = self->_has;
   }
 
   if (has)
   {
-    resyncID = self->_resyncID;
     PBDataWriterWriteUint32Field();
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -256,65 +250,65 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NPKProtoHash *)self->_expectedHash copyWithZone:zone];
   v7 = *(v5 + 8);
   *(v5 + 8) = v6;
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v8 = self->_uniqueIDs;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v28;
+    v11 = *v27;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v28 != v11)
+        if (*v27 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [*(*(&v27 + 1) + 8 * i) copyWithZone:zone];
+        v13 = [*(*(&v26 + 1) + 8 * i) copyWithZone:zone];
         [v5 addUniqueIDs:v13];
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
     while (v10);
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v14 = self->_manifestHashes;
-  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v24;
+    v17 = *v23;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v24 != v17)
+        if (*v23 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = [*(*(&v23 + 1) + 8 * j) copyWithZone:{zone, v23}];
+        v19 = [*(*(&v22 + 1) + 8 * j) copyWithZone:{zone, v22}];
         [v5 addManifestHashes:v19];
       }
 
-      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
     while (v16);
@@ -334,7 +328,6 @@
     *(v5 + 44) |= 1u;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -380,7 +373,6 @@
       goto LABEL_15;
     }
 
-    v10 = *(equalCopy + 40);
     if (self->_fullResyncNeeded)
     {
       if ((*(equalCopy + 40) & 1) == 0)
@@ -449,7 +441,7 @@ LABEL_3:
 
 - (void)mergeFrom:(id)from
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   expectedHash = self->_expectedHash;
   v6 = *(fromCopy + 1);
@@ -466,57 +458,57 @@ LABEL_3:
     [(NPKProtoResyncNeededRequest *)self setExpectedHash:?];
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v7 = *(fromCopy + 4);
-  v8 = [v7 countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v24;
+    v10 = *v23;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v24 != v10)
+        if (*v23 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(NPKProtoResyncNeededRequest *)self addUniqueIDs:*(*(&v23 + 1) + 8 * i)];
+        [(NPKProtoResyncNeededRequest *)self addUniqueIDs:*(*(&v22 + 1) + 8 * i)];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v9);
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v12 = *(fromCopy + 2);
-  v13 = [v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v20;
+    v15 = *v19;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v20 != v15)
+        if (*v19 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        [(NPKProtoResyncNeededRequest *)self addManifestHashes:*(*(&v19 + 1) + 8 * j), v19];
+        [(NPKProtoResyncNeededRequest *)self addManifestHashes:*(*(&v18 + 1) + 8 * j), v18];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v14);
@@ -535,8 +527,6 @@ LABEL_3:
     self->_resyncID = *(fromCopy + 6);
     *&self->_has |= 1u;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 @end

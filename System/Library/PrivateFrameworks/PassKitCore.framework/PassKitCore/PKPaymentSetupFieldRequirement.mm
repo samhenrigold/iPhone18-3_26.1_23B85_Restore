@@ -20,7 +20,7 @@
   v9 = 1;
   if (v6 != @"field")
   {
-    if (!v6 || (v8 = [(__CFString *)v6 isEqualToString:@"field"], v7, !v8))
+    if (!v6 || (isEqualToString = objc_msgSend_isEqualToString_(v6), v7, !isEqualToString))
     {
       v9 = 0;
     }

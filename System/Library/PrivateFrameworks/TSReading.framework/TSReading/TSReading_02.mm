@@ -1,62 +1,3 @@
-uint64_t std::vector<EQKitAlignmentGroup>::__swap_out_circular_buffer(uint64_t *a1, void *a2, uint64_t a3)
-{
-  v6 = a1[1];
-  v8 = a2[1];
-  v7 = a2[2];
-  if (v6 == a3)
-  {
-    v12 = a2[1];
-    v11 = a3;
-  }
-
-  else
-  {
-    v9 = a3;
-    do
-    {
-      EQKitAlignmentGroup::EQKitAlignmentGroup(v7, v9);
-      v9 += 24;
-      v7 = v10 + 24;
-    }
-
-    while (v9 != v6);
-    v11 = a1[1];
-    v12 = a2[1];
-    v7 = a2[2];
-  }
-
-  a2[2] = v7 + v11 - a3;
-  a1[1] = a3;
-  v13 = *a1;
-  v14 = v12 + *a1 - a3;
-  if (*a1 != a3)
-  {
-    v15 = v12 + *a1 - a3;
-    do
-    {
-      EQKitAlignmentGroup::EQKitAlignmentGroup(v15, v13);
-      v13 += 24;
-      v15 = v16 + 24;
-    }
-
-    while (v13 != a3);
-    v13 = *a1;
-  }
-
-  a2[1] = v14;
-  *a1 = v14;
-  a1[1] = v13;
-  a2[1] = v13;
-  v17 = a1[1];
-  a1[1] = a2[2];
-  a2[2] = v17;
-  v18 = a1[2];
-  a1[2] = a2[3];
-  a2[3] = v18;
-  *a2 = a2[1];
-  return v8;
-}
-
 void std::vector<EQKitLayoutRow::Kerning>::__append(uint64_t a1, unint64_t a2)
 {
   v4 = *(a1 + 8);
@@ -137,7 +78,7 @@ void std::vector<EQKitLayoutRow::Kerning>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-uint64_t std::vector<EQKitAlignmentGroup>::__emplace_back_slow_path<EQKitAlignmentGroup>(uint64_t *a1, uint64_t a2)
+const EQKitAlignmentGroup *std::vector<EQKitAlignmentGroup>::__emplace_back_slow_path<EQKitAlignmentGroup>(const EQKitAlignmentGroup **a1, const EQKitAlignmentGroup *a2)
 {
   v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -197,13 +138,13 @@ void sub_26C716E9C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::vector<EQKitAlignmentGroup>::__swap_out_circular_buffer(uint64_t *result, void *a2)
+const EQKitAlignmentGroup **std::vector<EQKitAlignmentGroup>::__swap_out_circular_buffer(const EQKitAlignmentGroup **result, void *a2)
 {
   v3 = result;
   v4 = a2[1];
   v5 = *result;
   v6 = result[1];
-  v7 = v4 + *result - v6;
+  v7 = (v4 + *result - v6);
   if (v6 != *result)
   {
     result = (v4 + *result - v6);
@@ -277,7 +218,7 @@ BOOL EQKitLayoutRow::endNestedRow(uint64_t *a1, uint64_t *a2)
   return v5 == 0;
 }
 
-uint64_t EQKitLayoutRow::resolveLayouts(void *a1, void *a2)
+void *EQKitLayoutRow::resolveLayouts(void *a1, void *a2)
 {
   v4 = [MEMORY[0x277CCA890] currentHandler];
   result = [v4 handleFailureInFunction:objc_msgSend(MEMORY[0x277CCACA8] file:"stringWithUTF8String:" lineNumber:"void EQKitLayoutRow::resolveLayouts(EQKit::ILayoutVector &)") description:{@"EQKitLayoutRow.mm", 275, @"invalid state"}];
@@ -630,7 +571,7 @@ void EQKitXMLAttributeValueAsString(_xmlNode *a1@<X0>, _xmlNs *a2@<X1>, xmlChar 
     }
   }
 
-  if (v17 - v14 == -1)
+  if (&v17[-v14] == -1)
   {
 LABEL_33:
     MEMORY[0x26D6A9880](a5, "");
@@ -653,14 +594,14 @@ LABEL_33:
         break;
       }
 
-      v22 = memchr(v12, v14[v20], v16);
+      v22 = memchr(v12, *(v14 + v20), v16);
       v20 = v21 - 1;
     }
 
     while (v22);
     if (v17 != v14 || v21 != v19)
     {
-      std::string::basic_string(&v25, a5, v17 - v14, v21 - (v17 - v14) + 1, &v26);
+      std::string::basic_string(&v25, a5, &v17[-v14], v21 - &v17[-v14] + 1, &v26);
       if (*(a5 + 23) < 0)
       {
         operator delete(*a5);
@@ -779,7 +720,7 @@ std::string *EQKit::AttributeCollection::setValueForKey(uint64_t a1, const std::
   v7 = a4;
   v8 = a3;
   v9 = &v7;
-  v5 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::string>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::string,std::less<EQKitTypes::Attributes::Enum>,true>,std::char_traits<char><std::string>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(a1 + 80, &v7);
+  v5 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::string>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::string,std::less<EQKitTypes::Attributes::Enum>,true>,std::char_traits<char><std::string>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>((a1 + 80), &v7, &std::piecewise_construct, &v9);
   return std::string::operator=(v5 + 2, a2);
 }
 
@@ -1156,304 +1097,304 @@ uint64_t EQKitMathMLParserConvertNamedColorStringToRGBFloatValues(uint64_t a1, d
   return EQKitMathMLParserConvertHexColorStringToRGBFloatValues(v9, a2, a3, a4);
 }
 
-void *___Z56EQKitMathMLParserConvertNamedColorStringToRGBFloatValuesRKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEERdS8_S8__block_invoke()
+uint64_t **___Z56EQKitMathMLParserConvertNamedColorStringToRGBFloatValuesRKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEERdS8_S8__block_invoke()
 {
   if ((atomic_load_explicit(&_ZGVZZ56EQKitMathMLParserConvertNamedColorStringToRGBFloatValuesRKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEERdS8_S8_EUb_E11_HTMLColors, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_ZGVZZ56EQKitMathMLParserConvertNamedColorStringToRGBFloatValuesRKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEERdS8_S8_EUb_E11_HTMLColors))
   {
     std::string::basic_string[abi:nn200100]<0>(&_ZZZ56EQKitMathMLParserConvertNamedColorStringToRGBFloatValuesRKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEERdS8_S8_EUb_E11_HTMLColors, "aliceblue");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B63B8, "#f0f8ff");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B63B8, "#f0f8ff");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B63D0, "antiquewhite");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B63E8, "#faebd7");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B63E8, "#faebd7");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6400, "aqua");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6418, "#00ffff");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6418, "#00ffff");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6430, "aquamarine");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6448, "#7fffd4");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6448, "#7fffd4");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6460, "azure");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6478, "#f0ffff");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6478, "#f0ffff");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6490, "beige");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B64A8, "#f5f5dc");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B64A8, "#f5f5dc");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B64C0, "bisque");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B64D8, "#ffe4c4");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B64D8, "#ffe4c4");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B64F0, "black");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6508, "#000000");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6508, "#000000");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6520, "blanchedalmond");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6538, "#ffebcd");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6538, "#ffebcd");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6550, "blue");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6568, "#0000ff");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6568, "#0000ff");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6580, "blueviolet");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6598, "#8a2be2");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6598, "#8a2be2");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B65B0, "brown");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B65C8, "#a52a2a");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B65C8, "#a52a2a");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B65E0, "burlywood");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B65F8, "#deb887");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B65F8, "#deb887");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6610, "cadetblue");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6628, "#5f9ea0");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6628, "#5f9ea0");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6640, "chartreuse");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6658, "#7fff00");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6658, "#7fff00");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6670, "chocolate");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6688, "#d2691e");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6688, "#d2691e");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B66A0, "coral");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B66B8, "#ff7f50");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B66B8, "#ff7f50");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B66D0, "cornflowerblue");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B66E8, "#6495ed");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B66E8, "#6495ed");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6700, "cornsilk");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6718, "#fff8dc");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6718, "#fff8dc");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6730, "crimson");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6748, "#dc143c");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6748, "#dc143c");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6760, "cyan");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6778, "#00ffff");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6778, "#00ffff");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6790, "darkblue");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B67A8, "#00008b");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B67A8, "#00008b");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B67C0, "darkcyan");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B67D8, "#008b8b");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B67D8, "#008b8b");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B67F0, "darkgoldenrod");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6808, "#b8860b");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6808, "#b8860b");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6820, "darkgray");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6838, "#a9a9a9");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6838, "#a9a9a9");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6850, "darkgrey");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6868, "#a9a9a9");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6868, "#a9a9a9");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6880, "darkgreen");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6898, "#006400");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6898, "#006400");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B68B0, "darkkhaki");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B68C8, "#bdb76b");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B68C8, "#bdb76b");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B68E0, "darkmagenta");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B68F8, "#8b008b");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B68F8, "#8b008b");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6910, "darkolivegreen");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6928, "#556b2f");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6928, "#556b2f");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6940, "darkorange");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6958, "#ff8c00");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6958, "#ff8c00");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6970, "darkorchid");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6988, "#9932cc");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6988, "#9932cc");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B69A0, "darkred");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B69B8, "#8b0000");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B69B8, "#8b0000");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B69D0, "darksalmon");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B69E8, "#e9967a");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B69E8, "#e9967a");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6A00, "darkseagreen");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6A18, "#8fbc8f");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6A18, "#8fbc8f");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6A30, "darkslateblue");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6A48, "#483d8b");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6A48, "#483d8b");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6A60, "darkslategray");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6A78, "#2f4f4f");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6A78, "#2f4f4f");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6A90, "darkslategrey");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6AA8, "#2f4f4f");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6AA8, "#2f4f4f");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6AC0, "darkturquoise");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6AD8, "#00ced1");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6AD8, "#00ced1");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6AF0, "darkviolet");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6B08, "#9400d3");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6B08, "#9400d3");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6B20, "deeppink");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6B38, "#ff1493");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6B38, "#ff1493");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6B50, "deepskyblue");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6B68, "#00bfff");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6B68, "#00bfff");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6B80, "dimgray");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6B98, "#696969");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6B98, "#696969");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6BB0, "dimgrey");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6BC8, "#696969");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6BC8, "#696969");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6BE0, "dodgerblue");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6BF8, "#1e90ff");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6BF8, "#1e90ff");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6C10, "firebrick");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6C28, "#b22222");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6C28, "#b22222");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6C40, "floralwhite");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6C58, "#fffaf0");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6C58, "#fffaf0");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6C70, "forestgreen");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6C88, "#228b22");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6C88, "#228b22");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6CA0, "fuchsia");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6CB8, "#ff00ff");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6CB8, "#ff00ff");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6CD0, "gainsboro");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6CE8, "#dcdcdc");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6CE8, "#dcdcdc");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6D00, "ghostwhite");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6D18, "#f8f8ff");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6D18, "#f8f8ff");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6D30, "gold");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6D48, "#ffd700");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6D48, "#ffd700");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6D60, "goldenrod");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6D78, "#daa520");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6D78, "#daa520");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6D90, "gray");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6DA8, "#808080");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6DA8, "#808080");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6DC0, "grey");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6DD8, "#808080");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6DD8, "#808080");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6DF0, "green");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6E08, "#008000");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6E08, "#008000");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6E20, "greenyellow");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6E38, "#adff2f");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6E38, "#adff2f");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6E50, "honeydew");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6E68, "#f0fff0");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6E68, "#f0fff0");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6E80, "hotpink");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6E98, "#ff69b4");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6E98, "#ff69b4");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6EB0, "indianred ");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6EC8, "#cd5c5c");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6EC8, "#cd5c5c");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6EE0, "indigo ");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6EF8, "#4b0082");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6EF8, "#4b0082");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6F10, "ivory");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6F28, "#fffff0");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6F28, "#fffff0");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6F40, "khaki");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6F58, "#f0e68c");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6F58, "#f0e68c");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6F70, "lavender");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6F88, "#e6e6fa");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6F88, "#e6e6fa");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6FA0, "lavenderblush");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6FB8, "#fff0f5");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6FB8, "#fff0f5");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B6FD0, "lawngreen");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B6FE8, "#7cfc00");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B6FE8, "#7cfc00");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7000, "lemonchiffon");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7018, "#fffacd");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7018, "#fffacd");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7030, "lightblue");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7048, "#add8e6");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7048, "#add8e6");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7060, "lightcoral");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7078, "#f08080");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7078, "#f08080");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7090, "lightcyan");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B70A8, "#e0ffff");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B70A8, "#e0ffff");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B70C0, "lightgoldenrodyellow");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B70D8, "#fafad2");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B70D8, "#fafad2");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B70F0, "lightgray");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7108, "#d3d3d3");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7108, "#d3d3d3");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7120, "lightgrey");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7138, "#d3d3d3");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7138, "#d3d3d3");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7150, "lightgreen");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7168, "#90ee90");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7168, "#90ee90");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7180, "lightpink");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7198, "#ffb6c1");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7198, "#ffb6c1");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B71B0, "lightsalmon");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B71C8, "#ffa07a");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B71C8, "#ffa07a");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B71E0, "lightseagreen");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B71F8, "#20b2aa");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B71F8, "#20b2aa");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7210, "lightskyblue");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7228, "#87cefa");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7228, "#87cefa");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7240, "lightslategray");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7258, "#778899");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7258, "#778899");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7270, "lightslategrey");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7288, "#778899");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7288, "#778899");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B72A0, "lightsteelblue");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B72B8, "#b0c4de");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B72B8, "#b0c4de");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B72D0, "lightyellow");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B72E8, "#ffffe0");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B72E8, "#ffffe0");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7300, "lime");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7318, "#00ff00");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7318, "#00ff00");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7330, "limegreen");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7348, "#32cd32");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7348, "#32cd32");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7360, "linen");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7378, "#faf0e6");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7378, "#faf0e6");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7390, "magenta");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B73A8, "#ff00ff");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B73A8, "#ff00ff");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B73C0, "maroon");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B73D8, "#800000");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B73D8, "#800000");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B73F0, "mediumaquamarine");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7408, "#66cdaa");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7408, "#66cdaa");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7420, "mediumblue");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7438, "#0000cd");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7438, "#0000cd");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7450, "mediumorchid");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7468, "#ba55d3");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7468, "#ba55d3");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7480, "mediumpurple");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7498, "#9370d8");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7498, "#9370d8");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B74B0, "mediumseagreen");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B74C8, "#3cb371");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B74C8, "#3cb371");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B74E0, "mediumslateblue");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B74F8, "#7b68ee");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B74F8, "#7b68ee");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7510, "mediumspringgreen");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7528, "#00fa9a");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7528, "#00fa9a");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7540, "mediumturquoise");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7558, "#48d1cc");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7558, "#48d1cc");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7570, "mediumvioletred");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7588, "#c71585");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7588, "#c71585");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B75A0, "midnightblue");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B75B8, "#191970");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B75B8, "#191970");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B75D0, "mintcream");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B75E8, "#f5fffa");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B75E8, "#f5fffa");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7600, "mistyrose");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7618, "#ffe4e1");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7618, "#ffe4e1");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7630, "moccasin");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7648, "#ffe4b5");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7648, "#ffe4b5");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7660, "navajowhite");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7678, "#ffdead");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7678, "#ffdead");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7690, "navy");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B76A8, "#000080");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B76A8, "#000080");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B76C0, "oldlace");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B76D8, "#fdf5e6");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B76D8, "#fdf5e6");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B76F0, "olive");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7708, "#808000");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7708, "#808000");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7720, "olivedrab");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7738, "#6b8e23");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7738, "#6b8e23");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7750, "orange");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7768, "#ffa500");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7768, "#ffa500");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7780, "orangered");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7798, "#ff4500");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7798, "#ff4500");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B77B0, "orchid");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B77C8, "#da70d6");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B77C8, "#da70d6");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B77E0, "palegoldenrod");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B77F8, "#eee8aa");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B77F8, "#eee8aa");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7810, "palegreen");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7828, "#98fb98");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7828, "#98fb98");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7840, "paleturquoise");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7858, "#afeeee");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7858, "#afeeee");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7870, "palevioletred");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7888, "#d87093");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7888, "#d87093");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B78A0, "papayawhip");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B78B8, "#ffefd5");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B78B8, "#ffefd5");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B78D0, "peachpuff");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B78E8, "#ffdab9");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B78E8, "#ffdab9");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7900, "peru");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7918, "#cd853f");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7918, "#cd853f");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7930, "pink");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7948, "#ffc0cb");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7948, "#ffc0cb");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7960, "plum");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7978, "#dda0dd");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7978, "#dda0dd");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7990, "powderblue");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B79A8, "#b0e0e6");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B79A8, "#b0e0e6");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B79C0, "purple");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B79D8, "#800080");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B79D8, "#800080");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B79F0, "red");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7A08, "#ff0000");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7A08, "#ff0000");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7A20, "rosybrown");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7A38, "#bc8f8f");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7A38, "#bc8f8f");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7A50, "royalblue");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7A68, "#4169e1");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7A68, "#4169e1");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7A80, "saddlebrown");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7A98, "#8b4513");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7A98, "#8b4513");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7AB0, "salmon");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7AC8, "#fa8072");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7AC8, "#fa8072");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7AE0, "sandybrown");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7AF8, "#f4a460");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7AF8, "#f4a460");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7B10, "seagreen");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7B28, "#2e8b57");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7B28, "#2e8b57");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7B40, "seashell");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7B58, "#fff5ee");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7B58, "#fff5ee");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7B70, "sienna");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7B88, "#a0522d");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7B88, "#a0522d");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7BA0, "silver");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7BB8, "#c0c0c0");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7BB8, "#c0c0c0");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7BD0, "skyblue");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7BE8, "#87ceeb");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7BE8, "#87ceeb");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7C00, "slateblue");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7C18, "#6a5acd");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7C18, "#6a5acd");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7C30, "slategray");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7C48, "#708090");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7C48, "#708090");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7C60, "slategrey");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7C78, "#708090");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7C78, "#708090");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7C90, "snow");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7CA8, "#fffafa");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7CA8, "#fffafa");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7CC0, "springgreen");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7CD8, "#00ff7f");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7CD8, "#00ff7f");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7CF0, "steelblue");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7D08, "#4682b4");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7D08, "#4682b4");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7D20, "tan");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7D38, "#d2b48c");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7D38, "#d2b48c");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7D50, "teal");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7D68, "#008080");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7D68, "#008080");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7D80, "thistle");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7D98, "#d8bfd8");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7D98, "#d8bfd8");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7DB0, "tomato");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7DC8, "#ff6347");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7DC8, "#ff6347");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7DE0, "turquoise");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7DF8, "#40e0d0");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7DF8, "#40e0d0");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7E10, "violet");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7E28, "#ee82ee");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7E28, "#ee82ee");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7E40, "wheat");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7E58, "#f5deb3");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7E58, "#f5deb3");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7E70, "white");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7E88, "#ffffff");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7E88, "#ffffff");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7EA0, "whitesmoke");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7EB8, "#f5f5f5");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7EB8, "#f5f5f5");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7ED0, "yellow");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7EE8, "#ffff00");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7EE8, "#ffff00");
     std::string::basic_string[abi:nn200100]<0>(qword_2804B7F00, "yellowgreen");
-    std::string::basic_string[abi:nn200100]<0>(byte_2804B7F18, "#9acd32");
+    std::string::basic_string[abi:nn200100]<0>(qword_2804B7F18, "#9acd32");
     __cxa_guard_release(&_ZGVZZ56EQKitMathMLParserConvertNamedColorStringToRGBFloatValuesRKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEERdS8_S8_EUb_E11_HTMLColors);
   }
 
@@ -1463,13 +1404,14 @@ void *___Z56EQKitMathMLParserConvertNamedColorStringToRGBFloatValuesRKNSt3__112b
     v1 = result;
     result[2] = 0;
     result[1] = 0;
-    *result = result + 1;
+    *result = (result + 1);
     v2 = &_ZZZ56EQKitMathMLParserConvertNamedColorStringToRGBFloatValuesRKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEERdS8_S8_EUb_E11_HTMLColors;
     v3 = 147;
     do
     {
-      v4 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v1, &v2->__r_.__value_.__l.__data_);
-      result = std::string::operator=((v4 + 56), v2 + 1);
+      v6 = v2;
+      v4 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v1, &v2->__r_.__value_.__l.__data_, &std::piecewise_construct, &v6, &v5);
+      result = std::string::operator=((v4 + 7), v2 + 1);
       v2 += 2;
       --v3;
     }
@@ -1639,25 +1581,25 @@ uint64_t EQKitMathMLParserHexToDec(const std::string *a1)
   return v1;
 }
 
-void sub_26C71CAB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_26C71CAB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::istringstream::~istringstream(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t a1, unint64_t *a2)
+uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t **a1, unint64_t *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-uint64_t *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(uint64_t a1, void *a2, unint64_t *a3)
+uint64_t *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(uint64_t a1, uint64_t **a2, unint64_t *a3)
 {
   v5 = *(a1 + 8);
   result = (a1 + 8);
@@ -1671,7 +1613,7 @@ uint64_t *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKit
       while (1)
       {
         v8 = v4;
-        v9 = v4[4];
+        v9 = *(v4 + 32);
         if (v6 >= v9)
         {
           break;
@@ -1715,31 +1657,32 @@ LABEL_12:
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,EQKit::ScriptLevel>,std::__map_value_compare<EQKitTypes::Attributes::Enum,EQKit::ScriptLevel,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<EQKit::ScriptLevel>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t a1, unint64_t *a2)
+uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,EQKit::ScriptLevel>,std::__map_value_compare<EQKitTypes::Attributes::Enum,EQKit::ScriptLevel,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<EQKit::ScriptLevel>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t **a1, unint64_t *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,EQKitLength>,std::__map_value_compare<EQKitTypes::Attributes::Enum,EQKitLength,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<EQKitLength>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t a1, unint64_t *a2)
+uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,EQKitLength>,std::__map_value_compare<EQKitTypes::Attributes::Enum,EQKitLength,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<EQKitLength>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t **a1, unint64_t *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-char **EQKit::AttributeCollection::setValueForKey<std::vector<EQKitLength>>(uint64_t a1, uint64_t a2, char **a3, unint64_t *a4)
+void **EQKit::AttributeCollection::setValueForKey<std::vector<EQKitLength>>(uint64_t a1, uint64_t **a2, char **a3, _OWORD *a4)
 {
-  result = (std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::vector<EQKitLength>>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::vector<EQKitLength>,std::less<EQKitTypes::Attributes::Enum>,true>,EQKitLength<std::vector<EQKitLength>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(a2, a4) + 48);
+  v6 = a4;
+  result = (std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::vector<EQKitLength>>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::vector<EQKitLength>,std::less<EQKitTypes::Attributes::Enum>,true>,EQKitLength<std::vector<EQKitLength>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(a2, a4, &std::piecewise_construct, &v6) + 48);
   if (result != a3)
   {
     return std::vector<EQKitLength>::__assign_with_size[abi:nn200100]<EQKitLength*,EQKitLength*>(result, *a3, a3[1], (a3[1] - *a3) >> 4);
@@ -1748,18 +1691,18 @@ char **EQKit::AttributeCollection::setValueForKey<std::vector<EQKitLength>>(uint
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::vector<EQKitLength>>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::vector<EQKitLength>,std::less<EQKitTypes::Attributes::Enum>,true>,EQKitLength<std::vector<EQKitLength>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t a1, unint64_t *a2)
+uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::vector<EQKitLength>>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::vector<EQKitLength>,std::less<EQKitTypes::Attributes::Enum>,true>,EQKitLength<std::vector<EQKitLength>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t **a1, unint64_t *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-void *std::vector<EQKitLength>::__assign_with_size[abi:nn200100]<EQKitLength*,EQKitLength*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<EQKitLength>::__assign_with_size[abi:nn200100]<EQKitLength*,EQKitLength*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -1834,7 +1777,7 @@ void *std::vector<EQKitLength>::__assign_with_size[abi:nn200100]<EQKitLength*,EQ
   return result;
 }
 
-void std::vector<EQKitLength>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<EQKitLength>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -1844,31 +1787,32 @@ void std::vector<EQKitLength>::__vallocate[abi:nn200100](uint64_t a1, unint64_t 
   std::string::__throw_length_error[abi:nn200100]();
 }
 
-uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,double>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t a1, unint64_t *a2)
+uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,double>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t **a1, unint64_t *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::string>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::string,std::less<EQKitTypes::Attributes::Enum>,true>,std::char_traits<char><std::string>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t a1, unint64_t *a2)
+uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::string>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::string,std::less<EQKitTypes::Attributes::Enum>,true>,std::char_traits<char><std::string>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t **a1, unint64_t *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-char **EQKit::AttributeCollection::setValueForKey<std::vector<EQKitTypes::VAlign::Enum>>(uint64_t a1, uint64_t a2, char **a3, unint64_t *a4)
+void **EQKit::AttributeCollection::setValueForKey<std::vector<EQKitTypes::VAlign::Enum>>(uint64_t a1, uint64_t **a2, char **a3, _OWORD *a4)
 {
-  result = (std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::vector<objc_object  {objcproto15EQKitLayoutNode}*::VAlign::Enum>>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::vector<objc_object  {objcproto15EQKitLayoutNode}*::VAlign::Enum>,std::less<EQKitTypes::Attributes::Enum>,true>,objc_object  {objcproto15EQKitLayoutNode}*::VAlign::Enum<std::vector<objc_object  {objcproto15EQKitLayoutNode}*::VAlign::Enum>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(a2, a4) + 48);
+  v6 = a4;
+  result = (std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::vector<objc_object  {objcproto15EQKitLayoutNode}*::VAlign::Enum>>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::vector<objc_object  {objcproto15EQKitLayoutNode}*::VAlign::Enum>,std::less<EQKitTypes::Attributes::Enum>,true>,objc_object  {objcproto15EQKitLayoutNode}*::VAlign::Enum<std::vector<objc_object  {objcproto15EQKitLayoutNode}*::VAlign::Enum>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(a2, a4, &std::piecewise_construct, &v6) + 48);
   if (result != a3)
   {
     return std::vector<EQKitTypes::Notation::Enum>::__assign_with_size[abi:nn200100]<EQKitTypes::Notation::Enum*,EQKitTypes::Notation::Enum*>(result, *a3, a3[1], (a3[1] - *a3) >> 2);
@@ -1877,57 +1821,58 @@ char **EQKit::AttributeCollection::setValueForKey<std::vector<EQKitTypes::VAlign
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::vector<objc_object  {objcproto15EQKitLayoutNode}*::VAlign::Enum>>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::vector<objc_object  {objcproto15EQKitLayoutNode}*::VAlign::Enum>,std::less<EQKitTypes::Attributes::Enum>,true>,objc_object  {objcproto15EQKitLayoutNode}*::VAlign::Enum<std::vector<objc_object  {objcproto15EQKitLayoutNode}*::VAlign::Enum>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t a1, unint64_t *a2)
+uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::vector<objc_object  {objcproto15EQKitLayoutNode}*::VAlign::Enum>>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::vector<objc_object  {objcproto15EQKitLayoutNode}*::VAlign::Enum>,std::less<EQKitTypes::Attributes::Enum>,true>,objc_object  {objcproto15EQKitLayoutNode}*::VAlign::Enum<std::vector<objc_object  {objcproto15EQKitLayoutNode}*::VAlign::Enum>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t **a1, unint64_t *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-void EQKit::AttributeCollection::setValueForKey<std::vector<std::string>>(uint64_t a1, uint64_t a2, std::string **a3, unint64_t *a4)
+void EQKit::AttributeCollection::setValueForKey<std::vector<std::string>>(uint64_t a1, uint64_t **a2, std::string **a3, _OWORD *a4)
 {
-  v5 = (std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::vector<EQKitLength>>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::vector<EQKitLength>,std::less<EQKitTypes::Attributes::Enum>,true>,EQKitLength<std::vector<EQKitLength>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(a2, a4) + 48);
+  v6 = a4;
+  v5 = (std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::vector<EQKitLength>>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::vector<EQKitLength>,std::less<EQKitTypes::Attributes::Enum>,true>,EQKitLength<std::vector<EQKitLength>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(a2, a4, &std::piecewise_construct, &v6) + 48);
   if (v5 != a3)
   {
     std::vector<std::string>::__assign_with_size[abi:nn200100]<std::string*,std::string*>(v5, *a3, a3[1], 0xAAAAAAAAAAAAAAABLL * ((a3[1] - *a3) >> 3));
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,EQKitPseudoUnitLength>,std::__map_value_compare<EQKitTypes::Attributes::Enum,EQKitPseudoUnitLength,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<EQKitPseudoUnitLength>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t a1, unint64_t *a2)
+uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,EQKitPseudoUnitLength>,std::__map_value_compare<EQKitTypes::Attributes::Enum,EQKitPseudoUnitLength,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<EQKitPseudoUnitLength>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t **a1, unint64_t *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,unsigned short>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t a1, unint64_t *a2)
+uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,unsigned short>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t **a1, unint64_t *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
-uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::CFRetainRelease>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::CFRetainRelease,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::CFRetainRelease>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t a1, unint64_t *a2)
+uint64_t std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::CFRetainRelease>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::CFRetainRelease,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::CFRetainRelease>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(uint64_t **a1, unint64_t *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>,std::__map_value_compare<EQKitTypes::Attributes::Enum,objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum,std::less<EQKitTypes::Attributes::Enum>,true>,std::allocator<objc_object  {objcproto15EQKitLayoutNode}*::Align::Enum>>::__find_equal<EQKitTypes::Attributes::Enum>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 uint64_t std::deque<EQKitMathMLParserState>::~deque[abi:nn200100](void *a1)
@@ -1989,9 +1934,8 @@ void HTMLColor::~HTMLColor(void **this)
   }
 }
 
-void *std::deque<EQKitMathMLParserState>::push_back(void *result, _DWORD *a2)
+void std::deque<EQKitMathMLParserState>::push_back(unint64_t *result, _DWORD *a2)
 {
-  v3 = result;
   v4 = result[2];
   v5 = result[1];
   if (v4 == v5)
@@ -2008,30 +1952,29 @@ void *std::deque<EQKitMathMLParserState>::push_back(void *result, _DWORD *a2)
   v8 = v7 + result[4];
   if (v6 == v8)
   {
-    result = std::deque<EQKitMathMLParserState>::__add_back_capacity(result);
-    v5 = v3[1];
-    v7 = v3[5];
-    v8 = v3[4] + v7;
+    std::deque<EQKitMathMLParserState>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
   *(*(v5 + ((v8 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v8 & 0x3FF)) = *a2;
-  v3[5] = v7 + 1;
-  return result;
+  result[5] = v7 + 1;
 }
 
-void *std::deque<EQKitMathMLParserState>::__add_back_capacity(void *a1)
+void std::deque<EQKitMathMLParserState>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x400;
   v3 = v1 - 1024;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -2039,25 +1982,25 @@ void *std::deque<EQKitMathMLParserState>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned long *>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned long *>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<unsigned long *>::emplace_back<unsigned long *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<unsigned long *>::emplace_back<unsigned long *&>(a1, &v9);
 }
 
 void sub_26C71D718(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -2110,15 +2053,15 @@ uint64_t std::deque<EQKitMathMLParserState>::__maybe_remove_back_spare[abi:nn200
   return v7 ^ 1u;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, const void **a2)
+void *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v5 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v7, a2);
+  if (!v5)
   {
     std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
   }
 
-  return v2;
+  return v5;
 }
 
 void *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(uint64_t a1, void *a2, const void **a3)
@@ -2236,7 +2179,7 @@ LABEL_28:
   return v5;
 }
 
-uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::string>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:nn200100](uint64_t a1)
+char **std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::string>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:nn200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -2512,18 +2455,19 @@ void std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayou
   }
 }
 
-void *std::set<EQKitTypes::Attributes::Enum>::set[abi:nn200100]<EQKitTypes::Attributes::Enum const*>(void *a1, int *a2, int *a3)
+uint64_t **std::set<EQKitTypes::Attributes::Enum>::set[abi:nn200100]<EQKitTypes::Attributes::Enum const*>(uint64_t **a1, int *a2, int *a3)
 {
   a1[1] = 0;
-  v4 = a1 + 1;
+  v4 = (a1 + 1);
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a2 != a3)
   {
     v6 = a2;
     do
     {
-      std::__tree<EQKitTypes::Attributes::Enum>::__emplace_hint_unique_key_args<EQKitTypes::Attributes::Enum,EQKitTypes::Attributes::Enum const&>(a1, v4, v6++);
+      std::__tree<EQKitTypes::Attributes::Enum>::__emplace_hint_unique_key_args<EQKitTypes::Attributes::Enum,EQKitTypes::Attributes::Enum const&>(a1, v4, v6, v6);
+      ++v6;
     }
 
     while (v6 != a3);
@@ -2532,20 +2476,20 @@ void *std::set<EQKitTypes::Attributes::Enum>::set[abi:nn200100]<EQKitTypes::Attr
   return a1;
 }
 
-uint64_t std::__tree<EQKitTypes::Attributes::Enum>::__emplace_hint_unique_key_args<EQKitTypes::Attributes::Enum,EQKitTypes::Attributes::Enum const&>(void *a1, uint64_t *a2, int *a3)
+uint64_t std::__tree<EQKitTypes::Attributes::Enum>::__emplace_hint_unique_key_args<EQKitTypes::Attributes::Enum,EQKitTypes::Attributes::Enum const&>(uint64_t **a1, uint64_t *a2, int *a3, _DWORD *a4)
 {
-  v3 = *std::__tree<EQKitTypes::Attributes::Enum>::__find_equal<EQKitTypes::Attributes::Enum>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<EQKitTypes::Attributes::Enum>::__find_equal<EQKitTypes::Attributes::Enum>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t *std::__tree<EQKitTypes::Attributes::Enum>::__find_equal<EQKitTypes::Attributes::Enum>(void *a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, int *a5)
+uint64_t *std::__tree<EQKitTypes::Attributes::Enum>::__find_equal<EQKitTypes::Attributes::Enum>(uint64_t **a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, int *a5)
 {
-  v5 = a1 + 1;
+  v5 = (a1 + 1);
   if (a1 + 1 == a2 || (v6 = *a5, v7 = *(a2 + 7), *a5 < v7))
   {
     v8 = *a2;
@@ -2572,7 +2516,7 @@ LABEL_17:
       do
       {
         v10 = v9;
-        v9 = v9[1];
+        v9 = *(v9 + 8);
       }
 
       while (v9);
@@ -2633,7 +2577,7 @@ LABEL_17:
 
     else
     {
-      v17 = a1 + 1;
+      v17 = (a1 + 1);
     }
 
 LABEL_29:
@@ -2712,7 +2656,7 @@ LABEL_29:
 
     else
     {
-      v21 = a1 + 1;
+      v21 = (a1 + 1);
     }
 
 LABEL_48:
@@ -2925,12 +2869,12 @@ uint64_t EQKitTypes::Attributes::attributeFromMathMLString(const void **a1, uint
   return a2;
 }
 
-void EQKitTypes::Align::alignVectorFromMathMLString(std::string *__str@<X0>, const void **a2@<X8>)
+void EQKitTypes::Align::alignVectorFromMathMLString(const void **__return_ptr a1@<X8>, std::string *__str@<X0>)
 {
   v4 = 0;
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   do
   {
     size = HIBYTE(__str->__r_.__value_.__r.__words[2]);
@@ -2985,12 +2929,12 @@ LABEL_17:
     v11 = EQKitTypes::Align::alignFromMathMLString(&__p.__r_.__value_.__l.__data_, 0);
     if (v11)
     {
-      v13 = a2[1];
-      v12 = a2[2];
+      v13 = a1[1];
+      v12 = a1[2];
       if (v13 >= v12)
       {
-        v15 = *a2;
-        v16 = v13 - *a2;
+        v15 = *a1;
+        v16 = v13 - *a1;
         v17 = v16 >> 2;
         v18 = (v16 >> 2) + 1;
         if (v18 >> 62)
@@ -3013,16 +2957,16 @@ LABEL_17:
 
         if (v21)
         {
-          std::__allocate_at_least[abi:nn200100]<std::allocator<EQKitTypes::Notation::Enum>>(a2, v21);
+          std::__allocate_at_least[abi:nn200100]<std::allocator<EQKitTypes::Notation::Enum>>(a1, v21);
         }
 
         *(4 * v17) = v11;
-        v14 = 4 * v17 + 4;
+        v14 = (4 * v17 + 4);
         memcpy(0, v15, v16);
-        v22 = *a2;
-        *a2 = 0;
-        a2[1] = v14;
-        a2[2] = 0;
+        v22 = *a1;
+        *a1 = 0;
+        a1[1] = v14;
+        a1[2] = 0;
         if (v22)
         {
           operator delete(v22);
@@ -3032,10 +2976,10 @@ LABEL_17:
       else
       {
         *v13 = v11;
-        v14 = (v13 + 4);
+        v14 = v13 + 4;
       }
 
-      a2[1] = v14;
+      a1[1] = v14;
     }
 
     v4 = v10 + 1;
@@ -3101,12 +3045,12 @@ void sub_26C720DF0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void EQKitTypes::VAlign::vAlignVectorFromMathMLString(std::string *__str@<X0>, const void **a2@<X8>)
+void EQKitTypes::VAlign::vAlignVectorFromMathMLString(const void **__return_ptr a1@<X8>, std::string *__str@<X0>)
 {
   v4 = 0;
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   do
   {
     size = HIBYTE(__str->__r_.__value_.__r.__words[2]);
@@ -3161,12 +3105,12 @@ LABEL_17:
     v11 = EQKitTypes::VAlign::vAlignFromMathMLString(&__p.__r_.__value_.__l.__data_, 0);
     if (v11)
     {
-      v13 = a2[1];
-      v12 = a2[2];
+      v13 = a1[1];
+      v12 = a1[2];
       if (v13 >= v12)
       {
-        v15 = *a2;
-        v16 = v13 - *a2;
+        v15 = *a1;
+        v16 = v13 - *a1;
         v17 = v16 >> 2;
         v18 = (v16 >> 2) + 1;
         if (v18 >> 62)
@@ -3189,16 +3133,16 @@ LABEL_17:
 
         if (v21)
         {
-          std::__allocate_at_least[abi:nn200100]<std::allocator<EQKitTypes::Notation::Enum>>(a2, v21);
+          std::__allocate_at_least[abi:nn200100]<std::allocator<EQKitTypes::Notation::Enum>>(a1, v21);
         }
 
         *(4 * v17) = v11;
-        v14 = 4 * v17 + 4;
+        v14 = (4 * v17 + 4);
         memcpy(0, v15, v16);
-        v22 = *a2;
-        *a2 = 0;
-        a2[1] = v14;
-        a2[2] = 0;
+        v22 = *a1;
+        *a1 = 0;
+        a1[1] = v14;
+        a1[2] = 0;
         if (v22)
         {
           operator delete(v22);
@@ -3208,10 +3152,10 @@ LABEL_17:
       else
       {
         *v13 = v11;
-        v14 = (v13 + 4);
+        v14 = v13 + 4;
       }
 
-      a2[1] = v14;
+      a1[1] = v14;
     }
 
     v4 = v10 + 1;
@@ -3464,9 +3408,9 @@ uint64_t EQKitTypes::Integer::integerFromMathMLString(const std::string *a1, BOO
   return v3;
 }
 
-void sub_26C72159C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C72159C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::istringstream::~istringstream(va);
   _Unwind_Resume(a1);
 }
@@ -3493,9 +3437,9 @@ uint64_t EQKitTypes::UInteger::uIntegerFromMathMLString(const std::string *a1, B
   return v3;
 }
 
-void sub_26C721730(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C721730(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::istringstream::~istringstream(va);
   _Unwind_Resume(a1);
 }
@@ -3521,12 +3465,12 @@ uint64_t EQKitTypes::Crossout::crossoutFromMathMLString(const void **a1, uint64_
   return a2;
 }
 
-void EQKitTypes::Crossout::crossoutVectorFromMathMLString(std::string *__str@<X0>, const void **a2@<X8>)
+void EQKitTypes::Crossout::crossoutVectorFromMathMLString(const void **__return_ptr a1@<X8>, std::string *__str@<X0>)
 {
   v4 = 0;
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   do
   {
     size = HIBYTE(__str->__r_.__value_.__r.__words[2]);
@@ -3579,12 +3523,12 @@ LABEL_16:
 LABEL_17:
     std::string::basic_string(&__p, __str, v4, v10 - v4, &v30);
     v11 = EQKitTypes::Crossout::crossoutFromMathMLString(&__p.__r_.__value_.__l.__data_, 0);
-    v13 = a2[1];
-    v12 = a2[2];
+    v13 = a1[1];
+    v12 = a1[2];
     if (v13 >= v12)
     {
-      v15 = *a2;
-      v16 = v13 - *a2;
+      v15 = *a1;
+      v16 = v13 - *a1;
       v17 = v16 >> 2;
       v18 = (v16 >> 2) + 1;
       if (v18 >> 62)
@@ -3607,16 +3551,16 @@ LABEL_17:
 
       if (v21)
       {
-        std::__allocate_at_least[abi:nn200100]<std::allocator<EQKitTypes::Notation::Enum>>(a2, v21);
+        std::__allocate_at_least[abi:nn200100]<std::allocator<EQKitTypes::Notation::Enum>>(a1, v21);
       }
 
       *(4 * v17) = v11;
-      v14 = 4 * v17 + 4;
+      v14 = (4 * v17 + 4);
       memcpy(0, v15, v16);
-      v22 = *a2;
-      *a2 = 0;
-      a2[1] = v14;
-      a2[2] = 0;
+      v22 = *a1;
+      *a1 = 0;
+      a1[1] = v14;
+      a1[2] = 0;
       if (v22)
       {
         operator delete(v22);
@@ -3626,10 +3570,10 @@ LABEL_17:
     else
     {
       *v13 = v11;
-      v14 = (v13 + 4);
+      v14 = v13 + 4;
     }
 
-    a2[1] = v14;
+    a1[1] = v14;
     v4 = v10 + 1;
     v23 = HIBYTE(__str->__r_.__value_.__r.__words[2]);
     if ((v23 & 0x80u) == 0)
@@ -3714,12 +3658,12 @@ uint64_t EQKitTypes::Notation::notationFromMathMLString(const void **a1, uint64_
   return a2;
 }
 
-void EQKitTypes::Notation::notationVectorFromMathMLString(std::string *__str@<X0>, const void **a2@<X8>)
+void EQKitTypes::Notation::notationVectorFromMathMLString(const void **__return_ptr a1@<X8>, std::string *__str@<X0>)
 {
   v4 = 0;
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   do
   {
     size = HIBYTE(__str->__r_.__value_.__r.__words[2]);
@@ -3772,12 +3716,12 @@ LABEL_16:
 LABEL_17:
     std::string::basic_string(&__p, __str, v4, v10 - v4, &v30);
     v11 = EQKitTypes::Notation::notationFromMathMLString(&__p.__r_.__value_.__l.__data_, 0);
-    v13 = a2[1];
-    v12 = a2[2];
+    v13 = a1[1];
+    v12 = a1[2];
     if (v13 >= v12)
     {
-      v15 = *a2;
-      v16 = v13 - *a2;
+      v15 = *a1;
+      v16 = v13 - *a1;
       v17 = v16 >> 2;
       v18 = (v16 >> 2) + 1;
       if (v18 >> 62)
@@ -3800,16 +3744,16 @@ LABEL_17:
 
       if (v21)
       {
-        std::__allocate_at_least[abi:nn200100]<std::allocator<EQKitTypes::Notation::Enum>>(a2, v21);
+        std::__allocate_at_least[abi:nn200100]<std::allocator<EQKitTypes::Notation::Enum>>(a1, v21);
       }
 
       *(4 * v17) = v11;
-      v14 = 4 * v17 + 4;
+      v14 = (4 * v17 + 4);
       memcpy(0, v15, v16);
-      v22 = *a2;
-      *a2 = 0;
-      a2[1] = v14;
-      a2[2] = 0;
+      v22 = *a1;
+      *a1 = 0;
+      a1[1] = v14;
+      a1[2] = 0;
       if (v22)
       {
         operator delete(v22);
@@ -3819,10 +3763,10 @@ LABEL_17:
     else
     {
       *v13 = v11;
-      v14 = (v13 + 4);
+      v14 = v13 + 4;
     }
 
-    a2[1] = v14;
+    a1[1] = v14;
     v4 = v10 + 1;
     v23 = HIBYTE(__str->__r_.__value_.__r.__words[2]);
     if ((v23 & 0x80u) == 0)
@@ -3928,360 +3872,360 @@ uint64_t EQKitTypes::Edge::edgeFromMathMLString(const void **a1, uint64_t a2)
   return a2;
 }
 
-void ___ZN18EQKitMathMLElementL3mapEv_block_invoke()
+void ___ZN18EQKitMathMLElementL3mapEv_block_invoke(uint64_t a1)
 {
-  MEMORY[0x28223BE20]();
-  v350 = *MEMORY[0x277D85DE8];
-  std::string::basic_string[abi:nn200100]<0>(v0, "mi");
-  v1 = 1;
-  std::string::basic_string[abi:nn200100]<0>(v2, "mn");
-  v3 = 2;
-  std::string::basic_string[abi:nn200100]<0>(v4, "mo");
-  v5 = 3;
-  std::string::basic_string[abi:nn200100]<0>(v6, "mrow");
-  v7 = 4;
-  std::string::basic_string[abi:nn200100]<0>(v8, "semantics");
-  v9 = 5;
-  std::string::basic_string[abi:nn200100]<0>(v10, "annotation");
-  v11 = 6;
-  std::string::basic_string[abi:nn200100]<0>(v12, "mfrac");
-  v13 = 7;
-  std::string::basic_string[abi:nn200100]<0>(v14, "mphantom");
-  v15 = 8;
-  std::string::basic_string[abi:nn200100]<0>(v16, "msub");
-  v17 = 9;
-  std::string::basic_string[abi:nn200100]<0>(v18, "msup");
-  v19 = 10;
-  std::string::basic_string[abi:nn200100]<0>(v20, "msubsup");
-  v21 = 11;
-  std::string::basic_string[abi:nn200100]<0>(v22, "mfenced");
-  v23 = 12;
-  std::string::basic_string[abi:nn200100]<0>(v24, "mstyle");
-  v25 = 13;
-  std::string::basic_string[abi:nn200100]<0>(v26, "munder");
-  v27 = 14;
-  std::string::basic_string[abi:nn200100]<0>(v28, "mover");
-  v29 = 15;
-  std::string::basic_string[abi:nn200100]<0>(v30, "munderover");
-  v31 = 16;
-  std::string::basic_string[abi:nn200100]<0>(v32, "mstack");
-  v33 = 17;
-  std::string::basic_string[abi:nn200100]<0>(v34, "msgroup");
-  v35 = 18;
-  std::string::basic_string[abi:nn200100]<0>(v36, "msrow");
-  v37 = 19;
-  std::string::basic_string[abi:nn200100]<0>(v38, "msline");
-  v39 = 20;
-  std::string::basic_string[abi:nn200100]<0>(v40, "mscarries");
-  v41 = 21;
-  std::string::basic_string[abi:nn200100]<0>(v42, "mscarry");
-  v43 = 22;
-  std::string::basic_string[abi:nn200100]<0>(v44, "mlongdiv");
-  v45 = 23;
-  std::string::basic_string[abi:nn200100]<0>(v46, "mtable");
-  v47 = 24;
-  std::string::basic_string[abi:nn200100]<0>(v48, "mtr");
-  v49 = 25;
-  std::string::basic_string[abi:nn200100]<0>(v50, "mlabeledtr");
-  v51 = 26;
-  std::string::basic_string[abi:nn200100]<0>(v52, "mtd");
-  v53 = 27;
-  std::string::basic_string[abi:nn200100]<0>(v54, "none");
-  v55 = 30;
-  std::string::basic_string[abi:nn200100]<0>(v56, "mroot");
-  v57 = 28;
-  std::string::basic_string[abi:nn200100]<0>(v58, "msqrt");
-  v59 = 29;
-  std::string::basic_string[abi:nn200100]<0>(v60, "mglyph");
-  v61 = 31;
-  std::string::basic_string[abi:nn200100]<0>(v62, "ms");
-  v63 = 32;
-  std::string::basic_string[abi:nn200100]<0>(v64, "mtext");
-  v65 = 33;
-  std::string::basic_string[abi:nn200100]<0>(v66, "maction");
-  v67 = 34;
-  std::string::basic_string[abi:nn200100]<0>(v68, "mspace");
-  v69 = 35;
-  std::string::basic_string[abi:nn200100]<0>(v70, "menclose");
-  v71 = 36;
-  std::string::basic_string[abi:nn200100]<0>(v72, "mpadded");
-  v73 = 37;
-  std::string::basic_string[abi:nn200100]<0>(v74, "maligngroup");
-  v75 = 38;
-  std::string::basic_string[abi:nn200100]<0>(v76, "malignmark");
-  v77 = 39;
-  std::string::basic_string[abi:nn200100]<0>(v78, "cn");
-  v79 = 40;
-  std::string::basic_string[abi:nn200100]<0>(v80, "ci");
-  v81 = 41;
-  std::string::basic_string[abi:nn200100]<0>(v82, "csymbol");
-  v83 = 42;
-  std::string::basic_string[abi:nn200100]<0>(v84, "apply");
-  v85 = 43;
-  std::string::basic_string[abi:nn200100]<0>(v86, "bind");
-  v87 = 44;
-  std::string::basic_string[abi:nn200100]<0>(v88, "share");
-  v89 = 45;
-  std::string::basic_string[abi:nn200100]<0>(v90, "cerror");
-  v91 = 46;
-  std::string::basic_string[abi:nn200100]<0>(v92, "cbytes");
-  v93 = 47;
-  std::string::basic_string[abi:nn200100]<0>(v94, "cs");
-  v95 = 48;
-  std::string::basic_string[abi:nn200100]<0>(v96, "vector");
-  v97 = 49;
-  std::string::basic_string[abi:nn200100]<0>(v98, "matrix");
-  v99 = 50;
-  std::string::basic_string[abi:nn200100]<0>(v100, "matrixrow");
-  v101 = 51;
-  std::string::basic_string[abi:nn200100]<0>(v102, "reln");
-  v103 = 52;
-  std::string::basic_string[abi:nn200100]<0>(v104, "fn");
-  v105 = 53;
-  std::string::basic_string[abi:nn200100]<0>(v106, "declare");
-  v107 = 54;
-  std::string::basic_string[abi:nn200100]<0>(v108, "interval");
-  v109 = 55;
-  std::string::basic_string[abi:nn200100]<0>(v110, "inverse");
-  v111 = 56;
-  std::string::basic_string[abi:nn200100]<0>(v112, "ident");
-  v113 = 57;
-  std::string::basic_string[abi:nn200100]<0>(v114, "domain");
-  v115 = 58;
-  std::string::basic_string[abi:nn200100]<0>(v116, "codomain");
-  v117 = 59;
-  std::string::basic_string[abi:nn200100]<0>(v118, "image");
-  v119 = 60;
-  std::string::basic_string[abi:nn200100]<0>(v120, "ln");
-  v121 = 61;
-  std::string::basic_string[abi:nn200100]<0>(v122, "log");
-  v123 = 62;
-  std::string::basic_string[abi:nn200100]<0>(v124, "moment");
-  v125 = 63;
-  std::string::basic_string[abi:nn200100]<0>(v126, "lambda");
-  v127 = 64;
-  std::string::basic_string[abi:nn200100]<0>(v128, "compose");
-  v129 = 65;
-  std::string::basic_string[abi:nn200100]<0>(v130, "quotient");
-  v131 = 66;
-  std::string::basic_string[abi:nn200100]<0>(v132, "divide");
-  v133 = 67;
-  std::string::basic_string[abi:nn200100]<0>(v134, "minus");
-  v135 = 68;
-  std::string::basic_string[abi:nn200100]<0>(v136, "power");
-  v137 = 69;
-  std::string::basic_string[abi:nn200100]<0>(v138, "rem");
-  v139 = 70;
-  std::string::basic_string[abi:nn200100]<0>(v140, "root");
-  v141 = 71;
-  std::string::basic_string[abi:nn200100]<0>(v142, "factorial");
-  v143 = 72;
-  std::string::basic_string[abi:nn200100]<0>(v144, "abs");
-  v145 = 73;
-  std::string::basic_string[abi:nn200100]<0>(v146, "conjugate");
-  v147 = 74;
-  std::string::basic_string[abi:nn200100]<0>(v148, "arg");
-  v149 = 75;
-  std::string::basic_string[abi:nn200100]<0>(v150, "real");
-  v151 = 76;
-  std::string::basic_string[abi:nn200100]<0>(v152, "imaginary");
-  v153 = 77;
-  std::string::basic_string[abi:nn200100]<0>(v154, "floor");
-  v155 = 78;
-  std::string::basic_string[abi:nn200100]<0>(v156, "ceiling");
-  v157 = 79;
-  std::string::basic_string[abi:nn200100]<0>(v158, "exp");
-  v159 = 80;
-  std::string::basic_string[abi:nn200100]<0>(v160, "max");
-  v161 = 81;
-  std::string::basic_string[abi:nn200100]<0>(v162, "min");
-  v163 = 82;
-  std::string::basic_string[abi:nn200100]<0>(v164, "plus");
-  v165 = 83;
-  std::string::basic_string[abi:nn200100]<0>(v166, "times");
-  v167 = 84;
-  std::string::basic_string[abi:nn200100]<0>(v168, "gcd");
-  v169 = 85;
-  std::string::basic_string[abi:nn200100]<0>(v170, "lcm");
-  v171 = 86;
-  std::string::basic_string[abi:nn200100]<0>(v172, "and");
-  v173 = 87;
-  std::string::basic_string[abi:nn200100]<0>(v174, "or");
-  v175 = 88;
-  std::string::basic_string[abi:nn200100]<0>(v176, "xor");
-  v177 = 89;
-  std::string::basic_string[abi:nn200100]<0>(v178, "not");
-  v179 = 90;
-  std::string::basic_string[abi:nn200100]<0>(v180, "implies");
-  v181 = 91;
-  std::string::basic_string[abi:nn200100]<0>(v182, "equivalent");
-  v183 = 92;
-  std::string::basic_string[abi:nn200100]<0>(v184, "forall");
-  v185 = 93;
-  std::string::basic_string[abi:nn200100]<0>(v186, "exists");
-  v187 = 94;
-  std::string::basic_string[abi:nn200100]<0>(v188, "eq");
-  v189 = 95;
-  std::string::basic_string[abi:nn200100]<0>(v190, "gt");
-  v191 = 96;
-  std::string::basic_string[abi:nn200100]<0>(v192, "lt");
-  v193 = 97;
-  std::string::basic_string[abi:nn200100]<0>(v194, "geq");
-  v195 = 98;
-  std::string::basic_string[abi:nn200100]<0>(v196, "leq");
-  v197 = 99;
-  std::string::basic_string[abi:nn200100]<0>(v198, "neq");
-  v199 = 100;
-  std::string::basic_string[abi:nn200100]<0>(v200, "approx");
-  v201 = 101;
-  std::string::basic_string[abi:nn200100]<0>(v202, "factorof");
-  v203 = 102;
-  std::string::basic_string[abi:nn200100]<0>(v204, "tendsto");
-  v205 = 103;
-  std::string::basic_string[abi:nn200100]<0>(v206, "int");
-  v207 = 104;
-  std::string::basic_string[abi:nn200100]<0>(v208, "partialdiff");
-  v209 = 105;
-  std::string::basic_string[abi:nn200100]<0>(v210, "divergence");
-  v211 = 106;
-  std::string::basic_string[abi:nn200100]<0>(v212, "grad");
-  v213 = 107;
-  std::string::basic_string[abi:nn200100]<0>(v214, "curl");
-  v215 = 108;
-  std::string::basic_string[abi:nn200100]<0>(v216, "laplacian");
-  v217 = 109;
-  std::string::basic_string[abi:nn200100]<0>(v218, "set");
-  v219 = 110;
-  std::string::basic_string[abi:nn200100]<0>(v220, "list");
-  v221 = 111;
-  std::string::basic_string[abi:nn200100]<0>(v222, "union");
-  v223 = 112;
-  std::string::basic_string[abi:nn200100]<0>(v224, "intersect");
-  v225 = 113;
-  std::string::basic_string[abi:nn200100]<0>(v226, "cartesianproduct");
-  v227 = 114;
-  std::string::basic_string[abi:nn200100]<0>(v228, "in");
-  v229 = 115;
-  std::string::basic_string[abi:nn200100]<0>(v230, "notin");
-  v231 = 116;
-  std::string::basic_string[abi:nn200100]<0>(v232, "notsubset");
-  v233 = 117;
-  std::string::basic_string[abi:nn200100]<0>(v234, "notprsubset");
-  v235 = 118;
-  std::string::basic_string[abi:nn200100]<0>(v236, "setdiff");
-  v237 = 119;
-  std::string::basic_string[abi:nn200100]<0>(v238, "subset");
-  v239 = 120;
-  std::string::basic_string[abi:nn200100]<0>(v240, "prsubset");
-  v241 = 121;
-  std::string::basic_string[abi:nn200100]<0>(v242, "card");
-  v243 = 122;
-  std::string::basic_string[abi:nn200100]<0>(v244, "sum");
-  v245 = 123;
-  std::string::basic_string[abi:nn200100]<0>(v246, "product");
-  v247 = 124;
-  std::string::basic_string[abi:nn200100]<0>(v248, "limit");
-  v249 = 125;
-  std::string::basic_string[abi:nn200100]<0>(v250, "sin");
-  v251 = 126;
-  std::string::basic_string[abi:nn200100]<0>(v252, "cos");
-  v253 = 127;
-  std::string::basic_string[abi:nn200100]<0>(v254, "tan");
-  v255 = 128;
-  std::string::basic_string[abi:nn200100]<0>(v256, "sec");
-  v257 = 129;
-  std::string::basic_string[abi:nn200100]<0>(v258, "csc");
-  v259 = 130;
-  std::string::basic_string[abi:nn200100]<0>(v260, "cot");
-  v261 = 131;
-  std::string::basic_string[abi:nn200100]<0>(v262, "sinh");
-  v263 = 132;
-  std::string::basic_string[abi:nn200100]<0>(v264, "cosh");
-  v265 = 133;
-  std::string::basic_string[abi:nn200100]<0>(v266, "tanh");
-  v267 = 134;
-  std::string::basic_string[abi:nn200100]<0>(v268, "sech");
-  v269 = 135;
-  std::string::basic_string[abi:nn200100]<0>(v270, "csch");
-  v271 = 136;
-  std::string::basic_string[abi:nn200100]<0>(v272, "coth");
-  v273 = 137;
-  std::string::basic_string[abi:nn200100]<0>(v274, "arcsin");
-  v275 = 138;
-  std::string::basic_string[abi:nn200100]<0>(v276, "arccos");
-  v277 = 139;
-  std::string::basic_string[abi:nn200100]<0>(v278, "arctan");
-  v279 = 140;
-  std::string::basic_string[abi:nn200100]<0>(v280, "arccosh");
-  v281 = 141;
-  std::string::basic_string[abi:nn200100]<0>(v282, "arccot");
-  v283 = 142;
-  std::string::basic_string[abi:nn200100]<0>(v284, "arccoth");
-  v285 = 143;
-  std::string::basic_string[abi:nn200100]<0>(v286, "arccsc");
-  v287 = 144;
-  std::string::basic_string[abi:nn200100]<0>(v288, "arccsch");
-  v289 = 145;
-  std::string::basic_string[abi:nn200100]<0>(v290, "arcsec");
-  v291 = 146;
-  std::string::basic_string[abi:nn200100]<0>(v292, "arcsech");
-  v293 = 147;
-  std::string::basic_string[abi:nn200100]<0>(v294, "arcsinh");
-  v295 = 148;
-  std::string::basic_string[abi:nn200100]<0>(v296, "arctanh");
-  v297 = 149;
-  std::string::basic_string[abi:nn200100]<0>(v298, "mean");
-  v299 = 150;
-  std::string::basic_string[abi:nn200100]<0>(v300, "sdev");
-  v301 = 151;
-  std::string::basic_string[abi:nn200100]<0>(v302, "variance");
-  v303 = 152;
-  std::string::basic_string[abi:nn200100]<0>(v304, "median");
-  v305 = 153;
-  std::string::basic_string[abi:nn200100]<0>(v306, "mode");
-  v307 = 154;
-  std::string::basic_string[abi:nn200100]<0>(v308, "determinant");
-  v309 = 155;
-  std::string::basic_string[abi:nn200100]<0>(v310, "transpose");
-  v311 = 156;
-  std::string::basic_string[abi:nn200100]<0>(v312, "selector");
-  v313 = 157;
-  std::string::basic_string[abi:nn200100]<0>(v314, "vectorproduct");
-  v315 = 158;
-  std::string::basic_string[abi:nn200100]<0>(v316, "scalarproduct");
-  v317 = 159;
-  std::string::basic_string[abi:nn200100]<0>(v318, "outerproduct");
-  v319 = 160;
-  std::string::basic_string[abi:nn200100]<0>(v320, "integers");
-  v321 = 161;
-  std::string::basic_string[abi:nn200100]<0>(v322, "reals");
-  v323 = 162;
-  std::string::basic_string[abi:nn200100]<0>(v324, "rationals");
-  v325 = 163;
-  std::string::basic_string[abi:nn200100]<0>(v326, "naturalnumbers");
-  v327 = 164;
-  std::string::basic_string[abi:nn200100]<0>(v328, "complexes");
-  v329 = 165;
-  std::string::basic_string[abi:nn200100]<0>(v330, "primes");
-  v331 = 166;
-  std::string::basic_string[abi:nn200100]<0>(v332, "emptyset");
-  v333 = 167;
-  std::string::basic_string[abi:nn200100]<0>(v334, "exponentiale");
-  v335 = 168;
-  std::string::basic_string[abi:nn200100]<0>(v336, "imaginaryi");
-  v337 = 169;
-  std::string::basic_string[abi:nn200100]<0>(v338, "notanumber");
-  v339 = 170;
-  std::string::basic_string[abi:nn200100]<0>(v340, "true");
-  v341 = 171;
-  std::string::basic_string[abi:nn200100]<0>(v342, "false");
-  v343 = 172;
-  std::string::basic_string[abi:nn200100]<0>(v344, "pi");
-  v345 = 173;
-  std::string::basic_string[abi:nn200100]<0>(v346, "eulergamma");
-  v347 = 174;
-  std::string::basic_string[abi:nn200100]<0>(v348, "infinity");
-  v349 = 175;
+  MEMORY[0x28223BE20](a1);
+  v351 = *MEMORY[0x277D85DE8];
+  std::string::basic_string[abi:nn200100]<0>(v1, "mi");
+  v2 = 1;
+  std::string::basic_string[abi:nn200100]<0>(v3, "mn");
+  v4 = 2;
+  std::string::basic_string[abi:nn200100]<0>(v5, "mo");
+  v6 = 3;
+  std::string::basic_string[abi:nn200100]<0>(v7, "mrow");
+  v8 = 4;
+  std::string::basic_string[abi:nn200100]<0>(v9, "semantics");
+  v10 = 5;
+  std::string::basic_string[abi:nn200100]<0>(v11, "annotation");
+  v12 = 6;
+  std::string::basic_string[abi:nn200100]<0>(v13, "mfrac");
+  v14 = 7;
+  std::string::basic_string[abi:nn200100]<0>(v15, "mphantom");
+  v16 = 8;
+  std::string::basic_string[abi:nn200100]<0>(v17, "msub");
+  v18 = 9;
+  std::string::basic_string[abi:nn200100]<0>(v19, "msup");
+  v20 = 10;
+  std::string::basic_string[abi:nn200100]<0>(v21, "msubsup");
+  v22 = 11;
+  std::string::basic_string[abi:nn200100]<0>(v23, "mfenced");
+  v24 = 12;
+  std::string::basic_string[abi:nn200100]<0>(v25, "mstyle");
+  v26 = 13;
+  std::string::basic_string[abi:nn200100]<0>(v27, "munder");
+  v28 = 14;
+  std::string::basic_string[abi:nn200100]<0>(v29, "mover");
+  v30 = 15;
+  std::string::basic_string[abi:nn200100]<0>(v31, "munderover");
+  v32 = 16;
+  std::string::basic_string[abi:nn200100]<0>(v33, "mstack");
+  v34 = 17;
+  std::string::basic_string[abi:nn200100]<0>(v35, "msgroup");
+  v36 = 18;
+  std::string::basic_string[abi:nn200100]<0>(v37, "msrow");
+  v38 = 19;
+  std::string::basic_string[abi:nn200100]<0>(v39, "msline");
+  v40 = 20;
+  std::string::basic_string[abi:nn200100]<0>(v41, "mscarries");
+  v42 = 21;
+  std::string::basic_string[abi:nn200100]<0>(v43, "mscarry");
+  v44 = 22;
+  std::string::basic_string[abi:nn200100]<0>(v45, "mlongdiv");
+  v46 = 23;
+  std::string::basic_string[abi:nn200100]<0>(v47, "mtable");
+  v48 = 24;
+  std::string::basic_string[abi:nn200100]<0>(v49, "mtr");
+  v50 = 25;
+  std::string::basic_string[abi:nn200100]<0>(v51, "mlabeledtr");
+  v52 = 26;
+  std::string::basic_string[abi:nn200100]<0>(v53, "mtd");
+  v54 = 27;
+  std::string::basic_string[abi:nn200100]<0>(v55, "none");
+  v56 = 30;
+  std::string::basic_string[abi:nn200100]<0>(v57, "mroot");
+  v58 = 28;
+  std::string::basic_string[abi:nn200100]<0>(v59, "msqrt");
+  v60 = 29;
+  std::string::basic_string[abi:nn200100]<0>(v61, "mglyph");
+  v62 = 31;
+  std::string::basic_string[abi:nn200100]<0>(v63, "ms");
+  v64 = 32;
+  std::string::basic_string[abi:nn200100]<0>(v65, "mtext");
+  v66 = 33;
+  std::string::basic_string[abi:nn200100]<0>(v67, "maction");
+  v68 = 34;
+  std::string::basic_string[abi:nn200100]<0>(v69, "mspace");
+  v70 = 35;
+  std::string::basic_string[abi:nn200100]<0>(v71, "menclose");
+  v72 = 36;
+  std::string::basic_string[abi:nn200100]<0>(v73, "mpadded");
+  v74 = 37;
+  std::string::basic_string[abi:nn200100]<0>(v75, "maligngroup");
+  v76 = 38;
+  std::string::basic_string[abi:nn200100]<0>(v77, "malignmark");
+  v78 = 39;
+  std::string::basic_string[abi:nn200100]<0>(v79, "cn");
+  v80 = 40;
+  std::string::basic_string[abi:nn200100]<0>(v81, "ci");
+  v82 = 41;
+  std::string::basic_string[abi:nn200100]<0>(v83, "csymbol");
+  v84 = 42;
+  std::string::basic_string[abi:nn200100]<0>(v85, "apply");
+  v86 = 43;
+  std::string::basic_string[abi:nn200100]<0>(v87, "bind");
+  v88 = 44;
+  std::string::basic_string[abi:nn200100]<0>(v89, "share");
+  v90 = 45;
+  std::string::basic_string[abi:nn200100]<0>(v91, "cerror");
+  v92 = 46;
+  std::string::basic_string[abi:nn200100]<0>(v93, "cbytes");
+  v94 = 47;
+  std::string::basic_string[abi:nn200100]<0>(v95, "cs");
+  v96 = 48;
+  std::string::basic_string[abi:nn200100]<0>(v97, "vector");
+  v98 = 49;
+  std::string::basic_string[abi:nn200100]<0>(v99, "matrix");
+  v100 = 50;
+  std::string::basic_string[abi:nn200100]<0>(v101, "matrixrow");
+  v102 = 51;
+  std::string::basic_string[abi:nn200100]<0>(v103, "reln");
+  v104 = 52;
+  std::string::basic_string[abi:nn200100]<0>(v105, "fn");
+  v106 = 53;
+  std::string::basic_string[abi:nn200100]<0>(v107, "declare");
+  v108 = 54;
+  std::string::basic_string[abi:nn200100]<0>(v109, "interval");
+  v110 = 55;
+  std::string::basic_string[abi:nn200100]<0>(v111, "inverse");
+  v112 = 56;
+  std::string::basic_string[abi:nn200100]<0>(v113, "ident");
+  v114 = 57;
+  std::string::basic_string[abi:nn200100]<0>(v115, "domain");
+  v116 = 58;
+  std::string::basic_string[abi:nn200100]<0>(v117, "codomain");
+  v118 = 59;
+  std::string::basic_string[abi:nn200100]<0>(v119, "image");
+  v120 = 60;
+  std::string::basic_string[abi:nn200100]<0>(v121, "ln");
+  v122 = 61;
+  std::string::basic_string[abi:nn200100]<0>(v123, "log");
+  v124 = 62;
+  std::string::basic_string[abi:nn200100]<0>(v125, "moment");
+  v126 = 63;
+  std::string::basic_string[abi:nn200100]<0>(v127, "lambda");
+  v128 = 64;
+  std::string::basic_string[abi:nn200100]<0>(v129, "compose");
+  v130 = 65;
+  std::string::basic_string[abi:nn200100]<0>(v131, "quotient");
+  v132 = 66;
+  std::string::basic_string[abi:nn200100]<0>(v133, "divide");
+  v134 = 67;
+  std::string::basic_string[abi:nn200100]<0>(v135, "minus");
+  v136 = 68;
+  std::string::basic_string[abi:nn200100]<0>(v137, "power");
+  v138 = 69;
+  std::string::basic_string[abi:nn200100]<0>(v139, "rem");
+  v140 = 70;
+  std::string::basic_string[abi:nn200100]<0>(v141, "root");
+  v142 = 71;
+  std::string::basic_string[abi:nn200100]<0>(v143, "factorial");
+  v144 = 72;
+  std::string::basic_string[abi:nn200100]<0>(v145, "abs");
+  v146 = 73;
+  std::string::basic_string[abi:nn200100]<0>(v147, "conjugate");
+  v148 = 74;
+  std::string::basic_string[abi:nn200100]<0>(v149, "arg");
+  v150 = 75;
+  std::string::basic_string[abi:nn200100]<0>(v151, "real");
+  v152 = 76;
+  std::string::basic_string[abi:nn200100]<0>(v153, "imaginary");
+  v154 = 77;
+  std::string::basic_string[abi:nn200100]<0>(v155, "floor");
+  v156 = 78;
+  std::string::basic_string[abi:nn200100]<0>(v157, "ceiling");
+  v158 = 79;
+  std::string::basic_string[abi:nn200100]<0>(v159, "exp");
+  v160 = 80;
+  std::string::basic_string[abi:nn200100]<0>(v161, "max");
+  v162 = 81;
+  std::string::basic_string[abi:nn200100]<0>(v163, "min");
+  v164 = 82;
+  std::string::basic_string[abi:nn200100]<0>(v165, "plus");
+  v166 = 83;
+  std::string::basic_string[abi:nn200100]<0>(v167, "times");
+  v168 = 84;
+  std::string::basic_string[abi:nn200100]<0>(v169, "gcd");
+  v170 = 85;
+  std::string::basic_string[abi:nn200100]<0>(v171, "lcm");
+  v172 = 86;
+  std::string::basic_string[abi:nn200100]<0>(v173, "and");
+  v174 = 87;
+  std::string::basic_string[abi:nn200100]<0>(v175, "or");
+  v176 = 88;
+  std::string::basic_string[abi:nn200100]<0>(v177, "xor");
+  v178 = 89;
+  std::string::basic_string[abi:nn200100]<0>(v179, "not");
+  v180 = 90;
+  std::string::basic_string[abi:nn200100]<0>(v181, "implies");
+  v182 = 91;
+  std::string::basic_string[abi:nn200100]<0>(v183, "equivalent");
+  v184 = 92;
+  std::string::basic_string[abi:nn200100]<0>(v185, "forall");
+  v186 = 93;
+  std::string::basic_string[abi:nn200100]<0>(v187, "exists");
+  v188 = 94;
+  std::string::basic_string[abi:nn200100]<0>(v189, "eq");
+  v190 = 95;
+  std::string::basic_string[abi:nn200100]<0>(v191, "gt");
+  v192 = 96;
+  std::string::basic_string[abi:nn200100]<0>(v193, "lt");
+  v194 = 97;
+  std::string::basic_string[abi:nn200100]<0>(v195, "geq");
+  v196 = 98;
+  std::string::basic_string[abi:nn200100]<0>(v197, "leq");
+  v198 = 99;
+  std::string::basic_string[abi:nn200100]<0>(v199, "neq");
+  v200 = 100;
+  std::string::basic_string[abi:nn200100]<0>(v201, "approx");
+  v202 = 101;
+  std::string::basic_string[abi:nn200100]<0>(v203, "factorof");
+  v204 = 102;
+  std::string::basic_string[abi:nn200100]<0>(v205, "tendsto");
+  v206 = 103;
+  std::string::basic_string[abi:nn200100]<0>(v207, "int");
+  v208 = 104;
+  std::string::basic_string[abi:nn200100]<0>(v209, "partialdiff");
+  v210 = 105;
+  std::string::basic_string[abi:nn200100]<0>(v211, "divergence");
+  v212 = 106;
+  std::string::basic_string[abi:nn200100]<0>(v213, "grad");
+  v214 = 107;
+  std::string::basic_string[abi:nn200100]<0>(v215, "curl");
+  v216 = 108;
+  std::string::basic_string[abi:nn200100]<0>(v217, "laplacian");
+  v218 = 109;
+  std::string::basic_string[abi:nn200100]<0>(v219, "set");
+  v220 = 110;
+  std::string::basic_string[abi:nn200100]<0>(v221, "list");
+  v222 = 111;
+  std::string::basic_string[abi:nn200100]<0>(v223, "union");
+  v224 = 112;
+  std::string::basic_string[abi:nn200100]<0>(v225, "intersect");
+  v226 = 113;
+  std::string::basic_string[abi:nn200100]<0>(v227, "cartesianproduct");
+  v228 = 114;
+  std::string::basic_string[abi:nn200100]<0>(v229, "in");
+  v230 = 115;
+  std::string::basic_string[abi:nn200100]<0>(v231, "notin");
+  v232 = 116;
+  std::string::basic_string[abi:nn200100]<0>(v233, "notsubset");
+  v234 = 117;
+  std::string::basic_string[abi:nn200100]<0>(v235, "notprsubset");
+  v236 = 118;
+  std::string::basic_string[abi:nn200100]<0>(v237, "setdiff");
+  v238 = 119;
+  std::string::basic_string[abi:nn200100]<0>(v239, "subset");
+  v240 = 120;
+  std::string::basic_string[abi:nn200100]<0>(v241, "prsubset");
+  v242 = 121;
+  std::string::basic_string[abi:nn200100]<0>(v243, "card");
+  v244 = 122;
+  std::string::basic_string[abi:nn200100]<0>(v245, "sum");
+  v246 = 123;
+  std::string::basic_string[abi:nn200100]<0>(v247, "product");
+  v248 = 124;
+  std::string::basic_string[abi:nn200100]<0>(v249, "limit");
+  v250 = 125;
+  std::string::basic_string[abi:nn200100]<0>(v251, "sin");
+  v252 = 126;
+  std::string::basic_string[abi:nn200100]<0>(v253, "cos");
+  v254 = 127;
+  std::string::basic_string[abi:nn200100]<0>(v255, "tan");
+  v256 = 128;
+  std::string::basic_string[abi:nn200100]<0>(v257, "sec");
+  v258 = 129;
+  std::string::basic_string[abi:nn200100]<0>(v259, "csc");
+  v260 = 130;
+  std::string::basic_string[abi:nn200100]<0>(v261, "cot");
+  v262 = 131;
+  std::string::basic_string[abi:nn200100]<0>(v263, "sinh");
+  v264 = 132;
+  std::string::basic_string[abi:nn200100]<0>(v265, "cosh");
+  v266 = 133;
+  std::string::basic_string[abi:nn200100]<0>(v267, "tanh");
+  v268 = 134;
+  std::string::basic_string[abi:nn200100]<0>(v269, "sech");
+  v270 = 135;
+  std::string::basic_string[abi:nn200100]<0>(v271, "csch");
+  v272 = 136;
+  std::string::basic_string[abi:nn200100]<0>(v273, "coth");
+  v274 = 137;
+  std::string::basic_string[abi:nn200100]<0>(v275, "arcsin");
+  v276 = 138;
+  std::string::basic_string[abi:nn200100]<0>(v277, "arccos");
+  v278 = 139;
+  std::string::basic_string[abi:nn200100]<0>(v279, "arctan");
+  v280 = 140;
+  std::string::basic_string[abi:nn200100]<0>(v281, "arccosh");
+  v282 = 141;
+  std::string::basic_string[abi:nn200100]<0>(v283, "arccot");
+  v284 = 142;
+  std::string::basic_string[abi:nn200100]<0>(v285, "arccoth");
+  v286 = 143;
+  std::string::basic_string[abi:nn200100]<0>(v287, "arccsc");
+  v288 = 144;
+  std::string::basic_string[abi:nn200100]<0>(v289, "arccsch");
+  v290 = 145;
+  std::string::basic_string[abi:nn200100]<0>(v291, "arcsec");
+  v292 = 146;
+  std::string::basic_string[abi:nn200100]<0>(v293, "arcsech");
+  v294 = 147;
+  std::string::basic_string[abi:nn200100]<0>(v295, "arcsinh");
+  v296 = 148;
+  std::string::basic_string[abi:nn200100]<0>(v297, "arctanh");
+  v298 = 149;
+  std::string::basic_string[abi:nn200100]<0>(v299, "mean");
+  v300 = 150;
+  std::string::basic_string[abi:nn200100]<0>(v301, "sdev");
+  v302 = 151;
+  std::string::basic_string[abi:nn200100]<0>(v303, "variance");
+  v304 = 152;
+  std::string::basic_string[abi:nn200100]<0>(v305, "median");
+  v306 = 153;
+  std::string::basic_string[abi:nn200100]<0>(v307, "mode");
+  v308 = 154;
+  std::string::basic_string[abi:nn200100]<0>(v309, "determinant");
+  v310 = 155;
+  std::string::basic_string[abi:nn200100]<0>(v311, "transpose");
+  v312 = 156;
+  std::string::basic_string[abi:nn200100]<0>(v313, "selector");
+  v314 = 157;
+  std::string::basic_string[abi:nn200100]<0>(v315, "vectorproduct");
+  v316 = 158;
+  std::string::basic_string[abi:nn200100]<0>(v317, "scalarproduct");
+  v318 = 159;
+  std::string::basic_string[abi:nn200100]<0>(v319, "outerproduct");
+  v320 = 160;
+  std::string::basic_string[abi:nn200100]<0>(v321, "integers");
+  v322 = 161;
+  std::string::basic_string[abi:nn200100]<0>(v323, "reals");
+  v324 = 162;
+  std::string::basic_string[abi:nn200100]<0>(v325, "rationals");
+  v326 = 163;
+  std::string::basic_string[abi:nn200100]<0>(v327, "naturalnumbers");
+  v328 = 164;
+  std::string::basic_string[abi:nn200100]<0>(v329, "complexes");
+  v330 = 165;
+  std::string::basic_string[abi:nn200100]<0>(v331, "primes");
+  v332 = 166;
+  std::string::basic_string[abi:nn200100]<0>(v333, "emptyset");
+  v334 = 167;
+  std::string::basic_string[abi:nn200100]<0>(v335, "exponentiale");
+  v336 = 168;
+  std::string::basic_string[abi:nn200100]<0>(v337, "imaginaryi");
+  v338 = 169;
+  std::string::basic_string[abi:nn200100]<0>(v339, "notanumber");
+  v340 = 170;
+  std::string::basic_string[abi:nn200100]<0>(v341, "true");
+  v342 = 171;
+  std::string::basic_string[abi:nn200100]<0>(v343, "false");
+  v344 = 172;
+  std::string::basic_string[abi:nn200100]<0>(v345, "pi");
+  v346 = 173;
+  std::string::basic_string[abi:nn200100]<0>(v347, "eulergamma");
+  v348 = 174;
+  std::string::basic_string[abi:nn200100]<0>(v349, "infinity");
+  v350 = 175;
   operator new();
 }
 
@@ -4309,18 +4253,18 @@ void sub_26C7233FC(_Unwind_Exception *a1)
   }
 }
 
-void *std::map<std::string const,EQKitMathMLElement::Enum>::map[abi:nn200100]<std::pair<std::string const,EQKitMathMLElement::Enum> const*>(void *a1, const void **a2, const void **a3)
+uint64_t **std::map<std::string const,EQKitMathMLElement::Enum>::map[abi:nn200100]<std::pair<std::string const,EQKitMathMLElement::Enum> const*>(uint64_t **a1, const void **a2, const void **a3)
 {
   a1[1] = 0;
-  v4 = (a1 + 1);
+  v4 = a1 + 1;
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a2 != a3)
   {
     v6 = a2;
     do
     {
-      std::__tree<std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::__map_value_compare<std::string const,std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::less<std::string const>,true>,std::allocator<std::__value_type<std::string const,EQKitMathMLElement::Enum>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,EQKitMathMLElement::Enum> const&>(a1, v4, v6);
+      std::__tree<std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::__map_value_compare<std::string const,std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::less<std::string const>,true>,std::allocator<std::__value_type<std::string const,EQKitMathMLElement::Enum>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,EQKitMathMLElement::Enum> const&>(a1, v4, v6, v6);
       v6 += 4;
     }
 
@@ -4330,9 +4274,9 @@ void *std::map<std::string const,EQKitMathMLElement::Enum>::map[abi:nn200100]<st
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::__map_value_compare<std::string const,std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::less<std::string const>,true>,std::allocator<std::__value_type<std::string const,EQKitMathMLElement::Enum>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,EQKitMathMLElement::Enum> const&>(void *a1, uint64_t a2, const void **a3)
+void *std::__tree<std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::__map_value_compare<std::string const,std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::less<std::string const>,true>,std::allocator<std::__value_type<std::string const,EQKitMathMLElement::Enum>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,EQKitMathMLElement::Enum> const&>(uint64_t **a1, void *a2, const void **a3, uint64_t a4)
 {
-  result = *std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::__find_equal<std::string>(a1, a2, &v5, &v4, a3);
+  result = *std::__tree<std::__value_type<std::string,unsigned short>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned short>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned short>>>::__find_equal<std::string>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::__map_value_compare<std::string const,std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::less<std::string const>,true>,std::allocator<std::__value_type<std::string const,EQKitMathMLElement::Enum>>>::__construct_node<std::pair<std::string const,EQKitMathMLElement::Enum> const&>();
@@ -4358,10 +4302,10 @@ void ___ZN10EQKitTypes7DisplayL3mapEv_block_invoke()
   operator new();
 }
 
-void sub_26C7239E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
+void sub_26C7239E4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
 {
   v23 = v22;
-  MEMORY[0x26D6A9A30](v23, 0x1020C4062D53EE8);
+  MEMORY[0x26D6A9A30](v23, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
   v25 = &a22;
   v26 = -64;
   v27 = &a22;
@@ -4383,18 +4327,18 @@ void sub_26C7239E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   }
 }
 
-void *std::map<std::string const,EQKitTypes::Display::Enum>::map[abi:nn200100]<std::pair<std::string const,EQKitTypes::Display::Enum> const*>(void *a1, const void **a2, const void **a3)
+uint64_t std::map<std::string const,EQKitTypes::Display::Enum>::map[abi:nn200100]<std::pair<std::string const,EQKitTypes::Display::Enum> const*>(uint64_t a1, const void **a2, const void **a3)
 {
-  a1[1] = 0;
-  v4 = (a1 + 1);
-  a1[2] = 0;
-  *a1 = a1 + 1;
+  *(a1 + 8) = 0;
+  v4 = (a1 + 8);
+  *(a1 + 16) = 0;
+  *a1 = a1 + 8;
   if (a2 != a3)
   {
     v6 = a2;
     do
     {
-      std::__tree<std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::__map_value_compare<std::string const,std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::less<std::string const>,true>,std::allocator<std::__value_type<std::string const,EQKitMathMLElement::Enum>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,EQKitMathMLElement::Enum> const&>(a1, v4, v6);
+      std::__tree<std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::__map_value_compare<std::string const,std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::less<std::string const>,true>,std::allocator<std::__value_type<std::string const,EQKitMathMLElement::Enum>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,EQKitMathMLElement::Enum> const&>(a1, v4, v6, v6);
       v6 += 4;
     }
 
@@ -4470,18 +4414,18 @@ void sub_26C723DB0(_Unwind_Exception *a1)
   }
 }
 
-void *std::map<std::string const,EQKit::Script::Variant>::map[abi:nn200100]<std::pair<std::string const,EQKit::Script::Variant> const*>(void *a1, const void **a2, const void **a3)
+uint64_t std::map<std::string const,EQKit::Script::Variant>::map[abi:nn200100]<std::pair<std::string const,EQKit::Script::Variant> const*>(uint64_t a1, const void **a2, const void **a3)
 {
-  a1[1] = 0;
-  v4 = (a1 + 1);
-  a1[2] = 0;
-  *a1 = a1 + 1;
+  *(a1 + 8) = 0;
+  v4 = (a1 + 8);
+  *(a1 + 16) = 0;
+  *a1 = a1 + 8;
   if (a2 != a3)
   {
     v6 = a2;
     do
     {
-      std::__tree<std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::__map_value_compare<std::string const,std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::less<std::string const>,true>,std::allocator<std::__value_type<std::string const,EQKitMathMLElement::Enum>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,EQKitMathMLElement::Enum> const&>(a1, v4, v6);
+      std::__tree<std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::__map_value_compare<std::string const,std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::less<std::string const>,true>,std::allocator<std::__value_type<std::string const,EQKitMathMLElement::Enum>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,EQKitMathMLElement::Enum> const&>(a1, v4, v6, v6);
       v6 += 4;
     }
 
@@ -4505,7 +4449,7 @@ void ___ZN5EQKit6Config8OperatorL3mapEv_block_invoke()
 
 void sub_26C724008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
 {
-  MEMORY[0x26D6A9A30](v23, 0x1020C4062D53EE8);
+  MEMORY[0x26D6A9A30](v23, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
   v25 = &a23;
   v26 = -96;
   v27 = &a23;
@@ -4527,18 +4471,18 @@ void sub_26C724008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 }
 
-void *std::map<std::string const,EQKit::Config::Operator::Form>::map[abi:nn200100]<std::pair<std::string const,EQKit::Config::Operator::Form> const*>(void *a1, const void **a2, const void **a3)
+uint64_t std::map<std::string const,EQKit::Config::Operator::Form>::map[abi:nn200100]<std::pair<std::string const,EQKit::Config::Operator::Form> const*>(uint64_t a1, const void **a2, const void **a3)
 {
-  a1[1] = 0;
-  v4 = (a1 + 1);
-  a1[2] = 0;
-  *a1 = a1 + 1;
+  *(a1 + 8) = 0;
+  v4 = (a1 + 8);
+  *(a1 + 16) = 0;
+  *a1 = a1 + 8;
   if (a2 != a3)
   {
     v6 = a2;
     do
     {
-      std::__tree<std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::__map_value_compare<std::string const,std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::less<std::string const>,true>,std::allocator<std::__value_type<std::string const,EQKitMathMLElement::Enum>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,EQKitMathMLElement::Enum> const&>(a1, v4, v6);
+      std::__tree<std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::__map_value_compare<std::string const,std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::less<std::string const>,true>,std::allocator<std::__value_type<std::string const,EQKitMathMLElement::Enum>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,EQKitMathMLElement::Enum> const&>(a1, v4, v6, v6);
       v6 += 4;
     }
 
@@ -4562,7 +4506,7 @@ void ___ZN10EQKitTypes5AlignL3mapEv_block_invoke()
 
 void sub_26C724224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
 {
-  MEMORY[0x26D6A9A30](v23, 0x1020C4062D53EE8);
+  MEMORY[0x26D6A9A30](v23, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
   v25 = &a23;
   v26 = -96;
   v27 = &a23;
@@ -4584,18 +4528,18 @@ void sub_26C724224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 }
 
-void *std::map<std::string const,EQKitTypes::Align::Enum>::map[abi:nn200100]<std::pair<std::string const,EQKitTypes::Align::Enum> const*>(void *a1, const void **a2, const void **a3)
+uint64_t std::map<std::string const,EQKitTypes::Align::Enum>::map[abi:nn200100]<std::pair<std::string const,EQKitTypes::Align::Enum> const*>(uint64_t a1, const void **a2, const void **a3)
 {
-  a1[1] = 0;
-  v4 = (a1 + 1);
-  a1[2] = 0;
-  *a1 = a1 + 1;
+  *(a1 + 8) = 0;
+  v4 = (a1 + 8);
+  *(a1 + 16) = 0;
+  *a1 = a1 + 8;
   if (a2 != a3)
   {
     v6 = a2;
     do
     {
-      std::__tree<std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::__map_value_compare<std::string const,std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::less<std::string const>,true>,std::allocator<std::__value_type<std::string const,EQKitMathMLElement::Enum>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,EQKitMathMLElement::Enum> const&>(a1, v4, v6);
+      std::__tree<std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::__map_value_compare<std::string const,std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::less<std::string const>,true>,std::allocator<std::__value_type<std::string const,EQKitMathMLElement::Enum>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,EQKitMathMLElement::Enum> const&>(a1, v4, v6, v6);
       v6 += 4;
     }
 
@@ -4623,7 +4567,7 @@ void ___ZN10EQKitTypes6VAlignL3mapEv_block_invoke()
 
 void sub_26C724480(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, int a28, __int16 a29, char a30, char a31)
 {
-  MEMORY[0x26D6A9A30](v31, 0x1020C4062D53EE8);
+  MEMORY[0x26D6A9A30](v31, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
   v33 = &a31;
   v34 = -160;
   v35 = &a31;
@@ -4645,18 +4589,18 @@ void sub_26C724480(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 }
 
-void *std::map<std::string const,EQKitTypes::VAlign::Enum>::map[abi:nn200100]<std::pair<std::string const,EQKitTypes::VAlign::Enum> const*>(void *a1, const void **a2, const void **a3)
+uint64_t std::map<std::string const,EQKitTypes::VAlign::Enum>::map[abi:nn200100]<std::pair<std::string const,EQKitTypes::VAlign::Enum> const*>(uint64_t a1, const void **a2, const void **a3)
 {
-  a1[1] = 0;
-  v4 = (a1 + 1);
-  a1[2] = 0;
-  *a1 = a1 + 1;
+  *(a1 + 8) = 0;
+  v4 = (a1 + 8);
+  *(a1 + 16) = 0;
+  *a1 = a1 + 8;
   if (a2 != a3)
   {
     v6 = a2;
     do
     {
-      std::__tree<std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::__map_value_compare<std::string const,std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::less<std::string const>,true>,std::allocator<std::__value_type<std::string const,EQKitMathMLElement::Enum>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,EQKitMathMLElement::Enum> const&>(a1, v4, v6);
+      std::__tree<std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::__map_value_compare<std::string const,std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::less<std::string const>,true>,std::allocator<std::__value_type<std::string const,EQKitMathMLElement::Enum>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,EQKitMathMLElement::Enum> const&>(a1, v4, v6, v6);
       v6 += 4;
     }
 
@@ -4676,10 +4620,10 @@ void ___ZN10EQKitTypes7BooleanL3mapEv_block_invoke()
   operator new();
 }
 
-void sub_26C724680(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
+void sub_26C724680(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
 {
   v23 = v22;
-  MEMORY[0x26D6A9A30](v23, 0x1020C4062D53EE8);
+  MEMORY[0x26D6A9A30](v23, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
   v25 = &a22;
   v26 = -64;
   v27 = &a22;
@@ -4701,18 +4645,18 @@ void sub_26C724680(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   }
 }
 
-void *std::map<std::string const,EQKitTypes::Boolean::Enum>::map[abi:nn200100]<std::pair<std::string const,EQKitTypes::Boolean::Enum> const*>(void *a1, const void **a2, const void **a3)
+uint64_t std::map<std::string const,EQKitTypes::Boolean::Enum>::map[abi:nn200100]<std::pair<std::string const,EQKitTypes::Boolean::Enum> const*>(uint64_t a1, const void **a2, const void **a3)
 {
-  a1[1] = 0;
-  v4 = (a1 + 1);
-  a1[2] = 0;
-  *a1 = a1 + 1;
+  *(a1 + 8) = 0;
+  v4 = (a1 + 8);
+  *(a1 + 16) = 0;
+  *a1 = a1 + 8;
   if (a2 != a3)
   {
     v6 = a2;
     do
     {
-      std::__tree<std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::__map_value_compare<std::string const,std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::less<std::string const>,true>,std::allocator<std::__value_type<std::string const,EQKitMathMLElement::Enum>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,EQKitMathMLElement::Enum> const&>(a1, v4, v6);
+      std::__tree<std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::__map_value_compare<std::string const,std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::less<std::string const>,true>,std::allocator<std::__value_type<std::string const,EQKitMathMLElement::Enum>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,EQKitMathMLElement::Enum> const&>(a1, v4, v6, v6);
       v6 += 4;
     }
 
@@ -4836,18 +4780,18 @@ void sub_26C724D1C(_Unwind_Exception *a1)
   }
 }
 
-void *std::map<std::string const,EQKitTypes::Attributes::Enum>::map[abi:nn200100]<std::pair<std::string const,EQKitTypes::Attributes::Enum> const*>(void *a1, const void **a2, const void **a3)
+uint64_t std::map<std::string const,EQKitTypes::Attributes::Enum>::map[abi:nn200100]<std::pair<std::string const,EQKitTypes::Attributes::Enum> const*>(uint64_t a1, const void **a2, const void **a3)
 {
-  a1[1] = 0;
-  v4 = (a1 + 1);
-  a1[2] = 0;
-  *a1 = a1 + 1;
+  *(a1 + 8) = 0;
+  v4 = (a1 + 8);
+  *(a1 + 16) = 0;
+  *a1 = a1 + 8;
   if (a2 != a3)
   {
     v6 = a2;
     do
     {
-      std::__tree<std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::__map_value_compare<std::string const,std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::less<std::string const>,true>,std::allocator<std::__value_type<std::string const,EQKitMathMLElement::Enum>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,EQKitMathMLElement::Enum> const&>(a1, v4, v6);
+      std::__tree<std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::__map_value_compare<std::string const,std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::less<std::string const>,true>,std::allocator<std::__value_type<std::string const,EQKitMathMLElement::Enum>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,EQKitMathMLElement::Enum> const&>(a1, v4, v6, v6);
       v6 += 4;
     }
 
@@ -4875,7 +4819,7 @@ void ___ZN10EQKitTypes8CrossoutL3mapEv_block_invoke()
 
 void sub_26C725010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, int a28, __int16 a29, char a30, char a31)
 {
-  MEMORY[0x26D6A9A30](v31, 0x1020C4062D53EE8);
+  MEMORY[0x26D6A9A30](v31, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
   v33 = &a31;
   v34 = -160;
   v35 = &a31;
@@ -4897,18 +4841,18 @@ void sub_26C725010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 }
 
-void *std::map<std::string const,EQKitTypes::Crossout::Enum>::map[abi:nn200100]<std::pair<std::string const,EQKitTypes::Crossout::Enum> const*>(void *a1, const void **a2, const void **a3)
+uint64_t std::map<std::string const,EQKitTypes::Crossout::Enum>::map[abi:nn200100]<std::pair<std::string const,EQKitTypes::Crossout::Enum> const*>(uint64_t a1, const void **a2, const void **a3)
 {
-  a1[1] = 0;
-  v4 = (a1 + 1);
-  a1[2] = 0;
-  *a1 = a1 + 1;
+  *(a1 + 8) = 0;
+  v4 = (a1 + 8);
+  *(a1 + 16) = 0;
+  *a1 = a1 + 8;
   if (a2 != a3)
   {
     v6 = a2;
     do
     {
-      std::__tree<std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::__map_value_compare<std::string const,std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::less<std::string const>,true>,std::allocator<std::__value_type<std::string const,EQKitMathMLElement::Enum>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,EQKitMathMLElement::Enum> const&>(a1, v4, v6);
+      std::__tree<std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::__map_value_compare<std::string const,std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::less<std::string const>,true>,std::allocator<std::__value_type<std::string const,EQKitMathMLElement::Enum>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,EQKitMathMLElement::Enum> const&>(a1, v4, v6, v6);
       v6 += 4;
     }
 
@@ -4936,7 +4880,7 @@ void ___ZN10EQKitTypes8NotationL3mapEv_block_invoke()
 
 void sub_26C725270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, int a28, __int16 a29, char a30, char a31)
 {
-  MEMORY[0x26D6A9A30](v31, 0x1020C4062D53EE8);
+  MEMORY[0x26D6A9A30](v31, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
   v33 = &a31;
   v34 = -160;
   v35 = &a31;
@@ -4958,18 +4902,18 @@ void sub_26C725270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 }
 
-void *std::map<std::string const,EQKitTypes::Notation::Enum>::map[abi:nn200100]<std::pair<std::string const,EQKitTypes::Notation::Enum> const*>(void *a1, const void **a2, const void **a3)
+uint64_t std::map<std::string const,EQKitTypes::Notation::Enum>::map[abi:nn200100]<std::pair<std::string const,EQKitTypes::Notation::Enum> const*>(uint64_t a1, const void **a2, const void **a3)
 {
-  a1[1] = 0;
-  v4 = (a1 + 1);
-  a1[2] = 0;
-  *a1 = a1 + 1;
+  *(a1 + 8) = 0;
+  v4 = (a1 + 8);
+  *(a1 + 16) = 0;
+  *a1 = a1 + 8;
   if (a2 != a3)
   {
     v6 = a2;
     do
     {
-      std::__tree<std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::__map_value_compare<std::string const,std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::less<std::string const>,true>,std::allocator<std::__value_type<std::string const,EQKitMathMLElement::Enum>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,EQKitMathMLElement::Enum> const&>(a1, v4, v6);
+      std::__tree<std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::__map_value_compare<std::string const,std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::less<std::string const>,true>,std::allocator<std::__value_type<std::string const,EQKitMathMLElement::Enum>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,EQKitMathMLElement::Enum> const&>(a1, v4, v6, v6);
       v6 += 4;
     }
 
@@ -4995,7 +4939,7 @@ void ___ZN10EQKitTypes10GroupAlignL3mapEv_block_invoke()
 
 void sub_26C7254B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
-  MEMORY[0x26D6A9A30](v27, 0x1020C4062D53EE8);
+  MEMORY[0x26D6A9A30](v27, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
   v29 = &a27;
   v30 = -128;
   v31 = &a27;
@@ -5017,18 +4961,18 @@ void sub_26C7254B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 }
 
-void *std::map<std::string const,EQKitTypes::GroupAlign::Enum>::map[abi:nn200100]<std::pair<std::string const,EQKitTypes::GroupAlign::Enum> const*>(void *a1, const void **a2, const void **a3)
+uint64_t std::map<std::string const,EQKitTypes::GroupAlign::Enum>::map[abi:nn200100]<std::pair<std::string const,EQKitTypes::GroupAlign::Enum> const*>(uint64_t a1, const void **a2, const void **a3)
 {
-  a1[1] = 0;
-  v4 = (a1 + 1);
-  a1[2] = 0;
-  *a1 = a1 + 1;
+  *(a1 + 8) = 0;
+  v4 = (a1 + 8);
+  *(a1 + 16) = 0;
+  *a1 = a1 + 8;
   if (a2 != a3)
   {
     v6 = a2;
     do
     {
-      std::__tree<std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::__map_value_compare<std::string const,std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::less<std::string const>,true>,std::allocator<std::__value_type<std::string const,EQKitMathMLElement::Enum>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,EQKitMathMLElement::Enum> const&>(a1, v4, v6);
+      std::__tree<std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::__map_value_compare<std::string const,std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::less<std::string const>,true>,std::allocator<std::__value_type<std::string const,EQKitMathMLElement::Enum>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,EQKitMathMLElement::Enum> const&>(a1, v4, v6, v6);
       v6 += 4;
     }
 
@@ -5048,10 +4992,10 @@ void ___ZN10EQKitTypes4EdgeL3mapEv_block_invoke()
   operator new();
 }
 
-void sub_26C7256AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
+void sub_26C7256AC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
 {
   v23 = v22;
-  MEMORY[0x26D6A9A30](v23, 0x1020C4062D53EE8);
+  MEMORY[0x26D6A9A30](v23, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
   v25 = &a22;
   v26 = -64;
   v27 = &a22;
@@ -5073,18 +5017,18 @@ void sub_26C7256AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   }
 }
 
-void *std::map<std::string const,EQKitTypes::Edge::Enum>::map[abi:nn200100]<std::pair<std::string const,EQKitTypes::Edge::Enum> const*>(void *a1, const void **a2, const void **a3)
+uint64_t std::map<std::string const,EQKitTypes::Edge::Enum>::map[abi:nn200100]<std::pair<std::string const,EQKitTypes::Edge::Enum> const*>(uint64_t a1, const void **a2, const void **a3)
 {
-  a1[1] = 0;
-  v4 = (a1 + 1);
-  a1[2] = 0;
-  *a1 = a1 + 1;
+  *(a1 + 8) = 0;
+  v4 = (a1 + 8);
+  *(a1 + 16) = 0;
+  *a1 = a1 + 8;
   if (a2 != a3)
   {
     v6 = a2;
     do
     {
-      std::__tree<std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::__map_value_compare<std::string const,std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::less<std::string const>,true>,std::allocator<std::__value_type<std::string const,EQKitMathMLElement::Enum>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,EQKitMathMLElement::Enum> const&>(a1, v4, v6);
+      std::__tree<std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::__map_value_compare<std::string const,std::__value_type<std::string const,EQKitMathMLElement::Enum>,std::less<std::string const>,true>,std::allocator<std::__value_type<std::string const,EQKitMathMLElement::Enum>>>::__emplace_hint_unique_key_args<std::string,std::pair<std::string const,EQKitMathMLElement::Enum> const&>(a1, v4, v6, v6);
       v6 += 4;
     }
 
@@ -5322,9 +5266,9 @@ CGPath *EQKitStretchedGlyph::createScaledPathWithWidth(EQKitStretchedGlyph *this
   return Mutable;
 }
 
-void sub_26C7261AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C7261AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   EQKitPath::~EQKitPath(va);
   _Unwind_Resume(a1);
 }
@@ -5390,9 +5334,9 @@ CGPath *EQKitStretchedGlyph::createScaledPathWithHeight(EQKitStretchedGlyph *thi
   return Mutable;
 }
 
-void sub_26C72634C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26C72634C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   EQKitPath::~EQKitPath(va);
   _Unwind_Resume(a1);
 }
@@ -5599,7 +5543,7 @@ EQKit::ILayout *EQKitLayoutElementaryStack::layout@<X0>(id *this@<X0>, EQKit::IL
     if (this[2] == 0x7FFFFFFFFFFFFFFFLL)
     {
       v33 = [[EQKitVBox alloc] initWithChildBoxes:this[6]];
-      v38[0] = 0;
+      LODWORD(v38[0]) = 0;
       v34 = *(*this + 75);
       v39 = EQKitLayoutManager::currentNode(*this);
       v40 = 2;
@@ -5637,7 +5581,7 @@ void sub_26C728758(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t EQKitLayoutElementaryStack::collectRows(id *this)
+void *EQKitLayoutElementaryStack::collectRows(id *this)
 {
   v13 = *MEMORY[0x277D85DE8];
   v8 = 0u;
@@ -5662,7 +5606,7 @@ uint64_t EQKitLayoutElementaryStack::collectRows(id *this)
 
         EQKitLayoutManager::layoutBox(*this, *(*(&v8 + 1) + 8 * v6), 0, v7);
         EQKit::ILayout::~ILayout(v7);
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -5713,7 +5657,7 @@ void EQKitLayoutElementaryStack::layoutForRow(void *a1@<X0>, void *a2@<X1>, uint
   EQKit::ILayout::ILayout(a5, &v21->super.super);
 }
 
-EQKit::ILayout *EQKitLayoutElementaryStack::layoutStackGroup@<X0>(void *a1@<X0>, void *a2@<X1>, EQKit::ILayout *a3@<X8>)
+EQKit::ILayout *EQKitLayoutElementaryStack::layoutStackGroup@<X0>(unint64_t *a1@<X0>, void *a2@<X1>, EQKit::ILayout *a3@<X8>)
 {
   v27 = *MEMORY[0x277D85DE8];
   v23 = 0;
@@ -5827,7 +5771,7 @@ EQKit::ILayout *EQKitLayoutElementaryStack::layoutStackRow@<X0>(EQKitLayoutManag
         v12 = *a1;
         if (v11)
         {
-          [v11 layoutSchemata];
+          objc_msgSend_layoutSchemata(v11);
         }
 
         else
@@ -5892,14 +5836,14 @@ LABEL_17:
   return EQKit::ILayout::ILayout(a3, 0);
 }
 
-void sub_26C728F64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_26C728F64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   EQKit::ILayout::~ILayout(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t EQKitLayoutElementaryStack::addRow(void *a1, void *a2)
+char *EQKitLayoutElementaryStack::addRow(void *a1, void *a2)
 {
   v4 = a1[5];
   if (!v4)
@@ -5923,8 +5867,8 @@ uint64_t EQKitLayoutElementaryStack::addRow(void *a1, void *a2)
   a1[7] = v6;
   v7 = [a2 alignmentShift];
   result = [a2 columnCount];
-  v9 = result + v7;
-  if (a1[8] > result + v7)
+  v9 = &result[v7];
+  if (a1[8] > &result[v7])
   {
     v9 = a1[8];
   }
@@ -6088,7 +6032,7 @@ void EQKitLayoutElementaryStack::layoutStackCarries(EQKitLayoutManager **a1@<X0>
   }
 }
 
-void sub_26C72952C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, void *__p, uint64_t a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, void *a55, uint64_t a56)
+void sub_26C72952C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, void *__p, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, void *a55, uint64_t a56)
 {
   if (__p)
   {
@@ -6108,14 +6052,12 @@ void sub_26C72952C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 __n128 __Block_byref_object_copy__0(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -6253,7 +6195,7 @@ void sub_26C7297CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<EQKitTypes::Crossout::Enum>::push_back[abi:nn200100](const void **a1, _DWORD *a2)
+void std::vector<EQKitTypes::Crossout::Enum>::push_back[abi:nn200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -6302,7 +6244,7 @@ void std::vector<EQKitTypes::Crossout::Enum>::push_back[abi:nn200100](const void
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
@@ -6445,9 +6387,8 @@ LABEL_3:
   return result;
 }
 
-void *std::deque<long>::push_back(void *result, void *a2)
+void std::deque<long>::push_back(unint64_t *result, void *a2)
 {
-  v3 = result;
   v4 = result[2];
   v5 = result[1];
   v6 = ((v4 - v5) << 6) - 1;
@@ -6459,29 +6400,28 @@ void *std::deque<long>::push_back(void *result, void *a2)
   v7 = result[5] + result[4];
   if (v6 == v7)
   {
-    result = std::deque<long>::__add_back_capacity(result);
-    v5 = v3[1];
-    v7 = v3[5] + v3[4];
+    std::deque<long>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5] + result[4];
   }
 
   *(*(v5 + ((v7 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v7 & 0x1FF)) = *a2;
-  ++v3[5];
-  return result;
+  ++result[5];
 }
 
-void *std::deque<long>::__add_back_capacity(void *a1)
+void std::deque<long>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -6489,25 +6429,25 @@ void *std::deque<long>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned long *>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned long *>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<unsigned long *>::emplace_back<unsigned long *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<unsigned long *>::emplace_back<unsigned long *&>(a1, &v9);
 }
 
 void sub_26C72A550(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -6521,18 +6461,18 @@ void sub_26C72A550(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::vector<EQKitTypes::Crossout::Enum>::vector[abi:nn200100](void *result, void *a2)
+uint64_t *std::vector<EQKitTypes::Crossout::Enum>::vector[abi:nn200100](uint64_t *a1, void *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = a2[1];
   if (v2 != *a2)
   {
-    std::vector<EQKitTypes::Notation::Enum>::__vallocate[abi:nn200100](result, (v2 - *a2) >> 2);
+    std::vector<EQKitTypes::Notation::Enum>::__vallocate[abi:nn200100](a1, (v2 - *a2) >> 2);
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t EQKitLayoutTable::resolveColumnAlignment(uint64_t a1, uint64_t *a2, uint64_t *a3, char **a4, unint64_t a5)
@@ -6661,9 +6601,9 @@ void EQKitLayoutTable::resolveAlignmentGroups(EQKitLayoutTable *this, uint64_t a
   }
 }
 
-void sub_26C72A80C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26C72A80C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   EQKitLayoutTable::Properties::~Properties(va);
   _Unwind_Resume(a1);
 }
@@ -6737,7 +6677,7 @@ void EQKitLayoutTable::relationalOperatorOffset(EQKitLayoutTable *this@<X0>, EQK
   }
 }
 
-void sub_26C72AA3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id a9)
+void sub_26C72AA3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   EQKit::ILayoutOffset::~ILayoutOffset(&a9);
   EQKit::ILayoutOffset::~ILayoutOffset(v9);
@@ -7050,7 +6990,7 @@ void EQKitLayoutTable::generateTableLayout(EQKitLayoutTable *this, NSArray *a2)
     v20 = v19 + 80 * v17;
     v21 = *(v20 + 56);
     v22 = *(v20 + 64);
-    std::vector<EQKitLayoutTable::LayoutCell>::resize(v20 + 56, v14);
+    std::vector<EQKitLayoutTable::LayoutCell>::resize((v20 + 56), v14);
     v19 = *(this + 8);
     v23 = v19 + 80 * v17;
     *(v23 + 48) = 0;
@@ -7148,7 +7088,7 @@ void sub_26C72B2B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<EQKitLayoutTable::LayoutRow>::push_back[abi:nn200100](uint64_t *a1, void *a2)
+uint64_t std::vector<EQKitLayoutTable::LayoutRow>::push_back[abi:nn200100](void *a1, uint64_t a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -7166,45 +7106,45 @@ uint64_t std::vector<EQKitLayoutTable::LayoutRow>::push_back[abi:nn200100](uint6
   return result;
 }
 
-void std::vector<double>::resize(void *a1, unint64_t a2, uint64_t *a3)
+void std::vector<double>::resize(void *result, unint64_t a2, uint64_t *a3)
 {
-  v3 = (a1[1] - *a1) >> 3;
+  v3 = (result[1] - *result) >> 3;
   if (a2 <= v3)
   {
     if (a2 < v3)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<double>::__append(a1, a2 - v3, a3);
+    std::vector<double>::__append(result, a2 - v3, a3);
   }
 }
 
-void std::vector<EQKitLayoutTable::LayoutCell>::resize(uint64_t a1, unint64_t a2)
+void std::vector<EQKitLayoutTable::LayoutCell>::resize(void **result, unint64_t a2)
 {
-  v3 = *(a1 + 8);
-  v4 = 0xAF8AF8AF8AF8AF8BLL * ((v3 - *a1) >> 3);
+  v3 = result[1];
+  v4 = 0xAF8AF8AF8AF8AF8BLL * ((v3 - *result) >> 3);
   v5 = a2 >= v4;
   v6 = a2 - v4;
   if (v6 != 0 && v5)
   {
 
-    std::vector<EQKitLayoutTable::LayoutCell>::__append(a1, v6);
+    std::vector<EQKitLayoutTable::LayoutCell>::__append(result, v6);
   }
 
   else if (!v5)
   {
-    v7 = *a1 + 280 * a2;
+    v7 = *result + 280 * a2;
     while (v3 != v7)
     {
       v3 -= 280;
-      std::allocator_traits<std::allocator<EQKitLayoutTable::LayoutCell>>::destroy[abi:nn200100]<EQKitLayoutTable::LayoutCell,0>(a1, v3);
+      std::allocator_traits<std::allocator<EQKitLayoutTable::LayoutCell>>::destroy[abi:nn200100]<EQKitLayoutTable::LayoutCell,0>(result, v3);
     }
 
-    *(a1 + 8) = v7;
+    result[1] = v7;
   }
 }
 
@@ -7213,8 +7153,8 @@ void EQKitLayoutTable::generateRowBox(uint64_t a1@<X0>, void *a2@<X1>, unint64_t
   EQKit::ILayout::ILayout(a5, 0);
   if (![a2 count])
   {
-    v58 = [MEMORY[0x277CCA890] currentHandler];
-    [v58 handleFailureInFunction:objc_msgSend(MEMORY[0x277CCACA8] file:"stringWithUTF8String:" lineNumber:"EQKit::ILayout EQKitLayoutTable::generateRowBox(NSArray * description:{NSUInteger, const EQKitLength::Vector &)"), @"EQKitLayoutTable.mm", 236, @"No cell boxes."}];
+    v59 = [MEMORY[0x277CCA890] currentHandler];
+    [v59 handleFailureInFunction:objc_msgSend(MEMORY[0x277CCACA8] file:"stringWithUTF8String:" lineNumber:"EQKit::ILayout EQKitLayoutTable::generateRowBox(NSArray * description:{NSUInteger, const EQKitLength::Vector &)"), @"EQKitLayoutTable.mm", 236, @"No cell boxes."}];
   }
 
   v8 = 0;
@@ -7320,8 +7260,8 @@ void EQKitLayoutTable::generateRowBox(uint64_t a1@<X0>, void *a2@<X1>, unint64_t
     v30 = v13 + v14;
     if (v15 != v30)
     {
-      v59 = [MEMORY[0x277CCA890] currentHandler];
-      [v59 handleFailureInFunction:objc_msgSend(MEMORY[0x277CCACA8] file:"stringWithUTF8String:" lineNumber:"EQKit::ILayout EQKitLayoutTable::generateRowBox(NSArray * description:{NSUInteger, const EQKitLength::Vector &)"), @"EQKitLayoutTable.mm", 299, @"vSize should be sum of vHeight and vDepth."}];
+      v60 = [MEMORY[0x277CCA890] currentHandler];
+      [v60 handleFailureInFunction:objc_msgSend(MEMORY[0x277CCACA8] file:"stringWithUTF8String:" lineNumber:"EQKit::ILayout EQKitLayoutTable::generateRowBox(NSArray * description:{NSUInteger, const EQKitLength::Vector &)"), @"EQKitLayoutTable.mm", 299, @"vSize should be sum of vHeight and vDepth."}];
       v15 = v30;
     }
 
@@ -7346,10 +7286,10 @@ void EQKitLayoutTable::generateRowBox(uint64_t a1@<X0>, void *a2@<X1>, unint64_t
       {
         if ([v31 count])
         {
-          v57 = [(EQKitCompoundBox *)[EQKitHBox alloc] initWithChildBoxes:v31];
-          EQKit::ILayout::ILayout(v62, &v57->super.super);
-          EQKit::ILayout::operator=(a5, v62);
-          EQKit::ILayout::~ILayout(v62);
+          v58 = [(EQKitCompoundBox *)[EQKitHBox alloc] initWithChildBoxes:v31];
+          EQKit::ILayout::ILayout(v63, &v58->super.super);
+          EQKit::ILayout::operator=(a5, v63);
+          EQKit::ILayout::~ILayout(v63);
         }
 
         return;
@@ -7422,20 +7362,21 @@ LABEL_54:
         if (v33 < (v52 - *a4) >> 4)
         {
           v54 = EQKitLayoutManager::layoutContext(*(a1 + 8));
-          v55 = (v53 + v32);
+          v56 = (v53 + v32);
           goto LABEL_63;
         }
 
         if (v52 != v53)
         {
           v54 = EQKitLayoutManager::layoutContext(*(a1 + 8));
-          v55 = (v52 - 16);
+          v56 = (v52 - 16);
 LABEL_63:
-          v51 = EQKitLength::resolveToAbsoluteWithUnitProviderAndDefault(v55, v54, v51);
+          v55.n128_f64[0] = v51;
+          v51 = EQKitLength::resolveToAbsoluteWithUnitProviderAndDefault(v56, v54, v55);
         }
 
-        v56 = [[EQKitHSpace alloc] initWithWidth:v51];
-        [v31 addObject:v56];
+        v57 = [[EQKitHSpace alloc] initWithWidth:v51];
+        [v31 addObject:v57];
       }
 
       v32 += 16;
@@ -7448,26 +7389,26 @@ void EQKitLayoutTable::generateTableBox(EQKitLayoutManager **this)
 {
   objc_alloc_init(MEMORY[0x277CBEB18]);
   objc_alloc_init(MEMORY[0x277CBEB18]);
-  v2 = EQKitLayoutManager::layoutContext(this[1]);
-  if ((*(v2 + 104) & 2) == 0)
+  v3 = EQKitLayoutManager::layoutContext(this[1]);
+  if ((*(v3 + 104) & 2) == 0)
   {
-    EQKitLayoutContext::pComputeMathAxis(v2);
+    EQKitLayoutContext::pComputeMathAxis(v3);
   }
 
-  v3 = EQKitLayoutManager::layoutContext(this[1]);
-  v5 = v3;
-  v6 = *(v3 + 80);
-  if (*(v3 + 104))
+  v4 = EQKitLayoutManager::layoutContext(this[1]);
+  v6 = v4;
+  v7 = *(v4 + 80);
+  if (*(v4 + 104))
   {
-    v4.n128_u64[0] = *(v3 + 112);
+    v5.n128_u64[0] = *(v4 + 112);
   }
 
   else
   {
-    v4.n128_f64[0] = EQKitLayoutContext::pComputeRuleThickness(v3);
+    v5.n128_f64[0] = EQKitLayoutContext::pComputeRuleThickness(v4);
   }
 
-  (*(*v6 + 40))(v6, 15, v5 + 8, v4);
+  (*(*v7 + 40))(v7, 15, v6 + 8, v5);
   memset(__p, 0, 24);
   std::__allocate_at_least[abi:nn200100]<std::allocator<EQKitLength>>(__p, 1uLL);
 }
@@ -7482,63 +7423,61 @@ void sub_26C72BEC8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-EQKit::ILayout *EQKitLayoutTable::layoutTable@<X0>(uint64_t a1@<X0>, void *a2@<X1>, EQKit::ILayout *a3@<X8>)
+void EQKitLayoutTable::layoutTable(uint64_t a1@<X0>, void *a2@<X1>, EQKit::ILayout *a3@<X8>)
 {
-  result = EQKit::ILayout::ILayout(a3, 0);
+  EQKit::ILayout::ILayout(a3, 0);
   if (a2)
   {
-    v6 = [a2 schemataChildren];
+    v5 = [a2 schemataChildren];
     *(a1 + 88) = 0;
-    LODWORD(v15[0]) = 0;
-    v7 = *(a1 + 8);
-    v8 = *(v7 + 75);
-    v13 = EQKitLayoutManager::currentNode(v7);
-    v14 = 8;
-    if (EQKit::AttributeCollection::getValueForKey<std::map<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Display::Enum>>(v8, v8 + 8, &v13, v15))
+    LODWORD(v14[0]) = 0;
+    v6 = *(a1 + 8);
+    v7 = *(v6 + 75);
+    v12 = EQKitLayoutManager::currentNode(v6);
+    v13 = 8;
+    if (EQKit::AttributeCollection::getValueForKey<std::map<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Display::Enum>>(v7, v7 + 8, &v12, v14))
     {
-      *(a1 + 88) = LODWORD(v15[0]) == 2;
+      *(a1 + 88) = LODWORD(v14[0]) == 2;
     }
 
-    EQKitLayoutTable::generateTableLayout(a1, v6);
+    EQKitLayoutTable::generateTableLayout(a1, v5);
     *__p = 0u;
-    v17 = 0u;
-    *v15 = 0u;
-    v9 = *(a1 + 8);
-    v10 = *(v9 + 75);
-    v13 = EQKitLayoutManager::currentNode(v9);
-    v14 = 3;
-    EQKit::AttributeCollection::getValueForKey<std::map<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::vector<objc_object  {objcproto15EQKitLayoutNode}*::Notation::Enum>,std::less<EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Notation::Enum<std::pair<EQKitTypes::Attributes::Enum const>>>>(v10, v10 + 248, &v13, &__p[1]);
-    v11 = *(a1 + 8);
-    v12 = *(v11 + 75);
-    v13 = EQKitLayoutManager::currentNode(v11);
-    v14 = 4;
-    EQKit::AttributeCollection::getValueForKey<std::map<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::vector<objc_object  {objcproto15EQKitLayoutNode}*::Notation::Enum>,std::less<EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Notation::Enum<std::pair<EQKitTypes::Attributes::Enum const>>>>(v12, v12 + 272, &v13, v15);
-    if ((a1 + 16) != v15)
+    v16 = 0u;
+    *v14 = 0u;
+    v8 = *(a1 + 8);
+    v9 = *(v8 + 75);
+    v12 = EQKitLayoutManager::currentNode(v8);
+    v13 = 3;
+    EQKit::AttributeCollection::getValueForKey<std::map<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::vector<objc_object  {objcproto15EQKitLayoutNode}*::Notation::Enum>,std::less<EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Notation::Enum<std::pair<EQKitTypes::Attributes::Enum const>>>>(v9, v9 + 248, &v12, &__p[1]);
+    v10 = *(a1 + 8);
+    v11 = *(v10 + 75);
+    v12 = EQKitLayoutManager::currentNode(v10);
+    v13 = 4;
+    EQKit::AttributeCollection::getValueForKey<std::map<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::vector<objc_object  {objcproto15EQKitLayoutNode}*::Notation::Enum>,std::less<EQKitTypes::Attributes::Enum>,objc_object  {objcproto15EQKitLayoutNode}*::Notation::Enum<std::pair<EQKitTypes::Attributes::Enum const>>>>(v11, v11 + 272, &v12, v14);
+    if ((a1 + 16) != v14)
     {
-      std::vector<EQKitTypes::Notation::Enum>::__assign_with_size[abi:nn200100]<EQKitTypes::Notation::Enum*,EQKitTypes::Notation::Enum*>((a1 + 16), v15[0], v15[1], (v15[1] - v15[0]) >> 2);
-      std::vector<EQKitTypes::Notation::Enum>::__assign_with_size[abi:nn200100]<EQKitTypes::Notation::Enum*,EQKitTypes::Notation::Enum*>((a1 + 40), __p[1], v17, (v17 - __p[1]) >> 2);
+      std::vector<EQKitTypes::Notation::Enum>::__assign_with_size[abi:nn200100]<EQKitTypes::Notation::Enum*,EQKitTypes::Notation::Enum*>((a1 + 16), v14[0], v14[1], (v14[1] - v14[0]) >> 2);
+      std::vector<EQKitTypes::Notation::Enum>::__assign_with_size[abi:nn200100]<EQKitTypes::Notation::Enum*,EQKitTypes::Notation::Enum*>((a1 + 40), __p[1], v16, (v16 - __p[1]) >> 2);
     }
 
     EQKitLayoutTable::generateTableBox(a1);
   }
-
-  return result;
 }
 
-void sub_26C72C0D0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C72C0D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, id);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
   v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   EQKit::ILayout::~ILayout(va);
   EQKitLayoutTable::Properties::~Properties(va1);
-  EQKit::ILayout::~ILayout(v2);
+  EQKit::ILayout::~ILayout(v3);
   _Unwind_Resume(a1);
 }
 
@@ -7627,26 +7566,26 @@ EQKitLayoutTable::LayoutCell *EQKitLayoutTable::LayoutCell::LayoutCell(EQKitLayo
 
 void sub_26C72C3E0(_Unwind_Exception *a1)
 {
-  EQKitLayoutRow::~EQKitLayoutRow((v1 + 64));
+  EQKitLayoutRow::~EQKitLayoutRow(v1 + 8);
   EQKitLayoutTable::Properties::~Properties(v1);
   _Unwind_Resume(a1);
 }
 
-void EQKitLayoutTable::LayoutCell::~LayoutCell(EQKitLayoutTable::LayoutCell *this)
+void EQKitLayoutTable::LayoutCell::~LayoutCell(id *this)
 {
-  EQKit::ILayout::~ILayout((this + 224));
-  EQKitLayoutRow::~EQKitLayoutRow((this + 64));
-  v2 = *(this + 3);
+  EQKit::ILayout::~ILayout(this + 28);
+  EQKitLayoutRow::~EQKitLayoutRow(this + 8);
+  v2 = this[3];
   if (v2)
   {
-    *(this + 4) = v2;
+    this[4] = v2;
     operator delete(v2);
   }
 
   v3 = *this;
   if (*this)
   {
-    *(this + 1) = v3;
+    this[1] = v3;
     operator delete(v3);
   }
 }
@@ -7801,9 +7740,9 @@ uint64_t std::vector<EQKitLayoutTable::LayoutCell>::__emplace_back_slow_path<EQK
   return v12;
 }
 
-void sub_26C72C744(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_26C72C744(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<EQKitLayoutTable::LayoutCell>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7820,7 +7759,7 @@ EQKitLayoutTable::LayoutCell *EQKitLayoutTable::LayoutCell::LayoutCell(EQKitLayo
 
 void sub_26C72C7B0(_Unwind_Exception *a1)
 {
-  EQKitLayoutRow::~EQKitLayoutRow((v1 + 64));
+  EQKitLayoutRow::~EQKitLayoutRow(v1 + 8);
   EQKitLayoutTable::Properties::~Properties(v1);
   _Unwind_Resume(a1);
 }
@@ -7879,17 +7818,17 @@ void std::__split_buffer<EQKitLayoutTable::LayoutCell>::clear[abi:nn200100](void
   }
 }
 
-uint64_t std::vector<EQKitLayoutTable::LayoutRow>::__construct_one_at_end[abi:nn200100]<EQKitLayoutTable::LayoutRow const&>(uint64_t a1, void *a2)
+EQKitLayoutTable::LayoutCell *std::vector<EQKitLayoutTable::LayoutRow>::__construct_one_at_end[abi:nn200100]<EQKitLayoutTable::LayoutRow const&>(uint64_t a1, uint64_t a2)
 {
   v4 = *(a1 + 8);
   std::vector<EQKitTypes::Crossout::Enum>::vector[abi:nn200100](v4, a2);
-  std::vector<EQKitTypes::Crossout::Enum>::vector[abi:nn200100](v4 + 3, a2 + 3);
-  v5 = a2[6];
+  std::vector<EQKitTypes::Crossout::Enum>::vector[abi:nn200100](v4 + 3, (a2 + 24));
+  v5 = *(a2 + 48);
   v4[7] = 0;
   v4[6] = v5;
   v4[8] = 0;
   v4[9] = 0;
-  result = std::vector<EQKitLayoutTable::LayoutCell>::__init_with_size[abi:nn200100]<EQKitLayoutTable::LayoutCell*,EQKitLayoutTable::LayoutCell*>((v4 + 7), a2[7], a2[8], 0xAF8AF8AF8AF8AF8BLL * ((a2[8] - a2[7]) >> 3));
+  result = std::vector<EQKitLayoutTable::LayoutCell>::__init_with_size[abi:nn200100]<EQKitLayoutTable::LayoutCell*,EQKitLayoutTable::LayoutCell*>((v4 + 7), *(a2 + 56), *(a2 + 64), 0xAF8AF8AF8AF8AF8BLL * ((*(a2 + 64) - *(a2 + 56)) >> 3));
   *(a1 + 8) = v4 + 10;
   return result;
 }
@@ -7901,7 +7840,7 @@ void sub_26C72C9CC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<EQKitLayoutTable::LayoutRow>::__emplace_back_slow_path<EQKitLayoutTable::LayoutRow const&>(uint64_t *a1, void *a2)
+uint64_t std::vector<EQKitLayoutTable::LayoutRow>::__emplace_back_slow_path<EQKitLayoutTable::LayoutRow const&>(void *a1, uint64_t a2)
 {
   v2 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 4);
   v3 = v2 + 1;
@@ -7931,18 +7870,18 @@ uint64_t std::vector<EQKitLayoutTable::LayoutRow>::__emplace_back_slow_path<EQKi
     std::__allocate_at_least[abi:nn200100]<std::allocator<EQKitLayoutTable::LayoutRow>>(a1, v6);
   }
 
-  v7 = 80 * v2;
+  v7 = (80 * v2);
   v15 = 0;
   v16 = v7;
   v17 = v7;
   std::vector<EQKitTypes::Crossout::Enum>::vector[abi:nn200100](v7, a2);
-  std::vector<EQKitTypes::Crossout::Enum>::vector[abi:nn200100]((v7 + 24), a2 + 3);
-  v8 = a2[6];
-  *(v7 + 56) = 0;
-  *(v7 + 48) = v8;
-  *(v7 + 64) = 0;
-  *(v7 + 72) = 0;
-  std::vector<EQKitLayoutTable::LayoutCell>::__init_with_size[abi:nn200100]<EQKitLayoutTable::LayoutCell*,EQKitLayoutTable::LayoutCell*>(v7 + 56, a2[7], a2[8], 0xAF8AF8AF8AF8AF8BLL * ((a2[8] - a2[7]) >> 3));
+  std::vector<EQKitTypes::Crossout::Enum>::vector[abi:nn200100](v7 + 3, (a2 + 24));
+  v8 = *(a2 + 48);
+  v7[7] = 0;
+  v7[6] = v8;
+  v7[8] = 0;
+  v7[9] = 0;
+  std::vector<EQKitLayoutTable::LayoutCell>::__init_with_size[abi:nn200100]<EQKitLayoutTable::LayoutCell*,EQKitLayoutTable::LayoutCell*>((v7 + 7), *(a2 + 56), *(a2 + 64), 0xAF8AF8AF8AF8AF8BLL * ((*(a2 + 64) - *(a2 + 56)) >> 3));
   *&v17 = v17 + 80;
   v9 = a1[1];
   v10 = (v16 + *a1 - v9);
@@ -7960,14 +7899,15 @@ uint64_t std::vector<EQKitLayoutTable::LayoutRow>::__emplace_back_slow_path<EQKi
   return v14;
 }
 
-void sub_26C72CB64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
+void sub_26C72CB64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  EQKitLayoutTable::Properties::~Properties(v12);
-  std::__split_buffer<EQKitLayoutTable::LayoutRow>::~__split_buffer(&a12);
+  va_start(va, a11);
+  EQKitLayoutTable::Properties::~Properties(v11);
+  std::__split_buffer<EQKitLayoutTable::LayoutRow>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<EQKitLayoutTable::LayoutCell>::__init_with_size[abi:nn200100]<EQKitLayoutTable::LayoutCell*,EQKitLayoutTable::LayoutCell*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+EQKitLayoutTable::LayoutCell *std::vector<EQKitLayoutTable::LayoutCell>::__init_with_size[abi:nn200100]<EQKitLayoutTable::LayoutCell*,EQKitLayoutTable::LayoutCell*>(EQKitLayoutTable::LayoutCell *result, const EQKitLayoutTable::LayoutCell *a2, const EQKitLayoutTable::LayoutCell *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7977,7 +7917,7 @@ uint64_t std::vector<EQKitLayoutTable::LayoutCell>::__init_with_size[abi:nn20010
   return result;
 }
 
-void std::vector<EQKitLayoutTable::LayoutCell>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<EQKitLayoutTable::LayoutCell>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xEA0EA0EA0EA0EBLL)
   {
@@ -8228,7 +8168,7 @@ void **std::vector<EQKitLayoutTable::LayoutCell>::__append(void **result, unint6
       v5 = v10;
     }
 
-    *(v3 + 8) = v5;
+    v3[1] = v5;
   }
 
   else
@@ -8277,13 +8217,13 @@ void **std::vector<EQKitLayoutTable::LayoutCell>::__append(void **result, unint6
 
     while (v13);
     *&v21 = v14;
-    v15 = *(v3 + 8);
+    v15 = v3[1];
     v16 = (v20 + *v3 - v15);
     std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<EQKitLayoutTable::LayoutCell>,EQKitLayoutTable::LayoutCell*>(v3, *v3, v15, v16);
     v17 = *v3;
     *v3 = v16;
-    v18 = *(v3 + 16);
-    *(v3 + 8) = v21;
+    v18 = v3[2];
+    *(v3 + 1) = v21;
     *&v21 = v17;
     *(&v21 + 1) = v18;
     v19 = v17;
@@ -8294,9 +8234,9 @@ void **std::vector<EQKitLayoutTable::LayoutCell>::__append(void **result, unint6
   return result;
 }
 
-void sub_26C72D18C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C72D18C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<EQKitLayoutTable::LayoutCell>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8435,48 +8375,48 @@ void EQKit::Font::CompositeStretch::~CompositeStretch(const void **this)
 void EQKit::Font::CompositeStretch::defineCompositeStretch(CFStringRef name@<X0>, const __CFString *a2@<X1>, int a3@<W2>, int a4@<W3>, int a5@<W4>, void *a6@<X8>)
 {
   v9 = a2;
-  v30 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   *a6 = 0;
   a6[1] = -1;
-  v27 = 0;
   v28 = 0;
   v29 = 0;
+  v30 = 0;
   if (a2)
   {
-    LOWORD(v22) = a2;
-    std::vector<unsigned short>::push_back[abi:nn200100](&v27, &v22);
+    LOWORD(v23) = a2;
+    std::vector<unsigned short>::push_back[abi:nn200100](&v28, &v23);
   }
 
   if (a3)
   {
-    LOWORD(v22) = a3;
-    std::vector<unsigned short>::push_back[abi:nn200100](&v27, &v22);
+    LOWORD(v23) = a3;
+    std::vector<unsigned short>::push_back[abi:nn200100](&v28, &v23);
   }
 
   if (a4)
   {
-    LOWORD(v22) = a4;
-    std::vector<unsigned short>::push_back[abi:nn200100](&v27, &v22);
+    LOWORD(v23) = a4;
+    std::vector<unsigned short>::push_back[abi:nn200100](&v28, &v23);
   }
 
   if (a5)
   {
-    LOWORD(v22) = a5;
-    std::vector<unsigned short>::push_back[abi:nn200100](&v27, &v22);
+    LOWORD(v23) = a5;
+    std::vector<unsigned short>::push_back[abi:nn200100](&v28, &v23);
   }
 
   if (name)
   {
-    if (v28 != v27)
+    if (v29 != v28)
     {
       v12 = CTFontDescriptorCreateWithNameAndSize(name, 12.0);
       v13 = CTFontCreateWithFontDescriptor(v12, 12.0, 0);
       CFRelease(v12);
       if (v13)
       {
-        MEMORY[0x28223BE20]();
-        v15 = (&v22 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0));
-        if (!CTFontGetGlyphsForCharacters(v13, v27, v15, v16))
+        MEMORY[0x28223BE20](v14);
+        v16 = (&v23 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0));
+        if (!CTFontGetGlyphsForCharacters(v13, v28, v16, v17))
         {
 LABEL_23:
           CFRelease(v13);
@@ -8485,8 +8425,8 @@ LABEL_23:
 
         if (v9)
         {
-          v17 = *v15;
-          v18 = 1;
+          v18 = *v16;
+          v19 = 1;
           if (a3)
           {
             goto LABEL_15;
@@ -8495,12 +8435,12 @@ LABEL_23:
 
         else
         {
-          v18 = 0;
-          v17 = -1;
+          v19 = 0;
+          v18 = -1;
           if (a3)
           {
 LABEL_15:
-            v19 = v15[v18++];
+            v20 = v16[v19++];
             if (a4)
             {
               goto LABEL_16;
@@ -8510,34 +8450,34 @@ LABEL_15:
           }
         }
 
-        v19 = -1;
+        v20 = -1;
         if (a4)
         {
 LABEL_16:
-          v20 = v15[v18++];
+          v21 = v16[v19++];
           if (a5)
           {
 LABEL_17:
-            v21 = v15[v18];
+            v22 = v16[v19];
 LABEL_22:
-            v23 = v17;
-            v24 = v19;
+            v24 = v18;
             v25 = v20;
             v26 = v21;
-            v22 = name;
+            v27 = v22;
+            v23 = name;
             CFRetain(name);
-            EQKit::Font::CompositeStretch::operator=(a6, &v22);
+            EQKit::Font::CompositeStretch::operator=(a6, &v23);
             CFRelease(name);
             goto LABEL_23;
           }
 
 LABEL_21:
-          v21 = -1;
+          v22 = -1;
           goto LABEL_22;
         }
 
 LABEL_20:
-        v20 = -1;
+        v21 = -1;
         if (a5)
         {
           goto LABEL_17;
@@ -8549,10 +8489,10 @@ LABEL_20:
   }
 
 LABEL_24:
-  if (v27)
+  if (v28)
   {
-    v28 = v27;
-    operator delete(v27);
+    v29 = v28;
+    operator delete(v28);
   }
 }
 
@@ -8574,7 +8514,7 @@ void sub_26C72DD58(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::vector<unsigned short>::push_back[abi:nn200100](const void **a1, _WORD *a2)
+void std::vector<unsigned short>::push_back[abi:nn200100](const void **a1, unsigned __int16 *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -8685,7 +8625,7 @@ void EQKit::Font::Manager::~Manager(EQKit::Font::Manager *this)
   JUMPOUT(0x26D6A9A30);
 }
 
-void EQKit::Font::STIXCollection::STIXCollection(NSDictionary *this, NSDictionary *a2, const EQKit::Environment::Version *a3, const EQKitCacheLRUCounter *a4, const EQKitCacheLRUCounter *a5)
+void EQKit::Font::STIXCollection::STIXCollection(NSDictionary *this, NSDictionary *a2, const EQKit::Environment::Version *a3, NSDictionary *a4, const EQKitCacheLRUCounter *a5)
 {
   isa = a2->super.isa;
   this->super.isa = a2->super.isa;
@@ -8702,7 +8642,7 @@ void sub_26C72E7E0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *EQKit::Font::STIXCollection::setupRequiredFontInfos(EQKit::Font::STIXCollection *this)
+EQKit::Font::STIXCollection::FontInfo **EQKit::Font::STIXCollection::setupRequiredFontInfos(EQKit::Font::STIXCollection *this)
 {
   v26 = *MEMORY[0x277D85DE8];
   v1 = dispatch_group_create();
@@ -8820,51 +8760,51 @@ void *EQKit::Font::STIXCollection::setupRequiredFontInfos(EQKit::Font::STIXColle
   return _fontInfoWithName(this + 32, @"STIXSizeFourSym-Bold");
 }
 
-void sub_26C72EE00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_26C72EE00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void ___ZN5EQKit4Font14STIXCollectionC2EP12NSDictionaryRKNS_11Environment7VersionERK20EQKitCacheLRUCounter_block_invoke(uint64_t a1, uint64_t a2)
+void ___ZN5EQKit4Font14STIXCollectionC2EP12NSDictionaryRKNS_11Environment7VersionERK20EQKitCacheLRUCounter_block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v2 = *(*(a1 + 32) + 328);
-  if (v2)
+  v3 = *(*(a1 + 32) + 328);
+  if (v3)
   {
-    v3 = *(a2 + 20);
+    v4 = *(a2 + 20);
     if (*a2)
     {
-      v4 = [*a2 UTF8String];
+      v5 = [*a2 UTF8String];
     }
 
     else
     {
-      v4 = "";
+      v5 = "";
     }
 
-    std::string::basic_string[abi:nn200100]<0>(&v5, v4);
-    v6[0] = v3;
-    v6[1] = 13;
-    if (SHIBYTE(v5.__r_.__value_.__r.__words[2]) < 0)
+    std::string::basic_string[abi:nn200100]<0>(&v6, v5);
+    v7[0] = v4;
+    v7[1] = 13;
+    if (SHIBYTE(v6.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&__p, v5.__r_.__value_.__l.__data_, v5.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&__p, v6.__r_.__value_.__l.__data_, v6.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      __p = v5;
+      __p = v6;
     }
 
-    std::__tree<std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKit::StemStretch::Config::Entry>,std::__map_value_compare<EQKit::Font::CharacterProperty::Map::Key,std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKit::StemStretch::Config::Entry>,std::less<EQKit::Font::CharacterProperty::Map::Key>,true>,std::allocator<std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKit::StemStretch::Config::Entry>>>::find<EQKit::Font::CharacterProperty::Map::Key>(v2 + 48, v6);
+    std::__tree<std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKit::StemStretch::Config::Entry>,std::__map_value_compare<EQKit::Font::CharacterProperty::Map::Key,std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKit::StemStretch::Config::Entry>,std::less<EQKit::Font::CharacterProperty::Map::Key>,true>,std::allocator<std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKit::StemStretch::Config::Entry>>>::find<EQKit::Font::CharacterProperty::Map::Key>(v3 + 48, v7);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v5.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v6.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v5.__r_.__value_.__l.__data_);
+      operator delete(v6.__r_.__value_.__l.__data_);
     }
   }
 
@@ -8944,7 +8884,8 @@ void EQKitCache<EQKit::StemStretch::Key,std::shared_ptr<EQKit::StemStretch::Glyp
     else
     {
       v15 = **a1;
-      v13 = std::__hash_table<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<std::shared_ptr<EQKit::StemStretch::Glyph>,unsigned long>>,std::__unordered_map_hasher<EQKit::StemStretch::Key,std::__hash_value_type<EQKit::StemStretch::Key,std::pair<std::shared_ptr<EQKit::StemStretch::Glyph>,unsigned long>>,std::hash<EQKit::StemStretch::Key>,std::equal_to<EQKit::StemStretch::Key>,true>,std::__unordered_map_equal<EQKit::StemStretch::Key,std::__hash_value_type<EQKit::StemStretch::Key,std::pair<std::shared_ptr<EQKit::StemStretch::Glyph>,unsigned long>>,std::equal_to<EQKit::StemStretch::Key>,std::hash<EQKit::StemStretch::Key>,true>,std::allocator<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<std::shared_ptr<EQKit::StemStretch::Glyph>,unsigned long>>>>::__emplace_unique_key_args<EQKit::StemStretch::Key,std::piecewise_construct_t const&,std::tuple<EQKit::StemStretch::Key const&>,std::tuple<>>(a1 + 1, a2);
+      v17 = a2;
+      v13 = std::__hash_table<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<std::shared_ptr<EQKit::StemStretch::Glyph>,unsigned long>>,std::__unordered_map_hasher<EQKit::StemStretch::Key,std::__hash_value_type<EQKit::StemStretch::Key,std::pair<std::shared_ptr<EQKit::StemStretch::Glyph>,unsigned long>>,std::hash<EQKit::StemStretch::Key>,std::equal_to<EQKit::StemStretch::Key>,true>,std::__unordered_map_equal<EQKit::StemStretch::Key,std::__hash_value_type<EQKit::StemStretch::Key,std::pair<std::shared_ptr<EQKit::StemStretch::Glyph>,unsigned long>>,std::equal_to<EQKit::StemStretch::Key>,std::hash<EQKit::StemStretch::Key>,true>,std::allocator<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<std::shared_ptr<EQKit::StemStretch::Glyph>,unsigned long>>>>::__emplace_unique_key_args<EQKit::StemStretch::Key,std::piecewise_construct_t const&,std::tuple<EQKit::StemStretch::Key const&>,std::tuple<>>(a1 + 2, a2, &std::piecewise_construct, &v17, &v16);
       v14 = v13[7];
       v13[6] = 0;
       v13[7] = 0;
@@ -9218,44 +9159,44 @@ void sub_26C72FBD4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void ___ZN5EQKit4Font14STIXCollectionC1EP12NSDictionaryRKNS_11Environment7VersionERK20EQKitCacheLRUCounter_block_invoke(uint64_t a1, uint64_t a2)
+void ___ZN5EQKit4Font14STIXCollectionC1EP12NSDictionaryRKNS_11Environment7VersionERK20EQKitCacheLRUCounter_block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v2 = *(*(a1 + 32) + 328);
-  if (v2)
+  v3 = *(*(a1 + 32) + 328);
+  if (v3)
   {
-    v3 = *(a2 + 20);
+    v4 = *(a2 + 20);
     if (*a2)
     {
-      v4 = [*a2 UTF8String];
+      v5 = [*a2 UTF8String];
     }
 
     else
     {
-      v4 = "";
+      v5 = "";
     }
 
-    std::string::basic_string[abi:nn200100]<0>(&v5, v4);
-    v6[0] = v3;
-    v6[1] = 13;
-    if (SHIBYTE(v5.__r_.__value_.__r.__words[2]) < 0)
+    std::string::basic_string[abi:nn200100]<0>(&v6, v5);
+    v7[0] = v4;
+    v7[1] = 13;
+    if (SHIBYTE(v6.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&__p, v5.__r_.__value_.__l.__data_, v5.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&__p, v6.__r_.__value_.__l.__data_, v6.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      __p = v5;
+      __p = v6;
     }
 
-    std::__tree<std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKit::StemStretch::Config::Entry>,std::__map_value_compare<EQKit::Font::CharacterProperty::Map::Key,std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKit::StemStretch::Config::Entry>,std::less<EQKit::Font::CharacterProperty::Map::Key>,true>,std::allocator<std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKit::StemStretch::Config::Entry>>>::find<EQKit::Font::CharacterProperty::Map::Key>(v2 + 48, v6);
+    std::__tree<std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKit::StemStretch::Config::Entry>,std::__map_value_compare<EQKit::Font::CharacterProperty::Map::Key,std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKit::StemStretch::Config::Entry>,std::less<EQKit::Font::CharacterProperty::Map::Key>,true>,std::allocator<std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKit::StemStretch::Config::Entry>>>::find<EQKit::Font::CharacterProperty::Map::Key>(v3 + 48, v7);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v5.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v6.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v5.__r_.__value_.__l.__data_);
+      operator delete(v6.__r_.__value_.__l.__data_);
     }
   }
 
@@ -9665,7 +9606,7 @@ uint64_t EQKitCache<EQKit::StemStretch::Key,std::shared_ptr<EQKit::StemStretch::
   return result;
 }
 
-void sub_26C7305A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_26C7305A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
 {
   a10 = &a15;
   std::vector<std::pair<EQKit::StemStretch::Key,unsigned long>>::__destroy_vector::operator()[abi:nn200100](&a10);
@@ -9747,14 +9688,14 @@ uint64_t EQKitCache<EQKit::StemStretch::Key,EQKitTypes::Axis::Enum,EQKitTypes::A
   return result;
 }
 
-void sub_26C730748(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_26C730748(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
 {
   a10 = &a15;
   std::vector<std::pair<EQKit::StemStretch::Key,unsigned long>>::__destroy_vector::operator()[abi:nn200100](&a10);
   _Unwind_Resume(a1);
 }
 
-void *_fontInfoWithName(void *result, const __CFString *a2)
+EQKit::Font::STIXCollection::FontInfo **_fontInfoWithName(EQKit::Font::STIXCollection::FontInfo **result, const __CFString *a2)
 {
   if (!*result)
   {
@@ -9842,4 +9783,42 @@ uint64_t EQKit::Font::STIXCollection::characterPropertyBoolForFont(uint64_t a1, 
   }
 
   return a5 & 1;
+}
+
+void sub_26C730978(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+double EQKit::Font::STIXCollection::lengthMetricWithScriptAndRule(uint64_t a1, unsigned int a2, EQKit::Script::Info *a3, double a4)
+{
+  v4 = *(a1 + 336);
+  if (v4)
+  {
+    return EQKit::Font::Metric::LengthEntry::resolveWithScriptAndRule((v4 + 384 * a2), a3, a4);
+  }
+
+  else
+  {
+    return 0.0;
+  }
+}
+
+double virtual thunk toEQKit::Font::STIXCollection::lengthMetricWithScriptAndRule(void *a1, unsigned int a2, EQKit::Script::Info *a3, double a4)
+{
+  v4 = *(a1 + *(*a1 - 56) + 336);
+  if (v4)
+  {
+    return EQKit::Font::Metric::LengthEntry::resolveWithScriptAndRule((v4 + 384 * a2), a3, a4);
+  }
+
+  else
+  {
+    return 0.0;
+  }
 }

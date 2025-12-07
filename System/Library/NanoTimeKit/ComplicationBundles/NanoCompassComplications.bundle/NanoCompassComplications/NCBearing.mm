@@ -10,24 +10,24 @@
 
 - (NCBearing)initWithBearing:(double)bearing
 {
-  v10.receiver = self;
-  v10.super_class = NCBearing;
-  v4 = [(NCBearing *)&v10 init];
+  v9.receiver = self;
+  v9.super_class = NCBearing;
+  v4 = [(NCBearing *)&v9 init];
     ;
   }
 
     ;
   }
 
-  objc_msgSend_setBearing_(v4, v5, v6, v7, floor(bearing));
+  objc_msgSend_setBearing_(v4, v5, v6, floor(bearing));
   return i;
 }
 
 - (NCBearing)initWithHeading:(id)heading
 {
-  objc_msgSend_heading(heading, a2, heading, v3);
+  objc_msgSend_heading(heading, a2, heading);
 
-  return objc_msgSend_initWithBearing_(self, v5, v6, v7);
+  return objc_msgSend_initWithBearing_(self, v4, v5);
 }
 
 + (NCBearing)idealizedBearing
@@ -46,17 +46,17 @@
 {
   v2 = [NCBearing alloc];
   v3 = arc4random_uniform(0x168u);
-  v7 = objc_msgSend_initWithBearing_(v2, v4, v5, v6, v3);
+  v6 = objc_msgSend_initWithBearing_(v2, v4, v5, v3);
 
-  return v7;
+  return v6;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [NCBearing alloc];
-  objc_msgSend_bearing(self, v5, v6, v7);
+  objc_msgSend_bearing(self, v5, v6);
 
-  return objc_msgSend_initWithBearing_(v4, v8, v9, v10);
+  return objc_msgSend_initWithBearing_(v4, v7, v8);
 }
 
 @end

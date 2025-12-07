@@ -1,11 +1,27 @@
 @interface CertInfoSheetViewController
 - (CertInfoSheetViewControllerDelegate)delegate;
+- (void)_dismissWithResult:(int)result;
 - (void)_pushDetailsView;
 - (void)_setupNavItem;
 - (void)loadView;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation CertInfoSheetViewController
+
+- (void)_dismissWithResult:(int)result
+{
+  v3 = *&result;
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  v6 = objc_opt_respondsToSelector();
+
+  if (v6)
+  {
+    v7 = objc_loadWeakRetained(&self->_delegate);
+    [v7 sheetViewController:self finishedWithReturnCode:v3];
+  }
+}
 
 - (void)_setupNavItem
 {
@@ -56,6 +72,32 @@
   v9[4] = self;
   [(CertInfoCertificateSummaryView *)v4 setMoreDetailsSelectedBlock:v9];
   [(CertInfoSheetViewController *)self setView:v4];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v8.receiver = self;
+  v8.super_class = CertInfoSheetViewController;
+  [(CertInfoSheetViewController *)&v8 viewWillAppear:?];
+  [(CertInfoSheetViewController *)self _setupNavItem];
+  view = [(CertInfoSheetViewController *)self view];
+  tableView = [view tableView];
+
+  indexPathForSelectedRow = [tableView indexPathForSelectedRow];
+  if (indexPathForSelectedRow)
+  {
+    [tableView deselectRowAtIndexPath:indexPathForSelectedRow animated:appearCopy];
+  }
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = CertInfoSheetViewController;
+  [(CertInfoSheetViewController *)&v4 viewDidDisappear:disappear];
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter postNotificationName:@"kCertInfoSheetViewControllerDismissedNotification" object:0];
 }
 
 - (CertInfoSheetViewControllerDelegate)delegate

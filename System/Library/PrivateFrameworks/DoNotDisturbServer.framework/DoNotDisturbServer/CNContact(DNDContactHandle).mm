@@ -6,15 +6,15 @@
 
 + (id)dnds_predicateForContactsMatchingEventSender:()DNDContactHandle
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v4 = a3;
   contactIdentifier = [v4 contactIdentifier];
 
   if (contactIdentifier)
   {
     contactIdentifier2 = [v4 contactIdentifier];
-    v12[0] = contactIdentifier2;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+    v11[0] = contactIdentifier2;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
     v8 = [self predicateForContactsWithIdentifiers:v7];
 LABEL_6:
     v9 = v8;
@@ -41,8 +41,6 @@ LABEL_6:
   }
 
 LABEL_7:
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

@@ -48,20 +48,18 @@
 
 - (id)_accessibilitySupplementaryFooterViews
 {
-  v8[1] = *MEMORY[0x29EDCA608];
+  v7[1] = *MEMORY[0x29EDCA608];
   v2 = [(PXPhotosSectionHeaderViewAccessibility *)self safeValueForKey:@"_actionButton"];
   if (v2 && (__UIAccessibilitySafeClass(), v3 = objc_claimAutoreleasedReturnValue(), v4 = [v3 isHidden], v3, (v4 & 1) == 0))
   {
-    v8[0] = v2;
-    v5 = [MEMORY[0x29EDB8D80] arrayWithObjects:v8 count:1];
+    v7[0] = v2;
+    v5 = [MEMORY[0x29EDB8D80] arrayWithObjects:v7 count:1];
   }
 
   else
   {
     v5 = 0;
   }
-
-  v6 = *MEMORY[0x29EDCA608];
 
   return v5;
 }

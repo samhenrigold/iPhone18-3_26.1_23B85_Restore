@@ -26,9 +26,11 @@
 
 uint64_t __56__ML3MusicLibraryAccountChangeObserverProxy_sharedProxy__block_invoke()
 {
-  sharedProxy___sharedProxy = [[ML3MusicLibraryAccountChangeObserverProxy alloc] _init];
+  v0 = [[ML3MusicLibraryAccountChangeObserverProxy alloc] _init];
+  v1 = sharedProxy___sharedProxy;
+  sharedProxy___sharedProxy = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (id)_init

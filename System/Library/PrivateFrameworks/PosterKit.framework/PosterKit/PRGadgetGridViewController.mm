@@ -359,12 +359,13 @@
 void __66__PRGadgetGridViewController_ensureContentWithTimeout_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = PRLogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = PRLogCommon(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __66__PRGadgetGridViewController_ensureContentWithTimeout_completion___block_invoke_2_cold_1(v3, a1, v4);
+      __66__PRGadgetGridViewController_ensureContentWithTimeout_completion___block_invoke_2_cold_1(v4, a1, v5);
     }
   }
 
@@ -794,10 +795,10 @@ LABEL_12:
 
       if (!complicationDescriptor2)
       {
-        v12 = PRLogCommon();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v13 = PRLogCommon(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          [(PRGadgetGridViewController *)uniqueIdentifier widgetIconViewControllerDidReceiveTap:v12];
+          [(PRGadgetGridViewController *)uniqueIdentifier widgetIconViewControllerDidReceiveTap:v13];
         }
 
         complicationDescriptor2 = [tapCopy complicationDescriptor];
@@ -812,9 +813,9 @@ LABEL_12:
 
   else
   {
-    v14 = objc_opt_respondsToSelector();
+    v15 = objc_opt_respondsToSelector();
 
-    if (v14)
+    if (v15)
     {
       uniqueIdentifier = [(PRGadgetGridViewController *)self delegate];
       [uniqueIdentifier gadgetGridViewControllerDidReceiveTapToBackground:self];
@@ -896,25 +897,26 @@ LABEL_10:
   descriptorCopy = descriptor;
   if ([descriptorCopy gadgetType])
   {
-    if ([descriptorCopy gadgetType] == 1)
+    gadgetType = [descriptorCopy gadgetType];
+    if (gadgetType == 1)
     {
-      v7 = objc_opt_class();
-      v8 = descriptorCopy;
-      if (v7)
+      v8 = objc_opt_class();
+      v9 = descriptorCopy;
+      if (v8)
       {
-        v9 = (objc_opt_isKindOfClass() & 1) != 0 ? v8 : 0;
+        v10 = (objc_opt_isKindOfClass() & 1) != 0 ? v9 : 0;
       }
 
       else
       {
-        v9 = 0;
+        v10 = 0;
       }
 
-      v13 = v9;
+      v14 = v10;
 
-      if (v13)
+      if (v14)
       {
-        v14 = [[PRControlIconViewController alloc] initWithControlDescriptor:v13 delegate:self];
+        v15 = [[PRControlIconViewController alloc] initWithControlDescriptor:v14 delegate:self];
         goto LABEL_17;
       }
     }
@@ -922,48 +924,48 @@ LABEL_10:
 
   else
   {
-    v10 = objc_opt_class();
-    v11 = descriptorCopy;
-    if (v10)
+    v11 = objc_opt_class();
+    v12 = descriptorCopy;
+    if (v11)
     {
       if (objc_opt_isKindOfClass())
       {
-        v12 = v11;
+        v13 = v12;
       }
 
       else
       {
-        v12 = 0;
+        v13 = 0;
       }
     }
 
     else
     {
-      v12 = 0;
+      v13 = 0;
     }
 
-    v13 = v12;
+    v14 = v13;
 
-    if (v13)
+    if (v14)
     {
-      v14 = [[PRWidgetIconViewController alloc] initWithComplicationDescriptor:v13 contentType:[(PRGadgetGridViewController *)self contentType] presentationMode:mode delegate:self];
+      v15 = [[PRWidgetIconViewController alloc] initWithComplicationDescriptor:v14 contentType:[(PRGadgetGridViewController *)self contentType] presentationMode:mode delegate:self];
 LABEL_17:
-      v15 = v14;
+      v16 = v15;
 
       goto LABEL_21;
     }
   }
 
-  v16 = PRLogCommon();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  v17 = PRLogCommon(gadgetType);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
     [PRGadgetGridViewController iconViewControllerForDescriptor:descriptorCopy presentationMode:?];
   }
 
-  v15 = 0;
+  v16 = 0;
 LABEL_21:
 
-  return v15;
+  return v16;
 }
 
 - (void)iconTouchBegan:(id)began
@@ -1052,7 +1054,7 @@ LABEL_21:
 
   else
   {
-    intent = PRLogCommon();
+    intent = PRLogCommon(intentType);
     if (os_log_type_enabled(intent, OS_LOG_TYPE_ERROR))
     {
       [PRGadgetGridViewController customImageViewControllerForIconView:gadgetDescriptor];
@@ -1109,47 +1111,48 @@ LABEL_21:
 void __67__PRGadgetGridViewController_customImageViewControllerForIconView___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = PRLogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = PRLogCommon(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __67__PRGadgetGridViewController_customImageViewControllerForIconView___block_invoke_cold_1(a1, v3, v4);
+      __67__PRGadgetGridViewController_customImageViewControllerForIconView___block_invoke_cold_1(a1, v4, v5);
     }
   }
 
-  v5 = *(a1 + 40);
-  v6 = objc_opt_class();
-  v7 = v5;
-  if (v6)
+  v6 = *(a1 + 40);
+  v7 = objc_opt_class();
+  v8 = v6;
+  if (v7)
   {
     if (objc_opt_isKindOfClass())
     {
-      v8 = v7;
+      v9 = v8;
     }
 
     else
     {
-      v8 = 0;
+      v9 = 0;
     }
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  v9 = v8;
+  v10 = v9;
 
-  if (v9)
+  if (v10)
   {
-    v10 = dispatch_time(0, 500000000);
+    v11 = dispatch_time(0, 500000000);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __67__PRGadgetGridViewController_customImageViewControllerForIconView___block_invoke_328;
     block[3] = &unk_1E7843688;
-    v12 = v9;
-    dispatch_after(v10, MEMORY[0x1E69E96A0], block);
+    v13 = v10;
+    dispatch_after(v11, MEMORY[0x1E69E96A0], block);
   }
 }
 
@@ -1359,8 +1362,12 @@ void __66__PRGadgetGridViewController_ensureContentWithTimeout_completion___bloc
 
 - (void)iconViewControllerForDescriptor:(void *)a1 presentationMode:.cold.1(void *a1)
 {
-  v7 = [a1 uniqueIdentifier];
-  OUTLINED_FUNCTION_0_3(&dword_1A8AA7000, v1, v2, "Failed to identify gadget descriptor %@ with identifier %@ as a valid gadget descriptor, could not create custom view controller for icon.", v3, v4, v5, v6, 2u);
+  v2 = [a1 uniqueIdentifier];
+  *v9 = 138412546;
+  *&v9[4] = a1;
+  *&v9[12] = 2112;
+  *&v9[14] = v2;
+  OUTLINED_FUNCTION_0_3(&dword_1A8AA7000, v3, v4, "Failed to identify gadget descriptor %@ with identifier %@ as a valid gadget descriptor, could not create custom view controller for icon.", v5, v6, v7, v8, *v9, *&v9[8], *&v9[16]);
 }
 
 - (void)customImageViewControllerForIconView:(void *)a1 .cold.1(void *a1)
@@ -1368,8 +1375,12 @@ void __66__PRGadgetGridViewController_ensureContentWithTimeout_completion___bloc
   v2 = [a1 extensionIdentity];
   v3 = [v2 extensionBundleIdentifier];
   v4 = [a1 gadgetIdentity];
-  v11 = [v4 kind];
-  OUTLINED_FUNCTION_0_3(&dword_1A8AA7000, v5, v6, "Default intent asked for but not provided: %@ - %@", v7, v8, v9, v10, 2u);
+  v5 = [v4 kind];
+  *v12 = 138412546;
+  *&v12[4] = v3;
+  *&v12[12] = 2112;
+  *&v12[14] = v5;
+  OUTLINED_FUNCTION_0_3(&dword_1A8AA7000, v6, v7, "Default intent asked for but not provided: %@ - %@", v8, v9, v10, v11, *v12, *&v12[8], *&v12[16]);
 }
 
 void __67__PRGadgetGridViewController_customImageViewControllerForIconView___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)

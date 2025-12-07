@@ -130,9 +130,11 @@
   v39 = +[NSNotificationCenter defaultCenter];
   [v39 addObserver:self selector:"_timeZoneDidChange:" name:NSSystemTimeZoneDidChangeNotification object:0];
 
-  self->_demoDataProvider = objc_alloc_init(CHDemoDataProvider);
+  v40 = objc_alloc_init(CHDemoDataProvider);
+  demoDataProvider = self->_demoDataProvider;
+  self->_demoDataProvider = v40;
 
-  _objc_release_x1();
+  _objc_release_x1(v40, demoDataProvider);
 }
 
 - (void)startFetching

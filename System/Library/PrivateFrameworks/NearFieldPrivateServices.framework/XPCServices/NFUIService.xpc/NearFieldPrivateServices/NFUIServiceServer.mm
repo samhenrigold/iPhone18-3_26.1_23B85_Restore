@@ -1,5 +1,6 @@
 @interface NFUIServiceServer
 - (void)runService:(id)service callback:(id)callback;
+- (void)sendInvalidationNotification:(id)notification error:(id)error userCanceled:(BOOL)canceled;
 - (void)showPaymentSessionGotoSettingsPrompt:(id)prompt;
 @end
 
@@ -655,6 +656,26 @@ LABEL_26:
   }
 
 LABEL_27:
+}
+
+- (void)sendInvalidationNotification:(id)notification error:(id)error userCanceled:(BOOL)canceled
+{
+  canceledCopy = canceled;
+  v15[0] = @"Action";
+  v15[1] = @"Parameter";
+  v16[0] = @"CoreNFCUI_Invalidate";
+  v13 = @"UserCancelled";
+  errorCopy = error;
+  notificationCopy = notification;
+  v9 = [NSNumber numberWithBool:canceledCopy];
+  v14 = v9;
+  v10 = [NSDictionary dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+  v16[1] = v10;
+  v11 = [NSDictionary dictionaryWithObjects:v16 forKeys:v15 count:2];
+
+  remoteObjectProxy = [notificationCopy remoteObjectProxy];
+
+  [remoteObjectProxy serviceNotificationReceived:v11 error:errorCopy];
 }
 
 - (void)showPaymentSessionGotoSettingsPrompt:(id)prompt

@@ -1,13 +1,45 @@
-void sub_100000DE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100000DE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100001130(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+int main(int argc, const char **argv, const char **envp)
 {
-  va_start(va, a7);
+  v4 = *&argc;
+  v5 = objc_alloc_init(_NSAttributedStringAgentService);
+  v6 = +[_NSAttributedStringAgentService sharedApplication];
+  [v6 setDelegate:v5];
+
+  [(_NSAttributedStringAgentService *)v5 start];
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v7 = off_1000086A8;
+  v14 = off_1000086A8;
+  if (!off_1000086A8)
+  {
+    v8 = sub_1000011A0();
+    v12[3] = dlsym(v8, "UIApplicationMain");
+    off_1000086A8 = v12[3];
+    v7 = v12[3];
+  }
+
+  _Block_object_dispose(&v11, 8);
+  if (!v7)
+  {
+    sub_1000020F0();
+  }
+
+  v9 = v7(v4, argv, @"UIApplication", 0);
+
+  return v9;
+}
+
+void sub_100001130(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -45,7 +77,7 @@ uint64_t sub_1000011A0()
   v1 = v3[0];
   if (!qword_1000086A0)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -60,7 +92,6 @@ LABEL_7:
 
 uint64_t sub_1000012A0(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_1000086A0 = result;
   return result;
@@ -99,9 +130,9 @@ id sub_1000016D8()
   return v1;
 }
 
-void sub_1000017A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000017A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -144,6 +175,13 @@ void sub_1000017B8(uint64_t a1, void *a2, void *a3, void *a4)
   }
 
   (*(*(a1 + 40) + 16))();
+}
+
+void sub_100001C18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_100001C38(uint64_t a1, void *a2, void *a3, void *a4)
@@ -210,7 +248,7 @@ Class sub_100001D84(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -230,7 +268,6 @@ LABEL_4:
 
 uint64_t sub_100001EC8(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_1000086B8 = result;
   return result;
@@ -261,7 +298,7 @@ void *sub_100001F3C(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -278,7 +315,6 @@ LABEL_5:
 
 uint64_t sub_10000207C(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_1000086C8 = result;
   return result;
@@ -286,7 +322,7 @@ uint64_t sub_10000207C(uint64_t a1)
 
 void sub_1000020F0()
 {
-  dlerror();
-  abort_report_np();
+  v0 = dlerror();
+  abort_report_np("%s", v0);
   sub_100002114();
 }

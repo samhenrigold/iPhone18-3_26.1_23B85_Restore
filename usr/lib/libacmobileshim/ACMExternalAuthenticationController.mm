@@ -334,7 +334,7 @@ uint64_t __73__ACMExternalAuthenticationController_evaluateSSOWithRequest_comple
   [(ACMExternalAuthenticationControllerDelegate *)delegate authenticationController:self scheduleHandler:v10 withCompletion:v15];
 }
 
-uint64_t __83__ACMExternalAuthenticationController_authenticateWithRequest_password_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__83__ACMExternalAuthenticationController_authenticateWithRequest_password_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   if (a3)
   {

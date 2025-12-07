@@ -93,6 +93,7 @@
 - (void)newRenderPipelineStateWithTileDescriptor:(id)descriptor options:(unint64_t)options completionHandler:(id)handler;
 - (void)onComputePipelineCreated:(id)created;
 - (void)onRenderPipelineCreated:(id)created;
+- (void)setWritableHeapsEnabled:(BOOL)enabled;
 - (void)validateRaytracing;
 @end
 
@@ -100,10 +101,10 @@
 
 - (MTLLegacySVDevice)initWithBaseObject:(id)object parent:(id)parent
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v17.receiver = self;
-  v17.super_class = MTLLegacySVDevice;
-  v5 = [(MTLToolsDevice *)&v17 initWithBaseObject:object parent:parent];
+  v17 = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = MTLLegacySVDevice;
+  v5 = [(MTLToolsDevice *)&v16 initWithBaseObject:object parent:parent];
   if (v5)
   {
     if (MTLLegacySVLog(void)::onceToken != -1)
@@ -160,7 +161,6 @@
     operator new();
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -217,79 +217,75 @@
 
 - (void)_prepareBinaryLinkedFunctions:(id)functions
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   binaryFunctions = [functions binaryFunctions];
-  v4 = [binaryFunctions countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [binaryFunctions countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(binaryFunctions);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) prepareForBinaryFunctionUsage];
+        [*(*(&v8 + 1) + 8 * v7++) prepareForBinaryFunctionUsage];
       }
 
       while (v5 != v7);
-      v5 = [binaryFunctions countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [binaryFunctions countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_prepareInsertLibraries:(id)libraries
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v4 = [libraries countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [libraries countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(libraries);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) prepareForUsage];
+        [*(*(&v8 + 1) + 8 * v7++) prepareForUsage];
       }
 
       while (v5 != v7);
-      v5 = [libraries countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [libraries countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_modifyRenderPipelineDescriptor:(id)descriptor options:(unint64_t *)options
 {
-  v23[1] = *MEMORY[0x277D85DE8];
-  v21 = 0;
+  v22[1] = *MEMORY[0x277D85DE8];
+  v20 = 0;
   [descriptor setForceSoftwareVertexFetch:1];
   [objc_msgSend(descriptor "vertexFunction")];
   [objc_msgSend(descriptor "fragmentFunction")];
@@ -300,56 +296,34 @@
   -[MTLLegacySVDevice _prepareBinaryLinkedFunctions:](self, "_prepareBinaryLinkedFunctions:", [descriptor meshLinkedFunctions]);
   -[MTLLegacySVDevice _prepareBinaryLinkedFunctions:](self, "_prepareBinaryLinkedFunctions:", [descriptor objectLinkedFunctions]);
   v7 = objc_autoreleasePoolPush();
-  v8 = -[MTLLegacySVDevice loadDynamicLibrariesForFunction:insertLibraries:error:](self, "loadDynamicLibrariesForFunction:insertLibraries:error:", [descriptor vertexFunction], objc_msgSend(descriptor, "vertexPreloadedLibraries"), &v21);
-  v9 = v21;
-  if (v21)
+  v8 = -[MTLLegacySVDevice loadDynamicLibrariesForFunction:insertLibraries:error:](self, "loadDynamicLibrariesForFunction:insertLibraries:error:", [descriptor vertexFunction], objc_msgSend(descriptor, "vertexPreloadedLibraries"), &v20);
+  v9 = v20;
+  if (v20 || (v10 = v8, [descriptor setVertexPreloadedLibraries:v8], -[MTLLegacySVDevice _prepareInsertLibraries:](self, "_prepareInsertLibraries:", v10), v11 = -[MTLLegacySVDevice loadDynamicLibrariesForFunction:insertLibraries:error:](self, "loadDynamicLibrariesForFunction:insertLibraries:error:", objc_msgSend(descriptor, "fragmentFunction"), objc_msgSend(descriptor, "fragmentPreloadedLibraries"), &v20), (v9 = v20) != 0) || (v12 = v11, objc_msgSend(descriptor, "setFragmentPreloadedLibraries:", v11), -[MTLLegacySVDevice _prepareInsertLibraries:](self, "_prepareInsertLibraries:", v12), v13 = -[MTLLegacySVDevice loadDynamicLibrariesForFunction:insertLibraries:error:](self, "loadDynamicLibrariesForFunction:insertLibraries:error:", objc_msgSend(descriptor, "meshFunction"), objc_msgSend(descriptor, "meshPreloadedLibraries"), &v20), (v9 = v20) != 0) || (v14 = v13, objc_msgSend(descriptor, "setMeshPreloadedLibraries:", v13), -[MTLLegacySVDevice _prepareInsertLibraries:](self, "_prepareInsertLibraries:", v14), v15 = -[MTLLegacySVDevice loadDynamicLibrariesForFunction:insertLibraries:error:](self, "loadDynamicLibrariesForFunction:insertLibraries:error:", objc_msgSend(descriptor, "objectFunction"), objc_msgSend(descriptor, "objectPreloadedLibraries"), &v20), (v9 = v20) != 0))
   {
-    goto LABEL_5;
-  }
-
-  v10 = v8;
-  [descriptor setVertexPreloadedLibraries:v8];
-  [(MTLLegacySVDevice *)self _prepareInsertLibraries:v10];
-  v11 = -[MTLLegacySVDevice loadDynamicLibrariesForFunction:insertLibraries:error:](self, "loadDynamicLibrariesForFunction:insertLibraries:error:", [descriptor fragmentFunction], objc_msgSend(descriptor, "fragmentPreloadedLibraries"), &v21);
-  v9 = v21;
-  if (v21)
-  {
-    goto LABEL_5;
-  }
-
-  v12 = v11;
-  [descriptor setFragmentPreloadedLibraries:v11];
-  [(MTLLegacySVDevice *)self _prepareInsertLibraries:v12];
-  v13 = -[MTLLegacySVDevice loadDynamicLibrariesForFunction:insertLibraries:error:](self, "loadDynamicLibrariesForFunction:insertLibraries:error:", [descriptor meshFunction], objc_msgSend(descriptor, "meshPreloadedLibraries"), &v21);
-  v9 = v21;
-  if (v21 || (v14 = v13, [descriptor setMeshPreloadedLibraries:v13], -[MTLLegacySVDevice _prepareInsertLibraries:](self, "_prepareInsertLibraries:", v14), v15 = -[MTLLegacySVDevice loadDynamicLibrariesForFunction:insertLibraries:error:](self, "loadDynamicLibrariesForFunction:insertLibraries:error:", objc_msgSend(descriptor, "objectFunction"), objc_msgSend(descriptor, "objectPreloadedLibraries"), &v21), (v9 = v21) != 0))
-  {
-LABEL_5:
     objc_autoreleasePoolPop(v7);
   }
 
   else
   {
-    v18 = v15;
+    v17 = v15;
     [descriptor setObjectPreloadedLibraries:v15];
-    [(MTLLegacySVDevice *)self _prepareInsertLibraries:v18];
+    [(MTLLegacySVDevice *)self _prepareInsertLibraries:v17];
     objc_autoreleasePoolPop(v7);
-    v19 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:20];
-    bytes = [v19 bytes];
+    v18 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:20];
+    bytes = [v18 bytes];
     *bytes = [descriptor isAlphaToCoverageEnabled];
     *(bytes + 4) = [descriptor maxVertexCallStackDepth];
     *(bytes + 8) = [descriptor maxFragmentCallStackDepth];
     *(bytes + 12) = [descriptor maxMeshCallStackDepth];
     *(bytes + 16) = [descriptor maxObjectCallStackDepth];
-    v22 = @"MTLBoundsCheck::RenderPipelineData";
-    v23[0] = v19;
-    [descriptor setPluginData:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v23, &v22, 1)}];
+    v21 = @"MTLBoundsCheck::RenderPipelineData";
+    v22[0] = v18;
+    [descriptor setPluginData:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v22, &v21, 1)}];
 
     [descriptor setGpuCompilerSPIOptions:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithDictionary:", -[MTLLegacySVDevice setGpuCompilerSPIOptionShaderValidation:options:](self, "setGpuCompilerSPIOptionShaderValidation:options:", objc_msgSend(descriptor, "gpuCompilerSPIOptions"), *options))}];
-    v9 = v21;
+    return v20;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -365,33 +339,33 @@ LABEL_5:
 
 - (id)setGpuCompilerSPIOptionShaderValidation:(id)validation options:(unint64_t)options
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v7 = [validation countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [validation countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(validation);
         }
 
-        [v6 setObject:objc_msgSend(validation forKey:{"objectForKeyedSubscript:", *(*(&v14 + 1) + 8 * v10)), *(*(&v14 + 1) + 8 * v10)}];
+        [v6 setObject:objc_msgSend(validation forKey:{"objectForKeyedSubscript:", *(*(&v13 + 1) + 8 * v10)), *(*(&v13 + 1) + 8 * v10)}];
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [validation countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [validation countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
@@ -410,19 +384,17 @@ LABEL_12:
     [v6 setObject:objc_msgSend(MEMORY[0x277CBEB68] forKey:{"null"), v11}];
   }
 
-  result = v6;
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return v6;
 }
 
 - (id)_modifyComputePipelineDescriptor:(id)descriptor options:(unint64_t *)options
 {
-  v15[1] = *MEMORY[0x277D85DE8];
-  v13 = 0;
+  v14[1] = *MEMORY[0x277D85DE8];
+  v12 = 0;
   [objc_msgSend(descriptor "computeFunction")];
-  v7 = [(MTLLegacySVDevice *)self loadDynamicLibrariesForComputeDescriptor:descriptor error:&v13];
+  v7 = [(MTLLegacySVDevice *)self loadDynamicLibrariesForComputeDescriptor:descriptor error:&v12];
   v8 = v7;
-  if (v13)
+  if (v12)
   {
   }
 
@@ -433,18 +405,16 @@ LABEL_12:
     v9 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:4];
     bytes = [v9 bytes];
     *bytes = [descriptor maxCallStackDepth];
-    v14 = @"MTLBoundsCheck::ComputePipelineData";
-    v15[0] = v9;
-    [descriptor setPluginData:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v15, &v14, 1)}];
+    v13 = @"MTLBoundsCheck::ComputePipelineData";
+    v14[0] = v9;
+    [descriptor setPluginData:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v14, &v13, 1)}];
 
     -[MTLLegacySVDevice _prepareInsertLibraries:](self, "_prepareInsertLibraries:", [descriptor preloadedLibraries]);
     -[MTLLegacySVDevice _prepareBinaryLinkedFunctions:](self, "_prepareBinaryLinkedFunctions:", [descriptor linkedFunctions]);
     [descriptor setGpuCompilerSPIOptions:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithDictionary:", -[MTLLegacySVDevice setGpuCompilerSPIOptionShaderValidation:options:](self, "setGpuCompilerSPIOptionShaderValidation:options:", objc_msgSend(descriptor, "gpuCompilerSPIOptions"), *options))}];
   }
 
-  result = v13;
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return v12;
 }
 
 - (id)unwrapAndModifyComputePipelineDescriptor:(id *)descriptor options:(unint64_t *)options
@@ -460,13 +430,13 @@ LABEL_12:
 
 - (id)_modifyTilePipelineDescriptor:(id)descriptor options:(unint64_t *)options
 {
-  v15[1] = *MEMORY[0x277D85DE8];
-  v13 = 0;
+  v14[1] = *MEMORY[0x277D85DE8];
+  v12 = 0;
   [objc_msgSend(descriptor "tileFunction")];
   -[MTLLegacySVDevice _prepareBinaryLinkedFunctions:](self, "_prepareBinaryLinkedFunctions:", [descriptor linkedFunctions]);
-  v7 = -[MTLLegacySVDevice loadDynamicLibrariesForFunction:insertLibraries:error:](self, "loadDynamicLibrariesForFunction:insertLibraries:error:", [descriptor tileFunction], objc_msgSend(descriptor, "preloadedLibraries"), &v13);
+  v7 = -[MTLLegacySVDevice loadDynamicLibrariesForFunction:insertLibraries:error:](self, "loadDynamicLibrariesForFunction:insertLibraries:error:", [descriptor tileFunction], objc_msgSend(descriptor, "preloadedLibraries"), &v12);
   v8 = v7;
-  if (v13)
+  if (v12)
   {
   }
 
@@ -478,16 +448,14 @@ LABEL_12:
     v9 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:4];
     bytes = [v9 bytes];
     *bytes = [descriptor maxCallStackDepth];
-    v14 = @"MTLBoundsCheck::ComputePipelineData";
-    v15[0] = v9;
-    [descriptor setPluginData:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v15, &v14, 1)}];
+    v13 = @"MTLBoundsCheck::ComputePipelineData";
+    v14[0] = v9;
+    [descriptor setPluginData:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v14, &v13, 1)}];
 
     [descriptor setGpuCompilerSPIOptions:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithDictionary:", -[MTLLegacySVDevice setGpuCompilerSPIOptionShaderValidation:options:](self, "setGpuCompilerSPIOptionShaderValidation:options:", objc_msgSend(descriptor, "gpuCompilerSPIOptions"), *options))}];
   }
 
-  result = v13;
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return v12;
 }
 
 - (id)unwrapAndModifyTileRenderPipelineDescriptor:(id *)descriptor options:(unint64_t *)options
@@ -503,16 +471,15 @@ LABEL_12:
 
 - (void)_modifyMeshRenderPipelineDescriptor:(id)descriptor options:(unint64_t *)options
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v7 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:20];
   bytes = [v7 bytes];
   *bytes = [descriptor isAlphaToCoverageEnabled];
-  v10 = @"MTLBoundsCheck::RenderPipelineData";
-  v11[0] = v7;
-  [descriptor setPluginData:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v11, &v10, 1)}];
+  v9 = @"MTLBoundsCheck::RenderPipelineData";
+  v10[0] = v7;
+  [descriptor setPluginData:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v10, &v9, 1)}];
 
   [descriptor setGpuCompilerSPIOptions:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithDictionary:", -[MTLLegacySVDevice setGpuCompilerSPIOptionShaderValidation:options:](self, "setGpuCompilerSPIOptionShaderValidation:options:", objc_msgSend(descriptor, "gpuCompilerSPIOptions"), *options))}];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)unwrapAndModifyMeshRenderPipelineDescriptor:(id)descriptor options:(unint64_t *)options
@@ -1015,164 +982,151 @@ void __85__MTLLegacySVDevice_newComputePipelineStateWithDescriptor_options_compl
 
 - (id)newLibraryWithCIFiltersForComputePipeline:(id)pipeline imageFilterFunctionInfo:(id *)info error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   instrumentationHeapInit(self);
   v9 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(pipeline, "count")}];
+  v20 = 0u;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v10 = [pipeline countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v10 = [pipeline countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v23;
+    v12 = *v21;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v23 != v12)
+        if (*v21 != v12)
         {
           objc_enumerationMutation(pipeline);
         }
 
-        [v9 addObject:{objc_msgSend(*(*(&v22 + 1) + 8 * i), "baseObject")}];
+        [v9 addObject:{objc_msgSend(*(*(&v20 + 1) + 8 * i), "baseObject")}];
       }
 
-      v11 = [pipeline countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v11 = [pipeline countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v11);
   }
 
-  v14 = *(self + 2);
-  v15 = objc_opt_respondsToSelector();
-  v16 = *(self + 2);
-  if (v15)
+  v14 = objc_opt_respondsToSelector();
+  v15 = *(self + 2);
+  if (v14)
   {
-    v17 = [v16 newLibraryWithCIFiltersForComputePipeline:v9 imageFilterFunctionInfo:info error:error];
+    v16 = [v15 newLibraryWithCIFiltersForComputePipeline:v9 imageFilterFunctionInfo:info error:error];
   }
 
   else
   {
-    v17 = [v16 newLibraryWithCIFilters:v9 imageFilterFunctionInfo:info error:error];
+    v16 = [v15 newLibraryWithCIFilters:v9 imageFilterFunctionInfo:info error:error];
   }
 
-  v18 = v17;
-  if (v17)
+  v17 = v16;
+  if (!v16)
   {
-    [v17 setShaderValidationEnabled:1];
-    v19 = [[MTLLegacySVLibrary alloc] initWithLibrary:v18 device:self];
+    return 0;
   }
 
-  else
-  {
-    v19 = 0;
-  }
+  [v16 setShaderValidationEnabled:1];
+  v18 = [[MTLLegacySVLibrary alloc] initWithLibrary:v17 device:self];
 
-  v20 = *MEMORY[0x277D85DE8];
-  return v19;
+  return v18;
 }
 
 - (id)newLibraryWithImageFilterFunctionsSPI:(id)i imageFilterFunctionInfo:(id *)info error:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   instrumentationHeapInit(self);
   v9 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(i, "count")}];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v10 = [i countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v10 = [i countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v20;
+    v12 = *v19;
     do
     {
       v13 = 0;
       do
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(i);
         }
 
-        [v9 addObject:{objc_msgSend(*(*(&v19 + 1) + 8 * v13++), "baseObject")}];
+        [v9 addObject:{objc_msgSend(*(*(&v18 + 1) + 8 * v13++), "baseObject")}];
       }
 
       while (v11 != v13);
-      v11 = [i countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [i countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v11);
   }
 
   v14 = [*(self + 2) newLibraryWithImageFilterFunctionsSPI:v9 imageFilterFunctionInfo:info error:error];
-  if (v14)
+  if (!v14)
   {
-    v15 = v14;
-    [v14 setShaderValidationEnabled:1];
-    v16 = [[MTLLegacySVLibrary alloc] initWithLibrary:v15 device:self];
+    return 0;
   }
 
-  else
-  {
-    v16 = 0;
-  }
+  v15 = v14;
+  [v14 setShaderValidationEnabled:1];
+  v16 = [[MTLLegacySVLibrary alloc] initWithLibrary:v15 device:self];
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (id)newLibraryWithCIFilters:(id)filters imageFilterFunctionInfo:(id *)info error:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   instrumentationHeapInit(self);
   v9 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(filters, "count")}];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v10 = [filters countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v10 = [filters countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v20;
+    v12 = *v19;
     do
     {
       v13 = 0;
       do
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(filters);
         }
 
-        [v9 addObject:{objc_msgSend(*(*(&v19 + 1) + 8 * v13++), "baseObject")}];
+        [v9 addObject:{objc_msgSend(*(*(&v18 + 1) + 8 * v13++), "baseObject")}];
       }
 
       while (v11 != v13);
-      v11 = [filters countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [filters countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v11);
   }
 
   v14 = [*(self + 2) newLibraryWithCIFilters:v9 imageFilterFunctionInfo:info error:error];
-  if (v14)
+  if (!v14)
   {
-    v15 = v14;
-    [v14 setShaderValidationEnabled:1];
-    v16 = [[MTLLegacySVLibrary alloc] initWithLibrary:v15 device:self];
+    return 0;
   }
 
-  else
-  {
-    v16 = 0;
-  }
+  v15 = v14;
+  [v14 setShaderValidationEnabled:1];
+  v16 = [[MTLLegacySVLibrary alloc] initWithLibrary:v15 device:self];
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -1503,107 +1457,102 @@ uint64_t __68__MTLLegacySVDevice_newLibraryWithSource_options_completionHandler_
 
 - (id)loadDynamicLibrariesForFunction:(id)function insertLibraries:(id)libraries options:(unint64_t)options error:(id *)error
 {
-  v43 = *MEMORY[0x277D85DE8];
-  if (function)
+  v42 = *MEMORY[0x277D85DE8];
+  if (!function)
   {
-    context = objc_autoreleasePoolPush();
-    if (libraries)
-    {
-      v11 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(libraries, "count")}];
-      v35 = 0u;
-      v36 = 0u;
-      v37 = 0u;
-      v38 = 0u;
-      v12 = [libraries countByEnumeratingWithState:&v35 objects:v42 count:16];
-      if (v12)
-      {
-        v13 = v12;
-        v14 = *v36;
-        do
-        {
-          for (i = 0; i != v13; ++i)
-          {
-            if (*v36 != v14)
-            {
-              objc_enumerationMutation(libraries);
-            }
+    return 0;
+  }
 
-            [v11 addObject:{objc_msgSend(*(*(&v35 + 1) + 8 * i), "baseObject")}];
+  context = objc_autoreleasePoolPush();
+  if (libraries)
+  {
+    v11 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(libraries, "count")}];
+    v34 = 0u;
+    v35 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v12 = [libraries countByEnumeratingWithState:&v34 objects:v41 count:16];
+    if (v12)
+    {
+      v13 = v12;
+      v14 = *v35;
+      do
+      {
+        for (i = 0; i != v13; ++i)
+        {
+          if (*v35 != v14)
+          {
+            objc_enumerationMutation(libraries);
           }
 
-          v13 = [libraries countByEnumeratingWithState:&v35 objects:v42 count:16];
+          [v11 addObject:{objc_msgSend(*(*(&v34 + 1) + 8 * i), "baseObject")}];
         }
 
-        while (v13);
+        v13 = [libraries countByEnumeratingWithState:&v34 objects:v41 count:16];
       }
-    }
 
-    else
-    {
-      v11 = 0;
+      while (v13);
     }
+  }
 
-    v17 = [*(self + 2) loadDynamicLibrariesForFunction:objc_msgSend(function insertLibraries:"baseObject") options:v11 error:{options | 2, error}];
-    if (v17)
+  else
+  {
+    v11 = 0;
+  }
+
+  v17 = [*(self + 2) loadDynamicLibrariesForFunction:objc_msgSend(function insertLibraries:"baseObject") options:v11 error:{options | 2, error}];
+  if (v17)
+  {
+    v18 = v17;
+    v16 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v17, "count")}];
+    v30 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    v19 = [v18 countByEnumeratingWithState:&v30 objects:v40 count:16];
+    if (v19)
     {
-      v18 = v17;
-      v16 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v17, "count")}];
-      v31 = 0u;
-      v32 = 0u;
-      v33 = 0u;
-      v34 = 0u;
-      v19 = [v18 countByEnumeratingWithState:&v31 objects:v41 count:16];
-      if (v19)
+      v20 = v19;
+      v21 = *v31;
+      do
       {
-        v20 = v19;
-        v21 = *v32;
-        do
+        for (j = 0; j != v20; ++j)
         {
-          for (j = 0; j != v20; ++j)
+          if (*v31 != v21)
           {
-            if (*v32 != v21)
-            {
-              objc_enumerationMutation(v18);
-            }
-
-            v23 = *(*(&v31 + 1) + 8 * j);
-            selfCopy = self;
-            instrumentationHeapInit(self);
-            v24 = v23;
-            if (v24)
-            {
-              v25 = v24;
-              v26 = *(self + 7);
-              v40[0] = MEMORY[0x277D85DD0];
-              v40[1] = 3221225472;
-              v40[2] = ___ZZL18WrapDynamicLibraryIZ83__MTLLegacySVDevice_loadDynamicLibrariesForFunction_insertLibraries_options_error__E4__16EP25MTLLegacySVDynamicLibraryP17MTLLegacySVDeviceT_ENKUlS5_E_clIPU28objcproto17MTLDynamicLibrary11objc_objectEEDaS5__block_invoke;
-              v40[3] = &unk_2787B38F8;
-              v40[4] = v25;
-              v40[5] = &selfCopy;
-              v27 = [v26 getCachedObjectForKey:v25 onMiss:v40];
-            }
-
-            else
-            {
-              v27 = 0;
-            }
-
-            [v16 addObject:v27];
+            objc_enumerationMutation(v18);
           }
 
-          v20 = [v18 countByEnumeratingWithState:&v31 objects:v41 count:16];
+          v23 = *(*(&v30 + 1) + 8 * j);
+          selfCopy = self;
+          instrumentationHeapInit(self);
+          v24 = v23;
+          if (v24)
+          {
+            v25 = v24;
+            v26 = *(self + 7);
+            v39[0] = MEMORY[0x277D85DD0];
+            v39[1] = 3221225472;
+            v39[2] = ___ZZL18WrapDynamicLibraryIZ83__MTLLegacySVDevice_loadDynamicLibrariesForFunction_insertLibraries_options_error__E4__16EP25MTLLegacySVDynamicLibraryP17MTLLegacySVDeviceT_ENKUlS5_E_clIPU28objcproto17MTLDynamicLibrary11objc_objectEEDaS5__block_invoke;
+            v39[3] = &unk_2787B38F8;
+            v39[4] = v25;
+            v39[5] = &selfCopy;
+            v27 = [v26 getCachedObjectForKey:v25 onMiss:v39];
+          }
+
+          else
+          {
+            v27 = 0;
+          }
+
+          [v16 addObject:v27];
         }
 
-        while (v20);
+        v20 = [v18 countByEnumeratingWithState:&v30 objects:v40 count:16];
       }
-    }
 
-    else
-    {
-      v16 = 0;
+      while (v20);
     }
-
-    objc_autoreleasePoolPop(context);
   }
 
   else
@@ -1611,7 +1560,7 @@ uint64_t __68__MTLLegacySVDevice_newLibraryWithSource_options_completionHandler_
     v16 = 0;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(context);
   return v16;
 }
 
@@ -1947,7 +1896,7 @@ uint64_t __68__MTLLegacySVDevice_newLibraryWithSource_options_completionHandler_
   if (baseObject)
   {
 
-    return [baseObject accelerationStructureSizesWithDescriptor:result];
+    return objc_msgSend_accelerationStructureSizesWithDescriptor_(baseObject);
   }
 
   else
@@ -2081,33 +2030,33 @@ uint64_t __68__MTLLegacySVDevice_newLibraryWithSource_options_completionHandler_
 
 - (id)deserializeInstanceAccelerationStructureFromBytes:(void *)bytes primitiveAccelerationStructures:(id)structures withDescriptor:(id)descriptor
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v9 = objc_autoreleasePoolPush();
   v10 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(structures, "count")}];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v11 = [structures countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v11 = [structures countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v20;
+    v13 = *v19;
     do
     {
       v14 = 0;
       do
       {
-        if (*v20 != v13)
+        if (*v19 != v13)
         {
           objc_enumerationMutation(structures);
         }
 
-        [v10 addObject:{objc_msgSend(*(*(&v19 + 1) + 8 * v14++), "baseObject")}];
+        [v10 addObject:{objc_msgSend(*(*(&v18 + 1) + 8 * v14++), "baseObject")}];
       }
 
       while (v12 != v14);
-      v12 = [structures countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v12 = [structures countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v12);
@@ -2126,7 +2075,6 @@ uint64_t __68__MTLLegacySVDevice_newLibraryWithSource_options_completionHandler_
   }
 
   objc_autoreleasePoolPop(v9);
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -2242,7 +2190,7 @@ uint64_t __68__MTLLegacySVDevice_newLibraryWithSource_options_completionHandler_
   return [v3 getCachedObjectForKey:object onMiss:v5];
 }
 
-uint64_t __52__MTLLegacySVDevice_getDynamicLibraryForBaseObject___block_invoke(uint64_t a1)
+MTLLegacySVDynamicLibrary *__52__MTLLegacySVDevice_getDynamicLibraryForBaseObject___block_invoke(uint64_t a1)
 {
   v2 = [MTLLegacySVDynamicLibrary alloc];
   v3 = *(a1 + 32);
@@ -2263,7 +2211,7 @@ uint64_t __52__MTLLegacySVDevice_getDynamicLibraryForBaseObject___block_invoke(u
   return [v4 getCachedObjectForKey:object onMiss:v6];
 }
 
-uint64_t __54__MTLLegacySVDevice_getFunctionForBaseObject_library___block_invoke(uint64_t a1)
+MTLLegacySVFunction *__54__MTLLegacySVDevice_getFunctionForBaseObject_library___block_invoke(uint64_t a1)
 {
   v2 = [MTLLegacySVFunction alloc];
   v3 = *(a1 + 32);
@@ -2277,6 +2225,14 @@ uint64_t __54__MTLLegacySVDevice_getFunctionForBaseObject_library___block_invoke
   baseObject = [(MTLToolsObject *)self baseObject];
 
   return [baseObject areWritableHeapsEnabled];
+}
+
+- (void)setWritableHeapsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setWritableHeapsEnabled:enabledCopy];
 }
 
 - (id).cxx_construct
@@ -2325,12 +2281,10 @@ uint64_t __54__MTLLegacySVDevice_getFunctionForBaseObject_library___block_invoke
 
 - (void)initWithBaseObject:(uint64_t)a1 parent:.cold.2(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [objc_msgSend(*(a1 + 16) "name")];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -7,14 +7,11 @@
 
 - (NSString)localizedDescription
 {
-  v2 = (self + OBJC_IVAR____TtC25GenerativeAssistantCommon35CustomErrorWithLocalizedDescription_errorDescription);
   swift_beginAccess();
-  v4 = *v2;
-  v3 = v2[1];
 
-  v5 = sub_221C57080();
+  v2 = sub_221C57080();
 
-  return v5;
+  return v2;
 }
 
 - (_TtC25GenerativeAssistantCommon35CustomErrorWithLocalizedDescription)initWithDomain:(id)domain code:(int64_t)code userInfo:(id)info

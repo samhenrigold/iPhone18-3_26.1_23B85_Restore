@@ -13,35 +13,35 @@
 
 + (id)localizedDetailStringWithTruncationFromArray:(id)array withType:(id)type
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   typeCopy = type;
   array = [MEMORY[0x277CBEB18] array];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v8 = arrayCopy;
-  v9 = [v8 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v23;
+    v11 = *v22;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * i);
+        v13 = *(*(&v21 + 1) + 8 * i);
         if ([array count] == 2)
         {
-          v26[0] = typeCopy;
-          v26[1] = @"DETAIL_TEXT_TRUNCATION";
-          v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+          v25[0] = typeCopy;
+          v25[1] = @"DETAIL_TEXT_TRUNCATION";
+          v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
           v15 = [v14 componentsJoinedByString:@"_"];
 
           v16 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
@@ -56,7 +56,7 @@
         [array addObject:v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v21 objects:v26 count:16];
       if (v10)
       {
         continue;
@@ -70,35 +70,33 @@ LABEL_11:
 
   v19 = [MEMORY[0x277CCAAF0] localizedStringByJoiningStrings:array];
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 + (id)allUserVisibleApps
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v3 = [MEMORY[0x277CC1E70] enumeratorWithOptions:0];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         if ([v8 developerType] == 3)
         {
           bundleIdentifier = [v8 bundleIdentifier];
@@ -106,51 +104,47 @@ LABEL_11:
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
 
 + (id)allApps
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = SBSCopyDisplayIdentifiers();
   v3 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [v3 addObject:{*(*(&v11 + 1) + 8 * i), v11}];
+        [v3 addObject:{*(*(&v10 + 1) + 8 * i), v10}];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

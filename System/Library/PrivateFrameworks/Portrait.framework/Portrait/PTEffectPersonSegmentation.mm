@@ -20,9 +20,9 @@
   pyramidCopy = pyramid;
   queueCopy = queue;
   resourcesCopy = resources;
-  v52.receiver = self;
-  v52.super_class = PTEffectPersonSegmentation;
-  v20 = [(PTEffectPersonSegmentation *)&v52 init];
+  v55.receiver = self;
+  v55.super_class = PTEffectPersonSegmentation;
+  v20 = [(PTEffectPersonSegmentation *)&v55 init];
   v21 = v20;
   if (v20)
   {
@@ -31,9 +31,9 @@
     v21->_colorSize.height = height;
     objc_storeStrong(&v21->_asyncInitQueue, queue);
     objc_storeStrong(&v21->_msrColorPyramid, pyramid);
-    [PTEffectPersonSegmentation upscaledSegmentationMatteFormatForColorSize:width, height];
-    v21->_outputDescriptor.size = v50;
-    *&v21->_outputDescriptor.pixelFormatType = v51;
+    objc_msgSend_upscaledSegmentationMatteFormatForColorSize_(PTEffectPersonSegmentation, width, height);
+    v21->_outputDescriptor.size = v53;
+    *&v21->_outputDescriptor.pixelFormatType = v54;
     v22 = [[PTUtil alloc] initWithMetalContext:v21->_metalContext];
     ptUtil = v21->_ptUtil;
     v21->_ptUtil = v22;
@@ -43,20 +43,20 @@
     v25 = personSegmentationProvider;
     if (personSegmentationProvider)
     {
-      [personSegmentationProvider colorSize];
+      objc_msgSend_colorSize(personSegmentationProvider);
       if (v26 == width)
       {
-        [v25 colorSize];
+        objc_msgSend_colorSize(v25);
         if (v27 == height)
         {
           objc_storeStrong(&v21->_personSegmentationProvider, v25);
           personSegmentationProvider = v21->_personSegmentationProvider;
           if (personSegmentationProvider)
           {
-            [(PTEffectPersonSegmentationProvider *)personSegmentationProvider segmentationSize];
-            v30 = v50.height;
-            v29 = v50.width;
-            v31 = v51;
+            objc_msgSend_segmentationSize(personSegmentationProvider);
+            v30 = v53.height;
+            v29 = v53.width;
+            v31 = v54;
           }
 
           else
@@ -82,7 +82,7 @@
         v29 = 0.0;
         if (v32 == 3)
         {
-          v33 = _PTLogSystem();
+          v33 = _PTLogSystem(3);
           if (!os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_30;
@@ -92,26 +92,26 @@
         }
 
 LABEL_26:
-        v39 = [PTGuidedFilter alloc];
+        v41 = [PTGuidedFilter alloc];
         metalContext = v21->_metalContext;
-        v50.width = v29;
-        v50.height = v30;
-        v51 = v31;
-        LODWORD(v41) = 1008981770;
-        v42 = [(PTGuidedFilter *)v39 initWithMetalContext:metalContext inputSize:&v50 epsilon:v41];
+        v53.width = v29;
+        v53.height = v30;
+        v54 = v31;
+        LODWORD(v43) = 1008981770;
+        v44 = [(PTGuidedFilter *)v41 initWithMetalContext:metalContext inputSize:&v53 epsilon:v43];
         guidedFilterSegmentation = v21->_guidedFilterSegmentation;
-        v21->_guidedFilterSegmentation = v42;
+        v21->_guidedFilterSegmentation = v44;
 
         if (v21->_guidedFilterSegmentation)
         {
           textureUtil = [(PTMetalContext *)v21->_metalContext textureUtil];
-          v45 = [textureUtil createWithWidth:*&v29 height:*&v30 pixelFormat:80];
+          v48 = [textureUtil createWithWidth:*&v29 height:*&v30 pixelFormat:80];
           guideRGBAUpscaleSegmentation = v21->_guideRGBAUpscaleSegmentation;
-          v21->_guideRGBAUpscaleSegmentation = v45;
+          v21->_guideRGBAUpscaleSegmentation = v48;
 
-          v47 = [[PTColorConversion alloc] initWithMetalContext:v21->_metalContext];
+          v50 = [[PTColorConversion alloc] initWithMetalContext:v21->_metalContext];
           colorConversion = v21->_colorConversion;
-          v21->_colorConversion = v47;
+          v21->_colorConversion = v50;
 
           v34 = v21;
 LABEL_31:
@@ -119,7 +119,7 @@ LABEL_31:
           goto LABEL_32;
         }
 
-        v33 = _PTLogSystem();
+        v33 = _PTLogSystem(v46);
         if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
           [PTEffectPersonSegmentation initWithMetalContext:colorSize:msrColorPyramid:prewarmOnly:asyncInitQueue:sharedResources:];
@@ -131,22 +131,22 @@ LABEL_30:
         goto LABEL_31;
       }
 
-      [PTEffectPersonSegmentationViSegHQVisionCoreE5 segmentationSizeForColorSize:width, height];
-      v30 = v50.height;
-      v29 = v50.width;
-      v31 = v51;
+      objc_msgSend_segmentationSizeForColorSize_(PTEffectPersonSegmentationViSegHQVisionCoreE5, width, height);
+      v30 = v53.height;
+      v29 = v53.width;
+      v31 = v54;
       if (only)
       {
         goto LABEL_26;
       }
 
       height = [[PTEffectPersonSegmentationViSegHQVisionCoreE5 alloc] initWithMetalContext:v21->_metalContext colorSize:width, height];
-      v38 = v21->_personSegmentationProvider;
+      v39 = v21->_personSegmentationProvider;
       v21->_personSegmentationProvider = height;
 
       if (!v21->_personSegmentationProvider)
       {
-        v33 = _PTLogSystem();
+        v33 = _PTLogSystem(v40);
         if (!os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_30;
@@ -164,7 +164,7 @@ LABEL_30:
         v29 = 0.0;
         if (v32 == 1)
         {
-          v33 = _PTLogSystem();
+          v33 = _PTLogSystem(1);
           if (!os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_30;
@@ -178,10 +178,10 @@ LABEL_11:
         goto LABEL_26;
       }
 
-      [PTEffectPersonSegmentationVision segmentationSizeForColorSize:width, height];
-      v30 = v50.height;
-      v29 = v50.width;
-      v31 = v51;
+      objc_msgSend_segmentationSizeForColorSize_(PTEffectPersonSegmentationVision, width, height);
+      v30 = v53.height;
+      v29 = v53.width;
+      v31 = v54;
       if (only)
       {
         goto LABEL_26;
@@ -193,7 +193,7 @@ LABEL_11:
 
       if (!v21->_personSegmentationProvider)
       {
-        v33 = _PTLogSystem();
+        v33 = _PTLogSystem(v37);
         if (!os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_30;
@@ -231,10 +231,10 @@ LABEL_32:
   textureCopy = texture;
   segmentationCopy = segmentation;
   v18 = *&transform->c;
-  v40[0] = *&transform->a;
-  v40[1] = v18;
-  v40[2] = *&transform->tx;
-  v19 = [PTUtil getRotationDegreesFromAffineTransform:v40];
+  v41[0] = *&transform->a;
+  v41[1] = v18;
+  v41[2] = *&transform->tx;
+  v19 = [PTUtil getRotationDegreesFromAffineTransform:v41];
   v20 = v19;
   personSegmentationProviderRotated = self->_personSegmentationProviderRotated;
   if (!personSegmentationProviderRotated && v19)
@@ -269,8 +269,8 @@ LABEL_8:
 
   if (!commandBuffer)
   {
-    v27 = _PTLogSystem();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v28 = _PTLogSystem(v27);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       [PTEffectPersonSegmentation runPersonSegmentationToOutPersonSegmentationMatteBuffer:inColor:transform:inSegmentationRGBA:inSegmentationRGBATexture:outUpscaledSegmentation:];
     }
@@ -287,7 +287,7 @@ LABEL_8:
     {
       textureUtil = [(PTMetalContext *)self->_metalContext textureUtil];
       commandBuffer3 = [(PTMetalContext *)self->_metalContext commandBuffer];
-      v37 = [textureUtil copy:commandBuffer3 inTex:v25 outTex:segmentationCopy];
+      v38 = [textureUtil copy:commandBuffer3 inTex:v25 outTex:segmentationCopy];
 
       goto LABEL_24;
     }
@@ -306,7 +306,7 @@ LABEL_8:
 
     if (!asRGBA)
     {
-      v36 = [(PTColorConversion *)self->_colorConversion convertRGBLinearFromPTTexture:bufferCopy inPTTexture:colorCopy outRGBA:textureCopy];
+      v37 = [(PTColorConversion *)self->_colorConversion convertRGBLinearFromPTTexture:bufferCopy inPTTexture:colorCopy outRGBA:textureCopy];
       textureUtil = textureCopy;
       goto LABEL_22;
     }
@@ -314,21 +314,20 @@ LABEL_8:
     asRGBAFromYUV2 = [colorCopy asRGBA];
   }
 
-  v34 = asRGBAFromYUV2;
+  v35 = asRGBAFromYUV2;
   textureUtil = [asRGBAFromYUV2 texRGBA];
 
-  v36 = 0;
+  v37 = 0;
 LABEL_22:
-  v37 = [(PTGuidedFilter *)self->_guidedFilterSegmentation guidedFilter:bufferCopy image:v25 guideRGBACoefficients:textureCopy guideRGBAUpscale:textureUtil upscaledImage:segmentationCopy sourceColorBitDepth:8 postModifierPtr:0]| v36;
+  v38 = [(PTGuidedFilter *)self->_guidedFilterSegmentation guidedFilter:bufferCopy image:v25 guideRGBACoefficients:textureCopy guideRGBAUpscale:textureUtil upscaledImage:segmentationCopy sourceColorBitDepth:8 postModifierPtr:0]| v37;
 LABEL_24:
 
-  return v37;
+  return v38;
 }
 
 - (void)lazyInstantiateRotatedNetwork
 {
-  [(PTEffectPersonSegmentation *)self setRotatedNetworkState:1];
-  v3 = _PTLogSystem();
+  v3 = _PTLogSystem([(PTEffectPersonSegmentation *)self setRotatedNetworkState:1]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [PTEffectPersonSegmentation lazyInstantiateRotatedNetwork];
@@ -345,7 +344,7 @@ LABEL_24:
     goto LABEL_7;
   }
 
-  [(PTEffectPersonSegmentationProvider *)personSegmentationProvider segmentationSize];
+  objc_msgSend_segmentationSize(personSegmentationProvider);
   v5 = self->_personSegmentationProvider;
   v6 = v15;
   if (!v5)
@@ -358,7 +357,7 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  [(PTEffectPersonSegmentationProvider *)v5 segmentationSize];
+  objc_msgSend_segmentationSize(v5);
   v7 = v11;
 LABEL_8:
   asyncInitQueue = self->_asyncInitQueue;
@@ -389,7 +388,7 @@ void __59__PTEffectPersonSegmentation_lazyInstantiateRotatedNetwork__block_invok
     {
       if (v3 == 1)
       {
-        v4 = _PTLogSystem();
+        v4 = _PTLogSystem(1);
         if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
         {
           __59__PTEffectPersonSegmentation_lazyInstantiateRotatedNetwork__block_invoke_cold_2();
@@ -420,7 +419,7 @@ LABEL_14:
 
   if (v3 == 3)
   {
-    v4 = _PTLogSystem();
+    v4 = _PTLogSystem(3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __59__PTEffectPersonSegmentation_lazyInstantiateRotatedNetwork__block_invoke_cold_1();
@@ -432,15 +431,14 @@ LABEL_14:
 LABEL_15:
   if (!WeakRetained[13])
   {
-    v8 = _PTLogSystem();
+    v8 = _PTLogSystem(v3);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __59__PTEffectPersonSegmentation_lazyInstantiateRotatedNetwork__block_invoke_cold_3();
     }
   }
 
-  [WeakRetained setRotatedNetworkState:2];
-  v9 = _PTLogSystem();
+  v9 = _PTLogSystem([WeakRetained setRotatedNetworkState:2]);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     __59__PTEffectPersonSegmentation_lazyInstantiateRotatedNetwork__block_invoke_cold_4();
@@ -451,7 +449,7 @@ LABEL_22:
 
 - (__CVBuffer)rotateInput:(__CVBuffer *)input rotationDegrees:(int)degrees
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   if (!degrees)
   {
     return input;
@@ -469,11 +467,11 @@ LABEL_22:
     Width = CVPixelBufferGetWidth(input);
     Height = CVPixelBufferGetHeight(input);
     PixelFormatType = CVPixelBufferGetPixelFormatType(input);
-    v19 = *MEMORY[0x277CC4DE8];
-    v20[0] = MEMORY[0x277CBEC10];
+    v20 = *MEMORY[0x277CC4DE8];
+    v21[0] = MEMORY[0x277CBEC10];
     v11 = MEMORY[0x277CBEAC0];
-    v12 = v20;
-    v13 = &v19;
+    v12 = v21;
+    v13 = &v20;
   }
 
   else
@@ -487,20 +485,21 @@ LABEL_22:
     Width = CVPixelBufferGetHeight(input);
     Height = CVPixelBufferGetWidth(input);
     PixelFormatType = CVPixelBufferGetPixelFormatType(input);
-    v17 = *MEMORY[0x277CC4DE8];
-    v18 = MEMORY[0x277CBEC10];
+    v18 = *MEMORY[0x277CC4DE8];
+    v19 = MEMORY[0x277CBEC10];
     v11 = MEMORY[0x277CBEAC0];
-    v12 = &v18;
-    v13 = &v17;
+    v12 = &v19;
+    v13 = &v18;
   }
 
   CVPixelBufferCreate(0, Width, Height, PixelFormatType, [v11 dictionaryWithObjects:v12 forKeys:v13 count:1], p_rotated180InputPixelBuffer);
 LABEL_9:
   v14 = *p_rotated180InputPixelBuffer;
-  if ([(PTMSRResize *)self->_msrColorPyramid transform:input crop:v5 rotationDegree:v14 toDest:0 synchronous:0.0])
+  v15 = [(PTMSRResize *)self->_msrColorPyramid transform:input crop:v5 rotationDegree:v14 toDest:0 synchronous:0.0];
+  if (v15)
   {
-    v15 = _PTLogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = _PTLogSystem(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [PTEffectPersonSegmentation rotateInput:rotationDegrees:];
     }
@@ -559,7 +558,7 @@ LABEL_11:
   height = a4.height;
   width = a4.width;
   *&retstr->pixelFormatType = 0;
-  result = [a2 segmentationSizeForColorSize:?];
+  result = objc_msgSend_segmentationSizeForColorSize_(a2, size);
   if (v8 < width)
   {
     v8 = width;
@@ -588,7 +587,7 @@ LABEL_11:
     {
       if (v5 == 1)
       {
-        v7 = _PTLogSystem();
+        v7 = _PTLogSystem(1);
         if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_9;
@@ -600,22 +599,21 @@ LABEL_11:
       goto LABEL_14;
     }
 
-    v8 = PTEffectPersonSegmentationVision;
+    objc_msgSend_segmentationSizeForColorSize_(PTEffectPersonSegmentationVision, width, height);
 LABEL_13:
-    [(__objc2_class *)v8 segmentationSizeForColorSize:width, height];
-    v6 = v11;
+    v6 = v10;
     goto LABEL_14;
   }
 
   if (v5 == 2)
   {
-    v8 = PTEffectPersonSegmentationViSegHQVisionCoreE5;
+    objc_msgSend_segmentationSizeForColorSize_(PTEffectPersonSegmentationViSegHQVisionCoreE5, width, height);
     goto LABEL_13;
   }
 
   if (v5 == 3)
   {
-    v7 = _PTLogSystem();
+    v7 = _PTLogSystem(3);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
 LABEL_9:
@@ -628,10 +626,10 @@ LABEL_10:
   }
 
 LABEL_14:
-  v9 = vcvtq_f64_u64(v6);
-  v10 = v9.f64[1];
-  result.width = v9.f64[0];
-  result.height = v10;
+  v8 = vcvtq_f64_u64(v6);
+  v9 = v8.f64[1];
+  result.width = v8.f64[0];
+  result.height = v9;
   return result;
 }
 
@@ -678,6 +676,13 @@ void __59__PTEffectPersonSegmentation_lazyInstantiateRotatedNetwork__block_invok
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+}
+
++ (void)segmentationSizeForColorSize:.cold.1()
+{
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = +[PTEffectPersonSegmentation segmentationType];
+  OUTLINED_FUNCTION_2_1(&dword_2243FB000, v0, v1, "Invalid type %i", v2, v3, v4, v5, v6);
 }
 
 @end

@@ -33,10 +33,8 @@ void __154__HMDMRSetEndpointVolumeOperationDefaultExternalObjectInterface_getMRA
 {
   v3 = a2;
   [*(a1 + 32) mravEndpoint];
-  v5 = *(a1 + 40);
-  v4 = *(a1 + 48);
-  v7 = v3;
-  v6 = v3;
+  v5 = v3;
+  v4 = v3;
   MRAVEndpointGetOutputDeviceUIDVolumeControlCapabilities();
 }
 
@@ -73,11 +71,8 @@ void __122__HMDMRSetEndpointVolumeOperationDefaultExternalObjectInterface_setMRA
 {
   v3 = a2;
   [*(a1 + 32) mravEndpoint];
-  v4 = *(a1 + 56);
-  v6 = *(a1 + 40);
-  v5 = *(a1 + 48);
-  v8 = v3;
-  v7 = v3;
+  v5 = v3;
+  v4 = v3;
   MRAVEndpointSetOutputDeviceUIDVolume();
 }
 

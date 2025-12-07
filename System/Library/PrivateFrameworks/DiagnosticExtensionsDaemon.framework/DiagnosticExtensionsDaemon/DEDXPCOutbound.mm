@@ -151,38 +151,38 @@
 
 - (void)deviceSupportsDiagnosticExtensions:(id)extensions session:(id)session
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   extensionsCopy = extensions;
   sessionCopy = session;
   v8 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(extensionsCopy, "count")}];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v9 = extensionsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       v13 = 0;
       do
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        serialize = [*(*(&v17 + 1) + 8 * v13) serialize];
+        serialize = [*(*(&v16 + 1) + 8 * v13) serialize];
         [v8 addObject:serialize];
 
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
@@ -190,8 +190,6 @@
 
   remoteObject = [(DEDXPCOutbound *)self remoteObject];
   [remoteObject xpc_deviceSupportsDiagnosticExtensions:v8 session:sessionCopy];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startDiagnosticWithIdentifier:(id)identifier parameters:(id)parameters session:(id)session

@@ -143,8 +143,7 @@
     }
 
     self->_lock_finished = 1;
-    [(_PRUISPosterChannelUpdateDescriptorsTask *)self _lock_cleanup];
-    v13 = PRUISLogChannels();
+    v13 = PRUISLogChannels([(_PRUISPosterChannelUpdateDescriptorsTask *)self _lock_cleanup]);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       channel = [(_PRUISPosterChannelUpdateDescriptorsTask *)self channel];
@@ -198,30 +197,30 @@
 
 - (void)_executionTimedOut:(id)out
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   outCopy = out;
   unsignedIntegerValue = [outCopy unsignedIntegerValue];
-  [(PFOSUnfairLock *)self->_lock lock];
+  lock = [(PFOSUnfairLock *)self->_lock lock];
   if (self->_lock_executionInstance == unsignedIntegerValue)
   {
-    v6 = PRUISLogChannels();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = PRUISLogChannels(lock);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       channel = [(_PRUISPosterChannelUpdateDescriptorsTask *)self channel];
       channelIdentifier = [channel channelIdentifier];
-      v9 = CHANNEL_LOG_PREFIX(channelIdentifier, @"UpdateDescriptorsTask", @"ExecutionTimedOut", 2uLL);
+      v10 = CHANNEL_LOG_PREFIX(channelIdentifier, @"UpdateDescriptorsTask", @"ExecutionTimedOut", 2uLL);
       *buf = 138543618;
-      v13 = v9;
-      v14 = 2050;
-      v15 = unsignedIntegerValue;
-      _os_log_impl(&dword_1CAE63000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ execution timed out: %{public}lu", buf, 0x16u);
+      v14 = v10;
+      v15 = 2050;
+      v16 = unsignedIntegerValue;
+      _os_log_impl(&dword_1CAE63000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ execution timed out: %{public}lu", buf, 0x16u);
     }
 
     [(PFTPromise *)self->_lock_underlyingPromise cancelWithReason:@"timedout"];
     [(PFOSUnfairLock *)self->_lock unlock];
-    v10 = PFFunctionNameForAddress();
-    v11 = PFGeneralErrorFromObjectWithLocalizedFailureReason();
-    [(_PRUISPosterChannelUpdateDescriptorsTask *)self _finishWithResult:0 attempt:outCopy error:v11, 0];
+    v11 = PFFunctionNameForAddress();
+    v12 = PFGeneralErrorFromObjectWithLocalizedFailureReason();
+    [(_PRUISPosterChannelUpdateDescriptorsTask *)self _finishWithResult:0 attempt:outCopy error:v12, 0];
   }
 
   else

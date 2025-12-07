@@ -20,9 +20,9 @@
 {
   viewCopy = view;
   selfCopy = self;
-  v8 = sub_1A45FEE18(view);
+  v9 = sub_1A45FEE18(view, timeout);
 
-  return v8;
+  return v9;
 }
 
 - (id)freezeContentOfViewController:(id)controller timeout:(double)timeout

@@ -160,7 +160,7 @@ LABEL_13:
 
 - (void)ic_annotateWithNote:(id)note checklistParagraphUUID:(id)d
 {
-  v7 = sub_10015DA04(&unk_1006BE0B0);
+  v7 = sub_10015DA04(&unk_1006BE0B0, qword_1005407C0);
   __chkstk_darwin(v7 - 8);
   v9 = &v14 - v8;
   if (d)
@@ -180,7 +180,7 @@ LABEL_13:
   selfCopy = self;
   sub_1004B2908(note, v9);
 
-  sub_1000073B4(v9, &unk_1006BE0B0);
+  sub_1000073B4(v9, &unk_1006BE0B0, qword_1005407C0);
 }
 
 @end

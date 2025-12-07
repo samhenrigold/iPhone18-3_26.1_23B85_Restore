@@ -7,6 +7,7 @@
 - (void)cancelResetTimer;
 - (void)reevaluateAllActivitiesWithDaemon:(id)daemon;
 - (void)updateHeavyDiskUsage:(BOOL)usage;
+- (void)updateSystemConstraint:(id)constraint withState:(BOOL)state withDaemon:(id)daemon;
 @end
 
 @implementation _DASCustomSystemConstraintsPolicy
@@ -220,6 +221,75 @@ LABEL_11:
     block[3] = &unk_1001B5668;
     block[4] = self;
     dispatch_after(v6, v7, block);
+  }
+}
+
+- (void)updateSystemConstraint:(id)constraint withState:(BOOL)state withDaemon:(id)daemon
+{
+  stateCopy = state;
+  constraintCopy = constraint;
+  daemonCopy = daemon;
+  v10 = [_DASDaemonLogger logForCategory:@"customsysconstraints"];
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315394;
+    uTF8String = [constraintCopy UTF8String];
+    v29 = 1024;
+    v30 = stateCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Setting %s running state = %d", buf, 0x12u);
+  }
+
+  v11 = [(NSMutableDictionary *)self->_workloadDates objectForKeyedSubscript:constraintCopy];
+  if ([constraintCopy isEqualToString:kDASSystemContextKeyHeavyDiskUsage])
+  {
+    [(_DASCustomSystemConstraintsPolicy *)self updateHeavyDiskUsage:stateCopy];
+    goto LABEL_10;
+  }
+
+  if ([constraintCopy isEqualToString:kDASSystemContextMCWorkloadRunningState])
+  {
+    queue = self->_queue;
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_1000FF9F8;
+    block[3] = &unk_1001B8B68;
+    v26 = stateCopy;
+    v22 = v11;
+    selfCopy = self;
+    v24 = constraintCopy;
+    v25 = daemonCopy;
+    dispatch_sync(queue, block);
+
+    v13 = v22;
+  }
+
+  else
+  {
+    if (![constraintCopy isEqualToString:kDASSystemContextGPWorkloadRunningState])
+    {
+      goto LABEL_10;
+    }
+
+    v14 = self->_queue;
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_1000FFB8C;
+    v17[3] = &unk_1001B7200;
+    v20 = stateCopy;
+    v17[4] = self;
+    v18 = constraintCopy;
+    v19 = daemonCopy;
+    dispatch_sync(v14, v17);
+
+    v13 = v18;
+  }
+
+LABEL_10:
+  daemon = self->_daemon;
+  p_daemon = &self->_daemon;
+  if (!daemon)
+  {
+    objc_storeStrong(p_daemon, daemon);
   }
 }
 

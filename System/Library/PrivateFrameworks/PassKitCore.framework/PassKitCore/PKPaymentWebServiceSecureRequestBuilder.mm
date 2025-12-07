@@ -210,9 +210,9 @@ LABEL_6:
       goto LABEL_10;
     }
 
-    v19 = [(__CFString *)v17 isEqualToString:@"EV_ECC_v1-ASN.1"];
+    isEqualToString = objc_msgSend_isEqualToString_(v17);
 
-    if (!v19)
+    if (!isEqualToString)
     {
 LABEL_10:
       v25 = v18;
@@ -229,7 +229,7 @@ LABEL_10:
           goto LABEL_25;
         }
 
-        v27 = [(__CFString *)v25 isEqualToString:@"EV_ECC_v3"];
+        v27 = objc_msgSend_isEqualToString_(v25);
 
         if (!v27)
         {

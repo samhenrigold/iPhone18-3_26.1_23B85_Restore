@@ -14,18 +14,16 @@
 {
   if (*(self + OBJC_IVAR___PSSGResourceID_session + 8))
   {
-    v2 = *(self + OBJC_IVAR___PSSGResourceID_session);
-    v3 = *(self + OBJC_IVAR___PSSGResourceID_session + 8);
 
-    v4 = sub_25EB6E258();
+    v2 = sub_25EB6E258();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (id)initLocalWithName:(id)name session:(id)session

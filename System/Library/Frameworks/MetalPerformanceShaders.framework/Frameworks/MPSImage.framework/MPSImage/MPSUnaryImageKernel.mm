@@ -23,7 +23,7 @@
   if (v3)
   {
 
-    return objc_msgSend_initWithDevice_(self, v4, v3, v5, v6, v7);
+    return objc_msgSend_initWithDevice_(self, v4, v3);
   }
 
   else
@@ -90,30 +90,30 @@
 
 - (id)debugDescription
 {
-  if (!dladdr(self->_encode, &v18))
+  if (!dladdr(self->_encode, &v15))
   {
-    v18.dli_sname = "<NULL>";
+    v15.dli_sname = "<NULL>";
   }
 
   v3 = MEMORY[0x277CCACA8];
-  v17.receiver = self;
-  v17.super_class = MPSUnaryImageKernel;
-  v4 = [(MPSKernel *)&v17 debugDescription];
-  v9 = *&self->_offset.x;
+  v14.receiver = self;
+  v14.super_class = MPSUnaryImageKernel;
+  v4 = [(MPSKernel *)&v14 debugDescription];
+  v6 = *&self->_offset.x;
   z = self->_offset.z;
-  v11 = *&self->_clipRect.origin.x;
-  v12 = *&self->_clipRect.origin.z;
+  v8 = *&self->_clipRect.origin.x;
+  v9 = *&self->_clipRect.origin.z;
   height = self->_clipRect.size.height;
   depth = self->_clipRect.size.depth;
-  v15 = (*(&self->super.super.isa + *MEMORY[0x277CD7350]))[2];
+  v12 = (*(&self->super.super.isa + *MEMORY[0x277CD7350]))[2];
   if (self->_edgeMode == 1)
   {
-    return objc_msgSend_stringWithFormat_(v3, v5, @"%@\n\toffset:        {%ld,%ld,%ld}\n\tclip:          origin{%lu,%lu,%lu} size{%lu,%lu,%lu}\n\tdevice:        %p\n\tedge mode:     %s\n\tEncode Proc:   %s", v6, v7, v8, v4, v9, z, v11, v12, height, depth, v15, "MPSImageEdgeModeClamp", v18.dli_sname);
+    return objc_msgSend_stringWithFormat_(v3, v5, @"%@\n\toffset:        {%ld,%ld,%ld}\n\tclip:          origin{%lu,%lu,%lu} size{%lu,%lu,%lu}\n\tdevice:        %p\n\tedge mode:     %s\n\tEncode Proc:   %s", v4, v6, z, v8, v9, height, depth, v12, "MPSImageEdgeModeClamp", v15.dli_sname);
   }
 
   else
   {
-    return objc_msgSend_stringWithFormat_(v3, v5, @"%@\n\toffset:        {%ld,%ld,%ld}\n\tclip:          origin{%lu,%lu,%lu} size{%lu,%lu,%lu}\n\tdevice:        %p\n\tedge mode:     %s\n\tEncode Proc:   %s", v6, v7, v8, v4, v9, z, v11, v12, height, depth, v15, "MPSImageEdgeModeZero", v18.dli_sname);
+    return objc_msgSend_stringWithFormat_(v3, v5, @"%@\n\toffset:        {%ld,%ld,%ld}\n\tclip:          origin{%lu,%lu,%lu} size{%lu,%lu,%lu}\n\tdevice:        %p\n\tedge mode:     %s\n\tEncode Proc:   %s", v4, v6, z, v8, v9, height, depth, v12, "MPSImageEdgeModeZero", v15.dli_sname);
   }
 }
 
@@ -137,123 +137,123 @@
 
 - (BOOL)encodeToCommandBuffer:(id)commandBuffer inPlaceTexture:(id *)texture fallbackCopyAllocator:(MPSCopyAllocator)copyAllocator
 {
-  v10 = *texture;
-  v11 = *MEMORY[0x277CD7350];
-  v12 = *(&self->super.super.isa + v11);
-  v13 = objc_msgSend_pixelFormat(*texture, a2, commandBuffer, texture, copyAllocator, v5);
-  PixelInfo = MPSDevice::GetPixelInfo(v12, v13, MPSImageFeatureChannelFormatNone);
-  v15 = PixelInfo;
-  v150[0] = PixelInfo;
-  v148 = 0u;
-  v149 = 0u;
-  v147 = 0u;
-  *v139 = objc_msgSend_width(v10, v16, v17, v18, v19, v20);
-  *&v139[8] = objc_msgSend_height(v10, v21, v22, v23, v24, v25);
-  *&v139[16] = 1;
-  v26 = *&self->_clipRect.origin.z;
-  *&v142.origin.x = *&self->_clipRect.origin.x;
-  *&v142.origin.z = v26;
-  *&v142.size.height = *&self->_clipRect.size.height;
-  MPSGetEffectiveClipRegion(&v147, v139, &v142);
-  v32 = *MEMORY[0x277CD7378];
-  if ((*(&self->super.super.isa + v32) & 1) == 0)
+  v9 = *texture;
+  v10 = *MEMORY[0x277CD7350];
+  v11 = *(&self->super.super.isa + v10);
+  v12 = objc_msgSend_pixelFormat(*texture, a2, commandBuffer);
+  PixelInfo = MPSDevice::GetPixelInfo(v11, v12, MPSImageFeatureChannelFormatNone);
+  v14 = PixelInfo;
+  v97[0] = PixelInfo;
+  v95 = 0u;
+  v96 = 0u;
+  v94 = 0u;
+  *v86 = objc_msgSend_width(v9, v15, v16);
+  *&v86[8] = objc_msgSend_height(v9, v17, v18);
+  *&v86[16] = 1;
+  v19 = *&self->_clipRect.origin.z;
+  *&v89.origin.x = *&self->_clipRect.origin.x;
+  *&v89.origin.z = v19;
+  *&v89.size.height = *&self->_clipRect.size.height;
+  MPSGetEffectiveClipRegion(&v94, v86, &v89);
+  v22 = *MEMORY[0x277CD7378];
+  if ((*(&self->super.super.isa + v22) & 1) == 0)
   {
     if (!commandBuffer && MTLReportFailureTypeEnabled())
     {
-      v126 = objc_opt_class();
-      v133 = NSStringFromClass(v126);
+      v73 = objc_opt_class();
+      v80 = NSStringFromClass(v73);
       MTLReportFailure();
     }
 
-    if (!v10 && MTLReportFailureTypeEnabled())
+    if (!v9 && MTLReportFailureTypeEnabled())
     {
-      v127 = objc_opt_class();
-      v133 = NSStringFromClass(v127);
+      v74 = objc_opt_class();
+      v80 = NSStringFromClass(v74);
       MTLReportFailure();
     }
 
-    v33 = *MEMORY[0x277CD7348];
-    if ((*(&self->super.super.isa + v32) & ~*(&self->super.super.isa + v33)) != 0 && MTLReportFailureTypeEnabled())
+    v23 = *MEMORY[0x277CD7348];
+    if ((*(&self->super.super.isa + v22) & ~*(&self->super.super.isa + v23)) != 0 && MTLReportFailureTypeEnabled())
     {
-      v128 = objc_opt_class();
-      v133 = NSStringFromClass(v128);
-      v135 = *(&self->super.super.isa + v32) & ~*(&self->super.super.isa + v33);
+      v75 = objc_opt_class();
+      v80 = NSStringFromClass(v75);
+      v82 = *(&self->super.super.isa + v22) & ~*(&self->super.super.isa + v23);
       MTLReportFailure();
     }
 
-    objc_msgSend_textureType(v10, v27, v28, v29, v30, v31, v133, v135);
-    if (objc_msgSend_textureType(v10, v34, v35, v36, v37, v38) != 2 && MTLReportFailureTypeEnabled())
+    objc_msgSend_textureType(v9, v20, v21, v80, v82);
+    if (objc_msgSend_textureType(v9, v24, v25) != 2 && MTLReportFailureTypeEnabled())
     {
-      v133 = v10;
+      v80 = v9;
       MTLReportFailure();
     }
 
-    v39 = v15 & 0x3FF;
-    if (v148 && MTLReportFailureTypeEnabled())
+    v26 = v14 & 0x3FF;
+    if (v95 && MTLReportFailureTypeEnabled())
     {
       MTLReportFailure();
     }
 
-    if ((~LODWORD(v150[0]) & 0xF000000) == 0 && MTLReportFailureTypeEnabled())
+    if ((~LODWORD(v97[0]) & 0xF000000) == 0 && MTLReportFailureTypeEnabled())
     {
-      v133 = v10;
-      v135 = v39;
+      v80 = v9;
+      v82 = v26;
       MTLReportFailure();
     }
 
-    if ((self->_checkFlags & 0x40) == 0 && (v150[0] & 0x40000000000) != 0 && MTLReportFailureTypeEnabled())
+    if ((self->_checkFlags & 0x40) == 0 && (v97[0] & 0x40000000000) != 0 && MTLReportFailureTypeEnabled())
     {
-      v133 = v10;
-      v135 = v39;
+      v80 = v9;
+      v82 = v26;
       MTLReportFailure();
     }
 
-    if ((self->_checkFlags & 4) != 0 && (v150[0] & 0x80000000000) == 0 && MTLReportFailureTypeEnabled())
+    if ((self->_checkFlags & 4) != 0 && (v97[0] & 0x80000000000) == 0 && MTLReportFailureTypeEnabled())
     {
-      v133 = v10;
-      v135 = v39;
+      v80 = v9;
+      v82 = v26;
       MTLReportFailure();
     }
   }
 
-  if ((v150[0] & 0x200000000000) == 0)
+  if ((v97[0] & 0x200000000000) == 0)
   {
     goto LABEL_20;
   }
 
-  v40 = objc_alloc(MEMORY[0x277CD7210]);
-  v49 = objc_msgSend_initWithCommandBuffer_withDispatchType_(v40, v41, commandBuffer, 0, v42, v43);
-  *v139 = v49;
-  *&v139[8] = self;
-  if ((*(&self->super.super.isa + v32) & 0x18) != 0)
+  v27 = objc_alloc(MEMORY[0x277CD7210]);
+  v31 = objc_msgSend_initWithCommandBuffer_withDispatchType_(v27, v28, commandBuffer, 0);
+  *v86 = v31;
+  *&v86[8] = self;
+  if ((*(&self->super.super.isa + v22) & 0x18) != 0)
   {
-    v45 = *(&self->super.super.isa + *MEMORY[0x277CD7360]);
-    if (v45 || (v50 = objc_opt_class(), v51 = NSStringFromClass(v50), objc_msgSend_setLabel_(self, v52, v51, v53, v54, v55), (v45 = v51) != 0))
+    v30 = *(&self->super.super.isa + *MEMORY[0x277CD7360]);
+    if (v30 || (v32 = objc_opt_class(), v33 = NSStringFromClass(v32), objc_msgSend_setLabel_(self, v34, v33), (v30 = v33) != 0))
     {
-      objc_msgSend_setLabel_(v49, v44, v45, v46, v47, v48, v133, v135);
+      objc_msgSend_setLabel_(v31, v29, v30, v80, v82);
     }
   }
 
-  if (!v149 || !*(&v148 + 1))
+  if (!v96 || !*(&v95 + 1))
   {
-    objc_msgSend_endEncoding(v49, v44, v45, v46, v47, v48, v133);
+    objc_msgSend_endEncoding(v31, v29, v30, v80);
 
     return 1;
   }
 
-  *&v142.origin.z = v147;
-  *&v142.size.height = v148;
-  v142.origin.x = v150;
-  v142.origin.y = v150;
-  v56 = *&self->_offset.x;
-  v143 = v149;
-  v144 = v56;
+  *&v89.origin.z = v94;
+  *&v89.size.height = v95;
+  v89.origin.x = v97;
+  v89.origin.y = v97;
+  v35 = *&self->_offset.x;
+  v90 = v96;
+  v91 = v35;
   z = self->_offset.z;
-  v146 = 0;
-  v57 = sub_23993C100(self, v49, commandBuffer, v10, v10, &v142);
-  objc_msgSend_endEncoding(v49, v58, v59, v60, v61, v62);
+  v93 = 0;
+  v36 = sub_23993C100(self, v31, commandBuffer, v9, v9, &v89);
+  objc_msgSend_endEncoding(v31, v37, v38);
 
-  if (!v57)
+  if (!v36)
   {
     return 1;
   }
@@ -264,140 +264,140 @@ LABEL_20:
     return 0;
   }
 
-  v63 = (*(copyAllocator + 2))(copyAllocator, self, commandBuffer, v10);
-  if (!v63)
+  v39 = (*(copyAllocator + 2))(copyAllocator, self, commandBuffer, v9);
+  if (!v39)
   {
     return 0;
   }
 
-  v69 = v63;
-  if ((*(&self->super.super.isa + v32) & 1) == 0)
+  v42 = v39;
+  if ((*(&self->super.super.isa + v22) & 1) == 0)
   {
-    if (v10 == v63 || (objc_msgSend_isEqual_(v10, v64, v63, v66, v67, v68), objc_msgSend_isEqual_(v10, v70, v69, v71, v72, v73)))
+    if (v9 == v39 || (objc_msgSend_isEqual_(v9, v40, v39), objc_msgSend_isEqual_(v9, v43, v42)))
     {
       if (MTLReportFailureTypeEnabled())
       {
-        v74 = objc_opt_class();
-        v133 = NSStringFromClass(v74);
+        v44 = objc_opt_class();
+        v80 = NSStringFromClass(v44);
         MTLReportFailure();
       }
     }
   }
 
-  v75 = *(&self->super.super.isa + v11);
-  v76 = objc_msgSend_pixelFormat(v69, v64, v65, v66, v67, v68, v133);
-  v77 = MPSDevice::GetPixelInfo(v75, v76, MPSImageFeatureChannelFormatNone);
-  v141 = v77;
-  v138.width = objc_msgSend_width(v69, v78, v79, v80, v81, v82);
-  v138.height = objc_msgSend_height(v69, v83, v84, v85, v86, v87);
-  v138.depth = 1;
-  v88 = *&self->_clipRect.origin.z;
-  *&v137.origin.x = *&self->_clipRect.origin.x;
-  *&v137.origin.z = v88;
-  *&v137.size.height = *&self->_clipRect.size.height;
-  MPSGetEffectiveClipRegion(v139, &v138, &v137);
-  v147 = *v139;
-  v148 = *&v139[16];
-  v149 = v140;
-  v94 = *(&self->super.super.isa + v32);
-  if ((v94 & 1) == 0)
+  v45 = *(&self->super.super.isa + v10);
+  v46 = objc_msgSend_pixelFormat(v42, v40, v41, v80);
+  v47 = MPSDevice::GetPixelInfo(v45, v46, MPSImageFeatureChannelFormatNone);
+  v88 = v47;
+  v85.width = objc_msgSend_width(v42, v48, v49);
+  v85.height = objc_msgSend_height(v42, v50, v51);
+  v85.depth = 1;
+  v52 = *&self->_clipRect.origin.z;
+  *&v84.origin.x = *&self->_clipRect.origin.x;
+  *&v84.origin.z = v52;
+  *&v84.size.height = *&self->_clipRect.size.height;
+  MPSGetEffectiveClipRegion(v86, &v85, &v84);
+  v94 = *v86;
+  v95 = *&v86[16];
+  v96 = v87;
+  v55 = *(&self->super.super.isa + v22);
+  if ((v55 & 1) == 0)
   {
-    v95 = *MEMORY[0x277CD7348];
-    if ((v94 & ~*(&self->super.super.isa + v95)) != 0 && MTLReportFailureTypeEnabled())
+    v56 = *MEMORY[0x277CD7348];
+    if ((v55 & ~*(&self->super.super.isa + v56)) != 0 && MTLReportFailureTypeEnabled())
     {
-      v129 = objc_opt_class();
-      v134 = NSStringFromClass(v129);
-      v135 = *(&self->super.super.isa + v32) & ~*(&self->super.super.isa + v95);
+      v76 = objc_opt_class();
+      v81 = NSStringFromClass(v76);
+      v82 = *(&self->super.super.isa + v22) & ~*(&self->super.super.isa + v56);
       MTLReportFailure();
     }
 
     if ((self->_checkFlags & 0x200) == 0)
     {
-      objc_msgSend_textureType(v69, v89, v90, v91, v92, v93);
-      if (objc_msgSend_textureType(v69, v96, v97, v98, v99, v100) != 2)
+      objc_msgSend_textureType(v42, v53, v54);
+      if (objc_msgSend_textureType(v42, v57, v58) != 2)
       {
         if (MTLReportFailureTypeEnabled())
         {
-          v134 = v69;
+          v81 = v42;
           MTLReportFailure();
         }
       }
     }
 
-    if ((~v77 & 0xF000000) == 0 && MTLReportFailureTypeEnabled())
+    if ((~v47 & 0xF000000) == 0 && MTLReportFailureTypeEnabled())
     {
-      v134 = v69;
-      v135 = v77 & 0x3FF;
+      v81 = v42;
+      v82 = v47 & 0x3FF;
       MTLReportFailure();
     }
 
-    if ((v77 & 0x200000000000) == 0 && MTLReportFailureTypeEnabled())
+    if ((v47 & 0x200000000000) == 0 && MTLReportFailureTypeEnabled())
     {
-      v134 = v69;
-      v135 = v77 & 0x3FF;
+      v81 = v42;
+      v82 = v47 & 0x3FF;
       MTLReportFailure();
     }
 
-    if ((self->_checkFlags & 2) == 0 && ((LODWORD(v150[0]) ^ v77) & 0xF0000000) != 0 && MTLReportFailureTypeEnabled())
+    if ((self->_checkFlags & 2) == 0 && ((LODWORD(v97[0]) ^ v47) & 0xF0000000) != 0 && MTLReportFailureTypeEnabled())
     {
-      v130 = SLODWORD(v150[0]) >> 28;
-      v131 = objc_opt_class();
-      v135 = v77 >> 28;
-      v136 = NSStringFromClass(v131);
-      v134 = v130;
+      v77 = SLODWORD(v97[0]) >> 28;
+      v78 = objc_opt_class();
+      v82 = v47 >> 28;
+      v83 = NSStringFromClass(v78);
+      v81 = v77;
       MTLReportFailure();
     }
 
     if ((self->_checkFlags & 0x40000) == 0 && self->_edgeMode >= 2 && MTLReportFailureTypeEnabled())
     {
-      v132 = objc_opt_class();
-      v134 = NSStringFromClass(v132);
+      v79 = objc_opt_class();
+      v81 = NSStringFromClass(v79);
       MTLReportFailure();
     }
   }
 
-  *&v142.origin.z = v147;
-  *&v142.size.height = v148;
-  v142.origin.x = v150;
-  v142.origin.y = &v141;
-  v101 = *&self->_offset.x;
-  v143 = v149;
-  v144 = v101;
+  *&v89.origin.z = v94;
+  *&v89.size.height = v95;
+  v89.origin.x = v97;
+  v89.origin.y = &v88;
+  v59 = *&self->_offset.x;
+  v90 = v96;
+  v91 = v59;
   z = self->_offset.z;
-  v146 = 0;
-  v102 = objc_alloc(MEMORY[0x277CD7210]);
-  v110 = objc_msgSend_initWithCommandBuffer_withDispatchType_(v102, v103, commandBuffer, 0, v104, v105);
-  *v139 = v110;
-  *&v139[8] = self;
-  if ((*(&self->super.super.isa + v32) & 0x18) != 0)
+  v93 = 0;
+  v60 = objc_alloc(MEMORY[0x277CD7210]);
+  v63 = objc_msgSend_initWithCommandBuffer_withDispatchType_(v60, v61, commandBuffer, 0);
+  *v86 = v63;
+  *&v86[8] = self;
+  if ((*(&self->super.super.isa + v22) & 0x18) != 0)
   {
-    v111 = *(&self->super.super.isa + *MEMORY[0x277CD7360]);
-    if (v111 || (v112 = objc_opt_class(), v113 = NSStringFromClass(v112), objc_msgSend_setLabel_(self, v114, v113, v115, v116, v117), (v111 = v113) != 0))
+    v64 = *(&self->super.super.isa + *MEMORY[0x277CD7360]);
+    if (v64 || (v65 = objc_opt_class(), v66 = NSStringFromClass(v65), objc_msgSend_setLabel_(self, v67, v66), (v64 = v66) != 0))
     {
-      objc_msgSend_setLabel_(v110, v106, v111, v107, v108, v109, v134, v135, v136);
+      objc_msgSend_setLabel_(v63, v62, v64, v81, v82, v83);
     }
   }
 
-  v118 = sub_23993C100(self, v110, commandBuffer, v10, v69, &v142);
-  v119 = v118 == 0;
-  if (v118)
+  v68 = sub_23993C100(self, v63, commandBuffer, v9, v42, &v89);
+  v69 = v68 == 0;
+  if (v68)
   {
   }
 
   else
   {
 
-    *texture = v69;
+    *texture = v42;
   }
 
-  objc_msgSend_endEncoding(v110, v120, v121, v122, v123, v124, v134);
+  objc_msgSend_endEncoding(v63, v70, v71, v81);
 
-  return v119;
+  return v69;
 }
 
 - (void)encodeToCommandEncoder:(id)encoder commandBuffer:(id)buffer sources:(id)sources destination:(id)destination kernelDAGObject:(id)object
 {
-  v7 = ***(objc_msgSend_graph(object, a2, encoder, buffer, sources, destination) + 56);
+  v7 = ***(objc_msgSend_graph(object, a2, encoder) + 56);
   v8 = **(v7 + 8);
   if (*(*(v7 + 8) + 8) != v8)
   {
@@ -434,181 +434,181 @@ LABEL_20:
 - (void)encodeToCommandEncoder:(id)encoder commandBuffer:(id)buffer sourceTexture:(id)texture destinationTexture:(id)destinationTexture
 {
   encoderCopy = encoder;
-  memset(v301, 0, sizeof(v301));
-  v302.width = objc_msgSend_width(destinationTexture, a2, encoder, buffer, texture, destinationTexture);
-  v302.height = objc_msgSend_height(destinationTexture, v11, v12, v13, v14, v15);
-  v302.depth = objc_msgSend_arrayLength(destinationTexture, v16, v17, v18, v19, v20);
-  v21 = *&self->_clipRect.origin.z;
-  *v294 = *&self->_clipRect.origin.x;
-  *&v294[16] = v21;
-  *&v294[32] = *&self->_clipRect.size.height;
-  MPSGetEffectiveClipRegion(v301, &v302, v294);
-  v22 = *MEMORY[0x277CD7350];
-  v23 = *(&self->super.super.isa + v22);
-  v29 = objc_msgSend_pixelFormat(texture, v24, v25, v26, v27, v28);
-  PixelInfo = MPSDevice::GetPixelInfo(v23, v29, MPSImageFeatureChannelFormatNone);
-  v31 = PixelInfo;
-  v300 = PixelInfo;
-  v32 = *(&self->super.super.isa + v22);
-  v38 = objc_msgSend_pixelFormat(destinationTexture, v33, v34, v35, v36, v37);
-  v39 = MPSDevice::GetPixelInfo(v32, v38, MPSImageFeatureChannelFormatNone);
-  v299 = v39;
-  v45 = *MEMORY[0x277CD7378];
-  v293 = encoderCopy;
-  if (*(&self->super.super.isa + v45))
+  memset(v162, 0, sizeof(v162));
+  v163.width = objc_msgSend_width(destinationTexture, a2, encoder);
+  v163.height = objc_msgSend_height(destinationTexture, v11, v12);
+  v163.depth = objc_msgSend_arrayLength(destinationTexture, v13, v14);
+  v15 = *&self->_clipRect.origin.z;
+  *v155 = *&self->_clipRect.origin.x;
+  *&v155[16] = v15;
+  *&v155[32] = *&self->_clipRect.size.height;
+  MPSGetEffectiveClipRegion(v162, &v163, v155);
+  v16 = *MEMORY[0x277CD7350];
+  v17 = *(&self->super.super.isa + v16);
+  v20 = objc_msgSend_pixelFormat(texture, v18, v19);
+  PixelInfo = MPSDevice::GetPixelInfo(v17, v20, MPSImageFeatureChannelFormatNone);
+  v22 = PixelInfo;
+  v161 = PixelInfo;
+  v23 = *(&self->super.super.isa + v16);
+  v26 = objc_msgSend_pixelFormat(destinationTexture, v24, v25);
+  v27 = MPSDevice::GetPixelInfo(v23, v26, MPSImageFeatureChannelFormatNone);
+  v160 = v27;
+  v30 = *MEMORY[0x277CD7378];
+  v154 = encoderCopy;
+  if (*(&self->super.super.isa + v30))
   {
     goto LABEL_45;
   }
 
-  v46 = v39;
+  v31 = v27;
   if (!buffer && MTLReportFailureTypeEnabled())
   {
-    v272 = objc_opt_class();
-    v287 = NSStringFromClass(v272);
+    v136 = objc_opt_class();
+    v148 = NSStringFromClass(v136);
     MTLReportFailure();
   }
 
   if (!texture && MTLReportFailureTypeEnabled())
   {
-    v273 = objc_opt_class();
-    v287 = NSStringFromClass(v273);
+    v137 = objc_opt_class();
+    v148 = NSStringFromClass(v137);
     MTLReportFailure();
   }
 
   if (!destinationTexture && MTLReportFailureTypeEnabled())
   {
-    v274 = objc_opt_class();
-    v287 = NSStringFromClass(v274);
+    v138 = objc_opt_class();
+    v148 = NSStringFromClass(v138);
     MTLReportFailure();
   }
 
-  v47 = *MEMORY[0x277CD7348];
-  if ((*(&self->super.super.isa + v45) & ~*(&self->super.super.isa + v47)) != 0 && MTLReportFailureTypeEnabled())
+  v32 = *MEMORY[0x277CD7348];
+  if ((*(&self->super.super.isa + v30) & ~*(&self->super.super.isa + v32)) != 0 && MTLReportFailureTypeEnabled())
   {
-    v275 = objc_opt_class();
-    v287 = NSStringFromClass(v275);
-    v289 = *(&self->super.super.isa + v45) & ~*(&self->super.super.isa + v47);
+    v139 = objc_opt_class();
+    v148 = NSStringFromClass(v139);
+    v150 = *(&self->super.super.isa + v30) & ~*(&self->super.super.isa + v32);
     MTLReportFailure();
   }
 
-  v48 = (v31 & 0x3FF);
+  v33 = (v22 & 0x3FF);
   checkFlags = self->_checkFlags;
-  objc_msgSend_textureType(texture, v40, v41, v42, v43, v44, v287, v289);
+  objc_msgSend_textureType(texture, v28, v29, v148, v150);
   if ((checkFlags & 0x200) != 0)
   {
-    objc_msgSend_textureType(destinationTexture, v50, v51, v52, v53, v54);
-    v64 = objc_msgSend_textureType(texture, v59, v60, v61, v62, v63);
-    if (v64 != objc_msgSend_textureType(destinationTexture, v65, v66, v67, v68, v69) && MTLReportFailureTypeEnabled())
+    objc_msgSend_textureType(destinationTexture, v35, v36);
+    v40 = objc_msgSend_textureType(texture, v38, v39);
+    if (v40 != objc_msgSend_textureType(destinationTexture, v41, v42) && MTLReportFailureTypeEnabled())
     {
       destinationTextureCopy5 = destinationTexture;
       textureCopy = texture;
       MTLReportFailure();
     }
 
-    objc_msgSend_arrayLength(texture, v70, v71, v72, v73, v74, destinationTextureCopy5, textureCopy);
-    objc_msgSend_arrayLength(destinationTexture, v75, v76, v77, v78, v79);
-    v85 = objc_msgSend_arrayLength(texture, v80, v81, v82, v83, v84);
-    if (v85 != objc_msgSend_arrayLength(destinationTexture, v86, v87, v88, v89, v90) && MTLReportFailureTypeEnabled())
+    objc_msgSend_arrayLength(texture, v43, v44, destinationTextureCopy5, textureCopy);
+    objc_msgSend_arrayLength(destinationTexture, v45, v46);
+    v49 = objc_msgSend_arrayLength(texture, v47, v48);
+    if (v49 != objc_msgSend_arrayLength(destinationTexture, v50, v51) && MTLReportFailureTypeEnabled())
     {
-      v277 = objc_msgSend_arrayLength(destinationTexture, v55, v276, v56, v57, v58);
+      v141 = objc_msgSend_arrayLength(destinationTexture, v37, v140);
       textureCopy2 = texture;
-      v292 = objc_msgSend_arrayLength(texture, v278, v279, v280, v281, v282);
+      v153 = objc_msgSend_arrayLength(texture, v142, v143);
       destinationTextureCopy5 = destinationTexture;
-      textureCopy = v277;
+      textureCopy = v141;
       goto LABEL_120;
     }
   }
 
-  else if (objc_msgSend_textureType(texture, v50, v51, v52, v53, v54) != 2 && MTLReportFailureTypeEnabled())
+  else if (objc_msgSend_textureType(texture, v35, v36) != 2 && MTLReportFailureTypeEnabled())
   {
     destinationTextureCopy5 = texture;
 LABEL_120:
     MTLReportFailure();
   }
 
-  if ((~v300 & 0xF000000) == 0 && MTLReportFailureTypeEnabled())
+  if ((~v161 & 0xF000000) == 0 && MTLReportFailureTypeEnabled())
   {
     destinationTextureCopy5 = texture;
-    textureCopy = v48;
+    textureCopy = v33;
     MTLReportFailure();
   }
 
-  if ((self->_checkFlags & 0x40) == 0 && (v300 & 0x40000000000) != 0 && MTLReportFailureTypeEnabled())
+  if ((self->_checkFlags & 0x40) == 0 && (v161 & 0x40000000000) != 0 && MTLReportFailureTypeEnabled())
   {
     destinationTextureCopy5 = texture;
-    textureCopy = v48;
+    textureCopy = v33;
     MTLReportFailure();
   }
 
-  if ((self->_checkFlags & 4) != 0 && (v300 & 0x80000000000) == 0 && MTLReportFailureTypeEnabled())
+  if ((self->_checkFlags & 4) != 0 && (v161 & 0x80000000000) == 0 && MTLReportFailureTypeEnabled())
   {
     destinationTextureCopy5 = texture;
-    textureCopy = v48;
+    textureCopy = v33;
     MTLReportFailure();
   }
 
-  if (*&v301[1] && MTLReportFailureTypeEnabled())
+  if (*&v162[1] && MTLReportFailureTypeEnabled())
   {
     MTLReportFailure();
   }
 
-  if ((~v299 & 0xF000000) == 0 && MTLReportFailureTypeEnabled())
-  {
-    destinationTextureCopy5 = destinationTexture;
-    textureCopy = (v46 & 0x3FF);
-    MTLReportFailure();
-  }
-
-  if ((v299 & 0x200000000000) == 0 && MTLReportFailureTypeEnabled())
+  if ((~v160 & 0xF000000) == 0 && MTLReportFailureTypeEnabled())
   {
     destinationTextureCopy5 = destinationTexture;
-    textureCopy = (v46 & 0x3FF);
+    textureCopy = (v31 & 0x3FF);
     MTLReportFailure();
   }
 
-  if ((self->_checkFlags & 0x100) == 0 && (v299 & 0x40000000000) != 0 && MTLReportFailureTypeEnabled())
+  if ((v160 & 0x200000000000) == 0 && MTLReportFailureTypeEnabled())
   {
     destinationTextureCopy5 = destinationTexture;
-    textureCopy = (v46 & 0x3FF);
+    textureCopy = (v31 & 0x3FF);
     MTLReportFailure();
   }
 
-  if ((self->_checkFlags & 2) == 0 && ((v300 ^ v299) & 0xF0000000) != 0 && MTLReportFailureTypeEnabled())
+  if ((self->_checkFlags & 0x100) == 0 && (v160 & 0x40000000000) != 0 && MTLReportFailureTypeEnabled())
   {
-    v283 = v300 >> 28;
-    v284 = v299 >> 28;
-    v285 = objc_opt_class();
-    textureCopy = v284;
-    textureCopy2 = NSStringFromClass(v285);
-    destinationTextureCopy5 = v283;
+    destinationTextureCopy5 = destinationTexture;
+    textureCopy = (v31 & 0x3FF);
     MTLReportFailure();
   }
 
-  if (texture == destinationTexture || (objc_msgSend_isEqual_(texture, v55, destinationTexture, v56, v57, v58), objc_msgSend_isEqual_(texture, v91, destinationTexture, v92, v93, v94)))
+  if ((self->_checkFlags & 2) == 0 && ((v161 ^ v160) & 0xF0000000) != 0 && MTLReportFailureTypeEnabled())
+  {
+    v144 = v161 >> 28;
+    v145 = v160 >> 28;
+    v146 = objc_opt_class();
+    textureCopy = v145;
+    textureCopy2 = NSStringFromClass(v146);
+    destinationTextureCopy5 = v144;
+    MTLReportFailure();
+  }
+
+  if (texture == destinationTexture || (objc_msgSend_isEqual_(texture, v37, destinationTexture), objc_msgSend_isEqual_(texture, v52, destinationTexture)))
   {
     if (MTLReportFailureTypeEnabled())
     {
-      v100 = objc_opt_class();
-      destinationTextureCopy5 = NSStringFromClass(v100);
+      v55 = objc_opt_class();
+      destinationTextureCopy5 = NSStringFromClass(v55);
       MTLReportFailure();
     }
   }
 
   if ((self->_checkFlags & 0x40000) == 0 && self->_edgeMode >= 2 && MTLReportFailureTypeEnabled())
   {
-    v286 = objc_opt_class();
-    destinationTextureCopy5 = NSStringFromClass(v286);
+    v147 = objc_opt_class();
+    destinationTextureCopy5 = NSStringFromClass(v147);
     MTLReportFailure();
   }
 
-  if (objc_msgSend_textureType(texture, v95, v96, v97, v98, v99, destinationTextureCopy5, textureCopy, textureCopy2, v292) == 2)
+  if (objc_msgSend_textureType(texture, v53, v54, destinationTextureCopy5, textureCopy, textureCopy2, v153) == 2)
   {
     if (self->_offset.z && MTLReportFailureTypeEnabled())
     {
       MTLReportFailure();
     }
 
-    if (*(&v301[2] + 1) != 1 && MTLReportFailureTypeEnabled())
+    if (*(&v162[2] + 1) != 1 && MTLReportFailureTypeEnabled())
     {
 LABEL_134:
       MTLReportFailure();
@@ -617,29 +617,29 @@ LABEL_134:
 
   else
   {
-    objc_msgSend_arrayLength(texture, v101, v102, v103, v104, v105);
+    objc_msgSend_arrayLength(texture, v56, v57);
     z = self->_offset.z;
-    if ((z >= objc_msgSend_arrayLength(texture, v107, v108, v109, v110, v111) || self->_offset.z < 0) && MTLReportFailureTypeEnabled())
+    if ((z >= objc_msgSend_arrayLength(texture, v59, v60) || self->_offset.z < 0) && MTLReportFailureTypeEnabled())
     {
       MTLReportFailure();
     }
 
-    objc_msgSend_arrayLength(texture, v112, v113, v114, v115, v116);
-    v117 = *(&v301[2] + 1) + self->_offset.z;
-    if (v117 > objc_msgSend_arrayLength(texture, v118, v119, v120, v121, v122) && MTLReportFailureTypeEnabled())
+    objc_msgSend_arrayLength(texture, v61, v62);
+    v63 = *(&v162[2] + 1) + self->_offset.z;
+    if (v63 > objc_msgSend_arrayLength(texture, v64, v65) && MTLReportFailureTypeEnabled())
     {
       goto LABEL_134;
     }
   }
 
-  if (objc_msgSend_textureType(destinationTexture, v101, v102, v103, v104, v105) == 2)
+  if (objc_msgSend_textureType(destinationTexture, v56, v57) == 2)
   {
-    if (*&v301[1] && MTLReportFailureTypeEnabled())
+    if (*&v162[1] && MTLReportFailureTypeEnabled())
     {
       MTLReportFailure();
     }
 
-    if (*(&v301[2] + 1) != 1 && MTLReportFailureTypeEnabled())
+    if (*(&v162[2] + 1) != 1 && MTLReportFailureTypeEnabled())
     {
 LABEL_140:
       MTLReportFailure();
@@ -648,99 +648,99 @@ LABEL_140:
 
   else
   {
-    objc_msgSend_arrayLength(destinationTexture, v40, v41, v42, v43, v44);
-    v123 = *&v301[1];
-    if (v123 >= objc_msgSend_arrayLength(destinationTexture, v124, v125, v126, v127, v128) && MTLReportFailureTypeEnabled())
+    objc_msgSend_arrayLength(destinationTexture, v28, v29);
+    v66 = *&v162[1];
+    if (v66 >= objc_msgSend_arrayLength(destinationTexture, v67, v68) && MTLReportFailureTypeEnabled())
     {
       MTLReportFailure();
     }
 
-    objc_msgSend_arrayLength(destinationTexture, v129, v130, v131, v132, v133);
-    v134 = *(&v301[2] + 1) + *&v301[1];
-    if (v134 > objc_msgSend_arrayLength(destinationTexture, v135, v136, v137, v138, v139) && MTLReportFailureTypeEnabled())
+    objc_msgSend_arrayLength(destinationTexture, v69, v70);
+    v71 = *(&v162[2] + 1) + *&v162[1];
+    if (v71 > objc_msgSend_arrayLength(destinationTexture, v72, v73) && MTLReportFailureTypeEnabled())
     {
       goto LABEL_140;
     }
   }
 
 LABEL_45:
-  if (*&v301[2] && *(&v301[1] + 1))
+  if (*&v162[2] && *(&v162[1] + 1))
   {
-    *v294 = &v300;
-    *&v294[8] = &v299;
-    *&v294[16] = v301[0];
-    *&v294[32] = 0;
-    *&v294[40] = *(&v301[1] + 8);
-    v295 = 1;
-    v296 = *&self->_offset.x;
-    v297 = 0;
-    v298 = 0;
+    *v155 = &v161;
+    *&v155[8] = &v160;
+    *&v155[16] = v162[0];
+    *&v155[32] = 0;
+    *&v155[40] = *(&v162[1] + 8);
+    v156 = 1;
+    v157 = *&self->_offset.x;
+    v158 = 0;
+    v159 = 0;
     if (encoderCopy)
     {
-      if (*(&v301[2] + 1))
+      if (*(&v162[2] + 1))
       {
-        v140 = 0;
+        v74 = 0;
         textureCopy7 = texture;
         destinationTextureCopy6 = destinationTexture;
         do
         {
-          if (objc_msgSend_textureType(texture, v40, v41, v42, v43, v44) == 3)
+          if (objc_msgSend_textureType(texture, v28, v29) == 3)
           {
-            v148 = objc_msgSend_pixelFormat(texture, v143, v144, v145, v146, v147);
-            textureCopy7 = objc_msgSend_newTextureViewWithPixelFormat_textureType_levels_slices_(textureCopy7, v149, v148, 2, 0, 1, v140 + self->_offset.z, 1);
+            v79 = objc_msgSend_pixelFormat(texture, v77, v78);
+            textureCopy7 = objc_msgSend_newTextureViewWithPixelFormat_textureType_levels_slices_(textureCopy7, v80, v79, 2, 0, 1, v74 + self->_offset.z, 1);
           }
 
-          if (objc_msgSend_textureType(destinationTexture, v143, v144, v145, v146, v147) == 3)
+          if (objc_msgSend_textureType(destinationTexture, v77, v78) == 3)
           {
-            v155 = objc_msgSend_pixelFormat(destinationTexture, v150, v151, v152, v153, v154);
-            destinationTextureCopy6 = objc_msgSend_newTextureViewWithPixelFormat_textureType_levels_slices_(destinationTextureCopy6, v156, v155, 2, 0, 1, v140 + *&v301[1], 1);
+            v83 = objc_msgSend_pixelFormat(destinationTexture, v81, v82);
+            destinationTextureCopy6 = objc_msgSend_newTextureViewWithPixelFormat_textureType_levels_slices_(destinationTextureCopy6, v84, v83, 2, 0, 1, v74 + *&v162[1], 1);
           }
 
-          sub_23993C100(self, encoderCopy, buffer, textureCopy7, destinationTextureCopy6, v294);
-          if ((objc_msgSend_retainedReferences(buffer, v157, v158, v159, v160, v161) & 1) == 0)
+          sub_23993C100(self, encoderCopy, buffer, textureCopy7, destinationTextureCopy6, v155);
+          if ((objc_msgSend_retainedReferences(buffer, v85, v86) & 1) == 0)
           {
             if (textureCopy7 != texture && textureCopy7)
             {
-              v162 = objc_msgSend_userDictionary(buffer, v40, v41, v42, v43, v44);
-              v167 = objc_msgSend_objectForKey_(v162, v163, @"_MPSCommandBufferRetainListKey", v164, v165, v166);
-              if (!v167)
+              v87 = objc_msgSend_userDictionary(buffer, v28, v29);
+              v89 = objc_msgSend_objectForKey_(v87, v88, @"_MPSCommandBufferRetainListKey");
+              if (!v89)
               {
-                v172 = objc_alloc_init(MEMORY[0x277CBEB18]);
-                objc_msgSend_setObject_forKey_(v162, v173, v172, @"_MPSCommandBufferRetainListKey", v174, v175);
+                v91 = objc_alloc_init(MEMORY[0x277CBEB18]);
+                objc_msgSend_setObject_forKey_(v87, v92, v91, @"_MPSCommandBufferRetainListKey");
 
-                v302.width = MEMORY[0x277D85DD0];
-                v302.height = 3221225472;
-                v302.depth = sub_23993D9F0;
-                v303 = &unk_278AC37A8;
-                v304 = @"_MPSCommandBufferRetainListKey";
-                objc_msgSend_addCompletedHandler_(buffer, v176, &v302, v177, v178, v179);
-                v167 = v172;
-                encoderCopy = v293;
+                v163.width = MEMORY[0x277D85DD0];
+                v163.height = 3221225472;
+                v163.depth = sub_23993D9F0;
+                v164 = &unk_278AC37A8;
+                v165 = @"_MPSCommandBufferRetainListKey";
+                objc_msgSend_addCompletedHandler_(buffer, v93, &v163);
+                v89 = v91;
+                encoderCopy = v154;
               }
 
-              objc_msgSend_addObject_(v167, v168, textureCopy7, v169, v170, v171);
+              objc_msgSend_addObject_(v89, v90, textureCopy7);
             }
 
             if (destinationTextureCopy6 != destinationTexture && destinationTextureCopy6)
             {
-              v180 = objc_msgSend_userDictionary(buffer, v40, v41, v42, v43, v44);
-              v185 = objc_msgSend_objectForKey_(v180, v181, @"_MPSCommandBufferRetainListKey", v182, v183, v184);
-              if (!v185)
+              v94 = objc_msgSend_userDictionary(buffer, v28, v29);
+              v96 = objc_msgSend_objectForKey_(v94, v95, @"_MPSCommandBufferRetainListKey");
+              if (!v96)
               {
-                v190 = objc_alloc_init(MEMORY[0x277CBEB18]);
-                objc_msgSend_setObject_forKey_(v180, v191, v190, @"_MPSCommandBufferRetainListKey", v192, v193);
+                v98 = objc_alloc_init(MEMORY[0x277CBEB18]);
+                objc_msgSend_setObject_forKey_(v94, v99, v98, @"_MPSCommandBufferRetainListKey");
 
-                v302.width = MEMORY[0x277D85DD0];
-                v302.height = 3221225472;
-                v302.depth = sub_23993D9F0;
-                v303 = &unk_278AC37A8;
-                v304 = @"_MPSCommandBufferRetainListKey";
-                objc_msgSend_addCompletedHandler_(buffer, v194, &v302, v195, v196, v197);
-                v185 = v190;
-                encoderCopy = v293;
+                v163.width = MEMORY[0x277D85DD0];
+                v163.height = 3221225472;
+                v163.depth = sub_23993D9F0;
+                v164 = &unk_278AC37A8;
+                v165 = @"_MPSCommandBufferRetainListKey";
+                objc_msgSend_addCompletedHandler_(buffer, v100, &v163);
+                v96 = v98;
+                encoderCopy = v154;
               }
 
-              objc_msgSend_addObject_(v185, v186, destinationTextureCopy6, v187, v188, v189);
+              objc_msgSend_addObject_(v96, v97, destinationTextureCopy6);
             }
           }
 
@@ -752,88 +752,88 @@ LABEL_45:
           {
           }
 
-          ++v140;
+          ++v74;
         }
 
-        while (v140 < *(&v301[2] + 1));
+        while (v74 < *(&v162[2] + 1));
       }
     }
 
     else
     {
-      v198 = objc_alloc(MEMORY[0x277CD7210]);
-      v207 = objc_msgSend_initWithCommandBuffer_withDispatchType_(v198, v199, buffer, 0, v200, v201);
-      if ((*(&self->super.super.isa + v45) & 0x18) != 0)
+      v101 = objc_alloc(MEMORY[0x277CD7210]);
+      v105 = objc_msgSend_initWithCommandBuffer_withDispatchType_(v101, v102, buffer, 0);
+      if ((*(&self->super.super.isa + v30) & 0x18) != 0)
       {
-        v203 = *(&self->super.super.isa + *MEMORY[0x277CD7360]);
-        if (v203 || (v208 = objc_opt_class(), v209 = NSStringFromClass(v208), objc_msgSend_setLabel_(self, v210, v209, v211, v212, v213), (v203 = v209) != 0))
+        v104 = *(&self->super.super.isa + *MEMORY[0x277CD7360]);
+        if (v104 || (v106 = objc_opt_class(), v107 = NSStringFromClass(v106), objc_msgSend_setLabel_(self, v108, v107), (v104 = v107) != 0))
         {
-          objc_msgSend_setLabel_(v207, v202, v203, v204, v205, v206);
+          objc_msgSend_setLabel_(v105, v103, v104);
         }
       }
 
-      if (*(&v301[2] + 1))
+      if (*(&v162[2] + 1))
       {
-        v214 = 0;
+        v109 = 0;
         textureCopy8 = texture;
         destinationTextureCopy7 = destinationTexture;
         do
         {
-          if (objc_msgSend_textureType(texture, v202, v203, v204, v205, v206) == 3)
+          if (objc_msgSend_textureType(texture, v103, v104) == 3)
           {
-            v222 = objc_msgSend_pixelFormat(texture, v217, v218, v219, v220, v221);
-            textureCopy8 = objc_msgSend_newTextureViewWithPixelFormat_textureType_levels_slices_(texture, v223, v222, 2, 0, 1, v214 + self->_offset.z, 1);
+            v114 = objc_msgSend_pixelFormat(texture, v112, v113);
+            textureCopy8 = objc_msgSend_newTextureViewWithPixelFormat_textureType_levels_slices_(texture, v115, v114, 2, 0, 1, v109 + self->_offset.z, 1);
           }
 
-          if (objc_msgSend_textureType(destinationTexture, v217, v218, v219, v220, v221) == 3)
+          if (objc_msgSend_textureType(destinationTexture, v112, v113) == 3)
           {
-            v229 = objc_msgSend_pixelFormat(destinationTexture, v224, v225, v226, v227, v228);
-            destinationTextureCopy7 = objc_msgSend_newTextureViewWithPixelFormat_textureType_levels_slices_(destinationTexture, v230, v229, 2, 0, 1, v214 + *&v301[1], 1);
+            v118 = objc_msgSend_pixelFormat(destinationTexture, v116, v117);
+            destinationTextureCopy7 = objc_msgSend_newTextureViewWithPixelFormat_textureType_levels_slices_(destinationTexture, v119, v118, 2, 0, 1, v109 + *&v162[1], 1);
           }
 
-          sub_23993C100(self, v207, buffer, textureCopy8, destinationTextureCopy7, v294);
-          if ((objc_msgSend_retainedReferences(buffer, v231, v232, v233, v234, v235) & 1) == 0)
+          sub_23993C100(self, v105, buffer, textureCopy8, destinationTextureCopy7, v155);
+          if ((objc_msgSend_retainedReferences(buffer, v120, v121) & 1) == 0)
           {
             if (textureCopy8 != texture && textureCopy8)
             {
-              v236 = objc_msgSend_userDictionary(buffer, v202, v203, v204, v205, v206);
-              v241 = objc_msgSend_objectForKey_(v236, v237, @"_MPSCommandBufferRetainListKey", v238, v239, v240);
-              if (!v241)
+              v122 = objc_msgSend_userDictionary(buffer, v103, v104);
+              v124 = objc_msgSend_objectForKey_(v122, v123, @"_MPSCommandBufferRetainListKey");
+              if (!v124)
               {
-                v246 = objc_alloc_init(MEMORY[0x277CBEB18]);
-                objc_msgSend_setObject_forKey_(v236, v247, v246, @"_MPSCommandBufferRetainListKey", v248, v249);
+                v126 = objc_alloc_init(MEMORY[0x277CBEB18]);
+                objc_msgSend_setObject_forKey_(v122, v127, v126, @"_MPSCommandBufferRetainListKey");
 
-                v302.width = MEMORY[0x277D85DD0];
-                v302.height = 3221225472;
-                v302.depth = sub_23993D9F0;
-                v303 = &unk_278AC37A8;
-                v304 = @"_MPSCommandBufferRetainListKey";
-                objc_msgSend_addCompletedHandler_(buffer, v250, &v302, v251, v252, v253);
-                v241 = v246;
+                v163.width = MEMORY[0x277D85DD0];
+                v163.height = 3221225472;
+                v163.depth = sub_23993D9F0;
+                v164 = &unk_278AC37A8;
+                v165 = @"_MPSCommandBufferRetainListKey";
+                objc_msgSend_addCompletedHandler_(buffer, v128, &v163);
+                v124 = v126;
               }
 
-              objc_msgSend_addObject_(v241, v242, textureCopy8, v243, v244, v245);
+              objc_msgSend_addObject_(v124, v125, textureCopy8);
             }
 
             if (destinationTextureCopy7 != destinationTexture && destinationTextureCopy7)
             {
-              v254 = objc_msgSend_userDictionary(buffer, v202, v203, v204, v205, v206);
-              v259 = objc_msgSend_objectForKey_(v254, v255, @"_MPSCommandBufferRetainListKey", v256, v257, v258);
-              if (!v259)
+              v129 = objc_msgSend_userDictionary(buffer, v103, v104);
+              v131 = objc_msgSend_objectForKey_(v129, v130, @"_MPSCommandBufferRetainListKey");
+              if (!v131)
               {
-                v264 = objc_alloc_init(MEMORY[0x277CBEB18]);
-                objc_msgSend_setObject_forKey_(v254, v265, v264, @"_MPSCommandBufferRetainListKey", v266, v267);
+                v133 = objc_alloc_init(MEMORY[0x277CBEB18]);
+                objc_msgSend_setObject_forKey_(v129, v134, v133, @"_MPSCommandBufferRetainListKey");
 
-                v302.width = MEMORY[0x277D85DD0];
-                v302.height = 3221225472;
-                v302.depth = sub_23993D9F0;
-                v303 = &unk_278AC37A8;
-                v304 = @"_MPSCommandBufferRetainListKey";
-                objc_msgSend_addCompletedHandler_(buffer, v268, &v302, v269, v270, v271);
-                v259 = v264;
+                v163.width = MEMORY[0x277D85DD0];
+                v163.height = 3221225472;
+                v163.depth = sub_23993D9F0;
+                v164 = &unk_278AC37A8;
+                v165 = @"_MPSCommandBufferRetainListKey";
+                objc_msgSend_addCompletedHandler_(buffer, v135, &v163);
+                v131 = v133;
               }
 
-              objc_msgSend_addObject_(v259, v260, destinationTextureCopy7, v261, v262, v263);
+              objc_msgSend_addObject_(v131, v132, destinationTextureCopy7);
             }
           }
 
@@ -845,13 +845,13 @@ LABEL_45:
           {
           }
 
-          ++v214;
+          ++v109;
         }
 
-        while (v214 < *(&v301[2] + 1));
+        while (v109 < *(&v162[2] + 1));
       }
 
-      objc_msgSend_endEncoding(v207, v202, v203, v204, v205, v206);
+      objc_msgSend_endEncoding(v105, v103, v104);
     }
   }
 }
@@ -873,7 +873,7 @@ LABEL_45:
       if (v28)
       {
         v29 = objc_opt_class();
-        v109 = NSStringFromClass(v29);
+        v103 = NSStringFromClass(v29);
         MTLReportFailure();
         self = selfCopy;
         encoder = encoderCopy;
@@ -894,7 +894,7 @@ LABEL_45:
       if (v34)
       {
         v35 = objc_opt_class();
-        v109 = NSStringFromClass(v35);
+        v103 = NSStringFromClass(v35);
         MTLReportFailure();
         self = selfCopy2;
         encoder = encoderCopy2;
@@ -915,7 +915,7 @@ LABEL_45:
       if (v40)
       {
         v41 = objc_opt_class();
-        v109 = NSStringFromClass(v41);
+        v103 = NSStringFromClass(v41);
         MTLReportFailure();
         self = selfCopy3;
         encoder = encoderCopy3;
@@ -937,7 +937,7 @@ LABEL_45:
       if (v46)
       {
         v47 = objc_opt_class();
-        v109 = NSStringFromClass(v47);
+        v103 = NSStringFromClass(v47);
         destinationImageCopy2 = *(&selfCopy4->super.super.isa + v8) & ~*(&selfCopy4->super.super.isa + v9);
         MTLReportFailure();
         self = selfCopy4;
@@ -962,7 +962,7 @@ LABEL_45:
         if (v64)
         {
           v65 = objc_opt_class();
-          v109 = NSStringFromClass(v65);
+          v103 = NSStringFromClass(v65);
           destinationImageCopy2 = image;
           MTLReportFailure();
           self = selfCopy5;
@@ -984,7 +984,7 @@ LABEL_45:
         if (v70)
         {
           v71 = objc_opt_class();
-          v109 = NSStringFromClass(v71);
+          v103 = NSStringFromClass(v71);
           destinationImageCopy2 = destinationImage;
           MTLReportFailure();
           self = selfCopy6;
@@ -1008,7 +1008,7 @@ LABEL_45:
       if (v52)
       {
         v53 = objc_opt_class();
-        v109 = NSStringFromClass(v53);
+        v103 = NSStringFromClass(v53);
         MTLReportFailure();
         self = selfCopy7;
         encoder = encoderCopy7;
@@ -1029,7 +1029,7 @@ LABEL_45:
       if (v58)
       {
         v59 = objc_opt_class();
-        v109 = NSStringFromClass(v59);
+        v103 = NSStringFromClass(v59);
         MTLReportFailure();
         self = selfCopy8;
         encoder = encoderCopy8;
@@ -1052,16 +1052,16 @@ LABEL_45:
         selfCopy9 = self;
         bufferCopy8 = buffer;
         encoderCopy9 = encoder;
-        v100 = MTLReportFailureTypeEnabled();
+        v94 = MTLReportFailureTypeEnabled();
         v16 = MEMORY[0x277CD7490];
         encoder = encoderCopy9;
         buffer = bufferCopy8;
-        v101 = v100;
+        v95 = v94;
         self = selfCopy9;
-        if (v101)
+        if (v95)
         {
-          v102 = objc_opt_class();
-          v109 = NSStringFromClass(v102);
+          v96 = objc_opt_class();
+          v103 = NSStringFromClass(v96);
           destinationImageCopy2 = image;
           MTLReportFailure();
           v16 = MEMORY[0x277CD7490];
@@ -1076,15 +1076,15 @@ LABEL_45:
         selfCopy10 = self;
         bufferCopy9 = buffer;
         encoderCopy10 = encoder;
-        v106 = MTLReportFailureTypeEnabled();
+        v100 = MTLReportFailureTypeEnabled();
         encoder = encoderCopy10;
         buffer = bufferCopy9;
-        v107 = v106;
+        v101 = v100;
         self = selfCopy10;
-        if (v107)
+        if (v101)
         {
-          v108 = objc_opt_class();
-          v109 = NSStringFromClass(v108);
+          v102 = objc_opt_class();
+          v103 = NSStringFromClass(v102);
           destinationImageCopy2 = destinationImage;
           MTLReportFailure();
           self = selfCopy10;
@@ -1139,8 +1139,8 @@ LABEL_24:
           if (v77)
           {
             v78 = objc_opt_class();
-            v109 = NSStringFromClass(v78);
-            destinationImageCopy2 = objc_msgSend_debugDescription(image, v79, v80, v81, v82, v83);
+            v103 = NSStringFromClass(v78);
+            destinationImageCopy2 = objc_msgSend_debugDescription(image, v79, v80);
             MTLReportFailure();
             v18 = v75;
             self = selfCopy12;
@@ -1154,19 +1154,19 @@ LABEL_24:
           selfCopy13 = self;
           bufferCopy12 = buffer;
           encoderCopy13 = encoder;
-          v87 = MTLReportFailureTypeEnabled();
+          v84 = MTLReportFailureTypeEnabled();
           v18 = 0;
           encoder = encoderCopy13;
           buffer = bufferCopy12;
-          v88 = v87;
+          v85 = v84;
           self = selfCopy13;
-          if (v88)
+          if (v85)
           {
-            v89 = objc_opt_class();
-            v90 = NSStringFromClass(v89);
-            v111 = objc_msgSend_debugDescription(destinationImage, v91, v92, v93, v94, v95);
+            v86 = objc_opt_class();
+            v87 = NSStringFromClass(v86);
+            v105 = objc_msgSend_debugDescription(destinationImage, v88, v89);
             MTLReportFailure();
-            objc_msgSend_encodeToCommandEncoder_commandBuffer_sourceTexture_destinationTexture_(selfCopy13, v96, encoderCopy13, bufferCopy12, explicit, 0, v90, v111);
+            objc_msgSend_encodeToCommandEncoder_commandBuffer_sourceTexture_destinationTexture_(selfCopy13, v90, encoderCopy13, bufferCopy12, explicit, 0, v87, v105);
 LABEL_27:
             if (v15)
             {
@@ -1179,7 +1179,7 @@ LABEL_27:
         }
 
 LABEL_26:
-        objc_msgSend_encodeToCommandEncoder_commandBuffer_sourceTexture_destinationTexture_(self, a2, encoder, buffer, explicit, v18, v109, destinationImageCopy2);
+        objc_msgSend_encodeToCommandEncoder_commandBuffer_sourceTexture_destinationTexture_(self, a2, encoder, buffer, explicit, v18, v103, destinationImageCopy2);
         goto LABEL_27;
       }
     }
@@ -1204,55 +1204,55 @@ LABEL_26:
 - (void)encodeWithCoder:(id)coder
 {
   *(&self->super.super.isa + *MEMORY[0x277CD7358] + 1) = 1;
-  v35.receiver = self;
-  v35.super_class = MPSUnaryImageKernel;
-  [(MPSKernel *)&v35 encodeWithCoder:?];
-  objc_msgSend_encodeInt64_forKey_(coder, v5, self->_offset.x, @"MPSImageUnaryKernel.offset.x", v6, v7);
-  objc_msgSend_encodeInt64_forKey_(coder, v8, self->_offset.y, @"MPSImageUnaryKernel.offset.y", v9, v10);
-  objc_msgSend_encodeInt64_forKey_(coder, v11, self->_offset.z, @"MPSImageUnaryKernel.offset.z", v12, v13);
-  objc_msgSend_encodeInt64_forKey_(coder, v14, self->_clipRect.origin.x, @"MPSImageUnaryKernel.clipRect.origin.x", v15, v16);
-  objc_msgSend_encodeInt64_forKey_(coder, v17, self->_clipRect.origin.y, @"MPSImageUnaryKernel.clipRect.origin.y", v18, v19);
-  objc_msgSend_encodeInt64_forKey_(coder, v20, self->_clipRect.origin.z, @"MPSImageUnaryKernel.clipRect.origin.z", v21, v22);
-  objc_msgSend_encodeInt64_forKey_(coder, v23, self->_clipRect.size.width, @"MPSImageUnaryKernel.clipRect.size.width", v24, v25);
-  objc_msgSend_encodeInt64_forKey_(coder, v26, self->_clipRect.size.height, @"MPSImageUnaryKernel.clipRect.size.height", v27, v28);
-  objc_msgSend_encodeInt64_forKey_(coder, v29, self->_clipRect.size.depth, @"MPSImageUnaryKernel.clipRect.size.depth", v30, v31);
-  objc_msgSend_encodeInt64_forKey_(coder, v32, self->_edgeMode, @"MPSImageUnaryKernel.edgeMode", v33, v34);
+  v15.receiver = self;
+  v15.super_class = MPSUnaryImageKernel;
+  [(MPSKernel *)&v15 encodeWithCoder:?];
+  objc_msgSend_encodeInt64_forKey_(coder, v5, self->_offset.x, @"MPSImageUnaryKernel.offset.x");
+  objc_msgSend_encodeInt64_forKey_(coder, v6, self->_offset.y, @"MPSImageUnaryKernel.offset.y");
+  objc_msgSend_encodeInt64_forKey_(coder, v7, self->_offset.z, @"MPSImageUnaryKernel.offset.z");
+  objc_msgSend_encodeInt64_forKey_(coder, v8, self->_clipRect.origin.x, @"MPSImageUnaryKernel.clipRect.origin.x");
+  objc_msgSend_encodeInt64_forKey_(coder, v9, self->_clipRect.origin.y, @"MPSImageUnaryKernel.clipRect.origin.y");
+  objc_msgSend_encodeInt64_forKey_(coder, v10, self->_clipRect.origin.z, @"MPSImageUnaryKernel.clipRect.origin.z");
+  objc_msgSend_encodeInt64_forKey_(coder, v11, self->_clipRect.size.width, @"MPSImageUnaryKernel.clipRect.size.width");
+  objc_msgSend_encodeInt64_forKey_(coder, v12, self->_clipRect.size.height, @"MPSImageUnaryKernel.clipRect.size.height");
+  objc_msgSend_encodeInt64_forKey_(coder, v13, self->_clipRect.size.depth, @"MPSImageUnaryKernel.clipRect.size.depth");
+  objc_msgSend_encodeInt64_forKey_(coder, v14, self->_edgeMode, @"MPSImageUnaryKernel.edgeMode");
 }
 
 - (MPSUnaryImageKernel)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v49.receiver = self;
-  v49.super_class = MPSUnaryImageKernel;
-  v5 = [(MPSKernel *)&v49 initWithCoder:aDecoder device:device];
-  v10 = v5;
+  v19.receiver = self;
+  v19.super_class = MPSUnaryImageKernel;
+  v5 = [(MPSKernel *)&v19 initWithCoder:aDecoder device:device];
+  v7 = v5;
   if (!v5)
   {
-    return v10;
+    return v7;
   }
 
   if (*(&v5->super.super.isa + *MEMORY[0x277CD7358] + 1) << 8 == 256)
   {
-    v5->_offset.x = objc_msgSend_decodeInt64ForKey_(aDecoder, v6, @"MPSImageUnaryKernel.offset.x", v7, v8, v9);
-    v10->_offset.y = objc_msgSend_decodeInt64ForKey_(aDecoder, v11, @"MPSImageUnaryKernel.offset.y", v12, v13, v14);
-    v10->_offset.z = objc_msgSend_decodeInt64ForKey_(aDecoder, v15, @"MPSImageUnaryKernel.offset.z", v16, v17, v18);
-    v10->_clipRect.origin.x = objc_msgSend_decodeInt64ForKey_(aDecoder, v19, @"MPSImageUnaryKernel.clipRect.origin.x", v20, v21, v22);
-    v10->_clipRect.origin.y = objc_msgSend_decodeInt64ForKey_(aDecoder, v23, @"MPSImageUnaryKernel.clipRect.origin.y", v24, v25, v26);
-    v10->_clipRect.origin.z = objc_msgSend_decodeInt64ForKey_(aDecoder, v27, @"MPSImageUnaryKernel.clipRect.origin.z", v28, v29, v30);
-    v10->_clipRect.size.width = objc_msgSend_decodeInt64ForKey_(aDecoder, v31, @"MPSImageUnaryKernel.clipRect.size.width", v32, v33, v34);
-    v10->_clipRect.size.height = objc_msgSend_decodeInt64ForKey_(aDecoder, v35, @"MPSImageUnaryKernel.clipRect.size.height", v36, v37, v38);
-    v10->_clipRect.size.depth = objc_msgSend_decodeInt64ForKey_(aDecoder, v39, @"MPSImageUnaryKernel.clipRect.size.depth", v40, v41, v42);
-    v10->_edgeMode = objc_msgSend_decodeInt64ForKey_(aDecoder, v43, @"MPSImageUnaryKernel.edgeMode", v44, v45, v46);
-    v10->_checkFlags = 513;
-    v10->_encode = 0;
-    v10->_encodeData = 0;
-    v10->_getPreferredTileSize = 0;
-    return v10;
+    v5->_offset.x = objc_msgSend_decodeInt64ForKey_(aDecoder, v6, @"MPSImageUnaryKernel.offset.x");
+    v7->_offset.y = objc_msgSend_decodeInt64ForKey_(aDecoder, v8, @"MPSImageUnaryKernel.offset.y");
+    v7->_offset.z = objc_msgSend_decodeInt64ForKey_(aDecoder, v9, @"MPSImageUnaryKernel.offset.z");
+    v7->_clipRect.origin.x = objc_msgSend_decodeInt64ForKey_(aDecoder, v10, @"MPSImageUnaryKernel.clipRect.origin.x");
+    v7->_clipRect.origin.y = objc_msgSend_decodeInt64ForKey_(aDecoder, v11, @"MPSImageUnaryKernel.clipRect.origin.y");
+    v7->_clipRect.origin.z = objc_msgSend_decodeInt64ForKey_(aDecoder, v12, @"MPSImageUnaryKernel.clipRect.origin.z");
+    v7->_clipRect.size.width = objc_msgSend_decodeInt64ForKey_(aDecoder, v13, @"MPSImageUnaryKernel.clipRect.size.width");
+    v7->_clipRect.size.height = objc_msgSend_decodeInt64ForKey_(aDecoder, v14, @"MPSImageUnaryKernel.clipRect.size.height");
+    v7->_clipRect.size.depth = objc_msgSend_decodeInt64ForKey_(aDecoder, v15, @"MPSImageUnaryKernel.clipRect.size.depth");
+    v7->_edgeMode = objc_msgSend_decodeInt64ForKey_(aDecoder, v16, @"MPSImageUnaryKernel.edgeMode");
+    v7->_checkFlags = 513;
+    v7->_encode = 0;
+    v7->_encodeData = 0;
+    v7->_getPreferredTileSize = 0;
+    return v7;
   }
 
   if (MTLReportFailureTypeEnabled())
   {
-    v48 = objc_opt_class();
-    NSStringFromClass(v48);
+    v18 = objc_opt_class();
+    NSStringFromClass(v18);
     MTLReportFailure();
   }
 

@@ -10,36 +10,32 @@
 
 - (id)prettyJSONDictionary
 {
-  v11[2] = *MEMORY[0x277D85DE8];
-  v10[0] = @"addressStart";
+  v10[2] = *MEMORY[0x277D85DE8];
+  v9[0] = @"addressStart";
   addressStart = [(HMDNetworkRouterFirewallRuleWANAddressRange *)self addressStart];
   addressString = [addressStart addressString];
-  v10[1] = @"addressEnd";
-  v11[0] = addressString;
+  v9[1] = @"addressEnd";
+  v10[0] = addressString;
   addressEnd = [(HMDNetworkRouterFirewallRuleWANAddressRange *)self addressEnd];
   addressString2 = [addressEnd addressString];
-  v11[1] = addressString2;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[1] = addressString2;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
 
   return v7;
 }
 
 - (id)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   addressStart = [(HMDNetworkRouterFirewallRuleWANAddressRange *)self addressStart];
   v5 = [v3 initWithName:@"AddressStart" value:addressStart];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   addressEnd = [(HMDNetworkRouterFirewallRuleWANAddressRange *)self addressEnd];
   v8 = [v6 initWithName:@"AddressEnd" value:addressEnd];
-  v12[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
 
   return v9;
 }

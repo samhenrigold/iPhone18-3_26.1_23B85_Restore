@@ -106,7 +106,7 @@ void __39__MFActivityCondition_initWithBuilder___block_invoke(uint64_t a1, void 
 
 - (EFObservable)conditionsObservable
 {
-  v25[6] = *MEMORY[0x1E69E9840];
+  v24[6] = *MEMORY[0x1E69E9840];
   v3 = +[MFPowerController sharedInstance];
   lowPowerModeObservable = [v3 lowPowerModeObservable];
   pluggedInObservable = [v3 pluggedInObservable];
@@ -122,36 +122,34 @@ void __39__MFActivityCondition_initWithBuilder___block_invoke(uint64_t a1, void 
 
   objc_initWeak(&location, self);
   v11 = MEMORY[0x1E699B830];
-  v25[0] = lowPowerModeObservable;
-  v25[1] = lockStateObservable;
-  v25[2] = wifiObservable;
-  v25[3] = pluggedInObservable;
-  v25[4] = mf_thermalStateObservable;
-  v25[5] = batteryLevelObservable;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:6];
+  v24[0] = lowPowerModeObservable;
+  v24[1] = lockStateObservable;
+  v24[2] = wifiObservable;
+  v24[3] = pluggedInObservable;
+  v24[4] = mf_thermalStateObservable;
+  v24[5] = batteryLevelObservable;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:6];
   v13 = [v11 combineLatest:v12];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __43__MFActivityCondition_conditionsObservable__block_invoke;
-  v22[3] = &unk_1E7AA4B40;
-  objc_copyWeak(&v23, &location);
-  v14 = [v13 map:v22];
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __43__MFActivityCondition_conditionsObservable__block_invoke;
+  v21[3] = &unk_1E7AA4B40;
+  objc_copyWeak(&v22, &location);
+  v14 = [v13 map:v21];
 
   distinctUntilChanged = [v14 distinctUntilChanged];
   v16 = [distinctUntilChanged doOnError:&__block_literal_global_78];
   v17 = [v16 observeOn:self->_scheduler];
 
-  objc_destroyWeak(&v23);
+  objc_destroyWeak(&v22);
   objc_destroyWeak(&location);
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
 
 uint64_t __43__MFActivityCondition_conditionsObservable__block_invoke(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = [v3 objectAtIndexedSubscript:0];
@@ -176,19 +174,19 @@ uint64_t __43__MFActivityCondition_conditionsObservable__block_invoke(uint64_t a
   v18 = MFLogGeneral();
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v25[0] = 67110400;
-    v25[1] = v6;
-    v26 = 1024;
-    v27 = v8;
-    v28 = 1024;
-    v29 = v10;
-    v30 = 1024;
-    v31 = v12;
-    v32 = 2048;
-    v33 = v14;
-    v34 = 2048;
-    v35 = v17;
-    _os_log_impl(&dword_1B0389000, v18, OS_LOG_TYPE_DEFAULT, "lpm:%d locked:%d wifi:%d onpower:%d thermals:%lu battery:%.2f", v25, 0x2Eu);
+    v24[0] = 67110400;
+    v24[1] = v6;
+    v25 = 1024;
+    v26 = v8;
+    v27 = 1024;
+    v28 = v10;
+    v29 = 1024;
+    v30 = v12;
+    v31 = 2048;
+    v32 = v14;
+    v33 = 2048;
+    v34 = v17;
+    _os_log_impl(&dword_1B0389000, v18, OS_LOG_TYPE_DEFAULT, "lpm:%d locked:%d wifi:%d onpower:%d thermals:%lu battery:%.2f", v24, 0x2Eu);
   }
 
   if (v12 & 1 | (([WeakRetained requireExternalPower] & 1) == 0) && ((objc_msgSend(WeakRetained, "minBatteryLevel"), v19 <= 0.0) || (objc_msgSend(WeakRetained, "minBatteryLevel"), v17 >= v20)) && (objc_msgSend(WeakRetained, "requireLowPowerModeDisabled") & v6 & 1) == 0 && v10 & 1 | ((objc_msgSend(WeakRetained, "requireWiFi") & 1) == 0))
@@ -206,49 +204,44 @@ uint64_t __43__MFActivityCondition_conditionsObservable__block_invoke(uint64_t a
     v22 = MEMORY[0x1E695E110];
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
 void __43__MFActivityCondition_conditionsObservable__block_invoke_75(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = MFLogGeneral();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     v4 = [v2 ef_publicDescription];
-    __43__MFActivityCondition_conditionsObservable__block_invoke_75_cold_1(v4, v6, v3);
+    __43__MFActivityCondition_conditionsObservable__block_invoke_75_cold_1(v4, v5, v3);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_isValidConfiguration
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   [(MFActivityCondition *)self minBatteryLevel];
-  if (v3 >= 0.0 && ([(MFActivityCondition *)self minBatteryLevel], v4 <= 1.0))
+  if (v3 >= 0.0)
   {
-    result = 1;
-  }
-
-  else
-  {
-    v5 = MFLogGeneral();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    [(MFActivityCondition *)self minBatteryLevel];
+    if (v4 <= 1.0)
     {
-      [(MFActivityCondition *)self minBatteryLevel];
-      v9 = 134217984;
-      v10 = v6;
-      _os_log_impl(&dword_1B0389000, v5, OS_LOG_TYPE_DEFAULT, "invalid battery-level value (%f)", &v9, 0xCu);
+      return 1;
     }
-
-    result = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  v5 = MFLogGeneral();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    [(MFActivityCondition *)self minBatteryLevel];
+    v8 = 134217984;
+    v9 = v6;
+    _os_log_impl(&dword_1B0389000, v5, OS_LOG_TYPE_DEFAULT, "invalid battery-level value (%f)", &v8, 0xCu);
+  }
+
+  return 0;
 }
 
 void __43__MFActivityCondition_conditionsObservable__block_invoke_75_cold_1(void *a1, uint8_t *buf, os_log_t log)

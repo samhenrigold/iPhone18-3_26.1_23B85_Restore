@@ -56,27 +56,27 @@ uint64_t __47__IptTrialExperimentsManager_getSharedInstance__block_invoke()
 
 - (void)readParametersFromPlist:(id)plist
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
+  v25 = 0;
   v26 = 0;
-  v27 = 0;
   plistCopy = plist;
-  IPTelephonyManager::getBambiClient(&v26);
+  IPTelephonyManager::getBambiClient(&v25);
   if (!plistCopy)
   {
     syslog(5, "%s: No active Experiment: IPTelephonyManager use default values %s", "IPTTrialExperimentsManager", "[IptTrialExperimentsManager readParametersFromPlist:]");
-    v6 = v26;
-    BambiClient::setAllowLibnetcoreForRcs(v26, 1);
+    v6 = v25;
+    BambiClient::setAllowLibnetcoreForRcs(v25, 1);
     BambiClient::setAllowTls13ForRcs(v6, 1);
     BambiClient::setAllowTlsPQForRcs(v6, 1);
     goto LABEL_26;
   }
 
-  v25 = 0;
-  v18 = [objc_alloc(MEMORY[0x1E695DF20]) initWithContentsOfURL:plistCopy error:&v25];
-  v19 = v25;
-  if ([v18 count])
+  v24 = 0;
+  v17 = [objc_alloc(MEMORY[0x1E695DF20]) initWithContentsOfURL:plistCopy error:&v24];
+  v18 = v24;
+  if ([v17 count])
   {
-    v3 = v19 == 0;
+    v3 = v18 == 0;
   }
 
   else
@@ -86,7 +86,7 @@ uint64_t __47__IptTrialExperimentsManager_getSharedInstance__block_invoke()
 
   if (v3)
   {
-    v7 = [v18 objectForKeyedSubscript:@"com.apple.commcenter"];
+    v7 = [v17 objectForKeyedSubscript:@"com.apple.commcenter"];
     if (!v7)
     {
       syslog(5, "%s: readParametersFromPlist: No Bundle ID com.apple.commcenter in the plist, %s", "IPTTrialExperimentsManager", "[IptTrialExperimentsManager readParametersFromPlist:]");
@@ -94,26 +94,26 @@ uint64_t __47__IptTrialExperimentsManager_getSharedInstance__block_invoke()
     }
 
     syslog(5, "%s: Bundle ID com.apple.commcenter found in the plist, %s", "IPTTrialExperimentsManager", "[IptTrialExperimentsManager readParametersFromPlist:]");
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     localizedDescription = v7;
-    v8 = [localizedDescription countByEnumeratingWithState:&v21 objects:v28 count:16];
+    v8 = [localizedDescription countByEnumeratingWithState:&v20 objects:v27 count:16];
     if (v8)
     {
-      v9 = *v22;
-      v10 = v26;
+      v9 = *v21;
+      v10 = v25;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v22 != v9)
+          if (*v21 != v9)
           {
             objc_enumerationMutation(localizedDescription);
           }
 
-          v12 = *(*(&v21 + 1) + 8 * i);
+          v12 = *(*(&v20 + 1) + 8 * i);
           v13 = [localizedDescription objectForKeyedSubscript:v12];
           bOOLValue = [v13 BOOLValue];
 
@@ -145,7 +145,7 @@ uint64_t __47__IptTrialExperimentsManager_getSharedInstance__block_invoke()
           syslog(5, "%s: stackConfigChanged: %u", "IPTTrialExperimentsManager", v16);
         }
 
-        v8 = [localizedDescription countByEnumeratingWithState:&v21 objects:v28 count:16];
+        v8 = [localizedDescription countByEnumeratingWithState:&v20 objects:v27 count:16];
       }
 
       while (v8);
@@ -154,19 +154,17 @@ uint64_t __47__IptTrialExperimentsManager_getSharedInstance__block_invoke()
 
   else
   {
-    localizedDescription = [v19 localizedDescription];
+    localizedDescription = [v18 localizedDescription];
     v5 = localizedDescription;
     syslog(5, "%s: readParametersFromPlist: Error reading from plist file: %s, %s", "IPTTrialExperimentsManager", [localizedDescription cStringUsingEncoding:4], "-[IptTrialExperimentsManager readParametersFromPlist:]");
   }
 
 LABEL_25:
 LABEL_26:
-  if (v27)
+  if (v26)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v27);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v26);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyRegisteredClientsForExperimentStart:(id)start

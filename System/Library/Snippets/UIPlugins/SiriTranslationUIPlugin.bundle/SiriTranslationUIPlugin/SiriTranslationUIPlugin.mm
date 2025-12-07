@@ -1,10 +1,10 @@
-uint64_t sub_12E8()
+uint64_t sub_12E8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   sub_146C();
   sub_145C();
-  v0 = sub_144C();
+  v3 = sub_144C();
 
-  return v0;
+  return v3;
 }
 
 unint64_t sub_1390()

@@ -34,25 +34,7 @@
 
   v26 = registryCopy;
   v16 = [registryCopy serviceFromClass:objc_opt_class()];
-  if (![v16 isIDSConnected])
-  {
-    goto LABEL_7;
-  }
-
-  [v16 defaultPairedDevice];
-  v17 = v24 = v8;
-  [v17 nsuuid];
-  v18 = v25 = v9;
-  v19 = [v13 isEqual:v18];
-
-  v9 = v25;
-  v8 = v24;
-  if (!v19)
-  {
-    goto LABEL_7;
-  }
-
-  if (v12 && v13)
+  if ([v16 isIDSConnected] && (objc_msgSend(v16, "defaultPairedDevice"), v24 = v8, v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "nsuuid"), v25 = v9, v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v13, "isEqual:", v18), v18, v9 = v25, v17, v8 = v24, v19) && v12 && v13)
   {
     [(EPSagaTransactionSendUnpairMessage *)self setRemoteUnpairTimeout];
     objc_initWeak(&location, self);
@@ -91,7 +73,6 @@
 
   else
   {
-LABEL_7:
     [(EPSagaTransactionSendUnpairMessage *)self transactionDidComplete];
     v21 = detailedError;
   }

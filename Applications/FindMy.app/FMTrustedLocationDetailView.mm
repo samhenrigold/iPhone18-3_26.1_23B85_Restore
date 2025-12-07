@@ -37,7 +37,7 @@
   swift_unknownObjectRelease();
   sub_100332DC4();
 
-  sub_100006060(&v5);
+  sub_100006060(v5);
 }
 
 - (void)handleAction

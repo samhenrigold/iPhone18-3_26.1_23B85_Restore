@@ -4,9 +4,35 @@
 - (void)_didReceiveSelfTriggerChanged:(BOOL)changed;
 - (void)_startMonitoringWithQueue:(id)queue;
 - (void)_stopMonitoring;
+- (void)setEnable:(BOOL)enable;
 @end
 
 @implementation CSSelfTriggerEnabledMonitorAccessory
+
+- (void)setEnable:(BOOL)enable
+{
+  enableCopy = enable;
+  v5 = CSLogContextFacilityCoreSpeech;
+  if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = @"Disable";
+    if (enableCopy)
+    {
+      v6 = @"Enable";
+    }
+
+    v8 = 136315394;
+    v9 = "[CSSelfTriggerEnabledMonitorAccessory setEnable:]";
+    v10 = 2114;
+    v11 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s Set SelfTrigger Enable = %{public}@", &v8, 0x16u);
+  }
+
+  v7 = +[CSFPreferences sharedPreferences];
+  [v7 setSelfTriggerEnabledAccessory:enableCopy];
+
+  [(CSSelfTriggerEnabledMonitorAccessory *)self _didReceiveSelfTriggerChanged:enableCopy];
+}
 
 - (void)_didReceiveSelfTriggerChanged:(BOOL)changed
 {

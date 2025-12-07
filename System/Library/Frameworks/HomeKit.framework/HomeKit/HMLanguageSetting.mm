@@ -1,5 +1,7 @@
 @interface HMLanguageSetting
 - (BOOL)isEqual:(id)equal;
+- (HMLanguageSetting)initWithKeyPath:(id)path readOnly:(BOOL)only languageValue:(id)value;
+- (HMLanguageSetting)initWithKeyPath:(id)path readOnly:(BOOL)only payload:(id)payload;
 - (HMLanguageSetting)initWithProtoPayload:(id)payload;
 - (HMLanguageSetting)settingWithSettingValue:(id)value;
 - (id)attributeDescriptions;
@@ -61,41 +63,98 @@
 
 - (id)attributeDescriptions
 {
-  v12[1] = *MEMORY[0x1E69E9840];
-  v11.receiver = self;
-  v11.super_class = HMLanguageSetting;
-  attributeDescriptions = [(HMImmutableSetting *)&v11 attributeDescriptions];
+  v11[1] = *MEMORY[0x1E69E9840];
+  v10.receiver = self;
+  v10.super_class = HMLanguageSetting;
+  attributeDescriptions = [(HMImmutableSetting *)&v10 attributeDescriptions];
   v4 = objc_alloc(MEMORY[0x1E69A29C8]);
   languageValue = [(HMLanguageSetting *)self languageValue];
   v6 = [v4 initWithName:@"languageValue" value:languageValue];
-  v12[0] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+  v11[0] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
   v8 = [attributeDescriptions arrayByAddingObjectsFromArray:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
+- (HMLanguageSetting)initWithKeyPath:(id)path readOnly:(BOOL)only payload:(id)payload
+{
+  onlyCopy = only;
+  v26 = *MEMORY[0x1E69E9840];
+  pathCopy = path;
+  payloadCopy = payload;
+  v10 = [payloadCopy hmf_dictionaryForKey:@"HMImmutableSettingValuePayloadKey"];
+  if (v10)
+  {
+    v11 = [[HMSettingLanguageValue alloc] initWithPayload:v10];
+    v12 = [HMFObjectCacheHMSettingLanguageValue cachedInstanceForLanguageSettingValue:v11];
+
+    if (v12)
+    {
+      selfCopy2 = [(HMLanguageSetting *)self initWithKeyPath:pathCopy readOnly:onlyCopy languageValue:v12];
+      v14 = selfCopy2;
+    }
+
+    else
+    {
+      v18 = objc_autoreleasePoolPush();
+      selfCopy2 = self;
+      v19 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      {
+        v20 = HMFGetLogIdentifier();
+        v22 = 138543618;
+        v23 = v20;
+        v24 = 2112;
+        v25 = v10;
+        _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode language value setting due to invalid language value payload: %@", &v22, 0x16u);
+      }
+
+      objc_autoreleasePoolPop(v18);
+      v14 = 0;
+    }
+  }
+
+  else
+  {
+    v15 = objc_autoreleasePoolPush();
+    selfCopy2 = self;
+    v16 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      v17 = HMFGetLogIdentifier();
+      v22 = 138543618;
+      v23 = v17;
+      v24 = 2112;
+      v25 = payloadCopy;
+      _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode language value setting due to no language value in payload: %@", &v22, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v15);
+    v14 = 0;
+  }
+
+  return v14;
+}
+
 - (id)payloadCopy
 {
-  v13[2] = *MEMORY[0x1E69E9840];
-  v11.receiver = self;
-  v11.super_class = HMLanguageSetting;
-  payloadCopy = [(HMImmutableSetting *)&v11 payloadCopy];
+  v12[2] = *MEMORY[0x1E69E9840];
+  v10.receiver = self;
+  v10.super_class = HMLanguageSetting;
+  payloadCopy = [(HMImmutableSetting *)&v10 payloadCopy];
   v4 = [payloadCopy mutableCopy];
 
-  v12[0] = @"HMImmutableSettingTypePayloadKey";
-  v12[1] = @"HMImmutableSettingValuePayloadKey";
-  v13[0] = &unk_1F0EFD130;
+  v11[0] = @"HMImmutableSettingTypePayloadKey";
+  v11[1] = @"HMImmutableSettingValuePayloadKey";
+  v12[0] = &unk_1F0EFD130;
   languageValue = [(HMLanguageSetting *)self languageValue];
   payloadCopy2 = [languageValue payloadCopy];
-  v13[1] = payloadCopy2;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v12[1] = payloadCopy2;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
   [v4 addEntriesFromDictionary:v7];
 
   v8 = [v4 copy];
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -141,7 +200,7 @@
 
 - (HMLanguageSetting)initWithProtoPayload:(id)payload
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   if (([payloadCopy hasKeyPath] & 1) == 0)
   {
@@ -154,13 +213,13 @@
     }
 
     v23 = HMFGetLogIdentifier();
-    v30 = 138543618;
-    v31 = v23;
-    v32 = 2112;
-    v33 = payloadCopy;
+    v29 = 138543618;
+    v30 = v23;
+    v31 = 2112;
+    v32 = payloadCopy;
     v24 = "%{public}@Failed to decode setting missing keyPath: %@";
 LABEL_15:
-    _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_ERROR, v24, &v30, 0x16u);
+    _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_ERROR, v24, &v29, 0x16u);
 
     goto LABEL_16;
   }
@@ -176,10 +235,10 @@ LABEL_15:
     }
 
     v23 = HMFGetLogIdentifier();
-    v30 = 138543618;
-    v31 = v23;
-    v32 = 2112;
-    v33 = payloadCopy;
+    v29 = 138543618;
+    v30 = v23;
+    v31 = 2112;
+    v32 = payloadCopy;
     v24 = "%{public}@Failed to decode setting missing readOnly: %@";
     goto LABEL_15;
   }
@@ -193,10 +252,10 @@ LABEL_15:
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       v23 = HMFGetLogIdentifier();
-      v30 = 138543618;
-      v31 = v23;
-      v32 = 2112;
-      v33 = payloadCopy;
+      v29 = 138543618;
+      v30 = v23;
+      v31 = 2112;
+      v32 = payloadCopy;
       v24 = "%{public}@Failed to decode setting missing language value: %@";
       goto LABEL_15;
     }
@@ -229,25 +288,24 @@ LABEL_16:
 
   else
   {
-    v27 = objc_autoreleasePoolPush();
+    v26 = objc_autoreleasePoolPush();
     selfCopy4 = self;
-    v28 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v27 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      v29 = HMFGetLogIdentifier();
-      v30 = 138543618;
-      v31 = v29;
-      v32 = 2112;
-      v33 = payloadCopy;
-      _os_log_impl(&dword_19BB39000, v28, OS_LOG_TYPE_ERROR, "%{public}@Language value is missing required attributes: %@", &v30, 0x16u);
+      v28 = HMFGetLogIdentifier();
+      v29 = 138543618;
+      v30 = v28;
+      v31 = 2112;
+      v32 = payloadCopy;
+      _os_log_impl(&dword_19BB39000, v27, OS_LOG_TYPE_ERROR, "%{public}@Language value is missing required attributes: %@", &v29, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v27);
+    objc_autoreleasePoolPop(v26);
     v20 = 0;
   }
 
 LABEL_17:
-  v25 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -279,6 +337,35 @@ LABEL_17:
   }
 
   return v9;
+}
+
+- (HMLanguageSetting)initWithKeyPath:(id)path readOnly:(BOOL)only languageValue:(id)value
+{
+  onlyCopy = only;
+  pathCopy = path;
+  valueCopy = value;
+  if (valueCopy)
+  {
+    v10 = valueCopy;
+    v16.receiver = self;
+    v16.super_class = HMLanguageSetting;
+    v11 = [(HMImmutableSetting *)&v16 initWithKeyPath:pathCopy readOnly:onlyCopy];
+    v12 = v11;
+    if (v11)
+    {
+      objc_storeStrong(&v11->_languageValue, value);
+    }
+
+    return v12;
+  }
+
+  else
+  {
+    v14 = _HMFPreconditionFailure();
+    [(HMCameraClipAssetContext *)v14 .cxx_destruct];
+  }
+
+  return result;
 }
 
 @end

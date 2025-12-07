@@ -1,26 +1,3 @@
-void sub_1002DA13C(CLKappaAlgBlock *this)
-{
-  *this = off_10042FDD8;
-  *(this + 10) = off_100430098;
-  *(this + 11) = off_1004301E0;
-  *(this + 12) = off_1004302D0;
-  v2 = *(this + 7);
-  if (v2)
-  {
-    sub_100009A48(v2);
-  }
-
-  v3 = *(this + 5);
-  if (v3)
-  {
-    sub_100009A48(v3);
-  }
-
-  CLKappaAlgBlock::~CLKappaAlgBlock(this, off_100430328);
-
-  operator delete();
-}
-
 void sub_1002DA224(uint64_t a1, uint64_t *a2)
 {
   v3 = *a2;
@@ -543,16 +520,16 @@ void sub_1002DB34C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-char **sub_1002DB380@<X0>(uint64_t a1@<X0>, char ***a2@<X8>)
+void *sub_1002DB380@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   result = *a1;
   {
-    v6 = *(a1 + 8);
+    v5 = *(a1 + 8);
     *a2 = result;
-    a2[1] = v6;
-    if (v6)
+    a2[1] = v5;
+    if (v5)
     {
-      atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
     }
   }
 
@@ -1423,16 +1400,16 @@ void sub_1002DCAAC(std::__shared_weak_count *a1)
   operator delete();
 }
 
-id sub_1002DCCF8()
+id sub_1002DCCF8(uint64_t a1, uint64_t a2)
 {
   if (qword_100456828 != -1)
   {
     sub_1002E66F4();
   }
 
-  v1 = qword_100456830;
+  v3 = qword_100456830;
 
-  return v1;
+  return v3;
 }
 
 __CFString *sub_1002DD2F4(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1687,18 +1664,18 @@ LABEL_35:
   return v4;
 }
 
-id sub_1002DD7F0(uint64_t a1)
+id sub_1002DD7F0(uint64_t a1, uint64_t a2)
 {
   if (qword_100456828 != -1)
   {
     sub_1002E66F4();
   }
 
-  v2 = qword_100456830;
+  v3 = qword_100456830;
   if (os_log_type_enabled(qword_100456830, OS_LOG_TYPE_DEBUG))
   {
-    *v4 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "Trigger timeout expired", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "Trigger timeout expired", v5, 2u);
   }
 
   return [*(*(a1 + 32) + 8) signal:2 data:0];
@@ -1756,16 +1733,16 @@ void sub_1002E10BC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id sub_1002E17F4()
+id sub_1002E17F4(uint64_t a1)
 {
   if (qword_100456818 != -1)
   {
     sub_1002E78D0();
   }
 
-  v1 = qword_100456820;
+  v2 = qword_100456820;
 
-  return v1;
+  return v2;
 }
 
 void sub_1002E2C14(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
@@ -1876,22 +1853,25 @@ void sub_1002E65D0(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_1002E662C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5, const char *a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1002E662C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5, const char *a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_signpost_emit_with_name_impl(a1, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, a5, a6, &a9, 0x26u);
+  _os_signpost_emit_with_name_impl(a1, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, a5, a6, va, 0x26u);
 }
 
-void sub_1002E6658(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1002E6658(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_INFO, a4, &a9, 0x26u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_INFO, a4, va, 0x26u);
 }
 
-void sub_1002E6678(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1002E6678(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 0x26u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 0x26u);
 }
 
 BOOL sub_1002E6698(NSObject *a1)
@@ -1907,139 +1887,625 @@ BOOL sub_1002E66B4(NSObject *a1)
   return os_log_type_enabled(a1, OS_LOG_TYPE_FAULT);
 }
 
-void sub_1002E6844()
+void sub_1002E6730()
 {
-  v1 = sub_1002DCCF8();
-  if (sub_1002CD420(v1))
+  sub_1002E66E0();
+  v3 = sub_1002DCCF8(v1, v2);
+  if (sub_1002E66B4(v3))
   {
-    sub_100009C7C();
-    sub_10002EB78(&_mh_execute_header, v2, v3, "{msg%{public}.0s:flow controller is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v4, v5, v6, v7, v21, v22, v23, v24, v25);
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:uuid is nil, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
   }
 
-  v8 = sub_1002DCCF8();
-  if (os_signpost_enabled(v8))
+  v12 = sub_1002DCCF8(v10, v11);
+  if (os_signpost_enabled(v12))
   {
-    sub_100009C7C();
-    sub_10002EAF4(&_mh_execute_header, v9, v10, v11, "flow controller is null", "{msg%{public}.0s:flow controller is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v12, v13, v21, v22, v23, v24, v25);
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "uuid is nil", "{msg%{public}.0s:uuid is nil, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
   }
 
-  v14 = sub_1002DCCF8();
-  if (sub_1002CD438(v14))
+  v20 = sub_1002DCCF8(v18, v19);
+  if (sub_1002E6698(v20))
   {
-    sub_100009C7C();
-    sub_10002EB58(&_mh_execute_header, v15, v16, "{msg%{public}.0s:flow controller is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v17, v18, v19, v20, v21, v22, v23, v24, v25);
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:uuid is nil, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
   }
 
-  abort_report_np();
+  sub_1002E66CC();
+}
+
+void sub_1002E6844(uint64_t a1, uint64_t a2)
+{
+  v3 = sub_1002DCCF8(a1, a2);
+  if (sub_1002CD420(v3))
+  {
+    sub_100009C7C();
+    sub_10002EB78(&_mh_execute_header, v4, v5, "{msg%{public}.0s:flow controller is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9, v27, v28, v29, v30);
+  }
+
+  v12 = sub_1002DCCF8(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_100009C7C();
+    sub_10002EAF4(&_mh_execute_header, v13, v14, v15, "flow controller is null", "{msg%{public}.0s:flow controller is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17, v27, v28, v29, v30);
+  }
+
+  v20 = sub_1002DCCF8(v18, v19);
+  if (sub_1002CD438(v20))
+  {
+    sub_100009C7C();
+    sub_10002EB58(&_mh_execute_header, v21, v22, "{msg%{public}.0s:flow controller is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26, v27, v28, v29, v30);
+  }
+
+  abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSMartyDetectionService.mm", 720, "[CSMartyDetectionService getDeescalationPath]");
   __break(1u);
 }
 
-void sub_1002E6970()
+void sub_1002E6970(uint64_t a1, uint64_t a2)
 {
-  v1 = sub_1002DCCF8();
-  if (sub_1002CD420(v1))
+  v3 = sub_1002DCCF8(a1, a2);
+  if (sub_1002CD420(v3))
   {
     sub_100009C7C();
-    sub_10002EB78(&_mh_execute_header, v2, v3, "{msg%{public}.0s:flow controller is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v4, v5, v6, v7, v21, v22, v23, v24, v25);
+    sub_10002EB78(&_mh_execute_header, v4, v5, "{msg%{public}.0s:flow controller is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9, v27, v28, v29, v30);
   }
 
-  v8 = sub_1002DCCF8();
-  if (os_signpost_enabled(v8))
+  v12 = sub_1002DCCF8(v10, v11);
+  if (os_signpost_enabled(v12))
   {
     sub_100009C7C();
-    sub_10002EAF4(&_mh_execute_header, v9, v10, v11, "flow controller is null", "{msg%{public}.0s:flow controller is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v12, v13, v21, v22, v23, v24, v25);
+    sub_10002EAF4(&_mh_execute_header, v13, v14, v15, "flow controller is null", "{msg%{public}.0s:flow controller is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17, v27, v28, v29, v30);
   }
 
-  v14 = sub_1002DCCF8();
-  if (sub_1002CD438(v14))
+  v20 = sub_1002DCCF8(v18, v19);
+  if (sub_1002CD438(v20))
   {
     sub_100009C7C();
-    sub_10002EB58(&_mh_execute_header, v15, v16, "{msg%{public}.0s:flow controller is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v17, v18, v19, v20, v21, v22, v23, v24, v25);
+    sub_10002EB58(&_mh_execute_header, v21, v22, "{msg%{public}.0s:flow controller is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26, v27, v28, v29, v30);
   }
 
-  abort_report_np();
+  abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSMartyDetectionService.mm", 886, "[CSMartyDetectionService stop:]");
   __break(1u);
 }
 
-void sub_1002E6EEC()
+void sub_1002E6A9C()
 {
-  v1 = sub_1002DCCF8();
-  if (sub_1002CD420(v1))
+  sub_1002E66E0();
+  v3 = sub_1002DCCF8(v1, v2);
+  if (sub_1002E66B4(v3))
   {
-    sub_100009C7C();
-    sub_10002EB78(&_mh_execute_header, v2, v3, "{msg%{public}.0s:CSSPUAccel is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v4, v5, v6, v7, v21, v22, v23, v24, v25);
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:[TTR] Cannot raise None TTR, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
   }
 
-  v8 = sub_1002DCCF8();
-  if (os_signpost_enabled(v8))
+  v12 = sub_1002DCCF8(v10, v11);
+  if (os_signpost_enabled(v12))
   {
-    sub_100009C7C();
-    sub_10002EAF4(&_mh_execute_header, v9, v10, v11, "CSSPUAccel is null", "{msg%{public}.0s:CSSPUAccel is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v12, v13, v21, v22, v23, v24, v25);
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "[TTR] Cannot raise None TTR", "{msg%{public}.0s:[TTR] Cannot raise None TTR, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
   }
 
-  v14 = sub_1002DCCF8();
-  if (sub_1002CD438(v14))
+  v20 = sub_1002DCCF8(v18, v19);
+  if (sub_1002E6698(v20))
   {
-    sub_100009C7C();
-    sub_10002EB58(&_mh_execute_header, v15, v16, "{msg%{public}.0s:CSSPUAccel is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v17, v18, v19, v20, v21, v22, v23, v24, v25);
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:[TTR] Cannot raise None TTR, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
   }
 
-  abort_report_np();
+  sub_1002E66CC();
+}
+
+void sub_1002E6BB0()
+{
+  sub_1002E66E0();
+  v3 = sub_1002DCCF8(v1, v2);
+  if (sub_1002E66B4(v3))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:hsm is nil, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
+  }
+
+  v12 = sub_1002DCCF8(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "hsm is nil", "{msg%{public}.0s:hsm is nil, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
+  }
+
+  v20 = sub_1002DCCF8(v18, v19);
+  if (sub_1002E6698(v20))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:hsm is nil, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
+  }
+
+  sub_1002E66CC();
+}
+
+void sub_1002E6CC4()
+{
+  sub_1002E66E0();
+  v3 = sub_1002DCCF8(v1, v2);
+  if (sub_1002E66B4(v3))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:CSSPUAccel800 is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
+  }
+
+  v12 = sub_1002DCCF8(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "CSSPUAccel800 is null", "{msg%{public}.0s:CSSPUAccel800 is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
+  }
+
+  v20 = sub_1002DCCF8(v18, v19);
+  if (sub_1002E6698(v20))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:CSSPUAccel800 is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
+  }
+
+  sub_1002E66CC();
+}
+
+void sub_1002E6DD8()
+{
+  sub_1002E66E0();
+  v3 = sub_1002DCCF8(v1, v2);
+  if (sub_1002E66B4(v3))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:CSSPUHgAccel is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
+  }
+
+  v12 = sub_1002DCCF8(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "CSSPUHgAccel is null", "{msg%{public}.0s:CSSPUHgAccel is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
+  }
+
+  v20 = sub_1002DCCF8(v18, v19);
+  if (sub_1002E6698(v20))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:CSSPUHgAccel is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
+  }
+
+  sub_1002E66CC();
+}
+
+void sub_1002E6EEC(uint64_t a1, uint64_t a2)
+{
+  v3 = sub_1002DCCF8(a1, a2);
+  if (sub_1002CD420(v3))
+  {
+    sub_100009C7C();
+    sub_10002EB78(&_mh_execute_header, v4, v5, "{msg%{public}.0s:CSSPUAccel is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9, v27, v28, v29, v30);
+  }
+
+  v12 = sub_1002DCCF8(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_100009C7C();
+    sub_10002EAF4(&_mh_execute_header, v13, v14, v15, "CSSPUAccel is null", "{msg%{public}.0s:CSSPUAccel is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17, v27, v28, v29, v30);
+  }
+
+  v20 = sub_1002DCCF8(v18, v19);
+  if (sub_1002CD438(v20))
+  {
+    sub_100009C7C();
+    sub_10002EB58(&_mh_execute_header, v21, v22, "{msg%{public}.0s:CSSPUAccel is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26, v27, v28, v29, v30);
+  }
+
+  abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSMartyDetectionService.mm", 1156, "[CSMartyDetectionService feedAccel:]");
   __break(1u);
 }
 
-void sub_1002E7468()
+void sub_1002E7018()
 {
-  v1 = sub_1002DCCF8();
-  if (sub_1002CD420(v1))
+  sub_1002E66E0();
+  v3 = sub_1002DCCF8(v1, v2);
+  if (sub_1002E66B4(v3))
   {
-    sub_100009C7C();
-    sub_10002EB78(&_mh_execute_header, v2, v3, "{msg%{public}.0s:CSSPUMag is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v4, v5, v6, v7, v21, v22, v23, v24, v25);
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:CSSPUDM is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
   }
 
-  v8 = sub_1002DCCF8();
-  if (os_signpost_enabled(v8))
+  v12 = sub_1002DCCF8(v10, v11);
+  if (os_signpost_enabled(v12))
   {
-    sub_100009C7C();
-    sub_10002EAF4(&_mh_execute_header, v9, v10, v11, "CSSPUMag is null", "{msg%{public}.0s:CSSPUMag is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v12, v13, v21, v22, v23, v24, v25);
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "CSSPUDM is null", "{msg%{public}.0s:CSSPUDM is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
   }
 
-  v14 = sub_1002DCCF8();
-  if (sub_1002CD438(v14))
+  v20 = sub_1002DCCF8(v18, v19);
+  if (sub_1002E6698(v20))
   {
-    sub_100009C7C();
-    sub_10002EB58(&_mh_execute_header, v15, v16, "{msg%{public}.0s:CSSPUMag is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v17, v18, v19, v20, v21, v22, v23, v24, v25);
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:CSSPUDM is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
   }
 
-  abort_report_np();
+  sub_1002E66CC();
+}
+
+void sub_1002E712C()
+{
+  sub_1002E66E0();
+  v3 = sub_1002DCCF8(v1, v2);
+  if (sub_1002E66B4(v3))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:CSSPUGps is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
+  }
+
+  v12 = sub_1002DCCF8(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "CSSPUGps is null", "{msg%{public}.0s:CSSPUGps is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
+  }
+
+  v20 = sub_1002DCCF8(v18, v19);
+  if (sub_1002E6698(v20))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:CSSPUGps is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
+  }
+
+  sub_1002E66CC();
+}
+
+void sub_1002E7240()
+{
+  sub_1002E66E0();
+  v3 = sub_1002DCCF8(v1, v2);
+  if (sub_1002E66B4(v3))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:CSSPUSteps is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
+  }
+
+  v12 = sub_1002DCCF8(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "CSSPUSteps is null", "{msg%{public}.0s:CSSPUSteps is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
+  }
+
+  v20 = sub_1002DCCF8(v18, v19);
+  if (sub_1002E6698(v20))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:CSSPUSteps is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
+  }
+
+  sub_1002E66CC();
+}
+
+void sub_1002E7354()
+{
+  sub_1002E66E0();
+  v3 = sub_1002DCCF8(v1, v2);
+  if (sub_1002E66B4(v3))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:CSSPUKappaTrigger is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
+  }
+
+  v12 = sub_1002DCCF8(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "CSSPUKappaTrigger is null", "{msg%{public}.0s:CSSPUKappaTrigger is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
+  }
+
+  v20 = sub_1002DCCF8(v18, v19);
+  if (sub_1002E6698(v20))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:CSSPUKappaTrigger is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
+  }
+
+  sub_1002E66CC();
+}
+
+void sub_1002E7468(uint64_t a1, uint64_t a2)
+{
+  v3 = sub_1002DCCF8(a1, a2);
+  if (sub_1002CD420(v3))
+  {
+    sub_100009C7C();
+    sub_10002EB78(&_mh_execute_header, v4, v5, "{msg%{public}.0s:CSSPUMag is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9, v27, v28, v29, v30);
+  }
+
+  v12 = sub_1002DCCF8(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_100009C7C();
+    sub_10002EAF4(&_mh_execute_header, v13, v14, v15, "CSSPUMag is null", "{msg%{public}.0s:CSSPUMag is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17, v27, v28, v29, v30);
+  }
+
+  v20 = sub_1002DCCF8(v18, v19);
+  if (sub_1002CD438(v20))
+  {
+    sub_100009C7C();
+    sub_10002EB58(&_mh_execute_header, v21, v22, "{msg%{public}.0s:CSSPUMag is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26, v27, v28, v29, v30);
+  }
+
+  abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSMartyDetectionService.mm", 1207, "[CSMartyDetectionService feedMag:]");
   __break(1u);
 }
 
-uint64_t sub_1002E7E48()
+void sub_1002E7594()
 {
-  v1 = sub_1002DCCF8();
-  if (sub_1002CD420(v1))
+  sub_1002E66E0();
+  v3 = sub_1002DCCF8(v1, v2);
+  if (sub_1002E66B4(v3))
   {
-    sub_100009C7C();
-    sub_10002EB78(&_mh_execute_header, v2, v3, "{msg%{public}.0s:flow controller is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v4, v5, v6, v7, v23, v24, v25, v26, v27);
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:CSSPUPressure is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
   }
 
-  v8 = sub_1002DCCF8();
-  if (os_signpost_enabled(v8))
+  v12 = sub_1002DCCF8(v10, v11);
+  if (os_signpost_enabled(v12))
   {
-    sub_100009C7C();
-    sub_10002EAF4(&_mh_execute_header, v9, v10, v11, "flow controller is null", "{msg%{public}.0s:flow controller is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v12, v13, v23, v24, v25, v26, v27);
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "CSSPUPressure is null", "{msg%{public}.0s:CSSPUPressure is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
   }
 
-  v14 = sub_1002DCCF8();
-  if (sub_1002CD438(v14))
+  v20 = sub_1002DCCF8(v18, v19);
+  if (sub_1002E6698(v20))
   {
-    sub_100009C7C();
-    sub_10002EB58(&_mh_execute_header, v15, v16, "{msg%{public}.0s:flow controller is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v17, v18, v19, v20, v23, v24, v25, v26, v27);
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:CSSPUPressure is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
   }
 
-  v21 = abort_report_np();
-  return sub_1002E7F6C(v21);
+  sub_1002E66CC();
+}
+
+void sub_1002E76A8()
+{
+  sub_1002E66E0();
+  v3 = sub_1002DCCF8(v1, v2);
+  if (sub_1002E66B4(v3))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:CSSPUSpl is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
+  }
+
+  v12 = sub_1002DCCF8(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "CSSPUSpl is null", "{msg%{public}.0s:CSSPUSpl is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
+  }
+
+  v20 = sub_1002DCCF8(v18, v19);
+  if (sub_1002E6698(v20))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:CSSPUSpl is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
+  }
+
+  sub_1002E66CC();
+}
+
+void sub_1002E77BC()
+{
+  sub_1002E66E0();
+  v2 = sub_1002E17F4(v1);
+  if (sub_1002E66B4(v2))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v3, v4, "{msg%{public}.0s:CSSPUTrustedAudioResult is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v5, v6, v7, v8);
+  }
+
+  v10 = sub_1002E17F4(v9);
+  if (os_signpost_enabled(v10))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v11, v12, v13, "CSSPUTrustedAudioResult is null", "{msg%{public}.0s:CSSPUTrustedAudioResult is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v14, v15);
+  }
+
+  v17 = sub_1002E17F4(v16);
+  if (sub_1002E6698(v17))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v18, v19, "{msg%{public}.0s:CSSPUTrustedAudioResult is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v20, v21, v22, v23);
+  }
+
+  sub_1002E66CC();
+}
+
+void sub_1002E78E4()
+{
+  sub_1002E66E0();
+  v3 = sub_1002DCCF8(v1, v2);
+  if (sub_1002E66B4(v3))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:CSSPURoads is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
+  }
+
+  v12 = sub_1002DCCF8(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "CSSPURoads is null", "{msg%{public}.0s:CSSPURoads is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
+  }
+
+  v20 = sub_1002DCCF8(v18, v19);
+  if (sub_1002E6698(v20))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:CSSPURoads is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
+  }
+
+  sub_1002E66CC();
+}
+
+void sub_1002E79F8()
+{
+  sub_1002E66E0();
+  v3 = sub_1002DCCF8(v1, v2);
+  if (sub_1002E66B4(v3))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:CSSPUHertzSample is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
+  }
+
+  v12 = sub_1002DCCF8(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "CSSPUHertzSample is null", "{msg%{public}.0s:CSSPUHertzSample is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
+  }
+
+  v20 = sub_1002DCCF8(v18, v19);
+  if (sub_1002E6698(v20))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:CSSPUHertzSample is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
+  }
+
+  sub_1002E66CC();
+}
+
+void sub_1002E7B0C()
+{
+  sub_1002E66E0();
+  v3 = sub_1002DCCF8(v1, v2);
+  if (sub_1002E66B4(v3))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:CSCompanionStatus is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
+  }
+
+  v12 = sub_1002DCCF8(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "CSCompanionStatus is null", "{msg%{public}.0s:CSCompanionStatus is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
+  }
+
+  v20 = sub_1002DCCF8(v18, v19);
+  if (sub_1002E6698(v20))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:CSCompanionStatus is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
+  }
+
+  sub_1002E66CC();
+}
+
+void sub_1002E7C20()
+{
+  sub_1002E66E0();
+  v3 = sub_1002DCCF8(v1, v2);
+  if (sub_1002E66B4(v3))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:CSRemoteSample is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
+  }
+
+  v12 = sub_1002DCCF8(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "CSRemoteSample is null", "{msg%{public}.0s:CSRemoteSample is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
+  }
+
+  v20 = sub_1002DCCF8(v18, v19);
+  if (sub_1002E6698(v20))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:CSRemoteSample is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
+  }
+
+  sub_1002E66CC();
+}
+
+void sub_1002E7D34()
+{
+  sub_1002E66E0();
+  v3 = sub_1002DCCF8(v1, v2);
+  if (sub_1002E66B4(v3))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:flow controller is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
+  }
+
+  v12 = sub_1002DCCF8(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "flow controller is null", "{msg%{public}.0s:flow controller is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
+  }
+
+  v20 = sub_1002DCCF8(v18, v19);
+  if (sub_1002E6698(v20))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:flow controller is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
+  }
+
+  sub_1002E66CC();
+}
+
+void sub_1002E7E48(uint64_t a1, uint64_t a2)
+{
+  v3 = sub_1002DCCF8(a1, a2);
+  if (sub_1002CD420(v3))
+  {
+    sub_100009C7C();
+    sub_10002EB78(&_mh_execute_header, v4, v5, "{msg%{public}.0s:flow controller is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9, v27, v28, v29, v30);
+  }
+
+  v12 = sub_1002DCCF8(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_100009C7C();
+    sub_10002EAF4(&_mh_execute_header, v13, v14, v15, "flow controller is null", "{msg%{public}.0s:flow controller is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17, v27, v28, v29, v30);
+  }
+
+  v20 = sub_1002DCCF8(v18, v19);
+  if (sub_1002CD438(v20))
+  {
+    sub_100009C7C();
+    sub_10002EB58(&_mh_execute_header, v21, v22, "{msg%{public}.0s:flow controller is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26, v27, v28, v29, v30);
+  }
+
+  abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSMartyDetectionService.mm", 1454, "[CSMartyDetectionService curationSampling]");
+  sub_1002E7F6C();
+}
+
+void sub_1002E7F6C()
+{
+  sub_1002E66E0();
+  v3 = sub_1002DCCF8(v1, v2);
+  if (sub_1002E66B4(v3))
+  {
+    sub_1000190D0();
+    sub_1002E6678(&_mh_execute_header, v4, v5, "{msg%{public}.0s:trigger is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v6, v7, v8, v9);
+  }
+
+  v12 = sub_1002DCCF8(v10, v11);
+  if (os_signpost_enabled(v12))
+  {
+    sub_1000190D0();
+    sub_1002E662C(&_mh_execute_header, v13, v14, v15, "trigger is null", "{msg%{public}.0s:trigger is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17);
+  }
+
+  v20 = sub_1002DCCF8(v18, v19);
+  if (sub_1002E6698(v20))
+  {
+    sub_1000190D0();
+    sub_1002E6658(&_mh_execute_header, v21, v22, "{msg%{public}.0s:trigger is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v23, v24, v25, v26);
+  }
+
+  sub_1002E66CC();
 }
 
 uint64_t CSFastpathGlue::open(CSFastpathGlue *this, int a2, io_service_t a3)
@@ -2126,30 +2592,29 @@ uint64_t CSFastpathGlue::close(CSFastpathGlue *this)
   return result;
 }
 
-BOOL CSFastpathGlue::setupForReading(CSFastpathGlue *this, int a2, unsigned __int8 *a3)
+BOOL CSFastpathGlue::setupForReading(CSFastpathGlue *this, unsigned int a2, unsigned __int8 *a3)
 {
   v3 = **(this + 2);
-  v4 = (*(this + 6) * a2);
   if (*(this + 4))
   {
-    v5 = (*(v3 + 104))();
-    if (v5)
+    v4 = (*(v3 + 104))();
+    if (v4)
     {
-      v6 = v5;
+      v5 = v4;
       if (qword_100456808 != -1)
       {
         sub_1002E8BDC();
       }
 
-      v7 = qword_100456810;
+      v6 = qword_100456810;
       result = os_log_type_enabled(qword_100456810, OS_LOG_TYPE_FAULT);
       if (result)
       {
-        v12 = 67109120;
-        v13 = v6;
-        v9 = "error: Read error 0x%x";
+        v11 = 67109120;
+        v12 = v5;
+        v8 = "error: Read error 0x%x";
 LABEL_12:
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_FAULT, v9, &v12, 8u);
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_FAULT, v8, &v11, 8u);
         return 0;
       }
 
@@ -2159,25 +2624,25 @@ LABEL_12:
     return 1;
   }
 
-  v10 = (*(v3 + 112))();
-  if (!v10)
+  v9 = (*(v3 + 112))();
+  if (!v9)
   {
     return 1;
   }
 
-  v11 = v10;
+  v10 = v9;
   if (qword_100456808 != -1)
   {
     sub_1002E8BDC();
   }
 
-  v7 = qword_100456810;
+  v6 = qword_100456810;
   result = os_log_type_enabled(qword_100456810, OS_LOG_TYPE_FAULT);
   if (result)
   {
-    v12 = 67109120;
-    v13 = v11;
-    v9 = "error: ReadLast error 0x%x";
+    v11 = 67109120;
+    v12 = v10;
+    v8 = "error: ReadLast error 0x%x";
     goto LABEL_12;
   }
 
@@ -2192,93 +2657,93 @@ uint64_t CSFastpathGlue::read(CSFastpathGlue *this, unsigned __int8 *a2, uint64_
     return 0;
   }
 
-  (*(*v4 + 96))(v4);
-  __chkstk_darwin();
-  v8 = &v22[-v7];
-  if (!CSFastpathGlue::setupForReading(this, a3, &v22[-v7]))
+  v7 = (*(*v4 + 96))(v4);
+  __chkstk_darwin(v7);
+  v9 = &v23[-v8];
+  if (!CSFastpathGlue::setupForReading(this, a3, &v23[-v8]))
   {
     return 0;
   }
 
-  v24 = 0;
-  v9 = 0;
+  v25 = 0;
+  v10 = 0;
   if (a3)
   {
-    while ((*(**(this + 2) + 128))(*(this + 2), v8, this + 40, &v24, 0, 0))
+    while ((*(**(this + 2) + 128))(*(this + 2), v9, this + 40, &v25, 0, 0))
     {
-      memcpy(a2, v24, *(this + 6));
-      v23 = 0;
-      (*(**(this + 2) + 136))(*(this + 2), v8, *(this + 5), &v23);
-      if (v23)
+      memcpy(a2, v25, *(this + 6));
+      v24 = 0;
+      (*(**(this + 2) + 136))(*(this + 2), v9, *(this + 5), &v24);
+      if (v24)
       {
         if (qword_100456808 != -1)
         {
           sub_1002E8BB4();
         }
 
-        v11 = qword_100456810;
+        v12 = qword_100456810;
         if (os_log_type_enabled(qword_100456810, OS_LOG_TYPE_ERROR))
         {
-          v12 = *this;
-          v14 = v8[10];
-          v13 = v8[11];
-          v16 = v8[3];
-          v15 = v8[4];
-          v17 = v8[2];
-          v19 = v8[8];
-          v18 = v8[9];
-          v20 = v8[7];
+          v13 = *this;
+          v15 = v9[10];
+          v14 = v9[11];
+          v17 = v9[3];
+          v16 = v9[4];
+          v18 = v9[2];
+          v20 = v9[8];
+          v19 = v9[9];
+          v21 = v9[7];
           *buf = 67111168;
-          v26 = v12;
-          v27 = 2048;
-          v28 = v14;
-          v29 = 2048;
-          v30 = v13;
-          v31 = 2048;
-          v32 = v16;
-          v33 = 2048;
-          v34 = v15;
-          v35 = 2048;
-          v36 = v17;
-          v37 = 2048;
-          v38 = v19;
-          v39 = 2048;
-          v40 = v18;
-          v41 = 2048;
-          v42 = v20;
-          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "interface %0x corrupt count %zd offset %zd, desc read/write [%llu/%llu/%zd, %llu/%llu/%zd", buf, 0x58u);
+          v27 = v13;
+          v28 = 2048;
+          v29 = v15;
+          v30 = 2048;
+          v31 = v14;
+          v32 = 2048;
+          v33 = v17;
+          v34 = 2048;
+          v35 = v16;
+          v36 = 2048;
+          v37 = v18;
+          v38 = 2048;
+          v39 = v20;
+          v40 = 2048;
+          v41 = v19;
+          v42 = 2048;
+          v43 = v21;
+          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "interface %0x corrupt count %zd offset %zd, desc read/write [%llu/%llu/%zd, %llu/%llu/%zd", buf, 0x58u);
           if (qword_100456808 != -1)
           {
             sub_1002E8BB4();
           }
         }
 
-        v21 = qword_100456810;
+        v22 = qword_100456810;
         if (os_log_type_enabled(qword_100456810, OS_LOG_TYPE_FAULT))
         {
           *buf = 67109376;
-          v26 = v9;
-          v27 = 1024;
-          LODWORD(v28) = 1;
-          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_FAULT, "Read %u, corrupt %u", buf, 0xEu);
+          v27 = v10;
+          v28 = 1024;
+          LODWORD(v29) = 1;
+          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_FAULT, "Read %u, corrupt %u", buf, 0xEu);
         }
 
-        return v9;
+        return v10;
       }
 
-      v9 = (v9 + 1);
+      v10 = (v10 + 1);
       a2 += *(this + 6);
-      if (a3 == v9)
+      if (a3 == v10)
       {
         return a3;
       }
     }
   }
 
-  return v9;
+  return v10;
 }
 
-uint64_t CSFastpathGlue::readInChunks(int *a1, char *a2, unsigned int a3, uint64_t a4, uint64_t a5)
+uint64_t CSFastpathGlue::readInChunks(int *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v6 = *(a1 + 2);
   if (!v6)
@@ -2286,122 +2751,123 @@ uint64_t CSFastpathGlue::readInChunks(int *a1, char *a2, unsigned int a3, uint64
     return 0;
   }
 
-  (*(*v6 + 96))(v6);
-  __chkstk_darwin();
-  v12 = &v31[-v11];
-  if (!CSFastpathGlue::setupForReading(a1, a4, &v31[-v11]))
+  v9 = a3;
+  v11 = (*(*v6 + 96))(v6);
+  __chkstk_darwin(v11);
+  v13 = &v32[-v12];
+  if (!CSFastpathGlue::setupForReading(a1, a4, &v32[-v12]))
   {
     return 0;
   }
 
-  v33 = 0;
-  v13 = 0;
+  v34 = 0;
+  v14 = 0;
   if (a4)
   {
-    v14 = a2;
-    while ((*(**(a1 + 2) + 128))(*(a1 + 2), v12, a1 + 10, &v33, 0, 0))
+    v15 = a2;
+    while ((*(**(a1 + 2) + 128))(*(a1 + 2), v13, a1 + 10, &v34, 0, 0))
     {
-      memcpy(v14, v33, a1[6]);
-      v32 = 0;
-      (*(**(a1 + 2) + 136))(*(a1 + 2), v12, *(a1 + 5), &v32);
-      if (v32)
+      memcpy(v15, v34, a1[6]);
+      v33 = 0;
+      (*(**(a1 + 2) + 136))(*(a1 + 2), v13, *(a1 + 5), &v33);
+      if (v33)
       {
         if (qword_100456808 != -1)
         {
           sub_1002E8BB4();
         }
 
-        v17 = qword_100456810;
+        v18 = qword_100456810;
         if (os_log_type_enabled(qword_100456810, OS_LOG_TYPE_ERROR))
         {
-          v18 = *a1;
-          v20 = v12[10];
-          v19 = v12[11];
-          v22 = v12[3];
-          v21 = v12[4];
-          v23 = v12[2];
-          v25 = v12[8];
-          v24 = v12[9];
-          v26 = v12[7];
+          v19 = *a1;
+          v21 = v13[10];
+          v20 = v13[11];
+          v23 = v13[3];
+          v22 = v13[4];
+          v24 = v13[2];
+          v26 = v13[8];
+          v25 = v13[9];
+          v27 = v13[7];
           *buf = 67111168;
-          v35 = v18;
-          v36 = 2048;
-          v37 = v20;
-          v38 = 2048;
-          v39 = v19;
-          v40 = 2048;
-          v41 = v22;
-          v42 = 2048;
-          v43 = v21;
-          v44 = 2048;
-          v45 = v23;
-          v46 = 2048;
-          v47 = v25;
-          v48 = 2048;
-          v49 = v24;
-          v50 = 2048;
-          v51 = v26;
-          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "interface %0x corrupt count %zd offset %zd, desc read/write [%llu/%llu/%zd, %llu/%llu/%zd", buf, 0x58u);
+          v36 = v19;
+          v37 = 2048;
+          v38 = v21;
+          v39 = 2048;
+          v40 = v20;
+          v41 = 2048;
+          v42 = v23;
+          v43 = 2048;
+          v44 = v22;
+          v45 = 2048;
+          v46 = v24;
+          v47 = 2048;
+          v48 = v26;
+          v49 = 2048;
+          v50 = v25;
+          v51 = 2048;
+          v52 = v27;
+          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "interface %0x corrupt count %zd offset %zd, desc read/write [%llu/%llu/%zd, %llu/%llu/%zd", buf, 0x58u);
         }
 
-        v16 = 0;
-        v15 = 1;
+        v17 = 0;
+        v16 = 1;
         goto LABEL_20;
       }
 
-      v13 = (v13 + 1);
-      if (v13 % a3)
+      v14 = (v14 + 1);
+      if (v14 % v9)
       {
-        v14 += a1[6];
+        v15 += a1[6];
       }
 
       else
       {
-        sub_1002E8ADC(a5, a2, a3);
-        bzero(a2, a1[6] * a3);
-        v14 = a2;
+        sub_1002E8ADC(a5, a2, v9);
+        bzero(a2, a1[6] * v9);
+        v15 = a2;
       }
 
-      if (a4 == v13)
+      if (a4 == v14)
       {
-        v15 = 0;
-        v16 = 1;
-        v13 = a4;
+        v16 = 0;
+        v17 = 1;
+        v14 = a4;
         goto LABEL_20;
       }
     }
   }
 
-  v15 = 0;
-  v16 = 1;
+  v16 = 0;
+  v17 = 1;
 LABEL_20:
-  v27 = v13 % a3;
-  v28 = v13 >= a3 || v13 == 0;
-  if (!v28 || v27)
+  v28 = v14 % v9;
+  v29 = v14 >= v9 || v14 == 0;
+  if (!v29 || v28)
   {
-    sub_1002E8ADC(a5, a2, v27);
-    bzero(a2, a1[6] * a3);
+    sub_1002E8ADC(a5, a2, v28);
+    bzero(a2, a1[6] * v9);
   }
 
-  if ((v16 & 1) == 0)
+  if ((v17 & 1) == 0)
   {
     if (qword_100456808 != -1)
     {
       sub_1002E8BB4();
     }
 
-    v29 = qword_100456810;
+    v30 = qword_100456810;
     if (os_log_type_enabled(qword_100456810, OS_LOG_TYPE_FAULT))
     {
       *buf = 67109376;
-      v35 = v13;
-      v36 = 1024;
-      LODWORD(v37) = v15;
-      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_FAULT, "Read %u, corrupt %u", buf, 0xEu);
+      v36 = v14;
+      v37 = 1024;
+      LODWORD(v38) = v16;
+      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_FAULT, "Read %u, corrupt %u", buf, 0xEu);
     }
   }
 
-  return v13;
+  return v14;
 }
 
 uint64_t sub_1002E8ADC(uint64_t a1, uint64_t a2, int a3)
@@ -3271,7 +3737,7 @@ LABEL_10:
 void sub_1002EA248(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
-  if (*(a1 + 40) == 1 && *(a1 + 41) == 1 && (a2 & 1) != 0)
+  if (__PAIR64__(*(a1 + 41), *(a1 + 40)) == 0x100000001 && (a2 & 1) != 0)
   {
     state = xpc_activity_get_state(*(a1 + 32));
     if ((state == 4 || state == 2) && !xpc_activity_set_state(*(a1 + 32), 5))
@@ -3284,16 +3750,16 @@ void sub_1002EA248(uint64_t a1, char a2, void *a3)
       v7 = qword_1004568B0;
       if (!os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
       {
-        goto LABEL_21;
+        goto LABEL_20;
       }
 
       v8 = xpc_activity_get_state(*(a1 + 32));
       v12 = 134349056;
       v13 = v8;
       v9 = "Failed to mark activity as DONE. Current state is %{public}ld";
-LABEL_20:
+LABEL_19:
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_FAULT, v9, &v12, 0xCu);
-LABEL_21:
+LABEL_20:
     }
   }
 
@@ -3321,14 +3787,14 @@ LABEL_21:
       v7 = qword_1004568B0;
       if (!os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
       {
-        goto LABEL_21;
+        goto LABEL_20;
       }
 
       v11 = xpc_activity_get_state(*(a1 + 32));
       v12 = 134349056;
       v13 = v11;
       v9 = "Failed to mark activity as DEFER. Current state is %{public}ld";
-      goto LABEL_20;
+      goto LABEL_19;
     }
   }
 }
@@ -3588,16 +4054,16 @@ void sub_1002EAC30(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-char **sub_1002EAC58@<X0>(uint64_t a1@<X0>, char ***a2@<X8>)
+void *sub_1002EAC58@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   result = *a1;
   {
-    v6 = *(a1 + 8);
+    v5 = *(a1 + 8);
     *a2 = result;
-    a2[1] = v6;
-    if (v6)
+    a2[1] = v5;
+    if (v5)
     {
-      atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
     }
   }
 
@@ -4858,16 +5324,16 @@ void sub_1002EDCA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-id sub_1002EDE0C()
+id sub_1002EDE0C(uint64_t a1)
 {
   if (qword_100456948 != -1)
   {
     sub_1002EFAAC();
   }
 
-  v1 = qword_100456950;
+  v2 = qword_100456950;
 
-  return v1;
+  return v2;
 }
 
 id sub_1002EDE50(uint64_t a1)
@@ -5267,33 +5733,31 @@ void sub_1002EFA68(id a1)
   _objc_release_x1();
 }
 
-uint64_t sub_1002EFAE8(id *a1)
+void sub_1002EFAE8(id *a1)
 {
-  [*a1 removeObjectForKey:@"SimulateCrashProbability"];
-  v1 = sub_1002EDE0C();
+  v1 = sub_1002EDE0C([*a1 removeObjectForKey:@"SimulateCrashProbability"]);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
     sub_100009C7C();
     _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Simulating crash, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
   }
 
-  v2 = sub_1002EDE0C();
-  if (os_signpost_enabled(v2))
+  v3 = sub_1002EDE0C(v2);
+  if (os_signpost_enabled(v3))
   {
     sub_100009C7C();
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v2, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Simulating crash", "{msg%{public}.0s:Simulating crash, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v3, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Simulating crash", "{msg%{public}.0s:Simulating crash, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
   }
 
-  v3 = sub_1002EDE0C();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v5 = sub_1002EDE0C(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     sub_100009C7C();
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Simulating crash, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Simulating crash, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
   }
 
-  result = abort_report_np();
+  abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSSafetySOSStateMachine.mm", 407, "[CSSafetySOSStateMachine notifySOSDaemon]");
   __break(1u);
-  return result;
 }
 
 void CLKappaDeescalatorTriggerClusters::CLKappaDeescalatorTriggerClusters(CLKappaDeescalatorTriggerClusters *this)
@@ -5966,7 +6430,7 @@ uint64_t KappaTriggerSample::KappaTriggerSample(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-KappaTriggerSample *KappaTriggerSample::operator=(KappaTriggerSample *a1, uint64_t a2)
+KappaTriggerSample *KappaTriggerSample::operator=(KappaTriggerSample *a1, KappaTriggerSample *a2)
 {
   if (a1 != a2)
   {
@@ -8318,11 +8782,11 @@ uint64_t KappaTriggerSample::hash_value(KappaTriggerSample *this)
       v14 = 0.0;
     }
 
-    v28 = v14;
+    v26 = v14;
     if ((v2 & 0x2000) != 0)
     {
 LABEL_3:
-      v27 = *(this + 25);
+      v25 = *(this + 25);
       if ((v2 & 0x8000) != 0)
       {
         goto LABEL_4;
@@ -8334,18 +8798,18 @@ LABEL_3:
 
   else
   {
-    v28 = 0.0;
+    v26 = 0.0;
     if ((v2 & 0x2000) != 0)
     {
       goto LABEL_3;
     }
   }
 
-  v27 = 0;
+  v25 = 0;
   if ((v2 & 0x8000) != 0)
   {
 LABEL_4:
-    v26 = *(this + 27);
+    v24 = *(this + 27);
     if ((v2 & 0x400) != 0)
     {
       goto LABEL_5;
@@ -8355,11 +8819,11 @@ LABEL_4:
   }
 
 LABEL_26:
-  v26 = 0;
+  v24 = 0;
   if ((v2 & 0x400) != 0)
   {
 LABEL_5:
-    v25 = *(this + 22);
+    v23 = *(this + 22);
     if ((v2 & 0x10000) != 0)
     {
       goto LABEL_6;
@@ -8369,11 +8833,11 @@ LABEL_5:
   }
 
 LABEL_27:
-  v25 = 0;
+  v23 = 0;
   if ((v2 & 0x10000) != 0)
   {
 LABEL_6:
-    v24 = *(this + 28);
+    v22 = *(this + 28);
     if ((v2 & 8) != 0)
     {
       goto LABEL_7;
@@ -8383,7 +8847,7 @@ LABEL_6:
   }
 
 LABEL_28:
-  v24 = 0;
+  v22 = 0;
   if ((v2 & 8) != 0)
   {
 LABEL_7:
@@ -8526,60 +8990,58 @@ LABEL_21:
 LABEL_37:
   v13 = 0;
 LABEL_38:
-  v15 = *(this + 1);
-  v16 = *(this + 2);
-  v17 = PBHashBytes();
-  v18 = *(this + 30);
-  if ((v18 & 0x1000) != 0)
+  v15 = PBHashBytes();
+  v16 = *(this + 30);
+  if ((v16 & 0x1000) != 0)
   {
-    v19 = *(this + 24);
-    if ((v18 & 0x80) != 0)
+    v17 = *(this + 24);
+    if ((v16 & 0x80) != 0)
     {
 LABEL_40:
-      v20 = *(this + 19);
-      if ((v18 & 0x800) != 0)
+      v18 = *(this + 19);
+      if ((v16 & 0x800) != 0)
       {
         goto LABEL_41;
       }
 
 LABEL_45:
-      v21 = 0;
-      if (v18)
+      v19 = 0;
+      if (v16)
       {
         goto LABEL_42;
       }
 
 LABEL_46:
-      v22 = 0;
-      return v27 ^ *&v28 ^ v26 ^ v25 ^ v24 ^ v3 ^ v5 ^ v7 ^ v8 ^ v9 ^ v10 ^ v11 ^ v12 ^ v13 ^ v19 ^ v17 ^ v20 ^ v21 ^ v22;
+      v20 = 0;
+      return v25 ^ *&v26 ^ v24 ^ v23 ^ v22 ^ v3 ^ v5 ^ v7 ^ v8 ^ v9 ^ v10 ^ v11 ^ v12 ^ v13 ^ v17 ^ v15 ^ v18 ^ v19 ^ v20;
     }
   }
 
   else
   {
-    v19 = 0;
-    if ((v18 & 0x80) != 0)
+    v17 = 0;
+    if ((v16 & 0x80) != 0)
     {
       goto LABEL_40;
     }
   }
 
-  v20 = 0;
-  if ((v18 & 0x800) == 0)
+  v18 = 0;
+  if ((v16 & 0x800) == 0)
   {
     goto LABEL_45;
   }
 
 LABEL_41:
-  v21 = *(this + 23);
-  if ((v18 & 1) == 0)
+  v19 = *(this + 23);
+  if ((v16 & 1) == 0)
   {
     goto LABEL_46;
   }
 
 LABEL_42:
-  v22 = *(this + 4);
-  return v27 ^ *&v28 ^ v26 ^ v25 ^ v24 ^ v3 ^ v5 ^ v7 ^ v8 ^ v9 ^ v10 ^ v11 ^ v12 ^ v13 ^ v19 ^ v17 ^ v20 ^ v21 ^ v22;
+  v20 = *(this + 4);
+  return v25 ^ *&v26 ^ v24 ^ v23 ^ v22 ^ v3 ^ v5 ^ v7 ^ v8 ^ v9 ^ v10 ^ v11 ^ v12 ^ v13 ^ v17 ^ v15 ^ v18 ^ v19 ^ v20;
 }
 
 uint64_t CLKappaFeaturesAlgGPSResult::reset(uint64_t this)
@@ -8710,16 +9172,16 @@ void sub_1002F29A4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-char **sub_1002F29D8@<X0>(uint64_t a1@<X0>, char ***a2@<X8>)
+void *sub_1002F29D8@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   result = *a1;
   {
-    v6 = *(a1 + 8);
+    v5 = *(a1 + 8);
     *a2 = result;
-    a2[1] = v6;
-    if (v6)
+    a2[1] = v5;
+    if (v5)
     {
-      atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
     }
   }
 
@@ -9280,581 +9742,4 @@ void CLSafetyDeescalatorJointDetection::resetConfiguration(CLSafetyDeescalatorJo
   *(this + 19) = v4;
   *(this + 44) = CLKappaDeescalator::shouldForceNoop(this, "ForceJointDetection");
   *(this + 10) = CLKappaDeescalator::shouldForceDeescalate(this, "ForceJointDetection");
-}
-
-void CLSafetyDeescalatorJointDetection::log(CLSafetyDeescalatorJointDetection *this, uint64_t a2)
-{
-  if (*(this + 160) == 1)
-  {
-    v4 = *(this + 19);
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  if (*(this + 136) == 1)
-  {
-    v6 = *(this + 14);
-    v5 = *(this + 15);
-  }
-
-  else
-  {
-    v5 = 0;
-    v6 = 0;
-  }
-
-  v7 = 0.0;
-  if (*(this + 172) == 1)
-  {
-    v7 = *(this + 42);
-  }
-
-  if ((*(this + 80) & 1) == 0)
-  {
-    sub_100005BF0();
-  }
-
-  v8 = *(this + 84);
-  if (qword_1004567F8 != -1)
-  {
-    sub_1002F4F18();
-  }
-
-  v9 = qword_100456800;
-  if (os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEFAULT))
-  {
-    v10 = *(this + 6);
-    v11 = *(this + 36);
-    v12 = *(this + 72);
-    v13 = *(this + 19);
-    v14 = 134351360;
-    v15 = a2;
-    v16 = 1026;
-    v17 = v10;
-    v18 = 1026;
-    v19 = v11;
-    v20 = 1026;
-    v21 = v12;
-    v22 = 2050;
-    v23 = v13;
-    v24 = 2050;
-    v25 = v4;
-    v26 = 2050;
-    v27 = v5;
-    v28 = 2050;
-    v29 = v6;
-    v30 = 1026;
-    v31 = v8;
-    v32 = 2050;
-    v33 = v7;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[de-JD] summary,A,%{public}llu,B,%{public}u,mode,%{public}u,config-1,%{public}u,config-1,%{public}f,debug-1a,%{public}llu,debug-1b,%{public}llu,debug-1c,%{public}llu,debug-1d,%{public}u,debug-1e,%{public}f", &v14, 0x56u);
-  }
-}
-
-id sub_1002F4010()
-{
-  if (qword_1004567F8 != -1)
-  {
-    sub_1002F4F18();
-  }
-
-  v1 = qword_100456800;
-
-  return v1;
-}
-
-void CLSafetyDeescalatorJointDetection::updateWithRemoteSample(CLSafetyDeescalatorJointDetection *this, const CSRemoteSample_Struct *a2)
-{
-  v4 = a2->receivedAtTimestamp - a2->createdAtTimestamp;
-  lastRealTriggerTimestamp = a2->lastRealTriggerTimestamp;
-  if (qword_1004567F8 != -1)
-  {
-    sub_1002F4F18();
-  }
-
-  v6 = v4 + lastRealTriggerTimestamp;
-  v7 = qword_100456800;
-  if (os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG))
-  {
-    v9 = a2->lastRealTriggerTimestamp;
-    if (v9)
-    {
-      v10 = v6;
-    }
-
-    else
-    {
-      v10 = 0;
-    }
-
-    v41 = 134218240;
-    *v42 = v9;
-    *&v42[8] = 2048;
-    v43 = v10;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "[de-JD] received remote sample: [remote=%llu local=%llu]", &v41, 0x16u);
-  }
-
-  if (*(this + 84) == 2)
-  {
-    if (qword_1004567F8 != -1)
-    {
-      sub_1002F4F2C();
-    }
-
-    v11 = qword_100456800;
-    if (os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG))
-    {
-      LOWORD(v41) = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "[de-JD] already latched to sure-real", &v41, 2u);
-    }
-
-    return;
-  }
-
-  if (*(this + 36) != a2->mode)
-  {
-    if (qword_1004567F8 != -1)
-    {
-      sub_1002F4F2C();
-    }
-
-    v17 = qword_100456800;
-    if (os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG))
-    {
-      v18 = *(this + 36);
-      mode = a2->mode;
-      v41 = 67109376;
-      *v42 = v18;
-      *&v42[4] = 1024;
-      *&v42[6] = mode;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "[de-JD] got sample for other mode me=%u other=%u: UNSURE", &v41, 0xEu);
-    }
-
-    *(this + 84) = 1;
-    return;
-  }
-
-  CLKappaDeescalator::raiseUnless(1, "[de-JD] Precondition not met: different modes", v8);
-  if (*(this + 84) != 3)
-  {
-    *(this + 84) = 1;
-    CLKappaDeescalator::raiseUnless(1, "[de-JD] Precondition not met: not unsure", v12);
-    v20 = CLSafetyDeescalatorJointDetection::sameEventRegionBoundary(this);
-    if (v21)
-    {
-      v22 = v20;
-      if (a2->receivedAtTimestamp < v20)
-      {
-        if (qword_1004567F8 != -1)
-        {
-          sub_1002F4F2C();
-        }
-
-        v23 = qword_100456800;
-        if (os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG))
-        {
-          LOWORD(v41) = 0;
-          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEBUG, "[de-JD] RS was inside 'same event region'", &v41, 2u);
-        }
-
-        v25 = *(this + 136);
-        v27 = *&a2->createdAtTimestamp;
-        v26 = *&a2->lastRealTriggerTimestamp;
-        *(this + 88) = *&a2->mode;
-        *(this + 104) = v27;
-        *(this + 120) = v26;
-        if ((v25 & 1) == 0)
-        {
-          *(this + 136) = 1;
-        }
-
-        v28 = this;
-        v29 = 0;
-LABEL_54:
-        CLSafetyDeescalatorJointDetection::verifySameEvent(v28, v29, v24);
-        return;
-      }
-
-      if (qword_1004567F8 != -1)
-      {
-        sub_1002F4F2C();
-      }
-
-      v31 = qword_100456800;
-      if (os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG))
-      {
-        LOWORD(v41) = 0;
-        _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEBUG, "[de-JD] RS was outside 'same event region'", &v41, 2u);
-      }
-
-      if (!a2->lastRealTriggerTimestamp)
-      {
-        v34 = sub_1002F4010();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
-        {
-          LOWORD(v41) = 0;
-          _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEBUG, "[de-JD] RS did not have a trigger: no blind spot", &v41, 2u);
-        }
-
-        goto LABEL_51;
-      }
-
-      v32 = sub_1002F4010();
-      v33 = os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG);
-      if (v6 < v22)
-      {
-        if (v33)
-        {
-          LOWORD(v41) = 0;
-          _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEBUG, "[de-JD] RS had a trigger but no blind spot", &v41, 2u);
-        }
-
-LABEL_51:
-        v35 = *(this + 136);
-        v37 = *&a2->createdAtTimestamp;
-        v36 = *&a2->lastRealTriggerTimestamp;
-        *(this + 88) = *&a2->mode;
-        *(this + 104) = v37;
-        *(this + 120) = v36;
-        if ((v35 & 1) == 0)
-        {
-          *(this + 136) = 1;
-        }
-
-        v28 = this;
-        v29 = 1;
-        goto LABEL_54;
-      }
-
-      if (v33)
-      {
-        LOWORD(v41) = 0;
-        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEBUG, "[de-JD] RS had a trigger that could have a blind spot: UNSURE", &v41, 2u);
-      }
-    }
-
-    else
-    {
-      if (qword_1004567F8 != -1)
-      {
-        sub_1002F4F2C();
-      }
-
-      v30 = qword_100456800;
-      if (os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG))
-      {
-        LOWORD(v41) = 0;
-        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEBUG, "[de-JD] 'same event region' is undefined: UNSURE", &v41, 2u);
-      }
-    }
-
-    *(this + 84) = 1;
-    v38 = *(this + 136);
-    v40 = *&a2->createdAtTimestamp;
-    v39 = *&a2->lastRealTriggerTimestamp;
-    *(this + 88) = *&a2->mode;
-    *(this + 104) = v40;
-    *(this + 120) = v39;
-    if (v38)
-    {
-      return;
-    }
-
-    goto LABEL_59;
-  }
-
-  if (qword_1004567F8 != -1)
-  {
-    sub_1002F4F2C();
-  }
-
-  v13 = qword_100456800;
-  if (os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG))
-  {
-    LOWORD(v41) = 0;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEBUG, "[de-JD] new remote sample does not change our SURE-NONE state", &v41, 2u);
-  }
-
-  v14 = *(this + 136);
-  v16 = *&a2->createdAtTimestamp;
-  v15 = *&a2->lastRealTriggerTimestamp;
-  *(this + 88) = *&a2->mode;
-  *(this + 104) = v16;
-  *(this + 120) = v15;
-  if ((v14 & 1) == 0)
-  {
-LABEL_59:
-    *(this + 136) = 1;
-  }
-}
-
-unint64_t CLSafetyDeescalatorJointDetection::sameEventRegionBoundary(CLSafetyDeescalatorJointDetection *this)
-{
-  if (*(this + 160) != 1)
-  {
-    v1 = 0;
-    goto LABEL_6;
-  }
-
-  v1 = *(this + 19);
-  if (!v1)
-  {
-LABEL_6:
-    v2 = 0;
-    return v2 | v1;
-  }
-
-  if ((*(this + 80) & 1) == 0)
-  {
-    sub_100005BF0();
-  }
-
-  v1 += (*(this + 19) * 1000000.0);
-  v2 = v1 & 0xFFFFFFFFFFFFFF00;
-  v1 = v1;
-  return v2 | v1;
-}
-
-void CLSafetyDeescalatorJointDetection::verifySameEvent(CLSafetyDeescalatorJointDetection *this, int a2, const char *a3)
-{
-  CLKappaDeescalator::raiseUnless(*(this + 84) == 1, "[de-JD] precondition failed: verify same event but not unsure", a3);
-  if ((*(this + 160) & 1) == 0)
-  {
-    if (!a2)
-    {
-      if (qword_1004567F8 != -1)
-      {
-        sub_1002F4F18();
-      }
-
-      v13 = qword_100456800;
-      if (!os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG))
-      {
-        return;
-      }
-
-      LOWORD(v23) = 0;
-      v14 = "[de-JD] verifying same event: no JD feature (hold, UNSURE)";
-      goto LABEL_60;
-    }
-
-    if (qword_1004567F8 != -1)
-    {
-      sub_1002F4F18();
-    }
-
-    v11 = qword_100456800;
-    if (!os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG))
-    {
-      goto LABEL_49;
-    }
-
-    LOWORD(v23) = 0;
-    v12 = "[de-JD] verifying same event: no JD feature (SURE-NONE)";
-LABEL_47:
-    v17 = v11;
-    v18 = 2;
-    goto LABEL_48;
-  }
-
-  v5 = *(this + 19);
-  if (!v5)
-  {
-    if (!a2)
-    {
-      if (qword_1004567F8 != -1)
-      {
-        sub_1002F4F18();
-      }
-
-      v13 = qword_100456800;
-      if (!os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG))
-      {
-        return;
-      }
-
-      LOWORD(v23) = 0;
-      v14 = "[de-JD] verifying same event: no local real trigger (hold, UNSURE)";
-      goto LABEL_60;
-    }
-
-    if (qword_1004567F8 != -1)
-    {
-      sub_1002F4F18();
-    }
-
-    v11 = qword_100456800;
-    if (!os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG))
-    {
-      goto LABEL_49;
-    }
-
-    LOWORD(v23) = 0;
-    v12 = "[de-JD] verifying same event: no local real trigger (SURE-NONE)";
-    goto LABEL_47;
-  }
-
-  if ((*(this + 136) & 1) == 0)
-  {
-    if (a2)
-    {
-      if (qword_1004567F8 != -1)
-      {
-        sub_1002F4F18();
-      }
-
-      v15 = qword_100456800;
-      if (os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG))
-      {
-        LOWORD(v23) = 0;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "[de-JD] verifying same event: no communication (UNSURE)", &v23, 2u);
-      }
-
-      v16 = 1;
-      goto LABEL_50;
-    }
-
-    if (qword_1004567F8 != -1)
-    {
-      sub_1002F4F18();
-    }
-
-    v13 = qword_100456800;
-    if (!os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG))
-    {
-      return;
-    }
-
-    LOWORD(v23) = 0;
-    v14 = "[de-JD] verifying same event: no communication (hold, UNSURE)";
-    goto LABEL_60;
-  }
-
-  v6 = *(this + 15);
-  if (!v6)
-  {
-    if (a2)
-    {
-      if (qword_1004567F8 != -1)
-      {
-        sub_1002F4F18();
-      }
-
-      v11 = qword_100456800;
-      if (!os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG))
-      {
-        goto LABEL_49;
-      }
-
-      LOWORD(v23) = 0;
-      v12 = "[de-JD] verifying same event: no remote real trigger (SURE-NONE)";
-      goto LABEL_47;
-    }
-
-    if (qword_1004567F8 != -1)
-    {
-      sub_1002F4F18();
-    }
-
-    v13 = qword_100456800;
-    if (!os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG))
-    {
-      return;
-    }
-
-    LOWORD(v23) = 0;
-    v14 = "[de-JD] verifying same event: no remote real trigger (hold)";
-LABEL_60:
-    v20 = v13;
-    v21 = 2;
-LABEL_61:
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEBUG, v14, &v23, v21);
-    return;
-  }
-
-  v7 = v5 + *(this + 13) - (v6 + *(this + 14));
-  if (v7 < 0)
-  {
-    v7 = -v7;
-  }
-
-  if ((*(this + 80) & 1) == 0)
-  {
-    sub_100005BF0();
-  }
-
-  v8 = v7 / 1000000.0;
-  v9 = *(this + 19);
-  *(this + 42) = v8;
-  *(this + 172) = 1;
-  if (v8 < v9)
-  {
-    if (qword_1004567F8 != -1)
-    {
-      sub_1002F4F18();
-    }
-
-    v10 = qword_100456800;
-    if (os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG))
-    {
-      v23 = 134218240;
-      v24 = v8;
-      v25 = 2048;
-      v26 = v9;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "[de-JD] verifying same event: SURE-REAL (%f < %f)", &v23, 0x16u);
-    }
-
-    *(this + 84) = 2;
-    return;
-  }
-
-  if (a2)
-  {
-    if (qword_1004567F8 != -1)
-    {
-      sub_1002F4F18();
-    }
-
-    v19 = qword_100456800;
-    if (!os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG))
-    {
-      goto LABEL_49;
-    }
-
-    v23 = 134218240;
-    v24 = v8;
-    v25 = 2048;
-    v26 = v9;
-    v12 = "[de-JD] verifying same event: SURE-NONE (%f >= %f)";
-    v17 = v19;
-    v18 = 22;
-LABEL_48:
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, v12, &v23, v18);
-LABEL_49:
-    v16 = 3;
-LABEL_50:
-    *(this + 84) = v16;
-    return;
-  }
-
-  if (qword_1004567F8 != -1)
-  {
-    sub_1002F4F18();
-  }
-
-  v22 = qword_100456800;
-  if (os_log_type_enabled(qword_100456800, OS_LOG_TYPE_DEBUG))
-  {
-    v23 = 134218240;
-    v24 = v8;
-    v25 = 2048;
-    v26 = v9;
-    v14 = "[de-JD] verifying same event: (hold, UNSURE) (%f >= %f)";
-    v20 = v22;
-    v21 = 22;
-    goto LABEL_61;
-  }
 }

@@ -122,14 +122,14 @@ LABEL_3:
 
 uint64_t __71__HDConceptIndexManager_initWithConceptIndexerClass_batchSize_profile___block_invoke(uint64_t a1)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
   {
-    v32 = WeakRetained;
+    v31 = WeakRetained;
     dispatch_assert_queue_V2(WeakRetained[8]);
-    v3 = *(v32 + 72);
+    v3 = *(v31 + 72);
     v4 = [v3 count];
     v5 = objc_alloc_init(MEMORY[0x277CCAB68]);
     v6 = v5;
@@ -141,35 +141,35 @@ uint64_t __71__HDConceptIndexManager_initWithConceptIndexerClass_batchSize_profi
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __HDStringForIndexTriggerReasons_block_invoke;
-    v41 = &unk_278623460;
+    v40 = &unk_278623460;
     v7 = v3;
-    v42 = v7;
+    v41 = v7;
     [v6 hk_appendComponentsJoinedByString:@" container:" componentGenerator:{v7, buf}];
     if (v4 >= 2)
     {
       [v6 appendString:@"]"];
     }
 
-    [*(v32 + 72) removeAllObjects];
+    [*(v31 + 72) removeAllObjects];
     v8 = v6;
-    dispatch_assert_queue_V2(*(v32 + 64));
-    v9 = v32;
-    if (*(v32 + 61) == 1)
+    dispatch_assert_queue_V2(*(v31 + 64));
+    v9 = v31;
+    if (*(v31 + 61) == 1)
     {
       _HKInitializeLogging();
       v10 = HKLogConceptIndex();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        *&buf[4] = v32;
+        *&buf[4] = v31;
         _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: Resetting concept index.", buf, 0xCu);
       }
 
-      v11 = *(v32 + 48);
-      v12 = objc_loadWeakRetained((v32 + 16));
-      v35 = 0;
-      v13 = [v11 resetIndexManagerStateForProfile:v12 withError:&v35];
-      v14 = v35;
+      v11 = *(v31 + 48);
+      v12 = objc_loadWeakRetained((v31 + 16));
+      v34 = 0;
+      v13 = [v11 resetIndexManagerStateForProfile:v12 withError:&v34];
+      v14 = v34;
 
       if ((v13 & 1) == 0)
       {
@@ -178,7 +178,7 @@ uint64_t __71__HDConceptIndexManager_initWithConceptIndexerClass_batchSize_profi
         if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543618;
-          *&buf[4] = v32;
+          *&buf[4] = v31;
           *&buf[12] = 2114;
           *&buf[14] = v14;
           _os_log_error_impl(&dword_228986000, v17, OS_LOG_TYPE_ERROR, "%{public}@: Failed to reset concept index with error :%{public}@", buf, 0x16u);
@@ -187,17 +187,17 @@ uint64_t __71__HDConceptIndexManager_initWithConceptIndexerClass_batchSize_profi
         goto LABEL_20;
       }
 
-      *(v32 + 61) = 0;
+      *(v31 + 61) = 0;
 
-      v9 = v32;
+      v9 = v31;
     }
 
     if ([(HDConceptIndexManager *)v9 _computeIsEnabled])
     {
-      os_unfair_lock_lock((v32 + 56));
-      if (*(v32 + 60) == 1)
+      os_unfair_lock_lock((v31 + 56));
+      if (*(v31 + 60) == 1)
       {
-        os_unfair_lock_unlock((v32 + 56));
+        os_unfair_lock_unlock((v31 + 56));
         _HKInitializeLogging();
         v15 = HKLogConceptIndex();
         v16 = os_log_type_enabled(v15, OS_LOG_TYPE_INFO);
@@ -206,7 +206,7 @@ uint64_t __71__HDConceptIndexManager_initWithConceptIndexerClass_batchSize_profi
         {
 LABEL_29:
 
-          v2 = v32;
+          v2 = v31;
           goto LABEL_30;
         }
 
@@ -214,67 +214,67 @@ LABEL_29:
         if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
           *buf = 138543362;
-          *&buf[4] = v32;
+          *&buf[4] = v31;
           _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_INFO, "%{public}@: Skipping scheduling of indexing operation, we already have a scheduled operation.", buf, 0xCu);
         }
       }
 
       else
       {
-        *(v32 + 60) = 1;
-        os_unfair_lock_unlock((v32 + 56));
-        [*(v32 + 32) invalidate];
-        v34 = 0;
-        v18 = [(HDConceptIndexManager *)v32 _takeAssertionWithError:?];
-        v14 = v34;
-        v19 = *(v32 + 32);
-        *(v32 + 32) = v18;
+        *(v31 + 60) = 1;
+        os_unfair_lock_unlock((v31 + 56));
+        [*(v31 + 32) invalidate];
+        v33 = 0;
+        v18 = [(HDConceptIndexManager *)v31 _takeAssertionWithError:?];
+        v14 = v33;
+        v19 = *(v31 + 32);
+        *(v31 + 32) = v18;
 
-        v20 = v32;
-        if (!*(v32 + 32))
+        v20 = v31;
+        if (!*(v31 + 32))
         {
           _HKInitializeLogging();
           v21 = HKLogConceptIndex();
           if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
-            v30 = [v14 localizedDescription];
+            v29 = [v14 localizedDescription];
             *buf = 138543618;
-            *&buf[4] = v32;
+            *&buf[4] = v31;
             *&buf[12] = 2114;
-            *&buf[14] = v30;
+            *&buf[14] = v29;
             _os_log_error_impl(&dword_228986000, v21, OS_LOG_TYPE_ERROR, "%{public}@: Was not able to take out initial acessibility assertion with error %{public}@. Proceeding to schedule indexing work, and try to take assertion later.", buf, 0x16u);
           }
 
-          v20 = v32;
+          v20 = v31;
         }
 
         v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@: Indexing operation with reason %@", v20, v8];
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __85__HDConceptIndexManager__delayedOperationQueue_scheduleConceptIndexUpdateWithReason___block_invoke;
-        v41 = &unk_278623410;
-        v42 = v32;
+        v40 = &unk_278623410;
+        v41 = v31;
         v23 = v8;
-        v43 = v23;
-        v33[0] = MEMORY[0x277D85DD0];
-        v33[1] = 3221225472;
-        v33[2] = __85__HDConceptIndexManager__delayedOperationQueue_scheduleConceptIndexUpdateWithReason___block_invoke_2;
-        v33[3] = &unk_278614DB0;
-        v33[4] = v32;
-        v24 = [HDMaintenanceOperation maintenanceOperationWithName:v22 asynchronousBlock:buf canceledBlock:v33];
+        v42 = v23;
+        v32[0] = MEMORY[0x277D85DD0];
+        v32[1] = 3221225472;
+        v32[2] = __85__HDConceptIndexManager__delayedOperationQueue_scheduleConceptIndexUpdateWithReason___block_invoke_2;
+        v32[3] = &unk_278614DB0;
+        v32[4] = v31;
+        v24 = [HDMaintenanceOperation maintenanceOperationWithName:v22 asynchronousBlock:buf canceledBlock:v32];
 
         _HKInitializeLogging();
         v25 = HKLogConceptIndex();
         if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
-          *v36 = 138543618;
-          v37 = v32;
-          v38 = 2114;
-          v39 = v23;
-          _os_log_impl(&dword_228986000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@: Scheduling Indexing operation on maintenance coordinator with reason: %{public}@", v36, 0x16u);
+          *v35 = 138543618;
+          v36 = v31;
+          v37 = 2114;
+          v38 = v23;
+          _os_log_impl(&dword_228986000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@: Scheduling Indexing operation on maintenance coordinator with reason: %{public}@", v35, 0x16u);
         }
 
-        v26 = objc_loadWeakRetained((v32 + 16));
+        v26 = objc_loadWeakRetained((v31 + 16));
         v27 = [v26 daemon];
         v28 = [v27 maintenanceWorkCoordinator];
         [v28 enqueueMaintenanceOperation:v24];
@@ -285,7 +285,7 @@ LABEL_28:
       goto LABEL_29;
     }
 
-    v14 = _Block_copy(*(v32 + 104));
+    v14 = _Block_copy(*(v31 + 104));
     if (!v14)
     {
       goto LABEL_28;
@@ -299,7 +299,6 @@ LABEL_20:
   }
 
 LABEL_30:
-  v29 = *MEMORY[0x277D85DE8];
 
   return MEMORY[0x2821F96F8](WeakRetained, v2);
 }
@@ -332,7 +331,7 @@ uint64_t __41__HDConceptIndexManager_resetWithReindex__block_invoke(uint64_t res
 
 - (uint64_t)_canAutomaticallyScheduleConceptIndexing
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v1 = result;
@@ -350,8 +349,7 @@ uint64_t __41__HDConceptIndexManager_resetWithReindex__block_invoke(uint64_t res
 
       if ((v9 & 1) == 0)
       {
-        result = 1;
-        goto LABEL_9;
+        return 1;
       }
     }
 
@@ -369,24 +367,21 @@ uint64_t __41__HDConceptIndexManager_resetWithReindex__block_invoke(uint64_t res
       behavior3 = [daemon3 behavior];
       [behavior3 performsAutomaticConceptIndexing];
       v15 = HKStringFromBool();
-      v16 = *(v1 + 96);
-      v17 = HKStringFromBool();
-      v19 = 138544130;
-      v20 = v1;
+      v16 = HKStringFromBool();
+      v17 = 138544130;
+      v18 = v1;
+      v19 = 2114;
+      v20 = v11;
       v21 = 2114;
-      v22 = v11;
+      v22 = v15;
       v23 = 2114;
-      v24 = v15;
-      v25 = 2114;
-      v26 = v17;
-      _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: Cannot automatically schedule concept indexing. Health App Installed %{public}@, performsAutomaticConceptIndexing %{public}@, ignoresAutomaticProcessingTriggers %{public}@", &v19, 0x2Au);
+      v24 = v16;
+      _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: Cannot automatically schedule concept indexing. Health App Installed %{public}@, performsAutomaticConceptIndexing %{public}@, ignoresAutomaticProcessingTriggers %{public}@", &v17, 0x2Au);
     }
 
-    result = 0;
+    return 0;
   }
 
-LABEL_9:
-  v18 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -452,7 +447,7 @@ LABEL_9:
 
 - (void)_setObservationForDataManager:(uint64_t)manager
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (manager)
   {
     WeakRetained = objc_loadWeakRetained((manager + 16));
@@ -468,26 +463,26 @@ LABEL_9:
       v7 = 0;
     }
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v8 = [MEMORY[0x277CCD8D8] medicalRecordTypesWithOptions:{v7, 0}];
-    v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v19;
+      v11 = *v18;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v19 != v11)
+          if (*v18 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v18 + 1) + 8 * i);
+          v13 = *(*(&v17 + 1) + 8 * i);
           v14 = objc_loadWeakRetained((manager + 16));
           dataManager = [v14 dataManager];
           v16 = dataManager;
@@ -502,14 +497,12 @@ LABEL_9:
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v10);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addObserver:(id)observer
@@ -535,10 +528,10 @@ void __37__HDConceptIndexManager_addObserver___block_invoke(uint64_t a1, void *a
 
 - (BOOL)_computeIsEnabled
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (!self)
   {
-    goto LABEL_12;
+    return 0;
   }
 
   v2 = atomic_load((self + 40));
@@ -567,9 +560,9 @@ void __37__HDConceptIndexManager_addObserver___block_invoke(uint64_t a1, void *a
           v15 = HKLogHealthOntology();
           if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
           {
-            v21 = 138543362;
+            v20 = 138543362;
             selfCopy4 = self;
-            _os_log_impl(&dword_228986000, v15, OS_LOG_TYPE_INFO, "%{public}@: Concept Indexing Is Enabled", &v21, 0xCu);
+            _os_log_impl(&dword_228986000, v15, OS_LOG_TYPE_INFO, "%{public}@: Concept Indexing Is Enabled", &v20, 0xCu);
           }
 
           goto LABEL_21;
@@ -577,7 +570,7 @@ void __37__HDConceptIndexManager_addObserver___block_invoke(uint64_t a1, void *a
 
 LABEL_22:
 
-        goto LABEL_23;
+        return v6;
       }
 
       v18 = HKLogConceptIndex();
@@ -591,7 +584,7 @@ LABEL_22:
       v15 = HKLogConceptIndex();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
-        v21 = 138543362;
+        v20 = 138543362;
         selfCopy4 = self;
         v17 = "%{public}@: Indexing not enabled: behavior for indexing disabled";
         goto LABEL_19;
@@ -612,11 +605,11 @@ LABEL_22:
       v15 = HKLogConceptIndex();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
-        v21 = 138543362;
+        v20 = 138543362;
         selfCopy4 = self;
         v17 = "%{public}@: Indexing not enabled: behavior does not support ontology";
 LABEL_19:
-        _os_log_impl(&dword_228986000, v15, OS_LOG_TYPE_INFO, v17, &v21, 0xCu);
+        _os_log_impl(&dword_228986000, v15, OS_LOG_TYPE_INFO, v17, &v20, 0xCu);
       }
     }
 
@@ -635,25 +628,21 @@ LABEL_21:
     WeakRetained = HKLogConceptIndex();
     if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_INFO))
     {
-      v21 = 138543362;
+      v20 = 138543362;
       selfCopy4 = self;
-      _os_log_impl(&dword_228986000, WeakRetained, OS_LOG_TYPE_INFO, "%{public}@: Indexing is not enabled: either ontology is currently updating, or the index manager has been invalidated.", &v21, 0xCu);
+      _os_log_impl(&dword_228986000, WeakRetained, OS_LOG_TYPE_INFO, "%{public}@: Indexing is not enabled: either ontology is currently updating, or the index manager has been invalidated.", &v20, 0xCu);
     }
 
     v6 = 0;
     goto LABEL_22;
   }
 
-LABEL_12:
-  v6 = 0;
-LABEL_23:
-  v19 = *MEMORY[0x277D85DE8];
-  return v6;
+  return 0;
 }
 
 - (id)_takeAssertionWithError:(uint64_t)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (error)
   {
     v4 = MEMORY[0x277CCACA8];
@@ -665,9 +654,9 @@ LABEL_23:
 
     WeakRetained = objc_loadWeakRetained((error + 16));
     database = [WeakRetained database];
-    v21 = 0;
-    v12 = [database takeAccessibilityAssertionWithOwnerIdentifier:v9 timeout:&v21 error:300.0];
-    v13 = v21;
+    v20 = 0;
+    v12 = [database takeAccessibilityAssertionWithOwnerIdentifier:v9 timeout:&v20 error:300.0];
+    v13 = v20;
 
     if (!v12)
     {
@@ -683,8 +672,8 @@ LABEL_23:
           localizedDescription = [v13 localizedDescription];
           *buf = 138543618;
           errorCopy = error;
-          v24 = 2114;
-          v25 = localizedDescription;
+          v23 = 2114;
+          v24 = localizedDescription;
           _os_log_impl(&dword_228986000, v16, OS_LOG_TYPE_INFO, "%{public}@: unable to take accessibility assertion with error: %{public}@.", buf, 0x16u);
         }
       }
@@ -701,8 +690,6 @@ LABEL_23:
   {
     v12 = 0;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -748,7 +735,7 @@ void __85__HDConceptIndexManager__delayedOperationQueue_scheduleConceptIndexUpda
 
 - (BOOL)_updateConceptIndexWithReason:(id)reason
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   v5 = self->_preparedDatabaseAccessibilityAssertion;
   preparedDatabaseAccessibilityAssertion = self->_preparedDatabaseAccessibilityAssertion;
@@ -762,8 +749,8 @@ LABEL_4:
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __60__HDConceptIndexManager__notifyObserversWithExecutionState___block_invoke;
-    v47 = &__block_descriptor_40_e41_v16__0___HDConceptIndexManagerObserver__8l;
-    *v48 = 2;
+    v46 = &__block_descriptor_40_e41_v16__0___HDConceptIndexManagerObserver__8l;
+    *v47 = 2;
     [(HKObserverSet *)observerSet notifyObservers:buf];
     v9 = objc_alloc_init(HDMutableDatabaseTransactionContext);
     [(HDMutableDatabaseTransactionContext *)v9 setCacheScope:1];
@@ -779,24 +766,24 @@ LABEL_4:
       _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: Beginning concept indexing with reason: %{public}@.", buf, 0x16u);
     }
 
-    v40 = 0;
-    v41 = &v40;
-    v42 = 0x2020000000;
-    v43 = 0;
+    v39 = 0;
+    v40 = &v39;
+    v41 = 0x2020000000;
+    v42 = 0;
     Current = CFAbsoluteTimeGetCurrent();
     WeakRetained = objc_loadWeakRetained(&self->_profile);
     database = [WeakRetained database];
-    v38[0] = MEMORY[0x277D85DD0];
-    v38[1] = 3221225472;
-    v38[2] = __55__HDConceptIndexManager__updateConceptIndexWithReason___block_invoke;
-    v38[3] = &unk_27861A148;
-    v38[4] = self;
-    v38[5] = &v40;
-    v39 = v7;
-    v14 = [database performWithTransactionContext:v9 error:&v39 block:v38];
-    v15 = v39;
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __55__HDConceptIndexManager__updateConceptIndexWithReason___block_invoke;
+    v37[3] = &unk_27861A148;
+    v37[4] = self;
+    v37[5] = &v39;
+    v38 = v7;
+    v14 = [database performWithTransactionContext:v9 error:&v38 block:v37];
+    v15 = v38;
 
-    v16 = v41[3];
+    v16 = v40[3];
     batchSize = self->_batchSize;
     if (v16 % batchSize)
     {
@@ -812,7 +799,7 @@ LABEL_4:
     v19 = HKLogConceptIndex();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v37 = v5;
+      v36 = v5;
       v20 = v9;
       v21 = v14;
       v22 = reasonCopy;
@@ -827,7 +814,7 @@ LABEL_4:
         v24 = @"Failure";
       }
 
-      v25 = v41[3];
+      v25 = v40[3];
       v26 = CFAbsoluteTimeGetCurrent();
       localizedDescription = [v15 localizedDescription];
       *buf = 138544898;
@@ -835,24 +822,24 @@ LABEL_4:
       *&buf[12] = 2114;
       *&buf[14] = v24;
       *&buf[22] = 2048;
-      v47 = v25;
-      *v48 = 2048;
-      *&v48[2] = v18;
-      *&v48[10] = 2114;
+      v46 = v25;
+      *v47 = 2048;
+      *&v47[2] = v18;
+      *&v47[10] = 2114;
       reasonCopy = v22;
-      *&v48[12] = v22;
-      v49 = 2048;
-      v50 = v26 - Current;
-      v51 = 2114;
-      v52 = localizedDescription;
+      *&v47[12] = v22;
+      v48 = 2048;
+      v49 = v26 - Current;
+      v50 = 2114;
+      v51 = localizedDescription;
       _os_log_impl(&dword_228986000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ indexing %ld records in %ld batches with reason %{public}@, duration: %.3f seconds, Error: %{public}@", buf, 0x48u);
 
       v14 = v23;
       v9 = v20;
-      v5 = v37;
+      v5 = v36;
     }
 
-    v28 = v41[3];
+    v28 = v40[3];
     v7 = v15;
     v29 = _Block_copy(self->_unitTesting_conceptIndexManagerDidFinish);
     v30 = v29;
@@ -865,36 +852,36 @@ LABEL_4:
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __90__HDConceptIndexManager__notifyObserversBecameIdleWithSampleProcessedCount_success_error___block_invoke;
-    v47 = &unk_278623438;
-    *v48 = self;
-    *&v48[8] = v28;
-    [(HKObserverSet *)v31 notifyObservers:buf, v37];
+    v46 = &unk_278623438;
+    *v47 = self;
+    *&v47[8] = v28;
+    [(HKObserverSet *)v31 notifyObservers:buf, v36];
     v32 = self->_observerSet;
-    v45[0] = MEMORY[0x277D85DD0];
-    v45[1] = 3221225472;
-    v45[2] = __60__HDConceptIndexManager__notifyObserversWithExecutionState___block_invoke;
-    v45[3] = &__block_descriptor_40_e41_v16__0___HDConceptIndexManagerObserver__8l;
-    v45[4] = 1;
-    [(HKObserverSet *)v32 notifyObservers:v45];
+    v44[0] = MEMORY[0x277D85DD0];
+    v44[1] = 3221225472;
+    v44[2] = __60__HDConceptIndexManager__notifyObserversWithExecutionState___block_invoke;
+    v44[3] = &__block_descriptor_40_e41_v16__0___HDConceptIndexManagerObserver__8l;
+    v44[4] = 1;
+    [(HKObserverSet *)v32 notifyObservers:v44];
 
     [(HDAssertion *)v5 invalidate];
-    _Block_object_dispose(&v40, 8);
+    _Block_object_dispose(&v39, 8);
     goto LABEL_17;
   }
 
-  v44 = 0;
+  v43 = 0;
   v5 = [(HDConceptIndexManager *)self _takeAssertionWithError:?];
-  v7 = v44;
+  v7 = v43;
   if (v5)
   {
     goto LABEL_4;
   }
 
-  v35 = _Block_copy(self->_unitTesting_conceptIndexManagerDidFinish);
-  v5 = v35;
-  if (v35)
+  v34 = _Block_copy(self->_unitTesting_conceptIndexManagerDidFinish);
+  v5 = v34;
+  if (v34)
   {
-    (v35->_state)(v35, 0, 0, v7);
+    (v34->_state)(v34, 0, 0, v7);
   }
 
   _HKInitializeLogging();
@@ -912,42 +899,41 @@ LABEL_4:
   LOBYTE(v14) = 0;
 LABEL_17:
 
-  v33 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 uint64_t __55__HDConceptIndexManager__updateConceptIndexWithReason___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v47 = *MEMORY[0x277D85DE8];
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x2020000000;
-  v35 = 0;
+  v46 = *MEMORY[0x277D85DE8];
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x2020000000;
+  v34 = 0;
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 16));
   v5 = [WeakRetained database];
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __55__HDConceptIndexManager__updateConceptIndexWithReason___block_invoke_2;
-  v31[3] = &unk_278614110;
-  v31[4] = *(a1 + 32);
-  v31[5] = &v32;
-  v6 = [(HDHealthEntity *)HDMedicalRecordEntity performReadTransactionWithHealthDatabase:v5 error:a2 block:v31];
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __55__HDConceptIndexManager__updateConceptIndexWithReason___block_invoke_2;
+  v30[3] = &unk_278614110;
+  v30[4] = *(a1 + 32);
+  v30[5] = &v31;
+  v6 = [(HDHealthEntity *)HDMedicalRecordEntity performReadTransactionWithHealthDatabase:v5 error:a2 block:v30];
 
   if (v6)
   {
-    if (v33[3])
+    if (v32[3])
     {
       v7 = *(a1 + 32);
       v8 = *(v7 + 48);
       v9 = *(v7 + 8);
       v10 = objc_loadWeakRetained((v7 + 16));
-      v29 = *(*(a1 + 40) + 8);
+      v28 = *(*(a1 + 40) + 8);
       v11 = v10;
-      v30 = objc_opt_self();
+      v29 = objc_opt_self();
       v12 = 0;
       for (i = 0; ; i = (i + 1))
       {
-        v36 = 0;
+        v35 = 0;
         Current = CFAbsoluteTimeGetCurrent();
         _HKInitializeLogging();
         v15 = HKLogConceptIndex();
@@ -959,15 +945,15 @@ uint64_t __55__HDConceptIndexManager__updateConceptIndexWithReason___block_invok
           if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
           {
             *buf = 138543618;
-            v38 = v30;
-            v39 = 2048;
-            v40 = i;
+            v37 = v29;
+            v38 = 2048;
+            v39 = i;
             _os_log_impl(&dword_228986000, v17, OS_LOG_TYPE_INFO, "%{public}@: Start concept indexing batch %ld", buf, 0x16u);
           }
         }
 
-        v18 = [v8 indexSamplesForProfile:v11 limit:v9 outIndexedSamplesCount:&v36 error:a2];
-        v19 = v36;
+        v18 = [v8 indexSamplesForProfile:v11 limit:v9 outIndexedSamplesCount:&v35 error:a2];
+        v19 = v35;
         _HKInitializeLogging();
         v20 = HKLogConceptIndex();
         v21 = os_log_type_enabled(v20, OS_LOG_TYPE_INFO);
@@ -977,7 +963,7 @@ uint64_t __55__HDConceptIndexManager__updateConceptIndexWithReason___block_invok
           v22 = HKLogConceptIndex();
           if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
           {
-            v23 = v36;
+            v23 = v35;
             v24 = CFAbsoluteTimeGetCurrent();
             v25 = @"Failure";
             if (v18)
@@ -986,15 +972,15 @@ uint64_t __55__HDConceptIndexManager__updateConceptIndexWithReason___block_invok
             }
 
             *buf = 138544386;
-            v38 = v30;
-            v39 = 2112;
-            v40 = v25;
-            v41 = 2048;
-            v42 = i;
-            v43 = 2048;
-            v44 = v23;
-            v45 = 2048;
-            v46 = v24 - Current;
+            v37 = v29;
+            v38 = 2112;
+            v39 = v25;
+            v40 = 2048;
+            v41 = i;
+            v42 = 2048;
+            v43 = v23;
+            v44 = 2048;
+            v45 = v24 - Current;
             _os_log_impl(&dword_228986000, v22, OS_LOG_TYPE_INFO, "%{public}@: %@ concept indexing batch %ld (%ld) in %0.3f", buf, 0x34u);
           }
         }
@@ -1005,7 +991,7 @@ uint64_t __55__HDConceptIndexManager__updateConceptIndexWithReason___block_invok
           break;
         }
 
-        if (v36 < v9)
+        if (v35 < v9)
         {
           v26 = [v11 conceptIndexManager];
           [(HDConceptIndexManager *)v26 _clearHasScheduledIndexing];
@@ -1014,7 +1000,7 @@ uint64_t __55__HDConceptIndexManager__updateConceptIndexWithReason___block_invok
         }
       }
 
-      *(v29 + 24) = v12;
+      *(v28 + 24) = v12;
     }
 
     else
@@ -1029,14 +1015,13 @@ uint64_t __55__HDConceptIndexManager__updateConceptIndexWithReason___block_invok
     v18 = 0;
   }
 
-  _Block_object_dispose(&v32, 8);
-  v27 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v31, 8);
   return v18;
 }
 
 BOOL __55__HDConceptIndexManager__updateConceptIndexWithReason___block_invoke_2(uint64_t a1, void *a2, NSObject **a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 32);
   v6 = a2;
   WeakRetained = objc_loadWeakRetained((v5 + 16));
@@ -1049,9 +1034,9 @@ BOOL __55__HDConceptIndexManager__updateConceptIndexWithReason___block_invoke_2(
   if (v12)
   {
     v13 = [v8 protectedDatabase];
-    v23 = 0;
-    v14 = [(HDDataEntity *)HDMedicalRecordEntity anyInDatabase:v13 predicate:0 error:&v23];
-    v15 = v23;
+    v22 = 0;
+    v14 = [(HDDataEntity *)HDMedicalRecordEntity anyInDatabase:v13 predicate:0 error:&v22];
+    v15 = v22;
 
     if (v14)
     {
@@ -1061,23 +1046,23 @@ BOOL __55__HDConceptIndexManager__updateConceptIndexWithReason___block_invoke_2(
     else
     {
       _HKInitializeLogging();
-      v19 = HKLogConceptIndex();
-      v20 = v19;
+      v18 = HKLogConceptIndex();
+      v19 = v18;
       if (v15)
       {
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          v22 = [v15 localizedDescription];
+          v21 = [v15 localizedDescription];
           *buf = 138543618;
-          v25 = v10;
-          v26 = 2112;
-          v27 = v22;
-          _os_log_error_impl(&dword_228986000, v20, OS_LOG_TYPE_ERROR, "%{public}@: Error when determining if concept index manager should schedule work: %@", buf, 0x16u);
+          v24 = v10;
+          v25 = 2112;
+          v26 = v21;
+          _os_log_error_impl(&dword_228986000, v19, OS_LOG_TYPE_ERROR, "%{public}@: Error when determining if concept index manager should schedule work: %@", buf, 0x16u);
         }
 
         if (a3)
         {
-          v21 = v15;
+          v20 = v15;
           v16 = 0;
           *a3 = v15;
         }
@@ -1091,11 +1076,11 @@ BOOL __55__HDConceptIndexManager__updateConceptIndexWithReason___block_invoke_2(
 
       else
       {
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v25 = v10;
-          _os_log_impl(&dword_228986000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@: Should not proceed with updating concept index because there are no medical records in the database", buf, 0xCu);
+          v24 = v10;
+          _os_log_impl(&dword_228986000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@: Should not proceed with updating concept index because there are no medical records in the database", buf, 0xCu);
         }
 
         v16 = 2;
@@ -1110,7 +1095,7 @@ BOOL __55__HDConceptIndexManager__updateConceptIndexWithReason___block_invoke_2(
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v25 = v10;
+      v24 = v10;
       _os_log_impl(&dword_228986000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: Should not proceed with updating concept index because index manager is not enabled", buf, 0xCu);
     }
 
@@ -1122,9 +1107,7 @@ BOOL __55__HDConceptIndexManager__updateConceptIndexWithReason___block_invoke_2(
     *(*(*(a1 + 40) + 8) + 24) = 1;
   }
 
-  result = v16 != 0;
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
+  return v16 != 0;
 }
 
 uint64_t __61__HDConceptIndexManager__dispatchDelayedOperationWithReason___block_invoke(uint64_t a1)
@@ -1218,18 +1201,17 @@ uint64_t __61__HDConceptIndexManager__dispatchDelayedOperationWithReason___block
 
 - (void)didImportOntologyShard
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = HKLogConceptIndex();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
+    v4 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Request reset concept index due to importing a new ontology shard", &v5, 0xCu);
+    _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Request reset concept index due to importing a new ontology shard", &v4, 0xCu);
   }
 
   [(HDConceptIndexManager *)self resetWithReindex];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unitTest_setHasScheduledIndexing:(BOOL)indexing

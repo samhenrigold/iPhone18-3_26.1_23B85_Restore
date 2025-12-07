@@ -306,17 +306,17 @@ LABEL_9:
   v12 = v11;
   v14 = v13;
   contentView = [(WKTouchEventsGestureRecognizer *)self contentView];
-  v42 = contentView;
+  v44 = contentView;
   if (contentView)
   {
     v16 = contentView;
-    contentView = v42;
+    contentView = v44;
   }
 
-  v41 = v12;
-  v44.x = v12;
-  v44.y = v14;
-  v17 = mapRootViewToViewport(v44, contentView);
+  v43 = v12;
+  v46.x = v12;
+  v46.y = v14;
+  v17 = mapRootViewToViewport(v46, contentView);
   v19 = v18;
   var2 = a5->var2;
   phase = [parent phase];
@@ -335,7 +335,7 @@ LABEL_9:
   if ([parent type] == 2)
   {
     [parent altitudeAngle];
-    v40 = v29;
+    v42 = v29;
     [parent azimuthAngleInView:{objc_msgSend(-[WKTouchEventsGestureRecognizer view](self, "view"), "window")}];
     v31 = v30;
     v32 = v19;
@@ -349,7 +349,7 @@ LABEL_9:
     v33 = v17;
     v34 = 0;
     v31 = 0;
-    v40 = 0;
+    v42 = 0;
   }
 
   retstr->timestamp = 0.0;
@@ -364,25 +364,27 @@ LABEL_9:
   [parent timestamp];
   v36 = v35;
   v37 = CACurrentMediaTime();
-  retstr->timestamp = *MEMORY[0x1E695E468] + CFAbsoluteTimeGetCurrent() - (v37 - v36);
-  retstr->locationInRootViewCoordinates.x = v41;
+  Current = CFAbsoluteTimeGetCurrent();
+  v39 = MEMORY[0x1E695E468];
+  retstr->timestamp = *MEMORY[0x1E695E468] + Current - (v37 - v36);
+  retstr->locationInRootViewCoordinates.x = v43;
   retstr->locationInRootViewCoordinates.y = v14;
-  v38 = WTF::fastMalloc(0x58);
-  *v38 = v41;
-  *(v38 + 8) = v14;
-  *(v38 + 16) = v33;
-  *(v38 + 24) = v32;
-  *(v38 + 32) = var2;
-  *(v38 + 40) = phase;
-  *(v38 + 48) = v23;
-  *(v38 + 56) = v24;
-  *(v38 + 64) = v40;
-  *(v38 + 72) = v31;
-  *(v38 + 80) = v34;
-  retstr->touchPoints.m_buffer = v38;
+  v40 = WTF::fastMalloc(v39, 0x58);
+  *v40 = v43;
+  *(v40 + 1) = v14;
+  *(v40 + 2) = v33;
+  v40[3] = v32;
+  *(v40 + 8) = var2;
+  v40[5] = phase;
+  v40[6] = v23;
+  *(v40 + 7) = v24;
+  v40[8] = v42;
+  v40[9] = v31;
+  *(v40 + 80) = v34;
+  retstr->touchPoints.m_buffer = v40;
   *&retstr->touchPoints.m_capacity = 0x100000001;
-  result = v42;
-  if (v42)
+  result = v44;
+  if (v44)
   {
   }
 
@@ -438,7 +440,7 @@ LABEL_116:
         }
 
         v16 = 88 * v14;
-        v17 = WTF::fastMalloc((88 * v14));
+        v17 = WTF::fastMalloc(v14, (88 * v14));
         p_lastTouchEvent->touchPoints.m_capacity = v16 / 0x58;
         p_lastTouchEvent->touchPoints.m_buffer = v17;
         if (m_size)
@@ -449,15 +451,15 @@ LABEL_116:
           {
             v21 = *(v20 + 1);
             *v17 = *v20;
-            *(v17 + 16) = v21;
+            *(v17 + 1) = v21;
             v22 = *(v20 + 2);
             v23 = *(v20 + 3);
             v24 = *(v20 + 4);
-            *(v17 + 80) = *(v20 + 10);
-            *(v17 + 48) = v23;
-            *(v17 + 64) = v24;
-            *(v17 + 32) = v22;
-            v17 += 88;
+            v17[10] = *(v20 + 10);
+            *(v17 + 3) = v23;
+            *(v17 + 4) = v24;
+            *(v17 + 2) = v22;
+            v17 += 11;
             v20 = (v20 + 88);
             v19 -= 88;
           }
@@ -719,7 +721,7 @@ LABEL_116:
                 objc_enumerationMutation(v77);
               }
 
-              [(WKTouchEventsGestureRecognizer *)self _touchEventForChildTouch:*(*(&v132 + 1) + 8 * i) withParent:v67];
+              objc_msgSend__touchEventForChildTouch_withParent_(self);
               v81 = p_lastTouchEvent->coalescedEvents.m_size;
               if (v81 == p_lastTouchEvent->coalescedEvents.m_capacity)
               {
@@ -767,7 +769,7 @@ LABEL_116:
                 objc_enumerationMutation(v86);
               }
 
-              [(WKTouchEventsGestureRecognizer *)self _touchEventForChildTouch:*(*(&v123 + 1) + 8 * j) withParent:v67];
+              objc_msgSend__touchEventForChildTouch_withParent_(self);
               v90 = p_lastTouchEvent->predictedEvents.m_size;
               if (v90 == p_lastTouchEvent->predictedEvents.m_capacity)
               {

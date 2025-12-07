@@ -111,9 +111,9 @@ LABEL_33:
     else
     {
       pathExtension = [(NSURL *)v14->_localURL pathExtension];
-      v62 = [pathExtension isEqualToString:@"encrypted"];
+      isEqualToString = objc_msgSend_isEqualToString_(pathExtension);
 
-      if (v62)
+      if (isEqualToString)
       {
         objc_storeStrong(&v14->_encryptedContentsLocalURL, v14->_localURL);
         uRLByDeletingPathExtension = [(NSURL *)v14->_localURL URLByDeletingPathExtension];
@@ -128,7 +128,7 @@ LABEL_33:
         goto LABEL_28;
       }
 
-      if (v62)
+      if (isEqualToString)
       {
         v14->_encryptionSource = encryptionSourceFromManifestItemDictionary(dictionaryCopy);
         goto LABEL_28;
@@ -276,9 +276,9 @@ LABEL_30:
 {
   localURL = [(PKRemoteAssetManifestItem *)self localURL];
   pathExtension = [localURL pathExtension];
-  v4 = [pathExtension isEqualToString:@"zip"];
+  isEqualToString = objc_msgSend_isEqualToString_(pathExtension);
 
-  return v4;
+  return isEqualToString;
 }
 
 - (void)downloadAssetWithCloudStoreCoordinatorDelegate:(id)delegate tryCount:(unint64_t)count completion:(id)completion

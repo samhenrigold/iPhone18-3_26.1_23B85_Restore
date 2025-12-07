@@ -5,39 +5,36 @@
 
 void __38___GCHIDEventSubject_publishHIDEvent___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v4 = a3;
+  v13 = *MEMORY[0x1E69E9840];
+  v3 = a3;
+  v8 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
-  if (v5)
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  if (v4)
   {
-    v6 = v5;
-    v7 = *v12;
+    v5 = v4;
+    v6 = *v9;
     do
     {
-      v8 = 0;
+      v7 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v9 != v6)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(v3);
         }
 
-        v9 = *(a1 + 32);
-        (*(*(*(&v11 + 1) + 8 * v8++) + 16))();
+        (*(*(*(&v8 + 1) + 8 * v7++) + 16))();
       }
 
-      while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      while (v5 != v7);
+      v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
-    while (v6);
+    while (v5);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __50___GCHIDEventSubject_observeHIDEvents_forService___block_invoke(uint64_t a1, void *a2)

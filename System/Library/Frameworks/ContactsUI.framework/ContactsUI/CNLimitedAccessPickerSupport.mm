@@ -22,7 +22,7 @@
 
   else
   {
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/LimitedAccess/CNLimitedAccessPickerSupport.m", 167, 3, @"Failed to locate app record for: %@, Error: %@", v5, v6, v7, v8, idCopy);
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/LimitedAccess/CNLimitedAccessPickerSupport.m", 167, 3u, @"Failed to locate app record for: %@, Error: %@", v5, v6, v7, v8, idCopy);
     localizedName = idCopy;
   }
 

@@ -66,62 +66,62 @@ void __66__CKBusinessOnboardingController_checkForBusinessAlertsIDSIssues___bloc
   mEMORY[0x1E69A8070] = [MEMORY[0x1E69A8070] sharedFeatureFlags];
   isBIAEnabled = [mEMORY[0x1E69A8070] isBIAEnabled];
 
-  v8 = CKFrameworkBundle();
-  v9 = v8;
+  v9 = CKFrameworkBundle(v8);
+  v10 = v9;
   if (isBIAEnabled)
   {
-    v10 = &stru_1F04268F8;
-    v11 = [v8 localizedStringForKey:@"BUSINESS_INITIATED_ALERTS" value:&stru_1F04268F8 table:@"ChatKit"];
+    v11 = &stru_1F04268F8;
+    v12 = [v9 localizedStringForKey:@"BUSINESS_INITIATED_ALERTS" value:&stru_1F04268F8 table:@"ChatKit"];
   }
 
   else
   {
-    v11 = [v8 localizedStringForKey:@"MESSAGES_FOR_BUSINESS" value:&stru_1F04268F8 table:@"ChatKit"];
+    v12 = [v9 localizedStringForKey:@"MESSAGES_FOR_BUSINESS" value:&stru_1F04268F8 table:@"ChatKit"];
 
-    v9 = CKFrameworkBundle();
-    v10 = [v9 localizedStringForKey:@"BUSINESS_DESCRIPTION_PLACEHOLDER" value:&stru_1F04268F8 table:@"ChatKit"];
+    v10 = CKFrameworkBundle(v13);
+    v11 = [v10 localizedStringForKey:@"BUSINESS_DESCRIPTION_PLACEHOLDER" value:&stru_1F04268F8 table:@"ChatKit"];
   }
 
-  v17.receiver = self;
-  v17.super_class = CKBusinessOnboardingController;
-  v12 = [(CKBusinessOnboardingController *)&v17 initWithTitle:v11 detailText:v10 icon:0];
-  v13 = v12;
-  if (v12)
+  v19.receiver = self;
+  v19.super_class = CKBusinessOnboardingController;
+  v14 = [(CKBusinessOnboardingController *)&v19 initWithTitle:v12 detailText:v11 icon:0];
+  v15 = v14;
+  if (v14)
   {
-    [(CKBusinessOnboardingController *)v12 setCompletionHandler:handlerCopy];
-    [(CKBusinessOnboardingController *)v13 setModalPresentationStyle:2];
-    [(CKBusinessOnboardingController *)v13 setModalInPresentation:1];
+    [(CKBusinessOnboardingController *)v14 setCompletionHandler:handlerCopy];
+    [(CKBusinessOnboardingController *)v15 setModalPresentationStyle:2];
+    [(CKBusinessOnboardingController *)v15 setModalInPresentation:1];
     mEMORY[0x1E69A8070]2 = [MEMORY[0x1E69A8070] sharedFeatureFlags];
     isBIAEnabled2 = [mEMORY[0x1E69A8070]2 isBIAEnabled];
 
     if (isBIAEnabled2)
     {
-      [(CKBusinessOnboardingController *)v13 _addBusinessInitiatedBullets];
+      [(CKBusinessOnboardingController *)v15 _addBusinessInitiatedBullets];
     }
   }
 
-  return v13;
+  return v15;
 }
 
 - (void)_addBusinessInitiatedBullets
 {
-  v3 = CKFrameworkBundle();
+  v3 = CKFrameworkBundle(self);
   v4 = [v3 localizedStringForKey:@"BUSINESS_INITIATED_WELCOME_TRUST_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-  v5 = CKFrameworkBundle();
+  v5 = CKFrameworkBundle(v4);
   v6 = [v5 localizedStringForKey:@"BUSINESS_INITIATED_WELCOME_TRUST_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
   [(CKBusinessOnboardingController *)self addBulletedListItemWithTitle:v4 description:v6 symbolName:@"checkmark.seal.fill"];
 
-  v7 = CKFrameworkBundle();
-  v8 = [v7 localizedStringForKey:@"BUSINESS_INITIATED_WELCOME_OPTOUT_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-  v9 = CKFrameworkBundle();
-  v10 = [v9 localizedStringForKey:@"BUSINESS_INITIATED_WELCOME_OPTOUT_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
-  [(CKBusinessOnboardingController *)self addBulletedListItemWithTitle:v8 description:v10 symbolName:@"rectangle.portrait.and.arrow.right.fill"];
+  v8 = CKFrameworkBundle(v7);
+  v9 = [v8 localizedStringForKey:@"BUSINESS_INITIATED_WELCOME_OPTOUT_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+  v10 = CKFrameworkBundle(v9);
+  v11 = [v10 localizedStringForKey:@"BUSINESS_INITIATED_WELCOME_OPTOUT_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
+  [(CKBusinessOnboardingController *)self addBulletedListItemWithTitle:v9 description:v11 symbolName:@"rectangle.portrait.and.arrow.right.fill"];
 
-  v14 = CKFrameworkBundle();
-  v11 = [v14 localizedStringForKey:@"BUSINESS_INITIATED_WELCOME_CHAT_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-  v12 = CKFrameworkBundle();
-  v13 = [v12 localizedStringForKey:@"BUSINESS_INITIATED_WELCOME_CHAT_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
-  [(CKBusinessOnboardingController *)self addBulletedListItemWithTitle:v11 description:v13 symbolName:@"message.and.message.fill"];
+  v16 = CKFrameworkBundle(v12);
+  v13 = [v16 localizedStringForKey:@"BUSINESS_INITIATED_WELCOME_CHAT_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+  v14 = CKFrameworkBundle(v13);
+  v15 = [v14 localizedStringForKey:@"BUSINESS_INITIATED_WELCOME_CHAT_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
+  [(CKBusinessOnboardingController *)self addBulletedListItemWithTitle:v13 description:v15 symbolName:@"message.and.message.fill"];
 }
 
 - (void)viewDidLoad
@@ -130,7 +130,7 @@ void __66__CKBusinessOnboardingController_checkForBusinessAlertsIDSIssues___bloc
   v8.super_class = CKBusinessOnboardingController;
   [(OBBaseWelcomeController *)&v8 viewDidLoad];
   boldButton = [MEMORY[0x1E69B7D00] boldButton];
-  v4 = CKFrameworkBundle();
+  v4 = CKFrameworkBundle(boldButton);
   v5 = [v4 localizedStringForKey:@"CONTINUE" value:&stru_1F04268F8 table:@"ChatKit"];
   [boldButton setTitle:v5 forState:0];
 
@@ -153,7 +153,7 @@ void __66__CKBusinessOnboardingController_checkForBusinessAlertsIDSIssues___bloc
     if (!self->_notNowActionHandler)
     {
       linkButton = [MEMORY[0x1E69B7D38] linkButton];
-      v7 = CKFrameworkBundle();
+      v7 = CKFrameworkBundle(linkButton);
       v8 = [v7 localizedStringForKey:@"BUSINESS_INITIATED_WELCOME_OPTOUT_BUTTON" value:&stru_1F04268F8 table:@"ChatKit"];
       [linkButton setTitle:v8 forState:0];
 

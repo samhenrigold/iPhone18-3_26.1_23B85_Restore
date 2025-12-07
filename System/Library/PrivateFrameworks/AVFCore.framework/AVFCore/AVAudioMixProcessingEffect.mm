@@ -64,17 +64,17 @@
   return v8 & 1;
 }
 
-id __66__AVAudioMixProcessingEffect_isValueSupported_exceptionReasonOut___block_invoke()
+id __66__AVAudioMixProcessingEffect_isValueSupported_exceptionReasonOut___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = MEMORY[0x1E695DFD8];
-  v3 = objc_opt_class();
-  v4 = objc_opt_class();
+  v10 = *MEMORY[0x1E69E9840];
+  v2 = MEMORY[0x1E695DFD8];
   v5 = objc_opt_class();
   v6 = objc_opt_class();
   v7 = objc_opt_class();
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v3 count:5];
-  result = [v0 setWithArray:{v1, v3, v4, v5, v6}];
+  v8 = objc_opt_class();
+  v9 = objc_opt_class();
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v5 count:5];
+  result = [v2 setWithArray:{v3, v5, v6, v7, v8}];
   isValueSupported_exceptionReasonOut__sSupportedValueTypes = result;
   return result;
 }
@@ -254,7 +254,7 @@ LABEL_5:
   return v11;
 }
 
-uint64_t __91__AVAudioMixProcessingEffect_initWithDSPGraphText_properties_parameterSchedule_identifier___block_invoke(uint64_t a1, void *a2, uint64_t a3, char *a4)
+id __91__AVAudioMixProcessingEffect_initWithDSPGraphText_properties_parameterSchedule_identifier___block_invoke(uint64_t a1, void *a2, uint64_t a3, char *a4)
 {
   if ([a2 unsignedLongLongValue] >> 32)
   {
@@ -277,11 +277,11 @@ uint64_t __91__AVAudioMixProcessingEffect_initWithDSPGraphText_properties_parame
 {
   if (a2)
   {
-    [a2 time];
+    objc_msgSend_time(a2);
     if (a3)
     {
 LABEL_3:
-      [a3 time];
+      objc_msgSend_time(a3);
       goto LABEL_6;
     }
   }
@@ -315,14 +315,14 @@ LABEL_12:
     return CMTimeCompare(&time1, &v6) > 0;
   }
 
-  [a2 time];
+  objc_msgSend_time(a2);
   if (!a3)
   {
     goto LABEL_12;
   }
 
 LABEL_9:
-  [a3 time];
+  objc_msgSend_time(a3, v6.value, *&v6.timescale, v6.epoch, time1.value, *&time1.timescale, time1.epoch);
   return CMTimeCompare(&time1, &v6) > 0;
 }
 

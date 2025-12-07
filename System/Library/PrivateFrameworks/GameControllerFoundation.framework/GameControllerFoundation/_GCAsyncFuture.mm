@@ -3,6 +3,7 @@
 - (id).cxx_construct;
 - (id)_initOnQueue:(char)queue withOptions:(void *)options block:;
 - (id)debugDescription;
+- (void)_observeFinishOnQueue:(id)queue withOptions:(unsigned int)options qosClass:(unsigned int)class relativePriority:(int)priority block:(id)block;
 @end
 
 @implementation _GCAsyncFuture
@@ -95,6 +96,38 @@ LABEL_16:
 LABEL_18:
 
   return self;
+}
+
+- (void)_observeFinishOnQueue:(id)queue withOptions:(unsigned int)options qosClass:(unsigned int)class relativePriority:(int)priority block:(id)block
+{
+  v8 = *&priority;
+  v9 = *&class;
+  v10 = *&options;
+  queueCopy = queue;
+  blockCopy = block;
+  os_unfair_lock_lock_with_options();
+  tqh_first = self->_continuations._continuations.tqh_first;
+  os_unfair_lock_unlock(&self->super._lock);
+  if (tqh_first)
+  {
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __84___GCAsyncFuture__observeFinishOnQueue_withOptions_qosClass_relativePriority_block___block_invoke;
+    v15[3] = &unk_1E8415240;
+    v17 = blockCopy;
+    v16 = queueCopy;
+    v18 = v10;
+    v19 = v9;
+    v20 = v8;
+    ContinuationList::addOrInvokeContinuation_takesLock(&self->_creationVoucher, self, v15);
+  }
+
+  else
+  {
+    v21.receiver = self;
+    v21.super_class = _GCAsyncFuture;
+    [(GCFuture *)&v21 _observeFinishOnQueue:queueCopy withOptions:v10 qosClass:v9 relativePriority:v8 block:blockCopy];
+  }
 }
 
 - (BOOL)_setState:(int64_t)state result:(id)result error:(id)error

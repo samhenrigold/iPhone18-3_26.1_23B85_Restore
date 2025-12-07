@@ -12,6 +12,7 @@
 - (id)_fetchableAccountForAccount:(id)account error:(id *)error;
 - (id)_gatewayFeatureOperationsForAccount:(id)account queryMode:(int64_t)mode error:(id *)error;
 - (id)_gatewaysOperationForAccount:(id)account;
+- (id)_ivarLock_synthesizeTaskOutcomeWithSuccess:(BOOL)success runTime:(double)time;
 - (id)_runAndAwaitPreflightOperations:(id)operations accountContext:(id)context;
 - (id)_serialIngestionDoneOperations;
 - (id)description;
@@ -1657,6 +1658,29 @@ LABEL_11:
     v5.super_class = HDClinicalIngestionTask;
     [(HDClinicalIngestionTask *)&v5 cancel];
   }
+}
+
+- (id)_ivarLock_synthesizeTaskOutcomeWithSuccess:(BOOL)success runTime:(double)time
+{
+  successCopy = success;
+  os_unfair_lock_assert_owner(&self->_ivarLock);
+  allValues = [(NSDictionary *)self->_perAccountInfo allValues];
+  v8 = [allValues hk_map:&stru_105908];
+
+  v9 = [HKClinicalIngestionOutcome alloc];
+  if (v8)
+  {
+    v10 = v8;
+  }
+
+  else
+  {
+    v10 = &__NSArray0__struct;
+  }
+
+  v11 = [v9 initWithTaskSuccess:successCopy taskError:self->_ingestionError taskRuntime:v10 perAccountOutcomes:self->_analyticsString analyticsString:time];
+
+  return v11;
 }
 
 - (id)_gatewaysOperationForAccount:(id)account

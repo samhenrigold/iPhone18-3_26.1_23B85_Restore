@@ -43,7 +43,7 @@
 
 - (void)main
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (*MEMORY[0x277CBC880] != -1)
   {
     dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -52,26 +52,25 @@
   v3 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v6 = v3;
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
-    v10 = objc_msgSend_CKDescriptionPropertiesWithPublic_private_shouldExpand_(self, v9, 1, 0, 0);
-    v13 = objc_msgSend_CKPropertiesStyleString(v10, v11, v12);
-    v15 = objc_msgSend_CKDescriptionPropertiesWithPublic_private_shouldExpand_(self, v14, 0, 1, 0);
-    v18 = objc_msgSend_CKPropertiesStyleString(v15, v16, v17);
-    v19 = 138544130;
-    v20 = v8;
-    v21 = 2048;
+    v5 = v3;
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
+    v9 = objc_msgSend_CKDescriptionPropertiesWithPublic_private_shouldExpand_(self, v8, 1, 0, 0);
+    v12 = objc_msgSend_CKPropertiesStyleString(v9, v10, v11);
+    v14 = objc_msgSend_CKDescriptionPropertiesWithPublic_private_shouldExpand_(self, v13, 0, 1, 0);
+    v17 = objc_msgSend_CKPropertiesStyleString(v14, v15, v16);
+    v18 = 138544130;
+    v19 = v7;
+    v20 = 2048;
     selfCopy = self;
-    v23 = 2114;
-    v24 = v13;
-    v25 = 2112;
-    v26 = v18;
-    _os_log_debug_impl(&dword_22506F000, v6, OS_LOG_TYPE_DEBUG, "Starting fetch user record operation <%{public}@: %p; %{public}@, %@>", &v19, 0x2Au);
+    v22 = 2114;
+    v23 = v12;
+    v24 = 2112;
+    v25 = v17;
+    _os_log_debug_impl(&dword_22506F000, v5, OS_LOG_TYPE_DEBUG, "Starting fetch user record operation <%{public}@: %p; %{public}@, %@>", &v18, 0x2Au);
   }
 
   objc_msgSend_makeStateTransition_(self, v4, 0);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)analyticsPayload

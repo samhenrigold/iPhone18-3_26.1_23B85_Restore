@@ -1,5 +1,6 @@
 @interface AWDMETRICSKCellularPowerLogPowerEstimatorComponentPowerStats
 - (BOOL)isEqual:(id)equal;
+- (id)componentAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -44,6 +45,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)componentAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279A0FDE0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsComponent:(id)component
@@ -267,7 +283,6 @@ LABEL_12:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    component = self->_component;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -287,7 +302,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  avgPowerMw = self->_avgPowerMw;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -302,7 +316,6 @@ LABEL_4:
   }
 
 LABEL_13:
-  avgActivePowerMw = self->_avgActivePowerMw;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -317,7 +330,6 @@ LABEL_5:
   }
 
 LABEL_14:
-  peakPowerMw = self->_peakPowerMw;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -332,12 +344,10 @@ LABEL_6:
   }
 
 LABEL_15:
-  cumulatedEnergyMj = self->_cumulatedEnergyMj;
   PBDataWriterWriteUint32Field();
   if (*&self->_has)
   {
 LABEL_7:
-    activeDurationMs = self->_activeDurationMs;
     PBDataWriterWriteUint32Field();
   }
 

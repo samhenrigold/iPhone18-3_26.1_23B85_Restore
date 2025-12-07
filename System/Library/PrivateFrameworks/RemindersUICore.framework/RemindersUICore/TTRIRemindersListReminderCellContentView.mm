@@ -51,10 +51,11 @@
 
   v7 = (self + OBJC_IVAR____TtC15RemindersUICore40TTRIRemindersListReminderCellContentView__preferredSeparatorInsetsDidChangeHandler);
   v8 = *(self + OBJC_IVAR____TtC15RemindersUICore40TTRIRemindersListReminderCellContentView__preferredSeparatorInsetsDidChangeHandler);
+  v9 = *(self + OBJC_IVAR____TtC15RemindersUICore40TTRIRemindersListReminderCellContentView__preferredSeparatorInsetsDidChangeHandler + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_21D0D0E88(v8);
+  sub_21D0D0E88(v8, v9);
 }
 
 - (CGRect)frame
@@ -76,22 +77,23 @@
   y = frame.origin.y;
   x = frame.origin.x;
   selfCopy = self;
-  sub_21DAA2464(x, y, width, height);
+  sub_21DAA2464(selfCopy, v7, x, y, width, height);
 }
 
 - (void)layoutMarginsDidChange
 {
-  v5.receiver = self;
-  v5.super_class = type metadata accessor for TTRIRemindersListReminderCellContentView();
-  v2 = v5.receiver;
-  [(TTRIRemindersListReminderCellContentView *)&v5 layoutMarginsDidChange];
+  v6.receiver = self;
+  v6.super_class = type metadata accessor for TTRIRemindersListReminderCellContentView();
+  v2 = v6.receiver;
+  [(TTRIRemindersListReminderCellContentView *)&v6 layoutMarginsDidChange];
   v3 = *&v2[OBJC_IVAR____TtC15RemindersUICore40TTRIRemindersListReminderCellContentView_layoutMarginsDidUpdate];
   if (v3)
   {
+    v4 = *&v2[OBJC_IVAR____TtC15RemindersUICore40TTRIRemindersListReminderCellContentView_layoutMarginsDidUpdate + 8];
 
-    v3(v4);
+    v3(v5);
 
-    sub_21D0D0E88(v3);
+    sub_21D0D0E88(v3, v4);
   }
 
   else
@@ -102,14 +104,14 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_21DAA262C();
+  sub_21DAA262C(selfCopy, v2);
 }
 
 - (_TtC15RemindersUICore40TTRIRemindersListReminderCellContentView)initWithArrangedSubviewRows:(id)rows
 {
   if (rows)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5F100);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CE5F100, &qword_21DC18230);
     v3 = sub_21DBFA5EC();
   }
 
@@ -118,7 +120,7 @@
     v3 = 0;
   }
 
-  return sub_21DAA2BEC(v3);
+  return sub_21DAA2BEC(v3, a2);
 }
 
 - (void)containerViewDidLayoutArrangedSubviews:(id)subviews

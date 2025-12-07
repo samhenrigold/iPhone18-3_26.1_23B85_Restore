@@ -6,6 +6,7 @@
 - (HKHRBloodPressureJournalControl)initWithHealthStore:(id)store;
 - (id)exportedInterface;
 - (id)remoteInterface;
+- (void)_callUnitTestObservationChangeHandlerWith:(BOOL)with isObserving:(BOOL)observing error:(id)error;
 - (void)_handleAutomaticProxyReconnection;
 - (void)_registerForJournalChanges:(BOOL)changes completion:(id)completion;
 - (void)_startObservingJournalChanges;
@@ -99,7 +100,7 @@ void __58__HKHRBloodPressureJournalControl_saveJournal_completion___block_invoke
   v4 = HKLogBloodPressureJournal();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __58__HKHRBloodPressureJournalControl_saveJournal_completion___block_invoke_2_cold_1(a1);
+    __58__HKHRBloodPressureJournalControl_saveJournal_completion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -131,7 +132,7 @@ void __68__HKHRBloodPressureJournalControl_fetchActiveJournalWithCompletion___bl
   v4 = HKLogBloodPressureJournal();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __68__HKHRBloodPressureJournalControl_fetchActiveJournalWithCompletion___block_invoke_2_cold_1(a1);
+    __68__HKHRBloodPressureJournalControl_fetchActiveJournalWithCompletion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -163,7 +164,7 @@ void __66__HKHRBloodPressureJournalControl_fetchAllJournalsWithCompletion___bloc
   v4 = HKLogBloodPressureJournal();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __66__HKHRBloodPressureJournalControl_fetchAllJournalsWithCompletion___block_invoke_2_cold_1(a1);
+    __66__HKHRBloodPressureJournalControl_fetchAllJournalsWithCompletion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -198,7 +199,7 @@ void __59__HKHRBloodPressureJournalControl_closeJournal_completion___block_invok
   v4 = HKLogBloodPressureJournal();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __59__HKHRBloodPressureJournalControl_closeJournal_completion___block_invoke_2_cold_1(a1);
+    __59__HKHRBloodPressureJournalControl_closeJournal_completion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -233,7 +234,7 @@ void __73__HKHRBloodPressureJournalControl_closeJournalWithIdentifier_completion
   v4 = HKLogBloodPressureJournal();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __59__HKHRBloodPressureJournalControl_closeJournal_completion___block_invoke_2_cold_1(a1);
+    __59__HKHRBloodPressureJournalControl_closeJournal_completion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -276,7 +277,7 @@ void __114__HKHRBloodPressureJournalControl_snoozeJournalNotificationWithIdentif
   v4 = HKLogBloodPressureJournal();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __114__HKHRBloodPressureJournalControl_snoozeJournalNotificationWithIdentifier_journalType_userInfo_onDate_completion___block_invoke_2_cold_1(a1);
+    __114__HKHRBloodPressureJournalControl_snoozeJournalNotificationWithIdentifier_journalType_userInfo_onDate_completion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 48) + 16))();
@@ -323,7 +324,7 @@ void __64__HKHRBloodPressureJournalControl__startObservingJournalChanges__block_
     v6 = HKLogBloodPressureJournal();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __64__HKHRBloodPressureJournalControl__startObservingJournalChanges__block_invoke_cold_1(a1);
+      __64__HKHRBloodPressureJournalControl__startObservingJournalChanges__block_invoke_cold_1();
     }
   }
 
@@ -349,7 +350,7 @@ void __63__HKHRBloodPressureJournalControl__stopObservingJournalChanges__block_i
     v6 = HKLogBloodPressureJournal();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __63__HKHRBloodPressureJournalControl__stopObservingJournalChanges__block_invoke_cold_1(a1);
+      __63__HKHRBloodPressureJournalControl__stopObservingJournalChanges__block_invoke_cold_1();
     }
   }
 
@@ -377,10 +378,61 @@ void __63__HKHRBloodPressureJournalControl__stopObservingJournalChanges__block_i
 
 - (void)_handleAutomaticProxyReconnection
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v3 = [(HKHRBloodPressureJournalControlObserver *)self->_observers count];
+  _HKInitializeLogging();
+  v4 = HKLogBloodPressureJournal();
+  v5 = v4;
+  if (v3)
+  {
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543362;
+      selfCopy3 = self;
+      _os_log_impl(&dword_228942000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Resume observation on server reconnection", buf, 0xCu);
+    }
+
+    v11 = 0;
+    v6 = [(HKHRBloodPressureJournalControl *)self _synchronouslyRegisterForJournalChangesWithError:&v11];
+    v7 = v11;
+    _HKInitializeLogging();
+    v8 = HKLogBloodPressureJournal();
+    v9 = v8;
+    if (v6)
+    {
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138543362;
+        selfCopy3 = self;
+        _os_log_impl(&dword_228942000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: Successfully resumed observation on server reconnection", buf, 0xCu);
+      }
+    }
+
+    else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      [HKHRBloodPressureJournalControl _handleAutomaticProxyReconnection];
+    }
+
+    [(HKHRBloodPressureJournalControl *)self _callUnitTestObservationChangeHandlerWith:v6 isObserving:v6 error:v7];
+  }
+
+  else
+  {
+    v10 = os_log_type_enabled(v4, OS_LOG_TYPE_INFO);
+
+    if (!v10)
+    {
+      return;
+    }
+
+    v7 = HKLogBloodPressureJournal();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138543362;
+      selfCopy3 = self;
+      _os_log_impl(&dword_228942000, v7, OS_LOG_TYPE_INFO, "%{public}@: No need to restart observation as there are no registered observers", buf, 0xCu);
+    }
+  }
 }
 
 - (BOOL)_synchronouslyRegisterForJournalChangesWithError:(id *)error
@@ -493,6 +545,19 @@ uint64_t __84__HKHRBloodPressureJournalControl__synchronouslyRegisterForJournalC
   [(HKHRBloodPressureJournalControlObserver *)observers notifyObservers:v7];
 }
 
+- (void)_callUnitTestObservationChangeHandlerWith:(BOOL)with isObserving:(BOOL)observing error:(id)error
+{
+  observingCopy = observing;
+  withCopy = with;
+  errorCopy = error;
+  v8 = MEMORY[0x22AAC4F80](self->_unitTest_didChangeObservationHandler);
+  v9 = v8;
+  if (v8)
+  {
+    (*(v8 + 16))(v8, withCopy, observingCopy, errorCopy);
+  }
+}
+
 - (void)unitTest_noOpWithCompletion:(id)completion
 {
   completionCopy = completion;
@@ -513,68 +578,52 @@ uint64_t __84__HKHRBloodPressureJournalControl__synchronouslyRegisterForJournalC
   [(HKTaskServerProxyProvider *)proxyProvider fetchProxyWithHandler:v11 errorHandler:v9];
 }
 
-void __58__HKHRBloodPressureJournalControl_saveJournal_completion___block_invoke_2_cold_1(uint64_t a1)
+void __58__HKHRBloodPressureJournalControl_saveJournal_completion___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __68__HKHRBloodPressureJournalControl_fetchActiveJournalWithCompletion___block_invoke_2_cold_1(uint64_t a1)
+void __68__HKHRBloodPressureJournalControl_fetchActiveJournalWithCompletion___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __66__HKHRBloodPressureJournalControl_fetchAllJournalsWithCompletion___block_invoke_2_cold_1(uint64_t a1)
+void __66__HKHRBloodPressureJournalControl_fetchAllJournalsWithCompletion___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __59__HKHRBloodPressureJournalControl_closeJournal_completion___block_invoke_2_cold_1(uint64_t a1)
+void __59__HKHRBloodPressureJournalControl_closeJournal_completion___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __114__HKHRBloodPressureJournalControl_snoozeJournalNotificationWithIdentifier_journalType_userInfo_onDate_completion___block_invoke_2_cold_1(uint64_t a1)
+void __64__HKHRBloodPressureJournalControl__startObservingJournalChanges__block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 32);
-  v8 = *(a1 + 40);
-  OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __64__HKHRBloodPressureJournalControl__startObservingJournalChanges__block_invoke_cold_1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __63__HKHRBloodPressureJournalControl__stopObservingJournalChanges__block_invoke_cold_1(uint64_t a1)
+void __63__HKHRBloodPressureJournalControl__stopObservingJournalChanges__block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 @end

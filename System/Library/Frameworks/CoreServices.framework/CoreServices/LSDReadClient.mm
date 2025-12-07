@@ -62,21 +62,21 @@ void __90___LSDReadClient_getResourceValuesForKeys_mimic_preferredLocalizations_
   [*(a1 + 32) setObject:v6 forKeyedSubscript:v7];
 }
 
-void __70___LSDReadClient_mapBundleIdentifiers_orMachOUUIDs_completionHandler___block_invoke(uint64_t a1, void *a2)
+void __70___LSDReadClient_mapBundleIdentifiers_orMachOUUIDs_completionHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v6 = a2;
+  v7 = a2;
   [(_LSDatabase *)**(a1 + 56) store];
-  v3 = _CSStringCopyCFString();
-  if (v3)
+  v4 = _CSStringCopyCFString();
+  if (v4)
   {
-    v4 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:v3];
-    if (v4)
+    v5 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:v4];
+    if (v5)
     {
-      v5 = *(a1 + 32);
-      if (!v5 || [v5 containsObject:v4])
+      v6 = *(a1 + 32);
+      if (!v6 || [v6 containsObject:v5])
       {
-        [*(a1 + 40) addObject:v4];
-        [*(a1 + 48) addObject:v6];
+        [*(a1 + 40) addObject:v5];
+        [*(a1 + 48) addObject:v7];
       }
     }
   }
@@ -84,47 +84,43 @@ void __70___LSDReadClient_mapBundleIdentifiers_orMachOUUIDs_completionHandler___
 
 void __70___LSDReadClient_mapBundleIdentifiers_orMachOUUIDs_completionHandler___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v6 = a2;
+  v5 = a2;
   [(_LSDatabase *)**(a1 + 40) store];
-  v7 = *(a4 + 92);
-  v9 = *(a1 + 32);
-  v8 = v6;
+  v7 = *(a1 + 32);
+  v6 = v5;
   _CSArrayEnumerateAllValues();
 }
 
 void __70___LSDReadClient_mapBundleIdentifiers_orMachOUUIDs_completionHandler___block_invoke_4(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v6 = a2;
+  v5 = a2;
   [(_LSDatabase *)**(a1 + 40) store];
-  v7 = *(a4 + 92);
-  v9 = *(a1 + 32);
-  v8 = v6;
+  v7 = *(a1 + 32);
+  v6 = v5;
   _CSArrayEnumerateAllValues();
 }
 
-uint64_t __70___LSDReadClient_mapBundleIdentifiers_orMachOUUIDs_completionHandler___block_invoke_6(uint64_t a1, uint64_t a2, int a3)
+uint64_t __70___LSDReadClient_mapBundleIdentifiers_orMachOUUIDs_completionHandler___block_invoke_6(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = _LSGetPlugin(**(a1 + 48), a3);
   if (result)
   {
-    v5 = *(a1 + 32);
-    v6 = *(*(a1 + 40) + 16);
+    v5 = *(*(a1 + 40) + 16);
 
-    return v6();
+    return v5();
   }
 
   return result;
 }
 
-uint64_t __70___LSDReadClient_mapBundleIdentifiers_orMachOUUIDs_completionHandler___block_invoke_7(uint64_t a1, uint64_t a2, int a3)
+uint64_t __70___LSDReadClient_mapBundleIdentifiers_orMachOUUIDs_completionHandler___block_invoke_7(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = _LSBundleGet(**(a1 + 48), a3);
   if (result)
   {
-    v5 = *(a1 + 32);
-    v6 = *(*(a1 + 40) + 16);
+    v5 = *(*(a1 + 40) + 16);
 
-    return v6();
+    return v5();
   }
 
   return result;
@@ -132,10 +128,9 @@ uint64_t __70___LSDReadClient_mapBundleIdentifiers_orMachOUUIDs_completionHandle
 
 void __70___LSDReadClient_mapBundleIdentifiers_orMachOUUIDs_completionHandler___block_invoke_8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *(a3 + 12);
   [(_LSDatabase *)**(a1 + 40) store];
-  v5 = _CSStringCopyCFString();
-  if (v5)
+  v4 = _CSStringCopyCFString();
+  if (v4)
   {
     (*(*(a1 + 32) + 16))();
   }
@@ -143,27 +138,26 @@ void __70___LSDReadClient_mapBundleIdentifiers_orMachOUUIDs_completionHandler___
 
 void __70___LSDReadClient_mapBundleIdentifiers_orMachOUUIDs_completionHandler___block_invoke_9(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *(a3 + 12);
   [(_LSDatabase *)**(a1 + 40) store];
-  v5 = _CSStringCopyCFString();
-  if (v5)
+  v4 = _CSStringCopyCFString();
+  if (v4)
   {
     (*(*(a1 + 32) + 16))();
   }
 }
 
-void __92___LSDReadClient_mapPlugInBundleIdentifiersToContainingBundleIdentifiers_completionHandler___block_invoke(uint64_t a1, uint64_t a2, int a3)
+void __92___LSDReadClient_mapPlugInBundleIdentifiersToContainingBundleIdentifiers_completionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = _LSGetPlugin(**(a1 + 48), a3);
-  if (v4 && (v5 = _LSBundleGet(**(a1 + 48), *(v4 + 224))) != 0 && (v6 = *(v5 + 12), [(_LSDatabase *)**(a1 + 48) store], (v7 = _CSStringCopyCFString()) != 0))
+  if (v4 && _LSBundleGet(**(a1 + 48), *(v4 + 224)) && ([(_LSDatabase *)**(a1 + 48) store], (v5 = _CSStringCopyCFString()) != 0))
   {
-    v8 = v7;
-    [*(a1 + 32) setObject:v7 forKeyedSubscript:*(a1 + 40)];
+    v6 = v5;
+    [*(a1 + 32) setObject:v5 forKeyedSubscript:*(a1 + 40)];
   }
 
   else
   {
-    v8 = 0;
+    v6 = 0;
   }
 }
 

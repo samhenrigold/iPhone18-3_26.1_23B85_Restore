@@ -7,6 +7,7 @@
 - (void)checkForUpdate:(id)update reply:(id)reply;
 - (void)dealloc;
 - (void)disableTRMSystemAuthenticationForRegistryEntryID:(id)d reply:(id)reply;
+- (void)downloadFirmwareForAccessoryID:(id)d assetID:(id)iD userIntent:(BOOL)intent reply:(id)reply;
 - (void)downloadReleaseNotesForAccessoryID:(id)d assetID:(id)iD reply:(id)reply;
 - (void)enableTRMSystemAuthenticationForRegistryEntryID:(id)d reply:(id)reply;
 - (void)firmwareUpdateProgressForAccessoryID:(id)d assetID:(id)iD bytesSent:(unint64_t)sent bytesTotal:(unint64_t)total;
@@ -16,7 +17,9 @@
 - (void)getAttestationCertificates:(id)certificates reply:(id)reply;
 - (void)getSandboxExtensionTokenForAssetID:(id)d reply:(id)reply;
 - (void)getSupplementalAssetNameForAccessoryID:(id)d reply:(id)reply;
+- (void)getSupportedAccessories:(id)accessories assetID:(id)d batchRequest:(BOOL)request reply:(id)reply;
 - (void)getSupportedAccessories:(id)accessories reply:(id)reply;
+- (void)manifestPropertiesReceivedForAccessoryID:(id)d assetTag:(unsigned int)tag properties:(id)properties;
 - (void)personalizationVectorForAccessoryID:(id)d assetTag:(id)tag reply:(id)reply;
 - (void)progressForUARPConsent:(id)consent bytesSent:(unint64_t)sent bytesTotal:(unint64_t)total;
 - (void)progressForUARPConsentInPostLogout:(id)logout bytesSent:(unint64_t)sent bytesTotal:(unint64_t)total;
@@ -170,6 +173,37 @@
   }
 
   v12 = [(UARPManager *)self->_manager changeAssetLocation:location assetID:d sandboxExtensionToken:token];
+  if (v12)
+  {
+    v13 = [NSError errorWithDomain:kUARPErrorDomain code:v12 userInfo:0];
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  (*(reply + 2))(reply, v13);
+}
+
+- (void)downloadFirmwareForAccessoryID:(id)d assetID:(id)iD userIntent:(BOOL)intent reply:(id)reply
+{
+  intentCopy = intent;
+  xpcLog = self->_xpcLog;
+  if (os_log_type_enabled(xpcLog, OS_LOG_TYPE_INFO))
+  {
+    v14 = 136315906;
+    v15 = "[UARPManagerListener downloadFirmwareForAccessoryID:assetID:userIntent:reply:]";
+    v16 = 2112;
+    dCopy = d;
+    v18 = 2112;
+    iDCopy = iD;
+    v20 = 2112;
+    v21 = [NSNumber numberWithBool:intentCopy];
+    _os_log_impl(&_mh_execute_header, xpcLog, OS_LOG_TYPE_INFO, "RECEIVED %s: %@ %@, userIntent=%@", &v14, 0x2Au);
+  }
+
+  v12 = [(UARPManager *)self->_manager downloadFirmwareForAccessory:d assetID:iD userIntent:intentCopy];
   if (v12)
   {
     v13 = [NSError errorWithDomain:kUARPErrorDomain code:v12 userInfo:0];
@@ -363,6 +397,26 @@
   (*(reply + 2))(reply, v11, *v12);
 }
 
+- (void)manifestPropertiesReceivedForAccessoryID:(id)d assetTag:(unsigned int)tag properties:(id)properties
+{
+  v6 = *&tag;
+  xpcLog = self->_xpcLog;
+  if (os_log_type_enabled(xpcLog, OS_LOG_TYPE_INFO))
+  {
+    v10 = 136315906;
+    v11 = "[UARPManagerListener manifestPropertiesReceivedForAccessoryID:assetTag:properties:]";
+    v12 = 2112;
+    dCopy = d;
+    v14 = 1024;
+    v15 = v6;
+    v16 = 2112;
+    propertiesCopy = properties;
+    _os_log_impl(&_mh_execute_header, xpcLog, OS_LOG_TYPE_INFO, "RECEIVED %s: %@, assetTag 0x%08x %@", &v10, 0x26u);
+  }
+
+  [(UARPManager *)self->_manager manifestPropertiesReceivedForAccessoryID:d assetTag:v6 properties:properties];
+}
+
 - (void)sendUpdateFirmwareAnalyticsEventForAccessoryID:(id)d assetID:(id)iD params:(id)params
 {
   xpcLog = self->_xpcLog;
@@ -460,6 +514,24 @@
   }
 
   (*(reply + 2))(reply, v7, v8);
+}
+
+- (void)getSupportedAccessories:(id)accessories assetID:(id)d batchRequest:(BOOL)request reply:(id)reply
+{
+  v7 = [(UARPManager *)self->_manager getSupportedAccessories:accessories assetID:d batchRequest:request];
+  if (v7)
+  {
+    v8 = [NSError errorWithDomain:kUARPErrorDomain code:v7 userInfo:0];
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  v9 = *(reply + 2);
+
+  v9(reply, v8);
 }
 
 - (void)getAttestationCertificates:(id)certificates reply:(id)reply

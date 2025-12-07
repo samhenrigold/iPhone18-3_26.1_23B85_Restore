@@ -1,14 +1,20 @@
 @interface VMUSampler
++ (id)sampleAllThreadsOfPID:(int)d;
++ (id)sampleAllThreadsOfTask:(unsigned int)task;
++ (id)sampleAllThreadsOfTask:(unsigned int)task symbolicate:(BOOL)symbolicate;
 - (BOOL)start;
 - (BOOL)stop;
 - (BOOL)waitUntilDone;
 - (BOOL)wasAllRecursionPreviouslyPrinted:(id)printed;
+- (VMUSampler)initWithPID:(int)d orTask:(unsigned int)task options:(unint64_t)options;
 - (VMUSampler)initWithPID:(int)d task:(unsigned int)task processName:(id)name is64Bit:(BOOL)bit options:(unint64_t)options;
 - (_CSTypeRef)symbolicator;
 - (id)dispatchQueueNameForSerialNumber:(unint64_t)number returnedConcurrentFlag:(BOOL *)flag returnedThreadId:(unint64_t *)id;
 - (id)formatFrame:(unint64_t)frame showBinaryImage:(BOOL)image;
 - (id)outputString;
 - (id)sampleAllThreadsOnce;
+- (id)sampleThread:(unsigned int)thread;
+- (id)sampleThread:(unsigned int)thread withOptions:(int)options;
 - (id)samples;
 - (id)setUpForFormatFrame:(unint64_t)frame;
 - (id)stopSamplingAndReturnCallNode;
@@ -82,8 +88,6 @@
     free(previousThreadList);
   }
 
-  opaque_1 = self->_symbolicator._opaque_1;
-  opaque_2 = self->_symbolicator._opaque_2;
   CSRelease();
   self->_symbolicator._opaque_1 = 0;
   self->_symbolicator._opaque_2 = 0;
@@ -99,9 +103,9 @@
     self->_samplingContext = 0;
   }
 
-  v9.receiver = self;
-  v9.super_class = VMUSampler;
-  [(VMUSampler *)&v9 dealloc];
+  v7.receiver = self;
+  v7.super_class = VMUSampler;
+  [(VMUSampler *)&v7 dealloc];
 }
 
 - (BOOL)stop
@@ -126,9 +130,9 @@
 - (VMUSampler)initWithPID:(int)d task:(unsigned int)task processName:(id)name is64Bit:(BOOL)bit options:(unint64_t)options
 {
   nameCopy = name;
-  v42.receiver = self;
-  v42.super_class = VMUSampler;
-  v12 = [(VMUSampler *)&v42 init];
+  v36.receiver = self;
+  v36.super_class = VMUSampler;
+  v12 = [(VMUSampler *)&v36 init];
   v13 = v12;
   if (!v12)
   {
@@ -172,44 +176,34 @@ LABEL_16:
             }
 
             v13->_symbolicator = initWithPID_task_processName_is64Bit_options__symbolicatorForThisToolTask;
-            opaque_1 = v13->_symbolicator._opaque_1;
-            opaque_2 = v13->_symbolicator._opaque_2;
             CSRetain();
-            v31 = v13->_symbolicator._opaque_1;
-            v32 = v13->_symbolicator._opaque_2;
             CSSymbolicatorGetSymbolWithMangledNameFromSymbolOwnerWithNameAtTime();
           }
 
           else
           {
-            task = v13->_task;
             if (options)
             {
               CSSymbolicatorGetFlagsForNListOnlyData();
             }
 
-            else
-            {
-              v28 = v13->_task;
-            }
-
             v13->_symbolicator._opaque_1 = CSSymbolicatorCreateWithTaskFlagsAndNotification();
-            v13->_symbolicator._opaque_2 = v33;
+            v13->_symbolicator._opaque_2 = v27;
           }
 
-          v34 = [objc_alloc(MEMORY[0x1E696AB38]) initWithCondition:0];
+          v28 = [objc_alloc(MEMORY[0x1E696AB38]) initWithCondition:0];
           stateLock = v13->_stateLock;
-          v13->_stateLock = v34;
+          v13->_stateLock = v28;
 
-          v36 = objc_alloc_init(MEMORY[0x1E695DF70]);
+          v30 = objc_alloc_init(MEMORY[0x1E695DF70]);
           samples = v13->_samples;
-          v13->_samples = v36;
+          v13->_samples = v30;
 
           info = 0;
           mach_timebase_info(&info);
-          LODWORD(v39) = info.denom;
-          LODWORD(v38) = info.numer;
-          v13->_tbRate = 1000000000.0 / v38 * v39;
+          LODWORD(v33) = info.denom;
+          LODWORD(v32) = info.numer;
+          v13->_tbRate = 1000000000.0 / v32 * v33;
           v13->_interval = 0.01;
 
           goto LABEL_27;
@@ -265,14 +259,66 @@ LABEL_28:
   return v14;
 }
 
-uint64_t __59__VMUSampler_initWithPID_task_processName_is64Bit_options___block_invoke()
+uint64_t __59__VMUSampler_initWithPID_task_processName_is64Bit_options___block_invoke(uint64_t a1)
 {
-  v0 = *MEMORY[0x1E69E9A60];
   CSSymbolicatorGetFlagsForNListOnlyData();
   result = CSSymbolicatorCreateWithTaskFlagsAndNotification();
   *&initWithPID_task_processName_is64Bit_options__symbolicatorForThisToolTask = result;
   *(&initWithPID_task_processName_is64Bit_options__symbolicatorForThisToolTask + 1) = v2;
   return result;
+}
+
+- (VMUSampler)initWithPID:(int)d orTask:(unsigned int)task options:(unint64_t)options
+{
+  x = d;
+  if (task - 1 > 0xFFFFFFFD)
+  {
+    v8 = *&d;
+    if (!d)
+    {
+      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+      {
+        [VMUSampler initWithPID:orTask:options:];
+      }
+
+      goto LABEL_12;
+    }
+
+    if (task_read_for_pid())
+    {
+      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+      {
+        [VMUSampler initWithPID:orTask:options:];
+      }
+
+      goto LABEL_12;
+    }
+
+    self->_needTaskPortDealloc = 1;
+    taskCopy = task;
+LABEL_14:
+    self = [(VMUSampler *)self initWithPID:v8 task:taskCopy processName:0 is64Bit:0 options:options];
+    selfCopy = self;
+    goto LABEL_15;
+  }
+
+  taskCopy = *&task;
+  if (!pid_for_task(task, &x))
+  {
+    v8 = x;
+    goto LABEL_14;
+  }
+
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    [VMUSampler initWithPID:orTask:options:];
+  }
+
+LABEL_12:
+  selfCopy = 0;
+LABEL_15:
+
+  return selfCopy;
 }
 
 - (void)initializeSamplingContextWithOptions:(int)options
@@ -290,25 +336,20 @@ uint64_t __59__VMUSampler_initWithPID_task_processName_is64Bit_options___block_i
   }
 
   date = [MEMORY[0x1E695DF00] date];
-  opaque_1 = self->_symbolicator._opaque_1;
   options = self->_options;
   if ((options & 0x200) != 0)
   {
-    v10 = (options >> 3) & 0x20 | (options >> 2) & 0x10 | (options >> 4) & 0x1C0 | options | 0x10;
+    v7 = (options >> 3) & 0x20 | (options >> 2) & 0x10 | (options >> 4) & 0x1C0 | options | 0x10;
   }
 
   else
   {
-    opaque_2 = self->_symbolicator._opaque_2;
-    v9 = self->_symbolicator._opaque_1;
-    v10 = (options >> 3) & 0x20 | (options >> 2) & 0x10 | (options >> 4) & 0x1C0 | options;
+    v7 = (options >> 3) & 0x20 | (options >> 2) & 0x10 | (options >> 4) & 0x1C0 | options;
   }
 
-  pid = self->_pid;
-  task = self->_task;
   sampling_context_for_task_pid_symbolicator = create_sampling_context_for_task_pid_symbolicator();
   self->_samplingContext = sampling_context_for_task_pid_symbolicator;
-  self->_samplingContextOptions = v10;
+  self->_samplingContextOptions = v7;
   if (!sampling_context_for_task_pid_symbolicator && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     [VMUSampler initializeSamplingContextWithOptions:];
@@ -317,7 +358,7 @@ uint64_t __59__VMUSampler_initWithPID_task_processName_is64Bit_options___block_i
   if (g_environment_flags == 1)
   {
     [date timeIntervalSinceNow];
-    NSLog(&cfstr_TimeToInitiali.isa, -v14);
+    NSLog(&cfstr_TimeToInitiali.isa, -v9);
   }
 }
 
@@ -343,14 +384,14 @@ uint64_t __59__VMUSampler_initWithPID_task_processName_is64Bit_options___block_i
 - (unint64_t)recordSampleTo:(id)to timestamp:(unint64_t)timestamp thread:(unsigned int)thread clearMemoryCache:(BOOL)cache
 {
   cacheCopy = cache;
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   toCopy = to;
   threadCopy = thread;
   act_list = 0;
   act_listCnt = 0;
-  v53 = 0;
+  v52 = 0;
   *thread_info_out = 0u;
-  v52 = 0u;
+  v51 = 0u;
   if (!self->_samplingContext)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -384,7 +425,7 @@ uint64_t __59__VMUSampler_initWithPID_task_processName_is64Bit_options___block_i
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        [VMUSampler recordSampleTo:? timestamp:? thread:? clearMemoryCache:?];
+        [VMUSampler recordSampleTo:timestamp:thread:clearMemoryCache:];
       }
 
       goto LABEL_26;
@@ -405,7 +446,7 @@ uint64_t __59__VMUSampler_initWithPID_task_processName_is64Bit_options___block_i
         thread_info_outCnt[0] = 10;
         if (!thread_info(v15, 3u, thread_info_out, thread_info_outCnt))
         {
-          v13[i] = DWORD2(v52);
+          v13[i] = DWORD2(v51);
         }
       }
     }
@@ -425,7 +466,7 @@ uint64_t __59__VMUSampler_initWithPID_task_processName_is64Bit_options___block_i
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      [VMUSampler recordSampleTo:? timestamp:? thread:? clearMemoryCache:?];
+      [VMUSampler recordSampleTo:timestamp:thread:clearMemoryCache:];
     }
 
 LABEL_26:
@@ -433,76 +474,76 @@ LABEL_26:
     goto LABEL_27;
   }
 
-  v19 = act_listCnt;
+  v18 = act_listCnt;
   if (self->_dispatchThreadSoftLimit - 1 < act_listCnt || self->_dispatchThreadHardLimit - 1 < act_listCnt)
   {
     [(VMUSampler *)self _checkDispatchThreadLimits];
-    v19 = act_listCnt;
+    v18 = act_listCnt;
   }
 
-  if (act_list && v19)
+  if (act_list && v18)
   {
-    v45 = __PAIR64__(v12, cacheCopy);
-    v46 = toCopy;
+    v44 = __PAIR64__(v12, cacheCopy);
+    v45 = toCopy;
     self->_mainThread = *act_list;
-    v47 = (BYTE1(self->_options) >> 5) & 1;
+    v46 = (BYTE1(self->_options) >> 5) & 1;
 LABEL_36:
-    v20 = 0;
-    v48 = 0;
-    v21 = g_environment_flags;
-    v22 = MEMORY[0x1E69E9C10];
+    v19 = 0;
+    v47 = 0;
+    v20 = g_environment_flags;
+    v21 = MEMORY[0x1E69E9C10];
     while (1)
     {
-      v23 = act_list[v20];
-      if (v13 && !v13[v20])
+      v22 = act_list[v19];
+      if (v13 && !v13[v19])
       {
         goto LABEL_68;
       }
 
-      v50 = 10;
-      v24 = thread_info(v23, 3u, thread_info_out, &v50);
-      if (v24)
+      v49 = 10;
+      v23 = thread_info(v22, 3u, thread_info_out, &v49);
+      if (v23)
       {
-        v25 = v24;
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v24 = v23;
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           pid = self->_pid;
           thread_info_outCnt[0] = 67109888;
           thread_info_outCnt[1] = pid;
-          v58 = 1024;
-          v59 = v20;
-          v60 = 1024;
-          v61 = v23;
-          v62 = 1024;
-          v63 = v25;
-          _os_log_error_impl(&dword_1C679D000, v22, OS_LOG_TYPE_ERROR, "[VMUSampler recordSampleTo:...] thread_info failed for pid %u thread index %u thread %u, err %d", thread_info_outCnt, 0x1Au);
+          v57 = 1024;
+          v58 = v19;
+          v59 = 1024;
+          v60 = v22;
+          v61 = 1024;
+          v62 = v24;
+          _os_log_error_impl(&dword_1C679D000, v21, OS_LOG_TYPE_ERROR, "[VMUSampler recordSampleTo:...] thread_info failed for pid %u thread index %u thread %u, err %d", thread_info_outCnt, 0x1Au);
         }
 
         goto LABEL_67;
       }
 
-      v27 = NSMapGet(self->_lastThreadBacktraceMap, v23);
-      v28 = v27;
-      if (!v27)
+      v26 = NSMapGet(self->_lastThreadBacktraceMap, v22);
+      v27 = v26;
+      if (!v26)
       {
         break;
       }
 
-      v29 = thread_info_out[1];
-      v30 = *(v27 + 1);
-      if (thread_info_out[1] < v30)
+      v28 = thread_info_out[1];
+      v29 = *(v26 + 1);
+      if (thread_info_out[1] < v29)
       {
-        v29 = thread_info_out[1] + 1000000;
+        v28 = thread_info_out[1] + 1000000;
       }
 
-      if (v29 != v30 || thread_info_out[0] - *v27 != thread_info_out[1] < v30)
+      if (v28 != v29 || thread_info_out[0] - *v26 != thread_info_out[1] < v29)
       {
         break;
       }
 
-      v33 = *(v27 + 1);
+      v32 = *(v26 + 1);
       ++self->_numberOfCopiedBacktraces;
-      if (v33)
+      if (v32)
       {
         goto LABEL_56;
       }
@@ -510,13 +551,13 @@ LABEL_36:
 LABEL_66:
 
 LABEL_67:
-      v19 = act_listCnt;
+      v18 = act_listCnt;
 LABEL_68:
-      if (++v20 >= v19)
+      if (++v19 >= v18)
       {
-        toCopy = v46;
-        cacheCopy = v45;
-        if ((v45 & 0x100000000) != 0)
+        toCopy = v45;
+        cacheCopy = v44;
+        if ((v44 & 0x100000000) != 0)
         {
           goto LABEL_70;
         }
@@ -525,150 +566,150 @@ LABEL_68:
       }
     }
 
-    if (v21)
+    if (v20)
     {
       date = [MEMORY[0x1E695DF00] date];
 
-      v48 = date;
+      v47 = date;
     }
 
-    v33 = [[VMUBacktrace alloc] initWithSamplingContext:self->_samplingContext thread:v23];
-    if (v21)
+    v32 = [[VMUBacktrace alloc] initWithSamplingContext:self->_samplingContext thread:v22];
+    if (v20)
     {
-      [v48 timeIntervalSinceNow];
-      self->_timeSpentSampling = self->_timeSpentSampling - v34;
+      [v47 timeIntervalSinceNow];
+      self->_timeSpentSampling = self->_timeSpentSampling - v33;
     }
 
-    if (!v33)
+    if (!v32)
     {
       goto LABEL_66;
     }
 
 LABEL_56:
-    [(VMUBacktrace *)v33 setTimestamp:timestamp, v45];
-    v33->_callstack.context.pid = self->_pid;
+    [(VMUBacktrace *)v32 setTimestamp:timestamp, v44];
+    v32->_callstack.context.pid = self->_pid;
     if (v13)
     {
-      v35 = v13[v20];
+      v34 = v13[v19];
     }
 
     else
     {
-      v35 = 0;
+      v34 = 0;
     }
 
-    v33->_callstack.context.run_state = v35;
-    if (!v28)
+    v32->_callstack.context.run_state = v34;
+    if (!v27)
     {
-      v36 = malloc_type_malloc(0x10uLL, 0x108004057E67DB5uLL);
-      if (!v36)
+      v35 = malloc_type_malloc(0x10uLL, 0x108004057E67DB5uLL);
+      if (!v35)
       {
 LABEL_63:
-        if (v47)
+        if (v46)
         {
-          [(VMUSampler *)self printRecursiveBacktrace:v33 threadIndex:v20];
+          [(VMUSampler *)self printRecursiveBacktrace:v32 threadIndex:v19];
         }
 
-        [v46 addObject:v33];
+        [v45 addObject:v32];
         goto LABEL_66;
       }
 
-      v28 = v36;
-      NSMapInsert(self->_lastThreadBacktraceMap, v23, v36);
-      HIDWORD(v45) = 1;
+      v27 = v35;
+      NSMapInsert(self->_lastThreadBacktraceMap, v22, v35);
+      HIDWORD(v44) = 1;
     }
 
-    *v28 = *thread_info_out;
-    v28[1] = v33;
+    *v27 = *thread_info_out;
+    v27[1] = v32;
     goto LABEL_63;
   }
 
   self->_mainThread = 0;
-  v47 = (BYTE1(self->_options) >> 5) & 1;
-  if (v19)
+  v46 = (BYTE1(self->_options) >> 5) & 1;
+  if (v18)
   {
-    v45 = __PAIR64__(v12, cacheCopy);
-    v46 = toCopy;
+    v44 = __PAIR64__(v12, cacheCopy);
+    v45 = toCopy;
     goto LABEL_36;
   }
 
-  v48 = 0;
+  v47 = 0;
   if (v12)
   {
 LABEL_70:
     if (self->_previousThreadCount)
     {
+      v36 = 0;
       v37 = 0;
-      v38 = 0;
-      v39 = MEMORY[0x1E69E9A60];
+      v38 = MEMORY[0x1E69E9A60];
       do
       {
-        v40 = self->_previousThreadList[v37];
-        if (act_listCnt <= v38)
+        v39 = self->_previousThreadList[v36];
+        if (act_listCnt <= v37)
         {
 LABEL_76:
-          mach_port_deallocate(*v39, self->_previousThreadList[v37]);
-          NSMapRemove(self->_lastThreadBacktraceMap, v40);
+          mach_port_deallocate(*v38, self->_previousThreadList[v36]);
+          NSMapRemove(self->_lastThreadBacktraceMap, v39);
         }
 
         else
         {
-          v41 = 0;
-          while (act_list[v38 + v41] != v40)
+          v40 = 0;
+          while (act_list[v37 + v40] != v39)
           {
-            if (act_listCnt - v38 == ++v41)
+            if (act_listCnt - v37 == ++v40)
             {
               goto LABEL_76;
             }
           }
 
-          if (!v41)
+          if (!v40)
           {
-            ++v38;
+            ++v37;
           }
 
           if (!thread)
           {
-            mach_port_deallocate(*v39, self->_previousThreadList[v37]);
+            mach_port_deallocate(*v38, self->_previousThreadList[v36]);
           }
         }
 
-        ++v37;
+        ++v36;
       }
 
-      while (v37 < self->_previousThreadCount);
-      v19 = act_listCnt;
+      while (v36 < self->_previousThreadCount);
+      v18 = act_listCnt;
     }
 
     maxPreviousThreadCount = self->_maxPreviousThreadCount;
-    if (maxPreviousThreadCount >= v19)
+    if (maxPreviousThreadCount >= v18)
     {
       previousThreadList = self->_previousThreadList;
     }
 
     else
     {
-      v43 = 2 * maxPreviousThreadCount;
-      if (v43 > v19)
+      v42 = 2 * maxPreviousThreadCount;
+      if (v42 > v18)
       {
-        v19 = v43;
+        v18 = v42;
       }
 
-      self->_maxPreviousThreadCount = v19;
-      previousThreadList = malloc_type_realloc(self->_previousThreadList, 4 * v19, 0x100004052888210uLL);
+      self->_maxPreviousThreadCount = v18;
+      previousThreadList = malloc_type_realloc(self->_previousThreadList, 4 * v18, 0x100004052888210uLL);
       self->_previousThreadList = previousThreadList;
-      v19 = act_listCnt;
+      v18 = act_listCnt;
     }
 
-    memcpy(previousThreadList, act_list, 4 * v19);
-    v19 = act_listCnt;
+    memcpy(previousThreadList, act_list, 4 * v18);
+    v18 = act_listCnt;
     self->_previousThreadCount = act_listCnt;
   }
 
 LABEL_89:
-  if (v19)
+  if (v18)
   {
-    mach_vm_deallocate(*MEMORY[0x1E69E9A60], act_list, 4 * v19);
+    mach_vm_deallocate(*MEMORY[0x1E69E9A60], act_list, 4 * v18);
     act_listCnt = 0;
   }
 
@@ -684,7 +725,7 @@ LABEL_89:
 
   task_resume2(self->_suspensionToken);
   self->_stacksFixed = 0;
-  if (!(([toCopy count] != 0) | v47 & 1) && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  if (!(([toCopy count] != 0) | v46 & 1) && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     [VMUSampler recordSampleTo:timestamp:thread:clearMemoryCache:];
   }
@@ -692,41 +733,40 @@ LABEL_89:
   v16 = [toCopy count];
 
 LABEL_27:
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 - (void)_fixupStacks:(id)stacks
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   stacksCopy = stacks;
   v5 = stacksCopy;
   if (!self->_stacksFixed && self->_samplingContext)
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
-    v6 = [stacksCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
+    v6 = [stacksCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v12;
+      v8 = *v11;
       do
       {
         v9 = 0;
         do
         {
-          if (*v12 != v8)
+          if (*v11 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          [*(*(&v11 + 1) + 8 * v9++) fixupStackWithSamplingContext:self->_samplingContext symbolicator:{self->_symbolicator._opaque_1, self->_symbolicator._opaque_2}];
+          [*(*(&v10 + 1) + 8 * v9++) fixupStackWithSamplingContext:self->_samplingContext symbolicator:{self->_symbolicator._opaque_1, self->_symbolicator._opaque_2}];
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v7);
@@ -734,16 +774,74 @@ LABEL_27:
 
     self->_stacksFixed = 1;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_runSamplingThread
 {
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
+}
+
++ (id)sampleAllThreadsOfPID:(int)d
+{
+  v3 = [[self alloc] initWithPID:*&d];
+  sampleAllThreadsOnce = [v3 sampleAllThreadsOnce];
+
+  return sampleAllThreadsOnce;
+}
+
++ (id)sampleAllThreadsOfTask:(unsigned int)task
+{
+  v3 = [[self alloc] initWithTask:*&task];
+  sampleAllThreadsOnce = [v3 sampleAllThreadsOnce];
+
+  return sampleAllThreadsOnce;
+}
+
++ (id)sampleAllThreadsOfTask:(unsigned int)task symbolicate:(BOOL)symbolicate
+{
+  v4 = [[self alloc] initWithTask:*&task options:!symbolicate];
+  sampleAllThreadsOnce = [v4 sampleAllThreadsOnce];
+
+  return sampleAllThreadsOnce;
+}
+
+- (id)sampleThread:(unsigned int)thread
+{
+  if ((self->_options & 0x40) != 0)
+  {
+    v3 = 25;
+  }
+
+  else
+  {
+    v3 = 9;
+  }
+
+  return [(VMUSampler *)self sampleThread:*&thread withOptions:v3];
+}
+
+- (id)sampleThread:(unsigned int)thread withOptions:(int)options
+{
+  v4 = *&thread;
+  [(VMUSampler *)self initializeSamplingContextWithOptions:*&options];
+  if (self->_samplingContext)
+  {
+    thread_suspend(v4);
+    v6 = [[VMUBacktrace alloc] initWithSamplingContext:self->_samplingContext thread:v4];
+    thread_resume(v4);
+    samplingContext = self->_samplingContext;
+    symbolicator = [(VMUSampler *)self symbolicator];
+    [(VMUBacktrace *)v6 fixupStackWithSamplingContext:samplingContext symbolicator:symbolicator, v9];
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  return v6;
 }
 
 - (BOOL)start
@@ -815,17 +913,13 @@ LABEL_27:
 
 - (void)setSymbolicator:(_CSTypeRef)symbolicator
 {
-  opaque_1 = self->_symbolicator._opaque_1;
-  opaque_2 = self->_symbolicator._opaque_2;
   if ((CSIsNull() & 1) == 0)
   {
-    v6 = self->_symbolicator._opaque_1;
-    v7 = self->_symbolicator._opaque_2;
     CSRelease();
   }
 
   self->_symbolicator._opaque_1 = CSRetain();
-  self->_symbolicator._opaque_2 = v8;
+  self->_symbolicator._opaque_2 = v4;
 }
 
 - (_CSTypeRef)symbolicator
@@ -1159,7 +1253,7 @@ LABEL_27:
 - (void)writeOutput:(id)output append:(BOOL)append
 {
   appendCopy = append;
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   outputCopy = output;
   v7 = objc_autoreleasePoolPush();
   outputString = [(VMUSampler *)self outputString];
@@ -1191,8 +1285,8 @@ LABEL_27:
   else
   {
     processName = self->_processName;
-    v27 = self->_options;
-    v28 = v7;
+    v26 = self->_options;
+    v27 = v7;
     if (!processName)
     {
       self->_processName = @"unknown-process";
@@ -1210,7 +1304,7 @@ LABEL_27:
     }
 
     v22 = [v20 stringFromDate:date];
-    v26 = v19;
+    v25 = v19;
     v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/tmp/%@_%@_XXXX.sample.txt", v19, v22];
     snprintf(__str, 0x400uLL, "%s", [v23 UTF8String]);
     v24 = mkstemps(__str, 11);
@@ -1228,8 +1322,8 @@ LABEL_27:
       v12 = __str;
     }
 
-    options = v27;
-    v7 = v28;
+    options = v26;
+    v7 = v27;
     if (v14)
     {
 LABEL_6:
@@ -1294,52 +1388,48 @@ LABEL_20:
 
 LABEL_22:
   objc_autoreleasePoolPop(v7);
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (id)setUpForFormatFrame:(unint64_t)frame
 {
-  v5 = objc_opt_new();
-  opaque_1 = self->_symbolicator._opaque_1;
-  opaque_2 = self->_symbolicator._opaque_2;
+  v4 = objc_opt_new();
   CSSymbolicatorGetSymbolOwnerWithAddressAtTime();
   Name = CSSymbolOwnerGetName();
   if (Name)
   {
-    v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:Name];
+    v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:Name];
   }
 
   else
   {
-    v9 = @"???";
+    v6 = @"???";
   }
 
-  [v5 setObject:v9 forKeyedSubscript:@"region"];
+  [v4 setObject:v6 forKeyedSubscript:@"region"];
   if (CSIsNull())
   {
-    v10 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:frame];
-    v11 = @"imageOffset";
+    v7 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:frame];
+    v8 = @"imageOffset";
   }
 
   else
   {
     BaseAddress = CSSymbolOwnerGetBaseAddress();
-    v13 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:BaseAddress];
-    [v5 setObject:v13 forKeyedSubscript:@"base"];
+    v10 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:BaseAddress];
+    [v4 setObject:v10 forKeyedSubscript:@"base"];
 
     if (frame >= BaseAddress)
     {
-      v14 = frame - BaseAddress;
+      v11 = frame - BaseAddress;
     }
 
     else
     {
-      v14 = 0;
+      v11 = 0;
     }
 
-    v15 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v14];
-    [v5 setObject:v15 forKeyedSubscript:@"imageOffset"];
+    v12 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v11];
+    [v4 setObject:v12 forKeyedSubscript:@"imageOffset"];
 
     CSSymbolOwnerGetSymbolWithAddress();
     if (CSIsNull())
@@ -1347,20 +1437,20 @@ LABEL_22:
       goto LABEL_17;
     }
 
-    v16 = CSSymbolGetName();
-    if (v16)
+    v13 = CSSymbolGetName();
+    if (v13)
     {
-      v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v16];
-      [v5 setObject:v17 forKeyedSubscript:@"symbol"];
+      v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v13];
+      [v4 setObject:v14 forKeyedSubscript:@"symbol"];
     }
 
     else
     {
-      [v5 setObject:@"???" forKeyedSubscript:@"symbol"];
+      [v4 setObject:@"???" forKeyedSubscript:@"symbol"];
     }
 
-    v18 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:frame - CSSymbolGetRange()];
-    [v5 setObject:v18 forKeyedSubscript:@"symbolLocation"];
+    v15 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:frame - CSSymbolGetRange()];
+    [v4 setObject:v15 forKeyedSubscript:@"symbolLocation"];
 
     CSSymbolOwnerGetSourceInfoWithAddress();
     if (CSIsNull())
@@ -1374,24 +1464,24 @@ LABEL_22:
       goto LABEL_17;
     }
 
-    v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:Filename];
-    [v5 setObject:v20 forKeyedSubscript:@"sourceFile"];
+    v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:Filename];
+    [v4 setObject:v17 forKeyedSubscript:@"sourceFile"];
 
-    v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:CSSourceInfoGetLineNumber()];
-    v11 = @"sourceLine";
+    v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:CSSourceInfoGetLineNumber()];
+    v8 = @"sourceLine";
   }
 
-  [v5 setObject:v10 forKeyedSubscript:v11];
+  [v4 setObject:v7 forKeyedSubscript:v8];
 
 LABEL_17:
 
-  return v5;
+  return v4;
 }
 
 - (id)formatFrame:(unint64_t)frame showBinaryImage:(BOOL)image
 {
   imageCopy = image;
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v5 = [(VMUSampler *)self setUpForFormatFrame:frame];
   v6 = v5;
   if (v5)
@@ -1431,7 +1521,7 @@ LABEL_17:
 
     else
     {
-      v34 = unsignedLongLongValue2 + unsignedLongLongValue;
+      v33 = unsignedLongLongValue2 + unsignedLongLongValue;
       v14 = [v6 objectForKeyedSubscript:@"symbol"];
       v15 = [v6 objectForKeyedSubscript:@"symbolLocation"];
       if (v15)
@@ -1445,7 +1535,7 @@ LABEL_17:
         else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v36 = v15;
+          v35 = v15;
           _os_log_impl(&dword_1C679D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "*** ignoring non-numeric symbolLocation: '%@'", buf, 0xCu);
         }
       }
@@ -1463,7 +1553,7 @@ LABEL_17:
       v23 = v22;
       if (v14)
       {
-        v33 = v7;
+        v32 = v7;
         v24 = v15;
         v25 = imageCopy;
         v26 = MEMORY[0x1E696AEC0];
@@ -1477,7 +1567,7 @@ LABEL_17:
         v29 = v26;
         imageCopy = v25;
         v15 = v24;
-        v7 = v33;
+        v7 = v32;
         v17 = [v29 stringWithFormat:@"%@ + %llu%@%@", v14, unsignedLongLongValue2, v21, v28];
       }
 
@@ -1486,7 +1576,7 @@ LABEL_17:
         v17 = 0;
       }
 
-      v13 = v34;
+      v13 = v33;
     }
 
     if (imageCopy)
@@ -1496,7 +1586,7 @@ LABEL_17:
 
     else
     {
-      [MEMORY[0x1E696AEC0] stringWithFormat:@"%#llx %@", v13, v17, v32];
+      [MEMORY[0x1E696AEC0] stringWithFormat:@"%#llx %@", v13, v17, v31];
     }
     v16 = ;
   }
@@ -1506,35 +1596,33 @@ LABEL_17:
     v16 = &stru_1F461F9C8;
   }
 
-  v30 = *MEMORY[0x1E69E9840];
-
   return v16;
 }
 
 - (BOOL)wasAllRecursionPreviouslyPrinted:(id)printed
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = printed;
-  v4 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v4 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v23;
+    v7 = *v22;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v23 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = [*(*(&v22 + 1) + 8 * i) objectForKeyedSubscript:@"keyPC"];
+        v9 = [*(*(&v21 + 1) + 8 * i) objectForKeyedSubscript:@"keyPC"];
         unsignedLongLongValue = [v9 unsignedLongLongValue];
 
         previousRecursionKeyPCs = self->_previousRecursionKeyPCs;
@@ -1559,7 +1647,7 @@ LABEL_17:
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v5 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v5);
@@ -1571,7 +1659,6 @@ LABEL_17:
     v18 = 1;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -1735,40 +1822,30 @@ LABEL_35:
 
 - (void)initWithPID:orTask:options:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithPID:orTask:options:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-- (void)recordSampleTo:(uint64_t)a1 timestamp:thread:clearMemoryCache:.cold.1(uint64_t a1)
+- (void)recordSampleTo:timestamp:thread:clearMemoryCache:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *(a1 + 16);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xEu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
-- (void)recordSampleTo:(uint64_t)a1 timestamp:thread:clearMemoryCache:.cold.3(uint64_t a1)
+- (void)recordSampleTo:timestamp:thread:clearMemoryCache:.cold.3()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *(a1 + 16);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xEu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
 @end

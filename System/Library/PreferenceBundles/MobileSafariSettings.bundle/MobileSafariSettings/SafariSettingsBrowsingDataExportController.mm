@@ -44,12 +44,13 @@
 void __101__SafariSettingsBrowsingDataExportController__numberOfHistorySitesToBeExportedWithCompletionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v6 = v4;
   if (v4)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXExport();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXExport(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __101__SafariSettingsBrowsingDataExportController__numberOfHistorySitesToBeExportedWithCompletionHandler___block_invoke_cold_1(v5, v4);
+      __101__SafariSettingsBrowsingDataExportController__numberOfHistorySitesToBeExportedWithCompletionHandler___block_invoke_cold_1(v7, v6);
     }
   }
 

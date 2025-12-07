@@ -140,11 +140,10 @@ LABEL_19:
 
 - (void)writeTo:(id)to
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if ([(_CPResultRankingFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -156,84 +155,78 @@ LABEL_19:
     PBDataWriterWriteSubmessage();
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v8 = self->_hiddenResults;
-  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v28 objects:v33 count:16];
-  if (v9)
-  {
-    v10 = v9;
-    v11 = *v29;
-    do
-    {
-      v12 = 0;
-      do
-      {
-        if (*v29 != v11)
-        {
-          objc_enumerationMutation(v8);
-        }
-
-        v13 = *(*(&v28 + 1) + 8 * v12);
-        PBDataWriterWriteSubmessage();
-        ++v12;
-      }
-
-      while (v10 != v12);
-      v10 = [(NSArray *)v8 countByEnumeratingWithState:&v28 objects:v33 count:16];
-    }
-
-    while (v10);
-  }
-
-  v26 = 0u;
-  v27 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v14 = self->_duplicateResults;
-  v15 = [(NSArray *)v14 countByEnumeratingWithState:&v24 objects:v32 count:16];
-  if (v15)
+  v22 = 0u;
+  v23 = 0u;
+  v7 = self->_hiddenResults;
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  if (v8)
   {
-    v16 = v15;
-    v17 = *v25;
+    v9 = v8;
+    v10 = *v23;
     do
     {
-      v18 = 0;
+      v11 = 0;
       do
       {
-        if (*v25 != v17)
+        if (*v23 != v10)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v7);
         }
 
-        v19 = *(*(&v24 + 1) + 8 * v18);
         PBDataWriterWriteSubmessage();
-        ++v18;
+        ++v11;
       }
 
-      while (v16 != v18);
-      v16 = [(NSArray *)v14 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      while (v9 != v11);
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
-    while (v16);
+    while (v9);
+  }
+
+  v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v12 = self->_duplicateResults;
+  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v18 objects:v26 count:16];
+  if (v13)
+  {
+    v14 = v13;
+    v15 = *v19;
+    do
+    {
+      v16 = 0;
+      do
+      {
+        if (*v19 != v15)
+        {
+          objc_enumerationMutation(v12);
+        }
+
+        PBDataWriterWriteSubmessage();
+        ++v16;
+      }
+
+      while (v14 != v16);
+      v14 = [(NSArray *)v12 countByEnumeratingWithState:&v18 objects:v26 count:16];
+    }
+
+    while (v14);
   }
 
   if ([(_CPResultRankingFeedback *)self localResultPosition])
   {
-    localResultPosition = self->_localResultPosition;
     PBDataWriterWriteUint32Field();
   }
 
   [(_CPResultRankingFeedback *)self personalizationScore];
-  if (v21 != 0.0)
+  if (v17 != 0.0)
   {
-    personalizationScore = self->_personalizationScore;
     PBDataWriterWriteDoubleField();
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addDuplicateResults:(id)results
@@ -256,9 +249,7 @@ LABEL_19:
 
 - (void)setDuplicateResults:(id)results
 {
-  v4 = [results mutableCopy];
-  duplicateResults = self->_duplicateResults;
-  self->_duplicateResults = v4;
+  self->_duplicateResults = [results mutableCopy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -283,9 +274,7 @@ LABEL_19:
 
 - (void)setHiddenResults:(id)results
 {
-  v4 = [results mutableCopy];
-  hiddenResults = self->_hiddenResults;
-  self->_hiddenResults = v4;
+  self->_hiddenResults = [results mutableCopy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -306,11 +295,11 @@ LABEL_19:
 
 - (_CPResultRankingFeedback)initWithFacade:(id)facade
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
-  v37.receiver = self;
-  v37.super_class = _CPResultRankingFeedback;
-  v5 = [(_CPResultRankingFeedback *)&v37 init];
+  v36.receiver = self;
+  v36.super_class = _CPResultRankingFeedback;
+  v5 = [(_CPResultRankingFeedback *)&v36 init];
   if (v5)
   {
     result = [facadeCopy result];
@@ -334,30 +323,30 @@ LABEL_19:
       v11 = 0;
     }
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     hiddenResults2 = [facadeCopy hiddenResults];
-    v13 = [hiddenResults2 countByEnumeratingWithState:&v33 objects:v39 count:16];
+    v13 = [hiddenResults2 countByEnumeratingWithState:&v32 objects:v38 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v34;
+      v15 = *v33;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v34 != v15)
+          if (*v33 != v15)
           {
             objc_enumerationMutation(hiddenResults2);
           }
 
-          v17 = [[_CPSearchResultForFeedback alloc] initWithFacade:*(*(&v33 + 1) + 8 * i)];
+          v17 = [[_CPSearchResultForFeedback alloc] initWithFacade:*(*(&v32 + 1) + 8 * i)];
           [v11 addObject:v17];
         }
 
-        v14 = [hiddenResults2 countByEnumeratingWithState:&v33 objects:v39 count:16];
+        v14 = [hiddenResults2 countByEnumeratingWithState:&v32 objects:v38 count:16];
       }
 
       while (v14);
@@ -375,30 +364,30 @@ LABEL_19:
       v19 = 0;
     }
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     duplicateResults2 = [facadeCopy duplicateResults];
-    v21 = [duplicateResults2 countByEnumeratingWithState:&v29 objects:v38 count:16];
+    v21 = [duplicateResults2 countByEnumeratingWithState:&v28 objects:v37 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v30;
+      v23 = *v29;
       do
       {
         for (j = 0; j != v22; ++j)
         {
-          if (*v30 != v23)
+          if (*v29 != v23)
           {
             objc_enumerationMutation(duplicateResults2);
           }
 
-          v25 = [[_CPSearchResultForFeedback alloc] initWithFacade:*(*(&v29 + 1) + 8 * j)];
+          v25 = [[_CPSearchResultForFeedback alloc] initWithFacade:*(*(&v28 + 1) + 8 * j)];
           [v19 addObject:v25];
         }
 
-        v22 = [duplicateResults2 countByEnumeratingWithState:&v29 objects:v38 count:16];
+        v22 = [duplicateResults2 countByEnumeratingWithState:&v28 objects:v37 count:16];
       }
 
       while (v22);
@@ -411,7 +400,6 @@ LABEL_19:
     v26 = v5;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

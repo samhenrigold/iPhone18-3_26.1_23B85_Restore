@@ -43,6 +43,8 @@
 - (void)setTestAccRequestWithReqParamsHandler:(id)handler;
 - (void)setTestAccRequestWithResParamsHandler:(id)handler;
 - (void)testDevRequestNoParamsWithCompletion:(id)completion;
+- (void)testDevRequestWithReqAndResParamsWithTestInput5:(unsigned __int8)input5 testInput6:(id)input6 completion:(id)completion;
+- (void)testDevRequestWithReqParamsWithTestInput1:(unsigned __int8)input1 testInput2:(id)input2 completion:(id)completion;
 - (void)testDevRequestWithResParamsWithCompletion:(id)completion;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -179,6 +181,30 @@ void __59__CAFTestControlSync_testDevRequestNoParamsWithCompletion___block_invok
   return v4;
 }
 
+- (void)testDevRequestWithReqParamsWithTestInput1:(unsigned __int8)input1 testInput2:(id)input2 completion:(id)completion
+{
+  input1Copy = input1;
+  input2Copy = input2;
+  completionCopy = completion;
+  testDevRequestWithReqParamsControl = [(CAFTestControlSync *)self testDevRequestWithReqParamsControl];
+  v11 = testDevRequestWithReqParamsControl;
+  if (testDevRequestWithReqParamsControl)
+  {
+    [testDevRequestWithReqParamsControl testDevRequestWithReqParamsWithTestInput1:input1Copy testInput2:input2Copy completion:completionCopy];
+  }
+
+  else if (completionCopy)
+  {
+    v12 = dispatch_get_global_queue(33, 0);
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __86__CAFTestControlSync_testDevRequestWithReqParamsWithTestInput1_testInput2_completion___block_invoke;
+    block[3] = &unk_27890D5E8;
+    v14 = completionCopy;
+    dispatch_async(v12, block);
+  }
+}
+
 void __86__CAFTestControlSync_testDevRequestWithReqParamsWithTestInput1_testInput2_completion___block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
@@ -295,6 +321,30 @@ void __64__CAFTestControlSync_testDevRequestWithResParamsWithCompletion___block_
   }
 
   return v4;
+}
+
+- (void)testDevRequestWithReqAndResParamsWithTestInput5:(unsigned __int8)input5 testInput6:(id)input6 completion:(id)completion
+{
+  input5Copy = input5;
+  input6Copy = input6;
+  completionCopy = completion;
+  testDevRequestWithReqAndResParamsControl = [(CAFTestControlSync *)self testDevRequestWithReqAndResParamsControl];
+  v11 = testDevRequestWithReqAndResParamsControl;
+  if (testDevRequestWithReqAndResParamsControl)
+  {
+    [testDevRequestWithReqAndResParamsControl testDevRequestWithReqAndResParamsWithTestInput5:input5Copy testInput6:input6Copy completion:completionCopy];
+  }
+
+  else if (completionCopy)
+  {
+    v12 = dispatch_get_global_queue(33, 0);
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __92__CAFTestControlSync_testDevRequestWithReqAndResParamsWithTestInput5_testInput6_completion___block_invoke;
+    block[3] = &unk_27890D5E8;
+    v14 = completionCopy;
+    dispatch_async(v12, block);
+  }
 }
 
 void __92__CAFTestControlSync_testDevRequestWithReqAndResParamsWithTestInput5_testInput6_completion___block_invoke(uint64_t a1)

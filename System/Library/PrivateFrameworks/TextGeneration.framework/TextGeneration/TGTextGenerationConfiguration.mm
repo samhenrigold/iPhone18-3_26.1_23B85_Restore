@@ -34,99 +34,99 @@ uint64_t __57__TGTextGenerationConfiguration_defaultConfigurationUUID__block_inv
 
 + (id)defaultConfiguration
 {
-  v59 = *MEMORY[0x277D85DE8];
-  v52 = [MEMORY[0x277CBEB58] set];
+  v65 = *MEMORY[0x277D85DE8];
+  v58 = [MEMORY[0x277CBEB58] set];
   v2 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v51 = v2;
-  v3 = [v2 URLForResource:@"Configuration" withExtension:@"plist"];
-  if (v3)
+  v57 = v2;
+  v4 = [v2 URLForResource:@"Configuration" withExtension:@"plist"];
+  if (v4)
   {
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v3];
-    if (v4)
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v4];
+    if (v6)
     {
-      v50 = +[TGTextGenerationConfiguration defaultConfigurationUUID];
-      uUIDString = [v50 UUIDString];
-      v6 = [v4 objectForKey:uUIDString];
+      v56 = +[TGTextGenerationConfiguration defaultConfigurationUUID];
+      uUIDString = [v56 UUIDString];
+      v8 = [v6 objectForKey:uUIDString];
 
-      v47 = v6;
-      if (v50)
+      v53 = v8;
+      if (v56)
       {
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v7 = v6;
+          v11 = v8;
         }
 
         else
         {
-          v7 = 0;
+          v11 = 0;
         }
 
-        v8 = v7;
-        v48 = v8;
-        if (v8)
+        v12 = v11;
+        v54 = v12;
+        if (v12)
         {
-          v9 = [v8 objectForKeyedSubscript:@"resources", v6];
+          v14 = [v12 objectForKeyedSubscript:@"resources", v8];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v10 = [v48 objectForKeyedSubscript:@"resources"];
+            v15 = [v54 objectForKeyedSubscript:@"resources"];
           }
 
           else
           {
-            v10 = 0;
+            v15 = 0;
           }
 
-          v55 = 0u;
-          v56 = 0u;
-          v53 = 0u;
-          v54 = 0u;
-          obj = v10;
-          v27 = [obj countByEnumeratingWithState:&v53 objects:v57 count:16];
-          if (v27)
+          v61 = 0u;
+          v62 = 0u;
+          v59 = 0u;
+          v60 = 0u;
+          obj = v15;
+          v32 = [obj countByEnumeratingWithState:&v59 objects:v63 count:16];
+          if (v32)
           {
-            v28 = *v54;
+            v33 = *v60;
 LABEL_25:
-            v29 = 0;
+            v34 = 0;
             while (1)
             {
-              if (*v54 != v28)
+              if (*v60 != v33)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v30 = *(*(&v53 + 1) + 8 * v29);
+              v35 = *(*(&v59 + 1) + 8 * v34);
               objc_opt_class();
-              v31 = (objc_opt_isKindOfClass() & 1) != 0 ? v30 : 0;
-              v32 = v31;
-              if (!v32)
+              v36 = (objc_opt_isKindOfClass() & 1) != 0 ? v35 : 0;
+              v37 = v36;
+              if (!v37)
               {
                 break;
               }
 
-              v33 = v32;
-              v34 = [TGTextGenerationResource createWithResourceDict:v32];
-              if (!v34)
+              v39 = v37;
+              v41 = [TGTextGenerationResource createWithResourceDict:v37];
+              if (!v41)
               {
-                v38 = _nlpDefaultLog();
-                if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+                v45 = _nlpDefaultLog(0, v40);
+                if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
                 {
-                  [(TGTextGenerationConfiguration *)v33 defaultConfiguration:v38];
+                  [(TGTextGenerationConfiguration *)v39 defaultConfiguration:v45];
                 }
 
 LABEL_41:
-                v17 = 0;
-                v36 = obj;
+                v22 = 0;
+                v43 = obj;
                 goto LABEL_42;
               }
 
-              [v52 addObject:v34];
+              [v58 addObject:v41];
 
-              if (v27 == ++v29)
+              if (v32 == ++v34)
               {
-                v27 = [obj countByEnumeratingWithState:&v53 objects:v57 count:16];
-                if (v27)
+                v32 = [obj countByEnumeratingWithState:&v59 objects:v63 count:16];
+                if (v32)
                 {
                   goto LABEL_25;
                 }
@@ -135,11 +135,11 @@ LABEL_41:
               }
             }
 
-            v33 = _nlpDefaultLog();
-            if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+            v39 = _nlpDefaultLog(0, v38);
+            if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
             {
-              v37 = objc_opt_class();
-              +[(TGTextGenerationConfiguration *)v30];
+              v44 = objc_opt_class();
+              +[(TGTextGenerationConfiguration *)v35];
             }
 
             goto LABEL_41;
@@ -147,66 +147,64 @@ LABEL_41:
 
 LABEL_35:
 
-          v35 = [TGTextGenerationConfiguration alloc];
-          v36 = +[TGTextGenerationConfiguration defaultConfigurationUUID];
-          v33 = +[TGTextGenerationDecodingPolicy defaultDecodingPolicy];
-          v17 = [(TGTextGenerationConfiguration *)v35 initWithUUID:v36 resources:v52 decodingPolicy:v33];
+          v42 = [TGTextGenerationConfiguration alloc];
+          v43 = +[TGTextGenerationConfiguration defaultConfigurationUUID];
+          v39 = +[TGTextGenerationDecodingPolicy defaultDecodingPolicy];
+          v22 = [(TGTextGenerationConfiguration *)v42 initWithUUID:v43 resources:v58 decodingPolicy:v39];
 LABEL_42:
         }
 
         else
         {
-          obj = _nlpDefaultLog();
+          obj = _nlpDefaultLog(0, v13);
           if (os_log_type_enabled(obj, OS_LOG_TYPE_ERROR))
           {
-            v26 = objc_opt_class();
-            +[(TGTextGenerationConfiguration *)v50];
+            v31 = objc_opt_class();
+            +[(TGTextGenerationConfiguration *)v56];
           }
 
-          v17 = 0;
+          v22 = 0;
         }
       }
 
       else
       {
-        v25 = _nlpDefaultLog();
-        v48 = v25;
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        v30 = _nlpDefaultLog(v9, v10);
+        v54 = v30;
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
-          +[(TGTextGenerationConfiguration *)v4];
+          +[(TGTextGenerationConfiguration *)v6];
         }
 
-        v17 = 0;
+        v22 = 0;
       }
     }
 
     else
     {
-      v18 = _nlpDefaultLog();
-      v50 = v18;
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v23 = _nlpDefaultLog(0, v5);
+      v56 = v23;
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        [(TGTextGenerationConfiguration *)v3 defaultConfiguration:v18];
+        [(TGTextGenerationConfiguration *)v4 defaultConfiguration:v23];
       }
 
-      v17 = 0;
+      v22 = 0;
     }
   }
 
   else
   {
-    v4 = _nlpDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = _nlpDefaultLog(0, v3);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [(TGTextGenerationConfiguration *)v2 defaultConfiguration:v4];
+      [(TGTextGenerationConfiguration *)v2 defaultConfiguration:v6];
     }
 
-    v17 = 0;
+    v22 = 0;
   }
 
-  v45 = *MEMORY[0x277D85DE8];
-
-  return v17;
+  return v22;
 }
 
 - (TGTextGenerationConfiguration)initWithUUID:(id)d resources:(id)resources decodingPolicy:(id)policy
@@ -323,50 +321,48 @@ LABEL_42:
 
 - (id)description
 {
-  v11[3] = *MEMORY[0x277D85DE8];
-  v10[0] = @"uuid";
+  v10[3] = *MEMORY[0x277D85DE8];
+  v9[0] = @"uuid";
   uuid = [(TGTextGenerationConfiguration *)self uuid];
-  v11[0] = uuid;
-  v10[1] = @"resources";
+  v10[0] = uuid;
+  v9[1] = @"resources";
   resources = [(TGTextGenerationConfiguration *)self resources];
-  v11[1] = resources;
-  v10[2] = @"decodingPolicy";
+  v10[1] = resources;
+  v9[2] = @"decodingPolicy";
   decodingPolicy = [(TGTextGenerationConfiguration *)self decodingPolicy];
-  v11[2] = decodingPolicy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
+  v10[2] = decodingPolicy;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
   v7 = [v6 description];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (TGITextGenerationInferenceModelConfiguration)modelConfiguration
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   *(&retstr[2].var0.var0.var1 + 2) = 0;
   *&retstr[1].var0.var0.var1.var1 = 0u;
   *retstr[2].var0.var0.var0.var0 = 0u;
   *retstr->var0.var0.var0.var0 = 0u;
   *(&retstr->var0.var0.var1 + 1) = 0u;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   resources = [v1 resources];
-  v4 = [resources countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v4 = [resources countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v4)
   {
     v5 = 0;
-    v6 = *v20;
-    for (i = *v20; ; i = *v20)
+    v6 = *v19;
+    for (i = *v19; ; i = *v19)
     {
       if (i != v6)
       {
         objc_enumerationMutation(resources);
       }
 
-      v8 = *(*(&v19 + 1) + 8 * v5);
+      v8 = *(*(&v18 + 1) + 8 * v5);
       if ([v8 type] == 1)
       {
         v9 = [v8 url];
@@ -389,7 +385,7 @@ LABEL_42:
 
       if (++v5 >= v4)
       {
-        v4 = [resources countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v4 = [resources countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (!v4)
         {
           break;
@@ -400,15 +396,14 @@ LABEL_42:
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 + (void)defaultConfiguration
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_26D3B8000, a2, a3, "Failed to look for configuration plist in bundle: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_1_0(&dword_26D3B8000, a2, a3, "Failed to look for configuration plist in bundle: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -69,7 +69,8 @@ LABEL_6:
 
 - (BOOL)allocateInputBufferObjects
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v10[1] = 0;
   if (e5rt_io_port_retain_tensor_desc())
   {
     e5rt_get_last_error_message();
@@ -107,7 +108,10 @@ LABEL_14:
   else
   {
     e5rt_tensor_desc_release();
-    getPortShape();
+    v9 = 0;
+    v10[0] = 0;
+    v8 = 0;
+    getPortShape(self->_input_port, v10, &v9, &v8, &v7);
     if ((global_logLevel & 8) != 0)
     {
       v4 = global_logger;
@@ -115,13 +119,13 @@ LABEL_14:
       {
         inputPortName = self->_inputPortName;
         *buf = 138413058;
-        v8 = inputPortName;
-        v9 = 2048;
-        v10 = 0;
-        v11 = 2048;
-        v12 = 0;
+        v12 = inputPortName;
         v13 = 2048;
-        v14 = 0;
+        v14 = v10[0];
+        v15 = 2048;
+        v16 = v9;
+        v17 = 2048;
+        v18 = v8;
         _os_log_debug_impl(&dword_24874B000, v4, OS_LOG_TYPE_DEBUG, "Input [%@]: %ld x %ld x %ld", buf, 0x2Au);
       }
     }

@@ -1,6 +1,6 @@
 @interface CLATVAirplayDevice
 - (CLATVAirplayDevice)initWithTimestamp:(uint64_t)timestamp RSSI:(int)i uuid:(void *)uuid ipv4:(unsigned int)ipv4 channel:(int)channel;
-- (id)cppObject;
+- (void)cppObject;
 - (void)dealloc;
 @end
 
@@ -31,7 +31,7 @@
   [(CLATVAirplayDevice *)&v3 dealloc];
 }
 
-- (id)cppObject
+- (void)cppObject
 {
   v4 = [objc_msgSend(objc_msgSend(self "uuid")];
   v5 = strlen(v4);

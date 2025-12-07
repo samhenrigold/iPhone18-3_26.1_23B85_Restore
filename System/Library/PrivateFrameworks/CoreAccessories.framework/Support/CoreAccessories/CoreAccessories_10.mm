@@ -15,10 +15,10 @@ uint64_t iap2_voiceOver_isSupportedOnConnection(uint64_t a1)
 uint64_t _checkIdentificationInfo_13(uint64_t a1)
 {
   v5 = 0;
-  result = iap2_identification_checkIdentificationMsgIDs(a1, &gskMsgVoiceOverMainList, 0xCu, &v5 + 1);
+  result = iap2_identification_checkIdentificationMsgIDs(a1, &gskMsgVoiceOverMainList, 12, &v5 + 1);
   if (HIBYTE(v5) != 1 || result == 0)
   {
-    LODWORD(result) = iap2_identification_checkIdentificationMsgIDs(a1, &gskMsgVoiceOverCursorList, 3u, &v5);
+    LODWORD(result) = iap2_identification_checkIdentificationMsgIDs(a1, &gskMsgVoiceOverCursorList, 3, &v5);
     if ((v5 & 0x100) != 0)
     {
       v4 = result;
@@ -56,10 +56,11 @@ uint64_t OUTLINED_FUNCTION_25_6(const __CFString *a1)
   return CFStringGetCString(a1, v1, 1024, 0x8000100u);
 }
 
-void OUTLINED_FUNCTION_26_10(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_26_10(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 0x16u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 0x16u);
 }
 
 uint64_t OUTLINED_FUNCTION_31_11()
@@ -68,10 +69,10 @@ uint64_t OUTLINED_FUNCTION_31_11()
   return iap2_feature_getFeature(v0, 0x15u);
 }
 
-uint64_t OUTLINED_FUNCTION_43_8(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+uint64_t OUTLINED_FUNCTION_43_8(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
 
-  return printf(v10);
+  return printf(v10, a2, a3, a4, a5, a6, a7, a8);
 }
 
 void _iap2_endpoint_dispatchQueueFinalizer(uint64_t a1)
@@ -146,7 +147,7 @@ void _iap2_endpoint_dispatchQueueFinalizer(uint64_t a1)
   }
 }
 
-uint64_t iap2_endpoint_destroy(void ***a1)
+uint64_t iap2_endpoint_destroy(uint64_t **a1)
 {
   if (a1)
   {
@@ -158,21 +159,21 @@ uint64_t iap2_endpoint_destroy(void ***a1)
         iap2_power_unregisterForSleepNotification(v2);
       }
 
-      acc_platform_packetLogging_logEvent(*v2, "DETACH", "iAP2 accessory detached!", v3, v4, v5, v6, v7, v14[0]);
-      v8 = v2[3];
+      acc_platform_packetLogging_logEvent(*v2, "DETACH", "iAP2 accessory detached!");
+      v3 = v2[3];
       block[0] = _NSConcreteStackBlock;
       block[1] = 0x40000000;
       block[2] = __iap2_endpoint_destroy_block_invoke;
       block[3] = &__block_descriptor_tmp_24;
       block[4] = v2;
-      dispatch_sync(v8, block);
-      v9 = v2[3];
-      v15[0] = _NSConcreteStackBlock;
-      v15[1] = 0x40000000;
-      v15[2] = __iap2_endpoint_destroy_block_invoke_4;
-      v15[3] = &__block_descriptor_tmp_5_2;
-      v15[4] = v2;
-      dispatch_sync(v9, v15);
+      dispatch_sync(v3, block);
+      v4 = v2[3];
+      v10[0] = _NSConcreteStackBlock;
+      v10[1] = 0x40000000;
+      v10[2] = __iap2_endpoint_destroy_block_invoke_4;
+      v10[3] = &__block_descriptor_tmp_5_2;
+      v10[4] = v2;
+      dispatch_sync(v4, v10);
       dispatch_release(v2[3]);
       *a1 = 0;
       return 1;
@@ -182,17 +183,17 @@ uint64_t iap2_endpoint_destroy(void ***a1)
     {
       if (gLogObjects)
       {
-        v11 = gNumLogObjects < 20;
+        v6 = gNumLogObjects < 20;
       }
 
       else
       {
-        v11 = 1;
+        v6 = 1;
       }
 
-      if (v11)
+      if (v6)
       {
-        v12 = &_os_log_default;
+        v7 = &_os_log_default;
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
           platform_connectionInfo_configStreamGetCategories_cold_2();
@@ -201,15 +202,15 @@ uint64_t iap2_endpoint_destroy(void ***a1)
 
       else
       {
-        v12 = *(gLogObjects + 152);
+        v7 = *(gLogObjects + 152);
       }
 
-      v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+      v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
       result = 0;
-      if (v13)
+      if (v8)
       {
-        LOWORD(v14[0]) = 0;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "iAP2 Endpoint Destroy. *ppProtocolEndpoint is null!", v14, 2u);
+        *v9 = 0;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "iAP2 Endpoint Destroy. *ppProtocolEndpoint is null!", v9, 2u);
         return 0;
       }
     }
@@ -217,8 +218,8 @@ uint64_t iap2_endpoint_destroy(void ***a1)
 
   else
   {
-    iap2_endpoint_destroy_cold_2(v14);
-    return LOBYTE(v14[0]);
+    iap2_endpoint_destroy_cold_2(v9);
+    return v9[0];
   }
 
   return result;
@@ -357,7 +358,7 @@ void iap2_endpoint_linkStateChanged(uint64_t a1, int a2)
 uint64_t _checkIdentificationInfo_14(uint64_t a1)
 {
   v10 = 0;
-  v2 = iap2_identification_checkIdentificationMsgIDs(a1, &gskMsgBLEPairingMainList, 8u, &v10);
+  v2 = iap2_identification_checkIdentificationMsgIDs(a1, &gskMsgBLEPairingMainList, 8, &v10);
   v3 = v2;
   v4 = v10;
   if (v10 != 1 || v2 == 0)
@@ -480,11 +481,11 @@ _BYTE *OUTLINED_FUNCTION_25_7(unsigned __int16 a1)
   return iAP2MsgAddDataParam(v1, 0, 1, v2, a1);
 }
 
-uint64_t OUTLINED_FUNCTION_26_11(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+uint64_t OUTLINED_FUNCTION_26_11(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
-  va_start(va, a6);
+  va_start(va, a10);
 
-  return iap2_identification_checkRequiredMsgIDs(v6, a2, 8, va);
+  return iap2_identification_checkRequiredMsgIDs(v10, a2, 8, va);
 }
 
 uint64_t OUTLINED_FUNCTION_27_10(uint64_t a1)
@@ -1368,7 +1369,7 @@ uint64_t iAP2LinkIsValidSynParam(unsigned __int8 *a1, unsigned int a2, uint64_t 
 
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        iAP2LinkIsValidSynParam_cold_2(a1);
+        iAP2LinkIsValidSynParam_cold_2();
       }
     }
   }
@@ -1395,7 +1396,7 @@ uint64_t iAP2LinkIsValidSynParam(unsigned __int8 *a1, unsigned int a2, uint64_t 
 
         if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
         {
-          iAP2LinkIsValidSynParam_cold_4(a1 + 2);
+          iAP2LinkIsValidSynParam_cold_4();
         }
       }
     }
@@ -1427,7 +1428,7 @@ uint64_t iAP2LinkIsValidSynParam(unsigned __int8 *a1, unsigned int a2, uint64_t 
 
           if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
           {
-            iAP2LinkIsValidSynParam_cold_6(a1 + 3);
+            iAP2LinkIsValidSynParam_cold_6();
           }
         }
       }
@@ -1838,7 +1839,7 @@ BOOL __iAP2LinkIsValidSynParamMaxOutstandingPackets(uint64_t a1)
   result = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
   if (result)
   {
-    __iAP2LinkIsValidSynParamMaxOutstandingPackets_cold_2(v2);
+    __iAP2LinkIsValidSynParamMaxOutstandingPackets_cold_2();
     return 0;
   }
 
@@ -1847,23 +1848,22 @@ BOOL __iAP2LinkIsValidSynParamMaxOutstandingPackets(uint64_t a1)
 
 BOOL __iAP2LinkIsValidSynParamCumAckTimeout(uint64_t a1)
 {
-  v1 = (a1 + 8);
-  v2 = *(a1 + 8);
-  if (v2 <= 9 && (_iAP2LogEnableMask & 4) != 0)
+  v1 = *(a1 + 8);
+  if (v1 <= 9 && (_iAP2LogEnableMask & 4) != 0)
   {
     if (gLogObjects)
     {
-      v3 = gNumLogObjects < 20;
+      v2 = gNumLogObjects < 20;
     }
 
     else
     {
-      v3 = 1;
+      v2 = 1;
     }
 
-    if (v3)
+    if (v2)
     {
-      v4 = &_os_log_default;
+      v3 = &_os_log_default;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         platform_connectionInfo_configStreamGetCategories_cold_2();
@@ -1872,37 +1872,36 @@ BOOL __iAP2LinkIsValidSynParamCumAckTimeout(uint64_t a1)
 
     else
     {
-      v4 = *(gLogObjects + 152);
+      v3 = *(gLogObjects + 152);
     }
 
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      __iAP2LinkIsValidSynParamCumAckTimeout_cold_2(v1);
+      __iAP2LinkIsValidSynParamCumAckTimeout_cold_2();
     }
   }
 
-  return v2 > 9;
+  return v1 > 9;
 }
 
 BOOL __iAP2LinkIsValidSynParamMaxRetransmissions(uint64_t a1)
 {
-  v1 = (a1 + 2);
-  v2 = *(a1 + 2) - 1;
-  if (v2 >= 0x1E && (_iAP2LogEnableMask & 4) != 0)
+  v1 = *(a1 + 2) - 1;
+  if (v1 >= 0x1E && (_iAP2LogEnableMask & 4) != 0)
   {
     if (gLogObjects)
     {
-      v3 = gNumLogObjects < 20;
+      v2 = gNumLogObjects < 20;
     }
 
     else
     {
-      v3 = 1;
+      v2 = 1;
     }
 
-    if (v3)
+    if (v2)
     {
-      v4 = &_os_log_default;
+      v3 = &_os_log_default;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         platform_connectionInfo_configStreamGetCategories_cold_2();
@@ -1911,21 +1910,20 @@ BOOL __iAP2LinkIsValidSynParamMaxRetransmissions(uint64_t a1)
 
     else
     {
-      v4 = *(gLogObjects + 152);
+      v3 = *(gLogObjects + 152);
     }
 
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      __iAP2LinkIsValidSynParamMaxRetransmissions_cold_2(v1);
+      __iAP2LinkIsValidSynParamMaxRetransmissions_cold_2();
     }
   }
 
-  return v2 < 0x1E;
+  return v1 < 0x1E;
 }
 
 BOOL __iAP2LinkIsValidSynParamMaxCumAck(uint64_t a1)
 {
-  v1 = (a1 + 3);
   if ((*(a1 + 3) & 0x80000000) == 0 && *(a1 + 3) <= *(a1 + 1))
   {
     return 1;
@@ -1938,17 +1936,17 @@ BOOL __iAP2LinkIsValidSynParamMaxCumAck(uint64_t a1)
 
   if (gLogObjects)
   {
-    v3 = gNumLogObjects < 20;
+    v2 = gNumLogObjects < 20;
   }
 
   else
   {
-    v3 = 1;
+    v2 = 1;
   }
 
-  if (v3)
+  if (v2)
   {
-    v4 = &_os_log_default;
+    v3 = &_os_log_default;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       platform_connectionInfo_configStreamGetCategories_cold_2();
@@ -1957,13 +1955,13 @@ BOOL __iAP2LinkIsValidSynParamMaxCumAck(uint64_t a1)
 
   else
   {
-    v4 = *(gLogObjects + 152);
+    v3 = *(gLogObjects + 152);
   }
 
-  result = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+  result = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
   if (result)
   {
-    __iAP2LinkIsValidSynParamMaxCumAck_cold_2(v1);
+    __iAP2LinkIsValidSynParamMaxCumAck_cold_2();
     return 0;
   }
 
@@ -2801,11 +2799,10 @@ LABEL_9:
   }
 
   *(v8 + 31) = iAP2BuffPoolInit(1u, v8, *(v8 + 96), a6, v26);
-  v27 = *(v8 + 96);
-  v28 = v26 + iAP2BuffPoolGetBuffSize(1u);
-  *(v8 + 32) = iAP2BuffPoolInit(0, v8, 0, 0, v28);
+  v27 = v26 + iAP2BuffPoolGetBuffSize(1u);
+  *(v8 + 32) = iAP2BuffPoolInit(0, v8, 0, 0, v27);
   BuffSize = iAP2BuffPoolGetBuffSize(0);
-  *(v8 + 33) = iAP2TimeSyncInit(v28 + BuffSize);
+  *(v8 + 33) = iAP2TimeSyncInit(v27 + BuffSize);
   iAP2TimeSyncGetBuffSize();
   return v8;
 }
@@ -3017,15 +3014,15 @@ uint64_t iAP2LinkResetSeqAck(uint64_t a1, char a2, int a3)
   return result;
 }
 
-void iAP2LinkShuttingDown(uint64_t a1)
+void iAP2LinkShuttingDown(uint64_t result)
 {
-  if (a1)
+  if (result)
   {
-    v2 = *(a1 + 200);
+    v2 = *(result + 200);
     if (v2)
     {
       iAP2TimeDelete(v2);
-      *(a1 + 200) = 0;
+      *(result + 200) = 0;
     }
   }
 }
@@ -3061,43 +3058,42 @@ void iAP2LinkDelete(uint64_t a1)
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v4 = "No";
-      v12 = "iAP2LinkDelete";
-      v11 = 136315650;
+      v11 = "iAP2LinkDelete";
+      v10 = 136315650;
       if (!a1)
       {
         v4 = "Yes";
       }
 
-      v13 = 1024;
-      v14 = 3373;
-      v15 = 2080;
-      v16 = v4;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "%s:%d link null?: %s", &v11, 0x1Cu);
+      v12 = 1024;
+      v13 = 3373;
+      v14 = 2080;
+      v15 = v4;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "%s:%d link null?: %s", &v10, 0x1Cu);
     }
   }
 
   if (a1)
   {
-    v5 = *(a1 + 8);
-    if (v5)
+    if (*(a1 + 8))
     {
-      iAP2LinkRunLoopInitImplementation(v5);
+      iAP2LinkRunLoopInitImplementation();
       *(a1 + 8) = 0;
     }
 
-    v6 = *(a1 + 280);
-    if (v6)
+    v5 = *(a1 + 280);
+    if (v5)
     {
-      iAP2PacketRelease(v6);
+      iAP2PacketRelease(v5);
       *(a1 + 280) = 0;
     }
 
     iAP2ListArrayCleanup(*(a1 + 288), _DeletePckCB);
     iAP2LinkResetSend(a1);
-    v7 = *(a1 + 200);
-    if (v7)
+    v6 = *(a1 + 200);
+    if (v6)
     {
-      iAP2TimeDelete(v7);
+      iAP2TimeDelete(v6);
       *(a1 + 200) = 0;
     }
 
@@ -3107,10 +3103,10 @@ void iAP2LinkDelete(uint64_t a1)
     *(a1 + 248) = 0;
     iAP2BuffPoolCleanup(*(a1 + 256));
     *(a1 + 256) = 0;
-    v8 = *(a1 + 264);
-    if (v8)
+    v7 = *(a1 + 264);
+    if (v7)
     {
-      iAP2TimeSyncCleanup(v8);
+      iAP2TimeSyncCleanup(v7);
       *(a1 + 264) = 0;
     }
   }
@@ -3119,17 +3115,17 @@ void iAP2LinkDelete(uint64_t a1)
   {
     if (gLogObjects)
     {
-      v9 = gNumLogObjects < 20;
+      v8 = gNumLogObjects < 20;
     }
 
     else
     {
-      v9 = 1;
+      v8 = 1;
     }
 
-    if (v9)
+    if (v8)
     {
-      v10 = &_os_log_default;
+      v9 = &_os_log_default;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         platform_connectionInfo_configStreamGetCategories_cold_2();
@@ -3138,16 +3134,16 @@ void iAP2LinkDelete(uint64_t a1)
 
     else
     {
-      v10 = *(gLogObjects + 152);
+      v9 = *(gLogObjects + 152);
     }
 
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315394;
-      v12 = "iAP2LinkDelete";
-      v13 = 1024;
-      v14 = 3419;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "ERROR: %s:%d NULL link!", &v11, 0x12u);
+      v10 = 136315394;
+      v11 = "iAP2LinkDelete";
+      v12 = 1024;
+      v13 = 3419;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "ERROR: %s:%d NULL link!", &v10, 0x12u);
     }
   }
 }
@@ -3272,7 +3268,7 @@ void iAP2LinkDetached(uint64_t a1)
   }
 }
 
-BOOL iAP2LinkQueueSendDataPacket(uint64_t a1, uint64_t *a2, unsigned int a3, uint64_t a4, uint64_t a5, void (*a6)(uint64_t, uint64_t), int a7)
+BOOL iAP2LinkQueueSendDataPacket(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, void (*a6)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, void (*)(uint64_t, uint64_t), uint64_t), uint64_t a7)
 {
   iAP2PacketRetain(a2);
   v14 = iAP2LinkQueueSendDataPacketInternal(a1, a2, a3, a4, a5, a6, a7);
@@ -3334,7 +3330,7 @@ void iAP2LinkHandleSuspend(uint64_t a1)
 
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    iAP2LinkHandleSuspend_cold_2(a1);
+    iAP2LinkHandleSuspend_cold_2();
   }
 
   else
@@ -3379,7 +3375,7 @@ void iAP2LinkHandleResume(uint64_t a1)
 
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    iAP2LinkHandleResume_cold_2(a1);
+    iAP2LinkHandleResume_cold_2();
   }
 
   else
@@ -3667,14 +3663,6 @@ unint64_t _ComparePckTimerIdCB(uint64_t a1, uint64_t *a2, int a3)
   return *(*a1 + 59) - *(v3 + 59);
 }
 
-uint64_t OUTLINED_FUNCTION_9_25@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 184);
-  v4 = *(result + 8);
-  return result;
-}
-
 const char *acm_mem_alloc_info(const char *result, const void *a2, uint64_t a3, const char *a4, int a5, const char *a6)
 {
   if (a2)
@@ -3857,7 +3845,7 @@ uint64_t ACMKernelControl(int a1)
   return v2;
 }
 
-uint64_t ioKitTransport(uint64_t *a1, char a2, char a3, const void *a4, size_t a5, void *a6, size_t *a7)
+uint64_t ioKitTransport(uint64_t *a1, uint64_t a2, uint64_t a3, const void *a4, size_t a5, void *a6, size_t *a7)
 {
   if (_logLevel <= 0xAu && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
@@ -3959,57 +3947,53 @@ LABEL_10:
   return v5;
 }
 
-uint64_t performCommand(uint64_t a1, char a2, char a3, const void *a4, size_t a5, void *a6, size_t *a7)
+uint64_t performCommand(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4, size_t a5, void *a6, size_t *a7)
 {
+  v11 = a3;
+  v12 = a2;
   if (_logLevel <= 0xAu && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_6_38();
     OUTLINED_FUNCTION_4_37();
-    _os_log_impl(v14, v15, v16, v17, v18, 0x16u);
+    _os_log_impl(v13, v14, v15, v16, v17, 0x16u);
   }
 
   inputStructCnt = 0;
-  v19 = LibCall_BuildCommand(a2, 0, a3, a4, a5, &inputStructCnt);
-  if (v19)
+  v18 = LibCall_BuildCommand(v12, 0, v11, a4, a5, &inputStructCnt);
+  if (v18)
   {
-    v20 = v19;
+    v19 = v18;
     if (!a6 && a7)
     {
-      v23 = 4294967293;
+      v21 = 4294967293;
     }
 
     else
     {
       if (a7)
       {
-        v21 = *a7;
+        v20 = *a7;
       }
 
       else
       {
-        v21 = 0;
+        v20 = 0;
       }
 
-      v44 = v21;
-      v22 = IOConnectCallStructMethod(dword_100246504, 0, v19, inputStructCnt, a6, &v44);
-      v23 = v22;
-      if (a1)
-      {
-        v24 = *(a1 + 16);
-      }
-
-      if (v22)
+      v41 = v20;
+      v21 = IOConnectCallStructMethod(dword_100246504, 0, v18, inputStructCnt, a6, &v41);
+      if (v21)
       {
         if (_logLevel <= 0x46u && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
         {
           OUTLINED_FUNCTION_6_38();
           OUTLINED_FUNCTION_27_11();
-          v49 = v25;
-          v50 = v23;
-          v51 = v25;
-          v52 = v23;
+          v46 = v22;
+          v47 = v21;
+          v48 = v22;
+          v49 = v21;
           OUTLINED_FUNCTION_4_37();
-          _os_log_impl(v26, v27, v28, v29, v30, 0x2Eu);
+          _os_log_impl(v23, v24, v25, v26, v27, 0x2Eu);
         }
       }
 
@@ -4020,49 +4004,49 @@ uint64_t performCommand(uint64_t a1, char a2, char a3, const void *a4, size_t a5
           OUTLINED_FUNCTION_6_38();
           OUTLINED_FUNCTION_27_11();
           OUTLINED_FUNCTION_4_37();
-          _os_log_impl(v31, v32, v33, v34, v35, 0x22u);
+          _os_log_impl(v28, v29, v30, v31, v32, 0x22u);
         }
 
-        v23 = 0;
+        v21 = 0;
         if (a7)
         {
-          *a7 = v44;
+          *a7 = v41;
         }
       }
     }
 
-    v36 = inputStructCnt;
-    acm_mem_free_info("<data>", v20, inputStructCnt, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/ACMLib/ACMLib.c", 134, "performCommand");
-    acm_mem_free_data(v20, v36);
-    if (v23)
+    v33 = inputStructCnt;
+    acm_mem_free_info("<data>", v19, inputStructCnt, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_ClientLibs/ACMLib/ACMLib.c", 134, "performCommand");
+    acm_mem_free_data(v19, v33);
+    if (v21)
     {
-      v37 = 70;
+      v34 = 70;
     }
 
     else
     {
-      v37 = 10;
+      v34 = 10;
     }
   }
 
   else
   {
-    v37 = 70;
-    v23 = 4294967291;
+    v34 = 70;
+    v21 = 4294967291;
   }
 
-  if (v37 >= _logLevel && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+  if (v34 >= _logLevel && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
   {
-    v46 = 136315650;
-    v47 = "ACMLib";
+    v43 = 136315650;
+    v44 = "ACMLib";
     OUTLINED_FUNCTION_13_19();
-    v48 = "performCommand";
+    v45 = "performCommand";
     OUTLINED_FUNCTION_1_41();
     OUTLINED_FUNCTION_4_37();
-    _os_log_impl(v38, v39, v40, v41, v42, 0x20u);
+    _os_log_impl(v35, v36, v37, v38, v39, 0x20u);
   }
 
-  return v23;
+  return v21;
 }
 
 uint64_t LibCall_ACMKernelControl(uint64_t (*a1)(uint64_t, uint64_t, void, char *, size_t, uint64_t, uint64_t), uint64_t a2, int a3, const void *a4, size_t a5, uint64_t a6, uint64_t a7)
@@ -4130,8 +4114,9 @@ LABEL_16:
   return v17;
 }
 
-uint64_t ccder_encode_extension(const void *a1, unint64_t a2, const void *a3, unint64_t a4, int a5, uint64_t *a6)
+uint64_t ccder_encode_extension(const void *a1, unint64_t a2, const void *a3, unint64_t a4, uint64_t a5, unint64_t *a6)
 {
+  v7 = a5;
   v12 = ccder_sizeof_extension(a2, a4, a5);
   v13 = a6[1];
   if (v13 - *a6 < v12)
@@ -4145,7 +4130,7 @@ uint64_t ccder_encode_extension(const void *a1, unint64_t a2, const void *a3, un
     return 0;
   }
 
-  if (a5)
+  if (v7)
   {
     v15 = a6[1];
     v16 = (v15 - 1);
@@ -4211,7 +4196,7 @@ uint64_t ccder_sizeof_extension(unint64_t a1, unint64_t a2, int a3)
   return result;
 }
 
-uint64_t CTDecompressGeneric(char *a1, int64_t a2, unint64_t *a3, unint64_t a4, unint64_t a5)
+uint64_t CTDecompressGeneric(char *a1, char *a2, unint64_t *a3, unint64_t a4, unint64_t a5)
 {
   v10 = 393217;
   if (!a1)
@@ -4277,15 +4262,15 @@ uint64_t CTDecompressGeneric(char *a1, int64_t a2, unint64_t *a3, unint64_t a4, 
       return Signature;
     }
 
-    v14 = (v5 + v6);
+    v14 = v5 + v6;
     v15 = CTNonVariableCompressedSizeForStyle(v8);
-    v16 = v11 - v15;
+    v16 = &v11[-v15];
     if (v11 < v15)
     {
       goto LABEL_233;
     }
 
-    v17 = v16 - *v106;
+    v17 = &v16[-*v106];
     if (v16 < *v106)
     {
       goto LABEL_233;
@@ -4313,7 +4298,7 @@ uint64_t CTDecompressGeneric(char *a1, int64_t a2, unint64_t *a3, unint64_t a4, 
       }
 
       v94 = v6;
-      if (&v7[v11] < v18 || v18 < v7 || v17 > &v7[v11] - v18)
+      if (&v11[v7] < v18 || v18 < v7 || v17 > &v11[v7] - v18)
       {
         goto LABEL_231;
       }
@@ -4537,7 +4522,7 @@ LABEL_59:
         goto LABEL_232;
       }
 
-      if (v11 - v30 < 0x14)
+      if (&v11[-v30] < 0x14)
       {
         goto LABEL_231;
       }
@@ -4572,7 +4557,7 @@ LABEL_59:
         goto LABEL_232;
       }
 
-      if (v11 - v30 < 0x14)
+      if (&v11[-v30] < 0x14)
       {
         goto LABEL_231;
       }
@@ -4658,8 +4643,8 @@ LABEL_99:
   }
 
   v44 = &v7[v42];
-  v45 = &v7[v11];
-  if (v44 > &v7[v11] || v44 < v7)
+  v45 = &v11[v7];
+  if (v44 > &v11[v7] || v44 < v7)
   {
     goto LABEL_231;
   }
@@ -4833,7 +4818,7 @@ LABEL_176:
     v77 = v10;
     v10 = __n;
     memcpy(v77, v55, __n);
-    if (v76 > v76 + __n)
+    if (v76 > __n + v76)
     {
       goto LABEL_231;
     }
@@ -4928,7 +4913,7 @@ LABEL_146:
   v66 = &v7[v63];
   if (v62)
   {
-    v67 = &v7[v11];
+    v67 = &v11[v7];
   }
 
   else
@@ -5285,7 +5270,7 @@ LABEL_235:
   return v78;
 }
 
-uint64_t CTCompressComputeBufferSize(unint64_t a1, uint64_t a2, void *a3)
+uint64_t CTCompressComputeBufferSize(unsigned __int8 *a1, uint64_t a2, void *a3)
 {
   if (__CFADD__(a1, a2))
   {
@@ -5294,7 +5279,7 @@ LABEL_16:
     __break(0x5519u);
   }
 
-  if (a1 + a2 < a1)
+  if (&a1[a2] < a1)
   {
     goto LABEL_16;
   }
@@ -5321,7 +5306,7 @@ LABEL_16:
   v16[2] = v6;
   v16[0] = v6;
   v15[0] = a1;
-  v15[1] = a1 + a2;
+  v15[1] = &a1[a2];
   v7 = X509CertificateParse(v16, v15);
   if (v7)
   {
@@ -5377,12 +5362,12 @@ LABEL_13:
   return result;
 }
 
-uint64_t CTCompressedStyleFromCert(uint64_t a1)
+uint64_t CTCompressedStyleFromCert(void *a1)
 {
-  v2 = a1 + 120;
+  v2 = (a1 + 15);
   v12[0] = 0xAAAAAAAAAAAAAAAALL;
   v12[1] = 0xAAAAAAAAAAAAAAAALL;
-  if (v2 > a1 + 136)
+  if (v2 > a1 + 17)
   {
     __break(0x5519u);
   }
@@ -5395,7 +5380,7 @@ uint64_t CTCompressedStyleFromCert(uint64_t a1)
   if (*(a1 + 265) == 1)
   {
     X509PolicySetFlagsForCommonNames(a1);
-    v4 = *(a1 + 240);
+    v4 = a1[30];
     if ((v4 & 0x400000000) != 0)
     {
       v5 = 0;
@@ -5420,7 +5405,7 @@ LABEL_13:
     return 255;
   }
 
-  if ((~*(a1 + 240) & 0xC00000000) != 0)
+  if ((~a1[30] & 0xC00000000) != 0)
   {
     return 255;
   }
@@ -5442,8 +5427,8 @@ LABEL_13:
 
   v10 = 0;
   v11 = 0;
-  v7 = CTParseExtensionValue(*a1, *(a1 + 8), &CTOidAppleMFI4AccessoryData, 0xAuLL, &v10, &v11);
-  v8 = CTParseExtensionValue(*a1, *(a1 + 8), &CTOidAppleMFI4ProductPlanUID, 0xAuLL, &v10, &v11);
+  v7 = CTParseExtensionValue(*a1, a1[1], &CTOidAppleMFI4AccessoryData, 0xAuLL, &v10, &v11);
+  v8 = CTParseExtensionValue(*a1, a1[1], &CTOidAppleMFI4ProductPlanUID, 0xAuLL, &v10, &v11);
   v9 = v6 | 2;
   if (v7)
   {
@@ -5525,7 +5510,7 @@ uint64_t CTNonVariableCompressedSizeForStyle(int a1)
   return result;
 }
 
-void CTCompress(unint64_t a1, uint64_t a2, _BYTE *a3, size_t a4)
+void CTCompress(unsigned __int8 *a1, uint64_t a2, _BYTE *a3, size_t a4)
 {
   v42 = 0;
   if (!CTCompressComputeBufferSize(a1, a2, &v42))
@@ -5561,7 +5546,7 @@ void CTCompress(unint64_t a1, uint64_t a2, _BYTE *a3, size_t a4)
         if (!__CFADD__(a1, a2))
         {
           v25 = a1;
-          v26 = a1 + a2;
+          v26 = &a1[a2];
           if (X509CertificateParse(v27, &v25))
           {
             return;
@@ -5612,7 +5597,7 @@ LABEL_55:
 
           if (a3 != -1)
           {
-            CommonNameSuffixPointer = CTCompressGetCommonNameSuffixPointer(v32 + 8);
+            CommonNameSuffixPointer = CTCompressGetCommonNameSuffixPointer(v32 + 1);
             if (!CommonNameSuffixPointer || a4 < 9)
             {
               goto LABEL_23;
@@ -5669,7 +5654,7 @@ LABEL_55:
 
                 *v15 = v48[0];
                 *(a3 + 29) = *(v48 + 6);
-                v16 = (a3 + 37);
+                v16 = a3 + 37;
                 if (v15 > (a3 + 37))
                 {
                   goto LABEL_55;
@@ -5677,7 +5662,7 @@ LABEL_55:
 
                 if (v15 <= 0xFFFFFFFFFFFFFFF1)
                 {
-                  v17 = CTCompressGetCommonNameSuffixPointer(&v31 + 8);
+                  v17 = CTCompressGetCommonNameSuffixPointer(&v31 + 1);
                   if (!v17)
                   {
                     v8 = 393224;
@@ -5693,7 +5678,7 @@ LABEL_20:
 
                   *(a3 + 37) = *v17;
                   v18 = a3 + 45;
-                  if (v16 > (a3 + 45))
+                  if (v16 > a3 + 45)
                   {
                     goto LABEL_55;
                   }
@@ -5806,7 +5791,7 @@ LABEL_54:
   }
 }
 
-uint64_t CTCompressAttestationLeaf(unint64_t *a1, unint64_t a2, unint64_t a3)
+uint64_t CTCompressAttestationLeaf(void *a1, unint64_t a2, unint64_t a3)
 {
   if (a2 == -1)
   {
@@ -5814,7 +5799,7 @@ uint64_t CTCompressAttestationLeaf(unint64_t *a1, unint64_t a2, unint64_t a3)
   }
 
   v4 = (a1 + 15);
-  if (v4 > (a1 + 17))
+  if (v4 > a1 + 17)
   {
     goto LABEL_78;
   }
@@ -6020,7 +6005,7 @@ uint64_t CTCompressAttestationLeaf(unint64_t *a1, unint64_t a2, unint64_t a3)
               }
 
               v24 = *v23;
-              *(a2 + 118) = *(v23 + 16);
+              *(a2 + 118) = *(v23 + 4);
               *v22 = v24;
               v25 = (a2 + 122);
               if (v22 > a2 + 122)
@@ -6140,7 +6125,7 @@ uint64_t CTCompressAttestationLeaf(unint64_t *a1, unint64_t a2, unint64_t a3)
                     if (v25 + v30 <= v10 && v34 >= a2 && __n <= v10 - v34)
                     {
                       memcpy(v25 + v30, __src, __n);
-                      if (v34 <= &v34[v33])
+                      if (v34 <= v34 + v33)
                       {
                         if (!__CFADD__(v34, v33))
                         {
@@ -6172,7 +6157,7 @@ LABEL_77:
   return v7;
 }
 
-uint64_t CTCompressMFiLeaf(unint64_t *a1, unint64_t a2, unint64_t a3)
+size_t CTCompressMFiLeaf(void *a1, unint64_t a2, unint64_t a3)
 {
   if (a2 == -1)
   {
@@ -6225,7 +6210,7 @@ uint64_t CTCompressMFiLeaf(unint64_t *a1, unint64_t a2, unint64_t a3)
     goto LABEL_78;
   }
 
-  CommonNameSuffixPointer = CTCompressGetCommonNameSuffixPointer((a1 + 15));
+  CommonNameSuffixPointer = CTCompressGetCommonNameSuffixPointer(a1 + 15);
   if (!CommonNameSuffixPointer)
   {
     return 393224;
@@ -6263,8 +6248,7 @@ uint64_t CTCompressMFiLeaf(unint64_t *a1, unint64_t a2, unint64_t a3)
       return v14;
     }
 
-    *(v41 + 6) = 0xAAAAAAAAAAAAAAAALL;
-    v41[0] = 0xAAAAAAAAAAAAAAAALL;
+    memset(v41, 170, 14);
     v14 = CTGetGeneralizedTime(v37, v41);
     if (v14)
     {
@@ -6406,7 +6390,7 @@ uint64_t CTCompressMFiLeaf(unint64_t *a1, unint64_t a2, unint64_t a3)
     }
 
     v24 = *v23;
-    *(a2 + 120) = *(v23 + 16);
+    *(a2 + 120) = *(v23 + 4);
     *v22 = v24;
     v25 = (a2 + 124);
     if (v22 > a2 + 124)
@@ -6519,7 +6503,7 @@ uint64_t CTCompressMFiLeaf(unint64_t *a1, unint64_t a2, unint64_t a3)
         if (v25 + v30 <= v10 && v33 >= a2 && __n <= v10 - v33)
         {
           memcpy(v25 + v30, __src, __n);
-          if (v33 <= &v33[v4])
+          if (v33 <= v33 + v4)
           {
             if (!__CFADD__(v33, v4))
             {
@@ -6541,12 +6525,12 @@ LABEL_79:
   return v4;
 }
 
-uint64_t CTDecompressIssuer(int a1, unint64_t a2, unint64_t a3, unint64_t *a4, unint64_t *a5)
+uint64_t CTDecompressIssuer(unsigned int a1, unint64_t a2, unint64_t a3, unint64_t *a4, unint64_t *a5)
 {
   result = 393218;
   if (a1 > 159)
   {
-    if ((a1 - 160) >= 4)
+    if (a1 - 160 >= 4)
     {
       if (a1 == 164)
       {
@@ -6651,7 +6635,7 @@ LABEL_32:
   return result;
 }
 
-uint64_t CTDecompressSerialNumber(int a1, _OWORD *a2, unint64_t a3, uint64_t *a4, unint64_t *a5)
+uint64_t CTDecompressSerialNumber(unsigned int a1, char *a2, unint64_t a3, unint64_t *a4, unint64_t *a5)
 {
   result = 393218;
   if (a1 <= 159)
@@ -6670,7 +6654,7 @@ uint64_t CTDecompressSerialNumber(int a1, _OWORD *a2, unint64_t a3, uint64_t *a4
     goto LABEL_7;
   }
 
-  if ((a1 - 160) >= 4)
+  if (a1 - 160 >= 4)
   {
     v12 = a1 - 164;
 LABEL_7:
@@ -6709,8 +6693,8 @@ LABEL_10:
   {
     if (!__CFADD__(a2, v15))
     {
-      v13 = a2 + a3;
-      v19 = a2 + v15;
+      v13 = &a2[a3];
+      v19 = &a2[v15];
       v14 = a2;
       if (!a4)
       {
@@ -6734,12 +6718,12 @@ LABEL_39:
     goto LABEL_38;
   }
 
-  if (a3 - v15 < 0x21 || a2 + v15 > a2 + a3 || (a2 + v15) < a2)
+  if (a3 - v15 < 0x21 || &a2[v15] > &a2[a3] || &a2[v15] < a2)
   {
     goto LABEL_39;
   }
 
-  v26 = a2 + v15;
+  v26 = &a2[v15];
   v27 = 33;
   result = decompressECPublicKey(&v26, &CTOidSECP256r1, v28, 65);
   v19 = v14;
@@ -6904,7 +6888,7 @@ uint64_t ccder_sizeof_tl(uint64_t a1, unint64_t a2)
   return result;
 }
 
-uint64_t CTDecompressSignature(int a1, unint64_t a2, unint64_t a3, uint64_t *a4, unint64_t *a5)
+uint64_t CTDecompressSignature(int a1, unint64_t a2, unint64_t a3, unint64_t *a4, unint64_t *a5)
 {
   v16 = 0;
   v17 = 0;
@@ -7089,7 +7073,7 @@ LABEL_31:
   return result;
 }
 
-unint64_t CTDecompressDate(unint64_t result, uint64_t *a2, unint64_t *a3)
+unint64_t CTDecompressDate(unint64_t result, unint64_t *a2, unint64_t *a3)
 {
   v5 = *result;
   if (v5 < 0x32)
@@ -7197,7 +7181,7 @@ LABEL_29:
   return result;
 }
 
-unint64_t CTCompressGetCommonNameSuffixPointer(uint64_t a1)
+char *CTCompressGetCommonNameSuffixPointer(unsigned __int8 **a1)
 {
   v9 = 0xAAAAAAAAAAAAAAAALL;
   v10 = 0xAAAAAAAAAAAAAAAALL;
@@ -7214,7 +7198,7 @@ unint64_t CTCompressGetCommonNameSuffixPointer(uint64_t a1)
     {
       v6 = v10;
       v3 = v9 + v10;
-      result = v9 + 26;
+      result = (v9 + 26);
       goto LABEL_9;
     }
 
@@ -7262,7 +7246,7 @@ LABEL_9:
     goto LABEL_23;
   }
 
-  if (v4 + v6 < result + 8)
+  if (v4 + v6 < (result + 8))
   {
     return 0;
   }
@@ -7342,7 +7326,7 @@ LABEL_17:
 
 uint64_t X509PolicySetFlagsForCommonNames(uint64_t a1)
 {
-  v2 = a1 + 104;
+  v2 = (a1 + 104);
   v5[0] = 0xAAAAAAAAAAAAAAAALL;
   v5[1] = 0xAAAAAAAAAAAAAAAALL;
   if (v2 > a1 + 120)
@@ -7457,7 +7441,7 @@ void *ccec_cp_for_oid(int **a1)
   return ccec_cp_521();
 }
 
-uint64_t compressECPublicKey(void *a1, int **a2, char *a3, uint64_t a4)
+uint64_t compressECPublicKey(uint64_t *a1, int **a2, char *a3, uint64_t a4)
 {
   v7 = ccec_cp_for_oid(a2);
   if (!v7)
@@ -7667,7 +7651,7 @@ uint64_t compare_octet_string_partial(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t ccder_blob_decode_AlgorithmIdentifierNULL(unsigned __int8 **a1, void *a2)
+uint64_t ccder_blob_decode_AlgorithmIdentifierNULL(unsigned __int8 **a1, unint64_t *a2)
 {
   v16 = 0;
   v15 = 0;
@@ -7760,7 +7744,7 @@ LABEL_28:
   return result;
 }
 
-uint64_t ccder_blob_decode_Time(unsigned __int8 **a1, void *a2)
+uint64_t ccder_blob_decode_Time(unsigned __int8 **a1, unint64_t *a2)
 {
   v12 = 0xAAAAAAAAAAAAAAAALL;
   v13 = 0;
@@ -7849,7 +7833,7 @@ uint64_t ccder_blob_check_null(unsigned __int8 **a1)
   }
 }
 
-uint64_t CTParseExtensionValue(unint64_t a1, uint64_t a2, const void *a3, size_t a4, void *a5, void *a6)
+uint64_t CTParseExtensionValue(unsigned __int8 *a1, uint64_t a2, const void *a3, size_t a4, void *a5, void *a6)
 {
   v14 = 0u;
   v15 = 0u;
@@ -7863,13 +7847,13 @@ LABEL_11:
     __break(0x5519u);
   }
 
-  if (a1 + a2 < a1)
+  if (&a1[a2] < a1)
   {
     goto LABEL_11;
   }
 
   v10[0] = a1;
-  v10[1] = a1 + a2;
+  v10[1] = &a1[a2];
   result = X509CertificateParseWithExtension(v11, v10, a3, a4);
   if (!result)
   {
@@ -8588,7 +8572,7 @@ LABEL_133:
       return v51;
     }
 
-    result = X509ExtensionParseAppleExtension(&v56, v60, v61, (a1 + 240), a1 + 248, v41);
+    result = X509ExtensionParseAppleExtension(&v56, v60, v61, (a1 + 240), (a1 + 248), v41);
     if (!result)
     {
       return v51;
@@ -8669,7 +8653,7 @@ uint64_t der_get_BOOLean(unsigned __int8 **a1, int a2, BOOL *a3)
           return result;
         }
 
-        v11 = v8 + 1;
+        v11 = (v8 + 1);
         if (v11 <= a1[1] && *a1 <= v11)
         {
           *a1 = v11;
@@ -8695,7 +8679,7 @@ LABEL_22:
   return 0;
 }
 
-uint64_t X509ExtensionParseKeyUsage(uint64_t a1, _BYTE *a2)
+uint64_t X509ExtensionParseKeyUsage(unsigned __int8 **a1, _BYTE *a2)
 {
   v6 = 0xAAAAAAAAAAAAAAAALL;
   v7 = 0xAAAAAAAAAAAAAAAALL;
@@ -8703,7 +8687,7 @@ uint64_t X509ExtensionParseKeyUsage(uint64_t a1, _BYTE *a2)
   result = ccder_blob_decode_bitstring(a1, &v6, &v5);
   if (result)
   {
-    if (v7 != *(a1 + 8) || v6 == v7 || v5 > 8)
+    if (v7 != a1[1] || v6 == v7 || v5 > 8)
     {
       return 0;
     }
@@ -8764,7 +8748,7 @@ uint64_t X509ExtensionParseBasicConstraints(unsigned __int8 **a1, unint64_t *a2,
   return result;
 }
 
-uint64_t X509ExtensionParseAuthorityKeyIdentifier(unsigned __int8 **a1, void *a2, unint64_t *a3)
+uint64_t X509ExtensionParseAuthorityKeyIdentifier(unsigned __int8 **a1, unint64_t *a2, unint64_t *a3)
 {
   v14 = 0xAAAAAAAAAAAAAAAALL;
   v15 = 0xAAAAAAAAAAAAAAAALL;
@@ -8896,7 +8880,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t X509ExtensionParseExtendedKeyUsage(unsigned __int8 **a1, void *a2, unint64_t *a3)
+uint64_t X509ExtensionParseExtendedKeyUsage(unsigned __int8 **a1, unint64_t *a2, unint64_t *a3)
 {
   v14 = 0xAAAAAAAAAAAAAAAALL;
   v15 = 0xAAAAAAAAAAAAAAAALL;
@@ -9032,7 +9016,7 @@ uint64_t X509CertificateVerifyOnlyOneAppleExtension(uint64_t result, uint64_t a2
   return result;
 }
 
-uint64_t X509ExtensionParseAppleExtension(uint64_t result, unint64_t a2, unint64_t a3, uint64_t *a4, uint64_t a5, int a6)
+uint64_t X509ExtensionParseAppleExtension(uint64_t result, unint64_t a2, unint64_t a3, unint64_t *a4, unsigned __int8 **a5, int a6)
 {
   if (a6)
   {
@@ -9543,7 +9527,7 @@ LABEL_165:
         }
 
         *a5 = v53;
-        *(a5 + 8) = v52 - v53;
+        a5[1] = (v52 - v53);
       }
 
       *a4 |= 0x80000000uLL;
@@ -9568,11 +9552,11 @@ LABEL_288:
   return X509ExtensionParseMFI4Properties(result, a4, a5);
 }
 
-uint64_t X509CertificateParseWithExtension(unsigned __int8 **a1, uint64_t a2, const void *a3, size_t a4)
+uint64_t X509CertificateParseWithExtension(unsigned __int8 **a1, unsigned __int8 **a2, const void *a3, size_t a4)
 {
   v8 = 720939;
   v9 = *a2;
-  v10 = *(a2 + 8);
+  v10 = a2[1];
   v14 = 0xAAAAAAAAAAAAAAAALL;
   if (!ccder_blob_decode_tl(a2, 0x2000000000000010, &v14))
   {
@@ -9601,7 +9585,7 @@ LABEL_11:
     return v8;
   }
 
-  v13 = (v14 + v11 - v9);
+  v13 = v14 + v11 - v9;
   if (__CFADD__(v14, v11 - v9))
   {
     goto LABEL_11;
@@ -9620,7 +9604,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t X509CertificateParseSPKI(unint64_t *a1, void *a2, unsigned __int8 **a3, void *a4)
+uint64_t X509CertificateParseSPKI(unint64_t *a1, unint64_t *a2, unsigned __int8 **a3, unint64_t *a4)
 {
   v21 = 0xAAAAAAAAAAAAAAAALL;
   v22 = 0xAAAAAAAAAAAAAAAALL;
@@ -9770,4 +9754,216 @@ LABEL_33:
 
   __break(0x5500u);
   return result;
+}
+
+uint64_t X509CertificateSubjectNameGetCommonName(unsigned __int8 **a1, unint64_t *a2)
+{
+  v2 = *a1;
+  v3 = a1[1];
+  v25 = v3;
+  v23 = 0xAAAAAAAAAAAAAAAALL;
+  v24 = 0xAAAAAAAAAAAAAAAALL;
+  if (__CFADD__(v2, v3))
+  {
+    goto LABEL_64;
+  }
+
+  v4 = &v2[v3];
+  if (v2 > v4)
+  {
+    goto LABEL_63;
+  }
+
+  v23 = v2;
+  v24 = v4;
+  *a2 = 0;
+  a2[1] = 0;
+  if (a2 + 2 < a2)
+  {
+    goto LABEL_63;
+  }
+
+  v6 = 720901;
+  if (v2 < v4)
+  {
+    while (1)
+    {
+      if (!ccder_blob_decode_tl(&v23, 0x2000000000000011, &v25) || !v25)
+      {
+        return 720898;
+      }
+
+      v21 = 0xAAAAAAAAAAAAAAAALL;
+      v22 = 0xAAAAAAAAAAAAAAAALL;
+      v2 = v23;
+      if (__CFADD__(v23, v25))
+      {
+        break;
+      }
+
+      v7 = &v23[v25];
+      if (v23 > &v23[v25] || v7 > v24)
+      {
+        goto LABEL_63;
+      }
+
+      v21 = v23;
+      v22 = &v23[v25];
+      while (v2 < v7)
+      {
+        if (!ccder_blob_decode_tl(&v21, 0x2000000000000010, &v25))
+        {
+          return 720899;
+        }
+
+        v19 = 0xAAAAAAAAAAAAAAAALL;
+        v20 = 0xAAAAAAAAAAAAAAAALL;
+        if (__CFADD__(v21, v25))
+        {
+          goto LABEL_64;
+        }
+
+        if (v21 > &v21[v25] || &v21[v25] > v22)
+        {
+          goto LABEL_63;
+        }
+
+        v19 = v21;
+        v20 = &v21[v25];
+        if (!ccder_blob_decode_tl(&v19, 6, &v25))
+        {
+          return 720900;
+        }
+
+        v10 = v19;
+        v2 = v20;
+        if (v19 > v20 || v25 > v20 - v19)
+        {
+          goto LABEL_63;
+        }
+
+        if (__CFADD__(v19, v25))
+        {
+          goto LABEL_64;
+        }
+
+        v11 = &v19[v25];
+        if (&v19[v25] > v20 || v19 > v11)
+        {
+          goto LABEL_63;
+        }
+
+        v19 += v25;
+        if (v25 == 3)
+        {
+          v12 = *v10;
+          v13 = v10[2];
+          if (v12 == 1109 && v13 == 3)
+          {
+            v17 = v11;
+            v18 = v20;
+            if ((ccder_blob_decode_tl(&v17, 12, &v25) & 1) == 0)
+            {
+              if (v19 > v20)
+              {
+                goto LABEL_63;
+              }
+
+              v17 = v19;
+              v18 = v20;
+              if ((ccder_blob_decode_tl(&v17, 19, &v25) & 1) == 0)
+              {
+                if (v19 > v20)
+                {
+                  goto LABEL_63;
+                }
+
+                v17 = v19;
+                v18 = v20;
+                if (!ccder_blob_decode_tl(&v17, 20, &v25))
+                {
+                  return v6;
+                }
+              }
+            }
+
+            v15 = v25;
+            if (!v25)
+            {
+              return v6;
+            }
+
+            if (__CFADD__(v17, v25))
+            {
+              goto LABEL_64;
+            }
+
+            v2 = v20;
+            if (v20 != &v17[v25])
+            {
+              return 720902;
+            }
+
+            if (v18 < v17 || v25 > v18 - v17)
+            {
+              goto LABEL_63;
+            }
+
+            *a2 = v17;
+            a2[1] = v15;
+          }
+        }
+
+        v7 = v22;
+        if (v2 > v22 || v21 > v2)
+        {
+          goto LABEL_63;
+        }
+
+        v21 = v2;
+      }
+
+      if (v2 != v7)
+      {
+        return 720903;
+      }
+
+      v4 = v24;
+      if (v2 > v24 || v23 > v2)
+      {
+        goto LABEL_63;
+      }
+
+      v23 = v2;
+      if (v2 >= v24)
+      {
+        goto LABEL_50;
+      }
+    }
+
+LABEL_64:
+    __break(0x5513u);
+  }
+
+LABEL_50:
+  if (v2 == v4)
+  {
+    if (a2[1] && *a2)
+    {
+      return 0;
+    }
+
+    *a2 = 0;
+    a2[1] = 0;
+    if (a2 + 2 >= a2)
+    {
+      return 720905;
+    }
+
+LABEL_63:
+    __break(0x5519u);
+    goto LABEL_64;
+  }
+
+  return 720904;
 }

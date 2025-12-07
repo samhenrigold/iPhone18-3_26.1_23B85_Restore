@@ -10,13 +10,12 @@
 - (void)showMetrics
 {
   v3 = type metadata accessor for MetricTemplateView();
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
   selfCopy = self;
   MetricTemplateView.init(dragRefresh:)();
-  v6 = objc_allocWithZone(sub_10000417C(&qword_100026180, &qword_100017410));
-  v7 = UIHostingController.init(rootView:)();
-  sub_10000DFEC(v7);
+  v5 = objc_allocWithZone(sub_10000417C(&qword_100026180, &qword_100017410));
+  v6 = UIHostingController.init(rootView:)();
+  sub_10000DFEC(v6);
 }
 
 - (void)loadView

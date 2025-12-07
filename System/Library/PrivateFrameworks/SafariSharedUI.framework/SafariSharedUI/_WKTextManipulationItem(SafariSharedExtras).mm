@@ -214,27 +214,27 @@ LABEL_9:
 {
   v2 = MEMORY[0x1E696ACB0];
   safari_dictionaryRepresentation = [self safari_dictionaryRepresentation];
-  v9 = 0;
-  v4 = [v2 dataWithJSONObject:safari_dictionaryRepresentation options:3 error:&v9];
-  v5 = v9;
+  v11 = 0;
+  v4 = [v2 dataWithJSONObject:safari_dictionaryRepresentation options:3 error:&v11];
+  v5 = v11;
 
   if (v4)
   {
-    v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v4 encoding:4];
+    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v4 encoding:4];
   }
 
   else
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXTranslation();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXTranslation(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(_WKTextManipulationItem(SafariSharedExtras) *)v7 safari_jsonRepresentation];
+      [(_WKTextManipulationItem(SafariSharedExtras) *)v9 safari_jsonRepresentation];
     }
 
-    v6 = &stru_1F4646D10;
+    v8 = &stru_1F4646D10;
   }
 
-  return v6;
+  return v8;
 }
 
 - (void)safari_jsonRepresentation

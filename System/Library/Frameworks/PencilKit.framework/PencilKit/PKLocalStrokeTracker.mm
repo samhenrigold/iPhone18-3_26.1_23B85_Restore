@@ -15,9 +15,9 @@
     dispatch_once(&qword_1ED6A4F48, &__block_literal_global_0);
   }
 
-  v0 = _MergedGlobals_117;
+  v1 = _MergedGlobals_117;
 
-  return v0;
+  return v1;
 }
 
 void __38__PKLocalStrokeTracker_sharedInstance__block_invoke()

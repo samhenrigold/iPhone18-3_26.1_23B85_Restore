@@ -79,115 +79,123 @@
 {
   if (self->_isCurrentState)
   {
-    v10 = v2;
-    v11 = v3;
-    if ([(SBContinuitySessionSystemEventMonitor *)self->_systemEventMonitor isUIBlocked])
+    v18 = v2;
+    v19 = v3;
+    isUIBlocked = [(SBContinuitySessionSystemEventMonitor *)self->_systemEventMonitor isUIBlocked];
+    if (isUIBlocked)
     {
-      v5 = SBLogContinuitySession();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = SBLogContinuitySession(isUIBlocked);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        *v9 = 0;
-        _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "[State.UpdatingActiveDisplay] --> moving to .invalid because UI blocked ", v9, 2u);
+        *v17 = 0;
+        _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "[State.UpdatingActiveDisplay] --> moving to .invalid because UI blocked ", v17, 2u);
       }
 
-      v6 = SBContinuityBlockUIBlocked;
+      v7 = SBContinuityBlockUIBlocked;
 LABEL_14:
 
       invalidStateHandler = self->_invalidStateHandler;
-      v8 = [MEMORY[0x277CBEB98] setWithObject:*v6];
-      invalidStateHandler[2](invalidStateHandler, v8);
+      v11 = [MEMORY[0x277CBEB98] setWithObject:*v7];
+      invalidStateHandler[2](invalidStateHandler, v11);
 
       return;
     }
 
-    if (![(SBContinuitySessionSystemEventMonitor *)self->_systemEventMonitor isUILocked])
+    isUILocked = [(SBContinuitySessionSystemEventMonitor *)self->_systemEventMonitor isUILocked];
+    if ((isUILocked & 1) == 0)
     {
-      v5 = SBLogContinuitySession();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = SBLogContinuitySession(isUILocked);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        *v9 = 0;
-        _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "[State.UpdatingActiveDisplay] --> moving to .invalid because UI unlocked", v9, 2u);
+        *v17 = 0;
+        _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "[State.UpdatingActiveDisplay] --> moving to .invalid because UI unlocked", v17, 2u);
       }
 
-      v6 = SBContinuityBlockUIUnlocked;
+      v7 = SBContinuityBlockUIUnlocked;
       goto LABEL_14;
     }
 
-    if ([(SBContinuitySessionSystemEventMonitor *)self->_systemEventMonitor isInCall])
+    isInCall = [(SBContinuitySessionSystemEventMonitor *)self->_systemEventMonitor isInCall];
+    if (isInCall)
     {
-      v5 = SBLogContinuitySession();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = SBLogContinuitySession(isInCall);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        *v9 = 0;
-        _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "[State.UpdatingActiveDisplay] --> moving to .invalid because in call", v9, 2u);
+        *v17 = 0;
+        _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "[State.UpdatingActiveDisplay] --> moving to .invalid because in call", v17, 2u);
       }
 
-      v6 = SBContinuityBlockInCall;
+      v7 = SBContinuityBlockInCall;
       goto LABEL_14;
     }
 
-    if ([(SBContinuitySessionSystemEventMonitor *)self->_systemEventMonitor isSOSActive])
+    isSOSActive = [(SBContinuitySessionSystemEventMonitor *)self->_systemEventMonitor isSOSActive];
+    if (isSOSActive)
     {
-      v5 = SBLogContinuitySession();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = SBLogContinuitySession(isSOSActive);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        *v9 = 0;
-        _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "[State.UpdatingActiveDisplay] --> moving to .invalid because SOS active", v9, 2u);
+        *v17 = 0;
+        _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "[State.UpdatingActiveDisplay] --> moving to .invalid because SOS active", v17, 2u);
       }
 
-      v6 = SBContinuityBlockSOSActive;
+      v7 = SBContinuityBlockSOSActive;
       goto LABEL_14;
     }
 
-    if ([(SBContinuitySessionSystemEventMonitor *)self->_systemEventMonitor isLockScreenSearchPresented])
+    isLockScreenSearchPresented = [(SBContinuitySessionSystemEventMonitor *)self->_systemEventMonitor isLockScreenSearchPresented];
+    if (isLockScreenSearchPresented)
     {
-      v5 = SBLogContinuitySession();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = SBLogContinuitySession(isLockScreenSearchPresented);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        *v9 = 0;
-        _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "[State.UpdatingActiveDisplay] --> moving to .invalid because lock screen search presented", v9, 2u);
+        *v17 = 0;
+        _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "[State.UpdatingActiveDisplay] --> moving to .invalid because lock screen search presented", v17, 2u);
       }
 
-      v6 = SBContinuityBlockLockScreenSearchPresented;
+      v7 = SBContinuityBlockLockScreenSearchPresented;
       goto LABEL_14;
     }
 
-    if ([(SBContinuitySessionSystemEventMonitor *)self->_systemEventMonitor isUsingSecureApp])
+    isUsingSecureApp = [(SBContinuitySessionSystemEventMonitor *)self->_systemEventMonitor isUsingSecureApp];
+    if (isUsingSecureApp)
     {
-      v5 = SBLogContinuitySession();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = SBLogContinuitySession(isUsingSecureApp);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        *v9 = 0;
-        _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "[State.UpdatingActiveDisplay] --> moving to .invalid because using secure app", v9, 2u);
+        *v17 = 0;
+        _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "[State.UpdatingActiveDisplay] --> moving to .invalid because using secure app", v17, 2u);
       }
 
-      v6 = SBContinuityBlockSecureAppUsage;
+      v7 = SBContinuityBlockSecureAppUsage;
       goto LABEL_14;
     }
 
-    if ([(SBContinuitySessionSystemEventMonitor *)self->_systemEventMonitor isAirplayMirroring])
+    isAirplayMirroring = [(SBContinuitySessionSystemEventMonitor *)self->_systemEventMonitor isAirplayMirroring];
+    if (isAirplayMirroring)
     {
-      v5 = SBLogContinuitySession();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = SBLogContinuitySession(isAirplayMirroring);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        *v9 = 0;
-        _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "[State.UpdatingActiveDisplay] --> moving to .invalid because airplay mirroring", v9, 2u);
+        *v17 = 0;
+        _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "[State.UpdatingActiveDisplay] --> moving to .invalid because airplay mirroring", v17, 2u);
       }
 
-      v6 = SBContinuityBlockAirplayMirroring;
+      v7 = SBContinuityBlockAirplayMirroring;
       goto LABEL_14;
     }
 
-    if ([(SBContinuitySessionSystemEventMonitor *)self->_systemEventMonitor isUserInitiatedRemoteTransientOverlayPresented])
+    isUserInitiatedRemoteTransientOverlayPresented = [(SBContinuitySessionSystemEventMonitor *)self->_systemEventMonitor isUserInitiatedRemoteTransientOverlayPresented];
+    if (isUserInitiatedRemoteTransientOverlayPresented)
     {
-      v5 = SBLogContinuitySession();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = SBLogContinuitySession(isUserInitiatedRemoteTransientOverlayPresented);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        *v9 = 0;
-        _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "[State.UpdatingActiveDisplay] --> moving to .invalid because user-initiated remote transient overlay is presented", v9, 2u);
+        *v17 = 0;
+        _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "[State.UpdatingActiveDisplay] --> moving to .invalid because user-initiated remote transient overlay is presented", v17, 2u);
       }
 
-      v6 = SBContinuityBlockUserInitiatedRemoteTransientOverlayPresented;
+      v7 = SBContinuityBlockUserInitiatedRemoteTransientOverlayPresented;
       goto LABEL_14;
     }
   }
@@ -202,7 +210,7 @@ LABEL_14:
     lockState = [(SBContinuityDisplayAuthenticationCoordinator *)self->_authenticationCoordinator lockState];
     if (lockState == 2)
     {
-      v6 = SBLogContinuitySession();
+      v6 = SBLogContinuitySession(2);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *v10 = 0;
@@ -219,7 +227,7 @@ LABEL_14:
         return;
       }
 
-      v6 = SBLogContinuitySession();
+      v6 = SBLogContinuitySession(0);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -237,53 +245,54 @@ LABEL_14:
 
 - (void)_reevaluateStateForReason:(id)reason
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
+  v5 = reasonCopy;
   if (self->_isCurrentState)
   {
-    v5 = SBLogContinuitySession();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = SBLogContinuitySession(reasonCopy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138543362;
-      v14 = reasonCopy;
-      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "[State.UpdatingActiveDisplay] Re-evaluating state for reason: %{public}@", &v13, 0xCu);
+      v14 = 138543362;
+      v15 = v5;
+      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "[State.UpdatingActiveDisplay] Re-evaluating state for reason: %{public}@", &v14, 0xCu);
     }
 
-    v6 = [MEMORY[0x277CBEB58] set];
-    v7 = v6;
+    v7 = [MEMORY[0x277CBEB58] set];
+    v8 = v7;
     if (!self->_updatedActiveDisplay)
     {
-      [v6 addObject:@"checkpoint.waiting-for-update-active-display"];
+      [v7 addObject:@"checkpoint.waiting-for-update-active-display"];
     }
 
-    v8 = [v7 count];
-    v9 = SBLogContinuitySession();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-    if (v8)
+    v9 = [v8 count];
+    v10 = SBLogContinuitySession(v9);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+    if (v9)
     {
-      if (v10)
+      if (v11)
       {
-        bs_array = [v7 bs_array];
-        v13 = 138543362;
-        v14 = bs_array;
-        _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "[State.UpdatingActiveDisplay] still blocked by %{public}@", &v13, 0xCu);
+        bs_array = [v8 bs_array];
+        v14 = 138543362;
+        v15 = bs_array;
+        _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "[State.UpdatingActiveDisplay] still blocked by %{public}@", &v14, 0xCu);
       }
 
-      v12 = *(self->_stateUpdateHandler + 2);
+      v13 = *(self->_stateUpdateHandler + 2);
     }
 
     else
     {
-      if (v10)
+      if (v11)
       {
-        LOWORD(v13) = 0;
-        _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "[State.UpdatingActiveDisplay] --> moving to .launching", &v13, 2u);
+        LOWORD(v14) = 0;
+        _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "[State.UpdatingActiveDisplay] --> moving to .launching", &v14, 2u);
       }
 
-      v12 = *(self->_stateTransitionHandler + 2);
+      v13 = *(self->_stateTransitionHandler + 2);
     }
 
-    v12();
+    v13();
   }
 }
 

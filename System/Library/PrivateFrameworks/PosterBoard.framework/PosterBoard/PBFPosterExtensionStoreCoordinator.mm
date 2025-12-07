@@ -12,11 +12,11 @@
 - (NSString)lastRefreshDescriptorReason;
 - (PBFPosterExtensionStoreCoordinator)init;
 - (PBFPosterExtensionStoreCoordinator)initWithContainerURL:(id)l extensionIdentifier:(id)identifier readonly:(BOOL)readonly;
+- (__CFString)_accessLock_lastRefreshDescriptorReason;
 - (char)_containerURLForType:(char *)type;
 - (id)_accessLock_createModelStoreCoordinator:(void *)coordinator posterUUID:(void *)d descriptorIdentifier:(void *)identifier role:(void *)role error:;
 - (id)_accessLock_deleteEnvironment;
 - (id)_accessLock_lastRefreshDescriptorDate;
-- (id)_accessLock_lastRefreshDescriptorReason;
 - (id)_accessLock_lastRefreshStashedBuildVersion;
 - (id)_accessLock_modelStoreCoordinatorForPosterUUID:(uint64_t)d type:;
 - (id)_accessLock_modelStoreCoordinatorSetForType:(void *)type error:;
@@ -24,6 +24,8 @@
 - (id)_accessLock_providerInfo;
 - (id)_accessLock_setupEnvironmentIfNecessary;
 - (id)_accessLock_stageNewConfigurationStoreCoordinatorForPosterUUID:(void *)d descriptorIdentifier:(void *)identifier role:(void *)role error:;
+- (id)_accessLock_teardownModelStoreCoordinator:(void *)coordinator posterUUID:(void *)d error:;
+- (id)_accessLock_teardownModelStoreCoordinator:(void *)coordinator posterUUID:(void *)d version:(void *)version error:;
 - (id)_accessLock_transientInternalInfo;
 - (id)_modelStoreCoordinatorSetForType:(void *)type error:;
 - (id)_modelStoreCoordinatorsForType:(uint64_t)type;
@@ -54,8 +56,6 @@
 - (uint64_t)_accessLock_bumpLastRefreshBuildVersion;
 - (uint64_t)_accessLock_deleteProviderInfo;
 - (uint64_t)_accessLock_providerInfoSetObject:(void *)object forKey:(uint64_t)key error:;
-- (uint64_t)_accessLock_teardownModelStoreCoordinator:(void *)coordinator posterUUID:(uint64_t)d version:(void *)version error:;
-- (uint64_t)_accessLock_teardownModelStoreCoordinator:(void *)coordinator posterUUID:(void *)d error:;
 - (uint64_t)_accessLock_writeTransientInternalInfo:(void *)info error:;
 - (void)_accessLock_bumpLastRefreshDescriptorDate:(void *)date reason:;
 - (void)_accessLock_enumerateModelStoreCoordinators:(uint64_t)coordinators;
@@ -239,61 +239,61 @@
 
 - (void)reapEverythingExceptLatestVersion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (!self->_readonly && ([(BSAtomicFlag *)self->_invalidationFlag getFlag]& 1) == 0)
   {
     os_unfair_lock_lock(&self->_accessLock);
-    v3 = PBFLogReaper();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = PBFLogReaper(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21B526000, v3, OS_LOG_TYPE_DEFAULT, "Reaping everything except latest version.", buf, 2u);
+      _os_log_impl(&dword_21B526000, v4, OS_LOG_TYPE_DEFAULT, "Reaping everything except latest version.", buf, 2u);
     }
 
-    v4 = objc_opt_new();
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __71__PBFPosterExtensionStoreCoordinator_reapEverythingExceptLatestVersion__block_invoke;
-    v19[3] = &unk_2782C8B38;
-    v5 = v4;
-    v20 = v5;
-    [(PBFPosterExtensionStoreCoordinator *)self _accessLock_enumerateModelStoreCoordinators:v19];
+    v5 = objc_opt_new();
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __71__PBFPosterExtensionStoreCoordinator_reapEverythingExceptLatestVersion__block_invoke;
+    v20[3] = &unk_2782C8B38;
+    v6 = v5;
+    v21 = v6;
+    [(PBFPosterExtensionStoreCoordinator *)self _accessLock_enumerateModelStoreCoordinators:v20];
     objectEnumerator = [(NSMutableDictionary *)self->_accessLock_stagedPosterConfigurationStoreCoordinatorsForUUID objectEnumerator];
     allObjects = [objectEnumerator allObjects];
-    [v5 addObjectsFromArray:allObjects];
+    [v6 addObjectsFromArray:allObjects];
 
-    v17 = 0u;
     v18 = 0u;
-    v15 = 0u;
+    v19 = 0u;
     v16 = 0u;
-    v8 = v5;
-    v9 = [v8 countByEnumeratingWithState:&v15 objects:v22 count:16];
-    if (v9)
+    v17 = 0u;
+    v9 = v6;
+    v10 = [v9 countByEnumeratingWithState:&v16 objects:v23 count:16];
+    if (v10)
     {
-      v10 = v9;
-      v11 = *v16;
+      v11 = v10;
+      v12 = *v17;
       do
       {
-        v12 = 0;
+        v13 = 0;
         do
         {
-          if (*v16 != v11)
+          if (*v17 != v12)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v9);
           }
 
-          posterUUID = [*(*(&v15 + 1) + 8 * v12) posterUUID];
+          posterUUID = [*(*(&v16 + 1) + 8 * v13) posterUUID];
           type = [objc_opt_class() type];
-          [(PBFPosterExtensionStoreCoordinator *)self _accessLock_teardownModelStoreCoordinator:type posterUUID:posterUUID error:0];
+          [(PBFPosterExtensionStoreCoordinator *)&self->super.isa _accessLock_teardownModelStoreCoordinator:type posterUUID:posterUUID error:0];
 
-          ++v12;
+          ++v13;
         }
 
-        while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v15 objects:v22 count:16];
+        while (v11 != v13);
+        v11 = [v9 countByEnumeratingWithState:&v16 objects:v23 count:16];
       }
 
-      while (v10);
+      while (v11);
     }
 
     [(NSMutableDictionary *)self->_accessLock_stagedPosterConfigurationStoreCoordinatorsForUUID removeAllObjects];
@@ -584,7 +584,7 @@ uint64_t __85__PBFPosterExtensionStoreCoordinator_dynamicDescriptorStoreCoordina
   {
     if ((PFPosterRoleIsValid() & 1) == 0)
     {
-      [PBFPosterExtensionStoreCoordinator dynamicDescriptorStoreCoordinatorForIdentifier:roleCopy role:a2 createIfNil:? error:?];
+      [PBFPosterExtensionStoreCoordinator dynamicDescriptorStoreCoordinatorForIdentifier:roleCopy role:a2 createIfNil:self error:?];
     }
 
     os_unfair_lock_lock(&self->_accessLock);
@@ -1785,53 +1785,53 @@ LABEL_24:
 
 - (id)_accessLock_deleteEnvironment
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (self)
   {
-    v2 = OUTLINED_FUNCTION_14_0(self);
-    PBFDebug_os_unfair_lock_assert_owner(v2);
+    OUTLINED_FUNCTION_14_0(self);
+    PBFDebug_os_unfair_lock_assert_owner();
     if (*(v1 + 140) == 1)
     {
       OUTLINED_FUNCTION_12_0();
-      v4 = [v3 pbf_extensionStoreCoordinatorErrorWithCode:? userInfo:?];
+      v3 = [v2 pbf_extensionStoreCoordinatorErrorWithCode:? userInfo:?];
 LABEL_6:
-      v6 = v4;
+      v5 = v3;
       goto LABEL_9;
     }
 
     if ([*(v1 + 128) getFlag])
     {
       OUTLINED_FUNCTION_10_0();
-      v4 = [v5 pbf_generalErrorWithCode:? userInfo:?];
+      v3 = [v4 pbf_generalErrorWithCode:? userInfo:?];
       goto LABEL_6;
     }
 
     if (*(v1 + 140))
     {
-      v7 = MEMORY[0x277CCA9B8];
-      v15 = *MEMORY[0x277CCA470];
-      v16 = @"Cannot delete environment; readonly extension store coordinator";
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-      v6 = [v7 pbf_generalErrorWithCode:1 userInfo:v8];
+      v6 = MEMORY[0x277CCA9B8];
+      v14 = *MEMORY[0x277CCA470];
+      v15 = @"Cannot delete environment; readonly extension store coordinator";
+      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+      v5 = [v6 pbf_generalErrorWithCode:1 userInfo:v7];
     }
 
     else
     {
       [(PBFPosterExtensionStoreCoordinator *)v1 _accessLock_enumerateModelStoreCoordinators:?];
-      v10 = *(v1 + 120);
-      v11 = *(v1 + 40);
-      v14 = 0;
-      [v10 removeItemAtURL:v11 error:&v14];
-      v6 = v14;
-      v12 = PBFLogReaper();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v9 = *(v1 + 120);
+      v10 = *(v1 + 40);
+      v13 = 0;
+      [v9 removeItemAtURL:v10 error:&v13];
+      v5 = v13;
+      v11 = PBFLogReaper(v5);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = *(v1 + 40);
+        v12 = *(v1 + 40);
         *buf = 138543618;
-        v18 = v1;
-        v19 = 2114;
-        v20 = v13;
-        _os_log_impl(&dword_21B526000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Deleting environment %{public}@", buf, 0x16u);
+        v17 = v1;
+        v18 = 2114;
+        v19 = v12;
+        _os_log_impl(&dword_21B526000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] Deleting environment %{public}@", buf, 0x16u);
       }
 
       [*(v1 + 96) removeAllObjects];
@@ -1844,12 +1844,12 @@ LABEL_6:
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
 LABEL_9:
 
-  return v6;
+  return v5;
 }
 
 - (void)_accessLock_enumerateModelStoreCoordinators:(uint64_t)coordinators
@@ -1858,7 +1858,7 @@ LABEL_9:
   v3 = a2;
   if (coordinators)
   {
-    PBFDebug_os_unfair_lock_assert_owner(coordinators + 136);
+    PBFDebug_os_unfair_lock_assert_owner();
     if (v3)
     {
       v4 = [(PBFPosterExtensionStoreCoordinator *)coordinators _accessLock_modelStoreCoordinatorsForType:?];
@@ -1948,14 +1948,14 @@ LABEL_23:
   }
 }
 
-- (uint64_t)_accessLock_teardownModelStoreCoordinator:(void *)coordinator posterUUID:(void *)d error:
+- (id)_accessLock_teardownModelStoreCoordinator:(void *)coordinator posterUUID:(void *)d error:
 {
   v30[1] = *MEMORY[0x277D85DE8];
   coordinatorCopy = coordinator;
   if (self)
   {
-    PBFDebug_os_unfair_lock_assert_owner(self + 136);
-    if ([*(self + 128) getFlag])
+    PBFDebug_os_unfair_lock_assert_owner();
+    if ([self[16] getFlag])
     {
       if (d)
       {
@@ -2006,22 +2006,22 @@ LABEL_9:
           v18 = &v25;
           goto LABEL_17;
         case 1:
-          v20 = (self + 88);
+          v20 = self + 11;
           goto LABEL_26;
         case 2:
-          v20 = (self + 96);
+          v20 = self + 12;
           goto LABEL_26;
         case 3:
-          v20 = (self + 104);
-          v21 = [*(self + 104) objectForKey:coordinatorCopy];
+          v20 = self + 13;
+          v21 = [self[13] objectForKey:coordinatorCopy];
 
           if (v21)
           {
             goto LABEL_26;
           }
 
-          v20 = (self + 112);
-          v22 = [*(self + 112) objectForKey:coordinatorCopy];
+          v20 = self + 14;
+          v22 = [self[14] objectForKey:coordinatorCopy];
 
           if (v22)
           {
@@ -2042,13 +2042,13 @@ LABEL_9:
           v18 = &v27;
           goto LABEL_17;
         case 4:
-          v20 = (self + 80);
+          v20 = self + 10;
 LABEL_26:
           [*v20 removeObjectForKey:coordinatorCopy];
           goto LABEL_27;
         default:
 LABEL_27:
-          v23 = *(self + 120);
+          v23 = self[15];
           identifierURL = [v13 identifierURL];
           self = [v23 removeItemAtURL:identifierURL error:d];
 
@@ -2089,7 +2089,7 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  PBFDebug_os_unfair_lock_assert_owner(self + 136);
+  PBFDebug_os_unfair_lock_assert_owner();
   if ([*(self + 128) getFlag])
   {
     if (type)
@@ -2125,15 +2125,15 @@ LABEL_6:
 
 - (void)_correctPermissionsForInternalDirectories
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   if (self)
   {
-    v2 = PBFLogPosterContents();
+    v2 = PBFLogPosterContents(self);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = self[5];
       *buf = 138412290;
-      v57 = v3;
+      v60 = v3;
       _os_log_impl(&dword_21B526000, v2, OS_LOG_TYPE_DEFAULT, "[PBFPosterExtensionStoreCoordinator ensureFileSystemIntegrity]> Correcting filesystem permissions for URLs related to %@", buf, 0xCu);
     }
 
@@ -2145,87 +2145,90 @@ LABEL_6:
     [v4 bs_safeAddObject:self[1]];
     [v4 bs_safeAddObject:self[2]];
     [v4 bs_safeAddObject:self[3]];
-    v54 = 0u;
+    v57 = 0u;
+    v58 = 0u;
     v55 = 0u;
-    v52 = 0u;
-    v53 = 0u;
+    v56 = 0u;
     v5 = v4;
-    v6 = [v5 countByEnumeratingWithState:&v52 objects:v59 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v55 objects:v62 count:16];
     if (v6)
     {
       v8 = v6;
-      v9 = *v53;
+      v9 = *v56;
       v10 = *MEMORY[0x277CBE800];
       *&v7 = 138412546;
-      v48 = v7;
+      v51 = v7;
       do
       {
         v11 = 0;
         do
         {
-          if (*v53 != v9)
+          if (*v56 != v9)
           {
             objc_enumerationMutation(v5);
           }
 
-          v12 = *(*(&v52 + 1) + 8 * v11);
-          v51 = 0;
-          v13 = [v12 pbf_setFileProtection:v10 error:{&v51, v48}];
-          v14 = v51;
+          v12 = *(*(&v55 + 1) + 8 * v11);
+          v54 = 0;
+          v13 = [v12 pbf_setFileProtection:v10 error:{&v54, v51}];
+          v14 = v54;
           v15 = v14;
           if ((v13 & 1) == 0)
           {
             pf_isFileNotFoundError = [v14 pf_isFileNotFoundError];
-            v17 = PBFLogPosterContents();
-            v18 = v17;
-            if (pf_isFileNotFoundError)
+            v17 = pf_isFileNotFoundError;
+            v18 = PBFLogPosterContents(pf_isFileNotFoundError);
+            v19 = v18;
+            if (v17)
             {
-              if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+              if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v57 = v12;
-                _os_log_impl(&dword_21B526000, v18, OS_LOG_TYPE_DEFAULT, "[PBFPosterExtensionStoreCoordinator _correctPermissionsForInternalDirectories]> skipping nonexistent file %@", buf, 0xCu);
+                v60 = v12;
+                _os_log_impl(&dword_21B526000, v19, OS_LOG_TYPE_DEFAULT, "[PBFPosterExtensionStoreCoordinator _correctPermissionsForInternalDirectories]> skipping nonexistent file %@", buf, 0xCu);
               }
 
               goto LABEL_25;
             }
 
-            v19 = os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
-            if (v19)
+            v20 = os_log_type_enabled(v18, OS_LOG_TYPE_ERROR);
+            if (v20)
             {
-              OUTLINED_FUNCTION_5_3(v19, v20, v21, v22, v23, v24, v25, v26, v48);
-              v58 = v15;
-              _os_log_error_impl(&dword_21B526000, v18, OS_LOG_TYPE_ERROR, "[PBFPosterExtensionStoreCoordinator _correctPermissionsForInternalDirectories]> failed to correct file protection for file %@: %{public}@", buf, 0x16u);
+              OUTLINED_FUNCTION_5_3(v20, v21, v22, v23, v24, v25, v26, v27, v51);
+              v61 = v15;
+              _os_log_error_impl(&dword_21B526000, v19, OS_LOG_TYPE_ERROR, "[PBFPosterExtensionStoreCoordinator _correctPermissionsForInternalDirectories]> failed to correct file protection for file %@: %{public}@", buf, 0x16u);
             }
           }
 
-          v50 = 0;
-          v27 = [v12 pbf_setPurgable:0 error:&v50];
-          v18 = v50;
-          if ((v27 & 1) == 0)
+          v53 = 0;
+          v28 = [v12 pbf_setPurgable:0 error:&v53];
+          v29 = v53;
+          v19 = v29;
+          if ((v28 & 1) == 0)
           {
-            v28 = PBFLogPosterContents();
-            v29 = os_log_type_enabled(v28, OS_LOG_TYPE_ERROR);
-            if (v29)
+            v30 = PBFLogPosterContents(v29);
+            v31 = os_log_type_enabled(v30, OS_LOG_TYPE_ERROR);
+            if (v31)
             {
-              OUTLINED_FUNCTION_5_3(v29, v30, v31, v32, v33, v34, v35, v36, v48);
-              v58 = v18;
-              _os_log_error_impl(&dword_21B526000, v28, OS_LOG_TYPE_ERROR, "[PBFPosterExtensionStoreCoordinator _correctPermissionsForInternalDirectories]> failed to correct purgability for file %@: %{public}@", buf, 0x16u);
+              OUTLINED_FUNCTION_5_3(v31, v32, v33, v34, v35, v36, v37, v38, v51);
+              v61 = v19;
+              _os_log_error_impl(&dword_21B526000, v30, OS_LOG_TYPE_ERROR, "[PBFPosterExtensionStoreCoordinator _correctPermissionsForInternalDirectories]> failed to correct purgability for file %@: %{public}@", buf, 0x16u);
             }
           }
 
-          v49 = 0;
-          v37 = [v12 pf_setExcludedFromBackup:0 error:&v49];
-          v38 = v49;
-          if ((v37 & 1) == 0)
+          v52 = 0;
+          v39 = [v12 pf_setExcludedFromBackup:0 error:&v52];
+          v40 = v52;
+          v41 = v40;
+          if ((v39 & 1) == 0)
           {
-            v39 = PBFLogPosterContents();
-            v40 = os_log_type_enabled(v39, OS_LOG_TYPE_ERROR);
-            if (v40)
+            v42 = PBFLogPosterContents(v40);
+            v43 = os_log_type_enabled(v42, OS_LOG_TYPE_ERROR);
+            if (v43)
             {
-              OUTLINED_FUNCTION_5_3(v40, v41, v42, v43, v44, v45, v46, v47, v48);
-              v58 = v38;
-              _os_log_error_impl(&dword_21B526000, v39, OS_LOG_TYPE_ERROR, "[PBFPosterExtensionStoreCoordinator _correctPermissionsForInternalDirectories]> failed to correct exclude from backup state for file %@: %{public}@", buf, 0x16u);
+              OUTLINED_FUNCTION_5_3(v43, v44, v45, v46, v47, v48, v49, v50, v51);
+              v61 = v41;
+              _os_log_error_impl(&dword_21B526000, v42, OS_LOG_TYPE_ERROR, "[PBFPosterExtensionStoreCoordinator _correctPermissionsForInternalDirectories]> failed to correct exclude from backup state for file %@: %{public}@", buf, 0x16u);
             }
           }
 
@@ -2234,7 +2237,7 @@ LABEL_25:
         }
 
         while (v8 != v11);
-        v8 = [v5 countByEnumeratingWithState:&v52 objects:v59 count:16];
+        v8 = [v5 countByEnumeratingWithState:&v55 objects:v62 count:16];
       }
 
       while (v8);
@@ -2266,7 +2269,7 @@ LABEL_25:
   if (self)
   {
     v5 = a2;
-    PBFDebug_os_unfair_lock_assert_owner(self + 136);
+    PBFDebug_os_unfair_lock_assert_owner();
     v6 = [(PBFPosterExtensionStoreCoordinator *)self _accessLock_modelStoreCoordinatorsForType:d];
     v7 = [v6 objectForKey:v5];
   }
@@ -2334,7 +2337,7 @@ LABEL_25:
 
 - (id)_accessLock_createModelStoreCoordinator:(void *)coordinator posterUUID:(void *)d descriptorIdentifier:(void *)identifier role:(void *)role error:
 {
-  v90 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   coordinatorCopy = coordinator;
   dCopy = d;
   identifierCopy = identifier;
@@ -2345,7 +2348,7 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  PBFDebug_os_unfair_lock_assert_owner(self + 136);
+  PBFDebug_os_unfair_lock_assert_owner();
   if ([*(self + 128) getFlag])
   {
     if (role)
@@ -2386,21 +2389,21 @@ LABEL_8:
     {
       v21 = PRPosterRoleLookupForExtensionBundleIdentifier(*(self + 144), dCopy);
 
-      v22 = PBFLogPosterContents();
-      if (OUTLINED_FUNCTION_21(v22))
+      v23 = PBFLogPosterContents(v22);
+      if (OUTLINED_FUNCTION_21(v23))
       {
         *buf = 136446466;
-        v87 = "[PBFPosterExtensionStoreCoordinator _accessLock_createModelStoreCoordinator:posterUUID:descriptorIdentifier:role:error:]";
-        v88 = 2112;
-        v89 = v21;
+        v88 = "[PBFPosterExtensionStoreCoordinator _accessLock_createModelStoreCoordinator:posterUUID:descriptorIdentifier:role:error:]";
+        v89 = 2112;
+        v90 = v21;
         OUTLINED_FUNCTION_9_1();
-        _os_log_impl(v23, v24, v25, v26, v27, 0x16u);
+        _os_log_impl(v24, v25, v26, v27, v28, 0x16u);
       }
     }
 
-    v28 = [(PBFPosterExtensionStoreCoordinator *)self _containerURLForType:a2];
+    v29 = [(PBFPosterExtensionStoreCoordinator *)self _containerURLForType:a2];
     uUIDString = [coordinatorCopy UUIDString];
-    v77 = [v28 URLByAppendingPathComponent:uUIDString isDirectory:1];
+    v78 = [v29 URLByAppendingPathComponent:uUIDString isDirectory:1];
 
     switch(a2)
     {
@@ -2416,153 +2419,154 @@ LABEL_8:
           v17 = 0;
         }
 
-        v43 = v77;
+        v45 = v78;
         goto LABEL_54;
       case 1:
         OUTLINED_FUNCTION_4_4();
-        v31 = [v40 descriptorIdentityWithProvider:? identifier:? role:? posterUUID:? version:?];
+        v32 = [v41 descriptorIdentityWithProvider:? identifier:? role:? posterUUID:? version:?];
         OUTLINED_FUNCTION_25();
-        [v41 pathWithProviderURL:? identity:?];
-        v79 = 0;
-        v75 = v33 = &v79;
-        v34 = [PBFPosterModelStoreCoordinator createNewStoreCoordinatorWithPath:"createNewStoreCoordinatorWithPath:error:" error:?];
-        v35 = 88;
+        [v42 pathWithProviderURL:? identity:?];
+        v80 = 0;
+        v76 = v34 = &v80;
+        v35 = [PBFPosterModelStoreCoordinator createNewStoreCoordinatorWithPath:"createNewStoreCoordinatorWithPath:error:" error:?];
+        v36 = 88;
         goto LABEL_28;
       case 2:
         OUTLINED_FUNCTION_4_4();
-        v31 = [v36 staticDescriptorIdentityWithProvider:? identifier:? role:? posterUUID:? version:?];
+        v32 = [v37 staticDescriptorIdentityWithProvider:? identifier:? role:? posterUUID:? version:?];
         OUTLINED_FUNCTION_25();
-        [v37 pathWithProviderURL:? identity:?];
-        v80 = 0;
-        v75 = v33 = &v80;
-        v34 = [PBFPosterModelStoreCoordinator createNewStoreCoordinatorWithPath:"createNewStoreCoordinatorWithPath:error:" error:?];
-        v35 = 96;
+        [v38 pathWithProviderURL:? identity:?];
+        v81 = 0;
+        v76 = v34 = &v81;
+        v35 = [PBFPosterModelStoreCoordinator createNewStoreCoordinatorWithPath:"createNewStoreCoordinatorWithPath:error:" error:?];
+        v36 = 96;
         goto LABEL_28;
       case 3:
         OUTLINED_FUNCTION_4_4();
-        v31 = [v38 configurationIdentityWithProvider:? identifier:? role:? posterUUID:? version:? supplement:?];
+        v32 = [v39 configurationIdentityWithProvider:? identifier:? role:? posterUUID:? version:? supplement:?];
         OUTLINED_FUNCTION_25();
-        [v39 pathWithProviderURL:? identity:?];
-        v81 = 0;
-        v75 = v33 = &v81;
-        v34 = [PBFPosterModelStoreCoordinator createNewStoreCoordinatorWithPath:"createNewStoreCoordinatorWithPath:error:" error:?];
-        v35 = 104;
+        [v40 pathWithProviderURL:? identity:?];
+        v82 = 0;
+        v76 = v34 = &v82;
+        v35 = [PBFPosterModelStoreCoordinator createNewStoreCoordinatorWithPath:"createNewStoreCoordinatorWithPath:error:" error:?];
+        v36 = 104;
         goto LABEL_28;
       case 4:
         OUTLINED_FUNCTION_4_4();
-        v31 = [v30 suggestionDescriptorIdentityWithProvider:? identifier:? role:? posterUUID:? version:?];
+        v32 = [v31 suggestionDescriptorIdentityWithProvider:? identifier:? role:? posterUUID:? version:?];
         OUTLINED_FUNCTION_25();
-        [v32 pathWithProviderURL:? identity:?];
-        v78 = 0;
-        v75 = v33 = &v78;
-        v34 = [PBFPosterModelStoreCoordinator createNewStoreCoordinatorWithPath:"createNewStoreCoordinatorWithPath:error:" error:?];
-        v35 = 80;
+        [v33 pathWithProviderURL:? identity:?];
+        v79 = 0;
+        v76 = v34 = &v79;
+        v35 = [PBFPosterModelStoreCoordinator createNewStoreCoordinatorWithPath:"createNewStoreCoordinatorWithPath:error:" error:?];
+        v36 = 80;
 LABEL_28:
-        v42 = *v33;
-        v76 = *(self + v35);
-        v43 = v77;
-        if (!v42)
+        v43 = *v34;
+        v44 = *(self + v36);
+        v77 = v44;
+        v45 = v78;
+        if (!v43)
         {
           goto LABEL_31;
         }
 
         goto LABEL_48;
       default:
-        v75 = [MEMORY[0x277D3EBA0] pathWithProviderURL:*(self + 40) identity:0];
-        v76 = 0;
-        v34 = 0;
-        v31 = 0;
-        v43 = v77;
+        v76 = [MEMORY[0x277D3EBA0] pathWithProviderURL:*(self + 40) identity:0];
+        v77 = 0;
+        v35 = 0;
+        v32 = 0;
+        v45 = v78;
 LABEL_31:
-        identifierURL = [v34 identifierURL];
-        v45 = [identifierURL isEqual:v43];
+        identifierURL = [v35 identifierURL];
+        v47 = [identifierURL isEqual:v45];
 
-        v74 = v31;
-        if (v45)
+        v75 = v32;
+        if (v47)
         {
-          v42 = 0;
+          v43 = 0;
         }
 
         else
         {
-          v73 = v21;
-          v46 = MEMORY[0x277CCA9B8];
-          v47 = *MEMORY[0x277CCA470];
-          v85[0] = @"unexpected identifierURL for model store coordinator";
-          v48 = *MEMORY[0x277CCA760];
-          v84[0] = v47;
-          v84[1] = v48;
-          v49 = v43;
-          if (!v43)
-          {
-            v49 = [MEMORY[0x277CBEBC0] fileURLWithPath:@"file://null"];
-          }
-
-          v85[1] = v49;
-          v84[2] = *MEMORY[0x277CCA748];
-          identifierURL2 = [v34 identifierURL];
-          v51 = identifierURL2;
-          if (!identifierURL2)
+          v74 = v21;
+          v48 = MEMORY[0x277CCA9B8];
+          v49 = *MEMORY[0x277CCA470];
+          v86[0] = @"unexpected identifierURL for model store coordinator";
+          v50 = *MEMORY[0x277CCA760];
+          v85[0] = v49;
+          v85[1] = v50;
+          v51 = v45;
+          if (!v45)
           {
             v51 = [MEMORY[0x277CBEBC0] fileURLWithPath:@"file://null"];
           }
 
-          v85[2] = v51;
-          v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v85 forKeys:v84 count:3];
-          v42 = [v46 pbf_extensionStoreCoordinatorErrorWithCode:-1111 userInfo:v52];
+          v86[1] = v51;
+          v85[2] = *MEMORY[0x277CCA748];
+          identifierURL2 = [v35 identifierURL];
+          v53 = identifierURL2;
+          if (!identifierURL2)
+          {
+            v53 = [MEMORY[0x277CBEBC0] fileURLWithPath:@"file://null"];
+          }
+
+          v86[2] = v53;
+          v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v86 forKeys:v85 count:3];
+          v43 = [v48 pbf_extensionStoreCoordinatorErrorWithCode:-1111 userInfo:v54];
 
           if (!identifierURL2)
           {
           }
 
-          v43 = v77;
-          if (!v77)
+          v45 = v78;
+          if (!v78)
           {
           }
 
-          v21 = v73;
+          v21 = v74;
         }
 
-        ensureFileSystemIntegrity = [v34 ensureFileSystemIntegrity];
-        v54 = PBFLogPosterContents();
-        v55 = os_log_type_enabled(v54, OS_LOG_TYPE_ERROR);
+        ensureFileSystemIntegrity = [v35 ensureFileSystemIntegrity];
+        v56 = PBFLogPosterContents(ensureFileSystemIntegrity);
+        v57 = os_log_type_enabled(v56, OS_LOG_TYPE_ERROR);
         if (ensureFileSystemIntegrity)
         {
-          if (!v55)
+          if (!v57)
           {
             goto LABEL_46;
           }
 
           *buf = 138543618;
-          v87 = coordinatorCopy;
-          v88 = 2114;
-          v89 = ensureFileSystemIntegrity;
+          v88 = coordinatorCopy;
+          v89 = 2114;
+          v90 = ensureFileSystemIntegrity;
           OUTLINED_FUNCTION_17();
         }
 
         else
         {
-          if (!v55)
+          if (!v57)
           {
             goto LABEL_46;
           }
 
           *buf = 138543362;
-          v87 = coordinatorCopy;
-          v56 = &dword_21B526000;
-          v59 = "file system integrity assuaged for %{public}@";
-          v60 = buf;
-          v57 = v54;
-          v58 = OS_LOG_TYPE_ERROR;
-          v61 = 12;
+          v88 = coordinatorCopy;
+          v58 = &dword_21B526000;
+          v61 = "file system integrity assuaged for %{public}@";
+          v62 = buf;
+          v59 = v56;
+          v60 = OS_LOG_TYPE_ERROR;
+          v63 = 12;
         }
 
-        _os_log_error_impl(v56, v57, v58, v59, v60, v61);
+        _os_log_error_impl(v58, v59, v60, v61, v62, v63);
 LABEL_46:
 
-        if (v42)
+        if (v43)
         {
-          v31 = v74;
+          v32 = v75;
 LABEL_48:
           if (role)
           {
@@ -2572,42 +2576,42 @@ LABEL_48:
           goto LABEL_50;
         }
 
-        v31 = v74;
-        if (v76)
+        v32 = v75;
+        if (v77)
         {
-          [v76 bs_setSafeObject:v34 forKey:coordinatorCopy];
+          [v77 bs_setSafeObject:v35 forKey:coordinatorCopy];
         }
 
         else
         {
-          v65 = MEMORY[0x277CCA9B8];
-          v82 = *MEMORY[0x277CCA470];
-          v83 = @"model store coordinator could not be created";
-          v66 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
-          v42 = [v65 pbf_extensionStoreCoordinatorErrorWithCode:-1111 userInfo:v66];
+          v66 = MEMORY[0x277CCA9B8];
+          v83 = *MEMORY[0x277CCA470];
+          v84 = @"model store coordinator could not be created";
+          v67 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v84 forKeys:&v83 count:1];
+          v43 = [v66 pbf_extensionStoreCoordinatorErrorWithCode:-1111 userInfo:v67];
 
-          [0 bs_setSafeObject:v34 forKey:coordinatorCopy];
-          if (v42)
+          v44 = [0 bs_setSafeObject:v35 forKey:coordinatorCopy];
+          if (v43)
           {
-            v76 = 0;
+            v77 = 0;
             if (role)
             {
 LABEL_49:
-              v62 = v42;
-              *role = v42;
+              v44 = v43;
+              *role = v43;
             }
 
 LABEL_50:
-            v63 = PBFLogPosterContents();
-            v64 = v75;
-            if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+            v64 = PBFLogPosterContents(v44);
+            v65 = v76;
+            if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315394;
-              v87 = "[PBFPosterExtensionStoreCoordinator _accessLock_createModelStoreCoordinator:posterUUID:descriptorIdentifier:role:error:]";
-              v88 = 2112;
-              v89 = v42;
+              v88 = "[PBFPosterExtensionStoreCoordinator _accessLock_createModelStoreCoordinator:posterUUID:descriptorIdentifier:role:error:]";
+              v89 = 2112;
+              v90 = v43;
               OUTLINED_FUNCTION_17();
-              _os_log_error_impl(v67, v68, v69, v70, v71, v72);
+              _os_log_error_impl(v68, v69, v70, v71, v72, v73);
             }
 
             v17 = 0;
@@ -2619,9 +2623,9 @@ LABEL_54:
           }
         }
 
-        v34 = v34;
-        v17 = v34;
-        v64 = v75;
+        v35 = v35;
+        v17 = v35;
+        v65 = v76;
         goto LABEL_53;
     }
   }
@@ -2638,7 +2642,7 @@ LABEL_10:
 {
   dCopy = d;
   os_unfair_lock_lock(&self->_accessLock);
-  LOBYTE(error) = [(PBFPosterExtensionStoreCoordinator *)self _accessLock_teardownModelStoreCoordinator:dCopy posterUUID:error error:?];
+  LOBYTE(error) = [(PBFPosterExtensionStoreCoordinator *)&self->super.isa _accessLock_teardownModelStoreCoordinator:dCopy posterUUID:error error:?];
 
   os_unfair_lock_unlock(&self->_accessLock);
   return error;
@@ -2677,82 +2681,82 @@ LABEL_10:
 
 - (id)_accessLock_modelStoreCoordinatorsForType:(uint64_t)type
 {
-  v183 = *MEMORY[0x277D85DE8];
+  v190 = *MEMORY[0x277D85DE8];
   if (!type)
   {
 LABEL_4:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_100;
   }
 
-  v6 = OUTLINED_FUNCTION_14_0(type);
-  PBFDebug_os_unfair_lock_assert_owner(v6);
+  OUTLINED_FUNCTION_14_0(type);
+  PBFDebug_os_unfair_lock_assert_owner();
   switch(a2)
   {
     case 0:
-      v7 = MEMORY[0x277CBEC10];
+      v6 = MEMORY[0x277CBEC10];
       goto LABEL_100;
     case 1:
-      v8 = *(v2 + 88);
-      if (!v8)
+      v7 = *(v2 + 88);
+      if (!v7)
       {
         OUTLINED_FUNCTION_8_1();
-        v129 = [v128 contentsOfDirectoryAtURL:? includingPropertiesForKeys:? options:? error:?];
-        v130 = objc_opt_new();
-        v131 = *(v2 + 88);
-        *(v2 + 88) = v130;
+        v134 = [v133 contentsOfDirectoryAtURL:? includingPropertiesForKeys:? options:? error:?];
+        v135 = objc_opt_new();
+        v136 = *(v2 + 88);
+        *(v2 + 88) = v135;
 
-        memset(v178, 0, sizeof(v178));
-        v132 = v129;
-        v134 = OUTLINED_FUNCTION_32(v132, v133, v178, v182);
-        if (v134)
+        memset(v185, 0, sizeof(v185));
+        v137 = v134;
+        v139 = OUTLINED_FUNCTION_32(v137, v138, v185, v189);
+        if (v139)
         {
-          v135 = v134;
+          v140 = v139;
           OUTLINED_FUNCTION_27();
-          *&v136 = 138543874;
-          v172 = v136;
+          *&v141 = 138543874;
+          v179 = v141;
           do
           {
             OUTLINED_FUNCTION_29();
             do
             {
               OUTLINED_FUNCTION_13_1();
-              if (!v18)
+              if (!v17)
               {
                 objc_enumerationMutation(obj);
               }
 
-              [*(*(&v178[0] + 1) + 8 * v129) lastPathComponent];
+              [*(*(&v185[0] + 1) + 8 * v134) lastPathComponent];
               objc_claimAutoreleasedReturnValue();
-              v137 = [OUTLINED_FUNCTION_33() initWithUUIDString:v4];
-              if (v137)
+              v142 = [OUTLINED_FUNCTION_33() initWithUUIDString:v4];
+              if (v142)
               {
-                v138 = [PBFPosterDescriptorStoreCoordinator alloc];
-                v140 = OUTLINED_FUNCTION_11_1(v138, v139);
-                checkEnvironmentConsistency = [v140 checkEnvironmentConsistency];
-                v143 = checkEnvironmentConsistency;
-                if (!v140 || checkEnvironmentConsistency)
+                v143 = [PBFPosterDescriptorStoreCoordinator alloc];
+                v145 = OUTLINED_FUNCTION_11_1(v143, v144);
+                checkEnvironmentConsistency = [v145 checkEnvironmentConsistency];
+                v148 = checkEnvironmentConsistency;
+                if (!v145 || checkEnvironmentConsistency)
                 {
                   OUTLINED_FUNCTION_26();
-                  v144 = PBFLogReaper();
-                  v145 = OUTLINED_FUNCTION_21(v144);
+                  v150 = PBFLogReaper(v149);
+                  v151 = OUTLINED_FUNCTION_21(v150);
                   if (v3)
                   {
-                    if (v145)
+                    if (v151)
                     {
-                      OUTLINED_FUNCTION_0_4(v145, v146, v147, v148, v149, v150, v151, v152, v153);
+                      OUTLINED_FUNCTION_0_4(v151, v152, v153, v154, v155, v156, v157, v158, v159, v160);
                       OUTLINED_FUNCTION_9_1();
-                      _os_log_impl(v154, v155, v156, "Consistency error for descriptor store coordinator '%{public}@': %{public}@... readonly... skipping... %{public}@", v157, 0x20u);
+                      _os_log_impl(v161, v162, v163, "Consistency error for descriptor store coordinator '%{public}@': %{public}@... readonly... skipping... %{public}@", v164, 0x20u);
                     }
                   }
 
                   else
                   {
-                    if (v145)
+                    if (v151)
                     {
-                      OUTLINED_FUNCTION_0_4(v145, v146, v147, v148, v149, v150, v151, v152, v153);
+                      OUTLINED_FUNCTION_0_4(v151, v152, v153, v154, v155, v156, v157, v158, v159, v160);
                       OUTLINED_FUNCTION_9_1();
-                      _os_log_impl(v158, v159, v160, "Consistency error for descriptor store coordinator '%{public}@': %{public}@... deleting %{public}@", v161, 0x20u);
+                      _os_log_impl(v165, v166, v167, "Consistency error for descriptor store coordinator '%{public}@': %{public}@... deleting %{public}@", v168, 0x20u);
                     }
 
                     OUTLINED_FUNCTION_19();
@@ -2763,85 +2767,85 @@ LABEL_4:
 
                 else
                 {
-                  OUTLINED_FUNCTION_34(*(v2 + 88), v142);
+                  OUTLINED_FUNCTION_34(*(v2 + 88), v147);
                 }
               }
 
               OUTLINED_FUNCTION_24();
             }
 
-            while (!v18);
-            v135 = OUTLINED_FUNCTION_31(v162, v163, v178, v182, v164, v165, v166, v167, v172, *(&v172 + 1), v173, obj);
+            while (!v17);
+            v140 = OUTLINED_FUNCTION_31(v169, v170, v185, v189, v171, v172, v173, v174, v179, *(&v179 + 1), v180, obj);
           }
 
-          while (v135);
+          while (v140);
         }
 
-        v8 = *(v2 + 88);
+        v7 = *(v2 + 88);
       }
 
       goto LABEL_99;
     case 2:
-      v8 = *(v2 + 96);
-      if (!v8)
+      v7 = *(v2 + 96);
+      if (!v7)
       {
         OUTLINED_FUNCTION_8_1();
-        v51 = [v50 contentsOfDirectoryAtURL:? includingPropertiesForKeys:? options:? error:?];
-        v52 = objc_opt_new();
-        v53 = *(v2 + 96);
-        *(v2 + 96) = v52;
+        v52 = [v51 contentsOfDirectoryAtURL:? includingPropertiesForKeys:? options:? error:?];
+        v53 = objc_opt_new();
+        v54 = *(v2 + 96);
+        *(v2 + 96) = v53;
 
-        memset(v177, 0, sizeof(v177));
-        v54 = v51;
-        v56 = OUTLINED_FUNCTION_32(v54, v55, v177, v181);
-        if (v56)
+        memset(v184, 0, sizeof(v184));
+        v55 = v52;
+        v57 = OUTLINED_FUNCTION_32(v55, v56, v184, v188);
+        if (v57)
         {
-          v57 = v56;
+          v58 = v57;
           OUTLINED_FUNCTION_27();
-          *&v58 = 138543874;
-          v170 = v58;
+          *&v59 = 138543874;
+          v177 = v59;
           do
           {
             OUTLINED_FUNCTION_29();
             do
             {
               OUTLINED_FUNCTION_13_1();
-              if (!v18)
+              if (!v17)
               {
                 objc_enumerationMutation(obj);
               }
 
-              [*(*(&v177[0] + 1) + 8 * v51) lastPathComponent];
+              [*(*(&v184[0] + 1) + 8 * v52) lastPathComponent];
               objc_claimAutoreleasedReturnValue();
-              v59 = [OUTLINED_FUNCTION_33() initWithUUIDString:v4];
-              if (v59)
+              v60 = [OUTLINED_FUNCTION_33() initWithUUIDString:v4];
+              if (v60)
               {
-                v60 = [PBFStaticPosterDescriptorStoreCoordinator alloc];
-                v62 = OUTLINED_FUNCTION_11_1(v60, v61);
-                checkEnvironmentConsistency2 = [v62 checkEnvironmentConsistency];
-                v65 = checkEnvironmentConsistency2;
-                if (!v62 || checkEnvironmentConsistency2)
+                v61 = [PBFStaticPosterDescriptorStoreCoordinator alloc];
+                v63 = OUTLINED_FUNCTION_11_1(v61, v62);
+                checkEnvironmentConsistency2 = [v63 checkEnvironmentConsistency];
+                v66 = checkEnvironmentConsistency2;
+                if (!v63 || checkEnvironmentConsistency2)
                 {
                   OUTLINED_FUNCTION_26();
-                  v66 = PBFLogReaper();
-                  v67 = OUTLINED_FUNCTION_21(v66);
+                  v68 = PBFLogReaper(v67);
+                  v69 = OUTLINED_FUNCTION_21(v68);
                   if (v3)
                   {
-                    if (v67)
+                    if (v69)
                     {
-                      OUTLINED_FUNCTION_0_4(v67, v68, v69, v70, v71, v72, v73, v74, v75);
+                      OUTLINED_FUNCTION_0_4(v69, v70, v71, v72, v73, v74, v75, v76, v77, v78);
                       OUTLINED_FUNCTION_9_1();
-                      _os_log_impl(v76, v77, v78, "Consistency error for static descriptor store coordinator '%{public}@': %{public}@... readonly... skipping... %{public}@", v79, 0x20u);
+                      _os_log_impl(v79, v80, v81, "Consistency error for static descriptor store coordinator '%{public}@': %{public}@... readonly... skipping... %{public}@", v82, 0x20u);
                     }
                   }
 
                   else
                   {
-                    if (v67)
+                    if (v69)
                     {
-                      OUTLINED_FUNCTION_0_4(v67, v68, v69, v70, v71, v72, v73, v74, v75);
+                      OUTLINED_FUNCTION_0_4(v69, v70, v71, v72, v73, v74, v75, v76, v77, v78);
                       OUTLINED_FUNCTION_9_1();
-                      _os_log_impl(v80, v81, v82, "Consistency error for static descriptor store coordinator '%{public}@': %{public}@... deleting %{public}@", v83, 0x20u);
+                      _os_log_impl(v83, v84, v85, "Consistency error for static descriptor store coordinator '%{public}@': %{public}@... deleting %{public}@", v86, 0x20u);
                     }
 
                     OUTLINED_FUNCTION_19();
@@ -2852,21 +2856,21 @@ LABEL_4:
 
                 else
                 {
-                  OUTLINED_FUNCTION_34(*(v2 + 96), v64);
+                  OUTLINED_FUNCTION_34(*(v2 + 96), v65);
                 }
               }
 
               OUTLINED_FUNCTION_24();
             }
 
-            while (!v18);
-            v57 = OUTLINED_FUNCTION_31(v84, v85, v177, v181, v86, v87, v88, v89, v170, *(&v170 + 1), v173, obj);
+            while (!v17);
+            v58 = OUTLINED_FUNCTION_31(v87, v88, v184, v188, v89, v90, v91, v92, v177, *(&v177 + 1), v180, obj);
           }
 
-          while (v57);
+          while (v58);
         }
 
-        v8 = *(v2 + 96);
+        v7 = *(v2 + 96);
       }
 
       goto LABEL_99;
@@ -2877,75 +2881,75 @@ LABEL_4:
       }
 
       OUTLINED_FUNCTION_8_1();
-      v91 = [v90 contentsOfDirectoryAtURL:? includingPropertiesForKeys:? options:? error:?];
-      v92 = objc_opt_new();
-      v93 = *(v2 + 104);
-      *(v2 + 104) = v92;
+      v94 = [v93 contentsOfDirectoryAtURL:? includingPropertiesForKeys:? options:? error:?];
+      v95 = objc_opt_new();
+      v96 = *(v2 + 104);
+      *(v2 + 104) = v95;
 
-      memset(v175, 0, sizeof(v175));
-      v94 = v91;
-      v96 = OUTLINED_FUNCTION_32(v94, v95, v175, v179);
-      if (!v96)
+      memset(v182, 0, sizeof(v182));
+      v97 = v94;
+      v99 = OUTLINED_FUNCTION_32(v97, v98, v182, v186);
+      if (!v99)
       {
         goto LABEL_72;
       }
 
-      v97 = v96;
+      v100 = v99;
       OUTLINED_FUNCTION_27();
-      *&v98 = 138543874;
-      v171 = v98;
+      *&v101 = 138543874;
+      v178 = v101;
       break;
     case 4:
-      v8 = *(v2 + 80);
-      if (!v8)
+      v7 = *(v2 + 80);
+      if (!v7)
       {
         OUTLINED_FUNCTION_8_1();
-        v10 = [v9 contentsOfDirectoryAtURL:? includingPropertiesForKeys:? options:? error:?];
-        v11 = objc_opt_new();
-        v12 = *(v2 + 80);
-        *(v2 + 80) = v11;
+        v9 = [v8 contentsOfDirectoryAtURL:? includingPropertiesForKeys:? options:? error:?];
+        v10 = objc_opt_new();
+        v11 = *(v2 + 80);
+        *(v2 + 80) = v10;
 
-        memset(v176, 0, sizeof(v176));
-        v13 = v10;
-        v15 = OUTLINED_FUNCTION_32(v13, v14, v176, v180);
-        if (v15)
+        memset(v183, 0, sizeof(v183));
+        v12 = v9;
+        v14 = OUTLINED_FUNCTION_32(v12, v13, v183, v187);
+        if (v14)
         {
-          v16 = v15;
+          v15 = v14;
           OUTLINED_FUNCTION_27();
-          *&v17 = 138543874;
-          v169 = v17;
+          *&v16 = 138543874;
+          v176 = v16;
           do
           {
             OUTLINED_FUNCTION_29();
             do
             {
               OUTLINED_FUNCTION_13_1();
-              if (!v18)
+              if (!v17)
               {
                 objc_enumerationMutation(obj);
               }
 
-              [*(*(&v176[0] + 1) + 8 * v10) lastPathComponent];
+              [*(*(&v183[0] + 1) + 8 * v9) lastPathComponent];
               objc_claimAutoreleasedReturnValue();
-              v19 = [OUTLINED_FUNCTION_33() initWithUUIDString:v4];
-              if (v19)
+              v18 = [OUTLINED_FUNCTION_33() initWithUUIDString:v4];
+              if (v18)
               {
-                v20 = [PBFSuggestionDescriptorStoreCoordinator alloc];
-                v22 = OUTLINED_FUNCTION_11_1(v20, v21);
-                checkEnvironmentConsistency3 = [v22 checkEnvironmentConsistency];
-                v25 = checkEnvironmentConsistency3;
-                if (!v22 || checkEnvironmentConsistency3)
+                v19 = [PBFSuggestionDescriptorStoreCoordinator alloc];
+                v21 = OUTLINED_FUNCTION_11_1(v19, v20);
+                checkEnvironmentConsistency3 = [v21 checkEnvironmentConsistency];
+                v24 = checkEnvironmentConsistency3;
+                if (!v21 || checkEnvironmentConsistency3)
                 {
                   OUTLINED_FUNCTION_26();
-                  v26 = PBFLogReaper();
+                  v26 = PBFLogReaper(v25);
                   v27 = OUTLINED_FUNCTION_21(v26);
                   if (v3)
                   {
                     if (v27)
                     {
-                      OUTLINED_FUNCTION_0_4(v27, v28, v29, v30, v31, v32, v33, v34, v35);
+                      OUTLINED_FUNCTION_0_4(v27, v28, v29, v30, v31, v32, v33, v34, v35, v36);
                       OUTLINED_FUNCTION_9_1();
-                      _os_log_impl(v36, v37, v38, "Consistency error for suggestion descriptor store coordinator '%{public}@': %{public}@... readonly... skipping... %{public}@", v39, 0x20u);
+                      _os_log_impl(v37, v38, v39, "Consistency error for suggestion descriptor store coordinator '%{public}@': %{public}@... readonly... skipping... %{public}@", v40, 0x20u);
                     }
                   }
 
@@ -2953,9 +2957,9 @@ LABEL_4:
                   {
                     if (v27)
                     {
-                      OUTLINED_FUNCTION_0_4(v27, v28, v29, v30, v31, v32, v33, v34, v35);
+                      OUTLINED_FUNCTION_0_4(v27, v28, v29, v30, v31, v32, v33, v34, v35, v36);
                       OUTLINED_FUNCTION_9_1();
-                      _os_log_impl(v40, v41, v42, "Consistency error for suggestion descriptor store coordinator '%{public}@': %{public}@... deleting %{public}@", v43, 0x20u);
+                      _os_log_impl(v41, v42, v43, "Consistency error for suggestion descriptor store coordinator '%{public}@': %{public}@... deleting %{public}@", v44, 0x20u);
                     }
 
                     OUTLINED_FUNCTION_19();
@@ -2966,21 +2970,21 @@ LABEL_4:
 
                 else
                 {
-                  OUTLINED_FUNCTION_34(*(v2 + 80), v24);
+                  OUTLINED_FUNCTION_34(*(v2 + 80), v23);
                 }
               }
 
               OUTLINED_FUNCTION_24();
             }
 
-            while (!v18);
-            v16 = OUTLINED_FUNCTION_31(v44, v45, v176, v180, v46, v47, v48, v49, v169, *(&v169 + 1), v173, obj);
+            while (!v17);
+            v15 = OUTLINED_FUNCTION_31(v45, v46, v183, v187, v47, v48, v49, v50, v176, *(&v176 + 1), v180, obj);
           }
 
-          while (v16);
+          while (v15);
         }
 
-        v8 = *(v2 + 80);
+        v7 = *(v2 + 80);
       }
 
       goto LABEL_99;
@@ -2994,51 +2998,51 @@ LABEL_4:
     do
     {
       OUTLINED_FUNCTION_13_1();
-      if (!v18)
+      if (!v17)
       {
         objc_enumerationMutation(obj);
       }
 
-      v99 = *(*(&v175[0] + 1) + 8 * v91);
-      [v99 lastPathComponent];
+      v102 = *(*(&v182[0] + 1) + 8 * v94);
+      [v102 lastPathComponent];
       objc_claimAutoreleasedReturnValue();
-      v100 = [OUTLINED_FUNCTION_33() initWithUUIDString:v4];
-      if (v100)
+      v103 = [OUTLINED_FUNCTION_33() initWithUUIDString:v4];
+      if (v103)
       {
-        v101 = [(PBFPosterModelStoreCoordinator *)[PBFPosterConfigurationStoreCoordinator alloc] initWithProvider:*(v2 + 144) identifierURL:v99 posterUUID:v100 readonly:*(v2 + 140)];
-        checkEnvironmentConsistency4 = [(PBFPosterModelStoreCoordinator *)v101 checkEnvironmentConsistency];
-        v104 = checkEnvironmentConsistency4;
-        if (v101 && !checkEnvironmentConsistency4)
+        v104 = [(PBFPosterModelStoreCoordinator *)[PBFPosterConfigurationStoreCoordinator alloc] initWithProvider:*(v2 + 144) identifierURL:v102 posterUUID:v103 readonly:*(v2 + 140)];
+        checkEnvironmentConsistency4 = [(PBFPosterModelStoreCoordinator *)v104 checkEnvironmentConsistency];
+        v107 = checkEnvironmentConsistency4;
+        if (v104 && !checkEnvironmentConsistency4)
         {
-          OUTLINED_FUNCTION_34(*(v2 + 104), v103);
+          OUTLINED_FUNCTION_34(*(v2 + 104), v106);
 LABEL_68:
 
           goto LABEL_69;
         }
 
         OUTLINED_FUNCTION_26();
-        v105 = PBFLogReaper();
-        v106 = OUTLINED_FUNCTION_21(v105);
+        v109 = PBFLogReaper(v108);
+        v110 = OUTLINED_FUNCTION_21(v109);
         if (v3)
         {
-          if (v106)
+          if (v110)
           {
-            OUTLINED_FUNCTION_1_4(v106, v107, v108, v109, v110, v111, v112, v113, v114);
-            OUTLINED_FUNCTION_23(v115);
+            OUTLINED_FUNCTION_1_4(v110, v111, v112, v113, v114, v115, v116, v117, v118, v119);
+            OUTLINED_FUNCTION_23(v120);
             OUTLINED_FUNCTION_9_1();
-            v120 = "Consistency error for configuration store coordinator '%{public}@': %{public}@... readonly... skipping... %{public}@";
+            v125 = "Consistency error for configuration store coordinator '%{public}@': %{public}@... readonly... skipping... %{public}@";
             goto LABEL_66;
           }
         }
 
-        else if (v106)
+        else if (v110)
         {
-          OUTLINED_FUNCTION_1_4(v106, v107, v108, v109, v110, v111, v112, v113, v114);
-          OUTLINED_FUNCTION_23(v121);
+          OUTLINED_FUNCTION_1_4(v110, v111, v112, v113, v114, v115, v116, v117, v118, v119);
+          OUTLINED_FUNCTION_23(v126);
           OUTLINED_FUNCTION_9_1();
-          v120 = "Consistency error for configuration store coordinator '%{public}@': %{public}@... deleting %{public}@";
+          v125 = "Consistency error for configuration store coordinator '%{public}@': %{public}@... deleting %{public}@";
 LABEL_66:
-          _os_log_impl(v116, v117, v118, v120, v119, 0x20u);
+          _os_log_impl(v121, v122, v123, v125, v124, 0x20u);
         }
 
         OUTLINED_FUNCTION_7_0();
@@ -3050,30 +3054,30 @@ LABEL_69:
       OUTLINED_FUNCTION_24();
     }
 
-    while (!v18);
-    v97 = OUTLINED_FUNCTION_31(v122, v123, v175, v179, v124, v125, v126, v127, v171, *(&v171 + 1), v173, obj);
+    while (!v17);
+    v100 = OUTLINED_FUNCTION_31(v127, v128, v182, v186, v129, v130, v131, v132, v178, *(&v178 + 1), v180, obj);
   }
 
-  while (v97);
+  while (v100);
 LABEL_72:
 
 LABEL_73:
   if ([*(v2 + 112) count])
   {
-    v7 = [*(v2 + 112) mutableCopy];
-    [v7 addEntriesFromDictionary:*(v2 + 104)];
+    v6 = [*(v2 + 112) mutableCopy];
+    [v6 addEntriesFromDictionary:*(v2 + 104)];
   }
 
   else
   {
-    v8 = *(v2 + 104);
+    v7 = *(v2 + 104);
 LABEL_99:
-    v7 = v8;
+    v6 = v7;
   }
 
 LABEL_100:
 
-  return v7;
+  return v6;
 }
 
 - (BOOL)updateSuggestionDescriptors:(id)descriptors forConfigurationUUID:(id)d error:(id *)error
@@ -3162,7 +3166,7 @@ LABEL_18:
 
       if (v37)
       {
-        [(PBFPosterExtensionStoreCoordinator *)selfCopy _accessLock_teardownModelStoreCoordinator:uUID posterUUID:0 error:?];
+        [(PBFPosterExtensionStoreCoordinator *)&selfCopy->super.isa _accessLock_teardownModelStoreCoordinator:uUID posterUUID:0 error:?];
         [v29 invalidate];
         v32 = v37;
         goto LABEL_18;
@@ -3221,7 +3225,7 @@ LABEL_28:
           if (([v17 containsObject:v45] & 1) == 0)
           {
             v46 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v45];
-            [(PBFPosterExtensionStoreCoordinator *)self _accessLock_teardownModelStoreCoordinator:v46 posterUUID:0 error:?];
+            [(PBFPosterExtensionStoreCoordinator *)&self->super.isa _accessLock_teardownModelStoreCoordinator:v46 posterUUID:0 error:?];
           }
         }
 
@@ -3321,7 +3325,7 @@ LABEL_3:
   return v13;
 }
 
-- (uint64_t)_accessLock_teardownModelStoreCoordinator:(void *)coordinator posterUUID:(uint64_t)d version:(void *)version error:
+- (id)_accessLock_teardownModelStoreCoordinator:(void *)coordinator posterUUID:(void *)d version:(void *)version error:
 {
   v46[3] = *MEMORY[0x277D85DE8];
   coordinatorCopy = coordinator;
@@ -3330,7 +3334,7 @@ LABEL_3:
     goto LABEL_9;
   }
 
-  PBFDebug_os_unfair_lock_assert_owner(self + 136);
+  PBFDebug_os_unfair_lock_assert_owner();
   if (![*(self + 128) getFlag])
   {
     if (*(self + 140) == 1)
@@ -3395,7 +3399,7 @@ LABEL_9:
         }
 
         while (v19);
-        v13 = v21 != 0;
+        v13 = (v21 != 0);
         version = versionCopy;
         coordinatorCopy = v39;
         v16 = v20;
@@ -3462,7 +3466,7 @@ LABEL_10:
 {
   dCopy = d;
   os_unfair_lock_lock(&self->_accessLock);
-  LOBYTE(error) = [(PBFPosterExtensionStoreCoordinator *)self _accessLock_teardownModelStoreCoordinator:dCopy posterUUID:error error:?];
+  LOBYTE(error) = [(PBFPosterExtensionStoreCoordinator *)&self->super.isa _accessLock_teardownModelStoreCoordinator:dCopy posterUUID:error error:?];
 
   os_unfair_lock_unlock(&self->_accessLock);
   return error;
@@ -3470,13 +3474,13 @@ LABEL_10:
 
 - (id)_accessLock_stageNewConfigurationStoreCoordinatorForPosterUUID:(void *)d descriptorIdentifier:(void *)identifier role:(void *)role error:
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v9 = a2;
   dCopy = d;
   identifierCopy = identifier;
   if (self)
   {
-    PBFDebug_os_unfair_lock_assert_owner(self + 17);
+    PBFDebug_os_unfair_lock_assert_owner();
     if ([self[16] getFlag])
     {
       if (role)
@@ -3515,41 +3519,41 @@ LABEL_9:
 
     else
     {
-      v39 = MEMORY[0x277CBEBC0];
-      v38 = PFTemporaryDirectory();
+      v38 = MEMORY[0x277CBEBC0];
+      v37 = PFTemporaryDirectory();
       v18 = MEMORY[0x277CCACA8];
       uUIDString = [v9 UUIDString];
       date = [MEMORY[0x277CBEAA8] date];
       [date timeIntervalSince1970];
       v22 = [v18 stringWithFormat:@"STAGED_CSC_%@_%f", uUIDString, v21];
-      v23 = [v38 stringByAppendingPathComponent:v22];
-      v24 = [v39 fileURLWithPath:v23 isDirectory:1];
+      v23 = [v37 stringByAppendingPathComponent:v22];
+      v24 = [v38 fileURLWithPath:v23 isDirectory:1];
 
       v25 = [MEMORY[0x277D3EB98] configurationIdentityWithProvider:self[18] identifier:dCopy role:identifierCopy posterUUID:v9 version:0 supplement:0];
-      v40 = v24;
+      v39 = v24;
       v26 = [MEMORY[0x277D3EBA0] pathWithProviderURL:v24 identity:v25];
-      v41 = 0;
-      v27 = [(PBFPosterModelStoreCoordinator *)PBFPosterConfigurationStoreCoordinator createNewStoreCoordinatorWithPath:v26 error:&v41];
-      v28 = v41;
+      v40 = 0;
+      v27 = [(PBFPosterModelStoreCoordinator *)PBFPosterConfigurationStoreCoordinator createNewStoreCoordinatorWithPath:v26 error:&v40];
+      v28 = v40;
       v29 = v28;
       if (v28)
       {
         if (role)
         {
-          v30 = v28;
+          v28 = v28;
           *role = v29;
         }
 
-        v31 = PBFLogPosterContents();
+        v30 = PBFLogPosterContents(v28);
         v17 = 0;
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
-          v42 = 136315394;
-          v43 = "[PBFPosterExtensionStoreCoordinator _accessLock_stageNewConfigurationStoreCoordinatorForPosterUUID:descriptorIdentifier:role:error:]";
-          v44 = 2112;
-          v45 = v29;
+          v41 = 136315394;
+          v42 = "[PBFPosterExtensionStoreCoordinator _accessLock_stageNewConfigurationStoreCoordinatorForPosterUUID:descriptorIdentifier:role:error:]";
+          v43 = 2112;
+          v44 = v29;
           OUTLINED_FUNCTION_17();
-          _os_log_error_impl(v32, v33, v34, v35, v36, v37);
+          _os_log_error_impl(v31, v32, v33, v34, v35, v36);
         }
 
         self = 0;
@@ -3626,7 +3630,7 @@ LABEL_10:
   return v2;
 }
 
-- (id)_accessLock_lastRefreshDescriptorReason
+- (__CFString)_accessLock_lastRefreshDescriptorReason
 {
   selfCopy = self;
   if (self)
@@ -3721,32 +3725,33 @@ LABEL_10:
       {
         [*(v1 + 56) pbf_setFileProtection:*MEMORY[0x277CBE800] error:0];
         v4 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:*(v1 + 56)];
+        v5 = v4;
         if (v4)
         {
-          v5 = extensionStoreCoordinatorSupportedArchivableClassesForInfoFiles();
-          v6 = [OUTLINED_FUNCTION_30() unarchivedObjectOfClasses:? fromData:? error:?];
+          v6 = extensionStoreCoordinatorSupportedArchivableClassesForInfoFiles(v4);
+          v7 = [OUTLINED_FUNCTION_30() unarchivedObjectOfClasses:? fromData:? error:?];
         }
 
         else
         {
-          v6 = 0;
+          v7 = 0;
         }
 
-        v7 = objc_opt_self();
+        v8 = objc_opt_self();
         isKindOfClass = objc_opt_isKindOfClass();
 
         if (isKindOfClass)
         {
-          v9 = v6;
+          v10 = v7;
         }
 
         else
         {
-          v9 = objc_opt_new();
+          v10 = objc_opt_new();
         }
 
-        v10 = *(v1 + 64);
-        *(v1 + 64) = v9;
+        v11 = *(v1 + 64);
+        *(v1 + 64) = v10;
 
         v3 = *(v1 + 64);
       }
@@ -3804,7 +3809,7 @@ LABEL_10:
         v23 = 0;
         v9 = [v17 writeToURL:v18 options:268435457 error:&v23];
         v19 = v23;
-        v20 = PBFLogPosterContents();
+        v20 = PBFLogPosterContents(v19);
         v21 = v20;
         if (v9)
         {
@@ -3868,7 +3873,7 @@ LABEL_10:
 - (id)_accessLock_transientInternalInfo
 {
   selfCopy = self;
-  v33 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   if (self)
   {
     if ([self[16] getFlag])
@@ -3884,29 +3889,31 @@ LABEL_10:
       {
         [selfCopy[6] pbf_setFileProtection:*MEMORY[0x277CBE800] error:0];
         v3 = selfCopy[6];
-        v28 = 0;
-        v4 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v3 options:2 error:&v28];
-        v5 = v28;
+        v31 = 0;
+        v4 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v3 options:2 error:&v31];
+        v5 = v31;
+        v6 = v5;
         if (v5)
         {
-          v6 = PBFLogPosterContents();
-          if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+          v7 = PBFLogPosterContents(v5);
+          if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
           {
-            v29 = 136315394;
-            v30 = "[PBFPosterExtensionStoreCoordinator _accessLock_transientInternalInfo]";
-            v31 = 2112;
-            v32 = v5;
+            v32 = 136315394;
+            v33 = "[PBFPosterExtensionStoreCoordinator _accessLock_transientInternalInfo]";
+            v34 = 2112;
+            v35 = v6;
             OUTLINED_FUNCTION_17();
-            _os_log_error_impl(v15, v16, v17, v18, v19, v20);
+            _os_log_error_impl(v18, v19, v20, v21, v22, v23);
           }
 
-          v7 = selfCopy[9];
+          v8 = selfCopy[9];
           selfCopy[9] = MEMORY[0x277CBEC10];
         }
 
         else
         {
-          if (![v4 length])
+          v11 = [v4 length];
+          if (!v11)
           {
 LABEL_22:
             selfCopy = selfCopy[9];
@@ -3914,34 +3921,34 @@ LABEL_22:
             goto LABEL_12;
           }
 
-          v10 = MEMORY[0x277CCAAC8];
-          v11 = extensionStoreCoordinatorSupportedArchivableClassesForInfoFiles();
-          v27 = 0;
-          v12 = [v10 unarchivedObjectOfClasses:v11 fromData:v4 error:&v27];
-          v7 = v27;
+          v12 = MEMORY[0x277CCAAC8];
+          v13 = extensionStoreCoordinatorSupportedArchivableClassesForInfoFiles(v11);
+          v30 = 0;
+          v14 = [v12 unarchivedObjectOfClasses:v13 fromData:v4 error:&v30];
+          v8 = v30;
 
-          if (v7)
+          if (v8)
           {
-            v13 = PBFLogPosterContents();
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+            v16 = PBFLogPosterContents(v15);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
-              v29 = 136315394;
-              v30 = "[PBFPosterExtensionStoreCoordinator _accessLock_transientInternalInfo]";
-              v31 = 2112;
-              v32 = v7;
+              v32 = 136315394;
+              v33 = "[PBFPosterExtensionStoreCoordinator _accessLock_transientInternalInfo]";
+              v34 = 2112;
+              v35 = v8;
               OUTLINED_FUNCTION_17();
-              _os_log_error_impl(v21, v22, v23, v24, v25, v26);
+              _os_log_error_impl(v24, v25, v26, v27, v28, v29);
             }
           }
 
-          v14 = selfCopy[9];
-          selfCopy[9] = v12;
+          v17 = selfCopy[9];
+          selfCopy[9] = v14;
         }
 
         goto LABEL_22;
       }
 
-      v8 = selfCopy[9];
+      v9 = selfCopy[9];
       selfCopy[9] = MEMORY[0x277CBEC10];
 
       v2 = selfCopy[9];
@@ -4057,7 +4064,7 @@ LABEL_4:
 
 - (void)initWithContainerURL:(char *)a1 extensionIdentifier:readonly:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -4065,7 +4072,7 @@ LABEL_4:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -4075,7 +4082,7 @@ LABEL_4:
 
 - (void)initWithContainerURL:(char *)a1 extensionIdentifier:readonly:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSURLClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -4083,7 +4090,7 @@ LABEL_4:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSURLClass]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -4093,7 +4100,7 @@ LABEL_4:
 
 - (void)initWithContainerURL:(char *)a1 extensionIdentifier:readonly:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -4101,7 +4108,7 @@ LABEL_4:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -4111,7 +4118,7 @@ LABEL_4:
 
 - (void)initWithContainerURL:(char *)a1 extensionIdentifier:readonly:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -4119,7 +4126,7 @@ LABEL_4:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -4127,29 +4134,28 @@ LABEL_4:
   __break(0);
 }
 
-- (void)dynamicDescriptorStoreCoordinatorForIdentifier:(uint64_t)a1 role:(const char *)a2 createIfNil:error:.cold.1(uint64_t a1, const char *a2)
+- (void)dynamicDescriptorStoreCoordinatorForIdentifier:(uint64_t)a3 role:createIfNil:error:.cold.1(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v4 = MEMORY[0x277CCACA8];
-  PFPosterRolesSupportedForCurrentDeviceClass();
-  v14 = v13 = a1;
-  v5 = [v4 stringWithFormat:@"invalid role: %@, supported roles for device class: %@"];
+  v5 = MEMORY[0x277CCACA8];
+  v6 = PFPosterRolesSupportedForCurrentDeviceClass();
+  v7 = [v5 stringWithFormat:@"invalid role: %@, supported roles for device class: %@", a1, v6];
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v6 = NSStringFromSelector(a2);
-    v7 = objc_opt_class();
-    v15 = NSStringFromClass(v7);
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14, 2u);
+    v8 = NSStringFromSelector(a2);
+    v9 = objc_opt_class();
+    v17 = NSStringFromClass(v9);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, v15, v16);
   }
 
-  [v5 UTF8String];
+  [v7 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 - (void)providerInfoSetObject:(char *)a1 forKey:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -4157,7 +4163,7 @@ LABEL_4:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -4167,7 +4173,7 @@ LABEL_4:
 
 - (void)providerInfoSetObject:(char *)a1 forKey:error:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object conformsToProtocol:@protocol(NSSecureCoding)]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -4175,7 +4181,7 @@ LABEL_4:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object conformsToProtocol:@protocol(NSSecureCoding)]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -4185,7 +4191,7 @@ LABEL_4:
 
 - (void)providerInfoSetObject:(char *)a1 forKey:error:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -4193,7 +4199,7 @@ LABEL_4:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

@@ -103,7 +103,7 @@
   objc_storeStrong(location, event);
   v13.receiver = selfCopy;
   v13.super_class = _UIContextMenuViewAccessibility;
-  v14 = [(_UIContextMenuViewAccessibility *)&v13 _accessibilityAllowOutOfBoundsHitTestAtPoint:location[0] withEvent:pointCopy];
+  v14 = [(_UIContextMenuViewAccessibility *)&v13 _accessibilityAllowOutOfBoundsHitTestAtPoint:location[0] withEvent:pointCopy.x, pointCopy.y];
   if (v14)
   {
     v18 = v14 & 1;

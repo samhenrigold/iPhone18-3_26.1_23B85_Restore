@@ -33,50 +33,48 @@
 
 - (void)commitResultsOnceWithCompletionHandler:(id)handler
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   [(FCOperation *)self startIfNeeded];
   lazyResultPromise = [(FCFeedPrewarmOperation *)self lazyResultPromise];
 
   if (!lazyResultPromise && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"lazy result promise should be created as soon as the operation starts"];
+    v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"lazy result promise should be created as soon as the operation starts"];
     *buf = 136315906;
-    v21 = "[FCFeedPrewarmOperation commitResultsOnceWithCompletionHandler:]";
-    v22 = 2080;
-    v23 = "FCFeedPrewarmOperation.m";
-    v24 = 1024;
-    v25 = 65;
-    v26 = 2114;
-    v27 = v14;
+    v20 = "[FCFeedPrewarmOperation commitResultsOnceWithCompletionHandler:]";
+    v21 = 2080;
+    v22 = "FCFeedPrewarmOperation.m";
+    v23 = 1024;
+    v24 = 65;
+    v25 = 2114;
+    v26 = v13;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __65__FCFeedPrewarmOperation_commitResultsOnceWithCompletionHandler___block_invoke;
-  v19[3] = &unk_1E7C396C0;
-  v19[4] = self;
-  v6 = [MEMORY[0x1E69B68F8] firstly:v19];
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __65__FCFeedPrewarmOperation_commitResultsOnceWithCompletionHandler___block_invoke;
+  v18[3] = &unk_1E7C396C0;
+  v18[4] = self;
+  v6 = [MEMORY[0x1E69B68F8] firstly:v18];
   v7 = zalgo();
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __65__FCFeedPrewarmOperation_commitResultsOnceWithCompletionHandler___block_invoke_2;
-  v17[3] = &unk_1E7C396E8;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __65__FCFeedPrewarmOperation_commitResultsOnceWithCompletionHandler___block_invoke_2;
+  v16[3] = &unk_1E7C396E8;
   v8 = handlerCopy;
-  v18 = v8;
-  v9 = [v6 thenOn:v7 then:v17];
+  v17 = v8;
+  v9 = [v6 thenOn:v7 then:v16];
   v10 = zalgo();
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __65__FCFeedPrewarmOperation_commitResultsOnceWithCompletionHandler___block_invoke_3;
-  v15[3] = &unk_1E7C39710;
-  v15[4] = self;
-  v16 = v8;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __65__FCFeedPrewarmOperation_commitResultsOnceWithCompletionHandler___block_invoke_3;
+  v14[3] = &unk_1E7C39710;
+  v14[4] = self;
+  v15 = v8;
   v11 = v8;
-  v12 = [v9 errorOn:v10 error:v15];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = [v9 errorOn:v10 error:v14];
 }
 
 id __65__FCFeedPrewarmOperation_commitResultsOnceWithCompletionHandler___block_invoke(uint64_t a1)
@@ -327,7 +325,7 @@ id __42__FCFeedPrewarmOperation_performOperation__block_invoke_8(uint64_t a1, vo
 
 - (id)_commitQueryResult:(id)result
 {
-  v100 = *MEMORY[0x1E69E9840];
+  v99 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   v5 = FCOperationLog;
   if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_DEFAULT))
@@ -335,7 +333,7 @@ id __42__FCFeedPrewarmOperation_performOperation__block_invoke_8(uint64_t a1, vo
     v6 = v5;
     shortOperationDescription = [(FCOperation *)self shortOperationDescription];
     *buf = 138543362;
-    v95 = shortOperationDescription;
+    v94 = shortOperationDescription;
     _os_log_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ will commit query response to database", buf, 0xCu);
   }
 
@@ -353,13 +351,13 @@ id __42__FCFeedPrewarmOperation_performOperation__block_invoke_8(uint64_t a1, vo
   }
 
   v11 = v10;
-  v92[0] = MEMORY[0x1E69E9820];
-  v92[1] = 3221225472;
-  v92[2] = __45__FCFeedPrewarmOperation__commitQueryResult___block_invoke;
-  v92[3] = &unk_1E7C397F8;
+  v91[0] = MEMORY[0x1E69E9820];
+  v91[1] = 3221225472;
+  v91[2] = __45__FCFeedPrewarmOperation__commitQueryResult___block_invoke;
+  v91[3] = &unk_1E7C397F8;
   v12 = feedIDsByCKFeedID;
-  v93 = v12;
-  v82 = [v11 fc_dictionaryWithKeyBlock:v92 valueBlock:&__block_literal_global_27_0];
+  v92 = v12;
+  v81 = [v11 fc_dictionaryWithKeyBlock:v91 valueBlock:&__block_literal_global_27_0];
 
   date2 = [MEMORY[0x1E695DF00] date];
   if (resultCopy)
@@ -373,14 +371,14 @@ id __42__FCFeedPrewarmOperation_performOperation__block_invoke_8(uint64_t a1, vo
   }
 
   v15 = v14;
-  v90[0] = MEMORY[0x1E69E9820];
-  v90[1] = 3221225472;
-  v90[2] = __45__FCFeedPrewarmOperation__commitQueryResult___block_invoke_3;
-  v90[3] = &unk_1E7C39840;
-  v90[4] = self;
+  v89[0] = MEMORY[0x1E69E9820];
+  v89[1] = 3221225472;
+  v89[2] = __45__FCFeedPrewarmOperation__commitQueryResult___block_invoke_3;
+  v89[3] = &unk_1E7C39840;
+  v89[4] = self;
   v16 = v12;
-  v91 = v16;
-  v83 = [v15 fc_arrayByTransformingWithBlock:v90];
+  v90 = v16;
+  v82 = [v15 fc_arrayByTransformingWithBlock:v89];
 
   v17 = FCOperationLog;
   if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_DEFAULT))
@@ -389,19 +387,19 @@ id __42__FCFeedPrewarmOperation_performOperation__block_invoke_8(uint64_t a1, vo
     shortOperationDescription2 = [(FCOperation *)self shortOperationDescription];
     fc_millisecondTimeIntervalUntilNow = [date2 fc_millisecondTimeIntervalUntilNow];
     *buf = 138543618;
-    v95 = shortOperationDescription2;
-    v96 = 2048;
-    v97 = fc_millisecondTimeIntervalUntilNow;
+    v94 = shortOperationDescription2;
+    v95 = 2048;
+    v96 = fc_millisecondTimeIntervalUntilNow;
     _os_log_impl(&dword_1B63EF000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@ spent %llums creating feed items", buf, 0x16u);
   }
 
-  v80 = date2;
+  v79 = date2;
   date3 = [MEMORY[0x1E695DF00] date];
   contentContext = [(FCFeedPrewarmOperation *)self contentContext];
   internalContentContext = [contentContext internalContentContext];
   feedDatabase = [internalContentContext feedDatabase];
   allValues = [v16 allValues];
-  [feedDatabase saveFeedItems:v83 feedIDs:allValues extentByFeedID:v82 requestRangeByFeedID:requestRangeByFeedID];
+  [feedDatabase saveFeedItems:v82 feedIDs:allValues extentByFeedID:v81 requestRangeByFeedID:requestRangeByFeedID];
 
   v26 = FCOperationLog;
   if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_DEFAULT))
@@ -409,13 +407,13 @@ id __42__FCFeedPrewarmOperation_performOperation__block_invoke_8(uint64_t a1, vo
     v27 = v26;
     shortOperationDescription3 = [(FCOperation *)self shortOperationDescription];
     fc_millisecondTimeIntervalUntilNow2 = [date3 fc_millisecondTimeIntervalUntilNow];
-    v30 = [v83 count];
+    v30 = [v82 count];
     *buf = 138543874;
-    v95 = shortOperationDescription3;
-    v96 = 2048;
-    v97 = fc_millisecondTimeIntervalUntilNow2;
-    v98 = 2048;
-    v99 = v30;
+    v94 = shortOperationDescription3;
+    v95 = 2048;
+    v96 = fc_millisecondTimeIntervalUntilNow2;
+    v97 = 2048;
+    v98 = v30;
     _os_log_impl(&dword_1B63EF000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@ spent %llums saving %lu feed items", buf, 0x20u);
   }
 
@@ -486,7 +484,7 @@ id __42__FCFeedPrewarmOperation_performOperation__block_invoke_8(uint64_t a1, vo
   }
 
   v55 = MEMORY[0x1E695DFD8];
-  v79 = date3;
+  v78 = date3;
   if (resultCopy)
   {
     v56 = resultCopy[2];
@@ -498,34 +496,34 @@ id __42__FCFeedPrewarmOperation_performOperation__block_invoke_8(uint64_t a1, vo
   }
 
   v57 = v56;
-  v88[0] = MEMORY[0x1E69E9820];
-  v88[1] = 3221225472;
-  v88[2] = __45__FCFeedPrewarmOperation__commitQueryResult___block_invoke_31;
-  v88[3] = &unk_1E7C39868;
+  v87[0] = MEMORY[0x1E69E9820];
+  v87[1] = 3221225472;
+  v87[2] = __45__FCFeedPrewarmOperation__commitQueryResult___block_invoke_31;
+  v87[3] = &unk_1E7C39868;
   v58 = v16;
-  v89 = v58;
-  v59 = [v57 fc_arrayByTransformingWithBlock:v88];
+  v88 = v58;
+  v59 = [v57 fc_arrayByTransformingWithBlock:v87];
   v60 = [v55 setWithArray:v59];
 
   prewarmRequest4 = [(FCFeedPrewarmOperation *)self prewarmRequest];
   feedRequests = [prewarmRequest4 feedRequests];
-  v86[0] = MEMORY[0x1E69E9820];
-  v86[1] = 3221225472;
-  v86[2] = __45__FCFeedPrewarmOperation__commitQueryResult___block_invoke_2_32;
-  v86[3] = &unk_1E7C39890;
+  v85[0] = MEMORY[0x1E69E9820];
+  v85[1] = 3221225472;
+  v85[2] = __45__FCFeedPrewarmOperation__commitQueryResult___block_invoke_2_32;
+  v85[3] = &unk_1E7C39890;
   v63 = v60;
-  v87 = v63;
-  v64 = [feedRequests fc_arrayOfObjectsPassingTest:v86];
+  v86 = v63;
+  v64 = [feedRequests fc_arrayOfObjectsPassingTest:v85];
 
   prewarmRequest5 = [(FCFeedPrewarmOperation *)self prewarmRequest];
   feedRequests2 = [prewarmRequest5 feedRequests];
-  v84[0] = MEMORY[0x1E69E9820];
-  v84[1] = 3221225472;
-  v84[2] = __45__FCFeedPrewarmOperation__commitQueryResult___block_invoke_3_34;
-  v84[3] = &unk_1E7C39890;
+  v83[0] = MEMORY[0x1E69E9820];
+  v83[1] = 3221225472;
+  v83[2] = __45__FCFeedPrewarmOperation__commitQueryResult___block_invoke_3_34;
+  v83[3] = &unk_1E7C39890;
   v67 = v63;
-  v85 = v67;
-  v68 = [feedRequests2 fc_arrayOfObjectsPassingTest:v84];
+  v84 = v67;
+  v68 = [feedRequests2 fc_arrayOfObjectsPassingTest:v83];
 
   v69 = FCOperationLog;
   if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_DEFAULT))
@@ -534,9 +532,9 @@ id __42__FCFeedPrewarmOperation_performOperation__block_invoke_8(uint64_t a1, vo
     shortOperationDescription4 = [(FCOperation *)self shortOperationDescription];
     fc_millisecondTimeIntervalUntilNow3 = [date fc_millisecondTimeIntervalUntilNow];
     *buf = 138543618;
-    v95 = shortOperationDescription4;
-    v96 = 2048;
-    v97 = fc_millisecondTimeIntervalUntilNow3;
+    v94 = shortOperationDescription4;
+    v95 = 2048;
+    v96 = fc_millisecondTimeIntervalUntilNow3;
     _os_log_impl(&dword_1B63EF000, v70, OS_LOG_TYPE_DEFAULT, "%{public}@ did commit query response to database, total time = %llums", buf, 0x16u);
   }
 
@@ -553,8 +551,6 @@ id __42__FCFeedPrewarmOperation_performOperation__block_invoke_8(uint64_t a1, vo
 
   v75 = v74;
   v76 = [(FCFeedPrewarmResult *)v73 initWithSuccessfulRequests:v64 failedRequests:v68 networkEvents:v75];
-
-  v77 = *MEMORY[0x1E69E9840];
 
   return v76;
 }

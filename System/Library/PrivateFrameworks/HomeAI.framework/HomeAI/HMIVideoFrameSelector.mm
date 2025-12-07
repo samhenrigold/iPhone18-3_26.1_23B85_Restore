@@ -24,7 +24,7 @@
     v5->_enabled = 1;
     v5->_resetReferences = 0;
     v5->_references = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
-    [(HMIVideoFrameSelector *)v5 setSampleRate:3.0];
+    [(HMIVideoFrameSelector *)v5 setSampleRate:?];
   }
 
   return v5;
@@ -76,7 +76,7 @@
     rhs = referenceInterval;
     if (CMTimeDivide() < v11 || (time2.start = lhs, *&rhs.value = v14, rhs.epoch = v10, !CMTimeCompare(&time2.start, &rhs)))
     {
-      v12 = [delegate frameSelector:self prepareFrame:{buffer, v14}];
+      v12 = [delegate frameSelector:v14 prepareFrame:?];
       if (v12)
       {
         v13 = v12;
@@ -92,13 +92,13 @@
 
     if (v8)
     {
-      [delegate frameSelector:self didSelectFrame:buffer reference:v8];
+      [delegate frameSelector:? didSelectFrame:? reference:?];
       CFRelease(v8);
     }
 
     else
     {
-      [delegate frameSelector:self didSkipFrame:buffer];
+      [delegate frameSelector:? didSkipFrame:?];
     }
   }
 

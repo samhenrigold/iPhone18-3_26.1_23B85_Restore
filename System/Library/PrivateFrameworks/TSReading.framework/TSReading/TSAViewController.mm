@@ -98,7 +98,7 @@
 
 - (id)toolbarButtonForModalDoneWithTarget:(id)target action:(SEL)action
 {
-  v4 = -[TSAViewController toolbarButtonWithTitle:target:action:isModal:](self, "toolbarButtonWithTitle:target:action:isModal:", [TSABundle() localizedStringForKey:@"Done" value:&stru_287D36338 table:@"TSApplication"], target, action, 1);
+  v4 = -[TSAViewController toolbarButtonWithTitle:target:action:isModal:](self, "toolbarButtonWithTitle:target:action:isModal:", [TSABundle(self a2)], target, action, 1);
   [v4 setFont:{objc_msgSend(MEMORY[0x277D74300], "systemFontOfSize:weight:", 17.0, *MEMORY[0x277D74410])}];
   [v4 sizeToFit];
   return v4;

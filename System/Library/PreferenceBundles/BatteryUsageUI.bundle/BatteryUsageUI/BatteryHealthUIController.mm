@@ -33,6 +33,7 @@
 - (id)spinnerSpecifierGroup;
 - (id)startSpinner;
 - (id)unknownHeaderSpeciifer;
+- (void)animateSwitchSpecifier:(id)specifier toState:(BOOL)state;
 - (void)clearSpinner;
 - (void)didTapABW;
 - (void)getBatteryInformation;
@@ -65,6 +66,8 @@
 - (void)updateSmartChargingState;
 - (void)userDidDisable;
 - (void)userDidLeaveOn;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -86,7 +89,7 @@
 
   if (os_log_type_enabled(self->_BHUILog, OS_LOG_TYPE_DEBUG))
   {
-    sub_111124(&self->_maximumCapacityPercent);
+    sub_111124();
   }
 
   v7 = objc_opt_new();
@@ -149,7 +152,7 @@
 
     if (os_log_type_enabled(self->_BHUILog, OS_LOG_TYPE_DEBUG))
     {
-      sub_111204(140, self);
+      sub_111204();
     }
   }
 }
@@ -159,7 +162,7 @@
   self->_batteryHealthServiceState = +[BatteryUIResourceClass getBatteryHealthServiceState];
   if (os_log_type_enabled(self->_BHUILog, OS_LOG_TYPE_DEBUG))
   {
-    sub_111278(&self->_batteryHealthServiceState);
+    sub_111278();
   }
 }
 
@@ -168,7 +171,7 @@
   self->_batteryHealthServiceFlag = +[BatteryUIResourceClass getBatteryHealthServiceFlags];
   if (os_log_type_enabled(self->_BHUILog, OS_LOG_TYPE_DEBUG))
   {
-    sub_1112EC(&self->_batteryHealthServiceFlag);
+    sub_1112EC();
   }
 }
 
@@ -177,7 +180,7 @@
   self->_genuineBatteryStatus = +[BatteryUIResourceClass genuineBatteryStatus];
   if (os_log_type_enabled(self->_BHUILog, OS_LOG_TYPE_DEBUG))
   {
-    sub_111360(&self->_genuineBatteryStatus);
+    sub_111360();
   }
 }
 
@@ -1516,8 +1519,8 @@ LABEL_5:
           v20 = BatteryUILocalization(@"PPC_PERFMGMT_ENABLED_LINK");
         }
 
-        v25.location = [v12 rangeOfString:v20];
-        v21 = NSStringFromRange(v25);
+        v24.location = [v12 rangeOfString:v20];
+        v21 = NSStringFromRange(v24);
         [v5 setProperty:v21 forKey:PSFooterHyperlinkViewLinkRangeKey];
 
         v22 = [NSValue valueWithNonretainedObject:self];
@@ -1548,7 +1551,6 @@ LABEL_57:
     }
 
 LABEL_58:
-    v23 = self->_perfManagementState;
     ADClientSetValueForScalarKey();
     AnalyticsSendEventLazy();
     v11 = PSFooterTextGroupKey;
@@ -2440,6 +2442,21 @@ LABEL_14:
   objc_destroyWeak(location);
 }
 
+- (void)animateSwitchSpecifier:(id)specifier toState:(BOOL)state
+{
+  stateCopy = state;
+  specifierCopy = specifier;
+  v6 = +[BatteryUIResourceClass get_log_handle_bui];
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  {
+    sub_111F08();
+  }
+
+  v7 = [specifierCopy objectForKeyedSubscript:PSTableCellKey];
+  control = [v7 control];
+  [control setOn:stateCopy animated:1];
+}
+
 - (void)setLearnMoreLink
 {
   if (!+[BatteryUIResourceClass inDemoMode](BatteryUIResourceClass, "inDemoMode") || (+[UIDevice modelSpecificLocalizedStringKeyForKey:](UIDevice, "modelSpecificLocalizedStringKeyForKey:", @"LEARN_MORE_URL"), +[BatteryUIResourceClass containerPath], (v5 = _CFPreferencesCopyValueWithContainer()) == 0))
@@ -2708,6 +2725,44 @@ LABEL_14:
     *v3 = 0;
     _os_log_impl(&dword_0, BHUILog, OS_LOG_TYPE_INFO, "User left mitigations enabled", v3, 2u);
   }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v12.receiver = self;
+  v12.super_class = BatteryHealthUIController;
+  [(BatteryHealthUIController *)&v12 viewDidAppear:appear];
+  v4 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.Battery/BATTERY_HEALTH_TITLE"];
+  v5 = @"BATTERY_HEALTH_TITLE";
+  if (!+[PLBatteryUIBackendModel shouldShowChargingController](PLBatteryUIBackendModel, "shouldShowChargingController") && !+[PLModelingUtilities isiPad])
+  {
+    v5 = @"BATTERY_HEALTH";
+  }
+
+  v6 = v5;
+  v7 = [_NSLocalizedStringResource alloc];
+  v8 = +[NSLocale currentLocale];
+  v9 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL = [v9 bundleURL];
+  v11 = [v7 initWithKey:v6 table:@"BatteryUI" locale:v8 bundleURL:bundleURL];
+
+  [(BatteryHealthUIController *)self pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.graphic-icon.battery" title:v11 localizedNavigationComponents:&__NSArray0__struct deepLink:v4];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  spinnerTimer = self->_spinnerTimer;
+  if (spinnerTimer)
+  {
+    dispatch_source_cancel(spinnerTimer);
+    v6 = self->_spinnerTimer;
+    self->_spinnerTimer = 0;
+  }
+
+  v7.receiver = self;
+  v7.super_class = BatteryHealthUIController;
+  [(BatteryHealthUIController *)&v7 viewDidDisappear:disappearCopy];
 }
 
 - (id)getChargingMode

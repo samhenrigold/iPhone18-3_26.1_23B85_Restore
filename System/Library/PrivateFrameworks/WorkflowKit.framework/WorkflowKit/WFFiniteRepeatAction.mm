@@ -16,40 +16,40 @@
 
 - (void)runWithInput:(id)input error:(id *)error
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   inputCopy = input;
-  v25.receiver = self;
-  v25.super_class = WFFiniteRepeatAction;
-  [(WFRepeatAction *)&v25 runWithInput:inputCopy error:error];
+  v24.receiver = self;
+  v24.super_class = WFFiniteRepeatAction;
+  [(WFRepeatAction *)&v24 runWithInput:inputCopy error:error];
   variableSource = [(WFAction *)self variableSource];
   mode = [(WFControlFlowAction *)self mode];
   if (mode == 2)
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     items = [inputCopy items];
-    v14 = [items countByEnumeratingWithState:&v21 objects:v26 count:16];
+    v14 = [items countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v22;
+      v16 = *v21;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v22 != v16)
+          if (*v21 != v16)
           {
             objc_enumerationMutation(items);
           }
 
-          v18 = *(*(&v21 + 1) + 8 * i);
+          v18 = *(*(&v20 + 1) + 8 * i);
           output = [(WFAction *)self output];
           [output addItem:v18];
         }
 
-        v15 = [items countByEnumeratingWithState:&v21 objects:v26 count:16];
+        v15 = [items countByEnumeratingWithState:&v20 objects:v25 count:16];
       }
 
       while (v15);
@@ -88,8 +88,6 @@ LABEL_6:
   }
 
 LABEL_15:
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)repeatCountWithVariableSource:(id)source
@@ -108,7 +106,7 @@ LABEL_15:
 
 - (void)setRepeatCount:(int64_t)count withVariableSource:(id)source
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   sourceCopy = source;
   if (count)
   {
@@ -116,8 +114,8 @@ LABEL_15:
     v11 = MEMORY[0x1E6996D58];
     v4 = [MEMORY[0x1E696AD98] numberWithInteger:count];
     v5 = [v11 itemWithObject:v4];
-    v15[0] = v5;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+    v14[0] = v5;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
     v12 = [v10 collectionWithItems:v6];
   }
 
@@ -132,8 +130,6 @@ LABEL_15:
   if (count)
   {
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)repeatInputWithVariableSource:(id)source
@@ -190,7 +186,7 @@ LABEL_15:
 
 - (void)runWithInput:(id)input userInterface:(id)interface runningDelegate:(id)delegate variableSource:(id)source workQueue:(id)queue completionHandler:(id)handler
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   inputCopy = input;
   interfaceCopy = interface;
   delegateCopy = delegate;
@@ -211,20 +207,18 @@ LABEL_15:
       v24 = firstObject;
       if (firstObject)
       {
-        v30 = @"WFRepeatCount";
+        v29 = @"WFRepeatCount";
         number = [firstObject number];
-        v31[0] = number;
-        v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+        v30[0] = number;
+        v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
         [(WFAction *)self setProcessedParameters:v26];
       }
     }
   }
 
-  v29.receiver = self;
-  v29.super_class = WFFiniteRepeatAction;
-  [(WFAction *)&v29 runWithInput:inputCopy userInterface:interfaceCopy runningDelegate:delegateCopy variableSource:sourceCopy workQueue:queueCopy completionHandler:handlerCopy];
-
-  v27 = *MEMORY[0x1E69E9840];
+  v28.receiver = self;
+  v28.super_class = WFFiniteRepeatAction;
+  [(WFAction *)&v28 runWithInput:inputCopy userInterface:interfaceCopy runningDelegate:delegateCopy variableSource:sourceCopy workQueue:queueCopy completionHandler:handlerCopy];
 }
 
 - (void)resetEvaluationCriteriaWithVariableSource:(id)source

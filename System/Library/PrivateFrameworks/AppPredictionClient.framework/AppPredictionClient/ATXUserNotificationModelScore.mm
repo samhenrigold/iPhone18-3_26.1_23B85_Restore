@@ -166,30 +166,31 @@ LABEL_7:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v17 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+    v18 = __atxlog_handle_notification_management(isKindOfClass);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
     {
-      [(ATXDigestTimeline *)self initWithProto:v17];
+      [(ATXDigestTimeline *)self initWithProto:v18];
     }
 
     goto LABEL_7;
   }
 
-  v5 = protoCopy;
-  modelId = [v5 modelId];
-  modelVersion = [v5 modelVersion];
-  [v5 score];
-  v9 = v8;
-  [v5 scoreTimestamp];
-  v11 = v10;
-  v12 = objc_alloc(MEMORY[0x1E696AFB0]);
-  scoreUUID = [v5 scoreUUID];
-  v14 = [v12 initWithUUIDString:scoreUUID];
-  scoreInfo = [v5 scoreInfo];
+  v6 = protoCopy;
+  modelId = [v6 modelId];
+  modelVersion = [v6 modelVersion];
+  [v6 score];
+  v10 = v9;
+  [v6 scoreTimestamp];
+  v12 = v11;
+  v13 = objc_alloc(MEMORY[0x1E696AFB0]);
+  scoreUUID = [v6 scoreUUID];
+  v15 = [v13 initWithUUIDString:scoreUUID];
+  scoreInfo = [v6 scoreInfo];
 
-  self = [(ATXUserNotificationModelScore *)self initFromModelScoreData:modelId modelVersion:modelVersion score:v14 scoreTimestamp:scoreInfo scoreUUID:v9 scoreInfo:v11];
+  self = [(ATXUserNotificationModelScore *)self initFromModelScoreData:modelId modelVersion:modelVersion score:v15 scoreTimestamp:scoreInfo scoreUUID:v10 scoreInfo:v12];
   selfCopy = self;
 LABEL_8:
 

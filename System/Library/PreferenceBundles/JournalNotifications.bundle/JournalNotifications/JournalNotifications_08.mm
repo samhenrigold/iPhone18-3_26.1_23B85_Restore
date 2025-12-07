@@ -1,11 +1,11 @@
-char *sub_BAAF8(uint64_t a1, unint64_t a2)
+double *sub_BAAF8(uint64_t a1, unint64_t a2)
 {
   v3 = sub_BAB44(a1, a2);
   sub_BAC74(&off_F0108);
   return v3;
 }
 
-char *sub_BAB44(uint64_t a1, unint64_t a2)
+double *sub_BAB44(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -25,7 +25,7 @@ char *sub_BAB44(uint64_t a1, unint64_t a2)
 
   if (!v5)
   {
-    return &_swiftEmptyArrayStorage;
+    return _swiftEmptyArrayStorage;
   }
 
   v6 = sub_BAD60(v5, 0);
@@ -34,7 +34,7 @@ char *sub_BAB44(uint64_t a1, unint64_t a2)
   {
     v15[0] = a1;
     v15[1] = a2 & 0xFFFFFFFFFFFFFFLL;
-    memcpy(v6 + 32, v15, HIBYTE(a2) & 0xF);
+    memcpy(v6 + 4, v15, HIBYTE(a2) & 0xF);
     return v7;
   }
 
@@ -51,7 +51,7 @@ char *sub_BAB44(uint64_t a1, unint64_t a2)
   if (v4 >= v9)
   {
 LABEL_9:
-    memcpy(v7 + 32, v8, v9);
+    memcpy(v7 + 4, v8, v9);
     if (v9 != v4)
     {
       while (1)
@@ -61,7 +61,7 @@ LABEL_13:
         v10 = sub_C5534();
         if (!v10)
         {
-          return &_swiftEmptyArrayStorage;
+          return _swiftEmptyArrayStorage;
         }
 
         v11 = v10;
@@ -87,11 +87,11 @@ LABEL_20:
   return result;
 }
 
-uint64_t sub_BAC74(uint64_t result)
+void sub_BAC74(uint64_t a1)
 {
-  v2 = *(result + 16);
+  v2 = *(a1 + 16);
   v3 = *v1;
-  v4 = *(*v1 + 16);
+  v4 = *(*v1 + 2);
   v5 = v4 + v2;
   if (__OFADD__(v4, v2))
   {
@@ -101,11 +101,10 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  v6 = result;
-  result = swift_isUniquelyReferenced_nonNull_native();
-  if (result && v5 <= *(v3 + 24) >> 1)
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  if (isUniquelyReferenced_nonNull_native && v5 <= *(v3 + 3) >> 1)
   {
-    if (*(v6 + 16))
+    if (*(a1 + 16))
     {
       goto LABEL_5;
     }
@@ -115,17 +114,16 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v11 = v4 + v2;
+    v12 = v4 + v2;
   }
 
   else
   {
-    v11 = v4;
+    v12 = v4;
   }
 
-  result = sub_BADD4(result, v11, 1, v3);
-  v3 = result;
-  if (!*(v6 + 16))
+  v3 = sub_BADD4(isUniquelyReferenced_nonNull_native, v12, 1, v3);
+  if (!*(a1 + 16))
   {
 LABEL_13:
 
@@ -138,38 +136,37 @@ LABEL_13:
   }
 
 LABEL_5:
-  v7 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v7 < v2)
+  v8 = *(v3 + 2);
+  if ((*(v3 + 3) >> 1) - v8 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v7 + 32), (v6 + 32), v2);
+  memcpy(v3 + v8 + 32, (a1 + 32), v2);
 
   if (!v2)
   {
 LABEL_14:
     *v1 = v3;
-    return result;
+    return;
   }
 
-  v8 = *(v3 + 16);
-  v9 = __OFADD__(v8, v2);
-  v10 = v8 + v2;
-  if (!v9)
+  v9 = *(v3 + 2);
+  v10 = __OFADD__(v9, v2);
+  v11 = v9 + v2;
+  if (!v10)
   {
-    *(v3 + 16) = v10;
+    *(v3 + 2) = v11;
     goto LABEL_14;
   }
 
 LABEL_18:
   __break(1u);
-  return result;
 }
 
-void *sub_BAD60(uint64_t a1, uint64_t a2)
+double *sub_BAD60(uint64_t a1, uint64_t a2)
 {
   if (a2 <= a1)
   {
@@ -183,10 +180,10 @@ void *sub_BAD60(uint64_t a1, uint64_t a2)
 
   if (!v2)
   {
-    return &_swiftEmptyArrayStorage;
+    return _swiftEmptyArrayStorage;
   }
 
-  sub_3CB0(&qword_10A0F8);
+  sub_3CB0(&qword_10A0F8, &qword_D4030);
   v4 = swift_allocObject();
   v5 = j__malloc_size(v4);
   result = v4;
@@ -195,12 +192,12 @@ void *sub_BAD60(uint64_t a1, uint64_t a2)
   return result;
 }
 
-char *sub_BADD4(char *result, int64_t a2, char a3, char *a4)
+double *sub_BADD4(double *result, int64_t a2, char a3, uint64_t a4)
 {
   v5 = result;
   if (a3)
   {
-    v6 = *(a4 + 3);
+    v6 = *(a4 + 24);
     v7 = v6 >> 1;
     if ((v6 >> 1) < a2)
     {
@@ -223,10 +220,10 @@ char *sub_BADD4(char *result, int64_t a2, char a3, char *a4)
     v7 = a2;
   }
 
-  v8 = *(a4 + 2);
+  v8 = *(a4 + 16);
   if (v7 <= v8)
   {
-    v9 = *(a4 + 2);
+    v9 = *(a4 + 16);
   }
 
   else
@@ -236,7 +233,7 @@ char *sub_BADD4(char *result, int64_t a2, char a3, char *a4)
 
   if (v9)
   {
-    sub_3CB0(&qword_10A0F8);
+    sub_3CB0(&qword_10A0F8, &qword_D4030);
     v10 = swift_allocObject();
     v11 = j__malloc_size(v10);
     *(v10 + 2) = v8;
@@ -245,11 +242,11 @@ char *sub_BADD4(char *result, int64_t a2, char a3, char *a4)
 
   else
   {
-    v10 = &_swiftEmptyArrayStorage;
+    v10 = _swiftEmptyArrayStorage;
   }
 
-  v12 = v10 + 32;
-  v13 = a4 + 32;
+  v12 = (v10 + 4);
+  v13 = (a4 + 32);
   if (v5)
   {
     if (v10 != a4 || v12 >= &v13[v8])
@@ -257,7 +254,7 @@ char *sub_BADD4(char *result, int64_t a2, char a3, char *a4)
       memmove(v12, v13, v8);
     }
 
-    *(a4 + 2) = 0;
+    *(a4 + 16) = 0;
   }
 
   else
@@ -354,7 +351,8 @@ uint64_t sub_BB35C()
   v1 = *(v0 + 24) + OBJC_IVAR____TtC20JournalNotifications27JournalNotificationsManager_actionHandler;
   v2 = *v1;
   *(v0 + 56) = *v1;
-  *(v0 + 64) = *(v1 + 8);
+  v3 = *(v1 + 8);
+  *(v0 + 64) = v3;
   if (!v2)
   {
 
@@ -363,101 +361,101 @@ uint64_t sub_BB35C()
       swift_once();
     }
 
-    v14 = sub_C4CD4();
-    sub_B680(v14, qword_10A010);
-    v15 = sub_C4CB4();
-    v16 = sub_C5A44();
-    if (os_log_type_enabled(v15, v16))
+    v15 = sub_C4CD4();
+    sub_B680(v15, qword_10A010);
+    v16 = sub_C4CB4();
+    v17 = sub_C5A44();
+    if (os_log_type_enabled(v16, v17))
     {
-      v17 = swift_slowAlloc();
-      *v17 = 0;
-      _os_log_impl(&dword_0, v15, v16, "Received a notification response from outside the main app; ignoring.", v17, 2u);
+      v18 = swift_slowAlloc();
+      *v18 = 0;
+      _os_log_impl(&dword_0, v16, v17, "Received a notification response from outside the main app; ignoring.", v18, 2u);
     }
 
     goto LABEL_24;
   }
 
-  v3 = *(v0 + 16);
+  v4 = *(v0 + 16);
 
-  v4 = [v3 actionIdentifier];
-  v5 = sub_C5484();
-  v7 = v6;
+  v5 = [v4 actionIdentifier];
+  v6 = sub_C5484();
+  v8 = v7;
 
-  v8._rawValue = &off_F0C88;
-  v37._countAndFlagsBits = v5;
-  v37._object = v7;
-  v9 = sub_C6134(v8, v37);
+  v9._rawValue = &off_F0C88;
+  v38._countAndFlagsBits = v6;
+  v38._object = v8;
+  v10 = sub_C6134(v9, v38);
 
-  if (v9 <= 1)
+  if (v10 <= 1)
   {
 LABEL_3:
-    v10 = *(v0 + 32);
-    v11 = [*(v0 + 16) notification];
-    *(v0 + 72) = v11;
+    v11 = *(v0 + 32);
+    v12 = [*(v0 + 16) notification];
+    *(v0 + 72) = v12;
 
-    v35 = (v2 + *v2);
-    v12 = swift_task_alloc();
-    *(v0 + 80) = v12;
-    *v12 = v0;
-    v12[1] = sub_BB7F0;
+    v36 = (v2 + *v2);
+    v13 = swift_task_alloc();
+    *(v0 + 80) = v13;
+    *v13 = v0;
+    v13[1] = sub_BB7F0;
 
-    return v35(v10, &protocol witness table for MainActor, v11, v9);
+    return v36(v11, &protocol witness table for MainActor, v12, v10);
   }
 
-  v18 = [*(v0 + 16) actionIdentifier];
-  v19 = sub_C5484();
-  v21 = v20;
+  v19 = [*(v0 + 16) actionIdentifier];
+  v20 = sub_C5484();
+  v22 = v21;
 
-  if (v19 == sub_C5484() && v21 == v22)
+  if (v20 == sub_C5484() && v22 == v23)
   {
 
     goto LABEL_18;
   }
 
-  v24 = sub_C6244();
+  v25 = sub_C6244();
 
-  if (v24)
+  if (v25)
   {
 LABEL_18:
-    v25 = [*(v0 + 16) notification];
-    v26 = [v25 request];
+    v26 = [*(v0 + 16) notification];
+    v27 = [v26 request];
 
-    v27 = [v26 content];
-    v28 = [v27 categoryIdentifier];
+    v28 = [v27 content];
+    v29 = [v28 categoryIdentifier];
 
-    v29 = sub_C5484();
-    v31 = v30;
+    v30 = sub_C5484();
+    v32 = v31;
 
-    v32._rawValue = &off_F0C38;
-    v38._countAndFlagsBits = v29;
-    v38._object = v31;
-    v9 = sub_C6134(v32, v38);
+    v33._rawValue = &off_F0C38;
+    v39._countAndFlagsBits = v30;
+    v39._object = v32;
+    v10 = sub_C6134(v33, v39);
 
-    if (!v9)
+    if (!v10)
     {
 
       goto LABEL_3;
     }
 
-    if (v9 == 1)
+    if (v10 == 1)
     {
-      v33 = sub_C6244();
+      v34 = sub_C6244();
 
-      if ((v33 & 1) == 0)
+      if ((v34 & 1) == 0)
       {
       }
 
-      v9 = 0;
+      v10 = 0;
       goto LABEL_3;
     }
   }
 
-  sub_2881C(v2);
+  sub_2881C(v2, v3);
 
 LABEL_24:
-  v34 = *(v0 + 8);
+  v35 = *(v0 + 8);
 
-  return v34();
+  return v35();
 }
 
 uint64_t sub_BB7F0()
@@ -473,9 +471,9 @@ uint64_t sub_BB7F0()
 
 uint64_t sub_BB94C()
 {
-  sub_2881C(*(v0 + 56));
+  sub_2881C(v0[7], v0[8]);
 
-  v1 = *(v0 + 8);
+  v1 = v0[1];
 
   return v1();
 }
@@ -561,7 +559,7 @@ unint64_t sub_BBC8C()
   result = qword_10A130;
   if (!qword_10A130)
   {
-    sub_BE28(255, &qword_107740);
+    sub_BE28(255, &qword_107740, UNNotificationCategory_ptr);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_10A130);
   }
@@ -571,17 +569,17 @@ unint64_t sub_BBC8C()
 
 uint64_t sub_BBD18(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v9 = sub_3CB0(&qword_104E88);
+  v9 = sub_3CB0(&qword_104E88, &qword_CE620);
   __chkstk_darwin(v9 - 8);
   v11 = v25 - v10;
-  sub_B954(a3, v25 - v10, &qword_104E88);
+  sub_B954(a3, v25 - v10, &qword_104E88, &qword_CE620);
   v12 = sub_C5794();
   v13 = *(v12 - 8);
   v14 = (*(v13 + 48))(v11, 1, v12);
 
   if (v14 == 1)
   {
-    sub_C060(v11, &qword_104E88);
+    sub_C060(v11, &qword_104E88, &qword_CE620);
   }
 
   else
@@ -626,7 +624,7 @@ LABEL_6:
       v25[3] = v19;
       v23 = swift_task_create();
 
-      sub_C060(a3, &qword_104E88);
+      sub_C060(a3, &qword_104E88, &qword_CE620);
 
       return v23;
     }
@@ -642,7 +640,7 @@ LABEL_6:
     }
   }
 
-  sub_C060(a3, &qword_104E88);
+  sub_C060(a3, &qword_104E88, &qword_CE620);
   v22 = swift_allocObject();
   *(v22 + 16) = a4;
   *(v22 + 24) = a5;
@@ -661,7 +659,7 @@ uint64_t sub_BC018@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
   v3 = *a1;
   swift_getKeyPath();
-  sub_C2C40(&qword_108F28, type metadata accessor for InsightsDataManager);
+  sub_C2C40(&qword_108F28, type metadata accessor for InsightsDataManager, &unk_D39B8);
   sub_C3F44();
 
   v4 = OBJC_IVAR____TtC20JournalNotifications19InsightsDataManager__streaks;
@@ -681,21 +679,21 @@ uint64_t sub_BC0F4(uint64_t a1)
 uint64_t sub_BC194(void *a1, int a2)
 {
   v25 = a2;
-  v3 = sub_3CB0(&qword_10A268);
+  v3 = sub_3CB0(&qword_10A268, &qword_D4510);
   v23 = *(v3 - 8);
   v24 = v3;
   __chkstk_darwin(v3);
   v22 = &v18 - v4;
-  v5 = sub_3CB0(&qword_10A270);
+  v5 = sub_3CB0(&qword_10A270, &qword_D4518);
   v20 = *(v5 - 8);
   v21 = v5;
   __chkstk_darwin(v5);
   v7 = &v18 - v6;
-  v8 = sub_3CB0(&qword_10A278);
+  v8 = sub_3CB0(&qword_10A278, &qword_D4520);
   v19 = *(v8 - 8);
   __chkstk_darwin(v8);
   v10 = &v18 - v9;
-  v11 = sub_3CB0(&qword_10A280);
+  v11 = sub_3CB0(&qword_10A280, &qword_D4528);
   v12 = *(v11 - 8);
   __chkstk_darwin(v11);
   v14 = &v18 - v13;
@@ -767,10 +765,10 @@ uint64_t sub_BC58C()
   }
 }
 
-uint64_t sub_BC5FC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_BC5FC@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_C1E50(a1, a2);
-  *a3 = result;
+  result = sub_C1E50(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -816,12 +814,12 @@ uint64_t sub_BC750(uint64_t a1)
   return CodingKey.debugDescription.getter(a1, v2);
 }
 
-uint64_t sub_BC78C@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_BC78C@<X0>(_BYTE *a1@<X8>, void *a2@<X0>)
 {
-  result = sub_C1F78(a1);
+  result = sub_C1F78(a2);
   if (!v2)
   {
-    *a2 = result;
+    *a1 = result;
   }
 
   return result;
@@ -855,7 +853,7 @@ id sub_BC7D4()
   return v3;
 }
 
-uint64_t sub_BC888()
+unint64_t sub_BC888()
 {
   v1 = OBJC_IVAR____TtC20JournalNotifications30NotificationSettingsController____lazy_storage___streakOnSpecifiers;
   if (*(v0 + OBJC_IVAR____TtC20JournalNotifications30NotificationSettingsController____lazy_storage___streakOnSpecifiers))
@@ -872,7 +870,7 @@ uint64_t sub_BC888()
   return v2;
 }
 
-uint64_t sub_BC8EC()
+unint64_t sub_BC8EC()
 {
   v1 = sub_C3D54();
   __chkstk_darwin(v1 - 8);
@@ -883,7 +881,7 @@ uint64_t sub_BC8EC()
   v3 = *&v0[OBJC_IVAR____TtC20JournalNotifications30NotificationSettingsController_bundle];
   sub_C3D44();
   sub_C54A4();
-  v17 = type metadata accessor for NotificationSettingsController();
+  v17 = type metadata accessor for NotificationSettingsController(0);
   v16[0] = v0;
   v4 = v0;
   v5 = sub_C5444();
@@ -915,7 +913,7 @@ uint64_t sub_BC8EC()
     [v12 setIdentifier:{v14, v16[0]}];
 
     v16[0] = type metadata accessor for TimePickerCell();
-    sub_3CB0(&qword_10A1F8);
+    sub_3CB0(&qword_10A1F8, &qword_D4340);
     [v12 setProperty:sub_C6274() forKey:PSCellClassKey];
     swift_unknownObjectRelease();
     v15 = v12;
@@ -940,7 +938,7 @@ uint64_t sub_BC8EC()
 
 uint64_t sub_BCC70()
 {
-  v1 = sub_3CB0(&qword_1063B8);
+  v1 = sub_3CB0(&qword_1063B8, &qword_CF1C0);
   __chkstk_darwin(v1 - 8);
   v47 = &v41 - v2;
   v3 = sub_C3934();
@@ -963,7 +961,7 @@ uint64_t sub_BCC70()
   __chkstk_darwin(v14 - 8);
   v15 = sub_C5414();
   __chkstk_darwin(v15 - 8);
-  v16 = type metadata accessor for NotificationSettingsController();
+  v16 = type metadata accessor for NotificationSettingsController(0);
   v54.receiver = v0;
   v54.super_class = v16;
   objc_msgSendSuper2(&v54, "viewDidLoad");
@@ -1007,7 +1005,7 @@ uint64_t sub_BCC70()
     v25(v52, v51);
     v25(v53, v26);
     v25(v49, v26);
-    return sub_C060(v24, &qword_1063B8);
+    return sub_C060(v24, &qword_1063B8, &qword_CF1C0);
   }
 
   else
@@ -1016,7 +1014,7 @@ uint64_t sub_BCC70()
     v42 = v19;
     v28(v50, v24, v19);
     v47 = "CustomAttributeProviderConcrete";
-    sub_3CB0(&qword_10A210);
+    sub_3CB0(&qword_10A210, &qword_D4358);
     v29 = v48;
     v30 = *(v48 + 72);
     v31 = (*(v48 + 80) + 32) & ~*(v48 + 80);
@@ -1048,18 +1046,18 @@ uint64_t sub_BD3E8()
   v29 = *(v2 - 8);
   __chkstk_darwin(v2);
   v27 = &v26 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = sub_3CB0(&qword_10A1D8);
+  v4 = sub_3CB0(&qword_10A1D8, &qword_D4320);
   v5 = v4 - 8;
   __chkstk_darwin(v4);
   v7 = &v26 - v6;
-  v8 = sub_3CB0(&qword_10A1E0);
+  v8 = sub_3CB0(&qword_10A1E0, &unk_D4328);
   v9 = __chkstk_darwin(v8 - 8);
   v28 = &v26 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = __chkstk_darwin(v9);
   v13 = &v26 - v12;
   __chkstk_darwin(v11);
   v15 = &v26 - v14;
-  v16 = type metadata accessor for NotificationSettingsController();
+  v16 = type metadata accessor for NotificationSettingsController(0);
   v30.receiver = v0;
   v30.super_class = v16;
   objc_msgSendSuper2(&v30, "viewWillLayoutSubviews");
@@ -1067,26 +1065,26 @@ uint64_t sub_BD3E8()
   v17 = OBJC_IVAR____TtC20JournalNotifications30NotificationSettingsController_notificationStatus;
   swift_beginAccess();
   v18 = *(v5 + 56);
-  sub_B954(v1 + v17, v7, &qword_10A1E0);
+  sub_B954(v1 + v17, v7, &qword_10A1E0, &unk_D4328);
   v19 = v29;
-  sub_B954(v15, &v7[v18], &qword_10A1E0);
+  sub_B954(v15, &v7[v18], &qword_10A1E0, &unk_D4328);
   v20 = *(v19 + 48);
   if (v20(v7, 1, v2) != 1)
   {
-    sub_B954(v7, v13, &qword_10A1E0);
+    sub_B954(v7, v13, &qword_10A1E0, &unk_D4328);
     if (v20(&v7[v18], 1, v2) != 1)
     {
       v23 = v27;
       (*(v19 + 32))(v27, &v7[v18], v2);
-      sub_C2C40(&qword_10A1E8, &type metadata accessor for JournalingSuggestionsConfiguration.NotificationAvailabilityStatusPrivate);
+      sub_C2C40(&qword_10A1E8, &type metadata accessor for JournalingSuggestionsConfiguration.NotificationAvailabilityStatusPrivate, &protocol conformance descriptor for JournalingSuggestionsConfiguration.NotificationAvailabilityStatusPrivate);
       v24 = sub_C53A4();
       v25 = *(v19 + 8);
       v25(v23, v2);
       v25(v13, v2);
-      sub_C060(v7, &qword_10A1E0);
+      sub_C060(v7, &qword_10A1E0, &unk_D4328);
       if (v24)
       {
-        return sub_C060(v15, &qword_10A1E0);
+        return sub_C060(v15, &qword_10A1E0, &unk_D4328);
       }
 
       goto LABEL_7;
@@ -1094,15 +1092,15 @@ uint64_t sub_BD3E8()
 
     (*(v19 + 8))(v13, v2);
 LABEL_6:
-    sub_C060(v7, &qword_10A1D8);
+    sub_C060(v7, &qword_10A1D8, &qword_D4320);
 LABEL_7:
     v21 = v28;
-    sub_B954(v15, v28, &qword_10A1E0);
+    sub_B954(v15, v28, &qword_10A1E0, &unk_D4328);
     swift_beginAccess();
     sub_C2CE8(v21, v1 + v17);
     swift_endAccess();
     [v1 reloadSpecifiers];
-    return sub_C060(v15, &qword_10A1E0);
+    return sub_C060(v15, &qword_10A1E0, &unk_D4328);
   }
 
   if (v20(&v7[v18], 1, v2) != 1)
@@ -1110,18 +1108,17 @@ LABEL_7:
     goto LABEL_6;
   }
 
-  sub_C060(v7, &qword_10A1E0);
-  return sub_C060(v15, &qword_10A1E0);
+  sub_C060(v7, &qword_10A1E0, &unk_D4328);
+  return sub_C060(v15, &qword_10A1E0, &unk_D4328);
 }
 
 void sub_BD85C(char a1)
 {
   v5.receiver = v1;
-  v5.super_class = type metadata accessor for NotificationSettingsController();
+  v5.super_class = type metadata accessor for NotificationSettingsController(0);
   objc_msgSendSuper2(&v5, "viewWillAppear:", a1 & 1);
   v3 = *&v1[OBJC_IVAR____TtC20JournalNotifications30NotificationSettingsController_savePhase];
   *&v1[OBJC_IVAR____TtC20JournalNotifications30NotificationSettingsController_savePhase] = 0x8000000000000000;
-  sub_C1BB4(v3);
   [v1 reloadSpecifiers];
   v4 = [objc_opt_self() defaultCenter];
   [v4 addObserver:v1 selector:"saveIfNeeded" name:UIApplicationWillResignActiveNotification object:0];
@@ -1139,10 +1136,10 @@ void sub_BDA2C()
   v6 = *(v5 - 8);
   __chkstk_darwin(v5);
   v67 = &v67 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = sub_3CB0(&qword_10A1D8);
+  v8 = sub_3CB0(&qword_10A1D8, &qword_D4320);
   __chkstk_darwin(v8);
   v10 = &v67 - v9;
-  v11 = sub_3CB0(&qword_10A1E0);
+  v11 = sub_3CB0(&qword_10A1E0, &unk_D4328);
   v12 = __chkstk_darwin(v11 - 8);
   v14 = &v67 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v12);
@@ -1179,24 +1176,24 @@ LABEL_35:
   (*(v6 + 104))(v16, enum case for JournalingSuggestionsConfiguration.NotificationAvailabilityStatusPrivate.authorized(_:), v5);
   (*(v6 + 56))(v16, 0, 1, v5);
   v23 = *(v8 + 48);
-  sub_B954(&v0[v22], v10, &qword_10A1E0);
-  sub_B954(v16, &v10[v23], &qword_10A1E0);
+  sub_B954(&v0[v22], v10, &qword_10A1E0, &unk_D4328);
+  sub_B954(v16, &v10[v23], &qword_10A1E0, &unk_D4328);
   v24 = *(v6 + 48);
   v25 = v0;
   if (v24(v10, 1, v5) != 1)
   {
-    sub_B954(v10, v14, &qword_10A1E0);
+    sub_B954(v10, v14, &qword_10A1E0, &unk_D4328);
     if (v24(&v10[v23], 1, v5) != 1)
     {
       v27 = v67;
       (*(v6 + 32))(v67, &v10[v23], v5);
-      sub_C2C40(&qword_10A1E8, &type metadata accessor for JournalingSuggestionsConfiguration.NotificationAvailabilityStatusPrivate);
+      sub_C2C40(&qword_10A1E8, &type metadata accessor for JournalingSuggestionsConfiguration.NotificationAvailabilityStatusPrivate, &protocol conformance descriptor for JournalingSuggestionsConfiguration.NotificationAvailabilityStatusPrivate);
       v28 = sub_C53A4();
       v29 = *(v6 + 8);
       v29(v27, v5);
-      sub_C060(v16, &qword_10A1E0);
+      sub_C060(v16, &qword_10A1E0, &unk_D4328);
       v29(v14, v5);
-      sub_C060(v10, &qword_10A1E0);
+      sub_C060(v10, &qword_10A1E0, &unk_D4328);
       v26 = v70;
       if ((v28 & 1) == 0)
       {
@@ -1206,21 +1203,21 @@ LABEL_35:
       goto LABEL_11;
     }
 
-    sub_C060(v16, &qword_10A1E0);
+    sub_C060(v16, &qword_10A1E0, &unk_D4328);
     (*(v6 + 8))(v14, v5);
 LABEL_9:
-    sub_C060(v10, &qword_10A1D8);
+    sub_C060(v10, &qword_10A1D8, &qword_D4320);
     v26 = v70;
     goto LABEL_12;
   }
 
-  sub_C060(v16, &qword_10A1E0);
+  sub_C060(v16, &qword_10A1E0, &unk_D4328);
   if (v24(&v10[v23], 1, v5) != 1)
   {
     goto LABEL_9;
   }
 
-  sub_C060(v10, &qword_10A1E0);
+  sub_C060(v10, &qword_10A1E0, &unk_D4328);
   v26 = v70;
 LABEL_11:
   sub_C53B4();
@@ -1266,7 +1263,7 @@ LABEL_36:
     [v37 setIdentifier:v38];
 
     v73[0] = type metadata accessor for CustomizeNotificationsCell();
-    sub_3CB0(&qword_10A200);
+    sub_3CB0(&qword_10A200, &qword_D4348);
     [v37 setProperty:sub_C6274() forKey:PSCellClassKey];
     swift_unknownObjectRelease();
     v73[0] = v34;
@@ -1324,7 +1321,7 @@ LABEL_36:
   sub_C53B4();
   sub_C3D44();
   sub_C54A4();
-  *(&v79 + 1) = type metadata accessor for NotificationSettingsController();
+  *(&v79 + 1) = type metadata accessor for NotificationSettingsController(0);
   *&v78 = v25;
   v49 = v25;
   v50 = v25;
@@ -1422,7 +1419,7 @@ double *sub_BE8DC(unint64_t a1)
       for (i = 0; i != v2; ++i)
       {
         sub_C5FE4();
-        sub_BE28(0, &qword_106658);
+        sub_BE28(0, &qword_106658, PSSpecifier_ptr);
         swift_dynamicCast();
         v13 = v3;
         v7 = *(v3 + 2);
@@ -1441,7 +1438,7 @@ double *sub_BE8DC(unint64_t a1)
     else
     {
       v8 = (a1 + 32);
-      sub_BE28(0, &qword_106658);
+      sub_BE28(0, &qword_106658, PSSpecifier_ptr);
       do
       {
         v9 = *v8;
@@ -1475,10 +1472,10 @@ id sub_BEB48(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = v3;
   v7 = OBJC_IVAR____TtC20JournalNotifications30NotificationSettingsController_defaults;
-  sub_BE28(0, &qword_10A110);
+  sub_BE28(0, &qword_10A110, NSUserDefaults_ptr);
   *&v3[v7] = sub_C5A74();
   v8 = OBJC_IVAR____TtC20JournalNotifications30NotificationSettingsController_bundle;
-  v9 = type metadata accessor for NotificationSettingsController();
+  v9 = type metadata accessor for NotificationSettingsController(0);
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
   *&v4[v8] = [objc_opt_self() bundleForClass:ObjCClassFromMetadata];
   *&v4[OBJC_IVAR____TtC20JournalNotifications30NotificationSettingsController____lazy_storage___notificationSettings] = 0;
@@ -1519,10 +1516,10 @@ id sub_BED74(void *a1)
 {
   v2 = v1;
   v4 = OBJC_IVAR____TtC20JournalNotifications30NotificationSettingsController_defaults;
-  sub_BE28(0, &qword_10A110);
+  sub_BE28(0, &qword_10A110, NSUserDefaults_ptr);
   *&v1[v4] = sub_C5A74();
   v5 = OBJC_IVAR____TtC20JournalNotifications30NotificationSettingsController_bundle;
-  v6 = type metadata accessor for NotificationSettingsController();
+  v6 = type metadata accessor for NotificationSettingsController(0);
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
   *&v2[v5] = [objc_opt_self() bundleForClass:ObjCClassFromMetadata];
   *&v2[OBJC_IVAR____TtC20JournalNotifications30NotificationSettingsController____lazy_storage___notificationSettings] = 0;
@@ -1556,11 +1553,11 @@ id sub_BED74(void *a1)
 id sub_BEF3C()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for NotificationSettingsController();
+  v2.super_class = type metadata accessor for NotificationSettingsController(0);
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
-uint64_t type metadata accessor for NotificationSettingsController()
+uint64_t type metadata accessor for NotificationSettingsController(uint64_t a1)
 {
   result = qword_10A1C0;
   if (!qword_10A1C0)
@@ -1571,31 +1568,31 @@ uint64_t type metadata accessor for NotificationSettingsController()
   return result;
 }
 
-void sub_BF0A4()
+void sub_BF0A4(uint64_t a1)
 {
-  sub_BF17C();
-  if (v0 <= 0x3F)
+  sub_BF17C(319);
+  if (v1 <= 0x3F)
   {
     swift_updateClassMetadata2();
   }
 }
 
-void sub_BF17C()
+void sub_BF17C(uint64_t a1)
 {
   if (!qword_10A1D0)
   {
     sub_C4AD4();
-    v0 = sub_C5DA4();
-    if (!v1)
+    v1 = sub_C5DA4();
+    if (!v2)
     {
-      atomic_store(v0, &qword_10A1D0);
+      atomic_store(v1, &qword_10A1D0);
     }
   }
 }
 
-uint64_t sub_BF1FC@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+unint64_t sub_BF1FC@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
 {
-  result = sub_C2BF4(*a1, *(a1 + 8));
+  result = sub_C2BF4(*a1, a1[1]);
   *a2 = result;
   return result;
 }
@@ -1682,11 +1679,11 @@ char *sub_BF35C()
     swift_once();
   }
 
-  v0 = type metadata accessor for DataStackConfiguration();
+  v0 = type metadata accessor for DataStackConfiguration(0);
   v1 = sub_B680(v0, qword_115740);
   v2 = *v1;
   v3 = *(v1 + 8);
-  v4 = objc_allocWithZone(type metadata accessor for CoreDataStackShared());
+  v4 = objc_allocWithZone(type metadata accessor for CoreDataStackShared(0));
   result = sub_ADBE8(v2, v3);
   qword_10A140 = result;
   return result;
@@ -1712,21 +1709,21 @@ void sub_BF3F0()
 uint64_t sub_BF4A4(uint64_t a1, void *a2)
 {
   v4 = sub_C3E84();
-  v40 = *(v4 - 8);
-  v41 = v4;
+  v41 = *(v4 - 8);
+  v42 = v4;
   __chkstk_darwin(v4);
-  v6 = &v36 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v42 = sub_C3EA4();
-  v39 = *(v42 - 8);
-  __chkstk_darwin(v42);
-  v8 = &v36 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v37 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v43 = sub_C3EA4();
+  v40 = *(v43 - 8);
+  __chkstk_darwin(v43);
+  v8 = &v37 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = sub_C3CB4();
   v10 = *(v9 - 8);
   v11 = __chkstk_darwin(v9);
-  v13 = &v36 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = &v37 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v11);
-  v15 = &v36 - v14;
-  v38 = a2;
+  v15 = &v37 - v14;
+  v39 = a2;
   v16 = [a2 identifier];
   if (v16)
   {
@@ -1742,72 +1739,74 @@ uint64_t sub_BF4A4(uint64_t a1, void *a2)
   }
 
   v21 = sub_C2BF4(v18, v20);
-  v46 = v21;
-  sub_B954(a1, v47, &qword_104818);
+  v47 = v21;
+  sub_B954(a1, v48, &qword_104818, &qword_CEAF0);
   if (v21 == 7)
   {
-    if (!v48)
+    if (!v49)
     {
 LABEL_14:
       v33 = &unk_10A1F0;
-      v34 = &v46;
-      return sub_C060(v34, v33);
+      v34 = &unk_D4338;
+      v35 = &v47;
+      return sub_C060(v35, v33, v34);
     }
 
-    sub_B954(v47, v45, &qword_104818);
+    sub_B954(v48, v46, &qword_104818, &qword_CEAF0);
     if (swift_dynamicCast())
     {
-      v37 = v10;
+      v38 = v10;
       (*(v10 + 32))(v13, v15, v9);
-      v38 = *&v43[OBJC_IVAR____TtC20JournalNotifications30NotificationSettingsController_defaults];
+      v39 = *&v44[OBJC_IVAR____TtC20JournalNotifications30NotificationSettingsController_defaults];
       sub_C3E64();
-      v28 = v40;
-      v27 = v41;
-      v36 = *(v40 + 104);
-      v36(v6, enum case for Calendar.Component.hour(_:), v41);
+      v28 = v41;
+      v27 = v42;
+      v37 = *(v41 + 104);
+      v37(v6, enum case for Calendar.Component.hour(_:), v42);
       v29 = sub_C3E94();
-      v40 = *(v28 + 8);
-      (v40)(v6, v27);
-      v39 = *(v39 + 8);
-      (v39)(v8, v42);
-      [v38 setStreakReminderHour:v29];
+      v41 = *(v28 + 8);
+      (v41)(v6, v27);
+      v40 = *(v40 + 8);
+      (v40)(v8, v43);
+      [v39 setStreakReminderHour:v29];
       sub_C3E64();
-      v36(v6, enum case for Calendar.Component.minute(_:), v27);
+      v37(v6, enum case for Calendar.Component.minute(_:), v27);
       v30 = sub_C3E94();
-      (v40)(v6, v27);
-      (v39)(v8, v42);
-      [v38 setStreakReminderMinute:v30];
-      (*(v37 + 8))(v13, v9);
-      v31 = v43;
-      v43[OBJC_IVAR____TtC20JournalNotifications30NotificationSettingsController_needsSaveStreaks] = 1;
+      (v41)(v6, v27);
+      (v40)(v8, v43);
+      [v39 setStreakReminderMinute:v30];
+      (*(v38 + 8))(v13, v9);
+      v31 = v44;
+      v44[OBJC_IVAR____TtC20JournalNotifications30NotificationSettingsController_needsSaveStreaks] = 1;
       v32 = *&v31[OBJC_IVAR____TtC20JournalNotifications30NotificationSettingsController_savePhase];
       *&v31[OBJC_IVAR____TtC20JournalNotifications30NotificationSettingsController_savePhase] = 0x8000000000000000;
       sub_C1BB4(v32);
-      sub_BED0(v45);
+      sub_BED0(v46);
       v33 = &qword_104818;
-      v34 = v47;
-      return sub_C060(v34, v33);
+      v34 = &qword_CEAF0;
+      v35 = v48;
+      return sub_C060(v35, v33, v34);
     }
 
 LABEL_13:
-    sub_BED0(v45);
+    sub_BED0(v46);
     goto LABEL_14;
   }
 
-  if (v21 != 6 || !v48)
+  if (v21 != 6 || !v49)
   {
     goto LABEL_14;
   }
 
-  sub_B954(v47, v45, &qword_104818);
+  sub_B954(v48, v46, &qword_104818, &qword_CEAF0);
   if (!swift_dynamicCast())
   {
     goto LABEL_13;
   }
 
-  v22 = v44;
-  v23 = v43;
-  [*&v43[OBJC_IVAR____TtC20JournalNotifications30NotificationSettingsController_defaults] setIsStreakReminderEnabled:v44];
+  v22 = v45;
+  v23 = v44;
+  [*&v44[OBJC_IVAR____TtC20JournalNotifications30NotificationSettingsController_defaults] setIsStreakReminderEnabled:v45];
   [v23 beginUpdates];
   v23[OBJC_IVAR____TtC20JournalNotifications30NotificationSettingsController_needsSaveStreaks] = 1;
   v24 = *&v23[OBJC_IVAR____TtC20JournalNotifications30NotificationSettingsController_savePhase];
@@ -1820,7 +1819,7 @@ LABEL_13:
 
   if (v22 == 1)
   {
-    [v23 insertContiguousSpecifiers:v26.super.isa afterSpecifier:v38 animated:1];
+    [v23 insertContiguousSpecifiers:v26.super.isa afterSpecifier:v39 animated:1];
   }
 
   else
@@ -1829,10 +1828,11 @@ LABEL_13:
   }
 
   [v23 endUpdates];
-  sub_BED0(v45);
+  sub_BED0(v46);
   v33 = &qword_104818;
-  v34 = v47;
-  return sub_C060(v34, v33);
+  v34 = &qword_CEAF0;
+  v35 = v48;
+  return sub_C060(v35, v33, v34);
 }
 
 id sub_BFB18@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
@@ -1858,7 +1858,7 @@ id sub_BFB18@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
   v38 = *(v11 - 8);
   __chkstk_darwin(v11);
   v13 = &v37 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = sub_3CB0(&qword_104800);
+  v14 = sub_3CB0(&qword_104800, &qword_CDE60);
   __chkstk_darwin(v14 - 8);
   v16 = &v37 - v15;
   v17 = [a1 identifier];
@@ -1917,7 +1917,7 @@ LABEL_5:
         return (*(v28 + 32))(v35, v16, v30);
       }
 
-      result = sub_C060(v16, &qword_104800);
+      result = sub_C060(v16, &qword_104800, &qword_CDE60);
     }
 
     goto LABEL_5;
@@ -1951,21 +1951,21 @@ id sub_C022C(void *a1)
   v59 = v3;
   __chkstk_darwin(v2);
   v56 = &v54 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_3CB0(&qword_10A1D8);
+  v5 = sub_3CB0(&qword_10A1D8, &qword_D4320);
   __chkstk_darwin(v5);
   v7 = &v54 - v6;
-  v8 = sub_3CB0(&qword_10A1E0);
+  v8 = sub_3CB0(&qword_10A1E0, &unk_D4328);
   v9 = __chkstk_darwin(v8 - 8);
   v11 = &v54 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v9);
   v13 = &v54 - v12;
-  v14 = type metadata accessor for AppLaunchAction();
+  v14 = type metadata accessor for AppLaunchAction(0);
   __chkstk_darwin(v14);
   v16 = &v54 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = sub_3CB0(&qword_1063B8);
+  v17 = sub_3CB0(&qword_1063B8, &qword_CF1C0);
   __chkstk_darwin(v17 - 8);
   v61 = &v54 - v18;
-  v60 = type metadata accessor for OpenSensitiveURLAction.Destination();
+  v60 = type metadata accessor for OpenSensitiveURLAction.Destination(0);
   v19 = __chkstk_darwin(v60);
   v57 = &v54 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v19);
@@ -2046,7 +2046,7 @@ id sub_C022C(void *a1)
         sub_77EC0(v61);
         sub_80AA4(v40, v37, 0, 0);
 
-        sub_C060(v40, &qword_1063B8);
+        sub_C060(v40, &qword_1063B8, &qword_CF1C0);
         v41 = type metadata accessor for AppLaunchAction;
         v42 = v16;
         return sub_C2C88(v42, v41);
@@ -2088,15 +2088,15 @@ LABEL_36:
     (*(v59 + 104))(v13, enum case for JournalingSuggestionsConfiguration.NotificationAvailabilityStatusPrivate.unavailable(_:), v34);
     (*(v45 + 56))(v13, 0, 1, v34);
     v46 = *(v5 + 48);
-    sub_B954(v44 + v43, v7, &qword_10A1E0);
-    sub_B954(v13, &v7[v46], &qword_10A1E0);
+    sub_B954(v44 + v43, v7, &qword_10A1E0, &unk_D4328);
+    sub_B954(v13, &v7[v46], &qword_10A1E0, &unk_D4328);
     v47 = *(v45 + 48);
     if (v47(v7, 1, v34) == 1)
     {
-      sub_C060(v13, &qword_10A1E0);
+      sub_C060(v13, &qword_10A1E0, &unk_D4328);
       if (v47(&v7[v46], 1, v34) == 1)
       {
-        sub_C060(v7, &qword_10A1E0);
+        sub_C060(v7, &qword_10A1E0, &unk_D4328);
         v48 = v61;
 LABEL_29:
         v22 = v57;
@@ -2107,7 +2107,7 @@ LABEL_29:
 
         v39 = v48;
 LABEL_30:
-        sub_C060(v39, &qword_1063B8);
+        sub_C060(v39, &qword_1063B8, &qword_CF1C0);
         v41 = type metadata accessor for OpenSensitiveURLAction.Destination;
         v42 = v22;
         return sub_C2C88(v42, v41);
@@ -2116,29 +2116,29 @@ LABEL_30:
 
     else
     {
-      sub_B954(v7, v11, &qword_10A1E0);
+      sub_B954(v7, v11, &qword_10A1E0, &unk_D4328);
       if (v47(&v7[v46], 1, v34) != 1)
       {
         v50 = v59;
         v51 = &v7[v46];
         v52 = v56;
         (*(v59 + 32))(v56, v51, v34);
-        sub_C2C40(&qword_10A1E8, &type metadata accessor for JournalingSuggestionsConfiguration.NotificationAvailabilityStatusPrivate);
+        sub_C2C40(&qword_10A1E8, &type metadata accessor for JournalingSuggestionsConfiguration.NotificationAvailabilityStatusPrivate, &protocol conformance descriptor for JournalingSuggestionsConfiguration.NotificationAvailabilityStatusPrivate);
         sub_C53A4();
         v53 = *(v50 + 8);
         v53(v52, v34);
-        sub_C060(v13, &qword_10A1E0);
+        sub_C060(v13, &qword_10A1E0, &unk_D4328);
         v53(v11, v34);
-        sub_C060(v7, &qword_10A1E0);
+        sub_C060(v7, &qword_10A1E0, &unk_D4328);
         v48 = v61;
         goto LABEL_29;
       }
 
-      sub_C060(v13, &qword_10A1E0);
+      sub_C060(v13, &qword_10A1E0, &unk_D4328);
       (*(v59 + 8))(v11, v34);
     }
 
-    sub_C060(v7, &qword_10A1D8);
+    sub_C060(v7, &qword_10A1D8, &qword_D4320);
     v48 = v61;
     goto LABEL_29;
   }
@@ -2149,7 +2149,7 @@ LABEL_30:
 void sub_C0AA8()
 {
   ObjectType = swift_getObjectType();
-  v2 = sub_3CB0(&qword_104E88);
+  v2 = sub_3CB0(&qword_104E88, &qword_CE620);
   __chkstk_darwin(v2 - 8);
   v4 = &v20 - v3;
   if (v0[OBJC_IVAR____TtC20JournalNotifications30NotificationSettingsController_needsSaveStreaks] == 1)
@@ -2192,7 +2192,7 @@ uint64_t sub_C0CBC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 {
   v5[7] = a4;
   v5[8] = a5;
-  v5[9] = type metadata accessor for StreakSummary();
+  v5[9] = type metadata accessor for StreakSummary(0);
   v5[10] = swift_task_alloc();
   v5[11] = swift_task_alloc();
   v5[12] = type metadata accessor for InsightsDataManager.Streaks(0);
@@ -2278,7 +2278,7 @@ uint64_t sub_C114C()
   v19 = v0[9];
   swift_getKeyPath();
   v0[5] = v1;
-  sub_C2C40(&qword_108F28, type metadata accessor for InsightsDataManager);
+  sub_C2C40(&qword_108F28, type metadata accessor for InsightsDataManager, &unk_D39B8);
   sub_C3F44();
 
   v4 = OBJC_IVAR____TtC20JournalNotifications19InsightsDataManager__streaks;
@@ -2384,7 +2384,6 @@ uint64_t sub_C16B8()
   v4 = *&v3[OBJC_IVAR____TtC20JournalNotifications30NotificationSettingsController_savePhase];
   *&v3[OBJC_IVAR____TtC20JournalNotifications30NotificationSettingsController_savePhase] = v1 | 0x4000000000000000;
   swift_errorRetain();
-  sub_C1BB4(v4);
   [v3 reloadSpecifiers];
 
   v5 = v0[8];
@@ -2396,9 +2395,9 @@ uint64_t sub_C16B8()
   return v7();
 }
 
-unint64_t sub_C1848(uint64_t *a1)
+unint64_t sub_C1848(unint64_t *a1)
 {
-  if (*a1 >= 0)
+  if ((*a1 & 0x8000000000000000) == 0)
   {
     return *a1 >> 62;
   }
@@ -2492,25 +2491,25 @@ uint64_t sub_C195C(uint64_t a1, uint64_t a2)
   return sub_C19B8(v7, v9) & 1;
 }
 
-uint64_t sub_C19B8(uint64_t a1, uint64_t a2)
+uint64_t sub_C19B8(uint64_t *a1, uint64_t a2)
 {
-  v4 = *a1 == *a2 && *(a1 + 8) == *(a2 + 8);
+  v4 = *a1 == *a2 && a1[1] == *(a2 + 8);
   if (!v4 && (sub_C6244() & 1) == 0)
   {
     return 0;
   }
 
-  v5 = *(a1 + 16) == *(a2 + 16) && *(a1 + 24) == *(a2 + 24);
+  v5 = a1[2] == *(a2 + 16) && a1[3] == *(a2 + 24);
   if (!v5 && (sub_C6244() & 1) == 0)
   {
     return 0;
   }
 
-  v6 = *(a1 + 40);
+  v6 = a1[5];
   v7 = *(a2 + 40);
   if (v6)
   {
-    if (!v7 || (*(a1 + 32) != *(a2 + 32) || v6 != v7) && (sub_C6244() & 1) == 0)
+    if (!v7 || (a1[4] != *(a2 + 32) || v6 != v7) && (sub_C6244() & 1) == 0)
     {
       return 0;
     }
@@ -2521,7 +2520,7 @@ uint64_t sub_C19B8(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  if (*(a1 + 48) == *(a2 + 48) && *(a1 + 56) == *(a2 + 56) || (sub_C6244() & 1) != 0)
+  if (a1[6] == *(a2 + 48) && a1[7] == *(a2 + 56) || (sub_C6244() & 1) != 0)
   {
     v8 = *(a1 + 64);
     v9 = *(a2 + 64);
@@ -2563,13 +2562,13 @@ uint64_t sub_C1AEC(uint64_t a1)
   return sub_C0CBC(a1, v4, v5, v6, v7);
 }
 
-unint64_t sub_C1BB4(unint64_t result)
+double sub_C1BB4(unint64_t a1)
 {
-  if (result >> 62 == 1)
+  if (a1 >> 62 == 1)
   {
   }
 
-  if (!(result >> 62))
+  else if (!(a1 >> 62))
   {
   }
 
@@ -2613,7 +2612,7 @@ uint64_t sub_C1D84(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
 
 uint64_t sub_C1DEC(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for StreakSummary();
+  v4 = type metadata accessor for StreakSummary(0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
@@ -2657,19 +2656,19 @@ uint64_t sub_C1E50(uint64_t a1, uint64_t a2)
 
 uint64_t sub_C1F78(void *a1)
 {
-  v31 = sub_3CB0(&qword_10A228);
+  v31 = sub_3CB0(&qword_10A228, &qword_D44E8);
   v28 = *(v31 - 8);
   __chkstk_darwin(v31);
   v33 = &v26 - v2;
-  v32 = sub_3CB0(&qword_10A230);
+  v32 = sub_3CB0(&qword_10A230, &qword_D44F0);
   v30 = *(v32 - 8);
   __chkstk_darwin(v32);
   v4 = &v26 - v3;
-  v5 = sub_3CB0(&qword_10A238);
+  v5 = sub_3CB0(&qword_10A238, &qword_D44F8);
   v29 = *(v5 - 8);
   __chkstk_darwin(v5);
   v7 = &v26 - v6;
-  v8 = sub_3CB0(&qword_10A240);
+  v8 = sub_3CB0(&qword_10A240, &unk_D4500);
   v9 = *(v8 - 8);
   __chkstk_darwin(v8);
   v11 = &v26 - v10;
@@ -2736,7 +2735,7 @@ LABEL_13:
     v20 = sub_C6014();
     swift_allocError();
     v22 = v21;
-    v9 = *(sub_3CB0(&qword_107F60) + 48);
+    v9 = *(sub_3CB0(&qword_107F60, &qword_D0C78) + 48);
     *v22 = &type metadata for NotificationssAvailabilityState;
     sub_C6154();
     sub_C6004();
@@ -2756,19 +2755,19 @@ __n128 sub_C24E8@<Q0>(uint64_t a1@<X8>)
   __chkstk_darwin(v3 - 8);
   v4 = sub_C5414();
   __chkstk_darwin(v4 - 8);
-  v5 = sub_3CB0(&qword_10A1E0);
+  v5 = sub_3CB0(&qword_10A1E0, &unk_D4328);
   v6 = __chkstk_darwin(v5 - 8);
   v8 = &v54 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v6);
   v10 = &v54 - v9;
   v11 = OBJC_IVAR____TtC20JournalNotifications30NotificationSettingsController_notificationStatus;
   swift_beginAccess();
-  sub_B954(v1 + v11, v10, &qword_10A1E0);
+  sub_B954(v1 + v11, v10, &qword_10A1E0, &unk_D4328);
   v12 = sub_C4AD4();
   v13 = *(v12 - 8);
   if ((*(v13 + 48))(v10, 1, v12) != 1)
   {
-    sub_B954(v10, v8, &qword_10A1E0);
+    sub_B954(v10, v8, &qword_10A1E0, &unk_D4328);
     v14 = (*(v13 + 88))(v8, v12);
     if (v14 == enum case for JournalingSuggestionsConfiguration.NotificationAvailabilityStatusPrivate.unavailable(_:))
     {
@@ -2883,11 +2882,11 @@ __n128 sub_C24E8@<Q0>(uint64_t a1@<X8>)
       *(v37 + 64) = v41;
     }
 
-    sub_C060(&v57, &qword_10A208);
+    sub_C060(&v57, &qword_10A208, &qword_D4350);
   }
 
 LABEL_10:
-  sub_C060(v10, &qword_10A1E0);
+  sub_C060(v10, &qword_10A1E0, &unk_D4328);
   v51 = v1 + OBJC_IVAR____TtC20JournalNotifications30NotificationSettingsController_customNotificationsCellModel;
   v52 = *(v1 + OBJC_IVAR____TtC20JournalNotifications30NotificationSettingsController_customNotificationsCellModel + 48);
   *(a1 + 32) = *(v1 + OBJC_IVAR____TtC20JournalNotifications30NotificationSettingsController_customNotificationsCellModel + 32);
@@ -2899,7 +2898,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_C2BF4(uint64_t a1, void *a2)
+unint64_t sub_C2BF4(uint64_t a1, void *a2)
 {
   v6._countAndFlagsBits = a1;
   v3._rawValue = &off_F0D08;
@@ -2917,7 +2916,7 @@ uint64_t sub_C2BF4(uint64_t a1, void *a2)
   }
 }
 
-uint64_t sub_C2C40(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_C2C40(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -2939,12 +2938,12 @@ uint64_t sub_C2C88(uint64_t a1, uint64_t (*a2)(void))
 
 uint64_t sub_C2CE8(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_3CB0(&qword_10A1E0);
+  v4 = sub_3CB0(&qword_10A1E0, &unk_D4328);
   (*(*(v4 - 8) + 40))(a2, a1, v4);
   return a2;
 }
 
-uint64_t sub_C2D58(uint64_t a1, uint64_t a2)
+double sub_C2D58(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a2)
   {
@@ -3142,17 +3141,17 @@ id sub_C336C()
   return result;
 }
 
-uint64_t sub_C3410(uint64_t a1, uint64_t *a2)
+uint64_t sub_C3410(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v3 = sub_C4AB4();
-  sub_C0CC(v3, a2);
-  sub_B680(v3, a2);
+  v5 = sub_C4AB4();
+  sub_C0CC(v5, a2);
+  sub_B680(v5, a2);
   if (qword_104358 != -1)
   {
     swift_once();
   }
 
-  v4 = qword_10A2D0;
+  v6 = qword_10A2D0;
   return sub_C4AA4();
 }
 

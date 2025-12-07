@@ -1,8 +1,67 @@
 @interface ASDTIOA2DefaultChannelLayout
++ (id)addressForDirection:(unsigned int)direction;
++ (id)forIOA2Device:(id)device andScope:(unsigned int)scope;
+- (ASDTIOA2DefaultChannelLayout)initWithIOA2Device:(id)device andScope:(unsigned int)scope;
 - (id)description;
 @end
 
 @implementation ASDTIOA2DefaultChannelLayout
+
++ (id)addressForDirection:(unsigned int)direction
+{
+  v3 = [objc_alloc(MEMORY[0x277CEFB68]) initWithAddress:{(*&direction << 32) | 0x73726464, 0}];
+
+  return v3;
+}
+
++ (id)forIOA2Device:(id)device andScope:(unsigned int)scope
+{
+  v4 = *&scope;
+  deviceCopy = device;
+  v7 = [[self alloc] initWithIOA2Device:deviceCopy andScope:v4];
+
+  return v7;
+}
+
+- (ASDTIOA2DefaultChannelLayout)initWithIOA2Device:(id)device andScope:(unsigned int)scope
+{
+  v4 = *&scope;
+  v18[5] = *MEMORY[0x277D85DE8];
+  deviceCopy = device;
+  v7 = [deviceCopy _channelLayoutForDirection:v4];
+  if (v7)
+  {
+    v8 = *MEMORY[0x277CEFC28];
+    v18[0] = &unk_2853579A8;
+    v9 = *MEMORY[0x277CEFC20];
+    v17[0] = v8;
+    v17[1] = v9;
+    v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v4];
+    v11 = *MEMORY[0x277CEFBE8];
+    v18[1] = v10;
+    v18[2] = &unk_2853579C0;
+    v12 = *MEMORY[0x277CEFC18];
+    v17[2] = v11;
+    v17[3] = v12;
+    v17[4] = *MEMORY[0x277CEFC00];
+    v18[3] = v7;
+    v18[4] = MEMORY[0x277CBEC28];
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:5];
+
+    v16.receiver = self;
+    v16.super_class = ASDTIOA2DefaultChannelLayout;
+    self = [(ASDTRawProperty *)&v16 initWithConfig:v13];
+
+    selfCopy = self;
+  }
+
+  else
+  {
+    selfCopy = 0;
+  }
+
+  return selfCopy;
+}
 
 - (id)description
 {

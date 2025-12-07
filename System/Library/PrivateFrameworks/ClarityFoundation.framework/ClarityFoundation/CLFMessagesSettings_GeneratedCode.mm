@@ -3,6 +3,12 @@
 + (id)allPreferenceSelectorsAsStrings;
 - (BOOL)photoKeyboardEnabled;
 - (CLFMessagesSettings_GeneratedCode)init;
+- (void)setConversationDetailsEnabled:(BOOL)enabled;
+- (void)setEmojiKeyboardEnabled:(BOOL)enabled;
+- (void)setPhotoKeyboardEnabled:(BOOL)enabled;
+- (void)setSoftwareKeyboardEnabled:(BOOL)enabled;
+- (void)setTapToSpeakEnabled:(BOOL)enabled;
+- (void)setVideoRecordingEnabled:(BOOL)enabled;
 @end
 
 @implementation CLFMessagesSettings_GeneratedCode
@@ -57,28 +63,38 @@
 
 + (id)allPreferenceSelectorsAsStrings
 {
-  v14[6] = *MEMORY[0x1E69E9840];
-  v13.receiver = self;
-  v13.super_class = &OBJC_METACLASS___CLFMessagesSettings_GeneratedCode;
-  v2 = objc_msgSendSuper2(&v13, sel_allPreferenceSelectorsAsStrings);
+  v13[6] = *MEMORY[0x1E69E9840];
+  v12.receiver = self;
+  v12.super_class = &OBJC_METACLASS___CLFMessagesSettings_GeneratedCode;
+  v2 = objc_msgSendSuper2(&v12, sel_allPreferenceSelectorsAsStrings);
   v3 = NSStringFromSelector(sel_conversationDetailsEnabled);
-  v14[0] = v3;
+  v13[0] = v3;
   v4 = NSStringFromSelector(sel_emojiKeyboardEnabled);
-  v14[1] = v4;
+  v13[1] = v4;
   v5 = NSStringFromSelector(sel_photoKeyboardEnabled);
-  v14[2] = v5;
+  v13[2] = v5;
   v6 = NSStringFromSelector(sel_softwareKeyboardEnabled);
-  v14[3] = v6;
+  v13[3] = v6;
   v7 = NSStringFromSelector(sel_tapToSpeakEnabled);
-  v14[4] = v7;
+  v13[4] = v7;
   v8 = NSStringFromSelector(sel_videoRecordingEnabled);
-  v14[5] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:6];
+  v13[5] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:6];
   v10 = [v2 arrayByAddingObjectsFromArray:v9];
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v10;
+}
+
+- (void)setConversationDetailsEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  [(AXBaseSettings *)self setValue:v4 forPreferenceKey:@"ConversationDetailsEnabled"];
+}
+
+- (void)setEmojiKeyboardEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  [(AXBaseSettings *)self setValue:v4 forPreferenceKey:@"EmojiKeyboardEnabled"];
 }
 
 - (BOOL)photoKeyboardEnabled
@@ -88,6 +104,30 @@
   v5 = v4 + [(CLFMessagesSettings_GeneratedCode *)self videoRecordingEnabled]> 1;
 
   return [(AXBaseSettings *)self BOOLValueForPreferenceKey:@"PhotoKeyboardEnabled" defaultValue:v5];
+}
+
+- (void)setPhotoKeyboardEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  [(AXBaseSettings *)self setValue:v4 forPreferenceKey:@"PhotoKeyboardEnabled"];
+}
+
+- (void)setSoftwareKeyboardEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  [(AXBaseSettings *)self setValue:v4 forPreferenceKey:@"SoftwareKeyboardEnabled"];
+}
+
+- (void)setTapToSpeakEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  [(AXBaseSettings *)self setValue:v4 forPreferenceKey:@"TapToSpeakEnabled"];
+}
+
+- (void)setVideoRecordingEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  [(AXBaseSettings *)self setValue:v4 forPreferenceKey:@"VideoRecordingEnabled"];
 }
 
 @end

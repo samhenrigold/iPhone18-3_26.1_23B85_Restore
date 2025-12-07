@@ -27,21 +27,21 @@
 
 - (FCAppActivityMonitor)appActivityMonitor
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   appActivityMonitor = self->_appActivityMonitor;
   if (!appActivityMonitor)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_appActivityMonitor"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_appActivityMonitor"];
       *buf = 136315906;
-      v8 = "[FCPrivateDataContextInternal appActivityMonitor]";
-      v9 = 2080;
-      v10 = "FCPrivateDataContext.m";
-      v11 = 1024;
-      v12 = 396;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCPrivateDataContextInternal appActivityMonitor]";
+      v8 = 2080;
+      v9 = "FCPrivateDataContext.m";
+      v10 = 1024;
+      v11 = 396;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       appActivityMonitor = self->_appActivityMonitor;
@@ -53,28 +53,26 @@
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-
   return appActivityMonitor;
 }
 
 - (FCCKPrivateDatabase)privateDatabase
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   privateDatabase = self->_privateDatabase;
   if (!privateDatabase)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_privateDatabase"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_privateDatabase"];
       *buf = 136315906;
-      v8 = "[FCPrivateDataContextInternal privateDatabase]";
-      v9 = 2080;
-      v10 = "FCPrivateDataContext.m";
-      v11 = 1024;
-      v12 = 390;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCPrivateDataContextInternal privateDatabase]";
+      v8 = 2080;
+      v9 = "FCPrivateDataContext.m";
+      v10 = 1024;
+      v11 = 390;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       privateDatabase = self->_privateDatabase;
@@ -86,28 +84,26 @@
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-
   return privateDatabase;
 }
 
 - (FCCKRecordZoneManager)recordZoneManager
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   recordZoneManager = self->_recordZoneManager;
   if (!recordZoneManager)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_recordZoneManager"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_recordZoneManager"];
       *buf = 136315906;
-      v8 = "[FCPrivateDataContextInternal recordZoneManager]";
-      v9 = 2080;
-      v10 = "FCPrivateDataContext.m";
-      v11 = 1024;
-      v12 = 383;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCPrivateDataContextInternal recordZoneManager]";
+      v8 = 2080;
+      v9 = "FCPrivateDataContext.m";
+      v10 = 1024;
+      v11 = 383;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       recordZoneManager = self->_recordZoneManager;
@@ -118,8 +114,6 @@
       recordZoneManager = 0;
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return recordZoneManager;
 }

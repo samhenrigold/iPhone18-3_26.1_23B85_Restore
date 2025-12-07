@@ -98,7 +98,7 @@
     array = [MEMORY[0x277CBEA60] array];
   }
 
-  return EQKit::Layout::Schemata::row(array, retstr);
+  return EQKit::Layout::Schemata::row(retstr, array);
 }
 
 - (NSString)description

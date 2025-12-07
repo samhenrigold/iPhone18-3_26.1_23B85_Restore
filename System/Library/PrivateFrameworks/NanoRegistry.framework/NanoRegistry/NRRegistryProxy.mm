@@ -8,11 +8,13 @@
 - (void)xpcApplyDiff:(id)diff withSecureProperties:(id)properties block:(id)block;
 - (void)xpcBooleanForInternalPreference:(id)preference withBlock:(id)block;
 - (void)xpcClientInfo:(id)info;
+- (void)xpcDeviceIDAtSwitchIndex:(unsigned int)index withBlock:(id)block;
 - (void)xpcGetChangeHistoryWithBlock:(id)block;
 - (void)xpcGetDeviceCollectionWithBlock:(id)block;
 - (void)xpcGetDiffSinceTokenValue:(unint64_t)value getSecureProperties:(BOOL)properties withBlock:(id)block;
 - (void)xpcLongForInternalPreference:(id)preference withBlock:(id)block;
 - (void)xpcRetrieveSecureProperties:(id)properties block:(id)block;
+- (void)xpcSetMigrationConsented:(BOOL)consented forDeviceID:(id)d withBlock:(id)block;
 - (void)xpcSwitchIndex:(id)index;
 @end
 
@@ -32,20 +34,18 @@
 
 void __42__NRRegistryProxy_serverExportedInterface__block_invoke()
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F5B87840];
   v1 = _MergedGlobals_9;
   _MergedGlobals_9 = v0;
 
   v2 = _MergedGlobals_9;
   v3 = MEMORY[0x1E695DFD8];
-  v7[0] = objc_opt_class();
-  v7[1] = objc_opt_class();
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
+  v6[0] = objc_opt_class();
+  v6[1] = objc_opt_class();
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
   v5 = [v3 setWithArray:v4];
   [v2 setClasses:v5 forSelector:sel_xpcRetrieveSecureProperties_block_ argumentIndex:0 ofReply:0];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (id)clientRemoteObjectInterface
@@ -62,7 +62,7 @@ void __42__NRRegistryProxy_serverExportedInterface__block_invoke()
 
 void __46__NRRegistryProxy_clientRemoteObjectInterface__block_invoke()
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F5B87840];
   v1 = qword_1ED6F0AF0;
   qword_1ED6F0AF0 = v0;
@@ -73,45 +73,41 @@ void __46__NRRegistryProxy_clientRemoteObjectInterface__block_invoke()
 
   v4 = qword_1ED6F0AF0;
   v5 = MEMORY[0x1E695DFD8];
-  v11[0] = objc_opt_class();
-  v11[1] = objc_opt_class();
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
+  v10[0] = objc_opt_class();
+  v10[1] = objc_opt_class();
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
   v7 = [v5 setWithArray:v6];
   [v4 setClasses:v7 forSelector:sel_xpcClientInfo_ argumentIndex:0 ofReply:1];
 
   v8 = qword_1ED6F0AF0;
   v9 = +[NRSecureDevicePropertyStore enclosedClassTypes];
   [v8 setClasses:v9 forSelector:sel_xpcGetDiffSinceTokenValue_getSecureProperties_withBlock_ argumentIndex:1 ofReply:1];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (id)entitlements
 {
-  v7[11] = *MEMORY[0x1E69E9840];
+  v6[11] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFD8];
-  v7[0] = @"com.apple.bluetoothregistry";
-  v7[1] = @"com.apple.nano.nanoregistry";
-  v7[2] = @"com.apple.nano.nanoregistry.pairunpairobliterate";
-  v7[3] = @"com.apple.nano.nanoregistry.ids.plugin";
-  v7[4] = @"com.apple.nano.nanoregistry.applydiff";
-  v7[5] = @"com.apple.nano.nanoregistry.internal";
-  v7[6] = @"com.apple.nano.nanoregistry.ids.plugin";
-  v7[7] = @"com.apple.nano.nanoregistry.unpairwithbrick";
-  v7[8] = @"com.apple.nanoregistry.BDE85C67-0FDD-4A95-A9B9-3CB5DD0C06A2";
-  v7[9] = @"com.apple.nano.nanoregistry.submitrtcpairingmetric";
-  v7[10] = @"com.apple.nano.nanoregistry.generalaccess";
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:11];
+  v6[0] = @"com.apple.bluetoothregistry";
+  v6[1] = @"com.apple.nano.nanoregistry";
+  v6[2] = @"com.apple.nano.nanoregistry.pairunpairobliterate";
+  v6[3] = @"com.apple.nano.nanoregistry.ids.plugin";
+  v6[4] = @"com.apple.nano.nanoregistry.applydiff";
+  v6[5] = @"com.apple.nano.nanoregistry.internal";
+  v6[6] = @"com.apple.nano.nanoregistry.ids.plugin";
+  v6[7] = @"com.apple.nano.nanoregistry.unpairwithbrick";
+  v6[8] = @"com.apple.nanoregistry.BDE85C67-0FDD-4A95-A9B9-3CB5DD0C06A2";
+  v6[9] = @"com.apple.nano.nanoregistry.submitrtcpairingmetric";
+  v6[10] = @"com.apple.nano.nanoregistry.generalaccess";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:11];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (BOOL)loudHasEntitlement:(id)entitlement
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   entitlementCopy = entitlement;
   v5 = [(NRXPCProxy *)self hasEntitlement:entitlementCopy];
   if (!v5)
@@ -125,16 +121,15 @@ void __46__NRRegistryProxy_clientRemoteObjectInterface__block_invoke()
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         appPath = [(NRXPCProxy *)self appPath];
-        v12 = 138543618;
-        v13 = appPath;
-        v14 = 2112;
-        v15 = entitlementCopy;
-        _os_log_error_impl(&dword_1E0ADF000, v8, OS_LOG_TYPE_ERROR, "client %{public}@ is missing the %@ entitlement", &v12, 0x16u);
+        v11 = 138543618;
+        v12 = appPath;
+        v13 = 2112;
+        v14 = entitlementCopy;
+        _os_log_error_impl(&dword_1E0ADF000, v8, OS_LOG_TYPE_ERROR, "client %{public}@ is missing the %@ entitlement", &v11, 0x16u);
       }
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -377,6 +372,21 @@ void __61__NRRegistryProxy_xpcBooleanForInternalPreference_withBlock___block_inv
   [v6 runCompletionBlock:v7];
 }
 
+- (void)xpcDeviceIDAtSwitchIndex:(unsigned int)index withBlock:(id)block
+{
+  v4 = *&index;
+  blockCopy = block;
+  registryDelegate = [(NRRegistryProxy *)self registryDelegate];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __54__NRRegistryProxy_xpcDeviceIDAtSwitchIndex_withBlock___block_invoke;
+  v9[3] = &unk_1E86DC600;
+  v9[4] = self;
+  v10 = blockCopy;
+  v8 = blockCopy;
+  [registryDelegate xpcDeviceIDAtSwitchIndex:v4 withBlock:v9];
+}
+
 void __54__NRRegistryProxy_xpcDeviceIDAtSwitchIndex_withBlock___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -531,16 +541,49 @@ void __59__NRRegistryProxy_xpcApplyDiff_withSecureProperties_block___block_invok
 
 void __59__NRRegistryProxy_xpcApplyDiff_withSecureProperties_block___block_invoke_3(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   v2 = MEMORY[0x1E696ABC0];
-  v6 = *MEMORY[0x1E696A578];
-  v7[0] = @"entitlement required";
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = *MEMORY[0x1E696A578];
+  v6[0] = @"entitlement required";
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   v4 = [v2 errorWithDomain:@"com.apple.nanoregistry.registry" code:0 userInfo:v3];
   (*(v1 + 16))(v1, v4);
+}
 
-  v5 = *MEMORY[0x1E69E9840];
+- (void)xpcSetMigrationConsented:(BOOL)consented forDeviceID:(id)d withBlock:(id)block
+{
+  consentedCopy = consented;
+  dCopy = d;
+  blockCopy = block;
+  if ([(NRRegistryProxy *)self loudHasEntitlement:@"com.apple.nano.nanoregistry.pairunpairobliterate"])
+  {
+    registryDelegate = [(NRRegistryProxy *)self registryDelegate];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __66__NRRegistryProxy_xpcSetMigrationConsented_forDeviceID_withBlock___block_invoke;
+    v17[3] = &unk_1E86DB530;
+    v17[4] = self;
+    v18 = blockCopy;
+    v11 = blockCopy;
+    [registryDelegate xpcSetMigrationConsented:consentedCopy forDeviceID:dCopy withBlock:v17];
+
+    v12 = v18;
+  }
+
+  else
+  {
+    connection = [(NRXPCProxy *)self connection];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __66__NRRegistryProxy_xpcSetMigrationConsented_forDeviceID_withBlock___block_invoke_3;
+    v15[3] = &unk_1E86DAE70;
+    v16 = blockCopy;
+    v14 = blockCopy;
+    [connection runCompletionBlock:v15];
+
+    v12 = v16;
+  }
 }
 
 void __66__NRRegistryProxy_xpcSetMigrationConsented_forDeviceID_withBlock___block_invoke(uint64_t a1)
@@ -556,7 +599,7 @@ void __66__NRRegistryProxy_xpcSetMigrationConsented_forDeviceID_withBlock___bloc
 
 - (void)logCaller:(SEL)caller args:(id)args
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   argsCopy = args;
   v7 = nr_daemon_log();
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
@@ -568,17 +611,15 @@ void __66__NRRegistryProxy_xpcSetMigrationConsented_forDeviceID_withBlock___bloc
     {
       appPath = [(NRXPCProxy *)self appPath];
       v11 = NSStringFromSelector(caller);
-      v13 = 138543874;
-      v14 = appPath;
-      v15 = 2114;
-      v16 = v11;
-      v17 = 2114;
-      v18 = argsCopy;
-      _os_log_impl(&dword_1E0ADF000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ called %{public}@ %{public}@", &v13, 0x20u);
+      v12 = 138543874;
+      v13 = appPath;
+      v14 = 2114;
+      v15 = v11;
+      v16 = 2114;
+      v17 = argsCopy;
+      _os_log_impl(&dword_1E0ADF000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ called %{public}@ %{public}@", &v12, 0x20u);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

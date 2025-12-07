@@ -231,7 +231,7 @@ LABEL_30:
 {
   succinctDescriptionBuilder = [(SBFlexibleWindowingAutoLayoutItem *)self succinctDescriptionBuilder];
   v5 = [succinctDescriptionBuilder appendObject:self->_displayItem withName:@"displayItem"];
-  [(SBFlexibleWindowingAutoLayoutItem *)self frame];
+  objc_msgSend_frame(self);
   v6 = [succinctDescriptionBuilder appendRect:@"frame" withName:?];
   v7 = [succinctDescriptionBuilder appendSize:@"size" withName:{self->_size.width, self->_size.height}];
   v8 = [succinctDescriptionBuilder appendPoint:@"position" withName:{self->_position.x, self->_position.y}];

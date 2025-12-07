@@ -26,9 +26,9 @@
 - (double)elapsedTime
 {
   selfCopy = self;
-  v3 = sub_100656390();
+  v4 = sub_100656390(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (BOOL)hasChartableMetrics
@@ -64,19 +64,19 @@
   isa = [(HKWorkoutActivity *)selfCopy workoutEvents];
   if (!isa)
   {
-    sub_1000059F8(0, &qword_1008DC000);
+    sub_1000059F8(0, &qword_1008DC000, HKWorkoutEvent_ptr);
     static Array._unconditionallyBridgeFromObjectiveC(_:)();
     isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
   v4 = FICustomSplits();
 
-  sub_1000059F8(0, &qword_1008DC000);
+  sub_1000059F8(0, &qword_1008DC000, HKWorkoutEvent_ptr);
   v5 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   sub_10065755C(v5);
 
-  sub_1000059F8(0, &qword_1008F1810);
+  sub_1000059F8(0, &qword_1008F1810, FIUIWorkoutSplit_ptr);
   v6.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v6.super.isa;
@@ -96,7 +96,7 @@
   selfCopy = self;
   sub_100656E40(unitCopy);
 
-  sub_1000059F8(0, &qword_1008F1810);
+  sub_1000059F8(0, &qword_1008F1810, FIUIWorkoutSplit_ptr);
   v6.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v6.super.isa;

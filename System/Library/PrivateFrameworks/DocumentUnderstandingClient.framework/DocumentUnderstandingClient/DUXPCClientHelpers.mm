@@ -32,14 +32,14 @@
 
 - (void)_locked_establishConnection
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (!self->_connection)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       serviceName = self->_serviceName;
       *buf = 138412290;
-      v16 = serviceName;
+      v15 = serviceName;
       _os_log_impl(&dword_249D14000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Establishing new connection to %@ .", buf, 0xCu);
     }
 
@@ -52,25 +52,23 @@
     [(NSXPCConnection *)self->_connection setExportedObject:WeakRetained];
 
     objc_initWeak(buf, self);
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = sub_249D21AC4;
-    v13[3] = &unk_278FB5750;
-    objc_copyWeak(&v14, buf);
-    [(NSXPCConnection *)self->_connection setInterruptionHandler:v13];
-    v8 = MEMORY[0x277D85DD0];
-    v9 = 3221225472;
-    v10 = sub_249D21B8C;
-    v11 = &unk_278FB5750;
-    objc_copyWeak(&v12, buf);
-    [(NSXPCConnection *)self->_connection setInvalidationHandler:&v8];
-    [(NSXPCConnection *)self->_connection resume:v8];
-    objc_destroyWeak(&v12);
-    objc_destroyWeak(&v14);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = sub_249D21AC4;
+    v12[3] = &unk_278FB5750;
+    objc_copyWeak(&v13, buf);
+    [(NSXPCConnection *)self->_connection setInterruptionHandler:v12];
+    v7 = MEMORY[0x277D85DD0];
+    v8 = 3221225472;
+    v9 = sub_249D21B8C;
+    v10 = &unk_278FB5750;
+    objc_copyWeak(&v11, buf);
+    [(NSXPCConnection *)self->_connection setInvalidationHandler:&v7];
+    [(NSXPCConnection *)self->_connection resume:v7];
+    objc_destroyWeak(&v11);
+    objc_destroyWeak(&v13);
     objc_destroyWeak(buf);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc

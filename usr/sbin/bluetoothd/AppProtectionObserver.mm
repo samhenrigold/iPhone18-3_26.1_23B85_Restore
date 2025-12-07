@@ -8,21 +8,22 @@
 
 - (AppProtectionObserver)init
 {
-  v8.receiver = self;
-  v8.super_class = AppProtectionObserver;
-  v2 = [(AppProtectionObserver *)&v8 init];
-  if (v2 && sub_1005FCE30())
+  v10.receiver = self;
+  v10.super_class = AppProtectionObserver;
+  v2 = [(AppProtectionObserver *)&v10 init];
+  v4 = v2;
+  if (v2 && sub_1005FCE30(v2, v3))
   {
-    v3 = +[APSubject subjectMonitorRegistry];
-    v4 = [v3 addMonitor:v2 subjectMask:1];
-    subscription = v2->_subscription;
-    v2->_subscription = v4;
+    v5 = +[APSubject subjectMonitorRegistry];
+    v6 = [v5 addMonitor:v4 subjectMask:1];
+    subscription = v4->_subscription;
+    v4->_subscription = v6;
 
-    v6 = [APApplication applicationWithBundleIdentifier:@"com.apple.MobileSMS"];
-    -[AppProtectionObserver setMessagesAppLockState:](v2, "setMessagesAppLockState:", [v6 isLocked]);
+    v8 = [APApplication applicationWithBundleIdentifier:@"com.apple.MobileSMS"];
+    -[AppProtectionObserver setMessagesAppLockState:](v4, "setMessagesAppLockState:", [v8 isLocked]);
   }
 
-  return v2;
+  return v4;
 }
 
 - (void)appProtectionSubjectsChanged:(id)changed forSubscription:(id)subscription

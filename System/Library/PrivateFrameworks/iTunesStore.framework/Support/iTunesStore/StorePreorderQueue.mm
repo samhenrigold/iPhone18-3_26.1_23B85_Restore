@@ -97,15 +97,21 @@
     shouldLog = [v4 shouldLog];
     if ([v4 shouldLogToDisk])
     {
-      v6 = shouldLog | 2;
+      LODWORD(v6) = shouldLog | 2;
     }
 
     else
     {
-      v6 = shouldLog;
+      LODWORD(v6) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v4 OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject = [v4 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v6 = v6;
+    }
+
+    else
     {
       v6 &= 2u;
     }
@@ -116,57 +122,55 @@
       v25 = objc_opt_class();
       v26 = 2048;
       v27 = [_copyPreorderAccountIdentifiers count];
-      LODWORD(v17) = 22;
-      v16 = &v24;
-      v7 = _os_log_send_and_compose_impl();
-      if (v7)
+      v8 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Checking preorder queue for %lu accounts", &v24, 22);
+      if (v8)
       {
-        v8 = v7;
-        v9 = [NSString stringWithCString:v7 encoding:4, &v24, v17];
-        free(v8);
-        v16 = v9;
+        v9 = v8;
+        v10 = [NSString stringWithCString:v8 encoding:4];
+        free(v9);
+        v17 = v10;
         SSFileLog();
       }
     }
 
     if ([_copyPreorderAccountIdentifiers count])
     {
-      v10 = objc_alloc_init(CancelPreordersOperation);
-      [(ISOperationQueue *)self->_operationQueue addOperation:v10];
+      v11 = objc_alloc_init(CancelPreordersOperation);
+      [(ISOperationQueue *)self->_operationQueue addOperation:v11];
 
       v21 = 0u;
       v22 = 0u;
       v19 = 0u;
       v20 = 0u;
-      v11 = [_copyPreorderAccountIdentifiers countByEnumeratingWithState:&v19 objects:v23 count:16];
-      if (v11)
+      v12 = [_copyPreorderAccountIdentifiers countByEnumeratingWithState:&v19 objects:v23 count:16];
+      if (v12)
       {
-        v12 = v11;
-        v13 = *v20;
+        v13 = v12;
+        v14 = *v20;
         do
         {
-          for (i = 0; i != v12; i = i + 1)
+          for (i = 0; i != v13; i = i + 1)
           {
-            if (*v20 != v13)
+            if (*v20 != v14)
             {
               objc_enumerationMutation(_copyPreorderAccountIdentifiers);
             }
 
-            v15 = [[CheckPreorderQueueOperation alloc] initWithAccountIdentifier:*(*(&v19 + 1) + 8 * i)];
+            v16 = [[CheckPreorderQueueOperation alloc] initWithAccountIdentifier:*(*(&v19 + 1) + 8 * i)];
             v18[0] = _NSConcreteStackBlock;
             v18[1] = 3221225472;
             v18[2] = sub_10017B560;
             v18[3] = &unk_100327350;
             v18[4] = self;
-            v18[5] = v15;
-            [(CheckPreorderQueueOperation *)v15 setCompletionBlock:v18];
-            [(ISOperationQueue *)self->_operationQueue addOperation:v15];
+            v18[5] = v16;
+            [(CheckPreorderQueueOperation *)v16 setCompletionBlock:v18];
+            [(ISOperationQueue *)self->_operationQueue addOperation:v16];
           }
 
-          v12 = [_copyPreorderAccountIdentifiers countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v13 = [_copyPreorderAccountIdentifiers countByEnumeratingWithState:&v19 objects:v23 count:16];
         }
 
-        while (v12);
+        while (v13);
       }
     }
   }
@@ -368,23 +372,23 @@ LABEL_15:
         [+[DownloadsDatabase downloadsDatabase](DownloadsDatabase "downloadsDatabase")];
         if ((*(*&v20[8] + 24) & 1) == 0)
         {
-LABEL_18:
+LABEL_19:
           _Block_object_dispose(v20, 8);
           return;
         }
       }
 
-      v14 = [[LoadPreorderQueueOperation alloc] initWithAccountIdentifier:accountIdentifier];
+      v15 = [[LoadPreorderQueueOperation alloc] initWithAccountIdentifier:accountIdentifier];
       v17[0] = _NSConcreteStackBlock;
       v17[1] = 3221225472;
       v17[2] = sub_10017D4A4;
       v17[3] = &unk_100327350;
       v17[4] = self;
-      v17[5] = v14;
-      [(LoadPreorderQueueOperation *)v14 setCompletionBlock:v17];
-      [(ISOperationQueue *)self->_operationQueue addOperation:v14];
+      v17[5] = v15;
+      [(LoadPreorderQueueOperation *)v15 setCompletionBlock:v17];
+      [(ISOperationQueue *)self->_operationQueue addOperation:v15];
 
-      goto LABEL_18;
+      goto LABEL_19;
     }
 
     v8 = +[SSLogConfig sharedDaemonConfig];
@@ -396,15 +400,21 @@ LABEL_18:
     shouldLog = [v8 shouldLog];
     if ([v8 shouldLogToDisk])
     {
-      v10 = shouldLog | 2;
+      LODWORD(v10) = shouldLog | 2;
     }
 
     else
     {
-      v10 = shouldLog;
+      LODWORD(v10) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v8 OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject = [v8 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v10 = v10;
+    }
+
+    else
     {
       v10 &= 2u;
     }
@@ -415,15 +425,13 @@ LABEL_18:
       *&v20[4] = objc_opt_class();
       *&v20[12] = 2112;
       *&v20[14] = accountIdentifier;
-      LODWORD(v16) = 22;
-      v15 = v20;
-      v11 = _os_log_send_and_compose_impl();
-      if (v11)
+      v12 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Deleting all preorders for account: %@", v20, 22);
+      if (v12)
       {
-        v12 = v11;
-        v13 = [NSString stringWithCString:v11 encoding:4, v20, v16];
-        free(v12);
-        v15 = v13;
+        v13 = v12;
+        v14 = [NSString stringWithCString:v12 encoding:4];
+        free(v13);
+        v16 = v14;
         SSFileLog();
       }
     }

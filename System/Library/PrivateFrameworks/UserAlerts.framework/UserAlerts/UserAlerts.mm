@@ -1,13 +1,13 @@
-id URTLog()
+id URTLog(uint64_t a1)
 {
   if (URTLog_onceToken != -1)
   {
     URTLog_cold_1();
   }
 
-  v1 = URTLog_logger;
+  v2 = URTLog_logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __URTLog_block_invoke()
@@ -19,7 +19,7 @@ uint64_t __URTLog_block_invoke()
 
 uint64_t _URTUserNotificationRunLoopCallback(uint64_t a1, uint64_t a2)
 {
-  v4 = URTLog();
+  v4 = URTLog(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     _URTUserNotificationRunLoopCallback_cold_1(a2, v4);
@@ -119,48 +119,50 @@ id URTVerifyString(void *a1)
 {
   v1 = a1;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v2 = v1;
+    v3 = v1;
   }
 
   else
   {
-    v3 = URTLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = URTLog(isKindOfClass);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      URTVerifyString_cold_1(v1, v3);
+      URTVerifyString_cold_1(v1, v4);
     }
 
-    v2 = 0;
+    v3 = 0;
   }
 
-  return v2;
+  return v3;
 }
 
 id URTVerifyClass(void *a1, uint64_t a2)
 {
   v3 = a1;
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v4 = v3;
+    v5 = v3;
   }
 
   else
   {
-    v5 = URTLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = URTLog(isKindOfClass);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      URTVerifyClass_cold_1(v3, a2, v5);
+      URTVerifyClass_cold_1(v3, a2, v6);
     }
 
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
-URTAlertPresenter *URTAlertCreate(uint64_t a1, _DWORD *a2, void *a3)
+URTAlertPresenter *URTAlertCreate(uint64_t a1, unsigned int *a2, void *a3)
 {
   v5 = a3;
   v6 = objc_alloc_init(URTAlertPresenter);
@@ -181,15 +183,15 @@ URTAlertPresenter *URTAlertCreate(uint64_t a1, _DWORD *a2, void *a3)
     if (v13)
     {
       v14 = [URTAlertAction alloc];
-      v32[0] = MEMORY[0x277D85DD0];
-      v32[1] = 3221225472;
-      v32[2] = __URTAlertCreate_block_invoke;
-      v32[3] = &unk_279E0BF38;
-      objc_copyWeak(&v33, &location);
-      v15 = [(URTAlertAction *)v14 initWithTitle:v13 handler:v32];
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __URTAlertCreate_block_invoke;
+      v33[3] = &unk_279E0BF38;
+      objc_copyWeak(&v34, &location);
+      v15 = [(URTAlertAction *)v14 initWithTitle:v13 handler:v33];
       [(URTAlert *)v11 setDefaultAction:v15];
 
-      objc_destroyWeak(&v33);
+      objc_destroyWeak(&v34);
     }
 
     v16 = [v5 objectForKeyedSubscript:@"URTAlertCarPlayCancelButtonTitleKey"];
@@ -198,15 +200,15 @@ URTAlertPresenter *URTAlertCreate(uint64_t a1, _DWORD *a2, void *a3)
     if (v17)
     {
       v18 = [URTAlertAction alloc];
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __URTAlertCreate_block_invoke_2;
-      v30[3] = &unk_279E0BF38;
-      objc_copyWeak(&v31, &location);
-      v19 = [(URTAlertAction *)v18 initWithTitle:v17 handler:v30];
+      v31[0] = MEMORY[0x277D85DD0];
+      v31[1] = 3221225472;
+      v31[2] = __URTAlertCreate_block_invoke_2;
+      v31[3] = &unk_279E0BF38;
+      objc_copyWeak(&v32, &location);
+      v19 = [(URTAlertAction *)v18 initWithTitle:v17 handler:v31];
       [(URTAlert *)v11 setCancelAction:v19];
 
-      objc_destroyWeak(&v31);
+      objc_destroyWeak(&v32);
     }
 
     v20 = [v5 objectForKeyedSubscript:@"SBUserNotificationAllowedApplications"];
@@ -226,45 +228,46 @@ URTAlertPresenter *URTAlertCreate(uint64_t a1, _DWORD *a2, void *a3)
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v25 = URTLog();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v26 = URTLog(isKindOfClass);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      URTAlertCreate_cold_1(v23, v25);
+      URTAlertCreate_cold_1(v23, v26);
     }
 
 LABEL_14:
     goto LABEL_15;
   }
 
-  v24 = [v23 BOOLValue];
+  v25 = [v23 BOOLValue];
 
-  if (v24)
+  if (v25)
   {
     [(URTAlertPresenter *)v6 _addFromUserNotificationContents:v5 toServiceDestination:2];
   }
 
 LABEL_15:
   [(URTAlertPresenter *)v6 present];
-  v26 = [(URTAlertPresenter *)v6 userNotificationPresentation];
-  v27 = [v26 error];
+  v27 = [(URTAlertPresenter *)v6 userNotificationPresentation];
+  v28 = [v27 error];
 
-  if (v27)
+  if (v28)
   {
-    v28 = 0;
+    v29 = 0;
     if (a2)
     {
-      *a2 = v27;
+      *a2 = v28;
     }
   }
 
   else
   {
-    v28 = v6;
+    v29 = v6;
   }
 
-  return v28;
+  return v29;
 }
 
 void sub_27083A8F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location)
@@ -316,46 +319,43 @@ void sub_27083AF60(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void _URTUserNotificationRunLoopCallback_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_debug_impl(&dword_270835000, a2, OS_LOG_TYPE_DEBUG, "CFUserNotification callback response flags: %lu", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_debug_impl(&dword_270835000, a2, OS_LOG_TYPE_DEBUG, "CFUserNotification callback response flags: %lu", &v2, 0xCu);
 }
 
 void URTVerifyString_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_270835000, a2, OS_LOG_TYPE_ERROR, "object %@ is not a string", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_270835000, a2, OS_LOG_TYPE_ERROR, "object %@ is not a string", &v2, 0xCu);
 }
 
 void URTVerifyClass_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_270835000, log, OS_LOG_TYPE_ERROR, "object %@ is not of class %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_270835000, log, OS_LOG_TYPE_ERROR, "object %@ is not of class %@", &v3, 0x16u);
 }
 
 void URTAlertCreate_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_270835000, a2, OS_LOG_TYPE_ERROR, "object %@ is not a BOOL number", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_270835000, a2, OS_LOG_TYPE_ERROR, "object %@ is not a BOOL number", &v2, 0xCu);
 }

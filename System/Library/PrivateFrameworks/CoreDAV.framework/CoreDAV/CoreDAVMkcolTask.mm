@@ -64,25 +64,26 @@
 - (id)additionalHeaderValues
 {
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v11.receiver = self;
-  v11.super_class = CoreDAVMkcolTask;
-  additionalHeaderValues = [(CoreDAVTask *)&v11 additionalHeaderValues];
+  v12.receiver = self;
+  v12.super_class = CoreDAVMkcolTask;
+  additionalHeaderValues = [(CoreDAVTask *)&v12 additionalHeaderValues];
   [v3 addEntriesFromDictionary:additionalHeaderValues];
 
   if (self->_sendOrder)
   {
     cDVRawLastPathComponent = [(NSURL *)self->_priorOrderedURL CDVRawLastPathComponent];
-    if ([cDVRawLastPathComponent length])
+    v6 = [cDVRawLastPathComponent length];
+    if (v6)
     {
-      v6 = MEMORY[0x277CCACA8];
-      v7 = CDVRelativeOrderHeaderString();
-      stringValue = [v6 stringWithFormat:@"%@%@", v7, cDVRawLastPathComponent];
+      v7 = MEMORY[0x277CCACA8];
+      v8 = CDVRelativeOrderHeaderString(v6);
+      stringValue = [v7 stringWithFormat:@"%@%@", v8, cDVRawLastPathComponent];
     }
 
     else
     {
-      v9 = [MEMORY[0x277CCABB0] numberWithInt:self->_absoluteOrder];
-      stringValue = [v9 stringValue];
+      v10 = [MEMORY[0x277CCABB0] numberWithInt:self->_absoluteOrder];
+      stringValue = [v10 stringValue];
 
       if (!stringValue)
       {
@@ -103,7 +104,7 @@ LABEL_7:
 
 - (id)requestBody
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   propertiesToSet = [(CoreDAVMkcolTask *)self propertiesToSet];
   if (propertiesToSet && (v4 = propertiesToSet, -[CoreDAVMkcolTask propertiesToSet](self, "propertiesToSet"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 count], v5, v4, v6))
   {
@@ -120,29 +121,29 @@ LABEL_7:
       {
         [(CoreDAVXMLData *)v7 startElement:@"set" inNamespace:@"DAV:" withAttributeNamesAndValues:0];
         [(CoreDAVXMLData *)v7 startElement:@"prop" inNamespace:@"DAV:" withAttributeNamesAndValues:0];
-        v22 = 0u;
-        v23 = 0u;
-        v20 = 0u;
         v21 = 0u;
+        v22 = 0u;
+        v19 = 0u;
+        v20 = 0u;
         propertiesToSet4 = [(CoreDAVMkcolTask *)self propertiesToSet];
-        v13 = [propertiesToSet4 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v13 = [propertiesToSet4 countByEnumeratingWithState:&v19 objects:v23 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v21;
+          v15 = *v20;
           do
           {
             for (i = 0; i != v14; ++i)
             {
-              if (*v21 != v15)
+              if (*v20 != v15)
               {
                 objc_enumerationMutation(propertiesToSet4);
               }
 
-              [*(*(&v20 + 1) + 8 * i) write:v7];
+              [*(*(&v19 + 1) + 8 * i) write:v7];
             }
 
-            v14 = [propertiesToSet4 countByEnumeratingWithState:&v20 objects:v24 count:16];
+            v14 = [propertiesToSet4 countByEnumeratingWithState:&v19 objects:v23 count:16];
           }
 
           while (v14);
@@ -161,8 +162,6 @@ LABEL_7:
   {
     data = 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return data;
 }
@@ -190,7 +189,7 @@ LABEL_7:
 
 - (void)finishCoreDAVTaskWithError:(id)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = errorCopy;
   if (errorCopy)
@@ -208,8 +207,8 @@ LABEL_7:
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
           *buf = 138543362;
-          v33 = objc_opt_class();
-          v11 = v33;
+          v32 = objc_opt_class();
+          v11 = v32;
           v12 = "%{public}@ cancelled";
           v13 = v10;
           v14 = OS_LOG_TYPE_INFO;
@@ -230,10 +229,10 @@ LABEL_15:
       if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v33 = objc_opt_class();
-        v34 = 2112;
-        v35 = v5;
-        v11 = v33;
+        v32 = objc_opt_class();
+        v33 = 2112;
+        v34 = v5;
+        v11 = v32;
         v12 = "%{public}@ failed: %@";
         v13 = v26;
         v14 = OS_LOG_TYPE_ERROR;
@@ -269,7 +268,7 @@ LABEL_16:
       if (v24 && os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v33 = rootElement;
+        v32 = rootElement;
         _os_log_impl(&dword_2452FB000, v24, OS_LOG_TYPE_DEFAULT, "There we no properties successfully applied according to the following item: [%@].", buf, 0xCu);
       }
 
@@ -301,11 +300,9 @@ LABEL_21:
     [(CoreDAVTask *)self setDelegate:0];
   }
 
-  v31.receiver = self;
-  v31.super_class = CoreDAVMkcolTask;
-  [(CoreDAVTask *)&v31 finishCoreDAVTaskWithError:v5];
-
-  v30 = *MEMORY[0x277D85DE8];
+  v30.receiver = self;
+  v30.super_class = CoreDAVMkcolTask;
+  [(CoreDAVTask *)&v30 finishCoreDAVTaskWithError:v5];
 }
 
 - (void)setPriorOrderedURL:(id)l

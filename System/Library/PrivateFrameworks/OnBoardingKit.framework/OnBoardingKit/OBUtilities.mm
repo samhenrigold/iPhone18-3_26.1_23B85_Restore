@@ -7,7 +7,7 @@
 
 + (id)localizedString:(id)string forTable:(id)table inBundle:(id)bundle forLanguage:(id)language
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   stringCopy = string;
   tableCopy = table;
   bundleCopy = bundle;
@@ -16,8 +16,8 @@
   {
     v13 = MEMORY[0x1E696AAE8];
     localizations = [bundleCopy localizations];
-    v22[0] = languageCopy;
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
+    v21[0] = languageCopy;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
     v16 = [v13 preferredLocalizationsFromArray:localizations forPreferences:v15];
     firstObject = [v16 firstObject];
 
@@ -35,8 +35,6 @@
 
     v18 = v19;
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v18;
 }

@@ -17,6 +17,7 @@
 - (void)handleAuthCompletionWithResults:(id)results;
 - (void)setSpecifier:(id)specifier;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)willBeginAuthWithContext:(id)context;
 @end
 
@@ -24,7 +25,7 @@
 
 + (BOOL)shouldShowSplashViewForService:(id)service inProgressRegisteringNonPhoneAccount:(id *)account
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   mEMORY[0x277D18998] = [MEMORY[0x277D18998] sharedInstance];
   v7 = [mEMORY[0x277D18998] currentSIMsWithError:0];
@@ -45,33 +46,33 @@
   mEMORY[0x277D18D28] = [MEMORY[0x277D18D28] sharedInstance];
   v13 = [mEMORY[0x277D18D28] accountsForService:serviceCopy];
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v14 = v13;
-  v15 = [v14 countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v15)
   {
     v16 = v15;
-    v31 = supportsSMS;
-    v32 = v9;
+    v30 = supportsSMS;
+    v31 = v9;
     accountCopy = account;
-    v34 = serviceCopy;
+    v33 = serviceCopy;
     v17 = 0;
     v18 = 0;
     v19 = 0;
-    v20 = *v36;
+    v20 = *v35;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v36 != v20)
+        if (*v35 != v20)
         {
           objc_enumerationMutation(v14);
         }
 
-        v22 = *(*(&v35 + 1) + 8 * i);
+        v22 = *(*(&v34 + 1) + 8 * i);
         v23 = [v22 accountType] == 2;
         registrationStatus = [v22 registrationStatus];
         v25 = registrationStatus == 5;
@@ -84,15 +85,15 @@
         v18 |= v25;
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
     while (v16);
     v26 = v19 | v17;
     account = accountCopy;
-    serviceCopy = v34;
-    supportsSMS = v31;
-    LOBYTE(v9) = v32;
+    serviceCopy = v33;
+    supportsSMS = v30;
+    LOBYTE(v9) = v31;
   }
 
   else
@@ -118,36 +119,35 @@
     v28 = v9 | supportsSMS ^ 1;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v28 & 1;
 }
 
 + (id)_inProgressRegisteringNonPhoneAccountForService:(id)service
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   mEMORY[0x277D18D28] = [MEMORY[0x277D18D28] sharedInstance];
   v5 = [mEMORY[0x277D18D28] accountsForService:serviceCopy];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         accountType = [v10 accountType];
         registrationStatus = [v10 registrationStatus];
         if (registrationStatus != 5 && accountType != 2 && (registrationStatus - 2) <= 2)
@@ -157,15 +157,13 @@
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
 
 LABEL_14:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -271,6 +269,33 @@ LABEL_14:
   [(CNFRegAppleIDSplashViewController *)self setTitle:serviceName];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = CNFRegAppleIDSplashViewController;
+  [(PSAppleIDSplashViewController *)&v8 viewWillAppear:appear];
+  if ([(CNFRegAppleIDSplashViewController *)self showBusyUIOnAppearance])
+  {
+    [(PSAppleIDSplashViewController *)self showBusyUI];
+  }
+
+  [(CNFRegAppleIDSplashViewController *)self setShowBusyUIOnAppearance:0];
+  _iCloudUserName = [(CNFRegAppleIDSplashViewController *)self _iCloudUserName];
+  if ([_iCloudUserName length])
+  {
+    [(PSAppleIDSplashViewController *)self setUsername:_iCloudUserName];
+  }
+
+  v5 = objc_opt_class();
+  _imService = [(CNFRegAppleIDSplashViewController *)self _imService];
+  v7 = [v5 _inProgressRegisteringNonPhoneAccountForService:_imService];
+
+  if (v7)
+  {
+    [(CNFRegAppleIDSplashViewController *)self continueRegisteringAccount:v7];
+  }
+}
+
 - (id)navigationItem
 {
   parentViewController = [(CNFRegAppleIDSplashViewController *)self parentViewController];
@@ -292,19 +317,19 @@ LABEL_14:
 
 - (void)willBeginAuthWithContext:(id)context
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v15 = contextCopy;
+    v14 = contextCopy;
     _os_log_impl(&dword_243BE5000, v5, OS_LOG_TYPE_DEFAULT, "willBeginAuthWithContext: %@", buf, 0xCu);
   }
 
   if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
   {
-    v12 = contextCopy;
+    v11 = contextCopy;
     IMLogString();
   }
 
@@ -327,50 +352,46 @@ LABEL_10:
     [contextCopy setServiceType:v10];
   }
 
-  v13.receiver = self;
-  v13.super_class = CNFRegAppleIDSplashViewController;
-  [(PSAppleIDSplashViewController *)&v13 willBeginAuthWithContext:contextCopy];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = CNFRegAppleIDSplashViewController;
+  [(PSAppleIDSplashViewController *)&v12 willBeginAuthWithContext:contextCopy];
 }
 
 - (void)continueRegisteringAccount:(id)account
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   [(PSAppleIDSplashViewController *)self showBusyUI];
   [(CNFRegAppleIDSplashViewController *)self setShowBusyUIOnAppearance:1];
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x3032000000;
-  v13 = __Block_byref_object_copy__5;
-  v14 = __Block_byref_object_dispose__5;
-  v15 = [[CNFAccountRegistrar alloc] initWithServiceType:[(CNFRegAppleIDSplashViewController *)self serviceType] presentationViewController:self];
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x3032000000;
+  v12 = __Block_byref_object_copy__5;
+  v13 = __Block_byref_object_dispose__5;
+  v14 = [[CNFAccountRegistrar alloc] initWithServiceType:[(CNFRegAppleIDSplashViewController *)self serviceType] presentationViewController:self];
   v5 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = accountCopy;
+    v16 = accountCopy;
     _os_log_impl(&dword_243BE5000, v5, OS_LOG_TYPE_DEFAULT, "Continuing registration of account: %@", buf, 0xCu);
   }
 
   if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
   {
-    v8 = accountCopy;
+    v7 = accountCopy;
     IMLogString();
   }
 
-  v6 = v11[5];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __64__CNFRegAppleIDSplashViewController_continueRegisteringAccount___block_invoke;
-  v9[3] = &unk_278DE8E18;
-  v9[4] = self;
-  v9[5] = &v10;
-  [v6 continueRegistrationForAccount:accountCopy completionBlock:{v9, v8}];
-  _Block_object_dispose(&v10, 8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = v10[5];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __64__CNFRegAppleIDSplashViewController_continueRegisteringAccount___block_invoke;
+  v8[3] = &unk_278DE8E18;
+  v8[4] = self;
+  v8[5] = &v9;
+  [v6 continueRegistrationForAccount:accountCopy completionBlock:{v8, v7}];
+  _Block_object_dispose(&v9, 8);
 }
 
 uint64_t __64__CNFRegAppleIDSplashViewController_continueRegisteringAccount___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -486,44 +507,44 @@ LABEL_6:
 
 - (void)_cnfSignInWithUsername:(id)username password:(id)password
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   usernameCopy = username;
   passwordCopy = password;
   _imService = [(CNFRegAppleIDSplashViewController *)self _imService];
   if (_imService)
   {
-    *v16 = 0;
-    v17 = v16;
-    v18 = 0x3032000000;
-    v19 = __Block_byref_object_copy__5;
-    v20 = __Block_byref_object_dispose__5;
-    v21 = [[CNFAccountRegistrar alloc] initWithServiceType:[(CNFRegAppleIDSplashViewController *)self serviceType] presentationViewController:self];
+    *v15 = 0;
+    v16 = v15;
+    v17 = 0x3032000000;
+    v18 = __Block_byref_object_copy__5;
+    v19 = __Block_byref_object_dispose__5;
+    v20 = [[CNFAccountRegistrar alloc] initWithServiceType:[(CNFRegAppleIDSplashViewController *)self serviceType] presentationViewController:self];
     v9 = OSLogHandleForIDSCategory();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v23 = usernameCopy;
-      v24 = 2112;
-      v25 = _imService;
+      v22 = usernameCopy;
+      v23 = 2112;
+      v24 = _imService;
       _os_log_impl(&dword_243BE5000, v9, OS_LOG_TYPE_DEFAULT, "Registering account: %@ (service: %@)", buf, 0x16u);
     }
 
     if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
     {
-      v13 = usernameCopy;
-      v14 = _imService;
+      v12 = usernameCopy;
+      v13 = _imService;
       IMLogString();
     }
 
-    v10 = *(v17 + 5);
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __69__CNFRegAppleIDSplashViewController__cnfSignInWithUsername_password___block_invoke;
-    v15[3] = &unk_278DE8E18;
-    v15[4] = self;
-    v15[5] = v16;
-    [v10 registerAccountWithUsername:usernameCopy password:passwordCopy service:_imService completionBlock:{v15, v13, v14}];
-    _Block_object_dispose(v16, 8);
+    v10 = *(v16 + 5);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __69__CNFRegAppleIDSplashViewController__cnfSignInWithUsername_password___block_invoke;
+    v14[3] = &unk_278DE8E18;
+    v14[4] = self;
+    v14[5] = v15;
+    [v10 registerAccountWithUsername:usernameCopy password:passwordCopy service:_imService completionBlock:{v14, v12, v13}];
+    _Block_object_dispose(v15, 8);
   }
 
   else
@@ -531,8 +552,8 @@ LABEL_6:
     v11 = OSLogHandleForIDSCategory();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      *v16 = 0;
-      _os_log_impl(&dword_243BE5000, v11, OS_LOG_TYPE_DEFAULT, "Couldn't generate a service to register with!", v16, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_243BE5000, v11, OS_LOG_TYPE_DEFAULT, "Couldn't generate a service to register with!", v15, 2u);
     }
 
     if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
@@ -540,8 +561,6 @@ LABEL_6:
       IMLogString();
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_iCloudUserName

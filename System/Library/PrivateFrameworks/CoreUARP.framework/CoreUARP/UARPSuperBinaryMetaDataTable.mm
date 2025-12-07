@@ -23,7 +23,9 @@
 - (void)addTLV:(unint64_t)v keyValue32:(id)value32 tlvArray:(id)array;
 - (void)addTLV:(unint64_t)v keyValue64:(id)value64 tlvArray:(id)array;
 - (void)addTLV:(unint64_t)v keyValue8:(id)value8 tlvArray:(id)array;
+- (void)addTLV:(unint64_t)v keyValue:(id)value tlvArray:(id)array payloadsURL:(id)l isFilepath:(BOOL)filepath;
 - (void)addTLV:(unint64_t)v keyValueString:(id)string tlvArray:(id)array;
+- (void)addTLV:(unint64_t)v legacyTLV:(unint64_t)lV keyValue:(id)value tlvArray:(id)array payloadsURL:(id)l isFilepath:(BOOL)filepath;
 - (void)addTLV:(unint64_t)v versionString:(id)string tlvArray:(id)array;
 - (void)addTLVCompressPayloadAlgorithm:(id)algorithm tlvArray:(id)array;
 - (void)addTLVs:(unint64_t)vs excludedHwRevisions:(id)revisions tlvArray:(id)array;
@@ -201,7 +203,7 @@ LABEL_7:
   keyCopy = key;
   valueCopy = value;
   lCopy = l;
-  v49 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v46 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v9 = [(NSMutableArray *)self->_values count];
   if (!v9)
   {
@@ -210,55 +212,53 @@ LABEL_7:
 
   v10 = v9;
   v11 = 0;
-  v51 = v9;
+  v48 = v9;
   v12 = 0x277CCA000uLL;
   v13 = 0x277CBE000uLL;
   while (1)
   {
     v14 = [(NSMutableArray *)self->_values objectAtIndex:v11];
-    v15 = *(v12 + 3240);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v16 = v14;
+      v15 = v14;
       bOOLValue = 0;
-      v18 = 0;
+      v17 = 0;
       unsignedIntegerValue = v11;
     }
 
     else
     {
-      v20 = *(v13 + 2752);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v18 = 0;
-        v16 = 0;
+        v17 = 0;
+        v15 = 0;
         goto LABEL_12;
       }
 
-      v21 = v12;
+      v19 = v12;
       selfCopy = self;
-      v23 = v13;
-      v24 = v14;
-      v25 = [v24 objectForKey:@"Filepath"];
-      bOOLValue = [v25 BOOLValue];
-      v16 = [v24 objectForKey:@"Name"];
-      v18 = [v24 objectForKey:@"Value"];
+      v21 = v13;
+      v22 = v14;
+      v23 = [v22 objectForKey:@"Filepath"];
+      bOOLValue = [v23 BOOLValue];
+      v15 = [v22 objectForKey:@"Name"];
+      v17 = [v22 objectForKey:@"Value"];
 
       unsignedIntegerValue = v11;
-      if (v18)
+      if (v17)
       {
-        unsignedIntegerValue = [v18 unsignedIntegerValue];
+        unsignedIntegerValue = [v17 unsignedIntegerValue];
       }
 
-      v13 = v23;
+      v13 = v21;
       self = selfCopy;
-      v12 = v21;
-      v10 = v51;
+      v12 = v19;
+      v10 = v48;
     }
 
-    if ([v16 isEqualToString:keyCopy])
+    if ([v15 isEqualToString:keyCopy])
     {
       break;
     }
@@ -279,45 +279,45 @@ LABEL_12:
       {
         case 3436347648:
           selfCopy9 = self;
-          v28 = 3436347648;
-          v29 = 0;
+          v26 = 3436347648;
+          v27 = 0;
           goto LABEL_80;
         case 3436347649:
-          v28 = 3436347649;
+          v26 = 3436347649;
           selfCopy9 = self;
-          v29 = 1;
+          v27 = 1;
           goto LABEL_80;
         case 3436347650:
-          v28 = 3436347650;
+          v26 = 3436347650;
           selfCopy9 = self;
-          v29 = 2;
+          v27 = 2;
           goto LABEL_80;
         case 3436347651:
-          v28 = 3436347651;
+          v26 = 3436347651;
           selfCopy9 = self;
-          v29 = 3;
+          v27 = 3;
           goto LABEL_80;
         case 3436347652:
-          v28 = 3436347652;
+          v26 = 3436347652;
           selfCopy9 = self;
-          v29 = 4;
+          v27 = 4;
           goto LABEL_80;
         case 3436347653:
-          v28 = 3436347653;
+          v26 = 3436347653;
           selfCopy9 = self;
-          v29 = 5;
+          v27 = 5;
           goto LABEL_80;
         case 3436347654:
-          v28 = 3436347654;
+          v26 = 3436347654;
           selfCopy9 = self;
-          v29 = 6;
+          v27 = 6;
           goto LABEL_80;
         case 3436347655:
-          v28 = 3436347655;
+          v26 = 3436347655;
           selfCopy9 = self;
-          v29 = 7;
+          v27 = 7;
 LABEL_80:
-          [(UARPSuperBinaryMetaDataTable *)selfCopy9 addTLV:v28 legacyTLV:v29 keyValue:valueCopy tlvArray:v49 payloadsURL:lCopy isFilepath:bOOLValue];
+          [(UARPSuperBinaryMetaDataTable *)selfCopy9 addTLV:v26 legacyTLV:v27 keyValue:valueCopy tlvArray:v46 payloadsURL:lCopy isFilepath:bOOLValue];
           goto LABEL_81;
         case 3436347656:
         case 3436347657:
@@ -338,7 +338,7 @@ LABEL_80:
         case 3436347675:
           goto LABEL_57;
         case 3436347660:
-          [(UARPSuperBinaryMetaDataTable *)self addTLVCompressPayloadAlgorithm:valueCopy tlvArray:v49];
+          [(UARPSuperBinaryMetaDataTable *)self addTLVCompressPayloadAlgorithm:valueCopy tlvArray:v46];
           goto LABEL_81;
         case 3436347663:
         case 3436347673:
@@ -349,35 +349,34 @@ LABEL_80:
         case 3436347674:
           goto LABEL_51;
         case 3436347678:
-          v39 = *(v12 + 3240);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             goto LABEL_81;
           }
 
-          v38 = valueCopy;
-          v40 = [objc_alloc(MEMORY[0x277CBEBC0]) initWithString:v38 relativeToURL:lCopy];
-          if (v40)
+          v36 = valueCopy;
+          v37 = [objc_alloc(MEMORY[0x277CBEBC0]) initWithString:v36 relativeToURL:lCopy];
+          if (v37)
           {
-            v41 = *(v12 + 3240);
-            v53 = 0;
-            v42 = [v41 stringWithContentsOfURL:v40 encoding:4 error:&v53];
-            v43 = v53;
-            if (v43)
+            v38 = *(v12 + 3240);
+            v50 = 0;
+            v39 = [v38 stringWithContentsOfURL:v37 encoding:4 error:&v50];
+            v40 = v50;
+            if (v40)
             {
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
               {
-                [UARPSuperBinaryMetaDataTable tlvArrayWithKey:v43 keyValue:? payloadsURL:? error:?];
+                [UARPSuperBinaryMetaDataTable tlvArrayWithKey:v40 keyValue:? payloadsURL:? error:?];
               }
             }
 
             else
             {
               whitespaceAndNewlineCharacterSet = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
-              v47 = [v42 stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
+              v44 = [v39 stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
 
-              [(UARPSuperBinaryMetaDataTable *)self addTLV:3436347678 keyValueString:v47 tlvArray:v49];
+              [(UARPSuperBinaryMetaDataTable *)self addTLV:3436347678 keyValueString:v44 tlvArray:v46];
             }
           }
 
@@ -388,7 +387,7 @@ LABEL_80:
             goto LABEL_59;
           }
 
-          v30 = 4042160643;
+          v28 = 4042160643;
           goto LABEL_50;
       }
 
@@ -402,17 +401,17 @@ LABEL_80:
 
     if (unsignedIntegerValue == 3291140106)
     {
-      [(UARPSuperBinaryMetaDataTable *)self addTLVs:3291140106 excludedHwRevisions:valueCopy tlvArray:v49];
+      [(UARPSuperBinaryMetaDataTable *)self addTLVs:3291140106 excludedHwRevisions:valueCopy tlvArray:v46];
       goto LABEL_81;
     }
 
 LABEL_65:
     selfCopy12 = self;
-    v32 = unsignedIntegerValue;
-    v34 = v49;
-    v33 = valueCopy;
-    v35 = lCopy;
-    v36 = bOOLValue;
+    v30 = unsignedIntegerValue;
+    v32 = v46;
+    v31 = valueCopy;
+    v33 = lCopy;
+    v34 = bOOLValue;
     goto LABEL_66;
   }
 
@@ -427,7 +426,7 @@ LABEL_65:
           goto LABEL_57;
         }
 
-        v37 = 1619725827;
+        v35 = 1619725827;
         goto LABEL_56;
       }
 
@@ -440,7 +439,7 @@ LABEL_65:
       {
         if (unsignedIntegerValue == 2293403931)
         {
-          [(UARPSuperBinaryMetaDataTable *)self addTLV:2293403931 keyValue64:valueCopy tlvArray:v49];
+          [(UARPSuperBinaryMetaDataTable *)self addTLV:2293403931 keyValue64:valueCopy tlvArray:v46];
           goto LABEL_81;
         }
 
@@ -458,11 +457,11 @@ LABEL_65:
           {
 LABEL_59:
             selfCopy12 = self;
-            v32 = unsignedIntegerValue;
-            v34 = v49;
-            v33 = valueCopy;
-            v35 = lCopy;
-            v36 = 0;
+            v30 = unsignedIntegerValue;
+            v32 = v46;
+            v31 = valueCopy;
+            v33 = lCopy;
+            v34 = 0;
             goto LABEL_66;
           }
 
@@ -475,15 +474,15 @@ LABEL_59:
         }
 
 LABEL_58:
-        [(UARPSuperBinaryMetaDataTable *)self addTLV:unsignedIntegerValue versionString:valueCopy tlvArray:v49];
+        [(UARPSuperBinaryMetaDataTable *)self addTLV:unsignedIntegerValue versionString:valueCopy tlvArray:v46];
         goto LABEL_81;
       }
 
       if (unsignedIntegerValue != 76079616)
       {
-        v37 = 76079619;
+        v35 = 76079619;
 LABEL_56:
-        if (unsignedIntegerValue != v37)
+        if (unsignedIntegerValue != v35)
         {
           goto LABEL_65;
         }
@@ -491,7 +490,7 @@ LABEL_56:
     }
 
 LABEL_57:
-    [(UARPSuperBinaryMetaDataTable *)self addTLV:unsignedIntegerValue keyValue16:valueCopy tlvArray:v49];
+    [(UARPSuperBinaryMetaDataTable *)self addTLV:unsignedIntegerValue keyValue16:valueCopy tlvArray:v46];
     goto LABEL_81;
   }
 
@@ -503,16 +502,16 @@ LABEL_57:
       {
         if (unsignedIntegerValue == 3166200580)
         {
-          [(UARPSuperBinaryMetaDataTable *)self composeRequiredPersonalizationOptions:valueCopy tlvArray:v49];
+          [(UARPSuperBinaryMetaDataTable *)self composeRequiredPersonalizationOptions:valueCopy tlvArray:v46];
           goto LABEL_81;
         }
 
-        v30 = 3166200583;
+        v28 = 3166200583;
 LABEL_50:
-        if (unsignedIntegerValue == v30)
+        if (unsignedIntegerValue == v28)
         {
 LABEL_51:
-          [(UARPSuperBinaryMetaDataTable *)self addTLV:unsignedIntegerValue keyValue8:valueCopy tlvArray:v49];
+          [(UARPSuperBinaryMetaDataTable *)self addTLV:unsignedIntegerValue keyValue8:valueCopy tlvArray:v46];
           goto LABEL_81;
         }
 
@@ -520,28 +519,28 @@ LABEL_51:
       }
 
       selfCopy12 = self;
-      v32 = unsignedIntegerValue;
-      v34 = v49;
-      v33 = valueCopy;
-      v35 = lCopy;
-      v36 = 1;
+      v30 = unsignedIntegerValue;
+      v32 = v46;
+      v31 = valueCopy;
+      v33 = lCopy;
+      v34 = 1;
 LABEL_66:
-      [(UARPSuperBinaryMetaDataTable *)selfCopy12 addTLV:v32 keyValue:v33 tlvArray:v34 payloadsURL:v35 isFilepath:v36];
+      [(UARPSuperBinaryMetaDataTable *)selfCopy12 addTLV:v30 keyValue:v31 tlvArray:v32 payloadsURL:v33 isFilepath:v34];
       goto LABEL_81;
     }
 
     if ((unsignedIntegerValue - 3166200577) < 2)
     {
-      [(UARPSuperBinaryMetaDataTable *)self composeMeasuredPayloads:valueCopy tlvType:unsignedIntegerValue tlvArray:v49 payloadsURL:lCopy];
+      [(UARPSuperBinaryMetaDataTable *)self composeMeasuredPayloads:valueCopy tlvType:unsignedIntegerValue tlvArray:v46 payloadsURL:lCopy];
       goto LABEL_81;
     }
 
-    v26 = 25347;
+    v24 = 25347;
 LABEL_61:
-    if (unsignedIntegerValue == (v26 | 0xBCB80000))
+    if (unsignedIntegerValue == (v24 | 0xBCB80000))
     {
-      v38 = UARPPayloadHashAlgorithmStringToValue(valueCopy);
-      [(UARPSuperBinaryMetaDataTable *)self addTLV:unsignedIntegerValue keyValue16:v38 tlvArray:v49];
+      v36 = UARPPayloadHashAlgorithmStringToValue(valueCopy);
+      [(UARPSuperBinaryMetaDataTable *)self addTLV:unsignedIntegerValue keyValue16:v36 tlvArray:v46];
 LABEL_63:
 
       goto LABEL_81;
@@ -562,7 +561,7 @@ LABEL_63:
 
   if (unsignedIntegerValue == 2293403932)
   {
-    [(UARPSuperBinaryMetaDataTable *)self composeMatchingPayloads:valueCopy tlvArray:v49];
+    [(UARPSuperBinaryMetaDataTable *)self composeMatchingPayloads:valueCopy tlvArray:v46];
   }
 
   else
@@ -570,20 +569,20 @@ LABEL_63:
     if (unsignedIntegerValue != 2293403941)
     {
 LABEL_21:
-      v26 = 25344;
+      v24 = 25344;
       goto LABEL_61;
     }
 
 LABEL_46:
-    [(UARPSuperBinaryMetaDataTable *)self addTLV:unsignedIntegerValue keyValue32:valueCopy tlvArray:v49];
+    [(UARPSuperBinaryMetaDataTable *)self addTLV:unsignedIntegerValue keyValue32:valueCopy tlvArray:v46];
   }
 
 LABEL_81:
 
 LABEL_82:
-  v44 = [MEMORY[0x277CBEA60] arrayWithArray:v49];
+  v41 = [MEMORY[0x277CBEA60] arrayWithArray:v46];
 
-  return v44;
+  return v41;
 }
 
 - (void)addAppleSpecificTLVs
@@ -1364,6 +1363,30 @@ LABEL_11:
   return v12;
 }
 
+- (void)addTLV:(unint64_t)v keyValue:(id)value tlvArray:(id)array payloadsURL:(id)l isFilepath:(BOOL)filepath
+{
+  filepathCopy = filepath;
+  arrayCopy = array;
+  v12 = [(UARPSuperBinaryMetaDataTable *)self createTLVWithType:v keyValue:value payloadsURL:l isFilepath:filepathCopy];
+  if (v12)
+  {
+    [arrayCopy addObject:v12];
+  }
+}
+
+- (void)addTLV:(unint64_t)v legacyTLV:(unint64_t)lV keyValue:(id)value tlvArray:(id)array payloadsURL:(id)l isFilepath:(BOOL)filepath
+{
+  filepathCopy = filepath;
+  valueCopy = value;
+  arrayCopy = array;
+  lCopy = l;
+  [(UARPSuperBinaryMetaDataTable *)self addTLV:v keyValue:valueCopy tlvArray:arrayCopy payloadsURL:lCopy isFilepath:filepathCopy];
+  if ([(NSNumber *)self->_formatVersion unsignedIntegerValue]<= 2)
+  {
+    [(UARPSuperBinaryMetaDataTable *)self addTLV:lV keyValue:valueCopy tlvArray:arrayCopy payloadsURL:lCopy isFilepath:filepathCopy];
+  }
+}
+
 - (void)addTLV:(unint64_t)v keyValue8:(id)value8 tlvArray:(id)array
 {
   value8Copy = value8;
@@ -1489,42 +1512,42 @@ LABEL_11:
 
 - (void)addTLVs:(unint64_t)vs excludedHwRevisions:(id)revisions tlvArray:(id)array
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   revisionsCopy = revisions;
   arrayCopy = array;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v9 = revisionsCopy;
-    v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v19;
+      v12 = *v18;
       do
       {
         v13 = 0;
         do
         {
-          if (*v19 != v12)
+          if (*v18 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v18 + 1) + 8 * v13);
+          v14 = *(*(&v17 + 1) + 8 * v13);
           v15 = [UARPSuperBinaryAssetTLV alloc];
-          v16 = [(UARPSuperBinaryAssetTLV *)v15 initWithType:vs stringValue:v14, v18];
+          v16 = [(UARPSuperBinaryAssetTLV *)v15 initWithType:vs stringValue:v14, v17];
           [arrayCopy addObject:v16];
 
           ++v13;
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v11);
@@ -1535,43 +1558,16 @@ LABEL_11:
   {
     [UARPSuperBinaryMetaDataTable addTLVs:excludedHwRevisions:tlvArray:];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tlvArrayWithKey:(uint64_t)a1 keyValue:payloadsURL:error:.cold.1(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = 136315394;
-  v3 = "[UARPSuperBinaryMetaDataTable tlvArrayWithKey:keyValue:payloadsURL:error:]";
-  v4 = 2112;
-  v5 = a1;
-  _os_log_error_impl(&dword_247AA7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: Failed to read vendor version string from file with error %@", &v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-- (void)addTLV:keyValue8:tlvArray:.cold.1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, MEMORY[0x277D86220], v0, "invalid plist, trying to use non-number for TLV %lx", v1, v2, v3, v4, v6);
   v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)addTLV:keyValueString:tlvArray:.cold.1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, MEMORY[0x277D86220], v0, "invalid plist, trying to use non-string for TLV %lx", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)addTLVs:excludedHwRevisions:tlvArray:.cold.1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, MEMORY[0x277D86220], v0, "invalid plist, trying to use non-array for TLV %lx", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
+  v1 = 136315394;
+  v2 = "[UARPSuperBinaryMetaDataTable tlvArrayWithKey:keyValue:payloadsURL:error:]";
+  v3 = 2112;
+  v4 = a1;
+  _os_log_error_impl(&dword_247AA7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: Failed to read vendor version string from file with error %@", &v1, 0x16u);
 }
 
 @end

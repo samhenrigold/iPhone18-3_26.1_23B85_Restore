@@ -59,24 +59,21 @@
 
 - (void)_unsafeRunOnInputImage:(__CVBuffer *)image completion:(id)completion
 {
-  v26[39] = *MEMORY[0x1E69E9840];
+  v24[39] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v26[0] = 0;
-  ResourcesAndReturnError = objc_msgSend_loadResourcesAndReturnError_(self, v6, v26, v7, v8);
-  v10 = v26[0];
+  v24[0] = 0;
+  ResourcesAndReturnError = objc_msgSend_loadResourcesAndReturnError_(self, v6, v24, v7, v8);
+  v10 = v24[0];
   v15 = v10;
   if (ResourcesAndReturnError)
   {
-    ptr = self->_net.__ptr_;
-    v17 = objc_msgSend_inputImageTensorName(self->_configuration, v11, v12, v13, v14, v10);
-    v18 = v17;
-    __dst[7] = objc_msgSend_UTF8String(v17, v19, v20, v21, v22);
+    v16 = objc_msgSend_inputImageTensorName(self->_configuration, v11, v12, v13, v14, v10);
+    v17 = v16;
+    __dst[7] = objc_msgSend_UTF8String(v16, v18, v19, v20, v21);
     sub_1AC06B064(__dst, image);
   }
 
   completionCopy[2](completionCopy, 0, v10);
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (id).cxx_construct

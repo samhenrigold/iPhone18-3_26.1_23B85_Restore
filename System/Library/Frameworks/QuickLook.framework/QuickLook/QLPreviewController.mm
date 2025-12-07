@@ -55,6 +55,7 @@
 - (id)_makeOpenInButtonWithTitle:(BOOL)title;
 - (id)_navigationBarLeftButtonsWithTraitCollection:(id)collection;
 - (id)_navigationBarRightButtonsWithTraitCollection:(id)collection;
+- (id)_openInButtonWithTitle:(BOOL)title;
 - (id)_openInTitleForOpenInType:(unint64_t)type claimBinding:(id)binding;
 - (id)_preferredBackgroundColor;
 - (id)_toolBarButtonsWithTraitCollection:(id)collection;
@@ -67,6 +68,7 @@
 - (id)additionalActivitiesForDocumentInteractionController:(id)controller;
 - (id)animationControllerForDismissedController:(id)controller;
 - (id)animationControllerForPresentedController:(id)controller presentingController:(id)presentingController sourceController:(id)sourceController;
+- (id)animatorForShowing:(BOOL)showing previewController:(id)controller presentingController:(id)presentingController;
 - (id)childViewControllerForStatusBarHidden;
 - (id)currentPreviewItem;
 - (id)currentTracker;
@@ -103,6 +105,7 @@
 - (void)_asynchronouslyUpdateContentsOfPreviewItem:(id)item editedCopy:(id)copy completionHandler:(id)handler;
 - (void)_configurePreviewCollectionIfNeeded;
 - (void)_copyToButtonTapped:(id)tapped;
+- (void)_didEditCopyOfPreviewItemAtIndex:(unint64_t)index editedCopy:(id)copy synchronously:(BOOL)synchronously completionHandler:(id)handler;
 - (void)_didObtainEditsFromService;
 - (void)_handleEditedPreviewItem:(id)item editedCopy:(id)copy synchronously:(BOOL)synchronously completionHandler:(id)handler;
 - (void)_installGradientViewsIfNeeded;
@@ -115,11 +118,13 @@
 - (void)_notifyPreviewCollectionOfDoneButtonTapWithCompletionHandler:(id)handler;
 - (void)_obtainEditsFromServiceAndNotifyPreviewCollectionOfDoneButtonTappedWithCompletionHandler:(id)handler;
 - (void)_openInButtonTapped:(id)tapped;
+- (void)_performQuickLookDismissalAnimated:(BOOL)animated;
 - (void)_presentLoadedPreviewCollection:(id)collection;
 - (void)_presentPreviewCollection;
 - (void)_previousPreview;
 - (void)_printDocument:(id)document;
 - (void)_promptUserAndOpenURLIfNeeded:(id)needed;
+- (void)_refreshCurrentPreviewItemAnimated:(BOOL)animated;
 - (void)_registerForApplicationStateChangesNotifications;
 - (void)_reloadDataIfNeeded;
 - (void)_removePreviewCollectionFromViewHierarchy;
@@ -127,7 +132,9 @@
 - (void)_saveAndObtainEditedItemsBeforeDismissalWithCompletionHandler:(id)handler;
 - (void)_saveAndObtainEditsBeforeDismissalWithCompletionHandler:(id)handler;
 - (void)_savePreviousNavigationVCState;
+- (void)_setCurrentPreviewItemIndex:(int64_t)index updatePreview:(BOOL)preview animated:(BOOL)animated;
 - (void)_setDefaultFullscreenStateIfNeeded;
+- (void)_setFullScreen:(BOOL)screen animated:(BOOL)animated force:(BOOL)force;
 - (void)_setPreferredWhitePointAdaptivityStyle:(int64_t)style;
 - (void)_setPresentationMode:(unint64_t)mode;
 - (void)_setupDocumentInteractionControllerForPresentation:(id)presentation;
@@ -142,6 +149,7 @@
 - (void)_uninstallGradientViews;
 - (void)_unregisterForApplicationStateChangesNotifications;
 - (void)_updateAllowInteractiveTransitionsIfNeeded;
+- (void)_updateAppearance:(BOOL)appearance;
 - (void)_updateBarGradientOpacity;
 - (void)_updateBarTintColors;
 - (void)_updateCurrentPopoverButtonIfNeeded:(id)needed;
@@ -177,6 +185,7 @@
 - (void)prepareForActionSheetPresentationWithCompletionHandler:(id)handler;
 - (void)presentDismissActions:(id)actions;
 - (void)presentError:(id)error forAction:(id)action;
+- (void)presentPreviewItem:(id)item onViewController:(id)controller withDelegate:(id)delegate animated:(BOOL)animated;
 - (void)presentSaveToFilesForEditedItems:(id)items;
 - (void)presentSaveToPhotoError:(id)error forItem:(id)item;
 - (void)previewItemAtIndex:(unint64_t)index wasUpdatedWithLifecycleState:(int64_t)state withError:(id)error;
@@ -200,6 +209,7 @@
 - (void)setDataSource:(id)dataSource;
 - (void)setDelegate:(id)delegate;
 - (void)setFullscreenBackgroundColor:(id)color;
+- (void)setIsContentManaged:(BOOL)managed;
 - (void)setLoadingTextForMissingFiles:(id)files;
 - (void)setNavigationBarShouldBeChromeless:(BOOL)chromeless;
 - (void)setNavigationBarTintColor:(id)color;
@@ -226,6 +236,7 @@
 - (void)updateDoneButtonMenu;
 - (void)updateKeyCommands;
 - (void)updateNavigationTitle;
+- (void)updateOverlayAnimated:(BOOL)animated animatedButtons:(BOOL)buttons forceRefresh:(BOOL)refresh withTraitCollection:(id)collection;
 - (void)updateOverlayButtonsAnimated:(BOOL)animated buttons:(id)buttons excludedButtonIdentifiers:(id)identifiers;
 - (void)updatePreferredTransition;
 - (void)updatePreviewItemAtIndex:(unint64_t)index editedCopy:(id)copy completionHandler:(id)handler;
@@ -236,7 +247,12 @@
 - (void)updateTitleMenuAndDocumentProperties;
 - (void)updateTitleMenuWithItem:(id)item;
 - (void)urlListener:(id)listener fileDidMoveTo:(id)to;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewIsAppearing:(BOOL)appearing;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 - (void)waitForPreviewCollectionWithCompletionHandler:(id)handler;
 - (void)willMoveToParentViewController:(id)controller;
@@ -446,25 +462,24 @@ LABEL_4:
 
 id __61__QLPreviewController_DocumentMenu__updateTitleMenuWithItem___block_invoke(uint64_t a1, void *a2)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = MEMORY[0x277D753F0];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __61__QLPreviewController_DocumentMenu__updateTitleMenuWithItem___block_invoke_2;
-  v12[3] = &unk_278B56D60;
-  objc_copyWeak(&v15, (a1 + 40));
-  v13 = *(a1 + 32);
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __61__QLPreviewController_DocumentMenu__updateTitleMenuWithItem___block_invoke_2;
+  v11[3] = &unk_278B56D60;
+  objc_copyWeak(&v14, (a1 + 40));
+  v12 = *(a1 + 32);
   v5 = v3;
-  v14 = v5;
-  v6 = [v4 elementWithProvider:v12];
+  v13 = v5;
+  v6 = [v4 elementWithProvider:v11];
   v7 = MEMORY[0x277D75710];
-  v16[0] = v6;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v15[0] = v6;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
   v9 = [v7 menuWithChildren:v8];
 
-  objc_destroyWeak(&v15);
-  v10 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(&v14);
 
   return v9;
 }
@@ -670,7 +685,7 @@ id __99__QLPreviewController_DocumentMenu__updateDocumentPropertiesActivityProvi
 
 id __100__QLPreviewController_DocumentMenu__updateDocumentPropertiesDragItemsProviderWithItem_shareableURL___block_invoke(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -678,16 +693,14 @@ id __100__QLPreviewController_DocumentMenu__updateDocumentPropertiesDragItemsPro
     v4 = [WeakRetained itemProviderForItem:*(a1 + 32) shareableURL:*(a1 + 40)];
     v5 = [objc_alloc(MEMORY[0x277D75470]) initWithItemProvider:v4];
     [v5 setLocalObject:*(a1 + 32)];
-    v9[0] = v5;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v8[0] = v5;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   }
 
   else
   {
     v6 = MEMORY[0x277CBEBF8];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -776,161 +789,160 @@ void __94__QLPreviewController_DocumentMenu__updateDocumentPropertiesMetadataFor
 
 - (id)titleMenuElementsForItem:(id)item atURL:(id)l withSuggestedActions:(id)actions
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   lCopy = l;
   actionsCopy = actions;
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
   selfCopy = self;
-  v48 = lCopy;
-  v49 = itemCopy;
+  v46 = lCopy;
+  v47 = itemCopy;
   v13 = [(QLPreviewController *)self saveToFilesActionForItem:itemCopy atURL:lCopy];
   if (v13)
   {
     [array2 addObject:v13];
   }
 
-  v14 = [(QLPreviewController *)self saveToPhotosActionForItem:itemCopy atURL:v48];
+  v14 = [(QLPreviewController *)self saveToPhotosActionForItem:itemCopy atURL:v46];
   if (v14)
   {
     [array2 addObject:v14];
   }
 
-  v15 = [(QLPreviewController *)self lockPDFActionForItem:v49 atURL:v48];
+  v15 = [(QLPreviewController *)self lockPDFActionForItem:v47 atURL:v46];
   if (v15)
   {
     [array2 addObject:v15];
   }
 
-  v43 = v15;
-  v44 = v14;
-  v45 = v13;
+  v41 = v15;
+  v42 = v14;
+  v43 = v13;
   if ([array2 count])
   {
     v16 = [MEMORY[0x277D75710] menuWithTitle:&stru_284D5E510 image:0 identifier:0 options:1 children:array2];
     [array addObject:v16];
   }
 
-  v46 = array2;
-  v47 = array;
+  v44 = array2;
+  v45 = array;
   array3 = [MEMORY[0x277CBEB18] array];
   mainBundleSupportsPrintCommand = [MEMORY[0x277CCA8D8] mainBundleSupportsPrintCommand];
+  v54 = 0u;
+  v55 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
-  v59 = 0u;
   obj = actionsCopy;
-  v18 = [obj countByEnumeratingWithState:&v56 objects:v60 count:16];
+  v18 = [obj countByEnumeratingWithState:&v54 objects:v58 count:16];
   v19 = selfCopy;
   v20 = 0x277D75000uLL;
   if (v18)
   {
     v21 = v18;
-    v22 = *v57;
-    v53 = *MEMORY[0x277D76D20];
-    v52 = *MEMORY[0x277D76CC8];
+    v22 = *v55;
+    v51 = *MEMORY[0x277D76D20];
+    v50 = *MEMORY[0x277D76CC8];
     do
     {
       v23 = 0;
       do
       {
-        if (*v57 != v22)
+        if (*v55 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v24 = *(*(&v56 + 1) + 8 * v23);
-        v25 = *(v20 + 1808);
+        v24 = *(*(&v54 + 1) + 8 * v23);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v27 = 0;
+          v26 = 0;
           goto LABEL_21;
         }
 
-        v26 = v24;
-        v27 = v26;
-        if (!v26)
+        v25 = v24;
+        v26 = v25;
+        if (!v25)
         {
           goto LABEL_21;
         }
 
-        identifier = [v26 identifier];
-        v29 = [identifier isEqual:v53];
+        identifier = [v25 identifier];
+        v28 = [identifier isEqual:v51];
 
-        if (v29)
+        if (v28)
         {
           if ([(QLPreviewController *)v19 canPerformAction:sel_print_ withSender:v19])
           {
             if (mainBundleSupportsPrintCommand)
             {
-              v30 = array3;
-              v31 = v27;
+              v29 = array3;
+              v30 = v26;
               goto LABEL_22;
             }
 
-            v37 = [(QLPreviewController *)v19 printActionForItem:v49 atURL:v48];
-            if (v37)
+            v36 = [(QLPreviewController *)v19 printActionForItem:v47 atURL:v46];
+            if (v36)
             {
-              [array3 addObject:v37];
+              [array3 addObject:v36];
             }
           }
 
           else
           {
-            v36 = *MEMORY[0x277D43EF8];
+            v35 = *MEMORY[0x277D43EF8];
             if (!*MEMORY[0x277D43EF8])
             {
               QLSInitLogging();
-              v36 = *MEMORY[0x277D43EF8];
+              v35 = *MEMORY[0x277D43EF8];
             }
 
-            if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_23A714000, v36, OS_LOG_TYPE_DEFAULT, "Print can be offered by a responder in the responder chain but QuickLook only shows its own #AnyItemViewController", buf, 2u);
+              _os_log_impl(&dword_23A714000, v35, OS_LOG_TYPE_DEFAULT, "Print can be offered by a responder in the responder chain but QuickLook only shows its own #AnyItemViewController", buf, 2u);
             }
           }
         }
 
         else
         {
-          identifier2 = [v27 identifier];
-          if (([identifier2 isEqual:v52] & 1) == 0)
+          identifier2 = [v26 identifier];
+          if (([identifier2 isEqual:v50] & 1) == 0)
           {
 
 LABEL_21:
-            v30 = array3;
-            v31 = v24;
+            v29 = array3;
+            v30 = v24;
 LABEL_22:
-            [v30 addObject:v31];
+            [v29 addObject:v30];
             goto LABEL_23;
           }
 
           mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
           bundleIdentifier = [mainBundle bundleIdentifier];
-          v35 = [bundleIdentifier isEqualToString:@"com.apple.DocumentsApp"];
+          v34 = [bundleIdentifier isEqualToString:@"com.apple.DocumentsApp"];
 
-          if (v35)
+          if (v34)
           {
             v19 = selfCopy;
             v20 = 0x277D75000;
             goto LABEL_21;
           }
 
-          v38 = *MEMORY[0x277D43EF8];
+          v37 = *MEMORY[0x277D43EF8];
           if (!*MEMORY[0x277D43EF8])
           {
             QLSInitLogging();
-            v38 = *MEMORY[0x277D43EF8];
+            v37 = *MEMORY[0x277D43EF8];
           }
 
           v19 = selfCopy;
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_23A714000, v38, OS_LOG_TYPE_DEFAULT, "QuickLook only shows document-related suggested items in its title menu when presented from Files #AnyItemViewController", buf, 2u);
+            _os_log_impl(&dword_23A714000, v37, OS_LOG_TYPE_DEFAULT, "QuickLook only shows document-related suggested items in its title menu when presented from Files #AnyItemViewController", buf, 2u);
           }
 
           v20 = 0x277D75000;
@@ -942,22 +954,20 @@ LABEL_23:
       }
 
       while (v21 != v23);
-      v39 = [obj countByEnumeratingWithState:&v56 objects:v60 count:16];
-      v21 = v39;
+      v38 = [obj countByEnumeratingWithState:&v54 objects:v58 count:16];
+      v21 = v38;
     }
 
-    while (v39);
+    while (v38);
   }
 
   if ([array3 count])
   {
-    v40 = [*(v20 + 1808) menuWithTitle:&stru_284D5E510 image:0 identifier:0 options:1 children:array3];
-    [v47 addObject:v40];
+    v39 = [*(v20 + 1808) menuWithTitle:&stru_284D5E510 image:0 identifier:0 options:1 children:array3];
+    [v45 addObject:v39];
   }
 
-  v41 = *MEMORY[0x277D85DE8];
-
-  return v47;
+  return v45;
 }
 
 - (void)presentError:(id)error forAction:(id)action
@@ -1004,17 +1014,15 @@ void __60__QLPreviewController_DocumentMenu__presentError_forAction___block_invo
 
 void __79__QLPreviewController_DocumentMenu__handleShortcutsActionOutputFile_forAction___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277D75458]);
   v3 = [*(a1 + 32) fileURL];
-  v7[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+  v6[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   v5 = [v2 initForExportingURLs:v4 asCopy:1];
 
   [v5 _setIsContentManaged:{objc_msgSend(*(a1 + 40), "isContentManaged")}];
   [*(a1 + 40) presentViewController:v5 animated:1 completion:0];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)saveToFilesActionForItem:(id)item atURL:(id)l
@@ -1080,7 +1088,7 @@ void __79__QLPreviewController_DocumentMenu__handleShortcutsActionOutputFile_for
 
 void __68__QLPreviewController_DocumentMenu__saveToFilesActionForItem_atURL___block_invoke(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -1089,15 +1097,13 @@ void __68__QLPreviewController_DocumentMenu__saveToFilesActionForItem_atURL___bl
     [v4 documentMenuActionWillBegin];
 
     v5 = objc_alloc(MEMORY[0x277D75458]);
-    v9[0] = *(a1 + 32);
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v8[0] = *(a1 + 32);
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
     v7 = [v5 initForExportingURLs:v6 asCopy:1];
 
     [v7 _setIsContentManaged:{objc_msgSend(v3, "isContentManaged")}];
     [v3 presentViewController:v7 animated:1 completion:0];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __68__QLPreviewController_DocumentMenu__saveToFilesActionForItem_atURL___block_invoke_2(uint64_t a1, void *a2)
@@ -1126,25 +1132,22 @@ void __68__QLPreviewController_DocumentMenu__saveToFilesActionForItem_atURL___bl
 
 void __68__QLPreviewController_DocumentMenu__saveToFilesActionForItem_atURL___block_invoke_4(void *a1)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v1 = a1[6];
   if (a1[4])
   {
     v2 = *(v1 + 16);
-    v3 = *MEMORY[0x277D85DE8];
-    v4 = MEMORY[0x277CBEBF8];
-    v5 = a1[6];
+    v3 = MEMORY[0x277CBEBF8];
+    v4 = a1[6];
 
-    v2(v5, v4);
+    v2(v4, v3);
   }
 
   else
   {
-    v8[0] = a1[5];
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
-    (*(v1 + 16))(v1, v6);
-
-    v7 = *MEMORY[0x277D85DE8];
+    v6[0] = a1[5];
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+    (*(v1 + 16))(v1, v5);
   }
 }
 
@@ -1288,11 +1291,11 @@ void __62__QLPreviewController_DocumentMenu__printActionForItem_atURL___block_in
   [v11 _presentAnimated:1 hostingScene:windowScene completionHandler:v18];
 }
 
-uint64_t __94__QLPreviewController_DocumentMenu__printItemAtURL_withCustomPrinter_shouldUseDefaultPrinter___block_invoke(uint64_t result)
+id *__94__QLPreviewController_DocumentMenu__printItemAtURL_withCustomPrinter_shouldUseDefaultPrinter___block_invoke(id *result)
 {
   if (*(result + 40) == 1)
   {
-    return [*(result + 32) stopAccessingSecurityScopedResource];
+    return [result[4] stopAccessingSecurityScopedResource];
   }
 
   return result;
@@ -1316,29 +1319,27 @@ uint64_t __94__QLPreviewController_DocumentMenu__printItemAtURL_withCustomPrinte
 
 - (id)activityControllerForURL:(id)l
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   v5 = objc_alloc(MEMORY[0x277D546D8]);
-  v12[0] = lCopy;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = lCopy;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v7 = [v5 initWithActivityItems:v6 applicationActivities:0];
 
   [v7 setIsContentManaged:{-[QLPreviewController isContentManaged](self, "isContentManaged")}];
   excludedActivityTypesForCurrentPreviewItem = [(QLPreviewController *)self excludedActivityTypesForCurrentPreviewItem];
   [v7 setExcludedActivityTypes:excludedActivityTypesForCurrentPreviewItem];
 
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __62__QLPreviewController_DocumentMenu__activityControllerForURL___block_invoke;
-  v11[3] = &unk_278B56F68;
-  v11[4] = self;
-  [v7 setCompletionWithItemsHandler:v11];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __62__QLPreviewController_DocumentMenu__activityControllerForURL___block_invoke;
+  v10[3] = &unk_278B56F68;
+  v10[4] = self;
+  [v7 setCompletionWithItemsHandler:v10];
   if ([lCopy startAccessingSecurityScopedResource])
   {
     [(QLPreviewController *)self setAccessedUrlForSharingController:lCopy];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -1409,34 +1410,31 @@ void __64__QLPreviewController_DocumentMenu__lockPDFActionForItem_atURL___block_
 
 void __64__QLPreviewController_DocumentMenu__lockPDFActionForItem_atURL___block_invoke_3(uint64_t a1)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   if (*(a1 + 64) == 1)
   {
     v2 = MEMORY[0x277D750C8];
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __64__QLPreviewController_DocumentMenu__lockPDFActionForItem_atURL___block_invoke_4;
-    v12[3] = &unk_278B56F90;
-    objc_copyWeak(&v13, (a1 + 56));
-    v5 = [v2 actionWithTitle:v3 image:v4 identifier:0 handler:v12];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __64__QLPreviewController_DocumentMenu__lockPDFActionForItem_atURL___block_invoke_4;
+    v9[3] = &unk_278B56F90;
+    objc_copyWeak(&v10, (a1 + 56));
+    v5 = [v2 actionWithTitle:v3 image:v4 identifier:0 handler:v9];
     v6 = *(a1 + 48);
-    v14[0] = v5;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+    v11[0] = v5;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
     (*(v6 + 16))(v6, v7);
 
-    objc_destroyWeak(&v13);
-    v8 = *MEMORY[0x277D85DE8];
+    objc_destroyWeak(&v10);
   }
 
   else
   {
-    v9 = *(a1 + 48);
-    v10 = *(*(a1 + 48) + 16);
-    v11 = *MEMORY[0x277D85DE8];
+    v8 = *(*(a1 + 48) + 16);
 
-    v10();
+    v8();
   }
 }
 
@@ -1582,7 +1580,7 @@ void __69__QLPreviewController_DocumentMenu__saveToPhotosActionForItem_atURL___b
 
 - (void)presentSaveToPhotoError:(id)error forItem:(id)item
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   itemCopy = item;
   v8 = MEMORY[0x277D43EF8];
@@ -1598,7 +1596,7 @@ void __69__QLPreviewController_DocumentMenu__saveToPhotosActionForItem_atURL___b
     v10 = v9;
     localizedDescription = [errorCopy localizedDescription];
     *buf = 138412290;
-    v21 = localizedDescription;
+    v20 = localizedDescription;
     _os_log_impl(&dword_23A714000, v10, OS_LOG_TYPE_ERROR, "Error saving item to photos: %@ #AnyItemViewController", buf, 0xCu);
   }
 
@@ -1615,18 +1613,16 @@ void __69__QLPreviewController_DocumentMenu__saveToPhotosActionForItem_atURL___b
   v13 = [MEMORY[0x277D75110] alertControllerWithTitle:@"Error" message:v12 preferredStyle:1];
   v14 = MEMORY[0x277D750F8];
   v15 = QLLocalizedString();
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __69__QLPreviewController_DocumentMenu__presentSaveToPhotoError_forItem___block_invoke;
-  v19[3] = &unk_278B57058;
-  v19[4] = self;
-  v16 = [v14 actionWithTitle:v15 style:0 handler:v19];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __69__QLPreviewController_DocumentMenu__presentSaveToPhotoError_forItem___block_invoke;
+  v18[3] = &unk_278B57058;
+  v18[4] = self;
+  v16 = [v14 actionWithTitle:v15 style:0 handler:v18];
   [v13 addAction:v16];
 
   v17 = v13;
   QLRunInMainThread();
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)urlListener:(id)listener fileDidMoveTo:(id)to
@@ -1745,19 +1741,18 @@ void __72__QLPreviewController_QLURLListenerDelegate__urlListener_fileDidMoveTo_
   if (previewItemType == 3)
   {
     gotLoadHelper_x8__OBJC_CLASS___PUUISaveToCameraRollActivity(v7);
-    v9 = *(v8 + 160);
-    v10 = objc_opt_new();
-    [v4 addObject:v10];
+    v8 = objc_opt_new();
+    [v4 addObject:v8];
   }
 
   delegate = [(QLPreviewController *)self delegate];
-  v12 = objc_opt_respondsToSelector();
+  v10 = objc_opt_respondsToSelector();
 
-  if (v12)
+  if (v10)
   {
     delegate2 = [(QLPreviewController *)self delegate];
-    v14 = [delegate2 additionalActivitiesTypesForPreviewController:self];
-    [v4 addObjectsFromArray:v14];
+    v12 = [delegate2 additionalActivitiesTypesForPreviewController:self];
+    [v4 addObjectsFromArray:v12];
   }
 
   return v4;
@@ -1765,7 +1760,7 @@ void __72__QLPreviewController_QLURLListenerDelegate__urlListener_fileDidMoveTo_
 
 - (id)activityItemsConfiguration
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   internalCurrentPreviewItem = [(QLPreviewController *)self internalCurrentPreviewItem];
   saveURL = [internalCurrentPreviewItem saveURL];
   editedFileURL = [internalCurrentPreviewItem editedFileURL];
@@ -1796,20 +1791,18 @@ void __72__QLPreviewController_QLURLListenerDelegate__urlListener_fileDidMoveTo_
 LABEL_7:
   v10 = [(QLPreviewController *)self itemProviderForItem:internalCurrentPreviewItem shareableURL:saveURL];
   v11 = objc_alloc(MEMORY[0x277D750F0]);
-  v20[0] = v10;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+  v19[0] = v10;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
   v13 = [v11 initWithItemProviders:v12];
 
   title = [(QLPreviewController *)self title];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __59__QLPreviewController_Activity__activityItemsConfiguration__block_invoke;
-  v18[3] = &unk_278B570A0;
-  v19 = title;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __59__QLPreviewController_Activity__activityItemsConfiguration__block_invoke;
+  v17[3] = &unk_278B570A0;
+  v18 = title;
   v15 = title;
-  [v13 setMetadataProvider:v18];
-
-  v16 = *MEMORY[0x277D85DE8];
+  [v13 setMetadataProvider:v17];
 
   return v13;
 }
@@ -1923,7 +1916,7 @@ id __59__QLPreviewController_Activity__activityItemsConfiguration__block_invoke(
 
 uint64_t __66__QLPreviewController_Activity__itemProviderForItem_shareableURL___block_invoke(uint64_t a1, void *a2)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = WeakRetained;
@@ -1934,12 +1927,12 @@ uint64_t __66__QLPreviewController_Activity__itemProviderForItem_shareableURL___
 
     if (v6 == v7)
     {
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __66__QLPreviewController_Activity__itemProviderForItem_shareableURL___block_invoke_2;
-      v13[3] = &unk_278B570C8;
-      v14 = v3;
-      [v5 shareableURLForCurrentPreviewItem:v13];
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __66__QLPreviewController_Activity__itemProviderForItem_shareableURL___block_invoke_2;
+      v12[3] = &unk_278B570C8;
+      v13 = v3;
+      [v5 shareableURLForCurrentPreviewItem:v12];
     }
 
     else
@@ -1951,21 +1944,20 @@ uint64_t __66__QLPreviewController_Activity__itemProviderForItem_shareableURL___
   else
   {
     v8 = MEMORY[0x277CCA9B8];
-    v15 = *MEMORY[0x277CCA068];
-    v16[0] = @"QLPreviewController not available anymore.";
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v14 = *MEMORY[0x277CCA068];
+    v15[0] = @"QLPreviewController not available anymore.";
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     v10 = [v8 errorWithDomain:@"com.apple.quicklook.QLPreviewController" code:0 userInfo:v9];
 
     (*(v3 + 2))(v3, 0, 0, v10);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t __66__QLPreviewController_Activity__itemProviderForItem_shareableURL___block_invoke_3(uint64_t a1, void *a2)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = WeakRetained;
@@ -1976,12 +1968,12 @@ uint64_t __66__QLPreviewController_Activity__itemProviderForItem_shareableURL___
 
     if (v6 == v7)
     {
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __66__QLPreviewController_Activity__itemProviderForItem_shareableURL___block_invoke_4;
-      v13[3] = &unk_278B570C8;
-      v14 = v3;
-      [v5 shareableURLForCurrentPreviewItem:v13];
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __66__QLPreviewController_Activity__itemProviderForItem_shareableURL___block_invoke_4;
+      v12[3] = &unk_278B570C8;
+      v13 = v3;
+      [v5 shareableURLForCurrentPreviewItem:v12];
     }
 
     else
@@ -1993,21 +1985,20 @@ uint64_t __66__QLPreviewController_Activity__itemProviderForItem_shareableURL___
   else
   {
     v8 = MEMORY[0x277CCA9B8];
-    v15 = *MEMORY[0x277CCA068];
-    v16[0] = @"QLPreviewController not available anymore.";
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v14 = *MEMORY[0x277CCA068];
+    v15[0] = @"QLPreviewController not available anymore.";
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     v10 = [v8 errorWithDomain:@"com.apple.quicklook.QLPreviewController" code:0 userInfo:v9];
 
     (*(v3 + 2))(v3, 0, v10);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t __66__QLPreviewController_Activity__itemProviderForItem_shareableURL___block_invoke_5(uint64_t a1, void *a2)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
@@ -2020,15 +2011,14 @@ uint64_t __66__QLPreviewController_Activity__itemProviderForItem_shareableURL___
   else
   {
     v7 = MEMORY[0x277CCA9B8];
-    v11 = *MEMORY[0x277CCA068];
-    v12[0] = @"QLPreviewController not available anymore.";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x277CCA068];
+    v11[0] = @"QLPreviewController not available anymore.";
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v5 = [v7 errorWithDomain:@"com.apple.quicklook.QLPreviewController" code:0 userInfo:v8];
 
     (v3)[2](v3, 0, v5);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -2113,10 +2103,10 @@ uint64_t __66__QLPreviewController_Activity__itemProviderForItem_shareableURL___
 
 - (void)viewDidLoad
 {
-  v12[2] = *MEMORY[0x277D85DE8];
-  v11.receiver = self;
-  v11.super_class = QLPreviewController;
-  [(QLPreviewController *)&v11 viewDidLoad];
+  v11[2] = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = QLPreviewController;
+  [(QLPreviewController *)&v10 viewDidLoad];
   systemBackgroundColor = [MEMORY[0x277D75348] systemBackgroundColor];
   view = [(QLPreviewController *)self view];
   [view setBackgroundColor:systemBackgroundColor];
@@ -2124,19 +2114,18 @@ uint64_t __66__QLPreviewController_Activity__itemProviderForItem_shareableURL___
   [(QLPreviewController *)self setTransitioningDelegate:self];
   [(QLPreviewController *)self toggleChromelessIfNeeded];
   objc_initWeak(&location, self);
-  v12[0] = objc_opt_class();
-  v12[1] = objc_opt_class();
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __34__QLPreviewController_viewDidLoad__block_invoke;
-  v8[3] = &unk_278B57168;
-  objc_copyWeak(&v9, &location);
-  v6 = [(QLPreviewController *)self registerForTraitChanges:v5 withHandler:v8];
+  v11[0] = objc_opt_class();
+  v11[1] = objc_opt_class();
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __34__QLPreviewController_viewDidLoad__block_invoke;
+  v7[3] = &unk_278B57168;
+  objc_copyWeak(&v8, &location);
+  v6 = [(QLPreviewController *)self registerForTraitChanges:v5 withHandler:v7];
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v8);
   objc_destroyWeak(&location);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __34__QLPreviewController_viewDidLoad__block_invoke(uint64_t a1)
@@ -2147,17 +2136,150 @@ void __34__QLPreviewController_viewDidLoad__block_invoke(uint64_t a1)
 
 - (void)willMoveToParentViewController:(id)controller
 {
-  if (controller && [(QLPreviewController *)self parentIsNavigationController])
+  controllerCopy = controller;
+  v5 = controllerCopy;
+  if (controllerCopy)
   {
-    [(QLPreviewController *)self _savePreviousNavigationVCState];
-    view = [(QLPreviewController *)self view];
-    window = [view window];
-    windowScene = [window windowScene];
-    statusBarManager = [windowScene statusBarManager];
-    -[QLPreviewController setPreviousStatusBarHidden:](self, "setPreviousStatusBarHidden:", [statusBarManager isStatusBarHidden]);
+    v10 = controllerCopy;
+    controllerCopy = [(QLPreviewController *)self parentIsNavigationController];
+    v5 = v10;
+    if (controllerCopy)
+    {
+      [(QLPreviewController *)self _savePreviousNavigationVCState];
+      view = [(QLPreviewController *)self view];
+      window = [view window];
+      windowScene = [window windowScene];
+      statusBarManager = [windowScene statusBarManager];
+      -[QLPreviewController setPreviousStatusBarHidden:](self, "setPreviousStatusBarHidden:", [statusBarManager isStatusBarHidden]);
+
+      v5 = v10;
+    }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](controllerCopy, v5);
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  self->_viewWillAppearPerformed = 0;
+  presentationController = [(QLPreviewController *)self presentationController];
+  delegate = [presentationController delegate];
+
+  if (!delegate)
+  {
+    presentationController2 = [(QLPreviewController *)self presentationController];
+    [presentationController2 setDelegate:self];
+  }
+
+  [(QLPreviewController *)self setQuickLookVisibility:3 animated:appearCopy];
+  originalLeftBarButtonItems = [(QLPreviewController *)self originalLeftBarButtonItems];
+
+  if (!originalLeftBarButtonItems)
+  {
+    navigationItem = [(QLPreviewController *)self navigationItem];
+    leftBarButtonItems = [navigationItem leftBarButtonItems];
+    v11 = [leftBarButtonItems copy];
+    v12 = v11;
+    if (v11)
+    {
+      v13 = v11;
+    }
+
+    else
+    {
+      v13 = MEMORY[0x277CBEBF8];
+    }
+
+    [(QLPreviewController *)self setOriginalLeftBarButtonItems:v13];
+  }
+
+  originalRightBarButtonItems = [(QLPreviewController *)self originalRightBarButtonItems];
+
+  if (!originalRightBarButtonItems)
+  {
+    navigationItem2 = [(QLPreviewController *)self navigationItem];
+    rightBarButtonItems = [navigationItem2 rightBarButtonItems];
+    v17 = [rightBarButtonItems copy];
+    v18 = v17;
+    if (v17)
+    {
+      v19 = v17;
+    }
+
+    else
+    {
+      v19 = MEMORY[0x277CBEBF8];
+    }
+
+    [(QLPreviewController *)self setOriginalRightBarButtonItems:v19];
+  }
+
+  [(QLPreviewController *)self _reloadDataIfNeeded];
+  _computePresentationMode = [(QLPreviewController *)self _computePresentationMode];
+  if (_computePresentationMode == 1)
+  {
+    navigationController = [(QLPreviewController *)self navigationController];
+    navigationBar = [navigationController navigationBar];
+    [navigationBar setTranslucent:1];
+  }
+
+  [(QLPreviewController *)self _setPresentationMode:_computePresentationMode];
+  self->_enqueuedWhitePointAdaptivityStyle = self->_whitePointAdaptivityStyle;
+  internalCurrentPreviewItem = [(QLPreviewController *)self internalCurrentPreviewItem];
+  self->_whitePointAdaptivityStyle = [internalCurrentPreviewItem defaultWhitePointAdaptivityStyle];
+
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __38__QLPreviewController_viewWillAppear___block_invoke;
+  v33[3] = &unk_278B57190;
+  v33[4] = self;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __38__QLPreviewController_viewWillAppear___block_invoke_2;
+  v32[3] = &unk_278B571B8;
+  v32[4] = self;
+  [MEMORY[0x277D75D18] animateWithDuration:v33 animations:v32 completion:0.5];
+  [(QLPreviewController *)self _presentPreviewCollection];
+  traitCollection = [(QLPreviewController *)self traitCollection];
+  if ([(QLPreviewController *)self _isToolbarVisibleForTraitCollection:traitCollection])
+  {
+  }
+
+  else
+  {
+    toolbarController = [(QLPreviewController *)self toolbarController];
+    isHidden = [toolbarController isHidden];
+
+    if (isHidden)
+    {
+      goto LABEL_19;
+    }
+  }
+
+  internalNavigationController = [(QLPreviewController *)self internalNavigationController];
+  toolbar = [internalNavigationController toolbar];
+  [(QLToolbarController *)self->_toolbarController setOriginalToolbar:toolbar];
+
+LABEL_19:
+  currentPreviewItem = [(QLPreviewController *)self currentPreviewItem];
+
+  if (currentPreviewItem)
+  {
+    [(QLPreviewController *)self previewItemAtIndex:self->_currentPreviewItemIndex wasUpdatedWithLifecycleState:2 withError:0];
+  }
+
+  self->_overlayHidden = self->_fullScreen;
+  traitCollection2 = [(QLPreviewController *)self traitCollection];
+  [(QLPreviewController *)self updateOverlayAnimated:0 animatedButtons:appearCopy forceRefresh:1 withTraitCollection:traitCollection2];
+
+  [(QLPreviewController *)self _updateBackgroundColor];
+  [(QLPreviewController *)self showNoDataViewIfNeeded];
+  [(QLPreviewController *)self _updateToolbarSuperview];
+  self->_viewWillAppearPerformed = 1;
+  v31.receiver = self;
+  v31.super_class = QLPreviewController;
+  [(QLPreviewController *)&v31 viewWillAppear:appearCopy];
 }
 
 void *__38__QLPreviewController_viewWillAppear___block_invoke_2(uint64_t a1)
@@ -2171,6 +2293,200 @@ void *__38__QLPreviewController_viewWillAppear___block_invoke_2(uint64_t a1)
   return result;
 }
 
+- (void)viewIsAppearing:(BOOL)appearing
+{
+  v4.receiver = self;
+  v4.super_class = QLPreviewController;
+  [(QLPreviewController *)&v4 viewIsAppearing:appearing];
+  [(QLPreviewController *)self _updateAppearance:0];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  if ([(QLPreviewController *)self presentationMode]== 3)
+  {
+    view = [(QLPreviewController *)self view];
+    window = [view window];
+    rootViewController = [window rootViewController];
+
+    if (rootViewController == self)
+    {
+      [(QLPreviewController *)self _setPresentationMode:2];
+    }
+  }
+
+  if (self->_willTransitionToInternalView)
+  {
+    self->_willTransitionToInternalView = 0;
+  }
+
+  else if ([(QLPreviewController *)self presentationMode]== 1 && ![(QLPreviewController *)self fullScreen])
+  {
+    previousNavigationVCState = [(QLPreviewController *)self previousNavigationVCState];
+    toolBarHidden = [previousNavigationVCState toolBarHidden];
+
+    if (toolBarHidden)
+    {
+      internalNavigationController = [(QLPreviewController *)self internalNavigationController];
+      toolbar = [internalNavigationController toolbar];
+      [toolbar _removeAllAnimations:1];
+    }
+  }
+
+  [(QLPreviewController *)self setQuickLookVisibility:2 animated:appearCopy];
+  [(QLPreviewController *)self _notifyFirstAppearanceIfNeeded];
+  internalCurrentPreviewItem = [(QLPreviewController *)self internalCurrentPreviewItem];
+
+  if (internalCurrentPreviewItem)
+  {
+    [(QLPreviewController *)self previewItemAtIndex:self->_currentPreviewItemIndex wasUpdatedWithLifecycleState:3 withError:0];
+  }
+
+  v25.receiver = self;
+  v25.super_class = QLPreviewController;
+  [(QLPreviewController *)&v25 viewDidAppear:appearCopy];
+  [(QLPreviewController *)self setCurrentAnimator:0];
+  [(QLPreviewController *)self _updateAppearance:0];
+  v13 = MEMORY[0x277D43EF8];
+  v14 = *MEMORY[0x277D43EF8];
+  if (!*MEMORY[0x277D43EF8])
+  {
+    QLSInitLogging();
+    v14 = *v13;
+  }
+
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  {
+    *v24 = 0;
+    _os_log_impl(&dword_23A714000, v14, OS_LOG_TYPE_DEBUG, "Setting currentAnimator to nil from viewDidAppear #AppearanceTransition", v24, 2u);
+  }
+
+  originalToolbar = [(QLToolbarController *)self->_toolbarController originalToolbar];
+  internalNavigationController2 = [(QLPreviewController *)self internalNavigationController];
+  toolbar2 = [internalNavigationController2 toolbar];
+
+  if (originalToolbar != toolbar2)
+  {
+    internalNavigationController3 = [(QLPreviewController *)self internalNavigationController];
+    toolbar3 = [internalNavigationController3 toolbar];
+    [(QLToolbarController *)self->_toolbarController setOriginalToolbar:toolbar3];
+  }
+
+  [(QLPreviewController *)self _updateToolbarSuperview];
+  [(QLPreviewController *)self registerForScreenshotService];
+  if (os_variant_has_internal_diagnostics())
+  {
+    v20 = [objc_alloc(MEMORY[0x277D75B80]) initWithTarget:self action:sel__toggleDebugView];
+    multiTapDebugGestureRecognizer = self->_multiTapDebugGestureRecognizer;
+    self->_multiTapDebugGestureRecognizer = v20;
+
+    [(UITapGestureRecognizer *)self->_multiTapDebugGestureRecognizer setNumberOfTapsRequired:4];
+    [(UITapGestureRecognizer *)self->_multiTapDebugGestureRecognizer setNumberOfTouchesRequired:2];
+    [(UITapGestureRecognizer *)self->_multiTapDebugGestureRecognizer setDelegate:self];
+    navigationBar = [(UINavigationController *)self->_internalNavigationController navigationBar];
+    [navigationBar addGestureRecognizer:self->_multiTapDebugGestureRecognizer];
+  }
+
+  transitionSourceView = [(QLPreviewController *)self transitionSourceView];
+  [transitionSourceView removeFromSuperview];
+
+  [(QLPreviewController *)self setTransitionSourceView:0];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  if ([(QLPreviewController *)self presentationMode]== 1 && ![(QLPreviewController *)self didTransitionFromInternalView]&& [(QLPreviewController *)self currentPreviewHasUnsavedEdits])
+  {
+    previewCollection = self->_previewCollection;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __41__QLPreviewController_viewWillDisappear___block_invoke;
+    v25[3] = &unk_278B571E0;
+    v25[4] = self;
+    [(QLPreviewCollectionProtocol *)previewCollection saveCurrentPreviewEditsSynchronously:1 withCompletionHandler:v25];
+  }
+
+  didTransitionFromInternalView = [(QLPreviewController *)self didTransitionFromInternalView];
+  traitCollection = [(QLPreviewController *)self traitCollection];
+  v8 = didTransitionFromInternalView | ![(QLPreviewController *)self _isToolbarVisibleForTraitCollection:traitCollection];
+
+  if ([(QLPreviewController *)self presentationMode]== 1)
+  {
+    transitionCoordinator = [(QLPreviewController *)self transitionCoordinator];
+    v10 = v8 | [transitionCoordinator isCancelled];
+
+    if ((v10 & 1) == 0)
+    {
+      goto LABEL_10;
+    }
+
+    goto LABEL_9;
+  }
+
+  if (v8)
+  {
+LABEL_9:
+    toolbarController = [(QLPreviewController *)self toolbarController];
+    [toolbarController restoreOriginalToolbar];
+  }
+
+LABEL_10:
+  if ([(QLPreviewController *)self parentIsNavigationController]&& ![(QLPreviewController *)self willTransitionToInternalView])
+  {
+    translucentNavigationBar = [(QLNavigationState *)self->_previousNavigationVCState translucentNavigationBar];
+    navigationController = [(QLPreviewController *)self navigationController];
+    navigationBar = [navigationController navigationBar];
+    [navigationBar setTranslucent:translucentNavigationBar];
+
+    navigationBarHidden = [(QLNavigationState *)self->_previousNavigationVCState navigationBarHidden];
+    navigationController2 = [(QLPreviewController *)self navigationController];
+    [navigationController2 setNavigationBarHidden:navigationBarHidden];
+
+    toolBarHidden = [(QLNavigationState *)self->_previousNavigationVCState toolBarHidden];
+    navigationController3 = [(QLPreviewController *)self navigationController];
+    [navigationController3 setToolbarHidden:toolBarHidden];
+  }
+
+  if (![(QLPreviewController *)self willTransitionToInternalView])
+  {
+    if ([(QLPreviewController *)self _isBeingFullyDismissed])
+    {
+      delegate = [(QLPreviewController *)self delegate];
+      v20 = objc_opt_respondsToSelector();
+
+      if (v20)
+      {
+        if ([(QLPreviewController *)self presentationMode]== 4)
+        {
+          v21 = dispatch_time(0, 100000000);
+          block[0] = MEMORY[0x277D85DD0];
+          block[1] = 3221225472;
+          block[2] = __41__QLPreviewController_viewWillDisappear___block_invoke_2;
+          block[3] = &unk_278B57190;
+          block[4] = self;
+          dispatch_after(v21, MEMORY[0x277D85CD0], block);
+        }
+
+        else
+        {
+          delegate2 = [(QLPreviewController *)self delegate];
+          [delegate2 previewControllerWillDismiss:self];
+        }
+      }
+    }
+  }
+
+  [(QLPreviewController *)self setQuickLookVisibility:1 animated:disappearCopy];
+  [(QLPreviewController *)self updateStatusBarAnimated:0];
+  [(QLPreviewController *)self unregisterFromScreenshotService];
+  [(QLPreviewController *)self setAccessoryViewVisible:0];
+  v23.receiver = self;
+  v23.super_class = QLPreviewController;
+  [(QLPreviewController *)&v23 viewWillDisappear:disappearCopy];
+}
+
 void __41__QLPreviewController_viewWillDisappear___block_invoke_2(uint64_t a1)
 {
   if (![*(a1 + 32) quickLookVisibility] || objc_msgSend(*(a1 + 32), "quickLookVisibility") == 1)
@@ -2178,6 +2494,132 @@ void __41__QLPreviewController_viewWillDisappear___block_invoke_2(uint64_t a1)
     v2 = [*(a1 + 32) delegate];
     [v2 previewControllerWillDismiss:*(a1 + 32)];
   }
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  self->_didSetDefaultFullscreenState = 0;
+  self->_didStartDelayingPresentation = 0;
+  self->_didEndDelayingPresentation = 0;
+  self->_fullScreen = 0;
+  [(QLPreviewController *)self setQuickLookVisibility:0 animated:disappear];
+  currentPreviewItem = [(QLPreviewController *)self currentPreviewItem];
+
+  if (currentPreviewItem)
+  {
+    [(QLPreviewController *)self previewItemAtIndex:self->_currentPreviewItemIndex wasUpdatedWithLifecycleState:4 withError:0];
+  }
+
+  currentAnimator = [(QLPreviewController *)self currentAnimator];
+  transitionContext = [currentAnimator transitionContext];
+  transitionWasCancelled = [transitionContext transitionWasCancelled];
+
+  if (transitionWasCancelled)
+  {
+    navigationController = [(QLNavigationState *)self->_previousNavigationVCState navigationController];
+    navigationBar = [navigationController navigationBar];
+    [navigationBar setTranslucent:1];
+
+    internalNavigationController = [(QLPreviewController *)self internalNavigationController];
+    toolbar = [internalNavigationController toolbar];
+    toolbarController = [(QLPreviewController *)self toolbarController];
+    [toolbarController setOriginalToolbar:toolbar];
+  }
+
+  else if ([(QLPreviewController *)self _isBeingFullyDismissed])
+  {
+    if (![(QLPreviewController *)self didTransitionFromInternalView])
+    {
+      toolbarController2 = [(QLPreviewController *)self toolbarController];
+      [toolbarController2 restoreOriginalToolbar];
+    }
+
+    if (self->_previousNavigationVCState)
+    {
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __40__QLPreviewController_viewDidDisappear___block_invoke;
+      v30[3] = &unk_278B57190;
+      v30[4] = self;
+      [MEMORY[0x277D75D18] performWithoutAnimation:v30];
+      translucentToolbar = [(QLNavigationState *)self->_previousNavigationVCState translucentToolbar];
+      navigationController2 = [(QLNavigationState *)self->_previousNavigationVCState navigationController];
+      toolbar2 = [navigationController2 toolbar];
+      [toolbar2 setTranslucent:translucentToolbar];
+
+      previousNavigationVCState = self->_previousNavigationVCState;
+      self->_previousNavigationVCState = 0;
+    }
+
+    delegate = [(QLPreviewController *)self delegate];
+    v20 = objc_opt_respondsToSelector();
+
+    if (v20)
+    {
+      if ([(QLPreviewController *)self presentationMode]== 4)
+      {
+        v21 = dispatch_time(0, 100000000);
+        block[0] = MEMORY[0x277D85DD0];
+        block[1] = 3221225472;
+        block[2] = __40__QLPreviewController_viewDidDisappear___block_invoke_2;
+        block[3] = &unk_278B57190;
+        block[4] = self;
+        dispatch_after(v21, MEMORY[0x277D85CD0], block);
+      }
+
+      else
+      {
+        delegate2 = [(QLPreviewController *)self delegate];
+        [delegate2 previewControllerDidDismiss:self];
+      }
+    }
+
+    [(QLPreviewController *)self setModalPresentationStyle:0];
+    [(QLPreviewController *)self setTransitioningDelegate:self];
+    [(QLPreviewController *)self setStrongDelegate:0];
+  }
+
+  [(QLPreviewController *)self setCurrentAnimator:0];
+  v23 = MEMORY[0x277D43EF8];
+  v24 = *MEMORY[0x277D43EF8];
+  if (!*MEMORY[0x277D43EF8])
+  {
+    QLSInitLogging();
+    v24 = *v23;
+  }
+
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_23A714000, v24, OS_LOG_TYPE_DEBUG, "Setting currentAnimator to nil from viewDidDisappear #AppearanceTransition", buf, 2u);
+  }
+
+  if ([(QLPreviewController *)self _basePreviewControllerIsBeingFullyDismissed])
+  {
+    [(QLPreviewController *)self _invalidatePreviewCollectionIfNeeded];
+  }
+
+  transitionSourceView = [(QLPreviewController *)self transitionSourceView];
+  [transitionSourceView removeFromSuperview];
+
+  [(QLPreviewController *)self setTransitionSourceView:0];
+  if (self->_updatedWhileDisappearing || ![(QLPreviewController *)self _isBeingFullyDismissed])
+  {
+    self->_updatedWhileDisappearing = 0;
+  }
+
+  else
+  {
+    previewItemStore = [(QLPreviewController *)self previewItemStore];
+    [previewItemStore clearCache];
+
+    self->_currentPreviewItemIndex = 0x7FFFFFFFFFFFFFFFLL;
+  }
+
+  v27.receiver = self;
+  v27.super_class = QLPreviewController;
+  [(QLPreviewController *)&v27 viewDidDisappear:disappearCopy];
 }
 
 void __40__QLPreviewController_viewDidDisappear___block_invoke(uint64_t a1)
@@ -2360,7 +2802,7 @@ void __74__QLPreviewController_viewWillTransitionToSize_withTransitionCoordinato
 
 - (void)sceneWillDeactivate:(id)deactivate
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   deactivateCopy = deactivate;
   v5 = MEMORY[0x277D43EF8];
   v6 = *MEMORY[0x277D43EF8];
@@ -2372,23 +2814,20 @@ void __74__QLPreviewController_viewWillTransitionToSize_withTransitionCoordinato
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v9 = 138412290;
-    v10 = deactivateCopy;
-    _os_log_impl(&dword_23A714000, v6, OS_LOG_TYPE_INFO, "Scene will deactivate: %@ #Generic", &v9, 0xCu);
+    v7 = 138412290;
+    v8 = deactivateCopy;
+    _os_log_impl(&dword_23A714000, v6, OS_LOG_TYPE_INFO, "Scene will deactivate: %@ #Generic", &v7, 0xCu);
   }
 
-  previewCollection = self->_previewCollection;
   if (objc_opt_respondsToSelector())
   {
     [(QLPreviewCollectionProtocol *)self->_previewCollection hostSceneWillDeactivate];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applicationDidEnterBackground:(id)background
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   backgroundCopy = background;
   v5 = MEMORY[0x277D43EF8];
   v6 = *MEMORY[0x277D43EF8];
@@ -2400,16 +2839,14 @@ void __74__QLPreviewController_viewWillTransitionToSize_withTransitionCoordinato
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v10 = 138412290;
-    v11 = backgroundCopy;
-    _os_log_impl(&dword_23A714000, v6, OS_LOG_TYPE_INFO, "xxx applicationDidEnterBackground: %@ #Generic", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = backgroundCopy;
+    _os_log_impl(&dword_23A714000, v6, OS_LOG_TYPE_INFO, "xxx applicationDidEnterBackground: %@ #Generic", &v9, 0xCu);
   }
 
   previewCollection = self->_previewCollection;
   mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
   -[QLPreviewCollectionProtocol hostApplicationDidEnterBackground:](previewCollection, "hostApplicationDidEnterBackground:", [mEMORY[0x277D75128] isSuspendedUnderLock]);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_presentPreviewCollection
@@ -2498,7 +2935,7 @@ void __48__QLPreviewController__presentPreviewCollection__block_invoke_2(uint64_
 
 void __55__QLPreviewController__presentLoadedPreviewCollection___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   objc_storeStrong((*(a1 + 32) + 1248), *(a1 + 40));
   v2 = [*(a1 + 32) toolbarController];
   v3 = [*(*(a1 + 32) + 1248) accessoryView];
@@ -2509,32 +2946,32 @@ void __55__QLPreviewController__presentLoadedPreviewCollection___block_invoke(ui
   *(*(a1 + 32) + 1010) = 0;
   [*(a1 + 32) _notifyFirstAppearanceIfNeeded];
   [*(a1 + 32) setupAccessoryViewContainerIfNeeded];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v4 = *(*(a1 + 32) + 1024);
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        (*(*(*(&v12 + 1) + 8 * v8) + 16))(*(*(&v12 + 1) + 8 * v8));
+        (*(*(*(&v11 + 1) + 8 * v8) + 16))(*(*(&v11 + 1) + 8 * v8));
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
@@ -2543,8 +2980,6 @@ void __55__QLPreviewController__presentLoadedPreviewCollection___block_invoke(ui
   v9 = *(a1 + 32);
   v10 = *(v9 + 1024);
   *(v9 + 1024) = 0;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_invalidatePreviewCollectionIfNeeded
@@ -2567,7 +3002,7 @@ void __55__QLPreviewController__presentLoadedPreviewCollection___block_invoke(ui
   }
 }
 
-uint64_t __59__QLPreviewController__invalidatePreviewCollectionIfNeeded__block_invoke(uint64_t a1)
+void *__59__QLPreviewController__invalidatePreviewCollectionIfNeeded__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) quickLookVisibility];
   if (!result)
@@ -2594,7 +3029,7 @@ uint64_t __59__QLPreviewController__invalidatePreviewCollectionIfNeeded__block_i
   [(QLPreviewCollectionProtocol *)previewCollection preparePreviewCollectionForInvalidationWithCompletionHandler:v6];
 }
 
-uint64_t __62__QLPreviewController__invalidatePreviewCollectionIfNeededNow__block_invoke(uint64_t a1)
+void *__62__QLPreviewController__invalidatePreviewCollectionIfNeededNow__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) quickLookVisibility];
   if (!result)
@@ -2715,7 +3150,7 @@ uint64_t __62__QLPreviewController__invalidatePreviewCollectionIfNeededNow__bloc
 
 - (void)_showPreviewCollection
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   if ([(QLPreviewController *)self presentationMode]!= 1 && [(QLPreviewController *)self presentationMode]!= 3 && [(QLPreviewController *)self presentationMode]!= 5 && [(QLPreviewController *)self presentationMode]!= 4 || ([(QLPreviewCollectionProtocol *)self->_previewCollection parentViewController], v3 = objc_claimAutoreleasedReturnValue(), v3, v3 != self))
   {
     if ([(QLPreviewController *)self presentationMode]!= 2 || ([(QLPreviewCollectionProtocol *)self->_previewCollection parentViewController], v4 = objc_claimAutoreleasedReturnValue(), [(QLPreviewController *)self internalNavigationController], v5 = objc_claimAutoreleasedReturnValue(), v5, v4, v4 != v5))
@@ -2741,18 +3176,18 @@ uint64_t __62__QLPreviewController__invalidatePreviewCollectionIfNeededNow__bloc
 
         view4 = [(QLPreviewController *)self view];
         v15 = MEMORY[0x277CCAAD0];
-        v25 = @"previewCollection";
+        v24 = @"previewCollection";
         view5 = [(QLPreviewCollectionProtocol *)self->_previewCollection view];
-        v26 = view5;
-        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+        v25 = view5;
+        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
         v18 = [v15 constraintsWithVisualFormat:@"H:|[previewCollection]|" options:0 metrics:0 views:v17];
         [view4 addConstraints:v18];
 
         view6 = [(QLPreviewController *)self view];
         v19 = MEMORY[0x277CCAAD0];
         view7 = [(QLPreviewCollectionProtocol *)self->_previewCollection view];
-        v24 = view7;
-        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+        v23 = view7;
+        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
         v21 = [v19 constraintsWithVisualFormat:@"V:|[previewCollection]|" options:0 metrics:0 views:v20];
         [view6 addConstraints:v21];
       }
@@ -2764,24 +3199,21 @@ uint64_t __62__QLPreviewController__invalidatePreviewCollectionIfNeededNow__bloc
 LABEL_16:
           [(QLPreviewController *)self _updateAppearance:0];
           [(QLPreviewController *)self updateOverlayAnimated:0 forceRefresh:0];
-          goto LABEL_17;
+          return;
         }
 
         view8 = [(QLPreviewCollectionProtocol *)self->_previewCollection view];
         [view8 setTranslatesAutoresizingMaskIntoConstraints:1];
 
         view6 = [(QLPreviewController *)self internalNavigationController];
-        v27[0] = self->_previewCollection;
-        view7 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
+        v26[0] = self->_previewCollection;
+        view7 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
         [view6 setViewControllers:view7];
       }
 
       goto LABEL_16;
     }
   }
-
-LABEL_17:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removePreviewCollectionFromViewHierarchy
@@ -2831,30 +3263,30 @@ LABEL_17:
 
 - (id)viewForAdditionalButtonWithActionName:(SEL)name
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   _topViewController = [(QLPreviewController *)self _topViewController];
   navigationItem = [_topViewController navigationItem];
   leftBarButtonItems = [navigationItem leftBarButtonItems];
 
-  v8 = [leftBarButtonItems countByEnumeratingWithState:&v38 objects:v44 count:16];
+  v8 = [leftBarButtonItems countByEnumeratingWithState:&v37 objects:v43 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v39;
+    v10 = *v38;
 LABEL_3:
     v11 = 0;
     while (1)
     {
-      if (*v39 != v10)
+      if (*v38 != v10)
       {
         objc_enumerationMutation(leftBarButtonItems);
       }
 
-      v12 = *(*(&v38 + 1) + 8 * v11);
+      v12 = *(*(&v37 + 1) + 8 * v11);
       if ([v12 action] == name)
       {
         v13 = [v12 valueForKey:@"view"];
@@ -2866,7 +3298,7 @@ LABEL_3:
 
       if (v9 == ++v11)
       {
-        v9 = [leftBarButtonItems countByEnumeratingWithState:&v38 objects:v44 count:16];
+        v9 = [leftBarButtonItems countByEnumeratingWithState:&v37 objects:v43 count:16];
         if (v9)
         {
           goto LABEL_3;
@@ -2881,29 +3313,29 @@ LABEL_3:
   {
 LABEL_10:
 
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     _topViewController2 = [(QLPreviewController *)self _topViewController];
     navigationItem2 = [_topViewController2 navigationItem];
     leftBarButtonItems = [navigationItem2 rightBarButtonItems];
 
-    v16 = [leftBarButtonItems countByEnumeratingWithState:&v34 objects:v43 count:16];
+    v16 = [leftBarButtonItems countByEnumeratingWithState:&v33 objects:v42 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v35;
+      v18 = *v34;
 LABEL_12:
       v19 = 0;
       while (1)
       {
-        if (*v35 != v18)
+        if (*v34 != v18)
         {
           objc_enumerationMutation(leftBarButtonItems);
         }
 
-        v20 = *(*(&v34 + 1) + 8 * v19);
+        v20 = *(*(&v33 + 1) + 8 * v19);
         if ([v20 action] == name)
         {
           v13 = [v20 valueForKey:@"view"];
@@ -2915,7 +3347,7 @@ LABEL_12:
 
         if (v17 == ++v19)
         {
-          v17 = [leftBarButtonItems countByEnumeratingWithState:&v34 objects:v43 count:16];
+          v17 = [leftBarButtonItems countByEnumeratingWithState:&v33 objects:v42 count:16];
           if (v17)
           {
             goto LABEL_12;
@@ -2930,14 +3362,14 @@ LABEL_12:
     {
 LABEL_19:
 
-      v32 = 0u;
-      v33 = 0u;
-      v30 = 0u;
       v31 = 0u;
+      v32 = 0u;
+      v29 = 0u;
+      v30 = 0u;
       _topViewController3 = [(QLPreviewController *)self _topViewController];
       leftBarButtonItems = [_topViewController3 toolbarItems];
 
-      v22 = [leftBarButtonItems countByEnumeratingWithState:&v30 objects:v42 count:16];
+      v22 = [leftBarButtonItems countByEnumeratingWithState:&v29 objects:v41 count:16];
       if (!v22)
       {
 LABEL_28:
@@ -2946,17 +3378,17 @@ LABEL_28:
       }
 
       v23 = v22;
-      v24 = *v31;
+      v24 = *v30;
 LABEL_21:
       v25 = 0;
       while (1)
       {
-        if (*v31 != v24)
+        if (*v30 != v24)
         {
           objc_enumerationMutation(leftBarButtonItems);
         }
 
-        v26 = *(*(&v30 + 1) + 8 * v25);
+        v26 = *(*(&v29 + 1) + 8 * v25);
         if ([v26 action] == name)
         {
           v13 = [v26 valueForKey:@"view"];
@@ -2968,7 +3400,7 @@ LABEL_21:
 
         if (v23 == ++v25)
         {
-          v23 = [leftBarButtonItems countByEnumeratingWithState:&v30 objects:v42 count:16];
+          v23 = [leftBarButtonItems countByEnumeratingWithState:&v29 objects:v41 count:16];
           if (v23)
           {
             goto LABEL_21;
@@ -2982,8 +3414,6 @@ LABEL_21:
 
   v27 = v13;
 LABEL_30:
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v27;
 }
@@ -3038,6 +3468,48 @@ LABEL_30:
   [(QLPreviewController *)self updateOverlayAnimated:v4 forceRefresh:0];
 }
 
+- (void)_setCurrentPreviewItemIndex:(int64_t)index updatePreview:(BOOL)preview animated:(BOOL)animated
+{
+  if (self->_deferReloadData)
+  {
+    self->_deferredSetIndex = index;
+  }
+
+  else
+  {
+    animatedCopy = animated;
+    previewCopy = preview;
+    previewItemStore = [(QLPreviewController *)self previewItemStore];
+    possibleRange = [previewItemStore possibleRange];
+    v12 = v11;
+
+    if (index >= possibleRange && index - possibleRange < v12 && self->_currentPreviewItemIndex != index)
+    {
+      [(QLPreviewController *)self willChangeValueForKey:@"currentPreviewItemIndex"];
+      self->_currentPreviewItemIndex = index;
+      [(QLPreviewController *)self updateOverlayAnimated:1 forceRefresh:0];
+      if (previewCopy && [(QLPreviewController *)self quickLookVisibility]!= 1)
+      {
+        [(QLPreviewController *)self _refreshCurrentPreviewItemAnimated:animatedCopy];
+      }
+
+      if ([(QLPreviewController *)self _isQuickLookVisible])
+      {
+        [(QLPreviewController *)self previewItemAtIndex:index wasUpdatedWithLifecycleState:3 withError:0];
+      }
+
+      if (_os_feature_enabled_impl())
+      {
+        [(QLPreviewController *)self toggleChromelessIfNeeded];
+      }
+
+      [(QLPreviewController *)self setContentFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+
+      [(QLPreviewController *)self didChangeValueForKey:@"currentPreviewItemIndex"];
+    }
+  }
+}
+
 - (void)setCurrentPreviewItemIndex:(NSInteger)currentPreviewItemIndex
 {
   if ([(QLPreviewController *)self quickLookVisibility]== 1)
@@ -3050,7 +3522,7 @@ LABEL_30:
 
 - (NSInteger)currentPreviewItemIndex
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D43EF8];
   v4 = *MEMORY[0x277D43EF8];
   if (!*MEMORY[0x277D43EF8])
@@ -3062,19 +3534,17 @@ LABEL_30:
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     currentPreviewItemIndex = self->_currentPreviewItemIndex;
-    v8 = 134217984;
-    v9 = currentPreviewItemIndex;
-    _os_log_impl(&dword_23A714000, v4, OS_LOG_TYPE_DEFAULT, "[API] currentPreviewItemIndex called, returning %li #PreviewController", &v8, 0xCu);
+    v7 = 134217984;
+    v8 = currentPreviewItemIndex;
+    _os_log_impl(&dword_23A714000, v4, OS_LOG_TYPE_DEFAULT, "[API] currentPreviewItemIndex called, returning %li #PreviewController", &v7, 0xCu);
   }
 
-  result = self->_currentPreviewItemIndex;
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return self->_currentPreviewItemIndex;
 }
 
 - (id)currentPreviewItem
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   internalCurrentPreviewItem = [(QLPreviewController *)self internalCurrentPreviewItem];
   originalPreviewItem = [internalCurrentPreviewItem originalPreviewItem];
 
@@ -3088,12 +3558,10 @@ LABEL_30:
 
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = originalPreviewItem;
-    _os_log_impl(&dword_23A714000, v5, OS_LOG_TYPE_DEFAULT, "[API] currentPreviewItem called, returning %@ #PreviewController", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = originalPreviewItem;
+    _os_log_impl(&dword_23A714000, v5, OS_LOG_TYPE_DEFAULT, "[API] currentPreviewItem called, returning %@ #PreviewController", &v7, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return originalPreviewItem;
 }
@@ -3131,7 +3599,7 @@ LABEL_30:
 
 - (void)setDataSource:(id)dataSource
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = dataSource;
   v6 = MEMORY[0x277D43EF8];
   v7 = *MEMORY[0x277D43EF8];
@@ -3143,9 +3611,9 @@ LABEL_30:
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412290;
+    v12 = 138412290;
     selfCopy = v5;
-    _os_log_impl(&dword_23A714000, v7, OS_LOG_TYPE_DEFAULT, "[API] setDataSource: %@ #PreviewController", &v13, 0xCu);
+    _os_log_impl(&dword_23A714000, v7, OS_LOG_TYPE_DEFAULT, "[API] setDataSource: %@ #PreviewController", &v12, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_dataSource);
@@ -3168,11 +3636,11 @@ LABEL_30:
         {
           v10 = v9;
           v11 = NSStringFromSelector(a2);
-          v13 = 138412546;
+          v12 = 138412546;
           selfCopy = self;
-          v15 = 2112;
-          v16 = v11;
-          _os_log_impl(&dword_23A714000, v10, OS_LOG_TYPE_ERROR, "%@ %@: The datasource should not be updated during the peeking session. This can result in unintended side effects. #PreviewController", &v13, 0x16u);
+          v14 = 2112;
+          v15 = v11;
+          _os_log_impl(&dword_23A714000, v10, OS_LOG_TYPE_ERROR, "%@ %@: The datasource should not be updated during the peeking session. This can result in unintended side effects. #PreviewController", &v12, 0x16u);
         }
       }
 
@@ -3186,8 +3654,42 @@ LABEL_30:
 
     [(QLPreviewController *)self updatePreferredTransition];
   }
+}
 
-  v12 = *MEMORY[0x277D85DE8];
+- (void)_setFullScreen:(BOOL)screen animated:(BOOL)animated force:(BOOL)force
+{
+  animatedCopy = animated;
+  if (self->_fullScreen == screen)
+  {
+    if (!force)
+    {
+      return;
+    }
+  }
+
+  else if ([(QLPreviewController *)self isBeingDismissed]&& !force)
+  {
+    return;
+  }
+
+  self->_fullScreen = screen;
+  v9 = 0.2;
+  if (!animatedCopy)
+  {
+    v9 = 0.0;
+  }
+
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __53__QLPreviewController__setFullScreen_animated_force___block_invoke;
+  v11[3] = &unk_278B57190;
+  v11[4] = self;
+  [MEMORY[0x277D75D18] animateWithDuration:v11 animations:v9];
+  self->_overlayHidden = screen;
+  [(QLPreviewController *)self updateOverlayAnimated:animatedCopy animatedButtons:0 forceRefresh:0 withTraitCollection:0];
+  [(QLPreviewController *)self setNeedsUpdateOfHomeIndicatorAutoHidden];
+  toolbarController = [(QLPreviewController *)self toolbarController];
+  [toolbarController updateLayout];
 }
 
 - (void)setNavigationBarTintColor:(id)color
@@ -3305,7 +3807,7 @@ LABEL_9:
 
 - (UINavigationController)internalNavigationController
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   presentationMode = [(QLPreviewController *)self presentationMode];
   if (presentationMode - 3 < 3)
   {
@@ -3367,19 +3869,19 @@ LABEL_4:
 
     view5 = [(QLPreviewController *)self view];
     v17 = MEMORY[0x277CCAAD0];
-    v30 = @"mainView";
+    v29 = @"mainView";
     view6 = [(UINavigationController *)self->_internalNavigationController view];
-    v31[0] = view6;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+    v30[0] = view6;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
     v20 = [v17 constraintsWithVisualFormat:@"H:|[mainView]|" options:0 metrics:0 views:v19];
     [view5 addConstraints:v20];
 
     view7 = [(QLPreviewController *)self view];
     v22 = MEMORY[0x277CCAAD0];
-    v28 = @"mainView";
+    v27 = @"mainView";
     view8 = [(UINavigationController *)self->_internalNavigationController view];
-    v29 = view8;
-    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+    v28 = view8;
+    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
     v25 = [v22 constraintsWithVisualFormat:@"V:|[mainView]|" options:0 metrics:0 views:v24];
     [view7 addConstraints:v25];
 
@@ -3389,7 +3891,6 @@ LABEL_4:
 
   navigationController = v8;
 LABEL_12:
-  v26 = *MEMORY[0x277D85DE8];
 
   return navigationController;
 }
@@ -3463,7 +3964,7 @@ LABEL_12:
 
 - (void)setDelegate:(id)delegate
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = delegate;
   v5 = MEMORY[0x277D43EF8];
   v6 = *MEMORY[0x277D43EF8];
@@ -3475,9 +3976,9 @@ LABEL_12:
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = v4;
-    _os_log_impl(&dword_23A714000, v6, OS_LOG_TYPE_DEFAULT, "[API] setDelegate: %@ #PreviewController", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v4;
+    _os_log_impl(&dword_23A714000, v6, OS_LOG_TYPE_DEFAULT, "[API] setDelegate: %@ #PreviewController", &v8, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -3487,13 +3988,11 @@ LABEL_12:
     objc_storeWeak(&self->_delegate, v4);
     [(QLPreviewController *)self updatePreferredTransition];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)delegate
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D43EF8];
   v4 = *MEMORY[0x277D43EF8];
   if (!*MEMORY[0x277D43EF8])
@@ -3512,9 +4011,9 @@ LABEL_12:
       strongDelegate = self->_strongDelegate;
     }
 
-    v13 = 138412290;
-    v14 = strongDelegate;
-    _os_log_impl(&dword_23A714000, v5, OS_LOG_TYPE_DEFAULT, "[API] getDelegate: %@ #PreviewController", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = strongDelegate;
+    _os_log_impl(&dword_23A714000, v5, OS_LOG_TYPE_DEFAULT, "[API] getDelegate: %@ #PreviewController", &v12, 0xCu);
   }
 
   v8 = objc_loadWeakRetained(&self->_delegate);
@@ -3526,7 +4025,6 @@ LABEL_12:
 
   v10 = v9;
 
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -3623,7 +4121,7 @@ LABEL_7:
 
 double __48__QLPreviewController_updatePreferredTransition__block_invoke(uint64_t a1, void *a2)
 {
-  v90 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = [WeakRetained internalCurrentPreviewItem];
@@ -3641,11 +4139,11 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  v54 = objc_loadWeakRetained((a1 + 32));
-  v55 = [v54 internalCurrentPreviewItem];
-  v56 = [v55 previewItemType];
+  v51 = objc_loadWeakRetained((a1 + 32));
+  v52 = [v51 internalCurrentPreviewItem];
+  v53 = [v52 previewItemType];
 
-  if (v56 == 1)
+  if (v53 == 1)
   {
 LABEL_5:
     v8 = [v3 sourceView];
@@ -3656,11 +4154,11 @@ LABEL_5:
     v15 = v14;
     v17 = v16;
 
-    v91.origin.x = v11;
-    v91.origin.y = v13;
-    v91.size.width = v15;
-    v91.size.height = v17;
-    if (CGRectIsEmpty(v91))
+    v87.origin.x = v11;
+    v87.origin.y = v13;
+    v87.size.width = v15;
+    v87.size.height = v17;
+    if (CGRectIsEmpty(v87))
     {
       v18 = MEMORY[0x277D43EF8];
       v19 = *MEMORY[0x277D43EF8];
@@ -3727,9 +4225,6 @@ LABEL_5:
       }
 
       v37 = *MEMORY[0x277CBF3A0];
-      v51 = *(MEMORY[0x277CBF3A0] + 8);
-      v52 = *(MEMORY[0x277CBF3A0] + 16);
-      v53 = *(MEMORY[0x277CBF3A0] + 24);
     }
 
     else
@@ -3754,13 +4249,13 @@ LABEL_5:
       if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
       {
         v46 = v45;
-        v92.origin.x = v37;
-        v92.origin.y = v39;
-        v92.size.width = v41;
-        v92.size.height = v43;
-        v47 = NSStringFromCGRect(v92);
+        v88.origin.x = v37;
+        v88.origin.y = v39;
+        v88.size.width = v41;
+        v88.size.height = v43;
+        v47 = NSStringFromCGRect(v88);
         *buf = 138412290;
-        v89 = v47;
+        v85 = v47;
         v48 = "[ZOOM]: Frame alignmentRect = %@ #PreviewController";
 LABEL_28:
         _os_log_impl(&dword_23A714000, v46, OS_LOG_TYPE_DEFAULT, v48, buf, 0xCu);
@@ -3773,16 +4268,16 @@ LABEL_40:
     goto LABEL_41;
   }
 
-  v57 = objc_loadWeakRetained((a1 + 32));
-  [v57 contentFrame];
-  if (CGRectIsEmpty(v93))
+  v54 = objc_loadWeakRetained((a1 + 32));
+  [v54 contentFrame];
+  if (CGRectIsEmpty(v89))
   {
     goto LABEL_38;
   }
 
-  v58 = objc_loadWeakRetained((a1 + 32));
-  [v58 contentFrame];
-  if (v59 < 0.0)
+  v55 = objc_loadWeakRetained((a1 + 32));
+  [v55 contentFrame];
+  if (v56 < 0.0)
   {
 
 LABEL_38:
@@ -3790,76 +4285,76 @@ LABEL_39:
     v46 = [v3 zoomedViewController];
     v47 = [v46 view];
     [v47 frame];
-    v37 = v60;
+    v37 = v57;
     goto LABEL_40;
   }
 
-  v63 = objc_loadWeakRetained((a1 + 32));
-  [v63 contentFrame];
-  v65 = v64;
+  v59 = objc_loadWeakRetained((a1 + 32));
+  [v59 contentFrame];
+  v61 = v60;
 
-  if (v65 < 0.0)
+  if (v61 < 0.0)
   {
     goto LABEL_39;
   }
 
-  v66 = objc_loadWeakRetained((a1 + 32));
-  [v66 contentFrame];
-  v37 = v67;
+  v62 = objc_loadWeakRetained((a1 + 32));
+  [v62 contentFrame];
+  v37 = v63;
+  v65 = v64;
+  v67 = v66;
   v69 = v68;
-  v71 = v70;
-  v73 = v72;
 
-  v74 = MEMORY[0x277D43EF8];
-  v75 = *MEMORY[0x277D43EF8];
+  v70 = MEMORY[0x277D43EF8];
+  v71 = *MEMORY[0x277D43EF8];
   if (!*MEMORY[0x277D43EF8])
   {
     QLSInitLogging();
-    v75 = *v74;
+    v71 = *v70;
   }
 
-  if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
   {
-    v76 = v75;
-    v94.origin.x = v37;
-    v94.origin.y = v69;
-    v94.size.width = v71;
-    v94.size.height = v73;
-    v77 = NSStringFromCGRect(v94);
+    v72 = v71;
+    v90.origin.x = v37;
+    v90.origin.y = v65;
+    v90.size.width = v67;
+    v90.size.height = v69;
+    v73 = NSStringFromCGRect(v90);
     *buf = 138412290;
-    v89 = v77;
-    _os_log_impl(&dword_23A714000, v76, OS_LOG_TYPE_DEFAULT, "[ZOOM] ContentFrame alignmentRect = %@ #PreviewController", buf, 0xCu);
+    v85 = v73;
+    _os_log_impl(&dword_23A714000, v72, OS_LOG_TYPE_DEFAULT, "[ZOOM] ContentFrame alignmentRect = %@ #PreviewController", buf, 0xCu);
   }
 
-  if (v37 == 0.0 && v69 == 0.0)
+  if (v37 == 0.0 && v65 == 0.0)
   {
-    v78 = [v3 zoomedViewController];
-    v79 = [v78 view];
-    [v79 frame];
-    v81 = v80;
-    v83 = v82;
+    v74 = [v3 zoomedViewController];
+    v75 = [v74 view];
+    [v75 frame];
+    v77 = v76;
+    v79 = v78;
 
-    v84 = v81 * 0.5;
-    v85 = v83 * 0.5;
-    v86 = *v74;
-    if (!*v74)
+    v80 = v77 * 0.5;
+    v81 = v79 * 0.5;
+    v82 = *v70;
+    if (!*v70)
     {
       QLSInitLogging();
-      v86 = *v74;
+      v82 = *v70;
     }
 
-    v37 = v84 - v71 * 0.5;
-    v87 = v85 - v73 * 0.5;
-    if (os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
+    v37 = v80 - v67 * 0.5;
+    v83 = v81 - v69 * 0.5;
+    if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
     {
-      v46 = v86;
-      v95.origin.x = v37;
-      v95.origin.y = v87;
-      v95.size.width = v71;
-      v95.size.height = v73;
-      v47 = NSStringFromCGRect(v95);
+      v46 = v82;
+      v91.origin.x = v37;
+      v91.origin.y = v83;
+      v91.size.width = v67;
+      v91.size.height = v69;
+      v47 = NSStringFromCGRect(v91);
       *buf = 138412290;
-      v89 = v47;
+      v85 = v47;
       v48 = "[ZOOM] Recentering alignmentRect to %@ #PreviewController";
       goto LABEL_28;
     }
@@ -3867,13 +4362,12 @@ LABEL_39:
 
 LABEL_41:
 
-  v61 = *MEMORY[0x277D85DE8];
   return v37;
 }
 
 id __48__QLPreviewController_updatePreferredTransition__block_invoke_258(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = [WeakRetained delegate];
   v4 = objc_loadWeakRetained((a1 + 32));
@@ -3892,26 +4386,24 @@ id __48__QLPreviewController_updatePreferredTransition__block_invoke_258(uint64_
   {
     v9 = v8;
     [v6 frame];
-    v10 = NSStringFromCGRect(v17);
-    v13 = 138412290;
-    v14 = v10;
-    _os_log_impl(&dword_23A714000, v9, OS_LOG_TYPE_DEFAULT, "[ZOOM] client gave us a view with frame: %@ #PreviewController", &v13, 0xCu);
+    v10 = NSStringFromCGRect(v16);
+    v12 = 138412290;
+    v13 = v10;
+    _os_log_impl(&dword_23A714000, v9, OS_LOG_TYPE_DEFAULT, "[ZOOM] client gave us a view with frame: %@ #PreviewController", &v12, 0xCu);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 id __48__QLPreviewController_updatePreferredTransition__block_invoke_262(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  memset(&v14, 0, sizeof(v14));
+  v18 = *MEMORY[0x277D85DE8];
+  memset(&v13, 0, sizeof(v13));
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = [WeakRetained delegate];
   v4 = objc_loadWeakRetained((a1 + 32));
   v5 = [v4 currentPreviewItem];
-  v6 = [v3 previewController:v4 transitionViewForPreviewItem:v5 uncroppedSourceFrame:&v14];
+  v6 = [v3 previewController:v4 transitionViewForPreviewItem:v5 uncroppedSourceFrame:&v13];
 
   v7 = MEMORY[0x277D43EF8];
   v8 = *MEMORY[0x277D43EF8];
@@ -3925,35 +4417,33 @@ id __48__QLPreviewController_updatePreferredTransition__block_invoke_262(uint64_
   {
     v9 = v8;
     [v6 frame];
-    v10 = NSStringFromCGRect(v21);
-    v11 = NSStringFromCGRect(v14);
+    v10 = NSStringFromCGRect(v20);
+    v11 = NSStringFromCGRect(v13);
     *buf = 138412546;
-    v16 = v10;
-    v17 = 2112;
-    v18 = v11;
+    v15 = v10;
+    v16 = 2112;
+    v17 = v11;
     _os_log_impl(&dword_23A714000, v9, OS_LOG_TYPE_DEFAULT, "[ZOOM] client gaev us a view with frame: %@, uncroppedFrame: %@ #PreviewController", buf, 0x16u);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 id __48__QLPreviewController_updatePreferredTransition__block_invoke_267(uint64_t a1)
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = [WeakRetained delegate];
   v4 = objc_loadWeakRetained((a1 + 32));
   v5 = [v4 currentPreviewItem];
-  v58 = 0;
-  [v3 previewController:v4 frameForPreviewItem:v5 inSourceView:&v58];
+  v57 = 0;
+  [v3 previewController:v4 frameForPreviewItem:v5 inSourceView:&v57];
   v7 = v6;
   v9 = v8;
   v11 = v10;
   v13 = v12;
 
-  v14 = v58;
+  v14 = v57;
   v15 = MEMORY[0x277D43EF8];
   v16 = *MEMORY[0x277D43EF8];
   if (!*MEMORY[0x277D43EF8])
@@ -3965,11 +4455,11 @@ id __48__QLPreviewController_updatePreferredTransition__block_invoke_267(uint64_
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     v17 = v16;
-    v67.origin.x = v7;
-    v67.origin.y = v9;
-    v67.size.width = v11;
-    v67.size.height = v13;
-    v18 = NSStringFromCGRect(v67);
+    v66.origin.x = v7;
+    v66.origin.y = v9;
+    v66.size.width = v11;
+    v66.size.height = v13;
+    v18 = NSStringFromCGRect(v66);
     LODWORD(buf.origin.x) = 138412290;
     *(&buf.origin.x + 4) = v18;
     _os_log_impl(&dword_23A714000, v17, OS_LOG_TYPE_DEFAULT, "[ZOOM] sourceFrame sent by client: %{PUBLIC}@ #PreviewController", &buf, 0xCu);
@@ -3998,13 +4488,13 @@ id __48__QLPreviewController_updatePreferredTransition__block_invoke_267(uint64_
     {
       v27 = v26;
       [v25 size];
-      v28 = NSStringFromCGSize(v66);
+      v28 = NSStringFromCGSize(v65);
       v29 = NSStringFromCGRect(buf);
-      *v59 = 138412546;
-      v60 = v28;
-      v61 = 2112;
-      v62 = v29;
-      _os_log_impl(&dword_23A714000, v27, OS_LOG_TYPE_DEFAULT, "[ZOOM] client returned image with size: %{PUBLIC}@ and contentRect: %{PUBLIC}@ #PreviewController", v59, 0x16u);
+      *v58 = 138412546;
+      v59 = v28;
+      v60 = 2112;
+      v61 = v29;
+      _os_log_impl(&dword_23A714000, v27, OS_LOG_TYPE_DEFAULT, "[ZOOM] client returned image with size: %{PUBLIC}@ and contentRect: %{PUBLIC}@ #PreviewController", v58, 0x16u);
     }
 
     x = buf.origin.x;
@@ -4023,38 +4513,38 @@ id __48__QLPreviewController_updatePreferredTransition__block_invoke_267(uint64_
     if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       v37 = v34;
-      v68.origin.x = v35;
-      v68.origin.y = v36;
-      v68.size.width = width;
-      v68.size.height = height;
-      v38 = NSStringFromCGRect(v68);
-      *v59 = 138412290;
-      v60 = v38;
-      _os_log_impl(&dword_23A714000, v37, OS_LOG_TYPE_DEFAULT, "[ZOOM] Adjusted source frame: %{PUBLIC}@ #PreviewController", v59, 0xCu);
+      v67.origin.x = v35;
+      v67.origin.y = v36;
+      v67.size.width = width;
+      v67.size.height = height;
+      v38 = NSStringFromCGRect(v67);
+      *v58 = 138412290;
+      v59 = v38;
+      _os_log_impl(&dword_23A714000, v37, OS_LOG_TYPE_DEFAULT, "[ZOOM] Adjusted source frame: %{PUBLIC}@ #PreviewController", v58, 0xCu);
     }
 
     v39 = *MEMORY[0x277CBF3A8];
     v40 = *(MEMORY[0x277CBF3A8] + 8);
+    v68.origin.x = v35;
+    v68.origin.y = v36;
+    v68.size.width = width;
+    v68.size.height = height;
+    v41 = CGRectEqualToRect(v68, *v19);
     v69.origin.x = v35;
     v69.origin.y = v36;
     v69.size.width = width;
     v69.size.height = height;
-    v41 = CGRectEqualToRect(v69, *v19);
+    IsNull = CGRectIsNull(v69);
     v70.origin.x = v35;
     v70.origin.y = v36;
     v70.size.width = width;
     v70.size.height = height;
-    IsNull = CGRectIsNull(v70);
+    IsEmpty = CGRectIsEmpty(v70);
     v71.origin.x = v35;
     v71.origin.y = v36;
     v71.size.width = width;
     v71.size.height = height;
-    IsEmpty = CGRectIsEmpty(v71);
-    v72.origin.x = v35;
-    v72.origin.y = v36;
-    v72.size.width = width;
-    v72.size.height = height;
-    IsInfinite = CGRectIsInfinite(v72);
+    IsInfinite = CGRectIsInfinite(v71);
     v45 = height == v40 && width == v39;
     if (v45 || v41 || IsNull || IsEmpty || IsInfinite)
     {
@@ -4068,8 +4558,8 @@ id __48__QLPreviewController_updatePreferredTransition__block_invoke_267(uint64_
       height = 1.0;
       if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
       {
-        *v59 = 0;
-        _os_log_impl(&dword_23A714000, v46, OS_LOG_TYPE_FAULT, "-previewController:transitionImageForPreviewItem:contentRect: returned an invalid content rect, this is undefined behavior. Please return a valid CGRect. #PreviewController", v59, 2u);
+        *v58 = 0;
+        _os_log_impl(&dword_23A714000, v46, OS_LOG_TYPE_FAULT, "-previewController:transitionImageForPreviewItem:contentRect: returned an invalid content rect, this is undefined behavior. Please return a valid CGRect. #PreviewController", v58, 2u);
       }
 
       width = 1.0;
@@ -4085,14 +4575,14 @@ id __48__QLPreviewController_updatePreferredTransition__block_invoke_267(uint64_
     if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
     {
       v48 = v47;
-      v73.origin.x = v35;
-      v73.origin.y = v36;
-      v73.size.width = width;
-      v73.size.height = height;
-      v49 = NSStringFromCGRect(v73);
-      *v59 = 138412290;
-      v60 = v49;
-      _os_log_impl(&dword_23A714000, v48, OS_LOG_TYPE_DEFAULT, "[ZOOM] Creating UIImageView with frame: %{PUBLIC}@ #PreviewController", v59, 0xCu);
+      v72.origin.x = v35;
+      v72.origin.y = v36;
+      v72.size.width = width;
+      v72.size.height = height;
+      v49 = NSStringFromCGRect(v72);
+      *v58 = 138412290;
+      v59 = v49;
+      _os_log_impl(&dword_23A714000, v48, OS_LOG_TYPE_DEFAULT, "[ZOOM] Creating UIImageView with frame: %{PUBLIC}@ #PreviewController", v58, 0xCu);
     }
 
     v50 = [objc_alloc(MEMORY[0x277D755E8]) initWithFrame:{v35, v36, width, height}];
@@ -4128,8 +4618,6 @@ id __48__QLPreviewController_updatePreferredTransition__block_invoke_267(uint64_
     v50 = 0;
   }
 
-  v56 = *MEMORY[0x277D85DE8];
-
   return v50;
 }
 
@@ -4149,7 +4637,7 @@ id __48__QLPreviewController_updatePreferredTransition__block_invoke_267(uint64_
       if (animatedCopy)
       {
         initWithDefaultParameters = [objc_alloc(MEMORY[0x277D75A88]) initWithDefaultParameters];
-        [initWithDefaultParameters duration];
+        objc_msgSend_duration(initWithDefaultParameters);
         v7 = v9;
       }
 
@@ -4165,6 +4653,37 @@ id __48__QLPreviewController_updatePreferredTransition__block_invoke_267(uint64_
   else
   {
   }
+}
+
+- (void)setIsContentManaged:(BOOL)managed
+{
+  managedCopy = managed;
+  v10 = *MEMORY[0x277D85DE8];
+  v5 = MEMORY[0x277D43EF8];
+  v6 = *MEMORY[0x277D43EF8];
+  if (!*MEMORY[0x277D43EF8])
+  {
+    QLSInitLogging();
+    v6 = *v5;
+  }
+
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = @"NO";
+    if (managedCopy)
+    {
+      v7 = @"YES";
+    }
+
+    v8 = 138412290;
+    v9 = v7;
+    _os_log_impl(&dword_23A714000, v6, OS_LOG_TYPE_DEFAULT, "MDM : Client is setting isContentManaged to : %@ #PreviewController", &v8, 0xCu);
+  }
+
+  [(QLPreviewController *)self willChangeValueForKey:@"isContentManaged"];
+  self->_isContentManaged = managedCopy;
+  [(QLPreviewController *)self didChangeValueForKey:@"isContentManaged"];
+  [(QLPreviewCollectionProtocol *)self->_previewCollection setIsContentManaged:managedCopy];
 }
 
 - (id)navigationBarGradientView
@@ -4208,7 +4727,7 @@ id __48__QLPreviewController_updatePreferredTransition__block_invoke_267(uint64_
 
 - (void)_installGradientViewsIfNeeded
 {
-  v50[4] = *MEMORY[0x277D85DE8];
+  v49[4] = *MEMORY[0x277D85DE8];
   superview = [(UIView *)self->_navigationBarGradientView superview];
   if (!superview || (v4 = superview, [(UIView *)self->_toolbarGradientView superview], v5 = objc_claimAutoreleasedReturnValue(), v5, v4, !v5))
   {
@@ -4222,60 +4741,58 @@ id __48__QLPreviewController_updatePreferredTransition__block_invoke_267(uint64_
       navigationBar = [internalNavigationController2 navigationBar];
       [view insertSubview:navigationBarGradientView belowSubview:navigationBar];
 
-      v33 = MEMORY[0x277CCAAD0];
+      v32 = MEMORY[0x277CCAAD0];
       navigationBarGradientView2 = [(QLPreviewController *)self navigationBarGradientView];
       leadingAnchor = [navigationBarGradientView2 leadingAnchor];
       leadingAnchor2 = [view leadingAnchor];
-      v41 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-      v50[0] = v41;
+      v40 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+      v49[0] = v40;
       navigationBarGradientView3 = [(QLPreviewController *)self navigationBarGradientView];
       trailingAnchor = [navigationBarGradientView3 trailingAnchor];
       trailingAnchor2 = [view trailingAnchor];
-      v32 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-      v50[1] = v32;
+      v31 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+      v49[1] = v31;
       navigationBarGradientView4 = [(QLPreviewController *)self navigationBarGradientView];
       topAnchor = [navigationBarGradientView4 topAnchor];
       topAnchor2 = [view topAnchor];
       v14 = [topAnchor constraintEqualToAnchor:topAnchor2];
-      v50[2] = v14;
+      v49[2] = v14;
       navigationBarGradientView5 = [(QLPreviewController *)self navigationBarGradientView];
       heightAnchor = [navigationBarGradientView5 heightAnchor];
       v17 = [heightAnchor constraintEqualToConstant:100.0];
-      v50[3] = v17;
-      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:4];
-      [v33 activateConstraints:v18];
+      v49[3] = v17;
+      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:4];
+      [v32 activateConstraints:v18];
 
       toolbarGradientView = [(QLPreviewController *)self toolbarGradientView];
       internalNavigationController3 = [(QLPreviewController *)self internalNavigationController];
       toolbar = [internalNavigationController3 toolbar];
       [view insertSubview:toolbarGradientView belowSubview:toolbar];
 
-      v34 = MEMORY[0x277CCAAD0];
+      v33 = MEMORY[0x277CCAAD0];
       toolbarGradientView2 = [(QLPreviewController *)self toolbarGradientView];
       leadingAnchor3 = [toolbarGradientView2 leadingAnchor];
       leadingAnchor4 = [view leadingAnchor];
-      v42 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-      v49[0] = v42;
+      v41 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
+      v48[0] = v41;
       toolbarGradientView3 = [(QLPreviewController *)self toolbarGradientView];
       trailingAnchor3 = [toolbarGradientView3 trailingAnchor];
       trailingAnchor4 = [view trailingAnchor];
       v22 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
-      v49[1] = v22;
+      v48[1] = v22;
       toolbarGradientView4 = [(QLPreviewController *)self toolbarGradientView];
       bottomAnchor = [toolbarGradientView4 bottomAnchor];
       bottomAnchor2 = [view bottomAnchor];
       v26 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-      v49[2] = v26;
+      v48[2] = v26;
       toolbarGradientView5 = [(QLPreviewController *)self toolbarGradientView];
       heightAnchor2 = [toolbarGradientView5 heightAnchor];
       v29 = [heightAnchor2 constraintEqualToConstant:100.0];
-      v49[3] = v29;
-      v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:4];
-      [v34 activateConstraints:v30];
+      v48[3] = v29;
+      v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:4];
+      [v33 activateConstraints:v30];
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_uninstallGradientViews
@@ -4324,20 +4841,20 @@ id __48__QLPreviewController_updatePreferredTransition__block_invoke_267(uint64_
   [(QLPreviewController *)self _updateBarGradientOpacity];
 }
 
-void __43__QLPreviewController__updateBarTintColors__block_invoke()
+void __43__QLPreviewController__updateBarTintColors__block_invoke(uint64_t a1)
 {
-  v0 = MEMORY[0x277D43EF8];
-  v1 = *MEMORY[0x277D43EF8];
+  v1 = MEMORY[0x277D43EF8];
+  v2 = *MEMORY[0x277D43EF8];
   if (!*MEMORY[0x277D43EF8])
   {
     QLSInitLogging();
-    v1 = *v0;
+    v2 = *v1;
   }
 
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_23A714000, v1, OS_LOG_TYPE_DEFAULT, "Warning: setNavigationBarTintColor:; and setToolbarTintColor:; are only supported when QuickLook is being presented modally. #Support", v2, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_23A714000, v2, OS_LOG_TYPE_DEFAULT, "Warning: setNavigationBarTintColor:; and setToolbarTintColor:; are only supported when QuickLook is being presented modally. #Support", v3, 2u);
   }
 }
 
@@ -4346,14 +4863,13 @@ void __45__QLPreviewController__updateBackgroundColor__block_invoke(uint64_t a1)
   v2 = [*(a1 + 32) currentAnimator];
   if (!v2 || (v3 = v2, [*(a1 + 32) currentAnimator], v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "transitionState"), v4, v3, v5 == 2))
   {
-    v8 = [*(a1 + 32) _preferredBackgroundColor];
+    v7 = [*(a1 + 32) _preferredBackgroundColor];
     v6 = [*(a1 + 32) view];
-    [v6 setBackgroundColor:v8];
+    [v6 setBackgroundColor:v7];
 
-    v7 = *(*(a1 + 32) + 1248);
     if (objc_opt_respondsToSelector())
     {
-      [*(*(a1 + 32) + 1248) hostViewControllerBackgroundColorChanged:v8];
+      [*(*(a1 + 32) + 1248) hostViewControllerBackgroundColorChanged:v7];
     }
 
     [*(a1 + 32) _updateBarGradientOpacity];
@@ -4442,7 +4958,7 @@ void __45__QLPreviewController__updateBackgroundColor__block_invoke(uint64_t a1)
 
 void __73__QLPreviewController_previewCollectionPrefersWhitePointAdaptivityStyle___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   *(*(a1 + 32) + 1048) = *(a1 + 40);
   v2 = [*(a1 + 32) transitionCoordinator];
 
@@ -4458,12 +4974,11 @@ void __73__QLPreviewController_previewCollectionPrefersWhitePointAdaptivityStyle
 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v5 = *(a1 + 40);
-      v6 = v4;
-      v7 = _UIStringFromWhitePointAdaptivityStyle();
+      v5 = v4;
+      v6 = _UIStringFromWhitePointAdaptivityStyle();
       *buf = 138412290;
-      v15 = v7;
-      _os_log_impl(&dword_23A714000, v6, OS_LOG_TYPE_INFO, "Harmony: Skipping setting white point adaptivity style to '%@', since view controller transition seems to be in progress. #Harmony", buf, 0xCu);
+      v12 = v6;
+      _os_log_impl(&dword_23A714000, v5, OS_LOG_TYPE_INFO, "Harmony: Skipping setting white point adaptivity style to '%@', since view controller transition seems to be in progress. #Harmony", buf, 0xCu);
     }
   }
 
@@ -4477,37 +4992,33 @@ void __73__QLPreviewController_previewCollectionPrefersWhitePointAdaptivityStyle
 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v8 = *(a1 + 40);
-      v9 = v4;
-      v10 = _UIStringFromWhitePointAdaptivityStyle();
+      v7 = v4;
+      v8 = _UIStringFromWhitePointAdaptivityStyle();
       *buf = 138412290;
-      v15 = v10;
-      _os_log_impl(&dword_23A714000, v9, OS_LOG_TYPE_INFO, "Harmony: Will set style to '%@' – no transition seems to be in progress. #Harmony", buf, 0xCu);
+      v12 = v8;
+      _os_log_impl(&dword_23A714000, v7, OS_LOG_TYPE_INFO, "Harmony: Will set style to '%@' – no transition seems to be in progress. #Harmony", buf, 0xCu);
     }
 
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __73__QLPreviewController_previewCollectionPrefersWhitePointAdaptivityStyle___block_invoke_287;
-    v13[3] = &unk_278B57318;
-    v11 = *(a1 + 40);
-    v13[4] = *(a1 + 32);
-    v13[5] = v11;
-    [MEMORY[0x277D75D18] animateWithDuration:v13 animations:0.3];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __73__QLPreviewController_previewCollectionPrefersWhitePointAdaptivityStyle___block_invoke_287;
+    v10[3] = &unk_278B57318;
+    v9 = *(a1 + 40);
+    v10[4] = *(a1 + 32);
+    v10[5] = v9;
+    [MEMORY[0x277D75D18] animateWithDuration:v10 animations:0.3];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __45__QLPreviewController_setScreenEdgePanWidth___block_invoke(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 1248);
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = *(*(a1 + 32) + 1248);
-    v5 = *(a1 + 40);
+    v3 = *(*(a1 + 32) + 1248);
+    v4 = *(a1 + 40);
 
-    return [v4 setScreenEdgePanWidth:v5];
+    return [v3 setScreenEdgePanWidth:v4];
   }
 
   return result;
@@ -4552,93 +5063,91 @@ void __47__QLPreviewController_setAccessoryViewVisible___block_invoke_2(uint64_t
 
 void __34__QLPreviewController_setPrinter___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x3032000000;
-  v15 = __Block_byref_object_copy_;
-  v16 = __Block_byref_object_dispose_;
-  v17 = 0;
-  v2 = *(a1 + 32);
-  v3 = objc_opt_respondsToSelector();
-  v4 = *(a1 + 32);
-  if (v3)
+  v18 = *MEMORY[0x277D85DE8];
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x3032000000;
+  v13 = __Block_byref_object_copy_;
+  v14 = __Block_byref_object_dispose_;
+  v15 = 0;
+  v2 = objc_opt_respondsToSelector();
+  v3 = *(a1 + 32);
+  if (v2)
   {
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __34__QLPreviewController_setPrinter___block_invoke_2;
-    v11[3] = &unk_278B57368;
-    v11[4] = &v12;
-    v5 = [v4 synchronousRemoteObjectProxyWithErrorHandler:v11];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __34__QLPreviewController_setPrinter___block_invoke_2;
+    v9[3] = &unk_278B57368;
+    v9[4] = &v10;
+    v4 = [v3 synchronousRemoteObjectProxyWithErrorHandler:v9];
   }
 
   else
   {
-    v5 = v4;
+    v4 = v3;
   }
 
-  v6 = v5;
-  if (v13[5])
+  v5 = v4;
+  if (v11[5])
   {
-    v7 = MEMORY[0x277D43EF8];
-    v8 = *MEMORY[0x277D43EF8];
+    v6 = MEMORY[0x277D43EF8];
+    v7 = *MEMORY[0x277D43EF8];
     if (!*MEMORY[0x277D43EF8])
     {
       QLSInitLogging();
-      v8 = *v7;
+      v7 = *v6;
     }
 
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = v13[5];
+      v8 = v11[5];
       *buf = 138412290;
-      v19 = v9;
-      _os_log_impl(&dword_23A714000, v8, OS_LOG_TYPE_ERROR, "Error getting the printer proxy (%@) #Generic", buf, 0xCu);
+      v17 = v8;
+      _os_log_impl(&dword_23A714000, v7, OS_LOG_TYPE_ERROR, "Error getting the printer proxy (%@) #Generic", buf, 0xCu);
     }
   }
 
   else
   {
-    objc_storeStrong((*(a1 + 40) + 1224), v5);
+    objc_storeStrong((*(a1 + 40) + 1224), v4);
   }
 
-  _Block_object_dispose(&v12, 8);
-  v10 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v10, 8);
 }
 
 - (void)updateOverlayButtonsAnimated:(BOOL)animated buttons:(id)buttons excludedButtonIdentifiers:(id)identifiers
 {
   animatedCopy = animated;
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   buttonsCopy = buttons;
   identifiersCopy = identifiers;
-  v27 = objc_opt_new();
+  v26 = objc_opt_new();
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   obj = buttonsCopy;
-  v7 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v7 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v34;
+    v9 = *v33;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v34 != v9)
+        if (*v33 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v33 + 1) + 8 * i);
+        v11 = *(*(&v32 + 1) + 8 * i);
+        v28 = 0u;
         v29 = 0u;
         v30 = 0u;
         v31 = 0u;
-        v32 = 0u;
         v12 = self->_previewToolbarButtons;
-        v13 = [(NSArray *)v12 countByEnumeratingWithState:&v29 objects:v37 count:16];
+        v13 = [(NSArray *)v12 countByEnumeratingWithState:&v28 objects:v36 count:16];
         if (!v13)
         {
 
@@ -4649,17 +5158,17 @@ LABEL_18:
 
         v14 = v13;
         v15 = 0;
-        v16 = *v30;
+        v16 = *v29;
         do
         {
           for (j = 0; j != v14; ++j)
           {
-            if (*v30 != v16)
+            if (*v29 != v16)
             {
               objc_enumerationMutation(v12);
             }
 
-            v18 = *(*(&v29 + 1) + 8 * j);
+            v18 = *(*(&v28 + 1) + 8 * j);
             if ([v18 isEqual:v11])
             {
               v19 = v18;
@@ -4668,7 +5177,7 @@ LABEL_18:
             }
           }
 
-          v14 = [(NSArray *)v12 countByEnumeratingWithState:&v29 objects:v37 count:16];
+          v14 = [(NSArray *)v12 countByEnumeratingWithState:&v28 objects:v36 count:16];
         }
 
         while (v14);
@@ -4679,24 +5188,23 @@ LABEL_18:
         }
 
 LABEL_19:
-        [(NSArray *)v27 addObject:v15];
+        [(NSArray *)v26 addObject:v15];
       }
 
-      v8 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v8 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
     }
 
     while (v8);
   }
 
   previewToolbarButtons = self->_previewToolbarButtons;
-  self->_previewToolbarButtons = v27;
-  v21 = v27;
+  self->_previewToolbarButtons = v26;
+  v21 = v26;
 
   excludedToolbarButtonIdentifiers = self->_excludedToolbarButtonIdentifiers;
   self->_excludedToolbarButtonIdentifiers = identifiersCopy;
 
   [(QLPreviewController *)self updateOverlayAnimated:animatedCopy forceRefresh:1];
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateOverlayButtonsForTraitCollection:(id)collection animated:(BOOL)animated
@@ -4713,13 +5221,10 @@ LABEL_19:
 
 void __72__QLPreviewController__updateOverlayButtonsForTraitCollection_animated___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v5 = a2;
-  v6 = a3;
-  v11 = *(a1 + 40);
-  v9 = *(a1 + 32);
-  v10 = v6;
-  v7 = v6;
-  v8 = v5;
+  v4 = a2;
+  v7 = a3;
+  v5 = v7;
+  v6 = v4;
   QLRunInMainThread();
 }
 
@@ -4877,7 +5382,7 @@ LABEL_5:
 
 - (void)updateKeyCommands
 {
-  v23[3] = *MEMORY[0x277D85DE8];
+  v22[3] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277D75650] keyCommandWithInput:*MEMORY[0x277D76B48] modifierFlags:0 action:sel__previousPreview];
   v4 = QLLocalizedString();
   [v3 setDiscoverabilityTitle:v4];
@@ -4891,12 +5396,12 @@ LABEL_5:
   [v7 setDiscoverabilityTitle:v8];
 
   v9 = [MEMORY[0x277D43F80] keyCommandWithKeyCommand:v3 identifier:0];
-  v23[0] = v9;
+  v22[0] = v9;
   v10 = [MEMORY[0x277D43F80] keyCommandWithKeyCommand:v5 identifier:1];
-  v23[1] = v10;
+  v22[1] = v10;
   v11 = [MEMORY[0x277D43F80] keyCommandWithKeyCommand:v7 identifier:8];
-  v23[2] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:3];
+  v22[2] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:3];
 
   delegate = [(QLPreviewController *)self delegate];
   LOBYTE(v9) = objc_opt_respondsToSelector();
@@ -4904,57 +5409,55 @@ LABEL_5:
   objc_initWeak(&location, self);
   v14 = v9 & 1;
   previewCollection = self->_previewCollection;
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __40__QLPreviewController_updateKeyCommands__block_invoke;
-  v18[3] = &unk_278B57458;
-  v21 = v14;
-  v18[4] = self;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __40__QLPreviewController_updateKeyCommands__block_invoke;
+  v17[3] = &unk_278B57458;
+  v20 = v14;
+  v17[4] = self;
   v16 = v12;
-  v19 = v16;
-  objc_copyWeak(&v20, &location);
-  [(QLPreviewCollectionProtocol *)previewCollection keyCommandsWithCompletionHandler:v18];
-  objc_destroyWeak(&v20);
+  v18 = v16;
+  objc_copyWeak(&v19, &location);
+  [(QLPreviewCollectionProtocol *)previewCollection keyCommandsWithCompletionHandler:v17];
+  objc_destroyWeak(&v19);
 
   objc_destroyWeak(&location);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __40__QLPreviewController_updateKeyCommands__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v7 = *(a1 + 56);
-  v4 = *(a1 + 32);
-  v5 = *(a1 + 40);
-  objc_copyWeak(&v6, (a1 + 48));
+  v6 = *(a1 + 56);
+  v4 = *(a1 + 40);
+  objc_copyWeak(&v5, (a1 + 48));
   QLRunInMainThread();
-  objc_destroyWeak(&v6);
+  objc_destroyWeak(&v5);
 }
 
 void __40__QLPreviewController_updateKeyCommands__block_invoke_2(uint64_t a1)
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v26 = objc_opt_new();
+  v36 = *MEMORY[0x277D85DE8];
+  v25 = objc_opt_new();
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+  v2 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v32;
+    v4 = *v31;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v32 != v4)
+        if (*v31 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v31 + 1) + 8 * i);
+        v6 = *(*(&v30 + 1) + 8 * i);
         v7 = [v6 keyCommand];
         v8 = MEMORY[0x277D75650];
         v9 = [v7 input];
@@ -4965,36 +5468,36 @@ void __40__QLPreviewController_updateKeyCommands__block_invoke_2(uint64_t a1)
 
         if (*(a1 + 64) != 1 || ([*(a1 + 40) delegate], v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "previewController:shouldAllowKeyCommandWithIdentifier:", *(a1 + 40), objc_msgSend(v6, "keyCommandIdentifier")), v12, v13))
         {
-          [v26 setObject:v6 forKey:v10];
+          [v25 setObject:v6 forKey:v10];
         }
       }
 
-      v3 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v3 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
     while (v3);
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v14 = *(a1 + 48);
-  v15 = [v14 countByEnumeratingWithState:&v27 objects:v35 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v26 objects:v34 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v28;
+    v17 = *v27;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v28 != v17)
+        if (*v27 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v27 + 1) + 8 * j);
+        v19 = *(*(&v26 + 1) + 8 * j);
         if (*(a1 + 64) == 1)
         {
           v20 = [*(a1 + 40) delegate];
@@ -5007,19 +5510,17 @@ void __40__QLPreviewController_updateKeyCommands__block_invoke_2(uint64_t a1)
         }
 
         v22 = [v19 keyCommand];
-        [v26 setObject:v19 forKey:v22];
+        [v25 setObject:v19 forKey:v22];
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v26 objects:v34 count:16];
     }
 
     while (v16);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  [WeakRetained setPreviewKeyCommands:v26];
-
-  v24 = *MEMORY[0x277D85DE8];
+  [WeakRetained setPreviewKeyCommands:v25];
 }
 
 - (void)handleKeyPressWithInput:(id)input modifierFlags:(int64_t)flags
@@ -5031,7 +5532,7 @@ void __40__QLPreviewController_updateKeyCommands__block_invoke_2(uint64_t a1)
 
 void __61__QLPreviewController_handleKeyPressWithInput_modifierFlags___block_invoke(uint64_t a1)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) hasEditedItems])
   {
     v2 = MEMORY[0x277D43EF8];
@@ -5047,9 +5548,9 @@ void __61__QLPreviewController_handleKeyPressWithInput_modifierFlags___block_inv
       v4 = *(a1 + 40);
       v5 = *(a1 + 48);
       *buf = 138412546;
-      v35 = v4;
-      v36 = 2048;
-      v37 = v5;
+      v33 = v4;
+      v34 = 2048;
+      v35 = v5;
       v6 = "Host will not perform key press unhandled in service because there are remote unsaved edits (input: %@, modifier flags: %ld) #PreviewController";
 LABEL_21:
       _os_log_impl(&dword_23A714000, v3, OS_LOG_TYPE_INFO, v6, buf, 0x16u);
@@ -5058,26 +5559,26 @@ LABEL_21:
 
   else
   {
-    v32 = 0u;
-    v33 = 0u;
     v30 = 0u;
     v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v7 = [*(a1 + 32) keyCommands];
-    v8 = [v7 countByEnumeratingWithState:&v30 objects:v40 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v28 objects:v38 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v31;
+      v10 = *v29;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v31 != v10)
+          if (*v29 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v30 + 1) + 8 * i);
+          v12 = *(*(&v28 + 1) + 8 * i);
           v13 = [v12 input];
           if ([v13 isEqualToString:*(a1 + 40)])
           {
@@ -5101,33 +5602,32 @@ LABEL_21:
                 v23 = v20;
                 v24 = [v12 description];
                 *buf = 138412802;
-                v35 = v21;
-                v36 = 2048;
-                v37 = v22;
-                v38 = 2112;
-                v39 = v24;
+                v33 = v21;
+                v34 = 2048;
+                v35 = v22;
+                v36 = 2112;
+                v37 = v24;
                 _os_log_impl(&dword_23A714000, v23, OS_LOG_TYPE_INFO, "Host can perform key press unhandled in service (input: %@, modifier flags: %ld) with key command (%@) #PreviewController", buf, 0x20u);
               }
 
-              v25 = *(a1 + 32);
               [v12 action];
               if (objc_opt_respondsToSelector())
               {
-                v26 = [v12 action];
-                v27 = *(a1 + 32);
-                v28 = [v12 action];
-                if (v26 == sel__keyCommandWasPerformed_)
+                v25 = [v12 action];
+                v26 = *(a1 + 32);
+                v27 = [v12 action];
+                if (v25 == sel__keyCommandWasPerformed_)
                 {
-                  [v27 performSelector:v28 withObject:v12];
+                  [v26 performSelector:v27 withObject:v12];
                 }
 
                 else
                 {
-                  [v27 performSelector:v28];
+                  [v26 performSelector:v27];
                 }
               }
 
-              goto LABEL_31;
+              return;
             }
           }
 
@@ -5136,7 +5636,7 @@ LABEL_21:
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v30 objects:v40 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v28 objects:v38 count:16];
         if (v9)
         {
           continue;
@@ -5159,16 +5659,13 @@ LABEL_21:
       v17 = *(a1 + 40);
       v18 = *(a1 + 48);
       *buf = 138412546;
-      v35 = v17;
-      v36 = 2048;
-      v37 = v18;
+      v33 = v17;
+      v34 = 2048;
+      v35 = v18;
       v6 = "Key press unhandled in service cannot be handled by the host either: (input: %@, modifier flags: %ld) #PreviewController";
       goto LABEL_21;
     }
   }
-
-LABEL_31:
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteViewControllerWasInvalidated
@@ -5242,7 +5739,7 @@ LABEL_12:
 
 void __49__QLPreviewController_beginInteractiveTransition__block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) currentAnimator];
   if (v2)
   {
@@ -5262,14 +5759,14 @@ LABEL_4:
       v7 = v5;
       v8 = [v6 currentAnimator];
       v9 = [*(a1 + 32) presentedViewController];
-      v21 = 138412546;
-      v22 = v8;
-      v23 = 2112;
-      v24 = v9;
-      _os_log_impl(&dword_23A714000, v7, OS_LOG_TYPE_ERROR, "beginInteractiveTransition can't be initiated (currentAnimator: %@, presentedViewController: %@) #AppearanceTransition", &v21, 0x16u);
+      v20 = 138412546;
+      v21 = v8;
+      v22 = 2112;
+      v23 = v9;
+      _os_log_impl(&dword_23A714000, v7, OS_LOG_TYPE_ERROR, "beginInteractiveTransition can't be initiated (currentAnimator: %@, presentedViewController: %@) #AppearanceTransition", &v20, 0x16u);
     }
 
-    goto LABEL_8;
+    return;
   }
 
   v3 = [*(a1 + 32) presentedViewController];
@@ -5279,42 +5776,39 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v11 = objc_opt_new();
-  [*(a1 + 32) setCurrentAnimator:v11];
+  v10 = objc_opt_new();
+  [*(a1 + 32) setCurrentAnimator:v10];
 
-  v12 = MEMORY[0x277D43EF8];
-  v13 = *MEMORY[0x277D43EF8];
+  v11 = MEMORY[0x277D43EF8];
+  v12 = *MEMORY[0x277D43EF8];
   if (!*MEMORY[0x277D43EF8])
   {
     QLSInitLogging();
-    v13 = *v12;
+    v12 = *v11;
   }
 
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    v14 = *(a1 + 32);
-    v15 = v13;
-    v16 = [v14 currentAnimator];
-    v21 = 138412290;
-    v22 = v16;
-    _os_log_impl(&dword_23A714000, v15, OS_LOG_TYPE_INFO, "beginInteractiveTransition is initiated with new currentAnimator: %@ #AppearanceTransition", &v21, 0xCu);
+    v13 = *(a1 + 32);
+    v14 = v12;
+    v15 = [v13 currentAnimator];
+    v20 = 138412290;
+    v21 = v15;
+    _os_log_impl(&dword_23A714000, v14, OS_LOG_TYPE_INFO, "beginInteractiveTransition is initiated with new currentAnimator: %@ #AppearanceTransition", &v20, 0xCu);
   }
 
-  v17 = [*(a1 + 32) presentationMode];
-  v18 = *(a1 + 32);
-  if (v17 == 1)
+  v16 = [*(a1 + 32) presentationMode];
+  v17 = *(a1 + 32);
+  if (v16 == 1)
   {
-    v19 = [v18 internalNavigationController];
-    v20 = [v19 popViewControllerAnimated:1];
+    v18 = [v17 internalNavigationController];
+    v19 = [v18 popViewControllerAnimated:1];
   }
 
   else
   {
-    [v18 dismissViewControllerAnimated:1 completion:0];
+    [v17 dismissViewControllerAnimated:1 completion:0];
   }
-
-LABEL_8:
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)forwardMessage:(id)message toItemAtIndex:(unint64_t)index withUUID:(id)d completionHandler:(id)handler
@@ -5331,7 +5825,7 @@ LABEL_8:
 
 void __79__QLPreviewController_forwardMessage_toItemAtIndex_withUUID_completionHandler___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) previewItemAtIndex:*(a1 + 64)];
   v3 = [v2 originalPreviewItem];
   v4 = [v2 uuid];
@@ -5366,21 +5860,19 @@ void __79__QLPreviewController_forwardMessage_toItemAtIndex_withUUID_completionH
     {
       v9 = *(a1 + 48);
       v10 = *(a1 + 64);
-      v14 = 138412802;
-      v15 = v9;
-      v16 = 2112;
-      v17 = v2;
-      v18 = 2048;
-      v19 = v10;
-      _os_log_impl(&dword_23A714000, v8, OS_LOG_TYPE_ERROR, "Could not forward message %@ to item %@ at index %lu #PreviewController", &v14, 0x20u);
+      v13 = 138412802;
+      v14 = v9;
+      v15 = 2112;
+      v16 = v2;
+      v17 = 2048;
+      v18 = v10;
+      _os_log_impl(&dword_23A714000, v8, OS_LOG_TYPE_ERROR, "Could not forward message %@ to item %@ at index %lu #PreviewController", &v13, 0x20u);
     }
 
     v11 = *(a1 + 56);
     v12 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D43FD0] code:0 userInfo:0];
     (*(v11 + 16))(v11, 0, v12);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)expandContentOfItemAtIndex:(unint64_t)index withUUID:(id)d unarchivedItemsURLWrapper:(id)wrapper
@@ -5394,7 +5886,7 @@ void __79__QLPreviewController_forwardMessage_toItemAtIndex_withUUID_completionH
 
 void __85__QLPreviewController_expandContentOfItemAtIndex_withUUID_unarchivedItemsURLWrapper___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) presentationMode] == 2 || objc_msgSend(*(a1 + 32), "presentationMode") == 1)
   {
     v2 = [*(a1 + 32) previewItemAtIndex:*(a1 + 56)];
@@ -5430,16 +5922,14 @@ void __85__QLPreviewController_expandContentOfItemAtIndex_withUUID_unarchivedIte
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         v11 = *(a1 + 56);
-        v13 = 138412546;
-        v14 = v2;
-        v15 = 2048;
-        v16 = v11;
-        _os_log_impl(&dword_23A714000, v10, OS_LOG_TYPE_ERROR, "Could not expand content of item %@ at index %lu #ZIPHandling", &v13, 0x16u);
+        v12 = 138412546;
+        v13 = v2;
+        v14 = 2048;
+        v15 = v11;
+        _os_log_impl(&dword_23A714000, v10, OS_LOG_TYPE_ERROR, "Could not expand content of item %@ at index %lu #ZIPHandling", &v12, 0x16u);
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __57__QLPreviewController_presentAlertControllerForScenario___block_invoke(uint64_t a1)
@@ -5594,13 +6084,13 @@ void __47__QLPreviewController_setCanChangeCurrentPage___block_invoke(uint64_t a
   }
 }
 
-uint64_t __72__QLPreviewController_currentPreviewItemViewControllerIsReadyForDisplay__block_invoke(uint64_t result)
+void *__72__QLPreviewController_currentPreviewItemViewControllerIsReadyForDisplay__block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if (*(v1 + 1178) == 1 && (*(v1 + 1179) & 1) == 0)
   {
     *(v1 + 1179) = 1;
-    return [*(result + 32) _endDelayingPresentation];
+    return [*(result + 4) _endDelayingPresentation];
   }
 
   return result;
@@ -5837,7 +6327,7 @@ LABEL_20:
   QLRunInMainThread();
 }
 
-uint64_t __50__QLPreviewController_updatePreferredContentSize___block_invoke(uint64_t a1)
+void *__50__QLPreviewController_updatePreferredContentSize___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) preferredContentSize];
   if (v4 != *(a1 + 40) || v3 != *(a1 + 48))
@@ -5856,7 +6346,7 @@ uint64_t __50__QLPreviewController_updatePreferredContentSize___block_invoke(uin
 
 uint64_t __42__QLPreviewController_updateContentFrame___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D43EF8];
   v3 = *MEMORY[0x277D43EF8];
   if (!*MEMORY[0x277D43EF8])
@@ -5872,19 +6362,17 @@ uint64_t __42__QLPreviewController_updateContentFrame___block_invoke(uint64_t a1
     v6 = *(a1 + 56);
     v7 = *(a1 + 64);
     v8 = v3;
-    v15.origin.x = v4;
-    v15.origin.y = v5;
-    v15.size.width = v6;
-    v15.size.height = v7;
-    v9 = NSStringFromCGRect(v15);
-    v12 = 138412290;
-    v13 = v9;
-    _os_log_impl(&dword_23A714000, v8, OS_LOG_TYPE_DEFAULT, "received contentFrameUpdate: %@ #Generic", &v12, 0xCu);
+    v14.origin.x = v4;
+    v14.origin.y = v5;
+    v14.size.width = v6;
+    v14.size.height = v7;
+    v9 = NSStringFromCGRect(v14);
+    v11 = 138412290;
+    v12 = v9;
+    _os_log_impl(&dword_23A714000, v8, OS_LOG_TYPE_DEFAULT, "received contentFrameUpdate: %@ #Generic", &v11, 0xCu);
   }
 
-  result = [*(a1 + 32) setContentFrame:{*(a1 + 40), *(a1 + 48), *(a1 + 56), *(a1 + 64)}];
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) setContentFrame:{*(a1 + 40), *(a1 + 48), *(a1 + 56), *(a1 + 64)}];
 }
 
 - (void)updateTitle:(id)title
@@ -5977,6 +6465,47 @@ uint64_t __35__QLPreviewController_updateTitle___block_invoke(uint64_t a1)
   return v7;
 }
 
+- (void)_updateAppearance:(BOOL)appearance
+{
+  appearanceCopy = appearance;
+  if (_UISolariumEnabled())
+  {
+    [(QLPreviewController *)self visibleAccessoryViewHeight];
+    v6 = v5;
+  }
+
+  else
+  {
+    toolbarController = [(QLPreviewController *)self toolbarController];
+    v6 = 0.0;
+    if (([toolbarController isAccessoryViewHidden] & 1) == 0)
+    {
+      toolbarController2 = [(QLPreviewController *)self toolbarController];
+      accessoryView = [toolbarController2 accessoryView];
+      [accessoryView frame];
+      v6 = v10;
+    }
+  }
+
+  previewCollection = [(QLPreviewController *)self previewCollection];
+  view = [previewCollection view];
+  [view safeAreaInsets];
+  v14 = v6 + v13;
+
+  previewCollection2 = [(QLPreviewController *)self previewCollection];
+  view2 = [previewCollection2 view];
+  [view2 safeAreaInsets];
+  v18 = v17;
+
+  v19 = objc_alloc(MEMORY[0x277D43F28]);
+  presentationMode = [(QLPreviewController *)self presentationMode];
+  mainScreen = [MEMORY[0x277D759A0] mainScreen];
+  [mainScreen _peripheryInsets];
+  v26 = [v19 initWithTopInset:presentationMode bottomInset:v18 presentationMode:v14 peripheryInsets:{v22, v23, v24, v25}];
+
+  [(QLPreviewCollectionProtocol *)self->_previewCollection setAppearance:v26 animated:appearanceCopy];
+}
+
 - (void)_savePreviousNavigationVCState
 {
   v3 = objc_opt_new();
@@ -6003,7 +6532,7 @@ uint64_t __35__QLPreviewController_updateTitle___block_invoke(uint64_t a1)
 
 + (BOOL)canPreviewItem:(id)item
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = item;
   v4 = MEMORY[0x277D43EF8];
   v5 = *MEMORY[0x277D43EF8];
@@ -6015,15 +6544,14 @@ uint64_t __35__QLPreviewController_updateTitle___block_invoke(uint64_t a1)
 
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = v3;
-    _os_log_impl(&dword_23A714000, v5, OS_LOG_TYPE_DEFAULT, "[API] canPreviewIem: %@ #PreviewController", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v3;
+    _os_log_impl(&dword_23A714000, v5, OS_LOG_TYPE_DEFAULT, "[API] canPreviewIem: %@ #PreviewController", &v9, 0xCu);
   }
 
   v6 = [MEMORY[0x277D43F58] itemWithPreviewItem:v3];
   canBePreviewed = [v6 canBePreviewed];
 
-  v8 = *MEMORY[0x277D85DE8];
   return canBePreviewed;
 }
 
@@ -6054,7 +6582,7 @@ uint64_t __35__QLPreviewController_updateTitle___block_invoke(uint64_t a1)
 
 - (void)showNoDataViewIfNeeded
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   if (![(QLPreviewController *)self hasItemsToPreview]&& !self->_noDataView)
   {
     v3 = [QLErrorView alloc];
@@ -6073,23 +6601,21 @@ uint64_t __35__QLPreviewController_updateTitle___block_invoke(uint64_t a1)
     view3 = [(QLPreviewController *)self view];
     v10 = MEMORY[0x277CCAAD0];
     v11 = self->_noDataView;
-    v22 = @"error";
-    v23[0] = v11;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+    v21 = @"error";
+    v22[0] = v11;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
     v13 = [v10 constraintsWithVisualFormat:@"H:|[error]|" options:0 metrics:0 views:v12];
     [view3 addConstraints:v13];
 
     view4 = [(QLPreviewController *)self view];
     v15 = MEMORY[0x277CCAAD0];
     v16 = self->_noDataView;
-    v20 = @"error";
-    v21 = v16;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+    v19 = @"error";
+    v20 = v16;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
     v18 = [v15 constraintsWithVisualFormat:@"V:|[error]|" options:0 metrics:0 views:v17];
     [view4 addConstraints:v18];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)hideNoDataView
@@ -6297,6 +6823,18 @@ uint64_t __34__QLPreviewController_editedItems__block_invoke(uint64_t a1, void *
   [(QLPreviewController *)self reloadData];
 }
 
+- (void)_refreshCurrentPreviewItemAnimated:(BOOL)animated
+{
+  if (self->_currentPreviewItemIndex != 0x7FFFFFFFFFFFFFFFLL)
+  {
+    animatedCopy = animated;
+    previewCollection = self->_previewCollection;
+    currentPreviewItemIndex = [(QLPreviewController *)self currentPreviewItemIndex];
+
+    [(QLPreviewCollectionProtocol *)previewCollection setCurrentPreviewItemIndex:currentPreviewItemIndex animated:animatedCopy];
+  }
+}
+
 - (void)_nextPreview
 {
   currentPreviewItemIndex = [(QLPreviewController *)self currentPreviewItemIndex];
@@ -6370,6 +6908,43 @@ void __64__QLPreviewController_setPreviewItemDisplayState_onItemAtIndex___block_
   }
 }
 
+- (void)presentPreviewItem:(id)item onViewController:(id)controller withDelegate:(id)delegate animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v21[1] = *MEMORY[0x277D85DE8];
+  delegateCopy = delegate;
+  controllerCopy = controller;
+  itemCopy = item;
+  view = [controllerCopy view];
+  tintColor = [view tintColor];
+  view2 = [(QLPreviewController *)self view];
+  [view2 setTintColor:tintColor];
+
+  v16 = [MEMORY[0x277D43F58] itemWithPreviewItem:itemCopy];
+
+  v17 = [QLPreviewItemStore alloc];
+  v21[0] = v16;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+  v19 = [(QLPreviewItemStore *)v17 initWithPreviewItems:v18];
+  previewItemStore = self->_previewItemStore;
+  self->_previewItemStore = v19;
+
+  [(QLPreviewItemStore *)self->_previewItemStore setDelegate:self];
+  [(QLPreviewController *)self setDataSource:self->_previewItemStore];
+  [(QLPreviewController *)self setStrongDelegate:delegateCopy];
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    [controllerCopy pushViewController:self animated:animatedCopy];
+  }
+
+  else
+  {
+    [controllerCopy presentViewController:self animated:animatedCopy completion:0];
+  }
+}
+
 - (void)previewItemAtIndex:(unint64_t)index withCompletionHandler:(id)handler
 {
   handlerCopy = handler;
@@ -6425,7 +7000,7 @@ uint64_t __34__QLPreviewController_keyCommands__block_invoke(uint64_t a1, uint64
 
 - (void)_setPreferredWhitePointAdaptivityStyle:(int64_t)style
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277D43EF8];
   v5 = *MEMORY[0x277D43EF8];
   if (self->_whitePointAdaptivityStyle == style)
@@ -6438,15 +7013,14 @@ uint64_t __34__QLPreviewController_keyCommands__block_invoke(uint64_t a1, uint64
 
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
+      v6 = v5;
+      v7 = _UIStringFromWhitePointAdaptivityStyle();
       whitePointAdaptivityStyle = self->_whitePointAdaptivityStyle;
-      v7 = v5;
-      v8 = _UIStringFromWhitePointAdaptivityStyle();
-      v9 = self->_whitePointAdaptivityStyle;
       *buf = 138412546;
-      v18 = v8;
-      v19 = 2048;
-      styleCopy = v9;
-      _os_log_impl(&dword_23A714000, v7, OS_LOG_TYPE_DEBUG, "No whitepoint adaptivity update required, since requested style matches the current one (%@ [%ld]) #Harmony", buf, 0x16u);
+      v15 = v7;
+      v16 = 2048;
+      styleCopy = whitePointAdaptivityStyle;
+      _os_log_impl(&dword_23A714000, v6, OS_LOG_TYPE_DEBUG, "No whitepoint adaptivity update required, since requested style matches the current one (%@ [%ld]) #Harmony", buf, 0x16u);
     }
   }
 
@@ -6460,27 +7034,24 @@ uint64_t __34__QLPreviewController_keyCommands__block_invoke(uint64_t a1, uint64
 
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v11 = v5;
+      v10 = v5;
+      v11 = _UIStringFromWhitePointAdaptivityStyle();
       v12 = _UIStringFromWhitePointAdaptivityStyle();
       v13 = self->_whitePointAdaptivityStyle;
-      v14 = _UIStringFromWhitePointAdaptivityStyle();
-      v15 = self->_whitePointAdaptivityStyle;
       *buf = 138413058;
-      v18 = v12;
-      v19 = 2048;
+      v15 = v11;
+      v16 = 2048;
       styleCopy = style;
-      v21 = 2112;
-      v22 = v14;
-      v23 = 2048;
-      v24 = v15;
-      _os_log_impl(&dword_23A714000, v11, OS_LOG_TYPE_DEBUG, "Will request whitepoint adaptivity style update, since requested style (%@ [%ld]) doesn't match the current one (%@ [%ld]) #Harmony", buf, 0x2Au);
+      v18 = 2112;
+      v19 = v12;
+      v20 = 2048;
+      v21 = v13;
+      _os_log_impl(&dword_23A714000, v10, OS_LOG_TYPE_DEBUG, "Will request whitepoint adaptivity style update, since requested style (%@ [%ld]) doesn't match the current one (%@ [%ld]) #Harmony", buf, 0x2Au);
     }
 
     self->_whitePointAdaptivityStyle = style;
     QLRunInMainThread();
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_childViewControllerForWhitePointAdaptivityStyle
@@ -6513,7 +7084,7 @@ uint64_t __34__QLPreviewController_keyCommands__block_invoke(uint64_t a1, uint64
 
 - (int64_t)_preferredWhitePointAdaptivityStyle
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D43EF8];
   v4 = *MEMORY[0x277D43EF8];
   if (!*MEMORY[0x277D43EF8])
@@ -6524,20 +7095,17 @@ uint64_t __34__QLPreviewController_keyCommands__block_invoke(uint64_t a1, uint64
 
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
+    v5 = v4;
+    v6 = _UIStringFromWhitePointAdaptivityStyle();
     whitePointAdaptivityStyle = self->_whitePointAdaptivityStyle;
-    v6 = v4;
-    v7 = _UIStringFromWhitePointAdaptivityStyle();
-    v8 = self->_whitePointAdaptivityStyle;
-    v11 = 138412546;
-    v12 = v7;
-    v13 = 2048;
-    v14 = v8;
-    _os_log_impl(&dword_23A714000, v6, OS_LOG_TYPE_DEBUG, "Setting whitepoint adaptivity style to %@ (%ld) #Harmony", &v11, 0x16u);
+    v9 = 138412546;
+    v10 = v6;
+    v11 = 2048;
+    v12 = whitePointAdaptivityStyle;
+    _os_log_impl(&dword_23A714000, v5, OS_LOG_TYPE_DEBUG, "Setting whitepoint adaptivity style to %@ (%ld) #Harmony", &v9, 0x16u);
   }
 
-  result = self->_whitePointAdaptivityStyle;
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return self->_whitePointAdaptivityStyle;
 }
 
 - (BOOL)itemStore:(id)store canShareItem:(id)item
@@ -6953,6 +7521,161 @@ LABEL_11:
   QLRunInMainThread();
 }
 
+- (void)_didEditCopyOfPreviewItemAtIndex:(unint64_t)index editedCopy:(id)copy synchronously:(BOOL)synchronously completionHandler:(id)handler
+{
+  synchronouslyCopy = synchronously;
+  v43 = *MEMORY[0x277D85DE8];
+  copyCopy = copy;
+  handlerCopy = handler;
+  if (copyCopy && ([(QLPreviewController *)copyCopy url], v12 = objc_claimAutoreleasedReturnValue(), v12, v12))
+  {
+    v13 = [(QLPreviewController *)self previewItemAtIndex:index];
+    currentPreviewItemIndex = [(QLPreviewController *)self currentPreviewItemIndex];
+    v15 = MEMORY[0x277D43EF8];
+    if (currentPreviewItemIndex != index)
+    {
+      v16 = currentPreviewItemIndex;
+      v17 = *MEMORY[0x277D43EF8];
+      if (!*MEMORY[0x277D43EF8])
+      {
+        QLSInitLogging();
+        v17 = *v15;
+      }
+
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      {
+        *buf = 138413058;
+        selfCopy = v13;
+        v37 = 2048;
+        indexCopy4 = index;
+        v39 = 2112;
+        indexCopy3 = copyCopy;
+        v41 = 2048;
+        v42 = v16;
+        _os_log_impl(&dword_23A714000, v17, OS_LOG_TYPE_INFO, "The item (%@) at index n°%lu is about to be updated with an edited copy (%@) but it's not currently previewed. Current preview item index is %lu. #PreviewController", buf, 0x2Au);
+      }
+    }
+
+    lastSavedEditedCopy = [(QLPreviewController *)v13 lastSavedEditedCopy];
+    v19 = [(QLPreviewController *)copyCopy isEqual:lastSavedEditedCopy];
+
+    v20 = *v15;
+    if (v19)
+    {
+      if (!v20)
+      {
+        QLSInitLogging();
+        v20 = *v15;
+      }
+
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+      {
+        *buf = 138412546;
+        selfCopy = copyCopy;
+        v37 = 2048;
+        indexCopy4 = index;
+        _os_log_impl(&dword_23A714000, v20, OS_LOG_TYPE_INFO, "Not saving changes for edited copy %@ of item at index %lu because this version has already been forwarded to the delegate. #PreviewController", buf, 0x16u);
+      }
+
+      if (handlerCopy)
+      {
+        handlerCopy[2](handlerCopy);
+      }
+    }
+
+    else
+    {
+      if (!v20)
+      {
+        QLSInitLogging();
+        v20 = *v15;
+      }
+
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+      {
+        *buf = 138412802;
+        selfCopy = copyCopy;
+        v37 = 2112;
+        indexCopy4 = v13;
+        v39 = 2048;
+        indexCopy3 = index;
+        _os_log_impl(&dword_23A714000, v20, OS_LOG_TYPE_INFO, "About to save edited copy (%@) over item (%@) at index %lu #PreviewController", buf, 0x20u);
+      }
+
+      [(QLPreviewController *)v13 setEditedCopy:copyCopy];
+      [(QLPreviewController *)v13 setLastSavedEditedCopy:copyCopy];
+      v23 = *v15;
+      if (!*v15)
+      {
+        QLSInitLogging();
+        v23 = *v15;
+      }
+
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+      {
+        *buf = 138412802;
+        selfCopy = self;
+        v37 = 2112;
+        indexCopy4 = v13;
+        v39 = 2112;
+        indexCopy3 = copyCopy;
+        _os_log_impl(&dword_23A714000, v23, OS_LOG_TYPE_INFO, "Preview controller: %@ is handling updated item: %@, with updated copy: %@. #PreviewController", buf, 0x20u);
+      }
+
+      v24 = [(QLPreviewController *)copyCopy url];
+      startAccessingSecurityScopedResource = [v24 startAccessingSecurityScopedResource];
+
+      containerURL = [(QLPreviewController *)copyCopy containerURL];
+      startAccessingSecurityScopedResource2 = [containerURL startAccessingSecurityScopedResource];
+
+      aBlock[0] = MEMORY[0x277D85DD0];
+      aBlock[1] = 3221225472;
+      aBlock[2] = __108__QLPreviewController_Editing___didEditCopyOfPreviewItemAtIndex_editedCopy_synchronously_completionHandler___block_invoke;
+      aBlock[3] = &unk_278B58320;
+      v33 = startAccessingSecurityScopedResource;
+      v28 = copyCopy;
+      v31 = v28;
+      v34 = startAccessingSecurityScopedResource2;
+      v32 = handlerCopy;
+      v29 = _Block_copy(aBlock);
+      if ([(QLPreviewController *)v13 editingMode])
+      {
+        [(QLPreviewController *)self _handleEditedPreviewItem:v13 editedCopy:v28 synchronously:synchronouslyCopy completionHandler:v29];
+      }
+
+      else
+      {
+        [(QLPreviewController *)self _updatePreviewItem:v13 editedCopy:v28 completionHandler:v29];
+      }
+    }
+  }
+
+  else
+  {
+    v21 = MEMORY[0x277D43EF8];
+    v22 = *MEMORY[0x277D43EF8];
+    if (!*MEMORY[0x277D43EF8])
+    {
+      QLSInitLogging();
+      v22 = *v21;
+    }
+
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412546;
+      selfCopy = copyCopy;
+      v37 = 2048;
+      indexCopy4 = index;
+      _os_log_impl(&dword_23A714000, v22, OS_LOG_TYPE_INFO, "Did not receive a valid edited copy (%@) when trying to save edits made to preview item at index: %lu #PreviewController", buf, 0x16u);
+    }
+
+    if (handlerCopy)
+    {
+      handlerCopy[2](handlerCopy);
+    }
+  }
+}
+
 uint64_t __108__QLPreviewController_Editing___didEditCopyOfPreviewItemAtIndex_editedCopy_synchronously_completionHandler___block_invoke(uint64_t a1)
 {
   if (*(a1 + 48) == 1)
@@ -6980,7 +7703,7 @@ uint64_t __108__QLPreviewController_Editing___didEditCopyOfPreviewItemAtIndex_ed
 
 - (void)_updatePreviewItem:(id)item editedCopy:(id)copy completionHandler:(id)handler
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   copyCopy = copy;
   handlerCopy = handler;
@@ -6999,15 +7722,15 @@ uint64_t __108__QLPreviewController_Editing___didEditCopyOfPreviewItemAtIndex_ed
       [delegate3 previewController:self willSaveEditedItem:originalPreviewItem];
     }
 
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __80__QLPreviewController_Editing___updatePreviewItem_editedCopy_completionHandler___block_invoke;
-    v29[3] = &unk_278B58370;
-    v30 = itemCopy;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __80__QLPreviewController_Editing___updatePreviewItem_editedCopy_completionHandler___block_invoke;
+    v28[3] = &unk_278B58370;
+    v29 = itemCopy;
     selfCopy = self;
-    v33 = handlerCopy;
-    v32 = copyCopy;
-    [v30 prepareSaveURL:v29];
+    v32 = handlerCopy;
+    v31 = copyCopy;
+    [v29 prepareSaveURL:v28];
   }
 
   else
@@ -7057,13 +7780,11 @@ uint64_t __108__QLPreviewController_Editing___didEditCopyOfPreviewItemAtIndex_ed
       handlerCopy[2](handlerCopy);
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __80__QLPreviewController_Editing___updatePreviewItem_editedCopy_completionHandler___block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) saveURL];
 
   if (v2)
@@ -7076,27 +7797,27 @@ void __80__QLPreviewController_Editing___updatePreviewItem_editedCopy_completion
     v7 = [v5 writingIntentWithURL:v6 options:2];
 
     v8 = objc_opt_new();
-    v28 = v7;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
+    v27 = v7;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
     v10 = objc_opt_new();
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __80__QLPreviewController_Editing___updatePreviewItem_editedCopy_completionHandler___block_invoke_8;
-    v23[3] = &unk_278B58348;
-    v24 = v7;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __80__QLPreviewController_Editing___updatePreviewItem_editedCopy_completionHandler___block_invoke_8;
+    v22[3] = &unk_278B58348;
+    v23 = v7;
     v11 = *(a1 + 48);
     v12 = *(a1 + 32);
-    v22 = *(a1 + 40);
+    v21 = *(a1 + 40);
     v13 = *(a1 + 56);
-    *&v14 = v22;
+    *&v14 = v21;
     *(&v14 + 1) = v13;
     *&v15 = v11;
     *(&v15 + 1) = v12;
-    v25 = v15;
-    v26 = v14;
-    v27 = v4;
+    v24 = v15;
+    v25 = v14;
+    v26 = v4;
     v16 = v7;
-    [v8 coordinateAccessWithIntents:v9 queue:v10 byAccessor:v23];
+    [v8 coordinateAccessWithIntents:v9 queue:v10 byAccessor:v22];
   }
 
   else
@@ -7113,7 +7834,7 @@ void __80__QLPreviewController_Editing___updatePreviewItem_editedCopy_completion
     {
       v19 = *(a1 + 40);
       *buf = 138412290;
-      v30 = v19;
+      v29 = v19;
       _os_log_impl(&dword_23A714000, v18, OS_LOG_TYPE_ERROR, "Preview controller: %@ has no saveURL, aborting. #PreviewController", buf, 0xCu);
     }
 
@@ -7123,13 +7844,11 @@ void __80__QLPreviewController_Editing___updatePreviewItem_editedCopy_completion
       (*(v20 + 16))();
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __80__QLPreviewController_Editing___updatePreviewItem_editedCopy_completionHandler___block_invoke_8(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = MEMORY[0x277D43EF8];
   if (v3)
@@ -7142,9 +7861,9 @@ void __80__QLPreviewController_Editing___updatePreviewItem_editedCopy_completion
     v6 = [*(a1 + 32) URL];
     v7 = objc_alloc_init(MEMORY[0x277CCAA00]);
     v8 = [*(a1 + 40) url];
-    v20 = 0;
-    v9 = [v7 replaceItemAtURL:v6 withItemAtURL:v8 backupItemName:0 options:0 resultingItemURL:0 error:&v20];
-    v5 = v20;
+    v19 = 0;
+    v9 = [v7 replaceItemAtURL:v6 withItemAtURL:v8 backupItemName:0 options:0 resultingItemURL:0 error:&v19];
+    v5 = v19;
 
     [*(a1 + 48) setOriginalContentWasUpdated:v9];
     if (!v5)
@@ -7163,7 +7882,7 @@ void __80__QLPreviewController_Editing___updatePreviewItem_editedCopy_completion
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v22 = v5;
+    v21 = v5;
     _os_log_impl(&dword_23A714000, v10, OS_LOG_TYPE_ERROR, "Error while attempting to write to the updated file: %@ #PreviewController", buf, 0xCu);
   }
 
@@ -7192,7 +7911,7 @@ LABEL_10:
     {
       v17 = *(a1 + 56);
       *buf = 138412290;
-      v22 = v17;
+      v21 = v17;
       _os_log_impl(&dword_23A714000, v16, OS_LOG_TYPE_INFO, "Preview controller: %@ has finished handling updated item. #PreviewController", buf, 0xCu);
     }
 
@@ -7204,25 +7923,23 @@ LABEL_10:
     v18 = [*(a1 + 48) saveURL];
     [v18 stopAccessingSecurityScopedResource];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleEditedPreviewItem:(id)item editedCopy:(id)copy synchronously:(BOOL)synchronously completionHandler:(id)handler
 {
   synchronouslyCopy = synchronously;
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   copyCopy = copy;
   handlerCopy = handler;
   editingMode = [itemCopy editingMode];
   v14 = [copyCopy url];
-  v35 = 0;
-  v15 = *MEMORY[0x277CBE7B8];
   v34 = 0;
-  v16 = [v14 getResourceValue:&v35 forKey:v15 error:&v34];
-  v17 = v35;
-  v18 = v34;
+  v15 = *MEMORY[0x277CBE7B8];
+  v33 = 0;
+  v16 = [v14 getResourceValue:&v34 forKey:v15 error:&v33];
+  v17 = v34;
+  v18 = v33;
 
   if ((v16 & 1) == 0)
   {
@@ -7308,12 +8025,12 @@ LABEL_21:
         goto LABEL_22;
       }
 
-      v33 = MEMORY[0x277D43EF8];
+      v32 = MEMORY[0x277D43EF8];
       v31 = *MEMORY[0x277D43EF8];
       if (!*MEMORY[0x277D43EF8])
       {
         QLSInitLogging();
-        v31 = *v33;
+        v31 = *v32;
       }
 
       if (!os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
@@ -7338,13 +8055,11 @@ LABEL_21:
   }
 
 LABEL_22:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_synchronouslyUpdateContentsOfPreviewItem:(id)item editedCopy:(id)copy completionHandler:(id)handler
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   copyCopy = copy;
   handlerCopy = handler;
@@ -7362,53 +8077,53 @@ LABEL_22:
     }
 
     startAccessingSecurityScopedResource = [saveURL startAccessingSecurityScopedResource];
-    v42 = 0;
-    v43 = &v42;
-    v44 = 0x2020000000;
-    v45 = 0;
-    *&v50 = 0;
-    *(&v50 + 1) = &v50;
-    v51 = 0x3032000000;
-    v52 = __Block_byref_object_copy__6;
-    v53 = __Block_byref_object_dispose__6;
-    v54 = 0;
+    v41 = 0;
+    v42 = &v41;
+    v43 = 0x2020000000;
+    v44 = 0;
+    *&v49 = 0;
+    *(&v49 + 1) = &v49;
+    v50 = 0x3032000000;
+    v51 = __Block_byref_object_copy__6;
+    v52 = __Block_byref_object_dispose__6;
+    v53 = 0;
     v17 = objc_opt_new();
-    v18 = (*(&v50 + 1) + 40);
-    obj = *(*(&v50 + 1) + 40);
-    v34 = MEMORY[0x277D85DD0];
-    v35 = 3221225472;
-    v36 = __103__QLPreviewController_Editing___synchronouslyUpdateContentsOfPreviewItem_editedCopy_completionHandler___block_invoke;
-    v37 = &unk_278B58398;
-    v38 = copyCopy;
-    v39 = &v50;
-    v40 = &v42;
-    [v17 coordinateWritingItemAtURL:saveURL options:2 error:&obj byAccessor:&v34];
+    v18 = (*(&v49 + 1) + 40);
+    obj = *(*(&v49 + 1) + 40);
+    v33 = MEMORY[0x277D85DD0];
+    v34 = 3221225472;
+    v35 = __103__QLPreviewController_Editing___synchronouslyUpdateContentsOfPreviewItem_editedCopy_completionHandler___block_invoke;
+    v36 = &unk_278B58398;
+    v37 = copyCopy;
+    v38 = &v49;
+    v39 = &v41;
+    [v17 coordinateWritingItemAtURL:saveURL options:2 error:&obj byAccessor:&v33];
     objc_storeStrong(v18, obj);
 
-    [itemCopy setOriginalContentWasUpdated:{*(v43 + 24), v34, v35, v36, v37}];
+    [itemCopy setOriginalContentWasUpdated:{*(v42 + 24), v33, v34, v35, v36}];
     v19 = MEMORY[0x277D43EF8];
-    if (*(v43 + 24) == 1 && !*(*(&v50 + 1) + 40))
+    if (*(v42 + 24) == 1 && !*(*(&v49 + 1) + 40))
     {
-      v31 = *MEMORY[0x277D43EF8];
+      v30 = *MEMORY[0x277D43EF8];
       if (!*MEMORY[0x277D43EF8])
       {
         QLSInitLogging();
-        v31 = *v19;
+        v30 = *v19;
       }
 
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
         selfCopy2 = self;
-        v48 = 2112;
-        v49 = itemCopy;
-        _os_log_impl(&dword_23A714000, v31, OS_LOG_TYPE_INFO, "Preview controller: %@ didUpdateContentsOfPreviewItem:%@. #PreviewController", buf, 0x16u);
+        v47 = 2112;
+        v48 = itemCopy;
+        _os_log_impl(&dword_23A714000, v30, OS_LOG_TYPE_INFO, "Preview controller: %@ didUpdateContentsOfPreviewItem:%@. #PreviewController", buf, 0x16u);
       }
 
       delegate3 = [(QLPreviewController *)self delegate];
-      v33 = objc_opt_respondsToSelector();
+      v32 = objc_opt_respondsToSelector();
 
-      if ((v33 & 1) == 0)
+      if ((v32 & 1) == 0)
       {
         goto LABEL_13;
       }
@@ -7429,7 +8144,7 @@ LABEL_22:
 
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        v21 = *(*(&v50 + 1) + 40);
+        v21 = *(*(&v49 + 1) + 40);
         *buf = 138412290;
         selfCopy2 = v21;
         _os_log_impl(&dword_23A714000, v20, OS_LOG_TYPE_ERROR, "Error while attempting to write to the updated file: %@ #PreviewController", buf, 0xCu);
@@ -7445,7 +8160,7 @@ LABEL_22:
 
       delegate4 = [(QLPreviewController *)self delegate];
       originalPreviewItem2 = [itemCopy originalPreviewItem];
-      [delegate4 previewController:self didFailToSaveEditedItem:originalPreviewItem2 withError:*(*(&v50 + 1) + 40)];
+      [delegate4 previewController:self didFailToSaveEditedItem:originalPreviewItem2 withError:*(*(&v49 + 1) + 40)];
     }
 
 LABEL_13:
@@ -7474,8 +8189,8 @@ LABEL_13:
       [saveURL2 stopAccessingSecurityScopedResource];
     }
 
-    _Block_object_dispose(&v50, 8);
-    _Block_object_dispose(&v42, 8);
+    _Block_object_dispose(&v49, 8);
+    _Block_object_dispose(&v41, 8);
     goto LABEL_28;
   }
 
@@ -7491,17 +8206,15 @@ LABEL_13:
 
     if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
     {
-      LODWORD(v50) = 138412290;
-      *(&v50 + 4) = self;
-      _os_log_impl(&dword_23A714000, v29, OS_LOG_TYPE_INFO, "Preview controller: %@ has finished handling updated item, because could not obtain URL to save the edited version of the preview. #PreviewController", &v50, 0xCu);
+      LODWORD(v49) = 138412290;
+      *(&v49 + 4) = self;
+      _os_log_impl(&dword_23A714000, v29, OS_LOG_TYPE_INFO, "Preview controller: %@ has finished handling updated item, because could not obtain URL to save the edited version of the preview. #PreviewController", &v49, 0xCu);
     }
 
     handlerCopy[2](handlerCopy);
   }
 
 LABEL_28:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __103__QLPreviewController_Editing___synchronouslyUpdateContentsOfPreviewItem_editedCopy_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -7542,7 +8255,7 @@ void __103__QLPreviewController_Editing___synchronouslyUpdateContentsOfPreviewIt
 
 void __104__QLPreviewController_Editing___asynchronouslyUpdateContentsOfPreviewItem_editedCopy_completionHandler___block_invoke(id *a1)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v2 = [a1[4] saveURL];
 
   if (v2)
@@ -7566,27 +8279,27 @@ void __104__QLPreviewController_Editing___asynchronouslyUpdateContentsOfPreviewI
     v12 = [v10 writingIntentWithURL:v11 options:2];
 
     v13 = objc_opt_new();
-    v32 = v12;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
+    v31 = v12;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
     v15 = objc_opt_new();
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __104__QLPreviewController_Editing___asynchronouslyUpdateContentsOfPreviewItem_editedCopy_completionHandler___block_invoke_19;
-    v27[3] = &unk_278B58348;
-    v28 = v12;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __104__QLPreviewController_Editing___asynchronouslyUpdateContentsOfPreviewItem_editedCopy_completionHandler___block_invoke_19;
+    v26[3] = &unk_278B58348;
+    v27 = v12;
     v16 = a1[6];
     v17 = a1[4];
-    v26 = a1[5];
+    v25 = a1[5];
     v18 = a1[7];
-    *&v19 = v26;
+    *&v19 = v25;
     *(&v19 + 1) = v18;
     *&v20 = v16;
     *(&v20 + 1) = v17;
-    v29 = v20;
-    v30 = v19;
-    v31 = v9;
+    v28 = v20;
+    v29 = v19;
+    v30 = v9;
     v21 = v12;
-    [v13 coordinateAccessWithIntents:v14 queue:v15 byAccessor:v27];
+    [v13 coordinateAccessWithIntents:v14 queue:v15 byAccessor:v26];
   }
 
   else if (a1[7])
@@ -7603,19 +8316,17 @@ void __104__QLPreviewController_Editing___asynchronouslyUpdateContentsOfPreviewI
     {
       v24 = a1[5];
       *buf = 138412290;
-      v34 = v24;
+      v33 = v24;
       _os_log_impl(&dword_23A714000, v23, OS_LOG_TYPE_INFO, "Preview controller: %@ has finished handling updated item, because could not obtain URL to save the edited version of the preview. #PreviewController", buf, 0xCu);
     }
 
     (*(a1[7] + 2))();
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __104__QLPreviewController_Editing___asynchronouslyUpdateContentsOfPreviewItem_editedCopy_completionHandler___block_invoke_19(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) URL];
   v5 = v4;
@@ -7623,9 +8334,9 @@ void __104__QLPreviewController_Editing___asynchronouslyUpdateContentsOfPreviewI
   {
     v6 = objc_alloc_init(MEMORY[0x277CCAA00]);
     v7 = [*(a1 + 40) url];
-    v26 = 0;
-    v8 = [v6 replaceItemAtURL:v5 withItemAtURL:v7 backupItemName:0 options:0 resultingItemURL:0 error:&v26];
-    v3 = v26;
+    v25 = 0;
+    v8 = [v6 replaceItemAtURL:v5 withItemAtURL:v7 backupItemName:0 options:0 resultingItemURL:0 error:&v25];
+    v3 = v25;
 
     [*(a1 + 48) setOriginalContentWasUpdated:v8];
   }
@@ -7655,9 +8366,9 @@ void __104__QLPreviewController_Editing___asynchronouslyUpdateContentsOfPreviewI
       v18 = *(a1 + 48);
       v17 = *(a1 + 56);
       *buf = 138412546;
-      v28 = v17;
-      v29 = 2112;
-      v30 = v18;
+      v27 = v17;
+      v28 = 2112;
+      v29 = v18;
       _os_log_impl(&dword_23A714000, v10, OS_LOG_TYPE_INFO, "Preview controller: %@ didUpdateContentsOfPreviewItem:%@. #PreviewController", buf, 0x16u);
     }
 
@@ -7685,9 +8396,9 @@ void __104__QLPreviewController_Editing___asynchronouslyUpdateContentsOfPreviewI
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v28 = v5;
-      v29 = 2112;
-      v30 = v3;
+      v27 = v5;
+      v28 = 2112;
+      v29 = v3;
       _os_log_impl(&dword_23A714000, v10, OS_LOG_TYPE_ERROR, "Error while attempting to write to the updated file: %@ %@ #PreviewController", buf, 0x16u);
     }
 
@@ -7717,7 +8428,7 @@ LABEL_20:
     {
       v23 = *(a1 + 56);
       *buf = 138412290;
-      v28 = v23;
+      v27 = v23;
       _os_log_impl(&dword_23A714000, v22, OS_LOG_TYPE_INFO, "Preview controller: %@ has finished handling updated item. #PreviewController", buf, 0xCu);
     }
 
@@ -7729,8 +8440,6 @@ LABEL_20:
     v24 = [*(a1 + 48) saveURL];
     [v24 stopAccessingSecurityScopedResource];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)shareableURLForCurrentPreviewItem:(id)item
@@ -7842,8 +8551,7 @@ void __78__QLPreviewController_Editing__obtainAndUpdateEditedCopyOfCurrentPrevie
 void __78__QLPreviewController_Editing__obtainAndUpdateEditedCopyOfCurrentPreviewItem___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  v6 = *(a1 + 32);
-  v7 = *(a1 + 40);
+  v6 = *(a1 + 40);
   v5 = v4;
   QLRunInMainThread();
 }
@@ -7870,6 +8578,83 @@ void __78__QLPreviewController_Editing__obtainAndUpdateEditedCopyOfCurrentPrevie
   v4 = [objc_alloc(MEMORY[0x277D75458]) initForExportingURLs:v5 asCopy:1];
   [v4 setDelegate:self];
   [(QLPreviewController *)self presentViewController:v4 animated:1 completion:0];
+}
+
+- (void)updateOverlayAnimated:(BOOL)animated animatedButtons:(BOOL)buttons forceRefresh:(BOOL)refresh withTraitCollection:(id)collection
+{
+  animatedCopy = animated;
+  collectionCopy = collection;
+  if ([(QLPreviewController *)self overlayFrozen]|| ![(QLPreviewController *)self isTopPreviewController])
+  {
+    goto LABEL_21;
+  }
+
+  if (!collectionCopy)
+  {
+    collectionCopy = [(QLPreviewController *)self traitCollection];
+  }
+
+  v21 = 0;
+  [(QLPreviewController *)self _updateOverlayButtonsIfNeededWithTraitCollection:collectionCopy animated:animatedCopy updatedToolbarButtons:&v21];
+  v9 = v21;
+  [(QLPreviewController *)self updateStatusBarAnimated:animatedCopy];
+  [(QLPreviewController *)self _updateBarTintColors];
+  v10 = !-[QLPreviewController _isToolbarVisibleForTraitCollection:](self, "_isToolbarVisibleForTraitCollection:", collectionCopy) || -[QLPreviewController fullScreen](self, "fullScreen") || !-[QLPreviewController canShowToolbar](self, "canShowToolbar") || [v9 count] == 0;
+  if ([(QLPreviewController *)self fullScreen])
+  {
+    v11 = 1;
+  }
+
+  else
+  {
+    v11 = ![(QLPreviewController *)self canShowNavBar];
+  }
+
+  aBlock[0] = MEMORY[0x277D85DD0];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __103__QLPreviewController_Overlay__updateOverlayAnimated_animatedButtons_forceRefresh_withTraitCollection___block_invoke;
+  aBlock[3] = &unk_278B58A08;
+  aBlock[4] = self;
+  v18 = v11;
+  v19 = animatedCopy;
+  v20 = v10;
+  v12 = _Block_copy(aBlock);
+  toolbarController = [(QLPreviewController *)self toolbarController];
+  if (![toolbarController isHidden])
+  {
+    goto LABEL_16;
+  }
+
+  fullScreen = [(QLPreviewController *)self fullScreen];
+
+  if (!fullScreen)
+  {
+    toolbarController = [(QLPreviewController *)self toolbarController];
+    [toolbarController setToolbarAlpha:1.0];
+LABEL_16:
+  }
+
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __103__QLPreviewController_Overlay__updateOverlayAnimated_animatedButtons_forceRefresh_withTraitCollection___block_invoke_3;
+  v16[3] = &unk_278B571B8;
+  v16[4] = self;
+  v15 = _Block_copy(v16);
+  if (animatedCopy)
+  {
+    [MEMORY[0x277D75D18] animateWithDuration:0 delay:v12 options:v15 animations:0.2 completion:0.0];
+  }
+
+  else
+  {
+    v12[2](v12);
+    v15[2](v15, 1);
+  }
+
+  [(QLPreviewController *)self updateNavigationTitle];
+  [(QLPreviewController *)self _updateAppearance:animatedCopy];
+
+LABEL_21:
 }
 
 void __103__QLPreviewController_Overlay__updateOverlayAnimated_animatedButtons_forceRefresh_withTraitCollection___block_invoke(uint64_t a1)
@@ -7974,7 +8759,7 @@ void __103__QLPreviewController_Overlay__updateOverlayAnimated_animatedButtons_f
 - (void)_updateOverlayButtonsIfNeededWithTraitCollection:(id)collection animated:(BOOL)animated updatedToolbarButtons:(id *)buttons
 {
   animatedCopy = animated;
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   collectionCopy = collection;
   if (!collectionCopy)
   {
@@ -7986,7 +8771,7 @@ void __103__QLPreviewController_Overlay__updateOverlayAnimated_animatedButtons_f
   v10 = [(QLPreviewController *)self _navigationBarRightButtonsWithTraitCollection:collectionCopy];
   v11 = [(QLPreviewController *)self _numberOfButtonsExcludingSpacersInButtons:v8 disappearingOnTap:0];
   v12 = [(QLPreviewController *)self _numberOfButtonsExcludingSpacersInButtons:v8 disappearingOnTap:1];
-  v40 = collectionCopy;
+  v39 = collectionCopy;
   if (![v10 count] && v11 <= 1 && v12 <= 1)
   {
 
@@ -8001,40 +8786,40 @@ void __103__QLPreviewController_Overlay__updateOverlayAnimated_animatedButtons_f
   _topViewController2 = [(QLPreviewController *)self _topViewController];
   navigationItem = [_topViewController2 navigationItem];
   leftBarButtonItems = [navigationItem leftBarButtonItems];
-  v43 = v9;
+  v42 = v9;
   v19 = [(QLPreviewController *)self _barButtonItemArray:v9 isEqualToArray:leftBarButtonItems];
 
   _topViewController3 = [(QLPreviewController *)self _topViewController];
   navigationItem2 = [_topViewController3 navigationItem];
   rightBarButtonItems = [navigationItem2 rightBarButtonItems];
-  v42 = v10;
+  v41 = v10;
   v23 = [(QLPreviewController *)self _barButtonItemArray:v10 isEqualToArray:rightBarButtonItems];
 
   if (!v15 || !v19 || !v23)
   {
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     previewToolbarButtons = [(QLPreviewController *)self previewToolbarButtons];
-    v25 = [previewToolbarButtons countByEnumeratingWithState:&v44 objects:v48 count:16];
+    v25 = [previewToolbarButtons countByEnumeratingWithState:&v43 objects:v47 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v45;
+      v27 = *v44;
       do
       {
         for (i = 0; i != v26; ++i)
         {
-          if (*v45 != v27)
+          if (*v44 != v27)
           {
             objc_enumerationMutation(previewToolbarButtons);
           }
 
-          [*(*(&v44 + 1) + 8 * i) invalidateCurrentState];
+          [*(*(&v43 + 1) + 8 * i) invalidateCurrentState];
         }
 
-        v26 = [previewToolbarButtons countByEnumeratingWithState:&v44 objects:v48 count:16];
+        v26 = [previewToolbarButtons countByEnumeratingWithState:&v43 objects:v47 count:16];
       }
 
       while (v26);
@@ -8055,14 +8840,14 @@ void __103__QLPreviewController_Overlay__updateOverlayAnimated_animatedButtons_f
   {
     _topViewController6 = [(QLPreviewController *)self _topViewController];
     navigationItem4 = [_topViewController6 navigationItem];
-    [navigationItem4 setLeftBarButtonItems:v43 animated:animatedCopy];
+    [navigationItem4 setLeftBarButtonItems:v42 animated:animatedCopy];
   }
 
   if (!v23)
   {
     _topViewController7 = [(QLPreviewController *)self _topViewController];
     navigationItem5 = [_topViewController7 navigationItem];
-    [navigationItem5 setRightBarButtonItems:v42 animated:animatedCopy];
+    [navigationItem5 setRightBarButtonItems:v41 animated:animatedCopy];
   }
 
   if (!v15 || !v19 || !v23)
@@ -8079,8 +8864,6 @@ void __103__QLPreviewController_Overlay__updateOverlayAnimated_animatedButtons_f
     v38 = v8;
     *buttons = v8;
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_barButtonItemArray:(id)array isEqualToArray:(id)toArray
@@ -8154,28 +8937,28 @@ LABEL_15:
 - (unint64_t)_numberOfButtonsExcludingSpacersInButtons:(id)buttons disappearingOnTap:(BOOL)tap
 {
   tapCopy = tap;
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   buttonsCopy = buttons;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v6 = [buttonsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [buttonsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(buttonsCopy);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
+        v11 = *(*(&v13 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -8200,7 +8983,7 @@ LABEL_15:
         }
       }
 
-      v7 = [buttonsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [buttonsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
@@ -8211,7 +8994,6 @@ LABEL_15:
     v8 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -8236,7 +9018,7 @@ LABEL_15:
       if (animatedCopy)
       {
         initWithDefaultParameters = [objc_alloc(MEMORY[0x277D75A88]) initWithDefaultParameters];
-        [initWithDefaultParameters duration];
+        objc_msgSend_duration(initWithDefaultParameters);
         v6 = v8;
       }
     }
@@ -8604,14 +9386,35 @@ void __84__QLPreviewController_Overlay___buttonWithAccessibilityIdentifierPointe
   return +[QLUtilitiesInternal currentAppIsAppleApp]& (isLongFetchOperation ^ 1) & self;
 }
 
+- (id)_openInButtonWithTitle:(BOOL)title
+{
+  v4 = [(QLPreviewController *)self _makeOpenInButtonWithTitle:title];
+  openInButton = [(QLPreviewController *)self openInButton];
+  v6 = [v4 _qlIsEqual:openInButton];
+
+  if (v6)
+  {
+    openInButton2 = [(QLPreviewController *)self openInButton];
+  }
+
+  else
+  {
+    [(QLPreviewController *)self setOpenInButton:v4];
+    openInButton2 = v4;
+  }
+
+  v8 = openInButton2;
+
+  return v8;
+}
+
 - (id)_makeOpenInButtonWithTitle:(BOOL)title
 {
   titleCopy = title;
   internalCurrentPreviewItem = [(QLPreviewController *)self internalCurrentPreviewItem];
   if ([(QLPreviewController *)self _canDisplayOpenInButtonForItem:internalCurrentPreviewItem])
   {
-    [(QLPreviewController *)self isContentManaged];
-    v6 = _QLGetOpenInAppClaimBindingForItem(internalCurrentPreviewItem);
+    v6 = _QLGetOpenInAppClaimBindingForItem(internalCurrentPreviewItem, [(QLPreviewController *)self isContentManaged]);
     if (!v6 || (v7 = [MEMORY[0x277D43F58] openInTypeForItem:internalCurrentPreviewItem appIsContentManaged:{-[QLPreviewController isContentManaged](self, "isContentManaged")}], v7 == 2) && objc_msgSend(internalCurrentPreviewItem, "previewItemType") == 15)
     {
       v8 = 0;
@@ -8813,7 +9616,7 @@ LABEL_11:
 
 - (id)_toolBarButtonsWithTraitCollection:(id)collection
 {
-  v115 = *MEMORY[0x277D85DE8];
+  v114 = *MEMORY[0x277D85DE8];
   if (![(QLPreviewController *)self _isToolbarVisibleForTraitCollection:collection])
   {
     v4 = MEMORY[0x277CBEBF8];
@@ -8832,26 +9635,26 @@ LABEL_11:
     }
   }
 
-  v107 = 0u;
-  v108 = 0u;
-  v105 = 0u;
   v106 = 0u;
+  v107 = 0u;
+  v104 = 0u;
+  v105 = 0u;
   previewToolbarButtons = [(QLPreviewController *)self previewToolbarButtons];
-  v8 = [previewToolbarButtons countByEnumeratingWithState:&v105 objects:v114 count:16];
+  v8 = [previewToolbarButtons countByEnumeratingWithState:&v104 objects:v113 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v106;
+    v10 = *v105;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v106 != v10)
+        if (*v105 != v10)
         {
           objc_enumerationMutation(previewToolbarButtons);
         }
 
-        v12 = *(*(&v105 + 1) + 8 * i);
+        v12 = *(*(&v104 + 1) + 8 * i);
         if (([v12 forceToNavBar] & 1) == 0 && !objc_msgSend(v12, "placement"))
         {
           internalNavigationController = [(QLPreviewController *)self internalNavigationController];
@@ -8868,32 +9671,32 @@ LABEL_11:
         }
       }
 
-      v9 = [previewToolbarButtons countByEnumeratingWithState:&v105 objects:v114 count:16];
+      v9 = [previewToolbarButtons countByEnumeratingWithState:&v104 objects:v113 count:16];
     }
 
     while (v9);
   }
 
   _additionalLeftButtonItems = [(QLPreviewController *)self _additionalLeftButtonItems];
+  v100 = 0u;
   v101 = 0u;
   v102 = 0u;
   v103 = 0u;
-  v104 = 0u;
-  v20 = [_additionalLeftButtonItems countByEnumeratingWithState:&v101 objects:v113 count:16];
+  v20 = [_additionalLeftButtonItems countByEnumeratingWithState:&v100 objects:v112 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v102;
+    v22 = *v101;
     do
     {
       for (j = 0; j != v21; ++j)
       {
-        if (*v102 != v22)
+        if (*v101 != v22)
         {
           objc_enumerationMutation(_additionalLeftButtonItems);
         }
 
-        [v4 addObject:*(*(&v101 + 1) + 8 * j)];
+        [v4 addObject:*(*(&v100 + 1) + 8 * j)];
         if ((_UISolariumEnabled() & 1) == 0)
         {
           flexibleSpace3 = [(QLPreviewController *)self flexibleSpace];
@@ -8901,7 +9704,7 @@ LABEL_11:
         }
       }
 
-      v21 = [_additionalLeftButtonItems countByEnumeratingWithState:&v101 objects:v113 count:16];
+      v21 = [_additionalLeftButtonItems countByEnumeratingWithState:&v100 objects:v112 count:16];
     }
 
     while (v21);
@@ -8914,25 +9717,25 @@ LABEL_11:
   }
 
   _additionalRightButtonItems = [(QLPreviewController *)self _additionalRightButtonItems];
+  v96 = 0u;
   v97 = 0u;
   v98 = 0u;
   v99 = 0u;
-  v100 = 0u;
-  v27 = [_additionalRightButtonItems countByEnumeratingWithState:&v97 objects:v112 count:16];
+  v27 = [_additionalRightButtonItems countByEnumeratingWithState:&v96 objects:v111 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v98;
+    v29 = *v97;
     do
     {
       for (k = 0; k != v28; ++k)
       {
-        if (*v98 != v29)
+        if (*v97 != v29)
         {
           objc_enumerationMutation(_additionalRightButtonItems);
         }
 
-        [v4 addObject:*(*(&v97 + 1) + 8 * k)];
+        [v4 addObject:*(*(&v96 + 1) + 8 * k)];
         if ((_UISolariumEnabled() & 1) == 0)
         {
           flexibleSpace5 = [(QLPreviewController *)self flexibleSpace];
@@ -8940,47 +9743,47 @@ LABEL_11:
         }
       }
 
-      v28 = [_additionalRightButtonItems countByEnumeratingWithState:&v97 objects:v112 count:16];
+      v28 = [_additionalRightButtonItems countByEnumeratingWithState:&v96 objects:v111 count:16];
     }
 
     while (v28);
   }
 
-  v83 = _additionalLeftButtonItems;
-  v84 = _additionalRightButtonItems;
+  v82 = _additionalLeftButtonItems;
+  v83 = _additionalRightButtonItems;
   if ((_UISolariumEnabled() & 1) != 0 || ([(QLPreviewController *)self _openInButton], (v32 = objc_claimAutoreleasedReturnValue()) == 0))
   {
-    v82 = 0;
+    v81 = 0;
   }
 
   else
   {
-    v82 = v32;
+    v81 = v32;
     [v4 addObject:?];
     flexibleSpace6 = [(QLPreviewController *)self flexibleSpace];
     [v4 addObject:flexibleSpace6];
   }
 
-  v95 = 0u;
-  v96 = 0u;
-  v93 = 0u;
   v94 = 0u;
+  v95 = 0u;
+  v92 = 0u;
+  v93 = 0u;
   previewToolbarButtons2 = [(QLPreviewController *)self previewToolbarButtons];
-  v35 = [previewToolbarButtons2 countByEnumeratingWithState:&v93 objects:v111 count:16];
+  v35 = [previewToolbarButtons2 countByEnumeratingWithState:&v92 objects:v110 count:16];
   if (v35)
   {
     v36 = v35;
-    v37 = *v94;
+    v37 = *v93;
     do
     {
       for (m = 0; m != v36; ++m)
       {
-        if (*v94 != v37)
+        if (*v93 != v37)
         {
           objc_enumerationMutation(previewToolbarButtons2);
         }
 
-        v39 = *(*(&v93 + 1) + 8 * m);
+        v39 = *(*(&v92 + 1) + 8 * m);
         if (([v39 forceToNavBar] & 1) == 0 && objc_msgSend(v39, "placement") == 1)
         {
           internalNavigationController2 = [(QLPreviewController *)self internalNavigationController];
@@ -8997,32 +9800,32 @@ LABEL_11:
         }
       }
 
-      v36 = [previewToolbarButtons2 countByEnumeratingWithState:&v93 objects:v111 count:16];
+      v36 = [previewToolbarButtons2 countByEnumeratingWithState:&v92 objects:v110 count:16];
     }
 
     while (v36);
   }
 
-  v91 = 0u;
-  v92 = 0u;
-  v89 = 0u;
   v90 = 0u;
+  v91 = 0u;
+  v88 = 0u;
+  v89 = 0u;
   previewToolbarButtons3 = [(QLPreviewController *)self previewToolbarButtons];
-  v47 = [previewToolbarButtons3 countByEnumeratingWithState:&v89 objects:v110 count:16];
+  v47 = [previewToolbarButtons3 countByEnumeratingWithState:&v88 objects:v109 count:16];
   if (v47)
   {
     v48 = v47;
-    v49 = *v90;
+    v49 = *v89;
     do
     {
       for (n = 0; n != v48; ++n)
       {
-        if (*v90 != v49)
+        if (*v89 != v49)
         {
           objc_enumerationMutation(previewToolbarButtons3);
         }
 
-        v51 = *(*(&v89 + 1) + 8 * n);
+        v51 = *(*(&v88 + 1) + 8 * n);
         if (([v51 forceToNavBar] & 1) == 0 && objc_msgSend(v51, "placement") == 2)
         {
           internalNavigationController3 = [(QLPreviewController *)self internalNavigationController];
@@ -9039,7 +9842,7 @@ LABEL_11:
         }
       }
 
-      v48 = [previewToolbarButtons3 countByEnumeratingWithState:&v89 objects:v110 count:16];
+      v48 = [previewToolbarButtons3 countByEnumeratingWithState:&v88 objects:v109 count:16];
     }
 
     while (v48);
@@ -9047,9 +9850,9 @@ LABEL_11:
 
   if (!_UISolariumEnabled())
   {
-    v59 = v83;
+    v59 = v82;
     v60 = _additionalRightButtonItems;
-    v61 = v82;
+    v61 = v81;
     if ([v4 count])
     {
       [v4 removeLastObject];
@@ -9057,7 +9860,7 @@ LABEL_11:
 
     lastObject = [v4 lastObject];
     objc_opt_class();
-    if (((objc_opt_isKindOfClass() & 1) == 0 || [lastObject placement] != 1) && lastObject != v82)
+    if (((objc_opt_isKindOfClass() & 1) == 0 || [lastObject placement] != 1) && lastObject != v81)
     {
       goto LABEL_94;
     }
@@ -9068,9 +9871,9 @@ LABEL_11:
   }
 
   additionalLeftBarButtonItems = [(QLPreviewController *)self additionalLeftBarButtonItems];
-  v59 = v83;
+  v59 = v82;
   v60 = _additionalRightButtonItems;
-  v61 = v82;
+  v61 = v81;
   if (![additionalLeftBarButtonItems count])
   {
     additionalRightBarButtonItems = [(QLPreviewController *)self additionalRightBarButtonItems];
@@ -9082,33 +9885,33 @@ LABEL_11:
     }
 
     [(QLPreviewController *)self _openInButtonWithTitle:1];
-    v61 = additionalLeftBarButtonItems = v82;
+    v61 = additionalLeftBarButtonItems = v81;
   }
 
 LABEL_75:
   if (v61)
   {
     v66 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v4, "count")}];
+    v84 = 0u;
     v85 = 0u;
     v86 = 0u;
     v87 = 0u;
-    v88 = 0u;
     v67 = v4;
-    v68 = [v67 countByEnumeratingWithState:&v85 objects:v109 count:16];
+    v68 = [v67 countByEnumeratingWithState:&v84 objects:v108 count:16];
     if (v68)
     {
       v69 = v68;
-      v70 = *v86;
+      v70 = *v85;
       do
       {
         for (ii = 0; ii != v69; ++ii)
         {
-          if (*v86 != v70)
+          if (*v85 != v70)
           {
             objc_enumerationMutation(v67);
           }
 
-          v72 = *(*(&v85 + 1) + 8 * ii);
+          v72 = *(*(&v84 + 1) + 8 * ii);
           if ([v72 systemItem] != 5)
           {
             ql_toAction = [v72 ql_toAction];
@@ -9116,7 +9919,7 @@ LABEL_75:
           }
         }
 
-        v69 = [v67 countByEnumeratingWithState:&v85 objects:v109 count:16];
+        v69 = [v67 countByEnumeratingWithState:&v84 objects:v108 count:16];
       }
 
       while (v69);
@@ -9131,8 +9934,8 @@ LABEL_75:
     v4 = [MEMORY[0x277CBEB18] arrayWithObject:v78];
 
     v61 = v77;
-    v59 = v83;
-    v60 = v84;
+    v59 = v82;
+    v60 = v83;
   }
 
   lastObject = [(QLPreviewController *)self _actionButton];
@@ -9159,14 +9962,13 @@ LABEL_93:
 
 LABEL_94:
 LABEL_95:
-  v80 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)_navigationBarRightButtonsWithTraitCollection:(id)collection
 {
-  v95 = *MEMORY[0x277D85DE8];
+  v94 = *MEMORY[0x277D85DE8];
   v4 = [(QLPreviewController *)self _isToolbarVisibleForTraitCollection:collection];
   v5 = objc_opt_new();
   if (![(QLPreviewController *)self _shouldDoneButtonBePlacedLeft])
@@ -9186,15 +9988,15 @@ LABEL_95:
   {
     previewToolbarButtons = [(QLPreviewController *)self previewToolbarButtons];
     v10 = [previewToolbarButtons sortedArrayUsingComparator:&__block_literal_global_16];
-    v67[0] = MEMORY[0x277D85DD0];
-    v67[1] = 3221225472;
-    v67[2] = __78__QLPreviewController_Overlay___navigationBarRightButtonsWithTraitCollection___block_invoke_2;
-    v67[3] = &unk_278B58AC8;
-    v68 = v5;
+    v66[0] = MEMORY[0x277D85DD0];
+    v66[1] = 3221225472;
+    v66[2] = __78__QLPreviewController_Overlay___navigationBarRightButtonsWithTraitCollection___block_invoke_2;
+    v66[3] = &unk_278B58AC8;
+    v67 = v5;
     selfCopy = self;
-    [v10 enumerateObjectsUsingBlock:v67];
+    [v10 enumerateObjectsUsingBlock:v66];
 
-    _additionalLeftButtonItems = v68;
+    _additionalLeftButtonItems = v67;
   }
 
   else
@@ -9208,27 +10010,27 @@ LABEL_95:
       }
     }
 
-    v66 = v4;
-    v88 = 0u;
-    v89 = 0u;
-    v86 = 0u;
+    v65 = v4;
     v87 = 0u;
+    v88 = 0u;
+    v85 = 0u;
+    v86 = 0u;
     previewToolbarButtons2 = [(QLPreviewController *)self previewToolbarButtons];
-    v14 = [previewToolbarButtons2 countByEnumeratingWithState:&v86 objects:v94 count:16];
+    v14 = [previewToolbarButtons2 countByEnumeratingWithState:&v85 objects:v93 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v87;
+      v16 = *v86;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v87 != v16)
+          if (*v86 != v16)
           {
             objc_enumerationMutation(previewToolbarButtons2);
           }
 
-          v18 = *(*(&v86 + 1) + 8 * i);
+          v18 = *(*(&v85 + 1) + 8 * i);
           if ([v18 placement] == 2)
           {
             internalNavigationController = [(QLPreviewController *)self internalNavigationController];
@@ -9239,32 +10041,32 @@ LABEL_95:
           }
         }
 
-        v15 = [previewToolbarButtons2 countByEnumeratingWithState:&v86 objects:v94 count:16];
+        v15 = [previewToolbarButtons2 countByEnumeratingWithState:&v85 objects:v93 count:16];
       }
 
       while (v15);
     }
 
-    v84 = 0u;
-    v85 = 0u;
-    v82 = 0u;
     v83 = 0u;
+    v84 = 0u;
+    v81 = 0u;
+    v82 = 0u;
     previewToolbarButtons3 = [(QLPreviewController *)self previewToolbarButtons];
-    v25 = [previewToolbarButtons3 countByEnumeratingWithState:&v82 objects:v93 count:16];
+    v25 = [previewToolbarButtons3 countByEnumeratingWithState:&v81 objects:v92 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v83;
+      v27 = *v82;
       do
       {
         for (j = 0; j != v26; ++j)
         {
-          if (*v83 != v27)
+          if (*v82 != v27)
           {
             objc_enumerationMutation(previewToolbarButtons3);
           }
 
-          v29 = *(*(&v82 + 1) + 8 * j);
+          v29 = *(*(&v81 + 1) + 8 * j);
           if ([v29 placement] == 1)
           {
             internalNavigationController2 = [(QLPreviewController *)self internalNavigationController];
@@ -9275,35 +10077,35 @@ LABEL_95:
           }
         }
 
-        v26 = [previewToolbarButtons3 countByEnumeratingWithState:&v82 objects:v93 count:16];
+        v26 = [previewToolbarButtons3 countByEnumeratingWithState:&v81 objects:v92 count:16];
       }
 
       while (v26);
     }
 
-    v80 = 0u;
-    v81 = 0u;
-    v78 = 0u;
     v79 = 0u;
+    v80 = 0u;
+    v77 = 0u;
+    v78 = 0u;
     _additionalRightButtonItems = [(QLPreviewController *)self _additionalRightButtonItems];
-    v36 = [_additionalRightButtonItems countByEnumeratingWithState:&v78 objects:v92 count:16];
+    v36 = [_additionalRightButtonItems countByEnumeratingWithState:&v77 objects:v91 count:16];
     if (v36)
     {
       v37 = v36;
-      v38 = *v79;
+      v38 = *v78;
       do
       {
         for (k = 0; k != v37; ++k)
         {
-          if (*v79 != v38)
+          if (*v78 != v38)
           {
             objc_enumerationMutation(_additionalRightButtonItems);
           }
 
-          [v5 addObject:*(*(&v78 + 1) + 8 * k)];
+          [v5 addObject:*(*(&v77 + 1) + 8 * k)];
         }
 
-        v37 = [_additionalRightButtonItems countByEnumeratingWithState:&v78 objects:v92 count:16];
+        v37 = [_additionalRightButtonItems countByEnumeratingWithState:&v77 objects:v91 count:16];
       }
 
       while (v37);
@@ -9315,26 +10117,26 @@ LABEL_95:
       [v5 addObject:flexibleSpace];
     }
 
-    v76 = 0u;
-    v77 = 0u;
-    v74 = 0u;
     v75 = 0u;
+    v76 = 0u;
+    v73 = 0u;
+    v74 = 0u;
     previewToolbarButtons4 = [(QLPreviewController *)self previewToolbarButtons];
-    v42 = [previewToolbarButtons4 countByEnumeratingWithState:&v74 objects:v91 count:16];
+    v42 = [previewToolbarButtons4 countByEnumeratingWithState:&v73 objects:v90 count:16];
     if (v42)
     {
       v43 = v42;
-      v44 = *v75;
+      v44 = *v74;
       do
       {
         for (m = 0; m != v43; ++m)
         {
-          if (*v75 != v44)
+          if (*v74 != v44)
           {
             objc_enumerationMutation(previewToolbarButtons4);
           }
 
-          v46 = *(*(&v74 + 1) + 8 * m);
+          v46 = *(*(&v73 + 1) + 8 * m);
           if (![v46 placement])
           {
             internalNavigationController3 = [(QLPreviewController *)self internalNavigationController];
@@ -9345,41 +10147,41 @@ LABEL_95:
           }
         }
 
-        v43 = [previewToolbarButtons4 countByEnumeratingWithState:&v74 objects:v91 count:16];
+        v43 = [previewToolbarButtons4 countByEnumeratingWithState:&v73 objects:v90 count:16];
       }
 
       while (v43);
     }
 
-    v72 = 0u;
-    v73 = 0u;
-    v70 = 0u;
     v71 = 0u;
+    v72 = 0u;
+    v69 = 0u;
+    v70 = 0u;
     _additionalLeftButtonItems = [(QLPreviewController *)self _additionalLeftButtonItems];
-    v52 = [_additionalLeftButtonItems countByEnumeratingWithState:&v70 objects:v90 count:16];
+    v52 = [_additionalLeftButtonItems countByEnumeratingWithState:&v69 objects:v89 count:16];
     if (v52)
     {
       v53 = v52;
-      v54 = *v71;
+      v54 = *v70;
       do
       {
         for (n = 0; n != v53; ++n)
         {
-          if (*v71 != v54)
+          if (*v70 != v54)
           {
             objc_enumerationMutation(_additionalLeftButtonItems);
           }
 
-          [v5 addObject:*(*(&v70 + 1) + 8 * n)];
+          [v5 addObject:*(*(&v69 + 1) + 8 * n)];
         }
 
-        v53 = [_additionalLeftButtonItems countByEnumeratingWithState:&v70 objects:v90 count:16];
+        v53 = [_additionalLeftButtonItems countByEnumeratingWithState:&v69 objects:v89 count:16];
       }
 
       while (v53);
     }
 
-    v4 = v66;
+    v4 = v65;
   }
 
   originalRightBarButtonItems = [(QLPreviewController *)self originalRightBarButtonItems];
@@ -9425,8 +10227,6 @@ LABEL_95:
       [v5 addObject:_openInButton];
     }
   }
-
-  v64 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -9485,7 +10285,7 @@ uint64_t __78__QLPreviewController_Overlay___navigationBarRightButtonsWithTraitC
 
 - (id)_navigationBarLeftButtonsWithTraitCollection:(id)collection
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = [(QLPreviewController *)self _isToolbarVisibleForTraitCollection:collection];
   v5 = _UIBarsDesktopNavigationBarEnabled();
   v6 = objc_opt_new();
@@ -9521,29 +10321,29 @@ uint64_t __78__QLPreviewController_Overlay___navigationBarRightButtonsWithTraitC
       [v6 addObject:_listButton2];
     }
 
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     _listButton = [(QLPreviewController *)self _additionalLeftButtonItems];
-    v12 = [_listButton countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v12 = [_listButton countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v21;
+      v14 = *v20;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v21 != v14)
+          if (*v20 != v14)
           {
             objc_enumerationMutation(_listButton);
           }
 
-          [v6 addObject:*(*(&v20 + 1) + 8 * i)];
+          [v6 addObject:*(*(&v19 + 1) + 8 * i)];
         }
 
-        v13 = [_listButton countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v13 = [_listButton countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v13);
@@ -9559,14 +10359,12 @@ LABEL_18:
     [v6 addObjectsFromArray:originalLeftBarButtonItems2];
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (void)_toolbarButtonPressed:(id)pressed
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   pressedCopy = pressed;
   if ([(QLPreviewController *)self _canPerformBarButtonAction])
   {
@@ -9586,8 +10384,8 @@ LABEL_18:
         identifier = [pressedCopy identifier];
         *buf = 138412546;
         selfCopy = self;
-        v14 = 2112;
-        v15 = identifier;
+        v13 = 2112;
+        v14 = identifier;
         _os_log_impl(&dword_23A714000, v7, OS_LOG_TYPE_INFO, "Preview controller: %@ is notifying collection about button pressed with identifier: %@. #PreviewController", buf, 0x16u);
       }
 
@@ -9602,8 +10400,6 @@ LABEL_18:
       NSLog(&cfstr_SError.isa, "[QLPreviewController(Overlay) _toolbarButtonPressed:]", previewCollection);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_actionButtonTapped:(id)tapped
@@ -9642,8 +10438,7 @@ LABEL_18:
   }
 
   internalCurrentPreviewItem = [(QLPreviewController *)self internalCurrentPreviewItem];
-  [(QLPreviewController *)self isContentManaged];
-  v6 = _QLGetOpenInAppClaimBindingForItem(internalCurrentPreviewItem);
+  v6 = _QLGetOpenInAppClaimBindingForItem(internalCurrentPreviewItem, [(QLPreviewController *)self isContentManaged]);
   objc_initWeak(&location, self);
   v8[0] = MEMORY[0x277D85DD0];
   v8[1] = 3221225472;
@@ -9696,8 +10491,7 @@ void __52__QLPreviewController_Overlay___copyToButtonTapped___block_invoke_3(uin
   }
 
   internalCurrentPreviewItem = [(QLPreviewController *)self internalCurrentPreviewItem];
-  [(QLPreviewController *)self isContentManaged];
-  v6 = _QLGetOpenInAppClaimBindingForItem(internalCurrentPreviewItem);
+  v6 = _QLGetOpenInAppClaimBindingForItem(internalCurrentPreviewItem, [(QLPreviewController *)self isContentManaged]);
   objc_initWeak(&location, self);
   v9[0] = MEMORY[0x277D85DD0];
   v9[1] = 3221225472;
@@ -9715,24 +10509,23 @@ void __52__QLPreviewController_Overlay___copyToButtonTapped___block_invoke_3(uin
   objc_destroyWeak(&location);
 }
 
-void __52__QLPreviewController_Overlay___openInButtonTapped___block_invoke(uint64_t a1, void *a2)
+void __52__QLPreviewController_Overlay___openInButtonTapped___block_invoke(id *a1, void *a2)
 {
   v3 = a2;
-  v4 = [*(a1 + 32) bundleRecord];
+  v4 = [a1[4] bundleRecord];
   v5 = [v4 bundleIdentifier];
   v6 = v3;
-  v7 = *(a1 + 32);
-  v8 = *(a1 + 40);
-  v9 = *(a1 + 48);
-  objc_copyWeak(&v10, (a1 + 56));
+  v7 = a1[4];
+  v8 = a1[5];
+  objc_copyWeak(&v9, a1 + 7);
   FPExtendBookmarkForDocumentURL();
 
-  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v9);
 }
 
 void __52__QLPreviewController_Overlay___openInButtonTapped___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = [a2 copy];
   v6 = [a3 copy];
   if (v6)
@@ -9753,13 +10546,12 @@ void __52__QLPreviewController_Overlay___openInButtonTapped___block_invoke_2(uin
       v12 = [v9 bundleRecord];
       v13 = [v12 bundleIdentifier];
       *buf = 138412546;
-      v26 = v10;
-      v27 = 2112;
-      v28 = v13;
+      v24 = v10;
+      v25 = 2112;
+      v26 = v13;
       _os_log_impl(&dword_23A714000, v11, OS_LOG_TYPE_ERROR, "Could not obtain bookmark to open file at URL: %@ in place with app: %@. #Sharing", buf, 0x16u);
     }
 
-    v14 = *(a1 + 48);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -9769,26 +10561,24 @@ void __52__QLPreviewController_Overlay___openInButtonTapped___block_invoke_2(uin
 
   else
   {
-    v15 = *(a1 + 32);
-    v16 = *(a1 + 40);
-    v17 = *MEMORY[0x277CC1E28];
-    v23[0] = *MEMORY[0x277CC1DF8];
-    v23[1] = v17;
-    v24[0] = v5;
-    v24[1] = MEMORY[0x277CBEC38];
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
-    v19 = [*(a1 + 56) isContentManaged];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __52__QLPreviewController_Overlay___openInButtonTapped___block_invoke_187;
-    v21[3] = &unk_278B57858;
-    objc_copyWeak(&v22, (a1 + 64));
-    [QLUtilitiesInternal performOpenInWithFileURL:v15 claimBinding:v16 additionalLaunchServicesOptions:v18 isContentManaged:v19 completion:v21];
+    v14 = *(a1 + 32);
+    v15 = *(a1 + 40);
+    v16 = *MEMORY[0x277CC1E28];
+    v21[0] = *MEMORY[0x277CC1DF8];
+    v21[1] = v16;
+    v22[0] = v5;
+    v22[1] = MEMORY[0x277CBEC38];
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
+    v18 = [*(a1 + 56) isContentManaged];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __52__QLPreviewController_Overlay___openInButtonTapped___block_invoke_187;
+    v19[3] = &unk_278B57858;
+    objc_copyWeak(&v20, (a1 + 64));
+    [QLUtilitiesInternal performOpenInWithFileURL:v14 claimBinding:v15 additionalLaunchServicesOptions:v17 isContentManaged:v18 completion:v19];
 
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v20);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __52__QLPreviewController_Overlay___openInButtonTapped___block_invoke_187(uint64_t a1)
@@ -9835,7 +10625,7 @@ void __52__QLPreviewController_Overlay___openInButtonTapped___block_invoke_2_188
 
 - (void)showShareSheetFromBarButton:(id)button
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   buttonCopy = button;
   if (+[QLUtilitiesInternal deviceIsLocked])
   {
@@ -9852,7 +10642,7 @@ void __52__QLPreviewController_Overlay___openInButtonTapped___block_invoke_2_188
       v7 = v6;
       internalCurrentPreviewItem = [(QLPreviewController *)self internalCurrentPreviewItem];
       *buf = 138412290;
-      v14 = internalCurrentPreviewItem;
+      v13 = internalCurrentPreviewItem;
       _os_log_impl(&dword_23A714000, v7, OS_LOG_TYPE_ERROR, "Could not show share sheet for item %@ because device is locked. #Sharing", buf, 0xCu);
     }
   }
@@ -9861,27 +10651,24 @@ void __52__QLPreviewController_Overlay___openInButtonTapped___block_invoke_2_188
   {
     objc_initWeak(buf, self);
     previewCollection = [(QLPreviewController *)self previewCollection];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __60__QLPreviewController_Overlay__showShareSheetFromBarButton___block_invoke;
-    v11[3] = &unk_278B56D10;
-    v11[4] = self;
-    objc_copyWeak(&v12, buf);
-    [previewCollection toolbarButtonPressedWithIdentifier:@"QLActionButtonIdentifier" completionHandler:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __60__QLPreviewController_Overlay__showShareSheetFromBarButton___block_invoke;
+    v10[3] = &unk_278B56D10;
+    v10[4] = self;
+    objc_copyWeak(&v11, buf);
+    [previewCollection toolbarButtonPressedWithIdentifier:@"QLActionButtonIdentifier" completionHandler:v10];
 
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v11);
     objc_destroyWeak(buf);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __60__QLPreviewController_Overlay__showShareSheetFromBarButton___block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  objc_copyWeak(&v2, (a1 + 40));
+  objc_copyWeak(&v1, (a1 + 40));
   QLRunInMainThread();
-  objc_destroyWeak(&v2);
+  objc_destroyWeak(&v1);
 }
 
 void __60__QLPreviewController_Overlay__showShareSheetFromBarButton___block_invoke_2(uint64_t a1)
@@ -9943,7 +10730,7 @@ void __61__QLPreviewController_Overlay___showShareSheetFromBarButton___block_inv
 
 - (void)showShareSheetFromRemoteViewWithPopoverTracker:(id)tracker customSharedURL:(id)l dismissCompletion:(id)completion
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   trackerCopy = tracker;
   lCopy = l;
   completionCopy = completion;
@@ -9962,7 +10749,7 @@ void __61__QLPreviewController_Overlay___showShareSheetFromBarButton___block_inv
       v13 = v12;
       internalCurrentPreviewItem = [(QLPreviewController *)self internalCurrentPreviewItem];
       *buf = 138412290;
-      v33 = internalCurrentPreviewItem;
+      v32 = internalCurrentPreviewItem;
       _os_log_impl(&dword_23A714000, v13, OS_LOG_TYPE_ERROR, "Could not show share sheet for item %@ because device is locked. #Sharing", buf, 0xCu);
     }
 
@@ -9975,21 +10762,21 @@ void __61__QLPreviewController_Overlay___showShareSheetFromBarButton___block_inv
 
     if (shareSheetPopoverTracker)
     {
-      v17 = MEMORY[0x277D43EF8];
-      v18 = *MEMORY[0x277D43EF8];
+      v16 = MEMORY[0x277D43EF8];
+      v17 = *MEMORY[0x277D43EF8];
       if (!*MEMORY[0x277D43EF8])
       {
         QLSInitLogging();
-        v18 = *v17;
+        v17 = *v16;
       }
 
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v19 = v18;
+        v18 = v17;
         internalCurrentPreviewItem2 = [(QLPreviewController *)self internalCurrentPreviewItem];
         *buf = 138412290;
-        v33 = internalCurrentPreviewItem2;
-        _os_log_impl(&dword_23A714000, v19, OS_LOG_TYPE_ERROR, "Won't show share for remote view again for item %@ because it is already visible on screen. #Sharing", buf, 0xCu);
+        v32 = internalCurrentPreviewItem2;
+        _os_log_impl(&dword_23A714000, v18, OS_LOG_TYPE_ERROR, "Won't show share for remote view again for item %@ because it is already visible on screen. #Sharing", buf, 0xCu);
       }
     }
 
@@ -9997,49 +10784,47 @@ void __61__QLPreviewController_Overlay___showShareSheetFromBarButton___block_inv
     {
       [(QLPreviewController *)self setShareSheetPopoverTracker:trackerCopy];
       objc_initWeak(buf, self);
-      v29[0] = MEMORY[0x277D85DD0];
-      v29[1] = 3221225472;
-      v29[2] = __113__QLPreviewController_Overlay__showShareSheetFromRemoteViewWithPopoverTracker_customSharedURL_dismissCompletion___block_invoke;
-      v29[3] = &unk_278B58B88;
-      objc_copyWeak(&v31, buf);
-      v30 = completionCopy;
-      [(QLPreviewController *)self setShareSheetDismissCompletion:v29];
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __113__QLPreviewController_Overlay__showShareSheetFromRemoteViewWithPopoverTracker_customSharedURL_dismissCompletion___block_invoke;
+      v28[3] = &unk_278B58B88;
+      objc_copyWeak(&v30, buf);
+      v29 = completionCopy;
+      [(QLPreviewController *)self setShareSheetDismissCompletion:v28];
       shareSheetPopoverTracker2 = [(QLPreviewController *)self shareSheetPopoverTracker];
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __113__QLPreviewController_Overlay__showShareSheetFromRemoteViewWithPopoverTracker_customSharedURL_dismissCompletion___block_invoke_2;
-      v26[3] = &unk_278B58BD8;
-      objc_copyWeak(&v28, buf);
-      v27 = lCopy;
-      [shareSheetPopoverTracker2 getFrameWithCompletionBlock:v26];
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __113__QLPreviewController_Overlay__showShareSheetFromRemoteViewWithPopoverTracker_customSharedURL_dismissCompletion___block_invoke_2;
+      v25[3] = &unk_278B58BD8;
+      objc_copyWeak(&v27, buf);
+      v26 = lCopy;
+      [shareSheetPopoverTracker2 getFrameWithCompletionBlock:v25];
 
-      objc_destroyWeak(&v28);
-      objc_destroyWeak(&v31);
+      objc_destroyWeak(&v27);
+      objc_destroyWeak(&v30);
       objc_destroyWeak(buf);
     }
   }
 
   else
   {
-    v21 = MEMORY[0x277D43EF8];
-    v22 = *MEMORY[0x277D43EF8];
+    v20 = MEMORY[0x277D43EF8];
+    v21 = *MEMORY[0x277D43EF8];
     if (!*MEMORY[0x277D43EF8])
     {
       QLSInitLogging();
-      v22 = *v21;
+      v21 = *v20;
     }
 
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v23 = v22;
+      v22 = v21;
       internalCurrentPreviewItem3 = [(QLPreviewController *)self internalCurrentPreviewItem];
       *buf = 138412290;
-      v33 = internalCurrentPreviewItem3;
-      _os_log_impl(&dword_23A714000, v23, OS_LOG_TYPE_ERROR, "Could not show share sheet for item %@ using popover tracker because popover tracker is nil. #Sharing", buf, 0xCu);
+      v32 = internalCurrentPreviewItem3;
+      _os_log_impl(&dword_23A714000, v22, OS_LOG_TYPE_ERROR, "Could not show share sheet for item %@ using popover tracker because popover tracker is nil. #Sharing", buf, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __113__QLPreviewController_Overlay__showShareSheetFromRemoteViewWithPopoverTracker_customSharedURL_dismissCompletion___block_invoke(uint64_t a1)
@@ -10136,7 +10921,7 @@ void __113__QLPreviewController_Overlay__showShareSheetFromRemoteViewWithPopover
 
 - (void)_setupDocumentInteractionControllerForPresentationWithURL:(id)l isCustomURL:(BOOL)rL completionHandler:(id)handler
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   lCopy = l;
   handlerCopy = handler;
   v10 = objc_opt_new();
@@ -10170,15 +10955,15 @@ void __113__QLPreviewController_Overlay__showShareSheetFromRemoteViewWithPopover
     {
       v19 = v18;
       internalCurrentPreviewItem = [(QLPreviewController *)self internalCurrentPreviewItem];
-      v36 = 138412546;
-      v37 = lCopy;
-      v38 = 2112;
-      v39 = internalCurrentPreviewItem;
+      v35 = 138412546;
+      v36 = lCopy;
+      v37 = 2112;
+      v38 = internalCurrentPreviewItem;
       v21 = "Passing URL: %@ to UIDocumentInteractionController to share item: %@. #Sharing";
       v22 = v19;
       v23 = 22;
 LABEL_12:
-      _os_log_impl(&dword_23A714000, v22, OS_LOG_TYPE_INFO, v21, &v36, v23);
+      _os_log_impl(&dword_23A714000, v22, OS_LOG_TYPE_INFO, v21, &v35, v23);
     }
   }
 
@@ -10196,8 +10981,8 @@ LABEL_12:
     {
       v19 = v25;
       internalCurrentPreviewItem = [(QLPreviewController *)self internalCurrentPreviewItem];
-      v36 = 138412290;
-      v37 = internalCurrentPreviewItem;
+      v35 = 138412290;
+      v36 = internalCurrentPreviewItem;
       v21 = "Passing no URL to UIDocumentInteractionController to share item: %@. #Sharing";
       v22 = v19;
       v23 = 12;
@@ -10234,7 +11019,6 @@ LABEL_12:
   [sharingInteractionController7 setIsContentManaged:isContentManaged];
 
   handlerCopy[2](handlerCopy);
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopAccessingUrlForSharingController
@@ -10316,12 +11100,12 @@ void __94__QLPreviewController_Overlay___saveAndObtainEditedItemsBeforeDismissal
 
 - (BOOL)_dismissQuickLookIfBlocked
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (![(QLPreviewController *)self hasItemsToPreview])
   {
     v4 = 1;
     [(QLPreviewController *)self _performQuickLookDismissalAnimated:1];
-    goto LABEL_18;
+    return v4;
   }
 
   if (![(QLPreviewController *)self _canPerformBarButtonAction])
@@ -10347,14 +11131,14 @@ void __94__QLPreviewController_Overlay___saveAndObtainEditedItemsBeforeDismissal
         {
           v10 = v9;
           currentAnimator3 = [(QLPreviewController *)self currentAnimator];
-          v16 = 138412290;
+          v15 = 138412290;
           selfCopy = currentAnimator3;
-          _os_log_impl(&dword_23A714000, v10, OS_LOG_TYPE_ERROR, "Forced dismissal of QLPreviewController using Done button with animator: %@ #PreviewController", &v16, 0xCu);
+          _os_log_impl(&dword_23A714000, v10, OS_LOG_TYPE_ERROR, "Forced dismissal of QLPreviewController using Done button with animator: %@ #PreviewController", &v15, 0xCu);
         }
       }
     }
 
-    goto LABEL_17;
+    return 1;
   }
 
   previewCollection = [(QLPreviewController *)self previewCollection];
@@ -10371,21 +11155,16 @@ void __94__QLPreviewController_Overlay___saveAndObtainEditedItemsBeforeDismissal
 
     if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
-      v16 = 138412290;
+      v15 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_23A714000, v13, OS_LOG_TYPE_FAULT, "Dismissing QLPreviewController because it does not have a preview collection anymore: %@ #PreviewController", &v16, 0xCu);
+      _os_log_impl(&dword_23A714000, v13, OS_LOG_TYPE_FAULT, "Dismissing QLPreviewController because it does not have a preview collection anymore: %@ #PreviewController", &v15, 0xCu);
     }
 
     [(QLPreviewController *)self _performQuickLookDismissalAnimated:0];
-LABEL_17:
-    v4 = 1;
-    goto LABEL_18;
+    return 1;
   }
 
-  v4 = 0;
-LABEL_18:
-  v14 = *MEMORY[0x277D85DE8];
-  return v4;
+  return 0;
 }
 
 - (void)_obtainEditsFromServiceAndNotifyPreviewCollectionOfDoneButtonTappedWithCompletionHandler:(id)handler
@@ -10417,9 +11196,7 @@ LABEL_18:
 
 void __93__QLPreviewController_Overlay___notifyPreviewCollectionOfDoneButtonTapWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  v3 = *(a1 + 32);
-  v4 = v2;
+  v1 = *(a1 + 40);
   QLRunInMainThread();
 }
 
@@ -10510,11 +11287,11 @@ void __54__QLPreviewController_Overlay___updateDoneButtonMenu___block_invoke(uin
 - (void)presentDismissActions:(id)actions
 {
   val = self;
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   actionsCopy = actions;
-  v25 = [MEMORY[0x277D75110] alertControllerWithTitle:0 message:0 preferredStyle:1];
+  v24 = [MEMORY[0x277D75110] alertControllerWithTitle:0 message:0 preferredStyle:1];
   view = [(QLPreviewController *)val view];
-  popoverPresentationController = [v25 popoverPresentationController];
+  popoverPresentationController = [v24 popoverPresentationController];
   [popoverPresentationController setSourceView:view];
 
   view2 = [(QLPreviewController *)val view];
@@ -10523,29 +11300,29 @@ void __54__QLPreviewController_Overlay___updateDoneButtonMenu___block_invoke(uin
   view3 = [(QLPreviewController *)val view];
   [view3 bounds];
   v11 = v10;
-  popoverPresentationController2 = [v25 popoverPresentationController];
+  popoverPresentationController2 = [v24 popoverPresentationController];
   [popoverPresentationController2 setSourceRect:{v8 * 0.5, v11 * 0.5, 1.0, 1.0}];
 
   objc_initWeak(&location, val);
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v13 = actionsCopy;
-  v14 = [v13 countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v14)
   {
-    v15 = *v29;
+    v15 = *v28;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v29 != v15)
+        if (*v28 != v15)
         {
           objc_enumerationMutation(v13);
         }
 
-        v17 = *(*(&v28 + 1) + 8 * i);
+        v17 = *(*(&v27 + 1) + 8 * i);
         attributes = [v17 attributes];
         if (attributes != 1)
         {
@@ -10566,29 +11343,27 @@ void __54__QLPreviewController_Overlay___updateDoneButtonMenu___block_invoke(uin
 
           v20 = MEMORY[0x277D750F8];
           title = [v17 title];
-          v26[0] = MEMORY[0x277D85DD0];
-          v26[1] = 3221225472;
-          v26[2] = __54__QLPreviewController_Overlay__presentDismissActions___block_invoke;
-          v26[3] = &unk_278B58C50;
-          v26[4] = v17;
-          objc_copyWeak(&v27, &location);
-          v22 = [v20 actionWithTitle:title style:v19 handler:v26];
+          v25[0] = MEMORY[0x277D85DD0];
+          v25[1] = 3221225472;
+          v25[2] = __54__QLPreviewController_Overlay__presentDismissActions___block_invoke;
+          v25[3] = &unk_278B58C50;
+          v25[4] = v17;
+          objc_copyWeak(&v26, &location);
+          v22 = [v20 actionWithTitle:title style:v19 handler:v25];
 
-          [v25 addAction:v22];
-          objc_destroyWeak(&v27);
+          [v24 addAction:v22];
+          objc_destroyWeak(&v26);
         }
       }
 
-      v14 = [v13 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v14);
   }
 
-  [(QLPreviewController *)val presentViewController:v25 animated:1 completion:0];
+  [(QLPreviewController *)val presentViewController:v24 animated:1 completion:0];
   objc_destroyWeak(&location);
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __54__QLPreviewController_Overlay__presentDismissActions___block_invoke(uint64_t a1)
@@ -10609,11 +11384,11 @@ void __54__QLPreviewController_Overlay__presentDismissActions___block_invoke(uin
   [(QLPreviewController *)self _saveAndDismissQuickLookIfBlocked:v3];
 }
 
-uint64_t __69__QLPreviewController_Overlay__saveAndForceDismissQuickLookAnimated___block_invoke(uint64_t result, char a2)
+id *__69__QLPreviewController_Overlay__saveAndForceDismissQuickLookAnimated___block_invoke(id *result, char a2)
 {
   if ((a2 & 1) == 0)
   {
-    return [*(result + 32) _performQuickLookDismissalAnimated:*(result + 40)];
+    return [result[4] _performQuickLookDismissalAnimated:*(result + 40)];
   }
 
   return result;
@@ -10698,13 +11473,13 @@ uint64_t __53__QLPreviewController_Overlay__saveEditsIfNecessary___block_invoke_
 {
   defaultActionsCopy = defaultActions;
   copyCopy = copy;
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   actionsCopy = actions;
   val = self;
   itemsCopy = items;
-  v39 = [(QLPreviewController *)self _editedItemsForDoneActionControllerWithItems:?];
-  v9 = [v39 count];
-  v38 = v9;
+  v38 = [(QLPreviewController *)self _editedItemsForDoneActionControllerWithItems:?];
+  v9 = [v38 count];
+  v37 = v9;
   if (defaultActionsCopy)
   {
     v10 = v9 + 2;
@@ -10715,50 +11490,50 @@ uint64_t __53__QLPreviewController_Overlay__saveEditsIfNecessary___block_invoke_
     v10 = v9;
   }
 
-  v43 = [MEMORY[0x277CBEB18] arrayWithCapacity:v10];
+  v42 = [MEMORY[0x277CBEB18] arrayWithCapacity:v10];
   objc_initWeak(&location, self);
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
   v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   obj = actionsCopy;
-  v11 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
+  v11 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
   if (v11)
   {
-    v12 = *v52;
+    v12 = *v51;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v52 != v12)
+        if (*v51 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v51 + 1) + 8 * i);
+        v14 = *(*(&v50 + 1) + 8 * i);
         v15 = MEMORY[0x277D750C8];
         title = [v14 title];
         image = [v14 image];
-        v49[0] = MEMORY[0x277D85DD0];
-        v49[1] = 3221225472;
-        v49[2] = __138__QLPreviewController_Overlay__menuActionsForDismissActions_containsAtLeastOneUnsavedCopy_editedPreviewItems_shouldPresentDefaultActions___block_invoke;
-        v49[3] = &unk_278B58CC8;
-        objc_copyWeak(&v50, &location);
-        v49[4] = v14;
-        v49[5] = val;
-        v18 = [v15 actionWithTitle:title image:image identifier:0 handler:v49];
+        v48[0] = MEMORY[0x277D85DD0];
+        v48[1] = 3221225472;
+        v48[2] = __138__QLPreviewController_Overlay__menuActionsForDismissActions_containsAtLeastOneUnsavedCopy_editedPreviewItems_shouldPresentDefaultActions___block_invoke;
+        v48[3] = &unk_278B58CC8;
+        objc_copyWeak(&v49, &location);
+        v48[4] = v14;
+        v48[5] = val;
+        v18 = [v15 actionWithTitle:title image:image identifier:0 handler:v48];
 
         if ([v14 attributes])
         {
           [v18 setAttributes:{objc_msgSend(v14, "attributes")}];
         }
 
-        [v43 addObject:v18];
+        [v42 addObject:v18];
 
-        objc_destroyWeak(&v50);
+        objc_destroyWeak(&v49);
       }
 
-      v11 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
+      v11 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
     }
 
     while (v11);
@@ -10770,33 +11545,33 @@ uint64_t __53__QLPreviewController_Overlay__saveEditsIfNecessary___block_invoke_
     v19 = MEMORY[0x277D750C8];
     v20 = QLLocalizedString();
     v21 = [MEMORY[0x277D755B8] systemImageNamed:@"folder"];
-    v46[0] = MEMORY[0x277D85DD0];
-    v46[1] = 3221225472;
-    v46[2] = __138__QLPreviewController_Overlay__menuActionsForDismissActions_containsAtLeastOneUnsavedCopy_editedPreviewItems_shouldPresentDefaultActions___block_invoke_4;
-    v46[3] = &unk_278B56F90;
-    objc_copyWeak(&v47, &from);
-    v22 = [v19 actionWithTitle:v20 image:v21 identifier:0 handler:v46];
+    v45[0] = MEMORY[0x277D85DD0];
+    v45[1] = 3221225472;
+    v45[2] = __138__QLPreviewController_Overlay__menuActionsForDismissActions_containsAtLeastOneUnsavedCopy_editedPreviewItems_shouldPresentDefaultActions___block_invoke_4;
+    v45[3] = &unk_278B56F90;
+    objc_copyWeak(&v46, &from);
+    v22 = [v19 actionWithTitle:v20 image:v21 identifier:0 handler:v45];
 
-    [v43 addObject:v22];
+    [v42 addObject:v22];
     v23 = MEMORY[0x277D750C8];
     v24 = QLLocalizedString();
     v25 = [MEMORY[0x277D755B8] systemImageNamed:@"trash"];
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __138__QLPreviewController_Overlay__menuActionsForDismissActions_containsAtLeastOneUnsavedCopy_editedPreviewItems_shouldPresentDefaultActions___block_invoke_6;
-    v44[3] = &unk_278B56F90;
-    objc_copyWeak(&v45, &from);
-    v26 = [v23 actionWithTitle:v24 image:v25 identifier:0 handler:v44];
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = __138__QLPreviewController_Overlay__menuActionsForDismissActions_containsAtLeastOneUnsavedCopy_editedPreviewItems_shouldPresentDefaultActions___block_invoke_6;
+    v43[3] = &unk_278B56F90;
+    objc_copyWeak(&v44, &from);
+    v26 = [v23 actionWithTitle:v24 image:v25 identifier:0 handler:v43];
 
     [v26 setAttributes:2];
-    [v43 addObject:v26];
+    [v42 addObject:v26];
 
-    objc_destroyWeak(&v45);
-    objc_destroyWeak(&v47);
+    objc_destroyWeak(&v44);
+    objc_destroyWeak(&v46);
     objc_destroyWeak(&from);
   }
 
-  if (v38 != 1)
+  if (v37 != 1)
   {
     if (!copyCopy)
     {
@@ -10806,9 +11581,9 @@ uint64_t __53__QLPreviewController_Overlay__saveEditsIfNecessary___block_invoke_
 LABEL_19:
     v29 = MEMORY[0x277CCACA8];
     v30 = QLLocalizedDictionaryString();
-    v31 = [v29 localizedStringWithFormat:v30, v38];
+    v31 = [v29 localizedStringWithFormat:v30, v37];
 
-    v32 = [MEMORY[0x277D75710] menuWithTitle:v31 image:0 identifier:0 options:1 children:v43];
+    v32 = [MEMORY[0x277D75710] menuWithTitle:v31 image:0 identifier:0 options:1 children:v42];
     v33 = [MEMORY[0x277CBEA60] arrayWithObject:v32];
 
     goto LABEL_22;
@@ -10828,11 +11603,9 @@ LABEL_19:
   }
 
 LABEL_21:
-  v33 = v43;
+  v33 = v42;
 LABEL_22:
   objc_destroyWeak(&location);
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v33;
 }
@@ -10944,7 +11717,7 @@ void __138__QLPreviewController_Overlay__menuActionsForDismissActions_containsAt
 
 - (id)_dismissActionsForEditedPreviewItems:(id)items
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   delegate = [(QLPreviewController *)self delegate];
   v6 = objc_opt_respondsToSelector();
@@ -10952,12 +11725,12 @@ void __138__QLPreviewController_Overlay__menuActionsForDismissActions_containsAt
   if (v6)
   {
     delegate2 = [(QLPreviewController *)self delegate];
-    v27 = [delegate2 shouldAppendDefaultDismissActionsForPreviewController:self];
+    v26 = [delegate2 shouldAppendDefaultDismissActionsForPreviewController:self];
   }
 
   else
   {
-    v27 = 1;
+    v26 = 1;
   }
 
   delegate3 = [(QLPreviewController *)self delegate];
@@ -10975,28 +11748,28 @@ void __138__QLPreviewController_Overlay__menuActionsForDismissActions_containsAt
   }
 
   selfCopy = self;
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v12 = itemsCopy;
-  v13 = [v12 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v13)
   {
     v14 = v13;
     v15 = 0;
     v16 = 0;
-    v17 = *v29;
+    v17 = *v28;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v29 != v17)
+        if (*v28 != v17)
         {
           objc_enumerationMutation(v12);
         }
 
-        v19 = *(*(&v28 + 1) + 8 * i);
+        v19 = *(*(&v27 + 1) + 8 * i);
         if ([v19 editingMode] == 4 || objc_msgSend(v19, "editingMode") == 3)
         {
           v16 = 1;
@@ -11007,7 +11780,7 @@ void __138__QLPreviewController_Overlay__menuActionsForDismissActions_containsAt
         v15 |= editedFileURL != 0;
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v14);
@@ -11021,17 +11794,17 @@ void __138__QLPreviewController_Overlay__menuActionsForDismissActions_containsAt
 
   if ([v11 count])
   {
-    v21 = v27;
+    v21 = v26;
   }
 
   else
   {
-    v21 = v16 & v27;
+    v21 = v16 & v26;
   }
 
   if ([v11 count] || (v21 & 1) != 0)
   {
-    v22 = [v26 menuActionsForDismissActions:v11 containsAtLeastOneUnsavedCopy:v15 & 1 editedPreviewItems:v12 shouldPresentDefaultActions:v21 & 1];
+    v22 = [v25 menuActionsForDismissActions:v11 containsAtLeastOneUnsavedCopy:v15 & 1 editedPreviewItems:v12 shouldPresentDefaultActions:v21 & 1];
   }
 
   else
@@ -11039,14 +11812,93 @@ void __138__QLPreviewController_Overlay__menuActionsForDismissActions_containsAt
     v22 = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v22;
+}
+
+- (void)_performQuickLookDismissalAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  if ([(QLPreviewController *)self presentationMode]== 1)
+  {
+    v5 = MEMORY[0x277D43EF8];
+    v6 = *MEMORY[0x277D43EF8];
+    if (!*MEMORY[0x277D43EF8])
+    {
+      QLSInitLogging();
+      v6 = *v5;
+    }
+
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_23A714000, v6, OS_LOG_TYPE_INFO, "Triggered dismissal of pushed QLPreviewController using Back button. #PreviewController", buf, 2u);
+    }
+
+    internalNavigationController = [(QLPreviewController *)self internalNavigationController];
+    v8 = [internalNavigationController popViewControllerAnimated:animatedCopy];
+  }
+
+  else
+  {
+    presentingViewController = [(QLPreviewController *)self presentingViewController];
+
+    v10 = MEMORY[0x277D43EF8];
+    v11 = *MEMORY[0x277D43EF8];
+    if (presentingViewController)
+    {
+      if (!v11)
+      {
+        QLSInitLogging();
+        v11 = *v10;
+      }
+
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      {
+        *v19 = 0;
+        _os_log_impl(&dword_23A714000, v11, OS_LOG_TYPE_INFO, "Triggered dismissal of modal QLPreviewController using Done button. #PreviewController", v19, 2u);
+      }
+
+      [(QLPreviewController *)self dismissViewControllerAnimated:animatedCopy completion:0];
+    }
+
+    else
+    {
+      if (!v11)
+      {
+        QLSInitLogging();
+        v11 = *v10;
+      }
+
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      {
+        *v18 = 0;
+        _os_log_impl(&dword_23A714000, v11, OS_LOG_TYPE_INFO, "Triggered dismissal of modal QLPreviewController using Done button (No presentingVC so calling delegate methods). #PreviewController", v18, 2u);
+      }
+
+      delegate = [(QLPreviewController *)self delegate];
+      v13 = objc_opt_respondsToSelector();
+
+      if (v13)
+      {
+        delegate2 = [(QLPreviewController *)self delegate];
+        [delegate2 previewControllerWillDismiss:self];
+      }
+
+      delegate3 = [(QLPreviewController *)self delegate];
+      v16 = objc_opt_respondsToSelector();
+
+      if (v16)
+      {
+        delegate4 = [(QLPreviewController *)self delegate];
+        [delegate4 previewControllerDidDismiss:self];
+      }
+    }
+  }
 }
 
 - (BOOL)_canPerformBarButtonAction
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   currentAnimator = [(QLPreviewController *)self currentAnimator];
   if (currentAnimator)
   {
@@ -11059,7 +11911,7 @@ void __138__QLPreviewController_Overlay__menuActionsForDismissActions_containsAt
     if (!presentedViewController)
     {
       LOBYTE(v7) = 1;
-      goto LABEL_11;
+      return v7;
     }
   }
 
@@ -11080,24 +11932,22 @@ void __138__QLPreviewController_Overlay__menuActionsForDismissActions_containsAt
     previewCollection = [(QLPreviewController *)self previewCollection];
     isRemote = [previewCollection isRemote];
     v13 = @"NO";
-    v16 = 138412802;
-    v17 = currentAnimator2;
-    v18 = 2112;
+    v15 = 138412802;
+    v16 = currentAnimator2;
+    v17 = 2112;
     if (isRemote)
     {
       v13 = @"YES";
     }
 
-    v19 = presentedViewController2;
-    v20 = 2112;
-    v21 = v13;
-    _os_log_impl(&dword_23A714000, v8, OS_LOG_TYPE_INFO, "Can't perform bar button action. Current animator: %@ Presented view controller: %@. Remote: %@ #Generic", &v16, 0x20u);
+    v18 = presentedViewController2;
+    v19 = 2112;
+    v20 = v13;
+    _os_log_impl(&dword_23A714000, v8, OS_LOG_TYPE_INFO, "Can't perform bar button action. Current animator: %@ Presented view controller: %@. Remote: %@ #Generic", &v15, 0x20u);
 
     LOBYTE(v7) = 0;
   }
 
-LABEL_11:
-  v14 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -11181,8 +12031,7 @@ void __63__QLPreviewController_Overlay___triggerOverlayUpdateAfterDelay__block_i
 
 void __53__QLPreviewController_Overlay__didSelectPreviewItem___block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
+  v1 = *(a1 + 40);
   QLRunInMainThread();
 }
 
@@ -11195,29 +12044,29 @@ void __53__QLPreviewController_Overlay__didSelectPreviewItem___block_invoke_2(ui
 
 - (id)_editedItemsForDoneActionControllerWithItems:(id)items
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   v4 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v5 = itemsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         if ([v10 originalContentWasUpdated])
         {
           [v10 saveURL];
@@ -11235,13 +12084,11 @@ void __53__QLPreviewController_Overlay__didSelectPreviewItem___block_invoke_2(ui
         [v4 addObject:v14];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -11279,43 +12126,42 @@ void __53__QLPreviewController_Overlay__didSelectPreviewItem___block_invoke_2(ui
 
 - (id)_copyBarButtons:(id)buttons
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   buttonsCopy = buttons;
   v4 = objc_opt_new();
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = buttonsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        ql_copySystemItem = [*(*(&v13 + 1) + 8 * v9) ql_copySystemItem];
+        ql_copySystemItem = [*(*(&v12 + 1) + 8 * v9) ql_copySystemItem];
         [v4 addObject:ql_copySystemItem];
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -11347,7 +12193,7 @@ void __53__QLPreviewController_Overlay__didSelectPreviewItem___block_invoke_2(ui
 
 + (void)logDeprecatedMessageForMethodName:(id)name
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v4 = MEMORY[0x277D43EF8];
   v5 = *MEMORY[0x277D43EF8];
@@ -11359,12 +12205,10 @@ void __53__QLPreviewController_Overlay__didSelectPreviewItem___block_invoke_2(ui
 
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = nameCopy;
-    _os_log_impl(&dword_23A714000, v5, OS_LOG_TYPE_DEFAULT, "Warning: The method '%{public}@' is deprecated and soon will be removed. #Deprecated", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = nameCopy;
+    _os_log_impl(&dword_23A714000, v5, OS_LOG_TYPE_DEFAULT, "Warning: The method '%{public}@' is deprecated and soon will be removed. #Deprecated", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (void)logDeprecatedMessageForSelector:(SEL)selector
@@ -11390,6 +12234,54 @@ void __53__QLPreviewController_Overlay__didSelectPreviewItem___block_invoke_2(ui
   v6 = pinchRotationTracker;
 
   return v6;
+}
+
+- (id)animatorForShowing:(BOOL)showing previewController:(id)controller presentingController:(id)presentingController
+{
+  showingCopy = showing;
+  v21 = *MEMORY[0x277D85DE8];
+  controllerCopy = controller;
+  [(QLPreviewController *)self _reloadDataIfNeeded];
+  if ([(QLPreviewController *)self hasItemsToPreview]&& (![(QLPreviewController *)self modalPresentationStyle]|| [(QLPreviewController *)self modalPresentationStyle]== 6 || [(QLPreviewController *)self modalPresentationStyle]== 5))
+  {
+    currentAnimator = [(QLPreviewController *)self currentAnimator];
+    if (!currentAnimator)
+    {
+      currentAnimator = objc_opt_new();
+      [(QLPreviewController *)self setCurrentAnimator:currentAnimator];
+    }
+
+    currentAnimator2 = [(QLPreviewController *)self currentAnimator];
+    [currentAnimator2 setShowing:showingCopy];
+
+    v10 = MEMORY[0x277D43EF8];
+    v11 = *MEMORY[0x277D43EF8];
+    if (!*MEMORY[0x277D43EF8])
+    {
+      QLSInitLogging();
+      v11 = *v10;
+    }
+
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    {
+      v12 = v11;
+      v13 = NSStringFromBOOL();
+      v15 = 138412802;
+      v16 = currentAnimator;
+      v17 = 2112;
+      v18 = controllerCopy;
+      v19 = 2112;
+      v20 = v13;
+      _os_log_impl(&dword_23A714000, v12, OS_LOG_TYPE_INFO, "Returning transition animator: %@ for previewController: %@ showing: %@ #AppearanceTransition", &v15, 0x20u);
+    }
+  }
+
+  else
+  {
+    currentAnimator = 0;
+  }
+
+  return currentAnimator;
 }
 
 - (BOOL)shouldUseNativeTransition
@@ -11516,7 +12408,7 @@ void __53__QLPreviewController_Overlay__didSelectPreviewItem___block_invoke_2(ui
 - (void)setupAccessoryViewContainerIfNeeded
 {
   selfCopy = self;
-  sub_23A7C4E80();
+  sub_23A7C4E80(selfCopy, v2);
 }
 
 - (double)visibleAccessoryViewHeight

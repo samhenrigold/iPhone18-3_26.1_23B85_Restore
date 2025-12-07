@@ -38,7 +38,7 @@
 
     *(v4 + 5) = v9;
     *(v4 + 1) = 2;
-    v10 = [objc_alloc(MEMORY[0x277D0F948]) initWithWeakObject:v4];
+    v10 = [objc_alloc(MEMORY[0x277D0F948]) initWithWeakObject:?];
     weakDecoder = v5->_weakDecoder;
     v5->_weakDecoder = v10;
 
@@ -54,7 +54,7 @@
 - (BOOL)handleSampleBuffer:(opaqueCMSampleBuffer *)buffer outputFrame:(BOOL)frame
 {
   frameCopy = frame;
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   if ([(HMIVideoNode *)self status]!= 2)
   {
     v19 = objc_autoreleasePoolPush();
@@ -72,7 +72,7 @@
     }
 
     v24 = v19;
-    goto LABEL_29;
+    goto LABEL_28;
   }
 
   if (!CMSampleBufferGetNumSamples(buffer))
@@ -86,24 +86,24 @@
       LODWORD(time2.value) = 138543362;
       *(&time2.value + 4) = v28;
       _os_log_impl(&dword_22D12F000, v27, OS_LOG_TYPE_ERROR, "%{public}@Sample buffer has no samples, skipping.", &time2, 0xCu);
-LABEL_27:
+LABEL_26:
     }
 
-LABEL_28:
+LABEL_27:
 
     v24 = v25;
-LABEL_29:
+LABEL_28:
     objc_autoreleasePoolPop(v24);
     return 0;
   }
 
-  memset(&v39, 0, sizeof(v39));
-  CMSampleBufferGetDecodeTimeStamp(&v39, buffer);
-  [(HMIVideoDecoder *)self lastSampleBufferDTS];
-  if (v38)
+  memset(&v38, 0, sizeof(v38));
+  CMSampleBufferGetDecodeTimeStamp(&v38, buffer);
+  [v37 lastSampleBufferDTS];
+  if (v37[12])
   {
-    [(HMIVideoDecoder *)self lastSampleBufferDTS];
-    time1 = v39;
+    [&time2 lastSampleBufferDTS];
+    time1 = v38;
     if (CMTimeCompare(&time1, &time2) <= 0)
     {
       v25 = objc_autoreleasePoolPush();
@@ -112,34 +112,31 @@ LABEL_29:
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         v28 = HMFGetLogIdentifier();
-        [(HMIVideoDecoder *)selfCopy3 lastSampleBufferDTS];
+        [&time2 lastSampleBufferDTS];
+        v29 = HMICMTimeDescription(&time2);
+        time2 = v38;
         v30 = HMICMTimeDescription(&time2);
-        time2 = v39;
-        v31 = HMICMTimeDescription(&time2);
         LODWORD(time2.value) = 138543874;
         *(&time2.value + 4) = v28;
         LOWORD(time2.flags) = 2112;
-        *(&time2.flags + 2) = v30;
+        *(&time2.flags + 2) = v29;
         HIWORD(time2.epoch) = 2112;
-        v41 = v31;
+        v40 = v30;
         _os_log_impl(&dword_22D12F000, v27, OS_LOG_TYPE_ERROR, "%{public}@Invalid DTS, expected > %@, got %@, skipping.", &time2, 0x20u);
 
-        goto LABEL_27;
+        goto LABEL_26;
       }
 
-      goto LABEL_28;
+      goto LABEL_27;
     }
   }
 
-  time2 = v39;
-  [(HMIVideoDecoder *)self setLastSampleBufferDTS:&time2];
+  time2 = v38;
+  [(HMIVideoDecoder *)self setLastSampleBufferDTS:?];
   FormatDescription = CMSampleBufferGetFormatDescription(buffer);
   if (!FormatDescription)
   {
-    v29 = @"Format description is missing.";
-LABEL_24:
-    [(HMIVideoDecoder *)self _failWithDescription:v29];
-    return 0;
+    goto LABEL_23;
   }
 
   v8 = FormatDescription;
@@ -149,12 +146,13 @@ LABEL_24:
   }
 
   v9 = +[HMIPreference sharedInstance];
-  v10 = [v9 BOOLPreferenceForKey:@"restartDecoderIfFormatChanges" defaultValue:0];
+  v10 = [v9 BOOLPreferenceForKey:? defaultValue:?];
 
   if (!v10)
   {
-    v29 = @"Cannot accept format description.";
-    goto LABEL_24;
+LABEL_23:
+    [(HMIVideoDecoder *)self _failWithDescription:?];
+    return 0;
   }
 
   v11 = objc_autoreleasePoolPush();
@@ -172,28 +170,27 @@ LABEL_24:
   [(HMIVideoDecoder *)selfCopy4 flush];
   VTDecompressionSessionInvalidate([(HMIVideoDecoder *)selfCopy4 session]);
   CFRelease([(HMIVideoDecoder *)selfCopy4 session]);
-  [(HMIVideoDecoder *)selfCopy4 _createSessionWithFormatDescription:v8];
+  [(HMIVideoDecoder *)selfCopy4 _createSessionWithFormatDescription:?];
 LABEL_12:
   if (![(HMIVideoDecoder *)self session])
   {
     reorderBufferSize = self->_reorderBufferSize;
     CallbacksForSampleBuffersSortedByOutputPTS = CMBufferQueueGetCallbacksForSampleBuffersSortedByOutputPTS();
-    v35 = CMBufferQueueCreate(0, reorderBufferSize, CallbacksForSampleBuffersSortedByOutputPTS, &self->_buffer);
-    if (v35)
+    v34 = CMBufferQueueCreate(0, reorderBufferSize, CallbacksForSampleBuffersSortedByOutputPTS, &self->_buffer);
+    if (v34)
     {
-      v36 = [MEMORY[0x277CCACA8] stringWithFormat:@"Cannot create reorder buffer, err: %d.", v35];
-      [(HMIVideoDecoder *)self _failWithDescription:v36];
+      v35 = [MEMORY[0x277CCACA8] stringWithFormat:v34];
+      [(HMIVideoDecoder *)self _failWithDescription:?];
 
       return 0;
     }
 
-    if ([(HMIVideoDecoder *)self _createSessionWithFormatDescription:v8])
+    if ([(HMIVideoDecoder *)self _createSessionWithFormatDescription:?])
     {
       goto LABEL_13;
     }
 
-    v29 = @"Cannot create decoder.";
-    goto LABEL_24;
+    goto LABEL_23;
   }
 
 LABEL_13:
@@ -212,8 +209,8 @@ LABEL_13:
   v17 = v16 == 0;
   if (v16)
   {
-    v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"Cannot decode frame, err: %d.", v16];
-    [(HMIVideoDecoder *)self _failWithDescription:v18];
+    v18 = [MEMORY[0x277CCACA8] stringWithFormat:v16];
+    [(HMIVideoDecoder *)self _failWithDescription:?];
   }
 
   return v17;
@@ -227,7 +224,7 @@ LABEL_13:
     while (!CMBufferQueueIsEmpty([(HMIVideoDecoder *)self buffer]))
     {
       v3 = CMBufferQueueDequeueAndRetain([(HMIVideoDecoder *)self buffer]);
-      [(HMIVideoDecoder *)self _evictSampleBuffer:v3];
+      [(HMIVideoDecoder *)self _evictSampleBuffer:?];
       CFRelease(v3);
     }
   }
@@ -238,7 +235,7 @@ LABEL_13:
   if ([(HMIVideoDecoder *)self buffer])
   {
     CFRelease(self->_buffer);
-    [(HMIVideoDecoder *)self setBuffer:0];
+    [(HMIVideoDecoder *)self setBuffer:?];
   }
 
   if ([(HMIVideoDecoder *)self session])
@@ -255,7 +252,7 @@ LABEL_13:
     v6 = weakDecoder;
     dispatch_async(workQueue, block);
 
-    [(HMIVideoDecoder *)self setSession:0];
+    [(HMIVideoDecoder *)self setSession:?];
   }
 
   v7.receiver = self;
@@ -274,15 +271,15 @@ void __26__HMIVideoDecoder_dealloc__block_invoke(uint64_t a1)
 
 - (BOOL)_createSessionWithFormatDescription:(opaqueCMFormatDescription *)description
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   [(HMIVideoDecoder *)self weakDecoder];
 
   v18 = *MEMORY[0x277CE2778];
-  v19[0] = @"HomeAI";
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+  v19 = @"HomeAI";
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
   v16 = *MEMORY[0x277CC4DE0];
   v17 = MEMORY[0x277CBEC38];
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
   v6 = VTDecompressionSessionCreateWithOptions();
   if (v6)
   {
@@ -310,14 +307,14 @@ void __26__HMIVideoDecoder_dealloc__block_invoke(uint64_t a1)
   v16 = *MEMORY[0x277D85DE8];
   memset(&v14, 0, sizeof(v14));
   CMSampleBufferGetPresentationTimeStamp(&v14, buffer);
-  [(HMIVideoDecoder *)self lastSampleBufferPTS];
-  if (v13)
+  [v13 lastSampleBufferPTS];
+  if (v13[12])
   {
-    [(HMIVideoDecoder *)self lastSampleBufferPTS];
+    [&time1 lastSampleBufferPTS];
     v12 = v14;
     if ((CMTimeCompare(&time1, &v12) & 0x80000000) == 0)
     {
-      [(HMIVideoDecoder *)self _failWithDescription:@"Cannot reorder frames."];
+      [(HMIVideoDecoder *)self _failWithDescription:?];
       v5 = objc_autoreleasePoolPush();
       selfCopy2 = self;
       v7 = HMFGetOSLogHandle();
@@ -341,7 +338,7 @@ LABEL_8:
 
   if ((v14.flags & 1) == 0)
   {
-    [(HMIVideoDecoder *)self _failWithDescription:@"Decoded sample has an invalid PTS."];
+    [(HMIVideoDecoder *)self _failWithDescription:?];
     v5 = objc_autoreleasePoolPush();
     selfCopy2 = self;
     v7 = HMFGetOSLogHandle();
@@ -364,11 +361,11 @@ LABEL_9:
 
   v10 = objc_autoreleasePoolPush();
   delegate = [(HMIVideoDecoder *)self delegate];
-  [delegate decoder:self didDecodeSampleBuffer:buffer];
+  [delegate decoder:? didDecodeSampleBuffer:?];
 
   objc_autoreleasePoolPop(v10);
   time1 = v14;
-  [(HMIVideoDecoder *)self setLastSampleBufferPTS:&time1];
+  [(HMIVideoDecoder *)self setLastSampleBufferPTS:?];
 }
 
 - (void)_didDecodeSampleBuffer:(opaqueCMSampleBuffer *)buffer
@@ -379,7 +376,7 @@ LABEL_9:
     if (BufferCount == [(HMIVideoDecoder *)self reorderBufferSize])
     {
       v6 = CMBufferQueueDequeueAndRetain(self->_buffer);
-      [(HMIVideoDecoder *)self _evictSampleBuffer:v6];
+      [(HMIVideoDecoder *)self _evictSampleBuffer:?];
       CFRelease(v6);
     }
 
@@ -391,7 +388,7 @@ LABEL_9:
   else
   {
 
-    [(HMIVideoDecoder *)self _evictSampleBuffer:buffer];
+    [(HMIVideoDecoder *)self _evictSampleBuffer:?];
   }
 }
 
@@ -418,10 +415,10 @@ LABEL_9:
   else
   {
     self->super.super._status = 4;
-    v9 = [MEMORY[0x277CCA9B8] hmiErrorWithCode:-1 description:descriptionCopy];
+    v9 = [MEMORY[0x277CCA9B8] hmiErrorWithCode:? description:?];
     HMIErrorLog(self, v9);
     delegate = [(HMIVideoDecoder *)self delegate];
-    [delegate decoder:self didFailWithError:v9];
+    [delegate decoder:? didFailWithError:?];
   }
 }
 

@@ -339,7 +339,7 @@ LABEL_14:
 
 + (void)realHomeDirectory
 {
-  v5 = *__error();
+  __error();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }

@@ -158,9 +158,9 @@
       goto LABEL_25;
     }
 
-    v16 = [v13 isEqual:v14];
+    isEqual = objc_msgSend_isEqual_(v13);
 
-    if ((v16 & 1) == 0)
+    if ((isEqual & 1) == 0)
     {
       goto LABEL_25;
     }
@@ -178,20 +178,24 @@
     v20 = *v24;
     do
     {
-      for (i = 0; i != v19; ++i)
+      v21 = 0;
+      do
       {
         if (*v24 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = *(*(&v23 + 1) + 8 * i);
+        v22 = *(*(&v23 + 1) + 8 * v21);
         if (objc_opt_respondsToSelector())
         {
           [v22 hostingEnvironmentDidInvalidate:self];
         }
+
+        ++v21;
       }
 
+      while (v19 != v21);
       v19 = [v17 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 

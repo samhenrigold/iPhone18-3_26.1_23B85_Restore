@@ -2166,7 +2166,7 @@ LABEL_3:
   if (tokenCopy)
   {
     storeTokens = [tokenCopy storeTokens];
-    if ([storeTokens count] != 1)
+    if (objc_msgSend_count(storeTokens) != 1)
     {
       currentHandler3 = [MEMORY[0x1E696AAA8] currentHandler];
       [currentHandler3 handleFailureInMethod:a2 object:self file:@"PLGlobalValues.m" lineNumber:62 description:@"unexpected number of tokens"];
@@ -2628,9 +2628,9 @@ LABEL_13:
   v34 = +[PLSearchIndexConfiguration locale];
   localeIdentifier = [v34 localeIdentifier];
   searchIndexLocaleIdentifier = [(PLGlobalValues *)self searchIndexLocaleIdentifier];
-  v37 = [localeIdentifier isEqualToString:searchIndexLocaleIdentifier];
+  isEqualToString = objc_msgSend_isEqualToString_(localeIdentifier);
 
-  if ((v37 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v12 |= 2uLL;
     v38 = PLSearchBackendIndexRebuildGetLog();
@@ -2648,7 +2648,7 @@ LABEL_13:
   }
 
   searchIndexSceneTaxonomySHA = [(PLGlobalValues *)self searchIndexSceneTaxonomySHA];
-  if (searchIndexSceneTaxonomySHA != digestsCopy && ([digestsCopy isEqualToString:searchIndexSceneTaxonomySHA] & 1) == 0)
+  if (searchIndexSceneTaxonomySHA != digestsCopy && (objc_msgSend_isEqualToString_(digestsCopy) & 1) == 0)
   {
     v12 |= 4uLL;
     v43 = PLSearchBackendIndexRebuildGetLog();
@@ -2837,8 +2837,8 @@ LABEL_13:
     v7 = [persistentStoreCoordinator managedObjectIDForURIRepresentation:v6];
 
     searchIndexingEntityToRebuild = [(PLGlobalValues *)self searchIndexingEntityToRebuild];
-    entity = [v7 entity];
-    name = [entity name];
+    v9 = objc_msgSend_entity(v7);
+    name = [v9 name];
     v11 = PLSearchIndexingEntityForEntityName(name);
 
     if (v11 == searchIndexingEntityToRebuild)

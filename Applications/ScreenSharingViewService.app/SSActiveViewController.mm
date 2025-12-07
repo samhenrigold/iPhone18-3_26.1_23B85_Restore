@@ -5,6 +5,7 @@
 - (void)sendResultAndTerminate:(int)terminate;
 - (void)setUserInfo:(id)info;
 - (void)showControls;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -166,6 +167,17 @@ LABEL_11:
   v2.receiver = self;
   v2.super_class = SSActiveViewController;
   [(SSActiveViewController *)&v2 viewDidLoad];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = SSActiveViewController;
+  [(SSActiveViewController *)&v4 viewDidAppear:appear];
+  if ([(SSActiveViewController *)self userInfoSet])
+  {
+    [(SSActiveViewController *)self showControls];
+  }
 }
 
 - (void)didReceiveMemoryWarning

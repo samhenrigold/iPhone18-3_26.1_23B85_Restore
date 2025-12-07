@@ -24,14 +24,14 @@
 
   [(UIKBRenderFactory *)self translucentGapWidth];
   v11 = v10;
-  geometry = [v8 geometry];
-  [geometry paddedFrame];
+  v12 = objc_msgSend_geometry(v8);
+  [v12 paddedFrame];
   v14 = v13;
   v16 = v15;
   v18 = v17;
   v20 = v19 - v11;
-  geometry2 = [v8 geometry];
-  [geometry2 setPaddedFrame:{v14, v16, v20, v18}];
+  v21 = objc_msgSend_geometry(v8);
+  [v21 setPaddedFrame:{v14, v16, v20, v18}];
 
   if ([(UIKBRenderFactory *)self assetIdiom]!= 1 && [(UIKBRenderFactory *)self assetIdiom]!= 24 && [(UIKBRenderFactory *)self assetIdiom]!= 25 && [(UIKBRenderFactory *)self assetIdiom]!= 26 && [(UIKBRenderFactory *)self assetIdiom]!= 23)
   {

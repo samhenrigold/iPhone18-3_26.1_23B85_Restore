@@ -15,7 +15,7 @@
 
 - (void)performBinding
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EE297B0);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EE297B0, &qword_2459171A0);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v11 - v4;
   v6 = sub_245910D64();

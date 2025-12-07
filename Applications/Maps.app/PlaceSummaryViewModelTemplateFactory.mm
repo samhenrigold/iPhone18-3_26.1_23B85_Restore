@@ -21,9 +21,10 @@
   swift_getObjCClassMetadata();
   resultCopy = result;
   metadataCopy = metadata;
-  v10 = sub_1002DCBF4(resultCopy, context);
+  sub_1002DCBF4(resultCopy, context);
+  v11 = v10;
 
-  return v10;
+  return v11;
 }
 
 + (id)viewModelWithSearchResult:(id)result metadata:(id)metadata currentLocation:(id)location searchAlongRoute:(BOOL)route openAt:(id)at
@@ -60,22 +61,25 @@
   swift_getObjCClassMetadata();
   swift_unknownObjectRetain();
   configurationCopy = configuration;
-  v9 = sub_1002C44FC(search, configurationCopy, routeCopy, 1);
+  sub_1002C44FC(search, configurationCopy, routeCopy, 1);
+  v10 = v9;
   swift_unknownObjectRelease();
 
-  return v9;
+  return v10;
 }
 
 + (id)viewModelWithHistoryEntrySearch:(id)search highlightConfiguration:(id)configuration searchAlongRoute:(BOOL)route recentUnit:(BOOL)unit
 {
+  unitCopy = unit;
   routeCopy = route;
   swift_getObjCClassMetadata();
   swift_unknownObjectRetain();
   configurationCopy = configuration;
-  v11 = sub_1002C44FC(search, configurationCopy, routeCopy, unit);
+  sub_1002C44FC(search, configurationCopy, routeCopy, unitCopy);
+  v12 = v11;
   swift_unknownObjectRelease();
 
-  return v11;
+  return v12;
 }
 
 + (id)viewModelWithHistoryEntryPlaceDisplay:(id)display highlightConfiguration:(id)configuration availableWidth:(double)width currentLocation:(id)location searchAlongRoute:(BOOL)route
@@ -93,12 +97,13 @@
 
 + (id)viewModelWithHistoryEntryPlaceDisplay:(id)display highlightConfiguration:(id)configuration availableWidth:(double)width currentLocation:(id)location searchAlongRoute:(BOOL)route recentUnit:(BOOL)unit
 {
+  unitCopy = unit;
   routeCopy = route;
   swift_getObjCClassMetadata();
   swift_unknownObjectRetain();
   configurationCopy = configuration;
   locationCopy = location;
-  v16 = sub_1002C58A8(display, configurationCopy, location, routeCopy, unit, width);
+  v16 = sub_1002C58A8(display, configurationCopy, location, routeCopy, unitCopy, width);
   swift_unknownObjectRelease();
 
   return v16;
@@ -111,9 +116,10 @@
   resultCopy = result;
   configurationCopy = configuration;
   locationCopy = location;
-  v15 = sub_1002C9DFC(resultCopy, configurationCopy, location, routeCopy, width);
+  sub_1002C9DFC(resultCopy, configurationCopy, location, routeCopy, width);
+  v16 = v15;
 
-  return v15;
+  return v16;
 }
 
 + (id)viewModelWithUserRoute:(id)route highlightConfiguration:(id)configuration currentLocation:(id)location
@@ -122,9 +128,10 @@
   routeCopy = route;
   configurationCopy = configuration;
   locationCopy = location;
-  v11 = sub_1002CC0E0(routeCopy, configurationCopy, location);
+  sub_1002CC0E0(routeCopy, configurationCopy, location);
+  v12 = v11;
 
-  return v11;
+  return v12;
 }
 
 + (id)addAPlaceAutocompleteViewModel

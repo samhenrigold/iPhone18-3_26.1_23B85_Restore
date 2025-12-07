@@ -20,7 +20,7 @@
 
 - (id)descriptionFromExplanations:(id)explanations
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   explanationsCopy = explanations;
   if (![explanationsCopy count])
   {
@@ -30,37 +30,37 @@
 
   array = [MEMORY[0x277CBEB18] array];
   [MEMORY[0x277CBEB58] set];
-  v36 = v34 = explanationsCopy;
+  v35 = v33 = explanationsCopy;
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   v6 = explanationsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v41 objects:v46 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v40 objects:v45 count:16];
   if (!v7)
   {
     goto LABEL_19;
   }
 
   v8 = v7;
-  v9 = *v42;
+  v9 = *v41;
   do
   {
     v10 = 0;
     do
     {
-      if (*v42 != v9)
+      if (*v41 != v9)
       {
         objc_enumerationMutation(v6);
       }
 
-      v11 = *(*(&v41 + 1) + 8 * v10);
+      v11 = *(*(&v40 + 1) + 8 * v10);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v12 = v36;
+        v12 = v35;
 LABEL_14:
-        [v12 addObject:{v11, v34}];
+        [v12 addObject:{v11, v33}];
         goto LABEL_15;
       }
 
@@ -74,7 +74,7 @@ LABEL_13:
       v13 = 0;
       while (1)
       {
-        v14 = [array objectAtIndexedSubscript:{v13, v34}];
+        v14 = [array objectAtIndexedSubscript:{v13, v33}];
         if ([v11 canCombineExplanationWithExplanation:v14])
         {
           break;
@@ -94,14 +94,14 @@ LABEL_15:
     }
 
     while (v10 != v8);
-    v16 = [v6 countByEnumeratingWithState:&v41 objects:v46 count:16];
+    v16 = [v6 countByEnumeratingWithState:&v40 objects:v45 count:16];
     v8 = v16;
   }
 
   while (v16);
 LABEL_19:
 
-  v17 = [_REMLFeatureExplanation combinedExplanationsFromExplanations:v36];
+  v17 = [_REMLFeatureExplanation combinedExplanationsFromExplanations:v35];
   allObjects = [v17 allObjects];
   [array addObjectsFromArray:allObjects];
 
@@ -110,7 +110,7 @@ LABEL_19:
     v19 = 0;
     do
     {
-      v20 = [array objectAtIndexedSubscript:{v19, v34}];
+      v20 = [array objectAtIndexedSubscript:{v19, v33}];
       if (([v20 shouldProvideExplanation] & 1) == 0)
       {
         [array removeObjectAtIndex:v19--];
@@ -122,7 +122,7 @@ LABEL_19:
     while (v19 < [array count]);
   }
 
-  [array sortUsingComparator:{&__block_literal_global_36, v34}];
+  [array sortUsingComparator:{&__block_literal_global_36, v33}];
   string = [MEMORY[0x277CCAB68] string];
   v22 = [array count];
   v23 = 5;
@@ -131,8 +131,8 @@ LABEL_19:
     v23 = 1;
   }
 
+  v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   if (v22 >= v23)
   {
     v24 = v23;
@@ -143,40 +143,38 @@ LABEL_19:
     v24 = v22;
   }
 
+  v38 = 0uLL;
   v39 = 0uLL;
-  v40 = 0uLL;
   v25 = [array subarrayWithRange:{0, v24}];
-  v26 = [v25 countByEnumeratingWithState:&v37 objects:v45 count:16];
+  v26 = [v25 countByEnumeratingWithState:&v36 objects:v44 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v38;
+    v28 = *v37;
     do
     {
       for (i = 0; i != v27; ++i)
       {
-        if (*v38 != v28)
+        if (*v37 != v28)
         {
           objc_enumerationMutation(v25);
         }
 
-        v30 = [*(*(&v37 + 1) + 8 * i) explanationWithStyle:self->_style];
+        v30 = [*(*(&v36 + 1) + 8 * i) explanationWithStyle:self->_style];
         [string appendString:v30];
 
         [string appendString:@"\n"];
       }
 
-      v27 = [v25 countByEnumeratingWithState:&v37 objects:v45 count:16];
+      v27 = [v25 countByEnumeratingWithState:&v36 objects:v44 count:16];
     }
 
     while (v27);
   }
 
   v31 = [string copy];
-  explanationsCopy = v35;
+  explanationsCopy = v34;
 LABEL_38:
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v31;
 }

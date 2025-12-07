@@ -32,11 +32,11 @@
 
 - (WFIPConfigViewController)initWithConfig:(id)config ipType:(int64_t)type appearanceProxy:(id)proxy
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   configCopy = config;
-  v18.receiver = self;
-  v18.super_class = WFIPConfigViewController;
-  v10 = -[WFIPConfigViewController initWithStyle:](&v18, sel_initWithStyle_, [proxy tableViewStyle]);
+  v19.receiver = self;
+  v19.super_class = WFIPConfigViewController;
+  v10 = -[WFIPConfigViewController initWithStyle:](&v19, sel_initWithStyle_, [proxy tableViewStyle]);
   v11 = v10;
   if (configCopy && v10)
   {
@@ -49,11 +49,12 @@
     {
       v14 = WFLogForCategory(0);
       v15 = OSLogForWFLogLevel(3uLL);
-      if (WFCurrentLogLevel() >= 3 && v14 && os_log_type_enabled(v14, v15))
+      v16 = v15;
+      if (WFCurrentLogLevel(v15, v17) >= 3 && v14 && os_log_type_enabled(v14, v16))
       {
         *buf = 136315138;
-        v20 = "[WFIPConfigViewController initWithConfig:ipType:appearanceProxy:]";
-        _os_log_impl(&dword_273FB9000, v14, v15, "%s: previous ipv4Config is unknown", buf, 0xCu);
+        v21 = "[WFIPConfigViewController initWithConfig:ipType:appearanceProxy:]";
+        _os_log_impl(&dword_273FB9000, v14, v16, "%s: previous ipv4Config is unknown", buf, 0xCu);
       }
 
       [(WFNetworkSettingsConfig *)v11->_modifiedConfig setIpv4Config:0];
@@ -68,7 +69,6 @@
     v11 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -1160,7 +1160,7 @@ void __40__WFIPConfigViewController_clientIDCell__block_invoke(uint64_t a1, void
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {
-  v59[3] = *MEMORY[0x277D85DE8];
+  v58[3] = *MEMORY[0x277D85DE8];
   viewCopy = view;
   pathCopy = path;
   [viewCopy deselectRowAtIndexPath:pathCopy animated:1];
@@ -1190,35 +1190,35 @@ void __40__WFIPConfigViewController_clientIDCell__block_invoke(uint64_t a1, void
 
     if ([pathCopy row] == 1)
     {
+      v9 = 0;
       v10 = 0;
-      v11 = 0;
+      v11 = 1;
       v12 = 1;
-      v13 = 1;
       goto LABEL_21;
     }
 
     if ([pathCopy row] == 2)
     {
-      v12 = 0;
-      v10 = 0;
-      v11 = 1;
-      v13 = 2;
+      v11 = 0;
+      v9 = 0;
+      v10 = 1;
+      v12 = 2;
     }
 
     else
     {
 LABEL_20:
-      v12 = 0;
       v11 = 0;
-      v13 = 0;
-      v10 = 1;
+      v10 = 0;
+      v12 = 0;
+      v9 = 1;
     }
 
 LABEL_21:
     modifiedConfig = [(WFIPConfigViewController *)self modifiedConfig];
     ipv6Config = [modifiedConfig ipv6Config];
 
-    if (v13 == ipv6Config)
+    if (v12 == ipv6Config)
     {
       goto LABEL_5;
     }
@@ -1227,32 +1227,32 @@ LABEL_21:
     ipv6Config2 = [modifiedConfig2 ipv6Config];
 
     modifiedConfig3 = [(WFIPConfigViewController *)self modifiedConfig];
-    [modifiedConfig3 setIpv6Config:v13];
+    [modifiedConfig3 setIpv6Config:v12];
 
-    if (v12)
+    if (v11)
     {
       tableView = [(WFIPConfigViewController *)self tableView];
       [tableView beginUpdates];
 
       tableView2 = [(WFIPConfigViewController *)self tableView];
-      v28 = [MEMORY[0x277CCAA78] indexSetWithIndex:1];
-      [tableView2 insertSections:v28 withRowAnimation:0];
+      v27 = [MEMORY[0x277CCAA78] indexSetWithIndex:1];
+      [tableView2 insertSections:v27 withRowAnimation:0];
 
       tableView3 = [(WFIPConfigViewController *)self tableView];
-      v30 = [MEMORY[0x277CCAA70] indexPathForRow:0 inSection:1];
-      v59[0] = v30;
-      v31 = [MEMORY[0x277CCAA70] indexPathForRow:1 inSection:1];
-      v59[1] = v31;
-      v32 = [MEMORY[0x277CCAA70] indexPathForRow:2 inSection:1];
-      v59[2] = v32;
-      [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:3];
-      LODWORD(tableView2) = v10;
-      v34 = v33 = v11;
-      [tableView3 insertRowsAtIndexPaths:v34 withRowAnimation:0];
+      v29 = [MEMORY[0x277CCAA70] indexPathForRow:0 inSection:1];
+      v58[0] = v29;
+      v30 = [MEMORY[0x277CCAA70] indexPathForRow:1 inSection:1];
+      v58[1] = v30;
+      v31 = [MEMORY[0x277CCAA70] indexPathForRow:2 inSection:1];
+      v58[2] = v31;
+      [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:3];
+      LODWORD(tableView2) = v9;
+      v33 = v32 = v10;
+      [tableView3 insertRowsAtIndexPaths:v33 withRowAnimation:0];
 
-      v11 = v33;
-      v10 = tableView2;
-      v35 = 3;
+      v10 = v32;
+      v9 = tableView2;
+      v34 = 3;
 
       tableView4 = [(WFIPConfigViewController *)self tableView];
       [tableView4 endUpdates];
@@ -1263,41 +1263,41 @@ LABEL_21:
 
     else
     {
-      v35 = 0;
-      if ((v10 | v11) != 1 || ipv6Config2 != 1)
+      v34 = 0;
+      if ((v9 | v10) != 1 || ipv6Config2 != 1)
       {
 LABEL_28:
+        if (v9)
+        {
+          v45 = 3;
+        }
+
+        else
+        {
+          v45 = 0;
+        }
+
+        v46 = [MEMORY[0x277CCAA70] indexPathForRow:0 inSection:0];
+        v47 = [viewCopy cellForRowAtIndexPath:v46];
+        [v47 setAccessoryType:v45];
+
+        v48 = [MEMORY[0x277CCAA70] indexPathForRow:1 inSection:0];
+        v49 = [viewCopy cellForRowAtIndexPath:v48];
+        [v49 setAccessoryType:v34];
+
         if (v10)
         {
-          v46 = 3;
+          v50 = 3;
         }
 
         else
         {
-          v46 = 0;
+          v50 = 0;
         }
 
-        v47 = [MEMORY[0x277CCAA70] indexPathForRow:0 inSection:0];
-        v48 = [viewCopy cellForRowAtIndexPath:v47];
-        [v48 setAccessoryType:v46];
-
-        v49 = [MEMORY[0x277CCAA70] indexPathForRow:1 inSection:0];
-        v50 = [viewCopy cellForRowAtIndexPath:v49];
-        [v50 setAccessoryType:v35];
-
-        if (v11)
-        {
-          v51 = 3;
-        }
-
-        else
-        {
-          v51 = 0;
-        }
-
-        v52 = [MEMORY[0x277CCAA70] indexPathForRow:2 inSection:0];
-        v53 = [viewCopy cellForRowAtIndexPath:v52];
-        [v53 setAccessoryType:v51];
+        v51 = [MEMORY[0x277CCAA70] indexPathForRow:2 inSection:0];
+        v52 = [viewCopy cellForRowAtIndexPath:v51];
+        [v52 setAccessoryType:v50];
 
         goto LABEL_5;
       }
@@ -1306,22 +1306,22 @@ LABEL_28:
       [tableView5 beginUpdates];
 
       tableView6 = [(WFIPConfigViewController *)self tableView];
-      v40 = [MEMORY[0x277CCAA78] indexSetWithIndex:1];
-      [tableView6 deleteSections:v40 withRowAnimation:0];
+      v39 = [MEMORY[0x277CCAA78] indexSetWithIndex:1];
+      [tableView6 deleteSections:v39 withRowAnimation:0];
 
       tableView7 = [(WFIPConfigViewController *)self tableView];
-      v42 = [MEMORY[0x277CCAA70] indexPathForRow:0 inSection:1];
-      v58[0] = v42;
-      v43 = [MEMORY[0x277CCAA70] indexPathForRow:1 inSection:1];
-      v58[1] = v43;
-      v44 = [MEMORY[0x277CCAA70] indexPathForRow:2 inSection:1];
-      v58[2] = v44;
-      v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:3];
-      [tableView7 deleteRowsAtIndexPaths:v45 withRowAnimation:0];
+      v41 = [MEMORY[0x277CCAA70] indexPathForRow:0 inSection:1];
+      v57[0] = v41;
+      v42 = [MEMORY[0x277CCAA70] indexPathForRow:1 inSection:1];
+      v57[1] = v42;
+      v43 = [MEMORY[0x277CCAA70] indexPathForRow:2 inSection:1];
+      v57[2] = v43;
+      v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:3];
+      [tableView7 deleteRowsAtIndexPaths:v44 withRowAnimation:0];
 
       ipAddressCell = [(WFIPConfigViewController *)self tableView];
       [ipAddressCell endUpdates];
-      v35 = 0;
+      v34 = 0;
     }
 
     goto LABEL_28;
@@ -1331,52 +1331,50 @@ LABEL_28:
   {
     if ([pathCopy row] == 1)
     {
-      v14 = 2;
+      v13 = 2;
     }
 
     else
     {
-      v14 = [pathCopy row] == 2;
+      v13 = [pathCopy row] == 2;
     }
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
   modifiedConfig4 = [(WFIPConfigViewController *)self modifiedConfig];
   ipv4Config = [modifiedConfig4 ipv4Config];
 
-  if (v14 != ipv4Config)
+  if (v13 != ipv4Config)
   {
     modifiedConfig5 = [(WFIPConfigViewController *)self modifiedConfig];
     ipv4Config2 = [modifiedConfig5 ipv4Config];
 
     modifiedConfig6 = [(WFIPConfigViewController *)self modifiedConfig];
-    [modifiedConfig6 setIpv4Config:v14];
+    [modifiedConfig6 setIpv4Config:v13];
 
     tableView8 = [(WFIPConfigViewController *)self tableView];
-    v54[0] = MEMORY[0x277D85DD0];
-    v54[1] = 3221225472;
-    v54[2] = __62__WFIPConfigViewController_tableView_didSelectRowAtIndexPath___block_invoke;
-    v54[3] = &unk_279EC5E08;
-    v56 = v14;
-    v57 = ipv4Config2;
-    v54[4] = self;
-    v55 = viewCopy;
-    [tableView8 performBatchUpdates:v54 completion:&__block_literal_global_3];
+    v53[0] = MEMORY[0x277D85DD0];
+    v53[1] = 3221225472;
+    v53[2] = __62__WFIPConfigViewController_tableView_didSelectRowAtIndexPath___block_invoke;
+    v53[3] = &unk_279EC5E08;
+    v55 = v13;
+    v56 = ipv4Config2;
+    v53[4] = self;
+    v54 = viewCopy;
+    [tableView8 performBatchUpdates:v53 completion:&__block_literal_global_3];
   }
 
 LABEL_5:
   [(WFIPConfigViewController *)self _updateSaveEnabled];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __62__WFIPConfigViewController_tableView_didSelectRowAtIndexPath___block_invoke(uint64_t a1)
 {
-  v57[3] = *MEMORY[0x277D85DE8];
+  v58[3] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 48);
   switch(v2)
   {
@@ -1386,16 +1384,16 @@ void __62__WFIPConfigViewController_tableView_didSelectRowAtIndexPath___block_in
       {
         v17 = [*(a1 + 32) tableView];
         v18 = [MEMORY[0x277CCAA70] indexPathForRow:1 inSection:1];
-        v53[0] = v18;
+        v54[0] = v18;
         v19 = [MEMORY[0x277CCAA70] indexPathForRow:2 inSection:1];
-        v53[1] = v19;
-        v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:2];
+        v54[1] = v19;
+        v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:2];
         [v17 deleteRowsAtIndexPaths:v20 withRowAnimation:0];
 
         v21 = [*(a1 + 32) tableView];
         v22 = [MEMORY[0x277CCAA70] indexPathForRow:0 inSection:1];
-        v52 = v22;
-        v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v52 count:1];
+        v53 = v22;
+        v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v53 count:1];
         [v21 reloadRowsAtIndexPaths:v23 withRowAnimation:5];
 
         v11 = [*(a1 + 32) tableView];
@@ -1416,8 +1414,8 @@ void __62__WFIPConfigViewController_tableView_didSelectRowAtIndexPath___block_in
 
         v11 = [*(a1 + 32) tableView];
         v12 = [MEMORY[0x277CCAA70] indexPathForRow:0 inSection:1];
-        v54 = v12;
-        v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v54 count:1];
+        v55 = v12;
+        v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v55 count:1];
         [v11 insertRowsAtIndexPaths:v16 withRowAnimation:0];
       }
 
@@ -1448,12 +1446,12 @@ LABEL_14:
 
         v6 = [*(a1 + 32) tableView];
         v7 = [MEMORY[0x277CCAA70] indexPathForRow:0 inSection:1];
-        v57[0] = v7;
+        v58[0] = v7;
         v8 = [MEMORY[0x277CCAA70] indexPathForRow:1 inSection:1];
-        v57[1] = v8;
+        v58[1] = v8;
         v9 = [MEMORY[0x277CCAA70] indexPathForRow:2 inSection:1];
-        v57[2] = v9;
-        v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:3];
+        v58[2] = v9;
+        v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:3];
         [v6 insertRowsAtIndexPaths:v10 withRowAnimation:0];
       }
 
@@ -1461,16 +1459,16 @@ LABEL_14:
       {
         v24 = [*(a1 + 32) tableView];
         v25 = [MEMORY[0x277CCAA70] indexPathForRow:1 inSection:1];
-        v56[0] = v25;
+        v57[0] = v25;
         v26 = [MEMORY[0x277CCAA70] indexPathForRow:2 inSection:1];
-        v56[1] = v26;
-        v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:2];
+        v57[1] = v26;
+        v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:2];
         [v24 insertRowsAtIndexPaths:v27 withRowAnimation:0];
 
         v6 = [*(a1 + 32) tableView];
         v7 = [MEMORY[0x277CCAA70] indexPathForRow:0 inSection:1];
-        v55 = v7;
-        v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v55 count:1];
+        v56 = v7;
+        v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v56 count:1];
         [v6 reloadRowsAtIndexPaths:v8 withRowAnimation:5];
       }
 
@@ -1479,81 +1477,79 @@ LABEL_14:
 
   v28 = WFLogForCategory(0);
   v29 = OSLogForWFLogLevel(4uLL);
-  if (WFCurrentLogLevel() >= 4 && v28 && os_log_type_enabled(v28, v29))
+  v30 = v29;
+  if (WFCurrentLogLevel(v29, v31) >= 4 && v28 && os_log_type_enabled(v28, v30))
   {
-    v31 = *(a1 + 48);
-    v30 = *(a1 + 56);
-    v46 = 136315650;
-    v47 = "[WFIPConfigViewController tableView:didSelectRowAtIndexPath:]_block_invoke";
-    v48 = 2048;
-    v49 = v30;
-    v50 = 2048;
-    v51 = v31;
-    _os_log_impl(&dword_273FB9000, v28, v29, "%s: IP Config -- previous config: %ld new config: %ld.", &v46, 0x20u);
+    v33 = *(a1 + 48);
+    v32 = *(a1 + 56);
+    v47 = 136315650;
+    v48 = "[WFIPConfigViewController tableView:didSelectRowAtIndexPath:]_block_invoke";
+    v49 = 2048;
+    v50 = v32;
+    v51 = 2048;
+    v52 = v33;
+    _os_log_impl(&dword_273FB9000, v28, v30, "%s: IP Config -- previous config: %ld new config: %ld.", &v47, 0x20u);
   }
 
-  v32 = *(a1 + 40);
+  v34 = *(a1 + 40);
   if (*(a1 + 48))
   {
-    v33 = 0;
+    v35 = 0;
   }
 
   else
   {
-    v33 = 3;
+    v35 = 3;
   }
 
-  v34 = [MEMORY[0x277CCAA70] indexPathForRow:0 inSection:0];
-  v35 = [v32 cellForRowAtIndexPath:v34];
-  [v35 setAccessoryType:v33];
+  v36 = [MEMORY[0x277CCAA70] indexPathForRow:0 inSection:0];
+  v37 = [v34 cellForRowAtIndexPath:v36];
+  [v37 setAccessoryType:v35];
 
-  v36 = *(a1 + 40);
+  v38 = *(a1 + 40);
   if (*(a1 + 48) == 2)
   {
-    v37 = 3;
+    v39 = 3;
   }
 
   else
   {
-    v37 = 0;
+    v39 = 0;
   }
 
-  v38 = [MEMORY[0x277CCAA70] indexPathForRow:1 inSection:0];
-  v39 = [v36 cellForRowAtIndexPath:v38];
-  [v39 setAccessoryType:v37];
+  v40 = [MEMORY[0x277CCAA70] indexPathForRow:1 inSection:0];
+  v41 = [v38 cellForRowAtIndexPath:v40];
+  [v41 setAccessoryType:v39];
 
-  v41 = a1 + 40;
-  v40 = *(a1 + 40);
-  if (*(v41 + 8) == 1)
+  v43 = a1 + 40;
+  v42 = *(a1 + 40);
+  if (*(v43 + 8) == 1)
   {
-    v42 = 3;
+    v44 = 3;
   }
 
   else
   {
-    v42 = 0;
+    v44 = 0;
   }
 
-  v43 = [MEMORY[0x277CCAA70] indexPathForRow:2 inSection:0];
-  v44 = [v40 cellForRowAtIndexPath:v43];
-  [v44 setAccessoryType:v42];
-
-  v45 = *MEMORY[0x277D85DE8];
+  v45 = [MEMORY[0x277CCAA70] indexPathForRow:2 inSection:0];
+  v46 = [v42 cellForRowAtIndexPath:v45];
+  [v46 setAccessoryType:v44];
 }
 
 void __62__WFIPConfigViewController_tableView_didSelectRowAtIndexPath___block_invoke_80()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = WFLogForCategory(0);
   v1 = OSLogForWFLogLevel(4uLL);
-  if (WFCurrentLogLevel() >= 4 && v0 && os_log_type_enabled(v0, v1))
+  v2 = v1;
+  if (WFCurrentLogLevel(v1, v3) >= 4 && v0 && os_log_type_enabled(v0, v2))
   {
-    v3 = 136315138;
-    v4 = "[WFIPConfigViewController tableView:didSelectRowAtIndexPath:]_block_invoke";
-    _os_log_impl(&dword_273FB9000, v0, v1, "%s: Finished inserting and deleting cells for IP Config.", &v3, 0xCu);
+    v4 = 136315138;
+    v5 = "[WFIPConfigViewController tableView:didSelectRowAtIndexPath:]_block_invoke";
+    _os_log_impl(&dword_273FB9000, v0, v2, "%s: Finished inserting and deleting cells for IP Config.", &v4, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (double)_configCellLeadingInset

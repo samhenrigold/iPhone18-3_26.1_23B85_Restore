@@ -8,19 +8,19 @@
 - (PTVFXResourcesLogger)initWithName:(id)name index:(int)index
 {
   nameCopy = name;
-  v11.receiver = self;
-  v11.super_class = PTVFXResourcesLogger;
-  v8 = [(PTVFXResourcesLogger *)&v11 init];
+  v12.receiver = self;
+  v12.super_class = PTVFXResourcesLogger;
+  v8 = [(PTVFXResourcesLogger *)&v12 init];
   objc_storeStrong(&v8->_name, name);
   v8->_index = index;
   v8->_verboseLogging = 0;
-  kdebug_trace();
+  v9 = kdebug_trace();
   if (v8->_verboseLogging)
   {
-    v9 = _PTLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _PTLogSystem(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [PTVFXResourcesLogger initWithName:nameCopy index:v9];
+      [PTVFXResourcesLogger initWithName:nameCopy index:v10];
     }
   }
 
@@ -41,33 +41,34 @@
 
 void __39__PTVFXResourcesLogger_progressHandler__block_invoke(uint64_t a1, void *a2, _BYTE *a3, float a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v7 = a2;
-  v9 = *(a1 + 32);
-  v8 = a1 + 32;
-  if (*(v9 + 20) == 1)
+  v8 = v7;
+  v10 = *(a1 + 32);
+  v9 = a1 + 32;
+  if (*(v10 + 20) == 1)
   {
-    v10 = _PTLogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _PTLogSystem(v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v12 = *(*v8 + 8);
-      v13 = *a3;
-      v14 = 138412802;
-      v15 = v12;
-      v16 = 2048;
-      v17 = a4;
-      v18 = 1024;
-      v19 = v13;
-      _os_log_error_impl(&dword_2243FB000, v10, OS_LOG_TYPE_ERROR, "VFX Init %@ progress %f stop %i ", &v14, 0x1Cu);
+      v13 = *(*v9 + 8);
+      v14 = *a3;
+      v15 = 138412802;
+      v16 = v13;
+      v17 = 2048;
+      v18 = a4;
+      v19 = 1024;
+      v20 = v14;
+      _os_log_error_impl(&dword_2243FB000, v11, OS_LOG_TYPE_ERROR, "VFX Init %@ progress %f stop %i ", &v15, 0x1Cu);
     }
   }
 
-  if (v7)
+  if (v8)
   {
-    v11 = _PTLogSystem();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = _PTLogSystem(v7);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      __39__PTVFXResourcesLogger_progressHandler__block_invoke_cold_1(v8, v7, v11);
+      __39__PTVFXResourcesLogger_progressHandler__block_invoke_cold_1(v9, v8, v12);
     }
   }
 

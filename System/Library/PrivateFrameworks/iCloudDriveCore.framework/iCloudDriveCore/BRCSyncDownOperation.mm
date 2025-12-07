@@ -92,25 +92,25 @@
 
 - (void)_performAfterFetchingRecordChanges:(id)changes
 {
-  v130 = *MEMORY[0x277D85DE8];
+  v129 = *MEMORY[0x277D85DE8];
   changesCopy = changes;
   group = [(_BRCOperation *)self group];
   name = [group name];
   br_syncDownPeriodic = [MEMORY[0x277CBC4F8] br_syncDownPeriodic];
   name2 = [br_syncDownPeriodic name];
-  v56 = [name isEqualToString:name2];
+  v55 = [name isEqualToString:name2];
 
-  v120[0] = 0;
-  v120[1] = v120;
-  v120[2] = 0x2020000000;
-  v121 = 0;
+  v119[0] = 0;
+  v119[1] = v119;
+  v119[2] = 0x2020000000;
+  v120 = 0;
   v8 = self->_serverZone;
-  v114 = 0;
-  v115 = &v114;
-  v116 = 0x3032000000;
-  v117 = __Block_byref_object_copy__54;
-  v118 = __Block_byref_object_dispose__54;
-  v119 = 0;
+  v113 = 0;
+  v114 = &v113;
+  v115 = 0x3032000000;
+  v116 = __Block_byref_object_copy__54;
+  v117 = __Block_byref_object_dispose__54;
+  v118 = 0;
   v9 = [[BRCPendingChangesStream alloc] initWithServerZone:v8];
   lastError = [(BRCPendingChangesStream *)v9 lastError];
 
@@ -122,32 +122,32 @@
 
   else
   {
-    v108 = 0;
-    v109 = &v108;
-    v110 = 0x3032000000;
-    v111 = __Block_byref_object_copy__54;
-    v112 = __Block_byref_object_dispose__54;
-    v113 = 0;
-    v107[0] = MEMORY[0x277D85DD0];
-    v107[1] = 3221225472;
-    v107[2] = __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invoke;
-    v107[3] = &unk_278507DA0;
-    v107[4] = &v114;
-    v107[5] = &v108;
-    [(BRCPendingChangesStream *)v9 fetchTokenState:v107];
-    if (!v115[5])
+    v107 = 0;
+    v108 = &v107;
+    v109 = 0x3032000000;
+    v110 = __Block_byref_object_copy__54;
+    v111 = __Block_byref_object_dispose__54;
+    v112 = 0;
+    v106[0] = MEMORY[0x277D85DD0];
+    v106[1] = 3221225472;
+    v106[2] = __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invoke;
+    v106[3] = &unk_278507DA0;
+    v106[4] = &v113;
+    v106[5] = &v107;
+    [(BRCPendingChangesStream *)v9 fetchTokenState:v106];
+    if (!v114[5])
     {
       changeState = [(BRCServerZone *)v8 changeState];
       changeToken = [changeState changeToken];
-      v14 = v115[5];
-      v115[5] = changeToken;
+      v14 = v114[5];
+      v114[5] = changeToken;
     }
 
     mangledID = [(BRCServerZone *)v8 mangledID];
-    v54 = [BRCUserDefaults defaultsForMangledID:mangledID];
+    v53 = [BRCUserDefaults defaultsForMangledID:mangledID];
 
     location = 0uLL;
-    v104 = 0;
+    v103 = 0;
     __brc_create_section(1, "[BRCSyncDownOperation _performAfterFetchingRecordChanges:]", 105, 0, &location);
     v16 = brc_bread_crumbs();
     v17 = brc_default_log();
@@ -155,7 +155,7 @@
     {
       v18 = v9;
       v19 = location;
-      if (v109[5])
+      if (v108[5])
       {
         v20 = @"starting";
       }
@@ -167,47 +167,47 @@
 
       mangledID2 = [(BRCServerZone *)v8 mangledID];
       aliasTargetContainerString = [mangledID2 aliasTargetContainerString];
-      v23 = [v115[5] descriptionWithContext:0];
+      v23 = [v114[5] descriptionWithContext:0];
       v24 = v23;
       *buf = 134219266;
       v25 = &stru_2837504F0;
       *&buf[4] = v19;
       *&buf[12] = 2112;
-      if (v56)
+      if (v55)
       {
         v25 = @" periodic sync.";
       }
 
       *&buf[14] = v20;
       *&buf[22] = 2112;
-      v126 = aliasTargetContainerString;
-      *v127 = 2112;
-      *&v127[2] = v23;
-      *&v127[10] = 2112;
-      *&v127[12] = v25;
-      v128 = 2112;
-      v129 = v16;
+      v125 = aliasTargetContainerString;
+      *v126 = 2112;
+      *&v126[2] = v23;
+      *&v126[10] = 2112;
+      *&v126[12] = v25;
+      v127 = 2112;
+      v128 = v16;
       _os_log_impl(&dword_223E7A000, v17, OS_LOG_TYPE_INFO, "[INFO] ┣%llx %@ fetch record changes operation for %@ from token %@. %@%@", buf, 0x3Eu);
 
       v9 = v18;
     }
 
-    v105 = location;
-    v106 = v104;
-    v57 = objc_opt_new();
-    [v57 setPreviousServerChangeToken:v115[5]];
-    [v57 setResultsLimit:{objc_msgSend(v54, "maxRecordCountInFetchRecordsOperation")}];
+    v104 = location;
+    v105 = v103;
+    v56 = objc_opt_new();
+    [v56 setPreviousServerChangeToken:v114[5]];
+    [v56 setResultsLimit:{objc_msgSend(v53, "maxRecordCountInFetchRecordsOperation")}];
     v26 = [MEMORY[0x277CBC5A0] desiredKeysWithMask:185];
-    [v57 setDesiredKeys:v26];
+    [v56 setDesiredKeys:v26];
 
     v27 = objc_alloc(MEMORY[0x277CBC3B8]);
     zoneID = [(BRCServerZone *)v8 zoneID];
-    v124 = zoneID;
-    v29 = [MEMORY[0x277CBEA60] arrayWithObjects:&v124 count:1];
+    v123 = zoneID;
+    v29 = [MEMORY[0x277CBEA60] arrayWithObjects:&v123 count:1];
     zoneID2 = [(BRCServerZone *)v8 zoneID];
-    v122 = zoneID2;
-    v123 = v57;
-    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v123 forKeys:&v122 count:1];
+    v121 = zoneID2;
+    v122 = v56;
+    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v122 forKeys:&v121 count:1];
     v32 = [v27 initWithRecordZoneIDs:v29 configurationsByRecordZoneID:v31];
 
     [v32 setShouldFetchAssetContents:0];
@@ -218,23 +218,23 @@
 
     else
     {
-      shouldFetchAllChanges = [v54 shouldFetchAllChanges];
+      shouldFetchAllChanges = [v53 shouldFetchAllChanges];
     }
 
-    [v32 setFetchAllChanges:{shouldFetchAllChanges, v54}];
-    [v32 setShouldReportAllPerItemFailures:{objc_msgSend(v55, "shouldReportAllPerItemFailures")}];
+    [v32 setFetchAllChanges:{shouldFetchAllChanges, v53}];
+    [v32 setShouldReportAllPerItemFailures:{objc_msgSend(v54, "shouldReportAllPerItemFailures")}];
     mangledID3 = [(BRCServerZone *)v8 mangledID];
     v35 = [BRCUserDefaults defaultsForMangledID:mangledID3];
     supportsEnhancedDrivePrivacy = [v35 supportsEnhancedDrivePrivacy];
 
     if (supportsEnhancedDrivePrivacy)
     {
-      v102[0] = MEMORY[0x277D85DD0];
-      v102[1] = 3221225472;
-      v102[2] = __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invoke_25;
-      v102[3] = &unk_278507DC8;
-      v102[4] = self;
-      [v32 setZoneAttributesChangedBlock:v102];
+      v101[0] = MEMORY[0x277D85DD0];
+      v101[1] = 3221225472;
+      v101[2] = __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invoke_25;
+      v101[3] = &unk_278507DC8;
+      v101[4] = self;
+      [v32 setZoneAttributesChangedBlock:v101];
     }
 
     clientZone = [(BRCServerZone *)self->_serverZone clientZone];
@@ -245,113 +245,111 @@
     [v32 setCallbackQueue:callbackQueue];
 
     objc_initWeak(&location, v32);
-    v93[0] = MEMORY[0x277D85DD0];
-    v93[1] = 3221225472;
-    v93[2] = __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invoke_29;
-    v93[3] = &unk_278507DF0;
-    objc_copyWeak(&v98, &location);
+    v92[0] = MEMORY[0x277D85DD0];
+    v92[1] = 3221225472;
+    v92[2] = __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invoke_29;
+    v92[3] = &unk_278507DF0;
+    objc_copyWeak(&v97, &location);
+    v98 = v104;
     v99 = v105;
-    v100 = v106;
     v41 = v8;
-    v94 = v41;
+    v93 = v41;
     v42 = v38;
     selfCopy = self;
-    v97 = v120;
-    v101 = v56;
-    v95 = v42;
-    [v32 setPerRecordChangeCompletionBlock:v93];
-    v87[0] = MEMORY[0x277D85DD0];
-    v87[1] = 3221225472;
-    v87[2] = __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invoke_31;
-    v87[3] = &unk_278500518;
-    objc_copyWeak(&v90, &location);
+    v96 = v119;
+    v100 = v55;
+    v94 = v42;
+    [v32 setPerRecordChangeCompletionBlock:v92];
+    v86[0] = MEMORY[0x277D85DD0];
+    v86[1] = 3221225472;
+    v86[2] = __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invoke_31;
+    v86[3] = &unk_278500518;
+    objc_copyWeak(&v89, &location);
+    v90 = v104;
     v91 = v105;
-    v92 = v106;
     v43 = v42;
-    v88 = v43;
-    v89 = v120;
-    [v32 setRecordWithIDWasDeletedBlock:v87];
+    v87 = v43;
+    v88 = v119;
+    [v32 setRecordWithIDWasDeletedBlock:v86];
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v126 = __Block_byref_object_copy__54;
-    *v127 = __Block_byref_object_dispose__54;
-    *&v127[8] = 0;
-    v80[0] = MEMORY[0x277D85DD0];
-    v80[1] = 3221225472;
-    v80[2] = __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invoke_33;
-    v80[3] = &unk_278507E18;
-    objc_copyWeak(&v84, &location);
+    v125 = __Block_byref_object_copy__54;
+    *v126 = __Block_byref_object_dispose__54;
+    *&v126[8] = 0;
+    v79[0] = MEMORY[0x277D85DD0];
+    v79[1] = 3221225472;
+    v79[2] = __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invoke_33;
+    v79[3] = &unk_278507E18;
+    objc_copyWeak(&v83, &location);
+    v84 = v104;
     v85 = v105;
-    v86 = v106;
     v44 = v43;
     selfCopy2 = self;
-    v83 = buf;
-    v81 = v44;
-    v45 = MEMORY[0x22AA4A310](v80);
-    v73[0] = MEMORY[0x277D85DD0];
-    v73[1] = 3221225472;
-    v73[2] = __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invoke_40;
-    v73[3] = &unk_278507E68;
-    objc_copyWeak(&v77, &location);
+    v82 = buf;
+    v80 = v44;
+    v45 = MEMORY[0x22AA4A310](v79);
+    v72[0] = MEMORY[0x277D85DD0];
+    v72[1] = 3221225472;
+    v72[2] = __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invoke_40;
+    v72[3] = &unk_278507E68;
+    objc_copyWeak(&v76, &location);
+    v77 = v104;
     v78 = v105;
-    v79 = v106;
     v46 = v45;
-    v76 = v46;
+    v75 = v46;
     v47 = v39;
-    v74 = v47;
+    v73 = v47;
     v48 = v44;
-    v75 = v48;
-    [v32 setRecordZoneFetchCompletionBlock:v73];
+    v74 = v48;
+    [v32 setRecordZoneFetchCompletionBlock:v72];
     if ([v32 fetchAllChanges])
     {
-      v71[0] = MEMORY[0x277D85DD0];
-      v71[1] = 3221225472;
-      v71[2] = __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invoke_2_44;
-      v71[3] = &unk_278507E90;
-      v72 = v46;
-      [v32 setRecordZoneChangeTokensUpdatedBlock:v71];
+      v70[0] = MEMORY[0x277D85DD0];
+      v70[1] = 3221225472;
+      v70[2] = __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invoke_2_44;
+      v70[3] = &unk_278507E90;
+      v71 = v46;
+      [v32 setRecordZoneChangeTokensUpdatedBlock:v70];
     }
 
-    v59[0] = MEMORY[0x277D85DD0];
-    v59[1] = 3221225472;
-    v59[2] = __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invoke_3;
-    v59[3] = &unk_278507EE0;
-    objc_copyWeak(&v67, &location);
+    v58[0] = MEMORY[0x277D85DD0];
+    v58[1] = 3221225472;
+    v58[2] = __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invoke_3;
+    v58[3] = &unk_278507EE0;
+    objc_copyWeak(&v66, &location);
     v49 = v47;
-    v60 = v49;
+    v59 = v49;
     v50 = v41;
+    v67 = v104;
     v68 = v105;
-    v69 = v106;
-    v61 = v50;
-    v65 = buf;
+    v60 = v50;
+    v64 = buf;
     v51 = v48;
-    v62 = v51;
+    v61 = v51;
     selfCopy3 = self;
     v52 = changesCopy;
-    v70 = v56;
-    v64 = v52;
-    v66 = v120;
-    [v32 setFetchRecordZoneChangesCompletionBlock:v59];
+    v69 = v55;
+    v63 = v52;
+    v65 = v119;
+    [v32 setFetchRecordZoneChangesCompletionBlock:v58];
     [(_BRCOperation *)self addSubOperation:v32];
 
-    objc_destroyWeak(&v67);
-    objc_destroyWeak(&v77);
+    objc_destroyWeak(&v66);
+    objc_destroyWeak(&v76);
 
-    objc_destroyWeak(&v84);
+    objc_destroyWeak(&v83);
     _Block_object_dispose(buf, 8);
 
-    objc_destroyWeak(&v90);
-    objc_destroyWeak(&v98);
+    objc_destroyWeak(&v89);
+    objc_destroyWeak(&v97);
     objc_destroyWeak(&location);
 
-    _Block_object_dispose(&v108, 8);
+    _Block_object_dispose(&v107, 8);
   }
 
-  _Block_object_dispose(&v114, 8);
-  _Block_object_dispose(v120, 8);
-
-  v53 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v113, 8);
+  _Block_object_dispose(v119, 8);
 }
 
 void __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
@@ -413,24 +411,24 @@ void __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invok
 
 void __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invoke_29(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 64));
-  v27 = *(a1 + 72);
-  v28 = *(a1 + 88);
+  v26 = *(a1 + 72);
+  v27 = *(a1 + 88);
   v11 = brc_bread_crumbs();
   v12 = brc_default_log();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     v13 = [WeakRetained operationID];
     *buf = 134218498;
-    v31 = v27;
-    v32 = 2112;
-    v33 = v13;
-    v34 = 2112;
-    v35 = v11;
+    v30 = v26;
+    v31 = 2112;
+    v32 = v13;
+    v33 = 2112;
+    v34 = v11;
     _os_log_impl(&dword_223E7A000, v12, OS_LOG_TYPE_INFO, "[INFO] ┳%llx got a record in operation %@%@", buf, 0x20u);
   }
 
@@ -439,7 +437,7 @@ void __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invok
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     v16 = [v7 debugDescription];
-    __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invoke_29_cold_1(v16, v14, v29, v15);
+    __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invoke_29_cold_1(v16, v14, v28, v15);
   }
 
   if (!(v7 | v8))
@@ -501,11 +499,11 @@ LABEL_17:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v31 = v8;
-      v32 = 2112;
-      v33 = v9;
-      v34 = 2112;
-      v35 = v17;
+      v30 = v8;
+      v31 = 2112;
+      v32 = v9;
+      v33 = 2112;
+      v34 = v17;
       _os_log_impl(&dword_223E7A000, v18, OS_LOG_TYPE_DEFAULT, "[WARNING] Record fetch failed for %@ with error %@%@", buf, 0x20u);
     }
 
@@ -522,30 +520,28 @@ LABEL_17:
 LABEL_25:
   }
 
-  __brc_leave_section(&v27);
-
-  v26 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(&v26);
 }
 
 void __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invoke_31(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v16 = *(a1 + 56);
-  v17 = *(a1 + 72);
+  v15 = *(a1 + 56);
+  v16 = *(a1 + 72);
   v8 = brc_bread_crumbs();
   v9 = brc_default_log();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v15 = [WeakRetained operationID];
+    v14 = [WeakRetained operationID];
     *buf = 134218498;
-    v19 = v16;
-    v20 = 2112;
-    v21 = v15;
-    v22 = 2112;
-    v23 = v8;
+    v18 = v15;
+    v19 = 2112;
+    v20 = v14;
+    v21 = 2112;
+    v22 = v8;
     _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx got a deletion in operation %@%@", buf, 0x20u);
   }
 
@@ -554,9 +550,9 @@ void __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invok
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v19 = v5;
-    v20 = 2112;
-    v21 = v10;
+    v18 = v5;
+    v19 = 2112;
+    v20 = v10;
     _os_log_impl(&dword_223E7A000, v11, OS_LOG_TYPE_INFO, "[INFO] record was deleted: %@%@", buf, 0x16u);
   }
 
@@ -573,14 +569,12 @@ void __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invok
   }
 
   *(*(*(a1 + 40) + 8) + 24) = 1;
-  __brc_leave_section(&v16);
-
-  v14 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(&v15);
 }
 
 void __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invoke_33(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -589,26 +583,26 @@ void __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invok
   v12 = [v11 objectForKeyedSubscript:v7];
   v13 = [v12 unsignedLongValue];
 
-  v47 = *(a1 + 64);
-  v48 = *(a1 + 80);
+  v46 = *(a1 + 64);
+  v47 = *(a1 + 80);
   v14 = brc_bread_crumbs();
   v15 = brc_default_log();
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
-    v34 = [v8 descriptionWithContext:0];
-    v35 = [WeakRetained operationID];
+    v33 = [v8 descriptionWithContext:0];
+    v34 = [WeakRetained operationID];
     *buf = 134219266;
-    v50 = v47;
-    v51 = 2112;
-    v52 = v34;
-    v53 = 2112;
-    v54 = v9;
-    v55 = 2112;
-    v56 = v35;
-    v57 = 2048;
-    v58 = v13;
-    v59 = 2112;
-    v60 = v14;
+    v49 = v46;
+    v50 = 2112;
+    v51 = v33;
+    v52 = 2112;
+    v53 = v9;
+    v54 = 2112;
+    v55 = v34;
+    v56 = 2048;
+    v57 = v13;
+    v58 = 2112;
+    v59 = v14;
     _os_log_debug_impl(&dword_223E7A000, v15, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx received updated server change token %@ client change token %@ in operation %@ status %ld%@", buf, 0x3Eu);
   }
 
@@ -636,97 +630,95 @@ LABEL_6:
 
   if (v13 == 1)
   {
-    v21 = [*(*(a1 + 40) + 504) changeState];
-    v22 = [v21 changeToken];
-    v23 = [v22 isEqual:v8];
+    v20 = [*(*(a1 + 40) + 504) changeState];
+    v21 = [v20 changeToken];
+    v22 = [v21 isEqual:v8];
 
-    if (v23)
+    if (v22)
     {
-      v24 = brc_bread_crumbs();
-      v25 = brc_default_log();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+      v23 = brc_bread_crumbs();
+      v24 = brc_default_log();
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
         __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invoke_33_cold_1();
       }
 
-      v46 = [*(*(a1 + 40) + 256) analyticsReporter];
-      v26 = [WeakRetained operationID];
-      v27 = [*(*(a1 + 40) + 504) mangledID];
-      v28 = MEMORY[0x277CCABB0];
-      v29 = [*(*(a1 + 40) + 504) clientZone];
-      v30 = [v28 numberWithBool:{objc_msgSend(v29, "enhancedDrivePrivacyEnabled")}];
-      [v46 aggregateReportForAppTelemetryIdentifier:41 itemID:v26 zoneMangledID:v27 enhancedDrivePrivacyEnabled:v30 error:0];
+      v45 = [*(*(a1 + 40) + 256) analyticsReporter];
+      v25 = [WeakRetained operationID];
+      v26 = [*(*(a1 + 40) + 504) mangledID];
+      v27 = MEMORY[0x277CCABB0];
+      v28 = [*(*(a1 + 40) + 504) clientZone];
+      v29 = [v27 numberWithBool:{objc_msgSend(v28, "enhancedDrivePrivacyEnabled")}];
+      [v45 aggregateReportForAppTelemetryIdentifier:41 itemID:v25 zoneMangledID:v26 enhancedDrivePrivacyEnabled:v29 error:0];
     }
   }
 
-  v31 = v9;
-  v32 = [v9 bytes];
-  if (v32)
+  v30 = v9;
+  v31 = [v9 bytes];
+  if (v31)
   {
-    v33 = *v32;
+    v32 = *v31;
   }
 
   else
   {
-    v33 = 0;
+    v32 = 0;
   }
 
-  if (([*(a1 + 32) saveRecordsWithServerChangeToken:v8 clientChangeToken:v33 syncStatus:v13] & 1) == 0)
+  if (([*(a1 + 32) saveRecordsWithServerChangeToken:v8 clientChangeToken:v32 syncStatus:v13] & 1) == 0)
   {
-    v36 = brc_bread_crumbs();
-    v37 = brc_default_log();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
+    v35 = brc_bread_crumbs();
+    v36 = brc_default_log();
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
     {
-      v44 = [WeakRetained operationID];
-      v45 = [v8 descriptionWithContext:0];
+      v43 = [WeakRetained operationID];
+      v44 = [v8 descriptionWithContext:0];
       *buf = 138412802;
-      v50 = v44;
-      v51 = 2112;
-      v52 = v45;
-      v53 = 2112;
-      v54 = v36;
-      _os_log_fault_impl(&dword_223E7A000, v37, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: broken structure in op %@ change token %@%@", buf, 0x20u);
+      v49 = v43;
+      v50 = 2112;
+      v51 = v44;
+      v52 = 2112;
+      v53 = v35;
+      _os_log_fault_impl(&dword_223E7A000, v36, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: broken structure in op %@ change token %@%@", buf, 0x20u);
     }
 
-    v38 = MEMORY[0x277CCA9B8];
-    v39 = [WeakRetained operationID];
-    v40 = [v8 descriptionWithContext:0];
-    v41 = [v38 br_errorWithDomain:*MEMORY[0x277CFACB0] code:15 description:{@"unreachable: broken structure in op %@ change token %@", v39, v40}];
+    v37 = MEMORY[0x277CCA9B8];
+    v38 = [WeakRetained operationID];
+    v39 = [v8 descriptionWithContext:0];
+    v40 = [v37 br_errorWithDomain:*MEMORY[0x277CFACB0] code:15 description:{@"unreachable: broken structure in op %@ change token %@", v38, v39}];
 
-    v42 = *(*(a1 + 48) + 8);
-    v43 = *(v42 + 40);
-    *(v42 + 40) = v41;
+    v41 = *(*(a1 + 48) + 8);
+    v42 = *(v41 + 40);
+    *(v41 + 40) = v40;
 
     [*(a1 + 40) cancel];
   }
 
 LABEL_9:
-  __brc_leave_section(&v47);
-
-  v20 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(&v46);
 }
 
 void __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invoke_40(uint64_t a1, void *a2, void *a3, void *a4, int a5, void *a6)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v11 = a2;
   v12 = a3;
   v13 = a4;
   v14 = a6;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v27 = *(a1 + 64);
-  v28 = *(a1 + 80);
+  v26 = *(a1 + 64);
+  v27 = *(a1 + 80);
   v16 = brc_bread_crumbs();
   v17 = brc_default_log();
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
-    v20 = [WeakRetained operationID];
+    v19 = [WeakRetained operationID];
     *buf = 134218498;
-    v30 = v27;
-    v31 = 2112;
-    v32 = v20;
-    v33 = 2112;
-    v34 = v16;
+    v29 = v26;
+    v30 = 2112;
+    v31 = v19;
+    v32 = 2112;
+    v33 = v16;
     _os_log_debug_impl(&dword_223E7A000, v17, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx fetch changes completion for zone in operation %@%@", buf, 0x20u);
   }
 
@@ -734,33 +726,28 @@ void __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invok
   {
     (*(*(a1 + 48) + 16))();
     dispatch_group_enter(*(a1 + 32));
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invoke_41;
-    v21[3] = &unk_278507E40;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invoke_41;
+    v20[3] = &unk_278507E40;
     v18 = *(a1 + 40);
-    v26 = *(a1 + 48);
-    v22 = v11;
-    v23 = v12;
-    v24 = v13;
-    v25 = *(a1 + 32);
-    [v18 notifyWhenCaughtUp:a5 ^ 1u whenRecordsAreFetchedAndFinish:v21];
+    v25 = *(a1 + 48);
+    v21 = v11;
+    v22 = v12;
+    v23 = v13;
+    v24 = *(a1 + 32);
+    [v18 notifyWhenCaughtUp:a5 ^ 1u whenRecordsAreFetchedAndFinish:v20];
   }
 
-  __brc_leave_section(&v27);
-
-  v19 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(&v26);
 }
 
-void __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invoke_41(void *a1)
+void __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invoke_41(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  v4 = a1[6];
-  (*(a1[8] + 16))();
-  v5 = a1[7];
+  (*(*(a1 + 64) + 16))();
+  v2 = *(a1 + 56);
 
-  dispatch_group_leave(v5);
+  dispatch_group_leave(v2);
 }
 
 void __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invoke_3(uint64_t a1, void *a2)
@@ -795,22 +782,22 @@ void __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invok
 
 void __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invoke_4(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) zoneID];
   v3 = [*(a1 + 40) brc_cloudKitErrorForZone:v2];
-  v21 = *(a1 + 96);
-  v22 = *(a1 + 112);
+  v20 = *(a1 + 96);
+  v21 = *(a1 + 112);
   v4 = brc_bread_crumbs();
   v5 = brc_default_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v20 = [*(a1 + 48) operationID];
+    v19 = [*(a1 + 48) operationID];
     *buf = 134218498;
-    v24 = v21;
-    v25 = 2112;
-    v26 = v20;
-    v27 = 2112;
-    v28 = v4;
+    v23 = v20;
+    v24 = 2112;
+    v25 = v19;
+    v26 = 2112;
+    v27 = v4;
     _os_log_debug_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx fetch changes completed for operation %@%@", buf, 0x20u);
   }
 
@@ -843,9 +830,9 @@ LABEL_8:
   v3 = [*(a1 + 56) error];
   if (!v3)
   {
-    v18 = brc_bread_crumbs();
-    v19 = brc_default_log();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    v17 = brc_bread_crumbs();
+    v18 = brc_default_log();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       __59__BRCSyncDownOperation__performAfterFetchingRecordChanges___block_invoke_4_cold_2();
     }
@@ -908,11 +895,11 @@ LABEL_9:
       if (os_log_type_enabled(v14, 0x90u))
       {
         *buf = 138412802;
-        v24 = v8;
-        v25 = 2112;
-        v26 = v3;
-        v27 = 2112;
-        v28 = v9;
+        v23 = v8;
+        v24 = 2112;
+        v25 = v3;
+        v26 = 2112;
+        v27 = v9;
         _os_log_error_impl(&dword_223E7A000, v14, 0x90u, "[ERROR] sync-down failed for %@: %@%@", buf, 0x20u);
       }
     }
@@ -922,9 +909,7 @@ LABEL_9:
 
   (*(*(a1 + 72) + 16))();
 LABEL_23:
-  __brc_leave_section(&v21);
-
-  v17 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(&v20);
 }
 
 - (BOOL)handleZoneNotFoundIfSyncingDownForTheFirstTime:(id)time
@@ -980,7 +965,7 @@ void __38__BRCSyncDownOperation__startSyncDown__block_invoke(uint64_t a1, uint64
 
 - (void)_fetchInitialZoneIfNecessaryWithCreatedZone:(id)zone
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   zoneCopy = zone;
   v5 = zoneCopy;
   if (zoneCopy)
@@ -994,20 +979,18 @@ void __38__BRCSyncDownOperation__startSyncDown__block_invoke(uint64_t a1, uint64
   {
     v8 = objc_alloc(MEMORY[0x277CBC3D0]);
     zoneID = [(BRCServerZone *)self->_serverZone zoneID];
-    v13[0] = zoneID;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = zoneID;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
     currentServerChangeToken = [v8 initWithRecordZoneIDs:v10];
 
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __68__BRCSyncDownOperation__fetchInitialZoneIfNecessaryWithCreatedZone___block_invoke;
-    v12[3] = &unk_278500DC8;
-    v12[4] = self;
-    [currentServerChangeToken setFetchRecordZonesCompletionBlock:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __68__BRCSyncDownOperation__fetchInitialZoneIfNecessaryWithCreatedZone___block_invoke;
+    v11[3] = &unk_278500DC8;
+    v11[4] = self;
+    [currentServerChangeToken setFetchRecordZonesCompletionBlock:v11];
     [(_BRCOperation *)self addSubOperation:currentServerChangeToken];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __68__BRCSyncDownOperation__fetchInitialZoneIfNecessaryWithCreatedZone___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1218,32 +1201,30 @@ LABEL_14:
 
 - (void)main
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = self->_serverZone;
-  memset(v10, 0, sizeof(v10));
-  __brc_create_section(0, "[BRCSyncDownOperation main]", 466, 0, v10);
+  memset(v9, 0, sizeof(v9));
+  __brc_create_section(0, "[BRCSyncDownOperation main]", 466, 0, v9);
   v4 = brc_bread_crumbs();
   v5 = brc_default_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = v10[0];
+    v6 = v9[0];
     mangledID = [(BRCServerZone *)v3 mangledID];
     aliasTargetContainerString = [mangledID aliasTargetContainerString];
     *buf = 134218498;
-    v12 = v7;
-    v13 = 2112;
-    v14 = aliasTargetContainerString;
-    v15 = 2112;
-    v16 = v4;
+    v11 = v6;
+    v12 = 2112;
+    v13 = aliasTargetContainerString;
+    v14 = 2112;
+    v15 = v4;
     _os_log_debug_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx Sync: fetching record changes for %@%@", buf, 0x20u);
   }
 
   [(BRCSyncDownOperation *)self hash];
   kdebug_trace();
   [(BRCSyncDownOperation *)self _startCreateZoneAndSubscriptionAndSyncDown];
-  __brc_leave_section(v10);
-
-  v6 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(v9);
 }
 
 @end

@@ -5,17 +5,17 @@
 + (void)logVideoRecordingAPSStatistics:(BWAPSStatistics *)statistics;
 + (void)processAPSOffsetEstimatorInfo:(id)info portType:(id)type;
 - (BWAutoFocusPositionSensorMonitor)init;
-- (uint64_t)_appendApsMotionData:(void *)data sphereMotionData:(void *)motionData toDataString:;
-- (uint64_t)_highMagneticFieldCountOfOtherCameras:(void *)cameras portType:;
-- (uint64_t)_reportStillImageAPSStatisticsToAggd:(uint64_t)result;
-- (uint64_t)_reportVideoRecordingAPSStatisticsToAggd:(uint64_t)result;
+- (void)_appendApsMotionData:(void *)data sphereMotionData:(void *)motionData toDataString:;
 - (void)_getLogFileHandle;
+- (void)_highMagneticFieldCountOfOtherCameras:(void *)cameras portType:;
 - (void)_logAPSOffsetEstimatorInfo:(void *)info portType:;
-- (void)_logStillImageAPSStatistics:(uint64_t)statistics;
+- (void)_logStillImageAPSStatistics:(char *)statistics;
 - (void)_logVideoRecordingAPSStatistics:(uint64_t)statistics;
 - (void)_postMagneticDetectionUserNotification;
 - (void)_processAPSOffsetEstimatorInfo:(void *)info portType:;
 - (void)_reportAPSOffsetEstimatorInfoToAggdAndCoreAnalytics:(void *)analytics portType:;
+- (void)_reportStillImageAPSStatisticsToAggd:(void *)result;
+- (void)_reportVideoRecordingAPSStatisticsToAggd:(void *)result;
 - (void)clientHasBeenBackgrounded;
 - (void)dealloc;
 - (void)logStillImageAPSStatistics:(uint64_t)statistics;
@@ -145,12 +145,12 @@ void __61__BWAutoFocusPositionSensorMonitor_clientHasBeenBackgrounded__block_inv
   dispatch_after(v2, v4, block);
 }
 
-void __61__BWAutoFocusPositionSensorMonitor_clientHasBeenBackgrounded__block_invoke_2(uint64_t a1)
+void __61__BWAutoFocusPositionSensorMonitor_clientHasBeenBackgrounded__block_invoke_2(void *result)
 {
-  if (sShouldPostNotification == 1 && [*(*(a1 + 32) + 16) isOnHomeScreen])
+  if (sShouldPostNotification == 1 && [*(result[4] + 16) isOnHomeScreen])
   {
     sShouldPostNotification = 0;
-    v2 = *(a1 + 32);
+    v2 = result[4];
 
     [(BWAutoFocusPositionSensorMonitor *)v2 _postMagneticDetectionUserNotification];
   }
@@ -224,7 +224,7 @@ void __74__BWAutoFocusPositionSensorMonitor__postMagneticDetectionUserNotificati
     return;
   }
 
-  if ([info isEqualToString:*off_1E798A0C0])
+  if (objc_msgSend_isEqualToString_(info, a2, *off_1E798A0C0))
   {
     v7 = @"BackHighMagneticFieldCount";
     v8 = @"BackLowMagneticFieldCount";
@@ -232,7 +232,7 @@ void __74__BWAutoFocusPositionSensorMonitor__postMagneticDetectionUserNotificati
     goto LABEL_12;
   }
 
-  if ([info isEqualToString:*off_1E798A0D8])
+  if (objc_msgSend_isEqualToString_(info))
   {
     v7 = @"BackTelephotoHighMagneticFieldCount";
     v8 = @"BackTelephotoLowMagneticFieldCount";
@@ -240,7 +240,7 @@ void __74__BWAutoFocusPositionSensorMonitor__postMagneticDetectionUserNotificati
     goto LABEL_12;
   }
 
-  if ([info isEqualToString:*off_1E798A0D0])
+  if (objc_msgSend_isEqualToString_(info))
   {
     v7 = @"BackSuperWideHighMagneticFieldCount";
     v8 = @"BackSuperWideLowMagneticFieldCount";
@@ -321,7 +321,7 @@ LABEL_32:
 LABEL_6:
 }
 
-- (uint64_t)_reportStillImageAPSStatisticsToAggd:(uint64_t)result
+- (void)_reportStillImageAPSStatisticsToAggd:(void *)result
 {
   if (result)
   {
@@ -348,14 +348,14 @@ LABEL_6:
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0();
-      return FigDebugAssert3();
+      return FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v9, v10, v11, v12, v13, v14, v15, v16);
     }
   }
 
   return result;
 }
 
-- (void)_logStillImageAPSStatistics:(uint64_t)statistics
+- (void)_logStillImageAPSStatistics:(char *)statistics
 {
   if (statistics && MGGetBoolAnswer())
   {
@@ -369,7 +369,7 @@ LABEL_6:
       LogFile = [(BWAutoFocusPositionSensorMonitor *)statistics _getLogFileHandle];
       if (LogFile)
       {
-        v31 = LogFile;
+        v35 = LogFile;
         v10 = [a2 objectForKeyedSubscript:*off_1E798B540];
         v11 = objc_alloc_init(MEMORY[0x1E696AB78]);
         [v11 setDateFormat:@"HH:mm:ss"];
@@ -379,7 +379,7 @@ LABEL_6:
         v13 = objc_alloc_init(MEMORY[0x1E696AD60]);
         [v13 appendFormat:@"%@ ", v12];
         [v13 appendFormat:@"Photo, "];
-        v32 = v10;
+        v37 = v10;
         [v13 appendFormat:@"%@, ", v10];
         [v13 appendFormat:@"<FocusPos>%d</FocusPos>, ", objc_msgSend(objc_msgSend(a2, "objectForKeyedSubscript:", *off_1E798B4A8), "intValue")];
         [v13 appendFormat:@"<Lux>%d</Lux>, ", objc_msgSend(objc_msgSend(a2, "objectForKeyedSubscript:", *off_1E798B4B8), "intValue")];
@@ -399,27 +399,27 @@ LABEL_6:
         [v13 appendFormat:@"<GyroMin>%f</GyroMin>, ", OUTLINED_FUNCTION_0_93(v20)];
         [(BWAutoFocusPositionSensorMonitor *)statistics _appendApsMotionData:v4 sphereMotionData:v6 toDataString:v13];
         v21 = [a2 objectForKeyedSubscript:*off_1E798B730];
-        v35 = 0u;
-        v36 = 0u;
-        v37 = 0u;
-        v38 = 0u;
+        v41 = 0u;
+        v42 = 0u;
+        v43 = 0u;
+        v44 = 0u;
         allKeys = [v21 allKeys];
-        v23 = [allKeys countByEnumeratingWithState:&v35 objects:v34 count:16];
+        v23 = [allKeys countByEnumeratingWithState:&v41 objects:&v39 count:16];
         if (v23)
         {
           v24 = v23;
-          v25 = *v36;
+          v25 = *v42;
           do
           {
             v26 = 0;
             do
             {
-              if (*v36 != v25)
+              if (*v42 != v25)
               {
                 objc_enumerationMutation(allKeys);
               }
 
-              v27 = [v21 objectForKeyedSubscript:*(*(&v35 + 1) + 8 * v26)];
+              v27 = [v21 objectForKeyedSubscript:*(*(&v41 + 1) + 8 * v26)];
               v28 = [v27 objectForKeyedSubscript:v3];
               v29 = [v27 objectForKeyedSubscript:v5];
               if (v28)
@@ -427,7 +427,7 @@ LABEL_6:
                 v30 = v29;
                 if (v29)
                 {
-                  [v13 appendFormat:@"SlaveCamera (%@), ", v32];
+                  [v13 appendFormat:@"SlaveCamera (%@), ", v37];
                   [(BWAutoFocusPositionSensorMonitor *)statistics _appendApsMotionData:v28 sphereMotionData:v30 toDataString:v13];
                 }
               }
@@ -436,15 +436,15 @@ LABEL_6:
             }
 
             while (v24 != v26);
-            v24 = [allKeys countByEnumeratingWithState:&v35 objects:v34 count:16];
+            v24 = [allKeys countByEnumeratingWithState:&v41 objects:&v39 count:16];
           }
 
           while (v24);
         }
 
         [v13 appendString:@"\n"];
-        [v31 writeData:{objc_msgSend(v13, "dataUsingEncoding:", 4)}];
-        [v31 closeFile];
+        [v35 writeData:{objc_msgSend(v13, "dataUsingEncoding:", 4)}];
+        [v35 closeFile];
       }
     }
 
@@ -452,12 +452,12 @@ LABEL_6:
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v31, v32, v33, v34, v36, statistics, v39, v40);
     }
   }
 }
 
-- (uint64_t)_reportVideoRecordingAPSStatisticsToAggd:(uint64_t)result
+- (void)_reportVideoRecordingAPSStatisticsToAggd:(void *)result
 {
   if (result)
   {
@@ -472,20 +472,20 @@ LABEL_6:
       LODWORD(v9) = *(a2 + 36);
       LODWORD(v10) = *(a2 + 48);
       LODWORD(v11) = *(a2 + 60);
-      LODWORD(v14) = *(a2 + 20);
-      HIDWORD(v14) = *(a2 + 44);
-      LODWORD(v13) = *(a2 + 16);
-      HIDWORD(v13) = *(a2 + 40);
-      LODWORD(v12) = *(a2 + 8);
-      HIDWORD(v12) = *(a2 + 32);
-      return [BWAggdDataReporter reportVideoRecordingAPSStatistics:v3 stdDataFromAPSForTele:"reportVideoRecordingAPSStatistics:stdDataFromAPSForTele:stdDataFromSphereForWide:stdDataFromSphereForTele:stdDataFromAccel:stdDataFromGyro:maxDataFromAPSForWide:maxDataFromAPSForTele:minDataFromAPSForWide:minDataFromAPSForTele:maxDataFromSphereForWide:maxDataFromSphereForTele:minDataFromSphereForWide:minDataFromSphereForTele:maxDataFromAccel:minDataFromAccel:maxDataFromGyro:minDataFromGyro:" stdDataFromSphereForWide:v4 stdDataFromSphereForTele:v6 stdDataFromAccel:v8 stdDataFromGyro:v9 maxDataFromAPSForWide:v10 maxDataFromAPSForTele:v11 minDataFromAPSForWide:v5 minDataFromAPSForTele:v7 maxDataFromSphereForWide:v12 maxDataFromSphereForTele:v13 minDataFromSphereForWide:v14 minDataFromSphereForTele:*(a2 + 52) maxDataFromAccel:*(a2 + 64) minDataFromAccel:? maxDataFromGyro:? minDataFromGyro:?];
+      LODWORD(v17) = *(a2 + 20);
+      HIDWORD(v17) = *(a2 + 44);
+      LODWORD(v15) = *(a2 + 16);
+      HIDWORD(v15) = *(a2 + 40);
+      LODWORD(v13) = *(a2 + 8);
+      HIDWORD(v13) = *(a2 + 32);
+      return [BWAggdDataReporter reportVideoRecordingAPSStatistics:v3 stdDataFromAPSForTele:"reportVideoRecordingAPSStatistics:stdDataFromAPSForTele:stdDataFromSphereForWide:stdDataFromSphereForTele:stdDataFromAccel:stdDataFromGyro:maxDataFromAPSForWide:maxDataFromAPSForTele:minDataFromAPSForWide:minDataFromAPSForTele:maxDataFromSphereForWide:maxDataFromSphereForTele:minDataFromSphereForWide:minDataFromSphereForTele:maxDataFromAccel:minDataFromAccel:maxDataFromGyro:minDataFromGyro:" stdDataFromSphereForWide:v4 stdDataFromSphereForTele:v6 stdDataFromAccel:v8 stdDataFromGyro:v9 maxDataFromAPSForWide:v10 maxDataFromAPSForTele:v11 minDataFromAPSForWide:v5 minDataFromAPSForTele:v7 maxDataFromSphereForWide:v13 maxDataFromSphereForTele:v15 minDataFromSphereForWide:v17 minDataFromSphereForTele:*(a2 + 52) maxDataFromAccel:*(a2 + 64) minDataFromAccel:? maxDataFromGyro:? minDataFromGyro:?];
     }
 
     else
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0();
-      return FigDebugAssert3();
+      return FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v12, v14, v16, v18, v19, v20, v21, v22);
     }
   }
 
@@ -506,33 +506,33 @@ LABEL_6:
         [v6 setDateFormat:@"HH:mm:ss"];
         v7 = [v6 stringFromDate:{objc_msgSend(MEMORY[0x1E695DF00], "date")}];
 
-        v29 = objc_alloc_init(MEMORY[0x1E696AD60]);
-        [v29 appendFormat:@"%@ "];
-        [v29 appendFormat:@"Video, "];
-        [v29 appendFormat:@"<AccelStd>%f</AccelStd>, ", OUTLINED_FUNCTION_0_93(a2[12])];
-        [v29 appendFormat:@"<AccelMax>%f</AccelMax>, ", OUTLINED_FUNCTION_0_93(a2[13])];
-        [v29 appendFormat:@"<AccelMin>%f</AccelMin>, ", OUTLINED_FUNCTION_0_93(a2[14])];
-        [v29 appendFormat:@"<GyroStd>%f</GyroStd>, ", OUTLINED_FUNCTION_0_93(a2[15])];
-        [v29 appendFormat:@"<GyroMax>%f</GyroMax>, ", OUTLINED_FUNCTION_0_93(a2[16])];
-        [v29 appendFormat:@"<GyroMin>%f</GyroMin>, ", OUTLINED_FUNCTION_0_93(a2[17])];
-        [v29 appendFormat:@"PortTypeBack, "];
-        [v29 appendFormat:@"<AFStd>%f</AFStd>, ", OUTLINED_FUNCTION_0_93(*a2)];
-        [v29 appendFormat:@"<AFMax>%f</AFMax>, ", OUTLINED_FUNCTION_0_93(a2[1])];
-        [v29 appendFormat:@"<AFMin>%f</AFMin>, ", OUTLINED_FUNCTION_0_93(a2[2])];
-        [v29 appendFormat:@"<OISStd>%f</OISStd>, ", OUTLINED_FUNCTION_0_93(a2[3])];
-        [v29 appendFormat:@"<OISMax>%f</OISMax>, ", OUTLINED_FUNCTION_0_93(a2[4])];
+        v31 = objc_alloc_init(MEMORY[0x1E696AD60]);
+        [v31 appendFormat:@"%@ "];
+        [v31 appendFormat:@"Video, "];
+        [v31 appendFormat:@"<AccelStd>%f</AccelStd>, ", OUTLINED_FUNCTION_0_93(a2[12])];
+        [v31 appendFormat:@"<AccelMax>%f</AccelMax>, ", OUTLINED_FUNCTION_0_93(a2[13])];
+        [v31 appendFormat:@"<AccelMin>%f</AccelMin>, ", OUTLINED_FUNCTION_0_93(a2[14])];
+        [v31 appendFormat:@"<GyroStd>%f</GyroStd>, ", OUTLINED_FUNCTION_0_93(a2[15])];
+        [v31 appendFormat:@"<GyroMax>%f</GyroMax>, ", OUTLINED_FUNCTION_0_93(a2[16])];
+        [v31 appendFormat:@"<GyroMin>%f</GyroMin>, ", OUTLINED_FUNCTION_0_93(a2[17])];
+        [v31 appendFormat:@"PortTypeBack, "];
+        [v31 appendFormat:@"<AFStd>%f</AFStd>, ", OUTLINED_FUNCTION_0_93(*a2)];
+        [v31 appendFormat:@"<AFMax>%f</AFMax>, ", OUTLINED_FUNCTION_0_93(a2[1])];
+        [v31 appendFormat:@"<AFMin>%f</AFMin>, ", OUTLINED_FUNCTION_0_93(a2[2])];
+        [v31 appendFormat:@"<OISStd>%f</OISStd>, ", OUTLINED_FUNCTION_0_93(a2[3])];
+        [v31 appendFormat:@"<OISMax>%f</OISMax>, ", OUTLINED_FUNCTION_0_93(a2[4])];
         OUTLINED_FUNCTION_0_93(a2[5]);
         [OUTLINED_FUNCTION_9_48(v8 v9];
-        [v30 appendFormat:@"PortTypeBackTele, "];
-        [v30 appendFormat:@"<AFStd>%f</AFStd>, ", OUTLINED_FUNCTION_0_93(a2[6])];
-        [v30 appendFormat:@"<AFMax>%f</AFMax>, ", OUTLINED_FUNCTION_0_93(a2[7])];
-        [v30 appendFormat:@"<AFMin>%f</AFMin>, ", OUTLINED_FUNCTION_0_93(a2[8])];
-        [v30 appendFormat:@"<OISStd>%f</OISStd>, ", OUTLINED_FUNCTION_0_93(a2[9])];
-        [v30 appendFormat:@"<OISMax>%f</OISMax>, ", OUTLINED_FUNCTION_0_93(a2[10])];
+        [v32 appendFormat:@"PortTypeBackTele, "];
+        [v32 appendFormat:@"<AFStd>%f</AFStd>, ", OUTLINED_FUNCTION_0_93(a2[6])];
+        [v32 appendFormat:@"<AFMax>%f</AFMax>, ", OUTLINED_FUNCTION_0_93(a2[7])];
+        [v32 appendFormat:@"<AFMin>%f</AFMin>, ", OUTLINED_FUNCTION_0_93(a2[8])];
+        [v32 appendFormat:@"<OISStd>%f</OISStd>, ", OUTLINED_FUNCTION_0_93(a2[9])];
+        [v32 appendFormat:@"<OISMax>%f</OISMax>, ", OUTLINED_FUNCTION_0_93(a2[10])];
         OUTLINED_FUNCTION_0_93(a2[11]);
         [OUTLINED_FUNCTION_9_48(v16 v17];
-        [v31 appendString:@"\n"];
-        [v31 dataUsingEncoding:4];
+        [v33 appendString:@"\n"];
+        [v33 dataUsingEncoding:4];
         [OUTLINED_FUNCTION_17() writeData:?];
         [v5 closeFile];
       }
@@ -542,7 +542,7 @@ LABEL_6:
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v24, v26, v28, v30, v34, v35, v36, v37);
     }
   }
 }
@@ -608,11 +608,11 @@ LABEL_6:
   }
 }
 
-- (uint64_t)_highMagneticFieldCountOfOtherCameras:(void *)cameras portType:
+- (void)_highMagneticFieldCountOfOtherCameras:(void *)cameras portType:
 {
   if (result)
   {
-    if ([cameras isEqualToString:*off_1E798A0C0])
+    if (objc_msgSend_isEqualToString_(cameras, a2, *off_1E798A0C0))
     {
       v5 = @"BackSuperWideHighMagneticFieldCount";
       v6 = @"BackTelephotoHighMagneticFieldCount";
@@ -620,14 +620,14 @@ LABEL_6:
 
     else
     {
-      if ([cameras isEqualToString:*off_1E798A0D8])
+      if (objc_msgSend_isEqualToString_(cameras))
       {
         v5 = @"BackSuperWideHighMagneticFieldCount";
       }
 
       else
       {
-        result = [cameras isEqualToString:*off_1E798A0D0];
+        result = objc_msgSend_isEqualToString_(cameras);
         if (!result)
         {
           return result;
@@ -640,7 +640,7 @@ LABEL_6:
     }
 
     v7 = [objc_msgSend(a2 objectForKeyedSubscript:{v6), "intValue"}];
-    return [objc_msgSend(a2 objectForKeyedSubscript:{v5), "intValue"}] + v7;
+    return ([objc_msgSend(a2 objectForKeyedSubscript:{v5), "intValue"}] + v7);
   }
 
   return result;
@@ -662,16 +662,16 @@ LABEL_6:
       [objc_msgSend(a2 objectForKeyedSubscript:{*off_1E798AB58), "floatValue"}];
       [objc_msgSend(a2 objectForKeyedSubscript:{*off_1E798AB48), "floatValue"}];
       v11 = [objc_msgSend(a2 objectForKeyedSubscript:{*off_1E798AB80), "intValue"}];
-      v35 = [objc_msgSend(a2 objectForKeyedSubscript:{*off_1E798AB98), "intValue"}];
+      v42 = [objc_msgSend(a2 objectForKeyedSubscript:{*off_1E798AB98), "intValue"}];
       v12 = [objc_msgSend(a2 objectForKeyedSubscript:{*off_1E798AB28), "intValue"}];
-      v37 = CFPreferencesCopyValue(@"AutoFocusPositionSensorMonitorInfo", @"com.apple.cameracapture.volatile", *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E898]);
+      v44 = CFPreferencesCopyValue(@"AutoFocusPositionSensorMonitorInfo", @"com.apple.cameracapture.volatile", *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E898]);
       analyticsCopy = analytics;
-      if ([analytics isEqualToString:*off_1E798A0C0])
+      if (objc_msgSend_isEqualToString_(analytics))
       {
         v13 = @"BackLastSessionOffset";
       }
 
-      else if ([analytics isEqualToString:*off_1E798A0D0])
+      else if (objc_msgSend_isEqualToString_(analytics))
       {
         v13 = @"BackSuperWideLastSessionOffset";
       }
@@ -681,27 +681,27 @@ LABEL_6:
         v13 = @"BackTelephotoLastSessionOffset";
       }
 
-      v36 = (v11 >> 1) & 1;
-      v33 = v12 == 6;
-      v34 = v12 == 1;
+      v43 = (v11 >> 1) & 1;
+      v40 = v12 == 6;
+      v41 = v12 == 1;
       v14 = (v11 >> 3) & 1;
-      v32 = v11 == 0;
+      v38 = v11 == 0;
       v15 = (v11 >> 2) & 1;
-      v30 = (v11 >> 9) & 1;
-      [objc_msgSend(v37 objectForKeyedSubscript:{v13), "floatValue"}];
+      v34 = (v11 >> 9) & 1;
+      [objc_msgSend(v44 objectForKeyedSubscript:{v13), "floatValue"}];
       v17 = v16;
       +[BWAggdDataReporter sharedInstance];
-      BYTE1(v29) = v12 == 1;
-      LOBYTE(v29) = v12 == 6;
-      HIDWORD(v28) = v35;
-      BYTE3(v28) = v11 == 0;
-      BYTE2(v28) = (v11 & 0x80) != 0;
-      BYTE1(v28) = (v11 & 2) != 0;
-      LOBYTE(v28) = (v11 & 0x40) != 0;
+      BYTE1(v30) = v12 == 1;
+      LOBYTE(v30) = v12 == 6;
+      HIDWORD(v29) = v42;
+      BYTE3(v29) = v11 == 0;
+      BYTE2(v29) = (v11 & 0x80) != 0;
+      BYTE1(v29) = (v11 & 2) != 0;
+      LOBYTE(v29) = (v11 & 0x40) != 0;
       *&v18 = OUTLINED_FUNCTION_4_71();
       v20 = (v11 >> 4) & 1;
       v19 = (v11 >> 5) & 1;
-      [v21 reportAPSOffsetEstimatorForPortType:v18 accelMotion:v28 gyroMotion:v29 inSessionOffset:? deltaOffsetFC:? deltaOffsetMI:? deltaOffsetFATP:? deltaOffsetLastSession:? errorHeadroomViolated:? errorConvergenceFailed:? errorMotionTooLarge:? errorConfidenceTooLow:? errorOffsetTooLarge:? errorDeltaTooLarge:? errorSaturated:? errorCouldNotRun:? successRun:? startAPSVoltage:? modeGCOL:? modeOL:?];
+      [v21 reportAPSOffsetEstimatorForPortType:v18 accelMotion:v29 gyroMotion:v30 inSessionOffset:? deltaOffsetFC:? deltaOffsetMI:? deltaOffsetFATP:? deltaOffsetLastSession:? errorHeadroomViolated:? errorConvergenceFailed:? errorMotionTooLarge:? errorConfidenceTooLow:? errorOffsetTooLarge:? errorDeltaTooLarge:? errorSaturated:? errorCouldNotRun:? successRun:? startAPSVoltage:? modeGCOL:? modeOL:?];
       v22 = objc_alloc_init(BWStartupCalibrationAnalyticsPayload);
       [(BWStartupCalibrationAnalyticsPayload *)v22 setPortType:analyticsCopy];
       LODWORD(v23) = v6;
@@ -712,16 +712,16 @@ LABEL_6:
       [(BWStartupCalibrationAnalyticsPayload *)v22 setSessionOffset:v25];
       *&v26 = v10 - v17;
       [(BWStartupCalibrationAnalyticsPayload *)v22 setDeltaOffset:v26];
-      [(BWStartupCalibrationAnalyticsPayload *)v22 setApsVoltage:v35];
-      [(BWStartupCalibrationAnalyticsPayload *)v22 setHeadroomErrorOccurred:v30];
+      [(BWStartupCalibrationAnalyticsPayload *)v22 setApsVoltage:v42];
+      [(BWStartupCalibrationAnalyticsPayload *)v22 setHeadroomErrorOccurred:v34];
       [(BWStartupCalibrationAnalyticsPayload *)v22 setConvergeErrorOccurred:v15];
       [(BWStartupCalibrationAnalyticsPayload *)v22 setMotionErrorOccurred:v14];
       [(BWStartupCalibrationAnalyticsPayload *)v22 setConfidenceErrorOccurred:v20];
       [(BWStartupCalibrationAnalyticsPayload *)v22 setLargeOffsetErrorOccurred:v19];
-      [(BWStartupCalibrationAnalyticsPayload *)v22 setSaturationErrorOccurred:v36];
-      [(BWStartupCalibrationAnalyticsPayload *)v22 setSuccess:v32];
-      [(BWStartupCalibrationAnalyticsPayload *)v22 setGcolEntry:v33];
-      [(BWStartupCalibrationAnalyticsPayload *)v22 setClosedLoopEntry:v34];
+      [(BWStartupCalibrationAnalyticsPayload *)v22 setSaturationErrorOccurred:v43];
+      [(BWStartupCalibrationAnalyticsPayload *)v22 setSuccess:v38];
+      [(BWStartupCalibrationAnalyticsPayload *)v22 setGcolEntry:v40];
+      [(BWStartupCalibrationAnalyticsPayload *)v22 setClosedLoopEntry:v41];
       [objc_msgSend(a2 objectForKeyedSubscript:{*off_1E798AB78), "floatValue"}];
       [(BWStartupCalibrationAnalyticsPayload *)v22 setMaxAcceleration:?];
       [objc_msgSend(a2 objectForKeyedSubscript:{*off_1E798AB38), "floatValue"}];
@@ -735,14 +735,14 @@ LABEL_6:
       [objc_msgSend(a2 objectForKeyedSubscript:{*off_1E798AB30), "floatValue"}];
       [(BWStartupCalibrationAnalyticsPayload *)v22 setCompletionTime:?];
       [+[BWCoreAnalyticsReporter sharedInstance](BWCoreAnalyticsReporter sendEvent:"sendEvent:", v22];
-      v27 = v37;
+      v27 = v44;
     }
 
     else
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v28, v30, v31, v32, v33, v35, v37, v39);
       v27 = 0;
     }
   }
@@ -784,12 +784,12 @@ LABEL_6:
         v16 = *MEMORY[0x1E695E8B8];
         v17 = *MEMORY[0x1E695E898];
         v18 = CFPreferencesCopyValue(@"AutoFocusPositionSensorMonitorInfo", @"com.apple.cameracapture.volatile", *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E898]);
-        if ([info isEqualToString:*off_1E798A0C0])
+        if (objc_msgSend_isEqualToString_(info))
         {
           v19 = @"BackLastSessionOffset";
         }
 
-        else if ([info isEqualToString:*off_1E798A0D0])
+        else if (objc_msgSend_isEqualToString_(info))
         {
           v19 = @"BackSuperWideLastSessionOffset";
         }
@@ -804,7 +804,7 @@ LABEL_6:
         v21 = *off_1E798AB80;
         if ([objc_msgSend(a2 objectForKeyedSubscript:{*off_1E798AB80), "intValue"}])
         {
-          value = 0;
+          valuea = 0;
         }
 
         else
@@ -819,11 +819,11 @@ LABEL_6:
             v22 = objc_alloc_init(MEMORY[0x1E695DF90]);
           }
 
-          valuea = v22;
+          valueb = v22;
           *&v23 = v12;
           v24 = [MEMORY[0x1E696AD98] numberWithFloat:v23];
           [OUTLINED_FUNCTION_8_47(v24 v25];
-          CFPreferencesSetValue(@"AutoFocusPositionSensorMonitorInfo", value, @"com.apple.cameracapture.volatile", v16, v17);
+          CFPreferencesSetValue(@"AutoFocusPositionSensorMonitorInfo", valuea, @"com.apple.cameracapture.volatile", v16, v17);
           CFPreferencesSynchronize(@"com.apple.cameracapture.volatile", v16, v17);
         }
 
@@ -843,11 +843,11 @@ LABEL_6:
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v32, v34, v35, value, v39, v40, v41, v42);
     }
   }
 
-  value = 0;
+  valuea = 0;
   v18 = 0;
 LABEL_17:
 }
@@ -859,51 +859,51 @@ LABEL_17:
     return 0;
   }
 
-  v10 = 0;
+  v11 = 0;
   v1 = objc_alloc_init(MEMORY[0x1E696AB78]);
   [MEMORY[0x1E695DFE8] localTimeZone];
   [OUTLINED_FUNCTION_17() setTimeZone:?];
   [v1 setDateFormat:@"yyyy-MM-dd"];
   [MEMORY[0x1E695DF00] date];
   v2 = [OUTLINED_FUNCTION_17() stringFromDate:?];
-  if (FigCaptureCameracapturedEnabled())
+  if (FigCaptureCameracapturedEnabled(v2, v3))
   {
-    v3 = @"cameracaptured";
+    v4 = @"cameracaptured";
   }
 
   else
   {
-    v3 = @"mediaserverd";
+    v4 = @"mediaserverd";
   }
 
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-capture-NOT-A-CRASH.afdebug-%@.txt", v3, v2];
-  v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/private/var/mobile/Library/Logs/CrashReporter/%@", v3];
+  v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-capture-NOT-A-CRASH.afdebug-%@.txt", v4, v2];
+  v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"/private/var/mobile/Library/Logs/CrashReporter/%@", v4];
   [objc_msgSend(MEMORY[0x1E696AC08] "defaultManager")];
-  v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@", v5, v4];
-  if (!v10)
+  v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@", v6, v5];
+  if (!v11)
   {
-    v7 = v6;
+    v8 = v7;
     if (([objc_msgSend(MEMORY[0x1E696AC08] "defaultManager")] & 1) == 0)
     {
       [objc_msgSend(MEMORY[0x1E696AC08] "defaultManager")];
     }
 
-    v8 = [MEMORY[0x1E696AC00] fileHandleForUpdatingAtPath:v7];
-    if ([v8 seekToEndOfFile] < 200001)
+    v9 = [MEMORY[0x1E696AC00] fileHandleForUpdatingAtPath:v8];
+    if ([v9 seekToEndOfFile] < 200001)
     {
       goto LABEL_11;
     }
 
-    [v8 closeFile];
+    [v9 closeFile];
   }
 
-  v8 = 0;
+  v9 = 0;
 LABEL_11:
 
-  return v8;
+  return v9;
 }
 
-- (uint64_t)_appendApsMotionData:(void *)data sphereMotionData:(void *)motionData toDataString:
+- (void)_appendApsMotionData:(void *)data sphereMotionData:(void *)motionData toDataString:
 {
   if (result)
   {

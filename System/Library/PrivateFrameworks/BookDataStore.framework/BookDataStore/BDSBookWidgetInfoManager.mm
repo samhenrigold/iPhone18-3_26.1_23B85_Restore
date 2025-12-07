@@ -33,59 +33,57 @@
 - (void)fetchAdamIDs:(NSArray *)ds completionHandler:(id)handler
 {
   v7 = sub_1E4650534(&unk_1ECF752E0, &qword_1E471B9A8);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v7 - 8, v9);
-  v11 = &v19 - v10;
-  v12 = _Block_copy(handler);
-  v13 = swift_allocObject();
-  v13[2] = ds;
-  v13[3] = v12;
-  v13[4] = self;
-  v14 = sub_1E470B14C();
-  (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
+  MEMORY[0x1EEE9AC00](v7 - 8, v8);
+  v10 = &v18 - v9;
+  v11 = _Block_copy(handler);
+  v12 = swift_allocObject();
+  v12[2] = ds;
+  v12[3] = v11;
+  v12[4] = self;
+  v13 = sub_1E470B14C();
+  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
+  v14 = swift_allocObject();
+  v14[2] = 0;
+  v14[3] = 0;
+  v14[4] = &unk_1E471B9E0;
+  v14[5] = v12;
   v15 = swift_allocObject();
   v15[2] = 0;
   v15[3] = 0;
-  v15[4] = &unk_1E471B9E0;
-  v15[5] = v13;
-  v16 = swift_allocObject();
-  v16[2] = 0;
-  v16[3] = 0;
-  v16[4] = &unk_1E471B9E8;
-  v16[5] = v15;
+  v15[4] = &unk_1E471B9E8;
+  v15[5] = v14;
   dsCopy = ds;
   selfCopy = self;
-  sub_1E46FF094(0, 0, v11, &unk_1E471B9F0, v16);
+  sub_1E46FF094(0, 0, v10, &unk_1E471B9F0, v15);
 }
 
 - (void)fetchBookAssets:(NSArray *)assets audiobookAssets:(NSArray *)audiobookAssets completionHandler:(id)handler
 {
   v9 = sub_1E4650534(&unk_1ECF752E0, &qword_1E471B9A8);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9 - 8, v11);
-  v13 = &v22 - v12;
-  v14 = _Block_copy(handler);
-  v15 = swift_allocObject();
-  v15[2] = assets;
-  v15[3] = audiobookAssets;
-  v15[4] = v14;
-  v15[5] = self;
-  v16 = sub_1E470B14C();
-  (*(*(v16 - 8) + 56))(v13, 1, 1, v16);
+  MEMORY[0x1EEE9AC00](v9 - 8, v10);
+  v12 = &v21 - v11;
+  v13 = _Block_copy(handler);
+  v14 = swift_allocObject();
+  v14[2] = assets;
+  v14[3] = audiobookAssets;
+  v14[4] = v13;
+  v14[5] = self;
+  v15 = sub_1E470B14C();
+  (*(*(v15 - 8) + 56))(v12, 1, 1, v15);
+  v16 = swift_allocObject();
+  v16[2] = 0;
+  v16[3] = 0;
+  v16[4] = &unk_1E471B9B8;
+  v16[5] = v14;
   v17 = swift_allocObject();
   v17[2] = 0;
   v17[3] = 0;
-  v17[4] = &unk_1E471B9B8;
-  v17[5] = v15;
-  v18 = swift_allocObject();
-  v18[2] = 0;
-  v18[3] = 0;
-  v18[4] = &unk_1E471B9C0;
-  v18[5] = v17;
+  v17[4] = &unk_1E471B9C0;
+  v17[5] = v16;
   assetsCopy = assets;
   audiobookAssetsCopy = audiobookAssets;
   selfCopy = self;
-  sub_1E46FF094(0, 0, v13, &unk_1E471B9C8, v18);
+  sub_1E46FF094(0, 0, v12, &unk_1E471B9C8, v17);
 }
 
 @end

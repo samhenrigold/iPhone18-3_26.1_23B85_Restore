@@ -570,7 +570,7 @@
   v5 = *(*(self + 50) + 41656);
   [(VKMapView *)self contentsScale];
   [v5 setContentScale:?];
-  [(VKMapView *)self bounds];
+  objc_msgSend_bounds(self);
   [v5 setBounds:?];
   [v5 size];
   if (v6 > 0.0)
@@ -4056,7 +4056,7 @@ void __57__VKMapView_muninJunctionDidChange_currentRoad_localize___block_invoke(
   v8 = std::unordered_map<gdc::TypeInfo,std::unique_ptr<gdc::BaseObjectHolder>>::find[abi:nn200100]((*(*(self + 50) + 41928) + 16), 0xBEC1A12372CEEC00);
   if (v8)
   {
-    v8 = *(v8 + 5);
+    v8 = v8[5];
   }
 
   md::NavigationLogic::setRouteContext(v8, contextCopy);
@@ -4352,7 +4352,7 @@ void __57__VKMapView_muninJunctionDidChange_currentRoad_localize___block_invoke(
   {
     if (cameraController)
     {
-      [cameraController annotationTrackingBehavior];
+      objc_msgSend_annotationTrackingBehavior(cameraController);
     }
 
     else
@@ -4402,20 +4402,20 @@ void __57__VKMapView_muninJunctionDidChange_currentRoad_localize___block_invoke(
 
 - (NSArray)labelMarkers
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = *(*([(VKMapView *)self _labelSettings]+ 16) + 24);
-  v10.__shared_weak_owners_ = 0;
+  v12 = 0;
+  v13 = 0;
   v11 = 0;
-  v10.__shared_owners_ = 0;
   std::recursive_mutex::lock((v2 + 24));
-  (*(**(v2 + 240) + 224))(*(v2 + 240), &v10.__shared_owners_);
+  (*(**(v2 + 240) + 224))(*(v2 + 240), &v11);
   std::recursive_mutex::unlock((v2 + 24));
   v3 = objc_alloc(MEMORY[0x1E695DF70]);
-  v4 = [v3 initWithCapacity:(v10.__shared_weak_owners_ - v10.__shared_owners_) >> 4];
-  shared_owners = v10.__shared_owners_;
-  for (i = v10.__shared_weak_owners_; shared_owners != i; shared_owners += 16)
+  v4 = [v3 initWithCapacity:(v12 - v11) >> 4];
+  v5 = v11;
+  for (i = v12; v5 != i; v5 += 16)
   {
-    v7 = [VKLabelMarker markerWithLabelMarker:shared_owners];
+    v7 = [VKLabelMarker markerWithLabelMarker:v5];
     if (v7)
     {
       [v4 addObject:v7];
@@ -4424,7 +4424,7 @@ void __57__VKMapView_muninJunctionDidChange_currentRoad_localize___block_invoke(
 
   v8 = [MEMORY[0x1E695DEC8] arrayWithArray:v4];
 
-  v10.__vftable = &v10.__shared_owners_;
+  v10 = &v11;
   std::vector<std::shared_ptr<md::LabelMarker>,geo::allocator_adapter<std::shared_ptr<md::LabelMarker>,mdm::zone_mallocator>>::__destroy_vector::operator()[abi:nn200100](&v10);
 
   return v8;
@@ -5077,7 +5077,7 @@ LABEL_34:
             v2 = (v28 - 1) & v8;
           }
 
-          v11 = *(v27 + 8 * v2);
+          v11 = v27[v2];
           if (v11)
           {
             for (j = *v11; j; j = *j)
@@ -5164,7 +5164,7 @@ LABEL_34:
         }
 
         v21 = v27;
-        v22 = *(v27 + 8 * v2);
+        v22 = v27[v2];
         if (v22)
         {
           *v15 = *v22;
@@ -5174,7 +5174,7 @@ LABEL_34:
         {
           *v15 = *&v30[7];
           *&v30[7] = v15;
-          *(v21 + 8 * v2) = &v30[7];
+          v21[v2] = &v30[7];
           if (!*v15)
           {
             goto LABEL_41;
@@ -5194,7 +5194,7 @@ LABEL_34:
             v23 &= v9 - 1;
           }
 
-          v22 = (v27 + 8 * v23);
+          v22 = &v27[v23];
         }
 
         *v22 = v15;
@@ -5241,17 +5241,17 @@ LABEL_42:
     currentCanvas = [(VKMapView *)self currentCanvas];
     cameraController = [currentCanvas cameraController];
 
-    if (cameraController && ([cameraController vkCamera], v10 = objc_claimAutoreleasedReturnValue(), v10, v10))
+    if (cameraController && (objc_msgSend_vkCamera(cameraController), v10 = objc_claimAutoreleasedReturnValue(), v10, v10))
     {
       [*(*(self + 50) + 41656) size];
       v12 = v11;
       [*(*(self + 50) + 41656) size];
       v14 = v13;
-      vkCamera = [cameraController vkCamera];
-      v16 = vkCamera;
-      if (vkCamera)
+      v15 = objc_msgSend_vkCamera(cameraController);
+      v16 = v15;
+      if (v15)
       {
-        [vkCamera groundPointFromScreenPoint:{x / v12, 1.0 - y / v14}];
+        objc_msgSend_groundPointFromScreenPoint_(v15, x / v12, 1.0 - y / v14);
       }
 
       else
@@ -7366,11 +7366,11 @@ void __69__VKMapView_setEdgeInsets_duration_timingFunction_completionHandler___b
       v7 = v6 + 41656;
       scaleCopy2 = scale;
       v9 = *(v6 + 41704);
-      v10 = *(v9 + 4);
-      v11 = *(v9 + 5);
+      v10 = *(v9 + 32);
+      v11 = *(v9 + 40);
       if (v10 != v11)
       {
-        v12 = *(v9 + 4);
+        v12 = *(v9 + 32);
         while (*v12 != 1)
         {
           v12 += 16;
@@ -7386,8 +7386,8 @@ void __69__VKMapView_setEdgeInsets_duration_timingFunction_completionHandler___b
           if (v13)
           {
             atomic_store(LODWORD(scaleCopy2), (v13 + 808));
-            v10 = *(v9 + 4);
-            v11 = *(v9 + 5);
+            v10 = *(v9 + 32);
+            v11 = *(v9 + 40);
           }
         }
       }
@@ -7411,8 +7411,8 @@ LABEL_13:
           if (v15)
           {
             atomic_store(LODWORD(scaleCopy2), (v15 + 808));
-            v10 = *(v9 + 4);
-            v11 = *(v9 + 5);
+            v10 = *(v9 + 32);
+            v11 = *(v9 + 40);
           }
         }
       }
@@ -7436,8 +7436,8 @@ LABEL_21:
           if (v17)
           {
             atomic_store(LODWORD(scaleCopy2), (v17 + 800));
-            v10 = *(v9 + 4);
-            v11 = *(v9 + 5);
+            v10 = *(v9 + 32);
+            v11 = *(v9 + 40);
           }
         }
       }
@@ -7464,8 +7464,8 @@ LABEL_29:
         if (v19)
         {
           atomic_store(LODWORD(scaleCopy2), (v19 + 776));
-          v10 = *(v9 + 4);
-          v11 = *(v9 + 5);
+          v10 = *(v9 + 32);
+          v11 = *(v9 + 40);
         }
       }
 
@@ -7489,11 +7489,11 @@ LABEL_39:
         v10 += 16;
       }
 
-      v20 = *(v9 + 7);
-      v21 = *(v9 + 8);
+      v20 = *(v9 + 56);
+      v21 = *(v9 + 64);
       if (v20 != v21)
       {
-        v22 = *(v9 + 7);
+        v22 = *(v9 + 56);
         while (*v22 != 11)
         {
           v22 += 16;
@@ -7514,8 +7514,8 @@ LABEL_39:
       }
 
 LABEL_51:
-      v25 = *(v9 + 4);
-      v26 = *(v9 + 5);
+      v25 = *(v9 + 32);
+      v26 = *(v9 + 40);
       while (v25 != v26)
       {
         if (*v25 == 12)
@@ -7526,8 +7526,8 @@ LABEL_51:
             if (v27)
             {
               atomic_store(LODWORD(scaleCopy2), (v27 + 632));
-              v20 = *(v9 + 7);
-              v21 = *(v9 + 8);
+              v20 = *(v9 + 56);
+              v21 = *(v9 + 64);
             }
           }
 
@@ -7560,8 +7560,8 @@ LABEL_51:
       }
 
 LABEL_66:
-      v30 = *(v9 + 4);
-      v31 = *(v9 + 5);
+      v30 = *(v9 + 32);
+      v31 = *(v9 + 40);
       while (v30 != v31)
       {
         if (*v30 == 71)
@@ -7572,8 +7572,8 @@ LABEL_66:
             if (v32)
             {
               atomic_store(LODWORD(scaleCopy2), (v32 + 632));
-              v20 = *(v9 + 7);
-              v21 = *(v9 + 8);
+              v20 = *(v9 + 56);
+              v21 = *(v9 + 64);
             }
           }
 
@@ -7606,8 +7606,8 @@ LABEL_66:
       }
 
 LABEL_81:
-      v35 = *(v9 + 4);
-      v36 = *(v9 + 5);
+      v35 = *(v9 + 32);
+      v36 = *(v9 + 40);
       while (1)
       {
         if (v35 == v36)
@@ -7629,8 +7629,8 @@ LABEL_81:
         if (v37)
         {
           atomic_store(LODWORD(scaleCopy2), (v37 + 632));
-          v20 = *(v9 + 7);
-          v21 = *(v9 + 8);
+          v20 = *(v9 + 56);
+          v21 = *(v9 + 64);
         }
       }
 
@@ -7654,11 +7654,11 @@ LABEL_90:
         v20 += 16;
       }
 
-      v38 = *(v9 + 4);
-      v39 = *(v9 + 5);
+      v38 = *(v9 + 32);
+      v39 = *(v9 + 40);
       if (v38 != v39)
       {
-        v40 = *(v9 + 4);
+        v40 = *(v9 + 32);
         while (*v40 != 16)
         {
           v40 += 16;
@@ -7674,8 +7674,8 @@ LABEL_90:
           if (v42)
           {
             atomic_store(LODWORD(scaleCopy2), (v42 + 864));
-            v38 = *(v9 + 4);
-            v39 = *(v9 + 5);
+            v38 = *(v9 + 32);
+            v39 = *(v9 + 40);
           }
         }
       }
@@ -7702,8 +7702,8 @@ LABEL_102:
         if (v44)
         {
           atomic_store(LODWORD(scaleCopy2), (v44 + 816));
-          v38 = *(v9 + 4);
-          v39 = *(v9 + 5);
+          v38 = *(v9 + 32);
+          v39 = *(v9 + 40);
         }
       }
 
@@ -7728,7 +7728,7 @@ LABEL_112:
       }
 
       v45 = 0;
-      v46 = *(*(v9 + 3) + 56);
+      v46 = *(*(v9 + 24) + 56);
       do
       {
         v47 = gdc::ResourceManager::resourceFetcher(*(v46 + 32), *(v46 + 40), md::MapResourceTypeList[v45]);
@@ -8170,7 +8170,7 @@ void __38__VKMapView__configureDefaultSettings__block_invoke_8(uint64_t a1, uint
   y = bounds.origin.y;
   x = bounds.origin.x;
   v43 = *MEMORY[0x1E69E9840];
-  [(VKMapView *)self bounds];
+  objc_msgSend_bounds(self, a2);
   v45.origin.x = v8;
   v45.origin.y = v9;
   v45.size.width = v10;
@@ -8204,7 +8204,7 @@ void __38__VKMapView__configureDefaultSettings__block_invoke_8(uint64_t a1, uint
     if (v13)
     {
       v14 = *(v13 + 41656);
-      [(VKMapView *)self bounds];
+      objc_msgSend_bounds(self);
       [v14 setBounds:?];
       v15 = *(self + 52);
       v16 = *(self + 12);
@@ -9591,7 +9591,7 @@ LABEL_12:
     atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  gss::ClientStyleState<gss::PropertyID>::setClientStyleAttribute(v17, 0x10049u, mapCopy);
+  gss::ClientStyleState<gss::PropertyID>::setClientStyleAttribute(v17, 65609, mapCopy);
   if (v18)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v18);
@@ -10231,8 +10231,8 @@ LABEL_5:
   }
 
   _labelSettings = [(VKMapView *)self _labelSettings];
-  *(_labelSettings[5] + 320) = v5;
-  md::LabelManager::setSupportedEVConnectorTypes(_labelSettings[3], v5);
+  *(*(_labelSettings + 5) + 320) = v5;
+  md::LabelManager::setSupportedEVConnectorTypes(*(_labelSettings + 3), v5);
 }
 
 - (void)setShowsLiveEVData:(BOOL)data
@@ -10659,13 +10659,13 @@ LABEL_5:
 - (void)setPointsOfInterestFilter:(id)filter
 {
   filterCopy = filter;
-  v6[2] = filterCopy;
+  v7 = filterCopy;
   if (*(self + 53) != filterCopy)
   {
     objc_storeStrong(self + 53, filter);
     if (*(self + 53))
     {
-      std::allocate_shared[abi:nn200100]<md::LabelCategoryFilter,std::allocator<md::LabelCategoryFilter>,GEOPOICategoryFilter * {__strong}&,0>();
+      std::allocate_shared[abi:nn200100]<md::LabelCategoryFilter,std::allocator<md::LabelCategoryFilter>,GEOPOICategoryFilter * {__strong}&,0>(v6, &v7);
     }
 
     v6[0] = 0;
@@ -12109,7 +12109,7 @@ LABEL_13:
   if (*(v8 + 160) != var0)
   {
     *(v8 + 160) = var0;
-    gss::ClientStyleState<gss::PropertyID>::setClientStyleAttribute(*(v8 + 208), 0x10019u, var0);
+    gss::ClientStyleState<gss::PropertyID>::setClientStyleAttribute(*(v8 + 208), 65561, var0);
     gss::ClientStyleState<gss::ScenePropertyID>::setClientStyleAttribute(*(v8 + 224), 0x10019u, var0);
     LOBYTE(v11) = 4;
     geo::linear_set<md::StyleManagerEvent,std::less<md::StyleManagerEvent>,std::allocator<md::StyleManagerEvent>,std::vector<md::StyleManagerEvent>>::insert((v8 + 1128), &v11);
@@ -12172,7 +12172,7 @@ LABEL_13:
     if (*(v8 + 162) != config)
     {
       *(v8 + 162) = config;
-      gss::ClientStyleState<gss::PropertyID>::setClientStyleAttribute(*(v8 + 208), 0x10078u, config);
+      gss::ClientStyleState<gss::PropertyID>::setClientStyleAttribute(*(v8 + 208), 65656, config);
       gss::ClientStyleState<gss::ScenePropertyID>::setClientStyleAttribute(*(v8 + 224), 0x10078u, *(v8 + 162));
       LOBYTE(v15) = 4;
       geo::linear_set<md::StyleManagerEvent,std::less<md::StyleManagerEvent>,std::allocator<md::StyleManagerEvent>,std::vector<md::StyleManagerEvent>>::insert((v8 + 1128), &v15);
@@ -12360,7 +12360,7 @@ LABEL_20:
 
 - (GEOFeatureStyleAttributes)clientFeatureStyleAttributes
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v3 = std::unordered_map<gdc::TypeInfo,std::unique_ptr<gdc::BaseObjectHolder>>::find[abi:nn200100]((*(*(self + 50) + 41928) + 16), 0x2FED70A4459DFCA1uLL)[5];
   v4 = *(v3 + 208);
   v5 = *(v3 + 216);
@@ -12372,26 +12372,26 @@ LABEL_20:
   v6 = atomic_load((v4 + 270));
   if (v6)
   {
-    gss::ClientStyleState<gss::PropertyID>::targetClientStyleAttributes(&v27, v4);
+    gss::ClientStyleState<gss::PropertyID>::targetClientStyleAttributes(&v28, v4);
   }
 
   else
   {
-    gss::ClientStyleState<gss::PropertyID>::sourceClientStyleAttributes(&v27, v4);
+    gss::ClientStyleState<gss::PropertyID>::sourceClientStyleAttributes(&v28, v4);
   }
 
-  v30 = 0;
   v31 = 0;
   v32 = 0;
-  v7 = v29;
-  if (v29)
+  v33 = 0;
+  v7 = v30;
+  if (v30)
   {
     v8 = 0;
     v9 = 0;
     v10 = 0;
     v11 = 0;
-    v12 = v29;
-    v25 = v29;
+    v12 = v30;
+    v25 = v30;
     do
     {
       if ((v11 >= v12) | v9 & 1)
@@ -12401,18 +12401,18 @@ LABEL_20:
 
       else
       {
-        v10 = (v27 + 4 * v11);
-        v2 = (v27 + v28 + 2 * v11);
+        v10 = (v28 + 4 * v11);
+        v2 = (v28 + v29 + 2 * v11);
         v13 = 1;
       }
 
       v14 = *v10;
       v15 = *v2;
-      if (v8 >= v32)
+      if (v8 >= v33)
       {
-        v16 = v30;
-        v17 = v8 - v30;
-        v18 = (v8 - v30) >> 3;
+        v16 = v31;
+        v17 = v8 - v31;
+        v18 = (v8 - v31) >> 3;
         v19 = v18 + 1;
         if ((v18 + 1) >> 61)
         {
@@ -12420,8 +12420,8 @@ LABEL_20:
         }
 
         v26 = v10;
-        v20 = v32 - v30;
-        if ((v32 - v30) >> 2 > v19)
+        v20 = v33 - v31;
+        if ((v33 - v31) >> 2 > v19)
         {
           v19 = v20 >> 2;
         }
@@ -12450,8 +12450,8 @@ LABEL_20:
         *v23 = v14 | (v15 << 32);
         v8 = v23 + 8;
         memcpy(v22, v16, v17);
-        v30 = v22;
-        v32 = &v22[8 * v21];
+        v31 = v22;
+        v33 = &v22[8 * v21];
         if (v16)
         {
           free(v16);
@@ -12467,16 +12467,16 @@ LABEL_20:
         v8 += 8;
       }
 
-      v31 = v8;
-      v12 = v29;
-      if (v11 + 1 < v29)
+      v32 = v8;
+      v12 = v30;
+      if (v11 + 1 < v30)
       {
         ++v11;
       }
 
       else
       {
-        v11 = v29;
+        v11 = v30;
       }
 
       if (v13)
@@ -12493,7 +12493,7 @@ LABEL_20:
     while (v11 != v7);
   }
 
-  std::allocate_shared[abi:nn200100]<FeatureStyleAttributes,std::allocator<FeatureStyleAttributes>,std::vector<GeoCodecsFeatureStylePair,geo::allocator_adapter<GeoCodecsFeatureStylePair,geo::mallocator>> &,0>();
+  std::allocate_shared[abi:nn200100]<FeatureStyleAttributes,std::allocator<FeatureStyleAttributes>,std::vector<GeoCodecsFeatureStylePair,geo::allocator_adapter<GeoCodecsFeatureStylePair,geo::mallocator>> &,0>(&v27, &v31);
 }
 
 - (void)reloadStylesheet
@@ -12581,7 +12581,7 @@ LABEL_10:
   v7 = 1;
   md::MapEngine::setNeedsTick(v4, &v7);
   v5 = *(self + 50);
-  md::HomeQueueScheduler::waitForSynchronization(v5[5920], "[VKMapView forceLayout]");
+  md::HomeQueueScheduler::waitForSynchronization(*(v5 + 47360), "[VKMapView forceLayout]");
   v6 = CACurrentMediaTime();
   if (md::MapEngine::renderSceneSync(v5, v6))
   {
@@ -12705,7 +12705,7 @@ LABEL_10:
     if (*(v7 + 179) != modeCopy)
     {
       *(v7 + 179) = modeCopy;
-      gss::ClientStyleState<gss::PropertyID>::setClientStyleAttribute(*(v7 + 208), 0x10083u, modeCopy);
+      gss::ClientStyleState<gss::PropertyID>::setClientStyleAttribute(*(v7 + 208), 65667, modeCopy);
       gss::ClientStyleState<gss::ScenePropertyID>::setClientStyleAttribute(*(v7 + 224), 0x10083u, *(v7 + 179));
       LOBYTE(v13) = 4;
       geo::linear_set<md::StyleManagerEvent,std::less<md::StyleManagerEvent>,std::allocator<md::StyleManagerEvent>,std::vector<md::StyleManagerEvent>>::insert((v7 + 1128), &v13);
@@ -12763,7 +12763,7 @@ LABEL_10:
     if (*(v7 + 178) != selectorCopy)
     {
       *(v7 + 178) = selectorCopy;
-      gss::ClientStyleState<gss::PropertyID>::setClientStyleAttribute(*(v7 + 208), 0x10080u, selectorCopy);
+      gss::ClientStyleState<gss::PropertyID>::setClientStyleAttribute(*(v7 + 208), 65664, selectorCopy);
       gss::ClientStyleState<gss::ScenePropertyID>::setClientStyleAttribute(*(v7 + 224), 0x10080u, *(v7 + 178));
       LOBYTE(v10) = 4;
       geo::linear_set<md::StyleManagerEvent,std::less<md::StyleManagerEvent>,std::allocator<md::StyleManagerEvent>,std::vector<md::StyleManagerEvent>>::insert((v7 + 1128), &v10);
@@ -13161,7 +13161,7 @@ void __42__VKMapView_Thermal___setupThermalMonitor__block_invoke(uint64_t a1)
 
 - (void)populateDebugNode:(void *)node withOptions:(const void *)options
 {
-  v111 = *MEMORY[0x1E69E9840];
+  v110 = *MEMORY[0x1E69E9840];
   v7 = *(self + 50);
   md::HomeQueueScheduler::waitForSynchronization(*(v7 + 47360), "[VKMapView(Internal) populateDebugNode:withOptions:]");
   std::string::basic_string[abi:nn200100]<0>(&v108, "Self");
@@ -13174,9 +13174,9 @@ void __42__VKMapView_Thermal___setupThermalMonitor__block_invoke(uint64_t a1)
     operator delete(__p);
   }
 
-  if (v109 < 0)
+  if (SHIBYTE(v108.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v108);
+    operator delete(v108.__r_.__value_.__l.__data_);
   }
 
   std::string::basic_string[abi:nn200100]<0>(&v108, "Is in Background");
@@ -13187,9 +13187,9 @@ void __42__VKMapView_Thermal___setupThermalMonitor__block_invoke(uint64_t a1)
     operator delete(v102);
   }
 
-  if (v109 < 0)
+  if (SHIBYTE(v108.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v108);
+    operator delete(v108.__r_.__value_.__l.__data_);
   }
 
   std::string::basic_string[abi:nn200100]<0>(&v108, "Map Type");
@@ -13221,9 +13221,9 @@ void __42__VKMapView_Thermal___setupThermalMonitor__block_invoke(uint64_t a1)
     operator delete(v99);
   }
 
-  if (v109 < 0)
+  if (SHIBYTE(v108.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v108);
+    operator delete(v108.__r_.__value_.__l.__data_);
   }
 
   std::string::basic_string[abi:nn200100]<0>(&v108, "Renders In Background");
@@ -13234,9 +13234,9 @@ void __42__VKMapView_Thermal___setupThermalMonitor__block_invoke(uint64_t a1)
     operator delete(v96);
   }
 
-  if (v109 < 0)
+  if (SHIBYTE(v108.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v108);
+    operator delete(v108.__r_.__value_.__l.__data_);
   }
 
   std::string::basic_string[abi:nn200100]<0>(&v108, "Did Finish Snapshotting");
@@ -13247,9 +13247,9 @@ void __42__VKMapView_Thermal___setupThermalMonitor__block_invoke(uint64_t a1)
     operator delete(v93);
   }
 
-  if (v109 < 0)
+  if (SHIBYTE(v108.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v108);
+    operator delete(v108.__r_.__value_.__l.__data_);
   }
 
   std::string::basic_string[abi:nn200100]<0>(&v108, "Hidden");
@@ -13260,9 +13260,9 @@ void __42__VKMapView_Thermal___setupThermalMonitor__block_invoke(uint64_t a1)
     operator delete(v90);
   }
 
-  if (v109 < 0)
+  if (SHIBYTE(v108.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v108);
+    operator delete(v108.__r_.__value_.__l.__data_);
   }
 
   std::string::basic_string[abi:nn200100]<0>(&v108, "Display Rate");
@@ -13273,9 +13273,9 @@ void __42__VKMapView_Thermal___setupThermalMonitor__block_invoke(uint64_t a1)
     operator delete(v87);
   }
 
-  if (v109 < 0)
+  if (SHIBYTE(v108.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v108);
+    operator delete(v108.__r_.__value_.__l.__data_);
   }
 
   std::string::basic_string[abi:nn200100]<0>(&v108, "Navigation Display Rate");
@@ -13288,9 +13288,9 @@ void __42__VKMapView_Thermal___setupThermalMonitor__block_invoke(uint64_t a1)
     operator delete(v84);
   }
 
-  if (v109 < 0)
+  if (SHIBYTE(v108.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v108);
+    operator delete(v108.__r_.__value_.__l.__data_);
   }
 
   std::string::basic_string[abi:nn200100]<0>(&v108, "Display Rate");
@@ -13301,9 +13301,9 @@ void __42__VKMapView_Thermal___setupThermalMonitor__block_invoke(uint64_t a1)
     operator delete(v81);
   }
 
-  if (v109 < 0)
+  if (SHIBYTE(v108.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v108);
+    operator delete(v108.__r_.__value_.__l.__data_);
   }
 
   std::string::basic_string[abi:nn200100]<0>(&v108, "Application State");
@@ -13325,19 +13325,19 @@ void __42__VKMapView_Thermal___setupThermalMonitor__block_invoke(uint64_t a1)
     operator delete(v78);
   }
 
-  if (v109 < 0)
+  if (SHIBYTE(v108.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v108);
+    operator delete(v108.__r_.__value_.__l.__data_);
   }
 
   v17 = *options;
   if (*options)
   {
     std::string::basic_string[abi:nn200100]<0>(&v108, "Display Style");
-    v18 = gdc::DebugTreeNode::createChildNode(node, &v108);
-    if (v109 < 0)
+    ChildNode = gdc::DebugTreeNode::createChildNode(node, &v108);
+    if (SHIBYTE(v108.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v108);
+      operator delete(v108.__r_.__value_.__l.__data_);
     }
 
     mapDisplayStyle = [(VKMapView *)self mapDisplayStyle];
@@ -13354,15 +13354,15 @@ void __42__VKMapView_Thermal___setupThermalMonitor__block_invoke(uint64_t a1)
     }
 
     gdc::DebugTreeValue::DebugTreeValue(v74, [(__CFString *)v21 UTF8String]);
-    gdc::DebugTreeNode::addProperty(v18, &v108, v74);
+    gdc::DebugTreeNode::addProperty(ChildNode, &v108, v74);
     if (v76 < 0)
     {
       operator delete(v75);
     }
 
-    if (v109 < 0)
+    if (SHIBYTE(v108.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v108);
+      operator delete(v108.__r_.__value_.__l.__data_);
     }
 
     std::string::basic_string[abi:nn200100]<0>(&v108, "TimePeriod");
@@ -13377,15 +13377,15 @@ void __42__VKMapView_Thermal___setupThermalMonitor__block_invoke(uint64_t a1)
     }
 
     gdc::DebugTreeValue::DebugTreeValue(v71, [(__CFString *)v22 UTF8String]);
-    gdc::DebugTreeNode::addProperty(v18, &v108, v71);
+    gdc::DebugTreeNode::addProperty(ChildNode, &v108, v71);
     if (v73 < 0)
     {
       operator delete(v72);
     }
 
-    if (v109 < 0)
+    if (SHIBYTE(v108.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v108);
+      operator delete(v108.__r_.__value_.__l.__data_);
     }
 
     std::string::basic_string[abi:nn200100]<0>(&v108, "OverlayType");
@@ -13406,15 +13406,15 @@ void __42__VKMapView_Thermal___setupThermalMonitor__block_invoke(uint64_t a1)
     }
 
     gdc::DebugTreeValue::DebugTreeValue(v68, [(__CFString *)v24 UTF8String]);
-    gdc::DebugTreeNode::addProperty(v18, &v108, v68);
+    gdc::DebugTreeNode::addProperty(ChildNode, &v108, v68);
     if (v70 < 0)
     {
       operator delete(v69);
     }
 
-    if (v109 < 0)
+    if (SHIBYTE(v108.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v108);
+      operator delete(v108.__r_.__value_.__l.__data_);
     }
 
     std::string::basic_string[abi:nn200100]<0>(&v108, "ApplicationState");
@@ -13429,15 +13429,15 @@ void __42__VKMapView_Thermal___setupThermalMonitor__block_invoke(uint64_t a1)
     }
 
     gdc::DebugTreeValue::DebugTreeValue(v65, [(__CFString *)v25 UTF8String]);
-    gdc::DebugTreeNode::addProperty(v18, &v108, v65);
+    gdc::DebugTreeNode::addProperty(ChildNode, &v108, v65);
     if (v67 < 0)
     {
       operator delete(v66);
     }
 
-    if (v109 < 0)
+    if (SHIBYTE(v108.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v108);
+      operator delete(v108.__r_.__value_.__l.__data_);
     }
 
     std::string::basic_string[abi:nn200100]<0>(&v108, "SearchResultsType");
@@ -13452,28 +13452,28 @@ void __42__VKMapView_Thermal___setupThermalMonitor__block_invoke(uint64_t a1)
     }
 
     gdc::DebugTreeValue::DebugTreeValue(v62, [(__CFString *)v26 UTF8String]);
-    gdc::DebugTreeNode::addProperty(v18, &v108, v62);
+    gdc::DebugTreeNode::addProperty(ChildNode, &v108, v62);
     if (v64 < 0)
     {
       operator delete(v63);
     }
 
-    if (v109 < 0)
+    if (SHIBYTE(v108.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v108);
+      operator delete(v108.__r_.__value_.__l.__data_);
     }
 
     std::string::basic_string[abi:nn200100]<0>(&v108, "MapHasLabels");
     gdc::DebugTreeValue::DebugTreeValue(v59, (mapDisplayStyle >> 40) & 1);
-    gdc::DebugTreeNode::addProperty(v18, &v108, v59);
+    gdc::DebugTreeNode::addProperty(ChildNode, &v108, v59);
     if (v61 < 0)
     {
       operator delete(v60);
     }
 
-    if (v109 < 0)
+    if (SHIBYTE(v108.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v108);
+      operator delete(v108.__r_.__value_.__l.__data_);
     }
 
     v17 = *options;
@@ -13483,9 +13483,9 @@ void __42__VKMapView_Thermal___setupThermalMonitor__block_invoke(uint64_t a1)
   {
     std::string::basic_string[abi:nn200100]<0>(&v108, "Map Canvas");
     v27 = gdc::DebugTreeNode::createChildNode(node, &v108);
-    if (v109 < 0)
+    if (SHIBYTE(v108.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v108);
+      operator delete(v108.__r_.__value_.__l.__data_);
     }
 
     [*(self + 7) populateDebugNode:v27 withOptions:options];
@@ -13496,9 +13496,9 @@ void __42__VKMapView_Thermal___setupThermalMonitor__block_invoke(uint64_t a1)
   {
     std::string::basic_string[abi:nn200100]<0>(&v108, "Current Camera Controller");
     v28 = gdc::DebugTreeNode::createChildNode(node, &v108);
-    if (v109 < 0)
+    if (SHIBYTE(v108.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v108);
+      operator delete(v108.__r_.__value_.__l.__data_);
     }
 
     currentCanvas2 = [(VKMapView *)self currentCanvas];
@@ -13517,9 +13517,9 @@ void __42__VKMapView_Thermal___setupThermalMonitor__block_invoke(uint64_t a1)
   {
     std::string::basic_string[abi:nn200100]<0>(&v108, "Route Context");
     v31 = gdc::DebugTreeNode::createChildNode(node, &v108);
-    if (v109 < 0)
+    if (SHIBYTE(v108.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v108);
+      operator delete(v108.__r_.__value_.__l.__data_);
     }
 
     std::string::basic_string[abi:nn200100]<0>(&v108, "Description");
@@ -13532,9 +13532,9 @@ void __42__VKMapView_Thermal___setupThermalMonitor__block_invoke(uint64_t a1)
       operator delete(v57);
     }
 
-    if (v109 < 0)
+    if (SHIBYTE(v108.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v108);
+      operator delete(v108.__r_.__value_.__l.__data_);
     }
 
     v17 = *options;
@@ -13544,18 +13544,18 @@ void __42__VKMapView_Thermal___setupThermalMonitor__block_invoke(uint64_t a1)
   {
     std::string::basic_string[abi:nn200100]<0>(&v108, "TileLoader");
     v34 = gdc::DebugTreeNode::createChildNode(node, &v108);
-    if (v109 < 0)
+    if (SHIBYTE(v108.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v108);
+      operator delete(v108.__r_.__value_.__l.__data_);
     }
 
     modernLoader = [MEMORY[0x1E69A2610] modernLoader];
     v36 = modernLoader;
     if (modernLoader)
     {
-      *&v108 = &unk_1F29E6510;
-      *(&v108 + 1) = &v108;
-      v110 = &v108;
+      v108.__r_.__value_.__r.__words[0] = &unk_1F29E6510;
+      v108.__r_.__value_.__l.__size_ = &v108;
+      v109 = &v108;
       descriptionDictionaryRepresentation = [modernLoader descriptionDictionaryRepresentation];
       std::function<void ()(NSDictionary *,gdc::DebugTreeNode &)>::operator()(&v108, descriptionDictionaryRepresentation, v34);
 
@@ -13569,9 +13569,9 @@ void __42__VKMapView_Thermal___setupThermalMonitor__block_invoke(uint64_t a1)
   {
     std::string::basic_string[abi:nn200100]<0>(&v108, "Tile Statistics");
     v38 = gdc::DebugTreeNode::createChildNode(node, &v108);
-    if (v109 < 0)
+    if (SHIBYTE(v108.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v108);
+      operator delete(v108.__r_.__value_.__l.__data_);
     }
 
     tileStatistics = [(VKMapView *)self tileStatistics];
@@ -13607,9 +13607,9 @@ void __42__VKMapView_Thermal___setupThermalMonitor__block_invoke(uint64_t a1)
             operator delete(v50);
           }
 
-          if (v109 < 0)
+          if (SHIBYTE(v108.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v108);
+            operator delete(v108.__r_.__value_.__l.__data_);
           }
         }
 
@@ -14947,7 +14947,7 @@ LABEL_31:
         for (i = v33; i; i = *i)
         {
           gdc::Tiled::mapDataKeyFromTile(buf, 0, i + 16, 35, -4);
-          std::__hash_table<gdc::LayerDataRequestKey,gdc::LayerDataRequestKeyHash,std::equal_to<gdc::LayerDataRequestKey>,std::allocator<gdc::LayerDataRequestKey>>::__emplace_unique_key_args<gdc::LayerDataRequestKey,gdc::LayerDataRequestKey const&>(__p, buf);
+          std::__hash_table<gdc::LayerDataRequestKey,gdc::LayerDataRequestKeyHash,std::equal_to<gdc::LayerDataRequestKey>,std::allocator<gdc::LayerDataRequestKey>>::__emplace_unique_key_args<gdc::LayerDataRequestKey,gdc::LayerDataRequestKey const&>(__p, buf, buf);
           if (v27 != v28)
           {
             free(v27);
@@ -14998,11 +14998,11 @@ LABEL_31:
 
     [(VKMapView *)self setMapType:10];
     [(VKMapView *)self setShouldLoadFallbackTiles:0];
-    [markerCopy coordinate];
+    objc_msgSend_coordinate(markerCopy);
     v19 = v11;
-    [markerCopy coordinate];
+    objc_msgSend_coordinate(markerCopy);
     v18 = v12;
-    [markerCopy coordinate];
+    objc_msgSend_coordinate(markerCopy);
     v13 = self + 288;
     v14 = *(v13 + 1);
     v15.f64[0] = v19;

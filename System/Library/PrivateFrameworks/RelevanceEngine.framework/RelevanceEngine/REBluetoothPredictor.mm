@@ -86,16 +86,14 @@ void __29__REBluetoothPredictor__init__block_invoke(uint64_t a1)
 
 + (id)supportedFeatures
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   v2 = [REFeatureSet alloc];
   v3 = +[REFeature isConnectedToCarFeature];
-  v9[0] = v3;
+  v8[0] = v3;
   v4 = +[REFeature isConnectedToBluetoothSpeakerFeature];
-  v9[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
+  v8[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
   v6 = [(REFeatureSet *)v2 initWithFeatures:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -209,7 +207,7 @@ void __30__REBluetoothPredictor_resume__block_invoke_2(uint64_t a1, uint64_t a2,
 
 - (void)update
 {
-  if (BluetoothManagerLibraryCore())
+  if (BluetoothManagerLibraryCore(0))
   {
     [(REPredictor *)self beginFetchingData];
     if (update_onceToken != -1)
@@ -236,31 +234,31 @@ void __30__REBluetoothPredictor_update__block_invoke()
 
 void __30__REBluetoothPredictor_update__block_invoke_2(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = [getBluetoothManagerClass() sharedInstance];
-  v17 = a1;
+  v16 = a1;
   v3 = [*(a1 + 32) localDevices];
   v4 = [MEMORY[0x277CBEB38] dictionary];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v5 = [v2 connectedDevices];
-  v6 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v23;
+    v8 = *v22;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * i);
+        v10 = *(*(&v21 + 1) + 8 * i);
         v11 = [v10 address];
         if ([v11 length])
         {
@@ -272,7 +270,7 @@ void __30__REBluetoothPredictor_update__block_invoke_2(uint64_t a1)
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v7);
@@ -282,14 +280,12 @@ void __30__REBluetoothPredictor_update__block_invoke_2(uint64_t a1)
   block[1] = 3221225472;
   block[2] = __30__REBluetoothPredictor_update__block_invoke_3;
   block[3] = &unk_2785FB070;
-  v19 = v3;
-  v20 = v4;
-  v21 = *(v17 + 32);
+  v18 = v3;
+  v19 = v4;
+  v20 = *(v16 + 32);
   v14 = v4;
   v15 = v3;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __30__REBluetoothPredictor_update__block_invoke_3(id *a1)
@@ -321,66 +317,62 @@ void __30__REBluetoothPredictor_update__block_invoke_3(id *a1)
 
 - (BOOL)connectedToSpeaker
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if ([(REBluetoothPredictor *)self _isConnectedToSpeaker])
   {
-    v3 = 1;
+    return 1;
+  }
+
+  localDevices = [(REBluetoothPredictor *)self localDevices];
+  [localDevices allValues];
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v5 = v17 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v15;
+    do
+    {
+      for (i = 0; i != v7; ++i)
+      {
+        if (*v15 != v8)
+        {
+          objc_enumerationMutation(v5);
+        }
+
+        v10 = *(*(&v14 + 1) + 8 * i);
+        type = [v10 type];
+        if (type <= 0x2F && ((1 << type) & 0x800000DB0000) != 0)
+        {
+
+          v3 = 1;
+          goto LABEL_17;
+        }
+      }
+
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v3 = 0;
+    }
+
+    while (v7);
   }
 
   else
   {
-    localDevices = [(REBluetoothPredictor *)self localDevices];
-    [localDevices allValues];
-    v15 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    v5 = v18 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
-    if (v6)
-    {
-      v7 = v6;
-      v8 = *v16;
-      do
-      {
-        for (i = 0; i != v7; ++i)
-        {
-          if (*v16 != v8)
-          {
-            objc_enumerationMutation(v5);
-          }
-
-          v10 = *(*(&v15 + 1) + 8 * i);
-          type = [v10 type];
-          if (type <= 0x2F && ((1 << type) & 0x800000DB0000) != 0)
-          {
-
-            v3 = 1;
-            goto LABEL_17;
-          }
-        }
-
-        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
-        v3 = 0;
-      }
-
-      while (v7);
-    }
-
-    else
-    {
-      v3 = 0;
-    }
-
-LABEL_17:
+    v3 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
+LABEL_17:
+
   return v3;
 }
 
 - (BOOL)connectedToCar
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if ([(REBluetoothPredictor *)self _isConnctedToCar])
   {
     LOBYTE(v3) = 1;
@@ -390,31 +382,31 @@ LABEL_17:
   {
     localDevices = [(REBluetoothPredictor *)self localDevices];
     [localDevices allValues];
+    v9 = 0u;
     v10 = 0u;
     v11 = 0u;
-    v12 = 0u;
-    v5 = v13 = 0u;
-    v3 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v5 = v12 = 0u;
+    v3 = [v5 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v3)
     {
-      v6 = *v11;
+      v6 = *v10;
       while (2)
       {
         for (i = 0; i != v3; ++i)
         {
-          if (*v11 != v6)
+          if (*v10 != v6)
           {
             objc_enumerationMutation(v5);
           }
 
-          if ([*(*(&v10 + 1) + 8 * i) type] == 22)
+          if ([*(*(&v9 + 1) + 8 * i) type] == 22)
           {
             LOBYTE(v3) = 1;
             goto LABEL_13;
           }
         }
 
-        v3 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v3 = [v5 countByEnumeratingWithState:&v9 objects:v13 count:16];
         if (v3)
         {
           continue;
@@ -427,13 +419,12 @@ LABEL_17:
 LABEL_13:
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (void)_registerForBluetoothNotifications
 {
-  if (BluetoothManagerLibraryCore())
+  if (BluetoothManagerLibraryCore(0))
   {
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     bluetoothNotificationScheduler = self->_bluetoothNotificationScheduler;
@@ -674,7 +665,7 @@ LABEL_36:
 
 - (void)_unregisterForBluetoothNotifications
 {
-  if (BluetoothManagerLibraryCore())
+  if (BluetoothManagerLibraryCore(0))
   {
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter removeObserver:self->_bluetoothNotificationScheduler];

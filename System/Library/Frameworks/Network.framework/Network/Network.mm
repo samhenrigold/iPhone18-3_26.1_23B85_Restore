@@ -204,7 +204,7 @@ uint64_t nw_activity_should_log(void *a1)
     v14 = __nwlog_obj();
     *buf = 136446210;
     *v25 = "nw_activity_should_log";
-    v15 = _os_log_send_and_compose_impl();
+    v15 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v14, 16, "%{public}s called with null activity", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v22 = 0;
@@ -453,7 +453,7 @@ _DWORD *nw_activity_create(int a1, int a2)
     v11 = __nwlog_obj();
     *buf = 136446210;
     *v31 = "[NWConcrete_nw_activity initWithDomain:label:]";
-    v12 = _os_log_send_and_compose_impl();
+    v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s [super init] failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v27 = 0;
@@ -550,7 +550,7 @@ LABEL_40:
     v15 = __nwlog_obj();
     *buf = 136446210;
     *v31 = "[NWConcrete_nw_activity initWithDomain:label:]";
-    v16 = _os_log_send_and_compose_impl();
+    v16 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v15, 16, "%{public}s Invalid domain or label specified", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v27 = 0;
@@ -716,7 +716,7 @@ void nw_activity_activate(void *a1)
   v15 = __nwlog_obj();
   *v30 = 136446210;
   *&v30[4] = "nw_activity_activate";
-  v16 = _os_log_send_and_compose_impl();
+  v16 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v15, 16, "%{public}s called with null activity", v30, 12);
 
   buf[0] = 16;
   v29 = 0;
@@ -785,10 +785,11 @@ LABEL_38:
 LABEL_20:
 }
 
-void sub_181A3AC44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_181A3AC44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  _Block_object_dispose(&a27, 8);
+  va_start(va, a26);
 
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -800,7 +801,7 @@ void nw_synchronize<nw::unfair_mutex,void({block_pointer} {__strong})(void)>(os_
     v4 = __nwlog_obj();
     *buf = 136446210;
     v17 = "nw_synchronize";
-    v5 = _os_log_send_and_compose_impl();
+    v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s called with null lock", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v14 = 0;
@@ -889,7 +890,7 @@ LABEL_34:
   v9 = __nwlog_obj();
   *buf = 136446210;
   v17 = "nw_synchronize";
-  v5 = _os_log_send_and_compose_impl();
+  v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s called with null func", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v14 = 0;
@@ -964,7 +965,7 @@ LABEL_36:
 
 void __nw_activity_activate_block_invoke(uint64_t a1)
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   *(*(*(a1 + 40) + 8) + 24) = (*(*(a1 + 32) + 140) & 4) == 0;
   if (*(*(*(a1 + 40) + 8) + 24) != 1)
   {
@@ -996,8 +997,8 @@ LABEL_13:
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = ___ZL51nw_activity_inherit_from_global_parent_if_necessaryP22NWConcrete_nw_activity_block_invoke;
-        v64 = &unk_1E6A3D868;
-        v65 = v7;
+        v65 = &unk_1E6A3D868;
+        v66 = v7;
         v8 = v7;
         v9 = _Block_copy(buf);
         *__upper_bound = v9;
@@ -1030,39 +1031,39 @@ LABEL_13:
 
     v38 = __nwlog_obj();
     *type = 136446210;
-    v67 = "nw_activity_inherit_from_global_parent_if_necessary";
-    v39 = _os_log_send_and_compose_impl();
+    v68 = "nw_activity_inherit_from_global_parent_if_necessary";
+    v39 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v38, 16, "%{public}s called with null activity", type, 12);
 
-    v62 = OS_LOG_TYPE_ERROR;
-    v61 = 0;
-    if (__nwlog_fault(v39, &v62, &v61))
+    v63 = OS_LOG_TYPE_ERROR;
+    v62 = 0;
+    if (__nwlog_fault(v39, &v63, &v62))
     {
-      if (v62 == OS_LOG_TYPE_FAULT)
+      if (v63 == OS_LOG_TYPE_FAULT)
       {
         v40 = __nwlog_obj();
-        v41 = v62;
-        if (os_log_type_enabled(v40, v62))
+        v41 = v63;
+        if (os_log_type_enabled(v40, v63))
         {
           *type = 136446210;
-          v67 = "nw_activity_inherit_from_global_parent_if_necessary";
+          v68 = "nw_activity_inherit_from_global_parent_if_necessary";
           _os_log_impl(&dword_181A37000, v40, v41, "%{public}s called with null activity", type, 0xCu);
         }
       }
 
-      else if (v61 == 1)
+      else if (v62 == 1)
       {
         backtrace_string = __nw_create_backtrace_string();
         v40 = __nwlog_obj();
-        v49 = v62;
-        v50 = os_log_type_enabled(v40, v62);
+        v49 = v63;
+        v50 = os_log_type_enabled(v40, v63);
         if (backtrace_string)
         {
           if (v50)
           {
             *type = 136446466;
-            v67 = "nw_activity_inherit_from_global_parent_if_necessary";
-            v68 = 2082;
-            v69 = backtrace_string;
+            v68 = "nw_activity_inherit_from_global_parent_if_necessary";
+            v69 = 2082;
+            v70 = backtrace_string;
             _os_log_impl(&dword_181A37000, v40, v49, "%{public}s called with null activity, dumping backtrace:%{public}s", type, 0x16u);
           }
 
@@ -1073,7 +1074,7 @@ LABEL_13:
         if (v50)
         {
           *type = 136446210;
-          v67 = "nw_activity_inherit_from_global_parent_if_necessary";
+          v68 = "nw_activity_inherit_from_global_parent_if_necessary";
           _os_log_impl(&dword_181A37000, v40, v49, "%{public}s called with null activity, no backtrace", type, 0xCu);
         }
       }
@@ -1081,11 +1082,11 @@ LABEL_13:
       else
       {
         v40 = __nwlog_obj();
-        v57 = v62;
-        if (os_log_type_enabled(v40, v62))
+        v57 = v63;
+        if (os_log_type_enabled(v40, v63))
         {
           *type = 136446210;
-          v67 = "nw_activity_inherit_from_global_parent_if_necessary";
+          v68 = "nw_activity_inherit_from_global_parent_if_necessary";
           _os_log_impl(&dword_181A37000, v40, v57, "%{public}s called with null activity, backtrace limit exceeded", type, 0xCu);
         }
       }
@@ -1281,7 +1282,8 @@ LABEL_58:
           *&buf[4] = "nw_activity_make_reporting_decision";
           *&buf[12] = 2082;
           *&buf[14] = "Unknown reporting strategy";
-          v22 = _os_log_send_and_compose_impl();
+          LODWORD(v60) = 22;
+          v22 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v21, 16, "%{public}s BUG IN CLIENT OF LIBNETWORK: %{public}s", buf, v60);
 
           type[0] = OS_LOG_TYPE_ERROR;
           LOBYTE(__upper_bound[0]) = 0;
@@ -1349,7 +1351,7 @@ LABEL_82:
             *&buf[12] = 2082;
             *&buf[14] = "Unknown reporting strategy";
             *&buf[22] = 2082;
-            v64 = v34;
+            v65 = v34;
             _os_log_impl(&dword_181A37000, v23, v35, "%{public}s BUG IN CLIENT OF LIBNETWORK: %{public}s, dumping backtrace:%{public}s", buf, 0x20u);
           }
 
@@ -1393,7 +1395,8 @@ LABEL_44:
     v46 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_activity_make_reporting_decision";
-    v22 = _os_log_send_and_compose_impl();
+    LODWORD(v60) = 12;
+    v22 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v46, 16, "%{public}s called with null activity", buf, v60);
 
     type[0] = OS_LOG_TYPE_ERROR;
     LOBYTE(__upper_bound[0]) = 0;
@@ -1468,7 +1471,7 @@ LABEL_44:
   *&buf[4] = "nw_activity_activate_block_invoke";
   *&buf[12] = 2082;
   *&buf[14] = "Cannot activate lightweight representation of an activity";
-  v43 = _os_log_send_and_compose_impl();
+  v43 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v42, 16, "%{public}s BUG IN CLIENT OF LIBNETWORK: %{public}s", buf, 22);
 
   type[0] = OS_LOG_TYPE_ERROR;
   LOBYTE(__upper_bound[0]) = 0;
@@ -1503,7 +1506,7 @@ LABEL_44:
           *&buf[12] = 2082;
           *&buf[14] = "Cannot activate lightweight representation of an activity";
           *&buf[22] = 2082;
-          v64 = v51;
+          v65 = v51;
           _os_log_impl(&dword_181A37000, v44, v52, "%{public}s BUG IN CLIENT OF LIBNETWORK: %{public}s, dumping backtrace:%{public}s", buf, 0x20u);
         }
 
@@ -1556,7 +1559,7 @@ uint64_t nw_activity_is_lightweight_representation(void *a1)
   v4 = __nwlog_obj();
   *buf = 136446210;
   v15 = "nw_activity_is_lightweight_representation";
-  v5 = _os_log_send_and_compose_impl();
+  v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s called with null activity", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v12 = 0;
@@ -1761,7 +1764,7 @@ int64_t networkd_settings_get_int64_with_default(const char *a1, int64_t a2)
 
 uint64_t networkd_settings_init()
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   result = pthread_once(&nw_settings_setup_atfork::pOnce, nw_settings_setup_atfork_inner);
   if (sSettingsInitState != 2)
   {
@@ -1795,9 +1798,9 @@ LABEL_19:
     }
 
     v2 = nw_settings_should_be_able_to_use_notify_apis(void)::has_notify_apis;
-    v3 = pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
-    networkd_settings_init(v3);
-    v4 = gLogObj;
+    pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
+    networkd_settings_init();
+    v3 = gLogObj;
     if (v1 == 1000000 && (v2 & 1) != 0)
     {
       if (!os_log_type_enabled(gLogObj, OS_LOG_TYPE_DEFAULT))
@@ -1805,25 +1808,25 @@ LABEL_19:
         goto LABEL_19;
       }
 
-      v5 = "";
+      v4 = "";
       *buf = 136447234;
       if (sNWIsBetweenForkAndExec)
       {
-        v5 = " (forked)";
+        v4 = " (forked)";
       }
 
-      v12 = "networkd_settings_init";
-      v13 = 2082;
-      v14 = nw_notification_name_settings;
-      v15 = 1024;
-      v16 = 1000000;
-      v17 = 1024;
-      v18 = out_token;
-      v19 = 2082;
-      v20 = v5;
-      v6 = "%{public}s [sandboxed: ok] notify_register_check(%{public}s) status %u token %d%{public}s failed";
-      v7 = v4;
-      v8 = OS_LOG_TYPE_DEFAULT;
+      v11 = "networkd_settings_init";
+      v12 = 2082;
+      v13 = nw_notification_name_settings;
+      v14 = 1024;
+      v15 = 1000000;
+      v16 = 1024;
+      v17 = out_token;
+      v18 = 2082;
+      v19 = v4;
+      v5 = "%{public}s [sandboxed: ok] notify_register_check(%{public}s) status %u token %d%{public}s failed";
+      v6 = v3;
+      v7 = OS_LOG_TYPE_DEFAULT;
     }
 
     else
@@ -1833,39 +1836,39 @@ LABEL_19:
         goto LABEL_19;
       }
 
-      v9 = "";
+      v8 = "";
       *buf = 136447234;
       if (sNWIsBetweenForkAndExec)
       {
-        v9 = " (forked)";
+        v8 = " (forked)";
       }
 
-      v12 = "networkd_settings_init";
-      v13 = 2082;
-      v14 = nw_notification_name_settings;
-      v15 = 1024;
-      v16 = v1;
-      v17 = 1024;
-      v18 = out_token;
-      v19 = 2082;
-      v20 = v9;
-      v6 = "%{public}s notify_register_check(%{public}s) status %u token %d%{public}s";
-      v7 = v4;
-      v8 = OS_LOG_TYPE_ERROR;
+      v11 = "networkd_settings_init";
+      v12 = 2082;
+      v13 = nw_notification_name_settings;
+      v14 = 1024;
+      v15 = v1;
+      v16 = 1024;
+      v17 = out_token;
+      v18 = 2082;
+      v19 = v8;
+      v5 = "%{public}s notify_register_check(%{public}s) status %u token %d%{public}s";
+      v6 = v3;
+      v7 = OS_LOG_TYPE_ERROR;
     }
 
-    _os_log_impl(&dword_181A37000, v7, v8, v6, buf, 0x2Cu);
+    _os_log_impl(&dword_181A37000, v6, v7, v5, buf, 0x2Cu);
     goto LABEL_19;
   }
 
   return result;
 }
 
-void ___ZL51nw_activity_inherit_from_global_parent_if_necessaryP22NWConcrete_nw_activity_block_invoke(uint64_t a1)
+void ___ZL51nw_activity_inherit_from_global_parent_if_necessaryP22NWConcrete_nw_activity_block_invoke(uint64_t result)
 {
-  if (global_parent && (nw_activity_is_equal(*(a1 + 32), global_parent) & 1) == 0)
+  if (global_parent && (nw_activity_is_equal(*(result + 32), global_parent) & 1) == 0)
   {
-    v2 = *(a1 + 32);
+    v2 = *(result + 32);
     v3 = global_parent;
 
     nw_activity_set_parent_activity(v2, v3);
@@ -1884,9 +1887,9 @@ void sub_181A3CB40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_181A3D15C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_181A3D15C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
 
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
@@ -1900,7 +1903,7 @@ void nw_activity_get_sampling_rate_for_domain(unsigned int a1, unsigned int *a2,
     v28 = __nwlog_obj();
     *buf = 136446210;
     v52 = "nw_activity_get_sampling_rate_for_domain";
-    v29 = _os_log_send_and_compose_impl();
+    v29 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v28, 16, "%{public}s called with null domain", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v49 = 0;
@@ -1978,7 +1981,7 @@ LABEL_144:
     v32 = __nwlog_obj();
     *buf = 136446210;
     v52 = "nw_activity_get_sampling_rate_for_domain";
-    v29 = _os_log_send_and_compose_impl();
+    v29 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v32, 16, "%{public}s called with null out_sampling_rate_numerator", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v49 = 0;
@@ -2048,7 +2051,7 @@ LABEL_144:
     v34 = __nwlog_obj();
     *buf = 136446210;
     v52 = "nw_activity_get_sampling_rate_for_domain";
-    v29 = _os_log_send_and_compose_impl();
+    v29 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v34, 16, "%{public}s called with null out_sampling_rate_denominator", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v49 = 0;
@@ -2462,47 +2465,47 @@ LABEL_69:
   *a3 = v23;
 }
 
-uint64_t sub_181A3DFE8(uint64_t result)
+uint64_t sub_181A3DFE8(uint64_t result, __n128 a2)
 {
-  v2 = *result;
-  v3 = *v1;
-  v4 = v1[1];
-  v6 = v1[2];
-  v5 = v1[3];
-  v7 = *(v1 + 116);
-  v8 = *(v1 + 117);
-  v9 = v1[25];
-  v10 = v1[33];
-  if (v2 <= 2 && v2 != 0)
+  v3 = *result;
+  v4 = *v2;
+  v5 = v2[1];
+  v7 = v2[2];
+  v6 = v2[3];
+  v8 = *(v2 + 116);
+  v9 = *(v2 + 117);
+  v10 = v2[25];
+  v11 = v2[33];
+  if (v3 <= 2 && v3 != 0)
   {
-    v15 = *(v1 + 39);
-    if (v2 != 1)
+    v16 = *(v2 + 39);
+    if (v3 != 1)
     {
-      v12 = 1;
-      if ((v15 & 0x800000) != 0)
+      v13 = 1;
+      if ((v16 & 0x800000) != 0)
       {
-        return v12;
+        return v13;
       }
 
       goto LABEL_7;
     }
 
-    if ((v15 & 0x400000) != 0)
+    if ((v16 & 0x400000) != 0)
     {
       return 1;
     }
   }
 
-  LODWORD(v12) = 0;
+  LODWORD(v13) = 0;
 LABEL_7:
-  v13 = v2;
-  if (v3)
+  v14 = v3;
+  if (v4)
   {
-    v14 = *(v3 + 184);
-    if (v14 == 5)
+    v15 = *(v4 + 184);
+    if (v15 == 5)
     {
 LABEL_9:
-      if (v13 != 5)
+      if (v14 != 5)
       {
         goto LABEL_31;
       }
@@ -2511,7 +2514,7 @@ LABEL_9:
     else
     {
 LABEL_25:
-      if (v13 == 5 || qword_182AEE030[v14] != qword_182AEE030[v13])
+      if (v14 == 5 || qword_182AEE030[v15] != qword_182AEE030[v14])
       {
         goto LABEL_31;
       }
@@ -2520,64 +2523,65 @@ LABEL_25:
     return 1;
   }
 
-  if (!v9)
+  if (!v10)
   {
     goto LABEL_31;
   }
 
-  v43 = v1[2];
-  v44 = v1[3];
-  v16 = v9[4];
-  v17 = v9[2];
-  if (v17 >= v9[3] + v16)
+  v44 = v2[2];
+  v45 = v2[3];
+  v17 = v10[4];
+  v18 = v10[2];
+  if (v18 >= v10[3] + v17)
   {
-    v17 = v9[3] + v16;
+    v18 = v10[3] + v17;
   }
 
-  v48 = v1[25];
-  v49 = v16;
+  v49 = v2[25];
   v50 = v17;
-  v18 = v9;
-  while (v16 != v17)
+  v51 = v18;
+  v19 = v10;
+  while (v17 != v18)
   {
 LABEL_22:
-    v19 = v16 + 1;
-    v49 = v16 + 1;
-    v20 = &v18[26 * v16];
-    v21 = *(v20 + 9);
-    v22 = *(v20 + 13);
-    v23 = *(v20 + 7);
-    v46[3] = *(v20 + 11);
-    v46[4] = v22;
-    v46[1] = v23;
-    v46[2] = v21;
-    v24 = *(v20 + 17);
-    v25 = *(v20 + 21);
-    v26 = *(v20 + 15);
-    v46[7] = *(v20 + 19);
-    v46[8] = v25;
-    v46[5] = v26;
-    v46[6] = v24;
-    v27 = *(v20 + 25);
-    v28 = *(v20 + 27);
-    v29 = *(v20 + 23);
-    *&v47[10] = *(v20 + 226);
-    v46[10] = v27;
-    *v47 = v28;
-    v46[9] = v29;
-    v46[0] = *(v20 + 5);
-    v30 = *(&v46[0] + 1);
-    if (*(&v46[0] + 1) && (v47[24] & 1) != 0)
+    v20 = v17 + 1;
+    v50 = v17 + 1;
+    v21 = &v19[26 * v17];
+    v22 = *(v21 + 9);
+    v23 = *(v21 + 13);
+    v24 = *(v21 + 7);
+    v47[3] = *(v21 + 11);
+    v47[4] = v23;
+    v47[1] = v24;
+    v47[2] = v22;
+    v25 = *(v21 + 17);
+    v26 = *(v21 + 21);
+    v27 = *(v21 + 15);
+    v47[7] = *(v21 + 19);
+    v47[8] = v26;
+    v47[5] = v27;
+    v47[6] = v25;
+    v28 = *(v21 + 25);
+    v29 = *(v21 + 27);
+    v30 = *(v21 + 23);
+    *&v48[10] = *(v21 + 226);
+    v47[10] = v28;
+    *v48 = v29;
+    v47[9] = v30;
+    a2 = *(v21 + 5);
+    v47[0] = a2;
+    v31 = a2.n128_u64[1];
+    if (a2.n128_u64[1] && (v48[24] & 1) != 0)
     {
 
-      sub_181AFE6F4(v46, v45);
+      sub_181AFE6F4(v47, v46);
 
-      sub_181AFE6A0(v46);
-      v14 = *(v30 + 184);
+      sub_181AFE6A0(v47);
+      v15 = *(v31 + 184);
 
-      v6 = v43;
-      v5 = v44;
-      if (v14 == 5)
+      v7 = v44;
+      v6 = v45;
+      if (v15 == 5)
       {
         goto LABEL_9;
       }
@@ -2585,62 +2589,61 @@ LABEL_22:
       goto LABEL_25;
     }
 
-    v17 = v50;
-    v16 = v19;
+    v18 = v51;
+    v17 = v20;
   }
 
-  result = sub_181AC81FC(result);
-  if (result)
+  if (sub_181AC81FC(a2))
   {
-    v18 = v48;
-    v16 = v49;
+    v19 = v49;
+    v17 = v50;
     goto LABEL_22;
   }
 
-  v6 = v43;
-  v5 = v44;
-  if (v13 == 5)
+  v7 = v44;
+  v6 = v45;
+  if (v14 == 5)
   {
     return 1;
   }
 
 LABEL_31:
-  if (v7 == 1)
+  if (v8 == 1)
   {
 LABEL_50:
-    if (v4 && (v40 = *(v4 + 184), v40 != 5))
+    if (v5 && (v41 = *(v5 + 184), v41 != 5))
     {
-      if (v13 != 5 && qword_182AEE030[v40] == qword_182AEE030[v13])
+      if (v14 != 5 && qword_182AEE030[v41] == qword_182AEE030[v14])
       {
         return 1;
       }
     }
 
-    else if (v13 == 5)
+    else if (v14 == 5)
     {
       return 1;
     }
 
-    if (v6)
+    if (v7)
     {
-      v41 = *(v6 + 184);
-      if (v41 != 5)
+      v42 = *(v7 + 184);
+      if (v42 != 5)
       {
-        if (v13 != 5 && qword_182AEE030[v41] == qword_182AEE030[v13])
+        if (v14 != 5 && qword_182AEE030[v42] == qword_182AEE030[v14])
         {
           return 1;
         }
 
 LABEL_62:
-        if (v5 && (v42 = *(v5 + 184), v42 != 5))
+        if (v6 && (v43 = *(v6 + 184), v43 != 5))
         {
-          if (v13 != 5 && qword_182AEE030[v42] == qword_182AEE030[v13])
+          if (v14 != 5 && qword_182AEE030[v43] == qword_182AEE030[v14])
           {
             return 1;
           }
         }
 
-        else if (v13 == 5)
+        else if (v14 == 5)
         {
           return 1;
         }
@@ -2649,7 +2652,7 @@ LABEL_62:
       }
     }
 
-    if (v13 != 5)
+    if (v14 != 5)
     {
       goto LABEL_62;
     }
@@ -2657,59 +2660,59 @@ LABEL_62:
     return 1;
   }
 
-  if (v7 != 3 || (v10 ? (v31 = v12) : (v31 = 0), v31 != 1))
+  if (v8 != 3 || (v11 ? (v32 = v13) : (v32 = 0), v32 != 1))
   {
 LABEL_48:
-    v12 = 0;
-    if (v8 == 4 || v8 == 29)
+    v13 = 0;
+    if (v9 == 4 || v9 == 29)
     {
-      return v12;
+      return v13;
     }
 
     goto LABEL_50;
   }
 
-  v32 = 0;
-  v33 = 1 << *(v10 + 32);
-  v34 = -1;
-  if (v33 < 64)
+  v33 = 0;
+  v34 = 1 << *(v11 + 32);
+  v35 = -1;
+  if (v34 < 64)
   {
-    v34 = ~(-1 << v33);
+    v35 = ~(-1 << v34);
   }
 
-  v35 = v34 & *(v10 + 64);
-  v36 = (v33 + 63) >> 6;
-  v12 = 1;
-  while (v35)
+  v36 = v35 & *(v11 + 64);
+  v37 = (v34 + 63) >> 6;
+  v13 = 1;
+  while (v36)
   {
 LABEL_45:
-    v38 = __clz(__rbit64(v35));
-    v35 &= v35 - 1;
-    v39 = *(*(v10 + 56) + ((v32 << 9) | (8 * v38)));
-    if (*(v39 + 56) == 1 && (*(v39 + 80) & 3) == 1)
+    v39 = __clz(__rbit64(v36));
+    v36 &= v36 - 1;
+    v40 = *(*(v11 + 56) + ((v33 << 9) | (8 * v39)));
+    if (*(v40 + 56) == 1 && (*(v40 + 80) & 3) == 1)
     {
-      return v12;
+      return v13;
     }
   }
 
   while (1)
   {
-    v37 = v32 + 1;
-    if (__OFADD__(v32, 1))
+    v38 = v33 + 1;
+    if (__OFADD__(v33, 1))
     {
       break;
     }
 
-    if (v37 >= v36)
+    if (v38 >= v37)
     {
       goto LABEL_48;
     }
 
-    v35 = *(v10 + 64 + 8 * v37);
-    ++v32;
-    if (v35)
+    v36 = *(v11 + 64 + 8 * v38);
+    ++v33;
+    if (v36)
     {
-      v32 = v37;
+      v33 = v38;
       goto LABEL_45;
     }
   }
@@ -2751,7 +2754,7 @@ char *nw::object::class_def::register_method_def(char a1, uint64_t a2, uint64_t 
     v42 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "register_method_def";
-    v43 = _os_log_send_and_compose_impl();
+    v43 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v42, 16, "%{public}s called with null (!def.slot())", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v52 = 0;
@@ -3187,7 +3190,7 @@ void __nw_activity_activate_block_invoke_55(uint64_t a1)
     v14 = __nwlog_obj();
     LODWORD(v33.investigation_identifier) = 136446210;
     *(&v33.investigation_identifier + 4) = "nw_activity_report_if_selected";
-    v15 = _os_log_send_and_compose_impl();
+    v15 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v14, 16, "%{public}s called with null activity", &v33, 12);
 
     LOBYTE(buf) = 16;
     LOBYTE(v31) = 0;
@@ -3265,7 +3268,7 @@ LABEL_72:
     v18 = __nwlog_obj();
     LODWORD(v33.investigation_identifier) = 136446210;
     *(&v33.investigation_identifier + 4) = "nw_activity_report_if_selected";
-    v15 = _os_log_send_and_compose_impl();
+    v15 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v18, 16, "%{public}s Cannot report activity before activation", &v33, 12);
 
     LOBYTE(buf) = 16;
     LOBYTE(v31) = 0;
@@ -3374,7 +3377,7 @@ LABEL_74:
     v6 = gLogObj;
     buf = 136446210;
     v35 = "nw_activity_write_activity_report_to_log";
-    v7 = _os_log_send_and_compose_impl();
+    v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s generated activity dictionary is not valid", &buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v28 = 0;
@@ -3473,9 +3476,9 @@ LABEL_33:
 LABEL_39:
 }
 
-void sub_181A3F6BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_181A3F6BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   nw::retained_ptr<void({block_pointer} {__strong})(void)>::~retained_ptr(va);
 
   _Unwind_Resume(a1);
@@ -3581,14 +3584,14 @@ LABEL_29:
   return a1;
 }
 
-void sub_181A3FA84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+void sub_181A3FA84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
 {
   if (a17 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x1865DC3E0](&a10);
+  MEMORY[0x1865DC3E0](&a10, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -3628,7 +3631,7 @@ uint64_t nw_activity_is_global_parent(void *a1)
   v6 = __nwlog_obj();
   *buf = 136446210;
   *&buf[4] = "nw_activity_is_global_parent";
-  v7 = _os_log_send_and_compose_impl();
+  v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s called with null activity", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v18 = 0;
@@ -3700,9 +3703,9 @@ LABEL_3:
   return v4 & 1;
 }
 
-void sub_181A3FE40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_181A3FE40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -3748,7 +3751,7 @@ uint64_t nw_activity_is_selected_for_reporting(void *a1)
   v4 = __nwlog_obj();
   *buf = 136446210;
   v15 = "nw_activity_is_selected_for_reporting";
-  v5 = _os_log_send_and_compose_impl();
+  v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s called with null activity", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v12 = 0;
@@ -3847,295 +3850,310 @@ void nw_queue_context_async_if_needed(void *a1, void *a2)
 
 uint64_t nw_context_is_inline(void *a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v1 = a1;
-  v3 = v1;
+  v2 = v1;
   if (!v1)
   {
-    v10 = __nwlog_obj(0, v2);
+    v9 = __nwlog_obj();
     *buf = 136446210;
-    v24 = "nw_context_is_inline";
-    v11 = _os_log_send_and_compose_impl();
+    v20 = "nw_context_is_inline";
+    v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s called with null context", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
-    v21 = 0;
-    v12 = __nwlog_fault(v11, &type, &v21);
-    if (v12)
+    v17 = 0;
+    if (__nwlog_fault(v10, &type, &v17))
     {
       if (type == OS_LOG_TYPE_FAULT)
       {
-        v14 = __nwlog_obj(v12, v13);
-        v15 = type;
-        if (os_log_type_enabled(v14, type))
+        v11 = __nwlog_obj();
+        v12 = type;
+        if (os_log_type_enabled(v11, type))
         {
           *buf = 136446210;
-          v24 = "nw_context_is_inline";
-          _os_log_impl(&dword_181A37000, v14, v15, "%{public}s called with null context", buf, 0xCu);
+          v20 = "nw_context_is_inline";
+          _os_log_impl(&dword_181A37000, v11, v12, "%{public}s called with null context", buf, 0xCu);
         }
       }
 
-      else if (v21 == 1)
+      else if (v17 == 1)
       {
         backtrace_string = __nw_create_backtrace_string();
-        v14 = __nwlog_obj(backtrace_string, v17);
-        v18 = type;
-        v19 = os_log_type_enabled(v14, type);
+        v11 = __nwlog_obj();
+        v14 = type;
+        v15 = os_log_type_enabled(v11, type);
         if (backtrace_string)
         {
-          if (v19)
+          if (v15)
           {
             *buf = 136446466;
-            v24 = "nw_context_is_inline";
-            v25 = 2082;
-            v26 = backtrace_string;
-            _os_log_impl(&dword_181A37000, v14, v18, "%{public}s called with null context, dumping backtrace:%{public}s", buf, 0x16u);
+            v20 = "nw_context_is_inline";
+            v21 = 2082;
+            v22 = backtrace_string;
+            _os_log_impl(&dword_181A37000, v11, v14, "%{public}s called with null context, dumping backtrace:%{public}s", buf, 0x16u);
           }
 
           free(backtrace_string);
-          goto LABEL_23;
+          goto LABEL_26;
         }
 
-        if (v19)
+        if (v15)
         {
           *buf = 136446210;
-          v24 = "nw_context_is_inline";
-          _os_log_impl(&dword_181A37000, v14, v18, "%{public}s called with null context, no backtrace", buf, 0xCu);
+          v20 = "nw_context_is_inline";
+          _os_log_impl(&dword_181A37000, v11, v14, "%{public}s called with null context, no backtrace", buf, 0xCu);
         }
       }
 
       else
       {
-        v14 = __nwlog_obj(v12, v13);
-        v20 = type;
-        if (os_log_type_enabled(v14, type))
+        v11 = __nwlog_obj();
+        v16 = type;
+        if (os_log_type_enabled(v11, type))
         {
           *buf = 136446210;
-          v24 = "nw_context_is_inline";
-          _os_log_impl(&dword_181A37000, v14, v20, "%{public}s called with null context, backtrace limit exceeded", buf, 0xCu);
+          v20 = "nw_context_is_inline";
+          _os_log_impl(&dword_181A37000, v11, v16, "%{public}s called with null context, backtrace limit exceeded", buf, 0xCu);
         }
       }
     }
 
-LABEL_23:
-    if (v11)
-    {
-      free(v11);
-    }
-
-    v9 = 0;
-    goto LABEL_6;
-  }
-
-  v4 = v1[152];
-  if ((v4 & 0x40) != 0)
-  {
-LABEL_5:
-    v9 = (v4 >> 3) & 1;
-LABEL_6:
-
-    return v9;
-  }
-
-  v5 = pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
-  networkd_settings_init(v5);
-  v6 = gLogObj;
-  os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
-  *buf = 136446210;
-  v24 = "nw_context_is_inline";
-  v7 = _os_log_send_and_compose_impl();
-
-  result = __nwlog_should_abort(v7);
-  if (!result)
-  {
-    free(v7);
-    v4 = v3[152];
-    goto LABEL_5;
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t nw_context_copy_workloop(void *a1)
-{
-  v34 = *MEMORY[0x1E69E9840];
-  v1 = a1;
-  v3 = v1;
-  if (!v1)
-  {
-    v9 = __nwlog_obj(0, v2);
-    *buf = 136446210;
-    v31 = "nw_context_copy_workloop";
-    v10 = _os_log_send_and_compose_impl();
-
-    type = OS_LOG_TYPE_ERROR;
-    v28 = 0;
-    v11 = __nwlog_fault(v10, &type, &v28);
-    if (v11)
-    {
-      if (type == OS_LOG_TYPE_FAULT)
-      {
-        v13 = __nwlog_obj(v11, v12);
-        v14 = type;
-        if (os_log_type_enabled(v13, type))
-        {
-          *buf = 136446210;
-          v31 = "nw_context_copy_workloop";
-          _os_log_impl(&dword_181A37000, v13, v14, "%{public}s called with null context", buf, 0xCu);
-        }
-
-        goto LABEL_39;
-      }
-
-      if (v28 != 1)
-      {
-        v13 = __nwlog_obj(v11, v12);
-        v26 = type;
-        if (os_log_type_enabled(v13, type))
-        {
-          *buf = 136446210;
-          v31 = "nw_context_copy_workloop";
-          _os_log_impl(&dword_181A37000, v13, v26, "%{public}s called with null context, backtrace limit exceeded", buf, 0xCu);
-        }
-
-        goto LABEL_39;
-      }
-
-      backtrace_string = __nw_create_backtrace_string();
-      v13 = __nwlog_obj(backtrace_string, v20);
-      v21 = type;
-      v22 = os_log_type_enabled(v13, type);
-      if (!backtrace_string)
-      {
-        if (v22)
-        {
-          *buf = 136446210;
-          v31 = "nw_context_copy_workloop";
-          _os_log_impl(&dword_181A37000, v13, v21, "%{public}s called with null context, no backtrace", buf, 0xCu);
-        }
-
-        goto LABEL_39;
-      }
-
-      if (v22)
-      {
-        *buf = 136446466;
-        v31 = "nw_context_copy_workloop";
-        v32 = 2082;
-        v33 = backtrace_string;
-        _os_log_impl(&dword_181A37000, v13, v21, "%{public}s called with null context, dumping backtrace:%{public}s", buf, 0x16u);
-      }
-
-LABEL_27:
-
-      free(backtrace_string);
-    }
-
-LABEL_40:
+LABEL_26:
     if (v10)
     {
       free(v10);
     }
 
     v8 = 0;
-    goto LABEL_7;
+    goto LABEL_9;
   }
 
-  if ((v1[19] & 8) != 0)
+  v3 = v1[152];
+  if ((v3 & 0x40) != 0)
   {
-    v15 = __nwlog_obj(v1, v2);
-    *buf = 136446210;
-    v31 = "nw_context_copy_workloop";
-    v10 = _os_log_send_and_compose_impl();
-
-    type = OS_LOG_TYPE_ERROR;
-    v28 = 0;
-    v16 = __nwlog_fault(v10, &type, &v28);
-    if (v16)
-    {
-      if (type == OS_LOG_TYPE_FAULT)
-      {
-        v13 = __nwlog_obj(v16, v17);
-        v18 = type;
-        if (os_log_type_enabled(v13, type))
-        {
-          *buf = 136446210;
-          v31 = "nw_context_copy_workloop";
-          _os_log_impl(&dword_181A37000, v13, v18, "%{public}s called with null !context->is_inline", buf, 0xCu);
-        }
-
-LABEL_39:
-
-        goto LABEL_40;
-      }
-
-      if (v28 != 1)
-      {
-        v13 = __nwlog_obj(v16, v17);
-        v27 = type;
-        if (os_log_type_enabled(v13, type))
-        {
-          *buf = 136446210;
-          v31 = "nw_context_copy_workloop";
-          _os_log_impl(&dword_181A37000, v13, v27, "%{public}s called with null !context->is_inline, backtrace limit exceeded", buf, 0xCu);
-        }
-
-        goto LABEL_39;
-      }
-
-      backtrace_string = __nw_create_backtrace_string();
-      v13 = __nwlog_obj(backtrace_string, v23);
-      v24 = type;
-      v25 = os_log_type_enabled(v13, type);
-      if (!backtrace_string)
-      {
-        if (v25)
-        {
-          *buf = 136446210;
-          v31 = "nw_context_copy_workloop";
-          _os_log_impl(&dword_181A37000, v13, v24, "%{public}s called with null !context->is_inline, no backtrace", buf, 0xCu);
-        }
-
-        goto LABEL_39;
-      }
-
-      if (v25)
-      {
-        *buf = 136446466;
-        v31 = "nw_context_copy_workloop";
-        v32 = 2082;
-        v33 = backtrace_string;
-        _os_log_impl(&dword_181A37000, v13, v24, "%{public}s called with null !context->is_inline, dumping backtrace:%{public}s", buf, 0x16u);
-      }
-
-      goto LABEL_27;
-    }
-
-    goto LABEL_40;
-  }
-
-  if ((v1[19] & 0x40) != 0)
-  {
-LABEL_6:
-    v8 = v3[1];
-LABEL_7:
+LABEL_8:
+    v8 = (v3 >> 3) & 1;
+LABEL_9:
 
     return v8;
   }
 
-  v4 = pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
-  networkd_settings_init(v4);
-  v5 = gLogObj;
-  os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+  pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
+  networkd_settings_init();
+  v4 = gLogObj;
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
   *buf = 136446210;
-  v31 = "nw_context_copy_workloop";
-  v6 = _os_log_send_and_compose_impl();
+  v20 = "nw_context_is_inline";
+  v6 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s BUG IN CLIENT OF LIBNETWORK: Cannot access context workloop before activation", buf, 12);
 
   result = __nwlog_should_abort(v6);
   if (!result)
   {
     free(v6);
-    goto LABEL_6;
+    v3 = v2[152];
+    goto LABEL_8;
+  }
+
+  __break(1u);
+  return result;
+}
+
+id nw_context_copy_workloop(void *a1)
+{
+  v27 = *MEMORY[0x1E69E9840];
+  v1 = a1;
+  v2 = v1;
+  if (!v1)
+  {
+    v8 = __nwlog_obj();
+    *buf = 136446210;
+    v24 = "nw_context_copy_workloop";
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s called with null context", buf, 12);
+
+    type = OS_LOG_TYPE_ERROR;
+    v21 = 0;
+    if (__nwlog_fault(v9, &type, &v21))
+    {
+      if (type == OS_LOG_TYPE_FAULT)
+      {
+        v10 = __nwlog_obj();
+        v11 = type;
+        if (os_log_type_enabled(v10, type))
+        {
+          *buf = 136446210;
+          v24 = "nw_context_copy_workloop";
+          _os_log_impl(&dword_181A37000, v10, v11, "%{public}s called with null context", buf, 0xCu);
+        }
+
+        goto LABEL_42;
+      }
+
+      if (v21 != 1)
+      {
+        v10 = __nwlog_obj();
+        v19 = type;
+        if (os_log_type_enabled(v10, type))
+        {
+          *buf = 136446210;
+          v24 = "nw_context_copy_workloop";
+          _os_log_impl(&dword_181A37000, v10, v19, "%{public}s called with null context, backtrace limit exceeded", buf, 0xCu);
+        }
+
+        goto LABEL_42;
+      }
+
+      backtrace_string = __nw_create_backtrace_string();
+      v10 = __nwlog_obj();
+      v15 = type;
+      v16 = os_log_type_enabled(v10, type);
+      if (!backtrace_string)
+      {
+        if (v16)
+        {
+          *buf = 136446210;
+          v24 = "nw_context_copy_workloop";
+          _os_log_impl(&dword_181A37000, v10, v15, "%{public}s called with null context, no backtrace", buf, 0xCu);
+        }
+
+        goto LABEL_42;
+      }
+
+      if (v16)
+      {
+        *buf = 136446466;
+        v24 = "nw_context_copy_workloop";
+        v25 = 2082;
+        v26 = backtrace_string;
+        _os_log_impl(&dword_181A37000, v10, v15, "%{public}s called with null context, dumping backtrace:%{public}s", buf, 0x16u);
+      }
+
+LABEL_30:
+
+      free(backtrace_string);
+    }
+
+LABEL_43:
+    if (v9)
+    {
+      free(v9);
+    }
+
+    v7 = 0;
+    goto LABEL_10;
+  }
+
+  if ((v1[152] & 8) != 0)
+  {
+    v12 = __nwlog_obj();
+    *buf = 136446210;
+    v24 = "nw_context_copy_workloop";
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v12, 16, "%{public}s called with null !context->is_inline", buf, 12);
+
+    type = OS_LOG_TYPE_ERROR;
+    v21 = 0;
+    if (__nwlog_fault(v9, &type, &v21))
+    {
+      if (type == OS_LOG_TYPE_FAULT)
+      {
+        v10 = __nwlog_obj();
+        v13 = type;
+        if (os_log_type_enabled(v10, type))
+        {
+          *buf = 136446210;
+          v24 = "nw_context_copy_workloop";
+          _os_log_impl(&dword_181A37000, v10, v13, "%{public}s called with null !context->is_inline", buf, 0xCu);
+        }
+
+LABEL_42:
+
+        goto LABEL_43;
+      }
+
+      if (v21 != 1)
+      {
+        v10 = __nwlog_obj();
+        v20 = type;
+        if (os_log_type_enabled(v10, type))
+        {
+          *buf = 136446210;
+          v24 = "nw_context_copy_workloop";
+          _os_log_impl(&dword_181A37000, v10, v20, "%{public}s called with null !context->is_inline, backtrace limit exceeded", buf, 0xCu);
+        }
+
+        goto LABEL_42;
+      }
+
+      backtrace_string = __nw_create_backtrace_string();
+      v10 = __nwlog_obj();
+      v17 = type;
+      v18 = os_log_type_enabled(v10, type);
+      if (!backtrace_string)
+      {
+        if (v18)
+        {
+          *buf = 136446210;
+          v24 = "nw_context_copy_workloop";
+          _os_log_impl(&dword_181A37000, v10, v17, "%{public}s called with null !context->is_inline, no backtrace", buf, 0xCu);
+        }
+
+        goto LABEL_42;
+      }
+
+      if (v18)
+      {
+        *buf = 136446466;
+        v24 = "nw_context_copy_workloop";
+        v25 = 2082;
+        v26 = backtrace_string;
+        _os_log_impl(&dword_181A37000, v10, v17, "%{public}s called with null !context->is_inline, dumping backtrace:%{public}s", buf, 0x16u);
+      }
+
+      goto LABEL_30;
+    }
+
+    goto LABEL_43;
+  }
+
+  if ((v1[152] & 0x40) != 0)
+  {
+LABEL_9:
+    v7 = v2[1];
+LABEL_10:
+
+    return v7;
+  }
+
+  pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
+  networkd_settings_init();
+  v3 = gLogObj;
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  {
+    v4 = 3;
+  }
+
+  else
+  {
+    v4 = 2;
+  }
+
+  *buf = 136446210;
+  v24 = "nw_context_copy_workloop";
+  v5 = _os_log_send_and_compose_impl(v4, 0, 0, 0, &dword_181A37000, v3, 16, "%{public}s BUG IN CLIENT OF LIBNETWORK: Cannot access context workloop before activation", buf, 12);
+
+  result = __nwlog_should_abort(v5);
+  if (!result)
+  {
+    free(v5);
+    goto LABEL_9;
   }
 
   __break(1u);
@@ -4206,7 +4224,7 @@ NWConcrete_nw_endpoint_mode_handler *nw_endpoint_handler_copy_flow(NWConcrete_nw
     v24 = __nwlog_obj();
     *buf = 136446210;
     v36 = "nw_endpoint_handler_copy_flow";
-    v25 = _os_log_send_and_compose_impl();
+    v25 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v24, 16, "%{public}s called with null handler", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v33 = 0;
@@ -4461,89 +4479,88 @@ LABEL_48:
   return v3;
 }
 
-uint64_t nw_hash_table_get_node(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t *nw_hash_table_get_node(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    __nwlog_obj(0, a2);
+    v10 = __nwlog_obj();
     *buf = 136446210;
-    v38 = "nw_hash_table_get_node";
-    v10 = _os_log_send_and_compose_impl();
+    v34 = "nw_hash_table_get_node";
+    v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s called with null table", buf, 12);
     type = OS_LOG_TYPE_ERROR;
-    v35 = 0;
-    v11 = __nwlog_fault(v10, &type, &v35);
-    if (!v11)
+    v31 = 0;
+    if (!__nwlog_fault(v11, &type, &v31))
     {
-      goto LABEL_56;
+      goto LABEL_59;
     }
 
     if (type != OS_LOG_TYPE_FAULT)
     {
-      if (v35 != 1)
+      if (v31 != 1)
       {
-        v13 = __nwlog_obj(v11, v12);
-        v14 = type;
-        if (!os_log_type_enabled(v13, type))
+        v12 = __nwlog_obj();
+        v13 = type;
+        if (!os_log_type_enabled(v12, type))
         {
-          goto LABEL_56;
+          goto LABEL_59;
         }
 
         *buf = 136446210;
-        v38 = "nw_hash_table_get_node";
-        v15 = "%{public}s called with null table, backtrace limit exceeded";
-        goto LABEL_55;
+        v34 = "nw_hash_table_get_node";
+        v14 = "%{public}s called with null table, backtrace limit exceeded";
+        goto LABEL_58;
       }
 
       backtrace_string = __nw_create_backtrace_string();
-      v13 = __nwlog_obj(backtrace_string, v27);
-      v14 = type;
-      v28 = os_log_type_enabled(v13, type);
+      v12 = __nwlog_obj();
+      v13 = type;
+      v25 = os_log_type_enabled(v12, type);
       if (!backtrace_string)
       {
-        if (!v28)
+        if (!v25)
         {
-          goto LABEL_56;
+          goto LABEL_59;
         }
 
         *buf = 136446210;
-        v38 = "nw_hash_table_get_node";
-        v15 = "%{public}s called with null table, no backtrace";
-        goto LABEL_55;
+        v34 = "nw_hash_table_get_node";
+        v14 = "%{public}s called with null table, no backtrace";
+        goto LABEL_58;
       }
 
-      if (v28)
+      if (v25)
       {
         *buf = 136446466;
-        v38 = "nw_hash_table_get_node";
-        v39 = 2082;
-        v40 = backtrace_string;
-        v29 = "%{public}s called with null table, dumping backtrace:%{public}s";
-LABEL_38:
-        _os_log_impl(&dword_181A37000, v13, v14, v29, buf, 0x16u);
+        v34 = "nw_hash_table_get_node";
+        v35 = 2082;
+        v36 = backtrace_string;
+        v26 = "%{public}s called with null table, dumping backtrace:%{public}s";
+LABEL_41:
+        _os_log_impl(&dword_181A37000, v12, v13, v26, buf, 0x16u);
       }
 
-LABEL_39:
+LABEL_42:
       free(backtrace_string);
-      goto LABEL_56;
+      goto LABEL_59;
     }
 
-    v13 = __nwlog_obj(v11, v12);
-    v14 = type;
-    if (!os_log_type_enabled(v13, type))
+    v12 = __nwlog_obj();
+    v13 = type;
+    if (!os_log_type_enabled(v12, type))
     {
-      goto LABEL_56;
+      goto LABEL_59;
     }
 
     *buf = 136446210;
-    v38 = "nw_hash_table_get_node";
-    v15 = "%{public}s called with null table";
-LABEL_55:
-    _os_log_impl(&dword_181A37000, v13, v14, v15, buf, 0xCu);
-LABEL_56:
-    if (v10)
+    v34 = "nw_hash_table_get_node";
+    v14 = "%{public}s called with null table";
+LABEL_58:
+    _os_log_impl(&dword_181A37000, v12, v13, v14, buf, 0xCu);
+LABEL_59:
+    if (v11)
     {
-      free(v10);
+      free(v11);
     }
 
     return 0;
@@ -4551,76 +4568,75 @@ LABEL_56:
 
   if (!a2)
   {
-    __nwlog_obj(a1, 0);
+    v15 = __nwlog_obj();
     *buf = 136446210;
-    v38 = "nw_hash_table_get_node";
-    v10 = _os_log_send_and_compose_impl();
+    v34 = "nw_hash_table_get_node";
+    v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v15, 16, "%{public}s called with null key", buf, 12);
     type = OS_LOG_TYPE_ERROR;
-    v35 = 0;
-    v16 = __nwlog_fault(v10, &type, &v35);
-    if (!v16)
+    v31 = 0;
+    if (!__nwlog_fault(v11, &type, &v31))
     {
-      goto LABEL_56;
+      goto LABEL_59;
     }
 
     if (type == OS_LOG_TYPE_FAULT)
     {
-      v13 = __nwlog_obj(v16, v17);
-      v14 = type;
-      if (!os_log_type_enabled(v13, type))
+      v12 = __nwlog_obj();
+      v13 = type;
+      if (!os_log_type_enabled(v12, type))
       {
-        goto LABEL_56;
+        goto LABEL_59;
       }
 
       *buf = 136446210;
-      v38 = "nw_hash_table_get_node";
-      v15 = "%{public}s called with null key";
-      goto LABEL_55;
+      v34 = "nw_hash_table_get_node";
+      v14 = "%{public}s called with null key";
+      goto LABEL_58;
     }
 
-    if (v35 != 1)
+    if (v31 != 1)
     {
-      v13 = __nwlog_obj(v16, v17);
-      v14 = type;
-      if (!os_log_type_enabled(v13, type))
+      v12 = __nwlog_obj();
+      v13 = type;
+      if (!os_log_type_enabled(v12, type))
       {
-        goto LABEL_56;
+        goto LABEL_59;
       }
 
       *buf = 136446210;
-      v38 = "nw_hash_table_get_node";
-      v15 = "%{public}s called with null key, backtrace limit exceeded";
-      goto LABEL_55;
+      v34 = "nw_hash_table_get_node";
+      v14 = "%{public}s called with null key, backtrace limit exceeded";
+      goto LABEL_58;
     }
 
     backtrace_string = __nw_create_backtrace_string();
-    v13 = __nwlog_obj(backtrace_string, v30);
-    v14 = type;
-    v31 = os_log_type_enabled(v13, type);
+    v12 = __nwlog_obj();
+    v13 = type;
+    v27 = os_log_type_enabled(v12, type);
     if (backtrace_string)
     {
-      if (v31)
+      if (v27)
       {
         *buf = 136446466;
-        v38 = "nw_hash_table_get_node";
-        v39 = 2082;
-        v40 = backtrace_string;
-        v29 = "%{public}s called with null key, dumping backtrace:%{public}s";
-        goto LABEL_38;
+        v34 = "nw_hash_table_get_node";
+        v35 = 2082;
+        v36 = backtrace_string;
+        v26 = "%{public}s called with null key, dumping backtrace:%{public}s";
+        goto LABEL_41;
       }
 
-      goto LABEL_39;
+      goto LABEL_42;
     }
 
-    if (!v31)
+    if (!v27)
     {
-      goto LABEL_56;
+      goto LABEL_59;
     }
 
     *buf = 136446210;
-    v38 = "nw_hash_table_get_node";
-    v15 = "%{public}s called with null key, no backtrace";
-    goto LABEL_55;
+    v34 = "nw_hash_table_get_node";
+    v14 = "%{public}s called with null key, no backtrace";
+    goto LABEL_58;
   }
 
   if (*(a1 + 40))
@@ -4634,15 +4650,24 @@ LABEL_56:
     goto LABEL_5;
   }
 
-  v18 = __nwlog_obj(a1, a2);
-  os_log_type_enabled(v18, OS_LOG_TYPE_ERROR);
+  v16 = __nwlog_obj();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  {
+    v17 = 3;
+  }
+
+  else
+  {
+    v17 = 2;
+  }
+
   *buf = 136446210;
-  v38 = "nw_hash_table_lock";
-  v19 = _os_log_send_and_compose_impl();
-  result = __nwlog_should_abort(v19);
+  v34 = "nw_hash_table_lock";
+  v18 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &dword_181A37000, v16, 16, "%{public}s Locking invalid hash table", buf, 12);
+  result = __nwlog_should_abort(v18);
   if (!result)
   {
-    free(v19);
+    free(v18);
     v6 = *(a1 + 56);
     if ((v6 & 2) == 0)
     {
@@ -4674,77 +4699,77 @@ LABEL_6:
         return v7;
       }
 
-      __nwlog_obj(a1, a2);
+      v19 = __nwlog_obj();
       *buf = 136446210;
-      v38 = "nw_hash_table_get_node";
-      v20 = _os_log_send_and_compose_impl();
+      v34 = "nw_hash_table_get_node";
+      LODWORD(v30) = 12;
+      v20 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v19, 16, "%{public}s called with invalid hash table", buf, v30);
       type = OS_LOG_TYPE_ERROR;
-      v35 = 0;
-      v21 = __nwlog_fault(v20, &type, &v35);
-      if (v21)
+      v31 = 0;
+      if (__nwlog_fault(v20, &type, &v31))
       {
         if (type == OS_LOG_TYPE_FAULT)
         {
-          v23 = __nwlog_obj(v21, v22);
-          v24 = type;
-          if (!os_log_type_enabled(v23, type))
+          v21 = __nwlog_obj();
+          v22 = type;
+          if (!os_log_type_enabled(v21, type))
           {
-            goto LABEL_61;
+            goto LABEL_64;
           }
 
           *buf = 136446210;
-          v38 = "nw_hash_table_get_node";
-          v25 = "%{public}s called with invalid hash table";
-LABEL_60:
-          _os_log_impl(&dword_181A37000, v23, v24, v25, buf, 0xCu);
-          goto LABEL_61;
+          v34 = "nw_hash_table_get_node";
+          v23 = "%{public}s called with invalid hash table";
+LABEL_63:
+          _os_log_impl(&dword_181A37000, v21, v22, v23, buf, 0xCu);
+          goto LABEL_64;
         }
 
-        if (v35 != 1)
+        if (v31 != 1)
         {
-          v23 = __nwlog_obj(v21, v22);
-          v24 = type;
-          if (!os_log_type_enabled(v23, type))
+          v21 = __nwlog_obj();
+          v22 = type;
+          if (!os_log_type_enabled(v21, type))
           {
-            goto LABEL_61;
+            goto LABEL_64;
           }
 
           *buf = 136446210;
-          v38 = "nw_hash_table_get_node";
-          v25 = "%{public}s called with invalid hash table, backtrace limit exceeded";
-          goto LABEL_60;
+          v34 = "nw_hash_table_get_node";
+          v23 = "%{public}s called with invalid hash table, backtrace limit exceeded";
+          goto LABEL_63;
         }
 
-        v32 = __nw_create_backtrace_string();
-        v23 = __nwlog_obj(v32, v33);
-        v24 = type;
-        v34 = os_log_type_enabled(v23, type);
-        if (!v32)
+        v28 = __nw_create_backtrace_string();
+        v21 = __nwlog_obj();
+        v22 = type;
+        v29 = os_log_type_enabled(v21, type);
+        if (!v28)
         {
-          if (!v34)
+          if (!v29)
           {
-            goto LABEL_61;
+            goto LABEL_64;
           }
 
           *buf = 136446210;
-          v38 = "nw_hash_table_get_node";
-          v25 = "%{public}s called with invalid hash table, no backtrace";
-          goto LABEL_60;
+          v34 = "nw_hash_table_get_node";
+          v23 = "%{public}s called with invalid hash table, no backtrace";
+          goto LABEL_63;
         }
 
-        if (v34)
+        if (v29)
         {
           *buf = 136446466;
-          v38 = "nw_hash_table_get_node";
-          v39 = 2082;
-          v40 = v32;
-          _os_log_impl(&dword_181A37000, v23, v24, "%{public}s called with invalid hash table, dumping backtrace:%{public}s", buf, 0x16u);
+          v34 = "nw_hash_table_get_node";
+          v35 = 2082;
+          v36 = v28;
+          _os_log_impl(&dword_181A37000, v21, v22, "%{public}s called with invalid hash table, dumping backtrace:%{public}s", buf, 0x16u);
         }
 
-        free(v32);
+        free(v28);
       }
 
-LABEL_61:
+LABEL_64:
       if (v20)
       {
         free(v20);
@@ -4771,82 +4796,82 @@ LABEL_5:
 
 uint64_t nw_hash_node_get_object(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     return *(a1 + 16);
   }
 
-  __nwlog_obj();
+  v2 = __nwlog_obj();
   *buf = 136446210;
-  v11 = "nw_hash_node_get_object";
-  v2 = _os_log_send_and_compose_impl();
+  v12 = "nw_hash_node_get_object";
+  v3 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v2, 16, "%{public}s called with null node", buf, 12);
   type = OS_LOG_TYPE_ERROR;
-  v8 = 0;
-  if (__nwlog_fault(v2, &type, &v8))
+  v9 = 0;
+  if (__nwlog_fault(v3, &type, &v9))
   {
     if (type == OS_LOG_TYPE_FAULT)
     {
-      v3 = __nwlog_obj();
-      v4 = type;
-      if (os_log_type_enabled(v3, type))
+      v4 = __nwlog_obj();
+      v5 = type;
+      if (os_log_type_enabled(v4, type))
       {
         *buf = 136446210;
-        v11 = "nw_hash_node_get_object";
-        v5 = "%{public}s called with null node";
+        v12 = "nw_hash_node_get_object";
+        v6 = "%{public}s called with null node";
 LABEL_17:
-        _os_log_impl(&dword_181A37000, v3, v4, v5, buf, 0xCu);
+        _os_log_impl(&dword_181A37000, v4, v5, v6, buf, 0xCu);
       }
     }
 
-    else if (v8 == 1)
+    else if (v9 == 1)
     {
       backtrace_string = __nw_create_backtrace_string();
-      v3 = __nwlog_obj();
-      v4 = type;
-      v7 = os_log_type_enabled(v3, type);
+      v4 = __nwlog_obj();
+      v5 = type;
+      v8 = os_log_type_enabled(v4, type);
       if (backtrace_string)
       {
-        if (v7)
+        if (v8)
         {
           *buf = 136446466;
-          v11 = "nw_hash_node_get_object";
-          v12 = 2082;
-          v13 = backtrace_string;
-          _os_log_impl(&dword_181A37000, v3, v4, "%{public}s called with null node, dumping backtrace:%{public}s", buf, 0x16u);
+          v12 = "nw_hash_node_get_object";
+          v13 = 2082;
+          v14 = backtrace_string;
+          _os_log_impl(&dword_181A37000, v4, v5, "%{public}s called with null node, dumping backtrace:%{public}s", buf, 0x16u);
         }
 
         free(backtrace_string);
         goto LABEL_18;
       }
 
-      if (v7)
+      if (v8)
       {
         *buf = 136446210;
-        v11 = "nw_hash_node_get_object";
-        v5 = "%{public}s called with null node, no backtrace";
+        v12 = "nw_hash_node_get_object";
+        v6 = "%{public}s called with null node, no backtrace";
         goto LABEL_17;
       }
     }
 
     else
     {
-      v3 = __nwlog_obj();
-      v4 = type;
-      if (os_log_type_enabled(v3, type))
+      v4 = __nwlog_obj();
+      v5 = type;
+      if (os_log_type_enabled(v4, type))
       {
         *buf = 136446210;
-        v11 = "nw_hash_node_get_object";
-        v5 = "%{public}s called with null node, backtrace limit exceeded";
+        v12 = "nw_hash_node_get_object";
+        v6 = "%{public}s called with null node, backtrace limit exceeded";
         goto LABEL_17;
       }
     }
   }
 
 LABEL_18:
-  if (v2)
+  if (v3)
   {
-    free(v2);
+    free(v3);
   }
 
   return 0;
@@ -4858,13 +4883,13 @@ uint64_t nw_path_parameters_copy_context(uint64_t a1)
   if (a1)
   {
 
-    return _nw_path_parameters_copy_context();
+    return _nw_path_parameters_copy_context(a1);
   }
 
   v2 = __nwlog_obj();
   *buf = 136446210;
   v12 = "nw_path_parameters_copy_context";
-  v3 = _os_log_send_and_compose_impl();
+  v3 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v2, 16, "%{public}s called with null parameters", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v9 = 0;
@@ -4941,12 +4966,13 @@ LABEL_20:
   return 0;
 }
 
-unint64_t sub_181A41ED8(unsigned __int8 a1)
+unint64_t sub_181A41ED8(uint64_t a1)
 {
+  v1 = a1;
   sub_182AD44E8();
-  MEMORY[0x1865DB070](a1);
+  MEMORY[0x1865DB070](v1);
   v2 = sub_182AD4558();
-  return sub_181A41F40(a1, v2);
+  return sub_181A41F40(v1, v2);
 }
 
 unint64_t sub_181A41F40(unsigned __int8 a1, uint64_t a2)
@@ -4974,9 +5000,9 @@ unint64_t sub_181A41F40(unsigned __int8 a1, uint64_t a2)
 
 void nw_context_assert_queue(void *a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v1 = a1;
-  v3 = v1;
+  v2 = v1;
   if (v1)
   {
     if ((v1[19] & 8) == 0)
@@ -4987,74 +5013,73 @@ void nw_context_assert_queue(void *a1)
     goto LABEL_4;
   }
 
-  v4 = __nwlog_obj(0, v2);
+  v3 = __nwlog_obj();
   *buf = 136446210;
-  v18 = "nw_context_assert_queue";
-  v5 = _os_log_send_and_compose_impl();
+  v14 = "nw_context_assert_queue";
+  v4 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v3, 16, "%{public}s called with null context", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
-  v15 = 0;
-  v6 = __nwlog_fault(v5, &type, &v15);
-  if (v6)
+  v11 = 0;
+  if (__nwlog_fault(v4, &type, &v11))
   {
     if (type == OS_LOG_TYPE_FAULT)
     {
-      v8 = __nwlog_obj(v6, v7);
-      v9 = type;
-      if (os_log_type_enabled(v8, type))
+      v5 = __nwlog_obj();
+      v6 = type;
+      if (os_log_type_enabled(v5, type))
       {
         *buf = 136446210;
-        v18 = "nw_context_assert_queue";
-        _os_log_impl(&dword_181A37000, v8, v9, "%{public}s called with null context", buf, 0xCu);
+        v14 = "nw_context_assert_queue";
+        _os_log_impl(&dword_181A37000, v5, v6, "%{public}s called with null context", buf, 0xCu);
       }
     }
 
-    else if (v15 == 1)
+    else if (v11 == 1)
     {
       backtrace_string = __nw_create_backtrace_string();
-      v8 = __nwlog_obj(backtrace_string, v11);
-      v12 = type;
-      v13 = os_log_type_enabled(v8, type);
+      v5 = __nwlog_obj();
+      v8 = type;
+      v9 = os_log_type_enabled(v5, type);
       if (backtrace_string)
       {
-        if (v13)
+        if (v9)
         {
           *buf = 136446466;
-          v18 = "nw_context_assert_queue";
-          v19 = 2082;
-          v20 = backtrace_string;
-          _os_log_impl(&dword_181A37000, v8, v12, "%{public}s called with null context, dumping backtrace:%{public}s", buf, 0x16u);
+          v14 = "nw_context_assert_queue";
+          v15 = 2082;
+          v16 = backtrace_string;
+          _os_log_impl(&dword_181A37000, v5, v8, "%{public}s called with null context, dumping backtrace:%{public}s", buf, 0x16u);
         }
 
         free(backtrace_string);
         goto LABEL_21;
       }
 
-      if (v13)
+      if (v9)
       {
         *buf = 136446210;
-        v18 = "nw_context_assert_queue";
-        _os_log_impl(&dword_181A37000, v8, v12, "%{public}s called with null context, no backtrace", buf, 0xCu);
+        v14 = "nw_context_assert_queue";
+        _os_log_impl(&dword_181A37000, v5, v8, "%{public}s called with null context, no backtrace", buf, 0xCu);
       }
     }
 
     else
     {
-      v8 = __nwlog_obj(v6, v7);
-      v14 = type;
-      if (os_log_type_enabled(v8, type))
+      v5 = __nwlog_obj();
+      v10 = type;
+      if (os_log_type_enabled(v5, type))
       {
         *buf = 136446210;
-        v18 = "nw_context_assert_queue";
-        _os_log_impl(&dword_181A37000, v8, v14, "%{public}s called with null context, backtrace limit exceeded", buf, 0xCu);
+        v14 = "nw_context_assert_queue";
+        _os_log_impl(&dword_181A37000, v5, v10, "%{public}s called with null context, backtrace limit exceeded", buf, 0xCu);
       }
     }
   }
 
 LABEL_21:
-  if (v5)
+  if (v4)
   {
-    free(v5);
+    free(v4);
   }
 
 LABEL_4:
@@ -5062,82 +5087,82 @@ LABEL_4:
 
 uint64_t nw_hash_node_get_extra(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     return a1 + 32;
   }
 
-  __nwlog_obj();
+  v2 = __nwlog_obj();
   *buf = 136446210;
-  v11 = "nw_hash_node_get_extra";
-  v2 = _os_log_send_and_compose_impl();
+  v12 = "nw_hash_node_get_extra";
+  v3 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v2, 16, "%{public}s called with null node", buf, 12);
   type = OS_LOG_TYPE_ERROR;
-  v8 = 0;
-  if (__nwlog_fault(v2, &type, &v8))
+  v9 = 0;
+  if (__nwlog_fault(v3, &type, &v9))
   {
     if (type == OS_LOG_TYPE_FAULT)
     {
-      v3 = __nwlog_obj();
-      v4 = type;
-      if (os_log_type_enabled(v3, type))
+      v4 = __nwlog_obj();
+      v5 = type;
+      if (os_log_type_enabled(v4, type))
       {
         *buf = 136446210;
-        v11 = "nw_hash_node_get_extra";
-        v5 = "%{public}s called with null node";
+        v12 = "nw_hash_node_get_extra";
+        v6 = "%{public}s called with null node";
 LABEL_17:
-        _os_log_impl(&dword_181A37000, v3, v4, v5, buf, 0xCu);
+        _os_log_impl(&dword_181A37000, v4, v5, v6, buf, 0xCu);
       }
     }
 
-    else if (v8 == 1)
+    else if (v9 == 1)
     {
       backtrace_string = __nw_create_backtrace_string();
-      v3 = __nwlog_obj();
-      v4 = type;
-      v7 = os_log_type_enabled(v3, type);
+      v4 = __nwlog_obj();
+      v5 = type;
+      v8 = os_log_type_enabled(v4, type);
       if (backtrace_string)
       {
-        if (v7)
+        if (v8)
         {
           *buf = 136446466;
-          v11 = "nw_hash_node_get_extra";
-          v12 = 2082;
-          v13 = backtrace_string;
-          _os_log_impl(&dword_181A37000, v3, v4, "%{public}s called with null node, dumping backtrace:%{public}s", buf, 0x16u);
+          v12 = "nw_hash_node_get_extra";
+          v13 = 2082;
+          v14 = backtrace_string;
+          _os_log_impl(&dword_181A37000, v4, v5, "%{public}s called with null node, dumping backtrace:%{public}s", buf, 0x16u);
         }
 
         free(backtrace_string);
         goto LABEL_18;
       }
 
-      if (v7)
+      if (v8)
       {
         *buf = 136446210;
-        v11 = "nw_hash_node_get_extra";
-        v5 = "%{public}s called with null node, no backtrace";
+        v12 = "nw_hash_node_get_extra";
+        v6 = "%{public}s called with null node, no backtrace";
         goto LABEL_17;
       }
     }
 
     else
     {
-      v3 = __nwlog_obj();
-      v4 = type;
-      if (os_log_type_enabled(v3, type))
+      v4 = __nwlog_obj();
+      v5 = type;
+      if (os_log_type_enabled(v4, type))
       {
         *buf = 136446210;
-        v11 = "nw_hash_node_get_extra";
-        v5 = "%{public}s called with null node, backtrace limit exceeded";
+        v12 = "nw_hash_node_get_extra";
+        v6 = "%{public}s called with null node, backtrace limit exceeded";
         goto LABEL_17;
       }
     }
   }
 
 LABEL_18:
-  if (v2)
+  if (v3)
   {
-    free(v2);
+    free(v3);
   }
 
   return 0;
@@ -5145,6 +5170,7 @@ LABEL_18:
 
 NWConcrete_nw_context *nw_context_copy_globals_context(NWConcrete_nw_context *a1)
 {
+  v11 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = v1;
   if ((*(v1 + 152) & 5) != 0)
@@ -5169,20 +5195,31 @@ NWConcrete_nw_context *nw_context_copy_globals_context(NWConcrete_nw_context *a1
   v4 = v3;
   if (*(v4 + 4))
   {
-    goto LABEL_11;
+    goto LABEL_14;
   }
 
-  v5 = pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
-  networkd_settings_init(v5);
-  v6 = gLogObj;
-  os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
-  v7 = _os_log_send_and_compose_impl();
+  pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
+  networkd_settings_init();
+  v5 = gLogObj;
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  {
+    v6 = 3;
+  }
+
+  else
+  {
+    v6 = 2;
+  }
+
+  v9 = 136446210;
+  v10 = "nw_context_copy_globals_context";
+  v7 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s Globals context is not initialized correctly", &v9, 12);
 
   result = __nwlog_should_abort(v7);
   if (!result)
   {
     free(v7);
-LABEL_11:
+LABEL_14:
 
     return v4;
   }
@@ -5201,76 +5238,75 @@ uint64_t __swift_project_value_buffer(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t nw_hash_table_count(uint64_t a1, uint64_t a2)
+uint64_t nw_hash_table_count(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     return *(a1 + 48);
   }
 
-  __nwlog_obj(0, a2);
+  v2 = __nwlog_obj();
   *buf = 136446210;
-  v15 = "nw_hash_table_count";
-  v3 = _os_log_send_and_compose_impl();
+  v12 = "nw_hash_table_count";
+  v3 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v2, 16, "%{public}s called with null table", buf, 12);
   type = OS_LOG_TYPE_ERROR;
-  v12 = 0;
-  v4 = __nwlog_fault(v3, &type, &v12);
-  if (v4)
+  v9 = 0;
+  if (__nwlog_fault(v3, &type, &v9))
   {
     if (type == OS_LOG_TYPE_FAULT)
     {
-      v6 = __nwlog_obj(v4, v5);
-      v7 = type;
-      if (os_log_type_enabled(v6, type))
+      v4 = __nwlog_obj();
+      v5 = type;
+      if (os_log_type_enabled(v4, type))
       {
         *buf = 136446210;
-        v15 = "nw_hash_table_count";
-        v8 = "%{public}s called with null table";
+        v12 = "nw_hash_table_count";
+        v6 = "%{public}s called with null table";
 LABEL_17:
-        _os_log_impl(&dword_181A37000, v6, v7, v8, buf, 0xCu);
+        _os_log_impl(&dword_181A37000, v4, v5, v6, buf, 0xCu);
       }
     }
 
-    else if (v12 == 1)
+    else if (v9 == 1)
     {
       backtrace_string = __nw_create_backtrace_string();
-      v6 = __nwlog_obj(backtrace_string, v10);
-      v7 = type;
-      v11 = os_log_type_enabled(v6, type);
+      v4 = __nwlog_obj();
+      v5 = type;
+      v8 = os_log_type_enabled(v4, type);
       if (backtrace_string)
       {
-        if (v11)
+        if (v8)
         {
           *buf = 136446466;
-          v15 = "nw_hash_table_count";
-          v16 = 2082;
-          v17 = backtrace_string;
-          _os_log_impl(&dword_181A37000, v6, v7, "%{public}s called with null table, dumping backtrace:%{public}s", buf, 0x16u);
+          v12 = "nw_hash_table_count";
+          v13 = 2082;
+          v14 = backtrace_string;
+          _os_log_impl(&dword_181A37000, v4, v5, "%{public}s called with null table, dumping backtrace:%{public}s", buf, 0x16u);
         }
 
         free(backtrace_string);
         goto LABEL_18;
       }
 
-      if (v11)
+      if (v8)
       {
         *buf = 136446210;
-        v15 = "nw_hash_table_count";
-        v8 = "%{public}s called with null table, no backtrace";
+        v12 = "nw_hash_table_count";
+        v6 = "%{public}s called with null table, no backtrace";
         goto LABEL_17;
       }
     }
 
     else
     {
-      v6 = __nwlog_obj(v4, v5);
-      v7 = type;
-      if (os_log_type_enabled(v6, type))
+      v4 = __nwlog_obj();
+      v5 = type;
+      if (os_log_type_enabled(v4, type))
       {
         *buf = 136446210;
-        v15 = "nw_hash_table_count";
-        v8 = "%{public}s called with null table, backtrace limit exceeded";
+        v12 = "nw_hash_table_count";
+        v6 = "%{public}s called with null table, backtrace limit exceeded";
         goto LABEL_17;
       }
     }
@@ -5285,173 +5321,173 @@ LABEL_18:
   return 0;
 }
 
-void nw_hash_table_apply(char *a1, uint64_t a2)
+void nw_hash_table_apply(os_unfair_lock_s *a1, uint64_t a2)
 {
-  v151 = *MEMORY[0x1E69E9840];
+  v159 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    __nwlog_obj();
+    v124 = __nwlog_obj();
     *buf = 136446210;
-    v142 = "nw_hash_table_apply";
-    v3 = _os_log_send_and_compose_impl();
+    v150 = "nw_hash_table_apply";
+    v3 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v124, 16, "%{public}s called with null table", buf, 12);
     type = OS_LOG_TYPE_ERROR;
-    v139 = 0;
-    if (!__nwlog_fault(v3, &type, &v139))
+    v147 = 0;
+    if (!__nwlog_fault(v3, &type, &v147))
     {
-      goto LABEL_206;
+      goto LABEL_218;
     }
 
     if (type == OS_LOG_TYPE_FAULT)
     {
-      v121 = __nwlog_obj();
-      v122 = type;
-      if (!os_log_type_enabled(v121, type))
+      v125 = __nwlog_obj();
+      v126 = type;
+      if (!os_log_type_enabled(v125, type))
       {
-        goto LABEL_206;
+        goto LABEL_218;
       }
 
       *buf = 136446210;
-      v142 = "nw_hash_table_apply";
-      v123 = "%{public}s called with null table";
-      goto LABEL_205;
+      v150 = "nw_hash_table_apply";
+      v127 = "%{public}s called with null table";
+      goto LABEL_217;
     }
 
-    if (v139 != 1)
+    if (v147 != 1)
     {
-      v121 = __nwlog_obj();
-      v122 = type;
-      if (!os_log_type_enabled(v121, type))
+      v125 = __nwlog_obj();
+      v126 = type;
+      if (!os_log_type_enabled(v125, type))
       {
-        goto LABEL_206;
+        goto LABEL_218;
       }
 
       *buf = 136446210;
-      v142 = "nw_hash_table_apply";
-      v123 = "%{public}s called with null table, backtrace limit exceeded";
-      goto LABEL_205;
+      v150 = "nw_hash_table_apply";
+      v127 = "%{public}s called with null table, backtrace limit exceeded";
+      goto LABEL_217;
     }
 
     backtrace_string = __nw_create_backtrace_string();
-    v121 = __nwlog_obj();
-    v122 = type;
-    v131 = os_log_type_enabled(v121, type);
+    v125 = __nwlog_obj();
+    v126 = type;
+    v138 = os_log_type_enabled(v125, type);
     if (!backtrace_string)
     {
-      if (!v131)
+      if (!v138)
       {
-        goto LABEL_206;
+        goto LABEL_218;
       }
 
       *buf = 136446210;
-      v142 = "nw_hash_table_apply";
-      v123 = "%{public}s called with null table, no backtrace";
-      goto LABEL_205;
+      v150 = "nw_hash_table_apply";
+      v127 = "%{public}s called with null table, no backtrace";
+      goto LABEL_217;
     }
 
-    if (v131)
+    if (v138)
     {
       *buf = 136446466;
-      v142 = "nw_hash_table_apply";
-      v143 = 2082;
-      v144 = backtrace_string;
-      _os_log_impl(&dword_181A37000, v121, v122, "%{public}s called with null table, dumping backtrace:%{public}s", buf, 0x16u);
+      v150 = "nw_hash_table_apply";
+      v151 = 2082;
+      v152 = backtrace_string;
+      _os_log_impl(&dword_181A37000, v125, v126, "%{public}s called with null table, dumping backtrace:%{public}s", buf, 0x16u);
     }
 
     free(backtrace_string);
-LABEL_206:
+LABEL_218:
     if (!v3)
     {
       return;
     }
 
-    goto LABEL_162;
+    goto LABEL_171;
   }
 
   if (!a2)
   {
-    __nwlog_obj();
+    v128 = __nwlog_obj();
     *buf = 136446210;
-    v142 = "nw_hash_table_apply";
-    v3 = _os_log_send_and_compose_impl();
+    v150 = "nw_hash_table_apply";
+    v3 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v128, 16, "%{public}s called with null apply_block", buf, 12);
     type = OS_LOG_TYPE_ERROR;
-    v139 = 0;
-    if (!__nwlog_fault(v3, &type, &v139))
+    v147 = 0;
+    if (!__nwlog_fault(v3, &type, &v147))
     {
-      goto LABEL_206;
+      goto LABEL_218;
     }
 
     if (type == OS_LOG_TYPE_FAULT)
     {
-      v121 = __nwlog_obj();
-      v122 = type;
-      if (!os_log_type_enabled(v121, type))
+      v125 = __nwlog_obj();
+      v126 = type;
+      if (!os_log_type_enabled(v125, type))
       {
-        goto LABEL_206;
+        goto LABEL_218;
       }
 
       *buf = 136446210;
-      v142 = "nw_hash_table_apply";
-      v123 = "%{public}s called with null apply_block";
-      goto LABEL_205;
+      v150 = "nw_hash_table_apply";
+      v127 = "%{public}s called with null apply_block";
+      goto LABEL_217;
     }
 
-    if (v139 != 1)
+    if (v147 != 1)
     {
-      v121 = __nwlog_obj();
-      v122 = type;
-      if (!os_log_type_enabled(v121, type))
+      v125 = __nwlog_obj();
+      v126 = type;
+      if (!os_log_type_enabled(v125, type))
       {
-        goto LABEL_206;
+        goto LABEL_218;
       }
 
       *buf = 136446210;
-      v142 = "nw_hash_table_apply";
-      v123 = "%{public}s called with null apply_block, backtrace limit exceeded";
-      goto LABEL_205;
+      v150 = "nw_hash_table_apply";
+      v127 = "%{public}s called with null apply_block, backtrace limit exceeded";
+      goto LABEL_217;
     }
 
-    v132 = __nw_create_backtrace_string();
-    v121 = __nwlog_obj();
-    v122 = type;
-    v133 = os_log_type_enabled(v121, type);
-    if (v132)
+    v139 = __nw_create_backtrace_string();
+    v125 = __nwlog_obj();
+    v126 = type;
+    v140 = os_log_type_enabled(v125, type);
+    if (v139)
     {
-      if (v133)
+      if (v140)
       {
         *buf = 136446466;
-        v142 = "nw_hash_table_apply";
-        v143 = 2082;
-        v144 = v132;
-        _os_log_impl(&dword_181A37000, v121, v122, "%{public}s called with null apply_block, dumping backtrace:%{public}s", buf, 0x16u);
+        v150 = "nw_hash_table_apply";
+        v151 = 2082;
+        v152 = v139;
+        _os_log_impl(&dword_181A37000, v125, v126, "%{public}s called with null apply_block, dumping backtrace:%{public}s", buf, 0x16u);
       }
 
-      free(v132);
+      free(v139);
       if (!v3)
       {
         return;
       }
 
-      goto LABEL_162;
+      goto LABEL_171;
     }
 
-    if (v133)
+    if (v140)
     {
       *buf = 136446210;
-      v142 = "nw_hash_table_apply";
-      v123 = "%{public}s called with null apply_block, no backtrace";
-LABEL_205:
-      _os_log_impl(&dword_181A37000, v121, v122, v123, buf, 0xCu);
-      goto LABEL_206;
+      v150 = "nw_hash_table_apply";
+      v127 = "%{public}s called with null apply_block, no backtrace";
+LABEL_217:
+      _os_log_impl(&dword_181A37000, v125, v126, v127, buf, 0xCu);
+      goto LABEL_218;
     }
 
-    goto LABEL_206;
+    goto LABEL_218;
   }
 
   v3 = a1;
-  if (*(a1 + 10))
+  if (a1[10]._os_unfair_lock_opaque)
   {
-    v4 = *(a1 + 14);
-    if ((v4 & 2) == 0)
+    os_unfair_lock_opaque = a1[14]._os_unfair_lock_opaque;
+    if ((os_unfair_lock_opaque & 2) == 0)
     {
       goto LABEL_6;
     }
@@ -5459,62 +5495,71 @@ LABEL_205:
     goto LABEL_5;
   }
 
-  v124 = __nwlog_obj();
-  os_log_type_enabled(v124, OS_LOG_TYPE_ERROR);
-  *buf = 136446210;
-  v142 = "nw_hash_table_lock";
-  v125 = _os_log_send_and_compose_impl();
-  if (__nwlog_should_abort(v125))
+  v129 = __nwlog_obj();
+  if (os_log_type_enabled(v129, OS_LOG_TYPE_ERROR))
   {
-LABEL_215:
+    v130 = 3;
+  }
+
+  else
+  {
+    v130 = 2;
+  }
+
+  *buf = 136446210;
+  v150 = "nw_hash_table_lock";
+  v131 = _os_log_send_and_compose_impl(v130, 0, 0, 0, &dword_181A37000, v129, 16, "%{public}s Locking invalid hash table", buf, 12);
+  if (__nwlog_should_abort(v131))
+  {
+LABEL_227:
     __break(1u);
     return;
   }
 
-  free(v125);
-  v4 = *(v3 + 14);
-  if ((v4 & 2) != 0)
+  free(v131);
+  os_unfair_lock_opaque = v3[14]._os_unfair_lock_opaque;
+  if ((os_unfair_lock_opaque & 2) != 0)
   {
 LABEL_5:
     os_unfair_lock_lock(v3 + 15);
-    v4 = *(v3 + 14);
+    os_unfair_lock_opaque = v3[14]._os_unfair_lock_opaque;
   }
 
 LABEL_6:
-  if (v4)
+  if (os_unfair_lock_opaque)
   {
-    v5 = *(v3 + 13) + 1;
-    *(v3 + 13) = v5;
+    v5 = v3[13]._os_unfair_lock_opaque + 1;
+    v3[13]._os_unfair_lock_opaque = v5;
     if (v5 == v5 << 31 >> 31)
     {
 LABEL_25:
-      if (!*(v3 + 10))
+      if (!v3[10]._os_unfair_lock_opaque)
       {
-        goto LABEL_138;
+        goto LABEL_147;
       }
 
       v17 = 0;
-      v18 = v3 + 64;
-      v137 = a2;
+      v18 = v3 + 16;
+      v145 = a2;
       while (1)
       {
-        v136 = v17;
-        v19 = *v18;
-        if (*v18)
+        v144 = v17;
+        v19 = *&v18->_os_unfair_lock_opaque;
+        if (*&v18->_os_unfair_lock_opaque)
         {
           break;
         }
 
 LABEL_27:
-        v17 = v136 + 1;
-        v18 += 2;
-        if ((v136 + 1) >= *(v3 + 10))
+        v17 = v144 + 1;
+        v18 += 4;
+        if (v144 + 1 >= v3[10]._os_unfair_lock_opaque)
         {
-          goto LABEL_137;
+          goto LABEL_146;
         }
       }
 
-      v138 = v18;
+      v146 = v18;
       while (1)
       {
         v20 = v19;
@@ -5523,28 +5568,38 @@ LABEL_27:
         if (!v21 || *v21 != v20)
         {
           v97 = __nwlog_obj();
-          os_log_type_enabled(v97, OS_LOG_TYPE_ERROR);
-          v98 = *(v20 + 30);
-          v99 = "invalid_state";
-          if (v98 <= 3)
+          if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
           {
-            v99 = off_1E6A39598[v98];
+            v98 = 3;
           }
 
-          v100 = *(v20 + 14);
+          else
+          {
+            v98 = 2;
+          }
+
+          v99 = *(v20 + 30);
+          v100 = "invalid_state";
+          if (v99 <= 3)
+          {
+            v100 = off_1E6A39598[v99];
+          }
+
+          v101 = *(v20 + 14);
           *buf = 136446722;
-          v142 = "nw_hash_table_apply";
-          v143 = 2082;
-          v144 = v99;
-          v145 = 1024;
-          LODWORD(v146) = v100;
-          v101 = _os_log_send_and_compose_impl();
-          if (__nwlog_should_abort(v101))
+          v150 = "nw_hash_table_apply";
+          v151 = 2082;
+          v152 = v100;
+          v153 = 1024;
+          LODWORD(v154) = v101;
+          LODWORD(v143) = 28;
+          v102 = _os_log_send_and_compose_impl(v98, 0, 0, 0, &dword_181A37000, v97, 16, "%{public}s Node that isn't in tailq, state=%{public}s, apply_count=%d", buf, v143);
+          if (__nwlog_should_abort(v102))
           {
-            goto LABEL_215;
+            goto LABEL_227;
           }
 
-          free(v101);
+          free(v102);
         }
 
         v22 = *(v20 + 30);
@@ -5560,7 +5615,7 @@ LABEL_27:
               if (os_log_type_enabled(gLogObj, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 136446210;
-                v142 = "nw_hash_table_apply";
+                v150 = "nw_hash_table_apply";
                 _os_log_impl(&dword_181A37000, v32, OS_LOG_TYPE_DEBUG, "%{public}s Ignoring temp node remove", buf, 0xCu);
               }
             }
@@ -5573,29 +5628,39 @@ LABEL_27:
 
           else
           {
-            v102 = __nwlog_obj();
-            os_log_type_enabled(v102, OS_LOG_TYPE_ERROR);
-            v103 = *(v20 + 30);
-            v104 = "invalid_state";
-            if (v103 <= 3)
+            v103 = __nwlog_obj();
+            if (os_log_type_enabled(v103, OS_LOG_TYPE_ERROR))
             {
-              v104 = off_1E6A39598[v103];
+              v104 = 3;
             }
 
-            v105 = *(v20 + 14);
+            else
+            {
+              v104 = 2;
+            }
+
+            v105 = *(v20 + 30);
+            v106 = "invalid_state";
+            if (v105 <= 3)
+            {
+              v106 = off_1E6A39598[v105];
+            }
+
+            v107 = *(v20 + 14);
             *buf = 136446722;
-            v142 = "nw_hash_table_apply";
-            v143 = 2082;
-            v144 = v104;
-            v145 = 1024;
-            LODWORD(v146) = v105;
-            v106 = _os_log_send_and_compose_impl();
-            if (__nwlog_should_abort(v106))
+            v150 = "nw_hash_table_apply";
+            v151 = 2082;
+            v152 = v106;
+            v153 = 1024;
+            LODWORD(v154) = v107;
+            LODWORD(v143) = 28;
+            v108 = _os_log_send_and_compose_impl(v104, 0, 0, 0, &dword_181A37000, v103, 16, "%{public}s Invalid node state=%{public}s, apply_count=%d", buf, v143);
+            if (__nwlog_should_abort(v108))
             {
-              goto LABEL_215;
+              goto LABEL_227;
             }
 
-            free(v106);
+            free(v108);
           }
 
           goto LABEL_31;
@@ -5623,17 +5688,18 @@ LABEL_58:
         networkd_settings_init();
         v43 = *(v19 + 14);
         *buf = 136446978;
-        v142 = "nw_hash_table_apply";
-        v143 = 2082;
-        v144 = "next_node->apply_count";
-        v145 = 2048;
-        v146 = 1;
-        v147 = 2048;
-        v148 = v43;
-        v44 = _os_log_send_and_compose_impl();
+        v150 = "nw_hash_table_apply";
+        v151 = 2082;
+        v152 = "next_node->apply_count";
+        v153 = 2048;
+        v154 = 1;
+        v155 = 2048;
+        v156 = v43;
+        LODWORD(v143) = 42;
+        v44 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, gLogObj, 16, "%{public}s Overflow: %{public}s, increment %llu, result %llu", buf, v143);
         type = OS_LOG_TYPE_ERROR;
-        v139 = 0;
-        if (__nwlog_fault(v44, &type, &v139))
+        v147 = 0;
+        if (__nwlog_fault(v44, &type, &v147))
         {
           if (type == OS_LOG_TYPE_FAULT)
           {
@@ -5645,13 +5711,13 @@ LABEL_58:
             {
               v47 = *(v19 + 14);
               *buf = 136446978;
-              v142 = "nw_hash_table_apply";
-              v143 = 2082;
-              v144 = "next_node->apply_count";
-              v145 = 2048;
-              v146 = 1;
-              v147 = 2048;
-              v148 = v47;
+              v150 = "nw_hash_table_apply";
+              v151 = 2082;
+              v152 = "next_node->apply_count";
+              v153 = 2048;
+              v154 = 1;
+              v155 = 2048;
+              v156 = v47;
               v48 = v45;
               v49 = v46;
               v50 = "%{public}s Overflow: %{public}s, increment %llu, result %llu";
@@ -5660,7 +5726,7 @@ LABEL_73:
             }
           }
 
-          else if (v139 == 1)
+          else if (v147 == 1)
           {
             v51 = __nw_create_backtrace_string();
             pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
@@ -5674,15 +5740,15 @@ LABEL_73:
               {
                 v55 = *(v19 + 14);
                 *buf = 136447234;
-                v142 = "nw_hash_table_apply";
-                v143 = 2082;
-                v144 = "next_node->apply_count";
-                v145 = 2048;
-                v146 = 1;
-                v147 = 2048;
-                v148 = v55;
-                v149 = 2082;
-                v150 = v51;
+                v150 = "nw_hash_table_apply";
+                v151 = 2082;
+                v152 = "next_node->apply_count";
+                v153 = 2048;
+                v154 = 1;
+                v155 = 2048;
+                v156 = v55;
+                v157 = 2082;
+                v158 = v51;
                 _os_log_impl(&dword_181A37000, v52, v53, "%{public}s Overflow: %{public}s, increment %llu, result %llu, dumping backtrace:%{public}s", buf, 0x34u);
               }
 
@@ -5694,13 +5760,13 @@ LABEL_73:
             {
               v59 = *(v19 + 14);
               *buf = 136446978;
-              v142 = "nw_hash_table_apply";
-              v143 = 2082;
-              v144 = "next_node->apply_count";
-              v145 = 2048;
-              v146 = 1;
-              v147 = 2048;
-              v148 = v59;
+              v150 = "nw_hash_table_apply";
+              v151 = 2082;
+              v152 = "next_node->apply_count";
+              v153 = 2048;
+              v154 = 1;
+              v155 = 2048;
+              v156 = v59;
               v48 = v52;
               v49 = v53;
               v50 = "%{public}s Overflow: %{public}s, increment %llu, result %llu, no backtrace";
@@ -5718,13 +5784,13 @@ LABEL_73:
             {
               v58 = *(v19 + 14);
               *buf = 136446978;
-              v142 = "nw_hash_table_apply";
-              v143 = 2082;
-              v144 = "next_node->apply_count";
-              v145 = 2048;
-              v146 = 1;
-              v147 = 2048;
-              v148 = v58;
+              v150 = "nw_hash_table_apply";
+              v151 = 2082;
+              v152 = "next_node->apply_count";
+              v153 = 2048;
+              v154 = 1;
+              v155 = 2048;
+              v156 = v58;
               v48 = v56;
               v49 = v57;
               v50 = "%{public}s Overflow: %{public}s, increment %llu, result %llu, backtrace limit exceeded";
@@ -5740,17 +5806,17 @@ LABEL_74:
         }
 
         *(v19 + 14) = -1;
-        v18 = v138;
+        v18 = v146;
 LABEL_77:
-        if ((v3[56] & 2) != 0)
+        if ((v3[14]._os_unfair_lock_opaque & 2) != 0)
         {
           os_unfair_lock_unlock(v3 + 15);
         }
 
-        v60 = (*(v137 + 16))(v137, v20);
-        if (*(v3 + 10))
+        v60 = (*(v145 + 16))(v145, v20);
+        if (v3[10]._os_unfair_lock_opaque)
         {
-          if ((v3[56] & 2) == 0)
+          if ((v3[14]._os_unfair_lock_opaque & 2) == 0)
           {
             goto LABEL_82;
           }
@@ -5760,18 +5826,28 @@ LABEL_81:
           goto LABEL_82;
         }
 
-        v107 = __nwlog_obj();
-        os_log_type_enabled(v107, OS_LOG_TYPE_ERROR);
-        *buf = 136446210;
-        v142 = "nw_hash_table_lock";
-        v108 = _os_log_send_and_compose_impl();
-        if (__nwlog_should_abort(v108))
+        v109 = __nwlog_obj();
+        if (os_log_type_enabled(v109, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_215;
+          v110 = 3;
         }
 
-        free(v108);
-        if ((v3[56] & 2) != 0)
+        else
+        {
+          v110 = 2;
+        }
+
+        *buf = 136446210;
+        v150 = "nw_hash_table_lock";
+        LODWORD(v143) = 12;
+        v111 = _os_log_send_and_compose_impl(v110, 0, 0, 0, &dword_181A37000, v109, 16, "%{public}s Locking invalid hash table", buf, v143);
+        if (__nwlog_should_abort(v111))
+        {
+          goto LABEL_227;
+        }
+
+        free(v111);
+        if ((v3[14]._os_unfair_lock_opaque & 2) != 0)
         {
           goto LABEL_81;
         }
@@ -5787,17 +5863,18 @@ LABEL_82:
         networkd_settings_init();
         v62 = *(v20 + 14);
         *buf = 136446978;
-        v142 = "nw_hash_table_apply";
-        v143 = 2082;
-        v144 = "node->apply_count";
-        v145 = 2048;
-        v146 = 1;
-        v147 = 2048;
-        v148 = v62;
-        v63 = _os_log_send_and_compose_impl();
+        v150 = "nw_hash_table_apply";
+        v151 = 2082;
+        v152 = "node->apply_count";
+        v153 = 2048;
+        v154 = 1;
+        v155 = 2048;
+        v156 = v62;
+        LODWORD(v143) = 42;
+        v63 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, gLogObj, 16, "%{public}s Underflow: %{public}s, decrement %llu, result %llu", buf, v143);
         type = OS_LOG_TYPE_ERROR;
-        v139 = 0;
-        if (__nwlog_fault(v63, &type, &v139))
+        v147 = 0;
+        if (__nwlog_fault(v63, &type, &v147))
         {
           if (type == OS_LOG_TYPE_FAULT)
           {
@@ -5809,13 +5886,13 @@ LABEL_82:
             {
               v66 = *(v20 + 14);
               *buf = 136446978;
-              v142 = "nw_hash_table_apply";
-              v143 = 2082;
-              v144 = "node->apply_count";
-              v145 = 2048;
-              v146 = 1;
-              v147 = 2048;
-              v148 = v66;
+              v150 = "nw_hash_table_apply";
+              v151 = 2082;
+              v152 = "node->apply_count";
+              v153 = 2048;
+              v154 = 1;
+              v155 = 2048;
+              v156 = v66;
               v67 = v64;
               v68 = v65;
               v69 = "%{public}s Underflow: %{public}s, decrement %llu, result %llu";
@@ -5824,7 +5901,7 @@ LABEL_96:
             }
           }
 
-          else if (v139 == 1)
+          else if (v147 == 1)
           {
             v70 = __nw_create_backtrace_string();
             pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
@@ -5838,15 +5915,15 @@ LABEL_96:
               {
                 v74 = *(v20 + 14);
                 *buf = 136447234;
-                v142 = "nw_hash_table_apply";
-                v143 = 2082;
-                v144 = "node->apply_count";
-                v145 = 2048;
-                v146 = 1;
-                v147 = 2048;
-                v148 = v74;
-                v149 = 2082;
-                v150 = v70;
+                v150 = "nw_hash_table_apply";
+                v151 = 2082;
+                v152 = "node->apply_count";
+                v153 = 2048;
+                v154 = 1;
+                v155 = 2048;
+                v156 = v74;
+                v157 = 2082;
+                v158 = v70;
                 _os_log_impl(&dword_181A37000, v71, v72, "%{public}s Underflow: %{public}s, decrement %llu, result %llu, dumping backtrace:%{public}s", buf, 0x34u);
               }
 
@@ -5858,13 +5935,13 @@ LABEL_96:
             {
               v78 = *(v20 + 14);
               *buf = 136446978;
-              v142 = "nw_hash_table_apply";
-              v143 = 2082;
-              v144 = "node->apply_count";
-              v145 = 2048;
-              v146 = 1;
-              v147 = 2048;
-              v148 = v78;
+              v150 = "nw_hash_table_apply";
+              v151 = 2082;
+              v152 = "node->apply_count";
+              v153 = 2048;
+              v154 = 1;
+              v155 = 2048;
+              v156 = v78;
               v67 = v71;
               v68 = v72;
               v69 = "%{public}s Underflow: %{public}s, decrement %llu, result %llu, no backtrace";
@@ -5882,13 +5959,13 @@ LABEL_96:
             {
               v77 = *(v20 + 14);
               *buf = 136446978;
-              v142 = "nw_hash_table_apply";
-              v143 = 2082;
-              v144 = "node->apply_count";
-              v145 = 2048;
-              v146 = 1;
-              v147 = 2048;
-              v148 = v77;
+              v150 = "nw_hash_table_apply";
+              v151 = 2082;
+              v152 = "node->apply_count";
+              v153 = 2048;
+              v154 = 1;
+              v155 = 2048;
+              v156 = v77;
               v67 = v75;
               v68 = v76;
               v69 = "%{public}s Underflow: %{public}s, decrement %llu, result %llu, backtrace limit exceeded";
@@ -5904,7 +5981,7 @@ LABEL_97:
         }
 
         *(v20 + 14) = 0;
-        v18 = v138;
+        v18 = v146;
 LABEL_100:
         if (!v19)
         {
@@ -5921,17 +5998,18 @@ LABEL_100:
         networkd_settings_init();
         v80 = *(v19 + 14);
         *buf = 136446978;
-        v142 = "nw_hash_table_apply";
-        v143 = 2082;
-        v144 = "next_node->apply_count";
-        v145 = 2048;
-        v146 = 1;
-        v147 = 2048;
-        v148 = v80;
-        v81 = _os_log_send_and_compose_impl();
+        v150 = "nw_hash_table_apply";
+        v151 = 2082;
+        v152 = "next_node->apply_count";
+        v153 = 2048;
+        v154 = 1;
+        v155 = 2048;
+        v156 = v80;
+        LODWORD(v143) = 42;
+        v81 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, gLogObj, 16, "%{public}s Underflow: %{public}s, decrement %llu, result %llu", buf, v143);
         type = OS_LOG_TYPE_ERROR;
-        v139 = 0;
-        if (__nwlog_fault(v81, &type, &v139))
+        v147 = 0;
+        if (__nwlog_fault(v81, &type, &v147))
         {
           if (type == OS_LOG_TYPE_FAULT)
           {
@@ -5943,13 +6021,13 @@ LABEL_100:
             {
               v84 = *(v19 + 14);
               *buf = 136446978;
-              v142 = "nw_hash_table_apply";
-              v143 = 2082;
-              v144 = "next_node->apply_count";
-              v145 = 2048;
-              v146 = 1;
-              v147 = 2048;
-              v148 = v84;
+              v150 = "nw_hash_table_apply";
+              v151 = 2082;
+              v152 = "next_node->apply_count";
+              v153 = 2048;
+              v154 = 1;
+              v155 = 2048;
+              v156 = v84;
               v85 = v82;
               v86 = v83;
               v87 = "%{public}s Underflow: %{public}s, decrement %llu, result %llu";
@@ -5958,7 +6036,7 @@ LABEL_115:
             }
           }
 
-          else if (v139 == 1)
+          else if (v147 == 1)
           {
             v88 = __nw_create_backtrace_string();
             pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
@@ -5972,15 +6050,15 @@ LABEL_115:
               {
                 v92 = *(v19 + 14);
                 *buf = 136447234;
-                v142 = "nw_hash_table_apply";
-                v143 = 2082;
-                v144 = "next_node->apply_count";
-                v145 = 2048;
-                v146 = 1;
-                v147 = 2048;
-                v148 = v92;
-                v149 = 2082;
-                v150 = v88;
+                v150 = "nw_hash_table_apply";
+                v151 = 2082;
+                v152 = "next_node->apply_count";
+                v153 = 2048;
+                v154 = 1;
+                v155 = 2048;
+                v156 = v92;
+                v157 = 2082;
+                v158 = v88;
                 _os_log_impl(&dword_181A37000, v89, v90, "%{public}s Underflow: %{public}s, decrement %llu, result %llu, dumping backtrace:%{public}s", buf, 0x34u);
               }
 
@@ -5992,13 +6070,13 @@ LABEL_115:
             {
               v96 = *(v19 + 14);
               *buf = 136446978;
-              v142 = "nw_hash_table_apply";
-              v143 = 2082;
-              v144 = "next_node->apply_count";
-              v145 = 2048;
-              v146 = 1;
-              v147 = 2048;
-              v148 = v96;
+              v150 = "nw_hash_table_apply";
+              v151 = 2082;
+              v152 = "next_node->apply_count";
+              v153 = 2048;
+              v154 = 1;
+              v155 = 2048;
+              v156 = v96;
               v85 = v89;
               v86 = v90;
               v87 = "%{public}s Underflow: %{public}s, decrement %llu, result %llu, no backtrace";
@@ -6016,13 +6094,13 @@ LABEL_115:
             {
               v95 = *(v19 + 14);
               *buf = 136446978;
-              v142 = "nw_hash_table_apply";
-              v143 = 2082;
-              v144 = "next_node->apply_count";
-              v145 = 2048;
-              v146 = 1;
-              v147 = 2048;
-              v148 = v95;
+              v150 = "nw_hash_table_apply";
+              v151 = 2082;
+              v152 = "next_node->apply_count";
+              v153 = 2048;
+              v154 = 1;
+              v155 = 2048;
+              v156 = v95;
               v85 = v93;
               v86 = v94;
               v87 = "%{public}s Underflow: %{public}s, decrement %llu, result %llu, backtrace limit exceeded";
@@ -6038,7 +6116,7 @@ LABEL_116:
         }
 
         *(v19 + 14) = 0;
-        v18 = v138;
+        v18 = v146;
 LABEL_119:
         if (*(v20 + 30) == 2 && !*(v20 + 14))
         {
@@ -6052,163 +6130,164 @@ LABEL_119:
             nw_hash_node_free(v18, v19);
           }
 
-LABEL_137:
-          LODWORD(v5) = *(v3 + 13);
-LABEL_138:
-          *(v3 + 13) = v5 - 1;
+LABEL_146:
+          LODWORD(v5) = v3[13];
+LABEL_147:
+          v3[13]._os_unfair_lock_opaque = v5 - 1;
           if (v5)
           {
-            v109 = *(v3 + 14);
+            v112 = v3[14]._os_unfair_lock_opaque;
             if (v5 != 1)
             {
-              if ((v109 & 2) != 0)
+              if ((v112 & 2) != 0)
               {
-                goto LABEL_141;
+                goto LABEL_150;
               }
 
               return;
             }
 
-LABEL_159:
-            if ((v109 & 2) != 0)
+LABEL_168:
+            if ((v112 & 2) != 0)
             {
               os_unfair_lock_unlock(v3 + 15);
             }
 
-            if (v109)
+            if (v112)
             {
               return;
             }
 
-LABEL_162:
+LABEL_171:
             free(v3);
             return;
           }
 
           pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
           networkd_settings_init();
-          v110 = *(v3 + 13);
+          v113 = v3[13]._os_unfair_lock_opaque;
           *buf = 136446978;
-          v142 = "nw_hash_table_apply";
-          v143 = 2082;
-          v144 = "table->apply_count";
-          v145 = 2048;
-          v146 = 1;
-          v147 = 2048;
-          v148 = v110;
-          v111 = _os_log_send_and_compose_impl();
+          v150 = "nw_hash_table_apply";
+          v151 = 2082;
+          v152 = "table->apply_count";
+          v153 = 2048;
+          v154 = 1;
+          v155 = 2048;
+          v156 = v113;
+          LODWORD(v143) = 42;
+          v114 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, gLogObj, 16, "%{public}s Underflow: %{public}s, decrement %llu, result %llu", buf, v143);
           type = OS_LOG_TYPE_ERROR;
-          v139 = 0;
-          if (!__nwlog_fault(v111, &type, &v139))
+          v147 = 0;
+          if (!__nwlog_fault(v114, &type, &v147))
           {
-            goto LABEL_156;
+            goto LABEL_165;
           }
 
           if (type == OS_LOG_TYPE_FAULT)
           {
             pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
             networkd_settings_init();
-            v112 = gLogObj;
-            v113 = type;
+            v115 = gLogObj;
+            v116 = type;
             if (os_log_type_enabled(gLogObj, type))
             {
-              v114 = *(v3 + 13);
+              v117 = v3[13]._os_unfair_lock_opaque;
               *buf = 136446978;
-              v142 = "nw_hash_table_apply";
-              v143 = 2082;
-              v144 = "table->apply_count";
-              v145 = 2048;
-              v146 = 1;
-              v147 = 2048;
-              v148 = v114;
-              v115 = "%{public}s Underflow: %{public}s, decrement %llu, result %llu";
-              goto LABEL_155;
+              v150 = "nw_hash_table_apply";
+              v151 = 2082;
+              v152 = "table->apply_count";
+              v153 = 2048;
+              v154 = 1;
+              v155 = 2048;
+              v156 = v117;
+              v118 = "%{public}s Underflow: %{public}s, decrement %llu, result %llu";
+              goto LABEL_164;
             }
 
-            goto LABEL_156;
+            goto LABEL_165;
           }
 
-          if (v139 == 1)
+          if (v147 == 1)
           {
-            v116 = __nw_create_backtrace_string();
+            v119 = __nw_create_backtrace_string();
             pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
             networkd_settings_init();
-            v112 = gLogObj;
-            v113 = type;
-            v117 = os_log_type_enabled(gLogObj, type);
-            if (v116)
+            v115 = gLogObj;
+            v116 = type;
+            v120 = os_log_type_enabled(gLogObj, type);
+            if (v119)
             {
-              if (v117)
+              if (v120)
               {
-                v118 = *(v3 + 13);
+                v121 = v3[13]._os_unfair_lock_opaque;
                 *buf = 136447234;
-                v142 = "nw_hash_table_apply";
-                v143 = 2082;
-                v144 = "table->apply_count";
-                v145 = 2048;
-                v146 = 1;
-                v147 = 2048;
-                v148 = v118;
-                v149 = 2082;
-                v150 = v116;
-                _os_log_impl(&dword_181A37000, v112, v113, "%{public}s Underflow: %{public}s, decrement %llu, result %llu, dumping backtrace:%{public}s", buf, 0x34u);
+                v150 = "nw_hash_table_apply";
+                v151 = 2082;
+                v152 = "table->apply_count";
+                v153 = 2048;
+                v154 = 1;
+                v155 = 2048;
+                v156 = v121;
+                v157 = 2082;
+                v158 = v119;
+                _os_log_impl(&dword_181A37000, v115, v116, "%{public}s Underflow: %{public}s, decrement %llu, result %llu, dumping backtrace:%{public}s", buf, 0x34u);
               }
 
-              free(v116);
-              goto LABEL_156;
+              free(v119);
+              goto LABEL_165;
             }
 
-            if (!v117)
+            if (!v120)
             {
-LABEL_156:
-              if (v111)
+LABEL_165:
+              if (v114)
               {
-                free(v111);
+                free(v114);
               }
 
-              *(v3 + 13) = 0;
-              v109 = *(v3 + 14);
-              goto LABEL_159;
+              v3[13]._os_unfair_lock_opaque = 0;
+              v112 = v3[14]._os_unfair_lock_opaque;
+              goto LABEL_168;
             }
 
-            v120 = *(v3 + 13);
+            v123 = v3[13]._os_unfair_lock_opaque;
             *buf = 136446978;
-            v142 = "nw_hash_table_apply";
-            v143 = 2082;
-            v144 = "table->apply_count";
-            v145 = 2048;
-            v146 = 1;
-            v147 = 2048;
-            v148 = v120;
-            v115 = "%{public}s Underflow: %{public}s, decrement %llu, result %llu, no backtrace";
+            v150 = "nw_hash_table_apply";
+            v151 = 2082;
+            v152 = "table->apply_count";
+            v153 = 2048;
+            v154 = 1;
+            v155 = 2048;
+            v156 = v123;
+            v118 = "%{public}s Underflow: %{public}s, decrement %llu, result %llu, no backtrace";
           }
 
           else
           {
             pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
             networkd_settings_init();
-            v112 = gLogObj;
-            v113 = type;
+            v115 = gLogObj;
+            v116 = type;
             if (!os_log_type_enabled(gLogObj, type))
             {
-              goto LABEL_156;
+              goto LABEL_165;
             }
 
-            v119 = *(v3 + 13);
+            v122 = v3[13]._os_unfair_lock_opaque;
             *buf = 136446978;
-            v142 = "nw_hash_table_apply";
-            v143 = 2082;
-            v144 = "table->apply_count";
-            v145 = 2048;
-            v146 = 1;
-            v147 = 2048;
-            v148 = v119;
-            v115 = "%{public}s Underflow: %{public}s, decrement %llu, result %llu, backtrace limit exceeded";
+            v150 = "nw_hash_table_apply";
+            v151 = 2082;
+            v152 = "table->apply_count";
+            v153 = 2048;
+            v154 = 1;
+            v155 = 2048;
+            v156 = v122;
+            v118 = "%{public}s Underflow: %{public}s, decrement %llu, result %llu, backtrace limit exceeded";
           }
 
-LABEL_155:
-          _os_log_impl(&dword_181A37000, v112, v113, v115, buf, 0x2Au);
-          goto LABEL_156;
+LABEL_164:
+          _os_log_impl(&dword_181A37000, v115, v116, v118, buf, 0x2Au);
+          goto LABEL_165;
         }
 
 LABEL_31:
@@ -6222,17 +6301,18 @@ LABEL_31:
       networkd_settings_init();
       v24 = *(v20 + 14);
       *buf = 136446978;
-      v142 = "nw_hash_table_apply";
-      v143 = 2082;
-      v144 = "node->apply_count";
-      v145 = 2048;
-      v146 = 1;
-      v147 = 2048;
-      v148 = v24;
-      v25 = _os_log_send_and_compose_impl();
+      v150 = "nw_hash_table_apply";
+      v151 = 2082;
+      v152 = "node->apply_count";
+      v153 = 2048;
+      v154 = 1;
+      v155 = 2048;
+      v156 = v24;
+      LODWORD(v143) = 42;
+      v25 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, gLogObj, 16, "%{public}s Overflow: %{public}s, increment %llu, result %llu", buf, v143);
       type = OS_LOG_TYPE_ERROR;
-      v139 = 0;
-      if (__nwlog_fault(v25, &type, &v139))
+      v147 = 0;
+      if (__nwlog_fault(v25, &type, &v147))
       {
         if (type == OS_LOG_TYPE_FAULT)
         {
@@ -6244,13 +6324,13 @@ LABEL_31:
           {
             v28 = *(v20 + 14);
             *buf = 136446978;
-            v142 = "nw_hash_table_apply";
-            v143 = 2082;
-            v144 = "node->apply_count";
-            v145 = 2048;
-            v146 = 1;
-            v147 = 2048;
-            v148 = v28;
+            v150 = "nw_hash_table_apply";
+            v151 = 2082;
+            v152 = "node->apply_count";
+            v153 = 2048;
+            v154 = 1;
+            v155 = 2048;
+            v156 = v28;
             v29 = v26;
             v30 = v27;
             v31 = "%{public}s Overflow: %{public}s, increment %llu, result %llu";
@@ -6259,7 +6339,7 @@ LABEL_54:
           }
         }
 
-        else if (v139 == 1)
+        else if (v147 == 1)
         {
           v33 = __nw_create_backtrace_string();
           pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
@@ -6273,15 +6353,15 @@ LABEL_54:
             {
               v37 = *(v20 + 14);
               *buf = 136447234;
-              v142 = "nw_hash_table_apply";
-              v143 = 2082;
-              v144 = "node->apply_count";
-              v145 = 2048;
-              v146 = 1;
-              v147 = 2048;
-              v148 = v37;
-              v149 = 2082;
-              v150 = v33;
+              v150 = "nw_hash_table_apply";
+              v151 = 2082;
+              v152 = "node->apply_count";
+              v153 = 2048;
+              v154 = 1;
+              v155 = 2048;
+              v156 = v37;
+              v157 = 2082;
+              v158 = v33;
               _os_log_impl(&dword_181A37000, v34, v35, "%{public}s Overflow: %{public}s, increment %llu, result %llu, dumping backtrace:%{public}s", buf, 0x34u);
             }
 
@@ -6293,13 +6373,13 @@ LABEL_54:
           {
             v41 = *(v20 + 14);
             *buf = 136446978;
-            v142 = "nw_hash_table_apply";
-            v143 = 2082;
-            v144 = "node->apply_count";
-            v145 = 2048;
-            v146 = 1;
-            v147 = 2048;
-            v148 = v41;
+            v150 = "nw_hash_table_apply";
+            v151 = 2082;
+            v152 = "node->apply_count";
+            v153 = 2048;
+            v154 = 1;
+            v155 = 2048;
+            v156 = v41;
             v29 = v34;
             v30 = v35;
             v31 = "%{public}s Overflow: %{public}s, increment %llu, result %llu, no backtrace";
@@ -6317,13 +6397,13 @@ LABEL_54:
           {
             v40 = *(v20 + 14);
             *buf = 136446978;
-            v142 = "nw_hash_table_apply";
-            v143 = 2082;
-            v144 = "node->apply_count";
-            v145 = 2048;
-            v146 = 1;
-            v147 = 2048;
-            v148 = v40;
+            v150 = "nw_hash_table_apply";
+            v151 = 2082;
+            v152 = "node->apply_count";
+            v153 = 2048;
+            v154 = 1;
+            v155 = 2048;
+            v156 = v40;
             v29 = v38;
             v30 = v39;
             v31 = "%{public}s Overflow: %{public}s, increment %llu, result %llu, backtrace limit exceeded";
@@ -6339,25 +6419,26 @@ LABEL_55:
       }
 
       *(v20 + 14) = -1;
-      v18 = v138;
+      v18 = v146;
       goto LABEL_58;
     }
 
     pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
     networkd_settings_init();
-    v6 = *(v3 + 13);
+    v6 = v3[13]._os_unfair_lock_opaque;
     *buf = 136446978;
-    v142 = "nw_hash_table_apply";
-    v143 = 2082;
-    v144 = "table->apply_count";
-    v145 = 2048;
-    v146 = 1;
-    v147 = 2048;
-    v148 = v6;
-    v7 = _os_log_send_and_compose_impl();
+    v150 = "nw_hash_table_apply";
+    v151 = 2082;
+    v152 = "table->apply_count";
+    v153 = 2048;
+    v154 = 1;
+    v155 = 2048;
+    v156 = v6;
+    LODWORD(v143) = 42;
+    v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, gLogObj, 16, "%{public}s Overflow: %{public}s, increment %llu, result %llu", buf, v143);
     type = OS_LOG_TYPE_ERROR;
-    v139 = 0;
-    if (__nwlog_fault(v7, &type, &v139))
+    v147 = 0;
+    if (__nwlog_fault(v7, &type, &v147))
     {
       if (type == OS_LOG_TYPE_FAULT)
       {
@@ -6367,22 +6448,22 @@ LABEL_55:
         v9 = type;
         if (os_log_type_enabled(gLogObj, type))
         {
-          v10 = *(v3 + 13);
+          v10 = v3[13]._os_unfair_lock_opaque;
           *buf = 136446978;
-          v142 = "nw_hash_table_apply";
-          v143 = 2082;
-          v144 = "table->apply_count";
-          v145 = 2048;
-          v146 = 1;
-          v147 = 2048;
-          v148 = v10;
+          v150 = "nw_hash_table_apply";
+          v151 = 2082;
+          v152 = "table->apply_count";
+          v153 = 2048;
+          v154 = 1;
+          v155 = 2048;
+          v156 = v10;
           v11 = "%{public}s Overflow: %{public}s, increment %llu, result %llu";
 LABEL_21:
           _os_log_impl(&dword_181A37000, v8, v9, v11, buf, 0x2Au);
         }
       }
 
-      else if (v139 == 1)
+      else if (v147 == 1)
       {
         v12 = __nw_create_backtrace_string();
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
@@ -6394,17 +6475,17 @@ LABEL_21:
         {
           if (v13)
           {
-            v14 = *(v3 + 13);
+            v14 = v3[13]._os_unfair_lock_opaque;
             *buf = 136447234;
-            v142 = "nw_hash_table_apply";
-            v143 = 2082;
-            v144 = "table->apply_count";
-            v145 = 2048;
-            v146 = 1;
-            v147 = 2048;
-            v148 = v14;
-            v149 = 2082;
-            v150 = v12;
+            v150 = "nw_hash_table_apply";
+            v151 = 2082;
+            v152 = "table->apply_count";
+            v153 = 2048;
+            v154 = 1;
+            v155 = 2048;
+            v156 = v14;
+            v157 = 2082;
+            v158 = v12;
             _os_log_impl(&dword_181A37000, v8, v9, "%{public}s Overflow: %{public}s, increment %llu, result %llu, dumping backtrace:%{public}s", buf, 0x34u);
           }
 
@@ -6414,15 +6495,15 @@ LABEL_21:
 
         if (v13)
         {
-          v16 = *(v3 + 13);
+          v16 = v3[13]._os_unfair_lock_opaque;
           *buf = 136446978;
-          v142 = "nw_hash_table_apply";
-          v143 = 2082;
-          v144 = "table->apply_count";
-          v145 = 2048;
-          v146 = 1;
-          v147 = 2048;
-          v148 = v16;
+          v150 = "nw_hash_table_apply";
+          v151 = 2082;
+          v152 = "table->apply_count";
+          v153 = 2048;
+          v154 = 1;
+          v155 = 2048;
+          v156 = v16;
           v11 = "%{public}s Overflow: %{public}s, increment %llu, result %llu, no backtrace";
           goto LABEL_21;
         }
@@ -6436,15 +6517,15 @@ LABEL_21:
         v9 = type;
         if (os_log_type_enabled(gLogObj, type))
         {
-          v15 = *(v3 + 13);
+          v15 = v3[13]._os_unfair_lock_opaque;
           *buf = 136446978;
-          v142 = "nw_hash_table_apply";
-          v143 = 2082;
-          v144 = "table->apply_count";
-          v145 = 2048;
-          v146 = 1;
-          v147 = 2048;
-          v148 = v15;
+          v150 = "nw_hash_table_apply";
+          v151 = 2082;
+          v152 = "table->apply_count";
+          v153 = 2048;
+          v154 = 1;
+          v155 = 2048;
+          v156 = v15;
           v11 = "%{public}s Overflow: %{public}s, increment %llu, result %llu, backtrace limit exceeded";
           goto LABEL_21;
         }
@@ -6458,169 +6539,170 @@ LABEL_22:
     }
 
     LODWORD(v5) = -1;
-    *(v3 + 13) = -1;
+    v3[13]._os_unfair_lock_opaque = -1;
     goto LABEL_25;
   }
 
-  __nwlog_obj();
+  v132 = __nwlog_obj();
   *buf = 136446210;
-  v142 = "nw_hash_table_apply";
-  v126 = _os_log_send_and_compose_impl();
+  v150 = "nw_hash_table_apply";
+  LODWORD(v143) = 12;
+  v133 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v132, 16, "%{public}s called with invalid hash table", buf, v143);
   type = OS_LOG_TYPE_ERROR;
-  v139 = 0;
-  if (__nwlog_fault(v126, &type, &v139))
+  v147 = 0;
+  if (__nwlog_fault(v133, &type, &v147))
   {
     if (type == OS_LOG_TYPE_FAULT)
     {
-      v127 = __nwlog_obj();
-      v128 = type;
-      if (!os_log_type_enabled(v127, type))
+      v134 = __nwlog_obj();
+      v135 = type;
+      if (!os_log_type_enabled(v134, type))
       {
-        goto LABEL_211;
+        goto LABEL_223;
       }
 
       *buf = 136446210;
-      v142 = "nw_hash_table_apply";
-      v129 = "%{public}s called with invalid hash table";
-LABEL_210:
-      _os_log_impl(&dword_181A37000, v127, v128, v129, buf, 0xCu);
-      goto LABEL_211;
+      v150 = "nw_hash_table_apply";
+      v136 = "%{public}s called with invalid hash table";
+LABEL_222:
+      _os_log_impl(&dword_181A37000, v134, v135, v136, buf, 0xCu);
+      goto LABEL_223;
     }
 
-    if (v139 != 1)
+    if (v147 != 1)
     {
-      v127 = __nwlog_obj();
-      v128 = type;
-      if (!os_log_type_enabled(v127, type))
+      v134 = __nwlog_obj();
+      v135 = type;
+      if (!os_log_type_enabled(v134, type))
       {
-        goto LABEL_211;
+        goto LABEL_223;
       }
 
       *buf = 136446210;
-      v142 = "nw_hash_table_apply";
-      v129 = "%{public}s called with invalid hash table, backtrace limit exceeded";
-      goto LABEL_210;
+      v150 = "nw_hash_table_apply";
+      v136 = "%{public}s called with invalid hash table, backtrace limit exceeded";
+      goto LABEL_222;
     }
 
-    v134 = __nw_create_backtrace_string();
-    v127 = __nwlog_obj();
-    v128 = type;
-    v135 = os_log_type_enabled(v127, type);
-    if (!v134)
+    v141 = __nw_create_backtrace_string();
+    v134 = __nwlog_obj();
+    v135 = type;
+    v142 = os_log_type_enabled(v134, type);
+    if (!v141)
     {
-      if (!v135)
+      if (!v142)
       {
-        goto LABEL_211;
+        goto LABEL_223;
       }
 
       *buf = 136446210;
-      v142 = "nw_hash_table_apply";
-      v129 = "%{public}s called with invalid hash table, no backtrace";
-      goto LABEL_210;
+      v150 = "nw_hash_table_apply";
+      v136 = "%{public}s called with invalid hash table, no backtrace";
+      goto LABEL_222;
     }
 
-    if (v135)
+    if (v142)
     {
       *buf = 136446466;
-      v142 = "nw_hash_table_apply";
-      v143 = 2082;
-      v144 = v134;
-      _os_log_impl(&dword_181A37000, v127, v128, "%{public}s called with invalid hash table, dumping backtrace:%{public}s", buf, 0x16u);
+      v150 = "nw_hash_table_apply";
+      v151 = 2082;
+      v152 = v141;
+      _os_log_impl(&dword_181A37000, v134, v135, "%{public}s called with invalid hash table, dumping backtrace:%{public}s", buf, 0x16u);
     }
 
-    free(v134);
+    free(v141);
   }
 
-LABEL_211:
-  if (v126)
+LABEL_223:
+  if (v133)
   {
-    free(v126);
+    free(v133);
   }
 
-  if ((v3[56] & 2) != 0)
+  if ((v3[14]._os_unfair_lock_opaque & 2) != 0)
   {
-LABEL_141:
+LABEL_150:
     os_unfair_lock_unlock(v3 + 15);
   }
 }
 
 void nw_context_purge_endpoints(NWConcrete_nw_context *a1, int a2)
 {
-  v133 = *MEMORY[0x1E69E9840];
+  v129 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = v3;
   if (!v3)
   {
-    v60 = __nwlog_obj();
+    v56 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_context_purge_endpoints";
-    v54 = _os_log_send_and_compose_impl();
+    v50 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v56, 16, "%{public}s called with null context", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
-    v128 = 0;
-    if (!__nwlog_fault(v54, type, &v128))
+    v124 = 0;
+    if (!__nwlog_fault(v50, type, &v124))
     {
       goto LABEL_188;
     }
 
     if (type[0] == OS_LOG_TYPE_FAULT)
     {
-      v55 = __nwlog_obj();
-      v61 = type[0];
-      if (os_log_type_enabled(v55, type[0]))
+      v51 = __nwlog_obj();
+      v57 = type[0];
+      if (os_log_type_enabled(v51, type[0]))
       {
         *buf = 136446210;
         *&buf[4] = "nw_context_purge_endpoints";
-        _os_log_impl(&dword_181A37000, v55, v61, "%{public}s called with null context", buf, 0xCu);
+        _os_log_impl(&dword_181A37000, v51, v57, "%{public}s called with null context", buf, 0xCu);
       }
     }
 
-    else if (v128 == 1)
+    else if (v124 == 1)
     {
       backtrace_string = __nw_create_backtrace_string();
-      v55 = __nwlog_obj();
-      v90 = type[0];
-      v91 = os_log_type_enabled(v55, type[0]);
+      v51 = __nwlog_obj();
+      v86 = type[0];
+      v87 = os_log_type_enabled(v51, type[0]);
       if (backtrace_string)
       {
-        if (v91)
+        if (v87)
         {
           *buf = 136446466;
           *&buf[4] = "nw_context_purge_endpoints";
           *&buf[12] = 2082;
           *&buf[14] = backtrace_string;
-          _os_log_impl(&dword_181A37000, v55, v90, "%{public}s called with null context, dumping backtrace:%{public}s", buf, 0x16u);
+          _os_log_impl(&dword_181A37000, v51, v86, "%{public}s called with null context, dumping backtrace:%{public}s", buf, 0x16u);
         }
 
         free(backtrace_string);
 LABEL_188:
-        if (!v54)
+        if (!v50)
         {
           goto LABEL_60;
         }
 
 LABEL_189:
-        free(v54);
+        free(v50);
         goto LABEL_60;
       }
 
-      if (v91)
+      if (v87)
       {
         *buf = 136446210;
         *&buf[4] = "nw_context_purge_endpoints";
-        _os_log_impl(&dword_181A37000, v55, v90, "%{public}s called with null context, no backtrace", buf, 0xCu);
+        _os_log_impl(&dword_181A37000, v51, v86, "%{public}s called with null context, no backtrace", buf, 0xCu);
       }
     }
 
     else
     {
-      v55 = __nwlog_obj();
-      v110 = type[0];
-      if (os_log_type_enabled(v55, type[0]))
+      v51 = __nwlog_obj();
+      v106 = type[0];
+      if (os_log_type_enabled(v51, type[0]))
       {
         *buf = 136446210;
         *&buf[4] = "nw_context_purge_endpoints";
-        _os_log_impl(&dword_181A37000, v55, v110, "%{public}s called with null context, backtrace limit exceeded", buf, 0xCu);
+        _os_log_impl(&dword_181A37000, v51, v106, "%{public}s called with null context, backtrace limit exceeded", buf, 0xCu);
       }
     }
 
@@ -6638,69 +6720,69 @@ LABEL_187:
 
   if ((*(v6 + 152) & 0x24) == 0)
   {
-    v62 = __nwlog_obj();
+    v58 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_context_purge_endpoints";
-    v54 = _os_log_send_and_compose_impl();
+    v50 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v58, 16, "%{public}s called with null (context->is_implicit || context->is_isolated_context)", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
-    v128 = 0;
-    if (!__nwlog_fault(v54, type, &v128))
+    v124 = 0;
+    if (!__nwlog_fault(v50, type, &v124))
     {
       goto LABEL_188;
     }
 
     if (type[0] == OS_LOG_TYPE_FAULT)
     {
-      v55 = __nwlog_obj();
-      v63 = type[0];
-      if (os_log_type_enabled(v55, type[0]))
+      v51 = __nwlog_obj();
+      v59 = type[0];
+      if (os_log_type_enabled(v51, type[0]))
       {
         *buf = 136446210;
         *&buf[4] = "nw_context_purge_endpoints";
-        _os_log_impl(&dword_181A37000, v55, v63, "%{public}s called with null (context->is_implicit || context->is_isolated_context)", buf, 0xCu);
+        _os_log_impl(&dword_181A37000, v51, v59, "%{public}s called with null (context->is_implicit || context->is_isolated_context)", buf, 0xCu);
       }
 
       goto LABEL_187;
     }
 
-    if (v128 != 1)
+    if (v124 != 1)
     {
-      v55 = __nwlog_obj();
-      v111 = type[0];
-      if (os_log_type_enabled(v55, type[0]))
+      v51 = __nwlog_obj();
+      v107 = type[0];
+      if (os_log_type_enabled(v51, type[0]))
       {
         *buf = 136446210;
         *&buf[4] = "nw_context_purge_endpoints";
-        _os_log_impl(&dword_181A37000, v55, v111, "%{public}s called with null (context->is_implicit || context->is_isolated_context), backtrace limit exceeded", buf, 0xCu);
+        _os_log_impl(&dword_181A37000, v51, v107, "%{public}s called with null (context->is_implicit || context->is_isolated_context), backtrace limit exceeded", buf, 0xCu);
       }
 
       goto LABEL_187;
     }
 
-    v57 = __nw_create_backtrace_string();
-    v55 = __nwlog_obj();
-    v92 = type[0];
-    v93 = os_log_type_enabled(v55, type[0]);
-    if (!v57)
+    v53 = __nw_create_backtrace_string();
+    v51 = __nwlog_obj();
+    v88 = type[0];
+    v89 = os_log_type_enabled(v51, type[0]);
+    if (!v53)
     {
-      if (v93)
+      if (v89)
       {
         *buf = 136446210;
         *&buf[4] = "nw_context_purge_endpoints";
-        _os_log_impl(&dword_181A37000, v55, v92, "%{public}s called with null (context->is_implicit || context->is_isolated_context), no backtrace", buf, 0xCu);
+        _os_log_impl(&dword_181A37000, v51, v88, "%{public}s called with null (context->is_implicit || context->is_isolated_context), no backtrace", buf, 0xCu);
       }
 
       goto LABEL_187;
     }
 
-    if (v93)
+    if (v89)
     {
       *buf = 136446466;
       *&buf[4] = "nw_context_purge_endpoints";
       *&buf[12] = 2082;
-      *&buf[14] = v57;
-      _os_log_impl(&dword_181A37000, v55, v92, "%{public}s called with null (context->is_implicit || context->is_isolated_context), dumping backtrace:%{public}s", buf, 0x16u);
+      *&buf[14] = v53;
+      _os_log_impl(&dword_181A37000, v51, v88, "%{public}s called with null (context->is_implicit || context->is_isolated_context), dumping backtrace:%{public}s", buf, 0x16u);
     }
 
     goto LABEL_123;
@@ -6709,75 +6791,75 @@ LABEL_187:
   v7 = *(v6 + 3);
   if (!*(v7 + 32) || !*(v7 + 40) || !*(v7 + 48))
   {
-    v53 = __nwlog_obj();
+    v49 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_context_purge_endpoints";
-    v54 = _os_log_send_and_compose_impl();
+    v50 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v49, 16, "%{public}s called with null (context->cache->address_endpoints != NULL && context->cache->host_endpoints != NULL && context->cache->other_endpoints != NULL)", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
-    v128 = 0;
-    if (!__nwlog_fault(v54, type, &v128))
+    v124 = 0;
+    if (!__nwlog_fault(v50, type, &v124))
     {
       goto LABEL_188;
     }
 
     if (type[0] == OS_LOG_TYPE_FAULT)
     {
-      v55 = __nwlog_obj();
-      v56 = type[0];
-      if (os_log_type_enabled(v55, type[0]))
+      v51 = __nwlog_obj();
+      v52 = type[0];
+      if (os_log_type_enabled(v51, type[0]))
       {
         *buf = 136446210;
         *&buf[4] = "nw_context_purge_endpoints";
-        _os_log_impl(&dword_181A37000, v55, v56, "%{public}s called with null (context->cache->address_endpoints != NULL && context->cache->host_endpoints != NULL && context->cache->other_endpoints != NULL)", buf, 0xCu);
+        _os_log_impl(&dword_181A37000, v51, v52, "%{public}s called with null (context->cache->address_endpoints != NULL && context->cache->host_endpoints != NULL && context->cache->other_endpoints != NULL)", buf, 0xCu);
       }
 
       goto LABEL_187;
     }
 
-    if (v128 != 1)
+    if (v124 != 1)
     {
-      v55 = __nwlog_obj();
-      v76 = type[0];
-      if (os_log_type_enabled(v55, type[0]))
+      v51 = __nwlog_obj();
+      v72 = type[0];
+      if (os_log_type_enabled(v51, type[0]))
       {
         *buf = 136446210;
         *&buf[4] = "nw_context_purge_endpoints";
-        _os_log_impl(&dword_181A37000, v55, v76, "%{public}s called with null (context->cache->address_endpoints != NULL && context->cache->host_endpoints != NULL && context->cache->other_endpoints != NULL), backtrace limit exceeded", buf, 0xCu);
+        _os_log_impl(&dword_181A37000, v51, v72, "%{public}s called with null (context->cache->address_endpoints != NULL && context->cache->host_endpoints != NULL && context->cache->other_endpoints != NULL), backtrace limit exceeded", buf, 0xCu);
       }
 
       goto LABEL_187;
     }
 
-    v57 = __nw_create_backtrace_string();
-    v55 = __nwlog_obj();
-    v58 = type[0];
-    v59 = os_log_type_enabled(v55, type[0]);
-    if (!v57)
+    v53 = __nw_create_backtrace_string();
+    v51 = __nwlog_obj();
+    v54 = type[0];
+    v55 = os_log_type_enabled(v51, type[0]);
+    if (!v53)
     {
-      if (v59)
+      if (v55)
       {
         *buf = 136446210;
         *&buf[4] = "nw_context_purge_endpoints";
-        _os_log_impl(&dword_181A37000, v55, v58, "%{public}s called with null (context->cache->address_endpoints != NULL && context->cache->host_endpoints != NULL && context->cache->other_endpoints != NULL), no backtrace", buf, 0xCu);
+        _os_log_impl(&dword_181A37000, v51, v54, "%{public}s called with null (context->cache->address_endpoints != NULL && context->cache->host_endpoints != NULL && context->cache->other_endpoints != NULL), no backtrace", buf, 0xCu);
       }
 
       goto LABEL_187;
     }
 
-    if (v59)
+    if (v55)
     {
       *buf = 136446466;
       *&buf[4] = "nw_context_purge_endpoints";
       *&buf[12] = 2082;
-      *&buf[14] = v57;
-      _os_log_impl(&dword_181A37000, v55, v58, "%{public}s called with null (context->cache->address_endpoints != NULL && context->cache->host_endpoints != NULL && context->cache->other_endpoints != NULL), dumping backtrace:%{public}s", buf, 0x16u);
+      *&buf[14] = v53;
+      _os_log_impl(&dword_181A37000, v51, v54, "%{public}s called with null (context->cache->address_endpoints != NULL && context->cache->host_endpoints != NULL && context->cache->other_endpoints != NULL), dumping backtrace:%{public}s", buf, 0x16u);
     }
 
 LABEL_123:
 
-    free(v57);
-    if (!v54)
+    free(v53);
+    if (!v50)
     {
       goto LABEL_60;
     }
@@ -6816,13 +6898,13 @@ LABEL_13:
           *&buf[12] = 2114;
           *&buf[14] = v6;
           *&buf[22] = 1024;
-          LODWORD(v130) = v9;
-          WORD2(v130) = 1024;
-          *(&v130 + 6) = v8 - v11;
-          WORD5(v130) = 1024;
-          HIDWORD(v130) = v13;
-          LOWORD(v131) = 1024;
-          *(&v131 + 2) = v10;
+          LODWORD(v126) = v9;
+          WORD2(v126) = 1024;
+          *(&v126 + 6) = v8 - v11;
+          WORD5(v126) = 1024;
+          HIDWORD(v126) = v13;
+          LOWORD(v127) = 1024;
+          *(&v127 + 2) = v10;
           _os_log_impl(&dword_181A37000, v12, OS_LOG_TYPE_INFO, "%{public}s Context %{public}@ has more than %u cache entries, purging %u from %u down to %u", buf, 0x2Eu);
         }
 
@@ -6881,13 +6963,13 @@ LABEL_13:
         *&buf[12] = 2114;
         *&buf[14] = v6;
         *&buf[22] = 1024;
-        LODWORD(v130) = v20;
-        WORD2(v130) = 1024;
-        *(&v130 + 6) = v17 - v18;
-        WORD5(v130) = 1024;
-        HIDWORD(v130) = v21;
-        LOWORD(v131) = 1024;
-        *(&v131 + 2) = v20;
+        LODWORD(v126) = v20;
+        WORD2(v126) = 1024;
+        *(&v126 + 6) = v17 - v18;
+        WORD5(v126) = 1024;
+        HIDWORD(v126) = v21;
+        LOWORD(v127) = 1024;
+        *(&v127 + 2) = v20;
         _os_log_impl(&dword_181A37000, v19, OS_LOG_TYPE_INFO, "%{public}s Context %{public}@ has more than %u idle cache entries, purging %u from %u down to %u", buf, 0x2Eu);
       }
 
@@ -6923,23 +7005,112 @@ LABEL_34:
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = ___ZL36nw_context_purge_endpoint_hash_tableP21NWConcrete_nw_contextP13nw_hash_tablePKc_block_invoke;
-    *&v130 = &unk_1E6A2D138;
-    *(&v130 + 1) = v25;
-    v131 = v24;
-    v132 = "address";
+    *&v126 = &unk_1E6A2D138;
+    *(&v126 + 1) = v25;
+    v127 = v24;
+    v128 = "address";
     nw_hash_table_apply(v24, buf);
 
     goto LABEL_36;
   }
 
+  v60 = __nwlog_obj();
+  *buf = 136446210;
+  *&buf[4] = "nw_context_purge_endpoint_hash_table";
+  v61 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v60, 16, "%{public}s called with null hash_table", buf, 12);
+
+  type[0] = OS_LOG_TYPE_ERROR;
+  v124 = 0;
+  if (__nwlog_fault(v61, type, &v124))
+  {
+    if (type[0] == OS_LOG_TYPE_FAULT)
+    {
+      v62 = __nwlog_obj();
+      v63 = type[0];
+      if (os_log_type_enabled(v62, type[0]))
+      {
+        *buf = 136446210;
+        *&buf[4] = "nw_context_purge_endpoint_hash_table";
+        _os_log_impl(&dword_181A37000, v62, v63, "%{public}s called with null hash_table", buf, 0xCu);
+      }
+    }
+
+    else if (v124 == 1)
+    {
+      v90 = __nw_create_backtrace_string();
+      v62 = __nwlog_obj();
+      v91 = type[0];
+      v92 = os_log_type_enabled(v62, type[0]);
+      if (v90)
+      {
+        if (v92)
+        {
+          *buf = 136446466;
+          *&buf[4] = "nw_context_purge_endpoint_hash_table";
+          *&buf[12] = 2082;
+          *&buf[14] = v90;
+          _os_log_impl(&dword_181A37000, v62, v91, "%{public}s called with null hash_table, dumping backtrace:%{public}s", buf, 0x16u);
+        }
+
+        free(v90);
+        goto LABEL_193;
+      }
+
+      if (v92)
+      {
+        *buf = 136446210;
+        *&buf[4] = "nw_context_purge_endpoint_hash_table";
+        _os_log_impl(&dword_181A37000, v62, v91, "%{public}s called with null hash_table, no backtrace", buf, 0xCu);
+      }
+    }
+
+    else
+    {
+      v62 = __nwlog_obj();
+      v108 = type[0];
+      if (os_log_type_enabled(v62, type[0]))
+      {
+        *buf = 136446210;
+        *&buf[4] = "nw_context_purge_endpoint_hash_table";
+        _os_log_impl(&dword_181A37000, v62, v108, "%{public}s called with null hash_table, backtrace limit exceeded", buf, 0xCu);
+      }
+    }
+  }
+
+LABEL_193:
+  if (v61)
+  {
+    free(v61);
+  }
+
+LABEL_36:
+
+  v27 = *(*(v6 + 3) + 40);
+  v28 = v26;
+  v29 = v28;
+  if (v27)
+  {
+    *buf = MEMORY[0x1E69E9820];
+    *&buf[8] = 3221225472;
+    *&buf[16] = ___ZL36nw_context_purge_endpoint_hash_tableP21NWConcrete_nw_contextP13nw_hash_tablePKc_block_invoke;
+    *&v126 = &unk_1E6A2D138;
+    *(&v126 + 1) = v28;
+    v127 = v27;
+    v128 = "host";
+    nw_hash_table_apply(v27, buf);
+
+    goto LABEL_38;
+  }
+
   v64 = __nwlog_obj();
   *buf = 136446210;
   *&buf[4] = "nw_context_purge_endpoint_hash_table";
-  v65 = _os_log_send_and_compose_impl();
+  LODWORD(v114) = 12;
+  v65 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v64, 16, "%{public}s called with null hash_table", buf, v114);
 
   type[0] = OS_LOG_TYPE_ERROR;
-  v128 = 0;
-  if (__nwlog_fault(v65, type, &v128))
+  v124 = 0;
+  if (__nwlog_fault(v65, type, &v124))
   {
     if (type[0] == OS_LOG_TYPE_FAULT)
     {
@@ -6953,81 +7124,82 @@ LABEL_34:
       }
     }
 
-    else if (v128 == 1)
+    else if (v124 == 1)
     {
-      v94 = __nw_create_backtrace_string();
+      v93 = __nw_create_backtrace_string();
       v66 = __nwlog_obj();
-      v95 = type[0];
-      v96 = os_log_type_enabled(v66, type[0]);
-      if (v94)
+      v94 = type[0];
+      v95 = os_log_type_enabled(v66, type[0]);
+      if (v93)
       {
-        if (v96)
+        if (v95)
         {
           *buf = 136446466;
           *&buf[4] = "nw_context_purge_endpoint_hash_table";
           *&buf[12] = 2082;
-          *&buf[14] = v94;
-          _os_log_impl(&dword_181A37000, v66, v95, "%{public}s called with null hash_table, dumping backtrace:%{public}s", buf, 0x16u);
+          *&buf[14] = v93;
+          _os_log_impl(&dword_181A37000, v66, v94, "%{public}s called with null hash_table, dumping backtrace:%{public}s", buf, 0x16u);
         }
 
-        free(v94);
-        goto LABEL_193;
+        free(v93);
+        goto LABEL_198;
       }
 
-      if (v96)
+      if (v95)
       {
         *buf = 136446210;
         *&buf[4] = "nw_context_purge_endpoint_hash_table";
-        _os_log_impl(&dword_181A37000, v66, v95, "%{public}s called with null hash_table, no backtrace", buf, 0xCu);
+        _os_log_impl(&dword_181A37000, v66, v94, "%{public}s called with null hash_table, no backtrace", buf, 0xCu);
       }
     }
 
     else
     {
       v66 = __nwlog_obj();
-      v112 = type[0];
+      v109 = type[0];
       if (os_log_type_enabled(v66, type[0]))
       {
         *buf = 136446210;
         *&buf[4] = "nw_context_purge_endpoint_hash_table";
-        _os_log_impl(&dword_181A37000, v66, v112, "%{public}s called with null hash_table, backtrace limit exceeded", buf, 0xCu);
+        _os_log_impl(&dword_181A37000, v66, v109, "%{public}s called with null hash_table, backtrace limit exceeded", buf, 0xCu);
       }
     }
   }
 
-LABEL_193:
+LABEL_198:
   if (v65)
   {
     free(v65);
   }
 
-LABEL_36:
+LABEL_38:
 
-  v27 = *(*(v6 + 3) + 40);
-  v28 = v26;
-  v29 = v28;
-  if (v27)
+  v30 = *(*(v6 + 3) + 48);
+  v31 = v29;
+  v32 = v31;
+  if (v30)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = ___ZL36nw_context_purge_endpoint_hash_tableP21NWConcrete_nw_contextP13nw_hash_tablePKc_block_invoke;
-    *&v130 = &unk_1E6A2D138;
-    *(&v130 + 1) = v28;
-    v131 = v27;
-    v132 = "host";
-    nw_hash_table_apply(v27, buf);
+    *&v126 = &unk_1E6A2D138;
+    *(&v126 + 1) = v31;
+    v127 = v30;
+    v128 = "other";
+    nw_hash_table_apply(v30, buf);
 
-    goto LABEL_38;
+    goto LABEL_40;
   }
 
   v68 = __nwlog_obj();
   *buf = 136446210;
   *&buf[4] = "nw_context_purge_endpoint_hash_table";
-  v69 = _os_log_send_and_compose_impl();
+  LODWORD(v114) = 12;
+  v69 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v68, 16, "%{public}s called with null hash_table", buf, v114);
 
   type[0] = OS_LOG_TYPE_ERROR;
-  v128 = 0;
-  if (__nwlog_fault(v69, type, &v128))
+  v124 = 0;
+  if (__nwlog_fault(v69, type, &v124))
   {
     if (type[0] == OS_LOG_TYPE_FAULT)
     {
@@ -7041,470 +7213,385 @@ LABEL_36:
       }
     }
 
-    else if (v128 == 1)
+    else if (v124 == 1)
     {
-      v97 = __nw_create_backtrace_string();
+      v96 = __nw_create_backtrace_string();
       v70 = __nwlog_obj();
-      v98 = type[0];
-      v99 = os_log_type_enabled(v70, type[0]);
-      if (v97)
+      v97 = type[0];
+      v98 = os_log_type_enabled(v70, type[0]);
+      if (v96)
       {
-        if (v99)
+        if (v98)
         {
           *buf = 136446466;
           *&buf[4] = "nw_context_purge_endpoint_hash_table";
           *&buf[12] = 2082;
-          *&buf[14] = v97;
-          _os_log_impl(&dword_181A37000, v70, v98, "%{public}s called with null hash_table, dumping backtrace:%{public}s", buf, 0x16u);
+          *&buf[14] = v96;
+          _os_log_impl(&dword_181A37000, v70, v97, "%{public}s called with null hash_table, dumping backtrace:%{public}s", buf, 0x16u);
         }
 
-        free(v97);
-        goto LABEL_198;
+        free(v96);
+        goto LABEL_203;
       }
 
-      if (v99)
+      if (v98)
       {
         *buf = 136446210;
         *&buf[4] = "nw_context_purge_endpoint_hash_table";
-        _os_log_impl(&dword_181A37000, v70, v98, "%{public}s called with null hash_table, no backtrace", buf, 0xCu);
+        _os_log_impl(&dword_181A37000, v70, v97, "%{public}s called with null hash_table, no backtrace", buf, 0xCu);
       }
     }
 
     else
     {
       v70 = __nwlog_obj();
-      v113 = type[0];
+      v110 = type[0];
       if (os_log_type_enabled(v70, type[0]))
       {
         *buf = 136446210;
         *&buf[4] = "nw_context_purge_endpoint_hash_table";
-        _os_log_impl(&dword_181A37000, v70, v113, "%{public}s called with null hash_table, backtrace limit exceeded", buf, 0xCu);
-      }
-    }
-  }
-
-LABEL_198:
-  if (v69)
-  {
-    free(v69);
-  }
-
-LABEL_38:
-
-  v30 = *(*(v6 + 3) + 48);
-  v31 = v29;
-  v32 = v31;
-  if (v30)
-  {
-    *buf = MEMORY[0x1E69E9820];
-    *&buf[8] = 3221225472;
-    *&buf[16] = ___ZL36nw_context_purge_endpoint_hash_tableP21NWConcrete_nw_contextP13nw_hash_tablePKc_block_invoke;
-    *&v130 = &unk_1E6A2D138;
-    *(&v130 + 1) = v31;
-    v131 = v30;
-    v132 = "other";
-    nw_hash_table_apply(v30, buf);
-
-    goto LABEL_40;
-  }
-
-  v72 = __nwlog_obj();
-  *buf = 136446210;
-  *&buf[4] = "nw_context_purge_endpoint_hash_table";
-  v73 = _os_log_send_and_compose_impl();
-
-  type[0] = OS_LOG_TYPE_ERROR;
-  v128 = 0;
-  if (__nwlog_fault(v73, type, &v128))
-  {
-    if (type[0] == OS_LOG_TYPE_FAULT)
-    {
-      v74 = __nwlog_obj();
-      v75 = type[0];
-      if (os_log_type_enabled(v74, type[0]))
-      {
-        *buf = 136446210;
-        *&buf[4] = "nw_context_purge_endpoint_hash_table";
-        _os_log_impl(&dword_181A37000, v74, v75, "%{public}s called with null hash_table", buf, 0xCu);
-      }
-    }
-
-    else if (v128 == 1)
-    {
-      v100 = __nw_create_backtrace_string();
-      v74 = __nwlog_obj();
-      v101 = type[0];
-      v102 = os_log_type_enabled(v74, type[0]);
-      if (v100)
-      {
-        if (v102)
-        {
-          *buf = 136446466;
-          *&buf[4] = "nw_context_purge_endpoint_hash_table";
-          *&buf[12] = 2082;
-          *&buf[14] = v100;
-          _os_log_impl(&dword_181A37000, v74, v101, "%{public}s called with null hash_table, dumping backtrace:%{public}s", buf, 0x16u);
-        }
-
-        free(v100);
-        goto LABEL_203;
-      }
-
-      if (v102)
-      {
-        *buf = 136446210;
-        *&buf[4] = "nw_context_purge_endpoint_hash_table";
-        _os_log_impl(&dword_181A37000, v74, v101, "%{public}s called with null hash_table, no backtrace", buf, 0xCu);
-      }
-    }
-
-    else
-    {
-      v74 = __nwlog_obj();
-      v114 = type[0];
-      if (os_log_type_enabled(v74, type[0]))
-      {
-        *buf = 136446210;
-        *&buf[4] = "nw_context_purge_endpoint_hash_table";
-        _os_log_impl(&dword_181A37000, v74, v114, "%{public}s called with null hash_table, backtrace limit exceeded", buf, 0xCu);
+        _os_log_impl(&dword_181A37000, v70, v110, "%{public}s called with null hash_table, backtrace limit exceeded", buf, 0xCu);
       }
     }
   }
 
 LABEL_203:
-  if (v73)
+  if (v69)
   {
-    free(v73);
+    free(v69);
   }
 
 LABEL_40:
 
   if (v32[10])
   {
-    v34 = *(*(v6 + 3) + 32);
-    v35 = v32;
-    v36 = v35;
-    if (v34)
+    v33 = *(*(v6 + 3) + 32);
+    v34 = v32;
+    v35 = v34;
+    if (v33)
     {
       *type = 0;
-      v125 = type;
-      v126 = 0x2020000000;
-      v127 = 0;
+      v121 = type;
+      v122 = 0x2020000000;
+      v123 = 0;
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = ___ZL51nw_context_get_active_instance_count_for_hash_tableP21NWConcrete_nw_contextP13nw_hash_table_block_invoke;
-      *&v130 = &unk_1E6A3CD58;
-      v131 = type;
-      *(&v130 + 1) = v35;
-      nw_hash_table_apply(v34, buf);
-      v37 = *(v125 + 3);
+      *&v126 = &unk_1E6A3CD58;
+      v127 = type;
+      *(&v126 + 1) = v34;
+      nw_hash_table_apply(v33, buf);
+      v36 = *(v121 + 3);
 
       _Block_object_dispose(type, 8);
       goto LABEL_43;
     }
 
-    v77 = __nwlog_obj();
+    v73 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_context_get_active_instance_count_for_hash_table";
-    v78 = _os_log_send_and_compose_impl();
+    LODWORD(v114) = 12;
+    v74 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v73, 16, "%{public}s called with null hash_table", buf, v114);
 
     type[0] = OS_LOG_TYPE_ERROR;
-    v128 = 0;
-    if (__nwlog_fault(v78, type, &v128))
+    v124 = 0;
+    if (__nwlog_fault(v74, type, &v124))
     {
       if (type[0] == OS_LOG_TYPE_FAULT)
       {
-        v79 = __nwlog_obj();
-        v80 = type[0];
-        if (os_log_type_enabled(v79, type[0]))
+        v75 = __nwlog_obj();
+        v76 = type[0];
+        if (os_log_type_enabled(v75, type[0]))
         {
           *buf = 136446210;
           *&buf[4] = "nw_context_get_active_instance_count_for_hash_table";
-          _os_log_impl(&dword_181A37000, v79, v80, "%{public}s called with null hash_table", buf, 0xCu);
+          _os_log_impl(&dword_181A37000, v75, v76, "%{public}s called with null hash_table", buf, 0xCu);
         }
       }
 
-      else if (v128 == 1)
+      else if (v124 == 1)
       {
-        v103 = __nw_create_backtrace_string();
-        v79 = __nwlog_obj();
-        v119 = type[0];
-        v104 = os_log_type_enabled(v79, type[0]);
-        if (v103)
+        v99 = __nw_create_backtrace_string();
+        v75 = __nwlog_obj();
+        v115 = type[0];
+        v100 = os_log_type_enabled(v75, type[0]);
+        if (v99)
         {
-          if (v104)
+          if (v100)
           {
             *buf = 136446466;
             *&buf[4] = "nw_context_get_active_instance_count_for_hash_table";
             *&buf[12] = 2082;
-            *&buf[14] = v103;
-            _os_log_impl(&dword_181A37000, v79, v119, "%{public}s called with null hash_table, dumping backtrace:%{public}s", buf, 0x16u);
+            *&buf[14] = v99;
+            _os_log_impl(&dword_181A37000, v75, v115, "%{public}s called with null hash_table, dumping backtrace:%{public}s", buf, 0x16u);
           }
 
-          free(v103);
+          free(v99);
           goto LABEL_208;
         }
 
-        if (v104)
+        if (v100)
         {
           *buf = 136446210;
           *&buf[4] = "nw_context_get_active_instance_count_for_hash_table";
-          _os_log_impl(&dword_181A37000, v79, v119, "%{public}s called with null hash_table, no backtrace", buf, 0xCu);
+          _os_log_impl(&dword_181A37000, v75, v115, "%{public}s called with null hash_table, no backtrace", buf, 0xCu);
         }
       }
 
       else
       {
-        v79 = __nwlog_obj();
-        v115 = type[0];
-        if (os_log_type_enabled(v79, type[0]))
+        v75 = __nwlog_obj();
+        v111 = type[0];
+        if (os_log_type_enabled(v75, type[0]))
         {
           *buf = 136446210;
           *&buf[4] = "nw_context_get_active_instance_count_for_hash_table";
-          _os_log_impl(&dword_181A37000, v79, v115, "%{public}s called with null hash_table, backtrace limit exceeded", buf, 0xCu);
+          _os_log_impl(&dword_181A37000, v75, v111, "%{public}s called with null hash_table, backtrace limit exceeded", buf, 0xCu);
         }
       }
     }
 
 LABEL_208:
-    if (v78)
+    if (v74)
     {
-      free(v78);
+      free(v74);
     }
 
-    v37 = 0;
+    v36 = 0;
 LABEL_43:
 
-    v38 = *(*(v6 + 3) + 40);
-    v39 = v36;
-    v40 = v39;
-    if (v38)
+    v37 = *(*(v6 + 3) + 40);
+    v38 = v35;
+    v39 = v38;
+    if (v37)
     {
       *type = 0;
-      v125 = type;
-      v126 = 0x2020000000;
-      v127 = 0;
+      v121 = type;
+      v122 = 0x2020000000;
+      v123 = 0;
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = ___ZL51nw_context_get_active_instance_count_for_hash_tableP21NWConcrete_nw_contextP13nw_hash_table_block_invoke;
-      *&v130 = &unk_1E6A3CD58;
-      v131 = type;
-      *(&v130 + 1) = v39;
-      nw_hash_table_apply(v38, buf);
-      v41 = *(v125 + 3);
+      *&v126 = &unk_1E6A3CD58;
+      v127 = type;
+      *(&v126 + 1) = v38;
+      nw_hash_table_apply(v37, buf);
+      v40 = *(v121 + 3);
 
       _Block_object_dispose(type, 8);
       goto LABEL_45;
     }
 
-    v81 = __nwlog_obj();
+    v77 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_context_get_active_instance_count_for_hash_table";
-    v121 = _os_log_send_and_compose_impl();
+    LODWORD(v114) = 12;
+    v117 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v77, 16, "%{public}s called with null hash_table", buf, v114);
 
     type[0] = OS_LOG_TYPE_ERROR;
-    v128 = 0;
-    v82 = v121;
-    if (!__nwlog_fault(v121, type, &v128))
+    v124 = 0;
+    v78 = v117;
+    if (!__nwlog_fault(v117, type, &v124))
     {
 LABEL_215:
-      if (v82)
+      if (v78)
       {
-        free(v82);
+        free(v78);
       }
 
-      v41 = 0;
+      v40 = 0;
 LABEL_45:
 
-      v42 = *(*(v6 + 3) + 48);
-      v43 = v40;
-      v44 = v43;
-      if (v42)
+      v41 = *(*(v6 + 3) + 48);
+      v42 = v39;
+      v43 = v42;
+      if (v41)
       {
         *type = 0;
-        v125 = type;
-        v126 = 0x2020000000;
-        v127 = 0;
+        v121 = type;
+        v122 = 0x2020000000;
+        v123 = 0;
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = ___ZL51nw_context_get_active_instance_count_for_hash_tableP21NWConcrete_nw_contextP13nw_hash_table_block_invoke;
-        *&v130 = &unk_1E6A3CD58;
-        v131 = type;
-        *(&v130 + 1) = v43;
-        nw_hash_table_apply(v42, buf);
-        v45 = *(v125 + 3);
+        *&v126 = &unk_1E6A3CD58;
+        v127 = type;
+        *(&v126 + 1) = v42;
+        nw_hash_table_apply(v41, buf);
+        v44 = *(v121 + 3);
 
         _Block_object_dispose(type, 8);
 LABEL_47:
 
-        v46 = v41 + v37 + v45;
-        if ((*(v44 + 153) & 2) != 0 && !v46 || (*(v44 + 153) & 2) == 0 && v46)
+        v45 = v40 + v36 + v44;
+        if ((*(v43 + 153) & 2) != 0 && !v45 || (*(v43 + 153) & 2) == 0 && v45)
         {
-          if (v44[9])
+          if (v43[9])
           {
-            v47 = _Block_copy(v32[10]);
-            v48 = v44[9];
+            v46 = _Block_copy(v32[10]);
+            v47 = v43[9];
             block[0] = MEMORY[0x1E69E9820];
             block[1] = 3221225472;
             block[2] = ___ZL26nw_context_purge_endpointsP21NWConcrete_nw_contextb_block_invoke;
             block[3] = &unk_1E6A3B8C0;
-            block[4] = v47;
-            v123 = v46 == 0;
-            dispatch_async(v48, block);
+            block[4] = v46;
+            v119 = v45 == 0;
+            dispatch_async(v47, block);
           }
 
           else
           {
-            (*(v32[10] + 2))(v32[10], v46 == 0);
+            (*(v32[10] + 2))();
           }
         }
 
-        *(v44 + 153) = *(v44 + 153) & 0xFD | (2 * (v46 != 0));
+        *(v43 + 153) = *(v43 + 153) & 0xFD | (2 * (v45 != 0));
         goto LABEL_55;
       }
 
-      v85 = __nwlog_obj();
+      v81 = __nwlog_obj();
       *buf = 136446210;
       *&buf[4] = "nw_context_get_active_instance_count_for_hash_table";
-      v86 = _os_log_send_and_compose_impl();
+      LODWORD(v114) = 12;
+      v82 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v81, 16, "%{public}s called with null hash_table", buf, v114);
 
       type[0] = OS_LOG_TYPE_ERROR;
-      v128 = 0;
-      if (__nwlog_fault(v86, type, &v128))
+      v124 = 0;
+      if (__nwlog_fault(v82, type, &v124))
       {
         if (type[0] == OS_LOG_TYPE_FAULT)
         {
-          v87 = __nwlog_obj();
-          v88 = type[0];
-          if (os_log_type_enabled(v87, type[0]))
+          v83 = __nwlog_obj();
+          v84 = type[0];
+          if (os_log_type_enabled(v83, type[0]))
           {
             *buf = 136446210;
             *&buf[4] = "nw_context_get_active_instance_count_for_hash_table";
-            _os_log_impl(&dword_181A37000, v87, v88, "%{public}s called with null hash_table", buf, 0xCu);
+            _os_log_impl(&dword_181A37000, v83, v84, "%{public}s called with null hash_table", buf, 0xCu);
           }
         }
 
-        else if (v128 == 1)
+        else if (v124 == 1)
         {
-          v108 = __nw_create_backtrace_string();
-          v87 = __nwlog_obj();
-          v120 = type[0];
-          v109 = os_log_type_enabled(v87, type[0]);
-          if (v108)
+          v104 = __nw_create_backtrace_string();
+          v83 = __nwlog_obj();
+          v116 = type[0];
+          v105 = os_log_type_enabled(v83, type[0]);
+          if (v104)
           {
-            if (v109)
+            if (v105)
             {
               *buf = 136446466;
               *&buf[4] = "nw_context_get_active_instance_count_for_hash_table";
               *&buf[12] = 2082;
-              *&buf[14] = v108;
-              _os_log_impl(&dword_181A37000, v87, v120, "%{public}s called with null hash_table, dumping backtrace:%{public}s", buf, 0x16u);
+              *&buf[14] = v104;
+              _os_log_impl(&dword_181A37000, v83, v116, "%{public}s called with null hash_table, dumping backtrace:%{public}s", buf, 0x16u);
             }
 
-            free(v108);
+            free(v104);
             goto LABEL_221;
           }
 
-          if (v109)
+          if (v105)
           {
             *buf = 136446210;
             *&buf[4] = "nw_context_get_active_instance_count_for_hash_table";
-            _os_log_impl(&dword_181A37000, v87, v120, "%{public}s called with null hash_table, no backtrace", buf, 0xCu);
+            _os_log_impl(&dword_181A37000, v83, v116, "%{public}s called with null hash_table, no backtrace", buf, 0xCu);
           }
         }
 
         else
         {
-          v87 = __nwlog_obj();
-          v117 = type[0];
-          if (os_log_type_enabled(v87, type[0]))
+          v83 = __nwlog_obj();
+          v113 = type[0];
+          if (os_log_type_enabled(v83, type[0]))
           {
             *buf = 136446210;
             *&buf[4] = "nw_context_get_active_instance_count_for_hash_table";
-            _os_log_impl(&dword_181A37000, v87, v117, "%{public}s called with null hash_table, backtrace limit exceeded", buf, 0xCu);
+            _os_log_impl(&dword_181A37000, v83, v113, "%{public}s called with null hash_table, backtrace limit exceeded", buf, 0xCu);
           }
         }
       }
 
 LABEL_221:
-      if (v86)
+      if (v82)
       {
-        free(v86);
+        free(v82);
       }
 
-      v45 = 0;
+      v44 = 0;
       goto LABEL_47;
     }
 
     if (type[0] == OS_LOG_TYPE_FAULT)
     {
-      v83 = __nwlog_obj();
-      v84 = type[0];
-      if (os_log_type_enabled(v83, type[0]))
+      v79 = __nwlog_obj();
+      v80 = type[0];
+      if (os_log_type_enabled(v79, type[0]))
       {
         *buf = 136446210;
         *&buf[4] = "nw_context_get_active_instance_count_for_hash_table";
-        _os_log_impl(&dword_181A37000, v83, v84, "%{public}s called with null hash_table", buf, 0xCu);
+        _os_log_impl(&dword_181A37000, v79, v80, "%{public}s called with null hash_table", buf, 0xCu);
       }
     }
 
     else
     {
-      if (v128 == 1)
+      if (v124 == 1)
       {
-        v105 = __nw_create_backtrace_string();
-        v106 = __nwlog_obj();
-        v118 = type[0];
-        v107 = os_log_type_enabled(v106, type[0]);
-        if (v105)
+        v101 = __nw_create_backtrace_string();
+        v102 = __nwlog_obj();
+        HIDWORD(v114) = type[0];
+        v103 = os_log_type_enabled(v102, type[0]);
+        if (v101)
         {
-          if (v107)
+          if (v103)
           {
             *buf = 136446466;
             *&buf[4] = "nw_context_get_active_instance_count_for_hash_table";
             *&buf[12] = 2082;
-            *&buf[14] = v105;
-            _os_log_impl(&dword_181A37000, v106, v118, "%{public}s called with null hash_table, dumping backtrace:%{public}s", buf, 0x16u);
+            *&buf[14] = v101;
+            _os_log_impl(&dword_181A37000, v102, BYTE4(v114), "%{public}s called with null hash_table, dumping backtrace:%{public}s", buf, 0x16u);
           }
 
-          free(v105);
+          free(v101);
         }
 
         else
         {
-          if (v107)
+          if (v103)
           {
             *buf = 136446210;
             *&buf[4] = "nw_context_get_active_instance_count_for_hash_table";
-            _os_log_impl(&dword_181A37000, v106, v118, "%{public}s called with null hash_table, no backtrace", buf, 0xCu);
+            _os_log_impl(&dword_181A37000, v102, BYTE4(v114), "%{public}s called with null hash_table, no backtrace", buf, 0xCu);
           }
         }
 
         goto LABEL_214;
       }
 
-      v83 = __nwlog_obj();
-      v116 = type[0];
-      if (os_log_type_enabled(v83, type[0]))
+      v79 = __nwlog_obj();
+      v112 = type[0];
+      if (os_log_type_enabled(v79, type[0]))
       {
         *buf = 136446210;
         *&buf[4] = "nw_context_get_active_instance_count_for_hash_table";
-        _os_log_impl(&dword_181A37000, v83, v116, "%{public}s called with null hash_table, backtrace limit exceeded", buf, 0xCu);
+        _os_log_impl(&dword_181A37000, v79, v112, "%{public}s called with null hash_table, backtrace limit exceeded", buf, 0xCu);
       }
     }
 
 LABEL_214:
-    v82 = v121;
+    v78 = v117;
     goto LABEL_215;
   }
 
 LABEL_55:
-  if (!nw_hash_table_count(*(*(v6 + 3) + 32), v33) && !nw_hash_table_count(*(*(v6 + 3) + 40), v49) && !nw_hash_table_count(*(*(v6 + 3) + 48), v50))
+  if (!nw_hash_table_count(*(*(v6 + 3) + 32)) && !nw_hash_table_count(*(*(v6 + 3) + 40)) && !nw_hash_table_count(*(*(v6 + 3) + 48)))
   {
-    v52 = *(*(v6 + 3) + 56);
-    if (v52)
+    v48 = *(*(v6 + 3) + 56);
+    if (v48)
     {
-      nw_queue_cancel_source(v52, v51);
+      nw_queue_cancel_source(v48);
       *(*(v6 + 3) + 56) = 0;
     }
   }
@@ -7548,7 +7635,7 @@ uint64_t nw_queue_context_target_dispatch_queue(void *a1, void *a2)
     v13 = __nwlog_obj();
     *buf = 136446210;
     v25 = "nw_queue_context_target_dispatch_queue";
-    v10 = _os_log_send_and_compose_impl();
+    v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v13, 16, "%{public}s called with null queue", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v22 = 0;
@@ -7618,7 +7705,7 @@ LABEL_36:
     v9 = __nwlog_obj();
     *buf = 136446210;
     v25 = "nw_queue_context_target_dispatch_queue";
-    v10 = _os_log_send_and_compose_impl();
+    v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s called with null context", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v22 = 0;
@@ -7735,28 +7822,29 @@ LABEL_8:
   return v3;
 }
 
-uint64_t nw_context_create(const char *a1)
+void *nw_context_create(const char *a1)
 {
   v2 = [NWConcrete_nw_context alloc];
 
   return [(NWConcrete_nw_context *)v2 initWithIdentifier:a1];
 }
 
-void nw_context_set_privacy_level(void *a1, int a2)
+void nw_context_set_privacy_level(void *a1, uint64_t a2)
 {
+  v2 = a2;
   v19 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = v3;
   if (v3)
   {
-    nw_context_set_privacy_level_internal(v3, a2, a2 == 4);
+    nw_context_set_privacy_level_internal(v3, v2, v2 == 4);
     goto LABEL_3;
   }
 
   v5 = __nwlog_obj();
   *buf = 136446210;
   v16 = "nw_context_set_privacy_level";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null context", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v13 = 0;
@@ -7847,7 +7935,7 @@ void nw_context_set_privacy_level_internal(void *a1, int a2, char a3)
     else
     {
       *(v6 + 33) = a2;
-      *(v6 + 153) = *(v6 + 153) & 0xFE | a3;
+      v6[153] = v6[153] & 0xFE | a3;
       v7 = *(v6 + 5);
       if (v7)
       {
@@ -7862,7 +7950,7 @@ void nw_context_set_privacy_level_internal(void *a1, int a2, char a3)
   v8 = __nwlog_obj();
   *buf = 136446210;
   v23 = "nw_context_set_privacy_level_internal";
-  v9 = _os_log_send_and_compose_impl();
+  v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s called with null context", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v20 = 0;
@@ -8129,7 +8217,7 @@ LABEL_13:
 
           else
           {
-            sub_181A47778(0);
+            sub_181A47778();
             v11 = *(v0 + v9);
             if ((v11 & 0x40) != 0)
             {
@@ -8137,7 +8225,7 @@ LABEL_13:
             }
 
 LABEL_15:
-            sub_181A47778(1);
+            sub_181A47778();
           }
 
           os_unfair_lock_unlock(v8 + 4);
@@ -8159,11 +8247,11 @@ BOOL nw_association_is_empty(void *a1)
   {
     v3 = nw_path_parameters_copy_context(v1[2]);
     nw_context_assert_queue(v3);
-    v4 = *(v2 + 7);
+    v4 = v2[7];
     if (v4 && *(v4 + 48))
     {
       v5 = time(0);
-      v6 = *(v2 + 7);
+      v6 = v2[7];
       v18[0] = MEMORY[0x1E69E9820];
       v18[1] = 3221225472;
       v18[2] = __nw_association_is_empty_block_invoke;
@@ -8176,7 +8264,7 @@ BOOL nw_association_is_empty(void *a1)
 
     if (*(v2 + 76))
     {
-      v8 = *(v2 + 7);
+      v8 = v2[7];
       if (v8)
       {
         v7 = *(v8 + 48) == 0;
@@ -8199,7 +8287,7 @@ BOOL nw_association_is_empty(void *a1)
   v10 = __nwlog_obj();
   *buf = 136446210;
   v25 = "nw_association_is_empty";
-  v11 = _os_log_send_and_compose_impl();
+  v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s called with null association", buf, 12);
 
   v23 = OS_LOG_TYPE_ERROR;
   v22 = 0;
@@ -8271,27 +8359,27 @@ LABEL_11:
   return v7;
 }
 
-uint64_t sub_181A47778(uint64_t a1)
+uint64_t sub_181A47778()
 {
-  v3 = v1;
-  v4 = OBJC_IVAR____TtC7Network8Endpoint_storage;
+  v1 = v0;
+  v2 = OBJC_IVAR____TtC7Network8Endpoint_storage;
   swift_beginAccess();
-  v5 = sub_181A41ED0(a1);
-  if (v6)
+  v3 = sub_181A41ED0();
+  if (v4)
   {
-    v7 = v5;
+    v5 = v3;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v9 = *(v1 + v4);
-    v11 = *(v3 + v4);
-    *(v3 + v4) = 0x8000000000000000;
+    v7 = *(v0 + v2);
+    v9 = *(v1 + v2);
+    *(v1 + v2) = 0x8000000000000000;
     if (!isUniquelyReferenced_nonNull_native)
     {
       sub_182254CDC();
-      v9 = v11;
+      v7 = v9;
     }
 
-    sub_181BE0664(v7, v9);
-    *(v3 + v4) = v9;
+    sub_181BE0664(v5, v7);
+    *(v1 + v2) = v7;
   }
 
   return swift_endAccess();
@@ -8299,90 +8387,90 @@ uint64_t sub_181A47778(uint64_t a1)
 
 uint64_t ___ZL36nw_context_purge_endpoint_hash_tableP21NWConcrete_nw_contextP13nw_hash_tablePKc_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   object = nw_hash_node_get_object(a2);
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = ___ZL36nw_context_purge_endpoint_hash_tableP21NWConcrete_nw_contextP13nw_hash_tablePKc_block_invoke_2;
-  v29[3] = &unk_1E6A35D48;
-  v31 = object;
-  v30 = *(a1 + 32);
-  nw_hash_table_apply(object, v29);
-  if (nw_hash_table_count(object, v5) || (nw_hash_table_remove_node(*(a1 + 40), a2) & 1) != 0)
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = ___ZL36nw_context_purge_endpoint_hash_tableP21NWConcrete_nw_contextP13nw_hash_tablePKc_block_invoke_2;
+  v28[3] = &unk_1E6A35D48;
+  v30 = object;
+  v29 = *(a1 + 32);
+  nw_hash_table_apply(object, v28);
+  if (nw_hash_table_count(object) || (nw_hash_table_remove_node(*(a1 + 40), a2) & 1) != 0)
   {
     goto LABEL_10;
   }
 
   pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
   networkd_settings_init();
-  v6 = gLogObj;
-  v7 = *(a1 + 32);
-  v8 = *(a1 + 48);
+  v5 = gLogObj;
+  v6 = *(a1 + 32);
+  v7 = *(a1 + 48);
   *buf = 136446978;
-  v33 = "nw_context_purge_endpoint_hash_table_block_invoke";
-  v34 = 2114;
-  v35 = v7;
-  v36 = 2080;
-  v37 = v8;
-  v38 = 2048;
-  v39 = a2;
-  v9 = _os_log_send_and_compose_impl();
+  v32 = "nw_context_purge_endpoint_hash_table_block_invoke";
+  v33 = 2114;
+  v34 = v6;
+  v35 = 2080;
+  v36 = v7;
+  v37 = 2048;
+  v38 = a2;
+  v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s %{public}@ failed to remove %s hash table for node %p", buf, 42);
 
   type = OS_LOG_TYPE_ERROR;
-  v27 = 0;
-  if (__nwlog_fault(v9, &type, &v27))
+  v26 = 0;
+  if (__nwlog_fault(v8, &type, &v26))
   {
     if (type == OS_LOG_TYPE_FAULT)
     {
       pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
       networkd_settings_init();
-      v10 = gLogObj;
-      v11 = type;
-      if (os_log_type_enabled(v10, type))
+      v9 = gLogObj;
+      v10 = type;
+      if (os_log_type_enabled(v9, type))
       {
-        v12 = *(a1 + 32);
-        v13 = *(a1 + 48);
+        v11 = *(a1 + 32);
+        v12 = *(a1 + 48);
         *buf = 136446978;
-        v33 = "nw_context_purge_endpoint_hash_table_block_invoke";
-        v34 = 2114;
-        v35 = v12;
-        v36 = 2080;
-        v37 = v13;
-        v38 = 2048;
-        v39 = a2;
-        _os_log_impl(&dword_181A37000, v10, v11, "%{public}s %{public}@ failed to remove %s hash table for node %p", buf, 0x2Au);
+        v32 = "nw_context_purge_endpoint_hash_table_block_invoke";
+        v33 = 2114;
+        v34 = v11;
+        v35 = 2080;
+        v36 = v12;
+        v37 = 2048;
+        v38 = a2;
+        _os_log_impl(&dword_181A37000, v9, v10, "%{public}s %{public}@ failed to remove %s hash table for node %p", buf, 0x2Au);
       }
     }
 
-    else if (v27 == 1)
+    else if (v26 == 1)
     {
       backtrace_string = __nw_create_backtrace_string();
       if (backtrace_string)
       {
-        v16 = backtrace_string;
+        v15 = backtrace_string;
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
         networkd_settings_init();
-        v17 = gLogObj;
-        v18 = type;
-        if (os_log_type_enabled(v17, type))
+        v16 = gLogObj;
+        v17 = type;
+        if (os_log_type_enabled(v16, type))
         {
-          v19 = *(a1 + 32);
-          v20 = *(a1 + 48);
+          v18 = *(a1 + 32);
+          v19 = *(a1 + 48);
           *buf = 136447234;
-          v33 = "nw_context_purge_endpoint_hash_table_block_invoke";
-          v34 = 2114;
-          v35 = v19;
-          v36 = 2080;
-          v37 = v20;
-          v38 = 2048;
-          v39 = a2;
-          v40 = 2082;
-          v41 = v16;
-          _os_log_impl(&dword_181A37000, v17, v18, "%{public}s %{public}@ failed to remove %s hash table for node %p, dumping backtrace:%{public}s", buf, 0x34u);
+          v32 = "nw_context_purge_endpoint_hash_table_block_invoke";
+          v33 = 2114;
+          v34 = v18;
+          v35 = 2080;
+          v36 = v19;
+          v37 = 2048;
+          v38 = a2;
+          v39 = 2082;
+          v40 = v15;
+          _os_log_impl(&dword_181A37000, v16, v17, "%{public}s %{public}@ failed to remove %s hash table for node %p, dumping backtrace:%{public}s", buf, 0x34u);
         }
 
-        free(v16);
-        if (v9)
+        free(v15);
+        if (v8)
         {
           goto LABEL_9;
         }
@@ -8390,21 +8478,21 @@ uint64_t ___ZL36nw_context_purge_endpoint_hash_tableP21NWConcrete_nw_contextP13n
         goto LABEL_10;
       }
 
-      v10 = __nwlog_obj();
-      v24 = type;
-      if (os_log_type_enabled(v10, type))
+      v9 = __nwlog_obj();
+      v23 = type;
+      if (os_log_type_enabled(v9, type))
       {
-        v25 = *(a1 + 32);
-        v26 = *(a1 + 48);
+        v24 = *(a1 + 32);
+        v25 = *(a1 + 48);
         *buf = 136446978;
-        v33 = "nw_context_purge_endpoint_hash_table_block_invoke";
-        v34 = 2114;
-        v35 = v25;
-        v36 = 2080;
-        v37 = v26;
-        v38 = 2048;
-        v39 = a2;
-        _os_log_impl(&dword_181A37000, v10, v24, "%{public}s %{public}@ failed to remove %s hash table for node %p, no backtrace", buf, 0x2Au);
+        v32 = "nw_context_purge_endpoint_hash_table_block_invoke";
+        v33 = 2114;
+        v34 = v24;
+        v35 = 2080;
+        v36 = v25;
+        v37 = 2048;
+        v38 = a2;
+        _os_log_impl(&dword_181A37000, v9, v23, "%{public}s %{public}@ failed to remove %s hash table for node %p, no backtrace", buf, 0x2Au);
       }
     }
 
@@ -8412,29 +8500,29 @@ uint64_t ___ZL36nw_context_purge_endpoint_hash_tableP21NWConcrete_nw_contextP13n
     {
       pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
       networkd_settings_init();
-      v10 = gLogObj;
-      v21 = type;
-      if (os_log_type_enabled(v10, type))
+      v9 = gLogObj;
+      v20 = type;
+      if (os_log_type_enabled(v9, type))
       {
-        v22 = *(a1 + 32);
-        v23 = *(a1 + 48);
+        v21 = *(a1 + 32);
+        v22 = *(a1 + 48);
         *buf = 136446978;
-        v33 = "nw_context_purge_endpoint_hash_table_block_invoke";
-        v34 = 2114;
-        v35 = v22;
-        v36 = 2080;
-        v37 = v23;
-        v38 = 2048;
-        v39 = a2;
-        _os_log_impl(&dword_181A37000, v10, v21, "%{public}s %{public}@ failed to remove %s hash table for node %p, backtrace limit exceeded", buf, 0x2Au);
+        v32 = "nw_context_purge_endpoint_hash_table_block_invoke";
+        v33 = 2114;
+        v34 = v21;
+        v35 = 2080;
+        v36 = v22;
+        v37 = 2048;
+        v38 = a2;
+        _os_log_impl(&dword_181A37000, v9, v20, "%{public}s %{public}@ failed to remove %s hash table for node %p, backtrace limit exceeded", buf, 0x2Au);
       }
     }
   }
 
-  if (v9)
+  if (v8)
   {
 LABEL_9:
-    free(v9);
+    free(v8);
   }
 
 LABEL_10:
@@ -8442,12 +8530,12 @@ LABEL_10:
   return 1;
 }
 
-uint64_t __nw_association_is_empty_block_invoke(uint64_t a1, uint64_t a2)
+uint64_t __nw_association_is_empty_block_invoke(void *a1, uint64_t a2)
 {
   v40 = *MEMORY[0x1E69E9840];
   v4 = nw_hash_node_get_object(a2);
   extra = nw_hash_node_get_extra(a2);
-  if (*(a1 + 48) > *(extra + 32))
+  if (a1[6] > *(extra + 32))
   {
     v6 = extra;
     v7 = *(extra + 40);
@@ -8456,8 +8544,8 @@ uint64_t __nw_association_is_empty_block_invoke(uint64_t a1, uint64_t a2)
       nw_protocol_definition_deallocate_cache_entry(v4, v7);
     }
 
-    nw_context_remove_cache_entry(*(a1 + 32), v6);
-    if ((nw_hash_table_remove_node(*(*(a1 + 40) + 56), a2) & 1) == 0 && (nw_path_parameters_get_logging_disabled(*(*(a1 + 40) + 16)) & 1) == 0)
+    nw_context_remove_cache_entry(a1[4], v6);
+    if ((nw_hash_table_remove_node(*(a1[5] + 56), a2) & 1) == 0 && (nw_path_parameters_get_logging_disabled(*(a1[5] + 16)) & 1) == 0)
     {
       if (__nwlog_connection_log::onceToken[0] != -1)
       {
@@ -8465,7 +8553,7 @@ uint64_t __nw_association_is_empty_block_invoke(uint64_t a1, uint64_t a2)
       }
 
       v8 = gconnectionLogObj;
-      v9 = *(*(a1 + 40) + 8);
+      v9 = *(a1[5] + 8);
       v10 = v9;
       if (v9)
       {
@@ -8483,7 +8571,7 @@ uint64_t __nw_association_is_empty_block_invoke(uint64_t a1, uint64_t a2)
       v35 = logging_description;
       v36 = 2048;
       v37 = a2;
-      v12 = _os_log_send_and_compose_impl();
+      v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s <nw_association %{public}s> failed to remove cache entry for node %p", buf, 32);
 
       type = OS_LOG_TYPE_ERROR;
       v30 = 0;
@@ -8503,7 +8591,7 @@ uint64_t __nw_association_is_empty_block_invoke(uint64_t a1, uint64_t a2)
         v14 = type;
         if (os_log_type_enabled(v13, type))
         {
-          v15 = *(*(a1 + 40) + 8);
+          v15 = *(a1[5] + 8);
           v16 = v15;
           if (v15)
           {
@@ -8540,7 +8628,7 @@ uint64_t __nw_association_is_empty_block_invoke(uint64_t a1, uint64_t a2)
           v21 = type;
           if (os_log_type_enabled(v20, type))
           {
-            v22 = nw_endpoint_get_logging_description(*(*(a1 + 40) + 8));
+            v22 = nw_endpoint_get_logging_description(*(a1[5] + 8));
             *buf = 136446978;
             v33 = "nw_association_is_empty_block_invoke";
             v34 = 2082;
@@ -8565,7 +8653,7 @@ uint64_t __nw_association_is_empty_block_invoke(uint64_t a1, uint64_t a2)
         v27 = type;
         if (os_log_type_enabled(v13, type))
         {
-          v28 = nw_endpoint_get_logging_description(*(*(a1 + 40) + 8));
+          v28 = nw_endpoint_get_logging_description(*(a1[5] + 8));
           *buf = 136446722;
           v33 = "nw_association_is_empty_block_invoke";
           v34 = 2082;
@@ -8587,7 +8675,7 @@ uint64_t __nw_association_is_empty_block_invoke(uint64_t a1, uint64_t a2)
         v23 = type;
         if (os_log_type_enabled(v13, type))
         {
-          v24 = *(*(a1 + 40) + 8);
+          v24 = *(a1[5] + 8);
           v25 = v24;
           if (v24)
           {
@@ -8622,82 +8710,82 @@ LABEL_41:
 
 uint64_t nw_context_get_globals_for_channel(void *a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = &__block_literal_global_33_92229;
   if (!v1)
   {
-    v10 = __nwlog_obj();
+    v13 = __nwlog_obj();
     *buf = 136446210;
-    v21 = "nw_context_get_globals_for_channel";
-    v11 = _os_log_send_and_compose_impl();
+    v24 = "nw_context_get_globals_for_channel";
+    v14 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v13, 16, "%{public}s called with null context", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
-    v18 = 0;
-    if (__nwlog_fault(v11, &type, &v18))
+    v21 = 0;
+    if (__nwlog_fault(v14, &type, &v21))
     {
       if (type == OS_LOG_TYPE_FAULT)
       {
-        v12 = __nwlog_obj();
-        v13 = type;
-        if (os_log_type_enabled(v12, type))
+        v15 = __nwlog_obj();
+        v16 = type;
+        if (os_log_type_enabled(v15, type))
         {
           *buf = 136446210;
-          v21 = "nw_context_get_globals_for_channel";
-          _os_log_impl(&dword_181A37000, v12, v13, "%{public}s called with null context", buf, 0xCu);
+          v24 = "nw_context_get_globals_for_channel";
+          _os_log_impl(&dword_181A37000, v15, v16, "%{public}s called with null context", buf, 0xCu);
         }
       }
 
-      else if (v18 == 1)
+      else if (v21 == 1)
       {
         backtrace_string = __nw_create_backtrace_string();
-        v12 = __nwlog_obj();
-        v15 = type;
-        v16 = os_log_type_enabled(v12, type);
+        v15 = __nwlog_obj();
+        v18 = type;
+        v19 = os_log_type_enabled(v15, type);
         if (backtrace_string)
         {
-          if (v16)
+          if (v19)
           {
             *buf = 136446466;
-            v21 = "nw_context_get_globals_for_channel";
-            v22 = 2082;
-            v23 = backtrace_string;
-            _os_log_impl(&dword_181A37000, v12, v15, "%{public}s called with null context, dumping backtrace:%{public}s", buf, 0x16u);
+            v24 = "nw_context_get_globals_for_channel";
+            v25 = 2082;
+            v26 = backtrace_string;
+            _os_log_impl(&dword_181A37000, v15, v18, "%{public}s called with null context, dumping backtrace:%{public}s", buf, 0x16u);
           }
 
           free(backtrace_string);
-          goto LABEL_25;
+          goto LABEL_28;
         }
 
-        if (v16)
+        if (v19)
         {
           *buf = 136446210;
-          v21 = "nw_context_get_globals_for_channel";
-          _os_log_impl(&dword_181A37000, v12, v15, "%{public}s called with null context, no backtrace", buf, 0xCu);
+          v24 = "nw_context_get_globals_for_channel";
+          _os_log_impl(&dword_181A37000, v15, v18, "%{public}s called with null context, no backtrace", buf, 0xCu);
         }
       }
 
       else
       {
-        v12 = __nwlog_obj();
-        v17 = type;
-        if (os_log_type_enabled(v12, type))
+        v15 = __nwlog_obj();
+        v20 = type;
+        if (os_log_type_enabled(v15, type))
         {
           *buf = 136446210;
-          v21 = "nw_context_get_globals_for_channel";
-          _os_log_impl(&dword_181A37000, v12, v17, "%{public}s called with null context, backtrace limit exceeded", buf, 0xCu);
+          v24 = "nw_context_get_globals_for_channel";
+          _os_log_impl(&dword_181A37000, v15, v20, "%{public}s called with null context, backtrace limit exceeded", buf, 0xCu);
         }
       }
     }
 
-LABEL_25:
-    if (v11)
+LABEL_28:
+    if (v14)
     {
-      free(v11);
+      free(v14);
     }
 
     v5 = 0;
-    goto LABEL_8;
+    goto LABEL_11;
   }
 
   v3 = nw_context_copy_globals_context(v1);
@@ -8707,43 +8795,53 @@ LABEL_25:
   v5 = *(v4 + 60);
   if (v5)
   {
-LABEL_7:
+LABEL_10:
     os_unfair_lock_unlock((v4 + 40));
 
-LABEL_8:
+LABEL_11:
     return v5;
   }
 
   v6 = malloc_type_calloc(1uLL, 0x18uLL, 0xA8C41A1EuLL);
+  v8 = v6;
   if (v6)
   {
-LABEL_6:
-    *(*(v3 + 4) + 60) = v6;
-    *v6 = nw_dictionary_create();
-    v6[1] = _nw_array_create();
-    v6[2] = 0;
+LABEL_9:
+    *(*(v3 + 4) + 60) = v8;
+    *v8 = nw_dictionary_create(v6, v7);
+    v8[1] = _nw_array_create();
+    v8[2] = 0;
     v4 = *(v3 + 4);
     v5 = *(v4 + 60);
-    goto LABEL_7;
+    goto LABEL_10;
   }
 
   pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
   networkd_settings_init();
-  v7 = gLogObj;
-  os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
+  v9 = gLogObj;
   *buf = 136446722;
-  v21 = "nw_context_get_globals_for_channel";
-  v22 = 2048;
-  v23 = 1;
-  v24 = 2048;
-  v25 = 24;
-  v8 = _os_log_send_and_compose_impl();
+  v24 = "nw_context_get_globals_for_channel";
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  {
+    v10 = 3;
+  }
 
-  result = __nwlog_should_abort(v8);
+  else
+  {
+    v10 = 2;
+  }
+
+  v25 = 2048;
+  v26 = 1;
+  v27 = 2048;
+  v28 = 24;
+  v11 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s strict_calloc(%zu, %zu) failed", buf, 32);
+
+  result = __nwlog_should_abort(v11);
   if (!result)
   {
-    free(v8);
-    goto LABEL_6;
+    free(v11);
+    goto LABEL_9;
   }
 
   __break(1u);
@@ -8752,46 +8850,46 @@ LABEL_6:
 
 BOOL nw_dictionary_apply(uint64_t a1, uint64_t a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    __nwlog_obj();
+    v4 = __nwlog_obj();
     *buf = 136446210;
-    v17 = "nw_dictionary_apply";
-    v4 = _os_log_send_and_compose_impl();
-    v15 = OS_LOG_TYPE_ERROR;
-    v14 = 0;
-    if (!__nwlog_fault(v4, &v15, &v14))
+    v20 = "nw_dictionary_apply";
+    v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s called with null dictionary", buf, 12);
+    v18 = OS_LOG_TYPE_ERROR;
+    v17 = 0;
+    if (!__nwlog_fault(v5, &v18, &v17))
     {
       goto LABEL_45;
     }
 
-    if (v15 == OS_LOG_TYPE_FAULT)
+    if (v18 == OS_LOG_TYPE_FAULT)
     {
-      v5 = __nwlog_obj();
-      v6 = v15;
-      if (!os_log_type_enabled(v5, v15))
+      v6 = __nwlog_obj();
+      v7 = v18;
+      if (!os_log_type_enabled(v6, v18))
       {
         goto LABEL_45;
       }
 
       *buf = 136446210;
-      v17 = "nw_dictionary_apply";
-      v7 = "%{public}s called with null dictionary";
+      v20 = "nw_dictionary_apply";
+      v8 = "%{public}s called with null dictionary";
 LABEL_44:
-      _os_log_impl(&dword_181A37000, v5, v6, v7, buf, 0xCu);
+      _os_log_impl(&dword_181A37000, v6, v7, v8, buf, 0xCu);
       goto LABEL_45;
     }
 
-    if (v14 != 1)
+    if (v17 != 1)
     {
-      v5 = __nwlog_obj();
-      v6 = v15;
-      if (os_log_type_enabled(v5, v15))
+      v6 = __nwlog_obj();
+      v7 = v18;
+      if (os_log_type_enabled(v6, v18))
       {
         *buf = 136446210;
-        v17 = "nw_dictionary_apply";
-        v7 = "%{public}s called with null dictionary, backtrace limit exceeded";
+        v20 = "nw_dictionary_apply";
+        v8 = "%{public}s called with null dictionary, backtrace limit exceeded";
         goto LABEL_44;
       }
 
@@ -8799,74 +8897,74 @@ LABEL_44:
     }
 
     backtrace_string = __nw_create_backtrace_string();
-    v5 = __nwlog_obj();
-    v6 = v15;
-    v9 = os_log_type_enabled(v5, v15);
+    v6 = __nwlog_obj();
+    v7 = v18;
+    v12 = os_log_type_enabled(v6, v18);
     if (!backtrace_string)
     {
-      if (v9)
+      if (v12)
       {
         *buf = 136446210;
-        v17 = "nw_dictionary_apply";
-        v7 = "%{public}s called with null dictionary, no backtrace";
+        v20 = "nw_dictionary_apply";
+        v8 = "%{public}s called with null dictionary, no backtrace";
         goto LABEL_44;
       }
 
       goto LABEL_45;
     }
 
-    if (!v9)
+    if (!v12)
     {
       goto LABEL_31;
     }
 
     *buf = 136446466;
-    v17 = "nw_dictionary_apply";
-    v18 = 2082;
-    v19 = backtrace_string;
-    v10 = "%{public}s called with null dictionary, dumping backtrace:%{public}s";
+    v20 = "nw_dictionary_apply";
+    v21 = 2082;
+    v22 = backtrace_string;
+    v13 = "%{public}s called with null dictionary, dumping backtrace:%{public}s";
 LABEL_30:
-    _os_log_impl(&dword_181A37000, v5, v6, v10, buf, 0x16u);
+    _os_log_impl(&dword_181A37000, v6, v7, v13, buf, 0x16u);
     goto LABEL_31;
   }
 
   if (!a2)
   {
-    __nwlog_obj();
+    v9 = __nwlog_obj();
     *buf = 136446210;
-    v17 = "nw_dictionary_apply";
-    v4 = _os_log_send_and_compose_impl();
-    v15 = OS_LOG_TYPE_ERROR;
-    v14 = 0;
-    if (!__nwlog_fault(v4, &v15, &v14))
+    v20 = "nw_dictionary_apply";
+    v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s called with null applier", buf, 12);
+    v18 = OS_LOG_TYPE_ERROR;
+    v17 = 0;
+    if (!__nwlog_fault(v5, &v18, &v17))
     {
       goto LABEL_45;
     }
 
-    if (v15 == OS_LOG_TYPE_FAULT)
+    if (v18 == OS_LOG_TYPE_FAULT)
     {
-      v5 = __nwlog_obj();
-      v6 = v15;
-      if (!os_log_type_enabled(v5, v15))
+      v6 = __nwlog_obj();
+      v7 = v18;
+      if (!os_log_type_enabled(v6, v18))
       {
         goto LABEL_45;
       }
 
       *buf = 136446210;
-      v17 = "nw_dictionary_apply";
-      v7 = "%{public}s called with null applier";
+      v20 = "nw_dictionary_apply";
+      v8 = "%{public}s called with null applier";
       goto LABEL_44;
     }
 
-    if (v14 != 1)
+    if (v17 != 1)
     {
-      v5 = __nwlog_obj();
-      v6 = v15;
-      if (os_log_type_enabled(v5, v15))
+      v6 = __nwlog_obj();
+      v7 = v18;
+      if (os_log_type_enabled(v6, v18))
       {
         *buf = 136446210;
-        v17 = "nw_dictionary_apply";
-        v7 = "%{public}s called with null applier, backtrace limit exceeded";
+        v20 = "nw_dictionary_apply";
+        v8 = "%{public}s called with null applier, backtrace limit exceeded";
         goto LABEL_44;
       }
 
@@ -8874,32 +8972,32 @@ LABEL_30:
     }
 
     backtrace_string = __nw_create_backtrace_string();
-    v5 = __nwlog_obj();
-    v6 = v15;
-    v11 = os_log_type_enabled(v5, v15);
+    v6 = __nwlog_obj();
+    v7 = v18;
+    v14 = os_log_type_enabled(v6, v18);
     if (!backtrace_string)
     {
-      if (v11)
+      if (v14)
       {
         *buf = 136446210;
-        v17 = "nw_dictionary_apply";
-        v7 = "%{public}s called with null applier, no backtrace";
+        v20 = "nw_dictionary_apply";
+        v8 = "%{public}s called with null applier, no backtrace";
         goto LABEL_44;
       }
 
       goto LABEL_45;
     }
 
-    if (!v11)
+    if (!v14)
     {
       goto LABEL_31;
     }
 
     *buf = 136446466;
-    v17 = "nw_dictionary_apply";
-    v18 = 2082;
-    v19 = backtrace_string;
-    v10 = "%{public}s called with null applier, dumping backtrace:%{public}s";
+    v20 = "nw_dictionary_apply";
+    v21 = 2082;
+    v22 = backtrace_string;
+    v13 = "%{public}s called with null applier, dumping backtrace:%{public}s";
     goto LABEL_30;
   }
 
@@ -8915,28 +9013,28 @@ LABEL_30:
     return xpc_dictionary_apply(v2, applier);
   }
 
-  __nwlog_obj();
+  v10 = __nwlog_obj();
   *buf = 136446210;
-  v17 = "nw_dictionary_apply";
-  v4 = _os_log_send_and_compose_impl();
-  v15 = OS_LOG_TYPE_ERROR;
-  v14 = 0;
-  if (!__nwlog_fault(v4, &v15, &v14))
+  v20 = "nw_dictionary_apply";
+  v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s called with null dictionary->xpc_object", buf, 12);
+  v18 = OS_LOG_TYPE_ERROR;
+  v17 = 0;
+  if (!__nwlog_fault(v5, &v18, &v17))
   {
     goto LABEL_45;
   }
 
-  if (v15 != OS_LOG_TYPE_FAULT)
+  if (v18 != OS_LOG_TYPE_FAULT)
   {
-    if (v14 != 1)
+    if (v17 != 1)
     {
-      v5 = __nwlog_obj();
-      v6 = v15;
-      if (os_log_type_enabled(v5, v15))
+      v6 = __nwlog_obj();
+      v7 = v18;
+      if (os_log_type_enabled(v6, v18))
       {
         *buf = 136446210;
-        v17 = "nw_dictionary_apply";
-        v7 = "%{public}s called with null dictionary->xpc_object, backtrace limit exceeded";
+        v20 = "nw_dictionary_apply";
+        v8 = "%{public}s called with null dictionary->xpc_object, backtrace limit exceeded";
         goto LABEL_44;
       }
 
@@ -8944,29 +9042,29 @@ LABEL_30:
     }
 
     backtrace_string = __nw_create_backtrace_string();
-    v5 = __nwlog_obj();
-    v6 = v15;
-    v12 = os_log_type_enabled(v5, v15);
+    v6 = __nwlog_obj();
+    v7 = v18;
+    v15 = os_log_type_enabled(v6, v18);
     if (!backtrace_string)
     {
-      if (v12)
+      if (v15)
       {
         *buf = 136446210;
-        v17 = "nw_dictionary_apply";
-        v7 = "%{public}s called with null dictionary->xpc_object, no backtrace";
+        v20 = "nw_dictionary_apply";
+        v8 = "%{public}s called with null dictionary->xpc_object, no backtrace";
         goto LABEL_44;
       }
 
       goto LABEL_45;
     }
 
-    if (v12)
+    if (v15)
     {
       *buf = 136446466;
-      v17 = "nw_dictionary_apply";
-      v18 = 2082;
-      v19 = backtrace_string;
-      v10 = "%{public}s called with null dictionary->xpc_object, dumping backtrace:%{public}s";
+      v20 = "nw_dictionary_apply";
+      v21 = 2082;
+      v22 = backtrace_string;
+      v13 = "%{public}s called with null dictionary->xpc_object, dumping backtrace:%{public}s";
       goto LABEL_30;
     }
 
@@ -8975,20 +9073,20 @@ LABEL_31:
     goto LABEL_45;
   }
 
-  v5 = __nwlog_obj();
-  v6 = v15;
-  if (os_log_type_enabled(v5, v15))
+  v6 = __nwlog_obj();
+  v7 = v18;
+  if (os_log_type_enabled(v6, v18))
   {
     *buf = 136446210;
-    v17 = "nw_dictionary_apply";
-    v7 = "%{public}s called with null dictionary->xpc_object";
+    v20 = "nw_dictionary_apply";
+    v8 = "%{public}s called with null dictionary->xpc_object";
     goto LABEL_44;
   }
 
 LABEL_45:
-  if (v4)
+  if (v5)
   {
-    free(v4);
+    free(v5);
   }
 
   return 0;
@@ -9027,7 +9125,7 @@ uint64_t ___ZL36nw_context_purge_endpoint_hash_tableP21NWConcrete_nw_contextP13n
   v37 = logging_description;
   v38 = 2048;
   v39 = a2;
-  v10 = _os_log_send_and_compose_impl();
+  v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s %{public}@ failed to remove endpoint %{public}s for node %p", buf, 42);
 
   type = OS_LOG_TYPE_ERROR;
   v30 = 0;
@@ -9257,7 +9355,7 @@ LABEL_15:
 
         if (!swift_isUniquelyReferenced_nonNull_bridgeObject() || (v5 & 0x8000000000000000) != 0 || (v5 & 0x4000000000000000) != 0)
         {
-          v5 = sub_182084878(v5);
+          v5 = sub_182084878();
           v15 = (v5 >> 62) & 1;
         }
 
@@ -9271,7 +9369,7 @@ LABEL_15:
         swift_unknownObjectRelease();
         if ((v5 & 0x8000000000000000) != 0 || v15)
         {
-          v5 = sub_182084878(v5);
+          v5 = sub_182084878();
           v16 = v5 & 0xFFFFFFFFFFFFFF8;
           if ((v9 & 0x8000000000000000) != 0)
           {
@@ -9335,7 +9433,7 @@ LABEL_49:
 
 void ___ZL28nw_context_start_purge_timerP21NWConcrete_nw_context_block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -9345,25 +9443,25 @@ void ___ZL28nw_context_start_purge_timerP21NWConcrete_nw_context_block_invoke(ui
     if (*globals_for_channel)
     {
       *type = 0;
-      v15 = type;
-      v16 = 0x2000000000;
-      v17 = 0;
+      v16 = type;
+      v17 = 0x2000000000;
+      v18 = 0;
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 0x40000000;
       *&buf[16] = __nw_channel_purge_idle_block_invoke;
-      v20 = &unk_1E6A3D328;
-      v21 = type;
+      v21 = &unk_1E6A3D328;
+      v22 = type;
       nw_dictionary_apply(v4, buf);
       os_unfair_lock_unlock((globals_for_channel + 16));
-      v5 = *(v15 + 3);
+      v5 = *(v16 + 3);
       if (v5)
       {
         _nw_array_apply(v5, &__block_literal_global_92231);
-        v6 = *(v15 + 3);
+        v6 = *(v16 + 3);
         if (v6)
         {
           os_release(v6);
-          *(v15 + 3) = 0;
+          *(v16 + 3) = 0;
         }
       }
 
@@ -9378,77 +9476,77 @@ void ___ZL28nw_context_start_purge_timerP21NWConcrete_nw_context_block_invoke(ui
     goto LABEL_8;
   }
 
-  __nwlog_obj();
+  v8 = __nwlog_obj();
   *buf = 136446210;
   *&buf[4] = "nw_channel_purge_idle";
-  v8 = _os_log_send_and_compose_impl();
+  v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s called with null context", buf, 12);
   type[0] = OS_LOG_TYPE_ERROR;
-  v18 = 0;
-  if (__nwlog_fault(v8, type, &v18))
+  v19 = 0;
+  if (__nwlog_fault(v9, type, &v19))
   {
     if (type[0] == OS_LOG_TYPE_FAULT)
     {
-      v9 = __nwlog_obj();
-      v10 = type[0];
-      if (!os_log_type_enabled(v9, type[0]))
+      v10 = __nwlog_obj();
+      v11 = type[0];
+      if (!os_log_type_enabled(v10, type[0]))
       {
         goto LABEL_25;
       }
 
       *buf = 136446210;
       *&buf[4] = "nw_channel_purge_idle";
-      v11 = "%{public}s called with null context";
+      v12 = "%{public}s called with null context";
       goto LABEL_24;
     }
 
-    if (v18 != 1)
+    if (v19 != 1)
     {
-      v9 = __nwlog_obj();
-      v10 = type[0];
-      if (!os_log_type_enabled(v9, type[0]))
+      v10 = __nwlog_obj();
+      v11 = type[0];
+      if (!os_log_type_enabled(v10, type[0]))
       {
         goto LABEL_25;
       }
 
       *buf = 136446210;
       *&buf[4] = "nw_channel_purge_idle";
-      v11 = "%{public}s called with null context, backtrace limit exceeded";
+      v12 = "%{public}s called with null context, backtrace limit exceeded";
       goto LABEL_24;
     }
 
     backtrace_string = __nw_create_backtrace_string();
-    v9 = __nwlog_obj();
-    v10 = type[0];
-    v13 = os_log_type_enabled(v9, type[0]);
+    v10 = __nwlog_obj();
+    v11 = type[0];
+    v14 = os_log_type_enabled(v10, type[0]);
     if (backtrace_string)
     {
-      if (v13)
+      if (v14)
       {
         *buf = 136446466;
         *&buf[4] = "nw_channel_purge_idle";
         *&buf[12] = 2082;
         *&buf[14] = backtrace_string;
-        _os_log_impl(&dword_181A37000, v9, v10, "%{public}s called with null context, dumping backtrace:%{public}s", buf, 0x16u);
+        _os_log_impl(&dword_181A37000, v10, v11, "%{public}s called with null context, dumping backtrace:%{public}s", buf, 0x16u);
       }
 
       free(backtrace_string);
       goto LABEL_25;
     }
 
-    if (v13)
+    if (v14)
     {
       *buf = 136446210;
       *&buf[4] = "nw_channel_purge_idle";
-      v11 = "%{public}s called with null context, no backtrace";
+      v12 = "%{public}s called with null context, no backtrace";
 LABEL_24:
-      _os_log_impl(&dword_181A37000, v9, v10, v11, buf, 0xCu);
+      _os_log_impl(&dword_181A37000, v10, v11, v12, buf, 0xCu);
     }
   }
 
 LABEL_25:
-  if (v8)
+  if (v9)
   {
-    free(v8);
+    free(v9);
   }
 
 LABEL_8:
@@ -9457,21 +9555,22 @@ LABEL_8:
   nw_context_purge_endpoints(v7, 0);
 }
 
-uint64_t nw_endpoint_is_active(void *a1, char a2)
+uint64_t nw_endpoint_is_active(void *a1, uint64_t a2)
 {
+  v2 = a2;
   v21 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = v3;
   if (v3)
   {
-    is_active = _nw_endpoint_is_active(v3, a2);
+    is_active = _nw_endpoint_is_active(v3, v2);
     goto LABEL_3;
   }
 
   v7 = __nwlog_obj();
   *buf = 136446210;
   v18 = "nw_endpoint_is_active";
-  v8 = _os_log_send_and_compose_impl();
+  v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v7, 16, "%{public}s called with null endpoint", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v15 = 0;
@@ -9541,43 +9640,4 @@ LABEL_20:
 LABEL_3:
 
   return is_active;
-}
-
-uint64_t sub_181A49908()
-{
-  v8 = 0;
-  v1 = *(v0 + OBJC_IVAR____TtC7Network8Endpoint_lock);
-  os_unfair_lock_lock(v1 + 4);
-  v2 = OBJC_IVAR____TtC7Network8Endpoint_edges;
-  swift_beginAccess();
-  v3 = sub_181A490C8((v0 + v2), &v8);
-  v4 = *(v0 + v2);
-  if (v4 >> 62)
-  {
-    v7 = v3;
-    v5 = sub_182AD3EB8();
-    v3 = v7;
-    if (v5 >= v7)
-    {
-      goto LABEL_3;
-    }
-  }
-
-  else
-  {
-    v5 = *((v4 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (v5 >= v3)
-    {
-LABEL_3:
-      sub_181A49B30(v3, v5);
-      swift_endAccess();
-      os_unfair_lock_unlock(v1 + 4);
-      return v8;
-    }
-  }
-
-  __break(1u);
-  result = swift_endAccess();
-  __break(1u);
-  return result;
 }

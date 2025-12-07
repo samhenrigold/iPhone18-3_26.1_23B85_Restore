@@ -81,30 +81,30 @@ uint64_t __30__HFMutablePriorityQueue_init__block_invoke(uint64_t a1, void *a2, 
 
 - (void)removeObjectsWithEntries:(id)entries
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   entriesCopy = entries;
   os_unfair_lock_lock(&self->_lock);
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v5 = entriesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
+        v10 = *(*(&v12 + 1) + 8 * v9);
         queue = [(HFMutablePriorityQueue *)self queue];
         [queue dequeueObject:v10];
 
@@ -112,14 +112,13 @@ uint64_t __30__HFMutablePriorityQueue_init__block_invoke(uint64_t a1, void *a2, 
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeFirstOfObjects:(id)objects
@@ -180,49 +179,49 @@ void __58__HFMutablePriorityQueue_removeAllObjectsMatchingObjects___block_invoke
   [(HFMutablePriorityQueue *)self _prioritizeObjects:objects priorityBlock:v4];
 }
 
-uint64_t __54__HFMutablePriorityQueue_prioritizeObjects_increment___block_invoke(uint64_t a1, void *a2)
+char *__54__HFMutablePriorityQueue_prioritizeObjects_increment___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = [v3 priority];
   v5 = *(a1 + 32);
   [v3 setPriority:v5 + v4];
 
-  return v5 + v4;
+  return (v5 + v4);
 }
 
 - (void)_operateOnMatchingObjects:(id)objects removingMatched:(BOOL)matched lockedOperationBlock:(id)block
 {
   matchedCopy = matched;
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   blockCopy = block;
   v9 = objc_alloc_init(MEMORY[0x277CCA940]);
-  v22 = objectsCopy;
+  v21 = objectsCopy;
   v10 = [objectsCopy na_reduceWithInitialValue:v9 reducer:&__block_literal_global_34];
 
   os_unfair_lock_lock(&self->_lock);
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   queue = [(HFMutablePriorityQueue *)self queue];
   allObjects = [queue allObjects];
 
-  v13 = [allObjects countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v13 = [allObjects countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v25;
+    v15 = *v24;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v25 != v15)
+        if (*v24 != v15)
         {
           objc_enumerationMutation(allObjects);
         }
 
-        v17 = *(*(&v24 + 1) + 8 * i);
+        v17 = *(*(&v23 + 1) + 8 * i);
         value = [v17 value];
         v19 = [v10 containsObject:value];
 
@@ -237,14 +236,13 @@ uint64_t __54__HFMutablePriorityQueue_prioritizeObjects_increment___block_invoke
         }
       }
 
-      v14 = [allObjects countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v14 = [allObjects countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v14);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 id __89__HFMutablePriorityQueue__operateOnMatchingObjects_removingMatched_lockedOperationBlock___block_invoke(uint64_t a1, uint64_t a2, void *a3)

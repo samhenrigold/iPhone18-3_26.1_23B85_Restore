@@ -10,7 +10,9 @@
 - (id)queryAppsLaunchedFromStartDate:(id)date toEndDate:(id)endDate;
 - (void)initializeCarryStatusLogging;
 - (void)logAppResumePredictions:(id)predictions durationCheck:(BOOL)check;
+- (void)logDock:(id)dock pid:(int)pid state:(unint64_t)state;
 - (void)logFreezerSkipReasons:(id)reasons;
+- (void)logPrewarm:(id)prewarm pid:(int)pid;
 - (void)logUpdatedCarryStatus;
 - (void)reportAppResumePredictions;
 @end
@@ -127,14 +129,14 @@ LABEL_10:
   scoresCopy = scores;
   v4 = [scoresCopy keysSortedByValueUsingComparator:&stru_1001B6018];
   v5 = +[NSMutableDictionary dictionary];
-  if ([scoresCopy count] > 9)
+  if (objc_msgSend_count(scoresCopy) > 9)
   {
     v6 = 10;
   }
 
   else
   {
-    v6 = [scoresCopy count];
+    v6 = objc_msgSend_count(scoresCopy);
     if (v6 < 1)
     {
       goto LABEL_7;
@@ -467,6 +469,75 @@ LABEL_8:
     {
       *v8 = 0;
       _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEFAULT, "PowerLog does not exist", v8, 2u);
+    }
+  }
+}
+
+- (void)logPrewarm:(id)prewarm pid:(int)pid
+{
+  v4 = *&pid;
+  prewarmCopy = prewarm;
+  v7 = prewarmCopy;
+  if (self->_powerLogExists)
+  {
+    v12[0] = @"BundleID";
+    v12[1] = @"PID";
+    v13[0] = prewarmCopy;
+    v8 = [NSNumber numberWithInt:v4];
+    v13[1] = v8;
+    v9 = [NSDictionary dictionaryWithObjects:v13 forKeys:v12 count:2];
+
+    if (os_log_type_enabled(self->_log, OS_LOG_TYPE_DEBUG))
+    {
+      sub_10011DD88();
+    }
+
+    PLLogRegisteredEvent();
+  }
+
+  else
+  {
+    log = self->_log;
+    if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
+    {
+      *v11 = 0;
+      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEFAULT, "PowerLog does not exist", v11, 2u);
+    }
+  }
+}
+
+- (void)logDock:(id)dock pid:(int)pid state:(unint64_t)state
+{
+  v6 = *&pid;
+  dockCopy = dock;
+  v9 = dockCopy;
+  if (self->_powerLogExists)
+  {
+    v16[0] = dockCopy;
+    v15[0] = @"BundleID";
+    v15[1] = @"PID";
+    v10 = [NSNumber numberWithInt:v6];
+    v16[1] = v10;
+    v15[2] = @"State";
+    v11 = [NSNumber numberWithUnsignedInteger:state];
+    v16[2] = v11;
+    v12 = [NSDictionary dictionaryWithObjects:v16 forKeys:v15 count:3];
+
+    if (os_log_type_enabled(self->_log, OS_LOG_TYPE_DEBUG))
+    {
+      sub_10011DDF8();
+    }
+
+    PLLogRegisteredEvent();
+  }
+
+  else
+  {
+    log = self->_log;
+    if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
+    {
+      *v14 = 0;
+      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEFAULT, "PowerLog does not exist", v14, 2u);
     }
   }
 }

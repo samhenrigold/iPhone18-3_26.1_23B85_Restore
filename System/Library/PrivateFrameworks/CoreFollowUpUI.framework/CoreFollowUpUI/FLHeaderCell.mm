@@ -240,32 +240,30 @@ LABEL_13:
 
 - (void)_updateConstraintsWithImage
 {
-  v20[3] = *MEMORY[0x277D85DE8];
+  v19[3] = *MEMORY[0x277D85DE8];
   imageView = [(FLHeaderCell *)self imageView];
   [imageView setTranslatesAutoresizingMaskIntoConstraints:0];
   [imageView setContentMode:1];
   LODWORD(v4) = 1148846080;
   [imageView setContentHuggingPriority:0 forAxis:v4];
   v5 = _NSDictionaryOfVariableBindings(&cfstr_FollowtitleFol_0.isa, self->_followTitle, self->_followSubtitle, imageView, 0);
-  v17 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"H:|-(10)-[imageView(40)]-(10)-[_followTitle]-|" options:0 metrics:0 views:v5];
-  v18 = [MEMORY[0x277CCAAD0] constraintWithItem:self->_followTitle attribute:5 relatedBy:0 toItem:self->_followSubtitle attribute:5 multiplier:1.0 constant:0.0];
+  v16 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"H:|-(10)-[imageView(40)]-(10)-[_followTitle]-|" options:0 metrics:0 views:v5];
+  v17 = [MEMORY[0x277CCAAD0] constraintWithItem:self->_followTitle attribute:5 relatedBy:0 toItem:self->_followSubtitle attribute:5 multiplier:1.0 constant:0.0];
   v6 = [MEMORY[0x277CCAAD0] constraintWithItem:self->_followTitle attribute:6 relatedBy:0 toItem:self->_followSubtitle attribute:6 multiplier:1.0 constant:0.0];
   v7 = v5;
-  v19 = v5;
+  v18 = v5;
   v8 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:[_followTitle]-[_followSubtitle]-11-|" options:0 metrics:0 views:v5];
   v9 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:|-11-[imageView(40)]-(>=0)-|" options:0 metrics:0 views:v7];
   v10 = [MEMORY[0x277CCAAD0] constraintWithItem:self->_followTitle attribute:3 relatedBy:0 toItem:imageView attribute:3 multiplier:1.0 constant:0.0];
-  v11 = [v17 arrayByAddingObjectsFromArray:v8];
+  v11 = [v16 arrayByAddingObjectsFromArray:v8];
   v12 = [v11 arrayByAddingObjectsFromArray:v9];
-  v20[0] = v18;
-  v20[1] = v6;
-  v20[2] = v10;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
+  v19[0] = v17;
+  v19[1] = v6;
+  v19[2] = v10;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:3];
   v14 = [v12 arrayByAddingObjectsFromArray:v13];
   constraints = self->_constraints;
   self->_constraints = v14;
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

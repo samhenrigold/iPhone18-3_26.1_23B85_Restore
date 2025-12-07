@@ -46,7 +46,7 @@
 
 - (WFSymbolIcon)iconWithSymbolColor:(id)color background:(id)background
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   backgroundCopy = background;
   colorCopy = color;
   v8 = objc_alloc(objc_opt_class());
@@ -54,8 +54,8 @@
   renderingMode = [(WFSymbolIcon *)self renderingMode];
   if (colorCopy)
   {
-    v17[0] = colorCopy;
-    symbolColors = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+    v16[0] = colorCopy;
+    symbolColors = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
   }
 
   else
@@ -71,8 +71,6 @@
   }
 
   v14 = [v8 initWithSymbolName:symbolName renderingMode:renderingMode symbolColors:symbolColors background:background];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -107,7 +105,7 @@
 
 - (WFSymbolIcon)initWithCoder:(id)coder
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"symbolName"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"background"];
@@ -121,15 +119,14 @@
   else
   {
     v10 = [coderCopy decodeObjectOfClass:v8 forKey:@"symbolColor"];
-    v14[0] = v10;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+    v13[0] = v10;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
 
     v7 = @"Monochrome";
   }
 
   v11 = [(WFSymbolIcon *)self initWithSymbolName:v5 renderingMode:v7 symbolColors:v9 background:v6];
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -346,7 +343,7 @@ LABEL_4:
 
 - (WFSymbolIcon)initWithSymbolName:(id)name symbolColor:(id)color background:(id)background
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   colorCopy = color;
   v8 = MEMORY[0x1E695DEC8];
   backgroundCopy = background;
@@ -354,14 +351,13 @@ LABEL_4:
   nameCopy = name;
   v12 = [v8 arrayWithObjects:&colorCopy count:1];
 
-  v13 = [(WFSymbolIcon *)self initWithSymbolName:nameCopy renderingMode:@"Monochrome" symbolColors:v12 background:backgroundCopy, colorCopy, v17];
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = [(WFSymbolIcon *)self initWithSymbolName:nameCopy renderingMode:@"Monochrome" symbolColors:v12 background:backgroundCopy, colorCopy, v16];
   return v13;
 }
 
 - (WFSymbolIcon)initWithSymbolName:(id)name symbolColor:(id)color
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   colorCopy = color;
   v6 = MEMORY[0x1E695DEC8];
   colorCopy2 = color;
@@ -370,21 +366,19 @@ LABEL_4:
   v10 = [WFIconColorBackground clearBackground:colorCopy];
 
   v11 = [(WFSymbolIcon *)self initWithSymbolName:nameCopy renderingMode:@"Monochrome" symbolColors:v9 background:v10];
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (WFSymbolIcon)initWithSymbolName:(id)name background:(id)background
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   backgroundCopy = background;
   nameCopy = name;
   v8 = +[WFColor whiteColor];
-  v13[0] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+  v12[0] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
   v10 = [(WFSymbolIcon *)self initWithSymbolName:nameCopy renderingMode:@"Monochrome" symbolColors:v9 background:backgroundCopy];
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -438,42 +432,40 @@ LABEL_4:
 
 void __86__WFSymbolIcon_IconicSymbolUtilities__symbolIconForActionIdentifier_bundleIdentifier___block_invoke()
 {
-  v8[9] = *MEMORY[0x1E69E9840];
-  v7[0] = @"com.apple.VoiceMemos.ToggleRecording";
-  v7[1] = @"com.apple.mobiletimer.INCreateTimerIntent";
-  v8[0] = @"waveform";
-  v8[1] = @"timer";
-  v7[2] = @"com.apple.mobiletimer.CreateAlarmIntent";
-  v7[3] = @"com.apple.mobiletimer-framework.MobileTimerIntents.MTCreateAlarmIntent";
-  v8[2] = @"alarm.fill";
-  v8[3] = @"alarm.fill";
-  v7[4] = @"com.apple.TVRemoteUIService.LaunchRemoteIntent";
-  v7[5] = @"com.apple.iBooks.OpenBookIntent";
-  v8[4] = @"appletvremote.gen4.fill";
-  v8[5] = @"book.fill";
-  v7[6] = @"com.apple.iBooks.PlayAudiobookIntent";
-  v7[7] = @"com.apple.DocumentsApp.ScanDocument";
-  v8[6] = @"headphones";
-  v8[7] = @"doc.viewfinder.fill";
-  v7[8] = @"is.workflow.actions.timer.start";
-  v8[8] = @"timer";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:9];
+  v7[9] = *MEMORY[0x1E69E9840];
+  v6[0] = @"com.apple.VoiceMemos.ToggleRecording";
+  v6[1] = @"com.apple.mobiletimer.INCreateTimerIntent";
+  v7[0] = @"waveform";
+  v7[1] = @"timer";
+  v6[2] = @"com.apple.mobiletimer.CreateAlarmIntent";
+  v6[3] = @"com.apple.mobiletimer-framework.MobileTimerIntents.MTCreateAlarmIntent";
+  v7[2] = @"alarm.fill";
+  v7[3] = @"alarm.fill";
+  v6[4] = @"com.apple.TVRemoteUIService.LaunchRemoteIntent";
+  v6[5] = @"com.apple.iBooks.OpenBookIntent";
+  v7[4] = @"appletvremote.gen4.fill";
+  v7[5] = @"book.fill";
+  v6[6] = @"com.apple.iBooks.PlayAudiobookIntent";
+  v6[7] = @"com.apple.DocumentsApp.ScanDocument";
+  v7[6] = @"headphones";
+  v7[7] = @"doc.viewfinder.fill";
+  v6[8] = @"is.workflow.actions.timer.start";
+  v7[8] = @"timer";
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:9];
   v1 = symbolIconForActionIdentifier_bundleIdentifier__actionIdentifierMapping;
   symbolIconForActionIdentifier_bundleIdentifier__actionIdentifierMapping = v0;
 
-  v5[0] = @"com.apple.Pages";
-  v5[1] = @"com.apple.Numbers";
-  v6[0] = @"apple.pages";
-  v6[1] = @"apple.numbers";
-  v5[2] = @"com.apple.Keynote";
-  v5[3] = @"com.apple.BarcodeScanner";
-  v6[2] = @"apple.keynote";
-  v6[3] = @"qrcode.viewfinder";
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:4];
+  v4[0] = @"com.apple.Pages";
+  v4[1] = @"com.apple.Numbers";
+  v5[0] = @"apple.pages";
+  v5[1] = @"apple.numbers";
+  v4[2] = @"com.apple.Keynote";
+  v4[3] = @"com.apple.BarcodeScanner";
+  v5[2] = @"apple.keynote";
+  v5[3] = @"qrcode.viewfinder";
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:4];
   v3 = symbolIconForActionIdentifier_bundleIdentifier__bundleIdentifierMapping;
   symbolIconForActionIdentifier_bundleIdentifier__bundleIdentifierMapping = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 @end

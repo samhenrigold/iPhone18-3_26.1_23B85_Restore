@@ -5,9 +5,17 @@
 - (BOOL)respondsToSelector:(SEL)selector;
 - (id)methodSignatureForSelector:(SEL)selector;
 - (void)forwardInvocation:(id)invocation;
+- (void)observer:(id)observer noteServerConnectionStateChanged:(BOOL)changed;
 @end
 
 @implementation BLTBBObserverDelegate
+
+- (void)observer:(id)observer noteServerConnectionStateChanged:(BOOL)changed
+{
+  changedCopy = changed;
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained noteServerConnectionStateChanged:changedCopy];
+}
 
 - (void)forwardInvocation:(id)invocation
 {

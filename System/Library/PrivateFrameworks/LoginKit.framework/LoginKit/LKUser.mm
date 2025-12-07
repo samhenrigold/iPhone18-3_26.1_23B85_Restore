@@ -406,60 +406,60 @@ LABEL_24:
 + (id)userFromDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  LKRegisterLoginKitLogging();
-  v5 = objc_opt_new();
-  if (!v5)
+  LKRegisterLoginKitLogging(dictionaryCopy, v5);
+  v6 = objc_opt_new();
+  if (!v6)
   {
     goto LABEL_37;
   }
 
-  v6 = [dictionaryCopy objectForKeyedSubscript:@"Identifier"];
-  [v5 setIdentifier:v6];
+  v7 = [dictionaryCopy objectForKeyedSubscript:@"Identifier"];
+  [v6 setIdentifier:v7];
 
-  v7 = [dictionaryCopy objectForKeyedSubscript:@"AppleID"];
-  [v5 setUsername:v7];
+  v8 = [dictionaryCopy objectForKeyedSubscript:@"AppleID"];
+  [v6 setUsername:v8];
 
-  v8 = [dictionaryCopy objectForKeyedSubscript:@"GivenName"];
-  [v5 setGivenName:v8];
+  v9 = [dictionaryCopy objectForKeyedSubscript:@"GivenName"];
+  [v6 setGivenName:v9];
 
-  v9 = [dictionaryCopy objectForKeyedSubscript:@"FamilyName"];
-  [v5 setFamilyName:v9];
+  v10 = [dictionaryCopy objectForKeyedSubscript:@"FamilyName"];
+  [v6 setFamilyName:v10];
 
-  givenName = [v5 givenName];
+  givenName = [v6 givenName];
   if (![givenName length])
   {
 
     goto LABEL_6;
   }
 
-  familyName = [v5 familyName];
-  v12 = [familyName length];
+  familyName = [v6 familyName];
+  v13 = [familyName length];
 
-  if (!v12)
+  if (!v13)
   {
 LABEL_6:
     familyName2 = [dictionaryCopy objectForKeyedSubscript:@"Name"];
-    [v5 setDisplayName:familyName2];
+    [v6 setDisplayName:familyName2];
     goto LABEL_7;
   }
 
-  familyName2 = [v5 familyName];
-  givenName2 = [v5 givenName];
-  v15 = [LKUser fullNameWithFamilyName:familyName2 givenName:givenName2];
-  [v5 setDisplayName:v15];
+  familyName2 = [v6 familyName];
+  givenName2 = [v6 givenName];
+  v16 = [LKUser fullNameWithFamilyName:familyName2 givenName:givenName2];
+  [v6 setDisplayName:v16];
 
 LABEL_7:
-  givenName3 = [v5 givenName];
+  givenName3 = [v6 givenName];
 
-  familyName3 = [v5 familyName];
+  familyName3 = [v6 familyName];
 
   if (!givenName3 || !familyName3)
   {
-    v18 = objc_opt_new();
-    displayName = [v5 displayName];
-    v20 = [v18 personNameComponentsFromString:displayName];
+    v19 = objc_opt_new();
+    displayName = [v6 displayName];
+    v21 = [v19 personNameComponentsFromString:displayName];
 
-    if (v20)
+    if (v21)
     {
       if (givenName3)
       {
@@ -468,11 +468,11 @@ LABEL_7:
           goto LABEL_20;
         }
 
-        givenName4 = [v5 givenName];
-        givenName5 = [v20 givenName];
-        v23 = [givenName4 isEqualToString:givenName5];
+        givenName4 = [v6 givenName];
+        givenName5 = [v21 givenName];
+        v24 = [givenName4 isEqualToString:givenName5];
 
-        if (!v23)
+        if (!v24)
         {
           goto LABEL_20;
         }
@@ -482,23 +482,23 @@ LABEL_7:
 
       if (!familyName3)
       {
-        givenName6 = [v20 givenName];
-        [v5 setGivenName:givenName6];
+        givenName6 = [v21 givenName];
+        [v6 setGivenName:givenName6];
 
 LABEL_18:
-        familyName4 = [v20 familyName];
-        [v5 setFamilyName:familyName4];
+        familyName4 = [v21 familyName];
+        [v6 setFamilyName:familyName4];
         goto LABEL_19;
       }
 
-      familyName5 = [v5 familyName];
-      familyName6 = [v20 familyName];
-      v26 = [familyName5 isEqualToString:familyName6];
+      familyName5 = [v6 familyName];
+      familyName6 = [v21 familyName];
+      v27 = [familyName5 isEqualToString:familyName6];
 
-      if (v26)
+      if (v27)
       {
-        familyName4 = [v20 givenName];
-        [v5 setGivenName:familyName4];
+        familyName4 = [v21 givenName];
+        [v6 setGivenName:familyName4];
 LABEL_19:
       }
     }
@@ -506,94 +506,94 @@ LABEL_19:
 LABEL_20:
   }
 
-  v29 = [dictionaryCopy objectForKeyedSubscript:@"PhoneticGivenName"];
-  [v5 setPhoneticGivenName:v29];
+  v30 = [dictionaryCopy objectForKeyedSubscript:@"PhoneticGivenName"];
+  [v6 setPhoneticGivenName:v30];
 
-  v30 = [dictionaryCopy objectForKeyedSubscript:@"PhoneticFamilyName"];
-  [v5 setPhoneticFamilyName:v30];
+  v31 = [dictionaryCopy objectForKeyedSubscript:@"PhoneticFamilyName"];
+  [v6 setPhoneticFamilyName:v31];
 
-  phoneticGivenName = [v5 phoneticGivenName];
+  phoneticGivenName = [v6 phoneticGivenName];
   if (phoneticGivenName)
   {
-    [v5 setIsPhoneticInfoProvidedInConfiguration:1];
+    [v6 setIsPhoneticInfoProvidedInConfiguration:1];
   }
 
   else
   {
-    phoneticFamilyName = [v5 phoneticFamilyName];
-    [v5 setIsPhoneticInfoProvidedInConfiguration:phoneticFamilyName != 0];
+    phoneticFamilyName = [v6 phoneticFamilyName];
+    [v6 setIsPhoneticInfoProvidedInConfiguration:phoneticFamilyName != 0];
   }
 
-  v33 = [dictionaryCopy objectForKeyedSubscript:@"ImageURL"];
-  if (v33)
+  v34 = [dictionaryCopy objectForKeyedSubscript:@"ImageURL"];
+  if (v34)
   {
-    v34 = [MEMORY[0x277CBEBC0] URLWithString:v33];
-    [v5 setMediumImageURL:v34];
+    v35 = [MEMORY[0x277CBEBC0] URLWithString:v34];
+    [v6 setMediumImageURL:v35];
 
     standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
-    v36 = [standardUserDefaults BOOLForKey:@"LUIAllowNonHttpsUrls"];
+    v37 = [standardUserDefaults BOOLForKey:@"LUIAllowNonHttpsUrls"];
 
-    if ((v36 & 1) == 0)
+    if ((v37 & 1) == 0)
     {
-      mediumImageURL = [v5 mediumImageURL];
+      mediumImageURL = [v6 mediumImageURL];
       scheme = [mediumImageURL scheme];
-      v39 = [scheme isEqualToString:@"https"];
+      v40 = [scheme isEqualToString:@"https"];
 
-      if ((v39 & 1) == 0)
+      if ((v40 & 1) == 0)
       {
-        v40 = LKLogParsing;
+        v41 = LKLogParsing;
         if (os_log_type_enabled(LKLogParsing, OS_LOG_TYPE_DEBUG))
         {
-          [(LKUser *)v40 userFromDictionary:v5];
+          [(LKUser *)v41 userFromDictionary:v6];
         }
 
-        [v5 setMediumImageURL:0];
+        [v6 setMediumImageURL:0];
       }
     }
   }
 
-  v41 = [dictionaryCopy objectForKeyedSubscript:@"FullScreenImageURL"];
+  v42 = [dictionaryCopy objectForKeyedSubscript:@"FullScreenImageURL"];
 
-  if (v41)
+  if (v42)
   {
-    v42 = [MEMORY[0x277CBEBC0] URLWithString:v41];
-    [v5 setLargeImageURL:v42];
+    v43 = [MEMORY[0x277CBEBC0] URLWithString:v42];
+    [v6 setLargeImageURL:v43];
 
     standardUserDefaults2 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-    v44 = [standardUserDefaults2 BOOLForKey:@"LUIAllowNonHttpsUrls"];
+    v45 = [standardUserDefaults2 BOOLForKey:@"LUIAllowNonHttpsUrls"];
 
-    if ((v44 & 1) == 0)
+    if ((v45 & 1) == 0)
     {
-      largeImageURL = [v5 largeImageURL];
+      largeImageURL = [v6 largeImageURL];
       scheme2 = [largeImageURL scheme];
-      v47 = [scheme2 isEqualToString:@"https"];
+      v48 = [scheme2 isEqualToString:@"https"];
 
-      if ((v47 & 1) == 0)
+      if ((v48 & 1) == 0)
       {
-        v48 = LKLogParsing;
+        v49 = LKLogParsing;
         if (os_log_type_enabled(LKLogParsing, OS_LOG_TYPE_DEBUG))
         {
-          [(LKUser *)v48 userFromDictionary:v5];
+          [(LKUser *)v49 userFromDictionary:v6];
         }
 
-        [v5 setLargeImageURL:0];
+        [v6 setLargeImageURL:0];
       }
     }
   }
 
-  [v5 setLocalLargeImageURL:0];
-  [v5 setLocalMediumImageURL:0];
-  v49 = [dictionaryCopy objectForKeyedSubscript:@"PasscodeType"];
-  [v5 setPasswordType:{objc_msgSend(self, "passwordTypeFromPasswordTypeString:", v49)}];
+  [v6 setLocalLargeImageURL:0];
+  [v6 setLocalMediumImageURL:0];
+  v50 = [dictionaryCopy objectForKeyedSubscript:@"PasscodeType"];
+  [v6 setPasswordType:{objc_msgSend(self, "passwordTypeFromPasswordTypeString:", v50)}];
 
-  [v5 setPasscodeType:{+[LKUser UMUserPasscodeTypeFromLKPasswordType:](LKUser, "UMUserPasscodeTypeFromLKPasswordType:", objc_msgSend(v5, "passwordType"))}];
-  v50 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  [v5 setNamingSimilarityInfoByClassID:v50];
+  [v6 setPasscodeType:{+[LKUser UMUserPasscodeTypeFromLKPasswordType:](LKUser, "UMUserPasscodeTypeFromLKPasswordType:", objc_msgSend(v6, "passwordType"))}];
+  v51 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  [v6 setNamingSimilarityInfoByClassID:v51];
 
-  [v5 setRetryCount:0];
+  [v6 setRetryCount:0];
 LABEL_37:
 
-  return v5;
+  return v6;
 }
 
 - (void)setDiffUMUserPropertiesFromUMUser:(id)user
@@ -818,15 +818,12 @@ LABEL_11:
 
 + (void)userFromDictionary:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 mediumImageURL];
   v5 = [v4 absoluteString];
   v6 = [a2 username];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25618F000, v7, v8, "Ignoring image url (%{private}@) for user (%{private}@). Https URLs are required.", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_25618F000, v7, v8, "Ignoring image url (%{private}@) for user (%{private}@). Https URLs are required.", v9, v10, v11, v12);
 }
 
 @end

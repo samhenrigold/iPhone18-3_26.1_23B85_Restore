@@ -204,54 +204,54 @@ LABEL_7:
 
 - (id)requestBody
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   propertiesToFind = [(CoreDAVPropertyFindBaseTask *)self propertiesToFind];
   if (propertiesToFind && (v4 = propertiesToFind, -[CoreDAVPropertyFindBaseTask propertiesToFind](self, "propertiesToFind"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 count], v5, v4, v6))
   {
     v7 = objc_alloc_init(MEMORY[0x277CFDCA0]);
     v8 = *MEMORY[0x277CFDDC0];
-    v23 = *MEMORY[0x277CFDD88];
+    v22 = *MEMORY[0x277CFDD88];
     [v7 startElement:? inNamespace:? withAttributeNamesAndValues:?];
     v9 = *MEMORY[0x277CFDEF8];
-    v22 = *MEMORY[0x277CFDFC8];
+    v21 = *MEMORY[0x277CFDFC8];
     [v7 startElement:? inNamespace:? withAttributeNamesAndValues:?];
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     propertiesToFind2 = [(CoreDAVPropertyFindBaseTask *)self propertiesToFind];
-    v11 = [propertiesToFind2 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v11 = [propertiesToFind2 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v25;
+      v13 = *v24;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v25 != v13)
+          if (*v24 != v13)
           {
             objc_enumerationMutation(propertiesToFind2);
           }
 
-          v15 = *(*(&v24 + 1) + 8 * i);
+          v15 = *(*(&v23 + 1) + 8 * i);
           name = [v15 name];
           nameSpace = [v15 nameSpace];
           [v7 appendElement:name inNamespace:nameSpace withStringContent:0 withAttributeNamesAndValues:0];
         }
 
-        v12 = [propertiesToFind2 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v12 = [propertiesToFind2 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v12);
     }
 
-    [v7 endElement:v22 inNamespace:v9];
+    [v7 endElement:v21 inNamespace:v9];
     v18 = *MEMORY[0x277CFDF10];
     [v7 startElement:*MEMORY[0x277CFDF10] inNamespace:v8 withAttributeNamesAndValues:0];
     [(CalDAVCalendarQueryTask *)self _appendComponentFiltersToXMLData:v7];
     [v7 endElement:v18 inNamespace:v8];
-    [v7 endElement:v23 inNamespace:v8];
+    [v7 endElement:v22 inNamespace:v8];
     data = [v7 data];
   }
 
@@ -259,8 +259,6 @@ LABEL_7:
   {
     data = 0;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return data;
 }

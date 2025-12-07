@@ -130,45 +130,43 @@ void __55__TBAccessPointMO_generateNewAccessPointObjectFromMOC___block_invoke(ui
 
 + (void)removeAllAccessPointsInMOC:(id)c
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   cCopy = c;
   v4 = +[TBAccessPointMO fetchRequest];
   v5 = [cCopy executeFetchRequest:v4 error:0];
 
   if (v5)
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v6 = v5;
-    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v13;
+      v9 = *v12;
       do
       {
         v10 = 0;
         do
         {
-          if (*v13 != v9)
+          if (*v12 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          [cCopy deleteObject:{*(*(&v12 + 1) + 8 * v10++), v12}];
+          [cCopy deleteObject:{*(*(&v11 + 1) + 8 * v10++), v11}];
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v8);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

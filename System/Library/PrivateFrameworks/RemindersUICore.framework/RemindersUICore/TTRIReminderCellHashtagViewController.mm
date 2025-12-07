@@ -52,7 +52,7 @@
 {
   selectionCopy = selection;
   selfCopy = self;
-  sub_21D63A97C();
+  sub_21D63A97C(selectionCopy);
 }
 
 - (BOOL)textView:(id)view shouldChangeTextInRange:(_NSRange)range replacementText:(id)text
@@ -72,7 +72,7 @@
 {
   length = range.length;
   location = range.location;
-  sub_21D0D8CF0(0, &qword_27CE5DE90);
+  sub_21D0D8CF0(0, &qword_27CE5DE90, 0x277D75720);
   v8 = sub_21DBFA5EC();
   type metadata accessor for TTRIReminderTitleTextView();
   if (swift_dynamicCastClass())

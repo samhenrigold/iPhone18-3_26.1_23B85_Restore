@@ -5,95 +5,61 @@
 
 void __125__NSExtension_RPExtensions__extensionsWithMatchingPointName_baseIdentifier_activationRule_unwantedActivationRule_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v30 = a3;
+  v27 = a3;
   obj = v5;
+  v30 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  v35 = 0u;
-  v36 = 0u;
-  v32 = [v5 countByEnumeratingWithState:&v33 objects:v37 count:16];
-  if (v32)
+  v29 = [v5 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  if (v29)
   {
-    v6 = *v34;
-    v7 = 0x277CBE000uLL;
+    v6 = *v31;
     do
     {
-      for (i = 0; i != v32; ++i)
+      for (i = 0; i != v29; ++i)
       {
-        if (*v34 != v6)
+        if (*v31 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v33 + 1) + 8 * i);
-        v10 = [v9 extensionPointIdentifier];
-        v11 = [v9 _extensionBundle];
-        NSLog(&cfstr_Nsextensionpoi.isa, v10, v11);
+        v8 = *(*(&v30 + 1) + 8 * i);
+        v9 = [v8 extensionPointIdentifier];
+        v10 = [v8 _extensionBundle];
+        NSLog(&cfstr_Nsextensionpoi.isa, v9, v10);
 
         if (*(a1 + 32))
         {
-          v12 = [v9 identifier];
-          v13 = [v12 hasPrefix:*(a1 + 32)];
+          v11 = [v8 identifier];
+          v12 = [v11 hasPrefix:*(a1 + 32)];
 
-          if (!v13)
+          if (!v12)
           {
             continue;
           }
         }
 
-        v14 = [v9 attributes];
-        v15 = [v14 objectForKeyedSubscript:@"NSExtensionActivationRule"];
-        v16 = *(v7 + 2752);
+        v13 = [v8 attributes];
+        v14 = [v13 objectForKeyedSubscript:@"NSExtensionActivationRule"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v17 = v6;
-          v18 = v15;
-          v19 = v18;
-          if (*(a1 + 40))
+          v15 = v6;
+          v16 = v14;
+          v17 = v16;
+          if (*(a1 + 40) && (([v16 objectForKeyedSubscript:?], (v18 = objc_claimAutoreleasedReturnValue()) == 0) || (v19 = v18, objc_msgSend(v17, "objectForKeyedSubscript:", *(a1 + 40)), v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v20, "BOOLValue"), v20, v19, !v21)) || *(a1 + 48) && (objc_msgSend(v17, "objectForKeyedSubscript:"), (v22 = objc_claimAutoreleasedReturnValue()) != 0) && (v23 = v22, objc_msgSend(v17, "objectForKeyedSubscript:", *(a1 + 48)), v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v24, "BOOLValue"), v24, v23, (v25 & 1) != 0))
           {
-            v20 = [v18 objectForKeyedSubscript:?];
-            if (!v20)
-            {
-              goto LABEL_15;
-            }
 
-            v21 = v20;
-            v22 = [v19 objectForKeyedSubscript:*(a1 + 40)];
-            v23 = [v22 BOOLValue];
-
-            if (!v23)
-            {
-              goto LABEL_15;
-            }
-          }
-
-          if (*(a1 + 48))
-          {
-            v24 = [v19 objectForKeyedSubscript:?];
-            if (v24)
-            {
-              v25 = v24;
-              v26 = [v19 objectForKeyedSubscript:*(a1 + 48)];
-              v27 = [v26 BOOLValue];
-
-              if (v27)
-              {
-LABEL_15:
-
-                v6 = v17;
-                v7 = 0x277CBE000;
+            v6 = v15;
 LABEL_20:
 
-                continue;
-              }
-            }
+            continue;
           }
 
-          v6 = v17;
-          v7 = 0x277CBE000;
+          v6 = v15;
         }
 
         else if (*(a1 + 40))
@@ -101,23 +67,21 @@ LABEL_20:
           goto LABEL_20;
         }
 
-        [*(a1 + 56) addObject:v9];
+        [*(a1 + 56) addObject:v8];
         goto LABEL_20;
       }
 
-      v32 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v29 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
-    while (v32);
+    while (v29);
   }
 
-  v28 = *(a1 + 64);
-  if (v28)
+  v26 = *(a1 + 64);
+  if (v26)
   {
-    (*(v28 + 16))(v28, *(a1 + 56), v30);
+    (*(v26 + 16))(v26, *(a1 + 56), v27);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 @end

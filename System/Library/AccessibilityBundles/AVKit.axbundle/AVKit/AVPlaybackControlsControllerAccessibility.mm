@@ -68,30 +68,28 @@
 
 - (void)_axLoadVolumeButtonAccessibilityInformation:(id)information
 {
-  v16[1] = *MEMORY[0x29EDCA608];
+  v15[1] = *MEMORY[0x29EDCA608];
   informationCopy = information;
   objc_initWeak(&location, self);
-  v10 = MEMORY[0x29EDCA5F8];
-  v11 = 3221225472;
-  v12 = __89__AVPlaybackControlsControllerAccessibility__axLoadVolumeButtonAccessibilityInformation___block_invoke;
-  v13 = &unk_29F298F00;
-  objc_copyWeak(&v14, &location);
-  [informationCopy _setAccessibilityValueBlock:&v10];
-  if ([(AVPlaybackControlsControllerAccessibility *)self safeBoolForKey:@"volumeControlsCanShowSlider", v10, v11, v12, v13])
+  v9 = MEMORY[0x29EDCA5F8];
+  v10 = 3221225472;
+  v11 = __89__AVPlaybackControlsControllerAccessibility__axLoadVolumeButtonAccessibilityInformation___block_invoke;
+  v12 = &unk_29F298F00;
+  objc_copyWeak(&v13, &location);
+  [informationCopy _setAccessibilityValueBlock:&v9];
+  if ([(AVPlaybackControlsControllerAccessibility *)self safeBoolForKey:@"volumeControlsCanShowSlider", v9, v10, v11, v12])
   {
     v5 = objc_alloc(MEMORY[0x29EDC78E0]);
     v6 = accessibilityLocalizedString(@"toggle.audio.controls");
     v7 = [v5 initWithName:v6 target:self selector:sel__axToggleAudioControls_];
 
-    v16[0] = v7;
-    v8 = [MEMORY[0x29EDB8D80] arrayWithObjects:v16 count:1];
+    v15[0] = v7;
+    v8 = [MEMORY[0x29EDB8D80] arrayWithObjects:v15 count:1];
     [informationCopy setAccessibilityCustomActions:v8];
   }
 
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v13);
   objc_destroyWeak(&location);
-
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 id __89__AVPlaybackControlsControllerAccessibility__axLoadVolumeButtonAccessibilityInformation___block_invoke(uint64_t a1)
@@ -159,13 +157,13 @@ uint64_t __68__AVPlaybackControlsControllerAccessibility__axToggleAudioControls_
   }
 }
 
-void __102__AVPlaybackControlsControllerAccessibility__accessibilityPlayerLayerViewAccessibilityFocusedChanged___block_invoke(uint64_t a1)
+void __102__AVPlaybackControlsControllerAccessibility__accessibilityPlayerLayerViewAccessibilityFocusedChanged___block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
-  v2 = [*(a1 + 32) safeValueForKey:@"playbackControlsVisibilityTimer"];
-  v3 = __UIAccessibilityCastAsClass();
+  v3 = [*(a1 + 32) safeValueForKey:@"playbackControlsVisibilityTimer"];
+  v4 = __UIAccessibilityCastAsClass();
 
-  [v3 invalidate];
+  [v4 invalidate];
   [*(a1 + 32) showPlaybackControls:1 immediately:1];
 }
 

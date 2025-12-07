@@ -26,7 +26,7 @@
   selfCopy = self;
   sub_1891FC2AC();
 
-  sub_188A34624(0, &qword_1ED48FD98);
+  sub_188A34624(0, &qword_1ED48FD98, 0x1E698E5F0);
   sub_188D06B5C();
   v3 = sub_18A4A7798();
 

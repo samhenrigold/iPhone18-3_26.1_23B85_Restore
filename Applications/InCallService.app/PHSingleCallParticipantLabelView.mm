@@ -1741,34 +1741,35 @@ LABEL_6:
 - (BOOL)shouldBlurAvatarViewForCurrentContactNickname:(id)nickname
 {
   v3 = [(PHSingleCallParticipantLabelView *)self currentIMNicknameMatchingContact:nickname];
-  if (+[_TtC13InCallService23SensitivityFeatureFlags isSensitivityAvatarTreatmentEnabled])
+  v4 = +[_TtC13InCallService23SensitivityFeatureFlags isSensitivityAvatarTreatmentEnabled];
+  if (v4)
   {
     avatar = [v3 avatar];
     contentIsSensitive = [avatar contentIsSensitive];
 
-    v6 = sub_100004F84();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004F84(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v10[0] = 67109120;
-      v10[1] = contentIsSensitive;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "SNAP: IMNicknameAvatarImage.contentIsSensitive for currentNickname returning %d", v10, 8u);
+      v12[0] = 67109120;
+      v12[1] = contentIsSensitive;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "SNAP: IMNicknameAvatarImage.contentIsSensitive for currentNickname returning %d", v12, 8u);
     }
   }
 
   else
   {
-    v6 = sub_100004F84();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004F84(v4);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v10[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "SNAP: IMNicknameAvatarImage.contentIsSensitive for currentNickname not performing check", v10, 2u);
+      LOWORD(v12[0]) = 0;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "SNAP: IMNicknameAvatarImage.contentIsSensitive for currentNickname not performing check", v12, 2u);
     }
 
     LOBYTE(contentIsSensitive) = 0;
   }
 
-  v7 = +[ICSPreferences sharedPreferences];
-  forceBlurCurrentPoster = [v7 forceBlurCurrentPoster];
+  v9 = +[ICSPreferences sharedPreferences];
+  forceBlurCurrentPoster = [v9 forceBlurCurrentPoster];
 
   return (forceBlurCurrentPoster | contentIsSensitive) & 1;
 }
@@ -1922,19 +1923,19 @@ LABEL_22:
 
                   if (!sharedProfileStateOracle)
                   {
-                    v35 = sub_100004F84();
-                    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+                    v36 = sub_100004F84(v35);
+                    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
                     {
                       contactIdentifier = [frontmostCall contactIdentifier];
                       *buf = 138739971;
-                      v62[0] = contactIdentifier;
-                      _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "SNAP: creating a new oracle for contactIdentifier: %{sensitive}@", buf, 0xCu);
+                      v66[0] = contactIdentifier;
+                      _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "SNAP: creating a new oracle for contactIdentifier: %{sensitive}@", buf, 0xCu);
                     }
 
-                    v37 = [CNContactStoreConfiguration tu_contactStoreConfigurationForCall:frontmostCall];
-                    v38 = [[CNContactStore alloc] initWithConfiguration:v37];
-                    v39 = [[CNSharedProfileStateOracle alloc] initWithContact:contactCopy contactStore:v38];
-                    [(PHSingleCallParticipantLabelView *)self setSharedProfileStateOracle:v39];
+                    v38 = [CNContactStoreConfiguration tu_contactStoreConfigurationForCall:frontmostCall];
+                    v39 = [[CNContactStore alloc] initWithConfiguration:v38];
+                    v40 = [[CNSharedProfileStateOracle alloc] initWithContact:contactCopy contactStore:v39];
+                    [(PHSingleCallParticipantLabelView *)self setSharedProfileStateOracle:v40];
                   }
 
                   avatarView11 = [(PHSingleCallParticipantLabelView *)self avatarView];
@@ -1946,63 +1947,66 @@ LABEL_22:
                   pendingNickname = [sharedProfileStateOracle3 pendingNickname];
                   avatar = [pendingNickname avatar];
 
-                  if (+[_TtC13InCallService23SensitivityFeatureFlags isSensitivityAvatarTreatmentEnabled])
+                  v47 = +[_TtC13InCallService23SensitivityFeatureFlags isSensitivityAvatarTreatmentEnabled];
+                  if (v47)
                   {
                     contentIsSensitive = [avatar contentIsSensitive];
-                    v47 = sub_100004F84();
-                    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+                    v49 = contentIsSensitive;
+                    v50 = sub_100004F84(contentIsSensitive);
+                    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
                     {
                       wantsBlur = [avatarView11 wantsBlur];
                       *buf = 67109376;
-                      LODWORD(v62[0]) = contentIsSensitive;
-                      WORD2(v62[0]) = 1024;
-                      *(v62 + 6) = wantsBlur;
-                      _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "SNAP: IMNicknameAvatarImage.contentIsSensitive for pendingNickname returning %d currentlyBlurred=%d", buf, 0xEu);
+                      LODWORD(v66[0]) = v49;
+                      WORD2(v66[0]) = 1024;
+                      *(v66 + 6) = wantsBlur;
+                      _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "SNAP: IMNicknameAvatarImage.contentIsSensitive for pendingNickname returning %d currentlyBlurred=%d", buf, 0xEu);
                     }
                   }
 
                   else
                   {
-                    v47 = sub_100004F84();
-                    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+                    v50 = sub_100004F84(v47);
+                    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 0;
-                      _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "SNAP: IMNicknameAvatarImage.contentIsSensitive for pendingNickname not performing checks", buf, 2u);
+                      _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "SNAP: IMNicknameAvatarImage.contentIsSensitive for pendingNickname not performing checks", buf, 2u);
                     }
 
-                    contentIsSensitive = 0;
+                    v49 = 0;
                   }
 
-                  v49 = +[ICSPreferences sharedPreferences];
-                  forceBlurNewPoster = [v49 forceBlurNewPoster];
+                  v52 = +[ICSPreferences sharedPreferences];
+                  forceBlurNewPoster = [v52 forceBlurNewPoster];
 
-                  v51 = 0;
-                  if (!avatar || ((forceBlurNewPoster | contentIsSensitive) & 1) == 0)
+                  v55 = 0;
+                  if (!avatar || ((forceBlurNewPoster | v49) & 1) == 0)
                   {
                     goto LABEL_49;
                   }
 
-                  if ([avatarView11 wantsBlur])
+                  wantsBlur2 = [avatarView11 wantsBlur];
+                  if (wantsBlur2)
                   {
-                    v51 = 0;
+                    v55 = 0;
 LABEL_49:
-                    v54 = sub_100004F84();
-                    if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+                    v58 = sub_100004F84(wantsBlur2);
+                    if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 0;
-                      _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "SNAP: asking avatarView to do a coin flip", buf, 2u);
+                      _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "SNAP: asking avatarView to do a coin flip", buf, 2u);
                     }
 
-                    v57[0] = _NSConcreteStackBlock;
-                    v57[1] = 3221225472;
-                    v57[2] = sub_1000499D4;
-                    v57[3] = &unk_100356CC0;
-                    v60 = v51;
-                    v58 = avatarView11;
+                    v61[0] = _NSConcreteStackBlock;
+                    v61[1] = 3221225472;
+                    v61[2] = sub_1000499D4;
+                    v61[3] = &unk_100356CC0;
+                    v64 = v55;
+                    v62 = avatarView11;
+                    v63 = cnAvatarView;
                     v59 = cnAvatarView;
-                    v55 = cnAvatarView;
-                    v56 = avatarView11;
-                    [v55 performTransitionAnimationWithCompletion:v57];
+                    v60 = avatarView11;
+                    [v59 performTransitionAnimationWithCompletion:v61];
 
                     goto LABEL_52;
                   }
@@ -2010,7 +2014,7 @@ LABEL_49:
                   sharedProfileStateOracle4 = [(PHSingleCallParticipantLabelView *)self sharedProfileStateOracle];
                   avatarViewAnimationTypeForEffectiveState = [sharedProfileStateOracle4 avatarViewAnimationTypeForEffectiveState];
 
-                  v51 = 0;
+                  v55 = 0;
                   if (avatarViewAnimationTypeForEffectiveState)
                   {
                     if (avatarViewAnimationTypeForEffectiveState != 1)
@@ -2018,10 +2022,10 @@ LABEL_49:
                       goto LABEL_49;
                     }
 
-                    v51 = 1;
+                    v55 = 1;
                   }
 
-                  [avatarView11 setWantsBlur:1];
+                  wantsBlur2 = [avatarView11 setWantsBlur:1];
                   goto LABEL_49;
                 }
               }
@@ -2633,7 +2637,7 @@ LABEL_21:
 
 - (void)updateLayoutForCallDisplayStyle:(int64_t)style
 {
-  delegate2 = sub_100004F84();
+  delegate2 = sub_100004F84(self);
   if (os_log_type_enabled(delegate2, OS_LOG_TYPE_DEFAULT))
   {
     callDisplayStyle = [(ICSCallDisplayStyleManager *)self->_callDisplayStyleManager callDisplayStyle];
@@ -3488,26 +3492,26 @@ LABEL_14:
   [participantMarqueeLabel3 setMarqueeRunning:v7];
 LABEL_7:
 
-  v14 = sub_100004F84();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = sub_100004F84(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     participantMarqueeLabel9 = [(PHAbstractCallParticipantLabelView *)self participantMarqueeLabel];
     if ([participantMarqueeLabel9 marqueeEnabled])
     {
-      v16 = @"YES";
+      v17 = @"YES";
     }
 
     else
     {
-      v16 = @"NO";
+      v17 = @"NO";
     }
 
     participantMarqueeLabel10 = [(PHAbstractCallParticipantLabelView *)self participantMarqueeLabel];
-    v18 = 138412546;
-    v19 = v16;
-    v20 = 2048;
+    v19 = 138412546;
+    v20 = v17;
+    v21 = 2048;
     numberOfLines = [participantMarqueeLabel10 numberOfLines];
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Marquee enabled = %@, number of lines for particpant name = %ld", &v18, 0x16u);
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Marquee enabled = %@, number of lines for particpant name = %ld", &v19, 0x16u);
   }
 }
 
@@ -4268,9 +4272,9 @@ LABEL_28:
 {
   contactCopy = contact;
   selfCopy = self;
-  v6 = sub_10022C48C();
+  v7 = sub_10022C48C(contact);
 
-  return v6;
+  return v7;
 }
 
 @end

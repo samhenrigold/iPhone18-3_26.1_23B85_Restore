@@ -12,7 +12,7 @@
 
 - (void)installWatchers
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = pklog_handle_for_category(6);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -31,33 +31,32 @@
   handler[1] = 3221225472;
   handler[2] = sub_1C689FF10;
   handler[3] = &unk_1E827F5F8;
-  objc_copyWeak(&v18, buf);
+  objc_copyWeak(&v17, buf);
   sub_1C68939B0(&out_token, queue, handler);
 
   [(PKDiscoveryDriver *)self setAnnotationNotifyToken:out_token];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = sub_1C68A0014;
-  v15[3] = &unk_1E827F620;
-  objc_copyWeak(&v16, buf);
-  v6 = MEMORY[0x1C6960190](v15);
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = sub_1C68A0014;
+  v14[3] = &unk_1E827F620;
+  objc_copyWeak(&v15, buf);
+  v6 = MEMORY[0x1C6960190](v14);
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   mainQueue = [MEMORY[0x1E696ADC8] mainQueue];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = sub_1C68A0118;
-  v12[3] = &unk_1E827F648;
-  objc_copyWeak(&v14, buf);
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = sub_1C68A0118;
+  v11[3] = &unk_1E827F648;
+  objc_copyWeak(&v13, buf);
   v9 = v6;
-  v13 = v9;
-  v10 = [defaultCenter addObserverForName:@"com.apple.managedconfiguration.effectivesettingschanged" object:0 queue:mainQueue usingBlock:v12];
+  v12 = v9;
+  v10 = [defaultCenter addObserverForName:@"com.apple.managedconfiguration.effectivesettingschanged" object:0 queue:mainQueue usingBlock:v11];
   [(PKDiscoveryDriver *)self setMcNotificationToken:v10];
 
-  objc_destroyWeak(&v14);
-  objc_destroyWeak(&v16);
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v15);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(buf);
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (PKDiscoveryDriver)initWithAttributes:(id)attributes flags:(unint64_t)flags host:(id)host report:(id)report
@@ -148,7 +147,7 @@
 
 - (void)cancel
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = pklog_handle_for_category(6);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -178,27 +177,25 @@
   }
 
   queue = [(PKDiscoveryDriver *)self queue];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = sub_1C689FE74;
-  v11[3] = &unk_1E827F5D0;
-  v11[4] = self;
-  v12 = report;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = sub_1C689FE74;
+  v10[3] = &unk_1E827F5D0;
+  v10[4] = self;
+  v11 = report;
   v9 = report;
-  dispatch_async(queue, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  dispatch_async(queue, v10);
 }
 
 - (void)removeWatchers
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = pklog_handle_for_category(6);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 134217984;
+    v7 = 134217984;
     selfCopy = self;
-    _os_log_impl(&dword_1C6892000, v3, OS_LOG_TYPE_DEFAULT, "<PKDiscoveryDriver:%p> removing watchers for continous discovery", &v8, 0xCu);
+    _os_log_impl(&dword_1C6892000, v3, OS_LOG_TYPE_DEFAULT, "<PKDiscoveryDriver:%p> removing watchers for continous discovery", &v7, 0xCu);
   }
 
   if ([(PKDiscoveryDriver *)self annotationNotifyToken])
@@ -214,8 +211,6 @@
     [(PKDiscoveryDriver *)self setAnnotationNotifyToken:0];
     [(PKDiscoveryDriver *)self setReport:0];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

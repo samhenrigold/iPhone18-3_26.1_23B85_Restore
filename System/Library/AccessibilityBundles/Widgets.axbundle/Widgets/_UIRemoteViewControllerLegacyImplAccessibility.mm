@@ -21,25 +21,13 @@
   MEMORY[0x29ED42A50](@"_WGWidgetRemoteViewController");
   isKindOfClass = objc_opt_isKindOfClass();
 
-  if ((isKindOfClass & 1) == 0)
-  {
-    goto LABEL_4;
-  }
-
-  v13 = 0;
-  objc_opt_class();
-  v7 = __UIAccessibilityCastAsClass();
-  view = [v7 view];
-  _accessibilityIsFKARunningForFocusItem = [view _accessibilityIsFKARunningForFocusItem];
-
-  if (_accessibilityIsFKARunningForFocusItem)
+  if (isKindOfClass & 1) != 0 && (v13 = 0, objc_opt_class(), __UIAccessibilityCastAsClass(), v7 = objc_claimAutoreleasedReturnValue(), [v7 view], v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "_accessibilityIsFKARunningForFocusItem"), v8, v7, (v9))
   {
     v10 = 0;
   }
 
   else
   {
-LABEL_4:
     v12.receiver = self;
     v12.super_class = _UIRemoteViewControllerLegacyImplAccessibility;
     v10 = [(_UIRemoteViewControllerLegacyImplAccessibility *)&v12 _wantsKeyboardEnvironmentEventDeferringForFocusOnScreen:screenCopy];

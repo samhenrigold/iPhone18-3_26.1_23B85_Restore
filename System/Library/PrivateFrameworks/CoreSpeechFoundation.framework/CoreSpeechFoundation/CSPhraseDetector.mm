@@ -2,6 +2,7 @@
 - (BOOL)_isSecondChanceCandidateWithScore:(float)score effectiveThreshold:(float)threshold secondChanceThreshold:(float)chanceThreshold;
 - (CSPhraseDetector)init;
 - (id)_getResultWithPhId:(unint64_t)id phraseDetectorInfo:(id)info ndapiResult:(id)result quasarResult:(id)quasarResult forceMaximized:(BOOL)maximized;
+- (id)_phraseDetectorResultFromNDAPIResults:(id)results quasarResult:(id)result forceMaximized:(BOOL)maximized;
 - (id)_resultCopyWithKeywordDetectorDecision:(unint64_t)decision bestPhId:(unint64_t)id phraseResult:(id)result;
 - (id)getAnalyzedResultFromAudioChunk:(id)chunk;
 - (id)getAnalyzedResultFromFlushedAudio;
@@ -18,7 +19,7 @@
 
 - (id)_resultCopyWithKeywordDetectorDecision:(unint64_t)decision bestPhId:(unint64_t)id phraseResult:(id)result
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   v8 = [resultCopy objectAtIndexedSubscript:id];
   decision = [v8 decision];
@@ -29,10 +30,10 @@
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v29 = "[CSPhraseDetector _resultCopyWithKeywordDetectorDecision:bestPhId:phraseResult:]";
-      v30 = 2048;
+      v28 = "[CSPhraseDetector _resultCopyWithKeywordDetectorDecision:bestPhId:phraseResult:]";
+      v29 = 2048;
       decisionCopy2 = decision;
-      v32 = 2048;
+      v31 = 2048;
       idCopy = id;
       _os_log_impl(&dword_1DDA4B000, v10, OS_LOG_TYPE_DEFAULT, "%s Reporting decision (%tu) from (%tu)", buf, 0x20u);
     }
@@ -45,26 +46,26 @@ LABEL_16:
 
   else
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v12 = resultCopy;
-    v13 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v24;
+      v15 = *v23;
       while (2)
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v24 != v15)
+          if (*v23 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v11 = *(*(&v23 + 1) + 8 * i);
+          v11 = *(*(&v22 + 1) + 8 * i);
           if ([v11 decision] == decision)
           {
             v18 = CSLogContextFacilityCoreSpeech;
@@ -73,10 +74,10 @@ LABEL_16:
               v19 = v18;
               phId = [v11 phId];
               *buf = 136315650;
-              v29 = "[CSPhraseDetector _resultCopyWithKeywordDetectorDecision:bestPhId:phraseResult:]";
-              v30 = 2048;
+              v28 = "[CSPhraseDetector _resultCopyWithKeywordDetectorDecision:bestPhId:phraseResult:]";
+              v29 = 2048;
               decisionCopy2 = decision;
-              v32 = 2048;
+              v31 = 2048;
               idCopy = phId;
               _os_log_impl(&dword_1DDA4B000, v19, OS_LOG_TYPE_DEFAULT, "%s Reporting decision (%tu) from (%tu)", buf, 0x20u);
             }
@@ -85,7 +86,7 @@ LABEL_16:
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
         if (v14)
         {
           continue;
@@ -97,8 +98,6 @@ LABEL_16:
 
     v17 = 0;
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -116,7 +115,7 @@ LABEL_16:
 - (id)_getResultWithPhId:(unint64_t)id phraseDetectorInfo:(id)info ndapiResult:(id)result quasarResult:(id)quasarResult forceMaximized:(BOOL)maximized
 {
   maximizedCopy = maximized;
-  v88 = *MEMORY[0x1E69E9840];
+  v87 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   resultCopy = result;
   quasarResultCopy = quasarResult;
@@ -162,7 +161,7 @@ LABEL_16:
     v31 = -1000.0;
   }
 
-  v72 = quasarResultCopy;
+  v71 = quasarResultCopy;
   [resultCopy bestScore];
   v33 = v32;
   samplesFed = [resultCopy samplesFed];
@@ -176,19 +175,19 @@ LABEL_16:
     if (v38)
     {
       *buf = 136316674;
-      v75 = "[CSPhraseDetector _getResultWithPhId:phraseDetectorInfo:ndapiResult:quasarResult:forceMaximized:]";
-      v76 = 2048;
-      v77 = idCopy;
-      v78 = 2050;
-      v79 = v33;
-      v80 = 2050;
-      v81 = v37;
-      v82 = 2050;
-      v83 = v31;
-      v84 = 2050;
-      v85 = v25;
-      v86 = 2050;
-      v87 = v28;
+      v74 = "[CSPhraseDetector _getResultWithPhId:phraseDetectorInfo:ndapiResult:quasarResult:forceMaximized:]";
+      v75 = 2048;
+      v76 = idCopy;
+      v77 = 2050;
+      v78 = v33;
+      v79 = 2050;
+      v80 = v37;
+      v81 = 2050;
+      v82 = v31;
+      v83 = 2050;
+      v84 = v25;
+      v85 = 2050;
+      v86 = v28;
       _os_log_impl(&dword_1DDA4B000, v36, OS_LOG_TYPE_INFO, "%s [(%lu)] : NDAPI second pass best score = %{public}f with analyzed samples:                   %{public}tu with quasar score = %{public}f, ndapi scale factor = %{public}f, quasar scale factor = %{public}f", buf, 0x48u);
       samplesFed = *&v37;
       v35 = _getResultWithPhId_phraseDetectorInfo_ndapiResult_quasarResult_forceMaximized__heartbeat;
@@ -215,15 +214,15 @@ LABEL_16:
         v48 = v47;
         *&v49 = COERCE_DOUBLE([resultCopy samplesFed]);
         *buf = 136316162;
-        v75 = "[CSPhraseDetector _getResultWithPhId:phraseDetectorInfo:ndapiResult:quasarResult:forceMaximized:]";
-        v76 = 2048;
-        v77 = idCopy;
-        v78 = 2050;
-        v79 = *&v49;
-        v80 = 2050;
-        v81 = v40;
-        v82 = 2050;
-        v83 = v21;
+        v74 = "[CSPhraseDetector _getResultWithPhId:phraseDetectorInfo:ndapiResult:quasarResult:forceMaximized:]";
+        v75 = 2048;
+        v76 = idCopy;
+        v77 = 2050;
+        v78 = *&v49;
+        v79 = 2050;
+        v80 = v40;
+        v81 = 2050;
+        v82 = v21;
         _os_log_impl(&dword_1DDA4B000, v48, OS_LOG_TYPE_DEFAULT, "%s [phId = %tu] : Trigger detected with %{public}tu analyzed samples in NDAPI,                   combined score = %{public}lf, effective threshold = %{public}f", buf, 0x34u);
       }
 
@@ -242,13 +241,13 @@ LABEL_16:
         if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315906;
-          v75 = "[CSPhraseDetector _getResultWithPhId:phraseDetectorInfo:ndapiResult:quasarResult:forceMaximized:]";
-          v76 = 2048;
-          v77 = idCopy;
-          v78 = 2050;
-          v79 = v45;
-          v80 = 2050;
-          v81 = v40;
+          v74 = "[CSPhraseDetector _getResultWithPhId:phraseDetectorInfo:ndapiResult:quasarResult:forceMaximized:]";
+          v75 = 2048;
+          v76 = idCopy;
+          v77 = 2050;
+          v78 = v45;
+          v79 = 2050;
+          v80 = v40;
           _os_log_impl(&dword_1DDA4B000, v46, OS_LOG_TYPE_DEFAULT, "%s [phId = %tu] : Notify second pass reject at: %{public}tu                   with best score up to: %{public}.3f", buf, 0x2Au);
         }
 
@@ -263,19 +262,19 @@ LABEL_16:
     if (maximizedCopy)
     {
 LABEL_32:
-      v62 = *&samplesFed;
-      v63 = CSLogContextFacilityCoreSpeech;
+      v61 = *&samplesFed;
+      v62 = CSLogContextFacilityCoreSpeech;
       if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315906;
-        v75 = "[CSPhraseDetector _getResultWithPhId:phraseDetectorInfo:ndapiResult:quasarResult:forceMaximized:]";
-        v76 = 2048;
-        v77 = idCopy;
-        v78 = 2050;
-        v79 = v62;
-        v80 = 2050;
-        v81 = v40;
-        _os_log_impl(&dword_1DDA4B000, v63, OS_LOG_TYPE_DEFAULT, "%s [phId = %tu] : Detected near miss at %{public}lu samples                       with best score up to: %{public}.3f", buf, 0x2Au);
+        v74 = "[CSPhraseDetector _getResultWithPhId:phraseDetectorInfo:ndapiResult:quasarResult:forceMaximized:]";
+        v75 = 2048;
+        v76 = idCopy;
+        v77 = 2050;
+        v78 = v61;
+        v79 = 2050;
+        v80 = v40;
+        _os_log_impl(&dword_1DDA4B000, v62, OS_LOG_TYPE_DEFAULT, "%s [phId = %tu] : Detected near miss at %{public}lu samples                       with best score up to: %{public}.3f", buf, 0x2Au);
       }
 
       v42 = 2;
@@ -293,18 +292,18 @@ LABEL_32:
 
       if (__ROR8__(0xCCCCCCCCCCCCCCCDLL * v39, 1) <= 0x1999999999999999uLL)
       {
-        v66 = samplesFed;
-        v67 = CSLogContextFacilityCoreSpeech;
+        v65 = samplesFed;
+        v66 = CSLogContextFacilityCoreSpeech;
         v44 = 1;
         if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_INFO))
         {
           *buf = 136315650;
-          v75 = "[CSPhraseDetector _getResultWithPhId:phraseDetectorInfo:ndapiResult:quasarResult:forceMaximized:]";
-          v76 = 2048;
-          v77 = idCopy;
-          v78 = 2050;
-          *&v79 = v66 - nearMissCandidateDetectedSamples + nearMissDelayTimeout;
-          _os_log_impl(&dword_1DDA4B000, v67, OS_LOG_TYPE_INFO, "%s [phId = %tu] : Waiting for logging near miss                               until timeout %{public}lu samples", buf, 0x20u);
+          v74 = "[CSPhraseDetector _getResultWithPhId:phraseDetectorInfo:ndapiResult:quasarResult:forceMaximized:]";
+          v75 = 2048;
+          v76 = idCopy;
+          v77 = 2050;
+          *&v78 = v65 - nearMissCandidateDetectedSamples + nearMissDelayTimeout;
+          _os_log_impl(&dword_1DDA4B000, v66, OS_LOG_TYPE_INFO, "%s [phId = %tu] : Waiting for logging near miss                               until timeout %{public}lu samples", buf, 0x20u);
         }
 
 LABEL_40:
@@ -316,20 +315,20 @@ LABEL_40:
     else
     {
       self->_nearMissCandidateDetectedSamples = samplesFed;
-      v68 = CSLogContextFacilityCoreSpeech;
-      v69 = *&samplesFed;
+      v67 = CSLogContextFacilityCoreSpeech;
+      v68 = *&samplesFed;
       if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
       {
-        v70 = self->_nearMissDelayTimeout;
+        v69 = self->_nearMissDelayTimeout;
         *buf = 136315906;
-        v75 = "[CSPhraseDetector _getResultWithPhId:phraseDetectorInfo:ndapiResult:quasarResult:forceMaximized:]";
-        v76 = 2048;
-        v77 = idCopy;
-        v78 = 2050;
-        v79 = v69;
-        v80 = 2050;
-        v81 = *&v70;
-        _os_log_impl(&dword_1DDA4B000, v68, OS_LOG_TYPE_DEFAULT, "%s [phId = %tu] : Detected near miss candidate at %{public}tu,                       let's wait %{public}tu samples to log", buf, 0x2Au);
+        v74 = "[CSPhraseDetector _getResultWithPhId:phraseDetectorInfo:ndapiResult:quasarResult:forceMaximized:]";
+        v75 = 2048;
+        v76 = idCopy;
+        v77 = 2050;
+        v78 = v68;
+        v79 = 2050;
+        v80 = *&v69;
+        _os_log_impl(&dword_1DDA4B000, v67, OS_LOG_TYPE_DEFAULT, "%s [phId = %tu] : Detected near miss candidate at %{public}tu,                       let's wait %{public}tu samples to log", buf, 0x2Au);
       }
     }
 
@@ -357,53 +356,257 @@ LABEL_27:
   *&v59 = v33;
   v19 = [(CSSinglePhraseResult *)v56 initWithPhId:idCopy keywordDetectorDecision:v42 combinedScore:resultCopy ndapiScore:self->_isSecondChance ndapiResult:v55 recognizerScore:self->_syncKeywordAnalyzerQuasar != 0 isSecondChance:v58 isSecondChanceCandidate:v59 isRunningQuasar:v57];
 
-  quasarResultCopy = v72;
+  quasarResultCopy = v71;
 LABEL_28:
-
-  v60 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
 
 - (id)getLosingPhraseResultsWithDetectedPhId:(unint64_t)id
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = self->_phraseResult;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
+        v11 = *(*(&v13 + 1) + 8 * i);
         if ([v11 phId] != id)
         {
           [array addObject:v11];
         }
       }
 
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return array;
+}
+
+- (id)_phraseDetectorResultFromNDAPIResults:(id)results quasarResult:(id)result forceMaximized:(BOOL)maximized
+{
+  maximizedCopy = maximized;
+  v67 = *MEMORY[0x1E69E9840];
+  resultsCopy = results;
+  resultCopy = result;
+  v47 = resultsCopy;
+  v10 = [resultsCopy count];
+  if (v10 >= [(NSMutableArray *)self->_phraseDetectorInfos count])
+  {
+    v58 = 0u;
+    v59 = 0u;
+    v56 = 0u;
+    v57 = 0u;
+    obj = self->_phraseDetectorInfos;
+    v13 = [(NSMutableArray *)obj countByEnumeratingWithState:&v56 objects:v66 count:16];
+    if (v13)
+    {
+      v15 = v13;
+      v16 = 0;
+      v17 = *v57;
+      *&v14 = 136315394;
+      v45 = v14;
+      v18 = resultCopy;
+      do
+      {
+        for (i = 0; i != v15; ++i)
+        {
+          if (*v57 != v17)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v20 = *(*(&v56 + 1) + 8 * i);
+          if ([resultCopy count] <= v16)
+          {
+            v21 = 0;
+          }
+
+          else
+          {
+            v21 = [resultCopy objectAtIndex:v16];
+          }
+
+          v22 = [v47 objectAtIndex:v16];
+          v23 = [(CSPhraseDetector *)self _getResultWithPhId:v16 phraseDetectorInfo:v20 ndapiResult:v22 quasarResult:v21 forceMaximized:maximizedCopy];
+
+          if (v23 && [(NSMutableArray *)self->_phraseResult count]> v16)
+          {
+            [(NSMutableArray *)self->_phraseResult setObject:v23 atIndexedSubscript:v16];
+          }
+
+          else
+          {
+            v24 = CSLogContextFacilityCoreSpeech;
+            if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
+            {
+              *buf = v45;
+              v63 = "[CSPhraseDetector _phraseDetectorResultFromNDAPIResults:quasarResult:forceMaximized:]";
+              v64 = 2048;
+              v65 = v16;
+              _os_log_error_impl(&dword_1DDA4B000, v24, OS_LOG_TYPE_ERROR, "%s Received invalid result with %tu", buf, 0x16u);
+            }
+          }
+
+          ++v16;
+
+          resultCopy = v18;
+        }
+
+        v15 = [(NSMutableArray *)obj countByEnumeratingWithState:&v56 objects:v66 count:16];
+      }
+
+      while (v15);
+    }
+
+    v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v25 = self->_phraseResult;
+    v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v52 objects:v61 count:16];
+    if (v26)
+    {
+      v27 = v26;
+      phId = 0;
+      v29 = *v53;
+      v30 = -INFINITY;
+      do
+      {
+        for (j = 0; j != v27; ++j)
+        {
+          if (*v53 != v29)
+          {
+            objc_enumerationMutation(v25);
+          }
+
+          v32 = *(*(&v52 + 1) + 8 * j);
+          [v32 ndapiScore];
+          if (v33 > v30)
+          {
+            [v32 ndapiScore];
+            v30 = v34;
+            phId = [v32 phId];
+          }
+        }
+
+        v27 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v52 objects:v61 count:16];
+      }
+
+      while (v27);
+    }
+
+    else
+    {
+      phId = 0;
+    }
+
+    v35 = [(CSPhraseDetector *)self _resultCopyWithKeywordDetectorDecision:1 bestPhId:phId phraseResult:self->_phraseResult];
+    if (v35)
+    {
+      goto LABEL_32;
+    }
+
+    v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v36 = self->_phraseResult;
+    v37 = [(NSMutableArray *)v36 countByEnumeratingWithState:&v48 objects:v60 count:16];
+    if (v37)
+    {
+      v38 = v37;
+      v39 = *v49;
+LABEL_35:
+      v40 = 0;
+      while (1)
+      {
+        if (*v49 != v39)
+        {
+          objc_enumerationMutation(v36);
+        }
+
+        v41 = *(*(&v48 + 1) + 8 * v40);
+        if (![(NSMutableArray *)v41 decision])
+        {
+          break;
+        }
+
+        if (v38 == ++v40)
+        {
+          v38 = [(NSMutableArray *)v36 countByEnumeratingWithState:&v48 objects:v60 count:16];
+          if (v38)
+          {
+            goto LABEL_35;
+          }
+
+          goto LABEL_41;
+        }
+      }
+    }
+
+    else
+    {
+LABEL_41:
+
+      v35 = [(CSPhraseDetector *)self _resultCopyWithKeywordDetectorDecision:2 bestPhId:phId phraseResult:self->_phraseResult];
+      if (v35 || ([(CSPhraseDetector *)self _resultCopyWithKeywordDetectorDecision:3 bestPhId:phId phraseResult:self->_phraseResult], (v35 = objc_claimAutoreleasedReturnValue()) != 0))
+      {
+LABEL_32:
+        v12 = v35;
+        goto LABEL_47;
+      }
+
+      v42 = CSLogContextFacilityCoreSpeech;
+      if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_FAULT))
+      {
+        *buf = 136315138;
+        v63 = "[CSPhraseDetector _phraseDetectorResultFromNDAPIResults:quasarResult:forceMaximized:]";
+        _os_log_fault_impl(&dword_1DDA4B000, v42, OS_LOG_TYPE_FAULT, "%s Phrase detector results fall-into unexpected use case", buf, 0xCu);
+      }
+
+      v41 = [(NSMutableArray *)self->_phraseResult objectAtIndexedSubscript:phId];
+      v36 = v41;
+    }
+
+    v12 = [(NSMutableArray *)v41 copy];
+
+    goto LABEL_47;
+  }
+
+  v11 = CSLogContextFacilityCoreSpeech;
+  if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
+  {
+    v44 = v11;
+    *buf = 136315394;
+    v63 = "[CSPhraseDetector _phraseDetectorResultFromNDAPIResults:quasarResult:forceMaximized:]";
+    v64 = 1024;
+    LODWORD(v65) = [resultsCopy count];
+    _os_log_error_impl(&dword_1DDA4B000, v44, OS_LOG_TYPE_ERROR, "%s Unable to process due to number of result mismatch, ndapiResults number = %d", buf, 0x12u);
+  }
+
+  v12 = 0;
+LABEL_47:
+
+  return v12;
 }
 
 - (id)phraseDetectorInfoFromPhId:(unint64_t)id
@@ -482,7 +685,7 @@ LABEL_9:
 
 - (void)setConfig:(id)config
 {
-  v97 = *MEMORY[0x1E69E9840];
+  v96 = *MEMORY[0x1E69E9840];
   configCopy = config;
   phraseConfigs = [configCopy phraseConfigs];
   v6 = [phraseConfigs count];
@@ -498,39 +701,39 @@ LABEL_9:
     {
       v9 = *&self->_quasarCheckerCutOffSamplesCount;
       *buf = 136315394;
-      v89 = "[CSPhraseDetector setConfig:]";
-      v90 = 2048;
-      v91 = v9;
+      v88 = "[CSPhraseDetector setConfig:]";
+      v89 = 2048;
+      v90 = v9;
       _os_log_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_DEFAULT, "%s setting quasar checker model processed sample count cut off: %lu", buf, 0x16u);
     }
 
-    v86 = 0u;
-    v87 = 0u;
-    v84 = 0u;
     v85 = 0u;
+    v86 = 0u;
+    v83 = 0u;
+    v84 = 0u;
     phraseConfigs2 = [configCopy phraseConfigs];
-    v11 = [phraseConfigs2 countByEnumeratingWithState:&v84 objects:v96 count:16];
+    v11 = [phraseConfigs2 countByEnumeratingWithState:&v83 objects:v95 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v85;
+      v13 = *v84;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v85 != v13)
+          if (*v84 != v13)
           {
             objc_enumerationMutation(phraseConfigs2);
           }
 
-          v15 = [[CSPhraseDetectorInfo alloc] initWithPhraseConfig:*(*(&v84 + 1) + 8 * i)];
+          v15 = [[CSPhraseDetectorInfo alloc] initWithPhraseConfig:*(*(&v83 + 1) + 8 * i)];
           if (v15)
           {
             [(NSMutableArray *)self->_phraseDetectorInfos addObject:v15];
           }
         }
 
-        v12 = [phraseConfigs2 countByEnumeratingWithState:&v84 objects:v96 count:16];
+        v12 = [phraseConfigs2 countByEnumeratingWithState:&v83 objects:v95 count:16];
       }
 
       while (v12);
@@ -543,35 +746,35 @@ LABEL_9:
     syncKeywordAnalyzerNDAPI = self->_syncKeywordAnalyzerNDAPI;
     self->_syncKeywordAnalyzerNDAPI = v19;
 
-    v75 = configCopy;
+    v74 = configCopy;
     if (self->_syncKeywordAnalyzerNDAPI && +[CSUtils supportPremiumModel](CSUtils, "supportPremiumModel") && [configCopy useRecognizerCombination])
     {
       array = [MEMORY[0x1E695DF70] array];
+      v79 = 0u;
       v80 = 0u;
       v81 = 0u;
       v82 = 0u;
-      v83 = 0u;
       v22 = self->_phraseDetectorInfos;
-      v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v80 objects:v95 count:16];
+      v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v79 objects:v94 count:16];
       if (v23)
       {
         v24 = v23;
-        v25 = *v81;
+        v25 = *v80;
         do
         {
           for (j = 0; j != v24; ++j)
           {
-            if (*v81 != v25)
+            if (*v80 != v25)
             {
               objc_enumerationMutation(v22);
             }
 
-            phraseConfig = [*(*(&v80 + 1) + 8 * j) phraseConfig];
+            phraseConfig = [*(*(&v79 + 1) + 8 * j) phraseConfig];
             recognizerToken = [phraseConfig recognizerToken];
             [array addObject:recognizerToken];
           }
 
-          v24 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v80 objects:v95 count:16];
+          v24 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v79 objects:v94 count:16];
         }
 
         while (v24);
@@ -597,14 +800,14 @@ LABEL_9:
         }
 
         *buf = 136315394;
-        v89 = "[CSPhraseDetector setConfig:]";
-        v90 = 2112;
-        v91 = *&v34;
+        v88 = "[CSPhraseDetector setConfig:]";
+        v89 = 2112;
+        v90 = *&v34;
         _os_log_impl(&dword_1DDA4B000, v33, OS_LOG_TYPE_DEFAULT, "%s VoiceTrigger memory lock %@", buf, 0x16u);
       }
 
       v35 = [CSSyncKeywordAnalyzerQuasar alloc];
-      configPathRecognizer = [v75 configPathRecognizer];
+      configPathRecognizer = [v74 configPathRecognizer];
       if (CSIsHorseman_onceToken != -1)
       {
         dispatch_once(&CSIsHorseman_onceToken, &__block_literal_global_9);
@@ -621,27 +824,27 @@ LABEL_9:
       self->_syncKeywordAnalyzerQuasar = 0;
     }
 
-    v78 = 0u;
-    v79 = 0u;
-    v76 = 0u;
     v77 = 0u;
+    v78 = 0u;
+    v75 = 0u;
+    v76 = 0u;
     v39 = self->_phraseDetectorInfos;
-    v40 = [(NSMutableArray *)v39 countByEnumeratingWithState:&v76 objects:v94 count:16];
+    v40 = [(NSMutableArray *)v39 countByEnumeratingWithState:&v75 objects:v93 count:16];
     if (v40)
     {
       v41 = v40;
-      v42 = *v77;
-      v74 = 136315650;
+      v42 = *v76;
+      v73 = 136315650;
       do
       {
         for (k = 0; k != v41; ++k)
         {
-          if (*v77 != v42)
+          if (*v76 != v42)
           {
             objc_enumerationMutation(v39);
           }
 
-          v44 = *(*(&v76 + 1) + 8 * k);
+          v44 = *(*(&v75 + 1) + 8 * k);
           phraseConfig2 = [v44 phraseConfig];
           [phraseConfig2 threshold];
           v47 = v46;
@@ -657,7 +860,7 @@ LABEL_9:
             if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315138;
-              v89 = "[CSPhraseDetector setConfig:]";
+              v88 = "[CSPhraseDetector setConfig:]";
               _os_log_impl(&dword_1DDA4B000, v60, OS_LOG_TYPE_DEFAULT, "%s Reset all thresholds to HUGE_VALF since NDAPI is nil", buf, 0xCu);
             }
 
@@ -689,7 +892,7 @@ LABEL_9:
           {
             if (!self->_syncKeywordAnalyzerQuasar)
             {
-              if ([v75 useRecognizerCombination])
+              if ([v74 useRecognizerCombination])
               {
                 [(CSKeywordAnalyzerNDAPI *)self->_syncKeywordAnalyzerNDAPI getThreshold];
                 v47 = v66;
@@ -700,12 +903,12 @@ LABEL_9:
                 v69 = CSLogContextFacilityCoreSpeech;
                 if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
                 {
-                  *buf = v74;
-                  v89 = "[CSPhraseDetector setConfig:]";
-                  v90 = 2050;
-                  v91 = v47;
-                  v92 = 2050;
-                  v93 = v51;
+                  *buf = v73;
+                  v88 = "[CSPhraseDetector setConfig:]";
+                  v89 = 2050;
+                  v90 = v47;
+                  v91 = 2050;
+                  v92 = v51;
                   _os_log_impl(&dword_1DDA4B000, v69, OS_LOG_TYPE_DEFAULT, "%s Using threshold from NDAPI since we are not able to use Quasar, threshold = %{public}f, logging threshold = %{public}f", buf, 0x20u);
                 }
               }
@@ -725,14 +928,14 @@ LABEL_9:
           [v44 setEffectiveKeywordThreshold:v71];
         }
 
-        v41 = [(NSMutableArray *)v39 countByEnumeratingWithState:&v76 objects:v94 count:16];
+        v41 = [(NSMutableArray *)v39 countByEnumeratingWithState:&v75 objects:v93 count:16];
       }
 
       while (v41);
     }
 
     [(CSPhraseDetector *)self reset];
-    configCopy = v75;
+    configCopy = v74;
   }
 
   else
@@ -741,23 +944,21 @@ LABEL_9:
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v89 = "[CSPhraseDetector setConfig:]";
+      v88 = "[CSPhraseDetector setConfig:]";
       _os_log_error_impl(&dword_1DDA4B000, v72, OS_LOG_TYPE_ERROR, "%s Invalid assets config!", buf, 0xCu);
     }
   }
-
-  v73 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reset
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136315138;
-    v13 = "[CSPhraseDetector reset]";
-    _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s ", &v12, 0xCu);
+    v11 = 136315138;
+    v12 = "[CSPhraseDetector reset]";
+    _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s ", &v11, 0xCu);
   }
 
   [(CSKeywordAnalyzerNDAPI *)self->_syncKeywordAnalyzerNDAPI reset];
@@ -785,33 +986,32 @@ LABEL_9:
   self->_quasarCheckerResultAtCutOff = 0;
 
   self->_processedSampleCount = 0;
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setRunAsSecondChance:(BOOL)chance
 {
   chanceCopy = chance;
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v4 = self->_phraseDetectorInfos;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v20;
+    v7 = *v19;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
+        v9 = *(*(&v18 + 1) + 8 * i);
         phraseConfig = [v9 phraseConfig];
         v11 = phraseConfig;
         if (phraseConfig)
@@ -827,9 +1027,9 @@ LABEL_9:
             if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315394;
-              v24 = "[CSPhraseDetector setRunAsSecondChance:]";
-              v25 = 2050;
-              v26 = v13;
+              v23 = "[CSPhraseDetector setRunAsSecondChance:]";
+              v24 = 2050;
+              v25 = v13;
               _os_log_impl(&dword_1DDA4B000, v15, OS_LOG_TYPE_DEFAULT, "%s Using second chance threshold for voice trigger second pass: %{public}f", buf, 0x16u);
             }
           }
@@ -846,20 +1046,19 @@ LABEL_9:
           if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315138;
-            v24 = "[CSPhraseDetector setRunAsSecondChance:]";
+            v23 = "[CSPhraseDetector setRunAsSecondChance:]";
             _os_log_error_impl(&dword_1DDA4B000, v16, OS_LOG_TYPE_ERROR, "%s Failed to fetch config", buf, 0xCu);
           }
         }
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v6);
   }
 
   self->_isSecondChance = chanceCopy;
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setActiveChannel:(unint64_t)channel
@@ -872,19 +1071,18 @@ LABEL_9:
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v7 = "[CSPhraseDetector dealloc]";
+    v6 = "[CSPhraseDetector dealloc]";
     _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s CSPhraseDetector Deallocated", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = CSPhraseDetector;
-  [(CSPhraseDetector *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = CSPhraseDetector;
+  [(CSPhraseDetector *)&v4 dealloc];
 }
 
 - (CSPhraseDetector)init

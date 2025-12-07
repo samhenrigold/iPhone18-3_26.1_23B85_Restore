@@ -162,7 +162,7 @@
   recentlyCopy = recently;
   v5 = self->_recentlyUsedApplications;
   objc_sync_enter(v5);
-  v6 = [(NSMutableSet *)self->_recentlyUsedApplications count];
+  v6 = objc_msgSend_count(self->_recentlyUsedApplications);
   recentlyUsedApplications = self->_recentlyUsedApplications;
   if (v6 >= 0x19)
   {
@@ -258,7 +258,7 @@ LABEL_5:
   }
 
   foregroundedApplications = [(_DASProcessLifecycleMonitor *)self->_processMonitor foregroundedApplications];
-  v6 = [foregroundedApplications count] == 0;
+  v6 = objc_msgSend_count(foregroundedApplications) == 0;
 
   return v6;
 }
@@ -329,7 +329,7 @@ LABEL_5:
         else
         {
           relatedApplications = [activityCopy relatedApplications];
-          v5 = [relatedApplications count] != 0;
+          v5 = objc_msgSend_count(relatedApplications) != 0;
         }
       }
     }
@@ -348,7 +348,7 @@ LABEL_5:
   v27 = topNPrediction;
   v10 = [topNPrediction valueAtDate:v9];
   relatedApplications = [activityCopy relatedApplications];
-  if ([relatedApplications count])
+  if (objc_msgSend_count(relatedApplications))
   {
     [activityCopy relatedApplications];
   }
@@ -403,7 +403,7 @@ LABEL_5:
   }
 
   v24 = objc_autoreleasePoolPush();
-  if ([v13 count])
+  if (objc_msgSend_count(v13))
   {
     v25 = [NSArray arrayWithArray:v13];
     [activityCopy setSchedulerRecommendedApplications:v25];
@@ -821,7 +821,7 @@ LABEL_33:
   v40 = self->_recentlyUsedApplications;
   objc_sync_enter(v40);
   relatedApplications3 = [activityCopy relatedApplications];
-  if ([relatedApplications3 count])
+  if (objc_msgSend_count(relatedApplications3))
   {
     runWhenAppLaunchUnlikely = [activityCopy runWhenAppLaunchUnlikely];
 

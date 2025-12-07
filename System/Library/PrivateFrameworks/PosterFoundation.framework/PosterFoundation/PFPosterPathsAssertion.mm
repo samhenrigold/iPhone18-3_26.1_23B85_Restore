@@ -71,7 +71,7 @@ void __66__PFPosterPathsAssertion_initWithPaths_queue_invalidationHandler___bloc
 
 - (id)_initWithPaths:(id)paths invalidationAction:(id)action
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   pathsCopy = paths;
   actionCopy = action;
   v9 = pathsCopy;
@@ -86,26 +86,26 @@ void __66__PFPosterPathsAssertion_initWithPaths_queue_invalidationHandler___bloc
     [PFPosterPathsAssertion _initWithPaths:a2 invalidationAction:?];
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v10 = v9;
-  v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v23;
+    v13 = *v22;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v23 != v13)
+        if (*v22 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v22 + 1) + 8 * i);
+        v15 = *(*(&v21 + 1) + 8 * i);
         NSClassFromString(&cfstr_Pfposterpath.isa);
         if (!v15)
         {
@@ -118,15 +118,15 @@ void __66__PFPosterPathsAssertion_initWithPaths_queue_invalidationHandler___bloc
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v12);
   }
 
-  v21.receiver = self;
-  v21.super_class = PFPosterPathsAssertion;
-  v16 = [(PFPosterPathsAssertion *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = PFPosterPathsAssertion;
+  v16 = [(PFPosterPathsAssertion *)&v20 init];
   if (v16)
   {
     v17 = [v10 copy];
@@ -136,7 +136,6 @@ void __66__PFPosterPathsAssertion_initWithPaths_queue_invalidationHandler___bloc
     objc_storeStrong(&v16->_invalidationAction, action);
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -162,76 +161,75 @@ void __66__PFPosterPathsAssertion_initWithPaths_queue_invalidationHandler___bloc
 
 - (id)description
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AD60];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   v6 = MEMORY[0x1C691BC40]([(BSAction *)self->_invalidationAction canSendResponse]);
   v7 = [v3 stringWithFormat:@"<%@:%p expectsResponse=%@> {", v5, self, v6];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v8 = self->_paths;
-  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [v7 appendFormat:@"\n\t%@", *(*(&v15 + 1) + 8 * i)];
+        [v7 appendFormat:@"\n\t%@", *(*(&v14 + 1) + 8 * i)];
       }
 
-      v10 = [(NSArray *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [(NSArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v10);
   }
 
   [v7 appendString:@"\n}"];
-  v13 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (PFPosterPathsAssertion)initWithCoder:(id)coder
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = MEMORY[0x1E695DFD8];
   v6 = objc_opt_class();
   v7 = [v5 setWithObjects:{v6, objc_opt_class(), 0}];
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"p"];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v9 = v8;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     while (1)
     {
-      if (*v18 != v12)
+      if (*v17 != v12)
       {
         objc_enumerationMutation(v9);
       }
 
       if (!--v11)
       {
-        v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (!v11)
         {
           break;
@@ -243,7 +241,6 @@ void __66__PFPosterPathsAssertion_initWithPaths_queue_invalidationHandler___bloc
   v13 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"i"];
   v14 = [(PFPosterPathsAssertion *)self _initWithPaths:v9 invalidationAction:v13];
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -260,7 +257,7 @@ void __66__PFPosterPathsAssertion_initWithPaths_queue_invalidationHandler___bloc
 
 - (void)initWithPaths:(char *)a1 queue:invalidationHandler:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"invalidationHandler"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -268,7 +265,7 @@ void __66__PFPosterPathsAssertion_initWithPaths_queue_invalidationHandler___bloc
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"invalidationHandler", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -278,7 +275,7 @@ void __66__PFPosterPathsAssertion_initWithPaths_queue_invalidationHandler___bloc
 
 - (void)initWithPaths:(char *)a1 queue:invalidationHandler:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"queue"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -286,7 +283,7 @@ void __66__PFPosterPathsAssertion_initWithPaths_queue_invalidationHandler___bloc
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"queue", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -296,7 +293,7 @@ void __66__PFPosterPathsAssertion_initWithPaths_queue_invalidationHandler___bloc
 
 - (void)_initWithPaths:(char *)a1 invalidationAction:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSArrayClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -304,7 +301,7 @@ void __66__PFPosterPathsAssertion_initWithPaths_queue_invalidationHandler___bloc
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSArrayClass]", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -314,7 +311,7 @@ void __66__PFPosterPathsAssertion_initWithPaths_queue_invalidationHandler___bloc
 
 - (void)_initWithPaths:(char *)a1 invalidationAction:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PFPosterPathClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -322,7 +319,7 @@ void __66__PFPosterPathsAssertion_initWithPaths_queue_invalidationHandler___bloc
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PFPosterPathClass]", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -332,7 +329,7 @@ void __66__PFPosterPathsAssertion_initWithPaths_queue_invalidationHandler___bloc
 
 - (void)_initWithPaths:(char *)a1 invalidationAction:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -340,7 +337,7 @@ void __66__PFPosterPathsAssertion_initWithPaths_queue_invalidationHandler___bloc
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -350,7 +347,7 @@ void __66__PFPosterPathsAssertion_initWithPaths_queue_invalidationHandler___bloc
 
 - (void)_initWithPaths:(char *)a1 invalidationAction:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -358,7 +355,7 @@ void __66__PFPosterPathsAssertion_initWithPaths_queue_invalidationHandler___bloc
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

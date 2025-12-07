@@ -62,35 +62,7 @@
 {
   equalCopy = equal;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    goto LABEL_7;
-  }
-
-  createdOrCompletedRemindersCountThreshold = [(REMAppStoreDataViewConfigurationsInvocationResult *)self createdOrCompletedRemindersCountThreshold];
-  if (createdOrCompletedRemindersCountThreshold != [equalCopy createdOrCompletedRemindersCountThreshold])
-  {
-    goto LABEL_7;
-  }
-
-  numberOfForegroundsThreshold = [(REMAppStoreDataViewConfigurationsInvocationResult *)self numberOfForegroundsThreshold];
-  if (numberOfForegroundsThreshold != [equalCopy numberOfForegroundsThreshold])
-  {
-    goto LABEL_7;
-  }
-
-  [(REMAppStoreDataViewConfigurationsInvocationResult *)self timeIntervalOfInterest];
-  v8 = v7;
-  [equalCopy timeIntervalOfInterest];
-  if (v8 != v9)
-  {
-    goto LABEL_7;
-  }
-
-  [(REMAppStoreDataViewConfigurationsInvocationResult *)self timeIntervalSinceInitialForeground];
-  v11 = v10;
-  [equalCopy timeIntervalSinceInitialForeground];
-  if (v11 == v12 && (-[REMAppStoreDataViewConfigurationsInvocationResult timeIntervalSinceLastPrompt](self, "timeIntervalSinceLastPrompt"), v14 = v13, [equalCopy timeIntervalSinceLastPrompt], v14 == v15))
+  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = -[REMAppStoreDataViewConfigurationsInvocationResult createdOrCompletedRemindersCountThreshold](self, "createdOrCompletedRemindersCountThreshold"), v5 == [equalCopy createdOrCompletedRemindersCountThreshold]) && (v6 = -[REMAppStoreDataViewConfigurationsInvocationResult numberOfForegroundsThreshold](self, "numberOfForegroundsThreshold"), v6 == objc_msgSend(equalCopy, "numberOfForegroundsThreshold")) && (-[REMAppStoreDataViewConfigurationsInvocationResult timeIntervalOfInterest](self, "timeIntervalOfInterest"), v8 = v7, objc_msgSend(equalCopy, "timeIntervalOfInterest"), v8 == v9) && (-[REMAppStoreDataViewConfigurationsInvocationResult timeIntervalSinceInitialForeground](self, "timeIntervalSinceInitialForeground"), v11 = v10, objc_msgSend(equalCopy, "timeIntervalSinceInitialForeground"), v11 == v12) && (-[REMAppStoreDataViewConfigurationsInvocationResult timeIntervalSinceLastPrompt](self, "timeIntervalSinceLastPrompt"), v14 = v13, objc_msgSend(equalCopy, "timeIntervalSinceLastPrompt"), v14 == v15))
   {
     [(REMAppStoreDataViewConfigurationsInvocationResult *)self timeIntervalSinceLastFetch];
     v19 = v18;
@@ -100,7 +72,6 @@
 
   else
   {
-LABEL_7:
     v16 = 0;
   }
 

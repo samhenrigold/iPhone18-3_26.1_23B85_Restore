@@ -10,19 +10,18 @@
 
 - (uint64_t)populateForStore:(void *)store inContext:(void *)context error:
 {
-  v144 = *MEMORY[0x1E69E9840];
+  v143 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    v81 = 0;
-    goto LABEL_106;
+    return 0;
   }
 
   selfCopy4 = self;
-  v133 = 0;
+  v132 = 0;
   if (*(self + 120) == 1)
   {
     v6 = objc_autoreleasePoolPush();
-    v7 = [NSCKMetadataEntry entryForKey:a2 fromStore:store inManagedObjectContext:&v133 error:?];
+    v7 = [NSCKMetadataEntry entryForKey:a2 fromStore:store inManagedObjectContext:&v132 error:?];
     if (v7)
     {
       *(selfCopy4 + 128) = [v7 stringValue];
@@ -30,14 +29,14 @@
 
     else
     {
-      v38 = v133;
-      if (v133)
+      v38 = v132;
+      if (v132)
       {
         goto LABEL_95;
       }
     }
 
-    v8 = [store executeFetchRequest:+[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest error:{"fetchRequestWithEntityName:", +[NSCKDatabaseMetadata entityPath](NSCKDatabaseMetadata, "entityPath")), &v133}];
+    v8 = [store executeFetchRequest:+[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest error:{"fetchRequestWithEntityName:", +[NSCKDatabaseMetadata entityPath](NSCKDatabaseMetadata, "entityPath")), &v132}];
     if (v8)
     {
       v9 = v8;
@@ -47,7 +46,7 @@
         if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v135 = v9;
+          v134 = v9;
           _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Metadata corruption found, store appears to have been used with multiple CloudKit databases: %@\n", buf, 0xCu);
         }
 
@@ -55,7 +54,7 @@
         if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
         {
           *buf = 138412290;
-          v135 = v9;
+          v134 = v9;
           _os_log_fault_impl(&dword_18565F000, v11, OS_LOG_TYPE_FAULT, "CoreData: Metadata corruption found, store appears to have been used with multiple CloudKit databases: %@", buf, 0xCu);
         }
       }
@@ -70,30 +69,30 @@
       v6 = objc_autoreleasePoolPush();
       v13 = +[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest, "fetchRequestWithEntityName:", +[NSCKRecordMetadata entityPath]);
       [(NSFetchRequest *)v13 setFetchBatchSize:50];
-      v14 = [store executeFetchRequest:v13 error:&v133];
+      v14 = [store executeFetchRequest:v13 error:&v132];
       if (v14)
       {
-        v100 = v6;
+        v99 = v6;
         obj = v14;
-        v89 = a2;
-        v131 = 0u;
-        v132 = 0u;
-        v129 = 0u;
+        v88 = a2;
         v130 = 0u;
-        v108 = [v14 countByEnumeratingWithState:&v129 objects:v143 count:16];
-        if (v108)
+        v131 = 0u;
+        v128 = 0u;
+        v129 = 0u;
+        v107 = [v14 countByEnumeratingWithState:&v128 objects:v142 count:16];
+        if (v107)
         {
-          v105 = *v130;
+          v104 = *v129;
           do
           {
-            for (i = 0; i != v108; ++i)
+            for (i = 0; i != v107; ++i)
             {
-              if (*v130 != v105)
+              if (*v129 != v104)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v16 = *(*(&v129 + 1) + 8 * i);
+              v16 = *(*(&v128 + 1) + 8 * i);
               context = objc_autoreleasePoolPush();
               v17 = [objc_msgSend(v16 "objectID")];
               identifier = [v17 identifier];
@@ -104,7 +103,7 @@
               [objc_msgSend(v16 "objectID")];
               v23 = [PFCloudKitStoreComparisonCacheStoreCache createRecordIDForRecordName:self inZoneWithName:ckRecordName ownerName:v21 inStore:v22];
               v24 = [objc_msgSend(v17 "model")];
-              v25 = [_persistentStoreCoordinator managedObjectIDForURIRepresentation:{objc_msgSend(MEMORY[0x1E695DFF8], "URLWithString:", objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"x-coredata://%@/%@/p%@", identifier, objc_msgSend(objc_msgSend(v24, "entityDescription"), "name"), objc_msgSend(v16, "entityPK")))}];
+              v25 = [_persistentStoreCoordinator managedObjectIDForURIRepresentation:{objc_msgSend(MEMORY[0x1E695DFF8], "URLWithString:", objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], identifier, objc_msgSend(objc_msgSend(v24, "entityDescription"), "name"), objc_msgSend(v16, "entityPK")))}];
               [*(self + 64) setObject:v16 forKey:v25];
               [*(self + 88) setObject:v23 forKey:v25];
               [*(self + 56) setObject:v16 forKey:v23];
@@ -123,37 +122,37 @@
               objc_autoreleasePoolPop(context);
             }
 
-            v108 = [obj countByEnumeratingWithState:&v129 objects:v143 count:16];
+            v107 = [obj countByEnumeratingWithState:&v128 objects:v142 count:16];
           }
 
-          while (v108);
+          while (v107);
         }
 
-        objc_autoreleasePoolPop(v100);
+        objc_autoreleasePoolPop(v99);
         v6 = objc_autoreleasePoolPush();
-        v27 = [store executeFetchRequest:+[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest error:{"fetchRequestWithEntityName:", +[NSCKRecordZoneMetadata entityPath](NSCKRecordZoneMetadata, "entityPath")), &v133}];
+        v27 = [store executeFetchRequest:+[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest error:{"fetchRequestWithEntityName:", +[NSCKRecordZoneMetadata entityPath](NSCKRecordZoneMetadata, "entityPath")), &v132}];
         if (v27)
         {
           v28 = v27;
-          v127 = 0u;
-          v128 = 0u;
-          v125 = 0u;
           v126 = 0u;
-          v29 = [v27 countByEnumeratingWithState:&v125 objects:v142 count:16];
+          v127 = 0u;
+          v124 = 0u;
+          v125 = 0u;
+          v29 = [v27 countByEnumeratingWithState:&v124 objects:v141 count:16];
           if (v29)
           {
             v30 = v29;
-            v31 = *v126;
+            v31 = *v125;
             do
             {
               for (j = 0; j != v30; ++j)
               {
-                if (*v126 != v31)
+                if (*v125 != v31)
                 {
                   objc_enumerationMutation(v28);
                 }
 
-                v33 = *(*(&v125 + 1) + 8 * j);
+                v33 = *(*(&v124 + 1) + 8 * j);
                 v34 = [objc_msgSend(v33 "objectID")];
                 v35 = -[PFCloudKitStoreComparisonCacheStoreCache createRecordZoneIDForZoneName:ownerName:inStore:](self, [v33 ckRecordZoneName], objc_msgSend(v33, "ckOwnerName"));
                 [*(self + 96) addObject:v35];
@@ -163,7 +162,7 @@
                 }
               }
 
-              v30 = [v28 countByEnumeratingWithState:&v125 objects:v142 count:16];
+              v30 = [v28 countByEnumeratingWithState:&v124 objects:v141 count:16];
             }
 
             while (v30);
@@ -171,13 +170,13 @@
 
           objc_autoreleasePoolPop(v6);
           selfCopy4 = self;
-          a2 = v89;
+          a2 = v88;
           goto LABEL_34;
         }
       }
     }
 
-    v38 = v133;
+    v38 = v132;
 LABEL_95:
     v82 = v38;
     objc_autoreleasePoolPop(v6);
@@ -196,93 +195,93 @@ LABEL_34:
     entities = [v36 entities];
   }
 
-  v123 = 0u;
-  v124 = 0u;
-  v121 = 0u;
   v122 = 0u;
-  v92 = entities;
-  v94 = [entities countByEnumeratingWithState:&v121 objects:v141 count:16];
-  if (v94)
+  v123 = 0u;
+  v120 = 0u;
+  v121 = 0u;
+  v91 = entities;
+  v93 = [entities countByEnumeratingWithState:&v120 objects:v140 count:16];
+  if (v93)
   {
-    v101 = v36;
-    v90 = a2;
-    v93 = *v122;
+    v100 = v36;
+    v89 = a2;
+    v92 = *v121;
     while (2)
     {
       v39 = 0;
       do
       {
-        if (*v122 != v93)
+        if (*v121 != v92)
         {
-          objc_enumerationMutation(v92);
+          objc_enumerationMutation(v91);
         }
 
-        v40 = *(*(&v121 + 1) + 8 * v39);
+        v40 = *(*(&v120 + 1) + 8 * v39);
         v41 = objc_autoreleasePoolPush();
         v42 = +[NSFetchRequest fetchRequestWithEntityName:](NSFetchRequest, "fetchRequestWithEntityName:", [v40 name]);
         v43 = [objc_msgSend(v40 "propertiesByName")];
         if (v43)
         {
-          v140 = @"ckRecordID";
-          -[NSFetchRequest setPropertiesToFetch:](v42, "setPropertiesToFetch:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v140 count:1]);
+          v139 = @"ckRecordID";
+          -[NSFetchRequest setPropertiesToFetch:](v42, "setPropertiesToFetch:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v139 count:1]);
           if ([objc_msgSend(v40 "propertiesByName")])
           {
             [(NSFetchRequest *)v42 setPropertiesToFetch:[(NSArray *)[(NSFetchRequest *)v42 propertiesToFetch] arrayByAddingObject:@"ckRecordSystemFields"]];
           }
         }
 
-        v44 = [store executeFetchRequest:v42 error:&v133];
+        v44 = [store executeFetchRequest:v42 error:&v132];
         if (!v44)
         {
-          v59 = v133;
+          v59 = v132;
           objc_autoreleasePoolPop(v41);
-          v97 = 0;
+          v96 = 0;
           goto LABEL_69;
         }
 
         v45 = v44;
-        v96 = v41;
-        v98 = v39;
-        v119 = 0u;
-        v120 = 0u;
-        v117 = 0u;
+        v95 = v41;
+        v97 = v39;
         v118 = 0u;
-        v46 = [v44 countByEnumeratingWithState:&v117 objects:v139 count:16];
+        v119 = 0u;
+        v116 = 0u;
+        v117 = 0u;
+        v46 = [v44 countByEnumeratingWithState:&v116 objects:v138 count:16];
         if (v46)
         {
           v47 = v46;
-          v48 = *v118;
-          v106 = v45;
+          v48 = *v117;
+          v105 = v45;
           do
           {
             for (k = 0; k != v47; ++k)
             {
-              if (*v118 != v48)
+              if (*v117 != v48)
               {
-                objc_enumerationMutation(v106);
+                objc_enumerationMutation(v105);
               }
 
-              v50 = *(*(&v117 + 1) + 8 * k);
+              v50 = *(*(&v116 + 1) + 8 * k);
               v51 = objc_autoreleasePoolPush();
               objectID = [v50 objectID];
               v53 = objectID;
               if (v43)
               {
-                v54 = [v50 valueForKey:@"ckRecordID"];
+                v54 = objc_msgSend_valueForKey_(v50);
                 if (!v54)
                 {
                   uRIRepresentation = [v53 URIRepresentation];
                   selfCopy4 = self;
-                  v54 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@", objc_msgSend(objc_msgSend(uRIRepresentation, "URLByDeletingLastPathComponent"), "lastPathComponent"), objc_msgSend(uRIRepresentation, "lastPathComponent")];
+                  v54 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [objc_msgSend(uRIRepresentation "URLByDeletingLastPathComponent")], objc_msgSend(uRIRepresentation, "lastPathComponent"));
                 }
 
-                if ([objc_msgSend(objc_msgSend(v50 "entity")] && objc_msgSend(v50, "valueForKey:", @"ckRecordSystemFields"))
+                if ([objc_msgSend(objc_msgSend(v50 "entity")] && objc_msgSend_valueForKey_(v50))
                 {
                   v56 = _PFLogGetLogStream(17);
                   if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412290;
-                    v135 = v50;
+                    v134 = v50;
                     _os_log_error_impl(&dword_18565F000, v56, OS_LOG_TYPE_ERROR, "CoreData: fault: System fields shouldn't be set anymore: %@\n", buf, 0xCu);
                   }
 
@@ -290,7 +289,7 @@ LABEL_34:
                   if (os_log_type_enabled(v57, OS_LOG_TYPE_FAULT))
                   {
                     *buf = 138412290;
-                    v135 = v50;
+                    v134 = v50;
                     _os_log_fault_impl(&dword_18565F000, v57, OS_LOG_TYPE_FAULT, "CoreData: System fields shouldn't be set anymore: %@", buf, 0xCu);
                   }
                 }
@@ -300,7 +299,7 @@ LABEL_34:
               {
                 uRIRepresentation2 = [objectID URIRepresentation];
                 selfCopy4 = self;
-                v54 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@", objc_msgSend(objc_msgSend(uRIRepresentation2, "URLByDeletingLastPathComponent"), "lastPathComponent"), objc_msgSend(uRIRepresentation2, "lastPathComponent")];
+                v54 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [objc_msgSend(uRIRepresentation2 "URLByDeletingLastPathComponent")], objc_msgSend(uRIRepresentation2, "lastPathComponent"));
               }
 
               [*(selfCopy4 + 16) setObject:v53 forKey:v54];
@@ -308,19 +307,19 @@ LABEL_34:
               objc_autoreleasePoolPop(v51);
             }
 
-            v47 = [v106 countByEnumeratingWithState:&v117 objects:v139 count:16];
+            v47 = [v105 countByEnumeratingWithState:&v116 objects:v138 count:16];
           }
 
           while (v47);
         }
 
-        objc_autoreleasePoolPop(v96);
-        v39 = v98 + 1;
+        objc_autoreleasePoolPop(v95);
+        v39 = v97 + 1;
       }
 
-      while (v98 + 1 != v94);
-      v94 = [v92 countByEnumeratingWithState:&v121 objects:v141 count:16];
-      if (v94)
+      while (v97 + 1 != v93);
+      v93 = [v91 countByEnumeratingWithState:&v120 objects:v140 count:16];
+      if (v93)
       {
         continue;
       }
@@ -328,43 +327,43 @@ LABEL_34:
       break;
     }
 
-    v97 = 1;
+    v96 = 1;
 LABEL_69:
-    a2 = v90;
-    v36 = v101;
+    a2 = v89;
+    v36 = v100;
   }
 
   else
   {
-    v97 = 1;
+    v96 = 1;
   }
 
   if (*(selfCopy4 + 120) == 1)
   {
-    v60 = [NSCKMirroredRelationship fetchMirroredRelationshipsMatchingPredicate:a2 fromStore:store inManagedObjectContext:&v133 error:?];
+    v60 = [NSCKMirroredRelationship fetchMirroredRelationshipsMatchingPredicate:a2 fromStore:store inManagedObjectContext:&v132 error:?];
     if (v60)
     {
       v61 = v60;
-      v115 = 0u;
-      v116 = 0u;
-      v113 = 0u;
       v114 = 0u;
-      v107 = [v60 countByEnumeratingWithState:&v113 objects:v138 count:16];
-      if (v107)
+      v115 = 0u;
+      v112 = 0u;
+      v113 = 0u;
+      v106 = [v60 countByEnumeratingWithState:&v112 objects:v137 count:16];
+      if (v106)
       {
-        v102 = v36;
-        obja = *v114;
-        v99 = v61;
+        v101 = v36;
+        obja = *v113;
+        v98 = v61;
         do
         {
-          for (m = 0; m != v107; m = m + 1)
+          for (m = 0; m != v106; m = m + 1)
           {
-            if (*v114 != obja)
+            if (*v113 != obja)
             {
-              objc_enumerationMutation(v99);
+              objc_enumerationMutation(v98);
             }
 
-            v63 = *(*(&v113 + 1) + 8 * m);
+            v63 = *(*(&v112 + 1) + 8 * m);
             v64 = objc_autoreleasePoolPush();
             v65 = [objc_msgSend(objc_msgSend(objc_msgSend(v36 "entitiesByName")];
             if (v65)
@@ -372,7 +371,7 @@ LABEL_69:
               v66 = v65;
               v67 = +[PFCloudKitSerializer mtmKeyForObjectWithRecordName:relatedToObjectWithRecordName:byRelationship:withInverse:](PFCloudKitSerializer, [v63 recordName], objc_msgSend(v63, "relatedRecordName"), v66, objc_msgSend(v66, "inverseRelationship"));
               [*(self + 24) setObject:v63 forKey:v67];
-              v109 = v67;
+              v108 = v67;
               [*(self + 32) addObject:v67];
               recordName = [v63 recordName];
               v69 = [objc_msgSend(v63 "recordZone")];
@@ -409,7 +408,7 @@ LABEL_69:
               }
 
               v79 = [v78 objectForKey:{objc_msgSend(objc_msgSend(v66, "inverseRelationship"), "name")}];
-              v36 = v102;
+              v36 = v101;
               v64 = contexta;
               if (!v79)
               {
@@ -424,7 +423,7 @@ LABEL_69:
                 [*(self + 40) setObject:v80 forKey:{objc_msgSend(v71, "zoneID")}];
               }
 
-              [v80 addObject:v109];
+              [v80 addObject:v108];
 
               [v79 addObject:v71];
             }
@@ -432,19 +431,19 @@ LABEL_69:
             objc_autoreleasePoolPop(v64);
           }
 
-          v107 = [v99 countByEnumeratingWithState:&v113 objects:v138 count:16];
+          v106 = [v98 countByEnumeratingWithState:&v112 objects:v137 count:16];
         }
 
-        while (v107);
+        while (v106);
       }
 
       goto LABEL_92;
     }
 
 LABEL_96:
-    v83 = v133;
+    v83 = v132;
 LABEL_97:
-    v84 = v133;
+    v84 = v132;
     if (v84)
     {
       if (context)
@@ -461,9 +460,9 @@ LABEL_97:
       if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v135 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitStoreComparisonCache.m";
-        v136 = 1024;
-        v137 = 491;
+        v134 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitStoreComparisonCache.m";
+        v135 = 1024;
+        v136 = 491;
         _os_log_error_impl(&dword_18565F000, v85, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
@@ -471,9 +470,9 @@ LABEL_97:
       if (os_log_type_enabled(v86, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v135 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitStoreComparisonCache.m";
-        v136 = 1024;
-        v137 = 491;
+        v134 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitStoreComparisonCache.m";
+        v135 = 1024;
+        v136 = 491;
         _os_log_fault_impl(&dword_18565F000, v86, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
       }
     }
@@ -483,7 +482,7 @@ LABEL_97:
   }
 
 LABEL_92:
-  if ((v97 & 1) == 0)
+  if ((v96 & 1) == 0)
   {
     goto LABEL_97;
   }
@@ -491,8 +490,6 @@ LABEL_92:
   v81 = 1;
 LABEL_105:
 
-LABEL_106:
-  v87 = *MEMORY[0x1E69E9840];
   return v81;
 }
 
@@ -570,7 +567,7 @@ LABEL_106:
 - (uint64_t)createRecordIDForRecordName:(uint64_t)name inZoneWithName:(uint64_t)withName ownerName:(uint64_t)ownerName inStore:(void *)store
 {
   v5 = [PFCloudKitStoreComparisonCacheStoreCache createRecordZoneIDForZoneName:name ownerName:ownerName inStore:store];
-  v6 = [objc_alloc(getCloudKitCKRecordIDClass[0]()) initWithRecordName:withName zoneID:v5];
+  v6 = [objc_alloc(getCloudKitCKRecordIDClass()) initWithRecordName:withName zoneID:v5];
 
   return v6;
 }

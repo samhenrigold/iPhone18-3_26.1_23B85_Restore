@@ -7,15 +7,18 @@
 - (void)_invalidationHandler;
 - (void)_perform:(id)_perform completion:(id)completion;
 - (void)_performAction:(unint64_t)action withIDs:(id)ds caller:(id)caller completion:(id)completion;
+- (void)_performUserSettingsAction:(unint64_t)action setFavoritesSyncEnabled:(BOOL)enabled caller:(id)caller completion:(id)completion;
 - (void)_performUserSettingsOperation:(id)operation completion:(id)completion;
 - (void)addFavorites:(id)favorites completion:(id)completion;
 - (void)dealloc;
 - (void)deleteLegacyCache;
+- (void)getFavoritesIgnoringCache:(BOOL)cache completion:(id)completion;
 - (void)handleAccountDidChange:(id)change;
 - (void)handleRefreshCacheNotification;
 - (void)handleSyncSettingChangedNotification;
 - (void)isOnboarded:(id)onboarded;
 - (void)removeFavorites:(id)favorites completion:(id)completion;
+- (void)setOptInStatus:(BOOL)status completion:(id)completion;
 - (void)watchlistd_performAction:(unint64_t)action withIDs:(id)ds caller:(id)caller overrideLastModifiedDate:(BOOL)date completion:(id)completion;
 - (void)watchlistd_performUserSettingsAction:(unint64_t)action setFavoritesSyncEnabled:(BOOL)enabled caller:(id)caller overrideLastModifiedDate:(BOOL)date completion:(id)completion;
 @end
@@ -92,21 +95,25 @@ void __42__WLKSportsFavoriteManager_defaultManager__block_invoke()
 void __42__WLKSportsFavoriteManager_initWithCache___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  if (WeakRetained && (WLKIsDaemon() & 1) == 0)
+  if (WeakRetained)
   {
-    v2 = WLKSystemLogObject();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v2 = WLKIsDaemon();
+    if ((v2 & 1) == 0)
     {
-      *buf = 0;
-      _os_log_impl(&dword_272A0F000, v2, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - Received opt in status changed notification, fetching cache", buf, 2u);
-    }
+      v3 = WLKSystemLogObject(v2);
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_272A0F000, v3, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - Received opt in status changed notification, fetching cache", buf, 2u);
+      }
 
-    v3[0] = MEMORY[0x277D85DD0];
-    v3[1] = 3221225472;
-    v3[2] = __42__WLKSportsFavoriteManager_initWithCache___block_invoke_150;
-    v3[3] = &unk_279E60708;
-    v4 = WeakRetained;
-    [v4 isOnboarded:v3];
+      v4[0] = MEMORY[0x277D85DD0];
+      v4[1] = 3221225472;
+      v4[2] = __42__WLKSportsFavoriteManager_initWithCache___block_invoke_150;
+      v4[3] = &unk_279E60708;
+      v5 = WeakRetained;
+      [v5 isOnboarded:v4];
+    }
   }
 }
 
@@ -120,43 +127,47 @@ void __42__WLKSportsFavoriteManager_initWithCache___block_invoke_150(uint64_t a1
 
   if (v7)
   {
-    [v9 setObject:v7 forKey:@"WLKSportsFavoriteSyncSettingChangedNotificationLastModifiedDateKey"];
+    v11 = [v9 setObject:v7 forKey:@"WLKSportsFavoriteSyncSettingChangedNotificationLastModifiedDateKey"];
   }
 
   if (v8)
   {
-    [v9 setObject:v8 forKey:@"WLKSportsFavoriteSyncSettingChangedNotificationErrorKey"];
+    v11 = [v9 setObject:v8 forKey:@"WLKSportsFavoriteSyncSettingChangedNotificationErrorKey"];
   }
 
-  v11 = WLKSystemLogObject();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = WLKSystemLogObject(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    *v13 = 0;
-    _os_log_impl(&dword_272A0F000, v11, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - Firing local opt in status changed notification", v13, 2u);
+    *v14 = 0;
+    _os_log_impl(&dword_272A0F000, v12, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - Firing local opt in status changed notification", v14, 2u);
   }
 
-  v12 = [MEMORY[0x277CCAB98] defaultCenter];
-  [v12 postNotificationName:@"WLKSportsFavoriteSyncSettingChangedNotification" object:*(a1 + 32) userInfo:v9];
+  v13 = [MEMORY[0x277CCAB98] defaultCenter];
+  [v13 postNotificationName:@"WLKSportsFavoriteSyncSettingChangedNotification" object:*(a1 + 32) userInfo:v9];
 }
 
 void __42__WLKSportsFavoriteManager_initWithCache___block_invoke_155(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  if (WeakRetained && (WLKIsDaemon() & 1) == 0)
+  if (WeakRetained)
   {
-    v2 = WLKSystemLogObject();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v2 = WLKIsDaemon();
+    if ((v2 & 1) == 0)
     {
-      *buf = 0;
-      _os_log_impl(&dword_272A0F000, v2, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - Received cache sync invalidation notification, fetching cache", buf, 2u);
-    }
+      v3 = WLKSystemLogObject(v2);
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_272A0F000, v3, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - Received cache sync invalidation notification, fetching cache", buf, 2u);
+      }
 
-    v3[0] = MEMORY[0x277D85DD0];
-    v3[1] = 3221225472;
-    v3[2] = __42__WLKSportsFavoriteManager_initWithCache___block_invoke_156;
-    v3[3] = &unk_279E60730;
-    v4 = WeakRetained;
-    [v4 favoritesWithCompletion:v3];
+      v4[0] = MEMORY[0x277D85DD0];
+      v4[1] = 3221225472;
+      v4[2] = __42__WLKSportsFavoriteManager_initWithCache___block_invoke_156;
+      v4[3] = &unk_279E60730;
+      v5 = WeakRetained;
+      [v5 favoritesWithCompletion:v4];
+    }
   }
 }
 
@@ -166,31 +177,32 @@ void __42__WLKSportsFavoriteManager_initWithCache___block_invoke_156(uint64_t a1
   v8 = a3;
   v9 = a4;
   v10 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v11 = v10;
   if (v7)
   {
-    v11 = [v7 copy];
-    [v10 setObject:v11 forKey:@"WLKSportsFavoriteSyncCompletionNotificationFavoritesKey"];
+    v12 = [v7 copy];
+    [v11 setObject:v12 forKey:@"WLKSportsFavoriteSyncCompletionNotificationFavoritesKey"];
   }
 
   if (v8)
   {
-    [v10 setObject:v8 forKey:@"WLKSportsFavoriteSyncCompletionNotificationLastModifiedDateKey"];
+    v10 = [v11 setObject:v8 forKey:@"WLKSportsFavoriteSyncCompletionNotificationLastModifiedDateKey"];
   }
 
   if (v9)
   {
-    [v10 setObject:v9 forKey:@"WLKSportsFavoriteSyncCompletionNotificationErrorKey"];
+    v10 = [v11 setObject:v9 forKey:@"WLKSportsFavoriteSyncCompletionNotificationErrorKey"];
   }
 
-  v12 = WLKSystemLogObject();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = WLKSystemLogObject(v10);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    *v14 = 0;
-    _os_log_impl(&dword_272A0F000, v12, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - Firing local cache sync complete notification", v14, 2u);
+    *v15 = 0;
+    _os_log_impl(&dword_272A0F000, v13, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - Firing local cache sync complete notification", v15, 2u);
   }
 
-  v13 = [MEMORY[0x277CCAB98] defaultCenter];
-  [v13 postNotificationName:@"WLKSportsFavoriteSyncCompletionNotification" object:*(a1 + 32) userInfo:v10];
+  v14 = [MEMORY[0x277CCAB98] defaultCenter];
+  [v14 postNotificationName:@"WLKSportsFavoriteSyncCompletionNotification" object:*(a1 + 32) userInfo:v11];
 }
 
 - (void)deleteLegacyCache
@@ -227,7 +239,7 @@ uint64_t __51__WLKSportsFavoriteManager_handleAccountDidChange___block_invoke(ui
 
 - (id)caller
 {
-  if (WLKIsNewsApp())
+  if (WLKIsNewsApp(self, a2))
   {
     return @"apple-news";
   }
@@ -298,13 +310,13 @@ uint64_t __51__WLKSportsFavoriteManager_handleAccountDidChange___block_invoke(ui
   return v10;
 }
 
-void __39__WLKSportsFavoriteManager__connection__block_invoke()
+void __39__WLKSportsFavoriteManager__connection__block_invoke(uint64_t a1)
 {
-  v0 = WLKSystemLogObject();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = WLKSystemLogObject(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_272A0F000, v0, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - Connection interrupted.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_272A0F000, v1, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - Connection interrupted.", v2, 2u);
   }
 }
 
@@ -316,7 +328,7 @@ void __39__WLKSportsFavoriteManager__connection__block_invoke_169(uint64_t a1)
 
 - (void)_invalidationHandler
 {
-  v3 = WLKSystemLogObject();
+  v3 = WLKSystemLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -361,30 +373,31 @@ void __39__WLKSportsFavoriteManager__connection__block_invoke_169(uint64_t a1)
 - (void)isOnboarded:(id)onboarded
 {
   onboardedCopy = onboarded;
-  v11 = 0;
-  v5 = WLKCheckAuthentication(&v11);
-  v6 = v11;
+  v12 = 0;
+  v5 = WLKCheckAuthentication(&v12);
+  v6 = v12;
+  v7 = v6;
   if (v5)
   {
     cache = self->__cache;
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __40__WLKSportsFavoriteManager_isOnboarded___block_invoke;
-    v9[3] = &unk_279E607F0;
-    v9[4] = self;
-    v10 = onboardedCopy;
-    [(WLKSportsFavoriteCaching *)cache hasFavoritesSyncEnabledKey:v9];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __40__WLKSportsFavoriteManager_isOnboarded___block_invoke;
+    v10[3] = &unk_279E607F0;
+    v10[4] = self;
+    v11 = onboardedCopy;
+    [(WLKSportsFavoriteCaching *)cache hasFavoritesSyncEnabledKey:v10];
   }
 
   else
   {
-    v8 = WLKSystemLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = WLKSystemLogObject(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [WLKSportsFavoriteManager isOnboarded:];
     }
 
-    (*(onboardedCopy + 2))(onboardedCopy, 0, 0, v6);
+    (*(onboardedCopy + 2))(onboardedCopy, 0, 0, v7);
   }
 }
 
@@ -419,20 +432,19 @@ void __40__WLKSportsFavoriteManager_isOnboarded___block_invoke(uint64_t a1, int 
 
 void __40__WLKSportsFavoriteManager_isOnboarded___block_invoke_2(uint64_t a1, int a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = WLKSystemLogObject();
+  v6 = WLKSystemLogObject(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8[0] = 67109378;
-    v8[1] = a2;
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_272A0F000, v6, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - isOnboarded reply with cached onboarding state: %d, lastModified: %@", v8, 0x12u);
+    v7[0] = 67109378;
+    v7[1] = a2;
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_272A0F000, v6, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - isOnboarded reply with cached onboarding state: %d, lastModified: %@", v7, 0x12u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __40__WLKSportsFavoriteManager_isOnboarded___block_invoke_176(uint64_t a1)
@@ -465,26 +477,66 @@ void __40__WLKSportsFavoriteManager_isOnboarded___block_invoke_2_177(uint64_t a1
 
 void __40__WLKSportsFavoriteManager_isOnboarded___block_invoke_3(uint64_t a1, int a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = WLKSystemLogObject();
+  v6 = WLKSystemLogObject(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [v5 debugDescription];
     v8 = [*(a1 + 32) localizedDescription];
-    v11[0] = 67109634;
-    v11[1] = a2;
+    v9[0] = 67109634;
+    v9[1] = a2;
+    v10 = 2112;
+    v11 = v7;
     v12 = 2112;
-    v13 = v7;
-    v14 = 2112;
-    v15 = v8;
-    _os_log_impl(&dword_272A0F000, v6, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - isOnboarded reply with fresh onboarding state: %d, lastModified: %@, error: %@", v11, 0x1Cu);
+    v13 = v8;
+    _os_log_impl(&dword_272A0F000, v6, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - isOnboarded reply with fresh onboarding state: %d, lastModified: %@, error: %@", v9, 0x1Cu);
   }
 
-  v9 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
+}
 
-  v10 = *MEMORY[0x277D85DE8];
+- (void)setOptInStatus:(BOOL)status completion:(id)completion
+{
+  statusCopy = status;
+  completionCopy = completion;
+  v15 = 0;
+  v7 = WLKCheckAuthentication(&v15);
+  v8 = v15;
+  v9 = v8;
+  if (v7)
+  {
+    if (statusCopy || +[WLKSportsFavoriteManager isOptOutAvailable])
+    {
+      caller = [(WLKSportsFavoriteManager *)self caller];
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __54__WLKSportsFavoriteManager_setOptInStatus_completion___block_invoke;
+      v13[3] = &unk_279E5EA68;
+      v14 = completionCopy;
+      [(WLKSportsFavoriteManager *)self _performUserSettingsAction:1 setFavoritesSyncEnabled:statusCopy caller:caller completion:v13];
+    }
+
+    else
+    {
+      v12 = [MEMORY[0x277CCA9B8] errorWithDomain:@"WLKSportsFavoriteErrorDomain" code:-2 userInfo:0];
+      if (completionCopy)
+      {
+        (*(completionCopy + 2))(completionCopy, v12);
+      }
+    }
+  }
+
+  else
+  {
+    v11 = WLKSystemLogObject(v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      [WLKSportsFavoriteManager isOnboarded:];
+    }
+
+    (*(completionCopy + 2))(completionCopy, v9);
+  }
 }
 
 uint64_t __54__WLKSportsFavoriteManager_setOptInStatus_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -526,34 +578,48 @@ uint64_t __54__WLKSportsFavoriteManager_setOptInStatus_completion___block_invoke
   [(WLKSportsFavoriteManager *)self _performAction:2 withIDs:favoritesCopy caller:caller completion:v10];
 }
 
+- (void)getFavoritesIgnoringCache:(BOOL)cache completion:(id)completion
+{
+  cacheCopy = cache;
+  completionCopy = completion;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __65__WLKSportsFavoriteManager_getFavoritesIgnoringCache_completion___block_invoke;
+  v8[3] = &unk_279E60818;
+  v9 = completionCopy;
+  v7 = completionCopy;
+  [(WLKSportsFavoriteManager *)self _getFavoritesIgnoringCache:cacheCopy overrideLastModifiedDate:0 completion:v8];
+}
+
 - (void)_getFavoritesIgnoringCache:(BOOL)cache overrideLastModifiedDate:(BOOL)date completion:(id)completion
 {
   completionCopy = completion;
-  v15 = 0;
-  v8 = WLKCheckAuthentication(&v15);
-  v9 = v15;
+  v16 = 0;
+  v8 = WLKCheckAuthentication(&v16);
+  v9 = v16;
+  v10 = v9;
   if (v8)
   {
     queue = self->_queue;
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __91__WLKSportsFavoriteManager__getFavoritesIgnoringCache_overrideLastModifiedDate_completion___block_invoke;
-    v12[3] = &unk_279E603B8;
-    v12[4] = self;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __91__WLKSportsFavoriteManager__getFavoritesIgnoringCache_overrideLastModifiedDate_completion___block_invoke;
+    v13[3] = &unk_279E603B8;
+    v13[4] = self;
     cacheCopy = cache;
-    v13 = completionCopy;
-    dispatch_async(queue, v12);
+    v14 = completionCopy;
+    dispatch_async(queue, v13);
   }
 
   else
   {
-    v11 = WLKSystemLogObject();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = WLKSystemLogObject(v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [WLKSportsFavoriteManager isOnboarded:];
     }
 
-    (*(completionCopy + 2))(completionCopy, 0, 0, v9);
+    (*(completionCopy + 2))(completionCopy, 0, 0, v10);
   }
 }
 
@@ -583,9 +649,10 @@ void __91__WLKSportsFavoriteManager__getFavoritesIgnoringCache_overrideLastModif
   dsCopy = ds;
   callerCopy = caller;
   completionCopy = completion;
-  v32 = 0;
-  v13 = WLKCheckAuthentication(&v32);
-  v14 = v32;
+  v33 = 0;
+  v13 = WLKCheckAuthentication(&v33);
+  v14 = v33;
+  v15 = v14;
   if (v13)
   {
     if (WLKIsDaemon() & 1) != 0 || (WLKIsRunningTest())
@@ -595,54 +662,54 @@ void __91__WLKSportsFavoriteManager__getFavoritesIgnoringCache_overrideLastModif
 
     else
     {
-      v30[0] = 0;
-      v30[1] = v30;
-      v30[2] = 0x2020000000;
-      v31 = 0;
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __69__WLKSportsFavoriteManager__performAction_withIDs_caller_completion___block_invoke;
-      v27[3] = &unk_279E60868;
-      v29 = v30;
-      v28 = completionCopy;
-      v16 = MEMORY[0x2743D2DF0](v27);
-      v17 = WLKSystemLogObject();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v31[0] = 0;
+      v31[1] = v31;
+      v31[2] = 0x2020000000;
+      v32 = 0;
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __69__WLKSportsFavoriteManager__performAction_withIDs_caller_completion___block_invoke;
+      v28[3] = &unk_279E60868;
+      v30 = v31;
+      v29 = completionCopy;
+      v17 = MEMORY[0x2743D2DF0](v28);
+      v18 = WLKSystemLogObject(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_272A0F000, v17, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - Performing sports favorites action over xpc.", buf, 2u);
+        _os_log_impl(&dword_272A0F000, v18, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - Performing sports favorites action over xpc.", buf, 2u);
       }
 
       _connection = [(WLKSportsFavoriteManager *)self _connection];
-      v24[0] = MEMORY[0x277D85DD0];
-      v24[1] = 3221225472;
-      v24[2] = __69__WLKSportsFavoriteManager__performAction_withIDs_caller_completion___block_invoke_180;
-      v24[3] = &unk_279E5EB38;
-      v19 = v16;
-      v25 = v19;
-      v20 = [_connection remoteObjectProxyWithErrorHandler:v24];
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __69__WLKSportsFavoriteManager__performAction_withIDs_caller_completion___block_invoke_180;
+      v25[3] = &unk_279E5EB38;
+      v20 = v17;
+      v26 = v20;
+      v21 = [_connection remoteObjectProxyWithErrorHandler:v25];
 
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __69__WLKSportsFavoriteManager__performAction_withIDs_caller_completion___block_invoke_182;
-      v22[3] = &unk_279E60818;
-      v21 = v19;
-      v23 = v21;
-      [v20 performSportsFavoritesAction:action ids:dsCopy caller:callerCopy completion:v22];
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __69__WLKSportsFavoriteManager__performAction_withIDs_caller_completion___block_invoke_182;
+      v23[3] = &unk_279E60818;
+      v22 = v20;
+      v24 = v22;
+      [v21 performSportsFavoritesAction:action ids:dsCopy caller:callerCopy completion:v23];
 
-      _Block_object_dispose(v30, 8);
+      _Block_object_dispose(v31, 8);
     }
   }
 
   else
   {
-    v15 = WLKSystemLogObject();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = WLKSystemLogObject(v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [WLKSportsFavoriteManager isOnboarded:];
     }
 
-    (*(completionCopy + 2))(completionCopy, 0, 0, v14);
+    (*(completionCopy + 2))(completionCopy, 0, 0, v15);
   }
 }
 
@@ -662,48 +729,47 @@ void __69__WLKSportsFavoriteManager__performAction_withIDs_caller_completion___b
 {
   v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = WLKSystemLogObject();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = WLKSystemLogObject(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = 138412290;
-      v7 = v3;
-      _os_log_impl(&dword_272A0F000, v4, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - Error: Unable to communicate with the remote object proxy (%@)", &v6, 0xCu);
+      v7 = v4;
+      _os_log_impl(&dword_272A0F000, v5, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - Error: Unable to communicate with the remote object proxy (%@)", &v6, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __69__WLKSportsFavoriteManager__performAction_withIDs_caller_completion___block_invoke_182(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   v8 = a4;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v9 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
     v11 = 0;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v6);
         }
 
-        v14 = *(*(&v18 + 1) + 8 * i);
+        v14 = *(*(&v17 + 1) + 8 * i);
         if (!v11)
         {
           v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -713,7 +779,7 @@ void __69__WLKSportsFavoriteManager__performAction_withIDs_caller_completion___b
         [v11 addObject:v15];
       }
 
-      v10 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
@@ -725,8 +791,75 @@ void __69__WLKSportsFavoriteManager__performAction_withIDs_caller_completion___b
   }
 
   (*(*(a1 + 32) + 16))();
+}
 
-  v16 = *MEMORY[0x277D85DE8];
+- (void)_performUserSettingsAction:(unint64_t)action setFavoritesSyncEnabled:(BOOL)enabled caller:(id)caller completion:(id)completion
+{
+  enabledCopy = enabled;
+  callerCopy = caller;
+  completionCopy = completion;
+  v32 = 0;
+  v12 = WLKCheckAuthentication(&v32);
+  v13 = v32;
+  v14 = v13;
+  if (v12)
+  {
+    if (WLKIsDaemon() & 1) != 0 || (WLKIsRunningTest())
+    {
+      [(WLKSportsFavoriteManager *)self watchlistd_performUserSettingsAction:action setFavoritesSyncEnabled:enabledCopy caller:callerCopy overrideLastModifiedDate:0 completion:completionCopy];
+    }
+
+    else
+    {
+      v30[0] = 0;
+      v30[1] = v30;
+      v30[2] = 0x2020000000;
+      v31 = 0;
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __97__WLKSportsFavoriteManager__performUserSettingsAction_setFavoritesSyncEnabled_caller_completion___block_invoke;
+      v27[3] = &unk_279E60890;
+      v29 = v30;
+      v28 = completionCopy;
+      v16 = MEMORY[0x2743D2DF0](v27);
+      v17 = WLKSystemLogObject(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_272A0F000, v17, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - Performing sports favorites (user settings) action over xpc.", buf, 2u);
+      }
+
+      _connection = [(WLKSportsFavoriteManager *)self _connection];
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __97__WLKSportsFavoriteManager__performUserSettingsAction_setFavoritesSyncEnabled_caller_completion___block_invoke_183;
+      v24[3] = &unk_279E5EB38;
+      v19 = v16;
+      v25 = v19;
+      v20 = [_connection remoteObjectProxyWithErrorHandler:v24];
+
+      v22[0] = MEMORY[0x277D85DD0];
+      v22[1] = 3221225472;
+      v22[2] = __97__WLKSportsFavoriteManager__performUserSettingsAction_setFavoritesSyncEnabled_caller_completion___block_invoke_184;
+      v22[3] = &unk_279E5EA68;
+      v21 = v19;
+      v23 = v21;
+      [v20 performSportsFavoritesAction:action favoritesSyncEnabled:enabledCopy caller:callerCopy completion:v22];
+
+      _Block_object_dispose(v30, 8);
+    }
+  }
+
+  else
+  {
+    v15 = WLKSystemLogObject(v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      [WLKSportsFavoriteManager isOnboarded:];
+    }
+
+    (*(completionCopy + 2))(completionCopy, 0, v14);
+  }
 }
 
 uint64_t __97__WLKSportsFavoriteManager__performUserSettingsAction_setFavoritesSyncEnabled_caller_completion___block_invoke(uint64_t result)
@@ -745,20 +878,19 @@ void __97__WLKSportsFavoriteManager__performUserSettingsAction_setFavoritesSyncE
 {
   v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = WLKSystemLogObject();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = WLKSystemLogObject(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = 138412290;
-      v7 = v3;
-      _os_log_impl(&dword_272A0F000, v4, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - Error: Unable to communicate with the remote object proxy (%@)", &v6, 0xCu);
+      v7 = v4;
+      _os_log_impl(&dword_272A0F000, v5, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - Error: Unable to communicate with the remote object proxy (%@)", &v6, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)watchlistd_performAction:(unint64_t)action withIDs:(id)ds caller:(id)caller overrideLastModifiedDate:(BOOL)date completion:(id)completion
@@ -766,9 +898,10 @@ void __97__WLKSportsFavoriteManager__performUserSettingsAction_setFavoritesSyncE
   dsCopy = ds;
   callerCopy = caller;
   completionCopy = completion;
-  v26 = 0;
-  v15 = WLKCheckAuthentication(&v26);
-  v16 = v26;
+  v27 = 0;
+  v15 = WLKCheckAuthentication(&v27);
+  v16 = v27;
+  v17 = v16;
   if (v15)
   {
     queue = self->_queue;
@@ -777,23 +910,23 @@ void __97__WLKSportsFavoriteManager__performUserSettingsAction_setFavoritesSyncE
     block[2] = __104__WLKSportsFavoriteManager_watchlistd_performAction_withIDs_caller_overrideLastModifiedDate_completion___block_invoke;
     block[3] = &unk_279E60930;
     actionCopy = action;
-    v20 = dsCopy;
-    v21 = callerCopy;
+    v21 = dsCopy;
+    v22 = callerCopy;
     selfCopy = self;
     dateCopy = date;
-    v23 = completionCopy;
+    v24 = completionCopy;
     dispatch_async(queue, block);
   }
 
   else
   {
-    v18 = WLKSystemLogObject();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = WLKSystemLogObject(v16);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [WLKSportsFavoriteManager isOnboarded:];
     }
 
-    (*(completionCopy + 2))(completionCopy, 0, 0, v16);
+    (*(completionCopy + 2))(completionCopy, 0, 0, v17);
   }
 }
 
@@ -906,92 +1039,87 @@ LABEL_11:
 
 uint64_t __104__WLKSportsFavoriteManager_watchlistd_performAction_withIDs_caller_overrideLastModifiedDate_completion___block_invoke_3(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
+  v6 = *MEMORY[0x277D85DE8];
   result = (*(*(a1 + 40) + 16))();
   if (*(a1 + 48) == 1)
   {
-    v4 = WLKSystemLogObject();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v3 = WLKSystemLogObject(result);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315138;
-      v7 = "com.apple.WatchListKit.WLKSportsFavoriteCacheSyncNotification";
-      _os_log_impl(&dword_272A0F000, v4, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - posting (cross process) notification %s", &v6, 0xCu);
+      v4 = 136315138;
+      v5 = "com.apple.WatchListKit.WLKSportsFavoriteCacheSyncNotification";
+      _os_log_impl(&dword_272A0F000, v3, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - posting (cross process) notification %s", &v4, 0xCu);
     }
 
-    result = notify_post("com.apple.WatchListKit.WLKSportsFavoriteCacheSyncNotification");
+    return notify_post("com.apple.WatchListKit.WLKSportsFavoriteCacheSyncNotification");
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __104__WLKSportsFavoriteManager_watchlistd_performAction_withIDs_caller_overrideLastModifiedDate_completion___block_invoke_4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = *MEMORY[0x277D85DE8];
-  (*(*(a1 + 40) + 16))(*(a1 + 40), a2, a3, *(a1 + 32));
-  v3 = WLKSystemLogObject();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v3 = (*(*(a1 + 40) + 16))(*(a1 + 40), a2, a3, *(a1 + 32));
+  v4 = WLKSystemLogObject(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315138;
     v7 = "com.apple.WatchListKit.WLKSportsFavoriteCacheSyncNotification";
-    _os_log_impl(&dword_272A0F000, v3, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - posting (cross process) notification %s", &v6, 0xCu);
+    _os_log_impl(&dword_272A0F000, v4, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - posting (cross process) notification %s", &v6, 0xCu);
   }
 
-  result = notify_post("com.apple.WatchListKit.WLKSportsFavoriteCacheSyncNotification");
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return notify_post("com.apple.WatchListKit.WLKSportsFavoriteCacheSyncNotification");
 }
 
 uint64_t __104__WLKSportsFavoriteManager_watchlistd_performAction_withIDs_caller_overrideLastModifiedDate_completion___block_invoke_5(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = *MEMORY[0x277D85DE8];
-  (*(*(a1 + 40) + 16))(*(a1 + 40), a2, a3, *(a1 + 32));
-  v3 = WLKSystemLogObject();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v3 = (*(*(a1 + 40) + 16))(*(a1 + 40), a2, a3, *(a1 + 32));
+  v4 = WLKSystemLogObject(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315138;
     v7 = "com.apple.WatchListKit.WLKSportsFavoriteCacheSyncNotification";
-    _os_log_impl(&dword_272A0F000, v3, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - posting (cross process) notification %s", &v6, 0xCu);
+    _os_log_impl(&dword_272A0F000, v4, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - posting (cross process) notification %s", &v6, 0xCu);
   }
 
-  result = notify_post("com.apple.WatchListKit.WLKSportsFavoriteCacheSyncNotification");
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return notify_post("com.apple.WatchListKit.WLKSportsFavoriteCacheSyncNotification");
 }
 
 - (void)watchlistd_performUserSettingsAction:(unint64_t)action setFavoritesSyncEnabled:(BOOL)enabled caller:(id)caller overrideLastModifiedDate:(BOOL)date completion:(id)completion
 {
   callerCopy = caller;
   completionCopy = completion;
-  v25 = 0;
-  v14 = WLKCheckAuthentication(&v25);
-  v15 = v25;
+  v26 = 0;
+  v14 = WLKCheckAuthentication(&v26);
+  v15 = v26;
+  v16 = v15;
   if (v14)
   {
     queue = self->_queue;
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __132__WLKSportsFavoriteManager_watchlistd_performUserSettingsAction_setFavoritesSyncEnabled_caller_overrideLastModifiedDate_completion___block_invoke;
-    v18[3] = &unk_279E609D0;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __132__WLKSportsFavoriteManager_watchlistd_performUserSettingsAction_setFavoritesSyncEnabled_caller_overrideLastModifiedDate_completion___block_invoke;
+    v19[3] = &unk_279E609D0;
     actionCopy = action;
     enabledCopy = enabled;
-    v19 = callerCopy;
+    v20 = callerCopy;
     selfCopy = self;
-    v21 = completionCopy;
+    v22 = completionCopy;
     dateCopy = date;
-    dispatch_async(queue, v18);
+    dispatch_async(queue, v19);
   }
 
   else
   {
-    v17 = WLKSystemLogObject();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = WLKSystemLogObject(v15);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [WLKSportsFavoriteManager isOnboarded:];
     }
 
-    (*(completionCopy + 2))(completionCopy, 0, v15);
+    (*(completionCopy + 2))(completionCopy, 0, v16);
   }
 }
 
@@ -1056,26 +1184,23 @@ void __132__WLKSportsFavoriteManager_watchlistd_performUserSettingsAction_setFav
 
 uint64_t __132__WLKSportsFavoriteManager_watchlistd_performUserSettingsAction_setFavoritesSyncEnabled_caller_overrideLastModifiedDate_completion___block_invoke_3(uint64_t a1, int a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v4 = WLKSystemLogObject();
+  v7 = *MEMORY[0x277D85DE8];
+  v4 = WLKSystemLogObject(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8[0] = 67109120;
-    v8[1] = a2;
-    _os_log_impl(&dword_272A0F000, v4, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - returning cached value for sports onboarding state: %d", v8, 8u);
+    v6[0] = 67109120;
+    v6[1] = a2;
+    _os_log_impl(&dword_272A0F000, v4, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - returning cached value for sports onboarding state: %d", v6, 8u);
   }
 
-  v5 = *(a1 + 32);
-  result = (*(*(a1 + 40) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 void __132__WLKSportsFavoriteManager_watchlistd_performUserSettingsAction_setFavoritesSyncEnabled_caller_overrideLastModifiedDate_completion___block_invoke_189(uint64_t a1, void *a2)
 {
   v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = WLKSystemLogObject();
+  v4 = WLKSystemLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [*(a1 + 32) favoritesSyncEnabled];
@@ -1087,18 +1212,16 @@ void __132__WLKSportsFavoriteManager_watchlistd_performUserSettingsAction_setFav
   (*(*(a1 + 40) + 16))(*(a1 + 40), [*(a1 + 32) favoritesSyncEnabled], v3);
   if ((*(a1 + 56) & 1) != 0 || *(a1 + 48) == 1)
   {
-    v6 = WLKSystemLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = WLKSystemLogObject(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 136315138;
       v9 = "com.apple.WatchListKit.WLKSportsFavoriteOptInStatusChangedNotification";
-      _os_log_impl(&dword_272A0F000, v6, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - posting (cross process) notification %s", &v8, 0xCu);
+      _os_log_impl(&dword_272A0F000, v7, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - posting (cross process) notification %s", &v8, 0xCu);
     }
 
     notify_post("com.apple.WatchListKit.WLKSportsFavoriteOptInStatusChangedNotification");
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_perform:(id)_perform completion:(id)completion
@@ -1107,31 +1230,31 @@ void __132__WLKSportsFavoriteManager_watchlistd_performUserSettingsAction_setFav
   completionCopy = completion;
   if (([_performCopy action] == 1 || objc_msgSend(_performCopy, "action") == 2) && (objc_msgSend(_performCopy, "ids"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "count"), v7, !v8))
   {
-    v10 = WLKSystemLogObject();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = WLKSystemLogObject(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(location[0]) = 0;
-      _os_log_impl(&dword_272A0F000, v10, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - Sports favorites action will not be executed -- empty ids parameter.", location, 2u);
+      _os_log_impl(&dword_272A0F000, v11, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - Sports favorites action will not be executed -- empty ids parameter.", location, 2u);
     }
 
-    v11 = [MEMORY[0x277CCA9B8] errorWithDomain:@"WLKSportsFavoriteErrorDomain" code:-1 userInfo:0];
-    completionCopy[2](completionCopy, 0, v11);
+    v12 = [MEMORY[0x277CCA9B8] errorWithDomain:@"WLKSportsFavoriteErrorDomain" code:-1 userInfo:0];
+    completionCopy[2](completionCopy, 0, v12);
   }
 
   else
   {
     objc_initWeak(location, _performCopy);
-    v12 = MEMORY[0x277D85DD0];
-    v13 = 3221225472;
-    v14 = __48__WLKSportsFavoriteManager__perform_completion___block_invoke;
-    v15 = &unk_279E5E660;
-    objc_copyWeak(&v17, location);
-    v16 = completionCopy;
-    [_performCopy setCompletionBlock:&v12];
+    v13 = MEMORY[0x277D85DD0];
+    v14 = 3221225472;
+    v15 = __48__WLKSportsFavoriteManager__perform_completion___block_invoke;
+    v16 = &unk_279E5E660;
+    objc_copyWeak(&v18, location);
+    v17 = completionCopy;
+    [_performCopy setCompletionBlock:&v13];
     wlkDefaultQueue = [MEMORY[0x277CCABD8] wlkDefaultQueue];
     [wlkDefaultQueue addOperation:_performCopy];
 
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(location);
   }
 }
@@ -1143,43 +1266,41 @@ void __48__WLKSportsFavoriteManager__perform_completion___block_invoke(uint64_t 
   v3 = [WeakRetained error];
   v4 = WLKXPCSafeErrorFromError(v3);
 
-  v5 = WLKSystemLogObject();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  v6 = WLKSystemLogObject(v5);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (v4)
   {
-    if (v6)
+    if (v7)
     {
-      v7 = [v4 localizedDescription];
+      v8 = [v4 localizedDescription];
       v13 = 138412546;
-      v14 = v7;
+      v14 = v8;
       v15 = 2048;
       v16 = [WeakRetained action];
-      _os_log_impl(&dword_272A0F000, v5, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - Sports favorites action failed -- %@. Request -- %lu", &v13, 0x16u);
+      _os_log_impl(&dword_272A0F000, v6, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - Sports favorites action failed -- %@. Request -- %lu", &v13, 0x16u);
     }
 
-    v8 = *(a1 + 32);
-    v9 = [WeakRetained response];
-    (*(v8 + 16))(v8, v9, v4);
+    v9 = *(a1 + 32);
+    v10 = [WeakRetained response];
+    (*(v9 + 16))(v9, v10, v4);
   }
 
   else
   {
-    if (v6)
+    if (v7)
     {
-      v10 = [0 localizedDescription];
+      v11 = [0 localizedDescription];
       v13 = 138412546;
-      v14 = v10;
+      v14 = v11;
       v15 = 2048;
       v16 = [WeakRetained action];
-      _os_log_impl(&dword_272A0F000, v5, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - Sports favorites action succeeded -- %@. Request -- %lu", &v13, 0x16u);
+      _os_log_impl(&dword_272A0F000, v6, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - Sports favorites action succeeded -- %@. Request -- %lu", &v13, 0x16u);
     }
 
-    v11 = *(a1 + 32);
-    v9 = [WeakRetained response];
-    (*(v11 + 16))(v11, v9, 0);
+    v12 = *(a1 + 32);
+    v10 = [WeakRetained response];
+    (*(v12 + 16))(v12, v10, 0);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performUserSettingsOperation:(id)operation completion:(id)completion
@@ -1188,31 +1309,31 @@ void __48__WLKSportsFavoriteManager__perform_completion___block_invoke(uint64_t 
   completionCopy = completion;
   if ([operationCopy action] == 1 && (objc_msgSend(operationCopy, "userSettings"), v7 = objc_claimAutoreleasedReturnValue(), v7, !v7))
   {
-    v9 = WLKSystemLogObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = WLKSystemLogObject(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(location[0]) = 0;
-      _os_log_impl(&dword_272A0F000, v9, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - Sports favorites (user settings) action will not be executed -- empty userSettings parameter.", location, 2u);
+      _os_log_impl(&dword_272A0F000, v10, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - Sports favorites (user settings) action will not be executed -- empty userSettings parameter.", location, 2u);
     }
 
-    v10 = [MEMORY[0x277CCA9B8] errorWithDomain:@"WLKSportsFavoriteErrorDomain" code:-1 userInfo:0];
-    completionCopy[2](completionCopy, 0, v10);
+    v11 = [MEMORY[0x277CCA9B8] errorWithDomain:@"WLKSportsFavoriteErrorDomain" code:-1 userInfo:0];
+    completionCopy[2](completionCopy, 0, v11);
   }
 
   else
   {
     objc_initWeak(location, operationCopy);
-    v11 = MEMORY[0x277D85DD0];
-    v12 = 3221225472;
-    v13 = __69__WLKSportsFavoriteManager__performUserSettingsOperation_completion___block_invoke;
-    v14 = &unk_279E5E660;
-    objc_copyWeak(&v16, location);
-    v15 = completionCopy;
-    [operationCopy setCompletionBlock:&v11];
+    v12 = MEMORY[0x277D85DD0];
+    v13 = 3221225472;
+    v14 = __69__WLKSportsFavoriteManager__performUserSettingsOperation_completion___block_invoke;
+    v15 = &unk_279E5E660;
+    objc_copyWeak(&v17, location);
+    v16 = completionCopy;
+    [operationCopy setCompletionBlock:&v12];
     wlkDefaultQueue = [MEMORY[0x277CCABD8] wlkDefaultQueue];
     [wlkDefaultQueue addOperation:operationCopy];
 
-    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v17);
     objc_destroyWeak(location);
   }
 }
@@ -1224,51 +1345,41 @@ void __69__WLKSportsFavoriteManager__performUserSettingsOperation_completion___b
   v3 = [WeakRetained error];
   v4 = WLKXPCSafeErrorFromError(v3);
 
-  v5 = WLKSystemLogObject();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  v6 = WLKSystemLogObject(v5);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (v4)
   {
-    if (v6)
+    if (v7)
     {
-      v7 = [v4 localizedDescription];
+      v8 = [v4 localizedDescription];
       v13 = 138412546;
-      v14 = v7;
+      v14 = v8;
       v15 = 2048;
       v16 = [WeakRetained action];
-      _os_log_impl(&dword_272A0F000, v5, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - Sports favorites (user settings) action failed -- %@. Request -- %lu", &v13, 0x16u);
+      _os_log_impl(&dword_272A0F000, v6, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - Sports favorites (user settings) action failed -- %@. Request -- %lu", &v13, 0x16u);
     }
 
-    v8 = *(a1 + 32);
-    v9 = [WeakRetained response];
-    (*(v8 + 16))(v8, v9, v4);
+    v9 = *(a1 + 32);
+    v10 = [WeakRetained response];
+    (*(v9 + 16))(v9, v10, v4);
   }
 
   else
   {
-    if (v6)
+    if (v7)
     {
-      v10 = [0 localizedDescription];
+      v11 = [0 localizedDescription];
       v13 = 138412546;
-      v14 = v10;
+      v14 = v11;
       v15 = 2048;
       v16 = [WeakRetained action];
-      _os_log_impl(&dword_272A0F000, v5, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - Sports favorites (user settings) action succeeded -- %@. Request -- %lu", &v13, 0x16u);
+      _os_log_impl(&dword_272A0F000, v6, OS_LOG_TYPE_DEFAULT, "WLKSportsFavorites - Sports favorites (user settings) action succeeded -- %@. Request -- %lu", &v13, 0x16u);
     }
 
-    v11 = *(a1 + 32);
-    v9 = [WeakRetained response];
-    (*(v11 + 16))(v11, v9, 0);
+    v12 = *(a1 + 32);
+    v10 = [WeakRetained response];
+    (*(v12 + 16))(v12, v10, 0);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
-}
-
-- (void)isOnboarded:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_272A0F000, v0, v1, "WLKSportsFavorites - User is not signed in, returning early with error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

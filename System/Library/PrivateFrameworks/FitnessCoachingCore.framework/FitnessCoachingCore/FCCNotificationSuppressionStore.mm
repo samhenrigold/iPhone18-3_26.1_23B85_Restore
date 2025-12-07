@@ -10,34 +10,35 @@
 - (void)_updateStoredRequests:(id)requests;
 - (void)addNotificationSuppressionRequest:(id)request;
 - (void)removeNotificationSuppressionRequest:(id)request;
+- (void)setLastNotifiedSuppressionState:(BOOL)state;
 @end
 
 @implementation FCCNotificationSuppressionStore
 
 - (BOOL)notificationsSuppressed
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   allRequests = [(FCCNotificationSuppressionStore *)self allRequests];
   coachingDate = [(FCCDateProvider *)self->_dateProvider coachingDate];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = allRequests;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        expirationDate = [*(*(&v13 + 1) + 8 * i) expirationDate];
+        expirationDate = [*(*(&v12 + 1) + 8 * i) expirationDate];
         v10 = [expirationDate hk_isAfterDate:coachingDate];
 
         if (v10)
@@ -47,7 +48,7 @@
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -59,7 +60,6 @@
 
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -197,6 +197,15 @@ LABEL_11:
   return v4;
 }
 
+- (void)setLastNotifiedSuppressionState:(BOOL)state
+{
+  stateCopy = state;
+  os_unfair_lock_lock(&self->_unfairLock);
+  _userDefaults = [(FCCNotificationSuppressionStore *)self _userDefaults];
+  [_userDefaults setBool:stateCopy forKey:@"NotificationSuppressionLastNotifiedState"];
+  os_unfair_lock_unlock(&self->_unfairLock);
+}
+
 void __47__FCCNotificationSuppressionStore__requestsMap__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
   v9 = a2;
@@ -245,22 +254,19 @@ void __57__FCCNotificationSuppressionStore__updateStoredRequests___block_invoke(
 {
   v7 = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   v5 = 138412290;
-  v6 = v3;
+  v6 = v4;
   _os_log_error_impl(&dword_24B53B000, selfCopy, OS_LOG_TYPE_ERROR, "Loaded suppression requests object is not a dictionary %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __57__FCCNotificationSuppressionStore__updateStoredRequests___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_24B53B000, a2, OS_LOG_TYPE_ERROR, "Failed to create request data for request: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_24B53B000, a2, OS_LOG_TYPE_ERROR, "Failed to create request data for request: %@", &v2, 0xCu);
 }
 
 @end

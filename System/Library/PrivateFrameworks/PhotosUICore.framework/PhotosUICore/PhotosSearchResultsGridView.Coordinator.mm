@@ -45,7 +45,7 @@
 
 - (id)photosViewController:(id)controller animationForProposedAnimation:(id)animation
 {
-  sub_1A3C52C70(0, &qword_1EB126A10);
+  sub_1A3C52C70(0, &qword_1EB126A10, off_1E771E328);
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
   animationCopy = animation;
   objCClassFromMetadata = [ObjCClassFromMetadata sharedInstance];
@@ -64,7 +64,7 @@
 {
   controllerCopy = controller;
   selfCopy = self;
-  sub_1A4553C9C(controllerCopy);
+  sub_1A4553C9C(controllerCopy, v7);
 }
 
 - (void)requestUserInfo:(id)info
@@ -84,7 +84,7 @@
   v10[4] = self;
   observableCopy = observable;
   selfCopy = self;
-  sub_1A3C67884(sub_1A4554DBC, v10);
+  sub_1A3C67884(sub_1A4554DBC, v10, "PhotosUICore/PhotosSearchResultsGridView.swift", 46, 2u, 413);
 }
 
 - (void)photosDataSource:(id)source didChange:(id)change

@@ -47,15 +47,15 @@
 
 - (void)schemaVersionWillChangeForDatabase:(sqlite3 *)database fromSchemaVersion:(int64_t)version toSchemaVersion:(int64_t)schemaVersion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v8 = ABSLogCommon();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v16 = "[BCSWebPresentmentPersistentStore schemaVersionWillChangeForDatabase:fromSchemaVersion:toSchemaVersion:]";
-    v17 = 2048;
+    v15 = "[BCSWebPresentmentPersistentStore schemaVersionWillChangeForDatabase:fromSchemaVersion:toSchemaVersion:]";
+    v16 = 2048;
     versionCopy = version;
-    v19 = 2048;
+    v18 = 2048;
     schemaVersionCopy = schemaVersion;
     _os_log_impl(&dword_242072000, v8, OS_LOG_TYPE_DEFAULT, "%s schema version will change from '%ld' to '%ld', dropping link_items table", buf, 0x20u);
   }
@@ -68,9 +68,9 @@
       v9 = ABSLogCommon();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v12 = sqlite3_errmsg(database);
+        v11 = sqlite3_errmsg(database);
         *buf = 136315138;
-        v16 = v12;
+        v15 = v11;
         _os_log_error_impl(&dword_242072000, v9, OS_LOG_TYPE_ERROR, "error while dropping web_presentment_items table: %s", buf, 0xCu);
       }
     }
@@ -86,22 +86,20 @@
       v10 = ABSLogCommon();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v13 = sqlite3_errmsg(database);
+        v12 = sqlite3_errmsg(database);
         *buf = 136315138;
-        v16 = v13;
+        v15 = v12;
         _os_log_error_impl(&dword_242072000, v10, OS_LOG_TYPE_ERROR, "error while dropping web_presentment_permissions table: %s", buf, 0xCu);
       }
     }
 
     sqlite3_finalize(ppStmt);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteExpiredItemsOfType:(int64_t)type
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = ABSLogCommon();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -141,13 +139,11 @@
 
     [(BCSPersistentStore *)self endBatch];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteItemMatching:(id)matching
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   matchingCopy = matching;
   v5 = ABSLogCommon();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -196,13 +192,11 @@ LABEL_10:
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteItemsOfType:(int64_t)type
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v5 = ABSLogCommon();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -229,13 +223,11 @@ LABEL_11:
 
     [(BCSPersistentStore *)self endBatch];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)itemMatching:(id)matching
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   matchingCopy = matching;
   v5 = ABSLogCommon();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -322,21 +314,20 @@ LABEL_17:
 LABEL_18:
 
 LABEL_19:
-  v19 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 - (void)updateItem:(id)item withItemIdentifier:(id)identifier
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   identifierCopy = identifier;
   v8 = ABSLogCommon();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    *v32 = "[BCSWebPresentmentPersistentStore updateItem:withItemIdentifier:]";
+    *v31 = "[BCSWebPresentmentPersistentStore updateItem:withItemIdentifier:]";
     _os_log_impl(&dword_242072000, v8, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
@@ -370,9 +361,9 @@ LABEL_19:
           brandId = [v12 brandId];
           expirationDate = [v13 expirationDate];
           *buf = 138412546;
-          *v32 = brandId;
-          *&v32[8] = 2112;
-          *&v32[10] = expirationDate;
+          *v31 = brandId;
+          *&v31[8] = 2112;
+          *&v31[10] = expirationDate;
           _os_log_debug_impl(&dword_242072000, v15, OS_LOG_TYPE_DEBUG, "Updating WebPresentment metadata item in cache with ID: %@, expiration: %@", buf, 0x16u);
         }
 
@@ -386,9 +377,9 @@ LABEL_19:
           {
             v19 = sqlite3_errmsg([(BCSPersistentStore *)self openedDatabase]);
             *buf = 67109378;
-            *v32 = v17;
-            *&v32[4] = 2080;
-            *&v32[6] = v19;
+            *v31 = v17;
+            *&v31[4] = 2080;
+            *&v31[6] = v19;
             v20 = "Failed to insert web presentment item: %d (%s)";
 LABEL_28:
             _os_log_error_impl(&dword_242072000, v18, OS_LOG_TYPE_ERROR, v20, buf, 0x12u);
@@ -414,7 +405,7 @@ LABEL_28:
 LABEL_12:
           v14 = sqlite3_errmsg([(BCSPersistentStore *)self openedDatabase]);
           *buf = 136315138;
-          *v32 = v14;
+          *v31 = v14;
           _os_log_error_impl(&dword_242072000, v13, OS_LOG_TYPE_ERROR, "Failed to update item: %s", buf, 0xCu);
         }
 
@@ -431,9 +422,9 @@ LABEL_24:
         brandId2 = [v13 brandId];
         expirationDate2 = [v13 expirationDate];
         *buf = 138412546;
-        *v32 = brandId2;
-        *&v32[8] = 2112;
-        *&v32[10] = expirationDate2;
+        *v31 = brandId2;
+        *&v31[8] = 2112;
+        *&v31[10] = expirationDate2;
         _os_log_debug_impl(&dword_242072000, v21, OS_LOG_TYPE_DEBUG, "Updating WebPresentment permissions item in cache with ID: %@, expiration: %@", buf, 0x16u);
       }
 
@@ -445,11 +436,11 @@ LABEL_24:
         v18 = ABSLogCommon();
         if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          v29 = sqlite3_errmsg([(BCSPersistentStore *)self openedDatabase]);
+          v28 = sqlite3_errmsg([(BCSPersistentStore *)self openedDatabase]);
           *buf = 67109378;
-          *v32 = v23;
-          *&v32[4] = 2080;
-          *&v32[6] = v29;
+          *v31 = v23;
+          *&v31[4] = 2080;
+          *&v31[6] = v28;
           v20 = "Failed to insert web presentment permissions item: %d (%s)";
           goto LABEL_28;
         }
@@ -464,8 +455,6 @@ LABEL_23:
 
 LABEL_25:
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 @end

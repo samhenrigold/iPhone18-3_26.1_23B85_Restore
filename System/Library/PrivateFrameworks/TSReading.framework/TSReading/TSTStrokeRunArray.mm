@@ -52,7 +52,7 @@
 
       else
       {
-        v6 = self->mStrokes + v5;
+        v6 = (&self->mStrokes->var0 + v5);
       }
 
       TSTStrokeRunSet(v6, 0, 0, 0, 0, 0);

@@ -51,21 +51,21 @@ uint64_t __77__ATXMagicalMomentsBlendingUpdater_updateBlendingLayerWithMagicalMo
   v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) containsObject:v3];
+  v5 = v4;
   if (v4)
   {
-    v5 = __atxlog_handle_pmm();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = __atxlog_handle_pmm(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 138412290;
       v9 = v3;
-      _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "Removing blacklisted bundle id: %@", &v8, 0xCu);
+      _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "Removing blacklisted bundle id: %@", &v8, 0xCu);
     }
 
     *(*(*(a1 + 40) + 8) + 24) = 1;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-  return v4 ^ 1u;
+  return v5 ^ 1u;
 }
 
 + (id)feedbackMetadataForMmMap:(id)map
@@ -112,23 +112,21 @@ uint64_t __77__ATXMagicalMomentsBlendingUpdater_updateBlendingLayerWithMagicalMo
   objc_autoreleasePoolPop(v14);
   if (v16)
   {
-    v17 = __atxlog_handle_pmm();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = __atxlog_handle_pmm(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [(ATXMagicalMomentsBlendingUpdater *)v16 feedbackMetadataForMmMap:v17];
+      [(ATXMagicalMomentsBlendingUpdater *)v16 feedbackMetadataForMmMap:v18];
     }
 
-    v18 = 0;
+    v19 = 0;
   }
 
   else
   {
-    v18 = v15;
+    v19 = v15;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v18;
+  return v19;
 }
 
 + (id)clientModelSpecForMagicalMomentsPredictions
@@ -152,11 +150,10 @@ uint64_t __77__ATXMagicalMomentsBlendingUpdater_updateBlendingLayerWithMagicalMo
 
 + (void)feedbackMetadataForMmMap:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Error while archiving feedback metadata: %@. Not updating blending with mm predictions.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Error while archiving feedback metadata: %@. Not updating blending with mm predictions.", &v2, 0xCu);
 }
 
 @end

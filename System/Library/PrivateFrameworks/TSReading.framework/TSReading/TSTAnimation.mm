@@ -91,26 +91,26 @@
 
 + (id)textureDeliveryStylesLocalized:(BOOL)localized
 {
-  v4[13] = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (!localized)
   {
     return &unk_287DDD3F8;
   }
 
-  v4[0] = [TSTBundle() localizedStringForKey:@"All at Once" value:&stru_287D36338 table:@"TSTables"];
-  v4[1] = [TSTBundle() localizedStringForKey:@"By Row" value:&stru_287D36338 table:{@"TSTables", v4[0]}];
-  v4[2] = [TSTBundle() localizedStringForKey:@"By Column" value:&stru_287D36338 table:@"TSTables"];
-  v4[3] = [TSTBundle() localizedStringForKey:@"By Cell" value:&stru_287D36338 table:@"TSTables"];
-  v4[4] = [TSTBundle() localizedStringForKey:@"By Row Content" value:&stru_287D36338 table:@"TSTables"];
-  v4[5] = [TSTBundle() localizedStringForKey:@"By Column Content" value:&stru_287D36338 table:@"TSTables"];
-  v4[6] = [TSTBundle() localizedStringForKey:@"By Cell Content" value:&stru_287D36338 table:@"TSTables"];
-  v4[7] = [TSTBundle() localizedStringForKey:@"By Row Reverse" value:&stru_287D36338 table:@"TSTables"];
-  v4[8] = [TSTBundle() localizedStringForKey:@"By Row Content Reverse" value:&stru_287D36338 table:@"TSTables"];
-  v4[9] = [TSTBundle() localizedStringForKey:@"By Column Reverse" value:&stru_287D36338 table:@"TSTables"];
-  v4[10] = [TSTBundle() localizedStringForKey:@"By Column Content Reverse" value:&stru_287D36338 table:@"TSTables"];
-  v4[11] = [TSTBundle() localizedStringForKey:@"By Cell Reverse" value:&stru_287D36338 table:@"TSTables"];
-  v4[12] = [TSTBundle() localizedStringForKey:@"By Cell Content Reverse" value:&stru_287D36338 table:@"TSTables"];
-  return [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:13];
+  v16 = [TSTBundle(self a2)];
+  v17 = [TSTBundle(v16 v3)];
+  v18 = [TSTBundle(v17 v4)];
+  v19 = [TSTBundle(v18 v5)];
+  v20 = [TSTBundle(v19 v6)];
+  v21 = [TSTBundle(v20 v7)];
+  v22 = [TSTBundle(v21 v8)];
+  v23 = [TSTBundle(v22 v9)];
+  v24 = [TSTBundle(v23 v10)];
+  v25 = [TSTBundle(v24 v11)];
+  v26 = [TSTBundle(v25 v12)];
+  v27 = [TSTBundle(v26 v13)];
+  v28 = [TSTBundle(v27 v14)];
+  return [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:13];
 }
 
 + (unint64_t)stageCountForTextureDeliveryStyle:(unint64_t)style andTable:(id)table

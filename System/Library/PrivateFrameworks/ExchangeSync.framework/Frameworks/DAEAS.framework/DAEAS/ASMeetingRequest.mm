@@ -13,6 +13,7 @@
 - (BOOL)saveEmailServerIdToCalendarWithExistingRecord:(void *)record intoCalendar:(void *)calendar account:(id)account;
 - (BOOL)saveForwardeesToCalendarWithExistingRecord:(void *)record account:(id)account;
 - (BOOL)saveResponseCommentToCalendarWithExistingRecord:(void *)record;
+- (BOOL)saveToCalendarWithExistingRecord:(void *)record intoCalendar:(void *)calendar shouldMergeProperties:(BOOL)properties outMergeDidChooseLocalProperties:(BOOL *)localProperties account:(id)account;
 - (BOOL)shouldUseInMemoryAttendeesForAccount:(id)account numExistingAttendees:(unint64_t)attendees;
 - (BOOL)writeInviteToCalDBCreateAsRejected:(BOOL)rejected defaultCalendar:(void *)calendar account:(id)account;
 - (id)description;
@@ -24,6 +25,7 @@
 - (void)postProcessApplicationData;
 - (void)saveEmailServerIdAndUpdateNotificationToRecord:(void *)record account:(id)account;
 - (void)setDTStamp:(id)stamp;
+- (void)setObject:(id)object forDCCPT:(int)t;
 - (void)setOrganizer:(id)organizer;
 - (void)takeValuesFromParentEmailForAccount:(id)account;
 @end
@@ -113,6 +115,29 @@
   }
 
   return v2 & 1;
+}
+
+- (void)setObject:(id)object forDCCPT:(int)t
+{
+  v4 = *&t;
+  objectCopy = object;
+  placeHolder = [(ASMeetingRequest *)self placeHolder];
+
+  if (!placeHolder)
+  {
+    v7 = objc_opt_new();
+    [(ASMeetingRequest *)self setPlaceHolder:v7];
+  }
+
+  v8 = objectCopy;
+  if (objectCopy)
+  {
+    placeHolder2 = [(ASMeetingRequest *)self placeHolder];
+    v10 = [MEMORY[0x277CCABB0] numberWithInt:v4];
+    [placeHolder2 setObject:objectCopy forKeyedSubscript:v10];
+
+    v8 = objectCopy;
+  }
 }
 
 + (id)asParseRules
@@ -522,6 +547,78 @@ LABEL_49:
   return v7;
 }
 
+- (BOOL)saveToCalendarWithExistingRecord:(void *)record intoCalendar:(void *)calendar shouldMergeProperties:(BOOL)properties outMergeDidChooseLocalProperties:(BOOL *)localProperties account:(id)account
+{
+  propertiesCopy = properties;
+  accountCopy = account;
+  v28.receiver = self;
+  v28.super_class = ASMeetingRequest;
+  if (![(ASEvent *)&v28 saveToCalendarWithExistingRecord:record intoCalendar:calendar shouldMergeProperties:propertiesCopy outMergeDidChooseLocalProperties:localProperties account:accountCopy])
+  {
+    goto LABEL_13;
+  }
+
+  recurrenceId = [(ASMeetingRequest *)self recurrenceId];
+
+  if (recurrenceId)
+  {
+    eventUID = [(ASEvent *)self eventUID];
+    uidWithoutExceptionDate = [eventUID uidWithoutExceptionDate];
+
+    if (uidWithoutExceptionDate)
+    {
+      v16 = DALoggingwithCategory();
+      v17 = *(MEMORY[0x277D03988] + 7);
+      if (os_log_type_enabled(v16, v17))
+      {
+        *v27 = 0;
+        _os_log_impl(&dword_24A0AC000, v16, v17, "Invoking CalDatabaseCopyEventWithUniqueIdentifierInCalendar", v27, 2u);
+      }
+
+      v18 = +[ASLocalDBHelper sharedInstance];
+      accountID = [accountCopy accountID];
+      [v18 calDatabaseForAccountID:accountID];
+      v20 = CalDatabaseCopyEventWithUniqueIdentifierInCalendar();
+
+      if (v20)
+      {
+        if (v20 != [(ASEvent *)self calEvent])
+        {
+          recurrenceId2 = [(ASMeetingRequest *)self recurrenceId];
+          timeZone = [(ASEvent *)self timeZone];
+          v23 = [recurrenceId2 dateWithCalendarFormat:0 timeZone:timeZone];
+          v24 = [(ASEvent *)self _transformedStartDateForCalFramework:v23];
+
+          [(ASEvent *)self calEvent];
+          [v24 timeIntervalSinceReferenceDate];
+          CalEventSetOriginalStartDate();
+          [(ASEvent *)self calEvent];
+          CalEventAddDetachedEvent();
+          CalCalendarItemAddExceptionDateWithCFDate();
+        }
+
+        CFRelease(v20);
+      }
+    }
+
+    goto LABEL_12;
+  }
+
+  if (![(ASEvent *)self saveDetachedEventsWithExistingRecord:record intoCalendar:calendar shouldMergeProperties:propertiesCopy outMergeDidChooseLocalProperties:localProperties account:accountCopy])
+  {
+LABEL_13:
+    v25 = 0;
+    goto LABEL_14;
+  }
+
+LABEL_12:
+  [(ASMeetingRequest *)self saveEmailServerIdAndUpdateNotificationToRecord:record account:accountCopy];
+  v25 = 1;
+LABEL_14:
+
+  return v25;
+}
+
 - (BOOL)saveEmailServerIdToCalendarWithExistingRecord:(void *)record intoCalendar:(void *)calendar account:(id)account
 {
   accountCopy = account;
@@ -538,7 +635,7 @@ LABEL_49:
 
 - (void)saveEmailServerIdAndUpdateNotificationToRecord:(void *)record account:(id)account
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   v8 = MEMORY[0x277D03988];
   if (record)
@@ -559,7 +656,7 @@ LABEL_49:
       if (os_log_type_enabled(v15, v16))
       {
         *buf = 138412290;
-        *v72 = self;
+        *v71 = self;
         _os_log_impl(&dword_24A0AC000, v15, v16, "Could not create a self attendee for meeting request %@.  Likely this is a request from ourselves, to ourselves.", buf, 0xCu);
       }
 
@@ -570,63 +667,32 @@ LABEL_49:
     protocol = [accountCopy protocol];
     serverUpdatesAttendeeStatusOnEvents = [protocol serverUpdatesAttendeeStatusOnEvents];
 
-    if (!serverUpdatesAttendeeStatusOnEvents)
+    if (!serverUpdatesAttendeeStatusOnEvents || ModifiedDate && (-[ASEvent dTStamp](self, "dTStamp"), (v20 = objc_claimAutoreleasedReturnValue()) != 0) && (v21 = v20, -[ASEvent dTStamp](self, "dTStamp"), v22 = objc_claimAutoreleasedReturnValue(), v67 = accountCopy, v23 = a2, v24 = Status, v25 = v8, v26 = [v22 compare:ModifiedDate], v22, v21, v36 = v26 == 1, v8 = v25, Status = v24, a2 = v23, accountCopy = v67, v36))
     {
-      goto LABEL_13;
-    }
-
-    if (!ModifiedDate)
-    {
-      goto LABEL_14;
-    }
-
-    dTStamp = [(ASEvent *)self dTStamp];
-    if (!dTStamp)
-    {
-      goto LABEL_14;
-    }
-
-    v21 = dTStamp;
-    dTStamp2 = [(ASEvent *)self dTStamp];
-    v68 = accountCopy;
-    v23 = a2;
-    v24 = Status;
-    v25 = v8;
-    v26 = [dTStamp2 compare:ModifiedDate];
-
-    v36 = v26 == 1;
-    v8 = v25;
-    Status = v24;
-    a2 = v23;
-    accountCopy = v68;
-    if (v36)
-    {
-LABEL_13:
       v13 = 1;
     }
 
     else
     {
-LABEL_14:
       v27 = DALoggingwithCategory();
       v28 = *(v8 + 6);
       if (os_log_type_enabled(v27, v28))
       {
         [(ASEvent *)self dTStamp];
-        v69 = a2;
+        v68 = a2;
         v29 = Status;
         v31 = v30 = v8;
         *buf = 138412802;
-        *v72 = self;
-        *&v72[8] = 2112;
-        v73 = v31;
-        *v74 = 2112;
-        *&v74[2] = ModifiedDate;
+        *v71 = self;
+        *&v71[8] = 2112;
+        v72 = v31;
+        *v73 = 2112;
+        *&v73[2] = ModifiedDate;
         _os_log_impl(&dword_24A0AC000, v27, v28, "Received a meeting request %@, but the dtstamp %@ isn't newer than what's in the db %@.  Not alerting the user for this save", buf, 0x20u);
 
         v8 = v30;
         Status = v29;
-        a2 = v69;
+        a2 = v68;
       }
 
       v13 = 0;
@@ -651,7 +717,7 @@ LABEL_14:
   if ([(ASEvent *)self shouldUpdateStatus])
   {
     v32 = [(ASEvent *)self _nextEventStatusWithOldStatus:Status meetingClassType:[(ASMeetingRequest *)self meetingClassType] account:accountCopy];
-    v70 = Status;
+    v69 = Status;
     if (v32)
     {
       v33 = [(ASEvent *)self _nextAttendeeStatusWithOldStatus:v14 meetingClassType:[(ASMeetingRequest *)self meetingClassType] account:accountCopy];
@@ -666,7 +732,7 @@ LABEL_14:
         LODWORD(v12) = v33;
       }
 
-      v36 = v70 == 1 && v32 == 3;
+      v36 = v69 == 1 && v32 == 3;
       v37 = v36;
       if ((v12 & 0xFFFFFFFD) == 0)
       {
@@ -708,18 +774,18 @@ LABEL_14:
       meetingClassType = [(ASMeetingRequest *)self meetingClassType];
       v43 = [(ASMeetingRequest *)self cachedOrganizerIsSelfWithAccount:accountCopy];
       *buf = 67110400;
-      *v72 = v32;
-      *&v72[4] = 1024;
-      *&v72[6] = v12;
-      LOWORD(v73) = 1024;
-      *(&v73 + 2) = v70;
-      HIWORD(v73) = 1024;
-      *v74 = v14;
-      *&v74[4] = 1024;
-      *&v74[6] = meetingClassType;
+      *v71 = v32;
+      *&v71[4] = 1024;
+      *&v71[6] = v12;
+      LOWORD(v72) = 1024;
+      *(&v72 + 2) = v69;
+      HIWORD(v72) = 1024;
+      *v73 = v14;
+      *&v73[4] = 1024;
+      *&v73[6] = meetingClassType;
       v8 = v34;
-      v75 = 1024;
-      v76 = v43;
+      v74 = 1024;
+      v75 = v43;
       _os_log_impl(&dword_24A0AC000, v40, v41, "Setting new event status %d, attendee status %d, as I had old event status %d, attendee status %d, and meetingClassType %d, and organizerIsSelf is %d", buf, 0x26u);
     }
   }
@@ -793,7 +859,7 @@ LABEL_54:
     {
       dateReceived2 = [(ASMeetingRequest *)self dateReceived];
       *buf = 138412290;
-      *v72 = dateReceived2;
+      *v71 = dateReceived2;
       _os_log_impl(&dword_24A0AC000, v57, v58, "Setting ReceivedDate %@ in EventAction", buf, 0xCu);
     }
 
@@ -835,20 +901,18 @@ LABEL_66:
     [(ASEvent *)self calEvent];
     ID = CalEntityGetID();
     *buf = 67109120;
-    *v72 = ID;
+    *v71 = ID;
     _os_log_impl(&dword_24A0AC000, v64, v65, "Adding event action for event with RowID: %d", buf, 8u);
   }
 
   [(ASEvent *)self calEvent];
   CalEventAddEventAction();
   CFRelease(EventAction);
-
-  v67 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)saveResponseCommentToCalendarWithExistingRecord:(void *)record
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   if (record)
   {
     from = [(ASEvent *)self from];
@@ -875,7 +939,7 @@ LABEL_66:
         if (os_log_type_enabled(v13, v9))
         {
           *buf = 134217984;
-          v42 = Count;
+          v41 = Count;
           _os_log_impl(&dword_24A0AC000, v13, v9, "Attendees count is %ld", buf, 0xCu);
         }
 
@@ -886,7 +950,7 @@ LABEL_66:
 
         else
         {
-          v40 = firstObject;
+          v39 = firstObject;
           v14 = 0;
           while (1)
           {
@@ -905,7 +969,7 @@ LABEL_66:
             if (Count == ++v14)
             {
               v18 = 0;
-              firstObject = v40;
+              firstObject = v39;
               goto LABEL_43;
             }
           }
@@ -926,7 +990,7 @@ LABEL_66:
             }
 
             v18 = 0;
-            firstObject = v40;
+            firstObject = v39;
           }
 
           else
@@ -937,8 +1001,8 @@ LABEL_66:
 
             if ([v30 length])
             {
-              v39 = newlineCharacterSet;
-              v38 = MEMORY[0x24C2105A0](ValueAtIndex);
+              v38 = newlineCharacterSet;
+              v37 = MEMORY[0x24C2105A0](ValueAtIndex);
               v31 = [v30 compare:?];
               v32 = DALoggingwithCategory();
               v33 = os_log_type_enabled(v32, v9);
@@ -947,7 +1011,7 @@ LABEL_66:
                 if (v33)
                 {
                   *buf = 138412290;
-                  v42 = v30;
+                  v41 = v30;
                   _os_log_impl(&dword_24A0AC000, v32, v9, "Adding attendee response comment: %@", buf, 0xCu);
                 }
 
@@ -975,15 +1039,15 @@ LABEL_66:
                 v18 = 0;
               }
 
-              newlineCharacterSet = v39;
-              firstObject = v40;
-              v35 = v38;
+              newlineCharacterSet = v38;
+              firstObject = v39;
+              v35 = v37;
             }
 
             else
             {
               v35 = DALoggingwithCategory();
-              firstObject = v40;
+              firstObject = v39;
               if (os_log_type_enabled(v35, v9))
               {
                 *buf = 0;
@@ -1040,13 +1104,12 @@ LABEL_44:
   v18 = 0;
 LABEL_45:
 
-  v36 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (BOOL)saveForwardeesToCalendarWithExistingRecord:(void *)record account:(id)account
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   if (record)
   {
@@ -1063,39 +1126,39 @@ LABEL_45:
     }
 
     v12 = v9;
-    v34 = v7;
-    v35 = accountCopy;
+    v33 = v7;
+    v34 = accountCopy;
     if (v8)
     {
       [v9 addObjectsFromArray:v8];
     }
 
-    v33 = v8;
+    v32 = v8;
     v13 = objc_alloc(MEMORY[0x277CBEB58]);
     forwardees = [(ASMeetingRequest *)self forwardees];
     v15 = [v13 initWithArray:forwardees];
 
     v16 = objc_opt_new();
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
     v17 = v15;
-    v18 = [v17 countByEnumeratingWithState:&v36 objects:v41 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v35 objects:v40 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v37;
+      v20 = *v36;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v37 != v20)
+          if (*v36 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v22 = *(*(&v36 + 1) + 8 * i);
+          v22 = *(*(&v35 + 1) + 8 * i);
           email = [v22 email];
           if (email)
           {
@@ -1103,13 +1166,13 @@ LABEL_45:
           }
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v36 objects:v41 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v35 objects:v40 count:16];
       }
 
       while (v19);
     }
 
-    accountCopy = v35;
+    accountCopy = v34;
     if ([v12 count])
     {
       v24 = 0;
@@ -1125,7 +1188,7 @@ LABEL_45:
           {
             [v17 removeObject:v27];
             [v27 setLocalId:MEMORY[0x24C210600](v25)];
-            [v27 saveToCalendarWithParentASEvent:self existingRecord:record isDefaultCalendar:1 shouldMergeProperties:0 outMergeDidChooseLocalProperties:0 account:v35];
+            [v27 saveToCalendarWithParentASEvent:self existingRecord:record isDefaultCalendar:1 shouldMergeProperties:0 outMergeDidChooseLocalProperties:0 account:v34];
           }
         }
 
@@ -1142,7 +1205,7 @@ LABEL_45:
       do
       {
         v30 = [allObjects objectAtIndexedSubscript:v29];
-        [v30 saveToCalendarWithParentASEvent:self existingRecord:record isDefaultCalendar:1 shouldMergeProperties:0 outMergeDidChooseLocalProperties:0 account:v35];
+        [v30 saveToCalendarWithParentASEvent:self existingRecord:record isDefaultCalendar:1 shouldMergeProperties:0 outMergeDidChooseLocalProperties:0 account:v34];
 
         ++v29;
       }
@@ -1150,7 +1213,7 @@ LABEL_45:
       while (v29 < [allObjects count]);
     }
 
-    v10 = v34;
+    v10 = v33;
   }
 
   else
@@ -1164,7 +1227,6 @@ LABEL_45:
     }
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return record != 0;
 }
 
@@ -1189,7 +1251,7 @@ LABEL_45:
 - (BOOL)writeInviteToCalDBCreateAsRejected:(BOOL)rejected defaultCalendar:(void *)calendar account:(id)account
 {
   rejectedCopy = rejected;
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   v9 = +[ASLocalDBHelper sharedInstance];
   accountID = [accountCopy accountID];
@@ -1210,11 +1272,11 @@ LABEL_6:
     v14 = *(MEMORY[0x277D03988] + 6);
     if (os_log_type_enabled(v13, v14))
     {
-      v64 = 67109378;
-      *v65 = [(ASMeetingRequest *)self meetingMessageType];
-      *&v65[4] = 2112;
-      *&v65[6] = self;
-      _os_log_impl(&dword_24A0AC000, v13, v14, "Not saving invitation, because it had meeting message type %d.  Invite %@", &v64, 0x12u);
+      v63 = 67109378;
+      *v64 = [(ASMeetingRequest *)self meetingMessageType];
+      *&v64[4] = 2112;
+      *&v64[6] = self;
+      _os_log_impl(&dword_24A0AC000, v13, v14, "Not saving invitation, because it had meeting message type %d.  Invite %@", &v63, 0x12u);
     }
 
     goto LABEL_9;
@@ -1237,27 +1299,27 @@ LABEL_6:
 
   eventUID = [(ASEvent *)self eventUID];
   [eventUID uidForCalFramework];
-  v19 = CalDatabaseCopyAllEventsWithUniqueIdentifierInStore();
+  v18 = CalDatabaseCopyAllEventsWithUniqueIdentifierInStore();
 
-  Count = CFArrayGetCount(v19);
-  if (v19)
+  Count = CFArrayGetCount(v18);
+  if (v18)
   {
-    CFRelease(v19);
+    CFRelease(v18);
   }
 
   if (Count >= 2)
   {
-    v21 = DALoggingwithCategory();
-    v22 = *(MEMORY[0x277D03988] + 6);
-    if (os_log_type_enabled(v21, v22))
+    v20 = DALoggingwithCategory();
+    v21 = *(MEMORY[0x277D03988] + 6);
+    if (os_log_type_enabled(v20, v21))
     {
       eventUID2 = [(ASEvent *)self eventUID];
       uidForCalFramework = [eventUID2 uidForCalFramework];
-      v64 = 134218242;
-      *v65 = Count;
-      *&v65[8] = 2112;
-      *&v65[10] = uidForCalFramework;
-      _os_log_impl(&dword_24A0AC000, v21, v22, "Found %ld events with the same UID %@. Not updating them.", &v64, 0x16u);
+      v63 = 134218242;
+      *v64 = Count;
+      *&v64[8] = 2112;
+      *&v64[10] = uidForCalFramework;
+      _os_log_impl(&dword_24A0AC000, v20, v21, "Found %ld events with the same UID %@. Not updating them.", &v63, 0x16u);
     }
 
 LABEL_18:
@@ -1271,7 +1333,7 @@ LABEL_18:
 
   eventUID3 = [(ASEvent *)self eventUID];
   [eventUID3 uidForCalFramework];
-  v26 = CalDatabaseCopyEventWithUniqueIdentifierInStore();
+  v25 = CalDatabaseCopyEventWithUniqueIdentifierInStore();
 
   if (((0x1Cu >> v11) & 1) == 0)
   {
@@ -1282,31 +1344,31 @@ LABEL_18:
 
       if (supportsForwarderTracking)
       {
-        if (v26)
+        if (v25)
         {
-          v27 = [(ASMeetingRequest *)self saveForwardeesToCalendarWithExistingRecord:v26 account:accountCopy];
+          v26 = [(ASMeetingRequest *)self saveForwardeesToCalendarWithExistingRecord:v25 account:accountCopy];
           goto LABEL_22;
         }
 
-        v54 = DALoggingwithCategory();
-        v55 = *(MEMORY[0x277D03988] + 6);
-        if (os_log_type_enabled(v54, v55))
+        v53 = DALoggingwithCategory();
+        v54 = *(MEMORY[0x277D03988] + 6);
+        if (os_log_type_enabled(v53, v54))
         {
           eventUID4 = [(ASEvent *)self eventUID];
           uidForCalFramework2 = [eventUID4 uidForCalFramework];
-          v64 = 138412290;
-          *v65 = uidForCalFramework2;
-          _os_log_impl(&dword_24A0AC000, v54, v55, "Do not create forward notification event with UID %@", &v64, 0xCu);
+          v63 = 138412290;
+          *v64 = uidForCalFramework2;
+          _os_log_impl(&dword_24A0AC000, v53, v54, "Do not create forward notification event with UID %@", &v63, 0xCu);
         }
 
-        v26 = 0;
+        v25 = 0;
       }
 
       v15 = 0;
       goto LABEL_76;
     }
 
-    if (!v26)
+    if (!v25)
     {
       if ([(ASMeetingRequest *)self meetingClassType]== 2)
       {
@@ -1314,28 +1376,28 @@ LABEL_18:
 
         if (exceptionDate)
         {
-          v34 = DALoggingwithCategory();
-          v35 = *(MEMORY[0x277D03988] + 3);
-          if (os_log_type_enabled(v34, v35))
+          v33 = DALoggingwithCategory();
+          v34 = *(MEMORY[0x277D03988] + 3);
+          if (os_log_type_enabled(v33, v34))
           {
-            LOWORD(v64) = 0;
-            _os_log_impl(&dword_24A0AC000, v34, v35, "Invoking CalDatabaseCopyEventWithUniqueIdentifierInStore", &v64, 2u);
+            LOWORD(v63) = 0;
+            _os_log_impl(&dword_24A0AC000, v33, v34, "Invoking CalDatabaseCopyEventWithUniqueIdentifierInStore", &v63, 2u);
           }
 
           eventUID5 = [(ASEvent *)self eventUID];
           [eventUID5 uidWithoutExceptionDate];
-          v37 = CalDatabaseCopyEventWithUniqueIdentifierInStore();
+          v36 = CalDatabaseCopyEventWithUniqueIdentifierInStore();
 
-          if (v37)
+          if (v36)
           {
             CalEventGetLastModifiedDate();
-            v39 = v38;
-            CFRelease(v37);
+            v38 = v37;
+            CFRelease(v36);
             dTStamp = [(ASEvent *)self dTStamp];
             [dTStamp timeIntervalSinceReferenceDate];
-            v42 = v41;
+            v41 = v40;
 
-            if (v42 <= v39)
+            if (v41 <= v38)
             {
               goto LABEL_18;
             }
@@ -1359,28 +1421,28 @@ LABEL_43:
 
       if (processFullMeetingInvitationData)
       {
-        if ([(ASMeetingRequest *)self saveToCalendarWithExistingRecord:v26 intoCalendar:calendar shouldMergeProperties:0 outMergeDidChooseLocalProperties:0 account:accountCopy])
+        if ([(ASMeetingRequest *)self saveToCalendarWithExistingRecord:v25 intoCalendar:calendar shouldMergeProperties:0 outMergeDidChooseLocalProperties:0 account:accountCopy])
         {
 LABEL_47:
-          if (!v26 && rejectedCopy && ![(ASMeetingRequest *)self cachedOrganizerIsSelfWithAccount:accountCopy])
+          if (!v25 && rejectedCopy && ![(ASMeetingRequest *)self cachedOrganizerIsSelfWithAccount:accountCopy])
           {
-            v45 = DALoggingwithCategory();
-            v46 = *(MEMORY[0x277D03988] + 6);
-            if (os_log_type_enabled(v45, v46))
+            v44 = DALoggingwithCategory();
+            v45 = *(MEMORY[0x277D03988] + 6);
+            if (os_log_type_enabled(v44, v45))
             {
-              LOWORD(v64) = 0;
-              _os_log_impl(&dword_24A0AC000, v45, v46, "Setting Attendee status to rejected, as I created an invite for a trash folder", &v64, 2u);
+              LOWORD(v63) = 0;
+              _os_log_impl(&dword_24A0AC000, v44, v45, "Setting Attendee status to rejected, as I created an invite for a trash folder", &v63, 2u);
             }
 
             [(ASEvent *)self calEvent];
-            v47 = CalCalendarItemCopySelfAttendee();
-            if (v47)
+            v46 = CalCalendarItemCopySelfAttendee();
+            if (v46)
             {
-              v48 = v47;
+              v47 = v46;
               CalAttendeeGetPendingStatus();
               CalAttendeeSetStatus();
               CalAttendeeSetPendingStatus();
-              CFRelease(v48);
+              CFRelease(v47);
             }
           }
 
@@ -1388,9 +1450,9 @@ LABEL_47:
         }
       }
 
-      else if (v26)
+      else if (v25)
       {
-        if ([(ASMeetingRequest *)self saveEmailServerIdToCalendarWithExistingRecord:v26 intoCalendar:calendar account:accountCopy])
+        if ([(ASMeetingRequest *)self saveEmailServerIdToCalendarWithExistingRecord:v25 intoCalendar:calendar account:accountCopy])
         {
 LABEL_56:
           protocol3 = [accountCopy protocol];
@@ -1403,14 +1465,14 @@ LABEL_56:
               if (![(ASMeetingRequest *)self cachedOrganizerIsSelfWithAccount:accountCopy])
               {
                 [(ASEvent *)self calEvent];
-                v51 = CalCalendarItemCopySelfAttendee();
-                if (v51)
+                v50 = CalCalendarItemCopySelfAttendee();
+                if (v50)
                 {
-                  v52 = v51;
+                  v51 = v50;
                   sender2 = [(ASMeetingRequest *)self sender];
                   CalAttendeeSetInvitedBy();
 
-                  CFRelease(v52);
+                  CFRelease(v51);
                 }
               }
             }
@@ -1435,12 +1497,12 @@ LABEL_56:
 
       else
       {
-        v58 = DALoggingwithCategory();
-        v59 = *(MEMORY[0x277D03988] + 6);
-        if (os_log_type_enabled(v58, v59))
+        v57 = DALoggingwithCategory();
+        v58 = *(MEMORY[0x277D03988] + 6);
+        if (os_log_type_enabled(v57, v58))
         {
-          LOWORD(v64) = 0;
-          _os_log_impl(&dword_24A0AC000, v58, v59, "Not adding a cancelled meeting request to CalDB", &v64, 2u);
+          LOWORD(v63) = 0;
+          _os_log_impl(&dword_24A0AC000, v57, v58, "Not adding a cancelled meeting request to CalDB", &v63, 2u);
         }
       }
 
@@ -1454,7 +1516,7 @@ LABEL_74:
       goto LABEL_76;
     }
 
-    v30 = CalEventCopyOriginalEvent();
+    v29 = CalEventCopyOriginalEvent();
     if ([(ASMeetingRequest *)self meetingClassType]== 2)
     {
       instanceType = [(ASMeetingRequest *)self instanceType];
@@ -1468,11 +1530,11 @@ LABEL_74:
         else
         {
 
-          if (v30 && v30 != v26)
+          if (v29 && v29 != v25)
           {
             calendar = CalCalendarItemCopyCalendar();
 LABEL_34:
-            CFRelease(v30);
+            CFRelease(v29);
             goto LABEL_43;
           }
 
@@ -1480,24 +1542,24 @@ LABEL_34:
           if ([instanceType count])
           {
             writeOutBrokenCancelationRequests = [MEMORY[0x277D03910] writeOutBrokenCancelationRequests];
-            v61 = DALoggingwithCategory();
-            v62 = *(MEMORY[0x277D03988] + 3);
-            v63 = os_log_type_enabled(v61, v62);
+            v60 = DALoggingwithCategory();
+            v61 = *(MEMORY[0x277D03988] + 3);
+            v62 = os_log_type_enabled(v60, v61);
             if (!writeOutBrokenCancelationRequests)
             {
-              if (v63)
+              if (v62)
               {
-                v64 = 138412290;
-                *v65 = self;
-                _os_log_impl(&dword_24A0AC000, v61, v62, "Ignoring broken meeting request %@.  Apologies, we weren't given enough info to apply it correctly", &v64, 0xCu);
+                v63 = 138412290;
+                *v64 = self;
+                _os_log_impl(&dword_24A0AC000, v60, v61, "Ignoring broken meeting request %@.  Apologies, we weren't given enough info to apply it correctly", &v63, 0xCu);
               }
 
-              if (v30)
+              if (v29)
               {
-                CFRelease(v30);
+                CFRelease(v29);
               }
 
-              CFRelease(v26);
+              CFRelease(v25);
               if (v12)
               {
                 CFRelease(v12);
@@ -1506,11 +1568,11 @@ LABEL_34:
               goto LABEL_9;
             }
 
-            if (v63)
+            if (v62)
             {
-              v64 = 138412290;
-              *v65 = self;
-              _os_log_impl(&dword_24A0AC000, v61, v62, "Found a broken cancelation email, but will write it out regardless, based on profile settings %@", &v64, 0xCu);
+              v63 = 138412290;
+              *v64 = self;
+              _os_log_impl(&dword_24A0AC000, v60, v61, "Found a broken cancelation email, but will write it out regardless, based on profile settings %@", &v63, 0xCu);
             }
           }
         }
@@ -1518,7 +1580,7 @@ LABEL_34:
     }
 
     calendar = CalCalendarItemCopyCalendar();
-    if (!v30)
+    if (!v29)
     {
       goto LABEL_43;
     }
@@ -1526,23 +1588,22 @@ LABEL_34:
     goto LABEL_34;
   }
 
-  v27 = [(ASMeetingRequest *)self saveResponseCommentToCalendarWithExistingRecord:v26];
+  v26 = [(ASMeetingRequest *)self saveResponseCommentToCalendarWithExistingRecord:v25];
 LABEL_22:
-  v15 = v27;
+  v15 = v26;
 LABEL_76:
   if (v12)
   {
     CFRelease(v12);
   }
 
-  if (v26)
+  if (v25)
   {
-    CFRelease(v26);
+    CFRelease(v25);
   }
 
 LABEL_10:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -1614,7 +1675,7 @@ LABEL_10:
 
 - (void)takeValuesFromParentEmailForAccount:(id)account
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   [(ASEvent *)self setHaveCheckedOrganizerEmail:0];
   subject = [(ASEvent *)self subject];
@@ -1664,7 +1725,7 @@ LABEL_10:
 
   if (!attendees)
   {
-    v52 = accountCopy;
+    v51 = accountCopy;
     v20 = objc_opt_new();
     parentEmailItem6 = [(ASMeetingRequest *)self parentEmailItem];
     v22 = [parentEmailItem6 to];
@@ -1674,31 +1735,31 @@ LABEL_10:
     v24 = [parentEmailItem7 cc];
 
     v25 = objc_opt_new();
-    v51 = v22;
+    v50 = v22;
     [v25 addObjectsFromArray:v22];
-    v50 = v24;
+    v49 = v24;
     [v25 addObjectsFromArray:v24];
-    v61 = 0u;
-    v62 = 0u;
-    v59 = 0u;
     v60 = 0u;
+    v61 = 0u;
+    v58 = 0u;
+    v59 = 0u;
     obj = v25;
-    v26 = [obj countByEnumeratingWithState:&v59 objects:v64 count:16];
+    v26 = [obj countByEnumeratingWithState:&v58 objects:v63 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v60;
+      v28 = *v59;
       do
       {
         v29 = 0;
         do
         {
-          if (*v60 != v28)
+          if (*v59 != v28)
           {
             objc_enumerationMutation(obj);
           }
 
-          v30 = *(*(&v59 + 1) + 8 * v29);
+          v30 = *(*(&v58 + 1) + 8 * v29);
           v31 = objc_opt_new();
           v32 = [v30 mf_decodeMimeHeaderValueWithCharsetHint:@"UTF-8"];
           mf_addressComment = [v32 mf_addressComment];
@@ -1716,7 +1777,7 @@ LABEL_10:
         }
 
         while (v27 != v29);
-        v27 = [obj countByEnumeratingWithState:&v59 objects:v64 count:16];
+        v27 = [obj countByEnumeratingWithState:&v58 objects:v63 count:16];
       }
 
       while (v27);
@@ -1725,7 +1786,7 @@ LABEL_10:
     self = selfCopy;
     [(ASEvent *)selfCopy setAttendees:v20];
 
-    accountCopy = v52;
+    accountCopy = v51;
   }
 
   sender = [(ASMeetingRequest *)self sender];
@@ -1741,27 +1802,27 @@ LABEL_10:
 
   if (forwardees)
   {
-    v57 = 0u;
-    v58 = 0u;
-    v55 = 0u;
     v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
     forwardees2 = [(ASMeetingRequest *)self forwardees];
-    v41 = [forwardees2 countByEnumeratingWithState:&v55 objects:v63 count:16];
+    v41 = [forwardees2 countByEnumeratingWithState:&v54 objects:v62 count:16];
     if (v41)
     {
       v42 = v41;
-      v43 = *v56;
+      v43 = *v55;
       do
       {
         v44 = 0;
         do
         {
-          if (*v56 != v43)
+          if (*v55 != v43)
           {
             objc_enumerationMutation(forwardees2);
           }
 
-          v45 = *(*(&v55 + 1) + 8 * v44);
+          v45 = *(*(&v54 + 1) + 8 * v44);
           parentEmailItem9 = [(ASMeetingRequest *)self parentEmailItem];
           from3 = [parentEmailItem9 from];
           v48 = [from3 objectAtIndexedSubscript:0];
@@ -1771,7 +1832,7 @@ LABEL_10:
         }
 
         while (v42 != v44);
-        v42 = [forwardees2 countByEnumeratingWithState:&v55 objects:v63 count:16];
+        v42 = [forwardees2 countByEnumeratingWithState:&v54 objects:v62 count:16];
       }
 
       while (v42);
@@ -1779,8 +1840,6 @@ LABEL_10:
   }
 
   [(ASMeetingRequest *)self _determineSelfnessWithLocalEvent:0 forAccount:accountCopy];
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setOrganizer:(id)organizer
@@ -1809,11 +1868,11 @@ LABEL_10:
 
 - (ASMeetingRequest)initWithCoder:(id)coder
 {
-  v28[2] = *MEMORY[0x277D85DE8];
+  v27[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v26.receiver = self;
-  v26.super_class = ASMeetingRequest;
-  v6 = [(ASEvent *)&v26 initWithCoder:coderCopy];
+  v25.receiver = self;
+  v25.super_class = ASMeetingRequest;
+  v6 = [(ASEvent *)&v25 initWithCoder:coderCopy];
   v7 = v6;
   if (v6)
   {
@@ -1828,17 +1887,17 @@ LABEL_10:
     [(ASMeetingRequest *)v7 setInstanceType:v8];
 
     v9 = MEMORY[0x277CBEB98];
-    v28[0] = objc_opt_class();
-    v28[1] = objc_opt_class();
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
+    v27[0] = objc_opt_class();
+    v27[1] = objc_opt_class();
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
     v11 = [v9 setWithArray:v10];
     v12 = [coderCopy decodeObjectOfClasses:v11 forKey:@"dateReceived"];
     [(ASMeetingRequest *)v7 setDateReceived:v12];
 
     v13 = MEMORY[0x277CBEB98];
-    v27[0] = objc_opt_class();
-    v27[1] = objc_opt_class();
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+    v26[0] = objc_opt_class();
+    v26[1] = objc_opt_class();
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
     v15 = [v13 setWithArray:v14];
     v16 = [coderCopy decodeObjectOfClasses:v15 forKey:@"recurrenceId"];
     [(ASMeetingRequest *)v7 setRecurrenceId:v16];
@@ -1861,7 +1920,6 @@ LABEL_10:
     [(ASMeetingRequest *)v7 setForwardees:v23];
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -1910,7 +1968,7 @@ LABEL_10:
 
 - (id)unactionableICSRepresentationForAccount:(id)account
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   [(ASMeetingRequest *)self saveToCalendarWithExistingRecord:0 intoCalendar:0 shouldMergeProperties:0 outMergeDidChooseLocalProperties:0 account:account];
   if ([(ASEvent *)self calEvent])
   {
@@ -1945,8 +2003,8 @@ LABEL_10:
     v10 = [objc_alloc(MEMORY[0x277D7F130]) initWithValue:v9 type:5007];
     [v4 setProperty:v10 forName:@"X-APPLE-NO-ACTION"];
     v11 = objc_opt_new();
-    v17[0] = v4;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+    v16[0] = v4;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
     [v11 setComponents:v12 options:1];
 
     v13 = CalCreateiCalendarDataFromICSCalendar();
@@ -1957,8 +2015,6 @@ LABEL_10:
   {
     v14 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

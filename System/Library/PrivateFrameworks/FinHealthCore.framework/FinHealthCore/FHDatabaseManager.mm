@@ -85,6 +85,7 @@
 - (id)getTransactionSmartFeaturesForApplication:(id)application;
 - (id)getTransactionsByDetailedCategory:(id)category;
 - (id)getTransactionsByInternalState:(unint64_t)state internalState:(unint64_t)internalState offSet:(unint64_t)set addCompoundFeatures:(BOOL)features;
+- (id)init:(BOOL)init multiThreadingEnabled:(BOOL)enabled;
 - (id)predictAndPersistIncomeClassificationForAllGroups:(id)groups;
 - (id)processingDataForFeature:(id)feature;
 - (id)reconstructTransaction:(id)transaction;
@@ -139,7 +140,7 @@
 
 - (BOOL)_isEligibleForSchemaMigration
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = [(FHDatabaseManager *)self _fetch:@"select sch_version_id, sch_upgrade_status from fh_schema order by sch_id desc limit %d", 1];;
   v4 = [MEMORY[0x277CCA980] decimalNumberWithString:@"11.11"];
   v5 = [MEMORY[0x277CCA980] decimalNumberWithString:@"0.0"];
@@ -178,7 +179,7 @@
       }
 
       *buf = 138412290;
-      v22 = v17;
+      v21 = v17;
       _os_log_impl(&dword_226DD4000, v16, OS_LOG_TYPE_DEBUG, "createSchemaVersionRecord: %@", buf, 0xCu);
     }
   }
@@ -186,13 +187,12 @@
   [(FHDatabaseManager *)self closeAndUnlock:v3];
   v18 = [v5 isEqual:v4];
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18 & v9 ^ 1;
 }
 
 - (void)_logSchema:(id)schema
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   schema = [(FHDatabaseManager *)self _fetch:@"select sql from sqlite_master where type='table' and name=%@", schema];;
   if ([schema next])
   {
@@ -201,19 +201,17 @@
     {
       v6 = [schema stringAtIndex:0];
       *buf = 138412290;
-      v9 = v6;
+      v8 = v6;
       _os_log_impl(&dword_226DD4000, v5, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
 
   [(FHDatabaseManager *)self closeAndUnlock:schema];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateAggregateTablesSchema
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v3 = [(FHDatabaseManager *)self _fetch:@"select count(*) from PRAGMA_TABLE_INFO('features_datetime')"];;
   if ([v3 next])
   {
@@ -236,32 +234,32 @@
         _os_log_impl(&dword_226DD4000, v7, OS_LOG_TYPE_DEBUG, "Schema before change:", buf, 2u);
       }
 
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
       v43 = 0u;
+      v44 = 0u;
+      v41 = 0u;
+      v42 = 0u;
       v8 = v5;
-      v9 = [v8 countByEnumeratingWithState:&v42 objects:v48 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v41 objects:v47 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v43;
+        v11 = *v42;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v43 != v11)
+            if (*v42 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            v13 = *(*(&v42 + 1) + 8 * i);
+            v13 = *(*(&v41 + 1) + 8 * i);
             [(FHDatabaseManager *)self _logSchema:v13];
             v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"drop table if exists %@", v13];;
             [(FHDatabaseManager *)self _executeRaw:v14];
           }
 
-          v10 = [v8 countByEnumeratingWithState:&v42 objects:v48 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v41 objects:v47 count:16];
         }
 
         while (v10);
@@ -286,29 +284,29 @@
         _os_log_impl(&dword_226DD4000, v19, OS_LOG_TYPE_DEBUG, "Schema after change:", buf, 2u);
       }
 
-      v40 = 0u;
-      v41 = 0u;
-      v38 = 0u;
       v39 = 0u;
+      v40 = 0u;
+      v37 = 0u;
+      v38 = 0u;
       v20 = v8;
-      v21 = [v20 countByEnumeratingWithState:&v38 objects:v47 count:16];
+      v21 = [v20 countByEnumeratingWithState:&v37 objects:v46 count:16];
       if (v21)
       {
         v22 = v21;
-        v23 = *v39;
+        v23 = *v38;
         do
         {
           for (j = 0; j != v22; ++j)
           {
-            if (*v39 != v23)
+            if (*v38 != v23)
             {
               objc_enumerationMutation(v20);
             }
 
-            [(FHDatabaseManager *)self _logSchema:*(*(&v38 + 1) + 8 * j)];
+            [(FHDatabaseManager *)self _logSchema:*(*(&v37 + 1) + 8 * j)];
           }
 
-          v22 = [v20 countByEnumeratingWithState:&v38 objects:v47 count:16];
+          v22 = [v20 countByEnumeratingWithState:&v37 objects:v46 count:16];
         }
 
         while (v22);
@@ -333,11 +331,11 @@
     v26 = &stru_283A7B918;
   }
 
-  v37 = v25;
+  v36 = v25;
   [v25 close];
   v27 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@""];;
   v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"create table %@ %@", @"features_events", @"(e_id integer primary key autoincrement, e_identifier text, start_date integer, end_date integer, UNIQUE(e_identifier, start_date, end_date))"];;
-  v36 = v26;
+  v35 = v26;
   lowercaseString = [(__CFString *)v26 lowercaseString];
   v30 = [lowercaseString stringByTrimmingCharactersInSet:v27];
   lowercaseString2 = [v28 lowercaseString];
@@ -353,13 +351,130 @@
     [(FHDatabaseManager *)self _executeRaw:v28];
     [(FHDatabaseManager *)self _logSchema:@"features_events"];
   }
+}
 
-  v35 = *MEMORY[0x277D85DE8];
+- (id)init:(BOOL)init multiThreadingEnabled:(BOOL)enabled
+{
+  v52 = *MEMORY[0x277D85DE8];
+  v49.receiver = self;
+  v49.super_class = FHDatabaseManager;
+  v5 = [(FHDatabaseManager *)&v49 init:init];
+  if (v5)
+  {
+    v6 = MEMORY[0x277CCA980];
+    86400 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", 86400];
+    v8 = [v6 decimalNumberWithString:86400];
+    secondsInDay = v5->_secondsInDay;
+    v5->_secondsInDay = v8;
+
+    v10 = MEMORY[0x277CCA980];
+    0x4000000000000000 = [MEMORY[0x277CCACA8] stringWithFormat:@"%f", 0x4000000000000000];
+    v12 = [v10 decimalNumberWithString:0x4000000000000000];
+    decimalRmseThreshold = v5->_decimalRmseThreshold;
+    v5->_decimalRmseThreshold = v12;
+
+    v14 = objc_opt_new();
+    amountAggregatesCache = v5->_amountAggregatesCache;
+    v5->_amountAggregatesCache = v14;
+
+    v16 = objc_opt_new();
+    merchantAggregatesCache = v5->_merchantAggregatesCache;
+    v5->_merchantAggregatesCache = v16;
+
+    v18 = objc_opt_new();
+    dateTimeAggregatesCache = v5->_dateTimeAggregatesCache;
+    v5->_dateTimeAggregatesCache = v18;
+
+    _getDataDirectory = [(FHDatabaseManager *)v5 _getDataDirectory];
+    v21 = objc_alloc_init(MEMORY[0x277D82C00]);
+    db = v5->_db;
+    v5->_db = v21;
+
+    v5->_transactionFeaturesOffset = 0;
+    *&v5->_lockDatabaseBookKeeping._os_unfair_lock_opaque = 0;
+    *&v5->_lockDatabaseFetch._os_unfair_lock_opaque = 0;
+    v5->_lockSQLStreaming._os_unfair_lock_opaque = 0;
+    v23 = objc_opt_new();
+    transactionFeaturesCache = v5->_transactionFeaturesCache;
+    v5->_transactionFeaturesCache = v23;
+
+    [(PQLConnection *)v5->_db setSqliteErrorHandler:&__block_literal_global_119];
+    [(PQLConnection *)v5->_db setBusyHandler:&__block_literal_global_123];
+    if (_getDataDirectory)
+    {
+      [(FHDatabaseManager *)v5 _createDataDirectory];
+      getDatabaseFileName = [(FHDatabaseManager *)v5 getDatabaseFileName];
+      v26 = MEMORY[0x277CBEBC0];
+      v27 = [_getDataDirectory stringByAppendingPathComponent:getDatabaseFileName];
+      v28 = [v26 URLWithString:v27];
+
+      v29 = FinHealthLogObject(@"FinHealthCore");
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 138412290;
+        v51 = v28;
+        _os_log_impl(&dword_226DD4000, v29, OS_LOG_TYPE_DEBUG, "dbUrl: %@", buf, 0xCu);
+      }
+
+      v30 = v5->_db;
+      v48 = 0;
+      v31 = [(PQLConnection *)v30 openAtURL:v28 withFlags:3211270 error:&v48];
+      v32 = v48;
+      v33 = [(PQLConnection *)v5->_db fetch:@"PRAGMA journal_mode=WAL"];
+      if ([v33 next])
+      {
+        v34 = FinHealthLogObject(@"FinHealthCore");
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+        {
+          v35 = [v33 stringAtIndex:0];
+          *buf = 138412290;
+          v51 = v35;
+          _os_log_impl(&dword_226DD4000, v34, OS_LOG_TYPE_INFO, "Journal mode: %@", buf, 0xCu);
+        }
+      }
+
+      [v33 close];
+      if (v31)
+      {
+        block[0] = MEMORY[0x277D85DD0];
+        block[1] = 3221225472;
+        block[2] = __48__FHDatabaseManager_init_multiThreadingEnabled___block_invoke_128;
+        block[3] = &unk_2785CB008;
+        v46 = v5;
+        initCopy = init;
+        if (init_multiThreadingEnabled__onceToken != -1)
+        {
+          dispatch_once(&init_multiThreadingEnabled__onceToken, block);
+        }
+      }
+    }
+
+    objc_initWeak(buf, v5);
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = __48__FHDatabaseManager_init_multiThreadingEnabled___block_invoke_2;
+    v43[3] = &unk_2785CB030;
+    objc_copyWeak(&v44, buf);
+    v36 = [FHBatchProcessor initWithBuilder:v43];
+    batchProcessor = v5->_batchProcessor;
+    v5->_batchProcessor = v36;
+
+    v38 = [FHDatabaseEntity alloc];
+    WeakRetained = objc_loadWeakRetained(buf);
+    v40 = [(FHDatabaseEntity *)v38 initWithEntity:@"transactions" databaseManager:WeakRetained];
+    transactionsEntity = v5->_transactionsEntity;
+    v5->_transactionsEntity = v40;
+
+    objc_destroyWeak(&v44);
+    objc_destroyWeak(buf);
+  }
+
+  return v5;
 }
 
 void __48__FHDatabaseManager_init_multiThreadingEnabled___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a4;
   v8 = FinHealthLogObject(@"FinHealthCore");
@@ -369,11 +484,11 @@ void __48__FHDatabaseManager_init_multiThreadingEnabled___block_invoke(uint64_t 
     if (v9)
     {
 LABEL_7:
-      v11 = 138543618;
-      v12 = v7;
-      v13 = 2080;
-      v14 = "[FHDatabaseManager init:multiThreadingEnabled:]_block_invoke";
-      _os_log_impl(&dword_226DD4000, v8, OS_LOG_TYPE_ERROR, "Sqlite error: [%{public}@], %s", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v7;
+      v12 = 2080;
+      v13 = "[FHDatabaseManager init:multiThreadingEnabled:]_block_invoke";
+      _os_log_impl(&dword_226DD4000, v8, OS_LOG_TYPE_ERROR, "Sqlite error: [%{public}@], %s", &v10, 0x16u);
     }
   }
 
@@ -381,11 +496,11 @@ LABEL_7:
   {
     if (v9)
     {
-      v11 = 138543618;
-      v12 = v6;
-      v13 = 2080;
-      v14 = "[FHDatabaseManager init:multiThreadingEnabled:]_block_invoke";
-      _os_log_impl(&dword_226DD4000, v8, OS_LOG_TYPE_ERROR, "Sqlite [no statement available] failed on %{public}@:, %s", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v6;
+      v12 = 2080;
+      v13 = "[FHDatabaseManager init:multiThreadingEnabled:]_block_invoke";
+      _os_log_impl(&dword_226DD4000, v8, OS_LOG_TYPE_ERROR, "Sqlite [no statement available] failed on %{public}@:, %s", &v10, 0x16u);
     }
 
     v8 = FinHealthLogObject(@"FinHealthCore");
@@ -394,24 +509,22 @@ LABEL_7:
       goto LABEL_7;
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __48__FHDatabaseManager_init_multiThreadingEnabled___block_invoke_120(uint64_t a1, uint64_t a2, unsigned int a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = FinHealthLogObject(@"FinHealthCore");
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
   if (a3 >= 0xA)
   {
     if (v5)
     {
-      v8 = 67109378;
-      v9 = a3;
-      v10 = 2080;
-      v11 = "[FHDatabaseManager init:multiThreadingEnabled:]_block_invoke";
-      _os_log_impl(&dword_226DD4000, v4, OS_LOG_TYPE_ERROR, "Exhautsed all retries :%d, %s", &v8, 0x12u);
+      v7 = 67109378;
+      v8 = a3;
+      v9 = 2080;
+      v10 = "[FHDatabaseManager init:multiThreadingEnabled:]_block_invoke";
+      _os_log_impl(&dword_226DD4000, v4, OS_LOG_TYPE_ERROR, "Exhautsed all retries :%d, %s", &v7, 0x12u);
     }
   }
 
@@ -419,24 +532,22 @@ BOOL __48__FHDatabaseManager_init_multiThreadingEnabled___block_invoke_120(uint6
   {
     if (v5)
     {
-      v8 = 67109378;
-      v9 = a3;
-      v10 = 2080;
-      v11 = "[FHDatabaseManager init:multiThreadingEnabled:]_block_invoke";
-      _os_log_impl(&dword_226DD4000, v4, OS_LOG_TYPE_ERROR, "Database is locked, retrying. retries :%d, %s", &v8, 0x12u);
+      v7 = 67109378;
+      v8 = a3;
+      v9 = 2080;
+      v10 = "[FHDatabaseManager init:multiThreadingEnabled:]_block_invoke";
+      _os_log_impl(&dword_226DD4000, v4, OS_LOG_TYPE_ERROR, "Database is locked, retrying. retries :%d, %s", &v7, 0x12u);
     }
 
     sqlite3_sleep(200);
   }
 
-  result = a3 < 0xA;
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return a3 < 0xA;
 }
 
 void __48__FHDatabaseManager_init_multiThreadingEnabled___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
@@ -451,13 +562,11 @@ void __48__FHDatabaseManager_init_multiThreadingEnabled___block_invoke_2(uint64_
     v5 = FinHealthLogObject(@"FinHealthCore");
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315138;
-      v8 = "[FHDatabaseManager init:multiThreadingEnabled:]_block_invoke_2";
-      _os_log_impl(&dword_226DD4000, v5, OS_LOG_TYPE_ERROR, "%s strongSelf is nil", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[FHDatabaseManager init:multiThreadingEnabled:]_block_invoke_2";
+      _os_log_impl(&dword_226DD4000, v5, OS_LOG_TYPE_ERROR, "%s strongSelf is nil", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)insertTransactionInInternalStateDirty:(id)dirty
@@ -532,7 +641,7 @@ void __59__FHDatabaseManager_insertTransactionInInternalStateDirty___block_invok
   v11 = amount;
   if (amount)
   {
-    [amount decimalValue];
+    objc_msgSend_decimalValue(amount);
   }
 
   else
@@ -732,13 +841,13 @@ void __59__FHDatabaseManager_insertTransactionInInternalStateDirty___block_invok
 
 - (BOOL)insertInstrumentationRecord:(id)record
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   v5 = FinHealthLogObject(@"FinHealthCore");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v24 = recordCopy;
+    v23 = recordCopy;
     _os_log_impl(&dword_226DD4000, v5, OS_LOG_TYPE_DEBUG, "instrumentationRecord: %@", buf, 0xCu);
   }
 
@@ -763,7 +872,6 @@ void __59__FHDatabaseManager_insertTransactionInInternalStateDirty___block_invok
   unsignedIntegerValue5 = [v18 unsignedIntegerValue];
 
   v20 = [(FHDatabaseManager *)self _execute:@"insert into features_instrumentation (tag_source, tag_type, tag_click_date, pass_type, heuristics_identifier, account_state, paid_using_ring) values (%d, %d, %d, %d, %@, %d, %d)", unsignedIntegerValue, unsignedIntegerValue2, v14, unsignedIntegerValue3, v15, unsignedIntegerValue4, unsignedIntegerValue5];
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -777,7 +885,7 @@ void __59__FHDatabaseManager_insertTransactionInInternalStateDirty___block_invok
   v19 = MEMORY[0x277CCA980];
   if (amount)
   {
-    [amount decimalValue];
+    objc_msgSend_decimalValue(amount);
   }
 
   else
@@ -884,10 +992,7 @@ void __59__FHDatabaseManager_insertTransactionInInternalStateDirty___block_invok
 
 uint64_t __49__FHDatabaseManager_getTransactionIdByServiceId___block_invoke_146(uint64_t a1, void *a2)
 {
-  v3 = [a2 stringAtIndex:0];
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = [a2 stringAtIndex:0];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -963,7 +1068,7 @@ uint64_t __49__FHDatabaseManager_getTransactionIdByServiceId___block_invoke_146(
 - (id)getTransactionsByInternalState:(unint64_t)state internalState:(unint64_t)internalState offSet:(unint64_t)set addCompoundFeatures:(BOOL)features
 {
   featuresCopy = features;
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v12 = [(FHDatabaseManager *)self _fetch:@"select * from transactions t where t_fh_internal_state == %d order by t_date desc limit %d offset %d", internalState, state, set];
   if ([v12 next])
@@ -994,28 +1099,28 @@ uint64_t __49__FHDatabaseManager_getTransactionIdByServiceId___block_invoke_146(
   [(FHDatabaseManager *)self closeAndUnlock:v12];
   if (featuresCopy)
   {
-    v31 = v12;
-    v32 = v11;
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
+    v30 = v12;
+    v31 = v11;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     obj = v11;
-    v16 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+    v16 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v35;
+      v18 = *v34;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v35 != v18)
+          if (*v34 != v18)
           {
             objc_enumerationMutation(obj);
           }
 
-          v20 = *(*(&v34 + 1) + 8 * i);
+          v20 = *(*(&v33 + 1) + 8 * i);
           identifier = [v20 identifier];
           v22 = [(FHDatabaseManager *)self compoundFeaturesForTransaction:identifier];
 
@@ -1031,19 +1136,17 @@ uint64_t __49__FHDatabaseManager_getTransactionIdByServiceId___block_invoke_146(
           }
         }
 
-        v17 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+        v17 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
       }
 
       while (v17);
     }
 
-    v12 = v31;
-    v11 = v32;
+    v12 = v30;
+    v11 = v31;
   }
 
   v28 = [MEMORY[0x277CBEA60] arrayWithArray:v11];
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v28;
 }
@@ -1199,15 +1302,15 @@ LABEL_7:
 
 - (BOOL)insertFeaturesCompoundRealtimeWithoutEvents:(id)events realtimeFeatures:(id)features
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   featuresCopy = features;
   v8 = objc_autoreleasePoolPush();
   v9 = MEMORY[0x277CCAAA0];
   smartCompoundFeaturesDictionaryForJson = [featuresCopy smartCompoundFeaturesDictionaryForJson];
-  v18 = 0;
-  v11 = [v9 dataWithJSONObject:smartCompoundFeaturesDictionaryForJson options:0 error:&v18];
-  v12 = v18;
+  v17 = 0;
+  v11 = [v9 dataWithJSONObject:smartCompoundFeaturesDictionaryForJson options:0 error:&v17];
+  v12 = v17;
 
   if (v11)
   {
@@ -1222,7 +1325,7 @@ LABEL_7:
     {
       localizedDescription = [v12 localizedDescription];
       *buf = 138412290;
-      v20 = localizedDescription;
+      v19 = localizedDescription;
       _os_log_impl(&dword_226DD4000, v13, OS_LOG_TYPE_DEBUG, "Failed to parse smartCompoundFeaturesDictionaryForJson: %@", buf, 0xCu);
     }
 
@@ -1230,13 +1333,12 @@ LABEL_7:
   }
 
   objc_autoreleasePoolPop(v8);
-  v16 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (BOOL)insertFeaturesEvents:(id)events
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   v5 = MEMORY[0x277CBEB58];
   v6 = [eventsCopy valueForKeyPath:@"@distinctUnionOfArrays.FHSmartFeatureCompoundTypeEventTagging"];
@@ -1251,31 +1353,31 @@ LABEL_7:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v40 = v7;
+      v39 = v7;
       _os_log_impl(&dword_226DD4000, v9, OS_LOG_TYPE_DEBUG, "Distinct event ranked values: %@", buf, 0xCu);
     }
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   obj = v7;
-  v28 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
-  if (v28)
+  v27 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+  if (v27)
   {
-    v27 = *v34;
+    v26 = *v33;
     v10 = 1;
     do
     {
-      for (i = 0; i != v28; ++i)
+      for (i = 0; i != v27; ++i)
       {
-        if (*v34 != v27)
+        if (*v33 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v33 + 1) + 8 * i);
+        v12 = *(*(&v32 + 1) + 8 * i);
         eventStartDate = [v12 eventStartDate];
         [eventStartDate timeIntervalSinceReferenceDate];
         v15 = v14;
@@ -1284,39 +1386,39 @@ LABEL_7:
         [eventEndDate timeIntervalSinceReferenceDate];
         v18 = v17;
 
-        v31 = 0u;
-        v32 = 0u;
-        v29 = 0u;
         v30 = 0u;
+        v31 = 0u;
+        v28 = 0u;
+        v29 = 0u;
         eventIdentifiers = [v12 eventIdentifiers];
-        v20 = [eventIdentifiers countByEnumeratingWithState:&v29 objects:v37 count:16];
+        v20 = [eventIdentifiers countByEnumeratingWithState:&v28 objects:v36 count:16];
         if (v20)
         {
           v21 = v20;
-          v22 = *v30;
+          v22 = *v29;
           do
           {
             for (j = 0; j != v21; ++j)
             {
-              if (*v30 != v22)
+              if (*v29 != v22)
               {
                 objc_enumerationMutation(eventIdentifiers);
               }
 
-              v10 &= [(FHDatabaseManager *)self _execute:@"insert or replace into features_events (e_identifier, start_date, end_date) values (%@, %d, %d)", *(*(&v29 + 1) + 8 * j), v15, v18];
+              v10 &= [(FHDatabaseManager *)self _execute:@"insert or replace into features_events (e_identifier, start_date, end_date) values (%@, %d, %d)", *(*(&v28 + 1) + 8 * j), v15, v18];
             }
 
-            v21 = [eventIdentifiers countByEnumeratingWithState:&v29 objects:v37 count:16];
+            v21 = [eventIdentifiers countByEnumeratingWithState:&v28 objects:v36 count:16];
           }
 
           while (v21);
         }
       }
 
-      v28 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v27 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
     }
 
-    while (v28);
+    while (v27);
   }
 
   else
@@ -1324,7 +1426,6 @@ LABEL_7:
     LOBYTE(v10) = 1;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v10 & 1;
 }
 
@@ -1381,7 +1482,7 @@ LABEL_7:
 {
   typeCopy = type;
   predicateCopy = predicate;
-  v7 = FHSmartFeaturesDict();
+  v7 = FHSmartFeaturesDict(predicateCopy);
   v8 = [v7 objectForKey:predicateCopy];
 
   v9 = [v8 objectForKey:typeCopy];
@@ -1409,9 +1510,9 @@ LABEL_7:
 
 - (BOOL)_computeSingleMerchantAggregateFeature:(id)feature
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   featureCopy = feature;
-  v5 = FHSmartFeaturesDict();
+  v5 = FHSmartFeaturesDict(featureCopy);
   v6 = [v5 objectForKey:@"FHMerchantSmartFeatures"];
   v7 = [v6 objectForKey:featureCopy];
 
@@ -1419,7 +1520,7 @@ LABEL_7:
   intValue = [v8 intValue];
 
   v9 = [(FHDatabaseManager *)self getFeaturePredicate:@"FHMerchantSmartFeatures" FHSmartFeatureAggregateType:featureCopy];
-  v40 = v7;
+  v39 = v7;
   v10 = [v7 objectForKey:@"aggrWindow"];
   if (!v10)
   {
@@ -1431,16 +1532,16 @@ LABEL_7:
   intValue2 = [v10 intValue];
   mostRecentTransactionDate = [(FHDatabaseManager *)self mostRecentTransactionDate];
   v15 = mostRecentTransactionDate - 86400 * intValue2;
-  v37 = mostRecentTransactionDate;
+  v36 = mostRecentTransactionDate;
   if (v12)
   {
     v16 = FinHealthLogObject(@"FinHealthCore");
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v42 = "[FHDatabaseManager _computeSingleMerchantAggregateFeature:]";
-      v43 = 2112;
-      v44 = v11;
+      v41 = "[FHDatabaseManager _computeSingleMerchantAggregateFeature:]";
+      v42 = 2112;
+      v43 = v11;
       _os_log_impl(&dword_226DD4000, v16, OS_LOG_TYPE_DEBUG, "%s resultArray for %@ is already cached", buf, 0x16u);
     }
   }
@@ -1448,8 +1549,8 @@ LABEL_7:
   else
   {
     v17 = mostRecentTransactionDate;
-    v35 = v9;
-    v36 = featureCopy;
+    v34 = v9;
+    v35 = featureCopy;
     v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v18 = [(FHDatabaseManager *)self _fetch:@"select m_displayname, count(*) c, m_detailed_category from transactions where transactions.t_date >= %d and transactions.t_date <= %d and transactions.t_type == %lu and transactions.t_status == %lu and transactions.a_type == %d group by m_displayname order by c desc", v15, v17, 0, 1, 2];
     if ([v18 next])
@@ -1478,14 +1579,14 @@ LABEL_7:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v42 = "[FHDatabaseManager _computeSingleMerchantAggregateFeature:]";
-      v43 = 2112;
-      v44 = v11;
+      v41 = "[FHDatabaseManager _computeSingleMerchantAggregateFeature:]";
+      v42 = 2112;
+      v43 = v11;
       _os_log_impl(&dword_226DD4000, v24, OS_LOG_TYPE_DEBUG, "%s resultArray %@ added to cache", buf, 0x16u);
     }
 
-    v9 = v35;
-    featureCopy = v36;
+    v9 = v34;
+    featureCopy = v35;
   }
 
   v25 = [v12 filteredArrayUsingPredicate:v9];
@@ -1502,7 +1603,7 @@ LABEL_7:
 
     else
     {
-      v38 = v15;
+      v37 = v15;
       v29 = featureCopy;
       firstObject2 = [v25 firstObject];
       v31 = [firstObject2 objectAtIndex:intValue];
@@ -1510,7 +1611,7 @@ LABEL_7:
       if (v31)
       {
         featureCopy = v29;
-        v32 = [(FHDatabaseManager *)self _execute:@"insert or replace into features_merchant (merchant_aggregate_type, merchant_aggregate_value, start_date, end_date) values (%@, %@, %d, %d)", v29, v31, v38, v37];
+        v32 = [(FHDatabaseManager *)self _execute:@"insert or replace into features_merchant (merchant_aggregate_type, merchant_aggregate_value, start_date, end_date) values (%@, %@, %d, %d)", v29, v31, v37, v36];
       }
 
       else
@@ -1528,32 +1629,32 @@ LABEL_7:
     v32 = 1;
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return v32;
 }
 
 - (BOOL)computeMerchantAggregateFeatures
 {
+  selfCopy = self;
   v6 = 0;
   v7 = &v6;
   v8 = 0x2020000000;
   v9 = 1;
-  v3 = FHMerchantSmartFeaturesArray();
+  v3 = FHMerchantSmartFeaturesArray(self);
   v5[0] = MEMORY[0x277D85DD0];
   v5[1] = 3221225472;
   v5[2] = __53__FHDatabaseManager_computeMerchantAggregateFeatures__block_invoke;
   v5[3] = &unk_2785CB0A8;
-  v5[4] = self;
+  v5[4] = selfCopy;
   v5[5] = &v6;
   [v3 enumerateObjectsUsingBlock:v5];
 
-  [(NSMutableDictionary *)self->_merchantAggregatesCache removeAllObjects];
-  LOBYTE(self) = *(v7 + 24);
+  [(NSMutableDictionary *)selfCopy->_merchantAggregatesCache removeAllObjects];
+  LOBYTE(selfCopy) = *(v7 + 24);
   _Block_object_dispose(&v6, 8);
-  return self;
+  return selfCopy;
 }
 
-uint64_t __53__FHDatabaseManager_computeMerchantAggregateFeatures__block_invoke(uint64_t a1, uint64_t a2)
+void *__53__FHDatabaseManager_computeMerchantAggregateFeatures__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) _computeSingleMerchantAggregateFeature:a2];
   if ((result & 1) == 0)
@@ -1566,16 +1667,16 @@ uint64_t __53__FHDatabaseManager_computeMerchantAggregateFeatures__block_invoke(
 
 - (BOOL)_computeSingleDatetimeAggregateFeature:(id)feature
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   featureCopy = feature;
-  v5 = FHSmartFeaturesDict();
+  v5 = FHSmartFeaturesDict(featureCopy);
   v6 = [v5 objectForKey:@"FHDateTimeSmartFeatures"];
   v7 = [v6 objectForKey:featureCopy];
 
   v8 = [v7 objectForKey:@"featureValueIndex"];
   intValue = [v8 intValue];
 
-  v38 = v7;
+  v37 = v7;
   v9 = [v7 objectForKey:@"aggrWindow"];
   if (!v9)
   {
@@ -1587,17 +1688,17 @@ uint64_t __53__FHDatabaseManager_computeMerchantAggregateFeatures__block_invoke(
   intValue2 = [v9 intValue];
   mostRecentTransactionDate = [(FHDatabaseManager *)self mostRecentTransactionDate];
   v14 = mostRecentTransactionDate - 86400 * intValue2;
-  v35 = v14;
-  v36 = mostRecentTransactionDate;
+  v34 = v14;
+  v35 = mostRecentTransactionDate;
   if (v11)
   {
     v15 = FinHealthLogObject(@"FinHealthCore");
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v40 = "[FHDatabaseManager _computeSingleDatetimeAggregateFeature:]";
-      v41 = 2112;
-      v42 = v10;
+      v39 = "[FHDatabaseManager _computeSingleDatetimeAggregateFeature:]";
+      v40 = 2112;
+      v41 = v10;
       _os_log_impl(&dword_226DD4000, v15, OS_LOG_TYPE_DEBUG, "%s resultArray for %@ is already cached", buf, 0x16u);
     }
   }
@@ -1605,7 +1706,7 @@ uint64_t __53__FHDatabaseManager_computeMerchantAggregateFeatures__block_invoke(
   else
   {
     v16 = mostRecentTransactionDate;
-    v34 = featureCopy;
+    v33 = featureCopy;
     v17 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v18 = [(FHDatabaseManager *)self _fetch:@"select sum(t.t_amount) daily_spend, f.b from transactions t inner join features_deterministic_realtime f on t.t_identifier = f.t_identifier where t.t_date >= %d and t.t_date <= %d and t.t_type == %lu and t.t_status == %lu and t.a_type == %d group by f.b order by daily_spend desc limit %d", v14, v16, 0, 1, 2, 1];
     if ([v18 next])
@@ -1627,7 +1728,7 @@ uint64_t __53__FHDatabaseManager_computeMerchantAggregateFeatures__block_invoke(
     v11 = [MEMORY[0x277CBEA60] arrayWithArray:v17];
     [(NSMutableDictionary *)self->_dateTimeAggregatesCache setObject:v11 forKey:v10];
 
-    featureCopy = v34;
+    featureCopy = v33;
   }
 
   v23 = [(FHDatabaseManager *)self getFeaturePredicate:@"FHDateTimeSmartFeatures" FHSmartFeatureAggregateType:featureCopy];
@@ -1651,7 +1752,7 @@ uint64_t __53__FHDatabaseManager_computeMerchantAggregateFeatures__block_invoke(
     if (v30)
     {
       featureCopy = v28;
-      v31 = -[FHDatabaseManager _execute:](self, "_execute:", @"insert or replace into features_datetime (datetime_aggregate_type, datetime_aggregate_value_start_date, datetime_aggregate_value_end_date, start_date, end_date) values (%@, %d, %d, %d, %d)", v28, [v30 intValue], objc_msgSend(v30, "intValue") + 86399, v35, v36);
+      v31 = -[FHDatabaseManager _execute:](self, "_execute:", @"insert or replace into features_datetime (datetime_aggregate_type, datetime_aggregate_value_start_date, datetime_aggregate_value_end_date, start_date, end_date) values (%@, %d, %d, %d, %d)", v28, [v30 intValue], objc_msgSend(v30, "intValue") + 86399, v34, v35);
     }
 
     else
@@ -1666,32 +1767,32 @@ uint64_t __53__FHDatabaseManager_computeMerchantAggregateFeatures__block_invoke(
     v31 = 0;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
 - (BOOL)computeDatetimeAggregateFeatures
 {
+  selfCopy = self;
   v6 = 0;
   v7 = &v6;
   v8 = 0x2020000000;
   v9 = 1;
-  v3 = FHDateTimeSmartFeaturesArray();
+  v3 = FHDateTimeSmartFeaturesArray(self);
   v5[0] = MEMORY[0x277D85DD0];
   v5[1] = 3221225472;
   v5[2] = __53__FHDatabaseManager_computeDatetimeAggregateFeatures__block_invoke;
   v5[3] = &unk_2785CB0A8;
-  v5[4] = self;
+  v5[4] = selfCopy;
   v5[5] = &v6;
   [v3 enumerateObjectsUsingBlock:v5];
 
-  [(NSMutableDictionary *)self->_dateTimeAggregatesCache removeAllObjects];
-  LOBYTE(self) = *(v7 + 24);
+  [(NSMutableDictionary *)selfCopy->_dateTimeAggregatesCache removeAllObjects];
+  LOBYTE(selfCopy) = *(v7 + 24);
   _Block_object_dispose(&v6, 8);
-  return self;
+  return selfCopy;
 }
 
-uint64_t __53__FHDatabaseManager_computeDatetimeAggregateFeatures__block_invoke(uint64_t a1, uint64_t a2)
+void *__53__FHDatabaseManager_computeDatetimeAggregateFeatures__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) _computeSingleDatetimeAggregateFeature:a2];
   if ((result & 1) == 0)
@@ -1704,11 +1805,11 @@ uint64_t __53__FHDatabaseManager_computeDatetimeAggregateFeatures__block_invoke(
 
 - (BOOL)_computeSingleAmountAggregateFeature:(id)feature
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   featureCopy = feature;
-  v5 = FHSmartFeaturesDict();
+  v5 = FHSmartFeaturesDict(featureCopy);
   v6 = [v5 objectForKey:@"FHAmountSmartFeatures"];
-  v40 = featureCopy;
+  v39 = featureCopy;
   v7 = [v6 objectForKey:featureCopy];
 
   v8 = [v7 objectForKey:@"expression"];
@@ -1730,30 +1831,30 @@ uint64_t __53__FHDatabaseManager_computeDatetimeAggregateFeatures__block_invoke(
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v45 = "[FHDatabaseManager _computeSingleAmountAggregateFeature:]";
-      v46 = 2112;
-      v47 = v10;
+      v44 = "[FHDatabaseManager _computeSingleAmountAggregateFeature:]";
+      v45 = 2112;
+      v46 = v10;
       _os_log_impl(&dword_226DD4000, v16, OS_LOG_TYPE_DEBUG, "%s resultArray for %@ is already cached", buf, 0x16u);
     }
   }
 
   else
   {
-    v36 = mostRecentTransactionDate;
-    v38 = v8;
+    v35 = mostRecentTransactionDate;
+    v37 = v8;
     v17 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:mostRecentTransactionDate];
-    v35 = v15;
+    v34 = v15;
     v18 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v15];
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __58__FHDatabaseManager__computeSingleAmountAggregateFeature___block_invoke;
-    v41[3] = &unk_2785CB0D0;
-    v41[4] = self;
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __58__FHDatabaseManager__computeSingleAmountAggregateFeature___block_invoke;
+    v40[3] = &unk_2785CB0D0;
+    v40[4] = self;
     v19 = v18;
-    v42 = v19;
+    v41 = v19;
     v20 = v17;
-    v43 = v20;
-    v21 = [FHBatchProcessor initWithBuilder:v41];
+    v42 = v20;
+    v21 = [FHBatchProcessor initWithBuilder:v40];
     [v21 fetchAndProcessInBatchMode];
     filteredTransaction = [v21 filteredTransaction];
     [(NSMutableDictionary *)self->_amountAggregatesCache setObject:filteredTransaction forKey:v10];
@@ -1761,15 +1862,15 @@ uint64_t __53__FHDatabaseManager_computeDatetimeAggregateFeatures__block_invoke(
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v45 = "[FHDatabaseManager _computeSingleAmountAggregateFeature:]";
-      v46 = 2112;
-      v47 = v10;
+      v44 = "[FHDatabaseManager _computeSingleAmountAggregateFeature:]";
+      v45 = 2112;
+      v46 = v10;
       _os_log_impl(&dword_226DD4000, v22, OS_LOG_TYPE_DEBUG, "%s resultArray %@ added to cache", buf, 0x16u);
     }
 
-    v14 = v36;
-    v8 = v38;
-    v15 = v35;
+    v14 = v35;
+    v8 = v37;
+    v15 = v34;
     if (!filteredTransaction)
     {
       goto LABEL_15;
@@ -1783,7 +1884,7 @@ LABEL_15:
     goto LABEL_18;
   }
 
-  v39 = v10;
+  v38 = v10;
   v23 = objc_opt_new();
   v24 = [v8 componentsSeparatedByString:@"%@"];
   v25 = [v24 count] - 1;
@@ -1799,7 +1900,7 @@ LABEL_15:
     while (v25);
   }
 
-  v37 = v7;
+  v36 = v7;
   v26 = [v7 objectForKey:@"comparator"];
   v27 = v8;
   v28 = [MEMORY[0x277CCA9C0] expressionWithFormat:v8 argumentArray:v23];
@@ -1808,7 +1909,7 @@ LABEL_15:
   if (v29)
   {
     [v29 doubleValue];
-    v32 = [(FHDatabaseManager *)self _execute:@"insert or replace into features_amount (amount_aggregate_type, amount_aggregate_value, comparison_operator, start_date, end_date) values (%@, %d, %@, %d, %d)", v40, v31, v26, v15, v14];
+    v32 = [(FHDatabaseManager *)self _execute:@"insert or replace into features_amount (amount_aggregate_type, amount_aggregate_value, comparison_operator, start_date, end_date) values (%@, %d, %@, %d, %d)", v39, v31, v26, v15, v14];
   }
 
   else
@@ -1817,11 +1918,10 @@ LABEL_15:
   }
 
   v8 = v27;
-  v7 = v37;
-  v10 = v39;
+  v7 = v36;
+  v10 = v38;
 LABEL_18:
 
-  v33 = *MEMORY[0x277D85DE8];
   return v32;
 }
 
@@ -1838,26 +1938,27 @@ void __58__FHDatabaseManager__computeSingleAmountAggregateFeature___block_invoke
 
 - (BOOL)computeAmountAggregateFeatures
 {
+  selfCopy = self;
   v6 = 0;
   v7 = &v6;
   v8 = 0x2020000000;
   v9 = 1;
-  v3 = FHAmountSmartFeaturesArray();
+  v3 = FHAmountSmartFeaturesArray(self);
   v5[0] = MEMORY[0x277D85DD0];
   v5[1] = 3221225472;
   v5[2] = __51__FHDatabaseManager_computeAmountAggregateFeatures__block_invoke;
   v5[3] = &unk_2785CB0A8;
-  v5[4] = self;
+  v5[4] = selfCopy;
   v5[5] = &v6;
   [v3 enumerateObjectsUsingBlock:v5];
 
-  [(NSMutableDictionary *)self->_amountAggregatesCache removeAllObjects];
-  LOBYTE(self) = *(v7 + 24);
+  [(NSMutableDictionary *)selfCopy->_amountAggregatesCache removeAllObjects];
+  LOBYTE(selfCopy) = *(v7 + 24);
   _Block_object_dispose(&v6, 8);
-  return self;
+  return selfCopy;
 }
 
-uint64_t __51__FHDatabaseManager_computeAmountAggregateFeatures__block_invoke(uint64_t a1, uint64_t a2)
+void *__51__FHDatabaseManager_computeAmountAggregateFeatures__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) _computeSingleAmountAggregateFeature:a2];
   if ((result & 1) == 0)
@@ -2120,7 +2221,7 @@ LABEL_17:
 
 - (BOOL)updateGetAllStatus:(unint64_t)status
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = [(FHDatabaseManager *)self _execute:@"update fh_schema set sch_getall_status = %d where sch_version_id == %@", status, @"11.11"];
   v5 = FinHealthLogObject(@"FinHealthCore");
   v6 = v5;
@@ -2138,11 +2239,10 @@ LABEL_17:
     lastError = [(PQLConnection *)self->_db lastError];
     localizedDescription = [lastError localizedDescription];
     *buf = 138412290;
-    v12 = localizedDescription;
+    v11 = localizedDescription;
     _os_log_impl(&dword_226DD4000, v6, OS_LOG_TYPE_ERROR, "Update failed with error: %@", buf, 0xCu);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -2424,34 +2524,34 @@ LABEL_17:
 
 - (id)_createFeatureResponseFromFeatures:(id)features compoundFeatures:(id)compoundFeatures locale:(id)locale forTxnID:(id)d forApplication:(id)application
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   featuresCopy = features;
   compoundFeaturesCopy = compoundFeatures;
   localeCopy = locale;
   dCopy = d;
   applicationCopy = application;
   v17 = objc_opt_new();
-  v61 = featuresCopy;
-  v60 = [featuresCopy componentsSeparatedByString:@"|"];
+  v60 = featuresCopy;
+  v59 = [featuresCopy componentsSeparatedByString:@"|"];
   v18 = [FinHealthFeatureHelper reconstructAggregateFeaturesWithProcessingWindow:?];
-  v19 = FHApplicationToTagsMapping();
+  v19 = FHApplicationToTagsMapping(v18);
   v20 = [v19 objectForKey:applicationCopy];
   v21 = [v20 objectForKey:@"featuresWithIds"];
 
   v22 = v18;
   v23 = [MEMORY[0x277CCAC30] predicateWithFormat:@"SELF.%K in %@", @"name", v21];
   v24 = [v18 filteredArrayUsingPredicate:v23];
-  v58 = [(FHDatabaseManager *)self _filterAggregateFeatureByCurrentWindow:v24];
+  v57 = [(FHDatabaseManager *)self _filterAggregateFeatureByCurrentWindow:v24];
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __104__FHDatabaseManager__createFeatureResponseFromFeatures_compoundFeatures_locale_forTxnID_forApplication___block_invoke;
   aBlock[3] = &unk_2785CB0F8;
-  v56 = v21;
+  v55 = v21;
+  v66 = v55;
+  v56 = v17;
   v67 = v56;
-  v57 = v17;
-  v68 = v57;
-  v59 = localeCopy;
-  v69 = v59;
+  v58 = localeCopy;
+  v68 = v58;
   v25 = _Block_copy(aBlock);
   if ([compoundFeaturesCopy length])
   {
@@ -2464,7 +2564,7 @@ LABEL_17:
     v27 = [v26 stringByAppendingString:@"/inferred_merchants.txt"];
 
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v55 = v27;
+    v54 = v27;
     if ([defaultManager fileExistsAtPath:v27])
     {
       inferredMerchants = self->_inferredMerchants;
@@ -2474,35 +2574,35 @@ LABEL_17:
 LABEL_8:
         if (self->_inferredMerchants)
         {
-          v50 = v24;
-          v51 = v23;
-          v52 = v22;
-          v53 = dCopy;
-          v54 = compoundFeaturesCopy;
-          v49 = [(FHDatabaseManager *)self _getTransactionByIdentifier:dCopy];
-          displayName = [v49 displayName];
+          v49 = v24;
+          v50 = v23;
+          v51 = v22;
+          v52 = dCopy;
+          v53 = compoundFeaturesCopy;
+          v48 = [(FHDatabaseManager *)self _getTransactionByIdentifier:dCopy];
+          displayName = [v48 displayName];
+          v61 = 0u;
           v62 = 0u;
           v63 = 0u;
           v64 = 0u;
-          v65 = 0u;
           v34 = self->_inferredMerchants;
-          v35 = [(NSArray *)v34 countByEnumeratingWithState:&v62 objects:v74 count:16];
+          v35 = [(NSArray *)v34 countByEnumeratingWithState:&v61 objects:v73 count:16];
           if (v35)
           {
             v36 = v35;
-            v37 = *v63;
+            v37 = *v62;
             do
             {
               for (i = 0; i != v36; ++i)
               {
-                if (*v63 != v37)
+                if (*v62 != v37)
                 {
                   objc_enumerationMutation(v34);
                 }
 
                 if (displayName)
                 {
-                  v39 = *(*(&v62 + 1) + 8 * i);
+                  v39 = *(*(&v61 + 1) + 8 * i);
                   if ([v39 containsString:displayName])
                   {
                     v40 = [v39 rangeOfString:@"###"];
@@ -2515,9 +2615,9 @@ LABEL_8:
                       if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
                       {
                         *buf = 138412546;
-                        v71 = v39;
-                        v72 = 2112;
-                        v73 = v41;
+                        v70 = v39;
+                        v71 = 2112;
+                        v72 = v41;
                         _os_log_impl(&dword_226DD4000, v43, OS_LOG_TYPE_DEBUG, "inferredMerchantEntry: %@, productsWithLabels: %@", buf, 0x16u);
                       }
 
@@ -2527,19 +2627,19 @@ LABEL_8:
                 }
               }
 
-              v36 = [(NSArray *)v34 countByEnumeratingWithState:&v62 objects:v74 count:16];
+              v36 = [(NSArray *)v34 countByEnumeratingWithState:&v61 objects:v73 count:16];
             }
 
             while (v36);
           }
 
-          dCopy = v53;
-          compoundFeaturesCopy = v54;
-          v22 = v52;
-          v24 = v50;
-          v23 = v51;
-          v44 = v55;
-          v45 = v49;
+          dCopy = v52;
+          compoundFeaturesCopy = v53;
+          v22 = v51;
+          v24 = v49;
+          v23 = v50;
+          v44 = v54;
+          v45 = v48;
         }
 
         else
@@ -2548,21 +2648,21 @@ LABEL_8:
           if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v44 = v55;
-            v71 = v55;
+            v44 = v54;
+            v70 = v54;
             _os_log_impl(&dword_226DD4000, v45, OS_LOG_TYPE_DEBUG, "check finalFilePath: %@", buf, 0xCu);
           }
 
           else
           {
-            v44 = v55;
+            v44 = v54;
           }
         }
 
         goto LABEL_27;
       }
 
-      defaultManager = [MEMORY[0x277CCACA8] stringWithContentsOfFile:v55 encoding:4 error:0];
+      defaultManager = [MEMORY[0x277CCACA8] stringWithContentsOfFile:v54 encoding:4 error:0];
       newlineCharacterSet = [MEMORY[0x277CCA900] newlineCharacterSet];
       v31 = [defaultManager componentsSeparatedByCharactersInSet:newlineCharacterSet];
       v32 = self->_inferredMerchants;
@@ -2573,75 +2673,73 @@ LABEL_8:
   }
 
 LABEL_27:
-  v46 = [[FHFeaturesResponse alloc] initWithSmartFeatures:v58 aggregateFeatureswithProcessingWindow:v24 compoundFeatures:v57 transactionID:dCopy];
-
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = [[FHFeaturesResponse alloc] initWithSmartFeatures:v57 aggregateFeatureswithProcessingWindow:v24 compoundFeatures:v56 transactionID:dCopy];
 
   return v46;
 }
 
 void __104__FHDatabaseManager__createFeatureResponseFromFeatures_compoundFeatures_locale_forTxnID_forApplication___block_invoke(uint64_t a1, void *a2)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v3 = [a2 dataUsingEncoding:4];
-  v48 = 0;
-  v4 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v3 options:0 error:&v48];
-  v5 = v48;
+  v47 = 0;
+  v4 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v3 options:0 error:&v47];
+  v5 = v47;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && !v5)
   {
-    v31 = v4;
-    v32 = v3;
+    v30 = v4;
+    v31 = v3;
+    v43 = 0u;
     v44 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
-    v35 = v4;
-    obj = [v35 allKeys];
-    v6 = [obj countByEnumeratingWithState:&v44 objects:v50 count:16];
+    v34 = v4;
+    obj = [v34 allKeys];
+    v6 = [obj countByEnumeratingWithState:&v43 objects:v49 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v45;
-      v33 = *v45;
-      v34 = a1;
+      v8 = *v44;
+      v32 = *v44;
+      v33 = a1;
       do
       {
         v9 = 0;
-        v36 = v7;
+        v35 = v7;
         do
         {
-          if (*v45 != v8)
+          if (*v44 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v44 + 1) + 8 * v9);
+          v10 = *(*(&v43 + 1) + 8 * v9);
           if ([*(a1 + 32) containsObject:v10])
           {
-            v39 = v9;
+            v38 = v9;
             v11 = objc_opt_new();
+            v39 = 0u;
             v40 = 0u;
             v41 = 0u;
             v42 = 0u;
-            v43 = 0u;
-            v38 = v10;
-            v12 = [v35 objectForKey:v10];
-            v13 = [v12 countByEnumeratingWithState:&v40 objects:v49 count:16];
+            v37 = v10;
+            v12 = [v34 objectForKey:v10];
+            v13 = [v12 countByEnumeratingWithState:&v39 objects:v48 count:16];
             if (v13)
             {
               v14 = v13;
-              v15 = *v41;
+              v15 = *v40;
               do
               {
                 for (i = 0; i != v14; ++i)
                 {
-                  if (*v41 != v15)
+                  if (*v40 != v15)
                   {
                     objc_enumerationMutation(v12);
                   }
 
-                  v17 = *(*(&v40 + 1) + 8 * i);
+                  v17 = *(*(&v39 + 1) + 8 * i);
                   v18 = [v17 objectForKey:@"featureLabel"];
                   v19 = MEMORY[0x277CCACA8];
                   v20 = [v17 objectForKey:@"featureRank"];
@@ -2654,43 +2752,41 @@ void __104__FHDatabaseManager__createFeatureResponseFromFeatures_compoundFeature
                   [v11 addObject:v25];
                 }
 
-                v14 = [v12 countByEnumeratingWithState:&v40 objects:v49 count:16];
+                v14 = [v12 countByEnumeratingWithState:&v39 objects:v48 count:16];
               }
 
               while (v14);
             }
 
-            a1 = v34;
+            a1 = v33;
             if ([v11 count])
             {
-              v26 = *(v34 + 40);
+              v26 = *(v33 + 40);
               v27 = [FHSmartCompoundFeature alloc];
               v28 = [MEMORY[0x277CBEA60] arrayWithArray:v11];
-              v29 = [(FHSmartCompoundFeature *)v27 initWithCompoundFeatureKey:v38 smartCompoundFeatures:v28 locale:*(v34 + 48)];
+              v29 = [(FHSmartCompoundFeature *)v27 initWithCompoundFeatureKey:v37 smartCompoundFeatures:v28 locale:*(v33 + 48)];
               [v26 addObject:v29];
             }
 
-            v8 = v33;
-            v7 = v36;
-            v9 = v39;
+            v8 = v32;
+            v7 = v35;
+            v9 = v38;
           }
 
           ++v9;
         }
 
         while (v9 != v7);
-        v7 = [obj countByEnumeratingWithState:&v44 objects:v50 count:16];
+        v7 = [obj countByEnumeratingWithState:&v43 objects:v49 count:16];
       }
 
       while (v7);
     }
 
-    v4 = v31;
-    v3 = v32;
+    v4 = v30;
+    v3 = v31;
     v5 = 0;
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)_mostRecentTransactionDate
@@ -2750,109 +2846,109 @@ void __104__FHDatabaseManager__createFeatureResponseFromFeatures_compoundFeature
     _os_log_impl(&dword_226DD4000, v10, OS_LOG_TYPE_INFO, "BEGIN _computeAllAggregateFeaturesWithTransactionId", buf, 2u);
   }
 
-  v11 = FHAmountSmartFeaturesArray();
-  v53[0] = MEMORY[0x277D85DD0];
-  v53[1] = 3221225472;
-  v53[2] = __67__FHDatabaseManager__computeAllAggregateFeaturesWithTransactionId___block_invoke;
-  v53[3] = &unk_2785CB120;
-  v53[4] = self;
-  v12 = v4;
-  v54 = v12;
-  [v11 enumerateObjectsUsingBlock:v53];
+  v12 = FHAmountSmartFeaturesArray(v11);
+  v56[0] = MEMORY[0x277D85DD0];
+  v56[1] = 3221225472;
+  v56[2] = __67__FHDatabaseManager__computeAllAggregateFeaturesWithTransactionId___block_invoke;
+  v56[3] = &unk_2785CB120;
+  v56[4] = self;
+  v13 = v4;
+  v57 = v13;
+  [v12 enumerateObjectsUsingBlock:v56];
 
-  v13 = FHDateTimeSmartFeaturesArray();
-  v51[0] = MEMORY[0x277D85DD0];
-  v51[1] = 3221225472;
-  v51[2] = __67__FHDatabaseManager__computeAllAggregateFeaturesWithTransactionId___block_invoke_2;
-  v51[3] = &unk_2785CB120;
-  v51[4] = self;
-  v14 = v5;
-  v52 = v14;
-  [v13 enumerateObjectsUsingBlock:v51];
+  v15 = FHDateTimeSmartFeaturesArray(v14);
+  v54[0] = MEMORY[0x277D85DD0];
+  v54[1] = 3221225472;
+  v54[2] = __67__FHDatabaseManager__computeAllAggregateFeaturesWithTransactionId___block_invoke_2;
+  v54[3] = &unk_2785CB120;
+  v54[4] = self;
+  v16 = v5;
+  v55 = v16;
+  [v15 enumerateObjectsUsingBlock:v54];
 
-  v15 = FHMerchantSmartFeaturesArray();
-  v49[0] = MEMORY[0x277D85DD0];
-  v49[1] = 3221225472;
-  v49[2] = __67__FHDatabaseManager__computeAllAggregateFeaturesWithTransactionId___block_invoke_3;
-  v49[3] = &unk_2785CB120;
-  v49[4] = self;
-  v16 = v6;
-  v50 = v16;
-  [v15 enumerateObjectsUsingBlock:v49];
+  v18 = FHMerchantSmartFeaturesArray(v17);
+  v52[0] = MEMORY[0x277D85DD0];
+  v52[1] = 3221225472;
+  v52[2] = __67__FHDatabaseManager__computeAllAggregateFeaturesWithTransactionId___block_invoke_3;
+  v52[3] = &unk_2785CB120;
+  v52[4] = self;
+  v19 = v6;
+  v53 = v19;
+  [v18 enumerateObjectsUsingBlock:v52];
 
-  v17 = MEMORY[0x277CCACA8];
+  v20 = MEMORY[0x277CCACA8];
   _startingDateSmartFeatureComputation = [(FHDatabaseManager *)self _startingDateSmartFeatureComputation];
   mostRecentTransactionDate = [(FHDatabaseManager *)self mostRecentTransactionDate];
-  v20 = FHMultiClassPredictionsSmartFeaturesAsString();
-  v21 = [v17 stringWithFormat:@"select f.identifier, l.smart_feature_name FHSmartFeatureAggregateType from features_predicted_realtime f inner join features_prediction_labels l on f.feature_name = l.feature_name and l.feature_predicted_class = f.feature_predicted_class where f.identifier in (select t_identifier from transactions where t_date >= %lu and t_date <= %lu and t_fh_internal_state == %lu) and f.feature_name in (%@)", _startingDateSmartFeatureComputation, mostRecentTransactionDate, 2, v20];
+  v23 = FHMultiClassPredictionsSmartFeaturesAsString(mostRecentTransactionDate);
+  v24 = [v20 stringWithFormat:@"select f.identifier, l.smart_feature_name FHSmartFeatureAggregateType from features_predicted_realtime f inner join features_prediction_labels l on f.feature_name = l.feature_name and l.feature_predicted_class = f.feature_predicted_class where f.identifier in (select t_identifier from transactions where t_date >= %lu and t_date <= %lu and t_fh_internal_state == %lu) and f.feature_name in (%@)", _startingDateSmartFeatureComputation, mostRecentTransactionDate, 2, v23];
 
-  v22 = idCopy;
-  v36 = v21;
+  v25 = idCopy;
+  v39 = v24;
   if (idCopy)
   {
-    [(FHDatabaseManager *)self _executeSeparateQueriesForTransactionId:idCopy amountQueries:v12 dateTimeQueries:v14 merchantQueries:v16 multiClassQuery:v21];
+    [(FHDatabaseManager *)self _executeSeparateQueriesForTransactionId:idCopy amountQueries:v13 dateTimeQueries:v16 merchantQueries:v19 multiClassQuery:v24];
   }
 
   else
   {
-    v35 = v14;
+    v38 = v16;
     *buf = 0;
-    v44 = buf;
-    v45 = 0x3032000000;
-    v46 = __Block_byref_object_copy_;
-    v47 = __Block_byref_object_dispose_;
-    v23 = 0;
-    v48 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v47 = buf;
+    v48 = 0x3032000000;
+    v49 = __Block_byref_object_copy_;
+    v50 = __Block_byref_object_dispose_;
+    v26 = 0;
+    v51 = objc_alloc_init(MEMORY[0x277CBEB18]);
     do
     {
-      v24 = objc_autoreleasePoolPush();
-      v37[0] = MEMORY[0x277D85DD0];
-      v37[1] = 3221225472;
-      v37[2] = __67__FHDatabaseManager__computeAllAggregateFeaturesWithTransactionId___block_invoke_4;
-      v37[3] = &unk_2785CB148;
-      v42 = buf;
-      v37[4] = self;
-      v25 = v12;
-      v38 = v25;
-      v26 = v35;
-      v39 = v26;
-      v27 = v16;
-      v40 = v27;
-      v28 = v36;
+      v27 = objc_autoreleasePoolPush();
+      v40[0] = MEMORY[0x277D85DD0];
+      v40[1] = 3221225472;
+      v40[2] = __67__FHDatabaseManager__computeAllAggregateFeaturesWithTransactionId___block_invoke_4;
+      v40[3] = &unk_2785CB148;
+      v45 = buf;
+      v40[4] = self;
+      v28 = v13;
       v41 = v28;
-      v29 = [(FHDatabaseManager *)self streamTransactionsWithLimit:25 internalState:2 offSet:v23 onTransaction:v37];
+      v29 = v38;
+      v42 = v29;
+      v30 = v19;
+      v43 = v30;
+      v31 = v39;
+      v44 = v31;
+      v32 = [(FHDatabaseManager *)self streamTransactionsWithLimit:25 internalState:2 offSet:v26 onTransaction:v40];
 
-      objc_autoreleasePoolPop(v24);
-      v23 += 25;
+      objc_autoreleasePoolPop(v27);
+      v26 += 25;
     }
 
-    while (v29 == 25);
-    if ([*(v44 + 5) count])
+    while (v32 == 25);
+    if ([*(v47 + 5) count])
     {
-      [(FHDatabaseManager *)self _executeSeparateQueriesForTransactionIds:*(v44 + 5) amountQueries:v25 dateTimeQueries:v26 merchantQueries:v27 multiClassQuery:v28];
+      [(FHDatabaseManager *)self _executeSeparateQueriesForTransactionIds:*(v47 + 5) amountQueries:v28 dateTimeQueries:v29 merchantQueries:v30 multiClassQuery:v31];
     }
 
     _Block_object_dispose(buf, 8);
 
-    v22 = 0;
-    v14 = v35;
-  }
-
-  v30 = FinHealthLogObject(@"FinHealthCore");
-  v31 = FinHealthLogObject(@"FinHealthCore");
-  v32 = os_signpost_id_make_with_pointer(v31, self);
-
-  if (v32 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
-  {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_226DD4000, v30, OS_SIGNPOST_INTERVAL_END, v32, "_computeAllAggregateFeaturesWithTransactionId", "", buf, 2u);
+    v25 = 0;
+    v16 = v38;
   }
 
   v33 = FinHealthLogObject(@"FinHealthCore");
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+  v34 = FinHealthLogObject(@"FinHealthCore");
+  v35 = os_signpost_id_make_with_pointer(v34, self);
+
+  if (v35 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v33))
   {
     *buf = 0;
-    _os_log_impl(&dword_226DD4000, v33, OS_LOG_TYPE_INFO, "END _computeAllAggregateFeaturesWithTransactionId", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_226DD4000, v33, OS_SIGNPOST_INTERVAL_END, v35, "_computeAllAggregateFeaturesWithTransactionId", "", buf, 2u);
+  }
+
+  v36 = FinHealthLogObject(@"FinHealthCore");
+  if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_226DD4000, v36, OS_LOG_TYPE_INFO, "END _computeAllAggregateFeaturesWithTransactionId", buf, 2u);
   }
 }
 
@@ -2951,7 +3047,7 @@ void __67__FHDatabaseManager__computeAllAggregateFeaturesWithTransactionId___blo
 
 - (void)_executeSeparateQueriesForTransactionId:(id)id amountQueries:(id)queries dateTimeQueries:(id)timeQueries merchantQueries:(id)merchantQueries multiClassQuery:(id)query
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   idCopy = id;
   v12 = MEMORY[0x277CBEA60];
   queryCopy = query;
@@ -2961,113 +3057,112 @@ void __67__FHDatabaseManager__computeAllAggregateFeaturesWithTransactionId___blo
   idCopy2 = id;
   v18 = [v12 arrayWithObjects:&idCopy count:1];
 
-  [(FHDatabaseManager *)self _executeSeparateQueriesForTransactionIds:v18 amountQueries:queriesCopy dateTimeQueries:timeQueriesCopy merchantQueries:merchantQueriesCopy multiClassQuery:queryCopy, idCopy, v21];
-  v19 = *MEMORY[0x277D85DE8];
+  [(FHDatabaseManager *)self _executeSeparateQueriesForTransactionIds:v18 amountQueries:queriesCopy dateTimeQueries:timeQueriesCopy merchantQueries:merchantQueriesCopy multiClassQuery:queryCopy, idCopy, v20];
 }
 
 - (void)_executeSeparateQueriesForTransactionIds:(id)ids amountQueries:(id)queries dateTimeQueries:(id)timeQueries merchantQueries:(id)merchantQueries multiClassQuery:(id)query
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   idsCopy = ids;
   queriesCopy = queries;
   timeQueriesCopy = timeQueries;
   merchantQueriesCopy = merchantQueries;
   queryCopy = query;
   v16 = objc_opt_new();
-  v50 = idsCopy;
-  v55 = [(FHDatabaseManager *)self _buildTransactionIdFilter:idsCopy];
+  v49 = idsCopy;
+  v54 = [(FHDatabaseManager *)self _buildTransactionIdFilter:idsCopy];
+  v68 = 0u;
   v69 = 0u;
   v70 = 0u;
   v71 = 0u;
-  v72 = 0u;
   obj = queriesCopy;
-  v17 = [obj countByEnumeratingWithState:&v69 objects:v76 count:16];
+  v17 = [obj countByEnumeratingWithState:&v68 objects:v75 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v70;
+    v19 = *v69;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v70 != v19)
+        if (*v69 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ AND t_identifier IN (%@)", *(*(&v69 + 1) + 8 * i), v55];
+        v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ AND t_identifier IN (%@)", *(*(&v68 + 1) + 8 * i), v54];
         [(FHDatabaseManager *)self _executeFeatureQuery:v21 aggregatedFeatures:v16];
       }
 
-      v18 = [obj countByEnumeratingWithState:&v69 objects:v76 count:16];
+      v18 = [obj countByEnumeratingWithState:&v68 objects:v75 count:16];
     }
 
     while (v18);
   }
 
-  v67 = 0u;
-  v68 = 0u;
-  v65 = 0u;
   v66 = 0u;
-  v53 = timeQueriesCopy;
-  v22 = [v53 countByEnumeratingWithState:&v65 objects:v75 count:16];
+  v67 = 0u;
+  v64 = 0u;
+  v65 = 0u;
+  v52 = timeQueriesCopy;
+  v22 = [v52 countByEnumeratingWithState:&v64 objects:v74 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v66;
+    v24 = *v65;
     do
     {
       for (j = 0; j != v23; ++j)
       {
-        if (*v66 != v24)
+        if (*v65 != v24)
         {
-          objc_enumerationMutation(v53);
+          objc_enumerationMutation(v52);
         }
 
-        v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ AND t_identifier IN (%@)", *(*(&v65 + 1) + 8 * j), v55];
+        v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ AND t_identifier IN (%@)", *(*(&v64 + 1) + 8 * j), v54];
         [(FHDatabaseManager *)self _executeFeatureQuery:v26 aggregatedFeatures:v16];
       }
 
-      v23 = [v53 countByEnumeratingWithState:&v65 objects:v75 count:16];
+      v23 = [v52 countByEnumeratingWithState:&v64 objects:v74 count:16];
     }
 
     while (v23);
   }
 
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
   v62 = 0u;
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
   v27 = merchantQueriesCopy;
-  v28 = [v27 countByEnumeratingWithState:&v61 objects:v74 count:16];
+  v28 = [v27 countByEnumeratingWithState:&v60 objects:v73 count:16];
   if (v28)
   {
     v29 = v28;
-    v30 = *v62;
+    v30 = *v61;
     do
     {
       for (k = 0; k != v29; ++k)
       {
-        if (*v62 != v30)
+        if (*v61 != v30)
         {
           objc_enumerationMutation(v27);
         }
 
-        v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ AND t_identifier IN (%@)", *(*(&v61 + 1) + 8 * k), v55];
+        v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ AND t_identifier IN (%@)", *(*(&v60 + 1) + 8 * k), v54];
         [(FHDatabaseManager *)self _executeFeatureQuery:v32 aggregatedFeatures:v16];
       }
 
-      v29 = [v27 countByEnumeratingWithState:&v61 objects:v74 count:16];
+      v29 = [v27 countByEnumeratingWithState:&v60 objects:v73 count:16];
     }
 
     while (v29);
   }
 
-  v48 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ AND f.identifier IN (%@)", queryCopy, v55];
+  v47 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ AND f.identifier IN (%@)", queryCopy, v54];
   [FHDatabaseManager _executeFeatureQuery:"_executeFeatureQuery:aggregatedFeatures:" aggregatedFeatures:?];
-  v47 = [MEMORY[0x277CCACA8] stringWithFormat:@"SELECT t_identifier, t_compound_feature_value FROM features_compound_realtime WHERE t_identifier IN (%@)", v55];
+  v46 = [MEMORY[0x277CCACA8] stringWithFormat:@"SELECT t_identifier, t_compound_feature_value FROM features_compound_realtime WHERE t_identifier IN (%@)", v54];
   v33 = [(FHDatabaseManager *)self _lockFreeFetch:-1];
-  v56 = objc_opt_new();
+  v55 = objc_opt_new();
   if ([v33 next])
   {
     do
@@ -3077,87 +3172,83 @@ void __67__FHDatabaseManager__computeAllAggregateFeaturesWithTransactionId___blo
       v36 = v35;
       if (v34 && v35)
       {
-        [v56 setObject:v35 forKeyedSubscript:v34];
+        [v55 setObject:v35 forKeyedSubscript:v34];
       }
     }
 
     while (([v33 next] & 1) != 0);
   }
 
-  v46 = v33;
-  v49 = v27;
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
+  v45 = v33;
+  v48 = v27;
   v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   allKeys = [v16 allKeys];
-  v37 = [allKeys countByEnumeratingWithState:&v57 objects:v73 count:16];
+  v37 = [allKeys countByEnumeratingWithState:&v56 objects:v72 count:16];
   if (v37)
   {
     v38 = v37;
-    v39 = *v58;
+    v39 = *v57;
     do
     {
       for (m = 0; m != v38; ++m)
       {
-        if (*v58 != v39)
+        if (*v57 != v39)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v41 = *(*(&v57 + 1) + 8 * m);
+        v41 = *(*(&v56 + 1) + 8 * m);
         v42 = [v16 objectForKeyedSubscript:v41];
         v43 = [v42 componentsJoinedByString:@"|||"];
-        v44 = [v56 objectForKeyedSubscript:v41];
+        v44 = [v55 objectForKeyedSubscript:v41];
         [(FHDatabaseManager *)self _invertFeaturesForTransaction:v41 featuresString:v43 compoundFeatures:v44];
       }
 
-      v38 = [allKeys countByEnumeratingWithState:&v57 objects:v73 count:16];
+      v38 = [allKeys countByEnumeratingWithState:&v56 objects:v72 count:16];
     }
 
     while (v38);
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_buildTransactionIdFilter:(id)filter
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   filterCopy = filter;
   v4 = objc_opt_new();
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = filterCopy;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"'%@'", *(*(&v14 + 1) + 8 * i)];
+        v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"'%@'", *(*(&v13 + 1) + 8 * i)];
         [v4 addObject:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
 
   v11 = [v4 componentsJoinedByString:{@", "}];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -3198,7 +3289,7 @@ void __67__FHDatabaseManager__computeAllAggregateFeaturesWithTransactionId___blo
 
 - (void)_invertFeaturesForTransaction:(id)transaction featuresString:(id)string compoundFeatures:(id)features
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   stringCopy = string;
   featuresCopy = features;
@@ -3238,20 +3329,20 @@ void __67__FHDatabaseManager__computeAllAggregateFeaturesWithTransactionId___blo
     {
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v28) = 0;
+        LOWORD(v27) = 0;
         v23 = "_insertOrUpdateTransactionFeatures success";
         v24 = v22;
         v25 = OS_LOG_TYPE_DEBUG;
         v26 = 2;
 LABEL_14:
-        _os_log_impl(&dword_226DD4000, v24, v25, v23, &v28, v26);
+        _os_log_impl(&dword_226DD4000, v24, v25, v23, &v27, v26);
       }
     }
 
     else if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v28 = 138412290;
-      v29 = transactionCopy;
+      v27 = 138412290;
+      v28 = transactionCopy;
       v23 = "_insertOrUpdateTransactionFeatures fails for transactionID %@";
       v24 = v22;
       v25 = OS_LOG_TYPE_ERROR;
@@ -3262,13 +3353,11 @@ LABEL_14:
 LABEL_16:
     objc_autoreleasePoolPop(v12);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearCardProcessingHistory
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   objc_initWeak(&location, self);
   v2 = [FHDatabaseEntity alloc];
   v3 = objc_loadWeakRetained(&location);
@@ -3286,14 +3375,13 @@ LABEL_16:
     }
 
     *buf = 138412546;
-    v12 = v8;
-    v13 = 2112;
-    v14 = @"FHSmartFeatureCompoundTypePointsOfInterest";
+    v11 = v8;
+    v12 = 2112;
+    v13 = @"FHSmartFeatureCompoundTypePointsOfInterest";
     _os_log_impl(&dword_226DD4000, v7, OS_LOG_TYPE_DEBUG, "%@: delete all card processing history records of feature %@", buf, 0x16u);
   }
 
   objc_destroyWeak(&location);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_insertOrUpdateTransactionFeatures:(id)features compoundFeatures:(id)compoundFeatures transactionID:(id)d financeTransactionID:(id)iD
@@ -3307,7 +3395,7 @@ LABEL_16:
     goto LABEL_13;
   }
 
-  v33 = compoundFeaturesCopy;
+  v36 = compoundFeaturesCopy;
   allObjects = [featuresCopy allObjects];
   v15 = [allObjects componentsJoinedByString:@"|"];
 
@@ -3315,61 +3403,62 @@ LABEL_16:
   dCopy = [(PQLConnection *)self->_db fetch:@"select t_features, t_compound_features, locale from transaction_features where t_identifier == %@", dCopy];
   if (![dCopy next])
   {
-    v26 = v33;
+    v29 = v36;
     goto LABEL_11;
   }
 
-  v32 = compoundFeaturesCopy;
+  v35 = compoundFeaturesCopy;
   v17 = MEMORY[0x277CBEB58];
   v18 = [dCopy stringAtIndex:0];
   v19 = [v18 componentsSeparatedByString:@"|"];
   v20 = [v17 setWithArray:v19];
 
-  v21 = FHRepeatingAggregateFeatureSet();
-  if (![v20 intersectsSet:v21])
+  v22 = FHRepeatingAggregateFeatureSet(v21);
+  v23 = [v20 intersectsSet:v22];
+  if (!v23)
   {
     goto LABEL_6;
   }
 
-  v22 = FHRepeatingAggregateFeatureSet();
-  v23 = [featuresCopy intersectsSet:v22];
+  v24 = FHRepeatingAggregateFeatureSet(v23);
+  v25 = [featuresCopy intersectsSet:v24];
 
-  if (v23)
+  if (v25)
   {
-    v21 = FHRepeatingAggregateFeatureSet();
-    [v20 minusSet:v21];
+    v22 = FHRepeatingAggregateFeatureSet(v26);
+    [v20 minusSet:v22];
 LABEL_6:
   }
 
   [v20 unionSet:featuresCopy];
   allObjects2 = [v20 allObjects];
-  v25 = [allObjects2 componentsJoinedByString:@"|"];
+  v28 = [allObjects2 componentsJoinedByString:@"|"];
 
-  v26 = v33;
-  if (!v33)
+  v29 = v36;
+  if (!v36)
   {
-    v26 = [dCopy stringAtIndex:1];
+    v29 = [dCopy stringAtIndex:1];
   }
 
-  v15 = v25;
-  compoundFeaturesCopy = v32;
+  v15 = v28;
+  compoundFeaturesCopy = v35;
 LABEL_11:
   [dCopy close];
   autoupdatingCurrentLocale = [MEMORY[0x277CBEAF8] autoupdatingCurrentLocale];
   localeIdentifier = [autoupdatingCurrentLocale localeIdentifier];
-  iDCopy = [(FHDatabaseManager *)selfCopy _execute:@"insert or replace into transaction_features (t_identifier, t_features, t_compound_features, locale, t_mark_for_delete, t_finance_transaction_id) values (%@, %@, %@, %@, %d, %@)", dCopy, v15, v26, localeIdentifier, 0, iDCopy];
+  iDCopy = [(FHDatabaseManager *)selfCopy _execute:@"insert or replace into transaction_features (t_identifier, t_features, t_compound_features, locale, t_mark_for_delete, t_finance_transaction_id) values (%@, %@, %@, %@, %d, %@)", dCopy, v15, v29, localeIdentifier, 0, iDCopy];
 
   if (!iDCopy)
   {
 LABEL_13:
-    v30 = 0;
+    v33 = 0;
     goto LABEL_14;
   }
 
-  v30 = 1;
+  v33 = 1;
 LABEL_14:
 
-  return v30;
+  return v33;
 }
 
 - (id)getTransactionSmartFeaturesForApplication:(id)application
@@ -3377,58 +3466,58 @@ LABEL_14:
   v50 = *MEMORY[0x277D85DE8];
   applicationCopy = application;
   v5 = objc_opt_new();
-  v6 = FHApplications();
+  v6 = FHApplications(v5);
   v7 = [v6 containsObject:applicationCopy];
 
   if (v7)
   {
-    v8 = FHApplicationToTagsMapping();
-    v9 = [v8 objectForKey:applicationCopy];
-    v10 = [v9 objectForKey:@"featuresWithIds"];
+    v9 = FHApplicationToTagsMapping(v8);
+    v10 = [v9 objectForKey:applicationCopy];
+    v11 = [v10 objectForKey:@"featuresWithIds"];
 
     v28 = @"FinHealthCore";
-    v11 = FinHealthLogObject(@"FinHealthCore");
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = FinHealthLogObject(@"FinHealthCore");
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315650;
       v39 = "[FHDatabaseManager getTransactionSmartFeaturesForApplication:]";
       v40 = 2112;
       v41 = applicationCopy;
       v42 = 2112;
-      v43 = v10;
-      _os_log_impl(&dword_226DD4000, v11, OS_LOG_TYPE_DEBUG, "%s Application[%@] is asking for tags with transaction ids: %@", buf, 0x20u);
+      v43 = v11;
+      _os_log_impl(&dword_226DD4000, v12, OS_LOG_TYPE_DEBUG, "%s Application[%@] is asking for tags with transaction ids: %@", buf, 0x20u);
     }
 
-    v12 = MEMORY[0x277CCAC30];
+    v13 = MEMORY[0x277CCAC30];
     v35[0] = MEMORY[0x277D85DD0];
     v35[1] = 3221225472;
     v35[2] = __63__FHDatabaseManager_getTransactionSmartFeaturesForApplication___block_invoke;
     v35[3] = &unk_2785CB190;
-    v29 = v10;
+    v29 = v11;
     v30 = applicationCopy;
     v36 = v29;
-    v13 = applicationCopy;
-    v37 = v13;
-    v31 = [v12 predicateWithBlock:v35];
-    if ([v13 isEqual:@"Search"])
+    v14 = applicationCopy;
+    v37 = v14;
+    v31 = [v13 predicateWithBlock:v35];
+    if ([v14 isEqual:@"Search"])
     {
       self->_transactionFeaturesOffset = 0;
     }
 
     [v5 addObjectsFromArray:self->_transactionFeaturesCache];
     [(NSMutableArray *)self->_transactionFeaturesCache removeAllObjects];
-    v14 = 0;
+    v15 = 0;
     while (1)
     {
-      v15 = [v5 count];
-      if (v15 >= 0x64)
+      v16 = [v5 count];
+      if (v16 >= 0x64)
       {
         break;
       }
 
-      v16 = [v13 isEqualToString:@"Search"];
+      v17 = [v14 isEqualToString:@"Search"];
       transactionFeaturesOffset = self->_transactionFeaturesOffset;
-      if (v16)
+      if (v17)
       {
         [MEMORY[0x277CCACA8] stringWithFormat:@"select t_identifier, t_features, t_compound_features, locale from transaction_features where t_mark_for_delete = %d limit %d offset %d", 0, 100, transactionFeaturesOffset, v28, v29];
       }
@@ -3437,62 +3526,62 @@ LABEL_14:
       {
         [MEMORY[0x277CCACA8] stringWithFormat:@"select t_identifier, t_features, t_compound_features, locale from transaction_features limit %d offset %d", 100, transactionFeaturesOffset, v27, v28, v29];
       }
-      v18 = ;
+      v19 = ;
 
       v32[0] = MEMORY[0x277D85DD0];
       v32[1] = 3221225472;
       v32[2] = __63__FHDatabaseManager_getTransactionSmartFeaturesForApplication___block_invoke_2;
       v32[3] = &unk_2785CB1B8;
       v32[4] = self;
-      v33 = v13;
+      v33 = v14;
       v34 = v5;
-      v19 = [(FHDatabaseManager *)self streamGenericSQLFetch:v32 predicate:v31 sqlFetchQuery:v18];
-      self->_transactionFeaturesOffset += v19;
+      v20 = [(FHDatabaseManager *)self streamGenericSQLFetch:v32 predicate:v31 sqlFetchQuery:v19];
+      self->_transactionFeaturesOffset += v20;
 
-      v14 = v18;
-      if (!v19)
+      v15 = v19;
+      if (!v20)
       {
         [(NSMutableArray *)self->_transactionFeaturesCache removeAllObjects];
         goto LABEL_15;
       }
     }
 
-    v18 = v14;
+    v19 = v15;
 LABEL_15:
-    v21 = FinHealthLogObject(v28);
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    v22 = FinHealthLogObject(v28);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
-      v22 = [v5 count];
-      v23 = self->_transactionFeaturesOffset;
-      v24 = @"True";
+      v23 = [v5 count];
+      v24 = self->_transactionFeaturesOffset;
+      v25 = @"True";
       *buf = 136316418;
       v39 = "[FHDatabaseManager getTransactionSmartFeaturesForApplication:]";
-      if (v15 < 0x64)
+      if (v16 < 0x64)
       {
-        v24 = @"False";
+        v25 = @"False";
       }
 
       v40 = 2112;
-      v41 = v13;
+      v41 = v14;
       v42 = 2048;
-      v43 = v22;
+      v43 = v23;
       v44 = 2112;
-      v45 = v24;
+      v45 = v25;
       v46 = 2048;
-      v47 = v23;
+      v47 = v24;
       v48 = 2112;
       v49 = v5;
-      _os_log_impl(&dword_226DD4000, v21, OS_LOG_TYPE_DEBUG, "%s Transaction features for Application[%@] count[%lu] moreComing[%@] scanOffset[%lu] :%@", buf, 0x3Eu);
+      _os_log_impl(&dword_226DD4000, v22, OS_LOG_TYPE_DEBUG, "%s Transaction features for Application[%@] count[%lu] moreComing[%@] scanOffset[%lu] :%@", buf, 0x3Eu);
     }
 
     if ([v5 count])
     {
-      v20 = [MEMORY[0x277CBEA60] arrayWithArray:v5];
+      v21 = [MEMORY[0x277CBEA60] arrayWithArray:v5];
     }
 
     else
     {
-      v20 = 0;
+      v21 = 0;
     }
 
     applicationCopy = v30;
@@ -3500,40 +3589,38 @@ LABEL_15:
 
   else
   {
-    v20 = 0;
+    v21 = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-
-  return v20;
+  return v21;
 }
 
 uint64_t __63__FHDatabaseManager_getTransactionSmartFeaturesForApplication___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
-    v16 = a1;
+    v7 = *v17;
+    v15 = a1;
     while (2)
     {
       v8 = 0;
       do
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * v8);
+        v9 = *(*(&v16 + 1) + 8 * v8);
         v10 = [v3 objectForKey:@"t_features"];
         if ([v10 containsString:v9])
         {
@@ -3555,8 +3642,8 @@ LABEL_13:
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
-      a1 = v16;
+      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      a1 = v15;
       if (v6)
       {
         continue;
@@ -3578,7 +3665,6 @@ LABEL_14:
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -3680,7 +3766,7 @@ void __89__FHDatabaseManager_deleteTaggedEventsInTimeRange_startDate_comparatorO
 
 - (void)computeRecurringClassesWithMerchantEntityCounts:(id)counts peerPaymentCounts:(id)paymentCounts merchantDetailedCategoryCounts:(id)categoryCounts
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   countsCopy = counts;
   paymentCountsCopy = paymentCounts;
   categoryCountsCopy = categoryCounts;
@@ -3702,100 +3788,100 @@ void __89__FHDatabaseManager_deleteTaggedEventsInTimeRange_startDate_comparatorO
   }
 
   *buf = 0;
-  v84 = buf;
-  v85 = 0x3032000000;
-  v86 = __Block_byref_object_copy_;
-  v87 = __Block_byref_object_dispose_;
-  v88 = self->_decimalRmseThreshold;
-  v81[0] = 0;
-  v81[1] = v81;
-  v81[2] = 0x3032000000;
-  v81[3] = __Block_byref_object_copy_;
-  v81[4] = __Block_byref_object_dispose_;
-  v82 = self->_secondsInDay;
+  v83 = buf;
+  v84 = 0x3032000000;
+  v85 = __Block_byref_object_copy_;
+  v86 = __Block_byref_object_dispose_;
+  v87 = self->_decimalRmseThreshold;
+  v80[0] = 0;
+  v80[1] = v80;
+  v80[2] = 0x3032000000;
+  v80[3] = __Block_byref_object_copy_;
+  v80[4] = __Block_byref_object_dispose_;
+  v81 = self->_secondsInDay;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __118__FHDatabaseManager_computeRecurringClassesWithMerchantEntityCounts_peerPaymentCounts_merchantDetailedCategoryCounts___block_invoke;
   aBlock[3] = &unk_2785CB278;
   aBlock[5] = buf;
-  aBlock[6] = v81;
+  aBlock[6] = v80;
   aBlock[4] = self;
-  v42 = _Block_copy(aBlock);
-  v74 = 0;
-  v75 = &v74;
-  v76 = 0x3032000000;
-  v77 = __Block_byref_object_copy_;
-  v78 = __Block_byref_object_dispose_;
-  v79 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v68 = 0;
-  v69 = &v68;
-  v70 = 0x3032000000;
-  v71 = __Block_byref_object_copy_;
-  v72 = __Block_byref_object_dispose_;
-  v73 = objc_opt_new();
-  v62 = 0;
-  v63 = &v62;
-  v64 = 0x3032000000;
-  v65 = __Block_byref_object_copy_;
-  v66 = __Block_byref_object_dispose_;
-  v67 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v41 = _Block_copy(aBlock);
+  v73 = 0;
+  v74 = &v73;
+  v75 = 0x3032000000;
+  v76 = __Block_byref_object_copy_;
+  v77 = __Block_byref_object_dispose_;
+  v78 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v67 = 0;
+  v68 = &v67;
+  v69 = 0x3032000000;
+  v70 = __Block_byref_object_copy_;
+  v71 = __Block_byref_object_dispose_;
+  v72 = objc_opt_new();
+  v61 = 0;
+  v62 = &v61;
+  v63 = 0x3032000000;
+  v64 = __Block_byref_object_copy_;
+  v65 = __Block_byref_object_dispose_;
+  v66 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v39 = objc_opt_new();
+  v55 = 0;
+  v56 = &v55;
+  v57 = 0x3032000000;
+  v58 = __Block_byref_object_copy_;
+  v59 = __Block_byref_object_dispose_;
+  v60 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v40 = objc_opt_new();
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x3032000000;
-  v59 = __Block_byref_object_copy_;
-  v60 = __Block_byref_object_dispose_;
-  v61 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v41 = objc_opt_new();
-  v39 = [countsCopy keysOfEntriesPassingTest:&__block_literal_global_273];
-  allObjects = [v39 allObjects];
-  v47[0] = MEMORY[0x277D85DD0];
-  v47[1] = 3221225472;
-  v47[2] = __118__FHDatabaseManager_computeRecurringClassesWithMerchantEntityCounts_peerPaymentCounts_merchantDetailedCategoryCounts___block_invoke_2_274;
-  v47[3] = &unk_2785CB2C0;
-  v47[4] = self;
-  v36 = paymentCountsCopy;
-  v48 = v36;
-  v52 = &v74;
-  v38 = allObjects;
-  v49 = v38;
-  v53 = &v62;
-  v37 = categoryCountsCopy;
-  v50 = v37;
-  v54 = &v56;
-  v55 = &v68;
-  v35 = countsCopy;
-  v51 = v35;
-  [(FHDatabaseManager *)self streamTransactionsWithLimit:-1 internalState:2 onTransaction:v47];
-  v42[2](v42, v75[5], v69[5]);
-  [v75[5] removeAllObjects];
-  if ([v63[5] count])
+  v38 = [countsCopy keysOfEntriesPassingTest:&__block_literal_global_273];
+  allObjects = [v38 allObjects];
+  v46[0] = MEMORY[0x277D85DD0];
+  v46[1] = 3221225472;
+  v46[2] = __118__FHDatabaseManager_computeRecurringClassesWithMerchantEntityCounts_peerPaymentCounts_merchantDetailedCategoryCounts___block_invoke_2_274;
+  v46[3] = &unk_2785CB2C0;
+  v46[4] = self;
+  v35 = paymentCountsCopy;
+  v47 = v35;
+  v51 = &v73;
+  v37 = allObjects;
+  v48 = v37;
+  v52 = &v61;
+  v36 = categoryCountsCopy;
+  v49 = v36;
+  v53 = &v55;
+  v54 = &v67;
+  v34 = countsCopy;
+  v50 = v34;
+  [(FHDatabaseManager *)self streamTransactionsWithLimit:-1 internalState:2 onTransaction:v46];
+  v41[2](v41, v74[5], v68[5]);
+  [v74[5] removeAllObjects];
+  if ([v62[5] count])
   {
-    v42[2](v42, v63[5], v40);
-    [v63[5] removeAllObjects];
+    v41[2](v41, v62[5], v39);
+    [v62[5] removeAllObjects];
   }
 
-  v42[2](v42, v57[5], v41);
-  [v57[5] removeAllObjects];
+  v41[2](v41, v56[5], v40);
+  [v56[5] removeAllObjects];
   [(FHDatabaseManager *)self _getTransactionsMarkedForRecurrChange];
+  v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
-  v16 = v44 = 0u;
-  v17 = [v16 countByEnumeratingWithState:&v43 objects:v91 count:16];
+  v42 = 0u;
+  v16 = v43 = 0u;
+  v17 = [v16 countByEnumeratingWithState:&v42 objects:v90 count:16];
   if (v17)
   {
-    v18 = *v44;
+    v18 = *v43;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v44 != v18)
+        if (*v43 != v18)
         {
           objc_enumerationMutation(v16);
         }
 
-        v20 = *(*(&v43 + 1) + 8 * i);
+        v20 = *(*(&v42 + 1) + 8 * i);
         v21 = objc_alloc_init(FHRealtimeFeaturesResponse);
         v22 = objc_alloc(MEMORY[0x277CBEB38]);
         v23 = [(FHDatabaseManager *)self compoundFeaturesForTransaction:v20];
@@ -3812,8 +3898,8 @@ void __89__FHDatabaseManager_deleteTaggedEventsInTimeRange_startDate_comparatorO
             goto LABEL_19;
           }
 
-          *v89 = 138412290;
-          v90 = v25;
+          *v88 = 138412290;
+          v89 = v25;
           v27 = v26;
           v28 = OS_LOG_TYPE_DEBUG;
           v29 = "insertSuccess: smartFeatureValues: %@";
@@ -3827,18 +3913,18 @@ void __89__FHDatabaseManager_deleteTaggedEventsInTimeRange_startDate_comparatorO
             goto LABEL_19;
           }
 
-          *v89 = 138412290;
-          v90 = v25;
+          *v88 = 138412290;
+          v89 = v25;
           v27 = v26;
           v28 = OS_LOG_TYPE_ERROR;
           v29 = "insertFailure smartFeatureValues: %@";
         }
 
-        _os_log_impl(&dword_226DD4000, v27, v28, v29, v89, 0xCu);
+        _os_log_impl(&dword_226DD4000, v27, v28, v29, v88, 0xCu);
 LABEL_19:
       }
 
-      v17 = [v16 countByEnumeratingWithState:&v43 objects:v91 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v42 objects:v90 count:16];
     }
 
     while (v17);
@@ -3850,27 +3936,25 @@ LABEL_19:
 
   if (v32 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
   {
-    *v89 = 0;
-    _os_signpost_emit_with_name_impl(&dword_226DD4000, v30, OS_SIGNPOST_INTERVAL_END, v32, "processAggregateFeatures:computeRecurringHistograms", "", v89, 2u);
+    *v88 = 0;
+    _os_signpost_emit_with_name_impl(&dword_226DD4000, v30, OS_SIGNPOST_INTERVAL_END, v32, "processAggregateFeatures:computeRecurringHistograms", "", v88, 2u);
   }
 
   v33 = FinHealthLogObject(@"FinHealthCore");
   if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
   {
-    *v89 = 0;
-    _os_log_impl(&dword_226DD4000, v33, OS_LOG_TYPE_INFO, "END processAggregateFeatures:computeRecurringHistograms", v89, 2u);
+    *v88 = 0;
+    _os_log_impl(&dword_226DD4000, v33, OS_LOG_TYPE_INFO, "END processAggregateFeatures:computeRecurringHistograms", v88, 2u);
   }
 
-  _Block_object_dispose(&v56, 8);
-  _Block_object_dispose(&v62, 8);
+  _Block_object_dispose(&v55, 8);
+  _Block_object_dispose(&v61, 8);
 
-  _Block_object_dispose(&v68, 8);
-  _Block_object_dispose(&v74, 8);
+  _Block_object_dispose(&v67, 8);
+  _Block_object_dispose(&v73, 8);
 
-  _Block_object_dispose(v81, 8);
+  _Block_object_dispose(v80, 8);
   _Block_object_dispose(buf, 8);
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __118__FHDatabaseManager_computeRecurringClassesWithMerchantEntityCounts_peerPaymentCounts_merchantDetailedCategoryCounts___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -3945,8 +4029,8 @@ uint64_t __118__FHDatabaseManager_computeRecurringClassesWithMerchantEntityCount
 
 void __118__FHDatabaseManager_computeRecurringClassesWithMerchantEntityCounts_peerPaymentCounts_merchantDetailedCategoryCounts___block_invoke_4(uint64_t a1, uint64_t a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v21 = a3;
+  v24 = *MEMORY[0x277D85DE8];
+  v20 = a3;
   v5 = 3;
   do
   {
@@ -3961,14 +4045,14 @@ void __118__FHDatabaseManager_computeRecurringClassesWithMerchantEntityCounts_pe
     v12 = [v11 intValue];
     v13 = *(a1 + 40);
     v14 = *(a1 + 48);
-    [v21 doubleValue];
+    [v20 doubleValue];
     if (([v13 _execute:{@"insert or replace into features_heuristics (t_identifier, t_heuristics_identifier, t_heuristics_value, t_heuristics_score) values (%@, %@, %d, %f)", v7, v14, v10, v15}] & 1) == 0)
     {
       v16 = FinHealthLogObject(@"FinHealthCore");
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v24 = v7;
+        v23 = v7;
         _os_log_impl(&dword_226DD4000, v16, OS_LOG_TYPE_ERROR, "FHInsertOrUpdateIntoFeaturesHeuristics failed for %@", buf, 0xCu);
       }
     }
@@ -3982,7 +4066,7 @@ void __118__FHDatabaseManager_computeRecurringClassesWithMerchantEntityCounts_pe
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v24 = v7;
+        v23 = v7;
         _os_log_impl(&dword_226DD4000, v19, OS_LOG_TYPE_ERROR, "FHInsertIntoFeaturesPredictedRealTime failed for %@", buf, 0xCu);
       }
     }
@@ -3995,13 +4079,11 @@ void __118__FHDatabaseManager_computeRecurringClassesWithMerchantEntityCounts_pe
   }
 
   while (v5);
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __118__FHDatabaseManager_computeRecurringClassesWithMerchantEntityCounts_peerPaymentCounts_merchantDetailedCategoryCounts___block_invoke_2_274(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   [*(a1 + 32) populateRecurringClassHistogramsWithPeerPaymentsCounts:*(a1 + 40) histogram:*(*(*(a1 + 72) + 8) + 40) transaction:v3];
@@ -4025,41 +4107,41 @@ void __118__FHDatabaseManager_computeRecurringClassesWithMerchantEntityCounts_pe
     v9 = [v3 displayName];
     if ([v9 length] && !objc_msgSend(v3, "transactionType"))
     {
-      v11 = [v3 transactionStatus];
+      v10 = [v3 transactionStatus];
 
-      if (v11 == 1)
+      if (v10 == 1)
       {
-        v12 = objc_autoreleasePoolPush();
-        v13 = [v3 identifier];
-        if (([*(*(*(a1 + 96) + 8) + 40) containsObject:v13] & 1) == 0)
+        v11 = objc_autoreleasePoolPush();
+        v12 = [v3 identifier];
+        if (([*(*(*(a1 + 96) + 8) + 40) containsObject:v12] & 1) == 0)
         {
-          v14 = [v3 displayName];
-          v15 = [*(a1 + 64) objectForKey:v14];
-          if ([v15 integerValue] >= 3)
+          v13 = [v3 displayName];
+          v14 = [*(a1 + 64) objectForKey:v13];
+          if ([v14 integerValue] >= 3)
           {
-            v16 = 1;
+            v15 = 1;
           }
 
           else
           {
-            v16 = 2;
+            v15 = 2;
           }
 
-          v17 = objc_alloc_init(FHRealtimeFeaturesResponse);
-          [(FHRealtimeFeaturesResponse *)v17 setRepeatingPatternClass:v16];
-          if (([*(a1 + 32) insertFeaturesPredictedRealtime:v13 realtimeFeatures:v17] & 1) == 0)
+          v16 = objc_alloc_init(FHRealtimeFeaturesResponse);
+          [(FHRealtimeFeaturesResponse *)v16 setRepeatingPatternClass:v15];
+          if (([*(a1 + 32) insertFeaturesPredictedRealtime:v12 realtimeFeatures:v16] & 1) == 0)
           {
-            v18 = FinHealthLogObject(@"FinHealthCore");
-            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+            v17 = FinHealthLogObject(@"FinHealthCore");
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
-              v19 = 138412290;
-              v20 = v13;
-              _os_log_impl(&dword_226DD4000, v18, OS_LOG_TYPE_ERROR, "FHInsertIntoFeaturesPredictedRealTime failed for %@", &v19, 0xCu);
+              v18 = 138412290;
+              v19 = v12;
+              _os_log_impl(&dword_226DD4000, v17, OS_LOG_TYPE_ERROR, "FHInsertIntoFeaturesPredictedRealTime failed for %@", &v18, 0xCu);
             }
           }
         }
 
-        objc_autoreleasePoolPop(v12);
+        objc_autoreleasePoolPop(v11);
       }
     }
 
@@ -4067,13 +4149,11 @@ void __118__FHDatabaseManager_computeRecurringClassesWithMerchantEntityCounts_pe
     {
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)populateRecurringClassHistogramsWithPeerPaymentsCounts:(id)counts histogram:(id)histogram transaction:(id)transaction
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   countsCopy = counts;
   histogramCopy = histogram;
   transactionCopy = transaction;
@@ -4100,28 +4180,28 @@ void __118__FHDatabaseManager_computeRecurringClassesWithMerchantEntityCounts_pe
   v13 = [transactionCopy accountType] == 1 && objc_msgSend(transactionCopy, "transactionType") == 6;
   if ((v12 | v13))
   {
-    v31 = peerPaymentCounterpartHandle;
-    v32 = countsCopy;
+    v30 = peerPaymentCounterpartHandle;
+    v31 = countsCopy;
     context = objc_autoreleasePoolPush();
     [FinHealthRecurringHelper histogramKeysForTransaction:transactionCopy];
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
-    obj = v41 = 0u;
-    v35 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
-    if (v35)
+    obj = v40 = 0u;
+    v34 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
+    if (v34)
     {
-      v34 = *v39;
+      v33 = *v38;
       do
       {
-        for (i = 0; i != v35; ++i)
+        for (i = 0; i != v34; ++i)
         {
-          if (*v39 != v34)
+          if (*v38 != v33)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v38 + 1) + 8 * i);
+          v15 = *(*(&v37 + 1) + 8 * i);
           featureLabel = [v15 featureLabel];
           v17 = [histogramCopy objectForKey:featureLabel];
           transactionDate = [transactionCopy transactionDate];
@@ -4133,30 +4213,30 @@ void __118__FHDatabaseManager_computeRecurringClassesWithMerchantEntityCounts_pe
           v23 = v22;
           if (v22)
           {
-            [v22 decimalValue];
+            objc_msgSend_decimalValue(v22);
           }
 
           else
           {
-            v36[0] = 0;
-            v36[1] = 0;
-            v37 = 0;
+            v35[0] = 0;
+            v35[1] = 0;
+            v36 = 0;
           }
 
-          v24 = [v21 decimalNumberWithDecimal:v36];
+          v24 = [v21 decimalNumberWithDecimal:v35];
 
-          v43[0] = v24;
-          v42[0] = @"transactionDate";
-          v42[1] = @"identifier";
+          v42[0] = v24;
+          v41[0] = @"transactionDate";
+          v41[1] = @"identifier";
           identifier = [transactionCopy identifier];
-          v43[1] = identifier;
-          v42[2] = @"transactionSourceIdentifier";
+          v42[1] = identifier;
+          v41[2] = @"transactionSourceIdentifier";
           transactionSourceIdentifier = [transactionCopy transactionSourceIdentifier];
-          v43[2] = transactionSourceIdentifier;
-          v42[3] = @"repeatingClass";
+          v42[2] = transactionSourceIdentifier;
+          v41[3] = @"repeatingClass";
           featureRank = [v15 featureRank];
-          v43[3] = featureRank;
-          v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:4];
+          v42[3] = featureRank;
+          v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:4];
 
           if (v17)
           {
@@ -4171,23 +4251,21 @@ void __118__FHDatabaseManager_computeRecurringClassesWithMerchantEntityCounts_pe
           [histogramCopy setValue:v17 forKey:featureLabel];
         }
 
-        v35 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
+        v34 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
       }
 
-      while (v35);
+      while (v34);
     }
 
     objc_autoreleasePoolPop(context);
-    peerPaymentCounterpartHandle = v31;
-    countsCopy = v32;
+    peerPaymentCounterpartHandle = v30;
+    countsCopy = v31;
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_populateMerchantEntityRecurringClassHistograms:(id)histograms transaction:(id)transaction
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   histogramsCopy = histograms;
   transactionCopy = transaction;
   v7 = objc_autoreleasePoolPush();
@@ -4195,28 +4273,28 @@ void __118__FHDatabaseManager_computeRecurringClassesWithMerchantEntityCounts_pe
   accountType = [transactionCopy accountType];
   if (displayName && [displayName length] && !objc_msgSend(transactionCopy, "transactionType") && objc_msgSend(transactionCopy, "transactionStatus") == 1 && !objc_msgSend(transactionCopy, "transactionSource") && (objc_msgSend(transactionCopy, "cardType") == 7 || objc_msgSend(transactionCopy, "cardType") == 6) || accountType == 4)
   {
-    v27 = displayName;
-    v28 = v7;
+    v26 = displayName;
+    v27 = v7;
     context = objc_autoreleasePoolPush();
     [FinHealthRecurringHelper histogramKeysForTransaction:transactionCopy];
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
-    obj = v37 = 0u;
-    v31 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
-    if (v31)
+    obj = v36 = 0u;
+    v30 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
+    if (v30)
     {
-      v30 = *v35;
+      v29 = *v34;
       do
       {
-        for (i = 0; i != v31; ++i)
+        for (i = 0; i != v30; ++i)
         {
-          if (*v35 != v30)
+          if (*v34 != v29)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v34 + 1) + 8 * i);
+          v11 = *(*(&v33 + 1) + 8 * i);
           featureLabel = [v11 featureLabel];
           v13 = [histogramsCopy objectForKey:featureLabel];
           transactionDate = [transactionCopy transactionDate];
@@ -4228,30 +4306,30 @@ void __118__FHDatabaseManager_computeRecurringClassesWithMerchantEntityCounts_pe
           v19 = v18;
           if (v18)
           {
-            [v18 decimalValue];
+            objc_msgSend_decimalValue(v18);
           }
 
           else
           {
-            v32[0] = 0;
-            v32[1] = 0;
-            v33 = 0;
+            v31[0] = 0;
+            v31[1] = 0;
+            v32 = 0;
           }
 
-          v20 = [v17 decimalNumberWithDecimal:v32];
+          v20 = [v17 decimalNumberWithDecimal:v31];
 
-          v39[0] = v20;
-          v38[0] = @"transactionDate";
-          v38[1] = @"identifier";
+          v38[0] = v20;
+          v37[0] = @"transactionDate";
+          v37[1] = @"identifier";
           identifier = [transactionCopy identifier];
-          v39[1] = identifier;
-          v38[2] = @"transactionSourceIdentifier";
+          v38[1] = identifier;
+          v37[2] = @"transactionSourceIdentifier";
           transactionSourceIdentifier = [transactionCopy transactionSourceIdentifier];
-          v39[2] = transactionSourceIdentifier;
-          v38[3] = @"repeatingClass";
+          v38[2] = transactionSourceIdentifier;
+          v37[3] = @"repeatingClass";
           featureRank = [v11 featureRank];
-          v39[3] = featureRank;
-          v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:4];
+          v38[3] = featureRank;
+          v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:4];
 
           if (v13)
           {
@@ -4266,24 +4344,23 @@ void __118__FHDatabaseManager_computeRecurringClassesWithMerchantEntityCounts_pe
           [histogramsCopy setValue:v13 forKey:featureLabel];
         }
 
-        v31 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
+        v30 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
       }
 
-      while (v31);
+      while (v30);
     }
 
     objc_autoreleasePoolPop(context);
-    displayName = v27;
-    v7 = v28;
+    displayName = v26;
+    v7 = v27;
   }
 
   objc_autoreleasePoolPop(v7);
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)populateRecurringClassHistogramsWithMerchantDetailedCategoryCounts:(id)counts histogram:(id)histogram transaction:(id)transaction
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   countsCopy = counts;
   histogramCopy = histogram;
   transactionCopy = transaction;
@@ -4296,32 +4373,32 @@ void __118__FHDatabaseManager_computeRecurringClassesWithMerchantEntityCounts_pe
 
     if (integerValue >= 3)
     {
-      v35 = countsCopy;
+      v34 = countsCopy;
       context = objc_autoreleasePoolPush();
       transactionSourceIdentifier = [transactionCopy transactionSourceIdentifier];
       amount = [transactionCopy amount];
-      v34 = v11;
+      v33 = v11;
       v16 = +[FinHealthRecurringHelper histogramKeysForMerchantDetailedCategoryTransaction:transactionSourceIdentifier:transactionAmount:transactionType:amountFromDatabase:](FinHealthRecurringHelper, "histogramKeysForMerchantDetailedCategoryTransaction:transactionSourceIdentifier:transactionAmount:transactionType:amountFromDatabase:", v11, transactionSourceIdentifier, amount, 0, [transactionCopy amountFromDatabase]);
 
-      v43 = 0u;
-      v44 = 0u;
-      v41 = 0u;
       v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
       obj = v16;
-      v38 = [obj countByEnumeratingWithState:&v41 objects:v47 count:16];
-      if (v38)
+      v37 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
+      if (v37)
       {
-        v37 = *v42;
+        v36 = *v41;
         do
         {
-          for (i = 0; i != v38; ++i)
+          for (i = 0; i != v37; ++i)
           {
-            if (*v42 != v37)
+            if (*v41 != v36)
             {
               objc_enumerationMutation(obj);
             }
 
-            v18 = *(*(&v41 + 1) + 8 * i);
+            v18 = *(*(&v40 + 1) + 8 * i);
             featureLabel = [v18 featureLabel];
             v20 = [histogramCopy objectForKey:featureLabel];
             transactionDate = [transactionCopy transactionDate];
@@ -4333,30 +4410,30 @@ void __118__FHDatabaseManager_computeRecurringClassesWithMerchantEntityCounts_pe
             v26 = v25;
             if (v25)
             {
-              [v25 decimalValue];
+              objc_msgSend_decimalValue(v25);
             }
 
             else
             {
-              v39[0] = 0;
-              v39[1] = 0;
-              v40 = 0;
+              v38[0] = 0;
+              v38[1] = 0;
+              v39 = 0;
             }
 
-            v27 = [v24 decimalNumberWithDecimal:v39];
+            v27 = [v24 decimalNumberWithDecimal:v38];
 
-            v46[0] = v27;
-            v45[0] = @"transactionDate";
-            v45[1] = @"identifier";
+            v45[0] = v27;
+            v44[0] = @"transactionDate";
+            v44[1] = @"identifier";
             identifier = [transactionCopy identifier];
-            v46[1] = identifier;
-            v45[2] = @"transactionSourceIdentifier";
+            v45[1] = identifier;
+            v44[2] = @"transactionSourceIdentifier";
             transactionSourceIdentifier2 = [transactionCopy transactionSourceIdentifier];
-            v46[2] = transactionSourceIdentifier2;
-            v45[3] = @"repeatingClass";
+            v45[2] = transactionSourceIdentifier2;
+            v44[3] = @"repeatingClass";
             featureRank = [v18 featureRank];
-            v46[3] = featureRank;
-            v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:4];
+            v45[3] = featureRank;
+            v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:4];
 
             if (v20)
             {
@@ -4371,19 +4448,17 @@ void __118__FHDatabaseManager_computeRecurringClassesWithMerchantEntityCounts_pe
             [histogramCopy setValue:v20 forKey:featureLabel];
           }
 
-          v38 = [obj countByEnumeratingWithState:&v41 objects:v47 count:16];
+          v37 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
         }
 
-        while (v38);
+        while (v37);
       }
 
       objc_autoreleasePoolPop(context);
-      v11 = v34;
-      countsCopy = v35;
+      v11 = v33;
+      countsCopy = v34;
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)retrieveAll
@@ -4499,7 +4574,7 @@ LABEL_8:
 
 - (BOOL)executeAsPreparedStatement:(id)statement values:(id)values
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   statementCopy = statement;
   valuesCopy = values;
   os_unfair_lock_lock(&self->_lockDatabaseExecute);
@@ -4510,7 +4585,7 @@ LABEL_8:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v20 = statementCopy;
+      v19 = statementCopy;
       _os_log_impl(&dword_226DD4000, v8, OS_LOG_TYPE_DEBUG, "Failed to prepare sql statement %@", buf, 0xCu);
     }
   }
@@ -4521,22 +4596,22 @@ LABEL_8:
     {
       v10 = 0;
       *&v9 = 138412802;
-      v17 = v9;
+      v16 = v9;
       do
       {
-        v11 = [valuesCopy objectAtIndex:{v10, v17}];
+        v11 = [valuesCopy objectAtIndex:{v10, v16}];
         v12 = v10 + 1;
         if (sqlite3_bind_text(ppStmt, v10 + 1, [v11 UTF8String], -1, 0xFFFFFFFFFFFFFFFFLL))
         {
           v13 = FinHealthLogObject(@"FinHealthCore");
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
           {
-            *buf = v17;
-            v20 = statementCopy;
-            v21 = 2112;
-            v22 = v11;
-            v23 = 2048;
-            v24 = v10;
+            *buf = v16;
+            v19 = statementCopy;
+            v20 = 2112;
+            v21 = v11;
+            v22 = 2048;
+            v23 = v10;
             _os_log_impl(&dword_226DD4000, v13, OS_LOG_TYPE_DEBUG, "sql statement %@ failed to bind %@ at index %lu", buf, 0x20u);
           }
         }
@@ -4553,7 +4628,6 @@ LABEL_8:
   v14 = sqlite3_finalize(ppStmt);
   os_unfair_lock_unlock(&self->_lockDatabaseExecute);
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14 == 0;
 }
 
@@ -4601,7 +4675,7 @@ LABEL_8:
 
 - (BOOL)_isDatabaseCorrupt
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lockDatabaseFetch);
   _getDataDirectory = [(FHDatabaseManager *)self _getDataDirectory];
   date = [MEMORY[0x277CBEAA8] date];
@@ -4614,19 +4688,18 @@ LABEL_8:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [date2 timeIntervalSinceDate:date];
-    v12 = 134217984;
-    v13 = v9;
-    _os_log_impl(&dword_226DD4000, v8, OS_LOG_TYPE_DEBUG, "Integrity check time: %f", &v12, 0xCu);
+    v11 = 134217984;
+    v12 = v9;
+    _os_log_impl(&dword_226DD4000, v8, OS_LOG_TYPE_DEBUG, "Integrity check time: %f", &v11, 0xCu);
   }
 
   os_unfair_lock_unlock(&self->_lockDatabaseFetch);
-  v10 = *MEMORY[0x277D85DE8];
   return v6 == 11;
 }
 
 - (BOOL)_truncateDatabase
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lockDatabaseExecute);
   dbHandle = [(PQLConnection *)self->_db dbHandle];
   v4 = _sqlite3_db_truncate();
@@ -4635,18 +4708,17 @@ LABEL_8:
     v5 = FinHealthLogObject(@"FinHealthCore");
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8[0] = 67109634;
-      v8[1] = v4;
-      v9 = 2080;
-      v10 = sqlite3_errmsg(dbHandle);
-      v11 = 1024;
-      v12 = sqlite3_extended_errcode(dbHandle);
-      _os_log_impl(&dword_226DD4000, v5, OS_LOG_TYPE_ERROR, "Failed to truncate database %d (%s, %d)", v8, 0x18u);
+      v7[0] = 67109634;
+      v7[1] = v4;
+      v8 = 2080;
+      v9 = sqlite3_errmsg(dbHandle);
+      v10 = 1024;
+      v11 = sqlite3_extended_errcode(dbHandle);
+      _os_log_impl(&dword_226DD4000, v5, OS_LOG_TYPE_ERROR, "Failed to truncate database %d (%s, %d)", v7, 0x18u);
     }
   }
 
   os_unfair_lock_unlock(&self->_lockDatabaseExecute);
-  v6 = *MEMORY[0x277D85DE8];
   return v4 == 0;
 }
 
@@ -4688,7 +4760,7 @@ LABEL_8:
 - (void)_rebuildTablesAndIndexes:(BOOL)indexes
 {
   indexesCopy = indexes;
-  v46 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   _isEligibleForSchemaMigration = [(FHDatabaseManager *)self _isEligibleForSchemaMigration];
   v6 = FinHealthLogObject(@"FinHealthCore");
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
@@ -4700,148 +4772,147 @@ LABEL_8:
     }
 
     *buf = 138412290;
-    v45 = v7;
+    v46 = v7;
     _os_log_impl(&dword_226DD4000, v6, OS_LOG_TYPE_DEBUG, "isEligibleForSchemaMigration: %@", buf, 0xCu);
   }
 
   if (indexesCopy || _isEligibleForSchemaMigration)
   {
-    if ([(FHDatabaseManager *)self _isDatabaseCorrupt])
+    _isDatabaseCorrupt = [(FHDatabaseManager *)self _isDatabaseCorrupt];
+    if (_isDatabaseCorrupt)
     {
-      v8 = FinHealthLogObject(@"FinHealthCore");
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = FinHealthLogObject(@"FinHealthCore");
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_226DD4000, v8, OS_LOG_TYPE_ERROR, "DB corrupted. Truncating", buf, 2u);
+        _os_log_impl(&dword_226DD4000, v9, OS_LOG_TYPE_ERROR, "DB corrupted. Truncating", buf, 2u);
       }
 
-      [(FHDatabaseManager *)self _truncateDatabase];
+      _isDatabaseCorrupt = [(FHDatabaseManager *)self _truncateDatabase];
     }
 
-    v33 = _isEligibleForSchemaMigration;
-    v40 = 0u;
+    v34 = _isEligibleForSchemaMigration;
     v41 = 0u;
-    v38 = 0u;
+    v42 = 0u;
     v39 = 0u;
-    v9 = DropTablesAndIndexes();
-    v10 = [v9 countByEnumeratingWithState:&v38 objects:v43 count:16];
-    if (v10)
+    v40 = 0u;
+    v10 = DropTablesAndIndexes(_isDatabaseCorrupt);
+    v11 = [v10 countByEnumeratingWithState:&v39 objects:v44 count:16];
+    if (v11)
     {
-      v11 = v10;
-      v12 = *v39;
+      v12 = v11;
+      v13 = *v40;
       do
       {
-        for (i = 0; i != v11; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v39 != v12)
+          if (*v40 != v13)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v10);
           }
 
-          v14 = *(*(&v38 + 1) + 8 * i);
-          v15 = FinHealthLogObject(@"FinHealthCore");
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+          v15 = *(*(&v39 + 1) + 8 * i);
+          v16 = FinHealthLogObject(@"FinHealthCore");
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v45 = v14;
-            _os_log_impl(&dword_226DD4000, v15, OS_LOG_TYPE_DEBUG, "sqlExecuteCommand: %@", buf, 0xCu);
+            v46 = v15;
+            _os_log_impl(&dword_226DD4000, v16, OS_LOG_TYPE_DEBUG, "sqlExecuteCommand: %@", buf, 0xCu);
           }
 
-          [(FHDatabaseManager *)self _executeRaw:v14];
+          [(FHDatabaseManager *)self _executeRaw:v15];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v38 objects:v43 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v39 objects:v44 count:16];
       }
 
-      while (v11);
+      while (v12);
     }
 
-    v16 = FinHealthLogObject(@"FinHealthCore");
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    v17 = FinHealthLogObject(@"FinHealthCore");
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_226DD4000, v16, OS_LOG_TYPE_INFO, "Recreating database", buf, 2u);
+      _os_log_impl(&dword_226DD4000, v17, OS_LOG_TYPE_INFO, "Recreating database", buf, 2u);
     }
 
-    _isEligibleForSchemaMigration = v33;
+    _isEligibleForSchemaMigration = v34;
   }
 
   [(FHDatabaseManager *)self _instrumentationTableMigration];
-  v17 = [MEMORY[0x277CBEB98] setWithObjects:{@"t_identifier", @"t_heuristics_identifier", 0}];
-  [(FHDatabaseManager *)self _checkUniqueConstraints:@"features_heuristics" uniqueConstraintSet:v17];
+  v18 = [MEMORY[0x277CBEB98] setWithObjects:{@"t_identifier", @"t_heuristics_identifier", 0}];
+  [(FHDatabaseManager *)self _checkUniqueConstraints:@"features_heuristics" uniqueConstraintSet:v18];
 
-  v36 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v18 = CreateTablesAndIndexes();
-  v19 = [v18 countByEnumeratingWithState:&v34 objects:v42 count:16];
-  if (v19)
+  v36 = 0u;
+  v20 = CreateTablesAndIndexes(v19);
+  v21 = [v20 countByEnumeratingWithState:&v35 objects:v43 count:16];
+  if (v21)
   {
-    v20 = v19;
-    v21 = *v35;
-    v22 = 1;
+    v22 = v21;
+    v23 = *v36;
+    v24 = 1;
     do
     {
-      for (j = 0; j != v20; ++j)
+      for (j = 0; j != v22; ++j)
       {
-        if (*v35 != v21)
+        if (*v36 != v23)
         {
-          objc_enumerationMutation(v18);
+          objc_enumerationMutation(v20);
         }
 
-        v22 &= [(FHDatabaseManager *)self _executeRaw:*(*(&v34 + 1) + 8 * j)];
+        v24 &= [(FHDatabaseManager *)self _executeRaw:*(*(&v35 + 1) + 8 * j)];
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v34 objects:v42 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v35 objects:v43 count:16];
     }
 
-    while (v20);
+    while (v22);
   }
 
   else
   {
-    v22 = 1;
+    v24 = 1;
   }
 
   [(FHDatabaseManager *)self _addColumnIfNotExists:@"features_instrumentation" columnName:@"pass_type" columnType:@"integer"];
   [(FHDatabaseManager *)self _addColumnIfNotExists:@"features_instrumentation" columnName:@"heuristics_identifier" columnType:@"text"];
   [(FHDatabaseManager *)self _addColumnIfNotExists:@"features_instrumentation" columnName:@"account_state" columnType:@"integer"];
   [(FHDatabaseManager *)self _addColumnIfNotExists:@"features_instrumentation" columnName:@"paid_using_ring" columnType:@"integer"];
-  if (indexesCopy || (_isEligibleForSchemaMigration & v22) != 0)
+  if (indexesCopy || (_isEligibleForSchemaMigration & v24) != 0)
   {
-    v24 = [MEMORY[0x277CBEAA8] now];
-    [v24 timeIntervalSinceReferenceDate];
-    v26 = v25;
+    v26 = [MEMORY[0x277CBEAA8] now];
+    [v26 timeIntervalSinceReferenceDate];
+    v28 = v27;
 
-    v27 = [(FHDatabaseManager *)self _execute:@"insert into fh_schema (sch_version_id, sch_upgrade_status, sch_date, sch_getall_status) values (%@, %d, %d, %d)", @"11.11", 2, v26, 0];
-    v28 = FinHealthLogObject(@"FinHealthCore");
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+    v29 = [(FHDatabaseManager *)self _execute:@"insert into fh_schema (sch_version_id, sch_upgrade_status, sch_date, sch_getall_status) values (%@, %d, %d, %d)", @"11.11", 2, v28, 0];
+    v30 = FinHealthLogObject(@"FinHealthCore");
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
     {
-      v29 = @"Fail";
-      if (v27)
+      v31 = @"Fail";
+      if (v29)
       {
-        v29 = @"Success";
+        v31 = @"Success";
       }
 
       *buf = 138412290;
-      v45 = v29;
-      _os_log_impl(&dword_226DD4000, v28, OS_LOG_TYPE_INFO, "createSchemaVersionRecord: %@", buf, 0xCu);
+      v46 = v31;
+      _os_log_impl(&dword_226DD4000, v30, OS_LOG_TYPE_INFO, "createSchemaVersionRecord: %@", buf, 0xCu);
     }
   }
 
   for (k = 0; k != 11; ++k)
   {
-    v31 = FHTransactionRepeatingPatternClassToFHSmartFeature(k);
-    [(FHDatabaseManager *)self _execute:@"insert or replace into features_prediction_labels (feature_name, feature_predicted_class, smart_feature_name) values (%@, %d, %@)", @"FHSmartFeatureAggregateTypeRecurring", k, v31];
+    v33 = FHTransactionRepeatingPatternClassToFHSmartFeature(k);
+    [(FHDatabaseManager *)self _execute:@"insert or replace into features_prediction_labels (feature_name, feature_predicted_class, smart_feature_name) values (%@, %d, %@)", @"FHSmartFeatureAggregateTypeRecurring", k, v33];
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_instrumentationTableMigration
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"PRAGMA table_info('%@')", @"features_instrumentation"];;
   v4 = [(FHDatabaseManager *)self _fetch:v3];
 
@@ -4867,7 +4938,7 @@ LABEL_8:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v12 = @"features_instrumentation";
+        v11 = @"features_instrumentation";
         _os_log_impl(&dword_226DD4000, v9, OS_LOG_TYPE_DEBUG, "Drop table %@", buf, 0xCu);
       }
     }
@@ -4877,13 +4948,11 @@ LABEL_8:
   {
     [(FHDatabaseManager *)self closeAndUnlock:v4];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_checkUniqueConstraints:(id)constraints uniqueConstraintSet:(id)set
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   constraintsCopy = constraints;
   setCopy = set;
   constraintsCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"PRAGMA index_info('%@')", constraintsCopy];;
@@ -4921,7 +4990,7 @@ LABEL_8:
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v20 = constraintsCopy;
+          v19 = constraintsCopy;
           _os_log_impl(&dword_226DD4000, v17, OS_LOG_TYPE_DEBUG, "Drop table %@", buf, 0xCu);
         }
       }
@@ -4934,8 +5003,6 @@ LABEL_8:
   {
     [(FHDatabaseManager *)self closeAndUnlock:v9];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)streamGenericSQLFetch:(id)fetch predicate:(id)predicate sqlFetchQuery:(id)query
@@ -5079,10 +5146,7 @@ void __46__FHDatabaseManager_processingTimeForFeature___block_invoke(uint64_t a1
 
 uint64_t __46__FHDatabaseManager_processingDataForFeature___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 objectAtIndex:1];
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = [a2 objectAtIndex:1];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -5167,7 +5231,7 @@ uint64_t __46__FHDatabaseManager_processingDataForFeature___block_invoke(uint64_
 
 void __58__FHDatabaseManager__getTransactionsMarkedForRecurrChange__block_invoke(uint64_t a1, void *a2)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 80));
   v5 = WeakRetained;
@@ -5198,58 +5262,58 @@ void __58__FHDatabaseManager__getTransactionsMarkedForRecurrChange__block_invoke
           {
             v19 = *(*(*(a1 + 64) + 8) + 24);
             *buf = 134217984;
-            v46 = v19;
+            v45 = v19;
             _os_log_impl(&dword_226DD4000, v18, OS_LOG_TYPE_DEBUG, "previousPreComputedRmseValue: %f", buf, 0xCu);
           }
 
           v20 = [v8 transactionDate];
           [v20 timeIntervalSinceReferenceDate];
-          v43 = v21;
+          v42 = v21;
 
           v22 = [*(*(*(a1 + 48) + 8) + 40) transactionDate];
           [v22 timeIntervalSinceReferenceDate];
-          v41 = v23;
+          v40 = v23;
 
           v24 = MEMORY[0x277CCA980];
-          v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"%f", (v43 - v41)];
+          v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"%f", (v42 - v40)];
           v26 = [v24 decimalNumberWithString:v25];
 
-          v44 = [v26 decimalNumberByDividingBy:v5[2]];
+          v43 = [v26 decimalNumberByDividingBy:v5[2]];
           [*(*(*(a1 + 56) + 8) + 40) addObject:?];
           if (v13 == -1 && [*(*(*(a1 + 56) + 8) + 40) count] >= 3)
           {
-            v42 = v26;
+            v41 = v26;
             v27 = +[FinHealthRecurringHelper rootMeanSquareError:startIndex:arrayLength:](FinHealthRecurringHelper, "rootMeanSquareError:startIndex:arrayLength:", *(*(*(a1 + 56) + 8) + 40), [*(*(*(a1 + 56) + 8) + 40) count] - 3, 3);
             if ([v27 lessThan:v5[3]])
             {
               v28 = [v8 amount];
-              v38 = [*(*(*(a1 + 48) + 8) + 40) amount];
-              v39 = v28;
-              v40 = [v28 decimalNumberBySubtracting:?];
-              if ([v40 isPositive])
+              v37 = [*(*(*(a1 + 48) + 8) + 40) amount];
+              v38 = v28;
+              v39 = [v28 decimalNumberBySubtracting:?];
+              if ([v39 isPositive])
               {
-                v36 = *(*(*(a1 + 72) + 8) + 40);
+                v35 = *(*(*(a1 + 72) + 8) + 40);
                 v29 = MEMORY[0x277CBEA60];
-                v37 = v27;
-                v30 = [[FHSmartCompoundFeatureRankedValue alloc] initWithLabelAndRank:v10 featureRank:v40];
+                v36 = v27;
+                v30 = [[FHSmartCompoundFeatureRankedValue alloc] initWithLabelAndRank:v10 featureRank:v39];
                 v31 = [v29 arrayWithObjects:{v30, 0}];
-                [v36 setObject:v31 forKey:v7];
+                [v35 setObject:v31 forKey:v7];
 
-                v27 = v37;
+                v27 = v36;
               }
 
               v32 = FinHealthLogObject(@"FinHealthCore");
               if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412546;
-                v46 = v7;
-                v47 = 2112;
-                v48 = v40;
+                v45 = v7;
+                v46 = 2112;
+                v47 = v39;
                 _os_log_impl(&dword_226DD4000, v32, OS_LOG_TYPE_DEBUG, "currentTransactionId: %@, changeInAmount: %@", buf, 0x16u);
               }
             }
 
-            v26 = v42;
+            v26 = v41;
           }
         }
       }
@@ -5278,7 +5342,7 @@ LABEL_28:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v46 = "[FHDatabaseManager _getTransactionsMarkedForRecurrChange]_block_invoke";
+      v45 = "[FHDatabaseManager _getTransactionsMarkedForRecurrChange]_block_invoke";
       _os_log_impl(&dword_226DD4000, v7, OS_LOG_TYPE_ERROR, "%s strongSelf is nil", buf, 0xCu);
     }
 
@@ -5287,89 +5351,87 @@ LABEL_28:
 
 LABEL_29:
   dispatch_semaphore_signal(*(a1 + 40));
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)publishEventsToBiome
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2020000000;
-  v34 = 0;
+  v38 = *MEMORY[0x277D85DE8];
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x2020000000;
+  v33 = 0;
   v3 = [(FHDatabaseManager *)self processingTimeForFeature:@"FHProcessingHistoryInstrumentation"];
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __41__FHDatabaseManager_publishEventsToBiome__block_invoke;
-  v30[3] = &unk_2785CB310;
-  v30[4] = &v31;
-  [(FHDatabaseManager *)self streamGenericSQLFetch:v30 predicate:0 sqlFetchQuery:@"select * from features_instrumentation", 0];
-  v4 = v32[3];
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __41__FHDatabaseManager_publishEventsToBiome__block_invoke;
+  v29[3] = &unk_2785CB310;
+  v29[4] = &v30;
+  [(FHDatabaseManager *)self streamGenericSQLFetch:v29 predicate:0 sqlFetchQuery:@"select * from features_instrumentation", 0];
+  v4 = v31[3];
   if (v4)
   {
     v5 = v4 - 2592000;
     v6 = [MEMORY[0x277CCAC30] predicateWithFormat:@"SELF.%K > %lu AND SELF.%K <= %lu", @"tag_click_date", v4 - 2592000, @"tag_click_date", v4];
-    if (v3 != v32[3])
+    if (v3 != v31[3])
     {
       v7 = FinHealthLogObject(@"FinHealthCore");
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
-        v8 = v32[3];
+        v8 = v31[3];
         *buf = 136315650;
         *&buf[4] = "[FHDatabaseManager publishEventsToBiome]";
         *&buf[12] = 2048;
         *&buf[14] = v5;
         *&buf[22] = 2048;
-        v36 = v8;
+        v35 = v8;
         _os_log_impl(&dword_226DD4000, v7, OS_LOG_TYPE_DEBUG, "[%s] starting instrumentation streaming to Biome: leastRecentInstrumentationEntryDate: %lu, mostRecentInstrumentationEntryDate: %lu", buf, 0x20u);
       }
 
-      [(FHDatabaseManager *)self _updateProcessingTimeForFeature:@"FHProcessingHistoryInstrumentation" processingDate:v32[3]];
+      [(FHDatabaseManager *)self _updateProcessingTimeForFeature:@"FHProcessingHistoryInstrumentation" processingDate:v31[3]];
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v36 = __Block_byref_object_copy_;
-      v37 = __Block_byref_object_dispose_;
+      v35 = __Block_byref_object_copy_;
+      v36 = __Block_byref_object_dispose_;
       v9 = BiomeLibrary();
       walletPaymentsCommerce = [v9 WalletPaymentsCommerce];
       financialInsights = [walletPaymentsCommerce FinancialInsights];
       search = [financialInsights Search];
 
-      v28[0] = 0;
-      v28[1] = v28;
-      v28[2] = 0x3032000000;
-      v28[3] = __Block_byref_object_copy_;
-      v28[4] = __Block_byref_object_dispose_;
+      v27[0] = 0;
+      v27[1] = v27;
+      v27[2] = 0x3032000000;
+      v27[3] = __Block_byref_object_copy_;
+      v27[4] = __Block_byref_object_dispose_;
       v12 = BiomeLibrary();
       walletPaymentsCommerce2 = [v12 WalletPaymentsCommerce];
       financialInsights2 = [walletPaymentsCommerce2 FinancialInsights];
       paymentRingSuggestions = [financialInsights2 PaymentRingSuggestions];
 
-      v26[0] = 0;
-      v26[1] = v26;
-      v26[2] = 0x3032000000;
-      v26[3] = __Block_byref_object_copy_;
-      v26[4] = __Block_byref_object_dispose_;
+      v25[0] = 0;
+      v25[1] = v25;
+      v25[2] = 0x3032000000;
+      v25[3] = __Block_byref_object_copy_;
+      v25[4] = __Block_byref_object_dispose_;
       v15 = BiomeLibrary();
       walletPaymentsCommerce3 = [v15 WalletPaymentsCommerce];
       financialInsights3 = [walletPaymentsCommerce3 FinancialInsights];
       recurringSendSuggestions = [financialInsights3 RecurringSendSuggestions];
 
       v18 = [(FHDatabaseManager *)self getAllPeerPaymentSignalsFilterDismissed:0];
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __41__FHDatabaseManager_publishEventsToBiome__block_invoke_341;
-      v21[3] = &unk_2785CB388;
-      v23 = buf;
-      v24 = v28;
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __41__FHDatabaseManager_publishEventsToBiome__block_invoke_341;
+      v20[3] = &unk_2785CB388;
+      v22 = buf;
+      v23 = v27;
       v19 = v18;
-      v22 = v19;
-      v25 = v26;
-      [(FHDatabaseManager *)self streamGenericSQLFetch:v21 predicate:v6 sqlFetchQuery:@"select * from features_instrumentation", 0];
+      v21 = v19;
+      v24 = v25;
+      [(FHDatabaseManager *)self streamGenericSQLFetch:v20 predicate:v6 sqlFetchQuery:@"select * from features_instrumentation", 0];
 
-      _Block_object_dispose(v26, 8);
-      _Block_object_dispose(v28, 8);
+      _Block_object_dispose(v25, 8);
+      _Block_object_dispose(v27, 8);
 
       _Block_object_dispose(buf, 8);
     }
@@ -5386,8 +5448,7 @@ LABEL_29:
     }
   }
 
-  _Block_object_dispose(&v31, 8);
-  v20 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v30, 8);
 }
 
 void __41__FHDatabaseManager_publishEventsToBiome__block_invoke(uint64_t a1, void *a2)
@@ -5418,7 +5479,7 @@ void __41__FHDatabaseManager_publishEventsToBiome__block_invoke(uint64_t a1, voi
 
 void __41__FHDatabaseManager_publishEventsToBiome__block_invoke_341(uint64_t a1, void *a2)
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (v3 && [v3 count] == 8)
@@ -5489,15 +5550,15 @@ void __41__FHDatabaseManager_publishEventsToBiome__block_invoke_341(uint64_t a1,
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x3032000000;
-        v60 = __Block_byref_object_copy_;
-        v61 = __Block_byref_object_dispose_;
-        v62 = [v4 objectAtIndex:5];
-        v54[0] = MEMORY[0x277D85DD0];
-        v54[1] = 3221225472;
-        v54[2] = __41__FHDatabaseManager_publishEventsToBiome__block_invoke_344;
-        v54[3] = &unk_2785CB360;
-        v54[4] = buf;
-        v53 = [MEMORY[0x277CCAC30] predicateWithBlock:v54];
+        v59 = __Block_byref_object_copy_;
+        v60 = __Block_byref_object_dispose_;
+        v61 = [v4 objectAtIndex:5];
+        v53[0] = MEMORY[0x277D85DD0];
+        v53[1] = 3221225472;
+        v53[2] = __41__FHDatabaseManager_publishEventsToBiome__block_invoke_344;
+        v53[3] = &unk_2785CB360;
+        v53[4] = buf;
+        v52 = [MEMORY[0x277CCAC30] predicateWithBlock:v53];
         v28 = [*(a1 + 32) filteredArrayUsingPredicate:?];
         v29 = [MEMORY[0x277CBEAA8] now];
         [v29 timeIntervalSinceReferenceDate];
@@ -5507,7 +5568,7 @@ void __41__FHDatabaseManager_publishEventsToBiome__block_invoke_341(uint64_t a1,
         {
           v32 = [v28 objectAtIndex:0];
           v33 = [v32 periodicCategory];
-          v52 = FHRecurringPeerPaymentPeriodicCategoryTypeFromString(v33);
+          v51 = FHRecurringPeerPaymentPeriodicCategoryTypeFromString(v33);
 
           v34 = [v32 signalDate];
 
@@ -5554,15 +5615,15 @@ void __41__FHDatabaseManager_publishEventsToBiome__block_invoke_341(uint64_t a1,
             v47 = 2;
           }
 
-          v48 = [v46 initWithUserSelection:v41 passType:v39 tagClickDate:v44 frequency:v52 suggestionsRange:v47 dayRange:v37];
+          v48 = [v46 initWithUserSelection:v41 passType:v39 tagClickDate:v44 frequency:v51 suggestionsRange:v47 dayRange:v37];
           v49 = FinHealthLogObject(@"FinHealthCore");
           if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
           {
-            *v55 = 136315394;
-            v56 = "[FHDatabaseManager publishEventsToBiome]_block_invoke_2";
-            v57 = 2112;
-            v58 = v48;
-            _os_log_impl(&dword_226DD4000, v49, OS_LOG_TYPE_DEBUG, "%s FH_BIOME_REPORTING recurring send suggestion event: %@", v55, 0x16u);
+            *v54 = 136315394;
+            v55 = "[FHDatabaseManager publishEventsToBiome]_block_invoke_2";
+            v56 = 2112;
+            v57 = v48;
+            _os_log_impl(&dword_226DD4000, v49, OS_LOG_TYPE_DEBUG, "%s FH_BIOME_REPORTING recurring send suggestion event: %@", v54, 0x16u);
           }
 
           v50 = [*(*(*(a1 + 56) + 8) + 40) source];
@@ -5573,8 +5634,6 @@ void __41__FHDatabaseManager_publishEventsToBiome__block_invoke_341(uint64_t a1,
       }
     }
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __41__FHDatabaseManager_publishEventsToBiome__block_invoke_344(uint64_t a1, void *a2)
@@ -5874,7 +5933,7 @@ void __49__FHDatabaseManager_predictRecurringTransactions__block_invoke(uint64_t
   v7 = v6;
   if (v6)
   {
-    [v6 decimalValue];
+    objc_msgSend_decimalValue(v6);
   }
 
   else
@@ -5908,7 +5967,7 @@ void __49__FHDatabaseManager_predictRecurringTransactions__block_invoke(uint64_t
 
 void __49__FHDatabaseManager_predictRecurringTransactions__block_invoke_2(uint64_t a1, void *a2)
 {
-  v106 = *MEMORY[0x277D85DE8];
+  v105 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 objectAtIndex:1];
   v5 = [v4 stringValue];
@@ -5917,42 +5976,42 @@ void __49__FHDatabaseManager_predictRecurringTransactions__block_invoke_2(uint64
   v7 = [v6 stringValue];
 
   v8 = [v3 objectAtIndex:3];
-  v100 = [v8 integerValue];
+  v99 = [v8 integerValue];
 
   v9 = [*(a1 + 32) objectForKey:v5];
-  v99 = v5;
+  v98 = v5;
   v10 = [*(a1 + 40) getTransactionByIdentifier:v5];
   v11 = [MEMORY[0x277CCA980] numberWithInt:7];
   v12 = [v9 isEqualToNumber:v11];
 
   if (v12)
   {
-    v94 = v3;
+    v93 = v3;
     v13 = [v10 merchantDetailedCategory];
     v14 = [v10 transactionSourceIdentifier];
     v15 = [v10 amount];
     v16 = +[FinHealthRecurringHelper histogramKeysForMerchantDetailedCategoryTransaction:transactionSourceIdentifier:transactionAmount:transactionType:amountFromDatabase:](FinHealthRecurringHelper, "histogramKeysForMerchantDetailedCategoryTransaction:transactionSourceIdentifier:transactionAmount:transactionType:amountFromDatabase:", v13, v14, v15, 0, [v10 amountFromDatabase]);
 
-    v103 = 0u;
-    v104 = 0u;
-    v101 = 0u;
     v102 = 0u;
+    v103 = 0u;
+    v100 = 0u;
+    v101 = 0u;
     v17 = v16;
-    v18 = [v17 countByEnumeratingWithState:&v101 objects:v105 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v100 objects:v104 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v102;
+      v20 = *v101;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v102 != v20)
+          if (*v101 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v22 = *(*(&v101 + 1) + 8 * i);
+          v22 = *(*(&v100 + 1) + 8 * i);
           v23 = [v22 featureLabel];
           if ([v23 isEqualToString:v7])
           {
@@ -5962,13 +6021,13 @@ void __49__FHDatabaseManager_predictRecurringTransactions__block_invoke_2(uint64
           }
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v101 objects:v105 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v100 objects:v104 count:16];
       }
 
       while (v19);
     }
 
-    v3 = v94;
+    v3 = v93;
   }
 
   v25 = [v10 transactionDate];
@@ -5990,7 +6049,7 @@ void __49__FHDatabaseManager_predictRecurringTransactions__block_invoke_2(uint64
     if ([*(*(*(a1 + 48) + 8) + 40) isEqualToString:v7])
     {
       ++*(*(*(a1 + 64) + 8) + 24);
-      *(*(*(a1 + 72) + 8) + 24) += v100 - *(*(*(a1 + 80) + 8) + 24);
+      *(*(*(a1 + 72) + 8) + 24) += v99 - *(*(*(a1 + 80) + 8) + 24);
       v34 = *(*(a1 + 88) + 8);
       v35 = *(v34 + 24);
       if (v35 <= v33)
@@ -6000,7 +6059,7 @@ void __49__FHDatabaseManager_predictRecurringTransactions__block_invoke_2(uint64
 
       *(v34 + 24) = v35;
       v36 = *(*(*(a1 + 96) + 8) + 40);
-      v37 = [MEMORY[0x277CCABB0] numberWithInteger:v100 - *(*(*(a1 + 80) + 8) + 24)];
+      v37 = [MEMORY[0x277CCABB0] numberWithInteger:v99 - *(*(*(a1 + 80) + 8) + 24)];
       [v36 addObject:v37];
       goto LABEL_45;
     }
@@ -6033,12 +6092,12 @@ void __49__FHDatabaseManager_predictRecurringTransactions__block_invoke_2(uint64
     v41 = [*(*(*(a1 + 104) + 8) + 40) integerValue];
     if (v41 > 6)
     {
-      v93 = v31;
+      v92 = v31;
       if (v41 <= 8)
       {
         v42 = v3;
-        v88 = *(*(*(a1 + 88) + 8) + 24);
-        v90 = v37;
+        v87 = *(*(*(a1 + 88) + 8) + 24);
+        v89 = v37;
         if (v41 == 7)
         {
           v43 = 2;
@@ -6054,9 +6113,9 @@ void __49__FHDatabaseManager_predictRecurringTransactions__block_invoke_2(uint64
 
       if (v41 == 9)
       {
-        v90 = v37;
+        v89 = v37;
         v42 = v3;
-        v88 = [v29 amountFromDatabase];
+        v87 = [v29 amountFromDatabase];
         v43 = 4;
         goto LABEL_39;
       }
@@ -6064,11 +6123,11 @@ void __49__FHDatabaseManager_predictRecurringTransactions__block_invoke_2(uint64
       if (v41 == 10)
       {
         v42 = v3;
-        v88 = *(*(*(a1 + 88) + 8) + 24);
-        v90 = v37;
+        v87 = *(*(*(a1 + 88) + 8) + 24);
+        v89 = v37;
         v43 = 3;
 LABEL_39:
-        v83 = v43;
+        v82 = v43;
         v52 = [v29 transactionDate];
         v53 = [v52 dateByAddingTimeInterval:v40];
         v54 = [MEMORY[0x277CBEAA8] date];
@@ -6076,33 +6135,33 @@ LABEL_39:
 
         v56 = v55 == 1;
         v3 = v42;
-        v37 = v90;
-        v31 = v93;
+        v37 = v89;
+        v31 = v92;
         if (!v56)
         {
           goto LABEL_44;
         }
 
-        v82 = *(a1 + 40);
-        v86 = [v29 transactionSourceIdentifier];
+        v81 = *(a1 + 40);
+        v85 = [v29 transactionSourceIdentifier];
         v57 = [v29 displayName];
         v58 = [v29 merchantDetailedCategory];
-        v81 = [v29 transactionType];
+        v80 = [v29 transactionType];
         v59 = [v29 transactionSource];
         [v29 transactionDate];
-        v60 = v97 = v3;
+        v60 = v96 = v3;
         [v60 timeIntervalSinceReferenceDate];
-        v80 = v59;
-        v37 = v90;
-        v49 = v86;
-        v75 = v58;
-        v77 = v88;
-        v89 = v58;
+        v79 = v59;
+        v37 = v89;
+        v49 = v85;
+        v74 = v58;
+        v76 = v87;
+        v88 = v58;
         v46 = v57;
-        [v82 _execute:{@"insert or replace into fh_recurring_predictions (source_identifier, merchant_entity, detailed_category, amount, frequency, transaction_type, transaction_source, forecast_date, forecast_signal_type, heuristic_identifier) values (%@, %@, %@, %d, %f, %d, %d, %f, %d, %@)", v86, v57, v75, v77, *&v40, v81, v80, v40 + v61, v83, *(*(*(a1 + 48) + 8) + 40)}];
+        [v81 _execute:{@"insert or replace into fh_recurring_predictions (source_identifier, merchant_entity, detailed_category, amount, frequency, transaction_type, transaction_source, forecast_date, forecast_signal_type, heuristic_identifier) values (%@, %@, %@, %d, %f, %d, %d, %f, %d, %@)", v85, v57, v74, v76, *&v40, v80, v79, v40 + v61, v82, *(*(*(a1 + 48) + 8) + 40)}];
 
-        v31 = v93;
-        v3 = v97;
+        v31 = v92;
+        v3 = v96;
         goto LABEL_43;
       }
 
@@ -6117,45 +6176,45 @@ LABEL_45:
     switch(v41)
     {
       case 3:
-        v96 = *(a1 + 40);
-        v85 = [v29 transactionSourceIdentifier];
+        v95 = *(a1 + 40);
+        v84 = [v29 transactionSourceIdentifier];
         v46 = [v29 peerPaymentCounterpartHandle];
-        v91 = [v29 amountFromDatabase];
+        v90 = [v29 amountFromDatabase];
         v50 = [v29 peerPaymentType];
-        v89 = [v29 transactionDate];
-        [v89 timeIntervalSinceReferenceDate];
-        v78 = v50;
-        v49 = v85;
-        [v96 _execute:{@"insert or replace into features_peer_payments (source_identifier, peer_pay_counterpart, amount, frequency, peer_pay_type, forecast_date, forecast_signal_type, heuristics_identifier) values (%@, %@, %d, %f, %d, %f, %d, %@)", v85, v46, v91, *&v40, v78, v40 + v51, 3, *(*(*(a1 + 48) + 8) + 40)}];
+        v88 = [v29 transactionDate];
+        [v88 timeIntervalSinceReferenceDate];
+        v77 = v50;
+        v49 = v84;
+        [v95 _execute:{@"insert or replace into features_peer_payments (source_identifier, peer_pay_counterpart, amount, frequency, peer_pay_type, forecast_date, forecast_signal_type, heuristics_identifier) values (%@, %@, %d, %f, %d, %f, %d, %@)", v84, v46, v90, *&v40, v77, v40 + v51, 3, *(*(*(a1 + 48) + 8) + 40)}];
         break;
       case 4:
-        v98 = *(a1 + 40);
-        v87 = [v29 transactionSourceIdentifier];
+        v97 = *(a1 + 40);
+        v86 = [v29 transactionSourceIdentifier];
         v46 = [v29 peerPaymentCounterpartHandle];
-        v92 = v37;
+        v91 = v37;
         v62 = *(*(*(a1 + 88) + 8) + 24);
         v63 = [v29 peerPaymentType];
-        v89 = [v29 transactionDate];
-        [v89 timeIntervalSinceReferenceDate];
-        v79 = v63;
-        v49 = v87;
-        v76 = v62;
-        v37 = v92;
-        [v98 _execute:{@"insert or replace into features_peer_payments (source_identifier, peer_pay_counterpart, amount, frequency, peer_pay_type, forecast_date, forecast_signal_type, heuristics_identifier) values (%@, %@, %d, %f, %d, %f, %d, %@)", v87, v46, v76, *&v40, v79, v40 + v64, 2, *(*(*(a1 + 48) + 8) + 40)}];
+        v88 = [v29 transactionDate];
+        [v88 timeIntervalSinceReferenceDate];
+        v78 = v63;
+        v49 = v86;
+        v75 = v62;
+        v37 = v91;
+        [v97 _execute:{@"insert or replace into features_peer_payments (source_identifier, peer_pay_counterpart, amount, frequency, peer_pay_type, forecast_date, forecast_signal_type, heuristics_identifier) values (%@, %@, %d, %f, %d, %f, %d, %@)", v86, v46, v75, *&v40, v78, v40 + v64, 2, *(*(*(a1 + 48) + 8) + 40)}];
         break;
       case 5:
         v44 = MEMORY[0x277CCACA8];
         v45 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu-%f", objc_msgSend(v29, "amountFromDatabase"), *&v40];
-        v84 = [v44 stringWithFormat:@"%lu", objc_msgSend(v45, "hash")];
+        v83 = [v44 stringWithFormat:@"%lu", objc_msgSend(v45, "hash")];
 
-        v95 = *(a1 + 40);
+        v94 = *(a1 + 40);
         v46 = [v29 transactionSourceIdentifier];
         v47 = [v29 amountFromDatabase];
-        v89 = [v29 transactionDate];
-        [v89 timeIntervalSinceReferenceDate];
-        v74 = v47;
-        v49 = v84;
-        [v95 _execute:{@"insert or replace into features_peer_payments (source_identifier, peer_pay_counterpart, amount, frequency, peer_pay_type, forecast_date, forecast_signal_type, heuristics_identifier) values (%@, %@, %d, %f, %d, %f, %d, %@)", v46, v84, v74, *&v40, 0, v40 + v48, 6, *(*(*(a1 + 48) + 8) + 40)}];
+        v88 = [v29 transactionDate];
+        [v88 timeIntervalSinceReferenceDate];
+        v73 = v47;
+        v49 = v83;
+        [v94 _execute:{@"insert or replace into features_peer_payments (source_identifier, peer_pay_counterpart, amount, frequency, peer_pay_type, forecast_date, forecast_signal_type, heuristics_identifier) values (%@, %@, %d, %f, %d, %f, %d, %@)", v46, v83, v73, *&v40, 0, v40 + v48, 6, *(*(*(a1 + 48) + 8) + 40)}];
         break;
       default:
         goto LABEL_44;
@@ -6171,7 +6230,7 @@ LABEL_46:
   *(v28 + 40) = v7;
   v66 = v7;
 
-  *(*(*(a1 + 80) + 8) + 24) = v100;
+  *(*(*(a1 + 80) + 8) + 24) = v99;
   v67 = *(*(a1 + 104) + 8);
   v68 = *(v67 + 40);
   *(v67 + 40) = v9;
@@ -6179,11 +6238,10 @@ LABEL_46:
 
   v70 = *(*(a1 + 56) + 8);
   v71 = *(v70 + 40);
-  *(v70 + 40) = v99;
-  v72 = v99;
+  *(v70 + 40) = v98;
+  v72 = v98;
 
   *(*(*(a1 + 112) + 8) + 24) = v27;
-  v73 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getFilteredPeerPaymentForecastingSignals
@@ -6196,29 +6254,29 @@ LABEL_46:
 
 - (id)_filterPeriodicCategories:(id)categories
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   categoriesCopy = categories;
-  v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v18 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v5 = categoriesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v21;
+    v8 = *v20;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * i);
+        v10 = *(*(&v19 + 1) + 8 * i);
         v11 = objc_autoreleasePoolPush();
         if ([v10 forecastingType] == 3)
         {
@@ -6230,21 +6288,20 @@ LABEL_46:
 
           if (direction)
           {
-            [v19 addObject:v12];
+            [v18 addObject:v12];
           }
         }
 
         objc_autoreleasePoolPop(v11);
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v7);
   }
 
-  v16 = [v19 copy];
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = [v18 copy];
 
   return v16;
 }
@@ -6252,142 +6309,142 @@ LABEL_46:
 - (id)getAllPeerPaymentSignalsFilterDismissed:(BOOL)dismissed
 {
   dismissedCopy = dismissed;
-  v86 = *MEMORY[0x277D85DE8];
-  v76 = 0;
-  v77 = &v76;
-  v78 = 0x3032000000;
-  v79 = __Block_byref_object_copy_;
-  v80 = __Block_byref_object_dispose_;
-  v81 = objc_opt_new();
+  v85 = *MEMORY[0x277D85DE8];
+  v75 = 0;
+  v76 = &v75;
+  v77 = 0x3032000000;
+  v78 = __Block_byref_object_copy_;
+  v79 = __Block_byref_object_dispose_;
+  v80 = objc_opt_new();
   v5 = objc_opt_new();
   if (dismissedCopy)
   {
-    v69 = 0;
-    v70 = &v69;
-    v71 = 0x2020000000;
-    v72 = 0;
-    v75[0] = MEMORY[0x277D85DD0];
-    v75[1] = 3221225472;
-    v75[2] = __61__FHDatabaseManager_getAllPeerPaymentSignalsFilterDismissed___block_invoke;
-    v75[3] = &unk_2785CB3B0;
-    v75[4] = &v69;
-    v75[5] = &v76;
-    [(FHDatabaseManager *)self streamGenericSQLFetch:v75 predicate:0 sqlFetchQuery:@"select * from features_instrumentation", 0];
-    _Block_object_dispose(&v69, 8);
+    v68 = 0;
+    v69 = &v68;
+    v70 = 0x2020000000;
+    v71 = 0;
+    v74[0] = MEMORY[0x277D85DD0];
+    v74[1] = 3221225472;
+    v74[2] = __61__FHDatabaseManager_getAllPeerPaymentSignalsFilterDismissed___block_invoke;
+    v74[3] = &unk_2785CB3B0;
+    v74[4] = &v68;
+    v74[5] = &v75;
+    [(FHDatabaseManager *)self streamGenericSQLFetch:v74 predicate:0 sqlFetchQuery:@"select * from features_instrumentation", 0];
+    _Block_object_dispose(&v68, 8);
   }
 
-  v69 = 0;
-  v70 = &v69;
-  v71 = 0x3032000000;
-  v72 = __Block_byref_object_copy_;
-  v73 = __Block_byref_object_dispose_;
-  v74 = 0;
-  v63 = 0;
-  v64 = &v63;
-  v65 = 0x3032000000;
-  v66 = __Block_byref_object_copy_;
-  v67 = __Block_byref_object_dispose_;
   v68 = 0;
-  v57 = 0;
-  v58 = &v57;
-  v59 = 0x3032000000;
-  v60 = __Block_byref_object_copy_;
-  v61 = __Block_byref_object_dispose_;
+  v69 = &v68;
+  v70 = 0x3032000000;
+  v71 = __Block_byref_object_copy_;
+  v72 = __Block_byref_object_dispose_;
+  v73 = 0;
   v62 = 0;
-  v51 = 0;
-  v52 = &v51;
-  v53 = 0x3032000000;
-  v54 = __Block_byref_object_copy_;
-  v55 = __Block_byref_object_dispose_;
+  v63 = &v62;
+  v64 = 0x3032000000;
+  v65 = __Block_byref_object_copy_;
+  v66 = __Block_byref_object_dispose_;
+  v67 = 0;
   v56 = 0;
-  v45 = 0;
-  v46 = &v45;
-  v47 = 0x3032000000;
-  v48 = __Block_byref_object_copy_;
-  v49 = __Block_byref_object_dispose_;
+  v57 = &v56;
+  v58 = 0x3032000000;
+  v59 = __Block_byref_object_copy_;
+  v60 = __Block_byref_object_dispose_;
+  v61 = 0;
   v50 = 0;
-  v44[0] = 0;
-  v44[1] = v44;
-  v44[2] = 0x2020000000;
-  v44[3] = 0;
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x2020000000;
-  v43 = 0;
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x2020000000;
+  v51 = &v50;
+  v52 = 0x3032000000;
+  v53 = __Block_byref_object_copy_;
+  v54 = __Block_byref_object_dispose_;
+  v55 = 0;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x3032000000;
+  v47 = __Block_byref_object_copy_;
+  v48 = __Block_byref_object_dispose_;
+  v49 = 0;
+  v43[0] = 0;
+  v43[1] = v43;
+  v43[2] = 0x2020000000;
+  v43[3] = 0;
   v39 = 0;
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy_;
-  v34 = __Block_byref_object_dispose_;
-  v35 = objc_opt_new();
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __61__FHDatabaseManager_getAllPeerPaymentSignalsFilterDismissed___block_invoke_2;
-  v18[3] = &unk_2785CB400;
-  v20 = &v69;
-  v21 = &v30;
-  v22 = &v63;
-  v23 = v44;
-  v24 = &v76;
-  v25 = &v40;
-  v26 = &v51;
-  v27 = &v45;
-  v28 = &v57;
-  v29 = &v36;
+  v40 = &v39;
+  v41 = 0x2020000000;
+  v42 = 0;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x2020000000;
+  v38 = 0;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy_;
+  v33 = __Block_byref_object_dispose_;
+  v34 = objc_opt_new();
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __61__FHDatabaseManager_getAllPeerPaymentSignalsFilterDismissed___block_invoke_2;
+  v17[3] = &unk_2785CB400;
+  v19 = &v68;
+  v20 = &v29;
+  v21 = &v62;
+  v22 = v43;
+  v23 = &v75;
+  v24 = &v39;
+  v25 = &v50;
+  v26 = &v44;
+  v27 = &v56;
+  v28 = &v35;
   v6 = v5;
-  v19 = v6;
-  [(FHDatabaseManager *)self streamGenericSQLFetch:v18 predicate:0 sqlFetchQuery:@"select * from features_peer_payments order by peer_pay_counterpart, amount, frequency, peer_pay_type, forecast_date, forecast_signal_type limit %lu", -1];
-  if (v70[5] && ([v77[5] containsObject:v64[5]] & 1) == 0)
+  v18 = v6;
+  [(FHDatabaseManager *)self streamGenericSQLFetch:v17 predicate:0 sqlFetchQuery:@"select * from features_peer_payments order by peer_pay_counterpart, amount, frequency, peer_pay_type, forecast_date, forecast_signal_type limit %lu", -1];
+  if (v69[5] && ([v76[5] containsObject:v63[5]] & 1) == 0)
   {
-    [v31[5] addObject:v64[5]];
+    [v30[5] addObject:v63[5]];
     v7 = FinHealthLogObject(@"FinHealthCore");
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v8 = v70[5];
-      v9 = v31[5];
+      v8 = v69[5];
+      v9 = v30[5];
       *buf = 138412546;
-      v83 = v8;
-      v84 = 2112;
-      v85 = v9;
+      v82 = v8;
+      v83 = 2112;
+      v84 = v9;
       _os_log_impl(&dword_226DD4000, v7, OS_LOG_TYPE_DEBUG, "heuristicIdentifierSetByPeerPaymentHandleAndAmount %@, %@", buf, 0x16u);
     }
 
-    v10 = v41[3];
+    v10 = v40[3];
     switch(v10)
     {
       case 2:
         v11 = objc_alloc_init(FHPeerPaymentForecastingSignalPerson);
-        [(FHPeerPaymentForecastingSignalPerson *)v11 setPersonId:v70[5]];
-        [(FHPeerPaymentForecastingSignal *)v11 setFrequency:v46[5]];
-        [(FHPeerPaymentForecastingSignal *)v11 setSignalDate:v58[5]];
-        [(FHPeerPaymentForecastingSignalPerson *)v11 setDirection:v37[3]];
-        v14 = [v31[5] copy];
+        [(FHPeerPaymentForecastingSignalPerson *)v11 setPersonId:v69[5]];
+        [(FHPeerPaymentForecastingSignal *)v11 setFrequency:v45[5]];
+        [(FHPeerPaymentForecastingSignal *)v11 setSignalDate:v57[5]];
+        [(FHPeerPaymentForecastingSignalPerson *)v11 setDirection:v36[3]];
+        v14 = [v30[5] copy];
         [(FHPeerPaymentForecastingSignal *)v11 setPeerPaymentHeuristicIds:v14];
 
         [v6 addObject:v11];
         break;
       case 6:
         v11 = objc_alloc_init(FHPeerPaymentForecastingSignalTopUpWithAmount);
-        [(FHPeerPaymentForecastingSignalPersonWithAmount *)v11 setAmount:v52[5]];
-        [(FHPeerPaymentForecastingSignal *)v11 setFrequency:v46[5]];
-        [(FHPeerPaymentForecastingSignal *)v11 setSignalDate:v58[5]];
-        v13 = [v31[5] copy];
+        [(FHPeerPaymentForecastingSignalPersonWithAmount *)v11 setAmount:v51[5]];
+        [(FHPeerPaymentForecastingSignal *)v11 setFrequency:v45[5]];
+        [(FHPeerPaymentForecastingSignal *)v11 setSignalDate:v57[5]];
+        v13 = [v30[5] copy];
         [(FHPeerPaymentForecastingSignal *)v11 setPeerPaymentHeuristicIds:v13];
 
         [v6 addObject:v11];
         break;
       case 3:
         v11 = objc_alloc_init(FHPeerPaymentForecastingSignalPersonWithAmount);
-        [(FHPeerPaymentForecastingSignalPerson *)v11 setPersonId:v70[5]];
-        [(FHPeerPaymentForecastingSignalPersonWithAmount *)v11 setAmount:v52[5]];
-        [(FHPeerPaymentForecastingSignal *)v11 setFrequency:v46[5]];
-        [(FHPeerPaymentForecastingSignal *)v11 setSignalDate:v58[5]];
-        [(FHPeerPaymentForecastingSignalPerson *)v11 setDirection:v37[3]];
-        v12 = [v31[5] copy];
+        [(FHPeerPaymentForecastingSignalPerson *)v11 setPersonId:v69[5]];
+        [(FHPeerPaymentForecastingSignalPersonWithAmount *)v11 setAmount:v51[5]];
+        [(FHPeerPaymentForecastingSignal *)v11 setFrequency:v45[5]];
+        [(FHPeerPaymentForecastingSignal *)v11 setSignalDate:v57[5]];
+        [(FHPeerPaymentForecastingSignalPerson *)v11 setDirection:v36[3]];
+        v12 = [v30[5] copy];
         [(FHPeerPaymentForecastingSignal *)v11 setPeerPaymentHeuristicIds:v12];
 
         [v6 addObject:v11];
@@ -6400,20 +6457,19 @@ LABEL_46:
 LABEL_14:
   v15 = [v6 copy];
 
-  _Block_object_dispose(&v30, 8);
-  _Block_object_dispose(&v36, 8);
-  _Block_object_dispose(&v40, 8);
-  _Block_object_dispose(v44, 8);
-  _Block_object_dispose(&v45, 8);
+  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(v43, 8);
+  _Block_object_dispose(&v44, 8);
 
-  _Block_object_dispose(&v51, 8);
-  _Block_object_dispose(&v57, 8);
+  _Block_object_dispose(&v50, 8);
+  _Block_object_dispose(&v56, 8);
 
-  _Block_object_dispose(&v63, 8);
-  _Block_object_dispose(&v69, 8);
+  _Block_object_dispose(&v62, 8);
+  _Block_object_dispose(&v68, 8);
 
-  _Block_object_dispose(&v76, 8);
-  v16 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v75, 8);
 
   return v15;
 }
@@ -6438,7 +6494,7 @@ void __61__FHDatabaseManager_getAllPeerPaymentSignalsFilterDismissed___block_inv
 
 void __61__FHDatabaseManager_getAllPeerPaymentSignalsFilterDismissed___block_invoke_2(uint64_t a1, void *a2)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v3 = a2;
   context = objc_autoreleasePoolPush();
   v4 = [v3 stringAtIndex:2];
@@ -6446,7 +6502,7 @@ void __61__FHDatabaseManager_getAllPeerPaymentSignalsFilterDismissed___block_inv
   v6 = MEMORY[0x277CBEAA8];
   v7 = [v3 objectAtIndex:6];
   [v7 doubleValue];
-  v40 = [v6 dateWithTimeIntervalSinceReferenceDate:?];
+  v39 = [v6 dateWithTimeIntervalSinceReferenceDate:?];
 
   v8 = [v3 intAtIndex:3];
   v9 = [objc_alloc(MEMORY[0x277CCA980]) initWithInteger:v8];
@@ -6456,7 +6512,7 @@ void __61__FHDatabaseManager_getAllPeerPaymentSignalsFilterDismissed___block_inv
   v12 = objc_alloc(MEMORY[0x277CCA980]);
   v13 = [v3 objectAtIndex:4];
   [v13 doubleValue];
-  v39 = [v12 initWithDouble:?];
+  v38 = [v12 initWithDouble:?];
 
   v14 = [v3 unsignedIntAtIndex:5];
   v15 = [v3 unsignedIntAtIndex:7];
@@ -6471,9 +6527,9 @@ void __61__FHDatabaseManager_getAllPeerPaymentSignalsFilterDismissed___block_inv
         v17 = *(*(*(a1 + 40) + 8) + 40);
         v18 = *(*(*(a1 + 48) + 8) + 40);
         *buf = 138412546;
-        v43 = v17;
-        v44 = 2112;
-        v45 = v18;
+        v42 = v17;
+        v43 = 2112;
+        v44 = v18;
         _os_log_impl(&dword_226DD4000, v16, OS_LOG_TYPE_DEBUG, "heuristicIdentifierByPeerPaymentHandleAndAmount %@, %@", buf, 0x16u);
       }
 
@@ -6528,8 +6584,8 @@ LABEL_16:
 
   v30 = *(*(a1 + 104) + 8);
   v31 = *(v30 + 40);
-  *(v30 + 40) = v40;
-  v32 = v40;
+  *(v30 + 40) = v39;
+  v32 = v39;
 
   *(*(*(a1 + 64) + 8) + 24) = v8;
   v33 = *(*(a1 + 88) + 8);
@@ -6541,39 +6597,38 @@ LABEL_16:
   *(*(*(a1 + 80) + 8) + 24) = v22;
   v36 = *(*(a1 + 96) + 8);
   v37 = *(v36 + 40);
-  *(v36 + 40) = v39;
+  *(v36 + 40) = v38;
 
   objc_autoreleasePoolPop(context);
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getExpectedWeeklySpend
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   zero = [MEMORY[0x277CCA980] zero];
   v4 = [MEMORY[0x277CBEAA8] now];
   [(FHDatabaseManager *)self getAllPeerPaymentSignalsFilterDismissed:0];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
-  v5 = v38 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v5 = v37 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v36;
-    v34 = v5;
+    v8 = *v35;
+    v33 = v5;
     do
     {
       v9 = 0;
       do
       {
-        if (*v36 != v8)
+        if (*v35 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v35 + 1) + 8 * v9);
+        v10 = *(*(&v34 + 1) + 8 * v9);
         v11 = objc_autoreleasePoolPush();
         forecastingType = [v10 forecastingType];
         signalDate = [v10 signalDate];
@@ -6636,7 +6691,7 @@ LABEL_17:
 LABEL_18:
               zero = v19;
 
-              v5 = v34;
+              v5 = v33;
             }
           }
         }
@@ -6646,7 +6701,7 @@ LABEL_18:
       }
 
       while (v7 != v9);
-      v30 = [v5 countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v30 = [v5 countByEnumeratingWithState:&v34 objects:v38 count:16];
       v7 = v30;
     }
 
@@ -6654,13 +6709,12 @@ LABEL_18:
   }
 
   v31 = zero;
-  v32 = *MEMORY[0x277D85DE8];
   return zero;
 }
 
 - (BOOL)recordPeerPaymentForecastingStatus:(unint64_t)status counterpartHandle:(id)handle amount:(id)amount
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   amountCopy = amount;
   v9 = [objc_alloc(MEMORY[0x277CCA980]) initWithInteger:100];
@@ -6676,10 +6730,10 @@ LABEL_18:
     {
       *buf = 134218498;
       statusCopy2 = status;
-      v43 = 2112;
-      v44 = handleCopy;
-      v45 = 2112;
-      v46 = amountCopy;
+      v42 = 2112;
+      v43 = handleCopy;
+      v44 = 2112;
+      v45 = amountCopy;
       _os_log_impl(&dword_226DD4000, v13, OS_LOG_TYPE_DEBUG, "Recurring peer payment setup={FHPeerPaymentSuggestionStatusType: %lu, counterpartHandle: %@, Amount: %@}", buf, 0x20u);
     }
 
@@ -6692,8 +6746,8 @@ LABEL_18:
     {
       *buf = 134218242;
       statusCopy2 = status;
-      v43 = 2112;
-      v44 = amountCopy;
+      v42 = 2112;
+      v43 = amountCopy;
       _os_log_impl(&dword_226DD4000, v13, OS_LOG_TYPE_DEBUG, "Threshold based top up setup={FHPeerPaymentSuggestionStatusType: %lu, Amount: %@}", buf, 0x16u);
     }
 
@@ -6712,27 +6766,27 @@ LABEL_18:
   }
 
   v19 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   obj = v17;
-  v20 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+  v20 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
   if (v20)
   {
     v21 = v20;
-    v32 = amountCopy;
-    v34 = *v37;
+    v31 = amountCopy;
+    v33 = *v36;
     while (2)
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v37 != v34)
+        if (*v36 != v33)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = *(*(&v36 + 1) + 8 * i);
+        v23 = *(*(&v35 + 1) + 8 * i);
         [v19 removeAllObjects];
         v24 = [MEMORY[0x277CCABB0] numberWithInteger:3];
         [v19 setObject:v24 forKey:@"TagType"];
@@ -6756,7 +6810,7 @@ LABEL_18:
         }
       }
 
-      v21 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v21 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
       if (v21)
       {
         continue;
@@ -6767,7 +6821,7 @@ LABEL_18:
 
     v29 = 1;
 LABEL_20:
-    amountCopy = v32;
+    amountCopy = v31;
   }
 
   else
@@ -6775,7 +6829,6 @@ LABEL_20:
     v29 = 1;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
@@ -6896,25 +6949,25 @@ void __34__FHDatabaseManager_getFHAccounts__block_invoke(uint64_t a1, void *a2)
 
 - (BOOL)updatePeerPaymentAccountBalance:(id)balance amount:(id)amount currencyCode:(id)code
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   balanceCopy = balance;
   amountCopy = amount;
   codeCopy = code;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
-  v28 = -1;
-  v24[0] = 0;
-  v24[1] = v24;
-  v24[2] = 0x2020000000;
-  v24[3] = 0;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __73__FHDatabaseManager_updatePeerPaymentAccountBalance_amount_currencyCode___block_invoke;
-  v23[3] = &unk_2785CB3B0;
-  v23[4] = v24;
-  v23[5] = &v25;
-  [(FHDatabaseManager *)self streamGenericSQLFetch:v23 predicate:0 sqlFetchQuery:@"select * from fh_account_information", 0];
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = -1;
+  v23[0] = 0;
+  v23[1] = v23;
+  v23[2] = 0x2020000000;
+  v23[3] = 0;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __73__FHDatabaseManager_updatePeerPaymentAccountBalance_amount_currencyCode___block_invoke;
+  v22[3] = &unk_2785CB3B0;
+  v22[4] = v23;
+  v22[5] = &v24;
+  [(FHDatabaseManager *)self streamGenericSQLFetch:v22 predicate:0 sqlFetchQuery:@"select * from fh_account_information", 0];
   v11 = [MEMORY[0x277CBEAA8] now];
   [v11 timeIntervalSinceReferenceDate];
   v13 = v12;
@@ -6922,8 +6975,8 @@ void __34__FHDatabaseManager_getFHAccounts__block_invoke(uint64_t a1, void *a2)
   defaultDatabaseAmountMultiplier = [MEMORY[0x277CCA980] defaultDatabaseAmountMultiplier];
   v15 = [amountCopy decimalNumberByMultiplyingBy:defaultDatabaseAmountMultiplier];
 
-  LODWORD(defaultDatabaseAmountMultiplier) = *(v26 + 6);
-  if (defaultDatabaseAmountMultiplier != [v15 intValue] || *(v26 + 6) == -1)
+  LODWORD(defaultDatabaseAmountMultiplier) = *(v25 + 6);
+  if (defaultDatabaseAmountMultiplier != [v15 intValue] || *(v25 + 6) == -1)
   {
     v16 = [(FHDatabaseManager *)self _execute:@"insert or replace into fh_account_information (source_identifier, account_type, account_balance, account_currency_code, account_date) values (%@, %d, %@, %@, %d)", balanceCopy, 1, v15, codeCopy, v13];
     if (v16)
@@ -6932,11 +6985,11 @@ void __34__FHDatabaseManager_getFHAccounts__block_invoke(uint64_t a1, void *a2)
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412802;
-        v30 = v15;
-        v31 = 2112;
-        v32 = codeCopy;
-        v33 = 2112;
-        v34 = balanceCopy;
+        v29 = v15;
+        v30 = 2112;
+        v31 = codeCopy;
+        v32 = 2112;
+        v33 = balanceCopy;
         v18 = "Updating balance of %@ %@ for transactionSourceIdentifier=%@ in fh_acount_information database table: success";
         v19 = v17;
         v20 = OS_LOG_TYPE_DEBUG;
@@ -6951,11 +7004,11 @@ LABEL_9:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
-        v30 = v15;
-        v31 = 2112;
-        v32 = codeCopy;
-        v33 = 2112;
-        v34 = balanceCopy;
+        v29 = v15;
+        v30 = 2112;
+        v31 = codeCopy;
+        v32 = 2112;
+        v33 = balanceCopy;
         v18 = "Updating balance of %@ %@ for transactionSourceIdentifier=%@ in fh_acount_information database table: failed";
         v19 = v17;
         v20 = OS_LOG_TYPE_ERROR;
@@ -6969,10 +7022,9 @@ LABEL_9:
   LOBYTE(v16) = 1;
 LABEL_11:
 
-  _Block_object_dispose(v24, 8);
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(v23, 8);
+  _Block_object_dispose(&v24, 8);
 
-  v21 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -7053,7 +7105,7 @@ void __42__FHDatabaseManager_getCurrentCashBalance__block_invoke(uint64_t a1, vo
 
 void __43__FHDatabaseManager_computePaymentFeatures__block_invoke(uint64_t a1, void *a2)
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 objectAtIndex:1];
   v5 = [v3 objectAtIndex:3];
@@ -7069,8 +7121,8 @@ void __43__FHDatabaseManager_computePaymentFeatures__block_invoke(uint64_t a1, v
   else
   {
     v10 = MEMORY[0x277CBEB98];
-    v20[0] = @"FHSmartFeatureAggregateTypeRecentPayment";
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+    v19[0] = @"FHSmartFeatureAggregateTypeRecentPayment";
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
     v9 = [v10 setWithArray:v11];
   }
 
@@ -7081,30 +7133,28 @@ void __43__FHDatabaseManager_computePaymentFeatures__block_invoke(uint64_t a1, v
   {
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      *v19 = 0;
+      *v18 = 0;
       v15 = "Insert Payment Features : succeess";
       v16 = v14;
       v17 = OS_LOG_TYPE_DEBUG;
 LABEL_10:
-      _os_log_impl(&dword_226DD4000, v16, v17, v15, v19, 2u);
+      _os_log_impl(&dword_226DD4000, v16, v17, v15, v18, 2u);
     }
   }
 
   else if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
-    *v19 = 0;
+    *v18 = 0;
     v15 = "Insert Payment Features : failed";
     v16 = v14;
     v17 = OS_LOG_TYPE_ERROR;
     goto LABEL_10;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_computePaymentFeaturesForTransaction:(id)transaction
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   v5 = objc_alloc(MEMORY[0x277CBEA80]);
   v6 = [v5 initWithCalendarIdentifier:*MEMORY[0x277CBE5C0]];
@@ -7117,42 +7167,41 @@ LABEL_10:
     goto LABEL_5;
   }
 
-  v15 = MEMORY[0x277CBEB98];
-  v26[0] = @"FHSmartFeatureAggregateTypeRecentPayment";
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
-  v12 = [v15 setWithArray:v16];
+  v14 = MEMORY[0x277CBEB98];
+  v25[0] = @"FHSmartFeatureAggregateTypeRecentPayment";
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+  v12 = [v14 setWithArray:v15];
 
   financeTransactionIdentifier = [transactionCopy financeTransactionIdentifier];
-  v18 = [(FHDatabaseManager *)self _insertOrUpdateTransactionFeatures:v12 compoundFeatures:0 transactionID:identifier financeTransactionID:financeTransactionIdentifier];
+  v17 = [(FHDatabaseManager *)self _insertOrUpdateTransactionFeatures:v12 compoundFeatures:0 transactionID:identifier financeTransactionID:financeTransactionIdentifier];
 
-  v19 = FinHealthLogObject(@"FinHealthCore");
-  v20 = v19;
-  if (v18)
+  v18 = FinHealthLogObject(@"FinHealthCore");
+  v19 = v18;
+  if (v17)
   {
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      v24 = 138412290;
-      v25 = identifier;
-      v21 = "Insert Payment Features for transaction id %@:  success";
-      v22 = v20;
-      v23 = OS_LOG_TYPE_DEBUG;
+      v23 = 138412290;
+      v24 = identifier;
+      v20 = "Insert Payment Features for transaction id %@:  success";
+      v21 = v19;
+      v22 = OS_LOG_TYPE_DEBUG;
 LABEL_13:
-      _os_log_impl(&dword_226DD4000, v22, v23, v21, &v24, 0xCu);
+      _os_log_impl(&dword_226DD4000, v21, v22, v20, &v23, 0xCu);
     }
   }
 
-  else if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
-    v24 = 138412290;
-    v25 = identifier;
-    v21 = "Insert Payment Features for transaction id %@: failed";
-    v22 = v20;
-    v23 = OS_LOG_TYPE_ERROR;
+    v23 = 138412290;
+    v24 = identifier;
+    v20 = "Insert Payment Features for transaction id %@: failed";
+    v21 = v19;
+    v22 = OS_LOG_TYPE_ERROR;
     goto LABEL_13;
   }
 
 LABEL_5:
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -7177,7 +7226,7 @@ void __75__FHDatabaseManager_computeAndPersistDisputeFeaturesForPendingTransacti
 
 - (id)_computeDisputeFeaturesForTransaction:(id)transaction
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   v5 = [(FHDatabaseManager *)self _getDisputeFeaturesForTransaction:transactionCopy];
   v6 = v5;
@@ -7193,28 +7242,26 @@ void __75__FHDatabaseManager_computeAndPersistDisputeFeaturesForPendingTransacti
     {
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        v17 = 138412290;
-        v18 = identifier;
+        v16 = 138412290;
+        v17 = identifier;
         v12 = "computeDisputeFeaturesForTransaction: _insertOrUpdateTransactionFeatures success for transactionID %@ ";
         v13 = v11;
         v14 = OS_LOG_TYPE_DEBUG;
 LABEL_8:
-        _os_log_impl(&dword_226DD4000, v13, v14, v12, &v17, 0xCu);
+        _os_log_impl(&dword_226DD4000, v13, v14, v12, &v16, 0xCu);
       }
     }
 
     else if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v17 = 138412290;
-      v18 = identifier;
+      v16 = 138412290;
+      v17 = identifier;
       v12 = "computeDisputeFeaturesForTransaction: _insertOrUpdateTransactionFeatures fails for transactionID %@";
       v13 = v11;
       v14 = OS_LOG_TYPE_ERROR;
       goto LABEL_8;
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -7273,126 +7320,125 @@ uint64_t __55__FHDatabaseManager__getDisputeFeaturesForTransaction___block_invok
 
 - (id)computeAndPersistTransactionGroupings
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
-  v21[0] = 0;
-  v21[1] = v21;
-  v21[2] = 0x3032000000;
-  v21[3] = __Block_byref_object_copy_;
-  v21[4] = __Block_byref_object_dispose_;
-  v22 = 0;
+  v20[0] = 0;
+  v20[1] = v20;
+  v20[2] = 0x3032000000;
+  v20[3] = __Block_byref_object_copy_;
+  v20[4] = __Block_byref_object_dispose_;
+  v21 = 0;
   v4 = objc_alloc(MEMORY[0x277CD89D8]);
-  v23[0] = *MEMORY[0x277CD8978];
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+  v22[0] = *MEMORY[0x277CD8978];
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
   v6 = [v4 initWithTagSchemes:v5];
 
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy_;
-  v19 = __Block_byref_object_dispose_;
-  v20 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __58__FHDatabaseManager_computeAndPersistTransactionGroupings__block_invoke;
-  v11[3] = &unk_2785CB478;
-  v11[4] = self;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy_;
+  v18 = __Block_byref_object_dispose_;
+  v19 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __58__FHDatabaseManager_computeAndPersistTransactionGroupings__block_invoke;
+  v10[3] = &unk_2785CB478;
+  v10[4] = self;
   v7 = v6;
-  v12 = v7;
-  v13 = v21;
-  v14 = &v15;
-  [(FHDatabaseManager *)self streamGenericSQLFetch:v11 predicate:0 sqlFetchQuery:@"select t_identifier, processed_description from fts_transactions where a_type == %d AND processed_description IS NOT NULL order by t_date asc", 4];
-  v8 = [v16[5] copy];
+  v11 = v7;
+  v12 = v20;
+  v13 = &v14;
+  [(FHDatabaseManager *)self streamGenericSQLFetch:v10 predicate:0 sqlFetchQuery:@"select t_identifier, processed_description from fts_transactions where a_type == %d AND processed_description IS NOT NULL order by t_date asc", 4];
+  v8 = [v15[5] copy];
 
-  _Block_object_dispose(&v15, 8);
-  _Block_object_dispose(v21, 8);
+  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(v20, 8);
 
   objc_autoreleasePoolPop(v3);
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 void __58__FHDatabaseManager_computeAndPersistTransactionGroupings__block_invoke(uint64_t a1, void *a2)
 {
-  v143[3] = *MEMORY[0x277D85DE8];
+  v142[3] = *MEMORY[0x277D85DE8];
   v2 = a2;
   context = objc_autoreleasePoolPush();
-  v96 = v2;
-  v97 = [v2 objectAtIndex:0];
-  v98 = [*(a1 + 32) _lockFreeFetch:v97];
-  v3 = v98;
-  if (([v98 next] & 1) == 0)
+  v95 = v2;
+  v96 = [v2 objectAtIndex:0];
+  v97 = [*(a1 + 32) _lockFreeFetch:v96];
+  v3 = v97;
+  if (([v97 next] & 1) == 0)
   {
-    v4 = [v96 objectAtIndex:1];
+    v4 = [v95 objectAtIndex:1];
     v5 = [v4 stringValue];
 
     v6 = [v5 stringByReplacingOccurrencesOfString:@"'" withString:@"''"];
 
-    v124 = 0;
-    v125 = &v124;
-    v126 = 0x3032000000;
-    v127 = __Block_byref_object_copy_;
-    v128 = __Block_byref_object_dispose_;
-    v129 = objc_alloc_init(MEMORY[0x277CBEA60]);
+    v123 = 0;
+    v124 = &v123;
+    v125 = 0x3032000000;
+    v126 = __Block_byref_object_copy_;
+    v127 = __Block_byref_object_dispose_;
+    v128 = objc_alloc_init(MEMORY[0x277CBEA60]);
     [*(a1 + 40) setString:v6];
     v7 = *(a1 + 40);
     v8 = [v6 length];
     v9 = *MEMORY[0x277CD8978];
-    v121[0] = MEMORY[0x277D85DD0];
-    v121[1] = 3221225472;
-    v121[2] = __58__FHDatabaseManager_computeAndPersistTransactionGroupings__block_invoke_2;
-    v121[3] = &unk_2785CB450;
-    v90 = v6;
-    v122 = v90;
-    v123 = &v124;
-    [v7 enumerateTagsInRange:0 unit:v8 scheme:0 options:v9 usingBlock:{46, v121}];
+    v120[0] = MEMORY[0x277D85DD0];
+    v120[1] = 3221225472;
+    v120[2] = __58__FHDatabaseManager_computeAndPersistTransactionGroupings__block_invoke_2;
+    v120[3] = &unk_2785CB450;
+    v89 = v6;
+    v121 = v89;
+    v122 = &v123;
+    [v7 enumerateTagsInRange:0 unit:v8 scheme:0 options:v9 usingBlock:{46, v120}];
     v10 = MEMORY[0x277CCACA8];
-    v11 = [v125[5] componentsJoinedByString:@" OR "];
-    v93 = [v10 stringWithFormat:@"%@", v11];
+    v11 = [v124[5] componentsJoinedByString:@" OR "];
+    v92 = [v10 stringWithFormat:@"%@", v11];
 
     v12 = MEMORY[0x277CCACA8];
-    v13 = [v125[5] componentsJoinedByString:@" "];
-    v92 = [v12 stringWithFormat:@"%@", v13];
+    v13 = [v124[5] componentsJoinedByString:@" "];
+    v91 = [v12 stringWithFormat:@"%@", v13];
 
-    v91 = [MEMORY[0x277CCACA8] stringWithFormat:@"    SELECT         txns.t_identifier, txns.t_description, txns.t_date, txns.t_amount, txns.a_type, txns.proprietary_bank_transaction_issuer, txns.proprietary_bank_transaction_code, accs.account_category, txns.t_type, txns.t_currencycode, fts.rank     FROM         fts_transactions fts         INNER JOIN transactions txns ON fts.t_identifier = txns.t_identifier         LEFT JOIN fh_account_information accs ON txns.t_source_identifier = accs.source_identifier     WHERE         fts_transactions match '^%@'         AND fts.a_type == %d     UNION     SELECT         txns.t_identifier, txns.t_description, txns.t_date, txns.t_amount, txns.a_type, txns.proprietary_bank_transaction_issuer, txns.proprietary_bank_transaction_code, accs.account_category, txns.t_type, txns.t_currencycode, fts.rank     FROM         fts_transactions fts         INNER JOIN transactions txns ON fts.t_identifier = txns.t_identifier         LEFT JOIN fh_account_information accs ON txns.t_source_identifier = accs.source_identifier     WHERE         fts_transactions match '%@' AND rank < %f         AND fts.a_type == %d     ORDER BY txns.t_date ASC", v92, 4, v93, 0xC024000000000000, 4];;
-    v99 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v101 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v90 = [MEMORY[0x277CCACA8] stringWithFormat:@"    SELECT         txns.t_identifier, txns.t_description, txns.t_date, txns.t_amount, txns.a_type, txns.proprietary_bank_transaction_issuer, txns.proprietary_bank_transaction_code, accs.account_category, txns.t_type, txns.t_currencycode, fts.rank     FROM         fts_transactions fts         INNER JOIN transactions txns ON fts.t_identifier = txns.t_identifier         LEFT JOIN fh_account_information accs ON txns.t_source_identifier = accs.source_identifier     WHERE         fts_transactions match '^%@'         AND fts.a_type == %d     UNION     SELECT         txns.t_identifier, txns.t_description, txns.t_date, txns.t_amount, txns.a_type, txns.proprietary_bank_transaction_issuer, txns.proprietary_bank_transaction_code, accs.account_category, txns.t_type, txns.t_currencycode, fts.rank     FROM         fts_transactions fts         INNER JOIN transactions txns ON fts.t_identifier = txns.t_identifier         LEFT JOIN fh_account_information accs ON txns.t_source_identifier = accs.source_identifier     WHERE         fts_transactions match '%@' AND rank < %f         AND fts.a_type == %d     ORDER BY txns.t_date ASC", v91, 4, v92, 0xC024000000000000, 4];;
+    v98 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v100 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v105 = [*(a1 + 32) _lockFreeFetch:v91];
-    v102 = objc_alloc_init(MEMORY[0x277CCACA8]);
-    v103 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    while ([v105 next])
+    v99 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v104 = [*(a1 + 32) _lockFreeFetch:v90];
+    v101 = objc_alloc_init(MEMORY[0x277CCACA8]);
+    v102 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    while ([v104 next])
     {
-      v14 = [v105 stringAtIndex:0];
+      v14 = [v104 stringAtIndex:0];
       v15 = [*(a1 + 32) _lockFreeFetch:{@"select group_id, group_type from fh_grouping where t_identifier == %@", v14}];
-      v106 = [v105 stringAtIndex:1];
-      v16 = [v105 integerAtIndex:2];
-      [v105 doubleAtIndex:3];
+      v105 = [v104 stringAtIndex:1];
+      v16 = [v104 integerAtIndex:2];
+      [v104 doubleAtIndex:3];
       v18 = v17;
-      v19 = [v105 integerAtIndex:4];
-      obj = [v105 stringAtIndex:5];
-      v111 = [v105 stringAtIndex:6];
-      v20 = [v105 integerAtIndex:7];
-      v21 = [v105 integerAtIndex:8];
-      v109 = [v105 stringAtIndex:9];
-      [v105 doubleAtIndex:10];
+      v19 = [v104 integerAtIndex:4];
+      obj = [v104 stringAtIndex:5];
+      v110 = [v104 stringAtIndex:6];
+      v20 = [v104 integerAtIndex:7];
+      v21 = [v104 integerAtIndex:8];
+      v108 = [v104 stringAtIndex:9];
+      [v104 doubleAtIndex:10];
       v23 = v22;
       v24 = [MEMORY[0x277CCABB0] numberWithDouble:?];
-      v143[0] = v24;
+      v142[0] = v24;
       v25 = v18 / 100.0;
       v26 = [MEMORY[0x277CCABB0] numberWithDouble:v25];
-      v143[1] = v26;
+      v142[1] = v26;
       v27 = [MEMORY[0x277CCABB0] numberWithInteger:v16];
-      v143[2] = v27;
-      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v143 count:3];
+      v142[2] = v27;
+      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v142 count:3];
 
-      v29 = checkIfIncomeCandidate(v19, v20, obj, v111, v21, v109, v25);
+      v29 = checkIfIncomeCandidate(v19, v20, obj, v110, v21, v108, v25);
       if ([v15 next])
       {
         v30 = [v15 stringAtIndex:0];
         v31 = [v15 intAtIndex:1];
-        v32 = [v103 objectForKey:v30];
+        v32 = [v102 objectForKey:v30];
         v33 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v16];
         if (v32)
         {
@@ -7402,152 +7448,152 @@ void __58__FHDatabaseManager_computeAndPersistTransactionGroupings__block_invoke
 
         else
         {
-          v142 = v14;
-          v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v142 count:1];
+          v141 = v14;
+          v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v141 count:1];
           v37 = [objc_alloc(MEMORY[0x277CCA980]) initWithDouble:v23];
           v32 = [[FHTransactionAdditiveGroup alloc] initWithAggSimilarityScore:v37 latestTransactionDate:v33 groupIdentifier:v30 transactionIds:v36 groupingMethod:v31 creditDebitType:0 category:0];
         }
 
-        [v103 setObject:v32 forKey:v30];
+        [v102 setObject:v32 forKey:v30];
       }
 
       else
       {
         if (v29)
         {
-          [v100 setObject:v28 forKey:v14];
-          [v99 addObject:v106];
+          [v99 setObject:v28 forKey:v14];
+          [v98 addObject:v105];
         }
 
         v34 = [objc_alloc(MEMORY[0x277CCA980]) initWithDouble:v23];
-        [v101 setObject:v34 forKey:v14];
+        [v100 setObject:v34 forKey:v14];
 
-        v30 = v102;
-        if ([v101 count] == 1)
+        v30 = v101;
+        if ([v100 count] == 1)
         {
           v35 = v14;
         }
 
         else
         {
-          v35 = v102;
+          v35 = v101;
         }
 
-        v102 = v35;
+        v101 = v35;
       }
 
       [v15 close];
     }
 
-    [v105 close];
-    v112 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", objc_msgSend(v102, "hash")];
-    v94 = [*(a1 + 32) sortGroupsByMode:v103];
-    if ([v94 count])
+    [v104 close];
+    v111 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", objc_msgSend(v101, "hash")];
+    v93 = [*(a1 + 32) sortGroupsByMode:v102];
+    if ([v93 count])
     {
-      v38 = [v94 objectAtIndex:0];
+      v38 = [v93 objectAtIndex:0];
 
-      v39 = [v103 objectForKey:v38];
+      v39 = [v102 objectForKey:v38];
       v40 = [v39 groupingMethod];
-      v89 = v39;
+      v88 = v39;
       if (v40 == 3 || v40 == 6)
       {
         v40 = 6;
       }
 
-      v110 = v40;
-      v88 = [MEMORY[0x277CCACA8] stringWithFormat:@"select fh_grouping.t_identifier, transactions.t_description, transactions.t_date, transactions.t_amount, transactions.a_type, transactions.proprietary_bank_transaction_issuer, transactions.proprietary_bank_transaction_code, accs.account_category, transactions.t_type, transactions.t_currencycode from fh_grouping INNER JOIN transactions ON fh_grouping.t_identifier == transactions.t_identifier LEFT JOIN fh_account_information accs ON transactions.t_source_identifier == accs.source_identifier where fh_grouping.group_id == '%@'", v38];
+      v109 = v40;
+      v87 = [MEMORY[0x277CCACA8] stringWithFormat:@"select fh_grouping.t_identifier, transactions.t_description, transactions.t_date, transactions.t_amount, transactions.a_type, transactions.proprietary_bank_transaction_issuer, transactions.proprietary_bank_transaction_code, accs.account_category, transactions.t_type, transactions.t_currencycode from fh_grouping INNER JOIN transactions ON fh_grouping.t_identifier == transactions.t_identifier LEFT JOIN fh_account_information accs ON transactions.t_source_identifier == accs.source_identifier where fh_grouping.group_id == '%@'", v38];
       v41 = [*(a1 + 32) _lockFreeFetch:?];
       while ([v41 next])
       {
-        v113 = [v41 stringAtIndex:0];
-        v107 = [v41 stringAtIndex:1];
+        v112 = [v41 stringAtIndex:0];
+        v106 = [v41 stringAtIndex:1];
         v42 = [v41 integerAtIndex:2];
         [v41 doubleAtIndex:3];
         v44 = v43;
-        v104 = [v41 integerAtIndex:4];
+        v103 = [v41 integerAtIndex:4];
         obja = [v41 stringAtIndex:5];
         v45 = [v41 stringAtIndex:6];
         v46 = [v41 integerAtIndex:7];
         v47 = [v41 integerAtIndex:8];
         v48 = [v41 stringAtIndex:9];
         v49 = [MEMORY[0x277CCABB0] numberWithDouble:0.0];
-        v141[0] = v49;
+        v140[0] = v49;
         v50 = v44 / 100.0;
         v51 = [MEMORY[0x277CCABB0] numberWithDouble:v50];
-        v141[1] = v51;
+        v140[1] = v51;
         v52 = [MEMORY[0x277CCABB0] numberWithInteger:v42];
-        v141[2] = v52;
-        v53 = [MEMORY[0x277CBEA60] arrayWithObjects:v141 count:3];
+        v140[2] = v52;
+        v53 = [MEMORY[0x277CBEA60] arrayWithObjects:v140 count:3];
 
-        if (checkIfIncomeCandidate(v104, v46, obja, v45, v47, v48, v50))
+        if (checkIfIncomeCandidate(v103, v46, obja, v45, v47, v48, v50))
         {
-          [v100 setObject:v53 forKey:v113];
-          [v99 addObject:v107];
+          [v99 setObject:v53 forKey:v112];
+          [v98 addObject:v106];
         }
       }
 
       [v41 close];
 
-      v112 = v38;
+      v111 = v38;
     }
 
     else
     {
-      v110 = 3;
+      v109 = 3;
     }
 
-    v119 = 0u;
-    v120 = 0u;
-    v117 = 0u;
     v118 = 0u;
-    objb = v101;
-    v54 = [objb countByEnumeratingWithState:&v117 objects:v140 count:16];
+    v119 = 0u;
+    v116 = 0u;
+    v117 = 0u;
+    objb = v100;
+    v54 = [objb countByEnumeratingWithState:&v116 objects:v139 count:16];
     if (v54)
     {
-      v55 = *v118;
+      v55 = *v117;
       do
       {
         for (i = 0; i != v54; ++i)
         {
-          if (*v118 != v55)
+          if (*v117 != v55)
           {
             objc_enumerationMutation(objb);
           }
 
-          v57 = *(*(&v117 + 1) + 8 * i);
+          v57 = *(*(&v116 + 1) + 8 * i);
           v58 = FinHealthLogObject(@"FinHealthCore");
           if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
           {
             v59 = [objb objectForKey:v57];
             v60 = [v59 stringValue];
             *buf = 136316162;
-            v131 = "[FHDatabaseManager computeAndPersistTransactionGroupings]_block_invoke";
-            v132 = 2112;
-            v133 = v112;
-            v134 = 2112;
-            v135 = v57;
-            v136 = 2112;
-            v137 = v60;
-            v138 = 2048;
-            v139 = v110;
+            v130 = "[FHDatabaseManager computeAndPersistTransactionGroupings]_block_invoke";
+            v131 = 2112;
+            v132 = v111;
+            v133 = 2112;
+            v134 = v57;
+            v135 = 2112;
+            v136 = v60;
+            v137 = 2048;
+            v138 = v109;
             _os_log_impl(&dword_226DD4000, v58, OS_LOG_TYPE_DEBUG, "%s Group: groupId %@ transactionId %@ similarityScore %@ GroupMethod %lu", buf, 0x34u);
           }
 
           v61 = MEMORY[0x277CCACA8];
           v62 = [objb objectForKey:v57];
           v63 = [v62 stringValue];
-          v64 = [v61 stringWithFormat:@"insert or replace into fh_grouping (t_identifier, group_id, similarity_score, group_type) values ('%@', '%@', %@, %d)", v57, v112, v63, v110];
+          v64 = [v61 stringWithFormat:@"insert or replace into fh_grouping (t_identifier, group_id, similarity_score, group_type) values ('%@', '%@', %@, %d)", v57, v111, v63, v109];
 
           [*(a1 + 32) _execute:v64];
         }
 
-        v54 = [objb countByEnumeratingWithState:&v117 objects:v140 count:16];
+        v54 = [objb countByEnumeratingWithState:&v116 objects:v139 count:16];
       }
 
       while (v54);
     }
 
-    if (_os_feature_enabled_impl() && [v100 count])
+    if (_os_feature_enabled_impl() && [v99 count])
     {
       v65 = a1;
       v66 = *(*(*(a1 + 48) + 8) + 40);
@@ -7571,10 +7617,10 @@ void __58__FHDatabaseManager_computeAndPersistTransactionGroupings__block_invoke
       }
 
       v76 = *(v65 + 32);
-      v77 = [v100 copy];
-      v78 = [v99 copy];
+      v77 = [v99 copy];
+      v78 = [v98 copy];
       v79 = [FinHealthIncomeClassifier generateFeatures:v77 withDescriptions:v78];
-      v80 = [v76 _predictAndPersistIncomeClassification:v66 dataId:v112 dataType:2 features:v79];
+      v80 = [v76 _predictAndPersistIncomeClassification:v66 dataId:v111 dataType:2 features:v79];
 
       if (v80)
       {
@@ -7593,19 +7639,18 @@ void __58__FHDatabaseManager_computeAndPersistTransactionGroupings__block_invoke
         v84 = v83;
 
         v85 = *(*(*(a1 + 56) + 8) + 40);
-        v86 = [v84 setByAddingObject:v112];
+        v86 = [v84 setByAddingObject:v111];
         [v85 setObject:v86 forKey:@"INCOME-INSIGHTS"];
       }
     }
 
-    _Block_object_dispose(&v124, 8);
-    v3 = v98;
+    _Block_object_dispose(&v123, 8);
+    v3 = v97;
   }
 
   [v3 close];
 
   objc_autoreleasePoolPop(context);
-  v87 = *MEMORY[0x277D85DE8];
 }
 
 void __58__FHDatabaseManager_computeAndPersistTransactionGroupings__block_invoke_2(uint64_t a1)
@@ -7619,15 +7664,15 @@ void __58__FHDatabaseManager_computeAndPersistTransactionGroupings__block_invoke
 
 - (BOOL)groupingSchemaUpdate
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCA980] decimalNumberWithString:@"1.3"];
   v4 = [(FHDatabaseManager *)self processingDataForFeature:@"FHProcessingHistoryGrouping"];
   v5 = FinHealthLogObject(@"FinHealthCore");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v15 = 138412290;
-    v16 = v4;
-    _os_log_impl(&dword_226DD4000, v5, OS_LOG_TYPE_DEBUG, "Current Grouping Version: %@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = v4;
+    _os_log_impl(&dword_226DD4000, v5, OS_LOG_TYPE_DEBUG, "Current Grouping Version: %@", &v14, 0xCu);
   }
 
   if (v4 && ([MEMORY[0x277CCA980] decimalNumberWithString:v4], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "lessThan:", v3), v6, !v7))
@@ -7640,9 +7685,9 @@ void __58__FHDatabaseManager_computeAndPersistTransactionGroupings__block_invoke
     v8 = FinHealthLogObject(@"FinHealthCore");
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 138412290;
-      v16 = v3;
-      _os_log_impl(&dword_226DD4000, v8, OS_LOG_TYPE_DEBUG, "Grouping Schema Will Update to %@", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = v3;
+      _os_log_impl(&dword_226DD4000, v8, OS_LOG_TYPE_DEBUG, "Grouping Schema Will Update to %@", &v14, 0xCu);
     }
 
     v9 = [[FHDatabaseEntity alloc] initWithEntity:@"fh_grouping"];
@@ -7656,7 +7701,6 @@ void __58__FHDatabaseManager_computeAndPersistTransactionGroupings__block_invoke
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return clearData;
 }
 
@@ -7706,52 +7750,52 @@ uint64_t __38__FHDatabaseManager_sortGroupsByMode___block_invoke(uint64_t a1, vo
 
 - (id)predictAndPersistIncomeClassificationForAllGroups:(id)groups
 {
-  v33[2] = *MEMORY[0x277D85DE8];
+  v32[2] = *MEMORY[0x277D85DE8];
   groupsCopy = groups;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy_;
-  v31 = __Block_byref_object_dispose_;
-  v32 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy_;
-  v25 = __Block_byref_object_dispose_;
   v26 = 0;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy_;
-  v19 = __Block_byref_object_dispose_;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy_;
+  v30 = __Block_byref_object_dispose_;
+  v31 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy_;
+  v24 = __Block_byref_object_dispose_;
+  v25 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy_;
+  v18 = __Block_byref_object_dispose_;
   v5 = groupsCopy;
-  v20 = v5;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __71__FHDatabaseManager_predictAndPersistIncomeClassificationForAllGroups___block_invoke;
-  v14[3] = &unk_2785CB388;
-  v14[4] = self;
-  v14[5] = &v21;
-  v14[6] = &v15;
-  v14[7] = &v27;
-  [(FHDatabaseManager *)self streamGenericSQLFetch:v14 predicate:0 sqlFetchQuery:@"select t_identifier, group_id from fh_grouping order by group_id", 0];
-  if ([v28[5] count])
+  v19 = v5;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __71__FHDatabaseManager_predictAndPersistIncomeClassificationForAllGroups___block_invoke;
+  v13[3] = &unk_2785CB388;
+  v13[4] = self;
+  v13[5] = &v20;
+  v13[6] = &v14;
+  v13[7] = &v26;
+  [(FHDatabaseManager *)self streamGenericSQLFetch:v13 predicate:0 sqlFetchQuery:@"select t_identifier, group_id from fh_grouping order by group_id", 0];
+  if ([v27[5] count])
   {
-    v6 = [(FHDatabaseManager *)self _predictAndPersistIncomeClassificationForGroupId:v22[5] transactionIds:v28[5] finHealthIncomeClassifier:v16[5]];
-    v7 = v16[5];
-    v16[5] = v6;
+    v6 = [(FHDatabaseManager *)self _predictAndPersistIncomeClassificationForGroupId:v21[5] transactionIds:v27[5] finHealthIncomeClassifier:v15[5]];
+    v7 = v15[5];
+    v15[5] = v6;
   }
 
-  v8 = v16[5];
+  v8 = v15[5];
 
   if (v8)
   {
     modelName = [v8 modelName];
-    v33[0] = modelName;
+    v32[0] = modelName;
     modelVersion = [v8 modelVersion];
-    v33[1] = modelVersion;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
+    v32[1] = modelVersion;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
   }
 
   else
@@ -7759,12 +7803,10 @@ uint64_t __38__FHDatabaseManager_sortGroupsByMode___block_invoke(uint64_t a1, vo
     v11 = 0;
   }
 
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v14, 8);
 
-  _Block_object_dispose(&v21, 8);
-  _Block_object_dispose(&v27, 8);
-
-  v12 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v26, 8);
 
   return v11;
 }
@@ -7806,31 +7848,31 @@ void __71__FHDatabaseManager_predictAndPersistIncomeClassificationForAllGroups__
 
 - (id)_predictAndPersistIncomeClassificationForGroupId:(id)id transactionIds:(id)ids finHealthIncomeClassifier:(id)classifier
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   idCopy = id;
   idsCopy = ids;
   classifierCopy = classifier;
-  v30 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v29 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v29 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v28 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   obj = idsCopy;
-  v34 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
-  if (v34)
+  v33 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+  if (v33)
   {
-    v32 = *v42;
+    v31 = *v41;
     do
     {
-      for (i = 0; i != v34; ++i)
+      for (i = 0; i != v33; ++i)
       {
-        if (*v42 != v32)
+        if (*v41 != v31)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = [(FHDatabaseManager *)self getTransactionByIdentifier:*(*(&v41 + 1) + 8 * i)];
+        v9 = [(FHDatabaseManager *)self getTransactionByIdentifier:*(*(&v40 + 1) + 8 * i)];
         identifier = [v9 identifier];
         transactionDescription = [v9 transactionDescription];
         transactionDate = [v9 transactionDate];
@@ -7840,43 +7882,41 @@ void __71__FHDatabaseManager_predictAndPersistIncomeClassificationForAllGroups__
 
         accountType = [v9 accountType];
         transactionSourceIdentifier = [v9 transactionSourceIdentifier];
-        v36 = [(FHDatabaseManager *)self getAccountCategoryForIdentifier:?];
+        v35 = [(FHDatabaseManager *)self getAccountCategoryForIdentifier:?];
         proprietaryBankTransactionIssuer = [v9 proprietaryBankTransactionIssuer];
         proprietaryBankTransactionCode = [v9 proprietaryBankTransactionCode];
         transactionType = [v9 transactionType];
         currencyCode = [v9 currencyCode];
         notANumber = [MEMORY[0x277CCA980] notANumber];
-        v45[0] = notANumber;
+        v44[0] = notANumber;
         v18 = [MEMORY[0x277CCABB0] numberWithDouble:v13];
-        v45[1] = v18;
+        v44[1] = v18;
         v19 = MEMORY[0x277CCABB0];
         [transactionDate timeIntervalSinceReferenceDate];
         v20 = [v19 numberWithDouble:?];
-        v45[2] = v20;
-        v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:3];
+        v44[2] = v20;
+        v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:3];
 
-        if (checkIfIncomeCandidate(accountType, v36, proprietaryBankTransactionIssuer, proprietaryBankTransactionCode, transactionType, currencyCode, v13))
+        if (checkIfIncomeCandidate(accountType, v35, proprietaryBankTransactionIssuer, proprietaryBankTransactionCode, transactionType, currencyCode, v13))
         {
-          [v30 addObject:transactionDescription];
-          [v29 setObject:v21 forKey:identifier];
+          [v29 addObject:transactionDescription];
+          [v28 setObject:v21 forKey:identifier];
         }
       }
 
-      v34 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
+      v33 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
     }
 
-    while (v34);
+    while (v33);
   }
 
-  if ([v29 count])
+  if ([v28 count])
   {
-    v22 = [v29 copy];
-    v23 = [v30 copy];
+    v22 = [v28 copy];
+    v23 = [v29 copy];
     v24 = [FinHealthIncomeClassifier generateFeatures:v22 withDescriptions:v23];
     [(FHDatabaseManager *)self _predictAndPersistIncomeClassification:classifierCopy dataId:idCopy dataType:2 features:v24];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return classifierCopy;
 }
@@ -7998,7 +8038,7 @@ void __35__FHDatabaseManager_retrieveGroups__block_invoke(uint64_t a1, void *a2)
   return v7;
 }
 
-uint64_t __53__FHDatabaseManager_getAccountCategoryForIdentifier___block_invoke_2(uint64_t a1, void *a2)
+void *__53__FHDatabaseManager_getAccountCategoryForIdentifier___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 intAtIndex:0];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -8007,27 +8047,26 @@ uint64_t __53__FHDatabaseManager_getAccountCategoryForIdentifier___block_invoke_
 
 - (void)dealloc
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   db = self->_db;
   if (db)
   {
-    v9 = 0;
-    [(PQLConnection *)db close:&v9];
-    v4 = v9;
+    v8 = 0;
+    [(PQLConnection *)db close:&v8];
+    v4 = v8;
     v5 = FinHealthLogObject(@"FinHealthCore");
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       v6 = [v4 description];
       *buf = 138412290;
-      v11 = v6;
+      v10 = v6;
       _os_log_impl(&dword_226DD4000, v5, OS_LOG_TYPE_DEBUG, "db dealloced, %@", buf, 0xCu);
     }
   }
 
-  v8.receiver = self;
-  v8.super_class = FHDatabaseManager;
-  [(FHDatabaseManager *)&v8 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = FHDatabaseManager;
+  [(FHDatabaseManager *)&v7 dealloc];
 }
 
 - (FHFetchAllTransactionsDelegate)delegate

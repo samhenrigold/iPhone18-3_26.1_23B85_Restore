@@ -9,13 +9,13 @@
 
 - (TRIIntegrationTestLogHandler)init
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v26.receiver = self;
-  v26.super_class = TRIIntegrationTestLogHandler;
-  v2 = [(TRIIntegrationTestLogHandler *)&v26 init];
+  v30 = *MEMORY[0x277D85DE8];
+  v25.receiver = self;
+  v25.super_class = TRIIntegrationTestLogHandler;
+  v2 = [(TRIIntegrationTestLogHandler *)&v25 init];
   if (!v2)
   {
-    goto LABEL_13;
+    return v2;
   }
 
   v3 = NSTemporaryDirectory();
@@ -25,9 +25,9 @@
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v7 = v2->_tempDir;
-  v25 = 0;
-  v8 = [defaultManager removeItemAtPath:v7 error:&v25];
-  v9 = v25;
+  v24 = 0;
+  v8 = [defaultManager removeItemAtPath:v7 error:&v24];
+  v9 = v24;
 
   v10 = TRILogCategory_Server();
   v11 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
@@ -37,7 +37,7 @@
     {
       v12 = v2->_tempDir;
       *buf = 138412290;
-      v28 = v12;
+      v27 = v12;
       v13 = "Cleared temp directory %@ during test log handler setup.";
       v14 = v10;
       v15 = 12;
@@ -50,9 +50,9 @@ LABEL_7:
   {
     v16 = v2->_tempDir;
     *buf = 138412546;
-    v28 = v16;
-    v29 = 2112;
-    v30 = v9;
+    v27 = v16;
+    v28 = 2112;
+    v29 = v9;
     v13 = "Couldn't remove directory (it may already be gone, which is fine) %@: %@";
     v14 = v10;
     v15 = 22;
@@ -61,9 +61,9 @@ LABEL_7:
 
   defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
   v18 = v2->_tempDir;
-  v24 = v9;
-  v19 = [defaultManager2 createDirectoryAtPath:v18 withIntermediateDirectories:1 attributes:0 error:&v24];
-  v20 = v24;
+  v23 = v9;
+  v19 = [defaultManager2 createDirectoryAtPath:v18 withIntermediateDirectories:1 attributes:0 error:&v23];
+  v20 = v23;
 
   if ((v19 & 1) == 0)
   {
@@ -71,35 +71,32 @@ LABEL_7:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v28 = v20;
+      v27 = v20;
       _os_log_error_impl(&dword_26F567000, v21, OS_LOG_TYPE_ERROR, "Failed to setup integration test log handler: %@", buf, 0xCu);
     }
   }
 
-LABEL_13:
-  v22 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 + (BOOL)shouldUseOverrideLogHandler
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = +[TRIIntegrationTestingDefaultsOverrides shouldUseIntegrationTestLogger];
   v3 = TRILogCategory_Server();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v6 = @"NO";
+    v5 = @"NO";
     if (v2)
     {
-      v6 = @"YES";
+      v5 = @"YES";
     }
 
-    v7 = 138412290;
-    v8 = v6;
-    _os_log_debug_impl(&dword_26F567000, v3, OS_LOG_TYPE_DEBUG, "Should use integration test logger? %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v5;
+    _os_log_debug_impl(&dword_26F567000, v3, OS_LOG_TYPE_DEBUG, "Should use integration test logger? %@", &v6, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -124,7 +121,7 @@ LABEL_13:
 
 - (void)logEvent:(id)event subgroupName:(id)name queue:(id)queue
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   tempDir = self->_tempDir;
   v8 = objc_opt_new();
@@ -132,18 +129,18 @@ LABEL_13:
   v10 = [(NSString *)tempDir stringByAppendingPathComponent:uUIDString];
 
   data = [eventCopy data];
-  v21 = 0;
-  v12 = [data writeToFile:v10 options:1 error:&v21];
-  v13 = v21;
+  v20 = 0;
+  v12 = [data writeToFile:v10 options:1 error:&v20];
+  v13 = v20;
   if ((v12 & 1) == 0)
   {
     v14 = TRILogCategory_Server();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v23 = v10;
-      v24 = 2112;
-      v25 = v13;
+      v22 = v10;
+      v23 = 2112;
+      v24 = v13;
       _os_log_error_impl(&dword_26F567000, v14, OS_LOG_TYPE_ERROR, "Failed to write event to file %@: %@", buf, 0x16u);
     }
   }
@@ -156,15 +153,13 @@ LABEL_13:
     trialSystemTelemetry = [denormalizedEvent trialSystemTelemetry];
     trialdTaskName = [trialSystemTelemetry trialdTaskName];
     *buf = 138412802;
-    v23 = logEventId;
-    v24 = 2112;
-    v25 = trialdTaskName;
-    v26 = 2112;
-    v27 = v10;
+    v22 = logEventId;
+    v23 = 2112;
+    v24 = trialdTaskName;
+    v25 = 2112;
+    v26 = v10;
     _os_log_impl(&dword_26F567000, v15, OS_LOG_TYPE_INFO, "Integration test logger wrote: id %@, task name %@, to: %@", buf, 0x20u);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 @end

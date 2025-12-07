@@ -7,6 +7,7 @@
 - (void)_queue_requestActivityAppInstallIfNecessaryWithPairedDeviceSnapshot:(id)snapshot;
 - (void)_queue_startInstalling;
 - (void)_requestActivityAppInstallIfNecessaryWithPairedDeviceSnapshot:(id)snapshot;
+- (void)_setAndNotifyStickersAvailable:(BOOL)available;
 - (void)dealloc;
 - (void)profileDidBecomeReady:(id)ready;
 @end
@@ -220,7 +221,7 @@ LABEL_17:
 
 void __66__CHActivityApplicationInstallationManager__queue_startInstalling__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC270];
@@ -229,19 +230,19 @@ void __66__CHActivityApplicationInstallationManager__queue_startInstalling__bloc
   {
     if (v5)
     {
-      v11 = 138412290;
-      v12 = v3;
+      v10 = 138412290;
+      v11 = v3;
       v6 = "Error for request to install Fitness app: %@";
       v7 = v4;
       v8 = 12;
 LABEL_6:
-      _os_log_impl(&dword_243CCD000, v7, OS_LOG_TYPE_DEFAULT, v6, &v11, v8);
+      _os_log_impl(&dword_243CCD000, v7, OS_LOG_TYPE_DEFAULT, v6, &v10, v8);
     }
   }
 
   else if (v5)
   {
-    LOWORD(v11) = 0;
+    LOWORD(v10) = 0;
     v6 = "Request to install Fitness app succeeded";
     v7 = v4;
     v8 = 2;
@@ -250,8 +251,6 @@ LABEL_6:
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _cleanupInstallRequest];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cleanupInstallRequest
@@ -280,6 +279,50 @@ void __66__CHActivityApplicationInstallationManager__cleanupInstallRequest__bloc
   self->_systemAppRequest = 0;
 
   self->_installationRequestInProgress = 0;
+}
+
+- (void)_setAndNotifyStickersAvailable:(BOOL)available
+{
+  availableCopy = available;
+  v13 = *MEMORY[0x277D85DE8];
+  _HKInitializeLogging();
+  v4 = MEMORY[0x277CCC270];
+  v5 = *MEMORY[0x277CCC270];
+  if (os_log_type_enabled(*MEMORY[0x277CCC270], OS_LOG_TYPE_DEFAULT))
+  {
+    LOWORD(v11) = 0;
+    _os_log_impl(&dword_243CCD000, v5, OS_LOG_TYPE_DEFAULT, "Updating Activity sticker availability", &v11, 2u);
+  }
+
+  standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  v7 = *MEMORY[0x277CCE218];
+  v8 = [standardUserDefaults BOOLForKey:*MEMORY[0x277CCE218]];
+  _HKInitializeLogging();
+  v9 = *v4;
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  if (v8 == availableCopy)
+  {
+    if (v10)
+    {
+      v11 = 67109120;
+      v12 = availableCopy;
+      _os_log_impl(&dword_243CCD000, v9, OS_LOG_TYPE_DEFAULT, "Stickers available already set to %{BOOL}d", &v11, 8u);
+    }
+  }
+
+  else
+  {
+    if (v10)
+    {
+      v11 = 67109120;
+      v12 = availableCopy;
+      _os_log_impl(&dword_243CCD000, v9, OS_LOG_TYPE_DEFAULT, "Setting stickers available to: %{BOOL}d", &v11, 8u);
+    }
+
+    [standardUserDefaults setBool:availableCopy forKey:v7];
+    [standardUserDefaults synchronize];
+    notify_post(*MEMORY[0x277CCE210]);
+  }
 }
 
 @end

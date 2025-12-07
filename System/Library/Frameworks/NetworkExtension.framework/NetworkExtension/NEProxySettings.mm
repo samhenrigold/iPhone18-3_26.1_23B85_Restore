@@ -8,6 +8,7 @@
 - (NEProxySettings)initWithCoder:(id)coder;
 - (id)copyLegacyDictionary;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (id)initFromLegacyDictionary:(id)dictionary;
 - (void)copyPasswordsFromKeychain;
 - (void)encodeWithCoder:(id)coder;
@@ -867,9 +868,60 @@ LABEL_12:
   return v3;
 }
 
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  [v7 appendPrettyBOOL:-[NEProxySettings autoProxyDiscovery](self withName:"autoProxyDiscovery") andIndent:@"autoProxyDiscovery" options:{v5, options & 0xFFFFFFFFFFFFFFF7}];
+  [v7 appendPrettyBOOL:-[NEProxySettings autoProxyConfigurationEnabled](self withName:"autoProxyConfigurationEnabled") andIndent:@"autoProxyConfigurationEnabled" options:{v5, options | 8}];
+  proxyAutoConfigURL = [(NEProxySettings *)self proxyAutoConfigURL];
+  absoluteString = [proxyAutoConfigURL absoluteString];
+  [v7 appendPrettyObject:absoluteString withName:@"proxyAutoConfigurationURL" andIndent:v5 options:options | 8];
+
+  proxyAutoConfigJavaScript = [(NEProxySettings *)self proxyAutoConfigJavaScript];
+  [v7 appendPrettyObject:proxyAutoConfigJavaScript withName:@"proxyAutoConfigurationJavaScript" andIndent:v5 options:options | 8];
+
+  [v7 appendPrettyBOOL:-[NEProxySettings HTTPEnabled](self withName:"HTTPEnabled") andIndent:@"HTTPEnabled" options:{v5, options | 8}];
+  hTTPServer = [(NEProxySettings *)self HTTPServer];
+  [v7 appendPrettyObject:hTTPServer withName:@"HTTPServer" andIndent:v5 options:options | 8];
+
+  [v7 appendPrettyBOOL:-[NEProxySettings HTTPSEnabled](self withName:"HTTPSEnabled") andIndent:@"HTTPSEnabled" options:{v5, options | 8}];
+  hTTPSServer = [(NEProxySettings *)self HTTPSServer];
+  [v7 appendPrettyObject:hTTPSServer withName:@"HTTPSServer" andIndent:v5 options:options | 8];
+
+  [v7 appendPrettyBOOL:-[NEProxySettings FTPEnabled](self withName:"FTPEnabled") andIndent:@"FTPEnabled" options:{v5, options & 0xFFFFFFFFFFFFFFF7}];
+  fTPServer = [(NEProxySettings *)self FTPServer];
+  [v7 appendPrettyObject:fTPServer withName:@"FTPServer" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  [v7 appendPrettyBOOL:-[NEProxySettings SOCKSEnabled](self withName:"SOCKSEnabled") andIndent:@"SOCKSEnabled" options:{v5, options & 0xFFFFFFFFFFFFFFF7}];
+  sOCKSServer = [(NEProxySettings *)self SOCKSServer];
+  [v7 appendPrettyObject:sOCKSServer withName:@"SOCKSServer" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  [v7 appendPrettyBOOL:-[NEProxySettings RTSPEnabled](self withName:"RTSPEnabled") andIndent:@"RTSPEnabled" options:{v5, options & 0xFFFFFFFFFFFFFFF7}];
+  rTSPServer = [(NEProxySettings *)self RTSPServer];
+  [v7 appendPrettyObject:rTSPServer withName:@"RTSPServer" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  [v7 appendPrettyBOOL:-[NEProxySettings gopherEnabled](self withName:"gopherEnabled") andIndent:@"gopherEnabled" options:{v5, options & 0xFFFFFFFFFFFFFFF7}];
+  gopherServer = [(NEProxySettings *)self gopherServer];
+  [v7 appendPrettyObject:gopherServer withName:@"gopherServer" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  [v7 appendPrettyBOOL:-[NEProxySettings excludeSimpleHostnames](self withName:"excludeSimpleHostnames") andIndent:@"excludeSimpleHostnames" options:{v5, options & 0xFFFFFFFFFFFFFFF7}];
+  exceptionList = [(NEProxySettings *)self exceptionList];
+  [v7 appendPrettyObject:exceptionList withName:@"exceptionList" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  [v7 appendPrettyBOOL:-[NEProxySettings usePassiveFTP](self withName:"usePassiveFTP") andIndent:@"usePassiveFTP" options:{v5, options & 0xFFFFFFFFFFFFFFF7}];
+  supplementalMatchDomains = [(NEProxySettings *)self supplementalMatchDomains];
+  [v7 appendPrettyObject:supplementalMatchDomains withName:@"supplementalMatchDomains" andIndent:v5 options:options | 8];
+
+  supplementalMatchOrders = [(NEProxySettings *)self supplementalMatchOrders];
+  [v7 appendPrettyObject:supplementalMatchOrders withName:@"supplementalMatchOrders" andIndent:v5 options:options | 8];
+
+  return v7;
+}
+
 - (BOOL)checkValidityAndCollectErrors:(id)errors
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   errorsCopy = errors;
   hTTPServer = [(NEProxySettings *)self HTTPServer];
   if (hTTPServer)
@@ -938,33 +990,33 @@ LABEL_12:
 
   if (exceptionList)
   {
-    v59 = 0u;
-    v60 = 0u;
-    v57 = 0u;
     v58 = 0u;
+    v59 = 0u;
+    v56 = 0u;
+    v57 = 0u;
     exceptionList2 = [(NEProxySettings *)self exceptionList];
-    v31 = [exceptionList2 countByEnumeratingWithState:&v57 objects:v63 count:16];
+    v31 = [exceptionList2 countByEnumeratingWithState:&v56 objects:v62 count:16];
     if (v31)
     {
       v32 = v31;
-      v33 = *v58;
+      v33 = *v57;
       do
       {
         for (i = 0; i != v32; ++i)
         {
-          if (*v58 != v33)
+          if (*v57 != v33)
           {
             objc_enumerationMutation(exceptionList2);
           }
 
-          if ((isa_nsstring(*(*(&v57 + 1) + 8 * i)) & 1) == 0)
+          if ((isa_nsstring(*(*(&v56 + 1) + 8 * i)) & 1) == 0)
           {
             [NEConfiguration addError:errorsCopy toList:?];
             v8 = 0;
           }
         }
 
-        v32 = [exceptionList2 countByEnumeratingWithState:&v57 objects:v63 count:16];
+        v32 = [exceptionList2 countByEnumeratingWithState:&v56 objects:v62 count:16];
       }
 
       while (v32);
@@ -975,33 +1027,33 @@ LABEL_12:
 
   if (supplementalMatchDomains)
   {
-    v55 = 0u;
-    v56 = 0u;
-    v53 = 0u;
     v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
     supplementalMatchDomains2 = [(NEProxySettings *)self supplementalMatchDomains];
-    v37 = [supplementalMatchDomains2 countByEnumeratingWithState:&v53 objects:v62 count:16];
+    v37 = [supplementalMatchDomains2 countByEnumeratingWithState:&v52 objects:v61 count:16];
     if (v37)
     {
       v38 = v37;
-      v39 = *v54;
+      v39 = *v53;
       do
       {
         for (j = 0; j != v38; ++j)
         {
-          if (*v54 != v39)
+          if (*v53 != v39)
           {
             objc_enumerationMutation(supplementalMatchDomains2);
           }
 
-          if ((isa_nsstring(*(*(&v53 + 1) + 8 * j)) & 1) == 0)
+          if ((isa_nsstring(*(*(&v52 + 1) + 8 * j)) & 1) == 0)
           {
             [NEConfiguration addError:errorsCopy toList:?];
             v8 = 0;
           }
         }
 
-        v38 = [supplementalMatchDomains2 countByEnumeratingWithState:&v53 objects:v62 count:16];
+        v38 = [supplementalMatchDomains2 countByEnumeratingWithState:&v52 objects:v61 count:16];
       }
 
       while (v38);
@@ -1012,40 +1064,39 @@ LABEL_12:
 
   if (supplementalMatchOrders)
   {
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
     v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
     supplementalMatchOrders2 = [(NEProxySettings *)self supplementalMatchOrders];
-    v43 = [supplementalMatchOrders2 countByEnumeratingWithState:&v49 objects:v61 count:16];
+    v43 = [supplementalMatchOrders2 countByEnumeratingWithState:&v48 objects:v60 count:16];
     if (v43)
     {
       v44 = v43;
-      v45 = *v50;
+      v45 = *v49;
       do
       {
         for (k = 0; k != v44; ++k)
         {
-          if (*v50 != v45)
+          if (*v49 != v45)
           {
             objc_enumerationMutation(supplementalMatchOrders2);
           }
 
-          if ((isa_nsnumber(*(*(&v49 + 1) + 8 * k)) & 1) == 0)
+          if ((isa_nsnumber(*(*(&v48 + 1) + 8 * k)) & 1) == 0)
           {
             [NEConfiguration addError:errorsCopy toList:?];
             v8 = 0;
           }
         }
 
-        v44 = [supplementalMatchOrders2 countByEnumeratingWithState:&v49 objects:v61 count:16];
+        v44 = [supplementalMatchOrders2 countByEnumeratingWithState:&v48 objects:v60 count:16];
       }
 
       while (v44);
     }
   }
 
-  v47 = *MEMORY[0x1E69E9840];
   return v8 & 1;
 }
 

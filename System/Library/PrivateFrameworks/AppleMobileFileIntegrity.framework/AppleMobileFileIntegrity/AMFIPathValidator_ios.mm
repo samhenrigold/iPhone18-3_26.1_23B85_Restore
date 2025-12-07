@@ -1,4 +1,5 @@
 @interface AMFIPathValidator_ios
+- (AMFIPathValidator_ios)initWithURL:(id)l withFileOffset:(unint64_t)offset withFlags:(int)flags;
 - (AMFIPathValidator_ios)initWithURL:(id)l withFileOffsetAsNumber:(id)number withFlags:(int)flags;
 - (BOOL)areEntitlementsValidated;
 - (BOOL)computedCdHash:(unsigned __int8)hash[20];
@@ -11,6 +12,17 @@
 @end
 
 @implementation AMFIPathValidator_ios
+
+- (AMFIPathValidator_ios)initWithURL:(id)l withFileOffset:(unint64_t)offset withFlags:(int)flags
+{
+  v5 = *&flags;
+  v8 = MEMORY[0x277CCABB0];
+  lCopy = l;
+  v10 = [v8 numberWithUnsignedLongLong:offset];
+  v11 = [(AMFIPathValidator_ios *)self initWithURL:lCopy withFileOffsetAsNumber:v10 withFlags:v5];
+
+  return v11;
+}
 
 - (AMFIPathValidator_ios)initWithURL:(id)l withFileOffsetAsNumber:(id)number withFlags:(int)flags
 {
@@ -60,7 +72,7 @@
 
 - (BOOL)validateWithError:(id *)error
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   self->_validated = 1;
   v5 = objc_opt_new();
   v6 = [MEMORY[0x277CCABB0] numberWithBool:1];
@@ -101,13 +113,13 @@
     v18 = +[AMFIFMKLog generic];
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      path = [*v33 path];
+      path = [*v32 path];
       cf[0] = 138412802;
       *&cf[1] = path;
-      v35 = 1024;
-      *v36 = v9;
-      *&v36[4] = 2112;
-      *&v36[6] = v17;
+      v34 = 1024;
+      *v35 = v9;
+      *&v35[4] = 2112;
+      *&v35[6] = v17;
       _os_log_error_impl(&dword_240EEA000, v18, OS_LOG_TYPE_ERROR, "%@ not valid: 0x%x: %@", cf, 0x1Cu);
     }
 
@@ -125,15 +137,15 @@
     v9 = +[AMFIFMKLog generic];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      path2 = [*v33 path];
+      path2 = [*v32 path];
       cf[0] = 138413058;
       *&cf[1] = path2;
-      v35 = 2112;
-      *v36 = v5;
-      *&v36[8] = 2112;
-      *&v36[10] = 0;
-      v37 = 2112;
-      v38 = v13;
+      v34 = 2112;
+      *v35 = v5;
+      *&v35[8] = 2112;
+      *&v35[10] = 0;
+      v36 = 2112;
+      v37 = v13;
       _os_log_error_impl(&dword_240EEA000, v9, OS_LOG_TYPE_ERROR, "MIS Validation successful, but unexpected info? path: '%@', options: %@, info: %@, cdhash: %@", cf, 0x2Au);
     }
 
@@ -149,7 +161,7 @@
     generic = [*(v14 + 1216) generic];
     if (os_log_type_enabled(generic, OS_LOG_TYPE_ERROR))
     {
-      [(AMFIPathValidator_ios *)v33 validateWithError:generic];
+      [(AMFIPathValidator_ios *)v32 validateWithError:generic];
     }
 
     v23 = [[AMFIError alloc] initWithAMFIErrorCode:-430 withURL:self->_url];
@@ -163,7 +175,7 @@
     generic2 = [*(v14 + 1216) generic];
     if (os_log_type_enabled(generic2, OS_LOG_TYPE_INFO))
     {
-      path3 = [*v33 path];
+      path3 = [*v32 path];
       cf[0] = 138412290;
       *&cf[1] = path3;
       _os_log_impl(&dword_240EEA000, generic2, OS_LOG_TYPE_INFO, "boot-args allow process with invalid signature: %@", cf, 0xCu);
@@ -182,7 +194,6 @@
     isValid = self->_isValid;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return isValid;
 }
 
@@ -254,26 +265,22 @@
 
 - (void)validateWithError:(NSObject *)a3 .cold.1(id *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [*a1 path];
-  v7 = 138412546;
-  v8 = v5;
-  v9 = 2112;
-  v10 = a2;
-  _os_log_error_impl(&dword_240EEA000, a3, OS_LOG_TYPE_ERROR, "Unable to extract signer type? path: '%@', info: '%@'", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = v5;
+  v8 = 2112;
+  v9 = a2;
+  _os_log_error_impl(&dword_240EEA000, a3, OS_LOG_TYPE_ERROR, "Unable to extract signer type? path: '%@', info: '%@'", &v6, 0x16u);
 }
 
 - (void)validateWithError:(id *)a1 .cold.2(id *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [*a1 path];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_240EEA000, a2, OS_LOG_TYPE_ERROR, "dyld_sim policy is not allowed on iOS: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_240EEA000, a2, OS_LOG_TYPE_ERROR, "dyld_sim policy is not allowed on iOS: %@", &v4, 0xCu);
 }
 
 @end

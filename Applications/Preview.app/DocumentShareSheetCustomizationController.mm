@@ -17,7 +17,7 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  sub_1000085D8(0, &qword_1002093B8);
+  sub_1000085D8(0, &qword_1002093B8, _UIActivityItemCustomizationGroup_ptr);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;
@@ -38,7 +38,7 @@
 
 - (id)customActionViewControllerForActivityViewController:(id)controller
 {
-  v4 = type metadata accessor for ExportSettingsView();
+  v4 = type metadata accessor for ExportSettingsView(0);
   __chkstk_darwin(v4);
   v6 = &v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for MainActor();
@@ -52,7 +52,7 @@
   v7 = swift_allocObject();
   swift_unknownObjectWeakInit();
   type metadata accessor for ExportSheetViewModel(0);
-  sub_10006BBB8(&qword_100208130, type metadata accessor for ExportSheetViewModel);
+  sub_10006BBB8(&qword_100208130, type metadata accessor for ExportSheetViewModel, &unk_1001A4BE8);
   selfCopy = self;
 
   Bindable<A>.init(wrappedValue:)();
@@ -60,7 +60,7 @@
   v9 = &v6[*(v4 + 24)];
   *v9 = sub_10006BF68;
   v9[1] = v7;
-  v10 = objc_allocWithZone(sub_100005804(&qword_1002093B0));
+  v10 = objc_allocWithZone(sub_100005804(&qword_1002093B0, &qword_10019E588));
   v11 = UIHostingController.init(rootView:)();
 
   return v11;

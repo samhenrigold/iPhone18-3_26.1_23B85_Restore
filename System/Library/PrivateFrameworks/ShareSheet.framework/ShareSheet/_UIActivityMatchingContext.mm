@@ -13,151 +13,168 @@
 
 - (id)description
 {
-  v28 = objc_opt_class();
-  NSAppendPrintF();
-  v36 = 0;
-  v29 = [(_UIActivityMatchingContext *)self activityItemValueClasses:v28];
-  NSAppendPrintF();
-  v3 = v36;
+  v52 = 0;
+  v3 = objc_opt_class();
+  NSAppendPrintF(&v52, "<%@: %{ptr}", v3, self);
+  v4 = v52;
+  v51 = v4;
+  activityItemValueClasses = [(_UIActivityMatchingContext *)self activityItemValueClasses];
+  NSAppendPrintF(&v51, ", activityItemValueClasses: %##@", activityItemValueClasses);
+  v6 = v51;
 
   if ([(_UIActivityMatchingContext *)self allowMatchingBuiltInActivities])
   {
-    NSAppendPrintF();
-    v4 = v3;
+    v50 = v6;
+    NSAppendPrintF(&v50, ", allowMatchingBuiltInActivities");
+    v7 = v50;
 
-    v3 = v4;
+    v6 = v7;
   }
 
   if ([(_UIActivityMatchingContext *)self allowMatchingExtensionActivities])
   {
-    NSAppendPrintF();
-    v5 = v3;
+    v49 = v6;
+    NSAppendPrintF(&v49, ", allowMatchingExtensionActivities");
+    v8 = v49;
 
-    v3 = v5;
+    v6 = v8;
   }
 
   testingReferenceSnapshot = [(_UIActivityMatchingContext *)self testingReferenceSnapshot];
   if (testingReferenceSnapshot)
   {
-    v7 = testingReferenceSnapshot;
-    v8 = _os_feature_enabled_impl();
+    v10 = testingReferenceSnapshot;
+    v11 = _os_feature_enabled_impl();
 
-    if (v8)
+    if (v11)
     {
-      NSAppendPrintF();
-      v9 = v3;
+      v48 = v6;
+      NSAppendPrintF(&v48, ", usingTestingReferenceSnapshot");
+      v12 = v48;
 
-      v3 = v9;
+      v6 = v12;
     }
   }
 
   if ([(_UIActivityMatchingContext *)self isContentManaged])
   {
-    NSAppendPrintF();
-    v10 = v3;
+    v47 = v6;
+    NSAppendPrintF(&v47, ", contentManaged");
+    v13 = v47;
 
-    v3 = v10;
+    v6 = v13;
   }
 
   if ([(_UIActivityMatchingContext *)self isCollaborative])
   {
+    v46 = v6;
     collaborationType = [(_UIActivityMatchingContext *)self collaborationType];
-    [(_UIActivityMatchingContext *)self collaborationIsPostShare];
-    v35 = v30 = collaborationType;
-    NSAppendPrintF();
-    v12 = v3;
+    collaborationIsPostShare = [(_UIActivityMatchingContext *)self collaborationIsPostShare];
+    NSAppendPrintF(&v46, ", isCollaborative, collaborationType: %@, collaborationIsPostShare: %@", collaborationType, collaborationIsPostShare);
+    v16 = v46;
 
-    v3 = v12;
+    v6 = v16;
   }
 
-  if ([(_UIActivityMatchingContext *)self shouldMatchOnlyUserElectedExtensions:v30])
+  if ([(_UIActivityMatchingContext *)self shouldMatchOnlyUserElectedExtensions])
   {
-    NSAppendPrintF();
-    v13 = v3;
+    v45 = v6;
+    NSAppendPrintF(&v45, ", matchOnlyUserElectedExtensions");
+    v17 = v45;
 
-    v3 = v13;
+    v6 = v17;
   }
 
   if ([(_UIActivityMatchingContext *)self shouldExcludeiCloudAddToDriveActivity])
   {
-    NSAppendPrintF();
-    v14 = v3;
+    v44 = v6;
+    NSAppendPrintF(&v44, ", excludeiCloudAddToDriveActivity");
+    v18 = v44;
 
-    v3 = v14;
+    v6 = v18;
   }
 
   if ([(_UIActivityMatchingContext *)self shouldExcludeiCloudSharingActivity])
   {
-    NSAppendPrintF();
-    v15 = v3;
+    v43 = v6;
+    NSAppendPrintF(&v43, ", excludeiCloudSharingActivity");
+    v19 = v43;
 
-    v3 = v15;
+    v6 = v19;
   }
 
   if ([(_UIActivityMatchingContext *)self canExcludeExtensionActivities])
   {
-    NSAppendPrintF();
-    v16 = v3;
+    v42 = v6;
+    NSAppendPrintF(&v42, ", canExcludeExtensionActivities");
+    v20 = v42;
 
-    v3 = v16;
+    v6 = v20;
   }
 
   if ([(_UIActivityMatchingContext *)self whitelistActionActivitiesOnly])
   {
-    NSAppendPrintF();
-    v17 = v3;
+    v41 = v6;
+    NSAppendPrintF(&v41, ", whitelistActionActivitiesOnly");
+    v21 = v41;
 
-    v3 = v17;
+    v6 = v21;
   }
 
   includedActivityTypes = [(_UIActivityMatchingContext *)self includedActivityTypes];
-  v19 = [includedActivityTypes count];
+  v23 = [includedActivityTypes count];
 
-  if (v19)
+  if (v23)
   {
+    v40 = v6;
     includedActivityTypes2 = [(_UIActivityMatchingContext *)self includedActivityTypes];
-    NSAppendPrintF();
-    v20 = v3;
+    NSAppendPrintF(&v40, ", includedActivityTypes: %##@", includedActivityTypes2);
+    v25 = v40;
 
-    v3 = v20;
+    v6 = v25;
   }
 
   excludedActivityTypes = [(_UIActivityMatchingContext *)self excludedActivityTypes];
-  v22 = [excludedActivityTypes count];
+  v27 = [excludedActivityTypes count];
 
-  if (v22)
+  if (v27)
   {
+    v39 = v6;
     excludedActivityTypes2 = [(_UIActivityMatchingContext *)self excludedActivityTypes];
-    NSAppendPrintF();
-    v23 = v3;
+    NSAppendPrintF(&v39, ", excludedActivityTypes: %##@", excludedActivityTypes2);
+    v29 = v39;
 
-    v3 = v23;
+    v6 = v29;
   }
 
   if ([(_UIActivityMatchingContext *)self excludedActivityCategories])
   {
-    excludedActivityCategories = [(_UIActivityMatchingContext *)self excludedActivityCategories];
-    NSAppendPrintF();
-    v24 = v3;
+    v38 = v6;
+    NSAppendPrintF(&v38, ", excludedActivityCategories: %d", [(_UIActivityMatchingContext *)self excludedActivityCategories]);
+    v30 = v38;
 
-    v3 = v24;
+    v6 = v30;
   }
 
+  v37 = v6;
   activityItemValueExtensionMatchingDictionaries = [(_UIActivityMatchingContext *)self activityItemValueExtensionMatchingDictionaries];
-  NSAppendPrintF();
-  v25 = v3;
+  NSAppendPrintF(&v37, ", activityItemValueExtensionMatchingDictionaries: %@", activityItemValueExtensionMatchingDictionaries);
+  v32 = v37;
 
-  NSAppendPrintF();
-  v26 = v25;
+  v36 = v32;
+  NSAppendPrintF(&v36, ">");
+  v33 = v36;
+  v34 = v36;
 
-  return v25;
+  return v33;
 }
 
 - (NSString)sourceApplicationIdentifier
 {
-  if ([(_UIActivityMatchingContext *)self hostAuditToken])
+  hostAuditToken = [(_UIActivityMatchingContext *)self hostAuditToken];
+  if (hostAuditToken)
   {
-    bundleIdentifier = _ShareSheetBundleIDFromAuditToken();
+    bundleIdentifier = _ShareSheetBundleIDFromAuditToken(hostAuditToken);
   }
 
   else

@@ -1,6 +1,7 @@
 @interface EligibilityOverrides
 - (_TtC13transparencyd20EligibilityOverrides)init;
 - (void)clearEligibilityOverrides;
+- (void)setLastIDSRecWithRecommendation:(BOOL)recommendation;
 @end
 
 @implementation EligibilityOverrides
@@ -24,6 +25,14 @@
   v2(2);
   (*((swift_isaMask & selfCopy->super.isa) + 0x88))(2);
   (*((swift_isaMask & selfCopy->super.isa) + 0xA0))(0, 1);
+}
+
+- (void)setLastIDSRecWithRecommendation:(BOOL)recommendation
+{
+  recommendationCopy = recommendation;
+  v4 = *((swift_isaMask & self->super.isa) + 0x70);
+  selfCopy = self;
+  v4(recommendationCopy);
 }
 
 @end

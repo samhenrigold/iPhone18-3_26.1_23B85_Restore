@@ -384,12 +384,11 @@
 
 - (void)_streamEventTrigger
 {
-  v6 = objc_alloc_init(MEMORY[0x277CCA8B0]);
+  v3 = objc_alloc_init(MEMORY[0x277CCA8B0]);
   [(NSRecursiveLock *)self->_statusLock lock];
   if (!self->_isOpenCompletedEventSent && self->_streamStatus == 2)
   {
     self->_isOpenCompletedEventSent = 1;
-    delegate = self->_delegate;
     if (objc_opt_respondsToSelector())
     {
       [self->_delegate stream:self handleEvent:1];
@@ -399,7 +398,6 @@
   if (!self->_isAtEndEventSent && self->_streamStatus == 5)
   {
     self->_isAtEndEventSent = 1;
-    v4 = self->_delegate;
     if (objc_opt_respondsToSelector())
     {
       [self->_delegate stream:self handleEvent:16];
@@ -409,7 +407,6 @@
   if (!self->_hasSpaceAvailableEventSent && self->_hasSpaceAvailable)
   {
     self->_hasSpaceAvailableEventSent = 1;
-    v5 = self->_delegate;
     if (objc_opt_respondsToSelector())
     {
       [self->_delegate stream:self handleEvent:4];

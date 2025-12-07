@@ -135,8 +135,8 @@ void __42__CRKShareTargetBrowser_connectToStudentd__block_invoke(uint64_t a1, vo
       {
       }
 
-      v12 = _CRKLogGeneral_5();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = _CRKLogGeneral_5(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         __42__CRKShareTargetBrowser_connectToStudentd__block_invoke_cold_1(v6);
       }
@@ -146,8 +146,8 @@ void __42__CRKShareTargetBrowser_connectToStudentd__block_invoke(uint64_t a1, vo
 
     else
     {
-      v11 = [*(a1 + 40) studentClient];
-      [v11 connectWithTransport:v5];
+      v12 = [*(a1 + 40) studentClient];
+      [v12 connectWithTransport:v5];
     }
   }
 
@@ -172,10 +172,11 @@ LABEL_12:
 - (void)acquireStudentActivityAssertionOperationDidFail:(id)fail
 {
   error = [fail error];
-  if (![(CRKShareTargetBrowser *)self isClientInvalidationError:error])
+  v5 = [(CRKShareTargetBrowser *)self isClientInvalidationError:error];
+  if ((v5 & 1) == 0)
   {
-    v5 = _CRKLogGeneral_5();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _CRKLogGeneral_5(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [CRKShareTargetBrowser acquireStudentActivityAssertionOperationDidFail:error];
     }
@@ -186,7 +187,7 @@ LABEL_12:
 
 - (void)startBrowsingForStudentTargets
 {
-  v3 = _CRKLogGeneral_5();
+  v3 = _CRKLogGeneral_5(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -205,10 +206,11 @@ LABEL_12:
 - (void)browseForStudentTargetsOperationDidFail:(id)fail
 {
   error = [fail error];
-  if (![(CRKShareTargetBrowser *)self isClientInvalidationError:error])
+  v5 = [(CRKShareTargetBrowser *)self isClientInvalidationError:error];
+  if ((v5 & 1) == 0)
   {
-    v5 = _CRKLogGeneral_5();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _CRKLogGeneral_5(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [CRKShareTargetBrowser browseForStudentTargetsOperationDidFail:error];
     }
@@ -251,8 +253,8 @@ void __45__CRKShareTargetBrowser_connectToInstructord__block_invoke(uint64_t a1,
       {
       }
 
-      v12 = _CRKLogGeneral_5();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = _CRKLogGeneral_5(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         __45__CRKShareTargetBrowser_connectToInstructord__block_invoke_cold_1(v6);
       }
@@ -262,8 +264,8 @@ void __45__CRKShareTargetBrowser_connectToInstructord__block_invoke(uint64_t a1,
 
     else
     {
-      v11 = [*(a1 + 40) instructorClient];
-      [v11 connectWithTransport:v5];
+      v12 = [*(a1 + 40) instructorClient];
+      [v12 connectWithTransport:v5];
     }
   }
 
@@ -277,7 +279,7 @@ LABEL_12:
 
 - (void)startBrowsingForInstructorTargets
 {
-  v3 = _CRKLogGeneral_5();
+  v3 = _CRKLogGeneral_5(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -296,10 +298,11 @@ LABEL_12:
 - (void)browseForInstructorTargetsOperationDidFail:(id)fail
 {
   error = [fail error];
-  if (![(CRKShareTargetBrowser *)self isClientInvalidationError:error])
+  v5 = [(CRKShareTargetBrowser *)self isClientInvalidationError:error];
+  if ((v5 & 1) == 0)
   {
-    v5 = _CRKLogGeneral_5();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _CRKLogGeneral_5(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [CRKShareTargetBrowser browseForInstructorTargetsOperationDidFail:error];
     }
@@ -315,11 +318,11 @@ LABEL_12:
 
   if (studentClient == connectCopy)
   {
-    v8 = _CRKLogGeneral_5();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = _CRKLogGeneral_5(v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_243550000, v8, OS_LOG_TYPE_DEFAULT, "Classroom: Share target browser did connect to studentd", buf, 2u);
+      _os_log_impl(&dword_243550000, v10, OS_LOG_TYPE_DEFAULT, "Classroom: Share target browser did connect to studentd", buf, 2u);
     }
 
     [(CRKShareTargetBrowser *)self acquireStudentActivityAssertion];
@@ -332,11 +335,11 @@ LABEL_12:
 
     if (instructorClient == connectCopy)
     {
-      v7 = _CRKLogGeneral_5();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = _CRKLogGeneral_5(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        *v9 = 0;
-        _os_log_impl(&dword_243550000, v7, OS_LOG_TYPE_DEFAULT, "Classroom: Share target browser did connect to instructord", v9, 2u);
+        *v11 = 0;
+        _os_log_impl(&dword_243550000, v9, OS_LOG_TYPE_DEFAULT, "Classroom: Share target browser did connect to instructord", v11, 2u);
       }
 
       [(CRKShareTargetBrowser *)self startBrowsingForInstructorTargets];
@@ -364,8 +367,8 @@ LABEL_6:
 
     if (studentClient == clientCopy)
     {
-      v16 = _CRKLogGeneral_5();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v18 = _CRKLogGeneral_5(v14);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [CRKShareTargetBrowser client:errorCopy didInterruptWithError:?];
       }
@@ -382,8 +385,8 @@ LABEL_6:
         goto LABEL_15;
       }
 
-      v15 = _CRKLogGeneral_5();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v17 = _CRKLogGeneral_5(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         [CRKShareTargetBrowser client:errorCopy didInterruptWithError:?];
       }
@@ -403,11 +406,11 @@ LABEL_15:
 
   if (studentClient)
   {
-    v4 = _CRKLogGeneral_5();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _CRKLogGeneral_5(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_243550000, v4, OS_LOG_TYPE_DEFAULT, "Classroom: Share target browser is tearing down studentd task client", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_243550000, v5, OS_LOG_TYPE_DEFAULT, "Classroom: Share target browser is tearing down studentd task client", v8, 2u);
     }
 
     shareTargetCollector = [(CRKShareTargetBrowser *)self shareTargetCollector];
@@ -425,11 +428,11 @@ LABEL_15:
 
   if (instructorClient)
   {
-    v4 = _CRKLogGeneral_5();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _CRKLogGeneral_5(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_243550000, v4, OS_LOG_TYPE_DEFAULT, "Classroom: Share target browser is tearing down instructord task client", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_243550000, v5, OS_LOG_TYPE_DEFAULT, "Classroom: Share target browser is tearing down instructord task client", v8, 2u);
     }
 
     shareTargetCollector = [(CRKShareTargetBrowser *)self shareTargetCollector];
@@ -607,49 +610,49 @@ void __42__CRKShareTargetBrowser_connectToStudentd__block_invoke_cold_1(void *a1
 {
   v1 = [a1 verboseDescription];
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_0_3(&dword_243550000, v2, v3, "Share target browser failed to fetch studentd endpoint: %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_3(&dword_243550000, v2, v3, "Share target browser failed to fetch studentd endpoint: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)acquireStudentActivityAssertionOperationDidFail:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 verboseDescription];
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_0_3(&dword_243550000, v2, v3, "Classroom: Share target browser student activity assertion failed: %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_3(&dword_243550000, v2, v3, "Classroom: Share target browser student activity assertion failed: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)browseForStudentTargetsOperationDidFail:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 verboseDescription];
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_0_3(&dword_243550000, v2, v3, "Classroom: Share target browser failed to fetch student targets: %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_3(&dword_243550000, v2, v3, "Classroom: Share target browser failed to fetch student targets: %{public}@", v4, v5, v6, v7);
 }
 
 void __45__CRKShareTargetBrowser_connectToInstructord__block_invoke_cold_1(void *a1)
 {
   v1 = [a1 verboseDescription];
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_0_3(&dword_243550000, v2, v3, "Classroom: Share target browser failed to fetch instructor transport: %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_3(&dword_243550000, v2, v3, "Classroom: Share target browser failed to fetch instructor transport: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)browseForInstructorTargetsOperationDidFail:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 verboseDescription];
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_0_3(&dword_243550000, v2, v3, "Classroom: Share target browser failed to fetch instructor targets: %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_3(&dword_243550000, v2, v3, "Classroom: Share target browser failed to fetch instructor targets: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)client:(void *)a1 didInterruptWithError:.cold.1(void *a1)
 {
   v1 = [a1 verboseDescription];
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_0_3(&dword_243550000, v2, v3, "Classroom: Share target browser instructor connection interrupted: %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_3(&dword_243550000, v2, v3, "Classroom: Share target browser instructor connection interrupted: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)client:(void *)a1 didInterruptWithError:.cold.2(void *a1)
 {
   v1 = [a1 verboseDescription];
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_0_3(&dword_243550000, v2, v3, "Classroom: Share target browser student connection interrupted: %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_3(&dword_243550000, v2, v3, "Classroom: Share target browser student connection interrupted: %{public}@", v4, v5, v6, v7);
 }
 
 @end

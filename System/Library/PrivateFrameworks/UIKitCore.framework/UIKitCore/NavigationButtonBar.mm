@@ -78,7 +78,7 @@
 
   if (v6)
   {
-    sub_188A34624(0, &unk_1ED48DBD0);
+    sub_188A34624(0, &unk_1ED48DBD0, off_1E70E94E8);
     v7 = sub_18A4A7518();
   }
 
@@ -133,7 +133,7 @@
 
 - (CGPoint)convertPoint:(CGPoint)point toCoordinateSpace:(id)space
 {
-  v4 = sub_18907B854(point.x, point.y, self, a2, space, &selRef_convertPoint_toCoordinateSpace_);
+  v4 = sub_18907B854(self, point.x, point.y, a2, space, &selRef_convertPoint_toCoordinateSpace_);
   result.y = v5;
   result.x = v4;
   return result;
@@ -141,7 +141,7 @@
 
 - (CGPoint)convertPoint:(CGPoint)point fromCoordinateSpace:(id)space
 {
-  v4 = sub_18907B854(point.x, point.y, self, a2, space, &selRef_convertPoint_fromCoordinateSpace_);
+  v4 = sub_18907B854(self, point.x, point.y, a2, space, &selRef_convertPoint_fromCoordinateSpace_);
   result.y = v5;
   result.x = v4;
   return result;
@@ -149,7 +149,7 @@
 
 - (CGRect)convertRect:(CGRect)rect toCoordinateSpace:(id)space
 {
-  v4 = sub_18907B8E0(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height, self, a2, space, &selRef_convertRect_toCoordinateSpace_);
+  v4 = sub_18907B8E0(self, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height, a2, space, &selRef_convertRect_toCoordinateSpace_);
   result.size.height = v7;
   result.size.width = v6;
   result.origin.y = v5;
@@ -159,7 +159,7 @@
 
 - (CGRect)convertRect:(CGRect)rect fromCoordinateSpace:(id)space
 {
-  v4 = sub_18907B8E0(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height, self, a2, space, &selRef_convertRect_fromCoordinateSpace_);
+  v4 = sub_18907B8E0(self, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height, a2, space, &selRef_convertRect_fromCoordinateSpace_);
   result.size.height = v7;
   result.size.width = v6;
   result.origin.y = v5;

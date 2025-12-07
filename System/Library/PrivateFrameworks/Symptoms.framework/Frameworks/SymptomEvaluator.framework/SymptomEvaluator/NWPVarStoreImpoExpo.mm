@@ -8,11 +8,11 @@
 
 - (NWPVarStoreImpoExpo)initWithQueue:(id)queue
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
-  v18.receiver = self;
-  v18.super_class = NWPVarStoreImpoExpo;
-  v5 = [(NWPVarStoreImpoExpo *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = NWPVarStoreImpoExpo;
+  v5 = [(NWPVarStoreImpoExpo *)&v17 init];
   if (!v5)
   {
     goto LABEL_5;
@@ -30,7 +30,7 @@
     if (os_log_type_enabled(nwPVarLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;
-      v20 = v5;
+      v19 = v5;
       v15 = "(%p) failed to allocate a workspace";
 LABEL_10:
       _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_ERROR, v15, buf, 0xCu);
@@ -52,7 +52,7 @@ LABEL_11:
     if (os_log_type_enabled(nwPVarLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;
-      v20 = v5;
+      v19 = v5;
       v15 = "(%p) failed to allocate an impoexpo handle";
       goto LABEL_10;
     }
@@ -64,7 +64,6 @@ LABEL_5:
   v13 = v5;
 LABEL_12:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -79,11 +78,11 @@ LABEL_12:
 
 - (id)_initWithImpoExpo:(id)expo
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   expoCopy = expo;
-  v12.receiver = self;
-  v12.super_class = NWPVarStoreImpoExpo;
-  v6 = [(NWPVarStoreImpoExpo *)&v12 init];
+  v11.receiver = self;
+  v11.super_class = NWPVarStoreImpoExpo;
+  v6 = [(NWPVarStoreImpoExpo *)&v11 init];
   v7 = v6;
   if (!v6)
   {
@@ -102,14 +101,13 @@ LABEL_4:
   if (os_log_type_enabled(nwPVarLogHandle, OS_LOG_TYPE_ERROR))
   {
     *buf = 134217984;
-    v14 = v7;
+    v13 = v7;
     _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_ERROR, "(%p) failed to allocate an impoexpo handle", buf, 0xCu);
   }
 
   v8 = 0;
 LABEL_8:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

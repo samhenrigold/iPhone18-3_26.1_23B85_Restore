@@ -1,6 +1,7 @@
 @interface SAAppSizeBreakdownList
 - (SAAppSizeBreakdownList)init;
 - (id)generateDictionary;
+- (void)addPath:(id)path fixedPath:(BOOL)fixedPath size:(unint64_t)size bundleIDs:(id)ds;
 - (void)addPluginSize:(unint64_t)size bundleIDs:(id)ds;
 - (void)addTagSize:(unint64_t)size bundleIDs:(id)ds;
 - (void)mergeBundleIDs:(id)ds withBundleIDs:(id)iDs newBundleIDs:(id)bundleIDs;
@@ -25,6 +26,21 @@
   }
 
   return v2;
+}
+
+- (void)addPath:(id)path fixedPath:(BOOL)fixedPath size:(unint64_t)size bundleIDs:(id)ds
+{
+  fixedPathCopy = fixedPath;
+  pathCopy = path;
+  dsCopy = ds;
+  v11 = [(NSMutableDictionary *)self->_appSizeBreakdownList objectForKeyedSubscript:dsCopy];
+  if (!v11)
+  {
+    v11 = objc_opt_new();
+    [(NSMutableDictionary *)self->_appSizeBreakdownList setObject:v11 forKeyedSubscript:dsCopy];
+  }
+
+  [v11 addPath:pathCopy fixedPath:fixedPathCopy size:size];
 }
 
 - (void)addTagSize:(unint64_t)size bundleIDs:(id)ds

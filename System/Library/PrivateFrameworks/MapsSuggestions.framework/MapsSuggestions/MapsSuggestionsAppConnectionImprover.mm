@@ -6,7 +6,7 @@
 
 - (BOOL)improveEntry:(id)entry
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   entryCopy = entry;
   v5 = entryCopy;
   if (entryCopy)
@@ -37,23 +37,25 @@ LABEL_39:
             }
 
             v23 = [v20 stringForKey:@"MapsSuggestionsOriginBundleIDKey"];
-            if ([v23 isEqualToString:@"com.apple.siri"])
+            v24 = [v23 isEqualToString:@"com.apple.siri"];
+            if (v24)
             {
-              v24 = MapsSuggestionsLocalizedSubtitleFormatForPortraitSiriSuggestionEntry();
+              v25 = MapsSuggestionsLocalizedSubtitleFormatForPortraitSiriSuggestionEntry(v24);
             }
 
             else
             {
-              if (![v23 isEqualToString:@"com.apple.siri.homepod"])
+              v26 = [v23 isEqualToString:@"com.apple.siri.homepod"];
+              if (!v26)
               {
                 goto LABEL_34;
               }
 
-              v24 = MapsSuggestionsLocalizedSubtitleFormatForPortraitHomePodEntry();
+              v25 = MapsSuggestionsLocalizedSubtitleFormatForPortraitHomePodEntry(v26);
             }
 
-            v22 = v24;
-            if (v24)
+            v22 = v25;
+            if (v25)
             {
 LABEL_38:
 
@@ -61,10 +63,10 @@ LABEL_38:
             }
 
 LABEL_34:
-            v25 = [v20 stringForKey:@"MapsSuggestionsOriginatingAppName"];
-            if ([v25 length])
+            v27 = [v20 stringForKey:@"MapsSuggestionsOriginatingAppName"];
+            if ([v27 length])
             {
-              MapsSuggestionsLocalizedSiriFoundInString(v25);
+              MapsSuggestionsLocalizedSiriFoundInString(v27);
             }
 
             else
@@ -141,15 +143,15 @@ LABEL_22:
     v9 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v27 = 136446978;
-      v28 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsAppConnectionImprover.m";
-      v29 = 1024;
-      v30 = 24;
-      v31 = 2082;
-      v32 = "[MapsSuggestionsAppConnectionImprover improveEntry:]";
+      v29 = 136446978;
+      v30 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsAppConnectionImprover.m";
+      v31 = 1024;
+      v32 = 24;
       v33 = 2082;
-      v34 = "nil == (entry)";
-      _os_log_impl(&dword_1C5126000, v9, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires an entry", &v27, 0x26u);
+      v34 = "[MapsSuggestionsAppConnectionImprover improveEntry:]";
+      v35 = 2082;
+      v36 = "nil == (entry)";
+      _os_log_impl(&dword_1C5126000, v9, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires an entry", &v29, 0x26u);
     }
   }
 

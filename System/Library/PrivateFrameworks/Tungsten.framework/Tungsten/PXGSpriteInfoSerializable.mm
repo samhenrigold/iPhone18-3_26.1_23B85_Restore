@@ -27,7 +27,7 @@
 
 - (id)createSerializableObject
 {
-  [(PXGSpriteInfoSerializable *)self spriteInfo];
+  objc_msgSend_spriteInfo(self, a2);
   v2 = PXGSerializeSpriteInfo(v4);
 
   return v2;

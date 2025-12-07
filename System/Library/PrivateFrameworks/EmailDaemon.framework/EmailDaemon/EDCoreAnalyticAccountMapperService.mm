@@ -74,27 +74,16 @@ void __41__EDCoreAnalyticAccountMapperService_log__block_invoke(uint64_t a1)
 {
   date = [MEMORY[0x1E695DF00] date];
   accountMapper = [(EDCoreAnalyticAccountMapperService *)self accountMapper];
-  if (!accountMapper)
+  if (!accountMapper || ([MEMORY[0x1E695DEE8] currentCalendar], v4 = objc_claimAutoreleasedReturnValue(), -[EDCoreAnalyticAccountMapperService accountMapper](self, "accountMapper"), v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "date"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v4, "isDate:inSameDayAsDate:", v6, date), v6, v5, v4, accountMapper, (v7 & 1) == 0))
   {
-    goto LABEL_3;
-  }
-
-  currentCalendar = [MEMORY[0x1E695DEE8] currentCalendar];
-  accountMapper2 = [(EDCoreAnalyticAccountMapperService *)self accountMapper];
-  date2 = [accountMapper2 date];
-  v7 = [currentCalendar isDate:date2 inSameDayAsDate:date];
-
-  if ((v7 & 1) == 0)
-  {
-LABEL_3:
     lock = [(EDCoreAnalyticAccountMapperService *)self lock];
     [lock lock];
 
     [(EDCoreAnalyticAccountMapperService *)self _retrieveFromDisk];
-    currentCalendar2 = [MEMORY[0x1E695DEE8] currentCalendar];
-    accountMapper3 = [(EDCoreAnalyticAccountMapperService *)self accountMapper];
-    date3 = [accountMapper3 date];
-    v12 = [currentCalendar2 isDate:date3 inSameDayAsDate:date];
+    currentCalendar = [MEMORY[0x1E695DEE8] currentCalendar];
+    accountMapper2 = [(EDCoreAnalyticAccountMapperService *)self accountMapper];
+    date2 = [accountMapper2 date];
+    v12 = [currentCalendar isDate:date2 inSameDayAsDate:date];
 
     if ((v12 & 1) == 0)
     {
@@ -132,13 +121,12 @@ LABEL_3:
 
 - (void)saveToDisk
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
   selfCopy = self;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_1C61EF000, log, OS_LOG_TYPE_ERROR, "[BlackPearl][AccountMapper] Failed to remove temporary read URL [%@] error [%@]", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_1C61EF000, log, OS_LOG_TYPE_ERROR, "[BlackPearl][AccountMapper] Failed to remove temporary read URL [%@] error [%@]", &v3, 0x16u);
 }
 
 - (void)_retrieveFromDisk
@@ -165,7 +153,7 @@ LABEL_3:
 
 - (id)_allActiveMailAccounts
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   accountsProvider = [(EDCoreAnalyticAccountMapperService *)self accountsProvider];
 
   if (accountsProvider)
@@ -173,13 +161,13 @@ LABEL_3:
     v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
     accountsProvider2 = [(EDCoreAnalyticAccountMapperService *)self accountsProvider];
     mailAccounts = [accountsProvider2 mailAccounts];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __60__EDCoreAnalyticAccountMapperService__allActiveMailAccounts__block_invoke;
-    v15[3] = &unk_1E8251FD0;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __60__EDCoreAnalyticAccountMapperService__allActiveMailAccounts__block_invoke;
+    v14[3] = &unk_1E8251FD0;
     v7 = v4;
-    v16 = v7;
-    [mailAccounts enumerateObjectsUsingBlock:v15];
+    v15 = v7;
+    [mailAccounts enumerateObjectsUsingBlock:v14];
 
     v8 = [v7 sortedArrayUsingComparator:&__block_literal_global_22];
     v9 = +[EDCoreAnalyticAccountMapperService log];
@@ -189,9 +177,9 @@ LABEL_3:
       mailAccounts2 = [accountsProvider3 mailAccounts];
       v12 = [mailAccounts2 count];
       *buf = 138412546;
-      v18 = v8;
-      v19 = 2048;
-      v20 = v12;
+      v17 = v8;
+      v18 = 2048;
+      v19 = v12;
       _os_log_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_DEFAULT, "[BlackPearl][AccountMapper] list of Active accounts in order : %@ mailAccounts total count %lu", buf, 0x16u);
     }
   }
@@ -200,8 +188,6 @@ LABEL_3:
   {
     v8 = MEMORY[0x1E695E0F0];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

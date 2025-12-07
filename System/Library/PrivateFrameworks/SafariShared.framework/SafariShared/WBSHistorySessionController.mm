@@ -411,7 +411,7 @@ void __64__WBSHistorySessionController_itemLastVisitedInSession_atIndex___block_
   return v3;
 }
 
-uint64_t __47__WBSHistorySessionController_numberOfSessions__block_invoke(uint64_t a1)
+void *__47__WBSHistorySessionController_numberOfSessions__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 16) count];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -885,36 +885,36 @@ void __84__WBSHistorySessionController__addItemsToSessionCache_shouldPostChangeN
 
 void __60__WBSHistorySessionController__removeItemsFromSessionCache___block_invoke(uint64_t a1)
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v2 = (a1 + 32);
-  v25 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
+  v27 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
+  v41 = 0u;
+  v42 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v37 = 0u;
-  v38 = 0u;
   obj = *v2;
-  v3 = [obj countByEnumeratingWithState:&v37 objects:v46 count:16];
+  v3 = [obj countByEnumeratingWithState:&v39 objects:v48 count:16];
   if (v3)
   {
-    v26 = *v38;
+    v28 = *v40;
     *&v4 = 138740227;
-    v23 = v4;
+    v25 = v4;
     do
     {
-      v27 = v3;
-      for (i = 0; i != v27; ++i)
+      v29 = v3;
+      for (i = 0; i != v29; ++i)
       {
-        if (*v38 != v26)
+        if (*v40 != v28)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v37 + 1) + 8 * i);
+        v6 = *(*(&v39 + 1) + 8 * i);
         [(WBSHistoryItem *)v6 lastVisitedTimeInterval];
         v7 = *(a1 + 40);
-        v36 = 0;
-        [v7 _getKey:&v36 forDate:?];
-        v28 = v36;
+        v38 = 0;
+        [v7 _getKey:&v38 forDate:?];
+        v30 = v38;
         v8 = [*(*(a1 + 40) + 16) objectForKeyedSubscript:?];
         v9 = v8;
         if (v8)
@@ -923,8 +923,8 @@ void __60__WBSHistorySessionController__removeItemsFromSessionCache___block_invo
           if (v10 != 0x7FFFFFFFFFFFFFFFLL)
           {
 LABEL_20:
-            v21 = [v9 objectAtIndexedSubscript:v10];
-            [v25 addObject:v21];
+            v23 = [v9 objectAtIndexedSubscript:v10];
+            [v27 addObject:v23];
 
             [v9 removeObjectAtIndex:v10];
             if ([v9 count])
@@ -932,48 +932,48 @@ LABEL_20:
               goto LABEL_23;
             }
 
-            [*(*(a1 + 40) + 16) removeObjectForKey:v28];
-            v22 = *(a1 + 40);
-            v17 = *(v22 + 24);
-            *(v22 + 24) = 0;
+            [*(*(a1 + 40) + 16) removeObjectForKey:v30];
+            v24 = *(a1 + 40);
+            v19 = *(v24 + 24);
+            *(v24 + 24) = 0;
             goto LABEL_22;
           }
         }
 
+        v37 = 0u;
         v35 = 0u;
-        v33 = 0u;
+        v36 = 0u;
         v34 = 0u;
-        v32 = 0u;
         v11 = *(*(a1 + 40) + 16);
-        v12 = [v11 countByEnumeratingWithState:&v32 objects:v45 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v34 objects:v47 count:16];
         if (v12)
         {
-          v13 = *v33;
+          v13 = *v35;
           while (2)
           {
             v14 = 0;
             v15 = v9;
             do
             {
-              if (*v33 != v13)
+              if (*v35 != v13)
               {
                 objc_enumerationMutation(v11);
               }
 
-              v16 = *(*(&v32 + 1) + 8 * v14);
+              v16 = *(*(&v34 + 1) + 8 * v14);
               v9 = [*(*(a1 + 40) + 16) objectForKeyedSubscript:v16];
 
-              v31[0] = MEMORY[0x1E69E9820];
-              v31[1] = 3221225472;
-              v31[2] = __60__WBSHistorySessionController__removeItemsFromSessionCache___block_invoke_2;
-              v31[3] = &unk_1E7FC8120;
-              v31[4] = v6;
-              v10 = [v9 indexOfObjectPassingTest:v31];
+              v33[0] = MEMORY[0x1E69E9820];
+              v33[1] = 3221225472;
+              v33[2] = __60__WBSHistorySessionController__removeItemsFromSessionCache___block_invoke_2;
+              v33[3] = &unk_1E7FC8120;
+              v33[4] = v6;
+              v10 = [v9 indexOfObjectPassingTest:v33];
               if (v10 != 0x7FFFFFFFFFFFFFFFLL)
               {
-                v20 = v16;
+                v22 = v16;
 
-                v28 = v20;
+                v30 = v22;
                 goto LABEL_20;
               }
 
@@ -982,7 +982,7 @@ LABEL_20:
             }
 
             while (v12 != v14);
-            v12 = [v11 countByEnumeratingWithState:&v32 objects:v45 count:16];
+            v12 = [v11 countByEnumeratingWithState:&v34 objects:v47 count:16];
             if (v12)
             {
               continue;
@@ -992,18 +992,19 @@ LABEL_20:
           }
         }
 
-        if (shouldDisplayItem(v6))
+        v17 = shouldDisplayItem(v6);
+        if (v17)
         {
-          v17 = WBS_LOG_CHANNEL_PREFIXHistory();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+          v19 = WBS_LOG_CHANNEL_PREFIXHistory(v17, v18);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
           {
-            v18 = [(WBSHistoryItem *)v6 urlString];
-            v19 = *(a1 + 40);
-            *buf = v23;
-            v42 = v18;
-            v43 = 2112;
-            v44 = v19;
-            _os_log_impl(&dword_1BB6F3000, v17, OS_LOG_TYPE_INFO, "Item %{sensitive}@ was removed, but couldn't find it in %@", buf, 0x16u);
+            v20 = [(WBSHistoryItem *)v6 urlString];
+            v21 = *(a1 + 40);
+            *buf = v25;
+            v44 = v20;
+            v45 = 2112;
+            v46 = v21;
+            _os_log_impl(&dword_1BB6F3000, v19, OS_LOG_TYPE_INFO, "Item %{sensitive}@ was removed, but couldn't find it in %@", buf, 0x16u);
           }
 
 LABEL_22:
@@ -1012,20 +1013,20 @@ LABEL_22:
 LABEL_23:
       }
 
-      v3 = [obj countByEnumeratingWithState:&v37 objects:v46 count:16];
+      v3 = [obj countByEnumeratingWithState:&v39 objects:v48 count:16];
     }
 
     while (v3);
   }
 
-  if ([v25 count])
+  if ([v27 count])
   {
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __60__WBSHistorySessionController__removeItemsFromSessionCache___block_invoke_39;
     block[3] = &unk_1E7FB7F10;
     block[4] = *(a1 + 40);
-    v30 = v25;
+    v32 = v27;
     dispatch_async(MEMORY[0x1E69E96A0], block);
   }
 }

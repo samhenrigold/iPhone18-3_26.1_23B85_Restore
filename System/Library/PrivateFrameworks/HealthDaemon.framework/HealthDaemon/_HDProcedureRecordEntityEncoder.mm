@@ -8,26 +8,24 @@
 
 - (id)orderedProperties
 {
-  v9[13] = *MEMORY[0x277D85DE8];
-  v9[0] = @"procedure_coding_collection";
-  v9[1] = @"performers";
-  v9[2] = @"execution_start_date";
-  v9[3] = @"execution_end_date";
-  v9[4] = @"not_performed";
-  v9[5] = @"status_coding";
-  v9[6] = @"category_coding_collection";
-  v9[7] = @"reason_coding_collections";
-  v9[8] = @"reasons_not_performed_coding_collections";
-  v9[9] = @"outcome_coding_collection";
-  v9[10] = @"complications_coding_collections";
-  v9[11] = @"follow_ups_coding_collections";
-  v9[12] = @"body_sites_coding_collections";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:13];
+  v8[13] = *MEMORY[0x277D85DE8];
+  v8[0] = @"procedure_coding_collection";
+  v8[1] = @"performers";
+  v8[2] = @"execution_start_date";
+  v8[3] = @"execution_end_date";
+  v8[4] = @"not_performed";
+  v8[5] = @"status_coding";
+  v8[6] = @"category_coding_collection";
+  v8[7] = @"reason_coding_collections";
+  v8[8] = @"reasons_not_performed_coding_collections";
+  v8[9] = @"outcome_coding_collection";
+  v8[10] = @"complications_coding_collections";
+  v8[11] = @"follow_ups_coding_collections";
+  v8[12] = @"body_sites_coding_collections";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:13];
   superclassEncoder = [(HDEntityEncoder *)self superclassEncoder];
   orderedProperties = [superclassEncoder orderedProperties];
   v6 = [v3 arrayByAddingObjectsFromArray:orderedProperties];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

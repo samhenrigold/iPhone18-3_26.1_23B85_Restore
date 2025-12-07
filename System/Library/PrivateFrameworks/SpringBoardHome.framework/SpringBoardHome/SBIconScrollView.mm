@@ -138,22 +138,22 @@ LABEL_4:
 
 - (void)setAlpha:(double)alpha
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v8.receiver = self;
-  v8.super_class = SBIconScrollView;
-  [(SBIconScrollView *)&v8 setAlpha:?];
+  v14 = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = SBIconScrollView;
+  v4 = [(SBIconScrollView *)&v9 setAlpha:?];
   if (alpha == 0.0 || alpha == 1.0)
   {
-    v5 = SBLogIcon();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = SBLogIcon(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
-      v7 = [callStackSymbols subarrayWithRange:{0, 3}];
+      v8 = [callStackSymbols subarrayWithRange:{0, 3}];
       *buf = 134218243;
       alphaCopy = alpha;
-      v11 = 2113;
-      v12 = v7;
-      _os_log_impl(&dword_1BEB18000, v5, OS_LOG_TYPE_DEFAULT, "SBIconScrollView alpha was changed to: %f by: %{private}@", buf, 0x16u);
+      v12 = 2113;
+      v13 = v8;
+      _os_log_impl(&dword_1BEB18000, v6, OS_LOG_TYPE_DEFAULT, "SBIconScrollView alpha was changed to: %f by: %{private}@", buf, 0x16u);
     }
   }
 }

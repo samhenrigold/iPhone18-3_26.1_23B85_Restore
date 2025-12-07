@@ -1,8 +1,20 @@
 @interface SRUIFDebugLog
++ (id)logWithData:(id)data mimeType:(id)type name:(id)name attemptCompression:(BOOL)compression;
 - (SRUIFDebugLog)initWithData:(id)data mimeType:(id)type name:(id)name attemptCompression:(BOOL)compression;
 @end
 
 @implementation SRUIFDebugLog
+
++ (id)logWithData:(id)data mimeType:(id)type name:(id)name attemptCompression:(BOOL)compression
+{
+  compressionCopy = compression;
+  nameCopy = name;
+  typeCopy = type;
+  dataCopy = data;
+  v13 = [[self alloc] initWithData:dataCopy mimeType:typeCopy name:nameCopy attemptCompression:compressionCopy];
+
+  return v13;
+}
 
 - (SRUIFDebugLog)initWithData:(id)data mimeType:(id)type name:(id)name attemptCompression:(BOOL)compression
 {

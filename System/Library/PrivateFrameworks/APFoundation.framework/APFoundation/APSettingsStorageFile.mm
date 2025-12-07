@@ -45,7 +45,7 @@
 
 - (void)_readFileIfNecessaryUsingKey:(id)key
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   v10 = objc_msgSend_storage(self, v5, v6, v7);
   if (!v10)
@@ -61,27 +61,27 @@
     v22 = objc_msgSend__filePathWithName_(self, v20, v19, v21);
 
     v23 = objc_alloc_init(APStorageManager);
-    v39 = 0;
-    v25 = objc_msgSend_fileExistsAtPath_error_(v23, v24, v22, &v39);
-    v27 = v39;
+    v38 = 0;
+    v25 = objc_msgSend_fileExistsAtPath_error_(v23, v24, v22, &v38);
+    v27 = v38;
     if (v27)
     {
       v28 = APLogForCategory(0x2FuLL);
       if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         *buf = 138478083;
-        v41 = v22;
-        v42 = 2114;
-        v43 = v27;
+        v40 = v22;
+        v41 = 2114;
+        v42 = v27;
         _os_log_impl(&dword_1BADC1000, v28, OS_LOG_TYPE_ERROR, "Error finding EFS Settings object %{private}@: %{public}@", buf, 0x16u);
       }
     }
 
     if (v25)
     {
-      v38 = v27;
-      v29 = objc_msgSend_objectStoredAtPath_error_(v23, v26, v22, &v38);
-      v30 = v38;
+      v37 = v27;
+      v29 = objc_msgSend_objectStoredAtPath_error_(v23, v26, v22, &v37);
+      v30 = v37;
 
       v34 = objc_msgSend_mutableCopy(v29, v31, v32, v33);
       objc_msgSend_setStorage_(self, v35, v34, v36);
@@ -89,13 +89,11 @@
       v27 = v30;
     }
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_writeFileUsingKey:(id)key
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   v7 = objc_msgSend_componentsSeparatedByString_(keyCopy, v5, @".", v6);
   v11 = objc_msgSend_count(v7, v8, v9, v10);
@@ -116,7 +114,7 @@
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 138477827;
-      v40 = keyCopy;
+      v39 = keyCopy;
       _os_log_impl(&dword_1BADC1000, v16, OS_LOG_TYPE_ERROR, "We didn't get something useable as a filename from the key: '%{private}@'", buf, 0xCu);
     }
 
@@ -132,9 +130,9 @@
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         *buf = 138478083;
-        v40 = keyCopy;
-        v41 = 2113;
-        v42 = @".";
+        v39 = keyCopy;
+        v40 = 2113;
+        v41 = @".";
         _os_log_impl(&dword_1BADC1000, v18, OS_LOG_TYPE_ERROR, "The key (%{private}@) must have two parts separated by the separator character '%{private}@'", buf, 0x16u);
       }
 
@@ -148,24 +146,22 @@
     v30 = objc_msgSend_firstObject(v7, v27, v28, v29);
     v33 = objc_msgSend__filePathWithName_(self, v31, v30, v32);
 
-    v38 = 0;
-    objc_msgSend_storeObject_atPath_error_(v15, v34, v26, v33, &v38);
-    v35 = v38;
+    v37 = 0;
+    objc_msgSend_storeObject_atPath_error_(v15, v34, v26, v33, &v37);
+    v35 = v37;
     if (v35)
     {
       v36 = APLogForCategory(0x2FuLL);
       if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
         *buf = 138478083;
-        v40 = v33;
-        v41 = 2114;
-        v42 = v35;
+        v39 = v33;
+        v40 = 2114;
+        v41 = v35;
         _os_log_impl(&dword_1BADC1000, v36, OS_LOG_TYPE_ERROR, "Error storing EFS Settings object %{private}@: %{public}@", buf, 0x16u);
       }
     }
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 - (id)valueForKey:(id)key error:(id *)error
@@ -190,7 +186,7 @@
 
 - (void)setValue:(id)value forKey:(id)key error:(id *)error
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   keyCopy = key;
   if (valueCopy && (objc_opt_class(), (objc_opt_respondsToSelector() & 1) == 0))
@@ -212,13 +208,13 @@
       v60 = objc_opt_class();
       v61 = NSStringFromClass(v60);
       *buf = 138478595;
-      v64 = v58;
-      v65 = 2112;
-      v66 = v59;
-      v67 = 2114;
-      v68 = v61;
-      v69 = 2114;
-      v70 = keyCopy;
+      v63 = v58;
+      v64 = 2112;
+      v65 = v59;
+      v66 = 2114;
+      v67 = v61;
+      v68 = 2114;
+      v69 = keyCopy;
       _os_log_impl(&dword_1BADC1000, v56, OS_LOG_TYPE_ERROR, "%{private}@ %@ Non storable value type (%{public}@) for property %{public}@", buf, 0x2Au);
     }
 
@@ -255,8 +251,6 @@
     objc_msgSend__writeFileUsingKey_(self, v42, keyCopy, v43);
     objc_msgSend_unlock(v13, v44, v45, v46);
   }
-
-  v62 = *MEMORY[0x1E69E9840];
 }
 
 @end

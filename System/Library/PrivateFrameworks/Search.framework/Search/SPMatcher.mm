@@ -23,17 +23,16 @@
 
 - (void)dealloc
 {
-  matcher = self->_matcher;
   icu_ctx_release();
-  v4.receiver = self;
-  v4.super_class = SPMatcher;
-  [(SPMatcher *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = SPMatcher;
+  [(SPMatcher *)&v3 dealloc];
 }
 
 + (id)transcriptionForString:(id)string withLanguage:(id)language
 {
-  v12 = *MEMORY[0x1E69E9840];
-  bzero(v11, 0x400uLL);
+  v11 = *MEMORY[0x1E69E9840];
+  bzero(v10, 0x400uLL);
   stringCopy = string;
   languageCopy = language;
   [string UTF8String];
@@ -41,15 +40,13 @@
 
   if (resolve_transcriptions_for_locale())
   {
-    v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v11];
+    v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v10];
   }
 
   else
   {
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

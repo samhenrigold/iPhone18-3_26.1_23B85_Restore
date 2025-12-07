@@ -30,10 +30,9 @@
 
 + (id)contentCategories
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = *MEMORY[0x1E6996FC8];
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = *MEMORY[0x1E6996FC8];
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -58,23 +57,21 @@
 
 - (id)generateObjectRepresentationsForClass:(Class)class options:(id)options error:(id *)error
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   if (objc_opt_class() == class)
   {
     v7 = MEMORY[0x1E6996EC8];
     speakableString = [(WFINSpeakableStringContentItem *)self speakableString];
     spokenPhrase = [speakableString spokenPhrase];
     v10 = [v7 object:spokenPhrase];
-    v13[0] = v10;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+    v12[0] = v10;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
   }
 
   else
   {
     v6 = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

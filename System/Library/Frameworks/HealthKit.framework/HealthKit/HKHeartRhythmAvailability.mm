@@ -91,6 +91,7 @@
 - (void)dealloc;
 - (void)electrocardiogramAppInstallStateOnActiveWatch:(id)watch;
 - (void)electrocardiogramOnboardingCountryCode;
+- (void)setAllowInstallingElectrocardiogramWatchApp:(BOOL)app;
 - (void)setElectrocardiogramOnboardingCompleted;
 - (void)unitTest_setElectrocardiogramOnboardingCompletedForVersion:(int64_t)version countryCode:(id)code completion:(id)completion;
 - (void)updateElectrocardiogramWatchAppInstallIsAllowed;
@@ -208,66 +209,66 @@
   if (v10)
   {
     healthStore = self->_healthStore;
-    v17 = 0;
-    v12 = [(HKHealthStore *)healthStore dateOfBirthComponentsWithError:&v17];
-    v13 = v17;
-    v14 = v13;
+    v18 = 0;
+    v12 = [(HKHealthStore *)healthStore dateOfBirthComponentsWithError:&v18];
+    v13 = v18;
+    v15 = v13;
     if (v12)
     {
-      v15 = [v12 hk_ageWithCurrentDate:dateCopy] < 13;
+      v16 = [v12 hk_ageWithCurrentDate:dateCopy] < 13;
     }
 
     else
     {
       if (v13)
       {
-        _HKInitializeLogging();
+        _HKInitializeLogging(v13, v14);
         if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_ERROR))
         {
           [HKHeartRhythmAvailability isHeartAgeGatingEnabledOnWatch:currentDate:];
         }
       }
 
-      v15 = 0;
+      v16 = 0;
     }
   }
 
   else
   {
-    v15 = 0;
+    v16 = 0;
   }
 
-  return v15;
+  return v16;
 }
 
 - (BOOL)_meetsMinimumAgeRequirementWithMinimumRequiredAge:(int64_t)age currentDate:(id)date
 {
   dateCopy = date;
   healthStore = self->_healthStore;
-  v13 = 0;
-  v8 = [(HKHealthStore *)healthStore dateOfBirthComponentsWithError:&v13];
-  v9 = v13;
-  v10 = v9;
+  v14 = 0;
+  v8 = [(HKHealthStore *)healthStore dateOfBirthComponentsWithError:&v14];
+  v9 = v14;
+  v11 = v9;
   if (v8)
   {
-    v11 = [v8 hk_ageWithCurrentDate:dateCopy] >= age;
+    v12 = [v8 hk_ageWithCurrentDate:dateCopy] >= age;
   }
 
   else
   {
     if (v9)
     {
-      _HKInitializeLogging();
+      _HKInitializeLogging(v9, v10);
       if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_ERROR))
       {
         [HKHeartRhythmAvailability _meetsMinimumAgeRequirementWithMinimumRequiredAge:currentDate:];
       }
     }
 
-    v11 = 1;
+    v12 = 1;
   }
 
-  return v11;
+  return v12;
 }
 
 - (void)_registerForNotifications
@@ -491,92 +492,91 @@ void __54__HKHeartRhythmAvailability__registerForNotifications__block_invoke_3(u
 
 + (BOOL)isCompanionRegionCheckEnabledForDevice:(id)device
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E696AFB0];
   deviceCopy = device;
   v6 = [[v4 alloc] initWithUUIDString:@"03C7A646-DB1E-404B-B393-033E5496A383"];
   v7 = [deviceCopy supportsCapability:v6];
 
-  _HKInitializeLogging();
-  v8 = HKLogHeartRhythm;
+  _HKInitializeLogging(v8, v9);
+  v10 = HKLogHeartRhythm;
   if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = v8;
-    v10 = objc_opt_class();
     v11 = v10;
-    v12 = NSStringFromSelector(a2);
-    v15 = 138543874;
-    v16 = v10;
-    v17 = 2114;
-    v18 = v12;
-    v19 = 1026;
-    v20 = v7;
-    _os_log_impl(&dword_19197B000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> supports capability: %{public}d", &v15, 0x1Cu);
+    v12 = objc_opt_class();
+    v13 = v12;
+    v14 = NSStringFromSelector(a2);
+    v16 = 138543874;
+    v17 = v12;
+    v18 = 2114;
+    v19 = v14;
+    v20 = 1026;
+    v21 = v7;
+    _os_log_impl(&dword_19197B000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> supports capability: %{public}d", &v16, 0x1Cu);
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 + (BOOL)isCompanionRegionCheckEnabledOnPairedPhone
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   activePairedDevice = [self activePairedDevice];
   if (activePairedDevice)
   {
-    v5 = [objc_opt_class() isCompanionRegionCheckEnabledForDevice:activePairedDevice];
-    v6 = [HKNanoRegistryDeviceUtility systemBuildVersionForDevice:activePairedDevice];
-    v7 = [v6 hasPrefix:@"17E5223"] ^ 1;
-    LODWORD(v8) = v5 & v7;
-    _HKInitializeLogging();
-    v9 = HKLogHeartRhythm;
+    v6 = [objc_opt_class() isCompanionRegionCheckEnabledForDevice:activePairedDevice];
+    v7 = [HKNanoRegistryDeviceUtility systemBuildVersionForDevice:activePairedDevice];
+    v8 = [v7 hasPrefix:@"17E5223"];
+    v9 = v8 ^ 1;
+    LODWORD(v10) = v6 & (v8 ^ 1);
+    _HKInitializeLogging(v8, v11);
+    v12 = HKLogHeartRhythm;
     if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = v9;
-      v11 = objc_opt_class();
-      v12 = v11;
-      v13 = NSStringFromSelector(a2);
-      v18 = 138544130;
-      selfCopy = v11;
-      v20 = 2114;
-      v21 = v13;
-      v22 = 1026;
-      v23 = v8;
+      v13 = v12;
+      v14 = objc_opt_class();
+      v15 = v14;
+      v16 = NSStringFromSelector(a2);
+      v20 = 138544130;
+      selfCopy = v14;
+      v22 = 2114;
+      v23 = v16;
       v24 = 1026;
-      v25 = v7;
-      _os_log_impl(&dword_19197B000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> %{public}d (companion software supported: %{public}d)", &v18, 0x22u);
+      v25 = v10;
+      v26 = 1026;
+      v27 = v9;
+      _os_log_impl(&dword_19197B000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> %{public}d (companion software supported: %{public}d)", &v20, 0x22u);
     }
   }
 
   else
   {
-    _HKInitializeLogging();
-    v14 = HKLogHeartRhythm;
-    LOBYTE(v8) = 0;
+    _HKInitializeLogging(0, v4);
+    v17 = HKLogHeartRhythm;
+    LOBYTE(v10) = 0;
     if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = v14;
-      v15 = NSStringFromSelector(a2);
-      v18 = 138543874;
+      v10 = v17;
+      v18 = NSStringFromSelector(a2);
+      v20 = 138543874;
       selfCopy = self;
-      v20 = 2114;
-      v21 = v15;
-      v22 = 1026;
-      v23 = 0;
-      _os_log_impl(&dword_19197B000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> %{public}d (No paired phone)", &v18, 0x1Cu);
+      v22 = 2114;
+      v23 = v18;
+      v24 = 1026;
+      v25 = 0;
+      _os_log_impl(&dword_19197B000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> %{public}d (No paired phone)", &v20, 0x1Cu);
 
-      LOBYTE(v8) = 0;
+      LOBYTE(v10) = 0;
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-  return v8;
+  return v10;
 }
 
 - (BOOL)_isOnboardingCompletedForKey:(id)key version:(int64_t)version useCache:(BOOL)cache
 {
   cacheCopy = cache;
-  v38 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   if (cacheCopy)
   {
@@ -592,26 +592,26 @@ void __54__HKHeartRhythmAvailability__registerForNotifications__block_invoke_3(u
 
       if (v14)
       {
-        _HKInitializeLogging();
-        v15 = HKLogHeartRhythm;
+        _HKInitializeLogging(v15, v16);
+        v17 = HKLogHeartRhythm;
         if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_INFO))
         {
-          v16 = v15;
-          v17 = objc_opt_class();
           v18 = v17;
-          v19 = NSStringFromSelector(a2);
-          v33 = 138544130;
-          v34 = v17;
-          v35 = 2114;
-          *v36 = v19;
-          *&v36[8] = 2114;
-          *&v36[10] = keyCopy;
-          *&v36[18] = 2114;
-          v37 = v11;
-          v20 = v16;
-          v21 = OS_LOG_TYPE_INFO;
+          v19 = objc_opt_class();
+          v20 = v19;
+          v21 = NSStringFromSelector(a2);
+          v38 = 138544130;
+          v39 = v19;
+          v40 = 2114;
+          *v41 = v21;
+          *&v41[8] = 2114;
+          *&v41[10] = keyCopy;
+          *&v41[18] = 2114;
+          v42 = v11;
+          v22 = v18;
+          v23 = OS_LOG_TYPE_INFO;
 LABEL_16:
-          _os_log_impl(&dword_19197B000, v20, v21, "[%{public}@ %{public}@%{public}@] -> %{public}@ (Cached value)", &v33, 0x2Au);
+          _os_log_impl(&dword_19197B000, v22, v23, "[%{public}@ %{public}@%{public}@] -> %{public}@ (Cached value)", &v38, 0x2Au);
         }
       }
 
@@ -620,24 +620,24 @@ LABEL_16:
         onboardingKeysReadSet2 = [(HKHeartRhythmAvailability *)self onboardingKeysReadSet];
         [onboardingKeysReadSet2 addObject:keyCopy];
 
-        _HKInitializeLogging();
-        v29 = HKLogHeartRhythm;
+        _HKInitializeLogging(v33, v34);
+        v35 = HKLogHeartRhythm;
         if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
         {
-          v16 = v29;
-          v30 = objc_opt_class();
-          v18 = v30;
-          v19 = NSStringFromSelector(a2);
-          v33 = 138544130;
-          v34 = v30;
-          v35 = 2114;
-          *v36 = v19;
-          *&v36[8] = 2114;
-          *&v36[10] = keyCopy;
-          *&v36[18] = 2114;
-          v37 = v11;
-          v20 = v16;
-          v21 = OS_LOG_TYPE_DEFAULT;
+          v18 = v35;
+          v36 = objc_opt_class();
+          v20 = v36;
+          v21 = NSStringFromSelector(a2);
+          v38 = 138544130;
+          v39 = v36;
+          v40 = 2114;
+          *v41 = v21;
+          *&v41[8] = 2114;
+          *&v41[10] = keyCopy;
+          *&v41[18] = 2114;
+          v42 = v11;
+          v22 = v18;
+          v23 = OS_LOG_TYPE_DEFAULT;
           goto LABEL_16;
         }
       }
@@ -650,29 +650,30 @@ LABEL_16:
 
   if (![keyCopy isEqualToString:@"HKElectrocardiogramOnboardingCompleted"])
   {
-    v26 = [(HKHeartRhythmAvailability *)self _getOnboardingVersionForKey:keyCopy];
-    v12 = v26 >= version;
+    v29 = [(HKHeartRhythmAvailability *)self _getOnboardingVersionForKey:keyCopy];
+    v28 = v29;
+    v12 = v29 >= version;
     if (!cacheCopy)
     {
       goto LABEL_12;
     }
 
 LABEL_10:
-    if (v26)
+    if (v28)
     {
-      [(HKHeartRhythmAvailability *)self _updateOnboardingCompletionForKey:keyCopy andVersion:v26];
+      v29 = [(HKHeartRhythmAvailability *)self _updateOnboardingCompletionForKey:keyCopy andVersion:v28];
     }
 
     goto LABEL_12;
   }
 
-  v22 = [(HKHeartRhythmAvailability *)self electrocardiogramOnboardingHistoryType:1];
-  v23 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v22, "maxOnboardedVersion")}];
+  v24 = [(HKHeartRhythmAvailability *)self electrocardiogramOnboardingHistoryType:1];
+  v25 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v24, "maxOnboardedVersion")}];
   keyValueDomain = [(HKHeartRhythmAvailability *)self keyValueDomain];
-  v25 = [HKElectrocardiogramActiveAlgorithmVersion knownAlgorithmVersionFromOnboardedVersion:v23 keyValueDomain:keyValueDomain];
+  v27 = [HKElectrocardiogramActiveAlgorithmVersion knownAlgorithmVersionFromOnboardedVersion:v25 keyValueDomain:keyValueDomain];
 
-  v26 = +[HKElectrocardiogramActiveAlgorithmVersion onboardingVersionForKnownAlgorithmVersion:](HKElectrocardiogramActiveAlgorithmVersion, "onboardingVersionForKnownAlgorithmVersion:", [v25 integerValue]);
-  v12 = [v22 containsOnboardedVersion:version];
+  v28 = +[HKElectrocardiogramActiveAlgorithmVersion onboardingVersionForKnownAlgorithmVersion:](HKElectrocardiogramActiveAlgorithmVersion, "onboardingVersionForKnownAlgorithmVersion:", [v27 integerValue]);
+  v12 = [v24 containsOnboardedVersion:version];
 
   if (cacheCopy)
   {
@@ -680,78 +681,78 @@ LABEL_10:
   }
 
 LABEL_12:
-  _HKInitializeLogging();
-  v27 = HKLogHeartRhythm;
+  _HKInitializeLogging(v29, v30);
+  v31 = HKLogHeartRhythm;
   if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
   {
-    v33 = 136447234;
-    v34 = "[HKHeartRhythmAvailability _isOnboardingCompletedForKey:version:useCache:]";
-    v35 = 1024;
-    *v36 = v12;
-    *&v36[4] = 2114;
-    *&v36[6] = keyCopy;
-    *&v36[14] = 1026;
-    *&v36[16] = version;
-    LOWORD(v37) = 1026;
-    *(&v37 + 2) = v26;
-    _os_log_impl(&dword_19197B000, v27, OS_LOG_TYPE_DEFAULT, "[%{public}s] -> %i, argKey: %{public}@ argVersion: %{public}i, versionCompleted: %{public}i", &v33, 0x28u);
+    v38 = 136447234;
+    v39 = "[HKHeartRhythmAvailability _isOnboardingCompletedForKey:version:useCache:]";
+    v40 = 1024;
+    *v41 = v12;
+    *&v41[4] = 2114;
+    *&v41[6] = keyCopy;
+    *&v41[14] = 1026;
+    *&v41[16] = version;
+    LOWORD(v42) = 1026;
+    *(&v42 + 2) = v28;
+    _os_log_impl(&dword_19197B000, v31, OS_LOG_TYPE_DEFAULT, "[%{public}s] -> %i, argKey: %{public}@ argVersion: %{public}i, versionCompleted: %{public}i", &v38, 0x28u);
   }
 
 LABEL_18:
 
-  v31 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (int64_t)_getOnboardingVersionForKey:(id)key
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   keyValueDomain = [(HKHeartRhythmAvailability *)self keyValueDomain];
-  v17 = 0;
-  v7 = [keyValueDomain numberForKey:keyCopy error:&v17];
-  v8 = v17;
+  v18 = 0;
+  v7 = [keyValueDomain numberForKey:keyCopy error:&v18];
+  v8 = v18;
 
   if (v7)
   {
     integerValue = [v7 integerValue];
+    v11 = integerValue;
   }
 
   else
   {
     if (v8)
     {
-      _HKInitializeLogging();
-      if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_ERROR))
+      _HKInitializeLogging(integerValue, v10);
+      integerValue = os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_ERROR);
+      if (integerValue)
       {
         [HKHeartRhythmAvailability _getOnboardingVersionForKey:];
       }
     }
 
-    integerValue = 0;
+    v11 = 0;
   }
 
-  _HKInitializeLogging();
-  v10 = HKLogHeartRhythm;
+  _HKInitializeLogging(integerValue, v10);
+  v12 = HKLogHeartRhythm;
   if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = v10;
-    v12 = objc_opt_class();
     v13 = v12;
-    v14 = NSStringFromSelector(a2);
+    v14 = objc_opt_class();
+    v15 = v14;
+    v16 = NSStringFromSelector(a2);
     *buf = 138544130;
-    v19 = v12;
-    v20 = 2114;
-    v21 = v14;
-    v22 = 2114;
-    v23 = keyCopy;
-    v24 = 2048;
-    v25 = integerValue;
-    _os_log_impl(&dword_19197B000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@%{public}@] -> %ld (Retrieved from HealthKit)", buf, 0x2Au);
+    v20 = v14;
+    v21 = 2114;
+    v22 = v16;
+    v23 = 2114;
+    v24 = keyCopy;
+    v25 = 2048;
+    v26 = v11;
+    _os_log_impl(&dword_19197B000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@%{public}@] -> %ld (Retrieved from HealthKit)", buf, 0x2Au);
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-  return integerValue;
+  return v11;
 }
 
 - (void)_updateOnboardingCompletionForKey:(id)key andVersion:(int64_t)version
@@ -770,25 +771,26 @@ LABEL_18:
   keyCopy = key;
   if ([keyCopy isEqualToString:@"HKElectrocardiogramOnboardingCompleted"])
   {
-    v4 = @"HKElectrocardiogramOnboardingHistory";
+    v5 = @"HKElectrocardiogramOnboardingHistory";
   }
 
   else
   {
-    if (([keyCopy isEqualToString:@"HKAtrialFibrillationDetectionOnboardingCompleted"] & 1) == 0)
+    v6 = [keyCopy isEqualToString:@"HKAtrialFibrillationDetectionOnboardingCompleted"];
+    if ((v6 & 1) == 0)
     {
-      _HKInitializeLogging();
-      v5 = HKLogHeartRhythm;
+      _HKInitializeLogging(v6, v7);
+      v8 = HKLogHeartRhythm;
       if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_ERROR))
       {
-        [HKHeartRhythmAvailability _onboardingHistoryKeyFromCompletedKey:v5];
+        [(HKHeartRhythmAvailability *)v8 _onboardingHistoryKeyFromCompletedKey:self];
       }
     }
 
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 + (id)_onboardingCountryCodeKeyFromCompletedKey:(id)key
@@ -796,27 +798,31 @@ LABEL_18:
   keyCopy = key;
   if ([keyCopy isEqualToString:@"HKElectrocardiogramOnboardingCompleted"])
   {
-    v4 = @"HKElectrocardiogramOnboardingCountryCode";
-  }
-
-  else if ([keyCopy isEqualToString:@"HKAtrialFibrillationDetectionOnboardingCompleted"])
-  {
-    v4 = @"HKAtrialFibrillationDetectionOnboardingCountryCode";
+    v5 = @"HKElectrocardiogramOnboardingCountryCode";
   }
 
   else
   {
-    _HKInitializeLogging();
-    v5 = HKLogHeartRhythm;
-    if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_ERROR))
+    v6 = [keyCopy isEqualToString:@"HKAtrialFibrillationDetectionOnboardingCompleted"];
+    if (v6)
     {
-      [HKHeartRhythmAvailability _onboardingHistoryKeyFromCompletedKey:v5];
+      v5 = @"HKAtrialFibrillationDetectionOnboardingCountryCode";
     }
 
-    v4 = 0;
+    else
+    {
+      _HKInitializeLogging(v6, v7);
+      v8 = HKLogHeartRhythm;
+      if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_ERROR))
+      {
+        [(HKHeartRhythmAvailability *)v8 _onboardingHistoryKeyFromCompletedKey:self];
+      }
+
+      v5 = 0;
+    }
   }
 
-  return v4;
+  return v5;
 }
 
 - (id)_makeOnboardingHistoryWithVersionCompleted:(int64_t)completed versionCompletedKey:(id)key additionalValues:(id)values countryCodeKey:(id)codeKey
@@ -857,7 +863,7 @@ LABEL_18:
 
 - (void)_setOnboardingVersionCompleted:(int64_t)completed forKey:(id)key additionalValues:(id)values completion:(id)completion
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   valuesCopy = values;
   completionCopy = completion;
@@ -885,60 +891,60 @@ LABEL_18:
 
   v18 = [(HKHeartRhythmAvailability *)self _makeOnboardingHistoryWithVersionCompleted:completed versionCompletedKey:keyCopy additionalValues:valuesCopy countryCodeKey:v16];
   keyValueDomain = [(HKHeartRhythmAvailability *)self keyValueDomain];
-  v33 = 0;
-  v20 = [keyValueDomain setPropertyListValue:v18 forKey:v15 error:&v33];
-  v21 = v33;
+  v36 = 0;
+  v20 = [keyValueDomain setPropertyListValue:v18 forKey:v15 error:&v36];
+  v21 = v36;
 
   if (v20)
   {
 
 LABEL_8:
-    v22 = [MEMORY[0x1E696AD98] numberWithInteger:completed];
-    [v14 setObject:v22 forKeyedSubscript:keyCopy];
+    v24 = [MEMORY[0x1E696AD98] numberWithInteger:completed];
+    [v14 setObject:v24 forKeyedSubscript:keyCopy];
 
-    _HKInitializeLogging();
-    v23 = HKLogHeartRhythm;
+    _HKInitializeLogging(v25, v26);
+    v27 = HKLogHeartRhythm;
     if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446978;
       completedCopy2 = "[HKHeartRhythmAvailability _setOnboardingVersionCompleted:forKey:additionalValues:completion:]";
-      v36 = 2048;
+      v39 = 2048;
       completedCopy = completed;
-      v38 = 2114;
-      v39 = keyCopy;
-      v40 = 2114;
-      v41 = v14;
-      _os_log_impl(&dword_19197B000, v23, OS_LOG_TYPE_DEFAULT, "[%{public}s] %ld %{public}@ %{public}@", buf, 0x2Au);
+      v41 = 2114;
+      v42 = keyCopy;
+      v43 = 2114;
+      v44 = v14;
+      _os_log_impl(&dword_19197B000, v27, OS_LOG_TYPE_DEFAULT, "[%{public}s] %ld %{public}@ %{public}@", buf, 0x2Au);
     }
 
     objc_initWeak(buf, self);
     keyValueDomain2 = [(HKHeartRhythmAvailability *)self keyValueDomain];
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __95__HKHeartRhythmAvailability__setOnboardingVersionCompleted_forKey_additionalValues_completion___block_invoke;
-    v29[3] = &unk_1E7382DD0;
-    v32[1] = completed;
-    v30 = keyCopy;
-    v31 = completionCopy;
-    objc_copyWeak(v32, buf);
-    [keyValueDomain2 setValuesWithDictionary:v14 completion:v29];
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __95__HKHeartRhythmAvailability__setOnboardingVersionCompleted_forKey_additionalValues_completion___block_invoke;
+    v32[3] = &unk_1E7382DD0;
+    v35[1] = completed;
+    v33 = keyCopy;
+    v34 = completionCopy;
+    objc_copyWeak(v35, buf);
+    [keyValueDomain2 setValuesWithDictionary:v14 completion:v32];
 
-    objc_destroyWeak(v32);
+    objc_destroyWeak(v35);
     objc_destroyWeak(buf);
     goto LABEL_16;
   }
 
-  _HKInitializeLogging();
-  v25 = HKLogHeartRhythm;
+  _HKInitializeLogging(v22, v23);
+  v29 = HKLogHeartRhythm;
   if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_ERROR))
   {
     *buf = 134218498;
     completedCopy2 = completed;
-    v36 = 2112;
+    v39 = 2112;
     completedCopy = keyCopy;
-    v38 = 2112;
-    v39 = v21;
-    _os_log_error_impl(&dword_19197B000, v25, OS_LOG_TYPE_ERROR, "Couldn't set heart rhythm onboarding history %ld for key [%@]: %@", buf, 0x20u);
+    v41 = 2112;
+    v42 = v21;
+    _os_log_error_impl(&dword_19197B000, v29, OS_LOG_TYPE_ERROR, "Couldn't set heart rhythm onboarding history %ld for key [%@]: %@", buf, 0x20u);
   }
 
   if (completionCopy)
@@ -947,59 +953,59 @@ LABEL_8:
   }
 
 LABEL_16:
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __95__HKHeartRhythmAvailability__setOnboardingVersionCompleted_forKey_additionalValues_completion___block_invoke(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v7 = v5;
   if (a2)
   {
-    v6 = *(a1 + 56);
+    v8 = *(a1 + 56);
     WeakRetained = objc_loadWeakRetained((a1 + 48));
-    v8 = [WeakRetained heartRhythmUserDefaults];
-    v9 = v8;
-    if (v6)
+    v10 = [WeakRetained heartRhythmUserDefaults];
+    v11 = v10;
+    if (v8)
     {
-      [v8 setInteger:*(a1 + 56) forKey:*(a1 + 32)];
+      [v10 setInteger:*(a1 + 56) forKey:*(a1 + 32)];
     }
 
     else
     {
-      [v8 removeObjectForKey:*(a1 + 32)];
+      [v10 removeObjectForKey:*(a1 + 32)];
     }
 
-    v11 = [MEMORY[0x1E695DFD8] setWithObject:*(a1 + 32)];
-    HKSynchronizeNanoPreferencesUserDefaults(@"com.apple.private.health.heart-rhythm", v11);
+    v13 = [MEMORY[0x1E695DFD8] setWithObject:*(a1 + 32)];
+    HKSynchronizeNanoPreferencesUserDefaults(@"com.apple.private.health.heart-rhythm", v13);
 
     notify_post("HKHeartRhythmOnboardingStateDidChangeNotification");
-    v12 = [HKNanoSyncControl alloc];
-    v13 = objc_loadWeakRetained((a1 + 48));
-    v14 = [v13 healthStore];
-    v15 = [(HKNanoSyncControl *)v12 initWithHealthStore:v14];
+    v14 = [HKNanoSyncControl alloc];
+    v15 = objc_loadWeakRetained((a1 + 48));
+    v16 = [v15 healthStore];
+    v17 = [(HKNanoSyncControl *)v14 initWithHealthStore:v16];
 
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __95__HKHeartRhythmAvailability__setOnboardingVersionCompleted_forKey_additionalValues_completion___block_invoke_114;
-    v16[3] = &unk_1E7382DA8;
-    v19 = *(a1 + 56);
-    v17 = *(a1 + 32);
-    v18 = *(a1 + 40);
-    [(HKNanoSyncControl *)v15 forceNanoSyncWithOptions:0 completion:v16];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __95__HKHeartRhythmAvailability__setOnboardingVersionCompleted_forKey_additionalValues_completion___block_invoke_114;
+    v18[3] = &unk_1E7382DA8;
+    v21 = *(a1 + 56);
+    v19 = *(a1 + 32);
+    v20 = *(a1 + 40);
+    [(HKNanoSyncControl *)v17 forceNanoSyncWithOptions:0 completion:v18];
   }
 
   else
   {
-    _HKInitializeLogging();
+    _HKInitializeLogging(v5, v6);
     if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_ERROR))
     {
-      __95__HKHeartRhythmAvailability__setOnboardingVersionCompleted_forKey_additionalValues_completion___block_invoke_cold_1(a1);
+      __95__HKHeartRhythmAvailability__setOnboardingVersionCompleted_forKey_additionalValues_completion___block_invoke_cold_1();
     }
 
-    v10 = *(a1 + 40);
-    if (v10)
+    v12 = *(a1 + 40);
+    if (v12)
     {
-      (*(v10 + 16))(v10, 0, v5);
+      (*(v12 + 16))(v12, 0, v7);
     }
   }
 }
@@ -1007,98 +1013,98 @@ void __95__HKHeartRhythmAvailability__setOnboardingVersionCompleted_forKey_addit
 void __95__HKHeartRhythmAvailability__setOnboardingVersionCompleted_forKey_additionalValues_completion___block_invoke_114(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v7 = v5;
   if ((a2 & 1) == 0)
   {
-    _HKInitializeLogging();
+    _HKInitializeLogging(v5, v6);
     if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_ERROR))
     {
-      __95__HKHeartRhythmAvailability__setOnboardingVersionCompleted_forKey_additionalValues_completion___block_invoke_114_cold_1(a1);
+      __95__HKHeartRhythmAvailability__setOnboardingVersionCompleted_forKey_additionalValues_completion___block_invoke_114_cold_1();
     }
   }
 
-  v6 = *(a1 + 40);
-  if (v6)
+  v8 = *(a1 + 40);
+  if (v8)
   {
-    (*(v6 + 16))(v6, a2, v5);
+    (*(v8 + 16))(v8, a2, v7);
   }
 }
 
 - (void)_setFirstOnboardingCompletedDate:(id)date forKey:(id)key completion:(id)completion
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   keyCopy = key;
   completionCopy = completion;
   v11 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  [v11 setObject:dateCopy forKeyedSubscript:keyCopy];
-  _HKInitializeLogging();
-  v12 = HKLogHeartRhythm;
+  v12 = [v11 setObject:dateCopy forKeyedSubscript:keyCopy];
+  _HKInitializeLogging(v12, v13);
+  v14 = HKLogHeartRhythm;
   if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446978;
-    v24 = "[HKHeartRhythmAvailability _setFirstOnboardingCompletedDate:forKey:completion:]";
-    v25 = 2114;
-    v26 = dateCopy;
-    v27 = 2114;
-    v28 = keyCopy;
-    v29 = 2114;
-    v30 = v11;
-    _os_log_impl(&dword_19197B000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}s] %{public}@ %{public}@ %{public}@", buf, 0x2Au);
+    v25 = "[HKHeartRhythmAvailability _setFirstOnboardingCompletedDate:forKey:completion:]";
+    v26 = 2114;
+    v27 = dateCopy;
+    v28 = 2114;
+    v29 = keyCopy;
+    v30 = 2114;
+    v31 = v11;
+    _os_log_impl(&dword_19197B000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}s] %{public}@ %{public}@ %{public}@", buf, 0x2Au);
   }
 
   objc_initWeak(buf, self);
   keyValueDomain = [(HKHeartRhythmAvailability *)self keyValueDomain];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __80__HKHeartRhythmAvailability__setFirstOnboardingCompletedDate_forKey_completion___block_invoke;
-  v18[3] = &unk_1E7382DF8;
-  v14 = dateCopy;
-  v19 = v14;
-  v15 = keyCopy;
-  v20 = v15;
-  v16 = completionCopy;
-  v21 = v16;
-  objc_copyWeak(&v22, buf);
-  [keyValueDomain setValuesWithDictionary:v11 completion:v18];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __80__HKHeartRhythmAvailability__setFirstOnboardingCompletedDate_forKey_completion___block_invoke;
+  v19[3] = &unk_1E7382DF8;
+  v16 = dateCopy;
+  v20 = v16;
+  v17 = keyCopy;
+  v21 = v17;
+  v18 = completionCopy;
+  v22 = v18;
+  objc_copyWeak(&v23, buf);
+  [keyValueDomain setValuesWithDictionary:v11 completion:v19];
 
-  objc_destroyWeak(&v22);
+  objc_destroyWeak(&v23);
   objc_destroyWeak(buf);
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __80__HKHeartRhythmAvailability__setFirstOnboardingCompletedDate_forKey_completion___block_invoke(id *a1, char a2, void *a3)
 {
   v5 = a3;
+  v7 = v5;
   if (a2)
   {
-    v6 = [HKNanoSyncControl alloc];
+    v8 = [HKNanoSyncControl alloc];
     WeakRetained = objc_loadWeakRetained(a1 + 7);
-    v8 = [WeakRetained healthStore];
-    v9 = [(HKNanoSyncControl *)v6 initWithHealthStore:v8];
+    v10 = [WeakRetained healthStore];
+    v11 = [(HKNanoSyncControl *)v8 initWithHealthStore:v10];
 
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __80__HKHeartRhythmAvailability__setFirstOnboardingCompletedDate_forKey_completion___block_invoke_116;
-    v11[3] = &unk_1E7378928;
-    v12 = a1[4];
-    v13 = a1[5];
-    v14 = a1[6];
-    [(HKNanoSyncControl *)v9 forceNanoSyncWithOptions:0 completion:v11];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __80__HKHeartRhythmAvailability__setFirstOnboardingCompletedDate_forKey_completion___block_invoke_116;
+    v13[3] = &unk_1E7378928;
+    v14 = a1[4];
+    v15 = a1[5];
+    v16 = a1[6];
+    [(HKNanoSyncControl *)v11 forceNanoSyncWithOptions:0 completion:v13];
   }
 
   else
   {
-    _HKInitializeLogging();
+    _HKInitializeLogging(v5, v6);
     if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_ERROR))
     {
-      __80__HKHeartRhythmAvailability__setFirstOnboardingCompletedDate_forKey_completion___block_invoke_cold_1(a1);
+      __80__HKHeartRhythmAvailability__setFirstOnboardingCompletedDate_forKey_completion___block_invoke_cold_1();
     }
 
-    v10 = a1[6];
-    if (v10)
+    v12 = a1[6];
+    if (v12)
     {
-      v10[2](v10, 0, v5);
+      v12[2](v12, 0, v7);
     }
   }
 }
@@ -1106,19 +1112,20 @@ void __80__HKHeartRhythmAvailability__setFirstOnboardingCompletedDate_forKey_com
 void __80__HKHeartRhythmAvailability__setFirstOnboardingCompletedDate_forKey_completion___block_invoke_116(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v7 = v5;
   if ((a2 & 1) == 0)
   {
-    _HKInitializeLogging();
+    _HKInitializeLogging(v5, v6);
     if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_ERROR))
     {
-      __80__HKHeartRhythmAvailability__setFirstOnboardingCompletedDate_forKey_completion___block_invoke_116_cold_1(a1);
+      __80__HKHeartRhythmAvailability__setFirstOnboardingCompletedDate_forKey_completion___block_invoke_116_cold_1();
     }
   }
 
-  v6 = *(a1 + 48);
-  if (v6)
+  v8 = *(a1 + 48);
+  if (v8)
   {
-    (*(v6 + 16))(v6, a2, v5);
+    (*(v8 + 16))(v8, a2, v7);
   }
 }
 
@@ -1147,34 +1154,35 @@ void __80__HKHeartRhythmAvailability__setFirstOnboardingCompletedDate_forKey_com
 void __83__HKHeartRhythmAvailability__removeFirstOnboardingCompletedDatesForKey_completion___block_invoke(id *a1, char a2, void *a3)
 {
   v5 = a3;
+  v7 = v5;
   if (a2)
   {
-    v6 = [HKNanoSyncControl alloc];
+    v8 = [HKNanoSyncControl alloc];
     WeakRetained = objc_loadWeakRetained(a1 + 6);
-    v8 = [WeakRetained healthStore];
-    v9 = [(HKNanoSyncControl *)v6 initWithHealthStore:v8];
+    v10 = [WeakRetained healthStore];
+    v11 = [(HKNanoSyncControl *)v8 initWithHealthStore:v10];
 
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __83__HKHeartRhythmAvailability__removeFirstOnboardingCompletedDatesForKey_completion___block_invoke_117;
-    v11[3] = &unk_1E73766A0;
-    v12 = a1[4];
-    v13 = a1[5];
-    [(HKNanoSyncControl *)v9 forceNanoSyncWithOptions:0 completion:v11];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __83__HKHeartRhythmAvailability__removeFirstOnboardingCompletedDatesForKey_completion___block_invoke_117;
+    v13[3] = &unk_1E73766A0;
+    v14 = a1[4];
+    v15 = a1[5];
+    [(HKNanoSyncControl *)v11 forceNanoSyncWithOptions:0 completion:v13];
   }
 
   else
   {
-    _HKInitializeLogging();
+    _HKInitializeLogging(v5, v6);
     if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_ERROR))
     {
-      __83__HKHeartRhythmAvailability__removeFirstOnboardingCompletedDatesForKey_completion___block_invoke_cold_1(a1);
+      __83__HKHeartRhythmAvailability__removeFirstOnboardingCompletedDatesForKey_completion___block_invoke_cold_1();
     }
 
-    v10 = a1[5];
-    if (v10)
+    v12 = a1[5];
+    if (v12)
     {
-      v10[2](v10, 0, v5);
+      v12[2](v12, 0, v7);
     }
   }
 }
@@ -1182,19 +1190,20 @@ void __83__HKHeartRhythmAvailability__removeFirstOnboardingCompletedDatesForKey_
 void __83__HKHeartRhythmAvailability__removeFirstOnboardingCompletedDatesForKey_completion___block_invoke_117(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v7 = v5;
   if ((a2 & 1) == 0)
   {
-    _HKInitializeLogging();
+    _HKInitializeLogging(v5, v6);
     if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_ERROR))
     {
-      __83__HKHeartRhythmAvailability__removeFirstOnboardingCompletedDatesForKey_completion___block_invoke_117_cold_1(a1);
+      __83__HKHeartRhythmAvailability__removeFirstOnboardingCompletedDatesForKey_completion___block_invoke_117_cold_1();
     }
   }
 
-  v6 = *(a1 + 40);
-  if (v6)
+  v8 = *(a1 + 40);
+  if (v8)
   {
-    (*(v6 + 16))(v6, a2, v5);
+    (*(v8 + 16))(v8, a2, v7);
   }
 }
 
@@ -1212,13 +1221,12 @@ void __83__HKHeartRhythmAvailability__removeFirstOnboardingCompletedDatesForKey_
 
 void __87__HKHeartRhythmAvailability__triggerFeatureAvailabilityUpdateOnPhoneAndWatchWithDelay___block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v4 = [objc_opt_class() featureAvailabilityUserDefaults];
-  v2 = [MEMORY[0x1E695DF00] date];
-  [v4 setObject:v2 forKey:@"RefreshFeatureAvailabilityConditions"];
+  v3 = [objc_opt_class() featureAvailabilityUserDefaults];
+  v1 = [MEMORY[0x1E695DF00] date];
+  [v3 setObject:v1 forKey:@"RefreshFeatureAvailabilityConditions"];
 
-  v3 = [MEMORY[0x1E695DFD8] setWithObject:@"RefreshFeatureAvailabilityConditions"];
-  HKSynchronizeNanoPreferencesUserDefaults(@"com.apple.private.health.feature-availability", v3);
+  v2 = [MEMORY[0x1E695DFD8] setWithObject:@"RefreshFeatureAvailabilityConditions"];
+  HKSynchronizeNanoPreferencesUserDefaults(@"com.apple.private.health.feature-availability", v2);
 }
 
 - (HKRegulatoryDomainProvider)mobileCountryCodeManager
@@ -1250,7 +1258,7 @@ void __87__HKHeartRhythmAvailability__triggerFeatureAvailabilityUpdateOnPhoneAnd
 - (BOOL)isElectrocardiogramAvailableForOnboardingCountryCode:(id)code
 {
   codeCopy = code;
-  v5 = +[_HKBehavior currentOSVersion];
+  v5 = objc_msgSend_currentOSVersion(_HKBehavior);
   NRRawVersionFromString = getNRRawVersionFromString(v5);
 
   activePairedDevice = [objc_opt_class() activePairedDevice];
@@ -1339,41 +1347,42 @@ void __87__HKHeartRhythmAvailability__triggerFeatureAvailabilityUpdateOnPhoneAnd
 
 - (id)electrocardiogramOnboardingCountryCode
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   keyValueDomain = [(HKHeartRhythmAvailability *)self keyValueDomain];
-  v17 = 0;
-  v4 = [keyValueDomain stringForKey:@"HKElectrocardiogramOnboardingCountryCode" error:&v17];
-  v5 = v17;
+  v24 = 0;
+  v4 = [keyValueDomain stringForKey:@"HKElectrocardiogramOnboardingCountryCode" error:&v24];
+  v5 = v24;
 
   if (!v4 && v5)
   {
-    _HKInitializeLogging();
+    _HKInitializeLogging(v6, v7);
     if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_ERROR))
     {
       [HKHeartRhythmAvailability electrocardiogramOnboardingCountryCode];
     }
 
-    if ([v5 hk_isDatabaseAccessibilityError])
+    hk_isDatabaseAccessibilityError = [v5 hk_isDatabaseAccessibilityError];
+    if (hk_isDatabaseAccessibilityError)
     {
-      _HKInitializeLogging();
-      v6 = HKLogHeartRhythm;
+      _HKInitializeLogging(hk_isDatabaseAccessibilityError, v9);
+      v10 = HKLogHeartRhythm;
       if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446210;
-        v19 = "[HKHeartRhythmAvailability electrocardiogramOnboardingCountryCode]";
-        _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}s]: Database inaccessible, resetting electrocardiogram disabled cache for next query.", buf, 0xCu);
+        v26 = "[HKHeartRhythmAvailability electrocardiogramOnboardingCountryCode]";
+        _os_log_impl(&dword_19197B000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}s]: Database inaccessible, resetting electrocardiogram disabled cache for next query.", buf, 0xCu);
       }
 
-      [(HKHeartRhythmAvailability *)self _resetElectrocardiogramRescindedStatusCacheWithLock:0];
+      hk_isDatabaseAccessibilityError = [(HKHeartRhythmAvailability *)self _resetElectrocardiogramRescindedStatusCacheWithLock:0];
     }
 
-    _HKInitializeLogging();
-    v7 = HKLogHeartRhythm;
+    _HKInitializeLogging(hk_isDatabaseAccessibilityError, v9);
+    v11 = HKLogHeartRhythm;
     if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v19 = "[HKHeartRhythmAvailability electrocardiogramOnboardingCountryCode]";
-      _os_log_impl(&dword_19197B000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}s] -> nil (Error retrieving)", buf, 0xCu);
+      v26 = "[HKHeartRhythmAvailability electrocardiogramOnboardingCountryCode]";
+      _os_log_impl(&dword_19197B000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}s] -> nil (Error retrieving)", buf, 0xCu);
     }
 
     hk_copyNonEmptyString = 0;
@@ -1382,96 +1391,94 @@ void __87__HKHeartRhythmAvailability__triggerFeatureAvailabilityUpdateOnPhoneAnd
 
   hk_copyNonEmptyString = [v4 hk_copyNonEmptyString];
 
-  if (hk_copyNonEmptyString || ![(HKHeartRhythmAvailability *)self isElectrocardiogramOnboardingCompletedForAnyOnboardingVersion])
+  if (hk_copyNonEmptyString || (v13 = [(HKHeartRhythmAvailability *)self isElectrocardiogramOnboardingCompletedForAnyOnboardingVersion], !v13))
   {
-    _HKInitializeLogging();
-    v9 = HKLogHeartRhythm;
-    if (!os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
+    _HKInitializeLogging(v13, v14);
+    v15 = HKLogHeartRhythm;
+    v16 = os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT);
+    if (!v16)
     {
       goto LABEL_19;
     }
 
     *buf = 136446466;
-    v19 = "[HKHeartRhythmAvailability electrocardiogramOnboardingCountryCode]";
-    v20 = 2114;
-    v21 = hk_copyNonEmptyString;
-    v10 = "[%{public}s] -> %{public}@ (Retrieved from HealthKit)";
+    v26 = "[HKHeartRhythmAvailability electrocardiogramOnboardingCountryCode]";
+    v27 = 2114;
+    v28 = hk_copyNonEmptyString;
+    v18 = "[%{public}s] -> %{public}@ (Retrieved from HealthKit)";
   }
 
   else
   {
-    _HKInitializeLogging();
-    v9 = HKLogHeartRhythm;
+    _HKInitializeLogging(v13, v14);
+    v15 = HKLogHeartRhythm;
+    v16 = os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT);
     hk_copyNonEmptyString = @"US";
-    if (!os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
+    if (!v16)
     {
       goto LABEL_19;
     }
 
     *buf = 136446466;
-    v19 = "[HKHeartRhythmAvailability electrocardiogramOnboardingCountryCode]";
-    v20 = 2114;
-    v21 = @"US";
-    v10 = "[%{public}s] -> %{public}@ (Not Present, Assumed)";
+    v26 = "[HKHeartRhythmAvailability electrocardiogramOnboardingCountryCode]";
+    v27 = 2114;
+    v28 = @"US";
+    v18 = "[%{public}s] -> %{public}@ (Not Present, Assumed)";
   }
 
-  _os_log_impl(&dword_19197B000, v9, OS_LOG_TYPE_DEFAULT, v10, buf, 0x16u);
+  _os_log_impl(&dword_19197B000, v15, OS_LOG_TYPE_DEFAULT, v18, buf, 0x16u);
 LABEL_19:
-  _HKInitializeLogging();
-  v11 = HKLogHeartRhythm;
+  _HKInitializeLogging(v16, v17);
+  v19 = HKLogHeartRhythm;
   if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = v11;
-    v13 = objc_opt_class();
+    v20 = v19;
+    v21 = objc_opt_class();
     *buf = 138543874;
-    v19 = v13;
-    v20 = 2082;
-    v21 = "[HKHeartRhythmAvailability electrocardiogramOnboardingCountryCode]";
-    v22 = 2114;
-    v23 = hk_copyNonEmptyString;
-    v14 = v13;
-    _os_log_impl(&dword_19197B000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}s] -> %{public}@", buf, 0x20u);
+    v26 = v21;
+    v27 = 2082;
+    v28 = "[HKHeartRhythmAvailability electrocardiogramOnboardingCountryCode]";
+    v29 = 2114;
+    v30 = hk_copyNonEmptyString;
+    v22 = v21;
+    _os_log_impl(&dword_19197B000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}s] -> %{public}@", buf, 0x20u);
   }
 
 LABEL_21:
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return hk_copyNonEmptyString;
 }
 
 - (id)_electrocardiogramFirstOnboardingCompletedDate
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   keyValueDomain = [(HKHeartRhythmAvailability *)self keyValueDomain];
-  v8 = 0;
-  v3 = [keyValueDomain dateForKey:@"HKElectrocardiogramFirstOnboardingCompleted" error:&v8];
-  v4 = v8;
+  v9 = 0;
+  v3 = [keyValueDomain dateForKey:@"HKElectrocardiogramFirstOnboardingCompleted" error:&v9];
+  v4 = v9;
 
   if (v3)
   {
-    _HKInitializeLogging();
-    v5 = HKLogHeartRhythm;
+    _HKInitializeLogging(v5, v6);
+    v7 = HKLogHeartRhythm;
     if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
-      v10 = "[HKHeartRhythmAvailability _electrocardiogramFirstOnboardingCompletedDate]";
-      v11 = 2114;
-      v12 = v3;
-      _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}s] -> %{public}@ (Retrieved from HealthKit)", buf, 0x16u);
+      v11 = "[HKHeartRhythmAvailability _electrocardiogramFirstOnboardingCompletedDate]";
+      v12 = 2114;
+      v13 = v3;
+      _os_log_impl(&dword_19197B000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}s] -> %{public}@ (Retrieved from HealthKit)", buf, 0x16u);
     }
   }
 
   else if (v4)
   {
-    _HKInitializeLogging();
+    _HKInitializeLogging(v5, v6);
     if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_ERROR))
     {
       [HKHeartRhythmAvailability _electrocardiogramFirstOnboardingCompletedDate];
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -1485,32 +1492,30 @@ LABEL_21:
 
 - (void)unitTest_setElectrocardiogramOnboardingCompletedForVersion:(int64_t)version countryCode:(id)code completion:(id)completion
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if (code)
   {
-    v12 = @"HKElectrocardiogramOnboardingCountryCode";
-    v13[0] = code;
+    v11 = @"HKElectrocardiogramOnboardingCountryCode";
+    v12[0] = code;
     v9 = MEMORY[0x1E695DF20];
     codeCopy = code;
-    code = [v9 dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    code = [v9 dictionaryWithObjects:v12 forKeys:&v11 count:1];
   }
 
   [(HKHeartRhythmAvailability *)self _setOnboardingVersionCompleted:version forKey:@"HKElectrocardiogramOnboardingCompleted" additionalValues:code completion:completionCopy];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setElectrocardiogramOnboardingCompletedForVersion:(int64_t)version inCountryCode:(id)code
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   codeCopy = code;
   v7 = codeCopy;
   if (codeCopy)
   {
-    v13 = @"HKElectrocardiogramOnboardingCountryCode";
-    v14[0] = codeCopy;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = @"HKElectrocardiogramOnboardingCountryCode";
+    v13[0] = codeCopy;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   }
 
   else
@@ -1519,16 +1524,14 @@ LABEL_21:
   }
 
   objc_initWeak(&location, self);
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __94__HKHeartRhythmAvailability__setElectrocardiogramOnboardingCompletedForVersion_inCountryCode___block_invoke;
-  v10[3] = &unk_1E7382E48;
-  objc_copyWeak(&v11, &location);
-  [(HKHeartRhythmAvailability *)self _setOnboardingVersionCompleted:version forKey:@"HKElectrocardiogramOnboardingCompleted" additionalValues:v8 completion:v10];
-  objc_destroyWeak(&v11);
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __94__HKHeartRhythmAvailability__setElectrocardiogramOnboardingCompletedForVersion_inCountryCode___block_invoke;
+  v9[3] = &unk_1E7382E48;
+  objc_copyWeak(&v10, &location);
+  [(HKHeartRhythmAvailability *)self _setOnboardingVersionCompleted:version forKey:@"HKElectrocardiogramOnboardingCompleted" additionalValues:v8 completion:v9];
+  objc_destroyWeak(&v10);
   objc_destroyWeak(&location);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __94__HKHeartRhythmAvailability__setElectrocardiogramOnboardingCompletedForVersion_inCountryCode___block_invoke(uint64_t a1)
@@ -1541,6 +1544,7 @@ void __94__HKHeartRhythmAvailability__setElectrocardiogramOnboardingCompletedFor
 {
   v15 = *MEMORY[0x1E69E9840];
   activePairedDevice = [objc_opt_class() activePairedDevice];
+  v7 = activePairedDevice;
   if (!activePairedDevice)
   {
     goto LABEL_5;
@@ -1548,34 +1552,33 @@ void __94__HKHeartRhythmAvailability__setElectrocardiogramOnboardingCompletedFor
 
   if (version == 2)
   {
-    v6 = [(HKHeartRhythmAvailability *)self _activePairedDevicesSupportECGAlgorithmVersionTwo:activePairedDevice];
+    activePairedDevice = [(HKHeartRhythmAvailability *)self _activePairedDevicesSupportECGAlgorithmVersionTwo:activePairedDevice];
     goto LABEL_7;
   }
 
   if (version != 1)
   {
 LABEL_5:
-    v7 = 0;
+    v8 = 0;
     goto LABEL_8;
   }
 
-  v6 = [objc_opt_class() electrocardiogramSupportedForDevice:activePairedDevice];
+  activePairedDevice = [objc_opt_class() electrocardiogramSupportedForDevice:activePairedDevice];
 LABEL_7:
-  v7 = v6;
+  v8 = activePairedDevice;
 LABEL_8:
-  _HKInitializeLogging();
-  v8 = HKLogHeartRhythm;
+  _HKInitializeLogging(activePairedDevice, v6);
+  v9 = HKLogHeartRhythm;
   if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 136446466;
     v12 = "[HKHeartRhythmAvailability activePairedDevicesSupportElectrocardiogramAlgorithmVersion:]";
     v13 = 1024;
-    v14 = v7;
-    _os_log_impl(&dword_19197B000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}s] -> %i", &v11, 0x12u);
+    v14 = v8;
+    _os_log_impl(&dword_19197B000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}s] -> %i", &v11, 0x12u);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-  return v7;
+  return v8;
 }
 
 - (BOOL)_activePairedDevicesSupportECGAlgorithmVersionTwo:(id)two
@@ -1601,80 +1604,78 @@ LABEL_8:
 
 + (BOOL)shouldInstallWatchApp
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
   v5 = [standardUserDefaults BOOLForKey:@"HKForceInstallCinnamon"];
 
   if (v5)
   {
-LABEL_2:
-    v6 = 1;
-    goto LABEL_17;
+    return 1;
   }
 
-  if (+[_HKBehavior isRunningStoreDemoMode])
+  v7 = +[_HKBehavior isRunningStoreDemoMode];
+  if (v7)
   {
-    _HKInitializeLogging();
-    v7 = HKLogHeartRhythm;
+    _HKInitializeLogging(v7, v8);
+    v9 = HKLogHeartRhythm;
     if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = v7;
-      v9 = NSStringFromSelector(a2);
-      v30 = 138543618;
+      v10 = v9;
+      v11 = NSStringFromSelector(a2);
+      v39 = 138543618;
       selfCopy6 = self;
-      v32 = 2114;
-      v33 = v9;
-      v10 = "[%{public}@ %{public}@] -> 0 (Not allowed in Store Demo Mode)";
+      v41 = 2114;
+      v42 = v11;
+      v12 = "[%{public}@ %{public}@] -> 0 (Not allowed in Store Demo Mode)";
 LABEL_15:
-      _os_log_impl(&dword_19197B000, v8, OS_LOG_TYPE_DEFAULT, v10, &v30, 0x16u);
+      _os_log_impl(&dword_19197B000, v10, OS_LOG_TYPE_DEFAULT, v12, &v39, 0x16u);
 
-      goto LABEL_16;
+      return 0;
     }
 
-    goto LABEL_16;
+    return 0;
   }
 
-  v11 = +[_HKBehavior sharedBehavior];
-  tinkerModeEnabled = [v11 tinkerModeEnabled];
+  v13 = +[_HKBehavior sharedBehavior];
+  tinkerModeEnabled = [v13 tinkerModeEnabled];
 
   if (tinkerModeEnabled)
   {
-    _HKInitializeLogging();
-    v13 = HKLogHeartRhythm;
+    _HKInitializeLogging(v15, v16);
+    v17 = HKLogHeartRhythm;
     if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = v13;
-      v9 = NSStringFromSelector(a2);
-      v30 = 138543618;
+      v10 = v17;
+      v11 = NSStringFromSelector(a2);
+      v39 = 138543618;
       selfCopy6 = self;
-      v32 = 2114;
-      v33 = v9;
-      v10 = "[%{public}@ %{public}@] -> 0 (Not allowed in Satellite Pairing Mode)";
+      v41 = 2114;
+      v42 = v11;
+      v12 = "[%{public}@ %{public}@] -> 0 (Not allowed in Satellite Pairing Mode)";
       goto LABEL_15;
     }
 
-LABEL_16:
-    v6 = 0;
-    goto LABEL_17;
+    return 0;
   }
 
-  if ((MGGetBoolAnswer() & 1) == 0)
+  v18 = MGGetBoolAnswer();
+  if ((v18 & 1) == 0)
   {
-    _HKInitializeLogging();
-    v19 = HKLogHeartRhythm;
+    _HKInitializeLogging(v18, v19);
+    v27 = HKLogHeartRhythm;
     if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = v19;
-      v9 = NSStringFromSelector(a2);
-      v30 = 138543618;
+      v10 = v27;
+      v11 = NSStringFromSelector(a2);
+      v39 = 138543618;
       selfCopy6 = self;
-      v32 = 2114;
-      v33 = v9;
-      v10 = "[%{public}@ %{public}@] -> 0 (Device hardware not supported)";
+      v41 = 2114;
+      v42 = v11;
+      v12 = "[%{public}@ %{public}@] -> 0 (Device hardware not supported)";
       goto LABEL_15;
     }
 
-    goto LABEL_16;
+    return 0;
   }
 
   hk_heartRhythmDefaults = [MEMORY[0x1E695E000] hk_heartRhythmDefaults];
@@ -1682,38 +1683,38 @@ LABEL_16:
 
   if (hk_electrocardiogramWatchAppInstallHasBeenAllowed)
   {
-    _HKInitializeLogging();
-    v16 = HKLogHeartRhythm;
-    if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
-    {
-      v17 = v16;
-      v18 = NSStringFromSelector(a2);
-      v30 = 138543618;
-      selfCopy6 = self;
-      v32 = 2114;
-      v33 = v18;
-      _os_log_impl(&dword_19197B000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> 1 (HKElectrocardiogramWatchAppInstallIsAllowed is set to True", &v30, 0x16u);
-    }
-
-    goto LABEL_2;
-  }
-
-  v22 = [objc_alloc(MEMORY[0x1E695E000]) initWithSuiteName:@"com.apple.private.health.heart-rhythm"];
-  v23 = [v22 objectForKey:@"HKElectrocardiogramOnboardingCompleted"];
-
-  if (v23 && [v23 integerValue] >= 3)
-  {
-    _HKInitializeLogging();
+    _HKInitializeLogging(v22, v23);
     v24 = HKLogHeartRhythm;
     if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
     {
       v25 = v24;
       v26 = NSStringFromSelector(a2);
-      v30 = 138543618;
+      v39 = 138543618;
       selfCopy6 = self;
-      v32 = 2114;
-      v33 = v26;
-      _os_log_impl(&dword_19197B000, v25, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> 1 (Onboarding has been completed (From Cached Value))", &v30, 0x16u);
+      v41 = 2114;
+      v42 = v26;
+      _os_log_impl(&dword_19197B000, v25, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> 1 (HKElectrocardiogramWatchAppInstallIsAllowed is set to True", &v39, 0x16u);
+    }
+
+    return 1;
+  }
+
+  v29 = [objc_alloc(MEMORY[0x1E695E000]) initWithSuiteName:@"com.apple.private.health.heart-rhythm"];
+  v30 = [v29 objectForKey:@"HKElectrocardiogramOnboardingCompleted"];
+
+  if (v30 && (v31 = [v30 integerValue], v31 >= 3))
+  {
+    _HKInitializeLogging(v31, v32);
+    v33 = HKLogHeartRhythm;
+    if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
+    {
+      v34 = v33;
+      v35 = NSStringFromSelector(a2);
+      v39 = 138543618;
+      selfCopy6 = self;
+      v41 = 2114;
+      v42 = v35;
+      _os_log_impl(&dword_19197B000, v34, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> 1 (Onboarding has been completed (From Cached Value))", &v39, 0x16u);
     }
 
     v6 = 1;
@@ -1721,31 +1722,29 @@ LABEL_16:
 
   else
   {
-    _HKInitializeLogging();
-    v27 = HKLogHeartRhythm;
+    _HKInitializeLogging(v31, v32);
+    v36 = HKLogHeartRhythm;
     v6 = 0;
     if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = v27;
-      v29 = NSStringFromSelector(a2);
-      v30 = 138544386;
+      v37 = v36;
+      v38 = NSStringFromSelector(a2);
+      v39 = 138544386;
       selfCopy6 = self;
-      v32 = 2114;
-      v33 = v29;
-      v34 = 1026;
-      v35 = 1;
-      v36 = 1026;
-      v37 = 0;
-      v38 = 1026;
-      v39 = 0;
-      _os_log_impl(&dword_19197B000, v28, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> 0 (device supported (%{public}d), app install allowed (%{public}d), Current onboarding version completed (%{public}d))", &v30, 0x28u);
+      v41 = 2114;
+      v42 = v38;
+      v43 = 1026;
+      v44 = 1;
+      v45 = 1026;
+      v46 = 0;
+      v47 = 1026;
+      v48 = 0;
+      _os_log_impl(&dword_19197B000, v37, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> 0 (device supported (%{public}d), app install allowed (%{public}d), Current onboarding version completed (%{public}d))", &v39, 0x28u);
 
       v6 = 0;
     }
   }
 
-LABEL_17:
-  v20 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -1754,25 +1753,25 @@ LABEL_17:
   v25 = *MEMORY[0x1E69E9840];
   localeCopy = locale;
   countryCode = [localeCopy countryCode];
-  _HKInitializeLogging();
-  v7 = HKLogHeartRhythm;
-  v8 = os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT);
+  _HKInitializeLogging(countryCode, v7);
+  v8 = HKLogHeartRhythm;
+  v9 = os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT);
   if (countryCode)
   {
-    if (v8)
+    if (v9)
     {
-      v9 = v7;
-      v10 = NSStringFromSelector(a2);
+      v10 = v8;
+      v11 = NSStringFromSelector(a2);
       localeIdentifier = [localeCopy localeIdentifier];
       v17 = 138544130;
       selfCopy2 = self;
       v19 = 2114;
-      v20 = v10;
+      v20 = v11;
       v21 = 2114;
       v22 = localeIdentifier;
       v23 = 2114;
       v24 = countryCode;
-      _os_log_impl(&dword_19197B000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> Locale: %{public}@), Country Code: %{public}@)", &v17, 0x2Au);
+      _os_log_impl(&dword_19197B000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> Locale: %{public}@), Country Code: %{public}@)", &v17, 0x2Au);
     }
 
     IsAvailableForGeolocatedCountryCode = HKElectrocardiogramIsAvailableForGeolocatedCountryCode(countryCode);
@@ -1780,22 +1779,52 @@ LABEL_17:
 
   else
   {
-    if (v8)
+    if (v9)
     {
-      v13 = v7;
-      v14 = NSStringFromSelector(a2);
+      v14 = v8;
+      v15 = NSStringFromSelector(a2);
       v17 = 138543618;
       selfCopy2 = self;
       v19 = 2114;
-      v20 = v14;
-      _os_log_impl(&dword_19197B000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> Locale contained a nil country code", &v17, 0x16u);
+      v20 = v15;
+      _os_log_impl(&dword_19197B000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> Locale contained a nil country code", &v17, 0x16u);
     }
 
     IsAvailableForGeolocatedCountryCode = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return IsAvailableForGeolocatedCountryCode;
+}
+
+- (void)setAllowInstallingElectrocardiogramWatchApp:(BOOL)app
+{
+  appCopy = app;
+  v23[1] = *MEMORY[0x1E69E9840];
+  hk_heartRhythmDefaults = [MEMORY[0x1E695E000] hk_heartRhythmDefaults];
+  [hk_heartRhythmDefaults hk_setElectrocardiogramWatchAppInstallIsAllowed:appCopy];
+
+  v7 = objc_alloc(MEMORY[0x1E695DFD8]);
+  v23[0] = @"ElectrocardiogramWatchAppInstallIsAllowed";
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+  v9 = [v7 initWithArray:v8];
+
+  HKSynchronizeNanoPreferencesUserDefaults(@"com.apple.private.health.heart-rhythm", v9);
+  _HKInitializeLogging(v10, v11);
+  v12 = HKLogHeartRhythm;
+  if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
+  {
+    v13 = v12;
+    v14 = NSStringFromSelector(a2);
+    v15 = 138544130;
+    selfCopy = self;
+    v17 = 2114;
+    v18 = v14;
+    v19 = 2114;
+    v20 = @"ElectrocardiogramWatchAppInstallIsAllowed";
+    v21 = 1026;
+    v22 = appCopy;
+    _os_log_impl(&dword_19197B000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> Triggered NanoPreferencesSync (key: %{public}@; value: %{public}d)", &v15, 0x26u);
+  }
 }
 
 - (BOOL)isElectrocardiogramAppInstallAllowedForWatch:(id)watch
@@ -1842,7 +1871,8 @@ LABEL_17:
 
   v16 = [watchCopy valueForProperty:*v13];
   v17 = [HKHeartRhythmAvailability _isECG2SupportedForCountryCode:countryCode andWatchDevice:watchCopy];
-  if (((v17 | [HKHeartRhythmAvailability _isECG2SupportedForCountryCode:v16 andWatchDevice:watchCopy]) & 1) == 0)
+  v18 = [HKHeartRhythmAvailability _isECG2SupportedForCountryCode:v16 andWatchDevice:watchCopy];
+  if (((v17 | v18) & 1) == 0)
   {
     if (countryCode)
     {
@@ -1850,7 +1880,7 @@ LABEL_17:
       if (v16)
       {
 LABEL_9:
-        v21 = HKElectrocardiogramIsAvailableForGeolocatedCountryCode(v16);
+        v18 = HKElectrocardiogramIsAvailableForGeolocatedCountryCode(v16);
         goto LABEL_12;
       }
     }
@@ -1864,9 +1894,9 @@ LABEL_9:
       }
     }
 
-    v21 = 0;
+    v18 = 0;
 LABEL_12:
-    v18 = IsAvailableForGeolocatedCountryCode | v21;
+    v20 = IsAvailableForGeolocatedCountryCode | v18;
     if (v7)
     {
       goto LABEL_6;
@@ -1875,29 +1905,29 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v18 = 1;
+  v20 = 1;
   if (v7)
   {
 LABEL_6:
-    v19 = (bOOLValue ^ 1) & (isElectrocardiogramOnboardingCompletedForAnyOnboardingVersion | v18);
+    v21 = (bOOLValue ^ 1) & (isElectrocardiogramOnboardingCompletedForAnyOnboardingVersion | v20);
     goto LABEL_14;
   }
 
 LABEL_13:
-  v19 = 0;
+  v21 = 0;
 LABEL_14:
-  _HKInitializeLogging();
-  v22 = HKLogHeartRhythm;
+  _HKInitializeLogging(v18, v19);
+  v23 = HKLogHeartRhythm;
   if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = v22;
-    v24 = NSStringFromSelector(a2);
+    v24 = v23;
+    v25 = NSStringFromSelector(a2);
     *buf = 138545154;
     *&buf[4] = self;
     *&buf[12] = 2114;
-    *&buf[14] = v24;
+    *&buf[14] = v25;
     *&buf[22] = 1026;
-    LODWORD(v35) = v19;
+    LODWORD(v35) = v21;
     WORD2(v35) = 2114;
     *(&v35 + 6) = v28;
     HIWORD(v35) = 1026;
@@ -1907,17 +1937,16 @@ LABEL_14:
     v39 = 1026;
     v40 = isElectrocardiogramOnboardingCompletedForAnyOnboardingVersion;
     v41 = 1026;
-    v42 = v18 & 1;
-    _os_log_impl(&dword_19197B000, v23, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> %{public}d (deviceName: %{public}@, deviceSupported: %{public}d, tinkerPaired: %{public}d, anyOnboardingCompleted: %{public}d, localeSupported: %{public}d", buf, 0x3Eu);
+    v42 = v20 & 1;
+    _os_log_impl(&dword_19197B000, v24, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> %{public}d (deviceName: %{public}@, deviceSupported: %{public}d, tinkerPaired: %{public}d, anyOnboardingCompleted: %{public}d, localeSupported: %{public}d", buf, 0x3Eu);
   }
 
-  v25 = *MEMORY[0x1E69E9840];
-  return v19;
+  return v21;
 }
 
 + (BOOL)isElectrocardiogramSupportedOnWatch:(id)watch
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   watchCopy = watch;
   v6 = [self _electrocardiogramSupportedStateForDeviceRegion:watchCopy];
   v7 = [self electrocardiogramSupportedForDevice:watchCopy];
@@ -1927,42 +1956,41 @@ LABEL_14:
 
   if (v6 < 2)
   {
-    v11 = v7 & ~bOOLValue;
+    v13 = v7 & ~bOOLValue;
   }
 
   else
   {
-    v11 = 0;
+    v13 = 0;
   }
 
-  _HKInitializeLogging();
-  v12 = HKLogHeartRhythm;
+  _HKInitializeLogging(v11, v12);
+  v14 = HKLogHeartRhythm;
   if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = v6 < 2;
-    v14 = v12;
-    v15 = NSStringFromSelector(a2);
-    v16 = getNRDevicePropertyName();
-    v17 = [watchCopy valueForProperty:v16];
-    v20 = 138544898;
+    v15 = v6 < 2;
+    v16 = v14;
+    v17 = NSStringFromSelector(a2);
+    v18 = getNRDevicePropertyName();
+    v19 = [watchCopy valueForProperty:v18];
+    v21 = 138544898;
     selfCopy = self;
-    v22 = 2114;
-    v23 = v15;
-    v24 = 2114;
-    v25 = v17;
-    v26 = 1026;
-    v27 = v11;
-    v28 = 1026;
-    v29 = v7;
-    v30 = 1026;
-    v31 = bOOLValue & 1;
-    v32 = 1026;
-    v33 = v13;
-    _os_log_impl(&dword_19197B000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@%{public}@] -> %{public}d (Device supported: %{public}d; Alt Account: %{public}d; Region supported: %{public}d;)", &v20, 0x38u);
+    v23 = 2114;
+    v24 = v17;
+    v25 = 2114;
+    v26 = v19;
+    v27 = 1026;
+    v28 = v13;
+    v29 = 1026;
+    v30 = v7;
+    v31 = 1026;
+    v32 = bOOLValue & 1;
+    v33 = 1026;
+    v34 = v15;
+    _os_log_impl(&dword_19197B000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@%{public}@] -> %{public}d (Device supported: %{public}d; Alt Account: %{public}d; Region supported: %{public}d;)", &v21, 0x38u);
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-  return v11;
+  return v13;
 }
 
 + (BOOL)isElectrocardiogramSupportedOnAnyWatch
@@ -1976,7 +2004,6 @@ LABEL_14:
     standardUserDefaults2 = [MEMORY[0x1E695E000] standardUserDefaults];
     v7 = [standardUserDefaults2 BOOLForKey:@"HKGlobalDefaultsIsCinnamonEnabledOnAnyWatch"];
 
-    v8 = *MEMORY[0x1E69E9840];
     return v7;
   }
 
@@ -1987,28 +2014,28 @@ LABEL_14:
     v18 = 0u;
     v19 = 0u;
     pairedDevices = [self pairedDevices];
-    v11 = [pairedDevices countByEnumeratingWithState:&v18 objects:v28 count:16];
-    if (v11)
+    v10 = [pairedDevices countByEnumeratingWithState:&v18 objects:v28 count:16];
+    if (v10)
     {
-      v12 = *v19;
+      v11 = *v19;
       while (2)
       {
-        for (i = 0; i != v11; ++i)
+        for (i = 0; i != v10; ++i)
         {
-          if (*v19 != v12)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(pairedDevices);
           }
 
           if ([self isElectrocardiogramSupportedOnWatch:*(*(&v18 + 1) + 8 * i)])
           {
-            LODWORD(v11) = 1;
+            LODWORD(v10) = 1;
             goto LABEL_13;
           }
         }
 
-        v11 = [pairedDevices countByEnumeratingWithState:&v18 objects:v28 count:16];
-        if (v11)
+        v10 = [pairedDevices countByEnumeratingWithState:&v18 objects:v28 count:16];
+        if (v10)
         {
           continue;
         }
@@ -2019,23 +2046,22 @@ LABEL_14:
 
 LABEL_13:
 
-    _HKInitializeLogging();
-    v14 = HKLogHeartRhythm;
+    _HKInitializeLogging(v13, v14);
+    v15 = HKLogHeartRhythm;
     if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = v14;
-      v16 = NSStringFromSelector(a2);
+      v16 = v15;
+      v17 = NSStringFromSelector(a2);
       *buf = 138543874;
       selfCopy = self;
       v24 = 2114;
-      v25 = v16;
+      v25 = v17;
       v26 = 1026;
-      v27 = v11;
-      _os_log_impl(&dword_19197B000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> %{public}d", buf, 0x1Cu);
+      v27 = v10;
+      _os_log_impl(&dword_19197B000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> %{public}d", buf, 0x1Cu);
     }
 
-    v17 = *MEMORY[0x1E69E9840];
-    return v11;
+    return v10;
   }
 }
 
@@ -2050,40 +2076,40 @@ LABEL_13:
     standardUserDefaults2 = [MEMORY[0x1E695E000] standardUserDefaults];
     v7 = [standardUserDefaults2 BOOLForKey:@"HKGlobalDefaultsIsCinnamonEnabledOnActiveWatch"];
 
-    v8 = *MEMORY[0x1E69E9840];
     return v7;
   }
 
   else
   {
     activePairedDevice = [self activePairedDevice];
+    v11 = activePairedDevice;
     if (activePairedDevice)
     {
-      v11 = [self isElectrocardiogramSupportedOnWatch:activePairedDevice];
+      activePairedDevice = [self isElectrocardiogramSupportedOnWatch:activePairedDevice];
+      v12 = activePairedDevice;
     }
 
     else
     {
-      v11 = 0;
+      v12 = 0;
     }
 
-    _HKInitializeLogging();
-    v12 = HKLogHeartRhythm;
+    _HKInitializeLogging(activePairedDevice, v10);
+    v13 = HKLogHeartRhythm;
     if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = v12;
-      v14 = NSStringFromSelector(a2);
+      v14 = v13;
+      v15 = NSStringFromSelector(a2);
       v16 = 138543874;
       selfCopy = self;
       v18 = 2114;
-      v19 = v14;
+      v19 = v15;
       v20 = 1026;
-      v21 = v11;
-      _os_log_impl(&dword_19197B000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> %{public}d", &v16, 0x1Cu);
+      v21 = v12;
+      _os_log_impl(&dword_19197B000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> %{public}d", &v16, 0x1Cu);
     }
 
-    v15 = *MEMORY[0x1E69E9840];
-    return v11;
+    return v12;
   }
 }
 
@@ -2098,7 +2124,6 @@ LABEL_13:
     standardUserDefaults2 = [MEMORY[0x1E695E000] standardUserDefaults];
     v7 = [standardUserDefaults2 BOOLForKey:@"HKGlobalDefaultsIsCinnamonEnabledOnAllWatches"];
 
-    v8 = *MEMORY[0x1E69E9840];
     return v7;
   }
 
@@ -2107,33 +2132,33 @@ LABEL_13:
     pairedDevices = [self pairedDevices];
     v21 = 0u;
     v22 = 0u;
-    v11 = [pairedDevices count] != 0;
+    v10 = [pairedDevices count] != 0;
     v23 = 0u;
     v24 = 0u;
-    v12 = pairedDevices;
-    v13 = [v12 countByEnumeratingWithState:&v21 objects:v31 count:16];
-    if (v13)
+    v11 = pairedDevices;
+    v12 = [v11 countByEnumeratingWithState:&v21 objects:v31 count:16];
+    if (v12)
     {
-      v14 = v13;
-      v15 = *v22;
+      v13 = v12;
+      v14 = *v22;
       while (2)
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v22 != v15)
+          if (*v22 != v14)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(v11);
           }
 
           if (![self isElectrocardiogramSupportedOnWatch:{*(*(&v21 + 1) + 8 * i), v21}])
           {
-            v11 = 0;
+            v10 = 0;
             goto LABEL_13;
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v21 objects:v31 count:16];
-        if (v14)
+        v13 = [v11 countByEnumeratingWithState:&v21 objects:v31 count:16];
+        if (v13)
         {
           continue;
         }
@@ -2144,23 +2169,22 @@ LABEL_13:
 
 LABEL_13:
 
-    _HKInitializeLogging();
-    v17 = HKLogHeartRhythm;
+    _HKInitializeLogging(v16, v17);
+    v18 = HKLogHeartRhythm;
     if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = v17;
-      v19 = NSStringFromSelector(a2);
+      v19 = v18;
+      v20 = NSStringFromSelector(a2);
       *buf = 138543874;
       selfCopy = self;
       v27 = 2114;
-      v28 = v19;
+      v28 = v20;
       v29 = 1026;
-      v30 = v11;
-      _os_log_impl(&dword_19197B000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> %{public}d", buf, 0x1Cu);
+      v30 = v10;
+      _os_log_impl(&dword_19197B000, v19, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> %{public}d", buf, 0x1Cu);
     }
 
-    v20 = *MEMORY[0x1E69E9840];
-    return v11;
+    return v10;
   }
 }
 
@@ -2174,48 +2198,47 @@ LABEL_13:
   bOOLValue = [v8 BOOLValue];
 
   v10 = [self _electrocardiogramSupportedStateForDeviceRegion:watchCopy];
-  _HKInitializeLogging();
-  v11 = HKLogHeartRhythm;
+  _HKInitializeLogging(v10, v11);
+  v12 = HKLogHeartRhythm;
   if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = v11;
-    v13 = NSStringFromSelector(a2);
-    v14 = getNRDevicePropertyName();
-    v15 = [watchCopy valueForProperty:v14];
-    v16 = NSStringFromHKElectrocardiogramSupportedState(v10);
+    v13 = v12;
+    v14 = NSStringFromSelector(a2);
+    v15 = getNRDevicePropertyName();
+    v16 = [watchCopy valueForProperty:v15];
+    v17 = NSStringFromHKElectrocardiogramSupportedState(v10);
     v21 = 138544642;
     selfCopy = self;
     v23 = 2114;
-    v24 = v13;
+    v24 = v14;
     v25 = 2114;
-    v26 = v15;
+    v26 = v16;
     v27 = 1026;
     v28 = v6;
     v29 = 1026;
     v30 = bOOLValue;
     v31 = 2114;
-    v32 = v16;
-    _os_log_impl(&dword_19197B000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@%{public}@] -> (Device supported: %{public}d; Alt Account: %{public}d; Region supported: %{public}@)", &v21, 0x36u);
+    v32 = v17;
+    _os_log_impl(&dword_19197B000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@%{public}@] -> (Device supported: %{public}d; Alt Account: %{public}d; Region supported: %{public}@)", &v21, 0x36u);
   }
 
-  v17 = 5;
+  v18 = 5;
   if (!bOOLValue)
   {
-    v17 = v10;
+    v18 = v10;
   }
 
   if (v6)
   {
-    v18 = v17;
+    v19 = v18;
   }
 
   else
   {
-    v18 = 2;
+    v19 = 2;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-  return v18;
+  return v19;
 }
 
 + (unint64_t)electrocardiogramSupportedStateForActiveWatch
@@ -2310,25 +2333,24 @@ LABEL_6:
 
 - (BOOL)shouldAdvertiseElectrocardiogramForWatch:(id)watch
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   watchCopy = watch;
   v5 = [(HKHeartRhythmAvailability *)self _shouldAdvertiseECGDirectOnboardingWithDevice:watchCopy];
   v6 = [(HKHeartRhythmAvailability *)self _shouldAdvertiseECG2DirectOnboardingWithWatchDevice:watchCopy];
 
   v7 = [MEMORY[0x1E696AD98] numberWithBool:v5];
-  v12[0] = v7;
+  v11[0] = v7;
   v8 = [MEMORY[0x1E696AD98] numberWithBool:v6];
-  v12[1] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
+  v11[1] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
   LOBYTE(self) = [(HKHeartRhythmAvailability *)self _shouldAdvertiseWithAdvertiseECGVersions:v9];
 
-  v10 = *MEMORY[0x1E69E9840];
   return self;
 }
 
 - (BOOL)_shouldAdvertiseECGDirectOnboardingWithDevice:(id)device
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   if (!self->_currentCountryCode)
   {
@@ -2358,29 +2380,28 @@ LABEL_9:
   v10 = [(HKHeartRhythmAvailability *)self _meetsMinimumAgeRequirementForElectrocardiogramWithCurrentDate:date];
 
   v8 = v7 & v10;
-  _HKInitializeLogging();
-  v11 = HKLogHeartRhythm;
+  _HKInitializeLogging(v11, v12);
+  v13 = HKLogHeartRhythm;
   if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = v11;
-    v13 = NSStringFromSelector(a2);
+    v14 = v13;
+    v15 = NSStringFromSelector(a2);
     currentCountryCode = self->_currentCountryCode;
-    v17 = 138544386;
+    v18 = 138544386;
     selfCopy = self;
-    v19 = 2114;
-    v20 = v13;
-    v21 = 1026;
-    v22 = v8;
-    v23 = 2114;
-    v24 = currentCountryCode;
-    v25 = 1026;
-    v26 = v10;
-    _os_log_impl(&dword_19197B000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> %{public}d (Cached MCC: %{public}@, Meets Minimum Age Requirement: %{public}d)", &v17, 0x2Cu);
+    v20 = 2114;
+    v21 = v15;
+    v22 = 1026;
+    v23 = v8;
+    v24 = 2114;
+    v25 = currentCountryCode;
+    v26 = 1026;
+    v27 = v10;
+    _os_log_impl(&dword_19197B000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> %{public}d (Cached MCC: %{public}@, Meets Minimum Age Requirement: %{public}d)", &v18, 0x2Cu);
   }
 
 LABEL_11:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -2454,21 +2475,21 @@ LABEL_11:
   bOOLValue = [v26 BOOLValue];
   LOBYTE(v38) = bOOLValue;
   v28 = [HKECGAvailabilityEngine shouldAdvertiseECG2WithSupportedRegion:v42 meetsAgeRequirement:v7 backgroundDeliveredNotAdvertised:v21 prevOnboarded:v11 watchCapable:v24 phoneCapable:1 isTinker:v38];
-  _HKInitializeLogging();
-  v29 = HKLogHeartRhythm;
+  _HKInitializeLogging(v28, v29);
+  v30 = HKLogHeartRhythm;
   if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
   {
     v39 = v23 != 0;
-    v30 = v29;
-    v31 = NSStringFromSelector(a2);
+    v31 = v30;
+    v32 = NSStringFromSelector(a2);
     advertiseDirectOnboarding = [v28 advertiseDirectOnboarding];
     advertiseUpgradeBackgroundDelivered = [v28 advertiseUpgradeBackgroundDelivered];
     advertiseUpgrade = [v28 advertiseUpgrade];
-    v35 = self->_currentCountryCode;
+    v36 = self->_currentCountryCode;
     *buf = 138546178;
     selfCopy = self;
     v47 = 2114;
-    v48 = v31;
+    v48 = v32;
     v49 = 1026;
     v50 = advertiseDirectOnboarding;
     v51 = 1026;
@@ -2476,7 +2497,7 @@ LABEL_11:
     v53 = 1026;
     v54 = advertiseUpgrade;
     v55 = 2114;
-    v56 = v35;
+    v56 = v36;
     v57 = 1026;
     v58 = v42;
     v59 = 1026;
@@ -2489,10 +2510,8 @@ LABEL_11:
     v66 = v39;
     v67 = 1026;
     v68 = 1;
-    _os_log_impl(&dword_19197B000, v30, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> ECG2 advertiseDirect: %{public}d advertiseUpgradeBackgroundDelivered: %{public}d advertiseUpgrade: %{public}d (Cached MCC: %{public}@, SupportedRegion: %{public}d, meetsMinAge: %{public}d, highestOnboardedVersionIsLessThanNewestKnownVersion: %{public}d, watchHardwareSupported: %{public}d, watchSoftwareSupported: %{public}d, phoneCapable: %{public}d", buf, 0x56u);
+    _os_log_impl(&dword_19197B000, v31, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> ECG2 advertiseDirect: %{public}d advertiseUpgradeBackgroundDelivered: %{public}d advertiseUpgrade: %{public}d (Cached MCC: %{public}@, SupportedRegion: %{public}d, meetsMinAge: %{public}d, highestOnboardedVersionIsLessThanNewestKnownVersion: %{public}d, watchHardwareSupported: %{public}d, watchSoftwareSupported: %{public}d, phoneCapable: %{public}d", buf, 0x56u);
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 
   return v28;
 }
@@ -2559,14 +2578,14 @@ LABEL_11:
   LOBYTE(v37) = tinkerModeEnabled;
   v24 = v11;
   v25 = [HKECGAvailabilityEngine shouldAdvertiseECG2WithSupportedRegion:v42 meetsAgeRequirement:v11 backgroundDeliveredNotAdvertised:v18 prevOnboarded:v13 > 0 watchCapable:v21 phoneCapable:1 isTinker:v37];
-  _HKInitializeLogging();
-  v26 = HKLogHeartRhythm;
+  _HKInitializeLogging(v25, v26);
+  v27 = HKLogHeartRhythm;
   if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
   {
-    v27 = v20 != 0;
-    v28 = v13 > 0;
-    v29 = v26;
-    v30 = NSStringFromSelector(a2);
+    v28 = v20 != 0;
+    v29 = v13 > 0;
+    v30 = v27;
+    v31 = NSStringFromSelector(a2);
     advertiseDirectOnboarding = [v25 advertiseDirectOnboarding];
     advertiseUpgradeBackgroundDelivered = [v25 advertiseUpgradeBackgroundDelivered];
     advertiseUpgrade = [v25 advertiseUpgrade];
@@ -2574,7 +2593,7 @@ LABEL_11:
     *buf = 138546178;
     selfCopy = self;
     v45 = 2114;
-    v46 = v30;
+    v46 = v31;
     v47 = 1026;
     v48 = advertiseDirectOnboarding;
     v49 = 1026;
@@ -2588,50 +2607,48 @@ LABEL_11:
     v57 = 1026;
     v58 = v24;
     v59 = 1026;
-    v60 = v28;
+    v60 = v29;
     v61 = 1026;
     v62 = v19;
     v63 = 1026;
-    v64 = v27;
+    v64 = v28;
     v65 = 1026;
     v66 = 1;
-    _os_log_impl(&dword_19197B000, v29, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> ECG2 advertiseDirect: %{public}d advertiseUpgradeBackgroundDelivered: %{public}d advertiseUpgrade: %{public}d (Cached MCC: %{public}@, SupportedRegion: %{public}d, meetsMinAge: %{public}d, prevOnboarded: %{public}d, watchHardwareSupported: %{public}d, watchSoftwareSupported: %{public}d, phoneCapable: %{public}d", buf, 0x56u);
+    _os_log_impl(&dword_19197B000, v30, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> ECG2 advertiseDirect: %{public}d advertiseUpgradeBackgroundDelivered: %{public}d advertiseUpgrade: %{public}d (Cached MCC: %{public}@, SupportedRegion: %{public}d, meetsMinAge: %{public}d, prevOnboarded: %{public}d, watchHardwareSupported: %{public}d, watchSoftwareSupported: %{public}d, phoneCapable: %{public}d", buf, 0x56u);
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 
   return v25;
 }
 
 - (BOOL)_shouldAdvertiseWithAdvertiseECGVersions:(id)versions
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   versionsCopy = versions;
-  v4 = [versionsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [versionsCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v9;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(versionsCopy);
         }
 
-        if ([*(*(&v9 + 1) + 8 * i) BOOLValue])
+        if ([*(*(&v8 + 1) + 8 * i) BOOLValue])
         {
           LOBYTE(v4) = 1;
           goto LABEL_11;
         }
       }
 
-      v4 = [versionsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [versionsCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v4)
       {
         continue;
@@ -2643,21 +2660,19 @@ LABEL_11:
 
 LABEL_11:
 
-  v7 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 - (BOOL)_shouldAdvertiseElectrocardiogramUpgradeForDevice:(id)device
 {
   selfCopy = self;
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v4 = [(HKHeartRhythmAvailability *)self _shouldAdvertiseECG2UpgradeWithDevice:device];
   v5 = [MEMORY[0x1E696AD98] numberWithBool:v4];
-  v9[0] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+  v8[0] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   LOBYTE(selfCopy) = [(HKHeartRhythmAvailability *)selfCopy _shouldAdvertiseWithAdvertiseECGVersions:v6];
 
-  v7 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -2706,16 +2721,18 @@ LABEL_11:
 
 + (BOOL)isElectrocardiogramSupportedOnPairedPhone
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
   v5 = [standardUserDefaults objectForKey:@"HKGlobalDefaultsIsCinnamonEnabledOnActivePhone"];
 
   if (!v5)
   {
     activePairedDevice = [self activePairedDevice];
+    v11 = activePairedDevice;
     if (activePairedDevice)
     {
-      v7 = [self _isElectrocardiogramSupportedOnPhone:activePairedDevice];
+      activePairedDevice = [self _isElectrocardiogramSupportedOnPhone:activePairedDevice];
+      v7 = activePairedDevice;
     }
 
     else
@@ -2723,19 +2740,19 @@ LABEL_11:
       v7 = 0;
     }
 
-    _HKInitializeLogging();
-    v11 = HKLogHeartRhythm;
+    _HKInitializeLogging(activePairedDevice, v14);
+    v15 = HKLogHeartRhythm;
     if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = v11;
-      v13 = NSStringFromSelector(a2);
-      v16 = 138543874;
+      v16 = v15;
+      v17 = NSStringFromSelector(a2);
+      v19 = 138543874;
       selfCopy2 = self;
-      v18 = 2114;
-      v19 = v13;
-      v20 = 1026;
-      v21 = v7;
-      _os_log_impl(&dword_19197B000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> %{public}d", &v16, 0x1Cu);
+      v21 = 2114;
+      v22 = v17;
+      v23 = 1026;
+      v24 = v7;
+      _os_log_impl(&dword_19197B000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> %{public}d", &v19, 0x1Cu);
     }
 
     goto LABEL_9;
@@ -2744,30 +2761,29 @@ LABEL_11:
   standardUserDefaults2 = [MEMORY[0x1E695E000] standardUserDefaults];
   v7 = [standardUserDefaults2 BOOLForKey:@"HKGlobalDefaultsIsCinnamonEnabledOnActivePhone"];
 
-  _HKInitializeLogging();
-  v8 = HKLogHeartRhythm;
+  _HKInitializeLogging(v8, v9);
+  v10 = HKLogHeartRhythm;
   if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
   {
-    activePairedDevice = v8;
-    v10 = NSStringFromSelector(a2);
-    v16 = 138543874;
+    v11 = v10;
+    v12 = NSStringFromSelector(a2);
+    v19 = 138543874;
     selfCopy2 = self;
-    v18 = 2114;
-    v19 = v10;
-    v20 = 1026;
-    v21 = v7;
-    _os_log_impl(&dword_19197B000, activePairedDevice, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> %{public}d", &v16, 0x1Cu);
+    v21 = 2114;
+    v22 = v12;
+    v23 = 1026;
+    v24 = v7;
+    _os_log_impl(&dword_19197B000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> %{public}d", &v19, 0x1Cu);
 
 LABEL_9:
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 + (BOOL)isElectrocardiogramSupportedOnPairedPhoneWithGeolocatedCountryCode:(id)code
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   codeCopy = code;
   standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
   v7 = [standardUserDefaults objectForKey:@"HKGlobalDefaultsIsCinnamonEnabledOnActivePhone"];
@@ -2781,9 +2797,11 @@ LABEL_9:
   else
   {
     activePairedDevice = [self activePairedDevice];
+    v12 = activePairedDevice;
     if (activePairedDevice)
     {
-      v9 = [self _isElectrocardiogramSupportedOnPhone:activePairedDevice geolocatedCountryCode:codeCopy];
+      activePairedDevice = [self _isElectrocardiogramSupportedOnPhone:activePairedDevice geolocatedCountryCode:codeCopy];
+      v9 = activePairedDevice;
     }
 
     else
@@ -2791,23 +2809,22 @@ LABEL_9:
       v9 = 0;
     }
 
-    _HKInitializeLogging();
-    v11 = HKLogHeartRhythm;
+    _HKInitializeLogging(activePairedDevice, v11);
+    v13 = HKLogHeartRhythm;
     if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = v11;
-      v13 = NSStringFromSelector(a2);
-      v16 = 138543874;
+      v14 = v13;
+      v15 = NSStringFromSelector(a2);
+      v17 = 138543874;
       selfCopy = self;
-      v18 = 2114;
-      v19 = v13;
-      v20 = 1026;
-      v21 = v9;
-      _os_log_impl(&dword_19197B000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> %{public}d", &v16, 0x1Cu);
+      v19 = 2114;
+      v20 = v15;
+      v21 = 1026;
+      v22 = v9;
+      _os_log_impl(&dword_19197B000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> %{public}d", &v17, 0x1Cu);
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -2830,26 +2847,25 @@ LABEL_9:
   NRRawVersionFromString = getNRRawVersionFromString(v7);
 
   IsGreaterThanOrEqual = getNRVersionIsGreaterThanOrEqual(NRRawVersionFromString);
-  _HKInitializeLogging();
-  v10 = HKLogHeartRhythm;
+  _HKInitializeLogging(IsGreaterThanOrEqual, v10);
+  v11 = HKLogHeartRhythm;
   if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = v10;
-    v12 = NSStringFromSelector(a2);
-    v13 = getNRDevicePropertyName();
-    v14 = [phoneCopy valueForProperty:v13];
+    v12 = v11;
+    v13 = NSStringFromSelector(a2);
+    v14 = getNRDevicePropertyName();
+    v15 = [phoneCopy valueForProperty:v14];
     v17 = 138544130;
     selfCopy = self;
     v19 = 2114;
-    v20 = v12;
+    v20 = v13;
     v21 = 2114;
-    v22 = v14;
+    v22 = v15;
     v23 = 1026;
     v24 = IsGreaterThanOrEqual;
-    _os_log_impl(&dword_19197B000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@%{public}@] -> %{public}d)", &v17, 0x26u);
+    _os_log_impl(&dword_19197B000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@%{public}@] -> %{public}d)", &v17, 0x26u);
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return IsGreaterThanOrEqual;
 }
 
@@ -2872,7 +2888,7 @@ LABEL_9:
 
 + (BOOL)_isECG1SupportedOnCompanionDevice:(id)device geolocatedCountryCode:(id)code
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   codeCopy = code;
   v8 = getNRDevicePropertySystemVersion();
@@ -2884,77 +2900,85 @@ LABEL_9:
 
   if (v12)
   {
-    _HKInitializeLogging();
-    v13 = HKLogHeartRhythm;
+    _HKInitializeLogging(v13, v14);
+    v15 = HKLogHeartRhythm;
     if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = v13;
-      v15 = NSStringFromSelector(a2);
+      v16 = v15;
+      v17 = NSStringFromSelector(a2);
       *buf = 138543874;
       selfCopy2 = self;
-      v36 = 2114;
-      v37 = v15;
       v38 = 2114;
-      v39 = v12;
-      _os_log_impl(&dword_19197B000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] Forcing iOS product version: %{public}@)", buf, 0x20u);
+      v39 = v17;
+      v40 = 2114;
+      v41 = v12;
+      _os_log_impl(&dword_19197B000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] Forcing iOS product version: %{public}@)", buf, 0x20u);
     }
 
-    v16 = a2;
-    v17 = v12;
+    v18 = a2;
+    v19 = v12;
 
-    v9 = v17;
+    v9 = v19;
   }
 
   else
   {
-    v16 = a2;
+    v18 = a2;
   }
 
-  v18 = [objc_msgSend(self "deviceRegionFeatureSupportedStateProviderForCurrentWatchOSDevice")];
-  v19 = HKElectrocardiogramSupportedStatedForGeolocatedCountryCodeAndIOSVersion(codeCopy, NRRawVersionFromString, 0);
+  v20 = [objc_msgSend(self "deviceRegionFeatureSupportedStateProviderForCurrentWatchOSDevice")];
+  v21 = HKElectrocardiogramSupportedStatedForGeolocatedCountryCodeAndIOSVersion(codeCopy, NRRawVersionFromString, 0);
 
   IsGreaterThanOrEqual = getNRVersionIsGreaterThanOrEqual(NRRawVersionFromString);
-  v21 = IsGreaterThanOrEqual;
-  if (v19 < 2)
+  v24 = IsGreaterThanOrEqual;
+  if (v21 < 2)
   {
-    v22 = IsGreaterThanOrEqual;
+    v25 = IsGreaterThanOrEqual;
   }
 
   else
   {
-    v22 = 0;
+    v25 = 0;
   }
 
-  v23 = v18 < 2 && v22;
-  _HKInitializeLogging();
-  v24 = HKLogHeartRhythm;
+  if (v20 < 2)
+  {
+    v26 = v25;
+  }
+
+  else
+  {
+    v26 = 0;
+  }
+
+  _HKInitializeLogging(IsGreaterThanOrEqual, v23);
+  v27 = HKLogHeartRhythm;
   if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = v19 < 2;
-    v32 = v18 < 2;
-    v26 = v24;
-    v27 = NSStringFromSelector(v16);
-    v28 = getNRDevicePropertyName();
-    v29 = [deviceCopy valueForProperty:v28];
+    v28 = v21 < 2;
+    v34 = v20 < 2;
+    v29 = v27;
+    v30 = NSStringFromSelector(v18);
+    v31 = getNRDevicePropertyName();
+    v32 = [deviceCopy valueForProperty:v31];
     *buf = 138544898;
     selfCopy2 = self;
-    v36 = 2114;
-    v37 = v27;
     v38 = 2114;
-    v39 = v29;
-    v40 = 1026;
-    v41 = v23;
+    v39 = v30;
+    v40 = 2114;
+    v41 = v32;
     v42 = 1026;
-    v43 = v21;
+    v43 = v26;
     v44 = 1026;
-    v45 = v32;
+    v45 = v24;
     v46 = 1026;
-    v47 = v25;
-    _os_log_impl(&dword_19197B000, v26, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@%{public}@] -> (feature supported: %{public}d, OS supported: %{public}d, region supported: %{public}d, country supported: %{public}d)", buf, 0x38u);
+    v47 = v34;
+    v48 = 1026;
+    v49 = v28;
+    _os_log_impl(&dword_19197B000, v29, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@%{public}@] -> (feature supported: %{public}d, OS supported: %{public}d, region supported: %{public}d, country supported: %{public}d)", buf, 0x38u);
   }
 
-  v30 = *MEMORY[0x1E69E9840];
-  return v23;
+  return v26;
 }
 
 + (BOOL)isElectrocardiogram2SupportedWithCountryCode:(id)code
@@ -2994,16 +3018,16 @@ LABEL_9:
   v10 = [self _ECG2SupportedCountriesOnDevice:deviceCopy];
 
   v11 = [HKCountrySet isRegionCodeFound:codeCopy availabilityWatch:v10 availabilityPhone:_ECG2SupportedCountriesOnDevice];
-  _HKInitializeLogging();
-  v12 = HKLogHeartRhythm;
+  _HKInitializeLogging(v11, v12);
+  v13 = HKLogHeartRhythm;
   if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = v12;
-    v14 = NSStringFromSelector(a2);
+    v14 = v13;
+    v15 = NSStringFromSelector(a2);
     v17 = 138544642;
     selfCopy = self;
     v19 = 2114;
-    v20 = v14;
+    v20 = v15;
     v21 = 1026;
     v22 = v11;
     v23 = 2114;
@@ -3012,10 +3036,9 @@ LABEL_9:
     v26 = v10;
     v27 = 2114;
     v28 = _ECG2SupportedCountriesOnDevice;
-    _os_log_impl(&dword_19197B000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> Comparator result: %{public}i for country code: %{public}@ with watch availability: %{public}@ phone availability: %{public}@", &v17, 0x3Au);
+    _os_log_impl(&dword_19197B000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> Comparator result: %{public}i for country code: %{public}@ with watch availability: %{public}@ phone availability: %{public}@", &v17, 0x3Au);
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v11 == 1;
 }
 
@@ -3028,16 +3051,16 @@ LABEL_9:
   v10 = [self _ECG2SupportedCountriesOnDevice:deviceCopy];
 
   v11 = [HKCountrySet isRegionCodeFound:codeCopy availabilityWatch:_ECG2SupportedCountriesOnDevice availabilityPhone:v10];
-  _HKInitializeLogging();
-  v12 = HKLogHeartRhythm;
+  _HKInitializeLogging(v11, v12);
+  v13 = HKLogHeartRhythm;
   if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = v12;
-    v14 = NSStringFromSelector(a2);
+    v14 = v13;
+    v15 = NSStringFromSelector(a2);
     v17 = 138544642;
     selfCopy = self;
     v19 = 2114;
-    v20 = v14;
+    v20 = v15;
     v21 = 1026;
     v22 = v11;
     v23 = 2114;
@@ -3046,10 +3069,9 @@ LABEL_9:
     v26 = _ECG2SupportedCountriesOnDevice;
     v27 = 2114;
     v28 = v10;
-    _os_log_impl(&dword_19197B000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> Comparator result: %{public}i for country code: %{public}@ with watch availability: %{public}@ phone availability: %{public}@", &v17, 0x3Au);
+    _os_log_impl(&dword_19197B000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> Comparator result: %{public}i for country code: %{public}@ with watch availability: %{public}@ phone availability: %{public}@", &v17, 0x3Au);
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v11 == 1;
 }
 
@@ -3066,24 +3088,22 @@ LABEL_9:
 {
   v13 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
-  v5 = [HKNanoRegistryDeviceUtility electrocardiogramV2AvailableRegionsForDevice:deviceCopy];
-  if (!v5)
+  v6 = [HKNanoRegistryDeviceUtility electrocardiogramV2AvailableRegionsForDevice:deviceCopy];
+  if (!v6)
   {
-    _HKInitializeLogging();
-    v6 = HKLogHeartRhythm;
+    _HKInitializeLogging(0, v5);
+    v7 = HKLogHeartRhythm;
     if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
     {
       v9 = 138543618;
       selfCopy = self;
       v11 = 2114;
       v12 = deviceCopy;
-      _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Nil available regions found for paired device %{public}@", &v9, 0x16u);
+      _os_log_impl(&dword_19197B000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Nil available regions found for paired device %{public}@", &v9, 0x16u);
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-
-  return v5;
+  return v6;
 }
 
 + (id)_availabilityPlistURL
@@ -3112,24 +3132,22 @@ LABEL_9:
 
   else
   {
-    _HKInitializeLogging();
-    v8 = HKLogHeartRhythm;
+    _HKInitializeLogging(0, v6);
+    v9 = HKLogHeartRhythm;
     if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = v8;
-      v10 = NSStringFromSelector(a2);
+      v10 = v9;
+      v11 = NSStringFromSelector(a2);
       v12 = 138543618;
       selfCopy = self;
       v14 = 2114;
-      v15 = v10;
-      _os_log_impl(&dword_19197B000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> No active device", &v12, 0x16u);
+      v15 = v11;
+      _os_log_impl(&dword_19197B000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> No active device", &v12, 0x16u);
     }
 
     ecgAppAvailability = [MEMORY[0x1E696ABC0] hk_error:100 description:@"No active device"];
     watchCopy[2](watchCopy, 0, ecgAppAvailability);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (void)installElectrocardiogramAppOnActiveWatch:(id)watch
@@ -3138,64 +3156,64 @@ LABEL_9:
   activePairedDevice = [self activePairedDevice];
   if (activePairedDevice)
   {
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x2050000000;
-    v7 = getASDSystemAppMetadataClass_softClass;
-    v25 = getASDSystemAppMetadataClass_softClass;
+    v23 = 0;
+    v24 = &v23;
+    v25 = 0x2050000000;
+    v8 = getASDSystemAppMetadataClass_softClass;
+    v26 = getASDSystemAppMetadataClass_softClass;
     if (!getASDSystemAppMetadataClass_softClass)
     {
-      v17 = MEMORY[0x1E69E9820];
-      v18 = 3221225472;
-      v19 = __getASDSystemAppMetadataClass_block_invoke;
-      v20 = &unk_1E7378388;
-      v21 = &v22;
-      __getASDSystemAppMetadataClass_block_invoke(&v17);
-      v7 = v23[3];
+      v18 = MEMORY[0x1E69E9820];
+      v19 = 3221225472;
+      v20 = __getASDSystemAppMetadataClass_block_invoke;
+      v21 = &unk_1E7378388;
+      v22 = &v23;
+      __getASDSystemAppMetadataClass_block_invoke(&v18);
+      v8 = v24[3];
     }
 
-    v8 = v7;
-    _Block_object_dispose(&v22, 8);
-    v9 = [[v7 alloc] initWithBundleID:@"com.apple.NanoHeartRhythm"];
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x2050000000;
-    v10 = getASDInstallAppsClass_softClass;
-    v25 = getASDInstallAppsClass_softClass;
+    v9 = v8;
+    _Block_object_dispose(&v23, 8);
+    v10 = [[v8 alloc] initWithBundleID:@"com.apple.NanoHeartRhythm"];
+    v23 = 0;
+    v24 = &v23;
+    v25 = 0x2050000000;
+    v11 = getASDInstallAppsClass_softClass;
+    v26 = getASDInstallAppsClass_softClass;
     if (!getASDInstallAppsClass_softClass)
     {
-      v17 = MEMORY[0x1E69E9820];
-      v18 = 3221225472;
-      v19 = __getASDInstallAppsClass_block_invoke;
-      v20 = &unk_1E7378388;
-      v21 = &v22;
-      __getASDInstallAppsClass_block_invoke(&v17);
-      v10 = v23[3];
+      v18 = MEMORY[0x1E69E9820];
+      v19 = 3221225472;
+      v20 = __getASDInstallAppsClass_block_invoke;
+      v21 = &unk_1E7378388;
+      v22 = &v23;
+      __getASDInstallAppsClass_block_invoke(&v18);
+      v11 = v24[3];
     }
 
-    v11 = v10;
-    _Block_object_dispose(&v22, 8);
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __70__HKHeartRhythmAvailability_installElectrocardiogramAppOnActiveWatch___block_invoke;
-    v13[3] = &unk_1E7382E70;
+    v12 = v11;
+    _Block_object_dispose(&v23, 8);
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __70__HKHeartRhythmAvailability_installElectrocardiogramAppOnActiveWatch___block_invoke;
+    v14[3] = &unk_1E7382E70;
     selfCopy = self;
-    v16 = a2;
-    v14 = watchCopy;
-    [v10 installApp:v9 onPairedDevice:activePairedDevice withCompletionHandler:v13];
+    v17 = a2;
+    v15 = watchCopy;
+    [v11 installApp:v10 onPairedDevice:activePairedDevice withCompletionHandler:v14];
   }
 
   else
   {
-    _HKInitializeLogging();
-    v12 = HKLogHeartRhythm;
+    _HKInitializeLogging(0, v6);
+    v13 = HKLogHeartRhythm;
     if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_ERROR))
     {
-      [(HKHeartRhythmAvailability *)self installElectrocardiogramAppOnActiveWatch:v12, a2];
+      [(HKHeartRhythmAvailability *)self installElectrocardiogramAppOnActiveWatch:v13, a2];
     }
 
-    v9 = [MEMORY[0x1E696ABC0] hk_error:100 description:@"No active device"];
-    (*(watchCopy + 2))(watchCopy, 0, v9);
+    v10 = [MEMORY[0x1E696ABC0] hk_error:100 description:@"No active device"];
+    (*(watchCopy + 2))(watchCopy, 0, v10);
   }
 }
 
@@ -3203,44 +3221,42 @@ void __70__HKHeartRhythmAvailability_installElectrocardiogramAppOnActiveWatch___
 {
   v16 = *MEMORY[0x1E69E9840];
   v4 = a3;
-  _HKInitializeLogging();
-  v5 = HKLogHeartRhythm;
+  _HKInitializeLogging(v4, v5);
+  v6 = HKLogHeartRhythm;
   if (v4)
   {
     if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_ERROR))
     {
-      __70__HKHeartRhythmAvailability_installElectrocardiogramAppOnActiveWatch___block_invoke_cold_1(a1, v5, v4);
+      __70__HKHeartRhythmAvailability_installElectrocardiogramAppOnActiveWatch___block_invoke_cold_1(a1, v6, v4);
     }
 
-    v6 = *(a1[4] + 16);
+    v7 = *(a1[4] + 16);
   }
 
   else
   {
     if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = a1[5];
-      v7 = a1[6];
-      v9 = v5;
-      v10 = NSStringFromSelector(v7);
+      v9 = a1[5];
+      v8 = a1[6];
+      v10 = v6;
+      v11 = NSStringFromSelector(v8);
       v12 = 138543618;
-      v13 = v8;
+      v13 = v9;
       v14 = 2114;
-      v15 = v10;
-      _os_log_impl(&dword_19197B000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> Scheduled installation of ECG app on watch", &v12, 0x16u);
+      v15 = v11;
+      _os_log_impl(&dword_19197B000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> Scheduled installation of ECG app on watch", &v12, 0x16u);
     }
 
-    v6 = *(a1[4] + 16);
+    v7 = *(a1[4] + 16);
   }
 
-  v6();
-
-  v11 = *MEMORY[0x1E69E9840];
+  v7();
 }
 
 + (int64_t)_electrocardiogramRescindedStatusWithDataSource:(id)source
 {
-  v47[2] = *MEMORY[0x1E69E9840];
+  v48[2] = *MEMORY[0x1E69E9840];
   sourceCopy = source;
   standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
   v6 = [standardUserDefaults objectForKey:@"HKGlobalDefaultsIsCinnamonSeedExpired"];
@@ -3285,12 +3301,12 @@ void __70__HKHeartRhythmAvailability_installElectrocardiogramAppOnActiveWatch___
   dictionaryRepresentation = [featureAvailabilityUserDefaults dictionaryRepresentation];
 
   v19 = MEMORY[0x1E695DFD8];
-  v47[0] = @"DisableElectrocardiogramRecording";
-  v47[1] = @"ExpireElectrocardiogramRecording";
-  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:2];
+  v48[0] = @"DisableElectrocardiogramRecording";
+  v48[1] = @"ExpireElectrocardiogramRecording";
+  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:2];
   v21 = [v19 setWithArray:v20];
 
-  v36 = dictionaryRepresentation;
+  v37 = dictionaryRepresentation;
   v22 = [[HKRemoteFeatureAvailabilityRuleSet alloc] initWithRawValue:dictionaryRepresentation dataSource:sourceCopy supportedConditions:v21];
   evaluateAll = [(HKRemoteFeatureAvailabilityRuleSet *)v22 evaluateAll];
   v24 = [evaluateAll objectForKeyedSubscript:@"DisableElectrocardiogramRecording"];
@@ -3299,26 +3315,26 @@ void __70__HKHeartRhythmAvailability_installElectrocardiogramAppOnActiveWatch___
   v26 = [evaluateAll objectForKeyedSubscript:@"ExpireElectrocardiogramRecording"];
   bOOLValue2 = [v26 BOOLValue];
 
-  _HKInitializeLogging();
-  v28 = HKLogHeartRhythm;
+  _HKInitializeLogging(v28, v29);
+  v30 = HKLogHeartRhythm;
   if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
   {
-    v29 = v28;
-    v30 = objc_opt_class();
-    v35 = v30;
-    v31 = NSStringFromSelector(v16);
+    v31 = v30;
+    v32 = objc_opt_class();
+    v36 = v32;
+    v33 = NSStringFromSelector(v16);
     onboardingCountryCode = [sourceCopy onboardingCountryCode];
     *buf = 138544386;
-    v38 = v30;
-    v39 = 2114;
-    v40 = v31;
-    v41 = 2114;
-    v42 = onboardingCountryCode;
-    v43 = 1026;
-    v44 = bOOLValue;
-    v45 = 1026;
-    v46 = bOOLValue2;
-    _os_log_impl(&dword_19197B000, v29, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@ Country: %{public}@] -> Disabled: %{public}d, Expired: %{public}d", buf, 0x2Cu);
+    v39 = v32;
+    v40 = 2114;
+    v41 = v33;
+    v42 = 2114;
+    v43 = onboardingCountryCode;
+    v44 = 1026;
+    v45 = bOOLValue;
+    v46 = 1026;
+    v47 = bOOLValue2;
+    _os_log_impl(&dword_19197B000, v31, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@ Country: %{public}@] -> Disabled: %{public}d, Expired: %{public}d", buf, 0x2Cu);
   }
 
   if (bOOLValue2)
@@ -3332,7 +3348,6 @@ void __70__HKHeartRhythmAvailability_installElectrocardiogramAppOnActiveWatch___
   }
 
 LABEL_15:
-  v33 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -3386,47 +3401,45 @@ LABEL_15:
     standardUserDefaults2 = [MEMORY[0x1E695E000] standardUserDefaults];
     v7 = [standardUserDefaults2 BOOLForKey:@"HKGlobalDefaultsIsCinnamonOnboardingCompleted"];
 
-    v8 = *MEMORY[0x1E69E9840];
     return v7;
   }
 
   else
   {
     heartRhythmUserDefaults = [(HKHeartRhythmAvailability *)self heartRhythmUserDefaults];
-    v11 = [heartRhythmUserDefaults objectForKey:@"HKElectrocardiogramOnboardingCompleted"];
+    v10 = [heartRhythmUserDefaults objectForKey:@"HKElectrocardiogramOnboardingCompleted"];
 
-    if (v11)
+    if (v10)
     {
-      _HKInitializeLogging();
-      v12 = HKLogHeartRhythm;
+      _HKInitializeLogging(v11, v12);
+      v13 = HKLogHeartRhythm;
       if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = v12;
-        v14 = objc_opt_class();
-        v15 = v14;
-        v16 = NSStringFromSelector(a2);
+        v14 = v13;
+        v15 = objc_opt_class();
+        v16 = v15;
+        v17 = NSStringFromSelector(a2);
         v20 = 138544130;
-        v21 = v14;
+        v21 = v15;
         v22 = 2114;
-        v23 = v16;
+        v23 = v17;
         v24 = 2114;
         v25 = @"HKElectrocardiogramOnboardingCompleted";
         v26 = 2114;
-        v27 = v11;
-        _os_log_impl(&dword_19197B000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@%{public}@] -> %{public}@ (Cached value)", &v20, 0x2Au);
+        v27 = v10;
+        _os_log_impl(&dword_19197B000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@%{public}@] -> %{public}@ (Cached value)", &v20, 0x2Au);
       }
 
-      v17 = 1;
+      v18 = 1;
     }
 
     else
     {
-      v18 = [(HKHeartRhythmAvailability *)self electrocardiogramOnboardingHistoryType:2];
-      v17 = [v18 count] > 0;
+      v19 = [(HKHeartRhythmAvailability *)self electrocardiogramOnboardingHistoryType:2];
+      v18 = [v19 count] > 0;
     }
 
-    v19 = *MEMORY[0x1E69E9840];
-    return v17;
+    return v18;
   }
 }
 
@@ -3461,18 +3474,16 @@ LABEL_6:
   v5 = [v3 _onboardingHistoryWithVersionCompletedKey:@"HKElectrocardiogramOnboardingCompleted" keyValueDomain:keyValueDomain];
 
   v6 = [[HKHeartRhythmOnboardingHistory alloc] initWithDictionary:v5];
-  _HKInitializeLogging();
-  v7 = HKLogHeartRhythm;
+  _HKInitializeLogging(v6, v7);
+  v8 = HKLogHeartRhythm;
   if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 136446466;
     v11 = "[HKHeartRhythmAvailability _electrocardiogramOnboardingHistory]";
     v12 = 2112;
     v13 = v6;
-    _os_log_impl(&dword_19197B000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}s] AllHistory: %@", &v10, 0x16u);
+    _os_log_impl(&dword_19197B000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}s] AllHistory: %@", &v10, 0x16u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -3482,51 +3493,49 @@ LABEL_6:
   v11 = *MEMORY[0x1E69E9840];
   _electrocardiogramOnboardingHistory = [(HKHeartRhythmAvailability *)self _electrocardiogramOnboardingHistory];
   v3 = [_electrocardiogramOnboardingHistory filteredHistoryByVersion:+[HKECGOnboardingVersion newestAvailableVersion](HKECGOnboardingVersion filterType:{"newestAvailableVersion"), 1}];
-  _HKInitializeLogging();
-  v4 = HKLogHeartRhythm;
+  _HKInitializeLogging(v3, v4);
+  v5 = HKLogHeartRhythm;
   if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136446466;
     v8 = "[HKHeartRhythmAvailability _electrocardiogramOnboardingHistoryKnown]";
     v9 = 2112;
     v10 = v3;
-    _os_log_impl(&dword_19197B000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}s] KnownHistory: %@", &v7, 0x16u);
+    _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}s] KnownHistory: %@", &v7, 0x16u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 + (id)electrocardiogramOnboardingHistoryMaxKnownWithKeyValueDomain:(id)domain
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   domainCopy = domain;
   v4 = [objc_opt_class() _onboardingHistoryWithVersionCompletedKey:@"HKElectrocardiogramOnboardingCompleted" keyValueDomain:domainCopy];
   allKeys = [v4 allKeys];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v6 = [allKeys countByEnumeratingWithState:&v22 objects:v28 count:16];
+  v6 = [allKeys countByEnumeratingWithState:&v21 objects:v27 count:16];
   if (!v6)
   {
     goto LABEL_14;
   }
 
   v7 = v6;
-  v8 = *v23;
+  v8 = *v22;
   v9 = 0xFFFFFFFF80000000;
   do
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v23 != v8)
+      if (*v22 != v8)
       {
         objc_enumerationMutation(allKeys);
       }
 
-      integerValue = [*(*(&v22 + 1) + 8 * i) integerValue];
+      integerValue = [*(*(&v21 + 1) + 8 * i) integerValue];
       if (integerValue <= v9)
       {
         v12 = v9;
@@ -3543,7 +3552,7 @@ LABEL_6:
       }
     }
 
-    v7 = [allKeys countByEnumeratingWithState:&v22 objects:v28 count:16];
+    v7 = [allKeys countByEnumeratingWithState:&v21 objects:v27 count:16];
   }
 
   while (v7);
@@ -3558,11 +3567,11 @@ LABEL_6:
       v17 = v15;
     }
 
-    v26 = v14;
-    v27 = v17;
+    v25 = v14;
+    v26 = v17;
     v18 = MEMORY[0x1E695DF20];
     v19 = v17;
-    v13 = [v18 dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    v13 = [v18 dictionaryWithObjects:&v26 forKeys:&v25 count:1];
   }
 
   else
@@ -3570,8 +3579,6 @@ LABEL_6:
 LABEL_14:
     v13 = MEMORY[0x1E695E0F8];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -3581,55 +3588,56 @@ LABEL_14:
   keyCopy = key;
   domainCopy = domain;
   v8 = [self _onboardingHistoryKeyFromCompletedKey:keyCopy];
-  v23 = 0;
-  v9 = [domainCopy propertyListValueForKey:v8 error:&v23];
-  v10 = v23;
-  v11 = v10;
+  v28 = 0;
+  v9 = [domainCopy propertyListValueForKey:v8 error:&v28];
+  v10 = v28;
+  v12 = v10;
   if (v9 || !v10)
   {
-    v22 = 0;
-    v13 = [domainCopy numberForKey:keyCopy error:&v22];
-    v14 = v22;
-    integerValue = [v13 integerValue];
+    v27 = 0;
+    v14 = [domainCopy numberForKey:keyCopy error:&v27];
+    v15 = v27;
+    integerValue = [v14 integerValue];
 
-    if (v14)
+    if (v15)
     {
-      _HKInitializeLogging();
+      _HKInitializeLogging(v16, v17);
       if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_ERROR))
       {
         +[HKHeartRhythmAvailability _onboardingHistoryWithVersionCompletedKey:keyValueDomain:];
       }
     }
 
-    v20 = v14;
-    v15 = [self _onboardingCountryCodeKeyFromCompletedKey:keyCopy];
-    v21 = 0;
-    v16 = [domainCopy stringForKey:v15 error:&v21];
-    v17 = v21;
-    if (v17)
+    v25 = v15;
+    v18 = [self _onboardingCountryCodeKeyFromCompletedKey:keyCopy];
+    v26 = 0;
+    v19 = [domainCopy stringForKey:v18 error:&v26];
+    v20 = v26;
+    v22 = v20;
+    if (v20)
     {
-      _HKInitializeLogging();
+      _HKInitializeLogging(v20, v21);
       if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_ERROR))
       {
         +[HKHeartRhythmAvailability _onboardingHistoryWithVersionCompletedKey:keyValueDomain:];
       }
     }
 
-    v12 = [self _history:v9 addCurrentOnboardingVersionCompletedIfApplicable:integerValue countryCode:v16];
+    v13 = [self _history:v9 addCurrentOnboardingVersionCompletedIfApplicable:integerValue countryCode:v19];
   }
 
   else
   {
-    _HKInitializeLogging();
+    _HKInitializeLogging(v10, v11);
     if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_ERROR))
     {
       +[HKHeartRhythmAvailability _onboardingHistoryWithVersionCompletedKey:keyValueDomain:];
     }
 
-    v12 = MEMORY[0x1E695E0F8];
+    v13 = MEMORY[0x1E695E0F8];
   }
 
-  return v12;
+  return v13;
 }
 
 + (id)_history:(id)_history addCurrentOnboardingVersionCompletedIfApplicable:(int64_t)applicable countryCode:(id)code
@@ -3728,123 +3736,90 @@ LABEL_14:
 
 - (void)isHeartAgeGatingEnabledOnWatch:currentDate:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_6_1();
   OUTLINED_FUNCTION_2_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_meetsMinimumAgeRequirementWithMinimumRequiredAge:currentDate:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_6_1();
   OUTLINED_FUNCTION_2_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_getOnboardingVersionForKey:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-+ (void)_onboardingHistoryKeyFromCompletedKey:(void *)a1 .cold.1(void *a1)
++ (void)_onboardingHistoryKeyFromCompletedKey:(void *)a1 .cold.1(void *a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v1 = a1;
+  v2 = a1;
   objc_opt_class();
   OUTLINED_FUNCTION_4();
-  v3 = v2;
-  OUTLINED_FUNCTION_7_0(&dword_19197B000, v4, v5, "[%{public}@ Mapping failed. Unexpected onboarding completion key.", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  v4 = v3;
+  OUTLINED_FUNCTION_7_0(&dword_19197B000, v5, v6, "[%{public}@ Mapping failed. Unexpected onboarding completion key.", v7, v8, v9, v10);
 }
 
-void __95__HKHeartRhythmAvailability__setOnboardingVersionCompleted_forKey_additionalValues_completion___block_invoke_cold_1(uint64_t a1)
+void __95__HKHeartRhythmAvailability__setOnboardingVersionCompleted_forKey_additionalValues_completion___block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 56);
-  v2 = *(a1 + 32);
   OUTLINED_FUNCTION_0_24();
   OUTLINED_FUNCTION_2_2();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __95__HKHeartRhythmAvailability__setOnboardingVersionCompleted_forKey_additionalValues_completion___block_invoke_114_cold_1(uint64_t a1)
+void __95__HKHeartRhythmAvailability__setOnboardingVersionCompleted_forKey_additionalValues_completion___block_invoke_114_cold_1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 48);
-  v2 = *(a1 + 32);
   OUTLINED_FUNCTION_0_24();
   OUTLINED_FUNCTION_2_2();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __80__HKHeartRhythmAvailability__setFirstOnboardingCompletedDate_forKey_completion___block_invoke_cold_1(uint64_t a1)
+void __80__HKHeartRhythmAvailability__setFirstOnboardingCompletedDate_forKey_completion___block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_0_24();
   OUTLINED_FUNCTION_2_2();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __80__HKHeartRhythmAvailability__setFirstOnboardingCompletedDate_forKey_completion___block_invoke_116_cold_1(uint64_t a1)
+void __80__HKHeartRhythmAvailability__setFirstOnboardingCompletedDate_forKey_completion___block_invoke_116_cold_1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_0_24();
   OUTLINED_FUNCTION_2_2();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __83__HKHeartRhythmAvailability__removeFirstOnboardingCompletedDatesForKey_completion___block_invoke_cold_1(uint64_t a1)
+void __83__HKHeartRhythmAvailability__removeFirstOnboardingCompletedDatesForKey_completion___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_1_12();
   OUTLINED_FUNCTION_2_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __83__HKHeartRhythmAvailability__removeFirstOnboardingCompletedDatesForKey_completion___block_invoke_117_cold_1(uint64_t a1)
+void __83__HKHeartRhythmAvailability__removeFirstOnboardingCompletedDatesForKey_completion___block_invoke_117_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_1_12();
   OUTLINED_FUNCTION_2_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)electrocardiogramOnboardingCountryCode
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_3_5();
-  OUTLINED_FUNCTION_4_3(&dword_19197B000, v0, v1, "[%{public}s] Failed to read onboarding country code: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4_3(&dword_19197B000, v0, v1, "[%{public}s] Failed to read onboarding country code: %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)_electrocardiogramFirstOnboardingCompletedDate
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_3_5();
-  OUTLINED_FUNCTION_4_3(&dword_19197B000, v0, v1, "[%{public}s] Failed to read first onboarding completed date: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4_3(&dword_19197B000, v0, v1, "[%{public}s] Failed to read first onboarding completed date: %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)isElectrocardiogramAppInstallAllowedForWatch:.cold.1()
@@ -3858,58 +3833,51 @@ void __83__HKHeartRhythmAvailability__removeFirstOnboardingCompletedDatesForKey_
 
 + (void)installElectrocardiogramAppOnActiveWatch:(const char *)a3 .cold.1(uint64_t a1, void *a2, const char *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = NSStringFromSelector(a3);
-  v8 = 138543618;
-  v9 = a1;
-  v10 = 2114;
-  v11 = v6;
-  _os_log_error_impl(&dword_19197B000, v5, OS_LOG_TYPE_ERROR, "[%{public}@ %{public}@] -> Failed to schedule installation of ECG app on watch due to no active device", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138543618;
+  v8 = a1;
+  v9 = 2114;
+  v10 = v6;
+  _os_log_error_impl(&dword_19197B000, v5, OS_LOG_TYPE_ERROR, "[%{public}@ %{public}@] -> Failed to schedule installation of ECG app on watch due to no active device", &v7, 0x16u);
 }
 
 void __70__HKHeartRhythmAvailability_installElectrocardiogramAppOnActiveWatch___block_invoke_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = *(a1 + 40);
   v4 = *(a1 + 48);
   v6 = a2;
   v7 = NSStringFromSelector(v4);
-  v9 = 138543874;
-  v10 = v5;
-  v11 = 2114;
-  v12 = v7;
-  v13 = 2114;
-  v14 = a3;
-  _os_log_error_impl(&dword_19197B000, v6, OS_LOG_TYPE_ERROR, "[%{public}@ %{public}@] -> Failed to schedule installation of ECG app on watch with error: %{public}@", &v9, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8 = 138543874;
+  v9 = v5;
+  v10 = 2114;
+  v11 = v7;
+  v12 = 2114;
+  v13 = a3;
+  _os_log_error_impl(&dword_19197B000, v6, OS_LOG_TYPE_ERROR, "[%{public}@ %{public}@] -> Failed to schedule installation of ECG app on watch with error: %{public}@", &v8, 0x20u);
 }
 
 + (void)_onboardingHistoryWithVersionCompletedKey:keyValueDomain:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_3_5();
-  OUTLINED_FUNCTION_4_3(&dword_19197B000, v0, v1, "[%{public}s] Failed to fetch current version: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4_3(&dword_19197B000, v0, v1, "[%{public}s] Failed to fetch current version: %{public}@", v2, v3, v4, v5, v6);
 }
 
 + (void)_onboardingHistoryWithVersionCompletedKey:keyValueDomain:.cold.2()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_3_5();
-  OUTLINED_FUNCTION_4_3(&dword_19197B000, v0, v1, "[%{public}s] Failed to fetch country code: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4_3(&dword_19197B000, v0, v1, "[%{public}s] Failed to fetch country code: %{public}@", v2, v3, v4, v5, v6);
 }
 
 + (void)_onboardingHistoryWithVersionCompletedKey:keyValueDomain:.cold.3()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_3_5();
-  OUTLINED_FUNCTION_4_3(&dword_19197B000, v0, v1, "[%{public}s] Failed to fetch onboarding history: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4_3(&dword_19197B000, v0, v1, "[%{public}s] Failed to fetch onboarding history: %{public}@", v2, v3, v4, v5, v6);
 }
 
 @end

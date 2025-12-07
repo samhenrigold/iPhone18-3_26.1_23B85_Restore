@@ -7,7 +7,7 @@
 
 - (NSLocale)locale
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07890);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07890, &qword_1BCE47340);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v10 - v4;
   selfCopy = self;
@@ -26,7 +26,7 @@
 
 - (void)setLocale:(id)locale
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07890);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07890, &qword_1BCE47340);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v11 - v6;
   if (locale)

@@ -1245,7 +1245,7 @@ LABEL_54:
   }
 }
 
-uint64_t __64__CACLabeledElementsOverlayManager_startDelayedDimmingOfNumbers__block_invoke(uint64_t a1)
+void *__64__CACLabeledElementsOverlayManager_startDelayedDimmingOfNumbers__block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) activeDimmingTransactionID];
   result = [*(a1 + 32) pendingDimmingTransactionID];

@@ -383,7 +383,6 @@ void __28__AKURLSession__urlBagCache__block_invoke(void *a1)
   }
 
   objc_storeStrong(v11, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 + (void)removeAllCachedResponses
@@ -430,7 +429,6 @@ void __28__AKURLSession__urlBagCache__block_invoke(void *a1)
 
   v9 = MEMORY[0x1E69E5928](v14);
   objc_storeStrong(&v14, 0);
-  *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -504,7 +502,6 @@ void __28__AKURLSession__urlBagCache__block_invoke(void *a1)
   objc_storeStrong(&allValues, 0);
   objc_storeStrong(&v21, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)_URLSession
@@ -614,7 +611,6 @@ void __28__AKURLSession__urlBagCache__block_invoke(void *a1)
 
   objc_storeStrong(&v23, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   v4 = v26;
 
   return v4;
@@ -658,7 +654,6 @@ void __59__AKURLSession_beginDataTaskWithRequest_completionHandler___block_invok
   objc_storeStrong(&v7, 0);
   objc_storeStrong(&v8, 0);
   objc_storeStrong(v9, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelDataTask:(id)task
@@ -720,8 +715,6 @@ void __31__AKURLSession_cancelDataTask___block_invoke(uint64_t a1)
 
     objc_storeStrong(&v7, 0);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)_unsafe_completeTask:(id)task withError:(id)error
@@ -800,7 +793,6 @@ void __31__AKURLSession_cancelDataTask___block_invoke(uint64_t a1)
   objc_storeStrong(&v17, 0);
   objc_storeStrong(&v18, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)URLSession:(id)session task:(id)task didCompleteWithError:(id)error
@@ -853,7 +845,6 @@ void __31__AKURLSession_cancelDataTask___block_invoke(uint64_t a1)
   objc_storeStrong(&v17, 0);
   objc_storeStrong(&v18, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isRecoverableError:(id)error
@@ -980,7 +971,6 @@ void __31__AKURLSession_cancelDataTask___block_invoke(uint64_t a1)
 
   objc_storeStrong(&request, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   return v33 & 1;
 }
 
@@ -1019,8 +1009,6 @@ void __44__AKURLSession__unsafe_retryTaskIfPossible___block_invoke_101(uint64_t 
     objc_storeStrong(&v8, 0);
     objc_storeStrong(v9, 0);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)beginAuthenticationDataTaskWithRequest:(id)request completionHandler:(id)handler
@@ -1278,7 +1266,6 @@ void __73__AKURLSession_beginAuthenticationDataTaskWithRequest_completionHandler
   objc_storeStrong(&v49, 0);
   objc_storeStrong(&v50, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)URLSession:(id)session didReceiveChallenge:(id)challenge completionHandler:(id)handler
@@ -1319,23 +1306,8 @@ void __73__AKURLSession_beginAuthenticationDataTaskWithRequest_completionHandler
     v14 = [authenticationMethod isEqualToString:*MEMORY[0x1E695AB80]];
     MEMORY[0x1E69E5920](authenticationMethod);
     MEMORY[0x1E69E5920](protectionSpace2);
-    if ((v14 & 1) == 0)
+    if ((v14 & 1) == 0 || (v10 = [v30 protectionSpace], v7 = objc_msgSend(v10, "serverTrust"), v9 = objc_msgSend(v30, "protectionSpace"), v8 = objc_msgSend(v9, "host"), v11 = +[AKCertificatePinning isValidCertificateTrust:forHostname:](AKCertificatePinning, "isValidCertificateTrust:forHostname:", v7), MEMORY[0x1E69E5920](v8), MEMORY[0x1E69E5920](v9), MEMORY[0x1E69E5920](v10), v25 = v11))
     {
-      goto LABEL_10;
-    }
-
-    protectionSpace3 = [v30 protectionSpace];
-    serverTrust = [protectionSpace3 serverTrust];
-    protectionSpace4 = [v30 protectionSpace];
-    host2 = [protectionSpace4 host];
-    v11 = [AKCertificatePinning isValidCertificateTrust:serverTrust forHostname:?];
-    MEMORY[0x1E69E5920](host2);
-    MEMORY[0x1E69E5920](protectionSpace4);
-    MEMORY[0x1E69E5920](protectionSpace3);
-    v25 = v11;
-    if (v11)
-    {
-LABEL_10:
       (*(v29 + 2))(v29, 1, 0);
     }
 

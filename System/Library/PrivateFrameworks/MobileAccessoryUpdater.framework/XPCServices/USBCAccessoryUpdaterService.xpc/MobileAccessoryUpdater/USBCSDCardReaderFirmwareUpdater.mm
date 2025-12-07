@@ -1,9 +1,36 @@
 @interface USBCSDCardReaderFirmwareUpdater
 - (id)downloadFirmware:(id)firmware hardware:(id)hardware progress:(id)progress;
+- (id)findFirmware:(id)firmware hardware:(id)hardware searchRemote:(BOOL)remote;
 - (id)validateFirmware:(id)firmware hardware:(id)hardware firmware:(id)a5 progress:(id)progress;
 @end
 
 @implementation USBCSDCardReaderFirmwareUpdater
+
+- (id)findFirmware:(id)firmware hardware:(id)hardware searchRemote:(BOOL)remote
+{
+  remoteCopy = remote;
+  firmwareCopy = firmware;
+  v8 = dispatch_semaphore_create(0);
+  [(MobileAsset *)self->super._mobileAsset setAssetType:@"com.apple.MobileAsset.MobileAccessoryUpdate.A245"];
+  mobileAsset = self->super._mobileAsset;
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
+  v15[2] = sub_1000023DC;
+  v15[3] = &unk_100024420;
+  v15[4] = self;
+  v10 = firmwareCopy;
+  v17 = v10;
+  v11 = v8;
+  v16 = v11;
+  v12 = [(MobileAsset *)mobileAsset findAsset:remoteCopy completion:v15];
+  v13 = dispatch_time(0, 120000000000);
+  if (dispatch_semaphore_wait(v11, v13))
+  {
+    sub_1000111B4(self);
+  }
+
+  return 0;
+}
 
 - (id)validateFirmware:(id)firmware hardware:(id)hardware firmware:(id)a5 progress:(id)progress
 {

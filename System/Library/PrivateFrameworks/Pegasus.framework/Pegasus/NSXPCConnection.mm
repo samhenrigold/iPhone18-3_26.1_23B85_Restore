@@ -6,7 +6,7 @@
 void __96__NSXPCConnection_PGAdditions__PG_remoteObjectProxyWithDebugMethodAndPointerProem_errorHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = PGLogCommon();
+  v4 = PGLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __96__NSXPCConnection_PGAdditions__PG_remoteObjectProxyWithDebugMethodAndPointerProem_errorHandler___block_invoke_cold_1(a1, v3, v4);

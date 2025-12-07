@@ -7,65 +7,65 @@
 + (id)evaluateForArgsWithContext:(id)context functionSpec:(id)spec arguments:(const void *)arguments
 {
   v8 = **arguments;
-  v53 = 0;
-  v10 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v8, v9, context, spec, 0, &v53);
-  v11 = v53;
-  objc_msgSend_doubleRepresentation(v10, v12, v13, v14, v15);
+  v46 = 0;
+  v10 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v8, v9, context, spec, 0, &v46);
+  v11 = v46;
+  objc_msgSend_doubleRepresentation(v10, v12, v13, v14);
   if (v11)
   {
-    v20 = objc_msgSend_raiseErrorOrConvert_(context, v16, v11, v17, v18);
+    v18 = objc_msgSend_raiseErrorOrConvert_(context, v15, v11, v16);
   }
 
   else
   {
-    v21 = v19;
-    v22 = *(*arguments + 8);
-    v52 = 0;
-    v24 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v22, v23, context, spec, 1, &v52);
-    v11 = v52;
-    objc_msgSend_doubleRepresentation(v24, v25, v26, v27, v28);
+    v19 = v17;
+    v20 = *(*arguments + 8);
+    v45 = 0;
+    v22 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v20, v21, context, spec, 1, &v45);
+    v11 = v45;
+    objc_msgSend_doubleRepresentation(v22, v23, v24, v25);
     if (v11)
     {
-      v20 = objc_msgSend_raiseErrorOrConvert_(context, v29, v11, v30, v31);
+      v18 = objc_msgSend_raiseErrorOrConvert_(context, v26, v11, v27);
     }
 
     else
     {
-      v33 = v32;
-      v34 = *(*arguments + 16);
-      v51 = 0;
-      v36 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v34, v35, context, spec, 2, &v51);
-      v11 = v51;
-      objc_msgSend_doubleRepresentation(v36, v37, v38, v39, v40);
+      v29 = v28;
+      v30 = *(*arguments + 16);
+      v44 = 0;
+      v32 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v30, v31, context, spec, 2, &v44);
+      v11 = v44;
+      objc_msgSend_doubleRepresentation(v32, v33, v34, v35);
       if (v11)
       {
-        v44 = objc_msgSend_raiseErrorOrConvert_(context, v41, v11, v42, v43);
+        v38 = objc_msgSend_raiseErrorOrConvert_(context, v36, v11, v37);
       }
 
       else
       {
         pthread_mutex_lock(&stru_27CFB4098);
-        sub_2211F2F2C(v33, 1.0 - v21);
+        sub_2211F2F2C(v29, 1.0 - v19);
         pthread_mutex_unlock(&stru_27CFB4098);
         TSUDecimal::operator=();
         if (v8)
         {
-          objc_msgSend_formatWithContext_(v8, v45, context, v46, v47);
+          objc_msgSend_formatWithContext_(v8, v39, context, v40);
         }
 
         else
         {
-          memset(v49, 0, sizeof(v49));
+          memset(v42, 0, sizeof(v42));
         }
 
-        v44 = objc_msgSend_numberWithDecimal_format_(TSCENumberValue, v45, v50, v49, v47);
+        v38 = objc_msgSend_numberWithDecimal_format_(TSCENumberValue, v39, v43, v42);
       }
 
-      v20 = v44;
+      v18 = v38;
     }
   }
 
-  return v20;
+  return v18;
 }
 
 @end

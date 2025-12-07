@@ -147,7 +147,7 @@ LABEL_11:
 
 - (void)addFiltersToXMLData:(id)data
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = +[CoreDAVLogging sharedLogging];
   WeakRetained = objc_loadWeakRetained(&self->super._accountInfoProvider);
   v6 = [v4 logHandleForAccountInfoProvider:WeakRetained];
@@ -157,14 +157,12 @@ LABEL_11:
     v7 = v6;
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138543362;
-      v11 = objc_opt_class();
-      v8 = v11;
-      _os_log_impl(&dword_2452FB000, v7, OS_LOG_TYPE_ERROR, "addFiltersToXMLData: to be implemented by subclass %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = objc_opt_class();
+      v8 = v10;
+      _os_log_impl(&dword_2452FB000, v7, OS_LOG_TYPE_ERROR, "addFiltersToXMLData: to be implemented by subclass %{public}@", &v9, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)requestBody
@@ -201,7 +199,7 @@ LABEL_11:
 
 - (void)finishCoreDAVTaskWithError:(id)error
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = errorCopy;
   if (errorCopy)
@@ -219,8 +217,8 @@ LABEL_11:
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
           *buf = 138543362;
-          v63 = objc_opt_class();
-          v11 = v63;
+          v62 = objc_opt_class();
+          v11 = v62;
           v12 = "%{public}@ cancelled";
           v13 = v10;
           v14 = OS_LOG_TYPE_INFO;
@@ -241,10 +239,10 @@ LABEL_29:
       if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        v63 = objc_opt_class();
-        v64 = 2112;
-        v65 = v5;
-        v11 = v63;
+        v62 = objc_opt_class();
+        v63 = 2112;
+        v64 = v5;
+        v11 = v62;
         v12 = "%{public}@ failed: %@";
         v13 = v42;
         v14 = OS_LOG_TYPE_DEFAULT;
@@ -264,29 +262,29 @@ LABEL_30:
   v16 = objc_alloc_init(MEMORY[0x277CBEB58]);
   responseBodyParser = [(CoreDAVTask *)self responseBodyParser];
   [responseBodyParser rootElement];
+  v56 = 0u;
   v57 = 0u;
   v58 = 0u;
-  v59 = 0u;
-  v49 = v60 = 0u;
-  responses = [v49 responses];
-  v55 = [responses countByEnumeratingWithState:&v57 objects:v61 count:16];
+  v48 = v59 = 0u;
+  responses = [v48 responses];
+  v54 = [responses countByEnumeratingWithState:&v56 objects:v60 count:16];
   v18 = 0;
-  if (v55)
+  if (v54)
   {
-    v19 = *v58;
-    v52 = *v58;
-    v51 = responses;
+    v19 = *v57;
+    v51 = *v57;
+    v50 = responses;
     do
     {
       v20 = 0;
       do
       {
-        if (*v58 != v19)
+        if (*v57 != v19)
         {
           objc_enumerationMutation(responses);
         }
 
-        v21 = *(*(&v57 + 1) + 8 * v20);
+        v21 = *(*(&v56 + 1) + 8 * v20);
         errorItem = [(__CFString *)v21 errorItem];
         numberOfMatchesWithinLimits = [errorItem numberOfMatchesWithinLimits];
 
@@ -299,9 +297,9 @@ LABEL_30:
           if (payloadAsString && os_log_type_enabled(payloadAsString, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412546;
-            v63 = @"number-of-matches-within-limits";
-            v64 = 2112;
-            v65 = v21;
+            v62 = @"number-of-matches-within-limits";
+            v63 = 2112;
+            v64 = v21;
             _os_log_impl(&dword_2452FB000, payloadAsString, OS_LOG_TYPE_DEBUG, "Received %@ response %@", buf, 0x16u);
           }
 
@@ -336,7 +334,7 @@ LABEL_30:
             v18 = v34;
 
             v16 = v32;
-            responses = v51;
+            responses = v50;
             [v16 addObject:v38];
           }
 
@@ -349,20 +347,20 @@ LABEL_30:
             if (v37 && os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v63 = v21;
+              v62 = v21;
               _os_log_impl(&dword_2452FB000, v37, OS_LOG_TYPE_DEFAULT, "Unexpected status response %@", buf, 0xCu);
             }
           }
 
-          v19 = v52;
+          v19 = v51;
         }
 
         ++v20;
       }
 
-      while (v55 != v20);
-      v40 = [responses countByEnumeratingWithState:&v57 objects:v61 count:16];
-      v55 = v40;
+      while (v54 != v20);
+      v40 = [responses countByEnumeratingWithState:&v56 objects:v60 count:16];
+      v54 = v40;
     }
 
     while (v40);
@@ -396,11 +394,9 @@ LABEL_36:
   }
 
 LABEL_37:
-  v56.receiver = self;
-  v56.super_class = CoreDAVContainerQueryTask;
-  [(CoreDAVTask *)&v56 finishCoreDAVTaskWithError:v5];
-
-  v48 = *MEMORY[0x277D85DE8];
+  v55.receiver = self;
+  v55.super_class = CoreDAVContainerQueryTask;
+  [(CoreDAVTask *)&v55 finishCoreDAVTaskWithError:v5];
 }
 
 @end

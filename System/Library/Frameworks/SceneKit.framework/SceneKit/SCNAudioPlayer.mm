@@ -112,7 +112,7 @@
   self->_nodeRef = ref;
   if (ref)
   {
-    self->_scene = C3DGetScene(ref);
+    self->_scene = C3DGetScene(ref, a2);
   }
 }
 
@@ -191,7 +191,7 @@ LABEL_10:
   }
 }
 
-uint64_t __22__SCNAudioPlayer_play__block_invoke(uint64_t a1)
+void *__22__SCNAudioPlayer_play__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) didFinishPlayback];
   if (result)
@@ -288,7 +288,7 @@ void __22__SCNAudioPlayer_play__block_invoke_5(uint64_t a1)
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __22__SCNAudioPlayer_play__block_invoke_7(uint64_t a1)
+void *__22__SCNAudioPlayer_play__block_invoke_7(uint64_t a1)
 {
   result = [*(a1 + 32) willStartPlayback];
   if (result)

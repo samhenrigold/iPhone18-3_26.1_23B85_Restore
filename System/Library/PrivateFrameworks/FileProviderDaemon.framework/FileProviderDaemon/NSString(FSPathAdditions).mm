@@ -87,30 +87,22 @@
 
 - (uint64_t)fpfs_isSafeSaveTempFile:()FSPathAdditions
 {
-  v8 = *MEMORY[0x1E69E9840];
-  if ([self length])
+  v9 = *MEMORY[0x1E69E9840];
+  if (![self length])
   {
-    bzero(v7, 0x400uLL);
-    fileSystemRepresentation = [self fileSystemRepresentation];
-    if (__strlcpy_chk() > 0x3FF)
-    {
-      v4 = strdup(fileSystemRepresentation);
-      is_safe_save_temp_file = fpfs_path_is_safe_save_temp_file();
-      free(v4);
-    }
-
-    else
-    {
-      is_safe_save_temp_file = fpfs_path_is_safe_save_temp_file();
-    }
+    return 0;
   }
 
-  else
+  bzero(v8, 0x400uLL);
+  fileSystemRepresentation = [self fileSystemRepresentation];
+  if (__strlcpy_chk() <= 0x3FF)
   {
-    is_safe_save_temp_file = 0;
+    return fpfs_path_is_safe_save_temp_file();
   }
 
-  v5 = *MEMORY[0x1E69E9840];
+  v6 = strdup(fileSystemRepresentation);
+  is_safe_save_temp_file = fpfs_path_is_safe_save_temp_file();
+  free(v6);
   return is_safe_save_temp_file;
 }
 

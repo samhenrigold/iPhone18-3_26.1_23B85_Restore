@@ -32,7 +32,6 @@
   *(v5 + 16) = v4;
   v6 = (self + OBJC_IVAR___TPSAsyncBlockOperation_asyncBlock);
   swift_beginAccess();
-  v7 = v6[1];
   *v6 = sub_1C010E32C;
   v6[1] = v5;
 }
@@ -54,13 +53,12 @@
 {
   v3 = self + OBJC_IVAR___TPSAsyncBlockOperation_asyncBlock;
   swift_beginAccess();
-  v5 = *v3;
-  v4 = *(v3 + 1);
-  v6 = swift_allocObject();
+  v4 = *v3;
+  v5 = swift_allocObject();
   swift_unknownObjectWeakInit();
   selfCopy = self;
 
-  v5(sub_1C010E334, v6);
+  v4(sub_1C010E334, v5);
 }
 
 - (TPSAsyncBlockOperation)init

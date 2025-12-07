@@ -160,7 +160,6 @@ LABEL_21:
 
         v24 = objc_opt_class();
         name = NSStringFromClass(v24);
-        v25 = *&v6[*v9];
         v10 = CCSkipFieldErrorForMessage();
       }
 
@@ -183,22 +182,21 @@ LABEL_27:
 LABEL_30:
   if (!*&v6[*v9])
   {
-    v29 = 1;
+    v27 = 1;
     goto LABEL_34;
   }
 
 LABEL_31:
-  v26 = objc_opt_class();
-  v10 = NSStringFromClass(v26);
-  v27 = *&v6[*v9];
-  v28 = CCInvalidBufferErrorForMessage();
+  v25 = objc_opt_class();
+  v10 = NSStringFromClass(v25);
+  v26 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
 LABEL_32:
-  v29 = 0;
+  v27 = 0;
 LABEL_34:
 
-  return v29;
+  return v27;
 }
 
 - (CCHomeServiceGroup)initWithName:(id)name error:(id *)error

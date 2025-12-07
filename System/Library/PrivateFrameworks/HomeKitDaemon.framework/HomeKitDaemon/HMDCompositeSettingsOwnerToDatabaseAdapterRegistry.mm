@@ -15,7 +15,7 @@
   nameCopy = name;
   os_unfair_lock_lock_with_options();
   settingOwnerToDatabaseAdapterTable = self->_settingOwnerToDatabaseAdapterTable;
-  v17 = [dCopy copy];
+  v17 = objc_msgSend_copy(dCopy);
   v18 = [(NSMapTable *)settingOwnerToDatabaseAdapterTable objectForKey:v17];
 
   if (!v18)
@@ -49,7 +49,7 @@
   }
 
   v7 = Property;
-  v8 = [dCopy copy];
+  v8 = objc_msgSend_copy(dCopy);
   v9 = [v7 objectForKey:v8];
 
   os_unfair_lock_unlock(&self->_lock);

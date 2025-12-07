@@ -1,3 +1,1309 @@
+void std::vector<std::vector<quasar::PronChoice>>::resize(const void **a1, unint64_t a2)
+{
+  v3 = a1[1];
+  v4 = 0xAAAAAAAAAAAAAAABLL * ((v3 - *a1) >> 3);
+  v5 = a2 >= v4;
+  v6 = a2 - v4;
+  if (v6 != 0 && v5)
+  {
+
+    std::vector<std::vector<quasar::PronChoice>>::__append(a1, v6);
+  }
+
+  else if (!v5)
+  {
+    v7 = *a1 + 24 * a2;
+    while (v3 != v7)
+    {
+      v3 -= 3;
+      v8 = v3;
+      std::vector<quasar::PronChoice>::__destroy_vector::operator()[abi:ne200100](&v8);
+    }
+
+    a1[1] = v7;
+  }
+}
+
+uint64_t std::vector<quasar::PronChoice>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
+{
+  v3 = *(a1 + 8);
+  if (v3 >= *(a1 + 16))
+  {
+    result = std::vector<quasar::PronChoice>::__emplace_back_slow_path<quasar::PronChoice const&>(a1, a2);
+  }
+
+  else
+  {
+    quasar::PronChoice::PronChoice(*(a1 + 8), a2);
+    result = v3 + 40;
+    *(a1 + 8) = v3 + 40;
+  }
+
+  *(a1 + 8) = result;
+  return result;
+}
+
+uint64_t quasar::G2P::selectTopProns@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
+{
+  v19 = result;
+  v3 = 0;
+  *a3 = 0;
+  a3[1] = 0;
+  a3[2] = 0;
+  do
+  {
+    if (0xCCCCCCCCCCCCCCCDLL * ((a3[1] - *a3) >> 3) >= *(v19 + 104))
+    {
+      break;
+    }
+
+    v5 = *a2;
+    v4 = *(a2 + 8);
+    if (*a2 == v4)
+    {
+      v18 = 0;
+      v17 = *a2;
+    }
+
+    else
+    {
+      v6 = 0;
+      do
+      {
+        if (0xCCCCCCCCCCCCCCCDLL * ((v5[1] - *v5) >> 3) <= v3)
+        {
+          ++v6;
+        }
+
+        else
+        {
+          v8 = *a3;
+          v7 = a3[1];
+          v9 = *v5 + 40 * v3;
+          if (*a3 != v7)
+          {
+            v10 = *v9;
+            v11 = *(v9 + 31);
+            if (v11 >= 0)
+            {
+              v12 = *(v9 + 31);
+            }
+
+            else
+            {
+              v12 = *(v9 + 16);
+            }
+
+            if (v11 >= 0)
+            {
+              v13 = (v9 + 8);
+            }
+
+            else
+            {
+              v13 = *(v9 + 8);
+            }
+
+            while (1)
+            {
+              if (*v8 == v10)
+              {
+                v14 = *(v8 + 31);
+                v15 = v14;
+                if ((v14 & 0x80u) != 0)
+                {
+                  v14 = *(v8 + 16);
+                }
+
+                if (v14 == v12)
+                {
+                  v16 = v15 >= 0 ? (v8 + 8) : *(v8 + 8);
+                  result = memcmp(v16, v13, v12);
+                  if (!result)
+                  {
+                    break;
+                  }
+                }
+              }
+
+              v8 += 40;
+              if (v8 == v7)
+              {
+                goto LABEL_25;
+              }
+            }
+          }
+
+          if (v8 == v7)
+          {
+LABEL_25:
+            result = std::vector<quasar::PronChoice>::push_back[abi:ne200100](a3, v9);
+          }
+        }
+
+        v5 += 3;
+      }
+
+      while (v5 != v4);
+      v5 = *a2;
+      v17 = *(a2 + 8);
+      v18 = v6;
+    }
+
+    ++v3;
+  }
+
+  while (0xAAAAAAAAAAAAAAABLL * (v17 - v5) != v18);
+  return result;
+}
+
+void sub_1B534AC94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void **a11, void **a12)
+{
+  a12 = a11;
+  std::vector<quasar::PronChoice>::__destroy_vector::operator()[abi:ne200100](&a12);
+  _Unwind_Resume(a1);
+}
+
+void std::vector<quasar::PronChoice>::resize(const quasar::PronChoice **a1, unint64_t a2)
+{
+  v3 = a1[1];
+  v4 = 0xCCCCCCCCCCCCCCCDLL * ((v3 - *a1) >> 3);
+  v5 = a2 >= v4;
+  v6 = a2 - v4;
+  if (v6 != 0 && v5)
+  {
+
+    std::vector<quasar::PronChoice>::__append(a1, v6);
+  }
+
+  else if (!v5)
+  {
+    v7 = *a1 + 40 * a2;
+    while (v3 != v7)
+    {
+      if (*(v3 - 9) < 0)
+      {
+        operator delete(*(v3 - 4));
+      }
+
+      v3 = (v3 - 40);
+    }
+
+    a1[1] = v7;
+  }
+}
+
+void quasar::G2P::convertPhonemePronsToAllProns(uint64_t *a1@<X1>, quasar::PronChoice **a2@<X8>)
+{
+  *a2 = 0;
+  a2[1] = 0;
+  a2[2] = 0;
+  v2 = *a1;
+  v3 = a1[1];
+  if (*a1 != v3)
+  {
+    v5 = 0;
+    do
+    {
+      v6 = 0;
+      v7 = 1;
+      if (v5 >= a2[2])
+      {
+        v5 = std::vector<quasar::PronChoice>::__emplace_back_slow_path<quasar::PronType,std::string const&,int>(a2, &v7, v2, &v6);
+      }
+
+      else
+      {
+        std::allocator<quasar::PronChoice>::construct[abi:ne200100]<quasar::PronChoice,quasar::PronType,std::string const&,int>(a2, v5, &v7, v2, &v6);
+        v5 += 40;
+      }
+
+      a2[1] = v5;
+      v2 += 24;
+    }
+
+    while (v2 != v3);
+  }
+}
+
+void sub_1B534ADFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::vector<quasar::PronChoice>::__destroy_vector::operator()[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t quasar::G2P::lookupHumanReadableProns(void *a1, uint64_t a2, quasar::PronChoice **a3, uint64_t a4, quasar::LmeData **a5, _BYTE *a6, _BYTE *a7, int a8)
+{
+  v96 = 1;
+  kaldi::Timer::Reset(v95, a2);
+  v97 = 0;
+  *a7 = 0;
+  *a6 = 0;
+  v17 = *(a2 + 23);
+  v18 = v17;
+  v19 = *(a2 + 8);
+  if ((v17 & 0x80u) == 0)
+  {
+    v20 = *(a2 + 23);
+  }
+
+  else
+  {
+    v20 = *(a2 + 8);
+  }
+
+  if (!v20)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  v21 = a1[3];
+  if (v21)
+  {
+    quasar::LmeDataFactory::applyG2PRewrite(v21, a2);
+    v17 = *(a2 + 23);
+    v19 = *(a2 + 8);
+    v18 = *(a2 + 23);
+  }
+
+  if (v18 < 0)
+  {
+    v17 = v19;
+  }
+
+  if (!v17)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  if (!*a5)
+  {
+    goto LABEL_49;
+  }
+
+  quasar::LmeDataFactoryBase::PronSet::PronSet(&v83);
+  v22 = *a5;
+  if (a8 == 2)
+  {
+    if (*(a2 + 23) < 0)
+    {
+      std::string::__init_copy_ctor_external(&v94, *a2, *(a2 + 8));
+    }
+
+    else
+    {
+      v94 = *a2;
+    }
+
+    std::string::basic_string[abi:ne200100]<0>(&v92, "");
+    v89 = 0;
+    v90 = 0;
+    v91 = 0;
+    quasar::LmeDataFactoryBase::Word::Word(v66, &v94, &v92, 0, &v89);
+    quasar::LmeData::lookupWordEmbeddingCache(v22, v66, 3, &v83);
+    *a7 = v23;
+    std::__tree<std::__value_type<std::pair<quasar::PronType,std::string>,float>,std::__map_value_compare<std::pair<quasar::PronType,std::string>,std::__value_type<std::pair<quasar::PronType,std::string>,float>,std::less<std::pair<quasar::PronType,std::string>>,true>,std::allocator<std::__value_type<std::pair<quasar::PronType,std::string>,float>>>::destroy(&v69 + 8, v70);
+    if (SHIBYTE(v68) < 0)
+    {
+      operator delete(*(&v67 + 1));
+    }
+
+    if (SBYTE7(v67) < 0)
+    {
+      operator delete(v66[0]);
+    }
+
+    v65[0] = &v89;
+    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v65);
+    if (v93 < 0)
+    {
+      operator delete(v92);
+    }
+
+    if ((SHIBYTE(v94.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    {
+      goto LABEL_35;
+    }
+
+    v24 = v94.__r_.__value_.__r.__words[0];
+  }
+
+  else
+  {
+    if (*(a2 + 23) < 0)
+    {
+      std::string::__init_copy_ctor_external(&v88, *a2, *(a2 + 8));
+    }
+
+    else
+    {
+      v88 = *a2;
+    }
+
+    std::string::basic_string[abi:ne200100]<0>(v86, "");
+    v89 = 0;
+    v90 = 0;
+    v91 = 0;
+    quasar::LmeDataFactoryBase::Word::Word(v66, &v88, v86, 0, &v89);
+    quasar::LmeData::lookupWordPronCache(v22, v66, 3, &v83);
+    *a7 = v25;
+    std::__tree<std::__value_type<std::pair<quasar::PronType,std::string>,float>,std::__map_value_compare<std::pair<quasar::PronType,std::string>,std::__value_type<std::pair<quasar::PronType,std::string>,float>,std::less<std::pair<quasar::PronType,std::string>>,true>,std::allocator<std::__value_type<std::pair<quasar::PronType,std::string>,float>>>::destroy(&v69 + 8, v70);
+    if (SHIBYTE(v68) < 0)
+    {
+      operator delete(*(&v67 + 1));
+    }
+
+    if (SBYTE7(v67) < 0)
+    {
+      operator delete(v66[0]);
+    }
+
+    v65[0] = &v89;
+    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v65);
+    if (v87 < 0)
+    {
+      operator delete(v86[0]);
+    }
+
+    if ((SHIBYTE(v88.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    {
+      goto LABEL_35;
+    }
+
+    v24 = v88.__r_.__value_.__r.__words[0];
+  }
+
+  operator delete(v24);
+LABEL_35:
+  if (*a7 == 1)
+  {
+    quasar::Bitmap::~Bitmap(&v83);
+    v28 = (v27 + 1);
+    v29 = *v27;
+    if (*v27 != v27 + 1)
+    {
+      v30 = a3[1];
+      do
+      {
+        if (v30 >= a3[2])
+        {
+          v30 = std::vector<quasar::PronChoice>::__emplace_back_slow_path<quasar::PronType const&,std::string const&,float const&>(a3, v29 + 8, (v29 + 10), v29 + 16);
+        }
+
+        else
+        {
+          std::allocator<quasar::PronChoice>::construct[abi:ne200100]<quasar::PronChoice,quasar::PronType const&,std::string const&,float const&>(a3, v30, v29 + 8, (v29 + 10), v29 + 16);
+          v30 += 40;
+          a3[1] = v30;
+        }
+
+        a3[1] = v30;
+        v31 = *(v29 + 1);
+        if (v31)
+        {
+          do
+          {
+            v32 = v31;
+            v31 = *v31;
+          }
+
+          while (v31);
+        }
+
+        else
+        {
+          do
+          {
+            v32 = *(v29 + 2);
+            v33 = *v32 == v29;
+            v29 = v32;
+          }
+
+          while (!v33);
+        }
+
+        v29 = v32;
+      }
+
+      while (v32 != v28);
+    }
+
+    Seconds = kaldi::Timer::GetSeconds(5, v26);
+    quasar::PronGuessStats::addRecord(a4, a2, 2, ((Seconds - v95[0]) * 1000000.0));
+  }
+
+  std::__tree<std::__value_type<std::pair<quasar::PronType,std::string>,float>,std::__map_value_compare<std::pair<quasar::PronType,std::string>,std::__value_type<std::pair<quasar::PronType,std::string>,float>,std::less<std::pair<quasar::PronType,std::string>>,true>,std::allocator<std::__value_type<std::pair<quasar::PronType,std::string>,float>>>::destroy(&v83, *(&v83 + 1));
+LABEL_49:
+  if ((*a7 & 1) == 0)
+  {
+    kaldi::Timer::Reset(v95, v16);
+    v83 = 0u;
+    v84 = 0u;
+    v85 = 1065353216;
+    v35 = a1[3];
+    if (v35)
+    {
+      v36 = quasar::LmeDataFactory::lookUpProns(v35, a2, &v83);
+      v38 = *(&v84 + 1) ? v36 : 0;
+      if (v38 == 1)
+      {
+        if (quasar::gLogLevel >= 5)
+        {
+          v81 = 0u;
+          v82 = 0u;
+          v79 = 0u;
+          v80 = 0u;
+          v77 = 0u;
+          v78 = 0u;
+          v75 = 0u;
+          v76 = 0u;
+          v73 = 0u;
+          v74 = 0u;
+          v71 = 0u;
+          v72 = 0u;
+          v69 = 0u;
+          v70 = 0u;
+          v67 = 0u;
+          v68 = 0u;
+          *v66 = 0u;
+          kaldi::KaldiWarnMessage::KaldiWarnMessage(v66);
+          v39 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v66, "Token=", 6);
+          v40 = *(a2 + 23);
+          if (v40 >= 0)
+          {
+            v41 = a2;
+          }
+
+          else
+          {
+            v41 = *a2;
+          }
+
+          if (v40 >= 0)
+          {
+            v42 = *(a2 + 23);
+          }
+
+          else
+          {
+            v42 = *(a2 + 8);
+          }
+
+          v43 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v39, v41, v42);
+          v44 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v43, " found in Lexicon, prons=", 25);
+          v65[0] = ", ";
+          v65[1] = 2;
+          quasar::join<std::unordered_set<std::string>>(&v83, v65);
+          if (v91 >= 0)
+          {
+            v45 = &v89;
+          }
+
+          else
+          {
+            v45 = v89;
+          }
+
+          if (v91 >= 0)
+          {
+            v46 = HIBYTE(v91);
+          }
+
+          else
+          {
+            v46 = v90;
+          }
+
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v44, v45, v46);
+          if (SHIBYTE(v91) < 0)
+          {
+            operator delete(v89);
+          }
+
+          quasar::QuasarDebugMessage::~QuasarDebugMessage(v66);
+        }
+
+        v47 = v84;
+        if (v84)
+        {
+          v48 = a3[1];
+          do
+          {
+            LODWORD(v66[0]) = 1;
+            LODWORD(v89) = 0;
+            if (v48 >= a3[2])
+            {
+              v48 = std::vector<quasar::PronChoice>::__emplace_back_slow_path<quasar::PronType,std::string const&,int>(a3, v66, (v47 + 2), &v89);
+            }
+
+            else
+            {
+              std::allocator<quasar::PronChoice>::construct[abi:ne200100]<quasar::PronChoice,quasar::PronType,std::string const&,int>(a3, v48, v66, (v47 + 2), &v89);
+              v48 += 40;
+              a3[1] = v48;
+            }
+
+            a3[1] = v48;
+            v47 = *v47;
+          }
+
+          while (v47);
+        }
+
+        v49 = kaldi::Timer::GetSeconds(5, v37);
+        quasar::PronGuessStats::addRecord(a4, a2, 0, ((v49 - v95[0]) * 1000000.0));
+        goto LABEL_112;
+      }
+    }
+
+    v64 = 0;
+    v50 = (*(*a1 + 40))(a1, a2, &v64);
+    if (v64 == 1)
+    {
+      *(a4 + 40) = v64;
+    }
+
+    if (v50)
+    {
+      kaldi::Timer::Reset(v95, v51);
+      v63 = 0;
+      quasar::G2P::getFromCache(a1, a2, &v63);
+      if (v89 != v90)
+      {
+        v53 = kaldi::Timer::GetSeconds(5, v52);
+        quasar::PronGuessStats::addRecord(a4, a2, 1, ((v53 - v95[0]) * 1000000.0));
+        quasar::toPronChoices(&v89, v66);
+        std::vector<quasar::PronChoice>::__vdeallocate(a3);
+        *a3 = *v66;
+        a3[2] = v67;
+        v66[1] = 0;
+        *&v67 = 0;
+        v66[0] = 0;
+        v65[0] = v66;
+        std::vector<quasar::PronChoice>::__destroy_vector::operator()[abi:ne200100](v65);
+        if (quasar::gLogLevel >= 5)
+        {
+          v81 = 0u;
+          v82 = 0u;
+          v79 = 0u;
+          v80 = 0u;
+          v77 = 0u;
+          v78 = 0u;
+          v75 = 0u;
+          v76 = 0u;
+          v73 = 0u;
+          v74 = 0u;
+          v71 = 0u;
+          v72 = 0u;
+          v69 = 0u;
+          v70 = 0u;
+          v67 = 0u;
+          v68 = 0u;
+          *v66 = 0u;
+          kaldi::KaldiWarnMessage::KaldiWarnMessage(v66);
+          v54 = *(a2 + 23);
+          if (v54 >= 0)
+          {
+            v55 = a2;
+          }
+
+          else
+          {
+            v55 = *a2;
+          }
+
+          if (v54 >= 0)
+          {
+            v56 = *(a2 + 23);
+          }
+
+          else
+          {
+            v56 = *(a2 + 8);
+          }
+
+          v57 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v66, v55, v56);
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v57, " found in PronCache", 19);
+          quasar::QuasarDebugMessage::~QuasarDebugMessage(v66);
+        }
+
+        goto LABEL_111;
+      }
+
+      if (v63 > 1)
+      {
+        if (v63 == 2)
+        {
+          ++*(a4 + 4);
+          goto LABEL_110;
+        }
+
+        if (v63 == 5)
+        {
+          ++*(a4 + 36);
+LABEL_111:
+          v66[0] = &v89;
+          std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v66);
+LABEL_112:
+          std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&v83);
+          return 0;
+        }
+      }
+
+      else
+      {
+        if (!v63)
+        {
+          ++*a4;
+          goto LABEL_110;
+        }
+
+        if (v63 == 1)
+        {
+LABEL_110:
+          *a6 = 1;
+          goto LABEL_111;
+        }
+      }
+
+      ++*(a4 + 12);
+      goto LABEL_110;
+    }
+
+    if (quasar::gLogLevel >= 5)
+    {
+      v81 = 0u;
+      v82 = 0u;
+      v79 = 0u;
+      v80 = 0u;
+      v77 = 0u;
+      v78 = 0u;
+      v75 = 0u;
+      v76 = 0u;
+      v73 = 0u;
+      v74 = 0u;
+      v71 = 0u;
+      v72 = 0u;
+      v69 = 0u;
+      v70 = 0u;
+      v67 = 0u;
+      v68 = 0u;
+      *v66 = 0u;
+      kaldi::KaldiWarnMessage::KaldiWarnMessage(v66);
+      v58 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v66, "Skipping invalid token=", 23);
+      v59 = *(a2 + 23);
+      if (v59 >= 0)
+      {
+        v60 = a2;
+      }
+
+      else
+      {
+        v60 = *a2;
+      }
+
+      if (v59 >= 0)
+      {
+        v61 = *(a2 + 23);
+      }
+
+      else
+      {
+        v61 = *(a2 + 8);
+      }
+
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v58, v60, v61);
+      quasar::QuasarDebugMessage::~QuasarDebugMessage(v66);
+    }
+
+    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&v83);
+    return 0xFFFFFFFFLL;
+  }
+
+  return 0;
+}
+
+void sub_1B534B5D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, void *a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, void *__p, uint64_t a53, int a54, __int16 a55, char a56, char a57)
+{
+  a13 = v57 - 208;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a13);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&a47);
+  _Unwind_Resume(a1);
+}
+
+uint64_t quasar::join<std::unordered_set<std::string>>(uint64_t a1, uint64_t *a2)
+{
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v7);
+  quasar::joinToStream<std::unordered_set<std::string>>(&v8, a1, a2);
+  std::stringbuf::str();
+  v7[0] = *MEMORY[0x1E69E54D8];
+  v5 = *(MEMORY[0x1E69E54D8] + 72);
+  *(v7 + *(v7[0] - 24)) = *(MEMORY[0x1E69E54D8] + 64);
+  v8 = v5;
+  v9 = MEMORY[0x1E69E5548] + 16;
+  if (v11 < 0)
+  {
+    operator delete(v10[7].__locale_);
+  }
+
+  v9 = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(v10);
+  std::iostream::~basic_iostream();
+  return MEMORY[0x1B8C85200](&v12);
+}
+
+void sub_1B534B8C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va, MEMORY[0x1E69E54D8]);
+  MEMORY[0x1B8C85200](v3 + 128);
+  _Unwind_Resume(a1);
+}
+
+void quasar::G2P::getFromCache(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4 = *(a1 + 8);
+  quasar::G2P::generateCacheKey(a1, a2, &__p);
+  (*(*v4 + 32))(v4, &__p, a3);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+}
+
+void sub_1B534B96C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void quasar::toPronChoices(uint64_t *a1@<X0>, void *a2@<X8>)
+{
+  *a2 = 0;
+  a2[1] = 0;
+  a2[2] = 0;
+  v3 = *a1;
+  if (a1[1] != *a1)
+  {
+    v5 = 0;
+    v6 = 0;
+    do
+    {
+      quasar::PronChoice::fromString(&v11, (v3 + v5));
+      v7 = a2[1];
+      if (v7 >= a2[2])
+      {
+        v10 = std::vector<quasar::PronChoice>::__emplace_back_slow_path<quasar::PronChoice>(a2, &v11);
+      }
+
+      else
+      {
+        *v7 = v11;
+        v8 = (v7 + 8);
+        if (SHIBYTE(v13) < 0)
+        {
+          std::string::__init_copy_ctor_external(v8, __p, *(&__p + 1));
+        }
+
+        else
+        {
+          v9 = __p;
+          *(v7 + 24) = v13;
+          *&v8->__r_.__value_.__l.__data_ = v9;
+        }
+
+        *(v7 + 32) = v14;
+        v10 = v7 + 40;
+      }
+
+      a2[1] = v10;
+      if (SHIBYTE(v13) < 0)
+      {
+        operator delete(__p);
+      }
+
+      ++v6;
+      v3 = *a1;
+      v5 += 24;
+    }
+
+    while (0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3) > v6);
+  }
+}
+
+void sub_1B534BA8C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
+{
+  *(v16 + 8) = v17;
+  if (a16 < 0)
+  {
+    operator delete(__p);
+  }
+
+  a10 = v16;
+  std::vector<quasar::PronChoice>::__destroy_vector::operator()[abi:ne200100](&a10);
+  _Unwind_Resume(a1);
+}
+
+uint64_t quasar::G2P::updateCache(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4 = *(a1 + 8);
+  quasar::G2P::generateCacheKey(a1, a2, &__p);
+  v5 = (*(*v4 + 16))(v4, &__p, a3);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+
+  return v5;
+}
+
+void sub_1B534BB44(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void quasar::fromPronChoices(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+{
+  *a2 = 0;
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  v3 = *a1;
+  if (a1[1] != *a1)
+  {
+    v5 = 0;
+    v6 = 0;
+    do
+    {
+      quasar::PronChoice::toString((v3 + v5));
+      v8 = *(a2 + 8);
+      v7 = *(a2 + 16);
+      if (v8 >= v7)
+      {
+        v9 = 0xAAAAAAAAAAAAAAABLL * ((v8 - *a2) >> 3);
+        v10 = v9 + 1;
+        if (v9 + 1 > 0xAAAAAAAAAAAAAAALL)
+        {
+          std::vector<int>::__throw_length_error[abi:ne200100]();
+        }
+
+        v11 = 0xAAAAAAAAAAAAAAABLL * ((v7 - *a2) >> 3);
+        if (2 * v11 > v10)
+        {
+          v10 = 2 * v11;
+        }
+
+        if (v11 >= 0x555555555555555)
+        {
+          v12 = 0xAAAAAAAAAAAAAAALL;
+        }
+
+        else
+        {
+          v12 = v10;
+        }
+
+        v21.__end_cap_.__value_ = a2;
+        if (v12)
+        {
+          std::__allocate_at_least[abi:ne200100]<std::allocator<std::string>>(a2, v12);
+        }
+
+        v13 = 24 * v9;
+        *(v13 + 16) = v20;
+        *v13 = *__p;
+        v20 = 0;
+        *__p = 0uLL;
+        v14 = 24 * v9 + 24;
+        v15 = *(a2 + 8) - *a2;
+        v16 = 24 * v9 - v15;
+        memcpy((v13 - v15), *a2, v15);
+        v17 = *a2;
+        *a2 = v16;
+        *(a2 + 8) = v14;
+        v18 = *(a2 + 16);
+        *(a2 + 16) = 0;
+        v21.__end_ = v17;
+        v21.__end_cap_.__value_ = v18;
+        v21.__first_ = v17;
+        v21.__begin_ = v17;
+        std::__split_buffer<std::string>::~__split_buffer(&v21);
+        *(a2 + 8) = v14;
+      }
+
+      else
+      {
+        *(v8 + 16) = v20;
+        *v8 = *__p;
+        *(a2 + 8) = v8 + 24;
+      }
+
+      ++v6;
+      v3 = *a1;
+      v5 += 40;
+    }
+
+    while (0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 3) > v6);
+  }
+}
+
+void sub_1B534BD10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&__p);
+  _Unwind_Resume(a1);
+}
+
+int32x2_t quasar::G2P::updateCacheSetStats(uint64_t a1, uint64_t **a2, __int32 a3, int a4, int a5, int32x2_t *a6)
+{
+  if (a4 == 2)
+  {
+    ++a6[1].i32[0];
+  }
+
+  else if (a4 == 1)
+  {
+    if (quasar::gLogLevel >= 5)
+    {
+      memset(v13, 0, sizeof(v13));
+      kaldi::KaldiWarnMessage::KaldiWarnMessage(v13);
+      v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, "in backoff window, skip updating pron cache for token ", 54);
+      v8 = *(a2 + 23);
+      if (v8 >= 0)
+      {
+        v9 = a2;
+      }
+
+      else
+      {
+        v9 = *a2;
+      }
+
+      if (v8 >= 0)
+      {
+        v10 = *(a2 + 23);
+      }
+
+      else
+      {
+        v10 = a2[1];
+      }
+
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, v9, v10);
+      quasar::QuasarDebugMessage::~QuasarDebugMessage(v13);
+    }
+  }
+
+  else if (a4)
+  {
+    ++a6[2].i32[0];
+  }
+
+  else if (a5)
+  {
+    ++a6[4].i32[0];
+  }
+
+  else
+  {
+    v12.i32[0] = 1;
+    v12.i32[1] = a3;
+    result = vadd_s32(a6[3], v12);
+    a6[3] = result;
+  }
+
+  return result;
+}
+
+void quasar::G2P::generateCacheKey(uint64_t a1@<X0>, uint64_t a2@<X1>, std::string *a3@<X8>)
+{
+  v6 = *(a1 + 100);
+  if (v6)
+  {
+    std::to_string(&v43, v6);
+    v7 = *(a1 + 71);
+    if (v7 >= 0)
+    {
+      v8 = (a1 + 48);
+    }
+
+    else
+    {
+      v8 = *(a1 + 48);
+    }
+
+    if (v7 >= 0)
+    {
+      v9 = *(a1 + 71);
+    }
+
+    else
+    {
+      v9 = *(a1 + 56);
+    }
+
+    v10 = std::string::insert(&v43, 0, v8, v9);
+    v11 = *&v10->__r_.__value_.__l.__data_;
+    v44.__r_.__value_.__r.__words[2] = v10->__r_.__value_.__r.__words[2];
+    *&v44.__r_.__value_.__l.__data_ = v11;
+    v10->__r_.__value_.__l.__size_ = 0;
+    v10->__r_.__value_.__r.__words[2] = 0;
+    v10->__r_.__value_.__r.__words[0] = 0;
+    v12 = std::string::append(&v44, "|");
+    v13 = *&v12->__r_.__value_.__l.__data_;
+    v45.__r_.__value_.__r.__words[2] = v12->__r_.__value_.__r.__words[2];
+    *&v45.__r_.__value_.__l.__data_ = v13;
+    v12->__r_.__value_.__l.__size_ = 0;
+    v12->__r_.__value_.__r.__words[2] = 0;
+    v12->__r_.__value_.__r.__words[0] = 0;
+    std::to_string(&v42, *(a1 + 96));
+    if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v14 = &v42;
+    }
+
+    else
+    {
+      v14 = v42.__r_.__value_.__r.__words[0];
+    }
+
+    if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      size = HIBYTE(v42.__r_.__value_.__r.__words[2]);
+    }
+
+    else
+    {
+      size = v42.__r_.__value_.__l.__size_;
+    }
+
+    v16 = std::string::append(&v45, v14, size);
+    v17 = *&v16->__r_.__value_.__l.__data_;
+    v46.__r_.__value_.__r.__words[2] = v16->__r_.__value_.__r.__words[2];
+    *&v46.__r_.__value_.__l.__data_ = v17;
+    v16->__r_.__value_.__l.__size_ = 0;
+    v16->__r_.__value_.__r.__words[2] = 0;
+    v16->__r_.__value_.__r.__words[0] = 0;
+    v18 = (*(*a1 + 48))(a1);
+    std::to_string(&v41, v18);
+    if ((v41.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v19 = &v41;
+    }
+
+    else
+    {
+      v19 = v41.__r_.__value_.__r.__words[0];
+    }
+
+    if ((v41.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v20 = HIBYTE(v41.__r_.__value_.__r.__words[2]);
+    }
+
+    else
+    {
+      v20 = v41.__r_.__value_.__l.__size_;
+    }
+
+    v21 = std::string::append(&v46, v19, v20);
+    v22 = *&v21->__r_.__value_.__l.__data_;
+    v47.__r_.__value_.__r.__words[2] = v21->__r_.__value_.__r.__words[2];
+    *&v47.__r_.__value_.__l.__data_ = v22;
+    v21->__r_.__value_.__l.__size_ = 0;
+    v21->__r_.__value_.__r.__words[2] = 0;
+    v21->__r_.__value_.__r.__words[0] = 0;
+    v23 = *(a2 + 23);
+    if (v23 >= 0)
+    {
+      v24 = a2;
+    }
+
+    else
+    {
+      v24 = *a2;
+    }
+
+    if (v23 >= 0)
+    {
+      v25 = *(a2 + 23);
+    }
+
+    else
+    {
+      v25 = *(a2 + 8);
+    }
+
+    v26 = std::string::append(&v47, v24, v25);
+    *a3 = *v26;
+    v26->__r_.__value_.__l.__size_ = 0;
+    v26->__r_.__value_.__r.__words[2] = 0;
+    v26->__r_.__value_.__r.__words[0] = 0;
+    if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v47.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v41.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v46.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v42.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v45.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v44.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+    {
+      v27 = v43.__r_.__value_.__r.__words[0];
+LABEL_68:
+      operator delete(v27);
+    }
+  }
+
+  else
+  {
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>((a1 + 48), (a1 + 72), &v45);
+    std::to_string(&v44, *(a1 + 96));
+    if ((v44.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v28 = &v44;
+    }
+
+    else
+    {
+      v28 = v44.__r_.__value_.__r.__words[0];
+    }
+
+    if ((v44.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v29 = HIBYTE(v44.__r_.__value_.__r.__words[2]);
+    }
+
+    else
+    {
+      v29 = v44.__r_.__value_.__l.__size_;
+    }
+
+    v30 = std::string::append(&v45, v28, v29);
+    v31 = *&v30->__r_.__value_.__l.__data_;
+    v46.__r_.__value_.__r.__words[2] = v30->__r_.__value_.__r.__words[2];
+    *&v46.__r_.__value_.__l.__data_ = v31;
+    v30->__r_.__value_.__l.__size_ = 0;
+    v30->__r_.__value_.__r.__words[2] = 0;
+    v30->__r_.__value_.__r.__words[0] = 0;
+    v32 = (*(*a1 + 48))(a1);
+    std::to_string(&v43, v32);
+    if ((v43.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v33 = &v43;
+    }
+
+    else
+    {
+      v33 = v43.__r_.__value_.__r.__words[0];
+    }
+
+    if ((v43.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v34 = HIBYTE(v43.__r_.__value_.__r.__words[2]);
+    }
+
+    else
+    {
+      v34 = v43.__r_.__value_.__l.__size_;
+    }
+
+    v35 = std::string::append(&v46, v33, v34);
+    v36 = *&v35->__r_.__value_.__l.__data_;
+    v47.__r_.__value_.__r.__words[2] = v35->__r_.__value_.__r.__words[2];
+    *&v47.__r_.__value_.__l.__data_ = v36;
+    v35->__r_.__value_.__l.__size_ = 0;
+    v35->__r_.__value_.__r.__words[2] = 0;
+    v35->__r_.__value_.__r.__words[0] = 0;
+    v37 = *(a2 + 23);
+    if (v37 >= 0)
+    {
+      v38 = a2;
+    }
+
+    else
+    {
+      v38 = *a2;
+    }
+
+    if (v37 >= 0)
+    {
+      v39 = *(a2 + 23);
+    }
+
+    else
+    {
+      v39 = *(a2 + 8);
+    }
+
+    v40 = std::string::append(&v47, v38, v39);
+    *a3 = *v40;
+    v40->__r_.__value_.__l.__size_ = 0;
+    v40->__r_.__value_.__r.__words[2] = 0;
+    v40->__r_.__value_.__r.__words[0] = 0;
+    if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v47.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v43.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v46.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v44.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
+    {
+      v27 = v45.__r_.__value_.__r.__words[0];
+      goto LABEL_68;
+    }
+  }
+}
+
 void sub_1B534C1C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *__p, uint64_t a23, int a24, __int16 a25, char a26, char a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, uint64_t a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40)
 {
   if (*(v40 - 57) < 0)
@@ -238,7 +1544,7 @@ void std::vector<quasar::PronChoice>::__vdeallocate(uint64_t *a1)
   }
 }
 
-void std::vector<quasar::PronChoice>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<quasar::PronChoice>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x666666666666667)
   {
@@ -248,18 +1554,18 @@ void std::vector<quasar::PronChoice>::__vallocate[abi:ne200100](uint64_t a1, uni
   std::vector<int>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t std::__tree<std::__value_type<std::string,quasar::PronGuessStats::Record>,std::__map_value_compare<std::string,std::__value_type<std::string,quasar::PronGuessStats::Record>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,quasar::PronGuessStats::Record>>>::__emplace_unique_key_args<std::string,std::pair<std::string,quasar::PronGuessStats::Record>>(uint64_t a1, const void **a2)
+uint64_t std::__tree<std::__value_type<std::string,quasar::PronGuessStats::Record>,std::__map_value_compare<std::string,std::__value_type<std::string,quasar::PronGuessStats::Record>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,quasar::PronGuessStats::Record>>>::__emplace_unique_key_args<std::string,std::pair<std::string,quasar::PronGuessStats::Record>>(uint64_t **a1, const void **a2, uint64_t a3)
 {
-  v2 = *std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::__value_type<std::string,double>,std::__map_value_compare<std::string,std::__value_type<std::string,double>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,double>>>::__find_equal<std::string>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
-uint64_t std::vector<std::vector<quasar::PronChoice>>::__construct_one_at_end[abi:ne200100]<std::vector<quasar::PronChoice> const&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<quasar::PronChoice>>::__construct_one_at_end[abi:ne200100]<std::vector<quasar::PronChoice> const&>(uint64_t a1, uint64_t *a2)
 {
   v3 = *(a1 + 8);
   *v3 = 0;
@@ -270,21 +1576,21 @@ uint64_t std::vector<std::vector<quasar::PronChoice>>::__construct_one_at_end[ab
   return result;
 }
 
-uint64_t std::vector<std::vector<quasar::PronChoice>>::__emplace_back_slow_path<std::vector<quasar::PronChoice> const&>(uint64_t a1, uint64_t *a2)
+void *std::vector<std::vector<quasar::PronChoice>>::__emplace_back_slow_path<std::vector<quasar::PronChoice> const&>(char **a1, uint64_t *a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0xAAAAAAAAAAAAAAALL)
   {
     std::vector<int>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
   {
     v6 = 0xAAAAAAAAAAAAAAALL;
   }
@@ -308,16 +1614,16 @@ uint64_t std::vector<std::vector<quasar::PronChoice>>::__emplace_back_slow_path<
   *v7 = 0;
   *(v7 + 8) = 0;
   *(v7 + 16) = 0;
-  std::vector<quasar::PronChoice>::__init_with_size[abi:ne200100]<quasar::PronChoice*,quasar::PronChoice*>(24 * v2, *a2, a2[1], 0xCCCCCCCCCCCCCCCDLL * ((a2[1] - *a2) >> 3));
+  std::vector<quasar::PronChoice>::__init_with_size[abi:ne200100]<quasar::PronChoice*,quasar::PronChoice*>((24 * v2), *a2, a2[1], 0xCCCCCCCCCCCCCCCDLL * ((a2[1] - *a2) >> 3));
   v8 = v16 + 24;
-  v9 = *(a1 + 8) - *a1;
+  v9 = a1[1] - *a1;
   v10 = &v15[-v9];
   memcpy(&v15[-v9], *a1, v9);
   v11 = *a1;
   *a1 = v10;
-  *(a1 + 8) = v8;
-  v12 = *(a1 + 16);
-  *(a1 + 16) = v17;
+  a1[1] = v8;
+  v12 = a1[2];
+  a1[2] = v17;
   v16 = v11;
   v17 = v12;
   v14 = v11;
@@ -326,14 +1632,14 @@ uint64_t std::vector<std::vector<quasar::PronChoice>>::__emplace_back_slow_path<
   return v8;
 }
 
-void sub_1B534C980(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B534C980(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::vector<quasar::PronChoice>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<quasar::PronChoice>::__init_with_size[abi:ne200100]<quasar::PronChoice*,quasar::PronChoice*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<quasar::PronChoice>::__init_with_size[abi:ne200100]<quasar::PronChoice*,quasar::PronChoice*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -373,12 +1679,12 @@ void std::__split_buffer<std::vector<quasar::PronChoice>>::clear[abi:ne200100](u
   }
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,quasar::PronChoice *,false>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,quasar::PronChoice *,false>(uint64_t result, unint64_t a2, uint64_t a3, uint64_t a4, char a5)
 {
   v7 = a2;
-  v8 = a1;
+  v8 = result;
   v47 = a2;
-  v48 = a1;
+  v48 = result;
 LABEL_2:
   for (i = 1 - a4; ; ++i)
   {
@@ -393,8 +1699,8 @@ LABEL_2:
 
       if (v11 == 2)
       {
-        v47 = v7 - 40;
-        if (*(v7 - 8) < *(v8 + 32))
+        v47 = (v7 - 40);
+        if (*&v7[-1].__r_.__value_.__r.__words[2] < *(v8 + 32))
         {
           v45 = &v48;
           v46 = &v47;
@@ -414,27 +1720,27 @@ LABEL_2:
 
     if (v11 == 4)
     {
-      v47 = v7 - 40;
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,quasar::PronChoice *,0>(v8, v8 + 40, v8 + 80, v7 - 40);
+      v47 = (v7 - 40);
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,quasar::PronChoice *,0>(v8, v8 + 40, v8 + 80, &v7[-2].__r_.__value_.__l.__size_);
       return;
     }
 
     if (v11 == 5)
     {
-      v47 = v7 - 40;
+      v47 = (v7 - 40);
       v52 = v8 + 40;
       v53 = v8;
       v50 = v8 + 120;
-      v51 = v8 + 80;
-      v49 = v7 - 40;
+      v51 = (v8 + 80);
+      p_size = &v7[-2].__r_.__value_.__l.__size_;
       std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,quasar::PronChoice *,0>(v8, v8 + 40, v8 + 80, v8 + 120);
-      if (*(v7 - 8) < *(v8 + 152))
+      if (*&v7[-1].__r_.__value_.__r.__words[2] < *(v8 + 152))
       {
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<quasar::PronChoice *&,quasar::PronChoice *&>(&v50, &v49);
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<quasar::PronChoice *&,quasar::PronChoice *&>(&v50, &p_size);
         if (*(v50 + 32) < *(v8 + 112))
         {
           std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<quasar::PronChoice *&,quasar::PronChoice *&>(&v51, &v50);
-          if (*(v51 + 32) < *(v8 + 72))
+          if (*&v51[1].__r_.__value_.__r.__words[1] < *(v8 + 72))
           {
             std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<quasar::PronChoice *&,quasar::PronChoice *&>(&v52, &v51);
             v41 = *(v52 + 32);
@@ -486,9 +1792,9 @@ LABEL_10:
     {
       v52 = v8;
       v53 = v8 + 40 * (v11 >> 1);
-      v51 = v7 - 40;
+      v51 = (v7 - 40);
       v18 = *(v8 + 32);
-      v19 = *(v7 - 8);
+      v19 = *&v7[-1].__r_.__value_.__r.__words[2];
       if (v18 >= *(v13 + 32))
       {
         if (v19 < v18)
@@ -512,7 +1818,7 @@ LABEL_10:
         }
 
         std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<quasar::PronChoice *&,quasar::PronChoice *&>(&v53, &v52);
-        if (*(v51 + 32) < *(v52 + 32))
+        if (*&v51[1].__r_.__value_.__r.__words[1] < *(v52 + 32))
         {
           v20 = &v52;
 LABEL_22:
@@ -532,16 +1838,16 @@ LABEL_35:
 
     v52 = v8 + 40 * (v11 >> 1);
     v53 = v8;
-    v51 = v7 - 40;
+    v51 = (v7 - 40);
     v14 = *(v13 + 32);
-    v15 = *(v7 - 8);
+    v15 = *&v7[-1].__r_.__value_.__r.__words[2];
     if (v14 < *(v8 + 32))
     {
       v16 = &v53;
       if (v15 >= v14)
       {
         std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<quasar::PronChoice *&,quasar::PronChoice *&>(&v53, &v52);
-        if (*(v51 + 32) >= *(v52 + 32))
+        if (*&v51[1].__r_.__value_.__r.__words[1] >= *(v52 + 32))
         {
           goto LABEL_27;
         }
@@ -570,16 +1876,16 @@ LABEL_27:
     v23 = v22 - 40;
     v52 = v22 - 40;
     v53 = v8 + 40;
-    v51 = v7 - 80;
+    v51 = (v7 - 80);
     v24 = *(v22 - 8);
-    v25 = *(v7 - 48);
+    v25 = *&v7[-2].__r_.__value_.__l.__data_;
     if (v24 < *(v8 + 72))
     {
       v26 = &v53;
       if (v25 >= v24)
       {
         std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<quasar::PronChoice *&,quasar::PronChoice *&>(&v53, &v52);
-        if (*(v51 + 32) >= *(v52 + 32))
+        if (*&v51[1].__r_.__value_.__r.__words[1] >= *(v52 + 32))
         {
           goto LABEL_42;
         }
@@ -608,16 +1914,16 @@ LABEL_42:
     v29 = v28 + 40;
     v52 = v28 + 40;
     v53 = v8 + 80;
-    v51 = v7 - 120;
+    v51 = v7 - 5;
     v30 = *(v28 + 72);
-    v31 = *(v7 - 88);
+    v31 = *&v7[-4].__r_.__value_.__r.__words[1];
     if (v30 < *(v8 + 112))
     {
       v32 = &v53;
       if (v31 >= v30)
       {
         std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<quasar::PronChoice *&,quasar::PronChoice *&>(&v53, &v52);
-        if (*(v51 + 32) >= *(v52 + 32))
+        if (*&v51[1].__r_.__value_.__r.__words[1] >= *(v52 + 32))
         {
           goto LABEL_51;
         }
@@ -670,7 +1976,7 @@ LABEL_51:
       if (v35 >= v34)
       {
         std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<quasar::PronChoice *&,quasar::PronChoice *&>(&v53, &v52);
-        if (*(v51 + 32) >= *(v52 + 32))
+        if (*&v51[1].__r_.__value_.__r.__words[1] >= *(v52 + 32))
         {
           goto LABEL_60;
         }
@@ -751,16 +2057,16 @@ LABEL_73:
 
   v52 = v8 + 40;
   v53 = v8;
-  v51 = v7 - 40;
+  v51 = (v7 - 40);
   v43 = *(v8 + 72);
-  v44 = *(v7 - 8);
+  v44 = *&v7[-1].__r_.__value_.__r.__words[2];
   if (v43 < *(v8 + 32))
   {
     v45 = &v53;
     if (v44 >= v43)
     {
       std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<quasar::PronChoice *&,quasar::PronChoice *&>(&v53, &v52);
-      if (*(v51 + 32) >= *(v52 + 32))
+      if (*&v51[1].__r_.__value_.__r.__words[1] >= *(v52 + 32))
       {
         return;
       }
@@ -946,15 +2252,15 @@ void sub_1B534D40C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,quasar::PronChoice *>(uint64_t a1, uint64_t a2)
+void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,quasar::PronChoice *>(std::string *a1, std::string *a2)
 {
   if (a1 != a2)
   {
     v3 = a1;
-    v4 = a1 + 40;
-    if (a1 + 40 != a2)
+    v4 = &a1[1].__r_.__value_.__r.__words[2];
+    if (&a1[1].__r_.__value_.__r.__words[2] != a2)
     {
-      v5 = (a1 + 72);
+      v5 = a1 + 3;
       do
       {
         v6 = *(v3 + 72);
@@ -988,7 +2294,7 @@ void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,std::_
         v5 = (v5 + 40);
       }
 
-      while (v3 + 40 != a2);
+      while ((v3 + 40) != a2);
     }
   }
 }
@@ -1003,7 +2309,7 @@ void sub_1B534D518(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,quasar::PronChoice *,std::__less<void,void> &>(uint64_t a1, uint64_t a2)
+uint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,quasar::PronChoice *,std::__less<void,void> &>(uint64_t a1, unint64_t a2)
 {
   v2 = a2;
   v18 = a2;
@@ -1354,7 +2660,7 @@ LABEL_32:
   }
 
 LABEL_33:
-  v16 = (a1 + 30);
+  v16 = a1 + 30;
   if (v16 == v2)
   {
     return 1;
@@ -1363,7 +2669,7 @@ LABEL_33:
   v17 = 0;
   while (1)
   {
-    if (*(v16 + 32) < v11[8])
+    if (v16[8] < v11[8])
     {
       quasar::PronChoice::PronChoice(&v20, v16);
       do
@@ -1397,14 +2703,14 @@ LABEL_33:
     }
 
     v11 = v16;
-    v16 += 40;
+    v16 += 10;
     if (v16 == v2)
     {
       return 1;
     }
   }
 
-  return v16 + 40 == v2;
+  return v16 + 10 == v2;
 }
 
 void sub_1B534DB88(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
@@ -1745,9 +3051,9 @@ void std::vector<std::vector<quasar::PronChoice>>::__append(const void **a1, uni
     v11 = 24 * v6;
     v12 = 24 * ((24 * a2 - 24) / 0x18) + 24;
     bzero(v11, v12);
-    v13 = v11 + v12;
+    v13 = (v11 + v12);
     v14 = a1[1] - *a1;
-    v15 = v11 - v14;
+    v15 = (v11 - v14);
     memcpy((v11 - v14), *a1, v14);
     v16 = *a1;
     *a1 = v15;
@@ -1762,21 +3068,21 @@ void std::vector<std::vector<quasar::PronChoice>>::__append(const void **a1, uni
   }
 }
 
-uint64_t std::vector<quasar::PronChoice>::__emplace_back_slow_path<quasar::PronChoice const&>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<quasar::PronChoice>::__emplace_back_slow_path<quasar::PronChoice const&>(uint64_t a1, uint64_t a2)
 {
-  v2 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 3);
+  v2 = 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 8) - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0x666666666666666)
   {
     std::vector<int>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x999999999999999ALL * ((a1[2] - *a1) >> 3) > v3)
+  if (0x999999999999999ALL * ((*(a1 + 16) - *a1) >> 3) > v3)
   {
-    v3 = 0x999999999999999ALL * ((a1[2] - *a1) >> 3);
+    v3 = 0x999999999999999ALL * ((*(a1 + 16) - *a1) >> 3);
   }
 
-  if (0xCCCCCCCCCCCCCCCDLL * ((a1[2] - *a1) >> 3) >= 0x333333333333333)
+  if (0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 16) - *a1) >> 3) >= 0x333333333333333)
   {
     v6 = 0x666666666666666;
   }
@@ -1796,14 +3102,14 @@ uint64_t std::vector<quasar::PronChoice>::__emplace_back_slow_path<quasar::PronC
   v14 = 40 * v2;
   quasar::PronChoice::PronChoice((40 * v2), a2);
   v15 = 40 * v2 + 40;
-  v7 = a1[1];
+  v7 = *(a1 + 8);
   v8 = (40 * v2 + *a1 - v7);
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<quasar::PronChoice>,quasar::PronChoice*>(a1, *a1, v7, v8);
   v9 = *a1;
   *a1 = v8;
-  v10 = a1[2];
+  v10 = *(a1 + 16);
   v12 = v15;
-  *(a1 + 1) = v15;
+  *(a1 + 8) = v15;
   *&v15 = v9;
   *(&v15 + 1) = v10;
   v13 = v9;
@@ -1812,9 +3118,9 @@ uint64_t std::vector<quasar::PronChoice>::__emplace_back_slow_path<quasar::PronC
   return v12;
 }
 
-void sub_1B534E46C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B534E46C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<quasar::PronChoice>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2081,7 +3387,7 @@ void sub_1B534EA84(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::vector<quasar::PronChoice>::__append(uint64_t *result, unint64_t a2)
+const quasar::PronChoice **std::vector<quasar::PronChoice>::__append(const quasar::PronChoice **result, unint64_t a2)
 {
   v3 = result;
   v4 = result[1];
@@ -2090,15 +3396,15 @@ uint64_t *std::vector<quasar::PronChoice>::__append(uint64_t *result, unint64_t 
   {
     if (a2)
     {
-      v10 = v4 + 40 * a2;
+      v10 = (v4 + 40 * a2);
       do
       {
         *v4 = 0;
-        *(v4 + 16) = 0;
-        *(v4 + 24) = 0;
+        *(v4 + 2) = 0;
+        *(v4 + 3) = 0;
+        *(v4 + 1) = 0;
         *(v4 + 8) = 0;
-        *(v4 + 32) = 0;
-        v4 += 40;
+        v4 = (v4 + 40);
       }
 
       while (v4 != v10);
@@ -2173,9 +3479,9 @@ uint64_t *std::vector<quasar::PronChoice>::__append(uint64_t *result, unint64_t 
   return result;
 }
 
-void sub_1B534EC0C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B534EC0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<quasar::PronChoice>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2226,21 +3532,21 @@ void *quasar::joinToStream<std::unordered_set<std::string>>(void *result, uint64
   return result;
 }
 
-uint64_t std::vector<quasar::PronChoice>::__emplace_back_slow_path<quasar::PronChoice>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<quasar::PronChoice>::__emplace_back_slow_path<quasar::PronChoice>(uint64_t a1, uint64_t a2)
 {
-  v2 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 3);
+  v2 = 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 8) - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0x666666666666666)
   {
     std::vector<int>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x999999999999999ALL * ((a1[2] - *a1) >> 3) > v3)
+  if (0x999999999999999ALL * ((*(a1 + 16) - *a1) >> 3) > v3)
   {
-    v3 = 0x999999999999999ALL * ((a1[2] - *a1) >> 3);
+    v3 = 0x999999999999999ALL * ((*(a1 + 16) - *a1) >> 3);
   }
 
-  if (0xCCCCCCCCCCCCCCCDLL * ((a1[2] - *a1) >> 3) >= 0x333333333333333)
+  if (0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 16) - *a1) >> 3) >= 0x333333333333333)
   {
     v6 = 0x666666666666666;
   }
@@ -2260,14 +3566,14 @@ uint64_t std::vector<quasar::PronChoice>::__emplace_back_slow_path<quasar::PronC
   v14 = 40 * v2;
   quasar::PronChoice::PronChoice((40 * v2), a2);
   v15 = 40 * v2 + 40;
-  v7 = a1[1];
+  v7 = *(a1 + 8);
   v8 = (40 * v2 + *a1 - v7);
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<quasar::PronChoice>,quasar::PronChoice*>(a1, *a1, v7, v8);
   v9 = *a1;
   *a1 = v8;
-  v10 = a1[2];
+  v10 = *(a1 + 16);
   v12 = v15;
-  *(a1 + 1) = v15;
+  *(a1 + 8) = v15;
   *&v15 = v9;
   *(&v15 + 1) = v10;
   v13 = v9;
@@ -2276,14 +3582,14 @@ uint64_t std::vector<quasar::PronChoice>::__emplace_back_slow_path<quasar::PronC
   return v12;
 }
 
-void sub_1B534EDB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B534EDB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<quasar::PronChoice>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *kaldi::TrainingGraphCompiler::TrainingGraphCompiler(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t *a6)
+void kaldi::TrainingGraphCompiler::TrainingGraphCompiler(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6)
 {
   *a1 = a2;
   a1[1] = a3;
@@ -2292,7 +3598,7 @@ uint64_t *kaldi::TrainingGraphCompiler::TrainingGraphCompiler(uint64_t *a1, uint
   v9 = a1 + 3;
   a1[4] = 0;
   a1[5] = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 3), *a5, a5[1], (a5[1] - *a5) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 3, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 2);
   a1[6] = 0;
   a1[7] = 0x43E800000;
   *(a1 + 64) = 1;
@@ -2312,7 +3618,7 @@ uint64_t *kaldi::TrainingGraphCompiler::TrainingGraphCompiler(uint64_t *a1, uint
     a1[4] = v13;
   }
 
-  v16 = v11[1];
+  v16 = *(v11 + 8);
   if (v15 == v14)
   {
     v26 = *(v16 - 1);
@@ -2321,7 +3627,7 @@ uint64_t *kaldi::TrainingGraphCompiler::TrainingGraphCompiler(uint64_t *a1, uint
   else
   {
     v17 = 0;
-    v18 = v15 - v14;
+    v18 = (v15 - v14) >> 2;
     if (v18 <= 1)
     {
       v18 = 1;
@@ -2331,15 +3637,15 @@ uint64_t *kaldi::TrainingGraphCompiler::TrainingGraphCompiler(uint64_t *a1, uint
     {
       if (v16 != *v11)
       {
-        v19 = v14[v17];
+        v19 = *(v14 + 4 * v17);
         v20 = *v11;
-        v21 = v16 - *v11;
+        v21 = (v16 - *v11) >> 2;
         do
         {
           v22 = v21 >> 1;
           v23 = &v20[v21 >> 1];
           v24 = *v23;
-          v12 = v23 + 1;
+          v12 = (v23 + 1);
           v21 += ~(v21 >> 1);
           if (v24 < v19)
           {
@@ -2355,11 +3661,11 @@ uint64_t *kaldi::TrainingGraphCompiler::TrainingGraphCompiler(uint64_t *a1, uint
         while (v21);
         if (v20 != v16 && v19 >= *v20)
         {
-          kaldi::KaldiWarnMessage::KaldiWarnMessage(v31);
-          v29 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v31, "Disambiguation symbol ", 22);
-          v30 = MEMORY[0x1B8C84C00](v29, *(*v9 + 4 * v17));
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, " is also a phone.", 17);
-          kaldi::KaldiErrorMessage::~KaldiErrorMessage(v31);
+          kaldi::KaldiWarnMessage::KaldiWarnMessage(v30);
+          v28 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, "Disambiguation symbol ", 22);
+          v29 = MEMORY[0x1B8C84C00](v28, *(*v9 + 4 * v17));
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v29, " is also a phone.", 17);
+          kaldi::KaldiErrorMessage::~KaldiErrorMessage(v30);
         }
       }
 
@@ -2367,7 +3673,7 @@ uint64_t *kaldi::TrainingGraphCompiler::TrainingGraphCompiler(uint64_t *a1, uint
     }
 
     while (v17 != v18);
-    v25 = *(v15 - 1);
+    v25 = *(v15 - 4);
     if (*(v16 - 1) <= v25)
     {
       v26 = v25;
@@ -2386,7 +3692,6 @@ uint64_t *kaldi::TrainingGraphCompiler::TrainingGraphCompiler(uint64_t *a1, uint
   }
 
   fst::ArcSort<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>(a1[2]);
-  return a1;
 }
 
 void fst::AddSubsequentialLoop<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>(unsigned int a1, uint64_t a2)
@@ -2572,39 +3877,49 @@ void fst::TableCompose<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>(uint64_t 
 {
   if (a4[6] == 1)
   {
+    v6[0] = FLAGS_fst_default_cache_gc;
+    v7 = 0u;
+    v8 = 0u;
+    v9 = 0u;
+    v10 = 0;
     if (!*a4)
     {
       operator new();
     }
 
-    (*(**a4 + 16))(*a4, 0);
-    fst::ComposeFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::CreateBase2<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>();
+    *&v8 = (*(**a4 + 16))(*a4, 0, a3);
+    fst::ComposeFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::CreateBase2<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>(a1, a2, v6);
   }
 
+  v6[0] = FLAGS_fst_default_cache_gc;
+  v7 = 0u;
+  v8 = 0u;
+  v9 = 0u;
+  v10 = 0;
   if (!*a4)
   {
     operator new();
   }
 
-  (*(**a4 + 16))(*a4, 0);
-  fst::ComposeFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::CreateBase2<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SequenceComposeFilter<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>();
+  *(&v8 + 1) = (*(**a4 + 16))(*a4, 0, a3);
+  fst::ComposeFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::CreateBase2<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::SequenceComposeFilter<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>(a1, a2, v6);
 }
 
-void fst::ComposeContextFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>()
+void fst::ComposeContextFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  v0 = FLAGS_fst_default_cache_gc;
-  v1 = 0u;
-  v2 = 0u;
-  v3 = 0u;
-  v4 = 0;
-  fst::ComposeFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::CreateBase2<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>();
+  v4[0] = FLAGS_fst_default_cache_gc;
+  v5 = 0u;
+  v6 = 0u;
+  v7 = 0u;
+  v8 = 0;
+  fst::ComposeFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::CreateBase2<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>(a1, a2, v4);
 }
 
 void fst::TableCompose<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (*(a4 + 16) == 1)
   {
-    v4 = FLAGS_fst_default_cache_gc;
+    v4[0] = FLAGS_fst_default_cache_gc;
     v5 = 0u;
     v6 = 0u;
     v7 = 0u;
@@ -2612,7 +3927,7 @@ void fst::TableCompose<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>(uint64_t 
     operator new();
   }
 
-  v4 = FLAGS_fst_default_cache_gc;
+  v4[0] = FLAGS_fst_default_cache_gc;
   v5 = 0u;
   v6 = 0u;
   v7 = 0u;
@@ -2620,11 +3935,11 @@ void fst::TableCompose<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>(uint64_t 
   operator new();
 }
 
-void fst::RemoveSomeInputSymbols<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>(uint64_t *a1, uint64_t a2)
+void fst::RemoveSomeInputSymbols<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>(uint64_t a1, uint64_t a2)
 {
   kaldi::ConstIntegerSet<int>::ConstIntegerSet(v7, a1);
-  kaldi::ConstIntegerSet<int>::ConstIntegerSet(v3, v7);
-  fst::Map<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::RemoveSomeInputSymbolsMapper<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>(a2, v3);
+  kaldi::ConstIntegerSet<int>::ConstIntegerSet(&v3, v7);
+  fst::Map<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::RemoveSomeInputSymbolsMapper<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>(a2, &v3);
   if (__p)
   {
     v6 = __p;
@@ -2672,13 +3987,15 @@ void fst::RemoveEpsLocal<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>(uint64_
   }
 }
 
-uint64_t fst::DeterminizeStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>(uint64_t a1, uint64_t a2, _BYTE *a3, int a4, char a5, float a6)
+uint64_t fst::DeterminizeStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>(uint64_t a1, uint64_t a2, _BYTE *a3, uint64_t a4, uint64_t a5, float a6)
 {
+  v6 = a5;
+  v7 = a4;
   v12 = (*(*a1 + 120))(a1);
   (*(*a2 + 288))(a2, v12);
   v13 = (*(*a1 + 112))(a1);
   (*(*a2 + 280))(a2, v13);
-  fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::DeterminizerStar(v16, a1, a4, a5, a6);
+  fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::DeterminizerStar(v16, a1, v7, v6, a6);
   fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Determinize(v16, a3);
   fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Output(v16, a2, 1);
   v14 = v16[90];
@@ -2686,9 +4003,9 @@ uint64_t fst::DeterminizeStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>(uint64_
   return v14;
 }
 
-void sub_1B5350200(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B5350200(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::~DeterminizerStar(va);
   _Unwind_Resume(a1);
 }
@@ -2882,7 +4199,7 @@ uint64_t fst::ArcIterator<fst::ArcPosingFst<fst::ArcTpl<fst::LogWeightTpl<float>
   result = *(a1 + 8);
   if (result)
   {
-    return (*(*result + 64))();
+    return (*(*result + 64))(result, a2);
   }
 
   *(a1 + 40) = a2;
@@ -3079,7 +4396,7 @@ uint64_t fst::ArcIterator<fst::MutableArcPosingFst<fst::ArcTpl<fst::LogWeightTpl
   result = *(a1 + 8);
   if (result)
   {
-    return (*(*result + 64))();
+    return (*(*result + 64))(result, a2);
   }
 
   *(a1 + 40) = a2;
@@ -3324,7 +4641,7 @@ uint64_t fst::ArcIterator<fst::ArcPosingFst<fst::ArcTpl<fst::TropicalWeightTpl<f
   result = *(a1 + 8);
   if (result)
   {
-    return (*(*result + 64))();
+    return (*(*result + 64))(result, a2);
   }
 
   *(a1 + 40) = a2;
@@ -3818,7 +5135,7 @@ void std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>
 uint64_t fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::SubsetToStateId(uint64_t a1, void *a2)
 {
   __p = a2;
-  v2 = std::__hash_table<std::__hash_value_type<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,int>,std::__unordered_map_hasher<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,std::__hash_value_type<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,int>,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::SubsetKey,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::SubsetEqual,true>,std::__unordered_map_equal<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,std::__hash_value_type<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,int>,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::SubsetEqual,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::SubsetKey,false>,std::allocator<std::__hash_value_type<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,int>>>::find<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*>(a1 + 96, &__p);
+  v2 = std::__hash_table<std::__hash_value_type<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,int>,std::__unordered_map_hasher<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,std::__hash_value_type<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,int>,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::SubsetKey,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::SubsetEqual,true>,std::__unordered_map_equal<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,std::__hash_value_type<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,int>,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::SubsetEqual,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::SubsetKey,false>,std::allocator<std::__hash_value_type<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,int>>>::find<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*>((a1 + 96), &__p);
   if (!v2)
   {
     operator new();
@@ -3837,10 +5154,10 @@ void sub_1B5353158(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::ProcessSubset(fst *a1, uint64_t a2)
+void fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::ProcessSubset(fst *a1, const void ***a2)
 {
   v3 = *a2;
-  v4 = *(a2 + 8);
+  v4 = *(a2 + 2);
   __p = 0;
   v6 = 0;
   v7 = 0;
@@ -3881,7 +5198,7 @@ void fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Debug(fst
     exit(1);
   }
 
-  v7 = std::vector<int>::vector[abi:ne200100](v50, v4 - 1);
+  v7 = std::vector<int>::vector[abi:ne200100](v50, v4 - 1, &fst::kNoStateId);
   if (v5)
   {
     v8 = 0;
@@ -4095,11 +5412,11 @@ void sub_1B5353598(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::TempArc,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::TempArc>>>::push_back[abi:ne200100](uint64_t result, uint64_t a2)
+const void **std::vector<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::TempArc,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::TempArc>>>::push_back[abi:ne200100](const void **result, uint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
+  v4 = result[1];
+  v5 = result[2];
   if (v4 >= v5)
   {
     v7 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *result) >> 3);
@@ -4141,8 +5458,8 @@ uint64_t std::vector<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeigh
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
     v6 = 24 * v7 + 24;
-    v12 = *(result + 8) - *result;
-    v13 = v11 - v12;
+    v12 = result[1] - *result;
+    v13 = (v11 - v12);
     memcpy((v11 - v12), *result, v12);
     v14 = *v3;
     *v3 = v13;
@@ -4159,14 +5476,14 @@ uint64_t std::vector<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeigh
   else
   {
     *v4 = 0;
-    v4[1] = 0;
-    v4[2] = 0;
+    *(v4 + 1) = 0;
+    *(v4 + 2) = 0;
     *v4 = *a2;
-    v4[2] = *(a2 + 16);
+    *(v4 + 2) = *(a2 + 16);
     *a2 = 0;
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
-    v6 = (v4 + 3);
+    v6 = (v4 + 24);
   }
 
   v3[1] = v6;
@@ -4201,7 +5518,7 @@ int64x2_t std::deque<std::pair<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst
   return result;
 }
 
-__n128 std::deque<std::pair<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> *,int>>::push_back(void *a1, __n128 *a2)
+__n128 std::deque<std::pair<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> *,int>>::push_back(unint64_t *a1, __n128 *a2)
 {
   v4 = a1[2];
   v5 = a1[1];
@@ -4225,7 +5542,7 @@ __n128 std::deque<std::pair<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::L
   return result;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,int>,std::__unordered_map_hasher<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,std::__hash_value_type<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,int>,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::SubsetKey,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::SubsetEqual,true>,std::__unordered_map_equal<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,std::__hash_value_type<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,int>,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::SubsetEqual,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::SubsetKey,false>,std::allocator<std::__hash_value_type<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,int>>>::find<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*>(uint64_t a1, uint64_t **a2)
+uint64_t **std::__hash_table<std::__hash_value_type<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,int>,std::__unordered_map_hasher<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,std::__hash_value_type<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,int>,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::SubsetKey,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::SubsetEqual,true>,std::__unordered_map_equal<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,std::__hash_value_type<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,int>,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::SubsetEqual,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::SubsetKey,false>,std::allocator<std::__hash_value_type<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,int>>>::find<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*>(float *a1, int ***a2)
 {
   v4 = **a2;
   v5 = (*a2)[1];
@@ -4250,7 +5567,7 @@ uint64_t **std::__hash_table<std::__hash_value_type<std::vector<fst::Determinize
     while (v4 != v5);
   }
 
-  v10 = *(a1 + 8);
+  v10 = *(a1 + 2);
   if (!*&v10)
   {
     return 0;
@@ -4284,7 +5601,7 @@ uint64_t **std::__hash_table<std::__hash_value_type<std::vector<fst::Determinize
     v16 = i[1];
     if (v16 == v6)
     {
-      if (fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::SubsetEqual::operator()((a1 + 36), i[2], *a2))
+      if (fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::SubsetEqual::operator()(a1 + 9, i[2], *a2))
       {
         return i;
       }
@@ -4346,7 +5663,7 @@ uint64_t fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Subse
   return 1;
 }
 
-uint64_t std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>>::__init_with_size[abi:ne200100]<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element*,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>>::__init_with_size[abi:ne200100]<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element*,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4368,7 +5685,7 @@ void sub_1B5353A4C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x1555555555555556)
   {
@@ -4378,56 +5695,56 @@ void std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>
   std::vector<int>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,int>,std::__unordered_map_hasher<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,std::__hash_value_type<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,int>,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::SubsetKey,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::SubsetEqual,true>,std::__unordered_map_equal<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,std::__hash_value_type<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,int>,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::SubsetEqual,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::SubsetKey,false>,std::allocator<std::__hash_value_type<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,int>>>::__emplace_unique_key_args<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,std::piecewise_construct_t const&,std::tuple<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const* const&>,std::tuple<>>(uint64_t a1, uint64_t **a2)
+uint64_t **std::__hash_table<std::__hash_value_type<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,int>,std::__unordered_map_hasher<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,std::__hash_value_type<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,int>,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::SubsetKey,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::SubsetEqual,true>,std::__unordered_map_equal<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,std::__hash_value_type<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,int>,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::SubsetEqual,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::SubsetKey,false>,std::allocator<std::__hash_value_type<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,int>>>::__emplace_unique_key_args<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const*,std::piecewise_construct_t const&,std::tuple<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> const* const&>,std::tuple<>>(uint64_t a1, int ***a2, uint64_t a3, void **a4)
 {
-  v4 = **a2;
-  v5 = (*a2)[1];
-  if (v4 == v5)
+  v6 = **a2;
+  v7 = (*a2)[1];
+  if (v6 == v7)
   {
-    v6 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v6 = 0;
-    v7 = 1;
+    v8 = 0;
+    v9 = 1;
     do
     {
-      v8 = *v4;
-      v9 = v4[1];
-      v4 += 3;
-      v6 = v8 + v6 * v7 + 103333 * v9;
-      v7 *= 23531;
+      v10 = *v6;
+      v11 = v6[1];
+      v6 += 3;
+      v8 = v10 + v8 * v9 + 103333 * v11;
+      v9 *= 23531;
     }
 
-    while (v4 != v5);
+    while (v6 != v7);
   }
 
-  v10 = *(a1 + 8);
-  if (!*&v10)
+  v12 = *(a1 + 8);
+  if (!*&v12)
   {
     goto LABEL_23;
   }
 
-  v11 = vcnt_s8(v10);
-  v11.i16[0] = vaddlv_u8(v11);
-  v12 = v11.u32[0];
-  if (v11.u32[0] > 1uLL)
+  v13 = vcnt_s8(v12);
+  v13.i16[0] = vaddlv_u8(v13);
+  v14 = v13.u32[0];
+  if (v13.u32[0] > 1uLL)
   {
-    v13 = v6;
-    if (v6 >= *&v10)
+    v15 = v8;
+    if (v8 >= *&v12)
     {
-      v13 = v6 % *&v10;
+      v15 = v8 % *&v12;
     }
   }
 
   else
   {
-    v13 = (*&v10 - 1) & v6;
+    v15 = (*&v12 - 1) & v8;
   }
 
-  v14 = *(*a1 + 8 * v13);
-  if (!v14 || (v15 = *v14) == 0)
+  v16 = *(*a1 + 8 * v15);
+  if (!v16 || (v17 = *v16) == 0)
   {
 LABEL_23:
     operator new();
@@ -4435,50 +5752,50 @@ LABEL_23:
 
   while (1)
   {
-    v16 = v15[1];
-    if (v16 == v6)
+    v18 = v17[1];
+    if (v18 == v8)
     {
       break;
     }
 
-    if (v12 > 1)
+    if (v14 > 1)
     {
-      if (v16 >= *&v10)
+      if (v18 >= *&v12)
       {
-        v16 %= *&v10;
+        v18 %= *&v12;
       }
     }
 
     else
     {
-      v16 &= *&v10 - 1;
+      v18 &= *&v12 - 1;
     }
 
-    if (v16 != v13)
+    if (v18 != v15)
     {
       goto LABEL_23;
     }
 
 LABEL_22:
-    v15 = *v15;
-    if (!v15)
+    v17 = *v17;
+    if (!v17)
     {
       goto LABEL_23;
     }
   }
 
-  if ((fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::SubsetEqual::operator()((a1 + 36), v15[2], *a2) & 1) == 0)
+  if ((fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::SubsetEqual::operator()((a1 + 36), v17[2], *a2) & 1) == 0)
   {
     goto LABEL_22;
   }
 
-  return v15;
+  return v17;
 }
 
-const void **std::deque<std::pair<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> *,int>>::__add_front_capacity(uint64_t a1)
+void std::deque<std::pair<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> *,int>>::__add_front_capacity(const void **a1)
 {
-  v1 = *(a1 + 8);
-  v2 = *(a1 + 16);
+  v1 = a1[1];
+  v2 = a1[2];
   v3 = v2 - v1;
   if (v2 == v1)
   {
@@ -4490,15 +5807,15 @@ const void **std::deque<std::pair<std::vector<fst::DeterminizerStar<fst::ArcTpl<
     v4 = 32 * (v2 - v1) - 1;
   }
 
-  v5 = *(a1 + 32);
-  if ((v4 - (*(a1 + 40) + v5)) < 0x100)
+  v5 = a1[4];
+  if ((v4 - (a1[5] + v5)) < 0x100)
   {
-    v7 = *(a1 + 24);
-    v8 = *a1;
-    v9 = &v7[-*a1];
-    if (v3 < v9)
+    v6 = a1[3];
+    v7 = *a1;
+    v8 = v6 - *a1;
+    if (v3 < v8)
     {
-      if (v1 != v8)
+      if (v1 != v7)
       {
         operator new();
       }
@@ -4506,24 +5823,24 @@ const void **std::deque<std::pair<std::vector<fst::DeterminizerStar<fst::ArcTpl<
       operator new();
     }
 
-    if (v7 == v8)
+    if (v6 == v7)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = v9 >> 2;
+      v9 = v8 >> 2;
     }
 
-    v11[4] = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<kaldi::CuWorkspace *>>(a1, v10);
+    v10[4] = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<kaldi::CuWorkspace *>>(a1, v9);
   }
 
-  *(a1 + 32) = v5 + 256;
-  v11[0] = *(v2 - 1);
-  *(a1 + 16) = v2 - 8;
-  return std::__split_buffer<std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>> *,std::allocator<std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>> *>>::emplace_front<std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>> *>(a1, v11);
+  a1[4] = (v5 + 256);
+  v10[0] = *(v2 - 8);
+  a1[2] = (v2 - 8);
+  std::__split_buffer<std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>> *,std::allocator<std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>> *>>::emplace_front<std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>> *>(a1, v10);
 }
 
 void sub_1B5353F40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -4537,19 +5854,19 @@ void sub_1B5353F40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::deque<std::pair<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> *,int>>::__add_back_capacity(void *a1)
+void std::deque<std::pair<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>> *,int>>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x100;
   v3 = v1 - 256;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -4557,25 +5874,25 @@ void *std::deque<std::pair<std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::Lo
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<kaldi::CuWorkspace *>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<kaldi::CuWorkspace *>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>> *,std::allocator<std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>> *>>::emplace_back<std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>> *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>> *,std::allocator<std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>> *>>::emplace_back<std::vector<std::unique_ptr<kaldi::quasar::ComputeEngineBufferItf>> *&>(a1, &v9);
 }
 
 void sub_1B5354114(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -4589,25 +5906,25 @@ void sub_1B5354114(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::EpsilonClosure(uint64_t a1, uint64_t *a2, void *a3)
+void fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::EpsilonClosure(uint64_t a1, const void **a2, void *a3)
 {
+  v75 = 0;
   v76 = 0;
-  v77 = 0;
-  v75 = &v76;
+  v74 = &v75;
   v6 = *a2;
   if (a2[1] != *a2)
   {
     v7 = 0;
     v8 = 0;
-    v9 = &v76;
+    v9 = &v75;
     do
     {
-      v10 = (v6 + v7);
-      LODWORD(v66) = *v10;
+      v10 = &v6[v7];
+      LODWORD(v66[0]) = *v10;
       v11 = *v10;
-      HIDWORD(v66) = v10[2];
-      *(&v66 + 4) = v11;
-      v9 = std::__tree<std::__value_type<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>,std::__map_value_compare<int,std::__value_type<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>,std::less<int>,true>,std::allocator<std::__value_type<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>>>::__emplace_hint_unique_key_args<int,std::pair<int const,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element> const&>(&v75, v9, &v66);
+      HIDWORD(v66[1]) = v10[2];
+      *(v66 + 4) = v11;
+      v9 = std::__tree<std::__value_type<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>,std::__map_value_compare<int,std::__value_type<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>,std::less<int>,true>,std::allocator<std::__value_type<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>>>::__emplace_hint_unique_key_args<int,std::pair<int const,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element> const&>(&v74, v9, v66, v66);
       ++v8;
       v6 = *a2;
       v7 += 12;
@@ -4618,12 +5935,12 @@ void fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::EpsilonCl
 
   v12 = (*(**(a1 + 72) + 64))(*(a1 + 72), 0x10000000, 0);
   v62 = a3;
+  v71 = 0;
   v72 = 0;
   v73 = 0;
-  v74 = 0;
-  begin = std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>>::__init_with_size[abi:ne200100]<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element*,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element*>(&v72, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 2));
-  v15 = v73;
-  if (v73 == v72)
+  begin = std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>>::__init_with_size[abi:ne200100]<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element*,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element*>(&v71, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 2));
+  v15 = v72;
+  if (v72 == v71)
   {
     goto LABEL_68;
   }
@@ -4634,14 +5951,14 @@ void fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::EpsilonCl
   {
     v19 = *(v15 - 3);
     v18 = v15 - 3;
-    v71 = v18[2];
-    *v70 = v19;
-    v73 = v18;
+    v70 = v18[2];
+    *v69 = v19;
+    v72 = v18;
     if (v17)
     {
-      *&v66 = v70;
-      begin = std::__tree<std::__value_type<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>,std::__map_value_compare<int,std::__value_type<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>,std::less<int>,true>,std::allocator<std::__value_type<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v75, v70);
-      if (*(begin + 8) != v70[0] || *(begin + 9) != v70[1] || (LODWORD(v66) = *(begin + 10), *&__p.__begin_ = v71, v14.n128_u32[0] = v66, *&v66 != v71))
+      v66[0] = v69;
+      begin = std::__tree<std::__value_type<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>,std::__map_value_compare<int,std::__value_type<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>,std::less<int>,true>,std::allocator<std::__value_type<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v74, v69, &std::piecewise_construct, v66);
+      if (*(begin + 8) != v69[0] || *(begin + 9) != v69[1] || (LODWORD(v66[0]) = *(begin + 10), *&__p.__begin_ = v70, v14.n128_u32[0] = v66[0], *v66 != v70))
       {
         v17 = 1;
         goto LABEL_67;
@@ -4666,36 +5983,36 @@ void fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::EpsilonCl
     }
 
     v21 = *(a1 + 72);
-    v69 = 0;
-    (*(*v21 + 136))(v21, v70[0], &v66, v14);
+    v68 = 0;
+    (*(*v21 + 136))(v21, v69[0], v66, v14);
     while (1)
     {
-      begin = v66;
-      if (!v66)
+      begin = v66[0];
+      if (!v66[0])
       {
-        if (v69 >= v67)
+        if (v68 >= v66[2])
         {
           goto LABEL_65;
         }
 
 LABEL_20:
-        v23 = *(&v66 + 1) + 16 * v69;
+        v23 = (v66[1] + 16 * v68);
         goto LABEL_21;
       }
 
-      v22 = (*(*v66 + 24))(v66);
-      begin = v66;
+      v22 = (*(*v66[0] + 24))(v66[0]);
+      begin = v66[0];
       if (v22)
       {
         goto LABEL_63;
       }
 
-      if (!v66)
+      if (!v66[0])
       {
         goto LABEL_20;
       }
 
-      begin = (*(*v66 + 32))();
+      begin = (*(*v66[0] + 32))();
       v23 = begin;
 LABEL_21:
       v24 = *v23;
@@ -4709,36 +6026,36 @@ LABEL_21:
 
       if (!v24)
       {
-        v64[0] = *(v23 + 12);
+        v64[0] = *(v23 + 3);
         v25 = NAN;
-        if (v71 != -INFINITY)
+        if (v70 != -INFINITY)
         {
-          v26 = *(v23 + 8);
+          v26 = *(v23 + 2);
           v25 = NAN;
           if (v26 != -INFINITY)
           {
             v25 = INFINITY;
-            v27 = v26 == INFINITY || v71 == INFINITY;
+            v27 = v26 == INFINITY || v70 == INFINITY;
             if (!v27)
             {
-              v25 = v71 + v26;
+              v25 = v70 + v26;
             }
           }
         }
 
         v65 = v25;
-        v29 = *(v23 + 4);
+        v29 = *(v23 + 1);
         v28 = (v23 + 4);
         if (v29)
         {
           memset(&__p, 0, sizeof(__p));
-          fst::StringRepository<int,int>::SeqOfId(a1 + 136, v70[1], &__p);
+          fst::StringRepository<int,int>::SeqOfId(a1 + 136, v69[1], &__p);
           if (*v28)
           {
             std::vector<int>::push_back[abi:ne200100](&__p.__begin_, v28);
           }
 
-          v64[1] = fst::StringRepository<int,int>::IdOfSeq(a1 + 136, &__p);
+          v64[1] = fst::StringRepository<int,int>::IdOfSeq(a1 + 136, &__p.__begin_);
           begin = __p.__begin_;
           if (__p.__begin_)
           {
@@ -4749,16 +6066,16 @@ LABEL_21:
 
         else
         {
-          v64[1] = v70[1];
+          v64[1] = v69[1];
         }
 
-        v30 = v76;
-        if (!v76)
+        v30 = v75;
+        if (!v75)
         {
           goto LABEL_44;
         }
 
-        v31 = &v76;
+        v31 = &v75;
         do
         {
           if (*(v30 + 7) >= v64[0])
@@ -4770,7 +6087,7 @@ LABEL_21:
         }
 
         while (v30);
-        if (v31 != &v76 && v64[0] >= *(v31 + 7))
+        if (v31 != &v75 && v64[0] >= *(v31 + 7))
         {
           if (*(v31 + 9) != v64[1])
           {
@@ -4855,7 +6172,7 @@ LABEL_21:
           v14.n128_f32[0] = v35 + v38;
           if (v33 > v14.n128_f32[0] || v35 > v39)
           {
-            std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>>::push_back[abi:ne200100](&v72, v64);
+            std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>>::push_back[abi:ne200100](&v71, v64);
             v17 = 1;
           }
 
@@ -4866,25 +6183,25 @@ LABEL_21:
         {
 LABEL_44:
           __p.__begin_ = v64;
-          v32 = std::__tree<std::__value_type<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>,std::__map_value_compare<int,std::__value_type<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>,std::less<int>,true>,std::allocator<std::__value_type<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v75, v64);
+          v32 = std::__tree<std::__value_type<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>,std::__map_value_compare<int,std::__value_type<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>,std::less<int>,true>,std::allocator<std::__value_type<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v74, v64, &std::piecewise_construct, &__p.__begin_);
           v32[4] = *v64;
           *(v32 + 10) = v65;
-          std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>>::push_back[abi:ne200100](&v72, v64);
+          std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>>::push_back[abi:ne200100](&v71, v64);
         }
       }
 
-      if (v66)
+      if (v66[0])
       {
-        (*(*v66 + 40))(v66);
+        (*(*v66[0] + 40))(v66[0]);
       }
 
       else
       {
-        ++v69;
+        v68 = (v68 + 1);
       }
     }
 
-    begin = v66;
+    begin = v66[0];
 LABEL_63:
     if (begin)
     {
@@ -4893,21 +6210,21 @@ LABEL_63:
     }
 
 LABEL_65:
-    if (v68)
+    if (v67)
     {
-      --*v68;
+      --*v67;
     }
 
 LABEL_67:
-    v15 = v73;
+    v15 = v72;
   }
 
-  while (v73 != v72);
+  while (v72 != v71);
 LABEL_68:
   v62[1] = *v62;
-  std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>>::reserve(v62, v77);
-  v41 = v75;
-  if (v75 != &v76)
+  std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>>::reserve(v62, v76);
+  v41 = v74;
+  if (v74 != &v75)
   {
     do
     {
@@ -4939,19 +6256,19 @@ LABEL_68:
       v41 = v43;
     }
 
-    while (v43 != &v76);
+    while (v43 != &v75);
   }
 
-  if (v72)
+  if (v71)
   {
-    v73 = v72;
-    operator delete(v72);
+    v72 = v71;
+    operator delete(v71);
   }
 
-  std::__tree<int>::destroy(&v75, v76);
+  std::__tree<int>::destroy(&v74, v75);
 }
 
-void sub_1B53548D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, _DWORD *a19, uint64_t a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24, uint64_t a25, char a26, void *a27)
+void sub_1B53548D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, _DWORD *a19, uint64_t a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24, uint64_t a25, uint64_t a26, void *a27)
 {
   __cxa_free_exception(v27);
   if (a16)
@@ -5096,7 +6413,7 @@ LABEL_32:
   }
 }
 
-void fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::ProcessTransitions(fst *a1, float **a2, int a3)
+void fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::ProcessTransitions(fst *a1, float **a2, uint64_t a3)
 {
   v3 = a3;
   v43 = 0;
@@ -5106,9 +6423,10 @@ void fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::ProcessTr
   v35 = a2[1];
   if (*a2 == v35)
   {
-    goto LABEL_44;
+    goto LABEL_45;
   }
 
+  v34 = a3;
   do
   {
     v7 = *(a1 + 9);
@@ -5121,10 +6439,10 @@ void fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::ProcessTr
       {
         if (v41 >= v39)
         {
-          goto LABEL_40;
+          goto LABEL_41;
         }
 
-        goto LABEL_8;
+        goto LABEL_9;
       }
 
       if ((*(*v37 + 24))(v37))
@@ -5135,12 +6453,12 @@ void fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::ProcessTr
       if (v37)
       {
         v9 = (*(*v37 + 32))();
-        goto LABEL_9;
+        goto LABEL_10;
       }
 
-LABEL_8:
-      v9 = v38 + 16 * v41;
 LABEL_9:
+      v9 = v38 + 16 * v41;
+LABEL_10:
       v10 = *v9;
       if (*v9)
       {
@@ -5174,7 +6492,7 @@ LABEL_9:
           memset(&__p, 0, sizeof(__p));
           fst::StringRepository<int,int>::SeqOfId(a1 + 136, *(v6 + 1), &__p);
           std::vector<int>::push_back[abi:ne200100](&__p.__begin_, v17);
-          v19 = fst::StringRepository<int,int>::IdOfSeq(a1 + 136, &__p);
+          v19 = fst::StringRepository<int,int>::IdOfSeq(a1 + 136, &__p.__begin_);
           if (__p.__begin_)
           {
             __p.__end_ = __p.__begin_;
@@ -5262,23 +6580,23 @@ LABEL_9:
     if (v37)
     {
       (*(*v37 + 8))();
-      goto LABEL_42;
+      goto LABEL_43;
     }
 
-LABEL_40:
+LABEL_41:
     if (v40)
     {
       --*v40;
     }
 
-LABEL_42:
+LABEL_43:
     v6 += 3;
   }
 
   while (v6 != v35);
   v5 = *v42;
-  v3 = a3;
-LABEL_44:
+  v3 = v34;
+LABEL_45:
   v29 = 126 - 2 * __clz((*(&v5 + 1) - v5) >> 4);
   if (*(&v5 + 1) == v5)
   {
@@ -5356,18 +6674,18 @@ void fst::StringRepository<int,int>::SeqOfId(uint64_t a1, int a2, std::vector<un
     v6 = *(*a1 + 8 * a2);
     if (v6 != a3)
     {
-      v7 = *v6;
-      v8 = v6[1];
-      v9 = (v8 - *v6) >> 2;
+      begin = v6->__begin_;
+      end = v6->__end_;
+      v9 = (end - v6->__begin_) >> 2;
 
-      std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(a3, v7, v8, v9);
+      std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(a3, begin, end, v9);
     }
   }
 }
 
-uint64_t fst::StringRepository<int,int>::IdOfSeq(uint64_t a1, uint64_t a2)
+unint64_t fst::StringRepository<int,int>::IdOfSeq(uint64_t a1, unsigned int **a2)
 {
-  v2 = (*(a2 + 8) - *a2) >> 2;
+  v2 = a2[1] - *a2;
   if (v2 == 1)
   {
     return fst::StringRepository<int,int>::IdOfLabel(a1, **a2);
@@ -5381,74 +6699,72 @@ uint64_t fst::StringRepository<int,int>::IdOfSeq(uint64_t a1, uint64_t a2)
   return *(a1 + 68);
 }
 
-void *std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>>::reserve(void *result, unint64_t a2)
+void std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>>::reserve(void *a1, unint64_t a2)
 {
-  if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 2) < a2)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 2) < a2)
   {
     if (a2 < 0x1555555555555556)
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::tuple<int,float,int>>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::tuple<int,float,int>>>(a1, a2);
     }
 
     std::vector<int>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-uint64_t std::__tree<std::__value_type<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>,std::__map_value_compare<int,std::__value_type<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>,std::less<int>,true>,std::allocator<std::__value_type<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>>>::__emplace_hint_unique_key_args<int,std::pair<int const,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element> const&>(void *a1, uint64_t *a2, int *a3)
+uint64_t std::__tree<std::__value_type<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>,std::__map_value_compare<int,std::__value_type<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>,std::less<int>,true>,std::allocator<std::__value_type<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>>>::__emplace_hint_unique_key_args<int,std::pair<int const,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element> const&>(uint64_t **a1, uint64_t *a2, int *a3, _OWORD *a4)
 {
-  v3 = *std::__tree<std::__value_type<quasar::PronType,int>,std::__map_value_compare<quasar::PronType,std::__value_type<quasar::PronType,int>,std::less<quasar::PronType>,true>,std::allocator<std::__value_type<quasar::PronType,int>>>::__find_equal<quasar::PronType>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<std::__value_type<quasar::PronType,int>,std::__map_value_compare<quasar::PronType,std::__value_type<quasar::PronType,int>,std::less<quasar::PronType>,true>,std::allocator<std::__value_type<quasar::PronType,int>>>::__find_equal<quasar::PronType>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t *std::__tree<std::__value_type<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>,std::__map_value_compare<int,std::__value_type<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>,std::less<int>,true>,std::allocator<std::__value_type<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(uint64_t a1, int *a2)
+uint64_t *std::__tree<std::__value_type<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>,std::__map_value_compare<int,std::__value_type<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>,std::less<int>,true>,std::allocator<std::__value_type<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(uint64_t a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 28);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t fst::StringRepository<int,int>::IdOfLabel(uint64_t a1, int a2)
+unint64_t fst::StringRepository<int,int>::IdOfLabel(uint64_t a1, int a2)
 {
   v8 = a2;
   if ((a2 & 0x80000000) == 0 && *(a1 + 76) >= a2)
@@ -5480,7 +6796,7 @@ void sub_1B535542C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t fst::StringRepository<int,int>::IdOfSeqInternal(uint64_t a1, uint64_t a2)
+unint64_t fst::StringRepository<int,int>::IdOfSeqInternal(uint64_t a1, int **a2)
 {
   v4 = a2;
   v2 = std::__hash_table<std::__hash_value_type<std::vector<int> const*,int>,std::__unordered_map_hasher<std::vector<int> const*,std::__hash_value_type<std::vector<int> const*,int>,fst::StringRepository<int,int>::VectorKey,fst::StringRepository<int,int>::VectorEqual,true>,std::__unordered_map_equal<std::vector<int> const*,std::__hash_value_type<std::vector<int> const*,int>,fst::StringRepository<int,int>::VectorEqual,fst::StringRepository<int,int>::VectorKey,true>,std::allocator<std::__hash_value_type<std::vector<int> const*,int>>>::find<std::vector<int> const*>((a1 + 24), &v4);
@@ -5492,10 +6808,10 @@ uint64_t fst::StringRepository<int,int>::IdOfSeqInternal(uint64_t a1, uint64_t a
   return *(v2 + 6);
 }
 
-const void ***std::__hash_table<std::__hash_value_type<std::vector<int> const*,int>,std::__unordered_map_hasher<std::vector<int> const*,std::__hash_value_type<std::vector<int> const*,int>,fst::StringRepository<int,int>::VectorKey,fst::StringRepository<int,int>::VectorEqual,true>,std::__unordered_map_equal<std::vector<int> const*,std::__hash_value_type<std::vector<int> const*,int>,fst::StringRepository<int,int>::VectorEqual,fst::StringRepository<int,int>::VectorKey,true>,std::allocator<std::__hash_value_type<std::vector<int> const*,int>>>::find<std::vector<int> const*>(void *a1, uint64_t *a2)
+const void ***std::__hash_table<std::__hash_value_type<std::vector<int> const*,int>,std::__unordered_map_hasher<std::vector<int> const*,std::__hash_value_type<std::vector<int> const*,int>,fst::StringRepository<int,int>::VectorKey,fst::StringRepository<int,int>::VectorEqual,true>,std::__unordered_map_equal<std::vector<int> const*,std::__hash_value_type<std::vector<int> const*,int>,fst::StringRepository<int,int>::VectorEqual,fst::StringRepository<int,int>::VectorKey,true>,std::allocator<std::__hash_value_type<std::vector<int> const*,int>>>::find<std::vector<int> const*>(void *a1, int ***a2)
 {
   v4 = **a2;
-  v5 = *(*a2 + 8);
+  v5 = (*a2)[1];
   if (v4 == v5)
   {
     v6 = 0;
@@ -5584,58 +6900,58 @@ BOOL std::__unordered_map_equal<std::vector<int> const*,std::__hash_value_type<s
 {
   v3 = *a3;
   v4 = **a2;
-  v5 = (*a2)[1] - v4;
-  return v5 == *(v3 + 8) - *v3 && memcmp(v4, *v3, v5) == 0;
+  v5 = ((*a2)[1] - v4);
+  return v5 == (*(v3 + 8) - *v3) && memcmp(v4, *v3, v5) == 0;
 }
 
-const void ***std::__hash_table<std::__hash_value_type<std::vector<int> const*,int>,std::__unordered_map_hasher<std::vector<int> const*,std::__hash_value_type<std::vector<int> const*,int>,fst::StringRepository<int,int>::VectorKey,fst::StringRepository<int,int>::VectorEqual,true>,std::__unordered_map_equal<std::vector<int> const*,std::__hash_value_type<std::vector<int> const*,int>,fst::StringRepository<int,int>::VectorEqual,fst::StringRepository<int,int>::VectorKey,true>,std::allocator<std::__hash_value_type<std::vector<int> const*,int>>>::__emplace_unique_key_args<std::vector<int> const*,std::piecewise_construct_t const&,std::tuple<std::vector<int> const* const&>,std::tuple<>>(void *a1, uint64_t *a2)
+const void ***std::__hash_table<std::__hash_value_type<std::vector<int> const*,int>,std::__unordered_map_hasher<std::vector<int> const*,std::__hash_value_type<std::vector<int> const*,int>,fst::StringRepository<int,int>::VectorKey,fst::StringRepository<int,int>::VectorEqual,true>,std::__unordered_map_equal<std::vector<int> const*,std::__hash_value_type<std::vector<int> const*,int>,fst::StringRepository<int,int>::VectorEqual,fst::StringRepository<int,int>::VectorKey,true>,std::allocator<std::__hash_value_type<std::vector<int> const*,int>>>::__emplace_unique_key_args<std::vector<int> const*,std::piecewise_construct_t const&,std::tuple<std::vector<int> const* const&>,std::tuple<>>(void *a1, int ***a2, uint64_t a3, void **a4)
 {
-  v4 = **a2;
-  v5 = *(*a2 + 8);
-  if (v4 == v5)
+  v6 = **a2;
+  v7 = (*a2)[1];
+  if (v6 == v7)
   {
-    v6 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v6 = 0;
-    v7 = 1;
+    v8 = 0;
+    v9 = 1;
     do
     {
-      v8 = *v4++;
-      v6 += v7 * v8;
-      v7 *= 103333;
+      v10 = *v6++;
+      v8 += v9 * v10;
+      v9 *= 103333;
     }
 
-    while (v4 != v5);
+    while (v6 != v7);
   }
 
-  v9 = a1[1];
-  if (!*&v9)
+  v11 = a1[1];
+  if (!*&v11)
   {
     goto LABEL_23;
   }
 
-  v10 = vcnt_s8(v9);
-  v10.i16[0] = vaddlv_u8(v10);
-  v11 = v10.u32[0];
-  if (v10.u32[0] > 1uLL)
+  v12 = vcnt_s8(v11);
+  v12.i16[0] = vaddlv_u8(v12);
+  v13 = v12.u32[0];
+  if (v12.u32[0] > 1uLL)
   {
-    v12 = v6;
-    if (v6 >= *&v9)
+    v14 = v8;
+    if (v8 >= *&v11)
     {
-      v12 = v6 % *&v9;
+      v14 = v8 % *&v11;
     }
   }
 
   else
   {
-    v12 = (*&v9 - 1) & v6;
+    v14 = (*&v11 - 1) & v8;
   }
 
-  v13 = *(*a1 + 8 * v12);
-  if (!v13 || (v14 = *v13) == 0)
+  v15 = *(*a1 + 8 * v14);
+  if (!v15 || (v16 = *v15) == 0)
   {
 LABEL_23:
     operator new();
@@ -5643,44 +6959,44 @@ LABEL_23:
 
   while (1)
   {
-    v15 = v14[1];
-    if (v15 == v6)
+    v17 = v16[1];
+    if (v17 == v8)
     {
       break;
     }
 
-    if (v11 > 1)
+    if (v13 > 1)
     {
-      if (v15 >= *&v9)
+      if (v17 >= *&v11)
       {
-        v15 %= *&v9;
+        v17 %= *&v11;
       }
     }
 
     else
     {
-      v15 &= *&v9 - 1;
+      v17 &= *&v11 - 1;
     }
 
-    if (v15 != v12)
+    if (v17 != v14)
     {
       goto LABEL_23;
     }
 
 LABEL_22:
-    v14 = *v14;
-    if (!v14)
+    v16 = *v16;
+    if (!v16)
     {
       goto LABEL_23;
     }
   }
 
-  if (!std::__unordered_map_equal<std::vector<int> const*,std::__hash_value_type<std::vector<int> const*,int>,fst::StringRepository<int,int>::VectorEqual,fst::StringRepository<int,int>::VectorKey,true>::operator()[abi:ne200100](a1, v14 + 2, a2))
+  if (!std::__unordered_map_equal<std::vector<int> const*,std::__hash_value_type<std::vector<int> const*,int>,fst::StringRepository<int,int>::VectorEqual,fst::StringRepository<int,int>::VectorKey,true>::operator()[abi:ne200100](a1, v16 + 2, a2))
   {
     goto LABEL_22;
   }
 
-  return v14;
+  return v16;
 }
 
 void fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::ProcessTransition(fst *a1, int a2, int a3, float **a4)
@@ -5773,14 +7089,14 @@ void fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::ProcessTr
     {
       if (v20 == v18)
       {
-        fst::StringRepository<int,int>::SeqOfId(a1 + 136, v18[1], &v40);
+        fst::StringRepository<int,int>::SeqOfId(a1 + 136, *(v18 + 1), &v40);
         begin = v40.__begin_;
         end = v40.__end_;
       }
 
       else
       {
-        fst::StringRepository<int,int>::SeqOfId(a1 + 136, v20[1], &__p);
+        fst::StringRepository<int,int>::SeqOfId(a1 + 136, *(v20 + 1), &__p);
         begin = v40.__begin_;
         end = v40.__end_;
         if ((__p.__end_ - __p.__begin_) < (v40.__end_ - v40.__begin_))
@@ -5824,25 +7140,25 @@ void fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::ProcessTr
     }
   }
 
-  v24 = fst::StringRepository<int,int>::IdOfSeq(a1 + 136, &v40);
+  v24 = fst::StringRepository<int,int>::IdOfSeq(a1 + 136, &v40.__begin_);
   if (__p.__begin_)
   {
     __p.__end_ = __p.__begin_;
     operator delete(__p.__begin_);
   }
 
-  v25 = *(v18 + 2);
+  v25 = v18[2];
   v26 = v18 + 3;
   if (v18 + 3 == v19)
   {
-    LODWORD(v27) = v18[2];
+    v27 = v18[2];
   }
 
   else
   {
     do
     {
-      LODWORD(v27) = v26[2];
+      v27 = v26[2];
       if (v25 != INFINITY)
       {
         if (v27 == INFINITY)
@@ -5876,7 +7192,7 @@ void fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::ProcessTr
     v31 = v40.__end_ - v40.__begin_;
     do
     {
-      v32 = *(v18 + 2);
+      v32 = v18[2];
       v33 = NAN;
       if (v32 != -INFINITY)
       {
@@ -5893,8 +7209,8 @@ void fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::ProcessTr
         }
       }
 
-      *(v18 + 2) = v33;
-      v18[1] = fst::StringRepository<int,int>::RemovePrefix(a1 + 136, v18[1], v31);
+      v18[2] = v33;
+      *(v18 + 1) = fst::StringRepository<int,int>::RemovePrefix(a1 + 136, *(v18 + 1), v31);
       v18 += 3;
     }
 
@@ -6107,8 +7423,8 @@ LABEL_20:
     }
 
     v20 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::PairComparator &,std::pair<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element> *>(v9, v18);
-    v9 = v18 + 16;
-    result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::PairComparator &,std::pair<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element> *>(v18 + 16, a2);
+    v9 = (v18 + 4);
+    result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::PairComparator &,std::pair<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element> *>((v18 + 4), a2);
     if (result)
     {
       a4 = -v11;
@@ -6126,7 +7442,7 @@ LABEL_20:
     {
 LABEL_23:
       result = std::__introsort<std::_ClassicAlgPolicy,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::PairComparator &,std::pair<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element> *,false>(v8, v18, a3, -v11, a5 & 1);
-      v9 = v18 + 16;
+      v9 = (v18 + 4);
 LABEL_25:
       a5 = 0;
       a4 = -v11;
@@ -6161,7 +7477,7 @@ uint64_t std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::DeterminizerStar
     {
       *a1 = v3;
       *a2 = v4;
-      v19 = (a2 + 1);
+      v19 = a2 + 1;
       v20 = a1[3];
       v21 = *(a1 + 1);
       v22 = a2[3];
@@ -6409,7 +7725,7 @@ LABEL_13:
           v5 -= 4;
           *v12 = v13;
           *(v12 + 4) = *(v12 - 12);
-          *(v12 + 12) = *(v12 - 4);
+          *(v12 + 3) = *(v12 - 1);
           v11 -= 16;
           if (!v11)
           {
@@ -6493,7 +7809,7 @@ LABEL_6:
   return result;
 }
 
-_DWORD *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::pair<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element> *,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::PairComparator &>(int *a1, _DWORD *a2)
+int *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::pair<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element> *,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::PairComparator &>(int *a1, int *a2)
 {
   v2 = *a1;
   v3 = a1[1];
@@ -6583,7 +7899,7 @@ _DWORD *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolic
   return i;
 }
 
-unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::pair<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element> *,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::PairComparator &>(int *a1, _DWORD *a2)
+int *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::pair<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element> *,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::PairComparator &>(int *a1, int *a2)
 {
   v2 = 0;
   v3 = *a1;
@@ -6652,19 +7968,19 @@ LABEL_19:
     {
       *v14 = v13;
       *v15 = v6;
-      v23 = *(v14 + 12);
-      v22 = *(v14 + 4);
+      v23 = v14[3];
+      v22 = *(v14 + 1);
       v16 = *(v15 + 1);
-      *(v14 + 12) = v15[3];
-      *(v14 + 4) = v16;
+      v14[3] = v15[3];
+      *(v14 + 1) = v16;
       v15[3] = v23;
       *(v15 + 1) = v22;
       do
       {
         do
         {
-          v17 = *(v14 + 16);
-          v14 += 16;
+          v17 = v14[4];
+          v14 += 4;
           v6 = v17;
           v18 = v17 <= v3;
         }
@@ -6672,7 +7988,7 @@ LABEL_19:
         while (v17 < v3);
       }
 
-      while (v18 && *(v14 + 4) < v4);
+      while (v18 && v14[1] < v4);
       do
       {
         v19 = *(v15 - 4);
@@ -6686,18 +8002,18 @@ LABEL_19:
     while (v14 < v15);
   }
 
-  if ((v14 - 16) != a1)
+  if (v14 - 4 != a1)
   {
-    *a1 = *(v14 - 16);
-    v20 = *(v14 - 12);
-    a1[3] = *(v14 - 4);
+    *a1 = *(v14 - 4);
+    v20 = *(v14 - 3);
+    a1[3] = *(v14 - 1);
     *(a1 + 1) = v20;
   }
 
-  *(v14 - 16) = v3;
-  *(v14 - 12) = v4;
-  *(v14 - 8) = v5;
-  return v14 - 16;
+  *(v14 - 4) = v3;
+  *(v14 - 3) = v4;
+  *(v14 - 1) = v5;
+  return v14 - 4;
 }
 
 BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::PairComparator &,std::pair<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element> *>(uint64_t a1, uint64_t a2)
@@ -6877,7 +8193,7 @@ LABEL_26:
   return 1;
 }
 
-uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::PairComparator &,std::pair<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element> *,std::pair<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element> *>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::PairComparator &,std::pair<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element> *,std::pair<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element> *>(char *a1, char *a2, char *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
@@ -6886,7 +8202,7 @@ uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,fst::Dete
     {
       v9 = (v8 - 2) >> 1;
       v10 = v9 + 1;
-      v11 = (a1 + 16 * v9);
+      v11 = &a1[16 * v9];
       do
       {
         std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::PairComparator &,std::pair<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element> *>(a1, a4, v8, v11);
@@ -6905,17 +8221,17 @@ uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,fst::Dete
       {
         v13 = *v12;
         v14 = *a1;
-        if (*v12 < *a1 || v13 <= v14 && *(v12 + 4) < *(a1 + 4))
+        if (*v12 < *a1 || v13 <= v14 && *(v12 + 1) < *(a1 + 1))
         {
           *v12 = v14;
           *a1 = v13;
-          v15 = *(v12 + 12);
+          v15 = *(v12 + 3);
           v16 = *(v12 + 4);
-          v17 = *(a1 + 12);
+          v17 = *(a1 + 3);
           *(v12 + 4) = *(a1 + 4);
-          *(v12 + 12) = v17;
+          *(v12 + 3) = v17;
           *(a1 + 4) = v16;
-          *(a1 + 12) = v15;
+          *(a1 + 3) = v15;
           std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::PairComparator &,std::pair<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element> *>(a1, a4, v8, a1);
         }
 
@@ -6932,25 +8248,25 @@ uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,fst::Dete
       {
         v19 = *a1;
         v24 = *(a1 + 4);
-        v25 = *(a1 + 12);
+        v25 = *(a1 + 3);
         v20 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::PairComparator &,std::pair<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element> *>(a1, a4, v8);
         if (v18 == v20)
         {
           *v20 = v19;
-          *(v20 + 1) = v24;
-          v20[3] = v25;
+          *(v20 + 4) = v24;
+          *(v20 + 3) = v25;
         }
 
         else
         {
           *v20 = *v18;
           v21 = *(v18 + 4);
-          v20[3] = *(v18 + 12);
-          *(v20 + 1) = v21;
+          *(v20 + 3) = *(v18 + 3);
+          *(v20 + 4) = v21;
           *v18 = v19;
           *(v18 + 4) = v24;
-          *(v18 + 12) = v25;
-          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::PairComparator &,std::pair<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element> *>(a1, (v20 + 4), a4, (v20 - a1 + 16) >> 4);
+          *(v18 + 3) = v25;
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::PairComparator &,std::pair<int,fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element> *>(a1, (v20 + 16), a4, (v20 + 16 - a1) >> 4);
         }
 
         v18 -= 16;
@@ -7158,23 +8474,23 @@ LABEL_10:
   return result;
 }
 
-void std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>>::resize(void *a1, unint64_t a2)
+void std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>>::resize(void *result, unint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 2);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((result[1] - *result) >> 2);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>>::__append(a1, v4);
+    std::vector<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element,std::allocator<fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>,int>>::Element>>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 12 * a2;
+    result[1] = *result + 12 * a2;
   }
 }
 
-uint64_t fst::StringRepository<int,int>::RemovePrefix(uint64_t a1, uint64_t a2, uint64_t a3)
+unint64_t fst::StringRepository<int,int>::RemovePrefix(uint64_t a1, unint64_t a2, uint64_t a3)
 {
   v3 = a2;
   if (a3)
@@ -7497,7 +8813,7 @@ void fst::ContextFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::~Conte
   JUMPOUT(0x1B8C85350);
 }
 
-uint64_t fst::ContextFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::Properties(uint64_t a1, uint64_t a2, int a3)
+unint64_t fst::ContextFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::Properties(uint64_t a1, uint64_t a2, int a3)
 {
   if (a3)
   {
@@ -7513,15 +8829,6 @@ uint64_t fst::ContextFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::Pr
 
     return v7();
   }
-}
-
-void fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::ContextFstImpl(uint64_t a1)
-{
-  fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::CacheBaseImpl(a1);
-}
-
-{
-  fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::CacheBaseImpl(a1);
 }
 
 void sub_1B5357F6C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18)
@@ -7545,14 +8852,14 @@ void sub_1B5357F6C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   kaldi::ConstIntegerSet<int>::~ConstIntegerSet((v18 + 328));
   kaldi::ConstIntegerSet<int>::~ConstIntegerSet((v18 + 264));
   std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&a13);
-  std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::~__hash_table(v18 + 200);
+  std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::~__hash_table((v18 + 200));
   std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&a13);
   std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::~__hash_table(v19);
   fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::~CacheBaseImpl(v18);
   _Unwind_Resume(a1);
 }
 
-uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::FindLabel(void *a1, int **a2)
+uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::FindLabel(void *a1, const void **a2)
 {
   v4 = std::__hash_table<std::__hash_value_type<std::vector<int>,std::vector<quasar::Token>>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,std::vector<quasar::Token>>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,std::vector<quasar::Token>>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,std::vector<quasar::Token>>>>::find<std::vector<int>>(a1 + 25, a2);
   if (v4)
@@ -7562,7 +8869,7 @@ uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>
 
   v5 = -1431655765 * ((a1[31] - a1[30]) >> 3);
   std::vector<std::vector<int>>::push_back[abi:ne200100]((a1 + 30), a2);
-  *(std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::__emplace_unique_key_args<std::vector<int>,std::piecewise_construct_t const&,std::tuple<std::vector<int> const&>,std::tuple<>>(a1 + 25, a2) + 10) = v5;
+  *(std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::__emplace_unique_key_args<std::vector<int>,std::piecewise_construct_t const&,std::tuple<std::vector<int> const&>,std::tuple<>>(a1 + 25, a2, &std::piecewise_construct) + 10) = v5;
   return v5;
 }
 
@@ -7641,10 +8948,10 @@ uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>
 
   v7 = (a1 + 240);
   std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v7);
-  std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::~__hash_table(a1 + 200);
+  std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::~__hash_table((a1 + 200));
   v7 = (a1 + 176);
   std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&v7);
-  std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::~__hash_table(a1 + 136);
+  std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::~__hash_table((a1 + 136));
   return fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::~CacheBaseImpl(a1);
 }
 
@@ -7659,7 +8966,9 @@ uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>
 
     else if ((*(a1 + 60) & 1) == 0)
     {
-      std::vector<int>::vector[abi:ne200100](__p, *(a1 + 396) - 1);
+      v2 = *(a1 + 396) - 1;
+      v5 = 0;
+      std::vector<int>::vector[abi:ne200100](__p, v2, &v5);
       State = fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::FindState(a1, __p);
       *(a1 + 64) = State;
       *(a1 + 60) = 1;
@@ -7689,7 +8998,7 @@ void sub_1B5358414(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::FindState(void *a1, int **a2)
+uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::FindState(void *a1, const void **a2)
 {
   v4 = std::__hash_table<std::__hash_value_type<std::vector<int>,std::vector<quasar::Token>>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,std::vector<quasar::Token>>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,std::vector<quasar::Token>>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,std::vector<quasar::Token>>>>::find<std::vector<int>>(a1 + 17, a2);
   if (v4)
@@ -7699,7 +9008,7 @@ uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>
 
   v5 = -1431655765 * ((a1[23] - a1[22]) >> 3);
   std::vector<std::vector<int>>::push_back[abi:ne200100]((a1 + 22), a2);
-  *(std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::__emplace_unique_key_args<std::vector<int>,std::piecewise_construct_t const&,std::tuple<std::vector<int> const&>,std::tuple<>>(a1 + 17, a2) + 10) = v5;
+  *(std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::__emplace_unique_key_args<std::vector<int>,std::piecewise_construct_t const&,std::tuple<std::vector<int> const&>,std::tuple<>>(a1 + 17, a2, &std::piecewise_construct) + 10) = v5;
   return v5;
 }
 
@@ -7746,7 +9055,7 @@ float fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::F
   return v7;
 }
 
-uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::NumArcs(uint64_t a1, unsigned int a2)
+uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::NumArcs(uint64_t a1, int a2)
 {
   if (fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::HasArcs(a1, a2))
   {
@@ -7788,7 +9097,7 @@ uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>
   }
 }
 
-uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::NumInputEpsilons(uint64_t a1, int a2)
+uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::NumInputEpsilons(uint64_t a1, uint64_t a2)
 {
   if ((fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::HasArcs(a1, a2) & 1) == 0)
   {
@@ -7809,33 +9118,34 @@ uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>
   return *(*v5 + 8);
 }
 
-uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::Expand(uint64_t a1, int a2)
+void fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::Expand(uint64_t a1, uint64_t a2)
 {
-  if (fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::CreateArc(a1, a2, *(a1 + 392), &v10))
+  v2 = a2;
+  if (fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::CreateArc(a1, a2, *(a1 + 392), &v9))
   {
-    MutableState = fst::GCCacheStore<fst::FirstCacheStore<fst::VectorCacheStore<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>>::GetMutableState(*(a1 + 120), a2);
-    std::vector<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>::push_back[abi:ne200100](MutableState + 24, &v10);
+    MutableState = fst::GCCacheStore<fst::FirstCacheStore<fst::VectorCacheStore<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>>::GetMutableState(*(a1 + 120), v2);
+    std::vector<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>::push_back[abi:ne200100](MutableState + 24, &v9);
   }
 
   for (i = *(a1 + 304); i != *(a1 + 312); ++i)
   {
-    if (fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::CreateArc(a1, a2, *i, &v10))
+    if (fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::CreateArc(a1, v2, *i, &v9))
     {
-      v6 = fst::GCCacheStore<fst::FirstCacheStore<fst::VectorCacheStore<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>>::GetMutableState(*(a1 + 120), a2);
-      std::vector<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>::push_back[abi:ne200100](v6 + 24, &v10);
+      v6 = fst::GCCacheStore<fst::FirstCacheStore<fst::VectorCacheStore<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>>::GetMutableState(*(a1 + 120), v2);
+      std::vector<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>::push_back[abi:ne200100](v6 + 24, &v9);
     }
   }
 
   for (j = *(a1 + 368); j != *(a1 + 376); ++j)
   {
-    if (fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::CreateArc(a1, a2, *j, &v10))
+    if (fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::CreateArc(a1, v2, *j, &v9))
     {
-      v8 = fst::GCCacheStore<fst::FirstCacheStore<fst::VectorCacheStore<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>>::GetMutableState(*(a1 + 120), a2);
-      std::vector<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>::push_back[abi:ne200100](v8 + 24, &v10);
+      v8 = fst::GCCacheStore<fst::FirstCacheStore<fst::VectorCacheStore<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>>>::GetMutableState(*(a1 + 120), v2);
+      std::vector<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>::push_back[abi:ne200100](v8 + 24, &v9);
     }
   }
 
-  return fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::SetArcs(a1, a2);
+  fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::SetArcs(a1, v2);
 }
 
 uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::CreateArc(uint64_t a1, int a2, uint64_t a3, _DWORD *a4)
@@ -7861,7 +9171,7 @@ uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>
     goto LABEL_4;
   }
 
-  v10 = (v8 + 24 * a2);
+  v10 = v8 + 24 * a2;
   v11 = kaldi::ConstIntegerSet<int>::count(a1 + 264, a3);
   v12 = *(a1 + 392);
   if (!v11)
@@ -7894,7 +9204,7 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v13 = v10[1];
+  v13 = *(v10 + 8);
   if (*v10 != v13 && *(v13 - 4) == v12)
   {
     return 0;
@@ -7928,7 +9238,7 @@ LABEL_16:
   v30 = 0;
   v31 = 0;
   v32 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v30, *v10, v10[1], (v10[1] - *v10) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v30, *v10, *(v10 + 8), (*(v10 + 8) - *v10) >> 2);
   State = fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::FindState(a1, &__p);
   std::vector<int>::push_back[abi:ne200100](&v30, &v33);
   v21 = *(a1 + 396);
@@ -8029,14 +9339,14 @@ void sub_1B5358C28(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   }
 
   std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&a9);
-  std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::~__hash_table(v9 + 200);
+  std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::~__hash_table((v9 + 200));
   std::vector<std::vector<int>>::__destroy_vector::operator()[abi:ne200100](&a9);
   std::__hash_table<std::__hash_value_type<std::vector<int>,int>,std::__unordered_map_hasher<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,kaldi::VectorHasher<int>,std::equal_to<std::vector<int>>,true>,std::__unordered_map_equal<std::vector<int>,std::__hash_value_type<std::vector<int>,int>,std::equal_to<std::vector<int>>,kaldi::VectorHasher<int>,true>,std::allocator<std::__hash_value_type<std::vector<int>,int>>>::~__hash_table(v10);
   fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::~CacheBaseImpl(v9);
   _Unwind_Resume(a1);
 }
 
-uint64_t fst::CacheStateIterator<fst::ContextFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>::Done(uint64_t a1)
+BOOL fst::CacheStateIterator<fst::ContextFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>::Done(uint64_t a1)
 {
   v2 = *(a1 + 24);
   v3 = *(a1 + 16);
@@ -8099,7 +9409,7 @@ uint64_t fst::CacheStateIterator<fst::ContextFst<fst::ArcTpl<fst::TropicalWeight
   return v4;
 }
 
-uint64_t *fst::ArcIterator<fst::ContextFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>::ArcIterator(uint64_t *a1, uint64_t a2, int a3)
+uint64_t *fst::ArcIterator<fst::ContextFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>::ArcIterator(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
   v6 = *(a2 + 8);
   a1[1] = 0;
@@ -8114,7 +9424,7 @@ uint64_t *fst::ArcIterator<fst::ContextFst<fst::ArcTpl<fst::TropicalWeightTpl<fl
   return a1;
 }
 
-uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::InitArcIterator(uint64_t a1, int a2, void *a3)
+uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::InitArcIterator(uint64_t a1, uint64_t a2, void *a3)
 {
   if ((fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::HasArcs(a1, a2) & 1) == 0)
   {
@@ -8124,10 +9434,10 @@ uint64_t fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>
   return fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::InitArcIterator(a1, a2, a3);
 }
 
-uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::ComposeFstImpl<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::ComposeFstImpl<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   *fst::ComposeFstImplBase<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::ComposeFstImplBase(a1, a2, a3, a4) = &unk_1F2D0DBE0;
-  v8 = *(a4 + 40);
+  v8 = a4[5];
   if (!v8)
   {
     operator new();
@@ -8138,7 +9448,7 @@ uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWei
   *(a1 + 144) = *v8;
   *(a1 + 160) = (*(*v9.n128_u64[0] + 32))(v9.n128_u64[0], v9);
   *(a1 + 168) = (*(**(a1 + 152) + 32))(*(a1 + 152));
-  v10 = *(a4 + 48);
+  v10 = a4[6];
   if (!v10)
   {
     operator new();
@@ -8309,14 +9619,14 @@ uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWei
   return *(a1 + 8) & a2;
 }
 
-uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::Expand(void *a1, int a2)
+void fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::Expand(void *a1, uint64_t a2)
 {
   v4 = (*(a1[22] + 80) + 12 * a2);
   v5 = *v4;
   v6 = v4[1];
   v7 = a1[17];
-  v17 = *(v4 + 8);
-  fst::SequenceComposeFilter<fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::SetState(v7, v5, v6, &v17);
+  v16 = *(v4 + 8);
+  fst::SequenceComposeFilter<fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::SetState(v7, v5, v6, &v16);
   if (fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchInput(a1, v5, v6))
   {
     v9 = a1[20];
@@ -8341,12 +9651,13 @@ uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWei
     v15 = 0;
   }
 
-  return fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>(v11, v12, v8, v13, v9, v14, v10, v15);
+  fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>(v11, v12, v8, v13, v9, v14, v10, v15);
 }
 
-uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::InitMatcher(uint64_t a1, uint64_t a2, int a3)
+uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::InitMatcher(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if ((*(**(a1 + 144) + 24))(*(a1 + 144), 0) == a3 && (*(**(a1 + 152) + 24))(*(a1 + 152), 0) == a3)
+  v3 = a3;
+  if ((*(**(a1 + 144) + 24))(*(a1 + 144), 0) == a3 && (*(**(a1 + 152) + 24))(*(a1 + 152), 0) == v3)
   {
     operator new();
   }
@@ -8404,7 +9715,7 @@ uint64_t fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::Tropica
   }
 
   *(a1 + 8) = a5;
-  *(a1 + 16) = (*(*a4 + 32))(a4);
+  *(a1 + 16) = (*(*a4 + 32))(a4, a2, a3);
   *(a1 + 24) = -1;
   *(a1 + 32) = -1;
   return a1;
@@ -8498,1333 +9809,4 @@ LABEL_18:
 LABEL_21:
   *(a1 + 16) = v14;
   return a1;
-}
-
-void *fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::~ContextMatcher(void *a1)
-{
-  *a1 = &unk_1F2D0DC58;
-  v2 = a1[1];
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-  }
-
-  return a1;
-}
-
-void fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::~ContextMatcher(void *a1)
-{
-  *a1 = &unk_1F2D0DC58;
-  v1 = a1[1];
-  if (v1)
-  {
-    (*(*v1 + 8))(v1);
-  }
-
-  JUMPOUT(0x1B8C85350);
-}
-
-uint64_t fst::MatcherBase<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>::Priority_(uint64_t a1)
-{
-  v1 = *(*(*(*a1 + 32))(a1) + 40);
-
-  return v1();
-}
-
-void fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::SetState(uint64_t a1, int a2)
-{
-  if (*(a1 + 16) == 3)
-  {
-    std::string::basic_string[abi:ne200100]<0>(__p, "FATAL");
-    v4 = fst::LogMessage::LogMessage(&v8, __p);
-    v5 = fst::cerr(v4);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, "ContextMatcher: bad match type", 30);
-    fst::LogMessage::~LogMessage(&v8);
-    if (v7 < 0)
-    {
-      operator delete(__p[0]);
-    }
-  }
-
-  *(a1 + 24) = a2;
-}
-
-void sub_1B535A14C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::Find(uint64_t a1, uint64_t a2)
-{
-  if (a2)
-  {
-    if (a2 == -1)
-    {
-      result = 0;
-      *(a1 + 44) = 0;
-      return result;
-    }
-
-    result = fst::ContextFstImpl<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::CreateArc(*(*(a1 + 8) + 8), *(a1 + 24), a2, (a1 + 28));
-  }
-
-  else
-  {
-    *(a1 + 28) = 0xFFFFFFFF00000000;
-    v4 = *(a1 + 24);
-    *(a1 + 36) = 0;
-    *(a1 + 40) = v4;
-    result = 1;
-  }
-
-  *(a1 + 44) = result;
-  return result;
-}
-
-uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::~ComposeFstImpl(void *a1)
-{
-  *a1 = &unk_1F2D0DBE0;
-  v2 = a1[17];
-  if (v2)
-  {
-    v3 = fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>::~SequenceComposeFilter(v2);
-    MEMORY[0x1B8C85350](v3, 0x1060C40AD892F49);
-  }
-
-  v4 = a1[22];
-  if (v4)
-  {
-    v5 = *(v4 + 80);
-    if (v5)
-    {
-      *(v4 + 88) = v5;
-      operator delete(v5);
-    }
-
-    std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::~__hash_table(v4 + 24);
-    MEMORY[0x1B8C85350](v4, 0x10E0C406D28CB5CLL);
-  }
-
-  return fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::~CacheBaseImpl(a1);
-}
-
-uint64_t *fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>::~SequenceComposeFilter(uint64_t *a1)
-{
-  v2 = *a1;
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-  }
-
-  v3 = a1[1];
-  if (v3)
-  {
-    (*(*v3 + 8))(v3);
-  }
-
-  return a1;
-}
-
-void sub_1B535A414(_Unwind_Exception *a1)
-{
-  MEMORY[0x1B8C85350](v2, 0x10E0C406D28CB5CLL);
-  fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::~CacheBaseImpl(v1);
-  _Unwind_Resume(a1);
-}
-
-uint64_t fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>::SequenceComposeFilter(uint64_t a1, void *a2, uint64_t a3)
-{
-  *a1 = (*(**a2 + 16))(*a2, a3);
-  *(a1 + 8) = (*(*a2[1] + 16))(a2[1], a3);
-  *(a1 + 16) = (*(**a1 + 32))();
-  *(a1 + 24) = -1;
-  *(a1 + 32) = -1;
-  return a1;
-}
-
-BOOL fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchInput(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a1 + 184);
-  if (!v3)
-  {
-    return 1;
-  }
-
-  if (v3 == 1)
-  {
-    return 0;
-  }
-
-  v7 = (*(**(a1 + 144) + 104))(*(a1 + 144));
-  v8 = (*(**(a1 + 152) + 104))(*(a1 + 152), a3);
-  if (v7 == -1 && v8 == -1)
-  {
-    if (FLAGS_fst_error_fatal == 1)
-    {
-      std::string::basic_string[abi:ne200100]<0>(__p, "FATAL");
-    }
-
-    else
-    {
-      std::string::basic_string[abi:ne200100]<0>(__p, "ERROR");
-    }
-
-    v11 = fst::LogMessage::LogMessage(&v15, __p);
-    v12 = fst::cerr(v11);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "ComposeFst: both sides can't require match", 42);
-    fst::LogMessage::~LogMessage(&v15);
-    if (v14 < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    *(a1 + 8) |= 4uLL;
-    return 1;
-  }
-
-  if (v7 == -1)
-  {
-    return 0;
-  }
-
-  return v8 == -1 || v7 <= v8;
-}
-
-void sub_1B535A680(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, int a15, __int16 a16, char a17, char a18)
-{
-  fst::LogMessage::~LogMessage(&a18);
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>(uint64_t a1, int a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8)
-{
-  fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::SetState(a7, a4);
-  LODWORD(v19) = a8 - 1;
-  *(&v19 + 4) = (a8 << 31 >> 31);
-  HIDWORD(v19) = a6;
-  fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>(a1, a2, a7, &v19, a8);
-  v18 = 0;
-  (*(*a5 + 136))(a5, a6, v16);
-  while (1)
-  {
-    if (!v16[0])
-    {
-      if (v18 >= v16[2])
-      {
-        goto LABEL_13;
-      }
-
-LABEL_7:
-      v14 = (v16[1] + 16 * v18);
-      goto LABEL_8;
-    }
-
-    if ((*(*v16[0] + 24))(v16[0]))
-    {
-      break;
-    }
-
-    if (!v16[0])
-    {
-      goto LABEL_7;
-    }
-
-    v14 = (*(*v16[0] + 32))();
-LABEL_8:
-    fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>(a1, a2, a7, v14, a8);
-    if (v16[0])
-    {
-      (*(*v16[0] + 40))(v16[0]);
-    }
-
-    else
-    {
-      ++v18;
-    }
-  }
-
-  if (v16[0])
-  {
-    (*(*v16[0] + 8))();
-    return fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::SetArcs(a1, a2);
-  }
-
-LABEL_13:
-  if (v17)
-  {
-    --*v17;
-  }
-
-  return fst::CacheBaseImpl<fst::CacheState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::SetArcs(a1, a2);
-}
-
-void sub_1B535A890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
-{
-  if (a10)
-  {
-    fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>();
-  }
-
-  else
-  {
-    fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(&a10);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>(uint64_t a1, int a2, uint64_t a3, __int128 *a4, int a5)
-{
-  v10 = 4;
-  if (!a5)
-  {
-    v10 = 0;
-  }
-
-  if (fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::Find(a3, *(a4 + v10)) && *(a3 + 44) == 1)
-  {
-    v11 = *(a3 + 28);
-    v23 = *a4;
-    v24 = v11;
-    if (a5)
-    {
-      v12 = *(a1 + 136);
-      if (DWORD1(v23) != -1)
-      {
-        if (v24 == -1)
-        {
-          v16 = v12[32];
-          if (v16)
-          {
-            v17 = -1;
-          }
-
-          else
-          {
-            v17 = 0;
-          }
-
-          v22 = v17;
-          if (v16)
-          {
-            goto LABEL_35;
-          }
-        }
-
-        else
-        {
-          if (DWORD1(v23))
-          {
-            v13 = 0;
-          }
-
-          else
-          {
-            v13 = -1;
-          }
-
-          v22 = v13;
-          if (!DWORD1(v23))
-          {
-            goto LABEL_35;
-          }
-        }
-
-        goto LABEL_28;
-      }
-
-      if ((v12[33] & 1) == 0)
-      {
-        v22 = v12[34] ^ 1;
-LABEL_28:
-        v18 = &v23;
-        v19 = &v24;
-LABEL_34:
-        fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::AddArc(a1, a2, v18, v19, &v22);
-      }
-
-LABEL_35:
-      *(a3 + 44) = 0;
-      return;
-    }
-
-    v14 = *(a1 + 136);
-    if (DWORD1(v24) == -1)
-    {
-      if (v14[33])
-      {
-        goto LABEL_35;
-      }
-
-      v22 = v14[34] ^ 1;
-    }
-
-    else if (v23 == -1)
-    {
-      v20 = v14[32];
-      if (v20)
-      {
-        v21 = -1;
-      }
-
-      else
-      {
-        v21 = 0;
-      }
-
-      v22 = v21;
-      if (v20)
-      {
-        goto LABEL_35;
-      }
-    }
-
-    else
-    {
-      if (DWORD1(v24))
-      {
-        v15 = 0;
-      }
-
-      else
-      {
-        v15 = -1;
-      }
-
-      v22 = v15;
-      if (!DWORD1(v24))
-      {
-        goto LABEL_35;
-      }
-    }
-
-    v18 = &v24;
-    v19 = &v23;
-    goto LABEL_34;
-  }
-}
-
-uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::ComposeFstMatcher(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
-{
-  *a1 = &unk_1F2D0DCF0;
-  *(a1 + 8) = a2;
-  *(a1 + 16) = a3;
-  *(a1 + 24) = -1;
-  *(a1 + 28) = a4;
-  *(a1 + 32) = (*(**(a3 + 144) + 16))(*(a3 + 144), 0);
-  *(a1 + 40) = (*(**(a3 + 152) + 16))(*(a3 + 152), 0);
-  *(a1 + 48) = 0;
-  *(a1 + 52) = xmmword_1B5AE3080;
-  *(a1 + 84) = 0;
-  if (a4 == 1)
-  {
-    *(a1 + 52) = 0xFFFFFFFF00000000;
-  }
-
-  return a1;
-}
-
-void fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::~ComposeFstMatcher(void *a1)
-{
-  fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::~ComposeFstMatcher(a1);
-
-  JUMPOUT(0x1B8C85350);
-}
-
-uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::Type(uint64_t a1, uint64_t a2)
-{
-  result = (*(**(a1 + 32) + 24))(*(a1 + 32));
-  if (result != 3)
-  {
-    result = (*(**(a1 + 40) + 24))(*(a1 + 40), a2);
-    if (result != 3)
-    {
-      if ((*(**(a1 + 32) + 24))(*(a1 + 32), a2) != 4 || (result = (*(**(a1 + 40) + 24))(*(a1 + 40), a2), result != 4))
-      {
-        if ((*(**(a1 + 32) + 24))(*(a1 + 32), a2) == 4 && (*(**(a1 + 40) + 24))(*(a1 + 40), a2) == *(a1 + 28))
-        {
-          return 4;
-        }
-
-        else if ((*(**(a1 + 32) + 24))(*(a1 + 32), a2) != *(a1 + 28) || (result = (*(**(a1 + 40) + 24))(*(a1 + 40), a2), result != 4))
-        {
-          if ((*(**(a1 + 32) + 24))(*(a1 + 32), a2) != *(a1 + 28))
-          {
-            return 3;
-          }
-
-          result = (*(**(a1 + 40) + 24))(*(a1 + 40), a2);
-          if (result != *(a1 + 28))
-          {
-            return 3;
-          }
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::Properties(uint64_t a1, uint64_t a2)
-{
-  if (*(a1 + 84))
-  {
-    return a2 | 4;
-  }
-
-  else
-  {
-    return a2;
-  }
-}
-
-void fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::SetState_(uint64_t a1, int a2)
-{
-  if (*(a1 + 24) != a2)
-  {
-    *(a1 + 24) = a2;
-    v3 = (*(*(*(a1 + 16) + 176) + 80) + 12 * a2);
-    v4 = v3[1];
-    fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::SetState(*(a1 + 32), *v3);
-    fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::SetState(*(a1 + 40), v4);
-    *(a1 + 64) = *(a1 + 24);
-  }
-}
-
-uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::Find_(uint64_t a1, uint64_t a2)
-{
-  *(a1 + 48) = a2 == 0;
-  if (!a2)
-  {
-    return 1;
-  }
-
-  v2 = 32;
-  if (*(a1 + 28))
-  {
-    v3 = 32;
-  }
-
-  else
-  {
-    v3 = 40;
-  }
-
-  if (*(a1 + 28))
-  {
-    v2 = 40;
-  }
-
-  return fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::FindLabel<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>(a1, a2, *(a1 + v2), *(a1 + v3));
-}
-
-uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::Done_(uint64_t a1)
-{
-  if (*(a1 + 48) & 1) != 0 || (*(*(a1 + 32) + 44))
-  {
-    v1 = 0;
-  }
-
-  else
-  {
-    v1 = *(*(a1 + 40) + 44) ^ 1;
-  }
-
-  return v1 & 1;
-}
-
-uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::Value_(uint64_t a1)
-{
-  v1 = 68;
-  if (*(a1 + 48))
-  {
-    v1 = 52;
-  }
-
-  return a1 + v1;
-}
-
-uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::Next_(uint64_t result)
-{
-  if (*(result + 48) == 1)
-  {
-    *(result + 48) = 0;
-  }
-
-  else
-  {
-    if (*(result + 28))
-    {
-      v2 = *(result + 32);
-      v1 = *(result + 40);
-    }
-
-    else
-    {
-      v1 = *(result + 32);
-      v2 = *(result + 40);
-    }
-
-    return fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::FindNext<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>(result, v1, v2);
-  }
-
-  return result;
-}
-
-void *fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::~ComposeFstMatcher(void *a1)
-{
-  *a1 = &unk_1F2D0DCF0;
-  v2 = a1[4];
-  if (v2)
-  {
-    (*(*v2 + 8))(v2);
-  }
-
-  v3 = a1[5];
-  if (v3)
-  {
-    (*(*v3 + 8))(v3);
-  }
-
-  return a1;
-}
-
-uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::ComposeFstMatcher(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  *a1 = &unk_1F2D0DCF0;
-  *(a1 + 8) = *(a2 + 8);
-  *(a1 + 16) = *(a2 + 16);
-  *(a1 + 24) = -1;
-  *(a1 + 28) = *(a2 + 28);
-  *(a1 + 32) = (*(**(a2 + 32) + 16))(*(a2 + 32), a3);
-  *(a1 + 40) = (*(**(a2 + 40) + 16))(*(a2 + 40), a3);
-  *(a1 + 48) = 0;
-  *(a1 + 52) = xmmword_1B5AE3080;
-  *(a1 + 84) = *(a2 + 84);
-  if (a3)
-  {
-    if (FLAGS_fst_error_fatal == 1)
-    {
-      std::string::basic_string[abi:ne200100]<0>(__p, "FATAL");
-    }
-
-    else
-    {
-      std::string::basic_string[abi:ne200100]<0>(__p, "ERROR");
-    }
-
-    v6 = fst::LogMessage::LogMessage(&v11, __p);
-    v7 = fst::cerr(v6);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "ComposeFstMatcher: safe copy not supported", 42);
-    fst::LogMessage::~LogMessage(&v11);
-    if (v10 < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    *(a1 + 84) = 1;
-  }
-
-  if (*(a1 + 28) == 1)
-  {
-    *(a1 + 52) = vrev64_s32(*(a1 + 52));
-  }
-
-  return a1;
-}
-
-void sub_1B535B174(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, int a15, __int16 a16, char a17, char a18)
-{
-  fst::LogMessage::~LogMessage(&a18);
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::FindLabel<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  result = fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::Find(a3, a2);
-  if (result)
-  {
-    v8 = 28;
-    if (!*(a1 + 28))
-    {
-      v8 = 32;
-    }
-
-    fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>::Find(a4, *(a3 + v8));
-
-    return fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::FindNext<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>(a1, a3, a4);
-  }
-
-  return result;
-}
-
-uint64_t fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::FindNext<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,int>>(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = (a2 + 28);
-  v7 = (a3 + 28);
-  LOBYTE(v8) = *(a3 + 44);
-  while ((*(a2 + 44) & 1) != 0)
-  {
-    if ((v8 & 1) == 0)
-    {
-      *(a2 + 44) = 0;
-    }
-
-LABEL_6:
-    while (1)
-    {
-      v8 = *(a3 + 44);
-      if (v8 != 1)
-      {
-        break;
-      }
-
-      *(a3 + 44) = 0;
-      v9 = *(a1 + 28);
-      v10 = v9 == 0;
-      if (v9)
-      {
-        v11 = v7;
-      }
-
-      else
-      {
-        v11 = v6;
-      }
-
-      v12 = *v11;
-      v13 = v11[1];
-      if (v10)
-      {
-        v14 = v7;
-      }
-
-      else
-      {
-        v14 = v6;
-      }
-
-      if (fst::ComposeFstMatcher<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::MatchArc(a1, *(a1 + 24), v12, v13, *v14, v14[1]))
-      {
-        return 1;
-      }
-    }
-  }
-
-  if (v8)
-  {
-    goto LABEL_6;
-  }
-
-  return 0;
-}
-
-uint64_t fst::StateMap<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::ArcSortMapper<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(uint64_t a1, void *a2)
-{
-  result = (*(*a1 + 24))(a1);
-  if (result != -1)
-  {
-    v5 = (*(*a1 + 64))(a1, 0x3FFFFFFF0007, 0);
-    v6 = (*(**a2 + 24))();
-    (*(*a1 + 176))(a1, v6);
-    if ((*(*a1 + 160))(a1) >= 1)
-    {
-      v7 = 0;
-      do
-      {
-        v8 = fst::ArcSortMapper<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::SetState(a2, v7);
-        (*(*a1 + 240))(a1, v7, v8);
-        for (i = a2[5]; ; a2[5] = i)
-        {
-          v10 = a2[2];
-          if (i >= (a2[3] - v10) >> 4)
-          {
-            break;
-          }
-
-          (*(*a1 + 208))(a1, v7, v10 + 16 * i);
-          i = a2[5] + 1;
-        }
-
-        (*(**a2 + 32))(*a2, v7);
-        (*(*a1 + 184))(a1, v7);
-        v7 = (v7 + 1);
-      }
-
-      while (v7 < (*(*a1 + 160))(a1));
-    }
-
-    v11 = *(*a1 + 192);
-
-    return v11(a1, v5 & 0x3FFF0FFF0007 | (((v5 >> 16) & 1) << 28) | 0x40000000, 0x3FFFFFFF0007);
-  }
-
-  return result;
-}
-
-double fst::ArcSortMapper<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>::SetState(void *a1, uint64_t a2)
-{
-  a1[5] = 0;
-  v4 = a1 + 2;
-  a1[3] = a1[2];
-  v5 = (*(**a1 + 40))(*a1);
-  std::vector<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>::reserve(v4, v5);
-  v6 = *a1;
-  v16 = 0;
-  (*(*v6 + 136))(v6, a2, v14);
-  while (1)
-  {
-    if (!v14[0])
-    {
-      if (v16 >= v14[2])
-      {
-        goto LABEL_13;
-      }
-
-LABEL_7:
-      v8 = (v14[1] + 16 * v16);
-      goto LABEL_8;
-    }
-
-    if ((*(*v14[0] + 24))(v14[0]))
-    {
-      break;
-    }
-
-    if (!v14[0])
-    {
-      goto LABEL_7;
-    }
-
-    v8 = (*(*v14[0] + 32))();
-LABEL_8:
-    std::vector<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>::push_back[abi:ne200100](v4, v8);
-    if (v14[0])
-    {
-      (*(*v14[0] + 40))(v14[0]);
-    }
-
-    else
-    {
-      ++v16;
-    }
-  }
-
-  if (v14[0])
-  {
-    (*(*v14[0] + 8))();
-    goto LABEL_15;
-  }
-
-LABEL_13:
-  if (v15)
-  {
-    --*v15;
-  }
-
-LABEL_15:
-  v9 = a1[2];
-  v10 = a1[3];
-  v11 = 126 - 2 * __clz(v10 - v9);
-  if (v10 == v9)
-  {
-    v12 = 0;
-  }
-
-  else
-  {
-    v12 = v11;
-  }
-
-  *&result = std::__introsort<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>,int>*,false>(v9, v10, v14, v12, 1, v7).n128_u64[0];
-  return result;
-}
-
-void sub_1B535B754(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
-{
-  if (a10)
-  {
-    fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>();
-  }
-
-  else
-  {
-    fst::ComposeFstImpl<fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::SequenceComposeFilter<fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>,fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>::OrderedExpand<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>,fst::Matcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>(&a10);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-__n128 std::__introsort<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>,int>*,false>(__n128 *a1, __n128 *a2, uint64_t a3, uint64_t a4, char a5, __n128 result)
-{
-LABEL_1:
-  v10 = a2 - 1;
-  v39 = a2 - 2;
-  v11 = a2 - 3;
-  v12 = a1;
-LABEL_2:
-  v13 = 1 - a4;
-  while (1)
-  {
-    a1 = v12;
-    v14 = v13;
-    v15 = a2 - v12;
-    if (v15 <= 2)
-    {
-      if (v15 < 2)
-      {
-        return result;
-      }
-
-      if (v15 == 2)
-      {
-        if (a2[-1].n128_u32[1] < v12->n128_u32[1])
-        {
-          v62 = *v12;
-          *v12 = a2[-1];
-          result = v62;
-          a2[-1] = v62;
-        }
-
-        return result;
-      }
-
-      goto LABEL_10;
-    }
-
-    if (v15 == 3)
-    {
-      break;
-    }
-
-    if (v15 == 4)
-    {
-      v37 = v12[1].n128_i32[1];
-      v38 = v12[2].n128_i32[1];
-      if (v37 >= v12->n128_u32[1])
-      {
-        if (v38 < v37)
-        {
-          result = v12[1];
-          v12[1] = v12[2];
-          v12[2] = result;
-          if (v12[1].n128_u32[1] < v12->n128_u32[1])
-          {
-            v64 = *v12;
-            *v12 = v12[1];
-            result = v64;
-            v12[1] = v64;
-          }
-        }
-      }
-
-      else
-      {
-        if (v38 < v37)
-        {
-          v63 = *v12;
-          *v12 = v12[2];
-          result = v63;
-          goto LABEL_103;
-        }
-
-        v66 = *v12;
-        *v12 = v12[1];
-        result = v66;
-        v12[1] = v66;
-        if (v38 < v12[1].n128_u32[1])
-        {
-          result = v12[1];
-          v12[1] = v12[2];
-LABEL_103:
-          v12[2] = result;
-        }
-      }
-
-      if (a2[-1].n128_u32[1] >= v12[2].n128_u32[1])
-      {
-        return result;
-      }
-
-      result = v12[2];
-      v12[2] = *v10;
-      *v10 = result;
-      if (v12[2].n128_u32[1] >= v12[1].n128_u32[1])
-      {
-        return result;
-      }
-
-      result = v12[1];
-      v12[1] = v12[2];
-      v12[2] = result;
-LABEL_107:
-      if (v12[1].n128_u32[1] < v12->n128_u32[1])
-      {
-        v67 = *v12;
-        *v12 = v12[1];
-        result = v67;
-        v12[1] = v67;
-      }
-
-      return result;
-    }
-
-    if (v15 == 5)
-    {
-
-      result.n128_u64[0] = std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>,int>*,0>(v12, v12 + 1, v12 + 2, v12 + 3, a2 - 1, result).n128_u64[0];
-      return result;
-    }
-
-LABEL_10:
-    if (v15 <= 23)
-    {
-      if (a5)
-      {
-
-        std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>,int>*>(v12, a2);
-      }
-
-      else
-      {
-
-        std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>,int>*>(v12, a2);
-      }
-
-      return result;
-    }
-
-    if (v13 == 1)
-    {
-      if (v12 != a2)
-      {
-
-        std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>,int>*,fst::ArcTpl<fst::TropicalWeightTpl<float>,int>*>(v12, a2, a2, a3);
-      }
-
-      return result;
-    }
-
-    v16 = &v12[v15 >> 1];
-    v17 = a2[-1].n128_i32[1];
-    if (v15 >= 0x81)
-    {
-      v18 = v16->n128_i32[1];
-      if (v18 >= v12->n128_u32[1])
-      {
-        if (v17 < v18)
-        {
-          v42 = *v16;
-          *v16 = *v10;
-          *v10 = v42;
-          if (v16->n128_u32[1] < v12->n128_u32[1])
-          {
-            v43 = *v12;
-            *v12 = *v16;
-            *v16 = v43;
-          }
-        }
-      }
-
-      else
-      {
-        if (v17 < v18)
-        {
-          v40 = *v12;
-          *v12 = *v10;
-          goto LABEL_28;
-        }
-
-        v46 = *v12;
-        *v12 = *v16;
-        *v16 = v46;
-        if (a2[-1].n128_u32[1] < v16->n128_u32[1])
-        {
-          v40 = *v16;
-          *v16 = *v10;
-LABEL_28:
-          *v10 = v40;
-        }
-      }
-
-      v20 = v16 - 1;
-      v21 = v16[-1].n128_i32[1];
-      v22 = a2[-2].n128_i32[1];
-      if (v21 >= v12[1].n128_u32[1])
-      {
-        if (v22 < v21)
-        {
-          v47 = *v20;
-          *v20 = *v39;
-          *v39 = v47;
-          if (v16[-1].n128_u32[1] < v12[1].n128_u32[1])
-          {
-            v48 = v12[1];
-            v12[1] = *v20;
-            *v20 = v48;
-          }
-        }
-      }
-
-      else
-      {
-        if (v22 < v21)
-        {
-          v23 = v12[1];
-          v24 = a2 - 2;
-          v12[1] = *v39;
-          goto LABEL_42;
-        }
-
-        v50 = v12[1];
-        v12[1] = *v20;
-        *v20 = v50;
-        if (a2[-2].n128_u32[1] < v16[-1].n128_u32[1])
-        {
-          v51 = *v20;
-          v24 = a2 - 2;
-          *v20 = *v39;
-          v23 = v51;
-LABEL_42:
-          *v24 = v23;
-        }
-      }
-
-      v25 = v16[1].n128_i32[1];
-      v26 = a2[-3].n128_i32[1];
-      if (v25 >= v12[2].n128_u32[1])
-      {
-        if (v26 < v25)
-        {
-          v52 = v16[1];
-          v16[1] = *v11;
-          *v11 = v52;
-          if (v16[1].n128_u32[1] < v12[2].n128_u32[1])
-          {
-            v53 = v12[2];
-            v12[2] = v16[1];
-            v16[1] = v53;
-          }
-        }
-      }
-
-      else
-      {
-        if (v26 < v25)
-        {
-          v27 = v12[2];
-          v12[2] = *v11;
-          goto LABEL_51;
-        }
-
-        v54 = v12[2];
-        v12[2] = v16[1];
-        v16[1] = v54;
-        if (a2[-3].n128_u32[1] < v16[1].n128_u32[1])
-        {
-          v55 = v16[1];
-          v16[1] = *v11;
-          v27 = v55;
-LABEL_51:
-          *v11 = v27;
-        }
-      }
-
-      v28 = v16->n128_i32[1];
-      v29 = v16[1].n128_i32[1];
-      if (v28 >= v16[-1].n128_u32[1])
-      {
-        if (v29 < v28)
-        {
-          v57 = *v16;
-          *v16 = v16[1];
-          v16[1] = v57;
-          if (v16->n128_u32[1] < v16[-1].n128_u32[1])
-          {
-            v58 = *v20;
-            *v20 = *v16;
-            *v16 = v58;
-          }
-        }
-      }
-
-      else
-      {
-        if (v29 < v28)
-        {
-          v56 = *v20;
-          *v20 = v16[1];
-          goto LABEL_60;
-        }
-
-        v59 = *v20;
-        *v20 = *v16;
-        *v16 = v59;
-        if (v16[1].n128_u32[1] < v16->n128_u32[1])
-        {
-          v56 = *v16;
-          *v16 = v16[1];
-LABEL_60:
-          v16[1] = v56;
-        }
-      }
-
-      v60 = *v12;
-      *v12 = *v16;
-      *v16 = v60;
-      if (a5)
-      {
-        goto LABEL_63;
-      }
-
-      goto LABEL_62;
-    }
-
-    v19 = v12->n128_i32[1];
-    if (v19 < v16->n128_u32[1])
-    {
-      if (v17 < v19)
-      {
-        v41 = *v16;
-        *v16 = *v10;
-        goto LABEL_37;
-      }
-
-      v49 = *v16;
-      *v16 = *v12;
-      *v12 = v49;
-      if (a2[-1].n128_u32[1] < v12->n128_u32[1])
-      {
-        v41 = *v12;
-        *v12 = *v10;
-LABEL_37:
-        *v10 = v41;
-      }
-
-LABEL_38:
-      if (a5)
-      {
-        goto LABEL_63;
-      }
-
-      goto LABEL_62;
-    }
-
-    if (v17 >= v19)
-    {
-      goto LABEL_38;
-    }
-
-    v44 = *v12;
-    *v12 = *v10;
-    *v10 = v44;
-    if (v12->n128_u32[1] >= v16->n128_u32[1])
-    {
-      goto LABEL_38;
-    }
-
-    v45 = *v16;
-    *v16 = *v12;
-    *v12 = v45;
-    if (a5)
-    {
-      goto LABEL_63;
-    }
-
-LABEL_62:
-    if (v12[-1].n128_u32[1] >= v12->n128_u32[1])
-    {
-      v12 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcTpl<fst::TropicalWeightTpl<float>,int> *,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &>(v12, a2);
-      goto LABEL_68;
-    }
-
-LABEL_63:
-    v30 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcTpl<fst::TropicalWeightTpl<float>,int> *,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &>(v12, a2);
-    if ((v32 & 1) == 0)
-    {
-      goto LABEL_66;
-    }
-
-    v33 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>,int>*>(v12, v30, v31);
-    v12 = v30 + 1;
-    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>,int>*>(v30 + 1, a2, v34))
-    {
-      a4 = -v14;
-      a2 = v30;
-      if (v33)
-      {
-        return result;
-      }
-
-      goto LABEL_1;
-    }
-
-    v13 = v14 + 1;
-    if (!v33)
-    {
-LABEL_66:
-      std::__introsort<std::_ClassicAlgPolicy,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>,int>*,false>(a1, v30, a3, -v14, a5 & 1);
-      v12 = v30 + 1;
-LABEL_68:
-      a5 = 0;
-      a4 = -v14;
-      goto LABEL_2;
-    }
-  }
-
-  v35 = v12[1].n128_i32[1];
-  v36 = a2[-1].n128_i32[1];
-  if (v35 >= v12->n128_u32[1])
-  {
-    if (v36 >= v35)
-    {
-      return result;
-    }
-
-    result = v12[1];
-    v12[1] = *v10;
-    *v10 = result;
-    goto LABEL_107;
-  }
-
-  if (v36 >= v35)
-  {
-    v65 = *v12;
-    *v12 = v12[1];
-    result = v65;
-    v12[1] = v65;
-    if (a2[-1].n128_u32[1] >= v12[1].n128_u32[1])
-    {
-      return result;
-    }
-
-    result = v12[1];
-    v12[1] = *v10;
-  }
-
-  else
-  {
-    v61 = *v12;
-    *v12 = *v10;
-    result = v61;
-  }
-
-  *v10 = result;
-  return result;
 }

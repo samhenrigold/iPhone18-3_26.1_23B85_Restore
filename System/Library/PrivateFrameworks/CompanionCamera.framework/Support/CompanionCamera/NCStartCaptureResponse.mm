@@ -38,7 +38,6 @@
 {
   if (*&self->_has)
   {
-    success = self->_success;
     PBDataWriterWriteBOOLField();
   }
 }

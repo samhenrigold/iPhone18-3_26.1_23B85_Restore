@@ -30,13 +30,13 @@ uint64_t __54__NSArray_MRAVAdditions__mr_containsVideoOutputDevice__block_invoke
 
 id __45__NSArray_MRAVAdditions__mr_allOutputDevices__block_invoke(uint64_t a1, void *a2)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = [v2 activatedClusterMembersOutputDevices];
   if (v3)
   {
-    v9[0] = v2;
-    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+    v8[0] = v2;
+    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
 
     v5 = [v4 arrayByAddingObjectsFromArray:v3];
     v2 = v4;
@@ -44,11 +44,9 @@ id __45__NSArray_MRAVAdditions__mr_allOutputDevices__block_invoke(uint64_t a1, v
 
   else
   {
-    v8 = v2;
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v8 count:1];
+    v7 = v2;
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v7 count:1];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

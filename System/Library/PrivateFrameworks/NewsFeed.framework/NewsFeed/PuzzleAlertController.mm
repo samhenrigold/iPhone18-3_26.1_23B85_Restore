@@ -10,7 +10,7 @@
 - (NSArray)keyCommands
 {
   swift_beginAccess();
-  sub_1D5B5A498(0, &qword_1EC890160);
+  sub_1D5B5A498(0, &qword_1EC890160, 0x1E69DCBA0);
 
   v2 = sub_1D726265C();
 

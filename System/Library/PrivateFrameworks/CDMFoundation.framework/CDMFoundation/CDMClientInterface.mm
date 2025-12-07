@@ -19,25 +19,23 @@
 
 - (id)createNSError:(id)error errorCode:(int64_t)code
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v6 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v15 = "[CDMClientInterface createNSError:errorCode:]";
-    v16 = 2112;
-    v17 = errorCopy;
+    v14 = "[CDMClientInterface createNSError:errorCode:]";
+    v15 = 2112;
+    v16 = errorCopy;
     _os_log_error_impl(&dword_1DC287000, v6, OS_LOG_TYPE_ERROR, "%s [ERR]: %@", buf, 0x16u);
   }
 
   v7 = MEMORY[0x1E696ABC0];
-  v12 = *MEMORY[0x1E696A578];
-  v13 = errorCopy;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+  v11 = *MEMORY[0x1E696A578];
+  v12 = errorCopy;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
   v9 = [v7 errorWithDomain:@"CDMClientErrorDomain" code:code userInfo:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

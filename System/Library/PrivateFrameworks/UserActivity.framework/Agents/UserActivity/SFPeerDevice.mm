@@ -13,7 +13,7 @@
   bzero(&v12, 0x500uLL);
   uname(&v12);
   v2 = objc_alloc_init(SFPeerDevice);
-  v3 = sub_1000174B8();
+  v3 = sub_1000174B8(v2);
   v4 = +[NSUUID UUID];
   uUIDString = [v4 UUIDString];
   [v2 setUniqueID:uUIDString];
@@ -45,7 +45,7 @@
   modelCopy = model;
   uname(&v13);
   v5 = objc_alloc_init(SFPeerDevice);
-  v6 = sub_1000174B8();
+  v6 = sub_1000174B8(v5);
   v7 = +[NSUUID UUID];
   uUIDString = [v7 UUIDString];
   [v5 setUniqueID:uUIDString];

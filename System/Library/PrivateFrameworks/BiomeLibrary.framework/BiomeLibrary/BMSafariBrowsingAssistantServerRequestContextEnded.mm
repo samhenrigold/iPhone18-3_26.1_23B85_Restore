@@ -90,7 +90,7 @@ LABEL_23:
 
 - (id)jsonDictionary
 {
-  v16[4] = *MEMORY[0x1E69E9840];
+  v15[4] = *MEMORY[0x1E69E9840];
   serverReleaseVersion = [(BMSafariBrowsingAssistantServerRequestContextEnded *)self serverReleaseVersion];
   responseData = [(BMSafariBrowsingAssistantServerRequestContextEnded *)self responseData];
   jsonDictionary = [responseData jsonDictionary];
@@ -115,39 +115,39 @@ LABEL_23:
     v7 = 0;
   }
 
-  v15[0] = @"serverReleaseVersion";
+  v14[0] = @"serverReleaseVersion";
   null = serverReleaseVersion;
   if (!serverReleaseVersion)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[0] = null;
-  v15[1] = @"responseData";
+  v15[0] = null;
+  v14[1] = @"responseData";
   null2 = jsonDictionary;
   if (!jsonDictionary)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[1] = null2;
-  v15[2] = @"isFreshTier";
+  v15[1] = null2;
+  v14[2] = @"isFreshTier";
   null3 = v6;
   if (!v6)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[2] = null3;
-  v15[3] = @"isBatchTier";
+  v15[2] = null3;
+  v14[3] = @"isBatchTier";
   null4 = v7;
   if (!v7)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[3] = null4;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:4];
+  v15[3] = null4;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:4];
   if (v7)
   {
     if (v6)
@@ -192,14 +192,13 @@ LABEL_18:
 LABEL_25:
 
 LABEL_19:
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 - (BMSafariBrowsingAssistantServerRequestContextEnded)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v45[1] = *MEMORY[0x1E69E9840];
+  v44[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"serverReleaseVersion"];
   if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -214,16 +213,16 @@ LABEL_19:
         goto LABEL_19;
       }
 
-      v21 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v22 = *MEMORY[0x1E698F240];
-      v44 = *MEMORY[0x1E696A578];
+      v20 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v21 = *MEMORY[0x1E698F240];
+      v43 = *MEMORY[0x1E696A578];
       v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"serverReleaseVersion"];
-      v45[0] = v16;
-      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:&v44 count:1];
+      v44[0] = v16;
+      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:&v43 count:1];
       v8 = 0;
       v15 = 0;
-      *error = [v21 initWithDomain:v22 code:2 userInfo:v23];
-      v14 = v23;
+      *error = [v20 initWithDomain:v21 code:2 userInfo:v22];
+      v14 = v22;
       goto LABEL_17;
     }
 
@@ -248,46 +247,46 @@ LABEL_19:
         goto LABEL_18;
       }
 
-      v35 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v24 = *MEMORY[0x1E698F240];
-      v42 = *MEMORY[0x1E696A578];
-      v43 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"responseData"];
-      v14 = v43;
-      v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
-      *errorCopy = [v35 initWithDomain:v24 code:2 userInfo:v25];
+      v34 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v23 = *MEMORY[0x1E698F240];
+      v41 = *MEMORY[0x1E696A578];
+      v42 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"responseData"];
+      v14 = v42;
+      v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+      *errorCopy = [v34 initWithDomain:v23 code:2 userInfo:v24];
 
       v15 = 0;
       goto LABEL_16;
     }
 
     v16 = v9;
-    v37 = 0;
-    v14 = [[BMSafariBrowsingAssistantResponseData alloc] initWithJSONDictionary:v16 error:&v37];
-    v20 = v37;
-    if (v20)
+    v36 = 0;
+    v14 = [[BMSafariBrowsingAssistantResponseData alloc] initWithJSONDictionary:v16 error:&v36];
+    v19 = v36;
+    if (v19)
     {
       if (errorCopy)
       {
-        v20 = v20;
-        *errorCopy = v20;
+        v19 = v19;
+        *errorCopy = v19;
       }
 
       v15 = 0;
       goto LABEL_17;
     }
 
-    v34 = v14;
+    v33 = v14;
 
     error = errorCopy;
   }
 
   else
   {
-    v34 = 0;
+    v33 = 0;
   }
 
   v10 = [dictionaryCopy objectForKeyedSubscript:@"isFreshTier"];
-  v36 = v8;
+  v35 = v8;
   if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
     objc_opt_class();
@@ -297,22 +296,22 @@ LABEL_19:
       {
         v11 = 0;
         v15 = 0;
-        v14 = v34;
+        v14 = v33;
         goto LABEL_15;
       }
 
-      v26 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v25 = objc_alloc(MEMORY[0x1E696ABC0]);
       errorCopy2 = error;
-      v27 = *MEMORY[0x1E698F240];
-      v40 = *MEMORY[0x1E696A578];
+      v26 = *MEMORY[0x1E698F240];
+      v39 = *MEMORY[0x1E696A578];
       v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isFreshTier"];
-      v41 = v13;
-      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
-      v28 = [v26 initWithDomain:v27 code:2 userInfo:v12];
+      v40 = v13;
+      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+      v27 = [v25 initWithDomain:v26 code:2 userInfo:v12];
       v11 = 0;
       v15 = 0;
-      v14 = v34;
-      *errorCopy2 = v28;
+      v14 = v33;
+      *errorCopy2 = v27;
       goto LABEL_14;
     }
 
@@ -332,18 +331,18 @@ LABEL_19:
     {
       if (error)
       {
-        v33 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v31 = *MEMORY[0x1E698F240];
-        v38 = *MEMORY[0x1E696A578];
-        v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isBatchTier"];
-        v39 = v29;
-        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
-        *error = [v33 initWithDomain:v31 code:2 userInfo:v30];
+        v32 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v30 = *MEMORY[0x1E698F240];
+        v37 = *MEMORY[0x1E696A578];
+        v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isBatchTier"];
+        v38 = v28;
+        v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+        *error = [v32 initWithDomain:v30 code:2 userInfo:v29];
       }
 
       v13 = 0;
       v15 = 0;
-      v14 = v34;
+      v14 = v33;
       goto LABEL_14;
     }
 
@@ -355,12 +354,12 @@ LABEL_19:
     v13 = 0;
   }
 
-  v14 = v34;
-  v15 = [(BMSafariBrowsingAssistantServerRequestContextEnded *)self initWithServerReleaseVersion:v36 responseData:v34 isFreshTier:v11 isBatchTier:v13];
+  v14 = v33;
+  v15 = [(BMSafariBrowsingAssistantServerRequestContextEnded *)self initWithServerReleaseVersion:v35 responseData:v33 isFreshTier:v11 isBatchTier:v13];
   self = v15;
 LABEL_14:
 
-  v8 = v36;
+  v8 = v35;
 LABEL_15:
 
 LABEL_16:
@@ -371,7 +370,6 @@ LABEL_17:
 LABEL_18:
 
 LABEL_19:
-  v17 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -401,13 +399,11 @@ LABEL_19:
 
   if (self->_hasIsFreshTier)
   {
-    isFreshTier = self->_isFreshTier;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasIsBatchTier)
   {
-    isBatchTier = self->_isBatchTier;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -689,48 +685,44 @@ LABEL_55:
 
 + (id)protoFields
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"serverReleaseVersion" number:1 type:13 subMessageClass:0];
-  v9[0] = v2;
+  v8[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"responseData" number:2 type:14 subMessageClass:objc_opt_class()];
-  v9[1] = v3;
+  v8[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isFreshTier" number:3 type:12 subMessageClass:0];
-  v9[2] = v4;
+  v8[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isBatchTier" number:4 type:12 subMessageClass:0];
-  v9[3] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[3] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
 
   return v6;
 }
 
 + (id)columns
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"serverReleaseVersion" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"responseData_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_832];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isFreshTier" dataType:0 requestOnly:0 fieldNumber:3 protoDataType:12 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isBatchTier" dataType:0 requestOnly:0 fieldNumber:4 protoDataType:12 convertedType:0];
-  v9[0] = v2;
-  v9[1] = v3;
-  v9[2] = v4;
-  v9[3] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[0] = v2;
+  v8[1] = v3;
+  v8[2] = v4;
+  v8[3] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
 
   return v6;
 }
 
-id __61__BMSafariBrowsingAssistantServerRequestContextEnded_columns__block_invoke(uint64_t a1, void *a2)
+id __61__BMSafariBrowsingAssistantServerRequestContextEnded_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 responseData];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 responseData];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

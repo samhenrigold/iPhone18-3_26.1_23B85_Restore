@@ -17,6 +17,7 @@
 - (unint64_t)hash;
 - (void)addTaskToEndOfSequence:(id)sequence;
 - (void)encodeWithCoder:(id)coder;
+- (void)setRetryCount:(int)count;
 @end
 
 @implementation TRISequenceTask
@@ -141,6 +142,24 @@
   }
 
   return [(TRITask *)task retryCount];
+}
+
+- (void)setRetryCount:(int)count
+{
+  task = self->_task;
+  if (task)
+  {
+    v5 = *&count;
+    if ([(TRITask *)task conformsToProtocol:&unk_287FDBB78])
+    {
+      v6 = self->_task;
+      if (v6)
+      {
+        v7 = v6;
+        [(TRITask *)v6 setRetryCount:v5];
+      }
+    }
+  }
 }
 
 - (void)addTaskToEndOfSequence:(id)sequence
@@ -336,17 +355,17 @@
 
 + (id)parseFromData:(id)data
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v13 = 0;
-  v3 = [(TRIPBMessage *)TRISequencePersistedTask parseFromData:data error:&v13];
-  v4 = v13;
+  v15 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v3 = [(TRIPBMessage *)TRISequencePersistedTask parseFromData:data error:&v12];
+  v4 = v12;
   if (!v3)
   {
     v6 = TRILogCategory_Server();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v15 = v4;
+      v14 = v4;
       _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, "Unable to parse buffer as TRISequencePersistedTask: %{public}@", buf, 0xCu);
     }
 
@@ -405,14 +424,13 @@ LABEL_14:
 LABEL_17:
 
 LABEL_18:
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 id __33__TRISequenceTask_parseFromData___block_invoke(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v1 = a1;
   if (([v1 hasType] & 1) == 0)
   {
@@ -422,7 +440,7 @@ id __33__TRISequenceTask_parseFromData___block_invoke(void *a1)
       goto LABEL_12;
     }
 
-    LOWORD(v12[0]) = 0;
+    LOWORD(v11[0]) = 0;
     v7 = "TRISequencePersistedTask is missing task type";
     goto LABEL_9;
   }
@@ -435,13 +453,13 @@ id __33__TRISequenceTask_parseFromData___block_invoke(void *a1)
       goto LABEL_12;
     }
 
-    LOWORD(v12[0]) = 0;
+    LOWORD(v11[0]) = 0;
     v7 = "TRISequencePersistedTask is missing serialized task bytes";
 LABEL_9:
     v8 = v6;
     v9 = 2;
 LABEL_10:
-    _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, v7, v12, v9);
+    _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, v7, v11, v9);
     goto LABEL_12;
   }
 
@@ -459,8 +477,8 @@ LABEL_10:
   v6 = TRILogCategory_Server();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v12[0] = 67109120;
-    v12[1] = [v1 type];
+    v11[0] = 67109120;
+    v11[1] = [v1 type];
     v7 = "TRISequencePersistedTask encodes unsupported class type %d";
     v8 = v6;
     v9 = 8;
@@ -471,8 +489,6 @@ LABEL_12:
 
   v5 = 0;
 LABEL_13:
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

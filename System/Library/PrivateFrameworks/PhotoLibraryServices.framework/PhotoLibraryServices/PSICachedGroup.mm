@@ -28,7 +28,7 @@
   equalCopy = equal;
   if (equalCopy == self)
   {
-    v6 = 1;
+    isEqualToString = 1;
   }
 
   else
@@ -38,33 +38,33 @@
     {
       v7 = equalCopy;
       v8 = v7;
-      if (self->_category == v7->_category && self->_owningGroupId == v7->_owningGroupId && ((text = self->_text, text == v8->_text) || [(NSString *)text isEqualToString:?]))
+      if (self->_category == v7->_category && self->_owningGroupId == v7->_owningGroupId && ((text = self->_text, text == v8->_text) || objc_msgSend_isEqualToString_(text)))
       {
         identifier = self->_identifier;
         if (identifier == v8->_identifier)
         {
-          v6 = 1;
+          isEqualToString = 1;
         }
 
         else
         {
-          v6 = [(NSString *)identifier isEqualToString:?];
+          isEqualToString = objc_msgSend_isEqualToString_(identifier);
         }
       }
 
       else
       {
-        v6 = 0;
+        isEqualToString = 0;
       }
     }
 
     else
     {
-      v6 = 0;
+      isEqualToString = 0;
     }
   }
 
-  return v6;
+  return isEqualToString;
 }
 
 - (PSICachedGroup)initWithText:(id)text identifier:(id)identifier category:(unint64_t)category owningGroupId:(unint64_t)id

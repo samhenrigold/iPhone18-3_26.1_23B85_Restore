@@ -130,7 +130,7 @@ uint64_t __43__CATSerialOperationEnqueuer_addOperation___block_invoke(uint64_t a
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      [CATSerialOperationEnqueuer observeValueForKeyPath:ofObject:change:context:];
+      [CATSerialOperationEnqueuer observeValueForKeyPath:v12 ofObject:? change:? context:?];
     }
 
     v14[0] = MEMORY[0x277D85DD0];
@@ -151,15 +151,15 @@ uint64_t __43__CATSerialOperationEnqueuer_addOperation___block_invoke(uint64_t a
   }
 }
 
-- (void)observeValueForKeyPath:ofObject:change:context:.cold.1()
+- (void)observeValueForKeyPath:(uint64_t)a1 ofObject:change:context:.cold.1(uint64_t a1)
 {
-  v5 = [MEMORY[0x277CCA890] currentHandler];
-  v0 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[CATSerialOperationEnqueuer observeValueForKeyPath:ofObject:change:context:]"];
-  v1 = objc_opt_class();
-  v2 = NSStringFromClass(v1);
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  [v5 handleFailureInFunction:v0 file:@"CATSerialOperationEnqueuer.m" lineNumber:142 description:{@"expected %@, got %@", v2, v4}];
+  v6 = [MEMORY[0x277CCA890] currentHandler];
+  v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[CATSerialOperationEnqueuer observeValueForKeyPath:ofObject:change:context:]"];
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  [v6 handleFailureInFunction:v1 file:@"CATSerialOperationEnqueuer.m" lineNumber:142 description:{@"expected %@, got %@", v3, v5}];
 }
 
 @end

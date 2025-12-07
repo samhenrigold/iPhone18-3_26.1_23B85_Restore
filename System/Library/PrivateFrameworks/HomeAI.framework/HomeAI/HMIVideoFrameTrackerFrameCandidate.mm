@@ -37,7 +37,7 @@
   v3 = MEMORY[0x277CCACA8];
   v4 = HMICMSampleBufferTinyDescription([(HMIVideoFrameTrackerFrameCandidate *)self sbuf]);
   [(HMIVideoFrameTrackerFrameCandidate *)self score];
-  v6 = [v3 stringWithFormat:@"%@ - %f", v4, v5];
+  v6 = [v3 stringWithFormat:v4, v5];
 
   return v6;
 }

@@ -300,7 +300,7 @@ LABEL_25:
   v38 = 0;
   v10 = 0;
 LABEL_28:
-  v39 = BKLibraryCollectionLog();
+  v39 = BKLibraryCollectionLog(v4);
   if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;

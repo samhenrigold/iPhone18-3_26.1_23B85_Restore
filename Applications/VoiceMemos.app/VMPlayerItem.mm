@@ -38,7 +38,7 @@
 
   selfCopy = self;
   sub_100118898(v9, v8, time);
-  sub_1000338B4(v9);
+  sub_1000338B4(v9, v8);
 }
 
 - (double)currentTime

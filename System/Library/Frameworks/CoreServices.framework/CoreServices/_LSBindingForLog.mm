@@ -39,26 +39,23 @@
 
 - (id)description
 {
-  bundleName = self->_binding.bundleData->base.bundleName;
   [(_LSDatabase *)self->_db store];
-  v4 = _CSStringCopyCFString();
-  if (!v4)
+  v3 = _CSStringCopyCFString();
+  if (!v3)
   {
-    secondaryCategoryType = self->_binding.bundleData->secondaryCategoryType;
     [(_LSDatabase *)self->_db store];
-    v4 = _CSStringCopyCFString();
-    if (!v4)
+    v3 = _CSStringCopyCFString();
+    if (!v3)
     {
-      exactIdentifier = self->_binding.bundleData->base.exactIdentifier;
       [(_LSDatabase *)self->_db store];
-      v4 = _CSStringCopyCFString();
+      v3 = _CSStringCopyCFString();
     }
   }
 
-  v7 = v4;
-  v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@%@ (B:0x%llx, C:0x%llx)", v4, &stru_1EEF65710, self->_binding.bundle, self->_binding.claim];
+  v4 = v3;
+  v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@%@ (B:0x%llx, C:0x%llx)", v3, &stru_1EEF65710, self->_binding.bundle, self->_binding.claim];
 
-  return v8;
+  return v5;
 }
 
 - (id)redactedDescription

@@ -12,7 +12,7 @@
 - (void)imagePickerController:(id)controller didFinishPickingMediaWithInfo:(id)info
 {
   type metadata accessor for InfoKey(0);
-  sub_100BB3A48(&qword_1011B0BB0, type metadata accessor for InfoKey);
+  sub_100BB3A48(&qword_1011B0BB0, type metadata accessor for InfoKey, &unk_100EFF480);
   v6 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
   selfCopy = self;
@@ -39,7 +39,7 @@
 {
   v6 = type metadata accessor for URL();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
+  __chkstk_darwin();
   v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
@@ -52,7 +52,7 @@
 - (void)presentationControllerDidDismiss:(id)dismiss
 {
   type metadata accessor for ImagePicker(0);
-  sub_10010FC20(&qword_1011B5F50);
+  sub_10010FC20(&qword_1011B5F50, &qword_100F01C50);
   Binding.wrappedValue.setter();
 }
 

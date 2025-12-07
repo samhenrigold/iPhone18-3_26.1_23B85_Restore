@@ -107,76 +107,71 @@ void __80__FPDFetchAppLibraryIconOperation_initWithAppBundleIDs_desiredSize_scre
 
 uint64_t __88__FPDFetchAppLibraryIconOperation_operationDidProgressWithInfo_error_completionHandler___block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   if (*(a1 + 56))
   {
-    v2 = *MEMORY[0x1E6967140];
+    v1 = *MEMORY[0x1E6967140];
   }
 
   else
   {
-    v2 = 0;
+    v1 = 0;
   }
 
-  return [*(a1 + 32) _perAppBundleCompletion:*(a1 + 40) iconData:*(a1 + 48) contentType:v2 error:0];
+  return [*(a1 + 32) _perAppBundleCompletion:*(a1 + 40) iconData:*(a1 + 48) contentType:v1 error:0];
 }
 
 - (void)main
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = *(self + 304);
   v4 = *(self + 312);
   v5 = *(self + 320);
   v6 = [*(self + 344) componentsJoinedByString:{@", "}];
-  v8[0] = 67109890;
-  v8[1] = v3;
-  v9 = 1024;
-  v10 = v4;
-  v11 = 1024;
-  v12 = v5;
-  v13 = 2112;
-  v14 = v6;
-  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] fetching thumbnail %dx%d@%dx for [%@] ", v8, 0x1Eu);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7[0] = 67109890;
+  v7[1] = v3;
+  v8 = 1024;
+  v9 = v4;
+  v10 = 1024;
+  v11 = v5;
+  v12 = 2112;
+  v13 = v6;
+  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] fetching thumbnail %dx%d@%dx for [%@] ", v7, 0x1Eu);
 }
 
 uint64_t __39__FPDFetchAppLibraryIconOperation_main__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = [*(*(a1 + 32) + 328) copy];
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         v8 = [MEMORY[0x1E696ABC0] fp_invalidArgumentError:{@"can't retrieve icon for app bundleID '%@'", v7}];
         [*(a1 + 32) _perAppBundleCompletion:v7 iconData:0 contentType:0 error:v8];
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
 
-  result = [*(a1 + 32) completedWithResult:0 error:0];
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) completedWithResult:0 error:0];
 }
 
 + (NSOperationQueue)sharedOperationQueue
@@ -205,34 +200,34 @@ uint64_t __55__FPDFetchAppLibraryIconOperation_sharedOperationQueue__block_invok
 
 - (void)_verifyAppBundleIDsFormat
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = fp_current_or_default_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [FPDFetchAppLibraryIconOperation _verifyAppBundleIDsFormat];
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v4 = [(NSMutableArray *)self->_appBundleIDsNotFound copy];
-  v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v17;
     do
     {
       v8 = 0;
       do
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * v8);
+        v9 = *(*(&v16 + 1) + 8 * v8);
         v10 = objc_autoreleasePoolPush();
         v11 = [(FPDFetchAppLibraryIconOperation *)self _checkTypeIsValid:v9];
         v12 = @"app bundleID '%@' is not a string";
@@ -251,13 +246,11 @@ uint64_t __55__FPDFetchAppLibraryIconOperation_sharedOperationQueue__block_invok
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v6);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_checkTypeIsValid:(id)valid
@@ -304,11 +297,111 @@ void __63__FPDFetchAppLibraryIconOperation__checkIsNotPrefixedByTeamID___block_i
 
 - (void)_retrieveIconsFromLocalDevice
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *self;
-  OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
+  callbackQueue = [(FPOperation *)self callbackQueue];
+  dispatch_assert_queue_V2(callbackQueue);
+
+  section = __fp_create_section();
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  {
+    [FPDFetchAppLibraryIconOperation _retrieveIconsFromLocalDevice];
+  }
+
+  v24 = [objc_alloc(MEMORY[0x1E69A8A30]) initWithSize:self->_desiredSize.width scale:{self->_desiredSize.height, self->_screenScale}];
+  v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v4 = [(NSMutableArray *)self->_appBundleIDsNotFound copy];
+  v5 = [v4 countByEnumeratingWithState:&v30 objects:v40 count:16];
+  if (v5)
+  {
+    v6 = *v31;
+    v23 = *MEMORY[0x1E6967148];
+    obj = v4;
+    do
+    {
+      v7 = 0;
+      v25 = v5;
+      do
+      {
+        if (*v31 != v6)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v8 = *(*(&v30 + 1) + 8 * v7);
+        v9 = objc_autoreleasePoolPush();
+        v10 = [MEMORY[0x1E6963620] bundleRecordWithApplicationIdentifier:v8 error:0];
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          v11 = v10;
+          applicationState = [v11 applicationState];
+          isValid = [applicationState isValid];
+
+          applicationState2 = [v11 applicationState];
+          isInstalled = [applicationState2 isInstalled];
+
+          if (isValid & isInstalled)
+          {
+            v16 = objc_alloc(MEMORY[0x1E69A8A00]);
+            compatibilityObject = [v11 compatibilityObject];
+            v18 = [v16 initWithResourceProxy:compatibilityObject];
+
+            v19 = dispatch_group_create();
+            dispatch_group_enter(v19);
+            *&buf = 0;
+            *(&buf + 1) = &buf;
+            v36 = 0x3032000000;
+            v37 = __Block_byref_object_copy__11;
+            v38 = __Block_byref_object_dispose__11;
+            v39 = 0;
+            v20 = v23;
+            v27[0] = MEMORY[0x1E69E9820];
+            v27[1] = 3221225472;
+            v27[2] = __64__FPDFetchAppLibraryIconOperation__retrieveIconsFromLocalDevice__block_invoke;
+            v27[3] = &unk_1E83C09C8;
+            p_buf = &buf;
+            v21 = v19;
+            v28 = v21;
+            [v18 getImageForImageDescriptor:v24 completion:v27];
+            dispatch_group_wait(v21, 0xFFFFFFFFFFFFFFFFLL);
+            if ([*(*(&buf + 1) + 40) length])
+            {
+              [(FPDFetchAppLibraryIconOperation *)self _perAppBundleCompletion:v8 iconData:*(*(&buf + 1) + 40) contentType:v20 error:0];
+            }
+
+            v5 = v25;
+            _Block_object_dispose(&buf, 8);
+          }
+
+          else
+          {
+            v18 = fp_current_or_default_log();
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+            {
+              LODWORD(buf) = 138412290;
+              *(&buf + 4) = v8;
+              _os_log_debug_impl(&dword_1CEFC7000, v18, OS_LOG_TYPE_DEBUG, "[DEBUG] app icon for '%@' not available in local", &buf, 0xCu);
+            }
+          }
+        }
+
+        objc_autoreleasePoolPop(v9);
+        ++v7;
+      }
+
+      while (v5 != v7);
+      v4 = obj;
+      v5 = [obj countByEnumeratingWithState:&v30 objects:v40 count:16];
+    }
+
+    while (v5);
+  }
+
+  __fp_leave_section_Debug();
 }
 
 void __64__FPDFetchAppLibraryIconOperation__retrieveIconsFromLocalDevice__block_invoke(uint64_t a1, uint64_t a2)
@@ -325,11 +418,9 @@ void __64__FPDFetchAppLibraryIconOperation__retrieveIconsFromLocalDevice__block_
 
 - (void)_retrieveIconsFromAppStore
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_perAppBundleCompletion:(id)completion iconData:(id)data contentType:(id)type error:(id)error
@@ -406,20 +497,18 @@ void __64__FPDFetchAppLibraryIconOperation__retrieveIconsFromLocalDevice__block_
 
 - (void)_perAppBundleCompletion:iconData:contentType:error:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&dword_1CEFC7000, v0, OS_LOG_TYPE_ERROR, "[ERROR] perAppBundleCompletion already called for %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1CEFC7000, v0, OS_LOG_TYPE_ERROR, "[ERROR] perAppBundleCompletion already called for %@", v1, 0xCu);
 }
 
 - (void)_perAppBundleCompletion:iconData:contentType:error:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_debug_impl(&dword_1CEFC7000, v1, OS_LOG_TYPE_DEBUG, "[DEBUG] icon for %@ %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_1CEFC7000, v1, OS_LOG_TYPE_DEBUG, "[DEBUG] icon for %@ %@", v2, 0x16u);
 }
 
 @end

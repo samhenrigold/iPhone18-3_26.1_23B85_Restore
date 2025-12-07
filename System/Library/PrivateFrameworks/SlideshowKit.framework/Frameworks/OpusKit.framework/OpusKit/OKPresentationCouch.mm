@@ -386,7 +386,7 @@ LABEL_10:
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v11 + 1) + 8 * i) duration];
+        objc_msgSend_duration(*(*(&v11 + 1) + 8 * i));
         v7 = v7 + v9;
       }
 

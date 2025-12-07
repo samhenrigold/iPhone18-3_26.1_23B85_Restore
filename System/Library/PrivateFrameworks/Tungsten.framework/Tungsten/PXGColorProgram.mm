@@ -623,7 +623,7 @@ LABEL_18:
   return 1;
 }
 
-BOOL __71__PXGColorProgram__compactProgramWithConversionInfo_cubeSize_cubeOnly___block_invoke_33(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+BOOL __71__PXGColorProgram__compactProgramWithConversionInfo_cubeSize_cubeOnly___block_invoke_33(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
   CGColorTRCGetFunction();
   if (*(*(a1[5] + 8) + 24) < a4)
@@ -638,7 +638,7 @@ BOOL __71__PXGColorProgram__compactProgramWithConversionInfo_cubeSize_cubeOnly__
     v11 = 0uLL;
     while (1)
     {
-      v12 = *(a5 + 8 * v9);
+      v12 = a5[v9];
       if ((v12 & 0x8000000000000000) == 0)
       {
         if (v12 >= *(a2 + 28))
@@ -782,7 +782,7 @@ LABEL_48:
   return v10;
 }
 
-uint64_t __71__PXGColorProgram__compactProgramWithConversionInfo_cubeSize_cubeOnly___block_invoke_35(void *a1, uint64_t a2)
+uint64_t __71__PXGColorProgram__compactProgramWithConversionInfo_cubeSize_cubeOnly___block_invoke_35(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   CGColorMatrixGetMatrix();
   *(*(a1[4] + 8) + 24) = *(a2 + 20);

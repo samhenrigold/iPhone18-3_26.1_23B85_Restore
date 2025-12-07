@@ -84,28 +84,29 @@ LABEL_12:
   v5 = a3;
   v6 = a4;
   v7 = [LPMIMETypeRegistry UTIForMIMEType:v6];
-  if ([v7 hasPrefix:@"dyn."])
+  v8 = [v7 hasPrefix:@"dyn."];
+  if (v8)
   {
-    v8 = LPLogChannelTypes();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = LPLogChannelTypes(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [NSItemProvider(LPExtras) _lp_itemProviderWithData:v6 MIMEType:v8];
+      [NSItemProvider(LPExtras) _lp_itemProviderWithData:v6 MIMEType:v10];
     }
   }
 
-  v9 = 0;
+  v11 = 0;
   if (v5 && v7)
   {
-    v9 = objc_alloc_init(MEMORY[0x1E696ACA0]);
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __62__NSItemProvider_LPExtras___lp_itemProviderWithData_MIMEType___block_invoke;
-    v11[3] = &unk_1E7A35D18;
-    v12 = v5;
-    [v9 registerDataRepresentationForTypeIdentifier:v7 visibility:0 loadHandler:v11];
+    v11 = objc_alloc_init(MEMORY[0x1E696ACA0]);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __62__NSItemProvider_LPExtras___lp_itemProviderWithData_MIMEType___block_invoke;
+    v13[3] = &unk_1E7A35D18;
+    v14 = v5;
+    [v11 registerDataRepresentationForTypeIdentifier:v7 visibility:0 loadHandler:v13];
   }
 
-  return v9;
+  return v11;
 }
 
 + (void)_lp_itemProviderWithData:()LPExtras MIMEType:.cold.1(uint64_t a1, NSObject *a2)

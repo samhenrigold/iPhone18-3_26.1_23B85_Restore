@@ -2601,54 +2601,55 @@ LABEL_54:
 
   _heightenedIntervalSecs = +[MADAutoAssetControlManager preferenceActivityIntervalSecs];
   v8 = [(MADAutoAssetScheduler *)self _assetTypeForAssetSelector:selectorCopy];
+  v10 = v8;
   if (_heightenedIntervalSecs < 0)
   {
-    if (_MAPreferencesIsInternalAllowed() && !+[MADAutoAssetControlManager preferenceScheduledAsIfNotInternal])
+    if (_MAPreferencesIsInternalAllowed(v8, v9) && !+[MADAutoAssetControlManager preferenceScheduledAsIfNotInternal])
     {
-      v9 = @"internal image";
+      v11 = @"internal image";
       _heightenedIntervalSecs = 86400;
     }
 
-    else if ([MADAutoAssetScheduler isAssetTypeAtHeightenedFrequency:v8])
+    else if ([MADAutoAssetScheduler isAssetTypeAtHeightenedFrequency:v10])
     {
       _heightenedIntervalSecs = [(MADAutoAssetScheduler *)self _heightenedIntervalSecs];
-      v9 = @"heightened";
+      v11 = @"heightened";
     }
 
-    else if ([MADAutoAssetScheduler isAssetTypeAtAggressiveFrequency:v8])
+    else if ([MADAutoAssetScheduler isAssetTypeAtAggressiveFrequency:v10])
     {
       _heightenedIntervalSecs = [(MADAutoAssetScheduler *)self _aggressiveIntervalSecs];
-      v9 = @"aggressive";
+      v11 = @"aggressive";
     }
 
     else
     {
-      v9 = @"default";
+      v11 = @"default";
       _heightenedIntervalSecs = 604800;
     }
   }
 
   else
   {
-    v9 = @"preference-based";
+    v11 = @"preference-based";
   }
 
-  v10 = _MADLog(@"AutoScheduler");
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v12 = _MADLog(@"AutoScheduler");
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     summary = [(MADAutoAssetScheduler *)self summary];
     summary2 = [selectorCopy summary];
-    v14 = 138544386;
-    v15 = summary;
-    v16 = 2114;
-    v17 = v9;
+    v16 = 138544386;
+    v17 = summary;
     v18 = 2114;
-    v19 = summary2;
+    v19 = v11;
     v20 = 2114;
-    v21 = v8;
-    v22 = 2048;
-    v23 = _heightenedIntervalSecs;
-    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ | {AUTO-SCHEDULER:_decideTriggerIntervalSecs} reason:%{public}@ | assetSelector:%{public}@ | scheduledJobAssetType:%{public}@ | determinedIntervalSecs:%ld", &v14, 0x34u);
+    v21 = summary2;
+    v22 = 2114;
+    v23 = v10;
+    v24 = 2048;
+    v25 = _heightenedIntervalSecs;
+    _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ | {AUTO-SCHEDULER:_decideTriggerIntervalSecs} reason:%{public}@ | assetSelector:%{public}@ | scheduledJobAssetType:%{public}@ | determinedIntervalSecs:%ld", &v16, 0x34u);
   }
 
   return _heightenedIntervalSecs;

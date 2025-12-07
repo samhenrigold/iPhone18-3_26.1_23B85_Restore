@@ -10,7 +10,7 @@
 
 - (void)startMonitoring:(id)monitoring
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   monitoringCopy = monitoring;
   queue = [(ULEventMonitor *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -23,37 +23,37 @@
   [controller setDispatchQueue:queue2];
 
   objc_initWeak(&location, self);
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __38__ULBluetoothMonitor_startMonitoring___block_invoke;
-  v22[3] = &unk_2798D4080;
-  objc_copyWeak(&v23, &location);
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __38__ULBluetoothMonitor_startMonitoring___block_invoke;
+  v21[3] = &unk_2798D4080;
+  objc_copyWeak(&v22, &location);
   controller2 = [(ULBluetoothMonitor *)self controller];
-  [controller2 setInvalidationHandler:v22];
+  [controller2 setInvalidationHandler:v21];
 
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __38__ULBluetoothMonitor_startMonitoring___block_invoke_6;
-  v20[3] = &unk_2798D4080;
-  objc_copyWeak(&v21, &location);
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __38__ULBluetoothMonitor_startMonitoring___block_invoke_6;
+  v19[3] = &unk_2798D4080;
+  objc_copyWeak(&v20, &location);
   controller3 = [(ULBluetoothMonitor *)self controller];
-  [controller3 setInterruptionHandler:v20];
+  [controller3 setInterruptionHandler:v19];
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __38__ULBluetoothMonitor_startMonitoring___block_invoke_7;
-  v18[3] = &unk_2798D4080;
-  objc_copyWeak(&v19, &location);
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __38__ULBluetoothMonitor_startMonitoring___block_invoke_7;
+  v17[3] = &unk_2798D4080;
+  objc_copyWeak(&v18, &location);
   controller4 = [(ULBluetoothMonitor *)self controller];
-  [controller4 setBluetoothStateChangedHandler:v18];
+  [controller4 setBluetoothStateChangedHandler:v17];
 
   controller5 = [(ULBluetoothMonitor *)self controller];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __38__ULBluetoothMonitor_startMonitoring___block_invoke_2;
-  v16[3] = &unk_2798D4200;
-  objc_copyWeak(&v17, &location);
-  [controller5 activateWithCompletion:v16];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __38__ULBluetoothMonitor_startMonitoring___block_invoke_2;
+  v15[3] = &unk_2798D4200;
+  objc_copyWeak(&v16, &location);
+  [controller5 activateWithCompletion:v15];
 
   [(ULBluetoothMonitor *)self setPowerOn:1];
   if (onceToken_MicroLocation_Default != -1)
@@ -66,19 +66,17 @@
   {
     v14 = [MEMORY[0x277CCABB0] numberWithBool:{-[ULBluetoothMonitor powerOn](self, "powerOn")}];
     *buf = 138412546;
-    v26 = monitoringCopy;
-    v27 = 2112;
-    v28 = v14;
+    v25 = monitoringCopy;
+    v26 = 2112;
+    v27 = v14;
     _os_log_impl(&dword_258FE9000, v13, OS_LOG_TYPE_DEFAULT, "[ULBluetoothMonitor]: Start monitoring: %@, powerOn: %@", buf, 0x16u);
   }
 
-  objc_destroyWeak(&v17);
-  objc_destroyWeak(&v19);
-  objc_destroyWeak(&v21);
-  objc_destroyWeak(&v23);
+  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v20);
+  objc_destroyWeak(&v22);
   objc_destroyWeak(&location);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __38__ULBluetoothMonitor_startMonitoring___block_invoke(uint64_t a1)
@@ -134,7 +132,7 @@ void __38__ULBluetoothMonitor_startMonitoring___block_invoke_7(uint64_t a1)
 
 void __38__ULBluetoothMonitor_startMonitoring___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
@@ -147,9 +145,9 @@ void __38__ULBluetoothMonitor_startMonitoring___block_invoke_2(uint64_t a1, void
     v5 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138412290;
-      v8 = v3;
-      _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_ERROR, "[ULBluetoothMonitor]: activate with completion called with error: %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v3;
+      _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_ERROR, "[ULBluetoothMonitor]: activate with completion called with error: %@", &v6, 0xCu);
     }
 
     if (v3)
@@ -162,13 +160,11 @@ void __38__ULBluetoothMonitor_startMonitoring___block_invoke_2(uint64_t a1, void
       [WeakRetained _bluetoothStateChangeHandler];
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopMonitoring:(id)monitoring
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   monitoringCopy = monitoring;
   queue = [(ULEventMonitor *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -181,14 +177,12 @@ void __38__ULBluetoothMonitor_startMonitoring___block_invoke_2(uint64_t a1, void
   v6 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = monitoringCopy;
-    _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "[ULBluetoothMonitor]: Stop monitoring: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = monitoringCopy;
+    _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "[ULBluetoothMonitor]: Stop monitoring: %@", &v7, 0xCu);
   }
 
   [(ULBluetoothMonitor *)self _invalidationHandler];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)latestEventAfterAddingObserverForEventName:(id)name
@@ -229,7 +223,7 @@ void __38__ULBluetoothMonitor_startMonitoring___block_invoke_2(uint64_t a1, void
 
 - (void)_bluetoothStateChangeHandler
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   queue = [(ULEventMonitor *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -257,9 +251,9 @@ void __38__ULBluetoothMonitor_startMonitoring___block_invoke_2(uint64_t a1, void
 
     v9 = v6;
     v10 = [v7 stringWithUTF8String:v8];
-    v14 = 138412290;
-    v15 = v10;
-    _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_DEFAULT, "[ULBluetoothMonitor]: Bluetooth state: %@", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = v10;
+    _os_log_impl(&dword_258FE9000, v9, OS_LOG_TYPE_DEFAULT, "[ULBluetoothMonitor]: Bluetooth state: %@", &v13, 0xCu);
   }
 
   v11 = [(ULBluetoothMonitor *)self _checkPowerOnForBluetoothState:bluetoothState];
@@ -270,8 +264,6 @@ void __38__ULBluetoothMonitor_startMonitoring___block_invoke_2(uint64_t a1, void
     [(ULBluetoothMonitorEventPowerOn *)v12 setPowerOn:[(ULBluetoothMonitor *)self powerOn]];
     [(ULEventMonitor *)self postEvent:v12];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

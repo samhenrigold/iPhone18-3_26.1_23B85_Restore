@@ -180,7 +180,7 @@ uint64_t __52__ACSystemConfigManager__createSCPreferencesSession__block_invoke(u
   v5 = *(a1 + 32);
   v4 = a1 + 32;
   *(v5 + 16) = v3;
-  v6 = _ACLogSystem();
+  v6 = _ACLogSystem(v3);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     __52__ACSystemConfigManager__createSCPreferencesSession__block_invoke_cold_1(v4, v2, v6);
@@ -209,7 +209,7 @@ void __53__ACSystemConfigManager__destroySCPreferencesSession__block_invoke(uint
   v1 = a1 + 32;
   if (*(*(a1 + 32) + 16))
   {
-    v2 = _ACLogSystem();
+    v2 = _ACLogSystem(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
       __53__ACSystemConfigManager__destroySCPreferencesSession__block_invoke_cold_1(v1, v2);
@@ -337,7 +337,7 @@ LABEL_17:
   else
   {
     v4 = SCError();
-    v5 = _ACLogSystem();
+    v5 = _ACLogSystem(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __42__ACSystemConfigManager__setValue_forKey___block_invoke_cold_1(v2, v4, v5);
@@ -347,39 +347,35 @@ LABEL_17:
 
 void __52__ACSystemConfigManager__createSCPreferencesSession__block_invoke_cold_1(uint64_t a1, uint64_t *a2, os_log_t log)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = *(*a1 + 16);
   v4 = *a2;
-  v6 = 134218242;
-  v7 = v3;
-  v8 = 2112;
-  v9 = v4;
-  _os_log_debug_impl(&dword_1AC3CD000, log, OS_LOG_TYPE_DEBUG, "ACSystemConfigManager: new SCPreferencesRef %p created for process %@.", &v6, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 134218242;
+  v6 = v3;
+  v7 = 2112;
+  v8 = v4;
+  _os_log_debug_impl(&dword_1AC3CD000, log, OS_LOG_TYPE_DEBUG, "ACSystemConfigManager: new SCPreferencesRef %p created for process %@.", &v5, 0x16u);
 }
 
 void __53__ACSystemConfigManager__destroySCPreferencesSession__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(*a1 + 16);
-  v4 = 134217984;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1AC3CD000, a2, OS_LOG_TYPE_DEBUG, "ACSystemConfigManager: tearing down SCPreferencesRef %p", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 134217984;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1AC3CD000, a2, OS_LOG_TYPE_DEBUG, "ACSystemConfigManager: tearing down SCPreferencesRef %p", &v3, 0xCu);
 }
 
 void __42__ACSystemConfigManager__setValue_forKey___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = *(*a1 + 16);
   v5 = [MEMORY[0x1E696AD98] numberWithInt:a2];
-  v7 = 134218242;
-  v8 = v4;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_error_impl(&dword_1AC3CD000, a3, OS_LOG_TYPE_ERROR, "ACSystemConfigManager: failed to acquire SCPreferencesLock for %p due to error %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 134218242;
+  v7 = v4;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_error_impl(&dword_1AC3CD000, a3, OS_LOG_TYPE_ERROR, "ACSystemConfigManager: failed to acquire SCPreferencesLock for %p due to error %@", &v6, 0x16u);
 }
 
 @end

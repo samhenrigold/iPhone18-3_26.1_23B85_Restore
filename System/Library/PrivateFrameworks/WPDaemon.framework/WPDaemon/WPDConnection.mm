@@ -9,6 +9,7 @@
 - (id)getPeripheral;
 - (id)getPeripheralUUID;
 - (id)sendDataToCharacteristic:(id)characteristic inService:(id)service forPeer:(id)peer;
+- (id)subscribe:(BOOL)subscribe toPeer:(id)peer withCharacteristic:(id)characteristic inService:(id)service;
 - (int64_t)connectionType;
 - (int64_t)fetchConnectionType;
 - (void)dealloc;
@@ -163,7 +164,7 @@
 
 - (void)holdVoucher
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = voucher_copy();
   [(WPDConnection *)self setVoucher:v3];
 
@@ -178,19 +179,17 @@
     v5 = v4;
     voucher = [(WPDConnection *)self voucher];
     getPeripheralUUID = [(WPDConnection *)self getPeripheralUUID];
-    v9 = 138543618;
-    v10 = voucher;
-    v11 = 2114;
-    v12 = getPeripheralUUID;
-    _os_log_impl(&dword_272965000, v5, OS_LOG_TYPE_DEFAULT, "Holding voucher %{public}@ for connection to peer %{public}@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = voucher;
+    v10 = 2114;
+    v11 = getPeripheralUUID;
+    _os_log_impl(&dword_272965000, v5, OS_LOG_TYPE_DEFAULT, "Holding voucher %{public}@ for connection to peer %{public}@", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (WPLogInitOnce != -1)
   {
     [WPDConnection dealloc];
@@ -238,17 +237,16 @@
       v9 = v8;
       getPeripheralUUID = [(WPDConnection *)self getPeripheralUUID];
       *buf = 138543362;
-      v14 = getPeripheralUUID;
+      v13 = getPeripheralUUID;
       _os_log_impl(&dword_272965000, v9, OS_LOG_TYPE_DEFAULT, "Removing voucher for connection to peer %{public}@", buf, 0xCu);
     }
 
     [(WPDConnection *)self setVoucher:0];
   }
 
-  v12.receiver = self;
-  v12.super_class = WPDConnection;
-  [(WPDConnection *)&v12 dealloc];
-  v11 = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = WPDConnection;
+  [(WPDConnection *)&v11 dealloc];
 }
 
 - (NSString)description
@@ -296,7 +294,7 @@
 
 - (void)discoverCharacteristicsAndServices:(id)services forPeripheral:(id)peripheral
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   servicesCopy = services;
   peripheralCopy = peripheral;
   peripheral = [(WPDConnection *)self peripheral];
@@ -306,30 +304,30 @@
   if (v10)
   {
     array = [MEMORY[0x277CBEB18] array];
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
     allKeys = [servicesCopy allKeys];
-    v13 = [allKeys countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v13 = [allKeys countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v26;
+      v15 = *v25;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v26 != v15)
+          if (*v25 != v15)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v17 = [MEMORY[0x277CBE0A0] UUIDWithString:*(*(&v25 + 1) + 8 * i)];
+          v17 = [MEMORY[0x277CBE0A0] UUIDWithString:*(*(&v24 + 1) + 8 * i)];
           [array addObject:v17];
         }
 
-        v14 = [allKeys countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v14 = [allKeys countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v14);
@@ -356,15 +354,13 @@
     identifier2 = [peripheral3 identifier];
     uUIDString2 = [identifier2 UUIDString];
     *buf = 138412546;
-    v31 = uUIDString;
-    v32 = 2112;
-    v33 = uUIDString2;
+    v30 = uUIDString;
+    v31 = 2112;
+    v32 = uUIDString2;
     _os_log_impl(&dword_272965000, array, OS_LOG_TYPE_INFO, "Being asked to discover characteristics and services on a peripheral %@ that isn't this one %@", buf, 0x16u);
 
 LABEL_14:
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getPeripheralUUID
@@ -388,7 +384,7 @@ LABEL_14:
 
 - (void)peripheral:(id)peripheral didDiscoverServices:(id)services
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   peripheralCopy = peripheral;
   servicesCopy = services;
   services = [peripheralCopy services];
@@ -403,15 +399,15 @@ LABEL_14:
     v10 = WiProxLog;
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_ERROR))
     {
-      v23 = v10;
+      v22 = v10;
       localizedDescription = [servicesCopy localizedDescription];
       *buf = 138412802;
-      v32 = localizedDescription;
-      v33 = 2112;
-      v34 = services;
-      v35 = 2112;
-      v36 = identifier;
-      _os_log_error_impl(&dword_272965000, v23, OS_LOG_TYPE_ERROR, "Error %@ retrieving services %@ on peripheral %@. Disconnecting...", buf, 0x20u);
+      v31 = localizedDescription;
+      v32 = 2112;
+      v33 = services;
+      v34 = 2112;
+      v35 = identifier;
+      _os_log_error_impl(&dword_272965000, v22, OS_LOG_TYPE_ERROR, "Error %@ retrieving services %@ on peripheral %@. Disconnecting...", buf, 0x20u);
     }
 
     localizedDescription2 = [servicesCopy localizedDescription];
@@ -427,9 +423,9 @@ LABEL_14:
 
     v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"Couldn't discover services on peripheral %@ with error %@", identifier, localizedDescription3];
     v18 = MEMORY[0x277CCA9B8];
-    v29 = *MEMORY[0x277CCA450];
-    v30 = v17;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+    v28 = *MEMORY[0x277CCA450];
+    v29 = v17;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
     v20 = [v18 errorWithDomain:@"WPErrorDomain" code:19 userInfo:v19];
 
     client = [(WPDConnection *)self client];
@@ -439,13 +435,13 @@ LABEL_14:
   else
   {
     string = [MEMORY[0x277CCAB68] string];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __48__WPDConnection_peripheral_didDiscoverServices___block_invoke_152;
-    v27[3] = &unk_279E59928;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __48__WPDConnection_peripheral_didDiscoverServices___block_invoke_152;
+    v26[3] = &unk_279E59928;
     localizedDescription3 = string;
-    v28 = localizedDescription3;
-    [services enumerateObjectsUsingBlock:v27];
+    v27 = localizedDescription3;
+    [services enumerateObjectsUsingBlock:v26];
     if (WPLogInitOnce != -1)
     {
       [WPDConnection peripheral:didDiscoverServices:];
@@ -457,24 +453,22 @@ LABEL_14:
       v15 = v14;
       identifier2 = [peripheralCopy identifier];
       *buf = 138543618;
-      v32 = localizedDescription3;
-      v33 = 2114;
-      v34 = identifier2;
+      v31 = localizedDescription3;
+      v32 = 2114;
+      v33 = identifier2;
       _os_log_impl(&dword_272965000, v15, OS_LOG_TYPE_DEFAULT, "Discovered services %{public}@ on peripheral %{public}@", buf, 0x16u);
     }
 
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __48__WPDConnection_peripheral_didDiscoverServices___block_invoke_159;
-    v25[3] = &unk_279E59950;
-    v25[4] = self;
-    v26 = peripheralCopy;
-    [services enumerateObjectsUsingBlock:v25];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __48__WPDConnection_peripheral_didDiscoverServices___block_invoke_159;
+    v24[3] = &unk_279E59950;
+    v24[4] = self;
+    v25 = peripheralCopy;
+    [services enumerateObjectsUsingBlock:v24];
 
-    v17 = v28;
+    v17 = v27;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __48__WPDConnection_peripheral_didDiscoverServices___block_invoke_152(uint64_t a1, void *a2)
@@ -486,7 +480,7 @@ void __48__WPDConnection_peripheral_didDiscoverServices___block_invoke_152(uint6
 
 void __48__WPDConnection_peripheral_didDiscoverServices___block_invoke_159(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) charsAndServicesToDiscover];
   v5 = [v3 UUID];
@@ -496,30 +490,30 @@ void __48__WPDConnection_peripheral_didDiscoverServices___block_invoke_159(uint6
   if ([v7 count])
   {
     v8 = [MEMORY[0x277CBEB18] array];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v9 = [v7 allObjects];
-    v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v17;
+      v12 = *v16;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v17 != v12)
+          if (*v16 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = [MEMORY[0x277CBE0A0] UUIDWithString:*(*(&v16 + 1) + 8 * i)];
+          v14 = [MEMORY[0x277CBE0A0] UUIDWithString:*(*(&v15 + 1) + 8 * i)];
           [v8 addObject:v14];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v11);
@@ -537,13 +531,11 @@ void __48__WPDConnection_peripheral_didDiscoverServices___block_invoke_159(uint6
 
     [*(a1 + 40) discoverCharacteristics:v8 forService:v3];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)peripheral:(id)peripheral didDiscoverCharacteristicsForService:(id)service error:(id)error
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   peripheralCopy = peripheral;
   serviceCopy = service;
   errorCopy = error;
@@ -560,13 +552,13 @@ void __48__WPDConnection_peripheral_didDiscoverServices___block_invoke_159(uint6
 
   v12 = [MEMORY[0x277CBEB58] set];
   characteristics = [serviceCopy characteristics];
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __71__WPDConnection_peripheral_didDiscoverCharacteristicsForService_error___block_invoke_165;
-  v31[3] = &unk_279E59978;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __71__WPDConnection_peripheral_didDiscoverCharacteristicsForService_error___block_invoke_165;
+  v30[3] = &unk_279E59978;
   v14 = v12;
-  v32 = v14;
-  [characteristics enumerateObjectsUsingBlock:v31];
+  v31 = v14;
+  [characteristics enumerateObjectsUsingBlock:v30];
 
   identifier = [peripheralCopy identifier];
   if (errorCopy || ![v14 count])
@@ -580,15 +572,15 @@ void __48__WPDConnection_peripheral_didDiscoverServices___block_invoke_159(uint6
     v16 = WiProxLog;
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_ERROR))
     {
-      v28 = v16;
+      v27 = v16;
       localizedDescription = [errorCopy localizedDescription];
       *buf = 138412802;
-      v38 = localizedDescription;
-      v39 = 2112;
-      v40 = v14;
-      v41 = 2112;
-      v42 = identifier;
-      _os_log_error_impl(&dword_272965000, v28, OS_LOG_TYPE_ERROR, "Error %@ retrieving characteristics %@ on peripheral %@. Disconnecting...", buf, 0x20u);
+      v37 = localizedDescription;
+      v38 = 2112;
+      v39 = v14;
+      v40 = 2112;
+      v41 = identifier;
+      _os_log_error_impl(&dword_272965000, v27, OS_LOG_TYPE_ERROR, "Error %@ retrieving characteristics %@ on peripheral %@. Disconnecting...", buf, 0x20u);
     }
 
     v17 = serviceCopy;
@@ -606,9 +598,9 @@ void __48__WPDConnection_peripheral_didDiscoverServices___block_invoke_159(uint6
 
     uUID = [MEMORY[0x277CCACA8] stringWithFormat:@"Couldn't discover characteristics on peripheral %@ with error %@", identifier, localizedDescription3];
     v25 = MEMORY[0x277CCA9B8];
-    v35 = *MEMORY[0x277CCA450];
-    v36 = uUID;
-    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+    v34 = *MEMORY[0x277CCA450];
+    v35 = uUID;
+    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
     uUIDString = [v25 errorWithDomain:@"WPErrorDomain" code:20 userInfo:v26];
 
     client = [(WPDConnection *)selfCopy client];
@@ -621,15 +613,13 @@ void __48__WPDConnection_peripheral_didDiscoverServices___block_invoke_159(uint6
     v17 = serviceCopy;
     uUID = [serviceCopy UUID];
     uUIDString = [uUID UUIDString];
-    v33 = uUIDString;
-    v34 = v14;
-    client = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+    v32 = uUIDString;
+    v33 = v14;
+    client = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
     v19 = peripheralCopy;
     identifier2 = [peripheralCopy identifier];
     [(__CFString *)localizedDescription3 discoveredCharacteristicsAndServices:client forPeripheral:identifier2];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __71__WPDConnection_peripheral_didDiscoverCharacteristicsForService_error___block_invoke_165(uint64_t a1, void *a2)
@@ -642,7 +632,7 @@ void __71__WPDConnection_peripheral_didDiscoverCharacteristicsForService_error__
 
 - (void)peripheral:(id)peripheral didUpdateNotificationStateForCharacteristic:(id)characteristic error:(id)error
 {
-  v40[1] = *MEMORY[0x277D85DE8];
+  v39[1] = *MEMORY[0x277D85DE8];
   peripheralCopy = peripheral;
   characteristicCopy = characteristic;
   errorCopy = error;
@@ -656,9 +646,9 @@ void __71__WPDConnection_peripheral_didDiscoverCharacteristicsForService_error__
     uUIDString2 = [v11 stringWithFormat:@"Couldn't update notification state for characteristic %@ on peripheral %@ with error %@", uUIDString, identifier, localizedDescription];
 
     v17 = MEMORY[0x277CCA9B8];
-    v39 = *MEMORY[0x277CCA450];
-    v40[0] = uUIDString2;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:&v39 count:1];
+    v38 = *MEMORY[0x277CCA450];
+    v39[0] = uUIDString2;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
     uUIDString3 = [v17 errorWithDomain:@"WPErrorDomain" code:22 userInfo:v18];
 
     if (WPLogInitOnce != -1)
@@ -698,24 +688,22 @@ void __71__WPDConnection_peripheral_didDiscoverCharacteristicsForService_error__
       isNotifying = [characteristicCopy isNotifying];
       uUID4 = [characteristicCopy UUID];
       [characteristicCopy service];
-      v28 = v32 = self;
+      v28 = v31 = self;
       uUID5 = [v28 UUID];
       *buf = 67109634;
-      v34 = isNotifying;
-      v35 = 2114;
-      v36 = uUID4;
-      v37 = 2114;
-      v38 = uUID5;
+      v33 = isNotifying;
+      v34 = 2114;
+      v35 = uUID4;
+      v36 = 2114;
+      v37 = uUID5;
       _os_log_impl(&dword_272965000, log, OS_LOG_TYPE_DEFAULT, "Changed notification state %d for characteristic %{public}@ in service %{public}@", buf, 0x1Cu);
 
-      self = v32;
+      self = v31;
     }
 
     identifier2 = [(WPDConnection *)self client];
     [identifier2 updatedNotificationState:objc_msgSend(characteristicCopy forCharacteristic:"isNotifying") inService:uUIDString2 withPeripheral:{uUIDString3, client}];
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)peripheral:(id)peripheral didUpdateValueForCharacteristic:(id)characteristic error:(id)error
@@ -771,7 +759,7 @@ void __71__WPDConnection_peripheral_didDiscoverCharacteristicsForService_error__
 
 - (void)peripheral:(id)peripheral didModifyServices:(id)services
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   peripheralCopy = peripheral;
   servicesCopy = services;
   if (WPLogInitOnce != -1)
@@ -782,9 +770,9 @@ void __71__WPDConnection_peripheral_didDiscoverCharacteristicsForService_error__
   v8 = WiProxLog;
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 138412290;
-    v23 = servicesCopy;
-    _os_log_impl(&dword_272965000, v8, OS_LOG_TYPE_DEFAULT, "Services have been modified. %@ have been invalidated", &v22, 0xCu);
+    v21 = 138412290;
+    v22 = servicesCopy;
+    _os_log_impl(&dword_272965000, v8, OS_LOG_TYPE_DEFAULT, "Services have been modified. %@ have been invalidated", &v21, 0xCu);
   }
 
   identifier = [peripheralCopy identifier];
@@ -808,11 +796,11 @@ void __71__WPDConnection_peripheral_didDiscoverCharacteristicsForService_error__
         charsAndServicesToDiscover = [(WPDConnection *)self charsAndServicesToDiscover];
         identifier3 = [peripheralCopy identifier];
         uUIDString = [identifier3 UUIDString];
-        v22 = 138412546;
-        v23 = charsAndServicesToDiscover;
-        v24 = 2112;
-        v25 = uUIDString;
-        _os_log_impl(&dword_272965000, v14, OS_LOG_TYPE_DEFAULT, "Re-discovering services and characteristics %@ on peripheral %@", &v22, 0x16u);
+        v21 = 138412546;
+        v22 = charsAndServicesToDiscover;
+        v23 = 2112;
+        v24 = uUIDString;
+        _os_log_impl(&dword_272965000, v14, OS_LOG_TYPE_DEFAULT, "Re-discovering services and characteristics %@ on peripheral %@", &v21, 0x16u);
       }
 
       charsAndServicesToDiscover2 = [(WPDConnection *)self charsAndServicesToDiscover];
@@ -847,13 +835,74 @@ void __71__WPDConnection_peripheral_didDiscoverCharacteristicsForService_error__
       [WPDConnection peripheral:didModifyServices:];
     }
   }
+}
 
-  v21 = *MEMORY[0x277D85DE8];
+- (id)subscribe:(BOOL)subscribe toPeer:(id)peer withCharacteristic:(id)characteristic inService:(id)service
+{
+  subscribeCopy = subscribe;
+  v32 = *MEMORY[0x277D85DE8];
+  peerCopy = peer;
+  characteristicCopy = characteristic;
+  serviceCopy = service;
+  v13 = [(WPDConnection *)self getCharacteristicWithUUID:characteristicCopy inService:serviceCopy forPeripheral:peerCopy];
+  v14 = @"Unsubscribing";
+  if (subscribeCopy)
+  {
+    v14 = @"Subscribing";
+  }
+
+  v15 = v14;
+  if (WPLogInitOnce != -1)
+  {
+    [WPDConnection subscribe:toPeer:withCharacteristic:inService:];
+  }
+
+  v16 = WiProxLog;
+  if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
+  {
+    v17 = v16;
+    uUIDString = [peerCopy UUIDString];
+    v24 = 138544130;
+    v25 = v15;
+    v26 = 2114;
+    v27 = characteristicCopy;
+    v28 = 2114;
+    v29 = serviceCopy;
+    v30 = 2114;
+    v31 = uUIDString;
+    _os_log_impl(&dword_272965000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@ to characteristic %{public}@ in service %{public}@ to peer %{public}@", &v24, 0x2Au);
+  }
+
+  peripheral = [(WPDConnection *)self peripheral];
+  [peripheral setNotifyValue:subscribeCopy forCharacteristic:v13];
+
+  subscribedCharacteristics = [(WPDConnection *)self subscribedCharacteristics];
+  subscribedCharacteristics2 = subscribedCharacteristics;
+  if (subscribeCopy)
+  {
+    [subscribedCharacteristics addObject:characteristicCopy];
+LABEL_11:
+
+    goto LABEL_12;
+  }
+
+  v22 = [subscribedCharacteristics containsObject:characteristicCopy];
+
+  if (v22)
+  {
+    subscribedCharacteristics2 = [(WPDConnection *)self subscribedCharacteristics];
+    [subscribedCharacteristics2 removeObject:characteristicCopy];
+    goto LABEL_11;
+  }
+
+LABEL_12:
+
+  return 0;
 }
 
 - (id)sendDataToCharacteristic:(id)characteristic inService:(id)service forPeer:(id)peer
 {
-  v49[1] = *MEMORY[0x277D85DE8];
+  v48[1] = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   serviceCopy = service;
   peerCopy = peer;
@@ -863,9 +912,9 @@ void __71__WPDConnection_peripheral_didDiscoverCharacteristicsForService_error__
   {
     peripheral = [MEMORY[0x277CCACA8] stringWithFormat:@"Sending in progress, wait for didSend callback to send next chunk of data"];
     v13 = MEMORY[0x277CCA9B8];
-    v48 = *MEMORY[0x277CCA450];
-    v49[0] = peripheral;
-    central = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:&v48 count:1];
+    v47 = *MEMORY[0x277CCA450];
+    v48[0] = peripheral;
+    central = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:&v47 count:1];
     v15 = [v13 errorWithDomain:@"WPErrorDomain" code:21 userInfo:central];
     goto LABEL_34;
   }
@@ -881,11 +930,11 @@ void __71__WPDConnection_peripheral_didDiscoverCharacteristicsForService_error__
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
-    v43 = peerCopy;
-    v44 = 2112;
-    v45 = peripheral;
-    v46 = 2112;
-    v47 = central;
+    v42 = peerCopy;
+    v43 = 2112;
+    v44 = peripheral;
+    v45 = 2112;
+    v46 = central;
     _os_log_debug_impl(&dword_272965000, v16, OS_LOG_TYPE_DEBUG, "Sending data to %@. Current peripheral: %@, current central: %@", buf, 0x20u);
   }
 
@@ -910,9 +959,9 @@ void __71__WPDConnection_peripheral_didDiscoverCharacteristicsForService_error__
       v27 = [v22 stringWithFormat:@"CoreBluetooth couldn't find the peripheral %@ or central %@ to send data with requested peer %@", uUIDString, uUIDString2, uUIDString3];
 
       v28 = MEMORY[0x277CCA9B8];
-      v40 = *MEMORY[0x277CCA450];
-      v41 = v27;
-      v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+      v39 = *MEMORY[0x277CCA450];
+      v40 = v27;
+      v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
       v15 = [v28 errorWithDomain:@"WPErrorDomain" code:6 userInfo:v29];
 
       if (WPLogInitOnce != -1)
@@ -979,9 +1028,9 @@ LABEL_16:
   v32 = [v30 stringWithFormat:@"No peripheral or central to send data with requested peer %@", uUIDString4];
 
   v33 = MEMORY[0x277CCA9B8];
-  v38 = *MEMORY[0x277CCA450];
-  v39 = v32;
-  v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+  v37 = *MEMORY[0x277CCA450];
+  v38 = v32;
+  v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
   v15 = [v33 errorWithDomain:@"WPErrorDomain" code:6 userInfo:v34];
 
   if (WPLogInitOnce != -1)
@@ -995,7 +1044,6 @@ LABEL_16:
   }
 
 LABEL_34:
-  v35 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -1043,18 +1091,18 @@ LABEL_34:
 
 - (void)sendDataToPeripheral
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v4 = a2;
+  v5 = a2;
   characteristicToSend = [a3 characteristicToSend];
-  [characteristicToSend writeType];
-  OUTLINED_FUNCTION_8_0(&dword_272965000, v6, v7, "Sending data %@ with method %ld", v8, v9, v10, v11, 2u);
-
-  v12 = *MEMORY[0x277D85DE8];
+  *v13 = 138412546;
+  *&v13[4] = self;
+  *&v13[12] = 2048;
+  *&v13[14] = [characteristicToSend writeType];
+  OUTLINED_FUNCTION_8_0(&dword_272965000, v7, v8, "Sending data %@ with method %ld", v9, v10, v11, v12, *v13, *&v13[8], *&v13[16]);
 }
 
 - (void)peripheral:(id)peripheral didWriteValueForCharacteristic:(id)characteristic error:(id)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   peripheralCopy = peripheral;
   characteristicCopy = characteristic;
   errorCopy = error;
@@ -1085,11 +1133,11 @@ LABEL_34:
       uUIDString3 = [identifier2 UUIDString];
       [errorCopy localizedDescription];
       *buf = 138412802;
-      v32 = uUID3;
-      v33 = 2112;
-      v34 = uUIDString3;
-      v36 = v35 = 2112;
-      v26 = v36;
+      v31 = uUID3;
+      v32 = 2112;
+      v33 = uUIDString3;
+      v35 = v34 = 2112;
+      v25 = v35;
       _os_log_error_impl(&dword_272965000, log, OS_LOG_TYPE_ERROR, "Failed writing to characteristic %@ of peer %@ with error: %@. Forcing disconnection", buf, 0x20u);
     }
 
@@ -1135,13 +1183,11 @@ LABEL_34:
 
     [(WPDConnection *)self resetData];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getCharacteristicWithUUID:(id)d inService:(id)service forPeripheral:(id)peripheral
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   dCopy = d;
   serviceCopy = service;
   peripheralCopy = peripheral;
@@ -1152,37 +1198,37 @@ LABEL_34:
     peripheral2 = [(WPDConnection *)self peripheral];
     services = [peripheral2 services];
 
-    v29 = 0;
-    v30 = &v29;
-    v31 = 0x3032000000;
-    v32 = __Block_byref_object_copy__3;
-    v33 = __Block_byref_object_dispose__3;
-    v34 = 0;
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __67__WPDConnection_getCharacteristicWithUUID_inService_forPeripheral___block_invoke_275;
-    v26[3] = &unk_279E599A0;
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x3032000000;
+    v31 = __Block_byref_object_copy__3;
+    v32 = __Block_byref_object_dispose__3;
+    v33 = 0;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __67__WPDConnection_getCharacteristicWithUUID_inService_forPeripheral___block_invoke_275;
+    v25[3] = &unk_279E599A0;
     v14 = serviceCopy;
-    v27 = v14;
-    v28 = &v29;
-    [services enumerateObjectsUsingBlock:v26];
-    v15 = v30[5];
+    v26 = v14;
+    v27 = &v28;
+    [services enumerateObjectsUsingBlock:v25];
+    v15 = v29[5];
     if (v15)
     {
       characteristics = [v15 characteristics];
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v36 = __Block_byref_object_copy__3;
-      v37 = __Block_byref_object_dispose__3;
-      v38 = 0;
-      v23[0] = MEMORY[0x277D85DD0];
-      v23[1] = 3221225472;
-      v23[2] = __67__WPDConnection_getCharacteristicWithUUID_inService_forPeripheral___block_invoke_278;
-      v23[3] = &unk_279E599C8;
-      v24 = dCopy;
-      v25 = buf;
-      [characteristics enumerateObjectsUsingBlock:v23];
+      v35 = __Block_byref_object_copy__3;
+      v36 = __Block_byref_object_dispose__3;
+      v37 = 0;
+      v22[0] = MEMORY[0x277D85DD0];
+      v22[1] = 3221225472;
+      v22[2] = __67__WPDConnection_getCharacteristicWithUUID_inService_forPeripheral___block_invoke_278;
+      v22[3] = &unk_279E599C8;
+      v23 = dCopy;
+      v24 = buf;
+      [characteristics enumerateObjectsUsingBlock:v22];
       v17 = *(*&buf[8] + 40);
       if (v17)
       {
@@ -1221,14 +1267,14 @@ LABEL_34:
         *&buf[12] = 2112;
         *&buf[14] = peripheral3;
         *&buf[22] = 2112;
-        v36 = services;
+        v35 = services;
         _os_log_error_impl(&dword_272965000, characteristics, OS_LOG_TYPE_ERROR, "Wireless Proximity can't retrieve the service %@ for peripheral %@. Services found = %@", buf, 0x20u);
       }
 
       v17 = 0;
     }
 
-    _Block_object_dispose(&v29, 8);
+    _Block_object_dispose(&v28, 8);
   }
 
   else
@@ -1246,8 +1292,6 @@ LABEL_34:
 
     v17 = 0;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -1322,86 +1366,60 @@ void __67__WPDConnection_getCharacteristicWithUUID_inService_forPeripheral___blo
 
 void __48__WPDConnection_peripheral_didDiscoverServices___block_invoke_159_cold_2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(&dword_272965000, v0, OS_LOG_TYPE_DEBUG, "Discovering characteristics %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_272965000, v0, OS_LOG_TYPE_DEBUG, "Discovering characteristics %@", v1, 0xCu);
 }
 
 - (void)peripheral:(void *)a1 didDiscoverCharacteristicsForService:(void *)a2 error:.cold.2(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = a1;
   [a2 UUID];
   objc_claimAutoreleasedReturnValue();
-  v11 = [OUTLINED_FUNCTION_9() identifier];
-  OUTLINED_FUNCTION_8_0(&dword_272965000, v4, v5, "Discovered characteristics for service %@ on peripheral for %@", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-- (void)peripheral:didUpdateNotificationStateForCharacteristic:error:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_3(&dword_272965000, v0, v1, "%@. Disconnecting...", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v4 = [OUTLINED_FUNCTION_9() identifier];
+  *v11 = 138412546;
+  *&v11[4] = a2;
+  *&v11[12] = 2112;
+  *&v11[14] = v4;
+  OUTLINED_FUNCTION_8_0(&dword_272965000, v5, v6, "Discovered characteristics for service %@ on peripheral for %@", v7, v8, v9, v10, *v11, *&v11[8], *&v11[16]);
 }
 
 - (void)peripheral:(void *)a1 didUpdateValueForCharacteristic:(void *)a2 error:(void *)a3 .cold.2(void *a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = [a2 localizedDescription];
   v7 = [a3 identifier];
   v8 = [v7 UUIDString];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_7_1(&dword_272965000, v9, v10, "Error updating characteristic value %@ on peripheral %@, disconnecting", v11, v12, v13, v14, v16);
-
-  v15 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7_1(&dword_272965000, v9, v10, "Error updating characteristic value %@ on peripheral %@, disconnecting", v11, v12, v13, v14);
 }
 
 - (void)peripheral:(void *)a1 didUpdateValueForCharacteristic:(void *)a2 error:(void *)a3 .cold.4(void *a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = [a2 UUID];
   v7 = [a3 identifier];
   v8 = [v7 UUIDString];
   OUTLINED_FUNCTION_0_2();
-  _os_log_debug_impl(&dword_272965000, v5, OS_LOG_TYPE_DEBUG, "Received Value Update for characteristic %{public}@ for peripheral %@. Notifying daemon client.", v10, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_272965000, v5, OS_LOG_TYPE_DEBUG, "Received Value Update for characteristic %{public}@ for peripheral %@. Notifying daemon client.", v9, 0x16u);
 }
 
 - (void)peripheral:(void *)a1 didWriteValueForCharacteristic:error:.cold.3(void *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v2 = a1;
   [OUTLINED_FUNCTION_9() dataLeftToSend];
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(&dword_272965000, v1, OS_LOG_TYPE_DEBUG, "Still have %ld bytes to send", v4, 0xCu);
-
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getCharacteristicWithUUID:inService:forPeripheral:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_3(&dword_272965000, v0, v1, "Wireless Proximity can't retrieve the characteristic %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_272965000, v1, OS_LOG_TYPE_DEBUG, "Still have %ld bytes to send", v3, 0xCu);
 }
 
 - (void)getCharacteristicWithUUID:(uint64_t)a1 inService:(void *)a2 forPeripheral:(void *)a3 .cold.5(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = [a3 peripheral];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_7_1(&dword_272965000, v6, v7, "Wireless Proximity can't retrieve the peripheral %@. Connected peripheral: %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7_1(&dword_272965000, v6, v7, "Wireless Proximity can't retrieve the peripheral %@. Connected peripheral: %@", v8, v9, v10, v11);
 }
 
 @end

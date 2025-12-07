@@ -21,7 +21,7 @@
 {
   if (!self->_completionCount)
   {
-    v3 = BCImageCacheLog();
+    v3 = BCImageCacheLog(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_1E6FE0();
@@ -37,9 +37,10 @@
 
 - (void)workComplete
 {
-  if ([(BCWorkItemCompletionHandler *)self completionCount])
+  completionCount = [(BCWorkItemCompletionHandler *)self completionCount];
+  if (completionCount)
   {
-    workQueue = BCImageCacheLog();
+    workQueue = BCImageCacheLog(completionCount);
     if (os_log_type_enabled(workQueue, OS_LOG_TYPE_ERROR))
     {
       sub_1E7058();

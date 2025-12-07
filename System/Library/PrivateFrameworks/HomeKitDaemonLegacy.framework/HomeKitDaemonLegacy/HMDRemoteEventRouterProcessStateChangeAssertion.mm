@@ -27,7 +27,7 @@
 
 - (void)_backgroundTimerDidExpire:(id)expire
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   expireCopy = expire;
   queue = [(HMDRemoteEventRouterProcessStateChangeAssertion *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -41,13 +41,13 @@
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v32 = 138543874;
-    v33 = v11;
-    v34 = 2112;
-    v35 = expireCopy;
-    v36 = 2112;
-    v37 = v7;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@bundleIdentifier: %@ backgroundTimer: %@ expired.", &v32, 0x20u);
+    v31 = 138543874;
+    v32 = v11;
+    v33 = 2112;
+    v34 = expireCopy;
+    v35 = 2112;
+    v36 = v7;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@bundleIdentifier: %@ backgroundTimer: %@ expired.", &v31, 0x20u);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -66,13 +66,13 @@
     v16 = HMFGetLogIdentifier();
     foregroundProcesses = [(HMDRemoteEventRouterProcessStateChangeAssertion *)v14 foregroundProcesses];
     backgroundProcesses3 = [(HMDRemoteEventRouterProcessStateChangeAssertion *)v14 backgroundProcesses];
-    v32 = 138543874;
-    v33 = v16;
-    v34 = 2112;
-    v35 = foregroundProcesses;
-    v36 = 2112;
-    v37 = backgroundProcesses3;
-    _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@foregroundProcesses %@, backgroundProcesses %@", &v32, 0x20u);
+    v31 = 138543874;
+    v32 = v16;
+    v33 = 2112;
+    v34 = foregroundProcesses;
+    v35 = 2112;
+    v36 = backgroundProcesses3;
+    _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@foregroundProcesses %@, backgroundProcesses %@", &v31, 0x20u);
   }
 
   objc_autoreleasePoolPop(v13);
@@ -97,13 +97,13 @@
     eventRouterActiveAssertion = [(HMDRemoteEventRouterProcessStateChangeAssertion *)v23 eventRouterActiveAssertion];
     v27 = HMFBooleanToString();
     v28 = HMFBooleanToString();
-    v32 = 138543874;
-    v33 = v25;
-    v34 = 2112;
-    v35 = v27;
-    v36 = 2112;
-    v37 = v28;
-    _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_INFO, "%{public}@self.isProcessForeground %@, isProcessForeground %@", &v32, 0x20u);
+    v31 = 138543874;
+    v32 = v25;
+    v33 = 2112;
+    v34 = v27;
+    v35 = 2112;
+    v36 = v28;
+    _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_INFO, "%{public}@self.isProcessForeground %@, isProcessForeground %@", &v31, 0x20u);
   }
 
   objc_autoreleasePoolPop(v22);
@@ -119,13 +119,11 @@
       [(HMDRemoteEventRouterProcessStateChangeAssertion *)v23 setEventRouterActiveAssertion:0];
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeBackgroundTimer:(id)timer
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   timerCopy = timer;
   queue = [(HMDRemoteEventRouterProcessStateChangeAssertion *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -138,23 +136,21 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v9;
-      v13 = 2112;
-      v14 = timerCopy;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Remove backgroundTimer: %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v9;
+      v12 = 2112;
+      v13 = timerCopy;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Remove backgroundTimer: %@", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
     [timerCopy suspend];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_enableBackgroundTimerWithBundleIdentifier:(id)identifier
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   queue = [(HMDRemoteEventRouterProcessStateChangeAssertion *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -166,14 +162,14 @@
 
   timerProvider = [(HMDRemoteEventRouterProcessStateChangeAssertion *)self timerProvider];
   queue2 = [(HMDRemoteEventRouterProcessStateChangeAssertion *)self queue];
-  v21 = MEMORY[0x277D85DD0];
-  v22 = 3221225472;
-  v23 = __94__HMDRemoteEventRouterProcessStateChangeAssertion__enableBackgroundTimerWithBundleIdentifier___block_invoke;
-  v24 = &unk_2797359B0;
+  v20 = MEMORY[0x277D85DD0];
+  v21 = 3221225472;
+  v22 = __94__HMDRemoteEventRouterProcessStateChangeAssertion__enableBackgroundTimerWithBundleIdentifier___block_invoke;
+  v23 = &unk_2797359B0;
   selfCopy = self;
   v12 = identifierCopy;
-  v26 = v12;
-  v13 = [timerProvider timerWithQueue:queue2 interval:&v21 timerFireHandler:v9];
+  v25 = v12;
+  v13 = [timerProvider timerWithQueue:queue2 interval:&v20 timerFireHandler:v9];
 
   v14 = objc_autoreleasePoolPush();
   selfCopy2 = self;
@@ -181,20 +177,18 @@
   if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     v17 = HMFGetLogIdentifier();
-    v18 = [MEMORY[0x277CCABB0] numberWithDouble:{v9, v21, v22, v23, v24, selfCopy}];
+    v18 = [MEMORY[0x277CCABB0] numberWithDouble:{v9, v20, v21, v22, v23, selfCopy}];
     *buf = 138543874;
-    v28 = v17;
-    v29 = 2112;
-    v30 = v13;
-    v31 = 2112;
-    v32 = v18;
+    v27 = v17;
+    v28 = 2112;
+    v29 = v13;
+    v30 = 2112;
+    v31 = v18;
     _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Starting backgroundTimer: %@ interval: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v14);
   [v13 resume];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -202,7 +196,7 @@
 - (void)handleProcessWithBundleIdentifier:(id)identifier updatedIsActive:(BOOL)active
 {
   activeCopy = active;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   applicationsAndIntervals = [(HMDRemoteEventRouterProcessStateChangeAssertion *)self applicationsAndIntervals];
   v8 = [applicationsAndIntervals objectForKey:identifierCopy];
@@ -215,8 +209,8 @@
     block[2] = __101__HMDRemoteEventRouterProcessStateChangeAssertion_handleProcessWithBundleIdentifier_updatedIsActive___block_invoke;
     block[3] = &unk_279734938;
     block[4] = self;
-    v16 = identifierCopy;
-    v17 = activeCopy;
+    v15 = identifierCopy;
+    v16 = activeCopy;
     dispatch_async(queue, block);
   }
 
@@ -229,23 +223,21 @@
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v19 = v13;
-      v20 = 2112;
-      v21 = identifierCopy;
-      v22 = 1024;
-      v23 = activeCopy;
+      v18 = v13;
+      v19 = 2112;
+      v20 = identifierCopy;
+      v21 = 1024;
+      v22 = activeCopy;
       _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring foreground state change for application %@ with isActive: %{BOOL}d", buf, 0x1Cu);
     }
 
     objc_autoreleasePoolPop(v10);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __101__HMDRemoteEventRouterProcessStateChangeAssertion_handleProcessWithBundleIdentifier_updatedIsActive___block_invoke(uint64_t a1)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -254,13 +246,13 @@ void __101__HMDRemoteEventRouterProcessStateChangeAssertion_handleProcessWithBun
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
     v7 = *(a1 + 48);
-    v37 = 138543874;
-    v38 = v5;
-    v39 = 2112;
-    v40 = v6;
-    v41 = 1024;
-    LODWORD(v42) = v7;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Application %@ isActive state changed to %{BOOL}d", &v37, 0x1Cu);
+    v36 = 138543874;
+    v37 = v5;
+    v38 = 2112;
+    v39 = v6;
+    v40 = 1024;
+    LODWORD(v41) = v7;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Application %@ isActive state changed to %{BOOL}d", &v36, 0x1Cu);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -290,11 +282,11 @@ void __101__HMDRemoteEventRouterProcessStateChangeAssertion_handleProcessWithBun
       v18 = HMFGetLogIdentifier();
       v19 = [*(a1 + 32) eventRouterActiveAssertion];
       v20 = HMFBooleanToString();
-      v37 = 138543618;
-      v38 = v18;
-      v39 = 2112;
-      v40 = v20;
-      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@self.isProcessForeground %@, isProcessForeground YES", &v37, 0x16u);
+      v36 = 138543618;
+      v37 = v18;
+      v38 = 2112;
+      v39 = v20;
+      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@self.isProcessForeground %@, isProcessForeground YES", &v36, 0x16u);
     }
 
     objc_autoreleasePoolPop(v15);
@@ -331,18 +323,18 @@ LABEL_13:
       goto LABEL_13;
     }
 
-    v33 = objc_autoreleasePoolPush();
-    v34 = *(a1 + 32);
-    v35 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    v32 = objc_autoreleasePoolPush();
+    v33 = *(a1 + 32);
+    v34 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
-      v36 = HMFGetLogIdentifier();
-      v37 = 138543362;
-      v38 = v36;
-      _os_log_impl(&dword_2531F8000, v35, OS_LOG_TYPE_ERROR, "%{public}@Failed to enable background timer.", &v37, 0xCu);
+      v35 = HMFGetLogIdentifier();
+      v36 = 138543362;
+      v37 = v35;
+      _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_ERROR, "%{public}@Failed to enable background timer.", &v36, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v33);
+    objc_autoreleasePoolPop(v32);
     v13 = 0;
   }
 
@@ -356,17 +348,16 @@ LABEL_14:
     v29 = HMFGetLogIdentifier();
     v30 = [*(a1 + 32) foregroundProcesses];
     v31 = [*(a1 + 32) backgroundProcesses];
-    v37 = 138543874;
-    v38 = v29;
-    v39 = 2112;
-    v40 = v30;
-    v41 = 2112;
-    v42 = v31;
-    _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_INFO, "%{public}@foregroundProcesses %@, backgroundProcesses %@", &v37, 0x20u);
+    v36 = 138543874;
+    v37 = v29;
+    v38 = 2112;
+    v39 = v30;
+    v40 = 2112;
+    v41 = v31;
+    _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_INFO, "%{public}@foregroundProcesses %@, backgroundProcesses %@", &v36, 0x20u);
   }
 
   objc_autoreleasePoolPop(v26);
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDRemoteEventRouterProcessStateChangeAssertion)initWithQueue:(id)queue timerProvider:(id)provider applicationsAndIntervals:(id)intervals dataSource:(id)source
@@ -414,12 +405,11 @@ LABEL_14:
 
 uint64_t __62__HMDRemoteEventRouterProcessStateChangeAssertion_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v11_126269;
-  logCategory__hmf_once_v11_126269 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v11_126269;
+  logCategory__hmf_once_v11_126269 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

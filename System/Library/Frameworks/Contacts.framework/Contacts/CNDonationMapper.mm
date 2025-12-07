@@ -104,30 +104,31 @@ uint64_t __23__CNDonationMapper_log__block_invoke()
       if ([right code] != 1)
       {
         domain = [right domain];
-        v33 = 0;
-        v34 = &v33;
-        v35 = 0x2020000000;
+        v34 = 0;
+        v35 = &v34;
+        v36 = 0x2020000000;
         v13 = getCNDonationErrorDomainSymbolLoc_ptr;
-        v36 = getCNDonationErrorDomainSymbolLoc_ptr;
+        v37 = getCNDonationErrorDomainSymbolLoc_ptr;
         if (!getCNDonationErrorDomainSymbolLoc_ptr)
         {
-          v28 = MEMORY[0x1E69E9820];
-          v29 = 3221225472;
-          v30 = __getCNDonationErrorDomainSymbolLoc_block_invoke;
-          v31 = &unk_1E7412110;
-          v32 = &v33;
+          v29 = MEMORY[0x1E69E9820];
+          v30 = 3221225472;
+          v31 = __getCNDonationErrorDomainSymbolLoc_block_invoke;
+          v32 = &unk_1E7412110;
+          v33 = &v34;
           v14 = ContactsDonationLibrary();
-          v34[3] = dlsym(v14, "CNDonationErrorDomain");
-          getCNDonationErrorDomainSymbolLoc_ptr = *(v32[1] + 24);
-          v13 = v34[3];
+          v35[3] = dlsym(v14, "CNDonationErrorDomain");
+          getCNDonationErrorDomainSymbolLoc_ptr = *(v33[1] + 24);
+          v13 = v35[3];
         }
 
-        _Block_object_dispose(&v33, 8);
+        _Block_object_dispose(&v34, 8);
         if (!v13)
         {
-          MDItemUniqueIdentifier_cold_1 = getMDItemUniqueIdentifier_cold_1();
-          _Block_object_dispose(&v33, 8);
-          _Unwind_Resume(MDItemUniqueIdentifier_cold_1);
+          getMDItemUniqueIdentifier_cold_1();
+          v23 = v22;
+          _Block_object_dispose(&v34, 8);
+          _Unwind_Resume(v23);
         }
 
         v15 = [domain isEqualToString:*v13];
@@ -149,13 +150,13 @@ uint64_t __23__CNDonationMapper_log__block_invoke()
     {
       right = [v10 left];
       v18 = [right _cn_filter:&__block_literal_global_52_1];
-      v23 = MEMORY[0x1E69E9820];
-      v24 = 3221225472;
-      v25 = __53__CNDonationMapper_contactObservableForFetchRequest___block_invoke;
-      v26 = &unk_1E7417538;
-      v27 = v8;
-      v19 = [v18 _cn_map:&v23];
-      v20 = [v19 _cn_map:{&__block_literal_global_58_1, v23, v24, v25, v26}];
+      v24 = MEMORY[0x1E69E9820];
+      v25 = 3221225472;
+      v26 = __53__CNDonationMapper_contactObservableForFetchRequest___block_invoke;
+      v27 = &unk_1E7417538;
+      v28 = v8;
+      v19 = [v18 _cn_map:&v24];
+      v20 = [v19 _cn_map:{&__block_literal_global_58_1, v24, v25, v26, v27}];
       emptyObservable = [MEMORY[0x1E6996798] observableWithResult:v20];
     }
   }

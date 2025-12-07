@@ -26,7 +26,7 @@ MADImageRemoveBackgroundResource *__50__MADImageRemoveBackgroundResource_sharedR
 
 - (int64_t)activeCost
 {
-  if (!DeviceHasANE())
+  if (!DeviceHasANE(self, a2))
   {
     return 100;
   }
@@ -41,7 +41,7 @@ MADImageRemoveBackgroundResource *__50__MADImageRemoveBackgroundResource_sharedR
 
 - (int64_t)inactiveCost
 {
-  if (!DeviceHasANE())
+  if (!DeviceHasANE(self, a2))
   {
     return 100;
   }

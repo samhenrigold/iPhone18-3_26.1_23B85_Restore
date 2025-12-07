@@ -1,4 +1,5 @@
 @interface HFTVInputControlItemValue
++ (id)valueWithInputName:(id)name identifier:(id)identifier isHidden:(BOOL)hidden isSelected:(BOOL)selected;
 - (BOOL)isEqual:(id)equal;
 - (HFTVInputControlItemValue)initWithInputName:(id)name identifier:(id)identifier isHidden:(BOOL)hidden isSelected:(BOOL)selected;
 - (id)copyWithZone:(_NSZone *)zone;
@@ -30,6 +31,17 @@
   }
 
   return v12;
+}
+
++ (id)valueWithInputName:(id)name identifier:(id)identifier isHidden:(BOOL)hidden isSelected:(BOOL)selected
+{
+  selectedCopy = selected;
+  hiddenCopy = hidden;
+  identifierCopy = identifier;
+  nameCopy = name;
+  v11 = [objc_alloc(objc_opt_class()) initWithInputName:nameCopy identifier:identifierCopy isHidden:hiddenCopy isSelected:selectedCopy];
+
+  return v11;
 }
 
 - (unint64_t)hash

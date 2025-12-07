@@ -7,7 +7,7 @@
 
 - (void)migrateIfNeeded
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   oldModifierKeyRemapping = [(BKSKeyboardDefaults *)self oldModifierKeyRemapping];
   v4 = BKLogKeyboard();
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
@@ -15,37 +15,35 @@
   {
     if (v5)
     {
-      v6 = [MEMORY[0x1E698E688] descriptionForRootObject:oldModifierKeyRemapping];
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_186345000, v4, OS_LOG_TYPE_DEFAULT, "migrating key modifiers %{public}@", &v9, 0xCu);
+      v6 = [MEMORY[0x1E698E688] descriptionForRootObject:?];
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_186345000, v4, OS_LOG_TYPE_DEFAULT, "migrating key modifiers %{public}@", &v8, 0xCu);
     }
 
     v7 = [oldModifierKeyRemapping copy];
-    [(BKSKeyboardDefaults *)self setModifierKeyRemapping:v7];
+    [(BKSKeyboardDefaults *)self setModifierKeyRemapping:?];
 
-    [(BKSKeyboardDefaults *)self setOldModifierKeyRemapping:0];
+    [(BKSKeyboardDefaults *)self setOldModifierKeyRemapping:?];
   }
 
   else
   {
     if (v5)
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&dword_186345000, v4, OS_LOG_TYPE_DEFAULT, "nothing to migrate", &v9, 2u);
+      LOWORD(v8) = 0;
+      _os_log_impl(&dword_186345000, v4, OS_LOG_TYPE_DEFAULT, "nothing to migrate", &v8, 2u);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_bindAndRegisterDefaults
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"oldModifierKeyRemapping"];
-  [(BSAbstractDefaultDomain *)self _bindProperty:v3 withDefaultKey:@"com.apple.keyboard.modifierKeysRemapping" toDefaultValue:0 options:1];
+  v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
+  [BSAbstractDefaultDomain _bindProperty:"_bindProperty:withDefaultKey:toDefaultValue:options:" withDefaultKey:? toDefaultValue:? options:?];
 
-  v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"modifierKeyRemapping"];
-  [(BSAbstractDefaultDomain *)self _bindProperty:v4 withDefaultKey:@"ModifierKeysRemapping" toDefaultValue:0 options:1];
+  v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
+  [BSAbstractDefaultDomain _bindProperty:"_bindProperty:withDefaultKey:toDefaultValue:options:" withDefaultKey:? toDefaultValue:? options:?];
 }
 
 @end

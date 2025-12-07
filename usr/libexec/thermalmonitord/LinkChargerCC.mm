@@ -2,6 +2,8 @@
 - (BOOL)canSystemSleep;
 - (BOOL)updateCloakingState:(BOOL)state;
 - (LinkChargerCC)initWithParams:(__CFDictionary *)params;
+- (__CFString)copyFieldCurrentValueForIndex:(int)index;
+- (__CFString)copyHeaderForIndex:(int)index;
 - (int)numberOfFields;
 - (void)defaultAction;
 @end
@@ -351,6 +353,93 @@ LABEL_7:
   v3.receiver = self;
   v3.super_class = LinkChargerCC;
   return [(ComponentControl *)&v3 numberOfFields]+ 4;
+}
+
+- (__CFString)copyHeaderForIndex:(int)index
+{
+  v3 = *&index;
+  v9.receiver = self;
+  v9.super_class = LinkChargerCC;
+  if ([(ComponentControl *)&v9 numberOfFields]<= index)
+  {
+    v7.receiver = self;
+    v7.super_class = LinkChargerCC;
+    v6 = v3 - [(ComponentControl *)&v7 numberOfFields];
+    if (v6 > 3)
+    {
+      return 0;
+    }
+
+    else
+    {
+      return off_100085918[v6];
+    }
+  }
+
+  else
+  {
+    v8.receiver = self;
+    v8.super_class = LinkChargerCC;
+    return [(ComponentControl *)&v8 copyHeaderForIndex:v3];
+  }
+}
+
+- (__CFString)copyFieldCurrentValueForIndex:(int)index
+{
+  v3 = *&index;
+  v15.receiver = self;
+  v15.super_class = LinkChargerCC;
+  if ([(ComponentControl *)&v15 numberOfFields]> index)
+  {
+    v14.receiver = self;
+    v14.super_class = LinkChargerCC;
+    return [(ComponentControl *)&v14 copyFieldCurrentValueForIndex:v3];
+  }
+
+  v13.receiver = self;
+  v13.super_class = LinkChargerCC;
+  numberOfFields = [(ComponentControl *)&v13 numberOfFields];
+  result = 0;
+  v7 = v3 - numberOfFields;
+  if (v7 <= 1)
+  {
+    if (v7)
+    {
+      if (v7 == 1)
+      {
+        return CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%f", *(&self->_targetTimeWirelessMatCharging + 4));
+      }
+
+      return result;
+    }
+
+    v8 = kCFAllocatorDefault;
+    v9 = 220;
+    goto LABEL_12;
+  }
+
+  if (v7 == 2)
+  {
+    v8 = kCFAllocatorDefault;
+    v9 = 221;
+LABEL_12:
+    v10 = *(&self->super.super.super.isa + v9) == 0;
+    v11 = 100;
+    if (v10)
+    {
+      v11 = 0;
+    }
+
+    return CFStringCreateWithFormat(v8, 0, @"%d", v11);
+  }
+
+  if (v7 == 3)
+  {
+    v12 = sub_1000323B4();
+    return CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%d", v12);
+  }
+
+  return result;
 }
 
 @end

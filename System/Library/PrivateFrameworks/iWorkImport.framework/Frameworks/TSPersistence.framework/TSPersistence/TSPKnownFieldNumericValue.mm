@@ -9,8 +9,8 @@
 
 - (TSPKnownFieldNumericValue)initWithFieldDescriptor:(const void *)descriptor fieldInfo:(const void *)info message:(const Message *)message reflection:(const Reflection *)reflection
 {
-  v43.receiver = self;
-  v43.super_class = TSPKnownFieldNumericValue;
+  v42.receiver = self;
+  v42.super_class = TSPKnownFieldNumericValue;
   v9 = [TSPKnownField initWithFieldDescriptor:sel_initWithFieldDescriptor_fieldInfo_message_reflection_ fieldInfo:descriptor message:info reflection:?];
   v10 = v9;
   if (!v9)
@@ -33,10 +33,9 @@
 
       if ((type - 8) < 3)
       {
-        v42 = v9->super._type;
-        TSUSetCrashReporterInfo();
+        TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unexpected field descriptor type (%d).", "[TSPKnownFieldNumericValue initWithFieldDescriptor:fieldInfo:message:reflection:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPKnownField.mm", 344, type);
         v36 = MEMORY[0x277D81150];
-        v38 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v37, "[TSPKnownFieldNumericValue initWithFieldDescriptor:fieldInfo:message:reflection:]", "[TSPKnownFieldNumericValue initWithFieldDescriptor:fieldInfo:message:reflection:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPKnownField.mm", 344, v42);
+        v38 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v37, "[TSPKnownFieldNumericValue initWithFieldDescriptor:fieldInfo:message:reflection:]");
         v40 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v39, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPKnownField.mm");
         objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v36, v41, v38, v40, 344, 1, "Unexpected field descriptor type (%d).", v10->super._type);
 
@@ -134,10 +133,9 @@ LABEL_18:
 
           else if ((type - 8) < 3)
           {
-            v35 = self->super._type;
-            TSUSetCrashReporterInfo();
+            TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unexpected field descriptor type (%d).", "[TSPKnownFieldNumericValue mergeToMessage:reflection:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPKnownField.mm", 408, type);
             v29 = MEMORY[0x277D81150];
-            v31 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v30, "[TSPKnownFieldNumericValue mergeToMessage:reflection:]", "[TSPKnownFieldNumericValue mergeToMessage:reflection:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPKnownField.mm", 408, v35);
+            v31 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v30, "[TSPKnownFieldNumericValue mergeToMessage:reflection:]");
             v33 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v32, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPKnownField.mm");
             objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v29, v34, v31, v33, 408, 1, "Unexpected field descriptor type (%d).", self->super._type);
 

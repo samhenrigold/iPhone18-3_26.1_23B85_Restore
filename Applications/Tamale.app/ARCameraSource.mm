@@ -14,7 +14,7 @@
 
 - (void)dealloc
 {
-  v3 = sub_1000033A8(&qword_1001D41B0);
+  v3 = sub_1000033A8(&qword_1001D41B0, &qword_100170B60);
   __chkstk_darwin(v3 - 8);
   v5 = &v17 - v4;
   v6 = OBJC_IVAR____TtC6Tamale14ARCameraSource_shutterSoundTask;
@@ -99,7 +99,7 @@
   sessionCopy = session;
   errorCopy = error;
   selfCopy = self;
-  sub_1000918A4();
+  sub_1000918A4(errorCopy);
 }
 
 - (void)session:(id)session didChangeGeoTrackingStatus:(id)status

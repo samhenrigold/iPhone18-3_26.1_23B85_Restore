@@ -1,54 +1,55 @@
 id PTServicesDeveloperModeIsEnabled()
 {
-  v6 = 8;
-  v7 = 0;
-  if (sysctlbyname("security.mac.amfi.developer_mode_status", &v7, &v6, 0, 0))
+  v7 = 8;
+  v8 = 0;
+  v0 = sysctlbyname("security.mac.amfi.developer_mode_status", &v8, &v7, 0, 0);
+  if (v0)
   {
-    v0 = sub_1000010E8();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+    v1 = sub_1000010E8(v0);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10000E120();
     }
 
-    v1 = 0;
+    v2 = 0;
   }
 
   else
   {
-    v2 = v7;
-    v3 = sub_1000010E8();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v3 = v8;
+    v4 = sub_1000010E8(v0);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = @"disabled";
-      if (v2)
+      v5 = @"disabled";
+      if (v3)
       {
-        v4 = @"enabled";
+        v5 = @"enabled";
       }
 
       *buf = 138543362;
-      v9 = v4;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Developer mode is %{public}@", buf, 0xCu);
+      v10 = v5;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Developer mode is %{public}@", buf, 0xCu);
     }
 
-    v1 = [NSNumber numberWithBool:v2 != 0];
+    v2 = [NSNumber numberWithBool:v3 != 0];
   }
 
-  return v1;
+  return v2;
 }
 
-id sub_1000010E8()
+id sub_1000010E8(uint64_t a1)
 {
   if (qword_10001D760 != -1)
   {
     sub_10000E1A0();
   }
 
-  v1 = qword_10001D758;
+  v2 = qword_10001D758;
 
-  return v1;
+  return v2;
 }
 
-uint64_t PTServicesDeviceIsInternal()
+uint64_t PTServicesDeviceIsInternal(uint64_t a1, uint64_t a2)
 {
   if (qword_10001D750 != -1)
   {
@@ -60,12 +61,12 @@ uint64_t PTServicesDeviceIsInternal()
 
 uint64_t PTServicesMarkPurgeableMediumUrgency(void *a1)
 {
-  v9 = 66565;
+  v10 = 66565;
   v1 = open([a1 UTF8String], 0);
-  if (v1 < 0)
+  if ((v1 & 0x80000000) != 0)
   {
-    v6 = sub_1000010E8();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_1000010E8(v1);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_10000E1C8();
     }
@@ -74,24 +75,25 @@ uint64_t PTServicesMarkPurgeableMediumUrgency(void *a1)
   }
 
   v2 = v1;
-  v3 = ffsctl(v1, 0xC0084A44uLL, &v9, 0);
-  v4 = sub_1000010E8();
-  v5 = v4;
-  if (v3)
+  v3 = ffsctl(v1, 0xC0084A44uLL, &v10, 0);
+  v4 = v3;
+  v5 = sub_1000010E8(v3);
+  v6 = v5;
+  if (v4)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_10000E248(v3, v5);
+      sub_10000E248(v4, v6);
     }
 
     close(v2);
     return 0;
   }
 
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    *v8 = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Marked file purgeable", v8, 2u);
+    *v9 = 0;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Marked file purgeable", v9, 2u);
   }
 
   close(v2);
@@ -101,45 +103,45 @@ uint64_t PTServicesMarkPurgeableMediumUrgency(void *a1)
 BOOL PTServicesSendUserNotification(void *a1, void *a2)
 {
   v3 = a1;
-  if (sub_100001E1C())
+  if (sub_100001E1C(0))
   {
-    *v46 = 0;
-    v47 = v46;
-    v48 = 0x2050000000;
+    *v47 = 0;
+    v48 = v47;
+    v49 = 0x2050000000;
     v4 = qword_10001D770;
-    v49 = qword_10001D770;
+    v50 = qword_10001D770;
     if (!qword_10001D770)
     {
       *buf = _NSConcreteStackBlock;
-      v41 = 3221225472;
-      v42 = sub_100001F60;
-      v43 = &unk_1000186C0;
-      v44 = v46;
+      v42 = 3221225472;
+      v43 = sub_100001F60;
+      v44 = &unk_1000186C0;
+      v45 = v47;
       sub_100001F60(buf);
-      v4 = *(v47 + 3);
+      v4 = *(v48 + 3);
     }
 
     v5 = v4;
-    _Block_object_dispose(v46, 8);
+    _Block_object_dispose(v47, 8);
     v6 = [[v4 alloc] initWithBundleIdentifier:@"com.apple.PerformanceTrace.notifications"];
-    *v46 = 0;
-    v47 = v46;
-    v48 = 0x2050000000;
+    *v47 = 0;
+    v48 = v47;
+    v49 = 0x2050000000;
     v7 = qword_10001D778;
-    v49 = qword_10001D778;
+    v50 = qword_10001D778;
     if (!qword_10001D778)
     {
       *buf = _NSConcreteStackBlock;
-      v41 = 3221225472;
-      v42 = sub_100001FFC;
-      v43 = &unk_1000186C0;
-      v44 = v46;
+      v42 = 3221225472;
+      v43 = sub_100001FFC;
+      v44 = &unk_1000186C0;
+      v45 = v47;
       sub_100001FFC(buf);
-      v7 = *(v47 + 3);
+      v7 = *(v48 + 3);
     }
 
     v8 = v7;
-    _Block_object_dispose(v46, 8);
+    _Block_object_dispose(v47, 8);
     v9 = objc_alloc_init(v7);
     [v9 setThreadIdentifier:@"performanceTraceNotifications"];
     [v9 setTitle:@"Performance Trace"];
@@ -171,64 +173,64 @@ BOOL PTServicesSendUserNotification(void *a1, void *a2)
       [v9 setBody:v17];
 
       [v9 setDefaultActionURL:v15];
-      *v46 = 0;
-      v47 = v46;
-      v48 = 0x2050000000;
+      *v47 = 0;
+      v48 = v47;
+      v49 = 0x2050000000;
       v18 = qword_10001D780;
-      v49 = qword_10001D780;
+      v50 = qword_10001D780;
       if (!qword_10001D780)
       {
         *buf = _NSConcreteStackBlock;
-        v41 = 3221225472;
-        v42 = sub_100002054;
-        v43 = &unk_1000186C0;
-        v44 = v46;
+        v42 = 3221225472;
+        v43 = sub_100002054;
+        v44 = &unk_1000186C0;
+        v45 = v47;
         sub_100002054(buf);
-        v18 = *(v47 + 3);
+        v18 = *(v48 + 3);
       }
 
       v19 = v18;
-      _Block_object_dispose(v46, 8);
+      _Block_object_dispose(v47, 8);
       v20 = [v18 iconWithSystemImageName:@"doc.text.below.ecg"];
-      *v46 = 0;
-      v47 = v46;
-      v48 = 0x2050000000;
+      *v47 = 0;
+      v48 = v47;
+      v49 = 0x2050000000;
       v21 = qword_10001D788;
-      v49 = qword_10001D788;
+      v50 = qword_10001D788;
       if (!qword_10001D788)
       {
         *buf = _NSConcreteStackBlock;
-        v41 = 3221225472;
-        v42 = sub_1000020AC;
-        v43 = &unk_1000186C0;
-        v44 = v46;
+        v42 = 3221225472;
+        v43 = sub_1000020AC;
+        v44 = &unk_1000186C0;
+        v45 = v47;
         sub_1000020AC(buf);
-        v21 = *(v47 + 3);
+        v21 = *(v48 + 3);
       }
 
       v22 = v21;
-      _Block_object_dispose(v46, 8);
+      _Block_object_dispose(v47, 8);
       v23 = [v21 actionWithIdentifier:@"viewAction" title:@"View" url:v15 options:0 icon:v20];
-      *v46 = 0;
-      v47 = v46;
-      v48 = 0x2050000000;
+      *v47 = 0;
+      v48 = v47;
+      v49 = 0x2050000000;
       v24 = qword_10001D790;
-      v49 = qword_10001D790;
+      v50 = qword_10001D790;
       if (!qword_10001D790)
       {
         *buf = _NSConcreteStackBlock;
-        v41 = 3221225472;
-        v42 = sub_100002104;
-        v43 = &unk_1000186C0;
-        v44 = v46;
+        v42 = 3221225472;
+        v43 = sub_100002104;
+        v44 = &unk_1000186C0;
+        v45 = v47;
         sub_100002104(buf);
-        v24 = *(v47 + 3);
+        v24 = *(v48 + 3);
       }
 
       v25 = v24;
-      _Block_object_dispose(v46, 8);
-      v50 = v23;
-      v26 = [NSArray arrayWithObjects:&v50 count:1];
+      _Block_object_dispose(v47, 8);
+      v51 = v23;
+      v26 = [NSArray arrayWithObjects:&v51 count:1];
       v27 = [v24 categoryWithIdentifier:@"performanceTraceNotifications" actions:v26 intentIdentifiers:&__NSArray0__struct options:0];
 
       v28 = [NSSet setWithObject:v27];
@@ -241,54 +243,55 @@ BOOL PTServicesSendUserNotification(void *a1, void *a2)
     }
 
     [v9 setCategoryIdentifier:@"performanceTraceNotifications"];
-    *v46 = 0;
-    v47 = v46;
-    v48 = 0x2050000000;
+    *v47 = 0;
+    v48 = v47;
+    v49 = 0x2050000000;
     v31 = qword_10001D798;
-    v49 = qword_10001D798;
+    v50 = qword_10001D798;
     if (!qword_10001D798)
     {
       *buf = _NSConcreteStackBlock;
-      v41 = 3221225472;
-      v42 = sub_10000215C;
-      v43 = &unk_1000186C0;
-      v44 = v46;
+      v42 = 3221225472;
+      v43 = sub_10000215C;
+      v44 = &unk_1000186C0;
+      v45 = v47;
       sub_10000215C(buf);
-      v31 = *(v47 + 3);
+      v31 = *(v48 + 3);
     }
 
     v32 = v31;
-    _Block_object_dispose(v46, 8);
+    _Block_object_dispose(v47, 8);
     v33 = +[NSUUID UUID];
     v34 = [v33 UUIDString];
     v35 = [v31 requestWithIdentifier:v34 content:v9 trigger:0];
 
     *buf = 0;
-    v41 = buf;
-    v42 = 0x3032000000;
-    v43 = sub_100001AB8;
-    v44 = sub_100001AC8;
-    v45 = 0;
-    v39[0] = _NSConcreteStackBlock;
-    v39[1] = 3221225472;
-    v39[2] = sub_100001AD0;
-    v39[3] = &unk_100018640;
-    v39[4] = buf;
-    [v6 addNotificationRequest:v35 withCompletionHandler:v39];
+    v42 = buf;
+    v43 = 0x3032000000;
+    v44 = sub_100001AB8;
+    v45 = sub_100001AC8;
+    v46 = 0;
+    v40[0] = _NSConcreteStackBlock;
+    v40[1] = 3221225472;
+    v40[2] = sub_100001AD0;
+    v40[3] = &unk_100018640;
+    v40[4] = buf;
+    v36 = [v6 addNotificationRequest:v35 withCompletionHandler:v40];
     if (a2)
     {
-      *a2 = *(v41 + 40);
+      v36 = *(v42 + 40);
+      *a2 = v36;
     }
 
-    v36 = *(v41 + 40);
-    v30 = v36 == 0;
-    if (!v36)
+    v37 = *(v42 + 40);
+    v30 = v37 == 0;
+    if (!v37)
     {
-      v37 = sub_1000010E8();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+      v38 = sub_1000010E8(v36);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
       {
-        *v46 = 0;
-        _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_INFO, "Performance Trace completion notification sent", v46, 2u);
+        *v47 = 0;
+        _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_INFO, "Performance Trace completion notification sent", v47, 2u);
       }
     }
 
@@ -297,7 +300,7 @@ BOOL PTServicesSendUserNotification(void *a1, void *a2)
 
   else
   {
-    v29 = sub_1000010E8();
+    v29 = sub_1000010E8(0);
     if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -319,9 +322,9 @@ BOOL PTServicesSendUserNotification(void *a1, void *a2)
   return v30;
 }
 
-void sub_100001A78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100001A78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -339,10 +342,10 @@ void sub_100001AD0(uint64_t a1, void *a2)
   if (v4)
   {
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
-    v5 = sub_1000010E8();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = sub_1000010E8(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_10000E2E8(v4, v5);
+      sub_10000E2E8(v4, v6);
     }
   }
 }
@@ -411,7 +414,7 @@ void sub_100001DD8(id a1)
   _objc_release_x1();
 }
 
-uint64_t sub_100001E1C()
+uint64_t sub_100001E1C(uint64_t a1)
 {
   if (!qword_10001D768)
   {
@@ -423,7 +426,6 @@ uint64_t sub_100001E1C()
 
 uint64_t sub_100001EEC(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10001D768 = result;
   return result;
@@ -446,9 +448,14 @@ Class sub_100001F60(uint64_t a1)
 void sub_100001FB8()
 {
   v0 = 0;
-  if (!sub_100001E1C())
+  if (!sub_100001E1C(&v0))
   {
     sub_10000E3DC(&v0);
+  }
+
+  if (v0)
+  {
+    free(v0);
   }
 }
 
@@ -522,29 +529,31 @@ Class sub_10000215C(uint64_t a1)
   return result;
 }
 
-void sub_1000021B4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000021B4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
-id sub_1000022A8()
+id sub_1000022A8(uint64_t a1)
 {
   if (qword_10001D7B0 != -1)
   {
     sub_10000E6C8();
   }
 
-  v1 = qword_10001D7A8;
+  v2 = qword_10001D7A8;
 
-  return v1;
+  return v2;
 }
 
-void sub_100003644(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_100003644(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 112), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -568,7 +577,7 @@ void *sub_100003680(void *result, uint64_t a2)
 void sub_10000465C(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -578,7 +587,7 @@ void sub_10000465C(id a1, NSError *a2)
 void sub_1000046B0(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -588,7 +597,7 @@ void sub_1000046B0(id a1, NSError *a2)
 void sub_100004704(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -598,7 +607,7 @@ void sub_100004704(id a1, NSError *a2)
 void sub_100004758(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -608,7 +617,7 @@ void sub_100004758(id a1, NSError *a2)
 void sub_1000047AC(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -618,7 +627,7 @@ void sub_1000047AC(id a1, NSError *a2)
 void sub_100004800(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -628,7 +637,7 @@ void sub_100004800(id a1, NSError *a2)
 void sub_100004854(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -638,7 +647,7 @@ void sub_100004854(id a1, NSError *a2)
 void sub_1000048A8(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -652,12 +661,12 @@ void sub_1000048FC(id *a1, uint64_t a2)
   {
     if (v4 == 9)
     {
-      v22 = [a1[4] activeConfig];
+      v25 = [a1[4] activeConfig];
 
-      if (v22)
+      if (v25)
       {
-        v23 = [a1[4] activeConfig];
-        [v23 setTracingActiveTransaction:0];
+        v26 = [a1[4] activeConfig];
+        [v26 setTracingActiveTransaction:0];
 
         [a1[4] setActiveConfig:0];
         [a1[4] setRecordingConnectionPointer:0];
@@ -676,7 +685,7 @@ void sub_1000048FC(id *a1, uint64_t a2)
       v7 = [NSString stringWithFormat:@"Received permission error from ktrace_record: %s", *(a2 + 8)];
       v8 = [NSError error:4 description:v7];
       v9 = [a1[5] synchronousRemoteObjectProxyWithErrorHandler:&stru_1000188B8];
-      v10 = sub_1000022A8();
+      v10 = sub_1000022A8(v9);
       if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_37;
@@ -714,7 +723,7 @@ void sub_1000048FC(id *a1, uint64_t a2)
       v7 = [NSString stringWithFormat:@"Received system error from ktrace_record: %s", *(a2 + 8)];
       v8 = [NSError error:4 description:v7];
       v9 = [a1[5] synchronousRemoteObjectProxyWithErrorHandler:&stru_100018898];
-      v10 = sub_1000022A8();
+      v10 = sub_1000022A8(v9);
       if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_37;
@@ -760,7 +769,7 @@ LABEL_39:
       v7 = [NSString stringWithFormat:@"Received argument error from ktrace_record: %s", *(a2 + 8)];
       v8 = [NSError error:4 description:v7];
       v9 = [a1[5] synchronousRemoteObjectProxyWithErrorHandler:&stru_100018878];
-      v10 = sub_1000022A8();
+      v10 = sub_1000022A8(v9);
       if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_37;
@@ -770,82 +779,85 @@ LABEL_39:
     }
 
 LABEL_18:
-    v7 = sub_1000022A8();
+    v7 = sub_1000022A8(a1);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v13 = *a2;
       *buf = 67109120;
-      LODWORD(v37) = v13;
+      LODWORD(v44) = v13;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Received unhandled note from ktrace_record: %d", buf, 8u);
     }
 
     goto LABEL_39;
   }
 
-  if ([a1[4] ktraceRecording])
+  v14 = [a1[4] ktraceRecording];
+  if (v14)
   {
     [a1[4] ktraceRecording];
     ktrace_recording_destroy();
     kperf_reset();
-    [a1[4] setKtraceRecording:0];
+    v14 = [a1[4] setKtraceRecording:0];
   }
 
-  v14 = sub_1000022A8();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+  v15 = sub_1000022A8(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Received trace record finished notification", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Received trace record finished notification", buf, 2u);
   }
 
-  v15 = [a1[4] activeConfig];
-  v16 = a1[6];
+  v16 = [a1[4] activeConfig];
+  v17 = a1[6];
 
-  if (v15 == v16)
+  if (v16 == v17)
   {
     v7 = a1[7];
-    if ([a1[6] compressWhenFinished])
+    v18 = [a1[6] compressWhenFinished];
+    if (v18)
     {
-      v17 = sub_1000022A8();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v19 = sub_1000022A8(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "Compressing Performance Trace", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Compressing Performance Trace", buf, 2u);
       }
 
-      v18 = tailspin_compress_file();
-      v19 = v18;
-      if (v18)
+      v20 = tailspin_compress_file();
+      v21 = v20;
+      if (v20)
       {
-        v20 = v18;
+        v22 = v20;
 
-        v21 = sub_1000022A8();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+        v24 = sub_1000022A8(v23);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "Done compressing Performance Trace", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "Done compressing Performance Trace", buf, 2u);
         }
       }
 
       else
       {
-        v21 = sub_1000022A8();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v24 = sub_1000022A8(0);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
           sub_10000EB30();
         }
 
-        v20 = v7;
+        v22 = v7;
       }
 
-      v7 = v20;
+      v7 = v22;
     }
 
     PTServicesMarkPurgeableMediumUrgency(v7);
-    v8 = PTServicesSetFilePosixPermissions(v7);
-    if (v8)
+    v27 = PTServicesSetFilePosixPermissions(v7);
+    v8 = v27;
+    if (v27)
     {
-      v24 = sub_1000022A8();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v28 = sub_1000022A8(v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         sub_10000EB6C(v8);
       }
@@ -853,32 +865,33 @@ LABEL_18:
 
     if ([a1[6] skipNotification])
     {
-      v25 = a1[5];
-      if (v25)
+      v29 = a1[5];
+      if (v29)
       {
-        if ([a1[4] _connectionIsEntitled:v25 toEntitlement:@"com.apple.PerformanceTrace.SkipNotification"])
+        v30 = [a1[4] _connectionIsEntitled:v29 toEntitlement:@"com.apple.PerformanceTrace.SkipNotification"];
+        if (v30)
         {
-          v26 = sub_1000022A8();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+          v31 = sub_1000022A8(v30);
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "Skipping notification as requested.", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_INFO, "Skipping notification as requested.", buf, 2u);
           }
 
           goto LABEL_61;
         }
 
-        v27 = a1[5];
+        v32 = a1[5];
       }
 
       else
       {
-        v27 = 0;
+        v32 = 0;
       }
 
-      proc_name([v27 processIdentifier], buf, 0x20u);
-      v28 = sub_1000022A8();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v33 = proc_name([v32 processIdentifier], buf, 0x20u);
+      v34 = sub_1000022A8(v33);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         sub_10000EBF8();
       }
@@ -886,26 +899,26 @@ LABEL_18:
 
     [a1[4] _sendNotification:v7];
 LABEL_61:
-    v29 = a1[4];
-    v30 = [NSURL fileURLWithPath:v7];
-    v31 = [v29 _generateToken:v30];
+    v35 = a1[4];
+    v36 = [NSURL fileURLWithPath:v7];
+    v37 = [v35 _generateToken:v36];
 
-    v32 = [a1[4] activeConfig];
-    [v32 setTracingActiveTransaction:0];
+    v38 = [a1[4] activeConfig];
+    [v38 setTracingActiveTransaction:0];
 
     [a1[4] setActiveConfig:0];
     [a1[4] setRecordingConnectionPointer:0];
     [a1[4] _updateRecordingStatus:0];
-    v33 = [a1[5] synchronousRemoteObjectProxyWithErrorHandler:&stru_1000188D8];
-    v34 = [NSURL fileURLWithPath:v7];
-    [v33 performanceTraceDidComplete:v34 withToken:v31 withError:0];
+    v39 = [a1[5] synchronousRemoteObjectProxyWithErrorHandler:&stru_1000188D8];
+    v40 = [NSURL fileURLWithPath:v7];
+    [v39 performanceTraceDidComplete:v40 withToken:v37 withError:0];
 
-    v35 = sub_1000022A8();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+    v42 = sub_1000022A8(v41);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v37 = v7;
-      _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Trace collected with final path: %{public}@", buf, 0xCu);
+      v44 = v7;
+      _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Trace collected with final path: %{public}@", buf, 0xCu);
     }
 
     goto LABEL_38;
@@ -915,7 +928,7 @@ LABEL_61:
 void sub_1000050C4(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -925,7 +938,7 @@ void sub_1000050C4(id a1, NSError *a2)
 void sub_100005118(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -935,7 +948,7 @@ void sub_100005118(id a1, NSError *a2)
 void sub_10000516C(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -945,7 +958,7 @@ void sub_10000516C(id a1, NSError *a2)
 void sub_1000051C0(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -954,7 +967,7 @@ void sub_1000051C0(id a1, NSError *a2)
 
 void sub_100005214(uint64_t a1)
 {
-  v2 = sub_1000022A8();
+  v2 = sub_1000022A8(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -968,7 +981,7 @@ void sub_100005214(uint64_t a1)
 void sub_1000052A4(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -977,27 +990,25 @@ void sub_1000052A4(id a1, NSError *a2)
 
 void sub_1000052F8(uint64_t a1)
 {
-  v2 = sub_1000022A8();
+  v2 = sub_1000022A8(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     sub_10000EC98();
   }
 
   [*(a1 + 32) ktraceRecording];
-  v3 = *(a1 + 56);
-  v4 = *(a1 + 48);
-  v5 = ktrace_record();
-  if (v5)
+  v3 = ktrace_record();
+  if (v3)
   {
-    v6 = [NSString stringWithFormat:@"Failed to start trace session with error: %d", v5];
-    v7 = [NSError error:4 description:v6];
+    v4 = [NSString stringWithFormat:@"Failed to start trace session with error: %d", v3];
+    v5 = [NSError error:4 description:v4];
 
-    v8 = [*(a1 + 32) activeConfig];
+    v6 = [*(a1 + 32) activeConfig];
 
-    if (v8)
+    if (v6)
     {
-      v9 = [*(a1 + 32) activeConfig];
-      [v9 setTracingActiveTransaction:0];
+      v7 = [*(a1 + 32) activeConfig];
+      [v7 setTracingActiveTransaction:0];
 
       [*(a1 + 32) setActiveConfig:0];
       [*(a1 + 32) setRecordingConnectionPointer:0];
@@ -1013,21 +1024,21 @@ void sub_1000052F8(uint64_t a1)
     }
 
     [*(a1 + 32) _graphicsSamplingTeardown];
-    v10 = [*(a1 + 40) synchronousRemoteObjectProxyWithErrorHandler:&stru_100018968];
-    v11 = sub_1000022A8();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v8 = [*(a1 + 40) synchronousRemoteObjectProxyWithErrorHandler:&stru_100018968];
+    v9 = sub_1000022A8(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_10000E9FC(v7);
+      sub_10000E9FC(v5);
     }
 
-    [v10 performanceTraceDidStart:v7];
+    [v8 performanceTraceDidStart:v5];
   }
 }
 
 void sub_100005490(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -1037,7 +1048,7 @@ void sub_100005490(id a1, NSError *a2)
 void sub_100006B9C(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -1047,7 +1058,7 @@ void sub_100006B9C(id a1, NSError *a2)
 void sub_100006BF0(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -1057,7 +1068,7 @@ void sub_100006BF0(id a1, NSError *a2)
 void sub_100006C44(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -1067,7 +1078,7 @@ void sub_100006C44(id a1, NSError *a2)
 void sub_100006C98(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -1077,7 +1088,7 @@ void sub_100006C98(id a1, NSError *a2)
 void sub_100006CEC(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -1087,7 +1098,7 @@ void sub_100006CEC(id a1, NSError *a2)
 void sub_100006D40(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -1097,7 +1108,7 @@ void sub_100006D40(id a1, NSError *a2)
 void sub_100006D94(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -1107,7 +1118,7 @@ void sub_100006D94(id a1, NSError *a2)
 void sub_100006DE8(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -1117,7 +1128,7 @@ void sub_100006DE8(id a1, NSError *a2)
 void sub_100006E3C(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -1137,66 +1148,67 @@ void sub_100006E90(id *a1)
   [a1[4] _graphicsSamplingTeardown];
   v2 = a1[4];
   v3 = [NSURL fileURLWithPath:a1[5]];
-  v26 = 0;
-  v4 = [v2 _postProcessKtraceFile:v3 withError:&v26];
-  v5 = v26;
+  v32 = 0;
+  v4 = [v2 _postProcessKtraceFile:v3 withError:&v32];
+  v5 = v32;
 
   if (v5 || (v4 & 1) == 0)
   {
-    v6 = sub_1000022A8();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_1000022A8(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_10000ED54(v5);
     }
   }
 
-  v7 = a1[5];
-  if ([a1[6] compressWhenFinished])
+  v8 = a1[5];
+  v9 = [a1[6] compressWhenFinished];
+  if (v9)
   {
-    v8 = sub_1000022A8();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v10 = sub_1000022A8(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Compressing Performance Trace", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Compressing Performance Trace", buf, 2u);
     }
 
-    v9 = a1[5];
-    v10 = tailspin_compress_file();
-    v11 = v10;
-    if (v10)
+    v11 = tailspin_compress_file();
+    v12 = v11;
+    if (v11)
     {
-      v12 = v10;
+      v13 = v11;
 
-      v13 = sub_1000022A8();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      v15 = sub_1000022A8(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Done compressing Performance Trace", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Done compressing Performance Trace", buf, 2u);
       }
     }
 
     else
     {
-      v13 = sub_1000022A8();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v15 = sub_1000022A8(0);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         sub_10000EB30();
       }
 
-      v12 = v7;
+      v13 = v8;
     }
 
-    v7 = v12;
+    v8 = v13;
   }
 
-  PTServicesMarkPurgeableMediumUrgency(v7);
-  v14 = PTServicesSetFilePosixPermissions(v7);
-  if (v14)
+  PTServicesMarkPurgeableMediumUrgency(v8);
+  v16 = PTServicesSetFilePosixPermissions(v8);
+  v17 = v16;
+  if (v16)
   {
-    v15 = sub_1000022A8();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v18 = sub_1000022A8(v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      sub_10000EB6C(v14);
+      sub_10000EB6C(v17);
     }
   }
 
@@ -1205,61 +1217,62 @@ void sub_100006E90(id *a1)
     goto LABEL_33;
   }
 
-  v16 = a1[7];
-  if (!v16)
+  v19 = a1[7];
+  if (!v19)
   {
-    v18 = 0;
+    v22 = 0;
 LABEL_30:
-    proc_name([v18 processIdentifier], buf, 0x20u);
-    v19 = sub_1000022A8();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v23 = proc_name([v22 processIdentifier], buf, 0x20u);
+    v24 = sub_1000022A8(v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       sub_10000EBF8();
     }
 
 LABEL_33:
-    [a1[4] _sendNotification:v7];
+    [a1[4] _sendNotification:v8];
     goto LABEL_34;
   }
 
-  if (([a1[4] _connectionIsEntitled:v16 toEntitlement:@"com.apple.PerformanceTrace.SkipNotification"] & 1) == 0)
+  v20 = [a1[4] _connectionIsEntitled:v19 toEntitlement:@"com.apple.PerformanceTrace.SkipNotification"];
+  if ((v20 & 1) == 0)
   {
-    v18 = a1[7];
+    v22 = a1[7];
     goto LABEL_30;
   }
 
-  v17 = sub_1000022A8();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+  v21 = sub_1000022A8(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "Skipping notification as requested.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "Skipping notification as requested.", buf, 2u);
   }
 
 LABEL_34:
-  v20 = a1[4];
-  v21 = [NSURL fileURLWithPath:v7];
-  v22 = [v20 _generateToken:v21];
+  v25 = a1[4];
+  v26 = [NSURL fileURLWithPath:v8];
+  v27 = [v25 _generateToken:v26];
 
   [a1[4] setActiveConfig:0];
   [a1[4] setRecordingConnectionPointer:0];
   [a1[4] _updateRecordingStatus:0];
-  v23 = [a1[7] synchronousRemoteObjectProxyWithErrorHandler:&stru_100018AD0];
-  v24 = [NSURL fileURLWithPath:v7];
-  [v23 performanceTraceDidComplete:v24 withToken:v22 withError:v5];
+  v28 = [a1[7] synchronousRemoteObjectProxyWithErrorHandler:&stru_100018AD0];
+  v29 = [NSURL fileURLWithPath:v8];
+  [v28 performanceTraceDidComplete:v29 withToken:v27 withError:v5];
 
-  v25 = sub_1000022A8();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+  v31 = sub_1000022A8(v30);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v28 = v7;
-    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "(Legacy) Trace collected with final path: %{public}@", buf, 0xCu);
+    v34 = v8;
+    _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "(Legacy) Trace collected with final path: %{public}@", buf, 0xCu);
   }
 }
 
 void sub_1000072A8(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -1269,7 +1282,7 @@ void sub_1000072A8(id a1, NSError *a2)
 void sub_1000072FC(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -1279,7 +1292,7 @@ void sub_1000072FC(id a1, NSError *a2)
 void sub_100007350(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -1289,7 +1302,7 @@ void sub_100007350(id a1, NSError *a2)
 void sub_1000073A4(uint64_t a1)
 {
   v2 = [*(a1 + 32) ktraceSession];
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_INFO);
   if (v2)
   {
@@ -1316,7 +1329,7 @@ void sub_1000073A4(uint64_t a1)
 void sub_10000746C(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -1326,7 +1339,7 @@ void sub_10000746C(id a1, NSError *a2)
 void sub_1000078C0(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -1336,7 +1349,7 @@ void sub_1000078C0(id a1, NSError *a2)
 void sub_100007914(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -1346,7 +1359,7 @@ void sub_100007914(id a1, NSError *a2)
 void sub_100007968(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -1356,7 +1369,7 @@ void sub_100007968(id a1, NSError *a2)
 void sub_1000085D4(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -1366,7 +1379,7 @@ void sub_1000085D4(id a1, NSError *a2)
 void sub_100008628(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -1376,7 +1389,7 @@ void sub_100008628(id a1, NSError *a2)
 void sub_10000867C(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -1386,7 +1399,7 @@ void sub_10000867C(id a1, NSError *a2)
 void sub_1000086D0(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -1406,140 +1419,140 @@ void sub_100008724(uint64_t a1)
   [*(a1 + 32) _graphicsSamplingTeardown];
   v2 = *(a1 + 32);
   v3 = [NSURL fileURLWithPath:*(a1 + 40)];
-  v33 = 0;
-  v4 = [v2 _postProcessKtraceFile:v3 withError:&v33];
-  v5 = v33;
+  v39 = 0;
+  v4 = [v2 _postProcessKtraceFile:v3 withError:&v39];
+  v5 = v39;
 
   if (v5 || (v4 & 1) == 0)
   {
-    v6 = sub_1000022A8();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_1000022A8(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_10000ED54(v5);
     }
   }
 
-  v7 = *(a1 + 40);
-  v8 = [*(a1 + 32) activeConfig];
-  v9 = [v8 compressWhenFinished];
+  v8 = *(a1 + 40);
+  v9 = [*(a1 + 32) activeConfig];
+  v10 = [v9 compressWhenFinished];
 
-  if (v9)
+  if (v10)
   {
-    v10 = sub_1000022A8();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v12 = sub_1000022A8(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Compressing Performance Trace", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Compressing Performance Trace", buf, 2u);
     }
 
-    v11 = *(a1 + 40);
-    v12 = tailspin_compress_file();
-    v13 = v12;
-    if (v12)
+    v13 = tailspin_compress_file();
+    v14 = v13;
+    if (v13)
     {
-      v14 = v12;
+      v15 = v13;
 
-      v15 = sub_1000022A8();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      v17 = sub_1000022A8(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Done compressing Performance Trace", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "Done compressing Performance Trace", buf, 2u);
       }
     }
 
     else
     {
-      v15 = sub_1000022A8();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v17 = sub_1000022A8(0);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         sub_10000EB30();
       }
 
-      v14 = v7;
+      v15 = v8;
     }
 
-    v7 = v14;
+    v8 = v15;
   }
 
-  PTServicesMarkPurgeableMediumUrgency(v7);
-  v16 = +[NSFileManager defaultManager];
-  v17 = *(a1 + 48);
-  v32 = 0;
-  [v16 setAttributes:v17 ofItemAtPath:v7 error:&v32];
-  v18 = v32;
+  PTServicesMarkPurgeableMediumUrgency(v8);
+  v18 = +[NSFileManager defaultManager];
+  v19 = *(a1 + 48);
+  v38 = 0;
+  [v18 setAttributes:v19 ofItemAtPath:v8 error:&v38];
+  v20 = v38;
 
-  if (v18)
+  if (v20)
   {
-    v19 = sub_1000022A8();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v22 = sub_1000022A8(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      sub_10000EB6C(v18);
+      sub_10000EB6C(v20);
     }
   }
 
-  v20 = [*(a1 + 32) activeConfig];
-  v21 = [v20 skipNotification];
+  v23 = [*(a1 + 32) activeConfig];
+  v24 = [v23 skipNotification];
 
-  if (!v21)
+  if (!v24)
   {
     goto LABEL_33;
   }
 
-  v22 = *(a1 + 56);
-  if (!v22)
+  v25 = *(a1 + 56);
+  if (!v25)
   {
-    v24 = 0;
+    v28 = 0;
 LABEL_30:
-    proc_name([v24 processIdentifier], buf, 0x20u);
-    v25 = sub_1000022A8();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v29 = proc_name([v28 processIdentifier], buf, 0x20u);
+    v30 = sub_1000022A8(v29);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       sub_10000EBF8();
     }
 
 LABEL_33:
-    [*(a1 + 32) _sendNotification:v7];
+    [*(a1 + 32) _sendNotification:v8];
     goto LABEL_34;
   }
 
-  if (([*(a1 + 32) _connectionIsEntitled:v22 toEntitlement:@"com.apple.PerformanceTrace.SkipNotification"] & 1) == 0)
+  v26 = [*(a1 + 32) _connectionIsEntitled:v25 toEntitlement:@"com.apple.PerformanceTrace.SkipNotification"];
+  if ((v26 & 1) == 0)
   {
-    v24 = *(a1 + 56);
+    v28 = *(a1 + 56);
     goto LABEL_30;
   }
 
-  v23 = sub_1000022A8();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+  v27 = sub_1000022A8(v26);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "Skipping notification as requested.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "Skipping notification as requested.", buf, 2u);
   }
 
 LABEL_34:
-  v26 = *(a1 + 32);
-  v27 = [NSURL fileURLWithPath:v7];
-  v28 = [v26 _generateToken:v27];
+  v31 = *(a1 + 32);
+  v32 = [NSURL fileURLWithPath:v8];
+  v33 = [v31 _generateToken:v32];
 
   [*(a1 + 32) setActiveConfig:0];
   [*(a1 + 32) setRecordingConnectionPointer:0];
   [*(a1 + 32) _updateRecordingStatus:0];
-  v29 = [*(a1 + 56) synchronousRemoteObjectProxyWithErrorHandler:&stru_100018C58];
-  v30 = [NSURL fileURLWithPath:v7];
-  [v29 performanceTraceDidComplete:v30 withToken:v28 withError:v5];
+  v34 = [*(a1 + 56) synchronousRemoteObjectProxyWithErrorHandler:&stru_100018C58];
+  v35 = [NSURL fileURLWithPath:v8];
+  [v34 performanceTraceDidComplete:v35 withToken:v33 withError:v5];
 
-  v31 = sub_1000022A8();
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+  v37 = sub_1000022A8(v36);
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v35 = v7;
-    _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "(Legacy) Trace collected with final path: %{public}@", buf, 0xCu);
+    v41 = v8;
+    _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "(Legacy) Trace collected with final path: %{public}@", buf, 0xCu);
   }
 }
 
 void sub_100008B8C(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -1549,7 +1562,7 @@ void sub_100008B8C(id a1, NSError *a2)
 void sub_100008BE0(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
@@ -1559,16 +1572,16 @@ void sub_100008BE0(id a1, NSError *a2)
 void sub_100008C34(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000EAC8();
   }
 }
 
-void sub_100008F7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100008F7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1583,7 +1596,7 @@ uint64_t sub_100008F9C(uint64_t result, uint64_t a2)
 void sub_100009E98(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000F274();
@@ -1592,7 +1605,7 @@ void sub_100009E98(id a1, NSError *a2)
 
 void sub_10000A1E0(uint64_t a1)
 {
-  v2 = sub_1000022A8();
+  v2 = sub_1000022A8(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
@@ -1628,10 +1641,10 @@ void sub_10000A1E0(uint64_t a1)
 
 void sub_10000A31C(uint64_t a1)
 {
-  v2 = sub_1000022A8();
+  v2 = sub_1000022A8(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    sub_10000F360(a1);
+    sub_10000F360();
   }
 
   v3 = [*(a1 + 40) recordingConnectionPointer];
@@ -1658,7 +1671,7 @@ void sub_10000A31C(uint64_t a1)
 
 int main(int argc, const char **argv, const char **envp)
 {
-  v3 = sub_1000022A8();
+  v3 = sub_1000022A8(*&argc);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v7 = 0;
@@ -1680,23 +1693,17 @@ void sub_10000A588(id a1)
   _objc_release_x1();
 }
 
-void sub_10000A5E8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000A5E8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_10000A61C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t *a5)
 {
 
   _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, a5, 0xCu);
-}
-
-uint64_t sub_10000A660@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(*result + 40);
-  return result;
 }
 
 uint64_t sub_10000A670(uint64_t result, uint64_t a2, float a3)
@@ -1709,35 +1716,36 @@ uint64_t sub_10000A670(uint64_t result, uint64_t a2, float a3)
 BOOL PTServicesPostStateDidChangeNotification()
 {
   v0 = notify_post("com.apple.performancetrace.global_state_did_change");
-  v1 = sub_10000A738();
-  v2 = v1;
-  if (v0)
+  v1 = v0;
+  v2 = sub_10000A738(v0);
+  v3 = v2;
+  if (v1)
   {
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      sub_10000F3E4(v0, v2);
+      sub_10000F3E4(v1, v3);
     }
   }
 
-  else if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Posted global state change notification", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Posted global state change notification", v5, 2u);
   }
 
-  return v0 == 0;
+  return v1 == 0;
 }
 
-id sub_10000A738()
+id sub_10000A738(uint64_t a1)
 {
   if (qword_10001D7C0 != -1)
   {
     sub_10000F45C();
   }
 
-  v1 = qword_10001D7B8;
+  v2 = qword_10001D7B8;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000A77C(id a1)
@@ -1840,21 +1848,21 @@ uint64_t traceGroupForString(void *a1)
   return v2;
 }
 
-id sub_10000AF70()
+id sub_10000AF70(uint64_t a1)
 {
   if (qword_10001D7D0 != -1)
   {
     sub_10000F4A4();
   }
 
-  v1 = qword_10001D7C8;
+  v2 = qword_10001D7C8;
 
-  return v1;
+  return v2;
 }
 
-void sub_10000C740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000C740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1872,7 +1880,7 @@ void sub_10000C770(uint64_t a1, uint64_t a2, void *a3)
   v6 = v5;
   if (a2 || !v5)
   {
-    v10 = sub_10000AF70();
+    v10 = sub_10000AF70(v5);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_10000F4B8();
@@ -1895,16 +1903,16 @@ void sub_10000C770(uint64_t a1, uint64_t a2, void *a3)
   }
 }
 
-void sub_10000C974(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000C974(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_10000C98C(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_10000AF70();
+  v4 = sub_10000AF70(a1);
   v5 = v4;
   if (a2)
   {
@@ -1926,16 +1934,16 @@ void sub_10000C98C(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_10000CB7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000CB7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_10000CB94(uint64_t a1, int a2, uint64_t a3)
 {
-  v6 = sub_10000AF70();
+  v6 = sub_10000AF70(a1);
   v7 = v6;
   if (a3)
   {
@@ -1964,9 +1972,9 @@ void sub_10000CB94(uint64_t a1, int a2, uint64_t a3)
   }
 }
 
-void sub_10000CDC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000CDC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1974,12 +1982,13 @@ void sub_10000CDC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_10000CDDC(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = sub_10000AF70();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sub_10000AF70(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_10000F554(v3, v4);
+      sub_10000F554(v4, v5);
     }
   }
 
@@ -1991,7 +2000,7 @@ void sub_10000CDDC(uint64_t a1, void *a2)
 
 void sub_10000CF30(id a1)
 {
-  v1 = sub_10000AF70();
+  v1 = sub_10000AF70(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
     *v2 = 0;
@@ -2001,7 +2010,7 @@ void sub_10000CF30(id a1)
 
 void sub_10000CF98(id a1)
 {
-  v1 = sub_10000AF70();
+  v1 = sub_10000AF70(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     sub_10000F5CC();
@@ -2011,7 +2020,7 @@ void sub_10000CF98(id a1)
 void sub_10000D030(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_10000AF70();
+  v3 = sub_10000AF70(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_10000F600(v2, v3);
@@ -2108,10 +2117,25 @@ void sub_10000E0C0(id a1)
   _objc_release_x1();
 }
 
-void sub_10000E104(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000E104(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
+}
+
+void sub_10000E120()
+{
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = *__error();
+  sub_1000021B4(&_mh_execute_header, v0, v1, "Failed to read developer mode status: %{darwin.errno}d", v2, v3, v4, v5, v6);
+}
+
+void sub_10000E1C8()
+{
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = *__error();
+  sub_1000021B4(&_mh_execute_header, v0, v1, "Failed to open file to mark as purgable: %{errno}d", v2, v3, v4, v5, v6);
 }
 
 void sub_10000E248(int a1, NSObject *a2)
@@ -2339,25 +2363,25 @@ void sub_10000EFDC(void *a1)
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
-void sub_10000F06C(uint64_t a1)
+void sub_10000F06C()
 {
-  sub_10000A660(a1, __stack_chk_guard);
+  sub_10000A660(__stack_chk_guard);
   sub_10000A688();
-  sub_10000A5E8(&_mh_execute_header, v1, v2, "An error occurred getting the current configuration (Switching to default): %{public}@", v3, v4, v5, v6, v7);
+  sub_10000A5E8(&_mh_execute_header, v0, v1, "An error occurred getting the current configuration (Switching to default): %{public}@", v2, v3, v4, v5);
 }
 
-void sub_10000F0D4(uint64_t a1)
+void sub_10000F0D4()
 {
-  sub_10000A660(a1, __stack_chk_guard);
+  sub_10000A660(__stack_chk_guard);
   sub_10000A688();
-  sub_10000A5E8(&_mh_execute_header, v1, v2, "Failed to unpack config: %{public}@", v3, v4, v5, v6, v7);
+  sub_10000A5E8(&_mh_execute_header, v0, v1, "Failed to unpack config: %{public}@", v2, v3, v4, v5);
 }
 
-void sub_10000F13C(uint64_t a1)
+void sub_10000F13C()
 {
-  sub_10000A660(a1, __stack_chk_guard);
+  sub_10000A660(__stack_chk_guard);
   sub_10000A688();
-  sub_10000A5E8(&_mh_execute_header, v1, v2, "Failed to read config archive: %{public}@", v3, v4, v5, v6, v7);
+  sub_10000A5E8(&_mh_execute_header, v0, v1, "Failed to read config archive: %{public}@", v2, v3, v4, v5);
 }
 
 void sub_10000F2DC()
@@ -2368,13 +2392,11 @@ void sub_10000F2DC()
   _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "Client %{public}@ [%d] is not entitled to use Performance Trace.", v2, 0x12u);
 }
 
-void sub_10000F360(uint64_t a1)
+void sub_10000F360()
 {
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 56);
   sub_10000A688();
   sub_10000A604();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void sub_10000F3E4(int a1, NSObject *a2)

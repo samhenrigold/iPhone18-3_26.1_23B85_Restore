@@ -25,19 +25,19 @@
 
 - (void)queryEvents:(id)events
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   obj = events;
-  v4 = [obj countByEnumeratingWithState:&v32 objects:v41 count:16];
+  v4 = [obj countByEnumeratingWithState:&v31 objects:v40 count:16];
   if (v4)
   {
     v6 = v4;
-    v7 = *v33;
+    v7 = *v32;
     *&v5 = 138412290;
-    v29 = v5;
+    v28 = v5;
     v8 = 0x1E8100000uLL;
     v9 = 0x1E695D000;
     do
@@ -45,12 +45,12 @@
       v10 = 0;
       do
       {
-        if (*v33 != v7)
+        if (*v32 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v32 + 1) + 8 * v10);
+        v11 = *(*(&v31 + 1) + 8 * v10);
         context = objc_autoreleasePoolPush();
         minObservationCount = [v11 minObservationCount];
         if (minObservationCount <= [v11 currentObservationCount])
@@ -76,8 +76,8 @@
             if (os_log_type_enabled(statusType, OS_LOG_TYPE_DEFAULT))
             {
               v20 = [v16 description];
-              *buf = v29;
-              v40 = v20;
+              *buf = v28;
+              v39 = v20;
               _os_log_impl(&dword_1C00A7000, statusType, OS_LOG_TYPE_DEFAULT, "Status observed for event: %@", buf, 0xCu);
             }
 
@@ -102,10 +102,10 @@
 
         if (statusType)
         {
-          v37 = identifier;
+          v36 = identifier;
           resultDate = [v21 resultDate];
-          v38 = resultDate;
-          v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+          v37 = resultDate;
+          v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
           [v21 setObservationMap:v25];
         }
 
@@ -115,8 +115,8 @@
         }
 
         delegate = [(TPSEventsProvider *)self delegate];
-        v36 = v21;
-        v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v36 count:1];
+        v35 = v21;
+        v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
         [delegate dataProvider:self didFinishQueryWithResults:v27];
 
         objc_autoreleasePoolPop(context);
@@ -124,13 +124,11 @@
       }
 
       while (v6 != v10);
-      v6 = [obj countByEnumeratingWithState:&v32 objects:v41 count:16];
+      v6 = [obj countByEnumeratingWithState:&v31 objects:v40 count:16];
     }
 
     while (v6);
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_isStatusType:(int64_t)type observedInStatuses:(id)statuses
@@ -154,7 +152,7 @@
   return type;
 }
 
-uint64_t __67__TPSContentStatusEventsProvider__isStatusType_observedInStatuses___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__67__TPSContentStatusEventsProvider__isStatusType_observedInStatuses___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) _isStatusType:*(a1 + 48) observedInStatus:a2];
   if (result)

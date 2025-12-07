@@ -152,8 +152,7 @@
 
 LABEL_59:
       MEMORY[0x1E69E5920](selfCopy);
-      v55 = 0;
-      goto LABEL_60;
+      return 0;
     }
 
     v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -325,10 +324,7 @@ LABEL_59:
     [(HIDDevice *)selfCopy->_device setDispatchQueue:selfCopy->super._queue];
   }
 
-  v55 = selfCopy;
-LABEL_60:
-  *MEMORY[0x1E69E9840];
-  return v55;
+  return selfCopy;
 }
 
 - (void)dealloc
@@ -383,7 +379,7 @@ LABEL_60:
 - (void)stop
 {
   selfCopy = self;
-  v17 = a2;
+  v16 = a2;
   if (self->super._logHandle)
   {
     logHandle = selfCopy->super._logHandle;
@@ -404,14 +400,14 @@ LABEL_60:
     logHandle = inited;
   }
 
-  v16 = logHandle;
-  v15 = OS_LOG_TYPE_DEFAULT;
+  v15 = logHandle;
+  v14 = OS_LOG_TYPE_DEFAULT;
   if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
   {
-    log = v16;
-    type = v15;
-    __os_log_helper_16_0_0(v14);
-    _os_log_impl(&dword_1DE8E5000, log, type, "Stop", v14, 2u);
+    log = v15;
+    type = v14;
+    __os_log_helper_16_0_0(v13);
+    _os_log_impl(&dword_1DE8E5000, log, type, "Stop", v13, 2u);
   }
 
   [(HIDDevice *)selfCopy->_device cancel];
@@ -419,10 +415,10 @@ LABEL_60:
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterRemoveObserver(DarwinNotifyCenter, selfCopy, @"com.apple.springboard.deviceWillShutDown", 0);
   v3 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v13 = [v3 initWithUTF8String:*MEMORY[0x1E69A28E0]];
+  v12 = [v3 initWithUTF8String:*MEMORY[0x1E69A28E0]];
   v4 = CFNotificationCenterGetDarwinNotifyCenter();
-  CFNotificationCenterRemoveObserver(v4, selfCopy, v13, 0);
-  *&v5 = MEMORY[0x1E69E5920](v13).n128_u64[0];
+  CFNotificationCenterRemoveObserver(v4, selfCopy, v12, 0);
+  *&v5 = MEMORY[0x1E69E5920](v12).n128_u64[0];
   if (selfCopy->_forceLuxUpdateTimer)
   {
     dispatch_source_cancel(selfCopy->_forceLuxUpdateTimer);
@@ -447,8 +443,7 @@ LABEL_60:
 
   if (selfCopy->_activityNotificationHandle)
   {
-    v8 = &OBJC_IVAR___CBAODState__thresholdsAPDeltaPBrightenBuckets;
-    activityNotificationHandle = selfCopy->_activityNotificationHandle;
+    v7 = &OBJC_IVAR___CBAODState__thresholdsAPDeltaPBrightenBuckets;
     IOPMUnregisterNotification();
     selfCopy->_activityNotificationHandle = 0;
   }
@@ -682,7 +677,6 @@ LABEL_60:
   }
 
   [(KeyboardBacklight *)selfCopy startKBDeviceManagementServiceLookup];
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)startKBDeviceManagementServiceLookup
@@ -734,7 +728,6 @@ LABEL_60:
   }
 
   objc_autoreleasePoolPop(context);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)stopKBDeviceManagementServiceLookup
@@ -867,8 +860,6 @@ LABEL_60:
       _os_log_error_impl(&dword_1DE8E5000, v3, v4, "No service", v14, 2u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)retrieveKeyboardBacklightElements
@@ -1232,7 +1223,6 @@ LABEL_60:
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return v93 & 1;
 }
 
@@ -1339,8 +1329,6 @@ LABEL_60:
       _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "keyboard backlight dimmed %d", v8, 8u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)setSuspend:(BOOL)suspend
@@ -1380,8 +1368,6 @@ LABEL_60:
       _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "Suspend auto-brightness = %d", v6, 8u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)setUserActive:(BOOL)active
@@ -1427,8 +1413,6 @@ LABEL_60:
       _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "User activity %d", v8, 8u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)setKeyboardAvailable:(BOOL)available
@@ -1469,8 +1453,6 @@ LABEL_60:
       _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "HW keyboard availability %d", v8, 8u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)setClamshellClosed:(BOOL)closed
@@ -1521,8 +1503,6 @@ LABEL_60:
       _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "Clamshell is %s.", v9, 0xCu);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)sendSuppressedNotification
@@ -1642,8 +1622,6 @@ LABEL_60:
 
     MEMORY[0x1E69E5920](v11);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)toggleMute
@@ -1728,8 +1706,6 @@ LABEL_60:
     [(KeyboardBacklight *)self sendNotificationForKey:@"KeyboardBacklightSaturated" withValue:v8];
     MEMORY[0x1E69E5920](v8);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (float)brightness
@@ -1880,8 +1856,6 @@ LABEL_60:
       _os_log_impl(&dword_1DE8E5000, v5, v6, "Manual keyboard brightness adjustment not allowed", v15, 2u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)setBrightness:(float)brightness withFadeSpeed:(int)speed commit:(BOOL)commit
@@ -2019,8 +1993,6 @@ LABEL_60:
       _os_log_impl(&dword_1DE8E5000, v7, v8, "Manual keyboard brightness adjustment not allowed", v17, 2u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)setBacklightLevel:(float)level
@@ -2081,7 +2053,6 @@ LABEL_60:
 
   *&v6 = v7;
   [(KeyboardBacklight *)self setBrightness:v6];
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)updateAmbientOffset
@@ -2234,8 +2205,6 @@ LABEL_60:
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (float)level
@@ -2324,8 +2293,6 @@ LABEL_60:
     __os_log_helper_16_0_1_8_0(v8, COERCE__INT64(v3));
     _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "currentLux %f", v8, 0xCu);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)handleLuxUpdate:(float)update
@@ -2438,8 +2405,6 @@ LABEL_60:
       _os_log_debug_impl(&dword_1DE8E5000, v15, OS_LOG_TYPE_DEBUG, "%@", v30, 0xCu);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (float)currentLuxToAmbient
@@ -2585,14 +2550,13 @@ LABEL_60:
 
 - (void)resetKeyDimTimeout
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  v31 = a2;
+  v28 = a2;
   if ([(KeyboardBacklight *)self dimTime]<= 0)
   {
     if (selfCopy->_activityNotificationHandle)
     {
-      activityNotificationHandle = selfCopy->_activityNotificationHandle;
       IOPMUnregisterNotification();
       selfCopy->_activityNotificationHandle = 0;
     }
@@ -2617,53 +2581,21 @@ LABEL_60:
       logHandle = inited;
     }
 
-    v17 = logHandle;
-    v16 = 1;
+    v14 = logHandle;
+    v13 = 1;
     if (os_log_type_enabled(logHandle, OS_LOG_TYPE_INFO))
     {
-      v3 = v17;
-      v4 = v16;
-      __os_log_helper_16_0_0(v15);
-      _os_log_impl(&dword_1DE8E5000, v3, v4, "Idle dim time for keyboard backlight has been turned off", v15, 2u);
+      v2 = v14;
+      v3 = v13;
+      __os_log_helper_16_0_0(v12);
+      _os_log_impl(&dword_1DE8E5000, v2, v3, "Idle dim time for keyboard backlight has been turned off", v12, 2u);
     }
   }
 
   else if (selfCopy->_activityNotificationHandle)
   {
-    v14 = selfCopy->_activityNotificationHandle;
     [(KeyboardBacklight *)selfCopy dimTime];
     if (IOPMSetUserActivityIdleTimeout())
-    {
-      if (selfCopy->super._logHandle)
-      {
-        v13 = selfCopy->super._logHandle;
-      }
-
-      else
-      {
-        if (_COREBRIGHTNESS_LOG_DEFAULT)
-        {
-          v12 = _COREBRIGHTNESS_LOG_DEFAULT;
-        }
-
-        else
-        {
-          v12 = init_default_corebrightness_log();
-        }
-
-        v13 = v12;
-      }
-
-      v29 = v13;
-      v28 = OS_LOG_TYPE_ERROR;
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-      {
-        __os_log_helper_16_0_1_4_0(v35, [(KeyboardBacklight *)selfCopy dimTime]);
-        _os_log_error_impl(&dword_1DE8E5000, v29, v28, "Failed to set idle dim time to %d sec", v35, 8u);
-      }
-    }
-
-    else
     {
       if (selfCopy->super._logHandle)
       {
@@ -2685,57 +2617,85 @@ LABEL_60:
         v11 = v10;
       }
 
-      v27 = v11;
-      v26 = OS_LOG_TYPE_INFO;
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v26 = v11;
+      v25 = OS_LOG_TYPE_ERROR;
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        __os_log_helper_16_0_1_4_0(v34, [(KeyboardBacklight *)selfCopy dimTime]);
-        _os_log_impl(&dword_1DE8E5000, v27, v26, "Idle dim time for keyboard backlight has been changed to %d sec", v34, 8u);
+        __os_log_helper_16_0_1_4_0(v32, [(KeyboardBacklight *)selfCopy dimTime]);
+        _os_log_error_impl(&dword_1DE8E5000, v26, v25, "Failed to set idle dim time to %d sec", v32, 8u);
+      }
+    }
+
+    else
+    {
+      if (selfCopy->super._logHandle)
+      {
+        v9 = selfCopy->super._logHandle;
+      }
+
+      else
+      {
+        if (_COREBRIGHTNESS_LOG_DEFAULT)
+        {
+          v8 = _COREBRIGHTNESS_LOG_DEFAULT;
+        }
+
+        else
+        {
+          v8 = init_default_corebrightness_log();
+        }
+
+        v9 = v8;
+      }
+
+      v24 = v9;
+      v23 = OS_LOG_TYPE_INFO;
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      {
+        __os_log_helper_16_0_1_4_0(v31, [(KeyboardBacklight *)selfCopy dimTime]);
+        _os_log_impl(&dword_1DE8E5000, v24, v23, "Idle dim time for keyboard backlight has been changed to %d sec", v31, 8u);
       }
     }
   }
 
   else
   {
-    queue = selfCopy->super._queue;
     [(KeyboardBacklight *)selfCopy dimTime];
-    v20 = MEMORY[0x1E69E9820];
-    v21 = -1073741824;
-    v22 = 0;
-    v23 = __39__KeyboardBacklight_resetKeyDimTimeout__block_invoke;
-    v24 = &unk_1E867C628;
-    v25 = selfCopy;
+    v17 = MEMORY[0x1E69E9820];
+    v18 = -1073741824;
+    v19 = 0;
+    v20 = __39__KeyboardBacklight_resetKeyDimTimeout__block_invoke;
+    v21 = &unk_1E867C628;
+    v22 = selfCopy;
     selfCopy->_activityNotificationHandle = IOPMScheduleUserActivityLevelNotificationWithTimeout();
     if (selfCopy->super._logHandle)
     {
-      v8 = selfCopy->super._logHandle;
+      v7 = selfCopy->super._logHandle;
     }
 
     else
     {
       if (_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v7 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v6 = _COREBRIGHTNESS_LOG_DEFAULT;
       }
 
       else
       {
-        v7 = init_default_corebrightness_log();
+        v6 = init_default_corebrightness_log();
       }
 
-      v8 = v7;
+      v7 = v6;
     }
 
-    v19 = v8;
-    v18 = OS_LOG_TYPE_INFO;
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v16 = v7;
+    v15 = OS_LOG_TYPE_INFO;
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      __os_log_helper_16_0_1_4_0(v33, [(KeyboardBacklight *)selfCopy dimTime]);
-      _os_log_impl(&dword_1DE8E5000, v19, v18, "Idle dim time for keyboard backlight has been set to %d sec", v33, 8u);
+      __os_log_helper_16_0_1_4_0(v30, [(KeyboardBacklight *)selfCopy dimTime]);
+      _os_log_impl(&dword_1DE8E5000, v16, v15, "Idle dim time for keyboard backlight has been set to %d sec", v30, 8u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)handlePMUserActivityStateChanged:(unint64_t)changed
@@ -2793,7 +2753,6 @@ LABEL_60:
   }
 
   MEMORY[0x1E69E5920](v6);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)endKeyDim
@@ -3164,8 +3123,6 @@ LABEL_60:
       self->_ramp.current = v22;
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)didUpdateBacklightLevel:(float)level brightness:(float)brightness result:(BOOL)result error:(id)error
@@ -3251,8 +3208,6 @@ LABEL_60:
       [(KeyboardBacklight *)self scheduleBacklightUpdate:250];
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)scheduleBacklightUpdate:(int)update
@@ -3323,7 +3278,6 @@ LABEL_60:
   }
 
   selfCopy->_forceDelayToTurnOnBacklight = 0;
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)forceBacklightUpdateRoutine
@@ -3404,7 +3358,6 @@ LABEL_60:
   }
 
   MEMORY[0x1E69E5920](newElementsArray);
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t __44__KeyboardBacklight_commitCurrentBrightness__block_invoke(uint64_t a1, int a2, double a3, double a4)
@@ -3559,57 +3512,57 @@ LABEL_13:
   v8 = 0;
   if ([key isEqualToString:@"KeyboardBacklightBrightness"])
   {
-    v8 = [(KeyboardBacklight *)self KBBrightnessPropertyHandler:property];
+    return [(KeyboardBacklight *)self KBBrightnessPropertyHandler:property];
   }
 
   else if ([key isEqualToString:@"KeyboardBacklightLevel"])
   {
-    v8 = [(KeyboardBacklight *)self KBBacklightLevelPropertyHandler:property];
+    return [(KeyboardBacklight *)self KBBacklightLevelPropertyHandler:property];
   }
 
   else if ([key isEqualToString:@"KeyboardBacklightABSuspend"])
   {
-    v8 = [(KeyboardBacklight *)self KBAutoBrightnessSuspendPropertyHandler:property];
+    return [(KeyboardBacklight *)self KBAutoBrightnessSuspendPropertyHandler:property];
   }
 
   else if ([key isEqualToString:@"KeyboardBacklightABEnabled"])
   {
-    v8 = [(KeyboardBacklight *)self KBAutoBrightnessEnablePropertyHandler:property];
+    return [(KeyboardBacklight *)self KBAutoBrightnessEnablePropertyHandler:property];
   }
 
   else if ([key isEqualToString:@"KeyboardBacklightIdleDimActive"])
   {
-    v8 = [(KeyboardBacklight *)self KBIdleDimPropertyHandler:property];
+    return [(KeyboardBacklight *)self KBIdleDimPropertyHandler:property];
   }
 
   else if ([key isEqualToString:@"KeyboardBacklightIdleDimTime"])
   {
-    v8 = [(KeyboardBacklight *)self KBIdleDimTimeHandler:property];
+    return [(KeyboardBacklight *)self KBIdleDimTimeHandler:property];
   }
 
   else if ([key isEqualToString:@"KeyboardBacklightSuspendDimming"])
   {
-    v8 = [(KeyboardBacklight *)self KBSuspendDimmingPropertyHandler:property];
+    return [(KeyboardBacklight *)self KBSuspendDimmingPropertyHandler:property];
   }
 
   else if ([key isEqualToString:@"CBUserActivityUpdate"])
   {
-    v8 = [(KeyboardBacklight *)self KBUserActivityUpdateHandler:property];
+    return [(KeyboardBacklight *)self KBUserActivityUpdateHandler:property];
   }
 
   else if ([key isEqual:@"DisplayBrightnessFactor"] & 1) != 0 || (objc_msgSend(key, "isEqual:", @"DisplayBrightnessFactorWithFade"))
   {
-    v8 = [(KeyboardBacklight *)self KBDisplayBrightnessFactorPropertyHandler:property];
+    return [(KeyboardBacklight *)self KBDisplayBrightnessFactorPropertyHandler:property];
   }
 
   else if ([key isEqualToString:@"KeyboardBacklightUserOffset"])
   {
-    v8 = [(KeyboardBacklight *)self KBUserOffsetPropertyHandler:property];
+    return [(KeyboardBacklight *)self KBUserOffsetPropertyHandler:property];
   }
 
   else if ([key isEqualToString:@"KeyboardBacklightUpdateFrequency"])
   {
-    v8 = [(KeyboardBacklight *)self KBUpdateFrequencyHandler:property];
+    return [(KeyboardBacklight *)self KBUpdateFrequencyHandler:property];
   }
 
   else if ([key isEqualToString:@"TrustedFrontLux"])
@@ -3646,21 +3599,20 @@ LABEL_13:
 
       [property floatValue];
       [(KeyboardBacklight *)self handleLuxUpdate:?];
-      v8 = 1;
+      return 1;
     }
   }
 
   else if ([key isEqualToString:@"ClamshellUpdate"])
   {
-    v8 = [(KeyboardBacklight *)self KBClamshellUpdateHandler:property];
+    return [(KeyboardBacklight *)self KBClamshellUpdateHandler:property];
   }
 
   else if ([key isEqualToString:@"CBUserAuthentication"])
   {
-    v8 = [(KeyboardBacklight *)self KBAuthenticationHandler:property];
+    return [(KeyboardBacklight *)self KBAuthenticationHandler:property];
   }
 
-  *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -3729,8 +3681,7 @@ LABEL_13:
     [(NSMutableDictionary *)self->_properties setObject:handlerCopy forKey:@"DisplayBrightnessFactor", v4];
   }
 
-  *MEMORY[0x1E69E9840];
-  return v12 & 1;
+  return v12;
 }
 
 - (BOOL)KBAutoBrightnessSuspendPropertyHandler:(id)handler
@@ -3802,11 +3753,10 @@ LABEL_13:
       [(KeyboardBacklight *)self updateBacklightDeviceWithReason:3];
     }
 
-    v7 = 1;
+    return 1;
   }
 
-  *MEMORY[0x1E69E9840];
-  return v7 & 1;
+  return v7;
 }
 
 - (BOOL)KBBrightnessPropertyHandler:(id)handler
@@ -3938,11 +3888,10 @@ LABEL_13:
       [(KeyboardBacklight *)self updateBacklightDeviceWithReason:2];
     }
 
-    v8 = 1;
+    return 1;
   }
 
-  *MEMORY[0x1E69E9840];
-  return v8 & 1;
+  return v8;
 }
 
 - (BOOL)KBSuspendDimmingPropertyHandler:(id)handler
@@ -3981,7 +3930,6 @@ LABEL_13:
     [(KeyboardBacklight *)self updateBacklightDeviceWithReason:8];
   }
 
-  *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -4029,11 +3977,10 @@ LABEL_13:
       [(KeyboardBacklight *)self updateBacklightDeviceWithReason:2];
     }
 
-    v6 = 1;
+    return 1;
   }
 
-  *MEMORY[0x1E69E9840];
-  return v6 & 1;
+  return v6;
 }
 
 - (BOOL)KBAvailabilityUpdateHandler:(id)handler
@@ -4080,11 +4027,10 @@ LABEL_13:
       [(KeyboardBacklight *)self updateBacklightDeviceWithReason:5];
     }
 
-    v6 = 1;
+    return 1;
   }
 
-  *MEMORY[0x1E69E9840];
-  return v6 & 1;
+  return v6;
 }
 
 - (BOOL)KBUserOffsetPropertyHandler:(id)handler
@@ -4136,11 +4082,10 @@ LABEL_13:
       _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "Backlight update frequency = %d", v9, 8u);
     }
 
-    v6 = 1;
+    return 1;
   }
 
-  *MEMORY[0x1E69E9840];
-  return v6 & 1;
+  return v6;
 }
 
 - (BOOL)KBClamshellUpdateHandler:(id)handler
@@ -4265,7 +4210,6 @@ LABEL_13:
     [(NSMutableArray *)selfCopy->_alsServiceClients removeObject:clientCopy];
   }
 
-  *MEMORY[0x1E69E9840];
   return v12 & 1;
 }
 
@@ -4580,8 +4524,6 @@ LABEL_13:
     [(KeyboardBacklight *)selfCopy sendNotificationForKey:@"KeyboardBacklightBrightnessSlider" withValue:v15];
     MEMORY[0x1E69E5920](v15);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)stopRamp

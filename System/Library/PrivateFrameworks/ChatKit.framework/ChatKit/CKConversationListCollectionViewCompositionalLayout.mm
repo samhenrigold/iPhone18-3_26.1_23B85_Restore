@@ -32,8 +32,8 @@
 
         v8 = *(*(&v21 + 1) + 8 * i);
         collectionView = [(CKConversationListCollectionViewCompositionalLayout *)selfCopy collectionView];
-        indexPath = [v8 indexPath];
-        v11 = [collectionView cellForItemAtIndexPath:indexPath];
+        v10 = objc_msgSend_indexPath(v8);
+        v11 = [collectionView cellForItemAtIndexPath:v10];
 
         if (v11)
         {

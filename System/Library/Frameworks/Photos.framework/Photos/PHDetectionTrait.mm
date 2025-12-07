@@ -29,7 +29,7 @@
   [v3 setObject:v9 forKeyedSubscript:@"startTime"];
 
   v10 = MEMORY[0x1E696AD98];
-  [(PHDetectionTrait *)self duration];
+  objc_msgSend_duration(self);
   v11 = [v10 numberWithDouble:?];
   [v3 setObject:v11 forKeyedSubscript:@"duration"];
 
@@ -183,7 +183,7 @@ void __106__PHDetectionTrait_detectionTraitsByFaceLocalIdentifierForFaceUUIDs_ph
           v19 = v18;
           [v12 startTime];
           v21 = v20;
-          [v12 duration];
+          objc_msgSend_duration(v12);
           v23 = v22;
           v24 = [v12 thumbnailIdentifier];
           v25 = [(PHDetectionTrait *)v15 initWithType:v16 value:v17 score:v24 startTime:v19 duration:v21 thumbnailIdentifier:v23];
@@ -341,7 +341,7 @@ void __48__PHDetectionTrait_detectionTraitsForDetection___block_invoke(uint64_t 
         v21 = v20;
         [v16 startTime];
         v23 = v22;
-        [v16 duration];
+        objc_msgSend_duration(v16);
         v25 = v24;
         v26 = [v16 thumbnailIdentifier];
         v27 = [(PHDetectionTrait *)v17 initWithType:v18 value:v19 score:v26 startTime:v21 duration:v23 thumbnailIdentifier:v25];

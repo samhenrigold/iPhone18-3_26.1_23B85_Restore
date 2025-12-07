@@ -3,17 +3,18 @@
 
 @implementation NTPBPersonalizationAggregateDelta
 
-IMP __75__NTPBPersonalizationAggregateDelta_FCBugFixSwizzle__fc_swizzleFor24117796__block_invoke()
+IMP __75__NTPBPersonalizationAggregateDelta_FCBugFixSwizzle__fc_swizzleFor24117796__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  InstanceMethod = class_getInstanceMethod(v0, sel_addEvents_);
-  v2 = imp_implementationWithBlock(&__block_literal_global_16);
+  v2 = objc_opt_class();
+  InstanceMethod = class_getInstanceMethod(v2, sel_addEvents_);
+  v4 = imp_implementationWithBlock(&__block_literal_global_16);
 
-  return method_setImplementation(InstanceMethod, v2);
+  return method_setImplementation(InstanceMethod, v4);
 }
 
-uint64_t __75__NTPBPersonalizationAggregateDelta_FCBugFixSwizzle__fc_swizzleFor24117796__block_invoke_2(uint64_t a1, void *a2, int a3)
+uint64_t __75__NTPBPersonalizationAggregateDelta_FCBugFixSwizzle__fc_swizzleFor24117796__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
+  v3 = a3;
   v4 = a2;
   v5 = v4;
   v6 = v4 + *MEMORY[0x1E69B7080];
@@ -29,7 +30,7 @@ uint64_t __75__NTPBPersonalizationAggregateDelta_FCBugFixSwizzle__fc_swizzleFor2
       {
         *(v6 + 2) = 2 * v7;
         v8 = *(v6 + 1);
-        v4[v8] = a3;
+        v4[v8] = v3;
         *v6 = v4;
         *(v6 + 1) = v8 + 1;
       }

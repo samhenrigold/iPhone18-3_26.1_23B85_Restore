@@ -137,9 +137,9 @@
 
 - (uint64_t)attachmentThumbnailViewHeight
 {
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
 
-  return [v0 defaultAttachmentThumbnailViewHeight];
+  return [v2 defaultAttachmentThumbnailViewHeight];
 }
 
 @end

@@ -5,6 +5,7 @@
 - (CDPDAccount)initWithContext:(id)context;
 - (unint64_t)recoveryContactCountForAltDSID:(id)d;
 - (void)hasDisabledKeychainExplicitly;
+- (void)setHasDisabledKeychainExplicitly:(BOOL)explicitly;
 @end
 
 @implementation CDPDAccount
@@ -53,17 +54,58 @@
   return bOOLValue;
 }
 
+- (void)setHasDisabledKeychainExplicitly:(BOOL)explicitly
+{
+  explicitlyCopy = explicitly;
+  v5 = _CDPLogSystem();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  {
+    [(CDPDAccount *)explicitlyCopy setHasDisabledKeychainExplicitly:v5];
+  }
+
+  defaultStore = [MEMORY[0x277CB8F48] defaultStore];
+  context = [(CDPDAccount *)self context];
+  altDSID = [context altDSID];
+  v9 = [defaultStore aa_appleAccountWithAltDSID:altDSID];
+
+  if (!v9)
+  {
+    v10 = _CDPLogSystem();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      [CDPDAccount setHasDisabledKeychainExplicitly:?];
+    }
+  }
+
+  v11 = [MEMORY[0x277CCABB0] numberWithBool:explicitlyCopy];
+  [v9 setAccountProperty:v11 forKey:@"userDisabledICK"];
+
+  defaultStore2 = [MEMORY[0x277CB8F48] defaultStore];
+  v22 = 0;
+  v13 = [defaultStore2 saveVerifiedAccount:v9 error:&v22];
+  v14 = v22;
+
+  if ((v13 & 1) == 0)
+  {
+    v15 = _CDPLogSystem();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      [(CDPDAccount *)v14 setHasDisabledKeychainExplicitly:v15, v16, v17, v18, v19, v20, v21];
+    }
+  }
+}
+
 - (BOOL)isICDPEnabledForDSID:(id)d checkWithServer:(BOOL)server
 {
   serverCopy = server;
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   v7 = dCopy;
   if (dCopy)
   {
-    v28 = *MEMORY[0x277D430A8];
-    v29[0] = dCopy;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+    v27 = *MEMORY[0x277D430A8];
+    v28[0] = dCopy;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
     v9 = [v8 mutableCopy];
 
     v10 = self->_context;
@@ -74,7 +116,7 @@
       v10 = [MEMORY[0x277CFD4A8] contextForAccountWithDSID:v12];
     }
 
-    v27 = 0;
+    v26 = 0;
     v13 = PCSIdentitySetCreate();
     if (v13)
     {
@@ -99,15 +141,15 @@
       v17 = _CDPLogSystem();
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        [(CDPDAccount *)&v27 isICDPEnabledForDSID:v17 checkWithServer:v18, v19, v20, v21, v22, v23];
+        [(CDPDAccount *)&v26 isICDPEnabledForDSID:v17 checkWithServer:v18, v19, v20, v21, v22, v23];
       }
 
       v16 = 0;
     }
 
-    if (v27)
+    if (v26)
     {
-      CFRelease(v27);
+      CFRelease(v26);
     }
   }
 
@@ -116,7 +158,6 @@
     v16 = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -185,61 +226,54 @@
 
 - (void)hasDisabledKeychainExplicitly
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = self & 1;
-  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "User previously disabled iCK: %{BOOL}d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = self & 1;
+  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "User previously disabled iCK: %{BOOL}d", v2, 8u);
 }
 
 - (void)setHasDisabledKeychainExplicitly:(char)a1 .cold.1(char a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1 & 1;
-  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "User disabled iCloud keychain: %{BOOL}d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1 & 1;
+  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "User disabled iCloud keychain: %{BOOL}d", v2, 8u);
 }
 
 - (void)setHasDisabledKeychainExplicitly:(void *)a1 .cold.2(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v1 = [a1 context];
   v2 = [v1 altDSID];
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_2(&dword_24510B000, v3, v4, "setHasDisabledKeychainExplicitly: Failed to find ACAccount for altDSID: %{mask.hash}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_24510B000, v3, v4, "setHasDisabledKeychainExplicitly: Failed to find ACAccount for altDSID: %{mask.hash}@", v5, v6, v7, v8);
 }
 
 - (void)setHasDisabledKeychainExplicitly:(uint64_t)a3 .cold.3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, a2, a3, "setHasDisabledKeychainExplicitly: Failed to set user preference for iCloud keychain disable: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_24510B000, a2, a3, "setHasDisabledKeychainExplicitly: Failed to set user preference for iCloud keychain disable: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)isICDPEnabledForDSID:(uint64_t)a3 checkWithServer:(uint64_t)a4 .cold.1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, a2, a3, "Error calling PCSIdentitySetIsICDP: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_0(&dword_24510B000, a2, a3, "Error calling PCSIdentitySetIsICDP: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)isICDPEnabledForDSID:(uint64_t)a3 checkWithServer:(uint64_t)a4 .cold.2(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, a2, a3, "Failed to call PCSIdentitySetIsICDP: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_0(&dword_24510B000, a2, a3, "Failed to call PCSIdentitySetIsICDP: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)isOTEnabledForContext:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, a2, a3, "CDPDAccount failed to fetch clique status with error: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_24510B000, a2, a3, "CDPDAccount failed to fetch clique status with error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

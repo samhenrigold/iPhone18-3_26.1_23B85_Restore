@@ -6,6 +6,7 @@
 - (_TtC18Feedback_Assistant25FBAExpandingTextInputCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier;
 - (void)awakeFromNib;
 - (void)setItemIdentifier:(id)identifier;
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated;
 - (void)textViewDidBeginEditing:(id)editing;
 - (void)textViewDidChange:(id)change;
 - (void)textViewDidEndEditing:(id)editing;
@@ -15,21 +16,18 @@
 
 - (NSString)itemIdentifier
 {
-  v2 = *(self + OBJC_IVAR____TtC18Feedback_Assistant25FBAExpandingTextInputCell_itemIdentifier);
-  v3 = *(self + OBJC_IVAR____TtC18Feedback_Assistant25FBAExpandingTextInputCell_itemIdentifier + 8);
 
-  v4 = String._bridgeToObjectiveC()();
+  v2 = String._bridgeToObjectiveC()();
 
-  return v4;
+  return v2;
 }
 
 - (void)setItemIdentifier:(id)identifier
 {
   v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = (self + OBJC_IVAR____TtC18Feedback_Assistant25FBAExpandingTextInputCell_itemIdentifier);
-  v6 = *(self + OBJC_IVAR____TtC18Feedback_Assistant25FBAExpandingTextInputCell_itemIdentifier + 8);
   *v5 = v4;
-  v5[1] = v7;
+  v5[1] = v6;
 }
 
 - (_TtC18Feedback_Assistant20FBAExpandingTextView)commentsTextView
@@ -56,7 +54,16 @@
 - (void)awakeFromNib
 {
   selfCopy = self;
-  sub_1000814A4();
+  sub_1000814A4(selfCopy, v2);
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  selectedCopy = selected;
+  v6.receiver = self;
+  v6.super_class = type metadata accessor for FBAExpandingTextInputCell(self, a2);
+  [(FBAExpandingTextInputCell *)&v6 setSelected:selectedCopy animated:animatedCopy];
 }
 
 - (void)textViewDidBeginEditing:(id)editing

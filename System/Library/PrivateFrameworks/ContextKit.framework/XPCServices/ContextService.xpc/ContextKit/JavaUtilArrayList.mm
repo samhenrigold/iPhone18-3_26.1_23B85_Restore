@@ -1,5 +1,6 @@
 @interface JavaUtilArrayList
 + (int)newCapacityWithInt:(int)int;
+- (BOOL)addAllWithInt:(int)int withJavaUtilCollection:(id)collection;
 - (BOOL)addAllWithJavaUtilCollection:(id)collection;
 - (BOOL)addWithId:(id)id;
 - (BOOL)containsWithId:(id)id;
@@ -7,17 +8,22 @@
 - (BOOL)removeWithId:(id)id;
 - (id)clone;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)getWithInt:(int)int;
 - (id)iterator;
+- (id)removeWithInt:(int)int;
+- (id)setWithInt:(int)int withId:(id)id;
 - (id)toArray;
 - (id)toArrayWithNSObjectArray:(id)array;
 - (int)indexOfWithId:(id)id;
 - (int)lastIndexOfWithId:(id)id;
 - (unint64_t)countByEnumeratingWithState:(id *)state objects:(id *)objects count:(unint64_t)count;
 - (unint64_t)hash;
+- (void)addWithInt:(int)int withId:(id)id;
 - (void)clear;
 - (void)dealloc;
 - (void)ensureCapacityWithInt:(int)int;
 - (void)readObjectWithJavaIoObjectInputStream:(id)stream;
+- (void)removeRangeWithInt:(int)int withInt:(int)withInt;
 - (void)trimToSize;
 - (void)writeObjectWithJavaIoObjectOutputStream:(id)stream;
 @end
@@ -41,7 +47,7 @@
       v7 = 12;
     }
 
-    v8 = [IOSObjectArray arrayWithLength:(v7 + v6) type:NSObject_class_()];
+    v8 = [IOSObjectArray arrayWithLength:(v7 + v6) type:NSObject_class_(self, a2)];
     JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(v3, 0, v8, 0, v6);
     JreStrongAssign(&self->size_, v8);
     v3 = v8;
@@ -51,6 +57,46 @@
   *(&self->super.modCount_ + 1) = v6 + 1;
   ++self->super.modCount_;
   return 1;
+}
+
+- (void)addWithInt:(int)int withId:(id)id
+{
+  v8 = *&int;
+  v9 = *(&self->super.modCount_ + 1);
+  if (int < 0 || v9 < int)
+  {
+    JavaUtilArrayList_throwIndexOutOfBoundsExceptionWithInt_withInt_(*&int, v9, *&int, id, v4, v5, v6, v7);
+  }
+
+  v11 = *&self->size_;
+  if (!v11)
+  {
+    JreThrowNullPointerException();
+  }
+
+  if (v9 >= v11->super.size_)
+  {
+    v13 = v9 >> 1;
+    if (v9 < 6)
+    {
+      v13 = 12;
+    }
+
+    v14 = [IOSObjectArray arrayWithLength:(v13 + v9) type:NSObject_class_(self, a2)];
+    JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(v11, 0, v14, 0, v8);
+    JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(v11, v8, v14, (v8 + 1), (v9 - v8));
+    JreStrongAssign(&self->size_, v14);
+    v11 = v14;
+  }
+
+  else
+  {
+    JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(*&self->size_, *&int, v11, (int + 1), (v9 - int));
+  }
+
+  IOSObjectArray_Set(v11, v8, id);
+  *(&self->super.modCount_ + 1) = v9 + 1;
+  ++self->super.modCount_;
 }
 
 + (int)newCapacityWithInt:(int)int
@@ -77,40 +123,101 @@
     goto LABEL_11;
   }
 
-  v5 = toArray;
-  v6 = toArray[2];
-  if (!v6)
+  v6 = toArray;
+  v7 = toArray[2];
+  if (!v7)
   {
-    return v6 != 0;
+    return v7 != 0;
   }
 
-  v7 = *&self->size_;
-  if (!v7)
+  v8 = *&self->size_;
+  if (!v8)
   {
 LABEL_11:
     JreThrowNullPointerException();
   }
 
-  v8 = *(&self->super.modCount_ + 1);
-  v9 = v8 + v6;
-  if (v8 + v6 > v7->super.size_)
+  v9 = *(&self->super.modCount_ + 1);
+  v10 = v9 + v7;
+  if (v9 + v7 > v8->super.size_)
   {
-    v10 = (v9 - 1) >> 1;
-    if (v9 < 7)
+    v11 = (v10 - 1) >> 1;
+    if (v10 < 7)
     {
-      v10 = 12;
+      v11 = 12;
     }
 
-    v11 = [IOSObjectArray arrayWithLength:(v10 + v9 - 1) type:NSObject_class_()];
-    JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(v7, 0, v11, 0, v8);
-    JreStrongAssign(&self->size_, v11);
-    v7 = v11;
+    v12 = [IOSObjectArray arrayWithLength:(v11 + v10 - 1) type:NSObject_class_(toArray, v5)];
+    JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(v8, 0, v12, 0, v9);
+    JreStrongAssign(&self->size_, v12);
+    v8 = v12;
   }
 
-  JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(v5, 0, v7, v8, v6);
-  *(&self->super.modCount_ + 1) = v9;
+  JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(v6, 0, v8, v9, v7);
+  *(&self->super.modCount_ + 1) = v10;
   ++self->super.modCount_;
-  return v6 != 0;
+  return v7 != 0;
+}
+
+- (BOOL)addAllWithInt:(int)int withJavaUtilCollection:(id)collection
+{
+  v8 = *&int;
+  v9 = *(&self->super.modCount_ + 1);
+  if (int < 0 || (v10 = v9 - int, v9 < int))
+  {
+    JavaUtilArrayList_throwIndexOutOfBoundsExceptionWithInt_withInt_(*&int, v9, *&int, collection, v4, v5, v6, v7);
+  }
+
+  if (!collection)
+  {
+    goto LABEL_14;
+  }
+
+  toArray = [collection toArray];
+  if (!toArray)
+  {
+    goto LABEL_14;
+  }
+
+  v14 = toArray;
+  v15 = toArray[2];
+  if (!v15)
+  {
+    return v15 != 0;
+  }
+
+  v16 = *&self->size_;
+  if (!v16)
+  {
+LABEL_14:
+    JreThrowNullPointerException();
+  }
+
+  v17 = v15 + v9;
+  if (v15 + v9 <= v16->super.size_)
+  {
+    JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(*&self->size_, v8, *&self->size_, (v15 + v8), (v9 - v8));
+  }
+
+  else
+  {
+    v18 = (v17 - 1) >> 1;
+    if (v17 < 7)
+    {
+      v18 = 12;
+    }
+
+    v19 = [IOSObjectArray arrayWithLength:(v18 + v17 - 1) type:NSObject_class_(toArray, v13)];
+    JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(v16, 0, v19, 0, v8);
+    JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(v16, v8, v19, (v15 + v8), v10);
+    JreStrongAssign(&self->size_, v19);
+    v16 = v19;
+  }
+
+  JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(v14, 0, v16, v8, v15);
+  *(&self->super.modCount_ + 1) = v17;
+  ++self->super.modCount_;
+  return v15 != 0;
 }
 
 - (void)clear
@@ -161,11 +268,34 @@ LABEL_5:
 
   if (v3[2] < int)
   {
-    v5 = [IOSObjectArray arrayWithLength:int type:NSObject_class_()];
+    v5 = [IOSObjectArray arrayWithLength:int type:NSObject_class_(self, a2)];
     JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(v3, 0, v5, 0, *(&self->super.modCount_ + 1));
     JreStrongAssign(&self->size_, v5);
     ++self->super.modCount_;
   }
+}
+
+- (id)getWithInt:(int)int
+{
+  v8 = *(&self->super.modCount_ + 1);
+  if (v8 <= int)
+  {
+    JavaUtilArrayList_throwIndexOutOfBoundsExceptionWithInt_withInt_(*&int, v8, *&int, v3, v4, v5, v6, v7);
+  }
+
+  v9 = *&self->size_;
+  if (!v9)
+  {
+    JreThrowNullPointerException();
+  }
+
+  v10 = *(v9 + 8);
+  if (int < 0 || v10 <= int)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v10, *&int);
+  }
+
+  return *(v9 + 24 + 8 * int);
 }
 
 - (BOOL)containsWithId:(id)id
@@ -395,6 +525,35 @@ LABEL_18:
   return v4;
 }
 
+- (id)removeWithInt:(int)int
+{
+  v8 = *(&self->super.modCount_ + 1);
+  if (v8 <= int)
+  {
+    JavaUtilArrayList_throwIndexOutOfBoundsExceptionWithInt_withInt_(*&int, v8, *&int, v3, v4, v5, v6, v7);
+  }
+
+  v10 = *&self->size_;
+  if (!v10)
+  {
+    JreThrowNullPointerException();
+  }
+
+  v11 = v10[2];
+  if (int < 0 || v11 <= int)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v11, *&int);
+  }
+
+  v12 = *&v10[2 * int + 6];
+  v13 = v8 - 1;
+  JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(v10, (int + 1), v10, *&int, (v13 - int));
+  IOSObjectArray_Set(v10, v13, 0);
+  *(&self->super.modCount_ + 1) = v13;
+  ++self->super.modCount_;
+  return v12;
+}
+
 - (BOOL)removeWithId:(id)id
 {
   v4 = *&self->size_;
@@ -475,10 +634,75 @@ LABEL_19:
   return 1;
 }
 
+- (void)removeRangeWithInt:(int)int withInt:(int)withInt
+{
+  if (int != withInt)
+  {
+    if (int < 0)
+    {
+      v17 = JreStrcat("$I", *&withInt, *&int, *&int, v4, v5, v6, v7, @"Array index out of range: ");
+      goto LABEL_12;
+    }
+
+    v9 = *(&self->super.modCount_ + 1);
+    if (v9 > int)
+    {
+      v4 = (v9 - withInt);
+      if (v9 < withInt)
+      {
+        v17 = JreStrcat("$I$I", *&withInt, *&int, *&int, v4, v5, v6, v7, @"toIndex ");
+        goto LABEL_12;
+      }
+
+      v10 = int - withInt;
+      if (int <= withInt)
+      {
+        v11 = *&self->size_;
+        JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(v11, *&withInt, v11, *&int, v4);
+        v12 = (v9 + v10);
+        JavaUtilArrays_fillWithNSObjectArray_withInt_withInt_withId_(v11, v12, v9, 0, v13, v14, v15, v16);
+        *(&self->super.modCount_ + 1) = v12;
+        ++self->super.modCount_;
+        return;
+      }
+    }
+
+    v17 = JreStrcat("$I$I", *&withInt, *&int, *&int, v4, v5, v6, v7, @"fromIndex ");
+LABEL_12:
+    v18 = new_JavaLangIndexOutOfBoundsException_initWithNSString_(v17);
+    objc_exception_throw(v18);
+  }
+}
+
+- (id)setWithInt:(int)int withId:(id)id
+{
+  v8 = *(&self->super.modCount_ + 1);
+  if (v8 <= int)
+  {
+    JavaUtilArrayList_throwIndexOutOfBoundsExceptionWithInt_withInt_(*&int, v8, *&int, id, v4, v5, v6, v7);
+  }
+
+  v9 = *&self->size_;
+  if (!v9)
+  {
+    JreThrowNullPointerException();
+  }
+
+  v10 = *(v9 + 8);
+  if (int < 0 || v10 <= int)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v10, *&int);
+  }
+
+  v11 = *(v9 + 24 + 8 * int);
+  IOSObjectArray_Set(v9, int, id);
+  return v11;
+}
+
 - (id)toArray
 {
   v3 = *(&self->super.modCount_ + 1);
-  v4 = [IOSObjectArray arrayWithLength:v3 type:NSObject_class_()];
+  v4 = [IOSObjectArray arrayWithLength:v3 type:NSObject_class_(self, a2)];
   JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(*&self->size_, 0, v4, 0, v3);
   return v4;
 }
@@ -533,7 +757,7 @@ LABEL_9:
   {
     if (v4)
     {
-      v5 = [IOSObjectArray arrayWithLength:v4 type:NSObject_class_()];
+      v5 = [IOSObjectArray arrayWithLength:v4 type:NSObject_class_(self, a2)];
       JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(*&self->size_, 0, v5, 0, v4);
     }
 
@@ -610,62 +834,63 @@ LABEL_9:
     goto LABEL_31;
   }
 
-  v5 = [JavaUtilList_class_() isInstance:equal];
+  v5 = [JavaUtilList_class_(self a2)];
   if (!v5)
   {
     return v5;
   }
 
-  v6 = JavaUtilList_class_();
+  v7 = JavaUtilList_class_(v5, v6);
   if (!equal)
   {
     goto LABEL_30;
   }
 
-  if (([v6 isInstance:equal] & 1) == 0)
+  if (([v7 isInstance:equal] & 1) == 0)
   {
     JreThrowClassCastException();
   }
 
-  v7 = *(&self->super.modCount_ + 1);
-  if ([equal size] != v7)
+  v8 = *(&self->super.modCount_ + 1);
+  v9 = [equal size];
+  if (v9 != v8)
   {
 LABEL_32:
     LOBYTE(v5) = 0;
     return v5;
   }
 
-  v8 = *&self->size_;
-  if (![JavaUtilRandomAccess_class_() isInstance:equal])
+  v11 = *&self->size_;
+  if (![JavaUtilRandomAccess_class_(v9 v10)])
   {
     iterator = [equal iterator];
-    if (v7 < 1)
+    if (v8 < 1)
     {
       goto LABEL_31;
     }
 
-    if (v8)
+    if (v11)
     {
-      v14 = iterator;
-      v15 = 0;
-      for (i = v8; ; i += 8)
+      v17 = iterator;
+      v18 = 0;
+      for (i = v11; ; i += 8)
       {
-        v17 = *(v8 + 8);
-        if (v15 >= v17)
+        v20 = *(v11 + 8);
+        if (v18 >= v20)
         {
-          IOSArray_throwOutOfBoundsWithMsg(v17, v15);
+          IOSArray_throwOutOfBoundsWithMsg(v20, v18);
         }
 
-        if (!v14)
+        if (!v17)
         {
           break;
         }
 
-        v18 = *(i + 24);
-        next = [v14 next];
-        if (v18)
+        v21 = *(i + 24);
+        next = [v17 next];
+        if (v21)
         {
-          v5 = [v18 isEqual:next];
+          LODWORD(v5) = [v21 isEqual:next];
           if (!v5)
           {
             return v5;
@@ -677,9 +902,9 @@ LABEL_32:
           goto LABEL_32;
         }
 
-        ++v15;
+        ++v18;
         LOBYTE(v5) = 1;
-        if (v7 == v15)
+        if (v8 == v18)
         {
           return v5;
         }
@@ -690,38 +915,38 @@ LABEL_30:
     JreThrowNullPointerException();
   }
 
-  if (v7 < 1)
+  if (v8 < 1)
   {
 LABEL_31:
     LOBYTE(v5) = 1;
     return v5;
   }
 
-  if (!v8)
+  if (!v11)
   {
     goto LABEL_30;
   }
 
-  for (j = 0; j != v7; ++j)
+  for (j = 0; j != v8; ++j)
   {
-    v10 = *(v8 + 8);
-    if (j >= v10)
+    v13 = *(v11 + 8);
+    if (j >= v13)
     {
-      IOSArray_throwOutOfBoundsWithMsg(v10, j);
+      IOSArray_throwOutOfBoundsWithMsg(v13, j);
     }
 
-    v11 = *(v8 + 24 + 8 * j);
-    v12 = [equal getWithInt:j];
-    if (v11)
+    v14 = *(v11 + 24 + 8 * j);
+    v15 = [equal getWithInt:j];
+    if (v14)
     {
-      v5 = [v11 isEqual:v12];
+      LODWORD(v5) = [v14 isEqual:v15];
       if (!v5)
       {
         return v5;
       }
     }
 
-    else if (v12)
+    else if (v15)
     {
       goto LABEL_32;
     }
@@ -770,7 +995,6 @@ LABEL_31:
   readInt = [stream readInt];
   if (readInt < *(&self->super.modCount_ + 1))
   {
-    v17 = *(&self->super.modCount_ + 1);
     v15 = JreStrcat("$I$I", v6, v7, v8, v9, v10, v11, v12, @"Capacity: ");
     v16 = new_JavaIoInvalidObjectException_initWithNSString_(v15);
     objc_exception_throw(v16);
@@ -778,7 +1002,7 @@ LABEL_31:
 
   if (readInt)
   {
-    v13 = [IOSObjectArray arrayWithLength:readInt type:NSObject_class_()];
+    v13 = [IOSObjectArray arrayWithLength:readInt type:NSObject_class_(readInt, v6)];
   }
 
   else

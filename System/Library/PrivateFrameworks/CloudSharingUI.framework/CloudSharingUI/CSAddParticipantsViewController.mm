@@ -13,7 +13,7 @@
 
 - (CSAddParticipantsViewController)initWithCKShare:(id)share containerSetupInfo:(id)info fileURL:(id)l collaborationOptionsGroups:(id)groups headerImageData:(id)data headerTitle:(id)title loadingText:(id)text supplementaryText:(id)self0 primaryButtonText:(id)self1 secondaryButtonText:(id)self2
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   shareCopy = share;
   infoCopy = info;
   infoCopy2 = info;
@@ -28,9 +28,9 @@
   v23 = dataCopy;
   buttonTextCopy = buttonText;
   secondaryButtonTextCopy = secondaryButtonText;
-  v55.receiver = self;
-  v55.super_class = CSAddParticipantsViewController;
-  v26 = [(CSAddParticipantsViewController *)&v55 initWithNibName:0 bundle:0];
+  v54.receiver = self;
+  v54.super_class = CSAddParticipantsViewController;
+  v26 = [(CSAddParticipantsViewController *)&v54 initWithNibName:0 bundle:0];
   v27 = v26;
   if (v26)
   {
@@ -49,11 +49,11 @@ LABEL_15:
       goto LABEL_16;
     }
 
-    v46 = supplementaryTextCopy;
-    v49 = textCopy;
-    v54 = 0;
-    v30 = [MEMORY[0x277CC6438] wrapperWithURL:lCopy2 readonly:0 error:&v54];
-    v31 = v54;
+    v45 = supplementaryTextCopy;
+    v48 = textCopy;
+    v53 = 0;
+    v30 = [MEMORY[0x277CC6438] wrapperWithURL:lCopy2 readonly:0 error:&v53];
+    v31 = v53;
     sandboxingURLWrapper = v27->_sandboxingURLWrapper;
     v27->_sandboxingURLWrapper = v30;
 
@@ -65,24 +65,24 @@ LABEL_15:
       if (v35)
       {
         *buf = 138412290;
-        v57 = v31;
+        v56 = v31;
         _os_log_impl(&dword_243B1E000, v34, OS_LOG_TYPE_INFO, "Created read/write FPSandboxingURLWrapper for URL: %@", buf, 0xCu);
       }
 
-      textCopy = v49;
+      textCopy = v48;
       goto LABEL_14;
     }
 
     if (v35)
     {
       *buf = 138412290;
-      v57 = v31;
+      v56 = v31;
       _os_log_impl(&dword_243B1E000, v34, OS_LOG_TYPE_INFO, "Failed to create read/write FPSandboxingURLWrapper for URL: %@--trying read-only", buf, 0xCu);
     }
 
-    v53 = v31;
-    v36 = [MEMORY[0x277CC6438] wrapperWithURL:lCopy2 readonly:1 error:&v53];
-    obja = v53;
+    v52 = v31;
+    v36 = [MEMORY[0x277CC6438] wrapperWithURL:lCopy2 readonly:1 error:&v52];
+    obja = v52;
 
     v37 = v27->_sandboxingURLWrapper;
     v27->_sandboxingURLWrapper = v36;
@@ -90,21 +90,21 @@ LABEL_15:
     v38 = v27->_sandboxingURLWrapper;
     v39 = CSLogForCategory();
     v34 = v39;
-    textCopy = v49;
+    textCopy = v48;
     if (v38)
     {
       if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
         v31 = obja;
-        v57 = obja;
+        v56 = obja;
         _os_log_impl(&dword_243B1E000, v34, OS_LOG_TYPE_INFO, "Created read-only FPSandboxingURLWrapper for URL: %@", buf, 0xCu);
 LABEL_14:
 
         sandboxingURLWrapperError = v27->_sandboxingURLWrapperError;
         v27->_sandboxingURLWrapperError = v31;
 
-        supplementaryTextCopy = v46;
+        supplementaryTextCopy = v45;
         goto LABEL_15;
       }
     }
@@ -122,17 +122,15 @@ LABEL_14:
 
 LABEL_16:
 
-  v41 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
 - (void)viewDidLoad
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_243B1E000, a2, OS_LOG_TYPE_ERROR, "No CloudSharingAddParticipantsViewService extension: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_243B1E000, a2, OS_LOG_TYPE_ERROR, "No CloudSharingAddParticipantsViewService extension: %@", &v2, 0xCu);
 }
 
 void __46__CSAddParticipantsViewController_viewDidLoad__block_invoke(uint64_t a1)
@@ -235,27 +233,16 @@ void __46__CSAddParticipantsViewController_viewDidLoad__block_invoke_2(uint64_t 
   if (v15)
   {
     navigationController = [(CSAddParticipantsViewController *)self navigationController];
-    if (!navigationController)
+    if (!navigationController || (v17 = navigationController, -[CSAddParticipantsViewController navigationController](self, "navigationController"), v18 = objc_claimAutoreleasedReturnValue(), [v18 viewControllers], v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "firstObject"), v20 = objc_claimAutoreleasedReturnValue(), v20, v19, v18, v17, v20 == self))
     {
-      goto LABEL_6;
-    }
-
-    v17 = navigationController;
-    navigationController2 = [(CSAddParticipantsViewController *)self navigationController];
-    viewControllers = [navigationController2 viewControllers];
-    firstObject = [viewControllers firstObject];
-
-    if (firstObject == self)
-    {
-LABEL_6:
       presentingViewController = [(CSAddParticipantsViewController *)self presentingViewController];
       [presentingViewController dismissViewControllerAnimated:1 completion:v14];
 
       goto LABEL_7;
     }
 
-    navigationController3 = [(CSAddParticipantsViewController *)self navigationController];
-    v22 = [navigationController3 popViewControllerAnimated:1];
+    navigationController2 = [(CSAddParticipantsViewController *)self navigationController];
+    v22 = [navigationController2 popViewControllerAnimated:1];
   }
 
   v14[2](v14);
@@ -281,14 +268,14 @@ void __83__CSAddParticipantsViewController_dismissViewControllerWithError_shareU
 
 - (void)showContactPickerFromSourceRect:(id)rect
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBDC18];
   rectCopy = rect;
   v6 = [[v4 alloc] initWithNibName:0 bundle:0];
   v7 = *MEMORY[0x277CBCFC0];
-  v23[0] = *MEMORY[0x277CBD098];
-  v23[1] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+  v22[0] = *MEMORY[0x277CBD098];
+  v22[1] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
   [v6 setDisplayedPropertyKeys:v8];
 
   [v6 setDelegate:self];
@@ -314,8 +301,6 @@ void __83__CSAddParticipantsViewController_dismissViewControllerWithError_shareU
 
   [v6 setModalPresentationStyle:6];
   [(CSAddParticipantsViewController *)self presentViewController:v6 animated:1 completion:0];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)contactPicker:(id)picker didSelectContact:(id)contact
@@ -347,11 +332,10 @@ void __83__CSAddParticipantsViewController_dismissViewControllerWithError_shareU
 
 - (void)initWithCKShare:(uint64_t)a1 containerSetupInfo:(NSObject *)a2 fileURL:collaborationOptionsGroups:headerImageData:headerTitle:loadingText:supplementaryText:primaryButtonText:secondaryButtonText:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_243B1E000, a2, OS_LOG_TYPE_ERROR, "Failed to create read-only FPSandboxingURLWrapper for URL: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_243B1E000, a2, OS_LOG_TYPE_ERROR, "Failed to create read-only FPSandboxingURLWrapper for URL: %@", &v2, 0xCu);
 }
 
 @end

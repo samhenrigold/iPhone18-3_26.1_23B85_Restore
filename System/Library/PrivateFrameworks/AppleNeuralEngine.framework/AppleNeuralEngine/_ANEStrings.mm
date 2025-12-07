@@ -25,33 +25,31 @@
 
 + (id)pps_defaultSystemPathDir
 {
-  v18[10] = *MEMORY[0x1E69E9840];
+  v17[10] = *MEMORY[0x1E69E9840];
   testing_inputDirectory = [self testing_inputDirectory];
   testing_modelDirectory = [self testing_modelDirectory];
-  v17 = [testing_inputDirectory stringByAppendingPathComponent:testing_modelDirectory];
+  v16 = [testing_inputDirectory stringByAppendingPathComponent:testing_modelDirectory];
 
-  v18[0] = v17;
+  v17[0] = v16;
   systemLibraryPath = [self systemLibraryPath];
-  v18[1] = systemLibraryPath;
+  v17[1] = systemLibraryPath;
   internalLibraryPath = [self internalLibraryPath];
-  v18[2] = internalLibraryPath;
+  v17[2] = internalLibraryPath;
   pps_frameworkDir = [self pps_frameworkDir];
-  v18[3] = pps_frameworkDir;
+  v17[3] = pps_frameworkDir;
   pps_privateFrameworkDir = [self pps_privateFrameworkDir];
-  v18[4] = pps_privateFrameworkDir;
+  v17[4] = pps_privateFrameworkDir;
   pps_varDir = [self pps_varDir];
-  v18[5] = pps_varDir;
+  v17[5] = pps_varDir;
   pps_tmpDir = [self pps_tmpDir];
-  v18[6] = pps_tmpDir;
+  v17[6] = pps_tmpDir;
   pps_internalDir = [self pps_internalDir];
-  v18[7] = pps_internalDir;
+  v17[7] = pps_internalDir;
   pps_applicationDir = [self pps_applicationDir];
-  v18[8] = pps_applicationDir;
+  v17[8] = pps_applicationDir;
   pps_catalogDir = [self pps_catalogDir];
-  v18[9] = pps_catalogDir;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:10];
-
-  v15 = *MEMORY[0x1E69E9840];
+  v17[9] = pps_catalogDir;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:10];
 
   return v14;
 }

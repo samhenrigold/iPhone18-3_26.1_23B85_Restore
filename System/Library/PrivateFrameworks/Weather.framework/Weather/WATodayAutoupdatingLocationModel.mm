@@ -17,10 +17,12 @@
 - (void)_willDeliverForecastModel:(id)model;
 - (void)checkIfNeedsToUpdate;
 - (void)clearLocationUpdateState;
+- (void)configureWithInitialCitySource:(unint64_t)source locationServicesActive:(BOOL)active;
 - (void)dealloc;
 - (void)locationManager:(id)manager didChangeAuthorizationStatus:(int)status;
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations;
 - (void)setCitySource:(unint64_t)source fireNotification:(BOOL)notification;
+- (void)setIsLocationTrackingEnabled:(BOOL)enabled;
 - (void)setLocationServicesActive:(BOOL)active;
 - (void)setPreferences:(id)preferences;
 - (void)syncLastUpdateTime;
@@ -32,23 +34,23 @@
 
 - (WATodayAutoupdatingLocationModel)initWithPreferences:(id)preferences effectiveBundleIdentifier:(id)identifier
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   preferencesCopy = preferences;
   identifierCopy = identifier;
-  v33.receiver = self;
-  v33.super_class = WATodayAutoupdatingLocationModel;
-  v8 = [(WATodayModel *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = WATodayAutoupdatingLocationModel;
+  v8 = [(WATodayModel *)&v32 init];
   if (v8)
   {
-    v27 = MEMORY[0x277D85DD0];
-    v28 = 3221225472;
-    v29 = __82__WATodayAutoupdatingLocationModel_initWithPreferences_effectiveBundleIdentifier___block_invoke;
-    v30 = &unk_279E67CE8;
+    v26 = MEMORY[0x277D85DD0];
+    v27 = 3221225472;
+    v28 = __82__WATodayAutoupdatingLocationModel_initWithPreferences_effectiveBundleIdentifier___block_invoke;
+    v29 = &unk_279E67CE8;
     v9 = preferencesCopy;
-    v31 = v9;
-    v32 = identifierCopy;
-    [(WATodayAutoupdatingLocationModel *)v8 setWeatherLocationManagerGenerator:&v27];
-    [(WATodayAutoupdatingLocationModel *)v8 setStopUpdateIfNeeded:0, v27, v28, v29, v30];
+    v30 = v9;
+    v31 = identifierCopy;
+    [(WATodayAutoupdatingLocationModel *)v8 setWeatherLocationManagerGenerator:&v26];
+    [(WATodayAutoupdatingLocationModel *)v8 setStopUpdateIfNeeded:0, v26, v27, v28, v29];
     [(WATodayAutoupdatingLocationModel *)v8 setPreferences:v9];
     lastUpdateDate = [(WATodayModel *)v8 lastUpdateDate];
 
@@ -78,9 +80,9 @@
       minTimeBetweenUpdates = v8->_minTimeBetweenUpdates;
       minDistanceChangeInMeters = v8->_minDistanceChangeInMeters;
       *buf = 134218240;
-      v35 = minTimeBetweenUpdates;
-      v36 = 2048;
-      v37 = minDistanceChangeInMeters;
+      v34 = minTimeBetweenUpdates;
+      v35 = 2048;
+      v36 = minDistanceChangeInMeters;
       _os_log_impl(&dword_272ACF000, v20, OS_LOG_TYPE_DEFAULT, "[WATodayAutoupdatingLocationModel] initialize with minTimeBetweenUpdates: %f, minDistanceChangeInMeters: %f", buf, 0x16u);
     }
 
@@ -91,7 +93,6 @@
     CFNotificationCenterAddObserver(DarwinNotifyCenter, v8, WeatherCityListChanged, @"com.apple.weather.WeatherCityListPrefsChangedNotification", 0, 1024);
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -134,6 +135,15 @@ WeatherLocationManager *__82__WATodayAutoupdatingLocationModel_initWithPreferenc
   return result;
 }
 
+- (void)configureWithInitialCitySource:(unint64_t)source locationServicesActive:(BOOL)active
+{
+  activeCopy = active;
+  [(WATodayAutoupdatingLocationModel *)self setFallbackCitySource:source];
+  [(WATodayAutoupdatingLocationModel *)self setCitySource:[(WATodayAutoupdatingLocationModel *)self fallbackCitySource] fireNotification:0];
+
+  [(WATodayAutoupdatingLocationModel *)self setLocationServicesActive:activeCopy];
+}
+
 - (void)dealloc
 {
   defaultCenter = [MEMORY[0x277CCA9A0] defaultCenter];
@@ -167,6 +177,36 @@ WeatherLocationManager *__82__WATodayAutoupdatingLocationModel_initWithPreferenc
   }
 
   MEMORY[0x2821F96F8](preferences, preferencesCopy);
+}
+
+- (void)setIsLocationTrackingEnabled:(BOOL)enabled
+{
+  if (self->_isLocationTrackingEnabled != enabled)
+  {
+    enabledCopy = enabled;
+    locationManager = [(WATodayAutoupdatingLocationModel *)self locationManager];
+    [locationManager setLocationTrackingReady:1 activelyTracking:enabledCopy watchKitExtension:0];
+
+    self->_isLocationTrackingEnabled = enabledCopy;
+    if (enabledCopy)
+    {
+      v6 = WALogForCategory(4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      {
+        *v8 = 0;
+        _os_log_impl(&dword_272ACF000, v6, OS_LOG_TYPE_DEFAULT, "Clear weather update state", v8, 2u);
+      }
+
+      locationManager2 = [(WATodayAutoupdatingLocationModel *)self locationManager];
+      [locationManager2 clearLocalWeatherUpdateState];
+    }
+
+    else
+    {
+
+      [(WATodayModel *)self _fireTodayModelWantsUpdate];
+    }
+  }
 }
 
 - (id)forecastModel
@@ -271,7 +311,7 @@ LABEL_8:
 
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   locationsCopy = locations;
   isLocationTrackingEnabled = self->_isLocationTrackingEnabled;
   v7 = WALogForCategory(4);
@@ -291,9 +331,9 @@ LABEL_8:
         lastObject = @"No new location";
       }
 
-      v12 = 138412290;
-      v13 = lastObject;
-      _os_log_impl(&dword_272ACF000, v7, OS_LOG_TYPE_DEFAULT, "[WATodayAutoupdatingLocationModel] Received location update: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = lastObject;
+      _os_log_impl(&dword_272ACF000, v7, OS_LOG_TYPE_DEFAULT, "[WATodayAutoupdatingLocationModel] Received location update: %@", &v11, 0xCu);
       if (v9)
       {
       }
@@ -306,13 +346,11 @@ LABEL_8:
   {
     if (v8)
     {
-      v12 = 138412290;
-      v13 = locationsCopy;
-      _os_log_impl(&dword_272ACF000, v7, OS_LOG_TYPE_DEFAULT, "Received location update after CL is stopped, ignoring: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = locationsCopy;
+      _os_log_impl(&dword_272ACF000, v7, OS_LOG_TYPE_DEFAULT, "Received location update after CL is stopped, ignoring: %@", &v11, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_kickstartLocationManager
@@ -526,7 +564,7 @@ LABEL_12:
 
 - (BOOL)shouldNotUseUpdatedLocation
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   preferences = [(WATodayAutoupdatingLocationModel *)self preferences];
   v4 = WATodayLoadSavedLastForecastModelFromPreferences(preferences);
 
@@ -541,9 +579,9 @@ LABEL_12:
   v11 = WALogForCategory(4);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = 138412290;
-    v25 = location2;
-    _os_log_impl(&dword_272ACF000, v11, OS_LOG_TYPE_DEFAULT, "savedModelLocation is %@", &v24, 0xCu);
+    v23 = 138412290;
+    v24 = location2;
+    _os_log_impl(&dword_272ACF000, v11, OS_LOG_TYPE_DEFAULT, "savedModelLocation is %@", &v23, 0xCu);
   }
 
   v12 = 0;
@@ -566,13 +604,12 @@ LABEL_12:
     v12 &= v19 < v21;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (BOOL)shouldUseNewLocation:(id)location oldLocation:(id)oldLocation
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v6 = COERCE_DOUBLE(location);
   oldLocationCopy = oldLocation;
   if (oldLocationCopy)
@@ -582,7 +619,7 @@ LABEL_12:
       date2 = WALogForCategory(4);
       if (os_log_type_enabled(date2, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v30) = 0;
+        LOWORD(v29) = 0;
         v20 = "[WATodayAutoupdatingLocationModel] invalid new location, bailing";
         v21 = date2;
         v22 = 2;
@@ -613,19 +650,19 @@ LABEL_16:
           [(WATodayAutoupdatingLocationModel *)self minTimeBetweenUpdates];
           v18 = v17;
           [(WATodayAutoupdatingLocationModel *)self minDistanceChangeInMeters];
-          v30 = 134218752;
-          v31 = v11;
-          v32 = 2048;
-          v33 = v13;
-          v34 = 2048;
-          v35 = v18;
-          v36 = 2048;
-          v37 = v19;
+          v29 = 134218752;
+          v30 = v11;
+          v31 = 2048;
+          v32 = v13;
+          v33 = 2048;
+          v34 = v18;
+          v35 = 2048;
+          v36 = v19;
           v20 = "[WATodayAutoupdatingLocationModel] Dropping location received %f seconds since the last update, and %f meters from the previous location. Min time in seconds: %f, min change in meters: %f";
           v21 = date2;
           v22 = 42;
 LABEL_15:
-          _os_log_impl(&dword_272ACF000, v21, OS_LOG_TYPE_DEFAULT, v20, &v30, v22);
+          _os_log_impl(&dword_272ACF000, v21, OS_LOG_TYPE_DEFAULT, v20, &v29, v22);
           goto LABEL_16;
         }
 
@@ -639,17 +676,17 @@ LABEL_15:
       [(WATodayAutoupdatingLocationModel *)self minTimeBetweenUpdates];
       v25 = v24;
       [(WATodayAutoupdatingLocationModel *)self minDistanceChangeInMeters];
-      v30 = 138413314;
-      v31 = v6;
-      v32 = 2048;
-      v33 = v11;
-      v34 = 2048;
-      v35 = v13;
-      v36 = 2048;
-      v37 = v25;
-      v38 = 2048;
-      v39 = v26;
-      _os_log_impl(&dword_272ACF000, v23, OS_LOG_TYPE_DEFAULT, "[WATodayAutoupdatingLocationModel] Use new location: %@, %f seconds since the last update, and %f meters from the previous location. Min time in seconds: %f, min change in meters: %f", &v30, 0x34u);
+      v29 = 138413314;
+      v30 = v6;
+      v31 = 2048;
+      v32 = v11;
+      v33 = 2048;
+      v34 = v13;
+      v35 = 2048;
+      v36 = v25;
+      v37 = 2048;
+      v38 = v26;
+      _os_log_impl(&dword_272ACF000, v23, OS_LOG_TYPE_DEFAULT, "[WATodayAutoupdatingLocationModel] Use new location: %@, %f seconds since the last update, and %f meters from the previous location. Min time in seconds: %f, min change in meters: %f", &v29, 0x34u);
     }
 
     date2 = [MEMORY[0x277CBEAA8] date];
@@ -661,21 +698,20 @@ LABEL_15:
     date2 = WALogForCategory(4);
     if (os_log_type_enabled(date2, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v30) = 0;
-      _os_log_impl(&dword_272ACF000, date2, OS_LOG_TYPE_DEFAULT, "[WATodayAutoupdatingLocationModel] we do not have an old location, we shall use the new one", &v30, 2u);
+      LOWORD(v29) = 0;
+      _os_log_impl(&dword_272ACF000, date2, OS_LOG_TYPE_DEFAULT, "[WATodayAutoupdatingLocationModel] we do not have an old location, we shall use the new one", &v29, 2u);
     }
   }
 
   v27 = 1;
 LABEL_17:
 
-  v28 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
 - (void)_executeLocationUpdateForLocalWeatherCityWithCompletion:(id)completion
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   preferences = [(WATodayAutoupdatingLocationModel *)self preferences];
   v6 = WATodayLoadSavedLastForecastModelFromPreferences(preferences);
@@ -688,9 +724,9 @@ LABEL_17:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v31 = location;
-    v32 = 2112;
-    v33 = location2;
+    v30 = location;
+    v31 = 2112;
+    v32 = location2;
     _os_log_impl(&dword_272ACF000, v10, OS_LOG_TYPE_DEFAULT, "start updating location: %@, lastKnownLocation is %@", buf, 0x16u);
   }
 
@@ -746,18 +782,18 @@ LABEL_17:
       [v14 coordinate];
       v19 = v18;
       v21 = v20;
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __92__WATodayAutoupdatingLocationModel__executeLocationUpdateForLocalWeatherCityWithCompletion___block_invoke;
-      v28[3] = &unk_279E67D38;
-      v29 = completionCopy;
-      v22 = [v17 initWithCoordinate:v28 resultHandler:{v19, v21}];
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __92__WATodayAutoupdatingLocationModel__executeLocationUpdateForLocalWeatherCityWithCompletion___block_invoke;
+      v27[3] = &unk_279E67D38;
+      v28 = completionCopy;
+      v22 = [v17 initWithCoordinate:v27 resultHandler:{v19, v21}];
       [(WATodayAutoupdatingLocationModel *)self setGeocodeRequest:v22];
 
       geocodeRequest3 = [(WATodayAutoupdatingLocationModel *)self geocodeRequest];
       [geocodeRequest3 start];
 
-      v24 = v29;
+      v24 = v28;
       goto LABEL_17;
     }
 
@@ -768,8 +804,6 @@ LABEL_17:
 LABEL_17:
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __92__WATodayAutoupdatingLocationModel__executeLocationUpdateForLocalWeatherCityWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -790,24 +824,20 @@ void __92__WATodayAutoupdatingLocationModel__executeLocationUpdateForLocalWeathe
 
 uint64_t __92__WATodayAutoupdatingLocationModel__executeLocationUpdateForLocalWeatherCityWithCompletion___block_invoke_2(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = WALogForCategory(4);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = a1[4];
     v4 = a1[5];
-    v9 = 138412546;
-    v10 = v3;
-    v11 = 2112;
-    v12 = v4;
-    _os_log_impl(&dword_272ACF000, v2, OS_LOG_TYPE_DEFAULT, "geocodeRequest ended with newLocation: %@, error: %@", &v9, 0x16u);
+    v6 = 138412546;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&dword_272ACF000, v2, OS_LOG_TYPE_DEFAULT, "geocodeRequest ended with newLocation: %@, error: %@", &v6, 0x16u);
   }
 
-  v5 = a1[5];
-  v6 = a1[4];
-  result = (*(a1[6] + 16))();
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(a1[6] + 16))();
 }
 
 - (void)_executeLocationUpdateForFirstWeatherCityWithCompletion:(id)completion

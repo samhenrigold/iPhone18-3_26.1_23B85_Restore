@@ -1,5 +1,6 @@
 @interface SKRaptorQEncoder
 - (BOOL)_writeESI:(unsigned int)i sbn:(unsigned __int8)sbn rq:(nanorq *)rq inputIO:(ioctx *)o outputFile:(__sFILE *)file error:(id *)error;
+- (BOOL)_writeSBN:(unsigned __int8)n rq:(nanorq *)rq repairFactor:(unint64_t)factor inputIO:(ioctx *)o outputFile:(__sFILE *)file error:(id *)error;
 - (SKRaptorQEncoder)initWithInputURL:(id)l symbolSize:(unint64_t)size error:(id *)error;
 - (id)encodeInputFile:(id *)file;
 - (id)encodeWithInputURL:(id)l packetSize:(unint64_t)size repairFactor:(unint64_t)factor error:(id *)error;
@@ -13,9 +14,9 @@
 - (SKRaptorQEncoder)initWithInputURL:(id)l symbolSize:(unint64_t)size error:(id *)error
 {
   lCopy = l;
-  v22.receiver = self;
-  v22.super_class = SKRaptorQEncoder;
-  v9 = [(SKRaptorQEncoder *)&v22 init];
+  v18.receiver = self;
+  v18.super_class = SKRaptorQEncoder;
+  v9 = [(SKRaptorQEncoder *)&v18 init];
   if (!v9)
   {
     goto LABEL_20;
@@ -29,8 +30,8 @@
   v10 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
   {
-    *v21 = 0;
-    _os_log_impl(&dword_259B04000, v10, OS_LOG_TYPE_DEFAULT, "Initialize NanoRQ encoder...", v21, 2u);
+    *v17 = 0;
+    _os_log_impl(&dword_259B04000, v10, OS_LOG_TYPE_DEFAULT, "Initialize NanoRQ encoder...", v17, 2u);
   }
 
   fileSystemRepresentation = [lCopy fileSystemRepresentation];
@@ -41,9 +42,8 @@
       goto LABEL_20;
     }
 
-    v16 = *MEMORY[0x277CCA590];
+    NSErrorF(*MEMORY[0x277CCA590], 4294960596, "Bad input path");
 LABEL_19:
-    NSErrorF();
     *error = v15 = 0;
     goto LABEL_21;
   }
@@ -57,7 +57,7 @@ LABEL_19:
       goto LABEL_20;
     }
 
-    v17 = *MEMORY[0x277CCA590];
+    NSErrorF(*MEMORY[0x277CCA590], 4294960596, "Create I/O context failed");
     goto LABEL_19;
   }
 
@@ -69,7 +69,7 @@ LABEL_19:
       goto LABEL_20;
     }
 
-    v18 = *MEMORY[0x277CCA590];
+    NSErrorF(*MEMORY[0x277CCA590], 4294960591, "Symbol size too big");
     goto LABEL_19;
   }
 
@@ -79,7 +79,7 @@ LABEL_19:
   {
     if (error)
     {
-      v19 = *MEMORY[0x277CCA590];
+      NSErrorF(*MEMORY[0x277CCA590], 4294960596, "Create encoder failed");
       goto LABEL_19;
     }
 
@@ -154,7 +154,7 @@ void __54__SKRaptorQEncoder_initWithInputURL_symbolSize_error___block_invoke()
         {
           if (file)
           {
-            v16 = *MEMORY[0x277CCA590];
+            NSErrorF(*MEMORY[0x277CCA590], 4294960596, "Generate symbols failed");
             goto LABEL_16;
           }
 
@@ -172,9 +172,8 @@ void __54__SKRaptorQEncoder_initWithInputURL_symbolSize_error___block_invoke()
 
       if (file)
       {
-        v15 = *MEMORY[0x277CCA590];
+        NSErrorF(*MEMORY[0x277CCA590], 4294960596, "Too many blocks");
 LABEL_16:
-        NSErrorF();
         *file = v12 = 0;
         goto LABEL_8;
       }
@@ -199,8 +198,7 @@ LABEL_8:
 
   else if (file)
   {
-    v17 = *MEMORY[0x277CCA590];
-    NSErrorF();
+    NSErrorF(*MEMORY[0x277CCA590], 4294960596, "Encoder not initialized");
     *file = v12 = 0;
   }
 
@@ -218,48 +216,48 @@ LABEL_8:
   if (rq)
   {
     blockCopy = block;
+    v9 = *&i;
     v10 = nanorq_symbol_size(rq);
     v11 = malloc_type_calloc(v10 + 4, 1uLL, 0x100004077774924uLL);
     if (v11)
     {
-      v12 = v11;
-      *v11 = nanorq_tag(blockCopy, i);
-      if (nanorq_encode(self->_rq, (v12 + 1), i, blockCopy, self->_inputIO) == v10)
+      v13 = v11;
+      *v11 = nanorq_tag(blockCopy, v9);
+      if (nanorq_encode(self->_rq, (v13 + 1), v9, blockCopy, self->_inputIO) == v10)
       {
-        v13 = dispatch_data_create(v12, v10 + 4, 0, *MEMORY[0x277D85CB0]);
+        v15 = dispatch_data_create(v13, v10 + 4, 0, *MEMORY[0x277D85CB0]);
 
-        return v13;
+        return v15;
       }
 
       if (error)
       {
-        v17 = *MEMORY[0x277CCA590];
-LABEL_13:
-        v18 = NSErrorF();
-        v19 = v18;
-        v13 = 0;
-        *error = v18;
+        NSErrorF(*MEMORY[0x277CCA590], 4294960596, "Encode failed", v14);
+        v17 = LABEL_13:;
+        v18 = v17;
+        v15 = 0;
+        *error = v17;
 
-        return v13;
+        return v15;
       }
     }
 
     else if (error)
     {
-      v16 = *MEMORY[0x277CCA590];
+      NSErrorF(*MEMORY[0x277CCA590], 4294960596, "Buffer allocation failed", v12);
       goto LABEL_13;
     }
   }
 
   else if (error)
   {
-    v15 = *MEMORY[0x277CCA590];
+    NSErrorF(*MEMORY[0x277CCA590], 4294960596, "Encoder not initialized", block);
     goto LABEL_13;
   }
 
-  v13 = 0;
+  v15 = 0;
 
-  return v13;
+  return v15;
 }
 
 - (void)encodeWithInputURL:(id)l packetSize:(unint64_t)size repairFactor:(unint64_t)factor dispatchQueue:(id)queue completionHandler:(id)handler
@@ -339,7 +337,7 @@ void __95__SKRaptorQEncoder_encodeWithInputURL_packetSize_repairFactor_dispatchQ
 
     if (v12)
     {
-      goto LABEL_56;
+      goto LABEL_57;
     }
 
     if (MIBUOnceToken != -1)
@@ -389,14 +387,14 @@ void __95__SKRaptorQEncoder_encodeWithInputURL_packetSize_repairFactor_dispatchQ
         {
           if (error)
           {
-LABEL_68:
-            v46 = *MEMORY[0x277CCA590];
-            NSErrorF();
-            *error = v12 = 0;
-LABEL_55:
+            v46 = NSErrorF(*MEMORY[0x277CCA590], 4294960591, "Packet size too big");
+LABEL_71:
+            v12 = 0;
+            *error = v46;
+LABEL_56:
             v49[2]();
 
-            goto LABEL_56;
+            goto LABEL_57;
           }
         }
 
@@ -429,7 +427,7 @@ LABEL_55:
 
                 if (error)
                 {
-                  NSErrorF();
+                  NSErrorF(v47, 4294960596, "Too many blocks");
                   *error = v36 = 0;
                 }
 
@@ -442,14 +440,14 @@ LABEL_32:
                 objc_autoreleasePoolPop(v26);
                 if ((v36 & 1) == 0)
                 {
-                  v38 = 0;
+                  v39 = 0;
                   v12 = 0;
-                  goto LABEL_54;
+                  goto LABEL_55;
                 }
 
                 if (v24 == ++v25)
                 {
-                  goto LABEL_49;
+                  goto LABEL_50;
                 }
               }
 
@@ -503,17 +501,17 @@ LABEL_31:
 
                     if (error)
                     {
-                      v37 = 0;
-                      goto LABEL_45;
+                      v38 = 0;
+                      goto LABEL_46;
                     }
                   }
 
                   else if (error)
                   {
-                    v37 = NSErrorF();
-LABEL_45:
+                    v38 = NSErrorF(v47, 4294960541, "Open output file failed");
+LABEL_46:
                     v36 = 0;
-                    *error = v37;
+                    *error = v38;
                     goto LABEL_30;
                   }
 
@@ -523,37 +521,39 @@ LABEL_45:
 
                 if (error)
                 {
-LABEL_40:
-                  NSErrorF();
-                  *error = v36 = 0;
-                  goto LABEL_31;
+                  v37 = NSErrorF(v47, 4294960596, "Bad output path");
+                  goto LABEL_41;
                 }
               }
 
               else if (error)
               {
-                goto LABEL_40;
+                v37 = NSErrorF(v47, 4294960596, "Generate symbols failed");
+LABEL_41:
+                v36 = 0;
+                *error = v37;
+                goto LABEL_31;
               }
 
               v36 = 0;
               goto LABEL_31;
             }
 
-LABEL_49:
-            v38 = objc_alloc_init(SKRaptorQEncoderSummary);
-            v39 = [MEMORY[0x277CBEA60] arrayWithArray:v59];
-            [(SKRaptorQEncoderSummary *)v38 setRqEncodedFileURLs:v39];
+LABEL_50:
+            v39 = objc_alloc_init(SKRaptorQEncoderSummary);
+            v40 = [MEMORY[0x277CBEA60] arrayWithArray:v59];
+            [(SKRaptorQEncoderSummary *)v39 setRqEncodedFileURLs:v40];
 
-            v40 = [MEMORY[0x277CBEA60] arrayWithArray:v58];
-            [(SKRaptorQEncoderSummary *)v38 setRqSourceSymbolCounts:v40];
+            v41 = [MEMORY[0x277CBEA60] arrayWithArray:v58];
+            [(SKRaptorQEncoderSummary *)v39 setRqSourceSymbolCounts:v41];
 
-            [(SKRaptorQEncoderSummary *)v38 setRqBasicParameters:nanorq_oti_common(v23)];
-            [(SKRaptorQEncoderSummary *)v38 setRqExtendedParameters:nanorq_oti_scheme_specific(v23)];
-            v41 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v38 requiringSecureCoding:1 error:error];
-            v42 = v41;
-            if (v41 && [v41 writeToURL:v54 options:0 error:error])
+            [(SKRaptorQEncoderSummary *)v39 setRqBasicParameters:nanorq_oti_common(v23)];
+            [(SKRaptorQEncoderSummary *)v39 setRqExtendedParameters:nanorq_oti_scheme_specific(v23)];
+            v42 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v39 requiringSecureCoding:1 error:error];
+            v43 = v42;
+            if (v42 && [v42 writeToURL:v54 options:0 error:error])
             {
-              v12 = v38;
+              v12 = v39;
             }
 
             else
@@ -561,42 +561,42 @@ LABEL_49:
               v12 = 0;
             }
 
-LABEL_54:
+LABEL_55:
             v48[2](v48);
 
-            goto LABEL_55;
+            goto LABEL_56;
           }
 
           if (error)
           {
-            goto LABEL_68;
+            v46 = NSErrorF(*MEMORY[0x277CCA590], 4294960596, "Create encoder failed");
+            goto LABEL_71;
           }
         }
 
         v12 = 0;
-        goto LABEL_55;
+        goto LABEL_56;
       }
 
       if (error)
       {
-        goto LABEL_63;
+        v45 = NSErrorF(*MEMORY[0x277CCA590], 4294960596, "Create I/O context failed");
+        goto LABEL_65;
       }
     }
 
     else if (error)
     {
-LABEL_63:
-      v45 = *MEMORY[0x277CCA590];
-      NSErrorF();
-      *error = v12 = 0;
-      goto LABEL_56;
+      v45 = NSErrorF(*MEMORY[0x277CCA590], 4294960596, "Bad input path");
+LABEL_65:
+      v12 = 0;
+      *error = v45;
+      goto LABEL_57;
     }
   }
 
   v12 = 0;
-LABEL_56:
-
-  v43 = *MEMORY[0x277D85DE8];
+LABEL_57:
 
   return v12;
 }
@@ -649,6 +649,123 @@ void __69__SKRaptorQEncoder_encodeWithInputURL_packetSize_repairFactor_error___b
   }
 }
 
+- (BOOL)_writeSBN:(unsigned __int8)n rq:(nanorq *)rq repairFactor:(unint64_t)factor inputIO:(ioctx *)o outputFile:(__sFILE *)file error:(id *)error
+{
+  nCopy = n;
+  v38 = *MEMORY[0x277D85DE8];
+  v15 = nanorq_block_symbols(rq, n);
+  if (v15)
+  {
+    v16 = 0;
+    while (v16 != 0x100000000)
+    {
+      LODWORD(v17) = [(SKRaptorQEncoder *)self _writeESI:v16 sbn:nCopy rq:rq inputIO:o outputFile:file error:error];
+      if (!v17)
+      {
+        return v17;
+      }
+
+      if (v15 == ++v16)
+      {
+        goto LABEL_6;
+      }
+    }
+
+LABEL_28:
+    if (error)
+    {
+      NSErrorF(*MEMORY[0x277CCA590], 4294960596, "Too many symbols");
+      goto LABEL_24;
+    }
+
+    goto LABEL_30;
+  }
+
+LABEL_6:
+  if (!factor)
+  {
+    if (MIBUOnceToken != -1)
+    {
+      [SKRaptorQEncoder _writeSBN:rq:repairFactor:inputIO:outputFile:error:];
+    }
+
+    v23 = MIBUConnObj;
+    if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
+    {
+      [(SKRaptorQEncoder *)v23 _writeSBN:v24 rq:v25 repairFactor:v26 inputIO:v27 outputFile:v28 error:v29, v30];
+      if (error)
+      {
+        goto LABEL_23;
+      }
+    }
+
+    else if (error)
+    {
+LABEL_23:
+      NSErrorF(*MEMORY[0x277CCA590], 4294960596, "Repair factor should not be 0");
+      v31 = LABEL_24:;
+      v17 = v31;
+      LOBYTE(v17) = 0;
+      *error = v31;
+      return v17;
+    }
+
+LABEL_30:
+    LOBYTE(v17) = 0;
+    return v17;
+  }
+
+  v33 = v15 * factor;
+  if (v15 * factor)
+  {
+    v18 = 0x100000000;
+    if (v15 < 0x100000000)
+    {
+      v18 = v15;
+    }
+
+    v19 = v18 - 0x100000000;
+    v20 = v15 * factor;
+    v21 = v15;
+    while (v19)
+    {
+      LODWORD(v17) = [(SKRaptorQEncoder *)self _writeESI:v21 sbn:nCopy rq:rq inputIO:o outputFile:file error:error];
+      if (!v17)
+      {
+        return v17;
+      }
+
+      v21 = (v21 + 1);
+      ++v19;
+      if (!--v20)
+      {
+        goto LABEL_14;
+      }
+    }
+
+    goto LABEL_28;
+  }
+
+LABEL_14:
+  if (MIBUOnceToken != -1)
+  {
+    [SKRaptorQEncoder _writeSBN:rq:repairFactor:inputIO:outputFile:error:];
+  }
+
+  v22 = MIBUConnObj;
+  if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134218240;
+    v35 = v15;
+    v36 = 2048;
+    v37 = v33;
+    _os_log_impl(&dword_259B04000, v22, OS_LOG_TYPE_DEFAULT, ">>>> Source block successfully encoded! Source symbol count: %lu, Repair symbol count: %lu", buf, 0x16u);
+  }
+
+  LOBYTE(v17) = 1;
+  return v17;
+}
+
 void __71__SKRaptorQEncoder__writeSBN_rq_repairFactor_inputIO_outputFile_error___block_invoke()
 {
   v0 = os_log_create("com.apple.mobileinboxupdater", "device");
@@ -684,28 +801,33 @@ void __71__SKRaptorQEncoder__writeSBN_rq_repairFactor_inputIO_outputFile_error__
 - (BOOL)_writeESI:(unsigned int)i sbn:(unsigned __int8)sbn rq:(nanorq *)rq inputIO:(ioctx *)o outputFile:(__sFILE *)file error:(id *)error
 {
   sbnCopy = sbn;
-  v21 = *MEMORY[0x277D85DE8];
-  HIDWORD(v20) = nanorq_tag(sbn, i);
+  v13 = *&i;
+  v19 = *MEMORY[0x277D85DE8];
+  HIDWORD(v18) = nanorq_tag(sbn, i);
   v14 = nanorq_symbol_size(rq);
-  v15 = (&v20 - ((MEMORY[0x28223BE20]() + 15) & 0xFFFFFFFFFFFFFFF0));
+  v15 = (&v18 - ((MEMORY[0x28223BE20](v14) + 15) & 0xFFFFFFFFFFFFFFF0));
   bzero(v15, v14);
-  if (nanorq_encode(rq, v15, i, sbnCopy, o) != v14)
+  if (nanorq_encode(rq, v15, v13, sbnCopy, o) != v14)
   {
-    if (error)
+    if (!error)
     {
-      goto LABEL_10;
+      return 0;
     }
 
-    goto LABEL_11;
+    NSErrorF(*MEMORY[0x277CCA590], 4294960596, "Encode failed");
+LABEL_11:
+    *error = v16 = 0;
+    return v16;
   }
 
-  if (fwrite(&v20 + 4, 1uLL, 4uLL, file) != 4)
+  if (fwrite(&v18 + 4, 1uLL, 4uLL, file) != 4)
   {
-    if (error)
+    if (!error)
     {
-      goto LABEL_10;
+      return 0;
     }
 
+    NSErrorF(*MEMORY[0x277CCA590], 4294960596, "Write tag failed");
     goto LABEL_11;
   }
 
@@ -714,19 +836,13 @@ void __71__SKRaptorQEncoder__writeSBN_rq_repairFactor_inputIO_outputFile_error__
   {
     if (error)
     {
-LABEL_10:
-      v19 = *MEMORY[0x277CCA590];
-      NSErrorF();
-      *error = v16 = 0;
-      goto LABEL_4;
+      NSErrorF(*MEMORY[0x277CCA590], 4294960596, "Write data failed");
+      goto LABEL_11;
     }
 
-LABEL_11:
-    v16 = 0;
+    return 0;
   }
 
-LABEL_4:
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

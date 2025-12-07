@@ -10,7 +10,7 @@
 - (void)layoutSubviews
 {
   v7.receiver = self;
-  v7.super_class = type metadata accessor for PaperDocumentInlineView();
+  v7.super_class = type metadata accessor for PaperDocumentInlineView(0);
   v2 = v7.receiver;
   [(PaperDocumentInlineView *)&v7 layoutSubviews];
   v3 = OBJC_IVAR____TtC8PaperKit23PaperDocumentInlineView_paperDocumentView;

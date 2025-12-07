@@ -10,9 +10,9 @@
 - (int64_t)modelLoadingStatus
 {
   selfCopy = self;
-  v3 = sub_1A390C390();
+  v4 = sub_1A390C390(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)createViewModel:(id)model
@@ -34,17 +34,17 @@
 
   selfCopy = self;
   sub_1A390C428(v7, v6);
-  sub_1A3671090(v7);
+  sub_1A3671090(v7, v6);
 }
 
 - (id)createViewControllerWithDelegate:(id)delegate
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  v5 = sub_1A390C670();
+  v6 = sub_1A390C670(delegate);
   swift_unknownObjectRelease();
 
-  return v5;
+  return v6;
 }
 
 - (CAMOnboardingBuddyViewManager)init

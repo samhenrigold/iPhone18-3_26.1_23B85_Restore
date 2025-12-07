@@ -33,21 +33,21 @@
   v6 = v5;
   if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_254C81000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "updateToLatest(flowFile:)", "", buf, 2u);
+    LOWORD(buf.__r_.__value_.__l.__data_) = 0;
+    _os_signpost_emit_with_name_impl(&dword_254C81000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "updateToLatest(flowFile:)", "", &buf, 2u);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(buf, "updateToLatest(flowFile:)");
-  siri::intelligence::Timer::Timer(&v9);
+  std::string::basic_string[abi:ne200100]<0>(&buf, "updateToLatest(flowFile:)");
+  siri::intelligence::Timer::Timer(&v9, &buf);
 }
 
-void __28__IEUpdater_updateToLatest___block_invoke(siri::intelligence::Utils *a1)
+void __28__IEUpdater_updateToLatest___block_invoke(os_signpost_id_t *a1)
 {
-  siri::intelligence::Utils::GetSecsSinceStart(a1);
-  siri::intelligence::Log::Info("< Exiting function 'updateToLatest(flowFile:)' (took %1.1f ms)", v3, (v2 - *(*(a1 + 5) + 24)) * 10000.0);
+  SecsSinceStart = siri::intelligence::Utils::GetSecsSinceStart(a1);
+  siri::intelligence::Log::Info("< Exiting function 'updateToLatest(flowFile:)' (took %1.1f ms)", v3, (SecsSinceStart - *(a1[5] + 24)) * 10000.0);
   v4 = _MergedGlobals_27;
   v5 = v4;
-  v6 = *(a1 + 6);
+  v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -69,21 +69,21 @@ void __28__IEUpdater_updateToLatest___block_invoke(siri::intelligence::Utils *a1
   v6 = v5;
   if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_254C81000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "isUpdateAvailable(version:)", "", buf, 2u);
+    LOWORD(buf.__r_.__value_.__l.__data_) = 0;
+    _os_signpost_emit_with_name_impl(&dword_254C81000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "isUpdateAvailable(version:)", "", &buf, 2u);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(buf, "isUpdateAvailable(version:)");
-  siri::intelligence::Timer::Timer(&v9);
+  std::string::basic_string[abi:ne200100]<0>(&buf, "isUpdateAvailable(version:)");
+  siri::intelligence::Timer::Timer(&v9, &buf);
 }
 
-void __31__IEUpdater_isUpdateAvailable___block_invoke(siri::intelligence::Utils *a1)
+void __31__IEUpdater_isUpdateAvailable___block_invoke(os_signpost_id_t *a1)
 {
-  siri::intelligence::Utils::GetSecsSinceStart(a1);
-  siri::intelligence::Log::Info("< Exiting function 'isUpdateAvailable(version:)' (took %1.1f ms)", v3, (v2 - *(*(a1 + 5) + 24)) * 10000.0);
+  SecsSinceStart = siri::intelligence::Utils::GetSecsSinceStart(a1);
+  siri::intelligence::Log::Info("< Exiting function 'isUpdateAvailable(version:)' (took %1.1f ms)", v3, (SecsSinceStart - *(a1[5] + 24)) * 10000.0);
   v4 = qword_280AF4F50;
   v5 = v4;
-  v6 = *(a1 + 6);
+  v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -105,21 +105,21 @@ void __31__IEUpdater_isUpdateAvailable___block_invoke(siri::intelligence::Utils 
   v6 = v5;
   if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_254C81000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "highestVersionWithinRelease(version:)", "", buf, 2u);
+    LOWORD(buf.__r_.__value_.__l.__data_) = 0;
+    _os_signpost_emit_with_name_impl(&dword_254C81000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "highestVersionWithinRelease(version:)", "", &buf, 2u);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(buf, "highestVersionWithinRelease(version:)");
-  siri::intelligence::Timer::Timer(&v9);
+  std::string::basic_string[abi:ne200100]<0>(&buf, "highestVersionWithinRelease(version:)");
+  siri::intelligence::Timer::Timer(&v9, &buf);
 }
 
-void __44__IEUpdater_getHighestVersionWithinRelease___block_invoke(siri::intelligence::Utils *a1)
+void __44__IEUpdater_getHighestVersionWithinRelease___block_invoke(os_signpost_id_t *a1)
 {
-  siri::intelligence::Utils::GetSecsSinceStart(a1);
-  siri::intelligence::Log::Info("< Exiting function 'highestVersionWithinRelease(version:)' (took %1.1f ms)", v3, (v2 - *(*(a1 + 5) + 24)) * 10000.0);
+  SecsSinceStart = siri::intelligence::Utils::GetSecsSinceStart(a1);
+  siri::intelligence::Log::Info("< Exiting function 'highestVersionWithinRelease(version:)' (took %1.1f ms)", v3, (SecsSinceStart - *(a1[5] + 24)) * 10000.0);
   v4 = qword_280AF4F60;
   v5 = v4;
-  v6 = *(a1 + 6);
+  v6 = a1[6];
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;

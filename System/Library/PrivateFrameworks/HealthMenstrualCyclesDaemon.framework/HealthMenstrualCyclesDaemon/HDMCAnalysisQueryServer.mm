@@ -108,17 +108,17 @@
 
 - (void)_queue_start
 {
-  v40 = *MEMORY[0x277D85DE8];
-  v34.receiver = self;
-  v34.super_class = HDMCAnalysisQueryServer;
-  [(HDQueryServer *)&v34 _queue_start];
+  v39 = *MEMORY[0x277D85DE8];
+  v33.receiver = self;
+  v33.super_class = HDMCAnalysisQueryServer;
+  [(HDQueryServer *)&v33 _queue_start];
   _analysisQueryClientProxy = [(HDMCAnalysisQueryServer *)self _analysisQueryClientProxy];
   client = [(HDQueryServer *)self client];
   authorizationOracle = [client authorizationOracle];
   objectTypes = [(HDMCAnalysisQueryServer *)self objectTypes];
-  v33 = 0;
-  v7 = [authorizationOracle authorizationStatusRecordsForTypes:objectTypes error:&v33];
-  v8 = v33;
+  v32 = 0;
+  v7 = [authorizationOracle authorizationStatusRecordsForTypes:objectTypes error:&v32];
+  v8 = v32;
 
   if (v7)
   {
@@ -128,29 +128,29 @@
 
     if ((clientHasAuthorizationForAllTypes & 1) == 0)
     {
-      v31 = 0u;
-      v32 = 0u;
-      v29 = 0u;
       v30 = 0u;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
       allValues = [v7 allValues];
-      v13 = [allValues countByEnumeratingWithState:&v29 objects:v39 count:16];
+      v13 = [allValues countByEnumeratingWithState:&v28 objects:v38 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v30;
+        v15 = *v29;
         canRead = 1;
         do
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v30 != v15)
+            if (*v29 != v15)
             {
               objc_enumerationMutation(allValues);
             }
 
             if (canRead)
             {
-              canRead = [*(*(&v29 + 1) + 8 * i) canRead];
+              canRead = [*(*(&v28 + 1) + 8 * i) canRead];
             }
 
             else
@@ -159,7 +159,7 @@
             }
           }
 
-          v14 = [allValues countByEnumeratingWithState:&v29 objects:v39 count:16];
+          v14 = [allValues countByEnumeratingWithState:&v28 objects:v38 count:16];
         }
 
         while (v14);
@@ -173,18 +173,18 @@
             v19 = v18;
             v20 = objc_opt_class();
             *buf = 138543618;
-            v36 = v20;
-            v37 = 2114;
-            v38 = v7;
+            v35 = v20;
+            v36 = 2114;
+            v37 = v7;
             v21 = v20;
             _os_log_impl(&dword_2293D1000, v19, OS_LOG_TYPE_DEFAULT, "[%{public}@] Avoiding exposing health data due to missing authorization: %{public}@", buf, 0x16u);
           }
 
           analysisManager = [objc_alloc(MEMORY[0x277D11A00]) initWithNumberOfCycles:0 firstMenstruationStartDayIndex:0 lastMenstruationStartDayIndex:0 cycleLengthMedian:0 cycleLengthLowerPercentile:0 cycleLengthUpperPercentile:0 menstruationLengthMedian:0 menstruationLengthLowerPercentile:0 menstruationLengthUpperPercentile:0];
           v23 = objc_alloc(MEMORY[0x277D11960]);
-          LOBYTE(v28) = 0;
           LOBYTE(v27) = 0;
-          currentAnalysis = [v23 initWithStatistics:analysisManager menstruationProjections:MEMORY[0x277CBEBF8] fertileWindowProjections:MEMORY[0x277CBEBF8] menstruationProjectionsEnabled:0 fertileWindowProjectionsEnabled:0 cycles:MEMORY[0x277CBEBF8] deviations:MEMORY[0x277CBEBF8] recentSymptoms:0 recentBasalBodyTemperature:0 lastLoggedDayIndex:0 lastMenstrualFlowDayIndex:0 isPeriodLogLate:v27 ongoingCycleFactors:MEMORY[0x277CBEBF8] numberOfDailySleepHeartRateStatisticsForPast100Days:0 numberOfDailyAwakeHeartRateStatisticsForPast100Days:0 hasHealthAppDevicesWithHigherAlgorithmVersions:v28];
+          LOBYTE(v26) = 0;
+          currentAnalysis = [v23 initWithStatistics:analysisManager menstruationProjections:MEMORY[0x277CBEBF8] fertileWindowProjections:MEMORY[0x277CBEBF8] menstruationProjectionsEnabled:0 fertileWindowProjectionsEnabled:0 cycles:MEMORY[0x277CBEBF8] deviations:MEMORY[0x277CBEBF8] recentSymptoms:0 recentBasalBodyTemperature:0 lastLoggedDayIndex:0 lastMenstrualFlowDayIndex:0 isPeriodLogLate:v26 ongoingCycleFactors:MEMORY[0x277CBEBF8] numberOfDailySleepHeartRateStatisticsForPast100Days:0 numberOfDailyAwakeHeartRateStatisticsForPast100Days:0 hasHealthAppDevicesWithHigherAlgorithmVersions:v27];
           queryUUID = [(HDQueryServer *)self queryUUID];
           [_analysisQueryClientProxy client_deliverAnalysis:currentAnalysis queryUUID:queryUUID];
 
@@ -212,8 +212,6 @@ LABEL_21:
     analysisManager = [(HDQueryServer *)self queryUUID];
     [_analysisQueryClientProxy client_deliverError:v8 forQuery:analysisManager];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_stop

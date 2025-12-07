@@ -23,9 +23,8 @@
   return v2;
 }
 
-uint64_t __46__CRSIdentifiedServiceRegistry_sharedInstance__block_invoke(uint64_t a1)
+uint64_t __46__CRSIdentifiedServiceRegistry_sharedInstance__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
   sharedInstance_sRegistry = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x2821F96F8]();
@@ -48,7 +47,7 @@ uint64_t __46__CRSIdentifiedServiceRegistry_sharedInstance__block_invoke(uint64_
 
 - (void)registerIdentifiedService:(id)service
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   if (([(NSMutableOrderedSet *)self->_identifiedServices containsObject:serviceCopy]& 1) == 0)
   {
@@ -56,13 +55,11 @@ uint64_t __46__CRSIdentifiedServiceRegistry_sharedInstance__block_invoke(uint64_
     v5 = *MEMORY[0x277CF93F0];
     if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_INFO))
     {
-      v7 = 138412290;
-      v8 = serviceCopy;
-      _os_log_impl(&dword_243268000, v5, OS_LOG_TYPE_INFO, "Registered service with CardServices: %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = serviceCopy;
+      _os_log_impl(&dword_243268000, v5, OS_LOG_TYPE_INFO, "Registered service with CardServices: %@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

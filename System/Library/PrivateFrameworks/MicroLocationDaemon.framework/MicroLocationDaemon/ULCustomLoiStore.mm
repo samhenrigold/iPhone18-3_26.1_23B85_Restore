@@ -38,15 +38,14 @@
 
 - (BOOL)insertDataObjects:(const void *)objects forServiceUUID:(const uuid *)d atLoiUUID:(const uuid *)iD
 {
-  v22 = *MEMORY[0x277D85DE8];
   if (*objects != *(objects + 1))
   {
     dbStore = [(ULStore *)self dbStore];
     v9 = (*(dbStore->var0 + 13))(dbStore);
     managedObjectContext = [(ULStore *)self managedObjectContext];
-    v21 = [v9 fetchServiceManagedObjectWithUUID:d withManagedObjectContext:managedObjectContext];
+    v20 = [v9 fetchServiceManagedObjectWithUUID:d withManagedObjectContext:managedObjectContext];
 
-    if (!v21)
+    if (!v20)
     {
       if (onceToken_MicroLocation_Default != -1)
       {
@@ -74,9 +73,9 @@
     dbStore2 = [(ULStore *)self dbStore];
     v14 = (*(dbStore2->var0 + 8))(dbStore2);
     managedObjectContext2 = [(ULStore *)self managedObjectContext];
-    v20 = [v14 fetchLoiManagedObjectWithUUID:iD withManagedObjectContext:managedObjectContext2];
+    v19 = [v14 fetchLoiManagedObjectWithUUID:iD withManagedObjectContext:managedObjectContext2];
 
-    if (!v20)
+    if (!v19)
     {
       if (onceToken_MicroLocation_Default != -1)
       {
@@ -104,7 +103,6 @@
     operator new();
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -132,48 +130,44 @@
 
 - (BOOL)addServiceToCustomLoiMapping:(const uuid *)mapping loiId:(const uuid *)id
 {
-  v20 = *MEMORY[0x277D85DE8];
-  if ([ULCustomLoiStore removeServiceToCustomLoiMapping:"removeServiceToCustomLoiMapping:loiId:" loiId:?])
+  v19 = *MEMORY[0x277D85DE8];
+  if (![ULCustomLoiStore removeServiceToCustomLoiMapping:"removeServiceToCustomLoiMapping:loiId:" loiId:?])
   {
-    __p = 0;
-    v17 = 0;
-    v18 = 0;
-    v7 = *mapping->data;
-    v8 = *&mapping->data[8];
-    v9 = *id->data;
-    v10 = *&id->data[8];
-    v11 = cl::chrono::CFAbsoluteTimeClock::now();
-    ULCustomLoiDO::ULCustomLoiDO(buf, v7, v8, v9, v10, v11);
-    std::vector<ULCustomLoiDO>::push_back[abi:ne200100](&__p, buf);
-    v12 = [(ULCustomLoiStore *)self insertDataObjects:&__p forServiceUUID:mapping atLoiUUID:id];
-    if (!v12)
-    {
-      if (onceToken_MicroLocation_Default != -1)
-      {
-        [ULCustomLoiStore insertDataObjects:forServiceUUID:atLoiUUID:];
-      }
+    return 0;
+  }
 
-      v13 = logObject_MicroLocation_Default;
-      if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 0;
-        _os_log_impl(&dword_258FE9000, v13, OS_LOG_TYPE_ERROR, "#Warning Failed to add Service Id to LOI Id mapping", buf, 2u);
-      }
+  __p = 0;
+  v16 = 0;
+  v17 = 0;
+  v7 = *mapping->data;
+  v8 = *&mapping->data[8];
+  v9 = *id->data;
+  v10 = *&id->data[8];
+  v11 = cl::chrono::CFAbsoluteTimeClock::now();
+  ULCustomLoiDO::ULCustomLoiDO(buf, v7, v8, v9, v10, v11);
+  std::vector<ULCustomLoiDO>::push_back[abi:ne200100](&__p, buf);
+  v12 = [(ULCustomLoiStore *)self insertDataObjects:&__p forServiceUUID:mapping atLoiUUID:id];
+  if (!v12)
+  {
+    if (onceToken_MicroLocation_Default != -1)
+    {
+      [ULCustomLoiStore insertDataObjects:forServiceUUID:atLoiUUID:];
     }
 
-    if (__p)
+    v13 = logObject_MicroLocation_Default;
+    if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
     {
-      v17 = __p;
-      operator delete(__p);
+      *buf = 0;
+      _os_log_impl(&dword_258FE9000, v13, OS_LOG_TYPE_ERROR, "#Warning Failed to add Service Id to LOI Id mapping", buf, 2u);
     }
   }
 
-  else
+  if (__p)
   {
-    v12 = 0;
+    v16 = __p;
+    operator delete(__p);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -221,7 +215,7 @@
 
 - (vector<boost::uuids::uuid,)getAllDistinctCustomLoiIds
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v5 = +[ULDefaultsSingleton shared];
   defaultsDictionary = [v5 defaultsDictionary];
 
@@ -243,12 +237,11 @@
   v12 = objc_opt_class();
   v13 = NSStringFromClass(v12);
   v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%@", @"loi", @"loiId"];
-  v19[0] = v11;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+  v18[0] = v11;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
   v16 = [(ULStore *)self fetchPropertyForEntityName:v13 propertyToFetch:v14 distinctResults:1 byAndPredicates:0 sortDescriptors:v15 andLimit:v10];
 
   ULDBUtils::boostUUIDsFromNSStringArray(v16, retstr);
-  v18 = *MEMORY[0x277D85DE8];
   return result;
 }
 

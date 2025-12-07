@@ -12,9 +12,9 @@
 {
   optionsCopy = options;
   paramsCopy = params;
-  v127.receiver = self;
-  v127.super_class = CVNLPCaptionDecoderLSTM;
-  v8 = [(CVNLPCaptionModelBase *)&v127 initWithOptions:optionsCopy runTimeParams:paramsCopy];
+  v90.receiver = self;
+  v90.super_class = CVNLPCaptionDecoderLSTM;
+  v8 = [(CVNLPCaptionModelBase *)&v90 initWithOptions:optionsCopy runTimeParams:paramsCopy];
   v11 = v8;
   if (v8)
   {
@@ -23,194 +23,154 @@
     v8->maxCaptionLen = 16;
     v8->beamSize = 5;
     v8->meanFeaturesPresent = 0;
-    v124 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v9, CVNLPCaptionModelPath, v10);
-    v14 = objc_msgSend_URLByAppendingPathComponent_(v124, v12, @"vocab_reverse.json", v13);
+    v87 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v9, CVNLPCaptionModelPath, v10);
+    v14 = objc_msgSend_URLByAppendingPathComponent_(v87, v12, @"vocab_reverse.json", v13);
     v15 = MEMORY[0x1E695DEF0];
-    v123 = v14;
+    v86 = v14;
     v19 = objc_msgSend_path(v14, v16, v17, v18);
     v22 = objc_msgSend_dataWithContentsOfFile_(v15, v20, v19, v21);
 
-    v126 = 0;
-    v24 = objc_msgSend_JSONObjectWithData_options_error_(MEMORY[0x1E696ACB0], v23, v22, 0, &v126);
-    v122 = v126;
+    v89 = 0;
+    v24 = objc_msgSend_JSONObjectWithData_options_error_(MEMORY[0x1E696ACB0], v23, v22, 0, &v89);
+    v85 = v89;
     vocab = v11->vocab;
     v11->vocab = v24;
 
-    v125 = objc_msgSend_URLByAppendingPathComponent_(v124, v26, @"decoder_opt_pro.espresso.net", v27);
+    v88 = objc_msgSend_URLByAppendingPathComponent_(v87, v26, @"decoder_opt_pro.espresso.net", v27);
     v11->decoderCtx = espresso_create_context();
     v11->_decoderPlan = espresso_create_plan();
-    v31 = objc_msgSend_path(v125, v28, v29, v30);
+    v31 = objc_msgSend_path(v88, v28, v29, v30);
     v32 = v31;
     objc_msgSend_UTF8String(v32, v33, v34, v35);
-    p_decoderNet = &v11->decoderNet;
     LODWORD(v24) = espresso_plan_add_network();
 
     if (v24)
     {
       exception = __cxa_allocate_exception(0x10uLL);
-      decoderPlan = v11->_decoderPlan;
       espresso_plan_get_error_info();
-      std::runtime_error::runtime_error(exception, v85);
+      std::runtime_error::runtime_error(exception, v60);
       __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
     }
 
-    v37 = v11->_decoderPlan;
     if (espresso_plan_build())
     {
-      v86 = __cxa_allocate_exception(0x10uLL);
-      v87 = v11->_decoderPlan;
+      v61 = __cxa_allocate_exception(0x10uLL);
       espresso_plan_get_error_info();
-      std::runtime_error::runtime_error(v86, v88);
-      __cxa_throw(v86, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+      std::runtime_error::runtime_error(v61, v62);
+      __cxa_throw(v61, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
     }
 
-    plan = p_decoderNet->plan;
-    v39 = *&v11->decoderNet.network_index;
     if (c_network_get_input_names())
     {
-      v89 = __cxa_allocate_exception(0x10uLL);
-      v90 = v11->_decoderPlan;
+      v63 = __cxa_allocate_exception(0x10uLL);
       espresso_plan_get_error_info();
-      std::runtime_error::runtime_error(v89, v91);
-      __cxa_throw(v89, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+      std::runtime_error::runtime_error(v63, v64);
+      __cxa_throw(v63, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
     }
 
-    if (v11->meanFeaturesPresent)
+    if (v11->meanFeaturesPresent && espresso_network_bind_buffer())
     {
-      v40 = p_decoderNet->plan;
-      v41 = *&v11->decoderNet.network_index;
-      if (espresso_network_bind_buffer())
-      {
-        v119 = __cxa_allocate_exception(0x10uLL);
-        v120 = v11->_decoderPlan;
-        espresso_plan_get_error_info();
-        std::runtime_error::runtime_error(v119, v121);
-        __cxa_throw(v119, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-      }
+      v83 = __cxa_allocate_exception(0x10uLL);
+      espresso_plan_get_error_info();
+      std::runtime_error::runtime_error(v83, v84);
+      __cxa_throw(v83, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
     }
 
-    v42 = p_decoderNet->plan;
-    v43 = *&v11->decoderNet.network_index;
     if (espresso_network_bind_buffer())
     {
-      v92 = __cxa_allocate_exception(0x10uLL);
-      v93 = v11->_decoderPlan;
+      v65 = __cxa_allocate_exception(0x10uLL);
       espresso_plan_get_error_info();
-      std::runtime_error::runtime_error(v92, v94);
-      __cxa_throw(v92, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+      std::runtime_error::runtime_error(v65, v66);
+      __cxa_throw(v65, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
     }
 
-    v44 = p_decoderNet->plan;
-    v45 = *&v11->decoderNet.network_index;
     if (espresso_network_bind_buffer())
     {
-      v95 = __cxa_allocate_exception(0x10uLL);
-      v96 = v11->_decoderPlan;
+      v67 = __cxa_allocate_exception(0x10uLL);
       espresso_plan_get_error_info();
-      std::runtime_error::runtime_error(v95, v97);
-      __cxa_throw(v95, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+      std::runtime_error::runtime_error(v67, v68);
+      __cxa_throw(v67, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
     }
 
-    v46 = p_decoderNet->plan;
-    v47 = *&v11->decoderNet.network_index;
     if (espresso_network_bind_buffer())
     {
-      v98 = __cxa_allocate_exception(0x10uLL);
-      v99 = v11->_decoderPlan;
+      v69 = __cxa_allocate_exception(0x10uLL);
       espresso_plan_get_error_info();
-      std::runtime_error::runtime_error(v98, v100);
-      __cxa_throw(v98, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+      std::runtime_error::runtime_error(v69, v70);
+      __cxa_throw(v69, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
     }
 
-    v48 = p_decoderNet->plan;
-    v49 = *&v11->decoderNet.network_index;
     if (espresso_network_bind_buffer())
     {
-      v101 = __cxa_allocate_exception(0x10uLL);
-      v102 = v11->_decoderPlan;
+      v71 = __cxa_allocate_exception(0x10uLL);
       espresso_plan_get_error_info();
-      std::runtime_error::runtime_error(v101, v103);
-      __cxa_throw(v101, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+      std::runtime_error::runtime_error(v71, v72);
+      __cxa_throw(v71, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
     }
 
-    v50 = p_decoderNet->plan;
-    v51 = *&v11->decoderNet.network_index;
     if (espresso_network_bind_buffer())
     {
-      v104 = __cxa_allocate_exception(0x10uLL);
-      v105 = v11->_decoderPlan;
+      v73 = __cxa_allocate_exception(0x10uLL);
       espresso_plan_get_error_info();
-      std::runtime_error::runtime_error(v104, v106);
-      __cxa_throw(v104, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+      std::runtime_error::runtime_error(v73, v74);
+      __cxa_throw(v73, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
     }
 
-    v52 = p_decoderNet->plan;
-    v53 = *&v11->decoderNet.network_index;
     if (espresso_network_bind_buffer())
     {
-      v107 = __cxa_allocate_exception(0x10uLL);
-      v108 = v11->_decoderPlan;
+      v75 = __cxa_allocate_exception(0x10uLL);
       espresso_plan_get_error_info();
-      std::runtime_error::runtime_error(v107, v109);
-      __cxa_throw(v107, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+      std::runtime_error::runtime_error(v75, v76);
+      __cxa_throw(v75, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
     }
 
-    v54 = p_decoderNet->plan;
-    v55 = *&v11->decoderNet.network_index;
     if (espresso_network_bind_buffer())
     {
-      v110 = __cxa_allocate_exception(0x10uLL);
-      v111 = v11->_decoderPlan;
+      v77 = __cxa_allocate_exception(0x10uLL);
       espresso_plan_get_error_info();
-      std::runtime_error::runtime_error(v110, v112);
-      __cxa_throw(v110, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+      std::runtime_error::runtime_error(v77, v78);
+      __cxa_throw(v77, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
     }
 
-    v56 = p_decoderNet->plan;
-    v57 = *&v11->decoderNet.network_index;
     if (espresso_network_bind_buffer())
     {
-      v113 = __cxa_allocate_exception(0x10uLL);
-      v114 = v11->_decoderPlan;
+      v79 = __cxa_allocate_exception(0x10uLL);
       espresso_plan_get_error_info();
-      std::runtime_error::runtime_error(v113, v115);
-      __cxa_throw(v113, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+      std::runtime_error::runtime_error(v79, v80);
+      __cxa_throw(v79, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
     }
 
-    v58 = p_decoderNet->plan;
-    v59 = *&v11->decoderNet.network_index;
     if (espresso_network_bind_buffer())
     {
-      v116 = __cxa_allocate_exception(0x10uLL);
-      v117 = v11->_decoderPlan;
+      v81 = __cxa_allocate_exception(0x10uLL);
       espresso_plan_get_error_info();
-      std::runtime_error::runtime_error(v116, v118);
-      __cxa_throw(v116, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+      std::runtime_error::runtime_error(v81, v82);
+      __cxa_throw(v81, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
     }
 
-    v11->vocabSize = objc_msgSend_count(v11->vocab, v60, v61, v62);
-    v66 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], v63, v64, v65);
-    v69 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v67, CVNLPBeamSearchSize, v68);
-    v71 = v69;
-    if (v69)
+    v11->vocabSize = objc_msgSend_count(v11->vocab, v36, v37, v38);
+    v42 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], v39, v40, v41);
+    v45 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v43, CVNLPBeamSearchSize, v44);
+    v47 = v45;
+    if (v45)
     {
-      objc_msgSend_setObject_forKeyedSubscript_(v66, v70, v69, CVNLPBeamSearchSize);
+      objc_msgSend_setObject_forKeyedSubscript_(v42, v46, v45, CVNLPBeamSearchSize);
     }
 
     else
     {
-      objc_msgSend_setObject_forKeyedSubscript_(v66, v70, &unk_1F5554B50, CVNLPBeamSearchSize);
+      objc_msgSend_setObject_forKeyedSubscript_(v42, v46, &unk_1F5554B50, CVNLPBeamSearchSize);
     }
 
-    v74 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v72, v11->endID, v73);
-    objc_msgSend_setObject_forKeyedSubscript_(v66, v75, v74, CVNLPBeamEndToken);
+    v50 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v48, v11->endID, v49);
+    objc_msgSend_setObject_forKeyedSubscript_(v42, v51, v50, CVNLPBeamEndToken);
 
-    v78 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v76, v11->vocabSize, v77);
-    objc_msgSend_setObject_forKeyedSubscript_(v66, v79, v78, CVNLPBeamSearchOutputVocabSize);
+    v54 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v52, v11->vocabSize, v53);
+    objc_msgSend_setObject_forKeyedSubscript_(v42, v55, v54, CVNLPBeamSearchOutputVocabSize);
 
-    objc_msgSend_setObject_forKeyedSubscript_(v66, v80, v11->vocab, CVNLPBeamSearchOutputVocabMap);
-    objc_msgSend_setObject_forKeyedSubscript_(v66, v81, MEMORY[0x1E695E118], CVNLPBeamSearchIncludeLanguageModel);
-    v11->_beamSearch = CVNLPBeamSearchCreate(v66, 0);
+    objc_msgSend_setObject_forKeyedSubscript_(v42, v56, v11->vocab, CVNLPBeamSearchOutputVocabMap);
+    objc_msgSend_setObject_forKeyedSubscript_(v42, v57, MEMORY[0x1E695E118], CVNLPBeamSearchIncludeLanguageModel);
+    v11->_beamSearch = CVNLPBeamSearchCreate(v42, 0);
   }
 
   return v11;
@@ -218,14 +178,12 @@
 
 - (void)dealloc
 {
-  decoderPlan = self->_decoderPlan;
   espresso_plan_destroy();
-  decoderCtx = self->decoderCtx;
   espresso_context_destroy();
   CFRelease(self->_beamSearch);
-  v5.receiver = self;
-  v5.super_class = CVNLPCaptionDecoderLSTM;
-  [(CVNLPCaptionDecoderLSTM *)&v5 dealloc];
+  v3.receiver = self;
+  v3.super_class = CVNLPCaptionDecoderLSTM;
+  [(CVNLPCaptionDecoderLSTM *)&v3 dealloc];
 }
 
 - (id)packBeamID:(id)d tokenID:(id)iD lstmAttnState:(id *)state lstmLangState:(id *)langState softmax:(id *)softmax
@@ -363,113 +321,113 @@
 
 - (id)computeCaptionForImageWithInputs:(id)inputs genderOption:(int)option
 {
-  v184[1] = *MEMORY[0x1E69E9840];
+  v181[1] = *MEMORY[0x1E69E9840];
   inputsCopy = inputs;
-  v147 = inputsCopy;
+  v144 = inputsCopy;
   if (self->meanFeaturesPresent)
   {
     v8 = objc_msgSend_objectAtIndexedSubscript_(inputsCopy, v6, 0, v7);
     v9 = v8;
     v13 = objc_msgSend_bytes(v9, v10, v11, v12);
     v14 = *&self->meanFeatsPlaceholderBlob.stride_batch_number;
-    v177 = *&self->meanFeatsPlaceholderBlob.stride_height;
-    v178 = v14;
-    v179 = *&self->meanFeatsPlaceholderBlob.storage_type;
+    v174 = *&self->meanFeatsPlaceholderBlob.stride_height;
+    v175 = v14;
+    v176 = *&self->meanFeatsPlaceholderBlob.storage_type;
     v15 = *&self->meanFeatsPlaceholderBlob.width;
-    v173 = *&self->meanFeatsPlaceholderBlob.stride[2];
-    v174 = v15;
+    v170 = *&self->meanFeatsPlaceholderBlob.stride[2];
+    v171 = v15;
     v16 = *&self->meanFeatsPlaceholderBlob.sequence_length;
-    v175 = *&self->meanFeatsPlaceholderBlob.channels;
-    v176 = v16;
+    v172 = *&self->meanFeatsPlaceholderBlob.channels;
+    v173 = v16;
     v17 = *self->meanFeatsPlaceholderBlob.dim;
-    v169 = *&self->meanFeatsPlaceholderBlob.data;
-    v170 = v17;
+    v166 = *&self->meanFeatsPlaceholderBlob.data;
+    v167 = v17;
     v18 = *self->meanFeatsPlaceholderBlob.stride;
-    v171 = *&self->meanFeatsPlaceholderBlob.dim[2];
-    v172 = v18;
-    objc_msgSend__copy_data_to_blob_to_(self, v19, v13, &v169);
+    v168 = *&self->meanFeatsPlaceholderBlob.dim[2];
+    v169 = v18;
+    objc_msgSend__copy_data_to_blob_to_(self, v19, v13, &v166);
 
-    inputsCopy = v147;
+    inputsCopy = v144;
   }
 
-  v145 = objc_msgSend_objectAtIndexedSubscript_(inputsCopy, v6, 1, v7);
-  v20 = v145;
-  v24 = objc_msgSend_bytes(v145, v21, v22, v23);
+  v142 = objc_msgSend_objectAtIndexedSubscript_(inputsCopy, v6, 1, v7);
+  v20 = v142;
+  v24 = objc_msgSend_bytes(v142, v21, v22, v23);
   v25 = *&self->attFeatsPlaceholderBlob.stride_batch_number;
-  v177 = *&self->attFeatsPlaceholderBlob.stride_height;
-  v178 = v25;
-  v179 = *&self->attFeatsPlaceholderBlob.storage_type;
+  v174 = *&self->attFeatsPlaceholderBlob.stride_height;
+  v175 = v25;
+  v176 = *&self->attFeatsPlaceholderBlob.storage_type;
   v26 = *&self->attFeatsPlaceholderBlob.width;
-  v173 = *&self->attFeatsPlaceholderBlob.stride[2];
-  v174 = v26;
+  v170 = *&self->attFeatsPlaceholderBlob.stride[2];
+  v171 = v26;
   v27 = *&self->attFeatsPlaceholderBlob.sequence_length;
-  v175 = *&self->attFeatsPlaceholderBlob.channels;
-  v176 = v27;
+  v172 = *&self->attFeatsPlaceholderBlob.channels;
+  v173 = v27;
   v28 = *self->attFeatsPlaceholderBlob.dim;
-  v169 = *&self->attFeatsPlaceholderBlob.data;
-  v170 = v28;
+  v166 = *&self->attFeatsPlaceholderBlob.data;
+  v167 = v28;
   v29 = *self->attFeatsPlaceholderBlob.stride;
-  v171 = *&self->attFeatsPlaceholderBlob.dim[2];
-  v172 = v29;
-  objc_msgSend__copy_data_to_blob_to_(self, v30, v24, &v169);
-  v146 = objc_msgSend_objectAtIndexedSubscript_(v147, v31, 2, v32);
-  v33 = v146;
-  v37 = objc_msgSend_bytes(v146, v34, v35, v36);
+  v168 = *&self->attFeatsPlaceholderBlob.dim[2];
+  v169 = v29;
+  objc_msgSend__copy_data_to_blob_to_(self, v30, v24, &v166);
+  v143 = objc_msgSend_objectAtIndexedSubscript_(v144, v31, 2, v32);
+  v33 = v143;
+  v37 = objc_msgSend_bytes(v143, v34, v35, v36);
   v38 = *&self->pAttFeatsPlaceholderBlob.stride_batch_number;
-  v177 = *&self->pAttFeatsPlaceholderBlob.stride_height;
-  v178 = v38;
-  v179 = *&self->pAttFeatsPlaceholderBlob.storage_type;
+  v174 = *&self->pAttFeatsPlaceholderBlob.stride_height;
+  v175 = v38;
+  v176 = *&self->pAttFeatsPlaceholderBlob.storage_type;
   v39 = *&self->pAttFeatsPlaceholderBlob.width;
-  v173 = *&self->pAttFeatsPlaceholderBlob.stride[2];
-  v174 = v39;
+  v170 = *&self->pAttFeatsPlaceholderBlob.stride[2];
+  v171 = v39;
   v40 = *&self->pAttFeatsPlaceholderBlob.sequence_length;
-  v175 = *&self->pAttFeatsPlaceholderBlob.channels;
-  v176 = v40;
+  v172 = *&self->pAttFeatsPlaceholderBlob.channels;
+  v173 = v40;
   v41 = *self->pAttFeatsPlaceholderBlob.dim;
-  v169 = *&self->pAttFeatsPlaceholderBlob.data;
-  v170 = v41;
+  v166 = *&self->pAttFeatsPlaceholderBlob.data;
+  v167 = v41;
   v42 = *self->pAttFeatsPlaceholderBlob.stride;
-  v171 = *&self->pAttFeatsPlaceholderBlob.dim[2];
-  v172 = v42;
-  objc_msgSend__copy_data_to_blob_to_(self, v43, v37, &v169);
+  v168 = *&self->pAttFeatsPlaceholderBlob.dim[2];
+  v169 = v42;
+  objc_msgSend__copy_data_to_blob_to_(self, v43, v37, &v166);
   v44 = *&self->lstmAttStateFeedBlob.stride_batch_number;
-  v177 = *&self->lstmAttStateFeedBlob.stride_height;
-  v178 = v44;
-  v179 = *&self->lstmAttStateFeedBlob.storage_type;
+  v174 = *&self->lstmAttStateFeedBlob.stride_height;
+  v175 = v44;
+  v176 = *&self->lstmAttStateFeedBlob.storage_type;
   v45 = *&self->lstmAttStateFeedBlob.width;
-  v173 = *&self->lstmAttStateFeedBlob.stride[2];
-  v174 = v45;
+  v170 = *&self->lstmAttStateFeedBlob.stride[2];
+  v171 = v45;
   v46 = *&self->lstmAttStateFeedBlob.sequence_length;
-  v175 = *&self->lstmAttStateFeedBlob.channels;
-  v176 = v46;
+  v172 = *&self->lstmAttStateFeedBlob.channels;
+  v173 = v46;
   v47 = *self->lstmAttStateFeedBlob.dim;
-  v169 = *&self->lstmAttStateFeedBlob.data;
-  v170 = v47;
+  v166 = *&self->lstmAttStateFeedBlob.data;
+  v167 = v47;
   v48 = *self->lstmAttStateFeedBlob.stride;
-  v171 = *&self->lstmAttStateFeedBlob.dim[2];
-  v172 = v48;
-  objc_msgSend__fill_blob_data_with_(self, v49, &v169, v50, 0.0);
+  v168 = *&self->lstmAttStateFeedBlob.dim[2];
+  v169 = v48;
+  objc_msgSend__fill_blob_data_with_(self, v49, &v166, v50, 0.0);
   v51 = *&self->lstmLangStateFeedBlob.stride_batch_number;
-  v177 = *&self->lstmLangStateFeedBlob.stride_height;
-  v178 = v51;
-  v179 = *&self->lstmLangStateFeedBlob.storage_type;
+  v174 = *&self->lstmLangStateFeedBlob.stride_height;
+  v175 = v51;
+  v176 = *&self->lstmLangStateFeedBlob.storage_type;
   v52 = *&self->lstmLangStateFeedBlob.width;
-  v173 = *&self->lstmLangStateFeedBlob.stride[2];
-  v174 = v52;
+  v170 = *&self->lstmLangStateFeedBlob.stride[2];
+  v171 = v52;
   v53 = *&self->lstmLangStateFeedBlob.sequence_length;
-  v175 = *&self->lstmLangStateFeedBlob.channels;
-  v176 = v53;
+  v172 = *&self->lstmLangStateFeedBlob.channels;
+  v173 = v53;
   v54 = *self->lstmLangStateFeedBlob.dim;
-  v169 = *&self->lstmLangStateFeedBlob.data;
-  v170 = v54;
+  v166 = *&self->lstmLangStateFeedBlob.data;
+  v167 = v54;
   v55 = *self->lstmLangStateFeedBlob.stride;
-  v171 = *&self->lstmLangStateFeedBlob.dim[2];
-  v172 = v55;
-  objc_msgSend__fill_blob_data_with_(self, v56, &v169, v57, 0.0);
+  v168 = *&self->lstmLangStateFeedBlob.dim[2];
+  v169 = v55;
+  objc_msgSend__fill_blob_data_with_(self, v56, &v166, v57, 0.0);
   v60 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v58, self->startID, v59);
   v62 = objc_msgSend_packBeamID_tokenID_lstmAttnState_lstmLangState_softmax_(self, v61, 0, v60, 0, 0, 0);
-  v184[0] = v62;
-  v150 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v63, v184, 1);
+  v181[0] = v62;
+  v147 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v63, v181, 1);
 
   v64 = 0;
   v65 = 0;
@@ -477,15 +435,15 @@
   {
     context = objc_autoreleasePoolPush();
     theArray = objc_msgSend_array(MEMORY[0x1E695DF70], v66, v67, v68);
-    v167 = 0u;
-    v168 = 0u;
+    v164 = 0u;
     v165 = 0u;
-    v166 = 0u;
-    obj = v150;
-    v70 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v69, &v165, v183, 16);
+    v162 = 0u;
+    v163 = 0u;
+    obj = v147;
+    v70 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v69, &v162, v180, 16);
     if (v70)
     {
-      v155 = *v166;
+      v152 = *v163;
       do
       {
         v71 = 0;
@@ -493,49 +451,47 @@
         v73 = v65;
         do
         {
-          if (*v166 != v155)
+          if (*v163 != v152)
           {
             objc_enumerationMutation(obj);
           }
 
-          v74 = *(*(&v165 + 1) + 8 * v71);
+          v74 = *(*(&v162 + 1) + 8 * v71);
           v75 = objc_autoreleasePoolPush();
-          v163 = v72;
-          v164 = v73;
-          objc_msgSend_extractBeamID_tokenID_lstmAttnState_lstmLangState_fromFollowup_(self, v76, &v164, &v163, &self->lstmAttStateFeedBlob, &self->lstmLangStateFeedBlob, v74);
-          v65 = v164;
+          v160 = v72;
+          v161 = v73;
+          objc_msgSend_extractBeamID_tokenID_lstmAttnState_lstmLangState_fromFollowup_(self, v76, &v161, &v160, &self->lstmAttStateFeedBlob, &self->lstmLangStateFeedBlob, v74);
+          v65 = v161;
 
-          v64 = v163;
+          v64 = v160;
           v77 = *&self->inWordIDBlob.stride_batch_number;
-          v177 = *&self->inWordIDBlob.stride_height;
-          v178 = v77;
-          v179 = *&self->inWordIDBlob.storage_type;
+          v174 = *&self->inWordIDBlob.stride_height;
+          v175 = v77;
+          v176 = *&self->inWordIDBlob.storage_type;
           v78 = *&self->inWordIDBlob.width;
-          v173 = *&self->inWordIDBlob.stride[2];
-          v174 = v78;
+          v170 = *&self->inWordIDBlob.stride[2];
+          v171 = v78;
           v79 = *&self->inWordIDBlob.sequence_length;
-          v175 = *&self->inWordIDBlob.channels;
-          v176 = v79;
+          v172 = *&self->inWordIDBlob.channels;
+          v173 = v79;
           v80 = *self->inWordIDBlob.dim;
-          v169 = *&self->inWordIDBlob.data;
-          v170 = v80;
+          v166 = *&self->inWordIDBlob.data;
+          v167 = v80;
           v81 = *self->inWordIDBlob.stride;
-          v171 = *&self->inWordIDBlob.dim[2];
-          v172 = v81;
+          v168 = *&self->inWordIDBlob.dim[2];
+          v169 = v81;
           *&v85 = objc_msgSend_unsignedIntegerValue(v64, v82, v83, v84);
-          objc_msgSend__fill_blob_data_with_(self, v86, &v169, v87, v85);
-          decoderPlan = self->_decoderPlan;
+          objc_msgSend__fill_blob_data_with_(self, v86, &v166, v87, v85);
           if (espresso_plan_execute_sync())
           {
             exception = __cxa_allocate_exception(0x10uLL);
-            v143 = self->_decoderPlan;
             espresso_plan_get_error_info();
-            std::runtime_error::runtime_error(exception, v144);
+            std::runtime_error::runtime_error(exception, v141);
             __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
           }
 
-          v90 = objc_msgSend_packBeamID_tokenID_lstmAttnState_lstmLangState_softmax_(self, v89, v65, v64, &self->newAttStateBlob, &self->newLangStateBlob, &self->langProbBlob);
-          objc_msgSend_addObject_(theArray, v91, v90, v92);
+          v89 = objc_msgSend_packBeamID_tokenID_lstmAttnState_lstmLangState_softmax_(self, v88, v65, v64, &self->newAttStateBlob, &self->newLangStateBlob, &self->langProbBlob);
+          objc_msgSend_addObject_(theArray, v90, v89, v91);
 
           objc_autoreleasePoolPop(v75);
           ++v71;
@@ -544,79 +500,78 @@
         }
 
         while (v70 != v71);
-        v70 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v93, &v165, v183, 16);
+        v70 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v92, &v162, v180, 16);
       }
 
       while (v70);
     }
 
-    v150 = CVNLPBeamSearchOneStep(self->_beamSearch, theArray);
+    v147 = CVNLPBeamSearchOneStep(self->_beamSearch, theArray);
     objc_autoreleasePoolPop(context);
   }
 
-  while (objc_msgSend_count(v150, v94, v95, v96));
+  while (objc_msgSend_count(v147, v93, v94, v95));
   contexta = CVNLPBeamSearchCopyTopBeams(self->_beamSearch);
-  v154 = objc_msgSend_array(MEMORY[0x1E695DF70], v97, v98, v99);
-  v161 = 0u;
-  v162 = 0u;
+  v151 = objc_msgSend_array(MEMORY[0x1E695DF70], v96, v97, v98);
+  v158 = 0u;
   v159 = 0u;
-  v160 = 0u;
+  v156 = 0u;
+  v157 = 0u;
   obja = contexta;
-  v101 = objc_msgSend_countByEnumeratingWithState_objects_count_(obja, v100, &v159, v182, 16);
-  if (v101)
+  v100 = objc_msgSend_countByEnumeratingWithState_objects_count_(obja, v99, &v156, v179, 16);
+  if (v100)
   {
-    v153 = *v160;
+    v150 = *v157;
     do
     {
-      v156 = v101;
-      for (i = 0; i != v156; ++i)
+      v153 = v100;
+      for (i = 0; i != v153; ++i)
       {
-        if (*v160 != v153)
+        if (*v157 != v150)
         {
           objc_enumerationMutation(obja);
         }
 
-        v106 = *(*(&v159 + 1) + 8 * i);
-        v107 = objc_msgSend_array(MEMORY[0x1E695DF70], v102, v103, v104);
-        v110 = objc_msgSend_objectForKeyedSubscript_(v106, v108, CVNLPBeamTokens, v109);
-        theArraya = objc_msgSend_objectForKeyedSubscript_(v106, v111, CVNLPBeamScore, v112);
-        if (objc_msgSend_count(v110, v113, v114, v115))
+        v105 = *(*(&v156 + 1) + 8 * i);
+        v106 = objc_msgSend_array(MEMORY[0x1E695DF70], v101, v102, v103);
+        v109 = objc_msgSend_objectForKeyedSubscript_(v105, v107, CVNLPBeamTokens, v108);
+        theArraya = objc_msgSend_objectForKeyedSubscript_(v105, v110, CVNLPBeamScore, v111);
+        if (objc_msgSend_count(v109, v112, v113, v114))
         {
-          v119 = objc_msgSend_lastObject(v110, v116, v117, v118);
-          v123 = objc_msgSend_unsignedIntegerValue(v119, v120, v121, v122) == self->endID;
+          v118 = objc_msgSend_lastObject(v109, v115, v116, v117);
+          v122 = objc_msgSend_unsignedIntegerValue(v118, v119, v120, v121) == self->endID;
 
-          if (v123)
+          if (v122)
           {
-            for (j = 0; j < objc_msgSend_count(v110, v116, v124, v118) - 1; ++j)
+            for (j = 0; j < objc_msgSend_count(v109, v115, v123, v117) - 1; ++j)
             {
-              v126 = objc_msgSend_objectAtIndexedSubscript_(v110, v116, j, v118);
-              v129 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v127, @"%@", v128, v126);
-              v132 = objc_msgSend_objectForKeyedSubscript_(self->vocab, v130, v129, v131);
-              objc_msgSend_addObject_(v107, v133, v132, v134);
+              v125 = objc_msgSend_objectAtIndexedSubscript_(v109, v115, j, v117);
+              v128 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v126, @"%@", v127, v125);
+              v131 = objc_msgSend_objectForKeyedSubscript_(self->vocab, v129, v128, v130);
+              objc_msgSend_addObject_(v106, v132, v131, v133);
             }
           }
         }
 
-        v180[0] = CVNLPGeneratedCaption;
-        v135 = objc_msgSend_componentsJoinedByString_(v107, v116, @" ", v118);
-        v180[1] = CVNLPGeneratedCaptionScore;
-        v181[0] = v135;
-        v181[1] = theArraya;
-        v137 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v136, v181, v180, 2);
+        v177[0] = CVNLPGeneratedCaption;
+        v134 = objc_msgSend_componentsJoinedByString_(v106, v115, @" ", v117);
+        v177[1] = CVNLPGeneratedCaptionScore;
+        v178[0] = v134;
+        v178[1] = theArraya;
+        v136 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v135, v178, v177, 2);
 
-        objc_msgSend_addObject_(v154, v138, v137, v139);
+        objc_msgSend_addObject_(v151, v137, v136, v138);
       }
 
-      v101 = objc_msgSend_countByEnumeratingWithState_objects_count_(obja, v102, &v159, v182, 16);
+      v100 = objc_msgSend_countByEnumeratingWithState_objects_count_(obja, v101, &v156, v179, 16);
     }
 
-    while (v101);
+    while (v100);
   }
 
   sub_1D9D9AA4C(self->_beamSearch + 2);
-  v140 = *MEMORY[0x1E69E9840];
 
-  return v154;
+  return v151;
 }
 
 @end

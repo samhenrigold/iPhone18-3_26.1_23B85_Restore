@@ -5,9 +5,29 @@
 - (void)configureWithContext:(id)context completion:(id)completion;
 - (void)handleButtonActions:(id)actions;
 - (void)prepareForActivationWithContext:(id)context completion:(id)completion;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation ServiceTFFeedbackFormHostViewController
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = ServiceTFFeedbackFormHostViewController;
+  [(ServiceTFFeedbackFormHostViewController *)&v6 viewDidAppear:appear];
+  hostedFeedbackSession = [(ServiceTFFeedbackFormHostViewController *)self hostedFeedbackSession];
+
+  if (hostedFeedbackSession)
+  {
+    hostedFeedbackSession2 = [(ServiceTFFeedbackFormHostViewController *)self hostedFeedbackSession];
+    [(ServiceTFFeedbackFormHostViewController *)self _presentFormViewControllerForSession:hostedFeedbackSession2];
+  }
+
+  else
+  {
+    [(ServiceTFFeedbackFormHostViewController *)self _dismissViewService];
+  }
+}
 
 - (unint64_t)supportedInterfaceOrientations
 {

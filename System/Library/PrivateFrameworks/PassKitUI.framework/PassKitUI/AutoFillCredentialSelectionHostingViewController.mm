@@ -13,18 +13,18 @@
   v7 = _Block_copy(handler);
   if (eligible)
   {
-    sub_1BD0E5E8C(0, &qword_1EBD41880);
+    sub_1BD0E5E8C(0, &qword_1EBD41880, 0x1E69B8880);
     eligible = sub_1BE052744();
   }
 
   if (ineligible)
   {
-    sub_1BD0E5E8C(0, &qword_1EBD41880);
+    sub_1BD0E5E8C(0, &qword_1EBD41880, 0x1E69B8880);
     ineligible = sub_1BE052744();
   }
 
   v8 = swift_allocObject();
-  *(v8 + 16) = v7;
+  v8[2] = v7;
   return sub_1BD2FF308(eligible, ineligible, sub_1BD300F58, v8);
 }
 

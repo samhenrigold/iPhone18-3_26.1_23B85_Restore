@@ -940,22 +940,22 @@ LABEL_22:
     navigationBar = [navigationController navigationBar];
     [navigationBar setPrefersLargeTitles:1];
 
-    [navigationItem setLargeTitleDisplayMode:1];
-    if ((MFSolariumFeatureEnabled() & 1) == 0)
+    v6 = [navigationItem setLargeTitleDisplayMode:1];
+    if ((MFSolariumFeatureEnabled(v6, v7) & 1) == 0)
     {
-      v6 = [MFComposeSendAccessoryButton buttonWithType:0];
+      v8 = [MFComposeSendAccessoryButton buttonWithType:0];
       sendAccessoryButton = self->_sendAccessoryButton;
-      self->_sendAccessoryButton = v6;
+      self->_sendAccessoryButton = v8;
 
       [(UIButton *)self->_sendAccessoryButton addTarget:self action:sel_send_ forControlEvents:64];
       sendLaterMenu = [(MFMailComposeController *)self sendLaterMenu];
       [(UIButton *)self->_sendAccessoryButton setMenu:sendLaterMenu];
 
       [navigationItem _setLargeTitleAccessoryView:self->_sendAccessoryButton alignToBaseline:0];
-      v9 = objc_opt_new();
-      [v9 configureWithOpaqueBackground];
-      [v9 setShadowColor:0];
-      [navigationItem setScrollEdgeAppearance:v9];
+      v11 = objc_opt_new();
+      [v11 configureWithOpaqueBackground];
+      [v11 setShadowColor:0];
+      [navigationItem setScrollEdgeAppearance:v11];
     }
   }
 }
@@ -980,7 +980,7 @@ LABEL_22:
 - (void)_setupNavigationBarItems
 {
   v21[3] = *MEMORY[0x1E69E9840];
-  v3 = MFSolariumFeatureEnabled();
+  v3 = MFSolariumFeatureEnabled(self, a2);
   v4 = objc_alloc(MEMORY[0x1E695DFD8]);
   v5 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
   v6 = [v5 localizedStringForKey:@"SEND" value:&stru_1F3CF3758 table:@"Main"];
@@ -1032,30 +1032,30 @@ LABEL_22:
 - (id)_createSendButtonItemWithPossibleTitles:(id)titles
 {
   titlesCopy = titles;
-  v5 = MFSolariumFeatureEnabled();
-  v6 = MFImageGlyphBorderlessSend;
-  if (!v5)
+  v6 = MFSolariumFeatureEnabled(titlesCopy, v5);
+  v7 = MFImageGlyphBorderlessSend;
+  if (!v6)
   {
-    v6 = MFImageGlyphSend;
+    v7 = MFImageGlyphSend;
   }
 
-  v7 = *v6;
-  v8 = [MEMORY[0x1E69DCAB8] systemImageNamed:v7];
-  v9 = [objc_alloc(MEMORY[0x1E69DC708]) initWithImage:v8 style:0 target:self action:sel_send_];
-  [v9 setAccessibilityIdentifier:*MEMORY[0x1E69ADB90]];
-  v10 = [MEMORY[0x1E69DCAB8] mf_largeContentSizeImageNamed:v7];
-  [v9 setLargeContentSizeImage:v10];
+  v8 = *v7;
+  v9 = [MEMORY[0x1E69DCAB8] systemImageNamed:v8];
+  v10 = [objc_alloc(MEMORY[0x1E69DC708]) initWithImage:v9 style:0 target:self action:sel_send_];
+  [v10 setAccessibilityIdentifier:*MEMORY[0x1E69ADB90]];
+  v11 = [MEMORY[0x1E69DCAB8] mf_largeContentSizeImageNamed:v8];
+  [v10 setLargeContentSizeImage:v11];
 
-  v11 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v12 = [v11 localizedStringForKey:@"SEND" value:&stru_1F3CF3758 table:@"Main"];
-  [v9 setTitle:v12];
+  v12 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v13 = [v12 localizedStringForKey:@"SEND" value:&stru_1F3CF3758 table:@"Main"];
+  [v10 setTitle:v13];
 
   sendLaterMenu = [(MFMailComposeController *)self sendLaterMenu];
-  [v9 setMenu:sendLaterMenu];
+  [v10 setMenu:sendLaterMenu];
 
-  [v9 setPossibleTitles:titlesCopy];
+  [v10 setPossibleTitles:titlesCopy];
 
-  return v9;
+  return v10;
 }
 
 - (void)_setupSendLaterOnboardingPaletteIfNecessary
@@ -5549,21 +5549,21 @@ double __50__MFMailComposeController__showSystemPhotoPicker___block_invoke(uint6
   [(MFComposeWebView *)composeWebView insertMediaWithPhotoPickerItem:v9 completion:v10];
 }
 
-void __60__MFMailComposeController_photoPickerController_didAddItem___block_invoke(uint64_t a1)
+void __60__MFMailComposeController_photoPickerController_didAddItem___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = MFLogGeneral();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v9 = *MEMORY[0x1E69E9840];
+  v3 = MFLogGeneral();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = [*(a1 + 32) assetIdentifier];
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_1BE819000, v2, OS_LOG_TYPE_DEFAULT, "#CompositionServices webview did add asset %{public}@", &v6, 0xCu);
+    v4 = [*(a1 + 32) assetIdentifier];
+    v7 = 138543362;
+    v8 = v4;
+    _os_log_impl(&dword_1BE819000, v3, OS_LOG_TYPE_DEFAULT, "#CompositionServices webview did add asset %{public}@", &v7, 0xCu);
   }
 
-  v4 = *(a1 + 40);
-  v5 = [*(a1 + 32) assetURL];
-  [v4 _deleteFileAtURLIfInTmp:v5];
+  v5 = *(a1 + 40);
+  v6 = [*(a1 + 32) assetURL];
+  [v5 _deleteFileAtURLIfInTmp:v6];
 }
 
 - (void)photoPickerController:(id)controller didRemoveAsset:(id)asset
@@ -5689,20 +5689,20 @@ void __70__MFMailComposeController_insertPhotoOrVideoWithAssetIdentifier_info___
   [quickReplyExpandButton setHidden:_shouldEnableSendButton ^ 1];
   [quickReplySendButton setUserInteractionEnabled:_shouldEnableSendButton];
   [(UIButton *)self->_sendAccessoryButton setUserInteractionEnabled:_shouldEnableSendButton];
-  [(UIBarButtonItem *)self->_closeButtonItem setEnabled:[(MFMailComposeController *)self _shouldEnableCloseButton]];
-  if (MFSolariumFeatureEnabled())
+  v6 = [(UIBarButtonItem *)self->_closeButtonItem setEnabled:[(MFMailComposeController *)self _shouldEnableCloseButton]];
+  if (MFSolariumFeatureEnabled(v6, v7))
   {
     if (_shouldEnableSendButton)
     {
-      v6 = 2;
+      v8 = 2;
     }
 
     else
     {
-      v6 = 0;
+      v8 = 0;
     }
 
-    [(UIBarButtonItem *)self->_sendButtonItem setStyle:v6];
+    [(UIBarButtonItem *)self->_sendButtonItem setStyle:v8];
   }
 }
 
@@ -10836,27 +10836,27 @@ void __47__MFMailComposeController__explainAirplaneMode__block_invoke(uint64_t a
   [v1 performBlock:v2];
 }
 
-void __47__MFMailComposeController__explainAirplaneMode__block_invoke_2(uint64_t a1)
+void __47__MFMailComposeController__explainAirplaneMode__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = MEMORY[0x1E69DC650];
-  v3 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v4 = [v3 localizedStringForKey:@"AIRPLANE_TITLE" value:&stru_1F3CF3758 table:@"Main"];
-  v5 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v6 = [v5 localizedStringForKey:@"AIRPLANE_EXPLAIN" value:&stru_1F3CF3758 table:@"Main"];
-  v7 = [v2 alertControllerWithTitle:v4 message:v6 preferredStyle:1];
+  v3 = MEMORY[0x1E69DC650];
+  v4 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v5 = [v4 localizedStringForKey:@"AIRPLANE_TITLE" value:&stru_1F3CF3758 table:@"Main"];
+  v6 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v7 = [v6 localizedStringForKey:@"AIRPLANE_EXPLAIN" value:&stru_1F3CF3758 table:@"Main"];
+  v8 = [v3 alertControllerWithTitle:v5 message:v7 preferredStyle:1];
 
-  v8 = MEMORY[0x1E69DC648];
-  v9 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v10 = [v9 localizedStringForKey:@"OK" value:&stru_1F3CF3758 table:@"Main"];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __47__MFMailComposeController__explainAirplaneMode__block_invoke_3;
-  v12[3] = &unk_1E806E958;
-  v12[4] = *(a1 + 32);
-  v11 = [v8 actionWithTitle:v10 style:0 handler:v12];
-  [v7 addAction:v11];
+  v9 = MEMORY[0x1E69DC648];
+  v10 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v11 = [v10 localizedStringForKey:@"OK" value:&stru_1F3CF3758 table:@"Main"];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __47__MFMailComposeController__explainAirplaneMode__block_invoke_3;
+  v13[3] = &unk_1E806E958;
+  v13[4] = *(a1 + 32);
+  v12 = [v9 actionWithTitle:v11 style:0 handler:v13];
+  [v8 addAction:v12];
 
-  [*(a1 + 32) _presentModalAlert:v7];
+  [*(a1 + 32) _presentModalAlert:v8];
 }
 
 - (void)deliverMessageRemotely:(id)remotely
@@ -12050,7 +12050,7 @@ void __42__MFMailComposeController_viewWillAppear___block_invoke(uint64_t a1)
 
 - (void)_displayMetricsDidChange
 {
-  if ((MFSolariumFeatureEnabled() & 1) == 0)
+  if ((MFSolariumFeatureEnabled(self, a2) & 1) == 0)
   {
     displayMetrics = [(MFMailComposeController *)self displayMetrics];
     [displayMetrics sendBarButtonItemImageInsets];
@@ -13971,8 +13971,8 @@ uint64_t __117__MFMailComposeController_contactViewController_shouldPerformDefau
   alertCopy = alert;
   sourceCopy = source;
   [(MFMailComposeController *)self _updateSendAndCloseEnabled];
-  [(MFMailComposeController *)self _dismissPresentedViewController];
-  if (MFSolariumFeatureEnabled())
+  _dismissPresentedViewController = [(MFMailComposeController *)self _dismissPresentedViewController];
+  if (MFSolariumFeatureEnabled(_dismissPresentedViewController, v8))
   {
     popoverPresentationController = [alertCopy popoverPresentationController];
     [popoverPresentationController setSourceItem:sourceCopy];

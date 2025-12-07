@@ -2,7 +2,10 @@
 + (id)sharedInstance;
 + (void)initialize;
 - (BOOL)profileCodeWithType:(id)type kind:(int)kind block:(id)block;
+- (SKGEventsProfiler)initWithEnabled:(BOOL)enabled;
 - (void)endProfilingWithType:(id)type outcome:(id)outcome;
+- (void)logResultWithType:(id)type outcome:(id)outcome elapsedTime:(unint64_t)time kind:(int)kind;
+- (void)startProfilingWithType:(id)type kind:(int)kind;
 @end
 
 @implementation SKGEventsProfiler
@@ -53,6 +56,21 @@ void __35__SKGEventsProfiler_sharedInstance__block_invoke(uint64_t a1)
   }
 }
 
+- (SKGEventsProfiler)initWithEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v8.receiver = self;
+  v8.super_class = SKGEventsProfiler;
+  v5 = [(SKGEventsProfiler *)&v8 init];
+  v6 = v5;
+  if (v5 == self)
+  {
+    [(SKGEventsProfiler *)v5 setEnabled:enabledCopy];
+  }
+
+  return v6;
+}
+
 - (BOOL)profileCodeWithType:(id)type kind:(int)kind block:(id)block
 {
   typeCopy = type;
@@ -81,7 +99,7 @@ void __35__SKGEventsProfiler_sharedInstance__block_invoke(uint64_t a1)
 
 void __52__SKGEventsProfiler_profileCodeWithType_kind_block___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) convertMachTimeToMilliseconds:mach_absolute_time() - *(a1 + 48)];
   [*(a1 + 32) logResultWithType:*(a1 + 40) outcome:v3 elapsedTime:v4 kind:*(a1 + 56)];
@@ -90,23 +108,45 @@ void __52__SKGEventsProfiler_profileCodeWithType_kind_block___block_invoke_2(uin
     v5 = SKGLogInit();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v7 = *(a1 + 40);
-      v8 = 138412802;
-      v9 = v7;
-      v10 = 2048;
-      v11 = v4;
-      v12 = 2112;
-      v13 = v3;
-      _os_log_debug_impl(&dword_231B25000, v5, OS_LOG_TYPE_DEBUG, "[CSEventsProfiler] %@ completed in %llu ms, outcome: %@", &v8, 0x20u);
+      v6 = *(a1 + 40);
+      v7 = 138412802;
+      v8 = v6;
+      v9 = 2048;
+      v10 = v4;
+      v11 = 2112;
+      v12 = v3;
+      _os_log_debug_impl(&dword_231B25000, v5, OS_LOG_TYPE_DEBUG, "[CSEventsProfiler] %@ completed in %llu ms, outcome: %@", &v7, 0x20u);
     }
   }
+}
 
-  v6 = *MEMORY[0x277D85DE8];
+- (void)startProfilingWithType:(id)type kind:(int)kind
+{
+  v4 = *&kind;
+  v14[2] = *MEMORY[0x277D85DE8];
+  typeCopy = type;
+  if ([(SKGEventsProfiler *)self enabled])
+  {
+    v7 = mach_absolute_time();
+    selfCopy = self;
+    objc_sync_enter(selfCopy);
+    v9 = _ongoingSessions;
+    v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v7];
+    v13[0] = @"type";
+    v13[1] = @"kind";
+    v14[0] = typeCopy;
+    v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v4];
+    v14[1] = v11;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+    [v9 setObject:v10 forKey:v12];
+
+    objc_sync_exit(selfCopy);
+  }
 }
 
 - (void)endProfilingWithType:(id)type outcome:(id)outcome
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   outcomeCopy = outcome;
   if ([(SKGEventsProfiler *)self enabled])
@@ -134,11 +174,11 @@ void __52__SKGEventsProfiler_profileCodeWithType_kind_block___block_invoke_2(uin
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412802;
-          v19 = typeCopy;
-          v20 = 2048;
-          v21 = v15;
-          v22 = 2112;
-          v23 = outcomeCopy;
+          v18 = typeCopy;
+          v19 = 2048;
+          v20 = v15;
+          v21 = 2112;
+          v22 = outcomeCopy;
           _os_log_debug_impl(&dword_231B25000, v16, OS_LOG_TYPE_DEBUG, "[CSEventsProfiler] %@ completed in %llu ms, outcome: %@", buf, 0x20u);
         }
       }
@@ -149,8 +189,28 @@ void __52__SKGEventsProfiler_profileCodeWithType_kind_block___block_invoke_2(uin
       NSLog(&cfstr_NoSessionFound.isa, typeCopy);
     }
   }
+}
 
-  v17 = *MEMORY[0x277D85DE8];
+- (void)logResultWithType:(id)type outcome:(id)outcome elapsedTime:(unint64_t)time kind:(int)kind
+{
+  v6 = *&kind;
+  v16[4] = *MEMORY[0x277D85DE8];
+  outcomeCopy = outcome;
+  typeCopy = type;
+  v11 = +[SKGActivityJournal sharedJournal];
+  v15[0] = &unk_2846E7C50;
+  v15[1] = &unk_2846E7C68;
+  v16[0] = typeCopy;
+  v16[1] = outcomeCopy;
+  v15[2] = &unk_2846E7C80;
+  v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v6];
+  v16[2] = v12;
+  v15[3] = &unk_2846E7C98;
+  v13 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:time];
+  v16[3] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
+
+  [v11 addEventWithType:41 params:v14];
 }
 
 @end

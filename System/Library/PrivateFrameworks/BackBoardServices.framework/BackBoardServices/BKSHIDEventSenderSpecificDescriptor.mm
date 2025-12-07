@@ -20,7 +20,7 @@
 
   sourceDescriptor = self->_sourceDescriptor;
 
-  return [(BKSHIDEventDescriptor *)sourceDescriptor matchesHIDEvent:event];
+  return [(BKSHIDEventDescriptor *)sourceDescriptor matchesHIDEvent:?];
 }
 
 - (BOOL)describes:(id)describes
@@ -35,7 +35,7 @@
     {
       sourceDescriptor = self->_sourceDescriptor;
       sourceDescriptor = [v5 sourceDescriptor];
-      v9 = [(BKSHIDEventDescriptor *)sourceDescriptor describes:sourceDescriptor];
+      v9 = [(BKSHIDEventDescriptor *)sourceDescriptor describes:?];
     }
 
     else
@@ -55,46 +55,31 @@
 - (BKSHIDEventSenderSpecificDescriptor)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v12.receiver = self;
-  v12.super_class = BKSHIDEventSenderSpecificDescriptor;
-  v5 = [(BKSHIDEventDescriptor *)&v12 init];
-  if (!v5)
+  v11.receiver = self;
+  v11.super_class = BKSHIDEventSenderSpecificDescriptor;
+  v5 = [(BKSHIDEventDescriptor *)&v11 init];
+  if (v5 && (objc_opt_class(), [coderCopy decodeObjectOfClass:? forKey:?], v6 = objc_claimAutoreleasedReturnValue(), v5->_senderID = objc_msgSend(v6, "unsignedLongLongValue"), v6, objc_opt_class(), objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:"), v7 = objc_claimAutoreleasedReturnValue(), sourceDescriptor = v5->_sourceDescriptor, v5->_sourceDescriptor = v7, sourceDescriptor, v5->_sourceDescriptor))
   {
-    goto LABEL_4;
-  }
-
-  v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_senderID"];
-  v5->_senderID = [v6 unsignedLongLongValue];
-
-  v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_sourceDescriptor"];
-  sourceDescriptor = v5->_sourceDescriptor;
-  v5->_sourceDescriptor = v7;
-
-  v9 = v5->_sourceDescriptor;
-  if (v9)
-  {
-    v5 = [(BKSHIDEventSenderSpecificDescriptor *)v5 initWithDescriptor:v9 senderID:v5->_senderID];
-    v10 = v5;
+    v5 = [BKSHIDEventSenderSpecificDescriptor initWithDescriptor:v5 senderID:"initWithDescriptor:senderID:"];
+    v9 = v5;
   }
 
   else
   {
-LABEL_4:
-    v10 = 0;
+    v9 = 0;
   }
 
-  return v10;
+  return v9;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v4 = MEMORY[0x1E696AD98];
-  senderID = self->_senderID;
+  v3 = MEMORY[0x1E696AD98];
   coderCopy = coder;
-  v6 = [v4 numberWithUnsignedLongLong:senderID];
-  [coderCopy encodeObject:v6 forKey:@"_senderID"];
+  v4 = [v3 numberWithUnsignedLongLong:?];
+  [coderCopy encodeObject:? forKey:?];
 
-  [coderCopy encodeObject:self->_sourceDescriptor forKey:@"_sourceDescriptor"];
+  [coderCopy encodeObject:? forKey:?];
 }
 
 - (void)appendDescriptionToStream:(id)stream
@@ -103,13 +88,13 @@ LABEL_4:
   v7.receiver = self;
   v7.super_class = BKSHIDEventSenderSpecificDescriptor;
   [(BKSHIDEventDescriptor *)&v7 appendDescriptionToStream:streamCopy];
-  v5 = [streamCopy appendUInt64:self->_senderID withName:@"senderID" format:1];
-  v6 = [streamCopy appendObject:self->_sourceDescriptor withName:@"sourceDescriptor"];
+  v5 = [streamCopy appendUInt64:? withName:? format:?];
+  v6 = [streamCopy appendObject:? withName:?];
 }
 
 - (id)descriptorByAddingSenderIDToMatchCriteria:(unint64_t)criteria
 {
-  v3 = [[BKSHIDEventSenderSpecificDescriptor alloc] initWithDescriptor:self->_sourceDescriptor senderID:criteria];
+  v3 = [BKSHIDEventSenderSpecificDescriptor initWithDescriptor:"initWithDescriptor:senderID:" senderID:?];
 
   return v3;
 }

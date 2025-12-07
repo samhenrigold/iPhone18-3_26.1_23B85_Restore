@@ -20,6 +20,7 @@
 - (void)tableView:(id)view willDisplayHeaderView:(id)headerView forSection:(int64_t)section;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation TSCellularPlanLabelsViewController
@@ -150,39 +151,115 @@
   [(OBTableWelcomeController *)&v4 viewDidLayoutSubviews];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v29.receiver = self;
+  v29.super_class = TSCellularPlanLabelsViewController;
+  [(OBTableWelcomeController *)&v29 viewWillAppear:appear];
+  if (([(TSCellularPlanLabelsViewController *)self isMovingToParentViewController]& 1) == 0)
+  {
+    labelPickerViewController = [(TSCellularPlanLabelsViewController *)self labelPickerViewController];
+
+    if (labelPickerViewController)
+    {
+      labelPickerViewController2 = [(TSCellularPlanLabelsViewController *)self labelPickerViewController];
+      chosenLabel = [labelPickerViewController2 chosenLabel];
+      labelPickerViewController3 = [(TSCellularPlanLabelsViewController *)self labelPickerViewController];
+      associatedPlanItem = [labelPickerViewController3 associatedPlanItem];
+      [(TSCellularPlanLabelsViewController *)self setPendingLabel:chosenLabel forPlanItem:associatedPlanItem];
+    }
+  }
+
+  if ([(NSMutableArray *)self->_sortedPlanItemsWithPendingLabels count]>= 2)
+  {
+    v9 = [(NSMutableArray *)self->_sortedPlanItemsWithPendingLabels objectAtIndex:0];
+    v10 = [v9 valueForKey:@"pendingLabel"];
+    label = [v10 label];
+
+    v12 = [(NSMutableArray *)self->_sortedPlanItemsWithPendingLabels objectAtIndex:1];
+    v13 = [v12 valueForKey:@"pendingLabel"];
+    label2 = [v13 label];
+
+    v15 = [label isEqualToString:label2];
+    if (v15)
+    {
+      v16 = _TSLogDomain(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      {
+        [(TSCellularPlanLabelsViewController *)label viewWillAppear:label2, v16];
+      }
+
+      [(OBBoldTrayButton *)self->_doneButton setEnabled:0];
+      self->_showDupLabelsFooter = 1;
+      tableView = [(OBTableWelcomeController *)self tableView];
+      [tableView reloadData];
+    }
+
+    else
+    {
+      [(OBBoldTrayButton *)self->_doneButton setEnabled:1];
+      self->_showDupLabelsFooter = 0;
+    }
+
+    v18 = objc_alloc(MEMORY[0x277CBEA60]);
+    v19 = [(NSMutableArray *)self->_sortedPlanItemsWithPendingLabels objectAtIndex:0];
+    v20 = [v19 valueForKey:@"pendingLabel"];
+    v21 = [(NSMutableArray *)self->_sortedPlanItemsWithPendingLabels objectAtIndex:1];
+    v22 = [v21 valueForKey:@"pendingLabel"];
+    v23 = [v18 initWithObjects:{v20, v22, 0}];
+
+    v24 = +[TSCellularPlanManagerCache sharedInstance];
+    v25 = [v24 getShortLabelsForLabels:v23];
+    planItemBadges = self->_planItemBadges;
+    self->_planItemBadges = v25;
+  }
+
+  if (([(TSCellularPlanLabelsViewController *)self isMovingToParentViewController]& 1) == 0)
+  {
+    labelPickerViewController4 = [(TSCellularPlanLabelsViewController *)self labelPickerViewController];
+
+    if (labelPickerViewController4)
+    {
+      [(TSCellularPlanLabelsViewController *)self setLabelPickerViewController:0];
+      tableView2 = [(OBTableWelcomeController *)self tableView];
+      [tableView2 reloadData];
+    }
+  }
+}
+
 - (void)savePlanLabels:(id)labels
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   labelsCopy = labels;
   if ([(NSMutableArray *)self->_sortedPlanItemsWithPendingLabels count])
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v5 = self->_sortedPlanItemsWithPendingLabels;
-    v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v17;
+      v8 = *v16;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v16 + 1) + 8 * i);
+          v10 = *(*(&v15 + 1) + 8 * i);
           v11 = +[TSCellularPlanManagerCache sharedInstance];
           v12 = [v10 objectForKeyedSubscript:@"planItem"];
           v13 = [v10 objectForKeyedSubscript:@"pendingLabel"];
           v14 = [v11 setLabelForPlan:v12 label:v13];
         }
 
-        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v7);
@@ -196,26 +273,24 @@
 LABEL_11:
     labelsCopy[2](labelsCopy);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPendingLabel:(id)label forPlanItem:(id)item
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   labelCopy = label;
   itemCopy = item;
-  v8 = _TSLogDomain();
+  v8 = _TSLogDomain(itemCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [TSCellularPlanLabelsViewController setPendingLabel:labelCopy forPlanItem:itemCopy];
   }
 
-  v15[0] = @"pendingLabel";
-  v15[1] = @"planItem";
-  v16[0] = labelCopy;
-  v16[1] = itemCopy;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v14[0] = @"pendingLabel";
+  v14[1] = @"planItem";
+  v15[0] = labelCopy;
+  v15[1] = itemCopy;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
   if ([(NSMutableArray *)self->_sortedPlanItemsWithPendingLabels count])
   {
     v10 = 0;
@@ -244,8 +319,6 @@ LABEL_11:
 LABEL_7:
     [(NSMutableArray *)self->_sortedPlanItemsWithPendingLabels addObject:v9];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getPlanItemByIndex:(int64_t)index
@@ -266,32 +339,32 @@ LABEL_7:
 
 - (void)prepareLabels:(id)labels
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   labelsCopy = labels;
   mEMORY[0x277CF96D8] = [MEMORY[0x277CF96D8] sharedManager];
   v6 = [mEMORY[0x277CF96D8] planItemsShouldUpdate:0];
 
   array = [MEMORY[0x277CBEB18] array];
-  v39 = 0u;
-  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v39 objects:v47 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v41 objects:v49 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v40;
+    v11 = *v42;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v40 != v11)
+        if (*v42 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v39 + 1) + 8 * i);
+        v13 = *(*(&v41 + 1) + 8 * i);
         if ([v13 isSelected])
         {
           [array addObject:v13];
@@ -305,20 +378,21 @@ LABEL_7:
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v39 objects:v47 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v41 objects:v49 count:16];
     }
 
     while (v10);
   }
 
   v16 = [array sortedArrayUsingSelector:sel_compare_];
-  if ([v16 count] >= 2)
+  v17 = [v16 count];
+  if (v17 >= 2)
   {
-    v17 = [v16 objectAtIndex:0];
-    label = [v17 label];
-    v19 = [label length];
+    v18 = [v16 objectAtIndex:0];
+    label = [v18 label];
+    v20 = [label length];
 
-    if (v19)
+    if (v20)
     {
       getPredefinedUserLabels = [v16 objectAtIndex:0];
       [getPredefinedUserLabels userLabel];
@@ -329,15 +403,15 @@ LABEL_7:
       getPredefinedUserLabels = [(TSCellularPlanLabelsViewController *)self getPredefinedUserLabels];
       [getPredefinedUserLabels objectAtIndex:0];
     }
-    v21 = ;
-    v22 = [v16 objectAtIndex:0];
-    [(TSCellularPlanLabelsViewController *)self setPendingLabel:v21 forPlanItem:v22];
+    v22 = ;
+    v23 = [v16 objectAtIndex:0];
+    [(TSCellularPlanLabelsViewController *)self setPendingLabel:v22 forPlanItem:v23];
 
-    v23 = [v16 objectAtIndex:1];
-    label2 = [v23 label];
-    v25 = [label2 length];
+    v24 = [v16 objectAtIndex:1];
+    label2 = [v24 label];
+    v26 = [label2 length];
 
-    if (v25)
+    if (v26)
     {
       getPredefinedUserLabels2 = [v16 objectAtIndex:1];
       [getPredefinedUserLabels2 userLabel];
@@ -348,45 +422,43 @@ LABEL_7:
       getPredefinedUserLabels2 = [(TSCellularPlanLabelsViewController *)self getPredefinedUserLabels];
       [getPredefinedUserLabels2 objectAtIndex:1];
     }
-    v27 = ;
-    v28 = [v16 objectAtIndex:1];
-    [(TSCellularPlanLabelsViewController *)self setPendingLabel:v27 forPlanItem:v28];
+    v28 = ;
+    v29 = [v16 objectAtIndex:1];
+    [(TSCellularPlanLabelsViewController *)self setPendingLabel:v28 forPlanItem:v29];
 
-    v29 = _TSLogDomain();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+    v31 = _TSLogDomain(v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
     {
       [TSCellularPlanLabelsViewController prepareLabels:v16];
     }
 
-    v30 = _TSLogDomain();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+    v33 = _TSLogDomain(v32);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
     {
       [TSCellularPlanLabelsViewController prepareLabels:v16];
     }
   }
 
-  v31 = _TSLogDomain();
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+  v34 = _TSLogDomain(v17);
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
   {
-    v32 = [v16 count];
+    v35 = [v16 count];
     *buf = 134218242;
-    v44 = v32;
-    v45 = 2080;
-    v46 = "[TSCellularPlanLabelsViewController prepareLabels:]";
-    _os_log_impl(&dword_262AA8000, v31, OS_LOG_TYPE_DEFAULT, "[sortedSelectedItems count]:%ld @%s", buf, 0x16u);
+    v46 = v35;
+    v47 = 2080;
+    v48 = "[TSCellularPlanLabelsViewController prepareLabels:]";
+    _os_log_impl(&dword_262AA8000, v34, OS_LOG_TYPE_DEFAULT, "[sortedSelectedItems count]:%ld @%s", buf, 0x16u);
   }
 
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __52__TSCellularPlanLabelsViewController_prepareLabels___block_invoke;
-  v36[3] = &unk_279B45058;
-  v37 = v16;
-  v38 = labelsCopy;
-  v33 = v16;
-  v34 = labelsCopy;
-  dispatch_async(MEMORY[0x277D85CD0], v36);
-
-  v35 = *MEMORY[0x277D85DE8];
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __52__TSCellularPlanLabelsViewController_prepareLabels___block_invoke;
+  v38[3] = &unk_279B45058;
+  v39 = v16;
+  v40 = labelsCopy;
+  v36 = v16;
+  v37 = labelsCopy;
+  dispatch_async(MEMORY[0x277D85CD0], v38);
 }
 
 uint64_t __52__TSCellularPlanLabelsViewController_prepareLabels___block_invoke(uint64_t a1)
@@ -454,7 +526,7 @@ void __46__TSCellularPlanLabelsViewController_prepare___block_invoke_2(uint64_t 
   v3 = WeakRetained;
   if (!WeakRetained)
   {
-    v4 = _TSLogDomain();
+    v4 = _TSLogDomain(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __46__TSCellularPlanLabelsViewController_prepare___block_invoke_2_cold_2(v4);
@@ -465,7 +537,7 @@ void __46__TSCellularPlanLabelsViewController_prepare___block_invoke_2(uint64_t 
 
   if ((*(a1 + 48) & 1) == 0)
   {
-    v4 = _TSLogDomain();
+    v4 = _TSLogDomain(WeakRetained);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __46__TSCellularPlanLabelsViewController_prepare___block_invoke_2_cold_1(v4);
@@ -682,66 +754,54 @@ void __55__TSCellularPlanLabelsViewController__doneButtonTapped__block_invoke_3(
 
 - (void)viewWillAppear:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = 138412802;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  v8 = 2080;
-  v9 = "[TSCellularPlanLabelsViewController viewWillAppear:]";
-  _os_log_debug_impl(&dword_262AA8000, log, OS_LOG_TYPE_DEBUG, "[Db] Chosen labels %@, %@ duplicated, disabling the continue button @%s", &v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = 138412802;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  v7 = 2080;
+  v8 = "[TSCellularPlanLabelsViewController viewWillAppear:]";
+  _os_log_debug_impl(&dword_262AA8000, log, OS_LOG_TYPE_DEBUG, "[Db] Chosen labels %@, %@ duplicated, disabling the continue button @%s", &v3, 0x20u);
 }
 
 - (void)setPendingLabel:(uint64_t)a1 forPlanItem:(void *)a2 .cold.1(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = [a2 iccid];
-  v10 = [a2 uuid];
+  v9 = [a2 uuid];
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x2Au);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prepareLabels:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 objectAtIndex:0];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prepareLabels:(void *)a1 .cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 objectAtIndex:1];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __46__TSCellularPlanLabelsViewController_prepare___block_invoke_2_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[TSCellularPlanLabelsViewController prepare:]_block_invoke";
-  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]No need setup @%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[TSCellularPlanLabelsViewController prepare:]_block_invoke";
+  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]No need setup @%s", &v1, 0xCu);
 }
 
 void __46__TSCellularPlanLabelsViewController_prepare___block_invoke_2_cold_2(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[TSCellularPlanLabelsViewController prepare:]_block_invoke_2";
-  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]invalid self @%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[TSCellularPlanLabelsViewController prepare:]_block_invoke_2";
+  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]invalid self @%s", &v1, 0xCu);
 }
 
 @end

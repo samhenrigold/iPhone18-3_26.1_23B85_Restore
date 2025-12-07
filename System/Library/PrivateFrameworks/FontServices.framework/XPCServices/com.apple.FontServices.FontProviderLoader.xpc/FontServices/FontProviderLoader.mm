@@ -8,6 +8,8 @@
 - (id)fontDescriptorAttributesArrayFromFontInfoDictionary:(id)dictionary;
 - (id)systemContainerURL;
 - (void)doneWithInstallFonts:(BOOL)fonts;
+- (void)registerFonts:(id)fonts enabled:(BOOL)enabled sceneID:(id)d appInfo:(id)info completionHandler:(id)handler;
+- (void)registeredFontsInfo:(BOOL)info appInfo:(id)appInfo completionHandler:(id)handler;
 - (void)unregisterFonts:(id)fonts appInfo:(id)info completionHandler:(id)handler;
 - (void)updateAppInfo:(id)info;
 @end
@@ -20,7 +22,7 @@
   v9 = v8;
   if (v8)
   {
-    [v8 auditToken];
+    objc_msgSend_auditToken(v8);
   }
 
   else
@@ -349,6 +351,133 @@ LABEL_28:
   return v7;
 }
 
+- (void)registerFonts:(id)fonts enabled:(BOOL)enabled sceneID:(id)d appInfo:(id)info completionHandler:(id)handler
+{
+  enabledCopy = enabled;
+  fontsCopy = fonts;
+  dCopy = d;
+  infoCopy = info;
+  handlerCopy = handler;
+  if ([fontsCopy count])
+  {
+    v53 = 0;
+    v52 = 0;
+    v15 = [(FontProviderLoader *)self currentConnectionHasFontProviderEntitlement:&v52 withSuppressDialogEntitlement:&v53 + 1 forUnitTest:&v53];
+    v16 = v52;
+    path = 0;
+    v18 = 0;
+    if (v15)
+    {
+      v18 = [[LSApplicationRecord alloc] initWithBundleIdentifier:v16 allowPlaceholder:0 error:0];
+      v19 = [v18 URL];
+      v20 = sub_100002280(v19);
+      path = [v20 path];
+
+      if (!path)
+      {
+        v36 = v16;
+        FSLog_Error();
+      }
+    }
+
+    v38 = v18;
+    bundleIdentifier = [v18 bundleIdentifier];
+    v39 = dCopy;
+    if ([v16 isEqualToString:@"com.apple.xctest"])
+    {
+      FSLog_Debug();
+
+      NSLog(@"FontProvider: received sceneID: %@", dCopy);
+      bundleIdentifier = &stru_100008758;
+      if (v53)
+      {
+        goto LABEL_14;
+      }
+    }
+
+    else
+    {
+      NSLog(@"FontProvider: received sceneID: %@", dCopy);
+      if (v53)
+      {
+LABEL_14:
+        v23 = [NSMutableArray arrayWithCapacity:0];
+        v24 = [NSMutableArray arrayWithCapacity:0];
+        v25 = [NSMutableDictionary dictionaryWithCapacity:0];
+        v44[0] = _NSConcreteStackBlock;
+        v44[1] = 3221225472;
+        v44[2] = sub_1000022CC;
+        v44[3] = &unk_100008400;
+        v50 = enabledCopy;
+        v26 = v23;
+        v45 = v26;
+        v46 = v25;
+        v51 = v53;
+        v47 = path;
+        selfCopy = self;
+        v49 = v24;
+        v27 = v24;
+        v28 = v25;
+        [fontsCopy enumerateObjectsUsingBlock:v44];
+        v41[0] = _NSConcreteStackBlock;
+        v41[1] = 3221225472;
+        v41[2] = sub_100002850;
+        v41[3] = &unk_100008428;
+        v42 = v26;
+        v43 = handlerCopy;
+        v29 = v26;
+        v30 = enabledCopy;
+        v22 = infoCopy;
+        [FSUserFontManager installFonts:v27 forIdentifier:v16 enabled:v30 appInfo:infoCopy completionHandler:v41];
+
+LABEL_15:
+        dCopy = v39;
+        goto LABEL_16;
+      }
+
+      if (!bundleIdentifier)
+      {
+        v31 = 2;
+        goto LABEL_19;
+      }
+    }
+
+    if (!enabledCopy || (v53 & 0x100) != 0 || [(FontProviderLoader *)self confirm:bundleIdentifier sceneID:dCopy])
+    {
+      goto LABEL_14;
+    }
+
+    v31 = 8;
+LABEL_19:
+    v37 = v31;
+    v32 = [fontsCopy count];
+    v28 = [NSMutableArray arrayWithCapacity:v32];
+    if (v32)
+    {
+      for (i = 0; i != v32; ++i)
+      {
+        v34 = [NSNumber numberWithUnsignedInteger:i];
+        [v28 addObject:v34];
+      }
+    }
+
+    v55 = @"FontProviderErrorUserInfoFontInfoParameterIndexesKey";
+    v56 = v28;
+    v35 = [NSDictionary dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+    v27 = [NSError errorWithDomain:@"FontProviderErrorDomain" code:v37 userInfo:v35];
+
+    v54 = v27;
+    v29 = [NSArray arrayWithObjects:&v54 count:1];
+    (*(handlerCopy + 2))(handlerCopy, v29, 0);
+    v22 = infoCopy;
+    goto LABEL_15;
+  }
+
+  (*(handlerCopy + 2))(handlerCopy, 0, 0);
+  v22 = infoCopy;
+LABEL_16:
+}
+
 - (void)unregisterFonts:(id)fonts appInfo:(id)info completionHandler:(id)handler
 {
   fontsCopy = fonts;
@@ -444,6 +573,61 @@ LABEL_28:
   }
 
   return v11;
+}
+
+- (void)registeredFontsInfo:(BOOL)info appInfo:(id)appInfo completionHandler:(id)handler
+{
+  infoCopy = info;
+  appInfoCopy = appInfo;
+  handlerCopy = handler;
+  v25 = 0;
+  v24 = 0;
+  v10 = [(FontProviderLoader *)self currentConnectionHasFontProviderEntitlement:&v24 withSuppressDialogEntitlement:0 forUnitTest:&v25];
+  v11 = v24;
+  if (v10)
+  {
+    v12 = [FSUserFontManager registeredFontsInfoForIdentifier:v11 enabled:infoCopy appInfo:appInfoCopy];
+    v13 = [NSMutableArray arrayWithCapacity:0];
+    v20 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v14 = v12;
+    v15 = [v14 countByEnumeratingWithState:&v20 objects:v26 count:16];
+    if (v15)
+    {
+      v16 = v15;
+      v17 = *v21;
+      do
+      {
+        v18 = 0;
+        do
+        {
+          if (*v21 != v17)
+          {
+            objc_enumerationMutation(v14);
+          }
+
+          v19 = [(FontProviderLoader *)self fontDescriptorAttributesArrayFromFontInfoDictionary:*(*(&v20 + 1) + 8 * v18), v20];
+          [v13 addObjectsFromArray:v19];
+
+          v18 = v18 + 1;
+        }
+
+        while (v16 != v18);
+        v16 = [v14 countByEnumeratingWithState:&v20 objects:v26 count:16];
+      }
+
+      while (v16);
+    }
+
+    handlerCopy[2](handlerCopy, v13);
+  }
+
+  else
+  {
+    handlerCopy[2](handlerCopy, 0);
+  }
 }
 
 - (void)updateAppInfo:(id)info

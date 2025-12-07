@@ -248,7 +248,7 @@ void __57__SearchSuggestionTableViewCell__suggestedTextAttributes__block_invoke(
 
 - (void)setSearchSuggestion:(id)suggestion withQuery:(id)query
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   suggestionCopy = suggestion;
   queryCopy = query;
   v8 = objc_alloc(MEMORY[0x277CCAB48]);
@@ -258,59 +258,62 @@ void __57__SearchSuggestionTableViewCell__suggestedTextAttributes__block_invoke(
   if ([v10 length])
   {
     selfCopy = self;
-    v11 = +[SearchSuggestionTableViewCell _suggestedTextAttributes];
-    v28 = 0u;
-    v29 = 0u;
-    v30 = 0u;
-    v31 = 0u;
+    v12 = +[SearchSuggestionTableViewCell _suggestedTextAttributes];
+    v33 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     string = [v10 string];
-    v13 = [queryCopy rangesToHighlightInSearchSuggestion:string];
+    v32 = queryCopy;
+    v14 = [queryCopy rangesToHighlightInSearchSuggestion:string];
 
-    v14 = [v13 countByEnumeratingWithState:&v28 objects:v42 count:16];
-    if (v14)
+    v15 = [v14 countByEnumeratingWithState:&v33 objects:v47 count:16];
+    if (v15)
     {
-      v15 = v14;
-      v16 = *v29;
+      v16 = v15;
+      v17 = *v34;
       while (2)
       {
-        for (i = 0; i != v15; ++i)
+        for (i = 0; i != v16; ++i)
         {
-          if (*v29 != v16)
+          if (*v34 != v17)
           {
-            objc_enumerationMutation(v13);
+            objc_enumerationMutation(v14);
           }
 
-          rangeValue = [*(*(&v28 + 1) + 8 * i) rangeValue];
-          v20 = v19;
-          if (v19 + rangeValue > [v10 length])
+          rangeValue = [*(*(&v33 + 1) + 8 * i) rangeValue];
+          v21 = v20;
+          v22 = v20 + rangeValue;
+          v23 = [v10 length];
+          if (v22 > v23)
           {
-            v21 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+            v25 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(v23, v24);
+            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
             {
-              v24 = v21;
-              v25 = [v10 length];
-              v26 = [suggestionCopy length];
+              v28 = v25;
+              v29 = [v10 length];
+              v30 = [suggestionCopy length];
               *buf = 134219011;
-              v33 = rangeValue;
-              v34 = 2048;
-              v35 = v20;
-              v36 = 2117;
-              v37 = v10;
-              v38 = 2048;
-              v39 = v25;
-              v40 = 2048;
-              v41 = v26;
-              _os_log_error_impl(&dword_215819000, v24, OS_LOG_TYPE_ERROR, "Invalid range(loc=%lu, len=%lu) for attributedString %{sensitive}@ with length=%lu generated from suggestion with length=%lu", buf, 0x34u);
+              v38 = rangeValue;
+              v39 = 2048;
+              v40 = v21;
+              v41 = 2117;
+              v42 = v10;
+              v43 = 2048;
+              v44 = v29;
+              v45 = 2048;
+              v46 = v30;
+              _os_log_error_impl(&dword_215819000, v28, OS_LOG_TYPE_ERROR, "Invalid range(loc=%lu, len=%lu) for attributedString %{sensitive}@ with length=%lu generated from suggestion with length=%lu", buf, 0x34u);
             }
 
             goto LABEL_13;
           }
 
-          [v10 addAttributes:v11 range:{rangeValue, v20}];
+          [v10 addAttributes:v12 range:{rangeValue, v21}];
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v28 objects:v42 count:16];
-        if (v15)
+        v16 = [v14 countByEnumeratingWithState:&v33 objects:v47 count:16];
+        if (v16)
         {
           continue;
         }
@@ -323,14 +326,16 @@ LABEL_13:
 
     textLabel = [(SearchSuggestionTableViewCell *)selfCopy textLabel];
     [textLabel setAttributedText:v10];
+
+    queryCopy = v32;
   }
 
   else
   {
-    v23 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v27 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(0, v11);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      [SearchSuggestionTableViewCell setSearchSuggestion:v23 withQuery:?];
+      [SearchSuggestionTableViewCell setSearchSuggestion:v27 withQuery:?];
     }
   }
 }

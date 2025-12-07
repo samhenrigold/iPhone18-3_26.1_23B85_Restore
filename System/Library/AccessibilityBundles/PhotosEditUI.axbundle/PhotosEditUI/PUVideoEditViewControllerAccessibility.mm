@@ -39,7 +39,7 @@
   [v6 setAccessibilityLabel:v7];
 }
 
-uint64_t __64__PUVideoEditViewControllerAccessibility__updateButtonsIfNeeded__block_invoke(uint64_t a1)
+void *__64__PUVideoEditViewControllerAccessibility__updateButtonsIfNeeded__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _playerIsPlaying];
   *(*(*(a1 + 40) + 8) + 24) = result;

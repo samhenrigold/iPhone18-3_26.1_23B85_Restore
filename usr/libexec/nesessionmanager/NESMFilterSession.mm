@@ -15,6 +15,7 @@
 - (void)handleInstalledAppsChanged;
 - (void)handleNetworkDetectionNotification:(int)notification;
 - (void)handleStartMessage:(id)message;
+- (void)handleStopMessageWithReason:(int)reason;
 - (void)handleUserLogin;
 - (void)handleWakeup;
 - (void)install;
@@ -24,6 +25,7 @@
 - (void)pluginDidAcknowledgeSleep:(id)sleep;
 - (void)pluginDidDispose:(id)dispose;
 - (void)pluginDidRequestAgentClientServer:(id)server;
+- (void)startWithCommand:(id)command isOnDemand:(BOOL)demand;
 - (void)uninstall;
 @end
 
@@ -66,6 +68,22 @@
   }
 
   return v5;
+}
+
+- (void)startWithCommand:(id)command isOnDemand:(BOOL)demand
+{
+  demandCopy = demand;
+  commandCopy = command;
+  configuration = [(NESMSession *)self configuration];
+  contentFilter = [configuration contentFilter];
+  enableManualMode = [contentFilter enableManualMode];
+
+  if ((enableManualMode & 1) == 0)
+  {
+    v10.receiver = self;
+    v10.super_class = NESMFilterSession;
+    [(NESMSession *)&v10 startWithCommand:commandCopy isOnDemand:demandCopy];
+  }
 }
 
 - (id)plugin:(id)plugin didApplySettings:(id)settings
@@ -308,8 +326,7 @@ LABEL_9:
       perApp4 = [contentFilter5 perApp];
       appRules2 = [perApp4 appRules];
       v25 = [(NESMSession *)self uid];
-      [v25 intValue];
-      sub_100040988(policySession, appRules2);
+      sub_100040988(policySession, appRules2, [v25 intValue]);
     }
 
     configuration7 = [(NESMSession *)self configuration];
@@ -725,7 +742,6 @@ LABEL_22:
   {
   }
 
-  v27 = self->_controlUnit & 0x1FFFFFFF;
   KernelControlSocket = NEHelperGetKernelControlSocket();
   if (KernelControlSocket == -1)
   {
@@ -748,7 +764,7 @@ LABEL_22:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v29 = strerror(v16);
+      v28 = strerror(v16);
       v18 = "Error setting CFIL_OPT_NECP_CONTROL_UNIT on socket: %s\n";
 LABEL_24:
       _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, v18, buf, 0xCu);
@@ -771,7 +787,7 @@ LABEL_24:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v29 = strerror(v24);
+      v28 = strerror(v24);
       v18 = "Error setting CFIL_OPT_PRESERVE_CONNECTIONS on socket: %s\n";
       goto LABEL_24;
     }
@@ -858,6 +874,32 @@ LABEL_18:
   }
 
   return [(NESMFilterSession *)self handleSleep];
+}
+
+- (void)handleStopMessageWithReason:(int)reason
+{
+  v3 = *&reason;
+  if (self && reason != 37)
+  {
+    self->_externallyStopped = 1;
+    objc_setProperty_atomic(self, a2, 0, 416);
+  }
+
+  sub_100082A20(self, (v3 != 37));
+  v7.receiver = self;
+  v7.super_class = NESMFilterSession;
+  [(NESMSession *)&v7 handleStopMessageWithReason:v3];
+  if (self)
+  {
+    Property = objc_getProperty(self, v5, 376, 1);
+  }
+
+  else
+  {
+    Property = 0;
+  }
+
+  [Property handleStop];
 }
 
 - (void)handleStartMessage:(id)message
@@ -1090,9 +1132,9 @@ LABEL_30:
 - (NESMFilterSession)initWithConfiguration:(id)configuration andServer:(id)server
 {
   configurationCopy = configuration;
-  v13.receiver = self;
-  v13.super_class = NESMFilterSession;
-  v7 = [(NESMSession *)&v13 initWithConfiguration:configurationCopy andServer:server];
+  v14.receiver = self;
+  v14.super_class = NESMFilterSession;
+  v7 = [(NESMSession *)&v14 initWithConfiguration:configurationCopy andServer:server];
   v8 = v7;
   if (v7)
   {
@@ -1110,7 +1152,7 @@ LABEL_30:
 
     [(NESMSession *)v8 setPolicySession:v9];
 
-    sub_10008E79C(v8);
+    sub_10008E79C(v8, v12);
   }
 
   return v8;

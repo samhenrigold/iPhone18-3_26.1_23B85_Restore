@@ -187,19 +187,18 @@ LABEL_17:
 
   if ([(_INPBResetTimerIntent *)self hasResetMultiple])
   {
-    resetMultiple = self->_resetMultiple;
     PBDataWriterWriteBOOLField();
   }
 
   targetTimer = [(_INPBResetTimerIntent *)self targetTimer];
 
-  v8 = toCopy;
+  v7 = toCopy;
   if (targetTimer)
   {
     targetTimer2 = [(_INPBResetTimerIntent *)self targetTimer];
     PBDataWriterWriteSubmessage();
 
-    v8 = toCopy;
+    v7 = toCopy;
   }
 }
 

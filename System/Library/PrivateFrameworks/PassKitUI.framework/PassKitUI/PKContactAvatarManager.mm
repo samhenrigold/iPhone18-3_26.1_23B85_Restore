@@ -498,12 +498,12 @@ void __76__PKContactAvatarManager__avatarForAltDSID_dsid_handles_contact_complet
   }
 }
 
-uint64_t __76__PKContactAvatarManager__avatarForAltDSID_dsid_handles_contact_completion___block_invoke_9(uint64_t result)
+void *__76__PKContactAvatarManager__avatarForAltDSID_dsid_handles_contact_completion___block_invoke_9(void *result)
 {
-  if (*(*(*(result + 56) + 8) + 40))
+  if (*(*(result[7] + 8) + 40))
   {
     v1 = result;
-    os_unfair_lock_lock((*(result + 32) + 16));
+    os_unfair_lock_lock((result[4] + 16));
     [*(v1[4] + 24) setObject:*(*(v1[7] + 8) + 40) forKey:v1[5]];
     os_unfair_lock_unlock((v1[4] + 16));
     v2 = *(v1[6] + 16);

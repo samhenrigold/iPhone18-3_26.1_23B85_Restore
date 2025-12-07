@@ -3,7 +3,7 @@
 
 @implementation C3DMeshElementSetPrimitiveRanges
 
-uint64_t ____C3DMeshElementSetPrimitiveRanges_block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *____C3DMeshElementSetPrimitiveRanges_block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 rangeValue];
   v7 = (*(a1 + 32) + 16 * a3);

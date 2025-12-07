@@ -42,66 +42,64 @@
   v27 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   identifierCopy = identifier;
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(identifierCopy, v10) && _os_feature_enabled_impl())
   {
-    v10 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v10)
+    v11 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v11)
     {
-      v10 = +[SSLogConfig sharedConfig];
+      v11 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v10 shouldLog];
-    if ([v10 shouldLogToDisk])
+    shouldLog = [v11 shouldLog];
+    if ([v11 shouldLogToDisk])
     {
-      v12 = shouldLog | 2;
+      v13 = shouldLog | 2;
     }
 
     else
     {
-      v12 = shouldLog;
+      v13 = shouldLog;
     }
 
-    oSLogObject = [v10 OSLogObject];
+    oSLogObject = [v11 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v14 = v12;
+      v15 = v13;
     }
 
     else
     {
-      v14 = v12 & 2;
+      v15 = v13 & 2;
     }
 
-    if (v14)
+    if (v15)
     {
       v25 = 136446210;
       v26 = "[SSKeychain createAttestationDataForAccountIdentifier:purpose:completionBlock:]";
-      LODWORD(v24) = 12;
-      v15 = _os_log_send_and_compose_impl();
 
-      if (!v15)
+      if (!v16)
       {
 LABEL_15:
 
         goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:{4, &v25, v24}];
-      free(v15);
-      SSFileLog(v10, @"%@", v16, v17, v18, v19, v20, v21, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:4];
+      free(v16);
+      SSFileLog(v11, @"%@", v17, v18, v19, v20, v21, v22, oSLogObject);
     }
 
     goto LABEL_15;
   }
 
 LABEL_16:
-  v22 = SSXPCCreateMessageDictionary(179);
-  SSXPCDictionarySetObject(v22, "1", identifierCopy);
+  v23 = SSXPCCreateMessageDictionary(179);
+  SSXPCDictionarySetObject(v23, "1", identifierCopy);
 
-  v23 = [MEMORY[0x1E696AD98] numberWithInteger:purpose];
-  SSXPCDictionarySetObject(v22, "2", v23);
+  v24 = [MEMORY[0x1E696AD98] numberWithInteger:purpose];
+  SSXPCDictionarySetObject(v23, "2", v24);
 
-  [(SSKeychain *)self _sendMessage:v22 completionBlock:blockCopy];
+  [(SSKeychain *)self _sendMessage:v23 completionBlock:blockCopy];
 }
 
 - (void)createX509CertChainDataForAccountIdentifier:(id)identifier purpose:(int64_t)purpose completionBlock:(id)block
@@ -109,64 +107,62 @@ LABEL_16:
   v31 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   identifierCopy = identifier;
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(identifierCopy, v10) && _os_feature_enabled_impl())
   {
-    v10 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v10)
+    v11 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v11)
     {
-      v10 = +[SSLogConfig sharedConfig];
+      v11 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v10 shouldLog];
-    if ([v10 shouldLogToDisk])
+    shouldLog = [v11 shouldLog];
+    if ([v11 shouldLogToDisk])
     {
-      v12 = shouldLog | 2;
+      v13 = shouldLog | 2;
     }
 
     else
     {
-      v12 = shouldLog;
+      v13 = shouldLog;
     }
 
-    oSLogObject = [v10 OSLogObject];
+    oSLogObject = [v11 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v14 = v12;
+      v15 = v13;
     }
 
     else
     {
-      v14 = v12 & 2;
+      v15 = v13 & 2;
     }
 
-    if (v14)
+    if (v15)
     {
       v29 = 136446210;
       v30 = "[SSKeychain createX509CertChainDataForAccountIdentifier:purpose:completionBlock:]";
-      LODWORD(v26) = 12;
-      v15 = _os_log_send_and_compose_impl();
 
-      if (!v15)
+      if (!v16)
       {
 LABEL_15:
 
         goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:{4, &v29, v26}];
-      free(v15);
-      SSFileLog(v10, @"%@", v16, v17, v18, v19, v20, v21, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:4];
+      free(v16);
+      SSFileLog(v11, @"%@", v17, v18, v19, v20, v21, v22, oSLogObject);
     }
 
     goto LABEL_15;
   }
 
 LABEL_16:
-  v22 = SSXPCCreateMessageDictionary(204);
-  SSXPCDictionarySetObject(v22, "1", identifierCopy);
+  v23 = SSXPCCreateMessageDictionary(204);
+  SSXPCDictionarySetObject(v23, "1", identifierCopy);
 
-  v23 = [MEMORY[0x1E696AD98] numberWithInteger:purpose];
-  SSXPCDictionarySetObject(v22, "2", v23);
+  v24 = [MEMORY[0x1E696AD98] numberWithInteger:purpose];
+  SSXPCDictionarySetObject(v23, "2", v24);
 
   connection = self->_connection;
   v27[0] = MEMORY[0x1E69E9820];
@@ -175,8 +171,8 @@ LABEL_16:
   v27[3] = &unk_1E84ABEF0;
   v27[4] = self;
   v28 = blockCopy;
-  v25 = blockCopy;
-  [(SSXPCConnection *)connection sendMessage:v22 withReply:v27];
+  v26 = blockCopy;
+  [(SSXPCConnection *)connection sendMessage:v23 withReply:v27];
 }
 
 void __82__SSKeychain_createX509CertChainDataForAccountIdentifier_purpose_completionBlock___block_invoke(uint64_t a1, void *a2)
@@ -225,61 +221,59 @@ LABEL_7:
   v28 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   identifierCopy = identifier;
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(identifierCopy, v8) && _os_feature_enabled_impl())
   {
-    v8 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v8)
+    v9 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v9)
     {
-      v8 = +[SSLogConfig sharedConfig];
+      v9 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v8 shouldLog];
-    if ([v8 shouldLogToDisk])
+    shouldLog = [v9 shouldLog];
+    if ([v9 shouldLogToDisk])
     {
-      v10 = shouldLog | 2;
+      v11 = shouldLog | 2;
     }
 
     else
     {
-      v10 = shouldLog;
+      v11 = shouldLog;
     }
 
-    oSLogObject = [v8 OSLogObject];
+    oSLogObject = [v9 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v12 = v10;
+      v13 = v11;
     }
 
     else
     {
-      v12 = v10 & 2;
+      v13 = v11 & 2;
     }
 
-    if (v12)
+    if (v13)
     {
       v26 = 136446210;
       v27 = "[SSKeychain deleteKeychainTokensForAccountIdentifier:completionBlock:]";
-      LODWORD(v23) = 12;
-      v13 = _os_log_send_and_compose_impl();
 
-      if (!v13)
+      if (!v14)
       {
 LABEL_15:
 
         goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v26, v23}];
-      free(v13);
-      SSFileLog(v8, @"%@", v14, v15, v16, v17, v18, v19, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
+      free(v14);
+      SSFileLog(v9, @"%@", v15, v16, v17, v18, v19, v20, oSLogObject);
     }
 
     goto LABEL_15;
   }
 
 LABEL_16:
-  v20 = SSXPCCreateMessageDictionary(185);
-  SSXPCDictionarySetObject(v20, "1", identifierCopy);
+  v21 = SSXPCCreateMessageDictionary(185);
+  SSXPCDictionarySetObject(v21, "1", identifierCopy);
 
   connection = self->_connection;
   v24[0] = MEMORY[0x1E69E9820];
@@ -288,8 +282,8 @@ LABEL_16:
   v24[3] = &unk_1E84ABEF0;
   v24[4] = self;
   v25 = blockCopy;
-  v22 = blockCopy;
-  [(SSXPCConnection *)connection sendMessage:v20 withReply:v24];
+  v23 = blockCopy;
+  [(SSXPCConnection *)connection sendMessage:v21 withReply:v24];
 }
 
 void __71__SSKeychain_deleteKeychainTokensForAccountIdentifier_completionBlock___block_invoke(uint64_t a1, void *a2)
@@ -348,66 +342,64 @@ uint64_t __71__SSKeychain_deleteKeychainTokensForAccountIdentifier_completionBlo
   v27 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   identifierCopy = identifier;
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(identifierCopy, v10) && _os_feature_enabled_impl())
   {
-    v10 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v10)
+    v11 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v11)
     {
-      v10 = +[SSLogConfig sharedConfig];
+      v11 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v10 shouldLog];
-    if ([v10 shouldLogToDisk])
+    shouldLog = [v11 shouldLog];
+    if ([v11 shouldLogToDisk])
     {
-      v12 = shouldLog | 2;
+      v13 = shouldLog | 2;
     }
 
     else
     {
-      v12 = shouldLog;
+      v13 = shouldLog;
     }
 
-    oSLogObject = [v10 OSLogObject];
+    oSLogObject = [v11 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v14 = v12;
+      v15 = v13;
     }
 
     else
     {
-      v14 = v12 & 2;
+      v15 = v13 & 2;
     }
 
-    if (v14)
+    if (v15)
     {
       v25 = 136446210;
       v26 = "[SSKeychain getPublicKeyDataForAccountIdentifier:purpose:completionBlock:]";
-      LODWORD(v24) = 12;
-      v15 = _os_log_send_and_compose_impl();
 
-      if (!v15)
+      if (!v16)
       {
 LABEL_15:
 
         goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:{4, &v25, v24}];
-      free(v15);
-      SSFileLog(v10, @"%@", v16, v17, v18, v19, v20, v21, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:4];
+      free(v16);
+      SSFileLog(v11, @"%@", v17, v18, v19, v20, v21, v22, oSLogObject);
     }
 
     goto LABEL_15;
   }
 
 LABEL_16:
-  v22 = SSXPCCreateMessageDictionary(180);
-  SSXPCDictionarySetObject(v22, "1", identifierCopy);
+  v23 = SSXPCCreateMessageDictionary(180);
+  SSXPCDictionarySetObject(v23, "1", identifierCopy);
 
-  v23 = [MEMORY[0x1E696AD98] numberWithInteger:purpose];
-  SSXPCDictionarySetObject(v22, "2", v23);
+  v24 = [MEMORY[0x1E696AD98] numberWithInteger:purpose];
+  SSXPCDictionarySetObject(v23, "2", v24);
 
-  [(SSKeychain *)self _sendMessage:v22 completionBlock:blockCopy];
+  [(SSKeychain *)self _sendMessage:v23 completionBlock:blockCopy];
 }
 
 - (void)keyCountForAccountIdentifier:(id)identifier completionBlock:(id)block
@@ -415,61 +407,59 @@ LABEL_16:
   v28 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   identifierCopy = identifier;
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(identifierCopy, v8) && _os_feature_enabled_impl())
   {
-    v8 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v8)
+    v9 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v9)
     {
-      v8 = +[SSLogConfig sharedConfig];
+      v9 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v8 shouldLog];
-    if ([v8 shouldLogToDisk])
+    shouldLog = [v9 shouldLog];
+    if ([v9 shouldLogToDisk])
     {
-      v10 = shouldLog | 2;
+      v11 = shouldLog | 2;
     }
 
     else
     {
-      v10 = shouldLog;
+      v11 = shouldLog;
     }
 
-    oSLogObject = [v8 OSLogObject];
+    oSLogObject = [v9 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v12 = v10;
+      v13 = v11;
     }
 
     else
     {
-      v12 = v10 & 2;
+      v13 = v11 & 2;
     }
 
-    if (v12)
+    if (v13)
     {
       v26 = 136446210;
       v27 = "[SSKeychain keyCountForAccountIdentifier:completionBlock:]";
-      LODWORD(v23) = 12;
-      v13 = _os_log_send_and_compose_impl();
 
-      if (!v13)
+      if (!v14)
       {
 LABEL_15:
 
         goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v26, v23}];
-      free(v13);
-      SSFileLog(v8, @"%@", v14, v15, v16, v17, v18, v19, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
+      free(v14);
+      SSFileLog(v9, @"%@", v15, v16, v17, v18, v19, v20, oSLogObject);
     }
 
     goto LABEL_15;
   }
 
 LABEL_16:
-  v20 = SSXPCCreateMessageDictionary(202);
-  SSXPCDictionarySetObject(v20, "1", identifierCopy);
+  v21 = SSXPCCreateMessageDictionary(202);
+  SSXPCDictionarySetObject(v21, "1", identifierCopy);
 
   connection = self->_connection;
   v24[0] = MEMORY[0x1E69E9820];
@@ -478,8 +468,8 @@ LABEL_16:
   v24[3] = &unk_1E84ABEF0;
   v24[4] = self;
   v25 = blockCopy;
-  v22 = blockCopy;
-  [(SSXPCConnection *)connection sendMessage:v20 withReply:v24];
+  v23 = blockCopy;
+  [(SSXPCConnection *)connection sendMessage:v21 withReply:v24];
 }
 
 void __59__SSKeychain_keyCountForAccountIdentifier_completionBlock___block_invoke(uint64_t a1, void *a2)
@@ -531,69 +521,67 @@ LABEL_7:
   fallbackCopy = fallback;
   reasonCopy = reason;
   dataCopy = data;
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(dataCopy, v20) && _os_feature_enabled_impl())
   {
-    v20 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v20)
+    v21 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v21)
     {
-      v20 = +[SSLogConfig sharedConfig];
+      v21 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v20 shouldLog];
-    if ([v20 shouldLogToDisk])
+    shouldLog = [v21 shouldLog];
+    if ([v21 shouldLogToDisk])
     {
-      v22 = shouldLog | 2;
+      v23 = shouldLog | 2;
     }
 
     else
     {
-      v22 = shouldLog;
+      v23 = shouldLog;
     }
 
-    oSLogObject = [v20 OSLogObject];
+    oSLogObject = [v21 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v24 = v22;
+      v25 = v23;
     }
 
     else
     {
-      v24 = v22 & 2;
+      v25 = v23 & 2;
     }
 
-    if (v24)
+    if (v25)
     {
       v34 = 136446210;
       v35 = "[SSKeychain signData:reason:fallback:cancel:forAccountIdentifier:completionBlock:]";
-      LODWORD(v33) = 12;
-      v25 = _os_log_send_and_compose_impl();
 
-      if (!v25)
+      if (!v26)
       {
 LABEL_15:
 
         goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v25 encoding:{4, &v34, v33}];
-      free(v25);
-      SSFileLog(v20, @"%@", v26, v27, v28, v29, v30, v31, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v26 encoding:4];
+      free(v26);
+      SSFileLog(v21, @"%@", v27, v28, v29, v30, v31, v32, oSLogObject);
     }
 
     goto LABEL_15;
   }
 
 LABEL_16:
-  v32 = SSXPCCreateMessageDictionary(181);
-  SSXPCDictionarySetObject(v32, "1", dataCopy);
+  v33 = SSXPCCreateMessageDictionary(181);
+  SSXPCDictionarySetObject(v33, "1", dataCopy);
 
-  SSXPCDictionarySetObject(v32, "2", reasonCopy);
-  SSXPCDictionarySetObject(v32, "3", fallbackCopy);
+  SSXPCDictionarySetObject(v33, "2", reasonCopy);
+  SSXPCDictionarySetObject(v33, "3", fallbackCopy);
 
-  SSXPCDictionarySetObject(v32, "4", cancelCopy);
-  SSXPCDictionarySetObject(v32, "5", identifierCopy);
+  SSXPCDictionarySetObject(v33, "4", cancelCopy);
+  SSXPCDictionarySetObject(v33, "5", identifierCopy);
 
-  [(SSKeychain *)self _sendMessage:v32 completionBlock:blockCopy];
+  [(SSKeychain *)self _sendMessage:v33 completionBlock:blockCopy];
 }
 
 - (void)signData:(id)data context:(id)context completionBlock:(id)block
@@ -602,73 +590,7 @@ LABEL_16:
   blockCopy = block;
   contextCopy = context;
   dataCopy = data;
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
-  {
-    v11 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v11)
-    {
-      v11 = +[SSLogConfig sharedConfig];
-    }
-
-    shouldLog = [v11 shouldLog];
-    if ([v11 shouldLogToDisk])
-    {
-      v13 = shouldLog | 2;
-    }
-
-    else
-    {
-      v13 = shouldLog;
-    }
-
-    oSLogObject = [v11 OSLogObject];
-    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
-    {
-      v15 = v13;
-    }
-
-    else
-    {
-      v15 = v13 & 2;
-    }
-
-    if (v15)
-    {
-      v25 = 136446210;
-      v26 = "[SSKeychain signData:context:completionBlock:]";
-      LODWORD(v24) = 12;
-      v16 = _os_log_send_and_compose_impl();
-
-      if (!v16)
-      {
-LABEL_15:
-
-        goto LABEL_16;
-      }
-
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:{4, &v25, v24}];
-      free(v16);
-      SSFileLog(v11, @"%@", v17, v18, v19, v20, v21, v22, oSLogObject);
-    }
-
-    goto LABEL_15;
-  }
-
-LABEL_16:
-  v23 = SSXPCCreateMessageDictionary(192);
-  SSXPCDictionarySetObject(v23, "1", dataCopy);
-
-  SSXPCDictionarySetObject(v23, "2", contextCopy);
-  [(SSKeychain *)self _sendMessage:v23 completionBlock:blockCopy];
-}
-
-- (void)x509CertChainDataForAccountIdentifier:(id)identifier purpose:(int64_t)purpose regenerateCerts:(BOOL)certs completionBlock:(id)block
-{
-  certsCopy = certs;
-  v34 = *MEMORY[0x1E69E9840];
-  blockCopy = block;
-  identifierCopy = identifier;
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(dataCopy, v11) && _os_feature_enabled_impl())
   {
     v12 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v12)
@@ -700,10 +622,8 @@ LABEL_16:
 
     if (v16)
     {
-      v32 = 136446210;
-      v33 = "[SSKeychain x509CertChainDataForAccountIdentifier:purpose:regenerateCerts:completionBlock:]";
-      LODWORD(v29) = 12;
-      v17 = _os_log_send_and_compose_impl();
+      v25 = 136446210;
+      v26 = "[SSKeychain signData:context:completionBlock:]";
 
       if (!v17)
       {
@@ -712,7 +632,7 @@ LABEL_15:
         goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:{4, &v32, v29}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:4];
       free(v17);
       SSFileLog(v12, @"%@", v18, v19, v20, v21, v22, v23, oSLogObject);
     }
@@ -721,14 +641,78 @@ LABEL_15:
   }
 
 LABEL_16:
-  v24 = SSXPCCreateMessageDictionary(205);
-  SSXPCDictionarySetObject(v24, "1", identifierCopy);
+  v24 = SSXPCCreateMessageDictionary(192);
+  SSXPCDictionarySetObject(v24, "1", dataCopy);
 
-  v25 = [MEMORY[0x1E696AD98] numberWithInteger:purpose];
-  SSXPCDictionarySetObject(v24, "2", v25);
+  SSXPCDictionarySetObject(v24, "2", contextCopy);
+  [(SSKeychain *)self _sendMessage:v24 completionBlock:blockCopy];
+}
 
-  v26 = [MEMORY[0x1E696AD98] numberWithBool:certsCopy];
-  SSXPCDictionarySetObject(v24, "3", v26);
+- (void)x509CertChainDataForAccountIdentifier:(id)identifier purpose:(int64_t)purpose regenerateCerts:(BOOL)certs completionBlock:(id)block
+{
+  certsCopy = certs;
+  v34 = *MEMORY[0x1E69E9840];
+  blockCopy = block;
+  identifierCopy = identifier;
+  if (SSIsInternalBuild(identifierCopy, v12) && _os_feature_enabled_impl())
+  {
+    v13 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v13)
+    {
+      v13 = +[SSLogConfig sharedConfig];
+    }
+
+    shouldLog = [v13 shouldLog];
+    if ([v13 shouldLogToDisk])
+    {
+      v15 = shouldLog | 2;
+    }
+
+    else
+    {
+      v15 = shouldLog;
+    }
+
+    oSLogObject = [v13 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v17 = v15;
+    }
+
+    else
+    {
+      v17 = v15 & 2;
+    }
+
+    if (v17)
+    {
+      v32 = 136446210;
+      v33 = "[SSKeychain x509CertChainDataForAccountIdentifier:purpose:regenerateCerts:completionBlock:]";
+
+      if (!v18)
+      {
+LABEL_15:
+
+        goto LABEL_16;
+      }
+
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v18 encoding:4];
+      free(v18);
+      SSFileLog(v13, @"%@", v19, v20, v21, v22, v23, v24, oSLogObject);
+    }
+
+    goto LABEL_15;
+  }
+
+LABEL_16:
+  v25 = SSXPCCreateMessageDictionary(205);
+  SSXPCDictionarySetObject(v25, "1", identifierCopy);
+
+  v26 = [MEMORY[0x1E696AD98] numberWithInteger:purpose];
+  SSXPCDictionarySetObject(v25, "2", v26);
+
+  v27 = [MEMORY[0x1E696AD98] numberWithBool:certsCopy];
+  SSXPCDictionarySetObject(v25, "3", v27);
 
   connection = self->_connection;
   v30[0] = MEMORY[0x1E69E9820];
@@ -737,8 +721,8 @@ LABEL_16:
   v30[3] = &unk_1E84ABEF0;
   v30[4] = self;
   v31 = blockCopy;
-  v28 = blockCopy;
-  [(SSXPCConnection *)connection sendMessage:v24 withReply:v30];
+  v29 = blockCopy;
+  [(SSXPCConnection *)connection sendMessage:v25 withReply:v30];
 }
 
 void __92__SSKeychain_x509CertChainDataForAccountIdentifier_purpose_regenerateCerts_completionBlock___block_invoke(uint64_t a1, void *a2)

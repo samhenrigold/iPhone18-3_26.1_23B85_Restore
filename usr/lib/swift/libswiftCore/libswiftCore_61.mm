@@ -1,78 +1,78 @@
-uint64_t SIMD16<>.init<A>(_:)@<X0>(uint64_t a1@<X0>, const char *a2@<X1>, const char *a3@<X2>, uint64_t a4@<X3>, int **a5@<X4>, uint64_t a6@<X5>, int **a7@<X6>, uint64_t a8@<X8>)
+uint64_t SIMD16<>.init<A>(_:)@<X0>(uint64_t a1@<X0>, Class *a2@<X1>, Class *a3@<X2>, uint64_t a4@<X3>, int **a5@<X4>, uint64_t a6@<X5>, int **a7@<X6>, uint64_t a8@<X8>)
 {
-  v36 = a4;
-  v37 = a6;
-  v39 = a1;
-  v13 = MEMORY[0x1EEE9AC00](a1);
-  v15 = &v30 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v13);
-  v17 = &v30 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v37 = a4;
+  v38 = a6;
+  v40 = a1;
+  v13 = MEMORY[0x1EEE9AC00](a1, a2);
+  v15 = &v31 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v13, v16);
+  v18 = &v31 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_getAssociatedTypeWitness(0, a5, a2, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD16Storage);
-  v19 = v18;
-  v35 = a2;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a5, a2, v18, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD16Storage: SIMDStorage);
-  v21 = *(AssociatedConformanceWitness + 48);
-  v33 = v19;
-  v34 = a8;
-  v21(v19, AssociatedConformanceWitness);
+  v20 = v19;
+  v36 = a2;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a5, a2, v19, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD16Storage: SIMDStorage);
+  v22 = *(AssociatedConformanceWitness + 48);
+  v34 = v20;
+  v35 = a8;
+  v22(v20, AssociatedConformanceWitness);
   swift_getAssociatedTypeWitness(255, a7, a3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD16Storage);
-  v31 = a7;
-  v32 = v22;
-  v38 = a3;
-  v23 = swift_getAssociatedConformanceWitness(a7, a3, v22, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD16Storage: SIMDStorage);
-  v24 = 0;
-  v25 = *(v23 + 56);
-  do
-  {
-    v26 = swift_checkMetadataState(0, v32);
-    v25(v24, v26, v23);
-    (*(*(v36 + 16) + 72))(v15, v38, *(v37 + 8));
-    (*(AssociatedConformanceWitness + 64))(v17, v24++, v33, AssociatedConformanceWitness);
-  }
-
-  while (v24 != 16);
-  v28 = type metadata accessor for SIMD16(0, v38, v31, v27);
-  return (*(*(v28 - 8) + 8))(v39, v28);
-}
-
-{
-  v39 = a6;
-  v41 = a1;
-  v14 = MEMORY[0x1EEE9AC00](a1);
-  v36 = &v30 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v14);
-  v17 = &v30 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  swift_getAssociatedTypeWitness(0, a5, a2, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD16Storage);
-  v19 = v18;
-  v38 = a2;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a5, a2, v18, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD16Storage: SIMDStorage);
-  v21 = *(AssociatedConformanceWitness + 48);
-  v37 = a8;
-  v35 = v19;
-  v21(v19, AssociatedConformanceWitness);
-  swift_getAssociatedTypeWitness(255, a7, a3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD16Storage);
-  v31 = a7;
-  v40 = a3;
-  v34 = v22;
-  v23 = swift_getAssociatedConformanceWitness(a7, a3, v22, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD16Storage: SIMDStorage);
-  v24 = 0;
-  v32 = *(v23 + 56);
+  v32 = a7;
   v33 = v23;
+  v39 = a3;
+  v24 = swift_getAssociatedConformanceWitness(a7, a3, v23, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD16Storage: SIMDStorage);
+  v25 = 0;
+  v26 = *(v24 + 56);
   do
   {
-    v25 = swift_checkMetadataState(0, v34);
-    v26 = v36;
-    v32(v24, v25, v33);
-    (*(a4 + 80))(v26, v40, v39);
-    (*(AssociatedConformanceWitness + 64))(v17, v24++, v35, AssociatedConformanceWitness);
+    v27 = swift_checkMetadataState(0, v33);
+    v26(v25, v27, v24);
+    (*(*(v37 + 16) + 72))(v15, v39, *(v38 + 8));
+    (*(AssociatedConformanceWitness + 64))(v18, v25++, v34, AssociatedConformanceWitness);
   }
 
-  while (v24 != 16);
-  v28 = type metadata accessor for SIMD16(0, v40, v31, v27);
-  return (*(*(v28 - 8) + 8))(v41, v28);
+  while (v25 != 16);
+  v29 = type metadata accessor for SIMD16(0, v39, v32, v28);
+  return (*(*(v29 - 8) + 8))(v40, v29);
 }
 
-uint64_t key path getter for SIMD32.subscript(_:) : <A>SIMD32<A>A(uint64_t a1, uint64_t *a2, uint64_t a3)
+{
+  v40 = a6;
+  v42 = a1;
+  v14 = MEMORY[0x1EEE9AC00](a1, a2);
+  v37 = &v31 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14, v16);
+  v18 = &v31 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  swift_getAssociatedTypeWitness(0, a5, a2, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD16Storage);
+  v20 = v19;
+  v39 = a2;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a5, a2, v19, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD16Storage: SIMDStorage);
+  v22 = *(AssociatedConformanceWitness + 48);
+  v38 = a8;
+  v36 = v20;
+  v22(v20, AssociatedConformanceWitness);
+  swift_getAssociatedTypeWitness(255, a7, a3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD16Storage);
+  v32 = a7;
+  v41 = a3;
+  v35 = v23;
+  v24 = swift_getAssociatedConformanceWitness(a7, a3, v23, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD16Storage: SIMDStorage);
+  v25 = 0;
+  v33 = *(v24 + 56);
+  v34 = v24;
+  do
+  {
+    v26 = swift_checkMetadataState(0, v35);
+    v27 = v37;
+    v33(v25, v26, v34);
+    (*(a4 + 80))(v27, v41, v40);
+    (*(AssociatedConformanceWitness + 64))(v18, v25++, v36, AssociatedConformanceWitness);
+  }
+
+  while (v25 != 16);
+  v29 = type metadata accessor for SIMD16(0, v41, v32, v28);
+  return (*(*(v29 - 8) + 8))(v42, v29);
+}
+
+uint64_t key path getter for SIMD32.subscript(_:) : <A>SIMD32<A>A(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   v3 = *a2;
   if (*a2 >= 0x20)
@@ -94,7 +94,7 @@ uint64_t key path setter for SIMD32.subscript(_:) : <A>SIMD32<A>A(uint64_t a1, u
 {
   v4 = *(a3 + a4 - 16);
   v5 = *(a3 + a4 - 8);
-  MEMORY[0x1EEE9AC00](a1);
+  MEMORY[0x1EEE9AC00](a1, a1);
   v7 = &v18 - v6;
   v9 = *v8;
   memcpy(&v18 - v6, v10, v11);
@@ -128,7 +128,7 @@ uint64_t (*SIMD32.subscript.modify(void *a1, unint64_t a2, uint64_t a3))()
   *v7 = a2;
   v7[1] = v3;
   v9 = *(a3 + 16);
-  v10 = *(*(v9 - 1) + 64);
+  v10 = *(*(v9 - 1) + 8);
   v7[2] = v10;
   if (swift_coroFrameAlloc)
   {
@@ -162,115 +162,115 @@ uint64_t (*SIMD32.subscript.modify(void *a1, unint64_t a2, uint64_t a3))()
   return SIMD4.subscript.modify;
 }
 
-uint64_t SIMD32.init(_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:)(const void *a1, const void *a2, const void *a3, const void *a4, const void *a5, const void *a6, const void *a7, const void *a8, const void *a9, const void *a10, const void *a11, const void *a12, const void *a13, const void *a14, const void *a15, const void *a16, const void *a17, const void *a18, const void *a19, const void *a20, const void *a21, const void *a22, const void *a23, const void *a24, const void *a25, const void *a26, const void *a27, const void *a28, const void *a29, const void *a30, const void *a31, const void *a32, const char *a33, int **a34)
+uint64_t SIMD32.init(_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:)(const void *a1, const void *a2, const void *a3, const void *a4, const void *a5, const void *a6, const void *a7, const void *a8, const void *a9, const void *a10, const void *a11, const void *a12, const void *a13, const void *a14, const void *a15, const void *a16, const void *a17, const void *a18, const void *a19, const void *a20, const void *a21, const void *a22, const void *a23, const void *a24, const void *a25, const void *a26, const void *a27, const void *a28, const void *a29, const void *a30, const void *a31, const void *a32, Class *a33, int **a34)
 {
-  v54 = a8;
-  v52 = a7;
-  v50 = a6;
-  v49 = a5;
-  v48 = a4;
-  v76 = a31;
-  v77 = a32;
-  v75 = a30;
-  v72 = a28;
-  v73 = a29;
-  v70 = a26;
-  v71 = a27;
-  v68 = a24;
-  v69 = a25;
-  v66 = a22;
-  v67 = a23;
-  v64 = a20;
-  v65 = a21;
-  v62 = a18;
-  v63 = a19;
-  v60 = a16;
-  v61 = a17;
-  v59 = a15;
-  v37 = *(*(a33 - 1) + 64);
-  v57 = a13;
-  v58 = a14;
-  v56 = a12;
-  v55 = a11;
-  v53 = a10;
-  v51 = a9;
-  v38 = MEMORY[0x1EEE9AC00](a1);
-  v74 = &v47 - ((v37 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v38);
-  v40 = &v47 - v39;
+  v55 = a8;
+  v53 = a7;
+  v51 = a6;
+  v50 = a5;
+  v49 = a4;
+  v77 = a31;
+  v78 = a32;
+  v76 = a30;
+  v73 = a28;
+  v74 = a29;
+  v71 = a26;
+  v72 = a27;
+  v69 = a24;
+  v70 = a25;
+  v67 = a22;
+  v68 = a23;
+  v65 = a20;
+  v66 = a21;
+  v63 = a18;
+  v64 = a19;
+  v61 = a16;
+  v62 = a17;
+  v60 = a15;
+  v37 = *(*(a33 - 1) + 8);
+  v58 = a13;
+  v59 = a14;
+  v57 = a12;
+  v56 = a11;
+  v54 = a10;
+  v52 = a9;
+  v38 = MEMORY[0x1EEE9AC00](a1, a2);
+  v75 = &v48 - ((v37 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v38, v39);
+  v41 = &v48 - v40;
   swift_getAssociatedTypeWitness(0, a34, a33, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
-  v42 = v41;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a34, a33, v41, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
-  (*(AssociatedConformanceWitness + 48))(v42, AssociatedConformanceWitness);
-  memcpy(v40, a1, v37);
-  v44 = *(AssociatedConformanceWitness + 64);
-  v44(v40, 0, v42, AssociatedConformanceWitness);
-  memcpy(v40, a2, v37);
-  v44(v40, 1, v42, AssociatedConformanceWitness);
-  memcpy(v40, a3, v37);
-  v44(v40, 2, v42, AssociatedConformanceWitness);
-  memcpy(v40, v48, v37);
-  v44(v40, 3, v42, AssociatedConformanceWitness);
-  memcpy(v40, v49, v37);
-  v44(v40, 4, v42, AssociatedConformanceWitness);
-  memcpy(v40, v50, v37);
-  v44(v40, 5, v42, AssociatedConformanceWitness);
-  memcpy(v40, v52, v37);
-  v44(v40, 6, v42, AssociatedConformanceWitness);
-  memcpy(v40, v54, v37);
-  v44(v40, 7, v42, AssociatedConformanceWitness);
-  memcpy(v40, v51, v37);
-  v44(v40, 8, v42, AssociatedConformanceWitness);
-  memcpy(v40, v53, v37);
-  v44(v40, 9, v42, AssociatedConformanceWitness);
-  memcpy(v40, v55, v37);
-  v44(v40, 10, v42, AssociatedConformanceWitness);
-  memcpy(v40, v56, v37);
-  v44(v40, 11, v42, AssociatedConformanceWitness);
-  memcpy(v40, v57, v37);
-  v44(v40, 12, v42, AssociatedConformanceWitness);
-  memcpy(v40, v58, v37);
-  v44(v40, 13, v42, AssociatedConformanceWitness);
-  memcpy(v40, v59, v37);
-  v44(v40, 14, v42, AssociatedConformanceWitness);
-  memcpy(v40, v60, v37);
-  v44(v40, 15, v42, AssociatedConformanceWitness);
-  memcpy(v40, v61, v37);
-  v44(v40, 16, v42, AssociatedConformanceWitness);
-  memcpy(v40, v62, v37);
-  v44(v40, 17, v42, AssociatedConformanceWitness);
-  memcpy(v40, v63, v37);
-  v44(v40, 18, v42, AssociatedConformanceWitness);
-  memcpy(v40, v64, v37);
-  v44(v40, 19, v42, AssociatedConformanceWitness);
-  memcpy(v40, v65, v37);
-  v44(v40, 20, v42, AssociatedConformanceWitness);
-  memcpy(v40, v66, v37);
-  v44(v40, 21, v42, AssociatedConformanceWitness);
-  memcpy(v40, v67, v37);
-  v44(v40, 22, v42, AssociatedConformanceWitness);
-  memcpy(v40, v68, v37);
-  v44(v40, 23, v42, AssociatedConformanceWitness);
-  memcpy(v40, v69, v37);
-  v44(v40, 24, v42, AssociatedConformanceWitness);
-  memcpy(v40, v70, v37);
-  v44(v40, 25, v42, AssociatedConformanceWitness);
-  memcpy(v40, v71, v37);
-  v44(v40, 26, v42, AssociatedConformanceWitness);
-  memcpy(v40, v72, v37);
-  v44(v40, 27, v42, AssociatedConformanceWitness);
-  memcpy(v40, v73, v37);
-  v44(v40, 28, v42, AssociatedConformanceWitness);
-  memcpy(v40, v75, v37);
-  v44(v40, 29, v42, AssociatedConformanceWitness);
-  memcpy(v40, v76, v37);
-  v44(v40, 30, v42, AssociatedConformanceWitness);
-  v45 = v74;
-  memcpy(v74, v77, v37);
-  return (v44)(v45, 31, v42, AssociatedConformanceWitness);
+  v43 = v42;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a34, a33, v42, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
+  (*(AssociatedConformanceWitness + 48))(v43, AssociatedConformanceWitness);
+  memcpy(v41, a1, v37);
+  v45 = *(AssociatedConformanceWitness + 64);
+  v45(v41, 0, v43, AssociatedConformanceWitness);
+  memcpy(v41, a2, v37);
+  v45(v41, 1, v43, AssociatedConformanceWitness);
+  memcpy(v41, a3, v37);
+  v45(v41, 2, v43, AssociatedConformanceWitness);
+  memcpy(v41, v49, v37);
+  v45(v41, 3, v43, AssociatedConformanceWitness);
+  memcpy(v41, v50, v37);
+  v45(v41, 4, v43, AssociatedConformanceWitness);
+  memcpy(v41, v51, v37);
+  v45(v41, 5, v43, AssociatedConformanceWitness);
+  memcpy(v41, v53, v37);
+  v45(v41, 6, v43, AssociatedConformanceWitness);
+  memcpy(v41, v55, v37);
+  v45(v41, 7, v43, AssociatedConformanceWitness);
+  memcpy(v41, v52, v37);
+  v45(v41, 8, v43, AssociatedConformanceWitness);
+  memcpy(v41, v54, v37);
+  v45(v41, 9, v43, AssociatedConformanceWitness);
+  memcpy(v41, v56, v37);
+  v45(v41, 10, v43, AssociatedConformanceWitness);
+  memcpy(v41, v57, v37);
+  v45(v41, 11, v43, AssociatedConformanceWitness);
+  memcpy(v41, v58, v37);
+  v45(v41, 12, v43, AssociatedConformanceWitness);
+  memcpy(v41, v59, v37);
+  v45(v41, 13, v43, AssociatedConformanceWitness);
+  memcpy(v41, v60, v37);
+  v45(v41, 14, v43, AssociatedConformanceWitness);
+  memcpy(v41, v61, v37);
+  v45(v41, 15, v43, AssociatedConformanceWitness);
+  memcpy(v41, v62, v37);
+  v45(v41, 16, v43, AssociatedConformanceWitness);
+  memcpy(v41, v63, v37);
+  v45(v41, 17, v43, AssociatedConformanceWitness);
+  memcpy(v41, v64, v37);
+  v45(v41, 18, v43, AssociatedConformanceWitness);
+  memcpy(v41, v65, v37);
+  v45(v41, 19, v43, AssociatedConformanceWitness);
+  memcpy(v41, v66, v37);
+  v45(v41, 20, v43, AssociatedConformanceWitness);
+  memcpy(v41, v67, v37);
+  v45(v41, 21, v43, AssociatedConformanceWitness);
+  memcpy(v41, v68, v37);
+  v45(v41, 22, v43, AssociatedConformanceWitness);
+  memcpy(v41, v69, v37);
+  v45(v41, 23, v43, AssociatedConformanceWitness);
+  memcpy(v41, v70, v37);
+  v45(v41, 24, v43, AssociatedConformanceWitness);
+  memcpy(v41, v71, v37);
+  v45(v41, 25, v43, AssociatedConformanceWitness);
+  memcpy(v41, v72, v37);
+  v45(v41, 26, v43, AssociatedConformanceWitness);
+  memcpy(v41, v73, v37);
+  v45(v41, 27, v43, AssociatedConformanceWitness);
+  memcpy(v41, v74, v37);
+  v45(v41, 28, v43, AssociatedConformanceWitness);
+  memcpy(v41, v76, v37);
+  v45(v41, 29, v43, AssociatedConformanceWitness);
+  memcpy(v41, v77, v37);
+  v45(v41, 30, v43, AssociatedConformanceWitness);
+  v46 = v75;
+  memcpy(v75, v78, v37);
+  return (v45)(v46, 31, v43, AssociatedConformanceWitness);
 }
 
-uint64_t SIMD32.init(lowHalf:highHalf:)(uint64_t a1, uint64_t a2, const char *a3, int **a4)
+uint64_t SIMD32.init(lowHalf:highHalf:)(uint64_t a1, uint64_t a2, Class *a3, int **a4)
 {
   swift_getAssociatedTypeWitness(0, a4, a3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
   v9 = v8;
@@ -286,32 +286,32 @@ uint64_t SIMD32.init(lowHalf:highHalf:)(uint64_t a1, uint64_t a2, const char *a3
   return v16(a2, v14);
 }
 
-uint64_t SIMD32.lowHalf.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t SIMD32.lowHalf.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v3 = *(a1 + 16);
-  v4 = MEMORY[0x1EEE9AC00](a1);
-  v6 = &v19 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = *(v4 + 24);
-  swift_getAssociatedTypeWitness(0, v7, v3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD16Storage);
-  v9 = v8;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v7, v3, v8, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD16Storage: SIMDStorage);
-  v11 = *(AssociatedConformanceWitness + 48);
-  v20 = v9;
-  v21 = a2;
-  v11(v9, AssociatedConformanceWitness);
-  swift_getAssociatedTypeWitness(255, v7, v3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
-  v13 = v12;
-  v14 = swift_getAssociatedConformanceWitness(v7, v3, v12, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
-  v15 = 0;
-  v16 = *(v14 + 56);
+  v4 = *(a1 + 16);
+  v5 = MEMORY[0x1EEE9AC00](a1, a2);
+  v7 = &v20 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = *(v5 + 24);
+  swift_getAssociatedTypeWitness(0, v8, v4, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD16Storage);
+  v10 = v9;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v8, v4, v9, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD16Storage: SIMDStorage);
+  v12 = *(AssociatedConformanceWitness + 48);
+  v21 = v10;
+  v22 = a3;
+  v12(v10, AssociatedConformanceWitness);
+  swift_getAssociatedTypeWitness(255, v8, v4, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
+  v14 = v13;
+  v15 = swift_getAssociatedConformanceWitness(v8, v4, v13, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
+  v16 = 0;
+  v17 = *(v15 + 56);
   do
   {
-    v17 = swift_checkMetadataState(0, v13);
-    v16(v15, v17, v14);
-    result = (*(AssociatedConformanceWitness + 64))(v6, v15++, v20, AssociatedConformanceWitness);
+    v18 = swift_checkMetadataState(0, v14);
+    v17(v16, v18, v15);
+    result = (*(AssociatedConformanceWitness + 64))(v7, v16++, v21, AssociatedConformanceWitness);
   }
 
-  while (v15 != 16);
+  while (v16 != 16);
   return result;
 }
 
@@ -349,36 +349,36 @@ void (*SIMD32.lowHalf.modify(void *a1, uint64_t a2))(uint64_t **a1, char a2)
   }
 
   v7[5] = v11;
-  SIMD32.lowHalf.getter(a2, v11);
+  SIMD32.lowHalf.getter(a2, v12, v11);
   return SIMD32.lowHalf.modify;
 }
 
-uint64_t SIMD32.highHalf.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t SIMD32.highHalf.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v3 = *(a1 + 16);
-  v4 = MEMORY[0x1EEE9AC00](a1);
-  v6 = &v19 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = *(v4 + 24);
-  swift_getAssociatedTypeWitness(0, v7, v3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD16Storage);
-  v9 = v8;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v7, v3, v8, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD16Storage: SIMDStorage);
-  v11 = *(AssociatedConformanceWitness + 48);
-  v20 = v9;
-  v21 = a2;
-  v11(v9, AssociatedConformanceWitness);
-  swift_getAssociatedTypeWitness(255, v7, v3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
-  v13 = v12;
-  v14 = swift_getAssociatedConformanceWitness(v7, v3, v12, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
-  v15 = 0;
-  v16 = *(v14 + 56);
+  v4 = *(a1 + 16);
+  v5 = MEMORY[0x1EEE9AC00](a1, a2);
+  v7 = &v20 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = *(v5 + 24);
+  swift_getAssociatedTypeWitness(0, v8, v4, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD16Storage);
+  v10 = v9;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v8, v4, v9, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD16Storage: SIMDStorage);
+  v12 = *(AssociatedConformanceWitness + 48);
+  v21 = v10;
+  v22 = a3;
+  v12(v10, AssociatedConformanceWitness);
+  swift_getAssociatedTypeWitness(255, v8, v4, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
+  v14 = v13;
+  v15 = swift_getAssociatedConformanceWitness(v8, v4, v13, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
+  v16 = 0;
+  v17 = *(v15 + 56);
   do
   {
-    v17 = swift_checkMetadataState(0, v13);
-    v16(v15 + 16, v17, v14);
-    result = (*(AssociatedConformanceWitness + 64))(v6, v15++, v20, AssociatedConformanceWitness);
+    v18 = swift_checkMetadataState(0, v14);
+    v17(v16 + 16, v18, v15);
+    result = (*(AssociatedConformanceWitness + 64))(v7, v16++, v21, AssociatedConformanceWitness);
   }
 
-  while (v15 != 16);
+  while (v16 != 16);
   return result;
 }
 
@@ -416,39 +416,39 @@ void (*SIMD32.highHalf.modify(void *a1, uint64_t a2))(uint64_t **a1, char a2)
   }
 
   v7[5] = v11;
-  SIMD32.highHalf.getter(a2, v11);
+  SIMD32.highHalf.getter(a2, v12, v11);
   return SIMD32.highHalf.modify;
 }
 
-uint64_t SIMD32.evenHalf.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t SIMD32.evenHalf.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v3 = *(a1 + 16);
-  v4 = MEMORY[0x1EEE9AC00](a1);
-  v6 = &v19 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = *(v4 + 24);
-  swift_getAssociatedTypeWitness(0, v7, v3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD16Storage);
-  v9 = v8;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v7, v3, v8, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD16Storage: SIMDStorage);
-  v11 = *(AssociatedConformanceWitness + 48);
-  v20 = v9;
-  v21 = a2;
-  v11(v9, AssociatedConformanceWitness);
-  swift_getAssociatedTypeWitness(255, v7, v3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
-  v19 = v12;
-  v13 = swift_getAssociatedConformanceWitness(v7, v3, v12, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
-  v14 = 0;
+  v4 = *(a1 + 16);
+  v5 = MEMORY[0x1EEE9AC00](a1, a2);
+  v7 = &v20 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = *(v5 + 24);
+  swift_getAssociatedTypeWitness(0, v8, v4, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD16Storage);
+  v10 = v9;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v8, v4, v9, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD16Storage: SIMDStorage);
+  v12 = *(AssociatedConformanceWitness + 48);
+  v21 = v10;
+  v22 = a3;
+  v12(v10, AssociatedConformanceWitness);
+  swift_getAssociatedTypeWitness(255, v8, v4, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
+  v20 = v13;
+  v14 = swift_getAssociatedConformanceWitness(v8, v4, v13, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
   v15 = 0;
-  v16 = *(v13 + 56);
+  v16 = 0;
+  v17 = *(v14 + 56);
   do
   {
-    v17 = swift_checkMetadataState(0, v19);
-    v16(v14, v17, v13);
-    result = (*(AssociatedConformanceWitness + 64))(v6, v15, v20, AssociatedConformanceWitness);
-    v14 += 2;
-    ++v15;
+    v18 = swift_checkMetadataState(0, v20);
+    v17(v15, v18, v14);
+    result = (*(AssociatedConformanceWitness + 64))(v7, v16, v21, AssociatedConformanceWitness);
+    v15 += 2;
+    ++v16;
   }
 
-  while (v14 != 32);
+  while (v15 != 32);
   return result;
 }
 
@@ -486,33 +486,33 @@ void (*SIMD32.evenHalf.modify(void *a1, uint64_t a2))(uint64_t **a1, char a2)
   }
 
   v7[5] = v11;
-  SIMD32.evenHalf.getter(a2, v11);
+  SIMD32.evenHalf.getter(a2, v12, v11);
   return SIMD32.evenHalf.modify;
 }
 
-uint64_t SIMD32.oddHalf.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t SIMD32.oddHalf.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v3 = *(a1 + 16);
-  v4 = MEMORY[0x1EEE9AC00](a1);
-  v6 = &v19 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = *(v4 + 24);
-  swift_getAssociatedTypeWitness(0, v7, v3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD16Storage);
-  v9 = v8;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v7, v3, v8, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD16Storage: SIMDStorage);
-  v11 = *(AssociatedConformanceWitness + 48);
-  v20 = v9;
-  v21 = a2;
-  v11(v9, AssociatedConformanceWitness);
-  swift_getAssociatedTypeWitness(255, v7, v3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
-  v19 = v12;
-  v13 = swift_getAssociatedConformanceWitness(v7, v3, v12, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
-  v14 = 0;
-  v15 = *(v13 + 56);
+  v4 = *(a1 + 16);
+  v5 = MEMORY[0x1EEE9AC00](a1, a2);
+  v7 = &v20 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = *(v5 + 24);
+  swift_getAssociatedTypeWitness(0, v8, v4, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD16Storage);
+  v10 = v9;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v8, v4, v9, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD16Storage: SIMDStorage);
+  v12 = *(AssociatedConformanceWitness + 48);
+  v21 = v10;
+  v22 = a3;
+  v12(v10, AssociatedConformanceWitness);
+  swift_getAssociatedTypeWitness(255, v8, v4, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
+  v20 = v13;
+  v14 = swift_getAssociatedConformanceWitness(v8, v4, v13, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
+  v15 = 0;
+  v16 = *(v14 + 56);
   for (i = 1; i != 33; i += 2)
   {
-    v17 = swift_checkMetadataState(0, v19);
-    v15(i, v17, v13);
-    result = (*(AssociatedConformanceWitness + 64))(v6, v14++, v20, AssociatedConformanceWitness);
+    v18 = swift_checkMetadataState(0, v20);
+    v16(i, v18, v14);
+    result = (*(AssociatedConformanceWitness + 64))(v7, v15++, v21, AssociatedConformanceWitness);
   }
 
   return result;
@@ -552,7 +552,7 @@ void (*SIMD32.oddHalf.modify(void *a1, uint64_t a2))(uint64_t **a1, char a2)
   }
 
   v7[5] = v11;
-  SIMD32.oddHalf.getter(a2, v11);
+  SIMD32.oddHalf.getter(a2, v12, v11);
   return SIMD32.oddHalf.modify;
 }
 
@@ -609,7 +609,7 @@ uint64_t (*protocol witness for SIMDStorage.subscript.modify in conformance SIMD
   *v7 = a2;
   v7[1] = v3;
   v9 = *(a3 + 16);
-  v10 = *(*(v9 - 1) + 64);
+  v10 = *(*(v9 - 1) + 8);
   v7[2] = v10;
   if (swift_coroFrameAlloc)
   {
@@ -643,21 +643,21 @@ uint64_t (*protocol witness for SIMDStorage.subscript.modify in conformance SIMD
   return SIMD4.subscript.modify;
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance SIMD32<A>(uint64_t a1, const char *a2, uint64_t a3)
+uint64_t protocol witness for Hashable.hash(into:) in conformance SIMD32<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   WitnessTable = swift_getWitnessTable(protocol conformance descriptor for SIMD32<A>, a2, a3);
 
   return SIMD.hash(into:)(a1, a2, WitnessTable);
 }
 
-unint64_t protocol witness for CustomStringConvertible.description.getter in conformance SIMD32<A>(unint64_t a1, uint64_t a2, uint64_t a3)
+unint64_t protocol witness for CustomStringConvertible.description.getter in conformance SIMD32<A>(unsigned __int16 *a1, uint64_t a2, uint64_t a3)
 {
   WitnessTable = swift_getWitnessTable(protocol conformance descriptor for SIMD32<A>, a1, a3);
 
   return SIMD.description.getter(a1, WitnessTable);
 }
 
-uint64_t protocol witness for ExpressibleByArrayLiteral.init(arrayLiteral:) in conformance SIMD32<A>@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t protocol witness for ExpressibleByArrayLiteral.init(arrayLiteral:) in conformance SIMD32<A>@<X0>(uint64_t a1@<X0>, unsigned __int16 *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   WitnessTable = swift_getWitnessTable(protocol conformance descriptor for SIMD32<A>, a2, a3);
 
@@ -666,471 +666,471 @@ uint64_t protocol witness for ExpressibleByArrayLiteral.init(arrayLiteral:) in c
 
 uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance SIMD32<A>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v24 = a1;
-  v25 = a2;
-  v26 = a3;
+  v25 = a1;
+  v26 = a2;
+  v27 = a3;
   v3 = *(a3 + 16);
-  v4 = MEMORY[0x1EEE9AC00](a1);
-  v23 = v22 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v4);
-  v22[1] = v22 - v6;
-  v7 = 0;
-  v8 = 1;
-  v9 = v22 - v6;
+  v4 = MEMORY[0x1EEE9AC00](a1, a2);
+  v24 = v23 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v4, v6);
+  v23[1] = v23 - v7;
+  v8 = 0;
+  v9 = 1;
+  v10 = v23 - v7;
   do
   {
-    if (v8)
+    if (v9)
     {
-      v10 = *(v26 + 24);
-      swift_getAssociatedTypeWitness(255, v10, v3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
-      v12 = v11;
-      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v10, v3, v11, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
-      v14 = *(AssociatedConformanceWitness + 56);
-      v15 = swift_checkMetadataState(0, v12);
-      v14(v7, v15, AssociatedConformanceWitness);
-      v16 = v23;
-      v14(v7, v15, AssociatedConformanceWitness);
-      swift_getAssociatedTypeWitness(255, v10, v3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD16Storage);
-      v18 = v17;
-      v19 = swift_getAssociatedConformanceWitness(v10, v3, v17, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD16Storage: SIMDStorage);
-      v20 = swift_getAssociatedConformanceWitness(v19, v18, v3, &protocol requirements base descriptor for SIMDStorage, associated conformance descriptor for SIMDStorage.SIMDStorage.Scalar: Hashable);
-      v8 = (*(*(v20 + 8) + 8))(v9, v16, v3);
+      v11 = *(v27 + 24);
+      swift_getAssociatedTypeWitness(255, v11, v3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
+      v13 = v12;
+      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v11, v3, v12, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
+      v15 = *(AssociatedConformanceWitness + 56);
+      v16 = swift_checkMetadataState(0, v13);
+      v15(v8, v16, AssociatedConformanceWitness);
+      v17 = v24;
+      v15(v8, v16, AssociatedConformanceWitness);
+      swift_getAssociatedTypeWitness(255, v11, v3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD16Storage);
+      v19 = v18;
+      v20 = swift_getAssociatedConformanceWitness(v11, v3, v18, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD16Storage: SIMDStorage);
+      v21 = swift_getAssociatedConformanceWitness(v20, v19, v3, &protocol requirements base descriptor for SIMDStorage, associated conformance descriptor for SIMDStorage.SIMDStorage.Scalar: Hashable);
+      v9 = (*(*(v21 + 8) + 8))(v10, v17, v3);
     }
 
     else
     {
-      v8 = 0;
+      v9 = 0;
     }
 
-    ++v7;
+    ++v8;
   }
 
-  while (v7 != 32);
-  return v8 & 1;
+  while (v8 != 32);
+  return v9 & 1;
 }
 
-uint64_t SIMD32<>.init<A>(truncatingIfNeeded:)@<X0>(uint64_t a1@<X0>, const char *a2@<X1>, const char *a3@<X2>, uint64_t a4@<X3>, int **a5@<X4>, uint64_t a6@<X5>, int **a7@<X6>, uint64_t a8@<X8>)
+uint64_t SIMD32<>.init<A>(truncatingIfNeeded:)@<X0>(uint64_t a1@<X0>, Class *a2@<X1>, Class *a3@<X2>, uint64_t a4@<X3>, int **a5@<X4>, uint64_t a6@<X5>, int **a7@<X6>, uint64_t a8@<X8>)
 {
-  v36 = a4;
-  v37 = a6;
-  v39 = a1;
-  v13 = MEMORY[0x1EEE9AC00](a1);
-  v15 = &v30 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v13);
-  v17 = &v30 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v37 = a4;
+  v38 = a6;
+  v40 = a1;
+  v13 = MEMORY[0x1EEE9AC00](a1, a2);
+  v15 = &v31 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v13, v16);
+  v18 = &v31 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_getAssociatedTypeWitness(0, a5, a2, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
-  v19 = v18;
-  v35 = a2;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a5, a2, v18, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
-  v21 = *(AssociatedConformanceWitness + 48);
-  v33 = v19;
-  v34 = a8;
-  v21(v19, AssociatedConformanceWitness);
+  v20 = v19;
+  v36 = a2;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a5, a2, v19, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
+  v22 = *(AssociatedConformanceWitness + 48);
+  v34 = v20;
+  v35 = a8;
+  v22(v20, AssociatedConformanceWitness);
   swift_getAssociatedTypeWitness(255, a7, a3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
-  v31 = a7;
-  v32 = v22;
-  v38 = a3;
-  v23 = swift_getAssociatedConformanceWitness(a7, a3, v22, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
-  v24 = 0;
-  v25 = *(v23 + 56);
+  v32 = a7;
+  v33 = v23;
+  v39 = a3;
+  v24 = swift_getAssociatedConformanceWitness(a7, a3, v23, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
+  v25 = 0;
+  v26 = *(v24 + 56);
   do
   {
-    v26 = swift_checkMetadataState(0, v32);
-    v25(v24, v26, v23);
-    (*(*(v36 + 8) + 96))(v15, v38, *(v37 + 8));
-    (*(AssociatedConformanceWitness + 64))(v17, v24++, v33, AssociatedConformanceWitness);
+    v27 = swift_checkMetadataState(0, v33);
+    v26(v25, v27, v24);
+    (*(*(v37 + 8) + 96))(v15, v39, *(v38 + 8));
+    (*(AssociatedConformanceWitness + 64))(v18, v25++, v34, AssociatedConformanceWitness);
   }
 
-  while (v24 != 32);
-  v28 = type metadata accessor for SIMD32(0, v38, v31, v27);
-  return (*(*(v28 - 8) + 8))(v39, v28);
+  while (v25 != 32);
+  v29 = type metadata accessor for SIMD32(0, v39, v32, v28);
+  return (*(*(v29 - 8) + 8))(v40, v29);
 }
 
-uint64_t SIMD32<>.init<A>(clamping:)@<X0>(uint64_t a1@<X0>, const char *a2@<X1>, const char *a3@<X2>, uint64_t a4@<X3>, int **a5@<X4>, uint64_t a6@<X5>, int **a7@<X6>, uint64_t a8@<X8>)
+uint64_t SIMD32<>.init<A>(clamping:)@<X0>(uint64_t a1@<X0>, Class *a2@<X1>, Class *a3@<X2>, uint64_t a4@<X3>, int **a5@<X4>, uint64_t a6@<X5>, int **a7@<X6>, uint64_t a8@<X8>)
 {
-  v36 = a4;
-  v37 = a6;
-  v39 = a1;
-  v13 = MEMORY[0x1EEE9AC00](a1);
-  v15 = &v30 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v13);
-  v17 = &v30 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v37 = a4;
+  v38 = a6;
+  v40 = a1;
+  v13 = MEMORY[0x1EEE9AC00](a1, a2);
+  v15 = &v31 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v13, v16);
+  v18 = &v31 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_getAssociatedTypeWitness(0, a5, a2, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
-  v19 = v18;
-  v35 = a2;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a5, a2, v18, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
-  v21 = *(AssociatedConformanceWitness + 48);
-  v33 = v19;
-  v34 = a8;
-  v21(v19, AssociatedConformanceWitness);
+  v20 = v19;
+  v36 = a2;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a5, a2, v19, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
+  v22 = *(AssociatedConformanceWitness + 48);
+  v34 = v20;
+  v35 = a8;
+  v22(v20, AssociatedConformanceWitness);
   swift_getAssociatedTypeWitness(255, a7, a3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
-  v31 = a7;
-  v32 = v22;
-  v38 = a3;
-  v23 = swift_getAssociatedConformanceWitness(a7, a3, v22, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
-  v24 = 0;
-  v25 = *(v23 + 56);
+  v32 = a7;
+  v33 = v23;
+  v39 = a3;
+  v24 = swift_getAssociatedConformanceWitness(a7, a3, v23, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
+  v25 = 0;
+  v26 = *(v24 + 56);
   do
   {
-    v26 = swift_checkMetadataState(0, v32);
-    v25(v24, v26, v23);
-    (*(*(v36 + 8) + 104))(v15, v38, *(v37 + 8));
-    (*(AssociatedConformanceWitness + 64))(v17, v24++, v33, AssociatedConformanceWitness);
+    v27 = swift_checkMetadataState(0, v33);
+    v26(v25, v27, v24);
+    (*(*(v37 + 8) + 104))(v15, v39, *(v38 + 8));
+    (*(AssociatedConformanceWitness + 64))(v18, v25++, v34, AssociatedConformanceWitness);
   }
 
-  while (v24 != 32);
-  v28 = type metadata accessor for SIMD32(0, v38, v31, v27);
-  return (*(*(v28 - 8) + 8))(v39, v28);
+  while (v25 != 32);
+  v29 = type metadata accessor for SIMD32(0, v39, v32, v28);
+  return (*(*(v29 - 8) + 8))(v40, v29);
 }
 
-uint64_t SIMD32<>.init<A>(_:rounding:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, const char *a3@<X2>, const char *a4@<X3>, uint64_t a5@<X4>, swift *a6@<X5>, uint64_t a7@<X6>, int **a8@<X7>, uint64_t a9@<X8>)
+uint64_t SIMD32<>.init<A>(_:rounding:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, const char *a3@<X2>, Class *a4@<X3>, uint64_t a5@<X4>, swift *a6@<X5>, uint64_t a7@<X6>, int **a8@<X7>, uint64_t a9@<X8>)
 {
-  v46 = a5;
-  v47 = a7;
-  v44 = a2;
-  v49 = a1;
-  v14 = MEMORY[0x1EEE9AC00](a1);
-  v42 = &v36 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = MEMORY[0x1EEE9AC00](v14);
-  v18 = &v36 - v17;
-  MEMORY[0x1EEE9AC00](v16);
-  v20 = &v36 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  swift_getAssociatedTypeWitness(0, v22, v21, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
-  v24 = v23;
-  v45 = a3;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a6, a3, v23, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
-  v26 = *(AssociatedConformanceWitness + 48);
-  v43 = a9;
-  v41 = v24;
-  v26(v24, AssociatedConformanceWitness);
+  v48 = a5;
+  v49 = a7;
+  v46 = a2;
+  v51 = a1;
+  v14 = MEMORY[0x1EEE9AC00](a1, a2);
+  v44 = &v38 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = MEMORY[0x1EEE9AC00](v14, v16);
+  v19 = &v38 - v18;
+  MEMORY[0x1EEE9AC00](v17, v20);
+  v22 = &v38 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  swift_getAssociatedTypeWitness(0, v24, v23, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
+  v26 = v25;
+  v47 = a3;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a6, a3, v25, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
+  v28 = *(AssociatedConformanceWitness + 48);
+  v45 = a9;
+  v43 = v26;
+  v28(v26, AssociatedConformanceWitness);
   swift_getAssociatedTypeWitness(255, a8, a4, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
-  v37 = a8;
-  v48 = a4;
-  v40 = v27;
-  v28 = swift_getAssociatedConformanceWitness(a8, a4, v27, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
-  v29 = 0;
-  v38 = *(v28 + 56);
-  v39 = v28;
+  v39 = a8;
+  v50 = a4;
+  v42 = v29;
+  v30 = swift_getAssociatedConformanceWitness(a8, a4, v29, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
+  v31 = 0;
+  v40 = *(v30 + 56);
+  v41 = v30;
   do
   {
-    v30 = swift_checkMetadataState(0, v40);
-    v38(v29, v30, v39);
-    v31 = v47;
-    v32 = v48;
-    (*(*(v47 + 16) + 304))(v44, v48);
-    (*(*(v46 + 8) + 80))(v18, v32, v31);
-    (*(AssociatedConformanceWitness + 64))(v20, v29++, v41, AssociatedConformanceWitness);
+    v32 = swift_checkMetadataState(0, v42);
+    v40(v31, v32, v41);
+    v33 = v49;
+    v34 = v50;
+    (*(*(v49 + 16) + 304))(v46, v50);
+    (*(*(v48 + 8) + 80))(v19, v34, v33);
+    (*(AssociatedConformanceWitness + 64))(v22, v31++, v43, AssociatedConformanceWitness);
   }
 
-  while (v29 != 32);
-  v34 = type metadata accessor for SIMD32(0, v48, v37, v33);
-  return (*(*(v34 - 8) + 8))(v49, v34);
+  while (v31 != 32);
+  v36 = type metadata accessor for SIMD32(0, v50, v39, v35);
+  return (*(*(v36 - 8) + 8))(v51, v36);
 }
 
-uint64_t SIMD32.debugDescription.getter(uint64_t a1)
+uint64_t SIMD32.debugDescription.getter(uint64_t a1, uint64_t a2)
 {
-  v852 = a1;
-  v1 = *(a1 + 16);
-  v2 = *(*(v1 - 1) + 64);
-  v3 = MEMORY[0x1EEE9AC00](a1);
-  v820 = (&v812 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v4 = MEMORY[0x1EEE9AC00](v3);
-  v828 = (&v812 - v5);
-  v6 = MEMORY[0x1EEE9AC00](v4);
-  v836 = (&v812 - v7);
-  v8 = MEMORY[0x1EEE9AC00](v6);
-  v844 = (&v812 - v9);
-  v10 = MEMORY[0x1EEE9AC00](v8);
-  v851 = &v812 - v11;
-  v12 = MEMORY[0x1EEE9AC00](v10);
-  v819 = (&v812 - v13);
-  v14 = MEMORY[0x1EEE9AC00](v12);
-  v827 = (&v812 - v15);
-  v16 = MEMORY[0x1EEE9AC00](v14);
-  v835 = (&v812 - v17);
-  v18 = MEMORY[0x1EEE9AC00](v16);
-  v843 = (&v812 - v19);
-  v20 = MEMORY[0x1EEE9AC00](v18);
-  v850 = &v812 - v21;
-  v22 = MEMORY[0x1EEE9AC00](v20);
-  v818 = (&v812 - v23);
-  v24 = MEMORY[0x1EEE9AC00](v22);
-  v826 = (&v812 - v25);
-  v26 = MEMORY[0x1EEE9AC00](v24);
-  v834 = (&v812 - v27);
-  v28 = MEMORY[0x1EEE9AC00](v26);
-  v842 = (&v812 - v29);
-  v30 = MEMORY[0x1EEE9AC00](v28);
-  v32 = &v812 - v31;
-  v33 = MEMORY[0x1EEE9AC00](v30);
-  v817 = (&v812 - v34);
-  v35 = MEMORY[0x1EEE9AC00](v33);
-  v825 = (&v812 - v36);
-  v37 = MEMORY[0x1EEE9AC00](v35);
-  v833 = (&v812 - v38);
-  v39 = MEMORY[0x1EEE9AC00](v37);
-  v841 = (&v812 - v40);
-  v41 = MEMORY[0x1EEE9AC00](v39);
-  v849 = &v812 - v42;
-  v43 = MEMORY[0x1EEE9AC00](v41);
-  v816 = (&v812 - v44);
-  v45 = MEMORY[0x1EEE9AC00](v43);
-  v824 = (&v812 - v46);
-  v47 = MEMORY[0x1EEE9AC00](v45);
-  v832 = (&v812 - v48);
-  v49 = MEMORY[0x1EEE9AC00](v47);
-  v840 = (&v812 - v50);
-  v51 = MEMORY[0x1EEE9AC00](v49);
-  v848 = &v812 - v52;
-  v53 = MEMORY[0x1EEE9AC00](v51);
-  v815 = (&v812 - v54);
-  v55 = MEMORY[0x1EEE9AC00](v53);
-  v823 = (&v812 - v56);
-  v57 = MEMORY[0x1EEE9AC00](v55);
-  v831 = (&v812 - v58);
-  v59 = MEMORY[0x1EEE9AC00](v57);
-  v839 = (&v812 - v60);
-  v61 = MEMORY[0x1EEE9AC00](v59);
-  v847 = &v812 - v62;
-  v63 = MEMORY[0x1EEE9AC00](v61);
-  v814 = (&v812 - v64);
-  v65 = MEMORY[0x1EEE9AC00](v63);
-  v822 = (&v812 - v66);
-  v67 = MEMORY[0x1EEE9AC00](v65);
-  v830 = (&v812 - v68);
-  v69 = MEMORY[0x1EEE9AC00](v67);
-  v838 = (&v812 - v70);
-  v71 = MEMORY[0x1EEE9AC00](v69);
-  v846 = &v812 - v72;
-  v73 = MEMORY[0x1EEE9AC00](v71);
-  v813 = (&v812 - v74);
-  v75 = MEMORY[0x1EEE9AC00](v73);
-  v821 = (&v812 - v76);
-  v77 = MEMORY[0x1EEE9AC00](v75);
-  v829 = (&v812 - v78);
-  v79 = MEMORY[0x1EEE9AC00](v77);
-  v837 = (&v812 - v80);
-  v81 = MEMORY[0x1EEE9AC00](v79);
-  v83 = &v812 - v82;
-  MEMORY[0x1EEE9AC00](v81);
-  v85 = &v812 - v84;
-  v86 = _StringGuts.init(_initialCapacity:)(138);
-  v88 = v87;
-  v859._countAndFlagsBits = v86;
-  v859._object = v87;
-  v89 = HIBYTE(v87) & 0xF;
-  if ((v87 & 0x2000000000000000) == 0)
+  v1013 = a1;
+  v2 = *(a1 + 16);
+  v3 = *(*(v2 - 1) + 8);
+  v4 = MEMORY[0x1EEE9AC00](a1, a2);
+  v981 = &v973 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = MEMORY[0x1EEE9AC00](v4, v5);
+  v989 = &v973 - v7;
+  v9 = MEMORY[0x1EEE9AC00](v6, v8);
+  v997 = &v973 - v10;
+  v12 = MEMORY[0x1EEE9AC00](v9, v11);
+  v1005 = &v973 - v13;
+  v15 = MEMORY[0x1EEE9AC00](v12, v14);
+  v1012 = &v973 - v16;
+  v18 = MEMORY[0x1EEE9AC00](v15, v17);
+  v980 = &v973 - v19;
+  v21 = MEMORY[0x1EEE9AC00](v18, v20);
+  v988 = &v973 - v22;
+  v24 = MEMORY[0x1EEE9AC00](v21, v23);
+  v996 = &v973 - v25;
+  v27 = MEMORY[0x1EEE9AC00](v24, v26);
+  v1004 = &v973 - v28;
+  v30 = MEMORY[0x1EEE9AC00](v27, v29);
+  v1011 = &v973 - v31;
+  v33 = MEMORY[0x1EEE9AC00](v30, v32);
+  v979 = &v973 - v34;
+  v36 = MEMORY[0x1EEE9AC00](v33, v35);
+  v987 = &v973 - v37;
+  v39 = MEMORY[0x1EEE9AC00](v36, v38);
+  v995 = &v973 - v40;
+  v42 = MEMORY[0x1EEE9AC00](v39, v41);
+  v1003 = &v973 - v43;
+  v45 = MEMORY[0x1EEE9AC00](v42, v44);
+  v47 = &v973 - v46;
+  v49 = MEMORY[0x1EEE9AC00](v45, v48);
+  v978 = &v973 - v50;
+  v52 = MEMORY[0x1EEE9AC00](v49, v51);
+  v986 = &v973 - v53;
+  v55 = MEMORY[0x1EEE9AC00](v52, v54);
+  v994 = &v973 - v56;
+  v58 = MEMORY[0x1EEE9AC00](v55, v57);
+  v1002 = &v973 - v59;
+  v61 = MEMORY[0x1EEE9AC00](v58, v60);
+  v1010 = &v973 - v62;
+  v64 = MEMORY[0x1EEE9AC00](v61, v63);
+  v977 = &v973 - v65;
+  v67 = MEMORY[0x1EEE9AC00](v64, v66);
+  v985 = &v973 - v68;
+  v70 = MEMORY[0x1EEE9AC00](v67, v69);
+  v993 = &v973 - v71;
+  v73 = MEMORY[0x1EEE9AC00](v70, v72);
+  v1001 = &v973 - v74;
+  v76 = MEMORY[0x1EEE9AC00](v73, v75);
+  v1009 = &v973 - v77;
+  v79 = MEMORY[0x1EEE9AC00](v76, v78);
+  v976 = &v973 - v80;
+  v82 = MEMORY[0x1EEE9AC00](v79, v81);
+  v984 = &v973 - v83;
+  v85 = MEMORY[0x1EEE9AC00](v82, v84);
+  v992 = &v973 - v86;
+  v88 = MEMORY[0x1EEE9AC00](v85, v87);
+  v1000 = &v973 - v89;
+  v91 = MEMORY[0x1EEE9AC00](v88, v90);
+  v1008 = &v973 - v92;
+  v94 = MEMORY[0x1EEE9AC00](v91, v93);
+  v975 = &v973 - v95;
+  v97 = MEMORY[0x1EEE9AC00](v94, v96);
+  v983 = &v973 - v98;
+  v100 = MEMORY[0x1EEE9AC00](v97, v99);
+  v991 = &v973 - v101;
+  v103 = MEMORY[0x1EEE9AC00](v100, v102);
+  v999 = &v973 - v104;
+  v106 = MEMORY[0x1EEE9AC00](v103, v105);
+  v1007 = &v973 - v107;
+  v109 = MEMORY[0x1EEE9AC00](v106, v108);
+  v974 = &v973 - v110;
+  v112 = MEMORY[0x1EEE9AC00](v109, v111);
+  v982 = &v973 - v113;
+  v115 = MEMORY[0x1EEE9AC00](v112, v114);
+  v990 = &v973 - v116;
+  v118 = MEMORY[0x1EEE9AC00](v115, v117);
+  v998 = &v973 - v119;
+  v121 = MEMORY[0x1EEE9AC00](v118, v120);
+  v123 = &v973 - v122;
+  MEMORY[0x1EEE9AC00](v121, v124);
+  v126 = &v973 - v125;
+  v127 = _StringGuts.init(_initialCapacity:)(138);
+  v129 = v128;
+  v1020._countAndFlagsBits = v127;
+  v1020._object = v128;
+  v130 = HIBYTE(v128) & 0xF;
+  if ((v128 & 0x2000000000000000) == 0)
   {
-    v89 = v86 & 0xFFFFFFFFFFFFLL;
+    v130 = v127 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (v89 || (v86 & ~v87 & 0x2000000000000000) != 0)
+  if (v130 || (v127 & ~v128 & 0x2000000000000000) != 0)
   {
-    if ((v87 & 0x2000000000000000) != 0 && (v90 = specialized _SmallString.init(_:appending:)(v86, v87, 0x3C3233444D4953uLL, 0xE700000000000000), (v92 & 1) == 0))
+    if ((v128 & 0x2000000000000000) != 0 && (v131 = specialized _SmallString.init(_:appending:)(v127, v128, 0x3C3233444D4953uLL, 0xE700000000000000), (v133 & 1) == 0))
     {
-      v101 = v90;
-      v102 = v91;
-      v88;
+      v142 = v131;
+      v143 = v132;
+      v129;
       0xE700000000000000;
-      v859._countAndFlagsBits = v101;
-      v859._object = v102;
+      v1020._countAndFlagsBits = v142;
+      v1020._object = v143;
     }
 
     else
     {
       0xE700000000000000;
-      _StringGuts.append(_:)(0x3C3233444D4953, 0xE700000000000000, 0, 7, v93, v94, v95, v96, v97, v98, v99, v100);
+      _StringGuts.append(_:)(0x3C3233444D4953, 0xE700000000000000, 0, 7, v134, v135, v136, v137, v138, v139, v140, v141);
       swift_bridgeObjectRelease_n(0xE700000000000000, 2);
     }
   }
 
   else
   {
-    v859._countAndFlagsBits = 0x3C3233444D4953;
-    v859._object = 0xE700000000000000;
-    v87;
+    v1020._countAndFlagsBits = 0x3C3233444D4953;
+    v1020._object = 0xE700000000000000;
+    v128;
   }
 
-  TypeName = swift_getTypeName(v1, 0);
-  if (v104 < 0)
+  TypeName = swift_getTypeName(v2, 0);
+  if (v145 < 0)
   {
     _fatalErrorMessage(_:_:file:line:flags:)("Fatal error", 11, 2);
   }
 
-  v105 = TypeName;
-  v106 = v104;
-  if (_allASCII(_:)(TypeName, v104))
+  v146 = TypeName;
+  v147 = v145;
+  if (_allASCII(_:)(TypeName, v145))
   {
-    v108 = 1;
+    v149 = 1;
 LABEL_13:
-    if (v106)
+    if (v147)
     {
-      if (v106 > 15)
+      if (v147 > 15)
       {
-        v109 = specialized static __StringStorage.create(initializingFrom:codeUnitCapacity:isASCII:)(v105, v106, v106, v108 & 1);
-        v110 = *(v109 + 24);
+        v150 = specialized static __StringStorage.create(initializingFrom:codeUnitCapacity:isASCII:)(v146, v147, v147, v149 & 1);
+        v151 = *(v150 + 24);
         goto LABEL_80;
       }
 
-      v127 = v106 - 8;
-      v128 = 8;
-      if (v106 < 8)
+      v168 = v147 - 8;
+      v169 = 8;
+      if (v147 < 8)
       {
-        v128 = v106;
+        v169 = v147;
       }
 
-      if (v106 >= 4)
+      if (v147 >= 4)
       {
-        v130 = v128 & 0xC;
-        v107.i32[0] = *v105;
-        v131 = vmovl_u16(*&vmovl_u8(v107));
-        v132.i64[0] = v131.u32[0];
-        v132.i64[1] = v131.u32[1];
-        v133.i64[0] = 255;
-        v133.i64[1] = 255;
-        v134 = vandq_s8(v132, v133);
-        v132.i64[0] = v131.u32[2];
-        v132.i64[1] = v131.u32[3];
-        v135 = vshlq_u64(vandq_s8(v132, v133), xmmword_18071DBA0);
-        v136.i32[1] = 0;
-        v137 = vshlq_u64(v134, xmmword_18071DBB0);
-        if (v130 != 4)
+        v171 = v169 & 0xC;
+        v148.i32[0] = *v146;
+        v172 = vmovl_u16(*&vmovl_u8(v148));
+        v173.i64[0] = v172.u32[0];
+        v173.i64[1] = v172.u32[1];
+        v174.i64[0] = 255;
+        v174.i64[1] = 255;
+        v175 = vandq_s8(v173, v174);
+        v173.i64[0] = v172.u32[2];
+        v173.i64[1] = v172.u32[3];
+        v176 = vshlq_u64(vandq_s8(v173, v174), xmmword_18071DBA0);
+        v177.i32[1] = 0;
+        v178 = vshlq_u64(v175, xmmword_18071DBB0);
+        if (v171 != 4)
         {
-          v136.i32[0] = *(v105 + 4);
-          v138 = vmovl_u16(*&vmovl_u8(v136));
-          v139.i64[0] = v138.u32[2];
-          v139.i64[1] = v138.u32[3];
-          v140 = vandq_s8(v139, v133);
-          v139.i64[0] = v138.u32[0];
-          v139.i64[1] = v138.u32[1];
-          v135 = vorrq_s8(vshlq_u64(v140, xmmword_18071DBD0), v135);
-          v137 = vorrq_s8(vshlq_u64(vandq_s8(v139, v133), xmmword_18071DBC0), v137);
+          v177.i32[0] = *(v146 + 4);
+          v179 = vmovl_u16(*&vmovl_u8(v177));
+          v180.i64[0] = v179.u32[2];
+          v180.i64[1] = v179.u32[3];
+          v181 = vandq_s8(v180, v174);
+          v180.i64[0] = v179.u32[0];
+          v180.i64[1] = v179.u32[1];
+          v176 = vorrq_s8(vshlq_u64(v181, xmmword_18071DBD0), v176);
+          v178 = vorrq_s8(vshlq_u64(vandq_s8(v180, v174), xmmword_18071DBC0), v178);
         }
 
-        v141 = vorrq_s8(v137, v135);
-        v110 = vorr_s8(*v141.i8, *&vextq_s8(v141, v141, 8uLL));
-        if (v128 == v130)
+        v182 = vorrq_s8(v178, v176);
+        v151 = vorr_s8(*v182.i8, *&vextq_s8(v182, v182, 8uLL));
+        if (v169 == v171)
         {
           goto LABEL_72;
         }
 
-        v129 = 8 * v130;
+        v170 = 8 * v171;
       }
 
       else
       {
-        v110 = 0;
-        v129 = 0;
-        v130 = 0;
+        v151 = 0;
+        v170 = 0;
+        v171 = 0;
       }
 
-      v142 = v128 - v130;
-      v143 = (v105 + v130);
+      v183 = v169 - v171;
+      v184 = (v146 + v171);
       do
       {
-        v144 = *v143++;
-        v110 |= v144 << (v129 & 0x38);
-        v129 += 8;
-        --v142;
+        v185 = *v184++;
+        v151 |= v185 << (v170 & 0x38);
+        v170 += 8;
+        --v183;
       }
 
-      while (v142);
+      while (v183);
 LABEL_72:
-      if (v106 < 9)
+      if (v147 < 9)
       {
-        v145 = 0;
+        v186 = 0;
       }
 
       else
       {
-        v145 = 0;
-        v146 = 0;
-        v147 = (v105 + 8);
+        v186 = 0;
+        v187 = 0;
+        v188 = (v146 + 8);
         do
         {
-          v148 = *v147++;
-          v145 |= v148 << v146;
-          v146 += 8;
-          --v127;
+          v189 = *v188++;
+          v186 |= v189 << v187;
+          v187 += 8;
+          --v168;
         }
 
-        while (v127);
+        while (v168);
       }
 
-      v149 = 0xA000000000000000;
-      if (((v145 | v110) & 0x8080808080808080) == 0)
+      v190 = 0xA000000000000000;
+      if (((v186 | v151) & 0x8080808080808080) == 0)
       {
-        v149 = 0xE000000000000000;
+        v190 = 0xE000000000000000;
       }
 
-      v109 = v149 | (v106 << 56) | v145;
+      v150 = v190 | (v147 << 56) | v186;
       goto LABEL_80;
     }
 
 LABEL_59:
-    v110 = 0;
-    v109 = 0xE000000000000000;
+    v151 = 0;
+    v150 = 0xE000000000000000;
     goto LABEL_80;
   }
 
-  if (!v106)
+  if (!v147)
   {
     goto LABEL_59;
   }
 
-  v111 = 0;
-  v112 = (v105 + v106);
-  v108 = 1;
-  v113 = v105;
-  v114 = v105;
+  v152 = 0;
+  v153 = (v146 + v147);
+  v149 = 1;
+  v154 = v146;
+  v155 = v146;
   while (1)
   {
-    v116 = *v114++;
-    v115 = v116;
-    if ((v116 & 0x80000000) == 0)
+    v157 = *v155++;
+    v156 = v157;
+    if ((v157 & 0x80000000) == 0)
     {
-      v117 = 1;
+      v158 = 1;
       goto LABEL_20;
     }
 
-    if ((v115 + 11) <= 0xCCu)
+    if ((v156 + 11) <= 0xCCu)
     {
-      LOBYTE(v853._countAndFlagsBits) = _diagnoseInvalidUTF8MultiByteLeading(_:)(v115);
+      LOBYTE(v1014._countAndFlagsBits) = _diagnoseInvalidUTF8MultiByteLeading(_:)(v156);
       goto LABEL_61;
     }
 
-    if (v115 > 0xDFu)
+    if (v156 > 0xDFu)
     {
       break;
     }
 
-    if (v114 == v112 || (*v114 & 0xC0) != 0x80)
+    if (v155 == v153 || (*v155 & 0xC0) != 0x80)
     {
 LABEL_306:
-      LOBYTE(v853._countAndFlagsBits) = 4;
+      LOBYTE(v1014._countAndFlagsBits) = 4;
       goto LABEL_61;
     }
 
-    v108 = 0;
-    v114 = v113 + 2;
-    v117 = 2;
+    v149 = 0;
+    v155 = v154 + 2;
+    v158 = 2;
 LABEL_20:
-    v111 += v117;
-    v113 = v114;
-    if (v114 == v112)
+    v152 += v158;
+    v154 = v155;
+    if (v155 == v153)
     {
       goto LABEL_13;
     }
   }
 
-  if (v115 == 224)
+  if (v156 == 224)
   {
-    if (v114 == v112)
+    if (v155 == v153)
     {
       goto LABEL_306;
     }
 
-    if (v113[1] - 192 < 0xFFFFFFE0)
+    if (v154[1] - 192 < 0xFFFFFFE0)
     {
       goto LABEL_308;
     }
@@ -1138,68 +1138,68 @@ LABEL_20:
     goto LABEL_44;
   }
 
-  if (v115 <= 0xECu)
+  if (v156 <= 0xECu)
   {
     goto LABEL_42;
   }
 
-  if (v115 == 237)
+  if (v156 == 237)
   {
-    if (v114 == v112)
+    if (v155 == v153)
     {
       goto LABEL_306;
     }
 
-    v118 = v113[1];
-    if (v118 > 0x9F || (v118 & 0xC0) != 0x80)
+    v159 = v154[1];
+    if (v159 > 0x9F || (v159 & 0xC0) != 0x80)
     {
-      LOBYTE(v853._countAndFlagsBits) = 1;
+      LOBYTE(v1014._countAndFlagsBits) = 1;
       goto LABEL_61;
     }
 
     goto LABEL_44;
   }
 
-  if (v115 <= 0xEFu)
+  if (v156 <= 0xEFu)
   {
 LABEL_42:
-    if (v114 == v112 || (v113[1] & 0xC0) != 0x80)
+    if (v155 == v153 || (v154[1] & 0xC0) != 0x80)
     {
       goto LABEL_306;
     }
 
 LABEL_44:
-    if (v113 + 2 == v112 || (v113[2] & 0xC0) != 0x80)
+    if (v154 + 2 == v153 || (v154[2] & 0xC0) != 0x80)
     {
       goto LABEL_306;
     }
 
-    v108 = 0;
-    v114 = v113 + 3;
-    v117 = 3;
+    v149 = 0;
+    v155 = v154 + 3;
+    v158 = 3;
     goto LABEL_20;
   }
 
-  if (v115 == 240)
+  if (v156 == 240)
   {
-    if (v114 == v112)
+    if (v155 == v153)
     {
       goto LABEL_306;
     }
 
-    if (v113[1] - 192 < 0xFFFFFFD0)
+    if (v154[1] - 192 < 0xFFFFFFD0)
     {
 LABEL_308:
-      LOBYTE(v853._countAndFlagsBits) = 3;
+      LOBYTE(v1014._countAndFlagsBits) = 3;
       goto LABEL_61;
     }
 
     goto LABEL_54;
   }
 
-  if (v115 <= 0xF3u)
+  if (v156 <= 0xF3u)
   {
-    if (v114 == v112 || (v113[1] & 0xC0) != 0x80)
+    if (v155 == v153 || (v154[1] & 0xC0) != 0x80)
     {
       goto LABEL_306;
     }
@@ -1207,1396 +1207,1396 @@ LABEL_308:
     goto LABEL_54;
   }
 
-  if (v114 == v112)
+  if (v155 == v153)
   {
     goto LABEL_306;
   }
 
-  v119 = v113[1];
-  if (v119 <= 0x8F && (v119 & 0xC0) == 0x80)
+  v160 = v154[1];
+  if (v160 <= 0x8F && (v160 & 0xC0) == 0x80)
   {
 LABEL_54:
-    if (v113 + 2 == v112 || (v113[2] & 0xC0) != 0x80 || v113 + 3 == v112 || (v113[3] & 0xC0) != 0x80)
+    if (v154 + 2 == v153 || (v154[2] & 0xC0) != 0x80 || v154 + 3 == v153 || (v154[3] & 0xC0) != 0x80)
     {
       goto LABEL_306;
     }
 
-    v108 = 0;
-    v114 = v113 + 4;
-    v117 = 4;
+    v149 = 0;
+    v155 = v154 + 4;
+    v158 = 4;
     goto LABEL_20;
   }
 
-  LOBYTE(v853._countAndFlagsBits) = 2;
+  LOBYTE(v1014._countAndFlagsBits) = 2;
 LABEL_61:
-  swift_willThrowTypedImpl(&v853, &type metadata for _UTF8EncodingErrorKind, &protocol witness table for _UTF8EncodingErrorKind);
-  v120 = specialized Collection.subscript.getter(v111, v105, v106);
-  v124 = findInvalidRange #1 (_:) in validateUTF8(_:)(v120, v121, v122, v123);
-  v110 = repairUTF8(_:firstKnownBrokenRange:)(v105, v106, v124, v125);
-  v109 = v126;
+  swift_willThrowTypedImpl(&v1014, &type metadata for _UTF8EncodingErrorKind, &protocol witness table for _UTF8EncodingErrorKind);
+  v161 = specialized Collection.subscript.getter(v152, v146, v147);
+  v165 = findInvalidRange #1 (_:) in validateUTF8(_:)(v161, v162, v163, v164);
+  v151 = repairUTF8(_:firstKnownBrokenRange:)(v146, v147, v165, v166);
+  v150 = v167;
 LABEL_80:
-  v150 = v859;
-  v151 = (v859._object >> 56) & 0xF;
-  if ((v859._object & 0x2000000000000000) == 0)
+  v191 = v1020;
+  v192 = (v1020._object >> 56) & 0xF;
+  if ((v1020._object & 0x2000000000000000) == 0)
   {
-    v151 = v859._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+    v192 = v1020._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
   }
 
-  if (!v151 && (v859._countAndFlagsBits & ~v859._object & 0x2000000000000000) == 0)
+  if (!v192 && (v1020._countAndFlagsBits & ~v1020._object & 0x2000000000000000) == 0)
   {
-    v859._countAndFlagsBits = v110;
-    v859._object = v109;
-    v150._object;
+    v1020._countAndFlagsBits = v151;
+    v1020._object = v150;
+    v191._object;
     goto LABEL_92;
   }
 
-  if ((v859._object & 0x2000000000000000) != 0)
+  if ((v1020._object & 0x2000000000000000) != 0)
   {
-    if ((v109 & 0x2000000000000000) != 0)
+    if ((v150 & 0x2000000000000000) != 0)
     {
-      v153 = specialized _SmallString.init(_:appending:)(v859._countAndFlagsBits, v859._object, v110, v109);
-      if (v155)
+      v194 = specialized _SmallString.init(_:appending:)(v1020._countAndFlagsBits, v1020._object, v151, v150);
+      if (v196)
       {
         goto LABEL_90;
       }
 
-      v225 = v153;
-      v226 = v154;
-      v109;
-      v859._object;
-      v859._countAndFlagsBits = v225;
-      v859._object = v226;
+      v278 = v194;
+      v279 = v195;
+      v150;
+      v1020._object;
+      v1020._countAndFlagsBits = v278;
+      v1020._object = v279;
       goto LABEL_92;
     }
 
 LABEL_88:
-    v152 = v110 & 0xFFFFFFFFFFFFLL;
+    v193 = v151 & 0xFFFFFFFFFFFFLL;
     goto LABEL_91;
   }
 
-  if ((v109 & 0x2000000000000000) == 0)
+  if ((v150 & 0x2000000000000000) == 0)
   {
     goto LABEL_88;
   }
 
 LABEL_90:
-  v152 = HIBYTE(v109) & 0xF;
+  v193 = HIBYTE(v150) & 0xF;
 LABEL_91:
-  v109;
-  _StringGuts.append(_:)(v110, v109, 0, v152, v156, v157, v158, v159, v160, v161, v162, v163);
-  swift_bridgeObjectRelease_n(v109, 2);
+  v150;
+  _StringGuts.append(_:)(v151, v150, 0, v193, v197, v198, v199, v200, v201, v202, v203, v204);
+  swift_bridgeObjectRelease_n(v150, 2);
 LABEL_92:
-  v164 = v859;
-  v165 = (v859._object >> 56) & 0xF;
-  if ((v859._object & 0x2000000000000000) == 0)
+  v205 = v1020;
+  v206 = (v1020._object >> 56) & 0xF;
+  if ((v1020._object & 0x2000000000000000) == 0)
   {
-    v165 = v859._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+    v206 = v1020._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
   }
 
-  v845 = v32;
-  if (v165 || (v859._countAndFlagsBits & ~v859._object & 0x2000000000000000) != 0)
+  v1006 = v47;
+  if (v206 || (v1020._countAndFlagsBits & ~v1020._object & 0x2000000000000000) != 0)
   {
-    if ((v859._object & 0x2000000000000000) != 0 && (v166 = specialized _SmallString.init(_:appending:)(v859._countAndFlagsBits, v859._object, 0x283EuLL, 0xE200000000000000), (v168 & 1) == 0))
+    if ((v1020._object & 0x2000000000000000) != 0 && (v207 = specialized _SmallString.init(_:appending:)(v1020._countAndFlagsBits, v1020._object, 0x283EuLL, 0xE200000000000000), (v209 & 1) == 0))
     {
-      v177 = v166;
-      v178 = v167;
+      v218 = v207;
+      v219 = v208;
       0xE200000000000000;
-      v859._object;
-      v859._countAndFlagsBits = v177;
-      v859._object = v178;
+      v1020._object;
+      v1020._countAndFlagsBits = v218;
+      v1020._object = v219;
     }
 
     else
     {
       0xE200000000000000;
-      _StringGuts.append(_:)(10302, 0xE200000000000000, 0, 2, v169, v170, v171, v172, v173, v174, v175, v176);
+      _StringGuts.append(_:)(10302, 0xE200000000000000, 0, 2, v210, v211, v212, v213, v214, v215, v216, v217);
       swift_bridgeObjectRelease_n(0xE200000000000000, 2);
     }
   }
 
   else
   {
-    v859._countAndFlagsBits = 10302;
-    v859._object = 0xE200000000000000;
-    v164._object;
+    v1020._countAndFlagsBits = 10302;
+    v1020._object = 0xE200000000000000;
+    v205._object;
   }
 
-  v179 = *(v852 + 3);
-  swift_getAssociatedTypeWitness(255, v179, v1, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
-  v181 = v180;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v179, v1, v180, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
-  v183 = *(AssociatedConformanceWitness + 56);
-  v184 = swift_checkMetadataState(0, v181);
-  v852 = v183;
-  v183(0, v184, AssociatedConformanceWitness);
-  v854 = v1;
-  v185 = __swift_allocate_boxed_opaque_existential_0Tm(&v853);
-  memcpy(v185, v85, v2);
-  v186 = v854;
-  v187 = __swift_project_boxed_opaque_existential_0Tm(&v853, v854);
-  DynamicType = swift_getDynamicType(v187, v186, 1);
-  LODWORD(v186) = swift_isOptionalType(DynamicType);
-  __swift_destroy_boxed_opaque_existential_1Tm(&v853._countAndFlagsBits);
-  if (v186)
+  v220 = *(v1013 + 24);
+  swift_getAssociatedTypeWitness(255, v220, v2, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
+  v222 = v221;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v220, v2, v221, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
+  v224 = *(AssociatedConformanceWitness + 56);
+  v225 = swift_checkMetadataState(0, v222);
+  v1013 = v224;
+  v224(0, v225, AssociatedConformanceWitness);
+  v1015 = v2;
+  v226 = __swift_allocate_boxed_opaque_existential_0Tm(&v1014);
+  memcpy(v226, v126, v3);
+  v227 = v1015;
+  v228 = __swift_project_boxed_opaque_existential_0Tm(&v1014, v1015);
+  DynamicType = swift_getDynamicType(v228, v227, 1);
+  LODWORD(v227) = swift_isOptionalType(DynamicType);
+  __swift_destroy_boxed_opaque_existential_1Tm(&v1014._countAndFlagsBits);
+  if (v227)
   {
-    memcpy(v83, v85, v2);
-    v189 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
-    swift_dynamicCast(&v853, v83, v1, v189, 7uLL);
-    v190 = v854;
-    v191 = v855;
-    __swift_project_boxed_opaque_existential_0Tm(&v853, v854);
-    v192 = (*(v191 + 8))(v190, v191);
-    object = v193;
-    v203 = v859;
-    v204 = (v859._object >> 56) & 0xF;
-    if ((v859._object & 0x2000000000000000) == 0)
+    memcpy(v123, v126, v3);
+    v230 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
+    swift_dynamicCast(&v1014, v123, v2, v230, 7uLL, v231, v232, v233, v973);
+    v234 = v1015;
+    v235 = v1016;
+    __swift_project_boxed_opaque_existential_0Tm(&v1014, v1015);
+    v236 = (*(v235 + 8))(v234, v235);
+    object = v237;
+    v247 = v1020;
+    v248 = (v1020._object >> 56) & 0xF;
+    if ((v1020._object & 0x2000000000000000) == 0)
     {
-      v204 = v859._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+      v248 = v1020._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
     }
 
-    v205 = v846;
-    if (v204 || (v859._countAndFlagsBits & ~v859._object & 0x2000000000000000) != 0)
+    v249 = v1007;
+    if (v248 || (v1020._countAndFlagsBits & ~v1020._object & 0x2000000000000000) != 0)
     {
-      _StringGuts.append(_:)(v192, v193, v194, v195, v196, v197, v198, v199, v200, v201);
+      _StringGuts.append(_:)(v236, v237, v238, v239, v240, v241, v242, v243, v244, v245);
     }
 
     else
     {
-      v859._countAndFlagsBits = v192;
-      v859._object = v193;
-      object = v203._object;
+      v1020._countAndFlagsBits = v236;
+      v1020._object = v237;
+      object = v247._object;
     }
 
     object;
-    __swift_destroy_boxed_opaque_existential_1Tm(&v853._countAndFlagsBits);
+    __swift_destroy_boxed_opaque_existential_1Tm(&v1014._countAndFlagsBits);
   }
 
   else
   {
-    v206 = v837;
-    memcpy(v837, v85, v2);
-    v207 = swift_dynamicCast(&v853, v206, v1, &type metadata for String, 6uLL);
-    v205 = v846;
-    if ((v207 & 1) == 0)
+    v250 = v998;
+    memcpy(v998, v126, v3);
+    v254 = swift_dynamicCast(&v1014, v250, v2, &type metadata for String, 6uLL, v251, v252, v253, v973);
+    v249 = v1007;
+    if ((v254 & 1) == 0)
     {
-      v219 = v829;
-      memcpy(v829, v85, v2);
-      v220 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss20TextOutputStreamable_pMd, _ss20TextOutputStreamable_pMR);
-      if (swift_dynamicCast(&v856, v219, v1, v220, 6uLL))
+      v266 = v990;
+      memcpy(v990, v126, v3);
+      v267 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss20TextOutputStreamable_pMd, _ss20TextOutputStreamable_pMR);
+      if (swift_dynamicCast(&v1017, v266, v2, v267, 6uLL, v268, v269, v270, v973))
       {
-        _ss9CodingKey_pWOb_0(&v856, &v853);
-        v221 = v854;
-        v222 = v855;
-        __swift_project_boxed_opaque_existential_0Tm(&v853, v854);
-        (*(v222 + 8))(&v859, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation, v221, v222);
+        _ss9CodingKey_pWOb_0(&v1017, &v1014);
+        v271 = v1015;
+        v272 = v1016;
+        __swift_project_boxed_opaque_existential_0Tm(&v1014, v1015);
+        (*(v272 + 8))(&v1020, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation, v271, v272);
       }
 
       else
       {
-        v858 = 0;
-        v856 = 0u;
-        v857 = 0u;
-        outlined destroy of _HasContiguousBytes?(&v856, &_ss20TextOutputStreamable_pSgMd, _ss20TextOutputStreamable_pSgMR);
-        v223 = v821;
-        memcpy(v821, v85, v2);
-        v224 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23CustomStringConvertible_pMd, _ss23CustomStringConvertible_pMR);
-        if (!swift_dynamicCast(&v856, v223, v1, v224, 6uLL))
+        v1019 = 0;
+        v1017 = 0u;
+        v1018 = 0u;
+        outlined destroy of _HasContiguousBytes?(&v1017, &_ss20TextOutputStreamable_pSgMd, _ss20TextOutputStreamable_pSgMR);
+        v273 = v982;
+        memcpy(v982, v126, v3);
+        v274 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23CustomStringConvertible_pMd, _ss23CustomStringConvertible_pMR);
+        if (!swift_dynamicCast(&v1017, v273, v2, v274, 6uLL, v275, v276, v277, v973))
         {
-          v858 = 0;
-          v856 = 0u;
-          v857 = 0u;
-          outlined destroy of _HasContiguousBytes?(&v856, &_ss23CustomStringConvertible_pSgMd, _ss23CustomStringConvertible_pSgMR);
-          v227 = v813;
-          memcpy(v813, v85, v2);
-          v228 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
-          if (!swift_dynamicCast(&v856, v227, v1, v228, 6uLL))
+          v1019 = 0;
+          v1017 = 0u;
+          v1018 = 0u;
+          outlined destroy of _HasContiguousBytes?(&v1017, &_ss23CustomStringConvertible_pSgMd, _ss23CustomStringConvertible_pSgMR);
+          v280 = v974;
+          memcpy(v974, v126, v3);
+          v281 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
+          if (!swift_dynamicCast(&v1017, v280, v2, v281, 6uLL, v282, v283, v284, v973))
           {
-            v858 = 0;
-            v856 = 0u;
-            v857 = 0u;
-            outlined destroy of _HasContiguousBytes?(&v856, &_ss28CustomDebugStringConvertible_pSgMd, _ss28CustomDebugStringConvertible_pSgMR);
-            *(&v857 + 1) = v1;
-            v784 = __swift_allocate_boxed_opaque_existential_0Tm(&v856);
-            memcpy(v784, v85, v2);
-            Mirror.init(reflecting:)(&v856, &v853);
-            v785 = v853._object;
-            v786 = v855;
-            _adHocPrint_unlocked<A, B>(_:_:_:isDebugPrint:)(v85, &v853, &v859, 0, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-            v786;
-            v785;
+            v1019 = 0;
+            v1017 = 0u;
+            v1018 = 0u;
+            outlined destroy of _HasContiguousBytes?(&v1017, &_ss28CustomDebugStringConvertible_pSgMd, _ss28CustomDebugStringConvertible_pSgMR);
+            *(&v1018 + 1) = v2;
+            v945 = __swift_allocate_boxed_opaque_existential_0Tm(&v1017);
+            memcpy(v945, v126, v3);
+            Mirror.init(reflecting:)(&v1017, &v1014);
+            v946 = v1014._object;
+            v947 = v1016;
+            _adHocPrint_unlocked<A, B>(_:_:_:isDebugPrint:)(v126, &v1014, &v1020, 0, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+            v947;
+            v946;
             goto LABEL_129;
           }
         }
 
-        _ss9CodingKey_pWOb_0(&v856, &v853);
-        v229 = v854;
-        v230 = v855;
-        __swift_project_boxed_opaque_existential_0Tm(&v853, v854);
-        v231 = (*(v230 + 8))(v229, v230);
-        v241 = v232;
-        v242 = v859;
-        v243 = (v859._object >> 56) & 0xF;
-        if ((v859._object & 0x2000000000000000) == 0)
+        _ss9CodingKey_pWOb_0(&v1017, &v1014);
+        v285 = v1015;
+        v286 = v1016;
+        __swift_project_boxed_opaque_existential_0Tm(&v1014, v1015);
+        v287 = (*(v286 + 8))(v285, v286);
+        v297 = v288;
+        v298 = v1020;
+        v299 = (v1020._object >> 56) & 0xF;
+        if ((v1020._object & 0x2000000000000000) == 0)
         {
-          v243 = v859._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+          v299 = v1020._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
         }
 
-        if (v243 || (v859._countAndFlagsBits & ~v859._object & 0x2000000000000000) != 0)
+        if (v299 || (v1020._countAndFlagsBits & ~v1020._object & 0x2000000000000000) != 0)
         {
-          _StringGuts.append(_:)(v231, v232, v233, v234, v235, v236, v237, v238, v239, v240);
+          _StringGuts.append(_:)(v287, v288, v289, v290, v291, v292, v293, v294, v295, v296);
         }
 
         else
         {
-          v859._countAndFlagsBits = v231;
-          v859._object = v232;
-          v241 = v242._object;
+          v1020._countAndFlagsBits = v287;
+          v1020._object = v288;
+          v297 = v298._object;
         }
 
-        v241;
+        v297;
       }
 
-      __swift_destroy_boxed_opaque_existential_1Tm(&v853._countAndFlagsBits);
+      __swift_destroy_boxed_opaque_existential_1Tm(&v1014._countAndFlagsBits);
       goto LABEL_129;
     }
 
-    v216 = v853._object;
-    v217 = v859;
-    v218 = (v859._object >> 56) & 0xF;
-    if ((v859._object & 0x2000000000000000) == 0)
+    v263 = v1014._object;
+    v264 = v1020;
+    v265 = (v1020._object >> 56) & 0xF;
+    if ((v1020._object & 0x2000000000000000) == 0)
     {
-      v218 = v859._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+      v265 = v1020._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
     }
 
-    if (v218 || (v859._countAndFlagsBits & ~v859._object & 0x2000000000000000) != 0)
+    if (v265 || (v1020._countAndFlagsBits & ~v1020._object & 0x2000000000000000) != 0)
     {
-      _StringGuts.append(_:)(v853._countAndFlagsBits, v853._object, v208, v209, v210, v211, v212, v213, v214, v215);
-      v216;
+      _StringGuts.append(_:)(v1014._countAndFlagsBits, v1014._object, v255, v256, v257, v258, v259, v260, v261, v262);
+      v263;
     }
 
     else
     {
-      v859 = v853;
-      v217._object;
+      v1020 = v1014;
+      v264._object;
     }
   }
 
 LABEL_129:
-  v244 = v859;
-  v245 = (v859._object >> 56) & 0xF;
-  if ((v859._object & 0x2000000000000000) == 0)
+  v300 = v1020;
+  v301 = (v1020._object >> 56) & 0xF;
+  if ((v1020._object & 0x2000000000000000) == 0)
   {
-    v245 = v859._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+    v301 = v1020._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
   }
 
-  if (v245 || (v859._countAndFlagsBits & ~v859._object & 0x2000000000000000) != 0)
+  if (v301 || (v1020._countAndFlagsBits & ~v1020._object & 0x2000000000000000) != 0)
   {
-    if ((v859._object & 0x2000000000000000) != 0 && (v246 = specialized _SmallString.init(_:appending:)(v859._countAndFlagsBits, v859._object, 0x202CuLL, 0xE200000000000000), (v248 & 1) == 0))
+    if ((v1020._object & 0x2000000000000000) != 0 && (v302 = specialized _SmallString.init(_:appending:)(v1020._countAndFlagsBits, v1020._object, 0x202CuLL, 0xE200000000000000), (v304 & 1) == 0))
     {
-      v257 = v246;
-      v258 = v247;
+      v313 = v302;
+      v314 = v303;
       0xE200000000000000;
-      v859._object;
-      v859._countAndFlagsBits = v257;
-      v859._object = v258;
+      v1020._object;
+      v1020._countAndFlagsBits = v313;
+      v1020._object = v314;
     }
 
     else
     {
       0xE200000000000000;
-      _StringGuts.append(_:)(8236, 0xE200000000000000, 0, 2, v249, v250, v251, v252, v253, v254, v255, v256);
+      _StringGuts.append(_:)(8236, 0xE200000000000000, 0, 2, v305, v306, v307, v308, v309, v310, v311, v312);
       swift_bridgeObjectRelease_n(0xE200000000000000, 2);
     }
   }
 
   else
   {
-    v859._countAndFlagsBits = 8236;
-    v859._object = 0xE200000000000000;
-    v244._object;
+    v1020._countAndFlagsBits = 8236;
+    v1020._object = 0xE200000000000000;
+    v300._object;
   }
 
-  v852(1, v184, AssociatedConformanceWitness);
-  v854 = v1;
-  v259 = __swift_allocate_boxed_opaque_existential_0Tm(&v853);
-  memcpy(v259, v205, v2);
-  v260 = v854;
-  v261 = __swift_project_boxed_opaque_existential_0Tm(&v853, v854);
-  v262 = swift_getDynamicType(v261, v260, 1);
-  LODWORD(v260) = swift_isOptionalType(v262);
-  __swift_destroy_boxed_opaque_existential_1Tm(&v853._countAndFlagsBits);
-  if (v260)
+  (v1013)(1, v225, AssociatedConformanceWitness);
+  v1015 = v2;
+  v315 = __swift_allocate_boxed_opaque_existential_0Tm(&v1014);
+  memcpy(v315, v249, v3);
+  v316 = v1015;
+  v317 = __swift_project_boxed_opaque_existential_0Tm(&v1014, v1015);
+  v318 = swift_getDynamicType(v317, v316, 1);
+  LODWORD(v316) = swift_isOptionalType(v318);
+  __swift_destroy_boxed_opaque_existential_1Tm(&v1014._countAndFlagsBits);
+  if (v316)
   {
-    memcpy(v83, v205, v2);
-    v263 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
-    swift_dynamicCast(&v853, v83, v1, v263, 7uLL);
+    memcpy(v123, v249, v3);
+    v319 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
+    swift_dynamicCast(&v1014, v123, v2, v319, 7uLL, v320, v321, v322, v973);
     goto LABEL_140;
   }
 
-  v279 = v838;
-  memcpy(v838, v205, v2);
-  if (swift_dynamicCast(&v853, v279, v1, &type metadata for String, 6uLL))
+  v338 = v999;
+  memcpy(v999, v249, v3);
+  if (swift_dynamicCast(&v1014, v338, v2, &type metadata for String, 6uLL, v339, v340, v341, v973))
   {
-    v280 = v853._object;
-    String.write(_:)(v853);
-    v280;
+    v342 = v1014._object;
+    String.write(_:)(v1014);
+    v342;
     goto LABEL_150;
   }
 
-  v294 = v830;
-  memcpy(v830, v205, v2);
-  v295 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss20TextOutputStreamable_pMd, _ss20TextOutputStreamable_pMR);
-  if (swift_dynamicCast(&v856, v294, v1, v295, 6uLL))
+  v356 = v991;
+  memcpy(v991, v249, v3);
+  v357 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss20TextOutputStreamable_pMd, _ss20TextOutputStreamable_pMR);
+  if (swift_dynamicCast(&v1017, v356, v2, v357, 6uLL, v358, v359, v360, v973))
   {
-    _ss9CodingKey_pWOb_0(&v856, &v853);
-    v296 = v854;
-    v297 = v855;
-    __swift_project_boxed_opaque_existential_0Tm(&v853, v854);
-    (*(v297 + 8))(&v859, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation, v296, v297);
+    _ss9CodingKey_pWOb_0(&v1017, &v1014);
+    v361 = v1015;
+    v362 = v1016;
+    __swift_project_boxed_opaque_existential_0Tm(&v1014, v1015);
+    (*(v362 + 8))(&v1020, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation, v361, v362);
 LABEL_147:
-    __swift_destroy_boxed_opaque_existential_1Tm(&v853._countAndFlagsBits);
+    __swift_destroy_boxed_opaque_existential_1Tm(&v1014._countAndFlagsBits);
     goto LABEL_150;
   }
 
-  v858 = 0;
-  v856 = 0u;
-  v857 = 0u;
-  outlined destroy of _HasContiguousBytes?(&v856, &_ss20TextOutputStreamable_pSgMd, _ss20TextOutputStreamable_pSgMR);
-  v720 = v822;
-  memcpy(v822, v205, v2);
-  v721 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23CustomStringConvertible_pMd, _ss23CustomStringConvertible_pMR);
-  if (swift_dynamicCast(&v856, v720, v1, v721, 6uLL))
+  v1019 = 0;
+  v1017 = 0u;
+  v1018 = 0u;
+  outlined destroy of _HasContiguousBytes?(&v1017, &_ss20TextOutputStreamable_pSgMd, _ss20TextOutputStreamable_pSgMR);
+  v839 = v983;
+  memcpy(v983, v249, v3);
+  v840 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23CustomStringConvertible_pMd, _ss23CustomStringConvertible_pMR);
+  if (swift_dynamicCast(&v1017, v839, v2, v840, 6uLL, v841, v842, v843, v973))
   {
-    _ss9CodingKey_pWOb_0(&v856, &v853);
-    v722 = v854;
-    v723 = v855;
-    __swift_project_boxed_opaque_existential_0Tm(&v853, v854);
-    v266 = (*(v723 + 8))(v722, v723);
+    _ss9CodingKey_pWOb_0(&v1017, &v1014);
+    v844 = v1015;
+    v845 = v1016;
+    __swift_project_boxed_opaque_existential_0Tm(&v1014, v1015);
+    v325 = (*(v845 + 8))(v844, v845);
 LABEL_141:
-    v276 = v267;
-    v277 = v859;
-    v278 = (v859._object >> 56) & 0xF;
-    if ((v859._object & 0x2000000000000000) == 0)
+    v335 = v326;
+    v336 = v1020;
+    v337 = (v1020._object >> 56) & 0xF;
+    if ((v1020._object & 0x2000000000000000) == 0)
     {
-      v278 = v859._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+      v337 = v1020._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
     }
 
-    if (v278 || (v859._countAndFlagsBits & ~v859._object & 0x2000000000000000) != 0)
+    if (v337 || (v1020._countAndFlagsBits & ~v1020._object & 0x2000000000000000) != 0)
     {
-      _StringGuts.append(_:)(v266, v267, v268, v269, v270, v271, v272, v273, v274, v275);
+      _StringGuts.append(_:)(v325, v326, v327, v328, v329, v330, v331, v332, v333, v334);
     }
 
     else
     {
-      v859._countAndFlagsBits = v266;
-      v859._object = v267;
-      v276 = v277._object;
+      v1020._countAndFlagsBits = v325;
+      v1020._object = v326;
+      v335 = v336._object;
     }
 
-    v276;
+    v335;
     goto LABEL_147;
   }
 
-  v858 = 0;
-  v856 = 0u;
-  v857 = 0u;
-  outlined destroy of _HasContiguousBytes?(&v856, &_ss23CustomStringConvertible_pSgMd, _ss23CustomStringConvertible_pSgMR);
-  v744 = v814;
-  memcpy(v814, v205, v2);
-  v745 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
-  if (swift_dynamicCast(&v856, v744, v1, v745, 6uLL))
+  v1019 = 0;
+  v1017 = 0u;
+  v1018 = 0u;
+  outlined destroy of _HasContiguousBytes?(&v1017, &_ss23CustomStringConvertible_pSgMd, _ss23CustomStringConvertible_pSgMR);
+  v884 = v975;
+  memcpy(v975, v249, v3);
+  v885 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
+  if (swift_dynamicCast(&v1017, v884, v2, v885, 6uLL, v886, v887, v888, v973))
   {
-    _ss9CodingKey_pWOb_0(&v856, &v853);
+    _ss9CodingKey_pWOb_0(&v1017, &v1014);
 LABEL_140:
-    v264 = v854;
-    v265 = v855;
-    __swift_project_boxed_opaque_existential_0Tm(&v853, v854);
-    v266 = (*(v265 + 8))(v264, v265);
+    v323 = v1015;
+    v324 = v1016;
+    __swift_project_boxed_opaque_existential_0Tm(&v1014, v1015);
+    v325 = (*(v324 + 8))(v323, v324);
     goto LABEL_141;
   }
 
-  v858 = 0;
-  v856 = 0u;
-  v857 = 0u;
-  outlined destroy of _HasContiguousBytes?(&v856, &_ss28CustomDebugStringConvertible_pSgMd, _ss28CustomDebugStringConvertible_pSgMR);
-  *(&v857 + 1) = v1;
-  v787 = __swift_allocate_boxed_opaque_existential_0Tm(&v856);
-  memcpy(v787, v205, v2);
-  Mirror.init(reflecting:)(&v856, &v853);
-  v788 = v853._object;
-  v789 = v855;
-  _adHocPrint_unlocked<A, B>(_:_:_:isDebugPrint:)(v205, &v853, &v859, 0, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  v789;
-  v788;
+  v1019 = 0;
+  v1017 = 0u;
+  v1018 = 0u;
+  outlined destroy of _HasContiguousBytes?(&v1017, &_ss28CustomDebugStringConvertible_pSgMd, _ss28CustomDebugStringConvertible_pSgMR);
+  *(&v1018 + 1) = v2;
+  v948 = __swift_allocate_boxed_opaque_existential_0Tm(&v1017);
+  memcpy(v948, v249, v3);
+  Mirror.init(reflecting:)(&v1017, &v1014);
+  v949 = v1014._object;
+  v950 = v1016;
+  _adHocPrint_unlocked<A, B>(_:_:_:isDebugPrint:)(v249, &v1014, &v1020, 0, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  v950;
+  v949;
 LABEL_150:
-  v281 = v859;
-  v282 = (v859._object >> 56) & 0xF;
-  if ((v859._object & 0x2000000000000000) == 0)
+  v343 = v1020;
+  v344 = (v1020._object >> 56) & 0xF;
+  if ((v1020._object & 0x2000000000000000) == 0)
   {
-    v282 = v859._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+    v344 = v1020._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
   }
 
-  if (v282 || (v859._countAndFlagsBits & ~v859._object & 0x2000000000000000) != 0)
+  if (v344 || (v1020._countAndFlagsBits & ~v1020._object & 0x2000000000000000) != 0)
   {
-    if ((v859._object & 0x2000000000000000) != 0 && (v283 = specialized _SmallString.init(_:appending:)(v859._countAndFlagsBits, v859._object, 0x202CuLL, 0xE200000000000000), (v285 & 1) == 0))
+    if ((v1020._object & 0x2000000000000000) != 0 && (v345 = specialized _SmallString.init(_:appending:)(v1020._countAndFlagsBits, v1020._object, 0x202CuLL, 0xE200000000000000), (v347 & 1) == 0))
     {
-      v298 = v283;
-      v299 = v284;
+      v363 = v345;
+      v364 = v346;
       0xE200000000000000;
-      v859._object;
-      v859._countAndFlagsBits = v298;
-      v859._object = v299;
+      v1020._object;
+      v1020._countAndFlagsBits = v363;
+      v1020._object = v364;
     }
 
     else
     {
       0xE200000000000000;
-      _StringGuts.append(_:)(8236, 0xE200000000000000, 0, 2, v286, v287, v288, v289, v290, v291, v292, v293);
+      _StringGuts.append(_:)(8236, 0xE200000000000000, 0, 2, v348, v349, v350, v351, v352, v353, v354, v355);
       swift_bridgeObjectRelease_n(0xE200000000000000, 2);
     }
   }
 
   else
   {
-    v859._countAndFlagsBits = 8236;
-    v859._object = 0xE200000000000000;
-    v281._object;
+    v1020._countAndFlagsBits = 8236;
+    v1020._object = 0xE200000000000000;
+    v343._object;
   }
 
-  v300 = v847;
-  v852(2, v184, AssociatedConformanceWitness);
-  v854 = v1;
-  v301 = __swift_allocate_boxed_opaque_existential_0Tm(&v853);
-  memcpy(v301, v300, v2);
-  v302 = v854;
-  v303 = __swift_project_boxed_opaque_existential_0Tm(&v853, v854);
-  v304 = swift_getDynamicType(v303, v302, 1);
-  LODWORD(v302) = swift_isOptionalType(v304);
-  __swift_destroy_boxed_opaque_existential_1Tm(&v853._countAndFlagsBits);
-  if (v302)
+  v365 = v1008;
+  (v1013)(2, v225, AssociatedConformanceWitness);
+  v1015 = v2;
+  v366 = __swift_allocate_boxed_opaque_existential_0Tm(&v1014);
+  memcpy(v366, v365, v3);
+  v367 = v1015;
+  v368 = __swift_project_boxed_opaque_existential_0Tm(&v1014, v1015);
+  v369 = swift_getDynamicType(v368, v367, 1);
+  LODWORD(v367) = swift_isOptionalType(v369);
+  __swift_destroy_boxed_opaque_existential_1Tm(&v1014._countAndFlagsBits);
+  if (v367)
   {
-    memcpy(v83, v300, v2);
-    v305 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
-    swift_dynamicCast(&v853, v83, v1, v305, 7uLL);
+    memcpy(v123, v365, v3);
+    v370 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
+    swift_dynamicCast(&v1014, v123, v2, v370, 7uLL, v371, v372, v373, v973);
     goto LABEL_163;
   }
 
-  v321 = v839;
-  memcpy(v839, v300, v2);
-  if (swift_dynamicCast(&v853, v321, v1, &type metadata for String, 6uLL))
+  v389 = v1000;
+  memcpy(v1000, v365, v3);
+  if (swift_dynamicCast(&v1014, v389, v2, &type metadata for String, 6uLL, v390, v391, v392, v973))
   {
-    v322 = v853._object;
-    String.write(_:)(v853);
-    v322;
+    v393 = v1014._object;
+    String.write(_:)(v1014);
+    v393;
     goto LABEL_173;
   }
 
-  v336 = v831;
-  memcpy(v831, v300, v2);
-  v337 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss20TextOutputStreamable_pMd, _ss20TextOutputStreamable_pMR);
-  if (swift_dynamicCast(&v856, v336, v1, v337, 6uLL))
+  v407 = v992;
+  memcpy(v992, v365, v3);
+  v408 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss20TextOutputStreamable_pMd, _ss20TextOutputStreamable_pMR);
+  if (swift_dynamicCast(&v1017, v407, v2, v408, 6uLL, v409, v410, v411, v973))
   {
-    _ss9CodingKey_pWOb_0(&v856, &v853);
-    v338 = v854;
-    v339 = v855;
-    __swift_project_boxed_opaque_existential_0Tm(&v853, v854);
-    (*(v339 + 8))(&v859, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation, v338, v339);
+    _ss9CodingKey_pWOb_0(&v1017, &v1014);
+    v412 = v1015;
+    v413 = v1016;
+    __swift_project_boxed_opaque_existential_0Tm(&v1014, v1015);
+    (*(v413 + 8))(&v1020, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation, v412, v413);
 LABEL_170:
-    __swift_destroy_boxed_opaque_existential_1Tm(&v853._countAndFlagsBits);
+    __swift_destroy_boxed_opaque_existential_1Tm(&v1014._countAndFlagsBits);
     goto LABEL_173;
   }
 
-  v858 = 0;
-  v856 = 0u;
-  v857 = 0u;
-  outlined destroy of _HasContiguousBytes?(&v856, &_ss20TextOutputStreamable_pSgMd, _ss20TextOutputStreamable_pSgMR);
-  v724 = v823;
-  memcpy(v823, v300, v2);
-  v725 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23CustomStringConvertible_pMd, _ss23CustomStringConvertible_pMR);
-  if (swift_dynamicCast(&v856, v724, v1, v725, 6uLL))
+  v1019 = 0;
+  v1017 = 0u;
+  v1018 = 0u;
+  outlined destroy of _HasContiguousBytes?(&v1017, &_ss20TextOutputStreamable_pSgMd, _ss20TextOutputStreamable_pSgMR);
+  v846 = v984;
+  memcpy(v984, v365, v3);
+  v847 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23CustomStringConvertible_pMd, _ss23CustomStringConvertible_pMR);
+  if (swift_dynamicCast(&v1017, v846, v2, v847, 6uLL, v848, v849, v850, v973))
   {
-    _ss9CodingKey_pWOb_0(&v856, &v853);
-    v726 = v854;
-    v727 = v855;
-    __swift_project_boxed_opaque_existential_0Tm(&v853, v854);
-    v308 = (*(v727 + 8))(v726, v727);
+    _ss9CodingKey_pWOb_0(&v1017, &v1014);
+    v851 = v1015;
+    v852 = v1016;
+    __swift_project_boxed_opaque_existential_0Tm(&v1014, v1015);
+    v376 = (*(v852 + 8))(v851, v852);
 LABEL_164:
-    v318 = v309;
-    v319 = v859;
-    v320 = (v859._object >> 56) & 0xF;
-    if ((v859._object & 0x2000000000000000) == 0)
+    v386 = v377;
+    v387 = v1020;
+    v388 = (v1020._object >> 56) & 0xF;
+    if ((v1020._object & 0x2000000000000000) == 0)
     {
-      v320 = v859._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+      v388 = v1020._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
     }
 
-    if (v320 || (v859._countAndFlagsBits & ~v859._object & 0x2000000000000000) != 0)
+    if (v388 || (v1020._countAndFlagsBits & ~v1020._object & 0x2000000000000000) != 0)
     {
-      _StringGuts.append(_:)(v308, v309, v310, v311, v312, v313, v314, v315, v316, v317);
+      _StringGuts.append(_:)(v376, v377, v378, v379, v380, v381, v382, v383, v384, v385);
     }
 
     else
     {
-      v859._countAndFlagsBits = v308;
-      v859._object = v309;
-      v318 = v319._object;
+      v1020._countAndFlagsBits = v376;
+      v1020._object = v377;
+      v386 = v387._object;
     }
 
-    v318;
+    v386;
     goto LABEL_170;
   }
 
-  v858 = 0;
-  v856 = 0u;
-  v857 = 0u;
-  outlined destroy of _HasContiguousBytes?(&v856, &_ss23CustomStringConvertible_pSgMd, _ss23CustomStringConvertible_pSgMR);
-  v746 = v815;
-  memcpy(v815, v300, v2);
-  v747 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
-  if (swift_dynamicCast(&v856, v746, v1, v747, 6uLL))
+  v1019 = 0;
+  v1017 = 0u;
+  v1018 = 0u;
+  outlined destroy of _HasContiguousBytes?(&v1017, &_ss23CustomStringConvertible_pSgMd, _ss23CustomStringConvertible_pSgMR);
+  v889 = v976;
+  memcpy(v976, v365, v3);
+  v890 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
+  if (swift_dynamicCast(&v1017, v889, v2, v890, 6uLL, v891, v892, v893, v973))
   {
-    _ss9CodingKey_pWOb_0(&v856, &v853);
+    _ss9CodingKey_pWOb_0(&v1017, &v1014);
 LABEL_163:
-    v306 = v854;
-    v307 = v855;
-    __swift_project_boxed_opaque_existential_0Tm(&v853, v854);
-    v308 = (*(v307 + 8))(v306, v307);
+    v374 = v1015;
+    v375 = v1016;
+    __swift_project_boxed_opaque_existential_0Tm(&v1014, v1015);
+    v376 = (*(v375 + 8))(v374, v375);
     goto LABEL_164;
   }
 
-  v858 = 0;
-  v856 = 0u;
-  v857 = 0u;
-  outlined destroy of _HasContiguousBytes?(&v856, &_ss28CustomDebugStringConvertible_pSgMd, _ss28CustomDebugStringConvertible_pSgMR);
-  *(&v857 + 1) = v1;
-  v790 = __swift_allocate_boxed_opaque_existential_0Tm(&v856);
-  memcpy(v790, v300, v2);
-  Mirror.init(reflecting:)(&v856, &v853);
-  v791 = v853._object;
-  v792 = v300;
-  v793 = v855;
-  _adHocPrint_unlocked<A, B>(_:_:_:isDebugPrint:)(v792, &v853, &v859, 0, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  v793;
-  v791;
+  v1019 = 0;
+  v1017 = 0u;
+  v1018 = 0u;
+  outlined destroy of _HasContiguousBytes?(&v1017, &_ss28CustomDebugStringConvertible_pSgMd, _ss28CustomDebugStringConvertible_pSgMR);
+  *(&v1018 + 1) = v2;
+  v951 = __swift_allocate_boxed_opaque_existential_0Tm(&v1017);
+  memcpy(v951, v365, v3);
+  Mirror.init(reflecting:)(&v1017, &v1014);
+  v952 = v1014._object;
+  v953 = v365;
+  v954 = v1016;
+  _adHocPrint_unlocked<A, B>(_:_:_:isDebugPrint:)(v953, &v1014, &v1020, 0, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  v954;
+  v952;
 LABEL_173:
-  v323 = v859;
-  v324 = (v859._object >> 56) & 0xF;
-  if ((v859._object & 0x2000000000000000) == 0)
+  v394 = v1020;
+  v395 = (v1020._object >> 56) & 0xF;
+  if ((v1020._object & 0x2000000000000000) == 0)
   {
-    v324 = v859._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+    v395 = v1020._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
   }
 
-  if (v324 || (v859._countAndFlagsBits & ~v859._object & 0x2000000000000000) != 0)
+  if (v395 || (v1020._countAndFlagsBits & ~v1020._object & 0x2000000000000000) != 0)
   {
-    if ((v859._object & 0x2000000000000000) != 0 && (v325 = specialized _SmallString.init(_:appending:)(v859._countAndFlagsBits, v859._object, 0x202CuLL, 0xE200000000000000), (v327 & 1) == 0))
+    if ((v1020._object & 0x2000000000000000) != 0 && (v396 = specialized _SmallString.init(_:appending:)(v1020._countAndFlagsBits, v1020._object, 0x202CuLL, 0xE200000000000000), (v398 & 1) == 0))
     {
-      v340 = v325;
-      v341 = v326;
+      v414 = v396;
+      v415 = v397;
       0xE200000000000000;
-      v859._object;
-      v859._countAndFlagsBits = v340;
-      v859._object = v341;
+      v1020._object;
+      v1020._countAndFlagsBits = v414;
+      v1020._object = v415;
     }
 
     else
     {
       0xE200000000000000;
-      _StringGuts.append(_:)(8236, 0xE200000000000000, 0, 2, v328, v329, v330, v331, v332, v333, v334, v335);
+      _StringGuts.append(_:)(8236, 0xE200000000000000, 0, 2, v399, v400, v401, v402, v403, v404, v405, v406);
       swift_bridgeObjectRelease_n(0xE200000000000000, 2);
     }
   }
 
   else
   {
-    v859._countAndFlagsBits = 8236;
-    v859._object = 0xE200000000000000;
-    v323._object;
+    v1020._countAndFlagsBits = 8236;
+    v1020._object = 0xE200000000000000;
+    v394._object;
   }
 
-  v342 = v848;
-  v852(3, v184, AssociatedConformanceWitness);
-  v854 = v1;
-  v343 = __swift_allocate_boxed_opaque_existential_0Tm(&v853);
-  memcpy(v343, v342, v2);
-  v344 = v854;
-  v345 = __swift_project_boxed_opaque_existential_0Tm(&v853, v854);
-  v346 = swift_getDynamicType(v345, v344, 1);
-  LODWORD(v344) = swift_isOptionalType(v346);
-  __swift_destroy_boxed_opaque_existential_1Tm(&v853._countAndFlagsBits);
-  if (v344)
+  v416 = v1009;
+  (v1013)(3, v225, AssociatedConformanceWitness);
+  v1015 = v2;
+  v417 = __swift_allocate_boxed_opaque_existential_0Tm(&v1014);
+  memcpy(v417, v416, v3);
+  v418 = v1015;
+  v419 = __swift_project_boxed_opaque_existential_0Tm(&v1014, v1015);
+  v420 = swift_getDynamicType(v419, v418, 1);
+  LODWORD(v418) = swift_isOptionalType(v420);
+  __swift_destroy_boxed_opaque_existential_1Tm(&v1014._countAndFlagsBits);
+  if (v418)
   {
-    memcpy(v83, v342, v2);
-    v347 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
-    swift_dynamicCast(&v853, v83, v1, v347, 7uLL);
-    v348 = v854;
-    v349 = v855;
-    __swift_project_boxed_opaque_existential_0Tm(&v853, v854);
-    v350 = (*(v349 + 8))(v348, v349);
-    v360 = v351;
-    v361 = v859;
-    v362 = (v859._object >> 56) & 0xF;
-    if ((v859._object & 0x2000000000000000) == 0)
+    memcpy(v123, v416, v3);
+    v421 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
+    swift_dynamicCast(&v1014, v123, v2, v421, 7uLL, v422, v423, v424, v973);
+    v425 = v1015;
+    v426 = v1016;
+    __swift_project_boxed_opaque_existential_0Tm(&v1014, v1015);
+    v427 = (*(v426 + 8))(v425, v426);
+    v437 = v428;
+    v438 = v1020;
+    v439 = (v1020._object >> 56) & 0xF;
+    if ((v1020._object & 0x2000000000000000) == 0)
     {
-      v362 = v859._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+      v439 = v1020._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
     }
 
-    if (v362 || (v859._countAndFlagsBits & ~v859._object & 0x2000000000000000) != 0)
+    if (v439 || (v1020._countAndFlagsBits & ~v1020._object & 0x2000000000000000) != 0)
     {
-      _StringGuts.append(_:)(v350, v351, v352, v353, v354, v355, v356, v357, v358, v359);
+      _StringGuts.append(_:)(v427, v428, v429, v430, v431, v432, v433, v434, v435, v436);
     }
 
     else
     {
-      v859._countAndFlagsBits = v350;
-      v859._object = v351;
-      v360 = v361._object;
+      v1020._countAndFlagsBits = v427;
+      v1020._object = v428;
+      v437 = v438._object;
     }
 
-    v363 = v360;
+    v440 = v437;
 LABEL_191:
-    v363;
+    v440;
 LABEL_192:
-    __swift_destroy_boxed_opaque_existential_1Tm(&v853._countAndFlagsBits);
+    __swift_destroy_boxed_opaque_existential_1Tm(&v1014._countAndFlagsBits);
   }
 
   else
   {
-    v364 = v840;
-    memcpy(v840, v342, v2);
-    if (swift_dynamicCast(&v853, v364, v1, &type metadata for String, 6uLL))
+    v441 = v1001;
+    memcpy(v1001, v416, v3);
+    if (swift_dynamicCast(&v1014, v441, v2, &type metadata for String, 6uLL, v442, v443, v444, v973))
     {
-      v365 = v853._object;
-      String.write(_:)(v853);
-      v365;
+      v445 = v1014._object;
+      String.write(_:)(v1014);
+      v445;
     }
 
     else
     {
-      v379 = v832;
-      memcpy(v832, v342, v2);
-      v380 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss20TextOutputStreamable_pMd, _ss20TextOutputStreamable_pMR);
-      if (swift_dynamicCast(&v856, v379, v1, v380, 6uLL))
+      v459 = v993;
+      memcpy(v993, v416, v3);
+      v460 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss20TextOutputStreamable_pMd, _ss20TextOutputStreamable_pMR);
+      if (swift_dynamicCast(&v1017, v459, v2, v460, 6uLL, v461, v462, v463, v973))
       {
-        _ss9CodingKey_pWOb_0(&v856, &v853);
-        v381 = v854;
-        v382 = v855;
-        __swift_project_boxed_opaque_existential_0Tm(&v853, v854);
-        (*(v382 + 8))(&v859, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation, v381, v382);
+        _ss9CodingKey_pWOb_0(&v1017, &v1014);
+        v464 = v1015;
+        v465 = v1016;
+        __swift_project_boxed_opaque_existential_0Tm(&v1014, v1015);
+        (*(v465 + 8))(&v1020, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation, v464, v465);
         goto LABEL_192;
       }
 
-      v858 = 0;
-      v856 = 0u;
-      v857 = 0u;
-      outlined destroy of _HasContiguousBytes?(&v856, &_ss20TextOutputStreamable_pSgMd, _ss20TextOutputStreamable_pSgMR);
-      v728 = v824;
-      memcpy(v824, v342, v2);
-      v729 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23CustomStringConvertible_pMd, _ss23CustomStringConvertible_pMR);
-      if (swift_dynamicCast(&v856, v728, v1, v729, 6uLL) || (v858 = 0, v856 = 0u, v857 = 0u, outlined destroy of _HasContiguousBytes?(&v856, &_ss23CustomStringConvertible_pSgMd, _ss23CustomStringConvertible_pSgMR), v748 = v816, memcpy(v816, v342, v2), v749 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR), swift_dynamicCast(&v856, v748, v1, v749, 6uLL)))
+      v1019 = 0;
+      v1017 = 0u;
+      v1018 = 0u;
+      outlined destroy of _HasContiguousBytes?(&v1017, &_ss20TextOutputStreamable_pSgMd, _ss20TextOutputStreamable_pSgMR);
+      v853 = v985;
+      memcpy(v985, v416, v3);
+      v854 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23CustomStringConvertible_pMd, _ss23CustomStringConvertible_pMR);
+      if (swift_dynamicCast(&v1017, v853, v2, v854, 6uLL, v855, v856, v857, v973) || (v1019 = 0, v1017 = 0u, v1018 = 0u, outlined destroy of _HasContiguousBytes?(&v1017, &_ss23CustomStringConvertible_pSgMd, _ss23CustomStringConvertible_pSgMR), v894 = v977, memcpy(v977, v416, v3), v895 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR), swift_dynamicCast(&v1017, v894, v2, v895, 6uLL, v896, v897, v898, v973)))
       {
-        _ss9CodingKey_pWOb_0(&v856, &v853);
-        v750 = v854;
-        v751 = v855;
-        __swift_project_boxed_opaque_existential_0Tm(&v853, v854);
-        v752 = (*(v751 + 8))(v750, v751);
-        v754 = v753;
-        static String.+= infix(_:_:)(&v859, v752, v753, v755, v756, v757, v758, v759, v760, v761, v762);
-        v363 = v754;
+        _ss9CodingKey_pWOb_0(&v1017, &v1014);
+        v899 = v1015;
+        v900 = v1016;
+        __swift_project_boxed_opaque_existential_0Tm(&v1014, v1015);
+        v901 = (*(v900 + 8))(v899, v900);
+        v903 = v902;
+        static String.+= infix(_:_:)(&v1020, v901, v902, v904, v905, v906, v907, v908, v909, v910, v911);
+        v440 = v903;
         goto LABEL_191;
       }
 
-      v858 = 0;
-      v856 = 0u;
-      v857 = 0u;
-      outlined destroy of _HasContiguousBytes?(&v856, &_ss28CustomDebugStringConvertible_pSgMd, _ss28CustomDebugStringConvertible_pSgMR);
-      *(&v857 + 1) = v1;
-      v794 = __swift_allocate_boxed_opaque_existential_0Tm(&v856);
-      memcpy(v794, v342, v2);
-      Mirror.init(reflecting:)(&v856, &v853);
-      v795 = v853._object;
-      v796 = v342;
-      v797 = v855;
-      _adHocPrint_unlocked<A, B>(_:_:_:isDebugPrint:)(v796, &v853, &v859, 0, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-      v797;
-      v795;
+      v1019 = 0;
+      v1017 = 0u;
+      v1018 = 0u;
+      outlined destroy of _HasContiguousBytes?(&v1017, &_ss28CustomDebugStringConvertible_pSgMd, _ss28CustomDebugStringConvertible_pSgMR);
+      *(&v1018 + 1) = v2;
+      v955 = __swift_allocate_boxed_opaque_existential_0Tm(&v1017);
+      memcpy(v955, v416, v3);
+      Mirror.init(reflecting:)(&v1017, &v1014);
+      v956 = v1014._object;
+      v957 = v416;
+      v958 = v1016;
+      _adHocPrint_unlocked<A, B>(_:_:_:isDebugPrint:)(v957, &v1014, &v1020, 0, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+      v958;
+      v956;
     }
   }
 
-  v366 = v859;
-  v367 = (v859._object >> 56) & 0xF;
-  if ((v859._object & 0x2000000000000000) == 0)
+  v446 = v1020;
+  v447 = (v1020._object >> 56) & 0xF;
+  if ((v1020._object & 0x2000000000000000) == 0)
   {
-    v367 = v859._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+    v447 = v1020._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
   }
 
-  if (v367 || (v859._countAndFlagsBits & ~v859._object & 0x2000000000000000) != 0)
+  if (v447 || (v1020._countAndFlagsBits & ~v1020._object & 0x2000000000000000) != 0)
   {
-    if ((v859._object & 0x2000000000000000) != 0 && (v368 = specialized _SmallString.init(_:appending:)(v859._countAndFlagsBits, v859._object, 0x202CuLL, 0xE200000000000000), (v370 & 1) == 0))
+    if ((v1020._object & 0x2000000000000000) != 0 && (v448 = specialized _SmallString.init(_:appending:)(v1020._countAndFlagsBits, v1020._object, 0x202CuLL, 0xE200000000000000), (v450 & 1) == 0))
     {
-      v383 = v368;
-      v384 = v369;
+      v466 = v448;
+      v467 = v449;
       0xE200000000000000;
-      v859._object;
-      v859._countAndFlagsBits = v383;
-      v859._object = v384;
+      v1020._object;
+      v1020._countAndFlagsBits = v466;
+      v1020._object = v467;
     }
 
     else
     {
       0xE200000000000000;
-      _StringGuts.append(_:)(8236, 0xE200000000000000, 0, 2, v371, v372, v373, v374, v375, v376, v377, v378);
+      _StringGuts.append(_:)(8236, 0xE200000000000000, 0, 2, v451, v452, v453, v454, v455, v456, v457, v458);
       swift_bridgeObjectRelease_n(0xE200000000000000, 2);
     }
   }
 
   else
   {
-    v859._countAndFlagsBits = 8236;
-    v859._object = 0xE200000000000000;
-    v366._object;
+    v1020._countAndFlagsBits = 8236;
+    v1020._object = 0xE200000000000000;
+    v446._object;
   }
 
-  v385 = v849;
-  v852(4, v184, AssociatedConformanceWitness);
-  v854 = v1;
-  v386 = __swift_allocate_boxed_opaque_existential_0Tm(&v853);
-  memcpy(v386, v385, v2);
-  v387 = v854;
-  v388 = __swift_project_boxed_opaque_existential_0Tm(&v853, v854);
-  v389 = swift_getDynamicType(v388, v387, 1);
-  LODWORD(v387) = swift_isOptionalType(v389);
-  __swift_destroy_boxed_opaque_existential_1Tm(&v853._countAndFlagsBits);
-  if (v387)
+  v468 = v1010;
+  (v1013)(4, v225, AssociatedConformanceWitness);
+  v1015 = v2;
+  v469 = __swift_allocate_boxed_opaque_existential_0Tm(&v1014);
+  memcpy(v469, v468, v3);
+  v470 = v1015;
+  v471 = __swift_project_boxed_opaque_existential_0Tm(&v1014, v1015);
+  v472 = swift_getDynamicType(v471, v470, 1);
+  LODWORD(v470) = swift_isOptionalType(v472);
+  __swift_destroy_boxed_opaque_existential_1Tm(&v1014._countAndFlagsBits);
+  if (v470)
   {
-    memcpy(v83, v385, v2);
-    v390 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
-    swift_dynamicCast(&v853, v83, v1, v390, 7uLL);
-    v391 = v854;
-    v392 = v855;
-    __swift_project_boxed_opaque_existential_0Tm(&v853, v854);
-    v393 = (*(v392 + 8))(v391, v392);
-    v403 = v394;
-    v404 = v859;
-    v405 = (v859._object >> 56) & 0xF;
-    if ((v859._object & 0x2000000000000000) == 0)
+    memcpy(v123, v468, v3);
+    v473 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
+    swift_dynamicCast(&v1014, v123, v2, v473, 7uLL, v474, v475, v476, v973);
+    v477 = v1015;
+    v478 = v1016;
+    __swift_project_boxed_opaque_existential_0Tm(&v1014, v1015);
+    v479 = (*(v478 + 8))(v477, v478);
+    v489 = v480;
+    v490 = v1020;
+    v491 = (v1020._object >> 56) & 0xF;
+    if ((v1020._object & 0x2000000000000000) == 0)
     {
-      v405 = v859._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+      v491 = v1020._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
     }
 
-    if (v405 || (v859._countAndFlagsBits & ~v859._object & 0x2000000000000000) != 0)
+    if (v491 || (v1020._countAndFlagsBits & ~v1020._object & 0x2000000000000000) != 0)
     {
-      _StringGuts.append(_:)(v393, v394, v395, v396, v397, v398, v399, v400, v401, v402);
+      _StringGuts.append(_:)(v479, v480, v481, v482, v483, v484, v485, v486, v487, v488);
     }
 
     else
     {
-      v859._countAndFlagsBits = v393;
-      v859._object = v394;
-      v403 = v404._object;
+      v1020._countAndFlagsBits = v479;
+      v1020._object = v480;
+      v489 = v490._object;
     }
 
-    v406 = v403;
+    v492 = v489;
 LABEL_213:
-    v406;
+    v492;
 LABEL_214:
-    __swift_destroy_boxed_opaque_existential_1Tm(&v853._countAndFlagsBits);
+    __swift_destroy_boxed_opaque_existential_1Tm(&v1014._countAndFlagsBits);
   }
 
   else
   {
-    v415 = v841;
-    memcpy(v841, v385, v2);
-    if (swift_dynamicCast(&v853, v415, v1, &type metadata for String, 6uLL))
+    v501 = v1002;
+    memcpy(v1002, v468, v3);
+    if (swift_dynamicCast(&v1014, v501, v2, &type metadata for String, 6uLL, v502, v503, v504, v973))
     {
-      v416 = v853._object;
-      String.write(_:)(v853);
-      v416;
+      v505 = v1014._object;
+      String.write(_:)(v1014);
+      v505;
     }
 
     else
     {
-      v704 = v833;
-      memcpy(v833, v385, v2);
-      v705 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss20TextOutputStreamable_pMd, _ss20TextOutputStreamable_pMR);
-      if (swift_dynamicCast(&v856, v704, v1, v705, 6uLL))
+      v811 = v994;
+      memcpy(v994, v468, v3);
+      v812 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss20TextOutputStreamable_pMd, _ss20TextOutputStreamable_pMR);
+      if (swift_dynamicCast(&v1017, v811, v2, v812, 6uLL, v813, v814, v815, v973))
       {
-        _ss9CodingKey_pWOb_0(&v856, &v853);
-        v706 = v854;
-        v707 = v855;
-        __swift_project_boxed_opaque_existential_0Tm(&v853, v854);
-        (*(v707 + 8))(&v859, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation, v706, v707);
+        _ss9CodingKey_pWOb_0(&v1017, &v1014);
+        v816 = v1015;
+        v817 = v1016;
+        __swift_project_boxed_opaque_existential_0Tm(&v1014, v1015);
+        (*(v817 + 8))(&v1020, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation, v816, v817);
         goto LABEL_214;
       }
 
-      v858 = 0;
-      v856 = 0u;
-      v857 = 0u;
-      outlined destroy of _HasContiguousBytes?(&v856, &_ss20TextOutputStreamable_pSgMd, _ss20TextOutputStreamable_pSgMR);
-      v730 = v825;
-      memcpy(v825, v385, v2);
-      v731 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23CustomStringConvertible_pMd, _ss23CustomStringConvertible_pMR);
-      if (swift_dynamicCast(&v856, v730, v1, v731, 6uLL) || (v858 = 0, v856 = 0u, v857 = 0u, outlined destroy of _HasContiguousBytes?(&v856, &_ss23CustomStringConvertible_pSgMd, _ss23CustomStringConvertible_pSgMR), v763 = v817, memcpy(v817, v385, v2), v764 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR), swift_dynamicCast(&v856, v763, v1, v764, 6uLL)))
+      v1019 = 0;
+      v1017 = 0u;
+      v1018 = 0u;
+      outlined destroy of _HasContiguousBytes?(&v1017, &_ss20TextOutputStreamable_pSgMd, _ss20TextOutputStreamable_pSgMR);
+      v858 = v986;
+      memcpy(v986, v468, v3);
+      v859 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23CustomStringConvertible_pMd, _ss23CustomStringConvertible_pMR);
+      if (swift_dynamicCast(&v1017, v858, v2, v859, 6uLL, v860, v861, v862, v973) || (v1019 = 0, v1017 = 0u, v1018 = 0u, outlined destroy of _HasContiguousBytes?(&v1017, &_ss23CustomStringConvertible_pSgMd, _ss23CustomStringConvertible_pSgMR), v912 = v978, memcpy(v978, v468, v3), v913 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR), swift_dynamicCast(&v1017, v912, v2, v913, 6uLL, v914, v915, v916, v973)))
       {
-        _ss9CodingKey_pWOb_0(&v856, &v853);
-        v765 = v854;
-        v766 = v855;
-        __swift_project_boxed_opaque_existential_0Tm(&v853, v854);
-        v767 = (*(v766 + 8))(v765, v766);
-        v769 = v768;
-        static String.+= infix(_:_:)(&v859, v767, v768, v770, v771, v772, v773, v774, v775, v776, v777);
-        v406 = v769;
+        _ss9CodingKey_pWOb_0(&v1017, &v1014);
+        v917 = v1015;
+        v918 = v1016;
+        __swift_project_boxed_opaque_existential_0Tm(&v1014, v1015);
+        v919 = (*(v918 + 8))(v917, v918);
+        v921 = v920;
+        static String.+= infix(_:_:)(&v1020, v919, v920, v922, v923, v924, v925, v926, v927, v928, v929);
+        v492 = v921;
         goto LABEL_213;
       }
 
-      v858 = 0;
-      v856 = 0u;
-      v857 = 0u;
-      outlined destroy of _HasContiguousBytes?(&v856, &_ss28CustomDebugStringConvertible_pSgMd, _ss28CustomDebugStringConvertible_pSgMR);
-      *(&v857 + 1) = v1;
-      v798 = __swift_allocate_boxed_opaque_existential_0Tm(&v856);
-      memcpy(v798, v385, v2);
-      Mirror.init(reflecting:)(&v856, &v853);
-      v799 = v853._object;
-      v800 = v385;
-      v801 = v855;
-      _adHocPrint_unlocked<A, B>(_:_:_:isDebugPrint:)(v800, &v853, &v859, 0, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-      v801;
-      v799;
+      v1019 = 0;
+      v1017 = 0u;
+      v1018 = 0u;
+      outlined destroy of _HasContiguousBytes?(&v1017, &_ss28CustomDebugStringConvertible_pSgMd, _ss28CustomDebugStringConvertible_pSgMR);
+      *(&v1018 + 1) = v2;
+      v959 = __swift_allocate_boxed_opaque_existential_0Tm(&v1017);
+      memcpy(v959, v468, v3);
+      Mirror.init(reflecting:)(&v1017, &v1014);
+      v960 = v1014._object;
+      v961 = v468;
+      v962 = v1016;
+      _adHocPrint_unlocked<A, B>(_:_:_:isDebugPrint:)(v961, &v1014, &v1020, 0, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+      v962;
+      v960;
     }
   }
 
-  v417 = v859._object;
-  v418 = (v859._object >> 56) & 0xF;
-  if ((v859._object & 0x2000000000000000) == 0)
+  v506 = v1020._object;
+  v507 = (v1020._object >> 56) & 0xF;
+  if ((v1020._object & 0x2000000000000000) == 0)
   {
-    v418 = v859._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+    v507 = v1020._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
   }
 
-  v419 = v845;
-  if (v418 || (v859._countAndFlagsBits & ~v859._object & 0x2000000000000000) != 0)
+  v508 = v1006;
+  if (v507 || (v1020._countAndFlagsBits & ~v1020._object & 0x2000000000000000) != 0)
   {
-    _StringGuts.append(_:)(0x202CuLL, 0xE200000000000000, v407, v408, v409, v410, v411, v412, v413, v414);
-    v417 = 0xE200000000000000;
+    _StringGuts.append(_:)(0x202CuLL, 0xE200000000000000, v493, v494, v495, v496, v497, v498, v499, v500);
+    v506 = 0xE200000000000000;
   }
 
   else
   {
-    v859._countAndFlagsBits = 8236;
-    v859._object = 0xE200000000000000;
+    v1020._countAndFlagsBits = 8236;
+    v1020._object = 0xE200000000000000;
   }
 
-  v417;
-  v852(5, v184, AssociatedConformanceWitness);
-  v854 = v1;
-  v420 = __swift_allocate_boxed_opaque_existential_0Tm(&v853);
-  memcpy(v420, v419, v2);
-  v421 = v854;
-  v422 = __swift_project_boxed_opaque_existential_0Tm(&v853, v854);
-  v423 = swift_getDynamicType(v422, v421, 1);
-  LODWORD(v421) = swift_isOptionalType(v423);
-  __swift_destroy_boxed_opaque_existential_1Tm(&v853._countAndFlagsBits);
-  if (v421)
+  v506;
+  (v1013)(5, v225, AssociatedConformanceWitness);
+  v1015 = v2;
+  v509 = __swift_allocate_boxed_opaque_existential_0Tm(&v1014);
+  memcpy(v509, v508, v3);
+  v510 = v1015;
+  v511 = __swift_project_boxed_opaque_existential_0Tm(&v1014, v1015);
+  v512 = swift_getDynamicType(v511, v510, 1);
+  LODWORD(v510) = swift_isOptionalType(v512);
+  __swift_destroy_boxed_opaque_existential_1Tm(&v1014._countAndFlagsBits);
+  if (v510)
   {
-    memcpy(v83, v419, v2);
-    v424 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
-    swift_dynamicCast(&v853, v83, v1, v424, 7uLL);
+    memcpy(v123, v508, v3);
+    v513 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
+    swift_dynamicCast(&v1014, v123, v2, v513, 7uLL, v514, v515, v516, v973);
     goto LABEL_224;
   }
 
-  v446 = v842;
-  memcpy(v842, v419, v2);
-  if (swift_dynamicCast(&v853, v446, v1, &type metadata for String, 6uLL))
+  v538 = v1003;
+  memcpy(v1003, v508, v3);
+  if (swift_dynamicCast(&v1014, v538, v2, &type metadata for String, 6uLL, v539, v540, v541, v973))
   {
-    v447 = v853._object;
-    String.write(_:)(v853);
-    v447;
+    v542 = v1014._object;
+    String.write(_:)(v1014);
+    v542;
     goto LABEL_229;
   }
 
-  v708 = v834;
-  memcpy(v834, v419, v2);
-  v709 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss20TextOutputStreamable_pMd, _ss20TextOutputStreamable_pMR);
-  if (swift_dynamicCast(&v856, v708, v1, v709, 6uLL))
+  v818 = v995;
+  memcpy(v995, v508, v3);
+  v819 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss20TextOutputStreamable_pMd, _ss20TextOutputStreamable_pMR);
+  if (swift_dynamicCast(&v1017, v818, v2, v819, 6uLL, v820, v821, v822, v973))
   {
-    _ss9CodingKey_pWOb_0(&v856, &v853);
-    v710 = v854;
-    v711 = v855;
-    __swift_project_boxed_opaque_existential_0Tm(&v853, v854);
-    (*(v711 + 8))(&v859, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation, v710, v711);
+    _ss9CodingKey_pWOb_0(&v1017, &v1014);
+    v823 = v1015;
+    v824 = v1016;
+    __swift_project_boxed_opaque_existential_0Tm(&v1014, v1015);
+    (*(v824 + 8))(&v1020, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation, v823, v824);
     goto LABEL_226;
   }
 
-  v858 = 0;
-  v856 = 0u;
-  v857 = 0u;
-  outlined destroy of _HasContiguousBytes?(&v856, &_ss20TextOutputStreamable_pSgMd, _ss20TextOutputStreamable_pSgMR);
-  v732 = v826;
-  memcpy(v826, v419, v2);
-  v733 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23CustomStringConvertible_pMd, _ss23CustomStringConvertible_pMR);
-  if (swift_dynamicCast(&v856, v732, v1, v733, 6uLL))
+  v1019 = 0;
+  v1017 = 0u;
+  v1018 = 0u;
+  outlined destroy of _HasContiguousBytes?(&v1017, &_ss20TextOutputStreamable_pSgMd, _ss20TextOutputStreamable_pSgMR);
+  v863 = v987;
+  memcpy(v987, v508, v3);
+  v864 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23CustomStringConvertible_pMd, _ss23CustomStringConvertible_pMR);
+  if (swift_dynamicCast(&v1017, v863, v2, v864, 6uLL, v865, v866, v867, v973))
   {
-    _ss9CodingKey_pWOb_0(&v856, &v853);
-    v734 = v854;
-    v735 = v855;
-    __swift_project_boxed_opaque_existential_0Tm(&v853, v854);
-    v427 = (*(v735 + 8))(v734, v735);
+    _ss9CodingKey_pWOb_0(&v1017, &v1014);
+    v868 = v1015;
+    v869 = v1016;
+    __swift_project_boxed_opaque_existential_0Tm(&v1014, v1015);
+    v519 = (*(v869 + 8))(v868, v869);
 LABEL_225:
-    v437 = v428;
-    static String.+= infix(_:_:)(&v859, v427, v428, v429, v430, v431, v432, v433, v434, v435, v436);
-    v437;
+    v529 = v520;
+    static String.+= infix(_:_:)(&v1020, v519, v520, v521, v522, v523, v524, v525, v526, v527, v528);
+    v529;
 LABEL_226:
-    __swift_destroy_boxed_opaque_existential_1Tm(&v853._countAndFlagsBits);
+    __swift_destroy_boxed_opaque_existential_1Tm(&v1014._countAndFlagsBits);
     goto LABEL_229;
   }
 
-  v858 = 0;
-  v856 = 0u;
-  v857 = 0u;
-  outlined destroy of _HasContiguousBytes?(&v856, &_ss23CustomStringConvertible_pSgMd, _ss23CustomStringConvertible_pSgMR);
-  v778 = v818;
-  memcpy(v818, v419, v2);
-  v779 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
-  if (swift_dynamicCast(&v856, v778, v1, v779, 6uLL))
+  v1019 = 0;
+  v1017 = 0u;
+  v1018 = 0u;
+  outlined destroy of _HasContiguousBytes?(&v1017, &_ss23CustomStringConvertible_pSgMd, _ss23CustomStringConvertible_pSgMR);
+  v930 = v979;
+  memcpy(v979, v508, v3);
+  v931 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
+  if (swift_dynamicCast(&v1017, v930, v2, v931, 6uLL, v932, v933, v934, v973))
   {
-    _ss9CodingKey_pWOb_0(&v856, &v853);
+    _ss9CodingKey_pWOb_0(&v1017, &v1014);
 LABEL_224:
-    v425 = v854;
-    v426 = v855;
-    __swift_project_boxed_opaque_existential_0Tm(&v853, v854);
-    v427 = (*(v426 + 8))(v425, v426);
+    v517 = v1015;
+    v518 = v1016;
+    __swift_project_boxed_opaque_existential_0Tm(&v1014, v1015);
+    v519 = (*(v518 + 8))(v517, v518);
     goto LABEL_225;
   }
 
-  v858 = 0;
-  v856 = 0u;
-  v857 = 0u;
-  outlined destroy of _HasContiguousBytes?(&v856, &_ss28CustomDebugStringConvertible_pSgMd, _ss28CustomDebugStringConvertible_pSgMR);
-  *(&v857 + 1) = v1;
-  v802 = __swift_allocate_boxed_opaque_existential_0Tm(&v856);
-  memcpy(v802, v419, v2);
-  Mirror.init(reflecting:)(&v856, &v853);
-  v803 = v853._object;
-  v804 = v419;
-  v805 = v855;
-  _adHocPrint_unlocked<A, B>(_:_:_:isDebugPrint:)(v804, &v853, &v859, 0, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  v805;
-  v803;
+  v1019 = 0;
+  v1017 = 0u;
+  v1018 = 0u;
+  outlined destroy of _HasContiguousBytes?(&v1017, &_ss28CustomDebugStringConvertible_pSgMd, _ss28CustomDebugStringConvertible_pSgMR);
+  *(&v1018 + 1) = v2;
+  v963 = __swift_allocate_boxed_opaque_existential_0Tm(&v1017);
+  memcpy(v963, v508, v3);
+  Mirror.init(reflecting:)(&v1017, &v1014);
+  v964 = v1014._object;
+  v965 = v508;
+  v966 = v1016;
+  _adHocPrint_unlocked<A, B>(_:_:_:isDebugPrint:)(v965, &v1014, &v1020, 0, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  v966;
+  v964;
 LABEL_229:
-  v448 = v850;
-  v449 = v859._object;
-  v450 = (v859._object >> 56) & 0xF;
-  if ((v859._object & 0x2000000000000000) == 0)
+  v543 = v1011;
+  v544 = v1020._object;
+  v545 = (v1020._object >> 56) & 0xF;
+  if ((v1020._object & 0x2000000000000000) == 0)
   {
-    v450 = v859._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+    v545 = v1020._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
   }
 
-  if (v450 || (v859._countAndFlagsBits & ~v859._object & 0x2000000000000000) != 0)
+  if (v545 || (v1020._countAndFlagsBits & ~v1020._object & 0x2000000000000000) != 0)
   {
-    _StringGuts.append(_:)(0x202CuLL, 0xE200000000000000, v438, v439, v440, v441, v442, v443, v444, v445);
-    v449 = 0xE200000000000000;
+    _StringGuts.append(_:)(0x202CuLL, 0xE200000000000000, v530, v531, v532, v533, v534, v535, v536, v537);
+    v544 = 0xE200000000000000;
   }
 
   else
   {
-    v859._countAndFlagsBits = 8236;
-    v859._object = 0xE200000000000000;
+    v1020._countAndFlagsBits = 8236;
+    v1020._object = 0xE200000000000000;
   }
 
-  v449;
-  v852(6, v184, AssociatedConformanceWitness);
-  v854 = v1;
-  v451 = __swift_allocate_boxed_opaque_existential_0Tm(&v853);
-  memcpy(v451, v448, v2);
-  v452 = v854;
-  v453 = __swift_project_boxed_opaque_existential_0Tm(&v853, v854);
-  v454 = swift_getDynamicType(v453, v452, 1);
-  LODWORD(v452) = swift_isOptionalType(v454);
-  __swift_destroy_boxed_opaque_existential_1Tm(&v853._countAndFlagsBits);
-  if (v452)
+  v544;
+  (v1013)(6, v225, AssociatedConformanceWitness);
+  v1015 = v2;
+  v546 = __swift_allocate_boxed_opaque_existential_0Tm(&v1014);
+  memcpy(v546, v543, v3);
+  v547 = v1015;
+  v548 = __swift_project_boxed_opaque_existential_0Tm(&v1014, v1015);
+  v549 = swift_getDynamicType(v548, v547, 1);
+  LODWORD(v547) = swift_isOptionalType(v549);
+  __swift_destroy_boxed_opaque_existential_1Tm(&v1014._countAndFlagsBits);
+  if (v547)
   {
-    memcpy(v83, v448, v2);
-    v455 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
-    swift_dynamicCast(&v853, v83, v1, v455, 7uLL);
+    memcpy(v123, v543, v3);
+    v550 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
+    swift_dynamicCast(&v1014, v123, v2, v550, 7uLL, v551, v552, v553, v973);
     goto LABEL_236;
   }
 
-  v477 = v843;
-  memcpy(v843, v448, v2);
-  if (swift_dynamicCast(&v853, v477, v1, &type metadata for String, 6uLL))
+  v575 = v1004;
+  memcpy(v1004, v543, v3);
+  if (swift_dynamicCast(&v1014, v575, v2, &type metadata for String, 6uLL, v576, v577, v578, v973))
   {
-    v478 = v853._object;
-    String.write(_:)(v853);
-    v478;
+    v579 = v1014._object;
+    String.write(_:)(v1014);
+    v579;
     goto LABEL_241;
   }
 
-  v712 = v835;
-  memcpy(v835, v448, v2);
-  v713 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss20TextOutputStreamable_pMd, _ss20TextOutputStreamable_pMR);
-  if (swift_dynamicCast(&v856, v712, v1, v713, 6uLL))
+  v825 = v996;
+  memcpy(v996, v543, v3);
+  v826 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss20TextOutputStreamable_pMd, _ss20TextOutputStreamable_pMR);
+  if (swift_dynamicCast(&v1017, v825, v2, v826, 6uLL, v827, v828, v829, v973))
   {
-    _ss9CodingKey_pWOb_0(&v856, &v853);
-    v714 = v854;
-    v715 = v855;
-    __swift_project_boxed_opaque_existential_0Tm(&v853, v854);
-    (*(v715 + 8))(&v859, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation, v714, v715);
+    _ss9CodingKey_pWOb_0(&v1017, &v1014);
+    v830 = v1015;
+    v831 = v1016;
+    __swift_project_boxed_opaque_existential_0Tm(&v1014, v1015);
+    (*(v831 + 8))(&v1020, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation, v830, v831);
     goto LABEL_238;
   }
 
-  v858 = 0;
-  v856 = 0u;
-  v857 = 0u;
-  outlined destroy of _HasContiguousBytes?(&v856, &_ss20TextOutputStreamable_pSgMd, _ss20TextOutputStreamable_pSgMR);
-  v736 = v827;
-  memcpy(v827, v448, v2);
-  v737 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23CustomStringConvertible_pMd, _ss23CustomStringConvertible_pMR);
-  if (swift_dynamicCast(&v856, v736, v1, v737, 6uLL))
+  v1019 = 0;
+  v1017 = 0u;
+  v1018 = 0u;
+  outlined destroy of _HasContiguousBytes?(&v1017, &_ss20TextOutputStreamable_pSgMd, _ss20TextOutputStreamable_pSgMR);
+  v870 = v988;
+  memcpy(v988, v543, v3);
+  v871 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23CustomStringConvertible_pMd, _ss23CustomStringConvertible_pMR);
+  if (swift_dynamicCast(&v1017, v870, v2, v871, 6uLL, v872, v873, v874, v973))
   {
-    _ss9CodingKey_pWOb_0(&v856, &v853);
-    v738 = v854;
-    v739 = v855;
-    __swift_project_boxed_opaque_existential_0Tm(&v853, v854);
-    v458 = (*(v739 + 8))(v738, v739);
+    _ss9CodingKey_pWOb_0(&v1017, &v1014);
+    v875 = v1015;
+    v876 = v1016;
+    __swift_project_boxed_opaque_existential_0Tm(&v1014, v1015);
+    v556 = (*(v876 + 8))(v875, v876);
 LABEL_237:
-    v468 = v459;
-    static String.+= infix(_:_:)(&v859, v458, v459, v460, v461, v462, v463, v464, v465, v466, v467);
-    v468;
+    v566 = v557;
+    static String.+= infix(_:_:)(&v1020, v556, v557, v558, v559, v560, v561, v562, v563, v564, v565);
+    v566;
 LABEL_238:
-    __swift_destroy_boxed_opaque_existential_1Tm(&v853._countAndFlagsBits);
+    __swift_destroy_boxed_opaque_existential_1Tm(&v1014._countAndFlagsBits);
     goto LABEL_241;
   }
 
-  v858 = 0;
-  v856 = 0u;
-  v857 = 0u;
-  outlined destroy of _HasContiguousBytes?(&v856, &_ss23CustomStringConvertible_pSgMd, _ss23CustomStringConvertible_pSgMR);
-  v780 = v819;
-  memcpy(v819, v448, v2);
-  v781 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
-  if (swift_dynamicCast(&v856, v780, v1, v781, 6uLL))
+  v1019 = 0;
+  v1017 = 0u;
+  v1018 = 0u;
+  outlined destroy of _HasContiguousBytes?(&v1017, &_ss23CustomStringConvertible_pSgMd, _ss23CustomStringConvertible_pSgMR);
+  v935 = v980;
+  memcpy(v980, v543, v3);
+  v936 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
+  if (swift_dynamicCast(&v1017, v935, v2, v936, 6uLL, v937, v938, v939, v973))
   {
-    _ss9CodingKey_pWOb_0(&v856, &v853);
+    _ss9CodingKey_pWOb_0(&v1017, &v1014);
 LABEL_236:
-    v456 = v854;
-    v457 = v855;
-    __swift_project_boxed_opaque_existential_0Tm(&v853, v854);
-    v458 = (*(v457 + 8))(v456, v457);
+    v554 = v1015;
+    v555 = v1016;
+    __swift_project_boxed_opaque_existential_0Tm(&v1014, v1015);
+    v556 = (*(v555 + 8))(v554, v555);
     goto LABEL_237;
   }
 
-  v858 = 0;
-  v856 = 0u;
-  v857 = 0u;
-  outlined destroy of _HasContiguousBytes?(&v856, &_ss28CustomDebugStringConvertible_pSgMd, _ss28CustomDebugStringConvertible_pSgMR);
-  *(&v857 + 1) = v1;
-  v806 = __swift_allocate_boxed_opaque_existential_0Tm(&v856);
-  memcpy(v806, v448, v2);
-  Mirror.init(reflecting:)(&v856, &v853);
-  v807 = v853._object;
-  v808 = v855;
-  _adHocPrint_unlocked<A, B>(_:_:_:isDebugPrint:)(v448, &v853, &v859, 0, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  v808;
-  v807;
+  v1019 = 0;
+  v1017 = 0u;
+  v1018 = 0u;
+  outlined destroy of _HasContiguousBytes?(&v1017, &_ss28CustomDebugStringConvertible_pSgMd, _ss28CustomDebugStringConvertible_pSgMR);
+  *(&v1018 + 1) = v2;
+  v967 = __swift_allocate_boxed_opaque_existential_0Tm(&v1017);
+  memcpy(v967, v543, v3);
+  Mirror.init(reflecting:)(&v1017, &v1014);
+  v968 = v1014._object;
+  v969 = v1016;
+  _adHocPrint_unlocked<A, B>(_:_:_:isDebugPrint:)(v543, &v1014, &v1020, 0, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  v969;
+  v968;
 LABEL_241:
-  v479 = v851;
-  v480 = v859._object;
-  v481 = (v859._object >> 56) & 0xF;
-  if ((v859._object & 0x2000000000000000) == 0)
+  v580 = v1012;
+  v581 = v1020._object;
+  v582 = (v1020._object >> 56) & 0xF;
+  if ((v1020._object & 0x2000000000000000) == 0)
   {
-    v481 = v859._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+    v582 = v1020._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
   }
 
-  if (v481 || (v859._countAndFlagsBits & ~v859._object & 0x2000000000000000) != 0)
+  if (v582 || (v1020._countAndFlagsBits & ~v1020._object & 0x2000000000000000) != 0)
   {
-    _StringGuts.append(_:)(0x202CuLL, 0xE200000000000000, v469, v470, v471, v472, v473, v474, v475, v476);
-    v480 = 0xE200000000000000;
+    _StringGuts.append(_:)(0x202CuLL, 0xE200000000000000, v567, v568, v569, v570, v571, v572, v573, v574);
+    v581 = 0xE200000000000000;
   }
 
   else
   {
-    v859._countAndFlagsBits = 8236;
-    v859._object = 0xE200000000000000;
+    v1020._countAndFlagsBits = 8236;
+    v1020._object = 0xE200000000000000;
   }
 
-  v480;
-  v852(7, v184, AssociatedConformanceWitness);
-  v854 = v1;
-  v482 = __swift_allocate_boxed_opaque_existential_0Tm(&v853);
-  memcpy(v482, v479, v2);
-  v483 = v854;
-  v484 = __swift_project_boxed_opaque_existential_0Tm(&v853, v854);
-  v485 = swift_getDynamicType(v484, v483, 1);
-  LODWORD(v483) = swift_isOptionalType(v485);
-  __swift_destroy_boxed_opaque_existential_1Tm(&v853._countAndFlagsBits);
-  if (v483)
+  v581;
+  (v1013)(7, v225, AssociatedConformanceWitness);
+  v1015 = v2;
+  v583 = __swift_allocate_boxed_opaque_existential_0Tm(&v1014);
+  memcpy(v583, v580, v3);
+  v584 = v1015;
+  v585 = __swift_project_boxed_opaque_existential_0Tm(&v1014, v1015);
+  v586 = swift_getDynamicType(v585, v584, 1);
+  LODWORD(v584) = swift_isOptionalType(v586);
+  __swift_destroy_boxed_opaque_existential_1Tm(&v1014._countAndFlagsBits);
+  if (v584)
   {
-    memcpy(v83, v479, v2);
-    v486 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
-    swift_dynamicCast(&v853, v83, v1, v486, 7uLL);
+    memcpy(v123, v580, v3);
+    v587 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
+    swift_dynamicCast(&v1014, v123, v2, v587, 7uLL, v588, v589, v590, v973);
     goto LABEL_248;
   }
 
-  v508 = v844;
-  memcpy(v844, v479, v2);
-  if (swift_dynamicCast(&v853, v508, v1, &type metadata for String, 6uLL))
+  v612 = v1005;
+  memcpy(v1005, v580, v3);
+  if (swift_dynamicCast(&v1014, v612, v2, &type metadata for String, 6uLL, v613, v614, v615, v973))
   {
-    v509 = v853._object;
-    String.write(_:)(v853);
-    v509;
+    v616 = v1014._object;
+    String.write(_:)(v1014);
+    v616;
   }
 
   else
   {
-    v716 = v836;
-    memcpy(v836, v479, v2);
-    v717 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss20TextOutputStreamable_pMd, _ss20TextOutputStreamable_pMR);
-    if (swift_dynamicCast(&v856, v716, v1, v717, 6uLL))
+    v832 = v997;
+    memcpy(v997, v580, v3);
+    v833 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss20TextOutputStreamable_pMd, _ss20TextOutputStreamable_pMR);
+    if (swift_dynamicCast(&v1017, v832, v2, v833, 6uLL, v834, v835, v836, v973))
     {
-      _ss9CodingKey_pWOb_0(&v856, &v853);
-      v718 = v854;
-      v719 = v855;
-      __swift_project_boxed_opaque_existential_0Tm(&v853, v854);
-      (*(v719 + 8))(&v859, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation, v718, v719);
+      _ss9CodingKey_pWOb_0(&v1017, &v1014);
+      v837 = v1015;
+      v838 = v1016;
+      __swift_project_boxed_opaque_existential_0Tm(&v1014, v1015);
+      (*(v838 + 8))(&v1020, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation, v837, v838);
     }
 
     else
     {
-      v858 = 0;
-      v856 = 0u;
-      v857 = 0u;
-      outlined destroy of _HasContiguousBytes?(&v856, &_ss20TextOutputStreamable_pSgMd, _ss20TextOutputStreamable_pSgMR);
-      v740 = v828;
-      memcpy(v828, v479, v2);
-      v741 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23CustomStringConvertible_pMd, _ss23CustomStringConvertible_pMR);
-      if (swift_dynamicCast(&v856, v740, v1, v741, 6uLL))
+      v1019 = 0;
+      v1017 = 0u;
+      v1018 = 0u;
+      outlined destroy of _HasContiguousBytes?(&v1017, &_ss20TextOutputStreamable_pSgMd, _ss20TextOutputStreamable_pSgMR);
+      v877 = v989;
+      memcpy(v989, v580, v3);
+      v878 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23CustomStringConvertible_pMd, _ss23CustomStringConvertible_pMR);
+      if (swift_dynamicCast(&v1017, v877, v2, v878, 6uLL, v879, v880, v881, v973))
       {
-        _ss9CodingKey_pWOb_0(&v856, &v853);
-        v742 = v854;
-        v743 = v855;
-        __swift_project_boxed_opaque_existential_0Tm(&v853, v854);
-        v489 = (*(v743 + 8))(v742, v743);
+        _ss9CodingKey_pWOb_0(&v1017, &v1014);
+        v882 = v1015;
+        v883 = v1016;
+        __swift_project_boxed_opaque_existential_0Tm(&v1014, v1015);
+        v593 = (*(v883 + 8))(v882, v883);
       }
 
       else
       {
-        v858 = 0;
-        v856 = 0u;
-        v857 = 0u;
-        outlined destroy of _HasContiguousBytes?(&v856, &_ss23CustomStringConvertible_pSgMd, _ss23CustomStringConvertible_pSgMR);
-        v782 = v820;
-        memcpy(v820, v479, v2);
-        v783 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
-        if (!swift_dynamicCast(&v856, v782, v1, v783, 6uLL))
+        v1019 = 0;
+        v1017 = 0u;
+        v1018 = 0u;
+        outlined destroy of _HasContiguousBytes?(&v1017, &_ss23CustomStringConvertible_pSgMd, _ss23CustomStringConvertible_pSgMR);
+        v940 = v981;
+        memcpy(v981, v580, v3);
+        v941 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
+        if (!swift_dynamicCast(&v1017, v940, v2, v941, 6uLL, v942, v943, v944, v973))
         {
-          v858 = 0;
-          v856 = 0u;
-          v857 = 0u;
-          outlined destroy of _HasContiguousBytes?(&v856, &_ss28CustomDebugStringConvertible_pSgMd, _ss28CustomDebugStringConvertible_pSgMR);
-          *(&v857 + 1) = v1;
-          v809 = __swift_allocate_boxed_opaque_existential_0Tm(&v856);
-          memcpy(v809, v479, v2);
-          Mirror.init(reflecting:)(&v856, &v853);
-          v810 = v853._object;
-          v811 = v855;
-          _adHocPrint_unlocked<A, B>(_:_:_:isDebugPrint:)(v479, &v853, &v859, 0, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-          v811;
-          v810;
+          v1019 = 0;
+          v1017 = 0u;
+          v1018 = 0u;
+          outlined destroy of _HasContiguousBytes?(&v1017, &_ss28CustomDebugStringConvertible_pSgMd, _ss28CustomDebugStringConvertible_pSgMR);
+          *(&v1018 + 1) = v2;
+          v970 = __swift_allocate_boxed_opaque_existential_0Tm(&v1017);
+          memcpy(v970, v580, v3);
+          Mirror.init(reflecting:)(&v1017, &v1014);
+          v971 = v1014._object;
+          v972 = v1016;
+          _adHocPrint_unlocked<A, B>(_:_:_:isDebugPrint:)(v580, &v1014, &v1020, 0, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+          v972;
+          v971;
           goto LABEL_253;
         }
 
-        _ss9CodingKey_pWOb_0(&v856, &v853);
+        _ss9CodingKey_pWOb_0(&v1017, &v1014);
 LABEL_248:
-        v487 = v854;
-        v488 = v855;
-        __swift_project_boxed_opaque_existential_0Tm(&v853, v854);
-        v489 = (*(v488 + 8))(v487, v488);
+        v591 = v1015;
+        v592 = v1016;
+        __swift_project_boxed_opaque_existential_0Tm(&v1014, v1015);
+        v593 = (*(v592 + 8))(v591, v592);
       }
 
-      v499 = v490;
-      static String.+= infix(_:_:)(&v859, v489, v490, v491, v492, v493, v494, v495, v496, v497, v498);
-      v499;
+      v603 = v594;
+      static String.+= infix(_:_:)(&v1020, v593, v594, v595, v596, v597, v598, v599, v600, v601, v602);
+      v603;
     }
 
-    __swift_destroy_boxed_opaque_existential_1Tm(&v853._countAndFlagsBits);
+    __swift_destroy_boxed_opaque_existential_1Tm(&v1014._countAndFlagsBits);
   }
 
 LABEL_253:
-  static String.+= infix(_:_:)(&v859, 0x202CuLL, 0xE200000000000000, v500, v501, v502, v503, v504, v505, v506, v507);
+  static String.+= infix(_:_:)(&v1020, 0x202CuLL, 0xE200000000000000, v604, v605, v606, v607, v608, v609, v610, v611);
   0xE200000000000000;
-  v510 = v852;
-  v852(8, v184, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v83, &v859, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v859, 0x202CuLL, 0xE200000000000000, v511, v512, v513, v514, v515, v516, v517, v518);
+  v617 = v1013;
+  (v1013)(8, v225, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v123, &v1020, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v1020, 0x202CuLL, 0xE200000000000000, v618, v619, v620, v621, v622, v623, v624, v625);
   0xE200000000000000;
-  v510(9, v184, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v83, &v859, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v859, 0x202CuLL, 0xE200000000000000, v519, v520, v521, v522, v523, v524, v525, v526);
+  v617(9, v225, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v123, &v1020, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v1020, 0x202CuLL, 0xE200000000000000, v626, v627, v628, v629, v630, v631, v632, v633);
   0xE200000000000000;
-  v510(10, v184, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v83, &v859, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v859, 0x202CuLL, 0xE200000000000000, v527, v528, v529, v530, v531, v532, v533, v534);
+  v617(10, v225, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v123, &v1020, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v1020, 0x202CuLL, 0xE200000000000000, v634, v635, v636, v637, v638, v639, v640, v641);
   0xE200000000000000;
-  v510(11, v184, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v83, &v859, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v859, 0x202CuLL, 0xE200000000000000, v535, v536, v537, v538, v539, v540, v541, v542);
+  v617(11, v225, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v123, &v1020, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v1020, 0x202CuLL, 0xE200000000000000, v642, v643, v644, v645, v646, v647, v648, v649);
   0xE200000000000000;
-  v510(12, v184, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v83, &v859, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v859, 0x202CuLL, 0xE200000000000000, v543, v544, v545, v546, v547, v548, v549, v550);
+  v617(12, v225, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v123, &v1020, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v1020, 0x202CuLL, 0xE200000000000000, v650, v651, v652, v653, v654, v655, v656, v657);
   0xE200000000000000;
-  v510(13, v184, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v83, &v859, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v859, 0x202CuLL, 0xE200000000000000, v551, v552, v553, v554, v555, v556, v557, v558);
+  v617(13, v225, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v123, &v1020, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v1020, 0x202CuLL, 0xE200000000000000, v658, v659, v660, v661, v662, v663, v664, v665);
   0xE200000000000000;
-  v510(14, v184, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v83, &v859, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v859, 0x202CuLL, 0xE200000000000000, v559, v560, v561, v562, v563, v564, v565, v566);
+  v617(14, v225, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v123, &v1020, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v1020, 0x202CuLL, 0xE200000000000000, v666, v667, v668, v669, v670, v671, v672, v673);
   0xE200000000000000;
-  v510(15, v184, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v83, &v859, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v859, 0x202CuLL, 0xE200000000000000, v567, v568, v569, v570, v571, v572, v573, v574);
+  v617(15, v225, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v123, &v1020, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v1020, 0x202CuLL, 0xE200000000000000, v674, v675, v676, v677, v678, v679, v680, v681);
   0xE200000000000000;
-  v510(16, v184, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v83, &v859, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v859, 0x202CuLL, 0xE200000000000000, v575, v576, v577, v578, v579, v580, v581, v582);
+  v617(16, v225, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v123, &v1020, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v1020, 0x202CuLL, 0xE200000000000000, v682, v683, v684, v685, v686, v687, v688, v689);
   0xE200000000000000;
-  v510(17, v184, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v83, &v859, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v859, 0x202CuLL, 0xE200000000000000, v583, v584, v585, v586, v587, v588, v589, v590);
+  v617(17, v225, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v123, &v1020, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v1020, 0x202CuLL, 0xE200000000000000, v690, v691, v692, v693, v694, v695, v696, v697);
   0xE200000000000000;
-  v510(18, v184, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v83, &v859, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v859, 0x202CuLL, 0xE200000000000000, v591, v592, v593, v594, v595, v596, v597, v598);
+  v617(18, v225, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v123, &v1020, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v1020, 0x202CuLL, 0xE200000000000000, v698, v699, v700, v701, v702, v703, v704, v705);
   0xE200000000000000;
-  v510(19, v184, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v83, &v859, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v859, 0x202CuLL, 0xE200000000000000, v599, v600, v601, v602, v603, v604, v605, v606);
+  v617(19, v225, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v123, &v1020, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v1020, 0x202CuLL, 0xE200000000000000, v706, v707, v708, v709, v710, v711, v712, v713);
   0xE200000000000000;
-  v510(20, v184, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v83, &v859, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v859, 0x202CuLL, 0xE200000000000000, v607, v608, v609, v610, v611, v612, v613, v614);
+  v617(20, v225, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v123, &v1020, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v1020, 0x202CuLL, 0xE200000000000000, v714, v715, v716, v717, v718, v719, v720, v721);
   0xE200000000000000;
-  v510(21, v184, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v83, &v859, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v859, 0x202CuLL, 0xE200000000000000, v615, v616, v617, v618, v619, v620, v621, v622);
+  v617(21, v225, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v123, &v1020, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v1020, 0x202CuLL, 0xE200000000000000, v722, v723, v724, v725, v726, v727, v728, v729);
   0xE200000000000000;
-  v510(22, v184, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v83, &v859, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v859, 0x202CuLL, 0xE200000000000000, v623, v624, v625, v626, v627, v628, v629, v630);
+  v617(22, v225, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v123, &v1020, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v1020, 0x202CuLL, 0xE200000000000000, v730, v731, v732, v733, v734, v735, v736, v737);
   0xE200000000000000;
-  v510(23, v184, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v83, &v859, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v859, 0x202CuLL, 0xE200000000000000, v631, v632, v633, v634, v635, v636, v637, v638);
+  v617(23, v225, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v123, &v1020, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v1020, 0x202CuLL, 0xE200000000000000, v738, v739, v740, v741, v742, v743, v744, v745);
   0xE200000000000000;
-  v510(24, v184, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v83, &v859, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v859, 0x202CuLL, 0xE200000000000000, v639, v640, v641, v642, v643, v644, v645, v646);
+  v617(24, v225, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v123, &v1020, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v1020, 0x202CuLL, 0xE200000000000000, v746, v747, v748, v749, v750, v751, v752, v753);
   0xE200000000000000;
-  v510(25, v184, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v83, &v859, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v859, 0x202CuLL, 0xE200000000000000, v647, v648, v649, v650, v651, v652, v653, v654);
+  v617(25, v225, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v123, &v1020, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v1020, 0x202CuLL, 0xE200000000000000, v754, v755, v756, v757, v758, v759, v760, v761);
   0xE200000000000000;
-  v510(26, v184, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v83, &v859, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v859, 0x202CuLL, 0xE200000000000000, v655, v656, v657, v658, v659, v660, v661, v662);
+  v617(26, v225, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v123, &v1020, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v1020, 0x202CuLL, 0xE200000000000000, v762, v763, v764, v765, v766, v767, v768, v769);
   0xE200000000000000;
-  v510(27, v184, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v83, &v859, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v859, 0x202CuLL, 0xE200000000000000, v663, v664, v665, v666, v667, v668, v669, v670);
+  v617(27, v225, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v123, &v1020, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v1020, 0x202CuLL, 0xE200000000000000, v770, v771, v772, v773, v774, v775, v776, v777);
   0xE200000000000000;
-  v510(28, v184, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v83, &v859, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v859, 0x202CuLL, 0xE200000000000000, v671, v672, v673, v674, v675, v676, v677, v678);
+  v617(28, v225, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v123, &v1020, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v1020, 0x202CuLL, 0xE200000000000000, v778, v779, v780, v781, v782, v783, v784, v785);
   0xE200000000000000;
-  v510(29, v184, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v83, &v859, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v859, 0x202CuLL, 0xE200000000000000, v679, v680, v681, v682, v683, v684, v685, v686);
+  v617(29, v225, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v123, &v1020, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v1020, 0x202CuLL, 0xE200000000000000, v786, v787, v788, v789, v790, v791, v792, v793);
   0xE200000000000000;
-  v510(30, v184, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v83, &v859, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v859, 0x202CuLL, 0xE200000000000000, v687, v688, v689, v690, v691, v692, v693, v694);
+  v617(30, v225, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v123, &v1020, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v1020, 0x202CuLL, 0xE200000000000000, v794, v795, v796, v797, v798, v799, v800, v801);
   0xE200000000000000;
-  v510(31, v184, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v83, &v859, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v859, 0x29uLL, 0xE100000000000000, v695, v696, v697, v698, v699, v700, v701, v702);
+  v617(31, v225, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v123, &v1020, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v1020, 0x29uLL, 0xE100000000000000, v802, v803, v804, v805, v806, v807, v808, v809);
   0xE100000000000000;
-  return v859._countAndFlagsBits;
+  return v1020._countAndFlagsBits;
 }
 
-uint64_t SIMD32<>.init<A>(_:)@<X0>(uint64_t a1@<X0>, const char *a2@<X1>, const char *a3@<X2>, uint64_t a4@<X3>, int **a5@<X4>, uint64_t a6@<X5>, int **a7@<X6>, uint64_t a8@<X8>)
+uint64_t SIMD32<>.init<A>(_:)@<X0>(uint64_t a1@<X0>, Class *a2@<X1>, Class *a3@<X2>, uint64_t a4@<X3>, int **a5@<X4>, uint64_t a6@<X5>, int **a7@<X6>, uint64_t a8@<X8>)
 {
-  v36 = a4;
-  v37 = a6;
-  v39 = a1;
-  v13 = MEMORY[0x1EEE9AC00](a1);
-  v15 = &v30 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v13);
-  v17 = &v30 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v37 = a4;
+  v38 = a6;
+  v40 = a1;
+  v13 = MEMORY[0x1EEE9AC00](a1, a2);
+  v15 = &v31 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v13, v16);
+  v18 = &v31 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_getAssociatedTypeWitness(0, a5, a2, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
-  v19 = v18;
-  v35 = a2;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a5, a2, v18, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
-  v21 = *(AssociatedConformanceWitness + 48);
-  v33 = v19;
-  v34 = a8;
-  v21(v19, AssociatedConformanceWitness);
+  v20 = v19;
+  v36 = a2;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a5, a2, v19, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
+  v22 = *(AssociatedConformanceWitness + 48);
+  v34 = v20;
+  v35 = a8;
+  v22(v20, AssociatedConformanceWitness);
   swift_getAssociatedTypeWitness(255, a7, a3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
-  v31 = a7;
-  v32 = v22;
-  v38 = a3;
-  v23 = swift_getAssociatedConformanceWitness(a7, a3, v22, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
-  v24 = 0;
-  v25 = *(v23 + 56);
-  do
-  {
-    v26 = swift_checkMetadataState(0, v32);
-    v25(v24, v26, v23);
-    (*(*(v36 + 16) + 72))(v15, v38, *(v37 + 8));
-    (*(AssociatedConformanceWitness + 64))(v17, v24++, v33, AssociatedConformanceWitness);
-  }
-
-  while (v24 != 32);
-  v28 = type metadata accessor for SIMD32(0, v38, v31, v27);
-  return (*(*(v28 - 8) + 8))(v39, v28);
-}
-
-{
-  v39 = a6;
-  v41 = a1;
-  v14 = MEMORY[0x1EEE9AC00](a1);
-  v36 = &v30 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v14);
-  v17 = &v30 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  swift_getAssociatedTypeWitness(0, a5, a2, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
-  v19 = v18;
-  v38 = a2;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a5, a2, v18, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
-  v21 = *(AssociatedConformanceWitness + 48);
-  v37 = a8;
-  v35 = v19;
-  v21(v19, AssociatedConformanceWitness);
-  swift_getAssociatedTypeWitness(255, a7, a3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
-  v31 = a7;
-  v40 = a3;
-  v34 = v22;
-  v23 = swift_getAssociatedConformanceWitness(a7, a3, v22, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
-  v24 = 0;
-  v32 = *(v23 + 56);
+  v32 = a7;
   v33 = v23;
+  v39 = a3;
+  v24 = swift_getAssociatedConformanceWitness(a7, a3, v23, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
+  v25 = 0;
+  v26 = *(v24 + 56);
   do
   {
-    v25 = swift_checkMetadataState(0, v34);
-    v26 = v36;
-    v32(v24, v25, v33);
-    (*(a4 + 80))(v26, v40, v39);
-    (*(AssociatedConformanceWitness + 64))(v17, v24++, v35, AssociatedConformanceWitness);
+    v27 = swift_checkMetadataState(0, v33);
+    v26(v25, v27, v24);
+    (*(*(v37 + 16) + 72))(v15, v39, *(v38 + 8));
+    (*(AssociatedConformanceWitness + 64))(v18, v25++, v34, AssociatedConformanceWitness);
   }
 
-  while (v24 != 32);
-  v28 = type metadata accessor for SIMD32(0, v40, v31, v27);
-  return (*(*(v28 - 8) + 8))(v41, v28);
+  while (v25 != 32);
+  v29 = type metadata accessor for SIMD32(0, v39, v32, v28);
+  return (*(*(v29 - 8) + 8))(v40, v29);
 }
 
-uint64_t key path getter for SIMD64.subscript(_:) : <A>SIMD64<A>A(uint64_t a1, uint64_t *a2, uint64_t a3)
+{
+  v40 = a6;
+  v42 = a1;
+  v14 = MEMORY[0x1EEE9AC00](a1, a2);
+  v37 = &v31 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14, v16);
+  v18 = &v31 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  swift_getAssociatedTypeWitness(0, a5, a2, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
+  v20 = v19;
+  v39 = a2;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a5, a2, v19, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
+  v22 = *(AssociatedConformanceWitness + 48);
+  v38 = a8;
+  v36 = v20;
+  v22(v20, AssociatedConformanceWitness);
+  swift_getAssociatedTypeWitness(255, a7, a3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
+  v32 = a7;
+  v41 = a3;
+  v35 = v23;
+  v24 = swift_getAssociatedConformanceWitness(a7, a3, v23, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
+  v25 = 0;
+  v33 = *(v24 + 56);
+  v34 = v24;
+  do
+  {
+    v26 = swift_checkMetadataState(0, v35);
+    v27 = v37;
+    v33(v25, v26, v34);
+    (*(a4 + 80))(v27, v41, v40);
+    (*(AssociatedConformanceWitness + 64))(v18, v25++, v36, AssociatedConformanceWitness);
+  }
+
+  while (v25 != 32);
+  v29 = type metadata accessor for SIMD32(0, v41, v32, v28);
+  return (*(*(v29 - 8) + 8))(v42, v29);
+}
+
+uint64_t key path getter for SIMD64.subscript(_:) : <A>SIMD64<A>A(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   v3 = *a2;
   if (*a2 >= 0x40)
@@ -2618,7 +2618,7 @@ uint64_t key path setter for SIMD64.subscript(_:) : <A>SIMD64<A>A(uint64_t a1, u
 {
   v4 = *(a3 + a4 - 16);
   v5 = *(a3 + a4 - 8);
-  MEMORY[0x1EEE9AC00](a1);
+  MEMORY[0x1EEE9AC00](a1, a1);
   v7 = &v18 - v6;
   v9 = *v8;
   memcpy(&v18 - v6, v10, v11);
@@ -2652,7 +2652,7 @@ uint64_t (*SIMD64.subscript.modify(void *a1, unint64_t a2, uint64_t a3))()
   *v7 = a2;
   v7[1] = v3;
   v9 = *(a3 + 16);
-  v10 = *(*(v9 - 1) + 64);
+  v10 = *(*(v9 - 1) + 8);
   v7[2] = v10;
   if (swift_coroFrameAlloc)
   {
@@ -2688,209 +2688,209 @@ uint64_t (*SIMD64.subscript.modify(void *a1, unint64_t a2, uint64_t a3))()
 
 uint64_t SIMD64.init(_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:)(const void *a1, const void *a2, const void *a3, const void *a4, const void *a5, const void *a6, const void *a7, const void *a8, const void *a9, const void *a10, const void *a11, const void *a12, const void *a13, const void *a14, const void *a15, const void *a16, const void *a17, const void *a18, const void *a19, const void *a20, const void *a21, const void *a22, const void *a23, const void *a24, const void *a25, const void *a26, const void *a27, const void *a28, const void *a29, const void *a30, const void *a31, const void *a32, const void *a33, const void *a34, const void *a35, const void *a36, const void *a37, const void *a38, const void *a39, const void *a40, const void *a41, const void *a42, const void *a43, const void *a44, const void *a45, const void *a46, const void *a47, const void *a48, const void *a49, const void *a50, const void *a51, const void *a52, const void *a53, const void *a54, const void *a55, const void *a56, const void *a57, const void *a58, const void *a59, const void *a60, const void *a61, const void *a62, const void *a63)
 {
-  v89 = a8;
-  v87 = a7;
-  v85 = a6;
-  v83 = a5;
-  v81 = a4;
-  v79 = a3;
-  v139 = a63;
-  v140 = a64;
-  v137 = a61;
-  v138 = a62;
-  v135 = a59;
-  v136 = a60;
-  v134 = a58;
-  v131 = a56;
-  v132 = a57;
-  v129 = a54;
-  v130 = a55;
-  v127 = a52;
-  v128 = a53;
-  v125 = a50;
-  v126 = a51;
-  v123 = a48;
-  v124 = a49;
-  v122 = a47;
-  v68 = *(*(a65 - 1) + 64);
-  v120 = a45;
-  v121 = a46;
-  v119 = a44;
-  v118 = a43;
-  v117 = a42;
-  v116 = a41;
-  v115 = a40;
-  v114 = a39;
-  v113 = a38;
-  v112 = a37;
-  v111 = a36;
-  v110 = a35;
-  v109 = a34;
-  v108 = a33;
-  v107 = a32;
-  v106 = a31;
-  v105 = a30;
-  v104 = a29;
-  v103 = a28;
-  v102 = a27;
-  v101 = a26;
-  v100 = a25;
-  v99 = a24;
-  v98 = a23;
-  v97 = a22;
-  v96 = a21;
-  v95 = a20;
-  v94 = a19;
-  v93 = a18;
-  v92 = a17;
-  v91 = a16;
-  v90 = a15;
-  v88 = a14;
-  v86 = a13;
-  v84 = a12;
-  v82 = a11;
-  v80 = a10;
-  v69 = MEMORY[0x1EEE9AC00](a1);
-  v133 = &v78 - ((v68 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v69);
-  v71 = &v78 - v70;
+  v90 = a8;
+  v88 = a7;
+  v86 = a6;
+  v84 = a5;
+  v82 = a4;
+  v80 = a3;
+  v140 = a63;
+  v141 = a64;
+  v138 = a61;
+  v139 = a62;
+  v136 = a59;
+  v137 = a60;
+  v135 = a58;
+  v132 = a56;
+  v133 = a57;
+  v130 = a54;
+  v131 = a55;
+  v128 = a52;
+  v129 = a53;
+  v126 = a50;
+  v127 = a51;
+  v124 = a48;
+  v125 = a49;
+  v123 = a47;
+  v68 = *(*(a65 - 1) + 8);
+  v121 = a45;
+  v122 = a46;
+  v120 = a44;
+  v119 = a43;
+  v118 = a42;
+  v117 = a41;
+  v116 = a40;
+  v115 = a39;
+  v114 = a38;
+  v113 = a37;
+  v112 = a36;
+  v111 = a35;
+  v110 = a34;
+  v109 = a33;
+  v108 = a32;
+  v107 = a31;
+  v106 = a30;
+  v105 = a29;
+  v104 = a28;
+  v103 = a27;
+  v102 = a26;
+  v101 = a25;
+  v100 = a24;
+  v99 = a23;
+  v98 = a22;
+  v97 = a21;
+  v96 = a20;
+  v95 = a19;
+  v94 = a18;
+  v93 = a17;
+  v92 = a16;
+  v91 = a15;
+  v89 = a14;
+  v87 = a13;
+  v85 = a12;
+  v83 = a11;
+  v81 = a10;
+  v69 = MEMORY[0x1EEE9AC00](a1, a2);
+  v134 = &v79 - ((v68 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v69, v70);
+  v72 = &v79 - v71;
   swift_getAssociatedTypeWitness(0, a66, a65, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD64Storage);
-  v73 = v72;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a66, a65, v72, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD64Storage: SIMDStorage);
-  (*(AssociatedConformanceWitness + 48))(v73, AssociatedConformanceWitness);
-  memcpy(v71, a1, v68);
-  v75 = *(AssociatedConformanceWitness + 64);
-  v75(v71, 0, v73, AssociatedConformanceWitness);
-  memcpy(v71, a2, v68);
-  v75(v71, 1, v73, AssociatedConformanceWitness);
-  memcpy(v71, v79, v68);
-  v75(v71, 2, v73, AssociatedConformanceWitness);
-  memcpy(v71, v81, v68);
-  v75(v71, 3, v73, AssociatedConformanceWitness);
-  memcpy(v71, v83, v68);
-  v75(v71, 4, v73, AssociatedConformanceWitness);
-  memcpy(v71, v85, v68);
-  v75(v71, 5, v73, AssociatedConformanceWitness);
-  memcpy(v71, v87, v68);
-  v75(v71, 6, v73, AssociatedConformanceWitness);
-  memcpy(v71, v89, v68);
-  v75(v71, 7, v73, AssociatedConformanceWitness);
-  memcpy(v71, a9, v68);
-  v75(v71, 8, v73, AssociatedConformanceWitness);
-  memcpy(v71, v80, v68);
-  v75(v71, 9, v73, AssociatedConformanceWitness);
-  memcpy(v71, v82, v68);
-  v75(v71, 10, v73, AssociatedConformanceWitness);
-  memcpy(v71, v84, v68);
-  v75(v71, 11, v73, AssociatedConformanceWitness);
-  memcpy(v71, v86, v68);
-  v75(v71, 12, v73, AssociatedConformanceWitness);
-  memcpy(v71, v88, v68);
-  v75(v71, 13, v73, AssociatedConformanceWitness);
-  memcpy(v71, v90, v68);
-  v75(v71, 14, v73, AssociatedConformanceWitness);
-  memcpy(v71, v91, v68);
-  v75(v71, 15, v73, AssociatedConformanceWitness);
-  memcpy(v71, v92, v68);
-  v75(v71, 16, v73, AssociatedConformanceWitness);
-  memcpy(v71, v93, v68);
-  v75(v71, 17, v73, AssociatedConformanceWitness);
-  memcpy(v71, v94, v68);
-  v75(v71, 18, v73, AssociatedConformanceWitness);
-  memcpy(v71, v95, v68);
-  v75(v71, 19, v73, AssociatedConformanceWitness);
-  memcpy(v71, v96, v68);
-  v75(v71, 20, v73, AssociatedConformanceWitness);
-  memcpy(v71, v97, v68);
-  v75(v71, 21, v73, AssociatedConformanceWitness);
-  memcpy(v71, v98, v68);
-  v75(v71, 22, v73, AssociatedConformanceWitness);
-  memcpy(v71, v99, v68);
-  v75(v71, 23, v73, AssociatedConformanceWitness);
-  memcpy(v71, v100, v68);
-  v75(v71, 24, v73, AssociatedConformanceWitness);
-  memcpy(v71, v101, v68);
-  v75(v71, 25, v73, AssociatedConformanceWitness);
-  memcpy(v71, v102, v68);
-  v75(v71, 26, v73, AssociatedConformanceWitness);
-  memcpy(v71, v103, v68);
-  v75(v71, 27, v73, AssociatedConformanceWitness);
-  memcpy(v71, v104, v68);
-  v75(v71, 28, v73, AssociatedConformanceWitness);
-  memcpy(v71, v105, v68);
-  v75(v71, 29, v73, AssociatedConformanceWitness);
-  memcpy(v71, v106, v68);
-  v75(v71, 30, v73, AssociatedConformanceWitness);
-  memcpy(v71, v107, v68);
-  v75(v71, 31, v73, AssociatedConformanceWitness);
-  memcpy(v71, v108, v68);
-  v75(v71, 32, v73, AssociatedConformanceWitness);
-  memcpy(v71, v109, v68);
-  v75(v71, 33, v73, AssociatedConformanceWitness);
-  memcpy(v71, v110, v68);
-  v75(v71, 34, v73, AssociatedConformanceWitness);
-  memcpy(v71, v111, v68);
-  v75(v71, 35, v73, AssociatedConformanceWitness);
-  memcpy(v71, v112, v68);
-  v75(v71, 36, v73, AssociatedConformanceWitness);
-  memcpy(v71, v113, v68);
-  v75(v71, 37, v73, AssociatedConformanceWitness);
-  memcpy(v71, v114, v68);
-  v75(v71, 38, v73, AssociatedConformanceWitness);
-  memcpy(v71, v115, v68);
-  v75(v71, 39, v73, AssociatedConformanceWitness);
-  memcpy(v71, v116, v68);
-  v75(v71, 40, v73, AssociatedConformanceWitness);
-  memcpy(v71, v117, v68);
-  v75(v71, 41, v73, AssociatedConformanceWitness);
-  memcpy(v71, v118, v68);
-  v75(v71, 42, v73, AssociatedConformanceWitness);
-  memcpy(v71, v119, v68);
-  v75(v71, 43, v73, AssociatedConformanceWitness);
-  memcpy(v71, v120, v68);
-  v75(v71, 44, v73, AssociatedConformanceWitness);
-  memcpy(v71, v121, v68);
-  v75(v71, 45, v73, AssociatedConformanceWitness);
-  memcpy(v71, v122, v68);
-  v75(v71, 46, v73, AssociatedConformanceWitness);
-  memcpy(v71, v123, v68);
-  v75(v71, 47, v73, AssociatedConformanceWitness);
-  memcpy(v71, v124, v68);
-  v75(v71, 48, v73, AssociatedConformanceWitness);
-  memcpy(v71, v125, v68);
-  v75(v71, 49, v73, AssociatedConformanceWitness);
-  memcpy(v71, v126, v68);
-  v75(v71, 50, v73, AssociatedConformanceWitness);
-  memcpy(v71, v127, v68);
-  v75(v71, 51, v73, AssociatedConformanceWitness);
-  memcpy(v71, v128, v68);
-  v75(v71, 52, v73, AssociatedConformanceWitness);
-  memcpy(v71, v129, v68);
-  v75(v71, 53, v73, AssociatedConformanceWitness);
-  memcpy(v71, v130, v68);
-  v75(v71, 54, v73, AssociatedConformanceWitness);
-  memcpy(v71, v131, v68);
-  v75(v71, 55, v73, AssociatedConformanceWitness);
-  memcpy(v71, v132, v68);
-  v75(v71, 56, v73, AssociatedConformanceWitness);
-  memcpy(v71, v134, v68);
-  v75(v71, 57, v73, AssociatedConformanceWitness);
-  memcpy(v71, v135, v68);
-  v75(v71, 58, v73, AssociatedConformanceWitness);
-  memcpy(v71, v136, v68);
-  v75(v71, 59, v73, AssociatedConformanceWitness);
-  memcpy(v71, v137, v68);
-  v75(v71, 60, v73, AssociatedConformanceWitness);
-  memcpy(v71, v138, v68);
-  v75(v71, 61, v73, AssociatedConformanceWitness);
-  memcpy(v71, v139, v68);
-  v75(v71, 62, v73, AssociatedConformanceWitness);
-  v76 = v133;
-  memcpy(v133, v140, v68);
-  return (v75)(v76, 63, v73, AssociatedConformanceWitness);
+  v74 = v73;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a66, a65, v73, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD64Storage: SIMDStorage);
+  (*(AssociatedConformanceWitness + 48))(v74, AssociatedConformanceWitness);
+  memcpy(v72, a1, v68);
+  v76 = *(AssociatedConformanceWitness + 64);
+  v76(v72, 0, v74, AssociatedConformanceWitness);
+  memcpy(v72, a2, v68);
+  v76(v72, 1, v74, AssociatedConformanceWitness);
+  memcpy(v72, v80, v68);
+  v76(v72, 2, v74, AssociatedConformanceWitness);
+  memcpy(v72, v82, v68);
+  v76(v72, 3, v74, AssociatedConformanceWitness);
+  memcpy(v72, v84, v68);
+  v76(v72, 4, v74, AssociatedConformanceWitness);
+  memcpy(v72, v86, v68);
+  v76(v72, 5, v74, AssociatedConformanceWitness);
+  memcpy(v72, v88, v68);
+  v76(v72, 6, v74, AssociatedConformanceWitness);
+  memcpy(v72, v90, v68);
+  v76(v72, 7, v74, AssociatedConformanceWitness);
+  memcpy(v72, a9, v68);
+  v76(v72, 8, v74, AssociatedConformanceWitness);
+  memcpy(v72, v81, v68);
+  v76(v72, 9, v74, AssociatedConformanceWitness);
+  memcpy(v72, v83, v68);
+  v76(v72, 10, v74, AssociatedConformanceWitness);
+  memcpy(v72, v85, v68);
+  v76(v72, 11, v74, AssociatedConformanceWitness);
+  memcpy(v72, v87, v68);
+  v76(v72, 12, v74, AssociatedConformanceWitness);
+  memcpy(v72, v89, v68);
+  v76(v72, 13, v74, AssociatedConformanceWitness);
+  memcpy(v72, v91, v68);
+  v76(v72, 14, v74, AssociatedConformanceWitness);
+  memcpy(v72, v92, v68);
+  v76(v72, 15, v74, AssociatedConformanceWitness);
+  memcpy(v72, v93, v68);
+  v76(v72, 16, v74, AssociatedConformanceWitness);
+  memcpy(v72, v94, v68);
+  v76(v72, 17, v74, AssociatedConformanceWitness);
+  memcpy(v72, v95, v68);
+  v76(v72, 18, v74, AssociatedConformanceWitness);
+  memcpy(v72, v96, v68);
+  v76(v72, 19, v74, AssociatedConformanceWitness);
+  memcpy(v72, v97, v68);
+  v76(v72, 20, v74, AssociatedConformanceWitness);
+  memcpy(v72, v98, v68);
+  v76(v72, 21, v74, AssociatedConformanceWitness);
+  memcpy(v72, v99, v68);
+  v76(v72, 22, v74, AssociatedConformanceWitness);
+  memcpy(v72, v100, v68);
+  v76(v72, 23, v74, AssociatedConformanceWitness);
+  memcpy(v72, v101, v68);
+  v76(v72, 24, v74, AssociatedConformanceWitness);
+  memcpy(v72, v102, v68);
+  v76(v72, 25, v74, AssociatedConformanceWitness);
+  memcpy(v72, v103, v68);
+  v76(v72, 26, v74, AssociatedConformanceWitness);
+  memcpy(v72, v104, v68);
+  v76(v72, 27, v74, AssociatedConformanceWitness);
+  memcpy(v72, v105, v68);
+  v76(v72, 28, v74, AssociatedConformanceWitness);
+  memcpy(v72, v106, v68);
+  v76(v72, 29, v74, AssociatedConformanceWitness);
+  memcpy(v72, v107, v68);
+  v76(v72, 30, v74, AssociatedConformanceWitness);
+  memcpy(v72, v108, v68);
+  v76(v72, 31, v74, AssociatedConformanceWitness);
+  memcpy(v72, v109, v68);
+  v76(v72, 32, v74, AssociatedConformanceWitness);
+  memcpy(v72, v110, v68);
+  v76(v72, 33, v74, AssociatedConformanceWitness);
+  memcpy(v72, v111, v68);
+  v76(v72, 34, v74, AssociatedConformanceWitness);
+  memcpy(v72, v112, v68);
+  v76(v72, 35, v74, AssociatedConformanceWitness);
+  memcpy(v72, v113, v68);
+  v76(v72, 36, v74, AssociatedConformanceWitness);
+  memcpy(v72, v114, v68);
+  v76(v72, 37, v74, AssociatedConformanceWitness);
+  memcpy(v72, v115, v68);
+  v76(v72, 38, v74, AssociatedConformanceWitness);
+  memcpy(v72, v116, v68);
+  v76(v72, 39, v74, AssociatedConformanceWitness);
+  memcpy(v72, v117, v68);
+  v76(v72, 40, v74, AssociatedConformanceWitness);
+  memcpy(v72, v118, v68);
+  v76(v72, 41, v74, AssociatedConformanceWitness);
+  memcpy(v72, v119, v68);
+  v76(v72, 42, v74, AssociatedConformanceWitness);
+  memcpy(v72, v120, v68);
+  v76(v72, 43, v74, AssociatedConformanceWitness);
+  memcpy(v72, v121, v68);
+  v76(v72, 44, v74, AssociatedConformanceWitness);
+  memcpy(v72, v122, v68);
+  v76(v72, 45, v74, AssociatedConformanceWitness);
+  memcpy(v72, v123, v68);
+  v76(v72, 46, v74, AssociatedConformanceWitness);
+  memcpy(v72, v124, v68);
+  v76(v72, 47, v74, AssociatedConformanceWitness);
+  memcpy(v72, v125, v68);
+  v76(v72, 48, v74, AssociatedConformanceWitness);
+  memcpy(v72, v126, v68);
+  v76(v72, 49, v74, AssociatedConformanceWitness);
+  memcpy(v72, v127, v68);
+  v76(v72, 50, v74, AssociatedConformanceWitness);
+  memcpy(v72, v128, v68);
+  v76(v72, 51, v74, AssociatedConformanceWitness);
+  memcpy(v72, v129, v68);
+  v76(v72, 52, v74, AssociatedConformanceWitness);
+  memcpy(v72, v130, v68);
+  v76(v72, 53, v74, AssociatedConformanceWitness);
+  memcpy(v72, v131, v68);
+  v76(v72, 54, v74, AssociatedConformanceWitness);
+  memcpy(v72, v132, v68);
+  v76(v72, 55, v74, AssociatedConformanceWitness);
+  memcpy(v72, v133, v68);
+  v76(v72, 56, v74, AssociatedConformanceWitness);
+  memcpy(v72, v135, v68);
+  v76(v72, 57, v74, AssociatedConformanceWitness);
+  memcpy(v72, v136, v68);
+  v76(v72, 58, v74, AssociatedConformanceWitness);
+  memcpy(v72, v137, v68);
+  v76(v72, 59, v74, AssociatedConformanceWitness);
+  memcpy(v72, v138, v68);
+  v76(v72, 60, v74, AssociatedConformanceWitness);
+  memcpy(v72, v139, v68);
+  v76(v72, 61, v74, AssociatedConformanceWitness);
+  memcpy(v72, v140, v68);
+  v76(v72, 62, v74, AssociatedConformanceWitness);
+  v77 = v134;
+  memcpy(v134, v141, v68);
+  return (v76)(v77, 63, v74, AssociatedConformanceWitness);
 }
 
-uint64_t SIMD64.init(lowHalf:highHalf:)(uint64_t a1, uint64_t a2, const char *a3, int **a4)
+uint64_t SIMD64.init(lowHalf:highHalf:)(uint64_t a1, uint64_t a2, Class *a3, int **a4)
 {
   swift_getAssociatedTypeWitness(0, a4, a3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD64Storage);
   v9 = v8;
@@ -2906,32 +2906,32 @@ uint64_t SIMD64.init(lowHalf:highHalf:)(uint64_t a1, uint64_t a2, const char *a3
   return v16(a2, v14);
 }
 
-uint64_t SIMD64.lowHalf.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t SIMD64.lowHalf.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v3 = *(a1 + 16);
-  v4 = MEMORY[0x1EEE9AC00](a1);
-  v6 = &v19 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = *(v4 + 24);
-  swift_getAssociatedTypeWitness(0, v7, v3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
-  v9 = v8;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v7, v3, v8, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
-  v11 = *(AssociatedConformanceWitness + 48);
-  v20 = v9;
-  v21 = a2;
-  v11(v9, AssociatedConformanceWitness);
-  swift_getAssociatedTypeWitness(255, v7, v3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD64Storage);
-  v13 = v12;
-  v14 = swift_getAssociatedConformanceWitness(v7, v3, v12, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD64Storage: SIMDStorage);
-  v15 = 0;
-  v16 = *(v14 + 56);
+  v4 = *(a1 + 16);
+  v5 = MEMORY[0x1EEE9AC00](a1, a2);
+  v7 = &v20 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = *(v5 + 24);
+  swift_getAssociatedTypeWitness(0, v8, v4, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
+  v10 = v9;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v8, v4, v9, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
+  v12 = *(AssociatedConformanceWitness + 48);
+  v21 = v10;
+  v22 = a3;
+  v12(v10, AssociatedConformanceWitness);
+  swift_getAssociatedTypeWitness(255, v8, v4, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD64Storage);
+  v14 = v13;
+  v15 = swift_getAssociatedConformanceWitness(v8, v4, v13, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD64Storage: SIMDStorage);
+  v16 = 0;
+  v17 = *(v15 + 56);
   do
   {
-    v17 = swift_checkMetadataState(0, v13);
-    v16(v15, v17, v14);
-    result = (*(AssociatedConformanceWitness + 64))(v6, v15++, v20, AssociatedConformanceWitness);
+    v18 = swift_checkMetadataState(0, v14);
+    v17(v16, v18, v15);
+    result = (*(AssociatedConformanceWitness + 64))(v7, v16++, v21, AssociatedConformanceWitness);
   }
 
-  while (v15 != 32);
+  while (v16 != 32);
   return result;
 }
 
@@ -2969,36 +2969,36 @@ void (*SIMD64.lowHalf.modify(void *a1, uint64_t a2))(uint64_t **a1, char a2)
   }
 
   v7[5] = v11;
-  SIMD64.lowHalf.getter(a2, v11);
+  SIMD64.lowHalf.getter(a2, v12, v11);
   return SIMD64.lowHalf.modify;
 }
 
-uint64_t SIMD64.highHalf.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t SIMD64.highHalf.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v3 = *(a1 + 16);
-  v4 = MEMORY[0x1EEE9AC00](a1);
-  v6 = &v19 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = *(v4 + 24);
-  swift_getAssociatedTypeWitness(0, v7, v3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
-  v9 = v8;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v7, v3, v8, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
-  v11 = *(AssociatedConformanceWitness + 48);
-  v20 = v9;
-  v21 = a2;
-  v11(v9, AssociatedConformanceWitness);
-  swift_getAssociatedTypeWitness(255, v7, v3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD64Storage);
-  v13 = v12;
-  v14 = swift_getAssociatedConformanceWitness(v7, v3, v12, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD64Storage: SIMDStorage);
-  v15 = 0;
-  v16 = *(v14 + 56);
+  v4 = *(a1 + 16);
+  v5 = MEMORY[0x1EEE9AC00](a1, a2);
+  v7 = &v20 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = *(v5 + 24);
+  swift_getAssociatedTypeWitness(0, v8, v4, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
+  v10 = v9;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v8, v4, v9, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
+  v12 = *(AssociatedConformanceWitness + 48);
+  v21 = v10;
+  v22 = a3;
+  v12(v10, AssociatedConformanceWitness);
+  swift_getAssociatedTypeWitness(255, v8, v4, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD64Storage);
+  v14 = v13;
+  v15 = swift_getAssociatedConformanceWitness(v8, v4, v13, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD64Storage: SIMDStorage);
+  v16 = 0;
+  v17 = *(v15 + 56);
   do
   {
-    v17 = swift_checkMetadataState(0, v13);
-    v16(v15 + 32, v17, v14);
-    result = (*(AssociatedConformanceWitness + 64))(v6, v15++, v20, AssociatedConformanceWitness);
+    v18 = swift_checkMetadataState(0, v14);
+    v17(v16 + 32, v18, v15);
+    result = (*(AssociatedConformanceWitness + 64))(v7, v16++, v21, AssociatedConformanceWitness);
   }
 
-  while (v15 != 32);
+  while (v16 != 32);
   return result;
 }
 
@@ -3036,39 +3036,39 @@ void (*SIMD64.highHalf.modify(void *a1, uint64_t a2))(uint64_t **a1, char a2)
   }
 
   v7[5] = v11;
-  SIMD64.highHalf.getter(a2, v11);
+  SIMD64.highHalf.getter(a2, v12, v11);
   return SIMD64.highHalf.modify;
 }
 
-uint64_t SIMD64.evenHalf.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t SIMD64.evenHalf.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v3 = *(a1 + 16);
-  v4 = MEMORY[0x1EEE9AC00](a1);
-  v6 = &v19 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = *(v4 + 24);
-  swift_getAssociatedTypeWitness(0, v7, v3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
-  v9 = v8;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v7, v3, v8, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
-  v11 = *(AssociatedConformanceWitness + 48);
-  v20 = v9;
-  v21 = a2;
-  v11(v9, AssociatedConformanceWitness);
-  swift_getAssociatedTypeWitness(255, v7, v3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD64Storage);
-  v19 = v12;
-  v13 = swift_getAssociatedConformanceWitness(v7, v3, v12, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD64Storage: SIMDStorage);
-  v14 = 0;
+  v4 = *(a1 + 16);
+  v5 = MEMORY[0x1EEE9AC00](a1, a2);
+  v7 = &v20 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = *(v5 + 24);
+  swift_getAssociatedTypeWitness(0, v8, v4, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
+  v10 = v9;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v8, v4, v9, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
+  v12 = *(AssociatedConformanceWitness + 48);
+  v21 = v10;
+  v22 = a3;
+  v12(v10, AssociatedConformanceWitness);
+  swift_getAssociatedTypeWitness(255, v8, v4, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD64Storage);
+  v20 = v13;
+  v14 = swift_getAssociatedConformanceWitness(v8, v4, v13, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD64Storage: SIMDStorage);
   v15 = 0;
-  v16 = *(v13 + 56);
+  v16 = 0;
+  v17 = *(v14 + 56);
   do
   {
-    v17 = swift_checkMetadataState(0, v19);
-    v16(v14, v17, v13);
-    result = (*(AssociatedConformanceWitness + 64))(v6, v15, v20, AssociatedConformanceWitness);
-    v14 += 2;
-    ++v15;
+    v18 = swift_checkMetadataState(0, v20);
+    v17(v15, v18, v14);
+    result = (*(AssociatedConformanceWitness + 64))(v7, v16, v21, AssociatedConformanceWitness);
+    v15 += 2;
+    ++v16;
   }
 
-  while (v14 != 64);
+  while (v15 != 64);
   return result;
 }
 
@@ -3106,33 +3106,33 @@ void (*SIMD64.evenHalf.modify(void *a1, uint64_t a2))(uint64_t **a1, char a2)
   }
 
   v7[5] = v11;
-  SIMD64.evenHalf.getter(a2, v11);
+  SIMD64.evenHalf.getter(a2, v12, v11);
   return SIMD64.evenHalf.modify;
 }
 
-uint64_t SIMD64.oddHalf.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t SIMD64.oddHalf.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v3 = *(a1 + 16);
-  v4 = MEMORY[0x1EEE9AC00](a1);
-  v6 = &v19 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = *(v4 + 24);
-  swift_getAssociatedTypeWitness(0, v7, v3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
-  v9 = v8;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v7, v3, v8, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
-  v11 = *(AssociatedConformanceWitness + 48);
-  v20 = v9;
-  v21 = a2;
-  v11(v9, AssociatedConformanceWitness);
-  swift_getAssociatedTypeWitness(255, v7, v3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD64Storage);
-  v19 = v12;
-  v13 = swift_getAssociatedConformanceWitness(v7, v3, v12, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD64Storage: SIMDStorage);
-  v14 = 0;
-  v15 = *(v13 + 56);
+  v4 = *(a1 + 16);
+  v5 = MEMORY[0x1EEE9AC00](a1, a2);
+  v7 = &v20 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = *(v5 + 24);
+  swift_getAssociatedTypeWitness(0, v8, v4, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD32Storage);
+  v10 = v9;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v8, v4, v9, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD32Storage: SIMDStorage);
+  v12 = *(AssociatedConformanceWitness + 48);
+  v21 = v10;
+  v22 = a3;
+  v12(v10, AssociatedConformanceWitness);
+  swift_getAssociatedTypeWitness(255, v8, v4, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD64Storage);
+  v20 = v13;
+  v14 = swift_getAssociatedConformanceWitness(v8, v4, v13, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD64Storage: SIMDStorage);
+  v15 = 0;
+  v16 = *(v14 + 56);
   for (i = 1; i != 65; i += 2)
   {
-    v17 = swift_checkMetadataState(0, v19);
-    v15(i, v17, v13);
-    result = (*(AssociatedConformanceWitness + 64))(v6, v14++, v20, AssociatedConformanceWitness);
+    v18 = swift_checkMetadataState(0, v20);
+    v16(i, v18, v14);
+    result = (*(AssociatedConformanceWitness + 64))(v7, v15++, v21, AssociatedConformanceWitness);
   }
 
   return result;
@@ -3172,7 +3172,7 @@ void (*SIMD64.oddHalf.modify(void *a1, uint64_t a2))(uint64_t **a1, char a2)
   }
 
   v7[5] = v11;
-  SIMD64.oddHalf.getter(a2, v11);
+  SIMD64.oddHalf.getter(a2, v12, v11);
   return SIMD64.oddHalf.modify;
 }
 
@@ -3229,7 +3229,7 @@ uint64_t (*protocol witness for SIMDStorage.subscript.modify in conformance SIMD
   *v7 = a2;
   v7[1] = v3;
   v9 = *(a3 + 16);
-  v10 = *(*(v9 - 1) + 64);
+  v10 = *(*(v9 - 1) + 8);
   v7[2] = v10;
   if (swift_coroFrameAlloc)
   {
@@ -3263,21 +3263,21 @@ uint64_t (*protocol witness for SIMDStorage.subscript.modify in conformance SIMD
   return SIMD4.subscript.modify;
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance SIMD64<A>(uint64_t a1, const char *a2, uint64_t a3)
+uint64_t protocol witness for Hashable.hash(into:) in conformance SIMD64<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   WitnessTable = swift_getWitnessTable(protocol conformance descriptor for SIMD64<A>, a2, a3);
 
   return SIMD.hash(into:)(a1, a2, WitnessTable);
 }
 
-unint64_t protocol witness for CustomStringConvertible.description.getter in conformance SIMD64<A>(unint64_t a1, uint64_t a2, uint64_t a3)
+unint64_t protocol witness for CustomStringConvertible.description.getter in conformance SIMD64<A>(unsigned __int16 *a1, uint64_t a2, uint64_t a3)
 {
   WitnessTable = swift_getWitnessTable(protocol conformance descriptor for SIMD64<A>, a1, a3);
 
   return SIMD.description.getter(a1, WitnessTable);
 }
 
-uint64_t protocol witness for ExpressibleByArrayLiteral.init(arrayLiteral:) in conformance SIMD64<A>@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t protocol witness for ExpressibleByArrayLiteral.init(arrayLiteral:) in conformance SIMD64<A>@<X0>(uint64_t a1@<X0>, unsigned __int16 *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   WitnessTable = swift_getWitnessTable(protocol conformance descriptor for SIMD64<A>, a2, a3);
 
@@ -3286,319 +3286,319 @@ uint64_t protocol witness for ExpressibleByArrayLiteral.init(arrayLiteral:) in c
 
 uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance SIMD64<A>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v24 = a1;
-  v25 = a2;
-  v26 = a3;
+  v25 = a1;
+  v26 = a2;
+  v27 = a3;
   v3 = *(a3 + 16);
-  v4 = MEMORY[0x1EEE9AC00](a1);
-  v23 = v22 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v4);
-  v22[1] = v22 - v6;
-  v7 = 0;
-  v8 = 1;
-  v9 = v22 - v6;
+  v4 = MEMORY[0x1EEE9AC00](a1, a2);
+  v24 = v23 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v4, v6);
+  v23[1] = v23 - v7;
+  v8 = 0;
+  v9 = 1;
+  v10 = v23 - v7;
   do
   {
-    if (v8)
+    if (v9)
     {
-      v10 = *(v26 + 24);
-      swift_getAssociatedTypeWitness(255, v10, v3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD64Storage);
-      v12 = v11;
-      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v10, v3, v11, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD64Storage: SIMDStorage);
-      v14 = *(AssociatedConformanceWitness + 56);
-      v15 = swift_checkMetadataState(0, v12);
-      v14(v7, v15, AssociatedConformanceWitness);
-      v16 = v23;
-      v14(v7, v15, AssociatedConformanceWitness);
-      swift_getAssociatedTypeWitness(255, v10, v3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD16Storage);
-      v18 = v17;
-      v19 = swift_getAssociatedConformanceWitness(v10, v3, v17, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD16Storage: SIMDStorage);
-      v20 = swift_getAssociatedConformanceWitness(v19, v18, v3, &protocol requirements base descriptor for SIMDStorage, associated conformance descriptor for SIMDStorage.SIMDStorage.Scalar: Hashable);
-      v8 = (*(*(v20 + 8) + 8))(v9, v16, v3);
+      v11 = *(v27 + 24);
+      swift_getAssociatedTypeWitness(255, v11, v3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD64Storage);
+      v13 = v12;
+      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v11, v3, v12, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD64Storage: SIMDStorage);
+      v15 = *(AssociatedConformanceWitness + 56);
+      v16 = swift_checkMetadataState(0, v13);
+      v15(v8, v16, AssociatedConformanceWitness);
+      v17 = v24;
+      v15(v8, v16, AssociatedConformanceWitness);
+      swift_getAssociatedTypeWitness(255, v11, v3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD16Storage);
+      v19 = v18;
+      v20 = swift_getAssociatedConformanceWitness(v11, v3, v18, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD16Storage: SIMDStorage);
+      v21 = swift_getAssociatedConformanceWitness(v20, v19, v3, &protocol requirements base descriptor for SIMDStorage, associated conformance descriptor for SIMDStorage.SIMDStorage.Scalar: Hashable);
+      v9 = (*(*(v21 + 8) + 8))(v10, v17, v3);
     }
 
     else
     {
-      v8 = 0;
+      v9 = 0;
     }
 
-    ++v7;
+    ++v8;
   }
 
-  while (v7 != 64);
-  return v8 & 1;
+  while (v8 != 64);
+  return v9 & 1;
 }
 
-uint64_t SIMD64<>.init<A>(truncatingIfNeeded:)@<X0>(uint64_t a1@<X0>, const char *a2@<X1>, const char *a3@<X2>, uint64_t a4@<X3>, int **a5@<X4>, uint64_t a6@<X5>, int **a7@<X6>, uint64_t a8@<X8>)
+uint64_t SIMD64<>.init<A>(truncatingIfNeeded:)@<X0>(uint64_t a1@<X0>, Class *a2@<X1>, Class *a3@<X2>, uint64_t a4@<X3>, int **a5@<X4>, uint64_t a6@<X5>, int **a7@<X6>, uint64_t a8@<X8>)
 {
-  v36 = a4;
-  v37 = a6;
-  v39 = a1;
-  v13 = MEMORY[0x1EEE9AC00](a1);
-  v15 = &v30 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v13);
-  v17 = &v30 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v37 = a4;
+  v38 = a6;
+  v40 = a1;
+  v13 = MEMORY[0x1EEE9AC00](a1, a2);
+  v15 = &v31 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v13, v16);
+  v18 = &v31 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_getAssociatedTypeWitness(0, a5, a2, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD64Storage);
-  v19 = v18;
-  v35 = a2;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a5, a2, v18, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD64Storage: SIMDStorage);
-  v21 = *(AssociatedConformanceWitness + 48);
-  v33 = v19;
-  v34 = a8;
-  v21(v19, AssociatedConformanceWitness);
+  v20 = v19;
+  v36 = a2;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a5, a2, v19, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD64Storage: SIMDStorage);
+  v22 = *(AssociatedConformanceWitness + 48);
+  v34 = v20;
+  v35 = a8;
+  v22(v20, AssociatedConformanceWitness);
   swift_getAssociatedTypeWitness(255, a7, a3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD64Storage);
-  v31 = a7;
-  v32 = v22;
-  v38 = a3;
-  v23 = swift_getAssociatedConformanceWitness(a7, a3, v22, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD64Storage: SIMDStorage);
-  v24 = 0;
-  v25 = *(v23 + 56);
+  v32 = a7;
+  v33 = v23;
+  v39 = a3;
+  v24 = swift_getAssociatedConformanceWitness(a7, a3, v23, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD64Storage: SIMDStorage);
+  v25 = 0;
+  v26 = *(v24 + 56);
   do
   {
-    v26 = swift_checkMetadataState(0, v32);
-    v25(v24, v26, v23);
-    (*(*(v36 + 8) + 96))(v15, v38, *(v37 + 8));
-    (*(AssociatedConformanceWitness + 64))(v17, v24++, v33, AssociatedConformanceWitness);
+    v27 = swift_checkMetadataState(0, v33);
+    v26(v25, v27, v24);
+    (*(*(v37 + 8) + 96))(v15, v39, *(v38 + 8));
+    (*(AssociatedConformanceWitness + 64))(v18, v25++, v34, AssociatedConformanceWitness);
   }
 
-  while (v24 != 64);
-  v28 = type metadata accessor for SIMD64(0, v38, v31, v27);
-  return (*(*(v28 - 8) + 8))(v39, v28);
+  while (v25 != 64);
+  v29 = type metadata accessor for SIMD64(0, v39, v32, v28);
+  return (*(*(v29 - 8) + 8))(v40, v29);
 }
 
-uint64_t SIMD64<>.init<A>(clamping:)@<X0>(uint64_t a1@<X0>, const char *a2@<X1>, const char *a3@<X2>, uint64_t a4@<X3>, int **a5@<X4>, uint64_t a6@<X5>, int **a7@<X6>, uint64_t a8@<X8>)
+uint64_t SIMD64<>.init<A>(clamping:)@<X0>(uint64_t a1@<X0>, Class *a2@<X1>, Class *a3@<X2>, uint64_t a4@<X3>, int **a5@<X4>, uint64_t a6@<X5>, int **a7@<X6>, uint64_t a8@<X8>)
 {
-  v36 = a4;
-  v37 = a6;
-  v39 = a1;
-  v13 = MEMORY[0x1EEE9AC00](a1);
-  v15 = &v30 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v13);
-  v17 = &v30 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v37 = a4;
+  v38 = a6;
+  v40 = a1;
+  v13 = MEMORY[0x1EEE9AC00](a1, a2);
+  v15 = &v31 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v13, v16);
+  v18 = &v31 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_getAssociatedTypeWitness(0, a5, a2, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD64Storage);
-  v19 = v18;
-  v35 = a2;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a5, a2, v18, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD64Storage: SIMDStorage);
-  v21 = *(AssociatedConformanceWitness + 48);
-  v33 = v19;
-  v34 = a8;
-  v21(v19, AssociatedConformanceWitness);
+  v20 = v19;
+  v36 = a2;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a5, a2, v19, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD64Storage: SIMDStorage);
+  v22 = *(AssociatedConformanceWitness + 48);
+  v34 = v20;
+  v35 = a8;
+  v22(v20, AssociatedConformanceWitness);
   swift_getAssociatedTypeWitness(255, a7, a3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD64Storage);
-  v31 = a7;
-  v32 = v22;
-  v38 = a3;
-  v23 = swift_getAssociatedConformanceWitness(a7, a3, v22, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD64Storage: SIMDStorage);
-  v24 = 0;
-  v25 = *(v23 + 56);
+  v32 = a7;
+  v33 = v23;
+  v39 = a3;
+  v24 = swift_getAssociatedConformanceWitness(a7, a3, v23, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD64Storage: SIMDStorage);
+  v25 = 0;
+  v26 = *(v24 + 56);
   do
   {
-    v26 = swift_checkMetadataState(0, v32);
-    v25(v24, v26, v23);
-    (*(*(v36 + 8) + 104))(v15, v38, *(v37 + 8));
-    (*(AssociatedConformanceWitness + 64))(v17, v24++, v33, AssociatedConformanceWitness);
+    v27 = swift_checkMetadataState(0, v33);
+    v26(v25, v27, v24);
+    (*(*(v37 + 8) + 104))(v15, v39, *(v38 + 8));
+    (*(AssociatedConformanceWitness + 64))(v18, v25++, v34, AssociatedConformanceWitness);
   }
 
-  while (v24 != 64);
-  v28 = type metadata accessor for SIMD64(0, v38, v31, v27);
-  return (*(*(v28 - 8) + 8))(v39, v28);
+  while (v25 != 64);
+  v29 = type metadata accessor for SIMD64(0, v39, v32, v28);
+  return (*(*(v29 - 8) + 8))(v40, v29);
 }
 
-uint64_t SIMD64<>.init<A>(_:rounding:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, const char *a3@<X2>, const char *a4@<X3>, uint64_t a5@<X4>, swift *a6@<X5>, uint64_t a7@<X6>, int **a8@<X7>, uint64_t a9@<X8>)
+uint64_t SIMD64<>.init<A>(_:rounding:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, const char *a3@<X2>, Class *a4@<X3>, uint64_t a5@<X4>, swift *a6@<X5>, uint64_t a7@<X6>, int **a8@<X7>, uint64_t a9@<X8>)
 {
-  v46 = a5;
-  v47 = a7;
-  v44 = a2;
-  v49 = a1;
-  v14 = MEMORY[0x1EEE9AC00](a1);
-  v42 = &v36 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = MEMORY[0x1EEE9AC00](v14);
-  v18 = &v36 - v17;
-  MEMORY[0x1EEE9AC00](v16);
-  v20 = &v36 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  swift_getAssociatedTypeWitness(0, v22, v21, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD64Storage);
-  v24 = v23;
-  v45 = a3;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a6, a3, v23, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD64Storage: SIMDStorage);
-  v26 = *(AssociatedConformanceWitness + 48);
-  v43 = a9;
-  v41 = v24;
-  v26(v24, AssociatedConformanceWitness);
+  v48 = a5;
+  v49 = a7;
+  v46 = a2;
+  v51 = a1;
+  v14 = MEMORY[0x1EEE9AC00](a1, a2);
+  v44 = &v38 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = MEMORY[0x1EEE9AC00](v14, v16);
+  v19 = &v38 - v18;
+  MEMORY[0x1EEE9AC00](v17, v20);
+  v22 = &v38 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  swift_getAssociatedTypeWitness(0, v24, v23, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD64Storage);
+  v26 = v25;
+  v47 = a3;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a6, a3, v25, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD64Storage: SIMDStorage);
+  v28 = *(AssociatedConformanceWitness + 48);
+  v45 = a9;
+  v43 = v26;
+  v28(v26, AssociatedConformanceWitness);
   swift_getAssociatedTypeWitness(255, a8, a4, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD64Storage);
-  v37 = a8;
-  v48 = a4;
-  v40 = v27;
-  v28 = swift_getAssociatedConformanceWitness(a8, a4, v27, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD64Storage: SIMDStorage);
-  v29 = 0;
-  v38 = *(v28 + 56);
-  v39 = v28;
+  v39 = a8;
+  v50 = a4;
+  v42 = v29;
+  v30 = swift_getAssociatedConformanceWitness(a8, a4, v29, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD64Storage: SIMDStorage);
+  v31 = 0;
+  v40 = *(v30 + 56);
+  v41 = v30;
   do
   {
-    v30 = swift_checkMetadataState(0, v40);
-    v38(v29, v30, v39);
-    v31 = v47;
-    v32 = v48;
-    (*(*(v47 + 16) + 304))(v44, v48);
-    (*(*(v46 + 8) + 80))(v18, v32, v31);
-    (*(AssociatedConformanceWitness + 64))(v20, v29++, v41, AssociatedConformanceWitness);
+    v32 = swift_checkMetadataState(0, v42);
+    v40(v31, v32, v41);
+    v33 = v49;
+    v34 = v50;
+    (*(*(v49 + 16) + 304))(v46, v50);
+    (*(*(v48 + 8) + 80))(v19, v34, v33);
+    (*(AssociatedConformanceWitness + 64))(v22, v31++, v43, AssociatedConformanceWitness);
   }
 
-  while (v29 != 64);
-  v34 = type metadata accessor for SIMD64(0, v48, v37, v33);
-  return (*(*(v34 - 8) + 8))(v49, v34);
+  while (v31 != 64);
+  v36 = type metadata accessor for SIMD64(0, v50, v39, v35);
+  return (*(*(v36 - 8) + 8))(v51, v36);
 }
 
-uint64_t SIMD64.debugDescription.getter(uint64_t a1)
+uint64_t SIMD64.debugDescription.getter(uint64_t a1, uint64_t a2)
 {
-  v868 = 0;
-  v864 = a1;
-  v1 = *(a1 + 16);
-  v2 = MEMORY[0x1EEE9AC00](a1);
-  countAndFlagsBits = (&v854 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v5 = MEMORY[0x1EEE9AC00](v2);
-  v7 = &v854 - v6;
-  v8 = MEMORY[0x1EEE9AC00](v5);
-  v860 = (&v854 - v9);
-  v10 = MEMORY[0x1EEE9AC00](v8);
-  v863 = (&v854 - v11);
-  v12 = MEMORY[0x1EEE9AC00](v10);
-  v866 = &v854 - v13;
-  v14 = MEMORY[0x1EEE9AC00](v12);
-  v856 = (&v854 - v15);
-  v16 = MEMORY[0x1EEE9AC00](v14);
-  v857 = (&v854 - v17);
-  v18 = MEMORY[0x1EEE9AC00](v16);
-  v859 = (&v854 - v19);
-  v20 = MEMORY[0x1EEE9AC00](v18);
-  v862 = (&v854 - v21);
-  v22 = MEMORY[0x1EEE9AC00](v20);
-  v24 = &v854 - v23;
-  v867 = v25;
-  MEMORY[0x1EEE9AC00](v22);
-  v865 = &v854 - v26;
-  v27 = _StringGuts.init(_initialCapacity:)(266);
-  object = v27;
-  v30 = v28;
-  v875._countAndFlagsBits = v27;
-  v875._object = v28;
-  v31 = HIBYTE(v28) & 0xF;
-  v32 = v27 & 0xFFFFFFFFFFFFLL;
-  if ((v28 & 0x2000000000000000) != 0)
+  v909 = 0;
+  v905 = a1;
+  v2 = *(a1 + 16);
+  v3 = MEMORY[0x1EEE9AC00](a1, a2);
+  countAndFlagsBits = (&v895 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v7 = MEMORY[0x1EEE9AC00](v3, v6);
+  v9 = &v895 - v8;
+  v11 = MEMORY[0x1EEE9AC00](v7, v10);
+  v901 = &v895 - v12;
+  v14 = MEMORY[0x1EEE9AC00](v11, v13);
+  v904 = &v895 - v15;
+  v17 = MEMORY[0x1EEE9AC00](v14, v16);
+  v907 = &v895 - v18;
+  v20 = MEMORY[0x1EEE9AC00](v17, v19);
+  v897 = &v895 - v21;
+  v23 = MEMORY[0x1EEE9AC00](v20, v22);
+  v898 = &v895 - v24;
+  v26 = MEMORY[0x1EEE9AC00](v23, v25);
+  v900 = &v895 - v27;
+  v29 = MEMORY[0x1EEE9AC00](v26, v28);
+  v903 = &v895 - v30;
+  v32 = MEMORY[0x1EEE9AC00](v29, v31);
+  v34 = &v895 - v33;
+  v908 = v35;
+  MEMORY[0x1EEE9AC00](v32, v36);
+  v906 = &v895 - v37;
+  v38 = _StringGuts.init(_initialCapacity:)(266);
+  object = v38;
+  v41 = v39;
+  v916._countAndFlagsBits = v38;
+  v916._object = v39;
+  v42 = HIBYTE(v39) & 0xF;
+  v43 = v38 & 0xFFFFFFFFFFFFLL;
+  if ((v39 & 0x2000000000000000) != 0)
   {
-    v33 = HIBYTE(v28) & 0xF;
+    v44 = HIBYTE(v39) & 0xF;
   }
 
   else
   {
-    v33 = v27 & 0xFFFFFFFFFFFFLL;
+    v44 = v38 & 0xFFFFFFFFFFFFLL;
   }
 
-  v858 = v7;
-  if (v33 || (v27 & ~v28 & 0x2000000000000000) != 0)
+  v899 = v9;
+  if (v44 || (v38 & ~v39 & 0x2000000000000000) != 0)
   {
-    if ((v28 & 0x2000000000000000) != 0 && v31 <= 8)
+    if ((v39 & 0x2000000000000000) != 0 && v42 <= 8)
     {
-      v34 = 8 * HIBYTE(v28);
-      v35 = (-255 << (v34 & 0x38)) - 1;
-      v36 = 83 << (v34 & 0x38);
-      if (v31 >= 8)
+      v45 = 8 * HIBYTE(v39);
+      v46 = (-255 << (v45 & 0x38)) - 1;
+      v47 = 83 << (v45 & 0x38);
+      if (v42 >= 8)
       {
-        v38 = v35 & v28 | v36;
-        v37 = 8;
+        v49 = v46 & v39 | v47;
+        v48 = 8;
       }
 
       else
       {
-        object = v35 & v27 | v36;
-        if (v31 != 7)
+        object = v46 & v38 | v47;
+        if (v42 != 7)
         {
-          object = ((-255 << ((v34 + 8) & 0x38)) - 1) & object | (73 << ((v34 + 8) & 0x38));
-          if (v31 < 6)
+          object = ((-255 << ((v45 + 8) & 0x38)) - 1) & object | (73 << ((v45 + 8) & 0x38));
+          if (v42 < 6)
           {
-            object = ((-255 << ((v34 + 16) & 0x38)) - 1) & object | (77 << ((v34 + 16) & 0x38));
-            if (v31 != 5)
+            object = ((-255 << ((v45 + 16) & 0x38)) - 1) & object | (77 << ((v45 + 16) & 0x38));
+            if (v42 != 5)
             {
-              object = ((-255 << ((v34 + 24) & 0x38)) - 1) & object | (68 << ((v34 + 24) & 0x38));
-              if (v31 < 4)
+              object = ((-255 << ((v45 + 24) & 0x38)) - 1) & object | (68 << ((v45 + 24) & 0x38));
+              if (v42 < 4)
               {
-                object = ((0xFFFFFF0100000000 << (8 * v31)) - 1) & object | (0x3600000000 << (8 * v31));
-                if (v31 != 3)
+                object = ((0xFFFFFF0100000000 << (8 * v42)) - 1) & object | (0x3600000000 << (8 * v42));
+                if (v42 != 3)
                 {
-                  object = ((-255 << ((v34 + 40) & 0x38)) - 1) & object | (52 << ((v34 + 40) & 0x38));
-                  if (v31 < 2)
+                  object = ((-255 << ((v45 + 40) & 0x38)) - 1) & object | (52 << ((v45 + 40) & 0x38));
+                  if (v42 < 2)
                   {
-                    object = ((0xFF01000000000000 << (8 * v31)) - 1) & object | (0x3C000000000000 << (8 * v31));
-                    v68 = v28;
+                    object = ((0xFF01000000000000 << (8 * v42)) - 1) & object | (0x3C000000000000 << (8 * v42));
+                    v79 = v39;
                     goto LABEL_38;
                   }
 
-                  v67 = 0;
-                  v66 = v28;
+                  v78 = 0;
+                  v77 = v39;
 LABEL_37:
-                  v68 = ((-255 << v67) - 1) & v66 | (60 << v67);
+                  v79 = ((-255 << v78) - 1) & v77 | (60 << v78);
 LABEL_38:
-                  v28;
+                  v39;
                   0xE700000000000000;
-                  v69 = 0xA000000000000000;
-                  if (!(object & 0x8080808080808080 | v68 & 0x80808080808080))
+                  v80 = 0xA000000000000000;
+                  if (!(object & 0x8080808080808080 | v79 & 0x80808080808080))
                   {
-                    v69 = 0xE000000000000000;
+                    v80 = 0xE000000000000000;
                   }
 
-                  v875._countAndFlagsBits = object;
-                  v875._object = ((v69 & 0xFF00000000000000 | (v31 << 56) | v68 & 0xFFFFFFFFFFFFFFLL) + 0x700000000000000);
+                  v916._countAndFlagsBits = object;
+                  v916._object = ((v80 & 0xFF00000000000000 | (v42 << 56) | v79 & 0xFFFFFFFFFFFFFFLL) + 0x700000000000000);
                   goto LABEL_43;
                 }
 
-                v65 = 0;
-                v64 = v28;
+                v76 = 0;
+                v75 = v39;
 LABEL_36:
-                v66 = ((-255 << v65) - 1) & v64 | (52 << v65);
-                v67 = (v34 + 48) & 0x38;
+                v77 = ((-255 << v76) - 1) & v75 | (52 << v76);
+                v78 = (v45 + 48) & 0x38;
                 goto LABEL_37;
               }
 
-              v63 = 0;
-              v62 = v28;
+              v74 = 0;
+              v73 = v39;
 LABEL_35:
-              v64 = ((-255 << v63) - 1) & v62 | (54 << v63);
-              v65 = (v34 + 40) & 0x38;
+              v75 = ((-255 << v74) - 1) & v73 | (54 << v74);
+              v76 = (v45 + 40) & 0x38;
               goto LABEL_36;
             }
 
-            v61 = 0;
-            v60 = v28;
+            v72 = 0;
+            v71 = v39;
 LABEL_34:
-            v62 = ((-255 << v61) - 1) & v60 | (68 << v61);
-            v63 = v34 & 0x38 ^ 0x20;
+            v73 = ((-255 << v72) - 1) & v71 | (68 << v72);
+            v74 = v45 & 0x38 ^ 0x20;
             goto LABEL_35;
           }
 
-          v59 = 0;
-          v58 = v28;
+          v70 = 0;
+          v69 = v39;
 LABEL_33:
-          v60 = ((-255 << v59) - 1) & v58 | (77 << v59);
-          v61 = (v34 + 24) & 0x38;
+          v71 = ((-255 << v70) - 1) & v69 | (77 << v70);
+          v72 = (v45 + 24) & 0x38;
           goto LABEL_34;
         }
 
-        v37 = 0;
-        v38 = v28;
+        v48 = 0;
+        v49 = v39;
       }
 
-      v58 = ((-255 << v37) - 1) & v38 | (73 << v37);
-      v59 = (v34 + 16) & 0x38;
+      v69 = ((-255 << v48) - 1) & v49 | (73 << v48);
+      v70 = (v45 + 16) & 0x38;
       goto LABEL_33;
     }
 
     0xE700000000000000;
-    if ((v30 & 0x1000000000000000) != 0)
+    if ((v41 & 0x1000000000000000) != 0)
     {
       goto LABEL_274;
     }
 
-    v41 = __OFADD__(v33, 7);
-    v42 = v33 + 7;
-    if (!v41)
+    v52 = __OFADD__(v44, 7);
+    v53 = v44 + 7;
+    if (!v52)
     {
       goto LABEL_13;
     }
@@ -3608,27 +3608,27 @@ LABEL_276:
     goto LABEL_277;
   }
 
-  v875._countAndFlagsBits = 0x3C3436444D4953;
-  v875._object = 0xE700000000000000;
-  v57 = v28;
+  v916._countAndFlagsBits = 0x3C3436444D4953;
+  v916._object = 0xE700000000000000;
+  v68 = v39;
 LABEL_42:
-  v57;
+  v68;
   while (1)
   {
 LABEL_43:
-    TypeName = swift_getTypeName(v1, 0);
-    if (v71 < 0)
+    TypeName = swift_getTypeName(v2, 0);
+    if (v82 < 0)
     {
       goto LABEL_266;
     }
 
-    v72 = TypeName;
-    v73 = v71;
-    v74 = _allASCII(_:)(TypeName, v71);
-    v855 = countAndFlagsBits;
-    if (!v74)
+    v83 = TypeName;
+    v84 = v82;
+    v85 = _allASCII(_:)(TypeName, v82);
+    v896 = countAndFlagsBits;
+    if (!v85)
     {
-      if (!v73)
+      if (!v84)
       {
 LABEL_92:
         countAndFlagsBits = 0;
@@ -3636,51 +3636,51 @@ LABEL_92:
         goto LABEL_128;
       }
 
-      v30 = 0;
-      v77 = (v72 + v73);
-      v76 = 1;
-      v78 = v72;
-      v79 = v72;
+      v41 = 0;
+      v88 = (v83 + v84);
+      v87 = 1;
+      v89 = v83;
+      v90 = v83;
       while (1)
       {
-        v81 = *v79++;
-        v80 = v81;
-        if ((v81 & 0x80000000) == 0)
+        v92 = *v90++;
+        v91 = v92;
+        if ((v92 & 0x80000000) == 0)
         {
-          v82 = 1;
+          v93 = 1;
           goto LABEL_53;
         }
 
-        if ((v80 + 11) <= 0xCCu)
+        if ((v91 + 11) <= 0xCCu)
         {
-          LOBYTE(v869._countAndFlagsBits) = _diagnoseInvalidUTF8MultiByteLeading(_:)(v80);
+          LOBYTE(v910._countAndFlagsBits) = _diagnoseInvalidUTF8MultiByteLeading(_:)(v91);
           goto LABEL_94;
         }
 
-        if (v80 <= 0xDFu)
+        if (v91 <= 0xDFu)
         {
-          if (v79 == v77 || (*v79 & 0xC0) != 0x80)
+          if (v90 == v88 || (*v90 & 0xC0) != 0x80)
           {
 LABEL_256:
-            v831 = 4;
+            v872 = 4;
             goto LABEL_257;
           }
 
-          v76 = 0;
-          v79 = v78 + 2;
-          v82 = 2;
+          v87 = 0;
+          v90 = v89 + 2;
+          v93 = 2;
         }
 
         else
         {
-          if (v80 == 224)
+          if (v91 == 224)
           {
-            if (v79 == v77)
+            if (v90 == v88)
             {
               goto LABEL_256;
             }
 
-            if (v78[1] - 192 < 0xFFFFFFE0)
+            if (v89[1] - 192 < 0xFFFFFFE0)
             {
               goto LABEL_265;
             }
@@ -3688,64 +3688,64 @@ LABEL_256:
             goto LABEL_77;
           }
 
-          if (v80 <= 0xECu)
+          if (v91 <= 0xECu)
           {
             goto LABEL_75;
           }
 
-          if (v80 == 237)
+          if (v91 == 237)
           {
-            if (v79 == v77)
+            if (v90 == v88)
             {
               goto LABEL_256;
             }
 
-            v83 = v78[1];
-            if (v83 > 0x9F || (v83 & 0xC0) != 0x80)
+            v94 = v89[1];
+            if (v94 > 0x9F || (v94 & 0xC0) != 0x80)
             {
-              v831 = 1;
+              v872 = 1;
               goto LABEL_257;
             }
 
             goto LABEL_77;
           }
 
-          if (v80 <= 0xEFu)
+          if (v91 <= 0xEFu)
           {
 LABEL_75:
-            if (v79 == v77 || (v78[1] & 0xC0) != 0x80)
+            if (v90 == v88 || (v89[1] & 0xC0) != 0x80)
             {
               goto LABEL_256;
             }
 
 LABEL_77:
-            if (v78 + 2 == v77 || (v78[2] & 0xC0) != 0x80)
+            if (v89 + 2 == v88 || (v89[2] & 0xC0) != 0x80)
             {
               goto LABEL_256;
             }
 
-            v76 = 0;
-            v79 = v78 + 3;
-            v82 = 3;
+            v87 = 0;
+            v90 = v89 + 3;
+            v93 = 3;
             goto LABEL_53;
           }
 
-          if (v80 == 240)
+          if (v91 == 240)
           {
-            if (v79 == v77)
+            if (v90 == v88)
             {
               goto LABEL_256;
             }
 
-            if (v78[1] - 192 < 0xFFFFFFD0)
+            if (v89[1] - 192 < 0xFFFFFFD0)
             {
               goto LABEL_265;
             }
           }
 
-          else if (v80 <= 0xF3u)
+          else if (v91 <= 0xF3u)
           {
-            if (v79 == v77 || (v78[1] & 0xC0) != 0x80)
+            if (v90 == v88 || (v89[1] & 0xC0) != 0x80)
             {
               goto LABEL_256;
             }
@@ -3753,101 +3753,101 @@ LABEL_77:
 
           else
           {
-            if (v79 == v77)
+            if (v90 == v88)
             {
               goto LABEL_256;
             }
 
-            v84 = v78[1];
-            if (v84 > 0x8F || (v84 & 0xC0) != 0x80)
+            v95 = v89[1];
+            if (v95 > 0x8F || (v95 & 0xC0) != 0x80)
             {
-              v831 = 2;
+              v872 = 2;
 LABEL_257:
               while (2)
               {
-                LOBYTE(v869._countAndFlagsBits) = v831;
+                LOBYTE(v910._countAndFlagsBits) = v872;
 LABEL_94:
-                swift_willThrowTypedImpl(&v869, &type metadata for _UTF8EncodingErrorKind, &protocol witness table for _UTF8EncodingErrorKind);
-                v85 = specialized Collection.subscript.getter(v30, v72, v73);
-                v90 = findInvalidRange #1 (_:) in validateUTF8(_:)(v85, v86, v87, v88);
-                v869._countAndFlagsBits = 0;
-                v869._object = 0xE000000000000000;
-                if (!__OFADD__(v73, 15))
+                swift_willThrowTypedImpl(&v910, &type metadata for _UTF8EncodingErrorKind, &protocol witness table for _UTF8EncodingErrorKind);
+                v96 = specialized Collection.subscript.getter(v41, v83, v84);
+                v101 = findInvalidRange #1 (_:) in validateUTF8(_:)(v96, v97, v98, v99);
+                v910._countAndFlagsBits = 0;
+                v910._object = 0xE000000000000000;
+                if (!__OFADD__(v84, 15))
                 {
-                  v32 = v89;
-                  v30 = &v869;
-                  _StringGuts.reserveCapacity(_:)(v73 + 15);
-                  v91 = v90;
+                  v43 = v100;
+                  v41 = &v910;
+                  _StringGuts.reserveCapacity(_:)(v84 + 15);
+                  v102 = v101;
                   while (1)
                   {
-                    v92 = specialized Collection.subscript.getter(v91, v72, v73);
-                    v96 = v869._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
-                    if ((v869._object & 0x2000000000000000) != 0)
+                    v103 = specialized Collection.subscript.getter(v102, v83, v84);
+                    v107 = v910._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+                    if ((v910._object & 0x2000000000000000) != 0)
                     {
-                      v96 = (v869._object >> 56) & 0xF;
+                      v107 = (v910._object >> 56) & 0xF;
                     }
 
-                    v41 = __OFADD__(v96, v73);
-                    v97 = v96 + v73;
-                    if (v41)
+                    v52 = __OFADD__(v107, v84);
+                    v108 = v107 + v84;
+                    if (v52)
                     {
                       break;
                     }
 
-                    v98 = v92;
-                    if (__OFADD__(v97, 3))
+                    v109 = v103;
+                    if (__OFADD__(v108, 3))
                     {
                       goto LABEL_263;
                     }
 
-                    v99 = v93;
-                    countAndFlagsBits = v94;
-                    v100 = v95;
-                    _StringGuts.reserveCapacity(_:)(v97 + 3);
-                    v101 = _sSR8rebasingSRyxGs5SliceVyABG_tcfCs5UInt8V_Tt0g5Tm(v98, v99, *&countAndFlagsBits, v100);
-                    v103 = v102;
-                    object = v869._object;
-                    v30 = v869._object & 0xFFFFFFFFFFFFFFFLL;
-                    v31 = (v869._object & 0xFFFFFFFFFFFFFFFLL) + 32;
-                    specialized UnsafeMutablePointer.initialize(from:count:)(v101, v102, (v31 + (*((v869._object & 0xFFFFFFFFFFFFFFFLL) + 0x18) & 0xFFFFFFFFFFFFLL)));
-                    v104 = *((object & 0xFFFFFFFFFFFFFFFLL) + 0x18) & 0xFFFFFFFFFFFFLL;
-                    v105 = v104 + v103;
-                    if (__OFADD__(v104, v103))
+                    v110 = v104;
+                    countAndFlagsBits = v105;
+                    v111 = v106;
+                    _StringGuts.reserveCapacity(_:)(v108 + 3);
+                    v112 = _sSR8rebasingSRyxGs5SliceVyABG_tcfCs5UInt8V_Tt0g5Tm(v109, v110, *&countAndFlagsBits, v111);
+                    v114 = v113;
+                    object = v910._object;
+                    v41 = v910._object & 0xFFFFFFFFFFFFFFFLL;
+                    v42 = (v910._object & 0xFFFFFFFFFFFFFFFLL) + 32;
+                    specialized UnsafeMutablePointer.initialize(from:count:)(v112, v113, (v42 + (*((v910._object & 0xFFFFFFFFFFFFFFFLL) + 0x18) & 0xFFFFFFFFFFFFLL)));
+                    v115 = *((object & 0xFFFFFFFFFFFFFFFLL) + 0x18) & 0xFFFFFFFFFFFFLL;
+                    v116 = v115 + v114;
+                    if (__OFADD__(v115, v114))
                     {
                       goto LABEL_264;
                     }
 
-                    v106 = v105 | 0x3000000000000000;
-                    *((object & 0xFFFFFFFFFFFFFFFLL) + 0x18) = v105 | 0x3000000000000000;
-                    *((object & 0xFFFFFFFFFFFFFFFLL) + 0x20 + (v105 & 0xFFFFFFFFFFFFLL)) = 0;
+                    v117 = v116 | 0x3000000000000000;
+                    *((object & 0xFFFFFFFFFFFFFFFLL) + 0x18) = v116 | 0x3000000000000000;
+                    *((object & 0xFFFFFFFFFFFFFFFLL) + 0x20 + (v116 & 0xFFFFFFFFFFFFLL)) = 0;
                     if ((*((object & 0xFFFFFFFFFFFFFFFLL) + 0x10) & 0x8000000000000000) != 0)
                     {
-                      v107 = __StringStorage._breadcrumbsAddress.getter();
-                      v108 = *v107;
-                      *v107 = 0;
-                      v108;
-                      v106 = *((object & 0xFFFFFFFFFFFFFFFLL) + 0x18);
+                      v118 = __StringStorage._breadcrumbsAddress.getter();
+                      v119 = *v118;
+                      *v118 = 0;
+                      v119;
+                      v117 = *((object & 0xFFFFFFFFFFFFFFFLL) + 0x18);
                     }
 
-                    v869._countAndFlagsBits = v106;
-                    v109 = v868;
-                    specialized Unicode.Scalar.withUTF8CodeUnits<A>(_:)(0xFFFDu, &v869._countAndFlagsBits);
-                    v868 = v109;
-                    v110 = specialized Collection.subscript.getter(v32, v72, v73);
-                    v72 = _sSR8rebasingSRyxGs5SliceVyABG_tcfCs5UInt8V_Tt0g5Tm(v110, v111, v112, v113);
-                    v73 = v114;
-                    if ((validateUTF8(_:)(v72, v114) & 0x8000000000000000) == 0)
+                    v910._countAndFlagsBits = v117;
+                    v120 = v909;
+                    specialized Unicode.Scalar.withUTF8CodeUnits<A>(_:)(0xFFFDu, &v910._countAndFlagsBits);
+                    v909 = v120;
+                    v121 = specialized Collection.subscript.getter(v43, v83, v84);
+                    v83 = _sSR8rebasingSRyxGs5SliceVyABG_tcfCs5UInt8V_Tt0g5Tm(v121, v122, v123, v124);
+                    v84 = v125;
+                    if ((validateUTF8(_:)(v83, v125) & 0x8000000000000000) == 0)
                     {
-                      __StringStorage.appendInPlace(_:isASCII:)(v72, v73, 0);
+                      __StringStorage.appendInPlace(_:isASCII:)(v83, v84, 0);
                       countAndFlagsBits = *((object & 0xFFFFFFFFFFFFFFFLL) + 0x18);
                       goto LABEL_128;
                     }
 
-                    v32 = v115;
-                    if (!v73)
+                    v43 = v126;
+                    if (!v84)
                     {
-                      object = v869._object;
-                      countAndFlagsBits = v869._countAndFlagsBits;
+                      object = v910._object;
+                      countAndFlagsBits = v910._countAndFlagsBits;
                       goto LABEL_128;
                     }
                   }
@@ -3858,7 +3858,7 @@ LABEL_263:
 LABEL_264:
                   __break(1u);
 LABEL_265:
-                  v831 = 3;
+                  v872 = 3;
                   continue;
                 }
 
@@ -3867,322 +3867,322 @@ LABEL_265:
 
               __break(1u);
 LABEL_288:
-              if ((v30 & 0x1000000000000000) != 0)
+              if ((v41 & 0x1000000000000000) != 0)
               {
-                object = _StringGuts._foreignConvertedToSmall()(object, v30);
-                v30 = v850;
+                object = _StringGuts._foreignConvertedToSmall()(object, v41);
+                v41 = v891;
               }
 
               else
               {
                 if ((object & 0x1000000000000000) != 0)
                 {
-                  v842 = ((v30 & 0xFFFFFFFFFFFFFFFLL) + 32);
+                  v883 = ((v41 & 0xFFFFFFFFFFFFFFFLL) + 32);
                 }
 
                 else
                 {
-                  v842 = _StringObject.sharedUTF8.getter(object, v30);
-                  v32 = v853;
+                  v883 = _StringObject.sharedUTF8.getter(object, v41);
+                  v43 = v894;
                 }
 
-                closure #1 in _StringGuts._convertedToSmall()(v842, v32, &v869, v40);
-                if (v868)
+                closure #1 in _StringGuts._convertedToSmall()(v883, v43, &v910, v51);
+                if (v909)
                 {
                   goto LABEL_311;
                 }
 
-                v30 = v869._object;
-                object = v869._countAndFlagsBits;
+                v41 = v910._object;
+                object = v910._countAndFlagsBits;
               }
 
 LABEL_22:
-              v45 = 0x3C3436444D4953;
-              v32 = 0xE700000000000000;
+              v56 = 0x3C3436444D4953;
+              v43 = 0xE700000000000000;
               0xE700000000000000;
-              v46._rawBits = 1;
-              v47._rawBits = 458753;
-              v48._rawBits = _StringGuts.validateScalarRange(_:)(v46, v47, 0x3C3436444D4953uLL, 0xE700000000000000)._rawBits;
-              if (v48._rawBits < 0x10000)
+              v57._rawBits = 1;
+              v58._rawBits = 458753;
+              v59._rawBits = _StringGuts.validateScalarRange(_:)(v57, v58, 0x3C3436444D4953uLL, 0xE700000000000000)._rawBits;
+              if (v59._rawBits < 0x10000)
               {
-                v48._rawBits |= 3;
+                v59._rawBits |= 3;
               }
 
-              if (v48._rawBits >> 16 || (v49._rawBits & 0xFFFFFFFFFFFF0000) != 0x70000)
+              if (v59._rawBits >> 16 || (v60._rawBits & 0xFFFFFFFFFFFF0000) != 0x70000)
               {
-                v45 = specialized static String._copying(_:)(v48._rawBits, v49._rawBits, 0x3C3436444D4953uLL, 0xE700000000000000);
-                v32 = v51;
+                v56 = specialized static String._copying(_:)(v59._rawBits, v60, 0x3C3436444D4953uLL, 0xE700000000000000);
+                v43 = v62;
                 0xE700000000000000;
               }
 
-              if ((v32 & 0x2000000000000000) != 0)
+              if ((v43 & 0x2000000000000000) != 0)
               {
-                v32;
+                v43;
               }
 
-              else if ((v32 & 0x1000000000000000) != 0)
+              else if ((v43 & 0x1000000000000000) != 0)
               {
-                v45 = _StringGuts._foreignConvertedToSmall()(v45, v32);
-                v852 = v851;
-                v32;
-                v32 = v852;
+                v56 = _StringGuts._foreignConvertedToSmall()(v56, v43);
+                v893 = v892;
+                v43;
+                v43 = v893;
               }
 
               else
               {
-                if ((v45 & 0x1000000000000000) != 0)
+                if ((v56 & 0x1000000000000000) != 0)
                 {
-                  v843 = ((v32 & 0xFFFFFFFFFFFFFFFLL) + 32);
-                  v844 = v45 & 0xFFFFFFFFFFFFLL;
+                  v884 = ((v43 & 0xFFFFFFFFFFFFFFFLL) + 32);
+                  v885 = v56 & 0xFFFFFFFFFFFFLL;
                 }
 
                 else
                 {
-                  v843 = _StringObject.sharedUTF8.getter(v45, v32);
+                  v884 = _StringObject.sharedUTF8.getter(v56, v43);
                 }
 
-                closure #1 in _StringGuts._convertedToSmall()(v843, v844, &v869, v50);
-                if (v868)
+                closure #1 in _StringGuts._convertedToSmall()(v884, v885, &v910, v61);
+                if (v909)
                 {
                   goto LABEL_311;
                 }
 
-                v32;
-                v32 = v869._object;
-                v45 = v869._countAndFlagsBits;
+                v43;
+                v43 = v910._object;
+                v56 = v910._countAndFlagsBits;
               }
 
-              v52 = specialized _SmallString.init(_:appending:)(object, v30, v45, v32);
-              if (v54)
+              v63 = specialized _SmallString.init(_:appending:)(object, v41, v56, v43);
+              if (v65)
               {
                 goto LABEL_301;
               }
 
-              v55 = v52;
-              v56 = v53;
+              v66 = v63;
+              v67 = v64;
               swift_bridgeObjectRelease_n(0xE700000000000000, 2);
-              v57 = v875._object;
-              v875._countAndFlagsBits = v55;
-              v875._object = v56;
+              v68 = v916._object;
+              v916._countAndFlagsBits = v66;
+              v916._object = v67;
               goto LABEL_42;
             }
           }
 
-          if (v78 + 2 == v77 || (v78[2] & 0xC0) != 0x80 || v78 + 3 == v77 || (v78[3] & 0xC0) != 0x80)
+          if (v89 + 2 == v88 || (v89[2] & 0xC0) != 0x80 || v89 + 3 == v88 || (v89[3] & 0xC0) != 0x80)
           {
             goto LABEL_256;
           }
 
-          v76 = 0;
-          v79 = v78 + 4;
-          v82 = 4;
+          v87 = 0;
+          v90 = v89 + 4;
+          v93 = 4;
         }
 
 LABEL_53:
-        v30 += v82;
-        v78 = v79;
-        if (v79 == v77)
+        v41 += v93;
+        v89 = v90;
+        if (v90 == v88)
         {
           goto LABEL_46;
         }
       }
     }
 
-    v76 = 1;
+    v87 = 1;
 LABEL_46:
-    if (!v73)
+    if (!v84)
     {
       goto LABEL_92;
     }
 
-    if (v73 > 15)
+    if (v84 > 15)
     {
-      object = specialized static __StringStorage.create(initializingFrom:codeUnitCapacity:isASCII:)(v72, v73, v73, v76 & 1);
+      object = specialized static __StringStorage.create(initializingFrom:codeUnitCapacity:isASCII:)(v83, v84, v84, v87 & 1);
       countAndFlagsBits = *(object + 24);
       goto LABEL_128;
     }
 
-    v116 = v73 - 8;
-    v117 = 8;
-    if (v73 < 8)
+    v127 = v84 - 8;
+    v128 = 8;
+    if (v84 < 8)
     {
-      v117 = v73;
+      v128 = v84;
     }
 
-    if (v73 >= 4)
+    if (v84 >= 4)
     {
-      v119 = v117 & 0xC;
-      v75.i32[0] = *v72;
-      v120 = vmovl_u16(*&vmovl_u8(v75));
-      v121.i64[0] = v120.u32[0];
-      v121.i64[1] = v120.u32[1];
-      v122.i64[0] = 255;
-      v122.i64[1] = 255;
-      v123 = vandq_s8(v121, v122);
-      v121.i64[0] = v120.u32[2];
-      v121.i64[1] = v120.u32[3];
-      v124 = vshlq_u64(vandq_s8(v121, v122), xmmword_18071DBA0);
-      v125.i32[1] = 0;
-      v126 = vshlq_u64(v123, xmmword_18071DBB0);
-      if (v119 != 4)
+      v130 = v128 & 0xC;
+      v86.i32[0] = *v83;
+      v131 = vmovl_u16(*&vmovl_u8(v86));
+      v132.i64[0] = v131.u32[0];
+      v132.i64[1] = v131.u32[1];
+      v133.i64[0] = 255;
+      v133.i64[1] = 255;
+      v134 = vandq_s8(v132, v133);
+      v132.i64[0] = v131.u32[2];
+      v132.i64[1] = v131.u32[3];
+      v135 = vshlq_u64(vandq_s8(v132, v133), xmmword_18071DBA0);
+      v136.i32[1] = 0;
+      v137 = vshlq_u64(v134, xmmword_18071DBB0);
+      if (v130 != 4)
       {
-        v125.i32[0] = *(v72 + 4);
-        v127 = vmovl_u16(*&vmovl_u8(v125));
-        v128.i64[0] = v127.u32[2];
-        v128.i64[1] = v127.u32[3];
-        v129 = vandq_s8(v128, v122);
-        v128.i64[0] = v127.u32[0];
-        v128.i64[1] = v127.u32[1];
-        v124 = vorrq_s8(vshlq_u64(v129, xmmword_18071DBD0), v124);
-        v126 = vorrq_s8(vshlq_u64(vandq_s8(v128, v122), xmmword_18071DBC0), v126);
+        v136.i32[0] = *(v83 + 4);
+        v138 = vmovl_u16(*&vmovl_u8(v136));
+        v139.i64[0] = v138.u32[2];
+        v139.i64[1] = v138.u32[3];
+        v140 = vandq_s8(v139, v133);
+        v139.i64[0] = v138.u32[0];
+        v139.i64[1] = v138.u32[1];
+        v135 = vorrq_s8(vshlq_u64(v140, xmmword_18071DBD0), v135);
+        v137 = vorrq_s8(vshlq_u64(vandq_s8(v139, v133), xmmword_18071DBC0), v137);
       }
 
-      v130 = vorrq_s8(v126, v124);
-      countAndFlagsBits = vorr_s8(*v130.i8, *&vextq_s8(v130, v130, 8uLL));
-      if (v117 == v119)
+      v141 = vorrq_s8(v137, v135);
+      countAndFlagsBits = vorr_s8(*v141.i8, *&vextq_s8(v141, v141, 8uLL));
+      if (v128 == v130)
       {
         goto LABEL_120;
       }
 
-      v118 = 8 * v119;
+      v129 = 8 * v130;
     }
 
     else
     {
       countAndFlagsBits = 0;
-      v118 = 0;
-      v119 = 0;
+      v129 = 0;
+      v130 = 0;
     }
 
-    v131 = v117 - v119;
-    v132 = (v72 + v119);
+    v142 = v128 - v130;
+    v143 = (v83 + v130);
     do
     {
-      v133 = *v132++;
-      *&countAndFlagsBits |= v133 << (v118 & 0x38);
-      v118 += 8;
-      --v131;
+      v144 = *v143++;
+      *&countAndFlagsBits |= v144 << (v129 & 0x38);
+      v129 += 8;
+      --v142;
     }
 
-    while (v131);
+    while (v142);
 LABEL_120:
-    if (v73 < 9)
+    if (v84 < 9)
     {
-      v134 = 0;
+      v145 = 0;
     }
 
     else
     {
-      v134 = 0;
-      v135 = 0;
-      v136 = (v72 + 8);
+      v145 = 0;
+      v146 = 0;
+      v147 = (v83 + 8);
       do
       {
-        v137 = *v136++;
-        v134 |= v137 << v135;
-        v135 += 8;
-        --v116;
+        v148 = *v147++;
+        v145 |= v148 << v146;
+        v146 += 8;
+        --v127;
       }
 
-      while (v116);
+      while (v127);
     }
 
-    v138 = 0xA000000000000000;
-    if (((v134 | *&countAndFlagsBits) & 0x8080808080808080) == 0)
+    v149 = 0xA000000000000000;
+    if (((v145 | *&countAndFlagsBits) & 0x8080808080808080) == 0)
     {
-      v138 = 0xE000000000000000;
+      v149 = 0xE000000000000000;
     }
 
-    object = v138 | (v73 << 56) | v134;
+    object = v149 | (v84 << 56) | v145;
 LABEL_128:
-    v7 = v875._object;
-    v30 = v875._countAndFlagsBits;
-    v139 = (v875._object >> 56) & 0xF;
-    v140 = v875._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
-    if ((v875._object & 0x2000000000000000) != 0)
+    v41 = v916._countAndFlagsBits;
+    v9 = v916._object;
+    v150 = (v916._object >> 56) & 0xF;
+    v151 = v916._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+    if ((v916._object & 0x2000000000000000) != 0)
     {
-      v140 = (v875._object >> 56) & 0xF;
+      v151 = (v916._object >> 56) & 0xF;
     }
 
-    if (!v140 && (v875._countAndFlagsBits & ~v875._object & 0x2000000000000000) == 0)
+    if (!v151 && (v916._countAndFlagsBits & ~v916._object & 0x2000000000000000) == 0)
     {
       break;
     }
 
-    v32 = (object & 0x2000000000000000) == 0;
-    v141 = HIBYTE(object) & 0xF;
-    if ((v875._object & 0x2000000000000000) != 0)
+    v43 = (object & 0x2000000000000000) == 0;
+    v152 = HIBYTE(object) & 0xF;
+    if ((v916._object & 0x2000000000000000) != 0)
     {
       if ((object & 0x2000000000000000) == 0)
       {
-        v854 = HIBYTE(object) & 0xF;
-        v31 = *&countAndFlagsBits & 0xFFFFFFFFFFFFLL;
-        v32 = 1;
+        v895 = HIBYTE(object) & 0xF;
+        v42 = *&countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+        v43 = 1;
 LABEL_137:
-        v141 = v31;
+        v152 = v42;
         goto LABEL_138;
       }
 
-      v160 = v139 + v141;
-      if (v139 + v141 < 0x10)
+      v171 = v150 + v152;
+      if (v150 + v152 < 0x10)
       {
-        if (v141)
+        if (v152)
         {
-          v785 = 0;
-          v786 = 0;
-          v787 = 8 * v139;
+          v820 = 0;
+          v821 = 0;
+          v822 = 8 * v150;
           do
           {
-            v788 = object >> (v785 & 0x38);
-            if (v786 < 8)
+            v823 = object >> (v820 & 0x38);
+            if (v821 < 8)
             {
-              v788 = *&countAndFlagsBits >> v785;
+              v823 = *&countAndFlagsBits >> v820;
             }
 
-            v789 = (v788 << (v787 & 0x38)) | ((-255 << (v787 & 0x38)) - 1) & v7;
-            v790 = (v788 << v787) | ((-255 << v787) - 1) & v30;
-            if (v139 <= 7)
+            v824 = (v823 << (v822 & 0x38)) | ((-255 << (v822 & 0x38)) - 1) & v9;
+            v825 = (v823 << v822) | ((-255 << v822) - 1) & v41;
+            if (v150 <= 7)
             {
-              v30 = v790;
+              v41 = v825;
             }
 
             else
             {
-              v7 = v789;
+              v9 = v824;
             }
 
-            ++v139;
-            v787 += 8;
-            v785 += 8;
-            ++v786;
+            ++v150;
+            v822 += 8;
+            v820 += 8;
+            ++v821;
           }
 
-          while (8 * v141 != v785);
+          while (8 * v152 != v820);
         }
 
         object;
-        v791 = 0xA000000000000000;
-        if (!(v30 & 0x8080808080808080 | v7 & 0x80808080808080))
+        v826 = 0xA000000000000000;
+        if (!(v41 & 0x8080808080808080 | v9 & 0x80808080808080))
         {
-          v791 = 0xE000000000000000;
+          v826 = 0xE000000000000000;
         }
 
-        v792 = v791 & 0xFF00000000000000 | (v160 << 56) | v7 & 0xFFFFFFFFFFFFFFLL;
-        v875._object;
-        v875._countAndFlagsBits = v30;
-        v875._object = v792;
+        v827 = (v826 & 0xFF00000000000000 | (v171 << 56) | v9 & 0xFFFFFFFFFFFFFFLL);
+        v916._object;
+        v916._countAndFlagsBits = v41;
+        v916._object = v827;
         goto LABEL_178;
       }
 
-      v32 = 0;
-      v31 = *&countAndFlagsBits & 0xFFFFFFFFFFFFLL;
-      v854 = HIBYTE(object) & 0xF;
+      v43 = 0;
+      v42 = *&countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+      v895 = HIBYTE(object) & 0xF;
     }
 
     else
     {
-      v31 = *&countAndFlagsBits & 0xFFFFFFFFFFFFLL;
-      v854 = HIBYTE(object) & 0xF;
+      v42 = *&countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+      v895 = HIBYTE(object) & 0xF;
       if ((object & 0x2000000000000000) == 0)
       {
         goto LABEL_137;
@@ -4190,28 +4190,28 @@ LABEL_137:
     }
 
 LABEL_138:
-    v861 = v141;
+    v902 = v152;
     if ((object & 0x1000000000000000) != 0)
     {
       swift_bridgeObjectRetain_n(object, 2);
-      v832._rawBits = 1;
-      v833._rawBits = (v141 << 16) | 1;
-      v834._rawBits = _StringGuts.validateScalarRange(_:)(v832, v833, *&countAndFlagsBits, object)._rawBits;
-      if (v834._rawBits < 0x10000)
+      v873._rawBits = 1;
+      v874._rawBits = (v152 << 16) | 1;
+      v875._rawBits = _StringGuts.validateScalarRange(_:)(v873, v874, *&countAndFlagsBits, object)._rawBits;
+      if (v875._rawBits < 0x10000)
       {
-        v834._rawBits |= 3;
+        v875._rawBits |= 3;
       }
 
-      v141 = String.UTF8View.distance(from:to:)(v834, v835);
+      v152 = String.UTF8View.distance(from:to:)(v875, v876);
       object;
-      v7 = v875._object;
-      v30 = v875._countAndFlagsBits;
-      if ((v875._object & 0x1000000000000000) != 0)
+      v41 = v916._countAndFlagsBits;
+      v9 = v916._object;
+      if ((v916._object & 0x1000000000000000) != 0)
       {
 LABEL_271:
-        v836 = String.UTF8View._foreignCount()();
-        v143 = v836 + v141;
-        if (!__OFADD__(v836, v141))
+        v877 = String.UTF8View._foreignCount()();
+        v154 = v877 + v152;
+        if (!__OFADD__(v877, v152))
         {
           goto LABEL_144;
         }
@@ -4223,59 +4223,59 @@ LABEL_271:
     else
     {
       object;
-      if ((v7 & 0x1000000000000000) != 0)
+      if ((v9 & 0x1000000000000000) != 0)
       {
         goto LABEL_271;
       }
     }
 
-    if ((v7 & 0x2000000000000000) != 0)
+    if ((v9 & 0x2000000000000000) != 0)
     {
-      v142 = HIBYTE(v7) & 0xF;
+      v153 = HIBYTE(v9) & 0xF;
     }
 
     else
     {
-      v142 = v30 & 0xFFFFFFFFFFFFLL;
+      v153 = v41 & 0xFFFFFFFFFFFFLL;
     }
 
-    v143 = v142 + v141;
-    if (!__OFADD__(v142, v141))
+    v154 = v153 + v152;
+    if (!__OFADD__(v153, v152))
     {
 LABEL_144:
-      if ((v30 & ~v7 & 0x2000000000000000) != 0 && (isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native(v7 & 0xFFFFFFFFFFFFFFFLL), v7 = v875._object, v30 = v875._countAndFlagsBits, isUniquelyReferenced_nonNull_native))
+      if ((v41 & ~v9 & 0x2000000000000000) != 0 && (isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native(v9 & 0xFFFFFFFFFFFFFFFLL), v41 = v916._countAndFlagsBits, v9 = v916._object, isUniquelyReferenced_nonNull_native))
       {
-        v145 = _StringGuts.nativeUnusedCapacity.getter(v875._countAndFlagsBits, v875._object);
-        if (v146)
+        v156 = _StringGuts.nativeUnusedCapacity.getter(v916._countAndFlagsBits, v916._object);
+        if (v157)
         {
           goto LABEL_301;
         }
 
-        if (v143 > 15 || (v7 & 0x2000000000000000) == 0 && v145 >= v141)
+        if (v154 > 15 || (v9 & 0x2000000000000000) == 0 && v156 >= v152)
         {
 LABEL_150:
-          _StringGuts.prepareForAppendInPlace(totalCount:otherUTF8Count:)(v143, v141);
+          _StringGuts.prepareForAppendInPlace(totalCount:otherUTF8Count:)(v154, v152);
           if ((object & 0x1000000000000000) != 0)
           {
-            _StringGuts._foreignAppendInPlace(_:)(*&countAndFlagsBits, object, 0, v861);
+            _StringGuts._foreignAppendInPlace(_:)(*&countAndFlagsBits, object, 0, v902);
           }
 
           else
           {
-            if (!v32)
+            if (!v43)
             {
-              v151 = (object >> 62) & 1;
-              v869._countAndFlagsBits = countAndFlagsBits;
-              v869._object = (object & 0xFFFFFFFFFFFFFFLL);
-              v149 = &v869;
-              v150 = v854;
+              v162 = (object >> 62) & 1;
+              v910._countAndFlagsBits = countAndFlagsBits;
+              v910._object = (object & 0xFFFFFFFFFFFFFFLL);
+              v160 = &v910;
+              v161 = v895;
               goto LABEL_176;
             }
 
             if ((*&countAndFlagsBits & 0x1000000000000000) == 0)
             {
-              v845 = _StringObject.sharedUTF8.getter(*&countAndFlagsBits, object);
-              if (v846 >= v31)
+              v886 = _StringObject.sharedUTF8.getter(*&countAndFlagsBits, object);
+              if (v887 >= v42)
               {
                 goto LABEL_312;
               }
@@ -4284,27 +4284,27 @@ LABEL_266:
               _fatalErrorMessage(_:_:file:line:flags:)("Fatal error", 11, 2);
             }
 
-            v147 = (object & 0xFFFFFFFFFFFFFFFLL) + 32;
-            for (i = v31; ; i = v846)
+            v158 = (object & 0xFFFFFFFFFFFFFFFLL) + 32;
+            for (i = v42; ; i = v887)
             {
-              v149 = _sSR8rebasingSRyxGs5SliceVyABG_tcfCs5UInt8V_Tt0g5Tm(0, v31, v147, i);
-              v151 = *&countAndFlagsBits >> 63;
+              v160 = _sSR8rebasingSRyxGs5SliceVyABG_tcfCs5UInt8V_Tt0g5Tm(0, v42, v158, i);
+              v162 = *&countAndFlagsBits >> 63;
 LABEL_176:
-              closure #1 in _StringGuts.append(_:)(v149, v150, &v875, v151);
-              v167 = v868;
-              if (!v868)
+              closure #1 in _StringGuts.append(_:)(v160, v161, &v916, v162);
+              v178 = v909;
+              if (!v909)
               {
                 break;
               }
 
 LABEL_310:
-              v167;
+              v178;
               __break(1u);
 LABEL_311:
-              v868;
+              v909;
               __break(1u);
 LABEL_312:
-              v147 = v845;
+              v158 = v886;
             }
           }
 
@@ -4313,129 +4313,129 @@ LABEL_312:
         }
       }
 
-      else if (v143 > 15)
+      else if (v154 > 15)
       {
         goto LABEL_150;
       }
 
-      v39 = &v876;
-      if ((v7 & 0x2000000000000000) != 0)
+      v50 = &v917;
+      if ((v9 & 0x2000000000000000) != 0)
       {
-        v31 = v861;
+        v42 = v902;
         goto LABEL_158;
       }
 
 LABEL_277:
-      v31 = *(v39 - 32);
-      if ((v7 & 0x1000000000000000) != 0)
+      v42 = *(v50 - 32);
+      if ((v9 & 0x1000000000000000) != 0)
       {
-        v30 = _StringGuts._foreignConvertedToSmall()(v30, v7);
-        v7 = v847;
+        v41 = _StringGuts._foreignConvertedToSmall()(v41, v9);
+        v9 = v888;
       }
 
       else
       {
-        if ((v30 & 0x1000000000000000) != 0)
+        if ((v41 & 0x1000000000000000) != 0)
         {
-          v838 = ((v7 & 0xFFFFFFFFFFFFFFFLL) + 32);
-          v839 = v30 & 0xFFFFFFFFFFFFLL;
+          v879 = ((v9 & 0xFFFFFFFFFFFFFFFLL) + 32);
+          v880 = v41 & 0xFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v838 = _StringObject.sharedUTF8.getter(v30, v7);
+          v879 = _StringObject.sharedUTF8.getter(v41, v9);
         }
 
-        closure #1 in _StringGuts._convertedToSmall()(v838, v839, &v869, v40);
-        v167 = v868;
-        if (v868)
+        closure #1 in _StringGuts._convertedToSmall()(v879, v880, &v910, v51);
+        v178 = v909;
+        if (v909)
         {
           goto LABEL_310;
         }
 
-        v7 = v869._object;
-        v30 = v869._countAndFlagsBits;
+        v9 = v910._object;
+        v41 = v910._countAndFlagsBits;
       }
 
 LABEL_158:
       object;
-      v152._rawBits = 1;
-      v153._rawBits = (v31 << 16) | 1;
-      v154._rawBits = _StringGuts.validateScalarRange(_:)(v152, v153, *&countAndFlagsBits, object)._rawBits;
-      if (v154._rawBits < 0x10000)
+      v163._rawBits = 1;
+      v164._rawBits = (v42 << 16) | 1;
+      v165._rawBits = _StringGuts.validateScalarRange(_:)(v163, v164, *&countAndFlagsBits, object)._rawBits;
+      if (v165._rawBits < 0x10000)
       {
-        v154._rawBits |= 3;
+        v165._rawBits |= 3;
       }
 
-      if (v154._rawBits >> 16)
+      if (v165._rawBits >> 16)
       {
-        v157 = 0;
-      }
-
-      else
-      {
-        v157 = v155._rawBits >> 16 == v31;
-      }
-
-      if (v157)
-      {
-        v159 = object;
+        v168 = 0;
       }
 
       else
       {
-        countAndFlagsBits = specialized static String._copying(_:)(v154._rawBits, v155._rawBits, *&countAndFlagsBits, object);
-        v159 = v158;
+        v168 = v166._rawBits >> 16 == v42;
+      }
+
+      if (v168)
+      {
+        v170 = object;
+      }
+
+      else
+      {
+        countAndFlagsBits = specialized static String._copying(_:)(v165._rawBits, v166, *&countAndFlagsBits, object);
+        v170 = v169;
         object;
       }
 
-      if ((v159 & 0x2000000000000000) != 0)
+      if ((v170 & 0x2000000000000000) != 0)
       {
-        v159;
+        v170;
       }
 
-      else if ((v159 & 0x1000000000000000) != 0)
+      else if ((v170 & 0x1000000000000000) != 0)
       {
-        countAndFlagsBits = _StringGuts._foreignConvertedToSmall()(*&countAndFlagsBits, v159);
-        v849 = v848;
-        v159;
-        v159 = v849;
+        countAndFlagsBits = _StringGuts._foreignConvertedToSmall()(*&countAndFlagsBits, v170);
+        v890 = v889;
+        v170;
+        v170 = v890;
       }
 
       else
       {
         if ((*&countAndFlagsBits & 0x1000000000000000) != 0)
         {
-          v840 = ((v159 & 0xFFFFFFFFFFFFFFFLL) + 32);
-          v841 = *&countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+          v881 = ((v170 & 0xFFFFFFFFFFFFFFFLL) + 32);
+          v882 = *&countAndFlagsBits & 0xFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v840 = _StringObject.sharedUTF8.getter(*&countAndFlagsBits, v159);
+          v881 = _StringObject.sharedUTF8.getter(*&countAndFlagsBits, v170);
         }
 
-        closure #1 in _StringGuts._convertedToSmall()(v840, v841, &v869, v156);
-        v167 = v868;
-        if (v868)
+        closure #1 in _StringGuts._convertedToSmall()(v881, v882, &v910, v167);
+        v178 = v909;
+        if (v909)
         {
           goto LABEL_310;
         }
 
-        v159;
-        v159 = v869._object;
-        countAndFlagsBits = v869._countAndFlagsBits;
+        v170;
+        v170 = v910._object;
+        countAndFlagsBits = v910._countAndFlagsBits;
       }
 
-      v161 = specialized _SmallString.init(_:appending:)(v30, v7, *&countAndFlagsBits, v159);
-      if ((v163 & 1) == 0)
+      v172 = specialized _SmallString.init(_:appending:)(v41, v9, *&countAndFlagsBits, v170);
+      if ((v174 & 1) == 0)
       {
-        v164 = v161;
-        v165 = v162;
+        v175 = v172;
+        v176 = v173;
         swift_bridgeObjectRelease_n(object, 2);
-        v166 = v875._object;
-        v875._countAndFlagsBits = v164;
-        v875._object = v165;
+        v177 = v916._object;
+        v916._countAndFlagsBits = v175;
+        v916._object = v176;
         goto LABEL_174;
       }
 
@@ -4446,26 +4446,26 @@ LABEL_301:
 LABEL_273:
     __break(1u);
 LABEL_274:
-    v837 = String.UTF8View._foreignCount()();
-    v42 = v837 + 7;
-    if (__OFADD__(v837, 7))
+    v878 = String.UTF8View._foreignCount()();
+    v53 = v878 + 7;
+    if (__OFADD__(v878, 7))
     {
       goto LABEL_276;
     }
 
 LABEL_13:
-    if ((object & ~v30 & 0x2000000000000000) != 0 && swift_isUniquelyReferenced_nonNull_native(v30 & 0xFFFFFFFFFFFFFFFLL))
+    if ((object & ~v41 & 0x2000000000000000) != 0 && swift_isUniquelyReferenced_nonNull_native(v41 & 0xFFFFFFFFFFFFFFFLL))
     {
-      v43 = _StringGuts.nativeUnusedCapacity.getter(object, v30);
-      if (v44)
+      v54 = _StringGuts.nativeUnusedCapacity.getter(object, v41);
+      if (v55)
       {
         goto LABEL_301;
       }
 
-      if (v42 <= 15 && ((v30 & 0x2000000000000000) != 0 || v43 <= 6))
+      if (v53 <= 15 && ((v41 & 0x2000000000000000) != 0 || v54 <= 6))
       {
 LABEL_21:
-        if ((v30 & 0x2000000000000000) == 0)
+        if ((v41 & 0x2000000000000000) == 0)
         {
           goto LABEL_288;
         }
@@ -4474,663 +4474,663 @@ LABEL_21:
       }
     }
 
-    else if (v42 <= 15)
+    else if (v53 <= 15)
     {
       goto LABEL_21;
     }
 
-    _StringGuts.prepareForAppendInPlace(totalCount:otherUTF8Count:)(v42, 7);
-    v869 = xmmword_18071DFF0;
-    closure #1 in _StringGuts.append(_:)(&v869, 7uLL, &v875, 1);
+    _StringGuts.prepareForAppendInPlace(totalCount:otherUTF8Count:)(v53, 7);
+    v910 = xmmword_18071DFF0;
+    closure #1 in _StringGuts.append(_:)(&v910, 7uLL, &v916, 1);
     swift_bridgeObjectRelease_n(0xE700000000000000, 2);
   }
 
-  v875._countAndFlagsBits = countAndFlagsBits;
-  v875._object = object;
-  v166 = v7;
+  v916._countAndFlagsBits = countAndFlagsBits;
+  v916._object = object;
+  v177 = v9;
 LABEL_174:
-  v166;
+  v177;
 LABEL_178:
-  v168 = v864;
-  v169 = v875._object;
-  v170 = (v875._object >> 56) & 0xF;
-  if ((v875._object & 0x2000000000000000) == 0)
+  v179 = v905;
+  v180 = v916._object;
+  v181 = (v916._object >> 56) & 0xF;
+  if ((v916._object & 0x2000000000000000) == 0)
   {
-    v170 = v875._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+    v181 = v916._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
   }
 
-  if (v170 || (v875._countAndFlagsBits & ~v875._object & 0x2000000000000000) != 0)
+  if (v181 || (v916._countAndFlagsBits & ~v916._object & 0x2000000000000000) != 0)
   {
-    if ((v875._object & 0x2000000000000000) != 0 && (v171 = specialized _SmallString.init(_:appending:)(v875._countAndFlagsBits, v875._object, 0x283EuLL, 0xE200000000000000), (v173 & 1) == 0))
+    if ((v916._object & 0x2000000000000000) != 0 && (v182 = specialized _SmallString.init(_:appending:)(v916._countAndFlagsBits, v916._object, 0x283EuLL, 0xE200000000000000), (v184 & 1) == 0))
     {
-      v182 = v171;
-      v183 = v172;
+      v193 = v182;
+      v194 = v183;
       0xE200000000000000;
-      v875._object;
-      v875._countAndFlagsBits = v182;
-      v875._object = v183;
+      v916._object;
+      v916._countAndFlagsBits = v193;
+      v916._object = v194;
     }
 
     else
     {
       0xE200000000000000;
-      _StringGuts.append(_:)(10302, 0xE200000000000000, 0, 2, v174, v175, v176, v177, v178, v179, v180, v181);
+      _StringGuts.append(_:)(10302, 0xE200000000000000, 0, 2, v185, v186, v187, v188, v189, v190, v191, v192);
       swift_bridgeObjectRelease_n(0xE200000000000000, 2);
     }
   }
 
   else
   {
-    v875._countAndFlagsBits = 10302;
-    v875._object = 0xE200000000000000;
-    v169;
+    v916._countAndFlagsBits = 10302;
+    v916._object = 0xE200000000000000;
+    v180;
   }
 
-  v184 = *(v168 + 24);
-  swift_getAssociatedTypeWitness(255, v184, v1, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD64Storage);
-  v186 = v185;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v184, v1, v185, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD64Storage: SIMDStorage);
-  v188 = *(AssociatedConformanceWitness + 56);
-  v189 = swift_checkMetadataState(0, v186);
-  v190 = v865;
-  v188(0, v189, AssociatedConformanceWitness);
-  v870 = v1;
-  v191 = __swift_allocate_boxed_opaque_existential_0Tm(&v869);
-  v192 = v867;
-  memcpy(v191, v190, v867);
-  v193 = v870;
-  v194 = __swift_project_boxed_opaque_existential_0Tm(&v869, v870);
-  DynamicType = swift_getDynamicType(v194, v193, 1);
-  LOBYTE(v193) = swift_isOptionalType(DynamicType);
-  __swift_destroy_boxed_opaque_existential_1Tm(&v869._countAndFlagsBits);
-  if (v193)
+  v195 = *(v179 + 24);
+  swift_getAssociatedTypeWitness(255, v195, v2, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD64Storage);
+  v197 = v196;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v195, v2, v196, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD64Storage: SIMDStorage);
+  v199 = *(AssociatedConformanceWitness + 56);
+  v200 = swift_checkMetadataState(0, v197);
+  v201 = v906;
+  v199(0, v200, AssociatedConformanceWitness);
+  v911 = v2;
+  v202 = __swift_allocate_boxed_opaque_existential_0Tm(&v910);
+  v203 = v908;
+  memcpy(v202, v201, v908);
+  v204 = v911;
+  v205 = __swift_project_boxed_opaque_existential_0Tm(&v910, v911);
+  DynamicType = swift_getDynamicType(v205, v204, 1);
+  LOBYTE(v204) = swift_isOptionalType(DynamicType);
+  __swift_destroy_boxed_opaque_existential_1Tm(&v910._countAndFlagsBits);
+  if (v204)
   {
-    memcpy(v24, v190, v192);
-    v196 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
-    swift_dynamicCast(&v869, v24, v1, v196, 7uLL);
-    v197 = v870;
-    v198 = v871;
-    __swift_project_boxed_opaque_existential_0Tm(&v869, v870);
-    v199 = (*(v198 + 8))(v197, v198);
-    v209 = v200;
-    v210 = v875._object;
-    v211 = (v875._object >> 56) & 0xF;
-    if ((v875._object & 0x2000000000000000) == 0)
+    memcpy(v34, v201, v203);
+    v207 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
+    swift_dynamicCast(&v910, v34, v2, v207, 7uLL, v208, v209, v210, v895);
+    v211 = v911;
+    v212 = v912;
+    __swift_project_boxed_opaque_existential_0Tm(&v910, v911);
+    v213 = (*(v212 + 8))(v211, v212);
+    v223 = v214;
+    v224 = v916._object;
+    v225 = (v916._object >> 56) & 0xF;
+    if ((v916._object & 0x2000000000000000) == 0)
     {
-      v211 = v875._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+      v225 = v916._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
     }
 
-    if (v211 || (v875._countAndFlagsBits & ~v875._object & 0x2000000000000000) != 0)
+    if (v225 || (v916._countAndFlagsBits & ~v916._object & 0x2000000000000000) != 0)
     {
-      _StringGuts.append(_:)(v199, v200, v201, v202, v203, v204, v205, v206, v207, v208);
+      _StringGuts.append(_:)(v213, v214, v215, v216, v217, v218, v219, v220, v221, v222);
     }
 
     else
     {
-      v875._countAndFlagsBits = v199;
-      v875._object = v200;
-      v209 = v210;
+      v916._countAndFlagsBits = v213;
+      v916._object = v214;
+      v223 = v224;
     }
 
-    v212 = v209;
+    v226 = v223;
 LABEL_194:
-    v212;
+    v226;
 LABEL_195:
-    __swift_destroy_boxed_opaque_existential_1Tm(&v869._countAndFlagsBits);
+    __swift_destroy_boxed_opaque_existential_1Tm(&v910._countAndFlagsBits);
   }
 
   else
   {
-    v213 = v862;
-    memcpy(v862, v190, v192);
-    if (swift_dynamicCast(&v869, v213, v1, &type metadata for String, 6uLL))
+    v227 = v903;
+    memcpy(v903, v201, v203);
+    if (swift_dynamicCast(&v910, v227, v2, &type metadata for String, 6uLL, v228, v229, v230, v895))
     {
-      v222 = v869._object;
-      v223 = v875._object;
-      v224 = (v875._object >> 56) & 0xF;
-      if ((v875._object & 0x2000000000000000) == 0)
+      v239 = v910._object;
+      v240 = v916._object;
+      v241 = (v916._object >> 56) & 0xF;
+      if ((v916._object & 0x2000000000000000) == 0)
       {
-        v224 = v875._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+        v241 = v916._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
       }
 
-      if (v224 || (v875._countAndFlagsBits & ~v875._object & 0x2000000000000000) != 0)
+      if (v241 || (v916._countAndFlagsBits & ~v916._object & 0x2000000000000000) != 0)
       {
-        _StringGuts.append(_:)(v869._countAndFlagsBits, v869._object, v214, v215, v216, v217, v218, v219, v220, v221);
-        v225 = v222;
+        _StringGuts.append(_:)(v910._countAndFlagsBits, v910._object, v231, v232, v233, v234, v235, v236, v237, v238);
+        v242 = v239;
       }
 
       else
       {
-        v875 = v869;
-        v225 = v223;
+        v916 = v910;
+        v242 = v240;
       }
 
-      v225;
+      v242;
     }
 
     else
     {
-      v239 = v190;
-      v240 = v859;
-      memcpy(v859, v239, v192);
-      v241 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss20TextOutputStreamable_pMd, _ss20TextOutputStreamable_pMR);
-      if (swift_dynamicCast(&v872, v240, v1, v241, 6uLL))
+      v256 = v201;
+      v257 = v900;
+      memcpy(v900, v256, v203);
+      v258 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss20TextOutputStreamable_pMd, _ss20TextOutputStreamable_pMR);
+      if (swift_dynamicCast(&v913, v257, v2, v258, 6uLL, v259, v260, v261, v895))
       {
-        _ss9CodingKey_pWOb_0(&v872, &v869);
-        v242 = v870;
-        v243 = v871;
-        __swift_project_boxed_opaque_existential_0Tm(&v869, v870);
-        (*(v243 + 8))(&v875, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation, v242, v243);
+        _ss9CodingKey_pWOb_0(&v913, &v910);
+        v262 = v911;
+        v263 = v912;
+        __swift_project_boxed_opaque_existential_0Tm(&v910, v911);
+        (*(v263 + 8))(&v916, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation, v262, v263);
         goto LABEL_195;
       }
 
-      v874 = 0;
-      v872 = 0u;
-      v873 = 0u;
-      outlined destroy of _HasContiguousBytes?(&v872, &_ss20TextOutputStreamable_pSgMd, _ss20TextOutputStreamable_pSgMR);
-      v781 = v857;
-      memcpy(v857, v239, v192);
-      v782 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23CustomStringConvertible_pMd, _ss23CustomStringConvertible_pMR);
-      if (swift_dynamicCast(&v872, v781, v1, v782, 6uLL) || (v874 = 0, v872 = 0u, v873 = 0u, outlined destroy of _HasContiguousBytes?(&v872, &_ss23CustomStringConvertible_pSgMd, _ss23CustomStringConvertible_pSgMR), v793 = v856, memcpy(v856, v239, v192), v794 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR), swift_dynamicCast(&v872, v793, v1, v794, 6uLL)))
+      v915 = 0;
+      v913 = 0u;
+      v914 = 0u;
+      outlined destroy of _HasContiguousBytes?(&v913, &_ss20TextOutputStreamable_pSgMd, _ss20TextOutputStreamable_pSgMR);
+      v810 = v898;
+      memcpy(v898, v256, v203);
+      v811 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23CustomStringConvertible_pMd, _ss23CustomStringConvertible_pMR);
+      if (swift_dynamicCast(&v913, v810, v2, v811, 6uLL, v812, v813, v814, v895) || (v915 = 0, v913 = 0u, v914 = 0u, outlined destroy of _HasContiguousBytes?(&v913, &_ss23CustomStringConvertible_pSgMd, _ss23CustomStringConvertible_pSgMR), v828 = v897, memcpy(v897, v256, v203), v829 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR), swift_dynamicCast(&v913, v828, v2, v829, 6uLL, v830, v831, v832, v895)))
       {
-        _ss9CodingKey_pWOb_0(&v872, &v869);
-        v795 = v870;
-        v796 = v871;
-        __swift_project_boxed_opaque_existential_0Tm(&v869, v870);
-        v797 = (*(v796 + 8))(v795, v796);
-        v799 = v798;
-        static String.+= infix(_:_:)(&v875, v797, v798, v800, v801, v802, v803, v804, v805, v806, v807);
-        v212 = v799;
+        _ss9CodingKey_pWOb_0(&v913, &v910);
+        v833 = v911;
+        v834 = v912;
+        __swift_project_boxed_opaque_existential_0Tm(&v910, v911);
+        v835 = (*(v834 + 8))(v833, v834);
+        v837 = v836;
+        static String.+= infix(_:_:)(&v916, v835, v836, v838, v839, v840, v841, v842, v843, v844, v845);
+        v226 = v837;
         goto LABEL_194;
       }
 
-      v874 = 0;
-      v872 = 0u;
-      v873 = 0u;
-      outlined destroy of _HasContiguousBytes?(&v872, &_ss28CustomDebugStringConvertible_pSgMd, _ss28CustomDebugStringConvertible_pSgMR);
-      *(&v873 + 1) = v1;
-      v823 = __swift_allocate_boxed_opaque_existential_0Tm(&v872);
-      memcpy(v823, v239, v192);
-      Mirror.init(reflecting:)(&v872, &v869);
-      v824 = v239;
-      v825 = v869._object;
-      v826 = v871;
-      _adHocPrint_unlocked<A, B>(_:_:_:isDebugPrint:)(v824, &v869, &v875, 0, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-      v826;
-      v825;
+      v915 = 0;
+      v913 = 0u;
+      v914 = 0u;
+      outlined destroy of _HasContiguousBytes?(&v913, &_ss28CustomDebugStringConvertible_pSgMd, _ss28CustomDebugStringConvertible_pSgMR);
+      *(&v914 + 1) = v2;
+      v864 = __swift_allocate_boxed_opaque_existential_0Tm(&v913);
+      memcpy(v864, v256, v203);
+      Mirror.init(reflecting:)(&v913, &v910);
+      v865 = v256;
+      v866 = v910._object;
+      v867 = v912;
+      _adHocPrint_unlocked<A, B>(_:_:_:isDebugPrint:)(v865, &v910, &v916, 0, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+      v867;
+      v866;
     }
   }
 
-  v226 = v875._object;
-  v227 = (v875._object >> 56) & 0xF;
-  if ((v875._object & 0x2000000000000000) == 0)
+  v243 = v916._object;
+  v244 = (v916._object >> 56) & 0xF;
+  if ((v916._object & 0x2000000000000000) == 0)
   {
-    v227 = v875._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+    v244 = v916._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
   }
 
-  if (v227 || (v875._countAndFlagsBits & ~v875._object & 0x2000000000000000) != 0)
+  if (v244 || (v916._countAndFlagsBits & ~v916._object & 0x2000000000000000) != 0)
   {
-    if ((v875._object & 0x2000000000000000) != 0 && (v228 = specialized _SmallString.init(_:appending:)(v875._countAndFlagsBits, v875._object, 0x202CuLL, 0xE200000000000000), (v230 & 1) == 0))
+    if ((v916._object & 0x2000000000000000) != 0 && (v245 = specialized _SmallString.init(_:appending:)(v916._countAndFlagsBits, v916._object, 0x202CuLL, 0xE200000000000000), (v247 & 1) == 0))
     {
-      v244 = v228;
-      v245 = v229;
+      v264 = v245;
+      v265 = v246;
       0xE200000000000000;
-      v875._object;
-      v875._countAndFlagsBits = v244;
-      v875._object = v245;
+      v916._object;
+      v916._countAndFlagsBits = v264;
+      v916._object = v265;
     }
 
     else
     {
       0xE200000000000000;
-      _StringGuts.append(_:)(8236, 0xE200000000000000, 0, 2, v231, v232, v233, v234, v235, v236, v237, v238);
+      _StringGuts.append(_:)(8236, 0xE200000000000000, 0, 2, v248, v249, v250, v251, v252, v253, v254, v255);
       swift_bridgeObjectRelease_n(0xE200000000000000, 2);
     }
   }
 
   else
   {
-    v875._countAndFlagsBits = 8236;
-    v875._object = 0xE200000000000000;
-    v226;
+    v916._countAndFlagsBits = 8236;
+    v916._object = 0xE200000000000000;
+    v243;
   }
 
-  v246 = v866;
-  v188(1, v189, AssociatedConformanceWitness);
-  v870 = v1;
-  v247 = __swift_allocate_boxed_opaque_existential_0Tm(&v869);
-  v248 = v867;
-  memcpy(v247, v246, v867);
-  v249 = v870;
-  v250 = __swift_project_boxed_opaque_existential_0Tm(&v869, v870);
-  v251 = swift_getDynamicType(v250, v249, 1);
-  LOBYTE(v249) = swift_isOptionalType(v251);
-  __swift_destroy_boxed_opaque_existential_1Tm(&v869._countAndFlagsBits);
-  if (v249)
+  v266 = v907;
+  v199(1, v200, AssociatedConformanceWitness);
+  v911 = v2;
+  v267 = __swift_allocate_boxed_opaque_existential_0Tm(&v910);
+  v268 = v908;
+  memcpy(v267, v266, v908);
+  v269 = v911;
+  v270 = __swift_project_boxed_opaque_existential_0Tm(&v910, v911);
+  v271 = swift_getDynamicType(v270, v269, 1);
+  LOBYTE(v269) = swift_isOptionalType(v271);
+  __swift_destroy_boxed_opaque_existential_1Tm(&v910._countAndFlagsBits);
+  if (v269)
   {
-    memcpy(v24, v246, v248);
-    v252 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
-    swift_dynamicCast(&v869, v24, v1, v252, 7uLL);
-    v253 = v870;
-    v254 = v871;
-    __swift_project_boxed_opaque_existential_0Tm(&v869, v870);
-    v255 = (*(v254 + 8))(v253, v254);
-    v265 = v256;
-    v266 = v875._object;
-    v267 = (v875._object >> 56) & 0xF;
-    if ((v875._object & 0x2000000000000000) == 0)
+    memcpy(v34, v266, v268);
+    v272 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
+    swift_dynamicCast(&v910, v34, v2, v272, 7uLL, v273, v274, v275, v895);
+    v276 = v911;
+    v277 = v912;
+    __swift_project_boxed_opaque_existential_0Tm(&v910, v911);
+    v278 = (*(v277 + 8))(v276, v277);
+    v288 = v279;
+    v289 = v916._object;
+    v290 = (v916._object >> 56) & 0xF;
+    if ((v916._object & 0x2000000000000000) == 0)
     {
-      v267 = v875._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+      v290 = v916._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
     }
 
-    if (v267 || (v875._countAndFlagsBits & ~v875._object & 0x2000000000000000) != 0)
+    if (v290 || (v916._countAndFlagsBits & ~v916._object & 0x2000000000000000) != 0)
     {
-      _StringGuts.append(_:)(v255, v256, v257, v258, v259, v260, v261, v262, v263, v264);
+      _StringGuts.append(_:)(v278, v279, v280, v281, v282, v283, v284, v285, v286, v287);
     }
 
     else
     {
-      v875._countAndFlagsBits = v255;
-      v875._object = v256;
-      v265 = v266;
+      v916._countAndFlagsBits = v278;
+      v916._object = v279;
+      v288 = v289;
     }
 
-    v268 = v265;
+    v291 = v288;
 LABEL_221:
-    v268;
+    v291;
 LABEL_222:
-    __swift_destroy_boxed_opaque_existential_1Tm(&v869._countAndFlagsBits);
+    __swift_destroy_boxed_opaque_existential_1Tm(&v910._countAndFlagsBits);
   }
 
   else
   {
-    v277 = v863;
-    memcpy(v863, v246, v248);
-    if (swift_dynamicCast(&v869, v277, v1, &type metadata for String, 6uLL))
+    v300 = v904;
+    memcpy(v904, v266, v268);
+    if (swift_dynamicCast(&v910, v300, v2, &type metadata for String, 6uLL, v301, v302, v303, v895))
     {
-      v278 = v869._object;
-      String.write(_:)(v869);
-      v278;
+      v304 = v910._object;
+      String.write(_:)(v910);
+      v304;
     }
 
     else
     {
-      v776 = v246;
-      v777 = v860;
-      memcpy(v860, v776, v248);
-      v778 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss20TextOutputStreamable_pMd, _ss20TextOutputStreamable_pMR);
-      if (swift_dynamicCast(&v872, v777, v1, v778, 6uLL))
+      v802 = v266;
+      v803 = v901;
+      memcpy(v901, v802, v268);
+      v804 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss20TextOutputStreamable_pMd, _ss20TextOutputStreamable_pMR);
+      if (swift_dynamicCast(&v913, v803, v2, v804, 6uLL, v805, v806, v807, v895))
       {
-        _ss9CodingKey_pWOb_0(&v872, &v869);
-        v779 = v870;
-        v780 = v871;
-        __swift_project_boxed_opaque_existential_0Tm(&v869, v870);
-        (*(v780 + 8))(&v875, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation, v779, v780);
+        _ss9CodingKey_pWOb_0(&v913, &v910);
+        v808 = v911;
+        v809 = v912;
+        __swift_project_boxed_opaque_existential_0Tm(&v910, v911);
+        (*(v809 + 8))(&v916, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation, v808, v809);
         goto LABEL_222;
       }
 
-      v874 = 0;
-      v872 = 0u;
-      v873 = 0u;
-      outlined destroy of _HasContiguousBytes?(&v872, &_ss20TextOutputStreamable_pSgMd, _ss20TextOutputStreamable_pSgMR);
-      v783 = v858;
-      memcpy(v858, v776, v248);
-      v784 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23CustomStringConvertible_pMd, _ss23CustomStringConvertible_pMR);
-      if (swift_dynamicCast(&v872, v783, v1, v784, 6uLL) || (v874 = 0, v872 = 0u, v873 = 0u, outlined destroy of _HasContiguousBytes?(&v872, &_ss23CustomStringConvertible_pSgMd, _ss23CustomStringConvertible_pSgMR), v808 = v855, memcpy(v855, v776, v248), v809 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR), swift_dynamicCast(&v872, v808, v1, v809, 6uLL)))
+      v915 = 0;
+      v913 = 0u;
+      v914 = 0u;
+      outlined destroy of _HasContiguousBytes?(&v913, &_ss20TextOutputStreamable_pSgMd, _ss20TextOutputStreamable_pSgMR);
+      v815 = v899;
+      memcpy(v899, v802, v268);
+      v816 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23CustomStringConvertible_pMd, _ss23CustomStringConvertible_pMR);
+      if (swift_dynamicCast(&v913, v815, v2, v816, 6uLL, v817, v818, v819, v895) || (v915 = 0, v913 = 0u, v914 = 0u, outlined destroy of _HasContiguousBytes?(&v913, &_ss23CustomStringConvertible_pSgMd, _ss23CustomStringConvertible_pSgMR), v846 = v896, memcpy(v896, v802, v268), v847 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR), swift_dynamicCast(&v913, v846, v2, v847, 6uLL, v848, v849, v850, v895)))
       {
-        _ss9CodingKey_pWOb_0(&v872, &v869);
-        v810 = v870;
-        v811 = v871;
-        __swift_project_boxed_opaque_existential_0Tm(&v869, v870);
-        v812 = (*(v811 + 8))(v810, v811);
-        v814 = v813;
-        static String.+= infix(_:_:)(&v875, v812, v813, v815, v816, v817, v818, v819, v820, v821, v822);
-        v268 = v814;
+        _ss9CodingKey_pWOb_0(&v913, &v910);
+        v851 = v911;
+        v852 = v912;
+        __swift_project_boxed_opaque_existential_0Tm(&v910, v911);
+        v853 = (*(v852 + 8))(v851, v852);
+        v855 = v854;
+        static String.+= infix(_:_:)(&v916, v853, v854, v856, v857, v858, v859, v860, v861, v862, v863);
+        v291 = v855;
         goto LABEL_221;
       }
 
-      v874 = 0;
-      v872 = 0u;
-      v873 = 0u;
-      outlined destroy of _HasContiguousBytes?(&v872, &_ss28CustomDebugStringConvertible_pSgMd, _ss28CustomDebugStringConvertible_pSgMR);
-      *(&v873 + 1) = v1;
-      v827 = __swift_allocate_boxed_opaque_existential_0Tm(&v872);
-      memcpy(v827, v776, v248);
-      Mirror.init(reflecting:)(&v872, &v869);
-      v828 = v776;
-      v829 = v869._object;
-      v830 = v871;
-      _adHocPrint_unlocked<A, B>(_:_:_:isDebugPrint:)(v828, &v869, &v875, 0, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-      v830;
-      v829;
+      v915 = 0;
+      v913 = 0u;
+      v914 = 0u;
+      outlined destroy of _HasContiguousBytes?(&v913, &_ss28CustomDebugStringConvertible_pSgMd, _ss28CustomDebugStringConvertible_pSgMR);
+      *(&v914 + 1) = v2;
+      v868 = __swift_allocate_boxed_opaque_existential_0Tm(&v913);
+      memcpy(v868, v802, v268);
+      Mirror.init(reflecting:)(&v913, &v910);
+      v869 = v802;
+      v870 = v910._object;
+      v871 = v912;
+      _adHocPrint_unlocked<A, B>(_:_:_:isDebugPrint:)(v869, &v910, &v916, 0, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+      v871;
+      v870;
     }
   }
 
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v269, v270, v271, v272, v273, v274, v275, v276);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v292, v293, v294, v295, v296, v297, v298, v299);
   0xE200000000000000;
-  v188(2, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v279, v280, v281, v282, v283, v284, v285, v286);
+  v199(2, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v305, v306, v307, v308, v309, v310, v311, v312);
   0xE200000000000000;
-  v188(3, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v287, v288, v289, v290, v291, v292, v293, v294);
+  v199(3, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v313, v314, v315, v316, v317, v318, v319, v320);
   0xE200000000000000;
-  v188(4, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v295, v296, v297, v298, v299, v300, v301, v302);
+  v199(4, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v321, v322, v323, v324, v325, v326, v327, v328);
   0xE200000000000000;
-  v188(5, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v303, v304, v305, v306, v307, v308, v309, v310);
+  v199(5, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v329, v330, v331, v332, v333, v334, v335, v336);
   0xE200000000000000;
-  v188(6, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v311, v312, v313, v314, v315, v316, v317, v318);
+  v199(6, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v337, v338, v339, v340, v341, v342, v343, v344);
   0xE200000000000000;
-  v188(7, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v319, v320, v321, v322, v323, v324, v325, v326);
+  v199(7, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v345, v346, v347, v348, v349, v350, v351, v352);
   0xE200000000000000;
-  v188(8, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v327, v328, v329, v330, v331, v332, v333, v334);
+  v199(8, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v353, v354, v355, v356, v357, v358, v359, v360);
   0xE200000000000000;
-  v188(9, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v335, v336, v337, v338, v339, v340, v341, v342);
+  v199(9, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v361, v362, v363, v364, v365, v366, v367, v368);
   0xE200000000000000;
-  v188(10, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v343, v344, v345, v346, v347, v348, v349, v350);
+  v199(10, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v369, v370, v371, v372, v373, v374, v375, v376);
   0xE200000000000000;
-  v188(11, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v351, v352, v353, v354, v355, v356, v357, v358);
+  v199(11, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v377, v378, v379, v380, v381, v382, v383, v384);
   0xE200000000000000;
-  v188(12, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v359, v360, v361, v362, v363, v364, v365, v366);
+  v199(12, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v385, v386, v387, v388, v389, v390, v391, v392);
   0xE200000000000000;
-  v188(13, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v367, v368, v369, v370, v371, v372, v373, v374);
+  v199(13, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v393, v394, v395, v396, v397, v398, v399, v400);
   0xE200000000000000;
-  v188(14, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v375, v376, v377, v378, v379, v380, v381, v382);
+  v199(14, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v401, v402, v403, v404, v405, v406, v407, v408);
   0xE200000000000000;
-  v188(15, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v383, v384, v385, v386, v387, v388, v389, v390);
+  v199(15, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v409, v410, v411, v412, v413, v414, v415, v416);
   0xE200000000000000;
-  v188(16, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v391, v392, v393, v394, v395, v396, v397, v398);
+  v199(16, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v417, v418, v419, v420, v421, v422, v423, v424);
   0xE200000000000000;
-  v188(17, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v399, v400, v401, v402, v403, v404, v405, v406);
+  v199(17, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v425, v426, v427, v428, v429, v430, v431, v432);
   0xE200000000000000;
-  v188(18, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v407, v408, v409, v410, v411, v412, v413, v414);
+  v199(18, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v433, v434, v435, v436, v437, v438, v439, v440);
   0xE200000000000000;
-  v188(19, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v415, v416, v417, v418, v419, v420, v421, v422);
+  v199(19, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v441, v442, v443, v444, v445, v446, v447, v448);
   0xE200000000000000;
-  v188(20, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v423, v424, v425, v426, v427, v428, v429, v430);
+  v199(20, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v449, v450, v451, v452, v453, v454, v455, v456);
   0xE200000000000000;
-  v188(21, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v431, v432, v433, v434, v435, v436, v437, v438);
+  v199(21, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v457, v458, v459, v460, v461, v462, v463, v464);
   0xE200000000000000;
-  v188(22, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v439, v440, v441, v442, v443, v444, v445, v446);
+  v199(22, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v465, v466, v467, v468, v469, v470, v471, v472);
   0xE200000000000000;
-  v188(23, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v447, v448, v449, v450, v451, v452, v453, v454);
+  v199(23, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v473, v474, v475, v476, v477, v478, v479, v480);
   0xE200000000000000;
-  v188(24, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v455, v456, v457, v458, v459, v460, v461, v462);
+  v199(24, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v481, v482, v483, v484, v485, v486, v487, v488);
   0xE200000000000000;
-  v188(25, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v463, v464, v465, v466, v467, v468, v469, v470);
+  v199(25, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v489, v490, v491, v492, v493, v494, v495, v496);
   0xE200000000000000;
-  v188(26, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v471, v472, v473, v474, v475, v476, v477, v478);
+  v199(26, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v497, v498, v499, v500, v501, v502, v503, v504);
   0xE200000000000000;
-  v188(27, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v479, v480, v481, v482, v483, v484, v485, v486);
+  v199(27, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v505, v506, v507, v508, v509, v510, v511, v512);
   0xE200000000000000;
-  v188(28, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v487, v488, v489, v490, v491, v492, v493, v494);
+  v199(28, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v513, v514, v515, v516, v517, v518, v519, v520);
   0xE200000000000000;
-  v188(29, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v495, v496, v497, v498, v499, v500, v501, v502);
+  v199(29, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v521, v522, v523, v524, v525, v526, v527, v528);
   0xE200000000000000;
-  v188(30, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v503, v504, v505, v506, v507, v508, v509, v510);
+  v199(30, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v529, v530, v531, v532, v533, v534, v535, v536);
   0xE200000000000000;
-  v188(31, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v511, v512, v513, v514, v515, v516, v517, v518);
+  v199(31, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v537, v538, v539, v540, v541, v542, v543, v544);
   0xE200000000000000;
-  v188(32, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v519, v520, v521, v522, v523, v524, v525, v526);
+  v199(32, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v545, v546, v547, v548, v549, v550, v551, v552);
   0xE200000000000000;
-  v188(33, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v527, v528, v529, v530, v531, v532, v533, v534);
+  v199(33, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v553, v554, v555, v556, v557, v558, v559, v560);
   0xE200000000000000;
-  v188(34, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v535, v536, v537, v538, v539, v540, v541, v542);
+  v199(34, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v561, v562, v563, v564, v565, v566, v567, v568);
   0xE200000000000000;
-  v188(35, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v543, v544, v545, v546, v547, v548, v549, v550);
+  v199(35, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v569, v570, v571, v572, v573, v574, v575, v576);
   0xE200000000000000;
-  v188(36, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v551, v552, v553, v554, v555, v556, v557, v558);
+  v199(36, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v577, v578, v579, v580, v581, v582, v583, v584);
   0xE200000000000000;
-  v188(37, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v559, v560, v561, v562, v563, v564, v565, v566);
+  v199(37, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v585, v586, v587, v588, v589, v590, v591, v592);
   0xE200000000000000;
-  v188(38, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v567, v568, v569, v570, v571, v572, v573, v574);
+  v199(38, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v593, v594, v595, v596, v597, v598, v599, v600);
   0xE200000000000000;
-  v188(39, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v575, v576, v577, v578, v579, v580, v581, v582);
+  v199(39, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v601, v602, v603, v604, v605, v606, v607, v608);
   0xE200000000000000;
-  v188(40, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v583, v584, v585, v586, v587, v588, v589, v590);
+  v199(40, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v609, v610, v611, v612, v613, v614, v615, v616);
   0xE200000000000000;
-  v188(41, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v591, v592, v593, v594, v595, v596, v597, v598);
+  v199(41, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v617, v618, v619, v620, v621, v622, v623, v624);
   0xE200000000000000;
-  v188(42, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v599, v600, v601, v602, v603, v604, v605, v606);
+  v199(42, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v625, v626, v627, v628, v629, v630, v631, v632);
   0xE200000000000000;
-  v188(43, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v607, v608, v609, v610, v611, v612, v613, v614);
+  v199(43, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v633, v634, v635, v636, v637, v638, v639, v640);
   0xE200000000000000;
-  v188(44, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v615, v616, v617, v618, v619, v620, v621, v622);
+  v199(44, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v641, v642, v643, v644, v645, v646, v647, v648);
   0xE200000000000000;
-  v188(45, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v623, v624, v625, v626, v627, v628, v629, v630);
+  v199(45, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v649, v650, v651, v652, v653, v654, v655, v656);
   0xE200000000000000;
-  v188(46, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v631, v632, v633, v634, v635, v636, v637, v638);
+  v199(46, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v657, v658, v659, v660, v661, v662, v663, v664);
   0xE200000000000000;
-  v188(47, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v639, v640, v641, v642, v643, v644, v645, v646);
+  v199(47, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v665, v666, v667, v668, v669, v670, v671, v672);
   0xE200000000000000;
-  v188(48, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v647, v648, v649, v650, v651, v652, v653, v654);
+  v199(48, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v673, v674, v675, v676, v677, v678, v679, v680);
   0xE200000000000000;
-  v188(49, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v655, v656, v657, v658, v659, v660, v661, v662);
+  v199(49, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v681, v682, v683, v684, v685, v686, v687, v688);
   0xE200000000000000;
-  v188(50, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v663, v664, v665, v666, v667, v668, v669, v670);
+  v199(50, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v689, v690, v691, v692, v693, v694, v695, v696);
   0xE200000000000000;
-  v188(51, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v671, v672, v673, v674, v675, v676, v677, v678);
+  v199(51, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v697, v698, v699, v700, v701, v702, v703, v704);
   0xE200000000000000;
-  v188(52, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v679, v680, v681, v682, v683, v684, v685, v686);
+  v199(52, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v705, v706, v707, v708, v709, v710, v711, v712);
   0xE200000000000000;
-  v188(53, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v687, v688, v689, v690, v691, v692, v693, v694);
+  v199(53, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v713, v714, v715, v716, v717, v718, v719, v720);
   0xE200000000000000;
-  v188(54, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v695, v696, v697, v698, v699, v700, v701, v702);
+  v199(54, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v721, v722, v723, v724, v725, v726, v727, v728);
   0xE200000000000000;
-  v188(55, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v703, v704, v705, v706, v707, v708, v709, v710);
+  v199(55, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v729, v730, v731, v732, v733, v734, v735, v736);
   0xE200000000000000;
-  v188(56, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v711, v712, v713, v714, v715, v716, v717, v718);
+  v199(56, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v737, v738, v739, v740, v741, v742, v743, v744);
   0xE200000000000000;
-  v188(57, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v719, v720, v721, v722, v723, v724, v725, v726);
+  v199(57, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v745, v746, v747, v748, v749, v750, v751, v752);
   0xE200000000000000;
-  v188(58, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v727, v728, v729, v730, v731, v732, v733, v734);
+  v199(58, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v753, v754, v755, v756, v757, v758, v759, v760);
   0xE200000000000000;
-  v188(59, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v735, v736, v737, v738, v739, v740, v741, v742);
+  v199(59, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v761, v762, v763, v764, v765, v766, v767, v768);
   0xE200000000000000;
-  v188(60, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v743, v744, v745, v746, v747, v748, v749, v750);
+  v199(60, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v769, v770, v771, v772, v773, v774, v775, v776);
   0xE200000000000000;
-  v188(61, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v751, v752, v753, v754, v755, v756, v757, v758);
+  v199(61, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v777, v778, v779, v780, v781, v782, v783, v784);
   0xE200000000000000;
-  v188(62, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x202CuLL, 0xE200000000000000, v759, v760, v761, v762, v763, v764, v765, v766);
+  v199(62, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x202CuLL, 0xE200000000000000, v785, v786, v787, v788, v789, v790, v791, v792);
   0xE200000000000000;
-  v188(63, v189, AssociatedConformanceWitness);
-  _print_unlocked<A, B>(_:_:)(v24, &v875, v1, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  static String.+= infix(_:_:)(&v875, 0x29uLL, 0xE100000000000000, v767, v768, v769, v770, v771, v772, v773, v774);
+  v199(63, v200, AssociatedConformanceWitness);
+  _print_unlocked<A, B>(_:_:)(v34, &v916, v2, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  static String.+= infix(_:_:)(&v916, 0x29uLL, 0xE100000000000000, v793, v794, v795, v796, v797, v798, v799, v800);
   0xE100000000000000;
-  return v875._countAndFlagsBits;
+  return v916._countAndFlagsBits;
 }
 
-uint64_t SIMD64<>.init<A>(_:)@<X0>(uint64_t a1@<X0>, const char *a2@<X1>, const char *a3@<X2>, uint64_t a4@<X3>, int **a5@<X4>, uint64_t a6@<X5>, int **a7@<X6>, uint64_t a8@<X8>)
+uint64_t SIMD64<>.init<A>(_:)@<X0>(uint64_t a1@<X0>, Class *a2@<X1>, Class *a3@<X2>, uint64_t a4@<X3>, int **a5@<X4>, uint64_t a6@<X5>, int **a7@<X6>, uint64_t a8@<X8>)
 {
-  v36 = a4;
-  v37 = a6;
-  v39 = a1;
-  v13 = MEMORY[0x1EEE9AC00](a1);
-  v15 = &v30 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v13);
-  v17 = &v30 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v37 = a4;
+  v38 = a6;
+  v40 = a1;
+  v13 = MEMORY[0x1EEE9AC00](a1, a2);
+  v15 = &v31 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v13, v16);
+  v18 = &v31 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_getAssociatedTypeWitness(0, a5, a2, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD64Storage);
-  v19 = v18;
-  v35 = a2;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a5, a2, v18, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD64Storage: SIMDStorage);
-  v21 = *(AssociatedConformanceWitness + 48);
-  v33 = v19;
-  v34 = a8;
-  v21(v19, AssociatedConformanceWitness);
+  v20 = v19;
+  v36 = a2;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a5, a2, v19, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD64Storage: SIMDStorage);
+  v22 = *(AssociatedConformanceWitness + 48);
+  v34 = v20;
+  v35 = a8;
+  v22(v20, AssociatedConformanceWitness);
   swift_getAssociatedTypeWitness(255, a7, a3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD64Storage);
-  v31 = a7;
-  v32 = v22;
-  v38 = a3;
-  v23 = swift_getAssociatedConformanceWitness(a7, a3, v22, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD64Storage: SIMDStorage);
-  v24 = 0;
-  v25 = *(v23 + 56);
-  do
-  {
-    v26 = swift_checkMetadataState(0, v32);
-    v25(v24, v26, v23);
-    (*(*(v36 + 16) + 72))(v15, v38, *(v37 + 8));
-    (*(AssociatedConformanceWitness + 64))(v17, v24++, v33, AssociatedConformanceWitness);
-  }
-
-  while (v24 != 64);
-  v28 = type metadata accessor for SIMD64(0, v38, v31, v27);
-  return (*(*(v28 - 8) + 8))(v39, v28);
-}
-
-{
-  v39 = a6;
-  v41 = a1;
-  v14 = MEMORY[0x1EEE9AC00](a1);
-  v36 = &v30 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v14);
-  v17 = &v30 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  swift_getAssociatedTypeWitness(0, a5, a2, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD64Storage);
-  v19 = v18;
-  v38 = a2;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a5, a2, v18, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD64Storage: SIMDStorage);
-  v21 = *(AssociatedConformanceWitness + 48);
-  v37 = a8;
-  v35 = v19;
-  v21(v19, AssociatedConformanceWitness);
-  swift_getAssociatedTypeWitness(255, a7, a3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD64Storage);
-  v31 = a7;
-  v40 = a3;
-  v34 = v22;
-  v23 = swift_getAssociatedConformanceWitness(a7, a3, v22, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD64Storage: SIMDStorage);
-  v24 = 0;
-  v32 = *(v23 + 56);
+  v32 = a7;
   v33 = v23;
+  v39 = a3;
+  v24 = swift_getAssociatedConformanceWitness(a7, a3, v23, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD64Storage: SIMDStorage);
+  v25 = 0;
+  v26 = *(v24 + 56);
   do
   {
-    v25 = swift_checkMetadataState(0, v34);
-    v26 = v36;
-    v32(v24, v25, v33);
-    (*(a4 + 80))(v26, v40, v39);
-    (*(AssociatedConformanceWitness + 64))(v17, v24++, v35, AssociatedConformanceWitness);
+    v27 = swift_checkMetadataState(0, v33);
+    v26(v25, v27, v24);
+    (*(*(v37 + 16) + 72))(v15, v39, *(v38 + 8));
+    (*(AssociatedConformanceWitness + 64))(v18, v25++, v34, AssociatedConformanceWitness);
   }
 
-  while (v24 != 64);
-  v28 = type metadata accessor for SIMD64(0, v40, v31, v27);
-  return (*(*(v28 - 8) + 8))(v41, v28);
+  while (v25 != 64);
+  v29 = type metadata accessor for SIMD64(0, v39, v32, v28);
+  return (*(*(v29 - 8) + 8))(v40, v29);
+}
+
+{
+  v40 = a6;
+  v42 = a1;
+  v14 = MEMORY[0x1EEE9AC00](a1, a2);
+  v37 = &v31 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14, v16);
+  v18 = &v31 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  swift_getAssociatedTypeWitness(0, a5, a2, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD64Storage);
+  v20 = v19;
+  v39 = a2;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a5, a2, v19, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD64Storage: SIMDStorage);
+  v22 = *(AssociatedConformanceWitness + 48);
+  v38 = a8;
+  v36 = v20;
+  v22(v20, AssociatedConformanceWitness);
+  swift_getAssociatedTypeWitness(255, a7, a3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD64Storage);
+  v32 = a7;
+  v41 = a3;
+  v35 = v23;
+  v24 = swift_getAssociatedConformanceWitness(a7, a3, v23, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD64Storage: SIMDStorage);
+  v25 = 0;
+  v33 = *(v24 + 56);
+  v34 = v24;
+  do
+  {
+    v26 = swift_checkMetadataState(0, v35);
+    v27 = v37;
+    v33(v25, v26, v34);
+    (*(a4 + 80))(v27, v41, v40);
+    (*(AssociatedConformanceWitness + 64))(v18, v25++, v36, AssociatedConformanceWitness);
+  }
+
+  while (v25 != 64);
+  v29 = type metadata accessor for SIMD64(0, v41, v32, v28);
+  return (*(*(v29 - 8) + 8))(v42, v29);
 }
 
 uint64_t EnumeratedSequence.Iterator._base.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _DWORD *a3@<X2>, uint64_t a4@<X8>)
@@ -5149,7 +5149,7 @@ uint64_t EnumeratedSequence.Iterator._base.setter(uint64_t a1, uint64_t a2, uint
   return v7(v4, a1, v6);
 }
 
-uint64_t key path getter for SIMD3.subscript(_:) : <A>SIMD3<A>A(uint64_t a1, uint64_t *a2, uint64_t a3)
+uint64_t key path getter for SIMD3.subscript(_:) : <A>SIMD3<A>A(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   v3 = *a2;
   if (*a2 >= 3)
@@ -5171,7 +5171,7 @@ uint64_t key path setter for SIMD3.subscript(_:) : <A>SIMD3<A>A(uint64_t a1, uin
 {
   v4 = *(a3 + a4 - 16);
   v5 = *(a3 + a4 - 8);
-  MEMORY[0x1EEE9AC00](a1);
+  MEMORY[0x1EEE9AC00](a1, a1);
   v7 = &v18 - v6;
   v9 = *v8;
   memcpy(&v18 - v6, v10, v11);
@@ -5205,7 +5205,7 @@ uint64_t (*SIMD3.subscript.modify(void *a1, unint64_t a2, uint64_t a3))()
   *v7 = a2;
   v7[1] = v3;
   v9 = *(a3 + 16);
-  v10 = *(*(v9 - 1) + 64);
+  v10 = *(*(v9 - 1) + 8);
   v7[2] = v10;
   if (swift_coroFrameAlloc)
   {
@@ -5270,7 +5270,7 @@ void SIMD2.subscript.modify(uint64_t **a1, char a2)
 uint64_t SIMD3.init(_:_:_:)(const void *a1, const void *a2, const void *a3, const char *a4, int **a5)
 {
   v10 = *(*(a4 - 1) + 64);
-  MEMORY[0x1EEE9AC00](a1);
+  MEMORY[0x1EEE9AC00](a1, a2);
   swift_getAssociatedTypeWitness(0, a5, v11, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD4Storage);
   v13 = v12;
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a5, a4, v12, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD4Storage: SIMDStorage);
@@ -5284,7 +5284,7 @@ uint64_t SIMD3.init(_:_:_:)(const void *a1, const void *a2, const void *a3, cons
   return (v15)(&v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), 2, v13, AssociatedConformanceWitness);
 }
 
-uint64_t (*SIMD3.x.modify(void *a1, uint64_t a2))()
+uint64_t (*SIMD3.x.modify(void *a1, uint64_t a2))(uint64_t a1, uint64_t a2)
 {
   if (swift_coroFrameAlloc)
   {
@@ -5300,7 +5300,7 @@ uint64_t (*SIMD3.x.modify(void *a1, uint64_t a2))()
   *a1 = v5;
   *v5 = v2;
   v7 = *(a2 + 16);
-  v8 = *(*(v7 - 1) + 64);
+  v8 = *(*(v7 - 1) + 8);
   v5[1] = v8;
   if (swift_coroFrameAlloc)
   {
@@ -5327,7 +5327,7 @@ uint64_t (*SIMD3.x.modify(void *a1, uint64_t a2))()
   return SIMD4.x.modify;
 }
 
-uint64_t (*SIMD3.y.modify(void *a1, uint64_t a2))()
+uint64_t (*SIMD3.y.modify(void *a1, uint64_t a2))(uint64_t a1, uint64_t a2)
 {
   if (swift_coroFrameAlloc)
   {
@@ -5343,7 +5343,7 @@ uint64_t (*SIMD3.y.modify(void *a1, uint64_t a2))()
   *a1 = v5;
   *v5 = v2;
   v7 = *(a2 + 16);
-  v8 = *(*(v7 - 1) + 64);
+  v8 = *(*(v7 - 1) + 8);
   v5[1] = v8;
   if (swift_coroFrameAlloc)
   {
@@ -5399,7 +5399,7 @@ uint64_t key path setter for SIMD2.x : <A>SIMD2<A>(uint64_t a1, uint64_t a2, uin
 {
   v10 = *(a3 + a4 - 16);
   v11 = *(a3 + a4 - 8);
-  MEMORY[0x1EEE9AC00](a1);
+  MEMORY[0x1EEE9AC00](a1, a1);
   v13 = &v22 - v12;
   memcpy(&v22 - v12, v14, v15);
   swift_getAssociatedTypeWitness(255, v11, v10, &protocol requirements base descriptor for SIMDScalar, a5);
@@ -5413,7 +5413,7 @@ uint64_t key path setter for SIMD2.x : <A>SIMD2<A>(uint64_t a1, uint64_t a2, uin
 uint64_t SIMD2.x.setter(uint64_t a1, uint64_t a2, _DWORD *a3, _DWORD *a4, uint64_t a5)
 {
   v9 = *(a2 + 16);
-  MEMORY[0x1EEE9AC00](a1);
+  MEMORY[0x1EEE9AC00](a1, a1);
   v11 = &v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   memcpy(v11, v12, v10);
   v13 = *(a2 + 24);
@@ -5441,7 +5441,7 @@ void (*SIMD3.z.modify(void *a1, uint64_t a2))(uint64_t a1, uint64_t a2)
   *a1 = v5;
   *v5 = v2;
   v7 = *(a2 + 16);
-  v8 = *(*(v7 - 1) + 64);
+  v8 = *(*(v7 - 1) + 8);
   v5[1] = v8;
   if (swift_coroFrameAlloc)
   {
@@ -5483,7 +5483,7 @@ void SIMD2.x.modify(uint64_t a1, uint64_t a2, uint64_t a3)
   free(v4);
 }
 
-Swift::Int SIMDMask.hashValue.getter(const char *a1, int *a2, uint64_t a3)
+Swift::Int SIMDMask.hashValue.getter(unsigned __int16 *a1, int *a2, uint64_t a3)
 {
   v9 = 0u;
   v10 = 0u;
@@ -5558,7 +5558,7 @@ uint64_t (*protocol witness for SIMDStorage.subscript.modify in conformance SIMD
   *v7 = a2;
   v7[1] = v3;
   v9 = *(a3 + 16);
-  v10 = *(*(v9 - 1) + 64);
+  v10 = *(*(v9 - 1) + 8);
   v7[2] = v10;
   if (swift_coroFrameAlloc)
   {
@@ -5592,14 +5592,14 @@ uint64_t (*protocol witness for SIMDStorage.subscript.modify in conformance SIMD
   return SIMD4.subscript.modify;
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance SIMD3<A>(uint64_t a1, const char *a2, uint64_t a3)
+uint64_t protocol witness for Hashable.hash(into:) in conformance SIMD3<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3)
 {
   WitnessTable = swift_getWitnessTable(protocol conformance descriptor for SIMD3<A>, a2, a3);
 
   return SIMD.hash(into:)(a1, a2, WitnessTable);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance SIMDMask<A>(uint64_t a1, const char *a2, uint64_t a3, int *a4)
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance SIMDMask<A>(uint64_t a1, unsigned __int16 *a2, uint64_t a3, int *a4)
 {
   specialized Hasher.init(_seed:)(a1, v9);
   WitnessTable = swift_getWitnessTable(a4, a2, v6);
@@ -5607,14 +5607,14 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance SIM
   return Hasher._finalize()();
 }
 
-unint64_t protocol witness for CustomStringConvertible.description.getter in conformance SIMD3<A>(unint64_t a1, uint64_t a2, uint64_t a3)
+unint64_t protocol witness for CustomStringConvertible.description.getter in conformance SIMD3<A>(unsigned __int16 *a1, uint64_t a2, uint64_t a3)
 {
   WitnessTable = swift_getWitnessTable(protocol conformance descriptor for SIMD3<A>, a1, a3);
 
   return SIMD.description.getter(a1, WitnessTable);
 }
 
-uint64_t protocol witness for ExpressibleByArrayLiteral.init(arrayLiteral:) in conformance SIMD3<A>@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t protocol witness for ExpressibleByArrayLiteral.init(arrayLiteral:) in conformance SIMD3<A>@<X0>(uint64_t a1@<X0>, unsigned __int16 *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   WitnessTable = swift_getWitnessTable(protocol conformance descriptor for SIMD3<A>, a2, a3);
 
@@ -5623,384 +5623,384 @@ uint64_t protocol witness for ExpressibleByArrayLiteral.init(arrayLiteral:) in c
 
 uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance SIMD3<A>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v24 = a1;
-  v25 = a2;
-  v26 = a3;
+  v25 = a1;
+  v26 = a2;
+  v27 = a3;
   v3 = *(a3 + 16);
-  v4 = MEMORY[0x1EEE9AC00](a1);
-  v23 = v22 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v4);
-  v22[1] = v22 - v6;
-  v7 = 0;
-  v8 = 1;
-  v9 = v22 - v6;
+  v4 = MEMORY[0x1EEE9AC00](a1, a2);
+  v24 = v23 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v4, v6);
+  v23[1] = v23 - v7;
+  v8 = 0;
+  v9 = 1;
+  v10 = v23 - v7;
   do
   {
-    if (v8)
+    if (v9)
     {
-      v10 = *(v26 + 24);
-      swift_getAssociatedTypeWitness(255, v10, v3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD4Storage);
-      v12 = v11;
-      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v10, v3, v11, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD4Storage: SIMDStorage);
-      v14 = *(AssociatedConformanceWitness + 56);
-      v15 = swift_checkMetadataState(0, v12);
-      v14(v7, v15, AssociatedConformanceWitness);
-      v16 = v23;
-      v14(v7, v15, AssociatedConformanceWitness);
-      swift_getAssociatedTypeWitness(255, v10, v3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD16Storage);
-      v18 = v17;
-      v19 = swift_getAssociatedConformanceWitness(v10, v3, v17, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD16Storage: SIMDStorage);
-      v20 = swift_getAssociatedConformanceWitness(v19, v18, v3, &protocol requirements base descriptor for SIMDStorage, associated conformance descriptor for SIMDStorage.SIMDStorage.Scalar: Hashable);
-      v8 = (*(*(v20 + 8) + 8))(v9, v16, v3);
+      v11 = *(v27 + 24);
+      swift_getAssociatedTypeWitness(255, v11, v3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD4Storage);
+      v13 = v12;
+      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v11, v3, v12, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD4Storage: SIMDStorage);
+      v15 = *(AssociatedConformanceWitness + 56);
+      v16 = swift_checkMetadataState(0, v13);
+      v15(v8, v16, AssociatedConformanceWitness);
+      v17 = v24;
+      v15(v8, v16, AssociatedConformanceWitness);
+      swift_getAssociatedTypeWitness(255, v11, v3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD16Storage);
+      v19 = v18;
+      v20 = swift_getAssociatedConformanceWitness(v11, v3, v18, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD16Storage: SIMDStorage);
+      v21 = swift_getAssociatedConformanceWitness(v20, v19, v3, &protocol requirements base descriptor for SIMDStorage, associated conformance descriptor for SIMDStorage.SIMDStorage.Scalar: Hashable);
+      v9 = (*(*(v21 + 8) + 8))(v10, v17, v3);
     }
 
     else
     {
-      v8 = 0;
+      v9 = 0;
     }
 
-    ++v7;
+    ++v8;
   }
 
-  while (v7 != 3);
-  return v8 & 1;
+  while (v8 != 3);
+  return v9 & 1;
 }
 
-uint64_t SIMD3<>.init<A>(truncatingIfNeeded:)@<X0>(uint64_t a1@<X0>, const char *a2@<X1>, const char *a3@<X2>, void (*a4)(char *, const char *, uint64_t, const char *, uint64_t)@<X3>, int **a5@<X4>, uint64_t a6@<X5>, int **a7@<X6>, uint64_t a8@<X8>)
+uint64_t SIMD3<>.init<A>(truncatingIfNeeded:)@<X0>(uint64_t a1@<X0>, Class *a2@<X1>, Class *a3@<X2>, void (*a4)(char *, uint64_t, uint64_t, uint64_t, uint64_t)@<X3>, int **a5@<X4>, uint64_t a6@<X5>, int **a7@<X6>, uint64_t a8@<X8>)
 {
-  v51 = a6;
-  v52 = a4;
-  v55 = a1;
-  v48 = a8;
-  v12 = MEMORY[0x1EEE9AC00](a1);
-  v14 = &v42 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v12);
-  v45 = &v42 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  swift_getAssociatedTypeWitness(0, a5, a2, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD4Storage);
-  v17 = v16;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a5, a2, v16, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD4Storage: SIMDStorage);
-  v19 = *(AssociatedConformanceWitness + 48);
-  v47 = v17;
-  v20 = AssociatedConformanceWitness;
-  v19(v17);
-  v46 = a7;
-  swift_getAssociatedTypeWitness(255, a7, a3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD4Storage);
-  v22 = v21;
-  v23 = a7;
-  v24 = a3;
-  v49 = a3;
-  v53 = v22;
-  v25 = swift_getAssociatedConformanceWitness(v23, a3, v22, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD4Storage: SIMDStorage);
-  v54 = v25;
-  v26 = *(v25 + 56);
-  v27 = swift_checkMetadataState(0, v22);
-  v26(0, v27, v25);
-  v50 = *(v52 + 1);
-  v28 = *(v50 + 96);
-  v51 = *(v51 + 8);
-  v52 = v28;
-  v29 = v45;
-  v44 = a2;
-  (v28)(v14, v24);
-  v30 = v20;
-  v42 = *(v20 + 64);
-  v43 = v20;
-  v31 = v47;
-  v42(v29, 0, v47, v30);
-  v32 = swift_checkMetadataState(0, v53);
-  v26(1, v32, v54);
-  v33 = v44;
-  v52(v14, v49, v51, v44, v50);
-  v34 = v31;
-  v35 = v42;
-  v36 = v43;
-  v42(v29, 1, v34, v43);
-  v37 = swift_checkMetadataState(0, v53);
-  v26(2, v37, v54);
-  v38 = v49;
-  v52(v14, v49, v51, v33, v50);
-  v35(v29, 2, v47, v36);
-  v40 = type metadata accessor for SIMD3(0, v38, v46, v39);
-  return (*(*(v40 - 8) + 8))(v55, v40);
-}
-
-uint64_t SIMD3<>.init<A>(clamping:)@<X0>(uint64_t a1@<X0>, const char *a2@<X1>, const char *a3@<X2>, void (*a4)(char *, const char *, uint64_t, const char *, uint64_t)@<X3>, int **a5@<X4>, uint64_t a6@<X5>, int **a7@<X6>, uint64_t a8@<X8>)
-{
-  v51 = a6;
-  v52 = a4;
-  v55 = a1;
-  v48 = a8;
-  v12 = MEMORY[0x1EEE9AC00](a1);
-  v14 = &v42 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v12);
-  v45 = &v42 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  swift_getAssociatedTypeWitness(0, a5, a2, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD4Storage);
-  v17 = v16;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a5, a2, v16, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD4Storage: SIMDStorage);
-  v19 = *(AssociatedConformanceWitness + 48);
-  v47 = v17;
-  v20 = AssociatedConformanceWitness;
-  v19(v17);
-  v46 = a7;
-  swift_getAssociatedTypeWitness(255, a7, a3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD4Storage);
-  v22 = v21;
-  v23 = a7;
-  v24 = a3;
-  v49 = a3;
-  v53 = v22;
-  v25 = swift_getAssociatedConformanceWitness(v23, a3, v22, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD4Storage: SIMDStorage);
-  v54 = v25;
-  v26 = *(v25 + 56);
-  v27 = swift_checkMetadataState(0, v22);
-  v26(0, v27, v25);
-  v50 = *(v52 + 1);
-  v28 = *(v50 + 104);
-  v51 = *(v51 + 8);
-  v52 = v28;
-  v29 = v45;
-  v44 = a2;
-  (v28)(v14, v24);
-  v30 = v20;
-  v42 = *(v20 + 64);
-  v43 = v20;
-  v31 = v47;
-  v42(v29, 0, v47, v30);
-  v32 = swift_checkMetadataState(0, v53);
-  v26(1, v32, v54);
-  v33 = v44;
-  v52(v14, v49, v51, v44, v50);
-  v34 = v31;
-  v35 = v42;
-  v36 = v43;
-  v42(v29, 1, v34, v43);
-  v37 = swift_checkMetadataState(0, v53);
-  v26(2, v37, v54);
-  v38 = v49;
-  v52(v14, v49, v51, v33, v50);
-  v35(v29, 2, v47, v36);
-  v40 = type metadata accessor for SIMD3(0, v38, v46, v39);
-  return (*(*(v40 - 8) + 8))(v55, v40);
-}
-
-uint64_t SIMD3<>.init<A>(_:rounding:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, const char *a3@<X2>, const char *a4@<X3>, uint64_t a5@<X4>, swift *a6@<X5>, uint64_t a7@<X6>, int **a8@<X7>, uint64_t a9@<X8>)
-{
-  v65 = a7;
-  v55 = a5;
-  v63 = a2;
-  v52 = a9;
-  v14 = MEMORY[0x1EEE9AC00](a1);
-  v16 = &v47 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = MEMORY[0x1EEE9AC00](v14);
-  v64 = &v47 - v18;
-  v51 = v19;
-  MEMORY[0x1EEE9AC00](v17);
-  v48 = &v47 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  swift_getAssociatedTypeWitness(0, v22, v21, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD4Storage);
-  v24 = v23;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a6, a3, v23, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD4Storage: SIMDStorage);
-  v61 = v24;
-  v62 = AssociatedConformanceWitness;
-  (*(AssociatedConformanceWitness + 48))(v24, AssociatedConformanceWitness);
+  v52 = a6;
+  v53 = a4;
+  v56 = a1;
   v49 = a8;
-  swift_getAssociatedTypeWitness(255, a8, a4, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD4Storage);
-  v27 = v26;
-  v28 = a4;
-  v57 = v26;
-  v29 = swift_getAssociatedConformanceWitness(a8, a4, v26, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD4Storage: SIMDStorage);
-  v30 = *(v29 + 56);
-  v59 = v29;
-  v60 = v30;
-  v31 = swift_checkMetadataState(0, v27);
-  v47 = v16;
-  v50 = a1;
-  v30(0, v31, v29);
-  v32 = v64;
-  v33 = v65;
-  v34 = *(v65 + 16);
-  v56 = v34 + 304;
-  v58 = *(v34 + 304);
-  v58(v63, v28, v34);
-  v35 = *(v55 + 8);
-  v54 = *(v35 + 80);
-  v55 = v35;
-  v36 = v48;
-  v54(v32, v28, v33);
-  v53 = *(v62 + 64);
-  (v53)(v36, 0, v61);
-  v37 = swift_checkMetadataState(0, v57);
-  v60(1, v37, v59);
-  v38 = v64;
-  v58(v63, v28, v34);
-  v39 = v38;
-  v40 = v51;
-  (v54)(v39, v28, v65, v51, v55);
-  v41 = v61;
-  v53(v36, 1, v61, v62);
-  v42 = swift_checkMetadataState(0, v57);
-  v60(2, v42, v59);
-  v43 = v64;
-  v58(v63, v28, v34);
-  (v54)(v43, v28, v65, v40, v55);
-  v53(v36, 2, v41, v62);
-  v45 = type metadata accessor for SIMD3(0, v28, v49, v44);
-  return (*(*(v45 - 8) + 8))(v50, v45);
+  v12 = MEMORY[0x1EEE9AC00](a1, a2);
+  v14 = &v43 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v12, v15);
+  v46 = &v43 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  swift_getAssociatedTypeWitness(0, a5, a2, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD4Storage);
+  v18 = v17;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a5, a2, v17, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD4Storage: SIMDStorage);
+  v20 = *(AssociatedConformanceWitness + 48);
+  v48 = v18;
+  v21 = AssociatedConformanceWitness;
+  v20(v18);
+  v47 = a7;
+  swift_getAssociatedTypeWitness(255, a7, a3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD4Storage);
+  v23 = v22;
+  v24 = a7;
+  v25 = a3;
+  v50 = a3;
+  v54 = v23;
+  v26 = swift_getAssociatedConformanceWitness(v24, a3, v23, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD4Storage: SIMDStorage);
+  v55 = v26;
+  v27 = *(v26 + 56);
+  v28 = swift_checkMetadataState(0, v23);
+  v27(0, v28, v26);
+  v51 = *(v53 + 1);
+  v29 = *(v51 + 96);
+  v52 = *(v52 + 8);
+  v53 = v29;
+  v30 = v46;
+  v45 = a2;
+  (v29)(v14, v25);
+  v31 = v21;
+  v43 = *(v21 + 64);
+  v44 = v21;
+  v32 = v48;
+  v43(v30, 0, v48, v31);
+  v33 = swift_checkMetadataState(0, v54);
+  v27(1, v33, v55);
+  v34 = v45;
+  v53(v14, v50, v52, v45, v51);
+  v35 = v32;
+  v36 = v43;
+  v37 = v44;
+  v43(v30, 1, v35, v44);
+  v38 = swift_checkMetadataState(0, v54);
+  v27(2, v38, v55);
+  v39 = v50;
+  v53(v14, v50, v52, v34, v51);
+  v36(v30, 2, v48, v37);
+  v41 = type metadata accessor for SIMD3(0, v39, v47, v40);
+  return (*(*(v41 - 8) + 8))(v56, v41);
 }
 
-uint64_t SIMD3.debugDescription.getter(uint64_t a1)
+uint64_t SIMD3<>.init<A>(clamping:)@<X0>(uint64_t a1@<X0>, Class *a2@<X1>, Class *a3@<X2>, void (*a4)(char *, uint64_t, uint64_t, uint64_t, uint64_t)@<X3>, int **a5@<X4>, uint64_t a6@<X5>, int **a7@<X6>, uint64_t a8@<X8>)
 {
-  v362 = a1;
-  v1 = *(a1 + 16);
-  v2 = *(*(v1 - 8) + 64);
-  v3 = MEMORY[0x1EEE9AC00](a1);
-  object = &v348 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = MEMORY[0x1EEE9AC00](v3);
-  v354 = (&v348 - v6);
-  v7 = MEMORY[0x1EEE9AC00](v5);
-  v357 = (&v348 - v8);
-  v9 = MEMORY[0x1EEE9AC00](v7);
-  v360 = (&v348 - v10);
-  v11 = MEMORY[0x1EEE9AC00](v9);
-  v13 = &v348 - v12;
-  v14 = MEMORY[0x1EEE9AC00](v11);
-  v350 = (&v348 - v15);
-  v16 = MEMORY[0x1EEE9AC00](v14);
-  v353 = (&v348 - v17);
-  v18 = MEMORY[0x1EEE9AC00](v16);
-  v356 = (&v348 - v19);
-  v20 = MEMORY[0x1EEE9AC00](v18);
-  v359 = (&v348 - v21);
-  v22 = MEMORY[0x1EEE9AC00](v20);
-  v364 = &v348 - v23;
-  v24 = MEMORY[0x1EEE9AC00](v22);
-  v349 = (&v348 - v25);
-  v26 = MEMORY[0x1EEE9AC00](v24);
-  v352 = (&v348 - v27);
-  v28 = MEMORY[0x1EEE9AC00](v26);
-  v355 = (&v348 - v29);
-  v30 = MEMORY[0x1EEE9AC00](v28);
-  v358 = (&v348 - v31);
-  v32 = MEMORY[0x1EEE9AC00](v30);
-  v366 = (&v348 - v33);
-  MEMORY[0x1EEE9AC00](v32);
-  v363 = &v348 - v34;
-  v35 = _StringGuts.init(_initialCapacity:)(21);
-  countAndFlagsBits = v35;
-  v38 = v36;
-  v373 = v35;
-  v374 = v36;
-  v39 = HIBYTE(v36) & 0xF;
-  v40 = v35 & 0xFFFFFFFFFFFFLL;
-  if ((v36 & 0x2000000000000000) != 0)
+  v52 = a6;
+  v53 = a4;
+  v56 = a1;
+  v49 = a8;
+  v12 = MEMORY[0x1EEE9AC00](a1, a2);
+  v14 = &v43 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v12, v15);
+  v46 = &v43 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  swift_getAssociatedTypeWitness(0, a5, a2, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD4Storage);
+  v18 = v17;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a5, a2, v17, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD4Storage: SIMDStorage);
+  v20 = *(AssociatedConformanceWitness + 48);
+  v48 = v18;
+  v21 = AssociatedConformanceWitness;
+  v20(v18);
+  v47 = a7;
+  swift_getAssociatedTypeWitness(255, a7, a3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD4Storage);
+  v23 = v22;
+  v24 = a7;
+  v25 = a3;
+  v50 = a3;
+  v54 = v23;
+  v26 = swift_getAssociatedConformanceWitness(v24, a3, v23, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD4Storage: SIMDStorage);
+  v55 = v26;
+  v27 = *(v26 + 56);
+  v28 = swift_checkMetadataState(0, v23);
+  v27(0, v28, v26);
+  v51 = *(v53 + 1);
+  v29 = *(v51 + 104);
+  v52 = *(v52 + 8);
+  v53 = v29;
+  v30 = v46;
+  v45 = a2;
+  (v29)(v14, v25);
+  v31 = v21;
+  v43 = *(v21 + 64);
+  v44 = v21;
+  v32 = v48;
+  v43(v30, 0, v48, v31);
+  v33 = swift_checkMetadataState(0, v54);
+  v27(1, v33, v55);
+  v34 = v45;
+  v53(v14, v50, v52, v45, v51);
+  v35 = v32;
+  v36 = v43;
+  v37 = v44;
+  v43(v30, 1, v35, v44);
+  v38 = swift_checkMetadataState(0, v54);
+  v27(2, v38, v55);
+  v39 = v50;
+  v53(v14, v50, v52, v34, v51);
+  v36(v30, 2, v48, v37);
+  v41 = type metadata accessor for SIMD3(0, v39, v47, v40);
+  return (*(*(v41 - 8) + 8))(v56, v41);
+}
+
+uint64_t SIMD3<>.init<A>(_:rounding:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, const char *a3@<X2>, Class *a4@<X3>, uint64_t a5@<X4>, swift *a6@<X5>, uint64_t a7@<X6>, int **a8@<X7>, uint64_t a9@<X8>)
+{
+  v67 = a7;
+  v57 = a5;
+  v65 = a2;
+  v54 = a9;
+  v14 = MEMORY[0x1EEE9AC00](a1, a2);
+  v16 = &v49 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = MEMORY[0x1EEE9AC00](v14, v17);
+  v66 = &v49 - v19;
+  v53 = v20;
+  MEMORY[0x1EEE9AC00](v18, v21);
+  v50 = &v49 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  swift_getAssociatedTypeWitness(0, v24, v23, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD4Storage);
+  v26 = v25;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a6, a3, v25, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD4Storage: SIMDStorage);
+  v63 = v26;
+  v64 = AssociatedConformanceWitness;
+  (*(AssociatedConformanceWitness + 48))(v26, AssociatedConformanceWitness);
+  v51 = a8;
+  swift_getAssociatedTypeWitness(255, a8, a4, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD4Storage);
+  v29 = v28;
+  v30 = a4;
+  v59 = v28;
+  v31 = swift_getAssociatedConformanceWitness(a8, a4, v28, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD4Storage: SIMDStorage);
+  v32 = *(v31 + 56);
+  v61 = v31;
+  v62 = v32;
+  v33 = swift_checkMetadataState(0, v29);
+  v49 = v16;
+  v52 = a1;
+  v32(0, v33, v31);
+  v34 = v66;
+  v35 = v67;
+  v36 = *(v67 + 16);
+  v58 = v36 + 304;
+  v60 = *(v36 + 304);
+  v60(v65, v30, v36);
+  v37 = *(v57 + 8);
+  v56 = *(v37 + 80);
+  v57 = v37;
+  v38 = v50;
+  v56(v34, v30, v35);
+  v55 = *(v64 + 64);
+  (v55)(v38, 0, v63);
+  v39 = swift_checkMetadataState(0, v59);
+  v62(1, v39, v61);
+  v40 = v66;
+  v60(v65, v30, v36);
+  v41 = v40;
+  v42 = v53;
+  (v56)(v41, v30, v67, v53, v57);
+  v43 = v63;
+  v55(v38, 1, v63, v64);
+  v44 = swift_checkMetadataState(0, v59);
+  v62(2, v44, v61);
+  v45 = v66;
+  v60(v65, v30, v36);
+  (v56)(v45, v30, v67, v42, v57);
+  v55(v38, 2, v43, v64);
+  v47 = type metadata accessor for SIMD3(0, v30, v51, v46);
+  return (*(*(v47 - 8) + 8))(v52, v47);
+}
+
+unint64_t SIMD3.debugDescription.getter(uint64_t a1, uint64_t a2)
+{
+  v423 = a1;
+  v2 = *(a1 + 16);
+  v3 = *(*(v2 - 8) + 64);
+  v4 = MEMORY[0x1EEE9AC00](a1, a2);
+  object = &v409 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = MEMORY[0x1EEE9AC00](v4, v6);
+  v415 = &v409 - v8;
+  v10 = MEMORY[0x1EEE9AC00](v7, v9);
+  v418 = &v409 - v11;
+  v13 = MEMORY[0x1EEE9AC00](v10, v12);
+  v421 = &v409 - v14;
+  v16 = MEMORY[0x1EEE9AC00](v13, v15);
+  v18 = &v409 - v17;
+  v20 = MEMORY[0x1EEE9AC00](v16, v19);
+  v411 = &v409 - v21;
+  v23 = MEMORY[0x1EEE9AC00](v20, v22);
+  v414 = &v409 - v24;
+  v26 = MEMORY[0x1EEE9AC00](v23, v25);
+  v417 = &v409 - v27;
+  v29 = MEMORY[0x1EEE9AC00](v26, v28);
+  v420 = &v409 - v30;
+  v32 = MEMORY[0x1EEE9AC00](v29, v31);
+  v425 = &v409 - v33;
+  v35 = MEMORY[0x1EEE9AC00](v32, v34);
+  v410 = &v409 - v36;
+  v38 = MEMORY[0x1EEE9AC00](v35, v37);
+  v413 = &v409 - v39;
+  v41 = MEMORY[0x1EEE9AC00](v38, v40);
+  v416 = &v409 - v42;
+  v44 = MEMORY[0x1EEE9AC00](v41, v43);
+  v419 = &v409 - v45;
+  v47 = MEMORY[0x1EEE9AC00](v44, v46);
+  v427 = &v409 - v48;
+  MEMORY[0x1EEE9AC00](v47, v49);
+  v424 = &v409 - v50;
+  v51 = _StringGuts.init(_initialCapacity:)(21);
+  countAndFlagsBits = v51;
+  v54 = v52;
+  v434 = v51;
+  v435 = v52;
+  v55 = HIBYTE(v52) & 0xF;
+  v56 = v51 & 0xFFFFFFFFFFFFLL;
+  if ((v52 & 0x2000000000000000) != 0)
   {
-    v41 = HIBYTE(v36) & 0xF;
+    v57 = HIBYTE(v52) & 0xF;
   }
 
   else
   {
-    v41 = v35 & 0xFFFFFFFFFFFFLL;
+    v57 = v51 & 0xFFFFFFFFFFFFLL;
   }
 
-  v365 = v13;
-  v351 = (&v348 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0));
-  if (!v41 && (v35 & ~v36 & 0x2000000000000000) == 0)
+  v426 = v18;
+  v412 = &v409 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  if (!v57 && (v51 & ~v52 & 0x2000000000000000) == 0)
   {
-    v36;
-    v373 = 0x3C33444D4953;
-    v374 = 0xE600000000000000;
+    v52;
+    v434 = 0x3C33444D4953;
+    v435 = 0xE600000000000000;
     goto LABEL_46;
   }
 
-  if ((v36 & 0x2000000000000000) != 0 && v39 <= 9)
+  if ((v52 & 0x2000000000000000) != 0 && v55 <= 9)
   {
-    v42 = 8 * HIBYTE(v36);
-    v43 = (-255 << (v42 & 0x38)) - 1;
-    v44 = 83 << (v42 & 0x38);
-    v45 = v39 + 1;
-    if (v39 >= 8)
+    v58 = 8 * HIBYTE(v52);
+    v59 = (-255 << (v58 & 0x38)) - 1;
+    v60 = 83 << (v58 & 0x38);
+    v61 = v55 + 1;
+    if (v55 >= 8)
     {
-      v47 = v43 & v36 | v44;
-      v46 = 8 * (v45 & 7);
+      v63 = v59 & v52 | v60;
+      v62 = 8 * (v61 & 7);
     }
 
     else
     {
-      countAndFlagsBits = v43 & v35 | v44;
-      if (v39 != 7)
+      countAndFlagsBits = v59 & v51 | v60;
+      if (v55 != 7)
       {
-        countAndFlagsBits = ((-255 << (8 * (v45 & 7u))) - 1) & countAndFlagsBits | (73 << (8 * (v45 & 7u)));
-        if (v39 < 6)
+        countAndFlagsBits = ((-255 << (8 * (v61 & 7u))) - 1) & countAndFlagsBits | (73 << (8 * (v61 & 7u)));
+        if (v55 < 6)
         {
-          countAndFlagsBits = ((-255 << ((v42 + 16) & 0x38)) - 1) & countAndFlagsBits | (77 << ((v42 + 16) & 0x38));
-          if (v39 != 5)
+          countAndFlagsBits = ((-255 << ((v58 + 16) & 0x38)) - 1) & countAndFlagsBits | (77 << ((v58 + 16) & 0x38));
+          if (v55 != 5)
           {
-            countAndFlagsBits = ((-255 << ((v42 + 24) & 0x38)) - 1) & countAndFlagsBits | (68 << ((v42 + 24) & 0x38));
-            if (v39 < 4)
+            countAndFlagsBits = ((-255 << ((v58 + 24) & 0x38)) - 1) & countAndFlagsBits | (68 << ((v58 + 24) & 0x38));
+            if (v55 < 4)
             {
-              countAndFlagsBits = ((0xFFFFFF0100000000 << (8 * v39)) - 1) & countAndFlagsBits | (0x3300000000 << (8 * v39));
-              if (v39 != 3)
+              countAndFlagsBits = ((0xFFFFFF0100000000 << (8 * v55)) - 1) & countAndFlagsBits | (0x3300000000 << (8 * v55));
+              if (v55 != 3)
               {
-                countAndFlagsBits = ((-255 << ((v42 + 40) & 0x38)) - 1) & countAndFlagsBits | (60 << ((v42 + 40) & 0x38));
-                v60 = v36;
+                countAndFlagsBits = ((-255 << ((v58 + 40) & 0x38)) - 1) & countAndFlagsBits | (60 << ((v58 + 40) & 0x38));
+                v76 = v52;
                 goto LABEL_31;
               }
 
-              v59 = 0;
-              v58 = v36;
+              v75 = 0;
+              v74 = v52;
 LABEL_30:
-              v60 = ((-255 << v59) - 1) & v58 | (60 << v59);
+              v76 = ((-255 << v75) - 1) & v74 | (60 << v75);
 LABEL_31:
-              v36;
+              v52;
               0xE600000000000000;
-              v61 = 0xA000000000000000;
-              if (!(countAndFlagsBits & 0x8080808080808080 | v60 & 0x80808080808080))
+              v77 = 0xA000000000000000;
+              if (!(countAndFlagsBits & 0x8080808080808080 | v76 & 0x80808080808080))
               {
-                v61 = 0xE000000000000000;
+                v77 = 0xE000000000000000;
               }
 
-              v373 = countAndFlagsBits;
-              v374 = (v61 & 0xFF00000000000000 | (v39 << 56) | v60 & 0xFFFFFFFFFFFFFFLL) + 0x600000000000000;
+              v434 = countAndFlagsBits;
+              v435 = (v77 & 0xFF00000000000000 | (v55 << 56) | v76 & 0xFFFFFFFFFFFFFFLL) + 0x600000000000000;
               goto LABEL_46;
             }
 
-            v57 = 0;
-            v56 = v36;
+            v73 = 0;
+            v72 = v52;
 LABEL_29:
-            v58 = ((-255 << v57) - 1) & v56 | (51 << v57);
-            v59 = (v42 + 40) & 0x38;
+            v74 = ((-255 << v73) - 1) & v72 | (51 << v73);
+            v75 = (v58 + 40) & 0x38;
             goto LABEL_30;
           }
 
-          v55 = 0;
-          v54 = v36;
+          v71 = 0;
+          v70 = v52;
 LABEL_28:
-          v56 = ((-255 << v55) - 1) & v54 | (68 << v55);
-          v57 = v42 & 0x38 ^ 0x20;
+          v72 = ((-255 << v71) - 1) & v70 | (68 << v71);
+          v73 = v58 & 0x38 ^ 0x20;
           goto LABEL_29;
         }
 
-        v53 = 0;
-        v52 = v36;
+        v69 = 0;
+        v68 = v52;
 LABEL_27:
-        v54 = ((-255 << v53) - 1) & v52 | (77 << v53);
-        v55 = (v42 + 24) & 0x38;
+        v70 = ((-255 << v69) - 1) & v68 | (77 << v69);
+        v71 = (v58 + 24) & 0x38;
         goto LABEL_28;
       }
 
-      v46 = 0;
-      v47 = v36;
+      v62 = 0;
+      v63 = v52;
     }
 
-    v52 = ((-255 << v46) - 1) & v47 | (73 << v46);
-    v53 = (v42 + 16) & 0x38;
+    v68 = ((-255 << v62) - 1) & v63 | (73 << v62);
+    v69 = (v58 + 16) & 0x38;
     goto LABEL_27;
   }
 
   0xE600000000000000;
-  if ((v38 & 0x1000000000000000) != 0)
+  if ((v54 & 0x1000000000000000) != 0)
   {
-    v342 = String.UTF8View._foreignCount()();
-    v39 = v342 + 6;
-    if (!__OFADD__(v342, 6))
+    v403 = String.UTF8View._foreignCount()();
+    v55 = v403 + 6;
+    if (!__OFADD__(v403, 6))
     {
       goto LABEL_13;
     }
@@ -6010,245 +6010,245 @@ LABEL_262:
     goto LABEL_263;
   }
 
-  v39 = v41 + 6;
-  if (__OFADD__(v41, 6))
+  v55 = v57 + 6;
+  if (__OFADD__(v57, 6))
   {
     goto LABEL_262;
   }
 
 LABEL_13:
-  if ((countAndFlagsBits & ~v38 & 0x2000000000000000) != 0 && swift_isUniquelyReferenced_nonNull_native(v38 & 0xFFFFFFFFFFFFFFFLL))
+  if ((countAndFlagsBits & ~v54 & 0x2000000000000000) != 0 && swift_isUniquelyReferenced_nonNull_native(v54 & 0xFFFFFFFFFFFFFFFLL))
   {
-    v49 = _StringGuts.nativeUnusedCapacity.getter(countAndFlagsBits, v38);
-    if (v50)
+    v65 = _StringGuts.nativeUnusedCapacity.getter(countAndFlagsBits, v54);
+    if (v66)
     {
 LABEL_270:
       _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2);
     }
 
-    if (v39 > 15)
+    if (v55 > 15)
     {
       goto LABEL_24;
     }
 
-    if ((v38 & 0x2000000000000000) == 0)
+    if ((v54 & 0x2000000000000000) == 0)
     {
-      if (v49 < 6)
+      if (v65 < 6)
       {
         goto LABEL_19;
       }
 
 LABEL_24:
-      _StringGuts.prepareForAppendInPlace(totalCount:otherUTF8Count:)(v39, 6);
-      v367 = xmmword_18071E000;
-      closure #1 in _StringGuts.append(_:)(&v367, 6uLL, &v373, 1);
+      _StringGuts.prepareForAppendInPlace(totalCount:otherUTF8Count:)(v55, 6);
+      v428 = xmmword_18071E000;
+      closure #1 in _StringGuts.append(_:)(&v428, 6uLL, &v434, 1);
       swift_bridgeObjectRelease_n(0xE600000000000000, 2);
       goto LABEL_46;
     }
 
 LABEL_35:
-    object = v38;
+    object = v54;
     goto LABEL_36;
   }
 
-  if (v39 > 15)
+  if (v55 > 15)
   {
     goto LABEL_24;
   }
 
-  if ((v38 & 0x2000000000000000) != 0)
+  if ((v54 & 0x2000000000000000) != 0)
   {
     goto LABEL_35;
   }
 
 LABEL_19:
-  if ((v38 & 0x1000000000000000) != 0)
+  if ((v54 & 0x1000000000000000) != 0)
   {
-    countAndFlagsBits = _StringGuts._foreignConvertedToSmall()(countAndFlagsBits, v38);
-    object = v341;
+    countAndFlagsBits = _StringGuts._foreignConvertedToSmall()(countAndFlagsBits, v54);
+    object = v402;
   }
 
   else
   {
     if ((countAndFlagsBits & 0x1000000000000000) != 0)
     {
-      v51 = ((v38 & 0xFFFFFFFFFFFFFFFLL) + 32);
+      v67 = ((v54 & 0xFFFFFFFFFFFFFFFLL) + 32);
     }
 
     else
     {
-      v51 = _StringObject.sharedUTF8.getter(countAndFlagsBits, v38);
-      v40 = v345;
+      v67 = _StringObject.sharedUTF8.getter(countAndFlagsBits, v54);
+      v56 = v406;
     }
 
-    closure #1 in _StringGuts._convertedToSmall()(v51, v40, &v367, v48);
-    object = v367._object;
-    countAndFlagsBits = v367._countAndFlagsBits;
+    closure #1 in _StringGuts._convertedToSmall()(v67, v56, &v428, v64);
+    object = v428._object;
+    countAndFlagsBits = v428._countAndFlagsBits;
   }
 
 LABEL_36:
-  v40 = 0x3C33444D4953;
-  v39 = 0xE600000000000000;
+  v56 = 0x3C33444D4953;
+  v55 = 0xE600000000000000;
   0xE600000000000000;
-  v62._rawBits = 1;
-  v63._rawBits = 393217;
-  v64._rawBits = _StringGuts.validateScalarRange(_:)(v62, v63, 0x3C33444D4953uLL, 0xE600000000000000)._rawBits;
-  if (v64._rawBits < 0x10000)
+  v78._rawBits = 1;
+  v79._rawBits = 393217;
+  v80._rawBits = _StringGuts.validateScalarRange(_:)(v78, v79, 0x3C33444D4953uLL, 0xE600000000000000)._rawBits;
+  if (v80._rawBits < 0x10000)
   {
-    v64._rawBits |= 3;
+    v80._rawBits |= 3;
   }
 
-  if (v64._rawBits >> 16 || (v65._rawBits & 0xFFFFFFFFFFFF0000) != 0x60000)
+  if (v80._rawBits >> 16 || (v81._rawBits & 0xFFFFFFFFFFFF0000) != 0x60000)
   {
-    v40 = specialized static String._copying(_:)(v64._rawBits, v65._rawBits, 0x3C33444D4953uLL, 0xE600000000000000);
-    v39 = v66;
+    v56 = specialized static String._copying(_:)(v80._rawBits, v81, 0x3C33444D4953uLL, 0xE600000000000000);
+    v55 = v82;
     0xE600000000000000;
   }
 
-  if ((v39 & 0x2000000000000000) == 0)
+  if ((v55 & 0x2000000000000000) == 0)
   {
     goto LABEL_264;
   }
 
-  v39;
+  v55;
   while (2)
   {
-    v67 = specialized _SmallString.init(_:appending:)(countAndFlagsBits, object, v40, v39);
-    if (v69)
+    v83 = specialized _SmallString.init(_:appending:)(countAndFlagsBits, object, v56, v55);
+    if (v85)
     {
       goto LABEL_270;
     }
 
-    v70 = v67;
-    v40 = v68;
-    v38;
+    v86 = v83;
+    v56 = v84;
+    v54;
     swift_bridgeObjectRelease_n(0xE600000000000000, 2);
-    v373 = v70;
-    v374 = v40;
+    v434 = v86;
+    v435 = v56;
 LABEL_46:
-    v361 = v1;
-    TypeName = swift_getTypeName(v1, 0);
-    if (v72 < 0)
+    v422 = v2;
+    TypeName = swift_getTypeName(v2, 0);
+    if (v88 < 0)
     {
       _fatalErrorMessage(_:_:file:line:flags:)("Fatal error", 11, 2);
     }
 
     object = TypeName;
-    countAndFlagsBits = v72;
-    if (_allASCII(_:)(TypeName, v72))
+    countAndFlagsBits = v88;
+    if (_allASCII(_:)(TypeName, v88))
     {
-      v74 = 1;
+      v90 = 1;
 LABEL_49:
       if (!countAndFlagsBits)
       {
 LABEL_95:
-        v76 = 0;
-        v75 = 0xE000000000000000;
+        v92 = 0;
+        v91 = 0xE000000000000000;
         goto LABEL_115;
       }
 
       if (countAndFlagsBits > 15)
       {
-        v75 = specialized static __StringStorage.create(initializingFrom:codeUnitCapacity:isASCII:)(object, countAndFlagsBits, countAndFlagsBits, v74 & 1);
-        v76 = *(v75 + 24);
+        v91 = specialized static __StringStorage.create(initializingFrom:codeUnitCapacity:isASCII:)(object, countAndFlagsBits, countAndFlagsBits, v90 & 1);
+        v92 = *(v91 + 24);
         goto LABEL_115;
       }
 
-      v115 = countAndFlagsBits - 8;
-      v116 = 8;
+      v131 = countAndFlagsBits - 8;
+      v132 = 8;
       if (countAndFlagsBits < 8)
       {
-        v116 = countAndFlagsBits;
+        v132 = countAndFlagsBits;
       }
 
       if (countAndFlagsBits >= 4)
       {
-        v118 = v116 & 0xC;
-        v73.i32[0] = *object;
-        v302 = vmovl_u16(*&vmovl_u8(v73));
-        v303.i64[0] = v302.u32[0];
-        v303.i64[1] = v302.u32[1];
-        v304.i64[0] = 255;
-        v304.i64[1] = 255;
-        v305 = vandq_s8(v303, v304);
-        v303.i64[0] = v302.u32[2];
-        v303.i64[1] = v302.u32[3];
-        v306 = vshlq_u64(vandq_s8(v303, v304), xmmword_18071DBA0);
-        v307.i32[1] = 0;
-        v308 = vshlq_u64(v305, xmmword_18071DBB0);
-        if (v118 != 4)
+        v134 = v132 & 0xC;
+        v89.i32[0] = *object;
+        v354 = vmovl_u16(*&vmovl_u8(v89));
+        v355.i64[0] = v354.u32[0];
+        v355.i64[1] = v354.u32[1];
+        v356.i64[0] = 255;
+        v356.i64[1] = 255;
+        v357 = vandq_s8(v355, v356);
+        v355.i64[0] = v354.u32[2];
+        v355.i64[1] = v354.u32[3];
+        v358 = vshlq_u64(vandq_s8(v355, v356), xmmword_18071DBA0);
+        v359.i32[1] = 0;
+        v360 = vshlq_u64(v357, xmmword_18071DBB0);
+        if (v134 != 4)
         {
-          v307.i32[0] = *(object + 1);
-          v309 = vmovl_u16(*&vmovl_u8(v307));
-          v310.i64[0] = v309.u32[2];
-          v310.i64[1] = v309.u32[3];
-          v311 = vandq_s8(v310, v304);
-          v310.i64[0] = v309.u32[0];
-          v310.i64[1] = v309.u32[1];
-          v306 = vorrq_s8(vshlq_u64(v311, xmmword_18071DBD0), v306);
-          v308 = vorrq_s8(vshlq_u64(vandq_s8(v310, v304), xmmword_18071DBC0), v308);
+          v359.i32[0] = *(object + 1);
+          v361 = vmovl_u16(*&vmovl_u8(v359));
+          v362.i64[0] = v361.u32[2];
+          v362.i64[1] = v361.u32[3];
+          v363 = vandq_s8(v362, v356);
+          v362.i64[0] = v361.u32[0];
+          v362.i64[1] = v361.u32[1];
+          v358 = vorrq_s8(vshlq_u64(v363, xmmword_18071DBD0), v358);
+          v360 = vorrq_s8(vshlq_u64(vandq_s8(v362, v356), xmmword_18071DBC0), v360);
         }
 
-        v312 = vorrq_s8(v308, v306);
-        v76 = vorr_s8(*v312.i8, *&vextq_s8(v312, v312, 8uLL));
-        if (v116 != v118)
+        v364 = vorrq_s8(v360, v358);
+        v92 = vorr_s8(*v364.i8, *&vextq_s8(v364, v364, 8uLL));
+        if (v132 != v134)
         {
-          v117 = 8 * v118;
+          v133 = 8 * v134;
           goto LABEL_222;
         }
       }
 
       else
       {
-        v76 = 0;
-        v117 = 0;
-        v118 = 0;
+        v92 = 0;
+        v133 = 0;
+        v134 = 0;
 LABEL_222:
-        v313 = v116 - v118;
-        v314 = &object[v118];
+        v365 = v132 - v134;
+        v366 = &object[v134];
         do
         {
-          v315 = *v314++;
-          v76 |= v315 << (v117 & 0x38);
-          v117 += 8;
-          --v313;
+          v367 = *v366++;
+          v92 |= v367 << (v133 & 0x38);
+          v133 += 8;
+          --v365;
         }
 
-        while (v313);
+        while (v365);
       }
 
       if (countAndFlagsBits < 9)
       {
-        v316 = 0;
-        v119 = v361;
-        v120 = v365;
+        v368 = 0;
+        v135 = v422;
+        v136 = v426;
       }
 
       else
       {
-        v316 = 0;
-        v317 = 0;
-        v318 = (object + 8);
-        v119 = v361;
-        v120 = v365;
+        v368 = 0;
+        v369 = 0;
+        v370 = (object + 8);
+        v135 = v422;
+        v136 = v426;
         do
         {
-          v319 = *v318++;
-          v316 |= v319 << v317;
-          v317 += 8;
-          --v115;
+          v371 = *v370++;
+          v368 |= v371 << v369;
+          v369 += 8;
+          --v131;
         }
 
-        while (v115);
+        while (v131);
       }
 
-      v320 = 0xA000000000000000;
-      if (((v316 | v76) & 0x8080808080808080) == 0)
+      v372 = 0xA000000000000000;
+      if (((v368 | v92) & 0x8080808080808080) == 0)
       {
-        v320 = 0xE000000000000000;
+        v372 = 0xE000000000000000;
       }
 
-      v75 = v320 | (countAndFlagsBits << 56) | v316;
+      v91 = v372 | (countAndFlagsBits << 56) | v368;
       goto LABEL_116;
     }
 
@@ -6257,59 +6257,59 @@ LABEL_222:
       goto LABEL_95;
     }
 
-    v38 = 0;
-    v77 = &object[countAndFlagsBits];
-    v74 = 1;
-    v78 = object;
-    v79 = object;
+    v54 = 0;
+    v93 = &object[countAndFlagsBits];
+    v90 = 1;
+    v94 = object;
+    v95 = object;
     while (1)
     {
-      v81 = *v79++;
-      v80 = v81;
-      if ((v81 & 0x80000000) == 0)
+      v97 = *v95++;
+      v96 = v97;
+      if ((v97 & 0x80000000) == 0)
       {
-        v82 = 1;
+        v98 = 1;
         goto LABEL_56;
       }
 
-      if ((v80 + 11) <= 0xCCu)
+      if ((v96 + 11) <= 0xCCu)
       {
-        LOBYTE(v367._countAndFlagsBits) = _diagnoseInvalidUTF8MultiByteLeading(_:)(v80);
+        LOBYTE(v428._countAndFlagsBits) = _diagnoseInvalidUTF8MultiByteLeading(_:)(v96);
         goto LABEL_97;
       }
 
-      if (v80 > 0xDFu)
+      if (v96 > 0xDFu)
       {
         break;
       }
 
-      if (v79 == v77 || (*v79 & 0xC0) != 0x80)
+      if (v95 == v93 || (*v95 & 0xC0) != 0x80)
       {
 LABEL_249:
-        v340 = 4;
+        v401 = 4;
         goto LABEL_250;
       }
 
-      v74 = 0;
-      v79 = v78 + 2;
-      v82 = 2;
+      v90 = 0;
+      v95 = v94 + 2;
+      v98 = 2;
 LABEL_56:
-      v38 += v82;
-      v78 = v79;
-      if (v79 == v77)
+      v54 += v98;
+      v94 = v95;
+      if (v95 == v93)
       {
         goto LABEL_49;
       }
     }
 
-    if (v80 == 224)
+    if (v96 == 224)
     {
-      if (v79 == v77)
+      if (v95 == v93)
       {
         goto LABEL_249;
       }
 
-      if (v78[1] - 192 < 0xFFFFFFE0)
+      if (v94[1] - 192 < 0xFFFFFFE0)
       {
         goto LABEL_257;
       }
@@ -6317,68 +6317,68 @@ LABEL_56:
       goto LABEL_80;
     }
 
-    if (v80 <= 0xECu)
+    if (v96 <= 0xECu)
     {
       goto LABEL_78;
     }
 
-    if (v80 == 237)
+    if (v96 == 237)
     {
-      if (v79 == v77)
+      if (v95 == v93)
       {
         goto LABEL_249;
       }
 
-      v83 = v78[1];
-      if (v83 > 0x9F || (v83 & 0xC0) != 0x80)
+      v99 = v94[1];
+      if (v99 > 0x9F || (v99 & 0xC0) != 0x80)
       {
-        v340 = 1;
+        v401 = 1;
         goto LABEL_250;
       }
 
       goto LABEL_80;
     }
 
-    if (v80 <= 0xEFu)
+    if (v96 <= 0xEFu)
     {
 LABEL_78:
-      if (v79 == v77 || (v78[1] & 0xC0) != 0x80)
+      if (v95 == v93 || (v94[1] & 0xC0) != 0x80)
       {
         goto LABEL_249;
       }
 
 LABEL_80:
-      if (v78 + 2 == v77 || (v78[2] & 0xC0) != 0x80)
+      if (v94 + 2 == v93 || (v94[2] & 0xC0) != 0x80)
       {
         goto LABEL_249;
       }
 
-      v74 = 0;
-      v79 = v78 + 3;
-      v82 = 3;
+      v90 = 0;
+      v95 = v94 + 3;
+      v98 = 3;
       goto LABEL_56;
     }
 
-    if (v80 == 240)
+    if (v96 == 240)
     {
-      if (v79 == v77)
+      if (v95 == v93)
       {
         goto LABEL_249;
       }
 
-      if (v78[1] - 192 < 0xFFFFFFD0)
+      if (v94[1] - 192 < 0xFFFFFFD0)
       {
 LABEL_257:
-        v340 = 3;
+        v401 = 3;
         goto LABEL_250;
       }
 
       goto LABEL_90;
     }
 
-    if (v80 <= 0xF3u)
+    if (v96 <= 0xF3u)
     {
-      if (v79 == v77 || (v78[1] & 0xC0) != 0x80)
+      if (v95 == v93 || (v94[1] & 0xC0) != 0x80)
       {
         goto LABEL_249;
       }
@@ -6386,65 +6386,65 @@ LABEL_257:
       goto LABEL_90;
     }
 
-    if (v79 == v77)
+    if (v95 == v93)
     {
       goto LABEL_249;
     }
 
-    v84 = v78[1];
-    if (v84 <= 0x8F && (v84 & 0xC0) == 0x80)
+    v100 = v94[1];
+    if (v100 <= 0x8F && (v100 & 0xC0) == 0x80)
     {
 LABEL_90:
-      if (v78 + 2 == v77 || (v78[2] & 0xC0) != 0x80 || v78 + 3 == v77 || (v78[3] & 0xC0) != 0x80)
+      if (v94 + 2 == v93 || (v94[2] & 0xC0) != 0x80 || v94 + 3 == v93 || (v94[3] & 0xC0) != 0x80)
       {
         goto LABEL_249;
       }
 
-      v74 = 0;
-      v79 = v78 + 4;
-      v82 = 4;
+      v90 = 0;
+      v95 = v94 + 4;
+      v98 = 4;
       goto LABEL_56;
     }
 
-    v340 = 2;
+    v401 = 2;
 LABEL_250:
-    LOBYTE(v367._countAndFlagsBits) = v340;
+    LOBYTE(v428._countAndFlagsBits) = v401;
 LABEL_97:
-    swift_willThrowTypedImpl(&v367, &type metadata for _UTF8EncodingErrorKind, &protocol witness table for _UTF8EncodingErrorKind);
-    v85 = specialized Collection.subscript.getter(v38, object, countAndFlagsBits);
-    v90 = findInvalidRange #1 (_:) in validateUTF8(_:)(v85, v86, v87, v88);
-    v367._countAndFlagsBits = 0;
-    v367._object = 0xE000000000000000;
+    swift_willThrowTypedImpl(&v428, &type metadata for _UTF8EncodingErrorKind, &protocol witness table for _UTF8EncodingErrorKind);
+    v101 = specialized Collection.subscript.getter(v54, object, countAndFlagsBits);
+    v106 = findInvalidRange #1 (_:) in validateUTF8(_:)(v101, v102, v103, v104);
+    v428._countAndFlagsBits = 0;
+    v428._object = 0xE000000000000000;
     if (__OFADD__(countAndFlagsBits, 15))
     {
 LABEL_263:
       __break(1u);
 LABEL_264:
-      if ((v39 & 0x1000000000000000) != 0)
+      if ((v55 & 0x1000000000000000) != 0)
       {
-        v40 = _StringGuts._foreignConvertedToSmall()(v40, v39);
-        v347 = v346;
-        v39;
-        v39 = v347;
+        v56 = _StringGuts._foreignConvertedToSmall()(v56, v55);
+        v408 = v407;
+        v55;
+        v55 = v408;
       }
 
       else
       {
-        if ((v40 & 0x1000000000000000) != 0)
+        if ((v56 & 0x1000000000000000) != 0)
         {
-          v343 = ((v39 & 0xFFFFFFFFFFFFFFFLL) + 32);
-          v344 = v40 & 0xFFFFFFFFFFFFLL;
+          v404 = ((v55 & 0xFFFFFFFFFFFFFFFLL) + 32);
+          v405 = v56 & 0xFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v343 = _StringObject.sharedUTF8.getter(v40, v39);
+          v404 = _StringObject.sharedUTF8.getter(v56, v55);
         }
 
-        closure #1 in _StringGuts._convertedToSmall()(v343, v344, &v367, v48);
-        v39;
-        v39 = v367._object;
-        v40 = v367._countAndFlagsBits;
+        closure #1 in _StringGuts._convertedToSmall()(v404, v405, &v428, v64);
+        v55;
+        v55 = v428._object;
+        v56 = v428._countAndFlagsBits;
       }
 
       continue;
@@ -6453,22 +6453,22 @@ LABEL_264:
     break;
   }
 
-  v39 = v89;
-  v38 = &v367;
+  v55 = v105;
+  v54 = &v428;
   _StringGuts.reserveCapacity(_:)(countAndFlagsBits + 15);
-  v91 = v90;
+  v107 = v106;
   while (1)
   {
-    v92 = specialized Collection.subscript.getter(v91, object, countAndFlagsBits);
-    v96 = v367._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
-    if ((v367._object & 0x2000000000000000) != 0)
+    v108 = specialized Collection.subscript.getter(v107, object, countAndFlagsBits);
+    v112 = v428._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+    if ((v428._object & 0x2000000000000000) != 0)
     {
-      v96 = (v367._object >> 56) & 0xF;
+      v112 = (v428._object >> 56) & 0xF;
     }
 
-    v97 = __OFADD__(v96, countAndFlagsBits);
-    v98 = v96 + countAndFlagsBits;
-    if (v97)
+    v113 = __OFADD__(v112, countAndFlagsBits);
+    v114 = v112 + countAndFlagsBits;
+    if (v113)
     {
       __break(1u);
 LABEL_255:
@@ -6478,51 +6478,51 @@ LABEL_256:
       goto LABEL_257;
     }
 
-    v40 = v92;
-    if (__OFADD__(v98, 3))
+    v56 = v108;
+    if (__OFADD__(v114, 3))
     {
       goto LABEL_255;
     }
 
-    v1 = v93;
-    v99 = v94;
-    v100 = v95;
-    _StringGuts.reserveCapacity(_:)(v98 + 3);
-    v101 = _sSR8rebasingSRyxGs5SliceVyABG_tcfCs5UInt8V_Tt0g5Tm(v40, v1, v99, v100);
-    v103 = v102;
-    v38 = v367._object & 0xFFFFFFFFFFFFFFFLL;
-    v40 = (v367._object & 0xFFFFFFFFFFFFFFFLL) + 32;
-    specialized UnsafeMutablePointer.initialize(from:count:)(v101, v102, (v40 + (*((v367._object & 0xFFFFFFFFFFFFFFFLL) + 0x18) & 0xFFFFFFFFFFFFLL)));
-    v104 = *(v38 + 24) & 0xFFFFFFFFFFFFLL;
-    v105 = v104 + v103;
-    if (__OFADD__(v104, v103))
+    v2 = v109;
+    v115 = v110;
+    v116 = v111;
+    _StringGuts.reserveCapacity(_:)(v114 + 3);
+    v117 = _sSR8rebasingSRyxGs5SliceVyABG_tcfCs5UInt8V_Tt0g5Tm(v56, v2, v115, v116);
+    v119 = v118;
+    v54 = v428._object & 0xFFFFFFFFFFFFFFFLL;
+    v56 = (v428._object & 0xFFFFFFFFFFFFFFFLL) + 32;
+    specialized UnsafeMutablePointer.initialize(from:count:)(v117, v118, (v56 + (*((v428._object & 0xFFFFFFFFFFFFFFFLL) + 0x18) & 0xFFFFFFFFFFFFLL)));
+    v120 = *(v54 + 24) & 0xFFFFFFFFFFFFLL;
+    v121 = v120 + v119;
+    if (__OFADD__(v120, v119))
     {
       goto LABEL_256;
     }
 
-    v106 = v105 | 0x3000000000000000;
-    *(v38 + 24) = v105 | 0x3000000000000000;
-    *(v40 + (v105 & 0xFFFFFFFFFFFFLL)) = 0;
-    if ((*(v38 + 16) & 0x8000000000000000) != 0)
+    v122 = v121 | 0x3000000000000000;
+    *(v54 + 24) = v121 | 0x3000000000000000;
+    *(v56 + (v121 & 0xFFFFFFFFFFFFLL)) = 0;
+    if ((*(v54 + 16) & 0x8000000000000000) != 0)
     {
-      v107 = __StringStorage._breadcrumbsAddress.getter();
-      v108 = *v107;
-      *v107 = 0;
-      v108;
-      v106 = *(v38 + 24);
+      v123 = __StringStorage._breadcrumbsAddress.getter();
+      v124 = *v123;
+      *v123 = 0;
+      v124;
+      v122 = *(v54 + 24);
     }
 
-    v367._countAndFlagsBits = v106;
-    specialized Unicode.Scalar.withUTF8CodeUnits<A>(_:)(0xFFFDu, &v367._countAndFlagsBits);
-    v109 = specialized Collection.subscript.getter(v39, object, countAndFlagsBits);
-    object = _sSR8rebasingSRyxGs5SliceVyABG_tcfCs5UInt8V_Tt0g5Tm(v109, v110, v111, v112);
-    countAndFlagsBits = v113;
-    if ((validateUTF8(_:)(object, v113) & 0x8000000000000000) == 0)
+    v428._countAndFlagsBits = v122;
+    specialized Unicode.Scalar.withUTF8CodeUnits<A>(_:)(0xFFFDu, &v428._countAndFlagsBits);
+    v125 = specialized Collection.subscript.getter(v55, object, countAndFlagsBits);
+    object = _sSR8rebasingSRyxGs5SliceVyABG_tcfCs5UInt8V_Tt0g5Tm(v125, v126, v127, v128);
+    countAndFlagsBits = v129;
+    if ((validateUTF8(_:)(object, v129) & 0x8000000000000000) == 0)
     {
       break;
     }
 
-    v39 = v114;
+    v55 = v130;
     if (!countAndFlagsBits)
     {
       goto LABEL_114;
@@ -6531,683 +6531,683 @@ LABEL_256:
 
   _StringGuts.appendInPlace(_:isASCII:)(object, countAndFlagsBits, 0);
 LABEL_114:
-  v75 = v367._object;
-  v76 = v367._countAndFlagsBits;
+  v91 = v428._object;
+  v92 = v428._countAndFlagsBits;
 LABEL_115:
-  v119 = v361;
-  v120 = v365;
+  v135 = v422;
+  v136 = v426;
 LABEL_116:
-  v121 = v374;
-  v122 = HIBYTE(v374) & 0xF;
-  if ((v374 & 0x2000000000000000) == 0)
+  v137 = v435;
+  v138 = HIBYTE(v435) & 0xF;
+  if ((v435 & 0x2000000000000000) == 0)
   {
-    v122 = v373 & 0xFFFFFFFFFFFFLL;
+    v138 = v434 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (!v122 && (v373 & ~v374 & 0x2000000000000000) == 0)
+  if (!v138 && (v434 & ~v435 & 0x2000000000000000) == 0)
   {
-    v374;
-    v373 = v76;
-    v374 = v75;
+    v435;
+    v434 = v92;
+    v435 = v91;
     goto LABEL_128;
   }
 
-  if ((v374 & 0x2000000000000000) != 0)
+  if ((v435 & 0x2000000000000000) != 0)
   {
-    if ((v75 & 0x2000000000000000) != 0)
+    if ((v91 & 0x2000000000000000) != 0)
     {
-      v124 = specialized _SmallString.init(_:appending:)(v373, v374, v76, v75);
-      if (v126)
+      v140 = specialized _SmallString.init(_:appending:)(v434, v435, v92, v91);
+      if (v142)
       {
         goto LABEL_126;
       }
 
-      v300 = v124;
-      v301 = v125;
-      v121;
-      v75;
-      v373 = v300;
-      v374 = v301;
-      v75 = v301;
-      v76 = v300;
+      v352 = v140;
+      v353 = v141;
+      v137;
+      v91;
+      v434 = v352;
+      v435 = v353;
+      v91 = v353;
+      v92 = v352;
       goto LABEL_128;
     }
 
 LABEL_124:
-    v123 = v76 & 0xFFFFFFFFFFFFLL;
+    v139 = v92 & 0xFFFFFFFFFFFFLL;
     goto LABEL_127;
   }
 
-  if ((v75 & 0x2000000000000000) == 0)
+  if ((v91 & 0x2000000000000000) == 0)
   {
     goto LABEL_124;
   }
 
 LABEL_126:
-  v123 = HIBYTE(v75) & 0xF;
+  v139 = HIBYTE(v91) & 0xF;
 LABEL_127:
-  v75;
-  _StringGuts.append(_:)(v76, v75, 0, v123, v127, v128, v129, v130, v131, v132, v133, v134);
-  swift_bridgeObjectRelease_n(v75, 2);
-  v76 = v373;
-  v75 = v374;
+  v91;
+  _StringGuts.append(_:)(v92, v91, 0, v139, v143, v144, v145, v146, v147, v148, v149, v150);
+  swift_bridgeObjectRelease_n(v91, 2);
+  v92 = v434;
+  v91 = v435;
 LABEL_128:
-  v135 = HIBYTE(v75) & 0xF;
-  if ((v75 & 0x2000000000000000) == 0)
+  v151 = HIBYTE(v91) & 0xF;
+  if ((v91 & 0x2000000000000000) == 0)
   {
-    v135 = v76 & 0xFFFFFFFFFFFFLL;
+    v151 = v92 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (v135 || (v76 & ~v75 & 0x2000000000000000) != 0)
+  if (v151 || (v92 & ~v91 & 0x2000000000000000) != 0)
   {
-    if ((v75 & 0x2000000000000000) != 0 && (v136 = specialized _SmallString.init(_:appending:)(v76, v75, 0x283EuLL, 0xE200000000000000), (v138 & 1) == 0))
+    if ((v91 & 0x2000000000000000) != 0 && (v152 = specialized _SmallString.init(_:appending:)(v92, v91, 0x283EuLL, 0xE200000000000000), (v154 & 1) == 0))
     {
-      v147 = v136;
-      v148 = v137;
-      v75;
+      v163 = v152;
+      v164 = v153;
+      v91;
       0xE200000000000000;
-      v373 = v147;
-      v374 = v148;
+      v434 = v163;
+      v435 = v164;
     }
 
     else
     {
       0xE200000000000000;
-      _StringGuts.append(_:)(10302, 0xE200000000000000, 0, 2, v139, v140, v141, v142, v143, v144, v145, v146);
+      _StringGuts.append(_:)(10302, 0xE200000000000000, 0, 2, v155, v156, v157, v158, v159, v160, v161, v162);
       swift_bridgeObjectRelease_n(0xE200000000000000, 2);
     }
   }
 
   else
   {
-    v75;
-    v373 = 10302;
-    v374 = 0xE200000000000000;
+    v91;
+    v434 = 10302;
+    v435 = 0xE200000000000000;
   }
 
-  v149 = *(v362 + 24);
-  swift_getAssociatedTypeWitness(255, v149, v119, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD4Storage);
-  v151 = v150;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v149, v119, v150, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD4Storage: SIMDStorage);
-  v153 = *(AssociatedConformanceWitness + 56);
-  v154 = swift_checkMetadataState(0, v151);
-  v155 = v363;
-  v153(0, v154, AssociatedConformanceWitness);
-  v368 = v119;
-  v156 = __swift_allocate_boxed_opaque_existential_0Tm(&v367);
-  memcpy(v156, v155, v2);
-  v157 = v368;
-  v158 = __swift_project_boxed_opaque_existential_0Tm(&v367, v368);
-  DynamicType = swift_getDynamicType(v158, v157, 1);
-  LODWORD(v157) = swift_isOptionalType(DynamicType);
-  __swift_destroy_boxed_opaque_existential_1Tm(&v367._countAndFlagsBits);
-  if (v157)
+  v165 = *(v423 + 24);
+  swift_getAssociatedTypeWitness(255, v165, v135, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD4Storage);
+  v167 = v166;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(v165, v135, v166, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD4Storage: SIMDStorage);
+  v169 = *(AssociatedConformanceWitness + 56);
+  v170 = swift_checkMetadataState(0, v167);
+  v171 = v424;
+  v169(0, v170, AssociatedConformanceWitness);
+  v429 = v135;
+  v172 = __swift_allocate_boxed_opaque_existential_0Tm(&v428);
+  memcpy(v172, v171, v3);
+  v173 = v429;
+  v174 = __swift_project_boxed_opaque_existential_0Tm(&v428, v429);
+  DynamicType = swift_getDynamicType(v174, v173, 1);
+  LODWORD(v173) = swift_isOptionalType(DynamicType);
+  __swift_destroy_boxed_opaque_existential_1Tm(&v428._countAndFlagsBits);
+  if (v173)
   {
-    v160 = v366;
-    memcpy(v366, v155, v2);
-    v161 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
-    swift_dynamicCast(&v367, v160, v119, v161, 7uLL);
+    v176 = v427;
+    memcpy(v427, v171, v3);
+    v177 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
+    swift_dynamicCast(&v428, v176, v135, v177, 7uLL, v178, v179, v180, v409);
     goto LABEL_140;
   }
 
-  v176 = v358;
-  memcpy(v358, v155, v2);
-  if ((swift_dynamicCast(&v367, v176, v119, &type metadata for String, 6uLL) & 1) == 0)
+  v195 = v419;
+  memcpy(v419, v171, v3);
+  if ((swift_dynamicCast(&v428, v195, v135, &type metadata for String, 6uLL, v196, v197, v198, v409) & 1) == 0)
   {
-    v200 = v355;
-    memcpy(v355, v155, v2);
-    v201 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss20TextOutputStreamable_pMd, _ss20TextOutputStreamable_pMR);
-    if (swift_dynamicCast(&v370, v200, v119, v201, 6uLL))
+    v222 = v416;
+    memcpy(v416, v171, v3);
+    v223 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss20TextOutputStreamable_pMd, _ss20TextOutputStreamable_pMR);
+    if (swift_dynamicCast(&v431, v222, v135, v223, 6uLL, v224, v225, v226, v409))
     {
-      _ss9CodingKey_pWOb_0(&v370, &v367);
-      v202 = v368;
-      v203 = v369;
-      __swift_project_boxed_opaque_existential_0Tm(&v367, v368);
-      (*(v203 + 8))(&v373, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation, v202, v203);
+      _ss9CodingKey_pWOb_0(&v431, &v428);
+      v227 = v429;
+      v228 = v430;
+      __swift_project_boxed_opaque_existential_0Tm(&v428, v429);
+      (*(v228 + 8))(&v434, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation, v227, v228);
     }
 
     else
     {
-      v372 = 0;
-      v370 = 0u;
-      v371 = 0u;
-      outlined destroy of _HasContiguousBytes?(&v370, &_ss20TextOutputStreamable_pSgMd, _ss20TextOutputStreamable_pSgMR);
-      v288 = v352;
-      memcpy(v352, v155, v2);
-      v289 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23CustomStringConvertible_pMd, _ss23CustomStringConvertible_pMR);
-      if (swift_dynamicCast(&v370, v288, v119, v289, 6uLL))
+      v433 = 0;
+      v431 = 0u;
+      v432 = 0u;
+      outlined destroy of _HasContiguousBytes?(&v431, &_ss20TextOutputStreamable_pSgMd, _ss20TextOutputStreamable_pSgMR);
+      v331 = v413;
+      memcpy(v413, v171, v3);
+      v332 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23CustomStringConvertible_pMd, _ss23CustomStringConvertible_pMR);
+      if (swift_dynamicCast(&v431, v331, v135, v332, 6uLL, v333, v334, v335, v409))
       {
-        _ss9CodingKey_pWOb_0(&v370, &v367);
-        v290 = v368;
-        v291 = v369;
-        __swift_project_boxed_opaque_existential_0Tm(&v367, v368);
-        v164 = (*(v291 + 8))(v290, v291);
+        _ss9CodingKey_pWOb_0(&v431, &v428);
+        v336 = v429;
+        v337 = v430;
+        __swift_project_boxed_opaque_existential_0Tm(&v428, v429);
+        v183 = (*(v337 + 8))(v336, v337);
       }
 
       else
       {
-        v372 = 0;
-        v370 = 0u;
-        v371 = 0u;
-        outlined destroy of _HasContiguousBytes?(&v370, &_ss23CustomStringConvertible_pSgMd, _ss23CustomStringConvertible_pSgMR);
-        v324 = v349;
-        memcpy(v349, v155, v2);
-        v325 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
-        if (!swift_dynamicCast(&v370, v324, v119, v325, 6uLL))
+        v433 = 0;
+        v431 = 0u;
+        v432 = 0u;
+        outlined destroy of _HasContiguousBytes?(&v431, &_ss23CustomStringConvertible_pSgMd, _ss23CustomStringConvertible_pSgMR);
+        v376 = v410;
+        memcpy(v410, v171, v3);
+        v377 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
+        if (!swift_dynamicCast(&v431, v376, v135, v377, 6uLL, v378, v379, v380, v409))
         {
-          v372 = 0;
-          v370 = 0u;
-          v371 = 0u;
-          outlined destroy of _HasContiguousBytes?(&v370, &_ss28CustomDebugStringConvertible_pSgMd, _ss28CustomDebugStringConvertible_pSgMR);
-          *(&v371 + 1) = v119;
-          v331 = __swift_allocate_boxed_opaque_existential_0Tm(&v370);
-          memcpy(v331, v155, v2);
-          Mirror.init(reflecting:)(&v370, &v367);
-          v332 = v367._object;
-          v333 = v369;
-          _adHocPrint_unlocked<A, B>(_:_:_:isDebugPrint:)(v155, &v367, &v373, 0, v119, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-          v333;
-          v332;
+          v433 = 0;
+          v431 = 0u;
+          v432 = 0u;
+          outlined destroy of _HasContiguousBytes?(&v431, &_ss28CustomDebugStringConvertible_pSgMd, _ss28CustomDebugStringConvertible_pSgMR);
+          *(&v432 + 1) = v135;
+          v392 = __swift_allocate_boxed_opaque_existential_0Tm(&v431);
+          memcpy(v392, v171, v3);
+          Mirror.init(reflecting:)(&v431, &v428);
+          v393 = v428._object;
+          v394 = v430;
+          _adHocPrint_unlocked<A, B>(_:_:_:isDebugPrint:)(v171, &v428, &v434, 0, v135, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+          v394;
+          v393;
           goto LABEL_153;
         }
 
-        _ss9CodingKey_pWOb_0(&v370, &v367);
+        _ss9CodingKey_pWOb_0(&v431, &v428);
 LABEL_140:
-        v162 = v368;
-        v163 = v369;
-        __swift_project_boxed_opaque_existential_0Tm(&v367, v368);
-        v164 = (*(v163 + 8))(v162, v163);
+        v181 = v429;
+        v182 = v430;
+        __swift_project_boxed_opaque_existential_0Tm(&v428, v429);
+        v183 = (*(v182 + 8))(v181, v182);
       }
 
-      v174 = v165;
-      v175 = HIBYTE(v374) & 0xF;
-      if ((v374 & 0x2000000000000000) == 0)
+      v193 = v184;
+      v194 = HIBYTE(v435) & 0xF;
+      if ((v435 & 0x2000000000000000) == 0)
       {
-        v175 = v373 & 0xFFFFFFFFFFFFLL;
+        v194 = v434 & 0xFFFFFFFFFFFFLL;
       }
 
-      if (v175 || (v373 & ~v374 & 0x2000000000000000) != 0)
+      if (v194 || (v434 & ~v435 & 0x2000000000000000) != 0)
       {
-        _StringGuts.append(_:)(v164, v165, v166, v167, v168, v169, v170, v171, v172, v173);
-        v174;
+        _StringGuts.append(_:)(v183, v184, v185, v186, v187, v188, v189, v190, v191, v192);
+        v193;
       }
 
       else
       {
-        v321 = v164;
-        v374;
-        v373 = v321;
-        v374 = v174;
+        v373 = v183;
+        v435;
+        v434 = v373;
+        v435 = v193;
       }
     }
 
-    __swift_destroy_boxed_opaque_existential_1Tm(&v367._countAndFlagsBits);
+    __swift_destroy_boxed_opaque_existential_1Tm(&v428._countAndFlagsBits);
     goto LABEL_153;
   }
 
-  v185 = v367._object;
-  v186 = HIBYTE(v374) & 0xF;
-  if ((v374 & 0x2000000000000000) == 0)
+  v207 = v428._object;
+  v208 = HIBYTE(v435) & 0xF;
+  if ((v435 & 0x2000000000000000) == 0)
   {
-    v186 = v373 & 0xFFFFFFFFFFFFLL;
+    v208 = v434 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (v186 || (v373 & ~v374 & 0x2000000000000000) != 0)
+  if (v208 || (v434 & ~v435 & 0x2000000000000000) != 0)
   {
-    _StringGuts.append(_:)(v367._countAndFlagsBits, v367._object, v177, v178, v179, v180, v181, v182, v183, v184);
-    v185;
+    _StringGuts.append(_:)(v428._countAndFlagsBits, v428._object, v199, v200, v201, v202, v203, v204, v205, v206);
+    v207;
   }
 
   else
   {
-    v330 = v367._countAndFlagsBits;
-    v374;
-    v373 = v330;
-    v374 = v185;
+    v391 = v428._countAndFlagsBits;
+    v435;
+    v434 = v391;
+    v435 = v207;
   }
 
 LABEL_153:
-  v187 = v374;
-  v188 = HIBYTE(v374) & 0xF;
-  if ((v374 & 0x2000000000000000) == 0)
+  v209 = v435;
+  v210 = HIBYTE(v435) & 0xF;
+  if ((v435 & 0x2000000000000000) == 0)
   {
-    v188 = v373 & 0xFFFFFFFFFFFFLL;
+    v210 = v434 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (v188 || (v373 & ~v374 & 0x2000000000000000) != 0)
+  if (v210 || (v434 & ~v435 & 0x2000000000000000) != 0)
   {
-    if ((v374 & 0x2000000000000000) != 0 && (v189 = specialized _SmallString.init(_:appending:)(v373, v374, 0x202CuLL, 0xE200000000000000), (v191 & 1) == 0))
+    if ((v435 & 0x2000000000000000) != 0 && (v211 = specialized _SmallString.init(_:appending:)(v434, v435, 0x202CuLL, 0xE200000000000000), (v213 & 1) == 0))
     {
-      v204 = v189;
-      v205 = v190;
-      v187;
+      v229 = v211;
+      v230 = v212;
+      v209;
       0xE200000000000000;
-      v373 = v204;
-      v374 = v205;
+      v434 = v229;
+      v435 = v230;
     }
 
     else
     {
       0xE200000000000000;
-      _StringGuts.append(_:)(8236, 0xE200000000000000, 0, 2, v192, v193, v194, v195, v196, v197, v198, v199);
+      _StringGuts.append(_:)(8236, 0xE200000000000000, 0, 2, v214, v215, v216, v217, v218, v219, v220, v221);
       swift_bridgeObjectRelease_n(0xE200000000000000, 2);
     }
   }
 
   else
   {
-    v374;
-    v373 = 8236;
-    v374 = 0xE200000000000000;
+    v435;
+    v434 = 8236;
+    v435 = 0xE200000000000000;
   }
 
-  v206 = v364;
-  v153(1, v154, AssociatedConformanceWitness);
-  v368 = v119;
-  v207 = __swift_allocate_boxed_opaque_existential_0Tm(&v367);
-  memcpy(v207, v206, v2);
-  v208 = v368;
-  v209 = __swift_project_boxed_opaque_existential_0Tm(&v367, v368);
-  v210 = swift_getDynamicType(v209, v208, 1);
-  LODWORD(v208) = swift_isOptionalType(v210);
-  __swift_destroy_boxed_opaque_existential_1Tm(&v367._countAndFlagsBits);
-  if (v208)
+  v231 = v425;
+  v169(1, v170, AssociatedConformanceWitness);
+  v429 = v135;
+  v232 = __swift_allocate_boxed_opaque_existential_0Tm(&v428);
+  memcpy(v232, v231, v3);
+  v233 = v429;
+  v234 = __swift_project_boxed_opaque_existential_0Tm(&v428, v429);
+  v235 = swift_getDynamicType(v234, v233, 1);
+  LODWORD(v233) = swift_isOptionalType(v235);
+  __swift_destroy_boxed_opaque_existential_1Tm(&v428._countAndFlagsBits);
+  if (v233)
   {
-    v211 = v366;
-    memcpy(v366, v206, v2);
-    v212 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
-    swift_dynamicCast(&v367, v211, v119, v212, 7uLL);
+    v236 = v427;
+    memcpy(v427, v231, v3);
+    v237 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
+    swift_dynamicCast(&v428, v236, v135, v237, 7uLL, v238, v239, v240, v409);
     goto LABEL_166;
   }
 
-  v227 = v359;
-  memcpy(v359, v206, v2);
-  if (swift_dynamicCast(&v367, v227, v119, &type metadata for String, 6uLL))
+  v255 = v420;
+  memcpy(v420, v231, v3);
+  if (swift_dynamicCast(&v428, v255, v135, &type metadata for String, 6uLL, v256, v257, v258, v409))
   {
-    v228 = v367._object;
-    String.write(_:)(v367);
-    v228;
+    v259 = v428._object;
+    String.write(_:)(v428);
+    v259;
     goto LABEL_175;
   }
 
-  v242 = v356;
-  memcpy(v356, v206, v2);
-  v243 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss20TextOutputStreamable_pMd, _ss20TextOutputStreamable_pMR);
-  if (swift_dynamicCast(&v370, v242, v119, v243, 6uLL))
+  v273 = v417;
+  memcpy(v417, v231, v3);
+  v274 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss20TextOutputStreamable_pMd, _ss20TextOutputStreamable_pMR);
+  if (swift_dynamicCast(&v431, v273, v135, v274, 6uLL, v275, v276, v277, v409))
   {
-    _ss9CodingKey_pWOb_0(&v370, &v367);
-    v244 = v368;
-    v245 = v369;
-    __swift_project_boxed_opaque_existential_0Tm(&v367, v368);
-    (*(v245 + 8))(&v373, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation, v244, v245);
+    _ss9CodingKey_pWOb_0(&v431, &v428);
+    v278 = v429;
+    v279 = v430;
+    __swift_project_boxed_opaque_existential_0Tm(&v428, v429);
+    (*(v279 + 8))(&v434, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation, v278, v279);
 LABEL_172:
-    __swift_destroy_boxed_opaque_existential_1Tm(&v367._countAndFlagsBits);
+    __swift_destroy_boxed_opaque_existential_1Tm(&v428._countAndFlagsBits);
     goto LABEL_175;
   }
 
-  v372 = 0;
-  v370 = 0u;
-  v371 = 0u;
-  outlined destroy of _HasContiguousBytes?(&v370, &_ss20TextOutputStreamable_pSgMd, _ss20TextOutputStreamable_pSgMR);
-  v292 = v353;
-  memcpy(v353, v206, v2);
-  v293 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23CustomStringConvertible_pMd, _ss23CustomStringConvertible_pMR);
-  if (swift_dynamicCast(&v370, v292, v119, v293, 6uLL))
+  v433 = 0;
+  v431 = 0u;
+  v432 = 0u;
+  outlined destroy of _HasContiguousBytes?(&v431, &_ss20TextOutputStreamable_pSgMd, _ss20TextOutputStreamable_pSgMR);
+  v338 = v414;
+  memcpy(v414, v231, v3);
+  v339 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23CustomStringConvertible_pMd, _ss23CustomStringConvertible_pMR);
+  if (swift_dynamicCast(&v431, v338, v135, v339, 6uLL, v340, v341, v342, v409))
   {
-    _ss9CodingKey_pWOb_0(&v370, &v367);
-    v294 = v368;
-    v295 = v369;
-    __swift_project_boxed_opaque_existential_0Tm(&v367, v368);
-    v215 = (*(v295 + 8))(v294, v295);
+    _ss9CodingKey_pWOb_0(&v431, &v428);
+    v343 = v429;
+    v344 = v430;
+    __swift_project_boxed_opaque_existential_0Tm(&v428, v429);
+    v243 = (*(v344 + 8))(v343, v344);
 LABEL_167:
-    v225 = v216;
-    v226 = HIBYTE(v374) & 0xF;
-    if ((v374 & 0x2000000000000000) == 0)
+    v253 = v244;
+    v254 = HIBYTE(v435) & 0xF;
+    if ((v435 & 0x2000000000000000) == 0)
     {
-      v226 = v373 & 0xFFFFFFFFFFFFLL;
+      v254 = v434 & 0xFFFFFFFFFFFFLL;
     }
 
-    if (v226 || (v373 & ~v374 & 0x2000000000000000) != 0)
+    if (v254 || (v434 & ~v435 & 0x2000000000000000) != 0)
     {
-      _StringGuts.append(_:)(v215, v216, v217, v218, v219, v220, v221, v222, v223, v224);
-      v225;
+      _StringGuts.append(_:)(v243, v244, v245, v246, v247, v248, v249, v250, v251, v252);
+      v253;
     }
 
     else
     {
-      v322 = v215;
-      v374;
-      v373 = v322;
-      v374 = v225;
+      v374 = v243;
+      v435;
+      v434 = v374;
+      v435 = v253;
     }
 
     goto LABEL_172;
   }
 
-  v372 = 0;
-  v370 = 0u;
-  v371 = 0u;
-  outlined destroy of _HasContiguousBytes?(&v370, &_ss23CustomStringConvertible_pSgMd, _ss23CustomStringConvertible_pSgMR);
-  v326 = v350;
-  memcpy(v350, v206, v2);
-  v327 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
-  if (swift_dynamicCast(&v370, v326, v119, v327, 6uLL))
+  v433 = 0;
+  v431 = 0u;
+  v432 = 0u;
+  outlined destroy of _HasContiguousBytes?(&v431, &_ss23CustomStringConvertible_pSgMd, _ss23CustomStringConvertible_pSgMR);
+  v381 = v411;
+  memcpy(v411, v231, v3);
+  v382 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
+  if (swift_dynamicCast(&v431, v381, v135, v382, 6uLL, v383, v384, v385, v409))
   {
-    _ss9CodingKey_pWOb_0(&v370, &v367);
+    _ss9CodingKey_pWOb_0(&v431, &v428);
 LABEL_166:
-    v213 = v368;
-    v214 = v369;
-    __swift_project_boxed_opaque_existential_0Tm(&v367, v368);
-    v215 = (*(v214 + 8))(v213, v214);
+    v241 = v429;
+    v242 = v430;
+    __swift_project_boxed_opaque_existential_0Tm(&v428, v429);
+    v243 = (*(v242 + 8))(v241, v242);
     goto LABEL_167;
   }
 
-  v372 = 0;
-  v370 = 0u;
-  v371 = 0u;
-  outlined destroy of _HasContiguousBytes?(&v370, &_ss28CustomDebugStringConvertible_pSgMd, _ss28CustomDebugStringConvertible_pSgMR);
-  *(&v371 + 1) = v119;
-  v334 = __swift_allocate_boxed_opaque_existential_0Tm(&v370);
-  memcpy(v334, v206, v2);
-  Mirror.init(reflecting:)(&v370, &v367);
-  v335 = v367._object;
-  v336 = v369;
-  _adHocPrint_unlocked<A, B>(_:_:_:isDebugPrint:)(v206, &v367, &v373, 0, v119, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  v336;
-  v335;
+  v433 = 0;
+  v431 = 0u;
+  v432 = 0u;
+  outlined destroy of _HasContiguousBytes?(&v431, &_ss28CustomDebugStringConvertible_pSgMd, _ss28CustomDebugStringConvertible_pSgMR);
+  *(&v432 + 1) = v135;
+  v395 = __swift_allocate_boxed_opaque_existential_0Tm(&v431);
+  memcpy(v395, v231, v3);
+  Mirror.init(reflecting:)(&v431, &v428);
+  v396 = v428._object;
+  v397 = v430;
+  _adHocPrint_unlocked<A, B>(_:_:_:isDebugPrint:)(v231, &v428, &v434, 0, v135, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  v397;
+  v396;
 LABEL_175:
-  v229 = v374;
-  v230 = HIBYTE(v374) & 0xF;
-  if ((v374 & 0x2000000000000000) == 0)
+  v260 = v435;
+  v261 = HIBYTE(v435) & 0xF;
+  if ((v435 & 0x2000000000000000) == 0)
   {
-    v230 = v373 & 0xFFFFFFFFFFFFLL;
+    v261 = v434 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (v230 || (v373 & ~v374 & 0x2000000000000000) != 0)
+  if (v261 || (v434 & ~v435 & 0x2000000000000000) != 0)
   {
-    if ((v374 & 0x2000000000000000) != 0 && (v231 = specialized _SmallString.init(_:appending:)(v373, v374, 0x202CuLL, 0xE200000000000000), (v233 & 1) == 0))
+    if ((v435 & 0x2000000000000000) != 0 && (v262 = specialized _SmallString.init(_:appending:)(v434, v435, 0x202CuLL, 0xE200000000000000), (v264 & 1) == 0))
     {
-      v246 = v231;
-      v247 = v232;
-      v229;
+      v280 = v262;
+      v281 = v263;
+      v260;
       0xE200000000000000;
-      v373 = v246;
-      v374 = v247;
+      v434 = v280;
+      v435 = v281;
     }
 
     else
     {
       0xE200000000000000;
-      _StringGuts.append(_:)(8236, 0xE200000000000000, 0, 2, v234, v235, v236, v237, v238, v239, v240, v241);
+      _StringGuts.append(_:)(8236, 0xE200000000000000, 0, 2, v265, v266, v267, v268, v269, v270, v271, v272);
       swift_bridgeObjectRelease_n(0xE200000000000000, 2);
     }
   }
 
   else
   {
-    v374;
-    v373 = 8236;
-    v374 = 0xE200000000000000;
+    v435;
+    v434 = 8236;
+    v435 = 0xE200000000000000;
   }
 
-  v153(2, v154, AssociatedConformanceWitness);
-  v368 = v119;
-  v248 = __swift_allocate_boxed_opaque_existential_0Tm(&v367);
-  memcpy(v248, v120, v2);
-  v249 = v368;
-  v250 = __swift_project_boxed_opaque_existential_0Tm(&v367, v368);
-  v251 = swift_getDynamicType(v250, v249, 1);
-  LODWORD(v249) = swift_isOptionalType(v251);
-  __swift_destroy_boxed_opaque_existential_1Tm(&v367._countAndFlagsBits);
-  if (v249)
+  v169(2, v170, AssociatedConformanceWitness);
+  v429 = v135;
+  v282 = __swift_allocate_boxed_opaque_existential_0Tm(&v428);
+  memcpy(v282, v136, v3);
+  v283 = v429;
+  v284 = __swift_project_boxed_opaque_existential_0Tm(&v428, v429);
+  v285 = swift_getDynamicType(v284, v283, 1);
+  LODWORD(v283) = swift_isOptionalType(v285);
+  __swift_destroy_boxed_opaque_existential_1Tm(&v428._countAndFlagsBits);
+  if (v283)
   {
-    v252 = v366;
-    memcpy(v366, v120, v2);
-    v253 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
-    swift_dynamicCast(&v367, v252, v119, v253, 7uLL);
+    v286 = v427;
+    memcpy(v427, v136, v3);
+    v287 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
+    swift_dynamicCast(&v428, v286, v135, v287, 7uLL, v288, v289, v290, v409);
     goto LABEL_188;
   }
 
-  v268 = v360;
-  memcpy(v360, v120, v2);
-  if (swift_dynamicCast(&v367, v268, v119, &type metadata for String, 6uLL))
+  v305 = v421;
+  memcpy(v421, v136, v3);
+  if (swift_dynamicCast(&v428, v305, v135, &type metadata for String, 6uLL, v306, v307, v308, v409))
   {
-    v269 = v367._object;
-    String.write(_:)(v367);
-    v269;
+    v309 = v428._object;
+    String.write(_:)(v428);
+    v309;
     goto LABEL_197;
   }
 
-  v283 = v357;
-  memcpy(v357, v120, v2);
-  v284 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss20TextOutputStreamable_pMd, _ss20TextOutputStreamable_pMR);
-  if (swift_dynamicCast(&v370, v283, v119, v284, 6uLL))
+  v323 = v418;
+  memcpy(v418, v136, v3);
+  v324 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss20TextOutputStreamable_pMd, _ss20TextOutputStreamable_pMR);
+  if (swift_dynamicCast(&v431, v323, v135, v324, 6uLL, v325, v326, v327, v409))
   {
-    _ss9CodingKey_pWOb_0(&v370, &v367);
-    v285 = v368;
-    v286 = v369;
-    __swift_project_boxed_opaque_existential_0Tm(&v367, v368);
-    (*(v286 + 8))(&v373, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation, v285, v286);
+    _ss9CodingKey_pWOb_0(&v431, &v428);
+    v328 = v429;
+    v329 = v430;
+    __swift_project_boxed_opaque_existential_0Tm(&v428, v429);
+    (*(v329 + 8))(&v434, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation, v328, v329);
 LABEL_194:
-    __swift_destroy_boxed_opaque_existential_1Tm(&v367._countAndFlagsBits);
+    __swift_destroy_boxed_opaque_existential_1Tm(&v428._countAndFlagsBits);
     goto LABEL_197;
   }
 
-  v372 = 0;
-  v370 = 0u;
-  v371 = 0u;
-  outlined destroy of _HasContiguousBytes?(&v370, &_ss20TextOutputStreamable_pSgMd, _ss20TextOutputStreamable_pSgMR);
-  v296 = v354;
-  memcpy(v354, v120, v2);
-  v297 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23CustomStringConvertible_pMd, _ss23CustomStringConvertible_pMR);
-  if (swift_dynamicCast(&v370, v296, v119, v297, 6uLL))
+  v433 = 0;
+  v431 = 0u;
+  v432 = 0u;
+  outlined destroy of _HasContiguousBytes?(&v431, &_ss20TextOutputStreamable_pSgMd, _ss20TextOutputStreamable_pSgMR);
+  v345 = v415;
+  memcpy(v415, v136, v3);
+  v346 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23CustomStringConvertible_pMd, _ss23CustomStringConvertible_pMR);
+  if (swift_dynamicCast(&v431, v345, v135, v346, 6uLL, v347, v348, v349, v409))
   {
-    _ss9CodingKey_pWOb_0(&v370, &v367);
-    v298 = v368;
-    v299 = v369;
-    __swift_project_boxed_opaque_existential_0Tm(&v367, v368);
-    v256 = (*(v299 + 8))(v298, v299);
+    _ss9CodingKey_pWOb_0(&v431, &v428);
+    v350 = v429;
+    v351 = v430;
+    __swift_project_boxed_opaque_existential_0Tm(&v428, v429);
+    v293 = (*(v351 + 8))(v350, v351);
 LABEL_189:
-    v266 = v257;
-    v267 = HIBYTE(v374) & 0xF;
-    if ((v374 & 0x2000000000000000) == 0)
+    v303 = v294;
+    v304 = HIBYTE(v435) & 0xF;
+    if ((v435 & 0x2000000000000000) == 0)
     {
-      v267 = v373 & 0xFFFFFFFFFFFFLL;
+      v304 = v434 & 0xFFFFFFFFFFFFLL;
     }
 
-    if (v267 || (v373 & ~v374 & 0x2000000000000000) != 0)
+    if (v304 || (v434 & ~v435 & 0x2000000000000000) != 0)
     {
-      _StringGuts.append(_:)(v256, v257, v258, v259, v260, v261, v262, v263, v264, v265);
-      v266;
+      _StringGuts.append(_:)(v293, v294, v295, v296, v297, v298, v299, v300, v301, v302);
+      v303;
     }
 
     else
     {
-      v323 = v256;
-      v374;
-      v373 = v323;
-      v374 = v266;
+      v375 = v293;
+      v435;
+      v434 = v375;
+      v435 = v303;
     }
 
     goto LABEL_194;
   }
 
-  v372 = 0;
-  v370 = 0u;
-  v371 = 0u;
-  outlined destroy of _HasContiguousBytes?(&v370, &_ss23CustomStringConvertible_pSgMd, _ss23CustomStringConvertible_pSgMR);
-  v328 = v351;
-  memcpy(v351, v120, v2);
-  v329 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
-  if (swift_dynamicCast(&v370, v328, v119, v329, 6uLL))
+  v433 = 0;
+  v431 = 0u;
+  v432 = 0u;
+  outlined destroy of _HasContiguousBytes?(&v431, &_ss23CustomStringConvertible_pSgMd, _ss23CustomStringConvertible_pSgMR);
+  v386 = v412;
+  memcpy(v412, v136, v3);
+  v387 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss28CustomDebugStringConvertible_pMd, _ss28CustomDebugStringConvertible_pMR);
+  if (swift_dynamicCast(&v431, v386, v135, v387, 6uLL, v388, v389, v390, v409))
   {
-    _ss9CodingKey_pWOb_0(&v370, &v367);
+    _ss9CodingKey_pWOb_0(&v431, &v428);
 LABEL_188:
-    v254 = v368;
-    v255 = v369;
-    __swift_project_boxed_opaque_existential_0Tm(&v367, v368);
-    v256 = (*(v255 + 8))(v254, v255);
+    v291 = v429;
+    v292 = v430;
+    __swift_project_boxed_opaque_existential_0Tm(&v428, v429);
+    v293 = (*(v292 + 8))(v291, v292);
     goto LABEL_189;
   }
 
-  v372 = 0;
-  v370 = 0u;
-  v371 = 0u;
-  outlined destroy of _HasContiguousBytes?(&v370, &_ss28CustomDebugStringConvertible_pSgMd, _ss28CustomDebugStringConvertible_pSgMR);
-  *(&v371 + 1) = v119;
-  v337 = __swift_allocate_boxed_opaque_existential_0Tm(&v370);
-  memcpy(v337, v120, v2);
-  Mirror.init(reflecting:)(&v370, &v367);
-  v338 = v367._object;
-  v339 = v369;
-  _adHocPrint_unlocked<A, B>(_:_:_:isDebugPrint:)(v120, &v367, &v373, 0, v119, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
-  v339;
-  v338;
+  v433 = 0;
+  v431 = 0u;
+  v432 = 0u;
+  outlined destroy of _HasContiguousBytes?(&v431, &_ss28CustomDebugStringConvertible_pSgMd, _ss28CustomDebugStringConvertible_pSgMR);
+  *(&v432 + 1) = v135;
+  v398 = __swift_allocate_boxed_opaque_existential_0Tm(&v431);
+  memcpy(v398, v136, v3);
+  Mirror.init(reflecting:)(&v431, &v428);
+  v399 = v428._object;
+  v400 = v430;
+  _adHocPrint_unlocked<A, B>(_:_:_:isDebugPrint:)(v136, &v428, &v434, 0, v135, &type metadata for DefaultStringInterpolation, &protocol witness table for DefaultStringInterpolation);
+  v400;
+  v399;
 LABEL_197:
-  v270 = v374;
-  v271 = HIBYTE(v374) & 0xF;
-  if ((v374 & 0x2000000000000000) == 0)
+  v310 = v435;
+  v311 = HIBYTE(v435) & 0xF;
+  if ((v435 & 0x2000000000000000) == 0)
   {
-    v271 = v373 & 0xFFFFFFFFFFFFLL;
+    v311 = v434 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (v271 || (v373 & ~v374 & 0x2000000000000000) != 0)
+  if (v311 || (v434 & ~v435 & 0x2000000000000000) != 0)
   {
-    if ((v374 & 0x2000000000000000) != 0 && (v272 = specialized _SmallString.init(_:appending:)(v373, v374, 0x29uLL, 0xE100000000000000), (v273 & 1) == 0))
+    if ((v435 & 0x2000000000000000) != 0 && (v312 = specialized _SmallString.init(_:appending:)(v434, v435, 0x29uLL, 0xE100000000000000), (v313 & 1) == 0))
     {
-      v287 = v272;
-      v270;
+      v330 = v312;
+      v310;
       0xE100000000000000;
-      return v287;
+      return v330;
     }
 
     else
     {
       0xE100000000000000;
-      _StringGuts.append(_:)(41, 0xE100000000000000, 0, 1, v274, v275, v276, v277, v278, v279, v280, v281);
+      _StringGuts.append(_:)(41, 0xE100000000000000, 0, 1, v314, v315, v316, v317, v318, v319, v320, v321);
       swift_bridgeObjectRelease_n(0xE100000000000000, 2);
-      return v373;
+      return v434;
     }
   }
 
   else
   {
-    v374;
+    v435;
     return 41;
   }
 }
 
-uint64_t SIMD3<>.init<A>(_:)@<X0>(uint64_t a1@<X0>, const char *a2@<X1>, const char *a3@<X2>, void (*a4)(char *, const char *, uint64_t, const char *, uint64_t)@<X3>, int **a5@<X4>, uint64_t a6@<X5>, int **a7@<X6>, uint64_t a8@<X8>)
+uint64_t SIMD3<>.init<A>(_:)@<X0>(uint64_t a1@<X0>, Class *a2@<X1>, Class *a3@<X2>, void (*a4)(char *, uint64_t, uint64_t, uint64_t, uint64_t)@<X3>, int **a5@<X4>, uint64_t a6@<X5>, int **a7@<X6>, uint64_t a8@<X8>)
 {
-  v51 = a6;
-  v52 = a4;
-  v55 = a1;
-  v48 = a8;
-  v12 = MEMORY[0x1EEE9AC00](a1);
-  v14 = &v42 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v12);
-  v45 = &v42 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  swift_getAssociatedTypeWitness(0, a5, a2, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD4Storage);
-  v17 = v16;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a5, a2, v16, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD4Storage: SIMDStorage);
-  v19 = *(AssociatedConformanceWitness + 48);
-  v47 = v17;
-  v20 = AssociatedConformanceWitness;
-  v19(v17);
-  v46 = a7;
-  swift_getAssociatedTypeWitness(255, a7, a3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD4Storage);
-  v22 = v21;
-  v23 = a7;
-  v24 = a3;
-  v49 = a3;
-  v53 = v22;
-  v25 = swift_getAssociatedConformanceWitness(v23, a3, v22, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD4Storage: SIMDStorage);
-  v54 = v25;
-  v26 = *(v25 + 56);
-  v27 = swift_checkMetadataState(0, v22);
-  v26(0, v27, v25);
-  v50 = *(v52 + 2);
-  v28 = *(v50 + 72);
-  v51 = *(v51 + 8);
-  v52 = v28;
-  v29 = v45;
-  v44 = a2;
-  (v28)(v14, v24);
-  v30 = v20;
-  v42 = *(v20 + 64);
-  v43 = v20;
-  v31 = v47;
-  v42(v29, 0, v47, v30);
-  v32 = swift_checkMetadataState(0, v53);
-  v26(1, v32, v54);
-  v33 = v44;
-  v52(v14, v49, v51, v44, v50);
-  v34 = v31;
-  v35 = v42;
-  v36 = v43;
-  v42(v29, 1, v34, v43);
-  v37 = swift_checkMetadataState(0, v53);
-  v26(2, v37, v54);
-  v38 = v49;
-  v52(v14, v49, v51, v33, v50);
-  v35(v29, 2, v47, v36);
-  v40 = type metadata accessor for SIMD3(0, v38, v46, v39);
-  return (*(*(v40 - 8) + 8))(v55, v40);
-}
-
-uint64_t SIMD3<>.init<A>(_:)@<X0>(uint64_t a1@<X0>, const char *a2@<X1>, const char *a3@<X2>, uint64_t a4@<X3>, int **a5@<X4>, uint64_t a6@<X5>, int **a7@<X6>, uint64_t a8@<X8>)
-{
-  v49 = a4;
-  v50 = a6;
-  v51 = a1;
-  v43 = a8;
-  v12 = MEMORY[0x1EEE9AC00](a1);
-  v14 = &v38 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v12);
-  v16 = &v38 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v52 = a6;
+  v53 = a4;
+  v56 = a1;
+  v49 = a8;
+  v12 = MEMORY[0x1EEE9AC00](a1, a2);
+  v14 = &v43 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v12, v15);
+  v46 = &v43 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_getAssociatedTypeWitness(0, a5, a2, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD4Storage);
   v18 = v17;
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a5, a2, v17, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD4Storage: SIMDStorage);
-  v42 = v18;
-  (*(AssociatedConformanceWitness + 48))(v18, AssociatedConformanceWitness);
-  v40 = a7;
+  v20 = *(AssociatedConformanceWitness + 48);
+  v48 = v18;
+  v21 = AssociatedConformanceWitness;
+  v20(v18);
+  v47 = a7;
   swift_getAssociatedTypeWitness(255, a7, a3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD4Storage);
-  v20 = v19;
-  v44 = a3;
-  v46 = v19;
-  v21 = swift_getAssociatedConformanceWitness(a7, a3, v19, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD4Storage: SIMDStorage);
-  v22 = *(v21 + 56);
-  v47 = v21;
+  v23 = v22;
+  v24 = a7;
+  v25 = a3;
+  v50 = a3;
+  v54 = v23;
+  v26 = swift_getAssociatedConformanceWitness(v24, a3, v23, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD4Storage: SIMDStorage);
+  v55 = v26;
+  v27 = *(v26 + 56);
+  v28 = swift_checkMetadataState(0, v23);
+  v27(0, v28, v26);
+  v51 = *(v53 + 2);
+  v29 = *(v51 + 72);
+  v52 = *(v52 + 8);
+  v53 = v29;
+  v30 = v46;
+  v45 = a2;
+  (v29)(v14, v25);
+  v31 = v21;
+  v43 = *(v21 + 64);
+  v44 = v21;
+  v32 = v48;
+  v43(v30, 0, v48, v31);
+  v33 = swift_checkMetadataState(0, v54);
+  v27(1, v33, v55);
+  v34 = v45;
+  v53(v14, v50, v52, v45, v51);
+  v35 = v32;
+  v36 = v43;
+  v37 = v44;
+  v43(v30, 1, v35, v44);
+  v38 = swift_checkMetadataState(0, v54);
+  v27(2, v38, v55);
+  v39 = v50;
+  v53(v14, v50, v52, v34, v51);
+  v36(v30, 2, v48, v37);
+  v41 = type metadata accessor for SIMD3(0, v39, v47, v40);
+  return (*(*(v41 - 8) + 8))(v56, v41);
+}
+
+uint64_t SIMD3<>.init<A>(_:)@<X0>(uint64_t a1@<X0>, Class *a2@<X1>, Class *a3@<X2>, uint64_t a4@<X3>, int **a5@<X4>, uint64_t a6@<X5>, int **a7@<X6>, uint64_t a8@<X8>)
+{
+  v50 = a4;
+  v51 = a6;
+  v52 = a1;
+  v44 = a8;
+  v12 = MEMORY[0x1EEE9AC00](a1, a2);
+  v14 = &v39 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v12, v15);
+  v17 = &v39 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  swift_getAssociatedTypeWitness(0, a5, a2, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD4Storage);
+  v19 = v18;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness(a5, a2, v18, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD4Storage: SIMDStorage);
+  v43 = v19;
+  (*(AssociatedConformanceWitness + 48))(v19, AssociatedConformanceWitness);
+  v41 = a7;
+  swift_getAssociatedTypeWitness(255, a7, a3, &protocol requirements base descriptor for SIMDScalar, associated type descriptor for SIMDScalar.SIMD4Storage);
+  v21 = v20;
+  v45 = a3;
+  v47 = v20;
+  v22 = swift_getAssociatedConformanceWitness(a7, a3, v20, &protocol requirements base descriptor for SIMDScalar, associated conformance descriptor for SIMDScalar.SIMDScalar.SIMD4Storage: SIMDStorage);
+  v23 = *(v22 + 56);
   v48 = v22;
-  v23 = swift_checkMetadataState(0, v20);
-  v22(0, v23, v21);
-  v24 = v50;
-  v45 = *(v49 + 80);
-  v39 = a2;
-  v45(v14, a3, v50, a2);
-  v25 = v42;
-  v38 = *(AssociatedConformanceWitness + 64);
-  (v38)(v16, 0, v42);
-  v26 = swift_checkMetadataState(0, v46);
-  v48(1, v26, v47);
-  v27 = v24;
-  v28 = v39;
-  v29 = v49;
-  (v45)(v14, v44, v27, v39, v49);
-  v30 = v25;
-  v31 = AssociatedConformanceWitness;
-  v32 = v38;
-  v38(v16, 1, v30, AssociatedConformanceWitness);
-  v33 = swift_checkMetadataState(0, v46);
-  v48(2, v33, v47);
-  v34 = v44;
-  (v45)(v14, v44, v50, v28, v29);
-  v32(v16, 2, v42, v31);
-  v36 = type metadata accessor for SIMD3(0, v34, v40, v35);
-  return (*(*(v36 - 8) + 8))(v51, v36);
+  v49 = v23;
+  v24 = swift_checkMetadataState(0, v21);
+  v23(0, v24, v22);
+  v25 = v51;
+  v46 = *(v50 + 80);
+  v40 = a2;
+  v46(v14, a3, v51, a2);
+  v26 = v43;
+  v39 = *(AssociatedConformanceWitness + 64);
+  (v39)(v17, 0, v43);
+  v27 = swift_checkMetadataState(0, v47);
+  v49(1, v27, v48);
+  v28 = v25;
+  v29 = v40;
+  v30 = v50;
+  (v46)(v14, v45, v28, v40, v50);
+  v31 = v26;
+  v32 = AssociatedConformanceWitness;
+  v33 = v39;
+  v39(v17, 1, v31, AssociatedConformanceWitness);
+  v34 = swift_checkMetadataState(0, v47);
+  v49(2, v34, v48);
+  v35 = v45;
+  (v46)(v14, v45, v51, v29, v30);
+  v33(v17, 2, v43, v32);
+  v37 = type metadata accessor for SIMD3(0, v35, v41, v36);
+  return (*(*(v37 - 8) + 8))(v52, v37);
 }
 
-uint64_t (*UInt8.SIMD2Storage.subscript.modify(uint64_t a1, uint64_t a2))()
+double (*UInt8.SIMD2Storage.subscript.modify(uint64_t a1, uint64_t a2))(uint64_t a1, double a2)
 {
   *a1 = a2;
   *(a1 + 8) = v2;
@@ -7221,7 +7221,7 @@ uint64_t (*UInt8.SIMD2Storage.subscript.modify(uint64_t a1, uint64_t a2))()
   return UInt8.SIMD2Storage.subscript.modify;
 }
 
-uint64_t (*protocol witness for SIMDStorage.subscript.modify in conformance UInt8.SIMD2Storage(uint64_t a1, uint64_t a2))()
+double (*protocol witness for SIMDStorage.subscript.modify in conformance UInt8.SIMD2Storage(uint64_t a1, uint64_t a2))(uint64_t a1, double a2)
 {
   *a1 = a2;
   *(a1 + 8) = v2;
@@ -7235,7 +7235,7 @@ uint64_t (*protocol witness for SIMDStorage.subscript.modify in conformance UInt
   return UInt8.SIMD2Storage.subscript.modify;
 }
 
-uint64_t (*UInt8.SIMD4Storage.subscript.modify(uint64_t a1, uint64_t a2, uint8x8_t a3))()
+int8x8_t (*UInt8.SIMD4Storage.subscript.modify(uint64_t a1, uint64_t a2, uint8x8_t a3))(uint64_t a1, uint8x8_t a2)
 {
   *a1 = a2;
   *(a1 + 8) = v3;
@@ -7246,7 +7246,7 @@ uint64_t (*UInt8.SIMD4Storage.subscript.modify(uint64_t a1, uint64_t a2, uint8x8
   return UInt8.SIMD4Storage.subscript.modify;
 }
 
-uint64_t (*protocol witness for SIMDStorage.subscript.modify in conformance UInt8.SIMD4Storage(uint64_t a1, uint64_t a2, uint8x8_t a3))()
+int8x8_t (*protocol witness for SIMDStorage.subscript.modify in conformance UInt8.SIMD4Storage(uint64_t a1, uint64_t a2, uint8x8_t a3))(uint64_t a1, uint8x8_t a2)
 {
   *a1 = a2;
   *(a1 + 8) = v3;
@@ -7257,7 +7257,7 @@ uint64_t (*protocol witness for SIMDStorage.subscript.modify in conformance UInt
   return UInt8.SIMD4Storage.subscript.modify;
 }
 
-uint64_t (*UInt8.SIMD8Storage.subscript.modify(uint64_t a1, uint64_t a2))()
+double (*UInt8.SIMD8Storage.subscript.modify(uint64_t a1, uint64_t a2))(uint64_t a1)
 {
   *a1 = a2;
   *(a1 + 8) = v2;
@@ -7266,7 +7266,7 @@ uint64_t (*UInt8.SIMD8Storage.subscript.modify(uint64_t a1, uint64_t a2))()
   return UInt8.SIMD8Storage.subscript.modify;
 }
 
-uint64_t (*protocol witness for SIMDStorage.subscript.modify in conformance UInt8.SIMD8Storage(uint64_t a1, uint64_t a2))()
+double (*protocol witness for SIMDStorage.subscript.modify in conformance UInt8.SIMD8Storage(uint64_t a1, uint64_t a2))(uint64_t a1)
 {
   *a1 = a2;
   *(a1 + 8) = v2;
@@ -7451,7 +7451,7 @@ __n128 _ss5UInt8V12SIMD2StorageVyABSicipADTK_0@<Q0>(_BYTE *a1@<X0>, _DWORD *a2@<
   return result;
 }
 
-uint64_t (*Int8.SIMD2Storage.subscript.modify(uint64_t a1, uint64_t a2))()
+double (*Int8.SIMD2Storage.subscript.modify(uint64_t a1, uint64_t a2))(uint64_t a1, double a2)
 {
   *a1 = a2;
   *(a1 + 8) = v2;
@@ -7522,7 +7522,7 @@ double _ss5UInt8V12SIMD4StorageVyABSicipADTK_0@<D0>(__int32 *a1@<X0>, _DWORD *a2
   return result;
 }
 
-uint64_t (*Int8.SIMD4Storage.subscript.modify(uint64_t a1, uint64_t a2, uint8x8_t a3))()
+int8x8_t (*Int8.SIMD4Storage.subscript.modify(uint64_t a1, uint64_t a2, uint8x8_t a3))(uint64_t a1, uint8x8_t a2)
 {
   *a1 = a2;
   *(a1 + 8) = v3;
@@ -7575,7 +7575,7 @@ double _ss5UInt8V12SIMD8StorageVyABSicipADTK_0@<D0>(double *a1@<X0>, _DWORD *a2@
   return result;
 }
 
-uint64_t (*Int8.SIMD8Storage.subscript.modify(uint64_t a1, uint64_t a2))()
+double (*Int8.SIMD8Storage.subscript.modify(uint64_t a1, uint64_t a2))(uint64_t a1)
 {
   *a1 = a2;
   *(a1 + 8) = v2;
@@ -7923,7 +7923,7 @@ __n128 UInt8.SIMD64Storage.subscript.modify(void **a1)
   return result;
 }
 
-uint64_t (*UInt16.SIMD2Storage.subscript.modify(uint64_t a1, uint64_t a2))()
+double (*UInt16.SIMD2Storage.subscript.modify(uint64_t a1, uint64_t a2))(uint64_t a1, double a2)
 {
   *a1 = a2;
   *(a1 + 8) = v2;
@@ -7937,7 +7937,7 @@ uint64_t (*UInt16.SIMD2Storage.subscript.modify(uint64_t a1, uint64_t a2))()
   return UInt16.SIMD2Storage.subscript.modify;
 }
 
-uint64_t (*protocol witness for SIMDStorage.subscript.modify in conformance UInt16.SIMD2Storage(uint64_t a1, uint64_t a2))()
+double (*protocol witness for SIMDStorage.subscript.modify in conformance UInt16.SIMD2Storage(uint64_t a1, uint64_t a2))(uint64_t a1, double a2)
 {
   *a1 = a2;
   *(a1 + 8) = v2;
@@ -7951,7 +7951,7 @@ uint64_t (*protocol witness for SIMDStorage.subscript.modify in conformance UInt
   return UInt16.SIMD2Storage.subscript.modify;
 }
 
-uint64_t (*UInt16.SIMD4Storage.subscript.modify(uint64_t a1, uint64_t a2))()
+double (*UInt16.SIMD4Storage.subscript.modify(uint64_t a1, uint64_t a2))(uint64_t a1)
 {
   *a1 = a2;
   *(a1 + 8) = v2;
@@ -7960,7 +7960,7 @@ uint64_t (*UInt16.SIMD4Storage.subscript.modify(uint64_t a1, uint64_t a2))()
   return UInt16.SIMD4Storage.subscript.modify;
 }
 
-uint64_t (*protocol witness for SIMDStorage.subscript.modify in conformance UInt16.SIMD4Storage(uint64_t a1, uint64_t a2))()
+double (*protocol witness for SIMDStorage.subscript.modify in conformance UInt16.SIMD4Storage(uint64_t a1, uint64_t a2))(uint64_t a1)
 {
   *a1 = a2;
   *(a1 + 8) = v2;
@@ -8230,7 +8230,7 @@ __n128 _ss6UInt16V12SIMD2StorageVyABSicipADTK_0@<Q0>(_WORD *a1@<X0>, _DWORD *a2@
   return result;
 }
 
-uint64_t (*Int16.SIMD2Storage.subscript.modify(uint64_t a1, uint64_t a2))()
+double (*Int16.SIMD2Storage.subscript.modify(uint64_t a1, uint64_t a2))(uint64_t a1, double a2)
 {
   *a1 = a2;
   *(a1 + 8) = v2;
@@ -8293,7 +8293,7 @@ double _ss6UInt16V12SIMD4StorageVyABSicipADTK_0@<D0>(double *a1@<X0>, _DWORD *a2
   return result;
 }
 
-uint64_t (*Int16.SIMD4Storage.subscript.modify(uint64_t a1, uint64_t a2))()
+double (*Int16.SIMD4Storage.subscript.modify(uint64_t a1, uint64_t a2))(uint64_t a1)
 {
   *a1 = a2;
   *(a1 + 8) = v2;
@@ -8867,7 +8867,7 @@ __n128 UInt16.SIMD64Storage.subscript.modify(void **a1)
   return result;
 }
 
-uint64_t (*UInt32.SIMD2Storage.subscript.modify(uint64_t a1, uint64_t a2))()
+double (*UInt32.SIMD2Storage.subscript.modify(uint64_t a1, uint64_t a2))(uint64_t a1)
 {
   *a1 = a2;
   *(a1 + 8) = v2;
@@ -8876,7 +8876,7 @@ uint64_t (*UInt32.SIMD2Storage.subscript.modify(uint64_t a1, uint64_t a2))()
   return UInt32.SIMD2Storage.subscript.modify;
 }
 
-uint64_t (*protocol witness for SIMDStorage.subscript.modify in conformance UInt32.SIMD2Storage(uint64_t a1, uint64_t a2))()
+double (*protocol witness for SIMDStorage.subscript.modify in conformance UInt32.SIMD2Storage(uint64_t a1, uint64_t a2))(uint64_t a1)
 {
   *a1 = a2;
   *(a1 + 8) = v2;
@@ -9261,7 +9261,7 @@ uint64_t (*protocol witness for SIMDStorage.subscript.modify in conformance UInt
   return UInt32.SIMD64Storage.subscript.modify;
 }
 
-uint64_t (*Int32.SIMD2Storage.subscript.modify(uint64_t a1, uint64_t a2))()
+double (*Int32.SIMD2Storage.subscript.modify(uint64_t a1, uint64_t a2))(uint64_t a1)
 {
   *a1 = a2;
   *(a1 + 8) = v2;

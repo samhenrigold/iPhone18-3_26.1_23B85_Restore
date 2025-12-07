@@ -125,6 +125,7 @@
 - (void)setCloudKitMergeLocalLastBuildVersionMaxRetryReached:(id)reached;
 - (void)setCloudKitMergeLocalLastDateMaxRetryReached:(id)reached;
 - (void)setCloudKitMigrationDelayAfterError:(id)error;
+- (void)setCloudKitMigrationDisableCleanUp:(BOOL)up;
 - (void)setCloudKitMigrationMaxNumFailures:(id)failures;
 - (void)setCloudKitMigrationMaxNumInvocations:(id)invocations;
 - (void)setCloudKitMigrationObserverPollingInterval:(id)interval;
@@ -136,11 +137,39 @@
 - (void)setCloudKitSchemaCatchUpSyncSchedulingState:(id)state;
 - (void)setCoreBehaviorTrainingParameters:(id)parameters;
 - (void)setDataSeparationAppDocumentsURLDebugOverride:(id)override;
+- (void)setDatabaseMigrationTestModeEnabled:(BOOL)enabled;
+- (void)setDatabaseMigrationTimedOut:(BOOL)out;
+- (void)setDebugForceSupportCloudKitSchemaCatchUpSyncBackgroundScheduling:(BOOL)scheduling;
+- (void)setDebugSimulateSqliteFull:(BOOL)full;
 - (void)setDebugSimulatedCKErrorCode:(id)code;
+- (void)setDidShowReminderDeletePrivacyWarning:(BOOL)warning;
+- (void)setDisableAlarmEngineDataSourcePrefetching:(BOOL)prefetching;
+- (void)setEnableAssignmentNotifications:(BOOL)notifications;
+- (void)setEnableAutoCompleteReminders:(BOOL)reminders;
+- (void)setEnableGroceryFeedbackSurvey:(BOOL)survey;
+- (void)setEnableHashingUserIdentifiablesWithPersonIDSalt:(BOOL)salt;
+- (void)setEnableInAppDebugMenu:(BOOL)menu;
+- (void)setEnableWelcomeScreen:(BOOL)screen;
+- (void)setExcludeExistingSectionsForAutoCategorizationEnabled:(BOOL)enabled;
+- (void)setExtraneousAlarmsCollectorContainerDeemedClean:(BOOL)clean;
+- (void)setForceBasicAAAccountEligibleForCloudKitReminders:(BOOL)reminders;
+- (void)setForceEligibleForAutoCloudKitMigration:(BOOL)migration;
+- (void)setForceShowWelcomeScreen:(BOOL)screen;
+- (void)setForceShowWhatsNewScreen:(BOOL)screen;
+- (void)setGroceryTipDismissed:(BOOL)dismissed;
+- (void)setHasCreatedGroceryList:(BOOL)list;
+- (void)setHasSeenGroceryFeedbackSurvey:(BOOL)survey;
+- (void)setHasViewedContactsAccessAlertForCalDAVSharing:(BOOL)sharing;
+- (void)setHasViewedContactsAccessAlertForLocation:(BOOL)location;
+- (void)setHasViewedContactsAccessAlertForMessaging:(BOOL)messaging;
 - (void)setHashtagLabelsInCustomSmartListFilterCache:(id)cache;
+- (void)setHideEmptySections:(BOOL)sections forGroceryList:(id)list;
 - (void)setHideEmptySectionsForGroceryList:(id)list;
 - (void)setImageDeduplicationLastExecutionDate:(id)date;
 - (void)setImageDeduplicationLegacyAttachmentsMarkedForDeletion:(id)deletion;
+- (void)setIsAutoCategorizationLoggingEnabled:(BOOL)enabled;
+- (void)setIsDatabaseMigrated:(BOOL)migrated;
+- (void)setIsSpotlightQueryLoggingEnabled:(BOOL)enabled;
 - (void)setLastCloudConfigurationDownload:(id)download;
 - (void)setLastDataSeparationMigrationDate:(id)date;
 - (void)setLastDatabaseMigrationSystemBuildVersion:(id)version;
@@ -160,19 +189,26 @@
 - (void)setRemCurrentRuntimeVersionDebuggingOverride:(id)override;
 - (void)setSavedImageDeduplicationLastExecutionDate:(id)date;
 - (void)setSavedImageDeduplicationLegacyAttachmentsMarkedForDeletion:(id)deletion;
+- (void)setSharedListActivityNotifications_demoMode:(BOOL)mode;
+- (void)setShouldIncludeRemindersDueTodayInBadgeCount:(BOOL)count;
+- (void)setShowRemindersAsOverdue:(BOOL)overdue;
+- (void)setSimulateMAIDAccount:(BOOL)account;
 - (void)setSpotlightIndexVersion:(id)version;
+- (void)setStaledFileAttachmentCleanupContainerDeemedClean:(BOOL)clean;
 - (void)setStaledFileAttachmentCleanupLastExecutionDate:(id)date;
 - (void)setSuggestConversionToGroceryListLastExecutionDate:(id)date;
 - (void)setSuggestedAttributesHarvestingOverrides:(id)overrides;
 - (void)setSuggestedAttributesTrainingOverrides:(id)overrides;
 - (void)setSyncActivityNotificationEngine_accountSignInTime:(id)time;
 - (void)setTimeZoneOverride:(id)override;
+- (void)setTimeZoneOverrideEnabled:(BOOL)enabled;
 - (void)setTipKitCachedCountOfCustomSmartLists:(id)lists;
 - (void)setTipKitCachedCountOfHashtags:(id)hashtags;
 - (void)setTipKitCachedCountOfLists:(id)lists;
 - (void)setTipKitCachedCountOfListsWithCustomBadge:(id)badge;
 - (void)setTipKitCachedCountOfUncompletedReminders:(id)reminders;
 - (void)setTodayNotificationFireTime:(id)time;
+- (void)setTreatRemindersAsNotOverdue:(BOOL)overdue;
 - (void)setTrialAssetsDirectoryDebugOverride:(id)override;
 - (void)setUserInteractionsData:(id)data;
 @end
@@ -256,6 +292,13 @@
   return v3;
 }
 
+- (void)setDatabaseMigrationTestModeEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  userDefaults = [(REMUserDefaults *)self userDefaults];
+  [userDefaults setBool:enabledCopy forKey:@"databaseMigrationTestModeEnabled"];
+}
+
 - (BOOL)isDatabaseMigrated
 {
   userDefaults = [(REMUserDefaults *)self userDefaults];
@@ -264,12 +307,26 @@
   return v3;
 }
 
+- (void)setIsDatabaseMigrated:(BOOL)migrated
+{
+  migratedCopy = migrated;
+  userDefaults = [(REMUserDefaults *)self userDefaults];
+  [userDefaults setBool:migratedCopy forKey:@"isDatabaseMigrated"];
+}
+
 - (BOOL)databaseMigrationTimedOut
 {
   userDefaults = [(REMUserDefaults *)self userDefaults];
   v3 = [userDefaults BOOLForKey:@"databaseMigrationTimedOut"];
 
   return v3;
+}
+
+- (void)setDatabaseMigrationTimedOut:(BOOL)out
+{
+  outCopy = out;
+  userDefaults = [(REMUserDefaults *)self userDefaults];
+  [userDefaults setBool:outCopy forKey:@"databaseMigrationTimedOut"];
 }
 
 - (NSString)lastDatabaseMigrationSystemBuildVersion
@@ -383,6 +440,13 @@
   v3 = [userDefaults BOOLForKey:@"cloudKitMigrationDisableCleanUp"];
 
   return v3;
+}
+
+- (void)setCloudKitMigrationDisableCleanUp:(BOOL)up
+{
+  upCopy = up;
+  userDefaults = [(REMUserDefaults *)self userDefaults];
+  [userDefaults setBool:upCopy forKey:@"cloudKitMigrationDisableCleanUp"];
 }
 
 - (REMObjectID)preferredDefaultListID
@@ -613,6 +677,13 @@ void __64__REMDaemonUserDefaults_observePreferredDefaultListIDWithBlock___block_
   return v3;
 }
 
+- (void)setDebugForceSupportCloudKitSchemaCatchUpSyncBackgroundScheduling:(BOOL)scheduling
+{
+  schedulingCopy = scheduling;
+  userDefaults = [(REMUserDefaults *)self userDefaults];
+  [userDefaults setBool:schedulingCopy forKey:@"debugForceSupportCloudKitSchemaCatchUpSyncBackgroundScheduling"];
+}
+
 - (NSNumber)cloudKitMaxNumAlarmIDsInReminderCKRecordDebugOverride
 {
   userDefaults = [(REMUserDefaults *)self userDefaults];
@@ -686,6 +757,13 @@ void __64__REMDaemonUserDefaults_observePreferredDefaultListIDWithBlock___block_
   dateCopy = date;
   userDefaults = [(REMUserDefaults *)self userDefaults];
   [userDefaults setObject:dateCopy forKey:@"lastPresentAlarmDate"];
+}
+
+- (void)setTimeZoneOverrideEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  userDefaults = [(REMUserDefaults *)self userDefaults];
+  [userDefaults setBool:enabledCopy forKey:@"timeZoneOverrideEnabled"];
 }
 
 - (id)observeTimeZoneOverrideEnabledWithBlock:(id)block
@@ -878,6 +956,27 @@ void __58__REMDaemonUserDefaults_observeTimeZoneOverrideWithBlock___block_invoke
   [v7 synchronizeUserDefaultsDomain:suiteName keys:v9];
 }
 
+- (void)setHideEmptySections:(BOOL)sections forGroceryList:(id)list
+{
+  sectionsCopy = sections;
+  listCopy = list;
+  hideEmptySectionsForGroceryList = [(REMDaemonUserDefaults *)self hideEmptySectionsForGroceryList];
+  v9 = [hideEmptySectionsForGroceryList mutableCopy];
+
+  v8 = [MEMORY[0x1E696AD98] numberWithBool:sectionsCopy];
+  if (v9)
+  {
+    [v9 setObject:v8 forKeyedSubscript:listCopy];
+  }
+
+  else
+  {
+    v9 = [MEMORY[0x1E695DF90] dictionaryWithObject:v8 forKey:listCopy];
+  }
+
+  [(REMDaemonUserDefaults *)self setHideEmptySectionsForGroceryList:v9];
+}
+
 - (BOOL)hideEmptySectionsForGroceryList:(id)list
 {
   listCopy = list;
@@ -914,7 +1013,7 @@ void __58__REMDaemonUserDefaults_observeTimeZoneOverrideWithBlock___block_invoke
 
 - (void)setBestKForKNN:(id)n
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   nCopy = n;
   userDefaults = [(REMUserDefaults *)self userDefaults];
   v6 = [userDefaults objectForKey:@"suggestedAttributesHarvestingOverrides"];
@@ -941,9 +1040,9 @@ void __58__REMDaemonUserDefaults_observeTimeZoneOverrideWithBlock___block_invoke
 
     else
     {
-      v20 = @"neighborsToConsider";
-      v21 = nCopy;
-      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+      v19 = @"neighborsToConsider";
+      v20 = nCopy;
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
       [v10 setObject:v17 forKey:@"embedding"];
 
       userDefaults4 = [(REMUserDefaults *)self userDefaults];
@@ -955,16 +1054,14 @@ void __58__REMDaemonUserDefaults_observeTimeZoneOverrideWithBlock___block_invoke
 
   else
   {
-    v23 = nCopy;
-    v24 = @"embedding";
-    v22 = @"neighborsToConsider";
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
-    v25[0] = v15;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+    v22 = nCopy;
+    v23 = @"embedding";
+    v21 = @"neighborsToConsider";
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+    v24[0] = v15;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
     [v8 setObject:v16 forKey:@"suggestedAttributesHarvestingOverrides"];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSuggestedAttributesTrainingOverrides:(id)overrides
@@ -976,7 +1073,7 @@ void __58__REMDaemonUserDefaults_observeTimeZoneOverrideWithBlock___block_invoke
 
 - (void)setCoreBehaviorTrainingParameters:(id)parameters
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   userDefaults = [(REMUserDefaults *)self userDefaults];
   v6 = [userDefaults objectForKey:@"suggestedAttributesTrainingOverrides"];
@@ -986,23 +1083,20 @@ void __58__REMDaemonUserDefaults_observeTimeZoneOverrideWithBlock___block_invoke
   if (v6)
   {
     v9 = [userDefaults2 dictionaryForKey:@"suggestedAttributesTrainingOverrides"];
-    v14 = [v9 mutableCopy];
+    v12 = [v9 mutableCopy];
 
-    [v14 setObject:parametersCopy forKey:@"corebehavior"];
+    [v12 setObject:parametersCopy forKey:@"corebehavior"];
     userDefaults3 = [(REMUserDefaults *)self userDefaults];
-    [userDefaults3 setObject:v14 forKey:@"suggestedAttributesTrainingOverrides"];
-
-    v11 = *MEMORY[0x1E69E9840];
+    [userDefaults3 setObject:v12 forKey:@"suggestedAttributesTrainingOverrides"];
   }
 
   else
   {
-    v15 = @"corebehavior";
-    v16[0] = parametersCopy;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v13 = @"corebehavior";
+    v14[0] = parametersCopy;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
 
-    [v8 setObject:v12 forKey:@"suggestedAttributesTrainingOverrides"];
-    v13 = *MEMORY[0x1E69E9840];
+    [v8 setObject:v11 forKey:@"suggestedAttributesTrainingOverrides"];
   }
 }
 
@@ -1059,12 +1153,26 @@ void __58__REMDaemonUserDefaults_observeTimeZoneOverrideWithBlock___block_invoke
   return v3;
 }
 
+- (void)setStaledFileAttachmentCleanupContainerDeemedClean:(BOOL)clean
+{
+  cleanCopy = clean;
+  userDefaults = [(REMUserDefaults *)self userDefaults];
+  [userDefaults setBool:cleanCopy forKey:@"staledFileAttachmentCleanupContainerDeemedClean"];
+}
+
 - (BOOL)extraneousAlarmsCollectorContainerDeemedClean
 {
   userDefaults = [(REMUserDefaults *)self userDefaults];
   v3 = [userDefaults BOOLForKey:@"extraneousAlarmsCollectorContainerDeemedClean"];
 
   return v3;
+}
+
+- (void)setExtraneousAlarmsCollectorContainerDeemedClean:(BOOL)clean
+{
+  cleanCopy = clean;
+  userDefaults = [(REMUserDefaults *)self userDefaults];
+  [userDefaults setBool:cleanCopy forKey:@"extraneousAlarmsCollectorContainerDeemedClean"];
 }
 
 - (NSDate)lastExtraneousAlarmsCollectorExecutionDate
@@ -1195,6 +1303,21 @@ void __58__REMDaemonUserDefaults_observeTimeZoneOverrideWithBlock___block_invoke
   return v3;
 }
 
+- (void)setSimulateMAIDAccount:(BOOL)account
+{
+  accountCopy = account;
+  userDefaults = [(REMUserDefaults *)self userDefaults];
+  [userDefaults setBool:accountCopy forKey:@"simulateMAIDAccount"];
+}
+
+- (void)setShowRemindersAsOverdue:(BOOL)overdue
+{
+  overdueCopy = overdue;
+  [(REMUserDefaults *)self setShowRemindersAsOverdue_cached:?];
+  userDefaults = [(REMUserDefaults *)self userDefaults];
+  [userDefaults setBool:overdueCopy forKey:@"showRemindersAsOverdue"];
+}
+
 - (BOOL)showRemindersAsOverdueWithShouldBypassCache:(BOOL)cache
 {
   userDefaults = [(REMUserDefaults *)self userDefaults];
@@ -1242,6 +1365,13 @@ uint64_t __64__REMDaemonUserDefaults_observeShowRemindersAsOverdueWithBlock___bl
   return v3;
 }
 
+- (void)setTreatRemindersAsNotOverdue:(BOOL)overdue
+{
+  overdueCopy = overdue;
+  userDefaults = [(REMUserDefaults *)self userDefaults];
+  [userDefaults setBool:overdueCopy forKey:@"treatRemindersAsNotOverdue"];
+}
+
 - (id)observeTreatRemindersAsNotOverdueWithBlock:(id)block
 {
   blockCopy = block;
@@ -1284,12 +1414,26 @@ uint64_t __68__REMDaemonUserDefaults_observeTreatRemindersAsNotOverdueWithBlock_
   return bOOLValue;
 }
 
+- (void)setEnableWelcomeScreen:(BOOL)screen
+{
+  screenCopy = screen;
+  userDefaults = [(REMUserDefaults *)self userDefaults];
+  [userDefaults setBool:screenCopy forKey:@"enableWelcomeScreen"];
+}
+
 - (BOOL)forceShowWelcomeScreen
 {
   userDefaults = [(REMUserDefaults *)self userDefaults];
   v3 = [userDefaults BOOLForKey:@"forceShowWelcomeScreen"];
 
   return v3;
+}
+
+- (void)setForceShowWelcomeScreen:(BOOL)screen
+{
+  screenCopy = screen;
+  userDefaults = [(REMUserDefaults *)self userDefaults];
+  [userDefaults setBool:screenCopy forKey:@"forceShowWelcomeScreen"];
 }
 
 - (BOOL)forceShowWhatsNewScreen
@@ -1300,12 +1444,26 @@ uint64_t __68__REMDaemonUserDefaults_observeTreatRemindersAsNotOverdueWithBlock_
   return v3;
 }
 
+- (void)setForceShowWhatsNewScreen:(BOOL)screen
+{
+  screenCopy = screen;
+  userDefaults = [(REMUserDefaults *)self userDefaults];
+  [userDefaults setBool:screenCopy forKey:@"forceShowWhatsNewScreen"];
+}
+
 - (BOOL)enableInAppDebugMenu
 {
   userDefaults = [(REMUserDefaults *)self userDefaults];
   v3 = [userDefaults BOOLForKey:@"enableInAppDebugMenu"];
 
   return v3;
+}
+
+- (void)setEnableInAppDebugMenu:(BOOL)menu
+{
+  menuCopy = menu;
+  userDefaults = [(REMUserDefaults *)self userDefaults];
+  [userDefaults setBool:menuCopy forKey:@"enableInAppDebugMenu"];
 }
 
 - (BOOL)enableHashingUserIdentifiablesWithPersonIDSalt
@@ -1324,6 +1482,13 @@ uint64_t __68__REMDaemonUserDefaults_observeTreatRemindersAsNotOverdueWithBlock_
   }
 
   return bOOLValue;
+}
+
+- (void)setEnableHashingUserIdentifiablesWithPersonIDSalt:(BOOL)salt
+{
+  saltCopy = salt;
+  userDefaults = [(REMUserDefaults *)self userDefaults];
+  [userDefaults setBool:saltCopy forKey:@"enableHashingUserIdentifiablesWithPersonIDSalt"];
 }
 
 + (id)todayNotificationFireTimeFromStorageNumber:(id)number
@@ -1464,6 +1629,13 @@ void __67__REMDaemonUserDefaults_observeTodayNotificationFireTimeWithBlock___blo
   return v3;
 }
 
+- (void)setDisableAlarmEngineDataSourcePrefetching:(BOOL)prefetching
+{
+  prefetchingCopy = prefetching;
+  userDefaults = [(REMUserDefaults *)self userDefaults];
+  [userDefaults setBool:prefetchingCopy forKey:@"disableAlarmEngineDataSourcePrefetching"];
+}
+
 - (BOOL)enableAssignmentNotifications
 {
   userDefaults = [(REMUserDefaults *)self userDefaults];
@@ -1478,6 +1650,13 @@ void __67__REMDaemonUserDefaults_observeTodayNotificationFireTimeWithBlock___blo
   v6 = [userDefaults2 BOOLForKey:@"enableAssignmentNotifications"];
 
   return v6;
+}
+
+- (void)setEnableAssignmentNotifications:(BOOL)notifications
+{
+  notificationsCopy = notifications;
+  userDefaults = [(REMUserDefaults *)self userDefaults];
+  [userDefaults setBool:notificationsCopy forKey:@"enableAssignmentNotifications"];
 }
 
 - (id)observeEnableAssignmentNotificationsWithBlock:(id)block
@@ -1518,6 +1697,13 @@ uint64_t __71__REMDaemonUserDefaults_observeEnableAssignmentNotificationsWithBlo
   v6 = [userDefaults2 BOOLForKey:@"enableAutoCompleteReminders"];
 
   return v6;
+}
+
+- (void)setEnableAutoCompleteReminders:(BOOL)reminders
+{
+  remindersCopy = reminders;
+  userDefaults = [(REMUserDefaults *)self userDefaults];
+  [userDefaults setBool:remindersCopy forKey:@"enableAutoCompleteReminders"];
 }
 
 - (id)observeEnableAutoCompleteRemindersWithBlock:(id)block
@@ -1596,6 +1782,13 @@ uint64_t __69__REMDaemonUserDefaults_observeEnableAutoCompleteRemindersWithBlock
   v3 = [userDefaults BOOLForKey:@"debugSimulateSqliteFull"];
 
   return v3;
+}
+
+- (void)setDebugSimulateSqliteFull:(BOOL)full
+{
+  fullCopy = full;
+  userDefaults = [(REMUserDefaults *)self userDefaults];
+  [userDefaults setBool:fullCopy forKey:@"debugSimulateSqliteFull"];
 }
 
 - (NSNumber)tipKitCachedCountOfUncompletedReminders
@@ -1703,12 +1896,26 @@ uint64_t __69__REMDaemonUserDefaults_observeEnableAutoCompleteRemindersWithBlock
   return v3;
 }
 
+- (void)setGroceryTipDismissed:(BOOL)dismissed
+{
+  dismissedCopy = dismissed;
+  userDefaults = [(REMUserDefaults *)self userDefaults];
+  [userDefaults setBool:dismissedCopy forKey:@"groceryTipDismissed"];
+}
+
 - (BOOL)groceryTipDismissed
 {
   userDefaults = [(REMUserDefaults *)self userDefaults];
   v3 = [userDefaults BOOLForKey:@"groceryTipDismissed"];
 
   return v3;
+}
+
+- (void)setHasCreatedGroceryList:(BOOL)list
+{
+  listCopy = list;
+  userDefaults = [(REMUserDefaults *)self userDefaults];
+  [userDefaults setBool:listCopy forKey:@"hasCreatedGroceryList"];
 }
 
 - (BOOL)hasCreatedGroceryList
@@ -1719,12 +1926,26 @@ uint64_t __69__REMDaemonUserDefaults_observeEnableAutoCompleteRemindersWithBlock
   return v3;
 }
 
+- (void)setHasViewedContactsAccessAlertForLocation:(BOOL)location
+{
+  locationCopy = location;
+  userDefaults = [(REMUserDefaults *)self userDefaults];
+  [userDefaults setBool:locationCopy forKey:@"hasViewedContactsAccessAlertForLocation"];
+}
+
 - (BOOL)hasViewedContactsAccessAlertForMessaging
 {
   userDefaults = [(REMUserDefaults *)self userDefaults];
   v3 = [userDefaults BOOLForKey:@"hasViewedContactsAccessAlertForMessaging"];
 
   return v3;
+}
+
+- (void)setHasViewedContactsAccessAlertForMessaging:(BOOL)messaging
+{
+  messagingCopy = messaging;
+  userDefaults = [(REMUserDefaults *)self userDefaults];
+  [userDefaults setBool:messagingCopy forKey:@"hasViewedContactsAccessAlertForMessaging"];
 }
 
 - (BOOL)hasViewedContactsAccessAlertForCalDAVSharing
@@ -1735,12 +1956,26 @@ uint64_t __69__REMDaemonUserDefaults_observeEnableAutoCompleteRemindersWithBlock
   return v3;
 }
 
+- (void)setHasViewedContactsAccessAlertForCalDAVSharing:(BOOL)sharing
+{
+  sharingCopy = sharing;
+  userDefaults = [(REMUserDefaults *)self userDefaults];
+  [userDefaults setBool:sharingCopy forKey:@"hasViewedContactsAccessAlertForCalDAVSharing"];
+}
+
 - (BOOL)didShowReminderDeletePrivacyWarning
 {
   userDefaults = [(REMUserDefaults *)self userDefaults];
   v3 = [userDefaults BOOLForKey:@"didShowReminderDeletePrivacyWarning"];
 
   return v3;
+}
+
+- (void)setDidShowReminderDeletePrivacyWarning:(BOOL)warning
+{
+  warningCopy = warning;
+  userDefaults = [(REMUserDefaults *)self userDefaults];
+  [userDefaults setBool:warningCopy forKey:@"didShowReminderDeletePrivacyWarning"];
 }
 
 - (BOOL)hasSeenGroceryFeedbackSurvey
@@ -1751,12 +1986,26 @@ uint64_t __69__REMDaemonUserDefaults_observeEnableAutoCompleteRemindersWithBlock
   return v3;
 }
 
+- (void)setHasSeenGroceryFeedbackSurvey:(BOOL)survey
+{
+  surveyCopy = survey;
+  userDefaults = [(REMUserDefaults *)self userDefaults];
+  [userDefaults setBool:surveyCopy forKey:@"hasSeenGroceryFeedbackSurvey"];
+}
+
 - (BOOL)enableGroceryFeedbackSurvey
 {
   userDefaults = [(REMUserDefaults *)self userDefaults];
   v3 = [userDefaults BOOLForKey:@"enableGroceryFeedbackSurvey"];
 
   return v3;
+}
+
+- (void)setEnableGroceryFeedbackSurvey:(BOOL)survey
+{
+  surveyCopy = survey;
+  userDefaults = [(REMUserDefaults *)self userDefaults];
+  [userDefaults setBool:surveyCopy forKey:@"enableGroceryFeedbackSurvey"];
 }
 
 - (void)setRemCurrentRuntimeVersionDebuggingOverride:(id)override
@@ -1774,12 +2023,26 @@ uint64_t __69__REMDaemonUserDefaults_observeEnableAutoCompleteRemindersWithBlock
   return v3;
 }
 
+- (void)setForceEligibleForAutoCloudKitMigration:(BOOL)migration
+{
+  migrationCopy = migration;
+  userDefaults = [(REMUserDefaults *)self userDefaults];
+  [userDefaults setBool:migrationCopy forKey:@"forceEligibleForAutoCloudKitMigration"];
+}
+
 - (BOOL)forceBasicAAAccountEligibleForCloudKitReminders
 {
   userDefaults = [(REMUserDefaults *)self userDefaults];
   v3 = [userDefaults BOOLForKey:@"forceBasicAAAccountEligibleForCloudKitReminders"];
 
   return v3;
+}
+
+- (void)setForceBasicAAAccountEligibleForCloudKitReminders:(BOOL)reminders
+{
+  remindersCopy = reminders;
+  userDefaults = [(REMUserDefaults *)self userDefaults];
+  [userDefaults setBool:remindersCopy forKey:@"forceBasicAAAccountEligibleForCloudKitReminders"];
 }
 
 - (NSDictionary)dataSeparationAppDocumentsURLDebugOverride
@@ -1827,12 +2090,26 @@ uint64_t __69__REMDaemonUserDefaults_observeEnableAutoCompleteRemindersWithBlock
   [userDefaults setObject:timeCopy forKey:@"syncActivityNotificationEngine_accountSignInTime"];
 }
 
+- (void)setSharedListActivityNotifications_demoMode:(BOOL)mode
+{
+  modeCopy = mode;
+  userDefaults = [(REMUserDefaults *)self userDefaults];
+  [userDefaults setBool:modeCopy forKey:@"sharedListActivityNotifications_demoMode"];
+}
+
 - (BOOL)sharedListActivityNotifications_demoMode
 {
   userDefaults = [(REMUserDefaults *)self userDefaults];
   v3 = [userDefaults BOOLForKey:@"sharedListActivityNotifications_demoMode"];
 
   return v3;
+}
+
+- (void)setShouldIncludeRemindersDueTodayInBadgeCount:(BOOL)count
+{
+  countCopy = count;
+  userDefaults = [(REMUserDefaults *)self userDefaults];
+  [userDefaults setBool:countCopy forKey:@"shouldIncludeRemindersDueTodayInBadgeCount"];
 }
 
 - (BOOL)shouldIncludeRemindersDueTodayInBadgeCount
@@ -1907,6 +2184,13 @@ uint64_t __84__REMDaemonUserDefaults_observeShouldIncludeRemindersDueTodayInBadg
   return v3;
 }
 
+- (void)setIsSpotlightQueryLoggingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  userDefaults = [(REMUserDefaults *)self userDefaults];
+  [userDefaults setBool:enabledCopy forKey:@"isSpotlightQueryLoggingEnabled"];
+}
+
 - (BOOL)isAutoCategorizationLoggingEnabled
 {
   userDefaults = [(REMUserDefaults *)self userDefaults];
@@ -1915,12 +2199,26 @@ uint64_t __84__REMDaemonUserDefaults_observeShouldIncludeRemindersDueTodayInBadg
   return v3;
 }
 
+- (void)setIsAutoCategorizationLoggingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  userDefaults = [(REMUserDefaults *)self userDefaults];
+  [userDefaults setBool:enabledCopy forKey:@"isAutoCategorizationLoggingEnabled"];
+}
+
 - (BOOL)excludeExistingSectionsForAutoCategorizationEnabled
 {
   userDefaults = [(REMUserDefaults *)self userDefaults];
   v3 = [userDefaults BOOLForKey:@"excludeExistingSectionsForAutoCategorizationEnabled"];
 
   return v3;
+}
+
+- (void)setExcludeExistingSectionsForAutoCategorizationEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  userDefaults = [(REMUserDefaults *)self userDefaults];
+  [userDefaults setBool:enabledCopy forKey:@"excludeExistingSectionsForAutoCategorizationEnabled"];
 }
 
 - (NSString)trialAssetsDirectoryDebugOverride

@@ -1364,7 +1364,7 @@ LABEL_6:
     }
   }
 
-  v13 = IMFileTransferLogHandle();
+  v13 = IMFileTransferLogHandle(createdDate);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v15 = 138412290;
@@ -1698,16 +1698,17 @@ LABEL_12:
 
 - (void)_migratePreviewGenerationState
 {
-  v7 = *MEMORY[0x1E69E9840];
-  if ([(IMFileTransfer *)self _hasLegacyPreviewGenerationState])
+  v8 = *MEMORY[0x1E69E9840];
+  _hasLegacyPreviewGenerationState = [(IMFileTransfer *)self _hasLegacyPreviewGenerationState];
+  if (_hasLegacyPreviewGenerationState)
   {
-    v3 = IMFileTransferLogHandle();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = IMFileTransferLogHandle(_hasLegacyPreviewGenerationState);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       guid = [(IMFileTransfer *)self guid];
-      v5 = 138412290;
-      v6 = guid;
-      _os_log_impl(&dword_1A85E5000, v3, OS_LOG_TYPE_DEFAULT, "Migrating transfer GUID %@ to new preview generation state storage", &v5, 0xCu);
+      v6 = 138412290;
+      v7 = guid;
+      _os_log_impl(&dword_1A85E5000, v4, OS_LOG_TYPE_DEFAULT, "Migrating transfer GUID %@ to new preview generation state storage", &v6, 0xCu);
     }
 
     [(IMFileTransfer *)self setPreviewGenerationState:[(IMFileTransfer *)self _resolvedPreviewGenerationState]];
@@ -1780,7 +1781,7 @@ LABEL_12:
 
   LOBYTE(v22) = v11;
   v12 = [objc_opt_class() canMarkPurgeableWithCKSyncState:-[IMFileTransfer cloudKitSyncState](self transferState:"cloudKitSyncState") isAudio:-[IMFileTransfer transferState](self isSticker:"transferState") isGroupPhoto:im_isAudioMessageExtension isPluginPayload:-[IMFileTransfer isSticker](self isRichLink:{"isSticker"), v7, im_isPluginPayloadExtension, v22}];
-  v13 = IMOffloadingLogHandle();
+  v13 = IMOffloadingLogHandle(v12);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     guid = [(IMFileTransfer *)self guid];
@@ -2231,168 +2232,169 @@ LABEL_12:
 
 - (id)createAndPersistLivePhotoBundleIfNecessary
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   localPath = [(IMFileTransfer *)self localPath];
   guid = [(IMFileTransfer *)self guid];
   v5 = [localPath __im_livePhotoBundlePathWithGUID:guid];
 
   if (v5)
   {
-    v6 = v5;
+    v7 = v5;
     goto LABEL_16;
   }
 
-  v7 = IMFileTransferLogHandle();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = IMFileTransferLogHandle(v6);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     guid2 = [(IMFileTransfer *)self guid];
     *buf = 138412290;
     *&buf[4] = guid2;
-    _os_log_impl(&dword_1A85E5000, v7, OS_LOG_TYPE_DEFAULT, "Live Photo bundle path didn't exist for transfer with GUID %@", buf, 0xCu);
+    _os_log_impl(&dword_1A85E5000, v8, OS_LOG_TYPE_DEFAULT, "Live Photo bundle path didn't exist for transfer with GUID %@", buf, 0xCu);
   }
 
   localPath2 = [(IMFileTransfer *)self localPath];
   _auxVideoPathIfItExists = [(IMFileTransfer *)self _auxVideoPathIfItExists];
-  v11 = _auxVideoPathIfItExists;
+  v12 = _auxVideoPathIfItExists;
   if (localPath2)
   {
     if (_auxVideoPathIfItExists)
     {
-      if (![localPath2 isEqualToString:_auxVideoPathIfItExists])
+      v13 = [localPath2 isEqualToString:_auxVideoPathIfItExists];
+      if (!v13)
       {
         stringByDeletingLastPathComponent = [localPath2 stringByDeletingLastPathComponent];
         guid3 = [(IMFileTransfer *)self guid];
-        v18 = [stringByDeletingLastPathComponent stringByAppendingPathComponent:guid3];
-        v46 = 0;
-        v47 = &v46;
-        v48 = 0x2020000000;
-        v19 = qword_1ED8C9760;
-        v49 = qword_1ED8C9760;
+        v20 = [stringByDeletingLastPathComponent stringByAppendingPathComponent:guid3];
+        v49 = 0;
+        v50 = &v49;
+        v51 = 0x2020000000;
+        v21 = qword_1ED8C9760;
+        v52 = qword_1ED8C9760;
         if (!qword_1ED8C9760)
         {
           *buf = MEMORY[0x1E69E9820];
           *&buf[8] = 3221225472;
           *&buf[16] = sub_1A8705704;
-          v53 = &unk_1E78261C8;
-          v54 = &v46;
-          v20 = sub_1A8705754();
-          v21 = dlsym(v20, "PFLivePhotoBundleExtension");
-          *(v54[1] + 24) = v21;
-          qword_1ED8C9760 = *(v54[1] + 24);
-          v19 = v47[3];
+          v56 = &unk_1E78261C8;
+          v57 = &v49;
+          v22 = sub_1A8705754();
+          v23 = dlsym(v22, "PFLivePhotoBundleExtension");
+          *(v57[1] + 24) = v23;
+          qword_1ED8C9760 = *(v57[1] + 24);
+          v21 = v50[3];
         }
 
-        _Block_object_dispose(&v46, 8);
-        if (!v19)
+        _Block_object_dispose(&v49, 8);
+        if (!v21)
         {
           sub_1A88C02E0();
           __break(1u);
         }
 
-        v22 = *v19;
-        v23 = [v18 stringByAppendingPathExtension:v22];
+        v24 = *v21;
+        v25 = [v20 stringByAppendingPathExtension:v24];
 
-        v46 = 0;
-        v47 = &v46;
-        v48 = 0x2050000000;
-        v24 = qword_1ED8C9680;
-        v49 = qword_1ED8C9680;
+        v49 = 0;
+        v50 = &v49;
+        v51 = 0x2050000000;
+        v26 = qword_1ED8C9680;
+        v52 = qword_1ED8C9680;
         if (!qword_1ED8C9680)
         {
           *buf = MEMORY[0x1E69E9820];
           *&buf[8] = 3221225472;
           *&buf[16] = sub_1A87058C8;
-          v53 = &unk_1E78261C8;
-          v54 = &v46;
+          v56 = &unk_1E78261C8;
+          v57 = &v49;
           sub_1A87058C8(buf);
-          v24 = v47[3];
+          v26 = v50[3];
         }
 
-        v25 = v24;
-        _Block_object_dispose(&v46, 8);
-        v26 = [v24 alloc];
+        v27 = v26;
+        _Block_object_dispose(&v49, 8);
+        v28 = [v26 alloc];
         *buf = *MEMORY[0x1E6960C70];
         *&buf[16] = *(MEMORY[0x1E6960C70] + 16);
-        v27 = [v26 initWithPathToVideo:v11 pathToImage:localPath2 imageDisplayTime:buf pairingIdentifier:0];
-        v28 = IMFileTransferLogHandle();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+        v29 = [v28 initWithPathToVideo:v12 pathToImage:localPath2 imageDisplayTime:buf pairingIdentifier:0];
+        v30 = IMFileTransferLogHandle(v29);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
         {
           guid4 = [(IMFileTransfer *)self guid];
           *buf = 138412546;
           *&buf[4] = guid4;
           *&buf[12] = 2112;
-          *&buf[14] = v23;
-          _os_log_impl(&dword_1A85E5000, v28, OS_LOG_TYPE_DEFAULT, "Creating live photo bundle for transfer %@ at path %@", buf, 0x16u);
+          *&buf[14] = v25;
+          _os_log_impl(&dword_1A85E5000, v30, OS_LOG_TYPE_DEFAULT, "Creating live photo bundle for transfer %@ at path %@", buf, 0x16u);
         }
 
-        v30 = [MEMORY[0x1E695DFF8] fileURLWithPath:v23];
-        v45 = 0;
-        v31 = [v27 writeToBundleAtURL:v30 error:&v45];
-        v43 = v45;
-        if (v31 && ([MEMORY[0x1E696AC08] defaultManager], v32 = objc_claimAutoreleasedReturnValue(), v33 = objc_msgSend(v32, "fileExistsAtPath:", v23), v32, (v33 & 1) != 0))
+        v32 = [MEMORY[0x1E695DFF8] fileURLWithPath:v25];
+        v48 = 0;
+        v33 = [v29 writeToBundleAtURL:v32 error:&v48];
+        v46 = v48;
+        if (v33 && ([MEMORY[0x1E696AC08] defaultManager], v34 = objc_claimAutoreleasedReturnValue(), v35 = objc_msgSend(v34, "fileExistsAtPath:", v25), v34, (v35 & 1) != 0))
         {
-          v34 = IMFileTransferLogHandle();
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+          v37 = IMFileTransferLogHandle(v36);
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
           {
             guid5 = [(IMFileTransfer *)self guid];
             *buf = 138412546;
             *&buf[4] = guid5;
             *&buf[12] = 2112;
-            *&buf[14] = v23;
-            _os_log_impl(&dword_1A85E5000, v34, OS_LOG_TYPE_DEFAULT, "Successfully created live photo bundle for transfer %@ at path %@", buf, 0x16u);
+            *&buf[14] = v25;
+            _os_log_impl(&dword_1A85E5000, v37, OS_LOG_TYPE_DEFAULT, "Successfully created live photo bundle for transfer %@ at path %@", buf, 0x16u);
           }
 
-          v42 = v23;
-          [v42 im_markFileAsPurgeable:1];
-          v50 = *MEMORY[0x1E695DB80];
-          v36 = [MEMORY[0x1E696AD98] numberWithBool:1];
-          v51 = v36;
-          v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+          v45 = v25;
+          [v45 im_markFileAsPurgeable:1];
+          v53 = *MEMORY[0x1E695DB80];
+          v39 = [MEMORY[0x1E696AD98] numberWithBool:1];
+          v54 = v39;
+          v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
 
-          v44 = 0;
-          [v30 setResourceValues:v37 error:&v44];
-          v38 = v44;
-          if (v38)
+          v47 = 0;
+          [v32 setResourceValues:v40 error:&v47];
+          v41 = v47;
+          if (v41)
           {
-            v39 = IMLogHandleForCategory("IMFileTransfer");
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+            v42 = IMLogHandleForCategory("IMFileTransfer");
+            if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
             {
               guid6 = [(IMFileTransfer *)self guid];
               *buf = 138412802;
               *&buf[4] = guid6;
               *&buf[12] = 2112;
-              *&buf[14] = v30;
+              *&buf[14] = v32;
               *&buf[22] = 2112;
-              v53 = v38;
-              _os_log_error_impl(&dword_1A85E5000, v39, OS_LOG_TYPE_ERROR, "Error setting resource values for transfer %@ at url %@. Error: %@", buf, 0x20u);
+              v56 = v41;
+              _os_log_error_impl(&dword_1A85E5000, v42, OS_LOG_TYPE_ERROR, "Error setting resource values for transfer %@ at url %@. Error: %@", buf, 0x20u);
             }
           }
 
-          v6 = v42;
+          v7 = v45;
         }
 
         else
         {
-          v37 = IMLogHandleForCategory("IMFileTransfer");
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+          v40 = IMLogHandleForCategory("IMFileTransfer");
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
           {
             guid7 = [(IMFileTransfer *)self guid];
             *buf = 138412802;
             *&buf[4] = guid7;
             *&buf[12] = 2112;
-            *&buf[14] = v23;
+            *&buf[14] = v25;
             *&buf[22] = 2112;
-            v53 = v43;
-            _os_log_error_impl(&dword_1A85E5000, v37, OS_LOG_TYPE_ERROR, "Error creating live photo bundle for transfer %@ at path %@. Error: %@", buf, 0x20u);
+            v56 = v46;
+            _os_log_error_impl(&dword_1A85E5000, v40, OS_LOG_TYPE_ERROR, "Error creating live photo bundle for transfer %@ at path %@. Error: %@", buf, 0x20u);
           }
 
-          v6 = 0;
+          v7 = 0;
         }
 
         goto LABEL_15;
       }
 
-      stringByDeletingLastPathComponent = IMFileTransferLogHandle();
+      stringByDeletingLastPathComponent = IMFileTransferLogHandle(v13);
       if (os_log_type_enabled(stringByDeletingLastPathComponent, OS_LOG_TYPE_DEFAULT))
       {
         guid8 = [(IMFileTransfer *)self guid];
@@ -2404,7 +2406,7 @@ LABEL_12:
 
     else
     {
-      stringByDeletingLastPathComponent = IMFileTransferLogHandle();
+      stringByDeletingLastPathComponent = IMFileTransferLogHandle(0);
       if (os_log_type_enabled(stringByDeletingLastPathComponent, OS_LOG_TYPE_DEFAULT))
       {
         guid9 = [(IMFileTransfer *)self guid];
@@ -2417,24 +2419,24 @@ LABEL_12:
 
   else
   {
-    stringByDeletingLastPathComponent = IMFileTransferLogHandle();
+    stringByDeletingLastPathComponent = IMFileTransferLogHandle(_auxVideoPathIfItExists);
     if (os_log_type_enabled(stringByDeletingLastPathComponent, OS_LOG_TYPE_DEFAULT))
     {
       guid10 = [(IMFileTransfer *)self guid];
       *buf = 138412546;
       *&buf[4] = guid10;
       *&buf[12] = 2112;
-      *&buf[14] = v11;
+      *&buf[14] = v12;
       _os_log_impl(&dword_1A85E5000, stringByDeletingLastPathComponent, OS_LOG_TYPE_DEFAULT, "Live Photo bundle could not be created because the image path didn't exist for transfer with GUID %@, videoComplementPath: %@", buf, 0x16u);
     }
   }
 
-  v6 = 0;
+  v7 = 0;
 LABEL_15:
 
 LABEL_16:
 
-  return v6;
+  return v7;
 }
 
 - (id)_auxVideoPathIfItExists
@@ -2484,8 +2486,7 @@ LABEL_16:
   v6 = *MEMORY[0x1E69E9840];
   if ([(IMFileTransfer *)self _isMissingAndDownloadable])
   {
-    [(IMFileTransfer *)self _setTransferState:0];
-    v3 = IMFileTransferLogHandle();
+    v3 = IMFileTransferLogHandle([(IMFileTransfer *)self _setTransferState:0]);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = 138412290;
@@ -2497,7 +2498,7 @@ LABEL_16:
 
 - (void)_setSandboxTokenForExportDownload
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   localPath = [(IMFileTransfer *)self localPath];
   stringByDeletingLastPathComponent = [localPath stringByDeletingLastPathComponent];
   [stringByDeletingLastPathComponent UTF8String];
@@ -2505,28 +2506,28 @@ LABEL_16:
 
   if (v5)
   {
-    v6 = [MEMORY[0x1E696AEC0] stringWithCString:v5 encoding:4];
+    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v5 encoding:4];
     free(v5);
   }
 
   else
   {
-    v7 = IMFileTransferLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = IMFileTransferLogHandle(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       localPath2 = [(IMFileTransfer *)self localPath];
-      v9 = *__error();
-      v10 = 138412546;
-      v11 = localPath2;
-      v12 = 1024;
-      v13 = v9;
-      _os_log_impl(&dword_1A85E5000, v7, OS_LOG_TYPE_DEFAULT, "Failed to issue sandbox extension for path %@, errno %d", &v10, 0x12u);
+      v10 = *__error();
+      v11 = 138412546;
+      v12 = localPath2;
+      v13 = 1024;
+      v14 = v10;
+      _os_log_impl(&dword_1A85E5000, v8, OS_LOG_TYPE_DEFAULT, "Failed to issue sandbox extension for path %@, errno %d", &v11, 0x12u);
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
-  [(IMFileTransfer *)self setSandboxToken:v6];
+  [(IMFileTransfer *)self setSandboxToken:v7];
 }
 
 @end

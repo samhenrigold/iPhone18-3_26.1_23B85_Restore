@@ -134,7 +134,7 @@
   buttonCopy = button;
   if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupAuthViewController handleDismissButton:]", 30, "Dismiss button\n");
   }
 
   [*(&self->_infoLabel + 1) setDisabled:1];
@@ -146,7 +146,7 @@
   disappearCopy = disappear;
   if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupAuthViewController viewDidDisappear:]", 30, "Auth ViewDidDisappear\n");
   }
 
   v6.receiver = self;
@@ -161,7 +161,7 @@
   appearCopy = appear;
   if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupAuthViewController viewWillAppear:]", 30, "Auth ViewWillAppear\n");
   }
 
   v16.receiver = self;

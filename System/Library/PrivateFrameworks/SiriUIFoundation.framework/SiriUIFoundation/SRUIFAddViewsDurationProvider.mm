@@ -10,7 +10,7 @@
 
 + (double)minimumDisplayDurationForAddViews:(id)views
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   viewsCopy = views;
   v5 = MEMORY[0x277CEF260];
   dialogPhase = [viewsCopy dialogPhase];
@@ -37,12 +37,12 @@
     goto LABEL_30;
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   obj = [viewsCopy views];
-  v12 = [obj countByEnumeratingWithState:&v34 objects:v46 count:16];
+  v12 = [obj countByEnumeratingWithState:&v33 objects:v45 count:16];
   if (!v12)
   {
     v14 = 0;
@@ -51,17 +51,17 @@
 
   v13 = v12;
   v14 = 0;
-  v33 = *v35;
+  v32 = *v34;
   while (2)
   {
     for (i = 0; i != v13; ++i)
     {
-      if (*v35 != v33)
+      if (*v34 != v32)
       {
         objc_enumerationMutation(obj);
       }
 
-      v16 = *(*(&v34 + 1) + 8 * i);
+      v16 = *(*(&v33 + 1) + 8 * i);
       listenAfterSpeaking = [v16 listenAfterSpeaking];
       bOOLValue = [listenAfterSpeaking BOOLValue];
 
@@ -109,7 +109,7 @@ LABEL_29:
       v14 += [self _numberOfWordsInString:text];
     }
 
-    v13 = [obj countByEnumeratingWithState:&v34 objects:v46 count:16];
+    v13 = [obj countByEnumeratingWithState:&v33 objects:v45 count:16];
     if (v13)
     {
       continue;
@@ -137,19 +137,18 @@ LABEL_23:
     v26 = v25;
     aceId = [viewsCopy aceId];
     *buf = 136315906;
-    v39 = "+[SRUIFAddViewsDurationProvider minimumDisplayDurationForAddViews:]";
-    v40 = 2048;
-    v41 = v14;
-    v42 = 2112;
-    v43 = aceId;
-    v44 = 2048;
-    v45 = v8;
+    v38 = "+[SRUIFAddViewsDurationProvider minimumDisplayDurationForAddViews:]";
+    v39 = 2048;
+    v40 = v14;
+    v41 = 2112;
+    v42 = aceId;
+    v43 = 2048;
+    v44 = v8;
     _os_log_impl(&dword_26951F000, v26, OS_LOG_TYPE_DEFAULT, "%s %li words in AddViews command:%@. Returning a minimum display duration of %f", buf, 0x2Au);
   }
 
 LABEL_30:
 
-  v30 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -168,7 +167,7 @@ LABEL_30:
   return *&internalDurationOverride_duration;
 }
 
-uint64_t __57__SRUIFAddViewsDurationProvider_internalDurationOverride__block_invoke(uint64_t a1)
+void *__57__SRUIFAddViewsDurationProvider_internalDurationOverride__block_invoke(uint64_t a1)
 {
   result = AFIsInternalInstall();
   if (result)

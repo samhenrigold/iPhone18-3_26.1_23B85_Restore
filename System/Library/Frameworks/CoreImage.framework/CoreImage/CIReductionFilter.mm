@@ -26,57 +26,58 @@
 - (id)offsetAndCrop
 {
   [(CIVector *)self->inputExtent CGRectValue];
-  if (CGRectIsEmpty(v27))
+  IsEmpty = CGRectIsEmpty(v31);
+  if (IsEmpty)
   {
-    v3 = ci_logger_filter();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = ci_logger_filter(IsEmpty, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [CIReductionFilter offsetAndCrop];
+      [(CIReductionFilter *)self offsetAndCrop];
     }
 
     return 0;
   }
 
   [(CIImage *)self->inputImage extent];
-  v5 = v4;
   v7 = v6;
   v9 = v8;
   v11 = v10;
+  v13 = v12;
   [(CIVector *)self->inputExtent CGRectValue];
-  v35.origin.x = v12;
-  v35.origin.y = v13;
-  v35.size.width = v14;
-  v35.size.height = v15;
-  v28.origin.x = v5;
-  v28.origin.y = v7;
-  v28.size.width = v9;
-  v28.size.height = v11;
-  v29 = CGRectIntersection(v28, v35);
-  x = v29.origin.x;
-  y = v29.origin.y;
-  width = v29.size.width;
-  height = v29.size.height;
-  if (!CGRectIsInfinite(v29))
+  v39.origin.x = v14;
+  v39.origin.y = v15;
+  v39.size.width = v16;
+  v39.size.height = v17;
+  v32.origin.x = v7;
+  v32.origin.y = v9;
+  v32.size.width = v11;
+  v32.size.height = v13;
+  v33 = CGRectIntersection(v32, v39);
+  x = v33.origin.x;
+  y = v33.origin.y;
+  width = v33.size.width;
+  height = v33.size.height;
+  if (!CGRectIsInfinite(v33))
   {
-    v30.origin.x = x;
-    v30.origin.y = y;
-    v30.size.width = width;
-    v30.size.height = height;
-    if (!CGRectIsEmpty(v30))
+    v34.origin.x = x;
+    v34.origin.y = y;
+    v34.size.width = width;
+    v34.size.height = height;
+    if (!CGRectIsEmpty(v34))
     {
-      v31.origin.x = x;
-      v31.origin.y = y;
-      v31.size.width = width;
-      v31.size.height = height;
-      v32 = CGRectStandardize(v31);
-      x = ceil(v32.origin.x);
-      y = ceil(v32.origin.y);
-      v20 = floor(v32.origin.x + v32.size.width);
-      v21 = floor(v32.origin.y + v32.size.height);
-      if (v20 > x && v21 > y)
+      v35.origin.x = x;
+      v35.origin.y = y;
+      v35.size.width = width;
+      v35.size.height = height;
+      v36 = CGRectStandardize(v35);
+      x = ceil(v36.origin.x);
+      y = ceil(v36.origin.y);
+      v22 = floor(v36.origin.x + v36.size.width);
+      v23 = floor(v36.origin.y + v36.size.height);
+      if (v22 > x && v23 > y)
       {
-        width = v20 - x;
-        height = v21 - y;
+        width = v22 - x;
+        height = v23 - y;
       }
 
       else
@@ -89,33 +90,34 @@
     }
   }
 
-  v33.origin.x = x;
-  v33.origin.y = y;
-  v33.size.width = width;
-  v33.size.height = height;
-  if (CGRectIsEmpty(v33))
+  v37.origin.x = x;
+  v37.origin.y = y;
+  v37.size.width = width;
+  v37.size.height = height;
+  if (CGRectIsEmpty(v37))
   {
     return 0;
   }
 
-  v34.origin.x = x;
-  v34.origin.y = y;
-  v34.size.width = width;
-  v34.size.height = height;
-  if (CGRectIsInfinite(v34))
+  v38.origin.x = x;
+  v38.origin.y = y;
+  v38.size.width = width;
+  v38.size.height = height;
+  IsInfinite = CGRectIsInfinite(v38);
+  if (IsInfinite)
   {
-    v23 = ci_logger_filter();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v27 = ci_logger_filter(IsInfinite, v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      [CIReductionFilter offsetAndCrop];
+      [(CIReductionFilter *)self offsetAndCrop];
     }
 
     return 0;
   }
 
   inputImage = self->inputImage;
-  CGAffineTransformMakeTranslation(&v26, -x, -y);
-  return [[(CIImage *)inputImage imageByApplyingTransform:&v26] imageByCroppingToRect:0.0, 0.0, width, height];
+  CGAffineTransformMakeTranslation(&v30, -x, -y);
+  return [[(CIImage *)inputImage imageByApplyingTransform:&v30] imageByCroppingToRect:0.0, 0.0, width, height];
 }
 
 - (void)offsetAndCrop
@@ -123,7 +125,7 @@
   [objc_opt_class() description];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 @end

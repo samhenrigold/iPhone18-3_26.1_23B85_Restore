@@ -70,17 +70,14 @@
 
 void __94__TRIUrgentRollbackScheduler__activeExperimentDeploymentsForRollbackExperiment_deploymentIds___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = *(a1 + 40);
-  v5 = *(a1 + 48);
-  v10 = v3;
+  v7 = a2;
   if ([*(a1 + 32) _experimentRecord:? matchesExperimentId:? oneOfDeploymentIds:?])
   {
-    v6 = *(a1 + 56);
-    v7 = MEMORY[0x277CCABB0];
-    v8 = [v10 experimentDeployment];
-    v9 = [v7 numberWithInt:{objc_msgSend(v8, "deploymentId")}];
-    [v6 addObject:v9];
+    v3 = *(a1 + 56);
+    v4 = MEMORY[0x277CCABB0];
+    v5 = [v7 experimentDeployment];
+    v6 = [v4 numberWithInt:{objc_msgSend(v5, "deploymentId")}];
+    [v3 addObject:v6];
   }
 }
 
@@ -111,21 +108,18 @@ void __94__TRIUrgentRollbackScheduler__activeExperimentDeploymentsForRollbackExp
 
 void __98__TRIUrgentRollbackScheduler__ineligibleExperimentDeploymentsForRollbackExperiment_deploymentIds___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = *(a1 + 40);
-  v5 = *(a1 + 48);
-  v8 = v3;
+  v5 = a2;
   if ([*(a1 + 32) _experimentRecord:? matchesExperimentId:? oneOfDeploymentIds:?])
   {
-    v6 = *(a1 + 56);
-    v7 = [v8 experimentDeployment];
-    [v6 addObject:v7];
+    v3 = *(a1 + 56);
+    v4 = [v5 experimentDeployment];
+    [v3 addObject:v4];
   }
 }
 
 - (void)scheduleUrgentRollbackForExperiment:(id)experiment deploymentIds:(id)ids
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   experimentCopy = experiment;
   idsCopy = ids;
   v9 = idsCopy;
@@ -154,34 +148,34 @@ void __98__TRIUrgentRollbackScheduler__ineligibleExperimentDeploymentsForRollbac
 LABEL_3:
   v10 = [(TRIUrgentRollbackScheduler *)self _ineligibleExperimentDeploymentsForRollbackExperiment:experimentCopy deploymentIds:v9];
   experimentDatabase = self->_experimentDatabase;
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __80__TRIUrgentRollbackScheduler_scheduleUrgentRollbackForExperiment_deploymentIds___block_invoke;
-  v32[3] = &unk_279DE1A98;
-  v26 = v10;
-  v33 = v26;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __80__TRIUrgentRollbackScheduler_scheduleUrgentRollbackForExperiment_deploymentIds___block_invoke;
+  v31[3] = &unk_279DE1A98;
+  v25 = v10;
+  v32 = v25;
   selfCopy = self;
-  [(TRIExperimentDatabase *)experimentDatabase writeTransactionWithFailableBlock:v32];
+  [(TRIExperimentDatabase *)experimentDatabase writeTransactionWithFailableBlock:v31];
   [(TRIUrgentRollbackScheduler *)self _activeExperimentDeploymentsForRollbackExperiment:experimentCopy deploymentIds:v9];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
-  obj = v31 = 0u;
-  v12 = [obj countByEnumeratingWithState:&v28 objects:v35 count:16];
+  obj = v30 = 0u;
+  v12 = [obj countByEnumeratingWithState:&v27 objects:v34 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v29;
+    v14 = *v28;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v29 != v14)
+        if (*v28 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v28 + 1) + 8 * i);
+        v16 = *(*(&v27 + 1) + 8 * i);
         v17 = +[TRIDeactivateTreatmentTask taskWithExperimentId:deploymentId:startTime:failOnUnrecognizedExperiment:triggerEvent:taskAttribution:](TRIDeactivateTreatmentTask, "taskWithExperimentId:deploymentId:startTime:failOnUnrecognizedExperiment:triggerEvent:taskAttribution:", experimentCopy, [v16 intValue], 0, 0, 1, 0);
         queue = [(TRIUrgentRollbackScheduler *)self queue];
         v19 = [MEMORY[0x277D736C0] deploymentWithExperimentId:experimentCopy deploymentId:{objc_msgSend(v16, "intValue")}];
@@ -193,54 +187,52 @@ LABEL_3:
         [queue2 addTask:v17 options:v22];
       }
 
-      v13 = [obj countByEnumeratingWithState:&v28 objects:v35 count:16];
+      v13 = [obj countByEnumeratingWithState:&v27 objects:v34 count:16];
     }
 
     while (v13);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __80__TRIUrgentRollbackScheduler_scheduleUrgentRollbackForExperiment_deploymentIds___block_invoke(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v23;
+    v8 = *v22;
     *&v6 = 138412546;
-    v21 = v6;
+    v20 = v6;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * i);
-        v11 = [*(*(a1 + 40) + 16) setStatus:3 forExperimentDeployment:v10 usingTransaction:{v3, v21, v22}];
+        v10 = *(*(&v21 + 1) + 8 * i);
+        v11 = [*(*(a1 + 40) + 16) setStatus:3 forExperimentDeployment:v10 usingTransaction:{v3, v20, v21}];
         v12 = TRILogCategory_Server();
         v13 = v12;
         if (!v11)
         {
           if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
-            v19 = [v10 experimentId];
-            v20 = [v10 deploymentId];
-            *buf = v21;
-            v27 = v19;
-            v28 = 1024;
-            v29 = v20;
+            v18 = [v10 experimentId];
+            v19 = [v10 deploymentId];
+            *buf = v20;
+            v26 = v18;
+            v27 = 1024;
+            v28 = v19;
             _os_log_error_impl(&dword_26F567000, v13, OS_LOG_TYPE_ERROR, "Failed to move ineligible experiment %@.%u to finished after emergency rollback", buf, 0x12u);
           }
 
@@ -252,15 +244,15 @@ uint64_t __80__TRIUrgentRollbackScheduler_scheduleUrgentRollbackForExperiment_de
         {
           v14 = [v10 experimentId];
           v15 = [v10 deploymentId];
-          *buf = v21;
-          v27 = v14;
-          v28 = 1024;
-          v29 = v15;
+          *buf = v20;
+          v26 = v14;
+          v27 = 1024;
+          v28 = v15;
           _os_log_impl(&dword_26F567000, v13, OS_LOG_TYPE_DEFAULT, "Moving inactive experiment %@.%u to finished after emergency rollback", buf, 0x12u);
         }
       }
 
-      v7 = [v4 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v7 = [v4 countByEnumeratingWithState:&v21 objects:v29 count:16];
       if (v7)
       {
         continue;
@@ -273,7 +265,6 @@ uint64_t __80__TRIUrgentRollbackScheduler_scheduleUrgentRollbackForExperiment_de
   v16 = *MEMORY[0x277D42670];
 LABEL_15:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

@@ -1,8 +1,16 @@
 @interface SBHFileStackSettings
 + (id)settingsControllerModule;
+- (void)setDefaultValues;
 @end
 
 @implementation SBHFileStackSettings
+
+- (void)setDefaultValues
+{
+  fileStackProcessBundleIdentifier = self->_fileStackProcessBundleIdentifier;
+  self->_fileStackProcessBundleIdentifier = @"com.apple.DocumentManager.DockApp";
+  MEMORY[0x1EEE66BB8](self, fileStackProcessBundleIdentifier);
+}
 
 + (id)settingsControllerModule
 {

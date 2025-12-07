@@ -110,8 +110,7 @@ void __61__LSSystemExtensionPointRefreshRegistrant_runWithCompletion___block_inv
     v26 = [v8 mutableCopy];
     [v26 minusSet:v28];
     v27 = [v28 mutableCopy];
-    [v27 minusSet:v8];
-    v11 = _LSInstallLog();
+    v11 = _LSInstallLog([v27 minusSet:v8]);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v12 = v46[3];
@@ -147,17 +146,18 @@ void __61__LSSystemExtensionPointRefreshRegistrant_runWithCompletion___block_inv
           v33 = 0;
           v18 = [v9 unregisterNonBundledExtensionPointWithIdentifier:v17 error:&v33];
           v19 = v33;
+          v20 = v19;
           if ((v18 & 1) == 0)
           {
-            v20 = _LSInstallLog();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+            v21 = _LSInstallLog(v19);
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
             {
-              v21 = *(*(v31[5] + 8) + 40);
+              v22 = *(*(v31[5] + 8) + 40);
               *buf = 138412546;
               v62 = v17;
               v63 = 2112;
-              v64 = v21;
-              _os_log_error_impl(&dword_18162D000, v20, OS_LOG_TYPE_ERROR, "Unable to unregister obsolete EP %@: %@", buf, 0x16u);
+              v64 = v22;
+              _os_log_error_impl(&dword_18162D000, v21, OS_LOG_TYPE_ERROR, "Unable to unregister obsolete EP %@: %@", buf, 0x16u);
             }
           }
 
@@ -171,7 +171,7 @@ void __61__LSSystemExtensionPointRefreshRegistrant_runWithCompletion___block_inv
       while (v14);
     }
 
-    if (*(v57 + 24) == 1 && (v22 = [[_LSDModificationPendingSaveToken alloc] initWithUUID:*(v31[4] + 16)], v23 = *(v31[6] + 8), v24 = *(v23 + 40), *(v23 + 40) = v22, v24, (v57[3] & 1) != 0) || *(v53 + 24) == 1)
+    if (*(v57 + 24) == 1 && (v23 = [[_LSDModificationPendingSaveToken alloc] initWithUUID:*(v31[4] + 16)], v24 = *(v31[6] + 8), v25 = *(v24 + 40), *(v24 + 40) = v23, v25, (v57[3] & 1) != 0) || *(v53 + 24) == 1)
     {
       v32[0] = MEMORY[0x1E69E9820];
       v32[1] = 3221225472;
@@ -186,8 +186,6 @@ void __61__LSSystemExtensionPointRefreshRegistrant_runWithCompletion___block_inv
 
   _Block_object_dispose(&v52, 8);
   _Block_object_dispose(&v56, 8);
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __61__LSSystemExtensionPointRefreshRegistrant_runWithCompletion___block_invoke_2(uint64_t a1, void *a2)
@@ -224,14 +222,14 @@ void __61__LSSystemExtensionPointRefreshRegistrant_runWithCompletion___block_inv
   if (v6)
   {
     ++*(*(a1[7] + 8) + 24);
-    v12 = 1;
-    v13 = 8;
+    v13 = 1;
+    v14 = 8;
   }
 
   else
   {
-    v14 = _LSInstallLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = _LSInstallLog(v12);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v16 = [v3 identifier];
       v17 = [v3 url];
@@ -242,30 +240,28 @@ void __61__LSSystemExtensionPointRefreshRegistrant_runWithCompletion___block_inv
       v23 = v17;
       v24 = 2112;
       v25 = v18;
-      _os_log_error_impl(&dword_18162D000, v14, OS_LOG_TYPE_ERROR, "could not register EP %@ at %@: %@", buf, 0x20u);
+      _os_log_error_impl(&dword_18162D000, v15, OS_LOG_TYPE_ERROR, "could not register EP %@ at %@: %@", buf, 0x20u);
     }
 
-    v12 = 0;
-    v13 = 9;
+    v13 = 0;
+    v14 = 9;
   }
 
-  *(*(a1[v13] + 8) + 24) = v12;
-
-  v15 = *MEMORY[0x1E69E9840];
+  *(*(a1[v14] + 8) + 24) = v13;
 }
 
 void __61__LSSystemExtensionPointRefreshRegistrant_runWithCompletion___block_invoke_217(uint64_t a1, int a2, uint64_t a3, void *a4)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v6 = a4;
-  v7 = _LSInstallLog();
+  v7 = _LSInstallLog(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v12[0] = 67109378;
-    v12[1] = a2;
-    v13 = 2112;
-    v14 = v6;
-    _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_DEFAULT, "Save after registration for refresh extension points, save attempted %d error %@", v12, 0x12u);
+    v11[0] = 67109378;
+    v11[1] = a2;
+    v12 = 2112;
+    v13 = v6;
+    _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_DEFAULT, "Save after registration for refresh extension points, save attempted %d error %@", v11, 0x12u);
   }
 
   v8 = v6;
@@ -278,8 +274,6 @@ void __61__LSSystemExtensionPointRefreshRegistrant_runWithCompletion___block_inv
   }
 
   [*(*(*(a1 + 32) + 8) + 40) saveDidHappen:v9 == 0 error:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

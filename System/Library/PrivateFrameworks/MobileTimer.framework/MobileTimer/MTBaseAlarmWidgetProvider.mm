@@ -18,16 +18,16 @@
 
 - (MTBaseAlarmWidgetProvider)initWithAlarmStorage:(id)storage
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   storageCopy = storage;
-  v13.receiver = self;
-  v13.super_class = MTBaseAlarmWidgetProvider;
-  v6 = [(MTBaseAlarmWidgetProvider *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = MTBaseAlarmWidgetProvider;
+  v6 = [(MTBaseAlarmWidgetProvider *)&v12 init];
   v7 = MTLogForCategory(3);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v15 = v6;
+    v14 = v6;
     _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "Initializing %{public}@", buf, 0xCu);
   }
 
@@ -41,23 +41,21 @@
     v6->_serialQueue = v9;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (void)handleSystemReady
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(3);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
+    v4 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "System is ready: %{public}@. Will reload widget timeline.", &v5, 0xCu);
+    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "System is ready: %{public}@. Will reload widget timeline.", &v4, 0xCu);
   }
 
   [(MTBaseAlarmWidgetProvider *)self reloadTimeline];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (id)broadcastWidgetTimelineReload
@@ -84,7 +82,7 @@
   dispatch_async(serialQueue, block);
 }
 
-uint64_t __43__MTBaseAlarmWidgetProvider_reloadTimeline__block_invoke(uint64_t a1)
+id __43__MTBaseAlarmWidgetProvider_reloadTimeline__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) throttleTimelineReload];
   if ((result & 1) == 0)
@@ -100,14 +98,14 @@ uint64_t __43__MTBaseAlarmWidgetProvider_reloadTimeline__block_invoke(uint64_t a
 
 - (void)source:(id)source didAddAlarms:(id)alarms
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   alarmsCopy = alarms;
   v6 = MTLogForCategory(3);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
+    v8 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: didAddAlarms", &v9, 0xCu);
+    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: didAddAlarms", &v8, 0xCu);
   }
 
   v7 = [(MTBaseAlarmWidgetProvider *)self bypassReloadForAlarms:alarmsCopy];
@@ -115,20 +113,18 @@ uint64_t __43__MTBaseAlarmWidgetProvider_reloadTimeline__block_invoke(uint64_t a
   {
     [(MTBaseAlarmWidgetProvider *)self reloadTimeline];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)source:(id)source didRemoveAlarms:(id)alarms
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   alarmsCopy = alarms;
   v6 = MTLogForCategory(3);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
+    v8 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: didRemoveAlarms", &v9, 0xCu);
+    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: didRemoveAlarms", &v8, 0xCu);
   }
 
   v7 = [(MTBaseAlarmWidgetProvider *)self bypassReloadForAlarms:alarmsCopy];
@@ -136,65 +132,60 @@ uint64_t __43__MTBaseAlarmWidgetProvider_reloadTimeline__block_invoke(uint64_t a
   {
     [(MTBaseAlarmWidgetProvider *)self reloadTimeline];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)source:(id)source didDismissAlarm:(id)alarm dismissAction:(unint64_t)action
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v6 = MTLogForCategory(3);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
+    v7 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: didDismissAlarm", &v8, 0xCu);
+    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: didDismissAlarm", &v7, 0xCu);
   }
 
   [(MTBaseAlarmWidgetProvider *)self reloadTimeline];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)source:(id)source didFireAlarm:(id)alarm triggerType:(unint64_t)type
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v6 = MTLogForCategory(3);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
+    v7 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: didFireAlarm", &v8, 0xCu);
+    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: didFireAlarm", &v7, 0xCu);
   }
 
   [(MTBaseAlarmWidgetProvider *)self reloadTimeline];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)source:(id)source didSnoozeAlarm:(id)alarm snoozeAction:(unint64_t)action
 {
+  v9 = *MEMORY[0x1E69E9840];
+  v6 = MTLogForCategory(3);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = 138543362;
+    selfCopy = self;
+    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: didSnoozeAlarm", &v7, 0xCu);
+  }
+
+  [(MTBaseAlarmWidgetProvider *)self reloadTimeline];
+}
+
+- (void)source:(id)source didUpdateAlarms:(id)alarms
+{
   v10 = *MEMORY[0x1E69E9840];
+  alarmsCopy = alarms;
   v6 = MTLogForCategory(3);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: didSnoozeAlarm", &v8, 0xCu);
-  }
-
-  [(MTBaseAlarmWidgetProvider *)self reloadTimeline];
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-- (void)source:(id)source didUpdateAlarms:(id)alarms
-{
-  v11 = *MEMORY[0x1E69E9840];
-  alarmsCopy = alarms;
-  v6 = MTLogForCategory(3);
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-  {
-    v9 = 138543362;
-    selfCopy = self;
-    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: didUpdateAlarms", &v9, 0xCu);
+    _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: didUpdateAlarms", &v8, 0xCu);
   }
 
   v7 = [(MTBaseAlarmWidgetProvider *)self bypassReloadForAlarms:alarmsCopy];
@@ -202,8 +193,6 @@ uint64_t __43__MTBaseAlarmWidgetProvider_reloadTimeline__block_invoke(uint64_t a
   {
     [(MTBaseAlarmWidgetProvider *)self reloadTimeline];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)bypassReloadForAlarms:(id)alarms
@@ -225,7 +214,7 @@ uint64_t __43__MTBaseAlarmWidgetProvider_reloadTimeline__block_invoke(uint64_t a
 
 - (BOOL)bypassReloadForAlarm:(id)alarm
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   shouldBypassWidgetReload = [alarmCopy shouldBypassWidgetReload];
   if (shouldBypassWidgetReload)
@@ -234,27 +223,25 @@ uint64_t __43__MTBaseAlarmWidgetProvider_reloadTimeline__block_invoke(uint64_t a
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       alarmIDString = [alarmCopy alarmIDString];
-      v10 = 138543618;
+      v9 = 138543618;
       selfCopy = self;
-      v12 = 2114;
-      v13 = alarmIDString;
-      _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: alarm %{public}@ requested widget reload bypass", &v10, 0x16u);
+      v11 = 2114;
+      v12 = alarmIDString;
+      _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: alarm %{public}@ requested widget reload bypass", &v9, 0x16u);
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return shouldBypassWidgetReload;
 }
 
 - (void)broadcastWidgetTimelineReload
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 138543618;
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 138543618;
   selfCopy = self;
-  v5 = 2082;
-  v6 = "[MTBaseAlarmWidgetProvider broadcastWidgetTimelineReload]";
-  _os_log_error_impl(&dword_1B1F9F000, a2, OS_LOG_TYPE_ERROR, "Subclass %{public}@ has not implemented %{public}s", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = 2082;
+  v5 = "[MTBaseAlarmWidgetProvider broadcastWidgetTimelineReload]";
+  _os_log_error_impl(&dword_1B1F9F000, a2, OS_LOG_TYPE_ERROR, "Subclass %{public}@ has not implemented %{public}s", &v2, 0x16u);
 }
 
 @end

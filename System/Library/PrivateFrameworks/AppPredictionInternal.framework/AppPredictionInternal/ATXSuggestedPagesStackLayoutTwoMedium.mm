@@ -7,7 +7,7 @@
 
 - (id)makeStacksFromWidgets:(id)widgets pageType:(int64_t)type environment:(id)environment
 {
-  v19[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   widgetsCopy = widgets;
   environmentCopy = environment;
   if ([MEMORY[0x277D42590] isiPad])
@@ -20,15 +20,15 @@
       v11 = +[ATXSuggestedPagesUtils createMediumStack];
       v12 = [ATXSuggestedPagesUtils sortWidgetsByDescendingScore:v8 limit:0];
       v13 = [v12 count];
-      v19[0] = v10;
-      v19[1] = v11;
-      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+      v18[0] = v10;
+      v18[1] = v11;
+      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
       tunableConstants = [environmentCopy tunableConstants];
       +[ATXSuggestedPagesUtils evenlyDistributeWidgets:inRange:amongStacks:usedPersonalities:maxWidgetsInStack:](ATXSuggestedPagesUtils, "evenlyDistributeWidgets:inRange:amongStacks:usedPersonalities:maxWidgetsInStack:", v12, 0, v13, v14, 0, [tunableConstants maxWidgetsInStack]);
 
-      v18[0] = v10;
-      v18[1] = v11;
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+      v17[0] = v10;
+      v17[1] = v11;
+      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
     }
   }
 
@@ -36,8 +36,6 @@
   {
     v9 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

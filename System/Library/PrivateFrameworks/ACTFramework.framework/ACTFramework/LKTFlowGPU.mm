@@ -39,7 +39,6 @@
 - (int)setOutputUVForward:(__CVBuffer *)forward backward:(__CVBuffer *)backward;
 - (parametric_transform)p;
 - (uint64_t)_panoRegistration:(double)registration metadata:(double)metadata;
-- (uint64_t)_setParametricTransformFromGyro:(uint64_t)gyro;
 - (uint64_t)estimatePanoRegistration:(double)registration metadata:(double)metadata initTForm:(uint64_t)form;
 - (void)_computeICPThreadgroupsForActivation:(id *)activation;
 - (void)_computeICPThreadgroupsForDecimation:(unint64_t)decimation threadsPerThreadgroupForUniform:(id *)uniform threadsPerThreadgroupForPass1:(id *)pass1 threadgroupsPerGridForPass1:(id *)forPass1;
@@ -52,6 +51,7 @@
 - (void)_resetLoss;
 - (void)_setDefaultParameters;
 - (void)_setICPRegularizerTerms:(id)terms;
+- (void)_setParametricTransformFromGyro:(int *)gyro;
 - (void)_setupPipelines;
 - (void)dealloc;
 - (void)setP:(parametric_transform *)p;
@@ -78,10 +78,10 @@
 
 - (void)waitUntilCompleted
 {
-  v12 = objc_msgSend_commandBuffer(self->_commandQueue, a2, v2, v3);
-  objc_msgSend_setLabel_(v12, v4, @"LKT:waitUntilCompleted", v5);
-  objc_msgSend_commit(v12, v6, v7, v8);
-  objc_msgSend_waitUntilCompleted(v12, v9, v10, v11);
+  commandBuffer = [(MTLCommandQueue *)self->_commandQueue commandBuffer];
+  [commandBuffer setLabel:@"LKT:waitUntilCompleted"];
+  [commandBuffer commit];
+  [commandBuffer waitUntilCompleted];
 }
 
 - (void)setPreset:(int64_t)preset
@@ -105,7 +105,7 @@
         return;
       default:
 LABEL_15:
-        v6 = objc_msgSend_exceptionWithName_reason_userInfo_(MEMORY[0x277CBEAD8], a2, @"Invalid parameter", @"Unknown preset", 0);
+        v6 = [MEMORY[0x277CBEAD8] exceptionWithName:@"Invalid parameter" reason:@"Unknown preset" userInfo:{0, v3, v4}];
         objc_exception_throw(v6);
     }
 
@@ -126,7 +126,7 @@ LABEL_11:
     return;
   }
 
-  objc_msgSend__setDefaultParameters(self, a2, 0, v3);
+  [(LKTFlowGPU *)self _setDefaultParameters];
 }
 
 - (int)estimateFlowFromReference:(__CVBuffer *)reference target:(__CVBuffer *)target
@@ -136,36 +136,36 @@ LABEL_11:
     return -12782;
   }
 
-  v30 = v7;
-  v31 = v6;
-  v32 = v5;
-  v33 = v4;
+  v15 = v7;
+  v16 = v6;
+  v17 = v5;
+  v18 = v4;
   if (self->_streamFrameCount)
   {
     return -12782;
   }
 
-  v12 = objc_msgSend_commandBuffer(self->_commandQueue, a2, reference, target);
-  objc_msgSend_setLabel_(v12, v13, @"LKT::Pyramid", v14);
-  objc_msgSend__zeroFlowWithCommandBuffer_uv_tex_(self, v15, v12, self->_uv_bwd_pxbuf[self->_nscales + 1]);
-  if (objc_msgSend_isBidirectional(self, v16, v17, v18))
+  commandBuffer = [(MTLCommandQueue *)self->_commandQueue commandBuffer];
+  [commandBuffer setLabel:@"LKT::Pyramid"];
+  [(LKTFlowGPU *)self _zeroFlowWithCommandBuffer:commandBuffer uv_tex:self->_uv_bwd_pxbuf[self->_nscales + 1]];
+  if ([(LKTFlowGPU *)self isBidirectional])
   {
-    objc_msgSend__zeroFlowWithCommandBuffer_uv_tex_(self, v19, v12, self->_uv_fwd_tex[1][self->_nscales + 9]);
+    [(LKTFlowGPU *)self _zeroFlowWithCommandBuffer:commandBuffer uv_tex:self->_uv_fwd_tex[1][self->_nscales + 9]];
   }
 
-  objc_msgSend__createImagePyramidWithCommandBuffer_in_pixelbuf_I_idx_(self, v19, v12, reference, 0, v30, v31, v32, v33);
-  objc_msgSend__createImagePyramidWithCommandBuffer_in_pixelbuf_I_idx_(self, v20, v12, target, 1);
-  objc_msgSend_commit(v12, v21, v22, v23);
+  [(LKTFlowGPU *)self _createImagePyramidWithCommandBuffer:commandBuffer in_pixelbuf:reference I_idx:0, v15, v16, v17, v18, v8, v9];
+  [(LKTFlowGPU *)self _createImagePyramidWithCommandBuffer:commandBuffer in_pixelbuf:target I_idx:1];
+  [commandBuffer commit];
 
   *&self->_current_frame_index = 0;
-  if (objc_msgSend_isBidirectional(self, v24, v25, v26))
+  if ([(LKTFlowGPU *)self isBidirectional])
   {
-    objc_msgSend__computeOpticalFlowBidirectional(self, v27, v28, v29);
+    [(LKTFlowGPU *)self _computeOpticalFlowBidirectional];
   }
 
   else
   {
-    objc_msgSend__computeOpticalFlow(self, v27, v28, v29);
+    [(LKTFlowGPU *)self _computeOpticalFlow];
   }
 
   return 0;
@@ -178,28 +178,28 @@ LABEL_11:
     return -12782;
   }
 
-  v6 = objc_msgSend_commandBuffer(self->_commandQueue, a2, stream, v3);
-  objc_msgSend_setLabel_(v6, v7, @"LKT::Pyramid", v8);
-  objc_msgSend__zeroFlowWithCommandBuffer_uv_tex_(self, v9, v6, self->_uv_bwd_pxbuf[self->_nscales + 1]);
-  if (objc_msgSend_isBidirectional(self, v10, v11, v12))
+  commandBuffer = [(MTLCommandQueue *)self->_commandQueue commandBuffer];
+  [commandBuffer setLabel:@"LKT::Pyramid"];
+  [(LKTFlowGPU *)self _zeroFlowWithCommandBuffer:commandBuffer uv_tex:self->_uv_bwd_pxbuf[self->_nscales + 1]];
+  if ([(LKTFlowGPU *)self isBidirectional])
   {
-    objc_msgSend__zeroFlowWithCommandBuffer_uv_tex_(self, v13, v6, self->_uv_fwd_tex[1][self->_nscales + 9]);
+    [(LKTFlowGPU *)self _zeroFlowWithCommandBuffer:commandBuffer uv_tex:self->_uv_fwd_tex[1][self->_nscales + 9]];
   }
 
-  objc_msgSend__createImagePyramidWithCommandBuffer_in_pixelbuf_I_idx_(self, v13, v6, stream, self->_current_frame_index);
-  objc_msgSend_commit(v6, v14, v15, v16);
+  [(LKTFlowGPU *)self _createImagePyramidWithCommandBuffer:commandBuffer in_pixelbuf:stream I_idx:self->_current_frame_index];
+  [commandBuffer commit];
 
   self->_current_frame_index ^= 1u;
   if (self->_streamFrameCount >= 1)
   {
-    if (objc_msgSend_isBidirectional(self, v17, v18, v19))
+    if ([(LKTFlowGPU *)self isBidirectional])
     {
-      objc_msgSend__computeOpticalFlowBidirectional(self, v20, v21, v22);
+      [(LKTFlowGPU *)self _computeOpticalFlowBidirectional];
     }
 
     else
     {
-      objc_msgSend__computeOpticalFlow(self, v20, v21, v22);
+      [(LKTFlowGPU *)self _computeOpticalFlow];
     }
   }
 
@@ -211,13 +211,13 @@ LABEL_11:
 - (int)computeKeypointsFromForwardFlow:(__CVBuffer *)flow backwardFlow:(__CVBuffer *)backwardFlow bidirectionalError:(float)error blockSize:(int)size outNumKeypoints:(unsigned __int16 *)keypoints
 {
   v8 = *&size;
-  v12 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_mtlContext, a2, flow, 65, 7, 0);
-  v14 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_mtlContext, v13, backwardFlow, 65, 7, 0);
-  v18 = objc_msgSend_commandBuffer(self->_commandQueue, v15, v16, v17);
-  objc_msgSend_setLabel_(v18, v19, @"LKT::KeypointsFromFlow", v20);
-  *&v21 = error;
-  objc_msgSend__enqueueKeypointsFromFlowWithCommandBuffer_in_uv_fwd_tex_in_uv_bwd_tex_out_kpt_buf_block_size_bidirectional_error_out_num_keypoints_(self, v22, v18, v12, v14, self->_kpt_buf, v8, keypoints, v21);
-  objc_msgSend_commit(v18, v23, v24, v25);
+  v12 = [(FigMetalContext *)self->_mtlContext bindPixelBufferToMTL2DTexture:flow pixelFormat:65 usage:7 plane:0];
+  v13 = [(FigMetalContext *)self->_mtlContext bindPixelBufferToMTL2DTexture:backwardFlow pixelFormat:65 usage:7 plane:0];
+  commandBuffer = [(MTLCommandQueue *)self->_commandQueue commandBuffer];
+  [commandBuffer setLabel:@"LKT::KeypointsFromFlow"];
+  *&v15 = error;
+  [(LKTFlowGPU *)self _enqueueKeypointsFromFlowWithCommandBuffer:commandBuffer in_uv_fwd_tex:v12 in_uv_bwd_tex:v13 out_kpt_buf:self->_kpt_buf block_size:v8 bidirectional_error:keypoints out_num_keypoints:v15];
+  [commandBuffer commit];
 
   return 0;
 }
@@ -301,15 +301,14 @@ LABEL_11:
   computePipelines = self->_computePipelines;
   do
   {
-    v5 = objc_alloc(MEMORY[0x277CCACA8]);
-    v8 = objc_msgSend_initWithUTF8String_(v5, v6, off_278BBD848[v3], v7);
-    v10 = objc_msgSend_computePipelineStateFor_constants_(self->_mtlContext, v9, v8, 0);
-    objc_storeStrong(computePipelines, v10);
-    v17 = objc_msgSend_threadExecutionWidth(v10, v11, v12, v13);
+    v5 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:off_278BBD848[v3]];
+    v6 = [(FigMetalContext *)self->_mtlContext computePipelineStateFor:v5 constants:0];
+    objc_storeStrong(computePipelines, v6);
+    threadExecutionWidth = [v6 threadExecutionWidth];
     maxThreadExecutionWidth = self->_maxThreadExecutionWidth;
-    if (v17 > maxThreadExecutionWidth)
+    if (threadExecutionWidth > maxThreadExecutionWidth)
     {
-      maxThreadExecutionWidth = objc_msgSend_threadExecutionWidth(v10, v14, v15, v16);
+      maxThreadExecutionWidth = [v6 threadExecutionWidth];
     }
 
     self->_maxThreadExecutionWidth = maxThreadExecutionWidth;
@@ -327,7 +326,7 @@ LABEL_11:
   v3 = (nscales - 1);
   if (nscales >= 1)
   {
-    v5 = 0;
+    commandBuffer = 0;
     v6 = 0;
     I_tex = self->_I_tex;
     G0_tex = self->_G0_tex;
@@ -342,73 +341,73 @@ LABEL_11:
     v8 = nscales - 1;
     do
     {
-      v9 = v5;
+      v9 = commandBuffer;
       v10 = I_tex[self->_current_frame_index][v3];
       v11 = I_tex[self->_current_frame_index ^ 1][v3];
-      v5 = objc_msgSend_commandBuffer(self->_commandQueue, v12, v13, v14);
+      commandBuffer = [(MTLCommandQueue *)self->_commandQueue commandBuffer];
 
-      v17 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v15, @"LKT:ComputeFlow level %d", v16, v3);
-      objc_msgSend_setLabel_(v5, v18, v17, v19);
+      v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"LKT:ComputeFlow level %d", v3];
+      [commandBuffer setLabel:v12];
 
-      objc_msgSend__computeFeaturesWithCommandBuffer_in_tex_out_tex_(self, v20, v5, v10, G0_tex[v3]);
-      objc_msgSend__computeFeaturesWithCommandBuffer_in_tex_out_tex_(self, v21, v5, v11, G1_tex[v3]);
-      objc_msgSend__computeFeaturesDerivativesWithCommandBuffer_in_tex_out_tex_(self, v22, v5, G0_tex[v3], C0_tex[v3]);
-      objc_msgSend__computeFeaturesDerivativesWithCommandBuffer_in_tex_out_tex_(self, v23, v5, G1_tex[v3], C1_tex[v3]);
+      [(LKTFlowGPU *)self _computeFeaturesWithCommandBuffer:commandBuffer in_tex:v10 out_tex:G0_tex[v3]];
+      [(LKTFlowGPU *)self _computeFeaturesWithCommandBuffer:commandBuffer in_tex:v11 out_tex:G1_tex[v3]];
+      [(LKTFlowGPU *)self _computeFeaturesDerivativesWithCommandBuffer:commandBuffer in_tex:G0_tex[v3] out_tex:C0_tex[v3]];
+      [(LKTFlowGPU *)self _computeFeaturesDerivativesWithCommandBuffer:commandBuffer in_tex:G1_tex[v3] out_tex:C1_tex[v3]];
       nwarpings = self->_nwarpings;
       if (nwarpings < 1)
       {
-        v29 = 0;
+        v15 = 0;
       }
 
       else
       {
-        v41 = v11;
-        v42 = v10;
-        v28 = 0;
-        v29 = 0;
+        v26 = v11;
+        v27 = v10;
+        v14 = 0;
+        v15 = 0;
         do
         {
-          v30 = v28 + 1;
-          if (v3 || v30 != nwarpings || (v31 = p_uv_fwd_tex_user_ref, self->_useNonLocalRegularization))
+          v16 = v14 + 1;
+          if (v3 || v16 != nwarpings || (v17 = p_uv_fwd_tex_user_ref, self->_useNonLocalRegularization))
           {
-            v31 = &uv_fwd_tex[v6 ^ 1][v3];
+            v17 = &uv_fwd_tex[v6 ^ 1][v3];
           }
 
-          v33 = *v31;
-          if (self->_useNonLocalRegularization && v30 == self->_nwarpings)
+          v18 = *v17;
+          if (self->_useNonLocalRegularization && v16 == self->_nwarpings)
           {
-            v34 = w_tex[v3];
+            v19 = w_tex[v3];
 
-            v29 = v34;
+            v15 = v19;
           }
 
-          objc_msgSend__doSolverWithCommandBuffer_scale_in_uv_tex_in_G0_tex_in_G1_tex_in_C0_tex_in_C1_tex_out_uv_tex_out_w_tex_(self, v32, v5, v3, uv_fwd_tex[v6][v8], G0_tex[v3], G1_tex[v3], C0_tex[v3], C1_tex[v3], v33, v29);
+          [(LKTFlowGPU *)self _doSolverWithCommandBuffer:commandBuffer scale:v3 in_uv_tex:uv_fwd_tex[v6][v8] in_G0_tex:G0_tex[v3] in_G1_tex:G1_tex[v3] in_C0_tex:C0_tex[v3] in_C1_tex:C1_tex[v3] out_uv_tex:v18 out_w_tex:v15];
           v6 ^= 1uLL;
 
           nwarpings = self->_nwarpings;
-          ++v28;
+          ++v14;
           v8 = v3;
         }
 
-        while (v28 < nwarpings);
+        while (v14 < nwarpings);
         v8 = v3;
-        v11 = v41;
-        v10 = v42;
+        v11 = v26;
+        v10 = v27;
       }
 
       if (self->_useNonLocalRegularization)
       {
-        v35 = &uv_fwd_tex[v6 ^ 1][v3];
+        v20 = &uv_fwd_tex[v6 ^ 1][v3];
         if (!v3)
         {
-          v35 = p_uv_fwd_tex_user_ref;
+          v20 = p_uv_fwd_tex_user_ref;
         }
 
-        objc_msgSend__doNLRegularizationWithCommandBuffer_in_uv_tex_join_tex_w_tex_out_uv_tex_(self, v24, v5, uv_fwd_u32_alias_tex[v6][v3], I_u32_alias_tex[self->_current_frame_index][v3], v29, *v35);
+        [(LKTFlowGPU *)self _doNLRegularizationWithCommandBuffer:commandBuffer in_uv_tex:uv_fwd_u32_alias_tex[v6][v3] join_tex:I_u32_alias_tex[self->_current_frame_index][v3] w_tex:v15 out_uv_tex:*v20];
         v6 ^= 1uLL;
       }
 
-      objc_msgSend_commit(v5, v24, v25, v26);
+      [commandBuffer commit];
     }
 
     while (v3-- > 0);
@@ -425,29 +424,29 @@ LABEL_11:
   {
     if (inputPixelFormat == 2)
     {
-      v38 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_mtlContext, v8, in_pixelbuf, 10, 7, 0);
-      v39 = self + 80 * i_idx;
-      v40 = *(v39 + 66);
-      *(v39 + 66) = v38;
+      v14 = [(FigMetalContext *)self->_mtlContext bindPixelBufferToMTL2DTexture:in_pixelbuf pixelFormat:10 usage:7 plane:0];
+      v15 = self + 80 * i_idx;
+      v16 = *(v15 + 66);
+      *(v15 + 66) = v14;
     }
 
     else if (inputPixelFormat == 1)
     {
-      v11 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_mtlContext, v8, in_pixelbuf, 70, 7, 0);
-      v15 = objc_msgSend_computeCommandEncoder(bufferCopy, v12, v13, v14);
-      objc_msgSend_setComputePipelineState_(v15, v16, self->_computePipelines[0], v17);
-      objc_msgSend_setTexture_atIndex_(v15, v18, v11, 0);
-      objc_msgSend_setTexture_atIndex_(v15, v19, self->_I_tex[i_idx][0], 1);
-      v23 = objc_msgSend_threadExecutionWidth(self->_computePipelines[0], v20, v21, v22);
-      v27 = objc_msgSend_maxTotalThreadsPerThreadgroup(self->_computePipelines[0], v24, v25, v26) / v23;
-      v53 = (v23 + objc_msgSend_width(v11, v28, v29, v30) - 1) / v23;
-      v54 = (v27 + objc_msgSend_height(v11, v31, v32, v33) - 1) / v27;
-      v55 = 1;
-      v59[0] = v23;
-      v59[1] = v27;
-      v59[2] = 1;
-      objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v15, v34, &v53, v59);
-      objc_msgSend_endEncoding(v15, v35, v36, v37);
+      v10 = [(FigMetalContext *)self->_mtlContext bindPixelBufferToMTL2DTexture:in_pixelbuf pixelFormat:70 usage:7 plane:0];
+      computeCommandEncoder = [bufferCopy computeCommandEncoder];
+      [computeCommandEncoder setComputePipelineState:self->_computePipelines[0]];
+      [computeCommandEncoder setTexture:v10 atIndex:0];
+      [computeCommandEncoder setTexture:self->_I_tex[i_idx][0] atIndex:1];
+      threadExecutionWidth = [(MTLComputePipelineState *)self->_computePipelines[0] threadExecutionWidth];
+      v13 = [(MTLComputePipelineState *)self->_computePipelines[0] maxTotalThreadsPerThreadgroup]/ threadExecutionWidth;
+      v26 = (threadExecutionWidth + [v10 width] - 1) / threadExecutionWidth;
+      v27 = (v13 + [v10 height] - 1) / v13;
+      v28 = 1;
+      v32[0] = threadExecutionWidth;
+      v32[1] = v13;
+      v32[2] = 1;
+      [computeCommandEncoder dispatchThreadgroups:&v26 threadsPerThreadgroup:v32];
+      [computeCommandEncoder endEncoding];
     }
   }
 
@@ -455,35 +454,34 @@ LABEL_11:
   {
     Width = CVPixelBufferGetWidth(in_pixelbuf);
     Height = CVPixelBufferGetHeight(in_pixelbuf);
-    v53 = 0;
-    v54 = 0;
-    v55 = 0;
+    v26 = 0;
+    v27 = 0;
+    v28 = 0;
     CVPixelBufferLockBaseAddress(in_pixelbuf, 0);
-    v43 = self->_I_tex[i_idx][0];
+    v19 = self->_I_tex[i_idx][0];
     BaseAddress = CVPixelBufferGetBaseAddress(in_pixelbuf);
-    BytesPerRow = CVPixelBufferGetBytesPerRow(in_pixelbuf);
-    v56 = Width;
-    v57 = Height;
-    v58 = 1;
-    objc_msgSend_replaceRegion_mipmapLevel_withBytes_bytesPerRow_(v43, v46, &v53, 0, BaseAddress, BytesPerRow);
+    v29 = Width;
+    v30 = Height;
+    v31 = 1;
+    [(MTLTexture *)v19 replaceRegion:&v26 mipmapLevel:0 withBytes:BaseAddress bytesPerRow:CVPixelBufferGetBytesPerRow(in_pixelbuf)];
     CVPixelBufferUnlockBaseAddress(in_pixelbuf, 0);
   }
 
   if (self->_nscales >= 2)
   {
-    v47 = &self->_I_tex[i_idx][1];
-    v48 = 1;
+    v21 = &self->_I_tex[i_idx][1];
+    v22 = 1;
     do
     {
-      v49 = *v47;
-      v50 = *(v47 - 1);
-      objc_msgSend__downscale2XWithCommandBuffer_in_tex_out_tex_(self, v51, bufferCopy, v50, v49);
+      v23 = *v21;
+      v24 = *(v21 - 1);
+      [(LKTFlowGPU *)self _downscale2XWithCommandBuffer:bufferCopy in_tex:v24 out_tex:v23];
 
-      ++v48;
-      ++v47;
+      ++v22;
+      ++v21;
     }
 
-    while (v48 < self->_nscales);
+    while (v22 < self->_nscales);
   }
 
   return 0;
@@ -492,22 +490,22 @@ LABEL_11:
 - (int)_zeroFlowWithCommandBuffer:(id)buffer uv_tex:(id)uv_tex
 {
   uv_texCopy = uv_tex;
-  v10 = objc_msgSend_computeCommandEncoder(buffer, v7, v8, v9);
-  objc_msgSend_setComputePipelineState_(v10, v11, self->_computePipelines[1], v12);
-  objc_msgSend_setTexture_atIndex_(v10, v13, uv_texCopy, 0);
-  v17 = objc_msgSend_threadExecutionWidth(self->_computePipelines[1], v14, v15, v16);
-  v21 = objc_msgSend_maxTotalThreadsPerThreadgroup(self->_computePipelines[1], v18, v19, v20) / v17;
-  v25 = (v17 + objc_msgSend_width(uv_texCopy, v22, v23, v24) - 1) / v17;
-  LODWORD(self) = objc_msgSend_height(uv_texCopy, v26, v27, v28);
+  computeCommandEncoder = [buffer computeCommandEncoder];
+  [computeCommandEncoder setComputePipelineState:self->_computePipelines[1]];
+  [computeCommandEncoder setTexture:uv_texCopy atIndex:0];
+  threadExecutionWidth = [(MTLComputePipelineState *)self->_computePipelines[1] threadExecutionWidth];
+  v9 = [(MTLComputePipelineState *)self->_computePipelines[1] maxTotalThreadsPerThreadgroup]/ threadExecutionWidth;
+  v10 = (threadExecutionWidth + [uv_texCopy width] - 1) / threadExecutionWidth;
+  LODWORD(self) = [uv_texCopy height];
 
-  v35[0] = v25;
-  v35[1] = (v21 + self - 1) / v21;
-  v35[2] = 1;
-  v34[0] = v17;
-  v34[1] = v21;
-  v34[2] = 1;
-  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v10, v29, v35, v34);
-  objc_msgSend_endEncoding(v10, v30, v31, v32);
+  v13[0] = v10;
+  v13[1] = (v9 + self - 1) / v9;
+  v13[2] = 1;
+  v12[0] = threadExecutionWidth;
+  v12[1] = v9;
+  v12[2] = 1;
+  [computeCommandEncoder dispatchThreadgroups:v13 threadsPerThreadgroup:v12];
+  [computeCommandEncoder endEncoding];
 
   return 0;
 }
@@ -516,24 +514,24 @@ LABEL_11:
 {
   out_texCopy = out_tex;
   in_texCopy = in_tex;
-  v13 = objc_msgSend_computeCommandEncoder(buffer, v10, v11, v12);
-  objc_msgSend_setComputePipelineState_(v13, v14, self->_computePipelines[2], v15);
-  objc_msgSend_setTexture_atIndex_(v13, v16, in_texCopy, 0);
+  computeCommandEncoder = [buffer computeCommandEncoder];
+  [computeCommandEncoder setComputePipelineState:self->_computePipelines[2]];
+  [computeCommandEncoder setTexture:in_texCopy atIndex:0];
 
-  objc_msgSend_setTexture_atIndex_(v13, v17, out_texCopy, 1);
-  LODWORD(buffer) = objc_msgSend_threadExecutionWidth(self->_computePipelines[2], v18, v19, v20);
-  v24 = objc_msgSend_maxTotalThreadsPerThreadgroup(self->_computePipelines[2], v21, v22, v23) / buffer;
-  v28 = (buffer + objc_msgSend_width(out_texCopy, v25, v26, v27) - 1) / buffer;
-  LODWORD(self) = objc_msgSend_height(out_texCopy, v29, v30, v31);
+  [computeCommandEncoder setTexture:out_texCopy atIndex:1];
+  LODWORD(buffer) = [(MTLComputePipelineState *)self->_computePipelines[2] threadExecutionWidth];
+  v11 = [(MTLComputePipelineState *)self->_computePipelines[2] maxTotalThreadsPerThreadgroup]/ buffer;
+  v12 = (buffer + [out_texCopy width] - 1) / buffer;
+  LODWORD(self) = [out_texCopy height];
 
-  v38[0] = v28;
-  v38[1] = (v24 + self - 1) / v24;
-  v38[2] = 1;
-  v37[0] = buffer;
-  v37[1] = v24;
-  v37[2] = 1;
-  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v13, v32, v38, v37);
-  objc_msgSend_endEncoding(v13, v33, v34, v35);
+  v15[0] = v12;
+  v15[1] = (v11 + self - 1) / v11;
+  v15[2] = 1;
+  v14[0] = buffer;
+  v14[1] = v11;
+  v14[2] = 1;
+  [computeCommandEncoder dispatchThreadgroups:v15 threadsPerThreadgroup:v14];
+  [computeCommandEncoder endEncoding];
 
   return 0;
 }
@@ -542,24 +540,24 @@ LABEL_11:
 {
   out_texCopy = out_tex;
   in_texCopy = in_tex;
-  v13 = objc_msgSend_computeCommandEncoder(buffer, v10, v11, v12);
-  objc_msgSend_setComputePipelineState_(v13, v14, self->_computePipelines[3], v15);
-  objc_msgSend_setTexture_atIndex_(v13, v16, in_texCopy, 0);
-  objc_msgSend_setTexture_atIndex_(v13, v17, out_texCopy, 1);
+  computeCommandEncoder = [buffer computeCommandEncoder];
+  [computeCommandEncoder setComputePipelineState:self->_computePipelines[3]];
+  [computeCommandEncoder setTexture:in_texCopy atIndex:0];
+  [computeCommandEncoder setTexture:out_texCopy atIndex:1];
 
-  LODWORD(buffer) = objc_msgSend_threadExecutionWidth(self->_computePipelines[3], v18, v19, v20);
-  LODWORD(out_texCopy) = objc_msgSend_maxTotalThreadsPerThreadgroup(self->_computePipelines[3], v21, v22, v23) / buffer;
-  v27 = (buffer + objc_msgSend_width(in_texCopy, v24, v25, v26) - 1) / buffer;
-  LODWORD(self) = objc_msgSend_height(in_texCopy, v28, v29, v30);
+  LODWORD(buffer) = [(MTLComputePipelineState *)self->_computePipelines[3] threadExecutionWidth];
+  LODWORD(out_texCopy) = [(MTLComputePipelineState *)self->_computePipelines[3] maxTotalThreadsPerThreadgroup]/ buffer;
+  v11 = (buffer + [in_texCopy width] - 1) / buffer;
+  LODWORD(self) = [in_texCopy height];
 
-  v37[0] = v27;
-  v37[1] = (out_texCopy + self - 1) / out_texCopy;
-  v37[2] = 1;
-  v36[0] = buffer;
-  v36[1] = out_texCopy;
-  v36[2] = 1;
-  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v13, v31, v37, v36);
-  objc_msgSend_endEncoding(v13, v32, v33, v34);
+  v14[0] = v11;
+  v14[1] = (out_texCopy + self - 1) / out_texCopy;
+  v14[2] = 1;
+  v13[0] = buffer;
+  v13[1] = out_texCopy;
+  v13[2] = 1;
+  [computeCommandEncoder dispatchThreadgroups:v14 threadsPerThreadgroup:v13];
+  [computeCommandEncoder endEncoding];
 
   return 0;
 }
@@ -568,24 +566,24 @@ LABEL_11:
 {
   out_texCopy = out_tex;
   in_texCopy = in_tex;
-  v13 = objc_msgSend_computeCommandEncoder(buffer, v10, v11, v12);
-  objc_msgSend_setComputePipelineState_(v13, v14, self->_computePipelines[5], v15);
-  objc_msgSend_setTexture_atIndex_(v13, v16, in_texCopy, 0);
-  objc_msgSend_setTexture_atIndex_(v13, v17, out_texCopy, 1);
+  computeCommandEncoder = [buffer computeCommandEncoder];
+  [computeCommandEncoder setComputePipelineState:self->_computePipelines[5]];
+  [computeCommandEncoder setTexture:in_texCopy atIndex:0];
+  [computeCommandEncoder setTexture:out_texCopy atIndex:1];
 
-  LODWORD(buffer) = objc_msgSend_threadExecutionWidth(self->_computePipelines[5], v18, v19, v20);
-  LODWORD(out_texCopy) = objc_msgSend_maxTotalThreadsPerThreadgroup(self->_computePipelines[5], v21, v22, v23) / buffer;
-  v27 = (buffer + objc_msgSend_width(in_texCopy, v24, v25, v26) - 1) / buffer;
-  LODWORD(self) = objc_msgSend_height(in_texCopy, v28, v29, v30);
+  LODWORD(buffer) = [(MTLComputePipelineState *)self->_computePipelines[5] threadExecutionWidth];
+  LODWORD(out_texCopy) = [(MTLComputePipelineState *)self->_computePipelines[5] maxTotalThreadsPerThreadgroup]/ buffer;
+  v11 = (buffer + [in_texCopy width] - 1) / buffer;
+  LODWORD(self) = [in_texCopy height];
 
-  v37[0] = v27;
-  v37[1] = (out_texCopy + self - 1) / out_texCopy;
-  v37[2] = 1;
-  v36[0] = buffer;
-  v36[1] = out_texCopy;
-  v36[2] = 1;
-  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v13, v31, v37, v36);
-  objc_msgSend_endEncoding(v13, v32, v33, v34);
+  v14[0] = v11;
+  v14[1] = (out_texCopy + self - 1) / out_texCopy;
+  v14[2] = 1;
+  v13[0] = buffer;
+  v13[1] = out_texCopy;
+  v13[2] = 1;
+  [computeCommandEncoder dispatchThreadgroups:v14 threadsPerThreadgroup:v13];
+  [computeCommandEncoder endEncoding];
 
   return 0;
 }
@@ -600,89 +598,89 @@ LABEL_11:
   g0_texCopy = g0_tex;
   in_uv_texCopy = in_uv_tex;
   bufferCopy = buffer;
-  LODWORD(buffer) = objc_msgSend_width(out_uv_texCopy, v22, v23, v24);
-  v28 = objc_msgSend_height(out_uv_texCopy, v25, v26, v27);
-  v113 = buffer - 1;
+  LODWORD(buffer) = [out_uv_texCopy width];
+  height = [out_uv_texCopy height];
+  v40 = buffer - 1;
   LODWORD(g0_tex) = (buffer - 1 + self->_maxThreadExecutionWidth) / self->_maxThreadExecutionWidth * self->_maxThreadExecutionWidth;
-  v128[0] = 1065353216;
+  v55[0] = 1065353216;
   __asm { FMOV            V0.2S, #1.0 }
 
-  v127 = _D0;
-  objc_msgSend__computeScalingFactor_dst_tex_scale_xy_inv_coeff_(LKTFlowGPU, v35, in_uv_texCopy, out_uv_texCopy, &v127, v128);
-  v121[0] = buffer;
-  v121[1] = v28;
+  v54 = _D0;
+  [LKTFlowGPU _computeScalingFactor:in_uv_texCopy dst_tex:out_uv_texCopy scale_xy_inv:&v54 coeff:v55];
+  v48[0] = buffer;
+  v48[1] = height;
   g0_texCopy2 = g0_tex;
-  v123 = v127;
-  v124 = 0;
-  v34 = v128;
-  v36 = vld1_dup_f32(v34);
-  v125 = v36;
-  v126 = 0;
-  v40 = objc_msgSend_computeCommandEncoder(bufferCopy, v37, v38, v39);
-  objc_msgSend_setComputePipelineState_(v40, v41, self->_computePipelines[16], v42);
-  objc_msgSend_setTexture_atIndex_(v40, v43, in_uv_texCopy, 0);
-  objc_msgSend_setTexture_atIndex_(v40, v44, g0_texCopy, 1);
+  v50 = v54;
+  v51 = 0;
+  v28 = v55;
+  v29 = vld1_dup_f32(v28);
+  v52 = v29;
+  v53 = 0;
+  computeCommandEncoder = [bufferCopy computeCommandEncoder];
+  [computeCommandEncoder setComputePipelineState:self->_computePipelines[16]];
+  [computeCommandEncoder setTexture:in_uv_texCopy atIndex:0];
+  [computeCommandEncoder setTexture:g0_texCopy atIndex:1];
 
-  objc_msgSend_setTexture_atIndex_(v40, v45, g1_texCopy, 2);
-  objc_msgSend_setTexture_atIndex_(v40, v46, c0_texCopy, 3);
+  [computeCommandEncoder setTexture:g1_texCopy atIndex:2];
+  [computeCommandEncoder setTexture:c0_texCopy atIndex:3];
 
-  objc_msgSend_setTexture_atIndex_(v40, v47, c1_texCopy, 4);
-  objc_msgSend_setBuffer_offset_atIndex_(v40, v48, self->_Adiagb_buf[0], 0, 0);
-  objc_msgSend_setBuffer_offset_atIndex_(v40, v49, self->_Ixy_buf[0], 0, 1);
-  objc_msgSend_setBuffer_offset_atIndex_(v40, v50, self->_idt_buf, 0, 2);
-  objc_msgSend_setBytes_length_atIndex_(v40, v51, v121, 48, 3);
-  LODWORD(g0_texCopy) = objc_msgSend_threadExecutionWidth(self->_computePipelines[16], v52, v53, v54);
-  v58 = objc_msgSend_maxTotalThreadsPerThreadgroup(self->_computePipelines[16], v55, v56, v57);
-  v118 = (v113 + g0_texCopy) / g0_texCopy;
-  v119 = (v28 - 1 + v58 / g0_texCopy) / (v58 / g0_texCopy);
-  v120 = 1;
-  v115 = g0_texCopy;
-  v116 = v58 / g0_texCopy;
-  v117 = 1;
-  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v40, v59, &v118, &v115);
-  objc_msgSend_endEncoding(v40, v60, v61, v62);
+  [computeCommandEncoder setTexture:c1_texCopy atIndex:4];
+  [computeCommandEncoder setBuffer:self->_Adiagb_buf[0] offset:0 atIndex:0];
+  [computeCommandEncoder setBuffer:self->_Ixy_buf[0] offset:0 atIndex:1];
+  [computeCommandEncoder setBuffer:self->_idt_buf offset:0 atIndex:2];
+  [computeCommandEncoder setBytes:v48 length:48 atIndex:3];
+  LODWORD(g0_texCopy) = [(MTLComputePipelineState *)self->_computePipelines[16] threadExecutionWidth];
+  maxTotalThreadsPerThreadgroup = [(MTLComputePipelineState *)self->_computePipelines[16] maxTotalThreadsPerThreadgroup];
+  v45 = (v40 + g0_texCopy) / g0_texCopy;
+  v46 = (height - 1 + maxTotalThreadsPerThreadgroup / g0_texCopy) / (maxTotalThreadsPerThreadgroup / g0_texCopy);
+  v47 = 1;
+  v42 = g0_texCopy;
+  v43 = maxTotalThreadsPerThreadgroup / g0_texCopy;
+  v44 = 1;
+  [computeCommandEncoder dispatchThreadgroups:&v45 threadsPerThreadgroup:&v42];
+  [computeCommandEncoder endEncoding];
 
-  v63 = bufferCopy;
-  v67 = objc_msgSend_computeCommandEncoder(bufferCopy, v64, v65, v66);
-  objc_msgSend_setComputePipelineState_(v67, v68, self->_computePipelines[17], v69);
-  objc_msgSend_setBuffer_offset_atIndex_(v67, v70, self->_Adiagb_buf[0], 0, 0);
-  objc_msgSend_setBuffer_offset_atIndex_(v67, v71, self->_Ixy_buf[0], 0, 1);
-  objc_msgSend_setBuffer_offset_atIndex_(v67, v72, self->_Adiagb_buf[1], 0, 2);
-  objc_msgSend_setBuffer_offset_atIndex_(v67, v73, self->_Ixy_buf[1], 0, 3);
-  objc_msgSend_setBytes_length_atIndex_(v67, v74, v121, 48, 4);
-  LODWORD(g0_texCopy) = objc_msgSend_threadExecutionWidth(self->_computePipelines[17], v75, v76, v77);
-  v81 = objc_msgSend_maxTotalThreadsPerThreadgroup(self->_computePipelines[17], v78, v79, v80);
-  v118 = (v113 + g0_texCopy) / g0_texCopy;
-  v119 = (v28 - 1 + v81 / g0_texCopy) / (v81 / g0_texCopy);
-  v120 = 1;
-  v115 = g0_texCopy;
-  v116 = v81 / g0_texCopy;
-  v117 = 1;
-  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v67, v82, &v118, &v115);
-  objc_msgSend_endEncoding(v67, v83, v84, v85);
+  v32 = bufferCopy;
+  computeCommandEncoder2 = [bufferCopy computeCommandEncoder];
+  [computeCommandEncoder2 setComputePipelineState:self->_computePipelines[17]];
+  [computeCommandEncoder2 setBuffer:self->_Adiagb_buf[0] offset:0 atIndex:0];
+  [computeCommandEncoder2 setBuffer:self->_Ixy_buf[0] offset:0 atIndex:1];
+  [computeCommandEncoder2 setBuffer:self->_Adiagb_buf[1] offset:0 atIndex:2];
+  [computeCommandEncoder2 setBuffer:self->_Ixy_buf[1] offset:0 atIndex:3];
+  [computeCommandEncoder2 setBytes:v48 length:48 atIndex:4];
+  LODWORD(g0_texCopy) = [(MTLComputePipelineState *)self->_computePipelines[17] threadExecutionWidth];
+  maxTotalThreadsPerThreadgroup2 = [(MTLComputePipelineState *)self->_computePipelines[17] maxTotalThreadsPerThreadgroup];
+  v45 = (v40 + g0_texCopy) / g0_texCopy;
+  v46 = (height - 1 + maxTotalThreadsPerThreadgroup2 / g0_texCopy) / (maxTotalThreadsPerThreadgroup2 / g0_texCopy);
+  v47 = 1;
+  v42 = g0_texCopy;
+  v43 = maxTotalThreadsPerThreadgroup2 / g0_texCopy;
+  v44 = 1;
+  [computeCommandEncoder2 dispatchThreadgroups:&v45 threadsPerThreadgroup:&v42];
+  [computeCommandEncoder2 endEncoding];
 
-  v89 = objc_msgSend_computeCommandEncoder(v63, v86, v87, v88);
+  computeCommandEncoder3 = [v32 computeCommandEncoder];
 
-  objc_msgSend_setComputePipelineState_(v89, v90, self->_computePipelines[18], v91);
-  objc_msgSend_setBuffer_offset_atIndex_(v89, v92, self->_Adiagb_buf[1], 0, 0);
-  objc_msgSend_setBuffer_offset_atIndex_(v89, v93, self->_Ixy_buf[1], 0, 1);
-  objc_msgSend_setBuffer_offset_atIndex_(v89, v94, self->_idt_buf, 0, 2);
-  objc_msgSend_setTexture_atIndex_(v89, v95, in_uv_texCopy, 0);
+  [computeCommandEncoder3 setComputePipelineState:self->_computePipelines[18]];
+  [computeCommandEncoder3 setBuffer:self->_Adiagb_buf[1] offset:0 atIndex:0];
+  [computeCommandEncoder3 setBuffer:self->_Ixy_buf[1] offset:0 atIndex:1];
+  [computeCommandEncoder3 setBuffer:self->_idt_buf offset:0 atIndex:2];
+  [computeCommandEncoder3 setTexture:in_uv_texCopy atIndex:0];
 
-  objc_msgSend_setTexture_atIndex_(v89, v96, out_uv_texCopy, 1);
-  objc_msgSend_setTexture_atIndex_(v89, v97, out_w_texCopy, 2);
+  [computeCommandEncoder3 setTexture:out_uv_texCopy atIndex:1];
+  [computeCommandEncoder3 setTexture:out_w_texCopy atIndex:2];
 
-  objc_msgSend_setBytes_length_atIndex_(v89, v98, v121, 48, 3);
-  LODWORD(g0_texCopy) = objc_msgSend_threadExecutionWidth(self->_computePipelines[18], v99, v100, v101);
-  v105 = objc_msgSend_maxTotalThreadsPerThreadgroup(self->_computePipelines[18], v102, v103, v104);
-  v118 = (v113 + g0_texCopy) / g0_texCopy;
-  v119 = (v28 - 1 + v105 / g0_texCopy) / (v105 / g0_texCopy);
-  v120 = 1;
-  v115 = g0_texCopy;
-  v116 = v105 / g0_texCopy;
-  v117 = 1;
-  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v89, v106, &v118, &v115);
-  objc_msgSend_endEncoding(v89, v107, v108, v109);
+  [computeCommandEncoder3 setBytes:v48 length:48 atIndex:3];
+  LODWORD(g0_texCopy) = [(MTLComputePipelineState *)self->_computePipelines[18] threadExecutionWidth];
+  maxTotalThreadsPerThreadgroup3 = [(MTLComputePipelineState *)self->_computePipelines[18] maxTotalThreadsPerThreadgroup];
+  v45 = (v40 + g0_texCopy) / g0_texCopy;
+  v46 = (height - 1 + maxTotalThreadsPerThreadgroup3 / g0_texCopy) / (maxTotalThreadsPerThreadgroup3 / g0_texCopy);
+  v47 = 1;
+  v42 = g0_texCopy;
+  v43 = maxTotalThreadsPerThreadgroup3 / g0_texCopy;
+  v44 = 1;
+  [computeCommandEncoder3 dispatchThreadgroups:&v45 threadsPerThreadgroup:&v42];
+  [computeCommandEncoder3 endEncoding];
 
   return 0;
 }
@@ -693,47 +691,47 @@ LABEL_11:
   in_uv1_texCopy = in_uv1_tex;
   in_uv0_texCopy = in_uv0_tex;
   bufferCopy = buffer;
-  LODWORD(in_uv1_tex) = objc_msgSend_width(out_uv_texCopy, v14, v15, v16);
-  v20 = objc_msgSend_height(out_uv_texCopy, v17, v18, v19);
+  LODWORD(in_uv1_tex) = [out_uv_texCopy width];
+  height = [out_uv_texCopy height];
   __asm { FMOV            V0.2S, #1.0 }
 
-  v69 = _D0;
-  v70 = _D0;
-  v68 = 1065353216;
-  v67 = 1065353216;
-  objc_msgSend__computeScalingFactor_dst_tex_scale_xy_inv_coeff_(LKTFlowGPU, v27, in_uv0_texCopy, out_uv_texCopy, &v70, &v68);
-  objc_msgSend__computeScalingFactor_dst_tex_scale_xy_inv_coeff_(LKTFlowGPU, v28, in_uv1_texCopy, out_uv_texCopy, &v69, &v67);
-  v62 = 0;
-  v61[0] = in_uv1_tex;
-  v61[1] = v20;
-  v63 = v70;
-  v64 = v69;
-  v26 = &v68;
-  v29 = vld1_dup_f32(v26);
-  v30 = vld1_dup_f32(&v67);
-  v65 = v29;
-  v66 = v30;
-  v34 = objc_msgSend_computeCommandEncoder(bufferCopy, v31, v32, v33);
+  v36 = _D0;
+  v37 = _D0;
+  v35 = 1065353216;
+  v34 = 1065353216;
+  [LKTFlowGPU _computeScalingFactor:in_uv0_texCopy dst_tex:out_uv_texCopy scale_xy_inv:&v37 coeff:&v35];
+  [LKTFlowGPU _computeScalingFactor:in_uv1_texCopy dst_tex:out_uv_texCopy scale_xy_inv:&v36 coeff:&v34];
+  v29 = 0;
+  v28[0] = in_uv1_tex;
+  v28[1] = height;
+  v30 = v37;
+  v31 = v36;
+  v20 = &v35;
+  v21 = vld1_dup_f32(v20);
+  v22 = vld1_dup_f32(&v34);
+  v32 = v21;
+  v33 = v22;
+  computeCommandEncoder = [bufferCopy computeCommandEncoder];
 
-  objc_msgSend_setComputePipelineState_(v34, v35, self->_computePipelines[19], v36);
-  objc_msgSend_setTexture_atIndex_(v34, v37, in_uv0_texCopy, 0);
+  [computeCommandEncoder setComputePipelineState:self->_computePipelines[19]];
+  [computeCommandEncoder setTexture:in_uv0_texCopy atIndex:0];
 
-  objc_msgSend_setTexture_atIndex_(v34, v38, in_uv1_texCopy, 1);
-  objc_msgSend_setTexture_atIndex_(v34, v39, out_uv_texCopy, 2);
-  objc_msgSend_setBytes_length_atIndex_(v34, v40, v61, 48, 0);
-  LODWORD(in_uv1_texCopy) = objc_msgSend_threadExecutionWidth(self->_computePipelines[19], v41, v42, v43);
-  LODWORD(bufferCopy) = objc_msgSend_maxTotalThreadsPerThreadgroup(self->_computePipelines[19], v44, v45, v46) / in_uv1_texCopy;
-  v50 = (in_uv1_texCopy + objc_msgSend_width(out_uv_texCopy, v47, v48, v49) - 1) / in_uv1_texCopy;
-  LODWORD(self) = objc_msgSend_height(out_uv_texCopy, v51, v52, v53);
+  [computeCommandEncoder setTexture:in_uv1_texCopy atIndex:1];
+  [computeCommandEncoder setTexture:out_uv_texCopy atIndex:2];
+  [computeCommandEncoder setBytes:v28 length:48 atIndex:0];
+  LODWORD(in_uv1_texCopy) = [(MTLComputePipelineState *)self->_computePipelines[19] threadExecutionWidth];
+  LODWORD(bufferCopy) = [(MTLComputePipelineState *)self->_computePipelines[19] maxTotalThreadsPerThreadgroup]/ in_uv1_texCopy;
+  v24 = (in_uv1_texCopy + [out_uv_texCopy width] - 1) / in_uv1_texCopy;
+  LODWORD(self) = [out_uv_texCopy height];
 
-  v60[0] = v50;
-  v60[1] = (bufferCopy + self - 1) / bufferCopy;
-  v60[2] = 1;
-  v59[0] = in_uv1_texCopy;
-  v59[1] = bufferCopy;
-  v59[2] = 1;
-  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v34, v54, v60, v59);
-  objc_msgSend_endEncoding(v34, v55, v56, v57);
+  v27[0] = v24;
+  v27[1] = (bufferCopy + self - 1) / bufferCopy;
+  v27[2] = 1;
+  v26[0] = in_uv1_texCopy;
+  v26[1] = bufferCopy;
+  v26[2] = 1;
+  [computeCommandEncoder dispatchThreadgroups:v27 threadsPerThreadgroup:v26];
+  [computeCommandEncoder endEncoding];
 
   return 0;
 }
@@ -741,41 +739,41 @@ LABEL_11:
 - (int)_doNLRegularizationWithCommandBuffer:(id)buffer in_uv_tex:(id)in_uv_tex join_tex:(id)join_tex w_tex:(id)w_tex out_uv_tex:(id)out_uv_tex
 {
   selfCopy = self;
-  v53[1] = 0;
-  v53[0] = *&self->_nlreg_radius;
+  v27[1] = 0;
+  v27[0] = *&self->_nlreg_radius;
   v7.i64[0] = *&self->_nlreg_sigma_l;
   v7.i32[3] = LODWORD(self->_nlreg_sigma_w);
   __asm { FMOV            V1.4S, #1.0 }
 
   v18 = vdivq_f32(_Q1, vaddq_f32(v7, v7));
   v18.i32[2] = v18.i32[1];
-  v54 = v18;
+  v28 = v18;
   out_uv_texCopy = out_uv_tex;
   w_texCopy = w_tex;
   join_texCopy = join_tex;
   in_uv_texCopy = in_uv_tex;
-  v26 = objc_msgSend_computeCommandEncoder(buffer, v23, v24, v25);
-  objc_msgSend_setComputePipelineState_(v26, v27, selfCopy->_computePipelines[21], v28);
-  objc_msgSend_setTexture_atIndex_(v26, v29, in_uv_texCopy, 0);
-  objc_msgSend_setTexture_atIndex_(v26, v30, join_texCopy, 1);
+  computeCommandEncoder = [buffer computeCommandEncoder];
+  [computeCommandEncoder setComputePipelineState:selfCopy->_computePipelines[21]];
+  [computeCommandEncoder setTexture:in_uv_texCopy atIndex:0];
+  [computeCommandEncoder setTexture:join_texCopy atIndex:1];
 
-  objc_msgSend_setTexture_atIndex_(v26, v31, w_texCopy, 2);
-  objc_msgSend_setTexture_atIndex_(v26, v32, out_uv_texCopy, 3);
+  [computeCommandEncoder setTexture:w_texCopy atIndex:2];
+  [computeCommandEncoder setTexture:out_uv_texCopy atIndex:3];
 
-  objc_msgSend_setBytes_length_atIndex_(v26, v33, v53, 32, 0);
-  LODWORD(out_uv_texCopy) = objc_msgSend_threadExecutionWidth(selfCopy->_computePipelines[21], v34, v35, v36);
-  LODWORD(buffer) = objc_msgSend_maxTotalThreadsPerThreadgroup(selfCopy->_computePipelines[21], v37, v38, v39) / out_uv_texCopy;
-  LODWORD(w_texCopy) = (out_uv_texCopy + objc_msgSend_width(in_uv_texCopy, v40, v41, v42) / 2 - 1) / out_uv_texCopy;
-  LODWORD(selfCopy) = objc_msgSend_height(in_uv_texCopy, v43, v44, v45);
+  [computeCommandEncoder setBytes:v27 length:32 atIndex:0];
+  LODWORD(out_uv_texCopy) = [(MTLComputePipelineState *)selfCopy->_computePipelines[21] threadExecutionWidth];
+  LODWORD(buffer) = [(MTLComputePipelineState *)selfCopy->_computePipelines[21] maxTotalThreadsPerThreadgroup]/ out_uv_texCopy;
+  LODWORD(w_texCopy) = (out_uv_texCopy + [in_uv_texCopy width] / 2 - 1) / out_uv_texCopy;
+  LODWORD(selfCopy) = [in_uv_texCopy height];
 
-  v52[0] = w_texCopy;
-  v52[1] = (buffer + selfCopy / 2 - 1) / buffer;
-  v52[2] = 1;
-  v51[0] = out_uv_texCopy;
-  v51[1] = buffer;
-  v51[2] = 1;
-  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v26, v46, v52, v51);
-  objc_msgSend_endEncoding(v26, v47, v48, v49);
+  v26[0] = w_texCopy;
+  v26[1] = (buffer + selfCopy / 2 - 1) / buffer;
+  v26[2] = 1;
+  v25[0] = out_uv_texCopy;
+  v25[1] = buffer;
+  v25[2] = 1;
+  [computeCommandEncoder dispatchThreadgroups:v26 threadsPerThreadgroup:v25];
+  [computeCommandEncoder endEncoding];
 
   return 0;
 }
@@ -786,32 +784,32 @@ LABEL_11:
   v7 = v4;
   scale_xy_invCopy = scale_xy_inv;
   coeffCopy = coeff;
-  v13 = objc_msgSend_width(coeffCopy, v10, v11, v12);
-  v17 = v13 / objc_msgSend_width(scale_xy_invCopy, v14, v15, v16);
-  v21 = objc_msgSend_height(coeffCopy, v18, v19, v20);
-  v25 = objc_msgSend_height(scale_xy_invCopy, v22, v23, v24);
-  LODWORD(v29) = 1.5;
-  *&v30 = v21 / v25;
-  if (v17 <= 1.5 || *&v30 <= 1.5)
+  width = [coeffCopy width];
+  v11 = width / [scale_xy_invCopy width];
+  height = [coeffCopy height];
+  height2 = [scale_xy_invCopy height];
+  LODWORD(v14) = 1.5;
+  *&v15 = height / height2;
+  if (v11 <= 1.5 || *&v15 <= 1.5)
   {
-    v32 = objc_msgSend_width(coeffCopy, v26, v27, v28, v29, v30);
-    if (v32 != objc_msgSend_width(scale_xy_invCopy, v33, v34, v35) || (v39 = objc_msgSend_height(coeffCopy, v36, v37, v38), v39 != objc_msgSend_height(scale_xy_invCopy, v40, v41, v42)))
+    width2 = [coeffCopy width];
+    if (width2 != [scale_xy_invCopy width] || (v18 = objc_msgSend(coeffCopy, "height"), v18 != objc_msgSend(scale_xy_invCopy, "height")))
     {
       sub_23C473FB4();
     }
 
     __asm { FMOV            V0.2S, #1.0 }
 
-    v48 = 1.0;
+    v24 = 1.0;
   }
 
   else
   {
     _D0 = 0x3F0000003F000000;
-    v48 = 2.0;
+    v24 = 2.0;
   }
 
-  *v6 = v48;
+  *v6 = v24;
   *v7 = _D0;
 }
 
@@ -832,21 +830,21 @@ LABEL_11:
 - (void)setPresetICP:(int64_t)p withRegularizerTerms:(id)terms decimation_factor:(int)decimation_factor
 {
   termsCopy = terms;
-  v20 = termsCopy;
+  v17 = termsCopy;
   if (p <= 2)
   {
     if (p == 1)
     {
       nscales = self->_nscales;
-      v12 = __OFSUB__(nscales, 2);
-      v18 = nscales - 2;
-      if ((v18 < 0) ^ v12 | (v18 == 0))
+      v10 = __OFSUB__(nscales, 2);
+      v16 = nscales - 2;
+      if ((v16 < 0) ^ v10 | (v16 == 0))
       {
-        v18 = 0;
+        v16 = 0;
       }
 
-      self->_nscales_icp = v18;
-      v14 = 1;
+      self->_nscales_icp = v16;
+      v12 = 1;
       goto LABEL_21;
     }
 
@@ -855,12 +853,12 @@ LABEL_11:
       goto LABEL_25;
     }
 
-    v15 = self->_nscales;
-    v12 = __OFSUB__(v15, 2);
-    v16 = v15 - 2;
-    if ((v16 < 0) ^ v12 | (v16 == 0))
+    v13 = self->_nscales;
+    v10 = __OFSUB__(v13, 2);
+    v14 = v13 - 2;
+    if ((v14 < 0) ^ v10 | (v14 == 0))
     {
-      v16 = 0;
+      v14 = 0;
     }
 
     goto LABEL_15;
@@ -869,76 +867,76 @@ LABEL_11:
   switch(p)
   {
     case 3:
-      v16 = self->_nscales;
+      v14 = self->_nscales;
 LABEL_15:
-      self->_nscales_icp = v16;
-      v14 = 2;
+      self->_nscales_icp = v14;
+      v12 = 2;
 LABEL_21:
-      self->_warping_scheme_icp = v14;
-      objc_msgSend__setICPRegularizerTerms_(self, termsCopy, termsCopy, v10);
+      self->_warping_scheme_icp = v12;
       goto LABEL_22;
     case 4:
       self->_nscales_icp = self->_nscales;
-      v14 = 4;
+      v12 = 4;
       goto LABEL_21;
     case 5:
-      v11 = self->_nscales;
-      v12 = __OFSUB__(v11, 2);
-      v13 = v11 - 2;
-      if ((v13 < 0) ^ v12 | (v13 == 0))
+      v9 = self->_nscales;
+      v10 = __OFSUB__(v9, 2);
+      v11 = v9 - 2;
+      if ((v11 < 0) ^ v10 | (v11 == 0))
       {
-        v13 = 0;
+        v11 = 0;
       }
 
-      self->_nscales_icp = v13;
-      v14 = 1000;
+      self->_nscales_icp = v11;
+      v12 = 1000;
       goto LABEL_21;
   }
 
 LABEL_25:
-  objc_msgSend__setDefaultParameters(self, termsCopy, v9, v10);
-  objc_msgSend__setICPRegularizerTerms_(self, v20, v20, v19);
+  [(LKTFlowGPU *)self _setDefaultParameters];
+  termsCopy = v17;
 LABEL_22:
+  [(LKTFlowGPU *)self _setICPRegularizerTerms:termsCopy];
   self->_decimation_factor_icp = decimation_factor;
 }
 
 - (uint64_t)estimatePanoRegistration:(double)registration metadata:(double)metadata initTForm:(uint64_t)form
 {
-  v12 = a7;
+  v9 = a7;
   if (*(self + 2168) == 1)
   {
-    v13 = objc_msgSend_commandBuffer(*(self + 16), v9, v10, v11);
-    objc_msgSend_setLabel_(v13, v14, @"LKT::Pyramid", v15);
-    objc_msgSend__zeroFlowWithCommandBuffer_uv_tex_(self, v16, v13, *(self + 8 * *(self + 2176) + 1352));
-    objc_msgSend__createImagePyramidWithCommandBuffer_in_pixelbuf_I_idx_(self, v17, v13, a6, *(self + 2000));
-    objc_msgSend_commit(v13, v18, v19, v20);
+    commandBuffer = [*(self + 16) commandBuffer];
+    [commandBuffer setLabel:@"LKT::Pyramid"];
+    [self _zeroFlowWithCommandBuffer:commandBuffer uv_tex:*(self + 8 * *(self + 2176) + 1352)];
+    [self _createImagePyramidWithCommandBuffer:commandBuffer in_pixelbuf:a6 I_idx:*(self + 2000)];
+    [commandBuffer commit];
 
     *(self + 2000) ^= 1u;
     if (*(self + 2004) < 1)
     {
-      v25 = objc_msgSend_commandBuffer(*(self + 16), v21, v22, v23);
-      objc_msgSend_setLabel_(v25, v26, @"ICP::Init weights", v27);
-      objc_msgSend__initICPWeightsWithCommandBuffer_(self, v28, v25, v29);
-      objc_msgSend_commit(v25, v30, v31, v32);
-      objc_msgSend__setParametricTransformFromGyro_(self, v33, v34, v35, a2, registration, metadata);
-      objc_msgSend__resetLoss(self, v36, v37, v38);
+      commandBuffer2 = [*(self + 16) commandBuffer];
+      [commandBuffer2 setLabel:@"ICP::Init weights"];
+      [self _initICPWeightsWithCommandBuffer:commandBuffer2];
+      [commandBuffer2 commit];
+      [self _setParametricTransformFromGyro:{a2, registration, metadata}];
+      [self _resetLoss];
     }
 
     else
     {
-      objc_msgSend__panoRegistration_metadata_(self, v21, v12, v23, a2, registration, metadata);
+      [self _panoRegistration:v9 metadata:{a2, registration, metadata}];
     }
 
-    v24 = 0;
+    v11 = 0;
     ++*(self + 2004);
   }
 
   else
   {
-    v24 = 4294954514;
+    v11 = 4294954514;
   }
 
-  return v24;
+  return v11;
 }
 
 - (int)_initMemoryICP:(int)p
@@ -961,42 +959,42 @@ LABEL_22:
   if (self->_nscales >= 1)
   {
     v3 = 0;
-    v41 = vmovn_s64(vcvtq_s64_f64(self->_aux_size));
-    v39 = vmovn_s64(vcvtq_s64_f64(self->_ref_size));
+    v22 = vmovn_s64(vcvtq_s64_f64(self->_aux_size));
+    v20 = vmovn_s64(vcvtq_s64_f64(self->_ref_size));
     aux_pyr_size = self->_aux_pyr_size;
     I_tex = self->_I_tex;
     do
     {
-      v6.i64[0] = v39.i32[0];
-      v6.i64[1] = v39.i32[1];
+      v6.i64[0] = v20.i32[0];
+      v6.i64[1] = v20.i32[1];
       aux_pyr_size[-10] = vcvtq_f64_s64(v6);
-      v6.i64[0] = v41.i32[0];
-      v6.i64[1] = v41.i32[1];
+      v6.i64[0] = v22.i32[0];
+      v6.i64[1] = v22.i32[1];
       *aux_pyr_size++ = vcvtq_f64_s64(v6);
-      v7 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(MEMORY[0x277CD7058], a2, 70, v39.i32[0], v39.i32[1], 0, *&v39);
-      objc_msgSend_setUsage_(v7, v8, 19, v9);
-      v13 = objc_msgSend_device(self->_mtlContext, v10, v11, v12);
-      v16 = objc_msgSend_newTextureWithDescriptor_(v13, v14, v7, v15);
-      v17 = (*I_tex)[0];
-      (*I_tex)[0] = v16;
+      v7 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:70 width:v20.i32[0] height:v20.i32[1] mipmapped:0, *&v20];
+      [v7 setUsage:19];
+      device = [(FigMetalContext *)self->_mtlContext device];
+      v9 = [device newTextureWithDescriptor:v7];
+      v10 = (*I_tex)[0];
+      (*I_tex)[0] = v9;
 
-      v20 = objc_msgSend_newTextureViewWithPixelFormat_((*I_tex)[0], v18, 53, v19);
-      v21 = (*I_tex)[20];
-      (*I_tex)[20] = v20;
+      v11 = [(MTLTexture *)(*I_tex)[0] newTextureViewWithPixelFormat:53];
+      v12 = (*I_tex)[20];
+      (*I_tex)[20] = v11;
 
-      v39 = calculateHalfResolutionWithVector2(v40).n64_u64[0];
-      v23 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(MEMORY[0x277CD7058], v22, 70, v41.i32[0], v41.i32[1], 0);
-      objc_msgSend_setUsage_(v23, v24, 19, v25);
-      v29 = objc_msgSend_device(self->_mtlContext, v26, v27, v28);
-      v32 = objc_msgSend_newTextureWithDescriptor_(v29, v30, v23, v31);
-      v33 = (*I_tex)[10];
-      (*I_tex)[10] = v32;
+      v20 = calculateHalfResolutionWithVector2(v21).n64_u64[0];
+      v13 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:70 width:v22.i32[0] height:v22.i32[1] mipmapped:0];
+      [v13 setUsage:19];
+      device2 = [(FigMetalContext *)self->_mtlContext device];
+      v15 = [device2 newTextureWithDescriptor:v13];
+      v16 = (*I_tex)[10];
+      (*I_tex)[10] = v15;
 
-      v36 = objc_msgSend_newTextureViewWithPixelFormat_((*I_tex)[10], v34, 53, v35);
-      v37 = (*I_tex)[30];
-      (*I_tex)[30] = v36;
+      v17 = [(MTLTexture *)(*I_tex)[10] newTextureViewWithPixelFormat:53];
+      v18 = (*I_tex)[30];
+      (*I_tex)[30] = v17;
 
-      v41 = calculateHalfResolutionWithVector2(*&v41).n64_u64[0];
+      v22 = calculateHalfResolutionWithVector2(*&v22).n64_u64[0];
       ++v3;
       I_tex = (I_tex + 8);
     }
@@ -1010,22 +1008,22 @@ LABEL_22:
 - (void)_setICPRegularizerTerms:(id)terms
 {
   termsCopy = terms;
-  if (objc_msgSend_count(termsCopy, v4, v5, v6) > 0xA)
+  if ([termsCopy count] > 0xA)
   {
-    v10 = 10;
+    v4 = 10;
   }
 
   else
   {
-    v10 = objc_msgSend_count(termsCopy, v7, v8, v9);
+    v4 = [termsCopy count];
   }
 
   nscales_icp = self->_nscales_icp;
-  if (v10 < nscales_icp)
+  if (v4 < nscales_icp)
   {
-    if (objc_msgSend_count(termsCopy, v7, v8, v9) > 0xA)
+    if ([termsCopy count] > 0xA)
     {
-      v13 = termsCopy;
+      v6 = termsCopy;
       if (!termsCopy)
       {
         goto LABEL_15;
@@ -1035,10 +1033,10 @@ LABEL_22:
       goto LABEL_11;
     }
 
-    nscales_icp = objc_msgSend_count(termsCopy, v7, v12, v9);
+    nscales_icp = [termsCopy count];
   }
 
-  v13 = termsCopy;
+  v6 = termsCopy;
   if (!termsCopy)
   {
     goto LABEL_15;
@@ -1052,18 +1050,18 @@ LABEL_22:
 LABEL_11:
   for (i = 0; i != nscales_icp; ++i)
   {
-    v15 = objc_msgSend_objectAtIndexedSubscript_(termsCopy, v7, i, v9);
-    objc_msgSend_floatValue(v15, v16, v17, v18);
-    self->_icp_regularizer_term[i] = v19;
+    v8 = [termsCopy objectAtIndexedSubscript:i];
+    [v8 floatValue];
+    self->_icp_regularizer_term[i] = v9;
 
-    v13 = termsCopy;
+    v6 = termsCopy;
   }
 
   if (nscales_icp <= 9)
   {
 LABEL_14:
     bzero(&self->_icp_regularizer_term[nscales_icp], 40 - 4 * nscales_icp);
-    v13 = termsCopy;
+    v6 = termsCopy;
   }
 
 LABEL_15:
@@ -1071,21 +1069,21 @@ LABEL_15:
 
 - (int)_initICPWeightsWithCommandBuffer:(id)buffer
 {
-  v5 = objc_msgSend_computeCommandEncoder(buffer, a2, buffer, v3);
-  objc_msgSend_setComputePipelineState_(v5, v6, self->_computePipelines[11], v7);
-  objc_msgSend_setTexture_atIndex_(v5, v8, self->_w_icp_tex_user_ref, 0);
-  v12 = objc_msgSend_threadExecutionWidth(self->_computePipelines[11], v9, v10, v11);
-  v16 = objc_msgSend_maxTotalThreadsPerThreadgroup(self->_computePipelines[11], v13, v14, v15) / v12;
-  v20 = v12 + objc_msgSend_width(self->_w_icp_tex_user_ref, v17, v18, v19) - 1;
+  computeCommandEncoder = [buffer computeCommandEncoder];
+  [computeCommandEncoder setComputePipelineState:self->_computePipelines[11]];
+  [computeCommandEncoder setTexture:self->_w_icp_tex_user_ref atIndex:0];
+  threadExecutionWidth = [(MTLComputePipelineState *)self->_computePipelines[11] threadExecutionWidth];
+  v6 = [(MTLComputePipelineState *)self->_computePipelines[11] maxTotalThreadsPerThreadgroup]/ threadExecutionWidth;
+  v7 = threadExecutionWidth + [(MTLTexture *)self->_w_icp_tex_user_ref width]- 1;
   w_icp_tex_user_ref = self->_w_icp_tex_user_ref;
-  v31[0] = v20 / v12;
-  v31[1] = (v16 + objc_msgSend_height(w_icp_tex_user_ref, v22, v23, v24) - 1) / v16;
-  v31[2] = 1;
-  v30[0] = v12;
-  v30[1] = v16;
-  v30[2] = 1;
-  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v5, v25, v31, v30);
-  objc_msgSend_endEncoding(v5, v26, v27, v28);
+  v11[0] = v7 / threadExecutionWidth;
+  v11[1] = (v6 + [(MTLTexture *)w_icp_tex_user_ref height]- 1) / v6;
+  v11[2] = 1;
+  v10[0] = threadExecutionWidth;
+  v10[1] = v6;
+  v10[2] = 1;
+  [computeCommandEncoder dispatchThreadgroups:v11 threadsPerThreadgroup:v10];
+  [computeCommandEncoder endEncoding];
 
   return 0;
 }
@@ -1094,26 +1092,26 @@ LABEL_15:
 {
   out_texCopy = out_tex;
   in_texCopy = in_tex;
-  v13 = objc_msgSend_computeCommandEncoder(buffer, v10, v11, v12);
-  objc_msgSend_setComputePipelineState_(v13, v14, self->_computePipelines[4], v15);
-  objc_msgSend_setTexture_atIndex_(v13, v16, in_texCopy, 0);
-  objc_msgSend_setTexture_atIndex_(v13, v17, out_texCopy, 1);
+  computeCommandEncoder = [buffer computeCommandEncoder];
+  [computeCommandEncoder setComputePipelineState:self->_computePipelines[4]];
+  [computeCommandEncoder setTexture:in_texCopy atIndex:0];
+  [computeCommandEncoder setTexture:out_texCopy atIndex:1];
 
-  objc_msgSend_setTexture_atIndex_(v13, v18, self->_w_icp_tex_user_ref, 2);
-  objc_msgSend_setTexture_atIndex_(v13, v19, self->_icp_derivatives_tg_sum, 3);
-  LODWORD(buffer) = objc_msgSend_threadExecutionWidth(self->_computePipelines[4], v20, v21, v22);
-  LODWORD(out_texCopy) = objc_msgSend_maxTotalThreadsPerThreadgroup(self->_computePipelines[4], v23, v24, v25) / buffer;
-  v29 = (buffer + objc_msgSend_width(in_texCopy, v26, v27, v28) - 1) / buffer;
-  LODWORD(self) = objc_msgSend_height(in_texCopy, v30, v31, v32);
+  [computeCommandEncoder setTexture:self->_w_icp_tex_user_ref atIndex:2];
+  [computeCommandEncoder setTexture:self->_icp_derivatives_tg_sum atIndex:3];
+  LODWORD(buffer) = [(MTLComputePipelineState *)self->_computePipelines[4] threadExecutionWidth];
+  LODWORD(out_texCopy) = [(MTLComputePipelineState *)self->_computePipelines[4] maxTotalThreadsPerThreadgroup]/ buffer;
+  v11 = (buffer + [in_texCopy width] - 1) / buffer;
+  LODWORD(self) = [in_texCopy height];
 
-  v39[0] = v29;
-  v39[1] = (out_texCopy + self - 1) / out_texCopy;
-  v39[2] = 1;
-  v38[0] = buffer;
-  v38[1] = out_texCopy;
-  v38[2] = 1;
-  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v13, v33, v39, v38);
-  objc_msgSend_endEncoding(v13, v34, v35, v36);
+  v14[0] = v11;
+  v14[1] = (out_texCopy + self - 1) / out_texCopy;
+  v14[2] = 1;
+  v13[0] = buffer;
+  v13[1] = out_texCopy;
+  v13[2] = 1;
+  [computeCommandEncoder dispatchThreadgroups:v14 threadsPerThreadgroup:v13];
+  [computeCommandEncoder endEncoding];
 
   return 0;
 }
@@ -1122,29 +1120,29 @@ LABEL_15:
 {
   toCopy = to;
   fromCopy = from;
-  v13 = objc_msgSend_computeCommandEncoder(buffer, v10, v11, v12);
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v40 = 0u;
-  v39[0] = objc_msgSend_width(fromCopy, v14, v15, v16);
-  LODWORD(buffer) = objc_msgSend_height(fromCopy, v17, v18, v19);
+  computeCommandEncoder = [buffer computeCommandEncoder];
+  v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v17 = 0u;
+  v16[0] = [fromCopy width];
+  LODWORD(buffer) = [fromCopy height];
 
-  v39[1] = buffer;
-  v39[2] = objc_msgSend_width(toCopy, v20, v21, v22);
-  LODWORD(buffer) = objc_msgSend_height(toCopy, v23, v24, v25);
+  v16[1] = buffer;
+  v16[2] = [toCopy width];
+  LODWORD(buffer) = [toCopy height];
 
-  v39[3] = buffer;
-  objc_msgSend_setComputePipelineState_(v13, v26, self->_computePipelines[10], v27);
-  objc_msgSend_setBuffer_offset_atIndex_(v13, v28, self->_icp_param_tform_buf, 0, 0);
-  objc_msgSend_setBytes_length_atIndex_(v13, v29, v39, 96, 1);
-  v37 = vdupq_n_s64(1uLL);
-  v38 = 1;
-  v35 = v37;
-  v36 = 1;
-  objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v13, v30, &v37, &v35);
-  objc_msgSend_endEncoding(v13, v31, v32, v33);
+  v16[3] = buffer;
+  [computeCommandEncoder setComputePipelineState:self->_computePipelines[10]];
+  [computeCommandEncoder setBuffer:self->_icp_param_tform_buf offset:0 atIndex:0];
+  [computeCommandEncoder setBytes:v16 length:96 atIndex:1];
+  v14 = vdupq_n_s64(1uLL);
+  v15 = 1;
+  v12 = v14;
+  v13 = 1;
+  [computeCommandEncoder dispatchThreads:&v14 threadsPerThreadgroup:&v12];
+  [computeCommandEncoder endEncoding];
 
   return 0;
 }
@@ -1154,21 +1152,21 @@ LABEL_15:
   var0 = size->var0;
   var1 = size->var1;
   pipelineCopy = pipeline;
-  v15 = objc_msgSend_threadExecutionWidth(pipelineCopy, v12, v13, v14);
-  v19 = objc_msgSend_maxTotalThreadsPerThreadgroup(pipelineCopy, v16, v17, v18);
+  threadExecutionWidth = [pipelineCopy threadExecutionWidth];
+  maxTotalThreadsPerThreadgroup = [pipelineCopy maxTotalThreadsPerThreadgroup];
 
-  v20 = v19 / v15;
+  v14 = maxTotalThreadsPerThreadgroup / threadExecutionWidth;
   if (threadgroup)
   {
-    threadgroup->var0 = v15;
-    threadgroup->var1 = v20;
+    threadgroup->var0 = threadExecutionWidth;
+    threadgroup->var1 = v14;
     threadgroup->var2 = 1;
   }
 
   if (grid)
   {
-    grid->var0 = (var0 + v15 - 1) / v15;
-    grid->var1 = (var1 + v20 - 1) / v20;
+    grid->var0 = (var0 + threadExecutionWidth - 1) / threadExecutionWidth;
+    grid->var1 = (var1 + v14 - 1) / v14;
     grid->var2 = 1;
   }
 }
@@ -1202,8 +1200,8 @@ LABEL_15:
 {
   if (activation)
   {
-    activation->var0 = objc_msgSend_width(self->_icp_derivatives_tg_sum, a2, activation, v3) >> 1;
-    activation->var1 = objc_msgSend_height(self->_icp_derivatives_tg_sum, v6, v7, v8) >> 1;
+    activation->var0 = [(MTLTexture *)self->_icp_derivatives_tg_sum width]>> 1;
+    activation->var1 = [(MTLTexture *)self->_icp_derivatives_tg_sum height]>> 1;
     activation->var2 = 1;
   }
 }
@@ -1234,281 +1232,280 @@ LABEL_15:
 - (uint64_t)_panoRegistration:(double)registration metadata:(double)metadata
 {
   v7 = a6;
-  objc_msgSend__setParametricTransformFromGyro_(self, v8, v9, v10, a2, registration, metadata);
-  objc_msgSend__copyTransfromToGPU(self, v11, v12, v13);
-  v17 = *(self + 2176);
-  v18 = (v17 - 1);
-  if (v17 >= 1)
+  [self _setParametricTransformFromGyro:{a2, registration, metadata}];
+  [self _copyTransfromToGPU];
+  v8 = *(self + 2176);
+  v9 = (v8 - 1);
+  if (v8 >= 1)
   {
-    v84 = v7;
-    v19 = 0;
-    v20 = 0;
-    v21 = self + 864;
-    v22 = self + 944;
-    v97 = self + 1040;
-    v88 = self + 1120;
-    v89 = self + 528;
-    v95 = (self + 2008);
-    v101 = self + 1360;
-    v94 = self + 1248;
-    v85 = self + 688;
-    v86 = self + 1680;
+    v45 = v7;
+    v10 = 0;
+    v11 = 0;
+    v12 = self + 864;
+    v13 = self + 944;
+    v58 = self + 1040;
+    v49 = self + 1120;
+    v50 = self + 528;
+    v56 = self + 2008;
+    v62 = self + 1360;
+    v55 = self + 1248;
+    v46 = self + 688;
+    v47 = self + 1680;
     selfCopy = self;
-    v87 = self + 2104;
-    v103 = v17 - 1;
-    v98 = self + 864;
-    v91 = self + 944;
+    v48 = self + 2104;
+    v64 = v8 - 1;
+    v59 = self + 864;
+    v52 = self + 944;
     do
     {
-      v23 = *(v89 + 80 * *(selfCopy + 2000) + 8 * v18);
-      v96 = *(v89 + 80 * (*(selfCopy + 2000) ^ 1) + 8 * v18);
-      v27 = objc_msgSend_commandBuffer(*(selfCopy + 16), v24, v25, v26);
+      v14 = *(v50 + 80 * *(selfCopy + 2000) + 8 * v9);
+      v57 = *(v50 + 80 * (*(selfCopy + 2000) ^ 1) + 8 * v9);
+      commandBuffer = [*(selfCopy + 16) commandBuffer];
 
-      v30 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v28, @"Panorama:panoRegistration level %d", v29, v18);
-      objc_msgSend_setLabel_(v27, v31, v30, v32);
+      v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"Panorama:panoRegistration level %d", v9];
+      [commandBuffer setLabel:v16];
 
-      if (v18 || (v35 = *(selfCopy + 2192), !v35))
+      if (v9 || (v17 = *(selfCopy + 2192), !v17))
       {
-        objc_msgSend__computeFeaturesWithCommandBuffer_in_tex_out_tex_(selfCopy, v33, v27, v23, *(v21 + 8 * v18));
-        v90 = 0;
-        v35 = 0;
+        [selfCopy _computeFeaturesWithCommandBuffer:commandBuffer in_tex:v14 out_tex:*(v12 + 8 * v9)];
+        v51 = 0;
+        v17 = 0;
       }
 
       else
       {
-        objc_msgSend__computeFeaturesAndTGSumWithCommandBuffer_in_tex_out_tex_(selfCopy, v33, v27, v23, *(selfCopy + 864));
-        v90 = 1;
+        [selfCopy _computeFeaturesAndTGSumWithCommandBuffer:commandBuffer in_tex:v14 out_tex:*(selfCopy + 864)];
+        v51 = 1;
       }
 
-      objc_msgSend__computeFeaturesWithCommandBuffer_in_tex_out_tex_(selfCopy, v34, v27, v96, *(v22 + 8 * v18));
-      objc_msgSend__computeFeaturesDerivativesWithCommandBuffer_in_tex_out_tex_(selfCopy, v36, v27, *(v21 + 8 * v18), *(v97 + 8 * v18));
-      objc_msgSend__computeFeaturesDerivativesWithCommandBuffer_in_tex_out_tex_(selfCopy, v37, v27, *(v22 + 8 * v18), *(v88 + 8 * v18));
-      v41 = selfCopy;
-      v93 = v23;
-      if (v18 >= *(selfCopy + 2196))
+      [selfCopy _computeFeaturesWithCommandBuffer:commandBuffer in_tex:v57 out_tex:*(v13 + 8 * v9)];
+      [selfCopy _computeFeaturesDerivativesWithCommandBuffer:commandBuffer in_tex:*(v12 + 8 * v9) out_tex:*(v58 + 8 * v9)];
+      [selfCopy _computeFeaturesDerivativesWithCommandBuffer:commandBuffer in_tex:*(v13 + 8 * v9) out_tex:*(v49 + 8 * v9)];
+      v18 = selfCopy;
+      v54 = v14;
+      if (v9 >= *(selfCopy + 2196))
       {
-        v43 = *(selfCopy + 2180);
-        if (v43 < 1)
+        v20 = *(selfCopy + 2180);
+        if (v20 < 1)
         {
-          v99 = 0;
+          v60 = 0;
         }
 
         else
         {
-          v44 = 0;
-          v99 = 0;
+          v21 = 0;
+          v60 = 0;
           do
           {
-            if (v44 + 1 != v43 || v18 != *(v41 + 2196) || (v45 = v95, *(v41 + 2169) == 1))
+            if (v21 + 1 != v20 || v9 != *(v18 + 2196) || (v22 = v56, *(v18 + 2169) == 1))
             {
-              v45 = (v101 + 80 * (v20 ^ 1) + 8 * v18);
+              v22 = (v62 + 80 * (v11 ^ 1) + 8 * v9);
             }
 
-            v47 = *v45;
-            if (*(selfCopy + 2169) == 1 && v44 + 1 == *(selfCopy + 2180))
+            v23 = *v22;
+            if (*(selfCopy + 2169) == 1 && v21 + 1 == *(selfCopy + 2180))
             {
-              v48 = *(v94 + 8 * v18);
+              v24 = *(v55 + 8 * v9);
 
-              v99 = v48;
+              v60 = v24;
             }
 
-            objc_msgSend__doSolverWithCommandBuffer_scale_in_uv_tex_in_G0_tex_in_G1_tex_in_C0_tex_in_C1_tex_out_uv_tex_out_w_tex_(selfCopy, v46, v27, v18, *(v101 + 80 * v20 + 8 * v103), *(v98 + 8 * v18), *(v22 + 8 * v18), *(v97 + 8 * v18), *(v88 + 8 * v18), v47, v99);
-            v20 ^= 1uLL;
+            [selfCopy _doSolverWithCommandBuffer:commandBuffer scale:v9 in_uv_tex:*(v62 + 80 * v11 + 8 * v64) in_G0_tex:*(v59 + 8 * v9) in_G1_tex:*(v13 + 8 * v9) in_C0_tex:*(v58 + 8 * v9) in_C1_tex:*(v49 + 8 * v9) out_uv_tex:v23 out_w_tex:v60];
+            v11 ^= 1uLL;
 
-            v41 = selfCopy;
-            v43 = *(selfCopy + 2180);
-            ++v44;
-            v103 = v18;
+            v18 = selfCopy;
+            v20 = *(selfCopy + 2180);
+            ++v21;
+            v64 = v9;
           }
 
-          while (v44 < v43);
-          v103 = v18;
+          while (v21 < v20);
+          v64 = v9;
         }
 
-        if (*(v41 + 2169))
+        if (*(v18 + 2169))
         {
-          v49 = v20 ^ 1;
-          v50 = v95;
-          if (v18 != *(v41 + 2196))
+          v25 = v11 ^ 1;
+          v26 = v56;
+          if (v9 != *(v18 + 2196))
           {
-            v50 = (v101 + 80 * (v20 ^ 1) + 8 * v18);
+            v26 = (v62 + 80 * (v11 ^ 1) + 8 * v9);
           }
 
-          v51 = *(v86 + 80 * v20 + 8 * v18);
-          v42 = v27;
-          objc_msgSend__doNLRegularizationWithCommandBuffer_in_uv_tex_join_tex_w_tex_out_uv_tex_(selfCopy, v38, v27, v51, *(v85 + 80 * *(v41 + 2000) + 8 * v18), v99, *v50);
-          v41 = selfCopy;
-          v92 = v49;
+          v27 = *(v47 + 80 * v11 + 8 * v9);
+          v19 = commandBuffer;
+          [selfCopy _doNLRegularizationWithCommandBuffer:commandBuffer in_uv_tex:v27 join_tex:*(v46 + 80 * *(v18 + 2000) + 8 * v9) w_tex:v60 out_uv_tex:*v26];
+          v18 = selfCopy;
+          v53 = v25;
         }
 
         else
         {
-          v92 = v20;
-          v42 = v27;
+          v53 = v11;
+          v19 = commandBuffer;
         }
       }
 
       else
       {
-        v92 = v20;
-        v42 = v27;
-        v99 = 0;
+        v53 = v11;
+        v19 = commandBuffer;
+        v60 = 0;
       }
 
-      v52 = *(v41 + 2184);
-      v53 = v98;
-      v54 = v91;
-      if (v18 < v52)
+      v28 = *(v18 + 2184);
+      v29 = v59;
+      v30 = v52;
+      if (v9 < v28)
       {
-        if (v18 < v52 - 1)
+        if (v9 < v28 - 1)
         {
-          v55 = (v89 + 80 * *(selfCopy + 2000) + 8 * v18);
-          objc_msgSend__resampleTransformWithCommandBuffer_from_to_(selfCopy, v38, v42, v55[1], *v55);
+          v31 = (v50 + 80 * *(selfCopy + 2000) + 8 * v9);
+          [selfCopy _resampleTransformWithCommandBuffer:v19 from:v31[1] to:*v31];
         }
 
-        v56 = v90 ^ 1;
-        if (v18)
+        v32 = v51 ^ 1;
+        if (v9)
         {
-          v56 = 1;
+          v32 = 1;
         }
 
-        v57 = selfCopy;
-        if ((v56 & 1) == 0)
+        v33 = selfCopy;
+        if ((v32 & 1) == 0)
         {
-          objc_msgSend__computeActiveThreadgroupsWithCommandBuffer_(selfCopy, v38, v42, v40);
-          v57 = selfCopy;
+          [selfCopy _computeActiveThreadgroupsWithCommandBuffer:v19];
+          v33 = selfCopy;
         }
 
-        ICPNWarp_scale = objc_msgSend__getICPNWarp_scale_(v57, v38, *(v57 + 2188), v18);
-        v53 = v98;
-        v54 = v91;
-        if (ICPNWarp_scale >= 1)
+        v34 = [v33 _getICPNWarp:*(v33 + 2188) scale:v9];
+        v29 = v59;
+        v30 = v52;
+        if (v34 >= 1)
         {
-          v60 = (ICPNWarp_scale + 1);
-          v61 = 1;
+          v36 = (v34 + 1);
+          v37 = 1;
           do
           {
-            v62 = *(v54 + 8 * v18);
-            LODWORD(v59) = *(v87 + 4 * v18);
-            v63 = v54;
-            v64 = v53;
-            objc_msgSend__computeHomographyWithCommandBuffer_in_tex0_in_tex1_in_tex2_weight_tex_regularizer_term_decimation_factor_scale_nwarp_(v57, v38, v42, *(v53 + 8 * v18), v62, *(v97 + 8 * v18), *(v57 + 2144), v35, v59, v18, v61);
-            v53 = v64;
-            v54 = v63;
-            ++v61;
+            v38 = *(v30 + 8 * v9);
+            LODWORD(v35) = *(v48 + 4 * v9);
+            v39 = v30;
+            v40 = v29;
+            [v33 _computeHomographyWithCommandBuffer:v19 in_tex0:*(v29 + 8 * v9) in_tex1:v38 in_tex2:*(v58 + 8 * v9) weight_tex:*(v33 + 2144) regularizer_term:v17 decimation_factor:v35 scale:v9 nwarp:v37];
+            v29 = v40;
+            v30 = v39;
+            ++v37;
           }
 
-          while (v60 != v61);
+          while (v36 != v37);
         }
       }
 
-      v21 = v53;
-      objc_msgSend_commit(v42, v38, v39, v40);
+      v12 = v29;
+      [v19 commit];
 
-      v65 = v18-- <= 0;
-      v22 = v54;
-      v19 = v42;
-      v20 = v92;
+      v41 = v9-- <= 0;
+      v13 = v30;
+      v10 = v19;
+      v11 = v53;
     }
 
-    while (!v65);
+    while (!v41);
 
-    v7 = v84;
+    v7 = v45;
     self = selfCopy;
   }
 
-  v66 = objc_msgSend_commandBuffer(*(self + 16), v14, v15, v16);
-  v69 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v67, @"Fang weights and residuals", v68);
-  objc_msgSend_setLabel_(v66, v70, v69, v71);
+  commandBuffer2 = [*(self + 16) commandBuffer];
+  v43 = [MEMORY[0x277CCACA8] stringWithFormat:@"Fang weights and residuals"];
+  [commandBuffer2 setLabel:v43];
 
-  objc_msgSend__computeICPWeights_weights_flow_(self, v72, v66, *(self + 2144), *(self + 2008));
-  objc_msgSend__computeICPResiduals_flow_(self, v73, v66, *(self + 2008));
-  objc_msgSend_commit(v66, v74, v75, v76);
-  objc_msgSend_waitUntilCompleted(v66, v77, v78, v79);
-  objc_msgSend__copyTransfromFromGPU(self, v80, v81, v82);
+  [self _computeICPWeights:commandBuffer2 weights:*(self + 2144) flow:*(self + 2008)];
+  [self _computeICPResiduals:commandBuffer2 flow:*(self + 2008)];
+  [commandBuffer2 commit];
+  [commandBuffer2 waitUntilCompleted];
+  [self _copyTransfromFromGPU];
 
   return 0;
 }
 
 - (int)_computeICPWeights:(id)weights weights:(id)a4 flow:(id)flow
 {
-  v119[1] = *MEMORY[0x277D85DE8];
-  v119[0] = 0x4220000041200000;
+  v40[1] = *MEMORY[0x277D85DE8];
+  v40[0] = 0x4220000041200000;
   if (self->_flow_upper_most_scale >= 1)
   {
-    v119[0] = 0x41A0000040A00000;
+    v40[0] = 0x41A0000040A00000;
   }
 
   flowCopy = flow;
   v9 = a4;
   weightsCopy = weights;
-  v14 = objc_msgSend_computeCommandEncoder(weightsCopy, v11, v12, v13);
-  objc_msgSend_setComputePipelineState_(v14, v15, self->_computePipelines[12], v16);
-  objc_msgSend_setTexture_atIndex_(v14, v17, v9, 0);
-  objc_msgSend_setTexture_atIndex_(v14, v18, flowCopy, 1);
+  computeCommandEncoder = [weightsCopy computeCommandEncoder];
+  [computeCommandEncoder setComputePipelineState:self->_computePipelines[12]];
+  [computeCommandEncoder setTexture:v9 atIndex:0];
+  [computeCommandEncoder setTexture:flowCopy atIndex:1];
 
-  objc_msgSend_setBuffer_offset_atIndex_(v14, v19, self->_icp_param_tform_extra_buf, 0, 0);
-  objc_msgSend_setBytes_length_atIndex_(v14, v20, v119, 8, 1);
-  LODWORD(flowCopy) = objc_msgSend_threadExecutionWidth(self->_computePipelines[12], v21, v22, v23);
-  v27 = objc_msgSend_maxTotalThreadsPerThreadgroup(self->_computePipelines[12], v24, v25, v26) / flowCopy;
-  v112 = (flowCopy + objc_msgSend_width(v9, v28, v29, v30) - 1) / flowCopy;
-  v113 = (v27 + objc_msgSend_height(v9, v31, v32, v33) - 1) / v27;
-  v114 = 1;
-  v117.i64[0] = flowCopy;
-  v117.i64[1] = v27;
-  v118 = 1;
-  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v14, v34, &v112, &v117);
-  objc_msgSend_endEncoding(v14, v35, v36, v37);
-  v112 = 256;
-  v113 = 0;
-  v114 = 0;
-  v115 = 0;
+  [computeCommandEncoder setBuffer:self->_icp_param_tform_extra_buf offset:0 atIndex:0];
+  [computeCommandEncoder setBytes:v40 length:8 atIndex:1];
+  LODWORD(flowCopy) = [(MTLComputePipelineState *)self->_computePipelines[12] threadExecutionWidth];
+  v12 = [(MTLComputePipelineState *)self->_computePipelines[12] maxTotalThreadsPerThreadgroup]/ flowCopy;
+  v33 = (flowCopy + [v9 width] - 1) / flowCopy;
+  v34 = (v12 + [v9 height] - 1) / v12;
+  v35 = 1;
+  v38.i64[0] = flowCopy;
+  v38.i64[1] = v12;
+  v39 = 1;
+  [computeCommandEncoder dispatchThreadgroups:&v33 threadsPerThreadgroup:&v38];
+  [computeCommandEncoder endEncoding];
+  v33 = 256;
+  v34 = 0;
+  v35 = 0;
+  v36 = 0;
   __asm { FMOV            V0.4S, #1.0 }
 
-  v116 = _Q0;
-  v43 = objc_alloc(MEMORY[0x277CD7530]);
-  v47 = objc_msgSend_device(self->_mtlContext, v44, v45, v46);
-  v49 = objc_msgSend_initWithDevice_histogramInfo_(v43, v48, v47, &v112);
+  v37 = _Q0;
+  v18 = objc_alloc(MEMORY[0x277CD7530]);
+  device = [(FigMetalContext *)self->_mtlContext device];
+  v20 = [v18 initWithDevice:device histogramInfo:&v33];
 
-  v53 = objc_msgSend_pixelFormat(v9, v50, v51, v52);
-  v56 = objc_msgSend_histogramSizeForSourceFormat_(v49, v54, v53, v55);
-  v60 = objc_msgSend_device(self->_mtlContext, v57, v58, v59);
-  v62 = objc_msgSend_newBufferWithLength_options_(v60, v61, v56, 0);
+  v21 = [v20 histogramSizeForSourceFormat:objc_msgSend(v9, "pixelFormat")];
+  device2 = [(FigMetalContext *)self->_mtlContext device];
+  v23 = [device2 newBufferWithLength:v21 options:0];
 
-  objc_msgSend_encodeToCommandBuffer_sourceTexture_histogram_histogramOffset_(v49, v63, weightsCopy, v9, v62, 0);
-  v67 = objc_msgSend_device(self->_mtlContext, v64, v65, v66);
-  v69 = objc_msgSend_newBufferWithLength_options_(v67, v68, 4, 0);
+  [v20 encodeToCommandBuffer:weightsCopy sourceTexture:v9 histogram:v23 histogramOffset:0];
+  device3 = [(FigMetalContext *)self->_mtlContext device];
+  v25 = [device3 newBufferWithLength:4 options:0];
 
-  v73 = objc_msgSend_computeCommandEncoder(weightsCopy, v70, v71, v72);
+  computeCommandEncoder2 = [weightsCopy computeCommandEncoder];
 
-  objc_msgSend_setComputePipelineState_(v73, v74, self->_computePipelines[13], v75);
-  objc_msgSend_setBuffer_offset_atIndex_(v73, v76, v62, 0, 0);
-  objc_msgSend_setBytes_length_atIndex_(v73, v77, &v112, 8, 1);
-  objc_msgSend_setBuffer_offset_atIndex_(v73, v78, v69, 0, 2);
-  v117 = vdupq_n_s64(1uLL);
-  v118 = 1;
-  v110 = v117;
-  v111 = 1;
-  objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v73, v79, &v117, &v110);
-  objc_msgSend_endEncoding(v73, v80, v81, v82);
-  v86 = objc_msgSend_computeCommandEncoder(weightsCopy, v83, v84, v85);
+  [computeCommandEncoder2 setComputePipelineState:self->_computePipelines[13]];
+  [computeCommandEncoder2 setBuffer:v23 offset:0 atIndex:0];
+  [computeCommandEncoder2 setBytes:&v33 length:8 atIndex:1];
+  [computeCommandEncoder2 setBuffer:v25 offset:0 atIndex:2];
+  v38 = vdupq_n_s64(1uLL);
+  v39 = 1;
+  v31 = v38;
+  v32 = 1;
+  [computeCommandEncoder2 dispatchThreads:&v38 threadsPerThreadgroup:&v31];
+  [computeCommandEncoder2 endEncoding];
+  computeCommandEncoder3 = [weightsCopy computeCommandEncoder];
 
-  objc_msgSend_setComputePipelineState_(v86, v87, self->_computePipelines[14], v88);
-  objc_msgSend_setTexture_atIndex_(v86, v89, v9, 0);
-  objc_msgSend_setBuffer_offset_atIndex_(v86, v90, v69, 0, 0);
-  LODWORD(weightsCopy) = objc_msgSend_threadExecutionWidth(self->_computePipelines[14], v91, v92, v93);
-  LODWORD(v73) = objc_msgSend_maxTotalThreadsPerThreadgroup(self->_computePipelines[14], v94, v95, v96) / weightsCopy;
-  v100 = (weightsCopy + objc_msgSend_width(v9, v97, v98, v99) - 1) / weightsCopy;
-  v104 = objc_msgSend_height(v9, v101, v102, v103);
+  [computeCommandEncoder3 setComputePipelineState:self->_computePipelines[14]];
+  [computeCommandEncoder3 setTexture:v9 atIndex:0];
+  [computeCommandEncoder3 setBuffer:v25 offset:0 atIndex:0];
+  LODWORD(weightsCopy) = [(MTLComputePipelineState *)self->_computePipelines[14] threadExecutionWidth];
+  LODWORD(computeCommandEncoder2) = [(MTLComputePipelineState *)self->_computePipelines[14] maxTotalThreadsPerThreadgroup]/ weightsCopy;
+  v28 = (weightsCopy + [v9 width] - 1) / weightsCopy;
+  height = [v9 height];
 
-  v117.i64[0] = v100;
-  v117.i64[1] = (v73 + v104 - 1) / v73;
-  v118 = 1;
-  v110.i64[0] = weightsCopy;
-  v110.i64[1] = v73;
-  v111 = 1;
-  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v86, v105, &v117, &v110);
-  objc_msgSend_endEncoding(v86, v106, v107, v108);
+  v38.i64[0] = v28;
+  v38.i64[1] = (computeCommandEncoder2 + height - 1) / computeCommandEncoder2;
+  v39 = 1;
+  v31.i64[0] = weightsCopy;
+  v31.i64[1] = computeCommandEncoder2;
+  v32 = 1;
+  [computeCommandEncoder3 dispatchThreadgroups:&v38 threadsPerThreadgroup:&v31];
+  [computeCommandEncoder3 endEncoding];
 
   return 0;
 }
@@ -1516,46 +1513,46 @@ LABEL_15:
 - (int)_computeICPResiduals:(id)residuals flow:(id)flow
 {
   flowCopy = flow;
-  v10 = objc_msgSend_computeCommandEncoder(residuals, v7, v8, v9);
-  objc_msgSend_setComputePipelineState_(v10, v11, self->_computePipelines[15], v12);
-  objc_msgSend_setTexture_atIndex_(v10, v13, flowCopy, 0);
-  objc_msgSend_setBuffer_offset_atIndex_(v10, v14, self->_icp_param_tform_extra_buf, 0, 0);
-  v18 = objc_msgSend_threadExecutionWidth(self->_computePipelines[15], v15, v16, v17);
-  v22 = objc_msgSend_maxTotalThreadsPerThreadgroup(self->_computePipelines[15], v19, v20, v21) / v18;
-  v26 = (v18 + objc_msgSend_width(flowCopy, v23, v24, v25) - 1) / v18;
-  LODWORD(self) = objc_msgSend_height(flowCopy, v27, v28, v29);
+  computeCommandEncoder = [residuals computeCommandEncoder];
+  [computeCommandEncoder setComputePipelineState:self->_computePipelines[15]];
+  [computeCommandEncoder setTexture:flowCopy atIndex:0];
+  [computeCommandEncoder setBuffer:self->_icp_param_tform_extra_buf offset:0 atIndex:0];
+  threadExecutionWidth = [(MTLComputePipelineState *)self->_computePipelines[15] threadExecutionWidth];
+  v9 = [(MTLComputePipelineState *)self->_computePipelines[15] maxTotalThreadsPerThreadgroup]/ threadExecutionWidth;
+  v10 = (threadExecutionWidth + [flowCopy width] - 1) / threadExecutionWidth;
+  LODWORD(self) = [flowCopy height];
 
-  v36[0] = v26;
-  v36[1] = (v22 + self - 1) / v22;
-  v36[2] = 1;
-  v35[0] = v18;
-  v35[1] = v22;
-  v35[2] = 1;
-  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v10, v30, v36, v35);
-  objc_msgSend_endEncoding(v10, v31, v32, v33);
+  v13[0] = v10;
+  v13[1] = (v9 + self - 1) / v9;
+  v13[2] = 1;
+  v12[0] = threadExecutionWidth;
+  v12[1] = v9;
+  v12[2] = 1;
+  [computeCommandEncoder dispatchThreadgroups:v13 threadsPerThreadgroup:v12];
+  [computeCommandEncoder endEncoding];
 
   return 0;
 }
 
 - (int)_computeActiveThreadgroupsWithCommandBuffer:(id)buffer
 {
-  v5 = objc_msgSend_computeCommandEncoder(buffer, a2, buffer, v3);
-  v23 = 0uLL;
-  v24 = 0;
-  objc_msgSend__computeICPThreadgroupsForActivation_(self, v6, &v23, v7);
-  memset(v22, 0, sizeof(v22));
-  LODWORD(v22[0]) = self->_decimation_factor_icp;
-  DWORD2(v22[0]) = v23;
-  objc_msgSend_setComputePipelineState_(v5, v8, self->_computePipelines[8], v9);
-  objc_msgSend_setTexture_atIndex_(v5, v10, self->_icp_derivatives_tg_sum, 0);
-  objc_msgSend_setTexture_atIndex_(v5, v11, self->_icp_active_tg_indices_tex, 1);
-  objc_msgSend_setBytes_length_atIndex_(v5, v12, v22, 96, 0);
-  v20 = vdupq_n_s64(1uLL);
-  v21 = 1;
-  v18 = v23;
-  v19 = v24;
-  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v5, v13, &v20, &v18);
-  objc_msgSend_endEncoding(v5, v14, v15, v16);
+  computeCommandEncoder = [buffer computeCommandEncoder];
+  v11 = 0uLL;
+  v12 = 0;
+  [(LKTFlowGPU *)self _computeICPThreadgroupsForActivation:&v11];
+  memset(v10, 0, sizeof(v10));
+  LODWORD(v10[0]) = self->_decimation_factor_icp;
+  DWORD2(v10[0]) = v11;
+  [computeCommandEncoder setComputePipelineState:self->_computePipelines[8]];
+  [computeCommandEncoder setTexture:self->_icp_derivatives_tg_sum atIndex:0];
+  [computeCommandEncoder setTexture:self->_icp_active_tg_indices_tex atIndex:1];
+  [computeCommandEncoder setBytes:v10 length:96 atIndex:0];
+  v8 = vdupq_n_s64(1uLL);
+  v9 = 1;
+  v6 = v11;
+  v7 = v12;
+  [computeCommandEncoder dispatchThreadgroups:&v8 threadsPerThreadgroup:&v6];
+  [computeCommandEncoder endEncoding];
 
   return 0;
 }
@@ -1566,142 +1563,140 @@ LABEL_15:
   weight_texCopy = weight_tex;
   in_tex2Copy = in_tex2;
   in_tex1Copy = in_tex1;
-  v25 = objc_msgSend_computeCommandEncoder(buffer, v22, v23, v24);
-  v123 = 0uLL;
-  v124 = 0;
-  v121 = 0uLL;
-  v122 = 0;
-  v119 = 0uLL;
-  v120 = 0;
-  v117 = 0uLL;
-  v118 = 0;
-  v115 = 0uLL;
-  v116 = 0;
-  v113 = 0uLL;
-  v114 = 0;
-  v29 = objc_msgSend_width(in_tex0Copy, v26, v27, v28);
-  v33 = objc_msgSend_height(in_tex0Copy, v30, v31, v32);
-  objc_msgSend__computeICPThreadgroupsWithSize_threadsPerThreadgroupForPass1_threadgroupsPerGridForPass1_threadsPerThreadgroupForPass2_threadgroupsPerGridForPass2_threadsPerThreadgroupForPass3_threadgroupsPerGridForPass3_(self, v34, &v123, &v121, &v119, &v117, &v115, &v113, v29, v33);
-  v111 = 0uLL;
-  v112 = 0;
-  objc_msgSend__computeICPThreadgroupsForDecimation_threadsPerThreadgroupForUniform_threadsPerThreadgroupForPass1_threadgroupsPerGridForPass1_(self, v35, decimation_factor, &v111, &v123, &v121);
-  v109 = 0u;
-  v110 = 0u;
-  v107 = 0u;
-  v108 = 0u;
-  *&v106[8] = 0u;
-  v105[0] = objc_msgSend_width(in_tex0Copy, v36, v37, v38);
-  v105[1] = objc_msgSend_height(in_tex0Copy, v39, v40, v41);
-  *v106 = vuzp1q_s32(v121, v111);
-  v87 = *(MEMORY[0x277D860B0] + 16);
-  v88 = *MEMORY[0x277D860B0];
-  v107 = *MEMORY[0x277D860B0];
-  v108 = v87;
-  v86 = *(MEMORY[0x277D860B0] + 32);
-  v109 = v86;
-  LODWORD(v110) = 0;
-  objc_msgSend_setComputePipelineState_(v25, v42, self->_computePipelines[6], v43);
-  objc_msgSend_setTexture_atIndex_(v25, v44, in_tex0Copy, 0);
-  objc_msgSend_setTexture_atIndex_(v25, v45, in_tex1Copy, 1);
-
-  objc_msgSend_setTexture_atIndex_(v25, v46, in_tex2Copy, 2);
-  objc_msgSend_setTexture_atIndex_(v25, v47, weight_texCopy, 3);
-
-  objc_msgSend_setTexture_atIndex_(v25, v48, self->_icp_active_tg_indices_tex, 4);
-  objc_msgSend_setBuffer_offset_atIndex_(v25, v49, self->_icp_reduc_buf, 0, 0);
-  objc_msgSend_setBytes_length_atIndex_(v25, v50, v105, 96, 1);
-  objc_msgSend_setBuffer_offset_atIndex_(v25, v51, self->_icp_param_tform_buf, 0, 2);
-  objc_msgSend_setThreadgroupMemoryLength_atIndex_(v25, v52, 1024, 0);
-  v99 = v121;
-  v100.i64[0] = v122;
-  v91 = v123;
-  *&v92 = v124;
-  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v25, v53, &v99, &v91);
+  computeCommandEncoder = [buffer computeCommandEncoder];
+  v63 = 0uLL;
+  v64 = 0;
+  v61 = 0uLL;
+  v62 = 0;
+  v59 = 0uLL;
+  v60 = 0;
   v57 = 0uLL;
-  if (v121.i64[1] * v121.i64[0] >= 2uLL)
+  v58 = 0;
+  v55 = 0uLL;
+  v56 = 0;
+  v53 = 0uLL;
+  v54 = 0;
+  -[LKTFlowGPU _computeICPThreadgroupsWithSize:threadsPerThreadgroupForPass1:threadgroupsPerGridForPass1:threadsPerThreadgroupForPass2:threadgroupsPerGridForPass2:threadsPerThreadgroupForPass3:threadgroupsPerGridForPass3:](self, "_computeICPThreadgroupsWithSize:threadsPerThreadgroupForPass1:threadgroupsPerGridForPass1:threadsPerThreadgroupForPass2:threadgroupsPerGridForPass2:threadsPerThreadgroupForPass3:threadgroupsPerGridForPass3:", &v63, &v61, &v59, &v57, &v55, &v53, [in_tex0Copy width], objc_msgSend(in_tex0Copy, "height"));
+  v51 = 0uLL;
+  v52 = 0;
+  [(LKTFlowGPU *)self _computeICPThreadgroupsForDecimation:decimation_factor threadsPerThreadgroupForUniform:&v51 threadsPerThreadgroupForPass1:&v63 threadgroupsPerGridForPass1:&v61];
+  v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  *&v46[8] = 0u;
+  v45[0] = [in_tex0Copy width];
+  v45[1] = [in_tex0Copy height];
+  *v46 = vuzp1q_s32(v61, v51);
+  v27 = *(MEMORY[0x277D860B0] + 16);
+  v28 = *MEMORY[0x277D860B0];
+  v47 = *MEMORY[0x277D860B0];
+  v48 = v27;
+  v26 = *(MEMORY[0x277D860B0] + 32);
+  v49 = v26;
+  LODWORD(v50) = 0;
+  [computeCommandEncoder setComputePipelineState:self->_computePipelines[6]];
+  [computeCommandEncoder setTexture:in_tex0Copy atIndex:0];
+  [computeCommandEncoder setTexture:in_tex1Copy atIndex:1];
+
+  [computeCommandEncoder setTexture:in_tex2Copy atIndex:2];
+  [computeCommandEncoder setTexture:weight_texCopy atIndex:3];
+
+  [computeCommandEncoder setTexture:self->_icp_active_tg_indices_tex atIndex:4];
+  [computeCommandEncoder setBuffer:self->_icp_reduc_buf offset:0 atIndex:0];
+  [computeCommandEncoder setBytes:v45 length:96 atIndex:1];
+  [computeCommandEncoder setBuffer:self->_icp_param_tform_buf offset:0 atIndex:2];
+  [computeCommandEncoder setThreadgroupMemoryLength:1024 atIndex:0];
+  v39 = v61;
+  v40.i64[0] = v62;
+  v31 = v63;
+  *&v32 = v64;
+  [computeCommandEncoder dispatchThreadgroups:&v39 threadsPerThreadgroup:&v31];
+  v23 = 0uLL;
+  if (v61.i64[1] * v61.i64[0] >= 2uLL)
   {
-    v99 = vuzp1q_s32(v121, v117);
-    v100 = 0uLL;
-    v100.i32[1] = 0;
-    v101 = v88;
-    v102 = v87;
-    v103 = v86;
-    v104 = 0uLL;
-    objc_msgSend_setComputePipelineState_(v25, v54, self->_computePipelines[7], v56);
-    objc_msgSend_setBuffer_offset_atIndex_(v25, v58, self->_icp_reduc_buf, 0, 0);
-    objc_msgSend_setBytes_length_atIndex_(v25, v59, &v99, 96, 1);
-    objc_msgSend_setThreadgroupMemoryLength_atIndex_(v25, v60, 5120, 0);
-    objc_msgSend_setThreadgroupMemoryLength_atIndex_(v25, v61, 1024, 1);
-    v91 = v117;
-    *&v92 = v118;
-    v97 = v119;
-    v98 = v120;
-    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v25, v62, &v91, &v97);
-    if (v117.i64[1] * v117.i64[0] >= 2uLL)
+    v39 = vuzp1q_s32(v61, v57);
+    v40 = 0uLL;
+    v40.i32[1] = 0;
+    v41 = v28;
+    v42 = v27;
+    v43 = v26;
+    v44 = 0uLL;
+    [computeCommandEncoder setComputePipelineState:self->_computePipelines[7]];
+    [computeCommandEncoder setBuffer:self->_icp_reduc_buf offset:0 atIndex:0];
+    [computeCommandEncoder setBytes:&v39 length:96 atIndex:1];
+    [computeCommandEncoder setThreadgroupMemoryLength:5120 atIndex:0];
+    [computeCommandEncoder setThreadgroupMemoryLength:1024 atIndex:1];
+    v31 = v57;
+    *&v32 = v58;
+    v37 = v59;
+    v38 = v60;
+    [computeCommandEncoder dispatchThreadgroups:&v31 threadsPerThreadgroup:&v37];
+    if (v57.i64[1] * v57.i64[0] >= 2uLL)
     {
-      v91 = vuzp1q_s32(v117, v113);
-      v92 = 0u;
-      DWORD1(v92) = 0;
-      v93 = v88;
-      v94 = v87;
-      v95 = v86;
-      v96 = 0u;
-      objc_msgSend_setComputePipelineState_(v25, v54, self->_computePipelines[7], v56);
-      objc_msgSend_setBuffer_offset_atIndex_(v25, v63, self->_icp_reduc_buf, 0, 0);
-      objc_msgSend_setBytes_length_atIndex_(v25, v64, &v91, 96, 1);
-      objc_msgSend_setThreadgroupMemoryLength_atIndex_(v25, v65, 5120, 0);
-      objc_msgSend_setThreadgroupMemoryLength_atIndex_(v25, v66, 1024, 1);
-      v97 = v113;
-      v98 = v114;
-      v89 = v115;
-      v90 = v116;
-      objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v25, v67, &v97, &v89);
+      v31 = vuzp1q_s32(v57, v53);
+      v32 = 0u;
+      DWORD1(v32) = 0;
+      v33 = v28;
+      v34 = v27;
+      v35 = v26;
+      v36 = 0u;
+      [computeCommandEncoder setComputePipelineState:self->_computePipelines[7]];
+      [computeCommandEncoder setBuffer:self->_icp_reduc_buf offset:0 atIndex:0];
+      [computeCommandEncoder setBytes:&v31 length:96 atIndex:1];
+      [computeCommandEncoder setThreadgroupMemoryLength:5120 atIndex:0];
+      [computeCommandEncoder setThreadgroupMemoryLength:1024 atIndex:1];
+      v37 = v53;
+      v38 = v54;
+      v29 = v55;
+      v30 = v56;
+      [computeCommandEncoder dispatchThreadgroups:&v37 threadsPerThreadgroup:&v29];
     }
 
-    v57 = 0uLL;
+    v23 = 0uLL;
   }
 
-  v103 = v57;
-  v104 = v57;
-  v101 = v57;
-  v102 = v57;
-  v99 = v57;
-  v100 = v57;
-  v68 = objc_msgSend_width(in_tex0Copy, v54, v55, v56);
-  *v104.i32 = (objc_msgSend_height(in_tex0Copy, v69, v70, v71) * v68) * regularizer_term;
-  LOWORD(v89) = scale;
-  WORD1(v89) = nwarp - 1;
-  objc_msgSend_setComputePipelineState_(v25, v72, self->_computePipelines[9], v73);
-  objc_msgSend_setBuffer_offset_atIndex_(v25, v74, self->_icp_reduc_buf, 0, 0);
-  objc_msgSend_setBuffer_offset_atIndex_(v25, v75, self->_icp_param_tform_buf, 0, 1);
-  objc_msgSend_setBuffer_offset_atIndex_(v25, v76, self->_icp_param_tform_extra_buf, 0, 2);
-  objc_msgSend_setBuffer_offset_atIndex_(v25, v77, self->_icp_loss_buf, 0, 3);
-  objc_msgSend_setBytes_length_atIndex_(v25, v78, &v99, 96, 4);
-  objc_msgSend_setBytes_length_atIndex_(v25, v79, &self->_flow_upper_most_scale, 4, 5);
-  objc_msgSend_setBytes_length_atIndex_(v25, v80, &v89, 4, 6);
-  v91 = vdupq_n_s64(1uLL);
-  *&v92 = 1;
-  v97 = v91;
-  v98 = 1;
-  objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v25, v81, &v91, &v97);
-  objc_msgSend_endEncoding(v25, v82, v83, v84);
+  v43 = v23;
+  v44 = v23;
+  v41 = v23;
+  v42 = v23;
+  v39 = v23;
+  v40 = v23;
+  width = [in_tex0Copy width];
+  *v44.i32 = ([in_tex0Copy height] * width) * regularizer_term;
+  LOWORD(v29) = scale;
+  WORD1(v29) = nwarp - 1;
+  [computeCommandEncoder setComputePipelineState:self->_computePipelines[9]];
+  [computeCommandEncoder setBuffer:self->_icp_reduc_buf offset:0 atIndex:0];
+  [computeCommandEncoder setBuffer:self->_icp_param_tform_buf offset:0 atIndex:1];
+  [computeCommandEncoder setBuffer:self->_icp_param_tform_extra_buf offset:0 atIndex:2];
+  [computeCommandEncoder setBuffer:self->_icp_loss_buf offset:0 atIndex:3];
+  [computeCommandEncoder setBytes:&v39 length:96 atIndex:4];
+  [computeCommandEncoder setBytes:&self->_flow_upper_most_scale length:4 atIndex:5];
+  [computeCommandEncoder setBytes:&v29 length:4 atIndex:6];
+  v31 = vdupq_n_s64(1uLL);
+  *&v32 = 1;
+  v37 = v31;
+  v38 = 1;
+  [computeCommandEncoder dispatchThreads:&v31 threadsPerThreadgroup:&v37];
+  [computeCommandEncoder endEncoding];
 
   return 0;
 }
 
-- (uint64_t)_setParametricTransformFromGyro:(uint64_t)gyro
+- (void)_setParametricTransformFromGyro:(int *)gyro
 {
-  result = objc_msgSend__matrix3x3ToParametricTransform_(self, a2, gyro, a4);
-  if (self[546] >= 2)
+  result = [gyro _matrix3x3ToParametricTransform:?];
+  if (gyro[546] >= 2)
   {
-    v7 = 0;
+    v3 = 0;
     do
     {
-      v8 = &self[20 * self[500] + 2 * v7++];
-      result = objc_msgSend__resampleTransform_to_(self, v6, *(v8 + 528), *(v8 + 536));
+      v4 = &gyro[20 * gyro[500] + 2 * v3++];
+      result = [gyro _resampleTransform:*(v4 + 66) to:*(v4 + 67)];
     }
 
-    while (v7 < self[546] - 1);
+    while (v3 < gyro[546] - 1);
   }
 
   return result;
@@ -1746,7 +1741,8 @@ LABEL_15:
     *(self + 2056) = v14.n128_u64[0];
   }
 
-  return *&v7;
+  *&result = v7;
+  return result;
 }
 
 - (__n64)_parametricTransformToMatrix3x3
@@ -1770,7 +1766,7 @@ LABEL_15:
 {
   if (self->_p.length_params == 8)
   {
-    MEMORY[0x2821F9670](self, sel__resampleHomography_to_, transform, to);
+    MEMORY[0x2821F9670](self, sel__resampleHomography_to_);
   }
 }
 
@@ -1778,33 +1774,33 @@ LABEL_15:
 {
   toCopy = to;
   homographyCopy = homography;
-  v11 = objc_msgSend_width(toCopy, v8, v9, v10);
-  v30 = v11 / objc_msgSend_width(homographyCopy, v12, v13, v14);
-  v18 = objc_msgSend_height(toCopy, v15, v16, v17);
+  width = [toCopy width];
+  v18 = width / [homographyCopy width];
+  height = [toCopy height];
 
-  v22 = objc_msgSend_height(homographyCopy, v19, v20, v21);
-  v23.f32[0] = v22;
-  self->_p.params[2] = v30 * self->_p.params[2];
+  height2 = [homographyCopy height];
+  v11.f32[0] = height2;
+  self->_p.params[2] = v18 * self->_p.params[2];
   __asm { FMOV            V1.2S, #1.0 }
 
-  _D1.f32[0] = v18;
-  v23.f32[1] = v30;
-  v29 = vdiv_f32(_D1, v23);
-  *&self->_p.params[5] = vmul_f32(v29, *&self->_p.params[5]);
-  self->_p.params[7] = (1.0 / v29.f32[0]) * self->_p.params[7];
+  _D1.f32[0] = height;
+  v11.f32[1] = v18;
+  v17 = vdiv_f32(_D1, v11);
+  *&self->_p.params[5] = vmul_f32(v17, *&self->_p.params[5]);
+  self->_p.params[7] = (1.0 / v17.f32[0]) * self->_p.params[7];
 }
 
 - (void)_copyTransfromFromGPU
 {
-  v5 = objc_msgSend_contents(self->_icp_param_tform_buf, a2, v2, v3);
+  contents = [(MTLBuffer *)self->_icp_param_tform_buf contents];
   length_params = self->_p.length_params;
   if (length_params >= 1)
   {
     p_p = &self->_p;
     do
     {
-      v8 = *v5++;
-      p_p->params[0] = v8;
+      v6 = *contents++;
+      p_p->params[0] = v6;
       p_p = (p_p + 4);
       --length_params;
     }
@@ -1815,16 +1811,16 @@ LABEL_15:
 
 - (void)_copyTransfromToGPU
 {
-  v5 = objc_msgSend_contents(self->_icp_param_tform_buf, a2, v2, v3);
+  contents = [(MTLBuffer *)self->_icp_param_tform_buf contents];
   length_params = self->_p.length_params;
   if (length_params >= 1)
   {
     p_p = &self->_p;
     do
     {
-      v8 = p_p->params[0];
+      v6 = p_p->params[0];
       p_p = (p_p + 4);
-      *v5++ = v8;
+      *contents++ = v6;
       --length_params;
     }
 
@@ -1834,18 +1830,18 @@ LABEL_15:
 
 - (void)_resetLoss
 {
-  v4 = objc_msgSend_contents(self->_icp_loss_buf, a2, v2, v3);
-  *v4 = 0u;
-  *(v4 + 16) = 0u;
-  *(v4 + 32) = 0u;
-  *(v4 + 48) = 0u;
-  *(v4 + 64) = 0u;
-  *(v4 + 80) = 0u;
-  *(v4 + 96) = 0u;
-  *(v4 + 112) = 0u;
-  *(v4 + 128) = 0u;
-  *(v4 + 144) = 0u;
-  *(v4 + 160) = 0;
+  contents = [(MTLBuffer *)self->_icp_loss_buf contents];
+  *contents = 0u;
+  *(contents + 16) = 0u;
+  *(contents + 32) = 0u;
+  *(contents + 48) = 0u;
+  *(contents + 64) = 0u;
+  *(contents + 80) = 0u;
+  *(contents + 96) = 0u;
+  *(contents + 112) = 0u;
+  *(contents + 128) = 0u;
+  *(contents + 144) = 0u;
+  *(contents + 160) = 0;
 }
 
 - (CGSize)ref_size
@@ -1890,30 +1886,30 @@ LABEL_15:
   v7 = *&height;
   v8 = *&width;
   contextCopy = context;
-  v31.receiver = self;
-  v31.super_class = LKTFlowGPU;
-  v12 = [(LKTFlowGPU *)&v31 init];
+  v18.receiver = self;
+  v18.super_class = LKTFlowGPU;
+  v12 = [(LKTFlowGPU *)&v18 init];
   v13 = v12;
   if (!v12 || ((v7 | v8) & 1) != 0)
   {
-    v29 = 0;
+    v16 = 0;
   }
 
   else
   {
     objc_storeStrong(&v12->_mtlContext, context);
-    v17 = objc_msgSend_commandQueue(contextCopy, v14, v15, v16);
+    commandQueue = [contextCopy commandQueue];
     commandQueue = v13->_commandQueue;
-    v13->_commandQueue = v17;
+    v13->_commandQueue = commandQueue;
 
-    objc_msgSend__setDefaultParameters(v13, v19, v20, v21);
-    objc_msgSend__initMemory_height_nscales_(v13, v22, v8, v7, v6);
-    objc_msgSend__setupPipelines(v13, v23, v24, v25);
-    objc_msgSend__setupBuffer(v13, v26, v27, v28);
-    v29 = v13;
+    [(LKTFlowGPU *)v13 _setDefaultParameters];
+    [(LKTFlowGPU *)v13 _initMemory:v8 height:v7 nscales:v6];
+    [(LKTFlowGPU *)v13 _setupPipelines];
+    [(LKTFlowGPU *)v13 _setupBuffer];
+    v16 = v13;
   }
 
-  return v29;
+  return v16;
 }
 
 - (int)setOutputUVForward:(__CVBuffer *)forward backward:(__CVBuffer *)backward
@@ -1923,9 +1919,9 @@ LABEL_15:
     CVPixelBufferGetWidth(forward);
     CVPixelBufferGetHeight(forward);
     v7 = sub_23C45F99C();
-    v12 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(v8, v9, v10, v11, v7);
+    v9 = [v8 bindPixelBufferToMTL2DTexture:v7 pixelFormat:? usage:? textureSize:? plane:?];
     uv_fwd_tex_user_ref = self->_uv_fwd_tex_user_ref;
-    self->_uv_fwd_tex_user_ref = v12;
+    self->_uv_fwd_tex_user_ref = v9;
 
     if (!self->_uv_fwd_tex_user_ref)
     {
@@ -1934,10 +1930,10 @@ LABEL_15:
 
     if (backward)
     {
-      v14 = sub_23C45F99C();
-      v19 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(v15, v16, v17, v18, v14);
+      v11 = sub_23C45F99C();
+      v13 = [v12 bindPixelBufferToMTL2DTexture:v11 pixelFormat:? usage:? textureSize:? plane:?];
       uv_bwd_tex_user_ref = self->_uv_bwd_tex_user_ref;
-      self->_uv_bwd_tex_user_ref = v19;
+      self->_uv_bwd_tex_user_ref = v13;
 
       if (!self->_uv_bwd_tex_user_ref)
       {
@@ -1947,7 +1943,7 @@ LABEL_15:
 
     else
     {
-      v23 = self->_uv_bwd_tex_user_ref;
+      v17 = self->_uv_bwd_tex_user_ref;
       self->_uv_bwd_tex_user_ref = 0;
     }
 
@@ -1957,7 +1953,7 @@ LABEL_15:
 
   else
   {
-    v22 = self->_uv_fwd_tex_user_ref;
+    v16 = self->_uv_fwd_tex_user_ref;
     self->_uv_fwd_tex_user_ref = 0;
 
     return 0;
@@ -1971,7 +1967,7 @@ LABEL_15:
   v3 = sub_23C45FA30(self);
   v5 = *(v4 + 200);
   v6 = *(v4 + 2232);
-  v139 = v3;
+  v88 = v3;
   v7 = sub_23C45F9F4(v3, v6);
   *(v2 + 848) = v7;
   if (v7)
@@ -1992,52 +1988,52 @@ LABEL_15:
           *(v2 + 1240) = v11;
           if (v11)
           {
-            v15 = 0;
-            v16 = (v3 + v5 - 1) / v5 * v5 * v6;
-            v17 = 8 * v16;
-            v18 = v2 + 1200;
-            v136 = v16;
-            v19 = 2 * v16;
-            v20 = v2 + 1216;
-            v21 = 1;
+            v12 = 0;
+            v13 = (v3 + v5 - 1) / v5 * v5 * v6;
+            v14 = 8 * v13;
+            v15 = v2 + 1200;
+            v85 = v13;
+            v16 = 2 * v13;
+            v17 = v2 + 1216;
+            v18 = 1;
             while (1)
             {
-              v22 = v21;
-              v23 = objc_msgSend_device(*(v2 + 8), v12, v13, v14);
-              v25 = objc_msgSend_newBufferWithLength_options_(v23, v24, v17, 0);
-              v26 = *(v18 + 8 * v15);
-              *(v18 + 8 * v15) = v25;
+              v19 = v18;
+              device = [*(v2 + 8) device];
+              v21 = [device newBufferWithLength:v14 options:0];
+              v22 = *(v15 + 8 * v12);
+              *(v15 + 8 * v12) = v21;
 
-              if (!*(v18 + 8 * v15))
+              if (!*(v15 + 8 * v12))
               {
                 break;
               }
 
-              v30 = objc_msgSend_device(*(v2 + 8), v27, v28, v29);
-              v32 = objc_msgSend_newBufferWithLength_options_(v30, v31, v19, 0);
-              v33 = *(v20 + 8 * v15);
-              *(v20 + 8 * v15) = v32;
+              device2 = [*(v2 + 8) device];
+              v24 = [device2 newBufferWithLength:v16 options:0];
+              v25 = *(v17 + 8 * v12);
+              *(v17 + 8 * v12) = v24;
 
-              if (!*(v20 + 8 * v15))
+              if (!*(v17 + 8 * v12))
               {
                 break;
               }
 
-              v34 = sub_23C45F9F4(v139, v6);
-              *(v2 + 1328 + 8 * v15) = v34;
-              if (!v34)
+              v26 = sub_23C45F9F4(v88, v6);
+              *(v2 + 1328 + 8 * v12) = v26;
+              if (!v26)
               {
                 break;
               }
 
-              v21 = 0;
-              v15 = 1;
-              if ((v22 & 1) == 0)
+              v18 = 0;
+              v12 = 1;
+              if ((v19 & 1) == 0)
               {
-                v35 = objc_msgSend_device(*(v2 + 8), v12, v13, v14);
-                v37 = objc_msgSend_newBufferWithLength_options_(v35, v36, 4 * v136, 0);
-                v38 = *(v2 + 1232);
-                *(v2 + 1232) = v37;
+                device3 = [*(v2 + 8) device];
+                v28 = [device3 newBufferWithLength:4 * v85 options:0];
+                v29 = *(v2 + 1232);
+                *(v2 + 1232) = v28;
 
                 if (!*(v2 + 1232))
                 {
@@ -2049,108 +2045,108 @@ LABEL_15:
                   return 0;
                 }
 
-                v39 = 0;
-                v40 = vmovn_s64(vcvtq_s64_f64(*(v2 + 2240)));
-                v131 = v2 + 528;
-                v132 = v2 + 1248;
-                v41 = vmovn_s64(vcvtq_s64_f64(*(v2 + 2224)));
-                v129 = v2 + 608;
-                v130 = v2 + 688;
-                v128 = v2 + 768;
+                v30 = 0;
+                v31 = vmovn_s64(vcvtq_s64_f64(*(v2 + 2240)));
+                v80 = v2 + 528;
+                v81 = v2 + 1248;
+                v32 = vmovn_s64(vcvtq_s64_f64(*(v2 + 2224)));
+                v78 = v2 + 608;
+                v79 = v2 + 688;
+                v77 = v2 + 768;
 LABEL_14:
-                v135 = v41.i32[0];
-                v137 = *&v41;
-                v140 = *&v40;
-                v42 = v41.u32[1];
-                v43 = v40.i32[0];
-                v44 = v40.i32[1];
-                v45 = (v2 + 208 + 16 * v39);
-                *v45 = v41.i32[0];
-                v45[1] = v41.i32[1];
-                v46 = (v2 + 368 + 16 * v39);
-                *v46 = v40.i32[0];
-                v46[1] = v40.i32[1];
-                v47 = sub_23C45F99C();
-                v52 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(v48, v49, v50, v51, v47);
-                sub_23C45FA0C(v52);
-                if (*(v2 + 864 + 8 * v39))
+                v84 = v32.i32[0];
+                v86 = *&v32;
+                v89 = *&v31;
+                v33 = v32.u32[1];
+                v34 = v31.i32[0];
+                v35 = v31.i32[1];
+                v36 = (v2 + 208 + 16 * v30);
+                *v36 = v32.i32[0];
+                v36[1] = v32.i32[1];
+                v37 = (v2 + 368 + 16 * v30);
+                *v37 = v31.i32[0];
+                v37[1] = v31.i32[1];
+                v38 = sub_23C45F99C();
+                v40 = [v39 bindPixelBufferToMTL2DTexture:v38 pixelFormat:? usage:? textureSize:? plane:?];
+                sub_23C45FA0C(v40);
+                if (*(v2 + 864 + 8 * v30))
                 {
-                  v53 = sub_23C45F9B0();
-                  v58 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(v54, v55, v56, v57, v53);
-                  sub_23C45FA0C(v58);
-                  if (*(v2 + 944 + 8 * v39))
+                  v41 = sub_23C45F9B0();
+                  v43 = [v42 bindPixelBufferToMTL2DTexture:v41 pixelFormat:? usage:? textureSize:? plane:?];
+                  sub_23C45FA0C(v43);
+                  if (*(v2 + 944 + 8 * v30))
                   {
-                    v59 = sub_23C45F99C();
-                    v64 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(v60, v61, v62, v63, v59);
-                    sub_23C45FA0C(v64);
-                    if (*(v2 + 1040 + 8 * v39))
+                    v44 = sub_23C45F99C();
+                    v46 = [v45 bindPixelBufferToMTL2DTexture:v44 pixelFormat:? usage:? textureSize:? plane:?];
+                    sub_23C45FA0C(v46);
+                    if (*(v2 + 1040 + 8 * v30))
                     {
-                      v65 = sub_23C45F9B0();
-                      v70 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(v66, v67, v68, v69, v65);
-                      sub_23C45FA0C(v70);
-                      if (*(v2 + 1120 + 8 * v39))
+                      v47 = sub_23C45F9B0();
+                      v49 = [v48 bindPixelBufferToMTL2DTexture:v47 pixelFormat:? usage:? textureSize:? plane:?];
+                      sub_23C45FA0C(v49);
+                      if (*(v2 + 1120 + 8 * v30))
                       {
-                        v133 = v44;
-                        v134 = v43;
-                        v71 = sub_23C45F99C();
-                        v76 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(v72, v73, v74, v75, v71);
-                        v77 = *(v132 + 8 * v39);
-                        *(v132 + 8 * v39) = v76;
+                        v82 = v35;
+                        v83 = v34;
+                        v50 = sub_23C45F99C();
+                        v52 = [v51 bindPixelBufferToMTL2DTexture:v50 pixelFormat:? usage:? textureSize:? plane:?];
+                        v53 = *(v81 + 8 * v30);
+                        *(v81 + 8 * v30) = v52;
 
-                        v78 = 0;
-                        v79 = 1;
+                        v54 = 0;
+                        v55 = 1;
                         while (1)
                         {
-                          v80 = v79;
-                          v81 = sub_23C45F99C();
-                          v86 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(v82, v83, v84, v85, v81);
-                          sub_23C45FA0C(v86);
-                          v89 = *(v2 + 1360 + 80 * v78 + 8 * v39);
-                          if (!v89)
+                          v56 = v55;
+                          v57 = sub_23C45F99C();
+                          v59 = [v58 bindPixelBufferToMTL2DTexture:v57 pixelFormat:? usage:? textureSize:? plane:?];
+                          sub_23C45FA0C(v59);
+                          v60 = *(v2 + 1360 + 80 * v54 + 8 * v30);
+                          if (!v60)
                           {
                             break;
                           }
 
-                          v90 = objc_msgSend_newTextureViewWithPixelFormat_(v89, v87, 53, v88);
-                          v91 = v2 + 1680 + 80 * v78;
-                          v92 = *(v91 + 8 * v39);
-                          *(v91 + 8 * v39) = v90;
+                          v61 = [v60 newTextureViewWithPixelFormat:53];
+                          v62 = v2 + 1680 + 80 * v54;
+                          v63 = *(v62 + 8 * v30);
+                          *(v62 + 8 * v30) = v61;
 
-                          v79 = 0;
-                          v78 = 1;
-                          if ((v80 & 1) == 0)
+                          v55 = 0;
+                          v54 = 1;
+                          if ((v56 & 1) == 0)
                           {
-                            v94 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(MEMORY[0x277CD7058], v93, 70, v135, v42, 0);
-                            objc_msgSend_setUsage_(v94, v95, 19, v96);
-                            objc_msgSend_device(*(v2 + 8), v97, v98, v99);
+                            v64 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:70 width:v84 height:v33 mipmapped:0];
+                            [v64 setUsage:19];
+                            [*(v2 + 8) device];
                             objc_claimAutoreleasedReturnValue();
                             sub_23C45FA24();
-                            v104 = objc_msgSend_newTextureWithDescriptor_(v100, v101, v102, v103);
-                            v105 = *(v131 + 8 * v39);
-                            *(v131 + 8 * v39) = v104;
+                            v66 = [v65 newTextureWithDescriptor:?];
+                            v67 = *(v80 + 8 * v30);
+                            *(v80 + 8 * v30) = v66;
 
-                            v108 = objc_msgSend_newTextureViewWithPixelFormat_(*(v131 + 8 * v39), v106, 53, v107);
-                            v109 = *(v130 + 8 * v39);
-                            *(v130 + 8 * v39) = v108;
+                            v68 = [*(v80 + 8 * v30) newTextureViewWithPixelFormat:53];
+                            v69 = *(v79 + 8 * v30);
+                            *(v79 + 8 * v30) = v68;
 
-                            v138 = calculateHalfResolutionWithVector2(v137).n64_u64[0];
-                            v111 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(MEMORY[0x277CD7058], v110, 70, v134, v133, 0);
-                            objc_msgSend_setUsage_(v111, v112, 19, v113);
-                            objc_msgSend_device(*(v2 + 8), v114, v115, v116);
+                            v87 = calculateHalfResolutionWithVector2(v86).n64_u64[0];
+                            v70 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:70 width:v83 height:v82 mipmapped:0];
+                            [v70 setUsage:19];
+                            [*(v2 + 8) device];
                             objc_claimAutoreleasedReturnValue();
                             sub_23C45FA24();
-                            v121 = objc_msgSend_newTextureWithDescriptor_(v117, v118, v119, v120);
-                            v122 = *(v129 + 8 * v39);
-                            *(v129 + 8 * v39) = v121;
+                            v72 = [v71 newTextureWithDescriptor:?];
+                            v73 = *(v78 + 8 * v30);
+                            *(v78 + 8 * v30) = v72;
 
-                            v125 = objc_msgSend_newTextureViewWithPixelFormat_(*(v129 + 8 * v39), v123, 53, v124);
-                            v126 = *(v128 + 8 * v39);
-                            *(v128 + 8 * v39) = v125;
+                            v74 = [*(v78 + 8 * v30) newTextureViewWithPixelFormat:53];
+                            v75 = *(v77 + 8 * v30);
+                            *(v77 + 8 * v30) = v74;
 
-                            v141 = calculateHalfResolutionWithVector2(v140).n64_u64[0];
-                            v41 = v138;
-                            v40 = v141;
-                            if (++v39 < *(v2 + 2176))
+                            v90 = calculateHalfResolutionWithVector2(v89).n64_u64[0];
+                            v32 = v87;
+                            v31 = v90;
+                            if (++v30 < *(v2 + 2176))
                             {
                               goto LABEL_14;
                             }
@@ -2180,7 +2176,7 @@ LABEL_14:
   selfCopy = self;
   v3 = self->_nscales - 1;
   uv_fwd_tex = self->_uv_fwd_tex;
-  v71 = self->_uv_fwd_tex[0][v3];
+  v55 = self->_uv_fwd_tex[0][v3];
   uv_bwd_tex = selfCopy->_uv_bwd_tex;
   v4 = selfCopy->_uv_bwd_tex[0][v3];
   if (selfCopy->_uv_bwd_tex_user_ref)
@@ -2202,140 +2198,140 @@ LABEL_14:
       C0_tex = selfCopy->_C0_tex;
       p_uv_fwd_tex_user_ref = &selfCopy->_uv_fwd_tex_user_ref;
       p_uv_bwd_tex_user_ref = &selfCopy->_uv_bwd_tex_user_ref;
-      v52 = selfCopy->_uv_bwd_tex[1];
-      v59 = v3;
-      v58 = v3;
+      v36 = selfCopy->_uv_bwd_tex[1];
+      v43 = v3;
+      v42 = v3;
       do
       {
         v8 = v6;
-        v51 = nscales;
+        v35 = nscales;
         v9 = nscales - 1;
         v10 = I_tex[selfCopy->_current_frame_index][v9];
         v11 = I_tex[selfCopy->_current_frame_index ^ 1][v9];
-        v15 = objc_msgSend_commandBuffer(selfCopy->_commandQueue, v12, v13, v14);
+        commandBuffer = [(MTLCommandQueue *)selfCopy->_commandQueue commandBuffer];
 
-        v18 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v16, @"LKT:ComputeFlow level %d", v17, v9);
-        objc_msgSend_setLabel_(v15, v19, v18, v20);
+        v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"LKT:ComputeFlow level %d", v9];
+        [commandBuffer setLabel:v13];
 
-        v50 = v10;
-        objc_msgSend__computeFeaturesWithCommandBuffer_in_tex_out_tex_(selfCopy, v21, v15, v10, G0_tex[v9]);
-        v49 = v11;
-        objc_msgSend__computeFeaturesWithCommandBuffer_in_tex_out_tex_(selfCopy, v22, v15, v11, G1_tex[v9]);
-        objc_msgSend__computeFeaturesDerivativesWithCommandBuffer_in_tex_out_tex_(selfCopy, v23, v15, G0_tex[v9], C0_tex[v9]);
-        v65 = v15;
-        objc_msgSend__computeFeaturesDerivativesWithCommandBuffer_in_tex_out_tex_(selfCopy, v24, v15, G1_tex[v9], C1_tex[v9]);
-        v64 = v9;
+        v34 = v10;
+        [(LKTFlowGPU *)selfCopy _computeFeaturesWithCommandBuffer:commandBuffer in_tex:v10 out_tex:G0_tex[v9]];
+        v33 = v11;
+        [(LKTFlowGPU *)selfCopy _computeFeaturesWithCommandBuffer:commandBuffer in_tex:v11 out_tex:G1_tex[v9]];
+        [(LKTFlowGPU *)selfCopy _computeFeaturesDerivativesWithCommandBuffer:commandBuffer in_tex:G0_tex[v9] out_tex:C0_tex[v9]];
+        v49 = commandBuffer;
+        [(LKTFlowGPU *)selfCopy _computeFeaturesDerivativesWithCommandBuffer:commandBuffer in_tex:G1_tex[v9] out_tex:C1_tex[v9]];
+        v48 = v9;
         if (selfCopy->_nwarpings >= 1)
         {
-          v28 = 0;
-          v56 = &(*uv_bwd_tex)[v9];
+          v14 = 0;
+          v40 = &(*uv_bwd_tex)[v9];
           do
           {
-            if ((v28 + 1))
+            if ((v14 + 1))
             {
-              v29 = v64;
-              v69 = G0_tex[v64];
-              v68 = G1_tex[v64];
-              v67 = C0_tex[v64];
-              v30 = C1_tex[v64];
-              v41 = uv_fwd_tex[v7];
-              v31 = v41[v59];
-              v70 = v7 ^ 1;
-              v32 = uv_fwd_tex[v7 ^ 1][v64];
-              if (v64)
+              v15 = v48;
+              v53 = G0_tex[v48];
+              v52 = G1_tex[v48];
+              v51 = C0_tex[v48];
+              v16 = C1_tex[v48];
+              v26 = uv_fwd_tex[v7];
+              v17 = v26[v43];
+              v54 = v7 ^ 1;
+              v18 = uv_fwd_tex[v7 ^ 1][v48];
+              if (v48)
               {
-                v42 = 1;
+                v27 = 1;
               }
 
               else
               {
-                v42 = v28 + 3 <= selfCopy->_nwarpings;
+                v27 = v14 + 3 <= selfCopy->_nwarpings;
               }
 
-              v43 = &v41[v64];
-              if (!v42)
+              v28 = &v26[v48];
+              if (!v27)
               {
-                v43 = p_uv_fwd_tex_user_ref;
+                v28 = p_uv_fwd_tex_user_ref;
               }
 
-              v44 = *v43;
-              v36 = selfCopy;
-              v37 = v4;
-              v38 = v44;
+              v29 = *v28;
+              v22 = selfCopy;
+              v23 = v4;
+              v24 = v29;
 
-              v40 = v38;
-              v59 = v64;
-              v66 = v37;
+              v25 = v24;
+              v43 = v48;
+              v50 = v23;
             }
 
             else
             {
-              v29 = v64;
-              v69 = G1_tex[v64];
-              v68 = G0_tex[v64];
-              v67 = C1_tex[v64];
-              v30 = C0_tex[v64];
-              v31 = (*uv_bwd_tex)[v58];
-              v32 = v52[v64];
-              if (v64)
+              v15 = v48;
+              v53 = G1_tex[v48];
+              v52 = G0_tex[v48];
+              v51 = C1_tex[v48];
+              v16 = C0_tex[v48];
+              v17 = (*uv_bwd_tex)[v42];
+              v18 = v36[v48];
+              if (v48)
               {
-                v33 = 1;
+                v19 = 1;
               }
 
               else
               {
-                v33 = v28 + 3 <= selfCopy->_nwarpings;
+                v19 = v14 + 3 <= selfCopy->_nwarpings;
               }
 
-              v34 = p_uv_bwd_tex_user_ref;
-              if (v33)
+              v20 = p_uv_bwd_tex_user_ref;
+              if (v19)
               {
-                v34 = v56;
+                v20 = v40;
               }
 
-              v35 = *v34;
-              v36 = selfCopy;
-              v37 = v71;
-              v38 = v35;
+              v21 = *v20;
+              v22 = selfCopy;
+              v23 = v55;
+              v24 = v21;
 
-              v70 = v7 ^ 1;
-              v66 = v38;
-              v58 = v64;
-              v40 = v37;
+              v54 = v7 ^ 1;
+              v50 = v24;
+              v42 = v48;
+              v25 = v23;
             }
 
-            v71 = v40;
-            objc_msgSend__enqueueFlowConsistencyWithCommandBuffer_in_uv0_tex_in_uv1_tex_out_uv_tex_(v36, v39, v65, v37, v31, v32);
-            objc_msgSend__doSolverWithCommandBuffer_scale_in_uv_tex_in_G0_tex_in_G1_tex_in_C0_tex_in_C1_tex_out_uv_tex_out_w_tex_(v36, v45, v65, v29, v32, v69, v68, v67, v30, v38, 0);
+            v55 = v25;
+            [(LKTFlowGPU *)v22 _enqueueFlowConsistencyWithCommandBuffer:v49 in_uv0_tex:v23 in_uv1_tex:v17 out_uv_tex:v18];
+            [(LKTFlowGPU *)v22 _doSolverWithCommandBuffer:v49 scale:v15 in_uv_tex:v18 in_G0_tex:v53 in_G1_tex:v52 in_C0_tex:v51 in_C1_tex:v16 out_uv_tex:v24 out_w_tex:0];
 
-            ++v28;
-            v4 = v66;
-            selfCopy = v36;
-            v7 = v70;
+            ++v14;
+            v4 = v50;
+            selfCopy = v22;
+            v7 = v54;
           }
 
-          while (v28 < v36->_nwarpings);
+          while (v14 < v22->_nwarpings);
         }
 
-        v6 = v65;
-        objc_msgSend_commit(v65, v25, v26, v27);
+        v6 = v49;
+        [v49 commit];
 
-        nscales = v64;
+        nscales = v48;
       }
 
-      while (v51 > 1);
+      while (v35 > 1);
     }
 
-    v46 = 0;
+    v30 = 0;
   }
 
   else
   {
     v6 = 0;
-    v46 = -12780;
+    v30 = -12780;
   }
 
-  return v46;
+  return v30;
 }
 
 - (int)_enqueueKeypointsFromFlowWithCommandBuffer:(id)buffer in_uv_fwd_tex:(id)in_uv_fwd_tex in_uv_bwd_tex:(id)in_uv_bwd_tex out_kpt_buf:(id)out_kpt_buf block_size:(int)block_size bidirectional_error:(float)bidirectional_error out_num_keypoints:(unsigned __int16 *)out_num_keypoints
@@ -2344,41 +2340,41 @@ LABEL_14:
   in_uv_bwd_texCopy = in_uv_bwd_tex;
   out_kpt_bufCopy = out_kpt_buf;
   bufferCopy = buffer;
-  v23 = objc_msgSend_width(in_uv_fwd_texCopy, v20, v21, v22) / block_size;
-  v27 = objc_msgSend_height(in_uv_fwd_texCopy, v24, v25, v26) / block_size;
+  v20 = [in_uv_fwd_texCopy width] / block_size;
+  v21 = [in_uv_fwd_texCopy height] / block_size;
   block_sizeCopy = block_size;
-  v56 = v27;
-  v55 = v23;
-  v57 = LODWORD(bidirectional_error);
-  v31 = objc_msgSend_computeCommandEncoder(bufferCopy, v28, v29, v30);
+  v31 = v21;
+  v30 = v20;
+  v32 = LODWORD(bidirectional_error);
+  computeCommandEncoder = [bufferCopy computeCommandEncoder];
 
-  if (v27 * v23 > 0x8000)
+  if (v21 * v20 > 0x8000)
   {
-    v50 = -12780;
+    v25 = -12780;
   }
 
   else
   {
-    objc_msgSend_setComputePipelineState_(v31, v32, self->_computePipelines[20], v33);
-    objc_msgSend_setTexture_atIndex_(v31, v34, in_uv_fwd_texCopy, 0);
-    objc_msgSend_setTexture_atIndex_(v31, v35, in_uv_bwd_texCopy, 1);
-    objc_msgSend_setBuffer_offset_atIndex_(v31, v36, out_kpt_bufCopy, 0, 0);
-    objc_msgSend_setBytes_length_atIndex_(v31, v37, &block_sizeCopy, 16, 1);
-    v41 = objc_msgSend_threadExecutionWidth(self->_computePipelines[20], v38, v39, v40);
-    v45 = objc_msgSend_maxTotalThreadsPerThreadgroup(self->_computePipelines[20], v42, v43, v44);
-    v53[0] = (v23 + v41 - 1) / v41;
-    v53[1] = (v27 + v45 / v41 - 1) / (v45 / v41);
-    v53[2] = 1;
-    v52[0] = v41;
-    v52[1] = v45 / v41;
-    v52[2] = 1;
-    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v31, v46, v53, v52);
-    objc_msgSend_endEncoding(v31, v47, v48, v49);
-    v50 = 0;
-    *out_num_keypoints = v27 * v23;
+    [computeCommandEncoder setComputePipelineState:self->_computePipelines[20]];
+    [computeCommandEncoder setTexture:in_uv_fwd_texCopy atIndex:0];
+    [computeCommandEncoder setTexture:in_uv_bwd_texCopy atIndex:1];
+    [computeCommandEncoder setBuffer:out_kpt_bufCopy offset:0 atIndex:0];
+    [computeCommandEncoder setBytes:&block_sizeCopy length:16 atIndex:1];
+    threadExecutionWidth = [(MTLComputePipelineState *)self->_computePipelines[20] threadExecutionWidth];
+    maxTotalThreadsPerThreadgroup = [(MTLComputePipelineState *)self->_computePipelines[20] maxTotalThreadsPerThreadgroup];
+    v28[0] = (v20 + threadExecutionWidth - 1) / threadExecutionWidth;
+    v28[1] = (v21 + maxTotalThreadsPerThreadgroup / threadExecutionWidth - 1) / (maxTotalThreadsPerThreadgroup / threadExecutionWidth);
+    v28[2] = 1;
+    v27[0] = threadExecutionWidth;
+    v27[1] = maxTotalThreadsPerThreadgroup / threadExecutionWidth;
+    v27[2] = 1;
+    [computeCommandEncoder dispatchThreadgroups:v28 threadsPerThreadgroup:v27];
+    [computeCommandEncoder endEncoding];
+    v25 = 0;
+    *out_num_keypoints = v21 * v20;
   }
 
-  return v50;
+  return v25;
 }
 
 - (LKTFlowGPU)initWithMetalContext:(id)context ICPtransform:(int64_t)ptransform width:(int)width height:(int)height nscales:(int)nscales flowUpperMostScale:(int)scale
@@ -2389,36 +2385,36 @@ LABEL_14:
   v11 = *&width;
   ptransformCopy = ptransform;
   contextCopy = context;
-  v49.receiver = self;
-  v49.super_class = LKTFlowGPU;
-  v16 = [(LKTFlowGPU *)&v49 init];
+  v22.receiver = self;
+  v22.super_class = LKTFlowGPU;
+  v16 = [(LKTFlowGPU *)&v22 init];
   v17 = v16;
   if (!v16 || ((v10 | v11) & 1) != 0)
   {
-    v47 = 0;
+    v20 = 0;
   }
 
   else
   {
     objc_storeStrong(&v16->_mtlContext, context);
-    v21 = objc_msgSend_commandQueue(contextCopy, v18, v19, v20);
+    commandQueue = [contextCopy commandQueue];
     commandQueue = v17->_commandQueue;
-    v17->_commandQueue = v21;
+    v17->_commandQueue = commandQueue;
 
     v17->_p.length_params = ptransformCopy;
-    objc_msgSend__setDefaultParameters(v17, v23, v24, v25);
-    objc_msgSend__initMemory_height_nscales_(v17, v26, v11, v10, v9);
-    objc_msgSend__setDefaultParametersICP(v17, v27, v28, v29);
-    objc_msgSend__initMemoryICP_(v17, v30, v8, v31);
-    objc_msgSend__setupPipelines(v17, v32, v33, v34);
-    objc_msgSend__setupBufferPyramids(v17, v35, v36, v37);
-    objc_msgSend__setupBufferDerivatives(v17, v38, v39, v40);
-    objc_msgSend__setupBufferLKT(v17, v41, v42, v43);
-    objc_msgSend__setupBufferICP(v17, v44, v45, v46);
-    v47 = v17;
+    [(LKTFlowGPU *)v17 _setDefaultParameters];
+    [(LKTFlowGPU *)v17 _initMemory:v11 height:v10 nscales:v9];
+    [(LKTFlowGPU *)v17 _setDefaultParametersICP];
+    [(LKTFlowGPU *)v17 _initMemoryICP:v8];
+    [(LKTFlowGPU *)v17 _setupPipelines];
+    [(LKTFlowGPU *)v17 _setupBufferPyramids];
+    [(LKTFlowGPU *)v17 _setupBufferDerivatives];
+    [(LKTFlowGPU *)v17 _setupBufferLKT];
+    [(LKTFlowGPU *)v17 _setupBufferICP];
+    v20 = v17;
   }
 
-  return v47;
+  return v20;
 }
 
 - (int)_setupBufferDerivatives
@@ -2451,39 +2447,39 @@ LABEL_14:
           for (i = v2 + 376; ; i += 16)
           {
             v13 = sub_23C45F9B0();
-            v18 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(v14, v15, v16, v17, v13);
-            v19 = *(v11 - 32);
-            *(v11 - 32) = v18;
+            v15 = [v14 bindPixelBufferToMTL2DTexture:v13 pixelFormat:? usage:? textureSize:? plane:?];
+            v16 = *(v11 - 32);
+            *(v11 - 32) = v15;
 
             if (!*(v11 - 32))
             {
               break;
             }
 
-            v20 = sub_23C45F99C();
-            v25 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(v21, v22, v23, v24, v20);
-            v26 = *(v11 - 22);
-            *(v11 - 22) = v25;
+            v17 = sub_23C45F99C();
+            v19 = [v18 bindPixelBufferToMTL2DTexture:v17 pixelFormat:? usage:? textureSize:? plane:?];
+            v20 = *(v11 - 22);
+            *(v11 - 22) = v19;
 
             if (!*(v11 - 22))
             {
               break;
             }
 
-            v27 = sub_23C45F9B0();
-            v32 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(v28, v29, v30, v31, v27);
-            v33 = *(v11 - 10);
-            *(v11 - 10) = v32;
+            v21 = sub_23C45F9B0();
+            v23 = [v22 bindPixelBufferToMTL2DTexture:v21 pixelFormat:? usage:? textureSize:? plane:?];
+            v24 = *(v11 - 10);
+            *(v11 - 10) = v23;
 
             if (!*(v11 - 10))
             {
               break;
             }
 
-            v34 = sub_23C45F99C();
-            v39 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(v35, v36, v37, v38, v34);
-            v40 = *v11;
-            *v11 = v39;
+            v25 = sub_23C45F99C();
+            v27 = [v26 bindPixelBufferToMTL2DTexture:v25 pixelFormat:? usage:? textureSize:? plane:?];
+            v28 = *v11;
+            *v11 = v27;
 
             if (!*v11)
             {
@@ -2507,113 +2503,113 @@ LABEL_14:
 
 - (int)_setupBufferLKT
 {
-  v6 = sub_23C45FA30(self);
-  v59 = *(v7 + 2232);
-  v60 = v6;
-  if (*(v7 + 2196) >= 1)
+  v3 = sub_23C45FA30(self);
+  v44 = *(v4 + 2232);
+  v45 = v3;
+  if (*(v4 + 2196) >= 1)
   {
-    calculateHalfResolution(&v60, &v59);
-    v6 = v60;
+    calculateHalfResolution(&v45, &v44);
+    v3 = v45;
   }
 
-  v8 = *(v2 + 200);
-  if (*(v2 + 2169) != 1 || (v9 = sub_23C45C4E8(v6, v59, 0x4C303068u), (*(v2 + 1240) = v9) != 0))
+  v5 = *(v2 + 200);
+  if (*(v2 + 2169) != 1 || (v6 = sub_23C45C4E8(v3, v44, 0x4C303068u), (*(v2 + 1240) = v6) != 0))
   {
-    v10 = 0;
-    v11 = (v8 + v6 - 1) / v8 * v8;
-    v12 = v2 + 1200;
-    v13 = v2 + 1216;
-    v14 = v2 + 1328;
-    v15 = 1;
+    v7 = 0;
+    v8 = (v5 + v3 - 1) / v5 * v5;
+    v9 = v2 + 1200;
+    v10 = v2 + 1216;
+    v11 = v2 + 1328;
+    v12 = 1;
     while (1)
     {
-      v16 = v15;
-      v17 = objc_msgSend_device(*(v2 + 8), v3, v4, v5);
-      v19 = objc_msgSend_newBufferWithLength_options_(v17, v18, 8 * v11 * v59, 0);
-      v20 = *(v12 + 8 * v10);
-      *(v12 + 8 * v10) = v19;
+      v13 = v12;
+      device = [*(v2 + 8) device];
+      v15 = [device newBufferWithLength:8 * v8 * v44 options:0];
+      v16 = *(v9 + 8 * v7);
+      *(v9 + 8 * v7) = v15;
 
-      if (!*(v12 + 8 * v10))
+      if (!*(v9 + 8 * v7))
       {
         break;
       }
 
-      v24 = objc_msgSend_device(*(v2 + 8), v21, v22, v23);
-      v26 = objc_msgSend_newBufferWithLength_options_(v24, v25, 2 * v11 * v59, 0);
-      v27 = *(v13 + 8 * v10);
-      *(v13 + 8 * v10) = v26;
+      device2 = [*(v2 + 8) device];
+      v18 = [device2 newBufferWithLength:2 * v8 * v44 options:0];
+      v19 = *(v10 + 8 * v7);
+      *(v10 + 8 * v7) = v18;
 
-      if (!*(v13 + 8 * v10))
+      if (!*(v10 + 8 * v7))
       {
         break;
       }
 
-      v28 = sub_23C45F9F4(v60, v59);
-      *(v14 + 8 * v10) = v28;
-      if (!v28)
+      v20 = sub_23C45F9F4(v45, v44);
+      *(v11 + 8 * v7) = v20;
+      if (!v20)
       {
         break;
       }
 
-      v15 = 0;
-      v10 = 1;
-      if ((v16 & 1) == 0)
+      v12 = 0;
+      v7 = 1;
+      if ((v13 & 1) == 0)
       {
-        v29 = objc_msgSend_device(*(v2 + 8), v3, v4, v5);
-        v31 = objc_msgSend_newBufferWithLength_options_(v29, v30, 4 * v11 * v59, 0);
-        v32 = *(v2 + 1232);
-        *(v2 + 1232) = v31;
+        device3 = [*(v2 + 8) device];
+        v22 = [device3 newBufferWithLength:4 * v8 * v44 options:0];
+        v23 = *(v2 + 1232);
+        *(v2 + 1232) = v22;
 
         if (!*(v2 + 1232))
         {
           return -12786;
         }
 
-        v34 = *(v2 + 2196);
-        if (v34 >= *(v2 + 2176))
+        v24 = *(v2 + 2196);
+        if (v24 >= *(v2 + 2176))
         {
           return 0;
         }
 
-        v35 = v2 + 1248;
+        v25 = v2 + 1248;
 LABEL_13:
-        v36 = (v2 + 208 + 16 * v34);
-        v37 = *v36;
-        v38 = v36[1];
+        v26 = (v2 + 208 + 16 * v24);
+        v27 = *v26;
+        v28 = v26[1];
         if (*(v2 + 2169))
         {
-          v39 = sub_23C45F99C();
-          v44 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(v40, v41, v42, v43, v39);
-          v45 = *(v35 + 8 * v34);
-          *(v35 + 8 * v34) = v44;
+          v29 = sub_23C45F99C();
+          v31 = [v30 bindPixelBufferToMTL2DTexture:v29 pixelFormat:? usage:? textureSize:? plane:?];
+          v32 = *(v25 + 8 * v24);
+          *(v25 + 8 * v24) = v31;
         }
 
-        v46 = 0;
-        v47 = 1;
+        v33 = 0;
+        v34 = 1;
         while (1)
         {
-          v48 = v47;
-          v49 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(*(v2 + 8), v33, *(v14 + 8 * v46), 65, 23, 0, v37, v38);
-          v50 = v2 + 1360 + 80 * v46;
-          v51 = *(v50 + 8 * v34);
-          *(v50 + 8 * v34) = v49;
+          v35 = v34;
+          v36 = [*(v2 + 8) bindPixelBufferToMTL2DTexture:*(v11 + 8 * v33) pixelFormat:65 usage:23 textureSize:0 plane:v27, v28];
+          v37 = v2 + 1360 + 80 * v33;
+          v38 = *(v37 + 8 * v24);
+          *(v37 + 8 * v24) = v36;
 
-          v54 = *(v50 + 8 * v34);
-          if (!v54)
+          v39 = *(v37 + 8 * v24);
+          if (!v39)
           {
             return -12786;
           }
 
-          v55 = objc_msgSend_newTextureViewWithPixelFormat_(v54, v52, 53, v53);
-          v56 = v2 + 1680 + 80 * v46;
-          v57 = *(v56 + 8 * v34);
-          *(v56 + 8 * v34) = v55;
+          v40 = [v39 newTextureViewWithPixelFormat:53];
+          v41 = v2 + 1680 + 80 * v33;
+          v42 = *(v41 + 8 * v24);
+          *(v41 + 8 * v24) = v40;
 
-          v47 = 0;
-          v46 = 1;
-          if ((v48 & 1) == 0)
+          v34 = 0;
+          v33 = 1;
+          if ((v35 & 1) == 0)
           {
-            if (++v34 < *(v2 + 2176))
+            if (++v24 < *(v2 + 2176))
             {
               goto LABEL_13;
             }
@@ -2632,92 +2628,92 @@ LABEL_13:
 {
   v4 = sub_23C45FA30(self);
   v6 = v5[279];
-  v67 = 0;
-  v68 = 0;
-  v69 = 0;
-  memset(v66, 0, sizeof(v66));
-  objc_msgSend__computeICPThreadgroupsWithSize_threadsPerThreadgroupForPass1_threadgroupsPerGridForPass1_threadsPerThreadgroupForPass2_threadgroupsPerGridForPass2_threadsPerThreadgroupForPass3_threadgroupsPerGridForPass3_(v5, v7, 0, &v67, 0, v66, 0, 0, v4, v6);
-  if ((192 * v67 * v68) <= 0x7D0)
+  v33 = 0;
+  v34 = 0;
+  v35 = 0;
+  memset(v32, 0, sizeof(v32));
+  [v5 _computeICPThreadgroupsWithSize:0 threadsPerThreadgroupForPass1:&v33 threadgroupsPerGridForPass1:0 threadsPerThreadgroupForPass2:v32 threadgroupsPerGridForPass2:0 threadsPerThreadgroupForPass3:0 threadgroupsPerGridForPass3:{v4, v6}];
+  if ((192 * v33 * v34) <= 0x7D0)
   {
-    v11 = 2000;
+    v7 = 2000;
   }
 
   else
   {
-    v11 = 192 * v67 * v68;
+    v7 = 192 * v33 * v34;
   }
 
-  objc_msgSend_device(*(v2 + 8), v8, v9, v10);
+  [*(v2 + 8) device];
   objc_claimAutoreleasedReturnValue();
   sub_23C45FA24();
-  v15 = objc_msgSend_newBufferWithLength_options_(v12, v13, v14, 0);
-  v16 = *(v2 + 2096);
-  *(v2 + 2096) = v15;
+  v9 = [v8 newBufferWithLength:? options:?];
+  v10 = *(v2 + 2096);
+  *(v2 + 2096) = v9;
 
-  if (!*(v2 + 2096) || (objc_msgSend_device(*(v2 + 8), v17, v18, v19), v20 = objc_claimAutoreleasedReturnValue(), v22 = sub_23C45FA3C(v20, v21), v23 = *(v2 + 2072), *(v2 + 2072) = v22, v23, v11, !*(v2 + 2072)) || (objc_msgSend_device(*(v2 + 8), v24, v25, v26), v27 = objc_claimAutoreleasedReturnValue(), v29 = sub_23C45FA3C(v27, v28), v30 = *(v2 + 2080), *(v2 + 2080) = v29, v30, v11, !*(v2 + 2080)))
+  if (!*(v2 + 2096) || ([*(v2 + 8) device], v11 = objc_claimAutoreleasedReturnValue(), v13 = sub_23C45FA3C(v11, v12), v14 = *(v2 + 2072), *(v2 + 2072) = v13, v14, v7, !*(v2 + 2072)) || (objc_msgSend(*(v2 + 8), "device"), v15 = objc_claimAutoreleasedReturnValue(), v17 = sub_23C45FA3C(v15, v16), v18 = *(v2 + 2080), *(v2 + 2080) = v17, v18, v7, !*(v2 + 2080)))
   {
-    v32 = 0;
+    v19 = 0;
     goto LABEL_14;
   }
 
-  v32 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(MEMORY[0x277CD7058], v31, 25, v67, v68, 0);
-  objc_msgSend_setUsage_(v32, v33, 3, v34);
-  objc_msgSend_device(*(v2 + 8), v35, v36, v37);
+  v19 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:25 width:v33 height:v34 mipmapped:0];
+  [v19 setUsage:3];
+  [*(v2 + 8) device];
   objc_claimAutoreleasedReturnValue();
   sub_23C45FA24();
-  v42 = objc_msgSend_newTextureWithDescriptor_(v38, v39, v40, v41);
-  v43 = *(v2 + 2152);
-  *(v2 + 2152) = v42;
+  v21 = [v20 newTextureWithDescriptor:?];
+  v22 = *(v2 + 2152);
+  *(v2 + 2152) = v21;
 
   if (!*(v2 + 2152))
   {
 LABEL_14:
-    v64 = -12786;
+    v30 = -12786;
     goto LABEL_12;
   }
 
-  objc_msgSend__computeICPThreadgroupsForDecimation_threadsPerThreadgroupForUniform_threadsPerThreadgroupForPass1_threadgroupsPerGridForPass1_(v2, v44, 2, 0, 0, &v67);
-  v46 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(MEMORY[0x277CD7058], v45, 63, v67, v68, 0);
+  [v2 _computeICPThreadgroupsForDecimation:2 threadsPerThreadgroupForUniform:0 threadsPerThreadgroupForPass1:0 threadgroupsPerGridForPass1:&v33];
+  v23 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:63 width:v33 height:v34 mipmapped:0];
 
-  objc_msgSend_setUsage_(v46, v47, 3, v48);
-  v52 = objc_msgSend_device(*(v2 + 8), v49, v50, v51);
-  v55 = objc_msgSend_newTextureWithDescriptor_(v52, v53, v46, v54);
-  v56 = *(v2 + 2160);
-  *(v2 + 2160) = v55;
+  [v23 setUsage:3];
+  device = [*(v2 + 8) device];
+  v25 = [device newTextureWithDescriptor:v23];
+  v26 = *(v2 + 2160);
+  *(v2 + 2160) = v25;
 
-  if (*(v2 + 2160) && (objc_msgSend_device(*(v2 + 8), v57, v58, v59), v60 = objc_claimAutoreleasedReturnValue(), v62 = objc_msgSend_newBufferWithLength_options_(v60, v61, 168, 0), v63 = *(v2 + 2088), *(v2 + 2088) = v62, v63, v60, *(v2 + 2088)))
+  if (*(v2 + 2160) && ([*(v2 + 8) device], v27 = objc_claimAutoreleasedReturnValue(), v28 = objc_msgSend(v27, "newBufferWithLength:options:", 168, 0), v29 = *(v2 + 2088), *(v2 + 2088) = v28, v29, v27, *(v2 + 2088)))
   {
-    v64 = 0;
+    v30 = 0;
   }
 
   else
   {
-    v64 = -12786;
+    v30 = -12786;
   }
 
-  v32 = v46;
+  v19 = v23;
 LABEL_12:
 
-  return v64;
+  return v30;
 }
 
 - (void)_computeICPThreadgroupsWithSize:(CGSize)size threadsPerThreadgroupForPass1:(id *)pass1 threadgroupsPerGridForPass1:(id *)forPass1 threadsPerThreadgroupForPass2:(id *)pass2 threadgroupsPerGridForPass2:(id *)forPass2 threadsPerThreadgroupForPass3:(id *)pass3 threadgroupsPerGridForPass3:(id *)forPass3
 {
   v16 = self->_computePipelines[6];
-  *&v21 = size.width;
-  *(&v21 + 1) = size.height;
+  *&v19 = size.width;
+  *(&v19 + 1) = size.height;
   var2 = 1;
-  objc_msgSend__computeICPThreadgroupsWithSize_computePipeline_threadsPerThreadgroup_threadgroupsPerGrid_debug_string_(self, a2, &v21, v16, pass1, forPass1, "pass1");
+  [(LKTFlowGPU *)self _computeICPThreadgroupsWithSize:&v19 computePipeline:v16 threadsPerThreadgroup:pass1 threadgroupsPerGrid:forPass1 debug_string:"pass1"];
   if (!pass1 || pass1->var0 == 32 && pass1->var1 == 32)
   {
-    v18 = self->_computePipelines[7];
-    v21 = *&forPass1->var0;
+    v17 = self->_computePipelines[7];
+    v19 = *&forPass1->var0;
     var2 = forPass1->var2;
-    objc_msgSend__computeICPThreadgroupsWithSize_computePipeline_threadsPerThreadgroup_threadgroupsPerGrid_debug_string_(self, v17, &v21, v18, pass2, forPass2, "pass2");
-    v19 = self->_computePipelines[7];
-    v21 = *&forPass2->var0;
+    [(LKTFlowGPU *)self _computeICPThreadgroupsWithSize:&v19 computePipeline:v17 threadsPerThreadgroup:pass2 threadgroupsPerGrid:forPass2 debug_string:"pass2"];
+    v18 = self->_computePipelines[7];
+    v19 = *&forPass2->var0;
     var2 = forPass2->var2;
-    objc_msgSend__computeICPThreadgroupsWithSize_computePipeline_threadsPerThreadgroup_threadgroupsPerGrid_debug_string_(self, v20, &v21, v19, pass3, forPass3, "pass3");
+    [(LKTFlowGPU *)self _computeICPThreadgroupsWithSize:&v19 computePipeline:v18 threadsPerThreadgroup:pass3 threadgroupsPerGrid:forPass3 debug_string:"pass3"];
   }
 }
 

@@ -16,7 +16,7 @@
 
 - (void)_setupImageView
 {
-  v60[7] = *MEMORY[0x1E69E9840];
+  v59[7] = *MEMORY[0x1E69E9840];
   v3 = _createAmenityImageView();
   nfcImageView = self->_nfcImageView;
   self->_nfcImageView = v3;
@@ -73,39 +73,37 @@
 
   [(UIImageView *)self->_applePayImageView setIsAccessibilityElement:1];
   [(UIImageView *)self->_applePayImageView setAccessibilityTraits:*MEMORY[0x1E69DD9E8]];
-  v53 = MEMORY[0x1E696ACD8];
-  v60[0] = self->_leadingConstraint;
+  v52 = MEMORY[0x1E696ACD8];
+  v59[0] = self->_leadingConstraint;
   topAnchor = [(UIImageView *)self->_nfcImageView topAnchor];
   topAnchor2 = [(MUAmenityItemImageView *)self topAnchor];
-  v57 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v60[1] = v57;
+  v56 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v59[1] = v56;
   bottomAnchor = [(UIImageView *)self->_nfcImageView bottomAnchor];
   bottomAnchor2 = [(MUAmenityItemImageView *)self bottomAnchor];
-  v54 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v60[2] = v54;
+  v53 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+  v59[2] = v53;
   trailingAnchor = [(UIImageView *)self->_nfcImageView trailingAnchor];
   leadingAnchor3 = [(UIImageView *)self->_applePayImageView leadingAnchor];
-  v50 = [trailingAnchor constraintEqualToAnchor:leadingAnchor3 constant:-8.0];
-  v60[3] = v50;
+  v49 = [trailingAnchor constraintEqualToAnchor:leadingAnchor3 constant:-8.0];
+  v59[3] = v49;
   trailingAnchor2 = [(UIImageView *)self->_applePayImageView trailingAnchor];
   trailingAnchor3 = [(MUAmenityItemImageView *)self trailingAnchor];
   v39 = [trailingAnchor2 constraintLessThanOrEqualToAnchor:trailingAnchor3];
-  v60[4] = v39;
+  v59[4] = v39;
   topAnchor3 = [(UIImageView *)self->_applePayImageView topAnchor];
   topAnchor4 = [(MUAmenityItemImageView *)self topAnchor];
   v42 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
-  v60[5] = v42;
+  v59[5] = v42;
   bottomAnchor3 = [(UIImageView *)self->_applePayImageView bottomAnchor];
   bottomAnchor4 = [(MUAmenityItemImageView *)self bottomAnchor];
   v45 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
-  v60[6] = v45;
-  v46 = [MEMORY[0x1E695DEC8] arrayWithObjects:v60 count:7];
-  [v53 activateConstraints:v46];
+  v59[6] = v45;
+  v46 = [MEMORY[0x1E695DEC8] arrayWithObjects:v59 count:7];
+  [v52 activateConstraints:v46];
 
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   [defaultCenter addObserver:self selector:sel__contentSizeDidChange name:*MEMORY[0x1E69DDC48] object:0];
-
-  v48 = *MEMORY[0x1E69E9840];
 }
 
 - (MUAmenityItemImageView)initWithFrame:(CGRect)frame

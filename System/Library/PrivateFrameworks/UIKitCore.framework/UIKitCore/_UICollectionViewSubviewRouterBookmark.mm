@@ -8,14 +8,14 @@
 + (_UICollectionViewSubviewRouterBookmark)bookmarkForUncontrolledSubview
 {
   objc_opt_self();
-  v0 = objc_alloc_init(_UICollectionViewSubviewRouterBookmark);
-  if (v0)
+  v1 = objc_alloc_init(_UICollectionViewSubviewRouterBookmark);
+  if (v1)
   {
-    v0->_count = 1;
-    v0->_orderMode = -10000;
+    v1->_count = 1;
+    v1->_orderMode = -10000;
   }
 
-  return v0;
+  return v1;
 }
 
 - (id)description

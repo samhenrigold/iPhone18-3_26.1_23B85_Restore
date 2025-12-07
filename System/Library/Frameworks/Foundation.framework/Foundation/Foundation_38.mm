@@ -1,3 +1,1086 @@
+ssize_t closure #1 in writeSingleRegion #1 <A><A1>(_:) in NSFileHandle.write<A>(contentsOf:)(ssize_t __buf, uint64_t a2, int __fd)
+{
+  if (__buf)
+  {
+    v3 = __buf;
+    v4 = a2 - __buf;
+    if (a2 - __buf >= 1)
+    {
+      do
+      {
+        while (1)
+        {
+          __buf = write(__fd, v3, v4);
+          if (__buf < 0)
+          {
+            break;
+          }
+
+          v3 += __buf;
+          v6 = v4 <= __buf;
+          v4 -= __buf;
+          if (v6)
+          {
+            return __buf;
+          }
+        }
+      }
+
+      while (MEMORY[0x1865CA7A0]() == 35);
+      v7 = MEMORY[0x1865CA7A0]();
+      __buf = _NSErrorWithFilePathAndErrno(v7, 0, 0);
+      if (__buf)
+      {
+        return swift_willThrow();
+      }
+
+      else
+      {
+        __break(1u);
+      }
+    }
+  }
+
+  return __buf;
+}
+
+NSCustomPredicateOperator *PredicateOperatorForCustomSelector(uint64_t a1)
+{
+  v1 = [(NSString *)[NSMutableString alloc] initWithString:a1];
+  [(NSMutableString *)v1 appendString:@":"];
+  v2 = NSSelectorFromString(&v1->super);
+
+  v3 = [NSCustomPredicateOperator alloc];
+
+  return [(NSCustomPredicateOperator *)v3 initWithCustomSelector:v2 modifier:0];
+}
+
+id _NSSwiftLocale.displayName(forKey:value:)(void *a1, uint64_t a2)
+{
+  v209[4] = *MEMORY[0x1E69E9840];
+  outlined init with copy of Any(a2, v209);
+  if (!swift_dynamicCast())
+  {
+    return 0;
+  }
+
+  v206 = v207;
+  v4 = *MEMORY[0x1E695D9A8];
+  isTaggedPointer = _objc_isTaggedPointer(*MEMORY[0x1E695D9A8]);
+  v6 = v4;
+  v7 = v6;
+  if (!isTaggedPointer)
+  {
+    goto LABEL_7;
+  }
+
+  TaggedPointerTag = _objc_getTaggedPointerTag(v6);
+  switch(TaggedPointerTag)
+  {
+    case 0:
+      goto LABEL_17;
+    case 0x16:
+      v15 = [v7 UTF8String];
+      if (!v15)
+      {
+        __break(1u);
+        goto LABEL_211;
+      }
+
+      v16 = String.init(utf8String:)(v15);
+      if (v17)
+      {
+        goto LABEL_18;
+      }
+
+      __break(1u);
+LABEL_17:
+      _CFIndirectTaggedPointerStringGetContents();
+      v16 = _SwiftCreateImmortalString_ForFoundation(buffer:isASCII:)();
+      if (!v17)
+      {
+        [v7 mutableCopy];
+        _bridgeAnyObjectToAny(_:)();
+
+        swift_unknownObjectRelease();
+        swift_dynamicCast();
+        v9 = v207;
+        v11 = v208;
+        goto LABEL_23;
+      }
+
+LABEL_18:
+      v9 = v16;
+      v11 = v17;
+
+      goto LABEL_23;
+    case 2:
+      MEMORY[0x1EEE9AC00](TaggedPointerTag);
+      v9 = String.init(unsafeUninitializedCapacity:initializingUTF8With:)();
+      v11 = v10;
+
+      goto LABEL_23;
+  }
+
+LABEL_7:
+  LOBYTE(v207) = 0;
+  v209[0] = 0;
+  if (!__CFStringIsCF())
+  {
+    v12 = v7;
+    v13 = String.init(_nativeStorage:)();
+    if (v14)
+    {
+      v9 = v13;
+      v11 = v14;
+
+      goto LABEL_23;
+    }
+
+    v209[0] = [v12 length];
+    if (v209[0])
+    {
+      goto LABEL_22;
+    }
+
+LABEL_13:
+    v9 = 0;
+    v11 = 0xE000000000000000;
+    goto LABEL_23;
+  }
+
+  if (!v209[0])
+  {
+
+    goto LABEL_13;
+  }
+
+LABEL_22:
+  v9 = String.init(_cocoaString:)();
+  v11 = v18;
+LABEL_23:
+  v19 = _objc_isTaggedPointer(a1);
+  v20 = a1;
+  v21 = v20;
+  if (!v19)
+  {
+    goto LABEL_28;
+  }
+
+  v22 = _objc_getTaggedPointerTag(v20);
+  if (!v22)
+  {
+    goto LABEL_37;
+  }
+
+  if (v22 == 22)
+  {
+    v29 = [v21 UTF8String];
+    if (v29)
+    {
+      v30 = String.init(utf8String:)(v29);
+      if (v31)
+      {
+LABEL_38:
+        v23 = v30;
+        v25 = v31;
+
+        goto LABEL_43;
+      }
+
+      __break(1u);
+LABEL_37:
+      _CFIndirectTaggedPointerStringGetContents();
+      v30 = _SwiftCreateImmortalString_ForFoundation(buffer:isASCII:)();
+      if (!v31)
+      {
+        [v21 mutableCopy];
+        _bridgeAnyObjectToAny(_:)();
+
+        swift_unknownObjectRelease();
+        swift_dynamicCast();
+        v23 = v207;
+        v25 = v208;
+        goto LABEL_43;
+      }
+
+      goto LABEL_38;
+    }
+
+LABEL_211:
+    __break(1u);
+    goto LABEL_212;
+  }
+
+  if (v22 != 2)
+  {
+LABEL_28:
+    LOBYTE(v207) = 0;
+    v209[0] = 0;
+    if (__CFStringIsCF())
+    {
+      v23 = v209[0];
+      if (!v209[0])
+      {
+
+        v25 = 0xE000000000000000;
+        goto LABEL_43;
+      }
+    }
+
+    else
+    {
+      v26 = v21;
+      v27 = String.init(_nativeStorage:)();
+      if (v28)
+      {
+        v23 = v27;
+        v25 = v28;
+
+        goto LABEL_43;
+      }
+
+      v209[0] = [v26 length];
+      if (!v209[0])
+      {
+
+        v23 = 0;
+        v25 = 0xE000000000000000;
+        goto LABEL_43;
+      }
+    }
+
+    v23 = String.init(_cocoaString:)();
+    v25 = v32;
+    goto LABEL_43;
+  }
+
+  MEMORY[0x1EEE9AC00](v22);
+  v23 = String.init(unsafeUninitializedCapacity:initializingUTF8With:)();
+  v25 = v24;
+
+LABEL_43:
+  if (v9 == v23 && v11 == v25)
+  {
+
+LABEL_47:
+    v34 = *&v2[OBJC_IVAR____NSSwiftLocale_locale + 8];
+    ObjectType = swift_getObjectType();
+    v36 = *(v34 + 72);
+    swift_unknownObjectRetain();
+    v37 = v36(v206, v208, ObjectType, v34);
+    swift_unknownObjectRelease();
+
+    return v37;
+  }
+
+  v33 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+  if (v33)
+  {
+    goto LABEL_47;
+  }
+
+  v39 = *MEMORY[0x1E695D9B0];
+  v40 = _objc_isTaggedPointer(*MEMORY[0x1E695D9B0]);
+  v41 = v39;
+  v42 = v41;
+  if (!v40)
+  {
+    goto LABEL_54;
+  }
+
+  v43 = _objc_getTaggedPointerTag(v41);
+  switch(v43)
+  {
+    case 0:
+      goto LABEL_64;
+    case 0x16:
+      v50 = [v42 UTF8String];
+      if (v50)
+      {
+        v51 = String.init(utf8String:)(v50);
+        if (v52)
+        {
+          goto LABEL_65;
+        }
+
+        __break(1u);
+LABEL_64:
+        _CFIndirectTaggedPointerStringGetContents();
+        v51 = _SwiftCreateImmortalString_ForFoundation(buffer:isASCII:)();
+        if (!v52)
+        {
+          [v42 mutableCopy];
+          _bridgeAnyObjectToAny(_:)();
+
+          swift_unknownObjectRelease();
+          swift_dynamicCast();
+          v44 = v207;
+          v46 = v208;
+          goto LABEL_70;
+        }
+
+LABEL_65:
+        v44 = v51;
+        v46 = v52;
+
+        goto LABEL_70;
+      }
+
+LABEL_212:
+      __break(1u);
+      goto LABEL_213;
+    case 2:
+      MEMORY[0x1EEE9AC00](v43);
+      v44 = String.init(unsafeUninitializedCapacity:initializingUTF8With:)();
+      v46 = v45;
+
+      goto LABEL_70;
+  }
+
+LABEL_54:
+  LOBYTE(v207) = 0;
+  v209[0] = 0;
+  if (!__CFStringIsCF())
+  {
+    v47 = v42;
+    v48 = String.init(_nativeStorage:)();
+    if (v49)
+    {
+      v44 = v48;
+      v46 = v49;
+
+      goto LABEL_70;
+    }
+
+    v209[0] = [v47 length];
+    if (v209[0])
+    {
+      goto LABEL_69;
+    }
+
+LABEL_60:
+    v44 = 0;
+    v46 = 0xE000000000000000;
+    goto LABEL_70;
+  }
+
+  if (!v209[0])
+  {
+
+    goto LABEL_60;
+  }
+
+LABEL_69:
+  v44 = String.init(_cocoaString:)();
+  v46 = v53;
+LABEL_70:
+  v54 = v21;
+  v55 = v54;
+  if (!v19)
+  {
+    goto LABEL_75;
+  }
+
+  v56 = _objc_getTaggedPointerTag(v54);
+  if (!v56)
+  {
+    goto LABEL_84;
+  }
+
+  if (v56 == 22)
+  {
+    v63 = [v55 UTF8String];
+    if (v63)
+    {
+      v64 = String.init(utf8String:)(v63);
+      if (v65)
+      {
+LABEL_85:
+        v57 = v64;
+        v59 = v65;
+
+        goto LABEL_90;
+      }
+
+      __break(1u);
+LABEL_84:
+      _CFIndirectTaggedPointerStringGetContents();
+      v64 = _SwiftCreateImmortalString_ForFoundation(buffer:isASCII:)();
+      if (!v65)
+      {
+        [v55 mutableCopy];
+        _bridgeAnyObjectToAny(_:)();
+
+        swift_unknownObjectRelease();
+        swift_dynamicCast();
+        v57 = v207;
+        v59 = v208;
+        goto LABEL_90;
+      }
+
+      goto LABEL_85;
+    }
+
+LABEL_213:
+    __break(1u);
+    goto LABEL_214;
+  }
+
+  if (v56 != 2)
+  {
+LABEL_75:
+    LOBYTE(v207) = 0;
+    v209[0] = 0;
+    if (__CFStringIsCF())
+    {
+      v57 = v209[0];
+      if (!v209[0])
+      {
+
+        v59 = 0xE000000000000000;
+        goto LABEL_90;
+      }
+    }
+
+    else
+    {
+      v60 = v55;
+      v61 = String.init(_nativeStorage:)();
+      if (v62)
+      {
+        v57 = v61;
+        v59 = v62;
+
+        goto LABEL_90;
+      }
+
+      v209[0] = [v60 length];
+      if (!v209[0])
+      {
+
+        v57 = 0;
+        v59 = 0xE000000000000000;
+        goto LABEL_90;
+      }
+    }
+
+    v57 = String.init(_cocoaString:)();
+    v59 = v66;
+    goto LABEL_90;
+  }
+
+  MEMORY[0x1EEE9AC00](v56);
+  v57 = String.init(unsafeUninitializedCapacity:initializingUTF8With:)();
+  v59 = v58;
+
+LABEL_90:
+  if (v44 == v57 && v46 == v59)
+  {
+
+    goto LABEL_94;
+  }
+
+  v67 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+  if (v67)
+  {
+LABEL_94:
+    a1 = String._bridgeToObjectiveCImpl()();
+
+    v68 = [v2 localizedStringForLanguageCode_];
+    swift_unknownObjectRelease();
+    if (!v68)
+    {
+      return 0;
+    }
+
+    v2 = _objc_isTaggedPointer(v68);
+    v69 = v68;
+    v70 = v69;
+    if (!v2)
+    {
+      goto LABEL_100;
+    }
+
+    v71 = _objc_getTaggedPointerTag(v69);
+    if (!v71)
+    {
+      _CFIndirectTaggedPointerStringGetContents();
+      v91 = _SwiftCreateImmortalString_ForFoundation(buffer:isASCII:)();
+      if (v92)
+      {
+        v93 = v91;
+      }
+
+      else
+      {
+        [v70 mutableCopy];
+        _bridgeAnyObjectToAny(_:)();
+
+        swift_unknownObjectRelease();
+        swift_dynamicCast();
+        v93 = v207;
+      }
+
+      goto LABEL_165;
+    }
+
+    if (v71 != 22)
+    {
+      if (v71 == 2)
+      {
+        MEMORY[0x1EEE9AC00](v71);
+        v72 = String.init(unsafeUninitializedCapacity:initializingUTF8With:)();
+
+        return v72;
+      }
+
+LABEL_100:
+      v209[0] = 0;
+      if (__CFStringIsCF())
+      {
+        if (v209[0])
+        {
+LABEL_135:
+          v97 = String.init(_cocoaString:)();
+LABEL_164:
+          v93 = v97;
+LABEL_165:
+
+          return v93;
+        }
+      }
+
+      else
+      {
+        v81 = v70;
+        v82 = String.init(_nativeStorage:)();
+        if (v83)
+        {
+          v37 = v82;
+
+          return v37;
+        }
+
+        v209[0] = [v81 length];
+        if (v209[0])
+        {
+          goto LABEL_135;
+        }
+      }
+
+      return 0;
+    }
+
+    v84 = [v70 UTF8String];
+    if (v84)
+    {
+      v85 = String.init(utf8String:)(v84);
+      if (v86)
+      {
+        v87 = v85;
+
+        return v87;
+      }
+
+      goto LABEL_215;
+    }
+
+LABEL_214:
+    __break(1u);
+LABEL_215:
+    __break(1u);
+    goto LABEL_216;
+  }
+
+  v73 = *MEMORY[0x1E695D978];
+  v74 = _objc_isTaggedPointer(*MEMORY[0x1E695D978]);
+  v75 = v73;
+  v76 = v75;
+  if (!v74)
+  {
+    goto LABEL_108;
+  }
+
+  v77 = _objc_getTaggedPointerTag(v75);
+  switch(v77)
+  {
+    case 0:
+      goto LABEL_129;
+    case 0x16:
+      v94 = [v76 UTF8String];
+      if (!v94)
+      {
+LABEL_216:
+        __break(1u);
+        goto LABEL_217;
+      }
+
+      v95 = String.init(utf8String:)(v94);
+      if (v96)
+      {
+        goto LABEL_130;
+      }
+
+      __break(1u);
+LABEL_129:
+      _CFIndirectTaggedPointerStringGetContents();
+      v95 = _SwiftCreateImmortalString_ForFoundation(buffer:isASCII:)();
+      if (!v96)
+      {
+        [v76 mutableCopy];
+        _bridgeAnyObjectToAny(_:)();
+
+        swift_unknownObjectRelease();
+        swift_dynamicCast();
+        v78 = v207;
+        v80 = v208;
+        goto LABEL_137;
+      }
+
+LABEL_130:
+      v78 = v95;
+      v80 = v96;
+
+      goto LABEL_137;
+    case 2:
+      MEMORY[0x1EEE9AC00](v77);
+      v78 = String.init(unsafeUninitializedCapacity:initializingUTF8With:)();
+      v80 = v79;
+
+      goto LABEL_137;
+  }
+
+LABEL_108:
+  LOBYTE(v207) = 0;
+  v209[0] = 0;
+  if (!__CFStringIsCF())
+  {
+    v88 = v76;
+    v89 = String.init(_nativeStorage:)();
+    if (v90)
+    {
+      v78 = v89;
+      v80 = v90;
+
+      goto LABEL_137;
+    }
+
+    v209[0] = [v88 length];
+    if (v209[0])
+    {
+      goto LABEL_136;
+    }
+
+LABEL_125:
+    v78 = 0;
+    v80 = 0xE000000000000000;
+    goto LABEL_137;
+  }
+
+  if (!v209[0])
+  {
+
+    goto LABEL_125;
+  }
+
+LABEL_136:
+  v78 = String.init(_cocoaString:)();
+  v80 = v98;
+LABEL_137:
+  v99 = v55;
+  v100 = v99;
+  if (v19)
+  {
+    v101 = _objc_getTaggedPointerTag(v99);
+    if (v101)
+    {
+      if (v101 != 22)
+      {
+        if (v101 == 2)
+        {
+          MEMORY[0x1EEE9AC00](v101);
+          v102 = String.init(unsafeUninitializedCapacity:initializingUTF8With:)();
+          v104 = v103;
+
+          goto LABEL_157;
+        }
+
+        goto LABEL_142;
+      }
+
+      v108 = [v100 UTF8String];
+      if (!v108)
+      {
+LABEL_217:
+        __break(1u);
+        goto LABEL_218;
+      }
+
+      v109 = String.init(utf8String:)(v108);
+      if (v110)
+      {
+LABEL_152:
+        v102 = v109;
+        v104 = v110;
+
+        goto LABEL_157;
+      }
+
+      __break(1u);
+    }
+
+    _CFIndirectTaggedPointerStringGetContents();
+    v109 = _SwiftCreateImmortalString_ForFoundation(buffer:isASCII:)();
+    if (!v110)
+    {
+      [v100 mutableCopy];
+      _bridgeAnyObjectToAny(_:)();
+
+      swift_unknownObjectRelease();
+      swift_dynamicCast();
+      v102 = v207;
+      v104 = v208;
+      goto LABEL_157;
+    }
+
+    goto LABEL_152;
+  }
+
+LABEL_142:
+  v209[0] = 0;
+  if (__CFStringIsCF())
+  {
+    v102 = v209[0];
+    if (!v209[0])
+    {
+
+      v104 = 0xE000000000000000;
+      goto LABEL_157;
+    }
+  }
+
+  else
+  {
+    v105 = v100;
+    v106 = String.init(_nativeStorage:)();
+    if (v107)
+    {
+      v102 = v106;
+      v104 = v107;
+
+      goto LABEL_157;
+    }
+
+    v209[0] = [v105 length];
+    if (!v209[0])
+    {
+
+      v102 = 0;
+      v104 = 0xE000000000000000;
+      goto LABEL_157;
+    }
+  }
+
+  v102 = String.init(_cocoaString:)();
+  v104 = v111;
+LABEL_157:
+  if (v78 == v102 && v80 == v104)
+  {
+
+LABEL_161:
+    v113 = String._bridgeToObjectiveCImpl()();
+
+    v114 = [v2 localizedStringForCountryCode_];
+    goto LABEL_162;
+  }
+
+  v112 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+  if (v112)
+  {
+    goto LABEL_161;
+  }
+
+  v115 = static String._unconditionallyBridgeFromObjectiveC(_:)(*MEMORY[0x1E695D9E8]);
+  v117 = v116;
+  if (v115 == static String._unconditionallyBridgeFromObjectiveC(_:)(a1) && v117 == v118)
+  {
+
+LABEL_170:
+    v120 = String._bridgeToObjectiveCImpl()();
+
+    v114 = [v2 localizedStringForScriptCode_];
+    goto LABEL_162;
+  }
+
+  v119 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+  if (v119)
+  {
+    goto LABEL_170;
+  }
+
+  v121 = static String._unconditionallyBridgeFromObjectiveC(_:)(*MEMORY[0x1E695DA10]);
+  v123 = v122;
+  if (v121 == static String._unconditionallyBridgeFromObjectiveC(_:)(a1) && v123 == v124)
+  {
+
+LABEL_175:
+    v126 = String._bridgeToObjectiveCImpl()();
+
+    v114 = [v2 localizedStringForVariantCode_];
+    goto LABEL_162;
+  }
+
+  v125 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+  if (v125)
+  {
+    goto LABEL_175;
+  }
+
+  v127 = static String._unconditionallyBridgeFromObjectiveC(_:)(*MEMORY[0x1E695D998]);
+  v129 = v128;
+  if (v127 == static String._unconditionallyBridgeFromObjectiveC(_:)(a1) && v129 == v130)
+  {
+LABEL_178:
+
+    goto LABEL_180;
+  }
+
+  v131 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+  if (v131)
+  {
+    goto LABEL_180;
+  }
+
+  v132 = static String._unconditionallyBridgeFromObjectiveC(_:)(*MEMORY[0x1E695D960]);
+  v134 = v133;
+  if (v132 == static String._unconditionallyBridgeFromObjectiveC(_:)(a1) && v134 == v135)
+  {
+    goto LABEL_184;
+  }
+
+  v136 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+  if (v136)
+  {
+    goto LABEL_186;
+  }
+
+  v138 = static String._unconditionallyBridgeFromObjectiveC(_:)(*MEMORY[0x1E695D958]);
+  v140 = v139;
+  if (v138 == static String._unconditionallyBridgeFromObjectiveC(_:)(a1) && v140 == v141)
+  {
+LABEL_184:
+
+LABEL_186:
+    v137 = String._bridgeToObjectiveCImpl()();
+
+    v114 = [v2 localizedStringForCalendarIdentifier_];
+    goto LABEL_162;
+  }
+
+  v142 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+  if (v142)
+  {
+    goto LABEL_186;
+  }
+
+  v143 = static String._unconditionallyBridgeFromObjectiveC(_:)(*MEMORY[0x1E695D968]);
+  v145 = v144;
+  if (v143 == static String._unconditionallyBridgeFromObjectiveC(_:)(a1) && v145 == v146)
+  {
+
+LABEL_194:
+    v148 = String._bridgeToObjectiveCImpl()();
+
+    v114 = [v2 localizedStringForCollationIdentifier_];
+    goto LABEL_162;
+  }
+
+  v147 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+  if (v147)
+  {
+    goto LABEL_194;
+  }
+
+  v149 = static String._unconditionallyBridgeFromObjectiveC(_:)(*MEMORY[0x1E695DA08]);
+  v151 = v150;
+  if (v149 == static String._unconditionallyBridgeFromObjectiveC(_:)(a1) && v151 == v152)
+  {
+    goto LABEL_178;
+  }
+
+  v153 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+  if (v153)
+  {
+    goto LABEL_180;
+  }
+
+  v154 = static String._unconditionallyBridgeFromObjectiveC(_:)(*MEMORY[0x1E695D9B8]);
+  v156 = v155;
+  if (v154 == static String._unconditionallyBridgeFromObjectiveC(_:)(a1) && v156 == v157)
+  {
+    goto LABEL_178;
+  }
+
+  v158 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+  if (v158)
+  {
+    goto LABEL_180;
+  }
+
+  v159 = static String._unconditionallyBridgeFromObjectiveC(_:)(*MEMORY[0x1E695D990]);
+  v161 = v160;
+  if (v159 == static String._unconditionallyBridgeFromObjectiveC(_:)(a1) && v161 == v162)
+  {
+    goto LABEL_178;
+  }
+
+  v163 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+  if (v163)
+  {
+    goto LABEL_180;
+  }
+
+  v164 = static String._unconditionallyBridgeFromObjectiveC(_:)(*MEMORY[0x1E695D9A0]);
+  v166 = v165;
+  if (v164 == static String._unconditionallyBridgeFromObjectiveC(_:)(a1) && v166 == v167)
+  {
+    goto LABEL_178;
+  }
+
+  v168 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+  if (v168)
+  {
+    goto LABEL_180;
+  }
+
+  v169 = static String._unconditionallyBridgeFromObjectiveC(_:)(*MEMORY[0x1E695D988]);
+  v171 = v170;
+  if (v169 == static String._unconditionallyBridgeFromObjectiveC(_:)(a1) && v171 == v172)
+  {
+
+LABEL_219:
+    v174 = String._bridgeToObjectiveCImpl()();
+
+    v114 = [v2 localizedStringForCurrencySymbol_];
+    goto LABEL_162;
+  }
+
+LABEL_218:
+  v173 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+  if (v173)
+  {
+    goto LABEL_219;
+  }
+
+  v175 = static String._unconditionallyBridgeFromObjectiveC(_:)(*MEMORY[0x1E695D980]);
+  v177 = v176;
+  if (v175 == static String._unconditionallyBridgeFromObjectiveC(_:)(a1) && v177 == v178)
+  {
+
+LABEL_224:
+    v180 = String._bridgeToObjectiveCImpl()();
+
+    v114 = [v2 localizedStringForCurrencyCode_];
+    goto LABEL_162;
+  }
+
+  v179 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+  if (v179)
+  {
+    goto LABEL_224;
+  }
+
+  v181 = static String._unconditionallyBridgeFromObjectiveC(_:)(*MEMORY[0x1E695D970]);
+  v183 = v182;
+  if (v181 != static String._unconditionallyBridgeFromObjectiveC(_:)(a1) || v183 != v184)
+  {
+    v185 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    if (v185)
+    {
+      goto LABEL_229;
+    }
+
+    v187 = static String._unconditionallyBridgeFromObjectiveC(_:)(*MEMORY[0x1E695D9D8]);
+    v189 = v188;
+    if (v187 != static String._unconditionallyBridgeFromObjectiveC(_:)(a1) || v189 != v190)
+    {
+      v191 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+      if (v191)
+      {
+        return 0;
+      }
+
+      v192 = static String._unconditionallyBridgeFromObjectiveC(_:)(*MEMORY[0x1E695D9E0]);
+      v194 = v193;
+      if (v192 != static String._unconditionallyBridgeFromObjectiveC(_:)(a1) || v194 != v195)
+      {
+        v196 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+        if (v196)
+        {
+          return 0;
+        }
+
+        v197 = static String._unconditionallyBridgeFromObjectiveC(_:)(*MEMORY[0x1E695D948]);
+        v199 = v198;
+        if (v197 != static String._unconditionallyBridgeFromObjectiveC(_:)(a1) || v199 != v200)
+        {
+          v201 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+          if (v201)
+          {
+            return 0;
+          }
+
+          v202 = static String._unconditionallyBridgeFromObjectiveC(_:)(*MEMORY[0x1E695D950]);
+          v204 = v203;
+          if (v202 != static String._unconditionallyBridgeFromObjectiveC(_:)(a1) || v204 != v205)
+          {
+            _stringCompareWithSmolCheck(_:_:expecting:)();
+          }
+        }
+      }
+    }
+
+LABEL_180:
+
+    return 0;
+  }
+
+LABEL_229:
+  v186 = String._bridgeToObjectiveCImpl()();
+
+  v114 = [v2 localizedStringForCollatorIdentifier_];
+LABEL_162:
+  v70 = v114;
+  swift_unknownObjectRelease();
+  if (v70)
+  {
+    v97 = static String._unconditionallyBridgeFromObjectiveC(_:)(v70);
+    goto LABEL_164;
+  }
+
+  return 0;
+}
+
 uint64_t protocol witness for _LocaleProtocol.countryCodeDisplayName(for:) in conformance _LocaleICU()
 {
   v1 = *(v0 + 200);
@@ -61,7 +1144,7 @@ uint64_t closure #1 in _LocaleICU.countryCodeDisplayName(for:)@<X0>(uint64_t a1@
 
   else
   {
-    v16 = specialized String.init(_utf16:)(&v139, DisplayCountry);
+    v16 = specialized String.init(_utf16:)(v139, DisplayCountry);
     if (v17)
     {
       v18 = v16;
@@ -97,7 +1180,7 @@ LABEL_119:
         else
         {
           v134.i64[0] = v93;
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SSgGMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SSgGMd, &_ss18_DictionaryStorageCyS2SSgGMR);
           v106 = static _DictionaryStorage.copy(original:)();
           v100 = v106;
           if (*(v92 + 16))
@@ -303,7 +1386,7 @@ LABEL_14:
     v39 = String._bridgeToObjectiveCImpl()();
     v40 = CFPreferencesCopyAppValue(v39, *MEMORY[0x1E695E8A8]);
     swift_unknownObjectRelease();
-    if (v40 && (*v152 = v40, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd), (swift_dynamicCast() & 1) != 0))
+    if (v40 && (*v152 = v40, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR), (swift_dynamicCast() & 1) != 0))
     {
       v41 = v144;
     }
@@ -864,7 +1947,7 @@ LABEL_8:
   return result;
 }
 
-id NSFileHandle.write<A>(contentsOf:)(uint64_t a1, ValueMetadata *a2, uint64_t a3)
+id NSFileHandle.write<A>(contentsOf:)(uint64_t *a1, ValueMetadata *a2, uint64_t a3)
 {
   AssociatedConformanceWitness = a1;
   v120[9] = *MEMORY[0x1E69E9840];
@@ -892,7 +1975,7 @@ id NSFileHandle.write<A>(contentsOf:)(uint64_t a1, ValueMetadata *a2, uint64_t a
   MEMORY[0x1EEE9AC00](v20);
   if (a2 == &type metadata for Data)
   {
-    return specialized NSFileHandle.write<A>(contentsOf:)(*AssociatedConformanceWitness, *(AssociatedConformanceWitness + 8));
+    return specialized NSFileHandle.write<A>(contentsOf:)(*AssociatedConformanceWitness, AssociatedConformanceWitness[1]);
   }
 
   if (type metadata accessor for DispatchData() == a2)
@@ -1064,7 +2147,7 @@ LABEL_20:
   LOBYTE(v113[0]) = 0;
   *&v116 = 0;
   LOBYTE(v110) = 0;
-  v108 = 0;
+  v108[0] = 0;
   IsCF = __CFStringIsCF();
   if (!IsCF)
   {
@@ -1097,7 +2180,7 @@ LABEL_33:
     goto LABEL_33;
   }
 
-  if (v108 == 1)
+  if (v108[0] == 1)
   {
     if (v113[0])
     {
@@ -1164,11 +2247,11 @@ LABEL_59:
   v120[8] = v64;
   v120[5] = 0xD00000000000002ELL;
   v120[6] = 0x800000018147DC60;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCys11AnyHashableVypGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCys11AnyHashableVypGMd, &_ss18_DictionaryStorageCys11AnyHashableVypGMR);
   v65 = static _DictionaryStorage.allocate(capacity:)();
   outlined init with copy of (AnyHashable, Any)(v120, &v116);
 
-  outlined destroy of TermOfAddress?(v120, &_ss11AnyHashableV_yptMd);
+  outlined destroy of TermOfAddress?(v120, &_ss11AnyHashableV_yptMd, &_ss11AnyHashableV_yptMR);
   v66 = specialized __RawDictionaryStorage.find<A>(_:)(&v116);
   v68 = v67;
 
@@ -1203,7 +2286,7 @@ LABEL_86:
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd, &_ss18_DictionaryStorageCySSypGMR);
     v74 = static _DictionaryStorage.allocate(capacity:)();
   }
 
@@ -1273,7 +2356,7 @@ LABEL_74:
     v83 = v105;
     v84 = v106;
     outlined init with copy of Any(v114 + 8, v109);
-    outlined destroy of TermOfAddress?(v113, &_ss11AnyHashableV3key_yp5valuetMd);
+    outlined destroy of TermOfAddress?(v113, &_ss11AnyHashableV3key_yp5valuetMd, &_ss11AnyHashableV3key_yp5valuetMR);
     *&v110 = v83;
     *(&v110 + 1) = v84;
     outlined init with take of Any(v109, v111);
@@ -1315,7 +2398,7 @@ LABEL_74:
     v79 = v81;
   }
 
-  outlined destroy of TermOfAddress?(v113, &_ss11AnyHashableV3key_yp5valuetMd);
+  outlined destroy of TermOfAddress?(v113, &_ss11AnyHashableV3key_yp5valuetMd, &_ss11AnyHashableV3key_yp5valuetMR);
 
 LABEL_80:
   v92 = objc_allocWithZone(NSError);
@@ -1555,7 +2638,7 @@ Swift::Void __swiftcall String.LocalizationValue.StringInterpolation.appendInter
   *v2 = v8;
 }
 
-uint64_t LocalizedStringResource.init(stringInterpolation:)@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t LocalizedStringResource.init(stringInterpolation:)@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
 {
   v3 = *a1;
   v4 = a1[1];
@@ -1620,23 +2703,23 @@ uint64_t specialized thunk for @callee_guaranteed (@unowned UnsafeBufferPointer<
   return result;
 }
 
-void type metadata accessor for (fractionalSecondsLength: Int, roundFractionalSeconds: FloatingPointRoundingRule)()
+void type metadata accessor for (fractionalSecondsLength: Int, roundFractionalSeconds: FloatingPointRoundingRule)(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for (fractionalSecondsLength: Int, roundFractionalSeconds: FloatingPointRoundingRule))
   {
     type metadata accessor for FloatingPointRoundingRule();
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata2, &lazy cache variable for type metadata for (fractionalSecondsLength: Int, roundFractionalSeconds: FloatingPointRoundingRule));
     }
   }
 }
 
-uint64_t type metadata completion function for Duration.TimeFormatStyle()
+uint64_t type metadata completion function for Duration.TimeFormatStyle(uint64_t a1)
 {
   result = type metadata accessor for Duration.TimeFormatStyle.Attributed(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -1645,10 +2728,10 @@ uint64_t type metadata completion function for Duration.TimeFormatStyle()
   return result;
 }
 
-uint64_t type metadata completion function for Duration.TimeFormatStyle.Attributed()
+uint64_t type metadata completion function for Duration.TimeFormatStyle.Attributed(uint64_t a1)
 {
   result = type metadata accessor for Duration.TimeFormatStyle.Pattern(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -1662,7 +2745,7 @@ uint64_t static FormatStyle<>.time(pattern:)@<X0>(uint64_t a1@<X0>, uint64_t a2@
   outlined init with copy of Duration.TimeFormatStyle.Pattern.Fields(a1, a2, type metadata accessor for Duration.TimeFormatStyle.Pattern);
   type metadata accessor for _LocaleAutoupdating();
   inited = swift_initStaticObject();
-  v4 = lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type _LocaleAutoupdating and conformance _LocaleAutoupdating, type metadata accessor for _LocaleAutoupdating);
+  v4 = lazy protocol witness table accessor for type Duration.TimeFormatStyle.Pattern.Fields and conformance Duration.TimeFormatStyle.Pattern.Fields(&lazy protocol witness table cache variable for type _LocaleAutoupdating and conformance _LocaleAutoupdating, type metadata accessor for _LocaleAutoupdating, &protocol conformance descriptor for _LocaleAutoupdating);
   result = type metadata accessor for Duration.TimeFormatStyle.Attributed(0);
   *(a2 + *(result + 20)) = 0;
   v6 = (a2 + *(result + 24));
@@ -1671,24 +2754,20 @@ uint64_t static FormatStyle<>.time(pattern:)@<X0>(uint64_t a1@<X0>, uint64_t a2@
   return result;
 }
 
-uint64_t static Duration.TimeFormatStyle.Pattern.hourMinuteSecond.getter@<X0>(char *a1@<X8>)
+uint64_t static Duration.TimeFormatStyle.Pattern.hourMinuteSecond.getter@<X0>(char *a2@<X8>)
 {
-  v2 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMd) + 48);
-  *a1 = 0;
-  v3 = *MEMORY[0x1E69E7030];
-  v4 = type metadata accessor for FloatingPointRoundingRule();
-  (*(*(v4 - 8) + 104))(&a1[v2], v3, v4);
+  v3 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMd, &_sSi23fractionalSecondsLength_s25FloatingPointRoundingRuleO015roundFractionalB0tMR) + 48);
+  *a2 = 0;
+  v4 = *MEMORY[0x1E69E7030];
+  v5 = type metadata accessor for FloatingPointRoundingRule();
+  (*(*(v5 - 8) + 104))(&a2[v3], v4, v5);
   type metadata accessor for Duration.TimeFormatStyle.Pattern.Fields(0);
   swift_storeEnumTagMultiPayload();
   result = type metadata accessor for Duration.TimeFormatStyle.Pattern(0);
-  v6 = &a1[*(result + 20)];
-  *v6 = 0;
-  v6[8] = 1;
+  v7 = &a2[*(result + 20)];
+  *v7 = 0;
+  v7[8] = 1;
   return result;
-}
-
-{
-  return static Duration.TimeFormatStyle.Pattern.hourMinuteSecond.getter(a1);
 }
 
 void TimeZone.init(secondsFromGMT:)(uint64_t a1@<X0>, uint64_t *a2@<X8>)
@@ -1753,7 +2832,7 @@ LABEL_46:
   }
 
   v2 = v13;
-  v3 = _s10Foundation16_TimeZoneBridgedCAcA01_bC8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type _TimeZoneGMTICU and conformance _TimeZoneGMTICU, type metadata accessor for _TimeZoneGMTICU);
+  v3 = _s10Foundation16_TimeZoneBridgedCAcA01_bC8ProtocolAAWlTm_1(&lazy protocol witness table cache variable for type _TimeZoneGMTICU and conformance _TimeZoneGMTICU, type metadata accessor for _TimeZoneGMTICU, &protocol conformance descriptor for _TimeZoneGMTICU);
   if (__ROR8__(0xFEDCBA987654321 * v12 + 0x91A2B3C4D5E6F8, 3) >= 0x2468ACF13579BFuLL)
   {
     os_unfair_lock_unlock((v7 + 120));
@@ -1820,7 +2899,7 @@ LABEL_42:
 
 LABEL_26:
   v37 = v8;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySi10Foundation17_TimeZoneProtocol_pGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySi10Foundation17_TimeZoneProtocol_pGMd, &_ss18_DictionaryStorageCySi10Foundation17_TimeZoneProtocol_pGMR);
   v23 = static _DictionaryStorage.copy(original:)();
   v20 = v23;
   if (!*(v4 + 16))
@@ -1902,10 +2981,10 @@ LABEL_39:
   __break(1u);
 }
 
-uint64_t String.init(format:locale:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t String.init(format:locale:_:)(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4)
 {
   v7 = *a3;
-  v8 = *(a3 + 8);
+  v8 = a3[1];
   swift_unknownObjectRetain();
 
   v9 = specialized withVaList<A>(_:_:)(a4, a4, a1, a2, v7, v8);
@@ -2039,7 +3118,7 @@ uint64_t outlined consume of IndexPath?(uint64_t a1, uint64_t a2, char a3)
   return a1;
 }
 
-uint64_t protocol witness for SetAlgebra.init() in conformance CharacterSet@<X0>(uint64_t *a1@<X8>)
+CFMutableCharacterSetRef protocol witness for SetAlgebra.init() in conformance CharacterSet@<X0>(CFMutableCharacterSetRef *a1@<X8>)
 {
   result = CFCharacterSetCreateMutable(0);
   if (result)
@@ -2047,7 +3126,7 @@ uint64_t protocol witness for SetAlgebra.init() in conformance CharacterSet@<X0>
     v3 = result;
     type metadata accessor for __CharacterSetStorage();
     result = swift_allocObject();
-    *(result + 16) = v3;
+    *(result + 2) = v3;
     *(result + 24) = 1;
     *a1 = result;
   }
@@ -2076,7 +3155,7 @@ uint64_t protocol witness for SetAlgebra.insert(_:) in conformance CharacterSet(
   return 1;
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance IndexPath()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance IndexPath(uint64_t a1)
 {
   Hasher.init(_seed:)();
   IndexPath.hash(into:)();
@@ -2130,11 +3209,11 @@ uint64_t IndexPath.hash(into:)()
   return result;
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance IndexPath(uint64_t a1, uint64_t a2)
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance IndexPath(uint64_t *a1, uint64_t *a2)
 {
   v4 = *a1;
   v5 = *a2;
-  v6 = *(a2 + 8);
+  v6 = a2[1];
   v7 = *(a2 + 16);
   if (*(a1 + 16) > 1u)
   {
@@ -2166,7 +3245,7 @@ uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Ind
     return 0;
   }
 
-  v9 = *(a1 + 8);
+  v9 = a1[1];
   return v4 == v5 && v9 == v6;
 }
 
@@ -2216,35 +3295,35 @@ uint64_t DateComponents.day.setter(uint64_t result, char a2)
   return result;
 }
 
-uint64_t closure #1 in __PlistEncoderXML.wrapGeneric<A, B>(_:for:_:)(uint64_t a1)
+uint64_t closure #1 in __PlistEncoderXML.wrapGeneric<A, B>(_:for:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4[3] = type metadata accessor for __PlistEncoderXML();
-  v4[4] = lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(&lazy protocol witness table cache variable for type __PlistEncoderXML and conformance __PlistEncoderXML, v2, type metadata accessor for __PlistEncoderXML);
-  v4[0] = a1;
+  v8[3] = type metadata accessor for __PlistEncoderXML();
+  v8[4] = lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(&lazy protocol witness table cache variable for type __PlistEncoderXML and conformance __PlistEncoderXML, v6, type metadata accessor for __PlistEncoderXML, &protocol conformance descriptor for __PlistEncoderXML);
+  v8[0] = a1;
 
   dispatch thunk of Encodable.encode(to:)();
-  return __swift_destroy_boxed_opaque_existential_1(v4);
+  return __swift_destroy_boxed_opaque_existential_1(v8);
 }
 
-void _XMLPlistEncodingFormat.Writer.append(_:)(unint64_t a1@<X0>, int64_t a2@<X1>, char a3@<W2>, unint64_t a4@<X8>)
+void _XMLPlistEncodingFormat.Writer.append(_:)(unint64_t result@<X0>, int64_t a2@<X1>, char a3@<W2>, unint64_t a4@<X8>)
 {
   if (a3)
   {
-    a4 = HIDWORD(a1);
-    if (!HIDWORD(a1))
+    a4 = HIDWORD(result);
+    if (!HIDWORD(result))
     {
-      if ((a1 & 0xFFFFF800) == 0xD800)
+      if ((result & 0xFFFFF800) == 0xD800)
       {
         __break(1u);
         return;
       }
 
-      a4 = a1 >> 16;
-      if (a1 >> 16 <= 0x10)
+      a4 = result >> 16;
+      if (result >> 16 <= 0x10)
       {
-        if (a1 <= 0x7F)
+        if (result <= 0x7F)
         {
-          v4 = a1 + 1;
+          v4 = result + 1;
 LABEL_11:
           v5 = __clz(v4);
           __src = (v4 + 0xFEFEFEFEFEFEFFLL) & ~(-1 << (8 * (4 - (v5 >> 3))));
@@ -2253,11 +3332,11 @@ LABEL_11:
         }
 
 LABEL_15:
-        v6 = (a1 & 0x3F) << 8;
-        v7 = (a1 >> 6) + v6 + 33217;
-        v8 = (v6 | (a1 >> 6) & 0x3F) << 8;
-        v9 = (a1 >> 18) + ((v8 | (a1 >> 12) & 0x3F) << 8) - 2122219023;
-        v10 = (a1 >> 12) + v8 + 8487393;
+        v6 = (result & 0x3F) << 8;
+        v7 = (result >> 6) + v6 + 33217;
+        v8 = (v6 | (result >> 6) & 0x3F) << 8;
+        v9 = (result >> 18) + ((v8 | (result >> 12) & 0x3F) << 8) - 2122219023;
+        v10 = (result >> 12) + v8 + 8487393;
         if (a4)
         {
           v4 = v9;
@@ -2268,7 +3347,7 @@ LABEL_15:
           v4 = v10;
         }
 
-        if (a1 < 0x800)
+        if (result < 0x800)
         {
           v4 = v7;
         }
@@ -2286,13 +3365,13 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  if (!a1)
+  if (!result)
   {
     __break(1u);
     goto LABEL_13;
   }
 
-  _XMLPlistEncodingFormat.Writer.append(_:)(a1, a2);
+  _XMLPlistEncodingFormat.Writer.append(_:)(result, a2);
 }
 
 const char *XMLPlistTag.tagName.getter(unsigned __int8 a1)
@@ -2408,14 +3487,14 @@ uint64_t _nearestPresenterInterestedInSubitemPresenters(void *a1)
   return v2;
 }
 
-void sub_1809A78D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1809A78D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -2598,22 +3677,22 @@ uint64_t sub_1809A7C54()
 uint64_t _PlistKeyedEncodingContainerXML.nestedContainer<A>(keyedBy:forKey:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
 {
   v7 = v6;
-  v103 = a5;
+  v104 = a5;
   v12 = *(a3 + 16);
-  v106 = *(v12 - 1);
+  v107 = *(v12 - 1);
   MEMORY[0x1EEE9AC00](a1);
-  v100 = &v91 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v101 = &v92 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   v14 = type metadata accessor for Optional();
-  v107 = *(v14 - 8);
+  v108 = *(v14 - 8);
   MEMORY[0x1EEE9AC00](v14);
-  v108 = &v91 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v109 = &v92 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v16);
-  v18 = &v91 - v17;
+  v18 = &v92 - v17;
   v19 = *(a3 + 24);
-  v105 = a2;
+  v106 = a2;
   v20 = v12;
-  v99 = v19;
-  v109 = dispatch thunk of CodingKey.stringValue.getter();
+  v100 = v19;
+  v110 = dispatch thunk of CodingKey.stringValue.getter();
   if (*(v7 + 24) != 7)
   {
     goto LABEL_48;
@@ -2623,25 +3702,25 @@ uint64_t _PlistKeyedEncodingContainerXML.nestedContainer<A>(keyedBy:forKey:)@<X0
   v23 = v7[1];
   v24 = *(v23 + 16);
   v25 = *(v24 + 16);
-  v110 = v21;
-  v101 = a6;
-  v102 = a4;
-  v104 = v14;
+  v111 = v21;
+  v102 = a6;
+  v103 = a4;
+  v105 = v14;
   if (v25)
   {
     v26 = v7[2];
     outlined copy of _XMLPlistEncodingFormat.Reference(v23, v26, 7u);
 
     v14 = v22;
-    v27 = specialized __RawDictionaryStorage.find<A>(_:)(v109, v22, 0);
+    v27 = specialized __RawDictionaryStorage.find<A>(_:)(v110, v22, 0);
     if (v28)
     {
       v29 = *(v24 + 56) + 24 * v27;
       v30 = *v29;
       v31 = *(v29 + 16);
       v32 = *v29;
-      v109 = *(v29 + 8);
-      outlined copy of _XMLPlistEncodingFormat.Reference(v32, v109, v31);
+      v110 = *(v29 + 8);
+      outlined copy of _XMLPlistEncodingFormat.Reference(v32, v110, v31);
 
       outlined consume of _XMLPlistEncodingFormat.Reference(v23, v26, 7u);
 
@@ -2658,16 +3737,16 @@ LABEL_48:
 
       v14 = v18;
       v18 = v20;
-      v33 = v107;
-      v34 = v108;
+      v33 = v108;
+      v34 = v109;
 LABEL_35:
       v74 = *v7;
       v75 = v7[4];
-      v76 = v106;
-      (*(v106 + 16))(v14, v105, v18);
+      v76 = v107;
+      (*(v107 + 16))(v14, v106, v18);
       (*(v76 + 56))(v14, 0, 1, v18);
-      v77 = v104;
-      (*(v33 + 16))(v34, v14, v104);
+      v77 = v105;
+      (*(v33 + 16))(v34, v14, v105);
       if ((*(v76 + 48))(v34, 1, v18) == 1)
       {
         v78 = *(v33 + 8);
@@ -2676,15 +3755,15 @@ LABEL_35:
         v78(v34, v77);
 
 LABEL_43:
-        v111 = v74;
-        v112 = v30;
-        v89 = v109;
-        v113 = v109;
-        v114 = 7;
-        v115 = v75;
+        v112 = v74;
+        v113 = v30;
+        v89 = v110;
+        v114 = v110;
+        v115 = 7;
+        v116 = v75;
 
         outlined copy of _XMLPlistEncodingFormat.Reference(v30, v89, 7u);
-        type metadata accessor for _PlistKeyedEncodingContainerXML();
+        type metadata accessor for _PlistKeyedEncodingContainerXML(0, v103, v104, v90);
 
         swift_getWitnessTable();
         KeyedEncodingContainer.init<A>(_:)();
@@ -2692,13 +3771,13 @@ LABEL_43:
         outlined consume of _XMLPlistEncodingFormat.Reference(v30, v89, 7u);
       }
 
-      v108 = v30;
+      v109 = v30;
       v79 = *(v76 + 32);
       v80 = v34;
-      v81 = v100;
-      v79(v100, v80, v18);
+      v81 = v101;
+      v79(v101, v80, v18);
       v82 = swift_allocObject();
-      v83 = v99;
+      v83 = v100;
       v82[5] = v18;
       v82[6] = v83;
       boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0(v82 + 2);
@@ -2711,7 +3790,7 @@ LABEL_43:
       {
         if (v75 >> 62 != 1)
         {
-          v30 = v108;
+          v30 = v109;
           v88 = 1;
           goto LABEL_42;
         }
@@ -2724,7 +3803,7 @@ LABEL_43:
         v86 = (v75 + 64);
       }
 
-      v30 = v108;
+      v30 = v109;
       v87 = *v86;
 
       v88 = v87 + 1;
@@ -2743,7 +3822,7 @@ LABEL_42:
     outlined consume of _XMLPlistEncodingFormat.Reference(v23, v26, 7u);
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23_XMLPlistEncodingFormatV9ReferenceO3BoxCy__SDyA2EGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23_XMLPlistEncodingFormatV9ReferenceO3BoxCy__SDyA2EGGMd, &_s10Foundation23_XMLPlistEncodingFormatV9ReferenceO3BoxCy__SDyA2EGGMR);
   v35 = swift_allocObject();
   *(v35 + 16) = MEMORY[0x1E69E7CC8];
   if (*(v7 + 24) != 7)
@@ -2757,10 +3836,10 @@ LABEL_49:
   v36 = v7[1];
 
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v111 = *(v36 + 16);
-  v38 = v111;
+  v112 = *(v36 + 16);
+  v38 = v112;
   *(v36 + 16) = 0x8000000000000000;
-  v40 = specialized __RawDictionaryStorage.find<A>(_:)(v109, v22, 0);
+  v40 = specialized __RawDictionaryStorage.find<A>(_:)(v110, v22, 0);
   v41 = *(v38 + 16);
   v42 = (v39 & 1) == 0;
   v43 = v41 + v42;
@@ -2774,14 +3853,14 @@ LABEL_49:
   v14 = v18;
   if (*(v38 + 24) >= v43)
   {
-    v47 = v110;
+    v47 = v111;
     v18 = v20;
     if (isUniquelyReferenced_nonNull_native)
     {
       v44 = v38;
 LABEL_14:
-      v33 = v107;
-      v34 = v108;
+      v33 = v108;
+      v34 = v109;
       if (v23)
       {
 LABEL_15:
@@ -2795,28 +3874,28 @@ LABEL_15:
         outlined consume of _XMLPlistEncodingFormat.Reference(v49, v50, v51);
 
 LABEL_34:
-        v109 = 0;
+        v110 = 0;
         *(v36 + 16) = v44;
         goto LABEL_35;
       }
 
 LABEL_33:
-      specialized _NativeDictionary._insert(at:key:value:)(v40, v109, v47, 0, v30, 0, 7, v44);
+      specialized _NativeDictionary._insert(at:key:value:)(v40, v110, v47, 0, v30, 0, 7, v44);
       goto LABEL_34;
     }
 
 LABEL_17:
-    v93 = v40;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMd);
+    v94 = v40;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMd, &_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMR);
     v52 = static _DictionaryStorage.copy(original:)();
     v44 = v52;
-    v34 = v108;
+    v34 = v109;
     if (*(v38 + 16))
     {
       v53 = (v52 + 64);
       v54 = (v38 + 64);
       v55 = ((1 << *(v44 + 32)) + 63) >> 6;
-      v92 = v38 + 64;
+      v93 = v38 + 64;
       if (v44 != v38 || v53 >= &v54[8 * v55])
       {
         memmove(v53, v54, 8 * v55);
@@ -2833,13 +3912,13 @@ LABEL_17:
 
       v59 = v58 & *(v38 + 64);
       v60 = (v57 + 63) >> 6;
-      v94 = v60;
+      v95 = v60;
       if (v59)
       {
         do
         {
           v61 = __clz(__rbit64(v59));
-          v98 = (v59 - 1) & v59;
+          v99 = (v59 - 1) & v59;
 LABEL_30:
           v64 = 24 * (v61 | (v56 << 6));
           v65 = *(v38 + 48) + v64;
@@ -2847,13 +3926,13 @@ LABEL_30:
           v67 = *(v65 + 8);
           v68 = *(v38 + 56) + v64;
           v69 = *v68;
-          v96 = *(v68 + 8);
-          v70 = v96;
-          v97 = v69;
+          v97 = *(v68 + 8);
+          v70 = v97;
+          v98 = v69;
           v71 = *(v44 + 48) + v64;
           v72 = *(v65 + 16);
           LODWORD(v68) = *(v68 + 16);
-          v95 = v68;
+          v96 = v68;
           *v71 = v66;
           *(v71 + 8) = v67;
           *(v71 + 16) = v72;
@@ -2862,12 +3941,12 @@ LABEL_30:
           *(v73 + 8) = v70;
           *(v73 + 16) = v68;
           outlined copy of _XMLPlistEncodingFormat.Reference(v66, v67, v72);
-          outlined copy of _XMLPlistEncodingFormat.Reference(v97, v96, v95);
-          v60 = v94;
-          v59 = v98;
+          outlined copy of _XMLPlistEncodingFormat.Reference(v98, v97, v96);
+          v60 = v95;
+          v59 = v99;
         }
 
-        while (v98);
+        while (v99);
       }
 
       v62 = v56;
@@ -2884,20 +3963,20 @@ LABEL_30:
           break;
         }
 
-        v63 = *(v92 + 8 * v56);
+        v63 = *(v93 + 8 * v56);
         ++v62;
         if (v63)
         {
           v61 = __clz(__rbit64(v63));
-          v98 = (v63 - 1) & v63;
+          v99 = (v63 - 1) & v63;
           goto LABEL_30;
         }
       }
     }
 
-    v47 = v110;
-    v33 = v107;
-    v40 = v93;
+    v47 = v111;
+    v33 = v108;
+    v40 = v94;
     if (v23)
     {
       goto LABEL_15;
@@ -2907,13 +3986,13 @@ LABEL_30:
   }
 
   specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v43, isUniquelyReferenced_nonNull_native);
-  v44 = v111;
-  v45 = specialized __RawDictionaryStorage.find<A>(_:)(v109, v110, 0);
+  v44 = v112;
+  v45 = specialized __RawDictionaryStorage.find<A>(_:)(v110, v111, 0);
   if ((v23 & 1) == (v46 & 1))
   {
     v40 = v45;
     v18 = v20;
-    v47 = v110;
+    v47 = v111;
     goto LABEL_14;
   }
 
@@ -2925,7 +4004,7 @@ LABEL_50:
 
 uint64_t sub_1809A849C()
 {
-  __swift_destroy_boxed_opaque_existential_1(v0 + 16);
+  __swift_destroy_boxed_opaque_existential_1((v0 + 16));
 
   return MEMORY[0x1EEE6BDD0](v0, 72, 7);
 }
@@ -3099,12 +4178,13 @@ LABEL_20:
   }
 }
 
-void sub_1809A8F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_1809A8F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  _Block_object_dispose((v27 - 112), 8);
+  va_start(va, a26);
+  _Block_object_dispose((v26 - 112), 8);
   _Block_object_dispose(&a19, 8);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -3118,10 +4198,10 @@ uint64_t _NSFCFSEventsLog()
   return qword_1ED440120;
 }
 
-uint64_t type metadata completion function for _XMLPlistEncodingFormat.Reference.Box()
+uint64_t type metadata completion function for _XMLPlistEncodingFormat.Reference.Box(uint64_t a1)
 {
   result = swift_checkMetadataState();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_initClassMetadata2();
     if (!result)
@@ -3133,7 +4213,7 @@ uint64_t type metadata completion function for _XMLPlistEncodingFormat.Reference
   return result;
 }
 
-uint64_t type metadata instantiation function for _PlistKeyedEncodingContainerXML()
+uint64_t type metadata instantiation function for _PlistKeyedEncodingContainerXML(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -3142,7 +4222,7 @@ uint64_t type metadata instantiation function for _PlistKeyedEncodingContainerXM
 
 uint64_t _XMLPlistEncodingFormat.Writer.append(_:indentation:)(uint64_t a1, Swift::Int a2)
 {
-  v132 = *MEMORY[0x1E69E9840];
+  v133 = *MEMORY[0x1E69E9840];
   v3 = *a1;
   v4 = *(a1 + 8);
   v5 = *(a1 + 16);
@@ -3153,38 +4233,38 @@ uint64_t _XMLPlistEncodingFormat.Writer.append(_:indentation:)(uint64_t a1, Swif
     {
       if (v5 != 2)
       {
-        v131[0] = 60;
-        v131[1] = 0xE100000000000000;
-        specialized String.withUTF8<A>(_:)(v131);
+        *&v132[0] = 60;
+        *(&v132[0] + 1) = 0xE100000000000000;
+        specialized String.withUTF8<A>(_:)(v132);
 
         _XMLPlistEncodingFormat.Writer.append(_:)("real", 4);
-        v131[0] = 62;
-        v131[1] = 0xE100000000000000;
-        specialized String.withUTF8<A>(_:)(v131);
+        *&v132[0] = 62;
+        *(&v132[0] + 1) = 0xE100000000000000;
+        specialized String.withUTF8<A>(_:)(v132);
 
-        v131[0] = specialized _XMLPlistEncodingFormat.Writer.realDescription(_:)(*&v3);
-        v131[1] = v18;
-        specialized String.withUTF8<A>(_:)(v131);
+        *&v132[0] = specialized _XMLPlistEncodingFormat.Writer.realDescription(_:)(v18, *&v3);
+        *(&v132[0] + 1) = v19;
+        specialized String.withUTF8<A>(_:)(v132);
 
-        v131[0] = 12092;
-        v131[1] = 0xE200000000000000;
-        specialized String.withUTF8<A>(_:)(v131);
+        *&v132[0] = 12092;
+        *(&v132[0] + 1) = 0xE200000000000000;
+        specialized String.withUTF8<A>(_:)(v132);
 
         v8 = "real";
         v9 = 4;
         goto LABEL_24;
       }
 
-      v131[0] = 60;
-      v131[1] = 0xE100000000000000;
-      specialized String.withUTF8<A>(_:)(v131);
+      *&v132[0] = 60;
+      *(&v132[0] + 1) = 0xE100000000000000;
+      specialized String.withUTF8<A>(_:)(v132);
 
       _XMLPlistEncodingFormat.Writer.append(_:)("integer", 7);
-      v131[0] = 62;
-      v131[1] = 0xE100000000000000;
-      specialized String.withUTF8<A>(_:)(v131);
+      *&v132[0] = 62;
+      *(&v132[0] + 1) = 0xE100000000000000;
+      specialized String.withUTF8<A>(_:)(v132);
 
-      *&v128[0] = v3;
+      *&v129[0] = v3;
       lazy protocol witness table accessor for type Int64 and conformance Int64();
     }
 
@@ -3192,53 +4272,53 @@ uint64_t _XMLPlistEncodingFormat.Writer.append(_:indentation:)(uint64_t a1, Swif
     {
       if (!v5)
       {
-        v131[0] = 60;
-        v131[1] = 0xE100000000000000;
-        specialized String.withUTF8<A>(_:)(v131);
+        *&v132[0] = 60;
+        *(&v132[0] + 1) = 0xE100000000000000;
+        specialized String.withUTF8<A>(_:)(v132);
 
         _XMLPlistEncodingFormat.Writer.append(_:)("string", 6);
-        v131[0] = 62;
-        v131[1] = 0xE100000000000000;
-        specialized String.withUTF8<A>(_:)(v131);
+        *&v132[0] = 62;
+        *(&v132[0] + 1) = 0xE100000000000000;
+        specialized String.withUTF8<A>(_:)(v132);
 
-        v131[0] = v3;
-        v131[1] = v4;
+        *&v132[0] = v3;
+        *(&v132[0] + 1) = v4;
 
-        specialized String.withUTF8<A>(_:)(v131);
+        specialized String.withUTF8<A>(_:)(v132);
 
-        v131[0] = 12092;
-        v131[1] = 0xE200000000000000;
-        specialized String.withUTF8<A>(_:)(v131);
+        *&v132[0] = 12092;
+        *(&v132[0] + 1) = 0xE200000000000000;
+        specialized String.withUTF8<A>(_:)(v132);
 
         v8 = "string";
         v9 = 6;
 LABEL_24:
         _XMLPlistEncodingFormat.Writer.append(_:)(v8, v9);
-        v131[0] = 2622;
-        v131[1] = 0xE200000000000000;
+        *&v132[0] = 2622;
+        *(&v132[0] + 1) = 0xE200000000000000;
         goto LABEL_38;
       }
 
-      v131[0] = 60;
-      v131[1] = 0xE100000000000000;
-      specialized String.withUTF8<A>(_:)(v131);
+      *&v132[0] = 60;
+      *(&v132[0] + 1) = 0xE100000000000000;
+      specialized String.withUTF8<A>(_:)(v132);
 
       _XMLPlistEncodingFormat.Writer.append(_:)("integer", 7);
-      v131[0] = 62;
-      v131[1] = 0xE100000000000000;
-      specialized String.withUTF8<A>(_:)(v131);
+      *&v132[0] = 62;
+      *(&v132[0] + 1) = 0xE100000000000000;
+      specialized String.withUTF8<A>(_:)(v132);
 
-      *&v128[0] = v3;
+      *&v129[0] = v3;
       lazy protocol witness table accessor for type UInt64 and conformance UInt64();
     }
 
-    v131[0] = BinaryInteger.description.getter();
-    v131[1] = v17;
-    specialized String.withUTF8<A>(_:)(v131);
+    *&v132[0] = BinaryInteger.description.getter();
+    *(&v132[0] + 1) = v17;
+    specialized String.withUTF8<A>(_:)(v132);
 
-    v131[0] = 12092;
-    v131[1] = 0xE200000000000000;
-    specialized String.withUTF8<A>(_:)(v131);
+    *&v132[0] = 12092;
+    *(&v132[0] + 1) = 0xE200000000000000;
+    specialized String.withUTF8<A>(_:)(v132);
 
     v8 = "integer";
     v9 = 7;
@@ -3249,37 +4329,37 @@ LABEL_24:
   {
     if (v5 != 4)
     {
-      v131[0] = 60;
-      v131[1] = 0xE100000000000000;
-      specialized String.withUTF8<A>(_:)(v131);
+      *&v132[0] = 60;
+      *(&v132[0] + 1) = 0xE100000000000000;
+      specialized String.withUTF8<A>(_:)(v132);
 
       _XMLPlistEncodingFormat.Writer.append(_:)("data", 4);
-      v131[0] = 2622;
-      v131[1] = 0xE200000000000000;
-      specialized String.withUTF8<A>(_:)(v131);
+      *&v132[0] = 2622;
+      *(&v132[0] + 1) = 0xE200000000000000;
+      specialized String.withUTF8<A>(_:)(v132);
 
-      v131[0] = &v129;
-      MEMORY[0x1EEE9AC00](v21);
+      *&v132[0] = &v130;
+      MEMORY[0x1EEE9AC00](v22);
       _s10Foundation4DataV15_RepresentationO15withUnsafeBytesyxxSWKXEKlFyt_Tg5015_s10Foundation4B58V14withBufferViewyxxAA0dE0Vys5UInt8VGKXEKlFxSWKXEfU_yt_Tg5AA0J4ViewVys0O0VGxs5Error_pRi_zRi0_zlyytIsgyrzo_Tf1ncn_n(v3, v4, partial apply for closure #1 in closure #1 in _XMLPlistEncodingFormat.Writer.appendBase64(_:indentation:));
       _XMLPlistEncodingFormat.Writer.appendIndents(_:)(a2);
-      v131[0] = 12092;
-      v131[1] = 0xE200000000000000;
-      specialized String.withUTF8<A>(_:)(v131);
+      *&v132[0] = 12092;
+      *(&v132[0] + 1) = 0xE200000000000000;
+      specialized String.withUTF8<A>(_:)(v132);
 
       _XMLPlistEncodingFormat.Writer.append(_:)("data", 4);
-      v131[0] = 2622;
-      v131[1] = 0xE200000000000000;
+      *&v132[0] = 2622;
+      *(&v132[0] + 1) = 0xE200000000000000;
       goto LABEL_38;
     }
 
-    v131[0] = 60;
-    v131[1] = 0xE100000000000000;
-    specialized String.withUTF8<A>(_:)(v131);
+    *&v132[0] = 60;
+    *(&v132[0] + 1) = 0xE100000000000000;
+    specialized String.withUTF8<A>(_:)(v132);
 
     _XMLPlistEncodingFormat.Writer.append(_:)("date", 4);
-    v131[0] = 62;
-    v131[1] = 0xE100000000000000;
-    specialized String.withUTF8<A>(_:)(v131);
+    *&v132[0] = 62;
+    *(&v132[0] + 1) = 0xE100000000000000;
+    specialized String.withUTF8<A>(_:)(v132);
 
     if (one-time initialization token for cache != -1)
     {
@@ -3291,10 +4371,10 @@ LABEL_97:
     os_unfair_lock_lock((qword_1ED440450 + 24));
     v11 = *(v10 + 16);
     v12 = &unk_1ED439000;
-    v116 = v10;
+    v117 = v10;
     if (*(v11 + 16) && (v13 = specialized __RawDictionaryStorage.find<A>(_:)(7), (v14 & 1) != 0))
     {
-      v121 = *(*(v11 + 56) + 16 * v13);
+      v122 = *(*(v11 + 56) + 16 * v13);
       v15 = *(*(v11 + 56) + 16 * v13);
       swift_unknownObjectRetain();
       os_unfair_lock_unlock((v10 + 24));
@@ -3310,126 +4390,126 @@ LABEL_97:
     }
 
     type metadata accessor for _CalendarGregorian();
-    *&v122 = lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(&lazy protocol witness table cache variable for type _CalendarGregorian and conformance _CalendarGregorian, 255, type metadata accessor for _CalendarGregorian);
-    v22 = swift_allocObject();
-    *(v22 + 16) = xmmword_181232B40;
-    *(v22 + 32) = xmmword_181232B50;
-    *(v22 + 48) = 2299161;
-    *(v22 + 80) = 0x4290000000000000;
-    *(v22 + 128) = 0;
-    *(v22 + 96) = 0;
-    *(v22 + 104) = 0;
-    *(v22 + 136) = 1;
-    *(v22 + 144) = 0;
-    *(v22 + 152) = 1;
+    *&v123 = lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(&lazy protocol witness table cache variable for type _CalendarGregorian and conformance _CalendarGregorian, 255, type metadata accessor for _CalendarGregorian, &protocol conformance descriptor for _CalendarGregorian);
+    v23 = swift_allocObject();
+    *(v23 + 16) = xmmword_181232B40;
+    *(v23 + 32) = xmmword_181232B50;
+    *(v23 + 48) = 2299161;
+    *(v23 + 80) = 0x4290000000000000;
+    *(v23 + 128) = 0;
+    *(v23 + 96) = 0;
+    *(v23 + 104) = 0;
+    *(v23 + 136) = 1;
+    *(v23 + 144) = 0;
+    *(v23 + 152) = 1;
     type metadata accessor for _LocaleUnlocalized();
     inited = swift_initStaticObject();
-    v24 = lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(&lazy protocol witness table cache variable for type _LocaleUnlocalized and conformance _LocaleUnlocalized, 255, type metadata accessor for _LocaleUnlocalized);
+    v25 = lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(&lazy protocol witness table cache variable for type _LocaleUnlocalized and conformance _LocaleUnlocalized, 255, type metadata accessor for _LocaleUnlocalized, &protocol conformance descriptor for _LocaleUnlocalized);
     if (one-time initialization token for cache != -1)
     {
       swift_once();
     }
 
-    v25 = static TimeZoneCache.cache;
+    v26 = static TimeZoneCache.cache;
     os_unfair_lock_lock((static TimeZoneCache.cache + 120));
-    if (*(v25 + 32))
+    if (*(v26 + 32))
     {
-      v26 = v10;
-      v27 = *(v25 + 40);
-      v28 = *(v25 + 32);
+      v27 = v10;
+      v28 = *(v26 + 40);
+      v29 = *(v26 + 32);
     }
 
     else
     {
-      v26 = v10;
-      v28 = *(v25 + 16);
-      if (v28)
+      v27 = v10;
+      v29 = *(v26 + 16);
+      if (v29)
       {
-        v27 = *(v25 + 24);
+        v28 = *(v26 + 24);
         swift_unknownObjectRetain();
       }
 
       else
       {
-        TimeZoneCache.State.findCurrentTimeZone()(v131);
-        v27 = v131[1];
-        v28 = v131[0];
-        *(v25 + 16) = v131[0];
-        *(v25 + 24) = v27;
+        TimeZoneCache.State.findCurrentTimeZone()(v132);
+        v28 = *(&v132[0] + 1);
+        v29 = *&v132[0];
+        *(v26 + 16) = *&v132[0];
+        *(v26 + 24) = v28;
         swift_unknownObjectRetain();
         swift_unknownObjectRelease();
       }
     }
 
     swift_unknownObjectRetain();
-    os_unfair_lock_unlock((v25 + 120));
-    *(v22 + 112) = v28;
-    *(v22 + 120) = v27;
-    *(v22 + 56) = xmmword_181232B60;
-    *(v22 + 72) = 0xC208951B28000000;
-    *(v22 + 96) = inited;
-    *(v22 + 104) = v24;
+    os_unfair_lock_unlock((v26 + 120));
+    *(v23 + 112) = v29;
+    *(v23 + 120) = v28;
+    *(v23 + 56) = xmmword_181232B60;
+    *(v23 + 72) = 0xC208951B28000000;
+    *(v23 + 96) = inited;
+    *(v23 + 104) = v25;
     swift_unknownObjectRelease();
-    *(v22 + 128) = 2;
-    *(v22 + 136) = 0;
-    *(v22 + 144) = 4;
-    *(v22 + 152) = 0;
-    *(v22 + 88) = 7;
-    v29 = v26;
-    os_unfair_lock_lock((v26 + 24));
-    v30 = *(v26 + 16);
-    if (*(v30 + 16))
+    *(v23 + 128) = 2;
+    *(v23 + 136) = 0;
+    *(v23 + 144) = 4;
+    *(v23 + 152) = 0;
+    *(v23 + 88) = 7;
+    v30 = v27;
+    os_unfair_lock_lock((v27 + 24));
+    v31 = *(v27 + 16);
+    if (*(v31 + 16))
     {
-      v31 = specialized __RawDictionaryStorage.find<A>(_:)(7);
-      if (v32)
+      v32 = specialized __RawDictionaryStorage.find<A>(_:)(7);
+      if (v33)
       {
-        v33 = *(*(v30 + 56) + 16 * v31);
+        v34 = *(*(v31 + 56) + 16 * v32);
         v12 = &unk_1ED439000;
 LABEL_55:
-        v121 = v33;
+        v122 = v34;
         swift_unknownObjectRetain();
-        os_unfair_lock_unlock((v29 + 24));
+        os_unfair_lock_unlock((v30 + 24));
 
 LABEL_56:
-        v124 = v121;
+        v125 = v122;
         if (v12[87] != -1)
         {
           swift_once();
         }
 
-        v46 = *&v3;
-        *v131 = xmmword_1ED440468;
-        v117 = *(&xmmword_1ED440468 + 1);
-        v119 = xmmword_1ED440468;
+        v47 = *&v3;
+        v132[0] = xmmword_1ED440468;
+        v118 = *(&xmmword_1ED440468 + 1);
+        v120 = xmmword_1ED440468;
         swift_unknownObjectRetain_n();
-        Calendar.timeZone.setter(v131);
-        v122 = v124;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy10Foundation8CalendarV9ComponentOGMd);
-        v47 = static _SetStorage.allocate(capacity:)();
-        v48 = 0;
-        v49 = v47 + 56;
+        Calendar.timeZone.setter(v132);
+        v123 = v125;
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy10Foundation8CalendarV9ComponentOGMd, &_ss11_SetStorageCy10Foundation8CalendarV9ComponentOGMR);
+        v48 = static _SetStorage.allocate(capacity:)();
+        v49 = 0;
+        v50 = v48 + 56;
         v3 = -1;
         do
         {
-          v52 = outlined read-only object #0 of _XMLPlistEncodingFormat.Writer.append(_:indentation:)[v48 + 32];
+          v53 = outlined read-only object #0 of _XMLPlistEncodingFormat.Writer.append(_:indentation:)[v49 + 32];
           Hasher.init(_seed:)();
-          MEMORY[0x1865CD060](v52);
-          v53 = Hasher._finalize()();
-          v54 = ~(-1 << *(v47 + 32));
-          v55 = v53 & v54;
-          v56 = (v53 & v54) >> 6;
-          v57 = *(v49 + 8 * v56);
-          v58 = 1 << (v53 & v54);
-          v59 = *(v47 + 48);
-          if ((v58 & v57) != 0)
+          MEMORY[0x1865CD060](v53);
+          v54 = Hasher._finalize()();
+          v55 = ~(-1 << *(v48 + 32));
+          v56 = v54 & v55;
+          v57 = (v54 & v55) >> 6;
+          v58 = *(v50 + 8 * v57);
+          v59 = 1 << (v54 & v55);
+          v60 = *(v48 + 48);
+          if ((v59 & v58) != 0)
           {
-            while (*(v59 + v55) != v52)
+            while (*(v60 + v56) != v53)
             {
-              v55 = (v55 + 1) & v54;
-              v56 = v55 >> 6;
-              v57 = *(v49 + 8 * (v55 >> 6));
-              v58 = 1 << v55;
-              if (((1 << v55) & v57) == 0)
+              v56 = (v56 + 1) & v55;
+              v57 = v56 >> 6;
+              v58 = *(v50 + 8 * (v56 >> 6));
+              v59 = 1 << v56;
+              if (((1 << v56) & v58) == 0)
               {
                 goto LABEL_59;
               }
@@ -3439,220 +4519,220 @@ LABEL_56:
           else
           {
 LABEL_59:
-            *(v49 + 8 * v56) = v58 | v57;
-            *(v59 + v55) = v52;
-            v50 = *(v47 + 16);
-            v40 = __OFADD__(v50, 1);
-            v51 = v50 + 1;
-            if (v40)
+            *(v50 + 8 * v57) = v59 | v58;
+            *(v60 + v56) = v53;
+            v51 = *(v48 + 16);
+            v41 = __OFADD__(v51, 1);
+            v52 = v51 + 1;
+            if (v41)
             {
               __break(1u);
               goto LABEL_97;
             }
 
-            *(v47 + 16) = v51;
+            *(v48 + 16) = v52;
           }
 
-          ++v48;
+          ++v49;
         }
 
-        while (v48 != 7);
-        v128[0] = v122;
-        Calendar.ComponentSet.init(_:)(v47, &v125);
+        while (v49 != 7);
+        v129[0] = v123;
+        Calendar.ComponentSet.init(_:)(v48, &v126);
         if (one-time initialization token for validCalendarRange != -1)
         {
           swift_once();
         }
 
-        v60 = *(&static Date.validCalendarRange + 1);
-        if (*(&static Date.validCalendarRange + 1) >= v46)
+        v61 = *(&static Date.validCalendarRange + 1);
+        if (*(&static Date.validCalendarRange + 1) >= v47)
         {
-          v60 = v46;
+          v61 = v47;
         }
 
-        if (*&static Date.validCalendarRange >= v60)
+        if (*&static Date.validCalendarRange >= v61)
         {
-          v60 = *&static Date.validCalendarRange;
+          v61 = *&static Date.validCalendarRange;
         }
 
-        v123 = v60;
-        Calendar._dateComponents(_:from:)(&v125, &v123, v131);
-        BYTE4(v125) = 1;
-        *(&v125 + 1) = 0;
-        *&v127 = v119;
-        *(&v127 + 1) = v117;
-        LODWORD(v125) = 0x10000;
+        v124 = v61;
+        Calendar._dateComponents(_:from:)(&v126, &v124, v132);
+        BYTE4(v126) = 1;
+        *(&v126 + 1) = 0;
+        *&v128 = v120;
+        *(&v128 + 1) = v118;
+        LODWORD(v126) = 0x10000;
         swift_unknownObjectRetain();
-        v61 = v116;
-        os_unfair_lock_lock((v116 + 24));
-        v62 = *(v116 + 16);
-        if (!*(v62 + 16) || (v63 = specialized __RawDictionaryStorage.find<A>(_:)(7), (v64 & 1) == 0))
+        v62 = v117;
+        os_unfair_lock_lock((v117 + 24));
+        v63 = *(v117 + 16);
+        if (!*(v63 + 16) || (v64 = specialized __RawDictionaryStorage.find<A>(_:)(7), (v65 & 1) == 0))
         {
-          os_unfair_lock_unlock((v116 + 24));
+          os_unfair_lock_unlock((v117 + 24));
           goto LABEL_77;
         }
 
-        v114 = *(*(v62 + 56) + 16 * v63);
-        v65 = *(*(v62 + 56) + 16 * v63);
+        v115 = *(*(v63 + 56) + 16 * v64);
+        v66 = *(*(v63 + 56) + 16 * v64);
         swift_unknownObjectRetain();
-        os_unfair_lock_unlock((v116 + 24));
-        if (v65)
+        os_unfair_lock_unlock((v117 + 24));
+        if (v66)
         {
           goto LABEL_95;
         }
 
 LABEL_77:
         type metadata accessor for _CalendarGregorian();
-        v115 = lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(&lazy protocol witness table cache variable for type _CalendarGregorian and conformance _CalendarGregorian, 255, type metadata accessor for _CalendarGregorian);
-        v22 = swift_allocObject();
-        *(v22 + 16) = xmmword_181232B40;
-        *(v22 + 32) = xmmword_181232B50;
-        *(v22 + 48) = 2299161;
-        *(v22 + 80) = 0x4290000000000000;
-        *(v22 + 128) = 0;
-        *(v22 + 96) = 0;
-        *(v22 + 104) = 0;
-        *(v22 + 136) = 1;
-        *(v22 + 144) = 0;
-        *(v22 + 152) = 1;
+        v116 = lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(&lazy protocol witness table cache variable for type _CalendarGregorian and conformance _CalendarGregorian, 255, type metadata accessor for _CalendarGregorian, &protocol conformance descriptor for _CalendarGregorian);
+        v23 = swift_allocObject();
+        *(v23 + 16) = xmmword_181232B40;
+        *(v23 + 32) = xmmword_181232B50;
+        *(v23 + 48) = 2299161;
+        *(v23 + 80) = 0x4290000000000000;
+        *(v23 + 128) = 0;
+        *(v23 + 96) = 0;
+        *(v23 + 104) = 0;
+        *(v23 + 136) = 1;
+        *(v23 + 144) = 0;
+        *(v23 + 152) = 1;
         type metadata accessor for _LocaleUnlocalized();
         inited = swift_initStaticObject();
-        v66 = lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(&lazy protocol witness table cache variable for type _LocaleUnlocalized and conformance _LocaleUnlocalized, 255, type metadata accessor for _LocaleUnlocalized);
-        v67 = static TimeZoneCache.cache;
+        v67 = lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(&lazy protocol witness table cache variable for type _LocaleUnlocalized and conformance _LocaleUnlocalized, 255, type metadata accessor for _LocaleUnlocalized, &protocol conformance descriptor for _LocaleUnlocalized);
+        v68 = static TimeZoneCache.cache;
         os_unfair_lock_lock((static TimeZoneCache.cache + 120));
-        if (*(v67 + 32))
+        if (*(v68 + 32))
         {
-          v3 = *(v67 + 40);
-          v68 = *(v67 + 32);
+          v3 = *(v68 + 40);
+          v69 = *(v68 + 32);
         }
 
         else
         {
-          v68 = *(v67 + 16);
-          if (v68)
+          v69 = *(v68 + 16);
+          if (v69)
           {
-            v3 = *(v67 + 24);
+            v3 = *(v68 + 24);
             swift_unknownObjectRetain();
           }
 
           else
           {
-            TimeZoneCache.State.findCurrentTimeZone()(v128);
-            v3 = *(&v128[0] + 1);
-            v68 = *&v128[0];
-            *(v67 + 16) = *&v128[0];
-            *(v67 + 24) = v3;
+            TimeZoneCache.State.findCurrentTimeZone()(v129);
+            v3 = *(&v129[0] + 1);
+            v69 = *&v129[0];
+            *(v68 + 16) = *&v129[0];
+            *(v68 + 24) = v3;
             swift_unknownObjectRetain();
-            v61 = v116;
+            v62 = v117;
             swift_unknownObjectRelease();
           }
         }
 
         swift_unknownObjectRetain();
-        os_unfair_lock_unlock((v67 + 120));
-        *(v22 + 112) = v68;
-        *(v22 + 120) = v3;
-        *(v22 + 56) = xmmword_181232B60;
-        *(v22 + 72) = 0xC208951B28000000;
-        *(v22 + 96) = inited;
-        *(v22 + 104) = v66;
+        os_unfair_lock_unlock((v68 + 120));
+        *(v23 + 112) = v69;
+        *(v23 + 120) = v3;
+        *(v23 + 56) = xmmword_181232B60;
+        *(v23 + 72) = 0xC208951B28000000;
+        *(v23 + 96) = inited;
+        *(v23 + 104) = v67;
         swift_unknownObjectRelease();
-        *(v22 + 128) = 2;
-        *(v22 + 136) = 0;
-        *(v22 + 144) = 4;
-        *(v22 + 152) = 0;
-        *(v22 + 88) = 7;
-        os_unfair_lock_lock((v61 + 24));
-        v69 = *(v61 + 16);
-        if (*(v69 + 16))
+        *(v23 + 128) = 2;
+        *(v23 + 136) = 0;
+        *(v23 + 144) = 4;
+        *(v23 + 152) = 0;
+        *(v23 + 88) = 7;
+        os_unfair_lock_lock((v62 + 24));
+        v70 = *(v62 + 16);
+        if (*(v70 + 16))
         {
-          v70 = specialized __RawDictionaryStorage.find<A>(_:)(7);
-          if (v71)
+          v71 = specialized __RawDictionaryStorage.find<A>(_:)(7);
+          if (v72)
           {
-            v72 = *(*(v69 + 56) + 16 * v70);
+            v73 = *(*(v70 + 56) + 16 * v71);
             goto LABEL_94;
           }
         }
 
         swift_unknownObjectRetain();
         isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-        *&v128[0] = *(v61 + 16);
-        v35 = *&v128[0];
-        v36 = specialized __RawDictionaryStorage.find<A>(_:)(7);
-        v75 = *(v35 + 16);
-        v76 = (v74 & 1) == 0;
-        v40 = __OFADD__(v75, v76);
-        v77 = v75 + v76;
-        if (v40)
+        *&v129[0] = *(v62 + 16);
+        v36 = *&v129[0];
+        v37 = specialized __RawDictionaryStorage.find<A>(_:)(7);
+        v76 = *(v36 + 16);
+        v77 = (v75 & 1) == 0;
+        v41 = __OFADD__(v76, v77);
+        v78 = v76 + v77;
+        if (v41)
         {
           goto LABEL_99;
         }
 
-        v78 = v74;
-        if (*(v35 + 24) < v77)
+        v79 = v75;
+        if (*(v36 + 24) < v78)
         {
-          specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v77, isUniquelyReferenced_nonNull_native);
-          v79 = *&v128[0];
-          v36 = specialized __RawDictionaryStorage.find<A>(_:)(7);
-          if ((v78 & 1) != (v80 & 1))
+          specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v78, isUniquelyReferenced_nonNull_native);
+          v80 = *&v129[0];
+          v37 = specialized __RawDictionaryStorage.find<A>(_:)(7);
+          if ((v79 & 1) != (v81 & 1))
           {
             goto LABEL_136;
           }
 
-          if (v78)
+          if (v79)
           {
 LABEL_89:
-            v81 = (*(v79 + 56) + 16 * v36);
-            v82 = v115;
-            *v81 = v22;
-            v81[1] = v115;
+            v82 = (*(v80 + 56) + 16 * v37);
+            v83 = v116;
+            *v82 = v23;
+            v82[1] = v116;
             swift_unknownObjectRelease();
 LABEL_93:
-            *(v61 + 16) = v79;
-            *&v72 = v22;
-            *(&v72 + 1) = v82;
+            *(v62 + 16) = v80;
+            *&v73 = v23;
+            *(&v73 + 1) = v83;
 LABEL_94:
-            v114 = v72;
+            v115 = v73;
             swift_unknownObjectRetain();
-            os_unfair_lock_unlock((v61 + 24));
+            os_unfair_lock_unlock((v62 + 24));
 
 LABEL_95:
-            v126 = v114;
-            *&v128[0] = v119;
-            *(&v128[0] + 1) = v117;
-            Calendar.timeZone.setter(v128);
-            v128[0] = v125;
-            v128[1] = v126;
-            v128[2] = v127;
-            LOBYTE(v123) = 0;
-            closure #1 in DateComponents.ISO8601FormatStyle.format(_:appendingTimeZoneOffset:)(&v130, 129, v128, v131, &v123, 0, 0, &v125);
-            v83 = v125;
-            outlined destroy of DateComponents.ISO8601FormatStyle(v128);
-            v125 = v83;
-            specialized String.withUTF8<A>(_:)(&v125);
-            outlined destroy of DateComponents(v131);
+            v127 = v115;
+            *&v129[0] = v120;
+            *(&v129[0] + 1) = v118;
+            Calendar.timeZone.setter(v129);
+            v129[0] = v126;
+            v129[1] = v127;
+            v129[2] = v128;
+            LOBYTE(v124) = 0;
+            closure #1 in DateComponents.ISO8601FormatStyle.format(_:appendingTimeZoneOffset:)(&v131, 129, v129, v132, &v124, 0, 0, &v126);
+            v84 = v126;
+            outlined destroy of DateComponents.ISO8601FormatStyle(v129);
+            v126 = v84;
+            specialized String.withUTF8<A>(_:)(&v126);
+            outlined destroy of DateComponents(v132);
             swift_unknownObjectRelease();
 
-            *&v125 = 12092;
-            *(&v125 + 1) = 0xE200000000000000;
-            specialized String.withUTF8<A>(_:)(&v125);
+            *&v126 = 12092;
+            *(&v126 + 1) = 0xE200000000000000;
+            specialized String.withUTF8<A>(_:)(&v126);
 
             _XMLPlistEncodingFormat.Writer.append(_:)("date", 4);
-            *&v125 = 2622;
-            *(&v125 + 1) = 0xE200000000000000;
-            specialized String.withUTF8<A>(_:)(&v125);
+            *&v126 = 2622;
+            *(&v126 + 1) = 0xE200000000000000;
+            specialized String.withUTF8<A>(_:)(&v126);
           }
 
 LABEL_92:
-          specialized _NativeDictionary._insert(at:key:value:)(v36, 7, v22, v79);
-          v82 = v115;
+          specialized _NativeDictionary._insert(at:key:value:)(v37, 7, v23, v80);
+          v83 = v116;
           goto LABEL_93;
         }
 
         if (isUniquelyReferenced_nonNull_native)
         {
-          v79 = v35;
-          if (v74)
+          v80 = v36;
+          if (v75)
           {
             goto LABEL_89;
           }
@@ -3660,17 +4740,17 @@ LABEL_92:
           goto LABEL_92;
         }
 
-        v98 = v36;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation8CalendarV10IdentifierOAC01_D8Protocol_pGMd);
-        v99 = static _DictionaryStorage.copy(original:)();
-        v79 = v99;
-        if (!*(v35 + 16))
+        v99 = v37;
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation8CalendarV10IdentifierOAC01_D8Protocol_pGMd, "nC)");
+        v100 = static _DictionaryStorage.copy(original:)();
+        v80 = v100;
+        if (!*(v36 + 16))
         {
 LABEL_132:
 
-          v36 = v98;
-          v61 = v116;
-          if (v78)
+          v37 = v99;
+          v62 = v117;
+          if (v79)
           {
             goto LABEL_89;
           }
@@ -3678,63 +4758,63 @@ LABEL_132:
           goto LABEL_92;
         }
 
-        v100 = (v99 + 64);
-        v113 = (v35 + 64);
-        v101 = ((1 << *(v79 + 32)) + 63) >> 6;
-        if (v79 != v35 || v100 >= &v113[8 * v101])
+        v101 = (v100 + 64);
+        v114 = (v36 + 64);
+        v102 = ((1 << *(v80 + 32)) + 63) >> 6;
+        if (v80 != v36 || v101 >= &v114[8 * v102])
         {
-          memmove(v100, v113, 8 * v101);
+          memmove(v101, v114, 8 * v102);
         }
 
-        v102 = 0;
-        *(v79 + 16) = *(v35 + 16);
-        v103 = 1 << *(v35 + 32);
-        v104 = *(v35 + 64);
-        v105 = -1;
-        if (v103 < 64)
+        v103 = 0;
+        *(v80 + 16) = *(v36 + 16);
+        v104 = 1 << *(v36 + 32);
+        v105 = *(v36 + 64);
+        v106 = -1;
+        if (v104 < 64)
         {
-          v105 = ~(-1 << v103);
+          v106 = ~(-1 << v104);
         }
 
-        v106 = v105 & v104;
-        v107 = (v103 + 63) >> 6;
-        if ((v105 & v104) != 0)
+        v107 = v106 & v105;
+        v108 = (v104 + 63) >> 6;
+        if ((v106 & v105) != 0)
         {
           do
           {
-            v108 = __clz(__rbit64(v106));
-            v106 &= v106 - 1;
+            v109 = __clz(__rbit64(v107));
+            v107 &= v107 - 1;
 LABEL_130:
-            v111 = v108 | (v102 << 6);
-            v112 = *(*(v35 + 56) + 16 * v111);
-            *(*(v79 + 48) + v111) = *(*(v35 + 48) + v111);
-            *(*(v79 + 56) + 16 * v111) = v112;
+            v112 = v109 | (v103 << 6);
+            v113 = *(*(v36 + 56) + 16 * v112);
+            *(*(v80 + 48) + v112) = *(*(v36 + 48) + v112);
+            *(*(v80 + 56) + 16 * v112) = v113;
             swift_unknownObjectRetain();
           }
 
-          while (v106);
+          while (v107);
         }
 
-        v109 = v102;
+        v110 = v103;
         while (1)
         {
-          v102 = v109 + 1;
-          if (__OFADD__(v109, 1))
+          v103 = v110 + 1;
+          if (__OFADD__(v110, 1))
           {
             goto LABEL_135;
           }
 
-          if (v102 >= v107)
+          if (v103 >= v108)
           {
             goto LABEL_132;
           }
 
-          v110 = *&v113[8 * v102];
-          ++v109;
-          if (v110)
+          v111 = *&v114[8 * v103];
+          ++v110;
+          if (v111)
           {
-            v108 = __clz(__rbit64(v110));
-            v106 = (v110 - 1) & v110;
+            v109 = __clz(__rbit64(v111));
+            v107 = (v111 - 1) & v111;
             goto LABEL_130;
           }
         }
@@ -3742,15 +4822,15 @@ LABEL_130:
     }
 
     swift_unknownObjectRetain();
-    v34 = swift_isUniquelyReferenced_nonNull_native();
-    v131[0] = *(v29 + 16);
-    v35 = v131[0];
-    v36 = specialized __RawDictionaryStorage.find<A>(_:)(7);
-    v38 = *(v35 + 16);
-    v39 = (v37 & 1) == 0;
-    v40 = __OFADD__(v38, v39);
-    v41 = v38 + v39;
-    if (v40)
+    v35 = swift_isUniquelyReferenced_nonNull_native();
+    *&v132[0] = *(v30 + 16);
+    v36 = *&v132[0];
+    v37 = specialized __RawDictionaryStorage.find<A>(_:)(7);
+    v39 = *(v36 + 16);
+    v40 = (v38 & 1) == 0;
+    v41 = __OFADD__(v39, v40);
+    v42 = v39 + v40;
+    if (v41)
     {
       __break(1u);
 LABEL_99:
@@ -3759,13 +4839,13 @@ LABEL_99:
 
     else
     {
-      LOBYTE(inited) = v37;
-      if (*(v35 + 24) < v41)
+      LOBYTE(inited) = v38;
+      if (*(v36 + 24) < v42)
       {
-        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v41, v34);
-        v42 = v131[0];
-        v36 = specialized __RawDictionaryStorage.find<A>(_:)(7);
-        if ((inited & 1) != (v43 & 1))
+        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v42, v35);
+        v43 = *&v132[0];
+        v37 = specialized __RawDictionaryStorage.find<A>(_:)(7);
+        if ((inited & 1) != (v44 & 1))
         {
 LABEL_136:
           result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
@@ -3782,95 +4862,95 @@ LABEL_136:
         goto LABEL_53;
       }
 
-      if (v34)
+      if (v35)
       {
-        v42 = v35;
+        v43 = v36;
         v12 = &unk_1ED439000;
-        if (v37)
+        if (v38)
         {
 LABEL_50:
-          v44 = (*(v42 + 56) + 16 * v36);
-          v45 = v122;
-          *v44 = v22;
-          v44[1] = v122;
+          v45 = (*(v43 + 56) + 16 * v37);
+          v46 = v123;
+          *v45 = v23;
+          v45[1] = v123;
           swift_unknownObjectRelease();
 LABEL_54:
-          *(v29 + 16) = v42;
-          *&v33 = v22;
-          *(&v33 + 1) = v45;
+          *(v30 + 16) = v43;
+          *&v34 = v23;
+          *(&v34 + 1) = v46;
           goto LABEL_55;
         }
 
 LABEL_53:
-        specialized _NativeDictionary._insert(at:key:value:)(v36, 7, v22, v42);
-        v45 = v122;
+        specialized _NativeDictionary._insert(at:key:value:)(v37, 7, v23, v43);
+        v46 = v123;
         goto LABEL_54;
       }
     }
 
-    v118 = v36;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation8CalendarV10IdentifierOAC01_D8Protocol_pGMd);
-    v84 = static _DictionaryStorage.copy(original:)();
-    v42 = v84;
-    if (*(v35 + 16))
+    v119 = v37;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation8CalendarV10IdentifierOAC01_D8Protocol_pGMd, "nC)");
+    v85 = static _DictionaryStorage.copy(original:)();
+    v43 = v85;
+    if (*(v36 + 16))
     {
-      v85 = (v84 + 64);
-      v120 = (v35 + 64);
-      v86 = ((1 << *(v42 + 32)) + 63) >> 6;
-      if (v42 != v35 || v85 >= &v120[8 * v86])
+      v86 = (v85 + 64);
+      v121 = (v36 + 64);
+      v87 = ((1 << *(v43 + 32)) + 63) >> 6;
+      if (v43 != v36 || v86 >= &v121[8 * v87])
       {
-        memmove(v85, v120, 8 * v86);
+        memmove(v86, v121, 8 * v87);
       }
 
-      v87 = 0;
-      *(v42 + 16) = *(v35 + 16);
-      v88 = 1 << *(v35 + 32);
-      v89 = *(v35 + 64);
-      v90 = -1;
-      if (v88 < 64)
+      v88 = 0;
+      *(v43 + 16) = *(v36 + 16);
+      v89 = 1 << *(v36 + 32);
+      v90 = *(v36 + 64);
+      v91 = -1;
+      if (v89 < 64)
       {
-        v90 = ~(-1 << v88);
+        v91 = ~(-1 << v89);
       }
 
-      v91 = v90 & v89;
-      v92 = (v88 + 63) >> 6;
-      if ((v90 & v89) != 0)
+      v92 = v91 & v90;
+      v93 = (v89 + 63) >> 6;
+      if ((v91 & v90) != 0)
       {
         do
         {
-          v93 = __clz(__rbit64(v91));
-          v91 &= v91 - 1;
+          v94 = __clz(__rbit64(v92));
+          v92 &= v92 - 1;
 LABEL_113:
-          v96 = v93 | (v87 << 6);
-          v97 = *(*(v35 + 56) + 16 * v96);
-          *(*(v42 + 48) + v96) = *(*(v35 + 48) + v96);
-          *(*(v42 + 56) + 16 * v96) = v97;
+          v97 = v94 | (v88 << 6);
+          v98 = *(*(v36 + 56) + 16 * v97);
+          *(*(v43 + 48) + v97) = *(*(v36 + 48) + v97);
+          *(*(v43 + 56) + 16 * v97) = v98;
           swift_unknownObjectRetain();
         }
 
-        while (v91);
+        while (v92);
       }
 
-      v94 = v87;
+      v95 = v88;
       while (1)
       {
-        v87 = v94 + 1;
-        if (__OFADD__(v94, 1))
+        v88 = v95 + 1;
+        if (__OFADD__(v95, 1))
         {
           break;
         }
 
-        if (v87 >= v92)
+        if (v88 >= v93)
         {
           goto LABEL_115;
         }
 
-        v95 = *&v120[8 * v87];
-        ++v94;
-        if (v95)
+        v96 = *&v121[8 * v88];
+        ++v95;
+        if (v96)
         {
-          v93 = __clz(__rbit64(v95));
-          v91 = (v95 - 1) & v95;
+          v94 = __clz(__rbit64(v96));
+          v92 = (v96 - 1) & v96;
           goto LABEL_113;
         }
       }
@@ -3885,8 +4965,8 @@ LABEL_135:
 
 LABEL_115:
 
-    v29 = v116;
-    v36 = v118;
+    v30 = v117;
+    v37 = v119;
     v12 = &unk_1ED439000;
     if (inited)
     {
@@ -3910,46 +4990,46 @@ LABEL_115:
 
   if (!(v3 | v4))
   {
-    v131[0] = 60;
-    v131[1] = 0xE100000000000000;
-    specialized String.withUTF8<A>(_:)(v131);
+    *&v132[0] = 60;
+    *(&v132[0] + 1) = 0xE100000000000000;
+    specialized String.withUTF8<A>(_:)(v132);
 
     _XMLPlistEncodingFormat.Writer.append(_:)("string", 6);
-    v131[0] = 62;
-    v131[1] = 0xE100000000000000;
-    specialized String.withUTF8<A>(_:)(v131);
+    *&v132[0] = 62;
+    *(&v132[0] + 1) = 0xE100000000000000;
+    specialized String.withUTF8<A>(_:)(v132);
 
     _XMLPlistEncodingFormat.Writer.append(_:)("$null", 5);
-    v131[0] = 12092;
-    v131[1] = 0xE200000000000000;
-    specialized String.withUTF8<A>(_:)(v131);
+    *&v132[0] = 12092;
+    *(&v132[0] + 1) = 0xE200000000000000;
+    specialized String.withUTF8<A>(_:)(v132);
 
     v8 = "string";
     v9 = 6;
     goto LABEL_24;
   }
 
-  v131[0] = 60;
-  v131[1] = 0xE100000000000000;
-  specialized String.withUTF8<A>(_:)(v131);
+  *&v132[0] = 60;
+  *(&v132[0] + 1) = 0xE100000000000000;
+  specialized String.withUTF8<A>(_:)(v132);
 
   if (v3 ^ 1 | v4)
   {
-    v19 = "false";
-    v20 = 5;
+    v20 = "false";
+    v21 = 5;
   }
 
   else
   {
-    v19 = "true";
-    v20 = 4;
+    v20 = "true";
+    v21 = 4;
   }
 
-  _XMLPlistEncodingFormat.Writer.append(_:)(v19, v20);
-  v131[0] = 671279;
-  v131[1] = 0xE300000000000000;
+  _XMLPlistEncodingFormat.Writer.append(_:)(v20, v21);
+  *&v132[0] = 671279;
+  *(&v132[0] + 1) = 0xE300000000000000;
 LABEL_38:
-  specialized String.withUTF8<A>(_:)(v131);
+  specialized String.withUTF8<A>(_:)(v132);
 }
 
 void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC10Foundation23_XMLPlistEncodingFormatV9ReferenceO3key_AJ5valuet_Tt1g5(uint64_t a1, uint64_t a2)
@@ -3969,7 +5049,7 @@ void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_
     return MEMORY[0x1E69E7CC0];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceO3key_AG5valuetGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceO3key_AG5valuetGMd, &_ss23_ContiguousArrayStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceO3key_AG5valuetGMR);
   v4 = swift_allocObject();
   v5 = _swift_stdlib_malloc_size(v4);
   result = v4;
@@ -3993,7 +5073,7 @@ __int128 *PropertyListEncoder._encodeXML<A>(_:)(uint64_t a1, uint64_t a2, uint64
         v25 = type metadata accessor for EncodingError();
         swift_allocError();
         v27 = v26;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_syp_s13EncodingErrorO7ContextVtMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_syp_s13EncodingErrorO7ContextVtMd, &_syp_s13EncodingErrorO7ContextVtMR);
         v27[3] = a2;
         boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0(v27);
         (*(*(a2 - 8) + 16))(boxed_opaque_existential_0, a1, a2);
@@ -4019,7 +5099,7 @@ __int128 *PropertyListEncoder._encodeXML<A>(_:)(uint64_t a1, uint64_t a2, uint64
           v15 = type metadata accessor for EncodingError();
           swift_allocError();
           v17 = v16;
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_syp_s13EncodingErrorO7ContextVtMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_syp_s13EncodingErrorO7ContextVtMd, &_syp_s13EncodingErrorO7ContextVtMR);
           v17[3] = a2;
           v18 = __swift_allocate_boxed_opaque_existential_0(v17);
           (*(*(a2 - 8) + 16))(v18, a1, a2);
@@ -4054,7 +5134,7 @@ __int128 *PropertyListEncoder._encodeXML<A>(_:)(uint64_t a1, uint64_t a2, uint64
         swift_allocError();
         v39 = *(&v7 + 1);
         v11 = v10;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_syp_s13EncodingErrorO7ContextVtMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_syp_s13EncodingErrorO7ContextVtMd, &_syp_s13EncodingErrorO7ContextVtMR);
         v11[3] = a2;
         v12 = __swift_allocate_boxed_opaque_existential_0(v11);
         (*(*(a2 - 8) + 16))(v12, a1, a2);
@@ -4083,7 +5163,7 @@ LABEL_10:
         swift_allocError();
         v39 = *(&v7 + 1);
         v21 = v20;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_syp_s13EncodingErrorO7ContextVtMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_syp_s13EncodingErrorO7ContextVtMd, &_syp_s13EncodingErrorO7ContextVtMR);
         v21[3] = a2;
         v22 = __swift_allocate_boxed_opaque_existential_0(v21);
         (*(*(a2 - 8) + 16))(v22, a1, a2);
@@ -4155,7 +5235,7 @@ uint64_t __PlistEncoderXML.unkeyedContainer()@<X0>(uint64_t *a1@<X8>)
   result = (*(*v1 + 240))();
   if (result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23_XMLPlistEncodingFormatV9ReferenceO3BoxCy__s15ContiguousArrayVyAEGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23_XMLPlistEncodingFormatV9ReferenceO3BoxCy__s15ContiguousArrayVyAEGGMd, &_s10Foundation23_XMLPlistEncodingFormatV9ReferenceO3BoxCy__s15ContiguousArrayVyAEGGMR);
     v6 = swift_allocObject();
     *(v6 + 16) = MEMORY[0x1E69E7CC0];
     v7 = *v4;
@@ -4237,60 +5317,60 @@ unint64_t lazy protocol witness table accessor for type _PlistUnkeyedEncodingCon
   return result;
 }
 
-uint64_t specialized closure #1 in __PlistEncoderXML.wrapGeneric<A, B>(_:for:_:)(uint64_t a1)
+uint64_t specialized closure #1 in __PlistEncoderXML.wrapGeneric<A, B>(_:for:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v4[3] = type metadata accessor for __PlistEncoderXML();
-  v4[4] = lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(&lazy protocol witness table cache variable for type __PlistEncoderXML and conformance __PlistEncoderXML, v2, type metadata accessor for __PlistEncoderXML);
-  v4[0] = a1;
+  v7[3] = type metadata accessor for __PlistEncoderXML();
+  v7[4] = lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(&lazy protocol witness table cache variable for type __PlistEncoderXML and conformance __PlistEncoderXML, v5, type metadata accessor for __PlistEncoderXML, &protocol conformance descriptor for __PlistEncoderXML);
+  v7[0] = a1;
 
   dispatch thunk of Encodable.encode(to:)();
-  return __swift_destroy_boxed_opaque_existential_1(v4);
+  return __swift_destroy_boxed_opaque_existential_1(v7);
 }
 
-uint64_t __PlistEncoderXML.container<A>(keyedBy:)()
+uint64_t __PlistEncoderXML.container<A>(keyedBy:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v1 = v0 + 2;
-  result = (*(*v0 + 240))();
+  v6 = v3 + 2;
+  result = (*(*v3 + 240))(a1);
   if (result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23_XMLPlistEncodingFormatV9ReferenceO3BoxCy__SDyA2EGGMd);
-    v3 = swift_allocObject();
-    *(v3 + 16) = MEMORY[0x1E69E7CC8];
-    v4 = *v1;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23_XMLPlistEncodingFormatV9ReferenceO3BoxCy__SDyA2EGGMd, &_s10Foundation23_XMLPlistEncodingFormatV9ReferenceO3BoxCy__SDyA2EGGMR);
+    v8 = swift_allocObject();
+    *(v8 + 16) = MEMORY[0x1E69E7CC8];
+    v9 = *v6;
 
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    *v1 = v4;
+    *v6 = v9;
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v4 + 16) + 1, 1);
-      v4 = *v1;
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v9 + 16) + 1, 1);
+      v9 = *v6;
     }
 
-    v7 = *(v4 + 16);
-    v6 = *(v4 + 24);
-    if (v7 >= v6 >> 1)
+    v13 = *(v9 + 16);
+    v12 = *(v9 + 24);
+    if (v13 >= v12 >> 1)
     {
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v6 > 1), v7 + 1, 1);
-      v4 = *v1;
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v12 > 1), v13 + 1, 1);
+      v9 = *v6;
     }
 
-    *(v4 + 16) = v7 + 1;
-    v8 = v4 + 24 * v7;
-    *(v8 + 32) = v3;
-    *(v8 + 40) = 0;
-    *(v8 + 48) = 7;
-    *v1 = v4;
+    *(v9 + 16) = v13 + 1;
+    v14 = v9 + 24 * v13;
+    *(v14 + 32) = v8;
+    *(v14 + 40) = 0;
+    *(v14 + 48) = 7;
+    *v6 = v9;
     goto LABEL_10;
   }
 
-  v9 = *(*v1 + 16);
-  if (v9)
+  v15 = *(*v6 + 16);
+  if (v15)
   {
-    if (*(*v1 + 24 * v9 + 24) == 7)
+    if (*(*v6 + 24 * v15 + 24) == 7)
     {
 
 LABEL_10:
-      type metadata accessor for _PlistKeyedEncodingContainerXML();
+      type metadata accessor for _PlistKeyedEncodingContainerXML(0, a2, a3, v11);
 
       swift_getWitnessTable();
       return KeyedEncodingContainer.init<A>(_:)();
@@ -4395,7 +5475,7 @@ char *_PlistKeyedEncodingContainerXML.encode<A>(_:forKey:)(uint64_t a1, unint64_
     v30 = v93;
     if (v93 == 255)
     {
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23_XMLPlistEncodingFormatV9ReferenceO3BoxCy__SDyA2EGGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23_XMLPlistEncodingFormatV9ReferenceO3BoxCy__SDyA2EGGMd, &_s10Foundation23_XMLPlistEncodingFormatV9ReferenceO3BoxCy__SDyA2EGGMR);
       v30 = 7;
       v29 = swift_allocObject();
       v31 = 0;
@@ -4435,7 +5515,7 @@ char *_PlistKeyedEncodingContainerXML.encode<A>(_:forKey:)(uint64_t a1, unint64_
     __break(1u);
 LABEL_22:
     v83 = v45;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMd, &_ss18_DictionaryStorageCy10Foundation23_XMLPlistEncodingFormatV9ReferenceOAGGMR);
     v61 = static _DictionaryStorage.copy(original:)();
     v51 = v61;
     if (!*(v44 + 16))
@@ -4579,7 +5659,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t __PlistEncoderXML._wrapGeneric<A>(_:for:_:)@<X0>(void (*a1)(void *)@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t *a7@<X8>)
+uint64_t __PlistEncoderXML._wrapGeneric<A>(_:for:_:)@<X0>(void (*a1)(void *)@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t *a7@<X8>)
 {
   v55 = a4;
   v8 = v7;
@@ -4628,7 +5708,7 @@ uint64_t __PlistEncoderXML._wrapGeneric<A>(_:for:_:)@<X0>(void (*a1)(void *)@<X0
   *(v23 + 56) = v59;
   if (!(v29 >> 62))
   {
-    v30 = v29 + 8;
+    v30 = (v29 + 64);
 LABEL_7:
     v31 = *v30;
 
@@ -4874,7 +5954,7 @@ uint64_t __PlistEncoderXML.__deallocating_deinit()
   return swift_deallocClassInstance();
 }
 
-void _XMLPlistEncodingFormat.Writer.append(_:)(char *__src, int64_t __len)
+void _XMLPlistEncodingFormat.Writer.append(_:)(_BYTE *__src, int64_t __len)
 {
   if (__len < 1)
   {
@@ -5327,7 +6407,7 @@ LABEL_112:
           swift_unknownObjectRetain_n();
           Calendar.timeZone.setter(v175);
           v150 = v171;
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy10Foundation8CalendarV9ComponentOGMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy10Foundation8CalendarV9ComponentOGMd, &_ss11_SetStorageCy10Foundation8CalendarV9ComponentOGMR);
           v74 = static _SetStorage.allocate(capacity:)();
           v75 = 0;
           v76 = v74 + 56;
@@ -5446,7 +6526,7 @@ LABEL_152:
           }
 
           type metadata accessor for _CalendarGregorian();
-          v149 = lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(&lazy protocol witness table cache variable for type _CalendarGregorian and conformance _CalendarGregorian, 255, type metadata accessor for _CalendarGregorian);
+          v149 = lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(&lazy protocol witness table cache variable for type _CalendarGregorian and conformance _CalendarGregorian, 255, type metadata accessor for _CalendarGregorian, &protocol conformance descriptor for _CalendarGregorian);
           v94 = swift_allocObject();
           *(v94 + 16) = xmmword_181232B40;
           *(v94 + 32) = xmmword_181232B50;
@@ -5460,7 +6540,7 @@ LABEL_152:
           *(v94 + 152) = 1;
           type metadata accessor for _LocaleUnlocalized();
           inited = swift_initStaticObject();
-          v95 = lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(&lazy protocol witness table cache variable for type _LocaleUnlocalized and conformance _LocaleUnlocalized, 255, type metadata accessor for _LocaleUnlocalized);
+          v95 = lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(&lazy protocol witness table cache variable for type _LocaleUnlocalized and conformance _LocaleUnlocalized, 255, type metadata accessor for _LocaleUnlocalized, &protocol conformance descriptor for _LocaleUnlocalized);
           v96 = static TimeZoneCache.cache;
           os_unfair_lock_lock((static TimeZoneCache.cache + 120));
           if (*(v96 + 32))
@@ -5538,7 +6618,7 @@ LABEL_152:
 
               else
               {
-                __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation8CalendarV10IdentifierOAC01_D8Protocol_pGMd);
+                __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation8CalendarV10IdentifierOAC01_D8Protocol_pGMd, "nC)");
                 v132 = static _DictionaryStorage.copy(original:)();
                 v112 = v132;
                 if (*(v105 + 16))
@@ -5666,7 +6746,7 @@ LABEL_187:
       }
 
       type metadata accessor for _CalendarGregorian();
-      v159 = lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(&lazy protocol witness table cache variable for type _CalendarGregorian and conformance _CalendarGregorian, 255, type metadata accessor for _CalendarGregorian);
+      v159 = lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(&lazy protocol witness table cache variable for type _CalendarGregorian and conformance _CalendarGregorian, 255, type metadata accessor for _CalendarGregorian, &protocol conformance descriptor for _CalendarGregorian);
       v38 = swift_allocObject();
       *(v38 + 16) = xmmword_181232B40;
       *(v38 + 32) = xmmword_181232B50;
@@ -5680,7 +6760,7 @@ LABEL_187:
       *(v38 + 152) = 1;
       type metadata accessor for _LocaleUnlocalized();
       v39 = swift_initStaticObject();
-      v40 = lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(&lazy protocol witness table cache variable for type _LocaleUnlocalized and conformance _LocaleUnlocalized, 255, type metadata accessor for _LocaleUnlocalized);
+      v40 = lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(&lazy protocol witness table cache variable for type _LocaleUnlocalized and conformance _LocaleUnlocalized, 255, type metadata accessor for _LocaleUnlocalized, &protocol conformance descriptor for _LocaleUnlocalized);
       if (one-time initialization token for cache != -1)
       {
         swift_once();
@@ -5797,7 +6877,7 @@ LABEL_109:
       else
       {
         v153 = v64;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation8CalendarV10IdentifierOAC01_D8Protocol_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation8CalendarV10IdentifierOAC01_D8Protocol_pGMd, "nC)");
         v117 = static _DictionaryStorage.copy(original:)();
         v70 = v117;
         if (*(v63 + 16))
@@ -6098,72 +7178,72 @@ LABEL_208:
 
 Swift::Void __swiftcall _XMLPlistEncodingFormat.Writer.appendDictionary(_:indentation:)(Swift::OpaquePointer _, Swift::Int indentation)
 {
-  v277[36] = *MEMORY[0x1E69E9840];
+  v279[36] = *MEMORY[0x1E69E9840];
   if (!*(_._rawValue + 2))
   {
-    v220 = 60;
-    v221 = 0xE100000000000000;
-    v222 = 671279;
-    v223 = 0xE300000000000000;
+    v222 = 60;
+    v223 = 0xE100000000000000;
+    v224 = 671279;
+    v225 = 0xE300000000000000;
     goto LABEL_260;
   }
 
-  v277[0] = 60;
-  v277[1] = 0xE100000000000000;
+  v279[0] = 60;
+  v279[1] = 0xE100000000000000;
   v3 = 0;
-  specialized String.withUTF8<A>(_:)(v277);
+  specialized String.withUTF8<A>(_:)(v279);
 
   _XMLPlistEncodingFormat.Writer.append(_:)("dict", 4);
-  v277[0] = 2622;
-  v277[1] = 0xE200000000000000;
-  specialized String.withUTF8<A>(_:)(v277);
+  v279[0] = 2622;
+  v279[1] = 0xE200000000000000;
+  specialized String.withUTF8<A>(_:)(v279);
 
-  v277[0] = specialized _copyCollectionToContiguousArray<A>(_:)(_._rawValue);
-  specialized MutableCollection<>.sort(by:)(v277);
-  v241 = v277[0];
-  v240 = v277[0][2];
-  if (!v240)
+  v279[0] = specialized _copyCollectionToContiguousArray<A>(_:)(_._rawValue);
+  specialized MutableCollection<>.sort(by:)(v279);
+  v243 = v279[0];
+  v242 = *(v279[0] + 16);
+  if (!v242)
   {
 LABEL_258:
 
     _XMLPlistEncodingFormat.Writer.appendIndents(_:)(indentation);
-    v220 = 12092;
-    v221 = 0xE200000000000000;
-    v222 = 2622;
+    v222 = 12092;
     v223 = 0xE200000000000000;
+    v224 = 2622;
+    v225 = 0xE200000000000000;
 LABEL_260:
-    _XMLPlistEncodingFormat.Writer.appendClose(_:)(2u, v220, v221, v222, v223);
+    _XMLPlistEncodingFormat.Writer.appendClose(_:)(2u, v222, v223, v224, v225);
     return;
   }
 
   v4 = 0;
   v5 = indentation + 1;
   v6 = __OFADD__(indentation, 1);
-  v239 = v6;
+  v241 = v6;
   v7 = __OFADD__(v5, 1);
-  v224 = v7;
+  v226 = v7;
   v8 = __OFADD__(indentation + 2, 1);
-  v225 = v8;
+  v227 = v8;
   v9 = __OFADD__(indentation + 3, 1);
-  v226 = v9;
-  v243 = indentation + 2;
-  v248 = indentation + 1;
+  v228 = v9;
+  v245 = indentation + 2;
+  v250 = indentation + 1;
   while (1)
   {
-    if (v4 >= v241[2])
+    if (v4 >= *(v243 + 16))
     {
       goto LABEL_267;
     }
 
-    if (v239)
+    if (v241)
     {
 LABEL_268:
       __break(1u);
       goto LABEL_269;
     }
 
-    v249 = v4;
-    v14 = &v241[6 * v4 + 4];
+    v251 = v4;
+    v14 = v243 + 32 + 48 * v4;
     v15 = *v14;
     v16 = *(v14 + 8);
     v17 = *(v14 + 24);
@@ -6172,37 +7252,37 @@ LABEL_268:
     v20 = *(v14 + 40);
     v21 = *(v14 + 16);
     outlined copy of _XMLPlistEncodingFormat.Reference(*v14, v16, *(v14 + 16));
-    v247 = v17;
-    v246 = v18;
+    v249 = v17;
+    v248 = v18;
     outlined copy of _XMLPlistEncodingFormat.Reference(v17, v18, v20);
     _XMLPlistEncodingFormat.Writer.appendIndents(_:)(v19);
-    *&v273[0] = 60;
-    *(&v273[0] + 1) = 0xE100000000000000;
-    specialized String.withUTF8<A>(_:)(v273);
+    *&v275[0] = 60;
+    *(&v275[0] + 1) = 0xE100000000000000;
+    specialized String.withUTF8<A>(_:)(v275);
 
     _XMLPlistEncodingFormat.Writer.append(_:)("key", 3);
-    *&v273[0] = 62;
-    *(&v273[0] + 1) = 0xE100000000000000;
-    specialized String.withUTF8<A>(_:)(v273);
+    *&v275[0] = 62;
+    *(&v275[0] + 1) = 0xE100000000000000;
+    specialized String.withUTF8<A>(_:)(v275);
 
     if (v21)
     {
       goto LABEL_280;
     }
 
-    *&v273[0] = v15;
-    *(&v273[0] + 1) = v16;
+    *&v275[0] = v15;
+    *(&v275[0] + 1) = v16;
 
-    specialized String.withUTF8<A>(_:)(v273);
+    specialized String.withUTF8<A>(_:)(v275);
 
-    *&v273[0] = 12092;
-    *(&v273[0] + 1) = 0xE200000000000000;
-    specialized String.withUTF8<A>(_:)(v273);
+    *&v275[0] = 12092;
+    *(&v275[0] + 1) = 0xE200000000000000;
+    specialized String.withUTF8<A>(_:)(v275);
 
     _XMLPlistEncodingFormat.Writer.append(_:)("key", 3);
-    *&v273[0] = 2622;
-    *(&v273[0] + 1) = 0xE200000000000000;
-    specialized String.withUTF8<A>(_:)(v273);
+    *&v275[0] = 2622;
+    *(&v275[0] + 1) = 0xE200000000000000;
+    specialized String.withUTF8<A>(_:)(v275);
 
     _XMLPlistEncodingFormat.Writer.appendIndents(_:)(v19);
     if (v20 > 3)
@@ -6210,38 +7290,38 @@ LABEL_268:
       break;
     }
 
-    v22 = v249;
+    v22 = v251;
     if (v20 > 1)
     {
       if (v20 != 2)
       {
-        *&v273[0] = 60;
-        *(&v273[0] + 1) = 0xE100000000000000;
-        specialized String.withUTF8<A>(_:)(v273);
+        *&v275[0] = 60;
+        *(&v275[0] + 1) = 0xE100000000000000;
+        specialized String.withUTF8<A>(_:)(v275);
 
         _XMLPlistEncodingFormat.Writer.append(_:)("real", 4);
-        *&v273[0] = 62;
-        *(&v273[0] + 1) = 0xE100000000000000;
-        specialized String.withUTF8<A>(_:)(v273);
+        *&v275[0] = 62;
+        *(&v275[0] + 1) = 0xE100000000000000;
+        specialized String.withUTF8<A>(_:)(v275);
 
-        *&v273[0] = specialized _XMLPlistEncodingFormat.Writer.realDescription(_:)(*&v17);
-        *(&v273[0] + 1) = v24;
-        specialized String.withUTF8<A>(_:)(v273);
+        *&v275[0] = specialized _XMLPlistEncodingFormat.Writer.realDescription(_:)(v24, *&v17);
+        *(&v275[0] + 1) = v25;
+        specialized String.withUTF8<A>(_:)(v275);
 
         v11 = 7;
         goto LABEL_18;
       }
 
-      *&v273[0] = 60;
-      *(&v273[0] + 1) = 0xE100000000000000;
-      specialized String.withUTF8<A>(_:)(v273);
+      *&v275[0] = 60;
+      *(&v275[0] + 1) = 0xE100000000000000;
+      specialized String.withUTF8<A>(_:)(v275);
 
       _XMLPlistEncodingFormat.Writer.append(_:)("integer", 7);
-      *&v273[0] = 62;
-      *(&v273[0] + 1) = 0xE100000000000000;
-      specialized String.withUTF8<A>(_:)(v273);
+      *&v275[0] = 62;
+      *(&v275[0] + 1) = 0xE100000000000000;
+      specialized String.withUTF8<A>(_:)(v275);
 
-      *&v274 = v17;
+      *&v276 = v17;
       lazy protocol witness table accessor for type Int64 and conformance Int64();
     }
 
@@ -6249,41 +7329,41 @@ LABEL_268:
     {
       if (!v20)
       {
-        *&v273[0] = 60;
-        *(&v273[0] + 1) = 0xE100000000000000;
-        specialized String.withUTF8<A>(_:)(v273);
+        *&v275[0] = 60;
+        *(&v275[0] + 1) = 0xE100000000000000;
+        specialized String.withUTF8<A>(_:)(v275);
 
         _XMLPlistEncodingFormat.Writer.append(_:)("string", 6);
-        *&v273[0] = 62;
-        *(&v273[0] + 1) = 0xE100000000000000;
-        specialized String.withUTF8<A>(_:)(v273);
+        *&v275[0] = 62;
+        *(&v275[0] + 1) = 0xE100000000000000;
+        specialized String.withUTF8<A>(_:)(v275);
 
-        *&v273[0] = v17;
-        *(&v273[0] + 1) = v18;
+        *&v275[0] = v17;
+        *(&v275[0] + 1) = v18;
 
-        specialized String.withUTF8<A>(_:)(v273);
+        specialized String.withUTF8<A>(_:)(v275);
 
         _XMLPlistEncodingFormat.Writer.appendClose(_:)(4u, 12092, 0xE200000000000000, 2622, 0xE200000000000000);
         outlined consume of _XMLPlistEncodingFormat.Reference(v17, v18, 0);
         goto LABEL_19;
       }
 
-      *&v273[0] = 60;
-      *(&v273[0] + 1) = 0xE100000000000000;
-      specialized String.withUTF8<A>(_:)(v273);
+      *&v275[0] = 60;
+      *(&v275[0] + 1) = 0xE100000000000000;
+      specialized String.withUTF8<A>(_:)(v275);
 
       _XMLPlistEncodingFormat.Writer.append(_:)("integer", 7);
-      *&v273[0] = 62;
-      *(&v273[0] + 1) = 0xE100000000000000;
-      specialized String.withUTF8<A>(_:)(v273);
+      *&v275[0] = 62;
+      *(&v275[0] + 1) = 0xE100000000000000;
+      specialized String.withUTF8<A>(_:)(v275);
 
-      *&v274 = v17;
+      *&v276 = v17;
       lazy protocol witness table accessor for type UInt64 and conformance UInt64();
     }
 
-    *&v273[0] = BinaryInteger.description.getter();
-    *(&v273[0] + 1) = v10;
-    specialized String.withUTF8<A>(_:)(v273);
+    *&v275[0] = BinaryInteger.description.getter();
+    *(&v275[0] + 1) = v10;
+    specialized String.withUTF8<A>(_:)(v275);
 
     v11 = 8;
 LABEL_18:
@@ -6296,64 +7376,64 @@ LABEL_20:
     v5 = indentation + 1;
 LABEL_21:
     v4 = v22 + 1;
-    if (v4 == v240)
+    if (v4 == v242)
     {
       goto LABEL_258;
     }
   }
 
-  v22 = v249;
+  v22 = v251;
   if (v20 <= 5)
   {
     if (v20 != 4)
     {
-      *&v273[0] = 60;
-      *(&v273[0] + 1) = 0xE100000000000000;
-      specialized String.withUTF8<A>(_:)(v273);
+      *&v275[0] = 60;
+      *(&v275[0] + 1) = 0xE100000000000000;
+      specialized String.withUTF8<A>(_:)(v275);
 
       _XMLPlistEncodingFormat.Writer.append(_:)("data", 4);
-      *&v273[0] = 2622;
-      *(&v273[0] + 1) = 0xE200000000000000;
-      specialized String.withUTF8<A>(_:)(v273);
+      *&v275[0] = 2622;
+      *(&v275[0] + 1) = 0xE200000000000000;
+      specialized String.withUTF8<A>(_:)(v275);
 
-      *&v273[0] = &v270;
-      MEMORY[0x1EEE9AC00](v160);
+      *&v275[0] = &v272;
+      MEMORY[0x1EEE9AC00](v162);
       _s10Foundation4DataV15_RepresentationO15withUnsafeBytesyxxSWKXEKlFyt_Tg5015_s10Foundation4B58V14withBufferViewyxxAA0dE0Vys5UInt8VGKXEKlFxSWKXEfU_yt_Tg5AA0J4ViewVys0O0VGxs5Error_pRi_zRi0_zlyytIsgyrzo_Tf1ncn_n(v17, v18, closure #1 in closure #1 in _XMLPlistEncodingFormat.Writer.appendBase64(_:indentation:)partial apply);
       v5 = indentation + 1;
-      _XMLPlistEncodingFormat.Writer.appendIndents(_:)(v248);
+      _XMLPlistEncodingFormat.Writer.appendIndents(_:)(v250);
       _XMLPlistEncodingFormat.Writer.appendClose(_:)(5u, 12092, 0xE200000000000000, 2622, 0xE200000000000000);
       outlined consume of _XMLPlistEncodingFormat.Reference(v17, v18, 5u);
 LABEL_217:
-      v167 = v15;
-      v168 = v16;
+      v169 = v15;
+      v170 = v16;
       goto LABEL_218;
     }
 
-    *&v273[0] = 60;
-    *(&v273[0] + 1) = 0xE100000000000000;
-    specialized String.withUTF8<A>(_:)(v273);
+    *&v275[0] = 60;
+    *(&v275[0] + 1) = 0xE100000000000000;
+    specialized String.withUTF8<A>(_:)(v275);
 
     _XMLPlistEncodingFormat.Writer.append(_:)("date", 4);
-    *&v273[0] = 62;
-    *(&v273[0] + 1) = 0xE100000000000000;
-    specialized String.withUTF8<A>(_:)(v273);
+    *&v275[0] = 62;
+    *(&v275[0] + 1) = 0xE100000000000000;
+    specialized String.withUTF8<A>(_:)(v275);
 
     if (one-time initialization token for cache != -1)
     {
       swift_once();
     }
 
-    v25 = qword_1ED440450;
+    v26 = qword_1ED440450;
     os_unfair_lock_lock((qword_1ED440450 + 24));
-    v26 = *(v25 + 16);
-    v233 = v16;
-    if (*(v26 + 16) && (v27 = specialized __RawDictionaryStorage.find<A>(_:)(7), (v28 & 1) != 0))
+    v27 = *(v26 + 16);
+    v235 = v16;
+    if (*(v27 + 16) && (v28 = specialized __RawDictionaryStorage.find<A>(_:)(7), (v29 & 1) != 0))
     {
-      v256 = *(*(v26 + 56) + 16 * v27);
-      v29 = *(*(v26 + 56) + 16 * v27);
+      v258 = *(*(v27 + 56) + 16 * v28);
+      v30 = *(*(v27 + 56) + 16 * v28);
       swift_unknownObjectRetain();
-      os_unfair_lock_unlock((v25 + 24));
-      if (v29)
+      os_unfair_lock_unlock((v26 + 24));
+      if (v30)
       {
         goto LABEL_224;
       }
@@ -6361,69 +7441,69 @@ LABEL_217:
 
     else
     {
-      os_unfair_lock_unlock((v25 + 24));
+      os_unfair_lock_unlock((v26 + 24));
     }
 
     v3 = type metadata accessor for _CalendarGregorian();
-    v161 = lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(&lazy protocol witness table cache variable for type _CalendarGregorian and conformance _CalendarGregorian, 255, type metadata accessor for _CalendarGregorian);
-    LOBYTE(v262[0]) = 7;
-    v273[0] = 0uLL;
-    v274 = 0uLL;
-    *&v272 = 0;
-    BYTE8(v272) = 1;
-    v255 = v161;
-    v162 = protocol witness for _CalendarProtocol.init(identifier:timeZone:locale:firstWeekday:minimumDaysInFirstWeek:gregorianStartDate:) in conformance _CalendarGregorian(v262, v273, &v274, 0, 1, 0, 1, &v272);
-    os_unfair_lock_lock((v25 + 24));
-    v163 = *(v25 + 16);
-    if (*(v163 + 16))
+    v163 = lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(&lazy protocol witness table cache variable for type _CalendarGregorian and conformance _CalendarGregorian, 255, type metadata accessor for _CalendarGregorian, &protocol conformance descriptor for _CalendarGregorian);
+    LOBYTE(v264[0]) = 7;
+    v275[0] = 0uLL;
+    v276 = 0uLL;
+    *&v274 = 0;
+    BYTE8(v274) = 1;
+    v257 = v163;
+    v164 = protocol witness for _CalendarProtocol.init(identifier:timeZone:locale:firstWeekday:minimumDaysInFirstWeek:gregorianStartDate:) in conformance _CalendarGregorian(v264, v275, &v276, 0, 1, 0, 1, &v274);
+    os_unfair_lock_lock((v26 + 24));
+    v165 = *(v26 + 16);
+    if (*(v165 + 16))
     {
-      v164 = specialized __RawDictionaryStorage.find<A>(_:)(7);
-      if (v165)
+      v166 = specialized __RawDictionaryStorage.find<A>(_:)(7);
+      if (v167)
       {
-        v166 = *(*(v163 + 56) + 16 * v164);
+        v168 = *(*(v165 + 56) + 16 * v166);
 LABEL_223:
         v3 = 0;
-        v256 = v166;
+        v258 = v168;
         swift_unknownObjectRetain();
-        os_unfair_lock_unlock((v25 + 24));
+        os_unfair_lock_unlock((v26 + 24));
 
 LABEL_224:
-        v274 = v256;
+        v276 = v258;
         if (one-time initialization token for cache != -1)
         {
           swift_once();
         }
 
-        v189 = xmmword_1ED440468;
-        v273[0] = xmmword_1ED440468;
+        v191 = xmmword_1ED440468;
+        v275[0] = xmmword_1ED440468;
         swift_unknownObjectRetain_n();
-        Calendar.timeZone.setter(v273);
-        v259 = v274;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy10Foundation8CalendarV9ComponentOGMd);
-        v190 = static _SetStorage.allocate(capacity:)();
-        v191 = 0;
-        v192 = v190 + 56;
+        Calendar.timeZone.setter(v275);
+        v261 = v276;
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy10Foundation8CalendarV9ComponentOGMd, &_ss11_SetStorageCy10Foundation8CalendarV9ComponentOGMR);
+        v192 = static _SetStorage.allocate(capacity:)();
+        v193 = 0;
+        v194 = v192 + 56;
         do
         {
-          v193 = outlined read-only object #2 of _XMLPlistEncodingFormat.Writer.appendDictionary(_:indentation:)[v191 + 32];
+          v195 = outlined read-only object #2 of _XMLPlistEncodingFormat.Writer.appendDictionary(_:indentation:)[v193 + 32];
           Hasher.init(_seed:)();
-          MEMORY[0x1865CD060](v193);
-          v194 = Hasher._finalize()();
-          v195 = ~(-1 << *(v190 + 32));
-          v196 = v194 & v195;
-          v197 = (v194 & v195) >> 6;
-          v198 = *(v192 + 8 * v197);
-          v199 = 1 << (v194 & v195);
-          v200 = *(v190 + 48);
-          if ((v199 & v198) != 0)
+          MEMORY[0x1865CD060](v195);
+          v196 = Hasher._finalize()();
+          v197 = ~(-1 << *(v192 + 32));
+          v198 = v196 & v197;
+          v199 = (v196 & v197) >> 6;
+          v200 = *(v194 + 8 * v199);
+          v201 = 1 << (v196 & v197);
+          v202 = *(v192 + 48);
+          if ((v201 & v200) != 0)
           {
-            while (*(v200 + v196) != v193)
+            while (*(v202 + v198) != v195)
             {
-              v196 = (v196 + 1) & v195;
-              v197 = v196 >> 6;
-              v198 = *(v192 + 8 * (v196 >> 6));
-              v199 = 1 << v196;
-              if (((1 << v196) & v198) == 0)
+              v198 = (v198 + 1) & v197;
+              v199 = v198 >> 6;
+              v200 = *(v194 + 8 * (v198 >> 6));
+              v201 = 1 << v198;
+              if (((1 << v198) & v200) == 0)
               {
                 goto LABEL_231;
               }
@@ -6433,189 +7513,189 @@ LABEL_224:
           else
           {
 LABEL_231:
-            *(v192 + 8 * v197) = v199 | v198;
-            *(v200 + v196) = v193;
-            v201 = *(v190 + 16);
-            v56 = __OFADD__(v201, 1);
-            v202 = v201 + 1;
-            if (v56)
+            *(v194 + 8 * v199) = v201 | v200;
+            *(v202 + v198) = v195;
+            v203 = *(v192 + 16);
+            v57 = __OFADD__(v203, 1);
+            v204 = v203 + 1;
+            if (v57)
             {
               goto LABEL_263;
             }
 
-            *(v190 + 16) = v202;
+            *(v192 + 16) = v204;
           }
 
-          ++v191;
+          ++v193;
         }
 
-        while (v191 != 7);
-        v272 = v259;
-        Calendar.ComponentSet.init(_:)(v190, v262);
+        while (v193 != 7);
+        v274 = v261;
+        Calendar.ComponentSet.init(_:)(v192, v264);
         if (one-time initialization token for validCalendarRange != -1)
         {
           swift_once();
         }
 
-        v203 = *(&static Date.validCalendarRange + 1);
-        if (*(&static Date.validCalendarRange + 1) >= *&v247)
+        v205 = *(&static Date.validCalendarRange + 1);
+        if (*(&static Date.validCalendarRange + 1) >= *&v249)
         {
-          v203 = *&v247;
+          v205 = *&v249;
         }
 
-        if (*&static Date.validCalendarRange >= v203)
+        if (*&static Date.validCalendarRange >= v205)
         {
-          v203 = *&static Date.validCalendarRange;
+          v205 = *&static Date.validCalendarRange;
         }
 
-        v261 = v203;
-        Calendar._dateComponents(_:from:)(v262, &v261, v273);
-        memcpy(v277, v273, 0x11BuLL);
-        BYTE4(v273[0]) = 1;
-        *(&v273[0] + 1) = 0;
-        v273[2] = v189;
-        LODWORD(v273[0]) = 0x10000;
+        v263 = v205;
+        Calendar._dateComponents(_:from:)(v264, &v263, v275);
+        memcpy(v279, v275, 0x11BuLL);
+        BYTE4(v275[0]) = 1;
+        *(&v275[0] + 1) = 0;
+        v275[2] = v191;
+        LODWORD(v275[0]) = 0x10000;
         swift_unknownObjectRetain();
-        LOBYTE(v272) = 7;
-        *&v273[1] = CalendarCache.fixed(_:)(&v272);
-        *(&v273[1] + 1) = v204;
-        v272 = v189;
-        Calendar.timeZone.setter(&v272);
-        v265[0] = v273[0];
-        v265[1] = v273[1];
-        v265[2] = v273[2];
-        LOBYTE(v272) = 0;
-        closure #1 in DateComponents.ISO8601FormatStyle.format(_:appendingTimeZoneOffset:)(&v271, 129, v265, v277, &v272, 0, 0, v273);
-        v22 = v249;
-        v205 = v273[0];
-        outlined destroy of DateComponents.ISO8601FormatStyle(v265);
-        v273[0] = v205;
-        specialized String.withUTF8<A>(_:)(v273);
-        outlined destroy of DateComponents(v277);
+        LOBYTE(v274) = 7;
+        *&v275[1] = CalendarCache.fixed(_:)(&v274);
+        *(&v275[1] + 1) = v206;
+        v274 = v191;
+        Calendar.timeZone.setter(&v274);
+        v267[0] = v275[0];
+        v267[1] = v275[1];
+        v267[2] = v275[2];
+        LOBYTE(v274) = 0;
+        closure #1 in DateComponents.ISO8601FormatStyle.format(_:appendingTimeZoneOffset:)(&v273, 129, v267, v279, &v274, 0, 0, v275);
+        v22 = v251;
+        v207 = v275[0];
+        outlined destroy of DateComponents.ISO8601FormatStyle(v267);
+        v275[0] = v207;
+        specialized String.withUTF8<A>(_:)(v275);
+        outlined destroy of DateComponents(v279);
         swift_unknownObjectRelease();
 
         _XMLPlistEncodingFormat.Writer.appendClose(_:)(6u, 12092, 0xE200000000000000, 2622, 0xE200000000000000);
-        outlined consume of _XMLPlistEncodingFormat.Reference(v247, v246, 4u);
+        outlined consume of _XMLPlistEncodingFormat.Reference(v249, v248, 4u);
         v12 = v15;
-        v13 = v233;
+        v13 = v235;
         goto LABEL_20;
       }
     }
 
     swift_unknownObjectRetain();
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    *&v273[0] = *(v25 + 16);
-    v170 = *&v273[0];
-    v171 = specialized __RawDictionaryStorage.find<A>(_:)(7);
-    v173 = *(v170 + 16);
-    v174 = (v172 & 1) == 0;
-    v56 = __OFADD__(v173, v174);
-    v175 = v173 + v174;
-    if (v56)
+    *&v275[0] = *(v26 + 16);
+    v172 = *&v275[0];
+    v173 = specialized __RawDictionaryStorage.find<A>(_:)(7);
+    v175 = *(v172 + 16);
+    v176 = (v174 & 1) == 0;
+    v57 = __OFADD__(v175, v176);
+    v177 = v175 + v176;
+    if (v57)
     {
       goto LABEL_270;
     }
 
-    v176 = v172;
-    if (*(v170 + 24) >= v175)
+    v178 = v174;
+    if (*(v172 + 24) >= v177)
     {
       if (isUniquelyReferenced_nonNull_native)
       {
-        v177 = v170;
-        if (v172)
+        v179 = v172;
+        if (v174)
         {
 LABEL_212:
-          v179 = (*(v177 + 56) + 16 * v171);
-          v180 = v255;
-          *v179 = v162;
-          v179[1] = v255;
+          v181 = (*(v179 + 56) + 16 * v173);
+          v182 = v257;
+          *v181 = v164;
+          v181[1] = v257;
           swift_unknownObjectRelease();
 LABEL_222:
-          *(v25 + 16) = v177;
-          *&v166 = v162;
-          *(&v166 + 1) = v180;
+          *(v26 + 16) = v179;
+          *&v168 = v164;
+          *(&v168 + 1) = v182;
           goto LABEL_223;
         }
       }
 
       else
       {
-        v245 = v171;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation8CalendarV10IdentifierOAC01_D8Protocol_pGMd);
-        v206 = static _DictionaryStorage.copy(original:)();
-        v177 = v206;
-        if (*(v170 + 16))
+        v247 = v173;
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation8CalendarV10IdentifierOAC01_D8Protocol_pGMd, "nC)");
+        v208 = static _DictionaryStorage.copy(original:)();
+        v179 = v208;
+        if (*(v172 + 16))
         {
-          v207 = (v206 + 64);
-          v208 = (v170 + 64);
-          v209 = ((1 << *(v177 + 32)) + 63) >> 6;
-          if (v177 != v170 || v207 >= &v208[8 * v209])
+          v209 = (v208 + 64);
+          v210 = (v172 + 64);
+          v211 = ((1 << *(v179 + 32)) + 63) >> 6;
+          if (v179 != v172 || v209 >= &v210[8 * v211])
           {
-            memmove(v207, v208, 8 * v209);
+            memmove(v209, v210, 8 * v211);
           }
 
-          v210 = 0;
-          *(v177 + 16) = *(v170 + 16);
-          v211 = 1 << *(v170 + 32);
-          if (v211 < 64)
+          v212 = 0;
+          *(v179 + 16) = *(v172 + 16);
+          v213 = 1 << *(v172 + 32);
+          if (v213 < 64)
           {
-            v212 = ~(-1 << v211);
+            v214 = ~(-1 << v213);
           }
 
           else
           {
-            v212 = -1;
+            v214 = -1;
           }
 
-          v213 = v212 & *(v170 + 64);
-          v214 = (v211 + 63) >> 6;
-          v251 = v214;
-          if (v213)
+          v215 = v214 & *(v172 + 64);
+          v216 = (v213 + 63) >> 6;
+          v253 = v216;
+          if (v215)
           {
             do
             {
-              v215 = __clz(__rbit64(v213));
-              v253 = (v213 - 1) & v213;
+              v217 = __clz(__rbit64(v215));
+              v255 = (v215 - 1) & v215;
 LABEL_254:
-              v218 = v215 | (v210 << 6);
-              v219 = *(*(v170 + 56) + 16 * v218);
-              *(*(v177 + 48) + v218) = *(*(v170 + 48) + v218);
-              *(*(v177 + 56) + 16 * v218) = v219;
+              v220 = v217 | (v212 << 6);
+              v221 = *(*(v172 + 56) + 16 * v220);
+              *(*(v179 + 48) + v220) = *(*(v172 + 48) + v220);
+              *(*(v179 + 56) + 16 * v220) = v221;
               swift_unknownObjectRetain();
-              v214 = v251;
-              v213 = v253;
+              v216 = v253;
+              v215 = v255;
             }
 
-            while (v253);
+            while (v255);
           }
 
-          v216 = v210;
+          v218 = v212;
           while (1)
           {
-            v210 = v216 + 1;
-            if (__OFADD__(v216, 1))
+            v212 = v218 + 1;
+            if (__OFADD__(v218, 1))
             {
               goto LABEL_277;
             }
 
-            if (v210 >= v214)
+            if (v212 >= v216)
             {
               break;
             }
 
-            v217 = *(v170 + 64 + 8 * v210);
-            ++v216;
-            if (v217)
+            v219 = *(v172 + 64 + 8 * v212);
+            ++v218;
+            if (v219)
             {
-              v215 = __clz(__rbit64(v217));
-              v253 = (v217 - 1) & v217;
+              v217 = __clz(__rbit64(v219));
+              v255 = (v219 - 1) & v219;
               goto LABEL_254;
             }
           }
         }
 
-        v171 = v245;
-        if (v176)
+        v173 = v247;
+        if (v178)
         {
           goto LABEL_212;
         }
@@ -6624,22 +7704,22 @@ LABEL_254:
 
     else
     {
-      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v175, isUniquelyReferenced_nonNull_native);
-      v177 = *&v273[0];
-      v171 = specialized __RawDictionaryStorage.find<A>(_:)(7);
-      if ((v176 & 1) != (v178 & 1))
+      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v177, isUniquelyReferenced_nonNull_native);
+      v179 = *&v275[0];
+      v173 = specialized __RawDictionaryStorage.find<A>(_:)(7);
+      if ((v178 & 1) != (v180 & 1))
       {
         goto LABEL_281;
       }
 
-      if (v176)
+      if (v178)
       {
         goto LABEL_212;
       }
     }
 
-    v180 = v255;
-    specialized _NativeDictionary._insert(at:key:value:)(v171, 7, v162, v177, v3, v255);
+    v182 = v257;
+    specialized _NativeDictionary._insert(at:key:value:)(v173, 7, v164, v179, v3, v257);
     goto LABEL_222;
   }
 
@@ -6649,7 +7729,7 @@ LABEL_254:
     {
 
       v5 = indentation + 1;
-      _XMLPlistEncodingFormat.Writer.appendDictionary(_:indentation:)(v23, v248);
+      _XMLPlistEncodingFormat.Writer.appendDictionary(_:indentation:)(v23, v250);
       outlined consume of _XMLPlistEncodingFormat.Reference(v17, v18, 7u);
       outlined consume of _XMLPlistEncodingFormat.Reference(v15, v16, 0);
 
@@ -6659,37 +7739,37 @@ LABEL_254:
     v5 = indentation + 1;
     if (v17 | v18)
     {
-      *&v273[0] = 60;
-      *(&v273[0] + 1) = 0xE100000000000000;
-      specialized String.withUTF8<A>(_:)(v273);
+      *&v275[0] = 60;
+      *(&v275[0] + 1) = 0xE100000000000000;
+      specialized String.withUTF8<A>(_:)(v275);
 
       if (v17 ^ 1 | v18)
       {
-        v159 = 10;
+        v161 = 10;
       }
 
       else
       {
-        v159 = 9;
+        v161 = 9;
       }
 
-      v185 = XMLPlistTag.tagName.getter(v159);
-      _XMLPlistEncodingFormat.Writer.append(_:)(v185, v186, v187, v188);
-      *&v273[0] = 671279;
-      *(&v273[0] + 1) = 0xE300000000000000;
-      specialized String.withUTF8<A>(_:)(v273);
+      v187 = XMLPlistTag.tagName.getter(v161);
+      _XMLPlistEncodingFormat.Writer.append(_:)(v187, v188, v189, v190);
+      *&v275[0] = 671279;
+      *(&v275[0] + 1) = 0xE300000000000000;
+      specialized String.withUTF8<A>(_:)(v275);
     }
 
     else
     {
-      *&v273[0] = 60;
-      *(&v273[0] + 1) = 0xE100000000000000;
-      specialized String.withUTF8<A>(_:)(v273);
+      *&v275[0] = 60;
+      *(&v275[0] + 1) = 0xE100000000000000;
+      specialized String.withUTF8<A>(_:)(v275);
 
       _XMLPlistEncodingFormat.Writer.append(_:)("string", 6);
-      *&v273[0] = 62;
-      *(&v273[0] + 1) = 0xE100000000000000;
-      specialized String.withUTF8<A>(_:)(v273);
+      *&v275[0] = 62;
+      *(&v275[0] + 1) = 0xE100000000000000;
+      specialized String.withUTF8<A>(_:)(v275);
 
       _XMLPlistEncodingFormat.Writer.append(_:)("$null", 5);
       _XMLPlistEncodingFormat.Writer.appendClose(_:)(4u, 12092, 0xE200000000000000, 2622, 0xE200000000000000);
@@ -6698,19 +7778,19 @@ LABEL_254:
     goto LABEL_217;
   }
 
-  v234 = v16;
-  v30 = *(v17 + 16);
-  if (!*(v30 + 16))
+  v236 = v16;
+  v31 = *(v17 + 16);
+  if (!*(v31 + 16))
   {
-    *&v273[0] = 60;
-    *(&v273[0] + 1) = 0xE100000000000000;
-    specialized String.withUTF8<A>(_:)(v273);
+    *&v275[0] = 60;
+    *(&v275[0] + 1) = 0xE100000000000000;
+    specialized String.withUTF8<A>(_:)(v275);
 
-    v181 = XMLPlistTag.tagName.getter(1u);
-    _XMLPlistEncodingFormat.Writer.append(_:)(v181, v182, v183, v184);
-    *&v273[0] = 671279;
-    *(&v273[0] + 1) = 0xE300000000000000;
-    specialized String.withUTF8<A>(_:)(v273);
+    v183 = XMLPlistTag.tagName.getter(1u);
+    _XMLPlistEncodingFormat.Writer.append(_:)(v183, v184, v185, v186);
+    *&v275[0] = 671279;
+    *(&v275[0] + 1) = 0xE300000000000000;
+    specialized String.withUTF8<A>(_:)(v275);
 
     outlined consume of _XMLPlistEncodingFormat.Reference(v17, v18, 6u);
     v12 = v15;
@@ -6718,192 +7798,192 @@ LABEL_254:
     goto LABEL_20;
   }
 
-  *&v273[0] = 60;
-  *(&v273[0] + 1) = 0xE100000000000000;
+  *&v275[0] = 60;
+  *(&v275[0] + 1) = 0xE100000000000000;
 
-  specialized String.withUTF8<A>(_:)(v273);
+  specialized String.withUTF8<A>(_:)(v275);
 
   _XMLPlistEncodingFormat.Writer.append(_:)("array", 5);
-  *&v273[0] = 2622;
-  *(&v273[0] + 1) = 0xE200000000000000;
-  specialized String.withUTF8<A>(_:)(v273);
+  *&v275[0] = 2622;
+  *(&v275[0] + 1) = 0xE200000000000000;
+  specialized String.withUTF8<A>(_:)(v275);
 
-  v31 = *(v30 + 16);
+  v32 = *(v31 + 16);
   v5 = indentation + 1;
-  if (!v31)
+  if (!v32)
   {
 LABEL_207:
 
     _XMLPlistEncodingFormat.Writer.appendIndents(_:)(v5);
     _XMLPlistEncodingFormat.Writer.appendClose(_:)(1u, 12092, 0xE200000000000000, 2622, 0xE200000000000000);
-    outlined consume of _XMLPlistEncodingFormat.Reference(v247, v246, 6u);
-    v167 = v15;
-    v168 = v234;
+    outlined consume of _XMLPlistEncodingFormat.Reference(v249, v248, 6u);
+    v169 = v15;
+    v170 = v236;
 LABEL_218:
-    outlined consume of _XMLPlistEncodingFormat.Reference(v167, v168, 0);
+    outlined consume of _XMLPlistEncodingFormat.Reference(v169, v170, 0);
     goto LABEL_21;
   }
 
-  if (v224)
+  if (v226)
   {
     goto LABEL_274;
   }
 
-  v32 = 0;
-  v242 = v30 + 32;
-  v238 = v30;
+  v33 = 0;
+  v244 = v31 + 32;
+  v240 = v31;
   while (2)
   {
-    if (v32 >= v31)
+    if (v33 >= v32)
     {
       goto LABEL_266;
     }
 
-    v250 = v32;
-    v33 = v242 + 24 * v32;
-    v35 = *v33;
-    v34 = *(v33 + 8);
-    v36 = *(v33 + 16);
-    outlined copy of _XMLPlistEncodingFormat.Reference(*v33, v34, *(v33 + 16));
-    _XMLPlistEncodingFormat.Writer.appendIndents(_:)(v243);
-    if (v36 <= 3)
+    v252 = v33;
+    v34 = v244 + 24 * v33;
+    v36 = *v34;
+    v35 = *(v34 + 8);
+    v37 = *(v34 + 16);
+    outlined copy of _XMLPlistEncodingFormat.Reference(*v34, v35, *(v34 + 16));
+    _XMLPlistEncodingFormat.Writer.appendIndents(_:)(v245);
+    if (v37 <= 3)
     {
-      if (v36 <= 1)
+      if (v37 <= 1)
       {
-        *&v273[0] = 60;
-        *(&v273[0] + 1) = 0xE100000000000000;
-        specialized String.withUTF8<A>(_:)(v273);
+        *&v275[0] = 60;
+        *(&v275[0] + 1) = 0xE100000000000000;
+        specialized String.withUTF8<A>(_:)(v275);
 
-        if (v36)
+        if (v37)
         {
           _XMLPlistEncodingFormat.Writer.append(_:)("integer", 7);
-          *&v273[0] = 62;
-          *(&v273[0] + 1) = 0xE100000000000000;
-          specialized String.withUTF8<A>(_:)(v273);
+          *&v275[0] = 62;
+          *(&v275[0] + 1) = 0xE100000000000000;
+          specialized String.withUTF8<A>(_:)(v275);
 
-          *&v274 = v35;
+          *&v276 = v36;
           lazy protocol witness table accessor for type UInt64 and conformance UInt64();
-          *&v273[0] = BinaryInteger.description.getter();
-          *(&v273[0] + 1) = v38;
-          specialized String.withUTF8<A>(_:)(v273);
+          *&v275[0] = BinaryInteger.description.getter();
+          *(&v275[0] + 1) = v39;
+          specialized String.withUTF8<A>(_:)(v275);
 
-          *&v273[0] = 12092;
-          *(&v273[0] + 1) = 0xE200000000000000;
-          specialized String.withUTF8<A>(_:)(v273);
+          *&v275[0] = 12092;
+          *(&v275[0] + 1) = 0xE200000000000000;
+          specialized String.withUTF8<A>(_:)(v275);
 
           _XMLPlistEncodingFormat.Writer.append(_:)("integer", 7);
-          *&v273[0] = 2622;
-          *(&v273[0] + 1) = 0xE200000000000000;
-          specialized String.withUTF8<A>(_:)(v273);
+          *&v275[0] = 2622;
+          *(&v275[0] + 1) = 0xE200000000000000;
+          specialized String.withUTF8<A>(_:)(v275);
         }
 
         else
         {
           _XMLPlistEncodingFormat.Writer.append(_:)("string", 6);
-          *&v273[0] = 62;
-          *(&v273[0] + 1) = 0xE100000000000000;
-          specialized String.withUTF8<A>(_:)(v273);
+          *&v275[0] = 62;
+          *(&v275[0] + 1) = 0xE100000000000000;
+          specialized String.withUTF8<A>(_:)(v275);
 
-          *&v273[0] = v35;
-          *(&v273[0] + 1) = v34;
+          *&v275[0] = v36;
+          *(&v275[0] + 1) = v35;
 
-          specialized String.withUTF8<A>(_:)(v273);
+          specialized String.withUTF8<A>(_:)(v275);
 
-          *&v273[0] = 12092;
-          *(&v273[0] + 1) = 0xE200000000000000;
-          specialized String.withUTF8<A>(_:)(v273);
+          *&v275[0] = 12092;
+          *(&v275[0] + 1) = 0xE200000000000000;
+          specialized String.withUTF8<A>(_:)(v275);
 
           _XMLPlistEncodingFormat.Writer.append(_:)("string", 6);
-          *&v273[0] = 2622;
-          *(&v273[0] + 1) = 0xE200000000000000;
-          specialized String.withUTF8<A>(_:)(v273);
-          outlined consume of _XMLPlistEncodingFormat.Reference(v35, v34, 0);
+          *&v275[0] = 2622;
+          *(&v275[0] + 1) = 0xE200000000000000;
+          specialized String.withUTF8<A>(_:)(v275);
+          outlined consume of _XMLPlistEncodingFormat.Reference(v36, v35, 0);
         }
 
-        v30 = v238;
+        v31 = v240;
         goto LABEL_48;
       }
 
-      if (v36 != 2)
+      if (v37 != 2)
       {
-        *&v273[0] = 60;
-        *(&v273[0] + 1) = 0xE100000000000000;
-        specialized String.withUTF8<A>(_:)(v273);
+        *&v275[0] = 60;
+        *(&v275[0] + 1) = 0xE100000000000000;
+        specialized String.withUTF8<A>(_:)(v275);
 
         _XMLPlistEncodingFormat.Writer.append(_:)("real", 4);
-        *&v273[0] = 62;
-        *(&v273[0] + 1) = 0xE100000000000000;
-        specialized String.withUTF8<A>(_:)(v273);
+        *&v275[0] = 62;
+        *(&v275[0] + 1) = 0xE100000000000000;
+        specialized String.withUTF8<A>(_:)(v275);
 
         v5 = indentation + 1;
-        if ((v35 & 0x7FFFFFFFFFFFFFFFLL) == 0x7FF0000000000000)
+        if ((v36 & 0x7FFFFFFFFFFFFFFFLL) == 0x7FF0000000000000)
         {
-          v133 = 0x74696E69666E692DLL;
-          if (*&v35 > 0.0)
+          v135 = 0x74696E69666E692DLL;
+          if (*&v36 > 0.0)
           {
-            v133 = 0x74696E69666E692BLL;
+            v135 = 0x74696E69666E692BLL;
           }
 
-          v134 = 0xE900000000000079;
+          v136 = 0xE900000000000079;
         }
 
         else
         {
-          *&v273[0] = Double.description.getter();
-          *(&v273[0] + 1) = v151;
+          *&v275[0] = Double.description.getter();
+          *(&v275[0] + 1) = v153;
 
-          v152._countAndFlagsBits = 12334;
-          v152._object = 0xE200000000000000;
-          v153 = String.hasSuffix(_:)(v152);
+          v154._countAndFlagsBits = 12334;
+          v154._object = 0xE200000000000000;
+          v155 = String.hasSuffix(_:)(v154);
 
-          if (v153)
+          if (v155)
           {
             specialized RangeReplaceableCollection<>.removeLast(_:)(2uLL);
           }
 
-          v134 = *(&v273[0] + 1);
-          v133 = *&v273[0];
+          v136 = *(&v275[0] + 1);
+          v135 = *&v275[0];
         }
 
-        *&v273[0] = v133;
-        *(&v273[0] + 1) = v134;
-        specialized String.withUTF8<A>(_:)(v273);
+        *&v275[0] = v135;
+        *(&v275[0] + 1) = v136;
+        specialized String.withUTF8<A>(_:)(v275);
 
-        *&v273[0] = 12092;
-        *(&v273[0] + 1) = 0xE200000000000000;
-        specialized String.withUTF8<A>(_:)(v273);
+        *&v275[0] = 12092;
+        *(&v275[0] + 1) = 0xE200000000000000;
+        specialized String.withUTF8<A>(_:)(v275);
 
         _XMLPlistEncodingFormat.Writer.append(_:)("real", 4);
-        *&v273[0] = 2622;
-        *(&v273[0] + 1) = 0xE200000000000000;
-        specialized String.withUTF8<A>(_:)(v273);
+        *&v275[0] = 2622;
+        *(&v275[0] + 1) = 0xE200000000000000;
+        specialized String.withUTF8<A>(_:)(v275);
         goto LABEL_197;
       }
 
-      *&v273[0] = 60;
-      *(&v273[0] + 1) = 0xE100000000000000;
-      specialized String.withUTF8<A>(_:)(v273);
+      *&v275[0] = 60;
+      *(&v275[0] + 1) = 0xE100000000000000;
+      specialized String.withUTF8<A>(_:)(v275);
 
       _XMLPlistEncodingFormat.Writer.append(_:)("integer", 7);
-      *&v273[0] = 62;
-      *(&v273[0] + 1) = 0xE100000000000000;
-      specialized String.withUTF8<A>(_:)(v273);
+      *&v275[0] = 62;
+      *(&v275[0] + 1) = 0xE100000000000000;
+      specialized String.withUTF8<A>(_:)(v275);
 
-      *&v274 = v35;
+      *&v276 = v36;
       lazy protocol witness table accessor for type Int64 and conformance Int64();
-      *&v273[0] = BinaryInteger.description.getter();
-      *(&v273[0] + 1) = v39;
-      specialized String.withUTF8<A>(_:)(v273);
+      *&v275[0] = BinaryInteger.description.getter();
+      *(&v275[0] + 1) = v40;
+      specialized String.withUTF8<A>(_:)(v275);
 
-      *&v273[0] = 12092;
-      *(&v273[0] + 1) = 0xE200000000000000;
-      specialized String.withUTF8<A>(_:)(v273);
+      *&v275[0] = 12092;
+      *(&v275[0] + 1) = 0xE200000000000000;
+      specialized String.withUTF8<A>(_:)(v275);
 
-      v30 = v238;
+      v31 = v240;
       _XMLPlistEncodingFormat.Writer.append(_:)("integer", 7);
-      *&v273[0] = 2622;
-      *(&v273[0] + 1) = 0xE200000000000000;
-      specialized String.withUTF8<A>(_:)(v273);
+      *&v275[0] = 2622;
+      *(&v275[0] + 1) = 0xE200000000000000;
+      specialized String.withUTF8<A>(_:)(v275);
 LABEL_178:
 
 LABEL_48:
@@ -6911,64 +7991,64 @@ LABEL_48:
       goto LABEL_49;
     }
 
-    if (v36 <= 5)
+    if (v37 <= 5)
     {
-      if (v36 == 4)
+      if (v37 == 4)
       {
-        *&v273[0] = 60;
-        *(&v273[0] + 1) = 0xE100000000000000;
-        specialized String.withUTF8<A>(_:)(v273);
+        *&v275[0] = 60;
+        *(&v275[0] + 1) = 0xE100000000000000;
+        specialized String.withUTF8<A>(_:)(v275);
 
         _XMLPlistEncodingFormat.Writer.append(_:)("date", 4);
-        *&v273[0] = 62;
-        *(&v273[0] + 1) = 0xE100000000000000;
-        specialized String.withUTF8<A>(_:)(v273);
+        *&v275[0] = 62;
+        *(&v275[0] + 1) = 0xE100000000000000;
+        specialized String.withUTF8<A>(_:)(v275);
 
         if (one-time initialization token for cache != -1)
         {
           swift_once();
         }
 
-        LOBYTE(v273[0]) = 7;
-        *&v274 = CalendarCache.fixed(_:)(v273);
-        *(&v274 + 1) = v40;
+        LOBYTE(v275[0]) = 7;
+        *&v276 = CalendarCache.fixed(_:)(v275);
+        *(&v276 + 1) = v41;
         if (one-time initialization token for cache != -1)
         {
           swift_once();
         }
 
-        v41 = v35;
-        v42 = *&v35;
-        v43 = xmmword_1ED440468;
-        v273[0] = xmmword_1ED440468;
+        v42 = v36;
+        v43 = *&v36;
+        v44 = xmmword_1ED440468;
+        v275[0] = xmmword_1ED440468;
         swift_unknownObjectRetain_n();
-        Calendar.timeZone.setter(v273);
-        v257 = v274;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy10Foundation8CalendarV9ComponentOGMd);
-        v44 = static _SetStorage.allocate(capacity:)();
-        v45 = 0;
-        v46 = v44 + 56;
+        Calendar.timeZone.setter(v275);
+        v259 = v276;
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy10Foundation8CalendarV9ComponentOGMd, &_ss11_SetStorageCy10Foundation8CalendarV9ComponentOGMR);
+        v45 = static _SetStorage.allocate(capacity:)();
+        v46 = 0;
+        v47 = v45 + 56;
         do
         {
-          v47 = outlined read-only object #1 of _XMLPlistEncodingFormat.Writer.appendDictionary(_:indentation:)[v45 + 32];
+          v48 = outlined read-only object #1 of _XMLPlistEncodingFormat.Writer.appendDictionary(_:indentation:)[v46 + 32];
           Hasher.init(_seed:)();
-          MEMORY[0x1865CD060](v47);
-          v48 = Hasher._finalize()();
-          v49 = ~(-1 << *(v44 + 32));
-          v50 = v48 & v49;
-          v51 = (v48 & v49) >> 6;
-          v52 = *(v46 + 8 * v51);
-          v53 = 1 << (v48 & v49);
-          v54 = *(v44 + 48);
-          if ((v53 & v52) != 0)
+          MEMORY[0x1865CD060](v48);
+          v49 = Hasher._finalize()();
+          v50 = ~(-1 << *(v45 + 32));
+          v51 = v49 & v50;
+          v52 = (v49 & v50) >> 6;
+          v53 = *(v47 + 8 * v52);
+          v54 = 1 << (v49 & v50);
+          v55 = *(v45 + 48);
+          if ((v54 & v53) != 0)
           {
-            while (*(v54 + v50) != v47)
+            while (*(v55 + v51) != v48)
             {
-              v50 = (v50 + 1) & v49;
-              v51 = v50 >> 6;
-              v52 = *(v46 + 8 * (v50 >> 6));
-              v53 = 1 << v50;
-              if (((1 << v50) & v52) == 0)
+              v51 = (v51 + 1) & v50;
+              v52 = v51 >> 6;
+              v53 = *(v47 + 8 * (v51 >> 6));
+              v54 = 1 << v51;
+              if (((1 << v51) & v53) == 0)
               {
                 goto LABEL_71;
               }
@@ -6978,446 +8058,446 @@ LABEL_48:
           else
           {
 LABEL_71:
-            *(v46 + 8 * v51) = v53 | v52;
-            *(v54 + v50) = v47;
-            v55 = *(v44 + 16);
-            v56 = __OFADD__(v55, 1);
-            v57 = v55 + 1;
-            if (v56)
+            *(v47 + 8 * v52) = v54 | v53;
+            *(v55 + v51) = v48;
+            v56 = *(v45 + 16);
+            v57 = __OFADD__(v56, 1);
+            v58 = v56 + 1;
+            if (v57)
             {
               goto LABEL_262;
             }
 
-            *(v44 + 16) = v57;
+            *(v45 + 16) = v58;
           }
 
-          ++v45;
+          ++v46;
         }
 
-        while (v45 != 7);
-        v272 = v257;
-        Calendar.ComponentSet.init(_:)(v44, v262);
+        while (v46 != 7);
+        v274 = v259;
+        Calendar.ComponentSet.init(_:)(v45, v264);
         if (one-time initialization token for validCalendarRange != -1)
         {
           swift_once();
         }
 
-        v144 = *(&static Date.validCalendarRange + 1);
-        if (*(&static Date.validCalendarRange + 1) >= v42)
+        v146 = *(&static Date.validCalendarRange + 1);
+        if (*(&static Date.validCalendarRange + 1) >= v43)
         {
-          v144 = v42;
+          v146 = v43;
         }
 
-        if (*&static Date.validCalendarRange >= v144)
+        if (*&static Date.validCalendarRange >= v146)
         {
-          v144 = *&static Date.validCalendarRange;
+          v146 = *&static Date.validCalendarRange;
         }
 
-        v261 = v144;
-        Calendar._dateComponents(_:from:)(v262, &v261, v273);
-        memcpy(v276, v273, 0x11BuLL);
-        BYTE4(v273[0]) = 1;
-        *(&v273[0] + 1) = 0;
-        v273[2] = v43;
-        LODWORD(v273[0]) = 0x10000;
+        v263 = v146;
+        Calendar._dateComponents(_:from:)(v264, &v263, v275);
+        memcpy(v278, v275, 0x11BuLL);
+        BYTE4(v275[0]) = 1;
+        *(&v275[0] + 1) = 0;
+        v275[2] = v44;
+        LODWORD(v275[0]) = 0x10000;
         swift_unknownObjectRetain();
-        LOBYTE(v272) = 7;
-        *&v273[1] = CalendarCache.fixed(_:)(&v272);
-        *(&v273[1] + 1) = v145;
-        v272 = v43;
-        Calendar.timeZone.setter(&v272);
-        v264[0] = v273[0];
-        v264[1] = v273[1];
-        v264[2] = v273[2];
-        LOBYTE(v272) = 0;
+        LOBYTE(v274) = 7;
+        *&v275[1] = CalendarCache.fixed(_:)(&v274);
+        *(&v275[1] + 1) = v147;
+        v274 = v44;
+        Calendar.timeZone.setter(&v274);
+        v266[0] = v275[0];
+        v266[1] = v275[1];
+        v266[2] = v275[2];
+        LOBYTE(v274) = 0;
         v3 = 0;
-        closure #1 in DateComponents.ISO8601FormatStyle.format(_:appendingTimeZoneOffset:)(&v269, 129, v264, v276, &v272, 0, 0, v273);
-        v22 = v249;
-        v146 = v273[0];
-        outlined destroy of DateComponents.ISO8601FormatStyle(v264);
-        v273[0] = v146;
-        specialized String.withUTF8<A>(_:)(v273);
-        outlined destroy of DateComponents(v276);
+        closure #1 in DateComponents.ISO8601FormatStyle.format(_:appendingTimeZoneOffset:)(&v271, 129, v266, v278, &v274, 0, 0, v275);
+        v22 = v251;
+        v148 = v275[0];
+        outlined destroy of DateComponents.ISO8601FormatStyle(v266);
+        v275[0] = v148;
+        specialized String.withUTF8<A>(_:)(v275);
+        outlined destroy of DateComponents(v278);
         swift_unknownObjectRelease();
 
         _XMLPlistEncodingFormat.Writer.appendClose(_:)(6u, 12092, 0xE200000000000000, 2622, 0xE200000000000000);
-        outlined consume of _XMLPlistEncodingFormat.Reference(v41, v34, 4u);
+        outlined consume of _XMLPlistEncodingFormat.Reference(v42, v35, 4u);
         goto LABEL_171;
       }
 
-      *&v273[0] = 60;
-      *(&v273[0] + 1) = 0xE100000000000000;
-      specialized String.withUTF8<A>(_:)(v273);
+      *&v275[0] = 60;
+      *(&v275[0] + 1) = 0xE100000000000000;
+      specialized String.withUTF8<A>(_:)(v275);
 
       _XMLPlistEncodingFormat.Writer.append(_:)("data", 4);
-      *&v273[0] = 2622;
-      *(&v273[0] + 1) = 0xE200000000000000;
-      specialized String.withUTF8<A>(_:)(v273);
+      *&v275[0] = 2622;
+      *(&v275[0] + 1) = 0xE200000000000000;
+      specialized String.withUTF8<A>(_:)(v275);
 
-      *&v273[0] = &v268;
-      MEMORY[0x1EEE9AC00](v140);
-      _s10Foundation4DataV15_RepresentationO15withUnsafeBytesyxxSWKXEKlFyt_Tg5015_s10Foundation4B58V14withBufferViewyxxAA0dE0Vys5UInt8VGKXEKlFxSWKXEfU_yt_Tg5AA0J4ViewVys0O0VGxs5Error_pRi_zRi0_zlyytIsgyrzo_Tf1ncn_n(v35, v34, closure #1 in closure #1 in _XMLPlistEncodingFormat.Writer.appendBase64(_:indentation:)partial apply);
-      _XMLPlistEncodingFormat.Writer.appendIndents(_:)(v243);
-      *&v273[0] = 12092;
-      *(&v273[0] + 1) = 0xE200000000000000;
-      specialized String.withUTF8<A>(_:)(v273);
+      *&v275[0] = &v270;
+      MEMORY[0x1EEE9AC00](v142);
+      _s10Foundation4DataV15_RepresentationO15withUnsafeBytesyxxSWKXEKlFyt_Tg5015_s10Foundation4B58V14withBufferViewyxxAA0dE0Vys5UInt8VGKXEKlFxSWKXEfU_yt_Tg5AA0J4ViewVys0O0VGxs5Error_pRi_zRi0_zlyytIsgyrzo_Tf1ncn_n(v36, v35, closure #1 in closure #1 in _XMLPlistEncodingFormat.Writer.appendBase64(_:indentation:)partial apply);
+      _XMLPlistEncodingFormat.Writer.appendIndents(_:)(v245);
+      *&v275[0] = 12092;
+      *(&v275[0] + 1) = 0xE200000000000000;
+      specialized String.withUTF8<A>(_:)(v275);
 
       _XMLPlistEncodingFormat.Writer.append(_:)("data", 4);
-      *&v273[0] = 2622;
-      v30 = v238;
-      *(&v273[0] + 1) = 0xE200000000000000;
-      specialized String.withUTF8<A>(_:)(v273);
-      v141 = v35;
-      v142 = v34;
-      v143 = 5;
+      *&v275[0] = 2622;
+      v31 = v240;
+      *(&v275[0] + 1) = 0xE200000000000000;
+      specialized String.withUTF8<A>(_:)(v275);
+      v143 = v36;
+      v144 = v35;
+      v145 = 5;
       goto LABEL_177;
     }
 
-    if (v36 == 6)
+    if (v37 == 6)
     {
-      v58 = *(v35 + 16);
-      if (*(v58 + 16))
+      v59 = *(v36 + 16);
+      if (*(v59 + 16))
       {
-        v232 = v34;
-        *&v273[0] = 60;
-        *(&v273[0] + 1) = 0xE100000000000000;
+        v234 = v35;
+        *&v275[0] = 60;
+        *(&v275[0] + 1) = 0xE100000000000000;
 
-        specialized String.withUTF8<A>(_:)(v273);
+        specialized String.withUTF8<A>(_:)(v275);
 
         _XMLPlistEncodingFormat.Writer.append(_:)("array", 5);
-        *&v273[0] = 2622;
-        *(&v273[0] + 1) = 0xE200000000000000;
-        specialized String.withUTF8<A>(_:)(v273);
+        *&v275[0] = 2622;
+        *(&v275[0] + 1) = 0xE200000000000000;
+        specialized String.withUTF8<A>(_:)(v275);
 
-        v59 = *(v58 + 16);
-        v227 = v35;
-        if (v59)
+        v60 = *(v59 + 16);
+        v229 = v36;
+        if (v60)
         {
-          v60 = indentation + 7;
-          if (v225)
+          v61 = indentation + 7;
+          if (v227)
           {
             goto LABEL_271;
           }
 
-          v61 = 0;
-          v244 = v58 + 32;
-          v62 = indentation + 3;
-          v237 = v58;
+          v62 = 0;
+          v246 = v59 + 32;
+          v63 = indentation + 3;
+          v239 = v59;
           while (1)
           {
-            if (v61 >= v59)
+            if (v62 >= v60)
             {
               goto LABEL_265;
             }
 
-            v64 = v244 + 24 * v61;
-            v65 = *(v64 + 16);
-            v254 = v61;
-            v258 = *v64;
-            v252 = *(v64 + 8);
-            outlined copy of _XMLPlistEncodingFormat.Reference(*v64, v252, v65);
-            v66 = v62;
-            v67 = v60;
-            if (v62 >= 4)
+            v65 = v246 + 24 * v62;
+            v66 = *(v65 + 16);
+            v256 = v62;
+            v260 = *v65;
+            v254 = *(v65 + 8);
+            outlined copy of _XMLPlistEncodingFormat.Reference(*v65, v254, v66);
+            v67 = v63;
+            v68 = v61;
+            if (v63 >= 4)
             {
               do
               {
-                v273[0] = xmmword_181248D60;
-                _XMLPlistEncodingFormat.Writer.append(_:)(v273, 4);
+                v275[0] = xmmword_181248D60;
+                _XMLPlistEncodingFormat.Writer.append(_:)(v275, 4);
 
-                v67 -= 4;
+                v68 -= 4;
               }
 
-              while (v67 >= 8);
-              v66 = v67 - 4;
+              while (v68 >= 8);
+              v67 = v68 - 4;
             }
 
-            if (v66 == 1)
+            if (v67 == 1)
             {
               break;
             }
 
-            if (v66 == 2)
+            if (v67 == 2)
             {
-              *&v273[0] = 2313;
-              v68 = 0xE200000000000000;
+              *&v275[0] = 2313;
+              v69 = 0xE200000000000000;
 LABEL_92:
-              *(&v273[0] + 1) = v68;
-              specialized String.withUTF8<A>(_:)(v273);
+              *(&v275[0] + 1) = v69;
+              specialized String.withUTF8<A>(_:)(v275);
               goto LABEL_93;
             }
 
-            if (v66 != 3)
+            if (v67 != 3)
             {
               goto LABEL_94;
             }
 
-            v273[0] = xmmword_181248D90;
-            _XMLPlistEncodingFormat.Writer.append(_:)(v273, 3);
+            v275[0] = xmmword_181248D90;
+            _XMLPlistEncodingFormat.Writer.append(_:)(v275, 3);
 LABEL_93:
 
 LABEL_94:
-            if (v65 <= 3)
+            if (v66 <= 3)
             {
-              if (v65 > 1)
+              if (v66 > 1)
               {
-                if (v65 != 2)
+                if (v66 != 2)
                 {
-                  v273[0] = xmmword_181248DA0;
-                  _XMLPlistEncodingFormat.Writer.append(_:)(v273, 1);
+                  v275[0] = xmmword_181248DA0;
+                  _XMLPlistEncodingFormat.Writer.append(_:)(v275, 1);
 
                   _XMLPlistEncodingFormat.Writer.append(_:)("real", 4);
-                  v273[0] = xmmword_181248DD0;
-                  _XMLPlistEncodingFormat.Writer.append(_:)(v273, 1);
+                  v275[0] = xmmword_181248DD0;
+                  _XMLPlistEncodingFormat.Writer.append(_:)(v275, 1);
 
-                  *&v273[0] = specialized _XMLPlistEncodingFormat.Writer.realDescription(_:)(*&v258);
-                  *(&v273[0] + 1) = v75;
-                  specialized String.withUTF8<A>(_:)(v273);
+                  *&v275[0] = specialized _XMLPlistEncodingFormat.Writer.realDescription(_:)(v76, *&v260);
+                  *(&v275[0] + 1) = v77;
+                  specialized String.withUTF8<A>(_:)(v275);
 
-                  *&v273[0] = 12092;
-                  *(&v273[0] + 1) = 0xE200000000000000;
-                  specialized String.withUTF8<A>(_:)(v273);
+                  *&v275[0] = 12092;
+                  *(&v275[0] + 1) = 0xE200000000000000;
+                  specialized String.withUTF8<A>(_:)(v275);
 
                   _XMLPlistEncodingFormat.Writer.append(_:)("real", 4);
-                  *&v273[0] = 2622;
-                  *(&v273[0] + 1) = 0xE200000000000000;
+                  *&v275[0] = 2622;
+                  *(&v275[0] + 1) = 0xE200000000000000;
                   goto LABEL_79;
                 }
 
-                v273[0] = xmmword_181248DA0;
-                _XMLPlistEncodingFormat.Writer.append(_:)(v273, 1);
+                v275[0] = xmmword_181248DA0;
+                _XMLPlistEncodingFormat.Writer.append(_:)(v275, 1);
 
                 _XMLPlistEncodingFormat.Writer.append(_:)("integer", 7);
-                v273[0] = xmmword_181248DD0;
-                _XMLPlistEncodingFormat.Writer.append(_:)(v273, 1);
+                v275[0] = xmmword_181248DD0;
+                _XMLPlistEncodingFormat.Writer.append(_:)(v275, 1);
 
-                *&v274 = v258;
+                *&v276 = v260;
                 lazy protocol witness table accessor for type Int64 and conformance Int64();
               }
 
               else
               {
-                if (!v65)
+                if (!v66)
                 {
-                  v273[0] = xmmword_181248DA0;
-                  _XMLPlistEncodingFormat.Writer.append(_:)(v273, 1);
+                  v275[0] = xmmword_181248DA0;
+                  _XMLPlistEncodingFormat.Writer.append(_:)(v275, 1);
 
                   _XMLPlistEncodingFormat.Writer.append(_:)("string", 6);
-                  v273[0] = xmmword_181248DD0;
-                  _XMLPlistEncodingFormat.Writer.append(_:)(v273, 1);
+                  v275[0] = xmmword_181248DD0;
+                  _XMLPlistEncodingFormat.Writer.append(_:)(v275, 1);
 
-                  v71 = v258;
-                  v72 = v70;
-                  if ((v70 & 0x1000000000000000) != 0)
+                  v72 = v260;
+                  v73 = v71;
+                  if ((v71 & 0x1000000000000000) != 0)
                   {
-                    v71 = static String._copying(_:)();
-                    v72 = v132;
-                    v62 = indentation + 3;
-                    outlined consume of _XMLPlistEncodingFormat.Reference(v258, v252, 0);
-                    if ((v72 & 0x2000000000000000) == 0)
+                    v72 = static String._copying(_:)(v260, v254);
+                    v73 = v134;
+                    v63 = indentation + 3;
+                    outlined consume of _XMLPlistEncodingFormat.Reference(v260, v254, 0);
+                    if ((v73 & 0x2000000000000000) == 0)
                     {
                       goto LABEL_103;
                     }
                   }
 
-                  else if ((v70 & 0x2000000000000000) == 0)
+                  else if ((v71 & 0x2000000000000000) == 0)
                   {
 LABEL_103:
-                    if ((v71 & 0x1000000000000000) != 0)
+                    if ((v72 & 0x1000000000000000) != 0)
                     {
-                      v73 = ((v72 & 0xFFFFFFFFFFFFFFFLL) + 32);
-                      v74 = v71 & 0xFFFFFFFFFFFFLL;
+                      v74 = ((v73 & 0xFFFFFFFFFFFFFFFLL) + 32);
+                      v75 = v72 & 0xFFFFFFFFFFFFLL;
                     }
 
                     else
                     {
-                      v73 = _StringObject.sharedUTF8.getter();
+                      v74 = _StringObject.sharedUTF8.getter();
                     }
 
                     goto LABEL_146;
                   }
 
-                  v74 = HIBYTE(v72) & 0xF;
-                  *&v273[0] = v71;
-                  *(&v273[0] + 1) = v72 & 0xFFFFFFFFFFFFFFLL;
-                  v73 = v273;
+                  v75 = HIBYTE(v73) & 0xF;
+                  *&v275[0] = v72;
+                  *(&v275[0] + 1) = v73 & 0xFFFFFFFFFFFFFFLL;
+                  v74 = v275;
 LABEL_146:
-                  closure #1 in _XMLPlistEncodingFormat.Writer.appendEscaped(_:)(v73, v74);
+                  closure #1 in _XMLPlistEncodingFormat.Writer.appendEscaped(_:)(v74, v75);
 
-                  v273[0] = xmmword_181248DE0;
-                  _XMLPlistEncodingFormat.Writer.append(_:)(v273, 2);
+                  v275[0] = xmmword_181248DE0;
+                  _XMLPlistEncodingFormat.Writer.append(_:)(v275, 2);
 
                   _XMLPlistEncodingFormat.Writer.append(_:)("string", 6);
-                  v273[0] = xmmword_181248DC0;
-                  _XMLPlistEncodingFormat.Writer.append(_:)(v273, 2);
-                  outlined consume of _XMLPlistEncodingFormat.Reference(v258, v252, 0);
+                  v275[0] = xmmword_181248DC0;
+                  _XMLPlistEncodingFormat.Writer.append(_:)(v275, 2);
+                  outlined consume of _XMLPlistEncodingFormat.Reference(v260, v254, 0);
                   goto LABEL_80;
                 }
 
-                v273[0] = xmmword_181248DA0;
-                _XMLPlistEncodingFormat.Writer.append(_:)(v273, 1);
+                v275[0] = xmmword_181248DA0;
+                _XMLPlistEncodingFormat.Writer.append(_:)(v275, 1);
 
                 _XMLPlistEncodingFormat.Writer.append(_:)("integer", 7);
-                *&v273[0] = 62;
-                *(&v273[0] + 1) = 0xE100000000000000;
-                specialized String.withUTF8<A>(_:)(v273);
+                *&v275[0] = 62;
+                *(&v275[0] + 1) = 0xE100000000000000;
+                specialized String.withUTF8<A>(_:)(v275);
 
-                *&v274 = v258;
+                *&v276 = v260;
                 lazy protocol witness table accessor for type UInt64 and conformance UInt64();
               }
 
-              *&v273[0] = BinaryInteger.description.getter();
-              *(&v273[0] + 1) = v63;
-              specialized String.withUTF8<A>(_:)(v273);
+              *&v275[0] = BinaryInteger.description.getter();
+              *(&v275[0] + 1) = v64;
+              specialized String.withUTF8<A>(_:)(v275);
 
-              *&v273[0] = 12092;
-              *(&v273[0] + 1) = 0xE200000000000000;
-              specialized String.withUTF8<A>(_:)(v273);
+              *&v275[0] = 12092;
+              *(&v275[0] + 1) = 0xE200000000000000;
+              specialized String.withUTF8<A>(_:)(v275);
 
               _XMLPlistEncodingFormat.Writer.append(_:)("integer", 7);
-              *&v273[0] = 2622;
-              *(&v273[0] + 1) = 0xE200000000000000;
-              v58 = v237;
+              *&v275[0] = 2622;
+              *(&v275[0] + 1) = 0xE200000000000000;
+              v59 = v239;
               goto LABEL_79;
             }
 
-            if (v65 > 5)
+            if (v66 > 5)
             {
-              if (v65 != 6)
+              if (v66 != 6)
               {
-                if (v65 == 7)
+                if (v66 == 7)
                 {
 
-                  _XMLPlistEncodingFormat.Writer.appendDictionary(_:indentation:)(v69, v62);
-                  outlined consume of _XMLPlistEncodingFormat.Reference(v258, v252, 7u);
+                  _XMLPlistEncodingFormat.Writer.appendDictionary(_:indentation:)(v70, v63);
+                  outlined consume of _XMLPlistEncodingFormat.Reference(v260, v254, 7u);
                   goto LABEL_80;
                 }
 
-                if (v258 | v252)
+                if (v260 | v254)
                 {
-                  if (v258 ^ 1 | v252)
+                  if (v260 ^ 1 | v254)
                   {
-                    *&v273[0] = 60;
-                    *(&v273[0] + 1) = 0xE100000000000000;
-                    specialized String.withUTF8<A>(_:)(v273);
+                    *&v275[0] = 60;
+                    *(&v275[0] + 1) = 0xE100000000000000;
+                    specialized String.withUTF8<A>(_:)(v275);
 
-                    v104 = 10;
+                    v106 = 10;
                   }
 
                   else
                   {
-                    v273[0] = xmmword_181248DA0;
-                    _XMLPlistEncodingFormat.Writer.append(_:)(v273, 1);
+                    v275[0] = xmmword_181248DA0;
+                    _XMLPlistEncodingFormat.Writer.append(_:)(v275, 1);
 
-                    v104 = 9;
+                    v106 = 9;
                   }
 
-                  v128 = XMLPlistTag.tagName.getter(v104);
-                  _XMLPlistEncodingFormat.Writer.append(_:)(v128, v129, v130, v131);
-                  *&v273[0] = 671279;
-                  *(&v273[0] + 1) = 0xE300000000000000;
+                  v130 = XMLPlistTag.tagName.getter(v106);
+                  _XMLPlistEncodingFormat.Writer.append(_:)(v130, v131, v132, v133);
+                  *&v275[0] = 671279;
+                  *(&v275[0] + 1) = 0xE300000000000000;
                 }
 
                 else
                 {
-                  *&v273[0] = 60;
-                  *(&v273[0] + 1) = 0xE100000000000000;
-                  specialized String.withUTF8<A>(_:)(v273);
+                  *&v275[0] = 60;
+                  *(&v275[0] + 1) = 0xE100000000000000;
+                  specialized String.withUTF8<A>(_:)(v275);
 
-                  v120 = XMLPlistTag.tagName.getter(4u);
-                  v122 = v121;
+                  v122 = XMLPlistTag.tagName.getter(4u);
                   v124 = v123;
-                  _XMLPlistEncodingFormat.Writer.append(_:)(v120, v121, v123, v125);
-                  *&v273[0] = 62;
-                  *(&v273[0] + 1) = 0xE100000000000000;
-                  specialized String.withUTF8<A>(_:)(v273);
+                  v126 = v125;
+                  _XMLPlistEncodingFormat.Writer.append(_:)(v122, v123, v125, v127);
+                  *&v275[0] = 62;
+                  *(&v275[0] + 1) = 0xE100000000000000;
+                  specialized String.withUTF8<A>(_:)(v275);
 
                   _XMLPlistEncodingFormat.Writer.append(_:)("$null", 5);
-                  *&v273[0] = 12092;
-                  *(&v273[0] + 1) = 0xE200000000000000;
-                  specialized String.withUTF8<A>(_:)(v273);
+                  *&v275[0] = 12092;
+                  *(&v275[0] + 1) = 0xE200000000000000;
+                  specialized String.withUTF8<A>(_:)(v275);
 
-                  v126 = v124;
-                  v60 = indentation + 7;
-                  _XMLPlistEncodingFormat.Writer.append(_:)(v120, v122, v126, v127);
-                  *&v273[0] = 2622;
-                  *(&v273[0] + 1) = 0xE200000000000000;
+                  v128 = v126;
+                  v61 = indentation + 7;
+                  _XMLPlistEncodingFormat.Writer.append(_:)(v122, v124, v128, v129);
+                  *&v275[0] = 2622;
+                  *(&v275[0] + 1) = 0xE200000000000000;
                 }
 
 LABEL_79:
-                specialized String.withUTF8<A>(_:)(v273);
+                specialized String.withUTF8<A>(_:)(v275);
 LABEL_80:
 
                 goto LABEL_81;
               }
 
-              v95 = *(v258 + 16);
-              if (!*(v95 + 16))
+              v97 = *(v260 + 16);
+              if (!*(v97 + 16))
               {
-                *&v273[0] = 60;
-                *(&v273[0] + 1) = 0xE100000000000000;
-                specialized String.withUTF8<A>(_:)(v273);
+                *&v275[0] = 60;
+                *(&v275[0] + 1) = 0xE100000000000000;
+                specialized String.withUTF8<A>(_:)(v275);
 
-                v116 = XMLPlistTag.tagName.getter(1u);
-                _XMLPlistEncodingFormat.Writer.append(_:)(v116, v117, v118, v119);
-                *&v273[0] = 671279;
-                *(&v273[0] + 1) = 0xE300000000000000;
-                specialized String.withUTF8<A>(_:)(v273);
-                v110 = v258;
-                v111 = v252;
-                v112 = 6;
+                v118 = XMLPlistTag.tagName.getter(1u);
+                _XMLPlistEncodingFormat.Writer.append(_:)(v118, v119, v120, v121);
+                *&v275[0] = 671279;
+                *(&v275[0] + 1) = 0xE300000000000000;
+                specialized String.withUTF8<A>(_:)(v275);
+                v112 = v260;
+                v113 = v254;
+                v114 = 6;
 LABEL_140:
-                outlined consume of _XMLPlistEncodingFormat.Reference(v110, v111, v112);
+                outlined consume of _XMLPlistEncodingFormat.Reference(v112, v113, v114);
                 goto LABEL_80;
               }
 
-              *&v273[0] = 60;
-              *(&v273[0] + 1) = 0xE100000000000000;
+              *&v275[0] = 60;
+              *(&v275[0] + 1) = 0xE100000000000000;
 
-              specialized String.withUTF8<A>(_:)(v273);
+              specialized String.withUTF8<A>(_:)(v275);
 
-              v236 = XMLPlistTag.tagName.getter(1u);
-              v231 = v96;
-              v230 = v97;
-              _XMLPlistEncodingFormat.Writer.append(_:)(v236, v96, v97, v98);
-              *&v273[0] = 2622;
-              *(&v273[0] + 1) = 0xE200000000000000;
-              specialized String.withUTF8<A>(_:)(v273);
+              v238 = XMLPlistTag.tagName.getter(1u);
+              v233 = v98;
+              v232 = v99;
+              _XMLPlistEncodingFormat.Writer.append(_:)(v238, v98, v99, v100);
+              *&v275[0] = 2622;
+              *(&v275[0] + 1) = 0xE200000000000000;
+              specialized String.withUTF8<A>(_:)(v275);
 
-              v99 = *(v95 + 16);
-              if (!v99)
+              v101 = *(v97 + 16);
+              if (!v101)
               {
 LABEL_126:
 
-                v62 = indentation + 3;
+                v63 = indentation + 3;
                 _XMLPlistEncodingFormat.Writer.appendIndents(_:)(indentation + 3);
-                *&v273[0] = 12092;
-                *(&v273[0] + 1) = 0xE200000000000000;
-                specialized String.withUTF8<A>(_:)(v273);
+                *&v275[0] = 12092;
+                *(&v275[0] + 1) = 0xE200000000000000;
+                specialized String.withUTF8<A>(_:)(v275);
 
-                _XMLPlistEncodingFormat.Writer.append(_:)(v236, v231, v230, v103);
-                *&v273[0] = 2622;
-                *(&v273[0] + 1) = 0xE200000000000000;
-                specialized String.withUTF8<A>(_:)(v273);
-                outlined consume of _XMLPlistEncodingFormat.Reference(v258, v252, 6u);
+                _XMLPlistEncodingFormat.Writer.append(_:)(v238, v233, v232, v105);
+                *&v275[0] = 2622;
+                *(&v275[0] + 1) = 0xE200000000000000;
+                specialized String.withUTF8<A>(_:)(v275);
+                outlined consume of _XMLPlistEncodingFormat.Reference(v260, v254, 6u);
 
-                v60 = indentation + 7;
+                v61 = indentation + 7;
                 goto LABEL_81;
               }
 
-              if (!v226)
+              if (!v228)
               {
-                v100 = 0;
-                v101 = (v95 + 48);
-                while (v100 < *(v95 + 16))
+                v102 = 0;
+                v103 = (v97 + 48);
+                while (v102 < *(v97 + 16))
                 {
-                  v102 = *v101;
-                  ++v100;
-                  v273[0] = *(v101 - 1);
-                  LOBYTE(v273[1]) = v102;
-                  _XMLPlistEncodingFormat.Writer.append(_:indentation:)(v273, indentation + 4);
-                  v101 += 24;
-                  if (v99 == v100)
+                  v104 = *v103;
+                  ++v102;
+                  v275[0] = *(v103 - 1);
+                  LOBYTE(v275[1]) = v104;
+                  _XMLPlistEncodingFormat.Writer.append(_:indentation:)(v275, indentation + 4);
+                  v103 += 24;
+                  if (v101 == v102)
                   {
                     goto LABEL_126;
                   }
@@ -7446,90 +8526,90 @@ LABEL_277:
               __break(1u);
             }
 
-            if (v65 != 4)
+            if (v66 != 4)
             {
-              v273[0] = xmmword_181248DA0;
-              _XMLPlistEncodingFormat.Writer.append(_:)(v273, 1);
+              v275[0] = xmmword_181248DA0;
+              _XMLPlistEncodingFormat.Writer.append(_:)(v275, 1);
 
               _XMLPlistEncodingFormat.Writer.append(_:)("data", 4);
-              v273[0] = xmmword_181248DC0;
-              _XMLPlistEncodingFormat.Writer.append(_:)(v273, 2);
+              v275[0] = xmmword_181248DC0;
+              _XMLPlistEncodingFormat.Writer.append(_:)(v275, 2);
 
-              *&v273[0] = v266;
-              MEMORY[0x1EEE9AC00](v105);
-              _s10Foundation4DataV15_RepresentationO15withUnsafeBytesyxxSWKXEKlFyt_Tg5015_s10Foundation4B58V14withBufferViewyxxAA0dE0Vys5UInt8VGKXEKlFxSWKXEfU_yt_Tg5AA0J4ViewVys0O0VGxs5Error_pRi_zRi0_zlyytIsgyrzo_Tf1ncn_n(v258, v252, closure #1 in closure #1 in _XMLPlistEncodingFormat.Writer.appendBase64(_:indentation:)partial apply);
-              v58 = v237;
-              _XMLPlistEncodingFormat.Writer.appendIndents(_:)(v62);
-              *&v273[0] = 12092;
-              *(&v273[0] + 1) = 0xE200000000000000;
-              specialized String.withUTF8<A>(_:)(v273);
+              *&v275[0] = v268;
+              MEMORY[0x1EEE9AC00](v107);
+              _s10Foundation4DataV15_RepresentationO15withUnsafeBytesyxxSWKXEKlFyt_Tg5015_s10Foundation4B58V14withBufferViewyxxAA0dE0Vys5UInt8VGKXEKlFxSWKXEfU_yt_Tg5AA0J4ViewVys0O0VGxs5Error_pRi_zRi0_zlyytIsgyrzo_Tf1ncn_n(v260, v254, closure #1 in closure #1 in _XMLPlistEncodingFormat.Writer.appendBase64(_:indentation:)partial apply);
+              v59 = v239;
+              _XMLPlistEncodingFormat.Writer.appendIndents(_:)(v63);
+              *&v275[0] = 12092;
+              *(&v275[0] + 1) = 0xE200000000000000;
+              specialized String.withUTF8<A>(_:)(v275);
 
-              v106 = XMLPlistTag.tagName.getter(5u);
-              _XMLPlistEncodingFormat.Writer.append(_:)(v106, v107, v108, v109);
-              *&v273[0] = 2622;
-              *(&v273[0] + 1) = 0xE200000000000000;
-              specialized String.withUTF8<A>(_:)(v273);
-              v110 = v258;
-              v111 = v252;
-              v60 = indentation + 7;
-              v112 = 5;
+              v108 = XMLPlistTag.tagName.getter(5u);
+              _XMLPlistEncodingFormat.Writer.append(_:)(v108, v109, v110, v111);
+              *&v275[0] = 2622;
+              *(&v275[0] + 1) = 0xE200000000000000;
+              specialized String.withUTF8<A>(_:)(v275);
+              v112 = v260;
+              v113 = v254;
+              v61 = indentation + 7;
+              v114 = 5;
               goto LABEL_140;
             }
 
-            *&v273[0] = 60;
-            *(&v273[0] + 1) = 0xE100000000000000;
-            specialized String.withUTF8<A>(_:)(v273);
+            *&v275[0] = 60;
+            *(&v275[0] + 1) = 0xE100000000000000;
+            specialized String.withUTF8<A>(_:)(v275);
 
-            v76 = XMLPlistTag.tagName.getter(6u);
-            _XMLPlistEncodingFormat.Writer.append(_:)(v76, v77, v78, v79);
-            *&v273[0] = 62;
-            *(&v273[0] + 1) = 0xE100000000000000;
-            specialized String.withUTF8<A>(_:)(v273);
+            v78 = XMLPlistTag.tagName.getter(6u);
+            _XMLPlistEncodingFormat.Writer.append(_:)(v78, v79, v80, v81);
+            *&v275[0] = 62;
+            *(&v275[0] + 1) = 0xE100000000000000;
+            specialized String.withUTF8<A>(_:)(v275);
 
             if (one-time initialization token for cache != -1)
             {
               swift_once();
             }
 
-            LOBYTE(v273[0]) = 7;
-            *&v274 = CalendarCache.fixed(_:)(v273);
-            *(&v274 + 1) = v80;
+            LOBYTE(v275[0]) = 7;
+            *&v276 = CalendarCache.fixed(_:)(v275);
+            *(&v276 + 1) = v82;
             if (one-time initialization token for cache != -1)
             {
               swift_once();
             }
 
-            v229 = *(&xmmword_1ED440468 + 1);
-            v273[0] = xmmword_1ED440468;
-            v81 = xmmword_1ED440468;
+            v231 = *(&xmmword_1ED440468 + 1);
+            v275[0] = xmmword_1ED440468;
+            v83 = xmmword_1ED440468;
             swift_unknownObjectRetain_n();
-            Calendar.timeZone.setter(v273);
-            v235 = v274;
-            __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy10Foundation8CalendarV9ComponentOGMd);
-            v82 = static _SetStorage.allocate(capacity:)();
-            v83 = 0;
-            v84 = v82 + 56;
+            Calendar.timeZone.setter(v275);
+            v237 = v276;
+            __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy10Foundation8CalendarV9ComponentOGMd, &_ss11_SetStorageCy10Foundation8CalendarV9ComponentOGMR);
+            v84 = static _SetStorage.allocate(capacity:)();
+            v85 = 0;
+            v86 = v84 + 56;
             do
             {
-              v87 = outlined read-only object #0 of _XMLPlistEncodingFormat.Writer.appendDictionary(_:indentation:)[v83 + 32];
+              v89 = outlined read-only object #0 of _XMLPlistEncodingFormat.Writer.appendDictionary(_:indentation:)[v85 + 32];
               Hasher.init(_seed:)();
-              MEMORY[0x1865CD060](v87);
-              v88 = Hasher._finalize()();
-              v89 = ~(-1 << *(v82 + 32));
-              v90 = v88 & v89;
-              v91 = (v88 & v89) >> 6;
-              v92 = *(v84 + 8 * v91);
-              v93 = 1 << (v88 & v89);
-              v94 = *(v82 + 48);
-              if ((v93 & v92) != 0)
+              MEMORY[0x1865CD060](v89);
+              v90 = Hasher._finalize()();
+              v91 = ~(-1 << *(v84 + 32));
+              v92 = v90 & v91;
+              v93 = (v90 & v91) >> 6;
+              v94 = *(v86 + 8 * v93);
+              v95 = 1 << (v90 & v91);
+              v96 = *(v84 + 48);
+              if ((v95 & v94) != 0)
               {
-                while (*(v94 + v90) != v87)
+                while (*(v96 + v92) != v89)
                 {
-                  v90 = (v90 + 1) & v89;
-                  v91 = v90 >> 6;
-                  v92 = *(v84 + 8 * (v90 >> 6));
-                  v93 = 1 << v90;
-                  if (((1 << v90) & v92) == 0)
+                  v92 = (v92 + 1) & v91;
+                  v93 = v92 >> 6;
+                  v94 = *(v86 + 8 * (v92 >> 6));
+                  v95 = 1 << v92;
+                  if (((1 << v92) & v94) == 0)
                   {
                     goto LABEL_113;
                   }
@@ -7539,12 +8619,12 @@ LABEL_277:
               else
               {
 LABEL_113:
-                *(v84 + 8 * v91) = v93 | v92;
-                *(v94 + v90) = v87;
-                v85 = *(v82 + 16);
-                v56 = __OFADD__(v85, 1);
-                v86 = v85 + 1;
-                if (v56)
+                *(v86 + 8 * v93) = v95 | v94;
+                *(v96 + v92) = v89;
+                v87 = *(v84 + 16);
+                v57 = __OFADD__(v87, 1);
+                v88 = v87 + 1;
+                if (v57)
                 {
                   __break(1u);
 LABEL_262:
@@ -7562,207 +8642,207 @@ LABEL_267:
                   goto LABEL_268;
                 }
 
-                *(v82 + 16) = v86;
+                *(v84 + 16) = v88;
               }
 
-              ++v83;
+              ++v85;
             }
 
-            while (v83 != 7);
-            v272 = v235;
-            Calendar.ComponentSet.init(_:)(v82, v262);
+            while (v85 != 7);
+            v274 = v237;
+            Calendar.ComponentSet.init(_:)(v84, v264);
             if (one-time initialization token for validCalendarRange != -1)
             {
               swift_once();
             }
 
-            v113 = *(&static Date.validCalendarRange + 1);
-            if (*(&static Date.validCalendarRange + 1) >= *&v258)
+            v115 = *(&static Date.validCalendarRange + 1);
+            if (*(&static Date.validCalendarRange + 1) >= *&v260)
             {
-              v113 = *&v258;
+              v115 = *&v260;
             }
 
-            if (*&static Date.validCalendarRange >= v113)
+            if (*&static Date.validCalendarRange >= v115)
             {
-              v113 = *&static Date.validCalendarRange;
+              v115 = *&static Date.validCalendarRange;
             }
 
-            v261 = v113;
-            Calendar._dateComponents(_:from:)(v262, &v261, v273);
-            memcpy(v275, v273, 0x11BuLL);
-            BYTE4(v273[0]) = 1;
-            *(&v273[0] + 1) = 0;
-            *&v273[2] = v81;
-            *(&v273[2] + 1) = v229;
-            LODWORD(v273[0]) = 0x10000;
+            v263 = v115;
+            Calendar._dateComponents(_:from:)(v264, &v263, v275);
+            memcpy(v277, v275, 0x11BuLL);
+            BYTE4(v275[0]) = 1;
+            *(&v275[0] + 1) = 0;
+            *&v275[2] = v83;
+            *(&v275[2] + 1) = v231;
+            LODWORD(v275[0]) = 0x10000;
             swift_unknownObjectRetain();
-            LOBYTE(v272) = 7;
-            *&v273[1] = CalendarCache.fixed(_:)(&v272);
-            *(&v273[1] + 1) = v114;
-            *&v272 = v81;
-            *(&v272 + 1) = v229;
-            Calendar.timeZone.setter(&v272);
-            v263[0] = v273[0];
-            v263[1] = v273[1];
-            v263[2] = v273[2];
-            LOBYTE(v272) = 0;
+            LOBYTE(v274) = 7;
+            *&v275[1] = CalendarCache.fixed(_:)(&v274);
+            *(&v275[1] + 1) = v116;
+            *&v274 = v83;
+            *(&v274 + 1) = v231;
+            Calendar.timeZone.setter(&v274);
+            v265[0] = v275[0];
+            v265[1] = v275[1];
+            v265[2] = v275[2];
+            LOBYTE(v274) = 0;
             v3 = 0;
-            closure #1 in DateComponents.ISO8601FormatStyle.format(_:appendingTimeZoneOffset:)(v267, 129, v263, v275, &v272, 0, 0, v273);
-            v60 = indentation + 7;
-            v115 = v273[0];
-            outlined destroy of DateComponents.ISO8601FormatStyle(v263);
-            v273[0] = v115;
-            specialized String.withUTF8<A>(_:)(v273);
-            outlined destroy of DateComponents(v275);
+            closure #1 in DateComponents.ISO8601FormatStyle.format(_:appendingTimeZoneOffset:)(v269, 129, v265, v277, &v274, 0, 0, v275);
+            v61 = indentation + 7;
+            v117 = v275[0];
+            outlined destroy of DateComponents.ISO8601FormatStyle(v265);
+            v275[0] = v117;
+            specialized String.withUTF8<A>(_:)(v275);
+            outlined destroy of DateComponents(v277);
             swift_unknownObjectRelease();
 
             _XMLPlistEncodingFormat.Writer.appendClose(_:)(6u, 12092, 0xE200000000000000, 2622, 0xE200000000000000);
-            outlined consume of _XMLPlistEncodingFormat.Reference(v258, v252, 4u);
-            v58 = v237;
+            outlined consume of _XMLPlistEncodingFormat.Reference(v260, v254, 4u);
+            v59 = v239;
 LABEL_81:
-            v61 = v254 + 1;
-            v59 = *(v58 + 16);
-            if (v254 + 1 == v59)
+            v62 = v256 + 1;
+            v60 = *(v59 + 16);
+            if (v256 + 1 == v60)
             {
               goto LABEL_170;
             }
           }
 
-          *&v273[0] = 9;
-          v68 = 0xE100000000000000;
+          *&v275[0] = 9;
+          v69 = 0xE100000000000000;
           goto LABEL_92;
         }
 
 LABEL_170:
 
-        _XMLPlistEncodingFormat.Writer.appendIndents(_:)(v243);
-        *&v273[0] = 12092;
-        *(&v273[0] + 1) = 0xE200000000000000;
-        specialized String.withUTF8<A>(_:)(v273);
+        _XMLPlistEncodingFormat.Writer.appendIndents(_:)(v245);
+        *&v275[0] = 12092;
+        *(&v275[0] + 1) = 0xE200000000000000;
+        specialized String.withUTF8<A>(_:)(v275);
 
-        v147 = XMLPlistTag.tagName.getter(1u);
-        _XMLPlistEncodingFormat.Writer.append(_:)(v147, v148, v149, v150);
-        *&v273[0] = 2622;
-        *(&v273[0] + 1) = 0xE200000000000000;
-        specialized String.withUTF8<A>(_:)(v273);
+        v149 = XMLPlistTag.tagName.getter(1u);
+        _XMLPlistEncodingFormat.Writer.append(_:)(v149, v150, v151, v152);
+        *&v275[0] = 2622;
+        *(&v275[0] + 1) = 0xE200000000000000;
+        specialized String.withUTF8<A>(_:)(v275);
 
-        outlined consume of _XMLPlistEncodingFormat.Reference(v227, v232, 6u);
-        v22 = v249;
+        outlined consume of _XMLPlistEncodingFormat.Reference(v229, v234, 6u);
+        v22 = v251;
 LABEL_171:
         v5 = indentation + 1;
-        v30 = v238;
+        v31 = v240;
         goto LABEL_49;
       }
 
-      *&v273[0] = 60;
-      *(&v273[0] + 1) = 0xE100000000000000;
-      specialized String.withUTF8<A>(_:)(v273);
+      *&v275[0] = 60;
+      *(&v275[0] + 1) = 0xE100000000000000;
+      specialized String.withUTF8<A>(_:)(v275);
 
       _XMLPlistEncodingFormat.Writer.append(_:)("array", 5);
-      *&v273[0] = 671279;
-      *(&v273[0] + 1) = 0xE300000000000000;
-      specialized String.withUTF8<A>(_:)(v273);
-      v141 = v35;
-      v142 = v34;
-      v143 = 6;
+      *&v275[0] = 671279;
+      *(&v275[0] + 1) = 0xE300000000000000;
+      specialized String.withUTF8<A>(_:)(v275);
+      v143 = v36;
+      v144 = v35;
+      v145 = 6;
 LABEL_177:
-      outlined consume of _XMLPlistEncodingFormat.Reference(v141, v142, v143);
+      outlined consume of _XMLPlistEncodingFormat.Reference(v143, v144, v145);
       goto LABEL_178;
     }
 
-    if (v36 == 7)
+    if (v37 == 7)
     {
 
-      _XMLPlistEncodingFormat.Writer.appendDictionary(_:indentation:)(v37, v243);
-      outlined consume of _XMLPlistEncodingFormat.Reference(v35, v34, 7u);
+      _XMLPlistEncodingFormat.Writer.appendDictionary(_:indentation:)(v38, v245);
+      outlined consume of _XMLPlistEncodingFormat.Reference(v36, v35, 7u);
       goto LABEL_178;
     }
 
-    if (!(v35 | v34))
+    if (!(v36 | v35))
     {
-      *&v273[0] = 60;
-      *(&v273[0] + 1) = 0xE100000000000000;
-      specialized String.withUTF8<A>(_:)(v273);
+      *&v275[0] = 60;
+      *(&v275[0] + 1) = 0xE100000000000000;
+      specialized String.withUTF8<A>(_:)(v275);
 
       _XMLPlistEncodingFormat.Writer.append(_:)("string", 6);
-      *&v273[0] = 62;
-      *(&v273[0] + 1) = 0xE100000000000000;
-      specialized String.withUTF8<A>(_:)(v273);
+      *&v275[0] = 62;
+      *(&v275[0] + 1) = 0xE100000000000000;
+      specialized String.withUTF8<A>(_:)(v275);
 
       _XMLPlistEncodingFormat.Writer.append(_:)("$null", 5);
-      *&v273[0] = 12092;
-      *(&v273[0] + 1) = 0xE200000000000000;
-      specialized String.withUTF8<A>(_:)(v273);
+      *&v275[0] = 12092;
+      *(&v275[0] + 1) = 0xE200000000000000;
+      specialized String.withUTF8<A>(_:)(v275);
 
-      v30 = v238;
+      v31 = v240;
       _XMLPlistEncodingFormat.Writer.append(_:)("string", 6);
-      *&v273[0] = 2622;
-      *(&v273[0] + 1) = 0xE200000000000000;
-      specialized String.withUTF8<A>(_:)(v273);
+      *&v275[0] = 2622;
+      *(&v275[0] + 1) = 0xE200000000000000;
+      specialized String.withUTF8<A>(_:)(v275);
       goto LABEL_178;
     }
 
-    if (!(v35 ^ 1 | v34))
+    if (!(v36 ^ 1 | v35))
     {
-      v273[0] = xmmword_181248DA0;
-      _XMLPlistEncodingFormat.Writer.append(_:)(v273, 1);
+      v275[0] = xmmword_181248DA0;
+      _XMLPlistEncodingFormat.Writer.append(_:)(v275, 1);
 
-      v135 = v260[2];
-      if (__OFSUB__(0x2000, v135))
+      v137 = v262[2];
+      if (__OFSUB__(0x2000, v137))
       {
         goto LABEL_273;
       }
 
-      if (0x2000 - v135 < 4)
+      if (0x2000 - v137 < 4)
       {
         v5 = indentation + 1;
-        if (v135 > 0)
+        if (v137 > 0)
         {
-          v136 = &(*v260)[v135];
-          if (*v260)
+          v138 = &(*v262)[v137];
+          if (*v262)
           {
-            v137 = v136;
+            v139 = v138;
           }
 
           else
           {
-            v137 = 0;
+            v139 = 0;
           }
 
-          Data._Representation.append(contentsOf:)(*v260, v137);
-          v260[2] = 0;
+          Data._Representation.append(contentsOf:)(*v262, v139);
+          v262[2] = 0;
         }
 
-        v138 = "true";
-        v139 = "";
+        v140 = "true";
+        v141 = "";
         goto LABEL_188;
       }
 
       v5 = indentation + 1;
-      if (!*v260)
+      if (!*v262)
       {
         goto LABEL_279;
       }
 
-      *&(*v260)[v135] = 1702195828;
-      v56 = __OFADD__(v135, 4);
-      v157 = (v135 + 4);
-      if (v56)
+      *&(*v262)[v137] = 1702195828;
+      v57 = __OFADD__(v137, 4);
+      v159 = (v137 + 4);
+      if (v57)
       {
         goto LABEL_275;
       }
 
 LABEL_195:
-      v260[2] = v157;
+      v262[2] = v159;
 LABEL_196:
-      v273[0] = xmmword_181248DB0;
-      _XMLPlistEncodingFormat.Writer.append(_:)(v273, 3);
+      v275[0] = xmmword_181248DB0;
+      _XMLPlistEncodingFormat.Writer.append(_:)(v275, 3);
 LABEL_197:
 
 LABEL_49:
-      v32 = v250 + 1;
-      v31 = *(v30 + 16);
-      if (v250 + 1 == v31)
+      v33 = v252 + 1;
+      v32 = *(v31 + 16);
+      if (v252 + 1 == v32)
       {
         goto LABEL_207;
       }
@@ -7773,51 +8853,51 @@ LABEL_49:
     break;
   }
 
-  v273[0] = xmmword_181248DA0;
-  _XMLPlistEncodingFormat.Writer.append(_:)(v273, 1);
+  v275[0] = xmmword_181248DA0;
+  _XMLPlistEncodingFormat.Writer.append(_:)(v275, 1);
 
-  v154 = v260[2];
-  if (__OFSUB__(0x2000, v154))
+  v156 = v262[2];
+  if (__OFSUB__(0x2000, v156))
   {
     goto LABEL_272;
   }
 
-  if (0x2000 - v154 < 5)
+  if (0x2000 - v156 < 5)
   {
     v5 = indentation + 1;
-    if (v154 > 0)
+    if (v156 > 0)
     {
-      v155 = &(*v260)[v154];
-      if (*v260)
+      v157 = &(*v262)[v156];
+      if (*v262)
       {
-        v156 = v155;
+        v158 = v157;
       }
 
       else
       {
-        v156 = 0;
+        v158 = 0;
       }
 
-      Data._Representation.append(contentsOf:)(*v260, v156);
-      v260[2] = 0;
+      Data._Representation.append(contentsOf:)(*v262, v158);
+      v262[2] = 0;
     }
 
-    v138 = "false";
-    v139 = "";
+    v140 = "false";
+    v141 = "";
 LABEL_188:
-    Data._Representation.append(contentsOf:)(v138, v139);
+    Data._Representation.append(contentsOf:)(v140, v141);
     goto LABEL_196;
   }
 
   v5 = indentation + 1;
-  if (*v260)
+  if (*v262)
   {
-    v158 = &(*v260)[v154];
-    v158[4] = 101;
-    *v158 = 1936482662;
-    v56 = __OFADD__(v154, 5);
-    v157 = (v154 + 5);
-    if (v56)
+    v160 = &(*v262)[v156];
+    v160[4] = 101;
+    *v160 = 1936482662;
+    v57 = __OFADD__(v156, 5);
+    v159 = (v156 + 5);
+    if (v57)
     {
       goto LABEL_276;
     }
@@ -7922,8 +9002,8 @@ LABEL_6:
       outlined init with copy of (key: String, value: Encodable)(v8 - 56, v19);
       if (v20[0] == v19[0] && v20[1] == v19[1])
       {
-        outlined destroy of TermOfAddress?(v19, &_sSS3key_SE_p5valuetMd);
-        result = outlined destroy of TermOfAddress?(v20, &_sSS3key_SE_p5valuetMd);
+        outlined destroy of TermOfAddress?(v19, &_sSS3key_SE_p5valuetMd, &_sSS3key_SE_p5valuetMR);
+        result = outlined destroy of TermOfAddress?(v20, &_sSS3key_SE_p5valuetMd, &_sSS3key_SE_p5valuetMR);
 LABEL_5:
         a3 = v21 + 1;
         v5 += 56;
@@ -7937,8 +9017,8 @@ LABEL_5:
       }
 
       v11 = _stringCompareWithSmolCheck(_:_:expecting:)();
-      outlined destroy of TermOfAddress?(v19, &_sSS3key_SE_p5valuetMd);
-      result = outlined destroy of TermOfAddress?(v20, &_sSS3key_SE_p5valuetMd);
+      outlined destroy of TermOfAddress?(v19, &_sSS3key_SE_p5valuetMd, &_sSS3key_SE_p5valuetMR);
+      result = outlined destroy of TermOfAddress?(v20, &_sSS3key_SE_p5valuetMd, &_sSS3key_SE_p5valuetMR);
       if ((v11 & 1) == 0)
       {
         goto LABEL_5;
@@ -8011,9 +9091,9 @@ uint64_t _nodeHasPresentersExcludingPresenter(void *a1, uint64_t a2)
   return v2;
 }
 
-void sub_1809B149C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1809B149C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8028,14 +9108,14 @@ uint64_t ___nodeHasPresentersExcludingPresenter_block_invoke(uint64_t result, ui
   return result;
 }
 
-void specialized JSONDecoderImpl.unwrapDate<A>(from:for:_:)(uint64_t a1@<X0>, uint64_t a2@<X1>, unsigned __int8 a3@<W2>, unint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, double *a9@<X8>)
+void specialized JSONDecoderImpl.unwrapDate<A>(from:for:_:)(uint64_t a1@<X0>, uint64_t a2@<X1>, unsigned __int8 a3@<W2>, unint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, double *a7@<X6>, uint64_t a8@<X7>, double *a9@<X8>)
 {
   v12 = a8;
   *&v207 = a6;
   v13 = a4;
   v14 = a9;
   v15 = v208;
-  v217[15] = *MEMORY[0x1E69E9840];
+  v218 = *MEMORY[0x1E69E9840];
   v16 = (a3 & 0xE0) == 0xA0 && (a2 | a1) == 0;
   if (v16 && a3 == 160)
   {
@@ -8047,7 +9127,7 @@ void specialized JSONDecoderImpl.unwrapDate<A>(from:for:_:)(uint64_t a1@<X0>, ui
     v28 = _CodingPathNode.path.getter(v13);
     if (v12 != 0xFF)
     {
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
       inited = swift_initStackObject();
       *(inited + 16) = xmmword_181218E20;
       *(inited + 56) = &type metadata for _CodingKey;
@@ -8063,7 +9143,7 @@ void specialized JSONDecoderImpl.unwrapDate<A>(from:for:_:)(uint64_t a1@<X0>, ui
       specialized Array.append<A>(contentsOf:)(inited);
     }
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
     v217[0] = 0;
     v217[1] = 0xE000000000000000;
     _StringGuts.grow(_:)(55);
@@ -8081,14 +9161,13 @@ void specialized JSONDecoderImpl.unwrapDate<A>(from:for:_:)(uint64_t a1@<X0>, ui
   {
     v206 = *(v9 + 48);
     v203 = a9;
-    v32 = a8;
     v202 = v17;
     v38 = a1;
     v12 = a7;
     v39 = a2;
-    v11 = v32;
+    v11 = a8;
     v18 = a4;
-    specialized JSONDecoderImpl.unwrapString<A>(from:for:_:)(v38, v39, a3, a4, a5, v207, v12, v32);
+    specialized JSONDecoderImpl.unwrapString<A>(from:for:_:)(v38, v39, a3, a4, a5, v207, v12, a8);
     if (v10)
     {
       outlined consume of JSONDecoder.DateDecodingStrategy(v17, v206, 0);
@@ -8164,7 +9243,7 @@ LABEL_43:
       v66[48] = v201;
       *(v9 + 16) = v61;
       v217[3] = type metadata accessor for JSONDecoderImpl();
-      v217[4] = lazy protocol witness table accessor for type JSONDecoderImpl and conformance JSONDecoderImpl(&lazy protocol witness table cache variable for type JSONDecoderImpl and conformance JSONDecoderImpl, type metadata accessor for JSONDecoderImpl);
+      v217[4] = lazy protocol witness table accessor for type JSONDecoderImpl and conformance JSONDecoderImpl(&lazy protocol witness table cache variable for type JSONDecoderImpl and conformance JSONDecoderImpl, type metadata accessor for JSONDecoderImpl, &protocol conformance descriptor for JSONDecoderImpl);
       v217[0] = v9;
       v67 = v9;
 
@@ -8257,7 +9336,7 @@ LABEL_58:
     if (v11 != -1)
     {
       v74 = v73;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
       v75 = swift_initStackObject();
       *(v75 + 16) = xmmword_181218E20;
       *(v75 + 56) = &type metadata for _CodingKey;
@@ -8491,7 +9570,7 @@ LABEL_189:
 
   v205 = v53;
   v78 = type metadata accessor for _CalendarGregorian();
-  v79 = lazy protocol witness table accessor for type JSONDecoderImpl and conformance JSONDecoderImpl(&lazy protocol witness table cache variable for type _CalendarGregorian and conformance _CalendarGregorian, type metadata accessor for _CalendarGregorian);
+  v79 = lazy protocol witness table accessor for type JSONDecoderImpl and conformance JSONDecoderImpl(&lazy protocol witness table cache variable for type _CalendarGregorian and conformance _CalendarGregorian, type metadata accessor for _CalendarGregorian, &protocol conformance descriptor for _CalendarGregorian);
   LOBYTE(v213.tv_sec) = 7;
   *(v15 + 208) = 0;
   *(v15 + 216) = 0;
@@ -8575,7 +9654,7 @@ LABEL_192:
     __break(1u);
 LABEL_194:
     v199 = v94;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation8CalendarV10IdentifierOAC01_D8Protocol_pGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation8CalendarV10IdentifierOAC01_D8Protocol_pGMd, "nC)");
     v185 = static _DictionaryStorage.copy(original:)();
     v101 = v185;
     if (*(v61 + 2))
@@ -8827,12 +9906,12 @@ LABEL_114:
     *(v15 + 72) = MEMORY[0x1E69E6158];
     v209[2] = v112;
     *(v15 + 56) = v113;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd, &_ss18_DictionaryStorageCySSypGMR);
     v18 = static _DictionaryStorage.allocate(capacity:)();
     v60 = &v210;
-    outlined init with copy of FloatingPointRoundingRule?(v209, &v210, &_sSS_yptMd);
+    outlined init with copy of FloatingPointRoundingRule?(v209, &v210, &_sSS_yptMd, &_sSS_yptMR);
 
-    outlined destroy of TermOfAddress?(v209, &_sSS_yptMd);
+    outlined destroy of TermOfAddress?(v209, &_sSS_yptMd, &_sSS_yptMR);
     v52 = *(v15 + 80);
     v61 = *(v15 + 88);
     v130 = specialized __RawDictionaryStorage.find<A>(_:)(v52, v61);
@@ -8993,8 +10072,8 @@ LABEL_153:
 
         swift_unknownObjectRelease();
         swift_dynamicCast();
-        tv_sec = v213.tv_sec;
         tv_nsec = v213.tv_nsec;
+        tv_sec = v213.tv_sec;
         goto LABEL_159;
       }
 
@@ -9127,8 +10206,8 @@ LABEL_175:
 
       swift_unknownObjectRelease();
       swift_dynamicCast();
-      v168 = v213.tv_sec;
       v170 = v213.tv_nsec;
+      v168 = v213.tv_sec;
       goto LABEL_181;
     }
 
@@ -9173,716 +10252,4 @@ LABEL_181:
   (*(*(v179 - 8) + 104))(v181, *MEMORY[0x1E69E6B00], v179);
 LABEL_29:
   swift_willThrow();
-}
-
-uint64_t DateComponents.year.setter(uint64_t result, char a2)
-{
-  if (result == 0x7FFFFFFFFFFFFFFFLL)
-  {
-    v3 = 0;
-  }
-
-  else
-  {
-    v3 = result;
-  }
-
-  if (a2)
-  {
-    v3 = result;
-  }
-
-  *(v2 + 48) = v3;
-  *(v2 + 56) = a2 & 1 | (result == 0x7FFFFFFFFFFFFFFFLL);
-  return result;
-}
-
-uint64_t DateComponents.month.setter(uint64_t result, char a2)
-{
-  if (result == 0x7FFFFFFFFFFFFFFFLL)
-  {
-    v3 = 0;
-  }
-
-  else
-  {
-    v3 = result;
-  }
-
-  if (a2)
-  {
-    v3 = result;
-  }
-
-  *(v2 + 64) = v3;
-  *(v2 + 72) = a2 & 1 | (result == 0x7FFFFFFFFFFFFFFFLL);
-  return result;
-}
-
-uint64_t PropertyListEncoder.encodeToTopLevelContainerXML<A>(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
-{
-  v27 = a3;
-  v28 = a4;
-  v7 = *(a2 - 8);
-  MEMORY[0x1EEE9AC00](a1);
-  v9 = &v26 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = *(v4 + 16);
-  v11 = *(v4 + 24);
-  v12 = type metadata accessor for __PlistEncoderXML();
-  v13 = swift_allocObject();
-  *(v13 + 24) = v10;
-  *(v13 + 32) = v11;
-  *(v13 + 16) = MEMORY[0x1E69E7CC0];
-  v26 = xmmword_181248570;
-  *(v13 + 40) = xmmword_181248570;
-  *(v13 + 56) = 0;
-  *(v13 + 64) = 0;
-  *(v13 + 72) = 8;
-  *(v13 + 80) = xmmword_18121B2B0;
-  *(v13 + 96) = 8;
-  *(v13 + 104) = xmmword_18121D490;
-  *(v13 + 120) = 8;
-  if (swift_dynamicCastMetatype())
-  {
-    (*(v7 + 16))(v9, a1, a2);
-
-    swift_dynamicCast();
-    v14 = v29;
-
-    v16 = 0;
-    v17 = 4;
-  }
-
-  else
-  {
-    if (!swift_dynamicCastMetatype())
-    {
-      *(v13 + 40) = v26;
-      v32 = v12;
-      v33 = lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(&lazy protocol witness table cache variable for type __PlistEncoderXML and conformance __PlistEncoderXML, type metadata accessor for __PlistEncoderXML);
-      v29 = v13;
-
-      v19 = a1;
-      v20 = v34;
-      dispatch thunk of Encodable.encode(to:)();
-      if (v20)
-      {
-        __swift_destroy_boxed_opaque_existential_1(&v29);
-        *(v13 + 40) = 0x8000000000000000;
-
-        *(v13 + 48) = 0;
-        if (*(*(v13 + 16) + 16))
-        {
-          specialized ContiguousArray._customRemoveLast()(&v29);
-          if (v31 == 255)
-          {
-            outlined consume of _XMLPlistEncodingFormat.Reference?(v29, v30, 0xFFu);
-            specialized ContiguousArray.remove(at:)(*(*(v13 + 16) + 16) - 1, &v29);
-            outlined consume of _XMLPlistEncodingFormat.Reference(v29, v30, v31);
-          }
-
-          else
-          {
-            outlined consume of _XMLPlistEncodingFormat.Reference?(v29, v30, v31);
-          }
-        }
-      }
-
-      else
-      {
-        __swift_destroy_boxed_opaque_existential_1(&v29);
-        *(v13 + 40) = 0x8000000000000000;
-
-        *(v13 + 48) = 0;
-        if (*(*(v13 + 16) + 16))
-        {
-          specialized ContiguousArray._customRemoveLast()(&v29);
-          v17 = v31;
-          v14 = v29;
-          v16 = v30;
-          if (v31 == 255)
-          {
-            outlined consume of _XMLPlistEncodingFormat.Reference?(v29, v30, 0xFFu);
-            specialized ContiguousArray.remove(at:)(*(*(v13 + 16) + 16) - 1, &v29);
-
-            v14 = v29;
-            v16 = v30;
-            v17 = v31;
-          }
-
-          else
-          {
-          }
-
-          goto LABEL_5;
-        }
-
-        v21 = type metadata accessor for EncodingError();
-        swift_allocError();
-        v23 = v22;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_syp_s13EncodingErrorO7ContextVtMd);
-        v23[3] = a2;
-        boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0(v23);
-        (*(v7 + 16))(boxed_opaque_existential_0, v19, a2);
-        v29 = 0;
-        v30 = 0xE000000000000000;
-        _StringGuts.grow(_:)(39);
-
-        v29 = 0x6576656C2D706F54;
-        v30 = 0xEA0000000000206CLL;
-        v25 = _typeName(_:qualified:)();
-        MEMORY[0x1865CB0E0](v25);
-
-        MEMORY[0x1865CB0E0](0xD00000000000001BLL, 0x8000000181482320);
-        DecodingError.Context.init(codingPath:debugDescription:underlyingError:)();
-        (*(*(v21 - 8) + 104))(v23, *MEMORY[0x1E69E6B30], v21);
-      }
-
-      swift_willThrow();
-    }
-
-    (*(v7 + 16))(v9, a1, a2);
-
-    swift_dynamicCast();
-    v14 = v29;
-    v16 = v30;
-
-    v17 = 5;
-  }
-
-LABEL_5:
-  v18 = v28;
-  *v28 = v14;
-  v18[1] = v16;
-  *(v18 + 16) = v17;
-  return result;
-}
-
-uint64_t _PlistUnkeyedEncodingContainerXML.encode<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v7 = *v3;
-  *&v39 = a2;
-  *(&v39 + 1) = a3;
-  boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0(v38);
-  result = (*(*(a2 - 8) + 16))(boxed_opaque_existential_0, a1, a2);
-  if ((v3[3] & 0xFE) != 6)
-  {
-    __break(1u);
-LABEL_18:
-    __break(1u);
-    return result;
-  }
-
-  v10 = *(v7 + 40);
-  v11 = *(*(v3[1] + 16) + 16);
-  v33 = v39;
-  v12 = v39;
-  v13 = __swift_project_boxed_opaque_existential_1(v38, v39);
-  v14 = swift_dynamicCastMetatype();
-  if (v14)
-  {
-    *&v33 = v4;
-    v15 = MEMORY[0x1EEE9AC00](v14);
-    (*(v17 + 16))(&v33 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0), v13, v12, v15);
-    swift_dynamicCast();
-    v18 = v34;
-    v19 = 4;
-    v20 = 0;
-  }
-
-  else
-  {
-    v21 = swift_dynamicCastMetatype();
-    if (v21)
-    {
-      *&v33 = v4;
-      v22 = MEMORY[0x1EEE9AC00](v21);
-      (*(v24 + 16))(&v33 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0), v13, v12, v22);
-      swift_dynamicCast();
-      v18 = v34;
-      v20 = v35;
-      v19 = 5;
-    }
-
-    else
-    {
-      MEMORY[0x1EEE9AC00](0);
-
-      specialized __PlistEncoderXML._wrapGeneric<A>(_:for:_:)(partial apply for specialized closure #1 in __PlistEncoderXML.wrapGeneric<A, B>(_:for:_:), v10, v11, 0, 0, 2, v36);
-
-      if (v4)
-      {
-        return __swift_destroy_boxed_opaque_existential_1(v38);
-      }
-
-      *&v33 = 0;
-      v19 = v37;
-      if (v37 == 255)
-      {
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23_XMLPlistEncodingFormatV9ReferenceO3BoxCy__SDyA2EGGMd);
-        v19 = 7;
-        v18 = swift_allocObject();
-        v20 = 0;
-        *(v18 + 16) = MEMORY[0x1E69E7CC8];
-      }
-
-      else
-      {
-        v18 = v36[0];
-        v20 = v36[1];
-      }
-    }
-  }
-
-  result = __swift_destroy_boxed_opaque_existential_1(v38);
-  if (*(v3 + 24) != 6)
-  {
-    goto LABEL_18;
-  }
-
-  v26 = v3[2];
-  v25 = v3[1];
-  v27 = (v25 + 16);
-  v28 = *(v25 + 16);
-
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  *(v25 + 16) = v28;
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v28 + 16) + 1, 1);
-    v28 = *v27;
-  }
-
-  v31 = *(v28 + 16);
-  v30 = *(v28 + 24);
-  if (v31 >= v30 >> 1)
-  {
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v30 > 1), v31 + 1, 1);
-    v28 = *v27;
-  }
-
-  *(v28 + 16) = v31 + 1;
-  v32 = v28 + 24 * v31;
-  *(v32 + 32) = v18;
-  *(v32 + 40) = v20;
-  *(v32 + 48) = v19;
-  *(v25 + 16) = v28;
-  return outlined consume of _XMLPlistEncodingFormat.Reference(v25, v26, 6u);
-}
-
-uint64_t lazy protocol witness table accessor for type __PlistEncoderXML and conformance __PlistEncoderXML(unint64_t *a1, uint64_t a2, void (*a3)(uint64_t))
-{
-  result = *a1;
-  if (!result)
-  {
-    a3(a2);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
-  }
-
-  return result;
-}
-
-void *__cdecl NSZoneRealloc(NSZone *zone, void *ptr, NSUInteger size)
-{
-  if (ptr)
-  {
-    if (zone)
-    {
-
-      return malloc_type_zone_realloc(zone, ptr, size, 0x9C765993uLL);
-    }
-
-    else
-    {
-
-      return malloc_type_realloc(ptr, size, 0x56C3EBuLL);
-    }
-  }
-
-  else
-  {
-    if (!zone)
-    {
-      zone = malloc_default_zone();
-    }
-
-    return malloc_type_zone_malloc(zone, size, 0x409734D7uLL);
-  }
-}
-
-void *static DecodableAttributedStringKey<>.decode(from:)(void *a1)
-{
-  v3 = __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  dispatch thunk of Decoder.singleValueContainer()();
-  if (!v1)
-  {
-    __swift_project_boxed_opaque_existential_1(v12, v12[3]);
-    lazy protocol witness table accessor for type Data and conformance Data();
-    dispatch thunk of SingleValueDecodingContainer.decode<A>(_:)();
-    type metadata accessor for NSKeyedUnarchiver();
-    AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-    static NSKeyedUnarchiver.unarchivedObject<A>(ofClass:from:)(AssociatedTypeWitness, v10, v11);
-    v3 = v5;
-    if (v5)
-    {
-      outlined consume of Data._Representation(v10, v11);
-      __swift_destroy_boxed_opaque_existential_1(v12);
-    }
-
-    else
-    {
-      v3 = __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-      v7 = type metadata accessor for DecodingError();
-      swift_allocError();
-      v9 = v8;
-      dispatch thunk of Decoder.codingPath.getter();
-      DecodingError.Context.init(codingPath:debugDescription:underlyingError:)();
-      (*(*(v7 - 8) + 104))(v9, *MEMORY[0x1E69E6B00], v7);
-      swift_willThrow();
-      outlined consume of Data._Representation(v10, v11);
-      __swift_destroy_boxed_opaque_existential_1(v12);
-    }
-  }
-
-  return v3;
-}
-
-unint64_t specialized BidirectionalCollection<>._getBlock(for:in:)@<X0>(char a1@<W0>, void *a2@<X1>, unint64_t *a3@<X8>)
-{
-  v6 = BigString.UTF8View.startIndex.getter();
-  v8 = v7;
-  v10 = v9;
-  v70 = v11;
-  result = BigString.UTF8View.endIndex.getter();
-  v16 = result >> 10;
-  v17 = v6 >> 10;
-  if (result >> 10 < v6 >> 10)
-  {
-    __break(1u);
-LABEL_59:
-    swift_once();
-    goto LABEL_16;
-  }
-
-  v68 = v8;
-  v69 = v10;
-  v3 = *a2 >> 10;
-  if (v3 == v17 && v16 == a2[4] >> 10 && (a1 & 4) == 0)
-  {
-    *a3 = v6;
-    a3[1] = v8;
-    a3[2] = v10;
-    a3[3] = v70;
-    a3[4] = result;
-    a3[5] = v13;
-    a3[6] = v14;
-    a3[7] = v15;
-    a3[8] = 0;
-    a3[9] = 0;
-    a3[10] = 0;
-    a3[11] = 2;
-    return result;
-  }
-
-  if (v3 < v17 || (v65 = a2[4], v64 = v65 >> 10, v16 < v65 >> 10))
-  {
-    *a3 = v6;
-    a3[1] = v8;
-    a3[2] = v10;
-    a3[3] = v70;
-    a3[4] = result;
-    a3[5] = v13;
-    a3[6] = v14;
-    a3[7] = v15;
-    a3[8] = result;
-    a3[9] = v13;
-    a3[10] = v14;
-    a3[11] = v15;
-    return result;
-  }
-
-  v63 = a2[5];
-  v59 = a2[6];
-  v60 = a2[7];
-  v67 = result >> 10;
-  if ((a1 & 8) == 0)
-  {
-    v66 = &outlined read-only object #1 of one-time initialization function for paragraphSeparators;
-    if (a1)
-    {
-      goto LABEL_13;
-    }
-
-LABEL_17:
-    v19 = 0;
-    v20 = 0;
-    v21 = 0;
-    v22 = 2;
-    goto LABEL_18;
-  }
-
-  if (one-time initialization token for lineSeparators != -1)
-  {
-    goto LABEL_59;
-  }
-
-LABEL_16:
-  v66 = static String.lineSeparators;
-
-  v16 = v67;
-  if ((a1 & 1) == 0)
-  {
-    goto LABEL_17;
-  }
-
-LABEL_13:
-  if (v3 == v17)
-  {
-LABEL_14:
-    v19 = v6;
-    v20 = v68;
-    v21 = v69;
-    v22 = v70;
-    goto LABEL_18;
-  }
-
-  v42 = BigString.UTF8View.index(before:)();
-  v16 = v67;
-  v57 = v42;
-  v58 = v43;
-  v62 = v44;
-  v22 = v45;
-  if (v3 < v67)
-  {
-    if (BigString.UTF8View.subscript.getter() == 10)
-    {
-      v19 = v57;
-      v21 = v58;
-      v20 = v62;
-      if (BigString.UTF8View.subscript.getter() == 13)
-      {
-        if (v17 >= v57 >> 10)
-        {
-          v16 = v67;
-          if (v70 != 2)
-          {
-            goto LABEL_14;
-          }
-        }
-
-        else
-        {
-          v19 = BigString.UTF8View.index(before:)();
-          v20 = v46;
-          v21 = v47;
-          v22 = v48;
-          v16 = v67;
-        }
-      }
-
-      else
-      {
-        v16 = v67;
-      }
-
-      goto LABEL_38;
-    }
-
-    v16 = v67;
-  }
-
-  v19 = v57;
-  v21 = v58;
-  v20 = v62;
-LABEL_38:
-  v49 = v19 >> 10;
-  if (v19 >> 10 >= v17 && v49 < v16)
-  {
-    while (1)
-    {
-      specialized BidirectionalCollection<>._matchesSeparators(_:from:reverse:)(v66, v19, v20, v21, v22, 1, &v73);
-      if (v76 != 2)
-      {
-        v19 = BigString.UTF8View.index(after:)();
-        v20 = v53;
-        v21 = v54;
-        v22 = v55;
-        v16 = v67;
-        goto LABEL_18;
-      }
-
-      if (v17 >= v49)
-      {
-        v19 = v6;
-        v20 = v68;
-        v21 = v69;
-        v22 = v70;
-        v16 = v67;
-        goto LABEL_18;
-      }
-
-      v19 = BigString.UTF8View.index(before:)();
-      v20 = v50;
-      v21 = v51;
-      v22 = v52;
-      v49 = v19 >> 10;
-      if (v19 >> 10 < v17)
-      {
-        break;
-      }
-
-      v16 = v67;
-      if (v49 >= v67)
-      {
-        goto LABEL_18;
-      }
-    }
-
-    v16 = v67;
-  }
-
-LABEL_18:
-  if ((a1 & 6) != 0)
-  {
-    v61 = v20;
-    v23 = v64;
-    if (v3 == v64)
-    {
-      v24 = v65;
-      v26 = v59;
-      v25 = v60;
-      if (v64 >= v16)
-      {
-        goto LABEL_48;
-      }
-    }
-
-    else
-    {
-      v24 = BigString.UTF8View.index(before:)();
-      v63 = v35;
-      v26 = v36;
-      v25 = v37;
-      v23 = v24 >> 10;
-      if (v24 >> 10 >= v67)
-      {
-        goto LABEL_48;
-      }
-    }
-
-    v72 = v22;
-    specialized BidirectionalCollection<>._matchesSeparators(_:from:reverse:)(v66, v24, v63, v26, v25, 1, &v73);
-    v33 = v76;
-    if (v76 == 2)
-    {
-      specialized BidirectionalCollection<>._matchesSeparators(_:from:reverse:)(v66, v24, v63, v26, v25, 0, &v73);
-      v33 = v76;
-      if (v76 != 2)
-      {
-LABEL_35:
-
-        v27 = v73;
-        v28 = v74;
-        v29 = v75;
-        v30 = v77;
-        v31 = v78;
-        v32 = v79;
-        v34 = v80;
-        v22 = v72;
-LABEL_49:
-        v56 = v23 == v67;
-        if (v23 == v67)
-        {
-          v27 = v24;
-        }
-
-        v20 = v61;
-        if (v56)
-        {
-          v28 = v63;
-          v29 = v26;
-          v33 = v25;
-          v30 = v24;
-          v31 = v63;
-          v32 = v26;
-          v34 = v25;
-        }
-
-        goto LABEL_53;
-      }
-
-      while (1)
-      {
-        v24 = BigString.UTF8View.index(after:)();
-        v41 = v38;
-        v26 = v39;
-        v25 = v40;
-        v23 = v24 >> 10;
-        if (v24 >> 10 >= v67)
-        {
-          break;
-        }
-
-        specialized BidirectionalCollection<>._matchesSeparators(_:from:reverse:)(v66, v24, v38, v39, v40, 0, &v73);
-        v33 = v76;
-        if (v76 != 2)
-        {
-          v63 = v41;
-          goto LABEL_35;
-        }
-      }
-
-      v63 = v38;
-      v22 = v72;
-LABEL_48:
-
-      v27 = 0;
-      v28 = 0;
-      v29 = 0;
-      v30 = 0;
-      v31 = 0;
-      v32 = 0;
-      v33 = 2;
-      v34 = 2;
-      goto LABEL_49;
-    }
-
-    v27 = v73;
-    v28 = v74;
-    v29 = v75;
-    v30 = v77;
-    v31 = v78;
-    v32 = v79;
-    v34 = v80;
-    v20 = v61;
-  }
-
-  else
-  {
-
-    v27 = 0;
-    v28 = 0;
-    v29 = 0;
-    v30 = 0;
-    v31 = 0;
-    v32 = 0;
-    v33 = 2;
-    v34 = 2;
-  }
-
-LABEL_53:
-  *a3 = v19;
-  a3[1] = v20;
-  a3[2] = v21;
-  a3[3] = v22;
-  a3[4] = v30;
-  a3[5] = v31;
-  a3[6] = v32;
-  a3[7] = v34;
-  a3[8] = v27;
-  a3[9] = v28;
-  a3[10] = v29;
-  a3[11] = v33;
-  return result;
 }

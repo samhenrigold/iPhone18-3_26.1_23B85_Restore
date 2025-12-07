@@ -38,7 +38,7 @@
   {
     shape2 = [(SCMLMADEmbeddingResult *)self shape];
     v11 = [shape2 componentsJoinedByString:{@", "}];
-    scml::strFromNSString(v11, &v17);
+    scml::strFromNSString(&v17, v11);
 
     std::operator+<char>();
     if ((v16 & 0x80u) == 0)

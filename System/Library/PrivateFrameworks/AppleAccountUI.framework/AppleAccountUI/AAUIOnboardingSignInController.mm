@@ -45,7 +45,7 @@
   resultsCopy = results;
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
   delegate = [(AAUIOnboardingSignInController *)self delegate];
-  v9 = _AAUILogSystem();
+  v9 = _AAUILogSystem(delegate);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 138412290;
@@ -64,7 +64,7 @@
   cancelCopy = cancel;
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
   delegate = [(AAUIOnboardingSignInController *)self delegate];
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem(delegate);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -83,7 +83,7 @@
   controllerCopy = controller;
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
   delegate = [(AAUIOnboardingSignInController *)self delegate];
-  v8 = _AAUILogSystem();
+  v8 = _AAUILogSystem(delegate);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 134217984;
@@ -99,7 +99,7 @@
 
 - (void)dealloc
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;

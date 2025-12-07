@@ -94,7 +94,7 @@
   v31 = [(CommonProduct *)self findComponent:22];
   *&v32 = v30 / 100.0;
   [v31 calculateControlEffort:v32];
-  v33 = qword_1000AB904;
+  v33 = dword_1000AB904;
   v34 = [(CommonProduct *)self findComponent:23];
   *&v35 = v33 / 100.0;
   [v34 calculateControlEffort:v35];

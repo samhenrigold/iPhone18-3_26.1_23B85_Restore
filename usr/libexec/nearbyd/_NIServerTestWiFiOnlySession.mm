@@ -73,7 +73,7 @@ LABEL_3:
     analytics = [managerCopy analytics];
     if (managerCopy)
     {
-      [managerCopy protobufLogger];
+      objc_msgSend_protobufLogger(managerCopy);
     }
 
     else
@@ -93,7 +93,7 @@ LABEL_3:
 
     if (managerCopy)
     {
-      [managerCopy protobufLogger];
+      objc_msgSend_protobufLogger(managerCopy);
       v23 = v28;
     }
 
@@ -376,7 +376,7 @@ LABEL_3:
         *buf = 134218242;
         v28 = v8;
         v29 = 2112;
-        v30 = configuration;
+        *v30 = configuration;
         _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "#ses-wifi-test,_triggerWiFiRanging. Identifier: 0x%llx, WiFi ranging config: %@", buf, 0x16u);
       }
 

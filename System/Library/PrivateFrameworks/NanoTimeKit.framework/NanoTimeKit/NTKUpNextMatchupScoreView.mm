@@ -670,7 +670,7 @@ LABEL_20:
   if (fabs(fraction) >= 0.00000011920929)
   {
     whiteColor = [MEMORY[0x277D75348] whiteColor];
-    whiteColor3 = NTKInterpolateBetweenColors();
+    whiteColor3 = NTKInterpolateBetweenColors(fraction);
 
     [(CLKUIColoringLabel *)self->_statusLabel setTextColor:whiteColor3];
     [(CLKUIColoringLabel *)self->_timeLabel setTextColor:whiteColor3];

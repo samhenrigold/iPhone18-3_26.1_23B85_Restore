@@ -6,6 +6,7 @@
 - (void)_pumpReadDataIfPossible;
 - (void)asyncHandleIncomingPackets:(id)packets isEof:(BOOL)eof;
 - (void)asyncHandleRemoteCloseWithError:(id)error;
+- (void)cancelWithReason:(unsigned __int16)reason completion:(id)completion;
 - (void)dealloc;
 - (void)read:(id)read;
 @end
@@ -82,6 +83,35 @@
     }
 
     return 1;
+  }
+}
+
+- (void)cancelWithReason:(unsigned __int16)reason completion:(id)completion
+{
+  reasonCopy = reason;
+  completionCopy = completion;
+  [(DataStreamBulkSendSession *)self _closeSession];
+  bulkSendProtocol = [(DataStreamBulkSendSession *)self bulkSendProtocol];
+  if (bulkSendProtocol)
+  {
+    sessionIdentifier = [(DataStreamBulkSendSession *)self sessionIdentifier];
+    [bulkSendProtocol asyncBulkSendSessionDidCancelSessionWithIdentifier:sessionIdentifier reason:reasonCopy hadReceivedEof:self->_hasReceivedEof completion:completionCopy];
+  }
+
+  else
+  {
+    selfCopy = self;
+    v10 = sub_10007FAA0(selfCopy);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      v11 = sub_10007FAFC(selfCopy);
+      v13 = 138543362;
+      v14 = v11;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%{public}@No Bulk send protocol found", &v13, 0xCu);
+    }
+
+    v12 = [NSError errorWithDomain:@"DKErrorDomain" code:1 userInfo:0];
+    (*(completionCopy + 2))(completionCopy, v12);
   }
 }
 

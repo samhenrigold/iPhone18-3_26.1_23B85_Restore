@@ -33,7 +33,7 @@
 
 - (BOOL)startNetDiagnosticsTask:(id)task
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   if ([(TestProbe *)self status]!= -1)
   {
@@ -43,7 +43,7 @@
       v6 = v5;
       v7 = [TestProbe testProbeStatusString:[(TestProbe *)self status]];
       *buf = 138412290;
-      v17 = v7;
+      v16 = v7;
       _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "Probe status should be Unknown. It is incorrectly %@", buf, 0xCu);
     }
   }
@@ -65,11 +65,10 @@
 
   [setUpDefaultTaskDictionary setObject:v12 forKeyedSubscript:@"taskGNISensitive"];
   [(GetNetworkInfoProbe *)self setCompletionBlock:_Block_copy(taskCopy)];
-  v15.receiver = self;
-  v15.super_class = GetNetworkInfoProbe;
-  [(NetDiagnosticProbe *)&v15 startNetDiagnosticsTask:taskCopy];
+  v14.receiver = self;
+  v14.super_class = GetNetworkInfoProbe;
+  [(NetDiagnosticProbe *)&v14 startNetDiagnosticsTask:taskCopy];
 
-  v13 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

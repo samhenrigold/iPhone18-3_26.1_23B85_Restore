@@ -56,7 +56,6 @@
   else
   {
     glGenVertexArraysOES();
-    vao = self->_vao;
     glBindVertexArrayOES();
     glGenBuffers(1, &self->_texCoordVBO);
     glBindBuffer(0x8892u, self->_texCoordVBO);
@@ -111,7 +110,7 @@
 
 - (void)updateSkyboxEffect
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (self->_effectStale == 1)
   {
     if (self->_vao)
@@ -134,31 +133,28 @@
     do
     {
       v18 = (&texCoords + v3);
-      v25 = vld3q_f32(v18);
-      v19 = vmulq_f32(v25.val[0], v6);
-      v20 = vmulq_f32(v25.val[1], v9);
-      v25.val[0] = vmulq_f32(v25.val[2], v11);
-      v26.val[2] = vcvt_hight_f32_f64(vcvt_f32_f64(vmlaq_f64(v12, _Q6, vcvtq_f64_f32(*v25.val[0].f32))), vmlaq_f64(v12, _Q6, vcvt_hight_f64_f32(v25.val[0])));
-      v21 = &v23[v3];
-      v26.val[1] = vcvt_hight_f32_f64(vcvt_f32_f64(vmlaq_f64(v10, _Q6, vcvtq_f64_f32(*v20.f32))), vmlaq_f64(v10, _Q6, vcvt_hight_f64_f32(v20)));
-      v26.val[0] = vcvt_hight_f32_f64(vcvt_f32_f64(vmlaq_f64(v8, _Q6, vcvtq_f64_f32(*v19.f32))), vmlaq_f64(v8, _Q6, vcvt_hight_f64_f32(v19)));
-      vst3q_f32(v21, v26);
+      v24 = vld3q_f32(v18);
+      v19 = vmulq_f32(v24.val[0], v6);
+      v20 = vmulq_f32(v24.val[1], v9);
+      v24.val[0] = vmulq_f32(v24.val[2], v11);
+      v25.val[2] = vcvt_hight_f32_f64(vcvt_f32_f64(vmlaq_f64(v12, _Q6, vcvtq_f64_f32(*v24.val[0].f32))), vmlaq_f64(v12, _Q6, vcvt_hight_f64_f32(v24.val[0])));
+      v21 = &v22[v3];
+      v25.val[1] = vcvt_hight_f32_f64(vcvt_f32_f64(vmlaq_f64(v10, _Q6, vcvtq_f64_f32(*v20.f32))), vmlaq_f64(v10, _Q6, vcvt_hight_f64_f32(v20)));
+      v25.val[0] = vcvt_hight_f32_f64(vcvt_f32_f64(vmlaq_f64(v8, _Q6, vcvtq_f64_f32(*v19.f32))), vmlaq_f64(v8, _Q6, vcvt_hight_f64_f32(v19)));
+      vst3q_f32(v21, v25);
       v3 += 48;
     }
 
     while (v3 != 288);
     [(GLKEffect *)self->_effect setLabel:[(GLKSkyboxEffect *)self label]];
-    [(GLKSkyboxEffect *)self createAndBindVAOWithPositions:v23 texCoords:&texCoords];
+    [(GLKSkyboxEffect *)self createAndBindVAOWithPositions:v22 texCoords:&texCoords];
     self->_effectStale = 0;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prepareToDraw
 {
   [(GLKSkyboxEffect *)self updateSkyboxEffect];
-  vao = self->_vao;
   glBindVertexArrayOES();
   glEnableVertexAttribArray(0);
   glEnableVertexAttribArray(3u);
@@ -202,9 +198,6 @@
 
 - (GLKVector3)center
 {
-  x = self->_center.x;
-  y = self->_center.y;
-  z = self->_center.z;
   result.z = *&a2;
   *&result.x = self;
   return result;

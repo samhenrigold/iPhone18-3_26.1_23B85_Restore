@@ -3,7 +3,6 @@
 - (RepairWeightsGenerator)initWithConfiguration:(id *)configuration withToolBox:(id)box homographyHandle:(id)handle imageDimensions:(id)dimensions tuningParameters:(id)parameters;
 - (__CVBuffer)temporalBufferForInput:(__CVBuffer *)input frameIndex:(int64_t)index;
 - (float)gradMaxtoBaseWeight:(id *)weight GG_Index:(float)index Gradient:;
-- (id)computeBlendingWeightsYUVInputBuf:(int32x4_t)buf frRef0Buf:(__n128)ref0Buf frRef1Buf:(int32x4_t)ref1Buf hmgrphy0:(int32x4_t)hmgrphy0 hmgrphy1:(__n128)hmgrphy1 frmIdx:(uint64_t)idx metadataBuf:(__CVBuffer *)metadataBuf meta_HW:(id)self0 metaTPlusOrMinus1_HW:(id)self1 metaTPlusOrMinus2_HW:(uint64_t)self2;
 - (int)createStatisticsSessionWithImageDimension:(id)dimension configuration:(id *)configuration;
 - (int)createTemporalBuffersWithImageDimension:(id)dimension;
 - (int64_t)process:(__CVBuffer *)process info:(id)info metaContainerBuffer:(id)buffer computeBlendingWeights:(BOOL)weights futureFrames:(id *)frames metaContainerBuffer_HW:(id *)w;
@@ -13,7 +12,9 @@
 - (void)cleanTwoFutureFramesInQueuesAtBaseIndex:(signed __int16)index;
 - (void)computeBlendingWeights;
 - (void)computeBlendingWeightsWithFuture;
+- (void)computeBlendingWeightsYUVInputBuf:(int32x4_t)buf frRef0Buf:(__n128)ref0Buf frRef1Buf:(int32x4_t)ref1Buf hmgrphy0:(int32x4_t)hmgrphy0 hmgrphy1:(__n128)hmgrphy1 frmIdx:(uint64_t)idx metadataBuf:(__CVBuffer *)metadataBuf meta_HW:(void *)self0 metaTPlusOrMinus1_HW:(void *)self1 metaTPlusOrMinus2_HW:(uint64_t)self2;
 - (void)dealloc;
+- (void)requestStatisticsForCurrentFrame:(OpaqueVTDeghostingFrameBuffer *)frame referenceFrames:(__CFArray *)frames deghostingFrameFlags:(unsigned int)flags options:(__CFDictionary *)options outputHandler:(id)handler;
 - (void)reset;
 - (void)setConfiguration:(id *)configuration;
 @end
@@ -22,6 +23,7 @@
 
 - (int)createStatisticsSessionWithImageDimension:(id)dimension configuration:(id *)configuration
 {
+  dimensionCopy = dimension;
   var1 = dimension.var1;
   v7 = [[NSMutableDictionary alloc] initWithCapacity:2];
   [v7 setObject:&off_49FE8 forKey:kVTDeghostingSessionCreationOption_MaximumReferenceFrameDistance];
@@ -29,52 +31,52 @@
   {
     v8 = [NSNumber numberWithBool:1];
     [v7 setObject:v8 forKey:@"FlagHW_GPU"];
-    v9 = __VTDeghostingSessionCreateForGeneratingStatistics(kCFAllocatorDefault, v7, *&dimension, var1, &self->_statisticsSession);
+    LODWORD(dimensionCopy) = __VTDeghostingSessionCreateForGeneratingStatistics(kCFAllocatorDefault, v7, dimensionCopy, var1, &self->_statisticsSession);
   }
 
   else
   {
-    v9 = VTDeghostingSessionCreateForGeneratingStatistics();
+    LODWORD(dimensionCopy) = VTDeghostingSessionCreateForGeneratingStatistics();
     statisticsSession = self->_statisticsSession;
     if (statisticsSession)
     {
       propertyValueOut = 0;
-      v11 = VTSessionCopyProperty(statisticsSession, kVTDeghostingPropertyKey_BorderPixelBufferAttributes, 0, &propertyValueOut);
-      if (v11)
+      v10 = VTSessionCopyProperty(statisticsSession, kVTDeghostingPropertyKey_BorderPixelBufferAttributes, 0, &propertyValueOut);
+      if (v10)
       {
-        v9 = v11;
+        LODWORD(dimensionCopy) = v10;
         [RepairWeightsGenerator createStatisticsSessionWithImageDimension:configuration:];
       }
 
       else
       {
-        v12 = CVPixelBufferPoolCreate(kCFAllocatorDefault, 0, propertyValueOut, &self->_borderPixelBufferPool);
+        v11 = CVPixelBufferPoolCreate(kCFAllocatorDefault, 0, propertyValueOut, &self->_borderPixelBufferPool);
         CFRelease(propertyValueOut);
-        if (v12)
+        if (v11)
         {
           [RepairWeightsGenerator createStatisticsSessionWithImageDimension:configuration:];
-          v9 = -1;
+          LODWORD(dimensionCopy) = -1;
         }
 
         else
         {
           valuePtr = 80;
-          v13 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &valuePtr);
-          if (v13)
+          v12 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &valuePtr);
+          if (v12)
           {
-            v14 = v13;
-            v9 = VTSessionSetProperty(self->_statisticsSession, kVTDeghostingPropertyKey_Priority, v13);
-            CFRelease(v14);
-            if (v9)
+            v13 = v12;
+            dimensionCopy = VTSessionSetProperty(self->_statisticsSession, kVTDeghostingPropertyKey_Priority, v12);
+            CFRelease(v13);
+            if (dimensionCopy)
             {
-              [RepairWeightsGenerator createStatisticsSessionWithImageDimension:configuration:];
+              [RepairWeightsGenerator createStatisticsSessionWithImageDimension:dimensionCopy configuration:?];
             }
           }
 
           else
           {
             [RepairWeightsGenerator createStatisticsSessionWithImageDimension:configuration:];
-            v9 = 0;
+            LODWORD(dimensionCopy) = 0;
           }
         }
       }
@@ -86,7 +88,7 @@
     }
   }
 
-  return v9;
+  return dimensionCopy;
 }
 
 - (RepairWeightsGenerator)initWithConfiguration:(id *)configuration withToolBox:(id)box homographyHandle:(id)handle imageDimensions:(id)dimensions tuningParameters:(id)parameters
@@ -336,7 +338,7 @@ LABEL_16:
   return v11;
 }
 
-- (id)computeBlendingWeightsYUVInputBuf:(int32x4_t)buf frRef0Buf:(__n128)ref0Buf frRef1Buf:(int32x4_t)ref1Buf hmgrphy0:(int32x4_t)hmgrphy0 hmgrphy1:(__n128)hmgrphy1 frmIdx:(uint64_t)idx metadataBuf:(__CVBuffer *)metadataBuf meta_HW:(id)self0 metaTPlusOrMinus1_HW:(id)self1 metaTPlusOrMinus2_HW:(uint64_t)self2
+- (void)computeBlendingWeightsYUVInputBuf:(int32x4_t)buf frRef0Buf:(__n128)ref0Buf frRef1Buf:(int32x4_t)ref1Buf hmgrphy0:(int32x4_t)hmgrphy0 hmgrphy1:(__n128)hmgrphy1 frmIdx:(uint64_t)idx metadataBuf:(__CVBuffer *)metadataBuf meta_HW:(void *)self0 metaTPlusOrMinus1_HW:(void *)self1 metaTPlusOrMinus2_HW:(uint64_t)self2
 {
   bufCopy = buf;
   ref0BufCopy = ref0Buf;
@@ -370,14 +372,14 @@ LABEL_16:
     if ((*(self + 232) & 1) == 0)
     {
       bufCopy.i32[2] = ref0Buf.n128_i32[1];
-      v42.i32[2] = ref0Buf.n128_u32[0];
-      v42.i64[0] = vzip1q_s32(a2, buf).u64[0];
+      v42.n128_u32[2] = ref0Buf.n128_u32[0];
+      v42.n128_u64[0] = vzip1q_s32(a2, buf).u64[0];
       ref0BufCopy.n128_u32[2] = ref0Buf.n128_u32[2];
       bufCopy.i64[0] = vtrn2q_s32(a2, buf).u64[0];
       ref0BufCopy.n128_u64[0] = vzip1q_s32(vdupq_laneq_s32(a2, 2), vdupq_laneq_s32(buf, 2)).u64[0];
       hmgrphy0Copy.i32[2] = hmgrphy1.n128_i32[1];
-      ref1BufCopy.i32[2] = hmgrphy1.n128_u32[0];
-      ref1BufCopy.i64[0] = vzip1q_s32(ref1Buf, hmgrphy0).u64[0];
+      ref1BufCopy.n128_u32[2] = hmgrphy1.n128_u32[0];
+      ref1BufCopy.n128_u64[0] = vzip1q_s32(ref1Buf, hmgrphy0).u64[0];
       hmgrphy1Copy.n128_u32[2] = hmgrphy1.n128_u32[2];
       hmgrphy0Copy.i64[0] = vtrn2q_s32(ref1Buf, hmgrphy0).u64[0];
       hmgrphy1Copy.n128_u64[0] = vzip1q_s32(vdupq_laneq_s32(ref1Buf, 2), vdupq_laneq_s32(hmgrphy0, 2)).u64[0];
@@ -389,10 +391,10 @@ LABEL_16:
       hW = [self temporalBufferForInput:hW frameIndex:*(self + 256) - 2];
     }
 
-    v27 = createVTDeghostingFrame(w, a14 + 4, *a14, v42.i8, 0, 0);
+    v27 = createVTDeghostingFrame(w, a14 + 4, *a14, &v42, 0, 0);
     CFArrayAppendValue(ReferenceFrameArray, v27);
     CFRelease(v27);
-    v28 = createVTDeghostingFrame(hW, a14 + 1028, *(a14 + 1), ref1BufCopy.i8, 0, 0);
+    v28 = createVTDeghostingFrame(hW, a14 + 1028, *(a14 + 1), &ref1BufCopy, 0, 0);
     CFArrayAppendValue(ReferenceFrameArray, v28);
     CFRelease(v28);
     v26 = *(self + 256);
@@ -546,12 +548,12 @@ void __167__RepairWeightsGenerator_computeBlendingWeightsYUVInputBuf_frRef0Buf_f
   calcTransform = self->_calcTransform;
   if (calcTransform)
   {
-    [(CalcHomography *)calcTransform ispHomographyFromMetaInfo:orMinus1Copy];
+    objc_msgSend_ispHomographyFromMetaInfo_(calcTransform);
     v28 = self->_calcTransform;
     v29 = v55;
     if (v28)
     {
-      [(CalcHomography *)v28 ispHomographyFromMetaInfo:orMinus2Copy];
+      objc_msgSend_ispHomographyFromMetaInfo_(v28);
       v29 = v55;
       v30 = v52;
       v31 = v53;
@@ -853,14 +855,38 @@ LABEL_22:
   return v22;
 }
 
+- (void)requestStatisticsForCurrentFrame:(OpaqueVTDeghostingFrameBuffer *)frame referenceFrames:(__CFArray *)frames deghostingFrameFlags:(unsigned int)flags options:(__CFDictionary *)options outputHandler:(id)handler
+{
+  v8 = *&flags;
+  handlerCopy = handler;
+  v13 = handlerCopy;
+  if (self->_useGPUHWModel)
+  {
+    if (__VTDeghostingSessionRequestStatistics(self->_statisticsSession, frame, frames, v8, options, handlerCopy))
+    {
+      [RepairWeightsGenerator requestStatisticsForCurrentFrame:referenceFrames:deghostingFrameFlags:options:outputHandler:];
+    }
+  }
+
+  else
+  {
+    schedulingQueue = self->_schedulingQueue;
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = __118__RepairWeightsGenerator_requestStatisticsForCurrentFrame_referenceFrames_deghostingFrameFlags_options_outputHandler___block_invoke;
+    v15[3] = &unk_489E8;
+    v15[4] = self;
+    frameCopy = frame;
+    framesCopy = frames;
+    v20 = v8;
+    optionsCopy = options;
+    v16 = handlerCopy;
+    dispatch_async(schedulingQueue, v15);
+  }
+}
+
 uint64_t __118__RepairWeightsGenerator_requestStatisticsForCurrentFrame_referenceFrames_deghostingFrameFlags_options_outputHandler___block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 40);
-  v2 = *(*(a1 + 32) + 224);
-  v3 = *(a1 + 48);
-  v4 = *(a1 + 56);
-  v5 = *(a1 + 72);
-  v6 = *(a1 + 64);
   result = VTDeghostingSessionRequestStatistics2();
   if (result)
   {
@@ -921,134 +947,32 @@ uint64_t __118__RepairWeightsGenerator_requestStatisticsForCurrentFrame_referenc
   return v16;
 }
 
-- (uint64_t)createStatisticsSessionWithImageDimension:configuration:.cold.1()
+- (void)updateQueuesWithTwoFutureFrames:(int)a1 atBaseIndex:(const char *)a2 .cold.1(int a1, const char *a2)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
+  v3 = a1;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v4, v5, a2, v8, v9, vars0, vars8);
 }
 
-- (uint64_t)createStatisticsSessionWithImageDimension:configuration:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)createStatisticsSessionWithImageDimension:configuration:.cold.3()
+- (uint64_t)process:(int)a1 info:(uint64_t)a2 metaContainerBuffer:computeBlendingWeights:futureFrames:metaContainerBuffer_HW:.cold.1(int a1, uint64_t a2)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)createStatisticsSessionWithImageDimension:configuration:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)createStatisticsSessionWithImageDimension:configuration:.cold.5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithConfiguration:withToolBox:homographyHandle:imageDimensions:tuningParameters:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithConfiguration:withToolBox:homographyHandle:imageDimensions:tuningParameters:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithConfiguration:withToolBox:homographyHandle:imageDimensions:tuningParameters:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithConfiguration:withToolBox:homographyHandle:imageDimensions:tuningParameters:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithConfiguration:withToolBox:homographyHandle:imageDimensions:tuningParameters:.cold.5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)createTemporalBuffersWithImageDimension:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)createTemporalBuffersWithImageDimension:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)createTemporalBuffersWithImageDimension:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-- (void)updateQueuesWithTwoFutureFrames:(uint64_t)a1 atBaseIndex:(void *)a2 .cold.1(uint64_t a1, void *a2)
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
-}
-
-- (uint64_t)process:(uint64_t)a1 info:(uint64_t)a2 metaContainerBuffer:computeBlendingWeights:futureFrames:metaContainerBuffer_HW:.cold.1(uint64_t a1, uint64_t a2)
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  result = FigDebugAssert3();
+  v5 = a1;
+  result = FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5, v6, v7, v8, v9, v10, vars0, vars8);
   *(a2 + 192) = 0;
   return result;
 }
 
-- (uint64_t)process:(uint64_t)a1 info:(uint64_t)a2 metaContainerBuffer:computeBlendingWeights:futureFrames:metaContainerBuffer_HW:.cold.2(uint64_t a1, uint64_t a2)
+- (uint64_t)process:(int)a1 info:(uint64_t)a2 metaContainerBuffer:computeBlendingWeights:futureFrames:metaContainerBuffer_HW:.cold.2(int a1, uint64_t a2)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_1();
-  result = FigDebugAssert3();
+  v5 = a1;
+  result = FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5, v6, v7, v8, v9, v10, vars0, vars8);
   *(a2 + 192) = 0;
   return result;
-}
-
-- (uint64_t)requestStatisticsForCurrentFrame:referenceFrames:deghostingFrameFlags:options:outputHandler:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
-uint64_t __118__RepairWeightsGenerator_requestStatisticsForCurrentFrame_referenceFrames_deghostingFrameFlags_options_outputHandler___block_invoke_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
 }
 
 @end

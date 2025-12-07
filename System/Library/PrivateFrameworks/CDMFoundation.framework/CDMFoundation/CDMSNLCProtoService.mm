@@ -15,44 +15,40 @@
 
 - (id)handleRequestCommandTypeNames
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFD8];
   v3 = +[(CDMBaseCommand *)CDMSNLCProtoRequestCommand];
-  v8[0] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   v5 = [v2 setWithArray:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 + (id)getCDMServiceAssetConfig
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(CDMServiceAssetConfig);
-  v7 = @"model_bundle_snlc";
-  v8 = @"com.apple.siri.nl.snlc";
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v7 count:1];
-  v9[0] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v6 = @"model_bundle_snlc";
+  v7 = @"com.apple.siri.nl.snlc";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v6 count:1];
+  v8[0] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   [(CDMServiceAssetConfig *)v2 addCDMFactorToFoldersMapping:v4 forAssetSet:0];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
 
 - (id)getSNLPServerNLClassifierPath:(id)path error:(id *)error
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v7 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v14 = 136315138;
-    v15 = "[CDMSNLCProtoService getSNLPServerNLClassifierPath:error:]";
-    _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_INFO, "%s creating _snlcInferenceOrchestrator", &v14, 0xCu);
+    v13 = 136315138;
+    v14 = "[CDMSNLCProtoService getSNLPServerNLClassifierPath:error:]";
+    _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_INFO, "%s creating _snlcInferenceOrchestrator", &v13, 0xCu);
   }
 
   v8 = [MEMORY[0x1E69D14A0] classifierWithPathURL:pathCopy error:error];
@@ -62,20 +58,19 @@
   v10 = self->_snlcOrchestrator;
   v11 = v10;
 
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (id)assetsPathURLForModelBundle:(id)bundle
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   bundleCopy = bundle;
   resourcePath = [bundleCopy resourcePath];
-  v11 = 0;
+  v10 = 0;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v6 = [defaultManager fileExistsAtPath:resourcePath isDirectory:&v11];
+  v6 = [defaultManager fileExistsAtPath:resourcePath isDirectory:&v10];
 
-  if (v6 && (v11 & 1) != 0)
+  if (v6 && (v10 & 1) != 0)
   {
     v7 = [MEMORY[0x1E695DFF8] fileURLWithPath:resourcePath isDirectory:1];
   }
@@ -86,55 +81,51 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v13 = "[CDMSNLCProtoService assetsPathURLForModelBundle:]";
-      v14 = 2112;
-      v15 = resourcePath;
+      v12 = "[CDMSNLCProtoService assetsPathURLForModelBundle:]";
+      v13 = 2112;
+      v14 = resourcePath;
       _os_log_impl(&dword_1DC287000, v8, OS_LOG_TYPE_INFO, "%s [WARN]: SNLC assets path does not exist or is not a directory: %@", buf, 0x16u);
     }
 
     v7 = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 - (id)doInference:(id)inference error:(id *)error
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   inferenceCopy = inference;
   v7 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v12 = 136315138;
-    v13 = "[CDMSNLCProtoService doInference:error:]";
-    _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_INFO, "%s Start SNLC", &v12, 0xCu);
+    v11 = 136315138;
+    v12 = "[CDMSNLCProtoService doInference:error:]";
+    _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_INFO, "%s Start SNLC", &v11, 0xCu);
   }
 
   v8 = [(SNLPServerNLClassifier *)self->_snlcOrchestrator responseForRequest:inferenceCopy error:error];
   v9 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v12 = 136315138;
-    v13 = "[CDMSNLCProtoService doInference:error:]";
-    _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_INFO, "%s SNLC finished", &v12, 0xCu);
+    v11 = 136315138;
+    v12 = "[CDMSNLCProtoService doInference:error:]";
+    _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_INFO, "%s SNLC finished", &v11, 0xCu);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (id)warmup:(id)warmup
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   warmupCopy = warmup;
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v25 = "[CDMSNLCProtoService warmup:]";
+    v24 = "[CDMSNLCProtoService warmup:]";
     _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s Prewarm SNLC model", buf, 0xCu);
   }
 
@@ -148,9 +139,9 @@
     v10 = [CDMNLServiceUtils buildSetupSNLCProtoRequest:embeddingModelDimension];
     selfCopy = self;
     objc_sync_enter(selfCopy);
-    v23 = 0;
-    v12 = [(CDMSNLCProtoService *)selfCopy doInference:v10 error:&v23];
-    v13 = v23;
+    v22 = 0;
+    v12 = [(CDMSNLCProtoService *)selfCopy doInference:v10 error:&v22];
+    v13 = v22;
     if (!v12)
     {
       v14 = CDMOSLoggerForCategory(0);
@@ -158,10 +149,10 @@
       {
         localizedDescription = [v13 localizedDescription];
         *buf = 136315394;
-        v25 = "[CDMSNLCProtoService warmup:]";
-        v26 = 2112;
-        v27 = localizedDescription;
-        v22 = localizedDescription;
+        v24 = "[CDMSNLCProtoService warmup:]";
+        v25 = 2112;
+        v26 = localizedDescription;
+        v21 = localizedDescription;
         _os_log_error_impl(&dword_1DC287000, v14, OS_LOG_TYPE_ERROR, "%s [ERR]: SNLC inference failed with error: %@", buf, 0x16u);
       }
     }
@@ -175,7 +166,7 @@
     if (os_log_type_enabled(embeddingConfigs, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v25 = "[CDMSNLCProtoService warmup:]";
+      v24 = "[CDMSNLCProtoService warmup:]";
       _os_log_debug_impl(&dword_1DC287000, embeddingConfigs, OS_LOG_TYPE_DEBUG, "%s Model prewarming is turned off. SNLC will not prewarm.", buf, 0xCu);
     }
   }
@@ -185,20 +176,18 @@
   serviceName = [(CDMBaseService *)self serviceName];
   v18 = [(CDMWarmupResponseCommand *)v15 initWithServiceState:serviceState serviceName:serviceName];
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v18;
 }
 
 - (id)setup:(id)setup
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   setupCopy = setup;
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v26 = "[CDMSNLCProtoService setup:]";
+    v25 = "[CDMSNLCProtoService setup:]";
     _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s SNLC model setup", buf, 0xCu);
   }
 
@@ -219,17 +208,17 @@
       if (os_log_type_enabled(createSetupResponseCommand, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315394;
-        v26 = "[CDMSNLCProtoService setup:]";
-        v27 = 2112;
-        v28 = v11;
+        v25 = "[CDMSNLCProtoService setup:]";
+        v26 = 2112;
+        v27 = v11;
         _os_log_debug_impl(&dword_1DC287000, createSetupResponseCommand, OS_LOG_TYPE_DEBUG, "%s SNLC proto service passing assets path to SNLPServerNLClassifier: %@", buf, 0x16u);
       }
 
       selfCopy = self;
       objc_sync_enter(selfCopy);
-      v24 = 0;
-      v14 = [(CDMSNLCProtoService *)selfCopy getSNLPServerNLClassifierPath:v11 error:&v24];
-      v15 = v24;
+      v23 = 0;
+      v14 = [(CDMSNLCProtoService *)selfCopy getSNLPServerNLClassifierPath:v11 error:&v23];
+      v15 = v23;
 
       if (!v14)
       {
@@ -238,9 +227,9 @@
         {
           localizedDescription = [v15 localizedDescription];
           *buf = 136315394;
-          v26 = "[CDMSNLCProtoService setup:]";
-          v27 = 2112;
-          v28 = localizedDescription;
+          v25 = "[CDMSNLCProtoService setup:]";
+          v26 = 2112;
+          v27 = localizedDescription;
           _os_log_error_impl(&dword_1DC287000, v16, OS_LOG_TYPE_ERROR, "%s [ERR]: Failed to create SNLC Orchestrator: %@", buf, 0x16u);
         }
 
@@ -256,7 +245,7 @@
         if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
           *buf = 136315138;
-          v26 = "[CDMSNLCProtoService setup:]";
+          v25 = "[CDMSNLCProtoService setup:]";
           _os_log_impl(&dword_1DC287000, v17, OS_LOG_TYPE_INFO, "%s SNLC model loaded", buf, 0xCu);
         }
 
@@ -274,9 +263,9 @@
       if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v26 = "[CDMSNLCProtoService setup:]";
-        v27 = 2112;
-        v28 = v18;
+        v25 = "[CDMSNLCProtoService setup:]";
+        v26 = 2112;
+        v27 = v18;
         _os_log_impl(&dword_1DC287000, v19, OS_LOG_TYPE_INFO, "%s [WARN]: %@", buf, 0x16u);
       }
 
@@ -295,20 +284,18 @@
     [createSetupResponseCommand setCmdError:v11];
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return createSetupResponseCommand;
 }
 
 - (id)handle:(id)handle
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v59 = "[CDMSNLCProtoService handle:]";
+    v58 = "[CDMSNLCProtoService handle:]";
     _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s Running SNLC inference...", buf, 0xCu);
   }
 
@@ -322,7 +309,7 @@
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v59 = "[CDMSNLCProtoService handle:]";
+        v58 = "[CDMSNLCProtoService handle:]";
         _os_log_error_impl(&dword_1DC287000, v7, OS_LOG_TYPE_ERROR, "%s [ERR]: _snlcOrchestrator not initialized", buf, 0xCu);
       }
     }
@@ -336,9 +323,9 @@
       v12 = originalUtterance;
       uTF8String = [originalUtterance UTF8String];
       *buf = 136315394;
-      v59 = "[CDMSNLCProtoService handle:]";
-      v60 = 2080;
-      v61 = uTF8String;
+      v58 = "[CDMSNLCProtoService handle:]";
+      v59 = 2080;
+      v60 = uTF8String;
       _os_log_impl(&dword_1DC287000, v8, OS_LOG_TYPE_INFO, "%s SNLC Request for utterance: %s", buf, 0x16u);
     }
 
@@ -346,47 +333,47 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v59 = "[CDMSNLCProtoService handle:]";
+      v58 = "[CDMSNLCProtoService handle:]";
       _os_log_impl(&dword_1DC287000, v14, OS_LOG_TYPE_INFO, "%s Handling SNLC Request", buf, 0xCu);
     }
 
     if (+[CDMFeatureFlags isLogNluEnabled])
     {
       parserRequest2 = [handleCopy parserRequest];
-      v57 = 0;
-      v16 = [CDMNluLogUtil writeSNLCRequestToDisk:parserRequest2 error:&v57];
+      v56 = 0;
+      v16 = [CDMNluLogUtil writeSNLCRequestToDisk:parserRequest2 error:&v56];
     }
 
-    v55 = 0u;
-    v56 = 0u;
-    v53 = 0u;
     v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
     parserRequest3 = [handleCopy parserRequest];
     tokenisedUtterance2 = [parserRequest3 tokenisedUtterance];
     tokenChain = [tokenisedUtterance2 tokenChain];
     tokens = [tokenChain tokens];
 
-    v21 = [tokens countByEnumeratingWithState:&v53 objects:v64 count:16];
+    v21 = [tokens countByEnumeratingWithState:&v52 objects:v63 count:16];
     if (v21)
     {
-      v22 = *v54;
+      v22 = *v53;
 LABEL_16:
       v23 = 0;
       while (1)
       {
-        if (*v54 != v22)
+        if (*v53 != v22)
         {
           objc_enumerationMutation(tokens);
         }
 
-        if (([*(*(&v53 + 1) + 8 * v23) isWhitespace] & 1) == 0)
+        if (([*(*(&v52 + 1) + 8 * v23) isWhitespace] & 1) == 0)
         {
           break;
         }
 
         if (v21 == ++v23)
         {
-          v21 = [tokens countByEnumeratingWithState:&v53 objects:v64 count:16];
+          v21 = [tokens countByEnumeratingWithState:&v52 objects:v63 count:16];
           if (v21)
           {
             goto LABEL_16;
@@ -399,10 +386,10 @@ LABEL_16:
       v29 = selfCopy;
       objc_sync_enter(v29);
       parserRequest4 = [handleCopy parserRequest];
-      v52 = 0;
-      [(CDMSNLCProtoService *)v29 doInference:parserRequest4 error:&v52];
+      v51 = 0;
+      [(CDMSNLCProtoService *)v29 doInference:parserRequest4 error:&v51];
       v28 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-      v31 = v52;
+      v31 = v51;
 
       objc_sync_exit(v29);
       if (v28 == 0.0)
@@ -435,18 +422,18 @@ LABEL_16:
       {
         label = [v41 label];
         [v41 probability];
-        v50 = "Device";
+        v49 = "Device";
         if (!label)
         {
-          v50 = "Server";
+          v49 = "Server";
         }
 
         *buf = 136315650;
-        v59 = "[CDMSNLCProtoService handle:]";
-        v60 = 2080;
-        v61 = v50;
-        v62 = 2048;
-        v63 = v49;
+        v58 = "[CDMSNLCProtoService handle:]";
+        v59 = 2080;
+        v60 = v49;
+        v61 = 2048;
+        v62 = v48;
         _os_log_debug_impl(&dword_1DC287000, v42, OS_LOG_TYPE_DEBUG, "%s SNLC delegated this request to %s with probability %f", buf, 0x20u);
       }
     }
@@ -459,7 +446,7 @@ LABEL_22:
       if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v59 = "[CDMSNLCProtoService handle:]";
+        v58 = "[CDMSNLCProtoService handle:]";
         _os_log_impl(&dword_1DC287000, v24, OS_LOG_TYPE_INFO, "%s No non whitespace tokens found. Skipping call to SNLC model inference.", buf, 0xCu);
       }
 
@@ -468,7 +455,7 @@ LABEL_31:
       if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v59 = "[CDMSNLCProtoService handle:]";
+        v58 = "[CDMSNLCProtoService handle:]";
         _os_log_impl(&dword_1DC287000, v40, OS_LOG_TYPE_INFO, "%s Given that SNLC model call has been incomplete, returning the default SERVER response.", buf, 0xCu);
       }
 
@@ -483,18 +470,18 @@ LABEL_31:
     if (os_log_type_enabled(CDMLogContext, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315650;
-      v59 = "[CDMSNLCProtoService handle:]";
-      v60 = 2112;
-      v61 = @"snlc";
-      v62 = 2112;
-      v63 = v28;
+      v58 = "[CDMSNLCProtoService handle:]";
+      v59 = 2112;
+      v60 = @"snlc";
+      v61 = 2112;
+      v62 = v28;
       _os_log_debug_impl(&dword_1DC287000, v44, OS_LOG_TYPE_DEBUG, "%s [insights-cdm-%@]:\nSNLCParserResponse: %@", buf, 0x20u);
     }
 
     if (+[CDMFeatureFlags isLogNluEnabled])
     {
-      v51 = 0;
-      v45 = [CDMNluLogUtil writeSNLCResponseToDisk:*&v28 error:&v51];
+      v50 = 0;
+      v45 = [CDMNluLogUtil writeSNLCResponseToDisk:*&v28 error:&v50];
     }
 
     objc_sync_exit(selfCopy);
@@ -507,9 +494,9 @@ LABEL_31:
     {
       serviceState = self->super.super._serviceState;
       *buf = 136315394;
-      v59 = "[CDMSNLCProtoService handle:]";
-      v60 = 2048;
-      v61 = serviceState;
+      v58 = "[CDMSNLCProtoService handle:]";
+      v59 = 2048;
+      v60 = serviceState;
       _os_log_impl(&dword_1DC287000, v25, OS_LOG_TYPE_INFO, "%s Not Ready! State: %tu", buf, 0x16u);
     }
 
@@ -518,8 +505,6 @@ LABEL_31:
     v28 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
     [(CDMBaseCommand *)v27 setCmdError:*&v28];
   }
-
-  v46 = *MEMORY[0x1E69E9840];
 
   return v27;
 }

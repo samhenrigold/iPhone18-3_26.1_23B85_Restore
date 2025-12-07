@@ -431,7 +431,7 @@ void __56__UISceneSession_descriptionBuilderWithMultilinePrefix___block_invoke(u
   [v2 appendBodySectionWithName:0 multilinePrefix:v3 block:v6];
 }
 
-uint64_t __56__UISceneSession_descriptionBuilderWithMultilinePrefix___block_invoke_2(uint64_t a1)
+void *__56__UISceneSession_descriptionBuilderWithMultilinePrefix___block_invoke_2(uint64_t a1)
 {
   if (*(a1 + 48) == 1)
   {
@@ -483,7 +483,8 @@ uint64_t __56__UISceneSession_descriptionBuilderWithMultilinePrefix___block_invo
   }
 
   v5 = objc_opt_class();
-  if (![v5 isEqual:objc_opt_class()])
+  objc_opt_class();
+  if (!objc_msgSend_isEqual_(v5))
   {
     goto LABEL_7;
   }
@@ -498,21 +499,21 @@ uint64_t __56__UISceneSession_descriptionBuilderWithMultilinePrefix___block_invo
   if (persistentIdentifier == equalCopy->_persistentIdentifier)
   {
 LABEL_8:
-    v8 = 1;
+    isEqualToString = 1;
     goto LABEL_9;
   }
 
   if (!persistentIdentifier)
   {
 LABEL_7:
-    v8 = 0;
+    isEqualToString = 0;
     goto LABEL_9;
   }
 
-  v8 = [(NSString *)persistentIdentifier isEqualToString:?];
+  isEqualToString = objc_msgSend_isEqualToString_(persistentIdentifier);
 LABEL_9:
 
-  return v8;
+  return isEqualToString;
 }
 
 - (void)_setScene:(id)scene
@@ -555,12 +556,12 @@ LABEL_9:
 {
   v17 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
-  if (![(UISceneConfiguration *)self->_configuration isEqual:configurationCopy])
+  if ((objc_msgSend_isEqual_(self->_configuration) & 1) == 0)
   {
     role = [configurationCopy role];
-    v6 = [role isEqualToString:self->_role];
+    isEqualToString = objc_msgSend_isEqualToString_(role);
 
-    if (v6)
+    if (isEqualToString)
     {
 LABEL_3:
       v7 = [[UISceneConfiguration alloc] _initWithConfiguration:configurationCopy];

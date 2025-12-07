@@ -19,7 +19,7 @@
 - (NSArray)accounts
 {
   sub_100229334();
-  type metadata accessor for VoicemailAccount();
+  type metadata accessor for VoicemailAccount(0);
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v2.super.isa;
@@ -35,7 +35,7 @@
 
 - (_TtC13InCallService27VoicemailAccountManagerData)initWithAnyAccountSubscribed:(BOOL)subscribed online:(BOOL)online isMessageWaiting:(BOOL)waiting storageUsage:(unint64_t)usage transcriptionEnabled:(BOOL)enabled transcriptionProgress:(id)progress accounts:(id)accounts
 {
-  type metadata accessor for VoicemailAccount();
+  type metadata accessor for VoicemailAccount(0);
   v15 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   progressCopy = progress;
   return sub_1002293C8(subscribed, online, waiting, usage, enabled, progress, v15);

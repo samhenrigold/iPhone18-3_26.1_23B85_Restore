@@ -497,7 +497,7 @@ void __55__PXCompositeEditorialLayoutGenerator__prepareIfNeeded__block_invoke(ui
       v31 = CGRectOffset(*(*(*(*(a1 + 48) + 8) + 24) + v14), 0.0, *(*(*(a1 + 56) + 8) + 40));
       v16 = *(a1 + 32);
       v17 = v16[5] + v15;
-      [v16 _geometryFromFrame:a2 index:{v31.origin.x, v31.origin.y, v31.size.width, v31.size.height}];
+      objc_msgSend__geometryFromFrame_index_(v16, v31.origin.x, v31.origin.y, v31.size.width, v31.size.height);
       *v17 = v20;
       *(v17 + 16) = v21;
       *(v17 + 64) = v24;

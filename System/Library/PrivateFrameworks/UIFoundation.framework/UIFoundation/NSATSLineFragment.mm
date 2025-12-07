@@ -1,8 +1,8 @@
 @interface NSATSLineFragment
 - (double)resolveOpticalAlignmentUpdatingMinPosition:(double *)position maxPosition:;
-- (uint64_t)_copyRenderingContextWithGlyphOrigin:(uint64_t)result;
-- (uint64_t)resolvedLineBreakMode:(uint64_t)result;
+- (id)resolvedLineBreakMode:(id *)result;
 - (unint64_t)_charIndexToBreakLineByWordWrappingAtIndex:(char *)index lineFragmentWidth:(double)width hyphenate:;
+- (void)_copyRenderingContextWithGlyphOrigin:(void *)result;
 - (void)dealloc;
 - (void)finalize;
 - (void)getTypographicLineHeight:(int)height baselineOffset:(int)offset leading:(int)leading;
@@ -562,7 +562,7 @@ LABEL_13:
 
           else
           {
-            v28 = *(v17 + 112) + v135;
+            v28 = (*(v17 + 112) + v135);
           }
 
           v35 = (v22 + 2 * v23);
@@ -838,7 +838,7 @@ LABEL_144:
 
               v131 = v96;
               bzero(&v138[4 * v98 - 4], 4 * v95);
-              v93 = *v81 + v129;
+              v93 = (*v81 + v129);
               v11 = v97;
               glyphsCopy = v130;
               v12 = 0x1EAC99000;
@@ -1051,7 +1051,7 @@ LABEL_76:
                 }
 
                 bzero(&v138[4 * v78 - 4], 4 * v75);
-                v76 = *v27 + v133;
+                v76 = &v133[*v27];
                 glyphsCopy = v130;
               }
 
@@ -1363,9 +1363,10 @@ LABEL_24:
               if ((v145 & 0x200000) != 0)
               {
                 v148 = v144;
+                v310 = 0;
                 v311 = 0;
                 v149 = OUTLINED_FUNCTION_10_0(v135, v136, v137, v138, v139, v140, v141, v142, v192, v196, v200, v204, v208, v212, v216, v220, v224, v229, *&v233, v237, v241, v245, v249, v253, v257, v261, v265, v269, v273, *(&v273 + 1), v280, _bidiLevels, v288);
-                v157 = OUTLINED_FUNCTION_27(v149, v150, v151, v152, v153, v154, v155, v156, v195, v199, v203, v207, v211, v215, v219, v223, v227, v232, v236, v240, v244, v248, v252, v256, v260, v264, v268, v272, v276, v279, v283, v287, v291, v292, *(&v292 + 1), v293, v294, v295, v296, v297, v298, v299, v300, v301, v302, v303, v304, v305, v306, v307, v308, v309, 0);
+                v157 = OUTLINED_FUNCTION_27(v149, v150, v151, v152, v153, v154, v155, v156, v195, v199, v203, v207, v211, v215, v219, v223, v227, v232, v236, v240, v244, v248, v252, v256, v260, v264, v268, v272, v276, v279, v283, v287, v291, v292, *(&v292 + 1), v293, v294, v295, v296, v297, v298, v299, v300, v301, v302, v303, v304, v305, v306, v307, v308, v309);
                 v147 = v157;
                 if (v158 < 2 || (v159 = *(v73 - 4), (v159 & 0x20) != 0))
                 {
@@ -1534,9 +1535,10 @@ LABEL_112:
         goto LABEL_73;
       }
 
+      v310 = 0;
       v311 = 0;
       v97 = OUTLINED_FUNCTION_10_0(v83, v51, v52, v84, v85, v86, v87, v88, v192, v196, v200, v204, v208, v212, v216, v85, v224, v229, *&v233, v237, v241, v245, v249, v253, v257, v90, v265, v269, v273, *(&v273 + 1), v280, _bidiLevels, v288);
-      v105 = OUTLINED_FUNCTION_27(v97, v98, v99, v100, v101, v102, v103, v104, v193, v197, v201, v205, v209, v213, v217, v221, v225, v230, v234, v238, v242, v246, v250, v254, v258, v262, v266, v270, v274, v277, v281, v285, v289, v292, *(&v292 + 1), v293, v294, v295, v296, v297, v298, v299, v300, v301, v302, v303, v304, v305, v306, v307, v308, v309, 0);
+      v105 = OUTLINED_FUNCTION_27(v97, v98, v99, v100, v101, v102, v103, v104, v193, v197, v201, v205, v209, v213, v217, v221, v225, v230, v234, v238, v242, v246, v250, v254, v258, v262, v266, v270, v274, v277, v281, v285, v289, v292, *(&v292 + 1), v293, v294, v295, v296, v297, v298, v299, v300, v301, v302, v303, v304, v305, v306, v307, v308, v309);
       v111 = v105;
       if (v106 >= 2)
       {
@@ -1824,32 +1826,32 @@ LABEL_195:
   OUTLINED_FUNCTION_13();
 }
 
-- (uint64_t)_copyRenderingContextWithGlyphOrigin:(uint64_t)result
+- (void)_copyRenderingContextWithGlyphOrigin:(void *)result
 {
   if (result)
   {
     v3 = result;
     v4 = objc_allocWithZone(NSLineFragmentRenderingContext);
-    _textStorageForAttachmentProtocol = [*(v3 + 16) _textStorageForAttachmentProtocol];
-    v6 = CFGetTypeID(*(v3 + 8));
-    v7 = *(v3 + 8);
+    _textStorageForAttachmentProtocol = [*(v3 + 2) _textStorageForAttachmentProtocol];
+    v6 = CFGetTypeID(*(v3 + 1));
+    v7 = *(v3 + 1);
     if (v6 == qword_1ED4DF2E0)
     {
-      GlyphRuns = *(v3 + 8);
+      GlyphRuns = *(v3 + 1);
     }
 
     else
     {
       GlyphRuns = CTLineGetGlyphRuns(v7);
-      v7 = *(v3 + 8);
+      v7 = *(v3 + 1);
     }
 
     BoundsWithOptions = CTLineGetBoundsWithOptions(v7, 0);
-    v9 = *(v3 + 96) + BoundsWithOptions.size.width;
-    v10 = *(v3 + 80);
-    _usesScreenFonts = [*(v3 + 16) _usesScreenFonts];
-    v12 = [*(v3 + 16) _baseWritingDirection] == 1;
-    applicationFrameworkContext = [*(v3 + 16) applicationFrameworkContext];
+    v9 = *(v3 + 12) + BoundsWithOptions.size.width;
+    v10 = *(v3 + 10);
+    _usesScreenFonts = [*(v3 + 2) _usesScreenFonts];
+    v12 = [*(v3 + 2) _baseWritingDirection] == 1;
+    applicationFrameworkContext = [*(v3 + 2) applicationFrameworkContext];
 
     return [v4 initWithTextStorage:_textStorageForAttachmentProtocol runs:GlyphRuns glyphOrigin:_usesScreenFonts lineFragmentWidth:v12 elasticWidth:applicationFrameworkContext usesScreenFonts:a2 isRTL:v9 applicationFrameworkContext:v10];
   }
@@ -1893,7 +1895,7 @@ LABEL_195:
     [OUTLINED_FUNCTION_35() setParagraphRange:?];
     [*(selfCopy + 16) typesetterBehavior];
     [OUTLINED_FUNCTION_35() setTypesetterBehavior:?];
-    [paragraphArbitrator lineBreakContextBeforeIndex:a2 lineFragmentWidth:v9 range:{v69, width}];
+    objc_msgSend_lineBreakContextBeforeIndex_lineFragmentWidth_range_(paragraphArbitrator, width);
     [paragraphArbitrator resetBreaker];
     [paragraphArbitrator reset];
     *index = 0;
@@ -2109,7 +2111,7 @@ LABEL_57:
   [(NSATSLineFragment *)&v4 finalize];
 }
 
-- (uint64_t)resolvedLineBreakMode:(uint64_t)result
+- (id)resolvedLineBreakMode:(id *)result
 {
   if (!result)
   {
@@ -2117,7 +2119,7 @@ LABEL_57:
   }
 
   v3 = result;
-  _getATSTypesetterGuts = [*(result + 16) _getATSTypesetterGuts];
+  _getATSTypesetterGuts = [result[2] _getATSTypesetterGuts];
   if ((*(_getATSTypesetterGuts + 84) & 0x10) != 0)
   {
     if (!a2)
@@ -2125,15 +2127,15 @@ LABEL_57:
       return 0;
     }
 
-    return (*(*(_getATSTypesetterGuts + 40) + 216) >> 11) & 0xF;
+    return ((*(*(_getATSTypesetterGuts + 40) + 216) >> 11) & 0xF);
   }
 
   if (!a2)
   {
-    return (*(*(_getATSTypesetterGuts + 40) + 216) >> 11) & 0xF;
+    return ((*(*(_getATSTypesetterGuts + 40) + 216) >> 11) & 0xF);
   }
 
-  currentTextContainer = [*(v3 + 16) currentTextContainer];
+  currentTextContainer = [v3[2] currentTextContainer];
 
   return [currentTextContainer lineBreakMode];
 }

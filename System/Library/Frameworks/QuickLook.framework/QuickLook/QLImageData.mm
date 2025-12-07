@@ -56,30 +56,30 @@
   if (v6 >= 2)
   {
     [(QLImageData *)self size];
-    QLGetScaleForAnimatedImageWithSize();
-    v10 = v11;
+    QLGetScaleForAnimatedImageWithSize(v11, v12);
+    v10 = v13;
   }
 
   ImageAtIndex = CGImageSourceCreateImageAtIndex(self->_imageSource, index, 0);
   if (ImageAtIndex)
   {
-    v13 = ImageAtIndex;
-    v14 = [objc_alloc(MEMORY[0x277D755B8]) initWithCGImage:ImageAtIndex scale:orientation orientation:v10];
-    CFRelease(v13);
+    v15 = ImageAtIndex;
+    v16 = [objc_alloc(MEMORY[0x277D755B8]) initWithCGImage:ImageAtIndex scale:orientation orientation:v10];
+    CFRelease(v15);
   }
 
   else
   {
 LABEL_6:
-    v14 = 0;
+    v16 = 0;
   }
 
-  return v14;
+  return v16;
 }
 
 - (id)durations
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = [(QLImageData *)self count];
   if (!v3)
   {
@@ -117,8 +117,8 @@ LABEL_6:
   {
     if (![v8 conformsToType:*MEMORY[0x277CE1EE0]])
     {
-      v26 = [MEMORY[0x277CE1CB8] typeWithIdentifier:@"public.heics"];
-      if (v26 && [v8 conformsToType:v26])
+      v25 = [MEMORY[0x277CE1CB8] typeWithIdentifier:@"public.heics"];
+      if (v25 && [v8 conformsToType:v25])
       {
         v10 = *MEMORY[0x277CD3340];
       }
@@ -142,28 +142,28 @@ LABEL_14:
 
   if (v13)
   {
-    v27 = v10;
-    v28 = v8;
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
+    v26 = v10;
+    v27 = v8;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v14 = v13;
-    v15 = [v14 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v30;
+      v17 = *v29;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v30 != v17)
+          if (*v29 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = [*(*(&v29 + 1) + 8 * i) objectForKeyedSubscript:{@"DelayTime", v27, v28, v29}];
+          v19 = [*(*(&v28 + 1) + 8 * i) objectForKeyedSubscript:{@"DelayTime", v26, v27, v28}];
           [v19 doubleValue];
           v21 = v20;
 
@@ -181,15 +181,15 @@ LABEL_14:
           [v5 addObject:v23];
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v16);
     }
 
     v4 = v5;
-    v10 = v27;
-    v8 = v28;
+    v10 = v26;
+    v8 = v27;
   }
 
   else
@@ -198,7 +198,6 @@ LABEL_14:
   }
 
 LABEL_28:
-  v24 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

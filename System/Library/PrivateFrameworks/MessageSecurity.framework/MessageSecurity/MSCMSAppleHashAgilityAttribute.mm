@@ -9,9 +9,9 @@
 - (MSCMSAppleHashAgilityAttribute)initWithAttribute:(id)attribute error:(id *)error
 {
   attributeCopy = attribute;
-  v20.receiver = self;
-  v20.super_class = MSCMSAppleHashAgilityAttribute;
-  v7 = [(MSCMSAppleHashAgilityAttribute *)&v20 init];
+  v22.receiver = self;
+  v22.super_class = MSCMSAppleHashAgilityAttribute;
+  v7 = [(MSCMSAppleHashAgilityAttribute *)&v22 init];
   attributeValues = [attributeCopy attributeValues];
   v9 = [attributeValues count];
 
@@ -31,9 +31,11 @@ LABEL_8:
     goto LABEL_13;
   }
 
+  v20 = 0;
+  v21 = 0;
   attributeValues2 = [attributeCopy attributeValues];
   v11 = [attributeValues2 objectAtIndex:0];
-  v12 = nsheim_decode_AppleHashAgilityValue(v11);
+  v12 = nsheim_decode_AppleHashAgilityValue(v11, &v20);
 
   if (v12)
   {
@@ -52,10 +54,10 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v18 = [MEMORY[0x277CBEA90] dataWithBytes:0 length:0];
+  v18 = [MEMORY[0x277CBEA90] dataWithBytes:v21 length:v20];
   if (v18)
   {
-    free_AppleHashAgilityValue();
+    free_AppleHashAgilityValue(&v20);
     v7 = [(MSCMSAppleHashAgilityAttribute *)v7 initWithHashAgilityValue:v18];
     v17 = v7;
   }
@@ -86,11 +88,11 @@ LABEL_13:
 
 - (id)encodeAttributeWithError:(id *)error
 {
-  v24[1] = *MEMORY[0x277D85DE8];
-  v22[0] = [(NSData *)self->_hashAgilityValue length];
-  v22[1] = [(NSData *)self->_hashAgilityValue bytes];
-  v21 = 0;
-  v5 = length_AppleHashAgilityValue(v22);
+  v23[1] = *MEMORY[0x277D85DE8];
+  v21[0] = [(NSData *)self->_hashAgilityValue length];
+  v21[1] = [(NSData *)self->_hashAgilityValue bytes];
+  v20 = 0;
+  v5 = length_AppleHashAgilityValue(v21);
   v6 = [MEMORY[0x277CBEB28] dataWithLength:v5];
   if (!v6)
   {
@@ -104,7 +106,7 @@ LABEL_13:
   }
 
   v7 = v6;
-  v8 = encode_AppleHashAgilityValue([v6 mutableBytes] + v5 - 1, v5, v22, &v21);
+  v8 = encode_AppleHashAgilityValue([v6 mutableBytes] + v5 - 1, v5, v21, &v20);
   if (v8)
   {
     v9 = v8;
@@ -119,18 +121,18 @@ LABEL_5:
 
 LABEL_4:
     v11 = MEMORY[0x277CCA9B8];
-    v23 = *MEMORY[0x277CCA450];
-    v24[0] = @"Failed encoding type AppleHashAgilityValue";
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:{1, v21}];
+    v22 = *MEMORY[0x277CCA450];
+    v23[0] = @"Failed encoding type AppleHashAgilityValue";
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:{1, v20}];
     *error = [v11 errorWithDomain:@"com.apple.HeimASN1" code:v10 userInfo:v12];
 
     goto LABEL_5;
   }
 
-  if (v5 != v21)
+  if (v5 != v20)
   {
-    v19 = asn1_abort();
-    return [(MSCMSAppleHashAgilityV2Attribute *)v19 attributeType];
+    v18 = asn1_abort();
+    return [(MSCMSAppleHashAgilityV2Attribute *)v18 attributeType];
   }
 
 LABEL_9:
@@ -146,8 +148,6 @@ LABEL_9:
   {
     v16 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

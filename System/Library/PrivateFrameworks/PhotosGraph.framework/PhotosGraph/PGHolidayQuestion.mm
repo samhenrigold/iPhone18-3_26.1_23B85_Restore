@@ -6,13 +6,13 @@
 
 - (PGHolidayQuestion)initWithAssetUUID:(id)d holidayName:(id)name localizedHolidayName:(id)holidayName localFactoryScore:(double)score
 {
-  v24[2] = *MEMORY[0x277D85DE8];
+  v23[2] = *MEMORY[0x277D85DE8];
   dCopy = d;
   nameCopy = name;
   holidayNameCopy = holidayName;
-  v22.receiver = self;
-  v22.super_class = PGHolidayQuestion;
-  v14 = [(PGHolidayQuestion *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = PGHolidayQuestion;
+  v14 = [(PGHolidayQuestion *)&v21 init];
   v15 = v14;
   if (v14)
   {
@@ -31,18 +31,17 @@
 
     v17 = v16;
 
-    v23[0] = *MEMORY[0x277D3C940];
-    v23[1] = @"localizedHolidayName";
-    v24[0] = nameCopy;
-    v24[1] = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
+    v22[0] = *MEMORY[0x277D3C940];
+    v22[1] = @"localizedHolidayName";
+    v23[0] = nameCopy;
+    v23[1] = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
     additionalInfo = v15->_additionalInfo;
     v15->_additionalInfo = v18;
 
     holidayNameCopy = v17;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v15;
 }
 

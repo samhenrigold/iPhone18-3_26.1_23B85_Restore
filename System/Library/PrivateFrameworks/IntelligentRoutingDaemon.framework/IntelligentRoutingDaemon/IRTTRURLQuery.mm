@@ -36,7 +36,7 @@
 
 - (id)build
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   uRLQueryAllowedCharacterSet = [MEMORY[0x277CCA900] URLQueryAllowedCharacterSet];
   v4 = [@"tap-to-radar://new" mutableCopy];
   v5 = [(NSString *)self->_title stringByAddingPercentEncodingWithAllowedCharacters:uRLQueryAllowedCharacterSet];
@@ -72,13 +72,11 @@
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v21 = v4;
+    v20 = v4;
     _os_log_impl(&dword_25543D000, v16, OS_LOG_TYPE_INFO, "#ttr, URL: %@", buf, 0xCu);
   }
 
   v17 = [MEMORY[0x277CBEBC0] URLWithString:v4];
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

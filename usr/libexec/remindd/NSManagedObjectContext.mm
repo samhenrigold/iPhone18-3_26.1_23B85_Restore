@@ -31,7 +31,7 @@ LABEL_17:
           goto LABEL_18;
         }
 
-        v10 = +[REMLog cloudkit];
+        v10 = objc_msgSend_cloudkit(REMLog);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
@@ -44,7 +44,7 @@ LABEL_17:
 
       if (v8)
       {
-        v10 = +[REMLog cloudkit];
+        v10 = objc_msgSend_cloudkit(REMLog);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           sub_10076DE64(v9, v6, v10);
@@ -62,7 +62,7 @@ LABEL_16:
       goto LABEL_17;
     }
 
-    v9 = +[REMLog cloudkit];
+    v9 = objc_msgSend_cloudkit(REMLog);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_10076DEEC(v6, v9);
@@ -108,12 +108,14 @@ LABEL_18:
   sub_1000060C8(0, &qword_100943230, NSManagedObjectID_ptr);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  sub_1005B0420(v4);
+  v6 = sub_1005B0420(v4);
 
+  v4, v7, v8, v9, v10, v11, v12, v13;
   sub_1000F5104(&qword_100937028, &qword_100791C10);
-  v6.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
+  v14.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
+  v6, v15, v16, v17, v18, v19, v20, v21;
 
-  return v6.super.isa;
+  return v14.super.isa;
 }
 
 - (id)rootEntityNameWithEntityName:(id)name
@@ -124,17 +126,19 @@ LABEL_18:
   sub_1005B0C78(v4, v6);
   v9 = v8;
 
+  v6, v10, v11, v12, v13, v14, v15, v16;
   if (v9)
   {
-    v10 = String._bridgeToObjectiveC()();
+    v17 = String._bridgeToObjectiveC()();
+    v9, v18, v19, v20, v21, v22, v23, v24;
   }
 
   else
   {
-    v10 = 0;
+    v17 = 0;
   }
 
-  return v10;
+  return v17;
 }
 
 @end

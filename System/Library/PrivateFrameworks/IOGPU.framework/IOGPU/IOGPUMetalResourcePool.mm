@@ -1,5 +1,6 @@
 @interface IOGPUMetalResourcePool
 - (BOOL)updateResourcePurgeability;
+- (IOGPUMetalResourcePool)initWithDevice:(id)device resourceClass:(Class)class resourceArgs:(const IOGPUNewResourceArgs *)args resourceArgsSize:(unsigned int)size options:(id)options;
 - (unint64_t)allocatedSize;
 - (void)dealloc;
 - (void)purge;
@@ -75,6 +76,46 @@
     os_unfair_lock_unlock(&self->_priv.lock);
     return 0;
   }
+}
+
+- (IOGPUMetalResourcePool)initWithDevice:(id)device resourceClass:(Class)class resourceArgs:(const IOGPUNewResourceArgs *)args resourceArgsSize:(unsigned int)size options:(id)options
+{
+  v16.receiver = self;
+  v16.super_class = IOGPUMetalResourcePool;
+  v11 = [(IOGPUMetalResourcePool *)&v16 init:device];
+  v12 = v11;
+  if (v11)
+  {
+    v11->_priv.volatileQueue.tqh_first = 0;
+    v11->_priv.nonvolatileQueue.tqh_first = 0;
+    v11->_priv.volatileQueue.tqh_last = &v11->_priv.volatileQueue.tqh_first;
+    v11->_priv.nonvolatileQueue.tqh_last = &v11->_priv.nonvolatileQueue.tqh_first;
+    *&v11->_priv.lock._os_unfair_lock_opaque = 0;
+    v11->_resourceClass = class;
+    v11->_device = device;
+    if (([(objc_class *)class isSubclassOfClass:objc_opt_class()]& 1) == 0)
+    {
+      [IOGPUMetalResourcePool initWithDevice:resourceClass:resourceArgs:resourceArgsSize:options:];
+    }
+
+    if (size <= 0x57)
+    {
+      [IOGPUMetalResourcePool initWithDevice:resourceClass:resourceArgs:resourceArgsSize:options:];
+    }
+
+    v12->_resourceArgsSize = size;
+    v13 = malloc_type_malloc(size, 0x1000040931E79F6uLL);
+    v12->_resourceArgs = v13;
+    memcpy(v13, args, v12->_resourceArgsSize);
+    v12->_resourceArgs->var0.var10 |= 0x4000u;
+    info = 0;
+    mach_timebase_info(&info);
+    v12->age_to_purge = 1000000000 * info.denom / info.numer;
+    v12->generation = 0;
+    v12->_allocatedSize = 0;
+  }
+
+  return v12;
 }
 
 - (void)setResourceArgs:(const IOGPUNewResourceArgs *)args resourceArgsSize:(unsigned int)size

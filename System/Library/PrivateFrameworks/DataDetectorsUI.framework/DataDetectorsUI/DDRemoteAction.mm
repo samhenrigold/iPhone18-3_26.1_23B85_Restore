@@ -3,6 +3,7 @@
 - (id)createMenuHeaderView;
 - (id)createViewController;
 - (id)previewActions;
+- (void)setPreviewMode:(BOOL)mode;
 @end
 
 @implementation DDRemoteAction
@@ -22,6 +23,16 @@
   }
 
   return v4;
+}
+
+- (void)setPreviewMode:(BOOL)mode
+{
+  modeCopy = mode;
+  v6.receiver = self;
+  v6.super_class = DDRemoteAction;
+  [(DDPreviewAction *)&v6 setPreviewMode:?];
+  viewController = [(DDPreviewAction *)self viewController];
+  [viewController setPreviewMode:modeCopy];
 }
 
 + (id)viewControllerProviderClass

@@ -1,8 +1,25 @@
 @interface AWDMETRICSKCellularAcmSleepStatsAcmCaSleepLevels
 - (BOOL)isEqual:(id)equal;
+- (id)axibrAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)deploymentAsString:(int)string;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)dmdc0AsString:(int)string;
+- (id)dmdc1AsString:(int)string;
+- (id)dmdc2AsString:(int)string;
+- (id)galaAsString:(int)string;
+- (id)mcgDlCcActivatedAsString:(int)string;
+- (id)mcgDlCcConfiguredAsString:(int)string;
+- (id)mcgUlCcActivatedAsString:(int)string;
+- (id)mcgUlCcConfiguredAsString:(int)string;
+- (id)rflcAsString:(int)string;
+- (id)scgDlCcActivatedAsString:(int)string;
+- (id)scgDlCcConfiguredAsString:(int)string;
+- (id)scgUlCcActivatedAsString:(int)string;
+- (id)scgUlCcConfiguredAsString:(int)string;
+- (id)tdpAsString:(int)string;
+- (id)uplinkAsString:(int)string;
 - (int)StringAsAxibr:(id)axibr;
 - (int)StringAsDeployment:(id)deployment;
 - (int)StringAsDmdc0:(id)dmdc0;
@@ -92,6 +109,29 @@
   self->_has = (*&self->_has & 0xFFFBFFFF | v3);
 }
 
+- (id)tdpAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"ACTIVE";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"IDLE";
+  }
+
+  return v4;
+}
+
 - (int)StringAsTdp:(id)tdp
 {
   tdpCopy = tdp;
@@ -134,6 +174,29 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFFB | v3);
+}
+
+- (id)dmdc0AsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"ACTIVE";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"IDLE";
+  }
+
+  return v4;
 }
 
 - (int)StringAsDmdc0:(id)dmdc0
@@ -180,6 +243,29 @@
   self->_has = (*&self->_has & 0xFFFFFFF7 | v3);
 }
 
+- (id)dmdc1AsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"ACTIVE";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"IDLE";
+  }
+
+  return v4;
+}
+
 - (int)StringAsDmdc1:(id)dmdc1
 {
   dmdc1Copy = dmdc1;
@@ -222,6 +308,29 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFEF | v3);
+}
+
+- (id)dmdc2AsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"ACTIVE";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"IDLE";
+  }
+
+  return v4;
 }
 
 - (int)StringAsDmdc2:(id)dmdc2
@@ -268,6 +377,29 @@
   self->_has = (*&self->_has & 0xFFFFFFBF | v3);
 }
 
+- (id)galaAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"ACTIVE";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"IDLE";
+  }
+
+  return v4;
+}
+
 - (int)StringAsGala:(id)gala
 {
   galaCopy = gala;
@@ -312,6 +444,29 @@
   self->_has = (*&self->_has & 0xFFF7FFFF | v3);
 }
 
+- (id)uplinkAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"ACTIVE";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"IDLE";
+  }
+
+  return v4;
+}
+
 - (int)StringAsUplink:(id)uplink
 {
   uplinkCopy = uplink;
@@ -339,6 +494,29 @@
   {
     return 0;
   }
+}
+
+- (id)axibrAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"ACTIVE";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"IDLE";
+  }
+
+  return v4;
 }
 
 - (int)StringAsAxibr:(id)axibr
@@ -383,6 +561,29 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFEFFF | v3);
+}
+
+- (id)rflcAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"ACTIVE";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"IDLE";
+  }
+
+  return v4;
 }
 
 - (int)StringAsRflc:(id)rflc
@@ -442,6 +643,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFDFF | v3);
+}
+
+- (id)mcgDlCcConfiguredAsString:(int)string
+{
+  if (string >= 9)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825D1B0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsMcgDlCcConfigured:(id)configured
@@ -528,6 +744,21 @@
   self->_has = (*&self->_has & 0xFFFFFEFF | v3);
 }
 
+- (id)mcgDlCcActivatedAsString:(int)string
+{
+  if (string >= 9)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825D1B0[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsMcgDlCcActivated:(id)activated
 {
   activatedCopy = activated;
@@ -612,6 +843,21 @@
   self->_has = (*&self->_has & 0xFFFFF7FF | v3);
 }
 
+- (id)mcgUlCcConfiguredAsString:(int)string
+{
+  if (string >= 9)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825D1B0[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsMcgUlCcConfigured:(id)configured
 {
   configuredCopy = configured;
@@ -694,6 +940,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFBFF | v3);
+}
+
+- (id)mcgUlCcActivatedAsString:(int)string
+{
+  if (string >= 9)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825D1B0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsMcgUlCcActivated:(id)activated
@@ -795,6 +1056,21 @@
   self->_has = (*&self->_has & 0xFFFF7FFF | v3);
 }
 
+- (id)scgDlCcConfiguredAsString:(int)string
+{
+  if (string >= 9)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825D1B0[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsScgDlCcConfigured:(id)configured
 {
   configuredCopy = configured;
@@ -877,6 +1153,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFBFFF | v3);
+}
+
+- (id)scgDlCcActivatedAsString:(int)string
+{
+  if (string >= 9)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825D1B0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsScgDlCcActivated:(id)activated
@@ -963,6 +1254,21 @@
   self->_has = (*&self->_has & 0xFFFDFFFF | v3);
 }
 
+- (id)scgUlCcConfiguredAsString:(int)string
+{
+  if (string >= 9)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825D1B0[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsScgUlCcConfigured:(id)configured
 {
   configuredCopy = configured;
@@ -1045,6 +1351,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFEFFFF | v3);
+}
+
+- (id)scgUlCcActivatedAsString:(int)string
+{
+  if (string >= 9)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825D1B0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsScgUlCcActivated:(id)activated
@@ -1144,6 +1465,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFFD | v3);
+}
+
+- (id)deploymentAsString:(int)string
+{
+  if (string >= 9)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27825D1F8[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsDeployment:(id)deployment
@@ -1760,7 +2096,6 @@ LABEL_110:
   has = self->_has;
   if ((*&has & 0x40000) != 0)
   {
-    tdp = self->_tdp;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((*&has & 4) == 0)
@@ -1780,7 +2115,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  dmdc0 = self->_dmdc0;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -1795,7 +2129,6 @@ LABEL_4:
   }
 
 LABEL_27:
-  dmdc1 = self->_dmdc1;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -1810,7 +2143,6 @@ LABEL_5:
   }
 
 LABEL_28:
-  dmdc2 = self->_dmdc2;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -1825,7 +2157,6 @@ LABEL_6:
   }
 
 LABEL_29:
-  gala = self->_gala;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x80000) == 0)
@@ -1840,7 +2171,6 @@ LABEL_7:
   }
 
 LABEL_30:
-  uplink = self->_uplink;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 1) == 0)
@@ -1855,7 +2185,6 @@ LABEL_8:
   }
 
 LABEL_31:
-  axibr = self->_axibr;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -1870,7 +2199,6 @@ LABEL_9:
   }
 
 LABEL_32:
-  rflc = self->_rflc;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -1885,7 +2213,6 @@ LABEL_10:
   }
 
 LABEL_33:
-  mcgAggregatedBw = self->_mcgAggregatedBw;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -1900,7 +2227,6 @@ LABEL_11:
   }
 
 LABEL_34:
-  mcgDlCcConfigured = self->_mcgDlCcConfigured;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -1915,7 +2241,6 @@ LABEL_12:
   }
 
 LABEL_35:
-  mcgDlCcActivated = self->_mcgDlCcActivated;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -1930,7 +2255,6 @@ LABEL_13:
   }
 
 LABEL_36:
-  mcgUlCcConfigured = self->_mcgUlCcConfigured;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -1945,7 +2269,6 @@ LABEL_14:
   }
 
 LABEL_37:
-  mcgUlCcActivated = self->_mcgUlCcActivated;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -1960,7 +2283,6 @@ LABEL_15:
   }
 
 LABEL_38:
-  scgAggregatedBw = self->_scgAggregatedBw;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -1975,7 +2297,6 @@ LABEL_16:
   }
 
 LABEL_39:
-  scgDlCcConfigured = self->_scgDlCcConfigured;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -1990,7 +2311,6 @@ LABEL_17:
   }
 
 LABEL_40:
-  scgDlCcActivated = self->_scgDlCcActivated;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -2005,7 +2325,6 @@ LABEL_18:
   }
 
 LABEL_41:
-  scgUlCcConfigured = self->_scgUlCcConfigured;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -2020,7 +2339,6 @@ LABEL_19:
   }
 
 LABEL_42:
-  scgUlCcActivated = self->_scgUlCcActivated;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -2035,12 +2353,10 @@ LABEL_20:
   }
 
 LABEL_43:
-  durationMs = self->_durationMs;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_21:
-    deployment = self->_deployment;
     PBDataWriterWriteInt32Field();
   }
 

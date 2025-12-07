@@ -8,23 +8,21 @@
 
 - (id)externalID:()HMB
 {
-  v15[3] = *MEMORY[0x277D85DE8];
-  v14[0] = @"r";
+  v14[3] = *MEMORY[0x277D85DE8];
+  v13[0] = @"r";
   recordName = [self recordName];
-  v15[0] = recordName;
-  v14[1] = @"z";
+  v14[0] = recordName;
+  v13[1] = @"z";
   zoneID = [self zoneID];
   zoneName = [zoneID zoneName];
-  v15[1] = zoneName;
-  v14[2] = @"u";
+  v14[1] = zoneName;
+  v13[2] = @"u";
   zoneID2 = [self zoneID];
   ownerName = [zoneID2 ownerName];
-  v15[2] = ownerName;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
+  v14[2] = ownerName;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
 
   v11 = [v10 hmbOPACKDataFromDictionaryWithError:a3];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -39,7 +37,7 @@
 
 + (id)recordIDFromExternalID:()HMB error:
 {
-  v5 = [MEMORY[0x277CBEAC0] hmbDictionaryFromOPACKData:? error:?];
+  v5 = [MEMORY[0x277CBEAC0] hmbDictionaryFromOPACKData:a3 error:?];
   v6 = v5;
   if (v5)
   {

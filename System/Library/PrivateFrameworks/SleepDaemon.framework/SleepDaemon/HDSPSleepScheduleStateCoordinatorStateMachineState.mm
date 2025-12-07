@@ -104,7 +104,7 @@ void __74__HDSPSleepScheduleStateCoordinatorStateMachineState_updateStateForcibl
 
 - (BOOL)isSleepScheduleDisabled
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   stateMachine = [(HKSPStateMachineState *)self stateMachine];
   infoProvider = [stateMachine infoProvider];
   if (![infoProvider isAppleWatch] || (objc_msgSend(infoProvider, "sleepFeaturesEnabled") & 1) != 0)
@@ -125,9 +125,9 @@ LABEL_15:
       v8 = HKSPLogForCategory();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 138543362;
-        v15 = objc_opt_class();
-        v9 = v15;
+        v13 = 138543362;
+        v14 = objc_opt_class();
+        v9 = v14;
         v10 = "[%{public}@] sleep schedule is disabled";
         goto LABEL_13;
       }
@@ -138,12 +138,12 @@ LABEL_15:
       v8 = HKSPLogForCategory();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 138543362;
-        v15 = objc_opt_class();
-        v9 = v15;
+        v13 = 138543362;
+        v14 = objc_opt_class();
+        v9 = v14;
         v10 = "[%{public}@] sleep schedule is nil";
 LABEL_13:
-        _os_log_impl(&dword_269B11000, v8, OS_LOG_TYPE_DEFAULT, v10, &v14, 0xCu);
+        _os_log_impl(&dword_269B11000, v8, OS_LOG_TYPE_DEFAULT, v10, &v13, 0xCu);
       }
     }
 
@@ -154,16 +154,15 @@ LABEL_13:
   sleepScheduleModel = HKSPLogForCategory();
   if (os_log_type_enabled(sleepScheduleModel, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138543362;
-    v15 = objc_opt_class();
-    v11 = v15;
-    _os_log_impl(&dword_269B11000, sleepScheduleModel, OS_LOG_TYPE_DEFAULT, "[%{public}@] sleep features disabled for this watch", &v14, 0xCu);
+    v13 = 138543362;
+    v14 = objc_opt_class();
+    v11 = v14;
+    _os_log_impl(&dword_269B11000, sleepScheduleModel, OS_LOG_TYPE_DEFAULT, "[%{public}@] sleep features disabled for this watch", &v13, 0xCu);
   }
 
   v7 = 1;
 LABEL_16:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -195,7 +194,7 @@ LABEL_16:
 
 - (id)_determineNextStateFromTimeline
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   stateMachine = [(HKSPStateMachineState *)self stateMachine];
   infoProvider = [stateMachine infoProvider];
   currentDate = [infoProvider currentDate];
@@ -210,10 +209,10 @@ LABEL_16:
     v10 = HKSPLogForCategory();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 138543362;
-      v23 = objc_opt_class();
-      v11 = v23;
-      _os_log_impl(&dword_269B11000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] currently in a wind down session", &v22, 0xCu);
+      v21 = 138543362;
+      v22 = objc_opt_class();
+      v11 = v22;
+      _os_log_impl(&dword_269B11000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] currently in a wind down session", &v21, 0xCu);
     }
 
     windDownState = [stateMachine windDownState];
@@ -230,10 +229,10 @@ LABEL_16:
     {
       if (v16)
       {
-        v22 = 138543362;
-        v23 = objc_opt_class();
-        v17 = v23;
-        _os_log_impl(&dword_269B11000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}@] currently in a bedtime session", &v22, 0xCu);
+        v21 = 138543362;
+        v22 = objc_opt_class();
+        v17 = v22;
+        _os_log_impl(&dword_269B11000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}@] currently in a bedtime session", &v21, 0xCu);
       }
 
       windDownState = [stateMachine bedtimeState];
@@ -243,10 +242,10 @@ LABEL_16:
     {
       if (v16)
       {
-        v22 = 138543362;
-        v23 = objc_opt_class();
-        v18 = v23;
-        _os_log_impl(&dword_269B11000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}@] not in a session, must be awake", &v22, 0xCu);
+        v21 = 138543362;
+        v22 = objc_opt_class();
+        v18 = v22;
+        _os_log_impl(&dword_269B11000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}@] not in a session, must be awake", &v21, 0xCu);
       }
 
       windDownState = [stateMachine wakeUpState];
@@ -255,30 +254,10 @@ LABEL_16:
 
   v19 = windDownState;
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 - (void)significantTimeChange
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = HKSPLogForCategory();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
-  {
-    v7 = 138543362;
-    v8 = objc_opt_class();
-    v4 = v8;
-    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] significant time change occurred", &v7, 0xCu);
-  }
-
-  stateMachine = [(HKSPStateMachineState *)self stateMachine];
-  [stateMachine updateState];
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)timeZoneChange
 {
   v8 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory();
@@ -287,16 +266,31 @@ LABEL_16:
     v6 = 138543362;
     v7 = objc_opt_class();
     v4 = v7;
-    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] timezone change occurred", &v6, 0xCu);
+    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] significant time change occurred", &v6, 0xCu);
+  }
+
+  stateMachine = [(HKSPStateMachineState *)self stateMachine];
+  [stateMachine updateState];
+}
+
+- (void)timeZoneChange
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = HKSPLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = 138543362;
+    v6 = objc_opt_class();
+    v4 = v6;
+    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] timezone change occurred", &v5, 0xCu);
   }
 
   [(HDSPSleepScheduleStateCoordinatorStateMachineState *)self _forceUpdateStateWithChangeReason:6];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scheduleModelChanged:(id)changed
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   isSignificantChange = [changed isSignificantChange];
   v5 = HKSPLogForCategory();
   v6 = v5;
@@ -304,10 +298,10 @@ LABEL_16:
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543362;
-      v12 = objc_opt_class();
-      v7 = v12;
-      _os_log_impl(&dword_269B11000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] significant schedule change occurred", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = objc_opt_class();
+      v7 = v11;
+      _os_log_impl(&dword_269B11000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] significant schedule change occurred", &v10, 0xCu);
     }
 
     [(HDSPSleepScheduleStateCoordinatorStateMachineState *)self significantScheduleChangeOccurred:6];
@@ -317,17 +311,15 @@ LABEL_16:
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v11 = 138543362;
-      v12 = objc_opt_class();
-      v8 = v12;
-      _os_log_impl(&dword_269B11000, v6, OS_LOG_TYPE_INFO, "[%{public}@] schedule change not significant", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = objc_opt_class();
+      v8 = v11;
+      _os_log_impl(&dword_269B11000, v6, OS_LOG_TYPE_INFO, "[%{public}@] schedule change not significant", &v10, 0xCu);
     }
 
     stateMachine = [(HKSPStateMachineState *)self stateMachine];
     [stateMachine updateState];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

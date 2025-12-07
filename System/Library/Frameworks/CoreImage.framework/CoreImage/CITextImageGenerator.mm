@@ -66,16 +66,17 @@
 
 - (id)outputImage
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   if (self->inputText)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v15 = ci_logger_api();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v17 = ci_logger_api(isKindOfClass, v4);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        [(CITextImageGenerator *)v15 outputImage];
+        [(CITextImageGenerator *)v17 outputImage];
       }
 
       return 0;
@@ -95,30 +96,30 @@
   }
 
   [(NSNumber *)self->inputScaleFactor floatValue];
-  if (v4 <= 0.0)
+  if (v6 <= 0.0)
   {
     return 0;
   }
 
-  v5 = v4;
-  [(NSNumber *)self->inputPadding floatValue];
   v7 = v6;
+  [(NSNumber *)self->inputPadding floatValue];
+  v9 = v8;
   inputFontName = self->inputFontName;
   [(NSNumber *)self->inputFontSize floatValue];
-  v10 = CTFontCreateWithName(inputFontName, v9, 0);
-  v19 = *MEMORY[0x1E6965658];
-  v20[0] = v10;
-  v11 = CFAttributedStringCreate(0, self->inputText, [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1]);
-  v17[0] = @"kCIImageTextScaleFactor";
-  *&v12 = v5;
-  v17[1] = @"kCIImageTextPadding";
-  v18[0] = [MEMORY[0x1E696AD98] numberWithFloat:v12];
-  LODWORD(v13) = v7;
-  v18[1] = [MEMORY[0x1E696AD98] numberWithFloat:v13];
-  v14 = +[CIImage imageWithAttributedString:format:options:](CIImage, "imageWithAttributedString:format:options:", v11, 260, [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2]);
-  CFRelease(v11);
-  CFRelease(v10);
-  return v14;
+  v12 = CTFontCreateWithName(inputFontName, v11, 0);
+  v21 = *MEMORY[0x1E6965658];
+  v22[0] = v12;
+  v13 = CFAttributedStringCreate(0, self->inputText, [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1]);
+  v19[0] = @"kCIImageTextScaleFactor";
+  *&v14 = v7;
+  v19[1] = @"kCIImageTextPadding";
+  v20[0] = [MEMORY[0x1E696AD98] numberWithFloat:v14];
+  LODWORD(v15) = v9;
+  v20[1] = [MEMORY[0x1E696AD98] numberWithFloat:v15];
+  v16 = +[CIImage imageWithAttributedString:format:options:](CIImage, "imageWithAttributedString:format:options:", v13, 260, [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2]);
+  CFRelease(v13);
+  CFRelease(v12);
+  return v16;
 }
 
 - (void)outputImage

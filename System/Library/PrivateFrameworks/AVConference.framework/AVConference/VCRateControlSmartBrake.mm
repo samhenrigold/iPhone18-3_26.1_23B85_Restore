@@ -203,7 +203,7 @@ LABEL_27:
   v8 = [(VCRateControlSmartBrake *)self setupNetAndConfigFromPath:v7];
   if (!v8)
   {
-    LOBYTE(v9) = [objc_msgSend(objc_msgSend(objc_msgSend(v6 levelForFactor:@"smartBrakeModel" withNamespaceName:{@"AVCONFERENCE_NETWORK_SMART_BRAKE", "metadata"), "valueForKey:", @"version", "intValue"}];
+    LOBYTE(v9) = [objc_msgSend(objc_msgSend_metadata(objc_msgSend(v6 levelForFactor:@"smartBrakeModel" withNamespaceName:{@"AVCONFERENCE_NETWORK_SMART_BRAKE", "valueForKey:", @"version", "intValue"}];
     goto LABEL_39;
   }
 
@@ -699,7 +699,7 @@ LABEL_19:
   v3 = v2 + 216;
   v4 = v2 + 176;
   OUTLINED_FUNCTION_12_13();
-  v11 = _VCRateControlSmartBrake_BindEspressoBuffer(v5, v6, v7, v8, v9, v10);
+  v11 = _VCRateControlSmartBrake_BindEspressoBuffer(v5, v6, v7, v8, v9, v10, 0x10000);
   if (!v11)
   {
     v11 = OUTLINED_FUNCTION_6_37(v11, v3 + 168, "bitrate", v18, v12, v4 + 4);
@@ -730,13 +730,13 @@ LABEL_19:
   v4 = v3 + 1224;
   v5 = v3 + 200;
   OUTLINED_FUNCTION_12_13();
-  result = _VCRateControlSmartBrake_BindEspressoBuffer(v6, v7, v8, v9, v10, v11);
+  result = _VCRateControlSmartBrake_BindEspressoBuffer(v6, v7, v8, v9, v10, v11, 0x20000);
   if (!result)
   {
-    result = _VCRateControlSmartBrake_BindEspressoBuffer(self, v4 + 168, "bandwidth", v13, 2, v5 + 4);
+    result = _VCRateControlSmartBrake_BindEspressoBuffer(self, v4 + 168, "bandwidth", v13, 2, v5 + 4, 0x20000);
     if (!result)
     {
-      return _VCRateControlSmartBrake_BindEspressoBuffer(self, v4 + 336, "bandwidthSigma", v13, 2, v5 + 8);
+      return _VCRateControlSmartBrake_BindEspressoBuffer(self, v4 + 336, "bandwidthSigma", v13, 2, v5 + 8, 0x20000);
     }
   }
 
@@ -834,11 +834,11 @@ LABEL_19:
   v47 = vextq_s8(v48, v48, 8uLL);
   v48 = v6;
   v7 = OUTLINED_FUNCTION_13_18();
-  v13 = _VCRateControlSmartBrake_BindEspressoBuffer(v7, v8, v9, v10, v11, v12);
+  v13 = _VCRateControlSmartBrake_BindEspressoBuffer(v7, v8, v9, v10, v11, v12, 0x10000);
   if (!v13)
   {
     v14 = OUTLINED_FUNCTION_13_18();
-    return _VCRateControlSmartBrake_BindEspressoBuffer(v14, v15, v16, v17, v18, v19);
+    return _VCRateControlSmartBrake_BindEspressoBuffer(v14, v15, v16, v17, v18, v19, 0x20000);
   }
 
   return v13;

@@ -60,7 +60,7 @@
       v18 = fp_current_or_default_log();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        [(FPXChangesObserver *)self didDeleteItemsWithIdentifiers:v18];
+        [FPXChangesObserver didDeleteItemsWithIdentifiers:];
       }
 
       exit(1);
@@ -80,7 +80,7 @@
 
 - (void)didUpdateItems:(id)items
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   v5 = [(FPXDomainContext *)self->super._domainContext log];
   v6 = fpfs_adopt_log(v5);
@@ -97,20 +97,20 @@
   else
   {
     [MEMORY[0x1E69DF068] sharedManager];
-    v12 = v31 = itemsCopy;
+    v12 = v30 = itemsCopy;
     currentPersona2 = [v12 currentPersona];
     userPersonaUniqueString2 = [currentPersona2 userPersonaUniqueString];
     domain2 = [(FPXDomainContext *)self->super._domainContext domain];
     [domain2 personaIdentifier];
-    v15 = v30 = domain;
+    v15 = v29 = domain;
 
-    itemsCopy = v31;
+    itemsCopy = v30;
     if (userPersonaUniqueString2 != v15)
     {
-      v28 = fp_current_or_default_log();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v27 = fp_current_or_default_log();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        [(FPXChangesObserver *)self didUpdateItems:v28];
+        [FPXChangesObserver didUpdateItems:];
       }
 
       exit(1);
@@ -123,26 +123,26 @@
     __FILEPROVIDER_OBSERVER_TOO_MANY_ITEMS__(self->super._observedItemID);
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v17 = itemsCopy;
-  v18 = [v17 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v33;
+    v20 = *v32;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v33 != v20)
+        if (*v32 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = *(*(&v32 + 1) + 8 * i);
+        v22 = *(*(&v31 + 1) + 8 * i);
         v23 = [(FPXObserver *)self updateForProviderItem:v22];
         if (v23)
         {
@@ -161,19 +161,17 @@
         }
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v19);
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)finishEnumeratingChangesUpToSyncAnchor:(id)anchor moreComing:(BOOL)coming
 {
   comingCopy = coming;
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   anchorCopy = anchor;
   p_domainContext = &self->super._domainContext;
   v7 = [(FPXDomainContext *)self->super._domainContext log];
@@ -191,20 +189,20 @@
   else
   {
     [MEMORY[0x1E69DF068] sharedManager];
-    v14 = v31 = domain;
+    v14 = v30 = domain;
     [v14 currentPersona];
-    v15 = v32 = a2;
+    v15 = v31 = a2;
     userPersonaUniqueString2 = [v15 userPersonaUniqueString];
     domain2 = [(FPXDomainContext *)*p_domainContext domain];
     personaIdentifier2 = [domain2 personaIdentifier];
 
-    a2 = v32;
+    a2 = v31;
     if (userPersonaUniqueString2 != personaIdentifier2)
     {
-      v29 = fp_current_or_default_log();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v28 = fp_current_or_default_log();
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        [(FPXChangesObserver *)self finishEnumeratingChangesUpToSyncAnchor:v29 moreComing:?];
+        [FPXChangesObserver finishEnumeratingChangesUpToSyncAnchor:moreComing:];
       }
 
       exit(1);
@@ -232,7 +230,7 @@
   {
     v23 = [MEMORY[0x1E696AEC0] fp_hashForToken:anchorCopy];
     *buf = 138543362;
-    v36 = v23;
+    v35 = v23;
     _os_log_impl(&dword_1AAAE1000, v22, OS_LOG_TYPE_INFO, "[INFO] change enumeration returned change token %{public}@", buf, 0xCu);
   }
 
@@ -246,8 +244,6 @@
 
     [(FPXChangesObserver *)self setFinishedBlock:0];
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)finishEnumeratingWithError:(id)error
@@ -283,7 +279,7 @@
       v20 = fp_current_or_default_log();
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        [(FPXChangesObserver *)v23 finishEnumeratingWithError:v20];
+        [FPXChangesObserver finishEnumeratingWithError:];
       }
 
       exit(1);
@@ -298,6 +294,70 @@
 
     [(FPXChangesObserver *)self setFinishedBlock:0];
   }
+}
+
+- (void)didDeleteItemsWithIdentifiers:.cold.1()
+{
+  OUTLINED_FUNCTION_32();
+  OUTLINED_FUNCTION_2_7();
+  v1 = [MEMORY[0x1E69DF068] sharedManager];
+  v2 = [v1 currentPersona];
+  [v2 userPersonaUniqueString];
+  objc_claimAutoreleasedReturnValue();
+  v3 = [OUTLINED_FUNCTION_5_4() domain];
+  v4 = [v3 personaIdentifier];
+  OUTLINED_FUNCTION_0_10();
+  OUTLINED_FUNCTION_3_4(&dword_1AAAE1000, v5, v6, "[ERROR] Non matching personas for the extension %@ (%@, expect %@) on %s", v7, v8, v9, v10);
+
+  OUTLINED_FUNCTION_31();
+}
+
+- (void)didUpdateItems:.cold.1()
+{
+  OUTLINED_FUNCTION_32();
+  OUTLINED_FUNCTION_2_7();
+  v1 = [MEMORY[0x1E69DF068] sharedManager];
+  v2 = [v1 currentPersona];
+  [v2 userPersonaUniqueString];
+  objc_claimAutoreleasedReturnValue();
+  v3 = [OUTLINED_FUNCTION_5_4() domain];
+  v4 = [v3 personaIdentifier];
+  OUTLINED_FUNCTION_0_10();
+  OUTLINED_FUNCTION_3_4(&dword_1AAAE1000, v5, v6, "[ERROR] Non matching personas for the extension %@ (%@, expect %@) on %s", v7, v8, v9, v10);
+
+  OUTLINED_FUNCTION_31();
+}
+
+- (void)finishEnumeratingChangesUpToSyncAnchor:moreComing:.cold.1()
+{
+  OUTLINED_FUNCTION_32();
+  OUTLINED_FUNCTION_2_7();
+  v1 = [MEMORY[0x1E69DF068] sharedManager];
+  v2 = [v1 currentPersona];
+  [v2 userPersonaUniqueString];
+  objc_claimAutoreleasedReturnValue();
+  v3 = [OUTLINED_FUNCTION_5_4() domain];
+  v4 = [v3 personaIdentifier];
+  OUTLINED_FUNCTION_0_10();
+  OUTLINED_FUNCTION_3_4(&dword_1AAAE1000, v5, v6, "[ERROR] Non matching personas for the extension %@ (%@, expect %@) on %s", v7, v8, v9, v10);
+
+  OUTLINED_FUNCTION_31();
+}
+
+- (void)finishEnumeratingWithError:.cold.1()
+{
+  OUTLINED_FUNCTION_32();
+  OUTLINED_FUNCTION_2_7();
+  v1 = [MEMORY[0x1E69DF068] sharedManager];
+  v2 = [v1 currentPersona];
+  [v2 userPersonaUniqueString];
+  objc_claimAutoreleasedReturnValue();
+  v3 = [OUTLINED_FUNCTION_5_4() domain];
+  v4 = [v3 personaIdentifier];
+  OUTLINED_FUNCTION_0_10();
+  OUTLINED_FUNCTION_3_4(&dword_1AAAE1000, v5, v6, "[ERROR] Non matching personas for the extension %@ (%@, expect %@) on %s", v7, v8, v9, v10);
+
+  OUTLINED_FUNCTION_31();
 }
 
 @end

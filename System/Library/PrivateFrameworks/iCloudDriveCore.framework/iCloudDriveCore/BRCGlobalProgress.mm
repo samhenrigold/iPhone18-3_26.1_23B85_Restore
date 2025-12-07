@@ -11,6 +11,7 @@
 - (void)_createUploadMetadataWithCompletedUnitCount:(int64_t)count totalUnitCount:(int64_t)unitCount;
 - (void)_deleteDocument:(id)document reason:(char)reason sync:(BOOL)sync;
 - (void)_destroyProgressInGroup:(id)group reason:(char)reason;
+- (void)_destroyUploadWithReason:(char)reason;
 - (void)_resumeProgressForZone:(id)zone startingRowID:(unint64_t)d whenDone:(id)done;
 - (void)_startObservingProgress:(id)progress;
 - (void)_startTrackingDocumentWithFileObjectID:(id)d versionSize:(int64_t)size syncUpState:(unsigned int)state;
@@ -37,9 +38,9 @@
 - (BRCGlobalProgress)initWithSession:(id)session
 {
   sessionCopy = session;
-  v19.receiver = self;
-  v19.super_class = BRCGlobalProgress;
-  v5 = [(BRCGlobalProgress *)&v19 init];
+  v17.receiver = self;
+  v17.super_class = BRCGlobalProgress;
+  v5 = [(BRCGlobalProgress *)&v17 init];
   if (v5)
   {
     v6 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UNSPECIFIED, 0);
@@ -49,23 +50,21 @@
     queue = v5->_queue;
     v5->_queue = v8;
 
-    v10 = v5->_queue;
-    v11 = br_pacer_create();
+    v10 = br_pacer_create();
     updatePacer = v5->_updatePacer;
-    v5->_updatePacer = v11;
+    v5->_updatePacer = v10;
 
     objc_initWeak(&location, v5);
-    v13 = v5->_updatePacer;
-    objc_copyWeak(&v17, &location);
+    objc_copyWeak(&v15, &location);
     br_pacer_set_event_handler();
     objc_storeWeak(&v5->_session, sessionCopy);
-    v14 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v12 = objc_alloc_init(MEMORY[0x277CBEB38]);
     transfers = v5->_transfers;
-    v5->_transfers = v14;
+    v5->_transfers = v12;
 
     v5->_activeTransfersCount = 0;
     v5->_completedTransfersCount = 0;
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v15);
     objc_destroyWeak(&location);
   }
 
@@ -93,14 +92,13 @@ uint64_t __37__BRCGlobalProgress_initWithSession___block_invoke(uint64_t a1)
 
 - (void)dealloc
 {
-  updatePacer = self->_updatePacer;
   br_pacer_cancel();
-  v4 = self->_updatePacer;
+  updatePacer = self->_updatePacer;
   self->_updatePacer = 0;
 
-  v5.receiver = self;
-  v5.super_class = BRCGlobalProgress;
-  [(BRCGlobalProgress *)&v5 dealloc];
+  v4.receiver = self;
+  v4.super_class = BRCGlobalProgress;
+  [(BRCGlobalProgress *)&v4 dealloc];
 }
 
 - (void)_createGlobalProgressWithCompletedUnitCount:(int64_t)count totalUnitCount:(int64_t)unitCount
@@ -133,26 +131,24 @@ uint64_t __37__BRCGlobalProgress_initWithSession___block_invoke(uint64_t a1)
 - (void)updateUnitCount
 {
   v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_6_1(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: an unfinished progress should have at least one transfer tracked; %@%@");
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_0_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: Completed unit count is less than zero - forcing it to be zero%@", v2);
 }
 
 - (void)verifyFutureProgressIsNotFinished
 {
-  v8 = *MEMORY[0x277D85DE8];
-  LODWORD(v6) = 134218242;
-  *(&v6 + 4) = a2;
+  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v5) = 134218242;
+  *(&v5 + 4) = a2;
   OUTLINED_FUNCTION_4_0();
-  *v7 = v2;
-  OUTLINED_FUNCTION_6_1(&dword_223E7A000, v3, v4, "[CRIT] UNREACHABLE: future progress state isn't valid (unitCount: %lld)%@", v6, DWORD2(v6), *&v7[2], v8);
-  v5 = *MEMORY[0x277D85DE8];
+  *v6 = v2;
+  OUTLINED_FUNCTION_6_1(&dword_223E7A000, v3, v4, "[CRIT] UNREACHABLE: future progress state isn't valid (unitCount: %lld)%@", v5, DWORD2(v5), *&v6[2], v7);
 }
 
 - (void)_updateCompletedUnitCountForFileObjectID:(id)d newCompletedUnitCount:(int64_t)count isFinished:(BOOL)finished
 {
   finishedCopy = finished;
-  v32 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dispatch_assert_queue_V2(self->_queue);
   v9 = [(NSMutableDictionary *)self->_transfers objectForKeyedSubscript:dCopy];
@@ -191,15 +187,15 @@ uint64_t __37__BRCGlobalProgress_initWithSession___block_invoke(uint64_t a1)
     v20 = brc_default_log();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = 138413058;
-      v25 = dCopy;
-      v26 = 2048;
+      v22 = 138413058;
+      v23 = dCopy;
+      v24 = 2048;
       accumulatedCUCDelta = [v10 accumulatedCUCDelta];
-      v28 = 2048;
-      v29 = longLongValue;
-      v30 = 2112;
-      v31 = v19;
-      _os_log_impl(&dword_223E7A000, v20, OS_LOG_TYPE_DEFAULT, "[WARNING] Progress: negative delta update for doc with objectID %@; [%lld -> %lld]%@", &v24, 0x2Au);
+      v26 = 2048;
+      v27 = longLongValue;
+      v28 = 2112;
+      v29 = v19;
+      _os_log_impl(&dword_223E7A000, v20, OS_LOG_TYPE_DEFAULT, "[WARNING] Progress: negative delta update for doc with objectID %@; [%lld -> %lld]%@", &v22, 0x2Au);
     }
   }
 
@@ -208,7 +204,6 @@ uint64_t __37__BRCGlobalProgress_initWithSession___block_invoke(uint64_t a1)
   {
     [(BRCGlobalProgress *)self setSumOfCompletedUnitCountDelta:[(BRCGlobalProgress *)self sumOfCompletedUnitCountDelta]+ v21];
     [v10 setAccumulatedCUCDelta:{objc_msgSend(v10, "accumulatedCUCDelta") + v21}];
-    updatePacer = self->_updatePacer;
     br_pacer_signal();
   }
 
@@ -223,13 +218,11 @@ uint64_t __37__BRCGlobalProgress_initWithSession___block_invoke(uint64_t a1)
 
 LABEL_17:
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   objectCopy = object;
   changeCopy = change;
@@ -250,19 +243,19 @@ LABEL_17:
       {
         isFinished = [v13 isFinished];
         queue = self->_queue;
-        v25[0] = MEMORY[0x277D85DD0];
-        v25[1] = 3221225472;
-        v25[2] = __68__BRCGlobalProgress_observeValueForKeyPath_ofObject_change_context___block_invoke;
-        v25[3] = &unk_2785044B0;
+        v24[0] = MEMORY[0x277D85DD0];
+        v24[1] = 3221225472;
+        v24[2] = __68__BRCGlobalProgress_observeValueForKeyPath_ofObject_change_context___block_invoke;
+        v24[3] = &unk_2785044B0;
         v18 = v18;
-        v26 = v18;
+        v25 = v18;
         selfCopy = self;
-        v28 = v16;
-        v29 = changeCopy;
-        v30 = isFinished;
-        dispatch_async_with_logs_6(queue, v25);
+        v27 = v16;
+        v28 = changeCopy;
+        v29 = isFinished;
+        dispatch_async_with_logs_6(queue, v24);
 
-        v21 = v26;
+        v21 = v25;
       }
 
       else
@@ -272,7 +265,7 @@ LABEL_17:
         if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v32 = v21;
+          v31 = v21;
           _os_log_impl(&dword_223E7A000, v22, OS_LOG_TYPE_DEFAULT, "[WARNING] Progress: observing a progress that doesn't have a progress group%@", buf, 0xCu);
         }
       }
@@ -285,7 +278,7 @@ LABEL_17:
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v32 = v18;
+        v31 = v18;
         _os_log_impl(&dword_223E7A000, v21, OS_LOG_TYPE_DEFAULT, "[WARNING] Progress: observing a progress that doesn't have an objectID%@", buf, 0xCu);
       }
     }
@@ -293,12 +286,10 @@ LABEL_17:
 
   else
   {
-    v24.receiver = self;
-    v24.super_class = BRCGlobalProgress;
-    [(BRCGlobalProgress *)&v24 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
+    v23.receiver = self;
+    v23.super_class = BRCGlobalProgress;
+    [(BRCGlobalProgress *)&v23 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __68__BRCGlobalProgress_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
@@ -342,53 +333,49 @@ void __68__BRCGlobalProgress_observeValueForKeyPath_ofObject_change_context___bl
 
 uint64_t __67__BRCGlobalProgress__resumeProgressForZone_startingRowID_whenDone___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v2 = [*(a1 + 32) documentsNotIdleEnumeratorWithStartingRowID:*(a1 + 56) batchSize:{*(a1 + 64), 0}];
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (!v3)
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v3)
   {
-
-LABEL_11:
-    result = (*(*(a1 + 48) + 16))();
-    goto LABEL_12;
-  }
-
-  v4 = v3;
-  v5 = *v13;
-  do
-  {
-    for (i = 0; i != v4; ++i)
+    v4 = v3;
+    v5 = *v12;
+    do
     {
-      if (*v13 != v5)
+      for (i = 0; i != v4; ++i)
       {
-        objc_enumerationMutation(v2);
+        if (*v12 != v5)
+        {
+          objc_enumerationMutation(v2);
+        }
+
+        v7 = *(*(&v11 + 1) + 8 * i);
+        v8 = objc_autoreleasePoolPush();
+        v9 = [v7 dbRowID];
+        [*(a1 + 40) didUpdateDocument:v7];
+        objc_autoreleasePoolPop(v8);
       }
 
-      v7 = *(*(&v12 + 1) + 8 * i);
-      v8 = objc_autoreleasePoolPush();
-      v9 = [v7 dbRowID];
-      [*(a1 + 40) didUpdateDocument:v7];
-      objc_autoreleasePoolPop(v8);
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    while (v4);
+
+    if (v9 != -1)
+    {
+      return [*(a1 + 40) _resumeProgressForZone:*(a1 + 32) startingRowID:v9 whenDone:*(a1 + 48)];
+    }
   }
 
-  while (v4);
-
-  if (v9 == -1)
+  else
   {
-    goto LABEL_11;
   }
 
-  result = [*(a1 + 40) _resumeProgressForZone:*(a1 + 32) startingRowID:v9 whenDone:*(a1 + 48)];
-LABEL_12:
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)resumeProgressForZones:(id)zones
@@ -409,7 +396,7 @@ LABEL_12:
 
 void __44__BRCGlobalProgress_resumeProgressForZones___block_invoke(uint64_t a1)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 32) + 24))
   {
     __44__BRCGlobalProgress_resumeProgressForZones___block_invoke_cold_1();
@@ -425,27 +412,27 @@ void __44__BRCGlobalProgress_resumeProgressForZones___block_invoke(uint64_t a1)
   v7 = *(v6 + 96);
   *(v6 + 96) = v5;
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   obj = *(a1 + 40);
-  v8 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
+  v8 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v36;
+    v10 = *v35;
     do
     {
       v11 = 0;
       do
       {
-        if (*v36 != v10)
+        if (*v35 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v35 + 1) + 8 * v11);
+        v12 = *(*(&v34 + 1) + 8 * v11);
         v13 = objc_autoreleasePoolPush();
         if ([v12 isSharedZone])
         {
@@ -456,20 +443,20 @@ LABEL_9:
           {
             v23 = [v12 zoneName];
             *buf = 138412546;
-            v40 = v23;
-            v41 = 2112;
-            v42 = v14;
+            v39 = v23;
+            v40 = 2112;
+            v41 = v14;
             _os_log_debug_impl(&dword_223E7A000, v15, OS_LOG_TYPE_DEBUG, "[NOTIF] Progress: resuming global progress for '%@'%@", buf, 0x16u);
           }
 
           dispatch_group_enter(*(*(a1 + 32) + 96));
           v16 = *(a1 + 32);
-          v34[0] = MEMORY[0x277D85DD0];
-          v34[1] = 3221225472;
-          v34[2] = __44__BRCGlobalProgress_resumeProgressForZones___block_invoke_46;
-          v34[3] = &unk_2784FF450;
-          v34[4] = v16;
-          [v16 _resumeProgressForZone:v12 startingRowID:0 whenDone:v34];
+          v33[0] = MEMORY[0x277D85DD0];
+          v33[1] = 3221225472;
+          v33[2] = __44__BRCGlobalProgress_resumeProgressForZones___block_invoke_46;
+          v33[3] = &unk_2784FF450;
+          v33[4] = v16;
+          [v16 _resumeProgressForZone:v12 startingRowID:0 whenDone:v33];
           goto LABEL_18;
         }
 
@@ -497,9 +484,9 @@ LABEL_9:
         {
           v24 = [v12 zoneName];
           *buf = 138412546;
-          v40 = v24;
-          v41 = 2112;
-          v42 = v20;
+          v39 = v24;
+          v40 = 2112;
+          v41 = v20;
           _os_log_debug_impl(&dword_223E7A000, v21, OS_LOG_TYPE_DEBUG, "[NOTIF] Progress: nothing to resume for '%@'%@", buf, 0x16u);
         }
 
@@ -509,7 +496,7 @@ LABEL_18:
       }
 
       while (v9 != v11);
-      v25 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
+      v25 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
       v9 = v25;
     }
 
@@ -532,7 +519,6 @@ LABEL_18:
   block[3] = &unk_2784FF450;
   block[4] = v28;
   dispatch_group_notify(v29, v30, block);
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __44__BRCGlobalProgress_resumeProgressForZones___block_invoke_48(uint64_t a1)
@@ -731,7 +717,7 @@ LABEL_23:
 
 uint64_t __43__BRCGlobalProgress_stopPublishingProgress__block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2[3])
   {
@@ -743,28 +729,28 @@ uint64_t __43__BRCGlobalProgress_stopPublishingProgress__block_invoke(uint64_t a
     v2 = *(a1 + 32);
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v5 = [v2 transfers];
   v6 = [v5 allValues];
 
-  v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v20;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * i);
+        v11 = *(*(&v19 + 1) + 8 * i);
         v12 = [v11 progress];
 
         if (v12)
@@ -775,7 +761,7 @@ uint64_t __43__BRCGlobalProgress_stopPublishingProgress__block_invoke(uint64_t a
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v8);
@@ -791,9 +777,7 @@ uint64_t __43__BRCGlobalProgress_stopPublishingProgress__block_invoke(uint64_t a
     __43__BRCGlobalProgress_stopPublishingProgress__block_invoke_cold_1();
   }
 
-  result = [*(a1 + 32) _destroyUploadWithReason:2];
-  v19 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _destroyUploadWithReason:2];
 }
 
 - (void)replaceProgressForFileObjectID:(id)d inGroup:(char)group withProgress:(id)progress
@@ -837,7 +821,7 @@ LABEL_3:
 
 void __73__BRCGlobalProgress_replaceProgressForFileObjectID_inGroup_withProgress___block_invoke(uint64_t a1)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) transfers];
   v3 = [v2 objectForKeyedSubscript:*(a1 + 40)];
 
@@ -847,70 +831,69 @@ void __73__BRCGlobalProgress_replaceProgressForFileObjectID_inGroup_withProgress
 
     if (v4)
     {
-      v32 = 0u;
-      v33 = 0u;
       v30 = 0u;
       v31 = 0u;
-      v5 = *(a1 + 32);
-      v6 = [objc_opt_class() _keyPathsToObserve];
-      v7 = [v6 countByEnumeratingWithState:&v30 objects:v40 count:16];
-      if (v7)
+      v28 = 0u;
+      v29 = 0u;
+      v5 = [objc_opt_class() _keyPathsToObserve];
+      v6 = [v5 countByEnumeratingWithState:&v28 objects:v38 count:16];
+      if (v6)
       {
-        v8 = v7;
-        v9 = *v31;
+        v7 = v6;
+        v8 = *v29;
         do
         {
-          v10 = 0;
+          v9 = 0;
           do
           {
-            if (*v31 != v9)
+            if (*v29 != v8)
             {
-              objc_enumerationMutation(v6);
+              objc_enumerationMutation(v5);
             }
 
-            v11 = *(*(&v30 + 1) + 8 * v10);
-            v12 = objc_autoreleasePoolPush();
-            v13 = [v3 progress];
-            [v13 removeObserver:*(a1 + 32) forKeyPath:v11];
+            v10 = *(*(&v28 + 1) + 8 * v9);
+            v11 = objc_autoreleasePoolPush();
+            v12 = [v3 progress];
+            [v12 removeObserver:*(a1 + 32) forKeyPath:v10];
 
-            objc_autoreleasePoolPop(v12);
-            ++v10;
+            objc_autoreleasePoolPop(v11);
+            ++v9;
           }
 
-          while (v8 != v10);
-          v8 = [v6 countByEnumeratingWithState:&v30 objects:v40 count:16];
+          while (v7 != v9);
+          v7 = [v5 countByEnumeratingWithState:&v28 objects:v38 count:16];
         }
 
-        while (v8);
+        while (v7);
       }
     }
 
-    v14 = [v3 progress];
-    if (!v14)
+    v13 = [v3 progress];
+    if (!v13)
     {
       goto LABEL_19;
     }
 
-    v15 = v14;
-    v16 = [v3 progress];
-    v17 = [v16 totalUnitCount];
-    if (v17 == [*(a1 + 48) totalUnitCount])
+    v14 = v13;
+    v15 = [v3 progress];
+    v16 = [v15 totalUnitCount];
+    if (v16 == [*(a1 + 48) totalUnitCount])
     {
-      v18 = [v3 progress];
-      v19 = [v18 completedUnitCount];
-      v20 = [*(a1 + 48) completedUnitCount];
+      v17 = [v3 progress];
+      v18 = [v17 completedUnitCount];
+      v19 = [*(a1 + 48) completedUnitCount];
 
-      if (v19 <= v20)
+      if (v18 <= v19)
       {
 LABEL_19:
         [v3 setProgress:*(a1 + 48)];
-        v23 = *(a1 + 48);
-        v24 = [*(a1 + 40) asString];
-        [v23 setUserInfoObject:v24 forKey:@"_BRCObjectIDKey"];
+        v22 = *(a1 + 48);
+        v23 = [*(a1 + 40) asString];
+        [v22 setUserInfoObject:v23 forKey:@"_BRCObjectIDKey"];
 
-        v25 = *(a1 + 48);
-        v26 = [MEMORY[0x277CCABB0] numberWithChar:*(a1 + 56)];
-        [v25 setUserInfoObject:v26 forKey:@"_BRCProgressGroupKey"];
+        v24 = *(a1 + 48);
+        v25 = [MEMORY[0x277CCABB0] numberWithChar:*(a1 + 56)];
+        [v24 setUserInfoObject:v25 forKey:@"_BRCProgressGroupKey"];
 
         [*(a1 + 32) _startObservingProgress:*(a1 + 48)];
         goto LABEL_20;
@@ -921,27 +904,25 @@ LABEL_19:
     {
     }
 
-    v21 = brc_bread_crumbs();
-    v22 = brc_default_log();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+    v20 = brc_bread_crumbs();
+    v21 = brc_default_log();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
     {
-      v28 = [v3 progress];
-      v29 = *(a1 + 48);
+      v26 = [v3 progress];
+      v27 = *(a1 + 48);
       *buf = 138412802;
-      v35 = v28;
+      v33 = v26;
+      v34 = 2112;
+      v35 = v27;
       v36 = 2112;
-      v37 = v29;
-      v38 = 2112;
-      v39 = v21;
-      _os_log_fault_impl(&dword_223E7A000, v22, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: !transfer.progress || (transfer.progress.totalUnitCount == progress.totalUnitCount && transfer.progress.completedUnitCount <= progress.completedUnitCount) current: %@ vs new: %@%@", buf, 0x20u);
+      v37 = v20;
+      _os_log_fault_impl(&dword_223E7A000, v21, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: !transfer.progress || (transfer.progress.totalUnitCount == progress.totalUnitCount && transfer.progress.completedUnitCount <= progress.completedUnitCount) current: %@ vs new: %@%@", buf, 0x20u);
     }
 
     goto LABEL_19;
   }
 
 LABEL_20:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addProgress:(id)progress forDocument:(id)document inGroup:(char)group
@@ -1013,7 +994,7 @@ LABEL_4:
 
 void __53__BRCGlobalProgress_addProgress_forDocument_inGroup___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) transfers];
   v3 = [v2 objectForKeyedSubscript:*(a1 + 40)];
 
@@ -1028,11 +1009,11 @@ void __53__BRCGlobalProgress_addProgress_forDocument_inGroup___block_invoke(uint
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         v7 = *(a1 + 40);
-        v20 = 138412546;
-        v21 = v7;
-        v22 = 2112;
-        v23 = v5;
-        _os_log_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEFAULT, "[WARNING] Progress: attempt to add an upload progress more than once for doc with objectID %@%@", &v20, 0x16u);
+        v19 = 138412546;
+        v20 = v7;
+        v21 = 2112;
+        v22 = v5;
+        _os_log_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEFAULT, "[WARNING] Progress: attempt to add an upload progress more than once for doc with objectID %@%@", &v19, 0x16u);
       }
 
       [*(a1 + 32) _cancelUploadForObjectID:*(a1 + 40) inState:*(a1 + 56) willRetryTransfer:1];
@@ -1043,15 +1024,15 @@ void __53__BRCGlobalProgress_addProgress_forDocument_inGroup___block_invoke(uint
     v9 = brc_notifications_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v18 = *(a1 + 40);
-      v19 = [*(a1 + 48) totalUnitCount];
-      v20 = 138412802;
-      v21 = v18;
-      v22 = 2048;
-      v23 = v19;
-      v24 = 2112;
-      v25 = v8;
-      _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[NOTIF] Progress: start tracking upload progress for doc with objectID %@ (progressSize: %lld)%@", &v20, 0x20u);
+      v17 = *(a1 + 40);
+      v18 = [*(a1 + 48) totalUnitCount];
+      v19 = 138412802;
+      v20 = v17;
+      v21 = 2048;
+      v22 = v18;
+      v23 = 2112;
+      v24 = v8;
+      _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[NOTIF] Progress: start tracking upload progress for doc with objectID %@ (progressSize: %lld)%@", &v19, 0x20u);
     }
 
     v10 = *(a1 + 48);
@@ -1072,15 +1053,13 @@ void __53__BRCGlobalProgress_addProgress_forDocument_inGroup___block_invoke(uint
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       v16 = *(a1 + 40);
-      v20 = 138412546;
-      v21 = v16;
-      v22 = 2112;
-      v23 = v14;
-      _os_log_impl(&dword_223E7A000, v15, OS_LOG_TYPE_DEFAULT, "[WARNING] Progress: attempt to add an upload progress for doc with objectID %@ which is not tracked%@", &v20, 0x16u);
+      v19 = 138412546;
+      v20 = v16;
+      v21 = 2112;
+      v22 = v14;
+      _os_log_impl(&dword_223E7A000, v15, OS_LOG_TYPE_DEFAULT, "[WARNING] Progress: attempt to add an upload progress for doc with objectID %@ which is not tracked%@", &v19, 0x16u);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateUploadThrottleForDocument:(id)document toState:(int)state
@@ -1120,7 +1099,7 @@ void __53__BRCGlobalProgress_addProgress_forDocument_inGroup___block_invoke(uint
 
 void __61__BRCGlobalProgress_updateUploadThrottleForDocument_toState___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) transfers];
   v3 = [v2 objectForKeyedSubscript:*(a1 + 40)];
 
@@ -1130,15 +1109,14 @@ void __61__BRCGlobalProgress_updateUploadThrottleForDocument_toState___block_inv
     v5 = brc_notifications_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v12 = *(a1 + 40);
-      v13 = *(a1 + 48);
-      v14 = 138412802;
-      v15 = v12;
-      v16 = 2080;
-      *v17 = BRCPrettyPrintEnum();
-      *&v17[8] = 2112;
-      *&v17[10] = v4;
-      _os_log_debug_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEBUG, "[NOTIF] Progress: stop tracking upload for doc with objectID %@ because transfer failed (toState: %s)%@", &v14, 0x20u);
+      v10 = *(a1 + 40);
+      v11 = 138412802;
+      v12 = v10;
+      v13 = 2080;
+      *v14 = BRCPrettyPrintEnum();
+      *&v14[8] = 2112;
+      *&v14[10] = v4;
+      _os_log_debug_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEBUG, "[NOTIF] Progress: stop tracking upload for doc with objectID %@ because transfer failed (toState: %s)%@", &v11, 0x20u);
     }
 
     [*(a1 + 32) _cancelUploadForObjectID:*(a1 + 40) inState:*(a1 + 52) willRetryTransfer:*(a1 + 48) > 0];
@@ -1152,20 +1130,17 @@ void __61__BRCGlobalProgress_updateUploadThrottleForDocument_toState___block_inv
     {
       v8 = *(a1 + 40);
       v9 = *(a1 + 52);
-      v10 = *(a1 + 48);
-      v14 = 138413058;
-      v15 = v8;
-      v16 = 1024;
-      *v17 = v9;
-      *&v17[4] = 2080;
-      *&v17[6] = BRCPrettyPrintEnum();
-      *&v17[14] = 2112;
-      *&v17[16] = v6;
-      _os_log_impl(&dword_223E7A000, v7, OS_LOG_TYPE_DEFAULT, "[WARNING] Progress: upload failed for doc with objectID %@ without being tracked (syncUpState: %d, toState: %s)%@", &v14, 0x26u);
+      v11 = 138413058;
+      v12 = v8;
+      v13 = 1024;
+      *v14 = v9;
+      *&v14[4] = 2080;
+      *&v14[6] = BRCPrettyPrintEnum();
+      *&v14[14] = 2112;
+      *&v14[16] = v6;
+      _os_log_impl(&dword_223E7A000, v7, OS_LOG_TYPE_DEFAULT, "[WARNING] Progress: upload failed for doc with objectID %@ without being tracked (syncUpState: %d, toState: %s)%@", &v11, 0x26u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dumpVersionSizesWithMaxCount:(unint64_t)count toContext:(id)context
@@ -1338,42 +1313,40 @@ void __35__BRCGlobalProgress_dumpToContext___block_invoke_2(uint64_t a1, void *a
 
 void __39__BRCGlobalProgress__keyPathsToObserve__block_invoke()
 {
-  v4[1] = *MEMORY[0x277D85DE8];
+  v3[1] = *MEMORY[0x277D85DE8];
   v0 = NSStringFromSelector(sel_completedUnitCount);
-  v4[0] = v0;
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
+  v3[0] = v0;
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:1];
   v2 = _keyPathsToObserve_keyPaths;
   _keyPathsToObserve_keyPaths = v1;
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startObservingProgress:(id)progress
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   progressCopy = progress;
   dispatch_assert_queue_V2(self->_queue);
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   _keyPathsToObserve = [objc_opt_class() _keyPathsToObserve];
-  v6 = [_keyPathsToObserve countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [_keyPathsToObserve countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(_keyPathsToObserve);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
+        v10 = *(*(&v12 + 1) + 8 * v9);
         v11 = objc_autoreleasePoolPush();
         [progressCopy addObserver:self forKeyPath:v10 options:5 context:0];
         objc_autoreleasePoolPop(v11);
@@ -1381,46 +1354,44 @@ void __39__BRCGlobalProgress__keyPathsToObserve__block_invoke()
       }
 
       while (v7 != v9);
-      v7 = [_keyPathsToObserve countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [_keyPathsToObserve countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopObservingProgress:(id)progress
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   progressCopy = progress;
   dispatch_assert_queue_V2(self->_queue);
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   _keyPathsToObserve = [objc_opt_class() _keyPathsToObserve];
-  v6 = [_keyPathsToObserve countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [_keyPathsToObserve countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(_keyPathsToObserve);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         v11 = objc_autoreleasePoolPush();
         [progressCopy removeObserver:self forKeyPath:v10];
         objc_autoreleasePoolPop(v11);
       }
 
-      v7 = [_keyPathsToObserve countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [_keyPathsToObserve countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
@@ -1464,7 +1435,6 @@ void __39__BRCGlobalProgress__keyPathsToObserve__block_invoke()
   [v17 setAccumulatedCUCDelta:0];
 
 LABEL_15:
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createUploadMetadataWithCompletedUnitCount:(int64_t)count totalUnitCount:(int64_t)unitCount
@@ -1502,21 +1472,19 @@ LABEL_3:
   if (!self->_lazyInitDone)
   {
     self->_lazyInitDone = 1;
-    updatePacer = self->_updatePacer;
     br_pacer_resume();
   }
 
   progress = [(BRCGlobalProgress *)self progress];
   [progress brc_publish];
 
-  v11 = self->_updatePacer;
   br_pacer_signal();
 }
 
 - (void)_cancelUploadForObjectID:(id)d inState:(unsigned int)state willRetryTransfer:(BOOL)transfer
 {
   transferCopy = transfer;
-  v29 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dispatch_assert_queue_V2(self->_queue);
   if (dCopy)
@@ -1532,17 +1500,17 @@ LABEL_3:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       progress = [v9 progress];
-      *v20 = 138413314;
-      *&v20[4] = dCopy;
-      v21 = 1024;
+      *v18 = 138413314;
+      *&v18[4] = dCopy;
+      v19 = 1024;
       stateCopy = state;
+      v21 = 1024;
+      v22 = transferCopy;
       v23 = 1024;
-      v24 = transferCopy;
-      v25 = 1024;
-      v26 = progress != 0;
-      v27 = 2112;
-      v28 = v10;
-      _os_log_debug_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEBUG, "[NOTIF] Progress: cancelling upload for doc with objectID %@ (syncUpState: %d, willRetry: %d, hasProgress: %d)%@", v20, 0x28u);
+      v24 = progress != 0;
+      v25 = 2112;
+      v26 = v10;
+      _os_log_debug_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEBUG, "[NOTIF] Progress: cancelling upload for doc with objectID %@ (syncUpState: %d, willRetry: %d, hasProgress: %d)%@", v18, 0x28u);
     }
 
     progress2 = [v9 progress];
@@ -1591,7 +1559,6 @@ LABEL_3:
         }
       }
 
-      updatePacer = self->_updatePacer;
       br_pacer_signal();
     }
 
@@ -1603,17 +1570,15 @@ LABEL_3:
 
   else
   {
-    [BRCGlobalProgress _cancelUploadForObjectID:v20 inState:? willRetryTransfer:?];
-    v9 = *v20;
+    [BRCGlobalProgress _cancelUploadForObjectID:v18 inState:? willRetryTransfer:?];
+    v9 = *v18;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_destroyProgressInGroup:(id)group reason:(char)reason
 {
   reasonCopy = reason;
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   dispatch_assert_queue_V2(self->_queue);
   if ([groupCopy shortValue] != 1)
@@ -1628,20 +1593,20 @@ LABEL_3:
     if (groupCopy)
     {
       [groupCopy integerValue];
-      v19 = BRCPrettyPrintEnum();
+      v18 = BRCPrettyPrintEnum();
     }
 
     else
     {
-      v19 = "none";
+      v18 = "none";
     }
 
     *buf = 136315650;
-    v26 = v19;
-    v27 = 2080;
-    v28 = BRCPrettyPrintEnum();
-    v29 = 2112;
-    v30 = v7;
+    v25 = v18;
+    v26 = 2080;
+    v27 = BRCPrettyPrintEnum();
+    v28 = 2112;
+    v29 = v7;
     _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[NOTIF] Progress: did finish global progress (group: %s, reason: %s)%@", buf, 0x20u);
   }
 
@@ -1652,26 +1617,26 @@ LABEL_3:
       [BRCGlobalProgress _destroyProgressInGroup:reason:];
     }
 
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     allValues = [(NSMutableDictionary *)self->_transfers allValues];
-    v10 = [allValues countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v10 = [allValues countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v21;
+      v12 = *v20;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v21 != v12)
+          if (*v20 != v12)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v14 = *(*(&v20 + 1) + 8 * i);
+          v14 = *(*(&v19 + 1) + 8 * i);
           progress = [v14 progress];
 
           if (progress)
@@ -1681,7 +1646,7 @@ LABEL_3:
           }
         }
 
-        v11 = [allValues countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v11 = [allValues countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v11);
@@ -1714,13 +1679,22 @@ LABEL_3:
   self->_completedTransfersCount = 0;
   [(BRCGlobalProgress *)self setSumOfCompletedUnitCountDelta:0];
   [(BRCGlobalProgress *)self setSumOfTotalUnitCountDelta:0];
+}
 
-  v18 = *MEMORY[0x277D85DE8];
+- (void)_destroyUploadWithReason:(char)reason
+{
+  reasonCopy = reason;
+  dispatch_assert_queue_V2(self->_queue);
+  if (self->_progress)
+  {
+
+    [(BRCGlobalProgress *)self _destroyProgressInGroup:&unk_2837B0280 reason:reasonCopy];
+  }
 }
 
 - (void)_startTrackingDocumentWithFileObjectID:(id)d versionSize:(int64_t)size syncUpState:(unsigned int)state
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dispatch_assert_queue_V2(self->_queue);
   if (state > 7 || ((1 << state) & 0x98) == 0)
@@ -1753,7 +1727,6 @@ LABEL_3:
   {
     [(BRCGlobalProgress *)self setSumOfCompletedUnitCountDelta:[(BRCGlobalProgress *)self sumOfCompletedUnitCountDelta]+ sizeCopy];
     [(BRCGlobalProgress *)self setSumOfTotalUnitCountDelta:[(BRCGlobalProgress *)self sumOfTotalUnitCountDelta]+ v11];
-    updatePacer = self->_updatePacer;
     br_pacer_signal();
   }
 
@@ -1762,52 +1735,50 @@ LABEL_3:
     [(BRCGlobalProgress *)self _createUploadMetadataWithCompletedUnitCount:sizeCopy totalUnitCount:v11];
   }
 
-  v14 = [_BRCTransferInfo alloc];
-  v15 = [MEMORY[0x277CCABB0] numberWithLongLong:size];
-  v16 = [(_BRCTransferInfo *)v14 initWithVersionSize:v15];
+  v13 = [_BRCTransferInfo alloc];
+  v14 = [MEMORY[0x277CCABB0] numberWithLongLong:size];
+  v15 = [(_BRCTransferInfo *)v13 initWithVersionSize:v14];
   transfers = [(BRCGlobalProgress *)self transfers];
-  [transfers setObject:v16 forKeyedSubscript:dCopy];
+  [transfers setObject:v15 forKeyedSubscript:dCopy];
 
   if (state == 4)
   {
-    v18 = brc_bread_crumbs();
-    v19 = brc_notifications_log();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    v17 = brc_bread_crumbs();
+    v18 = brc_notifications_log();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      v22 = 138413058;
-      v23 = dCopy;
-      v24 = 2048;
+      v20 = 138413058;
+      v21 = dCopy;
+      v22 = 2048;
       sizeCopy3 = size;
-      v26 = 2048;
-      v27 = v11;
-      v28 = 2112;
-      v29 = v18;
-      v20 = "[NOTIF] Progress: resume upload for doc with objectID %@ because document is needs-sync-up but not tracked yet (versionSize: %lld, transferSize: %lld)%@";
+      v24 = 2048;
+      v25 = v11;
+      v26 = 2112;
+      v27 = v17;
+      v19 = "[NOTIF] Progress: resume upload for doc with objectID %@ because document is needs-sync-up but not tracked yet (versionSize: %lld, transferSize: %lld)%@";
 LABEL_20:
-      _os_log_debug_impl(&dword_223E7A000, v19, OS_LOG_TYPE_DEBUG, v20, &v22, 0x2Au);
+      _os_log_debug_impl(&dword_223E7A000, v18, OS_LOG_TYPE_DEBUG, v19, &v20, 0x2Au);
     }
   }
 
   else
   {
-    v18 = brc_bread_crumbs();
-    v19 = brc_notifications_log();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    v17 = brc_bread_crumbs();
+    v18 = brc_notifications_log();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      v22 = 138413058;
-      v23 = dCopy;
-      v24 = 2048;
+      v20 = 138413058;
+      v21 = dCopy;
+      v22 = 2048;
       sizeCopy3 = size;
-      v26 = 2048;
-      v27 = v11;
-      v28 = 2112;
-      v29 = v18;
-      v20 = "[NOTIF] Progress: start tracking upload for doc with objectID %@ because document is needs-upload (versionSize: %lld, transferSize: %lld)%@";
+      v24 = 2048;
+      v25 = v11;
+      v26 = 2112;
+      v27 = v17;
+      v19 = "[NOTIF] Progress: start tracking upload for doc with objectID %@ because document is needs-upload (versionSize: %lld, transferSize: %lld)%@";
       goto LABEL_20;
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateDocument:(id)document
@@ -1864,47 +1835,47 @@ LABEL_9:
 
 void __37__BRCGlobalProgress__updateDocument___block_invoke(uint64_t a1)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 56);
   if (v2 > 3)
   {
     if (v2 == 4)
     {
-      v19 = [*(a1 + 32) transfers];
-      v5 = [v19 objectForKeyedSubscript:*(a1 + 40)];
+      v18 = [*(a1 + 32) transfers];
+      v5 = [v18 objectForKeyedSubscript:*(a1 + 40)];
 
       if (v5)
       {
-        v20 = [v5 progress];
-        if (v20)
+        v19 = [v5 progress];
+        if (v19)
         {
-          v21 = [v5 accumulatedCUCDelta];
-          v22 = [v5 versionSize];
-          v23 = [v22 longLongValue];
+          v20 = [v5 accumulatedCUCDelta];
+          v21 = [v5 versionSize];
+          v22 = [v21 longLongValue];
 
-          if (v21 < v23)
+          if (v20 < v22)
           {
-            v24 = brc_bread_crumbs();
-            v25 = brc_default_log();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+            v23 = brc_bread_crumbs();
+            v24 = brc_default_log();
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
             {
-              v26 = *(a1 + 40);
-              v41 = 138412802;
-              v42 = v26;
-              v43 = 2112;
-              v44 = v20;
-              v45 = 2112;
-              v46 = v24;
-              _os_log_impl(&dword_223E7A000, v25, OS_LOG_TYPE_DEFAULT, "[WARNING] Object %@ moved to needs-sync-up before its progress got marked as finished --> for it to finish. Progress %@%@", &v41, 0x20u);
+              v25 = *(a1 + 40);
+              v38 = 138412802;
+              v39 = v25;
+              v40 = 2112;
+              v41 = v19;
+              v42 = 2112;
+              v43 = v23;
+              _os_log_impl(&dword_223E7A000, v24, OS_LOG_TYPE_DEFAULT, "[WARNING] Object %@ moved to needs-sync-up before its progress got marked as finished --> for it to finish. Progress %@%@", &v38, 0x20u);
             }
 
-            v27 = *(a1 + 32);
-            v28 = *(a1 + 40);
-            v29 = [v5 progress];
-            [v27 _updateCompletedUnitCountForFileObjectID:v28 newCompletedUnitCount:objc_msgSend(v29 isFinished:{"totalUnitCount"), 1}];
+            v26 = *(a1 + 32);
+            v27 = *(a1 + 40);
+            v28 = [v5 progress];
+            [v26 _updateCompletedUnitCountForFileObjectID:v27 newCompletedUnitCount:objc_msgSend(v28 isFinished:{"totalUnitCount"), 1}];
           }
 
-          [*(a1 + 32) _stopObservingProgress:v20];
+          [*(a1 + 32) _stopObservingProgress:v19];
           [v5 setProgress:0];
         }
       }
@@ -1939,14 +1910,14 @@ LABEL_4:
           v8 = brc_notifications_log();
           if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
           {
-            v40 = *(a1 + 40);
-            v41 = 138412802;
-            v42 = v40;
-            v43 = 2048;
-            v44 = v6;
-            v45 = 2112;
-            v46 = v7;
-            _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[NOTIF] Progress: stop tracking upload for doc with objectID %@ because document is idle (syncUpSize: %lld)%@", &v41, 0x20u);
+            v37 = *(a1 + 40);
+            v38 = 138412802;
+            v39 = v37;
+            v40 = 2048;
+            v41 = v6;
+            v42 = 2112;
+            v43 = v7;
+            _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[NOTIF] Progress: stop tracking upload for doc with objectID %@ because document is idle (syncUpSize: %lld)%@", &v38, 0x20u);
           }
 
           v9 = [*(a1 + 32) transfers];
@@ -1957,15 +1928,14 @@ LABEL_4:
             [*(a1 + 32) setCompletedTransfersCount:{objc_msgSend(*(a1 + 32), "completedTransfersCount") + 1}];
           }
 
-          v10 = *(*(a1 + 32) + 16);
           br_pacer_signal();
         }
 
         else
         {
-          v37 = brc_bread_crumbs();
-          v38 = brc_notifications_log();
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+          v35 = brc_bread_crumbs();
+          v36 = brc_notifications_log();
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
           {
             __37__BRCGlobalProgress__updateDocument___block_invoke_cold_3((a1 + 40));
           }
@@ -1976,7 +1946,7 @@ LABEL_4:
 
 LABEL_43:
 
-      goto LABEL_44;
+      return;
     }
   }
 
@@ -1984,17 +1954,14 @@ LABEL_43:
   {
     if (v2 == 2)
     {
-      v17 = brc_bread_crumbs();
-      v18 = brc_default_log();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+      v16 = brc_bread_crumbs();
+      v17 = brc_default_log();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
       {
         __37__BRCGlobalProgress__updateDocument___block_invoke_cold_2();
       }
 
-LABEL_38:
-LABEL_44:
-      v39 = *MEMORY[0x277D85DE8];
-      return;
+      goto LABEL_38;
     }
 
     if (v2 != 3)
@@ -2003,54 +1970,54 @@ LABEL_44:
     }
   }
 
-  v11 = [*(a1 + 32) transfers];
-  v12 = (a1 + 40);
-  v13 = [v11 objectForKeyedSubscript:*(a1 + 40)];
+  v10 = [*(a1 + 32) transfers];
+  v11 = (a1 + 40);
+  v12 = [v10 objectForKeyedSubscript:*(a1 + 40)];
 
-  if (v13)
+  if (v12)
   {
-    v14 = *(a1 + 60);
-    if (v14 == 4 || v14 == 7)
+    v13 = *(a1 + 60);
+    if (v13 == 4 || v13 == 7)
     {
-      v15 = brc_bread_crumbs();
-      v16 = brc_notifications_log();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      v14 = brc_bread_crumbs();
+      v15 = brc_notifications_log();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         __37__BRCGlobalProgress__updateDocument___block_invoke_cold_1((a1 + 40));
       }
 
       [*(a1 + 32) _cancelUploadForObjectID:*(a1 + 40) inState:*(a1 + 60) willRetryTransfer:0];
-      goto LABEL_44;
+      return;
     }
 
-    v17 = brc_bread_crumbs();
-    v35 = brc_default_log();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+    v16 = brc_bread_crumbs();
+    v33 = brc_default_log();
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
-      v36 = *v12;
-      v41 = 138412546;
-      v42 = v36;
-      v43 = 2112;
-      v44 = v17;
-      _os_log_impl(&dword_223E7A000, v35, OS_LOG_TYPE_DEFAULT, "[WARNING] Progress: doc with objectID %@ shouldn't be uploading before its status is set to needs-upload%@", &v41, 0x16u);
+      v34 = *v11;
+      v38 = 138412546;
+      v39 = v34;
+      v40 = 2112;
+      v41 = v16;
+      _os_log_impl(&dword_223E7A000, v33, OS_LOG_TYPE_DEFAULT, "[WARNING] Progress: doc with objectID %@ shouldn't be uploading before its status is set to needs-upload%@", &v38, 0x16u);
     }
 
-    goto LABEL_38;
+LABEL_38:
+    return;
   }
 
-  v30 = *(a1 + 32);
-  v31 = *(a1 + 40);
-  v32 = *(a1 + 48);
-  v33 = *(a1 + 56);
-  v34 = *MEMORY[0x277D85DE8];
+  v29 = *(a1 + 32);
+  v30 = *(a1 + 40);
+  v31 = *(a1 + 48);
+  v32 = *(a1 + 56);
 
-  [v30 _startTrackingDocumentWithFileObjectID:v31 versionSize:v32 syncUpState:v33];
+  [v29 _startTrackingDocumentWithFileObjectID:v30 versionSize:v31 syncUpState:v32];
 }
 
 - (void)_deleteDocument:(id)document reason:(char)reason sync:(BOOL)sync
 {
   syncCopy = sync;
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   documentCopy = document;
   orig = [documentCopy orig];
   fileObjectID = [orig fileObjectID];
@@ -2060,15 +2027,15 @@ LABEL_44:
   syncUpState = [orig2 syncUpState];
   if (fileObjectID && [fileObjectID rawID])
   {
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __49__BRCGlobalProgress__deleteDocument_reason_sync___block_invoke;
-    v18[3] = &unk_2785045A0;
-    v18[4] = self;
-    v19 = fileObjectID;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __49__BRCGlobalProgress__deleteDocument_reason_sync___block_invoke;
+    v17[3] = &unk_2785045A0;
+    v17[4] = self;
+    v18 = fileObjectID;
     reasonCopy = reason;
-    v20 = syncUpState;
-    v13 = MEMORY[0x22AA4A310](v18);
+    v19 = syncUpState;
+    v13 = MEMORY[0x22AA4A310](v17);
     queue = self->_queue;
     if (syncCopy)
     {
@@ -2088,19 +2055,17 @@ LABEL_44:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v23 = fileObjectID;
-      v24 = 2112;
-      v25 = v15;
+      v22 = fileObjectID;
+      v23 = 2112;
+      v24 = v15;
       _os_log_impl(&dword_223E7A000, v16, OS_LOG_TYPE_DEFAULT, "[WARNING] Progress: can't delete document from progress without an objectID %@%@", buf, 0x16u);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __49__BRCGlobalProgress__deleteDocument_reason_sync___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) transfers];
   v3 = [v2 objectForKeyedSubscript:*(a1 + 40)];
 
@@ -2110,21 +2075,18 @@ void __49__BRCGlobalProgress__deleteDocument_reason_sync___block_invoke(uint64_t
     v5 = brc_notifications_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v7 = *(a1 + 40);
-      v8 = *(a1 + 52);
-      v9 = 138412802;
-      v10 = v7;
-      v11 = 2080;
-      v12 = BRCPrettyPrintEnum();
-      v13 = 2112;
-      v14 = v4;
-      _os_log_debug_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEBUG, "[NOTIF] Progress: stop tracking upload progress of doc with objectID %@ (reason: %s)%@", &v9, 0x20u);
+      v6 = *(a1 + 40);
+      v7 = 138412802;
+      v8 = v6;
+      v9 = 2080;
+      v10 = BRCPrettyPrintEnum();
+      v11 = 2112;
+      v12 = v4;
+      _os_log_debug_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEBUG, "[NOTIF] Progress: stop tracking upload progress of doc with objectID %@ (reason: %s)%@", &v7, 0x20u);
     }
 
     [*(a1 + 32) _cancelUploadForObjectID:*(a1 + 40) inState:*(a1 + 48)];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (int64_t)_transferSizeWithVersionSize:(int64_t)size
@@ -2150,7 +2112,6 @@ void __49__BRCGlobalProgress__deleteDocument_reason_sync___block_invoke(uint64_t
 
 - (void)_createGlobalProgressWithCompletedUnitCount:totalUnitCount:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -2158,31 +2119,12 @@ void __49__BRCGlobalProgress__deleteDocument_reason_sync___block_invoke(uint64_t
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: !_progress Progress already allocated%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: !_progress Progress already allocated%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_updateCompletedUnitCountForFileObjectID:newCompletedUnitCount:isFinished:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[NOTIF] Progress: Upload finished for doc with objectID %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_updateCompletedUnitCountForFileObjectID:newCompletedUnitCount:isFinished:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[NOTIF] Progress: ignore delta update because upload for doc with objectID %@ isn't tracked anymore%@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __68__BRCGlobalProgress_observeValueForKeyPath_ofObject_change_context___block_invoke_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -2190,15 +2132,12 @@ void __68__BRCGlobalProgress_observeValueForKeyPath_ofObject_change_context___bl
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: progressGroup.shortValue == BRCProgressUploadGroup%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: progressGroup.shortValue == BRCProgressUploadGroup%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __44__BRCGlobalProgress_resumeProgressForZones___block_invoke_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -2206,82 +2145,57 @@ void __44__BRCGlobalProgress_resumeProgressForZones___block_invoke_cold_1()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: !self->_resumeTracker%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: !self->_resumeTracker%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __44__BRCGlobalProgress_resumeProgressForZones___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_18();
-  v7 = *MEMORY[0x277D85DE8];
   [*v0 count];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __44__BRCGlobalProgress_resumeProgressForZones___block_invoke_48_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[NOTIF] Progress: finished resuming progresses%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didUpdateDocument:.cold.1()
 {
   OUTLINED_FUNCTION_18();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [v0 fileObjectID];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didUpdateDocument:.cold.2()
 {
   OUTLINED_FUNCTION_18();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [v0 fileObjectID];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didUpdateDocument:.cold.3()
 {
   OUTLINED_FUNCTION_18();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [v0 fileObjectID];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didUpdateDocument:.cold.4()
 {
   OUTLINED_FUNCTION_18();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [v0 fileObjectID];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didDeleteDocument:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -2289,23 +2203,12 @@ void __44__BRCGlobalProgress_resumeProgressForZones___block_invoke_48_cold_1()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: item%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: item%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-void __43__BRCGlobalProgress_stopPublishingProgress__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[NOTIF] Progress: stop publishing global progress%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)replaceProgressForFileObjectID:inGroup:withProgress:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -2313,15 +2216,12 @@ void __43__BRCGlobalProgress_stopPublishingProgress__block_invoke_cold_1()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: group == BRCProgressUploadGroup%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: group == BRCProgressUploadGroup%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)replaceProgressForFileObjectID:inGroup:withProgress:.cold.2()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -2329,15 +2229,12 @@ void __43__BRCGlobalProgress_stopPublishingProgress__block_invoke_cold_1()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: progress%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: progress%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addProgress:forDocument:inGroup:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -2345,15 +2242,12 @@ void __43__BRCGlobalProgress_stopPublishingProgress__block_invoke_cold_1()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: group == BRCProgressUploadGroup%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: group == BRCProgressUploadGroup%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addProgress:forDocument:inGroup:.cold.2()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -2361,15 +2255,12 @@ void __43__BRCGlobalProgress_stopPublishingProgress__block_invoke_cold_1()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: progress%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: progress%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addProgress:forDocument:inGroup:.cold.3()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -2377,26 +2268,22 @@ void __43__BRCGlobalProgress_stopPublishingProgress__block_invoke_cold_1()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: item%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: item%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateUploadThrottleForDocument:toState:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v3 = 138412546;
-  v4 = 0;
+  v5 = *MEMORY[0x277D85DE8];
+  v2 = 138412546;
+  v3 = 0;
   OUTLINED_FUNCTION_4_0();
-  v5 = v0;
-  _os_log_fault_impl(&dword_223E7A000, v1, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: can't update progress for document without an objectID %@%@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = v0;
+  _os_log_fault_impl(&dword_223E7A000, v1, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: can't update progress for document without an objectID %@%@", &v2, 0x16u);
 }
 
 - (void)_stopObservingProgress:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -2404,15 +2291,12 @@ void __43__BRCGlobalProgress_stopPublishingProgress__block_invoke_cold_1()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: objID%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: objID%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopObservingProgress:.cold.2()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -2420,15 +2304,12 @@ void __43__BRCGlobalProgress_stopPublishingProgress__block_invoke_cold_1()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: progressGroup%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: progressGroup%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopObservingProgress:.cold.3()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -2436,15 +2317,12 @@ void __43__BRCGlobalProgress_stopPublishingProgress__block_invoke_cold_1()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: progressGroup.shortValue == BRCProgressUploadGroup%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: progressGroup.shortValue == BRCProgressUploadGroup%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createUploadMetadataWithCompletedUnitCount:totalUnitCount:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -2452,15 +2330,12 @@ void __43__BRCGlobalProgress_stopPublishingProgress__block_invoke_cold_1()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: _progress == nil%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: _progress == nil%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createUploadMetadataWithCompletedUnitCount:totalUnitCount:.cold.2()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -2468,15 +2343,12 @@ void __43__BRCGlobalProgress_stopPublishingProgress__block_invoke_cold_1()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: completedUnitCount >= 0%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: completedUnitCount >= 0%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createUploadMetadataWithCompletedUnitCount:totalUnitCount:.cold.3()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -2484,23 +2356,12 @@ void __43__BRCGlobalProgress_stopPublishingProgress__block_invoke_cold_1()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: totalUnitCount >= completedUnitCount%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: totalUnitCount >= completedUnitCount%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_createUploadMetadataWithCompletedUnitCount:totalUnitCount:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[NOTIF] Progress: new global progress to track uploads%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cancelUploadForObjectID:inState:willRetryTransfer:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -2508,22 +2369,20 @@ void __43__BRCGlobalProgress_stopPublishingProgress__block_invoke_cold_1()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: transfer%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: transfer%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cancelUploadForObjectID:(uint64_t *)a1 inState:willRetryTransfer:.cold.2(uint64_t *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = brc_bread_crumbs();
   v3 = brc_default_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    v8 = 138412290;
-    v9 = v2;
-    OUTLINED_FUNCTION_0_2(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: objectID%@", &v8);
+    v7 = 138412290;
+    v8 = v2;
+    OUTLINED_FUNCTION_0_2(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: objectID%@", &v7);
   }
 
   v5 = brc_bread_crumbs();
@@ -2531,17 +2390,14 @@ void __43__BRCGlobalProgress_stopPublishingProgress__block_invoke_cold_1()
   v6 = brc_default_log();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEFAULT, "[WARNING] Progress: can't proceed to upload cancelation without objectID%@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEFAULT, "[WARNING] Progress: can't proceed to upload cancelation without objectID%@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_destroyProgressInGroup:reason:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -2549,15 +2405,12 @@ void __43__BRCGlobalProgress_stopPublishingProgress__block_invoke_cold_1()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: group.shortValue == BRCProgressUploadGroup%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: group.shortValue == BRCProgressUploadGroup%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_destroyProgressInGroup:reason:.cold.2()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -2565,15 +2418,12 @@ void __43__BRCGlobalProgress_stopPublishingProgress__block_invoke_cold_1()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: _transfers.count == 0%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: _transfers.count == 0%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_destroyProgressInGroup:reason:.cold.3()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -2581,15 +2431,12 @@ void __43__BRCGlobalProgress_stopPublishingProgress__block_invoke_cold_1()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: self.sumOfCompletedUnitCountDelta == 0%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: self.sumOfCompletedUnitCountDelta == 0%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_destroyProgressInGroup:reason:.cold.4()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -2597,23 +2444,19 @@ void __43__BRCGlobalProgress_stopPublishingProgress__block_invoke_cold_1()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: self.sumOfTotalUnitCountDelta == 0%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: self.sumOfTotalUnitCountDelta == 0%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startTrackingDocumentWithFileObjectID:versionSize:syncUpState:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_223E7A000, v0, v1, "[CRIT] Assertion failed: syncUpState == BRC_SUS_NEEDS_FILE_ID || syncUpState == BRC_SUS_NEEDS_UPLOAD || syncUpState == BRC_SUS_NEEDS_SYNC_UP%@", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_2(&dword_223E7A000, v0, v1, "[CRIT] Assertion failed: syncUpState == BRC_SUS_NEEDS_FILE_ID || syncUpState == BRC_SUS_NEEDS_UPLOAD || syncUpState == BRC_SUS_NEEDS_SYNC_UP%@", v2);
 }
 
 - (void)_startTrackingDocumentWithFileObjectID:versionSize:syncUpState:.cold.2()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -2621,61 +2464,39 @@ void __43__BRCGlobalProgress_stopPublishingProgress__block_invoke_cold_1()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: versionSize > 0%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: versionSize > 0%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_updateDocument:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_6_1(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: can't register progress for item without an objectID %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_updateDocument:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[NOTIF] Progress: ignore upload for doc with objectID %@ because its version size is equal to zero.%@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __37__BRCGlobalProgress__updateDocument___block_invoke_cold_1(void *a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 138412546;
-  *(&v4 + 4) = *a1;
+  v5 = *MEMORY[0x277D85DE8];
+  LODWORD(v3) = 138412546;
+  *(&v3 + 4) = *a1;
   OUTLINED_FUNCTION_4_0();
-  *v5 = v1;
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[NOTIF] Progress: cancelling upload for doc with objectID %@ because its needs to be uploaded again%@", v4, DWORD2(v4), *&v5[2], v6);
-  v3 = *MEMORY[0x277D85DE8];
+  *v4 = v1;
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[NOTIF] Progress: cancelling upload for doc with objectID %@ because its needs to be uploaded again%@", v3, DWORD2(v3), *&v4[2], v5);
 }
 
 void __37__BRCGlobalProgress__updateDocument___block_invoke_cold_2()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: needs-read no longer applicable on FPFS%@", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: needs-read no longer applicable on FPFS%@", v2);
 }
 
 void __37__BRCGlobalProgress__updateDocument___block_invoke_cold_3(void *a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 138412546;
-  *(&v4 + 4) = *a1;
+  v5 = *MEMORY[0x277D85DE8];
+  LODWORD(v3) = 138412546;
+  *(&v3 + 4) = *a1;
   OUTLINED_FUNCTION_4_0();
-  *v5 = v1;
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[NOTIF] Progress: cancelling upload for doc with objectID %@ because its wasn't uploaded%@", v4, DWORD2(v4), *&v5[2], v6);
-  v3 = *MEMORY[0x277D85DE8];
+  *v4 = v1;
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[NOTIF] Progress: cancelling upload for doc with objectID %@ because its wasn't uploaded%@", v3, DWORD2(v3), *&v4[2], v5);
 }
 
 void __37__BRCGlobalProgress__updateDocument___block_invoke_cold_4()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -2683,10 +2504,8 @@ void __37__BRCGlobalProgress__updateDocument___block_invoke_cold_4()
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: syncUpSize > 0%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: syncUpSize > 0%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -1,3650 +1,1627 @@
-uint64_t sub_2576B5C04(uint64_t a1, uint64_t a2, float a3, float a4)
+uint64_t NeuralNetwork.Layer.Kind.namedWeights.getter()
 {
-  OUTLINED_FUNCTION_71_4(a1, a2);
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A318, &qword_257745D10);
-  OUTLINED_FUNCTION_13(v10);
-  v12 = *(v11 + 64);
-  OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v13);
-  OUTLINED_FUNCTION_17_3();
-  v14 = type metadata accessor for NeuralNetwork.Layer.Kind();
-  v15 = OUTLINED_FUNCTION_4(v14);
-  v17 = *(v16 + 64);
-  MEMORY[0x28223BE20](v15);
-  OUTLINED_FUNCTION_24_0();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B10, &unk_2577440D0);
-  v18 = OUTLINED_FUNCTION_13_6();
-  *(v18 + 16) = xmmword_2577442B0;
-  *(v18 + 32) = v6;
-  *(v18 + 40) = v7;
-  v19 = OUTLINED_FUNCTION_13_6();
-  v20 = OUTLINED_FUNCTION_73_1(v19);
-  v22 = *(v21(v20) + 24);
-
-  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-  *v5 = a3;
-  v5[1] = a4;
-  OUTLINED_FUNCTION_42_13();
-  swift_storeEnumTagMultiPayload();
-  OUTLINED_FUNCTION_82_3();
-  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-  v23 = *(type metadata accessor for Proto_NeuralNetworkLayer(0) + 20);
-  if (qword_27F879260 != -1)
-  {
-    OUTLINED_FUNCTION_3_22();
-  }
-
-  *(v4 + v23) = qword_27F87BEE8;
-
-  OUTLINED_FUNCTION_87_3();
-  sub_2575283BC();
-  sub_25752842C(v6);
-  OUTLINED_FUNCTION_86_4();
-  v24 = type metadata accessor for Proto_NeuralNetworkLayer.OneOf_Layer(0);
-  OUTLINED_FUNCTION_11_11(v24);
-  return OUTLINED_FUNCTION_10_36();
-}
-
-uint64_t sub_2576B5E04(uint64_t a1, uint64_t a2, float a3)
-{
-  OUTLINED_FUNCTION_71_4(a1, a2);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A318, &qword_257745D10);
-  OUTLINED_FUNCTION_13(v8);
-  v10 = *(v9 + 64);
-  OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v11);
-  OUTLINED_FUNCTION_17_3();
-  v12 = type metadata accessor for NeuralNetwork.Layer.Kind();
-  v13 = OUTLINED_FUNCTION_4(v12);
-  v15 = *(v14 + 64);
-  MEMORY[0x28223BE20](v13);
-  OUTLINED_FUNCTION_24_0();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B10, &unk_2577440D0);
-  v16 = OUTLINED_FUNCTION_13_6();
-  *(v16 + 16) = xmmword_2577442B0;
-  *(v16 + 32) = v5;
-  *(v16 + 40) = v6;
-  v17 = OUTLINED_FUNCTION_13_6();
-  v18 = OUTLINED_FUNCTION_73_1(v17);
-  v20 = *(v19(v18) + 20);
-
-  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-  *v4 = a3;
-  OUTLINED_FUNCTION_42_13();
-  swift_storeEnumTagMultiPayload();
-  OUTLINED_FUNCTION_82_3();
-  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-  v21 = *(type metadata accessor for Proto_NeuralNetworkLayer(0) + 20);
-  if (qword_27F879260 != -1)
-  {
-    OUTLINED_FUNCTION_3_22();
-  }
-
-  *(v3 + v21) = qword_27F87BEE8;
-
-  OUTLINED_FUNCTION_87_3();
-  sub_2575283BC();
-  sub_25752842C(v5);
-  OUTLINED_FUNCTION_86_4();
-  v22 = type metadata accessor for Proto_NeuralNetworkLayer.OneOf_Layer(0);
-  OUTLINED_FUNCTION_11_11(v22);
-  return OUTLINED_FUNCTION_10_36();
-}
-
-void sub_2576B5FFC()
-{
-  OUTLINED_FUNCTION_31();
-  v1 = v0;
-  v3 = v2;
-  v5 = v4;
-  v7 = v6;
-  v9 = v8;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A318, &qword_257745D10);
-  OUTLINED_FUNCTION_13(v10);
-  v12 = *(v11 + 64);
-  OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v13);
-  OUTLINED_FUNCTION_17_3();
-  v14 = type metadata accessor for NeuralNetwork.Layer.Kind();
-  v15 = OUTLINED_FUNCTION_4(v14);
-  v17 = *(v16 + 64);
-  MEMORY[0x28223BE20](v15);
-  OUTLINED_FUNCTION_24_0();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B10, &unk_2577440D0);
-  v18 = OUTLINED_FUNCTION_13_6();
-  *(v18 + 16) = xmmword_2577442B0;
-  *(v18 + 32) = v7;
-  *(v18 + 40) = v5;
-  v19 = OUTLINED_FUNCTION_13_6();
-  *(v19 + 16) = xmmword_2577442B0;
-  *(v19 + 32) = v3;
-  *(v19 + 40) = v1;
-
-  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-  OUTLINED_FUNCTION_42_13();
-  swift_storeEnumTagMultiPayload();
-  OUTLINED_FUNCTION_82_3();
-  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-  v20 = *(type metadata accessor for Proto_NeuralNetworkLayer(0) + 20);
-  if (qword_27F879260 != -1)
-  {
-    OUTLINED_FUNCTION_3_22();
-  }
-
-  *(v9 + v20) = qword_27F87BEE8;
-
-  OUTLINED_FUNCTION_87_3();
-  sub_2575283BC();
-  sub_25752842C(v19);
-  OUTLINED_FUNCTION_86_4();
-  v21 = type metadata accessor for Proto_NeuralNetworkLayer.OneOf_Layer(0);
-  OUTLINED_FUNCTION_11_11(v21);
-  OUTLINED_FUNCTION_10_36();
-  OUTLINED_FUNCTION_35();
-}
-
-void static NeuralNetwork.Layer.parametricSoftplus(name:inputName:outputName:outputScale:inputScale:)()
-{
-  OUTLINED_FUNCTION_31();
-  v24 = v0;
-  v25 = v1;
-  v3 = v2;
-  v5 = v4;
-  v7 = v6;
-  v9 = v8;
-  v11 = v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A318, &qword_257745D10);
-  OUTLINED_FUNCTION_13(v12);
-  v14 = *(v13 + 64);
-  OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v15);
-  OUTLINED_FUNCTION_17_3();
-  v16 = type metadata accessor for NeuralNetwork.Layer.Kind();
-  v17 = OUTLINED_FUNCTION_13(v16);
-  v19 = *(v18 + 64);
-  MEMORY[0x28223BE20](v17);
-  OUTLINED_FUNCTION_24_0();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B10, &unk_2577440D0);
-  v20 = OUTLINED_FUNCTION_13_6();
-  *(v20 + 16) = xmmword_2577442B0;
-  *(v20 + 32) = v9;
-  *(v20 + 40) = v7;
-  v21 = OUTLINED_FUNCTION_13_6();
-  *(v21 + 16) = xmmword_2577442B0;
-  *(v21 + 32) = v5;
-  *(v21 + 40) = v3;
-
-  static NeuralNetwork.Layer.Kind.parametricSoftplus(outputScale:inputScale:)(v24, v25);
-  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-  v22 = *(type metadata accessor for Proto_NeuralNetworkLayer(0) + 20);
-  if (qword_27F879260 != -1)
-  {
-    OUTLINED_FUNCTION_3_22();
-  }
-
-  *(v11 + v22) = qword_27F87BEE8;
-
-  OUTLINED_FUNCTION_87_3();
-  sub_2575283BC();
-  sub_25752842C(v21);
-  OUTLINED_FUNCTION_86_4();
-  v23 = type metadata accessor for Proto_NeuralNetworkLayer.OneOf_Layer(0);
-  OUTLINED_FUNCTION_11_11(v23);
-  OUTLINED_FUNCTION_10_36();
-  OUTLINED_FUNCTION_35();
-}
-
-uint64_t static NeuralNetwork.Layer.Kind.parametricSoftplus(outputScale:inputScale:)(uint64_t a1, uint64_t a2)
-{
-  OUTLINED_FUNCTION_16_1();
-  v5 = type metadata accessor for NeuralNetwork.WeightParameters();
-  v6 = OUTLINED_FUNCTION_13(v5);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_11();
-  OUTLINED_FUNCTION_329();
-  MEMORY[0x28223BE20](v9);
-  sub_2576B750C(a1, &v12 - v10);
-  sub_2576B750C(a2, v2);
-  NeuralNetwork.Layer.Activation.ParametricSoftplusConfiguration.init(outputScale:inputScale:)();
-  OUTLINED_FUNCTION_42_13();
-  swift_storeEnumTagMultiPayload();
-  type metadata accessor for NeuralNetwork.Layer.Kind();
-  OUTLINED_FUNCTION_18_1();
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t NeuralNetwork.Layer.Activation.ParameterizedReluConfiguration.init(scale:)(uint64_t a1)
-{
-  v4 = OUTLINED_FUNCTION_16_1();
-  v5 = type metadata accessor for Proto_WeightParams(v4);
-  v6 = OUTLINED_FUNCTION_4(v5);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_24_0();
-  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-  v9 = *(type metadata accessor for Proto_ActivationPReLU(0) + 20);
-  OUTLINED_FUNCTION_44();
-  __swift_storeEnumTagSinglePayload(v10, v11, v12, v5);
-  v13 = *(type metadata accessor for NeuralNetwork.WeightParameters() + 20);
-  OUTLINED_FUNCTION_4_43();
-  sub_2576B750C(a1 + v14, v2);
-  OUTLINED_FUNCTION_2_50();
-  sub_2576B7568(a1, v15);
-  sub_2574695E4(v1 + v9, &qword_27F87A1A0, &qword_257745750);
-  OUTLINED_FUNCTION_3_56();
-  sub_2576B7680(v2, v1 + v9);
-  OUTLINED_FUNCTION_21();
-  return __swift_storeEnumTagSinglePayload(v16, v17, v18, v5);
-}
-
-uint64_t sub_2576B65CC(float a1, float a2)
-{
-  v5 = OUTLINED_FUNCTION_16_1();
-  v7 = v2 + *(v6(v5) + 24);
-  result = _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-  *v2 = a1;
-  v2[1] = a2;
-  return result;
-}
-
-uint64_t sub_2576B6630(float a1)
-{
-  v3 = OUTLINED_FUNCTION_16_1();
-  v5 = v1 + *(v4(v3) + 20);
-  result = _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-  *v1 = a1;
-  return result;
-}
-
-void NeuralNetwork.Layer.Activation.ParametricSoftplusConfiguration.init(outputScale:inputScale:)()
-{
-  OUTLINED_FUNCTION_31();
-  v26 = v2;
-  v4 = v3;
-  v5 = OUTLINED_FUNCTION_16_1();
-  v6 = type metadata accessor for Proto_WeightParams(v5);
-  v7 = OUTLINED_FUNCTION_4(v6);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
-  OUTLINED_FUNCTION_24_0();
-  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-  v10 = type metadata accessor for Proto_ActivationParametricSoftplus(0);
-  v11 = *(v10 + 20);
-  OUTLINED_FUNCTION_44();
-  __swift_storeEnumTagSinglePayload(v12, v13, v14, v6);
-  v15 = *(v10 + 24);
-  OUTLINED_FUNCTION_44();
-  __swift_storeEnumTagSinglePayload(v16, v17, v18, v6);
-  v19 = type metadata accessor for NeuralNetwork.WeightParameters();
-  sub_2576B750C(v4 + *(v19 + 20), v1);
-  sub_2576B7568(v4, type metadata accessor for NeuralNetwork.WeightParameters);
-  sub_2574695E4(v0 + v11, &qword_27F87A1A0, &qword_257745750);
-  sub_2576B7680(v1, v0 + v11);
-  OUTLINED_FUNCTION_21();
-  __swift_storeEnumTagSinglePayload(v20, v21, v22, v6);
-  sub_2576B750C(v26 + *(v19 + 20), v1);
-  sub_2576B7568(v26, type metadata accessor for NeuralNetwork.WeightParameters);
-  sub_2574695E4(v0 + v15, &qword_27F87A1A0, &qword_257745750);
-  sub_2576B7680(v1, v0 + v15);
-  OUTLINED_FUNCTION_21();
-  __swift_storeEnumTagSinglePayload(v23, v24, v25, v6);
-  OUTLINED_FUNCTION_35();
-}
-
-void NeuralNetwork.Layer.Activation.propertyDescriptions.getter()
-{
-  OUTLINED_FUNCTION_31();
-  v6 = type metadata accessor for NeuralNetwork.Layer.Activation.ELUConfiguration(0);
-  v7 = OUTLINED_FUNCTION_13(v6);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
-  OUTLINED_FUNCTION_3();
-  v10 = OUTLINED_FUNCTION_37_8();
-  v11 = type metadata accessor for NeuralNetwork.Layer.Activation.SigmoidHardConfiguration(v10);
-  v12 = OUTLINED_FUNCTION_13(v11);
-  v14 = *(v13 + 64);
-  MEMORY[0x28223BE20](v12);
-  OUTLINED_FUNCTION_3();
-  v15 = OUTLINED_FUNCTION_17_3();
-  v16 = type metadata accessor for NeuralNetwork.Layer.Activation.ScaledTanhConfiguration(v15);
-  v17 = OUTLINED_FUNCTION_13(v16);
-  v19 = *(v18 + 64);
-  MEMORY[0x28223BE20](v17);
-  OUTLINED_FUNCTION_24_0();
-  v20 = type metadata accessor for NeuralNetwork.Layer.Activation.ThresholdedReluConfiguration(0);
-  v21 = OUTLINED_FUNCTION_13(v20);
-  v23 = *(v22 + 64);
-  MEMORY[0x28223BE20](v21);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_12_6();
-  v24 = type metadata accessor for NeuralNetwork.Layer.Activation.LeakyReluConfiguration(0);
-  v25 = OUTLINED_FUNCTION_13(v24);
-  v27 = *(v26 + 64);
-  MEMORY[0x28223BE20](v25);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_21_1();
-  v28 = type metadata accessor for NeuralNetwork.Layer.Activation.LinearConfiguration(0);
-  v29 = OUTLINED_FUNCTION_13(v28);
-  v31 = *(v30 + 64);
-  MEMORY[0x28223BE20](v29);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_30_2();
-  v32 = type metadata accessor for NeuralNetwork.Layer.Activation(0);
-  v33 = OUTLINED_FUNCTION_4(v32);
-  v35 = *(v34 + 64);
-  MEMORY[0x28223BE20](v33);
-  OUTLINED_FUNCTION_3();
-  v38 = v37 - v36;
-  OUTLINED_FUNCTION_0_76();
-  sub_2576B750C(v0, v38);
-  switch(swift_getEnumCaseMultiPayload())
-  {
-    case 1u:
-    case 4u:
-    case 5u:
-    case 7u:
-    case 0xAu:
-    case 0xBu:
-    case 0xCu:
-      OUTLINED_FUNCTION_13_23();
-      sub_2576B7568(v38, v39);
-      goto LABEL_10;
-    case 2u:
-      OUTLINED_FUNCTION_25_17();
-      sub_2576B7680(v38, v4);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v63 = OUTLINED_FUNCTION_8_4();
-      *(v63 + 16) = xmmword_2577442B0;
-      strcpy((v63 + 32), "Negative Slope");
-      *(v63 + 47) = -18;
-      v64 = *v4;
-      *(v63 + 48) = sub_257743794();
-      *(v63 + 56) = v65;
-      OUTLINED_FUNCTION_5_42();
-      v46 = v4;
-      goto LABEL_9;
-    case 3u:
-      OUTLINED_FUNCTION_30_13();
-      sub_2576B7680(v38, v3);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v48 = OUTLINED_FUNCTION_8_4();
-      *(v48 + 16) = xmmword_2577442B0;
-      *(v48 + 32) = 0x6C6F687365726854;
-      *(v48 + 40) = 0xE900000000000064;
-      v49 = *v3;
-      *(v48 + 48) = sub_257743794();
-      *(v48 + 56) = v50;
-      OUTLINED_FUNCTION_29_16();
-      v46 = v3;
-      goto LABEL_9;
-    case 6u:
-      OUTLINED_FUNCTION_28_21();
-      sub_2576B7680(v38, v2);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v51 = OUTLINED_FUNCTION_85_4();
-      *(v51 + 16) = xmmword_257743FF0;
-      OUTLINED_FUNCTION_36_11(v51, 0x207475706E49);
-      v52 = v2[1];
-      v53 = sub_257743794();
-      OUTLINED_FUNCTION_56_4(v53, v54);
-      v55 = *v2;
-      *(v51 + 80) = sub_257743794();
-      *(v51 + 88) = v56;
-      OUTLINED_FUNCTION_27_18();
-      v46 = v2;
-      goto LABEL_9;
-    case 8u:
-      OUTLINED_FUNCTION_21_22();
-      sub_2576B7680(v38, v1);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v40 = OUTLINED_FUNCTION_85_4();
-      *(v40 + 16) = xmmword_257743FF0;
-      OUTLINED_FUNCTION_31_12(v40, 25427);
-      v41 = *v1;
-      v42 = sub_257743794();
-      OUTLINED_FUNCTION_70_6(v42, v43);
-      v44 = v1[1];
-      *(v40 + 80) = sub_257743794();
-      *(v40 + 88) = v45;
-      v46 = OUTLINED_FUNCTION_20_18();
-      goto LABEL_9;
-    case 9u:
-      OUTLINED_FUNCTION_24_19();
-      sub_2576B7680(v38, v0);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v66 = OUTLINED_FUNCTION_8_4();
-      *(v66 + 16) = xmmword_2577442B0;
-      OUTLINED_FUNCTION_31_12(v66, 25427);
-      v67 = *v0;
-      *(v66 + 48) = sub_257743794();
-      *(v66 + 56) = v68;
-      OUTLINED_FUNCTION_23_20();
-      v46 = v0;
-      goto LABEL_9;
-    default:
-      OUTLINED_FUNCTION_26_14();
-      sub_2576B7680(v38, v5);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v57 = OUTLINED_FUNCTION_85_4();
-      *(v57 + 16) = xmmword_257743FF0;
-      OUTLINED_FUNCTION_31_12(v57, 25427);
-      v58 = *v5;
-      v59 = sub_257743794();
-      OUTLINED_FUNCTION_70_6(v59, v60);
-      v61 = v5[1];
-      *(v57 + 80) = sub_257743794();
-      *(v57 + 88) = v62;
-      OUTLINED_FUNCTION_6_41();
-      v46 = v5;
-LABEL_9:
-      sub_2576B7568(v46, v47);
-LABEL_10:
-      OUTLINED_FUNCTION_35();
-      return;
-  }
-}
-
-uint64_t NeuralNetwork.Layer.Activation.ScaledTanhConfiguration.propertyDescriptions.getter()
-{
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-  v1 = OUTLINED_FUNCTION_85_4();
-  *(v1 + 16) = xmmword_257743FF0;
-  OUTLINED_FUNCTION_36_11(v1, 0x207475706E49);
-  v2 = v0[1];
-  v3 = sub_257743794();
-  OUTLINED_FUNCTION_56_4(v3, v4);
-  v5 = *v0;
-  *(v1 + 80) = sub_257743794();
-  *(v1 + 88) = v6;
-  return v1;
-}
-
-uint64_t sub_2576B6D94(uint64_t a1, uint64_t a2)
-{
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-  v5 = OUTLINED_FUNCTION_8_4();
-  *(v5 + 16) = xmmword_2577442B0;
-  *(v5 + 32) = a1;
-  *(v5 + 40) = a2;
-  v6 = *v2;
-  *(v5 + 48) = sub_257743794();
-  *(v5 + 56) = v7;
-  return v5;
-}
-
-uint64_t NeuralNetwork.Layer.Activation.namedWeights.getter()
-{
-  v2 = type metadata accessor for NeuralNetwork.Layer.Activation.ParametricSoftplusConfiguration(0);
-  v3 = OUTLINED_FUNCTION_13(v2);
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20](v3);
-  OUTLINED_FUNCTION_3();
-  v6 = OUTLINED_FUNCTION_37_8();
-  v7 = type metadata accessor for NeuralNetwork.Layer.Activation.ParameterizedReluConfiguration(v6);
-  v8 = OUTLINED_FUNCTION_13(v7);
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20](v8);
-  OUTLINED_FUNCTION_3();
-  v13 = v12 - v11;
-  v14 = type metadata accessor for NeuralNetwork.Layer.Activation(0);
-  v15 = OUTLINED_FUNCTION_4(v14);
-  v17 = *(v16 + 64);
-  MEMORY[0x28223BE20](v15);
-  OUTLINED_FUNCTION_24_0();
-  OUTLINED_FUNCTION_0_76();
-  v18 = OUTLINED_FUNCTION_263();
-  sub_2576B750C(v18, v19);
-  OUTLINED_FUNCTION_277();
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload == 12)
-  {
-    OUTLINED_FUNCTION_22_20();
-    sub_2576B7680(v1, v0);
-    NeuralNetwork.Layer.Activation.ParametricSoftplusConfiguration.namedWeights.getter();
-    v21 = v24;
-    v22 = type metadata accessor for NeuralNetwork.Layer.Activation.ParametricSoftplusConfiguration;
-    v23 = v0;
-  }
-
-  else
-  {
-    if (EnumCaseMultiPayload != 4)
-    {
-      sub_2576B7568(v1, type metadata accessor for NeuralNetwork.Layer.Activation);
-      return MEMORY[0x277D84F90];
-    }
-
-    sub_2576B7680(v1, v13);
-    v21 = NeuralNetwork.Layer.Activation.ParameterizedReluConfiguration.namedWeights.getter();
-    OUTLINED_FUNCTION_49_7();
-    v23 = v13;
-  }
-
-  sub_2576B7568(v23, v22);
-  return v21;
-}
-
-uint64_t NeuralNetwork.Layer.Activation.ParameterizedReluConfiguration.namedWeights.getter()
-{
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B38, &qword_2577448C0);
-  OUTLINED_FUNCTION_63(v3);
-  v5 = v4;
-  v7 = *(v6 + 64);
-  OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v8);
-  OUTLINED_FUNCTION_271();
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F880938, &unk_25776E510);
-  OUTLINED_FUNCTION_13(v9);
-  v11 = *(v10 + 64);
-  OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v12);
-  OUTLINED_FUNCTION_21_1();
-  v13 = type metadata accessor for NeuralNetwork.WeightParameters();
-  v14 = OUTLINED_FUNCTION_4(v13);
-  v16 = *(v15 + 64);
-  MEMORY[0x28223BE20](v14);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_12_6();
-  NeuralNetwork.Layer.Activation.ParameterizedReluConfiguration.scale.getter();
-  OUTLINED_FUNCTION_155(v2, 1, v13);
-  if (v17)
-  {
-    sub_2574695E4(v2, &qword_27F880938, &unk_25776E510);
-    return MEMORY[0x277D84F90];
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_12_32();
-    sub_2576B7680(v2, v1);
-    v19 = *(v3 + 48);
-    *v0 = 0x656C616353;
-    v0[1] = 0xE500000000000000;
-    OUTLINED_FUNCTION_14_17();
-    sub_2576B750C(v1, v0 + v20);
-    sub_257469D34();
-    v18 = v21;
-    v22 = *(v21 + 16);
-    if (v22 >= *(v21 + 24) >> 1)
-    {
-      sub_257469D34();
-      v18 = v25;
-    }
-
-    OUTLINED_FUNCTION_2_50();
-    sub_2576B7568(v1, v23);
-    *(v18 + 16) = v22 + 1;
-    sub_25749E9A8(v0, v18 + ((*(v5 + 80) + 32) & ~*(v5 + 80)) + *(v5 + 72) * v22);
-  }
-
-  return v18;
-}
-
-void NeuralNetwork.Layer.Activation.ParametricSoftplusConfiguration.namedWeights.getter()
-{
-  OUTLINED_FUNCTION_31();
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B38, &qword_2577448C0);
-  v1 = OUTLINED_FUNCTION_63(v0);
-  v50[1] = v2;
-  v4 = *(v3 + 64);
+  v0 = type metadata accessor for NeuralNetwork.Layer.BiasParameters(0);
+  v1 = OUTLINED_FUNCTION_13(v0);
   MEMORY[0x28223BE20](v1);
-  OUTLINED_FUNCTION_11();
-  v7 = v5 - v6;
-  MEMORY[0x28223BE20](v8);
-  v10 = (v50 - v9);
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F880938, &unk_25776E510);
-  v12 = OUTLINED_FUNCTION_13(v11);
-  v14 = *(v13 + 64);
-  MEMORY[0x28223BE20](v12);
-  OUTLINED_FUNCTION_11();
-  v17 = v15 - v16;
-  MEMORY[0x28223BE20](v18);
-  v20 = v50 - v19;
-  v21 = type metadata accessor for NeuralNetwork.WeightParameters();
-  v22 = OUTLINED_FUNCTION_4(v21);
-  v24 = *(v23 + 64);
-  MEMORY[0x28223BE20](v22);
-  OUTLINED_FUNCTION_11();
-  v27 = v25 - v26;
-  MEMORY[0x28223BE20](v28);
-  v30 = v50 - v29;
-  NeuralNetwork.Layer.Activation.ParametricSoftplusConfiguration.inputScale.getter();
-  OUTLINED_FUNCTION_155(v20, 1, v21);
-  if (v31)
+  OUTLINED_FUNCTION_12_1();
+  v114 = v2;
+  v3 = OUTLINED_FUNCTION_153();
+  v4 = type metadata accessor for NeuralNetwork.Layer.EmbeddingNDParameters(v3);
+  v5 = OUTLINED_FUNCTION_13(v4);
+  MEMORY[0x28223BE20](v5);
+  OUTLINED_FUNCTION_12_1();
+  v113 = v6;
+  v7 = OUTLINED_FUNCTION_153();
+  v8 = type metadata accessor for NeuralNetwork.Layer.EmbeddingParameters(v7);
+  v9 = OUTLINED_FUNCTION_13(v8);
+  MEMORY[0x28223BE20](v9);
+  OUTLINED_FUNCTION_12_1();
+  v112 = v10;
+  v11 = OUTLINED_FUNCTION_153();
+  v12 = type metadata accessor for NeuralNetwork.Layer.GRUParameters(v11);
+  v13 = OUTLINED_FUNCTION_13(v12);
+  MEMORY[0x28223BE20](v13);
+  OUTLINED_FUNCTION_12_1();
+  v122 = v14;
+  v15 = OUTLINED_FUNCTION_153();
+  v16 = type metadata accessor for NeuralNetwork.Layer.SimpleRecurrentParameters(v15);
+  v17 = OUTLINED_FUNCTION_13(v16);
+  MEMORY[0x28223BE20](v17);
+  OUTLINED_FUNCTION_12_1();
+  v121 = v18;
+  v19 = OUTLINED_FUNCTION_153();
+  v20 = type metadata accessor for NeuralNetwork.Layer.BidirectionalLSTMParameters(v19);
+  v21 = OUTLINED_FUNCTION_13(v20);
+  MEMORY[0x28223BE20](v21);
+  OUTLINED_FUNCTION_12_1();
+  v120 = v22;
+  v23 = OUTLINED_FUNCTION_153();
+  v24 = type metadata accessor for NeuralNetwork.Layer.LSTMWeightParameters(v23);
+  v25 = OUTLINED_FUNCTION_13(v24);
+  MEMORY[0x28223BE20](v25);
+  OUTLINED_FUNCTION_12_1();
+  v119 = v26;
+  v27 = OUTLINED_FUNCTION_153();
+  v28 = type metadata accessor for NeuralNetwork.Layer.UnidirectionalLSTMParameters(v27);
+  v29 = OUTLINED_FUNCTION_13(v28);
+  MEMORY[0x28223BE20](v29);
+  OUTLINED_FUNCTION_12_1();
+  v118 = v30;
+  v31 = OUTLINED_FUNCTION_153();
+  v32 = type metadata accessor for NeuralNetwork.Layer.LayerNormalizeParameters(v31);
+  v33 = OUTLINED_FUNCTION_13(v32);
+  MEMORY[0x28223BE20](v33);
+  OUTLINED_FUNCTION_12_1();
+  v117 = v34;
+  v35 = OUTLINED_FUNCTION_153();
+  v36 = type metadata accessor for NeuralNetwork.Layer.BatchNormalizeParameters(v35);
+  v37 = OUTLINED_FUNCTION_13(v36);
+  MEMORY[0x28223BE20](v37);
+  OUTLINED_FUNCTION_3();
+  v40 = v39 - v38;
+  v41 = type metadata accessor for NeuralNetwork.Layer.ScaleParameters(0);
+  v42 = OUTLINED_FUNCTION_13(v41);
+  MEMORY[0x28223BE20](v42);
+  OUTLINED_FUNCTION_3();
+  v45 = v44 - v43;
+  v46 = type metadata accessor for NeuralNetwork.Layer.Convolution3DParameters(0);
+  v47 = OUTLINED_FUNCTION_13(v46);
+  MEMORY[0x28223BE20](v47);
+  OUTLINED_FUNCTION_12_1();
+  v115 = v48;
+  v49 = OUTLINED_FUNCTION_153();
+  v50 = type metadata accessor for NeuralNetwork.Layer.ConvolutionParameters(v49);
+  v51 = OUTLINED_FUNCTION_13(v50);
+  MEMORY[0x28223BE20](v51);
+  OUTLINED_FUNCTION_3();
+  v52 = type metadata accessor for NeuralNetwork.Layer.Activation.ParametricSoftplusConfiguration(0);
+  v53 = OUTLINED_FUNCTION_13(v52);
+  MEMORY[0x28223BE20](v53);
+  OUTLINED_FUNCTION_12_1();
+  v111 = v54;
+  v55 = OUTLINED_FUNCTION_153();
+  v56 = type metadata accessor for NeuralNetwork.Layer.Activation.ParameterizedReluConfiguration(v55);
+  v57 = OUTLINED_FUNCTION_13(v56);
+  MEMORY[0x28223BE20](v57);
+  OUTLINED_FUNCTION_12_1();
+  v110 = v58;
+  v59 = OUTLINED_FUNCTION_153();
+  type metadata accessor for NeuralNetwork.Layer.Activation(v59);
+  OUTLINED_FUNCTION_4();
+  v61 = MEMORY[0x28223BE20](v60);
+  MEMORY[0x28223BE20](v61);
+  v116 = &v110 - v62;
+  v63 = OUTLINED_FUNCTION_153();
+  v64 = type metadata accessor for NeuralNetwork.Layer.InnerProductParameters(v63);
+  v65 = OUTLINED_FUNCTION_13(v64);
+  MEMORY[0x28223BE20](v65);
+  OUTLINED_FUNCTION_3();
+  v66 = type metadata accessor for NeuralNetwork.Layer.ConstantNDParameters(0);
+  v67 = OUTLINED_FUNCTION_13(v66);
+  MEMORY[0x28223BE20](v67);
+  OUTLINED_FUNCTION_3();
+  v70 = v69 - v68;
+  v71 = type metadata accessor for NeuralNetwork.Layer.ConstantParameters(0);
+  v72 = OUTLINED_FUNCTION_13(v71);
+  MEMORY[0x28223BE20](v72);
+  OUTLINED_FUNCTION_3();
+  v75 = v74 - v73;
+  type metadata accessor for NeuralNetwork.Layer.Kind(0);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v76);
+  OUTLINED_FUNCTION_3();
+  v79 = v78 - v77;
+  sub_2576D0534(v123, v78 - v77, type metadata accessor for NeuralNetwork.Layer.Kind);
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (!(!v82 & v81))
   {
-    sub_2574695E4(v20, &qword_27F880938, &unk_25776E510);
-    v32 = MEMORY[0x277D84F90];
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_12_32();
-    sub_2576B7680(v20, v30);
-    v50[0] = v0;
-    v33 = *(v0 + 48);
-    *v10 = 0x6353207475706E49;
-    v10[1] = 0xEB00000000656C61;
-    OUTLINED_FUNCTION_14_17();
-    sub_2576B750C(v30, v10 + v34);
-    sub_257469D34();
-    v32 = v35;
-    v36 = *(v35 + 16);
-    if (v36 >= *(v35 + 24) >> 1)
+    v84 = v45;
+    v86 = v117;
+    v85 = v118;
+    v87 = v119;
+    v75 = v122;
+    switch(EnumCaseMultiPayload)
     {
-      OUTLINED_FUNCTION_84_5();
-      v32 = v47;
+      case 'A':
+        v75 = v84;
+        sub_2576D0594(v79, v84, type metadata accessor for NeuralNetwork.Layer.ScaleParameters);
+        NeuralNetwork.Layer.ScaleParameters.namedWeights.getter();
+        v107 = v88;
+        v108 = type metadata accessor for NeuralNetwork.Layer.ScaleParameters;
+        goto LABEL_22;
+      case 'B':
+        sub_2576D0594(v79, v40, type metadata accessor for NeuralNetwork.Layer.BatchNormalizeParameters);
+        NeuralNetwork.Layer.BatchNormalizeParameters.namedWeights.getter();
+        v107 = v90;
+        v96 = type metadata accessor for NeuralNetwork.Layer.BatchNormalizeParameters;
+        v97 = v40;
+        goto LABEL_23;
+      case 'C':
+      case 'D':
+      case 'E':
+      case 'F':
+      case 'G':
+        goto LABEL_15;
+      case 'H':
+        sub_2576D0594(v79, v117, type metadata accessor for NeuralNetwork.Layer.LayerNormalizeParameters);
+        v107 = NeuralNetwork.Layer.LayerNormalizeParameters.namedWeights.getter();
+        v96 = type metadata accessor for NeuralNetwork.Layer.LayerNormalizeParameters;
+        v97 = v86;
+        goto LABEL_23;
+      case 'I':
+        sub_2576D0594(v79, v118, type metadata accessor for NeuralNetwork.Layer.UnidirectionalLSTMParameters);
+        NeuralNetwork.Layer.UnidirectionalLSTMParameters.weights.getter();
+        v107 = NeuralNetwork.Layer.LSTMWeightParameters.namedWeights.getter();
+        sub_2576D05F4(v87, type metadata accessor for NeuralNetwork.Layer.LSTMWeightParameters);
+        v96 = type metadata accessor for NeuralNetwork.Layer.UnidirectionalLSTMParameters;
+        v97 = v85;
+        goto LABEL_23;
+      case 'J':
+        v75 = v120;
+        sub_2576D0594(v79, v120, type metadata accessor for NeuralNetwork.Layer.BidirectionalLSTMParameters);
+        NeuralNetwork.Layer.BidirectionalLSTMParameters.namedWeights.getter();
+        v107 = v89;
+        v108 = type metadata accessor for NeuralNetwork.Layer.BidirectionalLSTMParameters;
+        goto LABEL_22;
+      case 'K':
+        v75 = v121;
+        sub_2576D0594(v79, v121, type metadata accessor for NeuralNetwork.Layer.SimpleRecurrentParameters);
+        v107 = NeuralNetwork.Layer.SimpleRecurrentParameters.namedWeights.getter();
+        v108 = type metadata accessor for NeuralNetwork.Layer.SimpleRecurrentParameters;
+        goto LABEL_22;
+      case 'L':
+        sub_2576D0594(v79, v122, type metadata accessor for NeuralNetwork.Layer.GRUParameters);
+        v107 = NeuralNetwork.Layer.GRUParameters.namedWeights.getter();
+        v108 = type metadata accessor for NeuralNetwork.Layer.GRUParameters;
+        goto LABEL_22;
+      default:
+        JUMPOUT(0);
     }
-
-    OUTLINED_FUNCTION_2_50();
-    sub_2576B7568(v30, v37);
-    OUTLINED_FUNCTION_65_4();
-    sub_25749E9A8(v10, v38 + v39 * v36);
-    v0 = v50[0];
   }
 
-  NeuralNetwork.Layer.Activation.ParametricSoftplusConfiguration.outputScale.getter();
-  OUTLINED_FUNCTION_155(v17, 1, v21);
-  if (v31)
+  switch(EnumCaseMultiPayload)
   {
-    sub_2574695E4(v17, &qword_27F880938, &unk_25776E510);
+    case 127:
+      v75 = v114;
+      v98 = sub_2576D0594(v79, v114, type metadata accessor for NeuralNetwork.Layer.BiasParameters);
+      NeuralNetwork.Layer.BiasParameters.namedWeights.getter(v98, v99, v100, v101, v102, v103, v104, v105, v110, v111, v112, v113, v114, v115, v116, v117, v118, v119, v120, v121);
+      v107 = v106;
+      v108 = type metadata accessor for NeuralNetwork.Layer.BiasParameters;
+LABEL_22:
+      v96 = v108;
+      v97 = v75;
+      goto LABEL_23;
+    case 1:
+      sub_2576D0594(v79, v70, type metadata accessor for NeuralNetwork.Layer.ConstantNDParameters);
+      NeuralNetwork.Layer.ConstantNDParameters.namedWeights.getter();
+      v107 = v95;
+      v96 = type metadata accessor for NeuralNetwork.Layer.ConstantNDParameters;
+      v97 = v70;
+LABEL_23:
+      sub_2576D05F4(v97, v96);
+      return v107;
+    case 125:
+      v75 = v112;
+      v91 = sub_2576D0594(v79, v112, type metadata accessor for NeuralNetwork.Layer.EmbeddingParameters);
+      NeuralNetwork.Layer.EmbeddingParameters.namedWeights.getter(v91);
+      v107 = v92;
+      v108 = type metadata accessor for NeuralNetwork.Layer.EmbeddingParameters;
+      goto LABEL_22;
+    case 126:
+      v75 = v113;
+      v93 = sub_2576D0594(v79, v113, type metadata accessor for NeuralNetwork.Layer.EmbeddingNDParameters);
+      NeuralNetwork.Layer.EmbeddingNDParameters.namedWeights.getter(v93);
+      v107 = v94;
+      v108 = type metadata accessor for NeuralNetwork.Layer.EmbeddingNDParameters;
+      goto LABEL_22;
+    case 0:
+      sub_2576D0594(v79, v75, type metadata accessor for NeuralNetwork.Layer.ConstantParameters);
+      NeuralNetwork.Layer.ConstantParameters.namedWeights.getter();
+      v107 = v83;
+      v108 = type metadata accessor for NeuralNetwork.Layer.ConstantParameters;
+      goto LABEL_22;
   }
 
-  else
-  {
-    OUTLINED_FUNCTION_12_32();
-    sub_2576B7680(v17, v27);
-    v40 = *(v0 + 48);
-    strcpy(v7, "Output Scale");
-    *(v7 + 13) = 0;
-    *(v7 + 14) = -5120;
-    OUTLINED_FUNCTION_14_17();
-    sub_2576B750C(v27, v7 + v41);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-    {
-      v48 = *(v32 + 16);
-      sub_257469D34();
-      v32 = v49;
-    }
-
-    v43 = *(v32 + 16);
-    if (v43 >= *(v32 + 24) >> 1)
-    {
-      OUTLINED_FUNCTION_84_5();
-    }
-
-    OUTLINED_FUNCTION_2_50();
-    sub_2576B7568(v27, v44);
-    OUTLINED_FUNCTION_65_4();
-    sub_25749E9A8(v7, v45 + v46 * v43);
-  }
-
-  OUTLINED_FUNCTION_35();
+LABEL_15:
+  sub_2576D05F4(v79, type metadata accessor for NeuralNetwork.Layer.Kind);
+  return MEMORY[0x277D84F90];
 }
 
-uint64_t sub_2576B750C(uint64_t a1, uint64_t a2)
+uint64_t sub_2576D0534(uint64_t a1, uint64_t a2, void (*a3)(void))
 {
-  v4 = OUTLINED_FUNCTION_30();
-  v6 = v5(v4);
-  OUTLINED_FUNCTION_4(v6);
-  (*(v7 + 16))(a2, v2);
+  a3(0);
+  OUTLINED_FUNCTION_4();
+  (*(v5 + 16))(a2, a1);
   return a2;
 }
 
-uint64_t sub_2576B7568(uint64_t a1, uint64_t (*a2)(void))
+uint64_t sub_2576D0594(uint64_t a1, uint64_t a2, void (*a3)(void))
 {
-  v3 = a2(0);
-  OUTLINED_FUNCTION_4(v3);
-  (*(v4 + 8))(a1);
+  a3(0);
+  OUTLINED_FUNCTION_4();
+  (*(v5 + 32))(a2, a1);
+  return a2;
+}
+
+uint64_t sub_2576D05F4(uint64_t a1, void (*a2)(void))
+{
+  a2(0);
+  OUTLINED_FUNCTION_4();
+  (*(v3 + 8))(a1);
   return a1;
 }
 
-uint64_t sub_2576B7680(uint64_t a1, uint64_t a2)
+__n128 *OUTLINED_FUNCTION_3_59(__n128 *result, __n128 a2)
 {
-  v4 = OUTLINED_FUNCTION_30();
-  v6 = v5(v4);
-  OUTLINED_FUNCTION_4(v6);
-  (*(v7 + 32))(a2, v2);
-  return a2;
-}
-
-void sub_2576B76DC()
-{
-  OUTLINED_FUNCTION_31();
-  v97 = v5;
-  v6 = type metadata accessor for NeuralNetwork.Layer.Activation.ParametricSoftplusConfiguration(0);
-  v7 = OUTLINED_FUNCTION_13(v6);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
-  OUTLINED_FUNCTION_12_1();
-  v96 = v10;
-  v11 = OUTLINED_FUNCTION_153();
-  v12 = type metadata accessor for NeuralNetwork.Layer.Activation.SoftplusConfiguration(v11);
-  v13 = OUTLINED_FUNCTION_13(v12);
-  v15 = *(v14 + 64);
-  MEMORY[0x28223BE20](v13);
-  OUTLINED_FUNCTION_12_1();
-  v95 = v16;
-  v17 = OUTLINED_FUNCTION_153();
-  v18 = type metadata accessor for NeuralNetwork.Layer.Activation.SoftsignConfiguration(v17);
-  v19 = OUTLINED_FUNCTION_13(v18);
-  v21 = *(v20 + 64);
-  MEMORY[0x28223BE20](v19);
-  OUTLINED_FUNCTION_12_1();
-  v94 = v22;
-  v23 = OUTLINED_FUNCTION_153();
-  v24 = type metadata accessor for NeuralNetwork.Layer.Activation.ELUConfiguration(v23);
-  v25 = OUTLINED_FUNCTION_13(v24);
-  v27 = *(v26 + 64);
-  MEMORY[0x28223BE20](v25);
-  OUTLINED_FUNCTION_12_1();
-  v93 = v28;
-  v29 = OUTLINED_FUNCTION_153();
-  v30 = type metadata accessor for NeuralNetwork.Layer.Activation.SigmoidHardConfiguration(v29);
-  v31 = OUTLINED_FUNCTION_13(v30);
-  v33 = *(v32 + 64);
-  MEMORY[0x28223BE20](v31);
-  OUTLINED_FUNCTION_12_1();
-  v92 = v34;
-  v35 = OUTLINED_FUNCTION_153();
-  v36 = type metadata accessor for NeuralNetwork.Layer.Activation.SigmoidConfiguration(v35);
-  v37 = OUTLINED_FUNCTION_13(v36);
-  v39 = *(v38 + 64);
-  MEMORY[0x28223BE20](v37);
-  OUTLINED_FUNCTION_3();
-  v42 = v41 - v40;
-  v43 = type metadata accessor for NeuralNetwork.Layer.Activation.ScaledTanhConfiguration(0);
-  v44 = OUTLINED_FUNCTION_13(v43);
-  v46 = *(v45 + 64);
-  MEMORY[0x28223BE20](v44);
-  OUTLINED_FUNCTION_3();
-  v49 = v48 - v47;
-  v50 = type metadata accessor for NeuralNetwork.Layer.Activation.TanhConfiguration(0);
-  v51 = OUTLINED_FUNCTION_13(v50);
-  v53 = *(v52 + 64);
-  MEMORY[0x28223BE20](v51);
-  OUTLINED_FUNCTION_3();
-  v56 = v55 - v54;
-  v57 = type metadata accessor for NeuralNetwork.Layer.Activation.ParameterizedReluConfiguration(0);
-  v58 = OUTLINED_FUNCTION_13(v57);
-  v60 = *(v59 + 64);
-  MEMORY[0x28223BE20](v58);
-  OUTLINED_FUNCTION_3();
-  v63 = v62 - v61;
-  v64 = type metadata accessor for NeuralNetwork.Layer.Activation.ThresholdedReluConfiguration(0);
-  v65 = OUTLINED_FUNCTION_13(v64);
-  v67 = *(v66 + 64);
-  MEMORY[0x28223BE20](v65);
-  OUTLINED_FUNCTION_3();
-  v68 = OUTLINED_FUNCTION_37_8();
-  v69 = type metadata accessor for NeuralNetwork.Layer.Activation.LeakyReluConfiguration(v68);
-  v70 = OUTLINED_FUNCTION_13(v69);
-  v72 = *(v71 + 64);
-  MEMORY[0x28223BE20](v70);
-  OUTLINED_FUNCTION_24_0();
-  v73 = type metadata accessor for NeuralNetwork.Layer.Activation.ReluConfiguration(0);
-  v74 = OUTLINED_FUNCTION_13(v73);
-  v76 = *(v75 + 64);
-  MEMORY[0x28223BE20](v74);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_21_1();
-  v77 = type metadata accessor for NeuralNetwork.Layer.Activation.LinearConfiguration(0);
-  v78 = OUTLINED_FUNCTION_13(v77);
-  v80 = *(v79 + 64);
-  MEMORY[0x28223BE20](v78);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_30_2();
-  v81 = type metadata accessor for NeuralNetwork.Layer.Activation(0);
-  v82 = OUTLINED_FUNCTION_4(v81);
-  v84 = *(v83 + 64);
-  MEMORY[0x28223BE20](v82);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_12_6();
-  OUTLINED_FUNCTION_0_76();
-  sub_2576B750C(v0, v2);
-  switch(swift_getEnumCaseMultiPayload())
-  {
-    case 1u:
-      v89 = OUTLINED_FUNCTION_64_5();
-      sub_2576B7680(v89, v3);
-      v85 = v3;
-      break;
-    case 2u:
-      OUTLINED_FUNCTION_25_17();
-      sub_2576B7680(v2, v1);
-      v85 = v1;
-      break;
-    case 3u:
-      OUTLINED_FUNCTION_30_13();
-      sub_2576B7680(v2, v0);
-      v85 = v0;
-      break;
-    case 4u:
-      v87 = OUTLINED_FUNCTION_64_5();
-      sub_2576B7680(v87, v63);
-      goto LABEL_15;
-    case 5u:
-      v90 = OUTLINED_FUNCTION_64_5();
-      sub_2576B7680(v90, v56);
-      v85 = v56;
-      break;
-    case 6u:
-      OUTLINED_FUNCTION_28_21();
-      sub_2576B7680(v2, v49);
-      v85 = v49;
-      break;
-    case 7u:
-      v88 = OUTLINED_FUNCTION_64_5();
-      sub_2576B7680(v88, v42);
-      v85 = v42;
-      break;
-    case 8u:
-      OUTLINED_FUNCTION_21_22();
-      v63 = v92;
-      sub_2576B7680(v2, v92);
-      goto LABEL_15;
-    case 9u:
-      OUTLINED_FUNCTION_24_19();
-      v63 = v93;
-      sub_2576B7680(v2, v93);
-      goto LABEL_15;
-    case 0xAu:
-      v91 = OUTLINED_FUNCTION_64_5();
-      v63 = v94;
-      sub_2576B7680(v91, v94);
-      goto LABEL_15;
-    case 0xBu:
-      v86 = OUTLINED_FUNCTION_64_5();
-      v63 = v95;
-      sub_2576B7680(v86, v95);
-      goto LABEL_15;
-    case 0xCu:
-      OUTLINED_FUNCTION_22_20();
-      v63 = v96;
-      sub_2576B7680(v2, v96);
-LABEL_15:
-      v85 = v63;
-      break;
-    default:
-      OUTLINED_FUNCTION_26_14();
-      sub_2576B7680(v2, v4);
-      v85 = v4;
-      break;
-  }
-
-  sub_2576B7680(v85, v97);
-  type metadata accessor for Proto_ActivationParams.OneOf_NonlinearityType(0);
-  OUTLINED_FUNCTION_18_1();
-  swift_storeEnumTagMultiPayload();
-  OUTLINED_FUNCTION_35();
-}
-
-uint64_t sub_2576B7CC8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v5 = type metadata accessor for NeuralNetwork.Layer.Activation(0);
-  v6 = OUTLINED_FUNCTION_4(v5);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_24_0();
-  type metadata accessor for Proto_ActivationParams.OneOf_NonlinearityType(0);
-  OUTLINED_FUNCTION_18_1();
-  v9 = *(&off_2868B7018 + swift_getEnumCaseMultiPayload());
-  sub_2576B7680(a1, v2);
-  OUTLINED_FUNCTION_176();
-  swift_storeEnumTagMultiPayload();
-  OUTLINED_FUNCTION_51_5();
-  sub_2576B7680(v2, a2);
-  OUTLINED_FUNCTION_21();
-  return __swift_storeEnumTagSinglePayload(v10, v11, v12, v5);
-}
-
-void static NeuralNetwork.Layer.Activation.== infix(_:_:)()
-{
-  OUTLINED_FUNCTION_31();
-  v211 = v2;
-  v212 = v3;
-  v4 = type metadata accessor for NeuralNetwork.Layer.Activation.ParametricSoftplusConfiguration(0);
-  v5 = OUTLINED_FUNCTION_13(v4);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v5);
-  OUTLINED_FUNCTION_12_1();
-  v201 = v8;
-  v9 = OUTLINED_FUNCTION_153();
-  v10 = type metadata accessor for NeuralNetwork.Layer.Activation.SoftplusConfiguration(v9);
-  v11 = OUTLINED_FUNCTION_13(v10);
-  v13 = *(v12 + 64);
-  MEMORY[0x28223BE20](v11);
-  OUTLINED_FUNCTION_12_1();
-  v202 = v14;
-  v15 = OUTLINED_FUNCTION_153();
-  v16 = type metadata accessor for NeuralNetwork.Layer.Activation.SoftsignConfiguration(v15);
-  v17 = OUTLINED_FUNCTION_13(v16);
-  v19 = *(v18 + 64);
-  MEMORY[0x28223BE20](v17);
-  OUTLINED_FUNCTION_12_1();
-  v200 = v20;
-  v21 = OUTLINED_FUNCTION_153();
-  v22 = type metadata accessor for NeuralNetwork.Layer.Activation.ELUConfiguration(v21);
-  v23 = OUTLINED_FUNCTION_13(v22);
-  v25 = *(v24 + 64);
-  MEMORY[0x28223BE20](v23);
-  OUTLINED_FUNCTION_12_1();
-  v199 = v26;
-  v27 = OUTLINED_FUNCTION_153();
-  v28 = type metadata accessor for NeuralNetwork.Layer.Activation.SigmoidHardConfiguration(v27);
-  v29 = OUTLINED_FUNCTION_13(v28);
-  v31 = *(v30 + 64);
-  MEMORY[0x28223BE20](v29);
-  OUTLINED_FUNCTION_12_1();
-  v198 = v32;
-  v33 = OUTLINED_FUNCTION_153();
-  v34 = type metadata accessor for NeuralNetwork.Layer.Activation.SigmoidConfiguration(v33);
-  v35 = OUTLINED_FUNCTION_13(v34);
-  v37 = *(v36 + 64);
-  MEMORY[0x28223BE20](v35);
-  OUTLINED_FUNCTION_12_1();
-  v196 = v38;
-  v39 = OUTLINED_FUNCTION_153();
-  v40 = type metadata accessor for NeuralNetwork.Layer.Activation.ScaledTanhConfiguration(v39);
-  v41 = OUTLINED_FUNCTION_13(v40);
-  v43 = *(v42 + 64);
-  MEMORY[0x28223BE20](v41);
-  OUTLINED_FUNCTION_12_1();
-  v197 = v44;
-  v45 = OUTLINED_FUNCTION_153();
-  v46 = type metadata accessor for NeuralNetwork.Layer.Activation.TanhConfiguration(v45);
-  v47 = OUTLINED_FUNCTION_13(v46);
-  v49 = *(v48 + 64);
-  MEMORY[0x28223BE20](v47);
-  OUTLINED_FUNCTION_12_1();
-  v195 = v50;
-  v51 = OUTLINED_FUNCTION_153();
-  v52 = type metadata accessor for NeuralNetwork.Layer.Activation.ParameterizedReluConfiguration(v51);
-  v53 = OUTLINED_FUNCTION_13(v52);
-  v55 = *(v54 + 64);
-  MEMORY[0x28223BE20](v53);
-  OUTLINED_FUNCTION_12_1();
-  v193 = v56;
-  v57 = OUTLINED_FUNCTION_153();
-  v58 = type metadata accessor for NeuralNetwork.Layer.Activation.ThresholdedReluConfiguration(v57);
-  v59 = OUTLINED_FUNCTION_13(v58);
-  v61 = *(v60 + 64);
-  MEMORY[0x28223BE20](v59);
-  OUTLINED_FUNCTION_12_1();
-  v194 = v62;
-  v63 = OUTLINED_FUNCTION_153();
-  v64 = type metadata accessor for NeuralNetwork.Layer.Activation.LeakyReluConfiguration(v63);
-  v65 = OUTLINED_FUNCTION_13(v64);
-  v67 = *(v66 + 64);
-  MEMORY[0x28223BE20](v65);
-  OUTLINED_FUNCTION_12_1();
-  v192 = v68;
-  v69 = OUTLINED_FUNCTION_153();
-  v70 = type metadata accessor for NeuralNetwork.Layer.Activation.ReluConfiguration(v69);
-  v71 = OUTLINED_FUNCTION_13(v70);
-  v73 = *(v72 + 64);
-  MEMORY[0x28223BE20](v71);
-  OUTLINED_FUNCTION_12_1();
-  v191 = v74;
-  v75 = OUTLINED_FUNCTION_153();
-  v76 = type metadata accessor for NeuralNetwork.Layer.Activation.LinearConfiguration(v75);
-  v77 = OUTLINED_FUNCTION_13(v76);
-  v79 = *(v78 + 64);
-  MEMORY[0x28223BE20](v77);
-  OUTLINED_FUNCTION_12_1();
-  v190 = v80;
-  v81 = OUTLINED_FUNCTION_153();
-  v82 = type metadata accessor for NeuralNetwork.Layer.Activation(v81);
-  v83 = OUTLINED_FUNCTION_4(v82);
-  v85 = *(v84 + 64);
-  MEMORY[0x28223BE20](v83);
-  OUTLINED_FUNCTION_11();
-  v205 = v86 - v87;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v88);
-  OUTLINED_FUNCTION_167();
-  v208 = v89;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v90);
-  OUTLINED_FUNCTION_167();
-  v206 = v91;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v92);
-  OUTLINED_FUNCTION_167();
-  v210 = v93;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v94);
-  OUTLINED_FUNCTION_167();
-  v209 = v95;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v96);
-  OUTLINED_FUNCTION_167();
-  v203 = v97;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v98);
-  OUTLINED_FUNCTION_167();
-  v207 = v99;
-  OUTLINED_FUNCTION_158();
-  v101 = MEMORY[0x28223BE20](v100);
-  v103 = &v190 - v102;
-  v104 = MEMORY[0x28223BE20](v101);
-  v106 = &v190 - v105;
-  MEMORY[0x28223BE20](v104);
-  OUTLINED_FUNCTION_167();
-  v204 = v107;
-  OUTLINED_FUNCTION_158();
-  v109 = MEMORY[0x28223BE20](v108);
-  v111 = (&v190 - v110);
-  v112 = MEMORY[0x28223BE20](v109);
-  v114 = &v190 - v113;
-  MEMORY[0x28223BE20](v112);
-  OUTLINED_FUNCTION_218();
-  v115 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F880EC8, &unk_2577721C0);
-  OUTLINED_FUNCTION_13(v115);
-  v117 = *(v116 + 64);
-  OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v118);
-  OUTLINED_FUNCTION_30_2();
-  v120 = *(v119 + 56);
-  sub_2576B750C(v211, v0);
-  sub_2576B750C(v212, v0 + v120);
-  switch(swift_getEnumCaseMultiPayload())
-  {
-    case 1u:
-      OUTLINED_FUNCTION_0_76();
-      sub_2576B750C(v0, v114);
-      if (OUTLINED_FUNCTION_69_3() == 1)
-      {
-        v154 = OUTLINED_FUNCTION_46_9();
-        v155 = v191;
-        sub_2576B7680(v154, v191);
-        sub_2577431B4();
-        OUTLINED_FUNCTION_1_60();
-        sub_2576BB9EC(v156, v157);
-        sub_257743644();
-        sub_2576B7568(v155, type metadata accessor for NeuralNetwork.Layer.Activation.ReluConfiguration);
-        v132 = v114;
-        v145 = type metadata accessor for NeuralNetwork.Layer.Activation.ReluConfiguration;
-        goto LABEL_74;
-      }
-
-      v121 = type metadata accessor for NeuralNetwork.Layer.Activation.ReluConfiguration;
-      v122 = v114;
-      goto LABEL_60;
-    case 2u:
-      OUTLINED_FUNCTION_0_76();
-      sub_2576B750C(v0, v111);
-      if (OUTLINED_FUNCTION_69_3() != 2)
-      {
-        OUTLINED_FUNCTION_5_42();
-        v122 = v111;
-        goto LABEL_60;
-      }
-
-      OUTLINED_FUNCTION_25_17();
-      v140 = v192;
-      sub_2576B7680(v0 + v120, v192);
-      if (*v111 == *v140)
-      {
-        v141 = *(type metadata accessor for Proto_ActivationLeakyReLU(0) + 20);
-        sub_2577431B4();
-        OUTLINED_FUNCTION_1_60();
-        sub_2576BB9EC(v142, v143);
-        sub_257743644();
-      }
-
-      OUTLINED_FUNCTION_5_42();
-      sub_2576B7568(v140, v144);
-      OUTLINED_FUNCTION_5_42();
-      v132 = v111;
-      goto LABEL_74;
-    case 3u:
-      OUTLINED_FUNCTION_0_76();
-      v123 = v204;
-      sub_2576B750C(v0, v204);
-      if (OUTLINED_FUNCTION_69_3() != 3)
-      {
-        v176 = type metadata accessor for NeuralNetwork.Layer.Activation.ThresholdedReluConfiguration;
-        goto LABEL_59;
-      }
-
-      OUTLINED_FUNCTION_30_13();
-      v146 = v194;
-      sub_2576B7680(v0 + v120, v194);
-      OUTLINED_FUNCTION_57_1();
-      if (v134)
-      {
-        v147 = *(type metadata accessor for Proto_ActivationThresholdedReLU(0) + 20);
-        sub_2577431B4();
-        OUTLINED_FUNCTION_1_60();
-        sub_2576BB9EC(v148, v149);
-        LOBYTE(v147) = OUTLINED_FUNCTION_20_4();
-        OUTLINED_FUNCTION_29_16();
-        sub_2576B7568(v146, v150);
-        if (v147)
-        {
-          v139 = type metadata accessor for NeuralNetwork.Layer.Activation.ThresholdedReluConfiguration;
-          goto LABEL_46;
-        }
-      }
-
-      else
-      {
-        OUTLINED_FUNCTION_29_16();
-        sub_2576B7568(v146, v188);
-      }
-
-      v183 = type metadata accessor for NeuralNetwork.Layer.Activation.ThresholdedReluConfiguration;
-      goto LABEL_73;
-    case 4u:
-      OUTLINED_FUNCTION_0_76();
-      sub_2576B750C(v0, v106);
-      if (OUTLINED_FUNCTION_69_3() == 4)
-      {
-        v129 = OUTLINED_FUNCTION_46_9();
-        v130 = v193;
-        sub_2576B7680(v129, v193);
-        OUTLINED_FUNCTION_263();
-        _s20MLModelSpecification13NeuralNetworkV5LayerV10ActivationO30ParameterizedReluConfigurationV2eeoiySbAI_AItFZ_0();
-        v131 = type metadata accessor for NeuralNetwork.Layer.Activation.ParameterizedReluConfiguration;
-        sub_2576B7568(v130, type metadata accessor for NeuralNetwork.Layer.Activation.ParameterizedReluConfiguration);
-        v132 = v106;
-        goto LABEL_39;
-      }
-
-      OUTLINED_FUNCTION_49_7();
-      v122 = v106;
-      goto LABEL_60;
-    case 5u:
-      OUTLINED_FUNCTION_0_76();
-      sub_2576B750C(v0, v103);
-      if (OUTLINED_FUNCTION_69_3() == 5)
-      {
-        v158 = OUTLINED_FUNCTION_46_9();
-        v159 = v195;
-        sub_2576B7680(v158, v195);
-        sub_2577431B4();
-        OUTLINED_FUNCTION_1_60();
-        sub_2576BB9EC(v160, v161);
-        sub_257743644();
-        v131 = type metadata accessor for NeuralNetwork.Layer.Activation.TanhConfiguration;
-        sub_2576B7568(v159, type metadata accessor for NeuralNetwork.Layer.Activation.TanhConfiguration);
-        v132 = v103;
-        goto LABEL_39;
-      }
-
-      v121 = type metadata accessor for NeuralNetwork.Layer.Activation.TanhConfiguration;
-      v122 = v103;
-      goto LABEL_60;
-    case 6u:
-      OUTLINED_FUNCTION_0_76();
-      v123 = v207;
-      sub_2576B750C(v0, v207);
-      if (OUTLINED_FUNCTION_69_3() != 6)
-      {
-        v176 = type metadata accessor for NeuralNetwork.Layer.Activation.ScaledTanhConfiguration;
-        goto LABEL_59;
-      }
-
-      OUTLINED_FUNCTION_28_21();
-      v162 = v197;
-      sub_2576B7680(v0 + v120, v197);
-      OUTLINED_FUNCTION_57_1();
-      if (v134 && *(v123 + 4) == *(v162 + 4))
-      {
-        v163 = *(type metadata accessor for Proto_ActivationScaledTanh(0) + 24);
-        sub_2577431B4();
-        OUTLINED_FUNCTION_1_60();
-        sub_2576BB9EC(v164, v165);
-        LOBYTE(v163) = OUTLINED_FUNCTION_20_4();
-        OUTLINED_FUNCTION_27_18();
-        sub_2576B7568(v162, v166);
-        if (v163)
-        {
-          v139 = type metadata accessor for NeuralNetwork.Layer.Activation.ScaledTanhConfiguration;
-          goto LABEL_46;
-        }
-      }
-
-      else
-      {
-        OUTLINED_FUNCTION_27_18();
-        sub_2576B7568(v162, v182);
-      }
-
-      v183 = type metadata accessor for NeuralNetwork.Layer.Activation.ScaledTanhConfiguration;
-      goto LABEL_73;
-    case 7u:
-      OUTLINED_FUNCTION_0_76();
-      v123 = v203;
-      sub_2576B750C(v0, v203);
-      if (OUTLINED_FUNCTION_69_3() == 7)
-      {
-        v151 = OUTLINED_FUNCTION_46_9();
-        v125 = v196;
-        sub_2576B7680(v151, v196);
-        sub_2577431B4();
-        OUTLINED_FUNCTION_1_60();
-        sub_2576BB9EC(v152, v153);
-        OUTLINED_FUNCTION_176();
-        sub_257743644();
-        v128 = type metadata accessor for NeuralNetwork.Layer.Activation.SigmoidConfiguration;
-        goto LABEL_38;
-      }
-
-      v176 = type metadata accessor for NeuralNetwork.Layer.Activation.SigmoidConfiguration;
-      goto LABEL_59;
-    case 8u:
-      OUTLINED_FUNCTION_0_76();
-      v123 = v209;
-      sub_2576B750C(v0, v209);
-      if (OUTLINED_FUNCTION_69_3() != 8)
-      {
-        v176 = type metadata accessor for NeuralNetwork.Layer.Activation.SigmoidHardConfiguration;
-        goto LABEL_59;
-      }
-
-      OUTLINED_FUNCTION_21_22();
-      v170 = v198;
-      sub_2576B7680(v0 + v120, v198);
-      OUTLINED_FUNCTION_57_1();
-      if (v134 && *(v123 + 4) == *(v170 + 4))
-      {
-        v171 = *(type metadata accessor for Proto_ActivationSigmoidHard(0) + 24);
-        sub_2577431B4();
-        OUTLINED_FUNCTION_1_60();
-        sub_2576BB9EC(v172, v173);
-        LOBYTE(v171) = OUTLINED_FUNCTION_20_4();
-        v174 = OUTLINED_FUNCTION_20_18();
-        sub_2576B7568(v174, v175);
-        if (v171)
-        {
-          v139 = type metadata accessor for NeuralNetwork.Layer.Activation.SigmoidHardConfiguration;
-          goto LABEL_46;
-        }
-      }
-
-      else
-      {
-        v184 = OUTLINED_FUNCTION_20_18();
-        sub_2576B7568(v184, v185);
-      }
-
-      v183 = type metadata accessor for NeuralNetwork.Layer.Activation.SigmoidHardConfiguration;
-      goto LABEL_73;
-    case 9u:
-      OUTLINED_FUNCTION_0_76();
-      v123 = v210;
-      sub_2576B750C(v0, v210);
-      if (OUTLINED_FUNCTION_69_3() != 9)
-      {
-        v176 = type metadata accessor for NeuralNetwork.Layer.Activation.ELUConfiguration;
-        goto LABEL_59;
-      }
-
-      OUTLINED_FUNCTION_24_19();
-      v133 = v199;
-      sub_2576B7680(v0 + v120, v199);
-      OUTLINED_FUNCTION_57_1();
-      if (v134)
-      {
-        v135 = *(type metadata accessor for Proto_ActivationELU(0) + 20);
-        sub_2577431B4();
-        OUTLINED_FUNCTION_1_60();
-        sub_2576BB9EC(v136, v137);
-        LOBYTE(v135) = OUTLINED_FUNCTION_20_4();
-        OUTLINED_FUNCTION_23_20();
-        sub_2576B7568(v133, v138);
-        if (v135)
-        {
-          v139 = type metadata accessor for NeuralNetwork.Layer.Activation.ELUConfiguration;
-LABEL_46:
-          v145 = v139;
-          v132 = v123;
-          goto LABEL_74;
-        }
-      }
-
-      else
-      {
-        OUTLINED_FUNCTION_23_20();
-        sub_2576B7568(v133, v187);
-      }
-
-      v183 = type metadata accessor for NeuralNetwork.Layer.Activation.ELUConfiguration;
-LABEL_73:
-      v145 = v183;
-      v132 = v123;
-      goto LABEL_74;
-    case 0xAu:
-      OUTLINED_FUNCTION_0_76();
-      v123 = v206;
-      sub_2576B750C(v0, v206);
-      if (OUTLINED_FUNCTION_69_3() == 10)
-      {
-        v167 = OUTLINED_FUNCTION_46_9();
-        v125 = v200;
-        sub_2576B7680(v167, v200);
-        sub_2577431B4();
-        OUTLINED_FUNCTION_1_60();
-        sub_2576BB9EC(v168, v169);
-        OUTLINED_FUNCTION_176();
-        sub_257743644();
-        v128 = type metadata accessor for NeuralNetwork.Layer.Activation.SoftsignConfiguration;
-        goto LABEL_38;
-      }
-
-      v176 = type metadata accessor for NeuralNetwork.Layer.Activation.SoftsignConfiguration;
-      goto LABEL_59;
-    case 0xBu:
-      OUTLINED_FUNCTION_0_76();
-      v123 = v208;
-      sub_2576B750C(v0, v208);
-      if (OUTLINED_FUNCTION_69_3() == 11)
-      {
-        v124 = OUTLINED_FUNCTION_46_9();
-        v125 = v202;
-        sub_2576B7680(v124, v202);
-        sub_2577431B4();
-        OUTLINED_FUNCTION_1_60();
-        sub_2576BB9EC(v126, v127);
-        OUTLINED_FUNCTION_176();
-        sub_257743644();
-        v128 = type metadata accessor for NeuralNetwork.Layer.Activation.SoftplusConfiguration;
-        goto LABEL_38;
-      }
-
-      v176 = type metadata accessor for NeuralNetwork.Layer.Activation.SoftplusConfiguration;
-      goto LABEL_59;
-    case 0xCu:
-      OUTLINED_FUNCTION_0_76();
-      v123 = v205;
-      sub_2576B750C(v0, v205);
-      if (OUTLINED_FUNCTION_69_3() == 12)
-      {
-        OUTLINED_FUNCTION_22_20();
-        v125 = v201;
-        sub_2576B7680(v0 + v120, v201);
-        OUTLINED_FUNCTION_176();
-        _s20MLModelSpecification13NeuralNetworkV5LayerV10ActivationO31ParametricSoftplusConfigurationV2eeoiySbAI_AItFZ_0();
-        v128 = type metadata accessor for NeuralNetwork.Layer.Activation.ParametricSoftplusConfiguration;
-LABEL_38:
-        v131 = v128;
-        sub_2576B7568(v125, v128);
-        v132 = v123;
-LABEL_39:
-        v145 = v131;
-        goto LABEL_74;
-      }
-
-      v176 = type metadata accessor for NeuralNetwork.Layer.Activation.ParametricSoftplusConfiguration;
-LABEL_59:
-      v121 = v176;
-      v122 = v123;
-      goto LABEL_60;
-    default:
-      OUTLINED_FUNCTION_0_76();
-      sub_2576B750C(v0, v1);
-      if (OUTLINED_FUNCTION_69_3())
-      {
-        OUTLINED_FUNCTION_6_41();
-        v122 = v1;
-LABEL_60:
-        sub_2576B7568(v122, v121);
-        sub_2574695E4(v0, &qword_27F880EC8, &unk_2577721C0);
-      }
-
-      else
-      {
-        OUTLINED_FUNCTION_26_14();
-        v177 = v190;
-        sub_2576B7680(v0 + v120, v190);
-        if (*v1 == *v177 && v1[1] == v177[1])
-        {
-          v178 = *(type metadata accessor for Proto_ActivationLinear(0) + 24);
-          sub_2577431B4();
-          OUTLINED_FUNCTION_1_60();
-          sub_2576BB9EC(v179, v180);
-          sub_257743644();
-          OUTLINED_FUNCTION_6_41();
-          sub_2576B7568(v177, v181);
-        }
-
-        else
-        {
-          OUTLINED_FUNCTION_6_41();
-          sub_2576B7568(v177, v186);
-        }
-
-        OUTLINED_FUNCTION_6_41();
-        v132 = v1;
-LABEL_74:
-        sub_2576B7568(v132, v145);
-        OUTLINED_FUNCTION_13_23();
-        sub_2576B7568(v0, v189);
-      }
-
-      OUTLINED_FUNCTION_35();
-      return;
-  }
-}
-
-uint64_t sub_2576B8D08(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-  v7 = OUTLINED_FUNCTION_85_4();
-  *(v7 + 16) = xmmword_257743FF0;
-  *(v7 + 32) = a1;
-  *(v7 + 40) = 0xE500000000000000;
-  v8 = *v3;
-  *(v7 + 48) = sub_257743794();
-  *(v7 + 56) = v9;
-  *(v7 + 64) = a2;
-  *(v7 + 72) = a3;
-  v10 = v3[1];
-  *(v7 + 80) = sub_257743794();
-  *(v7 + 88) = v11;
-  return v7;
-}
-
-uint64_t NeuralNetwork.Layer.ClampedReluParameters.init()@<X0>(void *a1@<X8>)
-{
-  *a1 = 0;
-  v1 = a1 + *(type metadata accessor for Proto_ClampedReLULayerParams(0) + 24);
-  return _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-}
-
-float (*NeuralNetwork.Layer.Activation.ScaledTanhConfiguration.inputScale.modify(uint64_t a1))(float *)
-{
-  *a1 = v1;
-  *(a1 + 8) = *(v1 + 4);
-  return sub_2576BC7B8;
-}
-
-float (*NeuralNetwork.Layer.Activation.LinearConfiguration.offset.modify(uint64_t a1))(float *a1)
-{
-  *a1 = v1;
-  *(a1 + 8) = *(v1 + 4);
-  return sub_25749D38C;
-}
-
-float (*NeuralNetwork.Layer.Activation.SigmoidHardConfiguration.offset.modify(uint64_t a1))(float *)
-{
-  *a1 = v1;
-  *(a1 + 8) = *(v1 + 4);
-  return sub_2576BC7B8;
-}
-
-BOOL sub_2576B94E8(float *a1, float *a2, uint64_t (*a3)(void))
-{
-  result = 0;
-  if (*a1 == *a2 && a1[1] == a2[1])
-  {
-    v3 = *(a3(0) + 24);
-    sub_2577431B4();
-    OUTLINED_FUNCTION_1_60();
-    sub_2576BB9EC(v4, v5);
-    if (OUTLINED_FUNCTION_4_2())
-    {
-      return 1;
-    }
-  }
-
+  result[1] = a2;
+  result[2].n128_u64[0] = 1936291905;
+  result[2].n128_u64[1] = 0xE400000000000000;
+  *(v3 - 112) = *v2;
   return result;
 }
 
-void (*NeuralNetwork.Layer.Activation.ParameterizedReluConfiguration.scale.modify())(int ***a1, char a2)
+uint64_t OUTLINED_FUNCTION_4_48(__n128 *a1, __n128 a2)
 {
-  v1 = __swift_coroFrameAllocStub(0x28uLL);
-  v2 = OUTLINED_FUNCTION_68_3(v1);
-  v0[1] = v2;
-  OUTLINED_FUNCTION_13(v2);
-  v0[2] = __swift_coroFrameAllocStub(*(v3 + 64));
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F880938, &unk_25776E510);
-  OUTLINED_FUNCTION_13(v4);
-  v6 = *(v5 + 64);
-  v0[3] = __swift_coroFrameAllocStub(v6);
-  v7 = __swift_coroFrameAllocStub(v6);
-  OUTLINED_FUNCTION_77_3(v7);
-  NeuralNetwork.Layer.Activation.ParameterizedReluConfiguration.scale.getter();
-  return sub_2576B9758;
+  a1[1] = a2;
+  a1[2].n128_u64[0] = 0x6168706C41;
+  a1[2].n128_u64[1] = 0xE500000000000000;
+
+  return sub_257743794();
 }
 
-BOOL sub_2576B9A30(float *a1, float *a2)
+uint64_t OUTLINED_FUNCTION_5_44@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
 {
-  result = 0;
-  if (*a1 == *a2)
-  {
-    v2 = OUTLINED_FUNCTION_30();
-    v4 = *(v3(v2) + 20);
-    sub_2577431B4();
-    OUTLINED_FUNCTION_1_60();
-    sub_2576BB9EC(v5, v6);
-    if (OUTLINED_FUNCTION_4_2())
-    {
-      return 1;
-    }
-  }
-
+  *(result + 32) = a2;
+  *(result + 40) = 0xE400000000000000;
+  *(v3 - 112) = *v2;
   return result;
 }
 
-uint64_t _s20MLModelSpecification13NeuralNetworkV5LayerV10ActivationO17ReluConfigurationV2eeoiySbAI_AItFZ_0()
+uint64_t OUTLINED_FUNCTION_7_36@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
 {
-  OUTLINED_FUNCTION_30();
-  sub_2577431B4();
-  OUTLINED_FUNCTION_1_60();
-  sub_2576BB9EC(v0, v1);
-  return sub_257743644() & 1;
-}
-
-void NeuralNetwork.Layer.Activation.ParametricSoftplusConfiguration.inputScale.getter()
-{
-  OUTLINED_FUNCTION_31();
-  v6 = OUTLINED_FUNCTION_88_3(v5);
-  v7 = type metadata accessor for Proto_WeightParams(v6);
-  v8 = OUTLINED_FUNCTION_4(v7);
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20](v8);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_12_6();
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1A0, &qword_257745750);
-  v12 = OUTLINED_FUNCTION_13(v11);
-  v14 = *(v13 + 64);
-  MEMORY[0x28223BE20](v12);
-  OUTLINED_FUNCTION_11();
-  OUTLINED_FUNCTION_329();
-  MEMORY[0x28223BE20](v15);
-  OUTLINED_FUNCTION_218();
-  v16 = *(type metadata accessor for Proto_ActivationParametricSoftplus(0) + 24);
-  OUTLINED_FUNCTION_90_1();
-  OUTLINED_FUNCTION_75_6();
-  if (v4 != 1)
-  {
-    sub_2574A172C(v0 + v16, v1, &qword_27F87A1A0, &qword_257745750);
-    OUTLINED_FUNCTION_16_10();
-    if (v17)
-    {
-      *v2 = MEMORY[0x277D84F90];
-      OUTLINED_FUNCTION_80_1(xmmword_257745740);
-      v18 = *(v7 + 40);
-      type metadata accessor for Proto_QuantizationParams(0);
-      OUTLINED_FUNCTION_44();
-      __swift_storeEnumTagSinglePayload(v19, v20, v21, v22);
-      OUTLINED_FUNCTION_16_10();
-      if (!v17)
-      {
-        sub_2574695E4(v1, &qword_27F87A1A0, &qword_257745750);
-      }
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_3_56();
-      v23 = OUTLINED_FUNCTION_277();
-      sub_2576B7680(v23, v24);
-    }
-
-    sub_2576FF45C(v2, &qword_27F87A1A0);
-    v3 = 0;
-  }
-
-  v25 = type metadata accessor for NeuralNetwork.WeightParameters();
-  __swift_storeEnumTagSinglePayload(&qword_27F87A1A0, v3, 1, v25);
-  OUTLINED_FUNCTION_35();
-}
-
-void sub_2576B9F88()
-{
-  OUTLINED_FUNCTION_31();
-  v5 = v4;
-  v7 = OUTLINED_FUNCTION_88_3(v6);
-  v8 = type metadata accessor for Proto_WeightParams(v7);
-  v9 = OUTLINED_FUNCTION_4(v8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_12_6();
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1A0, &qword_257745750);
-  v13 = OUTLINED_FUNCTION_13(v12);
-  v15 = *(v14 + 64);
-  MEMORY[0x28223BE20](v13);
-  OUTLINED_FUNCTION_11();
-  OUTLINED_FUNCTION_329();
-  MEMORY[0x28223BE20](v16);
-  OUTLINED_FUNCTION_218();
-  v17 = *(v5(0) + 20);
-  OUTLINED_FUNCTION_90_1();
-  OUTLINED_FUNCTION_75_6();
-  if (v3 != 1)
-  {
-    sub_2574A172C(v0 + v17, v1, &qword_27F87A1A0, &qword_257745750);
-    OUTLINED_FUNCTION_16_10();
-    if (v18)
-    {
-      *v2 = MEMORY[0x277D84F90];
-      OUTLINED_FUNCTION_80_1(xmmword_257745740);
-      v19 = *(v8 + 40);
-      type metadata accessor for Proto_QuantizationParams(0);
-      OUTLINED_FUNCTION_44();
-      __swift_storeEnumTagSinglePayload(v20, v21, v22, v23);
-      OUTLINED_FUNCTION_16_10();
-      if (!v18)
-      {
-        sub_2574695E4(v1, &qword_27F87A1A0, &qword_257745750);
-      }
-    }
-
-    else
-    {
-      v24 = OUTLINED_FUNCTION_277();
-      sub_2576B7680(v24, v25);
-    }
-
-    sub_2576FF45C(v2, &qword_27F87A1A0);
-    v5 = 0;
-  }
-
-  v26 = type metadata accessor for NeuralNetwork.WeightParameters();
-  __swift_storeEnumTagSinglePayload(&qword_27F87A1A0, v5, 1, v26);
-  OUTLINED_FUNCTION_35();
-}
-
-uint64_t sub_2576BA138(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t))
-{
-  v8 = OUTLINED_FUNCTION_277();
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(v8, v9);
-  OUTLINED_FUNCTION_13(v10);
-  v12 = *(v11 + 64);
-  OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v13);
-  OUTLINED_FUNCTION_21_1();
-  sub_2574A172C(a1, v5, &qword_27F880938, &unk_25776E510);
-  return a5(v5);
-}
-
-uint64_t sub_2576BA1F0(uint64_t a1, uint64_t (*a2)(void))
-{
-  v7 = type metadata accessor for Proto_WeightParams(0);
-  v8 = OUTLINED_FUNCTION_4(v7);
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20](v8);
-  OUTLINED_FUNCTION_24_0();
-  v11 = type metadata accessor for NeuralNetwork.WeightParameters();
-  v12 = OUTLINED_FUNCTION_4(v11);
-  v14 = *(v13 + 64);
-  MEMORY[0x28223BE20](v12);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_21_1();
-  OUTLINED_FUNCTION_155(a1, 1, v11);
-  if (v15)
-  {
-    sub_2574695E4(a1, &qword_27F880938, &unk_25776E510);
-    v16 = a2(0);
-    sub_2574695E4(v2 + *(v16 + 20), &qword_27F87A1A0, &qword_257745750);
-    OUTLINED_FUNCTION_44();
-
-    return __swift_storeEnumTagSinglePayload(v17, v18, v19, v7);
-  }
-
-  else
-  {
-    sub_2576B7680(a1, v4);
-    v20 = *(v11 + 20);
-    OUTLINED_FUNCTION_4_43();
-    sub_2576B750C(v4 + v21, v3);
-    OUTLINED_FUNCTION_2_50();
-    sub_2576B7568(v4, v22);
-    v23 = *(a2(0) + 20);
-    sub_2574695E4(v2 + v23, &qword_27F87A1A0, &qword_257745750);
-    OUTLINED_FUNCTION_3_56();
-    sub_2576B7680(v3, v2 + v23);
-    OUTLINED_FUNCTION_21();
-    return __swift_storeEnumTagSinglePayload(v24, v25, v26, v7);
-  }
-}
-
-void (*NeuralNetwork.Layer.Activation.ParametricSoftplusConfiguration.outputScale.modify())(int ***a1, char a2)
-{
-  v1 = __swift_coroFrameAllocStub(0x28uLL);
-  v2 = OUTLINED_FUNCTION_68_3(v1);
-  v0[1] = v2;
-  OUTLINED_FUNCTION_13(v2);
-  v0[2] = __swift_coroFrameAllocStub(*(v3 + 64));
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F880938, &unk_25776E510);
-  OUTLINED_FUNCTION_13(v4);
-  v6 = *(v5 + 64);
-  v0[3] = __swift_coroFrameAllocStub(v6);
-  v7 = __swift_coroFrameAllocStub(v6);
-  OUTLINED_FUNCTION_77_3(v7);
-  NeuralNetwork.Layer.Activation.ParametricSoftplusConfiguration.outputScale.getter();
-  return sub_2576BA46C;
-}
-
-void sub_2576BA498(int ***a1, char a2, uint64_t (*a3)(void), void (*a4)(int *))
-{
-  v5 = *a1;
-  v6 = (*a1)[4];
-  if (a2)
-  {
-    v4 = v5[2];
-    v8 = v5[3];
-    v9 = *v5;
-    v10 = OUTLINED_FUNCTION_263();
-    sub_2574A172C(v10, v11, &qword_27F880938, &unk_25776E510);
-    a4(v8);
-    sub_2574695E4(v6, &qword_27F880938, &unk_25776E510);
-  }
-
-  else
-  {
-    v8 = type metadata accessor for NeuralNetwork.WeightParameters();
-    OUTLINED_FUNCTION_155(v6, 1, v8);
-    if (v13)
-    {
-      v8 = *v5;
-      sub_2574695E4(v6, &qword_27F880938, &unk_25776E510);
-      v14 = a3(0);
-      v20 = sub_2574695E4(v8 + *(v14 + 20), &qword_27F87A1A0, &qword_257745750);
-      v21 = 1;
-    }
-
-    else
-    {
-      v4 = v5[2];
-      v15 = *v5;
-      v16 = v8[5];
-      OUTLINED_FUNCTION_4_43();
-      sub_2576B750C(v6 + v17, v4);
-      OUTLINED_FUNCTION_2_50();
-      sub_2576B7568(v6, v18);
-      v19 = v15 + *(a3(0) + 20);
-      sub_2574695E4(v19, &qword_27F87A1A0, &qword_257745750);
-      OUTLINED_FUNCTION_3_56();
-      v20 = sub_2576B7680(v4, v19);
-      v21 = 0;
-    }
-
-    OUTLINED_FUNCTION_92_2(v20, v21);
-  }
-
-  free(v6);
-  free(v8);
-  free(v4);
-
-  free(v5);
-}
-
-uint64_t NeuralNetwork.Layer.Activation.ParametricSoftplusConfiguration.inputScale.setter(uint64_t a1)
-{
-  v5 = type metadata accessor for Proto_WeightParams(0);
-  v6 = OUTLINED_FUNCTION_4(v5);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_17_3();
-  v9 = type metadata accessor for NeuralNetwork.WeightParameters();
-  v10 = OUTLINED_FUNCTION_4(v9);
-  v12 = *(v11 + 64);
-  MEMORY[0x28223BE20](v10);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_12_6();
-  OUTLINED_FUNCTION_155(a1, 1, v9);
-  if (v13)
-  {
-    sub_2574695E4(a1, &qword_27F880938, &unk_25776E510);
-    v14 = type metadata accessor for Proto_ActivationParametricSoftplus(0);
-    sub_2574695E4(v1 + *(v14 + 24), &qword_27F87A1A0, &qword_257745750);
-    OUTLINED_FUNCTION_44();
-
-    return __swift_storeEnumTagSinglePayload(v15, v16, v17, v5);
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_12_32();
-    v18 = OUTLINED_FUNCTION_277();
-    sub_2576B7680(v18, v19);
-    v20 = *(v9 + 20);
-    OUTLINED_FUNCTION_4_43();
-    sub_2576B750C(v3 + v21, v2);
-    OUTLINED_FUNCTION_2_50();
-    sub_2576B7568(v3, v22);
-    v23 = *(type metadata accessor for Proto_ActivationParametricSoftplus(0) + 24);
-    sub_2574695E4(v1 + v23, &qword_27F87A1A0, &qword_257745750);
-    OUTLINED_FUNCTION_3_56();
-    sub_2576B7680(v2, v1 + v23);
-    OUTLINED_FUNCTION_21();
-    return __swift_storeEnumTagSinglePayload(v24, v25, v26, v5);
-  }
-}
-
-void (*NeuralNetwork.Layer.Activation.ParametricSoftplusConfiguration.inputScale.modify())(void ***a1, char a2)
-{
-  v1 = __swift_coroFrameAllocStub(0x28uLL);
-  v2 = OUTLINED_FUNCTION_68_3(v1);
-  v0[1] = v2;
-  OUTLINED_FUNCTION_13(v2);
-  v0[2] = __swift_coroFrameAllocStub(*(v3 + 64));
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F880938, &unk_25776E510);
-  OUTLINED_FUNCTION_13(v4);
-  v6 = *(v5 + 64);
-  v0[3] = __swift_coroFrameAllocStub(v6);
-  v7 = __swift_coroFrameAllocStub(v6);
-  OUTLINED_FUNCTION_77_3(v7);
-  NeuralNetwork.Layer.Activation.ParametricSoftplusConfiguration.inputScale.getter();
-  return sub_2576BA880;
-}
-
-void sub_2576BA880(void ***a1, char a2)
-{
-  v4 = *a1;
-  v5 = (*a1)[4];
-  if (a2)
-  {
-    v3 = v4[2];
-    v2 = v4[3];
-    v6 = *v4;
-    v7 = OUTLINED_FUNCTION_263();
-    sub_2574A172C(v7, v8, &qword_27F880938, &unk_25776E510);
-    NeuralNetwork.Layer.Activation.ParametricSoftplusConfiguration.inputScale.setter(v2);
-    sub_2574695E4(v5, &qword_27F880938, &unk_25776E510);
-  }
-
-  else
-  {
-    v9 = type metadata accessor for NeuralNetwork.WeightParameters();
-    OUTLINED_FUNCTION_155(v5, 1, v9);
-    if (v10)
-    {
-      v11 = *v4;
-      sub_2574695E4(v5, &qword_27F880938, &unk_25776E510);
-      v12 = type metadata accessor for Proto_ActivationParametricSoftplus(0);
-      v17 = sub_2574695E4(v11 + *(v12 + 24), &qword_27F87A1A0, &qword_257745750);
-      v18 = 1;
-    }
-
-    else
-    {
-      v2 = v4[2];
-      v3 = *v4;
-      v13 = *(v9 + 20);
-      OUTLINED_FUNCTION_4_43();
-      sub_2576B750C(v5 + v14, v2);
-      OUTLINED_FUNCTION_2_50();
-      sub_2576B7568(v5, v15);
-      v16 = v3 + *(type metadata accessor for Proto_ActivationParametricSoftplus(0) + 24);
-      sub_2574695E4(v16, &qword_27F87A1A0, &qword_257745750);
-      OUTLINED_FUNCTION_3_56();
-      v17 = sub_2576B7680(v2, v16);
-      v18 = 0;
-    }
-
-    OUTLINED_FUNCTION_92_2(v17, v18);
-  }
-
-  free(v5);
-  free(v2);
-  free(v3);
-
-  free(v4);
-}
-
-uint64_t sub_2576BAA50(uint64_t a1, void (*a2)(void))
-{
-  a2(0);
-  v2 = OUTLINED_FUNCTION_176();
-  sub_2576BB9EC(v2, v3);
-
-  return sub_2577435F4();
-}
-
-uint64_t sub_2576BAB0C(void (*a1)(void))
-{
-  sub_257743A14();
-  a1(0);
-  v2 = OUTLINED_FUNCTION_176();
-  sub_2576BB9EC(v2, v3);
-  sub_2577435F4();
-  return sub_257743A64();
-}
-
-uint64_t sub_2576BABE0(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void))
-{
-  sub_257743A14();
-  a4(0);
-  v5 = OUTLINED_FUNCTION_176();
-  sub_2576BB9EC(v5, v6);
-  sub_2577435F4();
-  return sub_257743A64();
-}
-
-void NeuralNetwork.Layer.Activation.ScaledTanhConfiguration.customMirror.getter()
-{
-  OUTLINED_FUNCTION_31();
-  v3 = v0;
-  OUTLINED_FUNCTION_16_1();
-  v4 = sub_257743A84();
-  v5 = OUTLINED_FUNCTION_63(v4);
-  v7 = v6;
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v5);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_271();
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE0, &unk_257744EA0);
-  OUTLINED_FUNCTION_13(v10);
-  v12 = *(v11 + 64);
-  OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v13);
-  v14 = OUTLINED_FUNCTION_64();
-  v15 = type metadata accessor for NeuralNetwork.Layer.Activation.ScaledTanhConfiguration(v14);
-  v16 = OUTLINED_FUNCTION_4(v15);
-  v18 = *(v17 + 64);
-  MEMORY[0x28223BE20](v16);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_30_2();
-  sub_2576B750C(v3, v2);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE8, &qword_257744030);
-  v19 = swift_allocObject();
-  *(v19 + 16) = xmmword_257743FF0;
-  v20 = v3[1];
-  *(v19 + 48) = *v3;
-  v21 = OUTLINED_FUNCTION_36_11(v19, 0x74757074756FLL);
-  v22 = MEMORY[0x277D83A90];
-  *(v21 + 72) = MEMORY[0x277D83A90];
-  *(v21 + 80) = 0x6163537475706E69;
-  v24 = OUTLINED_FUNCTION_91_3(v21, v22, v23);
-  OUTLINED_FUNCTION_15_7(v24);
-  (*(v7 + 104))(v1, *MEMORY[0x277D84C38], v4);
-  OUTLINED_FUNCTION_12_18();
-  sub_257743AA4();
-  OUTLINED_FUNCTION_35();
-}
-
-void sub_2576BAF40()
-{
-  OUTLINED_FUNCTION_31();
-  v4 = v3;
-  v5 = v0;
-  OUTLINED_FUNCTION_16_1();
-  v6 = sub_257743A84();
-  v7 = OUTLINED_FUNCTION_63(v6);
-  v9 = v8;
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v7);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_271();
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE0, &unk_257744EA0);
-  OUTLINED_FUNCTION_13(v12);
-  v14 = *(v13 + 64);
-  OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v15);
-  v16 = OUTLINED_FUNCTION_64();
-  v17 = v4(v16);
-  OUTLINED_FUNCTION_4(v17);
-  v19 = *(v18 + 64);
-  OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v20);
-  OUTLINED_FUNCTION_30_2();
-  sub_2576B750C(v5, v2);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE8, &qword_257744030);
-  v21 = swift_allocObject();
-  *(v21 + 16) = xmmword_257743FF0;
-  v22 = v5[1];
-  *(v21 + 48) = *v5;
-  v23 = OUTLINED_FUNCTION_31_12(v21, 25459);
-  v24 = MEMORY[0x277D83A90];
-  *(v23 + 72) = MEMORY[0x277D83A90];
-  *(v23 + 80) = 0x74657366666FLL;
-  v26 = OUTLINED_FUNCTION_91_3(v23, v24, v25);
-  OUTLINED_FUNCTION_15_7(v26);
-  (*(v9 + 104))(v1, *MEMORY[0x277D84C38], v6);
-  OUTLINED_FUNCTION_12_18();
-  sub_257743AA4();
-  OUTLINED_FUNCTION_35();
-}
-
-void NeuralNetwork.Layer.Activation.ParameterizedReluConfiguration.customMirror.getter()
-{
-  OUTLINED_FUNCTION_31();
-  OUTLINED_FUNCTION_16_1();
-  v3 = sub_257743A84();
-  v4 = OUTLINED_FUNCTION_63(v3);
-  v6 = v5;
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v4);
-  OUTLINED_FUNCTION_24_0();
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE0, &unk_257744EA0);
-  OUTLINED_FUNCTION_13(v9);
-  v11 = *(v10 + 64);
-  OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v12);
-  v13 = OUTLINED_FUNCTION_64();
-  v14 = type metadata accessor for NeuralNetwork.Layer.Activation.ParameterizedReluConfiguration(v13);
-  v15 = OUTLINED_FUNCTION_4(v14);
-  v17 = *(v16 + 64);
-  MEMORY[0x28223BE20](v15);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_30_2();
-  sub_2576B750C(v0, v2);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE8, &qword_257744030);
-  v18 = swift_allocObject();
-  *(v18 + 16) = xmmword_2577442B0;
-  OUTLINED_FUNCTION_31_12(v18, 25459);
-  *(v18 + 72) = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F880938, &unk_25776E510);
-  __swift_allocate_boxed_opaque_existential_0((v18 + 48));
-  NeuralNetwork.Layer.Activation.ParameterizedReluConfiguration.scale.getter();
-  v19 = sub_257743A74();
-  OUTLINED_FUNCTION_15_7(v19);
-  (*(v6 + 104))(v1, *MEMORY[0x277D84C38], v3);
-  OUTLINED_FUNCTION_12_18();
-  sub_257743AA4();
-  OUTLINED_FUNCTION_35();
-}
-
-void sub_2576BB370()
-{
-  OUTLINED_FUNCTION_31();
-  v3 = v2;
-  v5 = v4;
-  v7 = v6;
-  v8 = v0;
-  OUTLINED_FUNCTION_88_3(v9);
-  v10 = sub_257743A84();
-  v11 = OUTLINED_FUNCTION_63(v10);
-  v13 = v12;
-  v15 = *(v14 + 64);
-  MEMORY[0x28223BE20](v11);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_271();
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE0, &unk_257744EA0);
-  OUTLINED_FUNCTION_13(v16);
-  v18 = *(v17 + 64);
-  OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v19);
-  OUTLINED_FUNCTION_30_2();
-  v20 = v7(0);
-  OUTLINED_FUNCTION_4(v20);
-  v22 = *(v21 + 64);
-  OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v23);
-  sub_2576B750C(v8, &v31 - v24);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE8, &qword_257744030);
-  v25 = swift_allocObject();
-  *(v25 + 16) = xmmword_2577442B0;
-  *(v25 + 32) = v5;
-  *(v25 + 40) = v3;
-  v26 = *v8;
-  *(v25 + 72) = MEMORY[0x277D83A90];
-  *(v25 + 48) = v26;
-  sub_257743A74();
-  OUTLINED_FUNCTION_44();
-  __swift_storeEnumTagSinglePayload(v27, v28, v29, v30);
-  (*(v13 + 104))(v1, *MEMORY[0x277D84C38], v10);
-  sub_257743AA4();
-  OUTLINED_FUNCTION_35();
-}
-
-void sub_2576BB5A8()
-{
-  OUTLINED_FUNCTION_31();
-  v2 = v1;
-  v3 = v0;
-  OUTLINED_FUNCTION_16_1();
-  v4 = sub_257743A84();
-  v5 = OUTLINED_FUNCTION_63(v4);
-  v7 = v6;
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v5);
-  OUTLINED_FUNCTION_3();
-  v12 = v11 - v10;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE0, &unk_257744EA0);
-  OUTLINED_FUNCTION_13(v13);
-  v15 = *(v14 + 64);
-  OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v16);
-  v17 = OUTLINED_FUNCTION_64();
-  v18 = v2(v17);
-  OUTLINED_FUNCTION_4(v18);
-  v20 = *(v19 + 64);
-  OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v21);
-  sub_2576B750C(v3, &v24 - v22);
-  OUTLINED_FUNCTION_88_3(MEMORY[0x277D84F90]);
-  v23 = sub_257743A74();
-  OUTLINED_FUNCTION_15_7(v23);
-  (*(v7 + 104))(v12, *MEMORY[0x277D84C38], v4);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879C08, &qword_2577709D0);
-  sub_25748397C();
-  sub_257743A94();
-  OUTLINED_FUNCTION_35();
-}
-
-void NeuralNetwork.Layer.Activation.ParametricSoftplusConfiguration.customMirror.getter()
-{
-  OUTLINED_FUNCTION_31();
-  OUTLINED_FUNCTION_16_1();
-  v3 = sub_257743A84();
-  v4 = OUTLINED_FUNCTION_63(v3);
-  v6 = v5;
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v4);
-  OUTLINED_FUNCTION_24_0();
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE0, &unk_257744EA0);
-  OUTLINED_FUNCTION_13(v9);
-  v11 = *(v10 + 64);
-  OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v12);
-  v13 = OUTLINED_FUNCTION_64();
-  v14 = type metadata accessor for NeuralNetwork.Layer.Activation.ParametricSoftplusConfiguration(v13);
-  v15 = OUTLINED_FUNCTION_4(v14);
-  v17 = *(v16 + 64);
-  MEMORY[0x28223BE20](v15);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_30_2();
-  sub_2576B750C(v0, v2);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE8, &qword_257744030);
-  v18 = swift_allocObject();
-  *(v18 + 16) = xmmword_257743FF0;
-  OUTLINED_FUNCTION_36_11(v18, 0x74757074756FLL);
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F880938, &unk_25776E510);
-  *(v18 + 72) = v19;
-  __swift_allocate_boxed_opaque_existential_0((v18 + 48));
-  NeuralNetwork.Layer.Activation.ParametricSoftplusConfiguration.outputScale.getter();
-  *(v18 + 80) = 0x6163537475706E69;
-  *(v18 + 88) = 0xEA0000000000656CLL;
-  *(v18 + 120) = v19;
-  __swift_allocate_boxed_opaque_existential_0((v18 + 96));
-  NeuralNetwork.Layer.Activation.ParametricSoftplusConfiguration.inputScale.getter();
-  v20 = sub_257743A74();
-  OUTLINED_FUNCTION_15_7(v20);
-  (*(v6 + 104))(v1, *MEMORY[0x277D84C38], v3);
-  OUTLINED_FUNCTION_12_18();
-  sub_257743AA4();
-  OUTLINED_FUNCTION_35();
-}
-
-uint64_t sub_2576BB9EC(unint64_t *a1, void (*a2)(uint64_t))
-{
-  result = *a1;
-  if (!result)
-  {
-    a2(255);
-    OUTLINED_FUNCTION_66_3();
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
-  }
-
+  *(result + 32) = a2;
+  *(result + 40) = v2;
+  *(v4 - 112) = *v3;
   return result;
 }
 
-uint64_t sub_2576BC210()
+uint64_t OUTLINED_FUNCTION_8_36@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
 {
-  result = type metadata accessor for NeuralNetwork.Layer.Activation.LinearConfiguration(319);
-  if (v1 <= 0x3F)
-  {
-    result = type metadata accessor for NeuralNetwork.Layer.Activation.ReluConfiguration(319);
-    if (v2 <= 0x3F)
-    {
-      result = type metadata accessor for NeuralNetwork.Layer.Activation.LeakyReluConfiguration(319);
-      if (v3 <= 0x3F)
-      {
-        result = type metadata accessor for NeuralNetwork.Layer.Activation.ThresholdedReluConfiguration(319);
-        if (v4 <= 0x3F)
-        {
-          result = type metadata accessor for NeuralNetwork.Layer.Activation.ParameterizedReluConfiguration(319);
-          if (v5 <= 0x3F)
-          {
-            result = type metadata accessor for NeuralNetwork.Layer.Activation.TanhConfiguration(319);
-            if (v6 <= 0x3F)
-            {
-              result = type metadata accessor for NeuralNetwork.Layer.Activation.ScaledTanhConfiguration(319);
-              if (v7 <= 0x3F)
-              {
-                result = type metadata accessor for NeuralNetwork.Layer.Activation.SigmoidConfiguration(319);
-                if (v8 <= 0x3F)
-                {
-                  result = type metadata accessor for NeuralNetwork.Layer.Activation.SigmoidHardConfiguration(319);
-                  if (v9 <= 0x3F)
-                  {
-                    result = type metadata accessor for NeuralNetwork.Layer.Activation.ELUConfiguration(319);
-                    if (v10 <= 0x3F)
-                    {
-                      result = type metadata accessor for NeuralNetwork.Layer.Activation.SoftsignConfiguration(319);
-                      if (v11 <= 0x3F)
-                      {
-                        result = type metadata accessor for NeuralNetwork.Layer.Activation.SoftplusConfiguration(319);
-                        if (v12 <= 0x3F)
-                        {
-                          result = type metadata accessor for NeuralNetwork.Layer.Activation.ParametricSoftplusConfiguration(319);
-                          if (v13 <= 0x3F)
-                          {
-                            swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
-                            return 0;
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
+  *(result + 32) = a2;
+  *(result + 40) = 0xE400000000000000;
+  *(v3 - 112) = *v2;
   return result;
 }
 
-uint64_t sub_2576BC700(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t))
+__n128 *OUTLINED_FUNCTION_10_38(__n128 *result, __n128 a2)
 {
-  result = a4(319);
-  if (v5 <= 0x3F)
-  {
-    swift_cvw_initStructMetadataWithLayoutString();
-    return 0;
-  }
-
+  result[1] = a2;
+  result[2].n128_u64[0] = 1684366675;
+  result[2].n128_u64[1] = 0xE400000000000000;
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_10_36()
+uint64_t OUTLINED_FUNCTION_16_19@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
+  *(a1 + 32) = a2;
+  *(a1 + 40) = 0xE500000000000000;
 
-  return sub_2576B7568(v0, type metadata accessor for NeuralNetwork.Layer.Kind);
+  return sub_257743794();
 }
 
-uint64_t OUTLINED_FUNCTION_31_12@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+uint64_t OUTLINED_FUNCTION_18_32@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
 {
-  *(result + 32) = a2 & 0xFFFF00000000FFFFLL | 0x656C610000;
-  *(result + 40) = 0xE500000000000000;
+  *(result + 32) = a2;
+  *(result + 40) = 0xE400000000000000;
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_36_11@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+uint64_t OUTLINED_FUNCTION_21_25(uint64_t a1, uint64_t a2)
 {
-  *(result + 32) = a2 & 0xFFFFFFFFFFFFLL | 0x6353000000000000;
-  *(result + 40) = 0xEB00000000656C61;
-  return result;
+  *(v2 + 80) = a1;
+  *(v2 + 88) = a2;
+  strcpy((v2 + 96), "Std. Deviation");
+  *(v2 + 111) = -18;
+
+  return sub_257743794();
 }
 
-uint64_t OUTLINED_FUNCTION_55_6()
+uint64_t OUTLINED_FUNCTION_23_22(uint64_t a1, uint64_t a2)
 {
-
-  return sub_2576B7568(v0, type metadata accessor for Proto_ActivationParams);
-}
-
-uint64_t OUTLINED_FUNCTION_56_4(uint64_t result, uint64_t a2)
-{
-  *(v2 + 48) = result;
-  *(v2 + 56) = a2;
-  strcpy((v2 + 64), "Output Scale");
-  *(v2 + 77) = 0;
-  *(v2 + 78) = -5120;
-  return result;
-}
-
-float OUTLINED_FUNCTION_57_1()
-{
-  result = *v1;
-  v3 = *v0;
-  return result;
-}
-
-void OUTLINED_FUNCTION_65_4()
-{
-  *(v1 + 16) = v0;
-  v3 = *(v2 - 88);
-  v4 = v1 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
-  v5 = *(v3 + 72);
-}
-
-uint64_t OUTLINED_FUNCTION_68_3(void *a1)
-{
-  *v1 = a1;
-  *a1 = v2;
-
-  return type metadata accessor for Proto_WeightParams(0);
-}
-
-uint64_t OUTLINED_FUNCTION_69_3()
-{
-
-  return swift_getEnumCaseMultiPayload();
-}
-
-uint64_t OUTLINED_FUNCTION_70_6(uint64_t result, uint64_t a2)
-{
-  v2[6] = result;
+  v2[6] = a1;
   v2[7] = a2;
-  v2[8] = 0x74657366664FLL;
-  v2[9] = 0xE600000000000000;
-  return result;
+  v2[8] = 0x6C696261626F7250;
+  v2[9] = 0xEB00000000797469;
+
+  return sub_257743794();
 }
 
-uint64_t OUTLINED_FUNCTION_71_4(uint64_t result, uint64_t a2)
+uint64_t OUTLINED_FUNCTION_24_21@<X0>(uint64_t a1@<X0>, void (*a2)(void)@<X2>, uint64_t a3@<X8>)
 {
-  *(v2 - 112) = result;
-  *(v2 - 104) = a2;
-  return result;
+  v4 = *(a3 - 256);
+
+  return sub_2576D0594(a1, v4, a2);
 }
 
-uint64_t OUTLINED_FUNCTION_73_1(uint64_t a1)
+uint64_t OUTLINED_FUNCTION_25_19()
 {
-  *(a1 + 16) = *(v3 - 144);
-  *(a1 + 32) = v1;
-  *(a1 + 40) = v2;
-  result = 0;
-  v5 = *(v3 - 128);
-  return result;
 }
 
-uint64_t OUTLINED_FUNCTION_75_6()
+uint64_t OUTLINED_FUNCTION_27_20@<X0>(uint64_t a1@<X0>, void (*a2)(void)@<X2>, uint64_t a3@<X8>)
 {
-  __swift_getEnumTagSinglePayload(v3, 1, v0);
-  v5 = v1;
-  v6 = *(v4 - 88);
+  v4 = *(a3 - 256);
 
-  return sub_2574695E4(v3, v5, v2);
+  return sub_2576D0594(a1, v4, a2);
 }
 
-uint64_t OUTLINED_FUNCTION_80_1(__n128 a1)
+uint64_t OUTLINED_FUNCTION_30_14(__n128 *a1, __n128 a2)
 {
-  *(v2 + 8) = a1;
-  *(v2 + 24) = a1;
-  *(v2 + 40) = a1;
-  *(v2 + 56) = 0;
-  v4 = v2 + *(v1 + 36);
+  a1[1] = a2;
+  a1[2].n128_u64[0] = 0x72616C616353;
+  a1[2].n128_u64[1] = 0xE600000000000000;
 
-  return _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  return sub_257743794();
 }
 
-uint64_t OUTLINED_FUNCTION_82_3()
+uint64_t OUTLINED_FUNCTION_31_13(uint64_t a1)
 {
 
-  return swift_storeEnumTagMultiPayload();
+  return swift_beginAccess();
 }
 
-void OUTLINED_FUNCTION_84_5()
+uint64_t OUTLINED_FUNCTION_32_10@<X0>(uint64_t a1@<X0>, void (*a2)(void)@<X2>, uint64_t a3@<X8>)
 {
+  v4 = *(a3 - 256);
 
-  sub_257469D34();
+  return sub_2576D0594(a1, v4, a2);
 }
 
-uint64_t OUTLINED_FUNCTION_85_4()
+uint64_t OUTLINED_FUNCTION_33_11(uint64_t a1, uint64_t a2)
+{
+  v3[6] = a1;
+  v3[7] = a2;
+  v3[8] = 1851876685;
+  v3[9] = v2;
+
+  return sub_257743794();
+}
+
+uint64_t OUTLINED_FUNCTION_34_13(uint64_t a1)
 {
 
   return swift_allocObject();
 }
 
-uint64_t OUTLINED_FUNCTION_86_4()
+uint64_t OUTLINED_FUNCTION_35_13@<X0>(uint64_t a1@<X8>)
 {
+  *(v2 + 64) = a1;
+  *(v2 + 72) = v1;
 
-  return sub_2574897E0(v0);
+  return swift_beginAccess();
 }
 
-uint64_t OUTLINED_FUNCTION_87_3()
+uint64_t OUTLINED_FUNCTION_36_12@<X0>(uint64_t a1@<X0>, void (*a2)(void)@<X2>, uint64_t a3@<X8>)
 {
+  v4 = *(a3 - 256);
 
-  return sub_257528334();
+  return sub_2576D0594(a1, v4, a2);
 }
 
-uint64_t OUTLINED_FUNCTION_90_1()
+void NeuralNetwork.Layer.PoolParameters.kind.getter(_BYTE *a1@<X8>)
 {
-
-  return sub_2574A172C(v1 + v0, v4, v2, v3);
-}
-
-uint64_t OUTLINED_FUNCTION_91_3@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>, float a3@<S1>)
-{
-  *(a1 + 88) = v3;
-  *(a1 + 120) = a2;
-  *(a1 + 96) = a3;
-
-  return sub_257743A74();
-}
-
-uint64_t OUTLINED_FUNCTION_92_2(uint64_t a1, uint64_t a2)
-{
-  v6 = v2[3];
-  v5 = v2[4];
-  v7 = v2[1];
-  v8 = v2[2];
-
-  return __swift_storeEnumTagSinglePayload(v3, a2, 1, v7);
-}
-
-float OUTLINED_FUNCTION_94_2(uint64_t a1)
-{
-  *a1 = v1;
-  result = *v1;
-  *(a1 + 8) = *v1;
-  return result;
-}
-
-uint64_t sub_2576BCD14()
-{
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879FD8, &unk_257744910);
-  inited = swift_initStackObject();
-  *(inited + 16) = xmmword_257743FF0;
-  v23 = OUTLINED_FUNCTION_0_77(inited, 26191);
-  v2 = *v0;
-  v3 = *(*v0 + 16);
-  v4 = MEMORY[0x277D84F90];
-  if (v3)
+  if (v1[8] == 1)
   {
-    v26 = MEMORY[0x277D84F90];
-    sub_257484040(0, v3, 0);
-    v4 = v26;
-    v5 = (v2 + 32);
-    do
-    {
-      v24 = *v5;
-      v6 = sub_257743674();
-      v8 = v7;
-      v10 = *(v26 + 16);
-      v9 = *(v26 + 24);
-      if (v10 >= v9 >> 1)
-      {
-        sub_257484040((v9 > 1), v10 + 1, 1);
-      }
-
-      *(v26 + 16) = v10 + 1;
-      v11 = v26 + 24 * v10;
-      *(v11 + 32) = v6;
-      *(v11 + 40) = v8;
-      *(v11 + 48) = 0;
-      ++v5;
-      --v3;
-    }
-
-    while (v3);
+    v2 = *v1;
   }
 
-  *(v23 + 48) = v4;
-  *(v23 + 56) = 0;
-  *(v23 + 64) = 1;
-  *(v23 + 72) = 0x656C616353;
-  *(v23 + 80) = 0xE500000000000000;
-  v12 = v0[1];
-  v13 = *(v12 + 16);
-  v14 = MEMORY[0x277D84F90];
-  if (v13)
+  else
   {
-    v27 = MEMORY[0x277D84F90];
-    sub_257484040(0, v13, 0);
-    v14 = v27;
-    v15 = (v12 + 32);
-    do
-    {
-      v25 = *v15;
-      v16 = sub_257743674();
-      v18 = v17;
-      v20 = *(v27 + 16);
-      v19 = *(v27 + 24);
-      if (v20 >= v19 >> 1)
-      {
-        sub_257484040((v19 > 1), v20 + 1, 1);
-      }
-
-      *(v27 + 16) = v20 + 1;
-      v21 = v27 + 24 * v20;
-      *(v21 + 32) = v16;
-      *(v21 + 40) = v18;
-      *(v21 + 48) = 0;
-      ++v15;
-      --v13;
-    }
-
-    while (v13);
+    v2 = 0;
   }
 
-  *(v23 + 88) = v14;
-  *(v23 + 96) = 0;
-  *(v23 + 104) = 1;
-  return sub_2576A6964(v23);
+  *a1 = v2;
 }
 
-uint64_t sub_2576BCF3C(uint64_t *a1)
+void NeuralNetwork.Layer.PoolParameters.propertyDescriptions.getter()
 {
-  v1 = *a1;
-
-  return ScalerConfiguration.offset.setter(v2);
-}
-
-uint64_t ScalerConfiguration.offset.setter(uint64_t a1)
-{
-  v3 = *v1;
-
-  *v1 = a1;
-  return result;
-}
-
-uint64_t (*ScalerConfiguration.offset.modify(void *a1))(uint64_t *a1, char a2)
-{
-  v3 = *v1;
-  a1[1] = v1;
-  a1[2] = v3;
-  *a1 = v3;
-
-  return sub_25749D854;
-}
-
-uint64_t sub_2576BCFEC(uint64_t *a1)
-{
-  v1 = *a1;
-
-  return ScalerConfiguration.scale.setter(v2);
-}
-
-uint64_t ScalerConfiguration.scale.setter(uint64_t a1)
-{
-  v3 = *(v1 + 8);
-
-  *(v1 + 8) = a1;
-  return result;
-}
-
-uint64_t (*ScalerConfiguration.scale.modify(void *a1))(uint64_t *a1, char a2)
-{
-  v3 = *(v1 + 8);
-  a1[1] = v1;
-  a1[2] = v3;
-  *a1 = v3;
-
-  return sub_25763F698;
-}
-
-uint64_t ScalerConfiguration.init(offset:scale:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
-{
-  v6 = a3 + *(type metadata accessor for Proto_Scaler() + 24);
-  result = _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-  *a3 = a1;
-  a3[1] = a2;
-  return result;
-}
-
-BOOL static ScalerConfiguration.== infix(_:_:)(uint64_t *a1, uint64_t *a2)
-{
-  result = 0;
-  if (sub_257479D04(*a1, *a2) & 1) != 0 && (sub_257479D04(a1[1], a2[1]))
-  {
-    v4 = *(type metadata accessor for Proto_Scaler() + 24);
-    sub_2577431B4();
-    sub_2576BD4E0(&qword_27F879B68, MEMORY[0x277D216C8]);
-    if (sub_257743644())
-    {
-      return 1;
-    }
-  }
-
-  return result;
-}
-
-uint64_t ScalerConfiguration.customMirror.getter()
-{
+  OUTLINED_FUNCTION_31();
   v1 = v0;
-  v2 = sub_257743A84();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x28223BE20](v2);
-  v6 = &v20 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE0, &unk_257744EA0);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v20 - v9;
-  v11 = type metadata accessor for ScalerConfiguration();
-  v12 = *(*(v11 - 8) + 64);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F881230, &unk_257773EF0);
+  OUTLINED_FUNCTION_13(v2);
+  OUTLINED_FUNCTION_29();
+  MEMORY[0x28223BE20](v3);
+  v5 = &v47 - v4;
+  v6 = type metadata accessor for NeuralNetwork.Layer.PoolParameters.Padding(0);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v7);
+  OUTLINED_FUNCTION_11();
+  v10 = v8 - v9;
   MEMORY[0x28223BE20](v11);
-  sub_2576BD430(v1, &v20 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE8, &qword_257744030);
+  v13 = &v47 - v12;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
   v14 = swift_allocObject();
-  *(v14 + 16) = xmmword_257743FF0;
-  OUTLINED_FUNCTION_0_77(v14, 26223);
-  v15 = *v1;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879F68, &qword_257744890);
-  *(v14 + 48) = v15;
-  *(v14 + 72) = v16;
-  *(v14 + 80) = 0x656C616373;
-  v17 = v1[1];
-  *(v14 + 120) = v16;
-  *(v14 + 88) = 0xE500000000000000;
-  *(v14 + 96) = v17;
-  v18 = sub_257743A74();
-  __swift_storeEnumTagSinglePayload(v10, 1, 1, v18);
-  (*(v3 + 104))(v6, *MEMORY[0x277D84C38], v2);
-
-  return sub_257743AA4();
-}
-
-uint64_t type metadata accessor for ScalerConfiguration()
-{
-  result = qword_281537D08;
-  if (!qword_281537D08)
+  OUTLINED_FUNCTION_18_33(v14, xmmword_257743FF0);
+  v49 = 0;
+  v50 = 0xE000000000000000;
+  v15 = *(v0 + 16);
+  OUTLINED_FUNCTION_38_9();
+  if (!v16)
   {
-    return swift_getSingletonMetadata();
+    goto LABEL_6;
   }
 
-  return result;
-}
-
-uint64_t sub_2576BD430(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for ScalerConfiguration();
-  (*(*(v4 - 8) + 16))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t sub_2576BD4E0(unint64_t *a1, void (*a2)(uint64_t))
-{
-  result = *a1;
-  if (!result)
+  v17 = *(v15 + 32);
+  if (v17 < 0)
   {
-    a2(255);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
+    __break(1u);
+    goto LABEL_52;
   }
 
-  return result;
-}
-
-uint64_t sub_2576BD550()
-{
-  result = type metadata accessor for Proto_Scaler();
-  if (v1 <= 0x3F)
+  if ((*(v15 + 40) & 0x8000000000000000) != 0)
   {
-    swift_cvw_initStructMetadataWithLayoutString();
-    return 0;
+    __break(1u);
+LABEL_6:
+    v17 = 3;
   }
 
-  return result;
-}
+  v48 = v17;
+  sub_257743974();
+  OUTLINED_FUNCTION_41_13();
 
-uint64_t OUTLINED_FUNCTION_0_77@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(result + 32) = a2 & 0xFFFF00000000FFFFLL | 0x746573660000;
-  *(result + 40) = 0xE600000000000000;
-  return result;
-}
-
-uint64_t sub_2576BD5D0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
-{
-  v8 = a4 + *(type metadata accessor for Proto_Int64Vector(0) + 20);
-  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-  v10 = sub_257665DA0(sub_2576BD7B8, 0, a2, MEMORY[0x277D84A28], MEMORY[0x277D84A98], a3, MEMORY[0x277D84AC0], v9);
-  result = (*(*(a2 - 8) + 8))(a1, a2);
-  *a4 = v10;
-  return result;
-}
-
-uint64_t sub_2576BD6A0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
-{
-  v6 = *(a2 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](a1);
-  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = a3 + *(type metadata accessor for Proto_StringVector(0) + 20);
-  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-  (*(v6 + 16))(v9, a1, a2);
-  v11 = sub_257743784();
-  result = (*(v6 + 8))(a1, a2);
-  *a3 = v11;
-  return result;
-}
-
-uint64_t static NeuralNetwork.Layer.reshapeStatic(name:inputName:outputName:targetShape:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
-{
-  v28 = a5;
-  v29 = a1;
-  v30 = a2;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A318, &qword_257745D10);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x28223BE20](v11 - 8);
-  v14 = &v27 - v13;
-  v15 = type metadata accessor for NeuralNetwork.Layer.Kind();
-  v16 = *(*(v15 - 8) + 64);
-  MEMORY[0x28223BE20](v15);
-  OUTLINED_FUNCTION_3();
-  v19 = (v18 - v17);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B10, &unk_2577440D0);
-  v20 = swift_allocObject();
-  v27 = xmmword_2577442B0;
-  *(v20 + 16) = xmmword_2577442B0;
-  *(v20 + 32) = a3;
-  *(v20 + 40) = a4;
-  v21 = swift_allocObject();
-  *(v21 + 16) = v27;
-  *(v21 + 32) = v28;
-  *(v21 + 40) = a6;
-  *v19 = MEMORY[0x277D84F90];
-  v22 = *(type metadata accessor for Proto_ReshapeStaticLayerParams(0) + 20);
-
-  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-
-  NeuralNetwork.Layer.ReshapeStaticParameters.targetShape.setter(v23);
-  swift_storeEnumTagMultiPayload();
-  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-  v24 = *(type metadata accessor for Proto_NeuralNetworkLayer(0) + 20);
-  if (qword_27F879260 != -1)
+  MEMORY[0x259C64E90](38851, 0xA200000000000000);
+  OUTLINED_FUNCTION_38_9();
+  if (!v16)
   {
-    swift_once();
+    goto LABEL_12;
   }
 
-  *(a7 + v24) = qword_27F87BEE8;
+  if ((*(v15 + 32) & 0x8000000000000000) != 0)
+  {
+LABEL_52:
+    __break(1u);
+    goto LABEL_53;
+  }
 
-  sub_257528334();
-  sub_2575283BC();
-  sub_25752842C(v21);
-  sub_2574897E0(v14);
-  v25 = type metadata accessor for Proto_NeuralNetworkLayer.OneOf_Layer(0);
-  __swift_storeEnumTagSinglePayload(v14, 0, 1, v25);
-  sub_25752846C();
-  return sub_257634BB4(v19);
+  v18 = *(v15 + 40);
+  if ((v18 & 0x8000000000000000) == 0)
+  {
+    goto LABEL_13;
+  }
+
+  __break(1u);
+LABEL_12:
+  v18 = 3;
+LABEL_13:
+  v48 = v18;
+  sub_257743974();
+  OUTLINED_FUNCTION_41_13();
+
+  v19 = v50;
+  v14[3].n128_u64[0] = v49;
+  v14[3].n128_u64[1] = v19;
+  OUTLINED_FUNCTION_28_23();
+  v14[4].n128_u64[0] = v20;
+  v14[4].n128_u64[1] = 0xE700000000000000;
+  v49 = 0;
+  v50 = 0xE000000000000000;
+  v21 = *(v0 + 24);
+  OUTLINED_FUNCTION_38_9();
+  if (!v16)
+  {
+    goto LABEL_18;
+  }
+
+  v22 = *(v21 + 32);
+  if (v22 < 0)
+  {
+LABEL_53:
+    __break(1u);
+    goto LABEL_54;
+  }
+
+  if ((*(v21 + 40) & 0x8000000000000000) == 0)
+  {
+    goto LABEL_19;
+  }
+
+  __break(1u);
+LABEL_18:
+  v22 = 3;
+LABEL_19:
+  v48 = v22;
+  sub_257743974();
+  OUTLINED_FUNCTION_41_13();
+
+  MEMORY[0x259C64E90](38851, 0xA200000000000000);
+  OUTLINED_FUNCTION_38_9();
+  if (!v16)
+  {
+    goto LABEL_24;
+  }
+
+  if ((*(v21 + 32) & 0x8000000000000000) != 0)
+  {
+LABEL_54:
+    __break(1u);
+    return;
+  }
+
+  v23 = *(v21 + 40);
+  if (v23 < 0)
+  {
+    __break(1u);
+LABEL_24:
+    v23 = 3;
+  }
+
+  v48 = v23;
+  sub_257743974();
+  OUTLINED_FUNCTION_41_13();
+
+  v24 = v50;
+  v14[5].n128_u64[0] = v49;
+  v14[5].n128_u64[1] = v24;
+  v49 = v14;
+  NeuralNetwork.Layer.PoolParameters.padding.getter(v5);
+  if (__swift_getEnumTagSinglePayload(v5, 1, v6) == 1)
+  {
+    sub_2574695E4(v5, &qword_27F881230, &unk_257773EF0);
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_13_25();
+    sub_2576D3204();
+    OUTLINED_FUNCTION_1_66();
+    OUTLINED_FUNCTION_277();
+    sub_2576D325C();
+    EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+    if (EnumCaseMultiPayload)
+    {
+      if (EnumCaseMultiPayload == 1)
+      {
+        OUTLINED_FUNCTION_0_84();
+        sub_2576D32B4(v10, v26);
+        v27 = 0xE400000000000000;
+        v28 = 1701667155;
+      }
+
+      else
+      {
+        v27 = 0x8000000257781550;
+        v28 = 0xD000000000000012;
+      }
+    }
+
+    else
+    {
+      OUTLINED_FUNCTION_0_84();
+      sub_2576D32B4(v10, v29);
+      v27 = 0xE500000000000000;
+      v28 = 0x64696C6156;
+    }
+
+    OUTLINED_FUNCTION_40_11();
+    v30[1].n128_u64[0] = 3;
+    v30[6].n128_u64[0] = 0x676E6964646150;
+    v30[6].n128_u64[1] = 0xE700000000000000;
+    v30[7].n128_u64[0] = v28;
+    v30[7].n128_u64[1] = v27;
+    v49 = v30;
+    v31 = NeuralNetwork.Layer.PoolParameters.Padding.propertyDescriptions.getter();
+    sub_25763CEB8(v31);
+    OUTLINED_FUNCTION_0_84();
+    sub_2576D32B4(v13, v32);
+    v14 = v49;
+  }
+
+  v33 = type metadata accessor for Proto_PoolingLayerParams(0);
+  if (*(v1 + *(v33 + 32)))
+  {
+    v34 = 1702195828;
+  }
+
+  else
+  {
+    v34 = 0x65736C6166;
+  }
+
+  if (*(v1 + *(v33 + 32)))
+  {
+    v35 = 0xE400000000000000;
+  }
+
+  else
+  {
+    v35 = 0xE500000000000000;
+  }
+
+  if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+  {
+    OUTLINED_FUNCTION_40_11();
+    v14 = v44;
+  }
+
+  v36 = v14[1].n128_u64[0];
+  v37 = v14[1].n128_u64[1] >> 1;
+  v38 = v36 + 1;
+  if (v37 <= v36)
+  {
+    OUTLINED_FUNCTION_40_11();
+    v14 = v45;
+    v37 = v45[1].n128_u64[1] >> 1;
+  }
+
+  v14[1].n128_u64[0] = v38;
+  v39 = &v14[2 * v36];
+  v39[2].n128_u64[0] = 0xD000000000000018;
+  v39[2].n128_u64[1] = 0x8000000257781530;
+  v39[3].n128_u64[0] = v34;
+  v39[3].n128_u64[1] = v35;
+  v40 = *(v1 + *(v33 + 36));
+  if (v37 < (v36 + 2))
+  {
+    OUTLINED_FUNCTION_40_11();
+    v14 = v46;
+  }
+
+  v41 = 0xE500000000000000;
+  if (v40)
+  {
+    v41 = 0xE400000000000000;
+  }
+
+  v14[1].n128_u64[0] = v36 + 2;
+  v42 = &v14[2 * v38];
+  strcpy(&v42[2], "Global Pooling");
+  v42[2].n128_u8[15] = -18;
+  if (v40)
+  {
+    v43 = 1702195828;
+  }
+
+  else
+  {
+    v43 = 0x65736C6166;
+  }
+
+  v42[3].n128_u64[0] = v43;
+  v42[3].n128_u64[1] = v41;
+  OUTLINED_FUNCTION_35();
 }
 
-uint64_t static NeuralNetwork.Layer.Kind.reshapeStatic(targetShape:)@<X0>(void *a1@<X8>)
-{
-  *a1 = MEMORY[0x277D84F90];
-  v1 = a1 + *(type metadata accessor for Proto_ReshapeStaticLayerParams(0) + 20);
-  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-
-  NeuralNetwork.Layer.ReshapeStaticParameters.targetShape.setter(v2);
-  type metadata accessor for NeuralNetwork.Layer.Kind();
-
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t NeuralNetwork.Layer.ReshapeStaticParameters.init(targetShape:)@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
-{
-  *a2 = MEMORY[0x277D84F90];
-  v3 = a2 + *(type metadata accessor for Proto_ReshapeStaticLayerParams(0) + 20);
-  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-  return NeuralNetwork.Layer.ReshapeStaticParameters.targetShape.setter(a1);
-}
-
-uint64_t NeuralNetwork.Layer.ReshapeStaticParameters.propertyDescriptions.getter()
+__n128 *NeuralNetwork.Layer.Pool3DParameters.propertyDescriptions.getter()
 {
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-  v1 = swift_allocObject();
-  v2 = v1;
-  *(v1 + 16) = xmmword_2577442B0;
-  strcpy((v1 + 32), "Target Shape");
-  *(v1 + 45) = 0;
-  *(v1 + 46) = -5120;
-  v3 = *v0;
-  v4 = *(*v0 + 16);
-  if (v4)
-  {
-    v17 = v1;
-    v18 = MEMORY[0x277D84F90];
-    sub_257483754(0, v4, 0);
-    v5 = (v3 + 32);
-    do
-    {
-      v6 = *v5++;
-      v7 = sub_257743974();
-      v9 = v8;
-      v11 = *(v18 + 16);
-      v10 = *(v18 + 24);
-      if (v11 >= v10 >> 1)
-      {
-        sub_257483754((v10 > 1), v11 + 1, 1);
-      }
+  v0 = swift_allocObject();
+  OUTLINED_FUNCTION_18_33(v0, xmmword_257743FF0);
+  OUTLINED_FUNCTION_277();
+  v9 = sub_257743974();
+  v11 = v1;
+  OUTLINED_FUNCTION_25_20();
+  v2 = OUTLINED_FUNCTION_10_39();
+  MEMORY[0x259C64E90](v2);
 
-      *(v18 + 16) = v11 + 1;
-      v12 = v18 + 16 * v11;
-      *(v12 + 32) = v7;
-      *(v12 + 40) = v9;
-      --v4;
-    }
+  OUTLINED_FUNCTION_25_20();
+  v3 = OUTLINED_FUNCTION_10_39();
+  MEMORY[0x259C64E90](v3);
 
-    while (v4);
-    v2 = v17;
-  }
+  v0[3].n128_u64[0] = v9;
+  v0[3].n128_u64[1] = v11;
+  OUTLINED_FUNCTION_28_23();
+  v0[4].n128_u64[0] = v4;
+  v0[4].n128_u64[1] = 0xE700000000000000;
+  v10 = OUTLINED_FUNCTION_10_39();
+  v12 = v5;
+  OUTLINED_FUNCTION_25_20();
+  v6 = OUTLINED_FUNCTION_10_39();
+  MEMORY[0x259C64E90](v6);
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1F8, &qword_257770B90);
-  sub_2574A16C8();
-  v13 = sub_257743604();
-  v15 = v14;
+  OUTLINED_FUNCTION_25_20();
+  v7 = OUTLINED_FUNCTION_10_39();
+  MEMORY[0x259C64E90](v7);
 
-  *(v2 + 48) = v13;
-  *(v2 + 56) = v15;
-  return v2;
+  v0[5].n128_u64[0] = v10;
+  v0[5].n128_u64[1] = v12;
+  return v0;
 }
 
-uint64_t NeuralNetwork.Layer.ReshapeStaticParameters.targetShape.getter()
+void NeuralNetwork.Layer.PoolParameters.kernelSize.getter(uint64_t *a1@<X8>)
 {
-  v1 = *v0;
-  v2 = *(*v0 + 16);
-  result = MEMORY[0x277D84F90];
-  if (v2)
-  {
-    v8 = MEMORY[0x277D84F90];
-    sub_257483724();
-    result = v8;
-    v4 = (v1 + 32);
-    v5 = *(v8 + 16);
-    do
-    {
-      v7 = *v4++;
-      v6 = v7;
-      v9 = result;
-      if (v5 >= *(result + 24) >> 1)
-      {
-        sub_257483724();
-        result = v9;
-      }
-
-      *(result + 16) = v5 + 1;
-      *(result + 8 * v5++ + 32) = v6;
-      --v2;
-    }
-
-    while (v2);
-  }
-
-  return result;
-}
-
-uint64_t sub_2576BDD3C(uint64_t *a1)
-{
-  v1 = *a1;
-
-  return NeuralNetwork.Layer.ReshapeStaticParameters.targetShape.setter(v2);
-}
-
-uint64_t NeuralNetwork.Layer.ReshapeStaticParameters.targetShape.setter(uint64_t a1)
-{
-  v2 = v1;
-  v4 = *(a1 + 16);
-  if (v4)
-  {
-    v11 = MEMORY[0x277D84F90];
-    sub_2574845B8();
-    v5 = v11;
-    v6 = *(v11 + 16);
-    v7 = 32;
-    do
-    {
-      v8 = *(a1 + v7);
-      if (v6 >= *(v11 + 24) >> 1)
-      {
-        sub_2574845B8();
-      }
-
-      *(v11 + 16) = v6 + 1;
-      *(v11 + 8 * v6 + 32) = v8;
-      v7 += 8;
-      ++v6;
-      --v4;
-    }
-
-    while (v4);
-  }
-
-  else
-  {
-
-    v5 = MEMORY[0x277D84F90];
-  }
-
-  v9 = *v2;
-
-  *v2 = v5;
-  return result;
-}
-
-uint64_t (*NeuralNetwork.Layer.ReshapeStaticParameters.targetShape.modify(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  a1[1] = v1;
-  *a1 = NeuralNetwork.Layer.ReshapeStaticParameters.targetShape.getter();
-  return sub_2576BDEA8;
-}
-
-uint64_t sub_2576BDEA8(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = a1[1];
-  if ((a2 & 1) == 0)
-  {
-    return NeuralNetwork.Layer.ReshapeStaticParameters.targetShape.setter(*a1);
-  }
-
-  v4 = *a1;
-
-  NeuralNetwork.Layer.ReshapeStaticParameters.targetShape.setter(v5);
-}
-
-BOOL static NeuralNetwork.Layer.ReshapeStaticParameters.== infix(_:_:)(void *a1, void *a2)
-{
-  result = 0;
-  if (sub_257487374(*a1, *a2))
-  {
-    v2 = *(type metadata accessor for Proto_ReshapeStaticLayerParams(0) + 20);
-    sub_2577431B4();
-    sub_2576BE2D0(&qword_27F879B68, MEMORY[0x277D216C8]);
-    if (sub_257743644())
-    {
-      return 1;
-    }
-  }
-
-  return result;
-}
-
-uint64_t NeuralNetwork.Layer.ReshapeStaticParameters.customMirror.getter()
-{
-  v1 = sub_257743A84();
-  v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
-  MEMORY[0x28223BE20](v1);
-  OUTLINED_FUNCTION_3();
-  v6 = v5 - v4;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE0, &unk_257744EA0);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v19 - v9;
-  v11 = type metadata accessor for NeuralNetwork.Layer.ReshapeStaticParameters();
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x28223BE20](v11);
-  OUTLINED_FUNCTION_3();
-  sub_2576BE224(v0, v14 - v13);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE8, &qword_257744030);
-  v15 = swift_allocObject();
-  *(v15 + 16) = xmmword_2577442B0;
-  *(v15 + 32) = 0x6853746567726174;
-  *(v15 + 40) = 0xEB00000000657061;
-  v16 = NeuralNetwork.Layer.ReshapeStaticParameters.targetShape.getter();
-  *(v15 + 72) = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879DF8, &qword_25776F230);
-  *(v15 + 48) = v16;
-  v17 = sub_257743A74();
-  __swift_storeEnumTagSinglePayload(v10, 1, 1, v17);
-  (*(v2 + 104))(v6, *MEMORY[0x277D84C38], v1);
-  return sub_257743AA4();
-}
-
-uint64_t type metadata accessor for NeuralNetwork.Layer.ReshapeStaticParameters()
-{
-  result = qword_27F881028;
-  if (!qword_27F881028)
-  {
-    return swift_getSingletonMetadata();
-  }
-
-  return result;
-}
-
-uint64_t sub_2576BE224(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for NeuralNetwork.Layer.ReshapeStaticParameters();
-  (*(*(v4 - 8) + 16))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t sub_2576BE2D0(unint64_t *a1, void (*a2)(uint64_t))
-{
-  result = *a1;
-  if (!result)
-  {
-    a2(255);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
-  }
-
-  return result;
-}
-
-uint64_t sub_2576BE340()
-{
-  result = type metadata accessor for Proto_ReshapeStaticLayerParams(319);
-  if (v1 <= 0x3F)
-  {
-    swift_cvw_initStructMetadataWithLayoutString();
-    return 0;
-  }
-
-  return result;
-}
-
-void sub_2576BE3AC()
-{
-  OUTLINED_FUNCTION_31();
-  v0 = type metadata accessor for FeatureVectorizerConfiguration.Input(0);
-  v1 = OUTLINED_FUNCTION_24(v0);
-  v3 = v2;
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20](v1);
-  OUTLINED_FUNCTION_3();
-  v8 = (v7 - v6);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879FD8, &unk_257744910);
-  inited = swift_initStackObject();
-  *(inited + 16) = xmmword_2577442B0;
-  v10 = OUTLINED_FUNCTION_14_18(inited, 28233);
-  v11 = *(v10 + 16);
-  if (v11)
-  {
-    v26 = MEMORY[0x277D84F90];
-    sub_257484040(0, v11, 0);
-    v12 = v26;
-    v13 = *(v3 + 80);
-    OUTLINED_FUNCTION_193();
-    v15 = v10 + v14;
-    v24 = *(v3 + 72);
-    while (1)
-    {
-      OUTLINED_FUNCTION_0_78();
-      sub_2576BF5A4();
-      v16 = swift_initStackObject();
-      *(v16 + 16) = xmmword_257743FF0;
-      *(v16 + 32) = 1701667150;
-      *(v16 + 40) = 0xE400000000000000;
-      MEMORY[0x259C64E90](*v8, v8[1]);
-      MEMORY[0x259C64E90](34, 0xE100000000000000);
-      *(v16 + 48) = 34;
-      *(v16 + 56) = 0xE100000000000000;
-      *(v16 + 64) = 0;
-      *(v16 + 72) = 1702521171;
-      *(v16 + 80) = 0xE400000000000000;
-      if ((v8[2] & 0x8000000000000000) != 0)
-      {
-        break;
-      }
-
-      v25 = v8[2];
-      *(v16 + 88) = sub_257743674();
-      *(v16 + 96) = v17;
-      *(v16 + 104) = 0;
-      v18 = sub_2576A6964(v16);
-      v20 = v19;
-      sub_2576BF600(v8);
-      v22 = *(v26 + 16);
-      v21 = *(v26 + 24);
-      if (v22 >= v21 >> 1)
-      {
-        sub_257484040((v21 > 1), v22 + 1, 1);
-      }
-
-      *(v26 + 16) = v22 + 1;
-      v23 = v26 + 24 * v22;
-      *(v23 + 32) = v18;
-      *(v23 + 40) = v20;
-      *(v23 + 48) = 2;
-      v15 += v24;
-      if (!--v11)
-      {
-
-        goto LABEL_9;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-
-    v12 = MEMORY[0x277D84F90];
-LABEL_9:
-    *(inited + 48) = v12;
-    *(inited + 56) = 0;
-    *(inited + 64) = 1;
-    sub_2576A6964(inited);
-    OUTLINED_FUNCTION_35();
-  }
-}
-
-uint64_t FeatureVectorizerConfiguration.inputs.getter()
-{
-  v1 = type metadata accessor for FeatureVectorizerConfiguration.Input(0);
-  v2 = OUTLINED_FUNCTION_24(v1);
-  v4 = v3;
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v2);
-  OUTLINED_FUNCTION_3();
-  v7 = *v0;
-  v8 = *(*v0 + 16);
-  v9 = MEMORY[0x277D84F90];
-  if (v8)
-  {
-    v19 = MEMORY[0x277D84F90];
-    sub_2574840A0();
-    v9 = v19;
-    v10 = type metadata accessor for Proto_FeatureVectorizer.InputColumn(0);
-    OUTLINED_FUNCTION_24(v10);
-    v12 = v7 + ((*(v11 + 80) + 32) & ~*(v11 + 80));
-    v14 = *(v13 + 72);
-    do
-    {
-      OUTLINED_FUNCTION_4_44();
-      sub_2576BF5A4();
-      v15 = *(v19 + 16);
-      if (v15 >= *(v19 + 24) >> 1)
-      {
-        sub_2574840A0();
-      }
-
-      *(v19 + 16) = v15 + 1;
-      v16 = *(v4 + 80);
-      OUTLINED_FUNCTION_193();
-      v17 = *(v4 + 72);
-      sub_2576BF65C();
-      v12 += v14;
-      --v8;
-    }
-
-    while (v8);
-  }
-
-  return v9;
-}
-
-uint64_t FeatureVectorizerConfiguration.Input.name.getter()
-{
-  v1 = *v0;
-  v2 = v0[1];
-
-  return v1;
-}
-
-uint64_t FeatureVectorizerConfiguration.Input.name.setter(uint64_t a1, uint64_t a2)
-{
-  v5 = v2[1];
-
-  *v2 = a1;
-  v2[1] = a2;
-  return result;
-}
-
-void FeatureVectorizerConfiguration.inputs.setter()
-{
-  OUTLINED_FUNCTION_31();
-  v2 = v1;
-  v3 = type metadata accessor for FeatureVectorizerConfiguration.Input(0);
-  v4 = OUTLINED_FUNCTION_24(v3);
-  v6 = v5;
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v4);
-  OUTLINED_FUNCTION_3();
-  v11 = v10 - v9;
-  v12 = type metadata accessor for Proto_FeatureVectorizer.InputColumn(0);
-  v13 = OUTLINED_FUNCTION_24(v12);
-  v15 = v14;
-  v17 = *(v16 + 64);
-  MEMORY[0x28223BE20](v13);
-  OUTLINED_FUNCTION_3();
-  v18 = *(v2 + 16);
-  if (v18)
-  {
-    v28 = MEMORY[0x277D84F90];
-    sub_257484ED0();
-    v19 = v28;
-    v20 = *(v6 + 80);
-    OUTLINED_FUNCTION_193();
-    v22 = v2 + v21;
-    v23 = *(v6 + 72);
-    do
-    {
-      OUTLINED_FUNCTION_0_78();
-      sub_2576BF5A4();
-      OUTLINED_FUNCTION_4_44();
-      sub_2576BF5A4();
-      sub_2576BF600(v11);
-      v24 = *(v28 + 16);
-      if (v24 >= *(v28 + 24) >> 1)
-      {
-        sub_257484ED0();
-      }
-
-      *(v28 + 16) = v24 + 1;
-      v25 = *(v15 + 80);
-      OUTLINED_FUNCTION_193();
-      v26 = *(v15 + 72);
-      sub_2576BF65C();
-      v22 += v23;
-      --v18;
-    }
-
-    while (v18);
-  }
-
-  else
-  {
-
-    v19 = MEMORY[0x277D84F90];
-  }
-
-  v27 = *v0;
-
-  *v0 = v19;
-  OUTLINED_FUNCTION_35();
-}
-
-void sub_2576BEA78(uint64_t *a1)
-{
-  v1 = *a1;
-
-  FeatureVectorizerConfiguration.inputs.setter();
-}
-
-void (*FeatureVectorizerConfiguration.inputs.modify(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  a1[1] = v1;
-  *a1 = FeatureVectorizerConfiguration.inputs.getter();
-  return sub_2576BEAEC;
-}
-
-void sub_2576BEAEC(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = a1[1];
-  if (a2)
-  {
-    v4 = *a1;
-
-    FeatureVectorizerConfiguration.inputs.setter();
-  }
-
-  else
-  {
-    v5 = *a1;
-    FeatureVectorizerConfiguration.inputs.setter();
-  }
-}
-
-uint64_t FeatureVectorizerConfiguration.init()@<X0>(void *a1@<X8>)
-{
-  *a1 = MEMORY[0x277D84F90];
-  v1 = a1 + *(type metadata accessor for Proto_FeatureVectorizer(0) + 20);
-  return _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-}
-
-void FeatureVectorizerConfiguration.init(inputs:)(void *a1@<X8>)
-{
-  *a1 = MEMORY[0x277D84F90];
-  v1 = a1 + *(type metadata accessor for Proto_FeatureVectorizer(0) + 20);
-  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-  FeatureVectorizerConfiguration.inputs.setter();
-}
-
-BOOL static FeatureVectorizerConfiguration.== infix(_:_:)()
-{
-  OUTLINED_FUNCTION_267();
-  v1 = *v0;
-  v3 = *v2;
-  sub_257479344();
-  result = 0;
-  if (v4)
-  {
-    v5 = *(type metadata accessor for Proto_FeatureVectorizer(0) + 20);
-    sub_2577431B4();
-    OUTLINED_FUNCTION_3_57();
-    sub_2576BF6B8(v6, v7);
-    if (OUTLINED_FUNCTION_4_2())
-    {
-      return 1;
-    }
-  }
-
-  return result;
-}
-
-void FeatureVectorizerConfiguration.customMirror.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
-{
-  OUTLINED_FUNCTION_31();
-  a19 = v20;
-  a20 = v21;
-  v22 = sub_257743A84();
-  v23 = OUTLINED_FUNCTION_63(v22);
-  v25 = v24;
-  v27 = *(v26 + 64);
-  MEMORY[0x28223BE20](v23);
-  OUTLINED_FUNCTION_3();
-  v30 = v29 - v28;
-  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE0, &unk_257744EA0);
-  v32 = *(*(v31 - 8) + 64);
-  MEMORY[0x28223BE20](v31 - 8);
-  v34 = &a9 - v33;
-  v35 = type metadata accessor for FeatureVectorizerConfiguration(0);
-  v36 = OUTLINED_FUNCTION_4(v35);
-  v38 = *(v37 + 64);
-  MEMORY[0x28223BE20](v36);
-  OUTLINED_FUNCTION_3();
-  sub_2576BF5A4();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE8, &qword_257744030);
-  v39 = swift_allocObject();
-  *(v39 + 16) = xmmword_2577442B0;
-  v40 = OUTLINED_FUNCTION_14_18(v39, 28265);
-  *(v39 + 72) = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F881038, &qword_257772E50);
-  *(v39 + 48) = v40;
-  v41 = sub_257743A74();
-  __swift_storeEnumTagSinglePayload(v34, 1, 1, v41);
-  (*(v25 + 104))(v30, *MEMORY[0x277D84C38], v22);
-  sub_257743AA4();
-  OUTLINED_FUNCTION_35();
-}
-
-uint64_t sub_2576BEF34(uint64_t *a1)
-{
-  v1 = *a1;
-  v2 = a1[1];
-
-  return FeatureVectorizerConfiguration.Input.name.setter(v1, v2);
-}
-
-uint64_t (*FeatureVectorizerConfiguration.Input.name.modify(void *a1))(uint64_t *a1, char a2)
-{
-  v4 = *v1;
-  v3 = v1[1];
-  a1[2] = v1;
-  a1[3] = v3;
-  *a1 = v4;
-  a1[1] = v3;
-
-  return sub_25749BD04;
-}
-
-uint64_t FeatureVectorizerConfiguration.Input.size.getter()
-{
-  result = *(v0 + 16);
-  if (result < 0)
-  {
-    __break(1u);
-  }
-
-  return result;
-}
-
-uint64_t FeatureVectorizerConfiguration.Input.size.setter(uint64_t result)
-{
-  if (result < 0)
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    *(v1 + 16) = result;
-  }
-
-  return result;
-}
-
-uint64_t *(*FeatureVectorizerConfiguration.Input.size.modify(uint64_t *(*result)(uint64_t *result, char a2)))(uint64_t *result, char a2)
-{
-  *(result + 1) = v1;
   v2 = *(v1 + 16);
-  if (v2 < 0)
+  if (v2[2] != 2)
   {
-    __break(1u);
+    goto LABEL_5;
   }
 
-  else
+  v3 = v2[4];
+  if ((v3 & 0x8000000000000000) == 0)
   {
-    *result = v2;
-    return sub_257664ACC;
-  }
-
-  return result;
-}
-
-uint64_t FeatureVectorizerConfiguration.Input.init(name:size:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
-{
-  *a4 = 0;
-  a4[1] = 0xE000000000000000;
-  a4[2] = 0;
-  v8 = a4 + *(type metadata accessor for Proto_FeatureVectorizer.InputColumn(0) + 24);
-  result = _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-  *a4 = a1;
-  a4[1] = a2;
-  if (a3 < 0)
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    a4[2] = a3;
-  }
-
-  return result;
-}
-
-BOOL static FeatureVectorizerConfiguration.Input.== infix(_:_:)()
-{
-  OUTLINED_FUNCTION_267();
-  v3 = *v2 == *v0 && *(v1 + 8) == v0[1];
-  result = 0;
-  if (v3 || (sub_257743994()) && *(v1 + 16) == v0[2])
-  {
-    v4 = *(type metadata accessor for Proto_FeatureVectorizer.InputColumn(0) + 24);
-    sub_2577431B4();
-    OUTLINED_FUNCTION_3_57();
-    sub_2576BF6B8(v5, v6);
-    if (OUTLINED_FUNCTION_4_2())
+    v4 = v2[5];
+    if ((v4 & 0x8000000000000000) == 0)
     {
-      return 1;
+LABEL_6:
+      *a1 = v3;
+      a1[1] = v4;
+      return;
     }
-  }
 
-  return result;
-}
-
-uint64_t sub_2576BF170(uint64_t a1, void (*a2)(void))
-{
-  a2(0);
-  OUTLINED_FUNCTION_8_33();
-
-  return sub_2577435F4();
-}
-
-uint64_t sub_2576BF224(void (*a1)(void))
-{
-  sub_257743A14();
-  a1(0);
-  OUTLINED_FUNCTION_8_33();
-  sub_2577435F4();
-  return sub_257743A64();
-}
-
-uint64_t sub_2576BF2F0(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void))
-{
-  sub_257743A14();
-  a4(0);
-  OUTLINED_FUNCTION_8_33();
-  sub_2577435F4();
-  return sub_257743A64();
-}
-
-void FeatureVectorizerConfiguration.Input.customMirror.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
-{
-  OUTLINED_FUNCTION_31();
-  a19 = v21;
-  a20 = v22;
-  v23 = v20;
-  v24 = sub_257743A84();
-  v25 = OUTLINED_FUNCTION_63(v24);
-  v27 = v26;
-  v29 = *(v28 + 64);
-  MEMORY[0x28223BE20](v25);
-  OUTLINED_FUNCTION_3();
-  v32 = v31 - v30;
-  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE0, &unk_257744EA0);
-  v34 = *(*(v33 - 8) + 64);
-  MEMORY[0x28223BE20](v33 - 8);
-  v36 = &a9 - v35;
-  v37 = type metadata accessor for FeatureVectorizerConfiguration.Input(0);
-  v38 = OUTLINED_FUNCTION_4(v37);
-  v40 = *(v39 + 64);
-  MEMORY[0x28223BE20](v38);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_78();
-  sub_2576BF5A4();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE8, &qword_257744030);
-  v41 = swift_allocObject();
-  *(v41 + 16) = xmmword_257743FF0;
-  *(v41 + 32) = 1701667182;
-  *(v41 + 40) = 0xE400000000000000;
-  v42 = v23[1];
-  v43 = MEMORY[0x277D837D0];
-  *(v41 + 48) = *v23;
-  *(v41 + 56) = v42;
-  *(v41 + 72) = v43;
-  *(v41 + 80) = 1702521203;
-  *(v41 + 88) = 0xE400000000000000;
-  v44 = v23[2];
-  if (v44 < 0)
-  {
     __break(1u);
+LABEL_5:
+    v3 = 3;
+    v4 = 3;
+    goto LABEL_6;
+  }
+
+  __break(1u);
+}
+
+void NeuralNetwork.Layer.PoolParameters.strides.getter(uint64_t *a1@<X8>)
+{
+  v2 = *(v1 + 24);
+  if (v2[2] != 2)
+  {
+    goto LABEL_5;
+  }
+
+  v3 = v2[4];
+  if ((v3 & 0x8000000000000000) == 0)
+  {
+    v4 = v2[5];
+    if ((v4 & 0x8000000000000000) == 0)
+    {
+LABEL_6:
+      *a1 = v3;
+      a1[1] = v4;
+      return;
+    }
+
+    __break(1u);
+LABEL_5:
+    v3 = 3;
+    v4 = 3;
+    goto LABEL_6;
+  }
+
+  __break(1u);
+}
+
+uint64_t NeuralNetwork.Layer.PoolParameters.padding.getter@<X0>(uint64_t a1@<X8>)
+{
+  v4 = type metadata accessor for Proto_PoolingLayerParams.OneOf_PoolingPaddingType(0);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v5);
+  OUTLINED_FUNCTION_11();
+  MEMORY[0x28223BE20](v6);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87C6E8, &unk_257773F00);
+  OUTLINED_FUNCTION_13(v7);
+  OUTLINED_FUNCTION_29();
+  MEMORY[0x28223BE20](v8);
+  v9 = OUTLINED_FUNCTION_38();
+  v10 = type metadata accessor for Proto_PoolingLayerParams(v9);
+  sub_257487308(v1 + *(v10 + 28));
+  v11 = 1;
+  if (__swift_getEnumTagSinglePayload(v2, 1, v4) != 1)
+  {
+    OUTLINED_FUNCTION_15_20();
+    sub_2576D3204();
+    OUTLINED_FUNCTION_6_46();
+    sub_2576D325C();
+    sub_2576D1AC8();
+    OUTLINED_FUNCTION_3_60();
+    v11 = 0;
+  }
+
+  v12 = type metadata accessor for NeuralNetwork.Layer.PoolParameters.Padding(0);
+  return __swift_storeEnumTagSinglePayload(a1, v11, 1, v12);
+}
+
+_OWORD *NeuralNetwork.Layer.PoolParameters.Padding.propertyDescriptions.getter()
+{
+  v0 = type metadata accessor for NeuralNetwork.SamePaddingParameters(0);
+  v1 = OUTLINED_FUNCTION_13(v0);
+  MEMORY[0x28223BE20](v1);
+  OUTLINED_FUNCTION_3();
+  v4 = v3 - v2;
+  valid = type metadata accessor for NeuralNetwork.ValidPaddingParameters(0);
+  v6 = OUTLINED_FUNCTION_13(valid);
+  MEMORY[0x28223BE20](v6);
+  OUTLINED_FUNCTION_3();
+  v9 = v8 - v7;
+  type metadata accessor for NeuralNetwork.Layer.PoolParameters.Padding(0);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v10);
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_1_66();
+  sub_2576D325C();
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload)
+  {
+    if (EnumCaseMultiPayload != 1)
+    {
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
+      v13 = swift_allocObject();
+      v13[1] = xmmword_257743FF0;
+      *(v13 + 4) = 0x6769654820646150;
+      *(v13 + 5) = 0xEA00000000007468;
+      OUTLINED_FUNCTION_98_2();
+      *(v13 + 6) = sub_257743974();
+      *(v13 + 7) = v16;
+      *(v13 + 8) = 0x7464695720646150;
+      *(v13 + 9) = 0xE900000000000068;
+      OUTLINED_FUNCTION_98_2();
+      *(v13 + 10) = sub_257743974();
+      *(v13 + 11) = v17;
+      return v13;
+    }
+
+    sub_2576D3204();
+    if (*v4)
+    {
+      v12 = &unk_2868B3340;
+    }
+
+    else
+    {
+      v12 = &unk_2868B3380;
+    }
+
+    if (*(v4 + 8))
+    {
+      v13 = v12;
+    }
+
+    else
+    {
+      v13 = &unk_2868B3380;
+    }
+
+    v14 = type metadata accessor for NeuralNetwork.SamePaddingParameters;
+    v15 = v4;
   }
 
   else
   {
-    *(v41 + 120) = MEMORY[0x277D83B88];
-    *(v41 + 96) = v44;
-    v45 = sub_257743A74();
-    __swift_storeEnumTagSinglePayload(v36, 1, 1, v45);
-    (*(v27 + 104))(v32, *MEMORY[0x277D84C38], v24);
-
-    sub_257743AA4();
-    OUTLINED_FUNCTION_35();
-  }
-}
-
-uint64_t sub_2576BF5A4()
-{
-  OUTLINED_FUNCTION_267();
-  v3 = v2(0);
-  OUTLINED_FUNCTION_4(v3);
-  (*(v4 + 16))(v0, v1);
-  return v0;
-}
-
-uint64_t sub_2576BF600(uint64_t a1)
-{
-  v2 = type metadata accessor for FeatureVectorizerConfiguration.Input(0);
-  (*(*(v2 - 8) + 8))(a1, v2);
-  return a1;
-}
-
-uint64_t sub_2576BF65C()
-{
-  OUTLINED_FUNCTION_267();
-  v3 = v2(0);
-  OUTLINED_FUNCTION_4(v3);
-  (*(v4 + 32))(v0, v1);
-  return v0;
-}
-
-uint64_t sub_2576BF6B8(unint64_t *a1, void (*a2)(uint64_t))
-{
-  result = *a1;
-  if (!result)
-  {
-    a2(255);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
+    OUTLINED_FUNCTION_7_37();
+    sub_2576D3204();
+    v13 = NeuralNetwork.ValidPaddingParameters.propertyDescriptions.getter();
+    OUTLINED_FUNCTION_16_20();
+    v15 = v9;
   }
 
-  return result;
+  sub_2576D32B4(v15, v14);
+  return v13;
 }
 
-uint64_t sub_2576BF8C0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t))
-{
-  result = a4(319);
-  if (v5 <= 0x3F)
-  {
-    swift_cvw_initStructMetadataWithLayoutString();
-    return 0;
-  }
-
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_8_33()
-{
-
-  return sub_2576BF6B8(v1, v0);
-}
-
-uint64_t OUTLINED_FUNCTION_14_18@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  *(a1 + 32) = a2 & 0xFFFF00000000FFFFLL | 0x737475700000;
-  *(a1 + 40) = 0xE600000000000000;
-
-  return FeatureVectorizerConfiguration.inputs.getter();
-}
-
-void *NeuralNetwork.SamePaddingParameters.propertyDescriptions.getter()
-{
-  if (*v0)
-  {
-    v1 = &unk_2868B4358;
-  }
-
-  else
-  {
-    v1 = &unk_2868B4318;
-  }
-
-  if (*(v0 + 8))
-  {
-    return v1;
-  }
-
-  else
-  {
-    return &unk_2868B4318;
-  }
-}
-
-unsigned __int8 *NeuralNetwork.SamePaddingParameters.asymmetryMode.setter(unsigned __int8 *result)
+unsigned __int8 *NeuralNetwork.Layer.PoolParameters.kind.setter(unsigned __int8 *result)
 {
   *v1 = *result;
   *(v1 + 8) = 1;
   return result;
 }
 
-uint64_t *(*NeuralNetwork.SamePaddingParameters.asymmetryMode.modify(uint64_t a1))(uint64_t *result)
+uint64_t *(*NeuralNetwork.Layer.PoolParameters.kind.modify(uint64_t a1))(uint64_t *result)
 {
   *a1 = v1;
-  v2 = *(v1 + 8) == 1 && *v1 != 0;
-  *(a1 + 8) = v2;
-  return sub_2576BFAD8;
-}
-
-uint64_t *sub_2576BFAD8(uint64_t *result)
-{
-  v1 = *result;
-  *v1 = *(result + 8);
-  *(v1 + 8) = 1;
-  return result;
-}
-
-uint64_t NeuralNetwork.SamePaddingParameters.init(asymmetryMode:)@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = *a1;
-  *a2 = 0;
-  *(a2 + 8) = 1;
-  v4 = a2 + *(type metadata accessor for Proto_SamePadding(0) + 20);
-  result = _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-  *a2 = v3;
-  *(a2 + 8) = 1;
-  return result;
-}
-
-BOOL static NeuralNetwork.SamePaddingParameters.== infix(_:_:)(uint64_t *a1, uint64_t *a2)
-{
-  v2 = *a1;
-  v3 = *a2;
-  if (*(a1 + 8))
+  if (v1[8] == 1)
   {
-    v2 = *a1 != 0;
+    v2 = *v1;
   }
 
-  if (*(a2 + 8) == 1)
+  else
+  {
+    v2 = 0;
+  }
+
+  *(a1 + 8) = v2;
+  return sub_25749B4B4;
+}
+
+double sub_2576D14D4@<D0>(_OWORD *a1@<X8>)
+{
+  NeuralNetwork.Layer.PoolParameters.kernelSize.getter(&v3);
+  result = *&v3;
+  *a1 = v3;
+  return result;
+}
+
+uint64_t NeuralNetwork.Layer.PoolParameters.kernelSize.setter(uint64_t *a1)
+{
+  v3 = *a1;
+  v2 = a1[1];
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879F98, &unk_2577448C8);
+  OUTLINED_FUNCTION_24_22();
+  result = swift_allocObject();
+  *(result + 16) = xmmword_257743FF0;
+  if (v3 < 0)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    v5 = result;
+    *(result + 32) = v3;
+    if ((v2 & 0x8000000000000000) == 0)
+    {
+      *(result + 40) = v2;
+
+      *(v1 + 16) = v5;
+      return result;
+    }
+  }
+
+  __break(1u);
+  return result;
+}
+
+uint64_t (*NeuralNetwork.Layer.PoolParameters.kernelSize.modify(uint64_t (*result)(uint64_t *a1, char a2)))(uint64_t *a1, char a2)
+{
+  v2 = *(v1 + 16);
+  *(result + 2) = v1;
+  *(result + 3) = v2;
+  if (v2[2] != 2)
+  {
+    goto LABEL_5;
+  }
+
+  v3 = v2[4];
+  if ((v3 & 0x8000000000000000) == 0)
+  {
+    v4 = v2[5];
+    if ((v4 & 0x8000000000000000) == 0)
+    {
+LABEL_6:
+      *result = v3;
+      *(result + 1) = v4;
+      return sub_2576D1618;
+    }
+
+    __break(1u);
+LABEL_5:
+    v3 = 3;
+    v4 = 3;
+    goto LABEL_6;
+  }
+
+  __break(1u);
+  return result;
+}
+
+uint64_t sub_2576D1618(uint64_t *a1, char a2)
+{
+  v5 = *a1;
+  v4 = a1[1];
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879F98, &unk_2577448C8);
+  OUTLINED_FUNCTION_24_22();
+  result = swift_allocObject();
+  v7 = result;
+  *(result + 16) = xmmword_257743FF0;
+  if (a2)
+  {
+    if (v5 < 0)
+    {
+      __break(1u);
+      goto LABEL_9;
+    }
+
+    *(result + 32) = v5;
+    if ((v4 & 0x8000000000000000) == 0)
+    {
+LABEL_7:
+      v8 = a1[2];
+      *(result + 40) = v4;
+
+      *(v8 + 16) = v7;
+      return result;
+    }
+
+    __break(1u);
+  }
+
+  if (v5 < 0)
+  {
+LABEL_9:
+    __break(1u);
+    goto LABEL_10;
+  }
+
+  *(result + 32) = v5;
+  if ((v4 & 0x8000000000000000) == 0)
+  {
+    goto LABEL_7;
+  }
+
+LABEL_10:
+  __break(1u);
+  return result;
+}
+
+double sub_2576D16B8@<D0>(_OWORD *a1@<X8>)
+{
+  NeuralNetwork.Layer.PoolParameters.strides.getter(&v3);
+  result = *&v3;
+  *a1 = v3;
+  return result;
+}
+
+uint64_t NeuralNetwork.Layer.PoolParameters.strides.setter(uint64_t *a1)
+{
+  v3 = *a1;
+  v2 = a1[1];
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879F98, &unk_2577448C8);
+  OUTLINED_FUNCTION_24_22();
+  result = swift_allocObject();
+  *(result + 16) = xmmword_257743FF0;
+  if (v3 < 0)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    v5 = result;
+    *(result + 32) = v3;
+    if ((v2 & 0x8000000000000000) == 0)
+    {
+      *(result + 40) = v2;
+
+      *(v1 + 24) = v5;
+      return result;
+    }
+  }
+
+  __break(1u);
+  return result;
+}
+
+uint64_t (*NeuralNetwork.Layer.PoolParameters.strides.modify(uint64_t (*result)(uint64_t *a1, char a2)))(uint64_t *a1, char a2)
+{
+  v2 = *(v1 + 24);
+  *(result + 2) = v1;
+  *(result + 3) = v2;
+  if (v2[2] != 2)
+  {
+    goto LABEL_5;
+  }
+
+  v3 = v2[4];
+  if ((v3 & 0x8000000000000000) == 0)
+  {
+    v4 = v2[5];
+    if ((v4 & 0x8000000000000000) == 0)
+    {
+LABEL_6:
+      *result = v3;
+      *(result + 1) = v4;
+      return sub_2576D17FC;
+    }
+
+    __break(1u);
+LABEL_5:
+    v3 = 3;
+    v4 = 3;
+    goto LABEL_6;
+  }
+
+  __break(1u);
+  return result;
+}
+
+uint64_t sub_2576D17FC(uint64_t *a1, char a2)
+{
+  v5 = *a1;
+  v4 = a1[1];
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879F98, &unk_2577448C8);
+  OUTLINED_FUNCTION_24_22();
+  result = swift_allocObject();
+  v7 = result;
+  *(result + 16) = xmmword_257743FF0;
+  if (a2)
+  {
+    if (v5 < 0)
+    {
+      __break(1u);
+      goto LABEL_9;
+    }
+
+    *(result + 32) = v5;
+    if ((v4 & 0x8000000000000000) == 0)
+    {
+LABEL_7:
+      v8 = a1[2];
+      *(result + 40) = v4;
+
+      *(v8 + 24) = v7;
+      return result;
+    }
+
+    __break(1u);
+  }
+
+  if (v5 < 0)
+  {
+LABEL_9:
+    __break(1u);
+    goto LABEL_10;
+  }
+
+  *(result + 32) = v5;
+  if ((v4 & 0x8000000000000000) == 0)
+  {
+    goto LABEL_7;
+  }
+
+LABEL_10:
+  __break(1u);
+  return result;
+}
+
+uint64_t sub_2576D189C(uint64_t a1)
+{
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F881230, &unk_257773EF0);
+  MEMORY[0x28223BE20](v2 - 8);
+  v4 = &v6 - v3;
+  sub_257487308(a1);
+  return NeuralNetwork.Layer.PoolParameters.padding.setter(v4);
+}
+
+uint64_t NeuralNetwork.Layer.PoolParameters.padding.setter(uint64_t a1)
+{
+  v2 = v1;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F881230, &unk_257773EF0);
+  OUTLINED_FUNCTION_13(v4);
+  OUTLINED_FUNCTION_29();
+  MEMORY[0x28223BE20](v5);
+  v7 = &v20 - v6;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87C6E8, &unk_257773F00);
+  OUTLINED_FUNCTION_13(v8);
+  OUTLINED_FUNCTION_29();
+  MEMORY[0x28223BE20](v9);
+  v11 = &v20 - v10;
+  sub_257487308(a1);
+  v12 = type metadata accessor for NeuralNetwork.Layer.PoolParameters.Padding(0);
+  if (__swift_getEnumTagSinglePayload(v7, 1, v12) == 1)
+  {
+    v13 = OUTLINED_FUNCTION_277();
+    sub_2574695E4(v13, v14, &unk_257773EF0);
+    sub_2574695E4(v7, &qword_27F881230, &unk_257773EF0);
+    v15 = 1;
+  }
+
+  else
+  {
+    sub_2576D1CC0();
+    sub_2574695E4(a1, &qword_27F881230, &unk_257773EF0);
+    OUTLINED_FUNCTION_0_84();
+    sub_2576D32B4(v7, v16);
+    v15 = 0;
+  }
+
+  v17 = type metadata accessor for Proto_PoolingLayerParams.OneOf_PoolingPaddingType(0);
+  __swift_storeEnumTagSinglePayload(v11, v15, 1, v17);
+  v18 = type metadata accessor for Proto_PoolingLayerParams(0);
+  return sub_2576D330C(v11, v2 + *(v18 + 28));
+}
+
+uint64_t sub_2576D1AC8()
+{
+  type metadata accessor for NeuralNetwork.Layer.PoolParameters.Padding(0);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v2);
+  OUTLINED_FUNCTION_3();
+  v5 = (v4 - v3);
+  valid = type metadata accessor for Proto_PoolingLayerParams.ValidCompletePadding(0);
+  v7 = OUTLINED_FUNCTION_13(valid);
+  MEMORY[0x28223BE20](v7);
+  OUTLINED_FUNCTION_3();
+  v8 = OUTLINED_FUNCTION_38();
+  type metadata accessor for Proto_PoolingLayerParams.OneOf_PoolingPaddingType(v8);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v9);
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_6_46();
+  sub_2576D325C();
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (!EnumCaseMultiPayload)
+  {
+    OUTLINED_FUNCTION_3_60();
+    OUTLINED_FUNCTION_17_23();
+    OUTLINED_FUNCTION_205();
+    return swift_storeEnumTagMultiPayload();
+  }
+
+  if (EnumCaseMultiPayload == 1)
+  {
+    OUTLINED_FUNCTION_3_60();
+    OUTLINED_FUNCTION_14_21();
+    sub_2576D3204();
+    OUTLINED_FUNCTION_205();
+    return swift_storeEnumTagMultiPayload();
+  }
+
+  sub_2576D3204();
+  v12 = *v1;
+  if (*(*v1 + 16))
+  {
+    v13 = *(v12 + 32);
+    if ((v13 & 0x8000000000000000) == 0)
+    {
+      goto LABEL_10;
+    }
+
+    __break(1u);
+  }
+
+  v13 = 0;
+LABEL_10:
+
+  result = sub_25763D468(1, v12);
+  if (v15 == v16 >> 1)
+  {
+    v17 = 0;
+  }
+
+  else
+  {
+    if (v15 >= (v16 >> 1))
+    {
+      goto LABEL_17;
+    }
+
+    v17 = *(v14 + 8 * v15);
+  }
+
+  swift_unknownObjectRelease();
+  OUTLINED_FUNCTION_3_60();
+  OUTLINED_FUNCTION_12_34();
+  result = sub_2576D32B4(v1, v18);
+  if ((v17 & 0x8000000000000000) == 0)
+  {
+    *v5 = v13;
+    v5[1] = v17;
+    swift_storeEnumTagMultiPayload();
+    OUTLINED_FUNCTION_13_25();
+    return sub_2576D3204();
+  }
+
+  __break(1u);
+LABEL_17:
+  __break(1u);
+  return result;
+}
+
+uint64_t sub_2576D1CC0()
+{
+  type metadata accessor for Proto_PoolingLayerParams.ValidCompletePadding(0);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v1);
+  OUTLINED_FUNCTION_3();
+  v4 = (v3 - v2);
+  v5 = type metadata accessor for NeuralNetwork.SamePaddingParameters(0);
+  v6 = OUTLINED_FUNCTION_13(v5);
+  MEMORY[0x28223BE20](v6);
+  OUTLINED_FUNCTION_3();
+  v7 = OUTLINED_FUNCTION_38();
+  valid = type metadata accessor for NeuralNetwork.ValidPaddingParameters(v7);
+  v9 = OUTLINED_FUNCTION_13(valid);
+  MEMORY[0x28223BE20](v9);
+  OUTLINED_FUNCTION_3();
+  type metadata accessor for NeuralNetwork.Layer.PoolParameters.Padding(0);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v10);
+  OUTLINED_FUNCTION_3();
+  v13 = (v12 - v11);
+  OUTLINED_FUNCTION_1_66();
+  sub_2576D325C();
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (!EnumCaseMultiPayload)
+  {
+    OUTLINED_FUNCTION_7_37();
+    sub_2576D3204();
+    OUTLINED_FUNCTION_17_23();
+    type metadata accessor for Proto_PoolingLayerParams.OneOf_PoolingPaddingType(0);
+    OUTLINED_FUNCTION_18_1();
+    return swift_storeEnumTagMultiPayload();
+  }
+
+  if (EnumCaseMultiPayload == 1)
+  {
+    OUTLINED_FUNCTION_36_13();
+    sub_2576D3204();
+    OUTLINED_FUNCTION_14_21();
+    sub_2576D3204();
+    type metadata accessor for Proto_PoolingLayerParams.OneOf_PoolingPaddingType(0);
+    OUTLINED_FUNCTION_18_1();
+    return swift_storeEnumTagMultiPayload();
+  }
+
+  v17 = *v13;
+  v16 = v13[1];
+  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879F98, &unk_2577448C8);
+  OUTLINED_FUNCTION_24_22();
+  result = swift_allocObject();
+  *(result + 16) = xmmword_257743FF0;
+  if (v17 < 0)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    *(result + 32) = v17;
+    if ((v16 & 0x8000000000000000) == 0)
+    {
+      *(result + 40) = v16;
+      *v4 = result;
+      sub_2576D325C();
+      type metadata accessor for Proto_PoolingLayerParams.OneOf_PoolingPaddingType(0);
+      OUTLINED_FUNCTION_18_1();
+      swift_storeEnumTagMultiPayload();
+      OUTLINED_FUNCTION_12_34();
+      return sub_2576D32B4(v4, v18);
+    }
+  }
+
+  __break(1u);
+  return result;
+}
+
+void NeuralNetwork.Layer.PoolParameters.padding.modify()
+{
+  OUTLINED_FUNCTION_31();
+  v2 = v1;
+  v3 = __swift_coroFrameAllocStub(0x50uLL);
+  *v2 = v3;
+  *v3 = v0;
+  v4 = type metadata accessor for Proto_PoolingLayerParams.OneOf_PoolingPaddingType(0);
+  v3[1] = v4;
+  OUTLINED_FUNCTION_4();
+  v6 = *(v5 + 64);
+  v3[2] = __swift_coroFrameAllocStub(v6);
+  v3[3] = __swift_coroFrameAllocStub(v6);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87C6E8, &unk_257773F00);
+  OUTLINED_FUNCTION_13(v7);
+  v3[4] = OUTLINED_FUNCTION_31_14();
+  v8 = OUTLINED_FUNCTION_31_14();
+  v3[5] = v8;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F881230, &unk_257773EF0);
+  OUTLINED_FUNCTION_13(v9);
+  v3[6] = OUTLINED_FUNCTION_31_14();
+  v3[7] = OUTLINED_FUNCTION_31_14();
+  v10 = OUTLINED_FUNCTION_31_14();
+  v3[8] = v10;
+  v11 = *(type metadata accessor for Proto_PoolingLayerParams(0) + 28);
+  *(v3 + 18) = v11;
+  sub_257487308(v0 + v11);
+  v12 = 1;
+  if (__swift_getEnumTagSinglePayload(v8, 1, v4) != 1)
+  {
+    OUTLINED_FUNCTION_15_20();
+    sub_2576D3204();
+    OUTLINED_FUNCTION_6_46();
+    sub_2576D325C();
+    sub_2576D1AC8();
+    OUTLINED_FUNCTION_3_60();
+    v12 = 0;
+  }
+
+  v13 = type metadata accessor for NeuralNetwork.Layer.PoolParameters.Padding(0);
+  __swift_storeEnumTagSinglePayload(v10, v12, 1, v13);
+  OUTLINED_FUNCTION_35();
+}
+
+void sub_2576D20C0()
+{
+  OUTLINED_FUNCTION_31();
+  v1 = *v0;
+  v2 = (*v0)[7];
+  v3 = (*v0)[8];
+  if (v4)
+  {
+    v6 = v1[5];
+    v5 = v1[6];
+    v8 = v1[3];
+    v7 = v1[4];
+    v9 = v1[2];
+    v10 = OUTLINED_FUNCTION_277();
+    sub_257487308(v10);
+    NeuralNetwork.Layer.PoolParameters.padding.setter(v5);
+    sub_2574695E4(v3, &qword_27F881230, &unk_257773EF0);
+  }
+
+  else
+  {
+    sub_257487308((*v0)[8]);
+    v11 = type metadata accessor for NeuralNetwork.Layer.PoolParameters.Padding(0);
+    EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v2, 1, v11);
+    v13 = v1[7];
+    v14 = v1[8];
+    if (EnumTagSinglePayload == 1)
+    {
+      sub_2574695E4(v1[8], &qword_27F881230, &unk_257773EF0);
+      sub_2574695E4(v13, &qword_27F881230, &unk_257773EF0);
+      v15 = 1;
+    }
+
+    else
+    {
+      sub_2576D1CC0();
+      sub_2574695E4(v14, &qword_27F881230, &unk_257773EF0);
+      OUTLINED_FUNCTION_0_84();
+      sub_2576D32B4(v13, v16);
+      v15 = 0;
+    }
+
+    v17 = *(v1 + 18);
+    v2 = v1[7];
+    v3 = v1[8];
+    v6 = v1[5];
+    v5 = v1[6];
+    v8 = v1[3];
+    v7 = v1[4];
+    v9 = v1[2];
+    v18 = *v1;
+    __swift_storeEnumTagSinglePayload(v7, v15, 1, v1[1]);
+    sub_2576D330C(v7, v18 + v17);
+  }
+
+  free(v3);
+  free(v2);
+  free(v5);
+  free(v6);
+  free(v7);
+  free(v8);
+  free(v9);
+  OUTLINED_FUNCTION_35();
+
+  free(v19);
+}
+
+uint64_t NeuralNetwork.Layer.PoolParameters.averageExcludesPadding.setter(char a1)
+{
+  result = type metadata accessor for Proto_PoolingLayerParams(0);
+  *(v1 + *(result + 32)) = a1;
+  return result;
+}
+
+uint64_t (*NeuralNetwork.Layer.PoolParameters.averageExcludesPadding.modify(void *a1))(uint64_t result)
+{
+  *a1 = v1;
+  v2 = type metadata accessor for Proto_PoolingLayerParams(0);
+  OUTLINED_FUNCTION_32_11(*(v2 + 32));
+  return sub_2576D38B0;
+}
+
+uint64_t NeuralNetwork.Layer.PoolParameters.doesGlobalPooling.setter(char a1)
+{
+  result = type metadata accessor for Proto_PoolingLayerParams(0);
+  *(v1 + *(result + 36)) = a1;
+  return result;
+}
+
+uint64_t (*NeuralNetwork.Layer.PoolParameters.doesGlobalPooling.modify(void *a1))(uint64_t result)
+{
+  *a1 = v1;
+  v2 = type metadata accessor for Proto_PoolingLayerParams(0);
+  OUTLINED_FUNCTION_32_11(*(v2 + 36));
+  return sub_2576873F0;
+}
+
+uint64_t NeuralNetwork.Layer.PoolParameters.init()@<X0>(uint64_t a1@<X8>)
+{
+  OUTLINED_FUNCTION_101_2(a1);
+  v2 = MEMORY[0x277D84F90];
+  *(v1 + 16) = MEMORY[0x277D84F90];
+  *(v1 + 24) = v2;
+  v3 = type metadata accessor for Proto_PoolingLayerParams(0);
+  type metadata accessor for Proto_PoolingLayerParams.OneOf_PoolingPaddingType(0);
+  OUTLINED_FUNCTION_44();
+  __swift_storeEnumTagSinglePayload(v4, v5, v6, v7);
+  *(v1 + *(v3 + 32)) = 0;
+  *(v1 + *(v3 + 36)) = 0;
+  return _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+}
+
+void NeuralNetwork.Layer.PoolParameters.init(kind:kernelSize:strides:padding:)()
+{
+  OUTLINED_FUNCTION_31();
+  v30 = v0;
+  v2 = v1;
+  v4 = v3;
+  v6 = v5;
+  v8 = v7;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F881230, &unk_257773EF0);
+  OUTLINED_FUNCTION_13(v9);
+  OUTLINED_FUNCTION_29();
+  MEMORY[0x28223BE20](v10);
+  v12 = &v29 - v11;
+  v13 = *v6;
+  v15 = *v4;
+  v14 = v4[1];
+  v17 = *v2;
+  v16 = v2[1];
+  *v8 = 0;
+  *(v8 + 8) = 1;
+  v18 = MEMORY[0x277D84F90];
+  *(v8 + 16) = MEMORY[0x277D84F90];
+  *(v8 + 24) = v18;
+  v19 = type metadata accessor for Proto_PoolingLayerParams(0);
+  type metadata accessor for Proto_PoolingLayerParams.OneOf_PoolingPaddingType(0);
+  OUTLINED_FUNCTION_44();
+  __swift_storeEnumTagSinglePayload(v20, v21, v22, v23);
+  *(v8 + *(v19 + 32)) = 0;
+  *(v8 + *(v19 + 36)) = 0;
+  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  *v8 = v13;
+  *(v8 + 8) = 1;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879F98, &unk_2577448C8);
+  OUTLINED_FUNCTION_24_22();
+  v24 = swift_allocObject();
+  *(v24 + 16) = xmmword_257743FF0;
+  if (v15 < 0)
+  {
+    __break(1u);
+    goto LABEL_7;
+  }
+
+  *(v24 + 32) = v15;
+  if (v14 < 0)
+  {
+LABEL_7:
+    __break(1u);
+    goto LABEL_8;
+  }
+
+  *(v24 + 40) = v14;
+  *(v8 + 16) = v24;
+  OUTLINED_FUNCTION_24_22();
+  v29 = v25;
+  v26 = swift_allocObject();
+  *(v26 + 16) = v29;
+  if (v17 < 0)
+  {
+LABEL_8:
+    __break(1u);
+    goto LABEL_9;
+  }
+
+  *(v26 + 32) = v17;
+  if ((v16 & 0x8000000000000000) == 0)
+  {
+    *(v26 + 40) = v16;
+    *(v8 + 24) = v26;
+    sub_257487308(v30);
+    NeuralNetwork.Layer.PoolParameters.padding.setter(v12);
+    v27 = OUTLINED_FUNCTION_98_2();
+    sub_2574695E4(v27, v28, &unk_257773EF0);
+    OUTLINED_FUNCTION_35();
+    return;
+  }
+
+LABEL_9:
+  __break(1u);
+}
+
+uint64_t NeuralNetwork.Layer.GlobalPool3DParameters.init()@<X0>(uint64_t a1@<X8>)
+{
+  OUTLINED_FUNCTION_101_2(a1);
+  type metadata accessor for Proto_GlobalPooling3DLayerParams(0);
+  return _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+}
+
+BOOL static NeuralNetwork.Layer.GlobalPool3DParameters.== infix(_:_:)()
+{
+  OUTLINED_FUNCTION_267();
+  v2 = *v0;
+  v3 = *v1;
+  if (*(v0 + 8))
+  {
+    v2 = *v0 != 0;
+  }
+
+  if (*(v1 + 8) == 1)
   {
     if (v3)
     {
@@ -3665,69 +1642,374 @@ BOOL static NeuralNetwork.SamePaddingParameters.== infix(_:_:)(uint64_t *a1, uin
     return 0;
   }
 
-  v4 = *(type metadata accessor for Proto_SamePadding(0) + 20);
+  type metadata accessor for Proto_GlobalPooling3DLayerParams(0);
   sub_2577431B4();
-  sub_2576C0010(&qword_27F879B68, MEMORY[0x277D216C8]);
+  OUTLINED_FUNCTION_11_33();
+  sub_2576D3474(v4, v5, MEMORY[0x277D216D0]);
   return (sub_257743644() & 1) != 0;
 }
 
-uint64_t NeuralNetwork.SamePaddingParameters.customMirror.getter()
+void NeuralNetwork.Layer.PoolParameters.customMirror.getter()
 {
-  v1 = v0;
-  v2 = sub_257743A84();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x28223BE20](v2);
-  v6 = &v18 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE0, &unk_257744EA0);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v18 - v9;
-  v11 = type metadata accessor for NeuralNetwork.SamePaddingParameters();
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x28223BE20](v11);
-  sub_2576BFEC0(v1, &v18 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
+  OUTLINED_FUNCTION_31();
+  v1 = sub_257743A84();
+  v2 = *(v1 - 8);
+  MEMORY[0x28223BE20](v1);
+  OUTLINED_FUNCTION_3();
+  v5 = v4 - v3;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE0, &unk_257744EA0);
+  OUTLINED_FUNCTION_13(v6);
+  OUTLINED_FUNCTION_29();
+  MEMORY[0x28223BE20](v7);
+  v8 = OUTLINED_FUNCTION_38();
+  type metadata accessor for NeuralNetwork.Layer.PoolParameters(v8);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v9);
+  OUTLINED_FUNCTION_3();
+  sub_2576D325C();
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE8, &qword_257744030);
-  v14 = swift_allocObject();
-  *(v14 + 16) = xmmword_2577442B0;
-  strcpy((v14 + 32), "asymmetryMode");
-  *(v14 + 46) = -4864;
-  *(v14 + 72) = &type metadata for NeuralNetwork.SamePaddingParameters.AsymmetryMode;
-  v15 = *(v1 + 8) == 1 && *v1 != 0;
-  *(v14 + 48) = v15;
-  v16 = sub_257743A74();
-  __swift_storeEnumTagSinglePayload(v10, 1, 1, v16);
-  (*(v3 + 104))(v6, *MEMORY[0x277D84C38], v2);
-  return sub_257743AA4();
+  v10 = swift_allocObject();
+  *(v10 + 16) = xmmword_257745520;
+  *(v10 + 32) = 1684957547;
+  *(v10 + 40) = 0xE400000000000000;
+  *(v10 + 72) = &type metadata for NeuralNetwork.Layer.PoolParameters.Kind;
+  NeuralNetwork.Layer.PoolParameters.kind.getter((v10 + 48));
+  *(v10 + 80) = 0x69536C656E72656BLL;
+  *(v10 + 88) = 0xEA0000000000657ALL;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F881238, &unk_257773F10);
+  *(v10 + 120) = v11;
+  NeuralNetwork.Layer.PoolParameters.kernelSize.getter((v10 + 96));
+  OUTLINED_FUNCTION_28_23();
+  *(v10 + 128) = v12;
+  *(v10 + 136) = 0xE700000000000000;
+  *(v10 + 168) = v11;
+  NeuralNetwork.Layer.PoolParameters.strides.getter((v10 + 144));
+  *(v10 + 176) = 0x676E6964646170;
+  *(v10 + 184) = 0xE700000000000000;
+  *(v10 + 216) = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F881230, &unk_257773EF0);
+  boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0((v10 + 192));
+  NeuralNetwork.Layer.PoolParameters.padding.getter(boxed_opaque_existential_0);
+  *(v10 + 224) = 0xD000000000000016;
+  *(v10 + 232) = 0x8000000257781570;
+  v14 = type metadata accessor for Proto_PoolingLayerParams(0);
+  v15 = MEMORY[0x277D839B0];
+  *(v10 + 240) = *(v0 + *(v14 + 32));
+  *(v10 + 264) = v15;
+  *(v10 + 272) = 0xD000000000000011;
+  *(v10 + 280) = 0x8000000257781590;
+  v16 = *(v0 + *(v14 + 36));
+  *(v10 + 312) = v15;
+  *(v10 + 288) = v16;
+  sub_257743A74();
+  OUTLINED_FUNCTION_44();
+  __swift_storeEnumTagSinglePayload(v17, v18, v19, v20);
+  (*(v2 + 104))(v5, *MEMORY[0x277D84C38], v1);
+  sub_257743AA4();
+  OUTLINED_FUNCTION_35();
 }
 
-uint64_t type metadata accessor for NeuralNetwork.SamePaddingParameters()
+unint64_t NeuralNetwork.Layer.PoolParameters.Kind.init(rawValue:)@<X0>(unint64_t result@<X0>, char *a2@<X8>)
 {
-  result = qword_27F881078;
-  if (!qword_27F881078)
+  v2 = 3;
+  if (result < 3)
   {
-    return swift_getSingletonMetadata();
+    v2 = result;
   }
 
+  *a2 = v2;
   return result;
 }
 
-uint64_t sub_2576BFEC0(uint64_t a1, uint64_t a2)
+uint64_t sub_2576D29C8@<X0>(uint64_t *a1@<X8>)
 {
-  v4 = type metadata accessor for NeuralNetwork.SamePaddingParameters();
-  (*(*(v4 - 8) + 16))(a2, a1, v4);
+  result = NeuralNetwork.Layer.PoolParameters.Kind.rawValue.getter();
+  *a1 = result;
+  return result;
+}
+
+void static NeuralNetwork.Layer.PoolParameters.Padding.valid(leadingHeight:trailingHeight:leadingWidth:trailingWidth:)()
+{
+  OUTLINED_FUNCTION_31();
+  v37 = v0;
+  v2 = v1;
+  v4 = v3;
+  v6 = v5;
+  v8 = v7;
+  v9 = type metadata accessor for Proto_BorderAmounts(0);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v10);
+  OUTLINED_FUNCTION_3();
+  v13 = v12 - v11;
+  v14 = type metadata accessor for NeuralNetwork.Border.EdgeSizes(0);
+  v15 = OUTLINED_FUNCTION_13(v14);
+  MEMORY[0x28223BE20](v15);
+  OUTLINED_FUNCTION_11();
+  MEMORY[0x28223BE20](v16);
+  v35 = v33 - v17;
+  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AD0, &qword_257777FB0);
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_29();
+  MEMORY[0x28223BE20](v19);
+  v21 = (v33 - v20);
+  v22 = type metadata accessor for NeuralNetwork.Border(0);
+  v23 = OUTLINED_FUNCTION_13(v22);
+  MEMORY[0x28223BE20](v23);
+  OUTLINED_FUNCTION_3();
+  v26 = (v25 - v24);
+  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  v36 = *(type metadata accessor for Proto_ValidPadding(0) + 20);
+  OUTLINED_FUNCTION_44();
+  __swift_storeEnumTagSinglePayload(v27, v28, v29, v9);
+  *v26 = MEMORY[0x277D84F90];
+  v34 = v26;
+  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  type metadata accessor for Proto_BorderAmounts.EdgeSizes(0);
+  *v21 = 0;
+  v21[1] = 0;
+  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  if (v6 < 0)
+  {
+    __break(1u);
+    goto LABEL_7;
+  }
+
+  *v21 = v6;
+  if (v4 < 0)
+  {
+LABEL_7:
+    __break(1u);
+    goto LABEL_8;
+  }
+
+  v21[1] = v4;
+  v30 = (v21 + *(v18 + 36));
+  *v30 = 0;
+  v30[1] = 0;
+  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  if (v2 < 0)
+  {
+LABEL_8:
+    __break(1u);
+    goto LABEL_9;
+  }
+
+  *v30 = v2;
+  if ((v37 & 0x8000000000000000) == 0)
+  {
+    v30[1] = v37;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AD8, &unk_257744020);
+    v33[1] = v13;
+    v37 = v9;
+    v31 = swift_allocObject();
+    *(v31 + 16) = xmmword_257743FF0;
+    sub_2576D325C();
+    sub_2576D3204();
+    sub_2576D325C();
+    sub_2576D3204();
+    sub_2574695E4(v21, &qword_27F879AD0, &qword_257777FB0);
+    *v34 = v31;
+    sub_2576D3204();
+    v32 = v36;
+    sub_2574695E4(v8 + v36, &qword_27F879AC8, &unk_257744010);
+    sub_2576D3204();
+    __swift_storeEnumTagSinglePayload(v8 + v32, 0, 1, v37);
+    type metadata accessor for NeuralNetwork.Layer.PoolParameters.Padding(0);
+    swift_storeEnumTagMultiPayload();
+    OUTLINED_FUNCTION_35();
+    return;
+  }
+
+LABEL_9:
+  __break(1u);
+}
+
+uint64_t static NeuralNetwork.Layer.PoolParameters.Padding.same(asymmetryMode:)@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X8>)
+{
+  v3 = *a1;
+  *a2 = 0;
+  *(a2 + 8) = 1;
+  type metadata accessor for Proto_SamePadding(0);
+  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  *a2 = v3;
+  *(a2 + 8) = 1;
+  type metadata accessor for NeuralNetwork.Layer.PoolParameters.Padding(0);
+  OUTLINED_FUNCTION_18_1();
+
+  return swift_storeEnumTagMultiPayload();
+}
+
+void static NeuralNetwork.Layer.PoolParameters.Padding.== infix(_:_:)()
+{
+  OUTLINED_FUNCTION_31();
+  v0 = type metadata accessor for NeuralNetwork.SamePaddingParameters(0);
+  v1 = OUTLINED_FUNCTION_13(v0);
+  MEMORY[0x28223BE20](v1);
+  OUTLINED_FUNCTION_3();
+  v36 = v3 - v2;
+  valid = type metadata accessor for NeuralNetwork.ValidPaddingParameters(0);
+  v5 = OUTLINED_FUNCTION_13(valid);
+  MEMORY[0x28223BE20](v5);
+  OUTLINED_FUNCTION_3();
+  v8 = v7 - v6;
+  type metadata accessor for NeuralNetwork.Layer.PoolParameters.Padding(0);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v9);
+  OUTLINED_FUNCTION_11();
+  v11 = MEMORY[0x28223BE20](v10);
+  v13 = &v35 - v12;
+  MEMORY[0x28223BE20](v11);
+  v15 = &v35 - v14;
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F881240, &qword_257773F20);
+  OUTLINED_FUNCTION_13(v16);
+  OUTLINED_FUNCTION_29();
+  MEMORY[0x28223BE20](v17);
+  v19 = &v35 - v18;
+  sub_2576D325C();
+  sub_2576D325C();
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (!EnumCaseMultiPayload)
+  {
+    OUTLINED_FUNCTION_1_66();
+    sub_2576D325C();
+    OUTLINED_FUNCTION_36_13();
+    if (!swift_getEnumCaseMultiPayload())
+    {
+      OUTLINED_FUNCTION_7_37();
+      sub_2576D3204();
+      _s20MLModelSpecification13NeuralNetworkV22ValidPaddingParametersV2eeoiySbAE_AEtFZ_0();
+      sub_2576D32B4(v8, type metadata accessor for NeuralNetwork.ValidPaddingParameters);
+      sub_2576D32B4(v15, type metadata accessor for NeuralNetwork.ValidPaddingParameters);
+LABEL_22:
+      OUTLINED_FUNCTION_0_84();
+      sub_2576D32B4(v19, v34);
+      goto LABEL_23;
+    }
+
+    OUTLINED_FUNCTION_16_20();
+    v26 = v15;
+    goto LABEL_15;
+  }
+
+  if (EnumCaseMultiPayload != 1)
+  {
+    OUTLINED_FUNCTION_1_66();
+    sub_2576D325C();
+    OUTLINED_FUNCTION_36_13();
+    if (swift_getEnumCaseMultiPayload() == 2)
+    {
+      goto LABEL_22;
+    }
+
+    goto LABEL_16;
+  }
+
+  OUTLINED_FUNCTION_1_66();
+  OUTLINED_FUNCTION_98_2();
+  sub_2576D325C();
+  OUTLINED_FUNCTION_36_13();
+  if (swift_getEnumCaseMultiPayload() != 1)
+  {
+    OUTLINED_FUNCTION_2_56();
+    v26 = v13;
+LABEL_15:
+    sub_2576D32B4(v26, v25);
+LABEL_16:
+    sub_2574695E4(v19, &qword_27F881240, &qword_257773F20);
+    goto LABEL_23;
+  }
+
+  v21 = v36;
+  sub_2576D3204();
+  v22 = *v13;
+  v23 = *v21;
+  if (v13[8])
+  {
+    v22 = *v13 != 0;
+  }
+
+  if (*(v21 + 8) == 1)
+  {
+    if (v23)
+    {
+      if (v22 != 1)
+      {
+LABEL_9:
+        OUTLINED_FUNCTION_2_56();
+        sub_2576D32B4(v21, v24);
+LABEL_21:
+        OUTLINED_FUNCTION_2_56();
+        sub_2576D32B4(v13, v33);
+        goto LABEL_22;
+      }
+    }
+
+    else if (v22)
+    {
+      goto LABEL_9;
+    }
+  }
+
+  else if (v22 != v23)
+  {
+    goto LABEL_9;
+  }
+
+  type metadata accessor for Proto_SamePadding(0);
+  sub_2577431B4();
+  OUTLINED_FUNCTION_11_33();
+  sub_2576D3474(v27, v28, MEMORY[0x277D216D0]);
+  v29 = sub_257743644();
+  OUTLINED_FUNCTION_2_56();
+  sub_2576D32B4(v21, v30);
+  if ((v29 & 1) == 0)
+  {
+    goto LABEL_21;
+  }
+
+  OUTLINED_FUNCTION_2_56();
+  sub_2576D32B4(v13, v31);
+  OUTLINED_FUNCTION_0_84();
+  sub_2576D32B4(v19, v32);
+LABEL_23:
+  OUTLINED_FUNCTION_35();
+}
+
+uint64_t sub_2576D3204()
+{
+  OUTLINED_FUNCTION_267();
+  v1(0);
+  OUTLINED_FUNCTION_4();
+  v2 = OUTLINED_FUNCTION_205();
+  v3(v2);
+  return v0;
+}
+
+uint64_t sub_2576D325C()
+{
+  OUTLINED_FUNCTION_267();
+  v1(0);
+  OUTLINED_FUNCTION_4();
+  v2 = OUTLINED_FUNCTION_205();
+  v3(v2);
+  return v0;
+}
+
+uint64_t sub_2576D32B4(uint64_t a1, void (*a2)(void))
+{
+  a2(0);
+  OUTLINED_FUNCTION_4();
+  (*(v3 + 8))(a1);
+  return a1;
+}
+
+uint64_t sub_2576D330C(uint64_t a1, uint64_t a2)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87C6E8, &unk_257773F00);
+  (*(*(v4 - 8) + 40))(a2, a1, v4);
   return a2;
 }
 
-uint64_t NeuralNetwork.SamePaddingParameters.AsymmetryMode.hashValue.getter()
-{
-  v1 = *v0;
-  sub_257743A14();
-  MEMORY[0x259C651F0](v1);
-  return sub_257743A64();
-}
-
-uint64_t sub_2576C0010(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_2576D3474(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -3740,35 +2022,35 @@ uint64_t sub_2576C0010(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-unint64_t sub_2576C005C()
+unint64_t sub_2576D34C0()
 {
-  result = qword_27F881060;
-  if (!qword_27F881060)
+  result = qword_27F881248;
+  if (!qword_27F881248)
   {
     result = swift_getWitnessTable();
-    atomic_store(result, &qword_27F881060);
+    atomic_store(result, &qword_27F881248);
   }
 
   return result;
 }
 
-unint64_t sub_2576C00B4()
+unint64_t sub_2576D3518()
 {
-  result = qword_27F881068;
-  if (!qword_27F881068)
+  result = qword_27F881250;
+  if (!qword_27F881250)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F881070, &qword_2577730A0);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F881258, &qword_257774098);
     result = swift_getWitnessTable();
-    atomic_store(result, &qword_27F881068);
+    atomic_store(result, &qword_27F881250);
   }
 
   return result;
 }
 
-uint64_t sub_2576C0154()
+uint64_t sub_2576D367C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t))
 {
-  result = type metadata accessor for Proto_SamePadding(319);
-  if (v1 <= 0x3F)
+  result = a4(319, a2, a3);
+  if (v5 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -3777,9 +2059,9 @@ uint64_t sub_2576C0154()
   return result;
 }
 
-_BYTE *_s21SamePaddingParametersV13AsymmetryModeOwst(_BYTE *result, unsigned int a2, unsigned int a3)
+_BYTE *_s14PoolParametersV4KindOwst(_BYTE *result, unsigned int a2, unsigned int a3)
 {
-  if (a3 + 1 >= 0xFFFF00)
+  if (a3 + 2 >= 0xFFFF00)
   {
     v3 = 4;
   }
@@ -3789,7 +2071,7 @@ _BYTE *_s21SamePaddingParametersV13AsymmetryModeOwst(_BYTE *result, unsigned int
     v3 = 2;
   }
 
-  if ((a3 + 1) >> 8 < 0xFF)
+  if ((a3 + 2) >> 8 < 0xFF)
   {
     v4 = 1;
   }
@@ -3799,7 +2081,7 @@ _BYTE *_s21SamePaddingParametersV13AsymmetryModeOwst(_BYTE *result, unsigned int
     v4 = v3;
   }
 
-  if (a3 >= 0xFF)
+  if (a3 >= 0xFE)
   {
     v5 = v4;
   }
@@ -3809,10 +2091,10 @@ _BYTE *_s21SamePaddingParametersV13AsymmetryModeOwst(_BYTE *result, unsigned int
     v5 = 0;
   }
 
-  if (a2 > 0xFE)
+  if (a2 > 0xFD)
   {
-    v6 = ((a2 - 255) >> 8) + 1;
-    *result = a2 + 1;
+    v6 = ((a2 - 254) >> 8) + 1;
+    *result = a2 + 2;
     switch(v5)
     {
       case 1:
@@ -3863,7 +2145,7 @@ LABEL_17:
         if (a2)
         {
 LABEL_18:
-          *result = a2 + 1;
+          *result = a2 + 2;
         }
 
         break;
@@ -3873,1230 +2155,117 @@ LABEL_18:
   return result;
 }
 
-void sub_2576C029C()
+void sub_2576D37C8(uint64_t a1)
 {
-  OUTLINED_FUNCTION_31();
-  v0 = type metadata accessor for DenseSupportVector(0);
-  v1 = OUTLINED_FUNCTION_24(v0);
-  v3 = v2;
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20](v1);
-  OUTLINED_FUNCTION_3();
-  v8 = v7 - v6;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879FD8, &unk_257744910);
-  inited = swift_initStackObject();
-  *(inited + 16) = xmmword_257743FF0;
-  *(inited + 32) = 0x657372617053;
-  *(inited + 40) = 0xE600000000000000;
-  *(inited + 48) = xmmword_257773140;
-  *(inited + 64) = 0;
-  *(inited + 72) = 0x73726F74636556;
-  *(inited + 80) = 0xE700000000000000;
-  v10 = *(DenseSupportVectorCollection.vectors.getter() + 16);
-  if (v10)
+  type metadata accessor for NeuralNetwork.ValidPaddingParameters(319);
+  if (v1 <= 0x3F)
   {
-    v30 = inited;
-    v37 = MEMORY[0x277D84F90];
-    sub_257484040(0, v10, 0);
-    v11 = 0;
-    v12 = v37;
-    v13 = *(v3 + 80);
-    OUTLINED_FUNCTION_193();
-    v33 = *(v3 + 72);
-    v32 = v8;
-    v31 = v10;
-    do
+    type metadata accessor for NeuralNetwork.SamePaddingParameters(319);
+    if (v2 <= 0x3F)
     {
-      OUTLINED_FUNCTION_1_61();
-      sub_2576C20EC(v14, v8);
-      v15 = *v8;
-      v16 = *(*v8 + 16);
-      if (v16)
+      sub_2576D3850();
+      if (v3 <= 0x3F)
       {
-        v34 = v11;
-        v36 = MEMORY[0x277D84F90];
-        sub_257484040(0, v16, 0);
-        v17 = v36;
-        v18 = (v15 + 32);
-        do
-        {
-          v35 = *v18;
-          v19 = sub_257743674();
-          v21 = v20;
-          v23 = *(v36 + 16);
-          v22 = *(v36 + 24);
-          if (v23 >= v22 >> 1)
-          {
-            v25 = OUTLINED_FUNCTION_174(v22);
-            sub_257484040(v25, v23 + 1, 1);
-          }
-
-          *(v36 + 16) = v23 + 1;
-          v24 = v36 + 24 * v23;
-          *(v24 + 32) = v19;
-          *(v24 + 40) = v21;
-          *(v24 + 48) = 0;
-          ++v18;
-          --v16;
-        }
-
-        while (v16);
-        v8 = v32;
-        v10 = v31;
-        v11 = v34;
+        swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
       }
-
-      else
-      {
-        v17 = MEMORY[0x277D84F90];
-      }
-
-      OUTLINED_FUNCTION_2_51();
-      sub_2576C2AC8();
-      v27 = *(v37 + 16);
-      v26 = *(v37 + 24);
-      if (v27 >= v26 >> 1)
-      {
-        v29 = OUTLINED_FUNCTION_174(v26);
-        sub_257484040(v29, v27 + 1, 1);
-      }
-
-      ++v11;
-      *(v37 + 16) = v27 + 1;
-      v28 = v37 + 24 * v27;
-      *(v28 + 32) = v17;
-      *(v28 + 40) = 0;
-      *(v28 + 48) = 1;
     }
-
-    while (v11 != v10);
-
-    inited = v30;
   }
-
-  else
-  {
-
-    v12 = MEMORY[0x277D84F90];
-  }
-
-  *(inited + 88) = v12;
-  *(inited + 96) = 0;
-  *(inited + 104) = 1;
-  sub_2576A6964(inited);
-  OUTLINED_FUNCTION_35();
 }
 
-uint64_t DenseSupportVectorCollection.vectors.getter()
+void sub_2576D3850()
 {
-  v1 = type metadata accessor for DenseSupportVector(0);
-  v2 = OUTLINED_FUNCTION_24(v1);
-  v4 = v3;
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v2);
-  OUTLINED_FUNCTION_3();
-  v9 = v8 - v7;
-  v10 = *v0;
-  v11 = *(*v0 + 16);
-  v12 = MEMORY[0x277D84F90];
-  if (v11)
+  if (!qword_27F8812A0[0])
   {
-    v24 = MEMORY[0x277D84F90];
-    sub_2574836CC();
-    v12 = v24;
-    v13 = type metadata accessor for Proto_DenseVector(0);
-    OUTLINED_FUNCTION_24(v13);
-    v15 = v10 + ((*(v14 + 80) + 32) & ~*(v14 + 80));
-    v17 = *(v16 + 72);
-    do
+    TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
+    if (!v1)
     {
-      OUTLINED_FUNCTION_0_79();
-      sub_2576C20EC(v15, v9);
-      v19 = *(v24 + 16);
-      v18 = *(v24 + 24);
-      if (v19 >= v18 >> 1)
-      {
-        OUTLINED_FUNCTION_174(v18);
-        sub_2574836CC();
-      }
-
-      *(v24 + 16) = v19 + 1;
-      v20 = *(v4 + 80);
-      OUTLINED_FUNCTION_193();
-      v21 = *(v4 + 72);
-      OUTLINED_FUNCTION_7_35();
-      sub_2576C2148(v9, v22);
-      v15 += v17;
-      --v11;
+      atomic_store(TupleTypeMetadata2, qword_27F8812A0);
     }
-
-    while (v11);
   }
-
-  return v12;
 }
 
-void sub_2576C0720(uint64_t *a1)
+uint64_t OUTLINED_FUNCTION_3_60()
 {
-  v1 = *a1;
 
-  DenseSupportVectorCollection.vectors.setter();
+  return sub_2576D32B4(v0, type metadata accessor for Proto_PoolingLayerParams.OneOf_PoolingPaddingType);
 }
 
-void DenseSupportVectorCollection.vectors.setter()
+uint64_t OUTLINED_FUNCTION_10_39()
 {
-  OUTLINED_FUNCTION_31();
-  v2 = OUTLINED_FUNCTION_376();
-  v3 = type metadata accessor for DenseSupportVector(v2);
-  v4 = OUTLINED_FUNCTION_24(v3);
-  v6 = v5;
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v4);
-  OUTLINED_FUNCTION_3();
-  v11 = v10 - v9;
-  v12 = type metadata accessor for Proto_DenseVector(0);
-  v13 = OUTLINED_FUNCTION_24(v12);
-  v15 = v14;
-  v17 = *(v16 + 64);
-  MEMORY[0x28223BE20](v13);
-  OUTLINED_FUNCTION_3();
-  v20 = v19 - v18;
-  v21 = *(v0 + 16);
-  if (v21)
+
+  return sub_257743974();
+}
+
+uint64_t OUTLINED_FUNCTION_17_23()
+{
+
+  return sub_2576D3204();
+}
+
+__n128 *OUTLINED_FUNCTION_18_33(__n128 *result, __n128 a2)
+{
+  result[1] = a2;
+  result[2].n128_u64[0] = 0x53206C656E72654BLL;
+  result[2].n128_u64[1] = 0xEB00000000657A69;
+  return result;
+}
+
+void OUTLINED_FUNCTION_25_20()
+{
+
+  JUMPOUT(0x259C64E90);
+}
+
+void *OUTLINED_FUNCTION_31_14()
+{
+
+  return __swift_coroFrameAllocStub(v0);
+}
+
+void OUTLINED_FUNCTION_40_11()
+{
+
+  sub_257469388();
+}
+
+void OUTLINED_FUNCTION_41_13()
+{
+
+  JUMPOUT(0x259C64E90);
+}
+
+uint64_t NeuralNetwork.Extent.init(height:width:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+{
+  v12 = *(*(a3 - 8) + 32);
+  v12(a3 - 8, a5, a1);
+  v10 = a5 + *(type metadata accessor for NeuralNetwork.Extent(0, a3, a4, v9) + 36);
+
+  return v12(v10, a2, a3);
+}
+
+uint64_t static NeuralNetwork.Extent.== infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if ((sub_257743644() & 1) == 0)
   {
-    v32 = MEMORY[0x277D84F90];
-    sub_257483F90();
-    v22 = v32;
-    v23 = *(v6 + 80);
-    OUTLINED_FUNCTION_193();
-    v25 = v0 + v24;
-    v26 = *(v6 + 72);
-    do
-    {
-      OUTLINED_FUNCTION_1_61();
-      sub_2576C20EC(v25, v11);
-      OUTLINED_FUNCTION_0_79();
-      sub_2576C20EC(v11, v20);
-      OUTLINED_FUNCTION_2_51();
-      sub_2576C2AC8();
-      v28 = *(v32 + 16);
-      v27 = *(v32 + 24);
-      if (v28 >= v27 >> 1)
-      {
-        OUTLINED_FUNCTION_174(v27);
-        sub_257483F90();
-      }
-
-      *(v32 + 16) = v28 + 1;
-      v29 = *(v15 + 80);
-      OUTLINED_FUNCTION_193();
-      sub_2576C2148(v20, v32 + v30 + *(v15 + 72) * v28);
-      v25 += v26;
-      --v21;
-    }
-
-    while (v21);
+    return 0;
   }
 
-  else
-  {
-
-    v22 = MEMORY[0x277D84F90];
-  }
-
-  v31 = *v1;
-
-  *v1 = v22;
-  OUTLINED_FUNCTION_35();
+  type metadata accessor for NeuralNetwork.Extent(0, a3, a4, v6);
+  return sub_257743644() & 1;
 }
 
-void (*DenseSupportVectorCollection.vectors.modify(uint64_t *a1))(uint64_t *a1, char a2)
+uint64_t NeuralNetwork.Extent.description.getter(uint64_t a1)
 {
-  a1[1] = v1;
-  *a1 = DenseSupportVectorCollection.vectors.getter();
-  return sub_2576C0998;
-}
-
-void sub_2576C0998(uint64_t *a1, char a2)
-{
-  v2 = *a1;
-  v3 = a1[1];
-  if (a2)
-  {
-    v4 = *a1;
-
-    DenseSupportVectorCollection.vectors.setter();
-  }
-
-  else
-  {
-    v5 = *a1;
-    DenseSupportVectorCollection.vectors.setter();
-  }
-}
-
-void DenseSupportVectorCollection.init(vectors:)(void *a1@<X8>)
-{
-  *a1 = MEMORY[0x277D84F90];
-  v1 = a1 + *(type metadata accessor for Proto_DenseSupportVectors(0) + 20);
-  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-  DenseSupportVectorCollection.vectors.setter();
-}
-
-uint64_t DenseSupportVectorCollection.startIndex.getter()
-{
-  DenseSupportVectorCollection.vectors.getter();
-
+  sub_257743984();
+  MEMORY[0x259C64E90](38851, 0xA200000000000000);
+  sub_257743984();
   return 0;
 }
 
-uint64_t DenseSupportVectorCollection.count.getter()
+uint64_t sub_2576D3DC4(uint64_t a1)
 {
-  v0 = *(DenseSupportVectorCollection.vectors.getter() + 16);
-
-  return v0;
-}
-
-Swift::Int __swiftcall DenseSupportVectorCollection.index(after:)(Swift::Int after)
-{
-  DenseSupportVectorCollection.vectors.getter();
-
-  result = after + 1;
-  if (__OFADD__(after, 1))
-  {
-    __break(1u);
-  }
-
-  return result;
-}
-
-Swift::Int __swiftcall DenseSupportVectorCollection.index(before:)(Swift::Int before)
-{
-  DenseSupportVectorCollection.vectors.getter();
-
-  result = before - 1;
-  if (__OFSUB__(before, 1))
-  {
-    __break(1u);
-  }
-
-  return result;
-}
-
-uint64_t DenseSupportVectorCollection.subscript.getter@<X0>(unint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  result = DenseSupportVectorCollection.vectors.getter();
-  if ((a1 & 0x8000000000000000) != 0)
-  {
-    __break(1u);
-    goto LABEL_7;
-  }
-
-  v5 = result;
-  if (*(result + 16) <= a1)
-  {
-LABEL_7:
-    __break(1u);
-    return result;
-  }
-
-  v6 = type metadata accessor for DenseSupportVector(0);
-  OUTLINED_FUNCTION_24(v6);
-  v8 = v7;
-  v10 = v9;
-  v11 = v5 + ((*(v8 + 80) + 32) & ~*(v8 + 80));
-  v12 = *(v10 + 72);
-  OUTLINED_FUNCTION_1_61();
-  sub_2576C20EC(v13, a2);
-}
-
-void sub_2576C0BE0(uint64_t a1, uint64_t a2, unint64_t *a3)
-{
-  v5 = type metadata accessor for DenseSupportVector(0);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = *a3;
-  sub_2576C20EC(a1, v8);
-  DenseSupportVectorCollection.subscript.setter(v8, v9);
-}
-
-void DenseSupportVectorCollection.subscript.setter(uint64_t a1, unint64_t a2)
-{
-  v4 = DenseSupportVectorCollection.vectors.getter();
-  if (swift_isUniquelyReferenced_nonNull_native())
-  {
-    if ((a2 & 0x8000000000000000) == 0)
-    {
-      goto LABEL_3;
-    }
-
-LABEL_6:
-    __break(1u);
-    goto LABEL_7;
-  }
-
-  sub_25767A108(v4);
-  v4 = v8;
-  if ((a2 & 0x8000000000000000) != 0)
-  {
-    goto LABEL_6;
-  }
-
-LABEL_3:
-  if (*(v4 + 16) > a2)
-  {
-    v5 = type metadata accessor for DenseSupportVector(0);
-    OUTLINED_FUNCTION_24(v5);
-    sub_2576C21A4(a1, v4 + ((*(v6 + 80) + 32) & ~*(v6 + 80)) + *(v7 + 72) * a2);
-    DenseSupportVectorCollection.vectors.setter();
-    OUTLINED_FUNCTION_2_51();
-    sub_2576C2AC8();
-    return;
-  }
-
-LABEL_7:
-  __break(1u);
-}
-
-void (*DenseSupportVectorCollection.subscript.modify(unint64_t *a1, unint64_t a2))(unint64_t *a1, char a2)
-{
-  *a1 = a2;
-  a1[1] = v2;
-  v5 = type metadata accessor for DenseSupportVector(0);
-  OUTLINED_FUNCTION_24(v5);
-  v7 = v6;
-  v9 = *(v8 + 64);
-  a1[2] = __swift_coroFrameAllocStub(v9);
-  v10 = __swift_coroFrameAllocStub(v9);
-  a1[3] = v10;
-  result = DenseSupportVectorCollection.vectors.getter();
-  if ((a2 & 0x8000000000000000) != 0)
-  {
-    __break(1u);
-  }
-
-  else if (*(result + 2) > a2)
-  {
-    v12 = *(v7 + 80);
-    OUTLINED_FUNCTION_193();
-    v13 = *(v7 + 72);
-    OUTLINED_FUNCTION_1_61();
-    sub_2576C20EC(v14, v10);
-
-    return sub_2576C0E5C;
-  }
-
-  __break(1u);
-  return result;
-}
-
-void sub_2576C0E5C(unint64_t *a1, char a2)
-{
-  v2 = a1[2];
-  v3 = a1[3];
-  v5 = *a1;
-  v4 = a1[1];
-  if (a2)
-  {
-    sub_2576C20EC(a1[3], v2);
-    DenseSupportVectorCollection.subscript.setter(v2, v5);
-    OUTLINED_FUNCTION_2_51();
-    sub_2576C2AC8();
-  }
-
-  else
-  {
-    DenseSupportVectorCollection.subscript.setter(a1[3], v5);
-  }
-
-  free(v3);
-
-  free(v2);
-}
-
-void (*sub_2576C0EF8(void *a1, unint64_t *a2))(uint64_t a1, char a2)
-{
-  v5 = __swift_coroFrameAllocStub(0x28uLL);
-  *a1 = v5;
-  v5[1] = v2;
-  v6 = *(type metadata accessor for DenseSupportVector(0) - 8);
-  v7 = *(v6 + 64);
-  v5[2] = __swift_coroFrameAllocStub(v7);
-  v8 = __swift_coroFrameAllocStub(v7);
-  v9 = *a2;
-  v5[3] = v8;
-  v5[4] = v9;
-  v10 = DenseSupportVectorCollection.vectors.getter();
-  v11 = j__OUTLINED_FUNCTION_289();
-  sub_2576C1F00(v9, v11 & 1, v10);
-  if (v11)
-  {
-    sub_2576C20EC(v10 + ((*(v6 + 80) + 32) & ~*(v6 + 80)) + *(v6 + 72) * v9, v8);
-LABEL_3:
-
-    return sub_2576C1084;
-  }
-
-  result = sub_2576A8914();
-  if (v7 == 8)
-  {
-    *v5 = result;
-    sub_2576C20EC(v5, v8);
-    swift_unknownObjectRelease();
-    goto LABEL_3;
-  }
-
-  __break(1u);
-  return result;
-}
-
-void sub_2576C1084(uint64_t a1, char a2)
-{
-  v2 = *a1;
-  v3 = *(*a1 + 24);
-  v4 = *(*a1 + 32);
-  v5 = *(*a1 + 8);
-  v6 = *(*a1 + 16);
-  if (a2)
-  {
-    sub_2576C20EC(*(*a1 + 24), v6);
-    DenseSupportVectorCollection.subscript.setter(v6, v4);
-    OUTLINED_FUNCTION_2_51();
-    sub_2576C2AC8();
-  }
-
-  else
-  {
-    DenseSupportVectorCollection.subscript.setter(*(*a1 + 24), v4);
-  }
-
-  free(v3);
-  free(v6);
-
-  free(v2);
-}
-
-uint64_t (*sub_2576C1138(void *a1, uint64_t *a2))()
-{
-  v4 = __swift_coroFrameAllocStub(0x28uLL);
-  *a1 = v4;
-  v5 = *a2;
-  v6 = a2[1];
-  v4[4] = sub_25771F560();
-  return sub_25767A6E8;
-}
-
-void sub_2576C119C(uint64_t (*a1)(uint64_t)@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
-{
-  sub_25771FD54(a1, a2);
-  if (!v3)
-  {
-    *a3 = v5;
-  }
-}
-
-void sub_2576C11C8(uint64_t *a1, uint64_t *a2)
-{
-  v2 = *a1;
-  v3 = *a2;
-  sub_25771FEA4();
-}
-
-uint64_t sub_2576C11D4@<X0>(void *a1@<X8>)
-{
-  result = DenseSupportVectorCollection.startIndex.getter();
-  *a1 = 0;
-  return result;
-}
-
-uint64_t sub_2576C11FC@<X0>(uint64_t *a1@<X8>)
-{
-  result = DenseSupportVectorCollection.count.getter();
-  *a1 = result;
-  return result;
-}
-
-void (*sub_2576C1224(uint64_t a1, unint64_t *a2))(uint64_t a1)
-{
-  v4 = OUTLINED_FUNCTION_376();
-  v5 = type metadata accessor for DenseSupportVector(v4);
-  OUTLINED_FUNCTION_24(v5);
-  v7 = v6;
-  v9 = *(v8 + 64);
-  v10 = __swift_coroFrameAllocStub(v9);
-  v2[1] = v10;
-  v11 = *a2;
-  v12 = DenseSupportVectorCollection.vectors.getter();
-  v13 = j__OUTLINED_FUNCTION_289();
-  sub_2576C1F00(v11, v13 & 1, v12);
-  if (v13)
-  {
-    v14 = *(v7 + 80);
-    OUTLINED_FUNCTION_193();
-    v15 = *(v7 + 72);
-    OUTLINED_FUNCTION_1_61();
-    sub_2576C20EC(v16, v10);
-LABEL_3:
-
-    return sub_2576C1358;
-  }
-
-  result = sub_2576A8914();
-  if (v9 == 8)
-  {
-    *v2 = result;
-    OUTLINED_FUNCTION_1_61();
-    sub_2576C20EC(v2, v10);
-    swift_unknownObjectRelease();
-    goto LABEL_3;
-  }
-
-  __break(1u);
-  return result;
-}
-
-void sub_2576C1358(uint64_t a1)
-{
-  v1 = *(a1 + 8);
-  OUTLINED_FUNCTION_2_51();
-  sub_2576C2AC8();
-
-  free(v1);
-}
-
-uint64_t sub_2576C13A4@<X0>(uint64_t *a1@<X8>)
-{
-  result = sub_257720460();
-  *a1 = result;
-  a1[1] = v3;
-  return result;
-}
-
-Swift::Int sub_2576C1408(uint64_t a1)
-{
-  v2 = OUTLINED_FUNCTION_6_31(a1);
-  result = DenseSupportVectorCollection.index(after:)(v2);
-  *v1 = result;
-  return result;
-}
-
-void sub_2576C1430()
-{
-  OUTLINED_FUNCTION_31();
-  v5 = OUTLINED_FUNCTION_376();
-  v6 = type metadata accessor for DenseSupportVector(v5);
-  v7 = OUTLINED_FUNCTION_13(v6);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
-  OUTLINED_FUNCTION_3();
-  v10 = OUTLINED_FUNCTION_17_21();
-  if (!v10)
-  {
-    if (__OFADD__(v4, 1))
-    {
-      goto LABEL_12;
-    }
-
-    *v0 = v4 + 1;
-    OUTLINED_FUNCTION_35();
-    return;
-  }
-
-  v11 = v10;
-  v30 = sub_2576C1F20();
-  sub_257695CC8(v11);
-  if (v11 < 0)
-  {
-    goto LABEL_13;
-  }
-
-  v12 = j__OUTLINED_FUNCTION_289();
-  while (1)
-  {
-    if (v12)
-    {
-      v13 = type metadata accessor for Proto_DenseVector(0);
-      OUTLINED_FUNCTION_24(v13);
-      v15 = v14;
-      v17 = v16;
-      v18 = v2 + ((*(v15 + 80) + 32) & ~*(v15 + 80));
-      v19 = *(v17 + 72);
-      OUTLINED_FUNCTION_0_79();
-      sub_2576C20EC(v20, v1);
-      goto LABEL_8;
-    }
-
-    sub_2576A8300();
-    v21 = OUTLINED_FUNCTION_30();
-    v22 = type metadata accessor for Proto_DenseVector(v21);
-    OUTLINED_FUNCTION_13(v22);
-    if (*(v23 + 64) != 8)
-    {
-      break;
-    }
-
-    v29 = &v30;
-    OUTLINED_FUNCTION_0_79();
-    sub_2576C20EC(&v29, v1);
-    swift_unknownObjectRelease();
-LABEL_8:
-    OUTLINED_FUNCTION_5_43();
-    sub_2576C1F44(v24);
-    v25 = *(v30 + 16);
-    sub_2576C1FD0(v25, v3);
-    OUTLINED_FUNCTION_8_34();
-    v27 = sub_2576C204C(v25, v1, v26);
-    nullsub_6(v27, v28);
-  }
-
-  __break(1u);
-LABEL_12:
-  __break(1u);
-LABEL_13:
-  __break(1u);
-}
-
-Swift::Int sub_2576C15EC(uint64_t a1)
-{
-  v2 = OUTLINED_FUNCTION_6_31(a1);
-  result = DenseSupportVectorCollection.index(before:)(v2);
-  *v1 = result;
-  return result;
-}
-
-void sub_2576C1614()
-{
-  OUTLINED_FUNCTION_31();
-  v5 = OUTLINED_FUNCTION_376();
-  v6 = type metadata accessor for DenseSupportVector(v5);
-  v7 = OUTLINED_FUNCTION_13(v6);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
-  OUTLINED_FUNCTION_3();
-  v10 = OUTLINED_FUNCTION_17_21();
-  if (!v10)
-  {
-    if (__OFSUB__(v4, 1))
-    {
-      goto LABEL_12;
-    }
-
-    *v0 = v4 - 1;
-    OUTLINED_FUNCTION_35();
-    return;
-  }
-
-  v11 = v10;
-  v30 = sub_2576C1F20();
-  sub_257695CC8(v11);
-  if (v11 < 0)
-  {
-    goto LABEL_13;
-  }
-
-  v12 = j__OUTLINED_FUNCTION_289();
-  while (1)
-  {
-    if (v12)
-    {
-      v13 = type metadata accessor for Proto_DenseVector(0);
-      OUTLINED_FUNCTION_24(v13);
-      v15 = v14;
-      v17 = v16;
-      v18 = v2 + ((*(v15 + 80) + 32) & ~*(v15 + 80));
-      v19 = *(v17 + 72);
-      OUTLINED_FUNCTION_0_79();
-      sub_2576C20EC(v20, v1);
-      goto LABEL_8;
-    }
-
-    sub_2576A8300();
-    v21 = OUTLINED_FUNCTION_30();
-    v22 = type metadata accessor for Proto_DenseVector(v21);
-    OUTLINED_FUNCTION_13(v22);
-    if (*(v23 + 64) != 8)
-    {
-      break;
-    }
-
-    v29 = &v30;
-    OUTLINED_FUNCTION_0_79();
-    sub_2576C20EC(&v29, v1);
-    swift_unknownObjectRelease();
-LABEL_8:
-    OUTLINED_FUNCTION_5_43();
-    sub_2576C1F44(v24);
-    v25 = *(v30 + 16);
-    sub_2576C1FD0(v25, v3);
-    OUTLINED_FUNCTION_8_34();
-    v27 = sub_2576C204C(v25, v1, v26);
-    nullsub_6(v27, v28);
-  }
-
-  __break(1u);
-LABEL_12:
-  __break(1u);
-LABEL_13:
-  __break(1u);
-}
-
-uint64_t sub_2576C17D0@<X0>(uint64_t a1@<X8>)
-{
-  sub_2576C20EC(v1, a1);
-  v3 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F880E28, &unk_257771B78) + 36);
-  DenseSupportVectorCollection.vectors.getter();
-
-  result = sub_2576C2AC8();
-  *(a1 + v3) = 0;
-  return result;
-}
-
-uint64_t sub_2576C186C(uint64_t *a1)
-{
-  v1 = *a1;
-
-  return DenseSupportVector.values.setter(v2);
-}
-
-uint64_t DenseSupportVector.values.setter(uint64_t a1)
-{
-  v3 = *v1;
-
-  *v1 = a1;
-  return result;
-}
-
-uint64_t (*DenseSupportVector.values.modify(void *a1))(uint64_t *a1, char a2)
-{
-  v3 = *v1;
-  a1[1] = v1;
-  a1[2] = v3;
-  *a1 = v3;
-
-  return sub_25749D854;
-}
-
-BOOL sub_2576C1940(void *a1, void *a2, uint64_t (*a3)(void, void), uint64_t (*a4)(void))
-{
-  result = 0;
-  if (a3(*a1, *a2))
-  {
-    v5 = *(a4(0) + 20);
-    sub_2577431B4();
-    sub_2576C2250(&qword_27F879B68);
-    if (sub_257743644())
-    {
-      return 1;
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_2576C1A04@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
-{
-  *a2 = MEMORY[0x277D84F90];
-  v4 = a2 + *(type metadata accessor for Proto_DenseVector(0) + 20);
-  result = _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-  *a2 = a1;
-  return result;
-}
-
-Swift::Int __swiftcall DenseSupportVector.index(after:)(Swift::Int after)
-{
-  v1 = __OFADD__(after, 1);
-  result = after + 1;
-  if (v1)
-  {
-    __break(1u);
-  }
-
-  return result;
-}
-
-Swift::Int __swiftcall DenseSupportVector.index(before:)(Swift::Int before)
-{
-  v1 = __OFSUB__(before, 1);
-  result = before - 1;
-  if (v1)
-  {
-    __break(1u);
-  }
-
-  return result;
-}
-
-unint64_t DenseSupportVector.subscript.getter(unint64_t result)
-{
-  if ((result & 0x8000000000000000) != 0)
-  {
-    __break(1u);
-  }
-
-  else if (*(*v1 + 16) > result)
-  {
-    v2 = *(*v1 + 8 * result + 32);
-    return result;
-  }
-
-  __break(1u);
-  return result;
-}
-
-void DenseSupportVector.subscript.setter(unint64_t a1, double a2)
-{
-  v5 = *v2;
-
-  v6 = v5;
-  if (swift_isUniquelyReferenced_nonNull_native())
-  {
-    if ((a1 & 0x8000000000000000) == 0)
-    {
-      goto LABEL_3;
-    }
-
-LABEL_6:
-    __break(1u);
-    goto LABEL_7;
-  }
-
-  sub_25767A0F0(v5);
-  v6 = v7;
-  if ((a1 & 0x8000000000000000) != 0)
-  {
-    goto LABEL_6;
-  }
-
-LABEL_3:
-  if (*(v6 + 16) > a1)
-  {
-    *(v6 + 8 * a1 + 32) = a2;
-
-    *v2 = v6;
-    return;
-  }
-
-LABEL_7:
-  __break(1u);
-}
-
-void (*DenseSupportVector.subscript.modify(void (*result)(uint64_t a1), unint64_t a2))(uint64_t a1)
-{
-  *(result + 1) = a2;
-  *(result + 2) = v2;
-  if ((a2 & 0x8000000000000000) != 0)
-  {
-    __break(1u);
-  }
-
-  else if (*(*v2 + 16) > a2)
-  {
-    *result = *(*v2 + 8 * a2 + 32);
-    return sub_2576C1BB4;
-  }
-
-  __break(1u);
-  return result;
-}
-
-void (*sub_2576C1BEC(uint64_t *a1, unint64_t *a2))(uint64_t a1)
-{
-  v4 = *a2;
-  a1[1] = v2;
-  a1[2] = v4;
-  v5 = DenseSupportVector.values.getter();
-  v6 = j__OUTLINED_FUNCTION_289();
-  sub_2576C1F00(v4, v6 & 1, v5);
-  if (v6)
-  {
-    v7 = *(v5 + 8 * v4 + 32);
-  }
-
-  else
-  {
-    v7 = sub_2576A852C(v4, v5);
-    swift_unknownObjectRelease();
-  }
-
-  *a1 = v7;
-  return sub_2576C1C88;
-}
-
-uint64_t (*sub_2576C1CC0(void *a1, uint64_t *a2))()
-{
-  v4 = __swift_coroFrameAllocStub(0x28uLL);
-  *a1 = v4;
-  v4[4] = sub_25771F680(v4, *a2, a2[1]);
-  return sub_257679C3C;
-}
-
-unint64_t sub_2576C1D24@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, unint64_t *a3@<X8>)
-{
-  result = sub_25771FD6C(a1, a2);
-  if (!v3)
-  {
-    *a3 = result;
-  }
-
-  return result;
-}
-
-uint64_t sub_2576C1D5C@<X0>(uint64_t *a1@<X8>)
-{
-  result = DenseSupportVector.count.getter();
-  *a1 = result;
-  return result;
-}
-
-uint64_t (*sub_2576C1D84(uint64_t *a1, unint64_t *a2))(void, void)
-{
-  v3 = *a2;
-  v4 = DenseSupportVector.values.getter();
-  v5 = j__OUTLINED_FUNCTION_289();
-  sub_2576C1F00(v3, v5 & 1, v4);
-  if (v5)
-  {
-    v6 = *(v4 + 8 * v3 + 32);
-  }
-
-  else
-  {
-    v6 = sub_2576A852C(v3, v4);
-    swift_unknownObjectRelease();
-  }
-
-  *a1 = v6;
-  return nullsub_6;
-}
-
-uint64_t sub_2576C1E28@<X0>(uint64_t *a1@<X8>)
-{
-  result = sub_2577245A4();
-  *a1 = result;
-  a1[1] = v3;
-  return result;
-}
-
-Swift::Int sub_2576C1E58(uint64_t a1)
-{
-  v2 = OUTLINED_FUNCTION_6_31(a1);
-  result = DenseSupportVector.index(after:)(v2);
-  *v1 = result;
-  return result;
-}
-
-Swift::Int sub_2576C1E80(uint64_t a1)
-{
-  v2 = OUTLINED_FUNCTION_6_31(a1);
-  result = DenseSupportVector.index(before:)(v2);
-  *v1 = result;
-  return result;
-}
-
-uint64_t sub_2576C1EA8@<X0>(uint64_t a1@<X8>)
-{
-  OUTLINED_FUNCTION_7_35();
-  sub_2576C2148(v2, v3);
-  result = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F880E18, &qword_257771B68);
-  *(a1 + *(result + 36)) = 0;
-  return result;
-}
-
-unint64_t sub_2576C1F00(unint64_t result, char a2, uint64_t a3)
-{
-  if (a2)
-  {
-    if ((result & 0x8000000000000000) != 0)
-    {
-      __break(1u);
-    }
-
-    else if (*(a3 + 16) > result)
-    {
-      return result;
-    }
-
-    __break(1u);
-  }
-
-  return result;
-}
-
-uint64_t sub_2576C1F44(uint64_t (*a1)(void, uint64_t, uint64_t))
-{
-  v2 = *v1;
-  result = swift_isUniquelyReferenced_nonNull_native();
-  *v1 = v2;
-  if ((result & 1) == 0)
-  {
-    v4 = *(v2 + 16) + 1;
-
-    return a1(0, v4, 1);
-  }
-
-  return result;
-}
-
-uint64_t sub_2576C1FD0(uint64_t result, uint64_t (*a2)(BOOL))
-{
-  v3 = *(*v2 + 24);
-  if (result + 1 > (v3 >> 1))
-  {
-    return a2(v3 > 1);
-  }
-
-  return result;
-}
-
-uint64_t sub_2576C204C(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
-{
-  v6 = *v3;
-  *(v6 + 16) = a1 + 1;
-  v7 = a3(0);
-  OUTLINED_FUNCTION_24(v7);
-  return sub_2576C2148(a2, v6 + ((*(v8 + 80) + 32) & ~*(v8 + 80)) + *(v9 + 72) * a1);
-}
-
-uint64_t sub_2576C20EC(uint64_t a1, uint64_t a2)
-{
-  v4 = OUTLINED_FUNCTION_30();
-  v6 = v5(v4);
-  OUTLINED_FUNCTION_4(v6);
-  (*(v7 + 16))(a2, v2);
-  return a2;
-}
-
-uint64_t sub_2576C2148(uint64_t a1, uint64_t a2)
-{
-  v4 = OUTLINED_FUNCTION_30();
-  v6 = v5(v4);
-  OUTLINED_FUNCTION_4(v6);
-  (*(v7 + 32))(a2, v2);
-  return a2;
-}
-
-uint64_t sub_2576C21A4(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for DenseSupportVector(0);
-  (*(*(v4 - 8) + 24))(a2, a1, v4);
-  return a2;
-}
-
-unint64_t sub_2576C2250(uint64_t a1)
-{
-  result = OUTLINED_FUNCTION_21_23(a1);
-  if (!result)
-  {
-    v3(255);
-    result = swift_getWitnessTable();
-    atomic_store(result, v1);
-  }
-
-  return result;
-}
-
-unint64_t sub_2576C234C()
-{
-  result = qword_27F8810C0;
-  if (!qword_27F8810C0)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_27F8810C0);
-  }
-
-  return result;
-}
-
-unint64_t sub_2576C247C(uint64_t a1)
-{
-  result = OUTLINED_FUNCTION_21_23(a1);
-  if (!result)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F8810B8, &qword_257773210);
-    sub_2576C234C();
-    result = swift_getWitnessTable();
-    atomic_store(result, v1);
-  }
-
-  return result;
-}
-
-unint64_t sub_2576C2540(uint64_t a1)
-{
-  result = OUTLINED_FUNCTION_21_23(a1);
-  if (!result)
-  {
-    v4 = v3;
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F881098, &qword_257777600);
-    OUTLINED_FUNCTION_6_42();
-    sub_2576C2250(v4);
-    result = swift_getWitnessTable();
-    atomic_store(result, v1);
-  }
-
-  return result;
-}
-
-unint64_t sub_2576C2658()
-{
-  result = qword_27F881110;
-  if (!qword_27F881110)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F881118, &qword_257773490);
-    sub_2576C2250(&unk_27F881120);
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_27F881110);
-  }
-
-  return result;
-}
-
-unint64_t sub_2576C2758()
-{
-  result = qword_27F881130;
-  if (!qword_27F881130)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F881118, &qword_257773490);
-    sub_2576C2250(&unk_27F881138);
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_27F881130);
-  }
-
-  return result;
-}
-
-unint64_t sub_2576C289C()
-{
-  result = qword_27F881150;
-  if (!qword_27F881150)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27F881118, &qword_257773490);
-    sub_2576C2250(&unk_27F881128);
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_27F881150);
-  }
-
-  return result;
-}
-
-unint64_t sub_2576C2994(uint64_t a1)
-{
-  result = OUTLINED_FUNCTION_21_23(a1);
-  if (!result)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(v3, v4);
-    result = swift_getWitnessTable();
-    atomic_store(result, v1);
-  }
-
-  return result;
-}
-
-uint64_t sub_2576C2A58(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t))
-{
-  result = a4(319);
-  if (v5 <= 0x3F)
+  result = swift_checkMetadataState();
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -5105,67 +2274,1068 @@ uint64_t sub_2576C2A58(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uin
   return result;
 }
 
-uint64_t sub_2576C2AC8()
+uint64_t sub_2576D3E34(unsigned __int16 *a1, unsigned int a2, uint64_t a3)
 {
-  v1 = OUTLINED_FUNCTION_376();
-  v3 = v2(v1);
-  OUTLINED_FUNCTION_4(v3);
-  (*(v4 + 8))(v0);
-  return v0;
+  v4 = *(a3 + 16);
+  v5 = *(v4 - 8);
+  v6 = *(v5 + 84);
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v7 = a2 - v6;
+  if (a2 <= v6)
+  {
+    return __swift_getEnumTagSinglePayload(a1, v6, v4);
+  }
+
+  v8 = ((*(*(v4 - 8) + 64) + *(v5 + 80)) & ~*(v5 + 80)) + *(*(v4 - 8) + 64);
+  v9 = 8 * v8;
+  if (v8 <= 3)
+  {
+    v11 = ((v7 + ~(-1 << v9)) >> v9) + 1;
+    if (HIWORD(v11))
+    {
+      v10 = *(a1 + v8);
+      if (!v10)
+      {
+        goto LABEL_19;
+      }
+
+      goto LABEL_11;
+    }
+
+    if (v11 > 0xFF)
+    {
+      v10 = *(a1 + v8);
+      if (!*(a1 + v8))
+      {
+        goto LABEL_19;
+      }
+
+      goto LABEL_11;
+    }
+
+    if (v11 < 2)
+    {
+LABEL_19:
+      if (v6)
+      {
+        return __swift_getEnumTagSinglePayload(a1, v6, v4);
+      }
+
+      return 0;
+    }
+  }
+
+  v10 = *(a1 + v8);
+  if (!*(a1 + v8))
+  {
+    goto LABEL_19;
+  }
+
+LABEL_11:
+  v12 = (v10 - 1) << v9;
+  if (v8 > 3)
+  {
+    v12 = 0;
+  }
+
+  if (v8)
+  {
+    if (v8 > 3)
+    {
+      LODWORD(v8) = 4;
+    }
+
+    switch(v8)
+    {
+      case 2:
+        LODWORD(v8) = *a1;
+        break;
+      case 3:
+        LODWORD(v8) = *a1 | (*(a1 + 2) << 16);
+        break;
+      case 4:
+        LODWORD(v8) = *a1;
+        break;
+      default:
+        LODWORD(v8) = *a1;
+        break;
+    }
+  }
+
+  return v6 + (v8 | v12) + 1;
 }
 
-uint64_t OUTLINED_FUNCTION_17_21()
+void sub_2576D3F84(_BYTE *a1, uint64_t a2, unsigned int a3, uint64_t a4)
 {
-  v3 = *v0;
-  v4 = *v1;
+  v6 = *(a4 + 16);
+  v7 = *(v6 - 8);
+  v8 = *(v7 + 84);
+  v9 = *(v7 + 64);
+  v10 = (v9 + *(v7 + 80)) & ~*(v7 + 80);
+  v11 = v10 + v9;
+  v12 = 8 * (v10 + v9);
+  v13 = a3 >= v8;
+  v14 = a3 - v8;
+  if (v14 != 0 && v13)
+  {
+    if (v11 <= 3)
+    {
+      v18 = ((v14 + ~(-1 << v12)) >> v12) + 1;
+      if (HIWORD(v18))
+      {
+        v15 = 4;
+      }
 
-  return OUTLINED_FUNCTION_32(v4);
+      else
+      {
+        if (v18 < 0x100)
+        {
+          v19 = 1;
+        }
+
+        else
+        {
+          v19 = 2;
+        }
+
+        if (v18 >= 2)
+        {
+          v15 = v19;
+        }
+
+        else
+        {
+          v15 = 0;
+        }
+      }
+    }
+
+    else
+    {
+      v15 = 1;
+    }
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  if (v8 >= a2)
+  {
+    switch(v15)
+    {
+      case 1:
+        a1[v11] = 0;
+        if (a2)
+        {
+          goto LABEL_24;
+        }
+
+        break;
+      case 2:
+        *&a1[v11] = 0;
+        if (a2)
+        {
+          goto LABEL_24;
+        }
+
+        break;
+      case 3:
+LABEL_37:
+        __break(1u);
+        break;
+      case 4:
+        *&a1[v11] = 0;
+        goto LABEL_23;
+      default:
+LABEL_23:
+        if (a2)
+        {
+LABEL_24:
+
+          __swift_storeEnumTagSinglePayload(a1, a2, v8, v6);
+        }
+
+        break;
+    }
+  }
+
+  else
+  {
+    v16 = ~v8 + a2;
+    if (v11 < 4)
+    {
+      v17 = (v16 >> v12) + 1;
+      if (v11)
+      {
+        v20 = v16 & ~(-1 << v12);
+        bzero(a1, v11);
+        if (v11 == 3)
+        {
+          *a1 = v20;
+          a1[2] = BYTE2(v20);
+        }
+
+        else if (v11 == 2)
+        {
+          *a1 = v20;
+        }
+
+        else
+        {
+          *a1 = v16;
+        }
+      }
+    }
+
+    else
+    {
+      bzero(a1, v11);
+      *a1 = v16;
+      v17 = 1;
+    }
+
+    switch(v15)
+    {
+      case 1:
+        a1[v11] = v17;
+        break;
+      case 2:
+        *&a1[v11] = v17;
+        break;
+      case 3:
+        goto LABEL_37;
+      case 4:
+        *&a1[v11] = v17;
+        break;
+      default:
+        return;
+    }
+  }
 }
 
-__n128 *NeuralNetwork.Layer.RangeStaticParameters.propertyDescriptions.getter()
+uint64_t SupportVectorKernel.kind.getter()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-  v1 = swift_allocObject();
-  OUTLINED_FUNCTION_2_52(v1, xmmword_2577442C0);
-  v2 = v0[1];
-  v1[3].n128_u64[0] = sub_257743794();
-  v1[3].n128_u64[1] = v3;
-  v1[4].n128_u64[0] = 6581829;
-  v1[4].n128_u64[1] = 0xE300000000000000;
-  v4 = *v0;
-  v1[5].n128_u64[0] = sub_257743794();
-  v1[5].n128_u64[1] = v5;
-  v1[6].n128_u64[0] = 1885697107;
-  v1[6].n128_u64[1] = 0xE400000000000000;
-  v6 = v0[2];
-  v1[7].n128_u64[0] = sub_257743794();
-  v1[7].n128_u64[1] = v7;
-  return v1;
+  v2 = v1;
+  v3 = OUTLINED_FUNCTION_16_1();
+  v4 = type metadata accessor for Proto_Kernel.OneOf_Kernel(v3);
+  OUTLINED_FUNCTION_4();
+  v6 = MEMORY[0x28223BE20](v5);
+  v8 = &v24 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v10 = &v24 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87FE18, &qword_257768E40);
+  v12 = OUTLINED_FUNCTION_13(v11);
+  MEMORY[0x28223BE20](v12);
+  v14 = &v24 - v13;
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F881328, &qword_257774258);
+  v16 = OUTLINED_FUNCTION_13(v15);
+  MEMORY[0x28223BE20](v16);
+  v18 = &v24 - v17;
+  sub_2576D4450(v2, v14);
+  v19 = 1;
+  if (__swift_getEnumTagSinglePayload(v14, 1, v4) != 1)
+  {
+    sub_2576D4DB4(v14, v10);
+    v20 = OUTLINED_FUNCTION_176();
+    sub_2576D4E68(v20, v21);
+    sub_2576D45F0(v8, v18);
+    sub_2576D4E10(v10, type metadata accessor for Proto_Kernel.OneOf_Kernel);
+    v19 = 0;
+  }
+
+  v22 = type metadata accessor for SupportVectorKernel.Kind(0);
+  __swift_storeEnumTagSinglePayload(v18, v19, 1, v22);
+  if (__swift_getEnumTagSinglePayload(v18, 1, v22) != 1)
+  {
+    return sub_2576D4DB4(v18, v0);
+  }
+
+  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  swift_storeEnumTagMultiPayload();
+  result = __swift_getEnumTagSinglePayload(v18, 1, v22);
+  if (result != 1)
+  {
+    return sub_2574695E4(v18, &qword_27F881328, &qword_257774258);
+  }
+
+  return result;
 }
 
-uint64_t NeuralNetwork.Layer.RangeStaticParameters.init()@<X0>(uint64_t a1@<X8>)
+uint64_t sub_2576D4450(uint64_t a1, uint64_t a2)
 {
-  *a1 = 0;
-  *(a1 + 8) = 0;
-  v1 = a1 + *(type metadata accessor for Proto_RangeStaticLayerParams(0) + 28);
-  return _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87FE18, &qword_257768E40);
+  (*(*(v4 - 8) + 16))(a2, a1, v4);
+  return a2;
 }
 
-BOOL static NeuralNetwork.Layer.RangeStaticParameters.== infix(_:_:)(float *a1, float *a2)
+uint64_t sub_2576D44E0(uint64_t a1)
+{
+  v2 = type metadata accessor for SupportVectorKernel.Kind(0);
+  MEMORY[0x28223BE20](v2 - 8);
+  v4 = &v6 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_2576D4E68(a1, v4);
+  return SupportVectorKernel.kind.setter(v4);
+}
+
+uint64_t SupportVectorKernel.kind.setter(uint64_t a1)
+{
+  v2 = v1;
+  sub_2574695E4(v2, &qword_27F87FE18, &qword_257768E40);
+  sub_2576D4670();
+  OUTLINED_FUNCTION_5_45();
+  sub_2576D4E10(a1, v4);
+  type metadata accessor for Proto_Kernel.OneOf_Kernel(0);
+  OUTLINED_FUNCTION_21();
+
+  return __swift_storeEnumTagSinglePayload(v5, v6, v7, v8);
+}
+
+uint64_t sub_2576D45F0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  type metadata accessor for Proto_Kernel.OneOf_Kernel(0);
+  swift_getEnumCaseMultiPayload();
+  sub_2576D4DB4(a1, a2);
+  type metadata accessor for SupportVectorKernel.Kind(0);
+
+  return swift_storeEnumTagMultiPayload();
+}
+
+uint64_t sub_2576D4670()
+{
+  v2 = v1;
+  v3 = OUTLINED_FUNCTION_16_1();
+  v4 = type metadata accessor for SupportVectorKernel.Sigmoid(v3);
+  v5 = OUTLINED_FUNCTION_13(v4);
+  MEMORY[0x28223BE20](v5);
+  OUTLINED_FUNCTION_3();
+  v8 = v7 - v6;
+  v9 = type metadata accessor for SupportVectorKernel.Polynomial(0);
+  v10 = OUTLINED_FUNCTION_13(v9);
+  MEMORY[0x28223BE20](v10);
+  OUTLINED_FUNCTION_3();
+  v13 = v12 - v11;
+  v14 = type metadata accessor for SupportVectorKernel.RBF(0);
+  v15 = OUTLINED_FUNCTION_13(v14);
+  MEMORY[0x28223BE20](v15);
+  OUTLINED_FUNCTION_3();
+  v18 = v17 - v16;
+  v19 = type metadata accessor for SupportVectorKernel.Linear(0);
+  v20 = OUTLINED_FUNCTION_13(v19);
+  MEMORY[0x28223BE20](v20);
+  OUTLINED_FUNCTION_3();
+  v23 = v22 - v21;
+  type metadata accessor for SupportVectorKernel.Kind(0);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v24);
+  OUTLINED_FUNCTION_3();
+  v27 = v26 - v25;
+  OUTLINED_FUNCTION_2_57();
+  sub_2576D4E68(v2, v27);
+  switch(swift_getEnumCaseMultiPayload())
+  {
+    case 1u:
+      OUTLINED_FUNCTION_6_47();
+      sub_2576D4DB4(v27, v18);
+      v28 = v18;
+      break;
+    case 2u:
+      OUTLINED_FUNCTION_8_37();
+      sub_2576D4DB4(v27, v13);
+      v28 = v13;
+      break;
+    case 3u:
+      OUTLINED_FUNCTION_7_38();
+      sub_2576D4DB4(v27, v8);
+      v28 = v8;
+      break;
+    default:
+      OUTLINED_FUNCTION_10_40();
+      sub_2576D4DB4(v27, v23);
+      v28 = v23;
+      break;
+  }
+
+  sub_2576D4DB4(v28, v0);
+  type metadata accessor for Proto_Kernel.OneOf_Kernel(0);
+  return swift_storeEnumTagMultiPayload();
+}
+
+void (*SupportVectorKernel.kind.modify(void *a1))(uint64_t *a1, char a2)
+{
+  *a1 = v1;
+  v3 = type metadata accessor for SupportVectorKernel.Kind(0);
+  OUTLINED_FUNCTION_13(v3);
+  v5 = *(v4 + 64);
+  a1[1] = __swift_coroFrameAllocStub(v5);
+  a1[2] = __swift_coroFrameAllocStub(v5);
+  SupportVectorKernel.kind.getter();
+  return sub_2576D4964;
+}
+
+void sub_2576D4964(uint64_t *a1, char a2)
+{
+  v2 = a1[1];
+  v3 = a1[2];
+  v4 = *a1;
+  if (a2)
+  {
+    sub_2576D4E68(a1[2], v2);
+    sub_2574695E4(v4, &qword_27F87FE18, &qword_257768E40);
+    sub_2576D4670();
+    sub_2576D4E10(v2, type metadata accessor for SupportVectorKernel.Kind);
+    type metadata accessor for Proto_Kernel.OneOf_Kernel(0);
+    OUTLINED_FUNCTION_21();
+    __swift_storeEnumTagSinglePayload(v5, v6, v7, v8);
+    sub_2576D4E10(v3, type metadata accessor for SupportVectorKernel.Kind);
+  }
+
+  else
+  {
+    sub_2574695E4(*a1, &qword_27F87FE18, &qword_257768E40);
+    sub_2576D4670();
+    OUTLINED_FUNCTION_5_45();
+    sub_2576D4E10(v3, v9);
+    type metadata accessor for Proto_Kernel.OneOf_Kernel(0);
+    OUTLINED_FUNCTION_21();
+    __swift_storeEnumTagSinglePayload(v10, v11, v12, v13);
+  }
+
+  free(v3);
+
+  free(v2);
+}
+
+uint64_t sub_2576D4A84()
+{
+  v1 = v0;
+  v2 = type metadata accessor for SupportVectorKernel.Sigmoid(0);
+  v3 = OUTLINED_FUNCTION_13(v2);
+  MEMORY[0x28223BE20](v3);
+  OUTLINED_FUNCTION_3();
+  v6 = v5 - v4;
+  v7 = type metadata accessor for SupportVectorKernel.Polynomial(0);
+  v8 = OUTLINED_FUNCTION_13(v7);
+  MEMORY[0x28223BE20](v8);
+  OUTLINED_FUNCTION_3();
+  v11 = v10 - v9;
+  v12 = type metadata accessor for SupportVectorKernel.RBF(0);
+  v13 = OUTLINED_FUNCTION_13(v12);
+  MEMORY[0x28223BE20](v13);
+  OUTLINED_FUNCTION_3();
+  v16 = v15 - v14;
+  type metadata accessor for SupportVectorKernel.Kind(0);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v17);
+  OUTLINED_FUNCTION_3();
+  v20 = v19 - v18;
+  OUTLINED_FUNCTION_2_57();
+  sub_2576D4E68(v1, v20);
+  switch(swift_getEnumCaseMultiPayload())
+  {
+    case 1u:
+      OUTLINED_FUNCTION_6_47();
+      sub_2576D4DB4(v20, v16);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879FD8, &unk_257744910);
+      inited = swift_initStackObject();
+      v25 = OUTLINED_FUNCTION_356(inited, xmmword_257743FF0);
+      v25[3] = xmmword_257774220;
+      v25[4].n128_u8[0] = 0;
+      OUTLINED_FUNCTION_21_26();
+      *(v26 + 72) = v27;
+      *(v26 + 80) = v28;
+      inited[5].n128_u64[1] = sub_257743674();
+      inited[6].n128_u64[0] = v29;
+      inited[6].n128_u8[8] = 0;
+      v21 = sub_2576A6964(inited);
+      OUTLINED_FUNCTION_1_68();
+      v23 = v16;
+      goto LABEL_6;
+    case 2u:
+      OUTLINED_FUNCTION_8_37();
+      sub_2576D4DB4(v20, v11);
+      v21 = sub_2576D4EC4();
+      OUTLINED_FUNCTION_4_49();
+      v23 = v11;
+      goto LABEL_6;
+    case 3u:
+      OUTLINED_FUNCTION_7_38();
+      sub_2576D4DB4(v20, v6);
+      v21 = sub_2576D4FBC();
+      OUTLINED_FUNCTION_3_61();
+      v23 = v6;
+LABEL_6:
+      sub_2576D4E10(v23, v22);
+      break;
+    default:
+      sub_2576D4E10(v20, type metadata accessor for SupportVectorKernel.Kind);
+      v21 = 0x7261656E694CLL;
+      break;
+  }
+
+  return v21;
+}
+
+uint64_t SupportVectorKernel.init(kind:)(uint64_t a1)
+{
+  v3 = OUTLINED_FUNCTION_16_1();
+  v4 = type metadata accessor for Proto_Kernel.OneOf_Kernel(v3);
+  __swift_storeEnumTagSinglePayload(v1, 1, 1, v4);
+  type metadata accessor for Proto_Kernel(0);
+  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  sub_2574695E4(v1, &qword_27F87FE18, &qword_257768E40);
+  sub_2576D4670();
+  OUTLINED_FUNCTION_5_45();
+  sub_2576D4E10(a1, v5);
+  OUTLINED_FUNCTION_21();
+
+  return __swift_storeEnumTagSinglePayload(v6, v7, v8, v4);
+}
+
+uint64_t sub_2576D4DB4(uint64_t a1, uint64_t a2)
+{
+  v4 = OUTLINED_FUNCTION_30();
+  v5(v4);
+  OUTLINED_FUNCTION_4();
+  (*(v6 + 32))(a2, v2);
+  return a2;
+}
+
+uint64_t sub_2576D4E10(uint64_t a1, void (*a2)(void))
+{
+  a2(0);
+  OUTLINED_FUNCTION_4();
+  (*(v3 + 8))(a1);
+  return a1;
+}
+
+uint64_t sub_2576D4E68(uint64_t a1, uint64_t a2)
+{
+  v4 = OUTLINED_FUNCTION_30();
+  v5(v4);
+  OUTLINED_FUNCTION_4();
+  (*(v6 + 16))(a2, v2);
+  return a2;
+}
+
+uint64_t sub_2576D4EC4()
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879FD8, &unk_257744910);
+  inited = swift_initStackObject();
+  v1 = OUTLINED_FUNCTION_356(inited, xmmword_257744E70);
+  v1[3] = xmmword_257774230;
+  v1[4].n128_u8[0] = 0;
+  v1[4].n128_u64[1] = 0x656572676544;
+  v1[5].n128_u64[0] = 0xE600000000000000;
+  inited[5].n128_u64[1] = sub_257743674();
+  inited[6].n128_u64[0] = v2;
+  inited[6].n128_u8[8] = 0;
+  OUTLINED_FUNCTION_23_23();
+  inited[7].n128_u64[0] = v3;
+  inited[7].n128_u64[1] = v4;
+  inited[8].n128_u64[0] = sub_257743674();
+  inited[8].n128_u64[1] = v5;
+  inited[9].n128_u8[0] = 0;
+  OUTLINED_FUNCTION_21_26();
+  inited[9].n128_u64[1] = v6;
+  inited[10].n128_u64[0] = v7;
+  inited[10].n128_u64[1] = sub_257743674();
+  inited[11].n128_u64[0] = v8;
+  inited[11].n128_u8[8] = 0;
+  return sub_2576A6964(inited);
+}
+
+uint64_t sub_2576D4FBC()
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879FD8, &unk_257744910);
+  inited = swift_initStackObject();
+  v1 = OUTLINED_FUNCTION_356(inited, xmmword_2577442C0);
+  v1[3] = xmmword_257774240;
+  v1[4].n128_u8[0] = 0;
+  OUTLINED_FUNCTION_23_23();
+  *(v2 + 72) = v3;
+  *(v2 + 80) = v4;
+  inited[5].n128_u64[1] = sub_257743674();
+  inited[6].n128_u64[0] = v5;
+  inited[6].n128_u8[8] = 0;
+  OUTLINED_FUNCTION_21_26();
+  inited[7].n128_u64[0] = v6;
+  inited[7].n128_u64[1] = v7;
+  inited[8].n128_u64[0] = sub_257743674();
+  inited[8].n128_u64[1] = v8;
+  inited[9].n128_u8[0] = 0;
+  return sub_2576A6964(inited);
+}
+
+uint64_t static SupportVectorKernel.Kind.== infix(_:_:)(uint64_t a1, uint64_t a2)
+{
+  v74 = a2;
+  v3 = type metadata accessor for SupportVectorKernel.Sigmoid(0);
+  v4 = OUTLINED_FUNCTION_13(v3);
+  MEMORY[0x28223BE20](v4);
+  OUTLINED_FUNCTION_3();
+  v73 = (v6 - v5);
+  v7 = type metadata accessor for SupportVectorKernel.Polynomial(0);
+  v8 = OUTLINED_FUNCTION_13(v7);
+  MEMORY[0x28223BE20](v8);
+  OUTLINED_FUNCTION_3();
+  v72 = v10 - v9;
+  v11 = type metadata accessor for SupportVectorKernel.RBF(0);
+  v12 = OUTLINED_FUNCTION_13(v11);
+  MEMORY[0x28223BE20](v12);
+  OUTLINED_FUNCTION_3();
+  v71 = (v14 - v13);
+  v15 = type metadata accessor for SupportVectorKernel.Linear(0);
+  v16 = OUTLINED_FUNCTION_13(v15);
+  MEMORY[0x28223BE20](v16);
+  OUTLINED_FUNCTION_3();
+  v19 = v18 - v17;
+  type metadata accessor for SupportVectorKernel.Kind(0);
+  OUTLINED_FUNCTION_4();
+  v21 = MEMORY[0x28223BE20](v20);
+  v23 = (&v71 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v24 = MEMORY[0x28223BE20](v21);
+  v26 = (&v71 - v25);
+  v27 = MEMORY[0x28223BE20](v24);
+  v29 = (&v71 - v28);
+  MEMORY[0x28223BE20](v27);
+  v31 = &v71 - v30;
+  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F881330, qword_257774260);
+  v33 = OUTLINED_FUNCTION_13(v32);
+  v34 = MEMORY[0x28223BE20](v33);
+  v36 = &v71 - v35;
+  v37 = *(v34 + 56);
+  sub_2576D4E68(a1, &v71 - v35);
+  sub_2576D4E68(v74, &v36[v37]);
+  switch(swift_getEnumCaseMultiPayload())
+  {
+    case 1u:
+      OUTLINED_FUNCTION_2_57();
+      sub_2576D4E68(v36, v29);
+      if (OUTLINED_FUNCTION_28_24() != 1)
+      {
+        OUTLINED_FUNCTION_1_68();
+        v39 = v29;
+        goto LABEL_23;
+      }
+
+      OUTLINED_FUNCTION_6_47();
+      v52 = v71;
+      sub_2576D4DB4(&v36[v37], v71);
+      if (*v29 == *v52)
+      {
+        type metadata accessor for Proto_RBFKernel(0);
+        sub_2577431B4();
+        OUTLINED_FUNCTION_0_86();
+        sub_2576D6444(v53, v54, MEMORY[0x277D216D0]);
+        v55 = sub_257743644();
+        OUTLINED_FUNCTION_1_68();
+        sub_2576D4E10(v52, v56);
+        if (v55)
+        {
+          OUTLINED_FUNCTION_1_68();
+          v46 = v29;
+          goto LABEL_19;
+        }
+      }
+
+      else
+      {
+        OUTLINED_FUNCTION_1_68();
+        sub_2576D4E10(v52, v68);
+      }
+
+      OUTLINED_FUNCTION_1_68();
+      v61 = v29;
+      goto LABEL_31;
+    case 2u:
+      OUTLINED_FUNCTION_2_57();
+      sub_2576D4E68(v36, v26);
+      if (OUTLINED_FUNCTION_28_24() != 2)
+      {
+        OUTLINED_FUNCTION_4_49();
+        v39 = v26;
+        goto LABEL_23;
+      }
+
+      OUTLINED_FUNCTION_8_37();
+      v40 = v72;
+      sub_2576D4DB4(&v36[v37], v72);
+      if (*v26 == *v40 && v26[1] == *(v40 + 8) && v26[2] == *(v40 + 16))
+      {
+        type metadata accessor for Proto_PolyKernel(0);
+        sub_2577431B4();
+        OUTLINED_FUNCTION_0_86();
+        sub_2576D6444(v41, v42, MEMORY[0x277D216D0]);
+        v43 = sub_257743644();
+        OUTLINED_FUNCTION_4_49();
+        sub_2576D4E10(v40, v44);
+        if (v43)
+        {
+          OUTLINED_FUNCTION_4_49();
+          v46 = v26;
+          goto LABEL_19;
+        }
+      }
+
+      else
+      {
+        OUTLINED_FUNCTION_4_49();
+        sub_2576D4E10(v40, v59);
+      }
+
+      OUTLINED_FUNCTION_4_49();
+      v61 = v26;
+      goto LABEL_31;
+    case 3u:
+      OUTLINED_FUNCTION_2_57();
+      sub_2576D4E68(v36, v23);
+      if (OUTLINED_FUNCTION_28_24() != 3)
+      {
+        OUTLINED_FUNCTION_3_61();
+        v39 = v23;
+        goto LABEL_23;
+      }
+
+      OUTLINED_FUNCTION_7_38();
+      v47 = v73;
+      sub_2576D4DB4(&v36[v37], v73);
+      if (*v23 == *v47 && v23[1] == v47[1])
+      {
+        type metadata accessor for Proto_SigmoidKernel(0);
+        sub_2577431B4();
+        OUTLINED_FUNCTION_0_86();
+        sub_2576D6444(v48, v49, MEMORY[0x277D216D0]);
+        v50 = sub_257743644();
+        OUTLINED_FUNCTION_3_61();
+        sub_2576D4E10(v47, v51);
+        if (v50)
+        {
+          OUTLINED_FUNCTION_3_61();
+          v46 = v23;
+LABEL_19:
+          sub_2576D4E10(v46, v45);
+          OUTLINED_FUNCTION_5_45();
+          sub_2576D4E10(v36, v57);
+          v58 = 1;
+          return v58 & 1;
+        }
+      }
+
+      else
+      {
+        OUTLINED_FUNCTION_3_61();
+        sub_2576D4E10(v47, v67);
+      }
+
+      OUTLINED_FUNCTION_3_61();
+      v61 = v23;
+LABEL_31:
+      sub_2576D4E10(v61, v60);
+      OUTLINED_FUNCTION_5_45();
+      sub_2576D4E10(v36, v69);
+      goto LABEL_32;
+    default:
+      OUTLINED_FUNCTION_2_57();
+      sub_2576D4E68(v36, v31);
+      if (OUTLINED_FUNCTION_28_24())
+      {
+        OUTLINED_FUNCTION_18_34();
+        v39 = v31;
+LABEL_23:
+        sub_2576D4E10(v39, v38);
+        sub_2574695E4(v36, &qword_27F881330, qword_257774260);
+LABEL_32:
+        v58 = 0;
+      }
+
+      else
+      {
+        OUTLINED_FUNCTION_10_40();
+        sub_2576D4DB4(&v36[v37], v19);
+        sub_2577431B4();
+        OUTLINED_FUNCTION_0_86();
+        sub_2576D6444(v62, v63, MEMORY[0x277D216D0]);
+        v58 = sub_257743644();
+        sub_2576D4E10(v19, type metadata accessor for SupportVectorKernel.Linear);
+        v64 = OUTLINED_FUNCTION_176();
+        sub_2576D4E10(v64, v65);
+        OUTLINED_FUNCTION_5_45();
+        sub_2576D4E10(v36, v66);
+      }
+
+      return v58 & 1;
+  }
+}
+
+uint64_t SupportVectorKernel.Kind.hash(into:)()
+{
+  v1 = OUTLINED_FUNCTION_30();
+  v2 = type metadata accessor for SupportVectorKernel.Sigmoid(v1);
+  v3 = OUTLINED_FUNCTION_13(v2);
+  MEMORY[0x28223BE20](v3);
+  OUTLINED_FUNCTION_3();
+  v6 = v5 - v4;
+  v7 = type metadata accessor for SupportVectorKernel.Polynomial(0);
+  v8 = OUTLINED_FUNCTION_13(v7);
+  MEMORY[0x28223BE20](v8);
+  OUTLINED_FUNCTION_3();
+  v11 = v10 - v9;
+  v12 = type metadata accessor for SupportVectorKernel.RBF(0);
+  v13 = OUTLINED_FUNCTION_13(v12);
+  MEMORY[0x28223BE20](v13);
+  OUTLINED_FUNCTION_3();
+  v16 = v15 - v14;
+  v17 = type metadata accessor for SupportVectorKernel.Linear(0);
+  v18 = OUTLINED_FUNCTION_13(v17);
+  MEMORY[0x28223BE20](v18);
+  OUTLINED_FUNCTION_3();
+  v21 = v20 - v19;
+  type metadata accessor for SupportVectorKernel.Kind(0);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v22);
+  OUTLINED_FUNCTION_3();
+  v25 = v24 - v23;
+  OUTLINED_FUNCTION_2_57();
+  sub_2576D4E68(v0, v25);
+  switch(swift_getEnumCaseMultiPayload())
+  {
+    case 1u:
+      OUTLINED_FUNCTION_6_47();
+      sub_2576D4DB4(v25, v16);
+      MEMORY[0x259C651F0](1);
+      type metadata accessor for Proto_RBFKernel(0);
+      sub_2576D6444(&qword_27F87FF10, type metadata accessor for Proto_RBFKernel, &unk_25776A080);
+      OUTLINED_FUNCTION_72_0();
+      sub_2577435F4();
+      OUTLINED_FUNCTION_1_68();
+      v27 = v16;
+      break;
+    case 2u:
+      OUTLINED_FUNCTION_8_37();
+      sub_2576D4DB4(v25, v11);
+      MEMORY[0x259C651F0](2);
+      type metadata accessor for Proto_PolyKernel(0);
+      sub_2576D6444(&qword_27F87FF00, type metadata accessor for Proto_PolyKernel, &unk_25776A0C0);
+      OUTLINED_FUNCTION_72_0();
+      sub_2577435F4();
+      OUTLINED_FUNCTION_4_49();
+      v27 = v11;
+      break;
+    case 3u:
+      OUTLINED_FUNCTION_7_38();
+      sub_2576D4DB4(v25, v6);
+      MEMORY[0x259C651F0](3);
+      type metadata accessor for Proto_SigmoidKernel(0);
+      sub_2576D6444(&qword_27F87FEF0, type metadata accessor for Proto_SigmoidKernel, &unk_25776A100);
+      OUTLINED_FUNCTION_72_0();
+      sub_2577435F4();
+      OUTLINED_FUNCTION_3_61();
+      v27 = v6;
+      break;
+    default:
+      OUTLINED_FUNCTION_10_40();
+      sub_2576D4DB4(v25, v21);
+      MEMORY[0x259C651F0](0);
+      type metadata accessor for Proto_LinearKernel(0);
+      sub_2576D6444(&qword_27F87FF20, type metadata accessor for Proto_LinearKernel, &unk_25776A040);
+      OUTLINED_FUNCTION_72_0();
+      sub_2577435F4();
+      OUTLINED_FUNCTION_18_34();
+      v27 = v21;
+      break;
+  }
+
+  return sub_2576D4E10(v27, v26);
+}
+
+uint64_t SupportVectorKernel.Kind.hashValue.getter()
+{
+  sub_257743A14();
+  SupportVectorKernel.Kind.hash(into:)();
+  return sub_257743A64();
+}
+
+uint64_t sub_2576D5A60(uint64_t a1)
+{
+  sub_257743A14();
+  SupportVectorKernel.Kind.hash(into:)();
+  return sub_257743A64();
+}
+
+uint64_t static SupportVectorKernel.Linear.== infix(_:_:)(uint64_t a1, uint64_t a2)
+{
+  OUTLINED_FUNCTION_30();
+  sub_2577431B4();
+  OUTLINED_FUNCTION_0_86();
+  sub_2576D6444(v2, v3, MEMORY[0x277D216D0]);
+  return sub_257743644() & 1;
+}
+
+double (*SupportVectorKernel.RBF.scale.modify(void *a1))(uint64_t a1)
+{
+  a1[1] = v1;
+  *a1 = *v1;
+  return sub_2576C63E8;
+}
+
+uint64_t SupportVectorKernel.RBF.init(scale:)(double a1)
+{
+  v3 = OUTLINED_FUNCTION_16_1();
+  type metadata accessor for Proto_RBFKernel(v3);
+  result = _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  *v1 = a1;
+  return result;
+}
+
+BOOL static SupportVectorKernel.RBF.== infix(_:_:)(double *a1, double *a2)
 {
   result = 0;
   if (*a1 == *a2)
   {
-    OUTLINED_FUNCTION_83_1(a1, a2);
+    v2 = OUTLINED_FUNCTION_30();
+    type metadata accessor for Proto_RBFKernel(v2);
+    sub_2577431B4();
+    OUTLINED_FUNCTION_0_86();
+    v5 = sub_2576D6444(v3, v4, MEMORY[0x277D216D0]);
+    if (OUTLINED_FUNCTION_4_2(v5))
+    {
+      return 1;
+    }
+  }
+
+  return result;
+}
+
+uint64_t SupportVectorKernel.Polynomial.degree.setter(uint64_t result)
+{
+  if (result < 0xFFFFFFFF80000000)
+  {
+    __break(1u);
+  }
+
+  else if (result <= 0x7FFFFFFF)
+  {
+    *v1 = result;
+    return result;
+  }
+
+  __break(1u);
+  return result;
+}
+
+uint64_t (*SupportVectorKernel.Polynomial.degree.modify(void *a1))(uint64_t result, char a2)
+{
+  *a1 = *v1;
+  a1[1] = v1;
+  return sub_2576D5E3C;
+}
+
+uint64_t sub_2576D5E3C(uint64_t result, char a2)
+{
+  v2 = *result;
+  v3 = *result < 0xFFFFFFFF80000000;
+  if (a2)
+  {
+    if (*result < 0xFFFFFFFF80000000)
+    {
+      __break(1u);
+      goto LABEL_9;
+    }
+
+    v3 = v2 < 0x7FFFFFFF;
+    if (v2 <= 0x7FFFFFFF)
+    {
+LABEL_7:
+      **(result + 8) = v2;
+      return result;
+    }
+
+    __break(1u);
+  }
+
+  if (v3)
+  {
+LABEL_9:
+    __break(1u);
+    goto LABEL_10;
+  }
+
+  if (v2 <= 0x7FFFFFFF)
+  {
+    goto LABEL_7;
+  }
+
+LABEL_10:
+  __break(1u);
+  return result;
+}
+
+double (*SupportVectorKernel.Polynomial.constant.modify(void *a1))(uint64_t a1)
+{
+  a1[1] = v1;
+  *a1 = *(v1 + 8);
+  return sub_2576C6434;
+}
+
+double (*SupportVectorKernel.Polynomial.scale.modify(void *a1))(uint64_t a1)
+{
+  a1[1] = v1;
+  *a1 = *(v1 + 16);
+  return sub_2576D5F00;
+}
+
+double sub_2576D5F00(uint64_t a1)
+{
+  result = *a1;
+  *(*(a1 + 8) + 16) = *a1;
+  return result;
+}
+
+uint64_t SupportVectorKernel.Polynomial.init(degree:constant:scale:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>, double a3@<D0>, double a4@<D1>)
+{
+  *a2 = 0;
+  type metadata accessor for Proto_PolyKernel(0);
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  result = _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  if (a1 < 0xFFFFFFFF80000000)
+  {
+    __break(1u);
+  }
+
+  else if (a1 <= 0x7FFFFFFF)
+  {
+    *a2 = a1;
+    *(a2 + 8) = a3;
+    *(a2 + 16) = a4;
+    return result;
+  }
+
+  __break(1u);
+  return result;
+}
+
+BOOL static SupportVectorKernel.Polynomial.== infix(_:_:)(_DWORD *a1, _DWORD *a2)
+{
+  result = 0;
+  if (*a1 == *a2)
+  {
+    OUTLINED_FUNCTION_34_3(a1);
     if (v4)
     {
-      if (*(v3 + 8) == *(v2 + 8))
+      if (*(v3 + 16) == *(v2 + 16))
       {
-        v5 = *(type metadata accessor for Proto_RangeStaticLayerParams(0) + 28);
+        type metadata accessor for Proto_PolyKernel(0);
         sub_2577431B4();
-        OUTLINED_FUNCTION_0_80();
-        sub_2576C2FDC(v6, v7);
-        if (OUTLINED_FUNCTION_4_2())
+        OUTLINED_FUNCTION_0_86();
+        v7 = sub_2576D6444(v5, v6, MEMORY[0x277D216D0]);
+        if (OUTLINED_FUNCTION_4_2(v7))
         {
           return 1;
         }
@@ -5176,42 +3346,45 @@ BOOL static NeuralNetwork.Layer.RangeStaticParameters.== infix(_:_:)(float *a1, 
   return result;
 }
 
-__n128 *NeuralNetwork.Layer.RangeDynamicParameters.propertyDescriptions.getter()
+double (*SupportVectorKernel.Sigmoid.constant.modify(void *a1))(uint64_t)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-  v1 = swift_allocObject();
-  OUTLINED_FUNCTION_2_52(v1, xmmword_257743FF0);
-  v2 = *v0;
-  v1[3].n128_u64[0] = sub_257743794();
-  v1[3].n128_u64[1] = v3;
-  v1[4].n128_u64[0] = 1885697107;
-  v1[4].n128_u64[1] = 0xE400000000000000;
-  v4 = v0[1];
-  v1[5].n128_u64[0] = sub_257743794();
-  v1[5].n128_u64[1] = v5;
-  return v1;
+  a1[1] = v1;
+  *a1 = *(v1 + 8);
+  return sub_2576D6AA4;
 }
 
-uint64_t NeuralNetwork.Layer.RangeDynamicParameters.init()@<X0>(void *a1@<X8>)
+double (*SupportVectorKernel.Sigmoid.scale.modify(void *a1))(uint64_t)
 {
-  *a1 = 0;
-  v1 = a1 + *(type metadata accessor for Proto_RangeDynamicLayerParams(0) + 24);
-  return _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  a1[1] = v1;
+  *a1 = *v1;
+  return sub_2576D6A9C;
 }
 
-BOOL static NeuralNetwork.Layer.RangeDynamicParameters.== infix(_:_:)(float *a1, float *a2)
+uint64_t SupportVectorKernel.Sigmoid.init(constant:scale:)(double a1, double a2)
+{
+  v5 = OUTLINED_FUNCTION_16_1();
+  type metadata accessor for Proto_SigmoidKernel(v5);
+  *v2 = 0.0;
+  v2[1] = 0.0;
+  result = _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  *v2 = a2;
+  v2[1] = a1;
+  return result;
+}
+
+BOOL static SupportVectorKernel.Sigmoid.== infix(_:_:)(double *a1, double *a2)
 {
   result = 0;
   if (*a1 == *a2)
   {
-    OUTLINED_FUNCTION_83_1(a1, a2);
+    OUTLINED_FUNCTION_34_3(a1);
     if (v2)
     {
-      v3 = *(type metadata accessor for Proto_RangeDynamicLayerParams(0) + 24);
+      type metadata accessor for Proto_SigmoidKernel(0);
       sub_2577431B4();
-      OUTLINED_FUNCTION_0_80();
-      sub_2576C2FDC(v4, v5);
-      if (OUTLINED_FUNCTION_4_2())
+      OUTLINED_FUNCTION_0_86();
+      v5 = sub_2576D6444(v3, v4, MEMORY[0x277D216D0]);
+      if (OUTLINED_FUNCTION_4_2(v5))
       {
         return 1;
       }
@@ -5221,7 +3394,26 @@ BOOL static NeuralNetwork.Layer.RangeDynamicParameters.== infix(_:_:)(float *a1,
   return result;
 }
 
-uint64_t sub_2576C2FDC(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_2576D62FC(uint64_t a1, uint64_t (*a2)(void), uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  a2(0);
+  v6 = OUTLINED_FUNCTION_176();
+  sub_2576D6444(v6, v7, a5);
+
+  return sub_2577435F4();
+}
+
+uint64_t sub_2576D63B8(uint64_t (*a1)(void), uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  sub_257743A14();
+  a1(0);
+  v6 = OUTLINED_FUNCTION_176();
+  sub_2576D6444(v6, v7, a4);
+  sub_2577435F4();
+  return sub_257743A64();
+}
+
+uint64_t sub_2576D6444(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -5234,9 +3426,43 @@ uint64_t sub_2576C2FDC(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t sub_2576C30E4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t))
+uint64_t sub_2576D64D4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void), uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  result = a4(319);
+  sub_257743A14();
+  a4(0);
+  v9 = OUTLINED_FUNCTION_176();
+  sub_2576D6444(v9, v10, a7);
+  sub_2577435F4();
+  return sub_257743A64();
+}
+
+uint64_t sub_2576D6888(uint64_t a1)
+{
+  result = type metadata accessor for SupportVectorKernel.Linear(319);
+  if (v2 <= 0x3F)
+  {
+    result = type metadata accessor for SupportVectorKernel.RBF(319);
+    if (v3 <= 0x3F)
+    {
+      result = type metadata accessor for SupportVectorKernel.Polynomial(319);
+      if (v4 <= 0x3F)
+      {
+        result = type metadata accessor for SupportVectorKernel.Sigmoid(319);
+        if (v5 <= 0x3F)
+        {
+          swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
+          return 0;
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_2576D6A24(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t))
+{
+  result = a4(319, a2, a3);
   if (v5 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
@@ -5246,1514 +3472,13 @@ uint64_t sub_2576C30E4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uin
   return result;
 }
 
-__n128 *OUTLINED_FUNCTION_2_52(__n128 *result, __n128 a2)
+uint64_t OUTLINED_FUNCTION_28_24()
 {
-  result[1] = a2;
-  result[2].n128_u64[0] = 0x7472617453;
-  result[2].n128_u64[1] = 0xE500000000000000;
-  return result;
-}
-
-unint64_t TreeEnsemble.PostEvaluationFunction.init(rawValue:)@<X0>(unint64_t result@<X0>, char *a2@<X8>)
-{
-  v2 = 4;
-  if (result < 4)
-  {
-    v2 = result;
-  }
-
-  *a2 = v2;
-  return result;
-}
-
-uint64_t sub_2576C31AC@<X0>(uint64_t *a1@<X8>)
-{
-  result = TreeEnsemble.PostEvaluationFunction.rawValue.getter();
-  *a1 = result;
-  return result;
-}
-
-unint64_t sub_2576C31D8()
-{
-  result = qword_27F8811A0;
-  if (!qword_27F8811A0)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_27F8811A0);
-  }
-
-  return result;
-}
-
-_BYTE *_s22PostEvaluationFunctionOwst(_BYTE *result, unsigned int a2, unsigned int a3)
-{
-  if (a3 + 3 >= 0xFFFF00)
-  {
-    v3 = 4;
-  }
-
-  else
-  {
-    v3 = 2;
-  }
-
-  if ((a3 + 3) >> 8 < 0xFF)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  if (a3 >= 0xFD)
-  {
-    v5 = v4;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  if (a2 > 0xFC)
-  {
-    v6 = ((a2 - 253) >> 8) + 1;
-    *result = a2 + 3;
-    switch(v5)
-    {
-      case 1:
-        result[1] = v6;
-        break;
-      case 2:
-        *(result + 1) = v6;
-        break;
-      case 3:
-LABEL_23:
-        __break(1u);
-        break;
-      case 4:
-        *(result + 1) = v6;
-        break;
-      default:
-        return result;
-    }
-  }
-
-  else
-  {
-    switch(v5)
-    {
-      case 1:
-        result[1] = 0;
-        if (!a2)
-        {
-          return result;
-        }
-
-        goto LABEL_18;
-      case 2:
-        *(result + 1) = 0;
-        goto LABEL_17;
-      case 3:
-        goto LABEL_23;
-      case 4:
-        *(result + 1) = 0;
-        if (!a2)
-        {
-          return result;
-        }
-
-        goto LABEL_18;
-      default:
-LABEL_17:
-        if (a2)
-        {
-LABEL_18:
-          *result = a2 + 3;
-        }
-
-        break;
-    }
-  }
-
-  return result;
-}
-
-void sub_2576C3308()
-{
-  OUTLINED_FUNCTION_31();
-  v2 = v0;
-  v108 = *MEMORY[0x277D85DE8];
-  v3 = type metadata accessor for BayesianProbitRegressorConfiguration.FeatureWeight(0);
-  v4 = OUTLINED_FUNCTION_24(v3);
-  v6 = v5;
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v4);
-  OUTLINED_FUNCTION_3();
-  v11 = v10 - v9;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F8811A8, qword_2577738F8);
-  OUTLINED_FUNCTION_13(v12);
-  v14 = *(v13 + 64);
-  OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v15);
-  v17 = &v99 - v16;
-  v18 = type metadata accessor for BayesianProbitRegressorConfiguration.Gaussian(0);
-  v19 = OUTLINED_FUNCTION_4(v18);
-  v21 = *(v20 + 64);
-  MEMORY[0x28223BE20](v19);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_12_6();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B28, &unk_257773B40);
-  inited = swift_initStackObject();
-  v105 = xmmword_257743FF0;
-  *(inited + 16) = xmmword_257743FF0;
-  OUTLINED_FUNCTION_41_12();
-  *(v24 + 32) = v23 & 0xFFFFFFFFFFFFLL | 0x2065000000000000;
-  *(v24 + 40) = 0xED0000746E756F43;
-  v106 = *v0;
-  *(inited + 48) = sub_257743674();
-  *(inited + 56) = v25;
-  *(inited + 64) = 0;
-  OUTLINED_FUNCTION_41_12();
-  *(inited + 72) = v26 & 0xFFFFFFFFFFFFLL | 0x7365000000000000;
-  *(inited + 80) = 0xE800000000000000;
-  v27 = BayesianProbitRegressorConfiguration.features.getter();
-  v28 = *(v27 + 16);
-  if (v28)
-  {
-    v100 = v18;
-    v101 = v17;
-    v102 = v1;
-    v103 = inited;
-    v104 = v0;
-    v106 = MEMORY[0x277D84F90];
-    v29 = v27;
-    sub_257484040(0, v28, 0);
-    v30 = v106;
-    v31 = *(v6 + 80);
-    OUTLINED_FUNCTION_193();
-    v99 = v29;
-    v33 = v29 + v32;
-    v34 = *(v6 + 72);
-    do
-    {
-      OUTLINED_FUNCTION_16_18();
-      sub_2576C6768();
-      sub_2576C4DF4();
-      v36 = v35;
-      v38 = v37;
-      OUTLINED_FUNCTION_15_19();
-      sub_2576C6858(v11, v39);
-      v106 = v30;
-      v41 = *(v30 + 16);
-      v40 = *(v30 + 24);
-      if (v41 >= v40 >> 1)
-      {
-        v43 = OUTLINED_FUNCTION_174(v40);
-        sub_257484040(v43, v41 + 1, 1);
-        v30 = v106;
-      }
-
-      *(v30 + 16) = v41 + 1;
-      v42 = v30 + 24 * v41;
-      *(v42 + 32) = v36;
-      *(v42 + 40) = v38;
-      *(v42 + 48) = 2;
-      v33 += v34;
-      --v28;
-    }
-
-    while (v28);
-
-    v2 = v104;
-    inited = v103;
-    v1 = v102;
-    v17 = v101;
-    v18 = v100;
-  }
-
-  else
-  {
-
-    v30 = MEMORY[0x277D84F90];
-  }
-
-  *(inited + 88) = v30;
-  *(inited + 96) = 0;
-  *(inited + 104) = 1;
-  BayesianProbitRegressorConfiguration.bias.getter();
-  if (__swift_getEnumTagSinglePayload(v17, 1, v18) == 1)
-  {
-    sub_2574695E4(v17, &qword_27F8811A8, qword_2577738F8);
-  }
-
-  else
-  {
-    sub_2576C67C0();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879FD8, &unk_257744910);
-    v44 = swift_initStackObject();
-    *(v44 + 16) = v105;
-    v30 = 0xE400000000000000;
-    *(v44 + 32) = 1851876685;
-    *(v44 + 40) = 0xE400000000000000;
-    v106 = *v1;
-    v45 = sub_257743674();
-    OUTLINED_FUNCTION_29_17(v45, v46);
-    v106 = v1[1];
-    *(v44 + 88) = sub_257743674();
-    *(v44 + 96) = v47;
-    *(v44 + 104) = 0;
-    v48 = sub_2576A6964(v44);
-    v50 = v49;
-    v17 = 3;
-    sub_257469AE0();
-    inited = v51;
-    OUTLINED_FUNCTION_9_32();
-    sub_2576C6858(v1, v52);
-    *(inited + 16) = 3;
-    *(inited + 112) = 1935763778;
-    *(inited + 120) = 0xE400000000000000;
-    *(inited + 128) = v48;
-    *(inited + 136) = v50;
-    *(inited + 144) = 2;
-  }
-
-  v53 = v2[2];
-  v54 = v2[3];
-  OUTLINED_FUNCTION_1_6();
-  if (v55)
-  {
-    OUTLINED_FUNCTION_4_45();
-    OUTLINED_FUNCTION_316();
-    OUTLINED_FUNCTION_1_62();
-    if (v56)
-    {
-      OUTLINED_FUNCTION_25_18();
-      inited = v91;
-    }
-
-    OUTLINED_FUNCTION_3_58();
-    OUTLINED_FUNCTION_12_33(v57);
-  }
-
-  v58 = v2[4];
-  v59 = v2[5];
-  OUTLINED_FUNCTION_1_6();
-  if (v60)
-  {
-    OUTLINED_FUNCTION_4_45();
-    OUTLINED_FUNCTION_316();
-    OUTLINED_FUNCTION_1_62();
-    if (v56)
-    {
-      OUTLINED_FUNCTION_25_18();
-      inited = v92;
-    }
-
-    OUTLINED_FUNCTION_3_58();
-    OUTLINED_FUNCTION_12_33(v61);
-  }
-
-  v62 = v2[6];
-  v63 = v2[7];
-  OUTLINED_FUNCTION_1_6();
-  if (v64)
-  {
-    OUTLINED_FUNCTION_4_45();
-    OUTLINED_FUNCTION_316();
-    OUTLINED_FUNCTION_1_62();
-    if (v56)
-    {
-      OUTLINED_FUNCTION_25_18();
-      inited = v93;
-    }
-
-    OUTLINED_FUNCTION_3_58();
-    OUTLINED_FUNCTION_12_33(v65);
-  }
-
-  v66 = v2[8];
-  v67 = v2[9];
-  OUTLINED_FUNCTION_1_6();
-  if (v68)
-  {
-    OUTLINED_FUNCTION_4_45();
-    OUTLINED_FUNCTION_316();
-    OUTLINED_FUNCTION_1_62();
-    if (v56)
-    {
-      OUTLINED_FUNCTION_25_18();
-      inited = v94;
-    }
-
-    OUTLINED_FUNCTION_3_58();
-    OUTLINED_FUNCTION_12_33(v69);
-  }
-
-  v70 = v2[10];
-  v71 = v2[11];
-  OUTLINED_FUNCTION_1_6();
-  if (v72)
-  {
-    OUTLINED_FUNCTION_4_45();
-    OUTLINED_FUNCTION_316();
-    OUTLINED_FUNCTION_1_62();
-    if (v56)
-    {
-      OUTLINED_FUNCTION_25_18();
-      inited = v95;
-    }
-
-    OUTLINED_FUNCTION_3_58();
-    *(v74 + 32) = 0xD000000000000010;
-    *(v74 + 40) = v73;
-    *(v74 + 48) = v30;
-    *(v74 + 56) = v17;
-    *(v74 + 64) = 0;
-  }
-
-  v75 = v2[12];
-  v76 = v2[13];
-  OUTLINED_FUNCTION_1_6();
-  if (v77)
-  {
-    OUTLINED_FUNCTION_4_45();
-    OUTLINED_FUNCTION_316();
-    OUTLINED_FUNCTION_1_62();
-    if (v56)
-    {
-      OUTLINED_FUNCTION_25_18();
-      inited = v96;
-    }
-
-    OUTLINED_FUNCTION_3_58();
-    OUTLINED_FUNCTION_12_33(v78);
-  }
-
-  v79 = v2[14];
-  v80 = v2[15];
-  OUTLINED_FUNCTION_1_6();
-  if (v81)
-  {
-    OUTLINED_FUNCTION_4_45();
-    OUTLINED_FUNCTION_316();
-    OUTLINED_FUNCTION_1_62();
-    if (v56)
-    {
-      OUTLINED_FUNCTION_25_18();
-      inited = v97;
-    }
-
-    OUTLINED_FUNCTION_3_58();
-    OUTLINED_FUNCTION_12_33(v82);
-  }
-
-  v83 = v2[16];
-  v84 = v2[17];
-  OUTLINED_FUNCTION_1_6();
-  if (v85)
-  {
-    OUTLINED_FUNCTION_4_45();
-    OUTLINED_FUNCTION_316();
-    v86 = v106;
-    v87 = v107;
-    v88 = *(inited + 16);
-    if (v88 >= *(inited + 24) >> 1)
-    {
-      sub_257469AE0();
-      inited = v98;
-    }
-
-    *(inited + 16) = v88 + 1;
-    v89 = inited + 40 * v88;
-    *(v89 + 32) = 0xD00000000000001FLL;
-    *(v89 + 40) = 0x8000000257781480;
-    *(v89 + 48) = v86;
-    *(v89 + 56) = v87;
-    *(v89 + 64) = 0;
-  }
-
-  sub_2576AACFC(inited);
-  v90 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_35();
-}
-
-unint64_t *(*BayesianProbitRegressorConfiguration.featureCount.modify(void *a1))(unint64_t *result, char)
-{
-  *a1 = *v1;
-  a1[1] = v1;
-  return sub_2576C3A00;
-}
-
-uint64_t BayesianProbitRegressorConfiguration.features.getter()
-{
-  v2 = type metadata accessor for BayesianProbitRegressorConfiguration.FeatureWeight(0);
-  v3 = OUTLINED_FUNCTION_24(v2);
-  v5 = v4;
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v3);
-  OUTLINED_FUNCTION_7_6();
-  v8 = *(v0 + 8);
-  v9 = *(v8 + 16);
-  v10 = MEMORY[0x277D84F90];
-  if (v9)
-  {
-    OUTLINED_FUNCTION_17_2();
-    sub_257484348();
-    v10 = v21;
-    v11 = type metadata accessor for Proto_BayesianProbitRegressor.FeatureWeight(0);
-    OUTLINED_FUNCTION_24(v11);
-    v13 = v8 + ((*(v12 + 80) + 32) & ~*(v12 + 80));
-    v15 = *(v14 + 72);
-    do
-    {
-      OUTLINED_FUNCTION_21_24();
-      sub_2576C6768();
-      OUTLINED_FUNCTION_24_2();
-      if (v17)
-      {
-        OUTLINED_FUNCTION_174(v16);
-        sub_257484348();
-        v10 = v21;
-      }
-
-      *(v10 + 16) = v1;
-      v18 = *(v5 + 80);
-      OUTLINED_FUNCTION_193();
-      v19 = *(v5 + 72);
-      sub_2576C67C0();
-      v13 += v15;
-      --v9;
-    }
-
-    while (v9);
-  }
-
-  return v10;
-}
-
-void sub_2576C3BA4(uint64_t *a1)
-{
-  v1 = *a1;
-
-  BayesianProbitRegressorConfiguration.features.setter();
-}
-
-void BayesianProbitRegressorConfiguration.features.setter()
-{
-  OUTLINED_FUNCTION_31();
-  v3 = v2;
-  v4 = type metadata accessor for BayesianProbitRegressorConfiguration.FeatureWeight(0);
-  v5 = OUTLINED_FUNCTION_24(v4);
-  v7 = v6;
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v5);
-  OUTLINED_FUNCTION_3();
-  v10 = OUTLINED_FUNCTION_78();
-  v11 = type metadata accessor for Proto_BayesianProbitRegressor.FeatureWeight(v10);
-  v12 = OUTLINED_FUNCTION_24(v11);
-  v14 = v13;
-  v16 = *(v15 + 64);
-  MEMORY[0x28223BE20](v12);
-  OUTLINED_FUNCTION_3();
-  v17 = *(v3 + 16);
-  if (v17)
-  {
-    OUTLINED_FUNCTION_63_2(MEMORY[0x277D84F90]);
-    sub_257484FA0();
-    v18 = v29;
-    v19 = *(v7 + 80);
-    OUTLINED_FUNCTION_193();
-    v21 = v3 + v20;
-    v22 = *(v7 + 72);
-    do
-    {
-      OUTLINED_FUNCTION_16_18();
-      sub_2576C6768();
-      OUTLINED_FUNCTION_21_24();
-      sub_2576C6768();
-      OUTLINED_FUNCTION_15_19();
-      sub_2576C6858(v1, v23);
-      OUTLINED_FUNCTION_27_2();
-      if (v25)
-      {
-        OUTLINED_FUNCTION_174(v24);
-        sub_257484FA0();
-        v18 = v29;
-      }
-
-      *(v18 + 16) = v7;
-      v26 = *(v14 + 80);
-      OUTLINED_FUNCTION_193();
-      v27 = *(v14 + 72);
-      sub_2576C67C0();
-      v21 += v22;
-      --v17;
-    }
-
-    while (v17);
-  }
-
-  else
-  {
-
-    v18 = MEMORY[0x277D84F90];
-  }
-
-  v28 = *(v0 + 8);
-
-  *(v0 + 8) = v18;
-  OUTLINED_FUNCTION_35();
-}
-
-uint64_t (*BayesianProbitRegressorConfiguration.features.modify(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  a1[1] = v1;
-  *a1 = BayesianProbitRegressorConfiguration.features.getter();
-  return sub_2576C3DFC;
-}
-
-void BayesianProbitRegressorConfiguration.bias.getter()
-{
-  OUTLINED_FUNCTION_31();
-  v4 = type metadata accessor for Proto_BayesianProbitRegressor.Gaussian(0);
-  v5 = OUTLINED_FUNCTION_4(v4);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v5);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_12_6();
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879D98, &unk_257746440);
-  v9 = OUTLINED_FUNCTION_13(v8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  OUTLINED_FUNCTION_26_4();
-  MEMORY[0x28223BE20](v12);
-  v13 = OUTLINED_FUNCTION_30_9();
-  v14 = *(type metadata accessor for Proto_BayesianProbitRegressor(v13) + 60);
-  OUTLINED_FUNCTION_58_2();
-  OUTLINED_FUNCTION_75_6();
-  if (v3 != 1)
-  {
-    sub_257487308();
-    OUTLINED_FUNCTION_16_10();
-    if (v15)
-    {
-      *v1 = 0;
-      v1[1] = 0;
-      v16 = v1 + *(v4 + 24);
-      _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-      OUTLINED_FUNCTION_16_10();
-      if (!v15)
-      {
-        sub_2574695E4(v0, &qword_27F879D98, &unk_257746440);
-      }
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_0_81();
-      OUTLINED_FUNCTION_277();
-      sub_2576C67C0();
-    }
-
-    OUTLINED_FUNCTION_0_81();
-    sub_2576C67C0();
-    v2 = 0;
-  }
-
-  v17 = type metadata accessor for BayesianProbitRegressorConfiguration.Gaussian(0);
-  __swift_storeEnumTagSinglePayload(&qword_27F879D98, v2, 1, v17);
-  OUTLINED_FUNCTION_35();
-}
-
-uint64_t BayesianProbitRegressorConfiguration.bias.setter(uint64_t a1)
-{
-  v3 = type metadata accessor for Proto_BayesianProbitRegressor.Gaussian(0);
-  v4 = OUTLINED_FUNCTION_4(v3);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
-  OUTLINED_FUNCTION_7_6();
-  v7 = type metadata accessor for BayesianProbitRegressorConfiguration.Gaussian(0);
-  v8 = OUTLINED_FUNCTION_4(v7);
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20](v8);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_12_6();
-  if (__swift_getEnumTagSinglePayload(a1, 1, v11) == 1)
-  {
-    sub_2574695E4(a1, &qword_27F8811A8, qword_2577738F8);
-    v12 = type metadata accessor for Proto_BayesianProbitRegressor(0);
-    sub_2574695E4(v1 + *(v12 + 60), &qword_27F879D98, &unk_257746440);
-    v13 = OUTLINED_FUNCTION_50_7();
-
-    return __swift_storeEnumTagSinglePayload(v13, v14, v15, v16);
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_2_53();
-    OUTLINED_FUNCTION_277();
-    sub_2576C67C0();
-    OUTLINED_FUNCTION_24_20();
-    sub_2576C67C0();
-    v18 = *(type metadata accessor for Proto_BayesianProbitRegressor(0) + 60);
-    sub_2574695E4(v1 + v18, &qword_27F879D98, &unk_257746440);
-    sub_2576C67C0();
-    return __swift_storeEnumTagSinglePayload(v1 + v18, 0, 1, v3);
-  }
-}
-
-void (*BayesianProbitRegressorConfiguration.bias.modify(void *a1))()
-{
-  v4 = __swift_coroFrameAllocStub(0x58uLL);
-  *a1 = v4;
-  *v4 = v1;
-  v5 = type metadata accessor for BayesianProbitRegressorConfiguration.Gaussian(0);
-  v4[1] = v5;
-  v30 = v5;
-  OUTLINED_FUNCTION_4(v5);
-  v4[2] = __swift_coroFrameAllocStub(*(v6 + 64));
-  v7 = type metadata accessor for Proto_BayesianProbitRegressor.Gaussian(0);
-  v4[3] = v7;
-  OUTLINED_FUNCTION_4(v7);
-  v9 = *(v8 + 64);
-  v4[4] = __swift_coroFrameAllocStub(v9);
-  v29 = __swift_coroFrameAllocStub(v9);
-  v4[5] = v29;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879D98, &unk_257746440);
-  OUTLINED_FUNCTION_13(v10);
-  v12 = *(v11 + 64);
-  v13 = OUTLINED_FUNCTION_59_3();
-  v4[6] = v13;
-  v4[7] = OUTLINED_FUNCTION_59_3();
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F8811A8, qword_2577738F8);
-  OUTLINED_FUNCTION_13(v14);
-  v16 = *(v15 + 64);
-  v4[8] = OUTLINED_FUNCTION_59_3();
-  v17 = OUTLINED_FUNCTION_59_3();
-  v4[9] = v17;
-  LODWORD(v9) = *(type metadata accessor for Proto_BayesianProbitRegressor(0) + 60);
-  OUTLINED_FUNCTION_52_6();
-  OUTLINED_FUNCTION_45_9();
-  if (v2 != 1)
-  {
-    sub_257487308();
-    v18 = OUTLINED_FUNCTION_26_15();
-    if (v26)
-    {
-      OUTLINED_FUNCTION_57_2(v18, v19, v20, v21, v22, v23, v24, v25, v28, v29);
-      OUTLINED_FUNCTION_26_15();
-      if (!v26)
-      {
-        sub_2574695E4(v13, &qword_27F879D98, &unk_257746440);
-      }
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_0_81();
-      sub_2576C67C0();
-    }
-
-    OUTLINED_FUNCTION_0_81();
-    sub_2576C67C0();
-    v4 = 0;
-  }
-
-  __swift_storeEnumTagSinglePayload(v17, v4, 1, v30);
-  return sub_2576C431C;
-}
-
-uint64_t BayesianProbitRegressorConfiguration.regressionInputFeatureName.getter()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-
-  return OUTLINED_FUNCTION_205();
-}
-
-uint64_t sub_2576C4360(uint64_t *a1)
-{
-  v1 = *a1;
-  v2 = a1[1];
-
-  return BayesianProbitRegressorConfiguration.regressionInputFeatureName.setter();
-}
-
-uint64_t BayesianProbitRegressorConfiguration.regressionInputFeatureName.setter()
-{
-  OUTLINED_FUNCTION_7_1();
-  v3 = *(v1 + 24);
-
-  *(v1 + 16) = v2;
-  *(v1 + 24) = v0;
-  return result;
-}
-
-uint64_t BayesianProbitRegressorConfiguration.regressionInputFeatureName.modify()
-{
-  OUTLINED_FUNCTION_14_11(*(v0 + 24), *(v0 + 16));
-
-  return OUTLINED_FUNCTION_44_1();
-}
-
-uint64_t sub_2576C441C(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_12_22(a1);
-  if (v4)
-  {
-
-    *(v3 + 16) = v2;
-    *(v3 + 24) = v1;
-  }
-
-  else
-  {
-
-    *(v3 + 16) = v2;
-    *(v3 + 24) = v1;
-  }
-
-  return result;
-}
-
-uint64_t BayesianProbitRegressorConfiguration.optimismInputFeatureName.getter()
-{
-  v1 = *(v0 + 32);
-  v2 = *(v0 + 40);
-
-  return OUTLINED_FUNCTION_205();
-}
-
-uint64_t sub_2576C44B8(uint64_t *a1)
-{
-  v1 = *a1;
-  v2 = a1[1];
-
-  return BayesianProbitRegressorConfiguration.optimismInputFeatureName.setter();
-}
-
-uint64_t BayesianProbitRegressorConfiguration.optimismInputFeatureName.setter()
-{
-  OUTLINED_FUNCTION_7_1();
-  v3 = *(v1 + 40);
-
-  *(v1 + 32) = v2;
-  *(v1 + 40) = v0;
-  return result;
-}
-
-uint64_t BayesianProbitRegressorConfiguration.optimismInputFeatureName.modify()
-{
-  OUTLINED_FUNCTION_14_11(*(v0 + 40), *(v0 + 32));
-
-  return OUTLINED_FUNCTION_44_1();
-}
-
-uint64_t sub_2576C4574(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_12_22(a1);
-  if (v4)
-  {
-
-    *(v3 + 32) = v2;
-    *(v3 + 40) = v1;
-  }
-
-  else
-  {
-
-    *(v3 + 32) = v2;
-    *(v3 + 40) = v1;
-  }
-
-  return result;
-}
-
-uint64_t BayesianProbitRegressorConfiguration.samplingScaleInputFeatureName.getter()
-{
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 56);
-
-  return OUTLINED_FUNCTION_205();
-}
-
-uint64_t sub_2576C4610(uint64_t *a1)
-{
-  v1 = *a1;
-  v2 = a1[1];
-
-  return BayesianProbitRegressorConfiguration.samplingScaleInputFeatureName.setter();
-}
-
-uint64_t BayesianProbitRegressorConfiguration.samplingScaleInputFeatureName.setter()
-{
-  OUTLINED_FUNCTION_7_1();
-  v3 = *(v1 + 56);
-
-  *(v1 + 48) = v2;
-  *(v1 + 56) = v0;
-  return result;
-}
-
-uint64_t BayesianProbitRegressorConfiguration.samplingScaleInputFeatureName.modify()
-{
-  OUTLINED_FUNCTION_14_11(*(v0 + 56), *(v0 + 48));
-
-  return OUTLINED_FUNCTION_44_1();
-}
-
-uint64_t sub_2576C46CC(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_12_22(a1);
-  if (v4)
-  {
-
-    *(v3 + 48) = v2;
-    *(v3 + 56) = v1;
-  }
-
-  else
-  {
-
-    *(v3 + 48) = v2;
-    *(v3 + 56) = v1;
-  }
-
-  return result;
-}
-
-uint64_t BayesianProbitRegressorConfiguration.samplingTruncationInputFeatureName.getter()
-{
-  v1 = *(v0 + 64);
-  v2 = *(v0 + 72);
-
-  return OUTLINED_FUNCTION_205();
-}
-
-uint64_t sub_2576C4768(uint64_t *a1)
-{
-  v1 = *a1;
-  v2 = a1[1];
-
-  return BayesianProbitRegressorConfiguration.samplingTruncationInputFeatureName.setter();
-}
-
-uint64_t BayesianProbitRegressorConfiguration.samplingTruncationInputFeatureName.setter()
-{
-  OUTLINED_FUNCTION_7_1();
-  v3 = *(v1 + 72);
-
-  *(v1 + 64) = v2;
-  *(v1 + 72) = v0;
-  return result;
-}
-
-uint64_t BayesianProbitRegressorConfiguration.samplingTruncationInputFeatureName.modify()
-{
-  OUTLINED_FUNCTION_14_11(*(v0 + 72), *(v0 + 64));
-
-  return OUTLINED_FUNCTION_44_1();
-}
-
-uint64_t sub_2576C4824(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_12_22(a1);
-  if (v4)
-  {
-
-    *(v3 + 64) = v2;
-    *(v3 + 72) = v1;
-  }
-
-  else
-  {
-
-    *(v3 + 64) = v2;
-    *(v3 + 72) = v1;
-  }
-
-  return result;
-}
-
-uint64_t BayesianProbitRegressorConfiguration.meanOutputFeatureName.getter()
-{
-  v1 = *(v0 + 80);
-  v2 = *(v0 + 88);
-
-  return OUTLINED_FUNCTION_205();
-}
-
-uint64_t sub_2576C48C0(uint64_t *a1)
-{
-  v1 = *a1;
-  v2 = a1[1];
-
-  return BayesianProbitRegressorConfiguration.meanOutputFeatureName.setter();
-}
-
-uint64_t BayesianProbitRegressorConfiguration.meanOutputFeatureName.setter()
-{
-  OUTLINED_FUNCTION_7_1();
-  v3 = *(v1 + 88);
-
-  *(v1 + 80) = v2;
-  *(v1 + 88) = v0;
-  return result;
-}
-
-uint64_t BayesianProbitRegressorConfiguration.meanOutputFeatureName.modify()
-{
-  OUTLINED_FUNCTION_14_11(*(v0 + 88), *(v0 + 80));
-
-  return OUTLINED_FUNCTION_44_1();
-}
-
-uint64_t sub_2576C497C(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_12_22(a1);
-  if (v4)
-  {
-
-    *(v3 + 80) = v2;
-    *(v3 + 88) = v1;
-  }
-
-  else
-  {
-
-    *(v3 + 80) = v2;
-    *(v3 + 88) = v1;
-  }
-
-  return result;
-}
-
-uint64_t BayesianProbitRegressorConfiguration.varianceOutputFeatureName.getter()
-{
-  v1 = *(v0 + 96);
-  v2 = *(v0 + 104);
-
-  return OUTLINED_FUNCTION_205();
-}
-
-uint64_t sub_2576C4A18(uint64_t *a1)
-{
-  v1 = *a1;
-  v2 = a1[1];
-
-  return BayesianProbitRegressorConfiguration.varianceOutputFeatureName.setter();
-}
-
-uint64_t BayesianProbitRegressorConfiguration.varianceOutputFeatureName.setter()
-{
-  OUTLINED_FUNCTION_7_1();
-  v3 = *(v1 + 104);
-
-  *(v1 + 96) = v2;
-  *(v1 + 104) = v0;
-  return result;
-}
-
-uint64_t BayesianProbitRegressorConfiguration.varianceOutputFeatureName.modify()
-{
-  OUTLINED_FUNCTION_14_11(*(v0 + 104), *(v0 + 96));
-
-  return OUTLINED_FUNCTION_44_1();
-}
-
-uint64_t sub_2576C4AD4(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_12_22(a1);
-  if (v4)
-  {
-
-    *(v3 + 96) = v2;
-    *(v3 + 104) = v1;
-  }
-
-  else
-  {
-
-    *(v3 + 96) = v2;
-    *(v3 + 104) = v1;
-  }
-
-  return result;
-}
-
-uint64_t BayesianProbitRegressorConfiguration.pessimisticProbabilityOutputFeatureName.getter()
-{
-  v1 = *(v0 + 112);
-  v2 = *(v0 + 120);
-
-  return OUTLINED_FUNCTION_205();
-}
-
-uint64_t sub_2576C4B70(uint64_t *a1)
-{
-  v1 = *a1;
-  v2 = a1[1];
-
-  return BayesianProbitRegressorConfiguration.pessimisticProbabilityOutputFeatureName.setter();
-}
-
-uint64_t BayesianProbitRegressorConfiguration.pessimisticProbabilityOutputFeatureName.setter()
-{
-  OUTLINED_FUNCTION_7_1();
-  v3 = *(v1 + 120);
-
-  *(v1 + 112) = v2;
-  *(v1 + 120) = v0;
-  return result;
-}
-
-uint64_t BayesianProbitRegressorConfiguration.pessimisticProbabilityOutputFeatureName.modify()
-{
-  OUTLINED_FUNCTION_14_11(*(v0 + 120), *(v0 + 112));
-
-  return OUTLINED_FUNCTION_44_1();
-}
-
-uint64_t sub_2576C4C2C(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_12_22(a1);
-  if (v4)
-  {
-
-    *(v3 + 112) = v2;
-    *(v3 + 120) = v1;
-  }
-
-  else
-  {
-
-    *(v3 + 112) = v2;
-    *(v3 + 120) = v1;
-  }
-
-  return result;
-}
-
-uint64_t BayesianProbitRegressorConfiguration.sampledProbabilityOutputFeatureName.getter()
-{
-  v1 = *(v0 + 128);
-  v2 = *(v0 + 136);
-
-  return OUTLINED_FUNCTION_205();
-}
-
-uint64_t sub_2576C4CC8(uint64_t *a1)
-{
-  v1 = *a1;
-  v2 = a1[1];
-
-  return BayesianProbitRegressorConfiguration.sampledProbabilityOutputFeatureName.setter();
-}
-
-uint64_t BayesianProbitRegressorConfiguration.sampledProbabilityOutputFeatureName.setter()
-{
-  OUTLINED_FUNCTION_7_1();
-  v3 = *(v1 + 136);
-
-  *(v1 + 128) = v2;
-  *(v1 + 136) = v0;
-  return result;
-}
-
-uint64_t BayesianProbitRegressorConfiguration.sampledProbabilityOutputFeatureName.modify()
-{
-  OUTLINED_FUNCTION_14_11(*(v0 + 136), *(v0 + 128));
-
-  return OUTLINED_FUNCTION_44_1();
-}
-
-uint64_t sub_2576C4D84(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_12_22(a1);
-  if (v4)
-  {
-
-    *(v3 + 128) = v2;
-    *(v3 + 136) = v1;
-  }
-
-  else
-  {
-
-    *(v3 + 128) = v2;
-    *(v3 + 136) = v1;
-  }
-
-  return result;
-}
-
-void sub_2576C4DF4()
-{
-  OUTLINED_FUNCTION_31();
-  v2 = type metadata accessor for BayesianProbitRegressorConfiguration.FeatureValueWeight(0);
-  v3 = OUTLINED_FUNCTION_24(v2);
-  v5 = v4;
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v3);
-  OUTLINED_FUNCTION_7_6();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879FD8, &unk_257744910);
-  inited = swift_initStackObject();
-  *(inited + 16) = xmmword_257743FF0;
-  OUTLINED_FUNCTION_41_12();
-  *(v10 + 32) = v9 & 0xFFFFFFFFFFFFLL | 0x2065000000000000;
-  *(v10 + 40) = 0xEA00000000004449;
-  v28 = *v0;
-  *(inited + 48) = sub_257743674();
-  *(inited + 56) = v11;
-  *(inited + 64) = 0;
-  *(inited + 72) = 0x73746867696557;
-  *(inited + 80) = 0xE700000000000000;
-  v12 = BayesianProbitRegressorConfiguration.FeatureWeight.weights.getter();
-  v13 = *(v12 + 16);
-  if (v13)
-  {
-    v27 = inited;
-    v29 = MEMORY[0x277D84F90];
-    sub_257484040(0, v13, 0);
-    v14 = v29;
-    v15 = *(v5 + 80);
-    OUTLINED_FUNCTION_193();
-    v17 = v12 + v16;
-    v18 = *(v5 + 72);
-    do
-    {
-      OUTLINED_FUNCTION_20_19();
-      sub_2576C6768();
-      v19 = sub_2576C5568();
-      v21 = v20;
-      OUTLINED_FUNCTION_19_25();
-      sub_2576C6858(v1, v22);
-      v24 = *(v29 + 16);
-      v23 = *(v29 + 24);
-      if (v24 >= v23 >> 1)
-      {
-        v26 = OUTLINED_FUNCTION_174(v23);
-        sub_257484040(v26, v24 + 1, 1);
-      }
-
-      *(v29 + 16) = v24 + 1;
-      v25 = v29 + 24 * v24;
-      *(v25 + 32) = v19;
-      *(v25 + 40) = v21;
-      *(v25 + 48) = 2;
-      v17 += v18;
-      --v13;
-    }
-
-    while (v13);
-
-    inited = v27;
-  }
-
-  else
-  {
-
-    v14 = MEMORY[0x277D84F90];
-  }
-
-  *(inited + 88) = v14;
-  *(inited + 96) = 0;
-  *(inited + 104) = 1;
-  sub_2576A6964(inited);
-  OUTLINED_FUNCTION_35();
-}
-
-uint64_t BayesianProbitRegressorConfiguration.init(featureCount:bias:)()
-{
-  OUTLINED_FUNCTION_7_1();
-  v3 = v2;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F8811A8, qword_2577738F8);
-  OUTLINED_FUNCTION_13(v4);
-  v6 = *(v5 + 64);
-  OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v7);
-  v9 = &v11 - v8;
-  result = sub_2574A7E94(v3);
-  if ((v1 & 0x8000000000000000) != 0)
-  {
-    __break(1u);
-  }
-
-  else if (!HIDWORD(v1))
-  {
-    *v3 = v1;
-    sub_257487308();
-    BayesianProbitRegressorConfiguration.bias.setter(v9);
-    return sub_2574695E4(v0, &qword_27F8811A8, qword_2577738F8);
-  }
-
-  __break(1u);
-  return result;
-}
-
-unint64_t *(*BayesianProbitRegressorConfiguration.FeatureWeight.featureID.modify(void *a1))(unint64_t *result, char)
-{
-  *a1 = *v1;
-  a1[1] = v1;
-  return sub_2576C6C8C;
-}
-
-uint64_t BayesianProbitRegressorConfiguration.FeatureWeight.weights.getter()
-{
-  v2 = type metadata accessor for BayesianProbitRegressorConfiguration.FeatureValueWeight(0);
-  v3 = OUTLINED_FUNCTION_24(v2);
-  v5 = v4;
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v3);
-  OUTLINED_FUNCTION_7_6();
-  v8 = *(v0 + 8);
-  v9 = *(v8 + 16);
-  v10 = MEMORY[0x277D84F90];
-  if (v9)
-  {
-    OUTLINED_FUNCTION_17_2();
-    sub_257484FF8();
-    v10 = v21;
-    v11 = type metadata accessor for Proto_BayesianProbitRegressor.FeatureValueWeight(0);
-    OUTLINED_FUNCTION_24(v11);
-    v13 = v8 + ((*(v12 + 80) + 32) & ~*(v12 + 80));
-    v15 = *(v14 + 72);
-    do
-    {
-      OUTLINED_FUNCTION_18_31();
-      sub_2576C6768();
-      OUTLINED_FUNCTION_24_2();
-      if (v17)
-      {
-        OUTLINED_FUNCTION_174(v16);
-        sub_257484FF8();
-        v10 = v21;
-      }
-
-      *(v10 + 16) = v1;
-      v18 = *(v5 + 80);
-      OUTLINED_FUNCTION_193();
-      v19 = *(v5 + 72);
-      sub_2576C67C0();
-      v13 += v15;
-      --v9;
-    }
-
-    while (v9);
-  }
-
-  return v10;
-}
-
-void sub_2576C5288(uint64_t *a1)
-{
-  v1 = *a1;
-
-  BayesianProbitRegressorConfiguration.FeatureWeight.weights.setter();
-}
-
-void BayesianProbitRegressorConfiguration.FeatureWeight.weights.setter()
-{
-  OUTLINED_FUNCTION_31();
-  v3 = v2;
-  v4 = type metadata accessor for BayesianProbitRegressorConfiguration.FeatureValueWeight(0);
-  v5 = OUTLINED_FUNCTION_24(v4);
-  v7 = v6;
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v5);
-  OUTLINED_FUNCTION_3();
-  v10 = OUTLINED_FUNCTION_78();
-  v11 = type metadata accessor for Proto_BayesianProbitRegressor.FeatureValueWeight(v10);
-  v12 = OUTLINED_FUNCTION_24(v11);
-  v14 = v13;
-  v16 = *(v15 + 64);
-  MEMORY[0x28223BE20](v12);
-  OUTLINED_FUNCTION_3();
-  v17 = *(v3 + 16);
-  if (v17)
-  {
-    OUTLINED_FUNCTION_63_2(MEMORY[0x277D84F90]);
-    sub_257485050();
-    v18 = v29;
-    v19 = *(v7 + 80);
-    OUTLINED_FUNCTION_193();
-    v21 = v3 + v20;
-    v22 = *(v7 + 72);
-    do
-    {
-      OUTLINED_FUNCTION_20_19();
-      sub_2576C6768();
-      OUTLINED_FUNCTION_18_31();
-      sub_2576C6768();
-      OUTLINED_FUNCTION_19_25();
-      sub_2576C6858(v1, v23);
-      OUTLINED_FUNCTION_27_2();
-      if (v25)
-      {
-        OUTLINED_FUNCTION_174(v24);
-        sub_257485050();
-        v18 = v29;
-      }
-
-      *(v18 + 16) = v7;
-      v26 = *(v14 + 80);
-      OUTLINED_FUNCTION_193();
-      v27 = *(v14 + 72);
-      sub_2576C67C0();
-      v21 += v22;
-      --v17;
-    }
-
-    while (v17);
-  }
-
-  else
-  {
-
-    v18 = MEMORY[0x277D84F90];
-  }
-
-  v28 = *(v0 + 8);
-
-  *(v0 + 8) = v18;
-  OUTLINED_FUNCTION_35();
-}
-
-uint64_t (*BayesianProbitRegressorConfiguration.FeatureWeight.weights.modify(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  a1[1] = v1;
-  *a1 = BayesianProbitRegressorConfiguration.FeatureWeight.weights.getter();
-  return sub_2576C54E0;
-}
-
-uint64_t sub_2576C54F8(uint64_t *a1, char a2, uint64_t (*a3)(uint64_t))
-{
-  v5 = *a1;
-  v4 = a1[1];
-  if ((a2 & 1) == 0)
-  {
-    return a3(*a1);
-  }
-
-  v6 = *a1;
-
-  a3(v7);
-}
-
-uint64_t sub_2576C5568()
-{
-  v28 = *MEMORY[0x277D85DE8];
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F8811A8, qword_2577738F8);
-  OUTLINED_FUNCTION_13(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v6);
-  v7 = OUTLINED_FUNCTION_78();
-  v8 = type metadata accessor for BayesianProbitRegressorConfiguration.Gaussian(v7);
-  v9 = OUTLINED_FUNCTION_4(v8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  OUTLINED_FUNCTION_7_6();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B28, &unk_257773B40);
-  inited = swift_initStackObject();
-  *(inited + 16) = xmmword_2577442B0;
-  strcpy((inited + 32), "Feature Value");
-  *(inited + 46) = -4864;
-  v25 = *v0;
-  *(inited + 48) = sub_257743674();
-  *(inited + 56) = v13;
-  *(inited + 64) = 0;
-  BayesianProbitRegressorConfiguration.FeatureValueWeight.featureWeight.getter();
-  if (__swift_getEnumTagSinglePayload(v2, 1, v8) == 1)
-  {
-    sub_2574695E4(v2, &qword_27F8811A8, qword_2577738F8);
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_2_53();
-    sub_2576C67C0();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879FD8, &unk_257744910);
-    v14 = swift_initStackObject();
-    *(v14 + 16) = xmmword_257743FF0;
-    *(v14 + 32) = 1851876685;
-    *(v14 + 40) = 0xE400000000000000;
-    v26 = *v1;
-    v15 = sub_257743674();
-    OUTLINED_FUNCTION_29_17(v15, v16);
-    v27 = v1[1];
-    *(v14 + 88) = sub_257743674();
-    *(v14 + 96) = v17;
-    *(v14 + 104) = 0;
-    v18 = sub_2576A6964(v14);
-    v20 = v19;
-    sub_257469AE0();
-    inited = v21;
-    OUTLINED_FUNCTION_9_32();
-    sub_2576C6858(v1, v22);
-    *(inited + 16) = 2;
-    strcpy((inited + 72), "Feature Weight");
-    *(inited + 87) = -18;
-    *(inited + 88) = v18;
-    *(inited + 96) = v20;
-    *(inited + 104) = 2;
-  }
-
-  result = sub_2576AACFC(inited);
-  v24 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void BayesianProbitRegressorConfiguration.FeatureWeight.init(featureID:weights:)()
-{
-  OUTLINED_FUNCTION_7_1();
-  v2 = v1;
-  *v1 = 0;
-  *(v1 + 8) = MEMORY[0x277D84F90];
-  v3 = v1 + *(type metadata accessor for Proto_BayesianProbitRegressor.FeatureWeight(0) + 24);
-  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-  if ((v0 & 0x8000000000000000) != 0)
-  {
-    __break(1u);
-  }
-
-  else if (!HIDWORD(v0))
-  {
-    *v2 = v0;
-    BayesianProbitRegressorConfiguration.FeatureWeight.weights.setter();
-    return;
-  }
-
-  __break(1u);
-}
-
-BOOL static BayesianProbitRegressorConfiguration.FeatureWeight.== infix(_:_:)(_DWORD *a1, _DWORD *a2)
-{
-  if (*a1 != *a2)
-  {
-    return 0;
-  }
-
-  OUTLINED_FUNCTION_267();
-  v3 = *(v2 + 8);
-  v5 = *(v4 + 8);
-  sub_25747B56C();
-  if ((v6 & 1) == 0)
-  {
-    return 0;
-  }
 
-  v7 = *(type metadata accessor for Proto_BayesianProbitRegressor.FeatureWeight(0) + 24);
-  sub_2577431B4();
-  OUTLINED_FUNCTION_23_21();
-  sub_2576C68B0(v8, v9);
-  return (OUTLINED_FUNCTION_4_2() & 1) != 0;
+  return swift_getEnumCaseMultiPayload();
 }
 
-unint64_t sub_2576C59D0(unint64_t result)
+unint64_t NeuralNetwork.TensorDescriptor.rank.setter(unint64_t result)
 {
   if ((result & 0x8000000000000000) != 0)
   {
@@ -6770,330 +3495,484 @@ unint64_t sub_2576C59D0(unint64_t result)
   return result;
 }
 
-unint64_t *(*BayesianProbitRegressorConfiguration.FeatureValueWeight.featureValue.modify(void *a1))(unint64_t *result, char)
+unint64_t *(*NeuralNetwork.TensorDescriptor.rank.modify(void *a1))(unint64_t *result, char a2)
 {
   *a1 = *v1;
   a1[1] = v1;
-  return sub_2576C6C8C;
+  return sub_25767E390;
 }
 
-void BayesianProbitRegressorConfiguration.FeatureValueWeight.featureWeight.getter()
+uint64_t NeuralNetwork.TensorDescriptor.shape.getter()
 {
-  OUTLINED_FUNCTION_31();
-  v4 = type metadata accessor for Proto_BayesianProbitRegressor.Gaussian(0);
-  v5 = OUTLINED_FUNCTION_4(v4);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v5);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_12_6();
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879D98, &unk_257746440);
-  v9 = OUTLINED_FUNCTION_13(v8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  OUTLINED_FUNCTION_26_4();
-  MEMORY[0x28223BE20](v12);
-  v13 = OUTLINED_FUNCTION_30_9();
-  v14 = *(type metadata accessor for Proto_BayesianProbitRegressor.FeatureValueWeight(v13) + 24);
-  OUTLINED_FUNCTION_58_2();
-  OUTLINED_FUNCTION_75_6();
-  if (v3 != 1)
+  v1 = *(v0 + 8);
+  v2 = *(v1 + 16);
+  result = MEMORY[0x277D84F90];
+  if (v2)
   {
-    sub_257487308();
-    OUTLINED_FUNCTION_16_10();
-    if (v15)
+    v10 = MEMORY[0x277D84F90];
+    sub_257483724(0, v2, 0);
+    result = v10;
+    v4 = (v1 + 32);
+    v5 = *(v10 + 16);
+    do
     {
-      *v1 = 0;
-      v1[1] = 0;
-      v16 = v1 + *(v4 + 24);
-      _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-      OUTLINED_FUNCTION_16_10();
-      if (!v15)
+      v7 = *v4++;
+      v6 = v7;
+      v11 = result;
+      v8 = *(result + 24);
+      if (v5 >= v8 >> 1)
       {
-        sub_2574695E4(v0, &qword_27F879D98, &unk_257746440);
+        v9 = OUTLINED_FUNCTION_2_26(v8);
+        sub_257483724(v9, v5 + 1, 1);
+        result = v11;
       }
+
+      *(result + 16) = v5 + 1;
+      *(result + 8 * v5++ + 32) = v6;
+      --v2;
     }
 
-    else
-    {
-      OUTLINED_FUNCTION_0_81();
-      OUTLINED_FUNCTION_277();
-      sub_2576C67C0();
-    }
-
-    OUTLINED_FUNCTION_0_81();
-    sub_2576C67C0();
-    v2 = 0;
+    while (v2);
   }
 
-  v17 = type metadata accessor for BayesianProbitRegressorConfiguration.Gaussian(0);
-  __swift_storeEnumTagSinglePayload(&qword_27F879D98, v2, 1, v17);
-  OUTLINED_FUNCTION_35();
+  return result;
 }
 
-uint64_t sub_2576C5B88(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(char *))
+uint64_t NeuralNetwork.TensorDescriptor.shape.setter(uint64_t a1)
 {
-  v6 = OUTLINED_FUNCTION_277();
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(v6, v7);
-  OUTLINED_FUNCTION_13(v8);
-  v10 = *(v9 + 64);
-  OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v11);
-  v13 = &v15 - v12;
-  sub_257487308();
-  return a5(v13);
-}
-
-uint64_t BayesianProbitRegressorConfiguration.FeatureValueWeight.featureWeight.setter(uint64_t a1)
-{
-  v3 = type metadata accessor for Proto_BayesianProbitRegressor.Gaussian(0);
-  v4 = OUTLINED_FUNCTION_4(v3);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
-  OUTLINED_FUNCTION_7_6();
-  v7 = type metadata accessor for BayesianProbitRegressorConfiguration.Gaussian(0);
-  v8 = OUTLINED_FUNCTION_4(v7);
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20](v8);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_12_6();
-  if (__swift_getEnumTagSinglePayload(a1, 1, v11) == 1)
+  v3 = v1;
+  if (*(a1 + 16))
   {
-    sub_2574695E4(a1, &qword_27F8811A8, qword_2577738F8);
-    v12 = type metadata accessor for Proto_BayesianProbitRegressor.FeatureValueWeight(0);
-    sub_2574695E4(v1 + *(v12 + 24), &qword_27F879D98, &unk_257746440);
-    v13 = OUTLINED_FUNCTION_50_7();
+    OUTLINED_FUNCTION_5_21();
+    v4 = v10;
+    do
+    {
+      OUTLINED_FUNCTION_4_16();
+      if (v6)
+      {
+        v8 = OUTLINED_FUNCTION_2_26(v5);
+        sub_2574845B8(v8, v2, 1);
+        v4 = v10;
+      }
 
-    return __swift_storeEnumTagSinglePayload(v13, v14, v15, v16);
+      OUTLINED_FUNCTION_1_28();
+    }
+
+    while (!v7);
   }
 
   else
   {
-    OUTLINED_FUNCTION_2_53();
-    OUTLINED_FUNCTION_277();
-    sub_2576C67C0();
-    OUTLINED_FUNCTION_24_20();
-    sub_2576C67C0();
-    v18 = *(type metadata accessor for Proto_BayesianProbitRegressor.FeatureValueWeight(0) + 24);
-    sub_2574695E4(v1 + v18, &qword_27F879D98, &unk_257746440);
-    sub_2576C67C0();
-    return __swift_storeEnumTagSinglePayload(v1 + v18, 0, 1, v3);
+
+    v4 = MEMORY[0x277D84F90];
   }
+
+  *(v3 + 8) = v4;
+  return result;
 }
 
-void (*BayesianProbitRegressorConfiguration.FeatureValueWeight.featureWeight.modify(void *a1))()
+uint64_t (*NeuralNetwork.TensorDescriptor.shape.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
-  v4 = __swift_coroFrameAllocStub(0x58uLL);
-  *a1 = v4;
-  *v4 = v1;
-  v5 = type metadata accessor for BayesianProbitRegressorConfiguration.Gaussian(0);
-  v4[1] = v5;
-  v30 = v5;
-  OUTLINED_FUNCTION_4(v5);
-  v4[2] = __swift_coroFrameAllocStub(*(v6 + 64));
-  v7 = type metadata accessor for Proto_BayesianProbitRegressor.Gaussian(0);
-  v4[3] = v7;
-  OUTLINED_FUNCTION_4(v7);
-  v9 = *(v8 + 64);
-  v4[4] = __swift_coroFrameAllocStub(v9);
-  v29 = __swift_coroFrameAllocStub(v9);
-  v4[5] = v29;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879D98, &unk_257746440);
-  OUTLINED_FUNCTION_13(v10);
-  v12 = *(v11 + 64);
-  v13 = OUTLINED_FUNCTION_60_4();
-  v4[6] = v13;
-  v4[7] = OUTLINED_FUNCTION_60_4();
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F8811A8, qword_2577738F8);
-  OUTLINED_FUNCTION_13(v14);
-  v16 = *(v15 + 64);
-  v4[8] = OUTLINED_FUNCTION_60_4();
-  v17 = OUTLINED_FUNCTION_60_4();
-  v4[9] = v17;
-  LODWORD(v9) = *(type metadata accessor for Proto_BayesianProbitRegressor.FeatureValueWeight(0) + 24);
-  OUTLINED_FUNCTION_52_6();
-  OUTLINED_FUNCTION_45_9();
-  if (v2 != 1)
-  {
-    sub_257487308();
-    v18 = OUTLINED_FUNCTION_26_15();
-    if (v26)
-    {
-      OUTLINED_FUNCTION_57_2(v18, v19, v20, v21, v22, v23, v24, v25, v28, v29);
-      OUTLINED_FUNCTION_26_15();
-      if (!v26)
-      {
-        sub_2574695E4(v13, &qword_27F879D98, &unk_257746440);
-      }
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_0_81();
-      sub_2576C67C0();
-    }
-
-    OUTLINED_FUNCTION_0_81();
-    sub_2576C67C0();
-    v4 = 0;
-  }
-
-  __swift_storeEnumTagSinglePayload(v17, v4, 1, v30);
-  return sub_2576C5FC0;
+  a1[1] = v1;
+  *a1 = NeuralNetwork.TensorDescriptor.shape.getter();
+  return sub_2576D6E28;
 }
 
-void sub_2576C5FD8()
+uint64_t sub_2576D6E28(uint64_t *a1, char a2)
 {
-  OUTLINED_FUNCTION_31();
-  v2 = *v0;
-  v3 = (*v0)[9];
-  if (v4)
+  if ((a2 & 1) == 0)
   {
-    v5 = v1;
-    v7 = v2[7];
-    v6 = v2[8];
-    v9 = v2[5];
-    v8 = v2[6];
-    v10 = v2[4];
-    v11 = v2[2];
-    v12 = *v2;
-    v13 = (*v0)[9];
-    sub_257487308();
-    v5(v6);
-    sub_2574695E4(v3, &qword_27F8811A8, qword_2577738F8);
+    return NeuralNetwork.TensorDescriptor.shape.setter(*a1);
   }
 
-  else
-  {
-    EnumTagSinglePayload = __swift_getEnumTagSinglePayload((*v0)[9], 1, v2[1]);
-    v15 = *(v2 + 20);
-    if (EnumTagSinglePayload == 1)
-    {
-      v16 = *v2;
-      sub_2574695E4(v3, &qword_27F8811A8, qword_2577738F8);
-      sub_2574695E4(v16 + v15, &qword_27F879D98, &unk_257746440);
-      v17 = 1;
-    }
-
-    else
-    {
-      v18 = v2[4];
-      v19 = v2[2];
-      v20 = *v2;
-      OUTLINED_FUNCTION_2_53();
-      sub_2576C67C0();
-      sub_2576C67C0();
-      sub_2574695E4(v20 + v15, &qword_27F879D98, &unk_257746440);
-      sub_2576C67C0();
-      v17 = 0;
-    }
-
-    v6 = v2[8];
-    v3 = v2[9];
-    v8 = v2[6];
-    v7 = v2[7];
-    v10 = v2[4];
-    v9 = v2[5];
-    v11 = v2[2];
-    __swift_storeEnumTagSinglePayload(*v2 + *(v2 + 20), v17, 1, v2[3]);
-  }
-
-  free(v3);
-  free(v6);
-  free(v7);
-  free(v8);
-  free(v9);
-  free(v10);
-  free(v11);
-  OUTLINED_FUNCTION_35();
-
-  free(v21);
+  NeuralNetwork.TensorDescriptor.shape.setter(v2);
 }
 
-uint64_t BayesianProbitRegressorConfiguration.FeatureValueWeight.init(featureValue:featureWeight:)@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, _DWORD *a3@<X8>)
+uint64_t NeuralNetwork.TensorDescriptor.init(shape:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F8811A8, qword_2577738F8);
-  OUTLINED_FUNCTION_13(v6);
-  v8 = *(v7 + 64);
-  OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v9);
-  v11 = &v19 - v10;
-  *a3 = 0;
-  v12 = type metadata accessor for Proto_BayesianProbitRegressor.FeatureValueWeight(0);
-  v13 = a3 + *(v12 + 20);
-  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-  v14 = *(v12 + 24);
-  v15 = type metadata accessor for Proto_BayesianProbitRegressor.Gaussian(0);
-  result = __swift_storeEnumTagSinglePayload(a3 + v14, 1, 1, v15);
-  if ((a1 & 0x8000000000000000) != 0)
+  type metadata accessor for Proto_Tensor(0);
+  result = _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  v6 = *(a1 + 16);
+  if (HIDWORD(v6))
   {
     __break(1u);
   }
 
-  else if (!HIDWORD(a1))
+  else
   {
-    *a3 = a1;
-    sub_2576C6768();
-    v17 = type metadata accessor for BayesianProbitRegressorConfiguration.Gaussian(0);
-    __swift_storeEnumTagSinglePayload(v11, 0, 1, v17);
-    BayesianProbitRegressorConfiguration.FeatureValueWeight.featureWeight.setter(v11);
-    OUTLINED_FUNCTION_9_32();
-    return sub_2576C6858(a2, v18);
+    *a2 = v6;
+    if (v6)
+    {
+      OUTLINED_FUNCTION_5_21();
+      v7 = v12;
+      do
+      {
+        OUTLINED_FUNCTION_4_16();
+        if (v9)
+        {
+          v11 = OUTLINED_FUNCTION_2_26(v8);
+          sub_2574845B8(v11, v2, 1);
+          v7 = v12;
+        }
+
+        OUTLINED_FUNCTION_1_28();
+      }
+
+      while (!v10);
+    }
+
+    else
+    {
+
+      v7 = MEMORY[0x277D84F90];
+    }
+
+    *(a2 + 8) = v7;
+  }
+
+  return result;
+}
+
+BOOL static NeuralNetwork.TensorDescriptor.== infix(_:_:)(_DWORD *a1, _DWORD *a2)
+{
+  result = 0;
+  if (*a1 == *a2 && (sub_257487374() & 1) != 0)
+  {
+    type metadata accessor for Proto_Tensor(0);
+    sub_2577431B4();
+    sub_2576D735C(&qword_27F879B68, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+    if (sub_257743644())
+    {
+      return 1;
+    }
+  }
+
+  return result;
+}
+
+uint64_t NeuralNetwork.TensorDescriptor.customMirror.getter()
+{
+  v1 = sub_257743A84();
+  v2 = *(v1 - 8);
+  MEMORY[0x28223BE20](v1);
+  v4 = &v15 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE0, &unk_257744EA0);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = &v15 - v6;
+  v8 = type metadata accessor for NeuralNetwork.TensorDescriptor(0);
+  MEMORY[0x28223BE20](v8);
+  sub_2576D72B0(v0, &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE8, &qword_257744030);
+  v10 = swift_allocObject();
+  *(v10 + 16) = xmmword_257743FF0;
+  *(v10 + 32) = 1802396018;
+  *(v10 + 40) = 0xE400000000000000;
+  v11 = MEMORY[0x277D83B88];
+  *(v10 + 48) = *v0;
+  *(v10 + 72) = v11;
+  *(v10 + 80) = 0x6570616873;
+  *(v10 + 88) = 0xE500000000000000;
+  v12 = NeuralNetwork.TensorDescriptor.shape.getter();
+  *(v10 + 120) = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879DF8, &qword_25776F230);
+  *(v10 + 96) = v12;
+  v13 = sub_257743A74();
+  __swift_storeEnumTagSinglePayload(v7, 1, 1, v13);
+  (*(v2 + 104))(v4, *MEMORY[0x277D84C38], v1);
+  return sub_257743AA4();
+}
+
+uint64_t type metadata accessor for NeuralNetwork.TensorDescriptor(uint64_t a1)
+{
+  result = qword_27F8813C0;
+  if (!qword_27F8813C0)
+  {
+    return swift_getSingletonMetadata();
+  }
+
+  return result;
+}
+
+uint64_t sub_2576D72B0(uint64_t a1, uint64_t a2)
+{
+  v4 = type metadata accessor for NeuralNetwork.TensorDescriptor(0);
+  (*(*(v4 - 8) + 16))(a2, a1, v4);
+  return a2;
+}
+
+uint64_t sub_2576D735C(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
+{
+  result = *a1;
+  if (!result)
+  {
+    a2(255);
+    result = swift_getWitnessTable();
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+uint64_t sub_2576D73CC(uint64_t a1)
+{
+  result = type metadata accessor for Proto_Tensor(319);
+  if (v2 <= 0x3F)
+  {
+    swift_cvw_initStructMetadataWithLayoutString();
+    return 0;
+  }
+
+  return result;
+}
+
+void sub_2576D7438(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
+{
+  v4 = v3;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A898, &unk_257777D20);
+  MEMORY[0x28223BE20](v8 - 8);
+  v10 = &v33 - v9;
+  v11 = type metadata accessor for SizeRange(0);
+  MEMORY[0x28223BE20](v11 - 8);
+  v13 = &v33 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v36 = MEMORY[0x277D84F90];
+  if (a2 <= 2)
+  {
+    v34 = a3;
+    v35 = a1;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1F8, &qword_257770B90);
+    sub_2574A16C8();
+    OUTLINED_FUNCTION_8_19();
+    v14 = sub_257743604();
+    v16 = v15;
+    sub_25746996C();
+    v18 = v17;
+    v19 = *(v17 + 16);
+    if (v19 >= *(v17 + 24) >> 1)
+    {
+      sub_25746996C();
+      v18 = v30;
+    }
+
+    *(v18 + 16) = v19 + 1;
+    v20 = v18 + 48 * v19;
+    *(v20 + 32) = 0;
+    *(v20 + 40) = 0xD00000000000004ALL;
+    *(v20 + 48) = 0x80000002577815E0;
+    *(v20 + 56) = 2;
+    *(v20 + 64) = v14;
+    *(v20 + 72) = v16;
+    v36 = v18;
+    a3 = v34;
+  }
+
+  FeatureType.SequenceParameters.sizeRange.getter();
+  v35 = a1;
+
+  sub_25763D200(&unk_2868B42E8);
+  sub_25773ADC0(&v35);
+
+  sub_257693DDC(v13);
+  sub_25763D14C(v35);
+  v21 = type metadata accessor for FeatureType.SequenceParameters(0);
+  sub_2576D7768(v4 + *(v21 + 20), v10);
+  v22 = type metadata accessor for Proto_SequenceFeatureType.OneOf_Type(0);
+  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v10, 1, v22);
+  sub_2576D77D8(v10);
+  if (EnumTagSinglePayload == 1)
+  {
+    v35 = a1;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1F8, &qword_257770B90);
+    sub_2574A16C8();
+    OUTLINED_FUNCTION_8_19();
+    v24 = sub_257743604();
+    v26 = v25;
+    v27 = v36;
+    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+    {
+      sub_25746996C();
+      v27 = v31;
+    }
+
+    v28 = *(v27 + 16);
+    if (v28 >= *(v27 + 24) >> 1)
+    {
+      sub_25746996C();
+      v27 = v32;
+    }
+
+    *(v27 + 16) = v28 + 1;
+    v29 = v27 + 48 * v28;
+    *(v29 + 32) = 0;
+    *(v29 + 40) = 0xD00000000000002DLL;
+    *(v29 + 48) = 0x80000002577815B0;
+    *(v29 + 56) = 2;
+    *(v29 + 64) = v24;
+    *(v29 + 72) = v26;
+  }
+
+  else
+  {
+    v27 = v36;
+  }
+
+  *a3 = v27;
+}
+
+uint64_t sub_2576D7768(uint64_t a1, uint64_t a2)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A898, &unk_257777D20);
+  (*(*(v4 - 8) + 16))(a2, a1, v4);
+  return a2;
+}
+
+uint64_t sub_2576D77D8(uint64_t a1)
+{
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A898, &unk_257777D20);
+  (*(*(v2 - 8) + 8))(a1, v2);
+  return a1;
+}
+
+uint64_t sub_2576D7840()
+{
+  v1 = v0;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879FD8, &unk_257744910);
+  inited = swift_initStackObject();
+  *(inited + 16) = xmmword_2577442C0;
+  *(inited + 32) = 0x6E6F697369766552;
+  *(inited + 40) = 0xE800000000000000;
+  *(inited + 48) = sub_257743674();
+  *(inited + 56) = v3;
+  *(inited + 64) = 0;
+  *(inited + 72) = 0x65676175676E614CLL;
+  *(inited + 80) = 0xE800000000000000;
+  MEMORY[0x259C64E90](v1[1], v1[2]);
+  MEMORY[0x259C64E90](34, 0xE100000000000000);
+  *(inited + 88) = 34;
+  *(inited + 96) = 0xE100000000000000;
+  *(inited + 104) = 0;
+  *(inited + 112) = 0xD000000000000014;
+  *(inited + 120) = 0x8000000257780DA0;
+  sub_257486740(v1[3], v1[4]);
+  *(inited + 128) = sub_257743674();
+  *(inited + 136) = v4;
+  *(inited + 144) = 0;
+  return sub_2576A6964(inited);
+}
+
+unint64_t WordEmbeddingConfiguration.revision.setter(unint64_t result)
+{
+  if ((result & 0x8000000000000000) != 0)
+  {
+    __break(1u);
+  }
+
+  else if (!HIDWORD(result))
+  {
+    *v1 = result;
+    return result;
   }
 
   __break(1u);
   return result;
 }
 
-double (*BayesianProbitRegressorConfiguration.Gaussian.mean.modify(void *a1))(uint64_t a1)
+unint64_t *(*WordEmbeddingConfiguration.revision.modify(void *a1))(unint64_t *result, char a2)
 {
-  a1[1] = v1;
   *a1 = *v1;
-  return sub_2576C63E8;
-}
-
-double sub_2576C63E8(uint64_t a1)
-{
-  result = *a1;
-  **(a1 + 8) = *a1;
-  return result;
-}
-
-double (*BayesianProbitRegressorConfiguration.Gaussian.precision.modify(void *a1))(uint64_t a1)
-{
   a1[1] = v1;
-  *a1 = *(v1 + 8);
-  return sub_2576C6434;
+  return sub_25767E390;
 }
 
-double sub_2576C6434(uint64_t a1)
+uint64_t WordEmbeddingConfiguration.language.getter()
 {
-  result = *a1;
-  *(*(a1 + 8) + 8) = *a1;
+  v1 = *(v0 + 8);
+
+  return v1;
+}
+
+uint64_t sub_2576D79E4(uint64_t *a1)
+{
+  v1 = *a1;
+  v2 = a1[1];
+
+  return WordEmbeddingConfiguration.language.setter(v1, v2);
+}
+
+uint64_t WordEmbeddingConfiguration.language.setter(uint64_t a1, uint64_t a2)
+{
+
+  *(v2 + 8) = a1;
+  *(v2 + 16) = a2;
   return result;
 }
 
-uint64_t BayesianProbitRegressorConfiguration.Gaussian.init(mean:precision:)@<X0>(double *a1@<X8>, double a2@<D0>, double a3@<D1>)
+uint64_t (*WordEmbeddingConfiguration.language.modify(void *a1))(uint64_t *a1, char a2)
 {
-  v6 = a1 + *(type metadata accessor for Proto_BayesianProbitRegressor.Gaussian(0) + 24);
-  result = _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-  *a1 = a2;
-  a1[1] = a3;
+  v4 = *(v1 + 8);
+  v3 = *(v1 + 16);
+  a1[2] = v1;
+  a1[3] = v3;
+  *a1 = v4;
+  a1[1] = v3;
+
+  return sub_25764FF90;
+}
+
+uint64_t WordEmbeddingConfiguration.modelParameterData.getter()
+{
+  v1 = *(v0 + 24);
+  sub_257486740(v1, *(v0 + 32));
+  return v1;
+}
+
+uint64_t sub_2576D7AE0(uint64_t *a1)
+{
+  v1 = *a1;
+  v2 = a1[1];
+  sub_257486740(*a1, v2);
+  return WordEmbeddingConfiguration.modelParameterData.setter(v1, v2);
+}
+
+uint64_t WordEmbeddingConfiguration.modelParameterData.setter(uint64_t a1, uint64_t a2)
+{
+  result = sub_257486798(*(v2 + 24), *(v2 + 32));
+  *(v2 + 24) = a1;
+  *(v2 + 32) = a2;
   return result;
 }
 
-BOOL static BayesianProbitRegressorConfiguration.Gaussian.== infix(_:_:)(double *a1, double *a2)
+uint64_t (*WordEmbeddingConfiguration.modelParameterData.modify(uint64_t *a1))(uint64_t *a1, char a2)
+{
+  a1[2] = v1;
+  v3 = *(v1 + 24);
+  v4 = *(v1 + 32);
+  *a1 = v3;
+  a1[1] = v4;
+  sub_257486740(v3, v4);
+  return sub_257688698;
+}
+
+uint64_t WordEmbeddingConfiguration.init()@<X0>(uint64_t a1@<X8>)
+{
+  *a1 = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0xE000000000000000;
+  *(a1 + 24) = xmmword_257745740;
+  type metadata accessor for Proto_CoreMLModels_WordEmbedding(0);
+  return _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+}
+
+BOOL static WordEmbeddingConfiguration.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
   result = 0;
   if (*a1 == *a2)
   {
-    OUTLINED_FUNCTION_267();
-    if (*(v2 + 8) == *(v3 + 8))
+    v4 = *(a1 + 8) == *(a2 + 8) && *(a1 + 16) == *(a2 + 16);
+    if (v4 || (sub_257743994()) && (MEMORY[0x259C648D0](*(a1 + 24), *(a1 + 32), *(a2 + 24), *(a2 + 32)))
     {
-      v4 = *(type metadata accessor for Proto_BayesianProbitRegressor.Gaussian(0) + 24);
+      type metadata accessor for Proto_CoreMLModels_WordEmbedding(0);
       sub_2577431B4();
-      OUTLINED_FUNCTION_23_21();
-      sub_2576C68B0(v5, v6);
-      if (OUTLINED_FUNCTION_4_2())
+      sub_2576D8064(&qword_27F879B68, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+      if (sub_257743644())
       {
         return 1;
       }
@@ -7103,63 +3982,70 @@ BOOL static BayesianProbitRegressorConfiguration.Gaussian.== infix(_:_:)(double 
   return result;
 }
 
-uint64_t sub_2576C656C(uint64_t a1, void (*a2)(void))
+uint64_t WordEmbeddingConfiguration.customMirror.getter@<X0>(uint64_t a1@<X8>)
 {
-  a2(0);
-  OUTLINED_FUNCTION_51_6();
+  v2 = v1;
+  v21[1] = a1;
+  v3 = sub_257743A84();
+  v4 = *(v3 - 8);
+  MEMORY[0x28223BE20](v3);
+  v6 = v21 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE0, &unk_257744EA0);
+  MEMORY[0x28223BE20](v7 - 8);
+  v9 = v21 - v8;
+  v10 = type metadata accessor for WordEmbeddingConfiguration(0);
+  MEMORY[0x28223BE20](v10);
+  sub_2576D7FB4(v2, v21 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE8, &qword_257744030);
+  v12 = swift_allocObject();
+  *(v12 + 16) = xmmword_2577442C0;
+  *(v12 + 32) = 0x6E6F697369766572;
+  *(v12 + 40) = 0xE800000000000000;
+  v13 = MEMORY[0x277D83B88];
+  *(v12 + 48) = *v2;
+  *(v12 + 72) = v13;
+  *(v12 + 80) = 0x65676175676E616CLL;
+  v14 = v2[1];
+  v15 = v2[2];
+  v16 = MEMORY[0x277D837D0];
+  *(v12 + 88) = 0xE800000000000000;
+  *(v12 + 96) = v14;
+  *(v12 + 104) = v15;
+  *(v12 + 120) = v16;
+  *(v12 + 128) = 0xD000000000000012;
+  *(v12 + 168) = MEMORY[0x277CC9318];
+  v18 = v2[3];
+  v17 = v2[4];
+  *(v12 + 136) = 0x800000025777AB50;
+  *(v12 + 144) = v18;
+  *(v12 + 152) = v17;
+  v19 = sub_257743A74();
+  __swift_storeEnumTagSinglePayload(v9, 1, 1, v19);
+  (*(v4 + 104))(v6, *MEMORY[0x277D84C38], v3);
 
-  return sub_2577435F4();
+  sub_257486740(v18, v17);
+  return sub_257743AA4();
 }
 
-uint64_t sub_2576C6620(void (*a1)(void))
+uint64_t type metadata accessor for WordEmbeddingConfiguration(uint64_t a1)
 {
-  sub_257743A14();
-  a1(0);
-  OUTLINED_FUNCTION_51_6();
-  sub_2577435F4();
-  return sub_257743A64();
+  result = qword_281537940;
+  if (!qword_281537940)
+  {
+    return swift_getSingletonMetadata();
+  }
+
+  return result;
 }
 
-uint64_t sub_2576C66EC(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void))
+uint64_t sub_2576D7FB4(uint64_t a1, uint64_t a2)
 {
-  sub_257743A14();
-  a4(0);
-  OUTLINED_FUNCTION_51_6();
-  sub_2577435F4();
-  return sub_257743A64();
+  v4 = type metadata accessor for WordEmbeddingConfiguration(0);
+  (*(*(v4 - 8) + 16))(a2, a1, v4);
+  return a2;
 }
 
-uint64_t sub_2576C6768()
-{
-  OUTLINED_FUNCTION_267();
-  v2 = v1(0);
-  OUTLINED_FUNCTION_4(v2);
-  v4 = *(v3 + 16);
-  v5 = OUTLINED_FUNCTION_205();
-  v6(v5);
-  return v0;
-}
-
-uint64_t sub_2576C67C0()
-{
-  OUTLINED_FUNCTION_267();
-  v2 = v1(0);
-  OUTLINED_FUNCTION_4(v2);
-  v4 = *(v3 + 32);
-  v5 = OUTLINED_FUNCTION_205();
-  v6(v5);
-  return v0;
-}
-
-uint64_t sub_2576C6858(uint64_t a1, uint64_t (*a2)(void))
-{
-  v3 = a2(0);
-  OUTLINED_FUNCTION_4(v3);
-  (*(v4 + 8))(a1);
-  return a1;
-}
-
-uint64_t sub_2576C68B0(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_2576D8064(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -7172,10 +4058,10 @@ uint64_t sub_2576C68B0(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t sub_2576C6C10(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t))
+uint64_t sub_2576D80D4(uint64_t a1)
 {
-  result = a4(319);
-  if (v5 <= 0x3F)
+  result = type metadata accessor for Proto_CoreMLModels_WordEmbedding(319);
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -7184,1574 +4070,1469 @@ uint64_t sub_2576C6C10(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uin
   return result;
 }
 
-void OUTLINED_FUNCTION_1_62()
-{
-  v2 = *(v1 - 336);
-  v3 = *(v1 - 328);
-  v4 = *(v0 + 24);
-  v5 = *(v0 + 16) + 1;
-}
-
-void OUTLINED_FUNCTION_4_45()
-{
-  *(v0 - 336) = 34;
-  *(v0 - 328) = 0xE100000000000000;
-
-  JUMPOUT(0x259C64E90);
-}
-
-void OUTLINED_FUNCTION_12_33(uint64_t a1@<X8>)
-{
-  *(v1 + 32) = v2;
-  *(v1 + 40) = a1;
-  *(v1 + 48) = v3;
-  *(v1 + 56) = v4;
-  *(v1 + 64) = 0;
-}
-
-void OUTLINED_FUNCTION_25_18()
-{
-
-  sub_257469AE0();
-}
-
-uint64_t OUTLINED_FUNCTION_29_17(uint64_t result, uint64_t a2)
-{
-  *(v2 + 48) = result;
-  *(v2 + 56) = a2;
-  *(v2 + 64) = 0;
-  *(v2 + 72) = 0x6F69736963657250;
-  *(v2 + 80) = 0xE90000000000006ELL;
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_45_9()
-{
-  __swift_getEnumTagSinglePayload(v0, 1, v1);
-
-  return sub_2574695E4(v0, v2, v3);
-}
-
-uint64_t OUTLINED_FUNCTION_51_6()
-{
-
-  return sub_2576C68B0(v1, v0);
-}
-
-uint64_t OUTLINED_FUNCTION_52_6()
-{
-  *(v1 + 80) = v0;
-
-  return sub_257487308();
-}
-
-uint64_t OUTLINED_FUNCTION_57_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10)
-{
-  *a10 = 0;
-  a10[1] = 0;
-  v12 = a10 + *(v10 + 24);
-
-  return _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-}
-
-uint64_t OUTLINED_FUNCTION_58_2()
-{
-
-  return sub_257487308();
-}
-
-void *OUTLINED_FUNCTION_59_3()
-{
-
-  return __swift_coroFrameAllocStub(v0);
-}
-
-void *OUTLINED_FUNCTION_60_4()
-{
-
-  return __swift_coroFrameAllocStub(v0);
-}
-
-uint64_t static NeuralNetwork.Layer.convolution(name:inputName:outputName:outputChannelCount:kernelChannelCount:groupCount:kernelSize:strides:padding:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, void *a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10, uint64_t *a11, uint64_t *a12, uint64_t a13)
-{
-  v63 = a8;
-  *&v65 = a7;
-  v56 = a1;
-  v57 = a2;
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A318, &qword_257745D10);
-  v19 = *(*(v18 - 8) + 64);
-  MEMORY[0x28223BE20](v18 - 8);
-  v58 = &v54 - v20;
-  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F8811F8, &unk_257777F90);
-  v22 = *(*(v21 - 8) + 64);
-  v23 = MEMORY[0x28223BE20](v21 - 8);
-  v55 = &v54 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v23);
-  v26 = &v54 - v25;
-  v54 = type metadata accessor for NeuralNetwork.Layer.Kind();
-  v27 = *(*(v54 - 8) + 64);
-  MEMORY[0x28223BE20](v54);
-  v29 = &v54 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v30 = *a11;
-  v61 = a11[1];
-  v62 = v30;
-  v31 = *a12;
-  v59 = a12[1];
-  v60 = v31;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B10, &unk_2577440D0);
-  v32 = OUTLINED_FUNCTION_13_6();
-  v64 = xmmword_2577442B0;
-  *(v32 + 16) = xmmword_2577442B0;
-  *(v32 + 32) = a3;
-  *(v32 + 40) = a4;
-  v33 = OUTLINED_FUNCTION_13_6();
-  *(v33 + 16) = v64;
-  *(v33 + 32) = a5;
-  *(v33 + 40) = a6;
-  sub_2576C76C4(a13, v26);
-
-  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-  v34 = *(type metadata accessor for Proto_ConvolutionLayerParams(0) + 20);
-  if (qword_27F879358 != -1)
-  {
-    OUTLINED_FUNCTION_0_82();
-  }
-
-  *&v29[v34] = qword_27F87BEF0;
-  v35 = v65;
-  if ((v65 & 0x8000000000000000) != 0)
-  {
-    __break(1u);
-LABEL_19:
-    __break(1u);
-LABEL_20:
-    __break(1u);
-LABEL_21:
-    __break(1u);
-    goto LABEL_22;
-  }
-
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  a6 = *&v29[v34];
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v37 = type metadata accessor for Proto_ConvolutionLayerParams._StorageClass(0);
-    OUTLINED_FUNCTION_448(v37);
-    OUTLINED_FUNCTION_1_63();
-    a6 = v38;
-    *&v29[v34] = v38;
-  }
-
-  v39 = v63;
-  OUTLINED_FUNCTION_447();
-  a6[2] = v35;
-  if (v39 < 0)
-  {
-    goto LABEL_19;
-  }
-
-  v40 = *&v29[v34];
-  v41 = swift_isUniquelyReferenced_nonNull_native();
-  a6 = *&v29[v34];
-  if ((v41 & 1) == 0)
-  {
-    v42 = type metadata accessor for Proto_ConvolutionLayerParams._StorageClass(0);
-    OUTLINED_FUNCTION_448(v42);
-    OUTLINED_FUNCTION_1_63();
-    a6 = v43;
-    *&v29[v34] = v43;
-  }
-
-  OUTLINED_FUNCTION_447();
-  a6[3] = v39;
-  if (a10 < 0)
-  {
-    goto LABEL_20;
-  }
-
-  v44 = *&v29[v34];
-  v45 = swift_isUniquelyReferenced_nonNull_native();
-  a6 = *&v29[v34];
-  if ((v45 & 1) == 0)
-  {
-    v46 = type metadata accessor for Proto_ConvolutionLayerParams._StorageClass(0);
-    OUTLINED_FUNCTION_448(v46);
-    OUTLINED_FUNCTION_1_63();
-    a6 = v47;
-    *&v29[v34] = v47;
-  }
-
-  OUTLINED_FUNCTION_447();
-  a6[4] = a10;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879F98, &unk_2577448C8);
-  v48 = OUTLINED_FUNCTION_13_6();
-  *(v48 + 16) = xmmword_257743FF0;
-  if (v62 < 0)
-  {
-    goto LABEL_21;
-  }
-
-  *(v48 + 32) = v62;
-  if (v61 < 0)
-  {
-LABEL_22:
-    __break(1u);
-    goto LABEL_23;
-  }
-
-  *(v48 + 40) = v61;
-  a6 = v29;
-  v65 = xmmword_257743FF0;
-  sub_257531098(v48);
-  v49 = OUTLINED_FUNCTION_13_6();
-  *(v49 + 16) = v65;
-  if (v60 < 0)
-  {
-LABEL_23:
-    __break(1u);
-    goto LABEL_24;
-  }
-
-  *(v49 + 32) = v60;
-  if (v59 < 0)
-  {
-LABEL_24:
-    __break(1u);
-    goto LABEL_25;
-  }
-
-  *(v49 + 40) = v59;
-  sub_257531170();
-  v50 = v55;
-  sub_2576C76C4(v26, v55);
-  NeuralNetwork.Layer.ConvolutionParameters.padding.setter(v50);
-  sub_2576C7734(v26);
-  swift_storeEnumTagMultiPayload();
-  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-  a6 = *(type metadata accessor for Proto_NeuralNetworkLayer(0) + 20);
-  if (qword_27F879260 != -1)
-  {
-LABEL_25:
-    swift_once();
-  }
-
-  *(a6 + a9) = qword_27F87BEE8;
-
-  sub_257528334();
-  sub_2575283BC();
-  sub_25752842C(v33);
-  v51 = v58;
-  sub_2574897E0(v58);
-  v52 = type metadata accessor for Proto_NeuralNetworkLayer.OneOf_Layer(0);
-  __swift_storeEnumTagSinglePayload(v51, 0, 1, v52);
-  sub_25752846C();
-  return sub_257634BB4(v29);
-}
-
-uint64_t static NeuralNetwork.Layer.Kind.convolution(outputChannelCount:kernelChannelCount:groupCount:kernelSize:strides:padding:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X3>, uint64_t *a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
-{
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F8811F8, &unk_257777F90);
-  v15 = *(*(v14 - 8) + 64);
-  v16 = MEMORY[0x28223BE20](v14 - 8);
-  v18 = &v40 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v16);
-  v20 = &v40 - v19;
-  v22 = *a4;
-  v21 = a4[1];
-  v23 = *a5;
-  v41 = a5[1];
-  v42 = v23;
-  sub_2576C76C4(a6, &v40 - v19);
-  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-  v24 = *(type metadata accessor for Proto_ConvolutionLayerParams(0) + 20);
-  if (qword_27F879358 != -1)
-  {
-    OUTLINED_FUNCTION_0_82();
-  }
-
-  result = qword_27F87BEF0;
-  *(a7 + v24) = qword_27F87BEF0;
-  if (a1 < 0)
-  {
-    __break(1u);
-LABEL_18:
-    __break(1u);
-LABEL_19:
-    __break(1u);
-LABEL_20:
-    __break(1u);
-    goto LABEL_21;
-  }
-
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v27 = *(a7 + v24);
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    v28 = type metadata accessor for Proto_ConvolutionLayerParams._StorageClass(0);
-    OUTLINED_FUNCTION_448(v28);
-    OUTLINED_FUNCTION_1_63();
-    v27 = v29;
-    *(a7 + v24) = v29;
-  }
-
-  result = OUTLINED_FUNCTION_447();
-  *(v27 + 16) = a1;
-  if (a2 < 0)
-  {
-    goto LABEL_18;
-  }
-
-  v30 = *(a7 + v24);
-  v31 = swift_isUniquelyReferenced_nonNull_native();
-  v32 = *(a7 + v24);
-  if ((v31 & 1) == 0)
-  {
-    v33 = type metadata accessor for Proto_ConvolutionLayerParams._StorageClass(0);
-    OUTLINED_FUNCTION_448(v33);
-    OUTLINED_FUNCTION_1_63();
-    v32 = v34;
-    *(a7 + v24) = v34;
-  }
-
-  result = OUTLINED_FUNCTION_447();
-  *(v32 + 24) = a2;
-  if (a3 < 0)
-  {
-    goto LABEL_19;
-  }
-
-  v35 = *(a7 + v24);
-  v36 = swift_isUniquelyReferenced_nonNull_native();
-  v37 = *(a7 + v24);
-  if ((v36 & 1) == 0)
-  {
-    v38 = type metadata accessor for Proto_ConvolutionLayerParams._StorageClass(0);
-    OUTLINED_FUNCTION_448(v38);
-    OUTLINED_FUNCTION_1_63();
-    v37 = v39;
-    *(a7 + v24) = v39;
-  }
-
-  OUTLINED_FUNCTION_447();
-  *(v37 + 32) = a3;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879F98, &unk_2577448C8);
-  result = OUTLINED_FUNCTION_13_6();
-  *(result + 16) = xmmword_257743FF0;
-  if (v22 < 0)
-  {
-    goto LABEL_20;
-  }
-
-  *(result + 32) = v22;
-  if (v21 < 0)
-  {
-LABEL_21:
-    __break(1u);
-    goto LABEL_22;
-  }
-
-  *(result + 40) = v21;
-  v40 = xmmword_257743FF0;
-  sub_257531098(result);
-  result = OUTLINED_FUNCTION_13_6();
-  *(result + 16) = v40;
-  if (v42 < 0)
-  {
-LABEL_22:
-    __break(1u);
-    goto LABEL_23;
-  }
-
-  *(result + 32) = v42;
-  if ((v41 & 0x8000000000000000) == 0)
-  {
-    *(result + 40) = v41;
-    sub_257531170();
-    sub_2576C76C4(v20, v18);
-    NeuralNetwork.Layer.ConvolutionParameters.padding.setter(v18);
-    sub_2576C7734(v20);
-    type metadata accessor for NeuralNetwork.Layer.Kind();
-    return swift_storeEnumTagMultiPayload();
-  }
-
-LABEL_23:
-  __break(1u);
-  return result;
-}
-
-uint64_t sub_2576C76C4(uint64_t a1, uint64_t a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F8811F8, &unk_257777F90);
-  (*(*(v4 - 8) + 16))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t sub_2576C7734(uint64_t a1)
-{
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F8811F8, &unk_257777F90);
-  (*(*(v2 - 8) + 8))(a1, v2);
-  return a1;
-}
-
-uint64_t OUTLINED_FUNCTION_0_82()
-{
-
-  return swift_once();
-}
-
-void OUTLINED_FUNCTION_1_63()
-{
-
-  sub_25759AD38();
-}
-
-void sub_2576C77D8()
+void sub_2576D8140()
 {
   OUTLINED_FUNCTION_31();
-  v2 = type metadata accessor for NeuralNetwork.Preprocessor.MeanImageConfiguration(0);
-  v3 = OUTLINED_FUNCTION_13(v2);
-  v5 = *(v4 + 64);
+  v2 = type metadata accessor for ItemSimilarityRecommenderConfiguration.SimilarItems(0);
+  v3 = OUTLINED_FUNCTION_24(v2);
+  v5 = v4;
   MEMORY[0x28223BE20](v3);
   OUTLINED_FUNCTION_3();
-  v128 = v7 - v6;
-  v8 = OUTLINED_FUNCTION_153();
-  v9 = type metadata accessor for NeuralNetwork.Preprocessor.ScalerConfiguration(v8);
-  v10 = OUTLINED_FUNCTION_13(v9);
-  v12 = *(v11 + 64);
-  MEMORY[0x28223BE20](v10);
-  OUTLINED_FUNCTION_3();
-  v127 = v14 - v13;
-  v15 = OUTLINED_FUNCTION_153();
-  v136 = type metadata accessor for Proto_NeuralNetworkPreprocessing.OneOf_Preprocessor(v15);
-  v16 = OUTLINED_FUNCTION_4(v136);
-  v18 = *(v17 + 64);
-  MEMORY[0x28223BE20](v16);
-  OUTLINED_FUNCTION_25_0();
-  v126 = v19;
-  MEMORY[0x28223BE20](v20);
-  v125 = &v121 - v21;
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A048, &qword_257744980);
-  v23 = OUTLINED_FUNCTION_13(v22);
-  v25 = *(v24 + 64);
-  MEMORY[0x28223BE20](v23);
-  v135 = &v121 - v26;
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A0E0, &qword_257773BE0);
-  v28 = OUTLINED_FUNCTION_13(v27);
-  v30 = *(v29 + 64);
-  MEMORY[0x28223BE20](v28);
-  OUTLINED_FUNCTION_21_1();
-  v31 = type metadata accessor for NeuralNetwork.Preprocessor.Kind(0);
-  v32 = OUTLINED_FUNCTION_4(v31);
-  v34 = *(v33 + 64);
-  MEMORY[0x28223BE20](v32);
-  OUTLINED_FUNCTION_25_0();
-  v132 = v35;
-  MEMORY[0x28223BE20](v36);
-  v138 = &v121 - v37;
-  v38 = OUTLINED_FUNCTION_153();
-  v39 = type metadata accessor for NeuralNetwork.Preprocessor(v38);
-  v40 = OUTLINED_FUNCTION_24(v39);
-  v122 = v41;
-  v43 = *(v42 + 64);
-  MEMORY[0x28223BE20](v40);
-  OUTLINED_FUNCTION_3();
-  v137 = (v45 - v44);
-  OUTLINED_FUNCTION_153();
-  v46 = type metadata accessor for NeuralNetwork.Layer();
-  v47 = OUTLINED_FUNCTION_24(v46);
-  v49 = v48;
-  v51 = *(v50 + 64);
-  MEMORY[0x28223BE20](v47);
-  OUTLINED_FUNCTION_3();
-  v130 = v53 - v52;
-  v131 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879FD8, &unk_257744910);
+  OUTLINED_FUNCTION_40();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B28, &unk_257773B40);
   inited = swift_initStackObject();
-  *(inited + 16) = xmmword_257744E70;
-  v55 = OUTLINED_FUNCTION_27_19(inited, 24908);
-  v56 = *(v55 + 16);
-  v57 = MEMORY[0x277D84F90];
-  v133 = v31;
-  v134 = v1;
-  v123 = inited;
-  v124 = v0;
-  if (v56)
+  *(inited + 16) = xmmword_2577442B0;
+  OUTLINED_FUNCTION_23_7();
+  *(v7 + 32) = 0xD000000000000016;
+  *(v7 + 40) = v8;
+  v87 = v0;
+  v9 = ItemSimilarityRecommenderConfiguration.itemItemSimilarities.getter();
+  v10 = *(v9 + 16);
+  v85 = inited;
+  if (v10)
   {
-    v139 = MEMORY[0x277D84F90];
-    sub_257484040(0, v56, 0);
-    v58 = v139;
-    v59 = *(v49 + 80);
+    v11 = OUTLINED_FUNCTION_35_14(MEMORY[0x277D84F90]);
+    sub_257484040(v11, v10, 0);
+    v12 = v88;
     OUTLINED_FUNCTION_193();
-    v121 = v55;
-    v61 = v55 + v60;
-    *&v129 = *(v49 + 72);
+    v14 = v9 + v13;
+    v15 = *(v5 + 72);
     do
     {
-      v62 = OUTLINED_FUNCTION_2_54();
-      v63 = v130;
-      sub_2576C928C(v62, v130);
-      sub_2576EDD44();
-      v65 = v64;
-      v67 = v66;
-      v69 = v68;
-      OUTLINED_FUNCTION_3_2();
-      sub_257499A2C(v63, v70);
-      v139 = v58;
-      v72 = *(v58 + 16);
-      v71 = *(v58 + 24);
-      if (v72 >= v71 >> 1)
+      OUTLINED_FUNCTION_13_26();
+      sub_2576DADCC();
+      sub_2576D9BFC();
+      v17 = v16;
+      v19 = v18;
+      OUTLINED_FUNCTION_18_35();
+      v88 = v12;
+      v9 = *(v12 + 16);
+      v20 = *(v12 + 24);
+      if (v9 >= v20 >> 1)
       {
-        OUTLINED_FUNCTION_174(v71);
-        OUTLINED_FUNCTION_310();
-        sub_257484040(v74, v75, v76);
-        v58 = v139;
+        v22 = OUTLINED_FUNCTION_174(v20);
+        sub_257484040(v22, v9 + 1, 1);
       }
 
-      *(v58 + 16) = v72 + 1;
-      v73 = v58 + 24 * v72;
-      *(v73 + 32) = v65;
-      *(v73 + 40) = v67;
-      *(v73 + 48) = v69;
-      v61 += v129;
-      --v56;
+      *(v12 + 16) = v9 + 1;
+      v21 = v12 + 24 * v9;
+      *(v21 + 32) = v17;
+      *(v21 + 40) = v19;
+      *(v21 + 48) = 2;
+      v14 += v15;
+      --v10;
     }
 
-    while (v56);
+    while (v10);
 
-    inited = v123;
-    v0 = v124;
-    v31 = v133;
-    v1 = v134;
-    v57 = MEMORY[0x277D84F90];
+    inited = v85;
   }
 
   else
   {
 
-    v58 = MEMORY[0x277D84F90];
+    v12 = MEMORY[0x277D84F90];
   }
 
-  *(inited + 48) = v58;
+  *(inited + 48) = v12;
   *(inited + 56) = 0;
   *(inited + 64) = 1;
-  strcpy((inited + 72), "Preprocessors");
-  *(inited + 86) = -4864;
-  v77 = NeuralNetworkRegressor.preprocessors.getter();
-  v78 = *(v77 + 16);
-  if (v78)
+  ItemSimilarityRecommenderConfiguration.itemStringIDs.getter();
+  if (v23)
   {
-    v141 = v57;
-    sub_257484040(0, v78, 0);
-    v79 = v141;
-    v80 = *(v122 + 80);
-    OUTLINED_FUNCTION_193();
-    v121 = v77;
-    v82 = v77 + v81;
-    v130 = *(v83 + 72);
-    v129 = xmmword_257743FF0;
-    do
+    v1 = v23;
+    inited = *(v23 + 16);
+    if (inited)
     {
-      v84 = v137;
-      sub_2576C928C(v82, v137);
-      v85 = swift_initStackObject();
-      *(v85 + 16) = v129;
-      strcpy((v85 + 32), "Feature Name");
-      *(v85 + 45) = 0;
-      *(v85 + 46) = -5120;
-      v86 = *v84;
-      v87 = v84[1];
-      v139 = 34;
-      v140 = 0xE100000000000000;
-      MEMORY[0x259C64E90](v86, v87);
-      MEMORY[0x259C64E90](34, 0xE100000000000000);
-      v88 = v140;
-      *(v85 + 48) = v139;
-      *(v85 + 56) = v88;
-      *(v85 + 64) = 0;
-      *(v85 + 72) = 1684957515;
-      *(v85 + 80) = 0xE400000000000000;
-      v89 = v84 + *(type metadata accessor for Proto_NeuralNetworkPreprocessing(0) + 20);
-      v90 = v135;
-      sub_2574998F8(v89, v135);
-      v91 = 1;
-      if (__swift_getEnumTagSinglePayload(v90, 1, v136) != 1)
+      v24 = OUTLINED_FUNCTION_35_14(MEMORY[0x277D84F90]);
+      sub_257484040(v24, inited, 0);
+      v12 = 0;
+      v25 = v88;
+      v9 = v1 + 40;
+      while (1)
       {
-        v92 = v125;
-        sub_257499A84(v135, v125);
-        v93 = v126;
-        sub_2576C928C(v92, v126);
-        swift_getEnumCaseMultiPayload();
-        sub_257499A84(v93, v1);
-        swift_storeEnumTagMultiPayload();
-        sub_257499A2C(v92, type metadata accessor for Proto_NeuralNetworkPreprocessing.OneOf_Preprocessor);
-        v91 = 0;
-      }
-
-      __swift_storeEnumTagSinglePayload(v1, v91, 1, v31);
-      if (__swift_getEnumTagSinglePayload(v1, 1, v31) == 1)
-      {
-        v94 = v138;
-        *(v138 + 8) = 0;
-        v94[1] = 0;
-        v95 = v94 + *(type metadata accessor for Proto_NeuralNetworkImageScaler(0) + 36);
-        _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-        *v94 = 1065353216;
-        v94[4] = 0;
-        swift_storeEnumTagMultiPayload();
-        EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v1, 1, v31);
-        v97 = v132;
-        if (EnumTagSinglePayload != 1)
+        v26 = *(v1 + 16);
+        if (v12 >= v26)
         {
-          sub_257499968(v1);
+          break;
+        }
+
+        v28 = *(v9 - 8);
+        v27 = *v9;
+        v88 = v25;
+        v30 = *(v25 + 16);
+        v29 = *(v25 + 24);
+
+        if (v30 >= v29 >> 1)
+        {
+          sub_257484040((v29 > 1), v30 + 1, 1);
+        }
+
+        ++v12;
+        *(v25 + 16) = v30 + 1;
+        v31 = v25 + 24 * v30;
+        *(v31 + 32) = v28;
+        *(v31 + 40) = v27;
+        *(v31 + 48) = 0;
+        v9 += 16;
+        if (inited == v12)
+        {
+
+          goto LABEL_17;
         }
       }
 
-      else
-      {
-        v94 = v138;
-        sub_257499A84(v1, v138);
-        v97 = v132;
-      }
-
-      sub_2576C928C(v94, v97);
-      if (swift_getEnumCaseMultiPayload() == 1)
-      {
-        v98 = v128;
-        sub_257499A84(v97, v128);
-        v99 = sub_25749CDBC();
-        v101 = v100;
-        v103 = v102;
-        v104 = type metadata accessor for NeuralNetwork.Preprocessor.MeanImageConfiguration;
-      }
-
-      else
-      {
-        v98 = v127;
-        sub_257499A84(v97, v127);
-        v99 = sub_25749CC5C();
-        v101 = v105;
-        v103 = v106;
-        v104 = type metadata accessor for NeuralNetwork.Preprocessor.ScalerConfiguration;
-      }
-
-      sub_257499A2C(v98, v104);
-      sub_257499A2C(v138, type metadata accessor for NeuralNetwork.Preprocessor.Kind);
-      *(v85 + 88) = v99;
-      *(v85 + 96) = v101;
-      *(v85 + 104) = v103;
-      v107 = sub_2576A6964(v85);
-      v109 = v108;
-      OUTLINED_FUNCTION_6_1();
-      sub_257499A2C(v137, v110);
-      v141 = v79;
-      v112 = *(v79 + 16);
-      v111 = *(v79 + 24);
-      if (v112 >= v111 >> 1)
-      {
-        OUTLINED_FUNCTION_174(v111);
-        OUTLINED_FUNCTION_310();
-        sub_257484040(v114, v115, v116);
-        v79 = v141;
-      }
-
-      *(v79 + 16) = v112 + 1;
-      v113 = v79 + 24 * v112;
-      *(v113 + 32) = v107;
-      *(v113 + 40) = v109;
-      *(v113 + 48) = 2;
-      v82 += v130;
-      --v78;
-      v31 = v133;
-      v1 = v134;
+      __break(1u);
+      goto LABEL_42;
     }
 
-    while (v78);
-
-    inited = v123;
-    v0 = v124;
+    v25 = MEMORY[0x277D84F90];
+LABEL_17:
+    v12 = 2;
+    v9 = 1;
+    sub_257469AE0();
+    inited = v32;
+    *(v32 + 16) = 2;
+    *(v32 + 72) = 0x727453206D657449;
+    *(v32 + 80) = 0xEF73444920676E69;
+    *(v32 + 88) = v25;
+    *(v32 + 96) = 0;
+    *(v32 + 104) = 1;
   }
 
-  else
+  v25 = v87;
+  ItemSimilarityRecommenderConfiguration.itemIntIDs.getter();
+  if (v33)
   {
+    v1 = v33;
+    v86 = inited;
+    v34 = *(v33 + 16);
+    if (v34)
+    {
+      v35 = OUTLINED_FUNCTION_35_14(MEMORY[0x277D84F90]);
+      sub_257484040(v35, v34, 0);
+      v36 = 32;
+      v37 = v88;
+      v9 = 24;
+      do
+      {
+        v38 = sub_257743674();
+        v40 = v39;
+        v88 = v37;
+        v42 = *(v37 + 16);
+        v41 = *(v37 + 24);
+        if (v42 >= v41 >> 1)
+        {
+          v44 = OUTLINED_FUNCTION_174(v41);
+          sub_257484040(v44, v42 + 1, 1);
+        }
 
-    v79 = MEMORY[0x277D84F90];
+        *(v37 + 16) = v42 + 1;
+        v43 = v37 + 24 * v42;
+        *(v43 + 32) = v38;
+        *(v43 + 40) = v40;
+        *(v43 + 48) = 0;
+        v36 += 8;
+        --v34;
+      }
+
+      while (v34);
+    }
+
+    else
+    {
+
+      v37 = MEMORY[0x277D84F90];
+    }
+
+    inited = v86;
+    v12 = *(v86 + 16);
+    v45 = *(v86 + 24);
+    v25 = v12 + 1;
+    if (v12 >= v45 >> 1)
+    {
+      OUTLINED_FUNCTION_1_69(v45);
+      sub_257469AE0();
+      inited = v84;
+    }
+
+    *(inited + 16) = v25;
+    v46 = inited + 40 * v12;
+    strcpy((v46 + 32), "Item Int IDs");
+    *(v46 + 45) = 0;
+    *(v46 + 46) = -5120;
+    *(v46 + 48) = v37;
+    *(v46 + 56) = 0;
+    *(v46 + 64) = 1;
   }
 
-  *(inited + 88) = v79;
-  *(inited + 96) = 0;
-  *(inited + 104) = 1;
-  *(inited + 112) = 0xD000000000000019;
-  *(inited + 120) = 0x800000025777A070;
-  if (*(v0 + 24) == 1)
+  OUTLINED_FUNCTION_27_21();
+  OUTLINED_FUNCTION_316();
+  OUTLINED_FUNCTION_6_48();
+  if (v48)
   {
-    v117 = vdup_n_s32(*(v0 + 16) == 0);
-    v118.i64[0] = v117.u32[0];
-    v118.i64[1] = v117.u32[1];
-    v119 = vbslq_s8(vcltzq_s64(vshlq_n_s64(v118, 0x3FuLL)), xmmword_257744E80, xmmword_257744E90);
+LABEL_42:
+    OUTLINED_FUNCTION_1_69(v26);
+    sub_257469AE0();
+    v47 = v80;
   }
 
-  else
+  *(v47 + 16) = v25;
+  v49 = v47 + 40 * inited;
+  v50 = v47;
+  *(v49 + 32) = 0x706E49206D657449;
+  *(v49 + 40) = 0xEF656D614E207475;
+  *(v49 + 48) = v9;
+  *(v49 + 56) = v1;
+  *(v49 + 64) = 0;
+  OUTLINED_FUNCTION_44_8();
+  OUTLINED_FUNCTION_316();
+  OUTLINED_FUNCTION_48_5();
+  if (v48)
   {
-    v119 = xmmword_257744E80;
+    OUTLINED_FUNCTION_1_69(v51);
+    sub_257469AE0();
+    v50 = v81;
   }
 
-  *(inited + 128) = v119;
-  *(inited + 144) = 0;
-  *(inited + 152) = 0xD000000000000019;
-  *(inited + 160) = 0x800000025777A090;
-  v120 = 0x35206B6E6152;
-  if (*(v0 + 40))
+  OUTLINED_FUNCTION_23_7();
+  *(v50 + 16) = v25;
+  OUTLINED_FUNCTION_20_21();
+  v54[4] = v52 + 6;
+  v54[5] = v53;
+  v54[6] = v12;
+  v54[7] = v9;
+  OUTLINED_FUNCTION_46_10();
+  OUTLINED_FUNCTION_27_21();
+  OUTLINED_FUNCTION_316();
+  OUTLINED_FUNCTION_6_48();
+  if (v48)
   {
-    v120 = 0x34206B6E6152;
+    OUTLINED_FUNCTION_1_69(v55);
+    sub_257469AE0();
   }
 
-  *(inited + 168) = v120;
-  *(inited + 176) = 0xE600000000000000;
-  *(inited + 184) = 0;
-  sub_2576A6964(inited);
+  OUTLINED_FUNCTION_23_7();
+  OUTLINED_FUNCTION_28_25(v56, v57, v58, v59);
+  v61[4] = v62;
+  v61[5] = v60;
+  v61[6] = v9;
+  v61[7] = v1;
+  OUTLINED_FUNCTION_46_10();
+  OUTLINED_FUNCTION_44_8();
+  OUTLINED_FUNCTION_316();
+  OUTLINED_FUNCTION_48_5();
+  if (v48)
+  {
+    OUTLINED_FUNCTION_1_69(v63);
+    sub_257469AE0();
+    v50 = v82;
+  }
+
+  OUTLINED_FUNCTION_23_7();
+  *(v50 + 16) = v25;
+  OUTLINED_FUNCTION_20_21();
+  v65[4] = v66;
+  v65[5] = v64;
+  v65[6] = v12;
+  v65[7] = v9;
+  OUTLINED_FUNCTION_46_10();
+  OUTLINED_FUNCTION_27_21();
+  OUTLINED_FUNCTION_316();
+  OUTLINED_FUNCTION_6_48();
+  if (v48)
+  {
+    OUTLINED_FUNCTION_1_69(v67);
+    sub_257469AE0();
+  }
+
+  OUTLINED_FUNCTION_23_7();
+  OUTLINED_FUNCTION_28_25(v68, v69, v70, v71);
+  v74[4] = v72 + 4;
+  v74[5] = v73;
+  v74[6] = v9;
+  v74[7] = v1;
+  OUTLINED_FUNCTION_46_10();
+  OUTLINED_FUNCTION_44_8();
+  OUTLINED_FUNCTION_316();
+  v76 = *(v50 + 16);
+  v75 = *(v50 + 24);
+  if (v76 >= v75 >> 1)
+  {
+    OUTLINED_FUNCTION_174(v75);
+    sub_257469AE0();
+    v50 = v83;
+  }
+
+  OUTLINED_FUNCTION_23_7();
+  *(v50 + 16) = v76 + 1;
+  OUTLINED_FUNCTION_20_21();
+  *(v79 + 32) = v77 + 10;
+  *(v79 + 40) = v78;
+  *(v79 + 48) = v88;
+  *(v79 + 56) = v89;
+  *(v79 + 64) = 0;
+  sub_2576AACFC(v50);
   OUTLINED_FUNCTION_35();
 }
 
-uint64_t NeuralNetworkRegressor.layers.getter()
+uint64_t ItemSimilarityRecommenderConfiguration.itemInputFeatureName.setter()
 {
-  v3 = type metadata accessor for NeuralNetwork.Layer();
-  v4 = OUTLINED_FUNCTION_24(v3);
-  v6 = v5;
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v4);
-  OUTLINED_FUNCTION_3();
-  v11 = v10 - v9;
-  v12 = *v0;
-  v13 = *(*v0 + 16);
-  v14 = MEMORY[0x277D84F90];
-  if (v13)
-  {
-    OUTLINED_FUNCTION_17_2();
-    sub_2574841E8();
-    v14 = v25;
-    v15 = type metadata accessor for Proto_NeuralNetworkLayer(0);
-    OUTLINED_FUNCTION_24(v15);
-    v17 = v12 + ((*(v16 + 80) + 32) & ~*(v16 + 80));
-    v19 = *(v18 + 72);
-    do
-    {
-      OUTLINED_FUNCTION_4_46();
-      sub_2576C928C(v17, v11);
-      OUTLINED_FUNCTION_24_2();
-      if (v21)
-      {
-        OUTLINED_FUNCTION_174(v20);
-        OUTLINED_FUNCTION_310();
-        sub_2574841E8();
-        v14 = v25;
-      }
+  OUTLINED_FUNCTION_7_1();
 
-      *(v14 + 16) = v1;
-      v22 = *(v6 + 80);
-      OUTLINED_FUNCTION_193();
-      sub_257499A84(v11, v14 + v23 + *(v6 + 72) * v2);
-      v17 += v19;
-      --v13;
-    }
-
-    while (v13);
-  }
-
-  return v14;
+  *(v1 + 8) = v2;
+  *(v1 + 16) = v0;
+  return result;
 }
 
-void NeuralNetworkRegressor.layers.setter()
+uint64_t ItemSimilarityRecommenderConfiguration.recommendationCountInputFeatureName.setter()
+{
+  OUTLINED_FUNCTION_7_1();
+
+  *(v1 + 24) = v2;
+  *(v1 + 32) = v0;
+  return result;
+}
+
+uint64_t ItemSimilarityRecommenderConfiguration.itemInclusionInputFeatureName.setter()
+{
+  OUTLINED_FUNCTION_7_1();
+
+  *(v1 + 40) = v2;
+  *(v1 + 48) = v0;
+  return result;
+}
+
+uint64_t ItemSimilarityRecommenderConfiguration.itemExclusionInputFeatureName.setter()
+{
+  OUTLINED_FUNCTION_7_1();
+
+  *(v1 + 56) = v2;
+  *(v1 + 64) = v0;
+  return result;
+}
+
+uint64_t ItemSimilarityRecommenderConfiguration.recommendedItemsOutputFeatureName.setter()
+{
+  OUTLINED_FUNCTION_7_1();
+
+  *(v1 + 72) = v2;
+  *(v1 + 80) = v0;
+  return result;
+}
+
+uint64_t ItemSimilarityRecommenderConfiguration.recommendedItemScoresOutputFeatureName.setter()
+{
+  OUTLINED_FUNCTION_7_1();
+
+  *(v1 + 88) = v2;
+  *(v1 + 96) = v0;
+  return result;
+}
+
+uint64_t ItemSimilarityRecommenderConfiguration.itemItemSimilarities.getter()
+{
+  v2 = type metadata accessor for ItemSimilarityRecommenderConfiguration.SimilarItems(0);
+  v3 = OUTLINED_FUNCTION_24(v2);
+  MEMORY[0x28223BE20](v3);
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_271();
+  v4 = *v0;
+  v5 = *(*v0 + 16);
+  v6 = MEMORY[0x277D84F90];
+  if (v5)
+  {
+    v7 = OUTLINED_FUNCTION_17_2();
+    sub_257484190(v7, v8, v9);
+    v6 = v19;
+    v10 = type metadata accessor for Proto_ItemSimilarityRecommender.SimilarItems(0);
+    OUTLINED_FUNCTION_24(v10);
+    v12 = v4 + ((*(v11 + 80) + 32) & ~*(v11 + 80));
+    v14 = *(v13 + 72);
+    do
+    {
+      OUTLINED_FUNCTION_12_35();
+      sub_2576DADCC();
+      OUTLINED_FUNCTION_24_2();
+      if (v16)
+      {
+        v17 = OUTLINED_FUNCTION_174(v15);
+        sub_257484190(v17, v1, 1);
+        v6 = v19;
+      }
+
+      *(v6 + 16) = v1;
+      OUTLINED_FUNCTION_193();
+      sub_2576DAE24();
+      v12 += v14;
+      --v5;
+    }
+
+    while (v5);
+  }
+
+  return v6;
+}
+
+void ItemSimilarityRecommenderConfiguration.itemItemSimilarities.setter()
 {
   OUTLINED_FUNCTION_31();
-  v4 = v3;
-  v5 = type metadata accessor for NeuralNetwork.Layer();
-  v6 = OUTLINED_FUNCTION_24(v5);
-  v8 = v7;
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_3();
-  v11 = OUTLINED_FUNCTION_78();
-  v12 = type metadata accessor for Proto_NeuralNetworkLayer(v11);
-  v13 = OUTLINED_FUNCTION_24(v12);
-  v15 = v14;
-  v17 = *(v16 + 64);
-  MEMORY[0x28223BE20](v13);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_21_1();
-  v18 = *(v4 + 16);
-  if (v18)
-  {
-    OUTLINED_FUNCTION_12_3(MEMORY[0x277D84F90]);
-    sub_2574843E0();
-    v19 = v32;
-    v20 = *(v8 + 80);
-    OUTLINED_FUNCTION_193();
-    v22 = v4 + v21;
-    v23 = *(v8 + 72);
-    do
-    {
-      v24 = OUTLINED_FUNCTION_2_54();
-      sub_2576C928C(v24, v1);
-      OUTLINED_FUNCTION_4_46();
-      sub_2576C928C(v1, v2);
-      OUTLINED_FUNCTION_3_2();
-      sub_257499A2C(v1, v25);
-      OUTLINED_FUNCTION_27_2();
-      if (v27)
-      {
-        OUTLINED_FUNCTION_13_1(v26);
-        sub_2574843E0();
-        v19 = v32;
-      }
-
-      *(v19 + 16) = v8;
-      v28 = *(v15 + 80);
-      OUTLINED_FUNCTION_193();
-      v29 = *(v15 + 72);
-      OUTLINED_FUNCTION_11_2();
-      sub_257499A84(v2, v30);
-      v22 += v23;
-      --v18;
-    }
-
-    while (v18);
-  }
-
-  else
-  {
-
-    v19 = MEMORY[0x277D84F90];
-  }
-
-  v31 = *v0;
-
-  *v0 = v19;
-  OUTLINED_FUNCTION_35();
-}
-
-uint64_t NeuralNetworkRegressor.preprocessors.getter()
-{
-  v3 = type metadata accessor for NeuralNetwork.Preprocessor(0);
+  v2 = OUTLINED_FUNCTION_376();
+  v3 = type metadata accessor for ItemSimilarityRecommenderConfiguration.SimilarItems(v2);
   v4 = OUTLINED_FUNCTION_24(v3);
   v6 = v5;
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v4);
   OUTLINED_FUNCTION_3();
-  v11 = v10 - v9;
-  v12 = *(v0 + 8);
-  v13 = *(v12 + 16);
-  v14 = MEMORY[0x277D84F90];
-  if (v13)
-  {
-    OUTLINED_FUNCTION_17_2();
-    sub_257484240();
-    v14 = v25;
-    v15 = type metadata accessor for Proto_NeuralNetworkPreprocessing(0);
-    OUTLINED_FUNCTION_24(v15);
-    v17 = v12 + ((*(v16 + 80) + 32) & ~*(v16 + 80));
-    v19 = *(v18 + 72);
-    do
-    {
-      OUTLINED_FUNCTION_6_43();
-      sub_2576C928C(v17, v11);
-      OUTLINED_FUNCTION_24_2();
-      if (v21)
-      {
-        OUTLINED_FUNCTION_174(v20);
-        OUTLINED_FUNCTION_310();
-        sub_257484240();
-        v14 = v25;
-      }
-
-      *(v14 + 16) = v1;
-      v22 = *(v6 + 80);
-      OUTLINED_FUNCTION_193();
-      sub_257499A84(v11, v14 + v23 + *(v6 + 72) * v2);
-      v17 += v19;
-      --v13;
-    }
-
-    while (v13);
-  }
-
-  return v14;
-}
-
-void NeuralNetworkRegressor.preprocessors.setter()
-{
-  OUTLINED_FUNCTION_31();
-  v4 = v3;
-  v5 = type metadata accessor for NeuralNetwork.Preprocessor(0);
-  v6 = OUTLINED_FUNCTION_24(v5);
-  v8 = v7;
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20](v6);
+  OUTLINED_FUNCTION_40();
+  v7 = type metadata accessor for Proto_ItemSimilarityRecommender.SimilarItems(0);
+  v8 = OUTLINED_FUNCTION_24(v7);
+  MEMORY[0x28223BE20](v8);
   OUTLINED_FUNCTION_3();
-  v11 = OUTLINED_FUNCTION_78();
-  v12 = type metadata accessor for Proto_NeuralNetworkPreprocessing(v11);
-  v13 = OUTLINED_FUNCTION_24(v12);
-  v15 = v14;
-  v17 = *(v16 + 64);
-  MEMORY[0x28223BE20](v13);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_21_1();
-  v18 = *(v4 + 16);
-  if (v18)
+  v9 = *(v0 + 16);
+  if (v9)
   {
-    OUTLINED_FUNCTION_12_3(MEMORY[0x277D84F90]);
-    sub_257484438();
-    v19 = v31;
-    v20 = *(v8 + 80);
+    v10 = OUTLINED_FUNCTION_63_2(MEMORY[0x277D84F90]);
+    sub_2574850A8(v10, v11, v12);
+    v13 = v20;
     OUTLINED_FUNCTION_193();
-    v22 = v4 + v21;
-    v23 = *(v8 + 72);
+    v15 = v0 + v14;
+    v16 = *(v6 + 72);
     do
     {
-      OUTLINED_FUNCTION_10_37();
-      sub_2576C928C(v22, v1);
-      OUTLINED_FUNCTION_6_43();
-      sub_2576C928C(v1, v2);
-      OUTLINED_FUNCTION_6_1();
-      sub_257499A2C(v1, v24);
+      OUTLINED_FUNCTION_13_26();
+      sub_2576DADCC();
+      OUTLINED_FUNCTION_12_35();
+      sub_2576DADCC();
+      OUTLINED_FUNCTION_18_35();
       OUTLINED_FUNCTION_27_2();
-      if (v26)
+      if (v18)
       {
-        OUTLINED_FUNCTION_13_1(v25);
-        sub_257484438();
-        v19 = v31;
+        v19 = OUTLINED_FUNCTION_174(v17);
+        sub_2574850A8(v19, v6, 1);
+        v13 = v20;
       }
 
-      *(v19 + 16) = v8;
-      v27 = *(v15 + 80);
+      *(v13 + 16) = v6;
       OUTLINED_FUNCTION_193();
-      v28 = *(v15 + 72);
-      OUTLINED_FUNCTION_9_2();
-      sub_257499A84(v2, v29);
-      v22 += v23;
-      --v18;
+      sub_2576DAE24();
+      v15 += v16;
+      --v9;
     }
 
-    while (v18);
+    while (v9);
   }
 
   else
   {
 
-    v19 = MEMORY[0x277D84F90];
+    v13 = MEMORY[0x277D84F90];
   }
 
-  v30 = *(v0 + 8);
-
-  *(v0 + 8) = v19;
+  *v1 = v13;
   OUTLINED_FUNCTION_35();
 }
 
-void sub_2576C87A4(uint64_t *a1)
-{
-  v1 = *a1;
-
-  NeuralNetworkRegressor.layers.setter();
-}
-
-uint64_t (*NeuralNetworkRegressor.layers.modify(uint64_t *a1))(uint64_t *a1, char a2)
+uint64_t (*ItemSimilarityRecommenderConfiguration.itemItemSimilarities.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
 {
   a1[1] = v1;
-  *a1 = NeuralNetworkRegressor.layers.getter();
-  return sub_2576C8818;
+  *a1 = ItemSimilarityRecommenderConfiguration.itemItemSimilarities.getter();
+  return sub_2576D8DAC;
 }
 
-void sub_2576C8830(uint64_t *a1)
+void ItemSimilarityRecommenderConfiguration.itemStringIDs.getter()
 {
-  v1 = *a1;
+  OUTLINED_FUNCTION_31();
+  type metadata accessor for Proto_StringVector(0);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v4);
+  OUTLINED_FUNCTION_3();
+  v7 = (v6 - v5);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A878, &unk_257748700);
+  v9 = OUTLINED_FUNCTION_13(v8);
+  MEMORY[0x28223BE20](v9);
+  OUTLINED_FUNCTION_31_15();
+  MEMORY[0x28223BE20](v10);
+  v11 = *(OUTLINED_FUNCTION_55_7() + 48);
+  OUTLINED_FUNCTION_54_6();
+  OUTLINED_FUNCTION_35_12(v2);
+  OUTLINED_FUNCTION_53_5();
+  if (v3 != 1)
+  {
+    sub_257487308(v0 + v11);
+    OUTLINED_FUNCTION_35_0(v1);
+    if (v12)
+    {
+      *v7 = MEMORY[0x277D84F90];
+      _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+      OUTLINED_FUNCTION_35_0(v1);
+      if (!v12)
+      {
+        sub_2574695E4(v1, &qword_27F87A878, &unk_257748700);
+      }
+    }
 
-  NeuralNetworkRegressor.preprocessors.setter();
+    else
+    {
+      OUTLINED_FUNCTION_0_87();
+      sub_2576DAE24();
+    }
+
+    OUTLINED_FUNCTION_15_21();
+    sub_2576DAE7C();
+  }
+
+  OUTLINED_FUNCTION_35();
 }
 
-uint64_t (*NeuralNetworkRegressor.preprocessors.modify(uint64_t *a1))(uint64_t *a1, char a2)
+uint64_t ItemSimilarityRecommenderConfiguration.itemStringIDs.setter(uint64_t a1)
+{
+  v4 = type metadata accessor for Proto_StringVector(0);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v5);
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_271();
+  if (a1)
+  {
+    _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+    *v2 = a1;
+    v6 = *(type metadata accessor for Proto_ItemSimilarityRecommender(0) + 48);
+    sub_2574695E4(v1 + v6, &qword_27F87A878, &unk_257748700);
+    OUTLINED_FUNCTION_0_87();
+    sub_2576DAE24();
+    return __swift_storeEnumTagSinglePayload(v1 + v6, 0, 1, v4);
+  }
+
+  else
+  {
+    v8 = type metadata accessor for Proto_ItemSimilarityRecommender(0);
+    sub_2574695E4(v1 + *(v8 + 48), &qword_27F87A878, &unk_257748700);
+    v9 = OUTLINED_FUNCTION_39_12();
+
+    return __swift_storeEnumTagSinglePayload(v9, v10, v11, v12);
+  }
+}
+
+void (*ItemSimilarityRecommenderConfiguration.itemStringIDs.modify(void *a1))(uint64_t **a1, char a2)
+{
+  v3 = __swift_coroFrameAllocStub(0x40uLL);
+  *a1 = v3;
+  v3[1] = v1;
+  v3[2] = type metadata accessor for Proto_StringVector(0);
+  OUTLINED_FUNCTION_4();
+  v5 = *(v4 + 64);
+  v3[3] = __swift_coroFrameAllocStub(v5);
+  v6 = __swift_coroFrameAllocStub(v5);
+  v3[4] = v6;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A878, &unk_257748700);
+  OUTLINED_FUNCTION_13(v7);
+  v9 = *(v8 + 64);
+  v10 = __swift_coroFrameAllocStub(v9);
+  v3[5] = v10;
+  v11 = __swift_coroFrameAllocStub(v9);
+  v3[6] = v11;
+  v12 = *(type metadata accessor for Proto_ItemSimilarityRecommender(0) + 48);
+  *(v3 + 14) = v12;
+  sub_257487308(v1 + v12);
+  v13 = OUTLINED_FUNCTION_35_12(v11);
+  sub_2574695E4(v11, &qword_27F87A878, &unk_257748700);
+  v14 = 0;
+  if (v13 != 1)
+  {
+    sub_257487308(v1 + v12);
+    OUTLINED_FUNCTION_35_0(v10);
+    if (v15)
+    {
+      *v6 = MEMORY[0x277D84F90];
+      _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+      OUTLINED_FUNCTION_35_0(v10);
+      if (!v15)
+      {
+        sub_2574695E4(v10, &qword_27F87A878, &unk_257748700);
+      }
+    }
+
+    else
+    {
+      OUTLINED_FUNCTION_0_87();
+      sub_2576DAE24();
+    }
+
+    v14 = *v6;
+
+    OUTLINED_FUNCTION_15_21();
+    sub_2576DAE7C();
+  }
+
+  *v3 = v14;
+  return sub_2576D926C;
+}
+
+void sub_2576D926C(uint64_t **a1, char a2)
+{
+  v2 = *a1;
+  v3 = **a1;
+  if (a2)
+  {
+    v5 = v2[5];
+    v4 = v2[6];
+    v7 = v2[3];
+    v6 = v2[4];
+
+    ItemSimilarityRecommenderConfiguration.itemStringIDs.setter(v8);
+  }
+
+  else
+  {
+    v9 = *(v2 + 14);
+    if (v3)
+    {
+      v10 = v2[3];
+      v11 = v2[1];
+      _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+      *v10 = v3;
+      sub_2574695E4(v11 + v9, &qword_27F87A878, &unk_257748700);
+      OUTLINED_FUNCTION_0_87();
+      sub_2576DAE24();
+      v12 = 0;
+    }
+
+    else
+    {
+      sub_2574695E4(v2[1] + v9, &qword_27F87A878, &unk_257748700);
+      v12 = 1;
+    }
+
+    v5 = v2[5];
+    v4 = v2[6];
+    v7 = v2[3];
+    v6 = v2[4];
+    __swift_storeEnumTagSinglePayload(v2[1] + *(v2 + 14), v12, 1, v2[2]);
+  }
+
+  free(v4);
+  free(v5);
+  free(v6);
+  free(v7);
+
+  free(v2);
+}
+
+void ItemSimilarityRecommenderConfiguration.itemIntIDs.getter()
+{
+  OUTLINED_FUNCTION_31();
+  type metadata accessor for Proto_Int64Vector(0);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v4);
+  OUTLINED_FUNCTION_3();
+  v7 = (v6 - v5);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A880, &qword_25774AFD0);
+  v9 = OUTLINED_FUNCTION_13(v8);
+  MEMORY[0x28223BE20](v9);
+  OUTLINED_FUNCTION_31_15();
+  MEMORY[0x28223BE20](v10);
+  v11 = *(OUTLINED_FUNCTION_55_7() + 52);
+  OUTLINED_FUNCTION_54_6();
+  OUTLINED_FUNCTION_35_12(v2);
+  OUTLINED_FUNCTION_53_5();
+  if (v3 != 1)
+  {
+    sub_257487308(v0 + v11);
+    v12 = OUTLINED_FUNCTION_35_12(v1);
+    v13 = MEMORY[0x277D84F90];
+    if (v12 == 1)
+    {
+      *v7 = MEMORY[0x277D84F90];
+      _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+      OUTLINED_FUNCTION_35_0(v1);
+      if (!v14)
+      {
+        sub_2574695E4(v1, &qword_27F87A880, &qword_25774AFD0);
+      }
+    }
+
+    else
+    {
+      OUTLINED_FUNCTION_4_50();
+      sub_2576DAE24();
+    }
+
+    v15 = *v7;
+
+    sub_2576DAE7C();
+    v16 = *(v15 + 16);
+    if (v16)
+    {
+      sub_257483724(0, v16, 0);
+      v17 = *(v13 + 16);
+      v18 = 32;
+      do
+      {
+        v19 = *(v15 + v18);
+        v20 = *(v13 + 24);
+        if (v17 >= v20 >> 1)
+        {
+          v21 = OUTLINED_FUNCTION_174(v20);
+          sub_257483724(v21, v17 + 1, 1);
+        }
+
+        *(v13 + 16) = v17 + 1;
+        *(v13 + 8 * v17 + 32) = v19;
+        v18 += 8;
+        ++v17;
+        --v16;
+      }
+
+      while (v16);
+    }
+  }
+
+  OUTLINED_FUNCTION_35();
+}
+
+uint64_t ItemSimilarityRecommenderConfiguration.itemIntIDs.setter(uint64_t a1)
+{
+  v3 = type metadata accessor for Proto_Int64Vector(0);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v4);
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_271();
+  if (a1)
+  {
+    sub_25764CFE8(a1);
+    v5 = *(type metadata accessor for Proto_ItemSimilarityRecommender(0) + 52);
+    sub_2574695E4(v1 + v5, &qword_27F87A880, &qword_25774AFD0);
+    OUTLINED_FUNCTION_4_50();
+    sub_2576DAE24();
+    return __swift_storeEnumTagSinglePayload(v1 + v5, 0, 1, v3);
+  }
+
+  else
+  {
+    v7 = type metadata accessor for Proto_ItemSimilarityRecommender(0);
+    sub_2574695E4(v1 + *(v7 + 52), &qword_27F87A880, &qword_25774AFD0);
+    v8 = OUTLINED_FUNCTION_39_12();
+
+    return __swift_storeEnumTagSinglePayload(v8, v9, v10, v11);
+  }
+}
+
+void (*ItemSimilarityRecommenderConfiguration.itemIntIDs.modify(void *a1))(uint64_t *a1, char a2)
 {
   a1[1] = v1;
-  *a1 = NeuralNetworkRegressor.preprocessors.getter();
-  return sub_2576C88A4;
+  v3 = type metadata accessor for Proto_Int64Vector(0);
+  a1[2] = v3;
+  OUTLINED_FUNCTION_13(v3);
+  a1[3] = __swift_coroFrameAllocStub(*(v4 + 64));
+  ItemSimilarityRecommenderConfiguration.itemIntIDs.getter();
+  *a1 = v5;
+  return sub_2576D975C;
 }
 
-uint64_t sub_2576C88BC(uint64_t *a1, char a2, uint64_t (*a3)(uint64_t))
+void sub_2576D975C(uint64_t *a1, char a2)
 {
-  v5 = *a1;
-  v4 = a1[1];
+  if (a2)
+  {
+    v3 = a1[3];
+
+    ItemSimilarityRecommenderConfiguration.itemIntIDs.setter(v4);
+  }
+
+  else
+  {
+    if (*a1)
+    {
+      v3 = a1[3];
+      v5 = a1[1];
+      sub_25764CFE8(*a1);
+      v6 = v5 + *(type metadata accessor for Proto_ItemSimilarityRecommender(0) + 52);
+      sub_2574695E4(v6, &qword_27F87A880, &qword_25774AFD0);
+      OUTLINED_FUNCTION_4_50();
+      sub_2576DAE24();
+      v7 = 0;
+    }
+
+    else
+    {
+      v8 = a1[1];
+      v6 = v8 + *(type metadata accessor for Proto_ItemSimilarityRecommender(0) + 52);
+      sub_2574695E4(v6, &qword_27F87A880, &qword_25774AFD0);
+      v3 = a1[3];
+      v7 = 1;
+    }
+
+    __swift_storeEnumTagSinglePayload(v6, v7, 1, a1[2]);
+  }
+
+  free(v3);
+}
+
+uint64_t ItemSimilarityRecommenderConfiguration.itemInputFeatureName.modify()
+{
+  OUTLINED_FUNCTION_14_11(*(v0 + 16), *(v0 + 8));
+
+  return OUTLINED_FUNCTION_44_1();
+}
+
+uint64_t ItemSimilarityRecommenderConfiguration.recommendationCountInputFeatureName.modify()
+{
+  OUTLINED_FUNCTION_14_11(*(v0 + 32), *(v0 + 24));
+
+  return OUTLINED_FUNCTION_44_1();
+}
+
+uint64_t ItemSimilarityRecommenderConfiguration.itemInclusionInputFeatureName.modify()
+{
+  OUTLINED_FUNCTION_14_11(*(v0 + 48), *(v0 + 40));
+
+  return OUTLINED_FUNCTION_44_1();
+}
+
+uint64_t ItemSimilarityRecommenderConfiguration.itemExclusionInputFeatureName.modify()
+{
+  OUTLINED_FUNCTION_14_11(*(v0 + 64), *(v0 + 56));
+
+  return OUTLINED_FUNCTION_44_1();
+}
+
+uint64_t ItemSimilarityRecommenderConfiguration.recommendedItemsOutputFeatureName.modify()
+{
+  OUTLINED_FUNCTION_14_11(*(v0 + 80), *(v0 + 72));
+
+  return OUTLINED_FUNCTION_44_1();
+}
+
+uint64_t ItemSimilarityRecommenderConfiguration.recommendedItemScoresOutputFeatureName.modify()
+{
+  OUTLINED_FUNCTION_14_11(*(v0 + 96), *(v0 + 88));
+
+  return OUTLINED_FUNCTION_44_1();
+}
+
+uint64_t sub_2576D9B8C()
+{
+  OUTLINED_FUNCTION_12_22();
+  if (v3)
+  {
+
+    *(v2 + 88) = v1;
+    *(v2 + 96) = v0;
+  }
+
+  else
+  {
+
+    *(v2 + 88) = v1;
+    *(v2 + 96) = v0;
+  }
+
+  return result;
+}
+
+void sub_2576D9BFC()
+{
+  OUTLINED_FUNCTION_31();
+  v2 = type metadata accessor for ItemSimilarityRecommenderConfiguration.ItemScore(0);
+  v3 = OUTLINED_FUNCTION_24(v2);
+  v5 = v4;
+  MEMORY[0x28223BE20](v3);
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_40();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B28, &unk_257773B40);
+  inited = swift_initStackObject();
+  *(inited + 16) = xmmword_257743FF0;
+  *(inited + 32) = 0x4449206D657449;
+  *(inited + 40) = 0xE700000000000000;
+  if ((*v0 & 0x8000000000000000) != 0)
+  {
+    goto LABEL_14;
+  }
+
+  v7 = inited;
+  *(inited + 48) = sub_257743674();
+  *(v7 + 56) = v8;
+  *(v7 + 64) = 0;
+  strcpy((v7 + 72), "Similar Items");
+  *(v7 + 86) = -4864;
+  v9 = ItemSimilarityRecommenderConfiguration.SimilarItems.similarItems.getter();
+  v10 = *(v9 + 16);
+  if (v10)
+  {
+    v31 = v7;
+    v32 = v0;
+    v34 = MEMORY[0x277D84F90];
+    sub_257484040(0, v10, 0);
+    v11 = v34;
+    OUTLINED_FUNCTION_193();
+    v13 = v9 + v12;
+    OUTLINED_FUNCTION_23_7();
+    v33 = v14;
+    v15 = *(v5 + 72);
+    while (1)
+    {
+      OUTLINED_FUNCTION_10_41();
+      sub_2576DADCC();
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879FD8, &unk_257744910);
+      v16 = swift_initStackObject();
+      *(v16 + 16) = xmmword_257743FF0;
+      *(v16 + 32) = 0x4449206D657449;
+      *(v16 + 40) = 0xE700000000000000;
+      if ((*v1 & 0x8000000000000000) != 0)
+      {
+        break;
+      }
+
+      v17 = v16;
+      *(v16 + 48) = sub_257743674();
+      *(v17 + 56) = v18;
+      *(v17 + 64) = 0;
+      *(v17 + 72) = 0xD000000000000010;
+      *(v17 + 80) = v33;
+      *(v17 + 88) = sub_257743674();
+      *(v17 + 96) = v19;
+      *(v17 + 104) = 0;
+      v20 = sub_2576A6964(v17);
+      v22 = v21;
+      OUTLINED_FUNCTION_19_26();
+      v24 = *(v34 + 16);
+      v23 = *(v34 + 24);
+      if (v24 >= v23 >> 1)
+      {
+        v26 = OUTLINED_FUNCTION_174(v23);
+        sub_257484040(v26, v24 + 1, 1);
+      }
+
+      *(v34 + 16) = v24 + 1;
+      v25 = v34 + 24 * v24;
+      *(v25 + 32) = v20;
+      *(v25 + 40) = v22;
+      *(v25 + 48) = 2;
+      v13 += v15;
+      if (!--v10)
+      {
+
+        v0 = v32;
+        v7 = v31;
+        goto LABEL_10;
+      }
+    }
+
+    __break(1u);
+LABEL_14:
+    __break(1u);
+  }
+
+  v11 = MEMORY[0x277D84F90];
+LABEL_10:
+  *(v7 + 88) = v11;
+  *(v7 + 96) = 0;
+  *(v7 + 104) = 1;
+  if (*(v0 + 16) != 0.0)
+  {
+    v27 = sub_257743674();
+    v29 = v28;
+    sub_257469AE0();
+    v7 = v30;
+    *(v30 + 16) = 3;
+    *(v30 + 112) = 0xD000000000000010;
+    *(v30 + 120) = 0x80000002577817D0;
+    *(v30 + 128) = v27;
+    *(v30 + 136) = v29;
+    *(v30 + 144) = 0;
+  }
+
+  sub_2576AACFC(v7);
+  OUTLINED_FUNCTION_35();
+}
+
+uint64_t ItemSimilarityRecommenderConfiguration.init()@<X0>(void *a1@<X8>)
+{
+  *a1 = MEMORY[0x277D84F90];
+  a1[1] = 0;
+  a1[2] = 0xE000000000000000;
+  a1[3] = 0;
+  a1[4] = 0xE000000000000000;
+  a1[5] = 0;
+  a1[6] = 0xE000000000000000;
+  a1[7] = 0;
+  a1[8] = 0xE000000000000000;
+  a1[9] = 0;
+  a1[10] = 0xE000000000000000;
+  a1[11] = 0;
+  a1[12] = 0xE000000000000000;
+  v2 = type metadata accessor for Proto_ItemSimilarityRecommender(0);
+  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  v3 = *(v2 + 48);
+  v4 = type metadata accessor for Proto_StringVector(0);
+  __swift_storeEnumTagSinglePayload(a1 + v3, 1, 1, v4);
+  v5 = *(v2 + 52);
+  v6 = type metadata accessor for Proto_Int64Vector(0);
+
+  return __swift_storeEnumTagSinglePayload(a1 + v5, 1, 1, v6);
+}
+
+void ItemSimilarityRecommenderConfiguration.customMirror.getter()
+{
+  OUTLINED_FUNCTION_31();
+  v1 = v0;
+  v38 = v2;
+  v3 = sub_257743A84();
+  v35 = *(v3 - 8);
+  v36 = v3;
+  MEMORY[0x28223BE20](v3);
+  OUTLINED_FUNCTION_3();
+  v37 = v5 - v4;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE0, &unk_257744EA0);
+  v7 = OUTLINED_FUNCTION_13(v6);
+  MEMORY[0x28223BE20](v7);
+  v9 = v34 - v8;
+  v34[1] = type metadata accessor for ItemSimilarityRecommenderConfiguration(0);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v10);
+  OUTLINED_FUNCTION_3();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B48, &qword_257744390);
+  v11 = swift_allocObject();
+  *(v11 + 16) = xmmword_2577442B0;
+  OUTLINED_FUNCTION_23_7();
+  *(v12 + 32) = 0xD000000000000014;
+  *(v12 + 40) = v13;
+  v14 = ItemSimilarityRecommenderConfiguration.itemItemSimilarities.getter();
+  *(v11 + 72) = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F8813D0, &unk_2577746E0);
+  *(v11 + 48) = v14;
+  v42 = v11;
+  ItemSimilarityRecommenderConfiguration.itemStringIDs.getter();
+  if (v15)
+  {
+    v16 = v15;
+    v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1F8, &qword_257770B90);
+    v40 = v16;
+    OUTLINED_FUNCTION_56_5(v39, xmmword_2577746C0);
+    if (v18)
+    {
+      OUTLINED_FUNCTION_1_69(v17);
+      sub_257469BAC();
+    }
+
+    OUTLINED_FUNCTION_24_23();
+  }
+
+  ItemSimilarityRecommenderConfiguration.itemIntIDs.getter();
+  if (v19)
+  {
+    v20 = v19;
+    v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879DF8, &qword_25776F230);
+    v40 = v20;
+    OUTLINED_FUNCTION_56_5(v39, xmmword_2577746D0);
+    if (v18)
+    {
+      OUTLINED_FUNCTION_1_69(v21);
+      sub_257469BAC();
+    }
+
+    OUTLINED_FUNCTION_24_23();
+  }
+
+  inited = swift_initStackObject();
+  *(inited + 16) = xmmword_257745520;
+  OUTLINED_FUNCTION_23_7();
+  *(v23 + 32) = 0xD000000000000014;
+  *(v23 + 40) = v24;
+  v25 = v1[2];
+  v26 = MEMORY[0x277D837D0];
+  *(inited + 48) = v1[1];
+  *(inited + 56) = v25;
+  *(inited + 72) = v26;
+  *(inited + 80) = 0xD000000000000023;
+  *(inited + 88) = 0x8000000257781630;
+  v27 = v1[4];
+  *(inited + 96) = v1[3];
+  *(inited + 104) = v27;
+  *(inited + 120) = v26;
+  *(inited + 128) = 0xD00000000000001DLL;
+  *(inited + 136) = 0x8000000257781660;
+  v28 = v1[6];
+  *(inited + 144) = v1[5];
+  *(inited + 152) = v28;
+  *(inited + 168) = v26;
+  *(inited + 176) = 0xD00000000000001DLL;
+  *(inited + 184) = 0x800000025777AE70;
+  v29 = v1[8];
+  *(inited + 192) = v1[7];
+  *(inited + 200) = v29;
+  *(inited + 216) = v26;
+  *(inited + 224) = 0xD000000000000021;
+  *(inited + 232) = 0x8000000257781680;
+  v30 = v1[10];
+  *(inited + 240) = v1[9];
+  *(inited + 248) = v30;
+  *(inited + 264) = v26;
+  *(inited + 272) = 0xD000000000000026;
+  *(inited + 280) = 0x80000002577816B0;
+  v31 = v1[11];
+  v32 = v1[12];
+  *(inited + 312) = v26;
+  *(inited + 288) = v31;
+  *(inited + 296) = v32;
+
+  sub_25763D2B0(inited);
+  sub_2576DADCC();
+  v39[0] = v42;
+  v33 = sub_257743A74();
+  __swift_storeEnumTagSinglePayload(v9, 1, 1, v33);
+  (*(v35 + 104))(v37, *MEMORY[0x277D84C38], v36);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879C08, &qword_2577709D0);
+  sub_25748397C();
+  sub_257743A94();
+  OUTLINED_FUNCTION_35();
+}
+
+uint64_t *(*ItemSimilarityRecommenderConfiguration.SimilarItems.itemID.modify(uint64_t *(*result)(uint64_t *result, char)))(uint64_t *result, char)
+{
+  *(result + 1) = v1;
+  if ((*v1 & 0x8000000000000000) != 0)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    *result = *v1;
+    return sub_2576DB1AC;
+  }
+
+  return result;
+}
+
+uint64_t ItemSimilarityRecommenderConfiguration.SimilarItems.similarItems.getter()
+{
+  v2 = type metadata accessor for ItemSimilarityRecommenderConfiguration.ItemScore(0);
+  v3 = OUTLINED_FUNCTION_24(v2);
+  MEMORY[0x28223BE20](v3);
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_271();
+  v4 = *(v0 + 8);
+  v5 = *(v4 + 16);
+  v6 = MEMORY[0x277D84F90];
+  if (v5)
+  {
+    v7 = OUTLINED_FUNCTION_17_2();
+    sub_257485100(v7, v8, v9);
+    v6 = v19;
+    v10 = type metadata accessor for Proto_ItemSimilarityRecommender.ConnectedItem(0);
+    OUTLINED_FUNCTION_24(v10);
+    v12 = v4 + ((*(v11 + 80) + 32) & ~*(v11 + 80));
+    v14 = *(v13 + 72);
+    do
+    {
+      OUTLINED_FUNCTION_14_22();
+      sub_2576DADCC();
+      OUTLINED_FUNCTION_24_2();
+      if (v16)
+      {
+        v17 = OUTLINED_FUNCTION_174(v15);
+        sub_257485100(v17, v1, 1);
+        v6 = v19;
+      }
+
+      *(v6 + 16) = v1;
+      OUTLINED_FUNCTION_193();
+      sub_2576DAE24();
+      v12 += v14;
+      --v5;
+    }
+
+    while (v5);
+  }
+
+  return v6;
+}
+
+void ItemSimilarityRecommenderConfiguration.SimilarItems.similarItems.setter()
+{
+  OUTLINED_FUNCTION_31();
+  v2 = OUTLINED_FUNCTION_376();
+  v3 = type metadata accessor for ItemSimilarityRecommenderConfiguration.ItemScore(v2);
+  v4 = OUTLINED_FUNCTION_24(v3);
+  v6 = v5;
+  MEMORY[0x28223BE20](v4);
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_40();
+  v7 = type metadata accessor for Proto_ItemSimilarityRecommender.ConnectedItem(0);
+  v8 = OUTLINED_FUNCTION_24(v7);
+  MEMORY[0x28223BE20](v8);
+  OUTLINED_FUNCTION_3();
+  v9 = *(v0 + 16);
+  if (v9)
+  {
+    v10 = OUTLINED_FUNCTION_63_2(MEMORY[0x277D84F90]);
+    sub_257485158(v10, v11, v12);
+    v13 = v20;
+    OUTLINED_FUNCTION_193();
+    v15 = v0 + v14;
+    v16 = *(v6 + 72);
+    do
+    {
+      OUTLINED_FUNCTION_10_41();
+      sub_2576DADCC();
+      OUTLINED_FUNCTION_14_22();
+      sub_2576DADCC();
+      OUTLINED_FUNCTION_19_26();
+      OUTLINED_FUNCTION_27_2();
+      if (v18)
+      {
+        v19 = OUTLINED_FUNCTION_174(v17);
+        sub_257485158(v19, v6, 1);
+        v13 = v20;
+      }
+
+      *(v13 + 16) = v6;
+      OUTLINED_FUNCTION_193();
+      sub_2576DAE24();
+      v15 += v16;
+      --v9;
+    }
+
+    while (v9);
+  }
+
+  else
+  {
+
+    v13 = MEMORY[0x277D84F90];
+  }
+
+  *(v1 + 8) = v13;
+  OUTLINED_FUNCTION_35();
+}
+
+uint64_t (*ItemSimilarityRecommenderConfiguration.SimilarItems.similarItems.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+{
+  a1[1] = v1;
+  *a1 = ItemSimilarityRecommenderConfiguration.SimilarItems.similarItems.getter();
+  return sub_2576DA8AC;
+}
+
+uint64_t sub_2576DA8C4(uint64_t *a1, char a2, uint64_t (*a3)(uint64_t))
+{
   if ((a2 & 1) == 0)
   {
     return a3(*a1);
   }
 
-  v6 = *a1;
-
-  a3(v7);
+  a3(v4);
 }
 
-unsigned __int8 *NeuralNetworkRegressor.arrayInputShapeMapping.setter(unsigned __int8 *result)
+double (*ItemSimilarityRecommenderConfiguration.SimilarItems.scoreAdjustment.modify(void *a1))(uint64_t a1)
 {
-  *(v1 + 16) = *result;
-  *(v1 + 24) = 1;
-  return result;
-}
-
-uint64_t *(*NeuralNetworkRegressor.arrayInputShapeMapping.modify(uint64_t a1))(uint64_t *result)
-{
-  *a1 = v1;
-  v2 = *(v1 + 24) == 1 && *(v1 + 16) != 0;
-  *(a1 + 8) = v2;
-  return sub_257498D04;
-}
-
-uint64_t *(*NeuralNetworkRegressor.imageInputShapeMapping.modify(uint64_t a1))(uint64_t *result)
-{
-  *a1 = v1;
-  *(a1 + 8) = *(v1 + 40);
-  return sub_257498D9C;
-}
-
-void NeuralNetworkRegressor.init(layers:preprocessors:)()
-{
-  OUTLINED_FUNCTION_31();
-  v74 = v2;
-  v4 = v3;
-  v6 = v5;
-  v7 = type metadata accessor for NeuralNetwork.Preprocessor(0);
-  v8 = OUTLINED_FUNCTION_24(v7);
-  v10 = v9;
-  v12 = *(v11 + 64);
-  MEMORY[0x28223BE20](v8);
-  OUTLINED_FUNCTION_3();
-  v13 = OUTLINED_FUNCTION_78();
-  v14 = type metadata accessor for Proto_NeuralNetworkPreprocessing(v13);
-  v15 = OUTLINED_FUNCTION_24(v14);
-  v73 = v16;
-  v18 = *(v17 + 64);
-  MEMORY[0x28223BE20](v15);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_21_1();
-  v19 = type metadata accessor for NeuralNetwork.Layer();
-  v20 = OUTLINED_FUNCTION_24(v19);
-  v72 = v21;
-  v23 = *(v22 + 64);
-  MEMORY[0x28223BE20](v20);
-  OUTLINED_FUNCTION_3();
-  v26 = v25 - v24;
-  v27 = type metadata accessor for Proto_NeuralNetworkLayer(0);
-  v28 = OUTLINED_FUNCTION_24(v27);
-  v30 = v29;
-  v32 = *(v31 + 64);
-  MEMORY[0x28223BE20](v28);
-  OUTLINED_FUNCTION_3();
-  v35 = v34 - v33;
-  *(v6 + 16) = 0;
-  *(v6 + 24) = 1;
-  *(v6 + 32) = 0;
-  *(v6 + 40) = 1;
-  v36 = type metadata accessor for Proto_NeuralNetworkRegressor(0);
-  v37 = v6 + *(v36 + 32);
-  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-  v38 = *(v36 + 36);
-  updated = type metadata accessor for Proto_NetworkUpdateParameters(0);
-  v40 = v6 + v38;
-  v41 = v4;
-  __swift_storeEnumTagSinglePayload(v40, 1, 1, updated);
-  v42 = *(v4 + 16);
-  if (v42)
-  {
-    v69 = v10;
-    v70 = v1;
-    v71 = v6;
-    OUTLINED_FUNCTION_12_3(MEMORY[0x277D84F90]);
-    sub_2574843E0();
-    v43 = v75;
-    v44 = *(v72 + 80);
-    OUTLINED_FUNCTION_193();
-    v46 = v41 + v45;
-    v48 = *(v47 + 72);
-    do
-    {
-      v49 = OUTLINED_FUNCTION_2_54();
-      sub_2576C928C(v49, v26);
-      OUTLINED_FUNCTION_4_46();
-      sub_2576C928C(v26, v35);
-      OUTLINED_FUNCTION_3_2();
-      sub_257499A2C(v26, v50);
-      v75 = v43;
-      v52 = *(v43 + 16);
-      v51 = *(v43 + 24);
-      if (v52 >= v51 >> 1)
-      {
-        OUTLINED_FUNCTION_13_1(v51);
-        sub_2574843E0();
-      }
-
-      *(v43 + 16) = v52 + 1;
-      v53 = *(v30 + 80);
-      OUTLINED_FUNCTION_193();
-      v54 = *(v30 + 72);
-      OUTLINED_FUNCTION_11_2();
-      sub_257499A84(v35, v55);
-      v46 += v48;
-      --v42;
-    }
-
-    while (v42);
-
-    v1 = v70;
-    v6 = v71;
-    v10 = v69;
-  }
-
-  else
-  {
-
-    v43 = MEMORY[0x277D84F90];
-  }
-
-  *v6 = v43;
-  v56 = *(v74 + 16);
-  if (v56)
-  {
-    OUTLINED_FUNCTION_12_3(MEMORY[0x277D84F90]);
-    sub_257484438();
-    v57 = v75;
-    v58 = *(v10 + 80);
-    OUTLINED_FUNCTION_193();
-    v60 = v74 + v59;
-    v61 = *(v10 + 72);
-    do
-    {
-      OUTLINED_FUNCTION_10_37();
-      sub_2576C928C(v60, v0);
-      OUTLINED_FUNCTION_6_43();
-      sub_2576C928C(v0, v1);
-      OUTLINED_FUNCTION_6_1();
-      sub_257499A2C(v0, v62);
-      v63 = v1;
-      v65 = *(v75 + 16);
-      v64 = *(v75 + 24);
-      if (v65 >= v64 >> 1)
-      {
-        OUTLINED_FUNCTION_13_1(v64);
-        sub_257484438();
-      }
-
-      *(v75 + 16) = v65 + 1;
-      v66 = *(v73 + 80);
-      OUTLINED_FUNCTION_193();
-      v67 = *(v73 + 72);
-      OUTLINED_FUNCTION_9_2();
-      sub_257499A84(v63, v68);
-      v60 += v61;
-      --v56;
-      v1 = v63;
-    }
-
-    while (v56);
-  }
-
-  else
-  {
-
-    v57 = MEMORY[0x277D84F90];
-  }
-
-  *(v6 + 8) = v57;
-  OUTLINED_FUNCTION_35();
-}
-
-void NeuralNetworkRegressor.customMirror.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
-{
-  OUTLINED_FUNCTION_31();
-  a19 = v21;
-  a20 = v22;
-  v23 = sub_257743A84();
-  v24 = *(v23 - 8);
-  v25 = *(v24 + 64);
-  MEMORY[0x28223BE20](v23);
-  OUTLINED_FUNCTION_3();
-  v28 = v27 - v26;
-  v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE0, &unk_257744EA0);
-  v30 = OUTLINED_FUNCTION_13(v29);
-  v32 = *(v31 + 64);
-  MEMORY[0x28223BE20](v30);
-  v34 = &a9 - v33;
-  v35 = type metadata accessor for NeuralNetworkRegressor();
-  v36 = OUTLINED_FUNCTION_4(v35);
-  v38 = *(v37 + 64);
-  MEMORY[0x28223BE20](v36);
-  OUTLINED_FUNCTION_3();
-  sub_2576C928C(v20, v40 - v39);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE8, &qword_257744030);
-  v41 = swift_allocObject();
-  *(v41 + 16) = xmmword_257744E70;
-  v42 = OUTLINED_FUNCTION_27_19(v41, 24940);
-  v43 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A098, &unk_257744EB0);
-  *(v41 + 48) = v42;
-  *(v41 + 72) = v43;
-  strcpy((v41 + 80), "preprocessors");
-  *(v41 + 94) = -4864;
-  v44 = NeuralNetworkRegressor.preprocessors.getter();
-  v45 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A0A0, &qword_257770100);
-  *(v41 + 96) = v44;
-  *(v41 + 120) = v45;
-  *(v41 + 128) = 0xD000000000000016;
-  *(v41 + 136) = 0x800000025777A030;
-  *(v41 + 168) = &type metadata for NeuralNetwork.ArrayShapeMapping;
-  v46 = *(v20 + 24) == 1 && *(v20 + 16) != 0;
-  *(v41 + 144) = v46;
-  *(v41 + 176) = 0xD000000000000016;
-  *(v41 + 184) = 0x800000025777A050;
-  *(v41 + 216) = &type metadata for NeuralNetwork.ImageShapeMapping;
-  *(v41 + 192) = *(v20 + 40);
-  v47 = sub_257743A74();
-  __swift_storeEnumTagSinglePayload(v34, 1, 1, v47);
-  (*(v24 + 104))(v28, *MEMORY[0x277D84C38], v23);
-  sub_257743AA4();
-  OUTLINED_FUNCTION_35();
-}
-
-uint64_t type metadata accessor for NeuralNetworkRegressor()
-{
-  result = qword_281537C08;
-  if (!qword_281537C08)
-  {
-    return swift_getSingletonMetadata();
-  }
-
-  return result;
-}
-
-unint64_t sub_2576C91A0()
-{
-  result = qword_27F87BAE0;
-  if (!qword_27F87BAE0)
-  {
-    type metadata accessor for Proto_NeuralNetworkRegressor(255);
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_27F87BAE0);
-  }
-
-  return result;
-}
-
-uint64_t sub_2576C9220()
-{
-  result = type metadata accessor for Proto_NeuralNetworkRegressor(319);
-  if (v1 <= 0x3F)
-  {
-    swift_cvw_initStructMetadataWithLayoutString();
-    return 0;
-  }
-
-  return result;
-}
-
-uint64_t sub_2576C928C(uint64_t a1, uint64_t a2)
-{
-  v4 = OUTLINED_FUNCTION_30();
-  v6 = v5(v4);
-  OUTLINED_FUNCTION_4(v6);
-  (*(v7 + 16))(a2, v2);
-  return a2;
-}
-
-uint64_t OUTLINED_FUNCTION_27_19@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  *(a1 + 32) = a2 & 0xFFFF00000000FFFFLL | 0x737265790000;
-  *(a1 + 40) = 0xE600000000000000;
-
-  return NeuralNetworkRegressor.layers.getter();
-}
-
-uint64_t NeuralNetwork.Layer.SliceParameters.init(startIndex:endIndex:stride:axis:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unsigned __int8 *a4@<X3>, uint64_t a5@<X8>)
-{
-  v9 = *a4;
-  *a5 = 0u;
-  *(a5 + 16) = 0u;
-  *(a5 + 32) = 1;
-  v10 = a5 + *(type metadata accessor for Proto_SliceLayerParams(0) + 32);
-  result = _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-  *a5 = a1;
-  *(a5 + 8) = a2;
-  if (a3 < 0)
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    *(a5 + 16) = a3;
-    *(a5 + 24) = v9;
-    *(a5 + 32) = 1;
-  }
-
-  return result;
-}
-
-uint64_t (*NeuralNetwork.Layer.SliceParameters.startIndex.modify(void *a1))(uint64_t result)
-{
-  *a1 = *v1;
   a1[1] = v1;
-  return sub_257636A44;
+  *a1 = *(v1 + 16);
+  return sub_2576D5F00;
 }
 
-void *(*NeuralNetwork.Layer.SliceParameters.endIndex.modify(void *a1))(void *result)
+uint64_t ItemSimilarityRecommenderConfiguration.SimilarItems.init()@<X0>(void *a1@<X8>)
 {
-  *a1 = *(v1 + 8);
-  a1[1] = v1;
-  return sub_2576C9454;
-}
-
-uint64_t NeuralNetwork.Layer.SliceParameters.stride.getter()
-{
-  result = *(v0 + 16);
-  if (result < 0)
-  {
-    __break(1u);
-  }
-
-  return result;
-}
-
-uint64_t NeuralNetwork.Layer.SliceParameters.stride.setter(uint64_t result)
-{
-  if (result < 0)
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    *(v1 + 16) = result;
-  }
-
-  return result;
-}
-
-uint64_t *(*NeuralNetwork.Layer.SliceParameters.stride.modify(uint64_t *(*result)(uint64_t *result, char a2)))(uint64_t *result, char a2)
-{
-  *(result + 1) = v1;
-  v2 = *(v1 + 16);
-  if (v2 < 0)
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    *result = v2;
-    return sub_257664ACC;
-  }
-
-  return result;
-}
-
-void NeuralNetwork.Layer.SliceParameters.axis.getter(_BYTE *a1@<X8>)
-{
-  if (*(v1 + 32) == 1)
-  {
-    v2 = *(v1 + 24);
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  *a1 = v2;
-}
-
-unsigned __int8 *NeuralNetwork.Layer.SliceParameters.axis.setter(unsigned __int8 *result)
-{
-  *(v1 + 24) = *result;
-  *(v1 + 32) = 1;
-  return result;
-}
-
-uint64_t *(*NeuralNetwork.Layer.SliceParameters.axis.modify(uint64_t a1))(uint64_t *result)
-{
-  *a1 = v1;
-  if (*(v1 + 32) == 1)
-  {
-    v2 = *(v1 + 24);
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  *(a1 + 8) = v2;
-  return sub_2576C959C;
-}
-
-uint64_t *sub_2576C959C(uint64_t *result)
-{
-  v1 = *result;
-  *(v1 + 24) = *(result + 8);
-  *(v1 + 32) = 1;
-  return result;
-}
-
-uint64_t (*NeuralNetwork.Layer.SliceBySizeParameters.size.modify(void *a1))(uint64_t result)
-{
-  *a1 = *v1;
-  a1[1] = v1;
-  return sub_257673058;
-}
-
-void *(*NeuralNetwork.Layer.SliceBySizeParameters.axis.modify(void *a1))(void *result)
-{
-  *a1 = *(v1 + 8);
-  a1[1] = v1;
-  return sub_2576C98FC;
-}
-
-uint64_t NeuralNetwork.Layer.SliceParameters.customMirror.getter()
-{
-  v1 = sub_257743A84();
-  v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
-  MEMORY[0x28223BE20](v1);
-  v5 = &v18 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE0, &unk_257744EA0);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x28223BE20](v6 - 8);
-  v9 = &v18 - v8;
-  v10 = type metadata accessor for NeuralNetwork.Layer.SliceParameters(0);
-  v11 = *(*(v10 - 8) + 64);
-  MEMORY[0x28223BE20](v10);
-  sub_2576C9888(v0, &v18 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE8, &qword_257744030);
-  result = swift_allocObject();
-  *(result + 16) = xmmword_257744E70;
-  *(result + 32) = 0x646E497472617473;
-  *(result + 40) = 0xEA00000000007865;
-  v14 = MEMORY[0x277D83B88];
-  v15 = v0[1];
-  *(result + 48) = *v0;
-  *(result + 72) = v14;
-  *(result + 80) = 0x7865646E49646E65;
-  *(result + 88) = 0xE800000000000000;
-  *(result + 96) = v15;
-  *(result + 120) = v14;
-  *(result + 128) = 0x656469727473;
-  *(result + 136) = 0xE600000000000000;
-  v16 = v0[2];
-  if (v16 < 0)
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    *(result + 144) = v16;
-    *(result + 168) = v14;
-    *(result + 176) = 1936291937;
-    *(result + 184) = 0xE400000000000000;
-    *(result + 216) = &type metadata for NeuralNetwork.Layer.SliceParameters.Axis;
-    NeuralNetwork.Layer.SliceParameters.axis.getter((result + 192));
-    v17 = sub_257743A74();
-    __swift_storeEnumTagSinglePayload(v9, 1, 1, v17);
-    (*(v2 + 104))(v5, *MEMORY[0x277D84C38], v1);
-    return sub_257743AA4();
-  }
-
-  return result;
-}
-
-uint64_t sub_2576C9888(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for NeuralNetwork.Layer.SliceParameters(0);
-  (*(*(v4 - 8) + 16))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t NeuralNetwork.Layer.MatrixBandPartParameters.propertyDescriptions.getter()
-{
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-  v1 = swift_allocObject();
-  *(v1 + 16) = xmmword_257743FF0;
-  *(v1 + 32) = 0x6F43207265776F4CLL;
-  *(v1 + 40) = 0xEB00000000746E75;
-  v5 = *v0;
-  *(v1 + 48) = sub_257743974();
-  *(v1 + 56) = v2;
-  *(v1 + 64) = 0x6F43207265707055;
-  *(v1 + 72) = 0xEB00000000746E75;
-  v6 = v0[1];
-  *(v1 + 80) = sub_257743974();
-  *(v1 + 88) = v3;
-  return v1;
-}
-
-uint64_t NeuralNetwork.Layer.MatrixBandPartParameters.init()@<X0>(void *a1@<X8>)
-{
-  v2 = type metadata accessor for Proto_MatrixBandPartLayerParams(0);
+  v2 = MEMORY[0x277D84F90];
   *a1 = 0;
-  a1[1] = 0;
-  v3 = a1 + *(v2 + 24);
+  a1[1] = v2;
+  a1[2] = 0;
+  type metadata accessor for Proto_ItemSimilarityRecommender.SimilarItems(0);
   return _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
 }
 
-BOOL static NeuralNetwork.Layer.MatrixBandPartParameters.== infix(_:_:)(void *a1, void *a2)
+void ItemSimilarityRecommenderConfiguration.SimilarItems.init(itemID:similarItems:scoreAdjustment:)(double a1)
 {
-  result = 0;
-  if (*a1 == *a2 && a1[1] == a2[1])
+  OUTLINED_FUNCTION_7_1();
+  v4 = v3;
+  v5 = MEMORY[0x277D84F90];
+  *v4 = 0.0;
+  *(v4 + 1) = v5;
+  v4[2] = 0.0;
+  type metadata accessor for Proto_ItemSimilarityRecommender.SimilarItems(0);
+  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  if (v1 < 0)
   {
-    v2 = *(type metadata accessor for Proto_MatrixBandPartLayerParams(0) + 24);
-    sub_2577431B4();
-    OUTLINED_FUNCTION_1_64();
-    sub_2576C9D70(v3, v4);
-    if (OUTLINED_FUNCTION_4_2())
-    {
-      return 1;
-    }
+    __break(1u);
   }
 
-  return result;
+  else
+  {
+    *v4 = v1;
+    ItemSimilarityRecommenderConfiguration.SimilarItems.similarItems.setter();
+    v4[2] = a1;
+  }
 }
 
-uint64_t _s20MLModelSpecification13NeuralNetworkV5LayerV25LowerTriangularParametersV20propertyDescriptionsSaySS4name_SS5valuetGvg_0()
-{
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-  v1 = swift_allocObject();
-  *(v1 + 16) = xmmword_2577442B0;
-  *(v1 + 32) = 0x6C616E6F67616944;
-  *(v1 + 40) = 0xE800000000000000;
-  v4 = *v0;
-  *(v1 + 48) = sub_257743974();
-  *(v1 + 56) = v2;
-  return v1;
-}
-
-uint64_t sub_2576C9BA8@<X0>(uint64_t (*a1)(void)@<X0>, void *a2@<X8>)
-{
-  *a2 = 0;
-  v2 = a2 + *(a1(0) + 20);
-  return _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-}
-
-BOOL sub_2576C9C00(void *a1, void *a2, uint64_t (*a3)(void))
+BOOL static ItemSimilarityRecommenderConfiguration.SimilarItems.== infix(_:_:)(void *a1, void *a2)
 {
   result = 0;
   if (*a1 == *a2)
   {
-    v3 = *(a3(0) + 20);
-    sub_2577431B4();
-    OUTLINED_FUNCTION_1_64();
-    sub_2576C9D70(v4, v5);
-    if (OUTLINED_FUNCTION_4_2())
+    OUTLINED_FUNCTION_267();
+    sub_25747BBE4(*(v4 + 8), *(v5 + 8));
+    if ((v6 & 1) != 0 && *(v3 + 16) == *(v2 + 16))
     {
-      return 1;
+      type metadata accessor for Proto_ItemSimilarityRecommender.SimilarItems(0);
+      sub_2577431B4();
+      OUTLINED_FUNCTION_11_34();
+      v9 = sub_2576DAF10(v7, v8, MEMORY[0x277D216D0]);
+      if (OUTLINED_FUNCTION_4_2(v9))
+      {
+        return 1;
+      }
     }
   }
 
   return result;
 }
 
-uint64_t sub_2576C9D70(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t ItemSimilarityRecommenderConfiguration.ItemScore.itemID.getter()
+{
+  result = *v0;
+  if (*v0 < 0)
+  {
+    __break(1u);
+  }
+
+  return result;
+}
+
+uint64_t ItemSimilarityRecommenderConfiguration.ItemScore.itemID.setter(uint64_t result)
+{
+  if (result < 0)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    *v1 = result;
+  }
+
+  return result;
+}
+
+uint64_t *(*ItemSimilarityRecommenderConfiguration.ItemScore.itemID.modify(uint64_t *(*result)(uint64_t *result, char)))(uint64_t *result, char)
+{
+  *(result + 1) = v1;
+  if ((*v1 & 0x8000000000000000) != 0)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    *result = *v1;
+    return sub_2576DAB28;
+  }
+
+  return result;
+}
+
+double (*ItemSimilarityRecommenderConfiguration.ItemScore.similarityScore.modify(void *a1))(uint64_t a1)
+{
+  a1[1] = v1;
+  *a1 = *(v1 + 8);
+  return sub_2576C6434;
+}
+
+uint64_t ItemSimilarityRecommenderConfiguration.ItemScore.init(itemID:similarityScore:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>, double a3@<D0>)
+{
+  type metadata accessor for Proto_ItemSimilarityRecommender.ConnectedItem(0);
+  result = _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  if (a1 < 0)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    *a2 = a1;
+    *(a2 + 8) = a3;
+  }
+
+  return result;
+}
+
+BOOL static ItemSimilarityRecommenderConfiguration.ItemScore.== infix(_:_:)(void *a1, void *a2)
+{
+  result = 0;
+  if (*a1 == *a2)
+  {
+    OUTLINED_FUNCTION_267();
+    if (*(v2 + 8) == *(v3 + 8))
+    {
+      type metadata accessor for Proto_ItemSimilarityRecommender.ConnectedItem(0);
+      sub_2577431B4();
+      OUTLINED_FUNCTION_11_34();
+      v6 = sub_2576DAF10(v4, v5, MEMORY[0x277D216D0]);
+      if (OUTLINED_FUNCTION_4_2(v6))
+      {
+        return 1;
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t ItemSimilarityRecommenderConfiguration.ItemScore.hash(into:)()
+{
+  v0 = OUTLINED_FUNCTION_376();
+  type metadata accessor for Proto_ItemSimilarityRecommender.ConnectedItem(v0);
+  OUTLINED_FUNCTION_16_21();
+  sub_2576DAF10(v1, v2, &unk_25774BCD8);
+
+  return sub_2577435F4();
+}
+
+uint64_t ItemSimilarityRecommenderConfiguration.ItemScore.hashValue.getter()
+{
+  sub_257743A14();
+  type metadata accessor for Proto_ItemSimilarityRecommender.ConnectedItem(0);
+  OUTLINED_FUNCTION_16_21();
+  sub_2576DAF10(v0, v1, &unk_25774BCD8);
+  sub_2577435F4();
+  return sub_257743A64();
+}
+
+uint64_t sub_2576DAD44(uint64_t a1)
+{
+  sub_257743A14();
+  type metadata accessor for Proto_ItemSimilarityRecommender.ConnectedItem(0);
+  sub_2576DAF10(&qword_27F87AF48, type metadata accessor for Proto_ItemSimilarityRecommender.ConnectedItem, &unk_25774BCD8);
+  sub_2577435F4();
+  return sub_257743A64();
+}
+
+uint64_t sub_2576DADCC()
+{
+  OUTLINED_FUNCTION_267();
+  v1(0);
+  OUTLINED_FUNCTION_4();
+  v2 = OUTLINED_FUNCTION_205();
+  v3(v2);
+  return v0;
+}
+
+uint64_t sub_2576DAE24()
+{
+  OUTLINED_FUNCTION_267();
+  v1(0);
+  OUTLINED_FUNCTION_4();
+  v2 = OUTLINED_FUNCTION_205();
+  v3(v2);
+  return v0;
+}
+
+uint64_t sub_2576DAE7C()
+{
+  v1 = OUTLINED_FUNCTION_376();
+  v2(v1);
+  OUTLINED_FUNCTION_4();
+  (*(v3 + 8))(v0);
+  return v0;
+}
+
+uint64_t sub_2576DAF10(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -8764,9 +5545,9 @@ uint64_t sub_2576C9D70(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t sub_2576C9ED8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t))
+uint64_t sub_2576DB138(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t))
 {
-  result = a4(319);
+  result = a4(319, a2, a3);
   if (v5 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
@@ -8776,721 +5557,1225 @@ uint64_t sub_2576C9ED8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uin
   return result;
 }
 
-void sub_2576C9F64()
+uint64_t OUTLINED_FUNCTION_18_35()
+{
+
+  return sub_2576DAE7C();
+}
+
+uint64_t OUTLINED_FUNCTION_19_26()
+{
+
+  return sub_2576DAE7C();
+}
+
+__n128 OUTLINED_FUNCTION_24_23()
+{
+  *(v2 + 16) = v1;
+  v5 = v2 + 48 * v3;
+  result = *(v0 + 48);
+  v7 = *(v0 + 80);
+  *(v5 + 48) = *(v0 + 64);
+  *(v5 + 64) = v7;
+  *(v5 + 32) = result;
+  *(v4 - 96) = v2;
+  return result;
+}
+
+void OUTLINED_FUNCTION_27_21()
+{
+  *(v0 - 176) = 34;
+  *(v0 - 168) = 0xE100000000000000;
+
+  JUMPOUT(0x259C64E90);
+}
+
+void OUTLINED_FUNCTION_44_8()
+{
+  *(v1 - 176) = 34;
+  *(v1 - 168) = v0;
+
+  JUMPOUT(0x259C64E90);
+}
+
+uint64_t OUTLINED_FUNCTION_53_5()
+{
+
+  return sub_2574695E4(v2, v0, v1);
+}
+
+uint64_t OUTLINED_FUNCTION_54_6()
+{
+
+  return sub_257487308(v0 + v1);
+}
+
+uint64_t OUTLINED_FUNCTION_55_7()
+{
+
+  return type metadata accessor for Proto_ItemSimilarityRecommender(0);
+}
+
+uint64_t static NeuralNetwork.Layer.Kind.pad(kind:amount:)(uint64_t a1, uint64_t a2)
+{
+  v7 = OUTLINED_FUNCTION_16_1();
+  v8 = type metadata accessor for NeuralNetwork.Border(v7);
+  v9 = OUTLINED_FUNCTION_13(v8);
+  MEMORY[0x28223BE20](v9);
+  OUTLINED_FUNCTION_3();
+  v10 = OUTLINED_FUNCTION_78();
+  v11 = type metadata accessor for NeuralNetwork.Layer.PadParameters.Kind(v10);
+  v12 = OUTLINED_FUNCTION_13(v11);
+  MEMORY[0x28223BE20](v12);
+  OUTLINED_FUNCTION_23_0();
+  OUTLINED_FUNCTION_1_70();
+  sub_2576DB58C(a1, v4);
+  OUTLINED_FUNCTION_11_35();
+  sub_2576DB58C(a2, v3);
+  NeuralNetwork.Layer.PadParameters.init(kind:amount:)(v4, v3, v2);
+  type metadata accessor for NeuralNetwork.Layer.Kind(0);
+  OUTLINED_FUNCTION_18_1();
+  return swift_storeEnumTagMultiPayload();
+}
+
+uint64_t sub_2576DB58C(uint64_t a1, uint64_t a2)
+{
+  v4 = OUTLINED_FUNCTION_30();
+  v5(v4);
+  OUTLINED_FUNCTION_4();
+  (*(v6 + 16))(a2, v2);
+  return a2;
+}
+
+uint64_t NeuralNetwork.Layer.PadParameters.init(kind:amount:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1F0, &qword_2577458B0);
+  OUTLINED_FUNCTION_13(v8);
+  OUTLINED_FUNCTION_29();
+  MEMORY[0x28223BE20](v9);
+  v10 = OUTLINED_FUNCTION_78();
+  v11 = type metadata accessor for NeuralNetwork.Layer.PadParameters.Kind(v10);
+  v12 = OUTLINED_FUNCTION_13(v11);
+  MEMORY[0x28223BE20](v12);
+  OUTLINED_FUNCTION_23_0();
+  v13 = type metadata accessor for Proto_PaddingLayerParams.OneOf_PaddingType(0);
+  __swift_storeEnumTagSinglePayload(a3, 1, 1, v13);
+  v14 = type metadata accessor for Proto_PaddingLayerParams(0);
+  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  v15 = *(v14 + 24);
+  v16 = type metadata accessor for Proto_BorderAmounts(0);
+  __swift_storeEnumTagSinglePayload(a3 + v15, 1, 1, v16);
+  OUTLINED_FUNCTION_1_70();
+  sub_2576DB58C(a1, v4);
+  NeuralNetwork.Layer.PadParameters.kind.setter(v4);
+  OUTLINED_FUNCTION_11_35();
+  sub_2576DB58C(a2, v3);
+  type metadata accessor for NeuralNetwork.Border(0);
+  OUTLINED_FUNCTION_21();
+  __swift_storeEnumTagSinglePayload(v17, v18, v19, v20);
+  NeuralNetwork.Layer.PadParameters.amount.setter(v3);
+  OUTLINED_FUNCTION_22_22();
+  sub_2576DCA34(a2, v21);
+  OUTLINED_FUNCTION_0_88();
+  return sub_2576DCA34(a1, v22);
+}
+
+void NeuralNetwork.Layer.PadParameters.propertyDescriptions.getter()
 {
   OUTLINED_FUNCTION_31();
-  v1 = v0;
-  v2 = type metadata accessor for Proto_TreeEnsembleClassifier.OneOf_ClassLabels(0);
-  v3 = OUTLINED_FUNCTION_4(v2);
-  v5 = *(v4 + 64);
-  v6 = MEMORY[0x28223BE20](v3);
-  v8 = &v40 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1F0, &qword_2577458B0);
+  OUTLINED_FUNCTION_13(v2);
+  OUTLINED_FUNCTION_29();
+  MEMORY[0x28223BE20](v3);
+  v4 = OUTLINED_FUNCTION_17_3();
+  v5 = type metadata accessor for NeuralNetwork.Border(v4);
+  OUTLINED_FUNCTION_4();
   MEMORY[0x28223BE20](v6);
-  v10 = &v40 - v9;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F8800E0, &qword_25776A3E8);
-  OUTLINED_FUNCTION_13(v11);
-  v13 = *(v12 + 64);
+  OUTLINED_FUNCTION_3();
+  v7 = OUTLINED_FUNCTION_35_15();
+  v8 = type metadata accessor for NeuralNetwork.Layer.PadParameters.ConstantParameters(v7);
+  v9 = OUTLINED_FUNCTION_13(v8);
+  MEMORY[0x28223BE20](v9);
+  OUTLINED_FUNCTION_3();
+  v12 = v11 - v10;
+  v13 = type metadata accessor for NeuralNetwork.Layer.PadParameters.Kind(0);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v14);
+  OUTLINED_FUNCTION_11();
+  v17 = v15 - v16;
+  v19 = MEMORY[0x28223BE20](v18);
+  v21 = &v68 - v20;
+  NeuralNetwork.Layer.PadParameters.kind.getter(v19, v22, v23, v24, v25, v26, v27, v28, v68.n128_i64[0], v68.n128_i64[1], v69, v70, v71, v72, v73, v74, v75, v76, v77, v78);
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload)
+  {
+    if (EnumCaseMultiPayload == 1)
+    {
+      v30 = 0xEA00000000006E6FLL;
+      v31 = 0x697463656C666552;
+    }
+
+    else
+    {
+      v30 = 0xEB000000006E6F69;
+      v31 = 0x746163696C706552;
+    }
+  }
+
+  else
+  {
+    v30 = 0xE800000000000000;
+    v31 = 0x746E6174736E6F43;
+  }
+
+  OUTLINED_FUNCTION_0_88();
+  sub_2576DCA34(v21, v32);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
+  v33 = swift_allocObject();
+  v68 = xmmword_2577442B0;
+  *(v33 + 16) = xmmword_2577442B0;
+  strcpy((v33 + 32), "Padding Kind");
+  *(v33 + 45) = 0;
+  *(v33 + 46) = -5120;
+  *(v33 + 48) = v31;
+  *(v33 + 56) = v30;
+  NeuralNetwork.Layer.PadParameters.kind.getter(v33, v34, v35, v36, v37, v38, v39, v40, v68.n128_i64[0], v68.n128_i64[1], v69, v70, v71, v72, v73, v74, v75, v76, v77, v33);
+  OUTLINED_FUNCTION_201();
+  if (swift_getEnumCaseMultiPayload())
+  {
+    OUTLINED_FUNCTION_0_88();
+    sub_2576DCA34(v17, v41);
+    sub_25763CEB8(MEMORY[0x277D84F90]);
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_3_62();
+    sub_2576DE33C(v17, v12);
+    inited = swift_initStackObject();
+    OUTLINED_FUNCTION_16_22(inited, v68);
+    inited[3].n128_u64[0] = sub_257743794();
+    inited[3].n128_u64[1] = v43;
+    sub_25763CEB8(inited);
+    OUTLINED_FUNCTION_2_58();
+    sub_2576DCA34(v12, v44);
+  }
+
+  NeuralNetwork.Layer.PadParameters.amount.getter();
+  OUTLINED_FUNCTION_155(v1, 1, v5);
+  if (v45)
+  {
+    sub_2574695E4(v1, &qword_27F87A1F0, &qword_2577458B0);
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_12_36();
+    sub_2576DE33C(v1, v0);
+    v77 = NeuralNetwork.Border.leadingHeight.getter();
+    v46 = sub_257743974();
+    v48 = v47;
+    v49 = v78;
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      sub_257469388();
+      v49 = v63;
+    }
+
+    v51 = *(v49 + 16);
+    v52 = v51 + 1;
+    if (v51 >= *(v49 + 24) >> 1)
+    {
+      sub_257469388();
+      v49 = v64;
+    }
+
+    *(v49 + 16) = v52;
+    v53 = v49 + 32 * v51;
+    strcpy((v53 + 32), "Leading Height");
+    *(v53 + 47) = -18;
+    *(v53 + 48) = v46;
+    *(v53 + 56) = v48;
+    v77 = NeuralNetwork.Border.trailingHeight.getter();
+    sub_257743974();
+    OUTLINED_FUNCTION_36_14();
+    if (v54)
+    {
+      OUTLINED_FUNCTION_30_15();
+      v49 = v65;
+    }
+
+    *(v49 + 16) = v52;
+    v55 = (v49 + 32 * v13);
+    v55[4] = 0x676E696C69617254;
+    v55[5] = 0xEF74686769654820;
+    v55[6] = &v77;
+    v55[7] = v48;
+    v77 = NeuralNetwork.Border.leadingWidth.getter();
+    sub_257743974();
+    OUTLINED_FUNCTION_36_14();
+    if (v54)
+    {
+      OUTLINED_FUNCTION_30_15();
+      v49 = v66;
+    }
+
+    *(v49 + 16) = v52;
+    v56 = v49 + 32 * v13;
+    strcpy((v56 + 32), "Leading Width");
+    *(v56 + 46) = -4864;
+    *(v56 + 48) = &v77;
+    *(v56 + 56) = v48;
+    v77 = NeuralNetwork.Border.trailingWidth.getter();
+    v57 = sub_257743974();
+    v59 = v58;
+    v60 = *(v49 + 16);
+    if (v60 >= *(v49 + 24) >> 1)
+    {
+      OUTLINED_FUNCTION_30_15();
+      v49 = v67;
+    }
+
+    OUTLINED_FUNCTION_22_22();
+    sub_2576DCA34(v0, v61);
+    *(v49 + 16) = v60 + 1;
+    v62 = v49 + 32 * v60;
+    strcpy((v62 + 32), "Trailing Width");
+    *(v62 + 47) = -18;
+    *(v62 + 48) = v57;
+    *(v62 + 56) = v59;
+  }
+
+  OUTLINED_FUNCTION_35();
+}
+
+void static NeuralNetwork.Layer.pad(name:inputName:outputName:kind:amount:)()
+{
+  OUTLINED_FUNCTION_31();
+  v33 = v3;
+  v34 = v4;
+  v6 = v5;
+  v31 = v7;
+  v32 = v8;
+  v10 = v9;
+  v12 = v11;
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A318, &qword_257745D10);
+  OUTLINED_FUNCTION_13(v13);
   OUTLINED_FUNCTION_29();
   MEMORY[0x28223BE20](v14);
-  v16 = &v40 - v15;
-  v17 = type metadata accessor for TreeEnsemble();
-  v18 = OUTLINED_FUNCTION_13(v17);
-  v20 = *(v19 + 64);
-  MEMORY[0x28223BE20](v18);
+  v15 = OUTLINED_FUNCTION_17_3();
+  v16 = type metadata accessor for NeuralNetwork.Border(v15);
+  v17 = OUTLINED_FUNCTION_13(v16);
+  MEMORY[0x28223BE20](v17);
   OUTLINED_FUNCTION_3();
-  v23 = v22 - v21;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879FD8, &unk_257744910);
-  inited = swift_initStackObject();
-  *(inited + 16) = xmmword_2577442C0;
-  strcpy((inited + 32), "Tree Ensemble");
-  *(inited + 46) = -4864;
-  TreeEnsembleClassifierConfiguration.treeEnsemble.getter(v23);
-  sub_25766B950();
-  v26 = v25;
-  v28 = v27;
-  v30 = v29;
-  OUTLINED_FUNCTION_8_35();
-  sub_2576CB730(v23, v31);
-  *(inited + 48) = v26;
-  *(inited + 56) = v28;
-  *(inited + 64) = v30;
-  strcpy((inited + 72), "Class Labels");
-  *(inited + 85) = 0;
-  *(inited + 86) = -5120;
-  v32 = type metadata accessor for Proto_TreeEnsembleClassifier(0);
-  sub_2574A172C(v1 + *(v32 + 20), v16, &qword_27F8800E0, &qword_25776A3E8);
-  OUTLINED_FUNCTION_65(v16);
-  if (v33)
-  {
-    v35 = 0;
-    v34 = MEMORY[0x277D84F90];
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_4_47();
-    sub_2576CB6D4(v16, v10);
-    OUTLINED_FUNCTION_2_55();
-    sub_2576CB524(v10, v8);
-    sub_2576CAAEC();
-    v34 = v40;
-    v35 = v41;
-    OUTLINED_FUNCTION_0_83();
-    sub_2576CB730(v10, v36);
-  }
-
-  v40 = v34;
-  v41 = v35;
-  v37 = sub_2576603F8();
-
-  *(inited + 88) = v37;
-  *(inited + 96) = 0;
-  *(inited + 104) = 1;
-  *(inited + 112) = 0xD000000000000018;
-  *(inited + 120) = 0x80000002577811E0;
-  if (*(v1 + 8) == 1)
-  {
-    v38 = *&aIdentitysoftma_0[8 * *v1];
-    v39 = qword_257773EC0[*v1];
-  }
-
-  else
-  {
-    v39 = 0xE800000000000000;
-    v38 = 0x797469746E656449;
-  }
-
-  *(inited + 128) = v38;
-  *(inited + 136) = v39;
-  *(inited + 144) = 0;
-  sub_2576A6964(inited);
-  OUTLINED_FUNCTION_35();
-}
-
-uint64_t TreeEnsembleClassifierConfiguration.treeEnsemble.getter@<X0>(uint64_t a1@<X8>)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F8800E8, &unk_25776A3F0);
-  OUTLINED_FUNCTION_13(v4);
-  v6 = *(v5 + 64);
-  OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v7);
-  v8 = OUTLINED_FUNCTION_38();
-  v9 = type metadata accessor for Proto_TreeEnsembleParameters(v8);
-  v10 = OUTLINED_FUNCTION_4(v9);
-  v12 = *(v11 + 64);
-  MEMORY[0x28223BE20](v10);
+  v20 = v19 - v18;
+  v21 = type metadata accessor for NeuralNetwork.Layer.PadParameters.Kind(0);
+  v22 = OUTLINED_FUNCTION_13(v21);
+  MEMORY[0x28223BE20](v22);
   OUTLINED_FUNCTION_3();
-  v15 = (v14 - v13);
-  v16 = type metadata accessor for Proto_TreeEnsembleClassifier(0);
-  sub_2574A172C(v1 + *(v16 + 28), v2, &qword_27F8800E8, &unk_25776A3F0);
-  if (__swift_getEnumTagSinglePayload(v2, 1, v9) == 1)
+  OUTLINED_FUNCTION_421();
+  type metadata accessor for NeuralNetwork.Layer.Kind(0);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v23);
+  OUTLINED_FUNCTION_23_0();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B10, &unk_2577440D0);
+  v24 = swift_allocObject();
+  *(v24 + 16) = xmmword_2577442B0;
+  *(v24 + 32) = v31;
+  *(v24 + 40) = v10;
+  v25 = swift_allocObject();
+  *(v25 + 16) = xmmword_2577442B0;
+  *(v25 + 32) = v32;
+  *(v25 + 40) = v6;
+  OUTLINED_FUNCTION_1_70();
+  sub_2576DB58C(v33, v0);
+  OUTLINED_FUNCTION_11_35();
+  sub_2576DB58C(v34, v20);
+
+  NeuralNetwork.Layer.PadParameters.init(kind:amount:)(v0, v20, v2);
+  swift_storeEnumTagMultiPayload();
+  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  v26 = *(type metadata accessor for Proto_NeuralNetworkLayer(0) + 20);
+  if (qword_27F879260 != -1)
   {
-    v17 = MEMORY[0x277D84F90];
-    *v15 = MEMORY[0x277D84F90];
-    v15[1] = 0;
-    v15[2] = v17;
-    v18 = v15 + *(v9 + 28);
-    _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-    if (__swift_getEnumTagSinglePayload(v2, 1, v9) != 1)
-    {
-      sub_25769F258(v2);
-    }
+    swift_once();
   }
 
-  else
-  {
-    OUTLINED_FUNCTION_1_65();
-    sub_2576CB6D4(v2, v15);
-  }
+  *(v12 + v26) = qword_27F87BEE8;
 
-  OUTLINED_FUNCTION_1_65();
-  return sub_2576CB6D4(v15, a1);
-}
-
-uint64_t sub_2576CA38C(uint64_t a1)
-{
-  v2 = type metadata accessor for TreeEnsemble();
-  v3 = *(*(v2 - 8) + 64);
-  MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v7 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_2576CB524(a1, v5);
-  return TreeEnsembleClassifierConfiguration.treeEnsemble.setter(v5);
-}
-
-uint64_t TreeEnsembleClassifierConfiguration.treeEnsemble.setter(uint64_t a1)
-{
-  v3 = type metadata accessor for Proto_TreeEnsembleParameters(0);
-  v4 = OUTLINED_FUNCTION_4(v3);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
-  OUTLINED_FUNCTION_3();
-  v9 = v8 - v7;
-  sub_2576CB6D4(a1, v8 - v7);
-  v10 = *(type metadata accessor for Proto_TreeEnsembleClassifier(0) + 28);
-  sub_25769F258(v1 + v10);
-  sub_2576CB6D4(v9, v1 + v10);
+  sub_257528334();
+  sub_2575283BC();
+  sub_25752842C(v25);
+  sub_2574897E0(v1);
+  type metadata accessor for Proto_NeuralNetworkLayer.OneOf_Layer(0);
   OUTLINED_FUNCTION_21();
-  return __swift_storeEnumTagSinglePayload(v11, v12, v13, v3);
+  __swift_storeEnumTagSinglePayload(v27, v28, v29, v30);
+  sub_25752846C();
+  sub_2576DCA34(v2, type metadata accessor for NeuralNetwork.Layer.Kind);
+  OUTLINED_FUNCTION_35();
 }
 
-void TreeEnsembleClassifierConfiguration.treeEnsemble.modify()
+void NeuralNetwork.Layer.PadParameters.kind.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
 {
   OUTLINED_FUNCTION_31();
-  v2 = v1;
-  v3 = __swift_coroFrameAllocStub(0x40uLL);
-  *v2 = v3;
-  *v3 = v0;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F8800E8, &unk_25776A3F0);
-  OUTLINED_FUNCTION_13(v4);
-  v6 = __swift_coroFrameAllocStub(*(v5 + 64));
-  v3[1] = v6;
-  v7 = type metadata accessor for Proto_TreeEnsembleParameters(0);
-  v3[2] = v7;
-  OUTLINED_FUNCTION_4(v7);
-  v9 = *(v8 + 64);
-  v3[3] = __swift_coroFrameAllocStub(v9);
-  v10 = __swift_coroFrameAllocStub(v9);
-  v3[4] = v10;
-  v11 = type metadata accessor for TreeEnsemble();
-  OUTLINED_FUNCTION_13(v11);
-  v13 = *(v12 + 64);
-  v3[5] = __swift_coroFrameAllocStub(v13);
-  v14 = __swift_coroFrameAllocStub(v13);
-  v3[6] = v14;
-  v15 = *(type metadata accessor for Proto_TreeEnsembleClassifier(0) + 28);
-  *(v3 + 14) = v15;
-  sub_2574A172C(v0 + v15, v6, &qword_27F8800E8, &unk_25776A3F0);
-  if (__swift_getEnumTagSinglePayload(v6, 1, v7) == 1)
+  a19 = v22;
+  a20 = v23;
+  v25 = v24;
+  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F881400, &qword_257774870);
+  OUTLINED_FUNCTION_13(v26);
+  OUTLINED_FUNCTION_29();
+  MEMORY[0x28223BE20](v27);
+  OUTLINED_FUNCTION_421();
+  v28 = OUTLINED_FUNCTION_201();
+  v30 = __swift_instantiateConcreteTypeFromMangledNameV2(v28, v29);
+  OUTLINED_FUNCTION_13(v30);
+  OUTLINED_FUNCTION_29();
+  MEMORY[0x28223BE20](v31);
+  v32 = OUTLINED_FUNCTION_38();
+  v33 = type metadata accessor for Proto_PaddingLayerParams.OneOf_PaddingType(v32);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v34);
+  OUTLINED_FUNCTION_11();
+  v37 = v35 - v36;
+  MEMORY[0x28223BE20](v38);
+  v40 = &a9 - v39;
+  sub_2574A172C(v20, v21, &qword_27F87C8F0, &qword_257752208);
+  OUTLINED_FUNCTION_155(v21, 1, v33);
+  if (v43)
   {
-    v16 = MEMORY[0x277D84F90];
-    *v10 = MEMORY[0x277D84F90];
-    v10[1] = 0;
-    v10[2] = v16;
-    v17 = v10 + *(v7 + 28);
-    _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-    if (__swift_getEnumTagSinglePayload(v6, 1, v7) != 1)
+    sub_2574695E4(v21, &qword_27F87C8F0, &qword_257752208);
+    v41 = type metadata accessor for Proto_PaddingLayerParams.PaddingConstant(0);
+    OUTLINED_FUNCTION_192_0(v41);
+    *v25 = 0;
+    type metadata accessor for NeuralNetwork.Layer.PadParameters.Kind(0);
+    OUTLINED_FUNCTION_18_1();
+    swift_storeEnumTagMultiPayload();
+  }
+
+  else
+  {
+    sub_2576DE33C(v21, v40);
+    sub_2576DB58C(v40, v37);
+    sub_2576DC614(v37, v20);
+    v42 = type metadata accessor for NeuralNetwork.Layer.PadParameters.Kind(0);
+    OUTLINED_FUNCTION_155(v20, 1, v42);
+    if (v43)
     {
-      sub_25769F258(v6);
+      v44 = type metadata accessor for Proto_PaddingLayerParams.PaddingConstant(0);
+      OUTLINED_FUNCTION_192_0(v44);
+      OUTLINED_FUNCTION_25_21();
+      *v25 = 0;
+      swift_storeEnumTagMultiPayload();
+      OUTLINED_FUNCTION_155(v20, 1, v42);
+      if (!v43)
+      {
+        sub_2574695E4(v20, &qword_27F881400, &qword_257774870);
+      }
+    }
+
+    else
+    {
+      OUTLINED_FUNCTION_25_21();
+      OUTLINED_FUNCTION_23_24();
+      v45 = OUTLINED_FUNCTION_44_1();
+      sub_2576DE33C(v45, v46);
+    }
+  }
+
+  OUTLINED_FUNCTION_35();
+}
+
+__n128 *NeuralNetwork.Layer.PadParameters.ConstantParameters.propertyDescriptions.getter()
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
+  v0 = swift_allocObject();
+  OUTLINED_FUNCTION_16_22(v0, xmmword_2577442B0);
+  v0[3].n128_u64[0] = sub_257743794();
+  v0[3].n128_u64[1] = v1;
+  return v0;
+}
+
+void NeuralNetwork.Layer.PadParameters.amount.getter()
+{
+  OUTLINED_FUNCTION_31();
+  v22 = v2;
+  v3 = type metadata accessor for Proto_BorderAmounts(0);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v4);
+  OUTLINED_FUNCTION_23_0();
+  v5 = OUTLINED_FUNCTION_201();
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(v5, v6);
+  v8 = OUTLINED_FUNCTION_13(v7);
+  MEMORY[0x28223BE20](v8);
+  OUTLINED_FUNCTION_11();
+  v11 = v9 - v10;
+  MEMORY[0x28223BE20](v12);
+  v14 = &v21 - v13;
+  v15 = *(type metadata accessor for Proto_PaddingLayerParams(0) + 24);
+  sub_2574A172C(v0 + v15, v14, &qword_27F879AC8, &unk_257744010);
+  v16 = 1;
+  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v14, 1, v3);
+  v18 = v22;
+  sub_2574695E4(v14, &qword_27F879AC8, &unk_257744010);
+  if (EnumTagSinglePayload != 1)
+  {
+    sub_2574A172C(v0 + v15, v11, &qword_27F879AC8, &unk_257744010);
+    OUTLINED_FUNCTION_155(v11, 1, v3);
+    if (v19)
+    {
+      *v1 = MEMORY[0x277D84F90];
+      _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+      OUTLINED_FUNCTION_155(v11, 1, v3);
+      if (!v19)
+      {
+        sub_2574695E4(v11, &qword_27F879AC8, &unk_257744010);
+      }
+    }
+
+    else
+    {
+      OUTLINED_FUNCTION_5_46();
+      sub_2576DE33C(v11, v1);
+    }
+
+    OUTLINED_FUNCTION_5_46();
+    sub_2576DE33C(v1, v18);
+    v16 = 0;
+  }
+
+  v20 = type metadata accessor for NeuralNetwork.Border(0);
+  __swift_storeEnumTagSinglePayload(v18, v16, 1, v20);
+  OUTLINED_FUNCTION_35();
+}
+
+uint64_t sub_2576DC36C(uint64_t a1)
+{
+  v2 = type metadata accessor for NeuralNetwork.Layer.PadParameters.Kind(0);
+  MEMORY[0x28223BE20](v2 - 8);
+  v4 = &v6 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_2576DB58C(a1, v4);
+  return NeuralNetwork.Layer.PadParameters.kind.setter(v4);
+}
+
+uint64_t NeuralNetwork.Layer.PadParameters.kind.setter(uint64_t a1)
+{
+  v5 = type metadata accessor for NeuralNetwork.Layer.PadParameters.ReplicationParameters(0);
+  v6 = OUTLINED_FUNCTION_13(v5);
+  MEMORY[0x28223BE20](v6);
+  OUTLINED_FUNCTION_3();
+  v7 = OUTLINED_FUNCTION_17_3();
+  v8 = type metadata accessor for NeuralNetwork.Layer.PadParameters.ReflectionParameters(v7);
+  v9 = OUTLINED_FUNCTION_13(v8);
+  MEMORY[0x28223BE20](v9);
+  OUTLINED_FUNCTION_23_0();
+  v10 = type metadata accessor for NeuralNetwork.Layer.PadParameters.ConstantParameters(0);
+  v11 = OUTLINED_FUNCTION_13(v10);
+  MEMORY[0x28223BE20](v11);
+  OUTLINED_FUNCTION_3();
+  v14 = v13 - v12;
+  sub_2574695E4(v1, &qword_27F87C8F0, &qword_257752208);
+  type metadata accessor for NeuralNetwork.Layer.PadParameters.Kind(0);
+  OUTLINED_FUNCTION_18_1();
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload)
+  {
+    if (EnumCaseMultiPayload == 1)
+    {
+      OUTLINED_FUNCTION_10_42();
+      sub_2576DE33C(a1, v3);
+      v16 = v3;
+    }
+
+    else
+    {
+      OUTLINED_FUNCTION_9_35();
+      sub_2576DE33C(a1, v2);
+      v16 = v2;
     }
   }
 
   else
   {
-    OUTLINED_FUNCTION_1_65();
-    v18 = OUTLINED_FUNCTION_176();
-    sub_2576CB6D4(v18, v19);
+    OUTLINED_FUNCTION_3_62();
+    sub_2576DE33C(a1, v14);
+    v16 = v14;
   }
 
-  OUTLINED_FUNCTION_1_65();
-  sub_2576CB6D4(v10, v14);
-  OUTLINED_FUNCTION_35();
+  sub_2576DE33C(v16, v1);
+  v17 = type metadata accessor for Proto_PaddingLayerParams.OneOf_PaddingType(0);
+  OUTLINED_FUNCTION_44_1();
+  swift_storeEnumTagMultiPayload();
+  OUTLINED_FUNCTION_21();
+  return __swift_storeEnumTagSinglePayload(v18, v19, v20, v17);
 }
 
-void sub_2576CA6A8()
+uint64_t static NeuralNetwork.Layer.PadParameters.Kind.constant(value:)(float a1)
 {
-  OUTLINED_FUNCTION_31();
-  v1 = *(*v0 + 14);
-  v2 = (*v0)[5];
-  v3 = (*v0)[6];
-  v4 = (*v0)[3];
-  v5 = (*v0)[4];
-  v6 = (*v0)[1];
-  v7 = (*v0)[2];
-  v8 = **v0;
-  if (v9)
+  v3 = OUTLINED_FUNCTION_16_1();
+  v4 = type metadata accessor for Proto_PaddingLayerParams.PaddingConstant(v3);
+  OUTLINED_FUNCTION_192_0(v4);
+  *v1 = a1;
+  type metadata accessor for NeuralNetwork.Layer.PadParameters.Kind(0);
+  OUTLINED_FUNCTION_18_1();
+
+  return swift_storeEnumTagMultiPayload();
+}
+
+uint64_t sub_2576DC614@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v5 = type metadata accessor for NeuralNetwork.Layer.PadParameters.Kind(0);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v6);
+  OUTLINED_FUNCTION_3();
+  v7 = OUTLINED_FUNCTION_78();
+  type metadata accessor for Proto_PaddingLayerParams.OneOf_PaddingType(v7);
+  OUTLINED_FUNCTION_18_1();
+  swift_getEnumCaseMultiPayload();
+  sub_2576DE33C(a1, v2);
+  swift_storeEnumTagMultiPayload();
+  OUTLINED_FUNCTION_23_24();
+  sub_2576DE33C(v2, a2);
+  OUTLINED_FUNCTION_21();
+  return __swift_storeEnumTagSinglePayload(v8, v9, v10, v5);
+}
+
+void sub_2576DC768(uint64_t a1, char a2)
+{
+  v2 = *(a1 + 8);
+  v3 = *(a1 + 16);
+  if (a2)
   {
-    sub_2576CB524((*v0)[6], v2);
-    OUTLINED_FUNCTION_6_44();
-    sub_2576CB6D4(v2, v4);
-    sub_25769F258(v8 + v1);
-    sub_2576CB6D4(v4, v8 + v1);
-    OUTLINED_FUNCTION_21();
-    __swift_storeEnumTagSinglePayload(v10, v11, v12, v7);
-    OUTLINED_FUNCTION_8_35();
-    sub_2576CB730(v3, v13);
+    sub_2576DB58C(*(a1 + 16), v2);
+    NeuralNetwork.Layer.PadParameters.kind.setter(v2);
+    OUTLINED_FUNCTION_0_88();
+    sub_2576DCA34(v3, v4);
   }
 
   else
   {
-    OUTLINED_FUNCTION_6_44();
-    sub_2576CB6D4(v3, v4);
-    sub_25769F258(v8 + v1);
-    sub_2576CB6D4(v4, v8 + v1);
-    OUTLINED_FUNCTION_21();
-    __swift_storeEnumTagSinglePayload(v14, v15, v16, v7);
+    NeuralNetwork.Layer.PadParameters.kind.setter(*(a1 + 16));
   }
 
   free(v3);
+
   free(v2);
-  free(v5);
+}
+
+uint64_t sub_2576DC7F4(uint64_t a1)
+{
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1F0, &qword_2577458B0);
+  MEMORY[0x28223BE20](v2 - 8);
+  v4 = &v6 - v3;
+  sub_2574A172C(a1, &v6 - v3, &qword_27F87A1F0, &qword_2577458B0);
+  return NeuralNetwork.Layer.PadParameters.amount.setter(v4);
+}
+
+uint64_t NeuralNetwork.Layer.PadParameters.amount.setter(uint64_t a1)
+{
+  v5 = type metadata accessor for Proto_BorderAmounts(0);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v6);
+  OUTLINED_FUNCTION_3();
+  v7 = OUTLINED_FUNCTION_17_3();
+  type metadata accessor for NeuralNetwork.Border(v7);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v8);
+  OUTLINED_FUNCTION_23_0();
+  OUTLINED_FUNCTION_155(a1, 1, v9);
+  if (v10)
+  {
+    sub_2574695E4(a1, &qword_27F87A1F0, &qword_2577458B0);
+    v11 = *(type metadata accessor for Proto_PaddingLayerParams(0) + 24);
+    sub_2574695E4(v1 + v11, &qword_27F879AC8, &unk_257744010);
+
+    return __swift_storeEnumTagSinglePayload(v1 + v11, 1, 1, v5);
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_12_36();
+    sub_2576DE33C(a1, v3);
+    sub_2576DE33C(v3, v2);
+    v12 = *(type metadata accessor for Proto_PaddingLayerParams(0) + 24);
+    sub_2574695E4(v1 + v12, &qword_27F879AC8, &unk_257744010);
+    sub_2576DE33C(v2, v1 + v12);
+    OUTLINED_FUNCTION_21();
+    return __swift_storeEnumTagSinglePayload(v13, v14, v15, v5);
+  }
+}
+
+uint64_t sub_2576DCA34(uint64_t a1, void (*a2)(void))
+{
+  a2(0);
+  OUTLINED_FUNCTION_4();
+  (*(v3 + 8))(a1);
+  return a1;
+}
+
+void (*NeuralNetwork.Layer.PadParameters.amount.modify(void *a1))()
+{
+  v3 = __swift_coroFrameAllocStub(0x58uLL);
+  *a1 = v3;
+  *v3 = v1;
+  v4 = type metadata accessor for NeuralNetwork.Border(0);
+  v3[1] = v4;
+  v21 = v4;
+  OUTLINED_FUNCTION_4();
+  v3[2] = __swift_coroFrameAllocStub(*(v5 + 64));
+  v6 = type metadata accessor for Proto_BorderAmounts(0);
+  v3[3] = v6;
+  OUTLINED_FUNCTION_4();
+  v8 = *(v7 + 64);
+  v3[4] = __swift_coroFrameAllocStub(v8);
+  v20 = __swift_coroFrameAllocStub(v8);
+  v3[5] = v20;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AC8, &unk_257744010);
+  OUTLINED_FUNCTION_13(v9);
+  v10 = OUTLINED_FUNCTION_45_10();
+  v3[6] = v10;
+  v11 = OUTLINED_FUNCTION_45_10();
+  v3[7] = v11;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1F0, &qword_2577458B0);
+  OUTLINED_FUNCTION_13(v12);
+  v3[8] = OUTLINED_FUNCTION_45_10();
+  v13 = OUTLINED_FUNCTION_45_10();
+  v3[9] = v13;
+  v14 = *(type metadata accessor for Proto_PaddingLayerParams(0) + 24);
+  *(v3 + 20) = v14;
+  sub_2574A172C(v1 + v14, v11, &qword_27F879AC8, &unk_257744010);
+  v15 = 1;
+  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v11, 1, v6);
+  sub_2574695E4(v11, &qword_27F879AC8, &unk_257744010);
+  if (EnumTagSinglePayload != 1)
+  {
+    sub_2574A172C(v1 + v14, v10, &qword_27F879AC8, &unk_257744010);
+    OUTLINED_FUNCTION_155(v10, 1, v6);
+    if (v17)
+    {
+      v18 = v20;
+      *v20 = MEMORY[0x277D84F90];
+      _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+      OUTLINED_FUNCTION_155(v10, 1, v6);
+      if (!v17)
+      {
+        sub_2574695E4(v10, &qword_27F879AC8, &unk_257744010);
+      }
+    }
+
+    else
+    {
+      OUTLINED_FUNCTION_5_46();
+      v18 = v20;
+      sub_2576DE33C(v10, v20);
+    }
+
+    OUTLINED_FUNCTION_5_46();
+    sub_2576DE33C(v18, v13);
+    v15 = 0;
+  }
+
+  __swift_storeEnumTagSinglePayload(v13, v15, 1, v21);
+  return sub_2576DCD28;
+}
+
+void sub_2576DCD28()
+{
+  OUTLINED_FUNCTION_31();
+  v1 = *v0;
+  v2 = (*v0)[9];
+  if (v3)
+  {
+    v5 = v1[7];
+    v4 = v1[8];
+    v7 = v1[5];
+    v6 = v1[6];
+    v8 = v1[4];
+    v9 = v1[2];
+    sub_2574A172C((*v0)[9], v4, &qword_27F87A1F0, &qword_2577458B0);
+    NeuralNetwork.Layer.PadParameters.amount.setter(v4);
+    sub_2574695E4(v2, &qword_27F87A1F0, &qword_2577458B0);
+  }
+
+  else
+  {
+    EnumTagSinglePayload = __swift_getEnumTagSinglePayload((*v0)[9], 1, v1[1]);
+    v11 = *(v1 + 20);
+    if (EnumTagSinglePayload == 1)
+    {
+      v12 = *v1;
+      sub_2574695E4(v2, &qword_27F87A1F0, &qword_2577458B0);
+      sub_2574695E4(v12 + v11, &qword_27F879AC8, &unk_257744010);
+      v13 = 1;
+    }
+
+    else
+    {
+      v14 = v1[4];
+      v15 = v1[2];
+      v16 = *v1;
+      OUTLINED_FUNCTION_12_36();
+      sub_2576DE33C(v2, v15);
+      sub_2576DE33C(v15, v14);
+      sub_2574695E4(v16 + v11, &qword_27F879AC8, &unk_257744010);
+      sub_2576DE33C(v14, v16 + v11);
+      v13 = 0;
+    }
+
+    v4 = v1[8];
+    v2 = v1[9];
+    v6 = v1[6];
+    v5 = v1[7];
+    v8 = v1[4];
+    v7 = v1[5];
+    v9 = v1[2];
+    __swift_storeEnumTagSinglePayload(*v1 + *(v1 + 20), v13, 1, v1[3]);
+  }
+
+  free(v2);
   free(v4);
+  free(v5);
   free(v6);
+  free(v7);
+  free(v8);
+  free(v9);
   OUTLINED_FUNCTION_35();
 
   free(v17);
 }
 
-uint64_t TreeEnsembleClassifierConfiguration.classLabels.getter@<X0>(uint64_t a1@<X8>)
+__n128 *NeuralNetwork.Layer.PadParameters.Kind.propertyDescriptions.getter()
 {
-  v3 = type metadata accessor for Proto_TreeEnsembleClassifier.OneOf_ClassLabels(0);
-  v4 = OUTLINED_FUNCTION_4(v3);
-  v6 = *(v5 + 64);
-  v7 = MEMORY[0x28223BE20](v4);
-  v9 = &v24 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7);
-  v11 = &v24 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F8800E0, &qword_25776A3E8);
-  OUTLINED_FUNCTION_13(v12);
-  v14 = *(v13 + 64);
-  OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v15);
-  v17 = &v24 - v16;
-  v18 = type metadata accessor for Proto_TreeEnsembleClassifier(0);
-  sub_2574A172C(v1 + *(v18 + 20), v17, &qword_27F8800E0, &qword_25776A3E8);
-  result = OUTLINED_FUNCTION_65(v17);
-  if (v20)
+  v2 = type metadata accessor for NeuralNetwork.Layer.PadParameters.ConstantParameters(0);
+  v3 = OUTLINED_FUNCTION_13(v2);
+  MEMORY[0x28223BE20](v3);
+  OUTLINED_FUNCTION_3();
+  v4 = OUTLINED_FUNCTION_35_15();
+  type metadata accessor for NeuralNetwork.Layer.PadParameters.Kind(v4);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v5);
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_421();
+  OUTLINED_FUNCTION_1_70();
+  sub_2576DB58C(v1, v1);
+  if (swift_getEnumCaseMultiPayload())
   {
-    v22 = 0;
-    v21 = MEMORY[0x277D84F90];
+    OUTLINED_FUNCTION_0_88();
+    sub_2576DCA34(v1, v6);
+    return MEMORY[0x277D84F90];
   }
 
   else
   {
-    OUTLINED_FUNCTION_4_47();
-    sub_2576CB6D4(v17, v11);
-    OUTLINED_FUNCTION_2_55();
-    sub_2576CB524(v11, v9);
-    sub_2576CAAEC();
-    v21 = v24;
-    v22 = v25;
-    OUTLINED_FUNCTION_0_83();
-    result = sub_2576CB730(v11, v23);
+    OUTLINED_FUNCTION_3_62();
+    v8 = OUTLINED_FUNCTION_44_1();
+    sub_2576DE33C(v8, v9);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
+    v7 = swift_allocObject();
+    OUTLINED_FUNCTION_16_22(v7, xmmword_2577442B0);
+    v7[3].n128_u64[0] = sub_257743794();
+    v7[3].n128_u64[1] = v10;
+    OUTLINED_FUNCTION_2_58();
+    sub_2576DCA34(v0, v11);
   }
 
-  *a1 = v21;
-  *(a1 + 8) = v22;
+  return v7;
+}
+
+uint64_t NeuralNetwork.Layer.PadParameters.ConstantParameters.init(value:)(float a1)
+{
+  v3 = OUTLINED_FUNCTION_16_1();
+  v4 = type metadata accessor for Proto_PaddingLayerParams.PaddingConstant(v3);
+  result = OUTLINED_FUNCTION_192_0(v4);
+  *v1 = a1;
   return result;
 }
 
-uint64_t sub_2576CA948@<X0>(uint64_t a1@<X8>)
-{
-  result = TreeEnsembleClassifierConfiguration.classLabels.getter(&v4);
-  v3 = v5;
-  *a1 = v4;
-  *(a1 + 8) = v3;
-  return result;
-}
-
-uint64_t sub_2576CA98C(uint64_t a1)
-{
-  v1 = *(a1 + 8);
-  v3 = *a1;
-  v4 = v1;
-
-  return TreeEnsembleClassifierConfiguration.classLabels.setter(&v3);
-}
-
-uint64_t TreeEnsembleClassifierConfiguration.classLabels.setter(uint64_t *a1)
-{
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F8800E0, &qword_25776A3E8);
-  OUTLINED_FUNCTION_13(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v6);
-  v8 = (&v18 - v7);
-  v9 = *a1;
-  if (a1[1])
-  {
-    v10 = v8 + *(type metadata accessor for Proto_StringVector(0) + 20);
-    _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-    *v8 = v9;
-    v11 = type metadata accessor for Proto_TreeEnsembleClassifier.OneOf_ClassLabels(0);
-    swift_storeEnumTagMultiPayload();
-  }
-
-  else
-  {
-    v12 = *a1;
-
-    sub_25764CFE8();
-    v11 = type metadata accessor for Proto_TreeEnsembleClassifier.OneOf_ClassLabels(0);
-    swift_storeEnumTagMultiPayload();
-  }
-
-  type metadata accessor for Proto_TreeEnsembleClassifier.OneOf_ClassLabels(0);
-  OUTLINED_FUNCTION_21();
-  __swift_storeEnumTagSinglePayload(v13, v14, v15, v11);
-  v16 = type metadata accessor for Proto_TreeEnsembleClassifier(0);
-  return sub_2576CAD3C(v8, v1 + *(v16 + 20));
-}
-
-void sub_2576CAAEC()
+void static NeuralNetwork.Layer.PadParameters.Kind.== infix(_:_:)()
 {
   OUTLINED_FUNCTION_31();
   v2 = v1;
   v4 = v3;
-  v5 = type metadata accessor for Proto_StringVector(0);
+  v5 = type metadata accessor for NeuralNetwork.Layer.PadParameters.ReplicationParameters(0);
   v6 = OUTLINED_FUNCTION_13(v5);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
   OUTLINED_FUNCTION_3();
-  v11 = (v10 - v9);
-  v12 = type metadata accessor for Proto_Int64Vector(0);
-  v13 = OUTLINED_FUNCTION_13(v12);
-  v15 = *(v14 + 64);
-  MEMORY[0x28223BE20](v13);
+  v51 = v8 - v7;
+  v9 = type metadata accessor for NeuralNetwork.Layer.PadParameters.ReflectionParameters(0);
+  v10 = OUTLINED_FUNCTION_13(v9);
+  MEMORY[0x28223BE20](v10);
   OUTLINED_FUNCTION_3();
-  v16 = OUTLINED_FUNCTION_38();
-  v17 = type metadata accessor for Proto_TreeEnsembleClassifier.OneOf_ClassLabels(v16);
-  v18 = OUTLINED_FUNCTION_4(v17);
-  v20 = *(v19 + 64);
-  MEMORY[0x28223BE20](v18);
-  OUTLINED_FUNCTION_3();
-  v23 = v22 - v21;
-  OUTLINED_FUNCTION_2_55();
-  sub_2576CB524(v2, v23);
+  v50 = v12 - v11;
+  v13 = type metadata accessor for NeuralNetwork.Layer.PadParameters.ConstantParameters(0);
+  v14 = OUTLINED_FUNCTION_13(v13);
+  MEMORY[0x28223BE20](v14);
+  OUTLINED_FUNCTION_23_0();
+  type metadata accessor for NeuralNetwork.Layer.PadParameters.Kind(0);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v15);
+  OUTLINED_FUNCTION_11();
+  v18 = v16 - v17;
+  v20 = MEMORY[0x28223BE20](v19);
+  v22 = &v50 - v21;
+  MEMORY[0x28223BE20](v20);
+  v24 = (&v50 - v23);
+  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F881408, &unk_257774878);
+  OUTLINED_FUNCTION_13(v25);
+  OUTLINED_FUNCTION_29();
+  v27 = MEMORY[0x28223BE20](v26);
+  v29 = &v50 - v28;
+  v30 = *(v27 + 56);
+  sub_2576DB58C(v4, &v50 - v28);
+  sub_2576DB58C(v2, &v29[v30]);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload == 1)
+  if (EnumCaseMultiPayload)
   {
-    sub_2576CB6D4(v23, v0);
-    v27 = *v0;
-    v28 = *(*v0 + 16);
-    if (v28)
+    if (EnumCaseMultiPayload == 1)
     {
-      v35 = MEMORY[0x277D84F90];
-      sub_257483724();
-      v26 = v35;
-      v29 = (v27 + 32);
-      v30 = *(v35 + 16);
-      do
+      OUTLINED_FUNCTION_1_70();
+      sub_2576DB58C(v29, v22);
+      if (swift_getEnumCaseMultiPayload() == 1)
       {
-        v32 = *v29++;
-        v31 = v32;
-        if (v30 >= *(v35 + 24) >> 1)
-        {
-          sub_257483724();
-        }
-
-        *(v35 + 16) = v30 + 1;
-        *(v35 + 8 * v30++ + 32) = v31;
-        --v28;
+        OUTLINED_FUNCTION_10_42();
+        v32 = &v29[v30];
+        v33 = v50;
+        sub_2576DE33C(v32, v50);
+        sub_2577431B4();
+        OUTLINED_FUNCTION_4_51();
+        sub_2576DE3F8(v34, v35, MEMORY[0x277D216D0]);
+        sub_257743644();
+        v36 = type metadata accessor for NeuralNetwork.Layer.PadParameters.ReflectionParameters;
+        sub_2576DCA34(v33, type metadata accessor for NeuralNetwork.Layer.PadParameters.ReflectionParameters);
+        v37 = v22;
+LABEL_9:
+        sub_2576DCA34(v37, v36);
+        OUTLINED_FUNCTION_0_88();
+        sub_2576DCA34(v29, v44);
+        goto LABEL_13;
       }
 
-      while (v28);
-      OUTLINED_FUNCTION_0_83();
-      sub_2576CB730(v2, v33);
-      OUTLINED_FUNCTION_9_33();
+      OUTLINED_FUNCTION_21_27();
+      v39 = v22;
     }
 
     else
     {
-      OUTLINED_FUNCTION_0_83();
-      sub_2576CB730(v2, v34);
-      OUTLINED_FUNCTION_9_33();
-      v26 = MEMORY[0x277D84F90];
+      OUTLINED_FUNCTION_1_70();
+      sub_2576DB58C(v29, v18);
+      if (swift_getEnumCaseMultiPayload() == 2)
+      {
+        OUTLINED_FUNCTION_9_35();
+        v40 = &v29[v30];
+        v41 = v51;
+        sub_2576DE33C(v40, v51);
+        sub_2577431B4();
+        OUTLINED_FUNCTION_4_51();
+        sub_2576DE3F8(v42, v43, MEMORY[0x277D216D0]);
+        sub_257743644();
+        v36 = type metadata accessor for NeuralNetwork.Layer.PadParameters.ReplicationParameters;
+        sub_2576DCA34(v41, type metadata accessor for NeuralNetwork.Layer.PadParameters.ReplicationParameters);
+        v37 = v18;
+        goto LABEL_9;
+      }
+
+      OUTLINED_FUNCTION_20_22();
+      v39 = v18;
     }
+
+LABEL_12:
+    sub_2576DCA34(v39, v38);
+    sub_2574695E4(v29, &qword_27F881408, &unk_257774878);
+    goto LABEL_13;
   }
 
-  else
+  OUTLINED_FUNCTION_1_70();
+  sub_2576DB58C(v29, v24);
+  if (swift_getEnumCaseMultiPayload())
   {
-    OUTLINED_FUNCTION_0_83();
-    sub_2576CB730(v2, v25);
-    sub_2576CB6D4(v23, v11);
-    v26 = *v11;
-
-    sub_2576CB730(v11, type metadata accessor for Proto_StringVector);
+    OUTLINED_FUNCTION_2_58();
+    v39 = v24;
+    goto LABEL_12;
   }
 
-  *v4 = v26;
-  *(v4 + 8) = EnumCaseMultiPayload != 1;
+  OUTLINED_FUNCTION_3_62();
+  sub_2576DE33C(&v29[v30], v0);
+  if (*v24 == *v0)
+  {
+    type metadata accessor for Proto_PaddingLayerParams.PaddingConstant(0);
+    sub_2577431B4();
+    OUTLINED_FUNCTION_4_51();
+    sub_2576DE3F8(v45, v46, MEMORY[0x277D216D0]);
+    sub_257743644();
+  }
+
+  OUTLINED_FUNCTION_2_58();
+  sub_2576DCA34(v0, v47);
+  OUTLINED_FUNCTION_2_58();
+  sub_2576DCA34(v24, v48);
+  OUTLINED_FUNCTION_0_88();
+  sub_2576DCA34(v29, v49);
+LABEL_13:
   OUTLINED_FUNCTION_35();
 }
 
-uint64_t sub_2576CAD3C(uint64_t a1, uint64_t a2)
+uint64_t NeuralNetwork.Layer.PadParameters.Kind.hash(into:)()
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F8800E0, &qword_25776A3E8);
-  (*(*(v4 - 8) + 40))(a2, a1, v4);
-  return a2;
-}
-
-void (*TreeEnsembleClassifierConfiguration.classLabels.modify(void *a1))(void ***a1, char a2)
-{
-  v3 = __swift_coroFrameAllocStub(0x48uLL);
-  *a1 = v3;
-  v3[2] = v1;
-  v4 = type metadata accessor for Proto_TreeEnsembleClassifier.OneOf_ClassLabels(0);
-  v3[3] = v4;
-  OUTLINED_FUNCTION_4(v4);
-  v6 = *(v5 + 64);
-  v7 = __swift_coroFrameAllocStub(v6);
-  v3[4] = v7;
-  v8 = __swift_coroFrameAllocStub(v6);
-  v3[5] = v8;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F8800E0, &qword_25776A3E8);
-  OUTLINED_FUNCTION_13(v9);
-  v11 = *(v10 + 64);
-  v3[6] = __swift_coroFrameAllocStub(v11);
-  v3[7] = __swift_coroFrameAllocStub(v11);
-  v12 = __swift_coroFrameAllocStub(v11);
-  v3[8] = v12;
-  v13 = *(type metadata accessor for Proto_TreeEnsembleClassifier(0) + 20);
-  *(v3 + 3) = v13;
-  sub_2574A172C(v1 + v13, v12, &qword_27F8800E0, &qword_25776A3E8);
-  OUTLINED_FUNCTION_65(v12);
-  if (v14)
+  v4 = OUTLINED_FUNCTION_30();
+  v5 = type metadata accessor for NeuralNetwork.Layer.PadParameters.ReplicationParameters(v4);
+  v6 = OUTLINED_FUNCTION_13(v5);
+  MEMORY[0x28223BE20](v6);
+  OUTLINED_FUNCTION_3();
+  v7 = OUTLINED_FUNCTION_35_15();
+  v8 = type metadata accessor for NeuralNetwork.Layer.PadParameters.ReflectionParameters(v7);
+  v9 = OUTLINED_FUNCTION_13(v8);
+  MEMORY[0x28223BE20](v9);
+  OUTLINED_FUNCTION_3();
+  v10 = OUTLINED_FUNCTION_17_3();
+  v11 = type metadata accessor for NeuralNetwork.Layer.PadParameters.ConstantParameters(v10);
+  v12 = OUTLINED_FUNCTION_13(v11);
+  MEMORY[0x28223BE20](v12);
+  OUTLINED_FUNCTION_3();
+  v13 = OUTLINED_FUNCTION_78();
+  type metadata accessor for NeuralNetwork.Layer.PadParameters.Kind(v13);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v14);
+  OUTLINED_FUNCTION_3();
+  v17 = v16 - v15;
+  OUTLINED_FUNCTION_1_70();
+  sub_2576DB58C(v1, v17);
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload)
   {
-    v16 = 0;
-    v15 = MEMORY[0x277D84F90];
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_4_47();
-    sub_2576CB6D4(v12, v8);
-    OUTLINED_FUNCTION_2_55();
-    sub_2576CB524(v8, v7);
-    sub_2576CAAEC();
-    v15 = v19;
-    v16 = v20;
-    OUTLINED_FUNCTION_0_83();
-    sub_2576CB730(v8, v17);
-  }
-
-  *v3 = v15;
-  *(v3 + 8) = v16;
-  return sub_2576CAF58;
-}
-
-void sub_2576CAF58(void ***a1, char a2)
-{
-  v6 = *a1;
-  v7 = **a1;
-  v8 = *(*a1 + 8);
-  v9 = (*a1)[3];
-  if (a2)
-  {
-    v10 = v6[6];
-    if ((*a1)[1])
+    if (EnumCaseMultiPayload == 1)
     {
-      v11 = v10 + *(type metadata accessor for Proto_StringVector(0) + 20);
-      _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-      *v10 = v7;
-      OUTLINED_FUNCTION_176();
-      swift_storeEnumTagMultiPayload();
+      OUTLINED_FUNCTION_10_42();
+      sub_2576DE33C(v17, v2);
+      MEMORY[0x259C651F0](1);
+      type metadata accessor for Proto_PaddingLayerParams.PaddingReflection(0);
+      sub_2576DE3F8(&qword_27F87E158, type metadata accessor for Proto_PaddingLayerParams.PaddingReflection, &unk_257766538);
+      sub_2577435F4();
+      OUTLINED_FUNCTION_21_27();
+      v20 = v2;
     }
 
     else
     {
-      v13 = **a1;
-
-      sub_25764CFE8();
-      OUTLINED_FUNCTION_176();
-      swift_storeEnumTagMultiPayload();
+      OUTLINED_FUNCTION_9_35();
+      sub_2576DE33C(v17, v0);
+      MEMORY[0x259C651F0](2);
+      type metadata accessor for Proto_PaddingLayerParams.PaddingReplication(0);
+      sub_2576DE3F8(&qword_27F87E148, type metadata accessor for Proto_PaddingLayerParams.PaddingReplication, &unk_257766578);
+      sub_2577435F4();
+      OUTLINED_FUNCTION_20_22();
+      v20 = v0;
     }
-
-    OUTLINED_FUNCTION_43_6();
-    OUTLINED_FUNCTION_21();
-    __swift_storeEnumTagSinglePayload(v14, v15, v16, v17);
-    sub_2576CAD3C(v10, v5 + v4);
-    v18 = *v6;
   }
 
   else
   {
-    v10 = v6[7];
-    if ((*a1)[1])
-    {
-      v12 = v10 + *(type metadata accessor for Proto_StringVector(0) + 20);
-      _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-      *v10 = v7;
-      OUTLINED_FUNCTION_176();
-      swift_storeEnumTagMultiPayload();
-    }
-
-    else
-    {
-      v19 = **a1;
-
-      sub_25764CFE8();
-      OUTLINED_FUNCTION_176();
-      swift_storeEnumTagMultiPayload();
-    }
-
-    OUTLINED_FUNCTION_43_6();
-    OUTLINED_FUNCTION_21();
-    __swift_storeEnumTagSinglePayload(v20, v21, v22, v23);
-    sub_2576CAD3C(v9, v5 + v4);
+    OUTLINED_FUNCTION_3_62();
+    sub_2576DE33C(v17, v3);
+    MEMORY[0x259C651F0](0);
+    type metadata accessor for Proto_PaddingLayerParams.PaddingConstant(0);
+    sub_2576DE3F8(&qword_27F87E168, type metadata accessor for Proto_PaddingLayerParams.PaddingConstant, &unk_2577664F8);
+    sub_2577435F4();
+    OUTLINED_FUNCTION_2_58();
+    v20 = v3;
   }
 
-  free(v7);
-  free(v9);
-  free(v10);
-  free(v2);
-  free(v3);
-
-  free(v6);
+  return sub_2576DCA34(v20, v19);
 }
 
-void TreeEnsembleClassifierConfiguration.postEvaluationFunction.getter(_BYTE *a1@<X8>)
+uint64_t NeuralNetwork.Layer.PadParameters.Kind.hashValue.getter()
 {
-  if (v1[8] == 1)
-  {
-    v2 = 0x1020100u >> (8 * *v1);
-  }
-
-  else
-  {
-    LOBYTE(v2) = 0;
-  }
-
-  *a1 = v2;
+  sub_257743A14();
+  NeuralNetwork.Layer.PadParameters.Kind.hash(into:)();
+  return sub_257743A64();
 }
 
-unsigned __int8 *TreeEnsembleClassifierConfiguration.postEvaluationFunction.setter(unsigned __int8 *result)
+uint64_t sub_2576DD9CC(uint64_t a1)
 {
-  *v1 = *result;
-  *(v1 + 8) = 1;
+  sub_257743A14();
+  NeuralNetwork.Layer.PadParameters.Kind.hash(into:)();
+  return sub_257743A64();
+}
+
+float (*NeuralNetwork.Layer.PadParameters.ConstantParameters.value.modify(uint64_t a1))(uint64_t a1)
+{
+  *a1 = v1;
+  *(a1 + 8) = *v1;
+  return sub_25749D2A8;
+}
+
+BOOL static NeuralNetwork.Layer.PadParameters.ConstantParameters.== infix(_:_:)(float *a1, float *a2)
+{
+  result = 0;
+  if (*a1 == *a2)
+  {
+    v2 = OUTLINED_FUNCTION_30();
+    type metadata accessor for Proto_PaddingLayerParams.PaddingConstant(v2);
+    sub_2577431B4();
+    OUTLINED_FUNCTION_4_51();
+    sub_2576DE3F8(v3, v4, MEMORY[0x277D216D0]);
+    if (sub_257743644())
+    {
+      return 1;
+    }
+  }
+
   return result;
 }
 
-uint64_t *(*TreeEnsembleClassifierConfiguration.postEvaluationFunction.modify(uint64_t a1))(uint64_t *result)
-{
-  *a1 = v1;
-  if (v1[8] == 1)
-  {
-    v2 = 0x1020100u >> (8 * *v1);
-  }
-
-  else
-  {
-    LOBYTE(v2) = 0;
-  }
-
-  *(a1 + 8) = v2;
-  return sub_25749B4B4;
-}
-
-uint64_t TreeEnsembleClassifierConfiguration.init()@<X0>(uint64_t a1@<X8>)
-{
-  *a1 = 0;
-  *(a1 + 8) = 1;
-  v2 = type metadata accessor for Proto_TreeEnsembleClassifier(0);
-  v3 = v2[5];
-  v4 = type metadata accessor for Proto_TreeEnsembleClassifier.OneOf_ClassLabels(0);
-  __swift_storeEnumTagSinglePayload(a1 + v3, 1, 1, v4);
-  v5 = a1 + v2[6];
-  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
-  v6 = v2[7];
-  v7 = type metadata accessor for Proto_TreeEnsembleParameters(0);
-
-  return __swift_storeEnumTagSinglePayload(a1 + v6, 1, 1, v7);
-}
-
-void TreeEnsembleClassifierConfiguration.customMirror.getter()
+void NeuralNetwork.Layer.PadParameters.ConstantParameters.customMirror.getter()
 {
   OUTLINED_FUNCTION_31();
+  v1 = v0;
+  OUTLINED_FUNCTION_16_1();
   v2 = sub_257743A84();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x28223BE20](v2);
+  OUTLINED_FUNCTION_63();
+  v4 = v3;
+  MEMORY[0x28223BE20](v5);
   OUTLINED_FUNCTION_3();
-  v7 = v6 - v5;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE0, &unk_257744EA0);
-  OUTLINED_FUNCTION_13(v8);
-  v10 = *(v9 + 64);
+  v8 = v7 - v6;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE0, &unk_257744EA0);
+  OUTLINED_FUNCTION_13(v9);
   OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v11);
-  OUTLINED_FUNCTION_38();
-  v12 = type metadata accessor for TreeEnsembleClassifierConfiguration();
-  v13 = OUTLINED_FUNCTION_4(v12);
-  v15 = *(v14 + 64);
-  MEMORY[0x28223BE20](v13);
+  MEMORY[0x28223BE20](v10);
+  v11 = OUTLINED_FUNCTION_38();
+  type metadata accessor for NeuralNetwork.Layer.PadParameters.ConstantParameters(v11);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v12);
   OUTLINED_FUNCTION_3();
-  sub_2576CB524(v0, v17 - v16);
+  sub_2576DB58C(v1, v14 - v13);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE8, &qword_257744030);
-  v18 = swift_allocObject();
-  *(v18 + 16) = xmmword_2577442C0;
-  strcpy((v18 + 32), "treeEnsemble");
-  *(v18 + 45) = 0;
-  *(v18 + 46) = -5120;
-  *(v18 + 72) = type metadata accessor for TreeEnsemble();
-  boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0((v18 + 48));
-  TreeEnsembleClassifierConfiguration.treeEnsemble.getter(boxed_opaque_existential_0);
-  *(v18 + 80) = 0x62614C7373616C63;
-  *(v18 + 88) = 0xEB00000000736C65;
-  *(v18 + 120) = &type metadata for TreeEnsembleClassifierConfiguration.ClassLabels;
-  TreeEnsembleClassifierConfiguration.classLabels.getter(v18 + 96);
-  *(v18 + 128) = 0xD000000000000016;
-  *(v18 + 136) = 0x8000000257780980;
-  *(v18 + 168) = &type metadata for TreeEnsemble.PostEvaluationFunction;
-  TreeEnsembleClassifierConfiguration.postEvaluationFunction.getter((v18 + 144));
-  v20 = sub_257743A74();
-  __swift_storeEnumTagSinglePayload(v1, 1, 1, v20);
-  (*(v3 + 104))(v7, *MEMORY[0x277D84C38], v2);
+  v15 = swift_allocObject();
+  *(v15 + 16) = xmmword_2577442B0;
+  *(v15 + 32) = 0x65756C6176;
+  *(v15 + 40) = 0xE500000000000000;
+  v16 = *v1;
+  *(v15 + 72) = MEMORY[0x277D83A90];
+  *(v15 + 48) = v16;
+  v17 = sub_257743A74();
+  OUTLINED_FUNCTION_15_7(v17);
+  (*(v4 + 104))(v8, *MEMORY[0x277D84C38], v2);
+  OUTLINED_FUNCTION_201();
   sub_257743AA4();
   OUTLINED_FUNCTION_35();
 }
 
-uint64_t type metadata accessor for TreeEnsembleClassifierConfiguration()
+uint64_t _s20MLModelSpecification13NeuralNetworkV5LayerV13PadParametersV010ReflectionG0V2eeoiySbAI_AItFZ_0()
 {
-  result = qword_281537528;
-  if (!qword_281537528)
-  {
-    return swift_getSingletonMetadata();
-  }
-
-  return result;
+  OUTLINED_FUNCTION_30();
+  sub_2577431B4();
+  OUTLINED_FUNCTION_4_51();
+  sub_2576DE3F8(v0, v1, MEMORY[0x277D216D0]);
+  OUTLINED_FUNCTION_44_1();
+  return sub_257743644() & 1;
 }
 
-uint64_t sub_2576CB524(uint64_t a1, uint64_t a2)
+uint64_t sub_2576DDF6C(uint64_t a1, uint64_t (*a2)(void))
+{
+  a2(0);
+  OUTLINED_FUNCTION_40_12();
+
+  return sub_2577435F4();
+}
+
+uint64_t sub_2576DE020(uint64_t (*a1)(void))
+{
+  sub_257743A14();
+  a1(0);
+  OUTLINED_FUNCTION_40_12();
+  sub_2577435F4();
+  return sub_257743A64();
+}
+
+uint64_t sub_2576DE0EC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void))
+{
+  sub_257743A14();
+  a4(0);
+  OUTLINED_FUNCTION_40_12();
+  sub_2577435F4();
+  return sub_257743A64();
+}
+
+void sub_2576DE190()
+{
+  OUTLINED_FUNCTION_31();
+  v2 = v1;
+  OUTLINED_FUNCTION_16_1();
+  v3 = sub_257743A84();
+  OUTLINED_FUNCTION_63();
+  v5 = v4;
+  MEMORY[0x28223BE20](v6);
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_421();
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879AE0, &unk_257744EA0);
+  OUTLINED_FUNCTION_13(v7);
+  OUTLINED_FUNCTION_29();
+  MEMORY[0x28223BE20](v8);
+  v9 = OUTLINED_FUNCTION_38();
+  v2(v9);
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_29();
+  MEMORY[0x28223BE20](v10);
+  sub_2576DB58C(v0, v13 - v11);
+  v13[1] = MEMORY[0x277D84F90];
+  v12 = sub_257743A74();
+  OUTLINED_FUNCTION_15_7(v12);
+  (*(v5 + 104))(v0, *MEMORY[0x277D84C38], v3);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879C08, &qword_2577709D0);
+  sub_25748397C();
+  sub_257743A94();
+  OUTLINED_FUNCTION_35();
+}
+
+uint64_t sub_2576DE33C(uint64_t a1, uint64_t a2)
 {
   v4 = OUTLINED_FUNCTION_30();
-  v6 = v5(v4);
-  OUTLINED_FUNCTION_4(v6);
-  (*(v7 + 16))(a2, v2);
+  v5(v4);
+  OUTLINED_FUNCTION_4();
+  (*(v6 + 32))(a2, v2);
   return a2;
 }
 
-uint64_t static TreeEnsembleClassifierConfiguration.ClassLabels.== infix(_:_:)(uint64_t a1, uint64_t a2)
+uint64_t sub_2576DE3F8(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
-  v4 = *a1;
-  v5 = *a2;
-  v6 = *(a2 + 8);
-  if (*(a1 + 8))
+  result = *a1;
+  if (!result)
   {
-    if (v6)
-    {
-      return sub_257479C78(v4, v5);
-    }
-
-    return 0;
-  }
-
-  if (v6)
-  {
-    return 0;
-  }
-
-  return sub_257487374(v4, v5);
-}
-
-unint64_t sub_2576CB5C8()
-{
-  result = qword_27F87BAF0;
-  if (!qword_27F87BAF0)
-  {
-    type metadata accessor for Proto_TreeEnsembleClassifier(255);
+    a2(255);
     result = swift_getWitnessTable();
-    atomic_store(result, &qword_27F87BAF0);
+    atomic_store(result, a1);
   }
 
   return result;
 }
 
-uint64_t sub_2576CB64C()
+uint64_t sub_2576DE6C0(uint64_t a1)
 {
-  result = type metadata accessor for Proto_TreeEnsembleClassifier(319);
-  if (v1 <= 0x3F)
+  result = type metadata accessor for NeuralNetwork.Layer.PadParameters.ConstantParameters(319);
+  if (v2 <= 0x3F)
+  {
+    result = type metadata accessor for NeuralNetwork.Layer.PadParameters.ReflectionParameters(319);
+    if (v3 <= 0x3F)
+    {
+      result = type metadata accessor for NeuralNetwork.Layer.PadParameters.ReplicationParameters(319);
+      if (v4 <= 0x3F)
+      {
+        swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
+        return 0;
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_2576DE808(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t))
+{
+  result = a4(319, a2, a3);
+  if (v5 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -9499,2057 +6784,3478 @@ uint64_t sub_2576CB64C()
   return result;
 }
 
-uint64_t sub_2576CB6D4(uint64_t a1, uint64_t a2)
+__n128 *OUTLINED_FUNCTION_16_22(__n128 *result, __n128 a2)
 {
-  v4 = OUTLINED_FUNCTION_30();
-  v6 = v5(v4);
-  OUTLINED_FUNCTION_4(v6);
-  (*(v7 + 32))(a2, v2);
-  return a2;
+  result[1] = a2;
+  result[2].n128_u64[0] = 0x65756C6156;
+  result[2].n128_u64[1] = 0xE500000000000000;
+  return result;
 }
 
-uint64_t sub_2576CB730(uint64_t a1, uint64_t (*a2)(void))
+uint64_t OUTLINED_FUNCTION_25_21()
 {
-  v3 = a2(0);
-  OUTLINED_FUNCTION_4(v3);
-  (*(v4 + 8))(a1);
-  return a1;
+
+  return sub_2576DCA34(v0, type metadata accessor for Proto_PaddingLayerParams.OneOf_PaddingType);
 }
 
-uint64_t OUTLINED_FUNCTION_9_33()
+void OUTLINED_FUNCTION_30_15()
 {
 
-  return sub_2576CB730(v0, type metadata accessor for Proto_Int64Vector);
+  sub_257469388();
 }
 
-uint64_t NeuralNetwork.Layer.Kind.propertyDescriptions.getter()
+uint64_t OUTLINED_FUNCTION_40_12()
 {
-  v0 = type metadata accessor for NeuralNetwork.Layer.CustomParameters(0);
-  v1 = OUTLINED_FUNCTION_13(v0);
-  v3 = *(v2 + 64);
-  MEMORY[0x28223BE20](v1);
-  OUTLINED_FUNCTION_12_1();
-  v1145 = v4;
-  v5 = OUTLINED_FUNCTION_153();
-  v6 = type metadata accessor for NeuralNetwork.Layer.NonMaximumSuppressionParameters(v5);
-  v7 = OUTLINED_FUNCTION_13(v6);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
-  OUTLINED_FUNCTION_12_1();
-  v1143 = v10;
-  v11 = OUTLINED_FUNCTION_153();
-  v12 = type metadata accessor for NeuralNetwork.Layer.ArgSortParameters(v11);
-  v13 = OUTLINED_FUNCTION_13(v12);
-  v15 = *(v14 + 64);
-  MEMORY[0x28223BE20](v13);
-  OUTLINED_FUNCTION_12_1();
-  v1144 = v16;
-  v17 = OUTLINED_FUNCTION_153();
-  v18 = type metadata accessor for NeuralNetwork.Layer.TopKParameters(v17);
-  v19 = OUTLINED_FUNCTION_13(v18);
-  v21 = *(v20 + 64);
+
+  return sub_2576DE3F8(v2, v1, v0);
+}
+
+void *OUTLINED_FUNCTION_45_10()
+{
+
+  return __swift_coroFrameAllocStub(v0);
+}
+
+uint64_t sub_2576DEA98()
+{
+  v103 = *MEMORY[0x277D85DE8];
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879C38, &qword_257744550);
+  MEMORY[0x28223BE20](v1 - 8);
+  OUTLINED_FUNCTION_25_0();
+  v97 = v2;
+  OUTLINED_FUNCTION_158();
+  MEMORY[0x28223BE20](v3);
+  v94.n128_u64[0] = &v86 - v4;
+  v5 = type metadata accessor for Proto_FeatureType(0);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v6);
+  OUTLINED_FUNCTION_25_0();
+  v96 = v7;
+  OUTLINED_FUNCTION_158();
+  MEMORY[0x28223BE20](v8);
+  v93 = &v86 - v9;
+  v10 = type metadata accessor for FeatureType(0);
+  MEMORY[0x28223BE20](v10 - 8);
+  OUTLINED_FUNCTION_25_0();
+  v95 = v11;
+  OUTLINED_FUNCTION_158();
+  MEMORY[0x28223BE20](v12);
+  v92 = &v86 - v13;
+  v14 = type metadata accessor for FeatureDescription(0);
+  v15 = OUTLINED_FUNCTION_24(v14);
+  v17 = v16;
+  MEMORY[0x28223BE20](v15);
+  OUTLINED_FUNCTION_25_0();
+  v98 = v18;
+  OUTLINED_FUNCTION_158();
   MEMORY[0x28223BE20](v19);
-  OUTLINED_FUNCTION_12_1();
-  v1141 = v22;
-  v23 = OUTLINED_FUNCTION_153();
-  v24 = type metadata accessor for NeuralNetwork.Layer.OneHotParameters(v23);
-  v25 = OUTLINED_FUNCTION_13(v24);
-  v27 = *(v26 + 64);
-  MEMORY[0x28223BE20](v25);
-  OUTLINED_FUNCTION_12_1();
-  v1139 = v28;
-  v29 = OUTLINED_FUNCTION_153();
-  v30 = type metadata accessor for NeuralNetwork.Layer.BiasParameters(v29);
-  v31 = OUTLINED_FUNCTION_13(v30);
-  v33 = *(v32 + 64);
-  MEMORY[0x28223BE20](v31);
-  OUTLINED_FUNCTION_12_1();
-  v1138 = v34;
-  v35 = OUTLINED_FUNCTION_153();
-  v36 = type metadata accessor for NeuralNetwork.Layer.EmbeddingNDParameters(v35);
-  v37 = OUTLINED_FUNCTION_13(v36);
-  v39 = *(v38 + 64);
-  MEMORY[0x28223BE20](v37);
-  OUTLINED_FUNCTION_12_1();
-  v1142 = v40;
-  v41 = OUTLINED_FUNCTION_153();
-  v42 = type metadata accessor for NeuralNetwork.Layer.EmbeddingParameters(v41);
-  v43 = OUTLINED_FUNCTION_13(v42);
-  v45 = *(v44 + 64);
-  MEMORY[0x28223BE20](v43);
-  OUTLINED_FUNCTION_12_1();
-  v1140 = v46;
-  v47 = OUTLINED_FUNCTION_153();
-  v48 = type metadata accessor for NeuralNetwork.Layer.UpperTriangularParameters(v47);
-  v49 = OUTLINED_FUNCTION_13(v48);
-  v51 = *(v50 + 64);
-  MEMORY[0x28223BE20](v49);
-  OUTLINED_FUNCTION_12_1();
-  v1137 = v52;
-  v53 = OUTLINED_FUNCTION_153();
-  v54 = type metadata accessor for NeuralNetwork.Layer.LowerTriangularParameters(v53);
-  v55 = OUTLINED_FUNCTION_13(v54);
-  v57 = *(v56 + 64);
-  MEMORY[0x28223BE20](v55);
-  OUTLINED_FUNCTION_12_1();
-  v1136 = v58;
-  v59 = OUTLINED_FUNCTION_153();
-  v60 = type metadata accessor for NeuralNetwork.Layer.MatrixBandPartParameters(v59);
-  v61 = OUTLINED_FUNCTION_13(v60);
-  v63 = *(v62 + 64);
-  MEMORY[0x28223BE20](v61);
-  OUTLINED_FUNCTION_12_1();
-  v1135 = v64;
-  v65 = OUTLINED_FUNCTION_153();
-  v66 = type metadata accessor for NeuralNetwork.Layer.CategoricalDistributionParameters(v65);
-  v67 = OUTLINED_FUNCTION_13(v66);
-  v69 = *(v68 + 64);
-  MEMORY[0x28223BE20](v67);
-  OUTLINED_FUNCTION_12_1();
-  v1133 = v70;
-  v71 = OUTLINED_FUNCTION_153();
-  v72 = type metadata accessor for NeuralNetwork.Layer.RandomBernoulliDynamicParameters(v71);
-  v73 = OUTLINED_FUNCTION_13(v72);
-  v75 = *(v74 + 64);
-  MEMORY[0x28223BE20](v73);
-  OUTLINED_FUNCTION_12_1();
-  v1134 = v76;
-  v77 = OUTLINED_FUNCTION_153();
-  v78 = type metadata accessor for NeuralNetwork.Layer.RandomBernoulliStaticParameters(v77);
-  v79 = OUTLINED_FUNCTION_13(v78);
-  v81 = *(v80 + 64);
-  MEMORY[0x28223BE20](v79);
-  OUTLINED_FUNCTION_12_1();
-  v83 = OUTLINED_FUNCTION_38_0(v82);
-  v84 = type metadata accessor for NeuralNetwork.Layer.RandomBernoulliLikeParameters(v83);
-  v85 = OUTLINED_FUNCTION_13(v84);
-  v87 = *(v86 + 64);
-  MEMORY[0x28223BE20](v85);
-  OUTLINED_FUNCTION_12_1();
-  v89 = OUTLINED_FUNCTION_38_0(v88);
-  v90 = type metadata accessor for NeuralNetwork.Layer.RandomUniformDynamicParameters(v89);
-  v91 = OUTLINED_FUNCTION_13(v90);
-  v93 = *(v92 + 64);
-  MEMORY[0x28223BE20](v91);
-  OUTLINED_FUNCTION_12_1();
-  v95 = OUTLINED_FUNCTION_38_0(v94);
-  v96 = type metadata accessor for NeuralNetwork.Layer.RandomUniformStaticParameters(v95);
-  v97 = OUTLINED_FUNCTION_13(v96);
-  v99 = *(v98 + 64);
-  MEMORY[0x28223BE20](v97);
-  OUTLINED_FUNCTION_12_1();
-  v101 = OUTLINED_FUNCTION_38_0(v100);
-  v102 = type metadata accessor for NeuralNetwork.Layer.RandomUniformLikeParameters(v101);
-  v103 = OUTLINED_FUNCTION_13(v102);
-  v105 = *(v104 + 64);
-  MEMORY[0x28223BE20](v103);
-  OUTLINED_FUNCTION_12_1();
-  v107 = OUTLINED_FUNCTION_38_0(v106);
-  v108 = type metadata accessor for NeuralNetwork.Layer.RandomNormalDynamicParameters(v107);
-  v109 = OUTLINED_FUNCTION_13(v108);
-  v111 = *(v110 + 64);
-  MEMORY[0x28223BE20](v109);
-  OUTLINED_FUNCTION_12_1();
-  v113 = OUTLINED_FUNCTION_38_0(v112);
-  v114 = type metadata accessor for NeuralNetwork.Layer.RandomNormalStaticParameters(v113);
-  v115 = OUTLINED_FUNCTION_13(v114);
-  v117 = *(v116 + 64);
-  MEMORY[0x28223BE20](v115);
-  OUTLINED_FUNCTION_12_1();
-  v119 = OUTLINED_FUNCTION_38_0(v118);
-  v120 = type metadata accessor for NeuralNetwork.Layer.RandomNormalLikeParameters(v119);
-  v121 = OUTLINED_FUNCTION_13(v120);
-  v123 = *(v122 + 64);
-  MEMORY[0x28223BE20](v121);
-  OUTLINED_FUNCTION_12_1();
-  v125 = OUTLINED_FUNCTION_38_0(v124);
-  v126 = type metadata accessor for NeuralNetwork.Layer.GreaterEqualParameters(v125);
-  v127 = OUTLINED_FUNCTION_13(v126);
-  v129 = *(v128 + 64);
-  MEMORY[0x28223BE20](v127);
-  OUTLINED_FUNCTION_12_1();
-  v131 = OUTLINED_FUNCTION_38_0(v130);
-  v132 = type metadata accessor for NeuralNetwork.Layer.GreaterThanParameters(v131);
-  v133 = OUTLINED_FUNCTION_13(v132);
-  v135 = *(v134 + 64);
-  MEMORY[0x28223BE20](v133);
-  OUTLINED_FUNCTION_12_1();
-  v137 = OUTLINED_FUNCTION_38_0(v136);
-  v138 = type metadata accessor for NeuralNetwork.Layer.LessEqualParameters(v137);
-  v139 = OUTLINED_FUNCTION_13(v138);
-  v141 = *(v140 + 64);
-  MEMORY[0x28223BE20](v139);
-  OUTLINED_FUNCTION_12_1();
-  v143 = OUTLINED_FUNCTION_38_0(v142);
-  v144 = type metadata accessor for NeuralNetwork.Layer.LessThanParameters(v143);
-  v145 = OUTLINED_FUNCTION_13(v144);
-  v147 = *(v146 + 64);
-  MEMORY[0x28223BE20](v145);
-  OUTLINED_FUNCTION_12_1();
-  v149 = OUTLINED_FUNCTION_38_0(v148);
-  v150 = type metadata accessor for NeuralNetwork.Layer.NotEqualParameters(v149);
-  v151 = OUTLINED_FUNCTION_13(v150);
-  v153 = *(v152 + 64);
-  MEMORY[0x28223BE20](v151);
-  OUTLINED_FUNCTION_12_1();
-  v155 = OUTLINED_FUNCTION_38_0(v154);
-  v156 = type metadata accessor for NeuralNetwork.Layer.EqualParameters(v155);
-  v157 = OUTLINED_FUNCTION_13(v156);
-  v159 = *(v158 + 64);
-  MEMORY[0x28223BE20](v157);
-  OUTLINED_FUNCTION_12_1();
-  v161 = OUTLINED_FUNCTION_38_0(v160);
-  v162 = type metadata accessor for NeuralNetwork.Layer.RangeDynamicParameters(v161);
-  v163 = OUTLINED_FUNCTION_13(v162);
-  v165 = *(v164 + 64);
-  MEMORY[0x28223BE20](v163);
-  OUTLINED_FUNCTION_12_1();
-  v167 = OUTLINED_FUNCTION_38_0(v166);
-  v168 = type metadata accessor for NeuralNetwork.Layer.RangeStaticParameters(v167);
-  v169 = OUTLINED_FUNCTION_13(v168);
-  v171 = *(v170 + 64);
-  MEMORY[0x28223BE20](v169);
-  OUTLINED_FUNCTION_12_1();
-  v173 = OUTLINED_FUNCTION_38_0(v172);
-  v174 = type metadata accessor for NeuralNetwork.Layer.LoopParameters(v173);
-  v175 = OUTLINED_FUNCTION_13(v174);
-  v177 = *(v176 + 64);
-  MEMORY[0x28223BE20](v175);
-  OUTLINED_FUNCTION_12_1();
-  v179 = OUTLINED_FUNCTION_38_0(v178);
-  v180 = type metadata accessor for NeuralNetwork.Layer.ArgMaxParameters(v179);
-  v181 = OUTLINED_FUNCTION_13(v180);
-  v183 = *(v182 + 64);
-  MEMORY[0x28223BE20](v181);
-  OUTLINED_FUNCTION_12_1();
-  v185 = OUTLINED_FUNCTION_38_0(v184);
-  v186 = type metadata accessor for NeuralNetwork.Layer.ArgMinParameters(v185);
-  v187 = OUTLINED_FUNCTION_13(v186);
-  v189 = *(v188 + 64);
-  MEMORY[0x28223BE20](v187);
-  OUTLINED_FUNCTION_12_1();
-  v191 = OUTLINED_FUNCTION_38_0(v190);
-  v192 = type metadata accessor for NeuralNetwork.Layer.CumulativeSumParameters(v191);
-  v193 = OUTLINED_FUNCTION_13(v192);
-  v195 = *(v194 + 64);
-  MEMORY[0x28223BE20](v193);
-  OUTLINED_FUNCTION_12_1();
-  v197 = OUTLINED_FUNCTION_38_0(v196);
-  v198 = type metadata accessor for NeuralNetwork.Layer.ReduceLogSumExpParameters(v197);
-  v199 = OUTLINED_FUNCTION_13(v198);
-  v201 = *(v200 + 64);
-  MEMORY[0x28223BE20](v199);
-  OUTLINED_FUNCTION_12_1();
-  v203 = OUTLINED_FUNCTION_38_0(v202);
-  v204 = type metadata accessor for NeuralNetwork.Layer.ReduceSumSquareParameters(v203);
-  v205 = OUTLINED_FUNCTION_13(v204);
-  v207 = *(v206 + 64);
-  MEMORY[0x28223BE20](v205);
-  OUTLINED_FUNCTION_12_1();
-  v209 = OUTLINED_FUNCTION_38_0(v208);
-  v210 = type metadata accessor for NeuralNetwork.Layer.ReduceLogSumParameters(v209);
-  v211 = OUTLINED_FUNCTION_13(v210);
-  v213 = *(v212 + 64);
-  MEMORY[0x28223BE20](v211);
-  OUTLINED_FUNCTION_12_1();
-  v215 = OUTLINED_FUNCTION_38_0(v214);
-  v216 = type metadata accessor for NeuralNetwork.Layer.ReduceMeanParameters(v215);
-  v217 = OUTLINED_FUNCTION_13(v216);
-  v219 = *(v218 + 64);
-  MEMORY[0x28223BE20](v217);
-  OUTLINED_FUNCTION_12_1();
-  v221 = OUTLINED_FUNCTION_38_0(v220);
-  v222 = type metadata accessor for NeuralNetwork.Layer.ReduceProdParameters(v221);
-  v223 = OUTLINED_FUNCTION_13(v222);
-  v225 = *(v224 + 64);
-  MEMORY[0x28223BE20](v223);
-  OUTLINED_FUNCTION_12_1();
-  v227 = OUTLINED_FUNCTION_38_0(v226);
-  v228 = type metadata accessor for NeuralNetwork.Layer.ReduceSumParameters(v227);
-  v229 = OUTLINED_FUNCTION_13(v228);
-  v231 = *(v230 + 64);
-  MEMORY[0x28223BE20](v229);
-  OUTLINED_FUNCTION_12_1();
-  v233 = OUTLINED_FUNCTION_38_0(v232);
-  v234 = type metadata accessor for NeuralNetwork.Layer.ReduceMinParameters(v233);
-  v235 = OUTLINED_FUNCTION_13(v234);
-  v237 = *(v236 + 64);
-  MEMORY[0x28223BE20](v235);
-  OUTLINED_FUNCTION_12_1();
-  v239 = OUTLINED_FUNCTION_38_0(v238);
-  v240 = type metadata accessor for NeuralNetwork.Layer.ReduceMaxParameters(v239);
-  v241 = OUTLINED_FUNCTION_13(v240);
-  v243 = *(v242 + 64);
-  MEMORY[0x28223BE20](v241);
-  OUTLINED_FUNCTION_12_1();
-  v245 = OUTLINED_FUNCTION_38_0(v244);
-  v246 = type metadata accessor for NeuralNetwork.Layer.ReduceL2Parameters(v245);
-  v247 = OUTLINED_FUNCTION_13(v246);
-  v249 = *(v248 + 64);
-  MEMORY[0x28223BE20](v247);
-  OUTLINED_FUNCTION_12_1();
-  v251 = OUTLINED_FUNCTION_38_0(v250);
-  v252 = type metadata accessor for NeuralNetwork.Layer.ReduceL1Parameters(v251);
-  v253 = OUTLINED_FUNCTION_13(v252);
-  v255 = *(v254 + 64);
-  MEMORY[0x28223BE20](v253);
-  OUTLINED_FUNCTION_12_1();
-  v257 = OUTLINED_FUNCTION_38_0(v256);
-  v258 = type metadata accessor for NeuralNetwork.Layer.ReduceParameters(v257);
-  v259 = OUTLINED_FUNCTION_13(v258);
-  v261 = *(v260 + 64);
-  MEMORY[0x28223BE20](v259);
-  OUTLINED_FUNCTION_12_1();
-  v263 = OUTLINED_FUNCTION_38_0(v262);
-  v264 = type metadata accessor for NeuralNetwork.Layer.CropResizeParameters(v263);
-  v265 = OUTLINED_FUNCTION_13(v264);
-  v267 = *(v266 + 64);
-  MEMORY[0x28223BE20](v265);
-  OUTLINED_FUNCTION_12_1();
-  v269 = OUTLINED_FUNCTION_38_0(v268);
-  v270 = type metadata accessor for NeuralNetwork.Layer.ResizeBilinearParameters(v269);
-  v271 = OUTLINED_FUNCTION_13(v270);
-  v273 = *(v272 + 64);
-  MEMORY[0x28223BE20](v271);
-  OUTLINED_FUNCTION_12_1();
-  v275 = OUTLINED_FUNCTION_38_0(v274);
-  v276 = type metadata accessor for NeuralNetwork.Layer.CropParameters(v275);
-  v277 = OUTLINED_FUNCTION_13(v276);
-  v279 = *(v278 + 64);
-  MEMORY[0x28223BE20](v277);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v280);
-  v281 = type metadata accessor for NeuralNetwork.Layer.GRUParameters();
-  v282 = OUTLINED_FUNCTION_13(v281);
-  v284 = *(v283 + 64);
-  MEMORY[0x28223BE20](v282);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v285);
-  v286 = type metadata accessor for NeuralNetwork.Layer.SimpleRecurrentParameters();
-  v287 = OUTLINED_FUNCTION_13(v286);
-  v289 = *(v288 + 64);
-  MEMORY[0x28223BE20](v287);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v290);
-  v291 = type metadata accessor for NeuralNetwork.Layer.BidirectionalLSTMParameters();
-  v292 = OUTLINED_FUNCTION_13(v291);
-  v294 = *(v293 + 64);
-  MEMORY[0x28223BE20](v292);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v295);
-  v296 = type metadata accessor for NeuralNetwork.Layer.UnidirectionalLSTMParameters();
-  v297 = OUTLINED_FUNCTION_13(v296);
-  v299 = *(v298 + 64);
-  MEMORY[0x28223BE20](v297);
-  OUTLINED_FUNCTION_12_1();
-  v301 = OUTLINED_FUNCTION_38_0(v300);
-  v302 = type metadata accessor for NeuralNetwork.Layer.LayerNormalizeParameters(v301);
-  v303 = OUTLINED_FUNCTION_13(v302);
-  v305 = *(v304 + 64);
-  MEMORY[0x28223BE20](v303);
-  OUTLINED_FUNCTION_12_1();
-  v307 = OUTLINED_FUNCTION_38_0(v306);
-  v308 = type metadata accessor for NeuralNetwork.Layer.LRNParameters(v307);
-  v309 = OUTLINED_FUNCTION_13(v308);
-  v311 = *(v310 + 64);
-  MEMORY[0x28223BE20](v309);
-  OUTLINED_FUNCTION_12_1();
-  v313 = OUTLINED_FUNCTION_38_0(v312);
-  v314 = type metadata accessor for NeuralNetwork.Layer.L2NormalizeParameters(v313);
-  v315 = OUTLINED_FUNCTION_13(v314);
-  v317 = *(v316 + 64);
-  MEMORY[0x28223BE20](v315);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v318);
-  v319 = type metadata accessor for NeuralNetwork.Layer.MeanVarianceNormalizeParameters();
-  v320 = OUTLINED_FUNCTION_13(v319);
-  v322 = *(v321 + 64);
-  MEMORY[0x28223BE20](v320);
-  OUTLINED_FUNCTION_12_1();
-  v324 = OUTLINED_FUNCTION_38_0(v323);
-  v325 = type metadata accessor for NeuralNetwork.Layer.SoftmaxNDParameters(v324);
-  v326 = OUTLINED_FUNCTION_13(v325);
-  v328 = *(v327 + 64);
-  MEMORY[0x28223BE20](v326);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v329);
-  v330 = type metadata accessor for NeuralNetwork.Layer.BatchNormalizeParameters();
-  v331 = OUTLINED_FUNCTION_13(v330);
-  v333 = *(v332 + 64);
-  MEMORY[0x28223BE20](v331);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v334);
-  v335 = type metadata accessor for NeuralNetwork.Layer.ScaleParameters();
-  v336 = OUTLINED_FUNCTION_13(v335);
-  v338 = *(v337 + 64);
-  MEMORY[0x28223BE20](v336);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v339);
-  v340 = type metadata accessor for NeuralNetwork.Layer.MultiplyParameters();
-  v341 = OUTLINED_FUNCTION_13(v340);
-  v343 = *(v342 + 64);
-  MEMORY[0x28223BE20](v341);
-  OUTLINED_FUNCTION_12_1();
-  v345 = OUTLINED_FUNCTION_38_0(v344);
-  v346 = type metadata accessor for NeuralNetwork.Layer.AddParameters(v345);
-  v347 = OUTLINED_FUNCTION_13(v346);
-  v349 = *(v348 + 64);
-  MEMORY[0x28223BE20](v347);
-  OUTLINED_FUNCTION_12_1();
-  v351 = OUTLINED_FUNCTION_38_0(v350);
-  v352 = type metadata accessor for NeuralNetwork.Layer.Pool3DParameters(v351);
-  v353 = OUTLINED_FUNCTION_13(v352);
-  v355 = *(v354 + 64);
-  MEMORY[0x28223BE20](v353);
-  OUTLINED_FUNCTION_12_1();
-  v357 = OUTLINED_FUNCTION_38_0(v356);
-  v358 = type metadata accessor for NeuralNetwork.Layer.PoolParameters(v357);
-  v359 = OUTLINED_FUNCTION_13(v358);
-  v361 = *(v360 + 64);
-  MEMORY[0x28223BE20](v359);
-  OUTLINED_FUNCTION_12_1();
-  v363 = OUTLINED_FUNCTION_38_0(v362);
-  v364 = type metadata accessor for NeuralNetwork.Layer.Convolution3DParameters(v363);
-  v365 = OUTLINED_FUNCTION_13(v364);
-  v367 = *(v366 + 64);
-  MEMORY[0x28223BE20](v365);
-  OUTLINED_FUNCTION_12_1();
-  v369 = OUTLINED_FUNCTION_38_0(v368);
-  v370 = type metadata accessor for NeuralNetwork.Layer.ConvolutionParameters(v369);
-  v371 = OUTLINED_FUNCTION_13(v370);
-  v373 = *(v372 + 64);
-  MEMORY[0x28223BE20](v371);
-  OUTLINED_FUNCTION_12_1();
-  v375 = OUTLINED_FUNCTION_38_0(v374);
-  v376 = type metadata accessor for NeuralNetwork.Layer.ClampedReluParameters(v375);
-  v377 = OUTLINED_FUNCTION_13(v376);
-  v379 = *(v378 + 64);
-  MEMORY[0x28223BE20](v377);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v380);
-  v381 = type metadata accessor for NeuralNetwork.Layer.GELUParameters();
-  v382 = OUTLINED_FUNCTION_13(v381);
-  v384 = *(v383 + 64);
-  MEMORY[0x28223BE20](v382);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v385);
-  v386 = type metadata accessor for NeuralNetwork.Layer.ClipParameters();
-  v387 = OUTLINED_FUNCTION_13(v386);
-  v389 = *(v388 + 64);
-  MEMORY[0x28223BE20](v387);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v390);
-  v391 = type metadata accessor for NeuralNetwork.Layer.UnaryFunctionParameters();
-  v392 = OUTLINED_FUNCTION_13(v391);
-  v394 = *(v393 + 64);
-  MEMORY[0x28223BE20](v392);
-  OUTLINED_FUNCTION_12_1();
-  v396 = OUTLINED_FUNCTION_38_0(v395);
-  v397 = type metadata accessor for NeuralNetwork.Layer.Activation(v396);
-  v398 = OUTLINED_FUNCTION_13(v397);
-  v400 = *(v399 + 64);
-  MEMORY[0x28223BE20](v398);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v401);
-  v402 = type metadata accessor for NeuralNetwork.Layer.InnerProductParameters();
-  v403 = OUTLINED_FUNCTION_13(v402);
-  v405 = *(v404 + 64);
-  MEMORY[0x28223BE20](v403);
-  OUTLINED_FUNCTION_12_1();
-  v407 = OUTLINED_FUNCTION_38_0(v406);
-  v408 = type metadata accessor for NeuralNetwork.Layer.SlidingWindowsParameters(v407);
-  v409 = OUTLINED_FUNCTION_13(v408);
-  v411 = *(v410 + 64);
-  MEMORY[0x28223BE20](v409);
-  OUTLINED_FUNCTION_12_1();
-  v413 = OUTLINED_FUNCTION_38_0(v412);
-  v414 = type metadata accessor for NeuralNetwork.Layer.SliceBySizeParameters(v413);
-  v415 = OUTLINED_FUNCTION_13(v414);
-  v417 = *(v416 + 64);
-  MEMORY[0x28223BE20](v415);
-  OUTLINED_FUNCTION_12_1();
-  v419 = OUTLINED_FUNCTION_38_0(v418);
-  v420 = type metadata accessor for NeuralNetwork.Layer.SliceDynamicParameters(v419);
-  v421 = OUTLINED_FUNCTION_13(v420);
-  v423 = *(v422 + 64);
-  MEMORY[0x28223BE20](v421);
-  OUTLINED_FUNCTION_12_1();
-  v425 = OUTLINED_FUNCTION_38_0(v424);
-  v426 = type metadata accessor for NeuralNetwork.Layer.SliceStaticParameters(v425);
-  v427 = OUTLINED_FUNCTION_13(v426);
-  v429 = *(v428 + 64);
-  MEMORY[0x28223BE20](v427);
-  OUTLINED_FUNCTION_12_1();
-  v431 = OUTLINED_FUNCTION_38_0(v430);
-  v432 = type metadata accessor for NeuralNetwork.Layer.SliceParameters(v431);
-  v433 = OUTLINED_FUNCTION_13(v432);
-  v435 = *(v434 + 64);
-  MEMORY[0x28223BE20](v433);
-  OUTLINED_FUNCTION_12_1();
-  v437 = OUTLINED_FUNCTION_38_0(v436);
-  v438 = type metadata accessor for NeuralNetwork.Layer.ScatterAlongAxisParameters(v437);
-  v439 = OUTLINED_FUNCTION_13(v438);
-  v441 = *(v440 + 64);
-  MEMORY[0x28223BE20](v439);
-  OUTLINED_FUNCTION_12_1();
-  v443 = OUTLINED_FUNCTION_38_0(v442);
-  v444 = type metadata accessor for NeuralNetwork.Layer.ScatterNDParameters(v443);
-  v445 = OUTLINED_FUNCTION_13(v444);
-  v447 = *(v446 + 64);
-  MEMORY[0x28223BE20](v445);
-  OUTLINED_FUNCTION_12_1();
-  v449 = OUTLINED_FUNCTION_38_0(v448);
-  v450 = type metadata accessor for NeuralNetwork.Layer.ScatterParameters(v449);
-  v451 = OUTLINED_FUNCTION_13(v450);
-  v453 = *(v452 + 64);
-  MEMORY[0x28223BE20](v451);
-  OUTLINED_FUNCTION_12_1();
-  v455 = OUTLINED_FUNCTION_38_0(v454);
-  v456 = type metadata accessor for NeuralNetwork.Layer.GatherAlongAxisParameters(v455);
-  v457 = OUTLINED_FUNCTION_13(v456);
-  v459 = *(v458 + 64);
-  MEMORY[0x28223BE20](v457);
-  OUTLINED_FUNCTION_12_1();
-  v461 = OUTLINED_FUNCTION_38_0(v460);
-  v462 = type metadata accessor for NeuralNetwork.Layer.GatherParameters(v461);
-  v463 = OUTLINED_FUNCTION_13(v462);
-  v465 = *(v464 + 64);
-  MEMORY[0x28223BE20](v463);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v466);
-  v467 = type metadata accessor for NeuralNetwork.Layer.StackParameters();
-  v468 = OUTLINED_FUNCTION_13(v467);
-  v470 = *(v469 + 64);
-  MEMORY[0x28223BE20](v468);
-  OUTLINED_FUNCTION_12_1();
-  v472 = OUTLINED_FUNCTION_38_0(v471);
-  v473 = type metadata accessor for NeuralNetwork.Layer.FlattenTo2DParameters(v472);
-  v474 = OUTLINED_FUNCTION_13(v473);
-  v476 = *(v475 + 64);
-  MEMORY[0x28223BE20](v474);
-  OUTLINED_FUNCTION_12_1();
-  v478 = OUTLINED_FUNCTION_38_0(v477);
-  v479 = type metadata accessor for NeuralNetwork.Layer.BroadcastToStaticParameters(v478);
-  v480 = OUTLINED_FUNCTION_13(v479);
-  v482 = *(v481 + 64);
-  MEMORY[0x28223BE20](v480);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v483);
-  v484 = type metadata accessor for NeuralNetwork.Layer.TransposeParameters();
-  v485 = OUTLINED_FUNCTION_13(v484);
-  v487 = *(v486 + 64);
-  MEMORY[0x28223BE20](v485);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v488);
-  v489 = type metadata accessor for NeuralNetwork.Layer.PermuteParameters();
-  v490 = OUTLINED_FUNCTION_13(v489);
-  v492 = *(v491 + 64);
-  MEMORY[0x28223BE20](v490);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v493);
-  v494 = type metadata accessor for NeuralNetwork.Layer.RankPreservingReshapeParameters();
-  v495 = OUTLINED_FUNCTION_13(v494);
-  v497 = *(v496 + 64);
-  MEMORY[0x28223BE20](v495);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v498);
-  v499 = type metadata accessor for NeuralNetwork.Layer.ReshapeStaticParameters();
-  v500 = OUTLINED_FUNCTION_13(v499);
-  v502 = *(v501 + 64);
-  MEMORY[0x28223BE20](v500);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v503);
-  v504 = type metadata accessor for NeuralNetwork.Layer.ReshapeParameters();
-  v505 = OUTLINED_FUNCTION_13(v504);
-  v507 = *(v506 + 64);
-  MEMORY[0x28223BE20](v505);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v508);
-  v509 = type metadata accessor for NeuralNetwork.Layer.FlattenParameters();
-  v510 = OUTLINED_FUNCTION_13(v509);
-  v512 = *(v511 + 64);
-  MEMORY[0x28223BE20](v510);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v513);
-  v514 = type metadata accessor for NeuralNetwork.Layer.ExpandDimensionsParameters();
-  v515 = OUTLINED_FUNCTION_13(v514);
-  v517 = *(v516 + 64);
-  MEMORY[0x28223BE20](v515);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v518);
-  v519 = type metadata accessor for NeuralNetwork.Layer.SqueezeParameters();
-  v520 = OUTLINED_FUNCTION_13(v519);
-  v522 = *(v521 + 64);
-  MEMORY[0x28223BE20](v520);
-  OUTLINED_FUNCTION_12_1();
-  v524 = OUTLINED_FUNCTION_38_0(v523);
-  v525 = type metadata accessor for NeuralNetwork.Layer.TileParameters(v524);
-  v526 = OUTLINED_FUNCTION_13(v525);
-  v528 = *(v527 + 64);
-  MEMORY[0x28223BE20](v526);
-  OUTLINED_FUNCTION_12_1();
-  v530 = OUTLINED_FUNCTION_38_0(v529);
-  v531 = type metadata accessor for NeuralNetwork.Layer.ReorganizeDataParameters(v530);
-  v532 = OUTLINED_FUNCTION_13(v531);
-  v534 = *(v533 + 64);
-  MEMORY[0x28223BE20](v532);
-  OUTLINED_FUNCTION_12_1();
-  v536 = OUTLINED_FUNCTION_38_0(v535);
-  v537 = type metadata accessor for NeuralNetwork.Layer.ReverseParameters(v536);
-  v538 = OUTLINED_FUNCTION_13(v537);
-  v540 = *(v539 + 64);
-  MEMORY[0x28223BE20](v538);
-  OUTLINED_FUNCTION_12_1();
-  v542 = OUTLINED_FUNCTION_38_0(v541);
-  v543 = type metadata accessor for NeuralNetwork.Layer.ReverseSequenceParameters(v542);
-  v544 = OUTLINED_FUNCTION_13(v543);
-  v546 = *(v545 + 64);
-  MEMORY[0x28223BE20](v544);
-  OUTLINED_FUNCTION_12_1();
-  v548 = OUTLINED_FUNCTION_38_0(v547);
-  v549 = type metadata accessor for NeuralNetwork.Layer.SequenceRepeatParameters(v548);
-  v550 = OUTLINED_FUNCTION_13(v549);
-  v552 = *(v551 + 64);
-  MEMORY[0x28223BE20](v550);
-  OUTLINED_FUNCTION_12_1();
-  v554 = OUTLINED_FUNCTION_38_0(v553);
-  v555 = type metadata accessor for NeuralNetwork.Layer.FillDynamicParameters(v554);
-  v556 = OUTLINED_FUNCTION_13(v555);
-  v558 = *(v557 + 64);
-  MEMORY[0x28223BE20](v556);
-  OUTLINED_FUNCTION_12_1();
-  v560 = OUTLINED_FUNCTION_38_0(v559);
-  v561 = type metadata accessor for NeuralNetwork.Layer.FillStaticParameters(v560);
-  v562 = OUTLINED_FUNCTION_13(v561);
-  v564 = *(v563 + 64);
-  MEMORY[0x28223BE20](v562);
-  OUTLINED_FUNCTION_12_1();
-  v566 = OUTLINED_FUNCTION_38_0(v565);
-  v567 = type metadata accessor for NeuralNetwork.Layer.FillLikeParameters(v566);
-  v568 = OUTLINED_FUNCTION_13(v567);
-  v570 = *(v569 + 64);
-  MEMORY[0x28223BE20](v568);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v571);
-  v572 = type metadata accessor for NeuralNetwork.Layer.UpsampleParameters();
-  v573 = OUTLINED_FUNCTION_13(v572);
-  v575 = *(v574 + 64);
-  MEMORY[0x28223BE20](v573);
-  OUTLINED_FUNCTION_3();
-  v578 = v577 - v576;
-  v579 = type metadata accessor for NeuralNetwork.Layer.SplitNDParameters(0);
-  v580 = OUTLINED_FUNCTION_13(v579);
-  v582 = *(v581 + 64);
-  MEMORY[0x28223BE20](v580);
-  OUTLINED_FUNCTION_3();
-  v585 = v584 - v583;
-  v586 = type metadata accessor for NeuralNetwork.Layer.SplitParameters(0);
-  v587 = OUTLINED_FUNCTION_13(v586);
-  v589 = *(v588 + 64);
-  MEMORY[0x28223BE20](v587);
-  OUTLINED_FUNCTION_12_1();
-  OUTLINED_FUNCTION_38_0(v590);
-  v591 = type metadata accessor for NeuralNetwork.Layer.ConcatenateNDParameters();
-  v592 = OUTLINED_FUNCTION_13(v591);
-  v594 = *(v593 + 64);
-  MEMORY[0x28223BE20](v592);
-  OUTLINED_FUNCTION_3();
-  v597 = v596 - v595;
-  v598 = type metadata accessor for NeuralNetwork.Layer.ConcatenateParameters();
-  v599 = OUTLINED_FUNCTION_13(v598);
-  v601 = *(v600 + 64);
-  MEMORY[0x28223BE20](v599);
-  OUTLINED_FUNCTION_3();
-  v604 = (v603 - v602);
-  v605 = type metadata accessor for NeuralNetwork.Layer.ConstantPadParameters();
-  v606 = OUTLINED_FUNCTION_13(v605);
-  v608 = *(v607 + 64);
-  MEMORY[0x28223BE20](v606);
-  OUTLINED_FUNCTION_3();
-  v611 = v610 - v609;
-  v612 = type metadata accessor for NeuralNetwork.Layer.PadParameters(0);
-  v613 = OUTLINED_FUNCTION_13(v612);
-  v615 = *(v614 + 64);
-  MEMORY[0x28223BE20](v613);
-  OUTLINED_FUNCTION_3();
-  v618 = v617 - v616;
-  v619 = type metadata accessor for NeuralNetwork.Layer.ConstantNDParameters(0);
-  v620 = OUTLINED_FUNCTION_13(v619);
-  v622 = *(v621 + 64);
-  MEMORY[0x28223BE20](v620);
-  OUTLINED_FUNCTION_3();
-  v625 = (v624 - v623);
-  v626 = type metadata accessor for NeuralNetwork.Layer.ConstantParameters(0);
-  v627 = OUTLINED_FUNCTION_13(v626);
-  v629 = *(v628 + 64);
-  MEMORY[0x28223BE20](v627);
-  OUTLINED_FUNCTION_3();
-  v632 = v631 - v630;
-  v633 = type metadata accessor for NeuralNetwork.Layer.Kind();
-  v634 = OUTLINED_FUNCTION_4(v633);
-  v636 = *(v635 + 64);
-  MEMORY[0x28223BE20](v634);
-  OUTLINED_FUNCTION_3();
-  v639 = v638 - v637;
-  v640 = OUTLINED_FUNCTION_13_24();
-  sub_2576D0534(v640, v639, v641);
-  v1146 = v639;
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  v643 = MEMORY[0x277D84F90];
-  switch(EnumCaseMultiPayload)
+  v21 = &v86 - v20;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B28, &unk_257773B40);
+  inited = swift_initStackObject();
+  *(inited + 16) = xmmword_2577442C0;
+  *(inited + 32) = 1701667150;
+  *(inited + 40) = 0xE400000000000000;
+  OUTLINED_FUNCTION_17_24();
+  OUTLINED_FUNCTION_15_22();
+  v23 = v102;
+  *(inited + 48) = v101;
+  *(inited + 56) = v23;
+  *(inited + 64) = 0;
+  *(inited + 72) = 0x737475706E49;
+  *(inited + 80) = 0xE600000000000000;
+  v88 = inited;
+  v89 = v0;
+  v24 = FunctionDescription.inputs.getter();
+  v25 = *(v24 + 16);
+  v26 = MEMORY[0x277D84F90];
+  v27 = &loc_257743000;
+  v99 = v5;
+  if (v25)
   {
-    case 1:
-      v911 = OUTLINED_FUNCTION_13_24();
-      v913 = sub_2576D0594(v911, v625, v912);
-      v643 = NeuralNetwork.Layer.ConstantNDParameters.propertyDescriptions.getter(v913);
-      v719 = type metadata accessor for NeuralNetwork.Layer.ConstantNDParameters;
-      goto LABEL_138;
-    case 2:
-      v917 = OUTLINED_FUNCTION_13_24();
-      sub_2576D0594(v917, v618, v918);
-      NeuralNetwork.Layer.PadParameters.propertyDescriptions.getter();
-      v643 = v919;
-      v644 = type metadata accessor for NeuralNetwork.Layer.PadParameters;
-      v645 = v618;
-      goto LABEL_162;
-    case 3:
-      v852 = OUTLINED_FUNCTION_13_24();
-      sub_2576D0594(v852, v611, v853);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_34_13();
-      v854 = OUTLINED_FUNCTION_22_21(v643, xmmword_2577442C0);
-      v854[2].n128_u64[0] = v855;
-      v854[2].n128_u64[1] = 0xE500000000000000;
-      v856 = *v611;
-      *(v643 + 48) = sub_257743794();
-      *(v643 + 56) = v857;
-      *(v643 + 64) = 0x73746E756F6D41;
-      *(v643 + 72) = 0xE700000000000000;
-      NeuralNetwork.Layer.ConstantPadParameters.amounts.getter();
-      v858 = MEMORY[0x259C64F20]();
-      v860 = v859;
-
-      *(v643 + 80) = v858;
-      *(v643 + 88) = v860;
-      OUTLINED_FUNCTION_9_34();
-      *(v643 + 96) = v861 | 3;
-      *(v643 + 104) = v862;
-      v863 = *(v611 + 16);
-      OUTLINED_FUNCTION_28_22();
-      v866 = v865 | 0x65750000u;
-      if (v864)
+    v100 = MEMORY[0x277D84F90];
+    v28 = v24;
+    sub_257484040(0, v25, 0);
+    v29 = v100;
+    OUTLINED_FUNCTION_193();
+    v86 = v28;
+    v87 = v17;
+    v31 = v28 + v30;
+    v91 = *(v17 + 72);
+    v90 = xmmword_257743FF0;
+    do
+    {
+      OUTLINED_FUNCTION_1_71();
+      sub_2576DFF70(v31, v21);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879FD8, &unk_257744910);
+      v32 = swift_initStackObject();
+      v33 = OUTLINED_FUNCTION_18_36(v32, v90);
+      v34 = v94.n128_u64[0];
+      sub_257635668(&v21[*(v33 + 28)], v94.n128_i64[0]);
+      OUTLINED_FUNCTION_12_37();
+      if (v35)
       {
-        v866 = 0x65736C6166;
-      }
-
-      v867 = 0xE400000000000000;
-      if (v864)
-      {
-        v867 = 0xE500000000000000;
-      }
-
-      *(v643 + 112) = v866;
-      *(v643 + 120) = v867;
-      v662 = type metadata accessor for NeuralNetwork.Layer.ConstantPadParameters;
-      goto LABEL_158;
-    case 4:
-      v809 = OUTLINED_FUNCTION_13_24();
-      sub_2576D0594(v809, v604, v810);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_8_4();
-      *(v643 + 16) = xmmword_2577442B0;
-      OUTLINED_FUNCTION_9_34();
-      *(v812 + 32) = v811 | 3;
-      *(v812 + 40) = v813;
-      v814 = *v604;
-      OUTLINED_FUNCTION_28_22();
-      v818 = v817 | 0x65750000u;
-      if (v815)
-      {
-        v818 = 0x65736C6166;
-      }
-
-      v819 = 0xE500000000000000;
-      if (!v815)
-      {
-        v819 = 0xE400000000000000;
-      }
-
-      *(v816 + 48) = v818;
-      *(v816 + 56) = v819;
-      v683 = type metadata accessor for NeuralNetwork.Layer.ConcatenateParameters;
-      goto LABEL_143;
-    case 5:
-      v760 = OUTLINED_FUNCTION_13_24();
-      sub_2576D0594(v760, v597, v761);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_85_4();
-      v762 = OUTLINED_FUNCTION_6_45(v643, xmmword_257743FF0);
-      v762[2].n128_u64[0] = v763;
-      v762[2].n128_u64[1] = 0xE400000000000000;
-      v1151 = *v597;
-      *(v643 + 48) = sub_257743974();
-      *(v643 + 56) = v764;
-      OUTLINED_FUNCTION_9_34();
-      *(v643 + 64) = v765 | 1;
-      *(v643 + 72) = v766;
-      v767 = *(v597 + 8);
-      OUTLINED_FUNCTION_28_22();
-      v770 = v769 | 0x65750000u;
-      if (v768)
-      {
-        v770 = 0x65736C6166;
-      }
-
-      v771 = 0xE500000000000000;
-      if (!v768)
-      {
-        v771 = 0xE400000000000000;
-      }
-
-      *(v643 + 80) = v770;
-      *(v643 + 88) = v771;
-      v644 = type metadata accessor for NeuralNetwork.Layer.ConcatenateNDParameters;
-      v645 = v597;
-      goto LABEL_162;
-    case 6:
-      v935 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_27_20(v935, v936, v1080);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      result = OUTLINED_FUNCTION_8_4();
-      *(result + 16) = xmmword_2577442B0;
-      *(result + 32) = 0x7374757074754FLL;
-      *(result + 40) = 0xE700000000000000;
-      if ((*v611 & 0x8000000000000000) != 0)
-      {
-        __break(1u);
-      }
-
-      else
-      {
-        v643 = result;
-        v1151 = *v611;
-        *(result + 48) = sub_257743974();
-        *(v643 + 56) = v938;
-        v662 = type metadata accessor for NeuralNetwork.Layer.SplitParameters;
-LABEL_158:
-        v644 = v662;
-        v645 = v611;
-LABEL_162:
-        sub_2576D05F4(v645, v644);
-        return v643;
-      }
-
-      return result;
-    case 7:
-      v939 = OUTLINED_FUNCTION_13_24();
-      sub_2576D0594(v939, v585, v940);
-      v643 = NeuralNetwork.Layer.SplitNDParameters.propertyDescriptions.getter();
-      v644 = type metadata accessor for NeuralNetwork.Layer.SplitNDParameters;
-      v645 = v585;
-      goto LABEL_162;
-    case 8:
-      v871 = OUTLINED_FUNCTION_13_24();
-      sub_2576D0594(v871, v578, v872);
-      NeuralNetwork.Layer.UpsampleParameters.propertyDescriptions.getter();
-      v643 = v873;
-      v644 = type metadata accessor for NeuralNetwork.Layer.UpsampleParameters;
-      v645 = v578;
-      goto LABEL_162;
-    case 9:
-      v798 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_27_20(v798, v799, v1082);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_8_4();
-      v800 = OUTLINED_FUNCTION_22_21(v643, xmmword_2577442B0);
-      *(v643 + 48) = OUTLINED_FUNCTION_16_19(v800, v801);
-      *(v643 + 56) = v802;
-      v662 = type metadata accessor for NeuralNetwork.Layer.FillLikeParameters;
-      goto LABEL_158;
-    case 10:
-      v782 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v782, v783, v1081);
-      v643 = NeuralNetwork.Layer.FillStaticParameters.propertyDescriptions.getter();
-      v658 = type metadata accessor for NeuralNetwork.Layer.FillStaticParameters;
-      goto LABEL_161;
-    case 11:
-      v775 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_27_20(v775, v776, v1083);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_8_4();
-      v777 = OUTLINED_FUNCTION_22_21(v643, xmmword_2577442B0);
-      *(v643 + 48) = OUTLINED_FUNCTION_16_19(v777, v778);
-      *(v643 + 56) = v779;
-      v662 = type metadata accessor for NeuralNetwork.Layer.FillDynamicParameters;
-      goto LABEL_158;
-    case 12:
-      v740 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_27_20(v740, v741, v1084);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_8_4();
-      *(v643 + 16) = xmmword_2577442B0;
-      OUTLINED_FUNCTION_7_36(v643, 0x6974697465706552);
-      *(v643 + 48) = sub_257743974();
-      *(v643 + 56) = v742;
-      v662 = type metadata accessor for NeuralNetwork.Layer.SequenceRepeatParameters;
-      goto LABEL_158;
-    case 13:
-      v904 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_36_12(v904, v905, v1087);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_85_4();
-      *(v643 + 16) = xmmword_257743FF0;
-      OUTLINED_FUNCTION_37_12();
-      *(v907 + 32) = v908;
-      *(v907 + 40) = v906 + 3580;
-      v1151 = *v625;
-      OUTLINED_FUNCTION_368();
-      *(v643 + 48) = sub_257743974();
-      *(v643 + 56) = v909;
-      strcpy((v643 + 64), "Sequence Axis");
-      *(v643 + 78) = -4864;
-      v1151 = v625[1];
-      OUTLINED_FUNCTION_368();
-      *(v643 + 80) = sub_257743974();
-      *(v643 + 88) = v910;
-      v719 = type metadata accessor for NeuralNetwork.Layer.ReverseSequenceParameters;
-      goto LABEL_138;
-    case 14:
-      v886 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_27_20(v886, v887, v1086);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_8_4();
-      *(v643 + 16) = xmmword_2577442B0;
-      *(v643 + 32) = 0x65737265766552;
-      *(v643 + 40) = 0xE700000000000000;
-      *(v643 + 48) = MEMORY[0x259C64F20](*v611, MEMORY[0x277D839B0]);
-      *(v643 + 56) = v888;
-      v662 = type metadata accessor for NeuralNetwork.Layer.ReverseParameters;
-      goto LABEL_158;
-    case 15:
-      v789 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v789, v790, v1085);
-      v643 = NeuralNetwork.Layer.ReorganizeDataParameters.propertyDescriptions.getter();
-      v658 = type metadata accessor for NeuralNetwork.Layer.ReorganizeDataParameters;
-      goto LABEL_161;
-    case 16:
-      v796 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_36_12(v796, v797, v1088);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_8_4();
-      *(v643 + 16) = xmmword_2577442B0;
-      *(v643 + 32) = 0x6974697465706552;
-      *(v643 + 40) = 0xEB00000000736E6FLL;
-      NeuralNetwork.Layer.TileParameters.repetitions.getter();
-      MEMORY[0x259C64F20]();
-      OUTLINED_FUNCTION_25_19();
-      *(v643 + 48) = v625;
-      *(v643 + 56) = v639;
-      v719 = type metadata accessor for NeuralNetwork.Layer.TileParameters;
-      goto LABEL_138;
-    case 17:
-      v834 = OUTLINED_FUNCTION_13_24();
-      v604 = v1078;
-      sub_2576D0594(v834, v1078, v835);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_85_4();
-      v836 = OUTLINED_FUNCTION_6_45(v643, xmmword_257743FF0);
-      v836[2].n128_u64[0] = v837 - 0x40000;
-      v836[2].n128_u64[1] = 0xE400000000000000;
-      NeuralNetwork.Layer.SqueezeParameters.axes.getter();
-      MEMORY[0x259C64F20]();
-      OUTLINED_FUNCTION_25_19();
-      *(v643 + 48) = v1078;
-      *(v643 + 56) = v639;
-      *(v643 + 64) = 0xD00000000000001BLL;
-      *(v643 + 72) = 0x8000000257780CA0;
-      v838 = *(v1078 + 8);
-      OUTLINED_FUNCTION_28_22();
-      v841 = v840 | 0x65750000u;
-      if (v839)
-      {
-        v841 = 0x65736C6166;
-      }
-
-      v842 = 0xE500000000000000;
-      if (!v839)
-      {
-        v842 = 0xE400000000000000;
-      }
-
-      *(v643 + 80) = v841;
-      *(v643 + 88) = v842;
-      v683 = type metadata accessor for NeuralNetwork.Layer.SqueezeParameters;
-      goto LABEL_143;
-    case 18:
-      v928 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_36_12(v928, v929, v1090);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_8_4();
-      v930 = OUTLINED_FUNCTION_6_45(v643, xmmword_2577442B0);
-      OUTLINED_FUNCTION_18_32(v930, v931 - 0x40000);
-      NeuralNetwork.Layer.ExpandDimensionsParameters.axes.getter();
-      MEMORY[0x259C64F20]();
-      OUTLINED_FUNCTION_25_19();
-      *(v643 + 48) = v625;
-      *(v643 + 56) = v639;
-      v719 = type metadata accessor for NeuralNetwork.Layer.ExpandDimensionsParameters;
-      goto LABEL_138;
-    case 19:
-      v733 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v733, v734, v1092);
-      if (*(v632 + 8) == 1 && *v632)
-      {
-        v735 = 0xEC0000007473614CLL;
-      }
-
-      else
-      {
-        v735 = 0xED00007473726946;
-      }
-
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_8_4();
-      *(v643 + 16) = xmmword_2577442B0;
-      *(v643 + 32) = 0xD000000000000015;
-      *(v643 + 40) = 0x80000002577814F0;
-      *(v643 + 48) = 0x206C656E6E616843;
-      *(v643 + 56) = v735;
-      v658 = type metadata accessor for NeuralNetwork.Layer.FlattenParameters;
-      goto LABEL_161;
-    case 20:
-      v787 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v787, v788, v1089);
-      v643 = NeuralNetwork.Layer.ReshapeParameters.propertyDescriptions.getter();
-      v658 = type metadata accessor for NeuralNetwork.Layer.ReshapeParameters;
-      goto LABEL_161;
-    case 21:
-      v889 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v889, v890, v1091);
-      v643 = NeuralNetwork.Layer.ReshapeStaticParameters.propertyDescriptions.getter();
-      v658 = type metadata accessor for NeuralNetwork.Layer.ReshapeStaticParameters;
-      goto LABEL_161;
-    case 22:
-      v941 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v941, v942, v1093);
-      v643 = NeuralNetwork.Layer.RankPreservingReshapeParameters.propertyDescriptions.getter();
-      v658 = type metadata accessor for NeuralNetwork.Layer.RankPreservingReshapeParameters;
-      goto LABEL_161;
-    case 23:
-      v1015 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_36_12(v1015, v1016, v1095);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_8_4();
-      *(v643 + 16) = xmmword_2577442B0;
-      *(v643 + 32) = 0x746174756D726550;
-      *(v643 + 40) = 0xEB000000006E6F69;
-      NeuralNetwork.Layer.PermuteParameters.permutation.getter();
-      MEMORY[0x259C64F20]();
-      OUTLINED_FUNCTION_25_19();
-      *(v643 + 48) = v625;
-      *(v643 + 56) = v639;
-      v719 = type metadata accessor for NeuralNetwork.Layer.PermuteParameters;
-      goto LABEL_138;
-    case 24:
-      v715 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_36_12(v715, v716, v1096);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_8_4();
-      v717 = OUTLINED_FUNCTION_6_45(v643, xmmword_2577442B0);
-      OUTLINED_FUNCTION_18_32(v717, v718 - 0x40000);
-      NeuralNetwork.Layer.TransposeParameters.axes.getter();
-      MEMORY[0x259C64F20]();
-      OUTLINED_FUNCTION_25_19();
-      *(v643 + 48) = v625;
-      *(v643 + 56) = v639;
-      v719 = type metadata accessor for NeuralNetwork.Layer.TransposeParameters;
-LABEL_138:
-      v644 = v719;
-      v645 = v625;
-      goto LABEL_162;
-    case 25:
-    case 27:
-    case 29:
-    case 30:
-    case 33:
-    case 53:
-    case 56:
-    case 57:
-    case 58:
-    case 59:
-    case 60:
-    case 61:
-    case 62:
-    case 63:
-    case 64:
-    case 67:
-    case 80:
-    case 92:
-    case 93:
-    case 97:
-    case 98:
-    case 99:
-    case 100:
-    case 102:
-    case 103:
-      v644 = type metadata accessor for NeuralNetwork.Layer.Kind;
-      v645 = v1146;
-      goto LABEL_162;
-    case 26:
-      v902 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v902, v903, v1094);
-      v643 = NeuralNetwork.Layer.BroadcastToStaticParameters.propertyDescriptions.getter();
-      v658 = type metadata accessor for NeuralNetwork.Layer.BroadcastToStaticParameters;
-      goto LABEL_161;
-    case 28:
-      v1017 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_27_20(v1017, v1018, v1097);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_8_4();
-      OUTLINED_FUNCTION_3_59(v643, xmmword_2577442B0);
-      *(v643 + 48) = sub_257743974();
-      *(v643 + 56) = v1019;
-      v662 = type metadata accessor for NeuralNetwork.Layer.FlattenTo2DParameters;
-      goto LABEL_158;
-    case 31:
-      v803 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_27_20(v803, v804, v1098);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_8_4();
-      OUTLINED_FUNCTION_3_59(v643, xmmword_2577442B0);
-      *(v643 + 48) = sub_257743974();
-      *(v643 + 56) = v805;
-      v662 = type metadata accessor for NeuralNetwork.Layer.StackParameters;
-      goto LABEL_158;
-    case 32:
-      v698 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_27_20(v698, v699, v1099);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_8_4();
-      OUTLINED_FUNCTION_3_59(v643, xmmword_2577442B0);
-      *(v643 + 48) = sub_257743974();
-      *(v643 + 56) = v700;
-      v662 = type metadata accessor for NeuralNetwork.Layer.GatherParameters;
-      goto LABEL_158;
-    case 34:
-      v784 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_27_20(v784, v785, v1101);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_8_4();
-      OUTLINED_FUNCTION_3_59(v643, xmmword_2577442B0);
-      *(v643 + 48) = sub_257743974();
-      *(v643 + 56) = v786;
-      v662 = type metadata accessor for NeuralNetwork.Layer.GatherAlongAxisParameters;
-      goto LABEL_158;
-    case 35:
-      v891 = OUTLINED_FUNCTION_13_24();
-      v893 = OUTLINED_FUNCTION_24_21(v891, v892, v1100);
-      v643 = NeuralNetwork.Layer.ScatterParameters.propertyDescriptions.getter(v893);
-      v658 = type metadata accessor for NeuralNetwork.Layer.ScatterParameters;
-      goto LABEL_161;
-    case 36:
-      v973 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_32_10(v973, v974, v1106);
-      if (*(v639 + 8) == 1)
-      {
-        v975 = 0xE300000000000000;
-        v976 = 6579265;
-        switch(*v639)
+        v36 = type metadata accessor for Proto_FeatureType.OneOf_Type(0);
+        OUTLINED_FUNCTION_22_23(v36, v37, v38, v36);
+        OUTLINED_FUNCTION_12_37();
+        if (!v35)
         {
-          case 1:
-            break;
-          case 2:
-            v975 = 0xE800000000000000;
-            v976 = 0x7463617274627553;
-            break;
-          case 3:
-            v975 = 0xE800000000000000;
-            v976 = 0x796C7069746C754DLL;
-            break;
-          case 4:
-            v975 = 0xE600000000000000;
-            v976 = 0x656469766944;
-            break;
-          case 5:
-            v975 = 0xE700000000000000;
-            v1077 = 1769496909;
-            goto LABEL_173;
-          case 6:
-            v975 = 0xE700000000000000;
-            v1077 = 1768843597;
-LABEL_173:
-            v976 = v1077 | 0x6D756D00000000;
-            break;
-          default:
-            goto LABEL_118;
+          sub_25763559C(v34);
         }
       }
 
       else
       {
-LABEL_118:
-        v975 = 0xE600000000000000;
-        v976 = 0x657461647055;
+        v39 = OUTLINED_FUNCTION_9_36();
+        sub_2576E01D4(v39, v93);
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_8_4();
-      *(v643 + 16) = xmmword_2577442B0;
-      v977 = OUTLINED_FUNCTION_18_32(v643, 1701080909);
-      *(v977 + 48) = v976;
-      *(v977 + 56) = v975;
-      v655 = type metadata accessor for NeuralNetwork.Layer.ScatterNDParameters;
-      goto LABEL_166;
-    case 37:
-      v967 = OUTLINED_FUNCTION_13_24();
-      v969 = OUTLINED_FUNCTION_24_21(v967, v968, v1102);
-      v643 = NeuralNetwork.Layer.ScatterAlongAxisParameters.propertyDescriptions.getter(v969);
-      v658 = type metadata accessor for NeuralNetwork.Layer.ScatterAlongAxisParameters;
-      goto LABEL_161;
-    case 38:
-      v738 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v738, v739, v1103);
-      v643 = NeuralNetwork.Layer.SliceParameters.propertyDescriptions.getter();
-      v658 = type metadata accessor for NeuralNetwork.Layer.SliceParameters;
-      goto LABEL_161;
-    case 39:
-      v722 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v722, v723, v1104);
-      v643 = NeuralNetwork.Layer.SliceStaticParameters.propertyDescriptions.getter();
-      v658 = type metadata accessor for NeuralNetwork.Layer.SliceStaticParameters;
-      goto LABEL_161;
-    case 40:
-      v1023 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v1023, v1024, v1105);
-      v643 = NeuralNetwork.Layer.SliceDynamicParameters.propertyDescriptions.getter();
-      v658 = type metadata accessor for NeuralNetwork.Layer.SliceDynamicParameters;
-      goto LABEL_161;
-    case 41:
-      v1025 = OUTLINED_FUNCTION_13_24();
-      v604 = v1079;
-      sub_2576D0594(v1025, v1079, v1026);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_85_4();
-      *(v643 + 16) = xmmword_257743FF0;
-      *(v643 + 32) = 1702521171;
-      *(v643 + 40) = 0xE400000000000000;
-      v1151 = *v1079;
-      OUTLINED_FUNCTION_368();
-      *(v643 + 48) = sub_257743974();
-      *(v643 + 56) = v1027;
-      *(v643 + 64) = 1936291905;
-      *(v643 + 72) = 0xE400000000000000;
-      v1151 = v1079[1];
-      OUTLINED_FUNCTION_368();
-      *(v643 + 80) = sub_257743974();
-      *(v643 + 88) = v1028;
-      v683 = type metadata accessor for NeuralNetwork.Layer.SliceBySizeParameters;
-      goto LABEL_143;
-    case 42:
-      v1062 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v1062, v1063, v1107);
-      v643 = NeuralNetwork.Layer.SlidingWindowsParameters.propertyDescriptions.getter();
-      v658 = type metadata accessor for NeuralNetwork.Layer.SlidingWindowsParameters;
-      goto LABEL_161;
-    case 43:
-      v845 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v845, v846, v1108);
-      v643 = NeuralNetwork.Layer.InnerProductParameters.propertyDescriptions.getter();
-      v658 = type metadata accessor for NeuralNetwork.Layer.InnerProductParameters;
-      goto LABEL_161;
-    case 44:
-      v695 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v695, v696, v1109);
-      NeuralNetwork.Layer.Activation.propertyDescriptions.getter();
-      v643 = v697;
-      v658 = type metadata accessor for NeuralNetwork.Layer.Activation;
-      goto LABEL_161;
-    case 45:
-      v693 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v693, v694, v1110);
-      v643 = NeuralNetwork.Layer.UnaryFunctionParameters.propertyDescriptions.getter();
-      v658 = type metadata accessor for NeuralNetwork.Layer.UnaryFunctionParameters;
-      goto LABEL_161;
-    case 46:
-      v724 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v724, v725, v1111);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_85_4();
-      *(v643 + 16) = xmmword_257743FF0;
-      OUTLINED_FUNCTION_17_22();
-      *(v726 + 32) = v727;
-      *(v726 + 40) = v611;
-      v728 = *v632;
-      *(v643 + 48) = sub_257743794();
-      *(v643 + 56) = v729;
-      OUTLINED_FUNCTION_20_20();
-      *(v643 + 64) = v730;
-      *(v643 + 72) = v611;
-      v731 = *(v632 + 4);
-      *(v643 + 80) = sub_257743794();
-      *(v643 + 88) = v732;
-      v658 = type metadata accessor for NeuralNetwork.Layer.ClipParameters;
-      goto LABEL_161;
-    case 47:
-      v978 = 0x7463617845;
-      v979 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_32_10(v979, v980, v1115);
-      if (*(v639 + 8) == 1 && *v639)
+      sub_25768DB44();
+      sub_25768E918();
+      OUTLINED_FUNCTION_8_38();
+      sub_2576E0180();
+      OUTLINED_FUNCTION_10_43();
+      OUTLINED_FUNCTION_24_24();
+      OUTLINED_FUNCTION_15_22();
+      v40 = OUTLINED_FUNCTION_31_16();
+      v42 = v41;
+      OUTLINED_FUNCTION_2_59();
+      sub_2576E0180();
+      v100 = v29;
+      v44 = *(v29 + 16);
+      v43 = *(v29 + 24);
+      if (v44 >= v43 >> 1)
       {
-        if (*v639 == 1)
+        v46 = OUTLINED_FUNCTION_174(v43);
+        sub_257484040(v46, v44 + 1, 1);
+        v29 = v100;
+      }
+
+      *(v29 + 16) = v44 + 1;
+      v45 = v29 + 24 * v44;
+      *(v45 + 32) = v40;
+      *(v45 + 40) = v42;
+      *(v45 + 48) = 2;
+      v31 += v91;
+      --v25;
+    }
+
+    while (v25);
+
+    v17 = v87;
+    v27 = &loc_257743000;
+    v26 = MEMORY[0x277D84F90];
+  }
+
+  else
+  {
+
+    v29 = MEMORY[0x277D84F90];
+  }
+
+  v47 = v88;
+  *(v88 + 88) = v29;
+  *(v47 + 96) = 0;
+  v48 = v47;
+  *(v47 + 104) = 1;
+  *(v47 + 112) = 0x7374757074754FLL;
+  *(v47 + 120) = 0xE700000000000000;
+  v49 = FunctionDescription.outputs.getter();
+  v50 = *(v49 + 16);
+  if (v50)
+  {
+    v100 = v26;
+    v51 = v49;
+    v52 = OUTLINED_FUNCTION_269();
+    sub_257484040(v52, v53, v54);
+    v55 = v100;
+    OUTLINED_FUNCTION_193();
+    v93 = v51;
+    v57 = v51 + v56;
+    v58 = *(v17 + 72);
+    v94 = v27[255];
+    do
+    {
+      OUTLINED_FUNCTION_1_71();
+      v59 = v98;
+      sub_2576DFF70(v57, v98);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879FD8, &unk_257744910);
+      v60 = swift_initStackObject();
+      v61 = v59 + *(OUTLINED_FUNCTION_18_36(v60, v94) + 28);
+      v62 = v97;
+      sub_257635668(v61, v97);
+      OUTLINED_FUNCTION_12_37();
+      if (v35)
+      {
+        v63 = type metadata accessor for Proto_FeatureType.OneOf_Type(0);
+        OUTLINED_FUNCTION_22_23(v63, v64, v65, v63);
+        OUTLINED_FUNCTION_12_37();
+        if (!v35)
         {
-          v981 = 0x80000002577814C0;
-          v978 = 0xD000000000000020;
+          sub_25763559C(v62);
+        }
+      }
+
+      else
+      {
+        v66 = OUTLINED_FUNCTION_9_36();
+        sub_2576E01D4(v66, v96);
+      }
+
+      sub_25768DB44();
+      sub_25768E918();
+      OUTLINED_FUNCTION_8_38();
+      sub_2576E0180();
+      OUTLINED_FUNCTION_10_43();
+      OUTLINED_FUNCTION_24_24();
+      OUTLINED_FUNCTION_15_22();
+      v67 = OUTLINED_FUNCTION_31_16();
+      v69 = v68;
+      OUTLINED_FUNCTION_2_59();
+      sub_2576E0180();
+      v100 = v55;
+      v71 = *(v55 + 16);
+      v70 = *(v55 + 24);
+      if (v71 >= v70 >> 1)
+      {
+        v73 = OUTLINED_FUNCTION_174(v70);
+        sub_257484040(v73, v71 + 1, 1);
+        v55 = v100;
+      }
+
+      *(v55 + 16) = v71 + 1;
+      v72 = v55 + 24 * v71;
+      *(v72 + 32) = v67;
+      *(v72 + 40) = v69;
+      *(v72 + 48) = 2;
+      v57 += v58;
+      --v50;
+    }
+
+    while (v50);
+
+    v48 = v88;
+  }
+
+  else
+  {
+
+    v55 = MEMORY[0x277D84F90];
+  }
+
+  *(v48 + 128) = v55;
+  *(v48 + 136) = 0;
+  *(v48 + 144) = 1;
+  OUTLINED_FUNCTION_1_6();
+  if (v74)
+  {
+    OUTLINED_FUNCTION_17_24();
+    OUTLINED_FUNCTION_15_22();
+    v75 = v101;
+    v76 = v102;
+    sub_257469AE0();
+    v48 = v77;
+    *(v77 + 16) = 4;
+    *(v77 + 152) = 0xD000000000000016;
+    *(v77 + 160) = 0x8000000257779B30;
+    *(v77 + 168) = v75;
+    *(v77 + 176) = v76;
+    *(v77 + 184) = 0;
+  }
+
+  OUTLINED_FUNCTION_1_6();
+  if (v78)
+  {
+    OUTLINED_FUNCTION_17_24();
+    OUTLINED_FUNCTION_15_22();
+    v79 = v101;
+    v80 = v102;
+    v82 = *(v48 + 16);
+    v81 = *(v48 + 24);
+    if (v82 >= v81 >> 1)
+    {
+      OUTLINED_FUNCTION_174(v81);
+      sub_257469AE0();
+      v48 = v85;
+    }
+
+    *(v48 + 16) = v82 + 1;
+    v83 = v48 + 40 * v82;
+    *(v83 + 32) = 0xD00000000000001CLL;
+    *(v83 + 40) = 0x8000000257779B50;
+    *(v83 + 48) = v79;
+    *(v83 + 56) = v80;
+    *(v83 + 64) = 0;
+  }
+
+  return sub_2576AACFC(v48);
+}
+
+uint64_t sub_2576DF1B0(uint64_t *a1)
+{
+  v1 = *a1;
+  v2 = a1[1];
+
+  return FunctionDescription.name.setter(v1, v2);
+}
+
+uint64_t FunctionDescription.name.setter(uint64_t a1, uint64_t a2)
+{
+
+  *v2 = a1;
+  v2[1] = a2;
+  return result;
+}
+
+uint64_t (*FunctionDescription.name.modify(void *a1))(uint64_t *a1, char a2)
+{
+  v4 = *v1;
+  v3 = v1[1];
+  a1[2] = v1;
+  a1[3] = v3;
+  *a1 = v4;
+  a1[1] = v3;
+
+  return sub_25749BD04;
+}
+
+uint64_t FunctionDescription.inputs.getter()
+{
+  v2 = type metadata accessor for FeatureDescription(0);
+  v3 = OUTLINED_FUNCTION_24(v2);
+  MEMORY[0x28223BE20](v3);
+  OUTLINED_FUNCTION_3();
+  v6 = v5 - v4;
+  v7 = *(v0 + 16);
+  v8 = *(v7 + 16);
+  v9 = MEMORY[0x277D84F90];
+  if (v8)
+  {
+    v22 = MEMORY[0x277D84F90];
+    v10 = OUTLINED_FUNCTION_269();
+    sub_257483774(v10, v11, v12);
+    v9 = v22;
+    v13 = type metadata accessor for Proto_FeatureDescription(0);
+    OUTLINED_FUNCTION_24(v13);
+    v15 = v7 + ((*(v14 + 80) + 32) & ~*(v14 + 80));
+    v17 = *(v16 + 72);
+    do
+    {
+      OUTLINED_FUNCTION_0_89();
+      sub_2576DFF70(v15, v6);
+      OUTLINED_FUNCTION_24_2();
+      if (v19)
+      {
+        v20 = OUTLINED_FUNCTION_174(v18);
+        sub_257483774(v20, v1, 1);
+        v9 = v22;
+      }
+
+      OUTLINED_FUNCTION_6_49();
+      v15 += v17;
+      --v8;
+    }
+
+    while (v8);
+  }
+
+  return v9;
+}
+
+uint64_t FunctionDescription.inputs.setter()
+{
+  v2 = OUTLINED_FUNCTION_376();
+  v3 = type metadata accessor for FeatureDescription(v2);
+  v4 = OUTLINED_FUNCTION_24(v3);
+  v6 = v5;
+  MEMORY[0x28223BE20](v4);
+  OUTLINED_FUNCTION_3();
+  v9 = v8 - v7;
+  v10 = type metadata accessor for Proto_FeatureDescription(0);
+  v11 = OUTLINED_FUNCTION_24(v10);
+  MEMORY[0x28223BE20](v11);
+  OUTLINED_FUNCTION_3();
+  v14 = v13 - v12;
+  v15 = *(v0 + 16);
+  if (v15)
+  {
+    OUTLINED_FUNCTION_23_25(MEMORY[0x277D84F90]);
+    v16 = v24;
+    OUTLINED_FUNCTION_193();
+    v18 = v0 + v17;
+    v19 = *(v6 + 72);
+    do
+    {
+      OUTLINED_FUNCTION_1_71();
+      sub_2576DFF70(v18, v9);
+      OUTLINED_FUNCTION_0_89();
+      sub_2576DFF70(v9, v14);
+      OUTLINED_FUNCTION_2_59();
+      sub_2576E0180();
+      OUTLINED_FUNCTION_27_2();
+      if (v21)
+      {
+        v22 = OUTLINED_FUNCTION_174(v20);
+        sub_2574837CC(v22, v6, 1);
+        v16 = v24;
+      }
+
+      OUTLINED_FUNCTION_7_39();
+      v18 += v19;
+      --v15;
+    }
+
+    while (v15);
+  }
+
+  else
+  {
+
+    v16 = MEMORY[0x277D84F90];
+  }
+
+  *(v1 + 16) = v16;
+  return result;
+}
+
+uint64_t (*FunctionDescription.inputs.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+{
+  a1[1] = v1;
+  *a1 = FunctionDescription.inputs.getter();
+  return sub_2576DF610;
+}
+
+uint64_t FunctionDescription.outputs.getter()
+{
+  v2 = type metadata accessor for FeatureDescription(0);
+  v3 = OUTLINED_FUNCTION_24(v2);
+  MEMORY[0x28223BE20](v3);
+  OUTLINED_FUNCTION_3();
+  v6 = v5 - v4;
+  v7 = *(v0 + 24);
+  v8 = *(v7 + 16);
+  v9 = MEMORY[0x277D84F90];
+  if (v8)
+  {
+    v22 = MEMORY[0x277D84F90];
+    v10 = OUTLINED_FUNCTION_269();
+    sub_257483774(v10, v11, v12);
+    v9 = v22;
+    v13 = type metadata accessor for Proto_FeatureDescription(0);
+    OUTLINED_FUNCTION_24(v13);
+    v15 = v7 + ((*(v14 + 80) + 32) & ~*(v14 + 80));
+    v17 = *(v16 + 72);
+    do
+    {
+      OUTLINED_FUNCTION_0_89();
+      sub_2576DFF70(v15, v6);
+      OUTLINED_FUNCTION_24_2();
+      if (v19)
+      {
+        v20 = OUTLINED_FUNCTION_174(v18);
+        sub_257483774(v20, v1, 1);
+        v9 = v22;
+      }
+
+      OUTLINED_FUNCTION_6_49();
+      v15 += v17;
+      --v8;
+    }
+
+    while (v8);
+  }
+
+  return v9;
+}
+
+uint64_t FunctionDescription.outputs.setter()
+{
+  v2 = OUTLINED_FUNCTION_376();
+  v3 = type metadata accessor for FeatureDescription(v2);
+  v4 = OUTLINED_FUNCTION_24(v3);
+  v6 = v5;
+  MEMORY[0x28223BE20](v4);
+  OUTLINED_FUNCTION_3();
+  v9 = v8 - v7;
+  v10 = type metadata accessor for Proto_FeatureDescription(0);
+  v11 = OUTLINED_FUNCTION_24(v10);
+  MEMORY[0x28223BE20](v11);
+  OUTLINED_FUNCTION_3();
+  v14 = v13 - v12;
+  v15 = *(v0 + 16);
+  if (v15)
+  {
+    OUTLINED_FUNCTION_23_25(MEMORY[0x277D84F90]);
+    v16 = v24;
+    OUTLINED_FUNCTION_193();
+    v18 = v0 + v17;
+    v19 = *(v6 + 72);
+    do
+    {
+      OUTLINED_FUNCTION_1_71();
+      sub_2576DFF70(v18, v9);
+      OUTLINED_FUNCTION_0_89();
+      sub_2576DFF70(v9, v14);
+      OUTLINED_FUNCTION_2_59();
+      sub_2576E0180();
+      OUTLINED_FUNCTION_27_2();
+      if (v21)
+      {
+        v22 = OUTLINED_FUNCTION_174(v20);
+        sub_2574837CC(v22, v6, 1);
+        v16 = v24;
+      }
+
+      OUTLINED_FUNCTION_7_39();
+      v18 += v19;
+      --v15;
+    }
+
+    while (v15);
+  }
+
+  else
+  {
+
+    v16 = MEMORY[0x277D84F90];
+  }
+
+  *(v1 + 24) = v16;
+  return result;
+}
+
+uint64_t (*FunctionDescription.outputs.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
+{
+  a1[1] = v1;
+  *a1 = FunctionDescription.outputs.getter();
+  return sub_2576DF9C0;
+}
+
+uint64_t sub_2576DF9D8(uint64_t *a1, char a2, uint64_t (*a3)(uint64_t))
+{
+  if ((a2 & 1) == 0)
+  {
+    return a3(*a1);
+  }
+
+  a3(v4);
+}
+
+uint64_t sub_2576DFA74(uint64_t *a1)
+{
+  v1 = *a1;
+  v2 = a1[1];
+
+  return FunctionDescription.predictedFeatureName.setter(v1, v2);
+}
+
+uint64_t FunctionDescription.predictedFeatureName.setter(uint64_t a1, uint64_t a2)
+{
+
+  *(v2 + 40) = a1;
+  *(v2 + 48) = a2;
+  return result;
+}
+
+uint64_t (*FunctionDescription.predictedFeatureName.modify(void *a1))(uint64_t *a1, char a2)
+{
+  v4 = *(v1 + 40);
+  v3 = *(v1 + 48);
+  a1[2] = v1;
+  a1[3] = v3;
+  *a1 = v4;
+  a1[1] = v3;
+
+  return sub_2576DFB3C;
+}
+
+uint64_t sub_2576DFB3C(uint64_t *a1, char a2)
+{
+  v3 = *a1;
+  v2 = a1[1];
+  v4 = a1[2];
+  if (a2)
+  {
+
+    *(v4 + 40) = v3;
+    *(v4 + 48) = v2;
+  }
+
+  else
+  {
+
+    *(v4 + 40) = v3;
+    *(v4 + 48) = v2;
+  }
+
+  return result;
+}
+
+uint64_t sub_2576DFBDC(uint64_t *a1)
+{
+  v1 = *a1;
+  v2 = a1[1];
+
+  return FunctionDescription.predictedProbabilitiesName.setter(v1, v2);
+}
+
+uint64_t FunctionDescription.predictedProbabilitiesName.setter(uint64_t a1, uint64_t a2)
+{
+
+  *(v2 + 56) = a1;
+  *(v2 + 64) = a2;
+  return result;
+}
+
+uint64_t (*FunctionDescription.predictedProbabilitiesName.modify(void *a1))(uint64_t *a1, char a2)
+{
+  v4 = *(v1 + 56);
+  v3 = *(v1 + 64);
+  a1[2] = v1;
+  a1[3] = v3;
+  *a1 = v4;
+  a1[1] = v3;
+
+  return sub_2576DFCA4;
+}
+
+uint64_t sub_2576DFCA4(uint64_t *a1, char a2)
+{
+  v3 = *a1;
+  v2 = a1[1];
+  v4 = a1[2];
+  if (a2)
+  {
+
+    *(v4 + 56) = v3;
+    *(v4 + 64) = v2;
+  }
+
+  else
+  {
+
+    *(v4 + 56) = v3;
+    *(v4 + 64) = v2;
+  }
+
+  return result;
+}
+
+uint64_t FunctionDescription.init()@<X0>(void *a1@<X8>)
+{
+  *a1 = 0;
+  a1[1] = 0xE000000000000000;
+  v1 = MEMORY[0x277D84F90];
+  a1[2] = MEMORY[0x277D84F90];
+  a1[3] = v1;
+  a1[4] = v1;
+  a1[5] = 0;
+  a1[6] = 0xE000000000000000;
+  a1[7] = 0;
+  a1[8] = 0xE000000000000000;
+  type metadata accessor for Proto_FunctionDescription(0);
+  return _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+}
+
+uint64_t FunctionDescription.init(name:inputs:outputs:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+{
+  *a3 = 0;
+  a3[1] = 0xE000000000000000;
+  v6 = MEMORY[0x277D84F90];
+  a3[2] = MEMORY[0x277D84F90];
+  a3[3] = v6;
+  a3[4] = v6;
+  a3[5] = 0;
+  a3[6] = 0xE000000000000000;
+  a3[7] = 0;
+  a3[8] = 0xE000000000000000;
+  type metadata accessor for Proto_FunctionDescription(0);
+  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  *a3 = a1;
+  a3[1] = a2;
+  FunctionDescription.inputs.setter();
+  return FunctionDescription.outputs.setter();
+}
+
+uint64_t FunctionDescription.hash(into:)()
+{
+  v0 = OUTLINED_FUNCTION_376();
+  type metadata accessor for Proto_FunctionDescription(v0);
+  OUTLINED_FUNCTION_11_36();
+  sub_2576E0058(v1, v2, &unk_257750174);
+
+  return sub_2577435F4();
+}
+
+uint64_t FunctionDescription.hashValue.getter()
+{
+  sub_257743A14();
+  type metadata accessor for Proto_FunctionDescription(0);
+  OUTLINED_FUNCTION_11_36();
+  sub_2576E0058(v0, v1, &unk_257750174);
+  sub_2577435F4();
+  return sub_257743A64();
+}
+
+uint64_t sub_2576DFEE8(uint64_t a1)
+{
+  sub_257743A14();
+  type metadata accessor for Proto_FunctionDescription(0);
+  sub_2576E0058(&qword_27F87BA20, type metadata accessor for Proto_FunctionDescription, &unk_257750174);
+  sub_2577435F4();
+  return sub_257743A64();
+}
+
+uint64_t sub_2576DFF70(uint64_t a1, uint64_t a2)
+{
+  v3 = OUTLINED_FUNCTION_30();
+  v4(v3);
+  OUTLINED_FUNCTION_4();
+  v5 = OUTLINED_FUNCTION_205();
+  v6(v5);
+  return a2;
+}
+
+uint64_t sub_2576E0058(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
+{
+  result = *a1;
+  if (!result)
+  {
+    a2(255);
+    result = swift_getWitnessTable();
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+uint64_t type metadata accessor for FunctionDescription(uint64_t a1)
+{
+  result = qword_27F881488;
+  if (!qword_27F881488)
+  {
+    return swift_getSingletonMetadata();
+  }
+
+  return result;
+}
+
+uint64_t sub_2576E0114(uint64_t a1)
+{
+  result = type metadata accessor for Proto_FunctionDescription(319);
+  if (v2 <= 0x3F)
+  {
+    swift_cvw_initStructMetadataWithLayoutString();
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t sub_2576E0180()
+{
+  v1 = OUTLINED_FUNCTION_376();
+  v2(v1);
+  OUTLINED_FUNCTION_4();
+  (*(v3 + 8))(v0);
+  return v0;
+}
+
+uint64_t sub_2576E01D4(uint64_t a1, uint64_t a2)
+{
+  v3 = OUTLINED_FUNCTION_30();
+  v4(v3);
+  OUTLINED_FUNCTION_4();
+  v5 = OUTLINED_FUNCTION_205();
+  v6(v5);
+  return a2;
+}
+
+uint64_t OUTLINED_FUNCTION_6_49()
+{
+  *(v1 + 16) = v3;
+  v6 = v1 + ((*(v0 + 80) + 32) & ~*(v0 + 80)) + *(v0 + 72) * v4;
+
+  return sub_2576E01D4(v2, v6);
+}
+
+uint64_t OUTLINED_FUNCTION_7_39()
+{
+  *(v1 + 16) = v4;
+  v6 = v1 + ((*(v2 + 80) + 32) & ~*(v2 + 80)) + *(v2 + 72) * v0;
+
+  return sub_2576E01D4(v3, v6);
+}
+
+void OUTLINED_FUNCTION_10_43()
+{
+  *(v2 + 48) = v0;
+  *(v2 + 56) = v1;
+  *(v2 + 64) = v3;
+  *(v2 + 72) = 0x7470697263736544;
+  *(v2 + 80) = 0xEB000000006E6F69;
+}
+
+void OUTLINED_FUNCTION_15_22()
+{
+
+  JUMPOUT(0x259C64E90);
+}
+
+void OUTLINED_FUNCTION_17_24()
+{
+  *(v0 + 152) = 34;
+  *(v0 + 160) = 0xE100000000000000;
+
+  JUMPOUT(0x259C64E90);
+}
+
+uint64_t OUTLINED_FUNCTION_18_36(__n128 *a1, __n128 a2)
+{
+  a1[1] = a2;
+  a1[2].n128_u64[0] = 1701869908;
+  a1[2].n128_u64[1] = 0xE400000000000000;
+
+  return type metadata accessor for Proto_FeatureDescription(0);
+}
+
+uint64_t OUTLINED_FUNCTION_22_23(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  __swift_storeEnumTagSinglePayload(v4, 1, 1, a4);
+  *(v4 + *(v5 + 20)) = 0;
+
+  return _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+}
+
+void OUTLINED_FUNCTION_23_25(uint64_t a1@<X8>)
+{
+  *(v2 - 88) = a1;
+
+  sub_2574837CC(0, v1, 0);
+}
+
+void OUTLINED_FUNCTION_24_24()
+{
+  *(v0 + 152) = 34;
+  *(v0 + 160) = 0xE100000000000000;
+
+  JUMPOUT(0x259C64E90);
+}
+
+uint64_t OUTLINED_FUNCTION_31_16()
+{
+  v3 = *(v0 + 160);
+  *(v1 + 88) = *(v0 + 152);
+  *(v1 + 96) = v3;
+  *(v1 + 104) = 0;
+
+  return sub_2576A6964(v1);
+}
+
+uint64_t Model.exposeFeature(_:)(uint64_t *a1)
+{
+  result = sub_2576E050C(a1);
+  if ((result & 1) == 0)
+  {
+    sub_25769D7FC();
+    swift_allocError();
+    return swift_willThrow();
+  }
+
+  return result;
+}
+
+uint64_t sub_2576E050C(uint64_t *a1)
+{
+  v373 = type metadata accessor for MLProgram.Block(0);
+  OUTLINED_FUNCTION_63();
+  v370 = v3;
+  MEMORY[0x28223BE20](v4);
+  OUTLINED_FUNCTION_12_1();
+  v360 = v5;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F880698, &qword_25776CFE0);
+  v7 = OUTLINED_FUNCTION_13(v6);
+  MEMORY[0x28223BE20](v7);
+  OUTLINED_FUNCTION_25_0();
+  OUTLINED_FUNCTION_70();
+  MEMORY[0x28223BE20](v8);
+  OUTLINED_FUNCTION_196();
+  v377 = v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F880730, &qword_25776D388);
+  v11 = OUTLINED_FUNCTION_13(v10);
+  MEMORY[0x28223BE20](v11);
+  OUTLINED_FUNCTION_25_0();
+  OUTLINED_FUNCTION_70();
+  MEMORY[0x28223BE20](v12);
+  OUTLINED_FUNCTION_167();
+  OUTLINED_FUNCTION_70();
+  MEMORY[0x28223BE20](v13);
+  OUTLINED_FUNCTION_167();
+  v371 = v14;
+  MEMORY[0x28223BE20](v15);
+  OUTLINED_FUNCTION_196();
+  v17 = OUTLINED_FUNCTION_38_0(v16);
+  v378 = type metadata accessor for MLProgram.Function(v17);
+  OUTLINED_FUNCTION_63();
+  v354 = v18;
+  MEMORY[0x28223BE20](v19);
+  OUTLINED_FUNCTION_25_0();
+  OUTLINED_FUNCTION_70();
+  MEMORY[0x28223BE20](v20);
+  OUTLINED_FUNCTION_196();
+  v22 = OUTLINED_FUNCTION_38_0(v21);
+  v23 = type metadata accessor for MLProgram(v22);
+  v24 = OUTLINED_FUNCTION_13(v23);
+  MEMORY[0x28223BE20](v24);
+  OUTLINED_FUNCTION_12_1();
+  v372 = v25;
+  v26 = type metadata accessor for NeuralNetwork(0);
+  v27 = OUTLINED_FUNCTION_13(v26);
+  MEMORY[0x28223BE20](v27);
+  OUTLINED_FUNCTION_12_1();
+  v29 = OUTLINED_FUNCTION_38_0(v28);
+  v30 = type metadata accessor for NeuralNetworkRegressor(v29);
+  v31 = OUTLINED_FUNCTION_13(v30);
+  MEMORY[0x28223BE20](v31);
+  OUTLINED_FUNCTION_12_1();
+  v33 = OUTLINED_FUNCTION_38_0(v32);
+  v34 = type metadata accessor for FeatureDescription(v33);
+  v35 = OUTLINED_FUNCTION_24(v34);
+  v379 = v36;
+  MEMORY[0x28223BE20](v35);
+  OUTLINED_FUNCTION_25_0();
+  OUTLINED_FUNCTION_70();
+  MEMORY[0x28223BE20](v37);
+  OUTLINED_FUNCTION_167();
+  OUTLINED_FUNCTION_70();
+  MEMORY[0x28223BE20](v38);
+  OUTLINED_FUNCTION_167();
+  OUTLINED_FUNCTION_70();
+  MEMORY[0x28223BE20](v39);
+  OUTLINED_FUNCTION_196();
+  v41 = OUTLINED_FUNCTION_38_0(v40);
+  v42 = type metadata accessor for NeuralNetworkClassifier(v41);
+  v43 = OUTLINED_FUNCTION_13(v42);
+  MEMORY[0x28223BE20](v43);
+  OUTLINED_FUNCTION_12_1();
+  v45 = OUTLINED_FUNCTION_38_0(v44);
+  v46 = type metadata accessor for Proto_Model(v45);
+  v47 = OUTLINED_FUNCTION_24(v46);
+  v383 = v48;
+  MEMORY[0x28223BE20](v47);
+  i = &v352 - ((v49 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v51 = type metadata accessor for Model(0);
+  v52 = OUTLINED_FUNCTION_24(v51);
+  v382 = v53;
+  v54 = MEMORY[0x28223BE20](v52);
+  v56 = &v352 - ((v55 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v54);
+  v58 = &v352 - v57;
+  v59 = type metadata accessor for PipelineConfiguration(0);
+  v60 = OUTLINED_FUNCTION_13(v59);
+  MEMORY[0x28223BE20](v60);
+  OUTLINED_FUNCTION_12_1();
+  v380 = v61;
+  v62 = type metadata accessor for PipelineRegressorConfiguration(0);
+  v63 = OUTLINED_FUNCTION_13(v62);
+  MEMORY[0x28223BE20](v63);
+  OUTLINED_FUNCTION_12_1();
+  v363 = v64;
+  v65 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879BE0, &qword_257744370);
+  v66 = OUTLINED_FUNCTION_13(v65);
+  MEMORY[0x28223BE20](v66);
+  v376 = &v352 - v67;
+  v68 = type metadata accessor for PipelineClassifierConfiguration(0);
+  v69 = OUTLINED_FUNCTION_13(v68);
+  MEMORY[0x28223BE20](v69);
+  OUTLINED_FUNCTION_12_1();
+  v71 = OUTLINED_FUNCTION_38_0(v70);
+  v72 = type metadata accessor for ModelKind(v71);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v73);
+  OUTLINED_FUNCTION_25_0();
+  v375 = v74;
+  MEMORY[0x28223BE20](v75);
+  v77 = &v352 - v76;
+  Model.outputs.getter();
+  v381 = a1;
+  v385 = a1;
+  v79 = sub_2576ADB74(sub_2576E4130, v384, v78);
+  v81 = v80;
+
+  if ((v81 & 1) == 0)
+  {
+    Model.outputs.getter();
+    v84 = v97;
+    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+    {
+      goto LABEL_131;
+    }
+
+    goto LABEL_20;
+  }
+
+  v82 = v1;
+  Model.kind.getter();
+  v352 = v72;
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  v84 = MEMORY[0x277D84F90];
+  v374 = v1;
+  if (!(!v86 & v85))
+  {
+    switch(EnumCaseMultiPayload)
+    {
+      case 28:
+        v101 = OUTLINED_FUNCTION_189();
+        v77 = v367;
+        sub_2576E3FC8(v101, v367, v102);
+        NeuralNetwork.layers.getter();
+        OUTLINED_FUNCTION_24_25();
+        MEMORY[0x28223BE20](v103);
+        OUTLINED_FUNCTION_11_37();
+        v105 = sub_257703104(sub_2576E3F60, v104, v84);
+
+        if (!v105)
+        {
+          v176 = type metadata accessor for NeuralNetwork;
+          goto LABEL_118;
+        }
+
+        OUTLINED_FUNCTION_1_72();
+        v106 = v357;
+        sub_2576E4024(v56, v357, v107);
+        Model.outputs.getter();
+        v109 = v108;
+        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+        {
+          v322 = OUTLINED_FUNCTION_4_52();
+          sub_25746A0C8(v322, v323, v324, v325);
+          v109 = v326;
+        }
+
+        OUTLINED_FUNCTION_21_28();
+        if (v85)
+        {
+          OUTLINED_FUNCTION_174(v110);
+          OUTLINED_FUNCTION_17_25();
+          sub_25746A0C8(v327, v328, v329, v330);
+          v109 = v331;
+        }
+
+        *(v109 + 16) = v82;
+        OUTLINED_FUNCTION_2_60();
+        OUTLINED_FUNCTION_0_90();
+        sub_2576E3FC8(v106, v111, v112);
+        OUTLINED_FUNCTION_28_26();
+        Model.outputs.setter();
+        v113 = type metadata accessor for NeuralNetwork;
+        goto LABEL_80;
+      case 29:
+        v177 = OUTLINED_FUNCTION_189();
+        v77 = v364;
+        sub_2576E3FC8(v177, v364, v178);
+        NeuralNetworkClassifier.layers.getter();
+        OUTLINED_FUNCTION_24_25();
+        MEMORY[0x28223BE20](v179);
+        OUTLINED_FUNCTION_11_37();
+        v181 = sub_257703104(sub_2576E3F94, v180, v84);
+
+        if (!v181)
+        {
+          v176 = type metadata accessor for NeuralNetworkClassifier;
+          goto LABEL_118;
+        }
+
+        OUTLINED_FUNCTION_1_72();
+        v182 = v355;
+        sub_2576E4024(v56, v355, v183);
+        Model.outputs.getter();
+        v185 = v184;
+        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+        {
+          v332 = OUTLINED_FUNCTION_4_52();
+          sub_25746A0C8(v332, v333, v334, v335);
+          v185 = v336;
+        }
+
+        OUTLINED_FUNCTION_21_28();
+        if (v85)
+        {
+          OUTLINED_FUNCTION_174(v186);
+          OUTLINED_FUNCTION_17_25();
+          sub_25746A0C8(v337, v338, v339, v340);
+          v185 = v341;
+        }
+
+        *(v185 + 16) = v82;
+        OUTLINED_FUNCTION_2_60();
+        OUTLINED_FUNCTION_0_90();
+        sub_2576E3FC8(v182, v187, v188);
+        OUTLINED_FUNCTION_28_26();
+        Model.outputs.setter();
+        v113 = type metadata accessor for NeuralNetworkClassifier;
+        goto LABEL_80;
+      case 30:
+        v121 = OUTLINED_FUNCTION_189();
+        v77 = v365;
+        sub_2576E3FC8(v121, v365, v122);
+        NeuralNetworkRegressor.layers.getter();
+        OUTLINED_FUNCTION_24_25();
+        MEMORY[0x28223BE20](v123);
+        OUTLINED_FUNCTION_11_37();
+        v125 = sub_257703104(sub_2576E3F60, v124, v84);
+
+        if (!v125)
+        {
+          v176 = type metadata accessor for NeuralNetworkRegressor;
+          goto LABEL_118;
+        }
+
+        OUTLINED_FUNCTION_1_72();
+        i = v356;
+        sub_2576E4024(v56, v356, v126);
+        v1 = v82;
+        Model.outputs.getter();
+        v128 = v127;
+        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+        {
+          goto LABEL_136;
+        }
+
+        goto LABEL_43;
+      case 31:
+        v164 = MEMORY[0x277D84F90];
+        v165 = OUTLINED_FUNCTION_189();
+        sub_2576E3FC8(v165, v372, v166);
+        MLProgram.functions.getter();
+        v168 = v167;
+        v169 = v366;
+        v170 = OUTLINED_FUNCTION_28_10();
+        sub_257657BA8(v170, v171, v168, v172);
+
+        OUTLINED_FUNCTION_33_12(v169);
+        v173 = v381;
+        if (v86)
+        {
+          v174 = OUTLINED_FUNCTION_12_38();
+          sub_2576E3EA4(v174, v175);
+          sub_2574695E4(v169, &qword_27F880730, &qword_25776D388);
+          goto LABEL_119;
+        }
+
+        OUTLINED_FUNCTION_5_47();
+        v229 = v169;
+        v1 = v361;
+        sub_2576E3FC8(v229, v361, v230);
+        v388 = v164;
+        sub_2576E1CC4(&v388);
+        v231 = v388;
+        MEMORY[0x28223BE20](v232);
+        *(&v352 - 2) = v173;
+        v233 = sub_257703134(sub_2576E3F40, (&v352 - 4), v231);
+        v77 = v233;
+        v383 = 0;
+        if (!v233)
+        {
+          OUTLINED_FUNCTION_14_23();
+          sub_2576E3EA4(v1, v300);
+
+LABEL_127:
+          v216 = OUTLINED_FUNCTION_12_38();
+          goto LABEL_85;
+        }
+
+        v366 = v231;
+        MLProgram.Function.blockSpecializations.getter();
+        v235 = 0;
+        v237 = v234 + 8;
+        v236 = v234[8];
+        v380 = v234;
+        v238 = 1 << *(v234 + 32);
+        v239 = -1;
+        if (v238 < 64)
+        {
+          v239 = ~(-1 << v238);
+        }
+
+        i = v239 & v236;
+        v240 = (v238 + 63) >> 6;
+        v241 = v371;
+        v375 = v240;
+        v376 = (v234 + 8);
+        LODWORD(v367) = v77;
+        if ((v239 & v236) != 0)
+        {
+LABEL_95:
+          while (1)
+          {
+            v243 = (v380[6] + ((v235 << 10) | (16 * __clz(__rbit64(i)))));
+            v245 = *v243;
+            v244 = v243[1];
+            v246 = v173[1];
+            v382 = *v173;
+            MLProgram.functions.getter();
+            v248 = v247;
+
+            v249 = OUTLINED_FUNCTION_28_10();
+            sub_257657BA8(v249, v250, v248, v251);
+
+            OUTLINED_FUNCTION_33_12(v241);
+            if (v86)
+            {
+              break;
+            }
+
+            MLProgram.Function.blockSpecializations.getter();
+            v1 = v252;
+            swift_isUniquelyReferenced_nonNull_native();
+            v387 = v1;
+            v253 = sub_25765368C(v245, v244);
+            v255 = *(v1 + 16);
+            v256 = (v254 & 1) == 0;
+            v77 = v255 + v256;
+            if (__OFADD__(v255, v256))
+            {
+              goto LABEL_135;
+            }
+
+            v257 = v253;
+            v258 = v254;
+            __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F8806A0, &qword_25776CFE8);
+            if (sub_257743894())
+            {
+              v259 = sub_25765368C(v245, v244);
+              if ((v258 & 1) != (v260 & 1))
+              {
+                goto LABEL_139;
+              }
+
+              v257 = v259;
+            }
+
+            if ((v258 & 1) == 0)
+            {
+              goto LABEL_138;
+            }
+
+            v261 = v387;
+            v262 = *(v370 + 72) * v257;
+            v263 = v377;
+            sub_2576E3FC8(*(v387 + 56) + v262, v377, type metadata accessor for MLProgram.Block);
+            v264 = OUTLINED_FUNCTION_39_7();
+            __swift_storeEnumTagSinglePayload(v264, v265, v266, v373);
+            v267 = *(v263 + 8);
+
+            v268 = v267;
+            if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+            {
+              OUTLINED_FUNCTION_4_52();
+              sub_257469ED4();
+              v268 = v297;
+            }
+
+            v270 = *(v268 + 16);
+            v269 = *(v268 + 24);
+            if (v270 >= v269 >> 1)
+            {
+              OUTLINED_FUNCTION_174(v269);
+              sub_257469ED4();
+              v268 = v298;
+            }
+
+            *(v268 + 16) = v270 + 1;
+            v271 = v268 + 16 * v270;
+            *(v271 + 32) = v382;
+            *(v271 + 40) = v246;
+
+            v272 = v377;
+            *(v377 + 8) = v268;
+            v273 = v369;
+            sub_2574AD5D8(v272, v369, &qword_27F880698, &qword_25776CFE0);
+            if (__swift_getEnumTagSinglePayload(v273, 1, v373) == 1)
+            {
+              sub_2574695E4(v273, &qword_27F880698, &qword_25776CFE0);
+              sub_2576493CC(*(v261 + 48) + 16 * v257);
+              sub_2577438B4();
+            }
+
+            else
+            {
+              v274 = v273;
+              v275 = v360;
+              sub_2576E3FC8(v274, v360, type metadata accessor for MLProgram.Block);
+              sub_2576E3FC8(v275, *(v261 + 56) + v262, type metadata accessor for MLProgram.Block);
+            }
+
+            v77 = v367;
+            v276 = v372;
+            sub_2574695E4(v377, &qword_27F880698, &qword_25776CFE0);
+            v277 = v383;
+            sub_257653AF8(v261);
+            v279 = v278;
+
+            v241 = v371;
+            *(v371 + 24) = v279;
+
+            v280 = v368;
+            sub_2574AD5D8(v241, v368, &qword_27F880730, &qword_25776D388);
+            MLProgram.functions.getter();
+            v1 = v281;
+            OUTLINED_FUNCTION_33_12(v280);
+            if (v86)
+            {
+              sub_2574695E4(v280, &qword_27F880730, &qword_25776D388);
+              v282 = OUTLINED_FUNCTION_28_10();
+              sub_25765368C(v282, v283);
+              if (v284)
+              {
+                swift_isUniquelyReferenced_nonNull_native();
+                v386 = v1;
+                __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F880738, &unk_25776D390);
+                v77 = v367;
+                v241 = v371;
+                sub_257743894();
+                v1 = v386;
+
+                OUTLINED_FUNCTION_5_47();
+                v285 = v359;
+                sub_2576E3FC8(v286, v359, v287);
+                OUTLINED_FUNCTION_205();
+                sub_2577438B4();
+              }
+
+              else
+              {
+                v285 = v359;
+              }
+
+              OUTLINED_FUNCTION_17_25();
+              __swift_storeEnumTagSinglePayload(v291, v292, v293, v294);
+              sub_2574695E4(v285, &qword_27F880730, &qword_25776D388);
+            }
+
+            else
+            {
+              OUTLINED_FUNCTION_5_47();
+              v288 = v280;
+              v289 = v358;
+              sub_2576E3FC8(v288, v358, v290);
+              swift_isUniquelyReferenced_nonNull_native();
+              v386 = v1;
+              sub_25765BDAC(v289, 1852399981, 0xE400000000000000);
+              v1 = v386;
+            }
+
+            i &= i - 1;
+            sub_25765B92C(v1);
+            v296 = v295;
+            v383 = v277;
+
+            sub_2574695E4(v241, &qword_27F880730, &qword_25776D388);
+
+            *(v276 + 8) = v296;
+            v240 = v375;
+            v237 = v376;
+            v173 = v381;
+            if (!i)
+            {
+              goto LABEL_91;
+            }
+          }
+
+          __break(1u);
+LABEL_138:
+          __swift_storeEnumTagSinglePayload(v377, 1, 1, v373);
+          __break(1u);
+LABEL_139:
+          sub_2577439B4();
+          __break(1u);
+LABEL_140:
+          JUMPOUT(0);
+        }
+
+LABEL_91:
+        while (1)
+        {
+          v242 = v235 + 1;
+          if (__OFADD__(v235, 1))
+          {
+            break;
+          }
+
+          if (v242 >= v240)
+          {
+
+            OUTLINED_FUNCTION_1_72();
+            v301 = v353;
+            sub_2576E4024(v173, v353, v302);
+            Model.outputs.getter();
+            v304 = v303;
+            if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+            {
+              v342 = OUTLINED_FUNCTION_4_52();
+              sub_25746A0C8(v342, v343, v344, v345);
+              v304 = v346;
+            }
+
+            v305 = v361;
+            v307 = *(v304 + 16);
+            v306 = *(v304 + 24);
+            if (v307 >= v306 >> 1)
+            {
+              OUTLINED_FUNCTION_174(v306);
+              OUTLINED_FUNCTION_17_25();
+              sub_25746A0C8(v347, v348, v349, v350);
+              v304 = v351;
+            }
+
+            *(v304 + 16) = v307 + 1;
+            OUTLINED_FUNCTION_193();
+            OUTLINED_FUNCTION_0_90();
+            sub_2576E3FC8(v301, v308, v309);
+            Model.outputs.setter();
+            OUTLINED_FUNCTION_14_23();
+            sub_2576E3EA4(v305, v310);
+            goto LABEL_127;
+          }
+
+          i = v237[v242];
+          ++v235;
+          if (i)
+          {
+            v235 = v242;
+            goto LABEL_95;
+          }
+        }
+
+        break;
+      default:
+        goto LABEL_140;
+    }
+
+    goto LABEL_134;
+  }
+
+  if (EnumCaseMultiPayload == 2)
+  {
+    v132 = OUTLINED_FUNCTION_189();
+    sub_2576E3FC8(v132, v380, v133);
+    v134 = *(PipelineConfiguration.models.getter() + 16);
+
+    LOBYTE(v77) = 0;
+    if (v134)
+    {
+      v135 = 0;
+      v377 = v134;
+      do
+      {
+        if (v77)
+        {
+          LOBYTE(v77) = 1;
         }
 
         else
         {
-          v981 = 0x80000002577814A0;
-          v978 = 0xD000000000000015;
+          v379 = v135;
+          v77 = *v380;
+          v136 = *(*v380 + 16);
+          v378 = *v380;
+          if (v136)
+          {
+            v137 = OUTLINED_FUNCTION_25_22();
+            sub_257483F38(v137, v138, v139);
+            v140 = v388;
+            v1 = v382;
+            OUTLINED_FUNCTION_193();
+            v77 += v141;
+            v143 = *(v142 + 72);
+            do
+            {
+              OUTLINED_FUNCTION_15_23();
+              sub_2576E4024(v77, v58, v144);
+              v388 = v140;
+              v146 = *(v140 + 16);
+              v145 = *(v140 + 24);
+              v79 = v146 + 1;
+              if (v146 >= v145 >> 1)
+              {
+                v148 = OUTLINED_FUNCTION_174(v145);
+                sub_257483F38(v148, v146 + 1, 1);
+                v1 = v382;
+                v140 = v388;
+              }
+
+              *(v140 + 16) = v79;
+              OUTLINED_FUNCTION_193();
+              sub_2576E3FC8(v58, v140 + v147 + *(v1 + 72) * v146, type metadata accessor for Model);
+              v77 += v143;
+              --v136;
+            }
+
+            while (v136);
+            v84 = MEMORY[0x277D84F90];
+          }
+
+          else
+          {
+            v140 = v84;
+            v1 = v382;
+          }
+
+          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+          {
+            sub_25767A694(v140, v93, v94, v95);
+            v140 = v163;
+          }
+
+          if (v379 >= *(v140 + 16))
+          {
+            goto LABEL_129;
+          }
+
+          OUTLINED_FUNCTION_193();
+          v79 = v140 + v149;
+          v150 = *(v1 + 72);
+          v151 = sub_2576E050C(v381);
+          LOBYTE(v77) = v151;
+          v152 = *(v140 + 16);
+          if (v152)
+          {
+            LODWORD(v367) = v151;
+            v153 = OUTLINED_FUNCTION_25_22();
+            sub_257484E38(v153, v154, v155);
+            v156 = v388;
+            do
+            {
+              sub_2576E4024(v79, v56, type metadata accessor for Model);
+              OUTLINED_FUNCTION_15_23();
+              sub_2576E4024(v56, i, v157);
+              sub_2576E3EA4(v56, type metadata accessor for Model);
+              v388 = v156;
+              v159 = *(v156 + 16);
+              v158 = *(v156 + 24);
+              if (v159 >= v158 >> 1)
+              {
+                v162 = OUTLINED_FUNCTION_174(v158);
+                sub_257484E38(v162, v159 + 1, 1);
+                v156 = v388;
+              }
+
+              *(v156 + 16) = v159 + 1;
+              OUTLINED_FUNCTION_193();
+              sub_2576E3FC8(i, v156 + v160 + *(v161 + 72) * v159, type metadata accessor for Proto_Model);
+              v79 += v150;
+              --v152;
+            }
+
+            while (v152);
+
+            LOBYTE(v77) = v367;
+            v84 = MEMORY[0x277D84F90];
+          }
+
+          else
+          {
+
+            v156 = v84;
+          }
+
+          v135 = v379;
+          *v380 = v156;
+          v134 = v377;
+        }
+
+        ++v135;
+      }
+
+      while (v135 != v134);
+    }
+
+    v202 = v380;
+    sub_2576E4024(v380, v375, type metadata accessor for PipelineConfiguration);
+    v203 = swift_storeEnumTagMultiPayload();
+    OUTLINED_FUNCTION_26_16(v203, v204, v205, v206, v207, v208, v209, v210, v352, v353, v354, v355, v356, v357, v358, v359, v360, v361, v362, v363);
+    type metadata accessor for Proto_Model.OneOf_Type(0);
+    v211 = OUTLINED_FUNCTION_39_7();
+    __swift_storeEnumTagSinglePayload(v211, v212, v213, v214);
+    OUTLINED_FUNCTION_28_26();
+    sub_2574FE574();
+    OUTLINED_FUNCTION_6_50();
+    v215 = type metadata accessor for PipelineConfiguration;
+    v216 = v202;
+    goto LABEL_85;
+  }
+
+  if (EnumCaseMultiPayload != 1)
+  {
+    v87 = v381;
+    if (EnumCaseMultiPayload)
+    {
+      v176 = type metadata accessor for ModelKind;
+LABEL_118:
+      sub_2576E3EA4(v77, v176);
+LABEL_119:
+      LOBYTE(v77) = 0;
+      return v77 & 1;
+    }
+
+    v88 = OUTLINED_FUNCTION_189();
+    v79 = v362;
+    sub_2576E3FC8(v88, v362, v89);
+    PipelineClassifierConfiguration.models.getter();
+    v91 = *(v90 + 16);
+
+    v77 = 0;
+    if (v91)
+    {
+      for (i = 0; i != v91; ++i)
+      {
+        if (v77)
+        {
+          v77 = 1;
+        }
+
+        else
+        {
+          v1 = v79;
+          PipelineClassifierConfiguration.models.getter();
+          v84 = v92;
+          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+          {
+            sub_25767A694(v84, v93, v94, v95);
+            v84 = v96;
+          }
+
+          if (i >= *(v84 + 16))
+          {
+            goto LABEL_130;
+          }
+
+          OUTLINED_FUNCTION_2_60();
+          v77 = sub_2576E050C(v87);
+          PipelineClassifierConfiguration.models.setter(v84);
         }
       }
+    }
 
-      else
-      {
-        v981 = 0xE500000000000000;
-      }
-
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_8_4();
-      *(v643 + 16) = xmmword_2577442B0;
-      v1076 = OUTLINED_FUNCTION_18_32(v643, 1701080909);
-      *(v1076 + 48) = v978;
-      *(v1076 + 56) = v981;
-      v655 = type metadata accessor for NeuralNetwork.Layer.GELUParameters;
-      goto LABEL_166;
-    case 48:
-      v791 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_27_20(v791, v792, v1114);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_85_4();
-      *(v643 + 48) = OUTLINED_FUNCTION_4_48(v643, xmmword_257743FF0);
-      *(v643 + 56) = v793;
-      *(v643 + 64) = 1635018050;
-      *(v643 + 72) = 0xE400000000000000;
-      v794 = *(v611 + 4);
-      *(v643 + 80) = sub_257743794();
-      *(v643 + 88) = v795;
-      v662 = type metadata accessor for NeuralNetwork.Layer.ClampedReluParameters;
-      goto LABEL_158;
-    case 49:
-      v984 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v984, v985, v1112);
-      NeuralNetwork.Layer.ConvolutionParameters.propertyDescriptions.getter();
-      v643 = v986;
-      v658 = type metadata accessor for NeuralNetwork.Layer.ConvolutionParameters;
-      goto LABEL_161;
-    case 50:
-      v666 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v666, v667, v1113);
-      v643 = NeuralNetwork.Layer.Convolution3DParameters.propertyDescriptions.getter();
-      v658 = type metadata accessor for NeuralNetwork.Layer.Convolution3DParameters;
-      goto LABEL_161;
-    case 51:
-      v772 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v772, v773, v1116);
-      NeuralNetwork.Layer.PoolParameters.propertyDescriptions.getter();
-      v643 = v774;
-      v658 = type metadata accessor for NeuralNetwork.Layer.PoolParameters;
-      goto LABEL_161;
-    case 52:
-      v686 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v686, v687, v1117);
-      v643 = NeuralNetwork.Layer.Pool3DParameters.propertyDescriptions.getter();
-      v658 = type metadata accessor for NeuralNetwork.Layer.Pool3DParameters;
-      goto LABEL_161;
-    case 54:
-      v970 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_27_20(v970, v971, v1118);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_8_4();
-      *(v643 + 48) = OUTLINED_FUNCTION_30_14(v643, xmmword_2577442B0);
-      *(v643 + 56) = v972;
-      v662 = type metadata accessor for NeuralNetwork.Layer.AddParameters;
-      goto LABEL_158;
-    case 55:
-      v690 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_27_20(v690, v691, v1120);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_8_4();
-      *(v643 + 48) = OUTLINED_FUNCTION_30_14(v643, xmmword_2577442B0);
-      *(v643 + 56) = v692;
-      v662 = type metadata accessor for NeuralNetwork.Layer.MultiplyParameters;
-      goto LABEL_158;
-    case 65:
-      v656 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v656, v657, v1119);
-      v643 = NeuralNetwork.Layer.ScaleParameters.propertyDescriptions.getter();
-      v658 = type metadata accessor for NeuralNetwork.Layer.ScaleParameters;
-      goto LABEL_161;
-    case 66:
-      v1060 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v1060, v1061, v1121);
-      v643 = NeuralNetwork.Layer.BatchNormalizeParameters.propertyDescriptions.getter();
-      v658 = type metadata accessor for NeuralNetwork.Layer.BatchNormalizeParameters;
-      goto LABEL_161;
-    case 68:
-      v806 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_27_20(v806, v807, v1123);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_8_4();
-      OUTLINED_FUNCTION_3_59(v643, xmmword_2577442B0);
-      *(v643 + 48) = sub_257743974();
-      *(v643 + 56) = v808;
-      v662 = type metadata accessor for NeuralNetwork.Layer.SoftmaxNDParameters;
-      goto LABEL_158;
-    case 69:
-      v1058 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v1058, v1059, v1122);
-      v643 = NeuralNetwork.Layer.MeanVarianceNormalizeParameters.propertyDescriptions.getter();
-      v658 = type metadata accessor for NeuralNetwork.Layer.MeanVarianceNormalizeParameters;
-      goto LABEL_161;
-    case 70:
-      v1054 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_27_20(v1054, v1055, v1125);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_8_4();
-      *(v643 + 16) = xmmword_2577442B0;
-      *(v643 + 32) = 0x6E6F6C69737045;
-      *(v643 + 40) = 0xE700000000000000;
-      v1056 = *v611;
-      *(v643 + 48) = sub_257743794();
-      *(v643 + 56) = v1057;
-      v662 = type metadata accessor for NeuralNetwork.Layer.L2NormalizeParameters;
-      goto LABEL_158;
-    case 71:
-      v746 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v746, v747, v1124);
-      v643 = NeuralNetwork.Layer.LRNParameters.propertyDescriptions.getter();
-      v658 = type metadata accessor for NeuralNetwork.Layer.LRNParameters;
-      goto LABEL_161;
-    case 72:
-      v720 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v720, v721, v1126);
-      v643 = NeuralNetwork.Layer.LayerNormalizeParameters.propertyDescriptions.getter();
-      v658 = type metadata accessor for NeuralNetwork.Layer.LayerNormalizeParameters;
-      goto LABEL_161;
-    case 73:
-      v850 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v850, v851, v1127);
-      v643 = NeuralNetwork.Layer.UnidirectionalLSTMParameters.propertyDescriptions.getter();
-      v658 = type metadata accessor for NeuralNetwork.Layer.UnidirectionalLSTMParameters;
-      goto LABEL_161;
-    case 74:
-      v843 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v843, v844, v1128);
-      v643 = NeuralNetwork.Layer.BidirectionalLSTMParameters.propertyDescriptions.getter();
-      v658 = type metadata accessor for NeuralNetwork.Layer.BidirectionalLSTMParameters;
-      goto LABEL_161;
-    case 75:
-      v704 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v704, v705, v1129);
-      v643 = NeuralNetwork.Layer.SimpleRecurrentParameters.propertyDescriptions.getter();
-      v658 = type metadata accessor for NeuralNetwork.Layer.SimpleRecurrentParameters;
-      goto LABEL_161;
-    case 76:
-      v684 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v684, v685, v1130);
-      v643 = NeuralNetwork.Layer.GRUParameters.propertyDescriptions.getter();
-      v658 = type metadata accessor for NeuralNetwork.Layer.GRUParameters;
-      goto LABEL_161;
-    case 77:
-      v1036 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v1036, v1037, v1131);
-      NeuralNetwork.Layer.CropParameters.propertyDescriptions.getter();
-      v643 = v1038;
-      v658 = type metadata accessor for NeuralNetwork.Layer.CropParameters;
-      goto LABEL_161;
-    case 78:
-      v1009 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v1009, v1010, v1132);
-      NeuralNetwork.Layer.ResizeBilinearParameters.propertyDescriptions.getter();
-      v643 = v1011;
-      v658 = type metadata accessor for NeuralNetwork.Layer.ResizeBilinearParameters;
-      goto LABEL_161;
-    case 79:
-      v847 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v847, v848, &v1133);
-      NeuralNetwork.Layer.CropResizeParameters.propertyDescriptions.getter();
-      v643 = v849;
-      v658 = type metadata accessor for NeuralNetwork.Layer.CropResizeParameters;
-      goto LABEL_161;
-    case 81:
-      v832 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v832, v833, &v1134);
-      v643 = NeuralNetwork.Layer.ReduceParameters.propertyDescriptions.getter();
-      v658 = type metadata accessor for NeuralNetwork.Layer.ReduceParameters;
-      goto LABEL_161;
-    case 82:
-      v1003 = OUTLINED_FUNCTION_13_24();
-      v1005 = OUTLINED_FUNCTION_24_21(v1003, v1004, &v1135);
-      v643 = NeuralNetwork.Layer.ReduceL1Parameters.propertyDescriptions.getter(v1005);
-      v658 = type metadata accessor for NeuralNetwork.Layer.ReduceL1Parameters;
-      goto LABEL_161;
-    case 83:
-      v1020 = OUTLINED_FUNCTION_13_24();
-      v1022 = OUTLINED_FUNCTION_24_21(v1020, v1021, &v1136);
-      v643 = NeuralNetwork.Layer.ReduceL2Parameters.propertyDescriptions.getter(v1022);
-      v658 = type metadata accessor for NeuralNetwork.Layer.ReduceL2Parameters;
-      goto LABEL_161;
-    case 84:
-      v914 = OUTLINED_FUNCTION_13_24();
-      v916 = OUTLINED_FUNCTION_24_21(v914, v915, &v1137);
-      v643 = NeuralNetwork.Layer.ReduceMaxParameters.propertyDescriptions.getter(v916);
-      v658 = type metadata accessor for NeuralNetwork.Layer.ReduceMaxParameters;
-      goto LABEL_161;
-    case 85:
-      v1012 = OUTLINED_FUNCTION_13_24();
-      v1014 = OUTLINED_FUNCTION_24_21(v1012, v1013, &v1138);
-      v643 = NeuralNetwork.Layer.ReduceMinParameters.propertyDescriptions.getter(v1014);
-      v658 = type metadata accessor for NeuralNetwork.Layer.ReduceMinParameters;
-      goto LABEL_161;
-    case 86:
-      v1006 = OUTLINED_FUNCTION_13_24();
-      v1008 = OUTLINED_FUNCTION_24_21(v1006, v1007, &v1139);
-      v643 = NeuralNetwork.Layer.ReduceSumParameters.propertyDescriptions.getter(v1008);
-      v658 = type metadata accessor for NeuralNetwork.Layer.ReduceSumParameters;
-      goto LABEL_161;
-    case 87:
-      v743 = OUTLINED_FUNCTION_13_24();
-      v745 = OUTLINED_FUNCTION_24_21(v743, v744, &v1140);
-      v643 = NeuralNetwork.Layer.ReduceProdParameters.propertyDescriptions.getter(v745);
-      v658 = type metadata accessor for NeuralNetwork.Layer.ReduceProdParameters;
-      goto LABEL_161;
-    case 88:
-      v932 = OUTLINED_FUNCTION_13_24();
-      v934 = OUTLINED_FUNCTION_24_21(v932, v933, &v1141);
-      v643 = NeuralNetwork.Layer.ReduceMeanParameters.propertyDescriptions.getter(v934);
-      v658 = type metadata accessor for NeuralNetwork.Layer.ReduceMeanParameters;
-      goto LABEL_161;
-    case 89:
-      v701 = OUTLINED_FUNCTION_13_24();
-      v703 = OUTLINED_FUNCTION_24_21(v701, v702, &v1142);
-      v643 = NeuralNetwork.Layer.ReduceLogSumParameters.propertyDescriptions.getter(v703);
-      v658 = type metadata accessor for NeuralNetwork.Layer.ReduceLogSumParameters;
-      goto LABEL_161;
-    case 90:
-      v663 = OUTLINED_FUNCTION_13_24();
-      v665 = OUTLINED_FUNCTION_24_21(v663, v664, &v1143);
-      v643 = NeuralNetwork.Layer.ReduceSumSquareParameters.propertyDescriptions.getter(v665);
-      v658 = type metadata accessor for NeuralNetwork.Layer.ReduceSumSquareParameters;
-      goto LABEL_161;
-    case 91:
-      v1042 = OUTLINED_FUNCTION_13_24();
-      v1044 = OUTLINED_FUNCTION_24_21(v1042, v1043, &v1144);
-      v643 = NeuralNetwork.Layer.ReduceLogSumExpParameters.propertyDescriptions.getter(v1044);
-      v658 = type metadata accessor for NeuralNetwork.Layer.ReduceLogSumExpParameters;
-      goto LABEL_161;
-    case 94:
-      v965 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v965, v966, &v1145);
-      v643 = NeuralNetwork.Layer.CumulativeSumParameters.propertyDescriptions.getter();
-      v658 = type metadata accessor for NeuralNetwork.Layer.CumulativeSumParameters;
-      goto LABEL_161;
-    case 95:
-      v987 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_32_10(v987, v988, &v1146);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_85_4();
-      v989 = OUTLINED_FUNCTION_6_45(v643, xmmword_257743FF0);
-      OUTLINED_FUNCTION_8_36(v989, v990);
-      *(v643 + 48) = sub_257743974();
-      *(v643 + 56) = v991;
-      OUTLINED_FUNCTION_9_34();
-      *(v643 + 64) = v993;
-      *(v643 + 72) = v992;
-      v994 = *(v639 + 8);
-      OUTLINED_FUNCTION_28_22();
-      v997 = v996 | 0x65750000u;
-      if (v995)
-      {
-        v997 = 0x65736C6166;
-      }
-
-      v998 = 0xE500000000000000;
-      if (!v995)
-      {
-        v998 = v611;
-      }
-
-      *(v643 + 80) = v997;
-      *(v643 + 88) = v998;
-      v655 = type metadata accessor for NeuralNetwork.Layer.ArgMinParameters;
-      goto LABEL_166;
-    case 96:
-      v943 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_32_10(v943, v944, &v1147);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_85_4();
-      v945 = OUTLINED_FUNCTION_6_45(v643, xmmword_257743FF0);
-      OUTLINED_FUNCTION_8_36(v945, v946);
-      *(v643 + 48) = sub_257743974();
-      *(v643 + 56) = v947;
-      OUTLINED_FUNCTION_9_34();
-      *(v643 + 64) = v949;
-      *(v643 + 72) = v948;
-      v950 = *(v639 + 8);
-      OUTLINED_FUNCTION_28_22();
-      v953 = v952 | 0x65750000u;
-      if (v951)
-      {
-        v953 = 0x65736C6166;
-      }
-
-      v954 = 0xE500000000000000;
-      if (!v951)
-      {
-        v954 = v611;
-      }
-
-      *(v643 + 80) = v953;
-      *(v643 + 88) = v954;
-      v655 = type metadata accessor for NeuralNetwork.Layer.ArgMaxParameters;
-      goto LABEL_166;
-    case 101:
-      v999 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_27_20(v999, v1000, &v1148);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_85_4();
-      *(v643 + 16) = xmmword_257743FF0;
-      OUTLINED_FUNCTION_7_36(v643, 0x657469202E78614DLL);
-      *(v643 + 48) = sub_257743974();
-      *(v643 + 56) = v1001;
-      *(v643 + 64) = 0x6F697469646E6F43;
-      *(v643 + 72) = 0xE90000000000006ELL;
-      v1002 = *(v611 + 16);
-      *(v643 + 80) = *(v611 + 8);
-      *(v643 + 88) = v1002;
-
-      v662 = type metadata accessor for NeuralNetwork.Layer.LoopParameters;
-      goto LABEL_158;
-    case 104:
-      v920 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_27_20(v920, v921, v1149);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_34_13();
-      *(v643 + 16) = xmmword_2577442C0;
-      *(v643 + 32) = 0x7472617453;
-      *(v643 + 40) = 0xE500000000000000;
-      v922 = *(v611 + 4);
-      *(v643 + 48) = sub_257743794();
-      *(v643 + 56) = v923;
-      *(v643 + 64) = 6581829;
-      *(v643 + 72) = 0xE300000000000000;
-      v924 = *v611;
-      *(v643 + 80) = sub_257743794();
-      *(v643 + 88) = v925;
-      *(v643 + 96) = 1885697107;
-      *(v643 + 104) = 0xE400000000000000;
-      v926 = *(v611 + 8);
-      *(v643 + 112) = sub_257743794();
-      *(v643 + 120) = v927;
-      v662 = type metadata accessor for NeuralNetwork.Layer.RangeStaticParameters;
-      goto LABEL_158;
-    case 105:
-      v897 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_27_20(v897, v898, v1150);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_85_4();
-      *(v643 + 16) = xmmword_257743FF0;
-      *(v643 + 48) = OUTLINED_FUNCTION_16_19(v643, 0x7472617453);
-      *(v643 + 56) = v899;
-      *(v643 + 64) = 1885697107;
-      *(v643 + 72) = 0xE400000000000000;
-      v900 = *(v611 + 4);
-      *(v643 + 80) = sub_257743794();
-      *(v643 + 88) = v901;
-      v662 = type metadata accessor for NeuralNetwork.Layer.RangeDynamicParameters;
-      goto LABEL_158;
-    case 106:
-      v659 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_27_20(v659, v660, &v1151);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_8_4();
-      *(v643 + 48) = OUTLINED_FUNCTION_4_48(v643, xmmword_2577442B0);
-      *(v643 + 56) = v661;
-      v662 = type metadata accessor for NeuralNetwork.Layer.EqualParameters;
-      goto LABEL_158;
-    case 107:
-      v673 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_27_20(v673, v674, v1152);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_8_4();
-      *(v643 + 48) = OUTLINED_FUNCTION_4_48(v643, xmmword_2577442B0);
-      *(v643 + 56) = v675;
-      v662 = type metadata accessor for NeuralNetwork.Layer.NotEqualParameters;
-      goto LABEL_158;
-    case 108:
-      v1073 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_27_20(v1073, v1074, v1153);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_8_4();
-      *(v643 + 48) = OUTLINED_FUNCTION_4_48(v643, xmmword_2577442B0);
-      *(v643 + 56) = v1075;
-      v662 = type metadata accessor for NeuralNetwork.Layer.LessThanParameters;
-      goto LABEL_158;
-    case 109:
-      v1066 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_27_20(v1066, v1067, v1154);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_8_4();
-      *(v643 + 48) = OUTLINED_FUNCTION_4_48(v643, xmmword_2577442B0);
-      *(v643 + 56) = v1068;
-      v662 = type metadata accessor for NeuralNetwork.Layer.LessEqualParameters;
-      goto LABEL_158;
-    case 110:
-      v894 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_27_20(v894, v895, &v1155);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_8_4();
-      *(v643 + 48) = OUTLINED_FUNCTION_4_48(v643, xmmword_2577442B0);
-      *(v643 + 56) = v896;
-      v662 = type metadata accessor for NeuralNetwork.Layer.GreaterThanParameters;
-      goto LABEL_158;
-    case 111:
-      v1039 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_27_20(v1039, v1040, &v1156);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_8_4();
-      *(v643 + 48) = OUTLINED_FUNCTION_4_48(v643, xmmword_2577442B0);
-      *(v643 + 56) = v1041;
-      v662 = type metadata accessor for NeuralNetwork.Layer.GreaterEqualParameters;
-      goto LABEL_158;
-    case 112:
-      v706 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_32_10(v706, v707, &v1158);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_34_13();
-      v708 = OUTLINED_FUNCTION_14_20(v643, xmmword_2577442C0);
-      OUTLINED_FUNCTION_8_36(v708, v709);
-      v710 = sub_257743974();
-      v712 = OUTLINED_FUNCTION_33_11(v710, v711);
-      *(v643 + 112) = OUTLINED_FUNCTION_21_25(v712, v713);
-      *(v643 + 120) = v714;
-      v655 = type metadata accessor for NeuralNetwork.Layer.RandomNormalLikeParameters;
-      goto LABEL_166;
-    case 113:
-      v688 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v688, v689, &v1157);
-      v643 = NeuralNetwork.Layer.RandomNormalStaticParameters.propertyDescriptions.getter();
-      v658 = type metadata accessor for NeuralNetwork.Layer.RandomNormalStaticParameters;
-      goto LABEL_161;
-    case 114:
-      v874 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_32_10(v874, v875, &v1160);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_34_13();
-      v876 = OUTLINED_FUNCTION_14_20(v643, xmmword_2577442C0);
-      OUTLINED_FUNCTION_8_36(v876, v877);
-      v878 = sub_257743974();
-      v880 = OUTLINED_FUNCTION_33_11(v878, v879);
-      *(v643 + 112) = OUTLINED_FUNCTION_21_25(v880, v881);
-      *(v643 + 120) = v882;
-      v655 = type metadata accessor for NeuralNetwork.Layer.RandomNormalDynamicParameters;
-      goto LABEL_166;
-    case 115:
-      v646 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_32_10(v646, v647, &v1161);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_34_13();
-      OUTLINED_FUNCTION_10_38(v643, xmmword_2577442C0);
-      v1151 = *v639;
-      *(v643 + 48) = sub_257743974();
-      *(v643 + 56) = v648;
-      OUTLINED_FUNCTION_17_22();
-      *(v643 + 64) = v649;
-      *(v643 + 72) = v611;
-      v650 = *(v639 + 8);
-      *(v643 + 80) = sub_257743794();
-      *(v643 + 88) = v651;
-      OUTLINED_FUNCTION_20_20();
-      *(v643 + 96) = v652;
-      *(v643 + 104) = v611;
-      v653 = *(v639 + 12);
-      *(v643 + 112) = sub_257743794();
-      *(v643 + 120) = v654;
-      v655 = type metadata accessor for NeuralNetwork.Layer.RandomUniformLikeParameters;
-      goto LABEL_166;
-    case 116:
-      v1069 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v1069, v1070, &v1159);
-      v643 = NeuralNetwork.Layer.RandomUniformStaticParameters.propertyDescriptions.getter();
-      v658 = type metadata accessor for NeuralNetwork.Layer.RandomUniformStaticParameters;
-      goto LABEL_161;
-    case 117:
-      v1045 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_32_10(v1045, v1046, &v1163);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_34_13();
-      OUTLINED_FUNCTION_10_38(v643, xmmword_2577442C0);
-      v1151 = *v639;
-      *(v643 + 48) = sub_257743974();
-      *(v643 + 56) = v1047;
-      OUTLINED_FUNCTION_17_22();
-      *(v643 + 64) = v1048;
-      *(v643 + 72) = v611;
-      v1049 = *(v639 + 8);
-      *(v643 + 80) = sub_257743794();
-      *(v643 + 88) = v1050;
-      OUTLINED_FUNCTION_20_20();
-      *(v643 + 96) = v1051;
-      *(v643 + 104) = v611;
-      v1052 = *(v639 + 12);
-      *(v643 + 112) = sub_257743794();
-      *(v643 + 120) = v1053;
-      v655 = type metadata accessor for NeuralNetwork.Layer.RandomUniformDynamicParameters;
-      goto LABEL_166;
-    case 118:
-      v825 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_27_20(v825, v826, &v1164);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_85_4();
-      v827 = OUTLINED_FUNCTION_14_20(v643, xmmword_257743FF0);
-      OUTLINED_FUNCTION_5_44(v827, v828);
-      v829 = sub_257743974();
-      *(v643 + 80) = OUTLINED_FUNCTION_23_22(v829, v830);
-      *(v643 + 88) = v831;
-      v662 = type metadata accessor for NeuralNetwork.Layer.RandomBernoulliLikeParameters;
-      goto LABEL_158;
-    case 119:
-      v982 = OUTLINED_FUNCTION_13_24();
-      OUTLINED_FUNCTION_24_21(v982, v983, &v1162);
-      v643 = NeuralNetwork.Layer.RandomBernoulliStaticParameters.propertyDescriptions.getter();
-      v658 = type metadata accessor for NeuralNetwork.Layer.RandomBernoulliStaticParameters;
-      goto LABEL_161;
-    case 120:
-      v1029 = OUTLINED_FUNCTION_13_24();
-      v611 = v1134;
-      sub_2576D0594(v1029, v1134, v1030);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_85_4();
-      v1031 = OUTLINED_FUNCTION_14_20(v643, xmmword_257743FF0);
-      OUTLINED_FUNCTION_5_44(v1031, v1032);
-      v1033 = sub_257743974();
-      *(v643 + 80) = OUTLINED_FUNCTION_23_22(v1033, v1034);
-      *(v643 + 88) = v1035;
-      v662 = type metadata accessor for NeuralNetwork.Layer.RandomBernoulliDynamicParameters;
-      goto LABEL_158;
-    case 121:
-      v1071 = OUTLINED_FUNCTION_13_24();
-      v632 = v1133;
-      sub_2576D0594(v1071, v1133, v1072);
-      v643 = NeuralNetwork.Layer.CategoricalDistributionParameters.propertyDescriptions.getter();
-      v658 = type metadata accessor for NeuralNetwork.Layer.CategoricalDistributionParameters;
-      goto LABEL_161;
-    case 122:
-      v679 = OUTLINED_FUNCTION_13_24();
-      v604 = v1135;
-      sub_2576D0594(v679, v1135, v680);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_85_4();
-      *(v643 + 16) = xmmword_257743FF0;
-      *(v643 + 32) = 0x6F43207265776F4CLL;
-      *(v643 + 40) = 0xEB00000000746E75;
-      v1151 = *v604;
-      OUTLINED_FUNCTION_368();
-      *(v643 + 48) = sub_257743974();
-      *(v643 + 56) = v681;
-      *(v643 + 64) = 0x6F43207265707055;
-      *(v643 + 72) = 0xEB00000000746E75;
-      v1151 = v604[1];
-      OUTLINED_FUNCTION_368();
-      *(v643 + 80) = sub_257743974();
-      *(v643 + 88) = v682;
-      v683 = type metadata accessor for NeuralNetwork.Layer.MatrixBandPartParameters;
-      goto LABEL_143;
-    case 123:
-      v883 = OUTLINED_FUNCTION_13_24();
-      v611 = v1136;
-      sub_2576D0594(v883, v1136, v884);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_8_4();
-      *(v643 + 16) = xmmword_2577442B0;
-      OUTLINED_FUNCTION_7_36(v643, 0x6C616E6F67616944);
-      *(v643 + 48) = sub_257743974();
-      *(v643 + 56) = v885;
-      v662 = type metadata accessor for NeuralNetwork.Layer.LowerTriangularParameters;
-      goto LABEL_158;
-    case 124:
-      v676 = OUTLINED_FUNCTION_13_24();
-      v611 = v1137;
-      sub_2576D0594(v676, v1137, v677);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_8_4();
-      *(v643 + 16) = xmmword_2577442B0;
-      OUTLINED_FUNCTION_7_36(v643, 0x6C616E6F67616944);
-      *(v643 + 48) = sub_257743974();
-      *(v643 + 56) = v678;
-      v662 = type metadata accessor for NeuralNetwork.Layer.UpperTriangularParameters;
-      goto LABEL_158;
-    case 125:
-      v957 = OUTLINED_FUNCTION_13_24();
-      v604 = v1140;
-      sub_2576D0594(v957, v1140, v958);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_85_4();
-      *(v643 + 16) = xmmword_257743FF0;
-      OUTLINED_FUNCTION_37_12();
-      *(v960 + 32) = v961;
-      *(v960 + 40) = v959 + 13;
-      v962 = type metadata accessor for Proto_EmbeddingLayerParams(0);
-      OUTLINED_FUNCTION_31_13(v962);
-      v1148 = v625[2];
-      OUTLINED_FUNCTION_368();
-      *(v643 + 48) = sub_257743974();
-      *(v643 + 56) = v963;
-      OUTLINED_FUNCTION_35_13(0x432074757074754FLL);
-      v1147 = v625[3];
-      OUTLINED_FUNCTION_368();
-      *(v643 + 80) = sub_257743974();
-      *(v643 + 88) = v964;
-      v683 = type metadata accessor for NeuralNetwork.Layer.EmbeddingParameters;
-      goto LABEL_143;
-    case 126:
-      v820 = OUTLINED_FUNCTION_13_24();
-      v604 = v1142;
-      sub_2576D0594(v820, v1142, v821);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_85_4();
-      *(v643 + 16) = xmmword_257743FF0;
-      *(v643 + 32) = 0x616C756261636F56;
-      *(v643 + 40) = 0xEF657A6953207972;
-      v822 = type metadata accessor for Proto_EmbeddingNDLayerParams(0);
-      OUTLINED_FUNCTION_31_13(v822);
-      v1148 = v625[2];
-      OUTLINED_FUNCTION_368();
-      *(v643 + 48) = sub_257743974();
-      *(v643 + 56) = v823;
-      OUTLINED_FUNCTION_35_13(0x6E69646465626D45);
-      v1147 = v625[3];
-      OUTLINED_FUNCTION_368();
-      *(v643 + 80) = sub_257743974();
-      *(v643 + 88) = v824;
-      v683 = type metadata accessor for NeuralNetwork.Layer.EmbeddingNDParameters;
-LABEL_143:
-      v644 = v683;
-      v645 = v604;
-      goto LABEL_162;
-    case 127:
-      v780 = OUTLINED_FUNCTION_13_24();
-      v632 = v1138;
-      sub_2576D0594(v780, v1138, v781);
-      v643 = NeuralNetwork.Layer.BiasParameters.propertyDescriptions.getter();
-      v658 = type metadata accessor for NeuralNetwork.Layer.BiasParameters;
-      goto LABEL_161;
-    case 128:
-      v955 = OUTLINED_FUNCTION_13_24();
-      v632 = v1139;
-      sub_2576D0594(v955, v1139, v956);
-      v643 = NeuralNetwork.Layer.OneHotParameters.propertyDescriptions.getter();
-      v658 = type metadata accessor for NeuralNetwork.Layer.OneHotParameters;
-      goto LABEL_161;
-    case 129:
-      v1064 = OUTLINED_FUNCTION_13_24();
-      v632 = v1141;
-      sub_2576D0594(v1064, v1141, v1065);
-      v643 = NeuralNetwork.Layer.TopKParameters.propertyDescriptions.getter();
-      v658 = type metadata accessor for NeuralNetwork.Layer.TopKParameters;
-      goto LABEL_161;
-    case 130:
-      v748 = OUTLINED_FUNCTION_13_24();
-      v639 = v1144;
-      sub_2576D0594(v748, v1144, v749);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_85_4();
-      v750 = OUTLINED_FUNCTION_6_45(v643, xmmword_257743FF0);
-      OUTLINED_FUNCTION_8_36(v750, v751);
-      *(v643 + 48) = sub_257743974();
-      *(v643 + 56) = v752;
-      OUTLINED_FUNCTION_37_12();
-      *(v643 + 64) = v754;
-      *(v643 + 72) = v753 + 513;
-      v755 = *(v639 + 8);
-      OUTLINED_FUNCTION_28_22();
-      v758 = v757 | 0x65750000u;
-      if (v756)
-      {
-        v758 = 0x65736C6166;
-      }
-
-      v759 = 0xE500000000000000;
-      if (!v756)
-      {
-        v759 = v611;
-      }
-
-      *(v643 + 80) = v758;
-      *(v643 + 88) = v759;
-      v655 = type metadata accessor for NeuralNetwork.Layer.ArgSortParameters;
-LABEL_166:
-      v644 = v655;
-      v645 = v639;
-      goto LABEL_162;
-    case 131:
-      v736 = OUTLINED_FUNCTION_13_24();
-      v632 = v1143;
-      sub_2576D0594(v736, v1143, v737);
-      v643 = NeuralNetwork.Layer.NonMaximumSuppressionParameters.propertyDescriptions.getter();
-      v658 = type metadata accessor for NeuralNetwork.Layer.NonMaximumSuppressionParameters;
-      goto LABEL_161;
-    case 132:
-      v632 = v1145;
-      sub_2576D0594(v1146, v1145, type metadata accessor for NeuralNetwork.Layer.CustomParameters);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B58, &qword_257744130);
-      v643 = OUTLINED_FUNCTION_85_4();
-      *(v643 + 16) = xmmword_257743FF0;
-      OUTLINED_FUNCTION_37_12();
-      *(v668 + 32) = v669;
-      *(v668 + 40) = v670;
-      v671 = *(v632 + 8);
-      *(v643 + 48) = *v632;
-      *(v643 + 56) = v671;
-      *(v643 + 64) = 0x7470697263736544;
-      *(v643 + 72) = 0xEB000000006E6F69;
-      v672 = *(v632 + 40);
-      *(v643 + 80) = *(v632 + 32);
-      *(v643 + 88) = v672;
-
-      v658 = type metadata accessor for NeuralNetwork.Layer.CustomParameters;
-      goto LABEL_161;
-    case 133:
-    case 134:
-    case 135:
-    case 136:
-    case 137:
-    case 138:
-    case 139:
-    case 140:
-    case 141:
-    case 142:
-    case 143:
-    case 144:
-    case 145:
-    case 146:
-    case 147:
-    case 148:
-    case 149:
-    case 150:
-    case 151:
-    case 152:
-    case 153:
-    case 154:
-    case 155:
-    case 156:
-    case 157:
-      return v643;
-    default:
-      v868 = OUTLINED_FUNCTION_13_24();
-      v870 = sub_2576D0594(v868, v632, v869);
-      v643 = NeuralNetwork.Layer.ConstantParameters.propertyDescriptions.getter(v870);
-      v658 = type metadata accessor for NeuralNetwork.Layer.ConstantParameters;
-LABEL_161:
-      v644 = v658;
-      v645 = v632;
-      goto LABEL_162;
+    OUTLINED_FUNCTION_32_12();
+    v217 = swift_storeEnumTagMultiPayload();
+    OUTLINED_FUNCTION_26_16(v217, v218, v219, v220, v221, v222, v223, v224, v352, v353, v354, v355, v356, v357, v358, v359, v360, v361, v362, v363);
+    type metadata accessor for Proto_Model.OneOf_Type(0);
+    v225 = OUTLINED_FUNCTION_39_7();
+    __swift_storeEnumTagSinglePayload(v225, v226, v227, v228);
+    sub_2574FE574();
+    OUTLINED_FUNCTION_6_50();
+    v201 = type metadata accessor for PipelineClassifierConfiguration;
+    goto LABEL_84;
   }
+
+  v114 = OUTLINED_FUNCTION_189();
+  v79 = v363;
+  sub_2576E3FC8(v114, v363, v115);
+  PipelineRegressorConfiguration.models.getter();
+  v117 = *(v116 + 16);
+
+  v118 = v381;
+  v77 = 0;
+  if (!v117)
+  {
+LABEL_81:
+    OUTLINED_FUNCTION_32_12();
+    v189 = swift_storeEnumTagMultiPayload();
+    OUTLINED_FUNCTION_26_16(v189, v190, v191, v192, v193, v194, v195, v196, v352, v353, v354, v355, v356, v357, v358, v359, v360, v361, v362, v363);
+    type metadata accessor for Proto_Model.OneOf_Type(0);
+    v197 = OUTLINED_FUNCTION_39_7();
+    __swift_storeEnumTagSinglePayload(v197, v198, v199, v200);
+    sub_2574FE574();
+    OUTLINED_FUNCTION_6_50();
+    v201 = type metadata accessor for PipelineRegressorConfiguration;
+LABEL_84:
+    v215 = v201;
+    v216 = v79;
+LABEL_85:
+    sub_2576E3EA4(v216, v215);
+    return v77 & 1;
+  }
+
+  i = 0;
+  while ((v77 & 1) != 0)
+  {
+    v77 = 1;
+LABEL_39:
+    if (v117 == ++i)
+    {
+      goto LABEL_81;
+    }
+  }
+
+  v1 = v79;
+  PipelineRegressorConfiguration.models.getter();
+  v84 = v119;
+  if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+  {
+    sub_25767A694(v84, v93, v94, v95);
+    v84 = v120;
+  }
+
+  if (i < *(v84 + 16))
+  {
+    OUTLINED_FUNCTION_2_60();
+    v77 = sub_2576E050C(v118);
+    PipelineRegressorConfiguration.models.setter(v84);
+    goto LABEL_39;
+  }
+
+  __break(1u);
+LABEL_129:
+  __break(1u);
+LABEL_130:
+  __break(1u);
+LABEL_131:
+  sub_25767A6C4(v84, v93, v94, v95);
+  v84 = v311;
+LABEL_20:
+  if ((v79 & 0x8000000000000000) != 0)
+  {
+    __break(1u);
+  }
+
+  else if (v79 < *(v84 + 16))
+  {
+    OUTLINED_FUNCTION_2_60();
+    sub_2576E4080(v100, v98 + v99 * v79);
+    Model.outputs.setter();
+    goto LABEL_23;
+  }
+
+  __break(1u);
+LABEL_134:
+  __break(1u);
+LABEL_135:
+  __break(1u);
+LABEL_136:
+  v312 = OUTLINED_FUNCTION_4_52();
+  sub_25746A0C8(v312, v313, v314, v315);
+  v128 = v316;
+LABEL_43:
+  OUTLINED_FUNCTION_21_28();
+  if (v85)
+  {
+    OUTLINED_FUNCTION_174(v129);
+    OUTLINED_FUNCTION_17_25();
+    sub_25746A0C8(v317, v318, v319, v320);
+    v128 = v321;
+  }
+
+  *(v128 + 16) = v1;
+  OUTLINED_FUNCTION_2_60();
+  OUTLINED_FUNCTION_0_90();
+  sub_2576E3FC8(i, v130, v131);
+  OUTLINED_FUNCTION_28_26();
+  Model.outputs.setter();
+  v113 = type metadata accessor for NeuralNetworkRegressor;
+LABEL_80:
+  sub_2576E3EA4(v77, v113);
+LABEL_23:
+  LOBYTE(v77) = 1;
+  return v77 & 1;
+}
+
+uint64_t sub_2576E1C1C(uint64_t a1, void *a2, uint64_t a3)
+{
+  v5 = *(a1 + *(type metadata accessor for Proto_NeuralNetworkLayer(0) + 20));
+  swift_beginAccess();
+  v6 = *(v5 + 40);
+  v7 = a2[1];
+  v10[0] = *a2;
+  v10[1] = v7;
+  v9[2] = v10;
+
+  LOBYTE(a3) = sub_257703248(a3, v9, v6);
+
+  return a3 & 1;
+}
+
+void sub_2576E1CC4(uint64_t *a1)
+{
+  v141 = a1;
+  v133 = type metadata accessor for Proto_FeatureType(0);
+  MEMORY[0x28223BE20](v133);
+  v132 = &v109 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v2 = type metadata accessor for FeatureDescription(0);
+  v131 = *(v2 - 8);
+  MEMORY[0x28223BE20](v2 - 8);
+  v135 = (&v109 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v4 = &qword_27F879D40;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879D40, &qword_257744660);
+  MEMORY[0x28223BE20](v5 - 8);
+  v140 = &v109 - v6;
+  v139 = type metadata accessor for Proto_MILSpec_ValueType.OneOf_Type(0);
+  v7 = MEMORY[0x28223BE20](v139);
+  v134 = &v109 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v130 = &v109 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879E10, &qword_257744730);
+  MEMORY[0x28223BE20](v10 - 8);
+  v144 = &v109 - v11;
+  v12 = type metadata accessor for Proto_MILSpec_ValueType(0);
+  MEMORY[0x28223BE20](v12);
+  v14 = &v109 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1C8, &qword_2577457C0);
+  MEMORY[0x28223BE20](v15 - 8);
+  v138 = &v109 - v16;
+  v137 = type metadata accessor for FeatureType(0);
+  v17 = MEMORY[0x28223BE20](v137);
+  v129 = &v109 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v17);
+  v136 = &v109 - v19;
+  v20 = type metadata accessor for MLProgram.NamedValueType(0);
+  v143 = *(v20 - 8);
+  v21 = MEMORY[0x28223BE20](v20 - 8);
+  v23 = (&v109 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x28223BE20](v21);
+  v119 = &v109 - v24;
+  v25 = type metadata accessor for MLProgram.Operation(0);
+  v124 = *(v25 - 8);
+  v26 = MEMORY[0x28223BE20](v25 - 8);
+  v28 = &v109 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v26);
+  v30 = &v109 - v29;
+  v31 = type metadata accessor for MLProgram.Block(0);
+  v114 = *(v31 - 8);
+  v32 = MEMORY[0x28223BE20](v31 - 8);
+  v34 = &v109 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v32);
+  v112 = &v109 - v35;
+  MLProgram.Function.blockSpecializations.getter();
+  v37 = 0;
+  v39 = v36 + 64;
+  v38 = *(v36 + 64);
+  v116 = v36;
+  v40 = 1 << *(v36 + 32);
+  v41 = -1;
+  if (v40 < 64)
+  {
+    v41 = ~(-1 << v40);
+  }
+
+  v42 = v41 & v38;
+  v43 = (v40 + 63) >> 6;
+  v145 = v12;
+  v123 = v30;
+  v111 = v36 + 64;
+  v110 = v43;
+  v128 = v14;
+  v120 = v28;
+  v113 = v34;
+  v127 = v23;
+  if ((v41 & v38) != 0)
+  {
+    goto LABEL_8;
+  }
+
+  while (1)
+  {
+    v44 = v37 + 1;
+    if (__OFADD__(v37, 1))
+    {
+      break;
+    }
+
+    if (v44 >= v43)
+    {
+
+      return;
+    }
+
+    v42 = *(v39 + 8 * v44);
+    ++v37;
+    if (v42)
+    {
+      v37 = v44;
+      do
+      {
+LABEL_8:
+        v117 = v42;
+        v118 = v37;
+        v45 = *(v116 + 56) + *(v114 + 72) * (__clz(__rbit64(v42)) | (v37 << 6));
+        v46 = v112;
+        sub_2576E4024(v45, v112, type metadata accessor for MLProgram.Block);
+        sub_2576E3FC8(v46, v34, type metadata accessor for MLProgram.Block);
+        v47 = *(v34 + 2);
+        v48 = *(v47 + 16);
+        if (v48)
+        {
+          v146 = MEMORY[0x277D84F90];
+          sub_257484AD8(0, v48, 0);
+          v49 = v146;
+          v50 = *(type metadata accessor for Proto_MILSpec_Operation(0) - 8);
+          v51 = v47 + ((*(v50 + 80) + 32) & ~*(v50 + 80));
+          v52 = *(v50 + 72);
+          do
+          {
+            sub_2576E4024(v51, v28, type metadata accessor for Proto_MILSpec_Operation);
+            v146 = v49;
+            v54 = *(v49 + 16);
+            v53 = *(v49 + 24);
+            if (v54 >= v53 >> 1)
+            {
+              sub_257484AD8(v53 > 1, v54 + 1, 1);
+              v49 = v146;
+            }
+
+            *(v49 + 16) = v54 + 1;
+            sub_2576E3FC8(v28, v49 + ((*(v124 + 80) + 32) & ~*(v124 + 80)) + *(v124 + 72) * v54, type metadata accessor for MLProgram.Operation);
+            v51 += v52;
+            --v48;
+          }
+
+          while (v48);
+          v4 = &qword_27F879D40;
+          v30 = v123;
+          v55 = v49;
+        }
+
+        else
+        {
+          v55 = MEMORY[0x277D84F90];
+        }
+
+        v125 = *(v55 + 16);
+        if (v125)
+        {
+          v56 = 0;
+          v57 = (*(v124 + 80) + 32) & ~*(v124 + 80);
+          v115 = v55;
+          v122 = v55 + v57;
+          v121 = *(v124 + 72);
+          do
+          {
+            v126 = v56;
+            sub_2576E4024(v122 + v121 * v56, v30, type metadata accessor for MLProgram.Operation);
+            v58 = *(v30 + 3);
+            v59 = *(v58 + 16);
+            if (v59)
+            {
+              v146 = MEMORY[0x277D84F90];
+              sub_2574848C0(0, v59, 0);
+              v60 = v146;
+              v61 = *(type metadata accessor for Proto_MILSpec_NamedValueType(0) - 8);
+              v62 = v58 + ((*(v61 + 80) + 32) & ~*(v61 + 80));
+              v63 = *(v61 + 72);
+              v64 = v119;
+              do
+              {
+                sub_2576E4024(v62, v64, type metadata accessor for Proto_MILSpec_NamedValueType);
+                v146 = v60;
+                v66 = *(v60 + 16);
+                v65 = *(v60 + 24);
+                if (v66 >= v65 >> 1)
+                {
+                  sub_2574848C0(v65 > 1, v66 + 1, 1);
+                  v60 = v146;
+                }
+
+                *(v60 + 16) = v66 + 1;
+                sub_2576E3FC8(v64, v60 + ((*(v143 + 80) + 32) & ~*(v143 + 80)) + *(v143 + 72) * v66, type metadata accessor for MLProgram.NamedValueType);
+                v62 += v63;
+                --v59;
+              }
+
+              while (v59);
+              v67 = &qword_27F879D40;
+              v12 = v145;
+            }
+
+            else
+            {
+              v60 = MEMORY[0x277D84F90];
+              v67 = v4;
+            }
+
+            v68 = *(v60 + 16);
+            v69 = v144;
+            if (v68)
+            {
+              v70 = v60 + ((*(v143 + 80) + 32) & ~*(v143 + 80));
+              v142 = *(v143 + 72);
+              do
+              {
+                sub_2576E4024(v70, v23, type metadata accessor for MLProgram.NamedValueType);
+                v71 = type metadata accessor for Proto_MILSpec_NamedValueType(0);
+                sub_2574AD5D8(v23 + *(v71 + 24), v69, &qword_27F879E10, &qword_257744730);
+                if (__swift_getEnumTagSinglePayload(v69, 1, v12) == 1)
+                {
+                  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+                  v72 = *(v12 + 20);
+                  if (qword_27F878FF0 != -1)
+                  {
+                    swift_once();
+                  }
+
+                  *&v14[v72] = qword_27F87B038;
+                  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v69, 1, v12);
+
+                  if (EnumTagSinglePayload != 1)
+                  {
+                    sub_2574695E4(v144, &qword_27F879E10, &qword_257744730);
+                  }
+                }
+
+                else
+                {
+                  sub_2576E3FC8(v69, v14, type metadata accessor for Proto_MILSpec_ValueType);
+                }
+
+                v74 = *&v14[*(v12 + 20)];
+                v75 = OBJC_IVAR____TtCV20MLModelSpecification23Proto_MILSpec_ValueTypeP33_332B47BD95040FAA9FC0D6990ECE156813_StorageClass__type;
+                swift_beginAccess();
+                v76 = v74 + v75;
+                v77 = v140;
+                sub_2574AD5D8(v76, v140, v67, &qword_257744660);
+                if (__swift_getEnumTagSinglePayload(v77, 1, v139) == 1)
+                {
+                  sub_2574695E4(v77, v67, &qword_257744660);
+                  type metadata accessor for MLProgram.ValueType.TensorParameters(0);
+                  v78 = swift_allocBox();
+                  v80 = v79;
+                  type metadata accessor for Proto_MILSpec_Value(0);
+                  v81 = MEMORY[0x277D84F90];
+                  *(v80 + 32) = sub_2577435D4();
+                  type metadata accessor for Proto_MILSpec_TensorType(0);
+                  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+                  *v80 = 6;
+                  *(v80 + 8) = 1;
+                  *(v80 + 16) = 0;
+                  *(v80 + 24) = v81;
+                  sub_2576E3EA4(v14, type metadata accessor for Proto_MILSpec_ValueType);
+                  v12 = v145;
+                  v82 = v138;
+                }
+
+                else
+                {
+                  sub_2576E3EA4(v14, type metadata accessor for Proto_MILSpec_ValueType);
+                  v83 = v130;
+                  sub_2576E3FC8(v77, v130, type metadata accessor for Proto_MILSpec_ValueType.OneOf_Type);
+                  sub_2576E3FC8(v83, v134, type metadata accessor for Proto_MILSpec_ValueType.OneOf_Type);
+                  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+                  v12 = v145;
+                  v82 = v138;
+                  switch(EnumCaseMultiPayload)
+                  {
+                    case 1:
+                      type metadata accessor for MLProgram.ValueType.ListParameters(0);
+                      v105 = swift_allocBox();
+                      sub_2576E3FC8(v134, v106, type metadata accessor for Proto_MILSpec_ListType);
+                      v78 = v105 | 0x2000000000000000;
+                      break;
+                    case 2:
+                      type metadata accessor for MLProgram.ValueType.TupleParameters(0);
+                      v101 = swift_allocBox();
+                      sub_2576E3FC8(v134, v102, type metadata accessor for Proto_MILSpec_TupleType);
+                      v78 = v101 | 0x4000000000000000;
+                      break;
+                    case 3:
+                      type metadata accessor for MLProgram.ValueType.DictionaryParameters(0);
+                      v103 = swift_allocBox();
+                      sub_2576E3FC8(v134, v104, type metadata accessor for Proto_MILSpec_DictionaryType);
+                      v78 = v103 | 0x6000000000000000;
+                      break;
+                    case 4:
+                      type metadata accessor for MLProgram.ValueType.StateParameters(0);
+                      v99 = swift_allocBox();
+                      sub_2576E3FC8(v134, v100, type metadata accessor for Proto_MILSpec_StateType);
+                      v78 = v99 | 0x8000000000000000;
+                      break;
+                    default:
+                      type metadata accessor for MLProgram.ValueType.TensorParameters(0);
+                      v78 = swift_allocBox();
+                      sub_2576E3FC8(v134, v85, type metadata accessor for Proto_MILSpec_TensorType);
+                      break;
+                  }
+                }
+
+                v146 = v78;
+                FeatureType.init(_:)();
+                if (__swift_getEnumTagSinglePayload(v82, 1, v137) == 1)
+                {
+                  sub_2576E3EA4(v23, type metadata accessor for MLProgram.NamedValueType);
+                  sub_2574695E4(v82, &qword_27F87A1C8, &qword_2577457C0);
+                }
+
+                else
+                {
+                  v86 = v136;
+                  sub_2576E3FC8(v82, v136, type metadata accessor for FeatureType);
+                  v87 = *v23;
+                  v88 = v23[1];
+                  v89 = v86;
+                  v90 = v129;
+                  sub_2576E4024(v89, v129, type metadata accessor for FeatureType);
+                  v91 = v135;
+                  v135[2] = 0;
+                  v91[3] = 0xE000000000000000;
+                  v92 = type metadata accessor for Proto_FeatureDescription(0);
+
+                  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+                  v93 = *(v92 + 28);
+                  v94 = v133;
+                  __swift_storeEnumTagSinglePayload(v91 + v93, 1, 1, v133);
+                  *v91 = v87;
+                  v91[1] = v88;
+                  v95 = v132;
+                  sub_25768E090();
+                  sub_2576E3EA4(v90, type metadata accessor for FeatureType);
+                  sub_2574695E4(v91 + v93, &qword_27F879C38, &qword_257744550);
+                  sub_2576E3FC8(v95, v91 + v93, type metadata accessor for Proto_FeatureType);
+                  __swift_storeEnumTagSinglePayload(v91 + v93, 0, 1, v94);
+                  v91[2] = 0;
+                  v91[3] = 0xE000000000000000;
+                  v96 = *v141;
+                  if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+                  {
+                    sub_25746A0C8(0, *(v96 + 16) + 1, 1, v96);
+                    v96 = v107;
+                  }
+
+                  v98 = *(v96 + 16);
+                  v97 = *(v96 + 24);
+                  v12 = v145;
+                  v14 = v128;
+                  v23 = v127;
+                  if (v98 >= v97 >> 1)
+                  {
+                    sub_25746A0C8(v97 > 1, v98 + 1, 1, v96);
+                    v96 = v108;
+                  }
+
+                  sub_2576E3EA4(v136, type metadata accessor for FeatureType);
+                  sub_2576E3EA4(v23, type metadata accessor for MLProgram.NamedValueType);
+                  *(v96 + 16) = v98 + 1;
+                  sub_2576E3FC8(v135, v96 + ((*(v131 + 80) + 32) & ~*(v131 + 80)) + *(v131 + 72) * v98, type metadata accessor for FeatureDescription);
+                  *v141 = v96;
+                  v67 = &qword_27F879D40;
+                }
+
+                v69 = v144;
+                v70 += v142;
+                --v68;
+              }
+
+              while (v68);
+            }
+
+            v4 = v67;
+
+            v56 = v126 + 1;
+            v30 = v123;
+            sub_2576E3EA4(v123, type metadata accessor for MLProgram.Operation);
+            v28 = v120;
+          }
+
+          while (v56 != v125);
+        }
+
+        v42 = (v117 - 1) & v117;
+        v34 = v113;
+        sub_2576E3EA4(v113, type metadata accessor for MLProgram.Block);
+        v39 = v111;
+        v37 = v118;
+        v43 = v110;
+      }
+
+      while (v42);
+    }
+  }
+
+  __break(1u);
+}
+
+uint64_t sub_2576E2CFC(uint64_t *a1, void *a2)
+{
+  if (*a1 == *a2 && a1[1] == a2[1])
+  {
+    return 1;
+  }
+
+  else
+  {
+    return sub_257743994() & 1;
+  }
+}
+
+uint64_t Model.features.getter()
+{
+  Model.inputs.getter();
+  v2 = v0;
+  sub_2576E2D84(&v2);
+  return v2;
+}
+
+uint64_t sub_2576E2D84(uint64_t *a1)
+{
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F880730, &qword_25776D388);
+  MEMORY[0x28223BE20](v2 - 8);
+  v86 = &v79 - v3;
+  v4 = type metadata accessor for MLProgram(0);
+  MEMORY[0x28223BE20](v4 - 8);
+  v84 = &v79 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = type metadata accessor for NeuralNetwork(0);
+  MEMORY[0x28223BE20](v6 - 8);
+  v85 = &v79 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = type metadata accessor for NeuralNetworkRegressor(0);
+  MEMORY[0x28223BE20](v8 - 8);
+  v83 = &v79 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for NeuralNetwork.Layer(0);
+  v88 = *(v10 - 8);
+  v11 = MEMORY[0x28223BE20](v10 - 8);
+  v13 = &v79 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = MEMORY[0x28223BE20](v11);
+  v16 = &v79 - v15;
+  MEMORY[0x28223BE20](v14);
+  v18 = &v79 - v17;
+  v19 = type metadata accessor for NeuralNetworkClassifier(0);
+  MEMORY[0x28223BE20](v19 - 8);
+  v82 = &v79 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v21 = type metadata accessor for PipelineConfiguration(0);
+  MEMORY[0x28223BE20](v21 - 8);
+  v81 = &v79 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = type metadata accessor for PipelineRegressorConfiguration(0);
+  MEMORY[0x28223BE20](v23 - 8);
+  v80 = &v79 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v25 = type metadata accessor for Model(0);
+  v87 = *(v25 - 8);
+  v26 = MEMORY[0x28223BE20](v25 - 8);
+  v28 = &v79 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v29 = MEMORY[0x28223BE20](v26);
+  v31 = &v79 - v30;
+  MEMORY[0x28223BE20](v29);
+  v33 = &v79 - v32;
+  v34 = type metadata accessor for PipelineClassifierConfiguration(0);
+  MEMORY[0x28223BE20](v34 - 8);
+  v79 = &v79 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v36 = type metadata accessor for ModelKind(0);
+  MEMORY[0x28223BE20](v36);
+  v38 = &v79 - ((v37 + 15) & 0xFFFFFFFFFFFFFFF0);
+  Model.kind.getter();
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (!v41 & v40)
+  {
+    if (EnumCaseMultiPayload == 2)
+    {
+      v61 = v81;
+      sub_2576E3FC8(v38, v81, type metadata accessor for PipelineConfiguration);
+      v62 = PipelineConfiguration.models.getter();
+      v63 = *(v62 + 16);
+      if (v63)
+      {
+        v64 = v62 + ((*(v87 + 80) + 32) & ~*(v87 + 80));
+        v65 = *(v87 + 72);
+        do
+        {
+          sub_2576E4024(v64, v28, type metadata accessor for Model);
+          sub_2576E2D84(a1);
+          sub_2576E3EA4(v28, type metadata accessor for Model);
+          v64 += v65;
+          --v63;
+        }
+
+        while (v63);
+      }
+
+      v46 = type metadata accessor for PipelineConfiguration;
+    }
+
+    else if (EnumCaseMultiPayload == 1)
+    {
+      v61 = v80;
+      sub_2576E3FC8(v38, v80, type metadata accessor for PipelineRegressorConfiguration);
+      PipelineRegressorConfiguration.models.getter();
+      v54 = *(v53 + 16);
+      if (v54)
+      {
+        v55 = v53 + ((*(v87 + 80) + 32) & ~*(v87 + 80));
+        v56 = *(v87 + 72);
+        do
+        {
+          sub_2576E4024(v55, v31, type metadata accessor for Model);
+          sub_2576E2D84(a1);
+          sub_2576E3EA4(v31, type metadata accessor for Model);
+          v55 += v56;
+          --v54;
+        }
+
+        while (v54);
+      }
+
+      v46 = type metadata accessor for PipelineRegressorConfiguration;
+    }
+
+    else
+    {
+      if (EnumCaseMultiPayload)
+      {
+        Model.outputs.getter();
+        sub_25763D36C(v74);
+        v66 = type metadata accessor for ModelKind;
+        v67 = v38;
+        return sub_2576E3EA4(v67, v66);
+      }
+
+      v61 = v79;
+      sub_2576E3FC8(v38, v79, type metadata accessor for PipelineClassifierConfiguration);
+      PipelineClassifierConfiguration.models.getter();
+      v43 = *(v42 + 16);
+      if (v43)
+      {
+        v44 = v42 + ((*(v87 + 80) + 32) & ~*(v87 + 80));
+        v45 = *(v87 + 72);
+        do
+        {
+          sub_2576E4024(v44, v33, type metadata accessor for Model);
+          sub_2576E2D84(a1);
+          sub_2576E3EA4(v33, type metadata accessor for Model);
+          v44 += v45;
+          --v43;
+        }
+
+        while (v43);
+      }
+
+      v46 = type metadata accessor for PipelineClassifierConfiguration;
+    }
+
+    v66 = v46;
+    v67 = v61;
+  }
+
+  else
+  {
+    switch(EnumCaseMultiPayload)
+    {
+      case 28:
+        v47 = v85;
+        sub_2576E3FC8(v38, v85, type metadata accessor for NeuralNetwork);
+        v48 = NeuralNetwork.layers.getter();
+        v49 = *(v48 + 16);
+        if (v49)
+        {
+          v50 = v48 + ((*(v88 + 80) + 32) & ~*(v88 + 80));
+          v51 = *(v88 + 72);
+          do
+          {
+            sub_2576E4024(v50, v13, type metadata accessor for NeuralNetwork.Layer);
+            sub_2576E37BC(a1);
+            sub_2576E3EA4(v13, type metadata accessor for NeuralNetwork.Layer);
+            v50 += v51;
+            --v49;
+          }
+
+          while (v49);
+        }
+
+        v52 = type metadata accessor for NeuralNetwork;
+        goto LABEL_37;
+      case 29:
+        v47 = v82;
+        sub_2576E3FC8(v38, v82, type metadata accessor for NeuralNetworkClassifier);
+        v75 = NeuralNetworkClassifier.layers.getter();
+        v76 = *(v75 + 16);
+        if (v76)
+        {
+          v77 = v75 + ((*(v88 + 80) + 32) & ~*(v88 + 80));
+          v78 = *(v88 + 72);
+          do
+          {
+            sub_2576E4024(v77, v18, type metadata accessor for NeuralNetwork.Layer);
+            sub_2576E37BC(a1);
+            sub_2576E3EA4(v18, type metadata accessor for NeuralNetwork.Layer);
+            v77 += v78;
+            --v76;
+          }
+
+          while (v76);
+        }
+
+        v52 = type metadata accessor for NeuralNetworkClassifier;
+        goto LABEL_37;
+      case 30:
+        v47 = v83;
+        sub_2576E3FC8(v38, v83, type metadata accessor for NeuralNetworkRegressor);
+        v57 = NeuralNetworkRegressor.layers.getter();
+        v58 = *(v57 + 16);
+        if (v58)
+        {
+          v59 = v57 + ((*(v88 + 80) + 32) & ~*(v88 + 80));
+          v60 = *(v88 + 72);
+          do
+          {
+            sub_2576E4024(v59, v16, type metadata accessor for NeuralNetwork.Layer);
+            sub_2576E37BC(a1);
+            sub_2576E3EA4(v16, type metadata accessor for NeuralNetwork.Layer);
+            v59 += v60;
+            --v58;
+          }
+
+          while (v58);
+        }
+
+        v52 = type metadata accessor for NeuralNetworkRegressor;
+LABEL_37:
+        v66 = v52;
+        v67 = v47;
+        return sub_2576E3EA4(v67, v66);
+      case 31:
+        v68 = v38;
+        v69 = v84;
+        sub_2576E3FC8(v68, v84, type metadata accessor for MLProgram);
+        MLProgram.functions.getter();
+        v70 = v86;
+        sub_257657BA8(1852399981, 0xE400000000000000, v71, v86);
+
+        v72 = type metadata accessor for MLProgram.Function(0);
+        if (__swift_getEnumTagSinglePayload(v70, 1, v72) == 1)
+        {
+          sub_2576E3EA4(v69, type metadata accessor for MLProgram);
+          return sub_2574695E4(v70, &qword_27F880730, &qword_25776D388);
+        }
+
+        sub_2576E1CC4(a1);
+        sub_2576E3EA4(v69, type metadata accessor for MLProgram);
+        v66 = type metadata accessor for MLProgram.Function;
+        v67 = v70;
+        break;
+      default:
+        JUMPOUT(0);
+    }
+  }
+
+  return sub_2576E3EA4(v67, v66);
+}
+
+void sub_2576E37BC(uint64_t *a1)
+{
+  v66 = type metadata accessor for Proto_FeatureType(0);
+  MEMORY[0x28223BE20](v66);
+  v65 = &v56 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v64 = type metadata accessor for FeatureType(0);
+  MEMORY[0x28223BE20](v64);
+  v72 = &v56 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for FeatureDescription(0);
+  v63 = *(v5 - 8);
+  v6 = MEMORY[0x28223BE20](v5 - 8);
+  v8 = &v56 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v10 = (&v56 - v9);
+  v11 = type metadata accessor for NeuralNetwork.TensorDescriptor(0);
+  v61 = *(v11 - 8);
+  MEMORY[0x28223BE20](v11 - 8);
+  v13 = &v56 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F881498, &unk_257774CA0);
+  MEMORY[0x28223BE20](v59);
+  v58 = &v56 - v14;
+  v15 = *(v1 + *(type metadata accessor for Proto_NeuralNetworkLayer(0) + 20));
+  swift_beginAccess();
+  v16 = *(v15 + 40);
+
+  NeuralNetwork.Layer.outputTensors.getter();
+  v18 = 0;
+  v68 = *(v16 + 16);
+  v69 = v16;
+  v56 = v16 + 32;
+  v57 = v17;
+  v67 = a1;
+  v62 = v8;
+  v60 = v13;
+  while (1)
+  {
+    if (v18 == v68)
+    {
+LABEL_25:
+
+      return;
+    }
+
+    if (v18 >= *(v69 + 16))
+    {
+      break;
+    }
+
+    v19 = *(v17 + 16);
+    if (v18 == v19)
+    {
+      goto LABEL_25;
+    }
+
+    if (v18 >= v19)
+    {
+      goto LABEL_27;
+    }
+
+    v20 = (v56 + 16 * v18);
+    v21 = v20[1];
+    v71 = *v20;
+    v22 = v58;
+    v23 = *(v59 + 48);
+    sub_2576E4024(v17 + ((*(v61 + 80) + 32) & ~*(v61 + 80)) + *(v61 + 72) * v18, &v58[v23], type metadata accessor for NeuralNetwork.TensorDescriptor);
+    sub_2576E3FC8(&v22[v23], v13, type metadata accessor for NeuralNetwork.TensorDescriptor);
+    v24 = *(v13 + 1);
+    v25 = *(v24 + 16);
+    v70 = v21;
+    if (v25)
+    {
+      v73 = MEMORY[0x277D84F90];
+
+      sub_257483724(0, v25, 0);
+      v26 = v73;
+      v27 = (v24 + 32);
+      v28 = *(v73 + 16);
+      do
+      {
+        v30 = *v27++;
+        v29 = v30;
+        v73 = v26;
+        v31 = *(v26 + 24);
+        if (v28 >= v31 >> 1)
+        {
+          sub_257483724(v31 > 1, v28 + 1, 1);
+          v26 = v73;
+        }
+
+        *(v26 + 16) = v28 + 1;
+        *(v26 + 8 * v28++ + 32) = v29;
+        --v25;
+      }
+
+      while (v25);
+    }
+
+    else
+    {
+
+      v26 = MEMORY[0x277D84F90];
+    }
+
+    v32 = &v72[*(type metadata accessor for FeatureType.ShapedArrayParameters(0) + 20)];
+    v33 = type metadata accessor for Proto_ArrayFeatureType(0);
+    v34 = *(v33 + 24);
+    v35 = type metadata accessor for Proto_ArrayFeatureType.OneOf_ShapeFlexibility(0);
+    __swift_storeEnumTagSinglePayload(&v32[v34], 1, 1, v35);
+    v36 = &v32[*(v33 + 28)];
+    *v36 = 0;
+    v36[8] = -1;
+    _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+    v37 = *(v26 + 16);
+    if (v37)
+    {
+      v73 = MEMORY[0x277D84F90];
+      sub_2574845B8(0, v37, 0);
+      v38 = v73;
+      v39 = *(v73 + 16);
+      v40 = 32;
+      do
+      {
+        v41 = *(v26 + v40);
+        v73 = v38;
+        v42 = *(v38 + 24);
+        if (v39 >= v42 >> 1)
+        {
+          sub_2574845B8(v42 > 1, v39 + 1, 1);
+          v38 = v73;
+        }
+
+        *(v38 + 16) = v39 + 1;
+        *(v38 + 8 * v39 + 32) = v41;
+        v40 += 8;
+        ++v39;
+        --v37;
+      }
+
+      while (v37);
+    }
+
+    else
+    {
+
+      v38 = MEMORY[0x277D84F90];
+    }
+
+    *v32 = v38;
+    *(v32 + 1) = 1;
+    v32[16] = 1;
+    v43 = v72;
+    *v72 = 0;
+    swift_storeEnumTagMultiPayload();
+    v10[2] = 0;
+    v10[3] = 0xE000000000000000;
+    v44 = type metadata accessor for Proto_FeatureDescription(0);
+    _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+    v45 = *(v44 + 28);
+    v46 = v66;
+    __swift_storeEnumTagSinglePayload(v10 + v45, 1, 1, v66);
+    v47 = v70;
+    *v10 = v71;
+    v10[1] = v47;
+    v48 = v65;
+    sub_25768E090();
+    sub_2576E3EA4(v43, type metadata accessor for FeatureType);
+    sub_2574695E4(v10 + v45, &qword_27F879C38, &qword_257744550);
+    sub_2576E3FC8(v48, v10 + v45, type metadata accessor for Proto_FeatureType);
+    __swift_storeEnumTagSinglePayload(v10 + v45, 0, 1, v46);
+    v10[2] = 0;
+    v10[3] = 0xE000000000000000;
+    v49 = v62;
+    sub_2576E4024(v10, v62, type metadata accessor for FeatureDescription);
+    v50 = v67;
+    v51 = *v67;
+    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+    {
+      sub_25746A0C8(0, *(v51 + 16) + 1, 1, v51);
+      v51 = v54;
+    }
+
+    v53 = *(v51 + 16);
+    v52 = *(v51 + 24);
+    if (v53 >= v52 >> 1)
+    {
+      sub_25746A0C8(v52 > 1, v53 + 1, 1, v51);
+      v51 = v55;
+    }
+
+    ++v18;
+    *(v51 + 16) = v53 + 1;
+    sub_2576E3FC8(v49, v51 + ((*(v63 + 80) + 32) & ~*(v63 + 80)) + *(v63 + 72) * v53, type metadata accessor for FeatureDescription);
+    *v50 = v51;
+    sub_2576E3EA4(v10, type metadata accessor for FeatureDescription);
+    v13 = v60;
+    sub_2576E3EA4(v60, type metadata accessor for NeuralNetwork.TensorDescriptor);
+    v17 = v57;
+  }
+
+  __break(1u);
+LABEL_27:
+  __break(1u);
+}
+
+uint64_t sub_2576E3EA4(uint64_t a1, void (*a2)(void))
+{
+  a2(0);
+  OUTLINED_FUNCTION_4();
+  (*(v3 + 8))(a1);
+  return a1;
+}
+
+uint64_t sub_2576E3EFC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if (a1 == a3 && a2 == a4)
+  {
+    return 1;
+  }
+
+  else
+  {
+    return sub_257743994() & 1;
+  }
+}
+
+uint64_t sub_2576E3FC8(uint64_t a1, uint64_t a2, void (*a3)(void))
+{
+  a3(0);
+  OUTLINED_FUNCTION_4();
+  v4 = OUTLINED_FUNCTION_205();
+  v5(v4);
+  return a2;
+}
+
+uint64_t sub_2576E4024(uint64_t a1, uint64_t a2, void (*a3)(void))
+{
+  a3(0);
+  OUTLINED_FUNCTION_4();
+  v4 = OUTLINED_FUNCTION_205();
+  v5(v4);
+  return a2;
+}
+
+uint64_t sub_2576E4080(uint64_t a1, uint64_t a2)
+{
+  v4 = type metadata accessor for FeatureDescription(0);
+  (*(*(v4 - 8) + 24))(a2, a1, v4);
+  return a2;
+}
+
+uint64_t OUTLINED_FUNCTION_6_50()
+{
+
+  return sub_2576E3EA4(v0, type metadata accessor for ModelKind);
+}
+
+void OUTLINED_FUNCTION_26_16(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
+{
+
+  sub_25746EEC4(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20);
+}
+
+uint64_t OUTLINED_FUNCTION_32_12()
+{
+  v4 = *(v2 - 216);
+
+  return sub_2576E4024(v1, v4, v0);
+}
+
+void sub_2576E431C(uint64_t a1@<X0>, void *a2@<X8>)
+{
+  v4 = type metadata accessor for Proto_MILSpec_Value(0);
+  v5 = *(v4 - 8);
+  v6 = MEMORY[0x28223BE20](v4 - 8);
+  v8 = &v28 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v29 = &v28 - v9;
+  v10 = type metadata accessor for MLProgram.Value(0);
+  v11 = *(v10 - 8);
+  v12 = MEMORY[0x28223BE20](v10 - 8);
+  v14 = &v28 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v12);
+  v16 = &v28 - v15;
+  type metadata accessor for Proto_MILSpec_ListValue(0);
+  v28 = a2;
+  _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+  v17 = *(a1 + 16);
+  v33 = MEMORY[0x277D84F90];
+  sub_257484C58(0, v17, 0);
+  v18 = v33;
+  v30 = a1;
+  if (v17)
+  {
+    v19 = 0;
+    v20 = *(a1 + 16);
+    v31 = a1 + ((*(v11 + 80) + 32) & ~*(v11 + 80));
+    v32 = v20;
+    while (v32 != v19)
+    {
+      sub_2576E79A8(v31 + *(v11 + 72) * v19, v14, type metadata accessor for MLProgram.Value);
+      sub_2576E79A8(v14, v8, type metadata accessor for Proto_MILSpec_Value);
+      sub_2576E7950(v14, type metadata accessor for MLProgram.Value);
+      v33 = v18;
+      v22 = *(v18 + 16);
+      v21 = *(v18 + 24);
+      if (v22 >= v21 >> 1)
+      {
+        sub_257484C58(v21 > 1, v22 + 1, 1);
+        v18 = v33;
+      }
+
+      ++v19;
+      *(v18 + 16) = v22 + 1;
+      sub_2576E7A08(v8, v18 + ((*(v5 + 80) + 32) & ~*(v5 + 80)) + *(v5 + 72) * v22, type metadata accessor for Proto_MILSpec_Value);
+      if (v17 == v19)
+      {
+        goto LABEL_7;
+      }
+    }
+  }
+
+  else
+  {
+LABEL_7:
+    v23 = v29;
+    v24 = v30;
+    while (1)
+    {
+      v25 = *(v24 + 16);
+      if (v17 == v25)
+      {
+
+        *v28 = v18;
+        return;
+      }
+
+      if (v17 >= v25)
+      {
+        break;
+      }
+
+      sub_2576E79A8(v24 + ((*(v11 + 80) + 32) & ~*(v11 + 80)) + *(v11 + 72) * v17, v16, type metadata accessor for MLProgram.Value);
+      sub_2576E79A8(v16, v23, type metadata accessor for Proto_MILSpec_Value);
+      sub_2576E7950(v16, type metadata accessor for MLProgram.Value);
+      v33 = v18;
+      v27 = *(v18 + 16);
+      v26 = *(v18 + 24);
+      if (v27 >= v26 >> 1)
+      {
+        sub_257484C58(v26 > 1, v27 + 1, 1);
+        v18 = v33;
+      }
+
+      *(v18 + 16) = v27 + 1;
+      sub_2576E7A08(v23, v18 + ((*(v5 + 80) + 32) & ~*(v5 + 80)) + *(v5 + 72) * v27, type metadata accessor for Proto_MILSpec_Value);
+      ++v17;
+    }
+
+    __break(1u);
+  }
+
+  __break(1u);
+}
+
+uint64_t sub_2576E46F0(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v6 = 0;
+  v7 = *(a1 + 16);
+  while (v7 != v6)
+  {
+    v8 = *(type metadata accessor for FeatureDescription(0) - 8);
+    v9 = (a1 + ((*(v8 + 80) + 32) & ~*(v8 + 80)) + *(v8 + 72) * v6);
+    v10 = *v9 == a2 && v9[1] == a3;
+    if (v10 || (sub_257743994() & 1) != 0)
+    {
+      v11 = v6;
+      goto LABEL_11;
+    }
+
+    ++v6;
+  }
+
+  v11 = 0;
+LABEL_11:
+
+  return v11;
+}
+
+uint64_t sub_2576E47EC(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = 0;
+  v6 = *(a1 + 16);
+  v7 = (a1 + 40);
+  while (v6 != v5)
+  {
+    v8 = *(v7 - 1) == a2 && *v7 == a3;
+    if (v8 || (sub_257743994() & 1) != 0)
+    {
+      v9 = v5;
+      goto LABEL_11;
+    }
+
+    ++v5;
+    v7 += 2;
+  }
+
+  v9 = 0;
+LABEL_11:
+
+  return v9;
+}
+
+uint64_t sub_2576E48A0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7)
+{
+  v8 = v7;
+  v204 = a7;
+  v206 = a6;
+  v210 = a5;
+  v205 = a4;
+  v218 = a2;
+  v219 = a3;
+  v217 = a1;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879EA8, &unk_2577447D0);
+  MEMORY[0x28223BE20](v9 - 8);
+  v224 = &v185 - v10;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F880A30, &qword_25776ED00);
+  v12 = MEMORY[0x28223BE20](v11 - 8);
+  v223 = &v185 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v12);
+  v222 = &v185 - v14;
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879D40, &qword_257744660);
+  MEMORY[0x28223BE20](v15 - 8);
+  v229 = &v185 - v16;
+  v228 = type metadata accessor for Proto_MILSpec_ValueType(0);
+  MEMORY[0x28223BE20](v228);
+  *&v230 = &v185 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v227 = type metadata accessor for MLProgram.Value.Representation(0);
+  MEMORY[0x28223BE20](v227);
+  v226 = &v185 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v209 = type metadata accessor for MLProgram.ValueType.TensorParameters(0);
+  v19 = MEMORY[0x28223BE20](v209);
+  v221 = &v185 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v19);
+  v225 = &v185 - v21;
+  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F880698, &qword_25776CFE0);
+  v23 = MEMORY[0x28223BE20](v22 - 8);
+  v194 = &v185 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v23);
+  v197 = &v185 - v25;
+  v200 = type metadata accessor for MLProgram.Argument.Binding(0);
+  MEMORY[0x28223BE20](v200);
+  v199 = (&v185 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v27 = type metadata accessor for MLProgram.Operation(0);
+  v202 = *(v27 - 8);
+  v28 = MEMORY[0x28223BE20](v27 - 8);
+  v201 = &v185 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v28);
+  v208 = &v185 - v30;
+  v31 = type metadata accessor for MLProgram.Value(0);
+  v220 = *(v31 - 8);
+  v32 = MEMORY[0x28223BE20](v31 - 8);
+  v34 = &v185 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v32);
+  v207 = (&v185 - v35);
+  v196 = type metadata accessor for MLProgram.Block(0);
+  v192 = *(v196 - 8);
+  v36 = MEMORY[0x28223BE20](v196);
+  v193 = &v185 - ((v37 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v38 = MEMORY[0x28223BE20](v36);
+  v40 = &v185 - v39;
+  MEMORY[0x28223BE20](v38);
+  v211 = &v185 - v41;
+  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F880668, &unk_257774DB0);
+  v43 = MEMORY[0x28223BE20](v42 - 8);
+  v45 = (&v185 - ((v44 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x28223BE20](v43);
+  v47 = (&v185 - v46);
+  v48 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F880730, &qword_25776D388);
+  v49 = MEMORY[0x28223BE20](v48 - 8);
+  v198 = &v185 - ((v50 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v49);
+  v52 = &v185 - v51;
+  v53 = type metadata accessor for MLProgram.Function(0);
+  MEMORY[0x28223BE20](v53);
+  v55 = &v185 - ((v54 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MLProgram.functions.getter();
+  sub_257657BA8(1852399981, 0xE400000000000000, v56, v52);
+
+  v195 = v53;
+  if (__swift_getEnumTagSinglePayload(v52, 1, v53) == 1)
+  {
+    sub_2574695E4(v52, &qword_27F880730, &qword_25776D388);
+    sub_2576E6D44();
+    swift_allocError();
+    *v57 = 0;
+    v57[1] = 0;
+    return swift_willThrow();
+  }
+
+  sub_2576E7A08(v52, v55, type metadata accessor for MLProgram.Function);
+  MLProgram.Function.blockSpecializations.getter();
+  v60 = *(v59 + 16);
+
+  if (v60 != 1)
+  {
+    goto LABEL_9;
+  }
+
+  MLProgram.Function.blockSpecializations.getter();
+  sub_25763CD70(v61, v47);
+
+  v62 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F880428, &unk_25776C030);
+  if (__swift_getEnumTagSinglePayload(v47, 1, v62) != 1)
+  {
+    v190 = v8;
+    v65 = *v47;
+    v64 = v47[1];
+    sub_2576E7950(v47 + *(v62 + 48), type metadata accessor for MLProgram.Block);
+    MLProgram.Function.blockSpecializations.getter();
+    sub_25763CD70(v66, v45);
+
+    if (__swift_getEnumTagSinglePayload(v45, 1, v62) == 1)
+    {
+
+      v63 = v45;
+      goto LABEL_8;
+    }
+
+    sub_2576E7A08(v45 + *(v62 + 48), v40, type metadata accessor for MLProgram.Block);
+    v73 = v40;
+    v74 = v211;
+    sub_2576E7A08(v73, v211, type metadata accessor for MLProgram.Block);
+    if ((sub_2576E6204() & 1) == 0)
+    {
+
+      sub_2576E7950(v74, type metadata accessor for MLProgram.Block);
+      goto LABEL_9;
+    }
+
+    v187 = v65;
+    v189 = v64;
+    v75 = swift_allocBox();
+    LOBYTE(v231) = 1;
+    v76 = MEMORY[0x277D84F90];
+    MLProgram.ValueType.TensorParameters.init(dataType:shape:)();
+    v77 = v217;
+    v78 = *(v217 + 16);
+    v188 = v55;
+    if (v78)
+    {
+      v186 = v75;
+      v232 = v76;
+      sub_257484A40(0, v78, 0);
+      v79 = (v77 + 40);
+      v80 = v232;
+      v191 = xmmword_2577442B0;
+      v185 = v78;
+      v81 = v230;
+      v82 = v34;
+      v84 = v225;
+      v83 = v226;
+      do
+      {
+        v216 = v78;
+        v217 = v80;
+        v86 = *(v79 - 1);
+        v85 = *v79;
+        v212 = v79;
+        __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879B10, &unk_2577440D0);
+        v87 = swift_allocObject();
+        *(v87 + 16) = v191;
+        *(v87 + 32) = v86;
+        *(v87 + 40) = v85;
+        LOBYTE(v231) = 1;
+        v213 = v85;
+        swift_bridgeObjectRetain_n();
+        MLProgram.ValueType.TensorParameters.init(dataType:shape:)();
+        *v83 = v87;
+        *(v83 + 8) = 0x3000000000000000;
+        *(v83 + 16) = 0;
+        type metadata accessor for MLProgram.Value.ImmediateValue(0);
+        swift_storeEnumTagMultiPayload();
+        swift_storeEnumTagMultiPayload();
+        *v82 = 0;
+        v82[1] = 0xE000000000000000;
+        v88 = type metadata accessor for Proto_MILSpec_Value(0);
+        v89 = *(v88 + 20);
+        v214 = type metadata accessor for Proto_MILSpec_Value.OneOf_Value(0);
+        v215 = v89;
+        __swift_storeEnumTagSinglePayload(v82 + v89, 1, 1, v214);
+
+        _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+        v90 = *(v88 + 28);
+        v91 = v228;
+        __swift_storeEnumTagSinglePayload(v82 + v90, 1, 1, v228);
+        _s20MLModelSpecification13NeuralNetworkV5LayerV14CopyParametersVAGycfC_0();
+        v92 = *(v91 + 20);
+        if (qword_27F878FF0 != -1)
+        {
+          swift_once();
+        }
+
+        *(v81 + v92) = qword_27F87B038;
+        v93 = v221;
+        sub_2576E79A8(v84, v221, type metadata accessor for MLProgram.ValueType.TensorParameters);
+        v94 = v93;
+        v95 = v229;
+        sub_2576E7A08(v94, v229, type metadata accessor for Proto_MILSpec_TensorType);
+        v96 = type metadata accessor for Proto_MILSpec_ValueType.OneOf_Type(0);
+        swift_storeEnumTagMultiPayload();
+        v97 = v96;
+        v81 = v230;
+        __swift_storeEnumTagSinglePayload(v95, 0, 1, v97);
+
+        if (swift_isUniquelyReferenced_nonNull_native())
+        {
+          sub_2576E7950(v84, type metadata accessor for MLProgram.ValueType.TensorParameters);
+          v98 = *(v81 + v92);
+        }
+
+        else
+        {
+          type metadata accessor for Proto_MILSpec_ValueType._StorageClass(0);
+          swift_allocObject();
+
+          v98 = sub_2574E503C(v99);
+          sub_2576E7950(v84, type metadata accessor for MLProgram.ValueType.TensorParameters);
+          v81 = v230;
+
+          *(v81 + v92) = v98;
+        }
+
+        v100 = OBJC_IVAR____TtCV20MLModelSpecification23Proto_MILSpec_ValueTypeP33_332B47BD95040FAA9FC0D6990ECE156813_StorageClass__type;
+        swift_beginAccess();
+        sub_2576E78F0(v229, v98 + v100, &qword_27F879D40, &qword_257744660);
+        swift_endAccess();
+        sub_2574695E4(v82 + v90, &qword_27F879E10, &qword_257744730);
+        sub_2576E7A08(v81, v82 + v90, type metadata accessor for Proto_MILSpec_ValueType);
+        __swift_storeEnumTagSinglePayload(v82 + v90, 0, 1, v228);
+        v101 = v226;
+        v102 = v222;
+        sub_2576E79A8(v226, v222, type metadata accessor for MLProgram.Value.Representation);
+        v103 = v227;
+        __swift_storeEnumTagSinglePayload(v102, 0, 1, v227);
+        v104 = v223;
+        sub_2576E7880(v102, v223);
+        if (__swift_getEnumTagSinglePayload(v104, 1, v103) == 1)
+        {
+
+          sub_2574695E4(v102, &qword_27F880A30, &qword_25776ED00);
+          sub_2576E7950(v101, type metadata accessor for MLProgram.Value.Representation);
+          sub_2574695E4(v104, &qword_27F880A30, &qword_25776ED00);
+          v105 = 1;
+          v106 = v224;
+        }
+
+        else
+        {
+          v106 = v224;
+          sub_257661640();
+
+          sub_2574695E4(v102, &qword_27F880A30, &qword_25776ED00);
+          sub_2576E7950(v101, type metadata accessor for MLProgram.Value.Representation);
+          sub_2576E7950(v104, type metadata accessor for MLProgram.Value.Representation);
+          v105 = 0;
+        }
+
+        v83 = v101;
+        __swift_storeEnumTagSinglePayload(v106, v105, 1, v214);
+        sub_2576E78F0(v106, v82 + v215, &qword_27F879EA8, &unk_2577447D0);
+        v107 = v216;
+        v80 = v217;
+        v232 = v217;
+        v109 = *(v217 + 16);
+        v108 = *(v217 + 24);
+        v84 = v225;
+        if (v109 >= v108 >> 1)
+        {
+          sub_257484A40(v108 > 1, v109 + 1, 1);
+          v80 = v232;
+        }
+
+        *(v80 + 16) = v109 + 1;
+        sub_2576E7A08(v82, v80 + ((*(v220 + 80) + 32) & ~*(v220 + 80)) + *(v220 + 72) * v109, type metadata accessor for MLProgram.Value);
+        v79 = v212 + 2;
+        v78 = v107 - 1;
+      }
+
+      while (v78);
+      v75 = v186;
+      v78 = v185;
+    }
+
+    v110 = v207;
+    sub_2576E6348(v75, v78, 0, v207);
+
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F8814C0, &qword_257774DD0);
+    v111 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F8814C8, &qword_257774DD8) - 8);
+    v112 = *(v111 + 72);
+    v113 = (*(v111 + 80) + 32) & ~*(v111 + 80);
+    v114 = swift_allocObject();
+    v230 = xmmword_257743FF0;
+    *(v114 + 16) = xmmword_257743FF0;
+    v115 = v114 + v113;
+    strcpy(v115, "probabilities");
+    *(v115 + 14) = -4864;
+    v116 = v219;
+    v117 = v199;
+    *v199 = v218;
+    *(v117 + 8) = v116;
+    swift_storeEnumTagMultiPayload();
+
+    MLProgram.Argument.init(binding:)(v117);
+    v118 = (v115 + v112);
+    *v118 = 0x73657373616C63;
+    v118[1] = 0xE700000000000000;
+    sub_2576E79A8(v110, v117, type metadata accessor for MLProgram.Value);
+    swift_storeEnumTagMultiPayload();
+    MLProgram.Argument.init(binding:)(v117);
+    type metadata accessor for MLProgram.Argument(0);
+    sub_2577435D4();
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879F48, &qword_257744870);
+    v119 = *(type metadata accessor for MLProgram.NamedValueType(0) - 8);
+    v120 = *(v119 + 72);
+    v121 = (*(v119 + 80) + 32) & ~*(v119 + 80);
+    v122 = swift_allocObject();
+    *(v122 + 16) = v230;
+    v123 = (v122 + v121);
+    v124 = swift_allocBox();
+    LOBYTE(v231) = 1;
+    v125 = v210;
+
+    MLProgram.ValueType.TensorParameters.init(dataType:shape:)();
+    v231 = v124;
+    MLProgram.NamedValueType.init(name:type:)(v205, v125, &v231, v123);
+    v126 = swift_allocBox();
+    LOBYTE(v231) = 1;
+    v127 = v204;
+
+    MLProgram.ValueType.TensorParameters.init(dataType:shape:)();
+    v128 = swift_allocBox();
+    LOBYTE(v231) = 4;
+    MLProgram.ValueType.TensorParameters.init(dataType:shape:)();
+    type metadata accessor for MLProgram.ValueType.DictionaryParameters(0);
+    v129 = swift_allocBox();
+    v231 = v126;
+    v232 = v128;
+    MLProgram.ValueType.DictionaryParameters.init(keyType:valueType:)();
+    v231 = v129 | 0x6000000000000000;
+    MLProgram.NamedValueType.init(name:type:)(v206, v127, &v231, (v123 + v120));
+    v130 = v208;
+    MLProgram.Operation.init(name:inputs:outputs:)();
+    v131 = v201;
+    sub_2576E79A8(v130, v201, type metadata accessor for MLProgram.Operation);
+    v132 = v211;
+    v133 = MLProgram.Block.operations.getter();
+    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+    {
+      goto LABEL_69;
+    }
+
+    while (1)
+    {
+      v135 = *(v133 + 16);
+      v134 = *(v133 + 24);
+      if (v135 >= v134 >> 1)
+      {
+        sub_257469E54(v134 > 1, v135 + 1, 1, v133);
+        v133 = v180;
+      }
+
+      *(v133 + 16) = v135 + 1;
+      sub_2576E7A08(v131, v133 + ((*(v202 + 80) + 32) & ~*(v202 + 80)) + *(v202 + 72) * v135, type metadata accessor for MLProgram.Operation);
+      MLProgram.Block.operations.setter();
+      v136 = *(v132 + 8);
+      v231 = v136;
+      v137 = v219;
+      swift_bridgeObjectRetain_n();
+
+      v139 = v203;
+      result = sub_2576E47EC(v138, v218, v137);
+      *&v230 = v139;
+      if (v140)
+      {
+        break;
+      }
+
+      v131 = result;
+      v127 = result + 1;
+      if (__OFADD__(result, 1))
+      {
+        __break(1u);
+        return result;
+      }
+
+      v142 = 16 * result;
+      v141 = v136;
+      v143 = v218;
+      v144 = v219;
+      while (1)
+      {
+        v133 = *(v141 + 16);
+        if (v127 == v133)
+        {
+          v127 = v204;
+          goto LABEL_51;
+        }
+
+        if (v127 >= v133)
+        {
+          break;
+        }
+
+        v145 = *(v141 + v142 + 48);
+        v146 = *(v141 + v142 + 56);
+        if (v145 != v143 || v146 != v144)
+        {
+          if (sub_257743994())
+          {
+            v143 = v218;
+            v144 = v219;
+          }
+
+          else
+          {
+            if (v127 != v131)
+            {
+              if (v131 >= v133)
+              {
+                goto LABEL_67;
+              }
+
+              v148 = (v141 + 32 + 16 * v131);
+              v133 = *v148;
+              v132 = v148[1];
+
+              if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+              {
+                sub_25767A634(v141, v149, v150, v151);
+                v141 = v154;
+              }
+
+              v152 = v141 + 16 * v131;
+              *(v152 + 32) = v145;
+              *(v152 + 40) = v146;
+
+              if (v127 >= *(v141 + 16))
+              {
+                goto LABEL_68;
+              }
+
+              v153 = v141 + v142;
+              *(v153 + 48) = v133;
+              *(v153 + 56) = v132;
+
+              v231 = v141;
+              v132 = v211;
+            }
+
+            v143 = v218;
+            v144 = v219;
+            ++v131;
+          }
+        }
+
+        ++v127;
+        v142 += 16;
+      }
+
+      __break(1u);
+LABEL_67:
+      __break(1u);
+LABEL_68:
+      __break(1u);
+LABEL_69:
+      sub_257469E54(0, *(v133 + 16) + 1, 1, v133);
+      v133 = v179;
+    }
+
+    v131 = *(v136 + 16);
+    v141 = v136;
+LABEL_51:
+
+    v155 = *(v141 + 16);
+    if (v155 < v131)
+    {
+      __break(1u);
+    }
+
+    else
+    {
+      sub_2576E745C(v131, v155);
+
+      v156 = v231;
+      *(v132 + 8) = v231;
+
+      v157 = v156;
+      if (swift_isUniquelyReferenced_nonNull_native())
+      {
+LABEL_53:
+        v158 = *(v157 + 16);
+        if (v158 >= *(v157 + 24) >> 1)
+        {
+          sub_257469ED4();
+          v157 = v182;
+        }
+
+        *(v157 + 16) = v158 + 1;
+        v159 = v157 + 16 * v158;
+        v160 = v210;
+        *(v159 + 32) = v205;
+        *(v159 + 40) = v160;
+
+        *(v132 + 8) = v157;
+
+        v161 = v157;
+        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+        {
+          sub_257469ED4();
+          v161 = v183;
+        }
+
+        v162 = *(v161 + 16);
+        if (v162 >= *(v161 + 24) >> 1)
+        {
+          sub_257469ED4();
+          v161 = v184;
+        }
+
+        *(v161 + 16) = v162 + 1;
+        v163 = v161 + 16 * v162;
+        *(v163 + 32) = v206;
+        *(v163 + 40) = v127;
+
+        *(v132 + 8) = v161;
+        v164 = v197;
+        sub_2576E79A8(v132, v197, type metadata accessor for MLProgram.Block);
+        v165 = v196;
+        __swift_storeEnumTagSinglePayload(v164, 0, 1, v196);
+        v166 = v188;
+        MLProgram.Function.blockSpecializations.getter();
+        v168 = v167;
+        if (__swift_getEnumTagSinglePayload(v164, 1, v165) == 1)
+        {
+          sub_2574695E4(v164, &qword_27F880698, &qword_25776CFE0);
+          v169 = sub_25765368C(v187, v189);
+          if (v170)
+          {
+            v171 = v169;
+            swift_isUniquelyReferenced_nonNull_native();
+            v231 = v168;
+            __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F8806A0, &qword_25776CFE8);
+            v166 = v188;
+            sub_257743894();
+            v168 = v231;
+
+            v172 = v194;
+            sub_2576E7A08(*(v168 + 56) + *(v192 + 72) * v171, v194, type metadata accessor for MLProgram.Block);
+            sub_2577438B4();
+            v173 = 0;
+          }
+
+          else
+          {
+            v173 = 1;
+            v172 = v194;
+          }
+
+          __swift_storeEnumTagSinglePayload(v172, v173, 1, v165);
+
+          sub_2574695E4(v172, &qword_27F880698, &qword_25776CFE0);
+        }
+
+        else
+        {
+          v174 = v164;
+          v175 = v193;
+          sub_2576E7A08(v174, v193, type metadata accessor for MLProgram.Block);
+          swift_isUniquelyReferenced_nonNull_native();
+          v231 = v168;
+          sub_25765C2DC(v175, v187, v189);
+
+          v168 = v231;
+        }
+
+        sub_257653AF8(v168);
+        v177 = v176;
+
+        *(v166 + 24) = v177;
+        v178 = v198;
+        sub_2576E79A8(v166, v198, type metadata accessor for MLProgram.Function);
+        __swift_storeEnumTagSinglePayload(v178, 0, 1, v195);
+        MLProgram.mainFunction.setter();
+        sub_2576E7950(v208, type metadata accessor for MLProgram.Operation);
+        sub_2576E7950(v207, type metadata accessor for MLProgram.Value);
+        sub_2576E7950(v132, type metadata accessor for MLProgram.Block);
+        v72 = v166;
+        return sub_2576E7950(v72, type metadata accessor for MLProgram.Function);
+      }
+    }
+
+    sub_257469ED4();
+    v157 = v181;
+    goto LABEL_53;
+  }
+
+  v63 = v47;
+LABEL_8:
+  sub_2574695E4(v63, &qword_27F880668, &unk_257774DB0);
+LABEL_9:
+  MLProgram.Function.blockSpecializations.getter();
+  v231 = v67;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F8814A8, &unk_257774DC0);
+  sub_2576E77C8();
+  sub_2576E782C();
+  v68 = sub_257743744();
+  v70 = v69;
+
+  sub_2576E6D44();
+  swift_allocError();
+  *v71 = v68;
+  v71[1] = v70;
+  swift_willThrow();
+  v72 = v55;
+  return sub_2576E7950(v72, type metadata accessor for MLProgram.Function);
 }

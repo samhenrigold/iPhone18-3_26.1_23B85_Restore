@@ -21,9 +21,9 @@
 - (CSReceiverConnection)initWithReceiver:(id)receiver forServiceName:(id)name
 {
   receiverCopy = receiver;
-  v33.receiver = self;
-  v33.super_class = CSReceiverConnection;
-  v8 = [(CSXPCConnection *)&v33 initMachServiceListenerWithName:name];
+  v15.receiver = self;
+  v15.super_class = CSReceiverConnection;
+  v8 = [(CSXPCConnection *)&v15 initMachServiceListenerWithName:name];
   v9 = v8;
   if (!v8)
   {
@@ -31,123 +31,105 @@
   }
 
   objc_storeStrong(v8 + 10, receiver);
-  receiver = v9->_receiver;
   if (objc_opt_respondsToSelector())
   {
     supportedBundleIDs = [(SpotlightReceiver *)v9->_receiver supportedBundleIDs];
     [(CSReceiverConnection *)v9 setBundleIDs:supportedBundleIDs];
   }
 
-  v12 = v9->_receiver;
   if (objc_opt_respondsToSelector())
   {
     supportedContentTypes = [(SpotlightReceiver *)v9->_receiver supportedContentTypes];
     [(CSReceiverConnection *)v9 setContentTypes:supportedContentTypes];
   }
 
-  v14 = v9->_receiver;
   if (objc_opt_respondsToSelector())
   {
     supportedINIntentClassNames = [(SpotlightReceiver *)v9->_receiver supportedINIntentClassNames];
     [(CSReceiverConnection *)v9 setINIntentClassNames:supportedINIntentClassNames];
   }
 
-  v16 = v9->_receiver;
   if (objc_opt_respondsToSelector())
   {
     v9->_supportedJobs |= 1u;
   }
 
-  v17 = v9->_receiver;
   if (objc_opt_respondsToSelector())
   {
     v9->_supportedJobs |= 2u;
   }
 
-  v18 = v9->_receiver;
   if (objc_opt_respondsToSelector())
   {
     v9->_supportedJobs |= 4u;
   }
 
-  v19 = v9->_receiver;
   if (objc_opt_respondsToSelector())
   {
     v9->_supportedJobs |= 8u;
   }
 
-  v20 = v9->_receiver;
   if (objc_opt_respondsToSelector())
   {
     v9->_supportedJobs |= 0x10u;
   }
 
-  v21 = v9->_receiver;
   if (objc_opt_respondsToSelector())
   {
     v9->_supportedJobs |= 0x20u;
   }
 
-  v22 = v9->_receiver;
   if (objc_opt_respondsToSelector())
   {
     v9->_supportedJobs |= 0x40u;
   }
 
-  v23 = v9->_receiver;
   if (objc_opt_respondsToSelector())
   {
     v9->_supportedJobs |= 0x1000u;
   }
 
-  v24 = v9->_receiver;
   if (objc_opt_respondsToSelector())
   {
     v9->_supportedJobs |= 0x2000u;
   }
 
-  v25 = v9->_receiver;
   if (objc_opt_respondsToSelector())
   {
     v9->_supportedJobs |= 0x80u;
   }
 
-  v26 = v9->_receiver;
   if (objc_opt_respondsToSelector())
   {
     v9->_supportedJobs |= 0x100u;
   }
 
-  v27 = v9->_receiver;
   if (objc_opt_respondsToSelector())
   {
     v9->_supportedJobs |= 0x200u;
   }
 
-  v28 = v9->_receiver;
   if (objc_opt_respondsToSelector())
   {
     v9->_supportedJobs |= 0x400u;
   }
 
-  v29 = v9->_receiver;
   if (objc_opt_respondsToSelector())
   {
-    v30 = 2048;
+    v13 = 2048;
   }
 
   else
   {
-    v31 = v9->_receiver;
     if ((objc_opt_respondsToSelector() & 1) == 0)
     {
       goto LABEL_39;
     }
 
-    v30 = 0x4000;
+    v13 = 0x4000;
   }
 
-  v9->_supportedJobs |= v30;
+  v9->_supportedJobs |= v13;
 LABEL_39:
   if ([(SpotlightReceiver *)v9->_receiver conformsToProtocol:&unk_284827A00])
   {
@@ -161,12 +143,12 @@ LABEL_41:
 
 - (CSReceiverConnection)initWithScheduledReceiver:(id)receiver forServiceName:(id)name
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   receiverCopy = receiver;
   nameCopy = name;
-  v41.receiver = self;
-  v41.super_class = CSReceiverConnection;
-  v9 = [(CSXPCConnection *)&v41 initMachServiceListenerWithName:nameCopy];
+  v37.receiver = self;
+  v37.super_class = CSReceiverConnection;
+  v9 = [(CSXPCConnection *)&v37 initMachServiceListenerWithName:nameCopy];
   v10 = v9;
   if (v9)
   {
@@ -176,86 +158,83 @@ LABEL_41:
     v10->_indexes = v11;
 
     v10->_lock._os_unfair_lock_opaque = 0;
-    scheduledReceiver = v10->_scheduledReceiver;
     if (objc_opt_respondsToSelector())
     {
       v10->_supportedJobs |= 0x20000u;
     }
 
-    v14 = v10->_scheduledReceiver;
     if (objc_opt_respondsToSelector())
     {
       v10->_supportedJobs |= 0x40000u;
     }
 
-    v15 = v10->_scheduledReceiver;
     if (objc_opt_respondsToSelector())
     {
       v10->_supportedJobs |= 0x80000u;
     }
 
-    v16 = getScheduledReceiverConfigPathForService_onceToken;
-    v17 = nameCopy;
-    if (v16 != -1)
+    v13 = getScheduledReceiverConfigPathForService_onceToken;
+    v14 = nameCopy;
+    if (v13 != -1)
     {
       [CSReceiverConnection initWithScheduledReceiver:forServiceName:];
     }
 
-    v18 = [getScheduledReceiverConfigPathForService_sReceiverConfigs objectForKeyedSubscript:v17];
+    v15 = [getScheduledReceiverConfigPathForService_sReceiverConfigs objectForKeyedSubscript:v14];
 
-    if (v18)
+    if (v15)
     {
-      v19 = [MEMORY[0x277CBEBC0] fileURLWithPath:v18];
-      if (v19)
+      v16 = [MEMORY[0x277CBEBC0] fileURLWithPath:v15];
+      if (v16)
       {
-        v40 = 0;
-        v20 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v19 error:&v40];
-        v21 = v40;
-        if (v20)
+        v36 = 0;
+        v17 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v16 error:&v36];
+        v18 = v36;
+        if (v17)
         {
-          v22 = [v20 objectForKeyedSubscript:@"configs"];
-          if (v22)
+          v19 = [v17 objectForKeyedSubscript:@"configs"];
+          if (v19)
           {
-            v23 = v22;
-            v24 = [v20 objectForKeyedSubscript:@"configs"];
+            v20 = v19;
+            v21 = [v17 objectForKeyedSubscript:@"configs"];
             objc_opt_class();
             isKindOfClass = objc_opt_isKindOfClass();
 
             if (isKindOfClass)
             {
-              v34 = v21;
-              v35 = v18;
-              v26 = [v20 objectForKeyedSubscript:@"configs"];
-              v36 = 0u;
-              v37 = 0u;
-              v38 = 0u;
-              v39 = 0u;
-              v27 = [v26 countByEnumeratingWithState:&v36 objects:v42 count:16];
-              if (v27)
+              v30 = v18;
+              v31 = v15;
+              v23 = [v17 objectForKeyedSubscript:@"configs"];
+              v32 = 0u;
+              v33 = 0u;
+              v34 = 0u;
+              v35 = 0u;
+              v24 = [v23 countByEnumeratingWithState:&v32 objects:v38 count:16];
+              if (v24)
               {
-                v28 = v27;
-                v29 = *v37;
+                v25 = v24;
+                v26 = *v33;
                 do
                 {
-                  for (i = 0; i != v28; ++i)
+                  for (i = 0; i != v25; ++i)
                   {
-                    if (*v37 != v29)
+                    if (*v33 != v26)
                     {
-                      objc_enumerationMutation(v26);
+                      objc_enumerationMutation(v23);
                     }
 
-                    v31 = [[SpotlightScheduledReceiverConfig alloc] initWithConfigurationValues:*(*(&v36 + 1) + 8 * i)];
-                    [(CSReceiverConnection *)v10 addConfiguration:v31];
+                    v28 = [[SpotlightScheduledReceiverConfig alloc] initWithConfigurationValues:*(*(&v32 + 1) + 8 * i)];
+                    [(CSReceiverConnection *)v10 addConfiguration:v28];
                   }
 
-                  v28 = [v26 countByEnumeratingWithState:&v36 objects:v42 count:16];
+                  v25 = [v23 countByEnumeratingWithState:&v32 objects:v38 count:16];
                 }
 
-                while (v28);
+                while (v25);
               }
 
-              v18 = v35;
-              v21 = v34;
+              v15 = v31;
+              v18 = v30;
             }
           }
         }
@@ -263,26 +242,25 @@ LABEL_41:
 
       else
       {
-        v20 = 0;
-        v21 = 0;
+        v17 = 0;
+        v18 = 0;
       }
     }
 
     else
     {
-      v20 = 0;
-      v21 = 0;
-      v19 = 0;
+      v17 = 0;
+      v18 = 0;
+      v16 = 0;
     }
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (void)addConfiguration:(id)configuration
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   v5 = configurationCopy;
   configs = self->_configs;
@@ -291,9 +269,9 @@ LABEL_41:
     v9 = logForCSLogCategoryDefault();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 138412290;
-      v21 = v5;
-      _os_log_impl(&dword_232D5E000, v9, OS_LOG_TYPE_DEFAULT, "### RECEIVER adding config %@", &v20, 0xCu);
+      v17 = 138412290;
+      v18 = v5;
+      _os_log_impl(&dword_232D5E000, v9, OS_LOG_TYPE_DEFAULT, "### RECEIVER adding config %@", &v17, 0xCu);
     }
 
     v10 = self->_configs;
@@ -316,7 +294,6 @@ LABEL_41:
       [(NSMutableDictionary *)v15 setObject:v5 forKey:identifier2];
     }
 
-    scheduledReceiver = self->_scheduledReceiver;
     if (objc_opt_respondsToSelector())
     {
       self->_supportedJobs |= 0x8000u;
@@ -326,19 +303,16 @@ LABEL_41:
       }
     }
 
-    v18 = self->_scheduledReceiver;
     if (objc_opt_respondsToSelector())
     {
       self->_supportedJobs |= 0x8000u;
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)addClientConnectionIfAllowedForConnection:(id)connection
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   pid = xpc_connection_get_pid(connectionCopy);
   xpc_connection_get_audit_token();
@@ -376,13 +350,12 @@ LABEL_41:
     LOBYTE(bOOLValue) = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return bOOLValue;
 }
 
 - (BOOL)handleCommand:(const char *)command info:(id)info connection:(id)connection
 {
-  v146 = *MEMORY[0x277D85DE8];
+  v141 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   connectionCopy = connection;
   reply = xpc_dictionary_create_reply(infoCopy);
@@ -397,10 +370,10 @@ LABEL_41:
     {
       *buf = 136315650;
       commandCopy = command;
-      v142 = 1024;
-      v143 = euid;
-      v144 = 2048;
-      v145 = infoCopy;
+      v137 = 1024;
+      v138 = euid;
+      v139 = 2048;
+      v140 = infoCopy;
       _os_log_debug_impl(&dword_232D5E000, v13, OS_LOG_TYPE_DEBUG, "receiver command %s cuid: %d info:%p", buf, 0x1Cu);
     }
   }
@@ -416,10 +389,10 @@ LABEL_41:
     uint64 = xpc_dictionary_get_uint64(infoCopy, "jt");
     if ((uint64 & self->_supportedJobs) == 0)
     {
-      v29 = logForCSLogCategoryDefault();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v28 = logForCSLogCategoryDefault();
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        [CSReceiverConnection handleCommand:&self->_supportedJobs info:v29 connection:?];
+        [CSReceiverConnection handleCommand:&self->_supportedJobs info:v28 connection:?];
       }
 
       scheduledReceiver = [(CSReceiverConnection *)self scheduledReceiver];
@@ -448,8 +421,8 @@ LABEL_41:
 
       if (v21)
       {
-        v36 = logForCSLogCategoryDefault();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+        v35 = logForCSLogCategoryDefault();
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
         {
           [CSReceiverConnection handleCommand:info:connection:];
         }
@@ -473,11 +446,11 @@ LABEL_97:
 
           if (uint64 == 1)
           {
-            v54 = [MEMORY[0x277CC3510] dataWrapperForKey:"i" sizeKey:"i-size" fromXPCDictionary:infoCopy];
-            v55 = [MEMORY[0x277CC3510] dataWrapperForKey:"c" sizeKey:"c-size" fromXPCDictionary:infoCopy];
-            v15 = [(CSReceiverConnection *)self indexFromBundle:queue3 protectionClass:v17 items:v54 itemsContent:v55];
-            v56 = objc_opt_self();
-            v57 = objc_opt_self();
+            v52 = [MEMORY[0x277CC3510] dataWrapperForKey:"i" sizeKey:"i-size" fromXPCDictionary:infoCopy];
+            v53 = [MEMORY[0x277CC3510] dataWrapperForKey:"c" sizeKey:"c-size" fromXPCDictionary:infoCopy];
+            v15 = [(CSReceiverConnection *)self indexFromBundle:queue3 protectionClass:v17 items:v52 itemsContent:v53];
+            v54 = objc_opt_self();
+            v55 = objc_opt_self();
 
             goto LABEL_9;
           }
@@ -487,31 +460,31 @@ LABEL_97:
 
         if (((1 << (uint64 - 2)) & 0x4045) != 0)
         {
-          v126 = [MEMORY[0x277CC3510] dataWrapperForKey:"ids" sizeKey:"ids-size" fromXPCDictionary:infoCopy];
+          v121 = [MEMORY[0x277CC3510] dataWrapperForKey:"ids" sizeKey:"ids-size" fromXPCDictionary:infoCopy];
           if (uint64 == 16)
           {
             date = xpc_dictionary_get_date(infoCopy, "d");
             if (date)
             {
-              v92 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:date];
-              v28 = 0;
+              v87 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:date];
               v27 = 0;
-              v93 = v92;
+              v26 = 0;
+              v88 = v87;
 LABEL_146:
-              v123 = v93;
-              v94 = v28;
-              v95 = v27;
+              v118 = v88;
+              v89 = v27;
+              v90 = v26;
               v15 = [CSReceiverConnection deleteFromBundle:"deleteFromBundle:sinceDate:domains:deletes:" sinceDate:queue3 domains:? deletes:?];
 
-              v96 = v123;
+              v91 = v118;
 LABEL_168:
 
               goto LABEL_9;
             }
 
-            v97 = logForCSLogCategoryDefault();
-            v96 = v97;
-            if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
+            v92 = logForCSLogCategoryDefault();
+            v91 = v92;
+            if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
             {
               [CSReceiverConnection handleCommand:info:connection:];
               goto LABEL_166;
@@ -524,24 +497,23 @@ LABEL_168:
           {
             if (uint64 == 2)
             {
-              if (v126)
+              if (v121)
               {
                 v22 = objc_alloc(MEMORY[0x277CC33C8]);
-                data = [v126 data];
+                data = [v121 data];
                 v24 = [v22 initWithData:data];
 
-                if (v24 && ([v24 obj], _MDPlistGetPlistObjectType() == 240) && (objc_msgSend(v24, "obj"), _MDPlistArrayGetCount()))
+                if (v24 && (objc_msgSend_obj(v24), _MDPlistGetPlistObjectType() == 240) && (objc_msgSend_obj(v24), _MDPlistArrayGetCount()))
                 {
-                  [v24 obj];
-                  v25 = *MEMORY[0x277CBECE8];
-                  v26 = _MDPlistContainerCopyObject();
+                  objc_msgSend_obj(v24);
+                  v25 = _MDPlistContainerCopyObject();
 
-                  if (v26)
+                  if (v25)
                   {
-                    v27 = v26;
-                    v28 = 0;
+                    v26 = v25;
+                    v27 = 0;
 LABEL_145:
-                    v93 = 0;
+                    v88 = 0;
                     goto LABEL_146;
                   }
                 }
@@ -551,9 +523,9 @@ LABEL_145:
                 }
               }
 
-              v97 = logForCSLogCategoryDefault();
-              v96 = v97;
-              if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
+              v92 = logForCSLogCategoryDefault();
+              v91 = v92;
+              if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
               {
                 [CSReceiverConnection handleCommand:info:connection:];
                 goto LABEL_166;
@@ -562,27 +534,26 @@ LABEL_145:
               goto LABEL_167;
             }
 
-            v28 = 0;
-LABEL_144:
             v27 = 0;
+LABEL_144:
+            v26 = 0;
             goto LABEL_145;
           }
 
-          if (v126)
+          if (v121)
           {
-            v86 = objc_alloc(MEMORY[0x277CC33C8]);
-            data2 = [v126 data];
-            v88 = [v86 initWithData:data2];
+            v82 = objc_alloc(MEMORY[0x277CC33C8]);
+            data2 = [v121 data];
+            v84 = [v82 initWithData:data2];
 
-            if (v88 && ([v88 obj], _MDPlistGetPlistObjectType() == 240) && (objc_msgSend(v88, "obj"), _MDPlistArrayGetCount()))
+            if (v84 && (objc_msgSend_obj(v84), _MDPlistGetPlistObjectType() == 240) && (objc_msgSend_obj(v84), _MDPlistArrayGetCount()))
             {
-              [v88 obj];
-              v89 = *MEMORY[0x277CBECE8];
-              v90 = _MDPlistContainerCopyObject();
+              objc_msgSend_obj(v84);
+              v85 = _MDPlistContainerCopyObject();
 
-              if (v90)
+              if (v85)
               {
-                v28 = v90;
+                v27 = v85;
                 goto LABEL_144;
               }
             }
@@ -592,14 +563,14 @@ LABEL_144:
             }
           }
 
-          v97 = logForCSLogCategoryDefault();
-          v96 = v97;
-          if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
+          v92 = logForCSLogCategoryDefault();
+          v91 = v92;
+          if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
           {
             [CSReceiverConnection handleCommand:info:connection:];
 LABEL_166:
             v15 = -1;
-            v96 = v97;
+            v91 = v92;
             goto LABEL_168;
           }
 
@@ -612,16 +583,16 @@ LABEL_167:
         {
           if (uint64 == 64)
           {
-            v45 = [MEMORY[0x277CC3510] dataWrapperForKey:"a" sizeKey:"a-size" fromXPCDictionary:infoCopy];
-            if (v45)
+            v43 = [MEMORY[0x277CC3510] dataWrapperForKey:"a" sizeKey:"a-size" fromXPCDictionary:infoCopy];
+            if (v43)
             {
-              v15 = [(CSReceiverConnection *)self addUserActions:v45 bundleID:queue3 protectionClass:v17];
-              v53 = objc_opt_self();
+              v15 = [(CSReceiverConnection *)self addUserActions:v43 bundleID:queue3 protectionClass:v17];
+              v51 = objc_opt_self();
               goto LABEL_175;
             }
 
-            v98 = logForCSLogCategoryDefault();
-            if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
+            v93 = logForCSLogCategoryDefault();
+            if (os_log_type_enabled(v93, OS_LOG_TYPE_ERROR))
             {
               [CSReceiverConnection handleCommand:info:connection:];
             }
@@ -632,22 +603,21 @@ LABEL_167:
           goto LABEL_97;
         }
 
-        v61 = [MEMORY[0x277CC3510] dataWrapperForKey:"ids" sizeKey:"ids-size" fromXPCDictionary:infoCopy];
-        if (v61)
+        v59 = [MEMORY[0x277CC3510] dataWrapperForKey:"ids" sizeKey:"ids-size" fromXPCDictionary:infoCopy];
+        if (v59)
         {
-          v76 = objc_alloc(MEMORY[0x277CC33C8]);
-          data3 = [v61 data];
-          v78 = [v76 initWithData:data3];
+          v73 = objc_alloc(MEMORY[0x277CC33C8]);
+          data3 = [v59 data];
+          v75 = [v73 initWithData:data3];
 
-          if (v78 && ([v78 obj], _MDPlistGetPlistObjectType() == 240) && (objc_msgSend(v78, "obj"), _MDPlistArrayGetCount()))
+          if (v75 && (objc_msgSend_obj(v75), _MDPlistGetPlistObjectType() == 240) && (objc_msgSend_obj(v75), _MDPlistArrayGetCount()))
           {
-            [v78 obj];
-            v79 = *MEMORY[0x277CBECE8];
-            v66 = _MDPlistContainerCopyObject();
+            objc_msgSend_obj(v75);
+            v63 = _MDPlistContainerCopyObject();
 
-            if (v66)
+            if (v63)
             {
-              v15 = [(CSReceiverConnection *)self purgeFromBundle:queue3 identifiers:v66];
+              v15 = [(CSReceiverConnection *)self purgeFromBundle:queue3 identifiers:v63];
               goto LABEL_189;
             }
           }
@@ -657,8 +627,8 @@ LABEL_167:
           }
         }
 
-        v66 = logForCSLogCategoryDefault();
-        if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+        v63 = logForCSLogCategoryDefault();
+        if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
         {
           [CSReceiverConnection handleCommand:info:connection:];
         }
@@ -671,18 +641,18 @@ LABEL_167:
       {
         if (uint64 == 256)
         {
-          v83 = MEMORY[0x277CC3510];
-          v84 = xpc_dictionary_get_value(infoCopy, "ids");
-          v45 = [v83 copyNSStringArrayFromXPCArray:v84];
+          v79 = MEMORY[0x277CC3510];
+          v80 = xpc_dictionary_get_value(infoCopy, "ids");
+          v43 = [v79 copyNSStringArrayFromXPCArray:v80];
 
-          if (v45)
+          if (v43)
           {
-            v15 = [(CSReceiverConnection *)self deleteInteractionsWithIdentifiers:v45 bundleID:queue3 protectionClass:v17];
+            v15 = [(CSReceiverConnection *)self deleteInteractionsWithIdentifiers:v43 bundleID:queue3 protectionClass:v17];
             goto LABEL_175;
           }
 
-          v98 = logForCSLogCategoryDefault();
-          if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
+          v93 = logForCSLogCategoryDefault();
+          if (os_log_type_enabled(v93, OS_LOG_TYPE_ERROR))
           {
             [CSReceiverConnection handleCommand:info:connection:];
           }
@@ -692,20 +662,20 @@ LABEL_167:
 
         if (uint64 == 512)
         {
-          v43 = MEMORY[0x277CC3510];
-          v44 = xpc_dictionary_get_value(infoCopy, "ids");
-          v45 = [v43 copyNSStringArrayFromXPCArray:v44];
+          v41 = MEMORY[0x277CC3510];
+          v42 = xpc_dictionary_get_value(infoCopy, "ids");
+          v43 = [v41 copyNSStringArrayFromXPCArray:v42];
 
-          if (v45)
+          if (v43)
           {
-            v15 = [(CSReceiverConnection *)self deleteInteractionsWithGroupIdentifiers:v45 bundleID:queue3 protectionClass:v17];
+            v15 = [(CSReceiverConnection *)self deleteInteractionsWithGroupIdentifiers:v43 bundleID:queue3 protectionClass:v17];
 LABEL_175:
 
             goto LABEL_9;
           }
 
-          v98 = logForCSLogCategoryDefault();
-          if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
+          v93 = logForCSLogCategoryDefault();
+          if (os_log_type_enabled(v93, OS_LOG_TYPE_ERROR))
           {
             [CSReceiverConnection handleCommand:info:connection:];
           }
@@ -717,8 +687,8 @@ LABEL_174:
         }
 
 LABEL_132:
-        v85 = logForCSLogCategoryDefault();
-        if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
+        v81 = logForCSLogCategoryDefault();
+        if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
         {
           [CSReceiverConnection handleCommand:info:connection:];
         }
@@ -726,29 +696,16 @@ LABEL_132:
         goto LABEL_58;
       }
 
-      v61 = [MEMORY[0x277CC3510] dataWrapperForKey:"ins" sizeKey:"ins-size" fromXPCDictionary:infoCopy];
-      if (!v61)
+      v59 = [MEMORY[0x277CC3510] dataWrapperForKey:"ins" sizeKey:"ins-size" fromXPCDictionary:infoCopy];
+      if (v59 && (v76 = objc_alloc(MEMORY[0x277CCAAC8]), [v59 data], v77 = objc_claimAutoreleasedReturnValue(), v126 = objc_msgSend(v76, "initForReadingFromData:error:", v77, 0), v77, objc_msgSend(MEMORY[0x277CBEB98], "setWithObject:", objc_opt_class()), v78 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v126, "decodeObjectOfClasses:forKey:", v78, *MEMORY[0x277CCA308]), v63 = objc_claimAutoreleasedReturnValue(), v78, v126, v63))
       {
-        goto LABEL_186;
-      }
-
-      v80 = objc_alloc(MEMORY[0x277CCAAC8]);
-      data4 = [v61 data];
-      v131 = [v80 initForReadingFromData:data4 error:0];
-
-      v82 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
-      v66 = [v131 decodeObjectOfClasses:v82 forKey:*MEMORY[0x277CCA308]];
-
-      if (v66)
-      {
-        v15 = [(CSReceiverConnection *)self addInteraction:v66 bundleID:queue3 protectionClass:v17];
+        v15 = [(CSReceiverConnection *)self addInteraction:v63 bundleID:queue3 protectionClass:v17];
       }
 
       else
       {
-LABEL_186:
-        v66 = logForCSLogCategoryDefault();
-        if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+        v63 = logForCSLogCategoryDefault();
+        if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
         {
           [CSReceiverConnection handleCommand:info:connection:];
         }
@@ -768,37 +725,37 @@ LABEL_189:
         switch(uint64)
         {
           case 0x20000:
-            v59 = logForCSLogCategoryDefault();
-            if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+            v57 = logForCSLogCategoryDefault();
+            if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
             {
               serviceName = [(CSXPCConnection *)self serviceName];
               *buf = 138412290;
               commandCopy = serviceName;
-              _os_log_impl(&dword_232D5E000, v59, OS_LOG_TYPE_DEFAULT, "### SCHEDULED RECEIVER suspend %@", buf, 0xCu);
+              _os_log_impl(&dword_232D5E000, v57, OS_LOG_TYPE_DEFAULT, "### SCHEDULED RECEIVER suspend %@", buf, 0xCu);
             }
 
             [(SpotlightScheduledReceiver *)self->_scheduledReceiver suspend];
             goto LABEL_58;
           case 0x40000:
-            v67 = logForCSLogCategoryDefault();
-            if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
+            v64 = logForCSLogCategoryDefault();
+            if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
             {
               serviceName2 = [(CSXPCConnection *)self serviceName];
               *buf = 138412290;
               commandCopy = serviceName2;
-              _os_log_impl(&dword_232D5E000, v67, OS_LOG_TYPE_DEFAULT, "### SCHEDULED RECEIVER resume %@", buf, 0xCu);
+              _os_log_impl(&dword_232D5E000, v64, OS_LOG_TYPE_DEFAULT, "### SCHEDULED RECEIVER resume %@", buf, 0xCu);
             }
 
             [(SpotlightScheduledReceiver *)self->_scheduledReceiver resume];
             goto LABEL_58;
           case 0x80000:
-            v34 = logForCSLogCategoryDefault();
-            if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+            v33 = logForCSLogCategoryDefault();
+            if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
             {
               serviceName3 = [(CSXPCConnection *)self serviceName];
               *buf = 138412290;
               commandCopy = serviceName3;
-              _os_log_impl(&dword_232D5E000, v34, OS_LOG_TYPE_DEFAULT, "### SCHEDULED RECEIVER reset %@", buf, 0xCu);
+              _os_log_impl(&dword_232D5E000, v33, OS_LOG_TYPE_DEFAULT, "### SCHEDULED RECEIVER reset %@", buf, 0xCu);
             }
 
             [(SpotlightScheduledReceiver *)self->_scheduledReceiver reset];
@@ -810,54 +767,54 @@ LABEL_189:
 
       if (uint64 == 0x8000)
       {
-        v118 = xpc_dictionary_get_value(infoCopy, "fd");
-        v110 = xpc_dictionary_get_uint64(infoCopy, "f-off");
-        v109 = xpc_dictionary_get_uint64(infoCopy, "f-size");
-        v111 = xpc_dictionary_get_uint64(infoCopy, "itype");
-        xfda = xpc_fd_dup(v118);
+        v113 = xpc_dictionary_get_value(infoCopy, "fd");
+        v105 = xpc_dictionary_get_uint64(infoCopy, "f-off");
+        v104 = xpc_dictionary_get_uint64(infoCopy, "f-size");
+        v106 = xpc_dictionary_get_uint64(infoCopy, "itype");
+        xfda = xpc_fd_dup(v113);
         if ((xfda & 0x80000000) == 0)
         {
-          v116 = xpc_dictionary_get_array(infoCopy, "aatrs");
-          v114 = [MEMORY[0x277CC3510] copyNSStringOrDictArrayFromXPCArray:v116];
-          firstObject = [v114 firstObject];
-          v113 = [MEMORY[0x277CC3510] copyNSStringForKey:"cnm" fromXPCDictionary:infoCopy];
-          v122 = [(CSReceiverConnection *)self configForIdentifier:v113];
-          v129 = [SpotlightReceiverDonation alloc];
-          versionName = [v122 versionName];
-          versionValue = [v122 versionValue];
-          v130 = [(SpotlightReceiverDonation *)v129 initWithVersionName:versionName versionValue:versionValue];
+          v111 = xpc_dictionary_get_array(infoCopy, "aatrs");
+          v109 = [MEMORY[0x277CC3510] copyNSStringOrDictArrayFromXPCArray:v111];
+          firstObject = [v109 firstObject];
+          v108 = [MEMORY[0x277CC3510] copyNSStringForKey:"cnm" fromXPCDictionary:infoCopy];
+          v117 = [(CSReceiverConnection *)self configForIdentifier:v108];
+          v124 = [SpotlightReceiverDonation alloc];
+          versionName = [v117 versionName];
+          versionValue = [v117 versionValue];
+          v125 = [(SpotlightReceiverDonation *)v124 initWithVersionName:versionName versionValue:versionValue];
 
-          [(SpotlightReceiverDonation *)v130 setDonationType:1];
-          [(SpotlightReceiverDonation *)v130 setIndexType:indexTypeForValue(v111)];
-          [(SpotlightReceiverDonation *)v130 setBundleIdentifier:queue3];
-          [(SpotlightReceiverDonation *)v130 setProtectionClass:v17];
-          [(SpotlightReceiverDonation *)v130 setSerialNumber:xpc_dictionary_get_uint64(infoCopy, "s-num")];
-          v71 = [MEMORY[0x277CC3510] copyNSStringForKey:"j-cook" fromXPCDictionary:infoCopy];
-          [(SpotlightReceiverDonation *)v130 setJournalCookie:v71];
+          [(SpotlightReceiverDonation *)v125 setDonationType:1];
+          [(SpotlightReceiverDonation *)v125 setIndexType:indexTypeForValue(v106)];
+          [(SpotlightReceiverDonation *)v125 setBundleIdentifier:queue3];
+          [(SpotlightReceiverDonation *)v125 setProtectionClass:v17];
+          [(SpotlightReceiverDonation *)v125 setSerialNumber:xpc_dictionary_get_uint64(infoCopy, "s-num")];
+          v68 = [MEMORY[0x277CC3510] copyNSStringForKey:"j-cook" fromXPCDictionary:infoCopy];
+          [(SpotlightReceiverDonation *)v125 setJournalCookie:v68];
 
-          name = [v122 name];
-          [(SpotlightReceiverDonation *)v130 setConfigName:name];
+          name = [v117 name];
+          [(SpotlightReceiverDonation *)v125 setConfigName:name];
 
-          v73 = xpc_dictionary_get_remote_connection(infoCopy);
-          v74 = logForCSLogCategoryDefault();
-          if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
+          v70 = xpc_dictionary_get_remote_connection(infoCopy);
+          v71 = logForCSLogCategoryDefault();
+          if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_232D5E000, v74, OS_LOG_TYPE_DEFAULT, "### SCHEDULED RECEIVER processing add/updated batch", buf, 2u);
+            _os_log_impl(&dword_232D5E000, v71, OS_LOG_TYPE_DEFAULT, "### SCHEDULED RECEIVER processing add/updated batch", buf, 2u);
           }
 
-          v136[0] = MEMORY[0x277D85DD0];
-          v136[1] = 3221225472;
-          v136[2] = __54__CSReceiverConnection_handleCommand_info_connection___block_invoke;
-          v136[3] = &unk_2789ADF90;
-          v139 = xfda;
-          v137 = reply;
-          v138 = v73;
-          v75 = v73;
-          [(CSReceiverConnection *)self indexWithFd:xfda offset:v110 size:v109 donation:v130 additionalAttributes:firstObject config:v122 completionHandler:v136];
+          v131[0] = MEMORY[0x277D85DD0];
+          v131[1] = 3221225472;
+          v131[2] = __54__CSReceiverConnection_handleCommand_info_connection___block_invoke;
+          v131[3] = &unk_2789ADF90;
+          v134 = xfda;
+          v132 = reply;
+          v133 = v70;
+          v72 = v70;
+          [(CSReceiverConnection *)self indexWithFd:xfda offset:v105 size:v104 donation:v125 additionalAttributes:firstObject config:v117 completionHandler:v131];
         }
 
-        v52 = xfda;
+        v50 = xfda;
       }
 
       else
@@ -868,44 +825,44 @@ LABEL_189:
         }
 
         xfd = xpc_dictionary_get_value(infoCopy, "fd");
-        v117 = xpc_dictionary_get_uint64(infoCopy, "f-off");
-        v115 = xpc_dictionary_get_uint64(infoCopy, "f-size");
-        v47 = xpc_dictionary_get_uint64(infoCopy, "itype");
-        v121 = xpc_fd_dup(xfd);
-        if ((v121 & 0x80000000) == 0)
+        v112 = xpc_dictionary_get_uint64(infoCopy, "f-off");
+        v110 = xpc_dictionary_get_uint64(infoCopy, "f-size");
+        v45 = xpc_dictionary_get_uint64(infoCopy, "itype");
+        v116 = xpc_fd_dup(xfd);
+        if ((v116 & 0x80000000) == 0)
         {
-          v128 = objc_alloc_init(SpotlightReceiverDonation);
-          [(SpotlightReceiverDonation *)v128 setDonationType:3];
-          [(SpotlightReceiverDonation *)v128 setIndexType:indexTypeForValue(v47)];
-          [(SpotlightReceiverDonation *)v128 setBundleIdentifier:queue3];
-          [(SpotlightReceiverDonation *)v128 setProtectionClass:v17];
-          [(SpotlightReceiverDonation *)v128 setSerialNumber:xpc_dictionary_get_uint64(infoCopy, "s-num")];
-          v48 = [MEMORY[0x277CC3510] copyNSStringForKey:"j-cook" fromXPCDictionary:infoCopy];
-          [(SpotlightReceiverDonation *)v128 setJournalCookie:v48];
+          v123 = objc_alloc_init(SpotlightReceiverDonation);
+          [(SpotlightReceiverDonation *)v123 setDonationType:3];
+          [(SpotlightReceiverDonation *)v123 setIndexType:indexTypeForValue(v45)];
+          [(SpotlightReceiverDonation *)v123 setBundleIdentifier:queue3];
+          [(SpotlightReceiverDonation *)v123 setProtectionClass:v17];
+          [(SpotlightReceiverDonation *)v123 setSerialNumber:xpc_dictionary_get_uint64(infoCopy, "s-num")];
+          v46 = [MEMORY[0x277CC3510] copyNSStringForKey:"j-cook" fromXPCDictionary:infoCopy];
+          [(SpotlightReceiverDonation *)v123 setJournalCookie:v46];
 
-          v49 = xpc_dictionary_get_remote_connection(infoCopy);
-          v50 = logForCSLogCategoryDefault();
-          if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+          v47 = xpc_dictionary_get_remote_connection(infoCopy);
+          v48 = logForCSLogCategoryDefault();
+          if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_232D5E000, v50, OS_LOG_TYPE_DEFAULT, "### SCHEDULED RECEIVER processing delete item batch", buf, 2u);
+            _os_log_impl(&dword_232D5E000, v48, OS_LOG_TYPE_DEFAULT, "### SCHEDULED RECEIVER processing delete item batch", buf, 2u);
           }
 
-          v132[0] = MEMORY[0x277D85DD0];
-          v132[1] = 3221225472;
-          v132[2] = __54__CSReceiverConnection_handleCommand_info_connection___block_invoke_387;
-          v132[3] = &unk_2789ADFB8;
-          v135 = v121;
-          v133 = reply;
-          v134 = v49;
-          v51 = v49;
-          [(CSReceiverConnection *)self deleteWithFd:v121 offset:v117 size:v115 donation:v128 completionHandler:v132];
+          v127[0] = MEMORY[0x277D85DD0];
+          v127[1] = 3221225472;
+          v127[2] = __54__CSReceiverConnection_handleCommand_info_connection___block_invoke_387;
+          v127[3] = &unk_2789ADFB8;
+          v130 = v116;
+          v128 = reply;
+          v129 = v47;
+          v49 = v47;
+          [(CSReceiverConnection *)self deleteWithFd:v116 offset:v112 size:v110 donation:v123 completionHandler:v127];
         }
 
-        v52 = v121;
+        v50 = v116;
       }
 
-      v18 = v52 >= 0;
+      v18 = v50 >= 0;
       goto LABEL_59;
     }
 
@@ -918,30 +875,30 @@ LABEL_189:
           goto LABEL_132;
         }
 
-        v46 = xpc_dictionary_get_value(infoCopy, "ra");
-        v32 = v46;
-        if (v46 && MEMORY[0x238394C70](v46) == MEMORY[0x277D86458] && (length = xpc_data_get_length(v32)) != 0 && (bytes_ptr = xpc_data_get_bytes_ptr(v32)) != 0 && ([MEMORY[0x277CBEA90] dataWithBytesNoCopy:bytes_ptr length:length freeWhenDone:0], (v127 = objc_claimAutoreleasedReturnValue()) != 0))
+        v44 = xpc_dictionary_get_value(infoCopy, "ra");
+        v31 = v44;
+        if (v44 && MEMORY[0x238394C70](v44) == MEMORY[0x277D86458] && (length = xpc_data_get_length(v31)) != 0 && (bytes_ptr = xpc_data_get_bytes_ptr(v31)) != 0 && ([MEMORY[0x277CBEA90] dataWithBytesNoCopy:bytes_ptr length:length freeWhenDone:0], (v122 = objc_claimAutoreleasedReturnValue()) != 0))
         {
-          v125 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v127 error:0];
-          v106 = MEMORY[0x277CBEB98];
-          v107 = objc_opt_class();
-          v108 = [v106 setWithObjects:{v107, objc_opt_class(), 0}];
-          v33 = [v125 decodeObjectOfClasses:v108 forKey:*MEMORY[0x277CCA308]];
+          v120 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v122 error:0];
+          v101 = MEMORY[0x277CBEB98];
+          v102 = objc_opt_class();
+          v103 = [v101 setWithObjects:{v102, objc_opt_class(), 0}];
+          v32 = [v120 decodeObjectOfClasses:v103 forKey:*MEMORY[0x277CCA308]];
 
-          if (v33)
+          if (v32)
           {
-            v15 = [(CSReceiverConnection *)self donateRelevantShortcuts:v33 bundleID:queue3];
+            v15 = [(CSReceiverConnection *)self donateRelevantShortcuts:v32 bundleID:queue3];
             goto LABEL_46;
           }
         }
 
         else
         {
-          v127 = 0;
+          v122 = 0;
         }
 
-        v33 = logForCSLogCategoryDefault();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+        v32 = logForCSLogCategoryDefault();
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
           [CSReceiverConnection handleCommand:info:connection:];
         }
@@ -950,7 +907,7 @@ LABEL_189:
         goto LABEL_46;
       }
 
-      v58 = [(CSReceiverConnection *)self deleteAllInteractionsWithBundleID:queue3 protectionClass:v17];
+      v56 = [(CSReceiverConnection *)self deleteAllInteractionsWithBundleID:queue3 protectionClass:v17];
     }
 
     else
@@ -959,22 +916,21 @@ LABEL_189:
       {
         if (uint64 == 0x2000)
         {
-          v61 = [MEMORY[0x277CC3510] dataWrapperForKey:"ids" sizeKey:"ids-size" fromXPCDictionary:infoCopy];
-          if (v61)
+          v59 = [MEMORY[0x277CC3510] dataWrapperForKey:"ids" sizeKey:"ids-size" fromXPCDictionary:infoCopy];
+          if (v59)
           {
-            v62 = objc_alloc(MEMORY[0x277CC33C8]);
-            data5 = [v61 data];
-            v64 = [v62 initWithData:data5];
+            v60 = objc_alloc(MEMORY[0x277CC33C8]);
+            data4 = [v59 data];
+            v62 = [v60 initWithData:data4];
 
-            if (v64 && ([v64 obj], _MDPlistGetPlistObjectType() == 240) && (objc_msgSend(v64, "obj"), _MDPlistArrayGetCount()))
+            if (v62 && (objc_msgSend_obj(v62), _MDPlistGetPlistObjectType() == 240) && (objc_msgSend_obj(v62), _MDPlistArrayGetCount()))
             {
-              [v64 obj];
-              v65 = *MEMORY[0x277CBECE8];
-              v66 = _MDPlistContainerCopyObject();
+              objc_msgSend_obj(v62);
+              v63 = _MDPlistContainerCopyObject();
 
-              if (v66)
+              if (v63)
               {
-                v15 = [(CSReceiverConnection *)self deleteUserActivitiesWithPersistentIdentifiers:v66 bundleID:queue3];
+                v15 = [(CSReceiverConnection *)self deleteUserActivitiesWithPersistentIdentifiers:v63 bundleID:queue3];
                 goto LABEL_189;
               }
             }
@@ -984,8 +940,8 @@ LABEL_189:
             }
           }
 
-          v66 = logForCSLogCategoryDefault();
-          if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+          v63 = logForCSLogCategoryDefault();
+          if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
           {
             [CSReceiverConnection handleCommand:info:connection:];
           }
@@ -999,19 +955,19 @@ LABEL_189:
           goto LABEL_132;
         }
 
-        v31 = xpc_dictionary_get_value(infoCopy, "ra");
-        v32 = v31;
-        if (v31 && MEMORY[0x238394C70](v31) == MEMORY[0x277D86458] && (v99 = xpc_data_get_length(v32)) != 0 && (v100 = xpc_data_get_bytes_ptr(v32)) != 0 && ([MEMORY[0x277CBEA90] dataWithBytesNoCopy:v100 length:v99 freeWhenDone:0], (v127 = objc_claimAutoreleasedReturnValue()) != 0))
+        v30 = xpc_dictionary_get_value(infoCopy, "ra");
+        v31 = v30;
+        if (v30 && MEMORY[0x238394C70](v30) == MEMORY[0x277D86458] && (v94 = xpc_data_get_length(v31)) != 0 && (v95 = xpc_data_get_bytes_ptr(v31)) != 0 && ([MEMORY[0x277CBEA90] dataWithBytesNoCopy:v95 length:v94 freeWhenDone:0], (v122 = objc_claimAutoreleasedReturnValue()) != 0))
         {
-          v124 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v127 error:0];
-          v101 = MEMORY[0x277CBEB98];
-          v102 = objc_opt_class();
-          v103 = [v101 setWithObjects:{v102, objc_opt_class(), 0}];
-          v33 = [v124 decodeObjectOfClasses:v103 forKey:*MEMORY[0x277CCA308]];
+          v119 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v122 error:0];
+          v96 = MEMORY[0x277CBEB98];
+          v97 = objc_opt_class();
+          v98 = [v96 setWithObjects:{v97, objc_opt_class(), 0}];
+          v32 = [v119 decodeObjectOfClasses:v98 forKey:*MEMORY[0x277CCA308]];
 
-          if (v33)
+          if (v32)
           {
-            v15 = [(CSReceiverConnection *)self donateRelevantActions:v33 bundleID:queue3];
+            v15 = [(CSReceiverConnection *)self donateRelevantActions:v32 bundleID:queue3];
 LABEL_46:
 
             goto LABEL_9;
@@ -1020,11 +976,11 @@ LABEL_46:
 
         else
         {
-          v127 = 0;
+          v122 = 0;
         }
 
-        v33 = logForCSLogCategoryDefault();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+        v32 = logForCSLogCategoryDefault();
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
           [CSReceiverConnection handleCommand:info:connection:];
         }
@@ -1033,10 +989,10 @@ LABEL_46:
         goto LABEL_46;
       }
 
-      v58 = [(CSReceiverConnection *)self deleteAllUserActivities:queue3];
+      v56 = [(CSReceiverConnection *)self deleteAllUserActivities:queue3];
     }
 
-    v15 = v58;
+    v15 = v56;
     goto LABEL_9;
   }
 
@@ -1054,22 +1010,22 @@ LABEL_60:
       dispatch_queue_set_specific(queue2, SpotlightReceiverConnectionUIDKey, 0, 0);
     }
 
-    v38 = xpc_dictionary_get_remote_connection(infoCopy);
-    if (v38)
+    v37 = xpc_dictionary_get_remote_connection(infoCopy);
+    if (v37)
     {
-      v39 = reply == 0;
+      v38 = reply == 0;
     }
 
     else
     {
-      v39 = 1;
+      v38 = 1;
     }
 
-    v40 = v39 || v18;
-    if ((v40 & 1) == 0)
+    v39 = v38 || v18;
+    if ((v39 & 1) == 0)
     {
       xpc_dictionary_set_int64(reply, "status", v15);
-      xpc_connection_send_message(v38, reply);
+      xpc_connection_send_message(v37, reply);
     }
 
     goto LABEL_71;
@@ -1095,7 +1051,6 @@ LABEL_59:
 LABEL_71:
   }
 
-  v41 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -1122,40 +1077,40 @@ void __54__CSReceiverConnection_handleCommand_info_connection___block_invoke_387
 
 - (int)handleSetup:(id)setup
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   setupCopy = setup;
   xpc_dictionary_set_uint64(setupCopy, "jt", self->_supportedJobs);
   if ([(NSMutableDictionary *)self->_configs count])
   {
-    v75 = setupCopy;
-    v77 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v74 = setupCopy;
+    v76 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v5 = objc_alloc_init(MEMORY[0x277CBEB58]);
     v6 = objc_alloc_init(MEMORY[0x277CBEB58]);
-    v73 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v72 = objc_alloc_init(MEMORY[0x277CBEB58]);
     selfCopy = self;
+    v77 = 0u;
     v78 = 0u;
     v79 = 0u;
     v80 = 0u;
-    v81 = 0u;
     obj = [(CSReceiverConnection *)self configs];
-    v7 = [obj countByEnumeratingWithState:&v78 objects:v82 count:16];
+    v7 = [obj countByEnumeratingWithState:&v77 objects:v81 count:16];
     if (!v7)
     {
       goto LABEL_46;
     }
 
     v8 = v7;
-    v9 = *v79;
+    v9 = *v78;
     while (1)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v79 != v9)
+        if (*v78 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v78 + 1) + 8 * i);
+        v11 = *(*(&v77 + 1) + 8 * i);
         v12 = objc_alloc_init(MEMORY[0x277CBEB38]);
         name = [v11 name];
         [v12 setObject:name forKey:SpotlightScheduledReceiverConfigName];
@@ -1292,7 +1247,7 @@ void __54__CSReceiverConnection_handleCommand_info_connection___block_invoke_387
           [v12 setObject:excludeAttributes2 forKey:SpotlightScheduledReceiverConfigExcludeAttributes];
         }
 
-        [v77 addObject:v12];
+        [v76 addObject:v12];
         if (!v5)
         {
           if (!v6)
@@ -1342,7 +1297,7 @@ LABEL_40:
 LABEL_44:
       }
 
-      v8 = [obj countByEnumeratingWithState:&v78 objects:v82 count:16];
+      v8 = [obj countByEnumeratingWithState:&v77 objects:v81 count:16];
       if (!v8)
       {
 LABEL_46:
@@ -1356,12 +1311,12 @@ LABEL_46:
         contentTypes = selfCopy->_contentTypes;
         selfCopy->_contentTypes = allObjects2;
 
-        allObjects3 = [v73 allObjects];
+        allObjects3 = [v72 allObjects];
         INIntentClassNames = selfCopy->_INIntentClassNames;
         selfCopy->_INIntentClassNames = allObjects3;
 
-        setupCopy = v75;
-        [MEMORY[0x277CC3510] dictionary:v75 setStringOrDictionaryArray:v77 forKey:"jps"];
+        setupCopy = v74;
+        [MEMORY[0x277CC3510] dictionary:v74 setStringOrDictionaryArray:v76 forKey:"jps"];
 
         break;
       }
@@ -1386,7 +1341,6 @@ LABEL_46:
     [MEMORY[0x277CC3510] dictionary:setupCopy setStringArray:v70 forKey:"icls"];
   }
 
-  v71 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -1483,7 +1437,7 @@ uint64_t __43__CSReceiverConnection_enableDebuggability__block_invoke()
 
 - (id)fetchableIdentifiersFromDonation:(id)donation additionalAttributes:(id)attributes config:(id)config
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   donationCopy = donation;
   attributesCopy = attributes;
   configCopy = config;
@@ -1495,29 +1449,29 @@ uint64_t __43__CSReceiverConnection_enableDebuggability__block_invoke()
     v12 = allKeys;
     if (bundleIdentifier && protectionClass)
     {
-      v22 = [objc_alloc(MEMORY[0x277CC34A8]) initWithName:@"SKG" protectionClass:protectionClass bundleIdentifier:bundleIdentifier];
-      v30 = 0;
-      v31 = &v30;
-      v32 = 0x3032000000;
-      v33 = __Block_byref_object_copy_;
-      v34 = __Block_byref_object_dispose_;
-      v35 = [v12 mutableCopy];
+      v21 = [objc_alloc(MEMORY[0x277CC34A8]) initWithName:@"SKG" protectionClass:protectionClass bundleIdentifier:bundleIdentifier];
+      v29 = 0;
+      v30 = &v29;
+      v31 = 0x3032000000;
+      v32 = __Block_byref_object_copy_;
+      v33 = __Block_byref_object_dispose_;
+      v34 = [v12 mutableCopy];
       v13 = dispatch_group_create();
       dispatch_group_enter(v13);
       versionName = [configCopy versionName];
-      v36[0] = versionName;
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:1];
-      v24[0] = MEMORY[0x277D85DD0];
-      v24[1] = 3221225472;
-      v24[2] = __85__CSReceiverConnection_fetchableIdentifiersFromDonation_additionalAttributes_config___block_invoke;
-      v24[3] = &unk_2789AE000;
-      v25 = configCopy;
-      v26 = v12;
-      v29 = &v30;
-      v27 = bundleIdentifier;
+      v35[0] = versionName;
+      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __85__CSReceiverConnection_fetchableIdentifiersFromDonation_additionalAttributes_config___block_invoke;
+      v23[3] = &unk_2789AE000;
+      v24 = configCopy;
+      v25 = v12;
+      v28 = &v29;
+      v26 = bundleIdentifier;
       v16 = v13;
-      v28 = v16;
-      [v22 slowFetchAttributes:v15 protectionClass:protectionClass bundleID:v27 identifiers:v26 completionHandler:v24];
+      v27 = v16;
+      [v21 slowFetchAttributes:v15 protectionClass:protectionClass bundleID:v26 identifiers:v25 completionHandler:v23];
 
       v17 = dispatch_time(0, 1200000000000);
       if (dispatch_group_wait(v16, v17))
@@ -1529,9 +1483,9 @@ uint64_t __43__CSReceiverConnection_enableDebuggability__block_invoke()
         }
       }
 
-      v19 = v31[5];
+      v19 = v30[5];
 
-      _Block_object_dispose(&v30, 8);
+      _Block_object_dispose(&v29, 8);
     }
 
     else
@@ -1545,24 +1499,22 @@ uint64_t __43__CSReceiverConnection_enableDebuggability__block_invoke()
     v19 = MEMORY[0x277CBEBF8];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 void __85__CSReceiverConnection_fetchableIdentifiersFromDonation_additionalAttributes_config___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 count])
   {
     v5 = 0;
     v6 = *MEMORY[0x277CBEEE8];
     *&v4 = 138412546;
-    v17 = v4;
+    v16 = v4;
     do
     {
-      v7 = [v3 objectAtIndexedSubscript:{v5, v17}];
+      v7 = [v3 objectAtIndexedSubscript:{v5, v16}];
       v8 = [v7 firstObject];
       v9 = v8;
       if (v8)
@@ -1584,10 +1536,10 @@ void __85__CSReceiverConnection_fetchableIdentifiersFromDonation_additionalAttri
               if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
               {
                 v15 = *(a1 + 48);
-                *buf = v17;
-                v19 = v13;
-                v20 = 2112;
-                v21 = v15;
+                *buf = v16;
+                v18 = v13;
+                v19 = 2112;
+                v20 = v15;
                 _os_log_impl(&dword_232D5E000, v14, OS_LOG_TYPE_INFO, "### SCHEDULED RECEIVER ignoring already processing item %@ [%@]", buf, 0x16u);
               }
             }
@@ -1602,8 +1554,6 @@ void __85__CSReceiverConnection_fetchableIdentifiersFromDonation_additionalAttri
   }
 
   dispatch_group_leave(*(a1 + 56));
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)indexWithFd:(int)fd offset:(unint64_t)offset size:(unint64_t)size donation:(id)donation additionalAttributes:(id)attributes config:(id)config completionHandler:(id)handler
@@ -1614,16 +1564,16 @@ void __85__CSReceiverConnection_fetchableIdentifiersFromDonation_additionalAttri
   handlerCopy = handler;
   if (size)
   {
-    v50 = [(CSReceiverConnection *)self fetchableIdentifiersFromDonation:donationCopy additionalAttributes:attributesCopy config:configCopy];
-    if ([v50 count])
+    v48 = [(CSReceiverConnection *)self fetchableIdentifiersFromDonation:donationCopy additionalAttributes:attributesCopy config:configCopy];
+    if ([v48 count])
     {
-      v49 = attributesCopy;
+      v47 = attributesCopy;
       v19 = MEMORY[0x277CCACA8];
       serviceName = [(CSXPCConnection *)self serviceName];
       name = [configCopy name];
       v22 = [v19 stringWithFormat:@"%@.%@.adds", serviceName, name];
 
-      v48 = v22;
+      v46 = v22;
       uTF8String = [v22 UTF8String];
       v24 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
       v25 = dispatch_queue_attr_make_with_qos_class(v24, QOS_CLASS_DEFAULT, 0);
@@ -1632,12 +1582,12 @@ void __85__CSReceiverConnection_fetchableIdentifiersFromDonation_additionalAttri
       v27 = dispatch_group_create();
       v28 = -*MEMORY[0x277D85FA0];
       v29 = v28 & offset;
-      v45 = ((offset + size + *MEMORY[0x277D85FA0] - 1) & v28) + (v28 & offset);
-      v30 = mmap(0, v45, 1, 1, fd, v28 & offset);
+      v43 = ((offset + size + *MEMORY[0x277D85FA0] - 1) & v28) + (v28 & offset);
+      v30 = mmap(0, v43, 1, 1, fd, v28 & offset);
       if (v30 == -1)
       {
         handlerCopy[2](handlerCopy, 1, 0);
-        v36 = v50;
+        v34 = v48;
       }
 
       else
@@ -1645,81 +1595,79 @@ void __85__CSReceiverConnection_fetchableIdentifiersFromDonation_additionalAttri
         v31 = v30;
         fetchAttributes = [configCopy fetchAttributes];
         [donationCopy protectionClass];
-        v46 = v27;
+        v44 = v27;
         v32 = queue = v26;
-        scheduledReceiver = self->_scheduledReceiver;
+        v40 = objc_opt_respondsToSelector() & 1;
         v42 = objc_opt_respondsToSelector() & 1;
-        v34 = self->_scheduledReceiver;
-        v44 = objc_opt_respondsToSelector() & 1;
         enableDebuggability = [(CSReceiverConnection *)self enableDebuggability];
-        v76[0] = 0;
-        v76[1] = v76;
-        v76[2] = 0x2020000000;
-        v77 = -1;
-        v75[0] = 0;
-        v75[1] = v75;
-        v75[2] = 0x2020000000;
-        v75[3] = 0;
+        v74[0] = 0;
+        v74[1] = v74;
+        v74[2] = 0x2020000000;
+        v75 = -1;
+        v73[0] = 0;
+        v73[1] = v73;
+        v73[2] = 0x2020000000;
+        v73[3] = 0;
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __103__CSReceiverConnection_indexWithFd_offset_size_donation_additionalAttributes_config_completionHandler___block_invoke;
         block[3] = &unk_2789AE138;
-        v68 = v31;
+        v66 = v31;
         offsetCopy = offset;
-        v70 = v29;
+        v68 = v29;
         sizeCopy = size;
-        v36 = v50;
-        v58 = v50;
-        v59 = fetchAttributes;
-        v60 = v49;
-        v72 = enableDebuggability;
-        v61 = configCopy;
-        v62 = v32;
+        v34 = v48;
+        v56 = v48;
+        v57 = fetchAttributes;
+        v58 = v47;
+        v70 = enableDebuggability;
+        v59 = configCopy;
+        v60 = v32;
         selfCopy = self;
-        v73 = v42;
-        v64 = donationCopy;
-        v37 = v46;
-        v65 = v37;
-        v66 = v76;
-        v67 = v75;
-        v74 = v44;
-        v38 = v32;
-        v39 = fetchAttributes;
-        dispatch_group_async(v37, queue, block);
-        v51[0] = MEMORY[0x277D85DD0];
-        v51[1] = 3221225472;
-        v51[2] = __103__CSReceiverConnection_indexWithFd_offset_size_donation_additionalAttributes_config_completionHandler___block_invoke_5;
-        v51[3] = &unk_2789AE160;
-        v55 = v31;
-        v56 = v45;
-        v52 = handlerCopy;
-        v53 = v76;
-        v54 = v75;
-        v40 = v37;
+        v71 = v40;
+        v62 = donationCopy;
+        v35 = v44;
+        v63 = v35;
+        v64 = v74;
+        v65 = v73;
+        v72 = v42;
+        v36 = v32;
+        v37 = fetchAttributes;
+        dispatch_group_async(v35, queue, block);
+        v49[0] = MEMORY[0x277D85DD0];
+        v49[1] = 3221225472;
+        v49[2] = __103__CSReceiverConnection_indexWithFd_offset_size_donation_additionalAttributes_config_completionHandler___block_invoke_5;
+        v49[3] = &unk_2789AE160;
+        v53 = v31;
+        v54 = v43;
+        v50 = handlerCopy;
+        v51 = v74;
+        v52 = v73;
+        v38 = v35;
         v26 = queue;
-        dispatch_group_notify(v40, queue, v51);
+        dispatch_group_notify(v38, queue, v49);
 
-        _Block_object_dispose(v75, 8);
-        _Block_object_dispose(v76, 8);
-        v27 = v46;
+        _Block_object_dispose(v73, 8);
+        _Block_object_dispose(v74, 8);
+        v27 = v44;
       }
 
-      attributesCopy = v49;
+      attributesCopy = v47;
     }
 
     else
     {
       handlerCopy[2](handlerCopy, 0, 2);
-      v36 = v50;
+      v34 = v48;
     }
   }
 
   else
   {
-    v41 = logForCSLogCategoryDefault();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+    v39 = logForCSLogCategoryDefault();
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
-      [CSReceiverConnection indexWithFd:donationCopy offset:v41 size:? donation:? additionalAttributes:? config:? completionHandler:?];
+      [CSReceiverConnection indexWithFd:donationCopy offset:v39 size:? donation:? additionalAttributes:? config:? completionHandler:?];
     }
 
     handlerCopy[2](handlerCopy, 1, 0);
@@ -1728,31 +1676,22 @@ void __85__CSReceiverConnection_fetchableIdentifiersFromDonation_additionalAttri
 
 void __103__CSReceiverConnection_indexWithFd_offset_size_donation_additionalAttributes_config_completionHandler___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 112);
-  v3 = *(a1 + 136);
-  v4 = *(a1 + 120) - *(a1 + 128);
-  v5 = *(a1 + 32);
-  v6 = *(a1 + 40);
-  v7 = *(a1 + 48);
-  v21 = *(a1 + 144);
-  v8 = *(a1 + 56);
-  *&v9 = v7;
-  *(&v9 + 1) = v8;
-  *&v10 = v5;
-  *(&v10 + 1) = v6;
-  v17 = v10;
-  v18 = v9;
+  v2 = *(a1 + 32);
+  v3 = *(a1 + 40);
+  v4 = *(a1 + 48);
+  v5 = *(a1 + 56);
+  *&v6 = v4;
+  *(&v6 + 1) = v5;
+  *&v7 = v2;
+  *(&v7 + 1) = v3;
+  v12 = v7;
+  v13 = v6;
   v11 = *(a1 + 64);
-  v22 = *(a1 + 145);
-  v12 = *(a1 + 72);
-  v16 = v11;
-  v13 = *(a1 + 80);
-  v14 = *(a1 + 88);
-  *&v15 = v13;
-  *(&v15 + 1) = v14;
-  v19 = v15;
-  v20 = *(a1 + 96);
-  v23 = *(a1 + 146);
+  v8 = *(a1 + 80);
+  v9 = *(a1 + 88);
+  *&v10 = v8;
+  *(&v10 + 1) = v9;
+  v14 = v10;
   if (!MDJournalReaderProcessRecordBatchWithBytes())
   {
     *(*(*(a1 + 96) + 8) + 24) = 1;
@@ -1762,182 +1701,181 @@ void __103__CSReceiverConnection_indexWithFd_offset_size_donation_additionalAttr
 void __103__CSReceiverConnection_indexWithFd_offset_size_donation_additionalAttributes_config_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, __int128 *a4, __int128 *a5, __int128 *a6)
 {
   v8 = a4;
-  v123 = *MEMORY[0x277D85DE8];
+  v121 = *MEMORY[0x277D85DE8];
   buf = *a4;
-  v122 = *(a4 + 2);
+  v120 = *(a4 + 2);
   if (_MDPlistGetPlistObjectType() == 240 && a3 != 0)
   {
-    v74 = [MEMORY[0x277CCACA8] stringWithUTF8String:a3];
-    if (v74)
+    v73 = [MEMORY[0x277CCACA8] stringWithUTF8String:a3];
+    if (v73)
     {
       buf = *a5;
-      v122 = *(a5 + 2);
+      v120 = *(a5 + 2);
       PlistObjectType = _MDPlistGetPlistObjectType();
       buf = *a6;
-      v122 = *(a6 + 2);
-      v80 = _MDPlistGetPlistObjectType();
+      v120 = *(a6 + 2);
+      v78 = _MDPlistGetPlistObjectType();
       buf = *v8;
-      v122 = *(v8 + 2);
+      v120 = *(v8 + 2);
       Count = _MDPlistArrayGetCount();
       if (Count)
       {
         v13 = Count;
-        v62 = a5;
-        v63 = a6;
+        v61 = a5;
+        v62 = a6;
         v14 = 0;
         v15 = 0;
         v16 = 0;
-        v79 = *MEMORY[0x277CBECE8];
-        v61 = v95;
-        v64 = v8;
-        v65 = Count;
+        v60 = v93;
+        v63 = v8;
+        v64 = Count;
         while (1)
         {
           buf = 0uLL;
-          v122 = 0;
-          v117 = *v8;
-          v118 = *(v8 + 2);
+          v120 = 0;
+          v115 = *v8;
+          v116 = *(v8 + 2);
           _MDPlistArrayGetPlistObjectAtIndex();
-          v117 = buf;
-          v118 = v122;
+          v115 = buf;
+          v116 = v120;
           if (_MDPlistGetPlistObjectType() == 246)
           {
-            *&v115 = 0;
-            v117 = buf;
-            v118 = v122;
+            *&v113 = 0;
+            v115 = buf;
+            v116 = v120;
             _MDPlistDataGetBytePtr();
             _MDPlistGetRootPlistObjectFromBytes();
-            buf = v117;
-            v122 = v118;
+            buf = v115;
+            v120 = v116;
           }
 
-          v117 = buf;
-          v118 = v122;
+          v115 = buf;
+          v116 = v120;
           if (_MDPlistGetPlistObjectType() == 240)
           {
-            v117 = buf;
-            v118 = v122;
+            v115 = buf;
+            v116 = v120;
             v17 = _MDPlistArrayGetCount();
             if ((v17 - 3) <= 1)
             {
               v18 = v17;
-              v115 = buf;
-              v116 = v122;
+              v113 = buf;
+              v114 = v120;
               _MDPlistArrayGetPlistObjectAtIndex();
               IntValue = _MDPlistNumberGetIntValue();
-              v117 = 0uLL;
-              v118 = 0;
-              v115 = buf;
-              v116 = v122;
-              _MDPlistArrayGetPlistObjectAtIndex();
               v115 = 0uLL;
               v116 = 0;
-              v113 = v117;
-              v114 = v118;
+              v113 = buf;
+              v114 = v120;
+              _MDPlistArrayGetPlistObjectAtIndex();
+              v113 = 0uLL;
+              v114 = 0;
+              v111 = v115;
+              v112 = v116;
               if (_MDPlistDictionaryGetPlistObjectForKey())
               {
-                v69 = IntValue;
-                v112 = 0;
-                v111 = 0;
-                v113 = v115;
-                v114 = v116;
+                v68 = IntValue;
+                v110 = 0;
+                v109 = 0;
+                v111 = v113;
+                v112 = v114;
                 _MDPlistStringGetValue();
-                v113 = v115;
-                v114 = v116;
-                v77 = MDJournalReaderMDPlistObjectCopy();
-                if ([*(a1 + 32) containsObject:v61])
+                v111 = v113;
+                v112 = v114;
+                v76 = MDJournalReaderMDPlistObjectCopy();
+                if ([*(a1 + 32) containsObject:v60])
                 {
-                  v113 = 0uLL;
-                  v114 = 0;
-                  v109 = v117;
-                  v110 = v118;
+                  v111 = 0uLL;
+                  v112 = 0;
+                  v107 = v115;
+                  v108 = v116;
                   if (_MDPlistDictionaryGetPlistObjectForKey())
                   {
-                    v109 = v113;
-                    v110 = v114;
-                    v70 = _MDPlistContainerCopyObject();
+                    v107 = v111;
+                    v108 = v112;
+                    v69 = _MDPlistContainerCopyObject();
                   }
 
                   else
                   {
-                    v70 = 0;
+                    v69 = 0;
                   }
 
-                  v67 = v15;
-                  v109 = 0uLL;
-                  v110 = 0;
+                  v66 = v15;
                   v107 = 0uLL;
                   v108 = 0;
+                  v105 = 0uLL;
+                  v106 = 0;
                   if (v18 == 4)
                   {
-                    v103 = buf;
-                    v104 = v122;
+                    v101 = buf;
+                    v102 = v120;
                     _MDPlistArrayGetPlistObjectAtIndex();
-                    v22 = *(&v105 + 1);
-                    v72 = v105;
-                    v73 = v106;
+                    v22 = *(&v103 + 1);
+                    v71 = v103;
+                    v72 = v104;
                   }
 
                   else
                   {
+                    v71 = 0;
                     v72 = 0;
-                    v73 = 0;
                     v22 = 0;
                   }
 
                   if (PlistObjectType == 241)
                   {
-                    v105 = *v62;
-                    v106 = *(v62 + 2);
+                    v103 = *v61;
+                    v104 = *(v61 + 2);
                     _MDPlistDictionaryGetPlistObjectForKey();
                   }
 
-                  if (v80 == 241)
+                  if (v78 == 241)
                   {
-                    v105 = *v63;
-                    v106 = *(v63 + 2);
+                    v103 = *v62;
+                    v104 = *(v62 + 2);
                     _MDPlistDictionaryGetPlistObjectForKey();
                   }
 
-                  v66 = v16;
-                  v68 = v14;
+                  v65 = v16;
+                  v67 = v14;
                   v23 = [*(a1 + 40) count];
-                  v24 = [*(a1 + 48) objectForKeyedSubscript:v77];
+                  v24 = [*(a1 + 48) objectForKeyedSubscript:v76];
                   v25 = [v24 count];
 
                   v26 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:v25 + v23];
-                  v71 = objc_alloc_init(MEMORY[0x277CC34B8]);
-                  v105 = 0uLL;
-                  v106 = 0;
+                  v70 = objc_alloc_init(MEMORY[0x277CC34B8]);
+                  v103 = 0uLL;
+                  v104 = 0;
+                  v97 = 0u;
+                  v98 = 0u;
                   v99 = 0u;
                   v100 = 0u;
-                  v101 = 0u;
-                  v102 = 0u;
                   v27 = a1;
                   v28 = *(a1 + 40);
-                  v29 = [v28 countByEnumeratingWithState:&v99 objects:v120 count:16];
+                  v29 = [v28 countByEnumeratingWithState:&v97 objects:v118 count:16];
                   if (v29)
                   {
                     v30 = v29;
+                    v74 = 0;
                     v75 = 0;
-                    v76 = 0;
-                    v31 = *v100;
+                    v31 = *v98;
                     while (1)
                     {
                       for (i = 0; i != v30; ++i)
                       {
-                        if (*v100 != v31)
+                        if (*v98 != v31)
                         {
                           objc_enumerationMutation(v28);
                         }
 
-                        v33 = *(*(&v99 + 1) + 8 * i);
-                        if (v80 == 241 && [v33 isEqualToString:@"kMDItemHTMLContentData"])
+                        v33 = *(*(&v97 + 1) + 8 * i);
+                        if (v78 == 241 && [v33 isEqualToString:@"kMDItemHTMLContentData"])
                         {
-                          v103 = v107;
-                          v104 = v108;
-                          v34 = v76;
-                          v76 = MDJournalReaderMDPlistObjectCopy();
+                          v101 = v105;
+                          v102 = v106;
+                          v34 = v75;
+                          v75 = MDJournalReaderMDPlistObjectCopy();
 LABEL_43:
 
                           continue;
@@ -1945,52 +1883,37 @@ LABEL_43:
 
                         if (PlistObjectType == 241 && [v33 isEqualToString:@"kMDItemTextContent"])
                         {
-                          v103 = v109;
-                          v104 = v110;
-                          v34 = v75;
-                          v75 = MDJournalReaderMDPlistObjectCopy();
+                          v101 = v107;
+                          v102 = v108;
+                          v34 = v74;
+                          v74 = MDJournalReaderMDPlistObjectCopy();
                           goto LABEL_43;
                         }
 
-                        if ([v33 isEqualToString:@"kMDItemExtraData"])
+                        if (![v33 isEqualToString:@"kMDItemExtraData"] || !objc_msgSend(v73, "isEqualToString:", @"com.apple.Passbook") || !v22 || (objc_msgSend(v33, "UTF8String"), strlen(objc_msgSend(v33, "UTF8String")), *&v101 = v71, *(&v101 + 1) = v22, v102 = v72, !_MDPlistDictionaryGetPlistObjectForKey()))
                         {
-                          if ([v74 isEqualToString:@"com.apple.Passbook"])
+                          [v33 UTF8String];
+                          strlen([v33 UTF8String]);
+                          v101 = v115;
+                          v102 = v116;
+                          if (!_MDPlistDictionaryGetPlistObjectForKey())
                           {
-                            if (v22)
-                            {
-                              [v33 UTF8String];
-                              strlen([v33 UTF8String]);
-                              *&v103 = v72;
-                              *(&v103 + 1) = v22;
-                              v104 = v73;
-                              if (_MDPlistDictionaryGetPlistObjectForKey())
-                              {
-                                goto LABEL_41;
-                              }
-                            }
+                            continue;
                           }
                         }
 
-                        [v33 UTF8String];
-                        strlen([v33 UTF8String]);
-                        v103 = v117;
-                        v104 = v118;
-                        if (_MDPlistDictionaryGetPlistObjectForKey())
+                        v101 = v103;
+                        v102 = v104;
+                        v34 = _MDPlistContainerCopyObject();
+                        if (v34)
                         {
-LABEL_41:
-                          v103 = v105;
-                          v104 = v106;
-                          v34 = _MDPlistContainerCopyObject();
-                          if (v34)
-                          {
-                            [v26 setObject:v34 forKey:v33];
-                          }
-
-                          goto LABEL_43;
+                          [v26 setObject:v34 forKey:v33];
                         }
+
+                        goto LABEL_43;
                       }
 
-                      v30 = [v28 countByEnumeratingWithState:&v99 objects:v120 count:16];
+                      v30 = [v28 countByEnumeratingWithState:&v97 objects:v118 count:16];
                       if (!v30)
                       {
                         goto LABEL_48;
@@ -1998,94 +1921,94 @@ LABEL_41:
                     }
                   }
 
+                  v74 = 0;
                   v75 = 0;
-                  v76 = 0;
 LABEL_48:
 
                   a1 = v27;
-                  v35 = v71;
+                  v35 = v70;
                   if (v22 && [*(v27 + 40) count])
                   {
-                    v93 = MEMORY[0x277D85DD0];
-                    v94 = 3221225472;
-                    v95[0] = __103__CSReceiverConnection_indexWithFd_offset_size_donation_additionalAttributes_config_completionHandler___block_invoke_3;
-                    v95[1] = &unk_2789AE028;
-                    v96 = v26;
-                    v97 = *(v27 + 40);
-                    v98 = v71;
-                    *&v103 = v72;
-                    *(&v103 + 1) = v22;
-                    v104 = v73;
+                    v91 = MEMORY[0x277D85DD0];
+                    v92 = 3221225472;
+                    v93[0] = __103__CSReceiverConnection_indexWithFd_offset_size_donation_additionalAttributes_config_completionHandler___block_invoke_3;
+                    v93[1] = &unk_2789AE028;
+                    v94 = v26;
+                    v95 = *(v27 + 40);
+                    v96 = v70;
+                    *&v101 = v71;
+                    *(&v101 + 1) = v22;
+                    v102 = v72;
                     _MDPlistDictionaryIterate();
                   }
 
-                  v36 = [*(v27 + 48) objectForKeyedSubscript:v77];
+                  v36 = [*(v27 + 48) objectForKeyedSubscript:v76];
 
                   if (v36)
                   {
-                    v91 = 0u;
-                    v92 = 0u;
                     v89 = 0u;
                     v90 = 0u;
-                    v37 = [*(v27 + 48) objectForKeyedSubscript:v77];
-                    v38 = [v37 countByEnumeratingWithState:&v89 objects:v119 count:16];
+                    v87 = 0u;
+                    v88 = 0u;
+                    v37 = [*(v27 + 48) objectForKeyedSubscript:v76];
+                    v38 = [v37 countByEnumeratingWithState:&v87 objects:v117 count:16];
                     if (v38)
                     {
                       v39 = v38;
-                      v40 = *v90;
+                      v40 = *v88;
                       do
                       {
                         for (j = 0; j != v39; ++j)
                         {
-                          if (*v90 != v40)
+                          if (*v88 != v40)
                           {
                             objc_enumerationMutation(v37);
                           }
 
-                          v42 = *(*(&v89 + 1) + 8 * j);
-                          v43 = [*(a1 + 48) objectForKeyedSubscript:v77];
+                          v42 = *(*(&v87 + 1) + 8 * j);
+                          v43 = [*(a1 + 48) objectForKeyedSubscript:v76];
                           v44 = [v43 objectForKeyedSubscript:v42];
                           [v26 setObject:v44 forKeyedSubscript:v42];
 
                           a1 = v27;
                         }
 
-                        v39 = [v37 countByEnumeratingWithState:&v89 objects:v119 count:16];
+                        v39 = [v37 countByEnumeratingWithState:&v87 objects:v117 count:16];
                       }
 
                       while (v39);
                     }
 
-                    v35 = v71;
+                    v35 = v70;
                   }
 
                   v45 = [v26 objectForKey:@"_kMDItemBundleID"];
 
                   if (!v45)
                   {
-                    [v26 setObject:v74 forKey:@"_kMDItemBundleID"];
+                    [v26 setObject:v73 forKey:@"_kMDItemBundleID"];
                   }
 
                   [v35 addAttributesFromDictionary:v26];
-                  v15 = v67;
-                  v14 = v68;
-                  v8 = v64;
+                  v15 = v66;
+                  v14 = v67;
+                  v8 = v63;
                   v46 = v35;
-                  v13 = v65;
-                  v16 = v66;
-                  if (v76)
+                  v13 = v64;
+                  v16 = v65;
+                  if (v75)
                   {
                     [v46 setHTMLContentData:?];
                   }
 
-                  if (v75)
+                  if (v74)
                   {
                     [v46 setTextContent:?];
                   }
 
-                  v47 = [objc_alloc(MEMORY[0x277CC34B0]) initWithUniqueIdentifier:v77 domainIdentifier:v70 attributeSet:v46];
-                  [v47 setIsUpdate:v69 & 1];
-                  if (!v68)
+                  v47 = [objc_alloc(MEMORY[0x277CC34B0]) initWithUniqueIdentifier:v76 domainIdentifier:v69 attributeSet:v46];
+                  [v47 setIsUpdate:v68 & 1];
+                  if (!v67)
                   {
                     v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
                   }
@@ -2105,21 +2028,21 @@ LABEL_48:
                       [v48 setAttribute:&unk_284823060 forKey:@"_kMDItemProcessedPriority"];
                     }
 
-                    v49 = [objc_alloc(MEMORY[0x277CC34B0]) initWithUniqueIdentifier:v77 domainIdentifier:0 attributeSet:v48];
-                    [v49 setBundleID:v74];
+                    v49 = [objc_alloc(MEMORY[0x277CC34B0]) initWithUniqueIdentifier:v76 domainIdentifier:0 attributeSet:v48];
+                    [v49 setBundleID:v73];
                     [v49 setIsUpdate:1];
-                    if (!v67)
+                    if (!v66)
                     {
                       v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
                     }
 
                     [v15 addObject:v49];
 
-                    v13 = v65;
+                    v13 = v64;
                   }
 
-                  v21 = v75;
-                  v20 = v76;
+                  v21 = v74;
+                  v20 = v75;
                 }
 
                 else
@@ -2155,32 +2078,35 @@ LABEL_81:
         _os_log_impl(&dword_232D5E000, v50, OS_LOG_TYPE_DEFAULT, "### SCHEDULED RECEIVER sending %ld items", &buf, 0xCu);
       }
 
-      if ([v15 count] && *(a1 + 64))
+      if ([v15 count])
       {
-        v52 = [*(a1 + 72) indexForBundleID:v74 protectionClass:?];
-        [v52 indexSearchableItems:v15 completionHandler:&__block_literal_global_458];
+        if (*(a1 + 64))
+        {
+          v52 = [*(a1 + 72) indexForBundleID:v73 protectionClass:?];
+          [v52 indexSearchableItems:v15 completionHandler:&__block_literal_global_458];
+        }
       }
 
       if (*(a1 + 113) == 1)
       {
-        [*(a1 + 80) setBundleIdentifier:v74];
+        [*(a1 + 80) setBundleIdentifier:v73];
         [*(a1 + 80) setItems:v14];
         dispatch_group_enter(*(a1 + 88));
         v53 = *(a1 + 80);
         v54 = *(*(a1 + 72) + 88);
-        v84[0] = MEMORY[0x277D85DD0];
-        v84[1] = 3221225472;
-        v84[2] = __103__CSReceiverConnection_indexWithFd_offset_size_donation_additionalAttributes_config_completionHandler___block_invoke_459;
-        v84[3] = &unk_2789AE0C0;
-        v88 = *(a1 + 96);
-        v55 = v85;
+        v82[0] = MEMORY[0x277D85DD0];
+        v82[1] = 3221225472;
+        v82[2] = __103__CSReceiverConnection_indexWithFd_offset_size_donation_additionalAttributes_config_completionHandler___block_invoke_459;
+        v82[3] = &unk_2789AE0C0;
+        v86 = *(a1 + 96);
+        v55 = v83;
         v56 = *(a1 + 88);
         v57 = *(a1 + 72);
-        v85[0] = v56;
-        v85[1] = v57;
-        v86 = v74;
-        v87 = *(a1 + 64);
-        [v54 processDonation:v53 completionHandler:v84];
+        v83[0] = v56;
+        v83[1] = v57;
+        v84 = v73;
+        v85 = *(a1 + 64);
+        [v54 processDonation:v53 completionHandler:v82];
       }
 
       else
@@ -2189,28 +2115,25 @@ LABEL_81:
         {
 LABEL_92:
 
-          goto LABEL_93;
+          return;
         }
 
         dispatch_group_enter(*(a1 + 88));
         v58 = *(*(a1 + 72) + 88);
         v59 = [*(a1 + 56) name];
-        v81[0] = MEMORY[0x277D85DD0];
-        v81[1] = 3221225472;
-        v81[2] = __103__CSReceiverConnection_indexWithFd_offset_size_donation_additionalAttributes_config_completionHandler___block_invoke_4;
-        v81[3] = &unk_2789AE0E8;
-        v83 = vextq_s8(*(a1 + 96), *(a1 + 96), 8uLL);
-        v55 = &v82;
-        v82 = *(a1 + 88);
-        [v58 addOrUpdateSearchableItems:v14 bundleID:v74 name:v59 completionHandler:v81];
+        v79[0] = MEMORY[0x277D85DD0];
+        v79[1] = 3221225472;
+        v79[2] = __103__CSReceiverConnection_indexWithFd_offset_size_donation_additionalAttributes_config_completionHandler___block_invoke_4;
+        v79[3] = &unk_2789AE0E8;
+        v81 = vextq_s8(*(a1 + 96), *(a1 + 96), 8uLL);
+        v55 = &v80;
+        v80 = *(a1 + 88);
+        [v58 addOrUpdateSearchableItems:v14 bundleID:v73 name:v59 completionHandler:v79];
       }
 
       goto LABEL_92;
     }
   }
-
-LABEL_93:
-  v60 = *MEMORY[0x277D85DE8];
 }
 
 void __103__CSReceiverConnection_indexWithFd_offset_size_donation_additionalAttributes_config_completionHandler___block_invoke_3(id *a1, const UInt8 *a2, CFIndex a3, __int128 *a4)
@@ -2221,30 +2144,18 @@ void __103__CSReceiverConnection_indexWithFd_offset_size_donation_additionalAttr
   {
   }
 
-  else if ([a1[5] containsObject:v6])
+  else if ([a1[5] containsObject:v6] && _MDPlistGetPlistObjectType() == 240 && _MDPlistArrayGetCount() == 2)
   {
-    v15 = *a4;
-    v17 = *(a4 + 2);
-    if (_MDPlistGetPlistObjectType() == 240)
+    _MDPlistArrayGetPlistObjectAtIndex();
+    IntValue = _MDPlistNumberGetIntValue();
+    v11 = *a4;
+    v12 = *(a4 + 2);
+    _MDPlistArrayGetPlistObjectAtIndex();
+    v9 = CSDecodeObject();
+    if (v9)
     {
-      v16 = *a4;
-      v18 = *(a4 + 2);
-      if (_MDPlistArrayGetCount() == 2)
-      {
-        v11 = *a4;
-        v13 = *(a4 + 2);
-        _MDPlistArrayGetPlistObjectAtIndex();
-        IntValue = _MDPlistNumberGetIntValue();
-        v12 = *a4;
-        v14 = *(a4 + 2);
-        _MDPlistArrayGetPlistObjectAtIndex();
-        v9 = CSDecodeObject();
-        if (v9)
-        {
-          v10 = [objc_alloc(MEMORY[0x277CC33B0]) initWithKeyName:v6 searchable:IntValue & 1 searchableByDefault:(IntValue >> 1) & 1 unique:(IntValue >> 2) & 1 multiValued:{(IntValue >> 3) & 1, v12, v14}];
-          [a1[6] setValue:v9 forCustomKey:v10];
-        }
-      }
+      v10 = [objc_alloc(MEMORY[0x277CC33B0]) initWithKeyName:v6 searchable:IntValue & 1 searchableByDefault:(IntValue >> 1) & 1 unique:(IntValue >> 2) & 1 multiValued:{(IntValue >> 3) & 1, v11, v12}];
+      [a1[6] setValue:v9 forCustomKey:v10];
     }
   }
 }
@@ -2347,11 +2258,9 @@ void __103__CSReceiverConnection_indexWithFd_offset_size_donation_additionalAttr
 uint64_t __103__CSReceiverConnection_indexWithFd_offset_size_donation_additionalAttributes_config_completionHandler___block_invoke_5(uint64_t a1)
 {
   munmap(*(a1 + 56), *(a1 + 64));
-  v2 = *(*(*(a1 + 40) + 8) + 24);
-  v3 = *(*(*(a1 + 48) + 8) + 24);
-  v4 = *(*(a1 + 32) + 16);
+  v2 = *(*(a1 + 32) + 16);
 
-  return v4();
+  return v2();
 }
 
 - (void)deleteWithFd:(int)fd offset:(unint64_t)offset size:(unint64_t)size donation:(id)donation completionHandler:(id)handler
@@ -2431,12 +2340,8 @@ uint64_t __103__CSReceiverConnection_indexWithFd_offset_size_donation_additional
 
 void __76__CSReceiverConnection_deleteWithFd_offset_size_donation_completionHandler___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 64);
-  v3 = *(a1 + 88);
-  v4 = *(a1 + 72) - *(a1 + 80);
-  v5 = *(a1 + 32);
-  v6 = *(a1 + 40);
-  v7 = *(a1 + 48);
+  v2 = *(a1 + 32);
+  v3 = *(a1 + 40);
   if (!MDJournalReaderProcessRecordBatchWithBytes())
   {
     *(*(*(a1 + 56) + 8) + 24) = 1;
@@ -2448,15 +2353,15 @@ void __76__CSReceiverConnection_deleteWithFd_offset_size_donation_completionHand
   if (a5)
   {
     v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v24 = MEMORY[0x277D85DD0];
-    v25 = 3221225472;
-    v26 = __76__CSReceiverConnection_deleteWithFd_offset_size_donation_completionHandler___block_invoke_3;
-    v27 = &unk_2789AE188;
-    v8 = &v28;
+    v23 = MEMORY[0x277D85DD0];
+    v24 = 3221225472;
+    v25 = __76__CSReceiverConnection_deleteWithFd_offset_size_donation_completionHandler___block_invoke_3;
+    v26 = &unk_2789AE188;
+    v8 = &v27;
     v9 = v7;
-    v28 = v9;
+    v27 = v9;
     *buf = *a4;
-    v23 = *(a4 + 16);
+    v22 = *(a4 + 16);
     _MDPlistArrayIterate();
     if ([v9 count])
     {
@@ -2470,14 +2375,14 @@ void __76__CSReceiverConnection_deleteWithFd_offset_size_donation_completionHand
       [*(a1 + 32) setIdentifiers:v9];
       dispatch_group_enter(*(a1 + 40));
       v11 = *(*(a1 + 48) + 88);
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __76__CSReceiverConnection_deleteWithFd_offset_size_donation_completionHandler___block_invoke_469;
-      v19[3] = &unk_2789AE1B0;
-      v21 = *(a1 + 56);
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __76__CSReceiverConnection_deleteWithFd_offset_size_donation_completionHandler___block_invoke_469;
+      v18[3] = &unk_2789AE1B0;
+      v20 = *(a1 + 56);
       v12 = *(a1 + 32);
-      v20 = *(a1 + 40);
-      [v11 processDonation:v12 completionHandler:v19];
+      v19 = *(a1 + 40);
+      [v11 processDonation:v12 completionHandler:v18];
     }
 
 LABEL_12:
@@ -2485,9 +2390,8 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v13 = *MEMORY[0x277CBECE8];
   *buf = *a4;
-  v23 = *(a4 + 16);
+  v22 = *(a4 + 16);
   v9 = MDJournalReaderMDPlistObjectCopy();
   if (v9)
   {
@@ -2497,24 +2401,24 @@ LABEL_12:
       if ([v9 count])
       {
         [*(a1 + 32) setIdentifiers:v9];
-        v14 = logForCSLogCategoryDefault();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v13 = logForCSLogCategoryDefault();
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_232D5E000, v14, OS_LOG_TYPE_DEFAULT, "### SCHEDULED RECEIVER sending delete items", buf, 2u);
+          _os_log_impl(&dword_232D5E000, v13, OS_LOG_TYPE_DEFAULT, "### SCHEDULED RECEIVER sending delete items", buf, 2u);
         }
 
         dispatch_group_enter(*(a1 + 40));
-        v15 = *(*(a1 + 48) + 88);
-        v17[0] = MEMORY[0x277D85DD0];
-        v17[1] = 3221225472;
-        v17[2] = __76__CSReceiverConnection_deleteWithFd_offset_size_donation_completionHandler___block_invoke_470;
-        v17[3] = &unk_2789AE1B0;
-        v18[1] = *(a1 + 56);
-        v8 = v18;
-        v16 = *(a1 + 32);
-        v18[0] = *(a1 + 40);
-        [v15 processDonation:v16 completionHandler:v17];
+        v14 = *(*(a1 + 48) + 88);
+        v16[0] = MEMORY[0x277D85DD0];
+        v16[1] = 3221225472;
+        v16[2] = __76__CSReceiverConnection_deleteWithFd_offset_size_donation_completionHandler___block_invoke_470;
+        v16[3] = &unk_2789AE1B0;
+        v17[1] = *(a1 + 56);
+        v8 = v17;
+        v15 = *(a1 + 32);
+        v17[0] = *(a1 + 40);
+        [v14 processDonation:v15 completionHandler:v16];
         goto LABEL_12;
       }
     }
@@ -2525,24 +2429,21 @@ LABEL_13:
 
 void __76__CSReceiverConnection_deleteWithFd_offset_size_donation_completionHandler___block_invoke_3(uint64_t a1, __int128 *a2)
 {
-  v7 = *a2;
-  v8 = *(a2 + 2);
   if (_MDPlistDictionaryGetPlistObjectForKey())
   {
     if (_MDPlistStringGetValue())
     {
-      v3 = *MEMORY[0x277CBECE8];
-      v4 = MDJournalReaderMDPlistObjectCopy();
-      if (v4)
+      v3 = MDJournalReaderMDPlistObjectCopy();
+      if (v3)
       {
-        v5 = v4;
-        v6 = CFGetTypeID(v4);
-        if (v6 == CFStringGetTypeID())
+        v4 = v3;
+        v5 = CFGetTypeID(v3);
+        if (v5 == CFStringGetTypeID())
         {
-          [*(a1 + 32) addObject:v5];
+          [*(a1 + 32) addObject:v4];
         }
 
-        CFRelease(v5);
+        CFRelease(v4);
       }
     }
   }
@@ -2551,10 +2452,9 @@ void __76__CSReceiverConnection_deleteWithFd_offset_size_donation_completionHand
 uint64_t __76__CSReceiverConnection_deleteWithFd_offset_size_donation_completionHandler___block_invoke_2_472(uint64_t a1)
 {
   munmap(*(a1 + 48), *(a1 + 56));
-  v2 = *(*(*(a1 + 40) + 8) + 24);
-  v3 = *(*(a1 + 32) + 16);
+  v2 = *(*(a1 + 32) + 16);
 
-  return v3();
+  return v2();
 }
 
 - (int)deleteFromBundle:(id)bundle sinceDate:(id)date domains:(id)domains deletes:(id)deletes
@@ -2603,13 +2503,13 @@ uint64_t __76__CSReceiverConnection_deleteWithFd_offset_size_donation_completion
   [v13 setBackingStore:actionsCopy];
   if (v13)
   {
-    [v13 obj];
+    objc_msgSend_obj(v13);
     if (_MDPlistGetPlistObjectType() == 240)
     {
-      [v13 obj];
+      objc_msgSend_obj(v13);
       if (_MDPlistArrayGetCount())
       {
-        [v13 obj];
+        objc_msgSend_obj(v13);
         v15 = v13;
         v16 = dCopy;
         v17 = classCopy;
@@ -2658,7 +2558,7 @@ void __64__CSReceiverConnection_addUserActions_bundleID_protectionClass___block_
 
 - (int)addInteraction:(id)interaction bundleID:(id)d protectionClass:(id)class
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   receiver = self->_receiver;
   interactionCopy = interaction;
   v8 = MEMORY[0x277CBEA60];
@@ -2666,18 +2566,9 @@ void __64__CSReceiverConnection_addUserActions_bundleID_protectionClass___block_
   dCopy = d;
   interactionCopy2 = interaction;
   v12 = [v8 arrayWithObjects:&interactionCopy count:1];
-  [(SpotlightReceiver *)receiver addInteractions:v12 bundleID:dCopy protectionClass:classCopy, interactionCopy, v16];
+  [(SpotlightReceiver *)receiver addInteractions:v12 bundleID:dCopy protectionClass:classCopy, interactionCopy, v15];
 
-  v13 = *MEMORY[0x277D85DE8];
   return 0;
-}
-
-- (void)addClientConnectionIfAllowedForConnection:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleCommand:(void *)a1 info:(uint64_t)a2 connection:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
@@ -2689,149 +2580,51 @@ void __64__CSReceiverConnection_addUserActions_bundleID_protectionClass___block_
 
 - (void)handleCommand:info:connection:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleCommand:info:connection:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)handleCommand:info:connection:.cold.5()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)handleCommand:info:connection:.cold.6()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleCommand:info:connection:.cold.8()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)handleCommand:info:connection:.cold.9()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)handleCommand:info:connection:.cold.10()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)handleCommand:info:connection:.cold.11()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)handleCommand:info:connection:.cold.12()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)handleCommand:info:connection:.cold.13()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)handleCommand:info:connection:.cold.14()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)handleCommand:info:connection:.cold.15()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)handleCommand:info:connection:.cold.16()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleCommand:(int)a1 info:(int *)a2 connection:(os_log_t)log .cold.17(int a1, int *a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = *a2;
-  v5[0] = 67109376;
-  v5[1] = a1;
-  v6 = 1024;
-  v7 = v3;
-  _os_log_error_impl(&dword_232D5E000, log, OS_LOG_TYPE_ERROR, "Job not supported type: 0x%x supported: 0x%x ", v5, 0xEu);
-  v4 = *MEMORY[0x277D85DE8];
+  v4[0] = 67109376;
+  v4[1] = a1;
+  v5 = 1024;
+  v6 = v3;
+  _os_log_error_impl(&dword_232D5E000, log, OS_LOG_TYPE_ERROR, "Job not supported type: 0x%x supported: 0x%x ", v4, 0xEu);
 }
 
 - (void)indexWithFd:(void *)a1 offset:(NSObject *)a2 size:donation:additionalAttributes:config:completionHandler:.cold.1(void *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = [a1 configName];
-  v6 = 138412290;
-  v7 = v3;
-  OUTLINED_FUNCTION_2(&dword_232D5E000, a2, v4, "### SCHEDULED RECEIVER indexWithFd invalid request %@", &v6);
-
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __103__CSReceiverConnection_indexWithFd_offset_size_donation_additionalAttributes_config_completionHandler___block_invoke_455_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = v3;
+  OUTLINED_FUNCTION_2(&dword_232D5E000, a2, v4, "### SCHEDULED RECEIVER indexWithFd invalid request %@", &v5);
 }
 
 void __64__CSReceiverConnection_addUserActions_bundleID_protectionClass___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_232D5E000, a2, OS_LOG_TYPE_DEBUG, "addUserAction: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_232D5E000, a2, OS_LOG_TYPE_DEBUG, "addUserAction: %@", &v2, 0xCu);
 }
 
 @end

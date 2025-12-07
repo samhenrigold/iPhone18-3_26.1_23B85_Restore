@@ -27,34 +27,33 @@
   connection = self->_connection;
   if (!connection)
   {
-    v4 = objc_alloc(MEMORY[0x1E696B0B8]);
-    v6 = objc_msgSend_initWithMachServiceName_options_(v4, v5, @"com.apple.messages.critical-messaging", 0);
-    v7 = self->_connection;
-    self->_connection = v6;
+    v4 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.messages.critical-messaging" options:0];
+    v5 = self->_connection;
+    self->_connection = v4;
 
-    objc_msgSend__setQueue_(self->_connection, v8, self->_queue);
+    [(NSXPCConnection *)self->_connection _setQueue:self->_queue];
     objc_initWeak(&location, self);
-    v9 = self->_connection;
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = sub_1A831359C;
-    v21[3] = &unk_1E780FDC8;
-    objc_copyWeak(&v22, &location);
-    objc_msgSend_setInvalidationHandler_(v9, v10, v21);
-    v11 = self->_connection;
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = sub_1A8313644;
-    v19[3] = &unk_1E780FDC8;
-    objc_copyWeak(&v20, &location);
-    objc_msgSend_setInterruptionHandler_(v11, v12, v19);
-    v13 = self->_connection;
-    v14 = IMDaemonBackgroundMessagingProtocolXPCInterface();
-    objc_msgSend_setRemoteObjectInterface_(v13, v15, v14);
+    v6 = self->_connection;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = sub_1A831359C;
+    v13[3] = &unk_1E780FDC8;
+    objc_copyWeak(&v14, &location);
+    [(NSXPCConnection *)v6 setInvalidationHandler:v13];
+    v7 = self->_connection;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = sub_1A8313644;
+    v11[3] = &unk_1E780FDC8;
+    objc_copyWeak(&v12, &location);
+    [(NSXPCConnection *)v7 setInterruptionHandler:v11];
+    v8 = self->_connection;
+    v9 = IMDaemonBackgroundMessagingProtocolXPCInterface();
+    [(NSXPCConnection *)v8 setRemoteObjectInterface:v9];
 
-    objc_msgSend_resume(self->_connection, v16, v17);
-    objc_destroyWeak(&v20);
-    objc_destroyWeak(&v22);
+    [(NSXPCConnection *)self->_connection resume];
+    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v14);
     objc_destroyWeak(&location);
     connection = self->_connection;
   }
@@ -64,7 +63,7 @@
 
 - (void)_clearConnection
 {
-  objc_msgSend_invalidate(self->_connection, a2, v2);
+  [(NSXPCConnection *)self->_connection invalidate];
   connection = self->_connection;
   self->_connection = 0;
 }
@@ -72,10 +71,10 @@
 - (id)_backgroundMessagingAPIServiceWithErrorHandler:(id)handler
 {
   handlerCopy = handler;
-  v7 = objc_msgSend__currentConnection(self, v5, v6);
-  v9 = objc_msgSend_remoteObjectProxyWithErrorHandler_(v7, v8, handlerCopy);
+  _currentConnection = [(IMBackgroundMessagingAPIConnection *)self _currentConnection];
+  v6 = [_currentConnection remoteObjectProxyWithErrorHandler:handlerCopy];
 
-  return v9;
+  return v6;
 }
 
 - (void)requestBackgroundMessagingAuthorizationForRecipients:(id)recipients completion:(id)completion

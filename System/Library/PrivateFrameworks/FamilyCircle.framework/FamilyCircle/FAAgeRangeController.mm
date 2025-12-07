@@ -10,7 +10,9 @@
 - (void)globalStateForAltDSID:(id)d completion:(id)completion;
 - (void)postAgeRangeNotificationWith:(id)with lowerAgeBound:(id)bound upperAgeBound:(id)ageBound completion:(id)completion;
 - (void)requestAgeRangeWith:(id)with userAgeOverride:(id)override altDSID:(id)d bundleID:(id)iD appName:(id)name attestedAtOverrideInDays:(id)days completion:(id)completion;
+- (void)saveAgeRangeGlobalState:(int)state forAltDSID:(id)d cacheDuration:(id)duration privacyVersion:(id)version completion:(id)completion;
 - (void)saveAgeRangeWith:(id)with completion:(id)completion;
+- (void)setGlobalStateForAltDSID:(int)d forAltDSID:(id)iD privacyVersion:(id)version completion:(id)completion;
 - (void)shouldPromptAgeRangeWith:(id)with bundleID:(id)d appName:(id)name privacyVersion:(id)version userAgeOverride:(id)override attestedAtOverrideInDays:(id)days completion:(id)completion;
 - (void)updateAgeRangeWith:(id)with completion:(id)completion;
 @end
@@ -37,70 +39,70 @@
 {
   withCopy = with;
   completionCopy = completion;
-  v8 = _FASignpostLogSystem();
+  v8 = _FASignpostLogSystem(completionCopy);
   v9 = _FASignpostCreate(v8);
   v11 = v10;
 
-  v12 = _FASignpostLogSystem();
-  v13 = v12;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+  v13 = _FASignpostLogSystem(v12);
+  v14 = v13;
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B70B0000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v9, "FetchAgeRanges", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1B70B0000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v9, "FetchAgeRanges", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v14 = _FASignpostLogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v16 = _FASignpostLogSystem(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     [FAAgeRangeController fetchAgeRangesWith:completion:];
   }
 
   *buf = 0;
-  v34 = buf;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy__2;
-  v37 = __Block_byref_object_dispose__2;
+  v36 = buf;
+  v37 = 0x3032000000;
+  v38 = __Block_byref_object_copy__2;
+  v39 = __Block_byref_object_dispose__2;
   selfCopy = self;
-  v38 = selfCopy;
+  v40 = selfCopy;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __54__FAAgeRangeController_fetchAgeRangesWith_completion___block_invoke;
   aBlock[3] = &unk_1E7CA50D8;
-  v30 = buf;
-  v31 = v9;
-  v32 = v11;
-  v16 = completionCopy;
-  v29 = v16;
-  v17 = _Block_copy(aBlock);
+  v32 = buf;
+  v33 = v9;
+  v34 = v11;
+  v18 = completionCopy;
+  v31 = v18;
+  v19 = _Block_copy(aBlock);
   daemonConnection = selfCopy->_daemonConnection;
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __54__FAAgeRangeController_fetchAgeRangesWith_completion___block_invoke_17;
-  v26[3] = &unk_1E7CA46D8;
-  v19 = v17;
-  v27 = v19;
-  v20 = [(FAAgeRangeDaemonConnection *)daemonConnection remoteObjectProxyWithErrorHandler:v26];
-  v21 = _FALogSystem();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __54__FAAgeRangeController_fetchAgeRangesWith_completion___block_invoke_17;
+  v28[3] = &unk_1E7CA46D8;
+  v21 = v19;
+  v29 = v21;
+  v22 = [(FAAgeRangeDaemonConnection *)daemonConnection remoteObjectProxyWithErrorHandler:v28];
+  v23 = _FALogSystem(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    *v25 = 0;
-    _os_log_impl(&dword_1B70B0000, v21, OS_LOG_TYPE_DEFAULT, "Fetching age ranges.", v25, 2u);
+    *v27 = 0;
+    _os_log_impl(&dword_1B70B0000, v23, OS_LOG_TYPE_DEFAULT, "Fetching age ranges.", v27, 2u);
   }
 
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __54__FAAgeRangeController_fetchAgeRangesWith_completion___block_invoke_19;
-  v23[3] = &unk_1E7CA5100;
-  v22 = v19;
-  v24 = v22;
-  [v20 fetchAgeRangesWith:withCopy completion:v23];
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __54__FAAgeRangeController_fetchAgeRangesWith_completion___block_invoke_19;
+  v25[3] = &unk_1E7CA5100;
+  v24 = v21;
+  v26 = v24;
+  [v22 fetchAgeRangesWith:withCopy completion:v25];
 
   _Block_object_dispose(buf, 8);
 }
 
 void __54__FAAgeRangeController_fetchAgeRangesWith_completion___block_invoke(void *a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = *(a1[5] + 8);
@@ -108,51 +110,49 @@ void __54__FAAgeRangeController_fetchAgeRangesWith_completion___block_invoke(voi
   *(v7 + 40) = 0;
 
   Nanoseconds = _FASignpostGetNanoseconds(a1[6], a1[7]);
-  v10 = _FASignpostLogSystem();
+  v10 = _FASignpostLogSystem(Nanoseconds);
   v11 = v10;
   v12 = a1[6];
   if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
-    v19 = 67240192;
-    LODWORD(v20) = [v6 code];
-    _os_signpost_emit_with_name_impl(&dword_1B70B0000, v11, OS_SIGNPOST_INTERVAL_END, v12, "FetchAgeRanges", " ErrorCode=%{public,signpost.telemetry:number2,name=ErrorCode}d ", &v19, 8u);
+    v20 = 67240192;
+    LODWORD(v21) = [v6 code];
+    _os_signpost_emit_with_name_impl(&dword_1B70B0000, v11, OS_SIGNPOST_INTERVAL_END, v12, "FetchAgeRanges", " ErrorCode=%{public,signpost.telemetry:number2,name=ErrorCode}d ", &v20, 8u);
   }
 
-  v13 = _FASignpostLogSystem();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v14 = _FASignpostLogSystem(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    v16 = Nanoseconds / 1000000000.0;
-    v17 = a1[6];
-    v18 = [v6 code];
-    v19 = 134218496;
-    v20 = v17;
-    v21 = 2048;
-    v22 = v16;
-    v23 = 1026;
-    v24 = v18;
-    _os_log_debug_impl(&dword_1B70B0000, v13, OS_LOG_TYPE_DEBUG, "END [%lld] %fs:FetchAgeRanges  ErrorCode=%{public,signpost.telemetry:number2,name=ErrorCode}d ", &v19, 0x1Cu);
+    v17 = Nanoseconds / 1000000000.0;
+    v18 = a1[6];
+    v19 = [v6 code];
+    v20 = 134218496;
+    v21 = v18;
+    v22 = 2048;
+    v23 = v17;
+    v24 = 1026;
+    v25 = v19;
+    _os_log_debug_impl(&dword_1B70B0000, v14, OS_LOG_TYPE_DEBUG, "END [%lld] %fs:FetchAgeRanges  ErrorCode=%{public,signpost.telemetry:number2,name=ErrorCode}d ", &v20, 0x1Cu);
   }
 
   if (a1[4])
   {
-    v14 = _FALogSystem();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = _FALogSystem(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138412290;
-      v20 = v5;
-      _os_log_impl(&dword_1B70B0000, v14, OS_LOG_TYPE_DEFAULT, "Fetched age ranges: %@.", &v19, 0xCu);
+      v20 = 138412290;
+      v21 = v5;
+      _os_log_impl(&dword_1B70B0000, v16, OS_LOG_TYPE_DEFAULT, "Fetched age ranges: %@.", &v20, 0xCu);
     }
 
     (*(a1[4] + 16))();
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __54__FAAgeRangeController_fetchAgeRangesWith_completion___block_invoke_17(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _FALogSystem();
+  v4 = _FALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__FAAgeRangeController_fetchAgeRangesWith_completion___block_invoke_17_cold_1();
@@ -165,10 +165,11 @@ void __54__FAAgeRangeController_fetchAgeRangesWith_completion___block_invoke_19(
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _FALogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _FALogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __54__FAAgeRangeController_fetchAgeRangesWith_completion___block_invoke_19_cold_1();
     }
@@ -181,121 +182,119 @@ void __54__FAAgeRangeController_fetchAgeRangesWith_completion___block_invoke_19(
 {
   withCopy = with;
   completionCopy = completion;
-  v8 = _FASignpostLogSystem();
+  v8 = _FASignpostLogSystem(completionCopy);
   v9 = _FASignpostCreate(v8);
   v11 = v10;
 
-  v12 = _FASignpostLogSystem();
-  v13 = v12;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+  v13 = _FASignpostLogSystem(v12);
+  v14 = v13;
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B70B0000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v9, "DeleteAgeRanges", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1B70B0000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v9, "DeleteAgeRanges", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v14 = _FASignpostLogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v16 = _FASignpostLogSystem(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     [FAAgeRangeController deleteAgeRangesWith:completion:];
   }
 
   *buf = 0;
-  v34 = buf;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy__2;
-  v37 = __Block_byref_object_dispose__2;
+  v36 = buf;
+  v37 = 0x3032000000;
+  v38 = __Block_byref_object_copy__2;
+  v39 = __Block_byref_object_dispose__2;
   selfCopy = self;
-  v38 = selfCopy;
+  v40 = selfCopy;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __55__FAAgeRangeController_deleteAgeRangesWith_completion___block_invoke;
   aBlock[3] = &unk_1E7CA5128;
-  v30 = buf;
-  v31 = v9;
-  v32 = v11;
-  v16 = completionCopy;
-  v29 = v16;
-  v17 = _Block_copy(aBlock);
+  v32 = buf;
+  v33 = v9;
+  v34 = v11;
+  v18 = completionCopy;
+  v31 = v18;
+  v19 = _Block_copy(aBlock);
   daemonConnection = selfCopy->_daemonConnection;
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __55__FAAgeRangeController_deleteAgeRangesWith_completion___block_invoke_20;
-  v26[3] = &unk_1E7CA46D8;
-  v19 = v17;
-  v27 = v19;
-  v20 = [(FAAgeRangeDaemonConnection *)daemonConnection remoteObjectProxyWithErrorHandler:v26];
-  v21 = _FALogSystem();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __55__FAAgeRangeController_deleteAgeRangesWith_completion___block_invoke_20;
+  v28[3] = &unk_1E7CA46D8;
+  v21 = v19;
+  v29 = v21;
+  v22 = [(FAAgeRangeDaemonConnection *)daemonConnection remoteObjectProxyWithErrorHandler:v28];
+  v23 = _FALogSystem(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    *v25 = 0;
-    _os_log_impl(&dword_1B70B0000, v21, OS_LOG_TYPE_DEFAULT, "Deleting age ranges.", v25, 2u);
+    *v27 = 0;
+    _os_log_impl(&dword_1B70B0000, v23, OS_LOG_TYPE_DEFAULT, "Deleting age ranges.", v27, 2u);
   }
 
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __55__FAAgeRangeController_deleteAgeRangesWith_completion___block_invoke_21;
-  v23[3] = &unk_1E7CA46D8;
-  v22 = v19;
-  v24 = v22;
-  [v20 deleteAgeRangesWith:withCopy completion:v23];
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __55__FAAgeRangeController_deleteAgeRangesWith_completion___block_invoke_21;
+  v25[3] = &unk_1E7CA46D8;
+  v24 = v21;
+  v26 = v24;
+  [v22 deleteAgeRangesWith:withCopy completion:v25];
 
   _Block_object_dispose(buf, 8);
 }
 
 void __55__FAAgeRangeController_deleteAgeRangesWith_completion___block_invoke(void *a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1[5] + 8);
   v5 = *(v4 + 40);
   *(v4 + 40) = 0;
 
   Nanoseconds = _FASignpostGetNanoseconds(a1[6], a1[7]);
-  v7 = _FASignpostLogSystem();
+  v7 = _FASignpostLogSystem(Nanoseconds);
   v8 = v7;
   v9 = a1[6];
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
-    v16 = 67240192;
-    LODWORD(v17) = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_1B70B0000, v8, OS_SIGNPOST_INTERVAL_END, v9, "DeleteAgeRanges", " ErrorCode=%{public,signpost.telemetry:number2,name=ErrorCode}d ", &v16, 8u);
+    v17 = 67240192;
+    LODWORD(v18) = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_1B70B0000, v8, OS_SIGNPOST_INTERVAL_END, v9, "DeleteAgeRanges", " ErrorCode=%{public,signpost.telemetry:number2,name=ErrorCode}d ", &v17, 8u);
   }
 
-  v10 = _FASignpostLogSystem();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = _FASignpostLogSystem(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v13 = Nanoseconds / 1000000000.0;
-    v14 = a1[6];
-    v15 = [v3 code];
-    v16 = 134218496;
-    v17 = v14;
-    v18 = 2048;
-    v19 = v13;
-    v20 = 1026;
-    v21 = v15;
-    _os_log_debug_impl(&dword_1B70B0000, v10, OS_LOG_TYPE_DEBUG, "END [%lld] %fs:DeleteAgeRanges  ErrorCode=%{public,signpost.telemetry:number2,name=ErrorCode}d ", &v16, 0x1Cu);
+    v14 = Nanoseconds / 1000000000.0;
+    v15 = a1[6];
+    v16 = [v3 code];
+    v17 = 134218496;
+    v18 = v15;
+    v19 = 2048;
+    v20 = v14;
+    v21 = 1026;
+    v22 = v16;
+    _os_log_debug_impl(&dword_1B70B0000, v11, OS_LOG_TYPE_DEBUG, "END [%lld] %fs:DeleteAgeRanges  ErrorCode=%{public,signpost.telemetry:number2,name=ErrorCode}d ", &v17, 0x1Cu);
   }
 
   if (a1[4])
   {
-    v11 = _FALogSystem();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = _FALogSystem(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = v3;
-      _os_log_impl(&dword_1B70B0000, v11, OS_LOG_TYPE_DEFAULT, "Deleted age ranges with error: %@.", &v16, 0xCu);
+      v17 = 138412290;
+      v18 = v3;
+      _os_log_impl(&dword_1B70B0000, v13, OS_LOG_TYPE_DEFAULT, "Deleted age ranges with error: %@.", &v17, 0xCu);
     }
 
     (*(a1[4] + 16))();
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __55__FAAgeRangeController_deleteAgeRangesWith_completion___block_invoke_20(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _FALogSystem();
+  v4 = _FALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __55__FAAgeRangeController_deleteAgeRangesWith_completion___block_invoke_20_cold_1();
@@ -307,10 +306,11 @@ void __55__FAAgeRangeController_deleteAgeRangesWith_completion___block_invoke_20
 void __55__FAAgeRangeController_deleteAgeRangesWith_completion___block_invoke_21(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _FALogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _FALogSystem(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __55__FAAgeRangeController_deleteAgeRangesWith_completion___block_invoke_21_cold_1();
     }
@@ -323,121 +323,119 @@ void __55__FAAgeRangeController_deleteAgeRangesWith_completion___block_invoke_21
 {
   withCopy = with;
   completionCopy = completion;
-  v8 = _FASignpostLogSystem();
+  v8 = _FASignpostLogSystem(completionCopy);
   v9 = _FASignpostCreate(v8);
   v11 = v10;
 
-  v12 = _FASignpostLogSystem();
-  v13 = v12;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+  v13 = _FASignpostLogSystem(v12);
+  v14 = v13;
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B70B0000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v9, "SaveAgeRange", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1B70B0000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v9, "SaveAgeRange", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v14 = _FASignpostLogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v16 = _FASignpostLogSystem(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     [FAAgeRangeController saveAgeRangeWith:completion:];
   }
 
   *buf = 0;
-  v34 = buf;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy__2;
-  v37 = __Block_byref_object_dispose__2;
+  v36 = buf;
+  v37 = 0x3032000000;
+  v38 = __Block_byref_object_copy__2;
+  v39 = __Block_byref_object_dispose__2;
   selfCopy = self;
-  v38 = selfCopy;
+  v40 = selfCopy;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __52__FAAgeRangeController_saveAgeRangeWith_completion___block_invoke;
   aBlock[3] = &unk_1E7CA5128;
-  v30 = buf;
-  v31 = v9;
-  v32 = v11;
-  v16 = completionCopy;
-  v29 = v16;
-  v17 = _Block_copy(aBlock);
+  v32 = buf;
+  v33 = v9;
+  v34 = v11;
+  v18 = completionCopy;
+  v31 = v18;
+  v19 = _Block_copy(aBlock);
   daemonConnection = selfCopy->_daemonConnection;
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __52__FAAgeRangeController_saveAgeRangeWith_completion___block_invoke_22;
-  v26[3] = &unk_1E7CA46D8;
-  v19 = v17;
-  v27 = v19;
-  v20 = [(FAAgeRangeDaemonConnection *)daemonConnection remoteObjectProxyWithErrorHandler:v26];
-  v21 = _FALogSystem();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __52__FAAgeRangeController_saveAgeRangeWith_completion___block_invoke_22;
+  v28[3] = &unk_1E7CA46D8;
+  v21 = v19;
+  v29 = v21;
+  v22 = [(FAAgeRangeDaemonConnection *)daemonConnection remoteObjectProxyWithErrorHandler:v28];
+  v23 = _FALogSystem(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    *v25 = 0;
-    _os_log_impl(&dword_1B70B0000, v21, OS_LOG_TYPE_DEFAULT, "Saving age range.", v25, 2u);
+    *v27 = 0;
+    _os_log_impl(&dword_1B70B0000, v23, OS_LOG_TYPE_DEFAULT, "Saving age range.", v27, 2u);
   }
 
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __52__FAAgeRangeController_saveAgeRangeWith_completion___block_invoke_23;
-  v23[3] = &unk_1E7CA46D8;
-  v22 = v19;
-  v24 = v22;
-  [v20 saveAgeRangeWith:withCopy completion:v23];
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __52__FAAgeRangeController_saveAgeRangeWith_completion___block_invoke_23;
+  v25[3] = &unk_1E7CA46D8;
+  v24 = v21;
+  v26 = v24;
+  [v22 saveAgeRangeWith:withCopy completion:v25];
 
   _Block_object_dispose(buf, 8);
 }
 
 void __52__FAAgeRangeController_saveAgeRangeWith_completion___block_invoke(void *a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1[5] + 8);
   v5 = *(v4 + 40);
   *(v4 + 40) = 0;
 
   Nanoseconds = _FASignpostGetNanoseconds(a1[6], a1[7]);
-  v7 = _FASignpostLogSystem();
+  v7 = _FASignpostLogSystem(Nanoseconds);
   v8 = v7;
   v9 = a1[6];
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
-    v16 = 67240192;
-    LODWORD(v17) = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_1B70B0000, v8, OS_SIGNPOST_INTERVAL_END, v9, "SaveAgeRange", " ErrorCode=%{public,signpost.telemetry:number2,name=ErrorCode}d ", &v16, 8u);
+    v17 = 67240192;
+    LODWORD(v18) = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_1B70B0000, v8, OS_SIGNPOST_INTERVAL_END, v9, "SaveAgeRange", " ErrorCode=%{public,signpost.telemetry:number2,name=ErrorCode}d ", &v17, 8u);
   }
 
-  v10 = _FASignpostLogSystem();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = _FASignpostLogSystem(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v13 = Nanoseconds / 1000000000.0;
-    v14 = a1[6];
-    v15 = [v3 code];
-    v16 = 134218496;
-    v17 = v14;
-    v18 = 2048;
-    v19 = v13;
-    v20 = 1026;
-    v21 = v15;
-    _os_log_debug_impl(&dword_1B70B0000, v10, OS_LOG_TYPE_DEBUG, "END [%lld] %fs:SaveAgeRange  ErrorCode=%{public,signpost.telemetry:number2,name=ErrorCode}d ", &v16, 0x1Cu);
+    v14 = Nanoseconds / 1000000000.0;
+    v15 = a1[6];
+    v16 = [v3 code];
+    v17 = 134218496;
+    v18 = v15;
+    v19 = 2048;
+    v20 = v14;
+    v21 = 1026;
+    v22 = v16;
+    _os_log_debug_impl(&dword_1B70B0000, v11, OS_LOG_TYPE_DEBUG, "END [%lld] %fs:SaveAgeRange  ErrorCode=%{public,signpost.telemetry:number2,name=ErrorCode}d ", &v17, 0x1Cu);
   }
 
   if (a1[4])
   {
-    v11 = _FALogSystem();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = _FALogSystem(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = v3;
-      _os_log_impl(&dword_1B70B0000, v11, OS_LOG_TYPE_DEFAULT, "Saved age ranges with error: %@.", &v16, 0xCu);
+      v17 = 138412290;
+      v18 = v3;
+      _os_log_impl(&dword_1B70B0000, v13, OS_LOG_TYPE_DEFAULT, "Saved age ranges with error: %@.", &v17, 0xCu);
     }
 
     (*(a1[4] + 16))();
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __52__FAAgeRangeController_saveAgeRangeWith_completion___block_invoke_22(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _FALogSystem();
+  v4 = _FALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __52__FAAgeRangeController_saveAgeRangeWith_completion___block_invoke_22_cold_1();
@@ -449,10 +447,11 @@ void __52__FAAgeRangeController_saveAgeRangeWith_completion___block_invoke_22(ui
 void __52__FAAgeRangeController_saveAgeRangeWith_completion___block_invoke_23(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _FALogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _FALogSystem(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __52__FAAgeRangeController_saveAgeRangeWith_completion___block_invoke_23_cold_1();
     }
@@ -465,121 +464,119 @@ void __52__FAAgeRangeController_saveAgeRangeWith_completion___block_invoke_23(ui
 {
   withCopy = with;
   completionCopy = completion;
-  v8 = _FASignpostLogSystem();
+  v8 = _FASignpostLogSystem(completionCopy);
   v9 = _FASignpostCreate(v8);
   v11 = v10;
 
-  v12 = _FASignpostLogSystem();
-  v13 = v12;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+  v13 = _FASignpostLogSystem(v12);
+  v14 = v13;
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B70B0000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v9, "UpdateAgeRange", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1B70B0000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v9, "UpdateAgeRange", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v14 = _FASignpostLogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v16 = _FASignpostLogSystem(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     [FAAgeRangeController updateAgeRangeWith:completion:];
   }
 
   *buf = 0;
-  v34 = buf;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy__2;
-  v37 = __Block_byref_object_dispose__2;
+  v36 = buf;
+  v37 = 0x3032000000;
+  v38 = __Block_byref_object_copy__2;
+  v39 = __Block_byref_object_dispose__2;
   selfCopy = self;
-  v38 = selfCopy;
+  v40 = selfCopy;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __54__FAAgeRangeController_updateAgeRangeWith_completion___block_invoke;
   aBlock[3] = &unk_1E7CA5128;
-  v30 = buf;
-  v31 = v9;
-  v32 = v11;
-  v16 = completionCopy;
-  v29 = v16;
-  v17 = _Block_copy(aBlock);
+  v32 = buf;
+  v33 = v9;
+  v34 = v11;
+  v18 = completionCopy;
+  v31 = v18;
+  v19 = _Block_copy(aBlock);
   daemonConnection = selfCopy->_daemonConnection;
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __54__FAAgeRangeController_updateAgeRangeWith_completion___block_invoke_24;
-  v26[3] = &unk_1E7CA46D8;
-  v19 = v17;
-  v27 = v19;
-  v20 = [(FAAgeRangeDaemonConnection *)daemonConnection remoteObjectProxyWithErrorHandler:v26];
-  v21 = _FALogSystem();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __54__FAAgeRangeController_updateAgeRangeWith_completion___block_invoke_24;
+  v28[3] = &unk_1E7CA46D8;
+  v21 = v19;
+  v29 = v21;
+  v22 = [(FAAgeRangeDaemonConnection *)daemonConnection remoteObjectProxyWithErrorHandler:v28];
+  v23 = _FALogSystem(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    *v25 = 0;
-    _os_log_impl(&dword_1B70B0000, v21, OS_LOG_TYPE_DEFAULT, "Updating age range.", v25, 2u);
+    *v27 = 0;
+    _os_log_impl(&dword_1B70B0000, v23, OS_LOG_TYPE_DEFAULT, "Updating age range.", v27, 2u);
   }
 
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __54__FAAgeRangeController_updateAgeRangeWith_completion___block_invoke_25;
-  v23[3] = &unk_1E7CA46D8;
-  v22 = v19;
-  v24 = v22;
-  [v20 updateAgeRangeWith:withCopy completion:v23];
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __54__FAAgeRangeController_updateAgeRangeWith_completion___block_invoke_25;
+  v25[3] = &unk_1E7CA46D8;
+  v24 = v21;
+  v26 = v24;
+  [v22 updateAgeRangeWith:withCopy completion:v25];
 
   _Block_object_dispose(buf, 8);
 }
 
 void __54__FAAgeRangeController_updateAgeRangeWith_completion___block_invoke(void *a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1[5] + 8);
   v5 = *(v4 + 40);
   *(v4 + 40) = 0;
 
   Nanoseconds = _FASignpostGetNanoseconds(a1[6], a1[7]);
-  v7 = _FASignpostLogSystem();
+  v7 = _FASignpostLogSystem(Nanoseconds);
   v8 = v7;
   v9 = a1[6];
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
-    v16 = 67240192;
-    LODWORD(v17) = [v3 code];
-    _os_signpost_emit_with_name_impl(&dword_1B70B0000, v8, OS_SIGNPOST_INTERVAL_END, v9, "UpdateAgeRange", " ErrorCode=%{public,signpost.telemetry:number2,name=ErrorCode}d ", &v16, 8u);
+    v17 = 67240192;
+    LODWORD(v18) = [v3 code];
+    _os_signpost_emit_with_name_impl(&dword_1B70B0000, v8, OS_SIGNPOST_INTERVAL_END, v9, "UpdateAgeRange", " ErrorCode=%{public,signpost.telemetry:number2,name=ErrorCode}d ", &v17, 8u);
   }
 
-  v10 = _FASignpostLogSystem();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = _FASignpostLogSystem(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v13 = Nanoseconds / 1000000000.0;
-    v14 = a1[6];
-    v15 = [v3 code];
-    v16 = 134218496;
-    v17 = v14;
-    v18 = 2048;
-    v19 = v13;
-    v20 = 1026;
-    v21 = v15;
-    _os_log_debug_impl(&dword_1B70B0000, v10, OS_LOG_TYPE_DEBUG, "END [%lld] %fs:UpdateAgeRange  ErrorCode=%{public,signpost.telemetry:number2,name=ErrorCode}d ", &v16, 0x1Cu);
+    v14 = Nanoseconds / 1000000000.0;
+    v15 = a1[6];
+    v16 = [v3 code];
+    v17 = 134218496;
+    v18 = v15;
+    v19 = 2048;
+    v20 = v14;
+    v21 = 1026;
+    v22 = v16;
+    _os_log_debug_impl(&dword_1B70B0000, v11, OS_LOG_TYPE_DEBUG, "END [%lld] %fs:UpdateAgeRange  ErrorCode=%{public,signpost.telemetry:number2,name=ErrorCode}d ", &v17, 0x1Cu);
   }
 
   if (a1[4])
   {
-    v11 = _FALogSystem();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = _FALogSystem(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = v3;
-      _os_log_impl(&dword_1B70B0000, v11, OS_LOG_TYPE_DEFAULT, "Updated age range with error: %@.", &v16, 0xCu);
+      v17 = 138412290;
+      v18 = v3;
+      _os_log_impl(&dword_1B70B0000, v13, OS_LOG_TYPE_DEFAULT, "Updated age range with error: %@.", &v17, 0xCu);
     }
 
     (*(a1[4] + 16))();
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __54__FAAgeRangeController_updateAgeRangeWith_completion___block_invoke_24(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _FALogSystem();
+  v4 = _FALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__FAAgeRangeController_updateAgeRangeWith_completion___block_invoke_24_cold_1();
@@ -591,10 +588,11 @@ void __54__FAAgeRangeController_updateAgeRangeWith_completion___block_invoke_24(
 void __54__FAAgeRangeController_updateAgeRangeWith_completion___block_invoke_25(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _FALogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _FALogSystem(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __54__FAAgeRangeController_updateAgeRangeWith_completion___block_invoke_25_cold_1();
     }
@@ -627,7 +625,7 @@ void __54__FAAgeRangeController_updateAgeRangeWith_completion___block_invoke_25(
 void __57__FAAgeRangeController_globalStateForAltDSID_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _FALogSystem();
+  v4 = _FALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __57__FAAgeRangeController_globalStateForAltDSID_completion___block_invoke_cold_1();
@@ -639,10 +637,11 @@ void __57__FAAgeRangeController_globalStateForAltDSID_completion___block_invoke(
 void __57__FAAgeRangeController_globalStateForAltDSID_completion___block_invoke_26(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = _FALogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _FALogSystem(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __57__FAAgeRangeController_globalStateForAltDSID_completion___block_invoke_26_cold_1();
     }
@@ -651,10 +650,33 @@ void __57__FAAgeRangeController_globalStateForAltDSID_completion___block_invoke_
   (*(*(a1 + 32) + 16))();
 }
 
+- (void)setGlobalStateForAltDSID:(int)d forAltDSID:(id)iD privacyVersion:(id)version completion:(id)completion
+{
+  v8 = *&d;
+  completionCopy = completion;
+  daemonConnection = self->_daemonConnection;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __86__FAAgeRangeController_setGlobalStateForAltDSID_forAltDSID_privacyVersion_completion___block_invoke;
+  v19[3] = &unk_1E7CA46D8;
+  v12 = completionCopy;
+  v20 = v12;
+  versionCopy = version;
+  iDCopy = iD;
+  v15 = [(FAAgeRangeDaemonConnection *)daemonConnection remoteObjectProxyWithErrorHandler:v19];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __86__FAAgeRangeController_setGlobalStateForAltDSID_forAltDSID_privacyVersion_completion___block_invoke_28;
+  v17[3] = &unk_1E7CA46D8;
+  v18 = v12;
+  v16 = v12;
+  [v15 setAgeRangeGlobalState:v8 forAltDSID:iDCopy privacyVersion:versionCopy completion:v17];
+}
+
 void __86__FAAgeRangeController_setGlobalStateForAltDSID_forAltDSID_privacyVersion_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _FALogSystem();
+  v4 = _FALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __86__FAAgeRangeController_setGlobalStateForAltDSID_forAltDSID_privacyVersion_completion___block_invoke_cold_1();
@@ -666,10 +688,11 @@ void __86__FAAgeRangeController_setGlobalStateForAltDSID_forAltDSID_privacyVersi
 void __86__FAAgeRangeController_setGlobalStateForAltDSID_forAltDSID_privacyVersion_completion___block_invoke_28(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _FALogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _FALogSystem(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __86__FAAgeRangeController_setGlobalStateForAltDSID_forAltDSID_privacyVersion_completion___block_invoke_28_cold_1();
     }
@@ -678,10 +701,34 @@ void __86__FAAgeRangeController_setGlobalStateForAltDSID_forAltDSID_privacyVersi
   (*(*(a1 + 32) + 16))();
 }
 
+- (void)saveAgeRangeGlobalState:(int)state forAltDSID:(id)d cacheDuration:(id)duration privacyVersion:(id)version completion:(id)completion
+{
+  v10 = *&state;
+  completionCopy = completion;
+  daemonConnection = self->_daemonConnection;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __99__FAAgeRangeController_saveAgeRangeGlobalState_forAltDSID_cacheDuration_privacyVersion_completion___block_invoke;
+  v22[3] = &unk_1E7CA46D8;
+  v14 = completionCopy;
+  v23 = v14;
+  versionCopy = version;
+  durationCopy = duration;
+  dCopy = d;
+  v18 = [(FAAgeRangeDaemonConnection *)daemonConnection remoteObjectProxyWithErrorHandler:v22];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __99__FAAgeRangeController_saveAgeRangeGlobalState_forAltDSID_cacheDuration_privacyVersion_completion___block_invoke_29;
+  v20[3] = &unk_1E7CA46D8;
+  v21 = v14;
+  v19 = v14;
+  [v18 saveAgeRangeGlobalState:v10 forAltDSID:dCopy cacheDuration:durationCopy privacyVersion:versionCopy completion:v20];
+}
+
 void __99__FAAgeRangeController_saveAgeRangeGlobalState_forAltDSID_cacheDuration_privacyVersion_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _FALogSystem();
+  v4 = _FALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __99__FAAgeRangeController_saveAgeRangeGlobalState_forAltDSID_cacheDuration_privacyVersion_completion___block_invoke_cold_1();
@@ -693,10 +740,11 @@ void __99__FAAgeRangeController_saveAgeRangeGlobalState_forAltDSID_cacheDuration
 void __99__FAAgeRangeController_saveAgeRangeGlobalState_forAltDSID_cacheDuration_privacyVersion_completion___block_invoke_29(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _FALogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _FALogSystem(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __52__FAAgeRangeController_saveAgeRangeWith_completion___block_invoke_23_cold_1();
     }
@@ -714,70 +762,70 @@ void __99__FAAgeRangeController_saveAgeRangeGlobalState_forAltDSID_cacheDuration
   overrideCopy = override;
   daysCopy = days;
   completionCopy = completion;
-  v20 = _FASignpostLogSystem();
+  v20 = _FASignpostLogSystem(completionCopy);
   v21 = _FASignpostCreate(v20);
   v23 = v22;
 
-  v24 = _FASignpostLogSystem();
-  v25 = v24;
-  if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
+  v25 = _FASignpostLogSystem(v24);
+  v26 = v25;
+  if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B70B0000, v25, OS_SIGNPOST_INTERVAL_BEGIN, v21, "RequestAgeRange", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1B70B0000, v26, OS_SIGNPOST_INTERVAL_BEGIN, v21, "RequestAgeRange", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v26 = _FASignpostLogSystem();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+  v28 = _FASignpostLogSystem(v27);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
   {
     [FAAgeRangeController shouldPromptAgeRangeWith:bundleID:appName:privacyVersion:userAgeOverride:attestedAtOverrideInDays:completion:];
   }
 
   *buf = 0;
-  v48 = buf;
-  v49 = 0x3032000000;
-  v50 = __Block_byref_object_copy__2;
-  v51 = __Block_byref_object_dispose__2;
+  v50 = buf;
+  v51 = 0x3032000000;
+  v52 = __Block_byref_object_copy__2;
+  v53 = __Block_byref_object_dispose__2;
   selfCopy = self;
-  v52 = selfCopy;
+  v54 = selfCopy;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __133__FAAgeRangeController_shouldPromptAgeRangeWith_bundleID_appName_privacyVersion_userAgeOverride_attestedAtOverrideInDays_completion___block_invoke;
   aBlock[3] = &unk_1E7CA5178;
-  v44 = buf;
-  v45 = v21;
-  v46 = v23;
-  v28 = completionCopy;
-  v43 = v28;
-  v29 = _Block_copy(aBlock);
+  v46 = buf;
+  v47 = v21;
+  v48 = v23;
+  v30 = completionCopy;
+  v45 = v30;
+  v31 = _Block_copy(aBlock);
   daemonConnection = selfCopy->_daemonConnection;
-  v40[0] = MEMORY[0x1E69E9820];
-  v40[1] = 3221225472;
-  v40[2] = __133__FAAgeRangeController_shouldPromptAgeRangeWith_bundleID_appName_privacyVersion_userAgeOverride_attestedAtOverrideInDays_completion___block_invoke_31;
-  v40[3] = &unk_1E7CA46D8;
-  v31 = v29;
-  v41 = v31;
-  v32 = [(FAAgeRangeDaemonConnection *)daemonConnection remoteObjectProxyWithErrorHandler:v40];
-  v33 = _FALogSystem();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+  v42[0] = MEMORY[0x1E69E9820];
+  v42[1] = 3221225472;
+  v42[2] = __133__FAAgeRangeController_shouldPromptAgeRangeWith_bundleID_appName_privacyVersion_userAgeOverride_attestedAtOverrideInDays_completion___block_invoke_31;
+  v42[3] = &unk_1E7CA46D8;
+  v33 = v31;
+  v43 = v33;
+  v34 = [(FAAgeRangeDaemonConnection *)daemonConnection remoteObjectProxyWithErrorHandler:v42];
+  v35 = _FALogSystem(v34);
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
   {
-    *v39 = 0;
-    _os_log_impl(&dword_1B70B0000, v33, OS_LOG_TYPE_DEFAULT, "Requesting shouldPromptAgeRange", v39, 2u);
+    *v41 = 0;
+    _os_log_impl(&dword_1B70B0000, v35, OS_LOG_TYPE_DEFAULT, "Requesting shouldPromptAgeRange", v41, 2u);
   }
 
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = __133__FAAgeRangeController_shouldPromptAgeRangeWith_bundleID_appName_privacyVersion_userAgeOverride_attestedAtOverrideInDays_completion___block_invoke_32;
-  v37[3] = &unk_1E7CA51A0;
-  v34 = v31;
-  v38 = v34;
-  [v32 shouldPromptAgeRangeWith:withCopy bundleID:dCopy appName:nameCopy privacyVersion:versionCopy userAgeOverride:overrideCopy attestedAtOverrideInDays:daysCopy completion:v37];
+  v39[0] = MEMORY[0x1E69E9820];
+  v39[1] = 3221225472;
+  v39[2] = __133__FAAgeRangeController_shouldPromptAgeRangeWith_bundleID_appName_privacyVersion_userAgeOverride_attestedAtOverrideInDays_completion___block_invoke_32;
+  v39[3] = &unk_1E7CA51A0;
+  v36 = v33;
+  v40 = v36;
+  [v34 shouldPromptAgeRangeWith:withCopy bundleID:dCopy appName:nameCopy privacyVersion:versionCopy userAgeOverride:overrideCopy attestedAtOverrideInDays:daysCopy completion:v39];
 
   _Block_object_dispose(buf, 8);
 }
 
 void __133__FAAgeRangeController_shouldPromptAgeRangeWith_bundleID_appName_privacyVersion_userAgeOverride_attestedAtOverrideInDays_completion___block_invoke(void *a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = *(a1[5] + 8);
@@ -785,51 +833,49 @@ void __133__FAAgeRangeController_shouldPromptAgeRangeWith_bundleID_appName_priva
   *(v7 + 40) = 0;
 
   Nanoseconds = _FASignpostGetNanoseconds(a1[6], a1[7]);
-  v10 = _FASignpostLogSystem();
+  v10 = _FASignpostLogSystem(Nanoseconds);
   v11 = v10;
   v12 = a1[6];
   if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
-    v19 = 67240192;
-    LODWORD(v20) = [v6 code];
-    _os_signpost_emit_with_name_impl(&dword_1B70B0000, v11, OS_SIGNPOST_INTERVAL_END, v12, "RequestAgeRange", " ErrorCode=%{public,signpost.telemetry:number2,name=ErrorCode}d ", &v19, 8u);
+    v20 = 67240192;
+    LODWORD(v21) = [v6 code];
+    _os_signpost_emit_with_name_impl(&dword_1B70B0000, v11, OS_SIGNPOST_INTERVAL_END, v12, "RequestAgeRange", " ErrorCode=%{public,signpost.telemetry:number2,name=ErrorCode}d ", &v20, 8u);
   }
 
-  v13 = _FASignpostLogSystem();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v14 = _FASignpostLogSystem(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    v16 = Nanoseconds / 1000000000.0;
-    v17 = a1[6];
-    v18 = [v6 code];
-    v19 = 134218496;
-    v20 = v17;
-    v21 = 2048;
-    v22 = v16;
-    v23 = 1026;
-    v24 = v18;
-    _os_log_debug_impl(&dword_1B70B0000, v13, OS_LOG_TYPE_DEBUG, "END [%lld] %fs:RequestAgeRange  ErrorCode=%{public,signpost.telemetry:number2,name=ErrorCode}d ", &v19, 0x1Cu);
+    v17 = Nanoseconds / 1000000000.0;
+    v18 = a1[6];
+    v19 = [v6 code];
+    v20 = 134218496;
+    v21 = v18;
+    v22 = 2048;
+    v23 = v17;
+    v24 = 1026;
+    v25 = v19;
+    _os_log_debug_impl(&dword_1B70B0000, v14, OS_LOG_TYPE_DEBUG, "END [%lld] %fs:RequestAgeRange  ErrorCode=%{public,signpost.telemetry:number2,name=ErrorCode}d ", &v20, 0x1Cu);
   }
 
   if (a1[4])
   {
-    v14 = _FALogSystem();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = _FALogSystem(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 134217984;
-      v20 = v5;
-      _os_log_impl(&dword_1B70B0000, v14, OS_LOG_TYPE_DEFAULT, "shouldPromptAgeRange with response: %ld.", &v19, 0xCu);
+      v20 = 134217984;
+      v21 = v5;
+      _os_log_impl(&dword_1B70B0000, v16, OS_LOG_TYPE_DEFAULT, "shouldPromptAgeRange with response: %ld.", &v20, 0xCu);
     }
 
     (*(a1[4] + 16))();
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __133__FAAgeRangeController_shouldPromptAgeRangeWith_bundleID_appName_privacyVersion_userAgeOverride_attestedAtOverrideInDays_completion___block_invoke_31(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _FALogSystem();
+  v4 = _FALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __133__FAAgeRangeController_shouldPromptAgeRangeWith_bundleID_appName_privacyVersion_userAgeOverride_attestedAtOverrideInDays_completion___block_invoke_31_cold_1();
@@ -842,10 +888,11 @@ void __133__FAAgeRangeController_shouldPromptAgeRangeWith_bundleID_appName_priva
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _FALogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _FALogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __133__FAAgeRangeController_shouldPromptAgeRangeWith_bundleID_appName_privacyVersion_userAgeOverride_attestedAtOverrideInDays_completion___block_invoke_32_cold_1();
     }
@@ -856,10 +903,15 @@ void __133__FAAgeRangeController_shouldPromptAgeRangeWith_bundleID_appName_priva
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_0(&dword_1B70B0000, v0, v1, "%@ deallocated.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v3 = _FALogSystem(self);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  {
+    [FAAgeRangeController dealloc];
+  }
+
+  v4.receiver = self;
+  v4.super_class = FAAgeRangeController;
+  [(FAAgeRangeController *)&v4 dealloc];
 }
 
 - (void)postAgeRangeNotificationWith:(id)with lowerAgeBound:(id)bound upperAgeBound:(id)ageBound completion:(id)completion
@@ -891,7 +943,7 @@ void __133__FAAgeRangeController_shouldPromptAgeRangeWith_bundleID_appName_priva
   v18 = v16;
   v26 = v18;
   v19 = [(FAAgeRangeDaemonConnection *)daemonConnection remoteObjectProxyWithErrorHandler:v25];
-  v20 = _FALogSystem();
+  v20 = _FALogSystem(v19);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -919,24 +971,22 @@ void __92__FAAgeRangeController_postAgeRangeNotificationWith_lowerAgeBound_upper
 
   if (*(a1 + 32))
   {
-    v6 = _FALogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _FALogSystem(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 138412290;
       v9 = v3;
-      _os_log_impl(&dword_1B70B0000, v6, OS_LOG_TYPE_DEFAULT, "Posted age range notification with error: %@.", &v8, 0xCu);
+      _os_log_impl(&dword_1B70B0000, v7, OS_LOG_TYPE_DEFAULT, "Posted age range notification with error: %@.", &v8, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __92__FAAgeRangeController_postAgeRangeNotificationWith_lowerAgeBound_upperAgeBound_completion___block_invoke_35(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _FALogSystem();
+  v4 = _FALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__FAAgeRangeController_updateAgeRangeWith_completion___block_invoke_24_cold_1();
@@ -948,10 +998,11 @@ void __92__FAAgeRangeController_postAgeRangeNotificationWith_lowerAgeBound_upper
 void __92__FAAgeRangeController_postAgeRangeNotificationWith_lowerAgeBound_upperAgeBound_completion___block_invoke_36(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _FALogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _FALogSystem(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __92__FAAgeRangeController_postAgeRangeNotificationWith_lowerAgeBound_upperAgeBound_completion___block_invoke_36_cold_1();
     }
@@ -986,7 +1037,7 @@ void __92__FAAgeRangeController_postAgeRangeNotificationWith_lowerAgeBound_upper
   v9 = v7;
   v17 = v9;
   v10 = [(FAAgeRangeDaemonConnection *)daemonConnection remoteObjectProxyWithErrorHandler:v16];
-  v11 = _FALogSystem();
+  v11 = _FALogSystem(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1015,24 +1066,22 @@ void __63__FAAgeRangeController_fetchFamilyCircleWithCompletionHandler___block_i
 
   if (*(a1 + 32))
   {
-    v9 = _FALogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _FALogSystem(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = 138412290;
       v12 = v6;
-      _os_log_impl(&dword_1B70B0000, v9, OS_LOG_TYPE_DEFAULT, "fetchFamilyCircle with error: %@.", &v11, 0xCu);
+      _os_log_impl(&dword_1B70B0000, v10, OS_LOG_TYPE_DEFAULT, "fetchFamilyCircle with error: %@.", &v11, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __63__FAAgeRangeController_fetchFamilyCircleWithCompletionHandler___block_invoke_38(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _FALogSystem();
+  v4 = _FALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __63__FAAgeRangeController_fetchFamilyCircleWithCompletionHandler___block_invoke_38_cold_1();
@@ -1045,10 +1094,11 @@ void __63__FAAgeRangeController_fetchFamilyCircleWithCompletionHandler___block_i
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _FALogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _FALogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __63__FAAgeRangeController_fetchFamilyCircleWithCompletionHandler___block_invoke_39_cold_1();
     }
@@ -1083,7 +1133,7 @@ void __63__FAAgeRangeController_fetchFamilyCircleWithCompletionHandler___block_i
   v9 = v7;
   v17 = v9;
   v10 = [(FAAgeRangeDaemonConnection *)daemonConnection remoteObjectProxyWithErrorHandler:v16];
-  v11 = _FALogSystem();
+  v11 = _FALogSystem(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1112,24 +1162,22 @@ void __58__FAAgeRangeController_fetchAltDSIDWithCompletionHandler___block_invoke
 
   if (*(a1 + 32))
   {
-    v9 = _FALogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _FALogSystem(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = 138412290;
       v12 = v6;
-      _os_log_impl(&dword_1B70B0000, v9, OS_LOG_TYPE_DEFAULT, "fetchAltDSID with error: %@.", &v11, 0xCu);
+      _os_log_impl(&dword_1B70B0000, v10, OS_LOG_TYPE_DEFAULT, "fetchAltDSID with error: %@.", &v11, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __58__FAAgeRangeController_fetchAltDSIDWithCompletionHandler___block_invoke_41(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _FALogSystem();
+  v4 = _FALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __58__FAAgeRangeController_fetchAltDSIDWithCompletionHandler___block_invoke_41_cold_1();
@@ -1142,10 +1190,11 @@ void __58__FAAgeRangeController_fetchAltDSIDWithCompletionHandler___block_invoke
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _FALogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _FALogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __58__FAAgeRangeController_fetchAltDSIDWithCompletionHandler___block_invoke_42_cold_1();
     }
@@ -1180,7 +1229,7 @@ void __58__FAAgeRangeController_fetchAltDSIDWithCompletionHandler___block_invoke
   v9 = v7;
   v17 = v9;
   v10 = [(FAAgeRangeDaemonConnection *)daemonConnection remoteObjectProxyWithErrorHandler:v16];
-  v11 = _FALogSystem();
+  v11 = _FALogSystem(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1209,24 +1258,22 @@ void __54__FAAgeRangeController_fetchAgeWithCompletionHandler___block_invoke(uin
 
   if (*(a1 + 32))
   {
-    v9 = _FALogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _FALogSystem(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = 138412290;
       v12 = v6;
-      _os_log_impl(&dword_1B70B0000, v9, OS_LOG_TYPE_DEFAULT, "fetchAge with error: %@.", &v11, 0xCu);
+      _os_log_impl(&dword_1B70B0000, v10, OS_LOG_TYPE_DEFAULT, "fetchAge with error: %@.", &v11, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __54__FAAgeRangeController_fetchAgeWithCompletionHandler___block_invoke_44(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _FALogSystem();
+  v4 = _FALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__FAAgeRangeController_fetchAgeWithCompletionHandler___block_invoke_44_cold_1();
@@ -1239,10 +1286,11 @@ void __54__FAAgeRangeController_fetchAgeWithCompletionHandler___block_invoke_45(
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _FALogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _FALogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __54__FAAgeRangeController_fetchAgeWithCompletionHandler___block_invoke_45_cold_1();
     }
@@ -1278,7 +1326,7 @@ void __54__FAAgeRangeController_fetchAgeWithCompletionHandler___block_invoke_45(
   v12 = v10;
   v20 = v12;
   v13 = [(FAAgeRangeDaemonConnection *)daemonConnection remoteObjectProxyWithErrorHandler:v19];
-  v14 = _FALogSystem();
+  v14 = _FALogSystem(v13);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1307,24 +1355,22 @@ void __65__FAAgeRangeController_fetchPrivacyVersionForAltDSID_completion___block
 
   if (*(a1 + 32))
   {
-    v9 = _FALogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _FALogSystem(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = 138412290;
       v12 = v6;
-      _os_log_impl(&dword_1B70B0000, v9, OS_LOG_TYPE_DEFAULT, "fetchPrivacyVersion with error: %@.", &v11, 0xCu);
+      _os_log_impl(&dword_1B70B0000, v10, OS_LOG_TYPE_DEFAULT, "fetchPrivacyVersion with error: %@.", &v11, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __65__FAAgeRangeController_fetchPrivacyVersionForAltDSID_completion___block_invoke_46(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _FALogSystem();
+  v4 = _FALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __65__FAAgeRangeController_fetchPrivacyVersionForAltDSID_completion___block_invoke_46_cold_1();
@@ -1337,10 +1383,11 @@ void __65__FAAgeRangeController_fetchPrivacyVersionForAltDSID_completion___block
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _FALogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _FALogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __65__FAAgeRangeController_fetchPrivacyVersionForAltDSID_completion___block_invoke_47_cold_1();
     }
@@ -1351,7 +1398,7 @@ void __65__FAAgeRangeController_fetchPrivacyVersionForAltDSID_completion___block
 
 - (void)requestAgeRangeWith:(id)with userAgeOverride:(id)override altDSID:(id)d bundleID:(id)iD appName:(id)name attestedAtOverrideInDays:(id)days completion:(id)completion
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   withCopy = with;
   overrideCopy = override;
   dCopy = d;
@@ -1359,77 +1406,76 @@ void __65__FAAgeRangeController_fetchPrivacyVersionForAltDSID_completion___block
   nameCopy = name;
   daysCopy = days;
   completionCopy = completion;
-  v20 = _FASignpostLogSystem();
+  v20 = _FASignpostLogSystem(completionCopy);
   v21 = _FASignpostCreate(v20);
   v23 = v22;
 
-  v24 = _FASignpostLogSystem();
-  v25 = v24;
-  if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
+  v25 = _FASignpostLogSystem(v24);
+  v26 = v25;
+  if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B70B0000, v25, OS_SIGNPOST_INTERVAL_BEGIN, v21, "RequestAgeRange", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1B70B0000, v26, OS_SIGNPOST_INTERVAL_BEGIN, v21, "RequestAgeRange", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v26 = _FASignpostLogSystem();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+  v28 = _FASignpostLogSystem(v27);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
   {
     [FAAgeRangeController shouldPromptAgeRangeWith:bundleID:appName:privacyVersion:userAgeOverride:attestedAtOverrideInDays:completion:];
   }
 
   *buf = 0;
-  v49 = buf;
-  v50 = 0x3032000000;
-  v51 = __Block_byref_object_copy__2;
-  v52 = __Block_byref_object_dispose__2;
+  v50 = buf;
+  v51 = 0x3032000000;
+  v52 = __Block_byref_object_copy__2;
+  v53 = __Block_byref_object_dispose__2;
   selfCopy = self;
-  v53 = selfCopy;
+  v54 = selfCopy;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __121__FAAgeRangeController_requestAgeRangeWith_userAgeOverride_altDSID_bundleID_appName_attestedAtOverrideInDays_completion___block_invoke;
   aBlock[3] = &unk_1E7CA52B8;
-  v45 = buf;
-  v46 = v21;
-  v28 = nameCopy;
-  v47 = v23;
-  v29 = completionCopy;
-  v44 = v29;
-  v30 = _Block_copy(aBlock);
+  v46 = buf;
+  v47 = v21;
+  v30 = nameCopy;
+  v48 = v23;
+  v31 = completionCopy;
+  v45 = v31;
+  v32 = _Block_copy(aBlock);
   daemonConnection = selfCopy->_daemonConnection;
-  v41[0] = MEMORY[0x1E69E9820];
-  v41[1] = 3221225472;
-  v41[2] = __121__FAAgeRangeController_requestAgeRangeWith_userAgeOverride_altDSID_bundleID_appName_attestedAtOverrideInDays_completion___block_invoke_49;
-  v41[3] = &unk_1E7CA46D8;
-  v32 = v30;
-  v42 = v32;
-  v33 = [(FAAgeRangeDaemonConnection *)daemonConnection remoteObjectProxyWithErrorHandler:v41];
-  v34 = _FALogSystem();
-  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+  v42[0] = MEMORY[0x1E69E9820];
+  v42[1] = 3221225472;
+  v42[2] = __121__FAAgeRangeController_requestAgeRangeWith_userAgeOverride_altDSID_bundleID_appName_attestedAtOverrideInDays_completion___block_invoke_49;
+  v42[3] = &unk_1E7CA46D8;
+  v34 = v32;
+  v43 = v34;
+  v35 = [(FAAgeRangeDaemonConnection *)daemonConnection remoteObjectProxyWithErrorHandler:v42];
+  v36 = _FALogSystem(v35);
+  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
   {
-    *v54 = 138412802;
-    v55 = withCopy;
-    v56 = 2112;
-    v57 = iDCopy;
-    v58 = 2112;
-    v59 = v28;
-    _os_log_impl(&dword_1B70B0000, v34, OS_LOG_TYPE_DEFAULT, "Requesting age range from daemon with parameters: ages=%@, bundleID=%@, appName=%@", v54, 0x20u);
+    *v55 = 138412802;
+    v56 = withCopy;
+    v57 = 2112;
+    v58 = iDCopy;
+    v59 = 2112;
+    v60 = v30;
+    _os_log_impl(&dword_1B70B0000, v36, OS_LOG_TYPE_DEFAULT, "Requesting age range from daemon with parameters: ages=%@, bundleID=%@, appName=%@", v55, 0x20u);
   }
 
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __121__FAAgeRangeController_requestAgeRangeWith_userAgeOverride_altDSID_bundleID_appName_attestedAtOverrideInDays_completion___block_invoke_50;
-  v39[3] = &unk_1E7CA52E0;
-  v35 = v32;
-  v40 = v35;
-  [v33 requestAgeRangeWith:withCopy userAgeOverride:overrideCopy altDSID:dCopy bundleID:iDCopy appName:v28 attestedAtOverrideInDays:daysCopy completion:v39];
+  v40[0] = MEMORY[0x1E69E9820];
+  v40[1] = 3221225472;
+  v40[2] = __121__FAAgeRangeController_requestAgeRangeWith_userAgeOverride_altDSID_bundleID_appName_attestedAtOverrideInDays_completion___block_invoke_50;
+  v40[3] = &unk_1E7CA52E0;
+  v37 = v34;
+  v41 = v37;
+  [v35 requestAgeRangeWith:withCopy userAgeOverride:overrideCopy altDSID:dCopy bundleID:iDCopy appName:v30 attestedAtOverrideInDays:daysCopy completion:v40];
 
   _Block_object_dispose(buf, 8);
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 void __121__FAAgeRangeController_requestAgeRangeWith_userAgeOverride_altDSID_bundleID_appName_attestedAtOverrideInDays_completion___block_invoke(void *a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = *(a1[5] + 8);
@@ -1437,51 +1483,49 @@ void __121__FAAgeRangeController_requestAgeRangeWith_userAgeOverride_altDSID_bun
   *(v7 + 40) = 0;
 
   Nanoseconds = _FASignpostGetNanoseconds(a1[6], a1[7]);
-  v10 = _FASignpostLogSystem();
+  v10 = _FASignpostLogSystem(Nanoseconds);
   v11 = v10;
   v12 = a1[6];
   if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
-    v19 = 67240192;
-    LODWORD(v20) = [v6 code];
-    _os_signpost_emit_with_name_impl(&dword_1B70B0000, v11, OS_SIGNPOST_INTERVAL_END, v12, "RequestAgeRange", " ErrorCode=%{public,signpost.telemetry:number2,name=ErrorCode}d ", &v19, 8u);
+    v20 = 67240192;
+    LODWORD(v21) = [v6 code];
+    _os_signpost_emit_with_name_impl(&dword_1B70B0000, v11, OS_SIGNPOST_INTERVAL_END, v12, "RequestAgeRange", " ErrorCode=%{public,signpost.telemetry:number2,name=ErrorCode}d ", &v20, 8u);
   }
 
-  v13 = _FASignpostLogSystem();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v14 = _FASignpostLogSystem(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    v16 = Nanoseconds / 1000000000.0;
-    v17 = a1[6];
-    v18 = [v6 code];
-    v19 = 134218496;
-    v20 = v17;
-    v21 = 2048;
-    v22 = v16;
-    v23 = 1026;
-    v24 = v18;
-    _os_log_debug_impl(&dword_1B70B0000, v13, OS_LOG_TYPE_DEBUG, "END [%lld] %fs:RequestAgeRange  ErrorCode=%{public,signpost.telemetry:number2,name=ErrorCode}d ", &v19, 0x1Cu);
+    v17 = Nanoseconds / 1000000000.0;
+    v18 = a1[6];
+    v19 = [v6 code];
+    v20 = 134218496;
+    v21 = v18;
+    v22 = 2048;
+    v23 = v17;
+    v24 = 1026;
+    v25 = v19;
+    _os_log_debug_impl(&dword_1B70B0000, v14, OS_LOG_TYPE_DEBUG, "END [%lld] %fs:RequestAgeRange  ErrorCode=%{public,signpost.telemetry:number2,name=ErrorCode}d ", &v20, 0x1Cu);
   }
 
   if (a1[4])
   {
-    v14 = _FALogSystem();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = _FALogSystem(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138412290;
-      v20 = v5;
-      _os_log_impl(&dword_1B70B0000, v14, OS_LOG_TYPE_DEFAULT, "requestAgeRange with response: %@.", &v19, 0xCu);
+      v20 = 138412290;
+      v21 = v5;
+      _os_log_impl(&dword_1B70B0000, v16, OS_LOG_TYPE_DEFAULT, "requestAgeRange with response: %@.", &v20, 0xCu);
     }
 
     (*(a1[4] + 16))();
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __121__FAAgeRangeController_requestAgeRangeWith_userAgeOverride_altDSID_bundleID_appName_attestedAtOverrideInDays_completion___block_invoke_49(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _FALogSystem();
+  v4 = _FALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __121__FAAgeRangeController_requestAgeRangeWith_userAgeOverride_altDSID_bundleID_appName_attestedAtOverrideInDays_completion___block_invoke_49_cold_1();
@@ -1494,264 +1538,17 @@ void __121__FAAgeRangeController_requestAgeRangeWith_userAgeOverride_altDSID_bun
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = _FALogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _FALogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __121__FAAgeRangeController_requestAgeRangeWith_userAgeOverride_altDSID_bundleID_appName_attestedAtOverrideInDays_completion___block_invoke_50_cold_1();
     }
   }
 
   (*(*(a1 + 32) + 16))();
-}
-
-- (void)fetchAgeRangesWith:completion:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_0(&dword_1B70B0000, v0, v1, "BEGIN [%lld]: FetchAgeRanges  enableTelemetry=YES ", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __54__FAAgeRangeController_fetchAgeRangesWith_completion___block_invoke_17_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_1B70B0000, v0, v1, "Family daemon connection for fetching age ranges returned an error: %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __54__FAAgeRangeController_fetchAgeRangesWith_completion___block_invoke_19_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_1B70B0000, v0, v1, "Error fetching age ranges: %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)deleteAgeRangesWith:completion:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_0(&dword_1B70B0000, v0, v1, "BEGIN [%lld]: DeleteAgeRanges  enableTelemetry=YES ", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __55__FAAgeRangeController_deleteAgeRangesWith_completion___block_invoke_20_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_1B70B0000, v0, v1, "Family daemon connection for deleting age ranges returned an error: %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __55__FAAgeRangeController_deleteAgeRangesWith_completion___block_invoke_21_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_1B70B0000, v0, v1, "Error deleting age ranges: %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)saveAgeRangeWith:completion:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_0(&dword_1B70B0000, v0, v1, "BEGIN [%lld]: SaveAgeRange  enableTelemetry=YES ", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __52__FAAgeRangeController_saveAgeRangeWith_completion___block_invoke_22_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_1B70B0000, v0, v1, "Family daemon connection for saving age range returned an error: %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __52__FAAgeRangeController_saveAgeRangeWith_completion___block_invoke_23_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_1B70B0000, v0, v1, "Error saving age range: %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)updateAgeRangeWith:completion:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_0(&dword_1B70B0000, v0, v1, "BEGIN [%lld]: UpdateAgeRange  enableTelemetry=YES ", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __54__FAAgeRangeController_updateAgeRangeWith_completion___block_invoke_24_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_1B70B0000, v0, v1, "Family daemon connection for updating age range returned an error: %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __54__FAAgeRangeController_updateAgeRangeWith_completion___block_invoke_25_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_1B70B0000, v0, v1, "Error updating age range: %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __57__FAAgeRangeController_globalStateForAltDSID_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_1B70B0000, v0, v1, "Family daemon connection for fetching age range settings: %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __57__FAAgeRangeController_globalStateForAltDSID_completion___block_invoke_26_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_1B70B0000, v0, v1, "Error fetching global age range settings: %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __86__FAAgeRangeController_setGlobalStateForAltDSID_forAltDSID_privacyVersion_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_1B70B0000, v0, v1, "Family daemon connection for setting age range settings: %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __86__FAAgeRangeController_setGlobalStateForAltDSID_forAltDSID_privacyVersion_completion___block_invoke_28_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_1B70B0000, v0, v1, "Error setting age range: %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __99__FAAgeRangeController_saveAgeRangeGlobalState_forAltDSID_cacheDuration_privacyVersion_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_1B70B0000, v0, v1, "Family daemon connection for saving age range global state: %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)shouldPromptAgeRangeWith:bundleID:appName:privacyVersion:userAgeOverride:attestedAtOverrideInDays:completion:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_0(&dword_1B70B0000, v0, v1, "BEGIN [%lld]: RequestAgeRange  enableTelemetry=YES ", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __133__FAAgeRangeController_shouldPromptAgeRangeWith_bundleID_appName_privacyVersion_userAgeOverride_attestedAtOverrideInDays_completion___block_invoke_31_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_1B70B0000, v0, v1, "FamilyCircle daemon connection for shouldPromptAgeRange returned an error: %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __133__FAAgeRangeController_shouldPromptAgeRangeWith_bundleID_appName_privacyVersion_userAgeOverride_attestedAtOverrideInDays_completion___block_invoke_32_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_1B70B0000, v0, v1, "Error requesting shouldPromptAgeRange: %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __92__FAAgeRangeController_postAgeRangeNotificationWith_lowerAgeBound_upperAgeBound_completion___block_invoke_36_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_1B70B0000, v0, v1, "Error posting age range notification: %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __63__FAAgeRangeController_fetchFamilyCircleWithCompletionHandler___block_invoke_38_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_1B70B0000, v0, v1, "FamilyCircle daemon connection for fetchFamilyCircle returned an error: %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __63__FAAgeRangeController_fetchFamilyCircleWithCompletionHandler___block_invoke_39_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_1B70B0000, v0, v1, "Error fetching family circle: %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __58__FAAgeRangeController_fetchAltDSIDWithCompletionHandler___block_invoke_41_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_1B70B0000, v0, v1, "FamilyCircle daemon connection for fetchAltDSID returned an error: %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __58__FAAgeRangeController_fetchAltDSIDWithCompletionHandler___block_invoke_42_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_1B70B0000, v0, v1, "Error fetching altDSID: %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __54__FAAgeRangeController_fetchAgeWithCompletionHandler___block_invoke_44_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_1B70B0000, v0, v1, "FamilyCircle daemon connection for fetchAge returned an error: %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __54__FAAgeRangeController_fetchAgeWithCompletionHandler___block_invoke_45_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_1B70B0000, v0, v1, "Error fetching age: %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __65__FAAgeRangeController_fetchPrivacyVersionForAltDSID_completion___block_invoke_46_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_1B70B0000, v0, v1, "FamilyCircle daemon connection for fetchPrivacyVersion returned an error: %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __65__FAAgeRangeController_fetchPrivacyVersionForAltDSID_completion___block_invoke_47_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_1B70B0000, v0, v1, "Error fetching privacy version: %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __121__FAAgeRangeController_requestAgeRangeWith_userAgeOverride_altDSID_bundleID_appName_attestedAtOverrideInDays_completion___block_invoke_49_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_1B70B0000, v0, v1, "FamilyCircle daemon connection for requestAgeRange returned an error: %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __121__FAAgeRangeController_requestAgeRangeWith_userAgeOverride_altDSID_bundleID_appName_attestedAtOverrideInDays_completion___block_invoke_50_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2(&dword_1B70B0000, v0, v1, "Error requesting age range from daemon: %@.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

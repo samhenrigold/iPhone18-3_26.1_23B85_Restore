@@ -19,13 +19,13 @@
 
 - (MOContextContactMetaData)initWithContactIdentifier:(id)identifier contactName:(id)name mdEntityIdentifier:(id)entityIdentifier
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   nameCopy = name;
   entityIdentifierCopy = entityIdentifier;
-  v17.receiver = self;
-  v17.super_class = MOContextContactMetaData;
-  v12 = [(MOContextContactMetaData *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = MOContextContactMetaData;
+  v12 = [(MOContextContactMetaData *)&v16 init];
   v13 = v12;
   if (v12)
   {
@@ -36,16 +36,15 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 138412802;
-      v19 = identifierCopy;
-      v20 = 2112;
-      v21 = nameCopy;
-      v22 = 2112;
-      v23 = entityIdentifierCopy;
+      v18 = identifierCopy;
+      v19 = 2112;
+      v20 = nameCopy;
+      v21 = 2112;
+      v22 = entityIdentifierCopy;
       _os_log_impl(&dword_25E48F000, v14, OS_LOG_TYPE_INFO, "ContactMetaData contextContactIdentifier,%@,contactName,%@,mdEntityIdentifier,%@", buf, 0x20u);
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

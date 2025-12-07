@@ -11,7 +11,7 @@
 
 - (void)_teardownXPCClientIfNeeded
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   xpcClient = self->_xpcClient;
   if (xpcClient)
@@ -19,9 +19,9 @@
     v4 = *MEMORY[0x277D01970];
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315138;
-      v8 = "[SSRVoiceProfileXPCService _teardownXPCClientIfNeeded]";
-      _os_log_impl(&dword_225E12000, v4, OS_LOG_TYPE_DEFAULT, "%s ", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[SSRVoiceProfileXPCService _teardownXPCClientIfNeeded]";
+      _os_log_impl(&dword_225E12000, v4, OS_LOG_TYPE_DEFAULT, "%s ", &v6, 0xCu);
       xpcClient = self->_xpcClient;
     }
 
@@ -29,8 +29,6 @@
     v5 = self->_xpcClient;
     self->_xpcClient = 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)ssrVoiceProfileXPCClient:(id)client didDisconnect:(BOOL)disconnect
@@ -46,23 +44,21 @@
 
 uint64_t __68__SSRVoiceProfileXPCService_ssrVoiceProfileXPCClient_didDisconnect___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[SSRVoiceProfileXPCService ssrVoiceProfileXPCClient:didDisconnect:]_block_invoke";
-    _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_DEFAULT, "%s reset xpcClient since it disconnected", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SSRVoiceProfileXPCService ssrVoiceProfileXPCClient:didDisconnect:]_block_invoke";
+    _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_DEFAULT, "%s reset xpcClient since it disconnected", &v4, 0xCu);
   }
 
-  result = [*(a1 + 32) _teardownXPCClientIfNeeded];
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _teardownXPCClientIfNeeded];
 }
 
 - (id)_createXPCClientConnectionIfNeeded:(id)needed
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   neededCopy = needed;
   dispatch_assert_queue_V2(self->_queue);
   if (neededCopy)
@@ -80,18 +76,16 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v12 = *MEMORY[0x277D01970];
+  v11 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
   {
-    v13 = 136315138;
-    v14 = "[SSRVoiceProfileXPCService _createXPCClientConnectionIfNeeded:]";
-    _os_log_error_impl(&dword_225E12000, v12, OS_LOG_TYPE_ERROR, "%s voiceProfileXPC client doesn't exist", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[SSRVoiceProfileXPCService _createXPCClientConnectionIfNeeded:]";
+    _os_log_error_impl(&dword_225E12000, v11, OS_LOG_TYPE_ERROR, "%s voiceProfileXPC client doesn't exist", &v12, 0xCu);
   }
 
   v9 = 0;
 LABEL_7:
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -118,19 +112,17 @@ LABEL_7:
 
 void __94__SSRVoiceProfileXPCService_fetchEnrollmentStatusForSiriProfileId_forLanguageCode_completion___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[SSRVoiceProfileXPCService fetchEnrollmentStatusForSiriProfileId:forLanguageCode:completion:]_block_invoke";
-    _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_DEFAULT, "%s ", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SSRVoiceProfileXPCService fetchEnrollmentStatusForSiriProfileId:forLanguageCode:completion:]_block_invoke";
+    _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_DEFAULT, "%s ", &v4, 0xCu);
   }
 
   v3 = [*(a1 + 32) _createXPCClientConnectionIfNeeded:0];
   [v3 fetchEnrollmentStatusForSiriProfileId:*(a1 + 40) forLanguageCode:*(a1 + 48) completion:*(a1 + 56)];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (SSRVoiceProfileXPCService)init

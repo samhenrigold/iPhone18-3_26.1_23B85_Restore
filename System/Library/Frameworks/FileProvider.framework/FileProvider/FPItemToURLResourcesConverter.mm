@@ -72,68 +72,67 @@
     [(FPItemToURLResourcesConverter *)&section _cacheImplementedPropertiesForClass:class, v4];
   }
 
-  FPItemPropertyNamesByURLResourceKey();
+  FPItemPropertyNamesByURLResourceKey(v5);
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v5 = v24 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v21 objects:v30 count:16];
-  if (v6)
+  v6 = v24 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v21 objects:v30 count:16];
+  if (v7)
   {
-    v8 = *v22;
-    *&v7 = 138412546;
-    v19 = v7;
+    v9 = *v22;
+    *&v8 = 138412546;
+    v19 = v8;
     do
     {
-      for (i = 0; i != v6; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v22 != v8)
+        if (*v22 != v9)
         {
-          objc_enumerationMutation(v5);
+          objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v21 + 1) + 8 * i);
-        v11 = [v5 objectForKeyedSubscript:{v10, v19}];
-        v12 = NSSelectorFromString(v11);
-        if (([(objc_class *)class instancesRespondToSelector:v12]& 1) != 0)
+        v11 = *(*(&v21 + 1) + 8 * i);
+        v12 = [v6 objectForKeyedSubscript:{v11, v19}];
+        v13 = NSSelectorFromString(v12);
+        if (([(objc_class *)class instancesRespondToSelector:v13]& 1) != 0)
         {
-          v13 = [(objc_class *)class instanceMethodSignatureForSelector:v12];
-          v14 = MEMORY[0x1E696AEC0];
-          v15 = v13;
-          v16 = [v14 stringWithUTF8String:{-[NSObject methodReturnType](v13, "methodReturnType")}];
-          [(NSMutableDictionary *)self->_typesByURLKey setObject:v16 forKeyedSubscript:v10];
+          v14 = [(objc_class *)class instanceMethodSignatureForSelector:v13];
+          v15 = MEMORY[0x1E696AEC0];
+          v16 = v14;
+          v17 = [v15 stringWithUTF8String:{-[NSObject methodReturnType](v14, "methodReturnType")}];
+          [(NSMutableDictionary *)self->_typesByURLKey setObject:v17 forKeyedSubscript:v11];
 
-          v17 = [MEMORY[0x1E696B098] valueWithPointer:{class_getMethodImplementation(class, v12)}];
-          [(NSMutableDictionary *)self->_gettersByURLKey setObject:v17 forKeyedSubscript:v10];
+          v18 = [MEMORY[0x1E696B098] valueWithPointer:{class_getMethodImplementation(class, v13)}];
+          [(NSMutableDictionary *)self->_gettersByURLKey setObject:v18 forKeyedSubscript:v11];
         }
 
         else
         {
-          v13 = fp_current_or_default_log();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+          v14 = fp_current_or_default_log();
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
           {
             *buf = v19;
-            v27 = v11;
+            v27 = v12;
             v28 = 2112;
             classCopy = class;
-            _os_log_debug_impl(&dword_1AAAE1000, v13, OS_LOG_TYPE_DEBUG, "[DEBUG] property %@ is unavailable on %@", buf, 0x16u);
+            _os_log_debug_impl(&dword_1AAAE1000, v14, OS_LOG_TYPE_DEBUG, "[DEBUG] property %@ is unavailable on %@", buf, 0x16u);
           }
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v21 objects:v30 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v21 objects:v30 count:16];
     }
 
-    while (v6);
+    while (v7);
   }
 
   __fp_leave_section_Debug(&section);
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_dictionaryFromItem:(id)item requestedKeys:(id)keys
 {
-  v107 = *MEMORY[0x1E69E9840];
+  v106 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   keysCopy = keys;
   v8 = objc_opt_new();
@@ -169,7 +168,7 @@
     }
   }
 
-  v89 = *MEMORY[0x1E695DD38];
+  v88 = *MEMORY[0x1E695DD38];
   if ([keysCopy containsObject:*MEMORY[0x1E695DD38]])
   {
     v17 = [keysCopy arrayByAddingObject:*MEMORY[0x1E695DD00]];
@@ -185,7 +184,7 @@
     keysCopy = v19;
   }
 
-  v91 = *MEMORY[0x1E695DBD8];
+  v90 = *MEMORY[0x1E695DBD8];
   if ([keysCopy containsObject:?])
   {
     v20 = *MEMORY[0x1E695DC98];
@@ -197,11 +196,11 @@
     }
   }
 
-  v94 = v8;
-  v96 = itemCopy;
-  v92 = keysCopy;
-  v90 = v18;
-  v88 = v14;
+  v93 = v8;
+  v95 = itemCopy;
+  v91 = keysCopy;
+  v89 = v18;
+  v87 = v14;
   if (keysCopy)
   {
     allKeys = keysCopy;
@@ -213,34 +212,34 @@
   }
 
   v23 = allKeys;
-  v97 = FPItemPropertyNamesByURLResourceKey();
+  v96 = FPItemPropertyNamesByURLResourceKey(allKeys);
+  v97 = 0u;
   v98 = 0u;
   v99 = 0u;
   v100 = 0u;
-  v101 = 0u;
   obj = v23;
-  v24 = [obj countByEnumeratingWithState:&v98 objects:v106 count:16];
+  v24 = [obj countByEnumeratingWithState:&v97 objects:v105 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v99;
+    v26 = *v98;
     do
     {
       for (i = 0; i != v25; ++i)
       {
-        if (*v99 != v26)
+        if (*v98 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v28 = *(*(&v98 + 1) + 8 * i);
+        v28 = *(*(&v97 + 1) + 8 * i);
         v29 = [(NSMutableDictionary *)self->_gettersByURLKey objectForKeyedSubscript:v28];
         pointerValue = [v29 pointerValue];
 
         v31 = [(NSMutableDictionary *)self->_typesByURLKey objectForKeyedSubscript:v28];
         if (pointerValue)
         {
-          v32 = [v97 objectForKeyedSubscript:v28];
+          v32 = [v96 objectForKeyedSubscript:v28];
           if (!v32)
           {
             currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -300,9 +299,9 @@ LABEL_38:
               if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412546;
-                v103 = v31;
-                v104 = 2112;
-                v105 = v32;
+                v102 = v31;
+                v103 = 2112;
+                v104 = v32;
                 _os_log_error_impl(&dword_1AAAE1000, v37, OS_LOG_TYPE_ERROR, "[ERROR] unsupported type '%@' for property: %@", buf, 0x16u);
               }
 
@@ -318,7 +317,7 @@ LABEL_43:
           v37 = v36;
           if (v36)
           {
-            [v94 setObject:v36 forKeyedSubscript:v28];
+            [v93 setObject:v36 forKeyedSubscript:v28];
             goto LABEL_45;
           }
 
@@ -326,23 +325,23 @@ LABEL_46:
         }
       }
 
-      v25 = [obj countByEnumeratingWithState:&v98 objects:v106 count:16];
+      v25 = [obj countByEnumeratingWithState:&v97 objects:v105 count:16];
     }
 
     while (v25);
   }
 
   v38 = *MEMORY[0x1E695DBF0];
-  v39 = [v94 objectForKeyedSubscript:*MEMORY[0x1E695DBF0]];
+  v39 = [v93 objectForKeyedSubscript:*MEMORY[0x1E695DBF0]];
   if (v39)
   {
     v40 = v39;
-    v41 = [v94 objectForKeyedSubscript:*MEMORY[0x1E695DCC8]];
+    v41 = [v93 objectForKeyedSubscript:*MEMORY[0x1E695DCC8]];
     bOOLValue = [v41 BOOLValue];
 
     if (bOOLValue)
     {
-      v43 = [v94 objectForKeyedSubscript:v38];
+      v43 = [v93 objectForKeyedSubscript:v38];
       bOOLValue2 = [v43 BOOLValue];
 
       v45 = MEMORY[0x1E695DD30];
@@ -352,11 +351,11 @@ LABEL_46:
       }
 
       v46 = *v45;
-      [v94 setObject:v46 forKeyedSubscript:*MEMORY[0x1E695DCF8]];
+      [v93 setObject:v46 forKeyedSubscript:*MEMORY[0x1E695DCF8]];
     }
   }
 
-  if ([v92 containsObject:v88])
+  if ([v91 containsObject:v87])
   {
     v47 = fp_current_or_default_log();
     if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
@@ -364,16 +363,16 @@ LABEL_46:
       [(FPItemToURLResourcesConverter *)v47 _dictionaryFromItem:v48 requestedKeys:v49, v50, v51, v52, v53, v54];
     }
 
-    v55 = [v94 objectForKeyedSubscript:*MEMORY[0x1E695DC98]];
+    v55 = [v93 objectForKeyedSubscript:*MEMORY[0x1E695DC98]];
     v56 = v55;
     if (v55)
     {
       v57 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v55, "isEqual:", *MEMORY[0x1E695DCA0]) ^ 1}];
-      [v94 setObject:v57 forKeyedSubscript:v88];
+      [v93 setObject:v57 forKeyedSubscript:v87];
     }
   }
 
-  if ([v92 containsObject:v89])
+  if ([v91 containsObject:v88])
   {
     v58 = fp_current_or_default_log();
     if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
@@ -381,13 +380,13 @@ LABEL_46:
       [(FPItemToURLResourcesConverter *)v58 _dictionaryFromItem:v59 requestedKeys:v60, v61, v62, v63, v64, v65];
     }
 
-    v66 = [v94 objectForKeyedSubscript:*MEMORY[0x1E695DD00]];
-    [v94 setObject:v66 forKeyedSubscript:v89];
+    v66 = [v93 objectForKeyedSubscript:*MEMORY[0x1E695DD00]];
+    [v93 setObject:v66 forKeyedSubscript:v88];
   }
 
-  if ([v92 containsObject:v90])
+  if ([v91 containsObject:v89])
   {
-    v67 = [v94 objectForKeyedSubscript:*MEMORY[0x1E695DD10]];
+    v67 = [v93 objectForKeyedSubscript:*MEMORY[0x1E695DD10]];
     v68 = fp_current_or_default_log();
     v69 = os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG);
     if (v67)
@@ -398,62 +397,60 @@ LABEL_46:
       }
 
       v77 = [MEMORY[0x1E696ADF8] localizedStringFromPersonNameComponents:v67 style:0 options:0];
-      [v94 setObject:v77 forKeyedSubscript:v90];
+      [v93 setObject:v77 forKeyedSubscript:v89];
     }
 
     else
     {
       if (v69)
       {
-        [FPItemToURLResourcesConverter _dictionaryFromItem:v96 requestedKeys:v68];
+        [FPItemToURLResourcesConverter _dictionaryFromItem:v95 requestedKeys:v68];
       }
 
-      [v94 setObject:0 forKeyedSubscript:v90];
+      [v93 setObject:0 forKeyedSubscript:v89];
     }
   }
 
-  if ([v92 containsObject:v91])
+  if ([v91 containsObject:v90])
   {
-    v78 = [v94 objectForKeyedSubscript:v91];
+    v78 = [v93 objectForKeyedSubscript:v90];
 
     if (!v78)
     {
       v79 = MEMORY[0x1E696AD98];
-      v80 = [v94 objectForKeyedSubscript:*MEMORY[0x1E695DC98]];
+      v80 = [v93 objectForKeyedSubscript:*MEMORY[0x1E695DC98]];
       v81 = [v79 numberWithInt:v80 != 0];
-      [v94 setObject:v81 forKeyedSubscript:v91];
+      [v93 setObject:v81 forKeyedSubscript:v90];
     }
   }
 
   v82 = *MEMORY[0x1E695DCD0];
-  if ([v92 containsObject:*MEMORY[0x1E695DCD0]])
+  if ([v91 containsObject:*MEMORY[0x1E695DCD0]])
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       if (objc_opt_respondsToSelector())
       {
-        v83 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v96, "isSyncPaused")}];
-        [v94 setObject:v83 forKeyedSubscript:v82];
+        v83 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v95, "isSyncPaused")}];
+        [v93 setObject:v83 forKeyedSubscript:v82];
       }
 
       else
       {
-        [v94 setObject:MEMORY[0x1E695E110] forKeyedSubscript:v82];
+        [v93 setObject:MEMORY[0x1E695E110] forKeyedSubscript:v82];
       }
     }
   }
 
   v84 = *MEMORY[0x1E695DCE8];
-  if ([v92 containsObject:*MEMORY[0x1E695DCE8]])
+  if ([v91 containsObject:*MEMORY[0x1E695DCE8]])
   {
-    v85 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:_supportedSyncControlsForVendorItem(v96)];
-    [v94 setObject:v85 forKeyedSubscript:v84];
+    v85 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:_supportedSyncControlsForVendorItem(v95)];
+    [v93 setObject:v85 forKeyedSubscript:v84];
   }
 
-  v86 = *MEMORY[0x1E69E9840];
-
-  return v94;
+  return v93;
 }
 
 + (id)dictionaryFromItem:(id)item requestedKeys:(id)keys
@@ -541,31 +538,28 @@ void __66__FPItemToURLResourcesConverter_dictionaryFromItem_requestedKeys___bloc
 
 - (void)initWithItemClass:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 134218242;
-  *&v4[4] = a2;
-  *&v4[12] = 2112;
-  *&v4[14] = a1;
-  OUTLINED_FUNCTION_1_0(&dword_1AAAE1000, a2, a3, "[DEBUG] ┏%llx instantiating dictionary converter for %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
+  *v3 = 134218242;
+  *&v3[4] = a2;
+  *&v3[12] = 2112;
+  *&v3[14] = a1;
+  OUTLINED_FUNCTION_1_0(&dword_1AAAE1000, a2, a3, "[DEBUG] ┏%llx instantiating dictionary converter for %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 - (void)_cacheImplementedPropertiesForClass:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 134218242;
-  *&v4[4] = *a1;
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_1_0(&dword_1AAAE1000, a2, a3, "[DEBUG] ┏%llx caching properties of %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
+  *v3 = 134218242;
+  *&v3[4] = *a1;
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_1_0(&dword_1AAAE1000, a2, a3, "[DEBUG] ┏%llx caching properties of %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 - (void)_dictionaryFromItem:(uint64_t)a1 requestedKeys:(NSObject *)a2 .cold.4(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] Deprecated NSURLUbiquitousSharedItemOwnerNameKey was called for item %@ that does not have name components", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] Deprecated NSURLUbiquitousSharedItemOwnerNameKey was called for item %@ that does not have name components", &v2, 0xCu);
 }
 
 @end

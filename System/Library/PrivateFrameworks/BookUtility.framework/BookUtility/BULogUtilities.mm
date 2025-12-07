@@ -64,12 +64,12 @@
 
 - (BULogUtilities)initWithUserDefaults:(id)defaults keyPath:(id)path
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   defaultsCopy = defaults;
   pathCopy = path;
-  v30.receiver = self;
-  v30.super_class = BULogUtilities;
-  v8 = [(BULogUtilities *)&v30 init];
+  v31.receiver = self;
+  v31.super_class = BULogUtilities;
+  v8 = [(BULogUtilities *)&v31 init];
   v10 = v8;
   if (v8)
   {
@@ -83,17 +83,17 @@
     accessQueue = v10->_accessQueue;
     v10->_accessQueue = v18;
 
-    objc_msgSend_observeDefaults(v10, v20, v21);
-    v22 = BookUtilityLog();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v22 = objc_msgSend_observeDefaults(v10, v20, v21);
+    v23 = BookUtilityLog(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = objc_msgSend_keyPath(v10, v23, v24);
-      v28 = objc_msgSend_buVerboseLoggingEnabled(v10, v26, v27);
+      v26 = objc_msgSend_keyPath(v10, v24, v25);
+      v29 = objc_msgSend_buVerboseLoggingEnabled(v10, v27, v28);
       *buf = 138412546;
-      v32 = v25;
-      v33 = 1024;
-      v34 = v28;
-      _os_log_impl(&dword_241DA6000, v22, OS_LOG_TYPE_DEFAULT, "BULogUtilities: Init with %@:%{BOOL}d", buf, 0x12u);
+      v33 = v26;
+      v34 = 1024;
+      v35 = v29;
+      _os_log_impl(&dword_241DA6000, v23, OS_LOG_TYPE_DEFAULT, "BULogUtilities: Init with %@:%{BOOL}d", buf, 0x12u);
     }
   }
 
@@ -113,7 +113,7 @@
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   pathCopy = path;
   v10 = objc_opt_class();
@@ -122,30 +122,30 @@
   v13 = BUDynamicCast(v10, v12);
   v16 = objc_msgSend_BOOLValue(v13, v14, v15);
 
-  v17 = BookUtilityLog();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v18 = BookUtilityLog(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = objc_msgSend_keyPath(self, v18, v19);
+    v21 = objc_msgSend_keyPath(self, v19, v20);
     *buf = 138412546;
-    v30 = v20;
-    v31 = 1024;
-    v32 = v16;
-    _os_log_impl(&dword_241DA6000, v17, OS_LOG_TYPE_DEFAULT, "BULogUtilities: Received change for keypath %@:%{BOOL}d", buf, 0x12u);
+    v31 = v21;
+    v32 = 1024;
+    v33 = v16;
+    _os_log_impl(&dword_241DA6000, v18, OS_LOG_TYPE_DEFAULT, "BULogUtilities: Received change for keypath %@:%{BOOL}d", buf, 0x12u);
   }
 
-  v23 = objc_msgSend_keyPath(self, v21, v22);
-  isEqualToString = objc_msgSend_isEqualToString_(pathCopy, v24, v23);
+  v24 = objc_msgSend_keyPath(self, v22, v23);
+  isEqualToString = objc_msgSend_isEqualToString_(pathCopy, v25, v24);
 
   if (isEqualToString)
   {
     accessQueue = self->_accessQueue;
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = sub_241DB5574;
-    v27[3] = &unk_278D1D280;
-    v27[4] = self;
-    v28 = v16;
-    dispatch_barrier_sync(accessQueue, v27);
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = sub_241DB5574;
+    v28[3] = &unk_278D1D280;
+    v28[4] = self;
+    v29 = v16;
+    dispatch_barrier_sync(accessQueue, v28);
   }
 }
 

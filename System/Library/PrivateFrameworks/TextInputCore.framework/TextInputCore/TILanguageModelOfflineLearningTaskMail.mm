@@ -1,5 +1,6 @@
 @interface TILanguageModelOfflineLearningTaskMail
 + (id)dataSourceForTask;
+- (TILanguageModelOfflineLearningTaskMail)initWithClientIdentifier:(id)identifier oneTimeTask:(BOOL)task;
 - (id)forwardedMessageSeparators;
 - (id)linePaddingCharacters;
 @end
@@ -49,9 +50,24 @@
   return linePaddingCharacters;
 }
 
+- (TILanguageModelOfflineLearningTaskMail)initWithClientIdentifier:(id)identifier oneTimeTask:(BOOL)task
+{
+  v8.receiver = self;
+  v8.super_class = TILanguageModelOfflineLearningTaskMail;
+  v4 = [(TILanguageModelOfflineLearningTask *)&v8 initWithClientIdentifier:identifier oneTimeTask:task];
+  if (v4)
+  {
+    v5 = +[TILanguageModelOfflineLearningTaskMail dataSourceForTask];
+    dataSource = v4->_dataSource;
+    v4->_dataSource = v5;
+  }
+
+  return v4;
+}
+
 + (id)dataSourceForTask
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(NSClassFromString(&cfstr_Timaildatasour.isa));
   if (!v2)
   {
@@ -63,14 +79,12 @@
     v3 = TIOSLogFacility();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Failed to load TIMailDataSource", "+[TILanguageModelOfflineLearningTaskMail dataSourceForTask]"];
+      v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Failed to load TIMailDataSource", "+[TILanguageModelOfflineLearningTaskMail dataSourceForTask]"];
       *buf = 138412290;
-      v8 = v6;
+      v7 = v5;
       _os_log_debug_impl(&dword_22CA55000, v3, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

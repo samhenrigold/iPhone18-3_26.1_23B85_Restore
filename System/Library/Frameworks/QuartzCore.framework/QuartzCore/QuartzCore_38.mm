@@ -1,1026 +1,4 @@
-void ___ZN2CA20HDRProcessorInternal30configure_display_pipe_tonemapEP11__IOSurfacejPKNS_6Render17DisplayAttributesEfPP12CGColorSpaceU13block_pointerFvP18IOMFBToneMapConfigEU13block_pointerFv13IOMFBCurveLocPK14IOMFBCurveDataEU13block_pointerFv14IOMFBICCMatLocPK16IOMFBColorMatrixE_block_invoke(void *a1, int a2)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  if (a2 == 2)
-  {
-    v4 = a1[5];
-  }
-
-  else
-  {
-    if (a2 != 1)
-    {
-      if (a2)
-      {
-        if (x_log_get_utilities::once != -1)
-        {
-          dispatch_once(&x_log_get_utilities::once, &__block_literal_global_5_2153);
-        }
-
-        v6 = x_log_get_utilities::log;
-        if (os_log_type_enabled(x_log_get_utilities::log, OS_LOG_TYPE_ERROR))
-        {
-          v7[0] = 67109120;
-          v7[1] = a2;
-          _os_log_error_impl(&dword_183AA6000, v6, OS_LOG_TYPE_ERROR, "unexpected HDRProcessingDisplayConfigType: %u", v7, 8u);
-        }
-      }
-
-      else
-      {
-        v3 = *(a1[4] + 16);
-
-        v3();
-      }
-
-      return;
-    }
-
-    v4 = a1[6];
-  }
-
-  v5 = *(v4 + 16);
-
-  v5();
-}
-
-void CA::HDRProcessorInternal::initialize_metal(CA::HDRProcessorInternal *this)
-{
-  if ((*(this + 88) & 1) == 0)
-  {
-    *(this + 88) = 1;
-    v2 = MTLCreateSystemDefaultDevice();
-    *(this + 3) = v2;
-    v3 = [v2 newCommandQueue];
-    *(this + 4) = v3;
-    [v3 setLabel:@"com.apple.QuartzCore-HDRProcessing"];
-    if (CA::_root_queue_once != -1)
-    {
-      dispatch_once(&CA::_root_queue_once, &__block_literal_global_24520);
-    }
-
-    v4 = CA::_root_queue;
-    if (CA::_root_queue)
-    {
-      v5 = dispatch_queue_create_with_target_V2("com.apple.coreanimation.hdr_submission", 0, CA::_root_queue);
-      v6 = dispatch_queue_create_with_target_V2("com.apple.coreanimation.hdr_completion", 0, v4);
-      [*(this + 4) setSubmissionQueue:v5];
-      [*(this + 4) setCompletionQueue:v6];
-      dispatch_release(v5);
-
-      dispatch_release(v6);
-    }
-  }
-}
-
-uint64_t CA::create_hdrprocessor(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  if (_hdrp_supports_new_init == 1)
-  {
-    result = [[hdr_processor_class alloc] initProcessingEngine:a1 config:a2];
-    if (!result)
-    {
-LABEL_8:
-      if (x_log_get_utilities::once != -1)
-      {
-        dispatch_once(&x_log_get_utilities::once, &__block_literal_global_5_2153);
-      }
-
-      v7 = x_log_get_utilities::log;
-      if (os_log_type_enabled(x_log_get_utilities::log, OS_LOG_TYPE_ERROR))
-      {
-        *v8 = 0;
-        _os_log_error_impl(&dword_183AA6000, v7, OS_LOG_TYPE_ERROR, "CoreAnimation: Error initializing HDRProcessor.", v8, 2u);
-      }
-
-      abort();
-    }
-  }
-
-  else
-  {
-    v5 = *(a2 + 36);
-    v6 = [hdr_processor_class alloc];
-    if (v5)
-    {
-      result = [v6 initWithConfig:a2];
-      if (!result)
-      {
-        goto LABEL_8;
-      }
-    }
-
-    else
-    {
-      result = [v6 initWithDevice:a1 config:a2];
-      if (!result)
-      {
-        goto LABEL_8;
-      }
-    }
-  }
-
-  return result;
-}
-
-void load_hdrprocessing_symbols(void)
-{
-  v0 = dlopen("/System/Library/PrivateFrameworks/HDRProcessing.framework/HDRProcessing", 5);
-  hdr_handle = v0;
-  if (v0)
-  {
-    v1 = dlsym(v0, "kHDRProcessingDolbyVisionRPUDataKey");
-    if (v1)
-    {
-      v2 = *v1;
-    }
-
-    else
-    {
-      v2 = 0;
-    }
-
-    _kHDRProcessingDolbyVisionRPUDataKey = v2;
-    v3 = dlsym(hdr_handle, "kHDRProcessingMaximumExtendedDynamicRangeColorComponentValueKey");
-    if (v3)
-    {
-      v4 = *v3;
-    }
-
-    else
-    {
-      v4 = 0;
-    }
-
-    _kHDRProcessingMaximumExtendedDynamicRangeColorComponentValueKey = v4;
-    v5 = dlsym(hdr_handle, "kHDRProcessingEDRFactorKey");
-    if (v5)
-    {
-      v6 = *v5;
-    }
-
-    else
-    {
-      v6 = 0;
-    }
-
-    _kHDRProcessingEDRFactorKey = v6;
-    v7 = dlsym(hdr_handle, "kHDRProcessingHDRConstraintStrengthKey");
-    if (v7)
-    {
-      v8 = *v7;
-    }
-
-    else
-    {
-      v8 = 0;
-    }
-
-    _kHDRProcessingHDRConstraintStrengthKey = v8;
-    v9 = dlsym(hdr_handle, "kHDRProcessingGCPGammaValueKey");
-    if (v9)
-    {
-      v10 = *v9;
-    }
-
-    else
-    {
-      v10 = 0;
-    }
-
-    _kHDRProcessingGCPGammaValueKey = v10;
-    v11 = dlsym(hdr_handle, "kHDRProcessingCurrentMaxPanelNitsKey");
-    if (v11)
-    {
-      v12 = *v11;
-    }
-
-    else
-    {
-      v12 = 0;
-    }
-
-    _kHDRProcessingCurrentMaxPanelNitsKey = v12;
-    v13 = dlsym(hdr_handle, "kHDRProcessingAmbientLightInNitsKey");
-    if (v13)
-    {
-      v14 = *v13;
-    }
-
-    else
-    {
-      v14 = 0;
-    }
-
-    _kHDRProcessingAmbientLightInNitsKey = v14;
-    v15 = dlsym(hdr_handle, "kHDRProcessingDolbyVisionBackwardDMMaximumValueKey");
-    if (v15)
-    {
-      v16 = *v15;
-    }
-
-    else
-    {
-      v16 = 0;
-    }
-
-    _kHDRProcessingDolbyVisionBackwardDMMaximumValueKey = v16;
-    v17 = dlsym(hdr_handle, "kHDRProcessingUILayerScaleFactor");
-    if (v17)
-    {
-      v18 = *v17;
-    }
-
-    else
-    {
-      v18 = 0;
-    }
-
-    _kHDRProcessingUILayerScaleFactor = v18;
-    v19 = dlsym(hdr_handle, "kHDRProcessingSDRMaxBrightnessInNits");
-    if (v19)
-    {
-      v20 = *v19;
-    }
-
-    else
-    {
-      v20 = 0;
-    }
-
-    _kHDRProcessingSDRMaxBrightnessInNits = v20;
-    v21 = dlsym(hdr_handle, "kHDRProcessingSourceContentKey");
-    if (v21)
-    {
-      v22 = *v21;
-    }
-
-    else
-    {
-      v22 = 0;
-    }
-
-    _kHDRProcessingSourceContentKey = v22;
-    v23 = dlsym(hdr_handle, "kHDRProcessingSourceContentTypeKey");
-    if (v23)
-    {
-      v24 = *v23;
-    }
-
-    else
-    {
-      v24 = 0;
-    }
-
-    _kHDRProcessingSourceContentTypeKey = v24;
-    v25 = dlsym(hdr_handle, "kHDRProcessingSourceContentTypeDolbyVision");
-    if (v25)
-    {
-      v26 = *v25;
-    }
-
-    else
-    {
-      v26 = 0;
-    }
-
-    _kHDRProcessingSourceContentTypeDolbyVision = v26;
-    v27 = dlsym(hdr_handle, "kHDRProcessingSourceContentTypeHLG");
-    if (v27)
-    {
-      v28 = *v27;
-    }
-
-    else
-    {
-      v28 = 0;
-    }
-
-    _kHDRProcessingSourceContentTypeHLG = v28;
-    v29 = dlsym(hdr_handle, "kHDRProcessingSourceContentTypeHDR10");
-    if (v29)
-    {
-      v30 = *v29;
-    }
-
-    else
-    {
-      v30 = 0;
-    }
-
-    _kHDRProcessingSourceContentTypeHDR10 = v30;
-    v31 = dlsym(hdr_handle, "kHDRProcessingSourceContentBitDepthKey");
-    if (v31)
-    {
-      v32 = *v31;
-    }
-
-    else
-    {
-      v32 = 0;
-    }
-
-    _kHDRProcessingSourceContentBitDepthKey = v32;
-    v33 = dlsym(hdr_handle, "kHDRProcessingSourceContentSDRMaxBrightnessInNitsKey");
-    if (v33)
-    {
-      v34 = *v33;
-    }
-
-    else
-    {
-      v34 = 0;
-    }
-
-    _kHDRProcessingSourceContentSDRMaxBrightnessInNitsKey = v34;
-    v35 = dlsym(hdr_handle, "kHDRProcessingSourceContentHDRMaxBrightnessInNitsKey");
-    if (v35)
-    {
-      v36 = *v35;
-    }
-
-    else
-    {
-      v36 = 0;
-    }
-
-    _kHDRProcessingSourceContentHDRMaxBrightnessInNitsKey = v36;
-    v37 = dlsym(hdr_handle, "kHDRProcessingDestinationDisplayTypeDolbyVisionTV");
-    if (v37)
-    {
-      v38 = *v37;
-    }
-
-    else
-    {
-      v38 = 0;
-    }
-
-    _kHDRProcessingDestinationDisplayTypeDolbyVisionTV = v38;
-    v39 = dlsym(hdr_handle, "kHDRProcessingDestinationDisplayTypeLowLatencyDolbyVisionTV");
-    if (v39)
-    {
-      v40 = *v39;
-    }
-
-    else
-    {
-      v40 = 0;
-    }
-
-    _kHDRProcessingDestinationDisplayTypeLowLatencyDolbyVisionTV = v40;
-    v41 = dlsym(hdr_handle, "kHDRProcessingDestinationDisplayTypeHDR10TV");
-    if (v41)
-    {
-      v42 = *v41;
-    }
-
-    else
-    {
-      v42 = 0;
-    }
-
-    _kHDRProcessingDestinationDisplayTypeHDR10TV = v42;
-    v43 = dlsym(hdr_handle, "kHDRProcessingDestinationDisplayTypeInternalPanel");
-    if (v43)
-    {
-      v44 = *v43;
-    }
-
-    else
-    {
-      v44 = 0;
-    }
-
-    _kHDRProcessingDestinationDisplayTypeInternalPanel = v44;
-    v45 = dlsym(hdr_handle, "kHDRProcessingDestinationDisplayTypeInternalPanelOLED");
-    if (v45)
-    {
-      v46 = *v45;
-    }
-
-    else
-    {
-      v46 = 0;
-    }
-
-    _kHDRProcessingDestinationDisplayTypeInternalPanelOLED = v46;
-    v47 = dlsym(hdr_handle, "kHDRProcessingDestinationDisplayTypeInternalPanelLCD");
-    if (v47)
-    {
-      v48 = *v47;
-    }
-
-    else
-    {
-      v48 = 0;
-    }
-
-    _kHDRProcessingDestinationDisplayTypeInternalPanelLCD = v48;
-    v49 = dlsym(hdr_handle, "kHDRProcessingDestinationDisplayTypeInternalPanel0DBL");
-    if (v49)
-    {
-      v50 = *v49;
-    }
-
-    else
-    {
-      v50 = 0;
-    }
-
-    _kHDRProcessingDestinationDisplayTypeInternalPanel0DBL = v50;
-    v51 = dlsym(hdr_handle, "kHDRProcessingDestinationDisplayTypeInternalPanel2DBL");
-    if (v51)
-    {
-      v52 = *v51;
-    }
-
-    else
-    {
-      v52 = 0;
-    }
-
-    _kHDRProcessingDestinationDisplayTypeInternalPanel2DBL = v52;
-    v53 = dlsym(hdr_handle, "kHDRProcessingDestinationDisplayTypeInternalPanelMac");
-    if (v53)
-    {
-      v54 = *v53;
-    }
-
-    else
-    {
-      v54 = 0;
-    }
-
-    _kHDRProcessingDestinationDisplayTypeInternalPanelMac = v54;
-    v55 = dlsym(hdr_handle, "kHDRProcessingDestinationDisplayTypeReferenceDisplay");
-    if (v55)
-    {
-      v56 = *v55;
-    }
-
-    else
-    {
-      v56 = 0;
-    }
-
-    _kHDRProcessingDestinationDisplayTypeReferenceDisplay = v56;
-    v57 = dlsym(hdr_handle, "kHDRProcessingDestinationDisplayTypeKey");
-    if (v57)
-    {
-      v58 = *v57;
-    }
-
-    else
-    {
-      v58 = 0;
-    }
-
-    _kHDRProcessingDestinationDisplayTypeKey = v58;
-    v59 = dlsym(hdr_handle, "kHDRProcessingDestinationDisplayTypeSDRTV");
-    if (v59)
-    {
-      v60 = *v59;
-    }
-
-    else
-    {
-      v60 = 0;
-    }
-
-    _kHDRProcessingDestinationDisplayTypeSDRTV = v60;
-    v61 = dlsym(hdr_handle, "kHDRProcessingDisplayDiagonalSizeInInchesKey");
-    if (v61)
-    {
-      v62 = *v61;
-    }
-
-    else
-    {
-      v62 = 0;
-    }
-
-    _kHDRProcessingDisplayDiagonalSizeInInchesKey = v62;
-    v63 = dlsym(hdr_handle, "kHDRProcessingDisplayMaximumBrightnessInNitsKey");
-    if (v63)
-    {
-      v64 = *v63;
-    }
-
-    else
-    {
-      v64 = 0;
-    }
-
-    _kHDRProcessingDisplayMaximumBrightnessInNitsKey = v64;
-    v65 = dlsym(hdr_handle, "kHDRProcessingDisplayAverageBrightnessInNitsKey");
-    if (v65)
-    {
-      v66 = *v65;
-    }
-
-    else
-    {
-      v66 = 0;
-    }
-
-    _kHDRProcessingDisplayAverageBrightnessInNitsKey = v66;
-    v67 = dlsym(hdr_handle, "kHDRProcessingDisplayMinimumBrightnessInNitsKey");
-    if (v67)
-    {
-      v68 = *v67;
-    }
-
-    else
-    {
-      v68 = 0;
-    }
-
-    _kHDRProcessingDisplayMinimumBrightnessInNitsKey = v68;
-    v69 = dlsym(hdr_handle, "kHDRProcessingDisplayKey");
-    if (v69)
-    {
-      v70 = *v69;
-    }
-
-    else
-    {
-      v70 = 0;
-    }
-
-    _kHDRProcessingDisplayKey = v70;
-    v71 = dlsym(hdr_handle, "kHDRProcessingDisplayContrastRatioKey");
-    if (v71)
-    {
-      v72 = *v71;
-    }
-
-    else
-    {
-      v72 = 0;
-    }
-
-    _kHDRProcessingDisplayContrastRatioKey = v72;
-    v73 = dlsym(hdr_handle, "kHDRProcessingDisplayDolbyVisionDMVersionKey");
-    if (v73)
-    {
-      v74 = *v73;
-    }
-
-    else
-    {
-      v74 = 0;
-    }
-
-    _kHDRProcessingDisplayDolbyVisionDMVersionKey = v74;
-    v75 = dlsym(hdr_handle, "kHDRProcessingForwardDMDictinaryKey");
-    if (v75)
-    {
-      v76 = *v75;
-    }
-
-    else
-    {
-      v76 = 0;
-    }
-
-    _kHDRProcessingForwardDMDictinaryKey = v76;
-    v77 = dlsym(hdr_handle, "kHDRProcessingDolbyVisionBackwardDMDictinary");
-    if (v77)
-    {
-      v78 = *v77;
-    }
-
-    else
-    {
-      v78 = 0;
-    }
-
-    _kHDRProcessingDolbyVisionBackwardDMDictinary = v78;
-    v79 = dlsym(hdr_handle, "kHDRProcessingDisplayColorFormatKey");
-    if (v79)
-    {
-      v80 = *v79;
-    }
-
-    else
-    {
-      v80 = 0;
-    }
-
-    _kHDRProcessingDisplayColorFormatKey = v80;
-    v81 = dlsym(hdr_handle, "kHDRProcessingDisplayColorFormat_IPT422_12BITS");
-    if (v81)
-    {
-      v82 = *v81;
-    }
-
-    else
-    {
-      v82 = 0;
-    }
-
-    _kHDRProcessingDisplayColorFormat_IPT422_12BITS = v82;
-    v83 = dlsym(hdr_handle, "kHDRProcessingDisplayColorFormat_YUV422_12BITS_DP");
-    if (v83)
-    {
-      v84 = *v83;
-    }
-
-    else
-    {
-      v84 = 0;
-    }
-
-    _kHDRProcessingDisplayColorFormat_YUV422_12BITS_DP = v84;
-    v85 = dlsym(hdr_handle, "kHDRProcessingDisplayColorFormat_YUV422_12BITS_HDMI");
-    if (v85)
-    {
-      v86 = *v85;
-    }
-
-    else
-    {
-      v86 = 0;
-    }
-
-    _kHDRProcessingDisplayColorFormat_YUV422_12BITS_HDMI = v86;
-    v87 = dlsym(hdr_handle, "kHDRProcessingDisplayChromaticityBx");
-    if (v87)
-    {
-      v88 = *v87;
-    }
-
-    else
-    {
-      v88 = 0;
-    }
-
-    _kHDRProcessingDisplayChromaticityBx = v88;
-    v89 = dlsym(hdr_handle, "kHDRProcessingDisplayChromaticityBy");
-    if (v89)
-    {
-      v90 = *v89;
-    }
-
-    else
-    {
-      v90 = 0;
-    }
-
-    _kHDRProcessingDisplayChromaticityBy = v90;
-    v91 = dlsym(hdr_handle, "kHDRProcessingDisplayChromaticityGx");
-    if (v91)
-    {
-      v92 = *v91;
-    }
-
-    else
-    {
-      v92 = 0;
-    }
-
-    _kHDRProcessingDisplayChromaticityGx = v92;
-    v93 = dlsym(hdr_handle, "kHDRProcessingDisplayChromaticityGy");
-    if (v93)
-    {
-      v94 = *v93;
-    }
-
-    else
-    {
-      v94 = 0;
-    }
-
-    _kHDRProcessingDisplayChromaticityGy = v94;
-    v95 = dlsym(hdr_handle, "kHDRProcessingDisplayChromaticityRx");
-    if (v95)
-    {
-      v96 = *v95;
-    }
-
-    else
-    {
-      v96 = 0;
-    }
-
-    _kHDRProcessingDisplayChromaticityRx = v96;
-    v97 = dlsym(hdr_handle, "kHDRProcessingDisplayChromaticityRy");
-    if (v97)
-    {
-      v98 = *v97;
-    }
-
-    else
-    {
-      v98 = 0;
-    }
-
-    _kHDRProcessingDisplayChromaticityRy = v98;
-    v99 = dlsym(hdr_handle, "kHDRProcessingDisplayChromaticityWx");
-    if (v99)
-    {
-      v100 = *v99;
-    }
-
-    else
-    {
-      v100 = 0;
-    }
-
-    _kHDRProcessingDisplayChromaticityWx = v100;
-    v101 = dlsym(hdr_handle, "kHDRProcessingDisplayChromaticityWy");
-    if (v101)
-    {
-      v102 = *v101;
-    }
-
-    else
-    {
-      v102 = 0;
-    }
-
-    _kHDRProcessingDisplayChromaticityWy = v102;
-    v103 = dlsym(hdr_handle, "kHDRProcessingDisplaySupportsAmbientAdaptationKey");
-    if (v103)
-    {
-      v104 = *v103;
-    }
-
-    else
-    {
-      v104 = 0;
-    }
-
-    _kHDRProcessingDisplaySupportsAmbientAdaptationKey = v104;
-    v105 = dlsym(hdr_handle, "kHDRProcessingOperationEnum");
-    if (v105)
-    {
-      v106 = *v105;
-    }
-
-    else
-    {
-      v106 = 0;
-    }
-
-    _kHDRProcessingOperationEnum = v106;
-    v107 = dlsym(hdr_handle, "kHDRProcessingDisplayPipelineCompensationType");
-    if (v107)
-    {
-      v108 = *v107;
-    }
-
-    else
-    {
-      v108 = 0;
-    }
-
-    _kHDRProcessingDisplayPipelineCompensationType = v108;
-    v109 = dlsym(hdr_handle, "kHDRProcessingDisplayPipelineCompensationTypeNone");
-    if (v109)
-    {
-      v110 = *v109;
-    }
-
-    else
-    {
-      v110 = 0;
-    }
-
-    _kHDRProcessingDisplayPipelineCompensationTypeNone = v110;
-    v111 = dlsym(hdr_handle, "kHDRProcessingDisplayPipelineCompensationTypePurePower");
-    if (v111)
-    {
-      v112 = *v111;
-    }
-
-    else
-    {
-      v112 = 0;
-    }
-
-    _kHDRProcessingDisplayPipelineCompensationTypePurePower = v112;
-    v113 = dlsym(hdr_handle, "kHDRProcessingDisplayPipelineCompensationTypeHeadroomDependent");
-    if (v113)
-    {
-      v114 = *v113;
-    }
-
-    else
-    {
-      v114 = 0;
-    }
-
-    _kHDRProcessingDisplayPipelineCompensationTypeHeadroomDependent = v114;
-    v115 = dlsym(hdr_handle, "kHDRProcessingOrientationKey");
-    if (v115)
-    {
-      v116 = *v115;
-    }
-
-    else
-    {
-      v116 = 0;
-    }
-
-    _kHDRProcessingOrientationKey = v116;
-    v117 = dlsym(hdr_handle, "kHDRProcessingDisplayAveragePixelThresholdKey");
-    if (v117)
-    {
-      v118 = *v117;
-    }
-
-    else
-    {
-      v118 = 0;
-    }
-
-    _kHDRProcessingDisplayAveragePixelThresholdKey = v118;
-    v119 = dlsym(hdr_handle, "kHDRProcessingDisplayAveragePixelWeightR");
-    if (v119)
-    {
-      v120 = *v119;
-    }
-
-    else
-    {
-      v120 = 0;
-    }
-
-    _kHDRProcessingDisplayAveragePixelWeightR = v120;
-    v121 = dlsym(hdr_handle, "kHDRProcessingDisplayAveragePixelWeightG");
-    if (v121)
-    {
-      v122 = *v121;
-    }
-
-    else
-    {
-      v122 = 0;
-    }
-
-    _kHDRProcessingDisplayAveragePixelWeightG = v122;
-    v123 = dlsym(hdr_handle, "kHDRProcessingDisplayAveragePixelWeightB");
-    if (v123)
-    {
-      v124 = *v123;
-    }
-
-    else
-    {
-      v124 = 0;
-    }
-
-    _kHDRProcessingDisplayAveragePixelWeightB = v124;
-    v125 = dlsym(hdr_handle, "kHDRProcessingDisplaySustainedBrightnessInNitsKey");
-    if (v125)
-    {
-      v126 = *v125;
-    }
-
-    else
-    {
-      v126 = 0;
-    }
-
-    _kHDRProcessingDisplaySustainedBrightnessInNitsKey = v126;
-    v127 = dlsym(hdr_handle, "kHDRProcessingDestinationKey");
-    if (v127)
-    {
-      v128 = *v127;
-    }
-
-    else
-    {
-      v128 = 0;
-    }
-
-    _kHDRProcessingDestinationKey = v128;
-    v129 = dlsym(hdr_handle, "kHDRProcessingPixelFormatKey");
-    if (v129)
-    {
-      v130 = *v129;
-    }
-
-    else
-    {
-      v130 = 0;
-    }
-
-    _kHDRProcessingPixelFormatKey = v130;
-    v131 = dlsym(hdr_handle, "kHDRProcessingSurfaceAttributesKey");
-    if (v131)
-    {
-      v132 = *v131;
-    }
-
-    else
-    {
-      v132 = 0;
-    }
-
-    _kHDRProcessingSurfaceAttributesKey = v132;
-    v133 = dlsym(hdr_handle, "kHDRProcessingApiInterfaceVersionKey");
-    if (v133)
-    {
-      v134 = *v133;
-    }
-
-    else
-    {
-      v134 = 0;
-    }
-
-    _kHDRProcessingApiInterfaceVersionKey = v134;
-    v135 = dlsym(hdr_handle, "kHDRProcessingVersion");
-    if (v135)
-    {
-      v136 = *v135;
-    }
-
-    else
-    {
-      v136 = 0;
-    }
-
-    _kHDRProcessingVersion = v136;
-    v137 = dlsym(hdr_handle, "kHDRProcessingDolbyVisionHDMIDataKey");
-    if (v137)
-    {
-      v138 = *v137;
-    }
-
-    else
-    {
-      v138 = 0;
-    }
-
-    _kHDRProcessingDolbyVisionHDMIDataKey = v138;
-    v139 = dlsym(hdr_handle, "kHDRProcessingEdrRangeTypeNormalized");
-    if (v139)
-    {
-      v140 = *v139;
-    }
-
-    else
-    {
-      v140 = 0;
-    }
-
-    _kHDRProcessingEdrRangeTypeNormalized = v140;
-    v141 = dlsym(hdr_handle, "kHDRProcessingEdrRangeTypeNonNormalized");
-    if (v141)
-    {
-      v142 = *v141;
-    }
-
-    else
-    {
-      v142 = 0;
-    }
-
-    _kHDRProcessingEdrRangeTypeNonNormalized = v142;
-    v143 = dlsym(hdr_handle, "kHDRProcessingEdrRangeTypeKey");
-    if (v143)
-    {
-      v144 = *v143;
-    }
-
-    else
-    {
-      v144 = 0;
-    }
-
-    _kHDRProcessingEdrRangeTypeKey = v144;
-    v145 = dlsym(hdr_handle, "kHDRProcessingScreenCaptureSessionKey");
-    if (v145)
-    {
-      v146 = *v145;
-    }
-
-    else
-    {
-      v146 = 0;
-    }
-
-    _kHDRProcessingScreenCaptureSessionKey = v146;
-    if (_kHDRProcessingVersion)
-    {
-      _hdrp_version = CFStringGetIntValue(_kHDRProcessingVersion);
-    }
-
-    v147 = objc_autoreleasePoolPush();
-    hdr_processor_class = [objc_msgSend(MEMORY[0x1E696AAE8] bundleWithPath:{@"/System/Library/PrivateFrameworks/HDRProcessing.framework", "classNamed:", @"HDRProcessor"}];
-    _hdrp_supports_new_init = [hdr_processor_class instancesRespondToSelector:sel_initProcessingEngine_config_];
-    _hdrp_supports_pixel_format_query = [hdr_processor_class instancesRespondToSelector:sel_isFormatSupported_inputFormat_outputFormat_device_];
-
-    objc_autoreleasePoolPop(v147);
-  }
-}
-
-uint64_t CA::HDRProcessorInternal::create_surface_with_forward_dm(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, int a6, int a7, unsigned int a8, float a9, float a10, char a11, char a12)
+char *CA::HDRProcessorInternal::create_surface_with_forward_dm(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, unsigned int a6, int a7, unsigned int a8, float a9, float a10, char a11, char a12)
 {
   v157[4] = *MEMORY[0x1E69E9840];
   if (a11)
@@ -1186,7 +164,7 @@ uint64_t CA::HDRProcessorInternal::create_surface_with_forward_dm(uint64_t a1, u
       memset(v142, 0, sizeof(v142));
       v32 = IOSurfaceGetPixelFormat(*(a1 + 80));
       CA::HDRProcessorInternal::get_config(&v131, 0, *&v136[1], v122, &v139, 0, v157, v32);
-      v143 = (v133 | 0x100000000);
+      v143 = v133 | 0x100000000;
       *v142 = v131;
       *&v142[16] = v132;
       *v142 = IOSurfaceGetWidth(*(a1 + 80));
@@ -1862,8 +840,9 @@ LABEL_220:
   return v50;
 }
 
-uint64_t CA::HDRProcessorInternal::should_switch_accelerator(uint64_t a1, IOSurfaceRef buffer, __IOSurface *a3, unsigned int a4, char a5, uint64_t a6, int a7, char a8, double a9)
+uint64_t CA::HDRProcessorInternal::should_switch_accelerator(uint64_t a1, IOSurfaceRef buffer, __IOSurface *a3, unsigned int a4, uint64_t a5, uint64_t a6, int a7, char a8, double a9)
 {
+  v13 = a5;
   v47 = *MEMORY[0x1E69E9840];
   PixelFormat = IOSurfaceGetPixelFormat(buffer);
   v19 = CA::Render::fourcc_compressed_of_type(PixelFormat, 0, 0);
@@ -1974,7 +953,7 @@ LABEL_18:
         *v36 = 0;
         v37 = 0;
         v38 = 0;
-        CA::HDRProcessorInternal::get_msr_estimate(v36, a1, buffer, a3, a5, a6);
+        CA::HDRProcessorInternal::get_msr_estimate(v36, a1, buffer, a3, v13, a6);
         v27 = mach_absolute_time();
         v28 = CATimeWithHostTime(v27);
         v29 = v37;
@@ -2121,8 +1100,7 @@ uint64_t CA::HDRProcessorInternal::create_surface_with_forward_dm(CA::Render::Su
           {
 LABEL_6:
             --**v5;
-            v11 = *(v6 + 56);
-            x_list_remove(v11, v8);
+            x_list_remove(*(v6 + 56), v8);
             *(v6 + 56) = v11;
             v12 = *v8;
             if (*v8)
@@ -2178,7 +1156,7 @@ id CA::HDRProcessorInternal::start_command_buffer(id *this, uint64_t a2, const c
 
 uint64_t CA::HDRProcessorInternal::tonemap_surface_internal(uint64_t a1, __IOSurface *a2, __IOSurface *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, float *a8, float a9, unsigned int a10, uint64_t a11, unsigned int a12, char a13, void *a14, _BYTE *a15, char a16, __int16 a17, char a18, uint64_t a19, char a20, _DWORD *a21)
 {
-  v241 = *MEMORY[0x1E69E9840];
+  v242 = *MEMORY[0x1E69E9840];
   if (hdrprocessing_init_once != -1)
   {
     v122 = a5;
@@ -2188,35 +1166,35 @@ uint64_t CA::HDRProcessorInternal::tonemap_surface_internal(uint64_t a1, __IOSur
 
   if (hdr_handle)
   {
-    v175 = a6;
-    v177 = a7;
-    v173 = a4;
-    v174 = a5;
-    v179 = a1;
+    v176 = a6;
+    v178 = a7;
+    v174 = a4;
+    v175 = a5;
+    v180 = a1;
     v29 = objc_autoreleasePoolPush();
     PixelFormat = IOSurfaceGetPixelFormat(a2);
     v31 = CA::Render::fourcc_compressed_of_type(PixelFormat, 0, 0);
     v32 = IOSurfaceGetPixelFormat(a3);
     v33 = CA::Render::fourcc_compressed_of_type(v32, 0, 0);
-    v199 = 0;
-    v197 = 0u;
+    v200 = 0;
     v198 = 0u;
-    v195 = 0u;
+    v199 = 0u;
     v196 = 0u;
-    v193 = 0u;
+    v197 = 0u;
     v194 = 0u;
-    v191 = 0u;
+    v195 = 0u;
     v192 = 0u;
-    v190 = 0;
-    v188 = 0u;
+    v193 = 0u;
+    v191 = 0;
     v189 = 0u;
-    v186 = 0u;
+    v190 = 0u;
     v187 = 0u;
-    v184 = 0u;
+    v188 = 0u;
     v185 = 0u;
-    v182 = 0u;
+    v186 = 0u;
     v183 = 0u;
-    v181[1] = 132;
+    v184 = 0u;
+    v182[1] = 132;
     BulkAttachments = IOSurfaceGetBulkAttachments();
     v35 = 0;
     if (IOSurfaceGetBulkAttachments() | BulkAttachments)
@@ -2228,8 +1206,8 @@ LABEL_29:
 
     v35 = IOSurfaceCopyAllValues(a3);
     Value = CFDictionaryGetValue(v35, _kHDRProcessingDolbyVisionRPUDataKey);
-    v172 = v35;
-    if (Value && (BYTE12(v194) & 0xFD) == 0x10)
+    v173 = v35;
+    if (Value && (BYTE12(v195) & 0xFD) == 0x10)
     {
       v37 = &_kHDRProcessingSourceContentTypeDolbyVision;
 LABEL_19:
@@ -2242,7 +1220,7 @@ LABEL_19:
           dispatch_once(&CADeviceHasHardwareAcceleratedHDR::once, &__block_literal_global_144);
         }
 
-        v169 = a2;
+        v170 = a2;
         buffer = a3;
         if (CADeviceHasHardwareAcceleratedHDR::has_capability)
         {
@@ -2252,14 +1230,14 @@ LABEL_19:
             v41 = 1;
           }
 
-          *(v179 + 89) = v41;
-          v168 = (v179 + 89);
+          *(v180 + 89) = v41;
+          v169 = (v180 + 89);
           v42 = v33;
           if (a12 <= 3 && a12 != 2)
           {
             v43 = v29;
             v44 = 1;
-            v163 = 1;
+            v164 = 1;
             goto LABEL_35;
           }
 
@@ -2270,35 +1248,35 @@ LABEL_19:
         {
           v42 = v33;
           v43 = v29;
-          *(v179 + 89) = 0;
-          v168 = (v179 + 89);
+          *(v180 + 89) = 0;
+          v169 = (v180 + 89);
         }
 
         v44 = 0;
-        v163 = 0;
+        v164 = 0;
 LABEL_35:
-        *(v177 + 36) = v44;
-        os_unfair_lock_lock((v179 + 20));
-        v166 = v44;
-        hdr_processor_instance = CA::HDRProcessorInternal::get_or_create_hdr_processor_instance(v179, v44, v177, a11);
+        *(v178 + 36) = v44;
+        os_unfair_lock_lock((v180 + 20));
+        v167 = v44;
+        hdr_processor_instance = CA::HDRProcessorInternal::get_or_create_hdr_processor_instance(v180, v44, v178, a11);
         v29 = v43;
-        v47 = v169;
+        v47 = v170;
         if (hdr_processor_instance)
         {
-          v164 = v43;
-          os_unfair_lock_unlock((v179 + 20));
-          v180 = objc_alloc_init(MEMORY[0x1E695DF90]);
+          v165 = v43;
+          os_unfair_lock_unlock((v180 + 20));
+          v181 = objc_alloc_init(MEMORY[0x1E695DF90]);
           v48 = v42;
           v49 = buffer;
           if (_hdrp_version >= 1)
           {
-            [v180 setObject:&unk_1EF22B9A0 forKeyedSubscript:_kHDRProcessingApiInterfaceVersionKey];
+            [v181 setObject:&unk_1EF22B9A0 forKeyedSubscript:_kHDRProcessingApiInterfaceVersionKey];
           }
 
           if (_kHDRProcessingScreenCaptureSessionKey)
           {
             v50 = [MEMORY[0x1E696AD98] numberWithBool:*(a11 + 66)];
-            [v180 setObject:v50 forKeyedSubscript:_kHDRProcessingScreenCaptureSessionKey];
+            [v181 setObject:v50 forKeyedSubscript:_kHDRProcessingScreenCaptureSessionKey];
           }
 
           if (_kHDRProcessingGCPGammaValueKey)
@@ -2311,39 +1289,39 @@ LABEL_35:
             if (CADeviceSupportsGCP::b == 1 && (byte_1ED4E98A8 & 1) == 0 && *(a11 + 32) != 0.0)
             {
               v51 = [MEMORY[0x1E696AD98] numberWithFloat:?];
-              [v180 setObject:v51 forKeyedSubscript:_kHDRProcessingGCPGammaValueKey];
+              [v181 setObject:v51 forKeyedSubscript:_kHDRProcessingGCPGammaValueKey];
             }
           }
 
           if (_kHDRProcessingHDRConstraintStrengthKey && (*(a11 + 62) & 1) == 0)
           {
             v52 = [MEMORY[0x1E696AD98] numberWithDouble:a9 * 0.5];
-            [v180 setObject:v52 forKeyedSubscript:_kHDRProcessingHDRConstraintStrengthKey];
+            [v181 setObject:v52 forKeyedSubscript:_kHDRProcessingHDRConstraintStrengthKey];
           }
 
-          v170 = objc_alloc_init(MEMORY[0x1E695DF90]);
-          [v170 setObject:v39 forKeyedSubscript:_kHDRProcessingSourceContentTypeKey];
+          v171 = objc_alloc_init(MEMORY[0x1E695DF90]);
+          [v171 setObject:v39 forKeyedSubscript:_kHDRProcessingSourceContentTypeKey];
           if (_kHDRProcessingSourceContentHDRMaxBrightnessInNitsKey)
           {
-            [v170 setObject:&unk_1EF22B9B8 forKeyedSubscript:?];
+            [v171 setObject:&unk_1EF22B9B8 forKeyedSubscript:?];
           }
 
           v53 = *(a11 + 20);
           v54 = *(a11 + 68);
-          v29 = v164;
+          v29 = v165;
           if (v54 > 6 || ((1 << v54) & 0x61) == 0)
           {
             if (*(a11 + 58) == 1)
             {
-              v72 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*(v177 + 12)];
-              v31 = v179;
-              [v180 setObject:v72 forKeyedSubscript:_kHDRProcessingCurrentMaxPanelNitsKey];
-              [v180 setObject:&unk_1EF22B9D0 forKeyedSubscript:_kHDRProcessingAmbientLightInNitsKey];
+              v72 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*(v178 + 12)];
+              v31 = v180;
+              [v181 setObject:v72 forKeyedSubscript:_kHDRProcessingCurrentMaxPanelNitsKey];
+              [v181 setObject:&unk_1EF22B9D0 forKeyedSubscript:_kHDRProcessingAmbientLightInNitsKey];
             }
 
             else
             {
-              v31 = v179;
+              v31 = v180;
             }
 
             goto LABEL_107;
@@ -2369,27 +1347,27 @@ LABEL_35:
 
           if ((CADeviceSupportsTwilight::twilight & 1) != 0 && *(a11 + 57) == 1 && (byte_1ED4E9866 & 1) == 0)
           {
-            *v237 = 0;
-            v238 = v237;
-            v239 = 0x2020000000;
+            *v238 = 0;
+            v239 = v238;
+            v240 = 0x2020000000;
             v56 = getCMGetDMVersionLevelFromRPUSymbolLoc(void)::ptr;
-            v240 = getCMGetDMVersionLevelFromRPUSymbolLoc(void)::ptr;
+            v241 = getCMGetDMVersionLevelFromRPUSymbolLoc(void)::ptr;
             if (!getCMGetDMVersionLevelFromRPUSymbolLoc(void)::ptr)
             {
               *buf = MEMORY[0x1E69E9820];
               *&buf[8] = 3221225472;
               *&buf[16] = ___ZL38getCMGetDMVersionLevelFromRPUSymbolLocv_block_invoke;
-              *v204 = &unk_1E6DEDE18;
-              *&v204[8] = v237;
+              *v205 = &unk_1E6DEDE18;
+              *&v205[8] = v238;
               ___ZL38getCMGetDMVersionLevelFromRPUSymbolLocv_block_invoke(buf);
-              v56 = *(v238 + 3);
+              v56 = *(v239 + 3);
             }
 
-            _Block_object_dispose(v237, 8);
+            _Block_object_dispose(v238, 8);
             if (!v56)
             {
-              dlerror();
-              abort_report_np();
+              v154 = dlerror();
+              abort_report_np("%s", v154);
               __break(1u);
               goto LABEL_285;
             }
@@ -2431,37 +1409,37 @@ LABEL_74:
             v63 = v55;
           }
 
-          *(v177 + 12) = v63;
+          *(v178 + 12) = v63;
           *a8 = v63;
           v64 = [MEMORY[0x1E696AD98] numberWithFloat:?];
-          [v180 setObject:v64 forKeyedSubscript:_kHDRProcessingCurrentMaxPanelNitsKey];
+          [v181 setObject:v64 forKeyedSubscript:_kHDRProcessingCurrentMaxPanelNitsKey];
           *&v65 = v53;
           v66 = [MEMORY[0x1E696AD98] numberWithFloat:v65];
-          [v180 setObject:v66 forKeyedSubscript:_kHDRProcessingMaximumExtendedDynamicRangeColorComponentValueKey];
+          [v181 setObject:v66 forKeyedSubscript:_kHDRProcessingMaximumExtendedDynamicRangeColorComponentValueKey];
           if (v31 != 1919365992)
           {
             if (v31 == 1380411457)
             {
-              if (*v168)
+              if (*v169)
               {
 LABEL_79:
                 *&v67 = 1.0 / v53;
                 v68 = [MEMORY[0x1E696AD98] numberWithFloat:v67];
-                v31 = v179;
-                [v180 setObject:v68 forKeyedSubscript:_kHDRProcessingEDRFactorKey];
+                v31 = v180;
+                [v181 setObject:v68 forKeyedSubscript:_kHDRProcessingEDRFactorKey];
 LABEL_90:
                 LODWORD(v69) = *(a11 + 16);
                 v73 = [MEMORY[0x1E696AD98] numberWithFloat:v69];
-                [v180 setObject:v73 forKeyedSubscript:_kHDRProcessingAmbientLightInNitsKey];
+                [v181 setObject:v73 forKeyedSubscript:_kHDRProcessingAmbientLightInNitsKey];
                 if (*(a11 + 56) == 1 && _kHDRProcessingDisplaySupportsAmbientAdaptationKey)
                 {
-                  [v180 setObject:MEMORY[0x1E695E118] forKeyedSubscript:?];
+                  [v181 setObject:MEMORY[0x1E695E118] forKeyedSubscript:?];
                 }
 
                 if (*(a11 + 62) & 1) != 0 || (byte_1ED4E981D)
                 {
                   v74 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:1];
-                  [v180 setObject:v74 forKeyedSubscript:_kHDRProcessingOperationEnum];
+                  [v181 setObject:v74 forKeyedSubscript:_kHDRProcessingOperationEnum];
                   a10 = 1;
                 }
 
@@ -2485,23 +1463,23 @@ LABEL_90:
                   {
                     v77 = &_kHDRProcessingDisplayPipelineCompensationTypePurePower;
 LABEL_106:
-                    [v180 setObject:*v77 forKeyedSubscript:_kHDRProcessingDisplayPipelineCompensationType];
+                    [v181 setObject:*v77 forKeyedSubscript:_kHDRProcessingDisplayPipelineCompensationType];
                   }
                 }
 
 LABEL_107:
                 if (v39 == _kHDRProcessingSourceContentTypeDolbyVision && Value)
                 {
-                  [v180 setObject:Value forKeyedSubscript:_kHDRProcessingDolbyVisionRPUDataKey];
+                  [v181 setObject:Value forKeyedSubscript:_kHDRProcessingDolbyVisionRPUDataKey];
                 }
 
                 v78 = forward_display_params_from_attributes(a11, 0);
                 if (v78)
                 {
-                  [v180 setObject:v78 forKeyedSubscript:_kHDRProcessingDisplayKey];
+                  [v181 setObject:v78 forKeyedSubscript:_kHDRProcessingDisplayKey];
                 }
 
-                if ((v48 == 1380411457 || CA::Render::fourcc_to_format(v48) - 33 <= 2) && BYTE12(v194) != 16)
+                if ((v48 == 1380411457 || CA::Render::fourcc_to_format(v48) - 33 <= 2) && BYTE12(v195) != 16)
                 {
                   v80 = IOSurfaceCopyValue(buffer, @"SDRBrightnessInNits");
                   v82 = v80;
@@ -2518,7 +1496,7 @@ LABEL_107:
 
                   *&v81 = v83;
                   v84 = [MEMORY[0x1E696AD98] numberWithFloat:v81];
-                  [v170 setObject:v84 forKeyedSubscript:_kHDRProcessingSourceContentSDRMaxBrightnessInNitsKey];
+                  [v171 setObject:v84 forKeyedSubscript:_kHDRProcessingSourceContentSDRMaxBrightnessInNitsKey];
                 }
 
                 if (*(a11 + 61) == 1)
@@ -2544,7 +1522,7 @@ LABEL_107:
                     }
 
                     v87 = [MEMORY[0x1E696AD98] numberWithFloat:v79];
-                    [v170 setObject:v87 forKeyedSubscript:_kHDRProcessingSourceContentSDRMaxBrightnessInNitsKey];
+                    [v171 setObject:v87 forKeyedSubscript:_kHDRProcessingSourceContentSDRMaxBrightnessInNitsKey];
                     if (!a19 && a20 != 2 && (*(a11 + 68) - 3) <= 1)
                     {
                       Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
@@ -2557,7 +1535,7 @@ LABEL_107:
                         CA_CFDictionarySetFloat(v89, *MEMORY[0x1E696CF48], v91);
                         CA_CFDictionarySetFloat(v89, *MEMORY[0x1E696CF40], v90);
                         CA_CFDictionarySetInt(v89, *MEMORY[0x1E696CF38], 16);
-                        IOSurfaceSetValue(v169, *MEMORY[0x1E696CF30], v89);
+                        IOSurfaceSetValue(v170, *MEMORY[0x1E696CF30], v89);
                         CFRelease(v89);
                       }
 
@@ -2578,32 +1556,32 @@ LABEL_107:
                     }
                   }
 
-                  if (BYTE12(v194) == 18)
+                  if (BYTE12(v195) == 18)
                   {
                     LODWORD(v79) = *(a11 + 4);
                     v94 = [MEMORY[0x1E696AD98] numberWithFloat:v79];
-                    [v180 setObject:v94 forKeyedSubscript:_kHDRProcessingCurrentMaxPanelNitsKey];
+                    [v181 setObject:v94 forKeyedSubscript:_kHDRProcessingCurrentMaxPanelNitsKey];
                     a10 = 3;
                   }
 
                   if (a19)
                   {
-                    [v180 setObject:a19 forKeyedSubscript:_kHDRProcessingDolbyVisionRPUDataKey];
+                    [v181 setObject:a19 forKeyedSubscript:_kHDRProcessingDolbyVisionRPUDataKey];
                   }
                 }
 
-                [v180 setObject:v170 forKeyedSubscript:_kHDRProcessingSourceContentKey];
+                [v181 setObject:v171 forKeyedSubscript:_kHDRProcessingSourceContentKey];
 
-                v95 = v168;
-                if (*v168 == 1)
+                v95 = v169;
+                if (*v169 == 1)
                 {
                   v56 = a21;
                   if (*(a11 + 68) == 2 && (*(a11 + 61) & 1) == 0 && (BYTE6(xmmword_1ED4E980C) & 1) == 0)
                   {
-                    [v180 setObject:&unk_1EF22B8D0 forKeyedSubscript:_kHDRProcessingCurrentMaxPanelNitsKey];
+                    [v181 setObject:&unk_1EF22B8D0 forKeyedSubscript:_kHDRProcessingCurrentMaxPanelNitsKey];
                     a10 = 3;
                     v56 = a21;
-                    v95 = v168;
+                    v95 = v169;
                   }
                 }
 
@@ -2613,7 +1591,7 @@ LABEL_107:
                 }
 
                 IOSurfaceGetID(buffer);
-                IOSurfaceGetID(v169);
+                IOSurfaceGetID(v170);
                 if (BYTE11(xmmword_1ED4E980C) == 1)
                 {
                   kdebug_trace();
@@ -2621,27 +1599,27 @@ LABEL_107:
 
                 if (*(a11 + 68))
                 {
-                  IOSurfaceRemoveValue(v169, *MEMORY[0x1E696CF00]);
+                  IOSurfaceRemoveValue(v170, *MEMORY[0x1E696CF00]);
                 }
 
                 if (byte_1ED4E983D == 1)
                 {
-                  v171 = [objc_msgSend(v180 "debugDescription")];
+                  v172 = [objc_msgSend(v181 "debugDescription")];
                   if (x_log_get_utilities::once != -1)
                   {
                     dispatch_once(&x_log_get_utilities::once, &__block_literal_global_5_2153);
                   }
 
                   v124 = x_log_get_utilities::log;
-                  v29 = v164;
-                  v31 = v179;
+                  v29 = v165;
+                  v31 = v180;
                   v56 = a21;
-                  v95 = v168;
-                  v47 = v169;
+                  v95 = v169;
+                  v47 = v170;
                   v49 = buffer;
                   if (os_log_type_enabled(x_log_get_utilities::log, OS_LOG_TYPE_DEFAULT))
                   {
-                    if (*v168)
+                    if (*v169)
                     {
                       v125 = "MSR";
                     }
@@ -2697,7 +1675,7 @@ LABEL_107:
                       v132 = 32;
                     }
 
-                    v159 = v132;
+                    v160 = v132;
                     v133 = (IOSurfaceGetPixelFormat(buffer) >> 8);
                     if (v133 <= 0x7F)
                     {
@@ -2719,7 +1697,7 @@ LABEL_107:
                       v135 = 32;
                     }
 
-                    v158 = v135;
+                    v159 = v135;
                     v136 = IOSurfaceGetPixelFormat(buffer);
                     if (v136 <= 0x7F)
                     {
@@ -2741,11 +1719,11 @@ LABEL_107:
                       v138 = 32;
                     }
 
-                    v157 = v138;
-                    v156 = IOSurfaceGetID(v169);
-                    v139 = IOSurfaceGetWidth(v169);
-                    v140 = IOSurfaceGetHeight(v169);
-                    v141 = IOSurfaceGetPixelFormat(v169);
+                    v158 = v138;
+                    v157 = IOSurfaceGetID(v170);
+                    v139 = IOSurfaceGetWidth(v170);
+                    v140 = IOSurfaceGetHeight(v170);
+                    v141 = IOSurfaceGetPixelFormat(v170);
                     v142 = HIBYTE(v141);
                     if ((v141 & 0x80000000) != 0)
                     {
@@ -2759,7 +1737,7 @@ LABEL_107:
 
                     if (v143)
                     {
-                      v144 = IOSurfaceGetPixelFormat(v169) >> 24;
+                      v144 = IOSurfaceGetPixelFormat(v170) >> 24;
                     }
 
                     else
@@ -2767,7 +1745,7 @@ LABEL_107:
                       v144 = 32;
                     }
 
-                    v145 = (IOSurfaceGetPixelFormat(v169) >> 16);
+                    v145 = (IOSurfaceGetPixelFormat(v170) >> 16);
                     if (v145 <= 0x7F)
                     {
                       v146 = *(MEMORY[0x1E69E9830] + 4 * v145 + 60) & 0x40000;
@@ -2780,7 +1758,7 @@ LABEL_107:
 
                     if (v146)
                     {
-                      v147 = (IOSurfaceGetPixelFormat(v169) << 8) >> 24;
+                      v147 = (IOSurfaceGetPixelFormat(v170) << 8) >> 24;
                     }
 
                     else
@@ -2788,7 +1766,7 @@ LABEL_107:
                       v147 = 32;
                     }
 
-                    v148 = (IOSurfaceGetPixelFormat(v169) >> 8);
+                    v148 = (IOSurfaceGetPixelFormat(v170) >> 8);
                     if (v148 <= 0x7F)
                     {
                       v149 = *(MEMORY[0x1E69E9830] + 4 * v148 + 60) & 0x40000;
@@ -2801,7 +1779,7 @@ LABEL_107:
 
                     if (v149)
                     {
-                      v150 = IOSurfaceGetPixelFormat(v169) >> 8;
+                      v150 = IOSurfaceGetPixelFormat(v170) >> 8;
                     }
 
                     else
@@ -2809,7 +1787,7 @@ LABEL_107:
                       v150 = 32;
                     }
 
-                    v151 = IOSurfaceGetPixelFormat(v169);
+                    v151 = IOSurfaceGetPixelFormat(v170);
                     if (v151 <= 0x7F)
                     {
                       v152 = *(MEMORY[0x1E69E9830] + 4 * v151 + 60) & 0x40000;
@@ -2822,7 +1800,7 @@ LABEL_107:
 
                     if (v152)
                     {
-                      v153 = IOSurfaceGetPixelFormat(v169);
+                      v153 = IOSurfaceGetPixelFormat(v170);
                     }
 
                     else
@@ -2831,77 +1809,77 @@ LABEL_107:
                     }
 
                     *buf = 134223362;
-                    *&buf[4] = v179;
+                    *&buf[4] = v180;
                     *&buf[12] = 2080;
                     *&buf[14] = v125;
                     *&buf[22] = 1024;
-                    *v204 = ID;
-                    *&v204[4] = 2048;
-                    *&v204[6] = Width;
-                    *&v204[14] = 2048;
-                    *&v204[16] = Height;
-                    *&v204[24] = 1024;
-                    *&v204[26] = v129;
-                    v205 = 1024;
-                    v206 = v159;
-                    v207 = 1024;
-                    v208 = v158;
-                    v209 = 1024;
-                    v210 = v157;
-                    v211 = 1024;
-                    v212 = BYTE11(v194);
-                    v213 = 1024;
-                    v214 = BYTE12(v194);
-                    v215 = 1024;
-                    v216 = v156;
-                    v217 = 2048;
-                    v218 = v139;
-                    v219 = 2048;
-                    v220 = v140;
-                    v31 = v179;
-                    v221 = 1024;
-                    v222 = v144;
-                    v223 = 1024;
-                    v224 = v147;
-                    v225 = 1024;
-                    v226 = v150;
-                    v227 = 1024;
-                    v228 = v153;
-                    v229 = 1024;
-                    v230 = BYTE11(v185);
-                    v231 = 1024;
-                    v232 = BYTE12(v185);
-                    v233 = 1024;
-                    v234 = a10;
-                    v235 = 2080;
-                    v236 = v171;
+                    *v205 = ID;
+                    *&v205[4] = 2048;
+                    *&v205[6] = Width;
+                    *&v205[14] = 2048;
+                    *&v205[16] = Height;
+                    *&v205[24] = 1024;
+                    *&v205[26] = v129;
+                    v206 = 1024;
+                    v207 = v160;
+                    v208 = 1024;
+                    v209 = v159;
+                    v210 = 1024;
+                    v211 = v158;
+                    v212 = 1024;
+                    v213 = BYTE11(v195);
+                    v214 = 1024;
+                    v215 = BYTE12(v195);
+                    v216 = 1024;
+                    v217 = v157;
+                    v218 = 2048;
+                    v219 = v139;
+                    v220 = 2048;
+                    v221 = v140;
+                    v31 = v180;
+                    v222 = 1024;
+                    v223 = v144;
+                    v224 = 1024;
+                    v225 = v147;
+                    v226 = 1024;
+                    v227 = v150;
+                    v228 = 1024;
+                    v229 = v153;
+                    v230 = 1024;
+                    v231 = BYTE11(v186);
+                    v232 = 1024;
+                    v233 = BYTE12(v186);
+                    v234 = 1024;
+                    v235 = a10;
+                    v236 = 2080;
+                    v237 = v172;
                     _os_log_impl(&dword_183AA6000, v124, OS_LOG_TYPE_DEFAULT, "HDRProcessor %p accelerator %s src surface 0x%x [%zu x %zu] (%c%c%c%c) Primaries: 0x%x, TransferFunction: 0x%x dst surface 0x%x [%zu x %zu] (%c%c%c%c) Primaries: 0x%x, TransferFunction: 0x%x operation 0x%x metadata: %s\n", buf, 0xA2u);
-                    v29 = v164;
+                    v29 = v165;
                     v56 = a21;
-                    v95 = v168;
-                    v47 = v169;
+                    v95 = v169;
+                    v47 = v170;
                     v49 = buffer;
                   }
                 }
 
                 os_unfair_lock_lock((v31 + 20));
-                v35 = v172;
-                if (CA::HDRProcessorInternal::get_or_create_hdr_processor_instance(v31, v166, v177, a11))
+                v35 = v173;
+                if (CA::HDRProcessorInternal::get_or_create_hdr_processor_instance(v31, v167, v178, a11))
                 {
                   if (*v95 == 1)
                   {
-                    v181[0] = 0;
+                    v182[0] = 0;
                     v96 = 96;
                     if (_hdrp_supports_new_init)
                     {
                       v96 = 40;
                     }
 
-                    v40 = [*(v31 + v96) generateMSRColorConfigWithOperation:a10 inputSurface:v49 outputSurface:v47 metadata:v180 histogram:0 config:v181];
+                    v40 = [*(v31 + v96) generateMSRColorConfigWithOperation:a10 inputSurface:v49 outputSurface:v47 metadata:v181 histogram:0 config:v182];
                     os_unfair_lock_unlock((v31 + 20));
-                    v97 = [v181[0] bytes];
-                    v98 = [v181[0] length];
-                    v99 = v181[0];
+                    v97 = [v182[0] bytes];
+                    v98 = [v182[0] length];
+                    v99 = v182[0];
                     if (v40 == -17000)
                     {
                       v100 = malloc_type_malloc(0x28uLL, 0x10000407607B2BCuLL);
@@ -2911,11 +1889,11 @@ LABEL_107:
                       *(v100 + 28) = 0;
                       *(v100 + 20) = 0;
                       v101 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:v100 length:40 freeWhenDone:1];
-                      if (v175)
+                      if (v176)
                       {
-                        v102 = *(v175 + 32);
-                        wait_value = CA::CASharedEvent::get_wait_value(v175, 6, 1);
-                        v104 = CA::CASharedEvent::inc_signal_value(v175, 6, 1);
+                        v102 = *(v176 + 32);
+                        wait_value = CA::CASharedEvent::get_wait_value(v176, 6, 1);
+                        v104 = CA::CASharedEvent::inc_signal_value(v176, 6, 1);
                       }
 
                       else
@@ -2925,62 +1903,62 @@ LABEL_107:
                         v104 = 0;
                       }
 
-                      if (v174)
+                      if (v175)
                       {
-                        v111 = *(v174 + 32);
-                        v112 = CA::CASharedEvent::get_wait_value(v174, 7, 2);
-                        v178 = CA::CASharedEvent::inc_signal_value(v174, 7, 2);
+                        v111 = *(v175 + 32);
+                        v112 = CA::CASharedEvent::get_wait_value(v175, 7, 2);
+                        v179 = CA::CASharedEvent::inc_signal_value(v175, 7, 2);
                       }
 
                       else
                       {
                         v111 = 0;
                         v112 = 0;
-                        v178 = 0;
+                        v179 = 0;
                       }
 
-                      v176 = BYTE12(xmmword_1ED4E988C);
+                      v177 = BYTE12(xmmword_1ED4E988C);
                       v113 = *MEMORY[0x1E69A8498];
-                      v200 = v101;
-                      v201[0] = v113;
-                      v202[0] = [MEMORY[0x1E695DEC8] arrayWithObjects:&v200 count:1];
-                      v202[1] = MEMORY[0x1E695E118];
+                      v201 = v101;
+                      v202[0] = v113;
+                      v203[0] = [MEMORY[0x1E695DEC8] arrayWithObjects:&v201 count:1];
+                      v203[1] = MEMORY[0x1E695E118];
                       v114 = *MEMORY[0x1E69A85B8];
-                      v201[1] = *MEMORY[0x1E69A84D8];
-                      v201[2] = v114;
-                      v202[2] = MEMORY[0x1E695E110];
-                      v201[3] = *MEMORY[0x1E69A85C0];
-                      v202[3] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a16 & 7];
-                      v201[4] = *MEMORY[0x1E69A84C8];
-                      v202[4] = [MEMORY[0x1E696AD98] numberWithBool:?];
-                      v201[5] = *MEMORY[0x1E69A8548];
-                      v202[5] = [MEMORY[0x1E696AD98] numberWithLongLong:v102];
-                      v201[6] = *MEMORY[0x1E69A8558];
-                      v202[6] = [MEMORY[0x1E696AD98] numberWithLongLong:wait_value];
-                      v201[7] = *MEMORY[0x1E69A8550];
-                      v202[7] = [MEMORY[0x1E696AD98] numberWithLongLong:v104];
-                      v201[8] = *MEMORY[0x1E69A8530];
-                      v202[8] = [MEMORY[0x1E696AD98] numberWithLongLong:v111];
-                      v201[9] = *MEMORY[0x1E69A8540];
-                      v202[9] = [MEMORY[0x1E696AD98] numberWithLongLong:v112];
-                      v201[10] = *MEMORY[0x1E69A8538];
-                      v202[10] = [MEMORY[0x1E696AD98] numberWithLongLong:v178];
-                      v201[11] = *MEMORY[0x1E69A84A0];
-                      v202[11] = [MEMORY[0x1E696AD98] numberWithBool:(v176 ^ 1) & 1];
-                      [MEMORY[0x1E695DF20] dictionaryWithObjects:v202 forKeys:v201 count:12];
-                      v31 = v179;
-                      atomic_fetch_add((*(v179 + 104) + 24), 1u);
-                      v115 = *(v179 + 104);
+                      v202[1] = *MEMORY[0x1E69A84D8];
+                      v202[2] = v114;
+                      v203[2] = MEMORY[0x1E695E110];
+                      v202[3] = *MEMORY[0x1E69A85C0];
+                      v203[3] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a16 & 7];
+                      v202[4] = *MEMORY[0x1E69A84C8];
+                      v203[4] = [MEMORY[0x1E696AD98] numberWithBool:?];
+                      v202[5] = *MEMORY[0x1E69A8548];
+                      v203[5] = [MEMORY[0x1E696AD98] numberWithLongLong:v102];
+                      v202[6] = *MEMORY[0x1E69A8558];
+                      v203[6] = [MEMORY[0x1E696AD98] numberWithLongLong:wait_value];
+                      v202[7] = *MEMORY[0x1E69A8550];
+                      v203[7] = [MEMORY[0x1E696AD98] numberWithLongLong:v104];
+                      v202[8] = *MEMORY[0x1E69A8530];
+                      v203[8] = [MEMORY[0x1E696AD98] numberWithLongLong:v111];
+                      v202[9] = *MEMORY[0x1E69A8540];
+                      v203[9] = [MEMORY[0x1E696AD98] numberWithLongLong:v112];
+                      v202[10] = *MEMORY[0x1E69A8538];
+                      v203[10] = [MEMORY[0x1E696AD98] numberWithLongLong:v179];
+                      v202[11] = *MEMORY[0x1E69A84A0];
+                      v203[11] = [MEMORY[0x1E696AD98] numberWithBool:(v177 ^ 1) & 1];
+                      [MEMORY[0x1E695DF20] dictionaryWithObjects:v203 forKeys:v202 count:12];
+                      v31 = v180;
+                      atomic_fetch_add((*(v180 + 104) + 24), 1u);
+                      v115 = *(v180 + 104);
                       *buf = CA::release_hdr_iosa_param;
                       *&buf[8] = v115;
-                      *&buf[16] = v181[0];
-                      v35 = v172;
+                      *&buf[16] = v182[0];
+                      v35 = v173;
                       v116 = IOSurfaceAcceleratorTransformSurface();
-                      v108 = v173;
+                      v108 = v174;
                       v117 = v116;
-                      if (v173)
+                      if (v174)
                       {
-                        ++*(v173 + 528);
+                        ++*(v174 + 528);
                       }
 
                       if (!a13 || v116)
@@ -2997,11 +1975,11 @@ LABEL_107:
                           if (os_log_type_enabled(x_log_get_utilities::log, OS_LOG_TYPE_ERROR))
                           {
                             v123 = IOSurfaceGetID(v49);
-                            *v237 = 67109376;
-                            *&v237[4] = v117;
-                            LOWORD(v238) = 1024;
-                            *(&v238 + 2) = v123;
-                            _os_log_error_impl(&dword_183AA6000, v118, OS_LOG_TYPE_ERROR, "MSR failed err=0x%x sur=0x%x", v237, 0xEu);
+                            *v238 = 67109376;
+                            *&v238[4] = v117;
+                            LOWORD(v239) = 1024;
+                            *(&v239 + 2) = v123;
+                            _os_log_error_impl(&dword_183AA6000, v118, OS_LOG_TYPE_ERROR, "MSR failed err=0x%x sur=0x%x", v238, 0xEu);
                             if (!a21)
                             {
                               goto LABEL_199;
@@ -3027,21 +2005,21 @@ LABEL_199:
                           dispatch_once(&x_log_get_filmgrain(void)::once, &__block_literal_global_18204);
                         }
 
-                        v154 = x_log_get_filmgrain(void)::log;
-                        v29 = v164;
-                        v35 = v172;
-                        v108 = v173;
-                        v31 = v179;
+                        v155 = x_log_get_filmgrain(void)::log;
+                        v29 = v165;
+                        v35 = v173;
+                        v108 = v174;
+                        v31 = v180;
                         if (os_log_type_enabled(x_log_get_filmgrain(void)::log, OS_LOG_TYPE_INFO))
                         {
-                          v155 = IOSurfaceGetID(buffer);
-                          *v237 = 67109120;
-                          *&v237[4] = v155;
-                          _os_log_impl(&dword_183AA6000, v154, OS_LOG_TYPE_INFO, "[0x%x] [HDR] MSR Successfully applied film grain", v237, 8u);
-                          v29 = v164;
-                          v35 = v172;
-                          v108 = v173;
-                          v31 = v179;
+                          v156 = IOSurfaceGetID(buffer);
+                          *v238 = 67109120;
+                          *&v238[4] = v156;
+                          _os_log_impl(&dword_183AA6000, v155, OS_LOG_TYPE_INFO, "[0x%x] [HDR] MSR Successfully applied film grain", v238, 8u);
+                          v29 = v165;
+                          v35 = v173;
+                          v108 = v174;
+                          v31 = v180;
                         }
                       }
 
@@ -3073,9 +2051,9 @@ LABEL_175:
                         *&buf[12] = 2048;
                         *&buf[14] = v49;
                         *&buf[22] = 2048;
-                        *v204 = v47;
-                        *&v204[8] = 2048;
-                        *&v204[10] = v180;
+                        *v205 = v47;
+                        *&v205[8] = 2048;
+                        *&v205[10] = v181;
                         _os_log_error_impl(&dword_183AA6000, v109, OS_LOG_TYPE_ERROR, "HDRProcessor error (%ld) (src:%p, dst:%p, md:%p)", buf, 0x2Au);
                         if (!v56)
                         {
@@ -3088,7 +2066,7 @@ LABEL_175:
 LABEL_178:
 
                         os_unfair_lock_lock((v31 + 20));
-                        v35 = v172;
+                        v35 = v173;
                         goto LABEL_201;
                       }
 
@@ -3101,27 +2079,27 @@ LABEL_285:
                     goto LABEL_175;
                   }
 
-                  CA::shared_event_submit(*(v31 + 24), a14, v175, 1, 1);
-                  CA::shared_event_submit(*(v31 + 24), a14, v174, 1, 2);
+                  CA::shared_event_submit(*(v31 + 24), a14, v176, 1, 1);
+                  CA::shared_event_submit(*(v31 + 24), a14, v175, 1, 2);
                   v106 = 48;
                   if (_hdrp_supports_new_init)
                   {
                     v106 = 40;
                   }
 
-                  v107 = [*(v31 + v106) encodeToCommandBuffer:a14 inputSurfaceLayer0:v49 inputSurfacelayer1:0 outputSurface:v47 metadata:v180];
+                  v107 = [*(v31 + v106) encodeToCommandBuffer:a14 inputSurfaceLayer0:v49 inputSurfacelayer1:0 outputSurface:v47 metadata:v181];
                   os_unfair_lock_unlock((v31 + 20));
-                  CA::shared_event_submit(*(v31 + 24), a14, v175, 0, 1);
-                  CA::shared_event_submit(*(v31 + 24), a14, v174, 0, 2);
-                  if (v173)
+                  CA::shared_event_submit(*(v31 + 24), a14, v176, 0, 1);
+                  CA::shared_event_submit(*(v31 + 24), a14, v175, 0, 2);
+                  if (v174)
                   {
-                    ++*(v173 + 532);
+                    ++*(v174 + 532);
                   }
 
                   if (v107 == -17000)
                   {
                     os_unfair_lock_lock((v31 + 20));
-                    v108 = v173;
+                    v108 = v174;
                     goto LABEL_209;
                   }
 
@@ -3138,11 +2116,11 @@ LABEL_285:
                     *&buf[12] = 2048;
                     *&buf[14] = a14;
                     *&buf[22] = 2048;
-                    *v204 = v49;
-                    *&v204[8] = 2048;
-                    *&v204[10] = v47;
-                    *&v204[18] = 2048;
-                    *&v204[20] = v180;
+                    *v205 = v49;
+                    *&v205[8] = 2048;
+                    *&v205[10] = v47;
+                    *&v205[18] = 2048;
+                    *&v205[20] = v181;
                     _os_log_error_impl(&dword_183AA6000, v110, OS_LOG_TYPE_ERROR, "HDRProcessor error (%ld) (cmd:%p, src:%p, dst:%p, md:%p)", buf, 0x34u);
                     if (!v56)
                     {
@@ -3153,7 +2131,7 @@ LABEL_285:
                   else if (!v56)
                   {
 LABEL_184:
-                    v35 = v172;
+                    v35 = v173;
 
 LABEL_200:
                     os_unfair_lock_lock((v31 + 20));
@@ -3173,7 +2151,7 @@ LABEL_200:
                 if (os_log_type_enabled(x_log_get_utilities::log, OS_LOG_TYPE_ERROR))
                 {
                   v121 = "GPU";
-                  if (v163)
+                  if (v164)
                   {
                     v121 = "MSR";
                   }
@@ -3201,14 +2179,14 @@ LABEL_201:
               }
             }
 
-            else if (BYTE12(v185) != 16)
+            else if (BYTE12(v186) != 16)
             {
               goto LABEL_79;
             }
           }
 
-          [v180 setObject:&unk_1EF22F9C0 forKeyedSubscript:_kHDRProcessingEDRFactorKey];
-          v31 = v179;
+          [v181 setObject:&unk_1EF22F9C0 forKeyedSubscript:_kHDRProcessingEDRFactorKey];
+          v31 = v180;
           goto LABEL_90;
         }
 
@@ -3217,12 +2195,12 @@ LABEL_201:
           dispatch_once(&x_log_get_utilities::once, &__block_literal_global_5_2153);
         }
 
-        v35 = v172;
+        v35 = v173;
         v70 = x_log_get_utilities::log;
         if (os_log_type_enabled(x_log_get_utilities::log, OS_LOG_TYPE_ERROR))
         {
           v120 = "GPU";
-          if (v163)
+          if (v164)
           {
             v120 = "MSR";
           }
@@ -3239,7 +2217,7 @@ LABEL_201:
         else if (!a21)
         {
 LABEL_85:
-          v71 = (v179 + 20);
+          v71 = (v180 + 20);
 LABEL_202:
           os_unfair_lock_unlock(v71);
 LABEL_203:
@@ -3260,13 +2238,13 @@ LABEL_204:
         goto LABEL_85;
       }
 
-      v35 = v172;
+      v35 = v173;
       goto LABEL_29;
     }
 
-    if (BYTE12(v194) != 18)
+    if (BYTE12(v195) != 18)
     {
-      if (BYTE12(v194) != 16 || BYTE11(v194) > 0xCu || ((1 << SBYTE11(v194)) & 0x1202) == 0)
+      if (BYTE12(v195) != 16 || BYTE11(v195) > 0xCu || ((1 << SBYTE11(v195)) & 0x1202) == 0)
       {
         if (CA_CFDictionaryGetBool(v35, @"isHLG"))
         {
@@ -3285,9 +2263,9 @@ LABEL_204:
           if (os_log_type_enabled(x_log_get_utilities::log, OS_LOG_TYPE_ERROR))
           {
             *buf = 67109376;
-            *&buf[4] = BYTE12(v194);
+            *&buf[4] = BYTE12(v195);
             *&buf[8] = 1024;
-            *&buf[10] = BYTE11(v194);
+            *&buf[10] = BYTE11(v195);
             _os_log_error_impl(&dword_183AA6000, v92, OS_LOG_TYPE_ERROR, "Unknown HDR surface with transfer index %d color index %d", buf, 0xEu);
           }
 
@@ -3412,7 +2390,7 @@ void *___ZL38getCMGetDMVersionLevelFromRPUSymbolLocv_block_invoke(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -3530,7 +2508,7 @@ void CA::release_hdr_iosa_param(CA *this, void *a2, void *a3, void *a4)
   CA::IOSAManager::unref(this);
 }
 
-uint64_t ___ZL20CoreMediaLibraryCorePPc_block_invoke()
+uint64_t ___ZL20CoreMediaLibraryCorePPc_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   CoreMediaLibraryCore(char **)::frameworkLibrary = result;
@@ -4152,7 +3130,7 @@ LABEL_4:
   return v2;
 }
 
-_DWORD *get_preflight_buffer(_CAEAGLNativeWindow *a1, unsigned int a2, int a3, int a4, CA::Render *a5)
+_DWORD *get_preflight_buffer(_CAEAGLNativeWindow *a1, int a2, int a3, int a4, CA::Render *a5)
 {
   pthread_setspecific(collect_slot, a1);
   CAImageQueueConsumeUnconsumed_(*(a1 + 18), 0);
@@ -4172,8 +3150,7 @@ _DWORD *get_preflight_buffer(_CAEAGLNativeWindow *a1, unsigned int a2, int a3, i
       v12 = v12[1];
       if (*(a1 + 28) - buffer[5] >= 1)
       {
-        v14 = *(a1 + 22);
-        x_list_remove(v14, buffer);
+        x_list_remove(*(a1 + 22), buffer);
         *(a1 + 22) = v14;
         release_buffer(a1, buffer);
       }
@@ -4184,8 +3161,7 @@ _DWORD *get_preflight_buffer(_CAEAGLNativeWindow *a1, unsigned int a2, int a3, i
       }
     }
 
-    v19 = *(a1 + 22);
-    x_list_remove(v19, *v12);
+    x_list_remove(*(a1 + 22), *v12);
     *(a1 + 22) = v19;
   }
 
@@ -4290,7 +3266,7 @@ LABEL_6:
   free(a2);
 }
 
-_DWORD *allocate_buffer(unsigned int a1, int a2, int a3, CA::Render *this, _CAImageQueue *a5, uint64_t a6, const __CFString *a7)
+_DWORD *allocate_buffer(int a1, int a2, int a3, CA::Render *this, _CAImageQueue *a5, uint64_t a6, const __CFString *a7)
 {
   v8 = this;
   v10 = a2;
@@ -5062,7 +4038,7 @@ LABEL_14:
           {
             v23 = v30;
             v24 = (*(*v22 + 16))(v22);
-            v25 = *(v23 + 6);
+            v25 = *(v23 + 48);
             if (v25 != v24)
             {
               if (v25)
@@ -5070,7 +4046,7 @@ LABEL_14:
                 (*(*v25 + 8))(v25);
               }
 
-              *(v23 + 6) = v24;
+              *(v23 + 48) = v24;
             }
           }
 
@@ -5141,13 +4117,14 @@ void X::small_vector_base<CA::Render::BackdropGroup *>::grow(uint64_t a1, unint6
   *(a1 + 24) = v10;
 }
 
-char *CA::Render::BackdropLayer::show(uint64_t a1, X::Stream *this, int a3, char a4)
+char *CA::Render::BackdropLayer::show(uint64_t a1, X::Stream *this, uint64_t a3, char a4)
 {
   v17[1] = *MEMORY[0x1E69E9840];
   if ((a4 & 1) == 0)
   {
+    v5 = a3;
     X::Stream::printf(this, "(backdrop-layer %ld", *(a1 + 16));
-    v7 = 2 * a3;
+    v7 = 2 * v5;
     if ((*(a1 + 13) & 1) == 0)
     {
       X::Stream::printf(this, "\n%*s", v7 + 2, "");
@@ -5360,7 +4337,7 @@ LABEL_54:
     goto LABEL_26;
   }
 
-  return X::Stream::printf(this, "backdrop-layer");
+  return X::Stream::printf(this, "backdrop-layer", a3);
 }
 
 BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,CA::Render::BackdropGroup::finalize_update(unsigned int,BOOL,void *)::$_0 &,CA::Render::BackdropGroup::Item *>(uint64_t a1, __int128 *a2)
@@ -5382,24 +4359,24 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,CA::R
           }
 
           std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<CA::Render::BackdropGroup::Item *&,CA::Render::BackdropGroup::Item *&>((a1 + 192), a2 - 12);
-          if (*(*(v3 + 27) + 112) >= *(*(v3 + 3) + 112))
+          if (*(*(v3 + 216) + 112) >= *(*(v3 + 24) + 112))
           {
             return 1;
           }
 
-          v5 = v3 + 12;
+          v5 = (v3 + 192);
           goto LABEL_6;
         }
 
         if (v7 >= v6)
         {
           std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<CA::Render::BackdropGroup::Item *&,CA::Render::BackdropGroup::Item *&>(a1, (a1 + 192));
-          if (*(*(a2 - 21) + 112) >= *(*(v3 + 27) + 112))
+          if (*(*(a2 - 21) + 112) >= *(*(v3 + 216) + 112))
           {
             return 1;
           }
 
-          a1 = (v3 + 12);
+          a1 = v3 + 192;
         }
 
         v5 = a2 - 12;
@@ -5443,24 +4420,24 @@ LABEL_27:
     if (v10 >= v9)
     {
       std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<CA::Render::BackdropGroup::Item *&,CA::Render::BackdropGroup::Item *&>(a1, (a1 + 192));
-      if (*(*(v3 + 51) + 112) >= *(*(v3 + 27) + 112))
+      if (*(*(v3 + 408) + 112) >= *(*(v3 + 216) + 112))
       {
         goto LABEL_32;
       }
 
-      a1 = (v3 + 12);
+      a1 = v3 + 192;
     }
 
-    v11 = v3 + 24;
+    v11 = (v3 + 384);
     goto LABEL_31;
   }
 
   if (v10 < v9)
   {
     std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<CA::Render::BackdropGroup::Item *&,CA::Render::BackdropGroup::Item *&>((a1 + 192), (a1 + 384));
-    if (*(*(v3 + 27) + 112) < *(*(v3 + 3) + 112))
+    if (*(*(v3 + 216) + 112) < *(*(v3 + 24) + 112))
     {
-      v11 = v3 + 12;
+      v11 = (v3 + 192);
       a1 = v3;
 LABEL_31:
       std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<CA::Render::BackdropGroup::Item *&,CA::Render::BackdropGroup::Item *&>(a1, v11);
@@ -5468,8 +4445,8 @@ LABEL_31:
   }
 
 LABEL_32:
-  v12 = v3 + 36;
-  if (v3 + 36 == a2)
+  v12 = v3 + 576;
+  if ((v3 + 576) == a2)
   {
     return 1;
   }
@@ -5478,20 +4455,20 @@ LABEL_32:
   v14 = 0;
   while (1)
   {
-    v15 = *(v12 + 3);
+    v15 = *(v12 + 24);
     if (*(v15 + 112) < *(*(v8 + 24) + 112))
     {
       v36 = *v12;
-      v37 = *(v12 + 2);
-      v16 = v12[2];
-      v17 = v12[3];
-      v18 = v12[4];
-      v19 = v12[5];
-      v20 = v12[6];
-      v21 = v12[7];
-      v38 = v12[8];
-      v39 = v12[9];
-      *v40 = v12[10];
+      v37 = *(v12 + 16);
+      v16 = *(v12 + 32);
+      v17 = *(v12 + 48);
+      v18 = *(v12 + 64);
+      v19 = *(v12 + 80);
+      v20 = *(v12 + 96);
+      v21 = *(v12 + 112);
+      v38 = *(v12 + 128);
+      v39 = *(v12 + 144);
+      *v40 = *(v12 + 160);
       v22 = v13;
       *&v40[12] = *(v12 + 172);
       while (1)
@@ -5499,33 +4476,33 @@ LABEL_32:
         v23 = v22;
         v24 = v3 + v22;
         v25 = *(v3 + v22 + 400);
-        *(v24 + 36) = *(v3 + v22 + 384);
-        *(v24 + 37) = v25;
+        *(v24 + 576) = *(v3 + v22 + 384);
+        *(v24 + 592) = v25;
         v26 = *(v3 + v22 + 432);
-        *(v24 + 38) = *(v3 + v22 + 416);
-        *(v24 + 39) = v26;
+        *(v24 + 608) = *(v3 + v22 + 416);
+        *(v24 + 624) = v26;
         v27 = *(v3 + v22 + 464);
-        *(v24 + 40) = *(v3 + v22 + 448);
-        *(v24 + 41) = v27;
+        *(v24 + 640) = *(v3 + v22 + 448);
+        *(v24 + 656) = v27;
         v28 = *(v3 + v22 + 496);
-        *(v24 + 42) = *(v3 + v22 + 480);
-        *(v24 + 43) = v28;
+        *(v24 + 672) = *(v3 + v22 + 480);
+        *(v24 + 688) = v28;
         v29 = v3 + v22 + 704;
         v30 = (v3 + v22 + 512);
-        v31 = *(v24 + 32);
-        v32 = *(v24 + 33);
-        v33 = *(v24 + 34);
+        v31 = *(v24 + 512);
+        v32 = *(v24 + 528);
+        v33 = *(v24 + 544);
         *(v29 + 44) = *(v30 + 44);
-        *(v24 + 45) = v32;
-        *(v24 + 46) = v33;
-        *(v24 + 44) = v31;
+        *(v24 + 720) = v32;
+        *(v24 + 736) = v33;
+        *(v24 + 704) = v31;
         if (v23 == -384)
         {
           break;
         }
 
         v22 = v23 - 192;
-        if (*(v15 + 112) >= *(*(v24 + 27) + 112))
+        if (*(v15 + 112) >= *(*(v24 + 216) + 112))
         {
           v34 = v3 + v22 + 576;
           v30 = (v3 + v23 + 512);
@@ -5551,13 +4528,13 @@ LABEL_40:
       *(v30 + 44) = *&v40[12];
       if (v14 == 8)
       {
-        return v12 + 12 == a2;
+        return v12 + 192 == a2;
       }
     }
 
     v8 = v12;
     v13 += 192;
-    v12 += 12;
+    v12 += 192;
     if (v12 == a2)
     {
       return 1;
@@ -5880,7 +4857,7 @@ LABEL_48:
   return v37;
 }
 
-CA::Render *CA::Render::layer_apply(atomic_uint *this, CA::Render::Layer *a2, float a3, float64_t a4, float64_t a5)
+atomic_uint *CA::Render::layer_apply(atomic_uint *this, CA::Render::Layer *a2, float a3, float64_t a4, float64_t a5)
 {
   v5 = this;
   if (this)
@@ -5924,7 +4901,7 @@ CA::Render *CA::Render::layer_apply(atomic_uint *this, CA::Render::Layer *a2, fl
         if (a4 != 0.0 || a5 != 0.0)
         {
           v13.f64[1] = a5;
-          *(v9 + 56) = vaddq_f64(*(v5 + 56), v13);
+          *(v9 + 56) = vaddq_f64(*(v5 + 14), v13);
         }
 
         v14 = *(v9 + 3);
@@ -6884,12 +5861,12 @@ uint64_t CASSetDebugMessage(const char *a1, const audit_token_t *a2, CA::Render:
   return v6;
 }
 
-uint64_t CASRenderDisplaySurface(const char *a1, audit_token_t *a2, unsigned int *a3, mach_port_t a4, mach_port_t a5, int a6, int a7, int a8, double a9, CA::Mat4Impl *a10, int a11, unsigned int a12, unint64_t *a13, CA::Render::Server *a14)
+uint64_t CASRenderDisplaySurface(const char *a1, audit_token_t *a2, unsigned int *a3, mach_port_t a4, mach_port_t a5, int a6, int a7, int a8, double d0_0, CA::Mat4Impl *a9, int a10, unsigned int a11, unint64_t *a12, CA::Render::Server *a13)
 {
   v52 = *MEMORY[0x1E69E9840];
   v22 = 4213784577;
   v23 = 4 * a3;
-  if ((CA::Render::Server::audit_token_cache_lookup(a14, a2) & 0x80) != 0 || (CA::Render::Server::audit_token_cache_lookup(a14, v24) & 0x20000) != 0)
+  if ((CA::Render::Server::audit_token_cache_lookup(a13, a2) & 0x80) != 0 || (CA::Render::Server::audit_token_cache_lookup(a13, v24) & 0x20000) != 0)
   {
     goto LABEL_13;
   }
@@ -7214,7 +6191,7 @@ LABEL_26:
   return v10;
 }
 
-uint64_t CASRenderDisplayShmem(const char *a1, _anonymous_namespace_ *a2, unsigned int *a3, int a4, int a5, uint64_t a6, mem_entry_name_port_t a7, mach_vm_size_t a8, double a9, int a10, int a11, int a12, CA::Mat4Impl *a13, int a14, unsigned int a15, unint64_t *a16, CA::Render::Server *a17)
+uint64_t CASRenderDisplayShmem(const char *a1, _anonymous_namespace_ *a2, unsigned int *a3, int a4, int a5, uint64_t a6, mem_entry_name_port_t a7, mach_vm_size_t a8, double a9, int a10, int a11, int a12, CA::Mat4Impl *a13, int a14, int a15, unint64_t *a16, CA::Render::Server *a17)
 {
   v47 = *MEMORY[0x1E69E9840];
   v25 = 4213784577;
@@ -7296,7 +6273,7 @@ void anonymous namespace::MIGRenderBuffer::~MIGRenderBuffer(_anonymous_namespace
   }
 }
 
-uint64_t CASRenderDisplayLayerSurface(const char *a1, audit_token_t *a2, uint64_t a3, mach_port_t a4, mach_port_t a5, int a6, int a7, CA::Mat4Impl *a8, double a9, unsigned int a10, unint64_t *a11, CA::Render::Server *a12)
+uint64_t CASRenderDisplayLayerSurface(const char *a1, audit_token_t *a2, uint64_t a3, mach_port_t a4, mach_port_t a5, int a6, int a7, CA::Mat4Impl *a8, double a9, int a10, unint64_t *a11, CA::Render::Server *a12)
 {
   v44 = *MEMORY[0x1E69E9840];
   v21 = 4213784577;
@@ -7378,7 +6355,7 @@ LABEL_13:
   return v21;
 }
 
-uint64_t CASRenderDisplayLayerShmem(const char *a1, CA::Render::Context *a2, uint64_t a3, int a4, int a5, uint64_t a6, mem_entry_name_port_t a7, mach_vm_size_t a8, double a9, int a10, int a11, int a12, CA::Mat4Impl *a13, unsigned int a14, unint64_t *a15, CA::Render::Server *a16)
+uint64_t CASRenderDisplayLayerShmem(const char *a1, CA::Render::Context *a2, uint64_t a3, int a4, int a5, uint64_t a6, mem_entry_name_port_t a7, mach_vm_size_t a8, double a9, int a10, int a11, int a12, CA::Mat4Impl *a13, int a14, unint64_t *a15, CA::Render::Server *a16)
 {
   v42 = *MEMORY[0x1E69E9840];
   v25 = 4213784577;
@@ -7430,12 +6407,12 @@ uint64_t CASRenderDisplayLayerShmem(const char *a1, CA::Render::Context *a2, uin
   return v25;
 }
 
-uint64_t CASRenderDisplayContextListSurface(const char *a1, const audit_token_t *a2, unsigned int a3, mach_port_t a4, mach_port_t a5, int a6, int a7, CA::Mat4Impl *a8, double a9, unsigned int a10, unsigned int a11, unint64_t *a12, CA::Render::Server *a13)
+uint64_t CASRenderDisplayContextListSurface(const char *a1, const audit_token_t *a2, unsigned int a3, mach_port_t a4, mach_port_t a5, int a6, int a7, CA::Mat4Impl *a8, double d0_0, unsigned int a9, unsigned int a10, unint64_t *a11, CA::Render::Server *a12)
 {
   v46 = *MEMORY[0x1E69E9840];
   v19 = 4213784577;
   v20 = 4 * a3;
-  if ((CA::Render::Server::audit_token_cache_lookup(a13, a2) & 0x80) != 0 || (CA::Render::Server::audit_token_cache_lookup(a13, v21) & 0x20000) != 0)
+  if ((CA::Render::Server::audit_token_cache_lookup(a12, a2) & 0x80) != 0 || (CA::Render::Server::audit_token_cache_lookup(a12, v21) & 0x20000) != 0)
   {
     goto LABEL_13;
   }
@@ -7500,7 +6477,7 @@ LABEL_10:
 
 LABEL_13:
   v26 = MEMORY[0x1E69E9A60];
-  mach_vm_deallocate(*MEMORY[0x1E69E9A60], a8, a10 << 7);
+  mach_vm_deallocate(*MEMORY[0x1E69E9A60], a8, a9 << 7);
   mach_vm_deallocate(*v26, a2, v20);
   if (a5)
   {
@@ -7714,7 +6691,7 @@ LABEL_41:
   return v38;
 }
 
-uint64_t CASRenderDisplayContextListShmem(const char *a1, const audit_token_t *a2, unsigned int a3, int a4, int a5, uint64_t a6, mem_entry_name_port_t a7, mach_vm_size_t a8, double a9, int a10, int a11, int a12, CA::Mat4Impl *a13, unsigned int a14, unsigned int a15, unint64_t *a16, CA::Render::Server *a17)
+uint64_t CASRenderDisplayContextListShmem(const char *a1, const audit_token_t *a2, unsigned int a3, int a4, int a5, uint64_t a6, mem_entry_name_port_t a7, mach_vm_size_t a8, double a9, int a10, int a11, int a12, CA::Mat4Impl *a13, unsigned int a14, int a15, unint64_t *a16, CA::Render::Server *a17)
 {
   v45 = *MEMORY[0x1E69E9840];
   v22 = 4213784577;
@@ -7769,7 +6746,7 @@ uint64_t CASRenderDisplayContextListShmem(const char *a1, const audit_token_t *a
   return v22;
 }
 
-uint64_t CASCaptureDisplay(const char *a1, _anonymous_namespace_ *a2, unsigned int *a3, _anonymous_namespace_ *a4, int a5, int a6, int a7, int a8, double a9, CA::Mat4Impl *a10, int a11, unsigned int a12, CA::Render::Server *a13)
+uint64_t CASCaptureDisplay(const char *a1, _anonymous_namespace_ *a2, unsigned int *a3, _anonymous_namespace_ *a4, int a5, int a6, int a7, int a8, double a9, CA::Mat4Impl *a10, int a11, int a12, CA::Render::Server *a13)
 {
   v37 = *MEMORY[0x1E69E9840];
   v22 = 4213784577;
@@ -7880,7 +6857,7 @@ void anonymous namespace::SlotIOSurface::~SlotIOSurface(_anonymous_namespace_::S
   }
 }
 
-uint64_t CASCaptureDisplayContextList(const char *a1, const audit_token_t *a2, unsigned int a3, _anonymous_namespace_ *a4, int a5, int a6, int a7, CA::Mat4Impl *a8, double a9, unsigned int a10, unsigned int a11, CA::Render::Server *a12)
+uint64_t CASCaptureDisplayContextList(const char *a1, const audit_token_t *a2, unsigned int a3, _anonymous_namespace_ *a4, int a5, int a6, int a7, CA::Mat4Impl *a8, double a9, unsigned int a10, int a11, CA::Render::Server *a12)
 {
   v33 = *MEMORY[0x1E69E9840];
   v20 = 4213784577;
@@ -7915,7 +6892,7 @@ uint64_t CASCaptureDisplayContextList(const char *a1, const audit_token_t *a2, u
   return v20;
 }
 
-uint64_t CASSetDisplayProperties(int a1, const audit_token_t *a2, int a3, uint64_t a4, int a5, char a6, unsigned int a7, int a8, float a9, float a10, int a11, unsigned __int8 a12, unsigned int a13, mach_port_name_t a14, CA::Render::Server *a15)
+uint64_t CASSetDisplayProperties(int a1, const audit_token_t *a2, int a3, uint64_t a4, int a5, char a6, unsigned int a7, int a8, float a9, float a10, int a11, char a12, int a13, mach_port_name_t a14, CA::Render::Server *a15)
 {
   v37 = *MEMORY[0x1E69E9840];
   if (a14 - 1 > 0xFFFFFFFD)
@@ -8293,7 +7270,7 @@ void X::small_vector_base<unsigned int>::append<unsigned int const*>(uint64_t a1
   v9 = v8 - *a1;
   if (v7 > *(a1 + 24) - (v9 >> 2))
   {
-    X::small_vector_base<unsigned int>::grow(a1, (v9 >> 2) + v7);
+    X::small_vector_base<unsigned int>::grow(a1, ((v9 >> 2) + v7));
     v8 = *(a1 + 8);
   }
 
@@ -8518,7 +7495,7 @@ char *CA::Render::PixelBuffer::show(uint64_t a1, X::Stream *a2, uint64_t a3, cha
   return X::Stream::printf(a2, "(pixel-buffer %c%c%c%c [%d %d])");
 }
 
-void *CA::Render::PixelBuffer::encode(CA::Render::PixelBuffer *this, CA::Render::Encoder *a2)
+CA::Render::Encoder *CA::Render::PixelBuffer::encode(CA::Render::PixelBuffer *this, CA::Render::Encoder *a2)
 {
   v4 = *(this + 3) >> 8;
   v5 = *(a2 + 4);
@@ -8918,22 +7895,23 @@ double CA::OGL::anonymous namespace::FlipTransition::DOD@<D0>(CA::OGL::_anonymou
   return result;
 }
 
-void CA::Render::ImageProvider::prefetch_subtexture(CA::Render::ImageProvider *this, __int32 a2, __int32 a3, __int32 a4, __int32 a5, double a6)
+void CA::Render::ImageProvider::prefetch_subtexture(uint64_t this, int a2, int a3, int a4, uint64_t a5, double a6)
 {
   v15 = *MEMORY[0x1E69E9840];
-  if ((a2 & 0x80000000) == 0 && *(this + 30) > a2)
+  if ((a2 & 0x80000000) == 0 && *(this + 120) > a2)
   {
+    v7 = a5;
     v14[0] = a2;
     v14[1] = a3;
     v14[2] = a4;
     os_unfair_lock_lock(&CA::Render::ImageProvider::_provider_lock);
-    v8 = x_hash_table_lookup(*(this + 20), v14, 0);
+    v8 = x_hash_table_lookup(*(this + 160), v14, 0);
     if (v8)
     {
       v9 = *(v8 + 80);
-      if (v9 <= *(this + 26))
+      if (v9 <= *(this + 208))
       {
-        v9 = *(this + 26);
+        v9 = *(this + 208);
       }
 
       *(v8 + 80) = v9;
@@ -8969,7 +7947,7 @@ void CA::Render::ImageProvider::prefetch_subtexture(CA::Render::ImageProvider *t
       }
     }
 
-    CA::Render::ImageProvider::add_needed(this, v14, a5, v8);
+    CA::Render::ImageProvider::add_needed(this, v14, v7, v8);
     os_unfair_lock_unlock(&CA::Render::ImageProvider::_provider_lock);
     CA::Render::ImageProvider::signal_client(this);
   }
@@ -9148,7 +8126,7 @@ void CA::Render::ImageProvider::signal_client(CA::Render::ImageProvider *this)
   }
 }
 
-atomic_uint *CA::Render::ImageProvider::generate_subtexture(CA::Render::ImageProvider *this, int a2, int a3, int a4, int a5, unsigned int a6, double a7, unsigned int *a8)
+atomic_uint *CA::Render::ImageProvider::generate_subtexture(CA::Render::ImageProvider *this, int a2, unsigned int a3, unsigned int a4, int a5, unsigned int a6, double a7, unsigned int *a8)
 {
   v112 = *MEMORY[0x1E69E9840];
   if (!a2)
@@ -9305,7 +8283,7 @@ LABEL_33:
   v42 = v98;
   if (v40 * v97 + v40 <= v17 >> 1)
   {
-    v44 = *(this + 28);
+    v44 = v40;
   }
 
   else
@@ -9725,13 +8703,13 @@ LABEL_24:
       {
         v29 = v28;
         v28 = v28[1];
-        if ((*(this + 54) - *(v29 + 10)) > 4 || (*(v13 + 52) & 0x10002) == 0 && *(v29 + 4) == v31[0] && *(v29 + 20) == *&v31[1])
+        if ((*(this + 54) - v29[10]) > 4 || (*(v13 + 52) & 0x10002) == 0 && v29[4] == v31[0] && v29[5] == v31[1] && v29[6] == v31[2])
         {
           v30 = *v29;
           *(v30 + 8) = v28;
           *v28 = v30;
           *v29 = v29;
-          v29[1] = v29;
+          *(v29 + 1) = v29;
           if (x_malloc_get_zone::once != -1)
           {
             dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
@@ -9940,4 +8918,914 @@ LABEL_55:
   }
 
   return 0;
+}
+
+char *CA::Render::ImageProvider::show(uint64_t a1, X::Stream *this, int a3, uint64_t a4)
+{
+  v5 = *(a1 + 20);
+  if (a4)
+  {
+    return X::Stream::printf(this, "<image-provider [%d %d]>", *(a1 + 16), v5);
+  }
+
+  X::Stream::printf(this, "(image-provider [%d %d] [%d %d] [%d %d]", *(a1 + 16), v5, *(a1 + 112), *(a1 + 116), *(a1 + 120), *(a1 + 124));
+  if (*(a1 + 136))
+  {
+    v9 = (a3 + 1);
+    X::Stream::printf(this, "\n%*s", 2 * v9, "");
+    X::Stream::printf(this, "(fillColor ");
+    (*(**(a1 + 136) + 40))(*(a1 + 136), this, v9, a4);
+    X::Stream::printf(this, ")");
+  }
+
+  else if (*(a1 + 128))
+  {
+    X::Stream::printf(this, "\n%*s", 2 * a3 + 2, "");
+    X::Stream::printf(this, "(fillColor #%08x ");
+  }
+
+  return X::Stream::printf(this, ")");
+}
+
+void CA::Render::ImageProvider::~ImageProvider(CA::Render::ImageProvider *this)
+{
+  CA::Render::ImageProvider::~ImageProvider(this);
+  if (x_malloc_get_zone::once != -1)
+  {
+    dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
+  }
+
+  v2 = malloc_zone;
+
+  malloc_zone_free(v2, this);
+}
+
+{
+  *this = &unk_1EF1FA788;
+  os_unfair_lock_lock(&CA::Render::ImageProvider::_provider_lock);
+  v2 = 0;
+  v3 = *(this + 20);
+  v4 = 1 << *v3;
+  do
+  {
+    for (i = *(*(v3 + 16) + 8 * v2); i; i = *i)
+    {
+      CA::Render::free_subimage(i[2], i[3]);
+    }
+
+    ++v2;
+  }
+
+  while (v2 != v4);
+  os_unfair_lock_unlock(&CA::Render::ImageProvider::_provider_lock);
+  x_hash_table_free(*(this + 20));
+  v6 = *(this + 22);
+  if (v6 != (this + 168))
+  {
+    do
+    {
+      v7 = *(v6 + 1);
+      if (x_malloc_get_zone::once != -1)
+      {
+        dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
+      }
+
+      malloc_zone_free(malloc_zone, v6);
+      v6 = v7;
+    }
+
+    while (v7 != (this + 168));
+  }
+
+  --dword_1ED4EAA98;
+  *this = &unk_1EF1FC198;
+  v8 = *(this + 17);
+  if (v8 && atomic_fetch_add(v8 + 2, 0xFFFFFFFF) == 1)
+  {
+    (*(*v8 + 16))(v8);
+  }
+
+  CA::Render::Texture::~Texture(this);
+}
+
+void CA::Render::free_subimage(int a1, uint64_t *ptr)
+{
+  v3 = ptr[3];
+  if (v3)
+  {
+    if (atomic_fetch_add(v3 + 2, 0xFFFFFFFF) == 1)
+    {
+      (*(*v3 + 16))(v3);
+    }
+
+    v5 = *ptr;
+    v4 = ptr[1];
+    if (v4)
+    {
+      *v4 = v5;
+    }
+
+    if (v5)
+    {
+      v6 = (v5 + 8);
+    }
+
+    else
+    {
+      v6 = &CA::Render::subimage_head;
+    }
+
+    *v6 = v4;
+  }
+
+  if (x_malloc_get_zone::once != -1)
+  {
+    dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
+  }
+
+  v7 = malloc_zone;
+
+  malloc_zone_free(v7, ptr);
+}
+
+unint64_t CA::Render::key_hash(_DWORD *a1)
+{
+  v1 = ((a1[1] << 10) ^ (*a1 << 20)) ^ a1[2];
+  v2 = (~(v1 << 32) + v1) ^ ((~(v1 << 32) + v1) >> 22);
+  v3 = 9 * ((v2 + ~(v2 << 13)) ^ ((v2 + ~(v2 << 13)) >> 8));
+  v4 = (v3 ^ (v3 >> 15)) + ~((v3 ^ (v3 >> 15)) << 27);
+  return v4 ^ (v4 >> 31);
+}
+
+void CA::Render::ImageProvider::create(CA::Render::ImageProvider *this, CA::Render::Context *a2, unsigned int a3, unsigned int a4, unsigned int a5, int a6, int a7, int a8, float a9, int a10, char a11, BOOL a12, int a13, unsigned int a14, CA::Render::Pattern *a15)
+{
+  if (a6 && a7 && ((a10 | a8) & 0x80000000) == 0)
+  {
+    v19 = a4 >= a5 ? a5 : a4;
+    v20 = 32 - __clz(v19);
+    v21 = v19 <= 1 ? 1 : v20;
+    v22 = v21 + a10;
+    if (!__OFADD__(v21, a10))
+    {
+      if (x_malloc_get_zone::once != -1)
+      {
+        dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
+      }
+
+      v27 = malloc_type_zone_calloc(malloc_zone, 1uLL, 0xE8uLL, 0xDEEC3011uLL);
+      if (v27)
+      {
+        v28 = v27;
+        if (v22 >= a8)
+        {
+          v22 = a8;
+        }
+
+        v29 = CA::Render::Texture::Texture(v27, a4, a5);
+        *(v29 + 28) = a6;
+        *(v29 + 29) = a7;
+        *(v29 + 30) = v22;
+        *(v29 + 31) = a10;
+        *(v29 + 32) = 0;
+        *(v29 + 17) = 0;
+        *(v29 + 12) = 24;
+        ++dword_1ED4EAA98;
+        *v29 = &unk_1EF1FA788;
+        *(v29 + 144) = a11;
+        *(v29 + 37) = a9;
+        *(v29 + 38) = 0;
+        *(v29 + 39) = a13;
+        v30 = x_hash_table_new_(CA::Render::key_hash, CA::Render::key_compare, 0, 0, 0, 0);
+        *(v28 + 25) = 0;
+        *(v28 + 26) = 0;
+        *(v28 + 27) = 0;
+        *(v28 + 28) = 0x100000000;
+        *(v28 + 20) = v30;
+        *(v28 + 21) = v28 + 168;
+        *(v28 + 22) = v28 + 168;
+        if (*(v28 + 144) == 1)
+        {
+          *(v28 + 3) |= 0x1000u;
+        }
+
+        *(v28 + 23) = this;
+        *(v28 + 24) = a2;
+        CA::Render::TiledTexture::set_fill_color(v28, a14, a15);
+
+        CA::Render::Context::set_object(this, a2, a3, v28);
+      }
+    }
+  }
+}
+
+void CA::Render::ImageProvider::invalidate(CA::Render::ImageProvider *this, int a2, int a3, int a4, int a5, int a6, int a7)
+{
+  v35 = *MEMORY[0x1E69E9840];
+  v7 = a2 & ~(a2 >> 31);
+  v8 = a3 & ~(a3 >> 31);
+  v9 = *(this + 4);
+  v10 = *(this + 5);
+  if (((a2 & (a2 >> 31)) + a4 + v7) <= v9)
+  {
+    v11 = (a2 & (a2 >> 31)) + a4;
+  }
+
+  else
+  {
+    v11 = v9 - v7;
+  }
+
+  if (((a3 & (a3 >> 31)) + a5 + v8) <= v10)
+  {
+    v12 = (a3 & (a3 >> 31)) + a5;
+  }
+
+  else
+  {
+    v12 = v10 - v8;
+  }
+
+  if (v11 >= 1 && v12 >= 1)
+  {
+    v14 = a7;
+    v33 = 0;
+    v34 = 0;
+    v32[1] = a7;
+    os_unfair_lock_lock(&CA::Render::ImageProvider::_provider_lock);
+    v17 = *(this + 57);
+    if (a6 == -1 && (v14 & 1) == 0)
+    {
+      *(this + 57) = ++v17;
+    }
+
+    v18 = *(this + 28);
+    v19 = *(this + 29);
+    v20 = v7 / v18;
+    v21 = v8 / v19;
+    v22 = (v7 + v11 - 1) / v18;
+    v32[0] = v17;
+    LODWORD(v33) = a6;
+    v23 = *(this + 31);
+    v24 = (v8 + v12 - 1) / v19;
+    if (v23 >= 1)
+    {
+      do
+      {
+        v20 *= 2;
+        v21 *= 2;
+        v22 = (2 * v22) | 1;
+        v24 = (2 * v24) | 1;
+        --v23;
+      }
+
+      while (v23);
+    }
+
+    v25 = 0;
+    v32[2] = v20;
+    v32[3] = v21;
+    v32[4] = v22;
+    v32[5] = v24;
+    v26 = *(this + 20);
+    v27 = 1 << *v26;
+    do
+    {
+      for (i = *(*(v26 + 16) + 8 * v25); i; i = *i)
+      {
+        CA::Render::invalidate_callback(i[2], i[3], v32);
+      }
+
+      ++v25;
+    }
+
+    while (v25 != v27);
+    v29 = v34;
+    if (v34)
+    {
+      v30 = v34;
+      do
+      {
+        x_hash_table_remove_ptr(*(this + 20), (v30 + 5));
+        v30 = *v30;
+      }
+
+      while (v30);
+      os_unfair_lock_unlock(&CA::Render::ImageProvider::_provider_lock);
+      do
+      {
+        v31 = v29[3];
+        if (v31)
+        {
+          if (atomic_fetch_add(v31 + 2, 0xFFFFFFFF) == 1)
+          {
+            (*(*v31 + 16))(v31);
+          }
+        }
+
+        v29 = *v29;
+      }
+
+      while (v29);
+    }
+
+    else
+    {
+      os_unfair_lock_unlock(&CA::Render::ImageProvider::_provider_lock);
+    }
+  }
+}
+
+void CA::Render::invalidate_callback(uint64_t a1, uint64_t *a2, uint64_t a3)
+{
+  v3 = a2[3];
+  if (!v3 || (*(a3 + 4) & 1) == 0)
+  {
+    v4 = *(a2 + 10);
+    v5 = *(a3 + 24);
+    if (v5 == -1 || v4 == v5)
+    {
+      v7 = *(a2 + 11);
+      if (v7 >= *(a3 + 8) >> v4 && v7 <= *(a3 + 16) >> v4)
+      {
+        v8 = *(a2 + 12);
+        if (v8 >= *(a3 + 12) >> v4 && v8 <= *(a3 + 20) >> v4)
+        {
+          *(a2 + 15) = *a3;
+          *(a2 + 13) |= 0x10000u;
+          if (v3)
+          {
+            if ((*(a3 + 4) & 2) != 0)
+            {
+              v10 = *a2;
+              v9 = a2[1];
+              if (v9)
+              {
+                *v9 = v10;
+              }
+
+              if (v10)
+              {
+                v11 = (v10 + 8);
+              }
+
+              else
+              {
+                v11 = &CA::Render::subimage_head;
+              }
+
+              *v11 = v9;
+              *a2 = *(a3 + 32);
+              *(a3 + 32) = a2;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+void CA::Render::ImageProvider::set_image_size(CA::Render::ImageProvider *this, CA::Render::Context *a2, uint64_t a3, unsigned int a4, unsigned int a5)
+{
+  v7 = CA::Render::Context::lookup_object(this, a2, a3, 0, 24, 0);
+  if (v7)
+  {
+    v8 = v7;
+    v10 = v7[4];
+    v9 = v7[5];
+    if (a4 != v10 || a5 != v9)
+    {
+      if (a4 <= v10)
+      {
+        v14 = a5 - v9;
+        if (a5 > v9)
+        {
+          v12 = 0;
+          v13 = v7[5];
+          v15 = a4;
+          goto LABEL_11;
+        }
+      }
+
+      else
+      {
+        CA::Render::ImageProvider::invalidate(v7, v7[4], 0, a4 - v10, a5, -1, 0);
+        if (a5 > v9)
+        {
+          CA::Render::ImageProvider::invalidate(v8, 0, v9, a5 - v9, a4, -1, 0);
+          v7 = v8;
+          v12 = v10;
+          v13 = v9;
+          v14 = a4 - v10;
+          v15 = a5 - v9;
+LABEL_11:
+          CA::Render::ImageProvider::invalidate(v7, v12, v13, v14, v15, -1, 0);
+        }
+      }
+
+      v8[4] = a4;
+      v8[5] = a5;
+    }
+  }
+}
+
+CA::Render::TiledTexture *CA::Render::ImageProvider::set_fill_color(CA::Render::ImageProvider *this, CA::Render::Context *a2, uint64_t a3, int a4, Pattern *a5)
+{
+  result = CA::Render::Context::lookup_object(this, a2, a3, 0, 24, 0);
+  if (result)
+  {
+
+    return CA::Render::TiledTexture::set_fill_color(result, a4, a5);
+  }
+
+  return result;
+}
+
+void CA::Render::ImageProvider::set_subimage(CA::Render::ImageProvider *this, CA::Render::Context *a2, uint64_t a3, int a4, int a5, int a6, CA::Render::Texture *a7, int a8, unsigned int a9)
+{
+  v14 = CA::Render::Context::lookup_object(this, a2, a3, 0, 24, 0);
+  if (v14)
+  {
+    if (a7)
+    {
+      if (*(a7 + 12) == 24)
+      {
+        return;
+      }
+
+      v15 = a4;
+      v16 = a5;
+      v17 = a6;
+      v18 = a7;
+    }
+
+    else
+    {
+      v15 = a4;
+      v16 = a5;
+      v17 = a6;
+      v18 = 0;
+    }
+
+    CA::Render::ImageProvider::set_subimage(v14, v15, v16, v17, v18, a8, a9);
+  }
+}
+
+void CA::Render::ImageProvider::invalidate(CA::Render::ImageProvider *this, CA::Render::Context *a2, uint64_t a3, int a4, int a5, int a6, int a7, int a8, unsigned int a9)
+{
+  v14 = CA::Render::Context::lookup_object(this, a2, a3, 0, 24, 0);
+  if (v14)
+  {
+
+    CA::Render::ImageProvider::invalidate(v14, a4, a5, a6, a7, a8, a9);
+  }
+}
+
+uint64_t CA::Render::ImageProvider::needed_subimage(CA::Render::ImageProvider *this, CA::Render::Context *a2, uint64_t a3, unsigned int *a4, unsigned int *a5, unsigned int *a6, unsigned int *a7)
+{
+  result = CA::Render::Context::lookup_object(this, a2, a3, 0, 24, 0);
+  if (result)
+  {
+    v12 = result;
+    os_unfair_lock_lock(&CA::Render::ImageProvider::_provider_lock);
+    v13 = (v12 + 168);
+    v14 = *(v12 + 176);
+    if (v14 == v13)
+    {
+      os_unfair_lock_unlock(&CA::Render::ImageProvider::_provider_lock);
+      return 0;
+    }
+
+    else
+    {
+      v16 = *v14;
+      v15 = v14[1];
+      *(v16 + 8) = v15;
+      *v15 = v16;
+      *v14 = v14;
+      v14[1] = v14;
+      os_unfair_lock_unlock(&CA::Render::ImageProvider::_provider_lock);
+      *a4 = *(v14 + 4);
+      *a5 = *(v14 + 5);
+      *a6 = *(v14 + 6);
+      *a7 = *(v14 + 8);
+      if (x_malloc_get_zone::once != -1)
+      {
+        dispatch_once_f(&x_malloc_get_zone::once, 0, malloc_zone_init);
+      }
+
+      malloc_zone_free(malloc_zone, v14);
+      return 1;
+    }
+  }
+
+  return result;
+}
+
+BOOL CARenderServerGetDebugOption(mach_port_name_t a1, int a2)
+{
+  v14 = *MEMORY[0x1E69E9840];
+  ServerPort = a1;
+  if (!a1)
+  {
+    ServerPort = CARenderServerGetServerPort(0);
+    if (!ServerPort)
+    {
+      return 0;
+    }
+  }
+
+  memset(&msg_4[16], 0, 28);
+  *msg_4 = 0u;
+  *&msg_4[20] = *MEMORY[0x1E69E99E0];
+  *&msg_4[28] = a2;
+  reply_port = mig_get_reply_port();
+  *&msg_4[4] = ServerPort;
+  *&msg_4[8] = reply_port;
+  msg = 5395;
+  *&msg_4[12] = 0x9D4200000000;
+  if (MEMORY[0x1EEE9AC50])
+  {
+    voucher_mach_msg_set(&msg);
+    v6 = *&msg_4[8];
+  }
+
+  else
+  {
+    v6 = reply_port;
+  }
+
+  v7 = mach_msg(&msg, 3, 0x24u, 0x30u, v6, 0, 0);
+  v8 = v7;
+  if ((v7 - 268435458) <= 0xE && ((1 << (v7 - 2)) & 0x4003) != 0)
+  {
+    mig_put_reply_port(*&msg_4[8]);
+LABEL_28:
+    v10 = 0;
+    goto LABEL_29;
+  }
+
+  if (v7)
+  {
+    mig_dealloc_reply_port(*&msg_4[8]);
+    goto LABEL_28;
+  }
+
+  if (*&msg_4[16] == 71)
+  {
+    v8 = 4294966988;
+LABEL_27:
+    mach_msg_destroy(&msg);
+    goto LABEL_28;
+  }
+
+  if (*&msg_4[16] != 40358)
+  {
+    v8 = 4294966995;
+    goto LABEL_27;
+  }
+
+  if (msg < 0)
+  {
+    goto LABEL_26;
+  }
+
+  if (*msg_4 != 40)
+  {
+    if (*msg_4 == 36)
+    {
+      if (*&msg_4[4])
+      {
+        v9 = 1;
+      }
+
+      else
+      {
+        v9 = *&msg_4[28] == 0;
+      }
+
+      if (v9)
+      {
+        v8 = 4294966996;
+      }
+
+      else
+      {
+        v8 = *&msg_4[28];
+      }
+
+      goto LABEL_27;
+    }
+
+    goto LABEL_26;
+  }
+
+  if (*&msg_4[4])
+  {
+LABEL_26:
+    v8 = 4294966996;
+    goto LABEL_27;
+  }
+
+  v8 = *&msg_4[28];
+  if (*&msg_4[28])
+  {
+    goto LABEL_27;
+  }
+
+  v10 = *&msg_4[32] != 0;
+LABEL_29:
+  CAVerifyServerReturn(v8);
+  if (!a1)
+  {
+    mach_port_deallocate(*MEMORY[0x1E69E9A60], ServerPort);
+  }
+
+  return v10;
+}
+
+uint64_t CARenderServerSetDebugOption(mach_port_name_t a1, int a2, int a3)
+{
+  v15 = *MEMORY[0x1E69E9840];
+  v6 = a1;
+  if (!a1)
+  {
+    result = CARenderServerGetServerPort(0);
+    v6 = result;
+    if (!result)
+    {
+      return result;
+    }
+  }
+
+  memset(&msg[4], 0, 32);
+  v14 = 0;
+  *&msg[24] = *MEMORY[0x1E69E99E0];
+  *&msg[32] = a2;
+  LODWORD(v14) = a3;
+  reply_port = mig_get_reply_port();
+  *&msg[8] = v6;
+  *&msg[12] = reply_port;
+  *msg = 5395;
+  *&msg[16] = 0x9D4300000000;
+  if (MEMORY[0x1EEE9AC50])
+  {
+    voucher_mach_msg_set(msg);
+    v9 = *&msg[12];
+  }
+
+  else
+  {
+    v9 = reply_port;
+  }
+
+  v10 = mach_msg(msg, 3, 0x28u, 0x2Cu, v9, 0, 0);
+  v11 = v10;
+  if ((v10 - 268435458) <= 0xE && ((1 << (v10 - 2)) & 0x4003) != 0)
+  {
+    mig_put_reply_port(*&msg[12]);
+    goto LABEL_21;
+  }
+
+  if (v10)
+  {
+    mig_dealloc_reply_port(*&msg[12]);
+    goto LABEL_21;
+  }
+
+  if (*&msg[20] == 71)
+  {
+    v11 = 4294966988;
+LABEL_20:
+    mach_msg_destroy(msg);
+    goto LABEL_21;
+  }
+
+  if (*&msg[20] != 40359)
+  {
+    v11 = 4294966995;
+    goto LABEL_20;
+  }
+
+  v11 = 4294966996;
+  if ((*msg & 0x80000000) != 0)
+  {
+    goto LABEL_20;
+  }
+
+  if (*&msg[4] != 36)
+  {
+    goto LABEL_20;
+  }
+
+  if (*&msg[8])
+  {
+    goto LABEL_20;
+  }
+
+  v11 = *&msg[32];
+  if (*&msg[32])
+  {
+    goto LABEL_20;
+  }
+
+LABEL_21:
+  result = CAVerifyServerReturn(v11);
+  if (!a1)
+  {
+    v12 = *MEMORY[0x1E69E9A60];
+
+    return mach_port_deallocate(v12, v6);
+  }
+
+  return result;
+}
+
+uint64_t CARenderServerClearDebugOptions(mach_port_name_t a1)
+{
+  v11 = *MEMORY[0x1E69E9840];
+  v2 = a1;
+  if (!a1)
+  {
+    result = CARenderServerGetServerPort(0);
+    v2 = result;
+    if (!result)
+    {
+      return result;
+    }
+  }
+
+  v10 = 0;
+  *&msg[4] = 0;
+  *&msg[20] = 0u;
+  reply_port = mig_get_reply_port();
+  *&msg[8] = v2;
+  *&msg[12] = reply_port;
+  *msg = 5395;
+  *&msg[16] = 0x9D4400000000;
+  if (MEMORY[0x1EEE9AC50])
+  {
+    voucher_mach_msg_set(msg);
+    v5 = *&msg[12];
+  }
+
+  else
+  {
+    v5 = reply_port;
+  }
+
+  v6 = mach_msg(msg, 3, 0x18u, 0x2Cu, v5, 0, 0);
+  v7 = v6;
+  if ((v6 - 268435458) <= 0xE && ((1 << (v6 - 2)) & 0x4003) != 0)
+  {
+    mig_put_reply_port(*&msg[12]);
+    goto LABEL_21;
+  }
+
+  if (v6)
+  {
+    mig_dealloc_reply_port(*&msg[12]);
+    goto LABEL_21;
+  }
+
+  if (*&msg[20] == 71)
+  {
+    v7 = 4294966988;
+LABEL_20:
+    mach_msg_destroy(msg);
+    goto LABEL_21;
+  }
+
+  if (*&msg[20] != 40360)
+  {
+    v7 = 4294966995;
+    goto LABEL_20;
+  }
+
+  v7 = 4294966996;
+  if ((*msg & 0x80000000) != 0)
+  {
+    goto LABEL_20;
+  }
+
+  if (*&msg[4] != 36)
+  {
+    goto LABEL_20;
+  }
+
+  if (*&msg[8])
+  {
+    goto LABEL_20;
+  }
+
+  v7 = *&msg[32];
+  if (*&msg[32])
+  {
+    goto LABEL_20;
+  }
+
+LABEL_21:
+  result = CAVerifyServerReturn(v7);
+  if (!a1)
+  {
+    v8 = *MEMORY[0x1E69E9A60];
+
+    return mach_port_deallocate(v8, v2);
+  }
+
+  return result;
+}
+
+uint64_t CARenderServerClearColorDebugOptions(mach_port_name_t a1)
+{
+  v11 = *MEMORY[0x1E69E9840];
+  v2 = a1;
+  if (!a1)
+  {
+    result = CARenderServerGetServerPort(0);
+    v2 = result;
+    if (!result)
+    {
+      return result;
+    }
+  }
+
+  v10 = 0;
+  *&msg[4] = 0;
+  *&msg[20] = 0u;
+  reply_port = mig_get_reply_port();
+  *&msg[8] = v2;
+  *&msg[12] = reply_port;
+  *msg = 5395;
+  *&msg[16] = 0x9D4500000000;
+  if (MEMORY[0x1EEE9AC50])
+  {
+    voucher_mach_msg_set(msg);
+    v5 = *&msg[12];
+  }
+
+  else
+  {
+    v5 = reply_port;
+  }
+
+  v6 = mach_msg(msg, 3, 0x18u, 0x2Cu, v5, 0, 0);
+  v7 = v6;
+  if ((v6 - 268435458) <= 0xE && ((1 << (v6 - 2)) & 0x4003) != 0)
+  {
+    mig_put_reply_port(*&msg[12]);
+    goto LABEL_21;
+  }
+
+  if (v6)
+  {
+    mig_dealloc_reply_port(*&msg[12]);
+    goto LABEL_21;
+  }
+
+  if (*&msg[20] == 71)
+  {
+    v7 = 4294966988;
+LABEL_20:
+    mach_msg_destroy(msg);
+    goto LABEL_21;
+  }
+
+  if (*&msg[20] != 40361)
+  {
+    v7 = 4294966995;
+    goto LABEL_20;
+  }
+
+  v7 = 4294966996;
+  if ((*msg & 0x80000000) != 0)
+  {
+    goto LABEL_20;
+  }
+
+  if (*&msg[4] != 36)
+  {
+    goto LABEL_20;
+  }
+
+  if (*&msg[8])
+  {
+    goto LABEL_20;
+  }
+
+  v7 = *&msg[32];
+  if (*&msg[32])
+  {
+    goto LABEL_20;
+  }
+
+LABEL_21:
+  result = CAVerifyServerReturn(v7);
+  if (!a1)
+  {
+    v8 = *MEMORY[0x1E69E9A60];
+
+    return mach_port_deallocate(v8, v2);
+  }
+
+  return result;
 }

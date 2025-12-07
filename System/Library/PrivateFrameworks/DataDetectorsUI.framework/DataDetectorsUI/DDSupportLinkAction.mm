@@ -10,22 +10,22 @@
   targetApplicationRecord = [appLink targetApplicationRecord];
   localizedName = [targetApplicationRecord localizedName];
 
-  if (dd_isLSTrusted() && [localizedName length])
+  if (dd_isLSTrusted(v5, v6) && [localizedName length])
   {
-    v5 = MEMORY[0x277CCACA8];
-    v6 = DDLocalizedString(@"Get Help in %@");
-    [v5 localizedStringWithFormat:v6, localizedName];
+    v7 = MEMORY[0x277CCACA8];
+    v8 = DDLocalizedString(@"Get Help in %@");
+    [v7 localizedStringWithFormat:v8, localizedName];
   }
 
   else
   {
-    v7 = MEMORY[0x277CCACA8];
-    v6 = DDLocalizedString(@"Get Help");
-    [v7 localizedStringWithFormat:v6, v10];
+    v9 = MEMORY[0x277CCACA8];
+    v8 = DDLocalizedString(@"Get Help");
+    [v9 localizedStringWithFormat:v8, v12];
   }
-  v8 = ;
+  v10 = ;
 
-  return v8;
+  return v10;
 }
 
 @end

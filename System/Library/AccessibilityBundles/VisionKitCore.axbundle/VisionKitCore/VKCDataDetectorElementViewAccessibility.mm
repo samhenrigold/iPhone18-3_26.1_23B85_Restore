@@ -140,13 +140,11 @@ LABEL_26:
 
 - (void)accessibilityLabel
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v3 = [self safeValueForKey:@"dataDetectorElement"];
-  v5 = 134217984;
-  v6 = [v3 safeUnsignedIntegerForKey:@"dataDetectorTypes"];
-  _os_log_error_impl(&dword_29C768000, a2, OS_LOG_TYPE_ERROR, "Detector type : %lu should be included in accessibility label", &v5, 0xCu);
-
-  v4 = *MEMORY[0x29EDCA608];
+  v4 = 134217984;
+  v5 = [v3 safeUnsignedIntegerForKey:@"dataDetectorTypes"];
+  _os_log_error_impl(&dword_29C768000, a2, OS_LOG_TYPE_ERROR, "Detector type : %lu should be included in accessibility label", &v4, 0xCu);
 }
 
 @end

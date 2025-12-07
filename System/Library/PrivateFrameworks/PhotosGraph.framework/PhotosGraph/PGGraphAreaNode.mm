@@ -8,6 +8,7 @@
 + (id)filter;
 + (id)filterWithName:(id)name;
 + (id)filterWithNames:(id)names;
++ (void)setIsBlocked:(BOOL)blocked onNodeForIdentifier:(unint64_t)identifier inGraph:(id)graph;
 + (void)setPopularityScore:(double)score onNodeForIdentifier:(unint64_t)identifier inGraph:(id)graph;
 - (BOOL)diameterIsLargerThanDiameter:(double)diameter;
 - (BOOL)hasProperties:(id)properties;
@@ -17,6 +18,7 @@
 - (NSString)featureIdentifier;
 - (NSString)fullname;
 - (PGGraphAreaNode)initWithLabel:(id)label domain:(unsigned __int16)domain properties:(id)properties;
+- (PGGraphAreaNode)initWithLabel:(id)label domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties;
 - (PGGraphAreaNode)initWithName:(id)name isBlocked:(BOOL)blocked popularityScore:(double)score;
 - (PGGraphAreaNodeCollection)collection;
 - (PGGraphLocationNode)stateOrBiggerParentLocationNode;
@@ -176,7 +178,7 @@ void __48__PGGraphAreaNode_diameterIsLargerThanDiameter___block_invoke_2(uint64_
 
 - (NSString)fullname
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB18] arrayWithCapacity:2];
   name = [(PGGraphAreaNode *)self name];
   if ([name length])
@@ -192,7 +194,7 @@ void __48__PGGraphAreaNode_diameterIsLargerThanDiameter___block_invoke_2(uint64_
   if (anyNode)
   {
     *&v9 = 138412290;
-    v22 = v9;
+    v21 = v9;
     do
     {
       locationMask = [anyNode locationMask];
@@ -219,8 +221,8 @@ void __48__PGGraphAreaNode_diameterIsLargerThanDiameter___block_invoke_2(uint64_
 
           if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
           {
-            *buf = v22;
-            v24 = anyNode;
+            *buf = v21;
+            v23 = anyNode;
             _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Empty location name for node %@", buf, 0xCu);
           }
         }
@@ -237,8 +239,6 @@ void __48__PGGraphAreaNode_diameterIsLargerThanDiameter___block_invoke_2(uint64_
   }
 
   v19 = [v3 componentsJoinedByString:{@", "}];
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -278,7 +278,7 @@ void __48__PGGraphAreaNode_diameterIsLargerThanDiameter___block_invoke_2(uint64_
 
 - (id)propertyForKey:(id)key
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if ([keyCopy isEqualToString:@"blocked"])
   {
@@ -302,33 +302,29 @@ LABEL_7:
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
   {
-    v9 = 138412290;
-    v10 = keyCopy;
-    _os_log_fault_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Unsupported property '%@' accessed on PGGraphAreaNode.", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = keyCopy;
+    _os_log_fault_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Unsupported property '%@' accessed on PGGraphAreaNode.", &v8, 0xCu);
   }
 
   v6 = 0;
 LABEL_8:
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (id)propertyDictionary
 {
-  v9[3] = *MEMORY[0x277D85DE8];
-  v9[0] = self->_name;
-  v8[0] = @"name";
-  v8[1] = @"blocked";
+  v8[3] = *MEMORY[0x277D85DE8];
+  v8[0] = self->_name;
+  v7[0] = @"name";
+  v7[1] = @"blocked";
   v3 = [MEMORY[0x277CCABB0] numberWithBool:*(self + 32) & 1];
-  v9[1] = v3;
-  v8[2] = @"popularityScore";
+  v8[1] = v3;
+  v7[2] = @"popularityScore";
   v4 = [MEMORY[0x277CCABB0] numberWithDouble:self->_popularityScore];
-  v9[2] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[2] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
   return v5;
 }
@@ -341,32 +337,22 @@ LABEL_8:
   {
     v6 = [v5 objectForKeyedSubscript:@"name"];
     v7 = v6;
-    if (v6 && ![v6 isEqual:self->_name])
+    v11 = 0;
+    if (!v6 || [v6 isEqual:self->_name])
     {
-      goto LABEL_9;
-    }
 
-    v8 = [v5 objectForKeyedSubscript:@"blocked"];
-    v7 = v8;
-    if (v8)
-    {
-      if ([v8 BOOLValue] != (*(self + 32) & 1))
+      v8 = [v5 objectForKeyedSubscript:@"blocked"];
+      v7 = v8;
+      if (!v8 || [v8 BOOLValue] == (*(self + 32) & 1))
       {
-        goto LABEL_9;
+
+        v9 = [v5 objectForKeyedSubscript:@"popularityScore"];
+        v7 = v9;
+        if (!v9 || ([v9 doubleValue], v10 == self->_popularityScore))
+        {
+          v11 = 1;
+        }
       }
-    }
-
-    v9 = [v5 objectForKeyedSubscript:@"popularityScore"];
-    v7 = v9;
-    if (!v9 || ([v9 doubleValue], v10 == self->_popularityScore))
-    {
-      v11 = 1;
-    }
-
-    else
-    {
-LABEL_9:
-      v11 = 0;
     }
   }
 
@@ -376,6 +362,28 @@ LABEL_9:
   }
 
   return v11;
+}
+
+- (PGGraphAreaNode)initWithLabel:(id)label domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties
+{
+  domainCopy = domain;
+  labelCopy = label;
+  propertiesCopy = properties;
+  v11 = [propertiesCopy objectForKeyedSubscript:@"bl"];
+
+  if (v11)
+  {
+    v12 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:propertiesCopy];
+    v13 = [propertiesCopy objectForKeyedSubscript:@"bl"];
+    [v12 setObject:v13 forKeyedSubscript:@"blocked"];
+
+    [v12 setObject:0 forKeyedSubscript:@"bl"];
+    propertiesCopy = v12;
+  }
+
+  v14 = [(PGGraphAreaNode *)self initWithLabel:labelCopy domain:domainCopy properties:propertiesCopy];
+
+  return v14;
 }
 
 - (PGGraphAreaNode)initWithLabel:(id)label domain:(unsigned __int16)domain properties:(id)properties
@@ -414,48 +422,42 @@ LABEL_9:
 
 + (MARelation)countryOfArea
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D22C90];
   addressOfArea = [self addressOfArea];
-  v9[0] = addressOfArea;
+  v8[0] = addressOfArea;
   v4 = +[PGGraphAddressNode countryOfAddress];
-  v9[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
+  v8[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
   v6 = [v2 chain:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 + (MARelation)stateOfArea
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D22C90];
   addressOfArea = [self addressOfArea];
-  v9[0] = addressOfArea;
+  v8[0] = addressOfArea;
   v4 = +[PGGraphAddressNode stateOfAddress];
-  v9[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
+  v8[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
   v6 = [v2 chain:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 + (MARelation)countyOfArea
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D22C90];
   addressOfArea = [self addressOfArea];
-  v9[0] = addressOfArea;
+  v8[0] = addressOfArea;
   v4 = +[PGGraphAddressNode countyOfAddress];
-  v9[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
+  v8[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
   v6 = [v2 chain:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -476,62 +478,64 @@ LABEL_9:
   [graphCopy persistModelProperty:v9 forKey:@"popularityScore" forNodeWithIdentifier:identifier];
 }
 
++ (void)setIsBlocked:(BOOL)blocked onNodeForIdentifier:(unint64_t)identifier inGraph:(id)graph
+{
+  blockedCopy = blocked;
+  v7 = MEMORY[0x277CCABB0];
+  graphCopy = graph;
+  v9 = [v7 numberWithBool:blockedCopy];
+  [graphCopy persistModelProperty:v9 forKey:@"blocked" forNodeWithIdentifier:identifier];
+}
+
 + (id)filterWithNames:(id)names
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   namesCopy = names;
   filter = [self filter];
-  v10 = @"name";
-  v11[0] = namesCopy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = @"name";
+  v10[0] = namesCopy;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
   v7 = [filter filterBySettingProperties:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 + (id)filterWithName:(id)name
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D22C78];
   nameCopy = name;
   v5 = [v3 alloc];
-  v10 = @"name";
-  v11[0] = nameCopy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = @"name";
+  v10[0] = nameCopy;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
   v7 = [v5 initWithLabel:@"Area" domain:201 properties:v6];
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 + (MANodeFilter)nonBlockedFilter
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277D22C78]);
-  v7 = @"blocked";
-  v8[0] = MEMORY[0x277CBEC28];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = @"blocked";
+  v7[0] = MEMORY[0x277CBEC28];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v4 = [v2 initWithLabel:@"Area" domain:201 properties:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (MANodeFilter)blockedFilter
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277D22C78]);
-  v7 = @"blocked";
-  v8[0] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = @"blocked";
+  v7[0] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v4 = [v2 initWithLabel:@"Area" domain:201 properties:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

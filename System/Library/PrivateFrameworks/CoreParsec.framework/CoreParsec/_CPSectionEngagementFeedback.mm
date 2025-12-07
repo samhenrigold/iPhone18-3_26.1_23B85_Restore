@@ -58,7 +58,6 @@ LABEL_9:
   to;
   if ([(_CPSectionEngagementFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -72,7 +71,6 @@ LABEL_9:
 
   if ([(_CPSectionEngagementFeedback *)self triggerEvent])
   {
-    triggerEvent = self->_triggerEvent;
     PBDataWriterWriteInt32Field();
   }
 

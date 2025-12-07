@@ -82,7 +82,7 @@
           v19 = ;
           v20 = [(ARFaceAnchor *)v18 initWithIdentifier:v19 trackingData:v15];
 
-          [(ARAnchor *)v20 transform];
+          objc_msgSend_transform(v20);
           v21 = 0;
           v58[0] = v22;
           v58[1] = v23;

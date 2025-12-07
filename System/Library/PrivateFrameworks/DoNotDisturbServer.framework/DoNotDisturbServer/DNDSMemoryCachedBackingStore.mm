@@ -3,6 +3,7 @@
 - (DNDSMemoryCachedBackingStore)initWithUnderlyingBackingStore:(id)store;
 - (id)backingStore:(id)store migrateDictionaryRepresentation:(id)representation fromVersionNumber:(unint64_t)number toVersionNumber:(unint64_t)versionNumber;
 - (id)readRecordWithError:(id *)error;
+- (unint64_t)writeRecord:(id)record writePartition:(BOOL)partition error:(id *)error;
 - (void)purgeCache;
 @end
 
@@ -39,6 +40,30 @@
   v7 = self->_cache;
 
   return v7;
+}
+
+- (unint64_t)writeRecord:(id)record writePartition:(BOOL)partition error:(id *)error
+{
+  partitionCopy = partition;
+  recordCopy = record;
+  os_unfair_lock_lock(&self->_lock);
+  if (([(DNDSBackingStoreRecord *)self->_cache isEqual:recordCopy]& 1) != 0)
+  {
+    v9 = 1;
+  }
+
+  else
+  {
+    v10 = [recordCopy copyWithZone:0];
+    cache = self->_cache;
+    self->_cache = v10;
+
+    v9 = [(DNDSBackingStore *)self->_underlyingBackingStore writeRecord:recordCopy writePartition:partitionCopy error:error];
+  }
+
+  os_unfair_lock_unlock(&self->_lock);
+
+  return v9;
 }
 
 - (void)purgeCache

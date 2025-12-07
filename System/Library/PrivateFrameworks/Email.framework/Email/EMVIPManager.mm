@@ -200,18 +200,17 @@ void __41__EMVIPManager_initWithRemoteConnection___block_invoke(uint64_t a1)
 
 void __52__EMVIPManager__startObservingVIPChangesIfNecessary__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = +[EMVIPManager log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     v6 = [v3 ef_publicDescription];
-    __52__EMVIPManager__startObservingVIPChangesIfNecessary__block_invoke_cold_1(v6, v8, v5);
+    __52__EMVIPManager__startObservingVIPChangesIfNecessary__block_invoke_cold_1(v6, v7, v5);
   }
 
   [WeakRetained _reset];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_reset
@@ -579,13 +578,13 @@ void __25__EMVIPManager__plistURL__block_invoke()
 
 - (void)observer:(id)observer gotVIPs:(id)ps
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   psCopy = ps;
   v6 = +[EMVIPManager log];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v30 = [psCopy count];
+    v29 = [psCopy count];
     _os_log_impl(&dword_1C6655000, v6, OS_LOG_TYPE_DEFAULT, "got VIPs with count %lu", buf, 0xCu);
   }
 
@@ -596,30 +595,30 @@ void __25__EMVIPManager__plistURL__block_invoke()
   }
 
   v8 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v9 = psCopy;
-  v10 = [v9 countByEnumeratingWithState:&v22 objects:v28 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v21 objects:v27 count:16];
   if (v10)
   {
-    v11 = *v23;
+    v11 = *v22;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * i);
+        v13 = *(*(&v21 + 1) + 8 * i);
         identifier = [v13 identifier];
         [v8 setObject:v13 forKeyedSubscript:identifier];
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v22 objects:v28 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v21 objects:v27 count:16];
     }
 
     while (v10);
@@ -635,27 +634,25 @@ void __25__EMVIPManager__plistURL__block_invoke()
     v18 = [v16 setWithArray:allValues];
 
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-    v26 = @"VIPsUpdated";
-    v27 = v18;
-    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    v25 = @"VIPsUpdated";
+    v26 = v18;
+    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
     [defaultCenter postNotificationName:@"VIPsDidChange" object:self userInfo:v20];
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)observer:(id)observer updatedVIPs:(id)ps removedVIPs:(id)iPs
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   psCopy = ps;
   iPsCopy = iPs;
   v9 = +[EMVIPManager log];
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218240;
-    v54 = [psCopy count];
-    v55 = 2048;
-    v56 = [iPsCopy count];
+    v53 = [psCopy count];
+    v54 = 2048;
+    v55 = [iPsCopy count];
     _os_log_impl(&dword_1C6655000, v9, OS_LOG_TYPE_DEFAULT, "updated VIPs with count %lu and removed VIPs with count %lu", buf, 0x16u);
   }
 
@@ -663,9 +660,9 @@ void __25__EMVIPManager__plistURL__block_invoke()
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v54 = psCopy;
-    v55 = 2112;
-    v56 = iPsCopy;
+    v53 = psCopy;
+    v54 = 2112;
+    v55 = iPsCopy;
     _os_log_impl(&dword_1C6655000, v10, OS_LOG_TYPE_DEFAULT, "updated VIPs: %@ and removed VIPs: %@", buf, 0x16u);
   }
 
@@ -678,7 +675,7 @@ void __25__EMVIPManager__plistURL__block_invoke()
     goto LABEL_30;
   }
 
-  v35 = v11;
+  v34 = v11;
 
   if (v11 | v12)
   {
@@ -693,58 +690,58 @@ void __25__EMVIPManager__plistURL__block_invoke()
     }
 
     os_unfair_lock_lock(&self->_vipsLock);
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     v17 = psCopy;
-    v18 = [v17 countByEnumeratingWithState:&v41 objects:v52 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v40 objects:v51 count:16];
     if (v18)
     {
-      v19 = *v42;
+      v19 = *v41;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v42 != v19)
+          if (*v41 != v19)
           {
             objc_enumerationMutation(v17);
           }
 
-          v21 = *(*(&v41 + 1) + 8 * i);
+          v21 = *(*(&v40 + 1) + 8 * i);
           identifier = [v21 identifier];
           [vipsByIdentifierPromise setObject:v21 forKeyedSubscript:identifier];
         }
 
-        v18 = [v17 countByEnumeratingWithState:&v41 objects:v52 count:16];
+        v18 = [v17 countByEnumeratingWithState:&v40 objects:v51 count:16];
       }
 
       while (v18);
     }
 
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     v23 = iPsCopy;
-    v24 = [v23 countByEnumeratingWithState:&v37 objects:v51 count:16];
+    v24 = [v23 countByEnumeratingWithState:&v36 objects:v50 count:16];
     if (v24)
     {
-      v25 = *v38;
+      v25 = *v37;
       do
       {
         for (j = 0; j != v24; ++j)
         {
-          if (*v38 != v25)
+          if (*v37 != v25)
           {
             objc_enumerationMutation(v23);
           }
 
-          identifier2 = [*(*(&v37 + 1) + 8 * j) identifier];
+          identifier2 = [*(*(&v36 + 1) + 8 * j) identifier];
           [vipsByIdentifierPromise setObject:0 forKeyedSubscript:identifier2];
         }
 
-        v24 = [v23 countByEnumeratingWithState:&v37 objects:v51 count:16];
+        v24 = [v23 countByEnumeratingWithState:&v36 objects:v50 count:16];
       }
 
       while (v24);
@@ -754,22 +751,22 @@ void __25__EMVIPManager__plistURL__block_invoke()
     self->_cachedEmailAddresses = 0;
 
     os_unfair_lock_unlock(&self->_vipsLock);
-    if (v35 == 0 || v12 == 0)
+    if (v34 == 0 || v12 == 0)
     {
-      if (v35)
+      if (v34)
       {
-        v47 = @"VIPsUpdated";
-        v48 = v17;
-        v29 = &v47;
-        v30 = &v48;
+        v46 = @"VIPsUpdated";
+        v47 = v17;
+        v29 = &v46;
+        v30 = &v47;
       }
 
       else
       {
-        v45 = @"VIPsRemoved";
-        v46 = v23;
-        v29 = &v45;
-        v30 = &v46;
+        v44 = @"VIPsRemoved";
+        v45 = v23;
+        v29 = &v44;
+        v30 = &v45;
       }
 
       v31 = 1;
@@ -777,23 +774,21 @@ void __25__EMVIPManager__plistURL__block_invoke()
 
     else
     {
-      v49[0] = @"VIPsUpdated";
-      v49[1] = @"VIPsRemoved";
-      v50[0] = v17;
-      v50[1] = v23;
-      v29 = v49;
-      v30 = v50;
+      v48[0] = @"VIPsUpdated";
+      v48[1] = @"VIPsRemoved";
+      v49[0] = v17;
+      v49[1] = v23;
+      v29 = v48;
+      v30 = v49;
       v31 = 2;
     }
 
-    future = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:{v31, v35}];
+    future = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:{v31, v34}];
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
     [defaultCenter postNotificationName:@"VIPsDidChange" object:self userInfo:future];
 
 LABEL_30:
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didStartBlockingMainThreadForFuture:(id)future
@@ -820,11 +815,10 @@ void __52__EMVIPManager__startObservingVIPChangesIfNecessary__block_invoke_cold_
 
 - (void)observer:(uint64_t)a1 gotVIPs:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1C6655000, a2, OS_LOG_TYPE_DEBUG, "got VIPs: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1C6655000, a2, OS_LOG_TYPE_DEBUG, "got VIPs: %@", &v2, 0xCu);
 }
 
 @end

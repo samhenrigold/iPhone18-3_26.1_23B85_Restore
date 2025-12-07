@@ -51,8 +51,8 @@
 
 - (id)jsonDict
 {
-  v15[6] = *MEMORY[0x1E69E9840];
-  v14[0] = @"mode";
+  v14[6] = *MEMORY[0x1E69E9840];
+  v13[0] = @"mode";
   mode = [(BMUserFocusComputedModeEvent *)self mode];
   null = mode;
   if (!mode)
@@ -60,8 +60,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[0] = null;
-  v14[1] = @"semanticModeIdentifier";
+  v14[0] = null;
+  v13[1] = @"semanticModeIdentifier";
   semanticModeIdentifier = [(BMUserFocusComputedModeEvent *)self semanticModeIdentifier];
   null2 = semanticModeIdentifier;
   if (!semanticModeIdentifier)
@@ -69,20 +69,20 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[1] = null2;
-  v14[2] = @"starting";
+  v14[1] = null2;
+  v13[2] = @"starting";
   v7 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMUserFocusComputedModeEvent isStarting](self, "isStarting")}];
-  v15[2] = v7;
-  v14[3] = @"modeUpdateReason";
+  v14[2] = v7;
+  v13[3] = @"modeUpdateReason";
   v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[BMUserFocusComputedModeEvent modeUpdateReason](self, "modeUpdateReason")}];
-  v15[3] = v8;
-  v14[4] = @"modeSemanticType";
+  v14[3] = v8;
+  v13[4] = @"modeSemanticType";
   v9 = [MEMORY[0x1E696AD98] numberWithInteger:{-[BMUserFocusComputedModeEvent modeSemanticType](self, "modeSemanticType")}];
-  v15[4] = v9;
-  v14[5] = @"modeUpdateSource";
+  v14[4] = v9;
+  v13[5] = @"modeUpdateSource";
   v10 = [MEMORY[0x1E696AD98] numberWithInteger:{-[BMUserFocusComputedModeEvent modeUpdateSource](self, "modeUpdateSource")}];
-  v15[5] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:6];
+  v14[5] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:6];
 
   if (!semanticModeIdentifier)
   {
@@ -91,8 +91,6 @@
   if (!mode)
   {
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -274,7 +272,7 @@ LABEL_22:
       v5 = __biome_log_for_category();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
       {
-        [BMUserFocusComputedModeEvent initWithProto:];
+        [BMUserFocusComputedModeEvent initWithProto:?];
       }
 
       selfCopy = 0;

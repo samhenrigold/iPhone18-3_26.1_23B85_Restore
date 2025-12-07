@@ -6,7 +6,7 @@
 - (_PFEncodedData)init;
 - (id)description;
 - (id)mutableCopyWithZone:(_NSZone *)zone;
-- (uint64_t)privateCopy;
+- (unsigned)privateCopy;
 @end
 
 @implementation _PFEncodedData
@@ -34,15 +34,15 @@
   return [v4 initWithBytes:&self[1] length:byteCount];
 }
 
-- (uint64_t)privateCopy
+- (unsigned)privateCopy
 {
   if (result)
   {
     v1 = result;
     v2 = objc_alloc(MEMORY[0x1E695DEF0]);
-    v3 = *(v1 + 16);
+    v3 = v1[4];
 
-    return [v2 initWithBytesNoCopy:v1 + 24 length:v3];
+    return [v2 initWithBytesNoCopy:v1 + 6 length:v3];
   }
 
   return result;

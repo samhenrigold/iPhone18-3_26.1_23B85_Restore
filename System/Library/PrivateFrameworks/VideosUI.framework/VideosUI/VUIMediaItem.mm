@@ -15,7 +15,7 @@
   v4 = [VUIMPMediaItem alloc];
   v5 = +[VUIMediaLibraryManager defaultManager];
   deviceMediaLibrary = [v5 deviceMediaLibrary];
-  v7 = VUIMediaEntityFetchRequestAllPropertiesSet();
+  v7 = VUIMediaEntityFetchRequestAllPropertiesSet(deviceMediaLibrary);
   v8 = [(VUIMPMediaItem *)v4 initWithMediaLibrary:deviceMediaLibrary mediaItem:itemCopy requestedProperties:v7];
 
   return v8;

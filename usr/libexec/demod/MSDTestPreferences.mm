@@ -564,18 +564,19 @@
 - (id)getValueFromTestPreferencesForKey:(id)key
 {
   keyCopy = key;
-  if (!CFPreferencesSynchronize(@"com.apple.MobileStoreDemo.test", kCFPreferencesAnyUser, kCFPreferencesCurrentHost))
+  v4 = CFPreferencesSynchronize(@"com.apple.MobileStoreDemo.test", kCFPreferencesAnyUser, kCFPreferencesCurrentHost);
+  if (!v4)
   {
-    v4 = sub_100063A54();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sub_100063A54(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_1000D6624(v4);
+      sub_1000D6624(v5);
     }
   }
 
-  v5 = CFPreferencesCopyValue(keyCopy, @"com.apple.MobileStoreDemo.test", kCFPreferencesAnyUser, kCFPreferencesCurrentHost);
+  v6 = CFPreferencesCopyValue(keyCopy, @"com.apple.MobileStoreDemo.test", kCFPreferencesAnyUser, kCFPreferencesCurrentHost);
 
-  return v5;
+  return v6;
 }
 
 @end

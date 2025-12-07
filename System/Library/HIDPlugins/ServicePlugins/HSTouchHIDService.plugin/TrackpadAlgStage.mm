@@ -97,21 +97,21 @@
 - (void)dispatch:(id)dispatch
 {
   dispatchCopy = dispatch;
-  v5 = MTLoggingPlugin();
-  if (os_signpost_enabled(v5))
+  v6 = MTLoggingPlugin(dispatchCopy, v5);
+  if (os_signpost_enabled(v6))
   {
     signpost_begin_time = self->_signpost_begin_time;
     *buf = 134349314;
-    v9 = signpost_begin_time;
-    v10 = 2080;
+    v10 = signpost_begin_time;
+    v11 = 2080;
     ClassName = object_getClassName(dispatchCopy);
-    _os_signpost_emit_with_name_impl(&dword_0, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TrackpadAlgStage", "%{public, signpost.description:begin_time}llu event=%s", buf, 0x16u);
+    _os_signpost_emit_with_name_impl(&dword_0, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TrackpadAlgStage", "%{public, signpost.description:begin_time}llu event=%s", buf, 0x16u);
   }
 
   [(TrackpadAlgStage *)self applyCachedSettings];
-  v7.receiver = self;
-  v7.super_class = TrackpadAlgStage;
-  [(HSStage *)&v7 handleConsume:dispatchCopy];
+  v8.receiver = self;
+  v8.super_class = TrackpadAlgStage;
+  [(HSStage *)&v8 handleConsume:dispatchCopy];
   self->_signpost_begin_time = mach_continuous_time();
 }
 
@@ -390,38 +390,39 @@
 - (void)_handleTimerEvent:(id)event
 {
   eventCopy = event;
-  if ([eventCopy[1] isEqualToString:@"TapAndAHalf"])
+  v5 = [eventCopy[1] isEqualToString:@"TapAndAHalf"];
+  if (v5)
   {
-    v5 = MTLoggingPlugin();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v7 = MTLoggingPlugin(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v6 = eventCopy[1];
+      v8 = eventCopy[1];
       *buf = 136315906;
       *&buf[4] = "[Debug] ";
-      v12 = 2080;
-      v13 = "";
       v14 = 2080;
-      v15 = "[TrackpadAlgStage _handleTimerEvent:]";
-      v16 = 2112;
-      v17 = v6;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s Timer event received : %@", buf, 0x2Au);
+      v15 = "";
+      v16 = 2080;
+      v17 = "[TrackpadAlgStage _handleTimerEvent:]";
+      v18 = 2112;
+      v19 = v8;
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s Timer event received : %@", buf, 0x2Au);
     }
 
     *buf = 0;
     [(MTTrackpadUberAlg *)self->_uberAlg autoReleaseTapAndAHalfDrag:buf eventRef:self->_tsAtTapAndAHalfTimeTimer];
-    v8 = v7;
+    v10 = v9;
     if (*buf)
     {
-      v9 = objc_opt_new();
-      v10 = *buf;
-      std::vector<HIDEvent * {__strong}>::push_back[abi:ne200100](v9 + 1, &v10);
+      v11 = objc_opt_new();
+      v12 = *buf;
+      std::vector<HIDEvent * {__strong}>::push_back[abi:ne200100](v11 + 1, &v12);
 
-      [(TrackpadAlgStage *)self dispatch:v9];
+      [(TrackpadAlgStage *)self dispatch:v11];
     }
 
-    if (v8 > 0.0)
+    if (v10 > 0.0)
     {
-      [(TrackpadAlgStage *)self scheduleTapAndAHalfCallbackTimer:self->_tsAtTapAndAHalfTimeTimer delay:v8];
+      [(TrackpadAlgStage *)self scheduleTapAndAHalfCallbackTimer:self->_tsAtTapAndAHalfTimeTimer delay:v10];
     }
   }
 
@@ -434,23 +435,24 @@
 - (void)handlePointerSettings:(id)settings
 {
   settingsCopy = settings;
-  if ([(MTTrackpadUberAlg *)self->_uberAlg shouldHandleTPSettings])
+  shouldHandleTPSettings = [(MTTrackpadUberAlg *)self->_uberAlg shouldHandleTPSettings];
+  if (shouldHandleTPSettings)
   {
     [(TrackpadAlgStage *)self _applySettings:settingsCopy];
   }
 
   else
   {
-    v5 = MTLoggingPlugin();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v7 = MTLoggingPlugin(shouldHandleTPSettings, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v6 = 136315650;
-      v7 = "[Debug] ";
-      v8 = 2080;
-      v9 = "";
+      v8 = 136315650;
+      v9 = "[Debug] ";
       v10 = 2080;
-      v11 = "[TrackpadAlgStage handlePointerSettings:]";
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s Caching pointer settings - waiting for Algs", &v6, 0x20u);
+      v11 = "";
+      v12 = 2080;
+      v13 = "[TrackpadAlgStage handlePointerSettings:]";
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s Caching pointer settings - waiting for Algs", &v8, 0x20u);
     }
 
     [(TrackpadAlgStage *)self setCachedSettingsEvent:settingsCopy];
@@ -470,21 +472,21 @@
 
       if (shouldHandleTPSettings)
       {
-        v5 = MTLoggingPlugin();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+        v7 = MTLoggingPlugin(v5, v6);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
         {
           cachedSettingsEvent2 = [(TrackpadAlgStage *)self cachedSettingsEvent];
-          v7 = objc_opt_class();
-          v8 = NSStringFromClass(v7);
-          v10 = 136315906;
-          v11 = "[Debug] ";
-          v12 = 2080;
-          v13 = "";
+          v9 = objc_opt_class();
+          v10 = NSStringFromClass(v9);
+          v12 = 136315906;
+          v13 = "[Debug] ";
           v14 = 2080;
-          v15 = "[TrackpadAlgStage applyCachedSettings]";
-          v16 = 2112;
-          v17 = v8;
-          _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s Applying cached %@ setting", &v10, 0x2Au);
+          v15 = "";
+          v16 = 2080;
+          v17 = "[TrackpadAlgStage applyCachedSettings]";
+          v18 = 2112;
+          v19 = v10;
+          _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s Applying cached %@ setting", &v12, 0x2Au);
         }
 
         cachedSettingsEvent3 = [(TrackpadAlgStage *)self cachedSettingsEvent];
@@ -530,18 +532,19 @@
 - (void)_handleSystemPowerEvent:(id)event
 {
   eventCopy = event;
-  if ([eventCopy systemPowerState] == -536870272)
+  systemPowerState = [eventCopy systemPowerState];
+  if (systemPowerState == -536870272)
   {
-    v5 = MTLoggingPlugin();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v7 = MTLoggingPlugin(systemPowerState, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v6 = 136315650;
-      v7 = "[Debug] ";
-      v8 = 2080;
-      v9 = "";
+      v8 = 136315650;
+      v9 = "[Debug] ";
       v10 = 2080;
-      v11 = "[TrackpadAlgStage _handleSystemPowerEvent:]";
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s Handling System Sleep", &v6, 0x20u);
+      v11 = "";
+      v12 = 2080;
+      v13 = "[TrackpadAlgStage _handleSystemPowerEvent:]";
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s Handling System Sleep", &v8, 0x20u);
     }
 
     [(MTTrackpadUberAlg *)self->_uberAlg cancelCurrentTapAndAHalfDrag];
@@ -678,14 +681,14 @@
 - (void)_handleContactFrame:(id)frame
 {
   frameCopy = frame;
-  [(TrackpadAlgStage *)self _tickleMouseFilters];
+  _tickleMouseFilters = [(TrackpadAlgStage *)self _tickleMouseFilters];
   if (self->_parserEnabled)
   {
-    v50 = *(frameCopy + 11) & 1;
-    if (v50 != self->_hostClickEnabled)
+    v54 = *(frameCopy + 11) & 1;
+    if (v54 != self->_hostClickEnabled)
     {
-      v4 = MTLoggingPlugin();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v6 = MTLoggingPlugin(_tickleMouseFilters, v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315906;
         *&buf[4] = "";
@@ -694,54 +697,54 @@
         *&buf[22] = 2080;
         *&buf[24] = "[TrackpadAlgStage _handleContactFrame:]";
         *&buf[32] = 1024;
-        *&buf[34] = v50;
-        _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Setting host click : %u", buf, 0x26u);
+        *&buf[34] = v54;
+        _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s Setting host click : %u", buf, 0x26u);
       }
 
-      [(MTTrackpadUberAlg *)self->_uberAlg setHostClickEnabled:v50];
-      self->_hostClickEnabled = v50;
+      [(MTTrackpadUberAlg *)self->_uberAlg setHostClickEnabled:v54];
+      self->_hostClickEnabled = v54;
     }
 
-    v5 = 0;
-    v6 = 0;
-    v49 = 152;
-    v7 = 172;
+    v7 = 0;
+    v8 = 0;
+    v53 = 152;
+    v9 = 172;
     do
     {
-      if ((*(&self->super.super.isa + v7) - 1) >= 4)
+      if ((*(&self->super.super.isa + v9) - 1) >= 4)
       {
-        v6 &= ~(1 << v5);
+        v8 &= ~(1 << v7);
       }
 
       else
       {
-        v6 |= 1 << v5;
+        v8 |= 1 << v7;
       }
 
-      ++v5;
-      v7 += 96;
+      ++v7;
+      v9 += 96;
     }
 
-    while (v5 != 32);
+    while (v7 != 32);
     config = [(TrackpadAlgStage *)self config];
     surfaceCoordinates = [(AlgsConfigEvent *)config surfaceCoordinates];
-    v11 = v10;
+    v13 = v12;
 
-    v12 = *(frameCopy + 6);
-    v13 = *(frameCopy + 7);
-    if (v12 == v13)
+    v16 = *(frameCopy + 6);
+    v17 = *(frameCopy + 7);
+    if (v16 == v17)
     {
-      v14 = 0;
+      v18 = 0;
 LABEL_20:
-      v41 = 0;
-      v42 = 172;
+      v45 = 0;
+      v46 = 172;
       do
       {
-        if (((1 << v41) & v6) != 0 && ((1 << v41) & v14) == 0)
+        if (((1 << v45) & v8) != 0 && ((1 << v45) & v18) == 0)
         {
-          *(&self->super.super.isa + v42) = 0;
-          v44 = MTLoggingPlugin();
-          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+          *(&self->super.super.isa + v46) = 0;
+          v48 = MTLoggingPlugin(v14, v15);
+          if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315906;
             *&buf[4] = "[Error] ";
@@ -750,120 +753,120 @@ LABEL_20:
             *&buf[22] = 2080;
             *&buf[24] = "[TrackpadAlgStage _handleContactFrame:]";
             *&buf[32] = 1024;
-            *&buf[34] = v41;
-            _os_log_impl(&dword_0, v44, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Contact %d was previously in range but is now missing, setting path stage to NotTracking", buf, 0x26u);
+            *&buf[34] = v45;
+            _os_log_impl(&dword_0, v48, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Contact %d was previously in range but is now missing, setting path stage to NotTracking", buf, 0x26u);
           }
         }
 
-        ++v41;
-        v42 += 96;
+        ++v45;
+        v46 += 96;
       }
 
-      while (v41 != 32);
+      while (v45 != 32);
       memcpy(buf, &unk_D5278, sizeof(buf));
-      v45 = [(TrackpadAlgStage *)self _extractMTContacts:buf];
-      v46 = frameCopy;
-      if (!v50 && (*(frameCopy + 124) & 0x100000000) != 0)
+      v49 = [(TrackpadAlgStage *)self _extractMTContacts:buf];
+      v50 = frameCopy;
+      if (!v54 && (*(frameCopy + 124) & 0x100000000) != 0)
       {
         [TrackpadAlgStage setDeviceButtonState:"setDeviceButtonState:activePathCount:" activePathCount:?];
         *(frameCopy + 31) = [(TrackpadAlgStage *)self deviceButtonState];
         *(frameCopy + 128) = 1;
       }
 
-      v47 = *(frameCopy + 4);
-      if (v45 > 0 || self->_lastNumActivePaths >= 1)
+      v51 = *(frameCopy + 4);
+      if (v49 > 0 || self->_lastNumActivePaths >= 1)
       {
-        v58 = 0;
-        [(TrackpadAlgStage *)self _handleContactFrame:buf numActivePaths:v45 timestampS:*(frameCopy + 3) frameNumber:&v58 baseEvent:1 handleTapAndAHalf:0 isFlush:v47 / 1000000.0, 152];
-        if (v58)
+        v62 = 0;
+        [(TrackpadAlgStage *)self _handleContactFrame:buf numActivePaths:v49 timestampS:*(frameCopy + 3) frameNumber:&v62 baseEvent:1 handleTapAndAHalf:0 isFlush:v51 / 1000000.0, 152];
+        if (v62)
         {
-          v48 = objc_opt_new();
-          v57 = v58;
-          std::vector<HIDEvent * {__strong}>::push_back[abi:ne200100](v48 + 1, &v57);
+          v52 = objc_opt_new();
+          v61 = v62;
+          std::vector<HIDEvent * {__strong}>::push_back[abi:ne200100](v52 + 1, &v61);
 
-          [(TrackpadAlgStage *)self dispatch:v48];
-          v46 = frameCopy;
+          [(TrackpadAlgStage *)self dispatch:v52];
+          v50 = frameCopy;
         }
       }
 
-      self->_lastNumActivePaths = v45;
-      [(TrackpadAlgStage *)self dispatch:v46, v49];
+      self->_lastNumActivePaths = v49;
+      [(TrackpadAlgStage *)self dispatch:v50, v53];
     }
 
     else
     {
-      v14 = 0;
-      v15.i32[0] = HIDWORD(surfaceCoordinates) - surfaceCoordinates;
-      v15.i32[1] = HIDWORD(v11) - v11;
-      *v16.f32 = vcvt_f32_s32(v15);
-      v16.i64[1] = v16.i64[0];
-      v51 = vcvtq_f64_f32(*v16.f32);
-      v52 = v16;
-      v55 = vdupq_n_s64(0x408F400000000000uLL);
+      v18 = 0;
+      v19.i32[0] = HIDWORD(surfaceCoordinates) - surfaceCoordinates;
+      v19.i32[1] = HIDWORD(v13) - v13;
+      *v20.f32 = vcvt_f32_s32(v19);
+      v20.i64[1] = v20.i64[0];
+      v55 = vcvtq_f64_f32(*v20.f32);
+      v56 = v20;
+      v59 = vdupq_n_s64(0x408F400000000000uLL);
       while (1)
       {
-        v17 = *v12;
-        if (v17 > 0x1F)
+        v21 = *v16;
+        if (v21 > 0x1F)
         {
           break;
         }
 
-        v18 = *(v12 + 1);
-        v19 = *(v12 + 2);
-        v20 = v12[24];
-        v21 = *(v12 + 28);
-        v22 = *(v12 + 56);
-        v24 = *(v12 + 12);
-        v23 = *(v12 + 13);
-        v25 = v12[3];
-        v26 = v12[2];
-        v27 = v12[1];
-        v28 = self->_contacts + 96 * *v12;
-        v29 = *(v28 + 1);
-        v30 = *(v12 + 9);
-        *v28 = *(frameCopy + 3);
-        v31 = *(v28 + 68);
-        *(v28 + 1) = *(frameCopy + 4) / 1000000.0;
-        *(v28 + 5) = v27;
-        *(v28 + 6) = v26;
-        *(v28 + 7) = v25;
-        v56 = v19;
-        v32.i64[0] = v19;
-        v54 = v21;
-        v32.i64[1] = v21;
-        *(v28 + 2) = vdivq_f32(vcvtq_f32_s32(v32), v52);
-        *(v28 + 12) = v23;
-        *(v28 + 13) = v30;
-        *(v28 + 14) = v24;
-        v33 = *(v12 + 5);
-        *(v28 + 4) = v17;
-        v34.i64[0] = v33;
-        v34.i64[1] = SHIDWORD(v33);
-        *(v28 + 60) = vcvt_f32_f64(vdivq_f64(vcvtq_f64_s64(v34), v55));
+        v22 = *(v16 + 1);
+        v23 = *(v16 + 2);
+        v24 = v16[24];
+        v25 = *(v16 + 28);
+        v26 = *(v16 + 56);
+        v28 = *(v16 + 12);
+        v27 = *(v16 + 13);
+        v29 = v16[3];
+        v30 = v16[2];
+        v31 = v16[1];
+        v32 = self->_contacts + 96 * *v16;
+        v33 = *(v32 + 1);
+        v34 = *(v16 + 9);
+        *v32 = *(frameCopy + 3);
+        v35 = *(v32 + 68);
+        *(v32 + 1) = *(frameCopy + 4) / 1000000.0;
+        *(v32 + 5) = v31;
+        *(v32 + 6) = v30;
+        *(v32 + 7) = v29;
+        v60 = v23;
+        v36.i64[0] = v23;
+        v58 = v25;
+        v36.i64[1] = v25;
+        *(v32 + 2) = vdivq_f32(vcvtq_f32_s32(v36), v56);
+        *(v32 + 12) = v27;
+        *(v32 + 13) = v34;
+        *(v32 + 14) = v28;
+        v37 = *(v16 + 5);
+        *(v32 + 4) = v21;
+        v38.i64[0] = v37;
+        v38.i64[1] = SHIDWORD(v37);
+        *(v32 + 60) = vcvt_f32_f64(vdivq_f64(vcvtq_f64_s64(v38), v59));
         config2 = [(TrackpadAlgStage *)self config];
-        v36 = (v56 + [(AlgsConfigEvent *)config2 surfaceCoordinates]) / 1000.0;
-        *(v28 + 17) = v36;
+        v40 = (v60 + [(AlgsConfigEvent *)config2 surfaceCoordinates]) / 1000.0;
+        *(v32 + 17) = v40;
 
         config3 = [(TrackpadAlgStage *)self config];
         [(AlgsConfigEvent *)config3 surfaceCoordinates];
-        v39 = (HIDWORD(v56) + v38) / 1000.0;
-        *(v28 + 18) = v39;
+        v43 = (HIDWORD(v60) + v42) / 1000.0;
+        *(v32 + 18) = v43;
 
-        v34.i64[0] = v54;
-        v34.i64[1] = SHIDWORD(v54);
-        *(v28 + 76) = vcvt_f32_f64(vdivq_f64(vcvtq_f64_s64(v34), v55));
-        *(v28 + 42) = v18;
-        *(v28 + 11) = vrev64_s32(v22);
-        if ((v20 & 1) != 0 && (*(v28 + 5) - 4) <= 2)
+        v38.i64[0] = v58;
+        v38.i64[1] = SHIDWORD(v58);
+        *(v32 + 76) = vcvt_f32_f64(vdivq_f64(vcvtq_f64_s64(v38), v59));
+        *(v32 + 42) = v22;
+        *(v32 + 11) = vrev64_s32(v26);
+        if ((v24 & 1) != 0 && (*(v32 + 5) - 4) <= 2)
         {
-          v40 = vcvt_f32_f64(vdivq_f64(vcvtq_f64_f32(vsub_f32(*(v28 + 68), v31)), vdupq_lane_s64(COERCE__INT64(*(v28 + 1) - v29), 0)));
-          *(v28 + 76) = v40;
-          *(v28 + 5) = vcvt_f32_f64(vdivq_f64(vmulq_f64(vcvtq_f64_f32(v40), v55), v51));
+          v44 = vcvt_f32_f64(vdivq_f64(vcvtq_f64_f32(vsub_f32(*(v32 + 68), v35)), vdupq_lane_s64(COERCE__INT64(*(v32 + 1) - v33), 0)));
+          *(v32 + 76) = v44;
+          *(v32 + 5) = vcvt_f32_f64(vdivq_f64(vmulq_f64(vcvtq_f64_f32(v44), v59), v55));
         }
 
-        v14 |= 1 << v17;
-        v12 += 64;
-        if (v12 == v13)
+        v18 |= 1 << v21;
+        v16 += 64;
+        if (v16 == v17)
         {
           goto LABEL_20;
         }
@@ -879,20 +882,20 @@ LABEL_20:
   v10 = v5;
   v11 = *&paths;
   v12 = v4;
-  v18 = 0.0;
+  v20 = 0.0;
   v15 = mach_continuous_time();
-  [(MTTrackpadUberAlg *)self->_uberAlg processContact:frame activePathCount:v12 timestamp:v10 baseEvent:&v18 callbackInterval:v8 isFlush:v11];
-  v16 = MTLoggingPlugin();
-  if (os_signpost_enabled(v16))
+  v16 = [(MTTrackpadUberAlg *)self->_uberAlg processContact:frame activePathCount:v12 timestamp:v10 baseEvent:&v20 callbackInterval:v8 isFlush:v11];
+  v18 = MTLoggingPlugin(v16, v17);
+  if (os_signpost_enabled(v18))
   {
     *buf = 134349056;
-    v20 = v15;
-    _os_signpost_emit_with_name_impl(&dword_0, v16, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TrackpadAlgProcessing", "%{public, signpost.description:begin_time}llu", buf, 0xCu);
+    v22 = v15;
+    _os_signpost_emit_with_name_impl(&dword_0, v18, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TrackpadAlgProcessing", "%{public, signpost.description:begin_time}llu", buf, 0xCu);
   }
 
-  if (v18 > 0.0 && v9 != 0)
+  if (v20 > 0.0 && v9 != 0)
   {
-    [(TrackpadAlgStage *)self scheduleTapAndAHalfCallbackTimer:v11 delay:v18];
+    [(TrackpadAlgStage *)self scheduleTapAndAHalfCallbackTimer:v11 delay:v20];
   }
 }
 
@@ -928,7 +931,7 @@ LABEL_20:
 
 - (void)scheduleTapAndAHalfCallbackTimer:(double)timer delay:(double)delay
 {
-  v7 = MTLoggingPlugin();
+  v7 = MTLoggingPlugin(self, a2);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136316162;
@@ -974,25 +977,25 @@ void __59__TrackpadAlgStage_scheduleTapAndAHalfCallbackTimer_delay___block_invok
     dispatch_assert_queue_V2(*(WeakRetained + 17));
     if (v3[18] == v4 + v5)
     {
-      v6 = MTLoggingPlugin();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v8 = MTLoggingPlugin(v6, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        v10 = 136315650;
-        v11 = "[Debug] ";
-        v12 = 2080;
-        v13 = "";
+        v12 = 136315650;
+        v13 = "[Debug] ";
         v14 = 2080;
-        v15 = "[TrackpadAlgStage scheduleTapAndAHalfCallbackTimer:delay:]_block_invoke";
-        _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s Sending feedback event for TapAndAHalf!!", &v10, 0x20u);
+        v15 = "";
+        v16 = 2080;
+        v17 = "[TrackpadAlgStage scheduleTapAndAHalfCallbackTimer:delay:]_block_invoke";
+        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s Sending feedback event for TapAndAHalf!!", &v12, 0x20u);
       }
 
-      v7 = objc_opt_new();
-      v8 = v7[1];
-      v7[1] = @"TapAndAHalf";
-
       v9 = objc_opt_new();
-      objc_storeStrong(v9 + 2, v7);
-      [v3 dispatch:v9];
+      v10 = v9[1];
+      v9[1] = @"TapAndAHalf";
+
+      v11 = objc_opt_new();
+      objc_storeStrong(v11 + 2, v9);
+      [v3 dispatch:v11];
     }
   }
 }
@@ -1141,7 +1144,7 @@ void __33__TrackpadAlgStage_buildUberAlgs__block_invoke(uint64_t a1, int a2, int
   v11 = v5;
   v12 = v5;
   v10 = v5;
-  HSUtil::Decoder::decodeMap(decode, &v10);
+  HSUtil::Decoder::decodeMap(&v10, decode);
   if (*decode)
   {
     memset(__b, 170, sizeof(__b));

@@ -736,9 +736,9 @@ LABEL_10:
   titleCopy = title;
   titleLabel = [(_UIContextMenuCellContentView *)self titleLabel];
   text = [titleLabel text];
-  v7 = [titleCopy isEqualToString:text];
+  isEqualToString = objc_msgSend_isEqualToString_(titleCopy);
 
-  if ((v7 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v8[0] = MEMORY[0x1E69E9820];
     v8[1] = 3221225472;
@@ -774,9 +774,9 @@ LABEL_10:
   subtitleCopy = subtitle;
   subtitleLabel = [(_UIContextMenuCellContentView *)self subtitleLabel];
   text = [subtitleLabel text];
-  v7 = [subtitleCopy isEqualToString:text];
+  isEqualToString = objc_msgSend_isEqualToString_(subtitleCopy);
 
-  if ((v7 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v8[0] = MEMORY[0x1E69E9820];
     v8[1] = 3221225472;
@@ -793,9 +793,9 @@ LABEL_10:
   imageCopy = image;
   iconImageView = [(_UIContextMenuCellContentView *)self iconImageView];
   image = [iconImageView image];
-  v7 = [imageCopy isEqual:image];
+  isEqual = objc_msgSend_isEqual_(imageCopy);
 
-  if (v7)
+  if (isEqual)
   {
     iconImageView2 = [(_UIContextMenuCellContentView *)self iconImageView];
 
@@ -859,9 +859,9 @@ LABEL_10:
   shortcutCopy = shortcut;
   keyShortcutInputView = [(_UIContextMenuCellContentView *)self keyShortcutInputView];
   shortcut = [keyShortcutInputView shortcut];
-  v7 = [shortcutCopy isEqual:shortcut];
+  isEqual = objc_msgSend_isEqual_(shortcutCopy);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     v8[0] = MEMORY[0x1E69E9820];
     v8[1] = 3221225472;
@@ -878,9 +878,9 @@ LABEL_10:
   imageCopy = image;
   decorationImageView = [(_UIContextMenuCellContentView *)self decorationImageView];
   image = [decorationImageView image];
-  v7 = [imageCopy isEqual:image];
+  isEqual = objc_msgSend_isEqual_(imageCopy);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     v8[0] = MEMORY[0x1E69E9820];
     v8[1] = 3221225472;

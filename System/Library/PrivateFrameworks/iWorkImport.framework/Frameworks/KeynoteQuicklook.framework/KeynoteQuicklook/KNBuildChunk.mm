@@ -61,131 +61,130 @@
 {
   unarchiveCopy = unarchive;
   pointerCopy = pointer;
-  v6 = objc_alloc(MEMORY[0x277D80868]);
-  inited = objc_msgSend_initWeakReferenceWithObject_(v6, v7, pointerCopy);
+  v6 = [objc_alloc(MEMORY[0x277D80868]) initWeakReferenceWithObject:pointerCopy];
   buildReference = self->_buildReference;
-  if (!buildReference || (objc_msgSend_isEqualToLazyReference_(buildReference, v8, inited) & 1) == 0)
+  if (!buildReference || ([(TSPLazyReference *)buildReference isEqualToLazyReference:v6]& 1) == 0)
   {
-    objc_msgSend_willModify(self, v8, v9);
-    objc_storeStrong(&self->_buildReference, inited);
+    [(KNBuildChunk *)self willModify];
+    objc_storeStrong(&self->_buildReference, v6);
     if (unarchiveCopy)
     {
-      objc_msgSend_i_didLoadBuild_(self, v12, pointerCopy);
+      [(KNBuildChunk *)self i_didLoadBuild:pointerCopy];
     }
   }
 }
 
 + (void)i_repairChunkToBuildReferencesFromUUIDsForChunks:(id)chunks builds:(id)builds context:(id)context
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   chunksCopy = chunks;
   buildsCopy = builds;
   contextCopy = context;
   if (!contextCopy)
   {
-    v10 = MEMORY[0x277D81150];
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "+[KNBuildChunk(Internal) i_repairChunkToBuildReferencesFromUUIDsForChunks:builds:context:]");
-    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildChunk-Internal.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v14, v11, v13, 55, 0, "invalid nil value for '%{public}s'", "context");
+    v9 = MEMORY[0x277D81150];
+    v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[KNBuildChunk(Internal) i_repairChunkToBuildReferencesFromUUIDsForChunks:builds:context:]"];
+    v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildChunk-Internal.m"];
+    [v9 handleFailureInFunction:v10 file:v11 lineNumber:55 isFatal:0 description:{"invalid nil value for '%{public}s'", "context"}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v15, v16);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v17 = chunksCopy;
-  v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v18, &v41, v45, 16);
-  if (v19)
+  v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v12 = chunksCopy;
+  v13 = [v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  if (v13)
   {
-    v22 = v19;
-    v23 = 0;
-    v24 = *v42;
+    v14 = v13;
+    v15 = 0;
+    v16 = *v27;
     do
     {
-      for (i = 0; i != v22; ++i)
+      for (i = 0; i != v14; ++i)
       {
-        if (*v42 != v24)
+        if (*v27 != v16)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v12);
         }
 
-        v26 = *(*(&v41 + 1) + 8 * i);
-        v27 = objc_msgSend_i_buildFromReference(v26, v20, v21);
+        v18 = *(*(&v26 + 1) + 8 * i);
+        i_buildFromReference = [v18 i_buildFromReference];
 
-        if (!v27)
+        if (!i_buildFromReference)
         {
-          v30 = objc_msgSend_i_buildId(v26, v20, v21);
-          if (!v30)
+          i_buildId = [v18 i_buildId];
+          if (!i_buildId)
           {
-            v31 = objc_msgSend_chunkIdentifier(v26, v28, v29);
-            v30 = objc_msgSend_buildUUID(v31, v32, v33);
+            chunkIdentifier = [v18 chunkIdentifier];
+            i_buildId = [chunkIdentifier buildUUID];
           }
 
           objc_opt_class();
-          v35 = objc_msgSend_objectWithUUIDIfAvailable_(contextCopy, v34, v30);
-          v36 = TSUDynamicCast();
+          v22 = [contextCopy objectWithUUIDIfAvailable:i_buildId];
+          v23 = TSUDynamicCast();
 
-          if (buildsCopy && !v36)
+          if (buildsCopy && !v23)
           {
-            if (!v23)
+            if (!v15)
             {
-              v23 = objc_msgSend_UUIDToTSPObjectMapForTSPObjects_(KNBuildUtility, v37, buildsCopy);
+              v15 = [KNBuildUtility UUIDToTSPObjectMapForTSPObjects:buildsCopy];
             }
 
             objc_opt_class();
-            v39 = objc_msgSend_objectForKeyedSubscript_(v23, v38, v30);
-            v36 = TSUDynamicCast();
+            v24 = [v15 objectForKeyedSubscript:i_buildId];
+            v23 = TSUDynamicCast();
           }
 
-          if (v36)
+          if (v23)
           {
-            objc_msgSend_i_setBuildPointer_forUnarchive_(v26, v37, v36, 0);
+            [v18 i_setBuildPointer:v23 forUnarchive:0];
           }
         }
       }
 
-      v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v20, &v41, v45, 16);
+      v14 = [v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
-    while (v22);
+    while (v14);
   }
 
   else
   {
-    v23 = 0;
+    v15 = 0;
   }
 }
 
 + (void)i_validateBuildReferencesForChunks:(id)chunks
 {
-  v55 = *MEMORY[0x277D85DE8];
-  v50 = 0u;
-  v51 = 0u;
-  v52 = 0u;
-  v53 = 0u;
+  v34 = *MEMORY[0x277D85DE8];
+  v29 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   obj = chunks;
-  v4 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v3, &v50, v54, 16);
-  if (v4)
+  v3 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  if (v3)
   {
-    v7 = v4;
-    v49 = *v51;
+    v4 = v3;
+    v28 = *v30;
     do
     {
-      for (i = 0; i != v7; ++i)
+      for (i = 0; i != v4; ++i)
       {
-        if (*v51 != v49)
+        if (*v30 != v28)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v50 + 1) + 8 * i);
-        v10 = objc_msgSend_i_buildId(v9, v5, v6);
-        v14 = objc_msgSend_i_buildFromReference(v9, v11, v12);
-        if (v14)
+        v6 = *(*(&v29 + 1) + 8 * i);
+        i_buildId = [v6 i_buildId];
+        i_buildFromReference = [v6 i_buildFromReference];
+        if (i_buildFromReference)
         {
-          if (v10)
+          if (i_buildId)
           {
             goto LABEL_8;
           }
@@ -193,62 +192,71 @@
 
         else
         {
-          v28 = MEMORY[0x277D81150];
-          v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "+[KNBuildChunk(Internal) i_validateBuildReferencesForChunks:]");
-          v31 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v30, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildChunk-Internal.m");
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v28, v32, v29, v31, 105, 0, "Chunk is missing back pointer to build. %@", v9);
+          v20 = MEMORY[0x277D81150];
+          v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[KNBuildChunk(Internal) i_validateBuildReferencesForChunks:]"];
+          v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildChunk-Internal.m"];
+          [v20 handleFailureInFunction:v21 file:v22 lineNumber:105 isFatal:0 description:{"Chunk is missing back pointer to build. %@", v6}];
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v33, v34);
-          if (v10)
+          [MEMORY[0x277D81150] logBacktraceThrottled];
+          if (i_buildId)
           {
             goto LABEL_8;
           }
         }
 
-        v35 = MEMORY[0x277D81150];
-        v36 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "+[KNBuildChunk(Internal) i_validateBuildReferencesForChunks:]");
-        v38 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v37, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildChunk-Internal.m");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v35, v39, v36, v38, 106, 0, "Chunk is missing UUID reference to build. %@", v9);
+        v23 = MEMORY[0x277D81150];
+        v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[KNBuildChunk(Internal) i_validateBuildReferencesForChunks:]"];
+        v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildChunk-Internal.m"];
+        [v23 handleFailureInFunction:v24 file:v25 lineNumber:106 isFatal:0 description:{"Chunk is missing UUID reference to build. %@", v6}];
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v40, v41);
+        [MEMORY[0x277D81150] logBacktraceThrottled];
 LABEL_8:
         objc_opt_class();
-        v17 = objc_msgSend_context(v9, v15, v16);
-        v19 = objc_msgSend_objectWithUUIDIfAvailable_(v17, v18, v10);
-        v20 = TSUDynamicCast();
+        context = [v6 context];
+        v10 = [context objectWithUUIDIfAvailable:i_buildId];
+        v11 = TSUDynamicCast();
 
-        if (v20)
+        if (v11)
         {
-          if (v20 == v14)
+          if (v11 == i_buildFromReference)
           {
             goto LABEL_17;
           }
 
-          v23 = MEMORY[0x277D81150];
-          v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "+[KNBuildChunk(Internal) i_validateBuildReferencesForChunks:]");
-          v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildChunk-Internal.m");
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v23, v27, v24, v26, 115, 0, "Chunk's back pointer to build and UUID reference to build don't reference the same build.");
+          v12 = MEMORY[0x277D81150];
+          v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[KNBuildChunk(Internal) i_validateBuildReferencesForChunks:]"];
+          v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildChunk-Internal.m"];
+          v15 = v12;
+          v16 = v13;
+          v17 = v14;
+          v18 = 115;
+          v19 = "Chunk's back pointer to build and UUID reference to build don't reference the same build.";
           goto LABEL_16;
         }
 
-        if (v14 && objc_msgSend_tsp_isInDocument(v14, v21, v22))
+        if (i_buildFromReference && [i_buildFromReference tsp_isInDocument])
         {
-          v43 = MEMORY[0x277D81150];
-          v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v42, "+[KNBuildChunk(Internal) i_validateBuildReferencesForChunks:]");
-          v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v44, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildChunk-Internal.m");
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v43, v45, v24, v26, 112, 0, "Chunk has a valid build reference which is in the document, but cannot be looked at by UUID.");
+          v26 = MEMORY[0x277D81150];
+          v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[KNBuildChunk(Internal) i_validateBuildReferencesForChunks:]"];
+          v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildChunk-Internal.m"];
+          v15 = v26;
+          v16 = v13;
+          v17 = v14;
+          v18 = 112;
+          v19 = "Chunk has a valid build reference which is in the document, but cannot be looked at by UUID.";
 LABEL_16:
+          [v15 handleFailureInFunction:v16 file:v17 lineNumber:v18 isFatal:0 description:v19];
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v46, v47);
+          [MEMORY[0x277D81150] logBacktraceThrottled];
         }
 
 LABEL_17:
       }
 
-      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v5, &v50, v54, 16);
+      v4 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
-    while (v7);
+    while (v4);
   }
 }
 
@@ -257,10 +265,10 @@ LABEL_17:
   idCopy = id;
   if (self->_buildId != idCopy)
   {
-    v8 = idCopy;
-    objc_msgSend_willModify(self, v6, v7);
+    v6 = idCopy;
+    [(KNBuildChunk *)self willModify];
     objc_storeStrong(&self->_buildId, id);
-    idCopy = v8;
+    idCopy = v6;
   }
 }
 
@@ -269,24 +277,24 @@ LABEL_17:
   identifierCopy = identifier;
   if (identifierCopy && self->_buildChunkIdentifier)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[KNBuildChunk(Internal) i_setChunkIdentifier:]");
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildChunk-Internal.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v11, v8, v10, 164, 0, "An attempt was made to assign a chunk identifier, but the chunk already has one.");
+    v5 = MEMORY[0x277D81150];
+    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildChunk(Internal) i_setChunkIdentifier:]"];
+    v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildChunk-Internal.m"];
+    [v5 handleFailureInFunction:v6 file:v7 lineNumber:164 isFatal:0 description:{"An attempt was made to assign a chunk identifier, but the chunk already has one."}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
   else
   {
-    objc_msgSend_willModify(self, v5, v6);
+    [(KNBuildChunk *)self willModify];
     objc_storeStrong(&self->_buildChunkIdentifier, identifier);
   }
 }
 
 - (void)i_clearChunkIdentifier
 {
-  objc_msgSend_willModify(self, a2, v2);
+  [(KNBuildChunk *)self willModify];
   buildChunkIdentifier = self->_buildChunkIdentifier;
   self->_buildChunkIdentifier = 0;
 }
@@ -296,97 +304,96 @@ LABEL_17:
   buildCopy = build;
   if (!buildCopy)
   {
-    v5 = MEMORY[0x277D81150];
-    v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[KNBuildChunk(Internal) i_updateChunkUUIDReferencesToBuild:]");
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildChunk-Internal.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v9, v6, v8, 175, 0, "invalid nil value for '%{public}s'", "build");
+    v4 = MEMORY[0x277D81150];
+    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildChunk(Internal) i_updateChunkUUIDReferencesToBuild:]"];
+    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildChunk-Internal.m"];
+    [v4 handleFailureInFunction:v5 file:v6 lineNumber:175 isFatal:0 description:{"invalid nil value for '%{public}s'", "build"}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v10, v11);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
-  v12 = [KNBuildChunkIdentifier alloc];
-  v15 = objc_msgSend_chunkIdentifier(self, v13, v14);
-  v18 = objc_msgSend_chunkID(v15, v16, v17);
-  v20 = objc_msgSend_initWithBuild_chunkID_(v12, v19, buildCopy, v18);
+  v7 = [KNBuildChunkIdentifier alloc];
+  chunkIdentifier = [(KNBuildChunk *)self chunkIdentifier];
+  v9 = -[KNBuildChunkIdentifier initWithBuild:chunkID:](v7, "initWithBuild:chunkID:", buildCopy, [chunkIdentifier chunkID]);
 
-  objc_msgSend_i_clearChunkIdentifier(self, v21, v22);
-  objc_msgSend_i_setChunkIdentifier_(self, v23, v20);
-  v26 = objc_msgSend_objectUUID(buildCopy, v24, v25);
-  objc_msgSend_i_setBuildId_(self, v27, v26);
+  [(KNBuildChunk *)self i_clearChunkIdentifier];
+  [(KNBuildChunk *)self i_setChunkIdentifier:v9];
+  objectUUID = [buildCopy objectUUID];
+  [(KNBuildChunk *)self i_setBuildId:objectUUID];
 
-  objc_msgSend_i_invalidateChunkCache(buildCopy, v28, v29);
+  [buildCopy i_invalidateChunkCache];
 }
 
 - (KNBuildChunk)initWithBuild:(id)build
 {
   buildCopy = build;
-  v7 = objc_msgSend_context(buildCopy, v5, v6);
-  v35.receiver = self;
-  v35.super_class = KNBuildChunk;
-  v8 = [(KNBuildChunk *)&v35 initWithContext:v7];
+  context = [buildCopy context];
+  v17.receiver = self;
+  v17.super_class = KNBuildChunk;
+  v6 = [(KNBuildChunk *)&v17 initWithContext:context];
 
-  if (v8)
+  if (v6)
   {
     if (buildCopy)
     {
-      objc_msgSend_i_setBuildPointer_forUnarchive_(v8, v9, buildCopy, 0);
-      v13 = objc_msgSend_objectUUID(buildCopy, v10, v11);
-      if (!v13)
+      [(KNBuildChunk *)v6 i_setBuildPointer:buildCopy forUnarchive:0];
+      objectUUID = [buildCopy objectUUID];
+      if (!objectUUID)
       {
-        v14 = MEMORY[0x277D81150];
-        v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "[KNBuildChunk initWithBuild:]");
-        v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildChunk.m");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v14, v18, v15, v17, 78, 0, "invalid nil value for '%{public}s'", "buildId");
+        v8 = MEMORY[0x277D81150];
+        v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildChunk initWithBuild:]"];
+        v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildChunk.m"];
+        [v8 handleFailureInFunction:v9 file:v10 lineNumber:78 isFatal:0 description:{"invalid nil value for '%{public}s'", "buildId"}];
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v19, v20);
+        [MEMORY[0x277D81150] logBacktraceThrottled];
       }
 
-      buildId = v8->_buildId;
-      v8->_buildId = v13;
+      buildId = v6->_buildId;
+      v6->_buildId = objectUUID;
     }
 
     else
     {
-      v24 = MEMORY[0x277D81150];
-      v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "[KNBuildChunk initWithBuild:]");
-      v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v26, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildChunk.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v24, v28, v25, v27, 81, 0, "Chunk initialized with nil build. %@", v8);
+      v12 = MEMORY[0x277D81150];
+      v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildChunk initWithBuild:]"];
+      v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildChunk.m"];
+      [v12 handleFailureInFunction:v13 file:v14 lineNumber:81 isFatal:0 description:{"Chunk initialized with nil build. %@", v6}];
 
-      objc_msgSend_logFullBacktrace(MEMORY[0x277D81150], v29, v30);
+      [MEMORY[0x277D81150] logFullBacktrace];
     }
 
-    objc_msgSend_i_invalidateCaches(v8, v22, v23);
-    v8->_automatic = 0;
-    v8->_referent = 0;
-    v8->_delay = 0.0;
-    objc_msgSend_durationDefaultForInitialChunk(buildCopy, v31, v32);
-    v8->_duration = v33;
+    [(KNBuildChunk *)v6 i_invalidateCaches];
+    v6->_automatic = 0;
+    v6->_referent = 0;
+    v6->_delay = 0.0;
+    [buildCopy durationDefaultForInitialChunk];
+    v6->_duration = v15;
   }
 
-  return v8;
+  return v6;
 }
 
 - (KNBuildChunk)initWithBuild:(id)build copyingAttributesFromChunk:(id)chunk
 {
   chunkCopy = chunk;
-  v8 = objc_msgSend_initWithBuild_(self, v7, build);
-  v11 = v8;
-  if (chunkCopy && v8)
+  v7 = [(KNBuildChunk *)self initWithBuild:build];
+  v8 = v7;
+  if (chunkCopy && v7)
   {
-    objc_msgSend_delay(chunkCopy, v9, v10);
-    *(v11 + 80) = v12;
-    objc_msgSend_duration(chunkCopy, v13, v14);
-    *(v11 + 88) = v15;
-    *(v11 + 104) = objc_msgSend_referent(chunkCopy, v16, v17);
-    *(v11 + 96) = objc_msgSend_isAutomatic(chunkCopy, v18, v19);
+    [chunkCopy delay];
+    v8->_delay = v9;
+    objc_msgSend_duration(chunkCopy);
+    v8->_duration = v10;
+    v8->_referent = [chunkCopy referent];
+    v8->_automatic = [chunkCopy isAutomatic];
   }
 
-  return v11;
+  return v8;
 }
 
 - (KNBuildChunk)initWithBuild:(id)build referent:(unint64_t)referent copyingRemainingAttributesFromChunk:(id)chunk
 {
-  result = objc_msgSend_initWithBuild_copyingAttributesFromChunk_(self, a2, build, chunk);
+  result = [(KNBuildChunk *)self initWithBuild:build copyingAttributesFromChunk:chunk];
   if (result)
   {
     result->_referent = referent;
@@ -398,55 +405,55 @@ LABEL_17:
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  v7 = objc_msgSend_build(self, v5, v6);
-  v9 = objc_msgSend_initWithBuild_(v4, v8, v7);
+  build = [(KNBuildChunk *)self build];
+  v6 = [v4 initWithBuild:build];
 
-  *(v9 + 80) = self->_delay;
-  *(v9 + 88) = self->_duration;
-  *(v9 + 96) = self->_automatic;
-  *(v9 + 104) = self->_referent;
-  v12 = objc_msgSend_copy(self->_buildChunkIdentifier, v10, v11);
-  v13 = *(v9 + 72);
-  *(v9 + 72) = v12;
+  *(v6 + 80) = self->_delay;
+  *(v6 + 88) = self->_duration;
+  *(v6 + 96) = self->_automatic;
+  *(v6 + 104) = self->_referent;
+  v7 = [(KNBuildChunkIdentifier *)self->_buildChunkIdentifier copy];
+  v8 = *(v6 + 72);
+  *(v6 + 72) = v7;
 
-  v16 = objc_msgSend_copy(self->_buildId, v14, v15);
-  v17 = *(v9 + 64);
-  *(v9 + 64) = v16;
+  v9 = [(NSUUID *)self->_buildId copy];
+  v10 = *(v6 + 64);
+  *(v6 + 64) = v9;
 
-  v20 = objc_msgSend_copy(self->_buildReference, v18, v19);
-  v21 = *(v9 + 136);
-  *(v9 + 136) = v20;
+  v11 = [(TSPLazyReference *)self->_buildReference copy];
+  v12 = *(v6 + 136);
+  *(v6 + 136) = v11;
 
-  v24 = objc_msgSend_objectUUID(self, v22, v23);
+  objectUUID = [(KNBuildChunk *)self objectUUID];
 
-  if (v24)
+  if (objectUUID)
   {
-    v26 = MEMORY[0x277D81150];
-    v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, "[KNBuildChunk copyWithZone:]");
-    v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildChunk.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v26, v30, v27, v29, 138, 0, "expected nil value for '%{public}s'", "self.objectUUID");
+    v14 = MEMORY[0x277D81150];
+    v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildChunk copyWithZone:]"];
+    v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildChunk.m"];
+    [v14 handleFailureInFunction:v15 file:v16 lineNumber:138 isFatal:0 description:{"expected nil value for '%{public}s'", "self.objectUUID"}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v31, v32);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
-  return v9;
+  return v6;
 }
 
 - (void)didInitFromSOS
 {
-  v10.receiver = self;
-  v10.super_class = KNBuildChunk;
-  [(KNBuildChunk *)&v10 didInitFromSOS];
+  v6.receiver = self;
+  v6.super_class = KNBuildChunk;
+  [(KNBuildChunk *)&v6 didInitFromSOS];
   if (!self->_buildReference)
   {
     objc_opt_class();
-    v5 = objc_msgSend_context(self, v3, v4);
-    v7 = objc_msgSend_objectWithUUID_(v5, v6, self->_buildId);
-    v8 = TSUCheckedDynamicCast();
+    context = [(KNBuildChunk *)self context];
+    v4 = [context objectWithUUID:self->_buildId];
+    v5 = TSUCheckedDynamicCast();
 
-    if (v8)
+    if (v5)
     {
-      objc_msgSend_i_setBuildPointer_forUnarchive_(self, v9, v8, 0);
+      [(KNBuildChunk *)self i_setBuildPointer:v5 forUnarchive:0];
     }
   }
 }
@@ -454,44 +461,44 @@ LABEL_17:
 - (KNBuild)build
 {
   objc_opt_class();
-  v4 = objc_msgSend_objectAndReturnError_(self->_buildReference, v3, 0);
-  v5 = TSUDynamicCast();
+  v3 = [(TSPLazyReference *)self->_buildReference objectAndReturnError:0];
+  v4 = TSUDynamicCast();
 
-  if (!v5)
+  if (!v4)
   {
-    v8 = objc_msgSend_context(self, v6, v7);
-    v10 = objc_msgSend_objectWithUUID_(v8, v9, self->_buildId);
+    context = [(KNBuildChunk *)self context];
+    v6 = [context objectWithUUID:self->_buildId];
 
     objc_opt_class();
-    v5 = TSUCheckedDynamicCast();
+    v4 = TSUCheckedDynamicCast();
   }
 
-  return v5;
+  return v4;
 }
 
 - (void)setDuration:(double)duration
 {
-  objc_msgSend_willModify(self, a2, v3);
+  [(KNBuildChunk *)self willModify];
   KNAnimationRoundTimeInterval();
-  self->_duration = v5;
+  self->_duration = v4;
 }
 
 - (void)setDelay:(double)delay
 {
-  objc_msgSend_willModify(self, a2, v3);
+  [(KNBuildChunk *)self willModify];
   KNAnimationRoundTimeInterval();
-  self->_delay = v5;
+  self->_delay = v4;
 }
 
 - (void)setAutomatic:(BOOL)automatic
 {
-  if (objc_msgSend_isAutomatic(self, a2, automatic) != automatic)
+  if ([(KNBuildChunk *)self isAutomatic]!= automatic)
   {
-    objc_msgSend_willModify(self, v5, v6);
-    v14 = objc_msgSend_slide(self, v7, v8);
+    [(KNBuildChunk *)self willModify];
+    slide = [(KNBuildChunk *)self slide];
     self->_automatic = automatic;
-    v11 = objc_msgSend_slideNode(v14, v9, v10);
-    objc_msgSend_invalidateBuildEventCountCaches(v11, v12, v13);
+    slideNode = [slide slideNode];
+    [slideNode invalidateBuildEventCountCaches];
   }
 }
 
@@ -499,20 +506,20 @@ LABEL_17:
 {
   if (self->_referent != referent)
   {
-    objc_msgSend_willModify(self, a2, referent);
-    v12 = objc_msgSend_slide(self, v5, v6);
+    [(KNBuildChunk *)self willModify];
+    slide = [(KNBuildChunk *)self slide];
     self->_referent = referent;
-    v9 = objc_msgSend_slideNode(v12, v7, v8);
-    objc_msgSend_invalidateBuildEventCountCaches(v9, v10, v11);
+    slideNode = [slide slideNode];
+    [slideNode invalidateBuildEventCountCaches];
   }
 }
 
 - (BOOL)isAutomaticWithPreviousChunk
 {
-  isAutomatic = objc_msgSend_isAutomatic(self, a2, v2);
+  isAutomatic = [(KNBuildChunk *)self isAutomatic];
   if (isAutomatic)
   {
-    LOBYTE(isAutomatic) = objc_msgSend_referent(self, v5, v6) == 0;
+    LOBYTE(isAutomatic) = [(KNBuildChunk *)self referent]== 0;
   }
 
   return isAutomatic;
@@ -520,72 +527,72 @@ LABEL_17:
 
 - (BOOL)isAutomaticWithPreviousChunkOnSameDrawable
 {
-  v4 = objc_msgSend_previousChunkOnSlide(self, a2, v2);
-  v9 = 0;
-  if (objc_msgSend_isAutomaticWithPreviousChunk(self, v5, v6) && v4)
+  previousChunkOnSlide = [(KNBuildChunk *)self previousChunkOnSlide];
+  v4 = 0;
+  if ([(KNBuildChunk *)self isAutomaticWithPreviousChunk]&& previousChunkOnSlide)
   {
-    v10 = objc_msgSend_build(v4, v7, v8);
-    v13 = objc_msgSend_drawable(v10, v11, v12);
-    v16 = objc_msgSend_build(self, v14, v15);
-    v19 = objc_msgSend_drawable(v16, v17, v18);
-    v9 = v13 == v19;
+    build = [previousChunkOnSlide build];
+    drawable = [build drawable];
+    build2 = [(KNBuildChunk *)self build];
+    drawable2 = [build2 drawable];
+    v4 = drawable == drawable2;
   }
 
-  return v9;
+  return v4;
 }
 
 - (KNBuildChunk)previousChunkOnSlide
 {
-  v4 = objc_msgSend_indexOnSlide(self, a2, v2);
-  v7 = 0;
-  if (v4)
+  indexOnSlide = [(KNBuildChunk *)self indexOnSlide];
+  v4 = 0;
+  if (indexOnSlide)
   {
-    v8 = v4;
-    if (v4 != 0x7FFFFFFFFFFFFFFFLL)
+    v5 = indexOnSlide;
+    if (indexOnSlide != 0x7FFFFFFFFFFFFFFFLL)
     {
-      v9 = objc_msgSend_slide(self, v5, v6);
-      v12 = objc_msgSend_buildChunks(v9, v10, v11);
-      v7 = objc_msgSend_objectAtIndex_(v12, v13, v8 - 1);
+      slide = [(KNBuildChunk *)self slide];
+      buildChunks = [slide buildChunks];
+      v4 = [buildChunks objectAtIndex:v5 - 1];
     }
   }
 
-  return v7;
+  return v4;
 }
 
 - (KNBuildChunk)nextChunkOnSlide
 {
-  v4 = objc_msgSend_indexOnSlide(self, a2, v2);
-  v7 = objc_msgSend_slide(self, v5, v6);
-  v10 = objc_msgSend_buildChunks(v7, v8, v9);
+  indexOnSlide = [(KNBuildChunk *)self indexOnSlide];
+  slide = [(KNBuildChunk *)self slide];
+  buildChunks = [slide buildChunks];
 
-  if (v4 == 0x7FFFFFFFFFFFFFFFLL || v4 == objc_msgSend_count(v10, v11, v12) - 1)
+  if (indexOnSlide == 0x7FFFFFFFFFFFFFFFLL || indexOnSlide == [buildChunks count] - 1)
   {
-    v14 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v14 = objc_msgSend_objectAtIndex_(v10, v13, v4 + 1);
+    v6 = [buildChunks objectAtIndex:indexOnSlide + 1];
   }
 
-  return v14;
+  return v6;
 }
 
 - (NSArray)availableEventTriggers
 {
-  v4 = objc_msgSend_slide(self, a2, v2);
-  v6 = objc_msgSend_setWithObject_(MEMORY[0x277CBEB98], v5, self);
-  v8 = objc_msgSend_availableEventTriggersForBuildChunks_(v4, v7, v6);
+  slide = [(KNBuildChunk *)self slide];
+  v4 = [MEMORY[0x277CBEB98] setWithObject:self];
+  v5 = [slide availableEventTriggersForBuildChunks:v4];
 
-  return v8;
+  return v5;
 }
 
 - (KNSlide)slide
 {
-  v3 = objc_msgSend_build(self, a2, v2);
-  v6 = objc_msgSend_slide(v3, v4, v5);
+  build = [(KNBuildChunk *)self build];
+  slide = [build slide];
 
-  return v6;
+  return slide;
 }
 
 - (unint64_t)indexInBuild
@@ -593,12 +600,12 @@ LABEL_17:
   result = self->_cachedIndexInBuild;
   if (result == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v5 = objc_msgSend_build(self, a2, v2);
-    v8 = objc_msgSend_chunks(v5, v6, v7);
+    build = [(KNBuildChunk *)self build];
+    chunks = [build chunks];
 
-    if (v8)
+    if (chunks)
     {
-      self->_cachedIndexInBuild = objc_msgSend_indexOfObject_(v8, v9, self);
+      self->_cachedIndexInBuild = [chunks indexOfObject:self];
     }
 
     return self->_cachedIndexInBuild;
@@ -609,70 +616,70 @@ LABEL_17:
 
 - (unint64_t)indexOnSlide
 {
-  v4 = objc_msgSend_slide(self, a2, v2);
-  v7 = objc_msgSend_buildChunks(v4, v5, v6);
+  slide = [(KNBuildChunk *)self slide];
+  buildChunks = [slide buildChunks];
 
   cachedIndexOnSlide = self->_cachedIndexOnSlide;
-  if (cachedIndexOnSlide < objc_msgSend_count(v7, v9, v10) && (objc_msgSend_objectAtIndexedSubscript_(v7, v11, self->_cachedIndexOnSlide), v12 = objc_claimAutoreleasedReturnValue(), v12, v12 == self))
+  if (cachedIndexOnSlide < [buildChunks count] && (objc_msgSend(buildChunks, "objectAtIndexedSubscript:", self->_cachedIndexOnSlide), v6 = objc_claimAutoreleasedReturnValue(), v6, v6 == self))
   {
-    v13 = self->_cachedIndexOnSlide;
+    v7 = self->_cachedIndexOnSlide;
   }
 
   else
   {
-    v13 = objc_msgSend_indexOfObject_(v7, v11, self);
-    self->_cachedIndexOnSlide = v13;
+    v7 = [buildChunks indexOfObject:self];
+    self->_cachedIndexOnSlide = v7;
   }
 
-  return v13;
+  return v7;
 }
 
 - (unint64_t)deliveryGroupIndex
 {
-  v4 = objc_msgSend_slide(self, a2, v2);
-  v6 = objc_msgSend_deliveryGroupIndexForBuildChunk_(v4, v5, self);
+  slide = [(KNBuildChunk *)self slide];
+  v4 = [slide deliveryGroupIndexForBuildChunk:self];
 
-  return v6;
+  return v4;
 }
 
 - (BOOL)isFirstInDeliveryGroup
 {
   selfCopy = self;
-  v4 = objc_msgSend_slide(self, a2, v2);
-  v7 = objc_msgSend_buildChunks(v4, v5, v6);
-  LOBYTE(selfCopy) = objc_msgSend_chunk_isFirstInDeliveryGroupForChunks_(KNAbstractSlide, v8, selfCopy, v7);
+  slide = [(KNBuildChunk *)self slide];
+  buildChunks = [slide buildChunks];
+  LOBYTE(selfCopy) = [KNAbstractSlide chunk:selfCopy isFirstInDeliveryGroupForChunks:buildChunks];
 
   return selfCopy;
 }
 
 - (BOOL)isActive
 {
-  v4 = objc_msgSend_indexInBuild(self, a2, v2);
-  v7 = objc_msgSend_build(self, v5, v6);
-  active = objc_msgSend_activeChunkRange(v7, v8, v9);
-  v13 = v4 >= active && v4 - active < v11;
+  indexInBuild = [(KNBuildChunk *)self indexInBuild];
+  build = [(KNBuildChunk *)self build];
+  activeChunkRange = [build activeChunkRange];
+  v8 = indexInBuild >= activeChunkRange && indexInBuild - activeChunkRange < v6;
 
-  return v13;
+  return v8;
 }
 
 - (unint64_t)activeIndexOnSlide
 {
-  v4 = objc_msgSend_slide(self, a2, v2);
-  v7 = objc_msgSend_activeBuildChunks(v4, v5, v6);
+  slide = [(KNBuildChunk *)self slide];
+  activeBuildChunks = [slide activeBuildChunks];
 
   cachedActiveIndexOnSlide = self->_cachedActiveIndexOnSlide;
-  if (cachedActiveIndexOnSlide < objc_msgSend_count(v7, v9, v10) && (objc_msgSend_objectAtIndexedSubscript_(v7, v11, self->_cachedActiveIndexOnSlide), v12 = objc_claimAutoreleasedReturnValue(), v12, v12 == self))
+  if (cachedActiveIndexOnSlide < [activeBuildChunks count] && (objc_msgSend(activeBuildChunks, "objectAtIndexedSubscript:", self->_cachedActiveIndexOnSlide), v6 = objc_claimAutoreleasedReturnValue(), v6, v6 == self))
   {
-    v13 = self->_cachedActiveIndexOnSlide;
+    v7 = self->_cachedActiveIndexOnSlide;
   }
 
   else
   {
-    v13 = objc_msgSend_indexOfObject_(v7, v11, self);
-    self->_cachedActiveIndexOnSlide = v13;
+    v7 = [activeBuildChunks indexOfObject:self];
+    self->_cachedActiveIndexOnSlide = v7;
   }
 
-  return v13;
+  return v7;
 }
 
 - (BOOL)hasComplement
@@ -682,8 +689,8 @@ LABEL_17:
     return 0;
   }
 
-  v4 = objc_msgSend_build(self, a2, v2);
-  hasComplement = objc_msgSend_hasComplement(v4, v5, v6);
+  build = [(KNBuildChunk *)self build];
+  hasComplement = [build hasComplement];
 
   return hasComplement;
 }
@@ -691,10 +698,10 @@ LABEL_17:
 - (BOOL)isComplementOfBuildChunk:(id)chunk
 {
   chunkCopy = chunk;
-  v7 = objc_msgSend_build(self, v5, v6);
-  v10 = objc_msgSend_build(chunkCopy, v8, v9);
+  build = [(KNBuildChunk *)self build];
+  build2 = [chunkCopy build];
 
-  LOBYTE(chunkCopy) = objc_msgSend_isComplementOfBuild_(v7, v11, v10);
+  LOBYTE(chunkCopy) = [build isComplementOfBuild:build2];
   return chunkCopy;
 }
 
@@ -713,69 +720,67 @@ LABEL_17:
 
 - (NSString)description
 {
-  v4 = objc_msgSend_build(self, a2, v2);
-  v7 = objc_msgSend_indexOnSlide(self, v5, v6);
-  v37 = objc_msgSend_p_stringRepresentationWithNotAvailableForIndex_(self, v8, v7);
-  v11 = objc_msgSend_indexInBuild(self, v9, v10);
-  v13 = objc_msgSend_p_stringRepresentationWithNotAvailableForIndex_(self, v12, v11);
-  objc_msgSend_isAutomatic(self, v14, v15);
-  objc_msgSend_referent(self, v16, v17);
-  v18 = KNAnimationEventTriggerFromAutomaticReferent();
-  if (v18 > 2)
+  build = [(KNBuildChunk *)self build];
+  v15 = [(KNBuildChunk *)self p_stringRepresentationWithNotAvailableForIndex:[(KNBuildChunk *)self indexOnSlide]];
+  v4 = [(KNBuildChunk *)self p_stringRepresentationWithNotAvailableForIndex:[(KNBuildChunk *)self indexInBuild]];
+  [(KNBuildChunk *)self isAutomatic];
+  [(KNBuildChunk *)self referent];
+  v5 = KNAnimationEventTriggerFromAutomaticReferent();
+  if (v5 > 2)
   {
-    v19 = &stru_2884D8E20;
+    v6 = &stru_2884D8E20;
   }
 
   else
   {
-    v19 = off_27A6995A0[v18];
+    v6 = off_27A6995A0[v5];
   }
 
-  v20 = MEMORY[0x277CCACA8];
-  v21 = objc_opt_class();
-  v24 = objc_msgSend_chunkIdentifier(self, v22, v23);
-  objc_msgSend_animationType(v4, v25, v26);
-  v27 = KNAnimationTypeAsString();
-  v30 = objc_msgSend_effect(v4, v28, v29);
-  v33 = objc_msgSend_title(self, v31, v32);
-  v35 = objc_msgSend_stringWithFormat_(v20, v34, @"<%@ %p id:%@ build:%p (%@ - %@) indexInBuild:%@ indexOnSlide:%@ title:%@ %@>", v21, self, v24, v4, v27, v30, v13, v37, v33, v19);
+  v7 = MEMORY[0x277CCACA8];
+  v8 = objc_opt_class();
+  chunkIdentifier = [(KNBuildChunk *)self chunkIdentifier];
+  [build animationType];
+  v10 = KNAnimationTypeAsString();
+  effect = [build effect];
+  title = [(KNBuildChunk *)self title];
+  v13 = [v7 stringWithFormat:@"<%@ %p id:%@ build:%p (%@ - %@) indexInBuild:%@ indexOnSlide:%@ title:%@ %@>", v8, self, chunkIdentifier, build, v10, effect, v4, v15, title, v6];
 
-  return v35;
+  return v13;
 }
 
 - (id)p_stringRepresentationWithNotAvailableForIndex:(unint64_t)index
 {
   if (index == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v4 = @"n/a";
+    index = @"n/a";
   }
 
   else
   {
-    v4 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], a2, @"%lu", index);
+    index = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", index];
   }
 
-  return v4;
+  return index;
 }
 
 - (KNBuildChunk)previousActiveChunkWithReferentRelativeToEnd
 {
-  v4 = objc_msgSend_build(self, a2, v2);
-  v7 = objc_msgSend_slide(v4, v5, v6);
+  build = [(KNBuildChunk *)self build];
+  slide = [build slide];
 
-  v10 = objc_msgSend_buildChunks(v7, v8, v9);
-  v13 = objc_msgSend_indexOnSlide(self, v11, v12);
+  buildChunks = [slide buildChunks];
+  indexOnSlide = [(KNBuildChunk *)self indexOnSlide];
   selfCopy = self;
-  if (v13)
+  if (indexOnSlide)
   {
     do
     {
-      --v13;
-      v16 = selfCopy;
-      selfCopy = objc_msgSend_objectAtIndexedSubscript_(v10, v14, v13);
+      --indexOnSlide;
+      v8 = selfCopy;
+      selfCopy = [buildChunks objectAtIndexedSubscript:indexOnSlide];
     }
 
-    while ((!objc_msgSend_isActive(selfCopy, v17, v18) || objc_msgSend_isAutomatic(selfCopy, v14, v19) && objc_msgSend_referent(selfCopy, v20, v21) != 1) && v13);
+    while ((![(KNBuildChunk *)selfCopy isActive]|| [(KNBuildChunk *)selfCopy isAutomatic]&& [(KNBuildChunk *)selfCopy referent]!= 1) && indexOnSlide);
   }
 
   return selfCopy;
@@ -786,18 +791,18 @@ LABEL_17:
   breaksCopy = breaks;
   if (!trigger)
   {
-    v18 = objc_msgSend_previousActiveChunkWithReferentRelativeToEnd(self, a2, 0);
-    active = objc_msgSend_activeIndexOnSlide(v18, v19, v20);
+    previousActiveChunkWithReferentRelativeToEnd = [(KNBuildChunk *)self previousActiveChunkWithReferentRelativeToEnd];
+    activeIndexOnSlide = [previousActiveChunkWithReferentRelativeToEnd activeIndexOnSlide];
 
-    v22 = MEMORY[0x277CCABB8];
-    v24 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v23, active + 1);
-    v5 = objc_msgSend_localizedStringFromNumber_numberStyle_(v22, v25, v24, 0);
+    v19 = MEMORY[0x277CCABB8];
+    v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:activeIndexOnSlide + 1];
+    v6 = [v19 localizedStringFromNumber:v20 numberStyle:0];
 
-    v12 = MEMORY[0x277CCACA8];
-    v13 = sub_275DC204C();
-    v15 = v13;
-    v16 = @"With Build %@";
-    v17 = @"With\nBuild %@";
+    v11 = MEMORY[0x277CCACA8];
+    v13 = sub_275DC204C(v21);
+    v14 = v13;
+    v15 = @"With Build %@";
+    v16 = @"With\nBuild %@";
     goto LABEL_8;
   }
 
@@ -805,116 +810,118 @@ LABEL_17:
   {
     if (trigger != 1)
     {
-      v29 = MEMORY[0x277D81150];
-      v30 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[KNBuildChunk localizedNameForEventTrigger:includeLineBreaks:]");
-      v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v31, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildChunk.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v29, v33, v30, v32, 486, 0, "Unexpected trigger type.");
+      v25 = MEMORY[0x277D81150];
+      v26 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildChunk localizedNameForEventTrigger:includeLineBreaks:]"];
+      v27 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildChunk.m"];
+      [v25 handleFailureInFunction:v26 file:v27 lineNumber:486 isFatal:0 description:"Unexpected trigger type."];
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v34, v35);
-      v28 = 0;
-      goto LABEL_19;
+      [MEMORY[0x277D81150] logBacktraceThrottled];
+      v24 = 0;
+      goto LABEL_18;
     }
 
-    v5 = sub_275DC204C();
-    objc_msgSend_localizedStringForKey_value_table_(v5, v6, @"On Tap", &stru_2884D8E20, @"Keynote");
-    goto LABEL_17;
+    v5 = sub_275DC204C(self);
+    v6 = v5;
+    v7 = @"On Tap";
+    goto LABEL_16;
   }
 
-  v7 = objc_msgSend_activeIndexOnSlide(self, a2, 2);
-  if (v7)
+  activeIndexOnSlide2 = [(KNBuildChunk *)self activeIndexOnSlide];
+  if (activeIndexOnSlide2)
   {
     v9 = MEMORY[0x277CCABB8];
-    v10 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v8, v7);
-    v5 = objc_msgSend_localizedStringFromNumber_numberStyle_(v9, v11, v10, 0);
+    v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:activeIndexOnSlide2];
+    v6 = [v9 localizedStringFromNumber:v10 numberStyle:0];
 
-    v12 = MEMORY[0x277CCACA8];
-    v13 = sub_275DC204C();
-    v15 = v13;
-    v16 = @"After Build %@";
-    v17 = @"After\nBuild %@";
+    v11 = MEMORY[0x277CCACA8];
+    v13 = sub_275DC204C(v12);
+    v14 = v13;
+    v15 = @"After Build %@";
+    v16 = @"After\nBuild %@";
 LABEL_8:
     if (breaksCopy)
     {
-      objc_msgSend_localizedStringForKey_value_table_(v13, v14, v17, &stru_2884D8E20, @"Keynote");
+      v22 = v16;
     }
 
     else
     {
-      objc_msgSend_localizedStringForKey_value_table_(v13, v14, v16, &stru_2884D8E20, @"Keynote");
+      v22 = v15;
     }
-    v26 = ;
-    v28 = objc_msgSend_stringWithFormat_(v12, v27, v26, v5);
 
-    goto LABEL_18;
+    v23 = [v13 localizedStringForKey:v22 value:&stru_2884D8E20 table:@"Keynote"];
+    v24 = [v11 stringWithFormat:v23, v6];
+
+    goto LABEL_17;
   }
 
-  v36 = sub_275DC204C();
-  v5 = v36;
+  v5 = sub_275DC204C(0);
+  v6 = v5;
   if (breaksCopy)
   {
-    v38 = @"After\nTransition";
+    v7 = @"After\nTransition";
   }
 
   else
   {
-    v38 = @"After Transition";
+    v7 = @"After Transition";
   }
 
-  objc_msgSend_localizedStringForKey_value_table_(v36, v37, v38, &stru_2884D8E20, @"Keynote");
-  v28 = LABEL_17:;
+LABEL_16:
+  v24 = [v5 localizedStringForKey:v7 value:&stru_2884D8E20 table:@"Keynote"];
+LABEL_17:
+
 LABEL_18:
 
-LABEL_19:
-
-  return v28;
+  return v24;
 }
 
 - (NSString)title
 {
-  if (objc_msgSend_indexOnSlide(self, a2, v2) == 0x7FFFFFFFFFFFFFFFLL)
+  if ([(KNBuildChunk *)self indexOnSlide]== 0x7FFFFFFFFFFFFFFFLL)
   {
-    v6 = &stru_2884D8E20;
+    v3 = &stru_2884D8E20;
   }
 
   else
   {
-    v7 = objc_msgSend_build(self, v4, v5);
-    v10 = objc_msgSend_drawable(v7, v8, v9);
-    v13 = objc_msgSend_deliveryStyle(v7, v11, v12);
-    v16 = objc_msgSend_animationFilter(v7, v14, v15);
-    v18 = objc_msgSend_chunkCountForTextureDeliveryStyle_animationFilter_(v10, v17, v13, v16);
-    v21 = objc_msgSend_indexInBuild(self, v19, v20);
-    if (v21 >= v18)
+    build = [(KNBuildChunk *)self build];
+    drawable = [build drawable];
+    deliveryStyle = [build deliveryStyle];
+    animationFilter = [build animationFilter];
+    v8 = [drawable chunkCountForTextureDeliveryStyle:deliveryStyle animationFilter:animationFilter];
+    indexInBuild = [(KNBuildChunk *)self indexInBuild];
+    if (indexInBuild >= v8)
     {
-      v6 = &stru_2884D8E20;
+      v3 = &stru_2884D8E20;
     }
 
     else
     {
-      v6 = objc_msgSend_kn_displayableBuildOrderNameForTextureDeliveryStyle_animationFilter_chunkIndex_(v10, v22, v13, v16, v21);
+      v3 = [drawable kn_displayableBuildOrderNameForTextureDeliveryStyle:deliveryStyle animationFilter:animationFilter chunkIndex:indexInBuild];
     }
   }
 
-  return v6;
+  return v3;
 }
 
 - (NSSet)inspectableAttributes
 {
-  v4 = objc_msgSend_set(MEMORY[0x277CBEB58], a2, v2);
-  objc_msgSend_addObject_(v4, v5, @"KNBuildChunkEventTriggerProperty");
-  objc_msgSend_addObject_(v4, v6, @"KNAnimationOrder");
-  if (objc_msgSend_isAutomatic(self, v7, v8))
+  v3 = [MEMORY[0x277CBEB58] set];
+  [v3 addObject:@"KNBuildChunkEventTriggerProperty"];
+  [v3 addObject:@"KNAnimationOrder"];
+  if ([(KNBuildChunk *)self isAutomatic])
   {
-    objc_msgSend_addObject_(v4, v9, @"KNBuildChunkDelayProperty");
+    [v3 addObject:@"KNBuildChunkDelayProperty"];
   }
 
-  return v4;
+  return v3;
 }
 
 - (BOOL)canEditAnimations
 {
-  v3 = objc_msgSend_build(self, a2, v2);
-  canEditAnimations = objc_msgSend_canEditAnimations(v3, v4, v5);
+  build = [(KNBuildChunk *)self build];
+  canEditAnimations = [build canEditAnimations];
 
   return canEditAnimations;
 }
@@ -926,15 +933,15 @@ LABEL_19:
   self->_needsReferentFromBuildAttributes = 1;
   self->_needsDelayFromBuildAttributes = 1;
   self->_needsDurationFromBuildAttributes = 1;
-  v8 = *(archive + 4);
-  if ((v8 & 0x40) != 0)
+  v7 = *(archive + 4);
+  if ((v7 & 0x40) != 0)
   {
     self->_automatic = *(archive + 68);
     self->_needsAutomaticFromBuildAttributes = 0;
-    if ((v8 & 0x80) == 0)
+    if ((v7 & 0x80) == 0)
     {
 LABEL_3:
-      if ((v8 & 8) == 0)
+      if ((v7 & 8) == 0)
       {
         goto LABEL_4;
       }
@@ -943,17 +950,17 @@ LABEL_3:
     }
   }
 
-  else if ((v8 & 0x80) == 0)
+  else if ((v7 & 0x80) == 0)
   {
     goto LABEL_3;
   }
 
   self->_referent = *(archive + 69);
   self->_needsReferentFromBuildAttributes = 0;
-  if ((v8 & 8) == 0)
+  if ((v7 & 8) == 0)
   {
 LABEL_4:
-    if ((v8 & 0x10) == 0)
+    if ((v7 & 0x10) == 0)
     {
       goto LABEL_5;
     }
@@ -963,13 +970,13 @@ LABEL_4:
 
 LABEL_9:
   KNAnimationRoundTimeInterval();
-  self->_delay = v9;
+  self->_delay = v8;
   self->_needsDelayFromBuildAttributes = 0;
-  v8 = *(archive + 4);
-  if ((v8 & 0x10) == 0)
+  v7 = *(archive + 4);
+  if ((v7 & 0x10) == 0)
   {
 LABEL_5:
-    if ((v8 & 4) == 0)
+    if ((v7 & 4) == 0)
     {
       goto LABEL_15;
     }
@@ -979,156 +986,159 @@ LABEL_5:
 
 LABEL_10:
   KNAnimationRoundTimeInterval();
-  self->_duration = v10;
+  self->_duration = v9;
   self->_needsDurationFromBuildAttributes = 0;
-  v8 = *(archive + 4);
-  if ((v8 & 4) == 0)
+  v7 = *(archive + 4);
+  if ((v7 & 4) == 0)
   {
     goto LABEL_15;
   }
 
 LABEL_11:
-  v11 = objc_alloc(MEMORY[0x277CCAD78]);
+  v10 = objc_alloc(MEMORY[0x277CCAD78]);
   if (*(archive + 5))
   {
-    v13 = objc_msgSend_tsp_initWithMessage_(v11, v12, *(archive + 5));
+    v11 = *(archive + 5);
   }
 
   else
   {
-    v13 = objc_msgSend_tsp_initWithMessage_(v11, v12, MEMORY[0x277D809E0]);
+    v11 = MEMORY[0x277D809E0];
   }
 
+  v12 = [v10 tsp_initWithMessage:v11];
   buildId = self->_buildId;
-  self->_buildId = v13;
+  self->_buildId = v12;
 
-  v8 = *(archive + 4);
+  v7 = *(archive + 4);
 LABEL_15:
-  v32[0] = 0;
-  v32[1] = v32;
-  v32[2] = 0x3032000000;
-  v32[3] = sub_275E2D0F4;
-  v32[4] = sub_275E2D104;
-  v33 = 0;
-  if (v8)
+  v27[0] = 0;
+  v27[1] = v27;
+  v27[2] = 0x3032000000;
+  v27[3] = sub_275E2D0F4;
+  v27[4] = sub_275E2D104;
+  v28 = 0;
+  if (v7)
   {
-    v15 = *(archive + 3);
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = sub_275E2D10C;
-    v31[3] = &unk_27A6995C0;
-    v31[4] = v32;
-    v16 = unarchiverCopy;
-    v17 = objc_opt_class();
-    objc_msgSend_readWeakReferenceMessage_class_protocol_completion_(v16, v18, v15, v17, 0, v31);
+    v14 = *(archive + 3);
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = sub_275E2D10C;
+    v26[3] = &unk_27A6995C0;
+    v26[4] = v27;
+    v15 = unarchiverCopy;
+    [v15 readWeakReferenceMessage:v14 class:objc_opt_class() protocol:0 completion:v26];
 
-    v19 = *(archive + 3);
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = sub_275E2D11C;
-    v30[3] = &unk_27A6982D0;
-    v30[4] = self;
-    v20 = v16;
-    v22 = objc_opt_class();
-    if (v19)
+    v16 = *(archive + 3);
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = sub_275E2D11C;
+    v25[3] = &unk_27A6982D0;
+    v25[4] = self;
+    v17 = v15;
+    v18 = objc_opt_class();
+    if (v16)
     {
-      objc_msgSend_readWeakLazyReferenceMessage_class_protocol_completion_(v20, v21, v19, v22, 0, v30);
+      v19 = v16;
     }
 
     else
     {
-      objc_msgSend_readWeakLazyReferenceMessage_class_protocol_completion_(v20, v21, MEMORY[0x277D80A18], v22, 0, v30);
+      v19 = MEMORY[0x277D80A18];
     }
+
+    [v17 readWeakLazyReferenceMessage:v19 class:v18 protocol:0 completion:v25];
   }
 
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = sub_275E2D134;
-  v29[3] = &unk_27A6995E8;
-  v29[4] = self;
-  v29[5] = v32;
-  objc_msgSend_addFinalizeHandler_(unarchiverCopy, v6, v29);
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = sub_275E2D134;
+  v24[3] = &unk_27A6995E8;
+  v24[4] = self;
+  v24[5] = v27;
+  [unarchiverCopy addFinalizeHandler:v24];
   if ((*(archive + 16) & 2) != 0)
   {
-    v25 = [KNBuildChunkIdentifier alloc];
+    v20 = [KNBuildChunkIdentifier alloc];
     if (*(archive + 4))
     {
-      v27 = objc_msgSend_initWithMessage_(v25, v26, *(archive + 4));
+      v21 = *(archive + 4);
     }
 
     else
     {
-      v27 = objc_msgSend_initWithMessage_(v25, v26, &qword_2812EABA8);
+      v21 = &qword_2812EABA8;
     }
 
+    v22 = [(KNBuildChunkIdentifier *)v20 initWithMessage:v21];
     buildChunkIdentifier = self->_buildChunkIdentifier;
-    self->_buildChunkIdentifier = v27;
+    self->_buildChunkIdentifier = v22;
   }
 
-  objc_msgSend_i_invalidateCaches(self, v23, v24);
-  _Block_object_dispose(v32, 8);
+  [(KNBuildChunk *)self i_invalidateCaches];
+  _Block_object_dispose(v27, 8);
 }
 
 - (void)i_didLoadBuild:(id)build
 {
   buildCopy = build;
-  v8 = objc_msgSend_attributes(buildCopy, v4, v5);
-  if (!v8)
+  attributes = [buildCopy attributes];
+  if (!attributes)
   {
-    v9 = MEMORY[0x277D81150];
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[KNBuildChunk(PersistenceAdditions) i_didLoadBuild:]");
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildChunkPersistenceAdditions.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v13, v10, v12, 122, 0, "invalid nil value for '%{public}s'", "buildAttributes");
+    v5 = MEMORY[0x277D81150];
+    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildChunk(PersistenceAdditions) i_didLoadBuild:]"];
+    v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildChunkPersistenceAdditions.mm"];
+    [v5 handleFailureInFunction:v6 file:v7 lineNumber:122 isFatal:0 description:{"invalid nil value for '%{public}s'", "buildAttributes"}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
   if (self->_needsAutomaticFromBuildAttributes)
   {
-    objc_msgSend_willModifyForUpgrade(self, v6, v7);
-    v17 = objc_msgSend_valueForAttributeKey_(v8, v16, @"KNBuildAttributesInitialChunkCreationEventTrigger");
-    objc_msgSend_unsignedIntegerValue(v17, v18, v19);
+    [(KNBuildChunk *)self willModifyForUpgrade];
+    v8 = [attributes valueForAttributeKey:@"KNBuildAttributesInitialChunkCreationEventTrigger"];
+    [v8 unsignedIntegerValue];
 
     self->_automatic = KNAnimationAutomaticFromEventTrigger();
   }
 
   if (self->_needsReferentFromBuildAttributes)
   {
-    objc_msgSend_willModifyForUpgrade(self, v6, v7);
-    v21 = objc_msgSend_valueForAttributeKey_(v8, v20, @"KNBuildAttributesInitialChunkCreationEventTrigger");
-    objc_msgSend_unsignedIntegerValue(v21, v22, v23);
+    [(KNBuildChunk *)self willModifyForUpgrade];
+    v9 = [attributes valueForAttributeKey:@"KNBuildAttributesInitialChunkCreationEventTrigger"];
+    [v9 unsignedIntegerValue];
 
     self->_referent = KNAnimationReferentFromEventTrigger();
   }
 
   if (self->_needsDelayFromBuildAttributes)
   {
-    objc_msgSend_willModifyForUpgrade(self, v6, v7);
-    objc_msgSend_p_setDelayFromBuildAttributes_withReferent_automatic_(self, v24, v8, self->_referent, self->_automatic);
+    [(KNBuildChunk *)self willModifyForUpgrade];
+    [(KNBuildChunk *)self p_setDelayFromBuildAttributes:attributes withReferent:self->_referent automatic:self->_automatic];
   }
 
   if (self->_needsDurationFromBuildAttributes)
   {
-    objc_msgSend_willModifyForUpgrade(self, v6, v7);
-    objc_msgSend_p_setDurationFromBuildAttributes_(self, v25, v8);
+    [(KNBuildChunk *)self willModifyForUpgrade];
+    [(KNBuildChunk *)self p_setDurationFromBuildAttributes:attributes];
   }
 
   if (!self->_buildId)
   {
-    objc_msgSend_willModifyForUpgrade(self, v6, v7);
-    v29 = objc_msgSend_objectUUID(buildCopy, v26, v27);
-    if (!v29)
+    [(KNBuildChunk *)self willModifyForUpgrade];
+    objectUUID = [buildCopy objectUUID];
+    if (!objectUUID)
     {
-      v30 = MEMORY[0x277D81150];
-      v31 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "[KNBuildChunk(PersistenceAdditions) i_didLoadBuild:]");
-      v33 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v32, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildChunkPersistenceAdditions.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v30, v34, v31, v33, 159, 0, "invalid nil value for '%{public}s'", "buildUUID");
+      v11 = MEMORY[0x277D81150];
+      v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildChunk(PersistenceAdditions) i_didLoadBuild:]"];
+      v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildChunkPersistenceAdditions.mm"];
+      [v11 handleFailureInFunction:v12 file:v13 lineNumber:159 isFatal:0 description:{"invalid nil value for '%{public}s'", "buildUUID"}];
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v35, v36);
+      [MEMORY[0x277D81150] logBacktraceThrottled];
     }
 
     buildId = self->_buildId;
-    self->_buildId = v29;
+    self->_buildId = objectUUID;
   }
 }
 
@@ -1136,7 +1146,7 @@ LABEL_15:
 {
   automaticCopy = automatic;
   attributesCopy = attributes;
-  v9 = @"KNBuildAttributesInitialChunkCreationDelay";
+  v8 = @"KNBuildAttributesInitialChunkCreationDelay";
   if (automaticCopy)
   {
     if (referent)
@@ -1146,122 +1156,122 @@ LABEL_15:
         goto LABEL_7;
       }
 
-      v10 = off_27A698DE8;
+      v9 = off_27A698DE8;
     }
 
     else
     {
-      v10 = off_27A698DF0;
+      v9 = off_27A698DF0;
     }
 
-    v11 = *v10;
+    v10 = *v9;
 
-    v9 = v11;
+    v8 = v10;
   }
 
 LABEL_7:
-  v12 = objc_msgSend_valueForAttributeKey_(attributesCopy, v8, v9);
-  objc_msgSend_doubleValue(v12, v13, v14);
+  v11 = [attributesCopy valueForAttributeKey:v8];
+  [v11 doubleValue];
   KNAnimationRoundTimeInterval();
-  self->_delay = v15;
+  self->_delay = v12;
 }
 
 - (void)p_setDurationFromBuildAttributes:(id)attributes
 {
-  v4 = objc_msgSend_valueForAttributeKey_(attributes, a2, @"KNBuildAttributesDefaultDuration");
-  objc_msgSend_doubleValue(v4, v5, v6);
+  v4 = [attributes valueForAttributeKey:@"KNBuildAttributesDefaultDuration"];
+  [v4 doubleValue];
   KNAnimationRoundTimeInterval();
-  v8 = v7;
+  v6 = v5;
 
-  self->_duration = v8;
+  self->_duration = v6;
 }
 
 - (void)saveToArchive:(void *)archive archiver:(id)archiver
 {
   archiverCopy = archiver;
   buildReference = self->_buildReference;
-  v37 = archiverCopy;
+  v24 = archiverCopy;
   if (buildReference)
   {
     *(archive + 4) |= 1u;
-    v10 = *(archive + 3);
-    if (!v10)
+    v8 = *(archive + 3);
+    if (!v8)
     {
-      v11 = *(archive + 1);
-      if (v11)
+      v9 = *(archive + 1);
+      if (v9)
       {
-        v11 = *(v11 & 0xFFFFFFFFFFFFFFFELL);
+        v9 = *(v9 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v10 = MEMORY[0x277C8F050](v11);
-      *(archive + 3) = v10;
-      archiverCopy = v37;
+      v8 = MEMORY[0x277C8F050](v9);
+      *(archive + 3) = v8;
+      archiverCopy = v24;
     }
 
-    objc_msgSend_setWeakLazyReference_message_(archiverCopy, v7, buildReference, v10);
+    [archiverCopy setWeakLazyReference:buildReference message:v8];
   }
 
-  else if (!self->_buildId && objc_msgSend_targetType(archiverCopy, v7, v8) != 4)
+  else if (!self->_buildId && [archiverCopy targetType] != 4)
   {
-    v12 = MEMORY[0x277D81150];
-    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "[KNBuildChunk(PersistenceAdditions) saveToArchive:archiver:]");
-    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildChunkPersistenceAdditions.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v16, v13, v15, 195, 0, "[buildReference_log] Trying to archive a nil build reference for chunk %@, and _buildId is nil.", self);
+    v10 = MEMORY[0x277D81150];
+    v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildChunk(PersistenceAdditions) saveToArchive:archiver:]"];
+    v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildChunkPersistenceAdditions.mm"];
+    [v10 handleFailureInFunction:v11 file:v12 lineNumber:195 isFatal:0 description:{"[buildReference_log] Trying to archive a nil build reference for chunk %@, and _buildId is nil.", self}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v17, v18);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
-  objc_msgSend_delay(self, v7, v8);
+  [(KNBuildChunk *)self delay];
   *(archive + 4) |= 8u;
-  *(archive + 6) = v19;
-  objc_msgSend_duration(self, v20, v21);
+  *(archive + 6) = v13;
+  objc_msgSend_duration(self);
   *(archive + 4) |= 0x10u;
-  *(archive + 7) = v22;
-  isAutomatic = objc_msgSend_isAutomatic(self, v23, v24);
+  *(archive + 7) = v14;
+  isAutomatic = [(KNBuildChunk *)self isAutomatic];
   *(archive + 4) |= 0x40u;
   *(archive + 68) = isAutomatic;
-  v29 = objc_msgSend_referent(self, v26, v27) == 1;
-  v30 = *(archive + 4);
-  *(archive + 4) = v30 | 0x80;
-  *(archive + 69) = v29;
+  v16 = [(KNBuildChunk *)self referent]== 1;
+  v17 = *(archive + 4);
+  *(archive + 4) = v17 | 0x80;
+  *(archive + 69) = v16;
   buildChunkIdentifier = self->_buildChunkIdentifier;
   if (buildChunkIdentifier)
   {
-    *(archive + 4) = v30 | 0x82;
-    v32 = *(archive + 4);
-    if (!v32)
+    *(archive + 4) = v17 | 0x82;
+    v19 = *(archive + 4);
+    if (!v19)
     {
-      v33 = *(archive + 1);
-      if (v33)
+      v20 = *(archive + 1);
+      if (v20)
       {
-        v33 = *(v33 & 0xFFFFFFFFFFFFFFFELL);
+        v20 = *(v20 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v32 = sub_275E1F89C(v33);
-      *(archive + 4) = v32;
+      v19 = sub_275E1F89C(v20);
+      *(archive + 4) = v19;
     }
 
-    objc_msgSend_saveToMessage_(buildChunkIdentifier, v28, v32);
+    [(KNBuildChunkIdentifier *)buildChunkIdentifier saveToMessage:v19];
   }
 
   buildId = self->_buildId;
   if (buildId)
   {
     *(archive + 4) |= 4u;
-    v35 = *(archive + 5);
-    if (!v35)
+    v22 = *(archive + 5);
+    if (!v22)
     {
-      v36 = *(archive + 1);
-      if (v36)
+      v23 = *(archive + 1);
+      if (v23)
       {
-        v36 = *(v36 & 0xFFFFFFFFFFFFFFFELL);
+        v23 = *(v23 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v35 = MEMORY[0x277C8F000](v36);
-      *(archive + 5) = v35;
+      v22 = MEMORY[0x277C8F000](v23);
+      *(archive + 5) = v22;
     }
 
-    objc_msgSend_tsp_saveToMessage_(buildId, v28, v35);
+    [(NSUUID *)buildId tsp_saveToMessage:v22];
   }
 }
 
@@ -1271,28 +1281,28 @@ LABEL_7:
   v5 = objc_opt_class();
   if (v5 != objc_opt_class())
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[KNBuildChunk(PersistenceAdditions) loadFromUnarchiver:]");
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildChunkPersistenceAdditions.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v11, v8, v10, 213, 0, "KNBuildChunk needs a separate method for subclass unarchiving");
+    v6 = MEMORY[0x277D81150];
+    v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildChunk(PersistenceAdditions) loadFromUnarchiver:]"];
+    v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildChunkPersistenceAdditions.mm"];
+    [v6 handleFailureInFunction:v7 file:v8 lineNumber:213 isFatal:0 description:"KNBuildChunk needs a separate method for subclass unarchiving"];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
-  v17 = unarchiverCopy;
+  v10 = unarchiverCopy;
   google::protobuf::internal::AssignDescriptors();
-  v15 = objc_msgSend_messageWithDescriptor_(v17, v14, off_2812EA908[6]);
+  v9 = [v10 messageWithDescriptor:off_2812EA908[6]];
 
-  objc_msgSend_loadFromArchive_unarchiver_(self, v16, v15, v17);
+  [(KNBuildChunk *)self loadFromArchive:v9 unarchiver:v10];
 }
 
 - (void)saveToArchiver:(id)archiver
 {
   archiverCopy = archiver;
   google::protobuf::internal::AssignDescriptors();
-  v5 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_275E2DC80, off_2812EA908[6]);
+  v4 = [archiverCopy messageWithNewFunction:sub_275E2DC80 descriptor:off_2812EA908[6]];
 
-  objc_msgSend_saveToArchive_archiver_(self, v6, v5, archiverCopy);
+  [(KNBuildChunk *)self saveToArchive:v4 archiver:archiverCopy];
 }
 
 @end

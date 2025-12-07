@@ -73,12 +73,12 @@ void PrewarmingExperimentUpdated(void *a1)
 
 uint64_t UpdatePrewarmingDefault(void *a1, void *a2, void *a3, int a4)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v7 = a1;
   v8 = a2;
   v9 = a3;
   v10 = [v8 objectForKey:v9];
-  v22 = v10;
+  v21 = v10;
   if (a4 == 10 && v10)
   {
     v11 = 0;
@@ -91,9 +91,9 @@ LABEL_4:
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        *v24 = @"com.apple.coreos.fast";
-        *&v24[8] = 2112;
-        v25 = v9;
+        *v23 = @"com.apple.coreos.fast";
+        *&v23[8] = 2112;
+        v24 = v9;
         _os_log_impl(&dword_255783000, v7, OS_LOG_TYPE_DEFAULT, "Executed 'defaults delete %@ %@'", buf, 0x16u);
       }
 
@@ -115,9 +115,9 @@ LABEL_4:
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109376;
-        *v24 = v12;
-        *&v24[4] = 1024;
-        *&v24[6] = 2;
+        *v23 = v12;
+        *&v23[4] = 1024;
+        *&v23[6] = 2;
         _os_log_impl(&dword_255783000, v7, OS_LOG_TYPE_DEFAULT, "UpdatePrewarmingDefault: Attempt %d/%d at removing default failed, retrying", buf, 0xEu);
       }
 
@@ -143,18 +143,18 @@ LABEL_35:
     v17 = 0;
     v18 = 1;
 LABEL_17:
-    v21 = v17;
+    v20 = v17;
     do
     {
       [v8 setBool:a4 != 12 forKey:v9];
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412802;
-        *v24 = @"com.apple.coreos.fast";
-        *&v24[8] = 2112;
-        v25 = v9;
-        v26 = 1024;
-        v27 = a4 != 12;
+        *v23 = @"com.apple.coreos.fast";
+        *&v23[8] = 2112;
+        v24 = v9;
+        v25 = 1024;
+        v26 = a4 != 12;
         _os_log_impl(&dword_255783000, v7, OS_LOG_TYPE_DEFAULT, "Executed 'defaults write %@ %@ %d'", buf, 0x1Cu);
       }
 
@@ -174,9 +174,9 @@ LABEL_17:
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109376;
-        *v24 = v18;
-        *&v24[4] = 1024;
-        *&v24[6] = 2;
+        *v23 = v18;
+        *&v23[4] = 1024;
+        *&v23[6] = 2;
         _os_log_impl(&dword_255783000, v7, OS_LOG_TYPE_DEFAULT, "UpdatePrewarmingDefault: Attempt %d/%d at setting default failed, retrying", buf, 0xEu);
       }
 
@@ -184,7 +184,7 @@ LABEL_17:
     }
 
     while (v18 != 3);
-    if ((v21 & 1) == 0)
+    if ((v20 & 1) == 0)
     {
       if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
       {
@@ -199,13 +199,12 @@ LABEL_17:
 LABEL_36:
   CFPreferencesAppSynchronize(*MEMORY[0x277CBF028]);
 
-  v19 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 void __PrewarmingExperimentUpdated_block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 factor];
   v5 = [v3 level];
@@ -215,11 +214,11 @@ void __PrewarmingExperimentUpdated_block_invoke(uint64_t a1, void *a2)
   {
     v7 = v6;
     v8 = [(__CFString *)v4 name];
-    v23 = 138412546;
-    v24 = @"COREOS_FAST_PREWARMING";
-    v25 = 2112;
-    v26 = v8;
-    _os_log_impl(&dword_255783000, v7, OS_LOG_TYPE_DEFAULT, "(%@) discovered factor '%@'", &v23, 0x16u);
+    v22 = 138412546;
+    v23 = @"COREOS_FAST_PREWARMING";
+    v24 = 2112;
+    v25 = v8;
+    _os_log_impl(&dword_255783000, v7, OS_LOG_TYPE_DEFAULT, "(%@) discovered factor '%@'", &v22, 0x16u);
   }
 
   v9 = [(__CFString *)v4 name];
@@ -303,13 +302,13 @@ void __PrewarmingExperimentUpdated_block_invoke(uint64_t a1, void *a2)
       v21 = *(a1 + 32);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = 138412802;
-        v24 = @"com.apple.coreos.fast";
-        v25 = 2112;
-        v26 = @"prewarming_previous_enable_2";
-        v27 = 1024;
-        v28 = v15;
-        _os_log_impl(&dword_255783000, v21, OS_LOG_TYPE_DEFAULT, "Executed 'defaults write %@ %@ %d'", &v23, 0x1Cu);
+        v22 = 138412802;
+        v23 = @"com.apple.coreos.fast";
+        v24 = 2112;
+        v25 = @"prewarming_previous_enable_2";
+        v26 = 1024;
+        v27 = v15;
+        _os_log_impl(&dword_255783000, v21, OS_LOG_TYPE_DEFAULT, "Executed 'defaults write %@ %@ %d'", &v22, 0x1Cu);
       }
     }
 
@@ -321,28 +320,26 @@ void __PrewarmingExperimentUpdated_block_invoke(uint64_t a1, void *a2)
     v16 = *(a1 + 32);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = 138412546;
-      v24 = @"COREOS_FAST_PREWARMING";
-      v25 = 2112;
-      v26 = v4;
-      _os_log_impl(&dword_255783000, v16, OS_LOG_TYPE_DEFAULT, "(%@) WARNING -- UNKNOWN factor %@ !", &v23, 0x16u);
+      v22 = 138412546;
+      v23 = @"COREOS_FAST_PREWARMING";
+      v24 = 2112;
+      v25 = v4;
+      _os_log_impl(&dword_255783000, v16, OS_LOG_TYPE_DEFAULT, "(%@) WARNING -- UNKNOWN factor %@ !", &v22, 0x16u);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t KRExperimentsUpdateExperimentState(unsigned int a1, int a2)
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   v2 = os_log_create("com.apple.coreos.sysperf.KRExperiments", "KRExperiments");
   v3 = [MEMORY[0x277D73660] clientWithIdentifier:241];
-  v80 = 0;
-  v78 = 0;
   v79 = 0;
-  v4 = [v3 trialIdentifiersWithNamespaceName:@"FREEZER_POLICIES" experimentId:&v79 deploymentId:&v80 treatmentId:&v78];
-  v69 = v79;
+  v77 = 0;
+  v78 = 0;
+  v4 = [v3 trialIdentifiersWithNamespaceName:@"FREEZER_POLICIES" experimentId:&v78 deploymentId:&v79 treatmentId:&v77];
   v68 = v78;
+  v67 = v77;
   if ((v4 & 1) == 0)
   {
     KRExperimentsUpdateExperimentState_cold_1();
@@ -350,9 +347,9 @@ uint64_t KRExperimentsUpdateExperimentState(unsigned int a1, int a2)
 
   oslog = v2;
   v5 = v3;
-  v71 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v70 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v65 = v5;
+  v69 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v64 = v5;
   v6 = [v5 factorLevelsWithNamespaceName:@"FREEZER_POLICIES"];
   if ([v6 count])
   {
@@ -378,7 +375,7 @@ uint64_t KRExperimentsUpdateExperimentState(unsigned int a1, int a2)
         v12 = oslog;
         if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
-          KRExperimentsUpdateExperimentState_cold_4(v90, v9);
+          KRExperimentsUpdateExperimentState_cold_4(v89, v9);
         }
 
         goto LABEL_17;
@@ -391,7 +388,7 @@ uint64_t KRExperimentsUpdateExperimentState(unsigned int a1, int a2)
       if ([v12 isEqualToString:@"meta"])
       {
         v15 = [v8 level];
-        v16 = v71;
+        v16 = v70;
       }
 
       else
@@ -401,14 +398,14 @@ uint64_t KRExperimentsUpdateExperimentState(unsigned int a1, int a2)
           v15 = oslog;
           if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
-            KRExperimentsUpdateExperimentState_cold_4(v91, v9);
+            KRExperimentsUpdateExperimentState_cold_4(v90, v9);
           }
 
           goto LABEL_16;
         }
 
         v15 = [v8 level];
-        v16 = v70;
+        v16 = v69;
       }
 
       [v16 setObject:v15 forKeyedSubscript:v14];
@@ -418,11 +415,11 @@ LABEL_17:
     }
   }
 
-  v17 = v71;
-  v18 = v70;
+  v17 = v70;
+  v18 = v69;
 
-  v19 = v71;
-  v20 = v70;
+  v19 = v70;
+  v20 = v69;
   v21 = [v19 objectForKey:@"component"];
   v22 = [v21 stringValue];
   v23 = v22;
@@ -451,53 +448,53 @@ LABEL_24:
   v26 = v24 | a2 | a1;
   if (v26 == 1 && v25)
   {
-    v62 = v24;
-    v63 = v20;
-    v64 = v19;
-    v76 = 0u;
-    v77 = 0u;
-    v74 = 0u;
+    v61 = v24;
+    v62 = v20;
+    v63 = v19;
     v75 = 0u;
+    v76 = 0u;
+    v73 = 0u;
+    v74 = 0u;
     v27 = v20;
-    v28 = [v27 countByEnumeratingWithState:&v74 objects:v89 count:16];
+    v28 = [v27 countByEnumeratingWithState:&v73 objects:v88 count:16];
     if (v28)
     {
       v29 = v28;
-      v72 = *v75;
+      v71 = *v74;
       do
       {
         for (j = 0; j != v29; ++j)
         {
-          if (*v75 != v72)
+          if (*v74 != v71)
           {
             objc_enumerationMutation(v27);
           }
 
-          v31 = *(*(&v74 + 1) + 8 * j);
+          v31 = *(*(&v73 + 1) + 8 * j);
           v32 = [v27 objectForKeyedSubscript:v31];
           v33 = oslog;
           v34 = v31;
           v35 = v32;
           v36 = [v35 levelOneOfCase];
-          v82 = 0;
           v81 = 0;
+          v80 = 0;
           v37 = [v34 cStringUsingEncoding:1];
           switch(v36)
           {
             case 13:
               v42 = [v35 longValue];
-              v82 = v42;
+              v81 = v42;
               if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412546;
-                v84 = v34;
-                v85 = 2048;
-                v86 = v42;
+                v83 = v34;
+                v84 = 2048;
+                v85 = v42;
                 _os_log_impl(&dword_255783000, v33, OS_LOG_TYPE_DEFAULT, "Setting %@ to %llu", buf, 0x16u);
               }
 
               v39 = 0;
-              v40 = &v82;
+              v40 = &v81;
               v41 = 8;
               break;
             case 11:
@@ -507,34 +504,34 @@ LABEL_24:
               if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412546;
-                v84 = v34;
-                v85 = 2080;
-                v86 = v40;
+                v83 = v34;
+                v84 = 2080;
+                v85 = v40;
                 _os_log_impl(&dword_255783000, v33, OS_LOG_TYPE_DEFAULT, "Setting %@ to %s", buf, 0x16u);
               }
 
               break;
             case 10:
               v38 = [v35 BOOLeanValue];
-              v81 = v38;
+              v80 = v38;
               if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412546;
-                v84 = v34;
-                v85 = 1024;
-                LODWORD(v86) = v38;
+                v83 = v34;
+                v84 = 1024;
+                LODWORD(v85) = v38;
                 _os_log_impl(&dword_255783000, v33, OS_LOG_TYPE_DEFAULT, "Setting %@ to %u", buf, 0x12u);
               }
 
               v39 = 0;
-              v40 = &v81;
+              v40 = &v80;
               v41 = 4;
               break;
             default:
               if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
               {
                 *buf = 67109120;
-                LODWORD(v84) = v36;
+                LODWORD(v83) = v36;
                 _os_log_error_impl(&dword_255783000, v33, OS_LOG_TYPE_ERROR, "Attempt to set unsupported factor type: %d", buf, 8u);
               }
 
@@ -552,23 +549,23 @@ LABEL_24:
               v44 = __error();
               v45 = strerror(*v44);
               *buf = 136315394;
-              v84 = v37;
-              v85 = 2080;
-              v86 = v45;
+              v83 = v37;
+              v84 = 2080;
+              v85 = v45;
               _os_log_error_impl(&dword_255783000, v43, OS_LOG_TYPE_ERROR, "Unable to set %s: %s", buf, 0x16u);
             }
           }
         }
 
-        v29 = [v27 countByEnumeratingWithState:&v74 objects:v89 count:16];
+        v29 = [v27 countByEnumeratingWithState:&v73 objects:v88 count:16];
       }
 
       while (v29);
     }
 
-    v20 = v63;
-    v19 = v64;
-    if (((a2 ^ 1 | a1 | v62) & 1) == 0)
+    v20 = v62;
+    v19 = v63;
+    if (((a2 ^ 1 | a1 | v61) & 1) == 0)
     {
       v46 = oslog;
       if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
@@ -585,7 +582,7 @@ LABEL_24:
           v48 = __error();
           v49 = strerror(*v48);
           *buf = 136315138;
-          v84 = v49;
+          v83 = v49;
           _os_log_impl(&dword_255783000, v47, OS_LOG_TYPE_DEFAULT, "Error while trying to reset freezer state: %s", buf, 0xCu);
         }
       }
@@ -597,10 +594,10 @@ LABEL_24:
       }
     }
 
-    v50 = v80;
-    v51 = v69;
+    v50 = v79;
+    v51 = v68;
     *buf = v50;
-    v52 = v68;
+    v52 = v67;
     v53 = v52;
     if (v52)
     {
@@ -613,7 +610,7 @@ LABEL_24:
       }
     }
 
-    v5 = v65;
+    v5 = v64;
     if (v51)
     {
       v57 = [v51 UTF8String];
@@ -631,16 +628,15 @@ LABEL_24:
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v84 = v53;
-      v85 = 2112;
-      v86 = v51;
-      v87 = 1024;
-      v88 = v80;
+      v83 = v53;
+      v84 = 2112;
+      v85 = v51;
+      v86 = 1024;
+      v87 = v79;
       _os_log_impl(&dword_255783000, oslog, OS_LOG_TYPE_DEFAULT, "Set trial treatment information. %@ %@ %d", buf, 0x1Cu);
     }
   }
 
-  v60 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
@@ -652,20 +648,18 @@ void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, uint64_t a3, const char *a4)
 
 void UpdatePrewarmingDefault_cold_1(os_log_t log)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 67109120;
-  v2[1] = 2;
-  _os_log_fault_impl(&dword_255783000, log, OS_LOG_TYPE_FAULT, "UpdatePrewarmingDefault: All %d attempts of setting default failed", v2, 8u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 67109120;
+  v1[1] = 2;
+  _os_log_fault_impl(&dword_255783000, log, OS_LOG_TYPE_FAULT, "UpdatePrewarmingDefault: All %d attempts of setting default failed", v1, 8u);
 }
 
 void UpdatePrewarmingDefault_cold_2(os_log_t log)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 67109120;
-  v2[1] = 2;
-  _os_log_fault_impl(&dword_255783000, log, OS_LOG_TYPE_FAULT, "UpdatePrewarmingDefault: All %d attempts at removing the default failed", v2, 8u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 67109120;
+  v1[1] = 2;
+  _os_log_fault_impl(&dword_255783000, log, OS_LOG_TYPE_FAULT, "UpdatePrewarmingDefault: All %d attempts at removing the default failed", v1, 8u);
 }
 
 void KRExperimentsUpdateExperimentState_cold_1()

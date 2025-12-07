@@ -5,11 +5,16 @@
 + (unsigned)sampleRateValueFromEnum:(int)enum;
 - (ACCPlatformDigitalAudioManager)init;
 - (BOOL)newAudioPropertyNotification;
+- (BOOL)setDigitalAudioEndpointUUID:(id)d withSupportedSampleRates:(unsigned int)rates;
 - (id)supportedSampleRatesList;
+- (unsigned)convertToSupportedSampleRate:(unsigned int)rate;
 - (unsigned)currentSampleRate;
 - (void)dealloc;
 - (void)startAudioPropertyNotifications;
 - (void)stopAudioPropertyNotifications;
+- (void)updateSampleRate:(unsigned int)rate;
+- (void)updateSoundCheck:(unsigned int)check;
+- (void)updateVolumeLevel:(unsigned int)level;
 @end
 
 @implementation ACCPlatformDigitalAudioManager
@@ -193,6 +198,53 @@ void __44__ACCPlatformDigitalAudioManager_getManager__block_invoke(id a1)
   [(ACCPlatformDigitalAudioManager *)&v2 dealloc];
 }
 
+- (BOOL)setDigitalAudioEndpointUUID:(id)d withSupportedSampleRates:(unsigned int)rates
+{
+  if (d)
+  {
+    v5 = *&rates;
+    [(ACCPlatformDigitalAudioManager *)self setDigAudEndpointUUID:d];
+    [(ACCPlatformDigitalAudioManager *)self setDigAudSampleMask:v5];
+    if (gLogObjects)
+    {
+      v7 = gNumLogObjects < 8;
+    }
+
+    else
+    {
+      v7 = 1;
+    }
+
+    if (v7)
+    {
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        platform_connectionInfo_configStreamGetCategories_cold_2();
+      }
+
+      v9 = &_os_log_default;
+      v8 = &_os_log_default;
+    }
+
+    else
+    {
+      v9 = *(gLogObjects + 56);
+    }
+
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    {
+      digAudEndpointUUID = [(ACCPlatformDigitalAudioManager *)self digAudEndpointUUID];
+      v12 = 138412546;
+      v13 = digAudEndpointUUID;
+      v14 = 1024;
+      digAudSampleMask = [(ACCPlatformDigitalAudioManager *)self digAudSampleMask];
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "[#DigitalAudio] digAudEndpointUUID: %@, digAudSampleMask: %u", &v12, 0x12u);
+    }
+  }
+
+  return d != 0;
+}
+
 - (void)startAudioPropertyNotifications
 {
   [(ACCPlatformDigitalAudioManager *)self setBDigAudSendNewProp:1];
@@ -313,6 +365,214 @@ void __44__ACCPlatformDigitalAudioManager_getManager__block_invoke(id a1)
   }
 
   return v3;
+}
+
+- (unsigned)convertToSupportedSampleRate:(unsigned int)rate
+{
+  v3 = *&rate;
+  if ([(ACCPlatformDigitalAudioManager *)self bDigAudIsActive])
+  {
+    v5 = [ACCPlatformDigitalAudioManager sampleRateMaskFromEnum:[ACCPlatformDigitalAudioManager sampleRateEnumFromValue:v3]];
+    v6 = v3;
+    if (([(ACCPlatformDigitalAudioManager *)self digAudSampleMask]& v5) == 0)
+    {
+      if (v5)
+      {
+        if ((v5 & 0x24) != 0)
+        {
+          v7 = 48000;
+        }
+
+        else
+        {
+          v7 = 0;
+        }
+
+        if ((v5 & 0x12) != 0)
+        {
+          v8 = 44100;
+        }
+
+        else
+        {
+          v8 = v7;
+        }
+
+        if ((v5 & 9) != 0)
+        {
+          v6 = 32000;
+        }
+
+        else
+        {
+          v6 = v8;
+        }
+      }
+
+      else
+      {
+        v13 = 0;
+        do
+        {
+          v6 = dword_1001C4060[v13];
+          v14 = [ACCPlatformDigitalAudioManager sampleRateMaskFromEnum:v13];
+          v15 = [(ACCPlatformDigitalAudioManager *)self digAudSampleMask]& v14;
+        }
+
+        while ((v6 < v3 || v15 == 0) && v13++ != 8);
+      }
+    }
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  if (gLogObjects)
+  {
+    v9 = gNumLogObjects < 8;
+  }
+
+  else
+  {
+    v9 = 1;
+  }
+
+  if (v9)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      platform_connectionInfo_configStreamGetCategories_cold_2();
+    }
+
+    v11 = &_os_log_default;
+    v10 = &_os_log_default;
+  }
+
+  else
+  {
+    v11 = *(gLogObjects + 56);
+  }
+
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  {
+    v18[0] = 67109376;
+    v18[1] = v3;
+    v19 = 1024;
+    v20 = v6;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "[#DigitalAudio] inputSampleRate: %d outputSampleRate: %d", v18, 0xEu);
+  }
+
+  return v6;
+}
+
+- (void)updateSampleRate:(unsigned int)rate
+{
+  v3 = *&rate;
+  if ([(ACCPlatformDigitalAudioManager *)self bDigAudIsActive])
+  {
+    v5 = [ACCPlatformDigitalAudioManager sampleRateEnumFromValue:v3];
+    if (v5 <= 8)
+    {
+      v6 = v5;
+      digAudSampleMask = [(ACCPlatformDigitalAudioManager *)self digAudSampleMask];
+      if (([ACCPlatformDigitalAudioManager sampleRateMaskFromEnum:v6]& digAudSampleMask) != 0 && ([(ACCPlatformDigitalAudioManager *)self digAudSampleEnum]!= v6 || [(ACCPlatformDigitalAudioManager *)self bDigAudSendNewProp]))
+      {
+        [(ACCPlatformDigitalAudioManager *)self setDigAudSampleEnum:v6];
+        if (gLogObjects && gNumLogObjects >= 8)
+        {
+          v8 = *(gLogObjects + 56);
+        }
+
+        else
+        {
+          if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+          {
+            platform_connectionInfo_configStreamGetCategories_cold_2();
+          }
+
+          v8 = &_os_log_default;
+          v9 = &_os_log_default;
+        }
+
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+        {
+          v10[0] = 67109120;
+          v10[1] = [(ACCPlatformDigitalAudioManager *)self digAudSampleEnum];
+          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "[#DigitalAudio] digAudSampleEnum: %d", v10, 8u);
+        }
+
+        [(ACCPlatformDigitalAudioManager *)self newAudioPropertyNotification];
+      }
+    }
+  }
+}
+
+- (void)updateVolumeLevel:(unsigned int)level
+{
+  v3 = *&level;
+  if ([(ACCPlatformDigitalAudioManager *)self bDigAudIsActive]&& ([(ACCPlatformDigitalAudioManager *)self digAudVolumeLevel]!= v3 || [(ACCPlatformDigitalAudioManager *)self bDigAudSendNewProp]))
+  {
+    [(ACCPlatformDigitalAudioManager *)self setDigAudVolumeLevel:v3];
+    if (gLogObjects && gNumLogObjects >= 8)
+    {
+      v5 = *(gLogObjects + 56);
+    }
+
+    else
+    {
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        platform_connectionInfo_configStreamGetCategories_cold_2();
+      }
+
+      v5 = &_os_log_default;
+      v6 = &_os_log_default;
+    }
+
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    {
+      v7[0] = 67109120;
+      v7[1] = [(ACCPlatformDigitalAudioManager *)self digAudVolumeLevel];
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "[#DigitalAudio] digAudVolumeLevel: %d", v7, 8u);
+    }
+
+    [(ACCPlatformDigitalAudioManager *)self newAudioPropertyNotification];
+  }
+}
+
+- (void)updateSoundCheck:(unsigned int)check
+{
+  v3 = *&check;
+  if ([(ACCPlatformDigitalAudioManager *)self bDigAudIsActive]&& ([(ACCPlatformDigitalAudioManager *)self digAudSoundCheck]!= v3 || [(ACCPlatformDigitalAudioManager *)self bDigAudSendNewProp]))
+  {
+    [(ACCPlatformDigitalAudioManager *)self setDigAudSoundCheck:v3];
+    if (gLogObjects && gNumLogObjects >= 8)
+    {
+      v5 = *(gLogObjects + 56);
+    }
+
+    else
+    {
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        platform_connectionInfo_configStreamGetCategories_cold_2();
+      }
+
+      v5 = &_os_log_default;
+      v6 = &_os_log_default;
+    }
+
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    {
+      v7[0] = 67109120;
+      v7[1] = [(ACCPlatformDigitalAudioManager *)self digAudSoundCheck];
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "[#DigitalAudio] digAudSoundCheck: %d", v7, 8u);
+    }
+
+    [(ACCPlatformDigitalAudioManager *)self newAudioPropertyNotification];
+  }
 }
 
 - (id)supportedSampleRatesList

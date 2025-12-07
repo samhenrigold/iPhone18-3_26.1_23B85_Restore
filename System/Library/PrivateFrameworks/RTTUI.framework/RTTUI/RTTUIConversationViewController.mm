@@ -1930,7 +1930,7 @@ BOOL __90__RTTUIConversationViewController__replaceServiceCellWithOldUpdate_with
     {
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        [RTTUIConversationViewController utteranceCellAtIndexPath:];
+        [(RTTUIConversationViewController *)pathCopy utteranceCellAtIndexPath:v6];
       }
     }
 
@@ -1968,7 +1968,7 @@ BOOL __90__RTTUIConversationViewController__replaceServiceCellWithOldUpdate_with
     {
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        [RTTUIConversationViewController serviceUpdateCellAtIndexPath:];
+        [(RTTUIConversationViewController *)pathCopy serviceUpdateCellAtIndexPath:v6];
       }
     }
 
@@ -2207,10 +2207,10 @@ LABEL_17:
   AXPerformBlockOnMainThread();
 }
 
-void __71__RTTUIConversationViewController_deviceDidReceiveString_forUtterance___block_invoke(uint64_t a1, void *a2)
+void __71__RTTUIConversationViewController_deviceDidReceiveString_forUtterance___block_invoke(uint64_t a1, void *a2, char a3)
 {
-  v3 = a2;
-  v2 = v3;
+  v4 = a2;
+  v3 = v4;
   AXPerformBlockAsynchronouslyOnMainThread();
 }
 
@@ -2785,33 +2785,34 @@ LABEL_12:
   v11 = v10;
   v13 = v12;
 
-  v60.origin.x = v7;
-  v60.origin.y = v9;
-  v60.size.width = v11;
-  v60.size.height = v13;
-  MinY = CGRectGetMinY(v60);
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
+  v61.origin.x = v7;
+  v61.origin.y = v9;
+  v61.size.width = v11;
+  v61.size.height = v13;
+  MinY = CGRectGetMinY(v61);
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
   v15 = getAXUIKeyboardIsOnScreenSymbolLoc_ptr;
-  v59 = getAXUIKeyboardIsOnScreenSymbolLoc_ptr;
+  v60 = getAXUIKeyboardIsOnScreenSymbolLoc_ptr;
   if (!getAXUIKeyboardIsOnScreenSymbolLoc_ptr)
   {
-    v55[0] = MEMORY[0x277D85DD0];
-    v55[1] = 3221225472;
-    v55[2] = __getAXUIKeyboardIsOnScreenSymbolLoc_block_invoke;
-    v55[3] = &unk_279AE4F10;
-    v55[4] = &v56;
-    __getAXUIKeyboardIsOnScreenSymbolLoc_block_invoke(v55);
-    v15 = v57[3];
+    v56[0] = MEMORY[0x277D85DD0];
+    v56[1] = 3221225472;
+    v56[2] = __getAXUIKeyboardIsOnScreenSymbolLoc_block_invoke;
+    v56[3] = &unk_279AE4F10;
+    v56[4] = &v57;
+    __getAXUIKeyboardIsOnScreenSymbolLoc_block_invoke(v56);
+    v15 = v58[3];
   }
 
-  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v57, 8);
   if (!v15)
   {
-    v53 = [RTTUIConversationControllerCoordinator registerForCallUpdates:];
-    _Block_object_dispose(&v56, 8);
-    _Unwind_Resume(v53);
+    [RTTUIConversationControllerCoordinator registerForCallUpdates:];
+    v54 = v53;
+    _Block_object_dispose(&v57, 8);
+    _Unwind_Resume(v54);
   }
 
   if (!v15() || v13 == 0.0 || ([(RTTUITextView *)self->_textView isFirstResponder]& 1) == 0)
@@ -2835,7 +2836,7 @@ LABEL_12:
     windowScene = [window2 windowScene];
     statusBarManager = [windowScene statusBarManager];
     [statusBarManager statusBarFrame];
-    CGRectGetHeight(v61);
+    CGRectGetHeight(v62);
   }
 
   v30 = +[RTTUIUtilities sharedUtilityProvider];
@@ -2849,7 +2850,7 @@ LABEL_12:
   v38 = [v35 utteranceWithContactPath:currentContactPath andText:textViewUtterance];
   view4 = [(RTTUIConversationViewController *)self view];
   [view4 bounds];
-  [RTTUIUtteranceCell heightForUtterance:v38 andWidth:CGRectGetWidth(v62) + 20.0];
+  [RTTUIUtteranceCell heightForUtterance:v38 andWidth:CGRectGetWidth(v63) + 20.0];
   v41 = v34 + v32 + v40;
 
   if (soft_AXProcessIsRTTNotificationContentExtension())
@@ -2869,16 +2870,16 @@ LABEL_12:
     v44 = MinY - (v41 + v47 + 5.0);
   }
 
-  v54[0] = MEMORY[0x277D85DD0];
-  v54[1] = 3221225472;
-  v54[2] = __63__RTTUIConversationViewController_updateTableViewSizeAnimated___block_invoke;
-  v54[3] = &unk_279AE5150;
-  v54[4] = self;
-  v54[5] = v23;
-  *&v54[6] = v44;
-  *&v54[7] = v25;
-  *&v54[8] = v41;
-  v48 = MEMORY[0x26670A470](v54);
+  v55[0] = MEMORY[0x277D85DD0];
+  v55[1] = 3221225472;
+  v55[2] = __63__RTTUIConversationViewController_updateTableViewSizeAnimated___block_invoke;
+  v55[3] = &unk_279AE5150;
+  v55[4] = self;
+  v55[5] = v23;
+  *&v55[6] = v44;
+  *&v55[7] = v25;
+  *&v55[8] = v41;
+  v48 = MEMORY[0x26670A470](v55);
   v49 = v48;
   if (animatedCopy)
   {
@@ -3989,18 +3990,18 @@ uint64_t __43__RTTUIConversationViewController__define___block_invoke(uint64_t a
   return MEMORY[0x2821F96F8]();
 }
 
-- (void)utteranceCellAtIndexPath:.cold.1()
+- (void)utteranceCellAtIndexPath:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_0(v0);
-  OUTLINED_FUNCTION_1(&dword_261725000, v2, v3, "Wrong cell type found at index path: %@. Expected update cell, got %@", v4, v5, v6, v7, v8);
+  v2 = objc_opt_class();
+  v3 = OUTLINED_FUNCTION_0(v2);
+  OUTLINED_FUNCTION_1(&dword_261725000, v4, v5, "Wrong cell type found at index path: %@. Expected update cell, got %@", v6, v7, v8, v9);
 }
 
-- (void)serviceUpdateCellAtIndexPath:.cold.1()
+- (void)serviceUpdateCellAtIndexPath:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_0(v0);
-  OUTLINED_FUNCTION_1(&dword_261725000, v2, v3, "Wrong cell type found at index path: %@. Expected service cell, got %@", v4, v5, v6, v7, v8);
+  v2 = objc_opt_class();
+  v3 = OUTLINED_FUNCTION_0(v2);
+  OUTLINED_FUNCTION_1(&dword_261725000, v4, v5, "Wrong cell type found at index path: %@. Expected service cell, got %@", v6, v7, v8, v9);
 }
 
 @end

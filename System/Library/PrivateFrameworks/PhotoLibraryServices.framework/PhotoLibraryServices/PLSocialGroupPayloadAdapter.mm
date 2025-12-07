@@ -35,7 +35,7 @@
       v8 = v6;
       [keysCopy enumerateObjectsUsingBlock:&v13];
       v9 = [PLSocialGroupJournalEntryPayload alloc];
-      if ([v7 count])
+      if (objc_msgSend_count(v7, v13, v14, v15, v16))
       {
         v10 = v7;
       }

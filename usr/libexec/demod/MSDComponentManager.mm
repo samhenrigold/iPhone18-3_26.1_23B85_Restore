@@ -9,7 +9,9 @@
 - (void)_handleCompleteComponent:(id)component;
 - (void)_handleNewOperationStagedForComponent:(id)component;
 - (void)_handleRetryComponent:(id)component forComponent:(id)forComponent;
+- (void)_postCompletionNotificationWithResult:(BOOL)result andError:(id)error;
 - (void)_setupInterComponentDependencyOnRetry:(BOOL)retry;
+- (void)_startProcessingComponentsOnRetry:(BOOL)retry;
 - (void)abortProcessing;
 - (void)pauseProcessing;
 - (void)resumeProcessing;
@@ -22,9 +24,9 @@
 {
   componentsCopy = components;
   processorCopy = processor;
-  v30.receiver = self;
-  v30.super_class = MSDComponentManager;
-  v8 = [(MSDComponentManager *)&v30 init];
+  v31.receiver = self;
+  v31.super_class = MSDComponentManager;
+  v8 = [(MSDComponentManager *)&v31 init];
   if (v8)
   {
     v9 = [[NSMutableArray alloc] initWithCapacity:0];
@@ -39,27 +41,27 @@
     v12 = [componentsCopy mutableCopy];
     [(MSDComponentManager *)v8 setPendingComponents:v12];
 
-    v28 = 0u;
     v29 = 0u;
-    v26 = 0u;
+    v30 = 0u;
     v27 = 0u;
+    v28 = 0u;
     reverseObjectEnumerator = [componentsCopy reverseObjectEnumerator];
-    v14 = [reverseObjectEnumerator countByEnumeratingWithState:&v26 objects:v31 count:16];
+    v14 = [reverseObjectEnumerator countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v27;
+      v16 = *v28;
       do
       {
         v17 = 0;
         do
         {
-          if (*v27 != v16)
+          if (*v28 != v16)
           {
             objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          createRemovableCounterpartComponent = [*(*(&v26 + 1) + 8 * v17) createRemovableCounterpartComponent];
+          createRemovableCounterpartComponent = [*(*(&v27 + 1) + 8 * v17) createRemovableCounterpartComponent];
           if (createRemovableCounterpartComponent)
           {
             removableComponents = [(MSDComponentManager *)v8 removableComponents];
@@ -70,7 +72,7 @@
         }
 
         while (v15 != v17);
-        v15 = [reverseObjectEnumerator countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v15 = [reverseObjectEnumerator countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v15);
@@ -80,22 +82,22 @@
     [(MSDComponentManager *)v8 setComponentListLock:0];
     if (os_variant_has_internal_content() && (+[MSDTestPreferences sharedInstance](MSDTestPreferences, "sharedInstance"), v20 = objc_claimAutoreleasedReturnValue(), v21 = [v20 disableParallelProcessing], v20, v21))
     {
-      v22 = sub_100063A54();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v23 = sub_100063A54(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        *v25 = 0;
-        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Disabling parallel processing as requested.", v25, 2u);
+        *v26 = 0;
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Disabling parallel processing as requested.", v26, 2u);
       }
 
-      v23 = 0;
+      v24 = 0;
     }
 
     else
     {
-      v23 = 1;
+      v24 = 1;
     }
 
-    [(MSDComponentManager *)v8 setParallelProcessing:v23];
+    [(MSDComponentManager *)v8 setParallelProcessing:v24];
   }
 
   return v8;
@@ -103,7 +105,7 @@
 
 - (void)startProcessingAllComponents
 {
-  v3 = sub_100063A54();
+  v3 = sub_100063A54(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315138;
@@ -124,23 +126,23 @@
 {
   dateCopy = date;
   v7 = dispatch_semaphore_create(0);
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x3032000000;
-  v35 = sub_100009A80;
-  v36 = sub_100009A90;
-  v37 = 0;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x2020000000;
-  v31 = 0;
-  v8 = sub_100063A54();
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = sub_100009A80;
+  v38 = sub_100009A90;
+  v39 = 0;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x2020000000;
+  v33 = 0;
+  v8 = sub_100063A54(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v39 = "[MSDComponentManager waitForProcessingCompletionTillDate:outError:]";
-    v40 = 2114;
-    v41 = dateCopy;
+    v41 = "[MSDComponentManager waitForProcessingCompletionTillDate:outError:]";
+    v42 = 2114;
+    v43 = dateCopy;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%s: entered with deadline %{public}@", buf, 0x16u);
   }
 
@@ -149,42 +151,43 @@
 
   if (!v10)
   {
-    v11 = +[NSNotificationCenter defaultCenter];
-    v12 = +[NSOperationQueue mainQueue];
-    v24[0] = _NSConcreteStackBlock;
-    v24[1] = 3221225472;
-    v24[2] = sub_100009A98;
-    v24[3] = &unk_100169D80;
-    v26 = &v28;
-    v27 = &v32;
-    v13 = v7;
-    v25 = v13;
-    v14 = [v11 addObserverForName:@"MSDComponentManagerComplete" object:0 queue:v12 usingBlock:v24];
+    v12 = +[NSNotificationCenter defaultCenter];
+    v13 = +[NSOperationQueue mainQueue];
+    v26[0] = _NSConcreteStackBlock;
+    v26[1] = 3221225472;
+    v26[2] = sub_100009A98;
+    v26[3] = &unk_100169D80;
+    v28 = &v30;
+    v29 = &v34;
+    v14 = v7;
+    v27 = v14;
+    v15 = [v12 addObserverForName:@"MSDComponentManagerComplete" object:0 queue:v13 usingBlock:v26];
 
     if (dateCopy)
     {
       [dateCopy timeIntervalSinceNow];
-      v16 = dispatch_time(0, (v15 * 1000000000.0));
-      if (dispatch_semaphore_wait(v13, v16))
+      v17 = dispatch_time(0, (v16 * 1000000000.0));
+      _cancelAllOperations = dispatch_semaphore_wait(v14, v17);
+      if (_cancelAllOperations)
       {
-        v17 = sub_100063A54();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v19 = sub_100063A54(_cancelAllOperations);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Timed out waiting for processing of all components to complete.", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Timed out waiting for processing of all components to complete.", buf, 2u);
         }
 
-        v18 = [NSError errorDomainMSDWithCode:3727741184 message:@"Cannot finish update within given time."];
-        v19 = v33[5];
-        v33[5] = v18;
+        v20 = [NSError errorDomainMSDWithCode:3727741184 message:@"Cannot finish update within given time."];
+        v21 = v35[5];
+        v35[5] = v20;
 
-        [(MSDComponentManager *)self _cancelAllOperations];
+        _cancelAllOperations = [(MSDComponentManager *)self _cancelAllOperations];
       }
 
       if (!error)
       {
 LABEL_10:
-        if (!v14)
+        if (!v15)
         {
           goto LABEL_18;
         }
@@ -195,55 +198,56 @@ LABEL_10:
 
     else
     {
-      dispatch_semaphore_wait(v13, 0xFFFFFFFFFFFFFFFFLL);
+      _cancelAllOperations = dispatch_semaphore_wait(v14, 0xFFFFFFFFFFFFFFFFLL);
       if (!error)
       {
         goto LABEL_10;
       }
     }
 
-    *error = v33[5];
-    if (!v14)
+    _cancelAllOperations = v35[5];
+    *error = _cancelAllOperations;
+    if (!v15)
     {
 LABEL_18:
-      v22 = sub_100063A54();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v24 = sub_100063A54(_cancelAllOperations);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v39 = "[MSDComponentManager waitForProcessingCompletionTillDate:outError:]";
-        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%s: will return.", buf, 0xCu);
+        v41 = "[MSDComponentManager waitForProcessingCompletionTillDate:outError:]";
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "%s: will return.", buf, 0xCu);
       }
 
-      v20 = *(v29 + 24);
+      v22 = *(v31 + 24);
       goto LABEL_21;
     }
 
 LABEL_17:
-    v21 = +[NSNotificationCenter defaultCenter];
-    [v21 removeObserver:v14];
+    v23 = +[NSNotificationCenter defaultCenter];
+    [v23 removeObserver:v15];
 
     goto LABEL_18;
   }
 
-  v14 = sub_100063A54();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = sub_100063A54(v11);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "No more active component to process.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "No more active component to process.", buf, 2u);
   }
 
-  v20 = 1;
+  v22 = 1;
 LABEL_21:
 
-  _Block_object_dispose(&v28, 8);
-  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v34, 8);
 
-  return v20 & 1;
+  return v22 & 1;
 }
 
 - (void)pauseProcessing
 {
-  v3 = sub_100063A54();
+  v3 = sub_100063A54(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315138;
@@ -257,7 +261,7 @@ LABEL_21:
 
 - (void)resumeProcessing
 {
-  v3 = sub_100063A54();
+  v3 = sub_100063A54(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315138;
@@ -272,7 +276,7 @@ LABEL_21:
 - (void)abortProcessing
 {
   v3 = [NSError errorDomainMSDWithCode:3727741185 message:@"Operation canceled."];
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315138;
@@ -282,6 +286,47 @@ LABEL_21:
 
   [(MSDComponentManager *)self _cancelAllOperations];
   [(MSDComponentManager *)self _postCompletionNotificationWithResult:0 andError:v3];
+}
+
+- (void)_startProcessingComponentsOnRetry:(BOOL)retry
+{
+  [(MSDComponentManager *)self _setupInterComponentDependencyOnRetry:retry];
+  if ([(MSDComponentManager *)self parallelProcessing])
+  {
+    v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
+    activeComponents = [(MSDComponentManager *)self activeComponents];
+    v5 = [activeComponents countByEnumeratingWithState:&v9 objects:v13 count:16];
+    if (v5)
+    {
+      v6 = v5;
+      v7 = *v10;
+      do
+      {
+        for (i = 0; i != v6; i = i + 1)
+        {
+          if (*v10 != v7)
+          {
+            objc_enumerationMutation(activeComponents);
+          }
+
+          [(MSDComponentManager *)self _dispatchComponent:*(*(&v9 + 1) + 8 * i)];
+        }
+
+        v6 = [activeComponents countByEnumeratingWithState:&v9 objects:v13 count:16];
+      }
+
+      while (v6);
+    }
+  }
+
+  else
+  {
+
+    [(MSDComponentManager *)self _dispatchNextComponent];
+  }
 }
 
 - (void)_cancelAllOperations
@@ -311,17 +356,34 @@ LABEL_21:
 
   if (firstObject)
   {
-    v5 = sub_100063A54();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100063A54(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       name = [firstObject name];
-      v7 = 138543362;
-      v8 = name;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Dispatching component %{public}@ ...", &v7, 0xCu);
+      v8 = 138543362;
+      v9 = name;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Dispatching component %{public}@ ...", &v8, 0xCu);
     }
 
     [(MSDComponentManager *)self _dispatchComponent:firstObject];
   }
+}
+
+- (void)_postCompletionNotificationWithResult:(BOOL)result andError:(id)error
+{
+  resultCopy = result;
+  errorCopy = error;
+  v5 = [NSMutableDictionary dictionaryWithCapacity:2];
+  v6 = [NSNumber numberWithBool:resultCopy];
+  [v5 setObject:v6 forKey:@"Result"];
+
+  if (errorCopy)
+  {
+    [v5 setObject:errorCopy forKey:@"Error"];
+  }
+
+  v7 = +[NSNotificationCenter defaultCenter];
+  [v7 postNotificationName:@"MSDComponentManagerComplete" object:0 userInfo:v5];
 }
 
 - (void)_dispatchComponent:(id)component
@@ -335,7 +397,7 @@ LABEL_21:
 - (void)_handleNewOperationStagedForComponent:(id)component
 {
   componentCopy = component;
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(componentCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138543362;
@@ -350,12 +412,12 @@ LABEL_21:
 - (void)_handleCompleteComponent:(id)component
 {
   componentCopy = component;
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(componentCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 138543362;
-    v22 = componentCopy;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "All operations complete for component: %{public}@", &v21, 0xCu);
+    v23 = 138543362;
+    v24 = componentCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "All operations complete for component: %{public}@", &v23, 0xCu);
   }
 
   os_unfair_lock_lock(&self->_componentListLock);
@@ -380,11 +442,11 @@ LABEL_21:
 
   if (v10)
   {
-    v11 = sub_100063A54();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100063A54(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v21) = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Processing retryable components...", &v21, 2u);
+      LOWORD(v23) = 0;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Processing retryable components...", &v23, 2u);
     }
 
     activeComponents3 = [(MSDComponentManager *)self activeComponents];
@@ -395,35 +457,35 @@ LABEL_21:
     [retryableComponents3 removeAllObjects];
 
     selfCopy2 = self;
-    v16 = 1;
+    v17 = 1;
 LABEL_14:
-    [(MSDComponentManager *)selfCopy2 _startProcessingComponentsOnRetry:v16];
+    [(MSDComponentManager *)selfCopy2 _startProcessingComponentsOnRetry:v17];
     goto LABEL_15;
   }
 
   pendingComponents = [(MSDComponentManager *)self pendingComponents];
-  v18 = [pendingComponents count];
+  v19 = [pendingComponents count];
 
-  v19 = sub_100063A54();
-  v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
-  if (v18)
+  v21 = sub_100063A54(v20);
+  v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+  if (v19)
   {
-    if (v20)
+    if (v22)
     {
-      LOWORD(v21) = 0;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Processing pending components...", &v21, 2u);
+      LOWORD(v23) = 0;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Processing pending components...", &v23, 2u);
     }
 
     [(MSDComponentManager *)self _enforceFreeDiskSpaceRequirement];
     selfCopy2 = self;
-    v16 = 0;
+    v17 = 0;
     goto LABEL_14;
   }
 
-  if (v20)
+  if (v22)
   {
-    LOWORD(v21) = 0;
-    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "All components complete!", &v21, 2u);
+    LOWORD(v23) = 0;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "All components complete!", &v23, 2u);
   }
 
   [(MSDComponentManager *)self _postCompletionNotificationWithResult:1 andError:0];
@@ -435,7 +497,7 @@ LABEL_15:
 {
   componentCopy = component;
   forComponentCopy = forComponent;
-  v8 = sub_100063A54();
+  v8 = sub_100063A54(forComponentCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_1000C5C34(componentCopy, v8);
@@ -456,64 +518,64 @@ LABEL_15:
   getFreeSpace = [v4 getFreeSpace];
 
   v6 = [(MSDComponentManager *)self _calculateFreeSpaceToReserve:getFreeSpace];
-  v7 = sub_100063A54();
+  v7 = sub_100063A54(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v38 = v6;
+    v41 = v6;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Trying to enforce free disk space requirement:  %{iec-bytes}llu", buf, 0xCu);
   }
 
   *&v8 = 138543362;
-  v31 = v8;
+  v34 = v8;
   selfCopy = self;
   while (1)
   {
-    v35 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     v36 = 0u;
-    v33 = 0u;
-    v34 = 0u;
+    v37 = 0u;
     pendingComponents = [(MSDComponentManager *)self pendingComponents];
-    v10 = [pendingComponents countByEnumeratingWithState:&v33 objects:v43 count:16];
+    v10 = [pendingComponents countByEnumeratingWithState:&v36 objects:v46 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v34;
+      v12 = *v37;
       while (2)
       {
         v13 = 0;
         v14 = getFreeSpace;
         do
         {
-          if (*v34 != v12)
+          if (*v37 != v12)
           {
             objc_enumerationMutation(pendingComponents);
           }
 
-          v15 = *(*(&v33 + 1) + 8 * v13);
+          v15 = *(*(&v36 + 1) + 8 * v13);
           diskSpaceRequired = [v15 diskSpaceRequired];
-          v17 = sub_100063A54();
+          v17 = sub_100063A54(diskSpaceRequired);
           if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543874;
-            v38 = v15;
-            v39 = 2048;
-            v40 = diskSpaceRequired;
-            v41 = 2048;
-            v42 = v14;
+            v41 = v15;
+            v42 = 2048;
+            v43 = diskSpaceRequired;
+            v44 = 2048;
+            v45 = v14;
             _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: Free space needed=%{iec-bytes}llu, Free space left=%{iec-bytes}llu", buf, 0x20u);
           }
 
-          v18 = v14 >= diskSpaceRequired;
+          v19 = v14 >= diskSpaceRequired;
           getFreeSpace = (v14 - diskSpaceRequired);
-          if (getFreeSpace == 0 || !v18 || getFreeSpace <= v6)
+          if (getFreeSpace == 0 || !v19 || getFreeSpace <= v6)
           {
-            v19 = sub_100063A54();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+            v20 = sub_100063A54(v18);
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
             {
-              *buf = v31;
-              v38 = v15;
-              _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%{public}@: Not enough free space left for this component.", buf, 0xCu);
+              *buf = v34;
+              v41 = v15;
+              _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%{public}@: Not enough free space left for this component.", buf, 0xCu);
             }
 
             getFreeSpace = v14;
@@ -527,7 +589,7 @@ LABEL_15:
         }
 
         while (v11 != v13);
-        v11 = [pendingComponents countByEnumeratingWithState:&v33 objects:v43 count:16];
+        v11 = [pendingComponents countByEnumeratingWithState:&v36 objects:v46 count:16];
         self = selfCopy;
         if (v11)
         {
@@ -561,11 +623,11 @@ LABEL_20:
     pendingComponents3 = [(MSDComponentManager *)self pendingComponents];
     firstObject = [pendingComponents3 firstObject];
 
-    removableComponents2 = sub_100063A54();
-    v25 = os_log_type_enabled(removableComponents2, OS_LOG_TYPE_DEFAULT);
+    removableComponents2 = sub_100063A54(v26);
+    v28 = os_log_type_enabled(removableComponents2, OS_LOG_TYPE_DEFAULT);
     if (!firstObject)
     {
-      if (v25)
+      if (v28)
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, removableComponents2, OS_LOG_TYPE_DEFAULT, "No more pending component to discard.", buf, 2u);
@@ -574,10 +636,10 @@ LABEL_20:
       goto LABEL_32;
     }
 
-    if (v25)
+    if (v28)
     {
-      *buf = v31;
-      v38 = firstObject;
+      *buf = v34;
+      v41 = firstObject;
       _os_log_impl(&_mh_execute_header, removableComponents2, OS_LOG_TYPE_DEFAULT, "Discarding one pending component due to insufficient disk space: %{public}@", buf, 0xCu);
     }
 
@@ -590,12 +652,12 @@ LABEL_20:
     [firstObject discardStagedOperationsAndTriggerCompletion];
   }
 
-  v29 = sub_100063A54();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+  v32 = sub_100063A54(v23);
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
   {
-    *buf = v31;
-    v38 = pendingComponents2;
-    _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Removing existing component to free up disk space: %{public}@", buf, 0xCu);
+    *buf = v34;
+    v41 = pendingComponents2;
+    _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Removing existing component to free up disk space: %{public}@", buf, 0xCu);
   }
 
   activeComponents3 = [(MSDComponentManager *)self activeComponents];
@@ -620,7 +682,7 @@ LABEL_33:
 
   else
   {
-    v8 = sub_100063A54();
+    v8 = sub_100063A54(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       sub_1000C5CAC(v8);

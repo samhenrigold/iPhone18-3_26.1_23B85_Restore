@@ -130,23 +130,23 @@
   if ([(NTKPageViewAccessibility *)self _axAllowsDelete])
   {
     v5 = [UIAccessibilityCustomAction alloc];
-    v7 = accessibilityLocalizedString(@"delete.page", v6);
-    v8 = [v5 initWithName:v7 target:self selector:"_axHandleDelete"];
+    v6 = accessibilityLocalizedString(@"delete.page");
+    v7 = [v5 initWithName:v6 target:self selector:"_axHandleDelete"];
 
-    v9 = [UIImage systemImageNamed:@"trash.fill"];
-    [v8 setImage:v9];
+    v8 = [UIImage systemImageNamed:@"trash.fill"];
+    [v7 setImage:v8];
 
     if (v4)
     {
-      v10 = [v4 arrayByAddingObject:v8];
+      v9 = [v4 arrayByAddingObject:v7];
 
-      v4 = v10;
+      v4 = v9;
     }
 
     else
     {
-      v12 = v8;
-      v4 = [NSArray arrayWithObjects:&v12 count:1];
+      v11 = v7;
+      v4 = [NSArray arrayWithObjects:&v11 count:1];
     }
   }
 

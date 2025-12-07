@@ -306,8 +306,30 @@ void sub_2E58(uint64_t a1)
   v9 = [v4 showAlertWithText:v5 subtitleText:v6 iconImage:0 type:3 priority:30 duration:v8 userInfo:v7 forService:*(a1 + 32)];
 }
 
-void sub_31AC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_31AC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
+}
+
+void sub_3220(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_31AC(&dword_0, a2, a3, "Error starting phoenix gesture detector: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_328C(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_31AC(&dword_0, a2, a3, "Error stopping phoenix gesture detector: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_32F8(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_31AC(&dword_0, a2, a3, "Phoenix gesture detector failed: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }

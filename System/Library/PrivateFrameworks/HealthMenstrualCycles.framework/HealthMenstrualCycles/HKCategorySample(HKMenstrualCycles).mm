@@ -27,17 +27,17 @@
 
 + (id)hkmc_categorySampleWithMenstrualFlow:()HKMenstrualCycles date:startOfCycle:
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   v8 = a4;
   v9 = HKMCCategoryValueVaginalBleedingFromBleedingFlow(a3);
   if (v9)
   {
     v11 = v9;
     hkmc_defaultMetadata = [self hkmc_defaultMetadata];
-    v19 = *MEMORY[0x277CCC4F0];
+    v18 = *MEMORY[0x277CCC4F0];
     v13 = [MEMORY[0x277CCABB0] numberWithBool:a5];
-    v20[0] = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v19[0] = v13;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     v15 = [hkmc_defaultMetadata hk_dictionaryByAddingEntriesFromDictionary:v14];
 
     menstrualFlowType = [MEMORY[0x277CCD0C0] menstrualFlowType];
@@ -49,14 +49,12 @@
     v10 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 + (id)hkmc_categorySampleWithBleedingFlow:()HKMenstrualCycles forBleedingType:date:startOfCycle:
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   v10 = a5;
   switch(a4)
   {
@@ -84,10 +82,10 @@ LABEL_10:
   {
     v17 = v15;
     hkmc_defaultMetadata = [self hkmc_defaultMetadata];
-    v24 = *MEMORY[0x277CCC4F0];
+    v23 = *MEMORY[0x277CCC4F0];
     v19 = [MEMORY[0x277CCABB0] numberWithBool:a6];
-    v25[0] = v19;
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+    v24[0] = v19;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
     v21 = [hkmc_defaultMetadata hk_dictionaryByAddingEntriesFromDictionary:v20];
 
     v16 = [self categorySampleWithType:v14 value:v17 startDate:v10 endDate:v10 metadata:v21];
@@ -97,8 +95,6 @@ LABEL_10:
   {
     v16 = 0;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -185,7 +181,7 @@ LABEL_10:
 
 + (id)hkmc_categorySampleWithSexualActivity:()HKMenstrualCycles date:
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   if (!a3)
   {
     v11 = 0;
@@ -196,21 +192,21 @@ LABEL_10:
   hkmc_defaultMetadata = [self hkmc_defaultMetadata];
   if (a3 == 3)
   {
-    v17 = *MEMORY[0x277CCC508];
-    v18 = MEMORY[0x277CBEC28];
+    v16 = *MEMORY[0x277CCC508];
+    v17 = MEMORY[0x277CBEC28];
     v8 = MEMORY[0x277CBEAC0];
-    v9 = &v18;
-    v10 = &v17;
+    v9 = &v17;
+    v10 = &v16;
     goto LABEL_7;
   }
 
   if (a3 == 1)
   {
-    v19 = *MEMORY[0x277CCC508];
-    v20[0] = MEMORY[0x277CBEC38];
+    v18 = *MEMORY[0x277CCC508];
+    v19[0] = MEMORY[0x277CBEC38];
     v8 = MEMORY[0x277CBEAC0];
-    v9 = v20;
-    v10 = &v19;
+    v9 = v19;
+    v10 = &v18;
 LABEL_7:
     v12 = [v8 dictionaryWithObjects:v9 forKeys:v10 count:1];
     v13 = [hkmc_defaultMetadata hk_dictionaryByAddingEntriesFromDictionary:v12];
@@ -222,7 +218,6 @@ LABEL_7:
   v11 = [self categorySampleWithType:v14 value:0 startDate:v6 endDate:v6 metadata:hkmc_defaultMetadata];
 
 LABEL_9:
-  v15 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

@@ -28,23 +28,23 @@
   return v2;
 }
 
-void __37__ATXHomeScreenSuggestionSender_init__block_invoke()
+void __37__ATXHomeScreenSuggestionSender_init__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = __atxlog_handle_home_screen();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = __atxlog_handle_home_screen(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_2263AA000, v0, OS_LOG_TYPE_DEFAULT, "ATXHomeScreenSuggestionSender: XPC connection interrupted.", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_2263AA000, v2, OS_LOG_TYPE_DEFAULT, "ATXHomeScreenSuggestionSender: XPC connection interrupted.", v3, 2u);
   }
 }
 
-void __37__ATXHomeScreenSuggestionSender_init__block_invoke_12()
+void __37__ATXHomeScreenSuggestionSender_init__block_invoke_12(uint64_t a1, uint64_t a2)
 {
-  v0 = __atxlog_handle_home_screen();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = __atxlog_handle_home_screen(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_2263AA000, v0, OS_LOG_TYPE_DEFAULT, "ATXHomeScreenSuggestionSender: XPC connection invalidated.", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_2263AA000, v2, OS_LOG_TYPE_DEFAULT, "ATXHomeScreenSuggestionSender: XPC connection invalidated.", v3, 2u);
   }
 }
 

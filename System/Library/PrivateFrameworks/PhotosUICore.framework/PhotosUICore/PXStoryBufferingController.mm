@@ -89,7 +89,7 @@
     self->_lastNoncriticalBufferingDurationStore.previousDuration = 0.0;
     self->_lastNoncriticalBufferingDurationStore.currentStartTime = 0;
     self->_lastNoncriticalBufferingDurationStore.currentStartTime = mach_absolute_time();
-    objc_initWeak(&buf, self);
+    objc_initWeak(buf, self);
     [(PXStoryBufferingController *)self noncriticalBufferingTimeout];
     v8 = dispatch_time(0, (v7 * 1000000000.0));
     storyQueue = [(PXStoryController *)self storyQueue];
@@ -97,11 +97,11 @@
     block[1] = 3221225472;
     block[2] = __56__PXStoryBufferingController_setOverallReadinessStatus___block_invoke_3;
     block[3] = &unk_1E774C318;
-    objc_copyWeak(&v12, &buf);
+    objc_copyWeak(&v12, buf);
     dispatch_after(v8, storyQueue, block);
 
     objc_destroyWeak(&v12);
-    objc_destroyWeak(&buf);
+    objc_destroyWeak(buf);
   }
 
   else if (v6[2](v6, 2))
@@ -371,11 +371,11 @@ void __52__PXStoryBufferingController__updateModelProperties__block_invoke(uint6
   [(PXStoryController *)self performChanges:v5];
 }
 
-uint64_t __48__PXStoryBufferingController_handleModelChange___block_invoke(uint64_t result)
+id *__48__PXStoryBufferingController_handleModelChange___block_invoke(id *result)
 {
-  if ((*(result + 40) & 0x201004A2) != 0)
+  if ((result[5] & 0x201004A2) != 0)
   {
-    return [*(result + 32) _invalidateOverallReadinessStatus];
+    return [result[4] _invalidateOverallReadinessStatus];
   }
 
   return result;

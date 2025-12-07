@@ -13,7 +13,7 @@
 
 - (void)im_setProperty:()IMAdditions forBodyKey:
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   v8 = [v6 conformsToProtocol:&unk_1F54E01E8];
@@ -28,17 +28,15 @@
     v10 = _IMStoreLogCategoryDefault();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138412546;
-      v13 = im_jsonSerializableValue;
-      v14 = 2112;
-      v15 = v7;
-      _os_log_impl(&dword_1D8CEC000, v10, OS_LOG_TYPE_ERROR, "The property %@ for key %@ isn't JSON serializable", &v12, 0x16u);
+      v11 = 138412546;
+      v12 = im_jsonSerializableValue;
+      v13 = 2112;
+      v14 = v7;
+      _os_log_impl(&dword_1D8CEC000, v10, OS_LOG_TYPE_ERROR, "The property %@ for key %@ isn't JSON serializable", &v11, 0x16u);
     }
   }
 
   [self setProperty:im_jsonSerializableValue forBodyKey:v7];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

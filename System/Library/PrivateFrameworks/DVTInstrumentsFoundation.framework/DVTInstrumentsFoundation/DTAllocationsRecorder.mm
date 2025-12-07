@@ -1,4 +1,5 @@
 @interface DTAllocationsRecorder
++ (BOOL)configureLocalLaunchEnvironment:(id)environment recordedEventsMask:(unsigned int)mask;
 + (id)_libraryPath;
 + (unsigned)allEventsMask;
 - (BOOL)_startWithError:(id *)error;
@@ -11,6 +12,7 @@
 - (void)createFullEventFromDelta:(id *)delta withEvent:(id *)event;
 - (void)dealloc;
 - (void)processBufferMessage:(id)message;
+- (void)startAttachingToTask:(unsigned int)task recordedEventsMask:(unsigned int)mask errorHandler:(id)handler;
 @end
 
 @implementation DTAllocationsRecorder
@@ -151,13 +153,86 @@
   return v5;
 }
 
++ (BOOL)configureLocalLaunchEnvironment:(id)environment recordedEventsMask:(unsigned int)mask
+{
+  v4 = *&mask;
+  v30 = *MEMORY[0x277D85DE8];
+  environmentCopy = environment;
+  [environmentCopy setObject:@"YES" forKey:@"OAKeepAllocationStatistics"];
+  v6 = [MEMORY[0x277CCABB0] numberWithInt:getpid()];
+  stringValue = [v6 stringValue];
+  [environmentCopy setObject:stringValue forKeyedSubscript:@"OAWaitForSetupByPid"];
+
+  v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"0x%x", v4];
+  [environmentCopy setObject:v8 forKeyedSubscript:@"OAAllocationStatisticsOutputMask"];
+
+  v9 = [environmentCopy objectForKeyedSubscript:@"NSZombieEnabled"];
+  LODWORD(stringValue) = [v9 BOOLValue];
+
+  if (stringValue)
+  {
+    LODWORD(v4) = +[DTAllocationsRecorder zombieEventsMask]| v4;
+  }
+
+  if ((+[DTAllocationsRecorder zombieEventsMask]& v4) != 0)
+  {
+    [environmentCopy setObject:@"YES" forKeyedSubscript:@"NSZombieEnabled"];
+  }
+
+  [environmentCopy removeObjectForKey:@"MallocStackLogging"];
+  [environmentCopy removeObjectForKey:@"MallocStackLoggingNoCompact"];
+  _libraryPath = [self _libraryPath];
+  v22 = [environmentCopy objectForKeyedSubscript:@"DYLD_INSERT_LIBRARIES"];
+  v23 = [v22 componentsSeparatedByString:@":"];
+  array = [MEMORY[0x277CBEB18] array];
+  v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v12 = v23;
+  v13 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  if (v13)
+  {
+    v14 = *v26;
+    do
+    {
+      for (i = 0; i != v13; ++i)
+      {
+        if (*v26 != v14)
+        {
+          objc_enumerationMutation(v12);
+        }
+
+        v16 = *(*(&v25 + 1) + 8 * i);
+        lastPathComponent = [v16 lastPathComponent];
+        lastPathComponent2 = [_libraryPath lastPathComponent];
+        v19 = [lastPathComponent isEqualToString:lastPathComponent2];
+
+        if ((v19 & 1) == 0)
+        {
+          [array addObject:v16];
+        }
+      }
+
+      v13 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    }
+
+    while (v13);
+  }
+
+  [array addObject:_libraryPath];
+  v20 = [array componentsJoinedByString:@":"];
+  [environmentCopy setObject:v20 forKeyedSubscript:@"DYLD_INSERT_LIBRARIES"];
+
+  return 1;
+}
+
 - (unint64_t)_setupSharedMemoryInTask:(unsigned int)task
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   if (self->_shmem)
   {
-    v3 = 0;
-    goto LABEL_32;
+    return 0;
   }
 
   self->_targetTask = task;
@@ -178,7 +253,7 @@
 LABEL_31:
     v3 = 0;
     self->_shmem = 0;
-    goto LABEL_32;
+    return v3;
   }
 
   v9 = v8;
@@ -218,19 +293,19 @@ LABEL_26:
     goto LABEL_31;
   }
 
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2020000000;
-  v29 = 0;
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v23 = sub_247FEE3B0;
-  v24 = &unk_278EF4080;
-  v25 = &v26;
-  v12 = v22;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 0;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v22 = sub_247FEE3B0;
+  v23 = &unk_278EF4080;
+  v24 = &v25;
+  v12 = v21;
   if (mach_task_is_self(v11))
   {
-    v23(v12, v9);
+    v22(v12, v9);
   }
 
   else
@@ -244,11 +319,11 @@ LABEL_26:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 134218496;
-        v33 = v9;
-        v34 = 1024;
-        v35 = v11;
-        v36 = 1024;
-        v37 = v14;
+        v32 = v9;
+        v33 = 1024;
+        v34 = v11;
+        v35 = 1024;
+        v36 = v14;
         _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to map memory for address: %#llx in task: 0x%x (%d)\n", buf, 0x18u);
       }
 
@@ -262,11 +337,11 @@ LABEL_26:
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
           *buf = 134218496;
-          v33 = v9;
-          v34 = 1024;
-          v35 = v11;
-          v36 = 1024;
-          v37 = cur_protection[1];
+          v32 = v9;
+          v33 = 1024;
+          v34 = v11;
+          v35 = 1024;
+          v36 = cur_protection[1];
           _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to map memory r/w for address: %#llx in task: 0x%x (%d)\n", buf, 0x18u);
         }
 
@@ -276,15 +351,15 @@ LABEL_26:
       v15 = target_address;
     }
 
-    v23(v12, v15);
+    v22(v12, v15);
     mach_vm_deallocate(*v10, v15, 0x50uLL);
   }
 
-  v16 = v27[3];
+  v16 = v26[3];
   if (!v16)
   {
 LABEL_25:
-    _Block_object_dispose(&v26, 8);
+    _Block_object_dispose(&v25, 8);
     goto LABEL_26;
   }
 
@@ -296,11 +371,11 @@ LABEL_25:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 134218496;
-      v33 = v9;
-      v34 = 1024;
-      v35 = v11;
-      v36 = 1024;
-      v37 = v17;
+      v32 = v9;
+      v33 = 1024;
+      v34 = v11;
+      v35 = 1024;
+      v36 = v17;
       _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to map memory for address: %#llx in task: 0x%x (%d)\n", buf, 0x18u);
     }
 
@@ -312,11 +387,11 @@ LABEL_25:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 134218496;
-      v33 = v9;
-      v34 = 1024;
-      v35 = v11;
-      v36 = 1024;
-      v37 = cur_protection[1];
+      v32 = v9;
+      v33 = 1024;
+      v34 = v11;
+      v35 = 1024;
+      v36 = cur_protection[1];
       _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to map memory r/w for address: %#llx in task: 0x%x (%d)\n", buf, 0x18u);
     }
 
@@ -324,15 +399,159 @@ LABEL_25:
   }
 
   v3 = target_address;
-  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v25, 8);
   if (!v3)
   {
     goto LABEL_26;
   }
 
-LABEL_32:
-  v20 = *MEMORY[0x277D85DE8];
   return v3;
+}
+
+- (void)startAttachingToTask:(unsigned int)task recordedEventsMask:(unsigned int)mask errorHandler:(id)handler
+{
+  v5 = *&mask;
+  v6 = *&task;
+  handlerCopy = handler;
+  v9 = handlerCopy;
+  if ((v6 - 1) < 0xFFFFFFFE)
+  {
+    x = -1;
+    if (pid_for_task(v6, &x))
+    {
+      if (v9)
+      {
+        v10 = sub_247FEC9A4(@"Unable to determine pid for task");
+        (v9)[2](v9, v10);
+LABEL_21:
+
+        goto LABEL_22;
+      }
+
+      goto LABEL_22;
+    }
+
+    v11 = [(DTAllocationsRecorder *)self _setupSharedMemoryInTask:v6];
+    if (!v11)
+    {
+      if (v9)
+      {
+        v10 = sub_247FEC9A4(@"Couldn't map shared memory into target process");
+        (v9)[2](v9, v10);
+        goto LABEL_21;
+      }
+
+      goto LABEL_22;
+    }
+
+    v10 = objc_opt_new();
+    v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%#llx", v11];
+    [v10 addObject:v12];
+
+    v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v5];
+    stringValue = [v13 stringValue];
+    [v10 addObject:stringValue];
+
+    v15 = [[RemoteBundleLoader alloc] initWithTask:v6];
+    if (v15)
+    {
+      v16 = +[DTAllocationsRecorder _libraryPath];
+      v37[0] = MEMORY[0x277D85DD0];
+      v37[1] = 3221225472;
+      v37[2] = sub_247FECA9C;
+      v37[3] = &unk_278EF3F18;
+      v17 = v9;
+      v38 = v17;
+      [(RemoteBundleLoader *)v15 scheduleLibraryLoad:v16 calling:@"_OAAttachAndInitialize" arguments:v10 callback:v37];
+
+      v36 = 0;
+      v18 = [(DTAllocationsRecorder *)self _startWithError:&v36];
+      v19 = v36;
+      if (v18)
+      {
+        v35[0] = 0;
+        v35[1] = v35;
+        v35[2] = 0x2020000000;
+        v35[3] = 0;
+        v28[0] = MEMORY[0x277D85DD0];
+        v28[1] = 3221225472;
+        v29 = sub_247FECB10;
+        v30 = &unk_278EF3F68;
+        v34 = v6;
+        v32 = v35;
+        v33 = v11;
+        v31 = v17;
+        v20 = v28;
+        v49 = 0;
+        v50 = &v49;
+        v51 = 0x3032000000;
+        v52 = sub_247FEE3C8;
+        v53 = sub_247FEE3F4;
+        v54 = 0;
+        aBlock[0] = MEMORY[0x277D85DD0];
+        aBlock[1] = 3221225472;
+        aBlock[2] = sub_247FEE3FC;
+        aBlock[3] = &unk_278EF40A8;
+        v21 = v20;
+        v47 = v21;
+        v48 = &v49;
+        v22 = _Block_copy(aBlock);
+        v23 = v50[5];
+        v50[5] = v22;
+
+        v40 = MEMORY[0x277D85DD0];
+        v41 = 3221225472;
+        v42 = sub_247FEE44C;
+        v43 = &unk_278EF40D0;
+        v44 = &v49;
+        v45 = "liboainject.dylib";
+        v24 = CSSymbolicatorCreateWithTaskFlagsAndNotification();
+        v26 = v25;
+        if (CSIsNull())
+        {
+          v29(v21, 0, 0);
+        }
+
+        _Block_object_dispose(&v49, 8);
+
+        self->_trackingSymbolicator._opaque_1 = v24;
+        self->_trackingSymbolicator._opaque_2 = v26;
+
+        _Block_object_dispose(v35, 8);
+      }
+
+      else
+      {
+        (*(v17 + 2))(v17, v19);
+      }
+
+      v27 = v38;
+    }
+
+    else
+    {
+      if (!v9)
+      {
+LABEL_20:
+
+        goto LABEL_21;
+      }
+
+      v27 = sub_247FEC9A4(@"Unable to instantiate loader for target.");
+      (v9)[2](v9, v27);
+    }
+
+    goto LABEL_20;
+  }
+
+  if (handlerCopy)
+  {
+    v10 = sub_247FEC9A4(@"Instruments could not acquire the necessary privileges to profile the target application.");
+    (v9)[2](v9, v10);
+    goto LABEL_21;
+  }
+
+LABEL_22:
 }
 
 - (BOOL)_startWithError:(id *)error
@@ -440,7 +659,7 @@ LABEL_19:
       v12 = malloc_type_calloc(1uLL, 0x1010uLL, 0x10000408E8BD56EuLL);
       v21 = var1_low;
       v22[0] = v12;
-      sub_247FEE8B4(v20, &v21);
+      sub_247FEE8B4(v20, &v21, &v21);
     }
   }
 
@@ -453,10 +672,10 @@ LABEL_9:
     v12 = malloc_type_calloc(1uLL, 0x1010uLL, 0x10000408E8BD56EuLL);
     v21 = var1_low;
     v22[0] = v12;
-    sub_247FEE8B4(&v23, &v21);
+    sub_247FEE8B4(&v23, &v21, &v21);
     v21 = frame->var5;
     sub_247FEE52C(v22, &v23);
-    sub_247FEE988(&p_end_node[-1], &v21);
+    sub_247FEE988(&p_end_node[-1], &v21, &v21);
     sub_247FEE84C(v22, v22[1]);
     sub_247FEE84C(&v23, v24[0]);
   }
@@ -574,33 +793,34 @@ LABEL_9:
   v63 = *MEMORY[0x277D85DE8];
   v36 = objc_autoreleasePoolPush();
   bufferHandler = [(DTAllocationsRecorder *)self bufferHandler];
-  if ([(DTAllocationsRecorder *)self readStackLogsUponAttach])
+  readStackLogsUponAttach = [(DTAllocationsRecorder *)self readStackLogsUponAttach];
+  if (readStackLogsUponAttach)
   {
     targetTask = self->_targetTask;
     if (targetTask + 1 >= 2)
     {
-      MEMORY[0x28223BE20]();
+      MEMORY[0x28223BE20](readStackLogsUponAttach);
       bzero(v35, 0x1030uLL);
       suspend_token[0] = 0;
       task_suspend2(targetTask, suspend_token);
-      v4 = self->_targetTask;
+      v5 = self->_targetTask;
       v52[0] = MEMORY[0x277D85DD0];
       v52[1] = 3221225472;
       v52[2] = sub_247FEDF98;
       v52[3] = &unk_278EF3FE0;
       v54 = v35;
       v53 = bufferHandler;
-      v5 = v52;
-      v6 = [objc_alloc(MEMORY[0x277D6AFA0]) initWithTask:v4];
+      v6 = v52;
+      v7 = [objc_alloc(MEMORY[0x277D6AFA0]) initWithTask:v5];
       v57 = MEMORY[0x277D85DD0];
       v58 = 3221225472;
       v59 = sub_247FEE8A0;
       v60 = &unk_278EF40F8;
-      v7 = v5;
-      v61 = v6;
-      v62 = v7;
       v8 = v6;
-      [v8 enumerateMSLRecordsAndPayloads:&v57];
+      v61 = v7;
+      v62 = v8;
+      v9 = v7;
+      [v9 enumerateMSLRecordsAndPayloads:&v57];
 
       task_resume2(suspend_token[0]);
     }
@@ -783,7 +1003,6 @@ LABEL_50:
 
   _Block_object_dispose(&v57, 8);
   objc_autoreleasePoolPop(v36);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id).cxx_construct

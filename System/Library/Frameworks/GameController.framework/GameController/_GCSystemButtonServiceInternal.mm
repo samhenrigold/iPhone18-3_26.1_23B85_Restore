@@ -74,7 +74,7 @@
 
 - (void)_invalidate
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v2 = _os_activity_create(&dword_1D2CD5000, "[GCSystemButtonService] Invalidate", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
@@ -84,30 +84,30 @@
     [*(self + 16) invalidate];
     v3 = *(self + 8);
     objc_sync_enter(v3);
+    v8 = 0u;
     v9 = 0u;
     v10 = 0u;
     v11 = 0u;
-    v12 = 0u;
     v4 = *(self + 8);
-    v5 = [v4 countByEnumeratingWithState:&v9 objects:v14 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v8 objects:v13 count:16];
     if (v5)
     {
-      v6 = *v10;
+      v6 = *v9;
       do
       {
         v7 = 0;
         do
         {
-          if (*v10 != v6)
+          if (*v9 != v6)
           {
             objc_enumerationMutation(v4);
           }
 
-          [*(*(&v9 + 1) + 8 * v7++) removeObserver:self forKeyPath:@"invalid" context:{0, v9}];
+          [*(*(&v8 + 1) + 8 * v7++) removeObserver:self forKeyPath:@"invalid" context:{0, v8}];
         }
 
         while (v5 != v7);
-        v5 = [v4 countByEnumeratingWithState:&v9 objects:v14 count:16];
+        v5 = [v4 countByEnumeratingWithState:&v8 objects:v13 count:16];
       }
 
       while (v5);
@@ -118,25 +118,21 @@
 
     os_activity_scope_leave(&state);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_applyLatestConsumerStatus
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v4 = _gc_log_system_button();
+  v9 = *MEMORY[0x1E69E9840];
+  v4 = _gc_log_system_button(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v8 = 138412290;
-    v9 = a2;
-    _os_log_impl(&dword_1D2CD5000, v4, OS_LOG_TYPE_INFO, "Informing server that client wants presses for %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = a2;
+    _os_log_impl(&dword_1D2CD5000, v4, OS_LOG_TYPE_INFO, "Informing server that client wants presses for %@", &v7, 0xCu);
   }
 
   remoteProxy = [*(self + 16) remoteProxy];
   [remoteProxy setConsumesSystemButtonPressEvents:1 reason:objc_getProperty(a2 atMaximumPriority:{v6, 24, 1), a2[4]}];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_buttonConsumerInvalidated:(uint64_t)invalidated
@@ -144,26 +140,28 @@
   v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
-  if (invalidated && [v3 isInvalid])
+  if (invalidated)
   {
-    v5 = _gc_log_system_button();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    isInvalid = [v3 isInvalid];
+    if (isInvalid)
     {
-      v8 = 138412290;
-      v9 = v4;
-      _os_log_impl(&dword_1D2CD5000, v5, OS_LOG_TYPE_INFO, "End consuming presses for %@", &v8, 0xCu);
+      v6 = _gc_log_system_button(isInvalid);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+      {
+        v8 = 138412290;
+        v9 = v4;
+        _os_log_impl(&dword_1D2CD5000, v6, OS_LOG_TYPE_INFO, "End consuming presses for %@", &v8, 0xCu);
+      }
+
+      [v4 removeObserver:invalidated forKeyPath:@"invalid" context:0];
+      v7 = *(invalidated + 8);
+      objc_sync_enter(v7);
+      [*(invalidated + 8) removeObject:v4];
+      objc_sync_exit(v7);
+
+      [(_GCSystemButtonServiceInternal *)invalidated _applyLatestConsumerStatus];
     }
-
-    [v4 removeObserver:invalidated forKeyPath:@"invalid" context:0];
-    v6 = *(invalidated + 8);
-    objc_sync_enter(v6);
-    [*(invalidated + 8) removeObject:v4];
-    objc_sync_exit(v6);
-
-    [(_GCSystemButtonServiceInternal *)invalidated _applyLatestConsumerStatus];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSystemButtonAvailable:(BOOL)available localizedName:(id)name sfSymbolName:(id)symbolName
@@ -173,15 +171,15 @@
   nameCopy = name;
   symbolNameCopy = symbolName;
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
-  v10 = _gc_log_system_button();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v11 = _gc_log_system_button(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     available = self->_available;
     v16[0] = 67109376;
     v16[1] = available;
     v17 = 1024;
     v18 = availableCopy;
-    _os_log_impl(&dword_1D2CD5000, v10, OS_LOG_TYPE_INFO, "Reported availability changed: %{BOOL}d -> %{BOOL}d", v16, 0xEu);
+    _os_log_impl(&dword_1D2CD5000, v11, OS_LOG_TYPE_INFO, "Reported availability changed: %{BOOL}d -> %{BOOL}d", v16, 0xEu);
   }
 
   [(_GCSystemButtonServiceInternal *)self willChangeValueForKey:@"available"];
@@ -190,7 +188,7 @@
   self->_available = availableCopy;
   localizedName = self->_localizedName;
   self->_localizedName = nameCopy;
-  v13 = nameCopy;
+  v14 = nameCopy;
 
   sfSymbolName = self->_sfSymbolName;
   self->_sfSymbolName = symbolNameCopy;
@@ -198,25 +196,24 @@
   [(_GCSystemButtonServiceInternal *)self didChangeValueForKey:@"localizedName"];
   [(_GCSystemButtonServiceInternal *)self didChangeValueForKey:@"sfSymbolName"];
   [(_GCSystemButtonServiceInternal *)self didChangeValueForKey:@"available"];
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setActiveClientsRespondingToSystemButton:(id)button
 {
   buttonCopy = button;
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
-  v5 = _gc_log_system_button();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = _gc_log_system_button(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_1D2CD5000, v5, OS_LOG_TYPE_INFO, "Clients handling system button changed", v8, 2u);
+    *v9 = 0;
+    _os_log_impl(&dword_1D2CD5000, v6, OS_LOG_TYPE_INFO, "Clients handling system button changed", v9, 2u);
   }
 
   [(_GCSystemButtonServiceInternal *)self willChangeValueForKey:@"respondingProcessBundleIdentifiers"];
-  v6 = [buttonCopy copy];
+  v7 = [buttonCopy copy];
 
   respondingProcessBundleIdentifiers = self->_respondingProcessBundleIdentifiers;
-  self->_respondingProcessBundleIdentifiers = v6;
+  self->_respondingProcessBundleIdentifiers = v7;
 
   [(_GCSystemButtonServiceInternal *)self didChangeValueForKey:@"respondingProcessBundleIdentifiers"];
 }
@@ -224,9 +221,9 @@
 - (void)consumeSystemButtonPressEventAtPriority:(int64_t)priority
 {
   v4 = _os_activity_create(&dword_1D2CD5000, "[GCSystemButtonService] Consume Button Press", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-  v10.opaque[0] = 0;
-  v10.opaque[1] = 0;
-  os_activity_scope_enter(v4, &v10);
+  v11.opaque[0] = 0;
+  v11.opaque[1] = 0;
+  os_activity_scope_enter(v4, &v11);
   v5 = MEMORY[0x1E69E96A0];
   v6 = MEMORY[0x1E69E96A0];
   dispatch_assert_queue_V2(v5);
@@ -236,14 +233,14 @@
   lastObject = [(NSMutableArray *)self->_consumers lastObject];
   objc_sync_exit(v7);
 
-  v9 = _gc_log_system_button();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = _gc_log_system_button(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    [(_GCSystemButtonServiceInternal *)lastObject consumeSystemButtonPressEventAtPriority:v9];
+    [(_GCSystemButtonServiceInternal *)lastObject consumeSystemButtonPressEventAtPriority:v10];
   }
 
   [(_GCSystemButtonConsumer *)lastObject consumeSystemButtonPressEvent];
-  os_activity_scope_leave(&v10);
+  os_activity_scope_leave(&v11);
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -266,7 +263,7 @@
 
 - (id)beginConsumingPressesWithReason:(id)reason consumer:(id)consumer priority:(int64_t)priority
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   consumerCopy = consumer;
   v11 = consumerCopy;
@@ -309,11 +306,11 @@ LABEL_11:
 
 LABEL_4:
   v12 = [[_GCSystemButtonConsumer alloc] initWithEventConsumer:v11 reason:reasonCopy priority:priority];
-  v13 = _gc_log_system_button();
+  v13 = _gc_log_system_button(v12);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v21 = v12;
+    v20 = v12;
     _os_log_impl(&dword_1D2CD5000, v13, OS_LOG_TYPE_INFO, "Begin consuming presses for %@", buf, 0xCu);
   }
 
@@ -325,18 +322,16 @@ LABEL_4:
   objc_sync_exit(v14);
 
   [(_GCSystemButtonServiceInternal *)self _applyLatestConsumerStatus];
-  v15 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 - (void)consumeSystemButtonPressEventAtPriority:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1D2CD5000, a2, OS_LOG_TYPE_DEBUG, "Send press to %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1D2CD5000, a2, OS_LOG_TYPE_DEBUG, "Send press to %@", &v2, 0xCu);
 }
 
 @end

@@ -16,7 +16,7 @@
 
 + (id)columns
 {
-  v14[9] = *MEMORY[0x1E69E9840];
+  v13[9] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"portType" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"focusRegionType" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:4 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"topLeftCornerRow" dataType:0 requestOnly:0 fieldNumber:3 protoDataType:4 convertedType:0];
@@ -26,18 +26,16 @@
   v8 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"luxLevel" dataType:0 requestOnly:0 fieldNumber:7 protoDataType:4 convertedType:0];
   v9 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"subjectDistance" dataType:1 requestOnly:0 fieldNumber:8 protoDataType:1 convertedType:0];
   v10 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"clientApplicationIDType" dataType:0 requestOnly:0 fieldNumber:9 protoDataType:4 convertedType:0];
-  v14[0] = v2;
-  v14[1] = v3;
-  v14[2] = v4;
-  v14[3] = v5;
-  v14[4] = v6;
-  v14[5] = v7;
-  v14[6] = v8;
-  v14[7] = v9;
-  v14[8] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:9];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v13[0] = v2;
+  v13[1] = v3;
+  v13[2] = v4;
+  v13[3] = v5;
+  v13[4] = v6;
+  v13[5] = v7;
+  v13[6] = v8;
+  v13[7] = v9;
+  v13[8] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:9];
 
   return v11;
 }
@@ -109,7 +107,7 @@ LABEL_41:
 
 - (id)jsonDictionary
 {
-  v36[9] = *MEMORY[0x1E69E9840];
+  v35[9] = *MEMORY[0x1E69E9840];
   portType = [(BMCameraCaptureAutoFocusROI *)self portType];
   v4 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMCameraCaptureAutoFocusROI focusRegionType](self, "focusRegionType")}];
   if ([(BMCameraCaptureAutoFocusROI *)self hasTopLeftCornerRow])
@@ -144,22 +142,22 @@ LABEL_41:
 
   if ([(BMCameraCaptureAutoFocusROI *)self hasHeight])
   {
-    v34 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[BMCameraCaptureAutoFocusROI height](self, "height")}];
-  }
-
-  else
-  {
-    v34 = 0;
-  }
-
-  if ([(BMCameraCaptureAutoFocusROI *)self hasLuxLevel])
-  {
-    v33 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[BMCameraCaptureAutoFocusROI luxLevel](self, "luxLevel")}];
+    v33 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[BMCameraCaptureAutoFocusROI height](self, "height")}];
   }
 
   else
   {
     v33 = 0;
+  }
+
+  if ([(BMCameraCaptureAutoFocusROI *)self hasLuxLevel])
+  {
+    v32 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[BMCameraCaptureAutoFocusROI luxLevel](self, "luxLevel")}];
+  }
+
+  else
+  {
+    v32 = 0;
   }
 
   if (![(BMCameraCaptureAutoFocusROI *)self hasSubjectDistance]|| ([(BMCameraCaptureAutoFocusROI *)self subjectDistance], fabs(v8) == INFINITY))
@@ -176,88 +174,88 @@ LABEL_41:
   }
 
   v11 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMCameraCaptureAutoFocusROI clientApplicationIDType](self, "clientApplicationIDType")}];
-  v35[0] = @"portType";
+  v34[0] = @"portType";
   null = portType;
   if (!portType)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29 = null;
-  v36[0] = null;
-  v35[1] = @"focusRegionType";
+  v28 = null;
+  v35[0] = null;
+  v34[1] = @"focusRegionType";
   null2 = v4;
   if (!v4)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v28 = null2;
-  v36[1] = null2;
-  v35[2] = @"topLeftCornerRow";
+  v27 = null2;
+  v35[1] = null2;
+  v34[2] = @"topLeftCornerRow";
   null3 = v5;
   if (!v5)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v32 = portType;
-  v27 = null3;
-  v36[2] = null3;
-  v35[3] = @"topLeftCornerColumn";
+  v31 = portType;
+  v26 = null3;
+  v35[2] = null3;
+  v34[3] = @"topLeftCornerColumn";
   null4 = v6;
   if (!v6)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v31 = v4;
-  v26 = null4;
-  v36[3] = null4;
-  v35[4] = @"width";
+  v30 = v4;
+  v25 = null4;
+  v35[3] = null4;
+  v34[4] = @"width";
   null5 = v7;
   if (!v7)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30 = v5;
-  v36[4] = null5;
-  v35[5] = @"height";
-  null6 = v34;
-  if (!v34)
+  v29 = v5;
+  v35[4] = null5;
+  v34[5] = @"height";
+  null6 = v33;
+  if (!v33)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
   v18 = v6;
-  v36[5] = null6;
-  v35[6] = @"luxLevel";
-  null7 = v33;
-  if (!v33)
+  v35[5] = null6;
+  v34[6] = @"luxLevel";
+  null7 = v32;
+  if (!v32)
   {
     null7 = [MEMORY[0x1E695DFB0] null];
   }
 
   v20 = v7;
-  v36[6] = null7;
-  v35[7] = @"subjectDistance";
+  v35[6] = null7;
+  v34[7] = @"subjectDistance";
   null8 = v10;
   if (!v10)
   {
     null8 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v36[7] = null8;
-  v35[8] = @"clientApplicationIDType";
+  v35[7] = null8;
+  v34[8] = @"clientApplicationIDType";
   null9 = v11;
   if (!v11)
   {
     null9 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v36[8] = null9;
-  v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:9];
+  v35[8] = null9;
+  v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:9];
   if (v11)
   {
     if (v10)
@@ -276,11 +274,11 @@ LABEL_41:
   }
 
 LABEL_40:
-  if (!v33)
+  if (!v32)
   {
   }
 
-  if (!v34)
+  if (!v33)
   {
   }
 
@@ -292,16 +290,16 @@ LABEL_40:
   {
   }
 
-  if (v30)
+  if (v29)
   {
-    if (v31)
+    if (v30)
     {
       goto LABEL_50;
     }
 
 LABEL_57:
 
-    if (v32)
+    if (v31)
     {
       goto LABEL_51;
     }
@@ -309,13 +307,13 @@ LABEL_57:
     goto LABEL_58;
   }
 
-  if (!v31)
+  if (!v30)
   {
     goto LABEL_57;
   }
 
 LABEL_50:
-  if (v32)
+  if (v31)
   {
     goto LABEL_51;
   }
@@ -323,14 +321,13 @@ LABEL_50:
 LABEL_58:
 
 LABEL_51:
-  v24 = *MEMORY[0x1E69E9840];
 
   return v23;
 }
 
 - (BMCameraCaptureAutoFocusROI)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v115[1] = *MEMORY[0x1E69E9840];
+  v114[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"portType"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -361,10 +358,10 @@ LABEL_4:
           errorCopy = error;
           v60 = objc_alloc(MEMORY[0x1E696ABC0]);
           v61 = *MEMORY[0x1E698F240];
-          v112 = *MEMORY[0x1E696A578];
+          v111 = *MEMORY[0x1E696A578];
           v34 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"focusRegionType"];
-          v113 = v34;
-          v62 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v113 forKeys:&v112 count:1];
+          v112 = v34;
+          v62 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v112 forKeys:&v111 count:1];
           v63 = v61;
           v16 = v62;
           v64 = [v60 initWithDomain:v63 code:2 userInfo:v62];
@@ -400,18 +397,18 @@ LABEL_78:
           goto LABEL_79;
         }
 
-        v97 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v96 = objc_alloc(MEMORY[0x1E696ABC0]);
         v28 = *MEMORY[0x1E698F240];
-        v110 = *MEMORY[0x1E696A578];
+        v109 = *MEMORY[0x1E696A578];
         v29 = v10;
         v30 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v76 = objc_opt_class();
+        v75 = objc_opt_class();
         v31 = v30;
         v10 = v29;
-        v95 = [v31 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v76, @"topLeftCornerRow"];
-        v111 = v95;
-        v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v111 forKeys:&v110 count:1];
-        v33 = [v97 initWithDomain:v28 code:2 userInfo:v32];
+        v94 = [v31 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v75, @"topLeftCornerRow"];
+        v110 = v94;
+        v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v110 forKeys:&v109 count:1];
+        v33 = [v96 initWithDomain:v28 code:2 userInfo:v32];
         v34 = 0;
         error = 0;
         *errorCopy2 = v33;
@@ -420,20 +417,20 @@ LABEL_77:
         goto LABEL_78;
       }
 
-      v96 = v8;
+      v95 = v8;
       selfCopy2 = self;
-      v94 = v16;
+      v93 = v16;
     }
 
     else
     {
-      v96 = v8;
+      v95 = v8;
       selfCopy2 = self;
-      v94 = 0;
+      v93 = 0;
     }
 
     v18 = [dictionaryCopy objectForKeyedSubscript:@"topLeftCornerColumn"];
-    v90 = v16;
+    v89 = v16;
     if (v18 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -441,99 +438,99 @@ LABEL_77:
       {
         if (!error)
         {
-          v95 = 0;
-          v34 = v94;
+          v94 = 0;
+          v34 = v93;
           v32 = v18;
           self = selfCopy2;
-          v8 = v96;
+          v8 = v95;
           goto LABEL_77;
         }
 
         v35 = objc_alloc(MEMORY[0x1E696ABC0]);
         v36 = *MEMORY[0x1E698F240];
-        v108 = *MEMORY[0x1E696A578];
+        v107 = *MEMORY[0x1E696A578];
         v37 = v10;
         v38 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v77 = objc_opt_class();
+        v76 = objc_opt_class();
         v39 = v38;
         v10 = v37;
         v32 = v18;
-        v93 = [v39 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v77, @"topLeftCornerColumn"];
-        v109 = v93;
-        v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v109 forKeys:&v108 count:1];
+        v92 = [v39 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v76, @"topLeftCornerColumn"];
+        v108 = v92;
+        v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v108 forKeys:&v107 count:1];
         v41 = v36;
-        v16 = v90;
-        v91 = v40;
+        v16 = v89;
+        v90 = v40;
         v42 = [v35 initWithDomain:v41 code:2 userInfo:?];
-        v95 = 0;
+        v94 = 0;
         error = 0;
         *errorCopy2 = v42;
         goto LABEL_83;
       }
 
-      v85 = v18;
-      v95 = v18;
+      v84 = v18;
+      v94 = v18;
     }
 
     else
     {
-      v85 = v18;
-      v95 = 0;
+      v84 = v18;
+      v94 = 0;
     }
 
     v19 = [dictionaryCopy objectForKeyedSubscript:@"width"];
-    v91 = v19;
+    v90 = v19;
     if (!v19 || (v20 = v19, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v93 = 0;
+      v92 = 0;
 LABEL_25:
       v21 = [dictionaryCopy objectForKeyedSubscript:@"height"];
       self = selfCopy2;
-      v88 = v10;
-      if (v21 && (objc_opt_class(), v8 = v96, (objc_opt_isKindOfClass() & 1) == 0))
+      v87 = v10;
+      if (v21 && (objc_opt_class(), v8 = v95, (objc_opt_isKindOfClass() & 1) == 0))
       {
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           if (!error)
           {
-            v92 = 0;
+            v91 = 0;
             error = 0;
-            v32 = v85;
+            v32 = v84;
             goto LABEL_75;
           }
 
           v52 = objc_alloc(MEMORY[0x1E696ABC0]);
           v53 = *MEMORY[0x1E698F240];
-          v104 = *MEMORY[0x1E696A578];
+          v103 = *MEMORY[0x1E696A578];
           selfCopy3 = self;
           v55 = objc_alloc(MEMORY[0x1E696AEC0]);
-          v79 = objc_opt_class();
+          v78 = objc_opt_class();
           v56 = v55;
           self = selfCopy3;
-          v86 = [v56 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v79, @"height"];
-          v105 = v86;
-          v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v105 forKeys:&v104 count:1];
+          v85 = [v56 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v78, @"height"];
+          v104 = v85;
+          v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v104 forKeys:&v103 count:1];
           v57 = v52;
-          v16 = v90;
+          v16 = v89;
           v58 = v53;
-          v10 = v88;
-          v92 = 0;
+          v10 = v87;
+          v91 = 0;
           error = 0;
           *errorCopy2 = [v57 initWithDomain:v58 code:2 userInfo:v22];
           goto LABEL_73;
         }
 
-        v92 = v21;
+        v91 = v21;
       }
 
       else
       {
-        v92 = 0;
+        v91 = 0;
       }
 
       v22 = [dictionaryCopy objectForKeyedSubscript:@"luxLevel"];
-      v84 = v7;
+      v83 = v7;
       if (v22 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
       {
         objc_opt_class();
@@ -541,41 +538,41 @@ LABEL_25:
         {
           if (!error)
           {
-            v86 = 0;
+            v85 = 0;
             error = 0;
             goto LABEL_73;
           }
 
           selfCopy4 = self;
           v66 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v87 = *MEMORY[0x1E698F240];
-          v102 = *MEMORY[0x1E696A578];
+          v86 = *MEMORY[0x1E698F240];
+          v101 = *MEMORY[0x1E696A578];
           v25 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"luxLevel"];
-          v103 = v25;
-          v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v103 forKeys:&v102 count:1];
+          v102 = v25;
+          v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v102 forKeys:&v101 count:1];
           v67 = v66;
           self = selfCopy4;
-          v7 = v84;
-          v68 = [v67 initWithDomain:v87 code:2 userInfo:v23];
-          v86 = 0;
+          v7 = v83;
+          v68 = [v67 initWithDomain:v86 code:2 userInfo:v23];
+          v85 = 0;
           error = 0;
           *errorCopy2 = v68;
 LABEL_72:
 
-          v10 = v88;
-          v16 = v90;
+          v10 = v87;
+          v16 = v89;
 LABEL_73:
-          v32 = v85;
+          v32 = v84;
 
           goto LABEL_74;
         }
 
-        v86 = v22;
+        v85 = v22;
       }
 
       else
       {
-        v86 = 0;
+        v85 = 0;
       }
 
       v23 = [dictionaryCopy objectForKeyedSubscript:@"subjectDistance"];
@@ -592,13 +589,13 @@ LABEL_73:
           }
 
           errorCopy3 = self;
-          v82 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v81 = objc_alloc(MEMORY[0x1E696ABC0]);
           v69 = *MEMORY[0x1E698F240];
-          v100 = *MEMORY[0x1E696A578];
+          v99 = *MEMORY[0x1E696A578];
           v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"subjectDistance"];
-          v101 = v27;
-          v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v101 forKeys:&v100 count:1];
-          v70 = [v82 initWithDomain:v69 code:2 userInfo:v26];
+          v100 = v27;
+          v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v100 forKeys:&v99 count:1];
+          v70 = [v81 initWithDomain:v69 code:2 userInfo:v26];
           v25 = 0;
           error = 0;
           *errorCopy2 = v70;
@@ -631,13 +628,13 @@ LABEL_73:
           {
             if (error)
             {
-              v83 = objc_alloc(MEMORY[0x1E696ABC0]);
-              v81 = *MEMORY[0x1E698F240];
-              v98 = *MEMORY[0x1E696A578];
-              v74 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"clientApplicationIDType"];
-              v99 = v74;
-              v75 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v99 forKeys:&v98 count:1];
-              *errorCopy2 = [v83 initWithDomain:v81 code:2 userInfo:v75];
+              v82 = objc_alloc(MEMORY[0x1E696ABC0]);
+              v80 = *MEMORY[0x1E698F240];
+              v97 = *MEMORY[0x1E696A578];
+              v73 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"clientApplicationIDType"];
+              v98 = v73;
+              v74 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v98 forKeys:&v97 count:1];
+              *errorCopy2 = [v82 initWithDomain:v80 code:2 userInfo:v74];
             }
 
             v27 = 0;
@@ -656,21 +653,21 @@ LABEL_73:
         v27 = 0;
       }
 
-      intValue = [v88 intValue];
-      LODWORD(v80) = [v27 intValue];
-      error = [(BMCameraCaptureAutoFocusROI *)errorCopy3 initWithPortType:v96 focusRegionType:intValue topLeftCornerRow:v94 topLeftCornerColumn:v95 width:v93 height:v92 luxLevel:v86 subjectDistance:v25 clientApplicationIDType:v80];
+      intValue = [v87 intValue];
+      LODWORD(v79) = [v27 intValue];
+      error = [(BMCameraCaptureAutoFocusROI *)errorCopy3 initWithPortType:v95 focusRegionType:intValue topLeftCornerRow:v93 topLeftCornerColumn:v94 width:v92 height:v91 luxLevel:v85 subjectDistance:v25 clientApplicationIDType:v79];
       errorCopy3 = error;
 LABEL_71:
 
       self = errorCopy3;
-      v7 = v84;
+      v7 = v83;
       goto LABEL_72;
     }
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v93 = v20;
+      v92 = v20;
       goto LABEL_25;
     }
 
@@ -679,37 +676,37 @@ LABEL_71:
       errorCopy4 = error;
       v45 = objc_alloc(MEMORY[0x1E696ABC0]);
       v46 = *MEMORY[0x1E698F240];
-      v106 = *MEMORY[0x1E696A578];
+      v105 = *MEMORY[0x1E696A578];
       v47 = v10;
       v48 = objc_alloc(MEMORY[0x1E696AEC0]);
-      v78 = objc_opt_class();
+      v77 = objc_opt_class();
       v49 = v48;
       v10 = v47;
-      v92 = [v49 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v78, @"width"];
-      v107 = v92;
-      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v107 forKeys:&v106 count:1];
+      v91 = [v49 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v77, @"width"];
+      v106 = v91;
+      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v106 forKeys:&v105 count:1];
       v50 = v46;
-      v16 = v90;
+      v16 = v89;
       v51 = [v45 initWithDomain:v50 code:2 userInfo:v21];
-      v93 = 0;
+      v92 = 0;
       error = 0;
       *errorCopy4 = v51;
-      v32 = v85;
+      v32 = v84;
       self = selfCopy2;
 LABEL_74:
-      v8 = v96;
+      v8 = v95;
 LABEL_75:
 
 LABEL_76:
-      v34 = v94;
+      v34 = v93;
       goto LABEL_77;
     }
 
-    v93 = 0;
-    v32 = v85;
+    v92 = 0;
+    v32 = v84;
 LABEL_83:
     self = selfCopy2;
-    v8 = v96;
+    v8 = v95;
     goto LABEL_76;
   }
 
@@ -725,10 +722,10 @@ LABEL_83:
     errorCopy5 = error;
     v13 = objc_alloc(MEMORY[0x1E696ABC0]);
     v14 = *MEMORY[0x1E698F240];
-    v114 = *MEMORY[0x1E696A578];
+    v113 = *MEMORY[0x1E696A578];
     v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"portType"];
-    v115[0] = v10;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v115 forKeys:&v114 count:1];
+    v114[0] = v10;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v114 forKeys:&v113 count:1];
     v15 = [v13 initWithDomain:v14 code:2 userInfo:v9];
     v8 = 0;
     error = 0;
@@ -741,7 +738,6 @@ LABEL_79:
   v8 = 0;
 LABEL_80:
 
-  v72 = *MEMORY[0x1E69E9840];
   return error;
 }
 
@@ -762,45 +758,37 @@ LABEL_80:
     PBDataWriterWriteStringField();
   }
 
-  focusRegionType = self->_focusRegionType;
   PBDataWriterWriteUint32Field();
   if (self->_hasTopLeftCornerRow)
   {
-    topLeftCornerRow = self->_topLeftCornerRow;
     PBDataWriterWriteUint32Field();
   }
 
   if (self->_hasTopLeftCornerColumn)
   {
-    topLeftCornerColumn = self->_topLeftCornerColumn;
     PBDataWriterWriteUint32Field();
   }
 
   if (self->_hasWidth)
   {
-    width = self->_width;
     PBDataWriterWriteUint32Field();
   }
 
   if (self->_hasHeight)
   {
-    height = self->_height;
     PBDataWriterWriteUint32Field();
   }
 
   if (self->_hasLuxLevel)
   {
-    luxLevel = self->_luxLevel;
     PBDataWriterWriteUint32Field();
   }
 
   if (self->_hasSubjectDistance)
   {
-    subjectDistance = self->_subjectDistance;
     PBDataWriterWriteFloatField();
   }
 
-  clientApplicationIDType = self->_clientApplicationIDType;
   PBDataWriterWriteUint32Field();
 }
 
@@ -1439,27 +1427,25 @@ LABEL_134:
 
 + (id)protoFields
 {
-  v14[9] = *MEMORY[0x1E69E9840];
+  v13[9] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"portType" number:1 type:13 subMessageClass:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"focusRegionType" number:2 type:4 subMessageClass:{0, v2}];
-  v14[1] = v3;
+  v13[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"topLeftCornerRow" number:3 type:4 subMessageClass:0];
-  v14[2] = v4;
+  v13[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"topLeftCornerColumn" number:4 type:4 subMessageClass:0];
-  v14[3] = v5;
+  v13[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"width" number:5 type:4 subMessageClass:0];
-  v14[4] = v6;
+  v13[4] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"height" number:6 type:4 subMessageClass:0];
-  v14[5] = v7;
+  v13[5] = v7;
   v8 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"luxLevel" number:7 type:4 subMessageClass:0];
-  v14[6] = v8;
+  v13[6] = v8;
   v9 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"subjectDistance" number:8 type:1 subMessageClass:0];
-  v14[7] = v9;
+  v13[7] = v9;
   v10 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"clientApplicationIDType" number:9 type:4 subMessageClass:0];
-  v14[8] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:9];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v13[8] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:9];
 
   return v11;
 }

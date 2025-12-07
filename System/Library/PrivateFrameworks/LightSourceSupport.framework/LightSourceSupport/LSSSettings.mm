@@ -50,23 +50,23 @@
   v10[0] = @"motion";
   v9[0] = @"provider";
   v9[1] = @"lowPerformance";
-  v0 = MEMORY[0x277CCABB0];
+  v1 = MEMORY[0x277CCABB0];
   if (qword_280D2F5B8 != -1)
   {
     +[LSSSettings _defaultSettings];
   }
 
-  v1 = [v0 numberWithBool:byte_280D2F58B];
-  v10[1] = v1;
+  v2 = [v1 numberWithBool:byte_280D2F58B];
+  v10[1] = v2;
   v9[2] = @"globalCA";
-  v2 = MEMORY[0x277CCABB0];
+  v3 = MEMORY[0x277CCABB0];
   if (qword_280D2F5A8 != -1)
   {
     LSSShouldRun_cold_1();
   }
 
-  v3 = [v2 numberWithBool:byte_280D2F589];
-  v10[2] = v3;
+  v4 = [v3 numberWithBool:byte_280D2F589];
+  v10[2] = v4;
   v10[3] = &unk_2867F83B8;
   v9[3] = @"lightDefaultAzimuth";
   v9[4] = @"lightDefaultAltitude";
@@ -116,19 +116,17 @@
   v9[26] = @"performance_animateSpeed";
   v10[26] = &unk_2867F84D8;
   v9[27] = @"dynamicSettings";
-  v4 = MEMORY[0x277CCABB0];
+  v5 = MEMORY[0x277CCABB0];
   if (qword_280D2F5C0 != -1)
   {
     +[LSSSettings _defaultSettings];
   }
 
-  v5 = [v4 numberWithBool:byte_280D2F58C];
-  v10[27] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:28];
+  v6 = [v5 numberWithBool:byte_280D2F58C];
+  v10[27] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:28];
 
-  v7 = *MEMORY[0x277D85DE8];
-
-  return v6;
+  return v7;
 }
 
 void __30__LSSSettings_currentSettings__block_invoke(uint64_t a1)
@@ -138,18 +136,17 @@ void __30__LSSSettings_currentSettings__block_invoke(uint64_t a1)
   qword_280D2F5A0 = v2;
 
   v4 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.LightSourceSupport"];
-  v5 = *(a1 + 32);
-  v6 = +[LSSSettings _defaultSettings];
-  [v4 registerDefaults:v6];
+  v5 = +[(LSSSettings *)*(a1];
+  [v4 registerDefaults:v5];
 
   [qword_280D2F5A0 setDefaults:v4];
-  v7 = [v4 BOOLForKey:@"dynamicSettings"];
-  [qword_280D2F5A0 setDynamic:v7];
+  v6 = [v4 BOOLForKey:@"dynamicSettings"];
+  [qword_280D2F5A0 setDynamic:v6];
   if (qword_280D2F5A0 && *(qword_280D2F5A0 + 16) == 1)
   {
     if (qword_280D2F5D0 == -1)
     {
-      v8 = qword_280D2F5C8;
+      v7 = qword_280D2F5C8;
       if (!os_log_type_enabled(qword_280D2F5C8, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_6:
@@ -161,15 +158,15 @@ LABEL_6:
     else
     {
       __30__LSSSettings_currentSettings__block_invoke_cold_1();
-      v8 = qword_280D2F5C8;
+      v7 = qword_280D2F5C8;
       if (!os_log_type_enabled(qword_280D2F5C8, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_6;
       }
     }
 
-    *v9 = 0;
-    _os_log_impl(&dword_255E8B000, v8, OS_LOG_TYPE_DEFAULT, "dynamic settings", v9, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_255E8B000, v7, OS_LOG_TYPE_DEFAULT, "dynamic settings", v8, 2u);
     goto LABEL_6;
   }
 
@@ -260,12 +257,12 @@ LABEL_11:
   v3 = a2;
   if (key)
   {
-    if (!*__tls_guard())
+    if (!*__tls_guard(&__tls_guard))
     {
       [LSSSettings floatForKey:];
     }
 
-    v4 = _cache();
+    v4 = _cache(&_cache);
     v5 = *(key + 16);
     v6 = *(key + 24);
     v7 = v6;
@@ -339,12 +336,12 @@ LABEL_11:
   v3 = a2;
   if (key)
   {
-    if (!*__tls_guard())
+    if (!*__tls_guard(&__tls_guard))
     {
       [LSSSettings floatForKey:];
     }
 
-    v4 = _cache();
+    v4 = _cache(&_cache);
     v5 = *(key + 16);
     v6 = *(key + 24);
     v7 = v6;
@@ -429,7 +426,7 @@ LABEL_11:
 
 - (void)logDebugInfo
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (self)
   {
     if (qword_280D2F5D0 != -1)
@@ -442,22 +439,20 @@ LABEL_11:
     {
       if (!*__tls_guard(&__tls_guard))
       {
-        v7 = v4(v3);
-        v8 = OUTLINED_FUNCTION_1_3(v7);
-        v9 = _cache(&_cache);
-        OUTLINED_FUNCTION_0_3(v9, v9);
-        objc_autoreleasePoolPop(v8);
+        v6 = v3(v2);
+        v7 = OUTLINED_FUNCTION_1_3(v6);
+        v8 = _cache(&_cache);
+        OUTLINED_FUNCTION_0_3(v8, v8);
+        objc_autoreleasePoolPop(v7);
       }
 
-      v5 = _cache(&_cache);
-      v6 = (v5[1] - *v5) >> 3;
-      v10 = 134217984;
-      v11 = v6;
-      _os_log_debug_impl(&dword_255E8B000, v1, OS_LOG_TYPE_DEBUG, "cached keys: %lu", &v10, 0xCu);
+      v4 = _cache(&_cache);
+      v5 = (v4[1] - *v4) >> 3;
+      v9 = 134217984;
+      v10 = v5;
+      _os_log_debug_impl(&dword_255E8B000, v1, OS_LOG_TYPE_DEBUG, "cached keys: %lu", &v9, 0xCu);
     }
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __30__LSSSettings_currentSettings__block_invoke_cold_2()
@@ -477,9 +472,9 @@ void __30__LSSSettings_currentSettings__block_invoke_cold_2()
 
 - (void)floatForKey:.cold.1()
 {
-  v0 = __tls_guard();
+  v0 = __tls_guard(&__tls_guard);
   v1 = OUTLINED_FUNCTION_1_3(v0);
-  v2 = _cache();
+  v2 = _cache(&_cache);
   OUTLINED_FUNCTION_0_3(v2, v2);
 
   objc_autoreleasePoolPop(v1);

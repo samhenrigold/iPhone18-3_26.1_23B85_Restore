@@ -100,7 +100,7 @@
 
 - (id)localizedName
 {
-  if ([(DDAction *)self calloutFlavor])
+  if ([(DDAction *)&self->super.super.super.isa calloutFlavor])
   {
     _titleWithValue = [(DDTimeZoneConversionAction *)self _titleWithValue];
   }

@@ -133,14 +133,14 @@
   return v6;
 }
 
-uint64_t __34__CLLogFormatter_selectorForType___block_invoke(void *a1)
+void *__34__CLLogFormatter_selectorForType___block_invoke(void *a1)
 {
   result = [objc_msgSend(*(a1[4] + 8) objectForKeyedSubscript:{a1[5]), "pointerValue"}];
   *(*(a1[6] + 8) + 24) = result;
   return result;
 }
 
-uint64_t __34__CLLogFormatter_selectorForType___block_invoke_2(uint64_t a1)
+void *__34__CLLogFormatter_selectorForType___block_invoke_2(uint64_t a1)
 {
   result = [objc_msgSend(*(*(a1 + 32) + 8) objectForKeyedSubscript:{*(a1 + 40)), "pointerValue"}];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -148,18 +148,16 @@ uint64_t __34__CLLogFormatter_selectorForType___block_invoke_2(uint64_t a1)
   {
     v3 = [*(a1 + 40) stringByReplacingOccurrencesOfString:@":" withString:@"_"];
     *(*(*(a1 + 48) + 8) + 24) = NSSelectorFromString([MEMORY[0x29EDBA0F8] stringWithFormat:@"JSONObjectWith_%@:info:", v3]);
-    v4 = *(a1 + 32);
-    v5 = *(*(*(a1 + 48) + 8) + 24);
     if ((objc_opt_respondsToSelector() & 1) == 0)
     {
       *(*(*(a1 + 48) + 8) + 24) = sel_JSONObjectWith_Generic_info_;
     }
 
-    v6 = [MEMORY[0x29EDBA168] valueWithPointer:*(*(*(a1 + 48) + 8) + 24)];
-    v7 = *(a1 + 40);
-    v8 = *(*(a1 + 32) + 8);
+    v4 = [MEMORY[0x29EDBA168] valueWithPointer:*(*(*(a1 + 48) + 8) + 24)];
+    v5 = *(a1 + 40);
+    v6 = *(*(a1 + 32) + 8);
 
-    return [v8 setObject:v6 forKeyedSubscript:v7];
+    return [v6 setObject:v4 forKeyedSubscript:v5];
   }
 
   return result;
@@ -182,254 +180,226 @@ uint64_t __34__CLLogFormatter_selectorForType___block_invoke_2(uint64_t a1)
 
 - (id)JSONObjectWith_Generic:(id)generic info:(os_log_type_info_s *)info
 {
-  v7[3] = *MEMORY[0x29EDCA608];
-  v6[0] = @"type";
-  v6[1] = @"expected type";
-  v7[0] = @"decode failure";
-  v7[1] = @"Generic";
-  v6[2] = @"raw value";
-  v7[2] = generic;
-  result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v7 forKeys:v6 count:3];
-  v5 = *MEMORY[0x29EDCA608];
-  return result;
+  v6[3] = *MEMORY[0x29EDCA608];
+  v5[0] = @"type";
+  v5[1] = @"expected type";
+  v6[0] = @"decode failure";
+  v6[1] = @"Generic";
+  v5[2] = @"raw value";
+  v6[2] = generic;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v6 forKeys:v5 count:3];
 }
 
 - (id)JSONObjectWith_escape_only:(id)with_escape_only info:(os_log_type_info_s *)info
 {
-  v12[3] = *MEMORY[0x29EDCA608];
+  v10[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v11[0] = @"type";
-    v11[1] = @"expected type";
-    v12[0] = @"decode failure";
-    v12[1] = @"NSString";
-    v11[2] = @"raw value";
-    v12[2] = with_escape_only;
-    with_escape_only = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
-    goto LABEL_7;
+    v9[0] = @"type";
+    v9[1] = @"expected type";
+    v10[0] = @"decode failure";
+    v10[1] = @"NSString";
+    v9[2] = @"raw value";
+    v10[2] = with_escape_only;
+    return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
   }
 
   v5 = strlen([with_escape_only UTF8String]);
   if (v5 == [with_escape_only length])
   {
-LABEL_7:
-    v10 = *MEMORY[0x29EDCA608];
     return with_escape_only;
   }
 
   v6 = MEMORY[0x29EDBA0F8];
   uTF8String = [with_escape_only UTF8String];
-  v8 = *MEMORY[0x29EDCA608];
 
   return [v6 stringWithUTF8String:uTF8String];
 }
 
 - (id)JSONObjectWith_CLClientLocationReferenceFrame:(id)frame info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [frame intValue], v5 < 3))
+  if (objc_opt_isKindOfClass())
   {
-    result = *(&off_29F27E8C0 + v5);
+    intValue = [frame intValue];
+    if (intValue < 3)
+    {
+      return *(&off_29F27E8C0 + intValue);
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CLClientLocationReferenceFrame";
-    v8[2] = @"raw value";
-    v9[2] = frame;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CLClientLocationReferenceFrame";
+  v7[2] = @"raw value";
+  v8[2] = frame;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_CLClientLocationSuitability:(id)suitability info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  if (objc_opt_isKindOfClass())
   {
-    goto LABEL_6;
+    intValue = [suitability intValue];
+    switch(intValue)
+    {
+      case 1:
+        return @"RouteGuidance";
+      case 0xFFFF:
+        return @"Any";
+      case 2:
+        return @"Other";
+    }
   }
 
-  intValue = [suitability intValue];
-  switch(intValue)
-  {
-    case 1:
-      result = @"RouteGuidance";
-      break;
-    case 0xFFFF:
-      result = @"Any";
-      break;
-    case 2:
-      result = @"Other";
-      break;
-    default:
-LABEL_6:
-      v8[0] = @"type";
-      v8[1] = @"expected type";
-      v9[0] = @"decode failure";
-      v9[1] = @"CLClientLocationSuitability";
-      v8[2] = @"raw value";
-      v9[2] = suitability;
-      result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-      break;
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CLClientLocationSuitability";
+  v7[2] = @"raw value";
+  v8[2] = suitability;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_CLLocationDictionaryUtilitiesEntityClass:(id)class info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [class intValue], v5 < 0xA))
+  if (objc_opt_isKindOfClass())
   {
-    result = *(&off_29F27E8D8 + v5);
+    intValue = [class intValue];
+    if (intValue < 0xA)
+    {
+      return *(&off_29F27E8D8 + intValue);
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CLClientAuthorizationStatus";
-    v8[2] = @"raw value";
-    v9[2] = class;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CLClientAuthorizationStatus";
+  v7[2] = @"raw value";
+  v8[2] = class;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_CLLocationDictionaryUtilitiesArrowState:(id)state info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [state intValue], v5 < 4))
+  if (objc_opt_isKindOfClass())
   {
-    result = *(&off_29F27E928 + v5);
+    intValue = [state intValue];
+    if (intValue < 4)
+    {
+      return *(&off_29F27E928 + intValue);
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CLClientAuthorizationStatus";
-    v8[2] = @"raw value";
-    v9[2] = state;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CLClientAuthorizationStatus";
+  v7[2] = @"raw value";
+  v8[2] = state;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_CLClientAuthorizationStatus:(id)status info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [status intValue], v5 < 5))
+  if (objc_opt_isKindOfClass())
   {
-    result = *(&off_29F27E948 + v5);
+    intValue = [status intValue];
+    if (intValue < 5)
+    {
+      return *(&off_29F27E948 + intValue);
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CLClientAuthorizationStatus";
-    v8[2] = @"raw value";
-    v9[2] = status;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CLClientAuthorizationStatus";
+  v7[2] = @"raw value";
+  v8[2] = status;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_CLClientCorrectiveCompensation:(id)compensation info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [compensation intValue], v5 < 3))
+  if (objc_opt_isKindOfClass())
   {
-    result = *(&off_29F27E970 + v5);
+    intValue = [compensation intValue];
+    if (intValue < 3)
+    {
+      return *(&off_29F27E970 + intValue);
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CLClientCorrectiveCompensation";
-    v8[2] = @"raw value";
-    v9[2] = compensation;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CLClientCorrectiveCompensation";
+  v7[2] = @"raw value";
+  v8[2] = compensation;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_CLRegionState:(id)state info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [state intValue], v5 < 3))
+  if (objc_opt_isKindOfClass())
   {
-    result = *(&off_29F27E988 + v5);
+    intValue = [state intValue];
+    if (intValue < 3)
+    {
+      return *(&off_29F27E988 + intValue);
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CLRegionState";
-    v8[2] = @"raw value";
-    v9[2] = state;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CLRegionState";
+  v7[2] = @"raw value";
+  v8[2] = state;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_CLDaemonLocation:(id)location info:(os_log_type_info_s *)info
 {
-  v43[3] = *MEMORY[0x29EDCA608];
+  v42[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     __dst = 0xFFFF;
+    v24 = 0.0;
     v25 = 0.0;
-    v26 = 0.0;
     __asm { FMOV            V0.2D, #-1.0 }
 
-    v27 = xmmword_2999EDE60;
+    v26 = xmmword_2999EDE60;
+    v27 = _Q0;
     v28 = _Q0;
     v29 = _Q0;
-    v30 = _Q0;
-    v31 = 0;
-    v32 = -1.0;
-    memset(v33, 0, sizeof(v33));
-    v34 = -1.0;
-    v35 = 0x7FFFFFFF;
-    v38 = 0.0;
+    v30 = 0;
+    v31 = -1.0;
+    memset(v32, 0, sizeof(v32));
+    v33 = -1.0;
+    v34 = 0x7FFFFFFF;
+    v37 = 0.0;
+    v35 = 0;
     v36 = 0;
-    v37 = 0;
-    v39 = 0;
+    v38 = 0;
     bytes = [location bytes];
     if ([location length] <= 0x9C)
     {
@@ -443,145 +413,137 @@ LABEL_6:
 
     memcpy(&__dst, bytes, v13);
     v18 = -[CLLogFormatter JSONObjectWith_CLClientLocationSuitability:info:](self, "JSONObjectWith_CLClientLocationSuitability:info:", [MEMORY[0x29EDBA070] numberWithUnsignedInt:__dst], info);
-    v19 = -[CLLogFormatter JSONObjectWith_CLClientLocationReferenceFrame:info:](self, "JSONObjectWith_CLClientLocationReferenceFrame:info:", [MEMORY[0x29EDBA070] numberWithUnsignedInt:HIDWORD(v36)], info);
-    v20 = -[CLLogFormatter JSONObjectWith_CLClientLocationReferenceFrame:info:](self, "JSONObjectWith_CLClientLocationReferenceFrame:info:", [MEMORY[0x29EDBA070] numberWithUnsignedInt:v37], info);
-    v21 = -[CLLogFormatter JSONObjectWith_CLLocationType:info:](self, "JSONObjectWith_CLLocationType:info:", [MEMORY[0x29EDBA070] numberWithUnsignedInt:*v33], info);
-    v41[0] = v18;
-    v40[0] = @"suitability";
-    v40[1] = @"lat";
-    v41[1] = [MEMORY[0x29EDBA070] numberWithDouble:v25];
-    v40[2] = @"lon";
-    v41[2] = [MEMORY[0x29EDBA070] numberWithDouble:v26];
-    v40[3] = @"horizontalAccuracy";
-    v41[3] = [MEMORY[0x29EDBA070] numberWithDouble:*&v27];
-    v40[4] = @"altitude";
-    v41[4] = [MEMORY[0x29EDBA070] numberWithDouble:*(&v27 + 1)];
-    v40[5] = @"ellipsoidalAltitude";
-    v41[5] = [MEMORY[0x29EDBA070] numberWithDouble:v38];
-    v40[6] = @"verticalAccuracy";
-    v41[6] = [MEMORY[0x29EDBA070] numberWithDouble:*&v28];
-    v40[7] = @"speed";
-    v41[7] = [MEMORY[0x29EDBA070] numberWithDouble:*(&v28 + 1)];
-    v40[8] = @"speedAccuracy";
-    v41[8] = [MEMORY[0x29EDBA070] numberWithDouble:*&v29];
-    v40[9] = @"course";
-    v41[9] = [MEMORY[0x29EDBA070] numberWithDouble:*(&v29 + 1)];
-    v40[10] = @"courseAccuracy";
-    v41[10] = [MEMORY[0x29EDBA070] numberWithDouble:*&v30];
-    v40[11] = @"timestamp";
-    v41[11] = [MEMORY[0x29EDBA070] numberWithDouble:*(&v30 + 1)];
-    v40[12] = @"confidence";
-    v41[12] = [MEMORY[0x29EDBA070] numberWithInt:v31];
-    v40[13] = @"lifespan";
-    v41[13] = [MEMORY[0x29EDBA070] numberWithDouble:v32];
-    v41[14] = v21;
-    v40[14] = @"type";
-    v40[15] = @"rawLat";
-    v41[15] = [MEMORY[0x29EDBA070] numberWithDouble:*&v33[4]];
-    v40[16] = @"rawLon";
-    v41[16] = [MEMORY[0x29EDBA070] numberWithDouble:*&v33[12]];
-    v40[17] = @"rawCourse";
-    v41[17] = [MEMORY[0x29EDBA070] numberWithDouble:v34];
-    v40[18] = @"floor";
-    v41[18] = [MEMORY[0x29EDBA070] numberWithInt:v35];
-    v40[19] = @"integrity";
-    v41[19] = [MEMORY[0x29EDBA070] numberWithUnsignedInt:v36];
-    v41[20] = v19;
-    v40[20] = @"referenceFrame";
-    v40[21] = @"rawReferenceFrame";
-    v41[21] = v20;
-    v40[22] = @"fromSimulationController";
-    v41[22] = [MEMORY[0x29EDBA070] numberWithBool:v39 & 1];
+    v19 = -[CLLogFormatter JSONObjectWith_CLClientLocationReferenceFrame:info:](self, "JSONObjectWith_CLClientLocationReferenceFrame:info:", [MEMORY[0x29EDBA070] numberWithUnsignedInt:HIDWORD(v35)], info);
+    v20 = -[CLLogFormatter JSONObjectWith_CLClientLocationReferenceFrame:info:](self, "JSONObjectWith_CLClientLocationReferenceFrame:info:", [MEMORY[0x29EDBA070] numberWithUnsignedInt:v36], info);
+    v21 = -[CLLogFormatter JSONObjectWith_CLLocationType:info:](self, "JSONObjectWith_CLLocationType:info:", [MEMORY[0x29EDBA070] numberWithUnsignedInt:*v32], info);
+    v40[0] = v18;
+    v39[0] = @"suitability";
+    v39[1] = @"lat";
+    v40[1] = [MEMORY[0x29EDBA070] numberWithDouble:v24];
+    v39[2] = @"lon";
+    v40[2] = [MEMORY[0x29EDBA070] numberWithDouble:v25];
+    v39[3] = @"horizontalAccuracy";
+    v40[3] = [MEMORY[0x29EDBA070] numberWithDouble:*&v26];
+    v39[4] = @"altitude";
+    v40[4] = [MEMORY[0x29EDBA070] numberWithDouble:*(&v26 + 1)];
+    v39[5] = @"ellipsoidalAltitude";
+    v40[5] = [MEMORY[0x29EDBA070] numberWithDouble:v37];
+    v39[6] = @"verticalAccuracy";
+    v40[6] = [MEMORY[0x29EDBA070] numberWithDouble:*&v27];
+    v39[7] = @"speed";
+    v40[7] = [MEMORY[0x29EDBA070] numberWithDouble:*(&v27 + 1)];
+    v39[8] = @"speedAccuracy";
+    v40[8] = [MEMORY[0x29EDBA070] numberWithDouble:*&v28];
+    v39[9] = @"course";
+    v40[9] = [MEMORY[0x29EDBA070] numberWithDouble:*(&v28 + 1)];
+    v39[10] = @"courseAccuracy";
+    v40[10] = [MEMORY[0x29EDBA070] numberWithDouble:*&v29];
+    v39[11] = @"timestamp";
+    v40[11] = [MEMORY[0x29EDBA070] numberWithDouble:*(&v29 + 1)];
+    v39[12] = @"confidence";
+    v40[12] = [MEMORY[0x29EDBA070] numberWithInt:v30];
+    v39[13] = @"lifespan";
+    v40[13] = [MEMORY[0x29EDBA070] numberWithDouble:v31];
+    v40[14] = v21;
+    v39[14] = @"type";
+    v39[15] = @"rawLat";
+    v40[15] = [MEMORY[0x29EDBA070] numberWithDouble:*&v32[4]];
+    v39[16] = @"rawLon";
+    v40[16] = [MEMORY[0x29EDBA070] numberWithDouble:*&v32[12]];
+    v39[17] = @"rawCourse";
+    v40[17] = [MEMORY[0x29EDBA070] numberWithDouble:v33];
+    v39[18] = @"floor";
+    v40[18] = [MEMORY[0x29EDBA070] numberWithInt:v34];
+    v39[19] = @"integrity";
+    v40[19] = [MEMORY[0x29EDBA070] numberWithUnsignedInt:v35];
+    v40[20] = v19;
+    v39[20] = @"referenceFrame";
+    v39[21] = @"rawReferenceFrame";
+    v40[21] = v20;
+    v39[22] = @"fromSimulationController";
+    v40[22] = [MEMORY[0x29EDBA070] numberWithBool:v38 & 1];
     v14 = MEMORY[0x29EDB8DC0];
-    v15 = v41;
-    v16 = v40;
+    v15 = v40;
+    v16 = v39;
     v17 = 23;
   }
 
   else
   {
-    v42[0] = @"type";
-    v42[1] = @"expected type";
-    v42[2] = @"raw value";
-    v43[0] = @"decode failure";
-    v43[1] = @"CLDaemonLocation";
-    v43[2] = location;
+    v41[0] = @"type";
+    v41[1] = @"expected type";
+    v41[2] = @"raw value";
+    v42[0] = @"decode failure";
+    v42[1] = @"CLDaemonLocation";
+    v42[2] = location;
     v14 = MEMORY[0x29EDB8DC0];
-    v15 = v43;
-    v16 = v42;
+    v15 = v42;
+    v16 = v41;
     v17 = 3;
   }
 
-  result = [v14 dictionaryWithObjects:v15 forKeys:v16 count:v17];
-  v23 = *MEMORY[0x29EDCA608];
-  return result;
+  return [v14 dictionaryWithObjects:v15 forKeys:v16 count:v17];
 }
 
 - (id)JSONObjectWith_CLClientManager_Type__AuthorizationRequestType:(id)type info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [type intValue], v5 < 0x14))
+  if (objc_opt_isKindOfClass())
   {
-    result = *(&off_29F27E9A0 + v5);
+    intValue = [type intValue];
+    if (intValue < 0x14)
+    {
+      return *(&off_29F27E9A0 + intValue);
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CLClientManager_Type::AuthorizationRequestType";
-    v8[2] = @"raw value";
-    v9[2] = type;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CLClientManager_Type::AuthorizationRequestType";
+  v7[2] = @"raw value";
+  v8[2] = type;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_CLClientInUseLevel:(id)level info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [level intValue], v5 < 6))
+  if (objc_opt_isKindOfClass())
   {
-    result = *(&off_29F27EA40 + v5);
+    intValue = [level intValue];
+    if (intValue < 6)
+    {
+      return *(&off_29F27EA40 + intValue);
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"ClientInUseLevel";
-    v8[2] = @"raw value";
-    v9[2] = level;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"ClientInUseLevel";
+  v7[2] = @"raw value";
+  v8[2] = level;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_SqliteResult:(id)result info:(os_log_type_info_s *)info
 {
-  v14[3] = *MEMORY[0x29EDCA608];
+  v13[3] = *MEMORY[0x29EDCA608];
   if ([result length] != 4)
   {
-    v13[0] = @"type";
-    v13[1] = @"expected type";
-    v14[0] = @"decode failure";
-    v14[1] = @"SqliteResult";
-    v13[2] = @"raw value";
-    v14[2] = result;
+    v12[0] = @"type";
+    v12[1] = @"expected type";
+    v13[0] = @"decode failure";
+    v13[1] = @"SqliteResult";
+    v12[2] = @"raw value";
+    v13[2] = result;
     v7 = MEMORY[0x29EDB8DC0];
-    v8 = v14;
-    v9 = v13;
-LABEL_7:
-    result = [v7 dictionaryWithObjects:v8 forKeys:v9 count:3];
-    goto LABEL_8;
+    v8 = v13;
+    v9 = v12;
+    return [v7 dictionaryWithObjects:v8 forKeys:v9 count:3];
   }
 
   v5 = *[result bytes];
@@ -597,14 +559,12 @@ LABEL_7:
           {
             if (v5 == 776)
             {
-              result = @"SQLITE_READONLY_ROLLBACK";
-              goto LABEL_8;
+              return @"SQLITE_READONLY_ROLLBACK";
             }
 
             if (v5 == 778)
             {
-              result = @"SQLITE_IOERR_WRITE";
-              goto LABEL_8;
+              return @"SQLITE_IOERR_WRITE";
             }
           }
 
@@ -613,14 +573,11 @@ LABEL_7:
             switch(v5)
             {
               case 782:
-                result = @"SQLITE_CANTOPEN_FULLPATH";
-                goto LABEL_8;
+                return @"SQLITE_CANTOPEN_FULLPATH";
               case 787:
-                result = @"SQLITE_CONSTRAINT_FOREIGNKEY";
-                goto LABEL_8;
+                return @"SQLITE_CONSTRAINT_FOREIGNKEY";
               case 1032:
-                result = @"SQLITE_READONLY_DBMOVED";
-                goto LABEL_8;
+                return @"SQLITE_READONLY_DBMOVED";
             }
           }
         }
@@ -629,14 +586,12 @@ LABEL_7:
         {
           if (v5 == 520)
           {
-            result = @"SQLITE_READONLY_CANTLOCK";
-            goto LABEL_8;
+            return @"SQLITE_READONLY_CANTLOCK";
           }
 
           if (v5 == 522)
           {
-            result = @"SQLITE_IOERR_SHORT_READ";
-            goto LABEL_8;
+            return @"SQLITE_IOERR_SHORT_READ";
           }
         }
 
@@ -645,14 +600,11 @@ LABEL_7:
           switch(v5)
           {
             case 526:
-              result = @"SQLITE_CANTOPEN_ISDIR";
-              goto LABEL_8;
+              return @"SQLITE_CANTOPEN_ISDIR";
             case 531:
-              result = @"SQLITE_CONSTRAINT_COMMITHOOK";
-              goto LABEL_8;
+              return @"SQLITE_CONSTRAINT_COMMITHOOK";
             case 539:
-              result = @"SQLITE_NOTICE_RECOVER_ROLLBACK";
-              goto LABEL_8;
+              return @"SQLITE_NOTICE_RECOVER_ROLLBACK";
           }
         }
       }
@@ -663,14 +615,12 @@ LABEL_7:
         {
           if (v5 == 1034)
           {
-            result = @"SQLITE_IOERR_FSYNC";
-            goto LABEL_8;
+            return @"SQLITE_IOERR_FSYNC";
           }
 
           if (v5 == 1038)
           {
-            result = @"SQLITE_CANTOPEN_CONVPATH";
-            goto LABEL_8;
+            return @"SQLITE_CANTOPEN_CONVPATH";
           }
         }
 
@@ -679,14 +629,11 @@ LABEL_7:
           switch(v5)
           {
             case 1043:
-              result = @"SQLITE_CONSTRAINT_FUNCTION";
-              goto LABEL_8;
+              return @"SQLITE_CONSTRAINT_FUNCTION";
             case 1290:
-              result = @"SQLITE_IOERR_DIR_FSYNC";
-              goto LABEL_8;
+              return @"SQLITE_IOERR_DIR_FSYNC";
             case 1299:
-              result = @"SQLITE_CONSTRAINT_NOTNULL";
-              goto LABEL_8;
+              return @"SQLITE_CONSTRAINT_NOTNULL";
           }
         }
       }
@@ -696,14 +643,11 @@ LABEL_7:
         switch(v5)
         {
           case 1811:
-            result = @"SQLITE_CONSTRAINT_TRIGGER";
-            goto LABEL_8;
+            return @"SQLITE_CONSTRAINT_TRIGGER";
           case 2058:
-            result = @"SQLITE_IOERR_UNLOCK";
-            goto LABEL_8;
+            return @"SQLITE_IOERR_UNLOCK";
           case 2067:
-            result = @"SQLITE_CONSTRAINT_UNIQUE";
-            goto LABEL_8;
+            return @"SQLITE_CONSTRAINT_UNIQUE";
         }
       }
 
@@ -712,14 +656,11 @@ LABEL_7:
         switch(v5)
         {
           case 1546:
-            result = @"SQLITE_IOERR_TRUNCATE";
-            goto LABEL_8;
+            return @"SQLITE_IOERR_TRUNCATE";
           case 1555:
-            result = @"SQLITE_CONSTRAINT_PRIMARYKEY";
-            goto LABEL_8;
+            return @"SQLITE_CONSTRAINT_PRIMARYKEY";
           case 1802:
-            result = @"SQLITE_IOERR_FSTAT";
-            goto LABEL_8;
+            return @"SQLITE_IOERR_FSTAT";
         }
       }
     }
@@ -732,14 +673,12 @@ LABEL_7:
         {
           if (v5 == 4618)
           {
-            result = @"SQLITE_IOERR_SHMOPEN";
-            goto LABEL_8;
+            return @"SQLITE_IOERR_SHMOPEN";
           }
 
           if (v5 == 4874)
           {
-            result = @"SQLITE_IOERR_SHMSIZE";
-            goto LABEL_8;
+            return @"SQLITE_IOERR_SHMSIZE";
           }
         }
 
@@ -748,14 +687,11 @@ LABEL_7:
           switch(v5)
           {
             case 5130:
-              result = @"SQLITE_IOERR_SHMLOCK";
-              goto LABEL_8;
+              return @"SQLITE_IOERR_SHMLOCK";
             case 5386:
-              result = @"SQLITE_IOERR_SHMMAP";
-              goto LABEL_8;
+              return @"SQLITE_IOERR_SHMMAP";
             case 5642:
-              result = @"SQLITE_IOERR_SEEK";
-              goto LABEL_8;
+              return @"SQLITE_IOERR_SEEK";
           }
         }
       }
@@ -765,14 +701,11 @@ LABEL_7:
         switch(v5)
         {
           case 6666:
-            result = @"SQLITE_IOERR_CONVPATH";
-            goto LABEL_8;
+            return @"SQLITE_IOERR_CONVPATH";
           case 6922:
-            result = @"SQLITE_IOERR_VNODE";
-            goto LABEL_8;
+            return @"SQLITE_IOERR_VNODE";
           case 7178:
-            result = @"SQLITE_IOERR_AUTH";
-            goto LABEL_8;
+            return @"SQLITE_IOERR_AUTH";
         }
       }
 
@@ -781,14 +714,11 @@ LABEL_7:
         switch(v5)
         {
           case 5898:
-            result = @"SQLITE_IOERR_DELETE_NOENT";
-            goto LABEL_8;
+            return @"SQLITE_IOERR_DELETE_NOENT";
           case 6154:
-            result = @"SQLITE_IOERR_MMAP";
-            goto LABEL_8;
+            return @"SQLITE_IOERR_MMAP";
           case 6410:
-            result = @"SQLITE_IOERR_GETTEMPPATH";
-            goto LABEL_8;
+            return @"SQLITE_IOERR_GETTEMPPATH";
         }
       }
     }
@@ -799,14 +729,12 @@ LABEL_7:
       {
         if (v5 == 2314)
         {
-          result = @"SQLITE_IOERR_RDLOCK";
-          goto LABEL_8;
+          return @"SQLITE_IOERR_RDLOCK";
         }
 
         if (v5 == 2323)
         {
-          result = @"SQLITE_CONSTRAINT_VTAB";
-          goto LABEL_8;
+          return @"SQLITE_CONSTRAINT_VTAB";
         }
       }
 
@@ -815,14 +743,11 @@ LABEL_7:
         switch(v5)
         {
           case 2570:
-            result = @"SQLITE_IOERR_DELETE";
-            goto LABEL_8;
+            return @"SQLITE_IOERR_DELETE";
           case 2579:
-            result = @"SQLITE_CONSTRAINT_ROWID";
-            goto LABEL_8;
+            return @"SQLITE_CONSTRAINT_ROWID";
           case 2826:
-            result = @"SQLITE_IOERR_BLOCKED";
-            goto LABEL_8;
+            return @"SQLITE_IOERR_BLOCKED";
         }
       }
     }
@@ -832,14 +757,11 @@ LABEL_7:
       switch(v5)
       {
         case 3850:
-          result = @"SQLITE_IOERR_LOCK";
-          goto LABEL_8;
+          return @"SQLITE_IOERR_LOCK";
         case 4106:
-          result = @"SQLITE_IOERR_CLOSE";
-          goto LABEL_8;
+          return @"SQLITE_IOERR_CLOSE";
         case 4362:
-          result = @"SQLITE_IOERR_DIR_CLOSE";
-          goto LABEL_8;
+          return @"SQLITE_IOERR_DIR_CLOSE";
       }
     }
 
@@ -848,14 +770,11 @@ LABEL_7:
       switch(v5)
       {
         case 3082:
-          result = @"SQLITE_IOERR_NOMEM";
-          goto LABEL_8;
+          return @"SQLITE_IOERR_NOMEM";
         case 3338:
-          result = @"SQLITE_IOERR_ACCESS";
-          goto LABEL_8;
+          return @"SQLITE_IOERR_ACCESS";
         case 3594:
-          result = @"SQLITE_IOERR_CHECKRESERVEDLOCK";
-          goto LABEL_8;
+          return @"SQLITE_IOERR_CHECKRESERVEDLOCK";
       }
     }
 
@@ -871,14 +790,11 @@ LABEL_7:
         switch(v5)
         {
           case 270:
-            result = @"SQLITE_CANTOPEN_NOTEMPDIR";
-            goto LABEL_8;
+            return @"SQLITE_CANTOPEN_NOTEMPDIR";
           case 275:
-            result = @"SQLITE_CONSTRAINT_CHECK";
-            goto LABEL_8;
+            return @"SQLITE_CONSTRAINT_CHECK";
           case 279:
-            result = @"SQLITE_AUTH_USER";
-            goto LABEL_8;
+            return @"SQLITE_AUTH_USER";
         }
       }
 
@@ -886,14 +802,12 @@ LABEL_7:
       {
         if (v5 == 516)
         {
-          result = @"SQLITE_ABORT_ROLLBACK";
-          goto LABEL_8;
+          return @"SQLITE_ABORT_ROLLBACK";
         }
 
         if (v5 == 517)
         {
-          result = @"SQLITE_BUSY_SNAPSHOT";
-          goto LABEL_8;
+          return @"SQLITE_BUSY_SNAPSHOT";
         }
       }
 
@@ -901,14 +815,12 @@ LABEL_7:
       {
         if (v5 == 283)
         {
-          result = @"SQLITE_NOTICE_RECOVER_WAL";
-          goto LABEL_8;
+          return @"SQLITE_NOTICE_RECOVER_WAL";
         }
 
         if (v5 == 284)
         {
-          result = @"SQLITE_WARNING_AUTOINDEX";
-          goto LABEL_8;
+          return @"SQLITE_WARNING_AUTOINDEX";
         }
       }
     }
@@ -918,14 +830,11 @@ LABEL_7:
       switch(v5)
       {
         case 100:
-          result = @"SQLITE_ROW";
-          goto LABEL_8;
+          return @"SQLITE_ROW";
         case 101:
-          result = @"SQLITE_DONE";
-          goto LABEL_8;
+          return @"SQLITE_DONE";
         case 261:
-          result = @"SQLITE_BUSY_RECOVERY";
-          goto LABEL_8;
+          return @"SQLITE_BUSY_RECOVERY";
       }
     }
 
@@ -933,14 +842,12 @@ LABEL_7:
     {
       if (v5 == 266)
       {
-        result = @"SQLITE_IOERR_READ";
-        goto LABEL_8;
+        return @"SQLITE_IOERR_READ";
       }
 
       if (v5 == 267)
       {
-        result = @"SQLITE_CORRUPT_VTAB";
-        goto LABEL_8;
+        return @"SQLITE_CORRUPT_VTAB";
       }
     }
 
@@ -948,35 +855,33 @@ LABEL_7:
     {
       if (v5 == 262)
       {
-        result = @"SQLITE_LOCKED_SHAREDCACHE";
-        goto LABEL_8;
+        return @"SQLITE_LOCKED_SHAREDCACHE";
       }
 
       if (v5 == 264)
       {
-        result = @"SQLITE_READONLY_RECOVERY";
-        goto LABEL_8;
+        return @"SQLITE_READONLY_RECOVERY";
       }
     }
 
 LABEL_170:
-    v11[0] = @"type";
-    v11[1] = @"expected type";
-    v12[0] = @"decode failure";
-    v12[1] = @"SqliteResult";
-    v11[2] = @"raw value";
-    v12[2] = result;
+    v10[0] = @"type";
+    v10[1] = @"expected type";
+    v11[0] = @"decode failure";
+    v11[1] = @"SqliteResult";
+    v10[2] = @"raw value";
+    v11[2] = result;
     v7 = MEMORY[0x29EDB8DC0];
-    v8 = v12;
-    v9 = v11;
-    goto LABEL_7;
+    v8 = v11;
+    v9 = v10;
+    return [v7 dictionaryWithObjects:v8 forKeys:v9 count:3];
   }
 
   result = @"SQLITE_OK";
   switch(v5)
   {
     case 0:
-      break;
+      return result;
     case 1:
       result = @"SQLITE_ERROR";
       break;
@@ -1065,268 +970,260 @@ LABEL_170:
       goto LABEL_170;
   }
 
-LABEL_8:
-  v10 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 - (id)JSONObjectWith_CLLocationProvider_Type__Notification:(id)notification info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 && (v5 = [notification intValue], v5 < 0x33) && ((0x7FFFEFFF3BF7FuLL >> v5))
+  if (objc_opt_isKindOfClass())
   {
-    result = *(&off_29F27EA70 + v5);
+    intValue = [notification intValue];
+    if (intValue < 0x33 && ((0x7FFFEFFF3BF7FuLL >> intValue) & 1) != 0)
+    {
+      return *(&off_29F27EA70 + intValue);
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CLLocationProvider_Type::Notification";
-    v8[2] = @"raw value";
-    v9[2] = notification;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CLLocationProvider_Type::Notification";
+  v7[2] = @"raw value";
+  v8[2] = notification;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_CLLocationStreamingGranularity:(id)granularity info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [granularity intValue], v5 < 4))
+  if (objc_opt_isKindOfClass())
   {
-    result = *(&off_29F27EC08 + v5);
+    intValue = [granularity intValue];
+    if (intValue < 4)
+    {
+      return *(&off_29F27EC08 + intValue);
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CLLocationStreamingGranularity";
-    v8[2] = @"raw value";
-    v9[2] = granularity;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CLLocationStreamingGranularity";
+  v7[2] = @"raw value";
+  v8[2] = granularity;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_CLStreamingAwareLocationProviderNoLocalGPSStateMachine__LocationSourceState:(id)state info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [state intValue], v5 < 5))
+  if (objc_opt_isKindOfClass())
   {
-    result = *(&off_29F27EC28 + v5);
+    intValue = [state intValue];
+    if (intValue < 5)
+    {
+      return *(&off_29F27EC28 + intValue);
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CLStreamingAwareLocationProviderNoLocalGPSStateMachine::LocationSourceState";
-    v8[2] = @"raw value";
-    v9[2] = state;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CLStreamingAwareLocationProviderNoLocalGPSStateMachine::LocationSourceState";
+  v7[2] = @"raw value";
+  v8[2] = state;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_CLStreamingAwareLocationProviderLocalGPSStateMachine__LocationSourceState:(id)state info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [state intValue], v5 < 6))
+  if (objc_opt_isKindOfClass())
   {
-    result = *(&off_29F27EC50 + v5);
+    intValue = [state intValue];
+    if (intValue < 6)
+    {
+      return *(&off_29F27EC50 + intValue);
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CLStreamingAwareLocationProviderLocalGPSStateMachine::LocationSourceState";
-    v8[2] = @"raw value";
-    v9[2] = state;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CLStreamingAwareLocationProviderLocalGPSStateMachine::LocationSourceState";
+  v7[2] = @"raw value";
+  v8[2] = state;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_CLStreamingAwareLocationProviderLocalGPSStateMachine__WorkoutState:(id)state info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [state intValue], v5 < 3))
+  if (objc_opt_isKindOfClass())
   {
-    result = *(&off_29F27EC80 + v5);
+    intValue = [state intValue];
+    if (intValue < 3)
+    {
+      return *(&off_29F27EC80 + intValue);
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CLStreamingAwareLocationProviderLocalGPSStateMachine::LocationSourceState";
-    v8[2] = @"raw value";
-    v9[2] = state;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CLStreamingAwareLocationProviderLocalGPSStateMachine::LocationSourceState";
+  v7[2] = @"raw value";
+  v8[2] = state;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_CLStreamingAwareLocationProviderStateMachine__LocationSource:(id)source info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  if (objc_opt_isKindOfClass())
   {
-    goto LABEL_5;
+    intValue = [source intValue];
+    if (!intValue)
+    {
+      return @"CLStreamingAwareLocationProviderStateMachine::kLocationSourceLocal";
+    }
+
+    if (intValue == 1)
+    {
+      return @"CLStreamingAwareLocationProviderStateMachine::kLocationSourceRemote";
+    }
   }
 
-  intValue = [source intValue];
-  if (!intValue)
-  {
-    result = @"CLStreamingAwareLocationProviderStateMachine::kLocationSourceLocal";
-    goto LABEL_6;
-  }
-
-  if (intValue == 1)
-  {
-    result = @"CLStreamingAwareLocationProviderStateMachine::kLocationSourceRemote";
-  }
-
-  else
-  {
-LABEL_5:
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CLStreamingAwareLocationProviderStateMachine::LocationSource";
-    v8[2] = @"raw value";
-    v9[2] = source;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-LABEL_6:
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CLStreamingAwareLocationProviderStateMachine::LocationSource";
+  v7[2] = @"raw value";
+  v8[2] = source;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_CLLocationProvider_Type__MotionDetected:(id)detected info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [detected intValue], v5 < 3))
+  if (objc_opt_isKindOfClass())
   {
-    result = *(&off_29F27EC98 + v5);
+    intValue = [detected intValue];
+    if (intValue < 3)
+    {
+      return *(&off_29F27EC98 + intValue);
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CLLocationProvider_Type::MotionDetected";
-    v8[2] = @"raw value";
-    v9[2] = detected;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CLLocationProvider_Type::MotionDetected";
+  v7[2] = @"raw value";
+  v8[2] = detected;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_CLLocationType:(id)type info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [type intValue], v5 < 0xF))
+  if (objc_opt_isKindOfClass())
   {
-    result = *(&off_29F27ECB0 + v5);
+    intValue = [type intValue];
+    if (intValue < 0xF)
+    {
+      return *(&off_29F27ECB0 + intValue);
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CLLocationType";
-    v8[2] = @"raw value";
-    v9[2] = type;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CLLocationType";
+  v7[2] = @"raw value";
+  v8[2] = type;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_CLDaemonLocationPrivate__OriginDevice:(id)device info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [device intValue], v5 < 3))
+  if (objc_opt_isKindOfClass())
   {
-    result = *(&off_29F27ED28 + v5);
+    intValue = [device intValue];
+    if (intValue < 3)
+    {
+      return *(&off_29F27ED28 + intValue);
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CLClientLocationOriginDevice";
-    v8[2] = @"raw value";
-    v9[2] = device;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CLClientLocationOriginDevice";
+  v7[2] = @"raw value";
+  v8[2] = device;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_IOMessage:(id)message info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  if (objc_opt_isKindOfClass())
   {
-    goto LABEL_41;
-  }
-
-  unsignedLongValue = [message unsignedLongValue];
-  if (unsignedLongValue > 3758096943)
-  {
-    if (unsignedLongValue > 3758097151)
+    unsignedLongValue = [message unsignedLongValue];
+    if (unsignedLongValue > 3758096943)
     {
-      if (unsignedLongValue > 3758097199)
+      if (unsignedLongValue > 3758097151)
+      {
+        if (unsignedLongValue > 3758097199)
+        {
+          switch(unsignedLongValue)
+          {
+            case 3758097200:
+              return @"CopyClientID";
+            case 3758097216:
+              return @"SystemCapabilityChange";
+            case 3758097232:
+              return @"DeviceSignaledWakeup";
+          }
+        }
+
+        else
+        {
+          switch(unsignedLongValue)
+          {
+            case 3758097152:
+              return @"SystemHasPoweredOn";
+            case 3758097168:
+              return @"SystemWillRestart";
+            case 3758097184:
+              return @"SystemWillPowerOn";
+          }
+        }
+      }
+
+      else if (unsignedLongValue > 3758097007)
       {
         switch(unsignedLongValue)
         {
-          case 3758097200:
-            result = @"CopyClientID";
-            goto LABEL_42;
-          case 3758097216:
-            result = @"SystemCapabilityChange";
-            goto LABEL_42;
-          case 3758097232:
-            result = @"DeviceSignaledWakeup";
-            goto LABEL_42;
+          case 3758097008:
+            return @"CanSystemSleep";
+          case 3758097024:
+            return @"SystemWillSleep";
+          case 3758097040:
+            return @"SystemWillNotSleep";
         }
       }
 
@@ -1334,32 +1231,55 @@ LABEL_6:
       {
         switch(unsignedLongValue)
         {
-          case 3758097152:
-            result = @"SystemHasPoweredOn";
-            goto LABEL_42;
-          case 3758097168:
-            result = @"SystemWillRestart";
-            goto LABEL_42;
-          case 3758097184:
-            result = @"SystemWillPowerOn";
-            goto LABEL_42;
+          case 3758096944:
+            return @"DeviceHasPoweredOn";
+          case 3758096976:
+            return @"SystemWillPowerOff";
+          case 3758096981:
+            return @"SystemPagingOff";
         }
       }
     }
 
-    else if (unsignedLongValue > 3758097007)
+    else if (unsignedLongValue > 3758096671)
+    {
+      if (unsignedLongValue > 3758096895)
+      {
+        switch(unsignedLongValue)
+        {
+          case 3758096896:
+            return @"CanDevicePowerOff";
+          case 3758096912:
+            return @"DeviceWillPowerOff";
+          case 3758096928:
+            return @"DeviceWillNotPowerOff";
+        }
+      }
+
+      else
+      {
+        switch(unsignedLongValue)
+        {
+          case 3758096672:
+            return @"ServiceBusyStateChange";
+          case 3758096680:
+            return @"ConsoleSecurityChange";
+          case 3758096688:
+            return @"ServicePropertyChange";
+        }
+      }
+    }
+
+    else if (unsignedLongValue > 3758096639)
     {
       switch(unsignedLongValue)
       {
-        case 3758097008:
-          result = @"CanSystemSleep";
-          goto LABEL_42;
-        case 3758097024:
-          result = @"SystemWillSleep";
-          goto LABEL_42;
-        case 3758097040:
-          result = @"SystemWillNotSleep";
-          goto LABEL_42;
+        case 3758096640:
+          return @"ServiceIsRequestingClose";
+        case 3758096641:
+          return @"ServiceIsAttemptingOpen";
+        case 3758096656:
+          return @"ServiceWasClosed";
       }
     }
 
@@ -1367,214 +1287,121 @@ LABEL_6:
     {
       switch(unsignedLongValue)
       {
-        case 3758096944:
-          result = @"DeviceHasPoweredOn";
-          goto LABEL_42;
-        case 3758096976:
-          result = @"SystemWillPowerOff";
-          goto LABEL_42;
-        case 3758096981:
-          result = @"SystemPagingOff";
-          goto LABEL_42;
+        case 3758096400:
+          return @"ServiceIsTerminated";
+        case 3758096416:
+          return @"ServiceIsSuspended";
+        case 3758096432:
+          return @"ServiceIsResumed";
       }
     }
-
-LABEL_41:
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"IOMessage";
-    v8[2] = @"raw value";
-    v9[2] = message;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-    goto LABEL_42;
   }
 
-  if (unsignedLongValue > 3758096671)
-  {
-    if (unsignedLongValue > 3758096895)
-    {
-      switch(unsignedLongValue)
-      {
-        case 3758096896:
-          result = @"CanDevicePowerOff";
-          goto LABEL_42;
-        case 3758096912:
-          result = @"DeviceWillPowerOff";
-          goto LABEL_42;
-        case 3758096928:
-          result = @"DeviceWillNotPowerOff";
-          goto LABEL_42;
-      }
-    }
-
-    else
-    {
-      switch(unsignedLongValue)
-      {
-        case 3758096672:
-          result = @"ServiceBusyStateChange";
-          goto LABEL_42;
-        case 3758096680:
-          result = @"ConsoleSecurityChange";
-          goto LABEL_42;
-        case 3758096688:
-          result = @"ServicePropertyChange";
-          goto LABEL_42;
-      }
-    }
-
-    goto LABEL_41;
-  }
-
-  if (unsignedLongValue > 3758096639)
-  {
-    switch(unsignedLongValue)
-    {
-      case 3758096640:
-        result = @"ServiceIsRequestingClose";
-        goto LABEL_42;
-      case 3758096641:
-        result = @"ServiceIsAttemptingOpen";
-        goto LABEL_42;
-      case 3758096656:
-        result = @"ServiceWasClosed";
-        goto LABEL_42;
-    }
-
-    goto LABEL_41;
-  }
-
-  if (unsignedLongValue == 3758096400)
-  {
-    result = @"ServiceIsTerminated";
-    goto LABEL_42;
-  }
-
-  if (unsignedLongValue == 3758096416)
-  {
-    result = @"ServiceIsSuspended";
-    goto LABEL_42;
-  }
-
-  if (unsignedLongValue != 3758096432)
-  {
-    goto LABEL_41;
-  }
-
-  result = @"ServiceIsResumed";
-LABEL_42:
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"IOMessage";
+  v7[2] = @"raw value";
+  v8[2] = message;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_CLDaemonStatus_Type__Reachability:(id)reachability info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  if (objc_opt_isKindOfClass())
   {
-    goto LABEL_9;
-  }
-
-  intValue = [reachability intValue];
-  if (intValue > 1)
-  {
-    if (intValue == 2)
+    intValue = [reachability intValue];
+    if (intValue > 1)
     {
-      result = @"kReachabilityLarge";
-      goto LABEL_10;
+      if (intValue == 2)
+      {
+        return @"kReachabilityLarge";
+      }
+
+      if (intValue == 1000)
+      {
+        return @"kReachabilityUnachievable";
+      }
     }
 
-    if (intValue == 1000)
+    else
     {
-      result = @"kReachabilityUnachievable";
-      goto LABEL_10;
+      if (!intValue)
+      {
+        return @"kReachabilityUnavailable";
+      }
+
+      if (intValue == 1)
+      {
+        return @"kReachabilitySmall";
+      }
     }
-
-LABEL_9:
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CLDaemonStatus_Type::Reachability";
-    v8[2] = @"raw value";
-    v9[2] = reachability;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-    goto LABEL_10;
   }
 
-  if (!intValue)
-  {
-    result = @"kReachabilityUnavailable";
-    goto LABEL_10;
-  }
-
-  if (intValue != 1)
-  {
-    goto LABEL_9;
-  }
-
-  result = @"kReachabilitySmall";
-LABEL_10:
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CLDaemonStatus_Type::Reachability";
+  v7[2] = @"raw value";
+  v8[2] = reachability;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_CLBatteryChargerType:(id)type info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [type intValue], v5 < 5))
+  if (objc_opt_isKindOfClass())
   {
-    result = *(&off_29F27ED40 + v5);
+    intValue = [type intValue];
+    if (intValue < 5)
+    {
+      return *(&off_29F27ED40 + intValue);
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CLBatteryChargerType";
-    v8[2] = @"raw value";
-    v9[2] = type;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CLBatteryChargerType";
+  v7[2] = @"raw value";
+  v8[2] = type;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_CLDaemonStatus_Type__Battery:(id)battery info:(os_log_type_info_s *)info
 {
-  v24[3] = *MEMORY[0x29EDCA608];
+  v23[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v19[0] = @"type";
-    v19[1] = @"expected type";
-    v20[0] = @"decode failure";
-    v20[1] = @"CLDaemonStatus_Type::Battery";
-    v19[2] = @"raw value";
-    v20[2] = battery;
+    v18[0] = @"type";
+    v18[1] = @"expected type";
+    v19[0] = @"decode failure";
+    v19[1] = @"CLDaemonStatus_Type::Battery";
+    v18[2] = @"raw value";
+    v19[2] = battery;
     v13 = MEMORY[0x29EDB8DC0];
-    v14 = v20;
-    v15 = v19;
+    v14 = v19;
+    v15 = v18;
 LABEL_6:
     v16 = 3;
-    goto LABEL_7;
+    return [v13 dictionaryWithObjects:v14 forKeys:v15 count:v16];
   }
 
   if ([battery length] != 24)
   {
-    v23[0] = @"type";
-    v23[1] = @"expected type";
-    v24[0] = @"decode failure";
-    v24[1] = @"CLDaemonStatus_Type::Battery";
-    v23[2] = @"raw value";
-    v24[2] = battery;
+    v22[0] = @"type";
+    v22[1] = @"expected type";
+    v23[0] = @"decode failure";
+    v23[1] = @"CLDaemonStatus_Type::Battery";
+    v22[2] = @"raw value";
+    v23[2] = battery;
     v13 = MEMORY[0x29EDB8DC0];
-    v14 = v24;
-    v15 = v23;
+    v14 = v23;
+    v15 = v22;
     goto LABEL_6;
   }
 
@@ -1584,66 +1411,61 @@ LABEL_6:
   v10 = *(bytes + 9);
   v11 = *(bytes + 16);
   v12 = [MEMORY[0x29EDBA070] numberWithInt:*(bytes + 12)];
-  v21[0] = @"level";
-  v22[0] = [MEMORY[0x29EDBA070] numberWithDouble:v8];
-  v21[1] = @"charged";
-  v22[1] = [MEMORY[0x29EDBA070] numberWithBool:v9 & 1];
-  v21[2] = @"connected";
-  v22[2] = [MEMORY[0x29EDBA070] numberWithBool:v10 & 1];
-  v21[3] = @"chargerType";
-  v22[3] = [(CLLogFormatter *)self JSONObjectWith_CLBatteryChargerType:v12 info:info];
-  v21[4] = @"wasConnected";
-  v22[4] = [MEMORY[0x29EDBA070] numberWithBool:v11 & 1];
+  v20[0] = @"level";
+  v21[0] = [MEMORY[0x29EDBA070] numberWithDouble:v8];
+  v20[1] = @"charged";
+  v21[1] = [MEMORY[0x29EDBA070] numberWithBool:v9 & 1];
+  v20[2] = @"connected";
+  v21[2] = [MEMORY[0x29EDBA070] numberWithBool:v10 & 1];
+  v20[3] = @"chargerType";
+  v21[3] = [(CLLogFormatter *)self JSONObjectWith_CLBatteryChargerType:v12 info:info];
+  v20[4] = @"wasConnected";
+  v21[4] = [MEMORY[0x29EDBA070] numberWithBool:v11 & 1];
   v13 = MEMORY[0x29EDB8DC0];
-  v14 = v22;
-  v15 = v21;
+  v14 = v21;
+  v15 = v20;
   v16 = 5;
-LABEL_7:
-  result = [v13 dictionaryWithObjects:v14 forKeys:v15 count:v16];
-  v18 = *MEMORY[0x29EDCA608];
-  return result;
+  return [v13 dictionaryWithObjects:v14 forKeys:v15 count:v16];
 }
 
 - (id)JSONObjectWith_CLClientServiceType:(id)type info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [type integerValue], v5 < 0x19))
+  if (objc_opt_isKindOfClass())
   {
-    result = *(&off_29F27ED68 + v5);
+    integerValue = [type integerValue];
+    if (integerValue < 0x19)
+    {
+      return *(&off_29F27ED68 + integerValue);
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CLClientServiceType";
-    v8[2] = @"raw value";
-    v9[2] = type;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CLClientServiceType";
+  v7[2] = @"raw value";
+  v8[2] = type;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_CLClientServiceTypeMask:(id)mask info:(os_log_type_info_s *)info
 {
-  v16[3] = *MEMORY[0x29EDCA608];
+  v15[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v13[0] = @"type";
-    v13[1] = @"expected type";
-    v14[0] = @"decode failure";
-    v14[1] = @"CLClientServiceTypeMask";
-    v13[2] = @"raw value";
-    v14[2] = mask;
+    v12[0] = @"type";
+    v12[1] = @"expected type";
+    v13[0] = @"decode failure";
+    v13[1] = @"CLClientServiceTypeMask";
+    v12[2] = @"raw value";
+    v13[2] = mask;
     v8 = MEMORY[0x29EDB8DC0];
-    v9 = v14;
-    v10 = v13;
-    goto LABEL_18;
+    v9 = v13;
+    v10 = v12;
+    return [v8 dictionaryWithObjects:v9 forKeys:v10 count:3];
   }
 
   integerValue = [mask integerValue];
@@ -1783,102 +1605,96 @@ LABEL_13:
 LABEL_14:
   if (![v7 count] && integerValue)
   {
-    v15[0] = @"type";
-    v15[1] = @"expected type";
-    v16[0] = @"decode failure";
-    v16[1] = @"CLClientServiceTypeMask";
-    v15[2] = @"raw value";
-    v16[2] = mask;
+    v14[0] = @"type";
+    v14[1] = @"expected type";
+    v15[0] = @"decode failure";
+    v15[1] = @"CLClientServiceTypeMask";
+    v14[2] = @"raw value";
+    v15[2] = mask;
     v8 = MEMORY[0x29EDB8DC0];
-    v9 = v16;
-    v10 = v15;
-LABEL_18:
-    v7 = [v8 dictionaryWithObjects:v9 forKeys:v10 count:3];
+    v9 = v15;
+    v10 = v14;
+    return [v8 dictionaryWithObjects:v9 forKeys:v10 count:3];
   }
 
-  v11 = *MEMORY[0x29EDCA608];
   return v7;
 }
 
 - (id)JSONObjectWith_CLLocationDictionaryUtilitiesAuthorizationMask:(id)mask info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 && (v5 = [mask integerValue], v5 < 8) && ((0xD7u >> v5))
+  if (objc_opt_isKindOfClass())
   {
-    result = *(&off_29F27EE30 + v5);
+    integerValue = [mask integerValue];
+    if (integerValue < 8 && ((0xD7u >> integerValue) & 1) != 0)
+    {
+      return *(&off_29F27EE30 + integerValue);
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CLLocationDictionaryUtilitiesAuthorizationMask";
-    v8[2] = @"raw value";
-    v9[2] = mask;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CLLocationDictionaryUtilitiesAuthorizationMask";
+  v7[2] = @"raw value";
+  v8[2] = mask;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_CLClientIncidentalUseMode:(id)mode info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [mode integerValue], v5 < 4))
+  if (objc_opt_isKindOfClass())
   {
-    result = *(&off_29F27EE70 + v5);
+    integerValue = [mode integerValue];
+    if (integerValue < 4)
+    {
+      return *(&off_29F27EE70 + integerValue);
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CLClientIncidentalUseMode";
-    v8[2] = @"raw value";
-    v9[2] = mode;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CLClientIncidentalUseMode";
+  v7[2] = @"raw value";
+  v8[2] = mode;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_CLTelephonyService_Type__Cell:(id)cell info:(os_log_type_info_s *)info
 {
-  v25[3] = *MEMORY[0x29EDCA608];
+  v24[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v20[0] = @"type";
-    v20[1] = @"expected type";
-    v21[0] = @"decode failure";
-    v21[1] = @"CLTelephonyService_Type::Cell";
-    v20[2] = @"raw value";
-    v21[2] = cell;
+    v19[0] = @"type";
+    v19[1] = @"expected type";
+    v20[0] = @"decode failure";
+    v20[1] = @"CLTelephonyService_Type::Cell";
+    v19[2] = @"raw value";
+    v20[2] = cell;
     v14 = MEMORY[0x29EDB8DC0];
-    v15 = v21;
-    v16 = v20;
+    v15 = v20;
+    v16 = v19;
 LABEL_6:
     v17 = 3;
-    goto LABEL_7;
+    return [v14 dictionaryWithObjects:v15 forKeys:v16 count:v17];
   }
 
   if ([cell length] != 32)
   {
-    v24[0] = @"type";
-    v24[1] = @"expected type";
-    v25[0] = @"decode failure";
-    v25[1] = @"CLTelephonyService_Type::Cell";
-    v24[2] = @"raw value";
-    v25[2] = cell;
+    v23[0] = @"type";
+    v23[1] = @"expected type";
+    v24[0] = @"decode failure";
+    v24[1] = @"CLTelephonyService_Type::Cell";
+    v23[2] = @"raw value";
+    v24[2] = cell;
     v14 = MEMORY[0x29EDB8DC0];
-    v15 = v25;
-    v16 = v24;
+    v15 = v24;
+    v16 = v23;
     goto LABEL_6;
   }
 
@@ -1891,710 +1707,356 @@ LABEL_6:
   v10 = bytes[5];
   v13 = bytes[6];
   v12 = bytes[7];
-  v22[0] = @"mcc";
-  v23[0] = [MEMORY[0x29EDBA070] numberWithInt:v6];
-  v22[1] = @"mnc";
-  v23[1] = [MEMORY[0x29EDBA070] numberWithInt:v7];
-  v22[2] = @"lac";
-  v23[2] = [MEMORY[0x29EDBA070] numberWithInt:v8];
-  v22[3] = @"ci";
-  v23[3] = [MEMORY[0x29EDBA070] numberWithInt:v9];
-  v22[4] = @"uarfcn";
-  v23[4] = [MEMORY[0x29EDBA070] numberWithInt:v11];
-  v22[5] = @"psc";
-  v23[5] = [MEMORY[0x29EDBA070] numberWithInt:v10];
-  v22[6] = @"rscp";
-  v23[6] = [MEMORY[0x29EDBA070] numberWithInt:v13];
-  v22[7] = @"ecn0";
-  v23[7] = [MEMORY[0x29EDBA070] numberWithInt:v12];
+  v21[0] = @"mcc";
+  v22[0] = [MEMORY[0x29EDBA070] numberWithInt:v6];
+  v21[1] = @"mnc";
+  v22[1] = [MEMORY[0x29EDBA070] numberWithInt:v7];
+  v21[2] = @"lac";
+  v22[2] = [MEMORY[0x29EDBA070] numberWithInt:v8];
+  v21[3] = @"ci";
+  v22[3] = [MEMORY[0x29EDBA070] numberWithInt:v9];
+  v21[4] = @"uarfcn";
+  v22[4] = [MEMORY[0x29EDBA070] numberWithInt:v11];
+  v21[5] = @"psc";
+  v22[5] = [MEMORY[0x29EDBA070] numberWithInt:v10];
+  v21[6] = @"rscp";
+  v22[6] = [MEMORY[0x29EDBA070] numberWithInt:v13];
+  v21[7] = @"ecn0";
+  v22[7] = [MEMORY[0x29EDBA070] numberWithInt:v12];
   v14 = MEMORY[0x29EDB8DC0];
-  v15 = v23;
-  v16 = v22;
+  v15 = v22;
+  v16 = v21;
   v17 = 8;
-LABEL_7:
-  result = [v14 dictionaryWithObjects:v15 forKeys:v16 count:v17];
-  v19 = *MEMORY[0x29EDCA608];
-  return result;
+  return [v14 dictionaryWithObjects:v15 forKeys:v16 count:v17];
 }
 
 - (id)JSONObjectWith_PSYSyncRestriction:(id)restriction info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  if (objc_opt_isKindOfClass())
   {
-    goto LABEL_5;
+    longLongValue = [restriction longLongValue];
+    if (!longLongValue)
+    {
+      return @"PSYSyncRestrictionNone";
+    }
+
+    if (longLongValue == 1)
+    {
+      return @"PSYSyncRestrictionLimitPush";
+    }
   }
 
-  longLongValue = [restriction longLongValue];
-  if (!longLongValue)
-  {
-    result = @"PSYSyncRestrictionNone";
-    goto LABEL_6;
-  }
-
-  if (longLongValue == 1)
-  {
-    result = @"PSYSyncRestrictionLimitPush";
-  }
-
-  else
-  {
-LABEL_5:
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"PSYSyncRestriction";
-    v8[2] = @"raw value";
-    v9[2] = restriction;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-LABEL_6:
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"PSYSyncRestriction";
+  v7[2] = @"raw value";
+  v8[2] = restriction;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_PSYSyncSessionType:(id)type info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  if (objc_opt_isKindOfClass())
   {
-    goto LABEL_5;
+    longLongValue = [type longLongValue];
+    if (!longLongValue)
+    {
+      return @"PSYSyncSessionTypeFullSync";
+    }
+
+    if (longLongValue == 1)
+    {
+      return @"PSYSyncSessionTypeReunionSync";
+    }
   }
 
-  longLongValue = [type longLongValue];
-  if (!longLongValue)
-  {
-    result = @"PSYSyncSessionTypeFullSync";
-    goto LABEL_6;
-  }
-
-  if (longLongValue == 1)
-  {
-    result = @"PSYSyncSessionTypeReunionSync";
-  }
-
-  else
-  {
-LABEL_5:
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"PSYSyncSessionType";
-    v8[2] = @"raw value";
-    v9[2] = type;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-LABEL_6:
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"PSYSyncSessionType";
+  v7[2] = @"raw value";
+  v8[2] = type;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_SYSessionState:(id)state info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [state longLongValue], v5 < 0xA))
+  if (objc_opt_isKindOfClass())
   {
-    result = *(&off_29F27EE90 + v5);
+    longLongValue = [state longLongValue];
+    if (longLongValue < 0xA)
+    {
+      return *(&off_29F27EE90 + longLongValue);
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"SYSessionState";
-    v8[2] = @"raw value";
-    v9[2] = state;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"SYSessionState";
+  v7[2] = @"raw value";
+  v8[2] = state;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_CLMonitoringState:(id)state info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [state longLongValue], v5 < 3))
+  if (objc_opt_isKindOfClass())
   {
-    result = *(&off_29F27EEE0 + v5);
+    longLongValue = [state longLongValue];
+    if (longLongValue < 3)
+    {
+      return *(&off_29F27EEE0 + longLongValue);
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CLMonitoringState";
-    v8[2] = @"raw value";
-    v9[2] = state;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CLMonitoringState";
+  v7[2] = @"raw value";
+  v8[2] = state;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_CLFenceManager_Type__Notification:(id)notification info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [notification intValue], v5 < 0xC))
+  if (objc_opt_isKindOfClass())
   {
-    result = *(&off_29F27EEF8 + v5);
+    intValue = [notification intValue];
+    if (intValue < 0xC)
+    {
+      return *(&off_29F27EEF8 + intValue);
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CLFenceManager_Type::Notification";
-    v8[2] = @"raw value";
-    v9[2] = notification;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CLFenceManager_Type::Notification";
+  v7[2] = @"raw value";
+  v8[2] = notification;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_CLBTLEFenceManager_Type__Notification:(id)notification info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [notification intValue], v5 < 4))
+  if (objc_opt_isKindOfClass())
   {
-    result = *(&off_29F27EF58 + v5);
+    intValue = [notification intValue];
+    if (intValue < 4)
+    {
+      return *(&off_29F27EF58 + intValue);
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CLBTLEFenceManager_Type::Notification";
-    v8[2] = @"raw value";
-    v9[2] = notification;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CLBTLEFenceManager_Type::Notification";
+  v7[2] = @"raw value";
+  v8[2] = notification;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_CLMotionActivity__Type:(id)type info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    goto LABEL_134;
+LABEL_134:
+    v7[0] = @"type";
+    v7[1] = @"expected type";
+    v8[0] = @"decode failure";
+    v8[1] = @"CLMotionActivity::Type";
+    v7[2] = @"raw value";
+    v8[2] = type;
+    return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
   }
 
   intValue = [type intValue];
-  if (intValue > 11804)
+  if (intValue <= 11804)
   {
-    if (intValue > 15659)
+    if (intValue <= 63)
     {
-      if (intValue <= 18239)
+      if (intValue > 8)
       {
-        if (intValue <= 15732)
+        if (intValue <= 51)
         {
-          if (intValue > 15674)
+          if (intValue > 10)
           {
-            if (intValue == 15675)
+            if (intValue != 11)
             {
-              result = @"CLMotionActivity::kTypeTennis";
-              goto LABEL_135;
+              if (intValue == 41)
+              {
+                return @"CLMotionActivity::kTypeWalkingSlow";
+              }
+
+              goto LABEL_134;
             }
 
-            if (intValue == 15711)
-            {
-              result = @"CLMotionActivity::kTypeVolleyball";
-              goto LABEL_135;
-            }
+            return @"CLMotionActivity::kTypeInVehicleStatic";
+          }
+
+          else if (intValue == 9)
+          {
+            return @"CLMotionActivity::kTypeMovingCoarse";
           }
 
           else
           {
-            if (intValue == 15660)
+            return @"CLMotionActivity::kTypeInVehicleFrozen";
+          }
+        }
+
+        else if (intValue <= 60)
+        {
+          if (intValue != 52)
+          {
+            if (intValue == 56)
             {
-              result = @"CLMotionActivity::kTypeTableTennis";
-              goto LABEL_135;
+              return @"CLMotionActivity::kTypeDrivingOther";
             }
 
-            if (intValue == 15670)
-            {
-              result = @"CLMotionActivity::kTypeTaiChi";
-              goto LABEL_135;
-            }
-          }
-        }
-
-        else if (intValue <= 18049)
-        {
-          if (intValue == 15733)
-          {
-            result = @"CLMotionActivity::kTypeTrackAndField";
-            goto LABEL_135;
+            goto LABEL_134;
           }
 
-          if (intValue == 17150)
-          {
-            result = @"CLMotionActivity::kTypeIndoorWalking";
-            goto LABEL_135;
-          }
+          return @"CLMotionActivity::kTypeVehicularInHand";
         }
 
-        else
+        else if (intValue == 61)
         {
-          switch(intValue)
-          {
-            case 18050:
-              result = @"CLMotionActivity::kTypeOutdoorRowing";
-              goto LABEL_135;
-            case 18100:
-              result = @"CLMotionActivity::kTypePaddleSports";
-              goto LABEL_135;
-            case 18200:
-              result = @"CLMotionActivity::kTypeScubaDiving";
-              goto LABEL_135;
-          }
-        }
-      }
-
-      else if (intValue > 90121)
-      {
-        if (intValue <= 515620)
-        {
-          if (intValue == 90122)
-          {
-            result = @"CLMotionActivity::kTypeIndoorHandCycling";
-            goto LABEL_135;
-          }
-
-          if (intValue == 90603)
-          {
-            result = @"CLMotionActivity::kTypeOutdoorWheelchair";
-            goto LABEL_135;
-          }
-        }
-
-        else
-        {
-          switch(intValue)
-          {
-            case 515621:
-              result = @"CLMotionActivity::kTypeBaseball";
-              goto LABEL_135;
-            case 515652:
-              result = @"CLMotionActivity::kTypeRacquetball";
-              goto LABEL_135;
-            case 519150:
-              result = @"CLMotionActivity::kTypeSnowboarding";
-              goto LABEL_135;
-          }
-        }
-      }
-
-      else if (intValue <= 19089)
-      {
-        if (intValue == 18240)
-        {
-          result = @"CLMotionActivity::kTypeSwimming";
-          goto LABEL_135;
-        }
-
-        if (intValue == 19030)
-        {
-          result = @"CLMotionActivity::kTypeIndoorSkatingSports";
-          goto LABEL_135;
-        }
-      }
-
-      else
-      {
-        switch(intValue)
-        {
-          case 19090:
-            result = @"CLMotionActivity::kTypeCrossCountrySkiing";
-            goto LABEL_135;
-          case 19150:
-            result = @"CLMotionActivity::kTypeDownhillSkiing";
-            goto LABEL_135;
-          case 90121:
-            result = @"CLMotionActivity::kTypeOutdoorHandCycling";
-            goto LABEL_135;
-        }
-      }
-    }
-
-    else if (intValue <= 15254)
-    {
-      if (intValue <= 15099)
-      {
-        if (intValue > 15029)
-        {
-          if (intValue == 15030)
-          {
-            result = @"CLMotionActivity::kTypeBadminton";
-            goto LABEL_135;
-          }
-
-          if (intValue == 15055)
-          {
-            result = @"CLMotionActivity::kTypeBasketball";
-            goto LABEL_135;
-          }
-        }
-
-        else
-        {
-          if (intValue == 11805)
-          {
-            result = @"CLMotionActivity::kTypePushingWheelchair";
-            goto LABEL_135;
-          }
-
-          if (intValue == 12150)
-          {
-            result = @"CLMotionActivity::kTypeIndoorRunning";
-            goto LABEL_135;
-          }
-        }
-      }
-
-      else if (intValue <= 15149)
-      {
-        if (intValue == 15100)
-        {
-          result = @"CLMotionActivity::kTypeBoxing";
-          goto LABEL_135;
-        }
-
-        if (intValue == 15110)
-        {
-          result = @"CLMotionActivity::kTypeKickboxing";
-          goto LABEL_135;
-        }
-      }
-
-      else
-      {
-        switch(intValue)
-        {
-          case 15150:
-            result = @"CLMotionActivity::kTypeCricket";
-            goto LABEL_135;
-          case 15230:
-            result = @"CLMotionActivity::kTypeAmericanFootball";
-            goto LABEL_135;
-          case 15250:
-            result = @"CLMotionActivity::kTypeDiscSports";
-            goto LABEL_135;
-        }
-      }
-    }
-
-    else if (intValue > 15559)
-    {
-      if (intValue <= 15609)
-      {
-        if (intValue == 15560)
-        {
-          result = @"CLMotionActivity::kTypeRugby";
-          goto LABEL_135;
-        }
-
-        if (intValue == 15592)
-        {
-          result = @"CLMotionActivity::kTypeOutdoorSkatingSports";
-          goto LABEL_135;
-        }
-      }
-
-      else
-      {
-        switch(intValue)
-        {
-          case 15610:
-            result = @"CLMotionActivity::kTypeOutdoorSoccer";
-            goto LABEL_135;
-          case 15620:
-            result = @"CLMotionActivity::kTypeSoftball";
-            goto LABEL_135;
-          case 15652:
-            result = @"CLMotionActivity::kTypeSquash";
-            goto LABEL_135;
-        }
-      }
-    }
-
-    else if (intValue <= 15349)
-    {
-      if (intValue == 15255)
-      {
-        result = @"CLMotionActivity::kTypeGolfing";
-        goto LABEL_135;
-      }
-
-      if (intValue == 15330)
-      {
-        result = @"CLMotionActivity::kTypeHandball";
-        goto LABEL_135;
-      }
-    }
-
-    else
-    {
-      switch(intValue)
-      {
-        case 15350:
-          result = @"CLMotionActivity::kTypeOutdoorHockey";
-          goto LABEL_135;
-        case 15360:
-          result = @"CLMotionActivity::kTypeIndoorHockey";
-          goto LABEL_135;
-        case 15460:
-          result = @"CLMotionActivity::kTypeLacrosse";
-          goto LABEL_135;
-      }
-    }
-
-LABEL_134:
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CLMotionActivity::Type";
-    v8[2] = @"raw value";
-    v9[2] = type;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-    goto LABEL_135;
-  }
-
-  if (intValue <= 63)
-  {
-    if (intValue > 8)
-    {
-      if (intValue <= 51)
-      {
-        if (intValue > 10)
-        {
-          if (intValue == 11)
-          {
-            result = @"CLMotionActivity::kTypeInVehicleStatic";
-            goto LABEL_135;
-          }
-
-          if (intValue == 41)
-          {
-            result = @"CLMotionActivity::kTypeWalkingSlow";
-            goto LABEL_135;
-          }
-
-          goto LABEL_134;
-        }
-
-        if (intValue == 9)
-        {
-          result = @"CLMotionActivity::kTypeMovingCoarse";
-        }
-
-        else
-        {
-          result = @"CLMotionActivity::kTypeInVehicleFrozen";
-        }
-      }
-
-      else
-      {
-        if (intValue <= 60)
-        {
-          if (intValue == 52)
-          {
-            result = @"CLMotionActivity::kTypeVehicularInHand";
-            goto LABEL_135;
-          }
-
-          if (intValue == 56)
-          {
-            result = @"CLMotionActivity::kTypeDrivingOther";
-            goto LABEL_135;
-          }
-
-          goto LABEL_134;
-        }
-
-        if (intValue == 61)
-        {
-          result = @"CLMotionActivity::kTypeMachineWorkout";
+          return @"CLMotionActivity::kTypeMachineWorkout";
         }
 
         else if (intValue == 62)
         {
-          result = @"CLMotionActivity::kTypeWorkout";
+          return @"CLMotionActivity::kTypeWorkout";
         }
 
         else
         {
-          result = @"CLMotionActivity::kTypeMultiSportTransition";
+          return @"CLMotionActivity::kTypeMultiSportTransition";
         }
       }
-    }
 
-    else if (intValue <= 3)
-    {
-      if (intValue <= 1)
+      else if (intValue <= 3)
       {
-        if (!intValue)
+        if (intValue > 1)
         {
-          result = @"CLMotionActivity::kTypeUnknown";
-          goto LABEL_135;
-        }
-
-        if (intValue == 1)
-        {
-          result = @"CLMotionActivity::kTypeFrozen";
-          goto LABEL_135;
-        }
-
-        goto LABEL_134;
-      }
-
-      if (intValue == 2)
-      {
-        result = @"CLMotionActivity::kTypeStatic";
-      }
-
-      else
-      {
-        result = @"CLMotionActivity::kTypeMoving";
-      }
-    }
-
-    else if (intValue <= 5)
-    {
-      if (intValue == 4)
-      {
-        result = @"CLMotionActivity::kTypeWalking";
-      }
-
-      else
-      {
-        result = @"CLMotionActivity::kTypeDriving";
-      }
-    }
-
-    else if (intValue == 6)
-    {
-      result = @"CLMotionActivity::kTypeCycling";
-    }
-
-    else if (intValue == 7)
-    {
-      result = @"CLMotionActivity::kTypeSemiStationary";
-    }
-
-    else
-    {
-      result = @"CLMotionActivity::kTypeRunning";
-    }
-  }
-
-  else
-  {
-    if (intValue > 2047)
-    {
-      if (intValue > 2100)
-      {
-        if (intValue <= 2149)
-        {
-          if (intValue == 2101)
+          if (intValue == 2)
           {
-            result = @"CLMotionActivity::kTypeCoolDown";
-            goto LABEL_135;
+            return @"CLMotionActivity::kTypeStatic";
           }
 
-          if (intValue == 2105)
+          else
           {
-            result = @"CLMotionActivity::kTypePilates";
-            goto LABEL_135;
+            return @"CLMotionActivity::kTypeMoving";
           }
         }
 
         else
         {
-          switch(intValue)
+          if (intValue)
           {
-            case 2150:
-              result = @"CLMotionActivity::kTypeYoga";
-              goto LABEL_135;
-            case 3015:
-              result = @"CLMotionActivity::kTypeDancing";
-              goto LABEL_135;
-            case 3016:
-              result = @"CLMotionActivity::kTypeStepTraining";
-              goto LABEL_135;
+            if (intValue == 1)
+            {
+              return @"CLMotionActivity::kTypeFrozen";
+            }
+
+            goto LABEL_134;
           }
+
+          return @"CLMotionActivity::kTypeUnknown";
         }
       }
 
-      else if (intValue <= 2064)
+      else if (intValue <= 5)
       {
-        if (intValue == 2048)
+        if (intValue == 4)
         {
-          result = @"CLMotionActivity::kTypeElliptical";
-          goto LABEL_135;
+          return @"CLMotionActivity::kTypeWalking";
         }
 
-        if (intValue == 2061)
+        else
         {
-          result = @"CLMotionActivity::kTypeCrossTraining";
-          goto LABEL_135;
+          return @"CLMotionActivity::kTypeDriving";
         }
+      }
+
+      else if (intValue == 6)
+      {
+        return @"CLMotionActivity::kTypeCycling";
+      }
+
+      else if (intValue == 7)
+      {
+        return @"CLMotionActivity::kTypeSemiStationary";
       }
 
       else
       {
-        switch(intValue)
+        return @"CLMotionActivity::kTypeRunning";
+      }
+    }
+
+    else if (intValue <= 2047)
+    {
+      if (intValue <= 99)
+      {
+        if (intValue > 65)
         {
-          case 2065:
-            result = @"CLMotionActivity::kTypeStairClimbing";
-            goto LABEL_135;
-          case 2068:
-            result = @"CLMotionActivity::kTypeJumpRope";
-            goto LABEL_135;
-          case 2071:
-            result = @"CLMotionActivity::kTypeRowing";
-            goto LABEL_135;
+          if (intValue != 66)
+          {
+            if (intValue == 73)
+            {
+              return @"CLMotionActivity::kTypeCount";
+            }
+
+            goto LABEL_134;
+          }
+
+          return @"CLMotionActivity::kTypePickleball";
+        }
+
+        else if (intValue == 64)
+        {
+          return @"CLMotionActivity::kTypeIndoorSoccer";
+        }
+
+        else
+        {
+          return @"CLMotionActivity::kTypeAustralianFootball";
         }
       }
 
-      goto LABEL_134;
-    }
-
-    if (intValue > 99)
-    {
-      if (intValue <= 2019)
+      else if (intValue <= 2019)
       {
-        if (intValue == 100)
+        if (intValue != 100)
         {
-          result = @"CLMotionActivity::kTypeCyclingLeg";
-          goto LABEL_135;
+          if (intValue == 2010)
+          {
+            return @"CLMotionActivity::kTypeStationaryCycling";
+          }
+
+          goto LABEL_134;
         }
 
-        if (intValue == 2010)
-        {
-          result = @"CLMotionActivity::kTypeStationaryCycling";
-          goto LABEL_135;
-        }
+        return @"CLMotionActivity::kTypeCyclingLeg";
       }
 
       else
@@ -2602,279 +2064,536 @@ LABEL_134:
         switch(intValue)
         {
           case 2020:
-            result = @"CLMotionActivity::kTypeCalisthenics";
-            goto LABEL_135;
+            return @"CLMotionActivity::kTypeCalisthenics";
           case 2022:
-            result = @"CLMotionActivity::kTypeFunctionalStrength";
-            goto LABEL_135;
+            return @"CLMotionActivity::kTypeFunctionalStrength";
           case 2024:
-            result = @"CLMotionActivity::kTypeCoreTraining";
-            goto LABEL_135;
+            return @"CLMotionActivity::kTypeCoreTraining";
+          default:
+            goto LABEL_134;
         }
       }
-
-      goto LABEL_134;
     }
 
-    if (intValue > 65)
+    else if (intValue > 2100)
     {
-      if (intValue == 66)
+      if (intValue <= 2149)
       {
-        result = @"CLMotionActivity::kTypePickleball";
-        goto LABEL_135;
+        if (intValue != 2101)
+        {
+          if (intValue == 2105)
+          {
+            return @"CLMotionActivity::kTypePilates";
+          }
+
+          goto LABEL_134;
+        }
+
+        return @"CLMotionActivity::kTypeCoolDown";
       }
 
-      if (intValue == 73)
+      else
       {
-        result = @"CLMotionActivity::kTypeCount";
-        goto LABEL_135;
+        switch(intValue)
+        {
+          case 2150:
+            return @"CLMotionActivity::kTypeYoga";
+          case 3015:
+            return @"CLMotionActivity::kTypeDancing";
+          case 3016:
+            return @"CLMotionActivity::kTypeStepTraining";
+          default:
+            goto LABEL_134;
+        }
       }
-
-      goto LABEL_134;
     }
 
-    if (intValue == 64)
+    else if (intValue <= 2064)
     {
-      result = @"CLMotionActivity::kTypeIndoorSoccer";
+      if (intValue != 2048)
+      {
+        if (intValue == 2061)
+        {
+          return @"CLMotionActivity::kTypeCrossTraining";
+        }
+
+        goto LABEL_134;
+      }
+
+      return @"CLMotionActivity::kTypeElliptical";
     }
 
     else
     {
-      result = @"CLMotionActivity::kTypeAustralianFootball";
+      switch(intValue)
+      {
+        case 2065:
+          return @"CLMotionActivity::kTypeStairClimbing";
+        case 2068:
+          return @"CLMotionActivity::kTypeJumpRope";
+        case 2071:
+          return @"CLMotionActivity::kTypeRowing";
+        default:
+          goto LABEL_134;
+      }
     }
   }
 
-LABEL_135:
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-- (id)JSONObjectWith_CLMotionActivity__Confidence:(id)confidence info:(os_log_type_info_s *)info
-{
-  v9[3] = *MEMORY[0x29EDCA608];
-  objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [confidence intValue], v5 < 3))
+  else if (intValue > 15659)
   {
-    result = *(&off_29F27EF78 + v5);
+    if (intValue <= 18239)
+    {
+      if (intValue <= 15732)
+      {
+        if (intValue > 15674)
+        {
+          if (intValue != 15675)
+          {
+            if (intValue == 15711)
+            {
+              return @"CLMotionActivity::kTypeVolleyball";
+            }
+
+            goto LABEL_134;
+          }
+
+          return @"CLMotionActivity::kTypeTennis";
+        }
+
+        else
+        {
+          if (intValue != 15660)
+          {
+            if (intValue == 15670)
+            {
+              return @"CLMotionActivity::kTypeTaiChi";
+            }
+
+            goto LABEL_134;
+          }
+
+          return @"CLMotionActivity::kTypeTableTennis";
+        }
+      }
+
+      else if (intValue <= 18049)
+      {
+        if (intValue != 15733)
+        {
+          if (intValue == 17150)
+          {
+            return @"CLMotionActivity::kTypeIndoorWalking";
+          }
+
+          goto LABEL_134;
+        }
+
+        return @"CLMotionActivity::kTypeTrackAndField";
+      }
+
+      else
+      {
+        switch(intValue)
+        {
+          case 18050:
+            return @"CLMotionActivity::kTypeOutdoorRowing";
+          case 18100:
+            return @"CLMotionActivity::kTypePaddleSports";
+          case 18200:
+            return @"CLMotionActivity::kTypeScubaDiving";
+          default:
+            goto LABEL_134;
+        }
+      }
+    }
+
+    else if (intValue > 90121)
+    {
+      if (intValue <= 515620)
+      {
+        if (intValue != 90122)
+        {
+          if (intValue == 90603)
+          {
+            return @"CLMotionActivity::kTypeOutdoorWheelchair";
+          }
+
+          goto LABEL_134;
+        }
+
+        return @"CLMotionActivity::kTypeIndoorHandCycling";
+      }
+
+      else
+      {
+        switch(intValue)
+        {
+          case 515621:
+            return @"CLMotionActivity::kTypeBaseball";
+          case 515652:
+            return @"CLMotionActivity::kTypeRacquetball";
+          case 519150:
+            return @"CLMotionActivity::kTypeSnowboarding";
+          default:
+            goto LABEL_134;
+        }
+      }
+    }
+
+    else if (intValue <= 19089)
+    {
+      if (intValue != 18240)
+      {
+        if (intValue == 19030)
+        {
+          return @"CLMotionActivity::kTypeIndoorSkatingSports";
+        }
+
+        goto LABEL_134;
+      }
+
+      return @"CLMotionActivity::kTypeSwimming";
+    }
+
+    else
+    {
+      switch(intValue)
+      {
+        case 19090:
+          return @"CLMotionActivity::kTypeCrossCountrySkiing";
+        case 19150:
+          return @"CLMotionActivity::kTypeDownhillSkiing";
+        case 90121:
+          return @"CLMotionActivity::kTypeOutdoorHandCycling";
+        default:
+          goto LABEL_134;
+      }
+    }
+  }
+
+  else if (intValue <= 15254)
+  {
+    if (intValue <= 15099)
+    {
+      if (intValue > 15029)
+      {
+        if (intValue != 15030)
+        {
+          if (intValue == 15055)
+          {
+            return @"CLMotionActivity::kTypeBasketball";
+          }
+
+          goto LABEL_134;
+        }
+
+        return @"CLMotionActivity::kTypeBadminton";
+      }
+
+      else
+      {
+        if (intValue != 11805)
+        {
+          if (intValue == 12150)
+          {
+            return @"CLMotionActivity::kTypeIndoorRunning";
+          }
+
+          goto LABEL_134;
+        }
+
+        return @"CLMotionActivity::kTypePushingWheelchair";
+      }
+    }
+
+    else if (intValue <= 15149)
+    {
+      if (intValue != 15100)
+      {
+        if (intValue == 15110)
+        {
+          return @"CLMotionActivity::kTypeKickboxing";
+        }
+
+        goto LABEL_134;
+      }
+
+      return @"CLMotionActivity::kTypeBoxing";
+    }
+
+    else
+    {
+      switch(intValue)
+      {
+        case 15150:
+          return @"CLMotionActivity::kTypeCricket";
+        case 15230:
+          return @"CLMotionActivity::kTypeAmericanFootball";
+        case 15250:
+          return @"CLMotionActivity::kTypeDiscSports";
+        default:
+          goto LABEL_134;
+      }
+    }
+  }
+
+  else if (intValue > 15559)
+  {
+    if (intValue <= 15609)
+    {
+      if (intValue != 15560)
+      {
+        if (intValue == 15592)
+        {
+          return @"CLMotionActivity::kTypeOutdoorSkatingSports";
+        }
+
+        goto LABEL_134;
+      }
+
+      return @"CLMotionActivity::kTypeRugby";
+    }
+
+    else
+    {
+      switch(intValue)
+      {
+        case 15610:
+          return @"CLMotionActivity::kTypeOutdoorSoccer";
+        case 15620:
+          return @"CLMotionActivity::kTypeSoftball";
+        case 15652:
+          return @"CLMotionActivity::kTypeSquash";
+        default:
+          goto LABEL_134;
+      }
+    }
+  }
+
+  else if (intValue <= 15349)
+  {
+    if (intValue != 15255)
+    {
+      if (intValue == 15330)
+      {
+        return @"CLMotionActivity::kTypeHandball";
+      }
+
+      goto LABEL_134;
+    }
+
+    return @"CLMotionActivity::kTypeGolfing";
   }
 
   else
   {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CLMotionActivity::Confidence";
-    v8[2] = @"raw value";
-    v9[2] = confidence;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
+    switch(intValue)
+    {
+      case 15350:
+        return @"CLMotionActivity::kTypeOutdoorHockey";
+      case 15360:
+        return @"CLMotionActivity::kTypeIndoorHockey";
+      case 15460:
+        return @"CLMotionActivity::kTypeLacrosse";
+      default:
+        goto LABEL_134;
+    }
+  }
+}
+
+- (id)JSONObjectWith_CLMotionActivity__Confidence:(id)confidence info:(os_log_type_info_s *)info
+{
+  v8[3] = *MEMORY[0x29EDCA608];
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    intValue = [confidence intValue];
+    if (intValue < 3)
+    {
+      return *(&off_29F27EF78 + intValue);
+    }
   }
 
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CLMotionActivity::Confidence";
+  v7[2] = @"raw value";
+  v8[2] = confidence;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_CLMotionActivity:(id)activity info:(os_log_type_info_s *)info
 {
-  v21[3] = *MEMORY[0x29EDCA608];
+  v20[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v20[0] = @"type";
-    v20[1] = @"expected type";
-    v21[0] = @"decode failure";
-    v21[1] = @"CLMotionActiviy";
-    v20[2] = @"raw value";
-    v21[2] = activity;
+    v19[0] = @"type";
+    v19[1] = @"expected type";
+    v20[0] = @"decode failure";
+    v20[1] = @"CLMotionActiviy";
+    v19[2] = @"raw value";
+    v20[2] = activity;
     v10 = MEMORY[0x29EDB8DC0];
-    v11 = v21;
-    v12 = v20;
+    v11 = v20;
+    v12 = v19;
 LABEL_6:
     v13 = 3;
-    goto LABEL_7;
+    return [v10 dictionaryWithObjects:v11 forKeys:v12 count:v13];
   }
 
   if ([activity length] != 136)
   {
-    v18[0] = @"type";
-    v18[1] = @"expected type";
-    v19[0] = @"decode failure";
-    v19[1] = @"CLMotionActiviy";
-    v18[2] = @"raw value";
-    v19[2] = activity;
+    v17[0] = @"type";
+    v17[1] = @"expected type";
+    v18[0] = @"decode failure";
+    v18[1] = @"CLMotionActiviy";
+    v17[2] = @"raw value";
+    v18[2] = activity;
     v10 = MEMORY[0x29EDB8DC0];
-    v11 = v19;
-    v12 = v18;
+    v11 = v18;
+    v12 = v17;
     goto LABEL_6;
   }
 
   bytes = [activity bytes];
   v8 = bytes[1];
   v9 = -[CLLogFormatter JSONObjectWith_CLMotionActivity__Type:info:](self, "JSONObjectWith_CLMotionActivity__Type:info:", [MEMORY[0x29EDBA070] numberWithUnsignedInt:*bytes], info);
-  v16[0] = @"type";
-  v16[1] = @"confidence";
-  v17[0] = v9;
-  v17[1] = -[CLLogFormatter JSONObjectWith_CLMotionActivity__Confidence:info:](self, "JSONObjectWith_CLMotionActivity__Confidence:info:", [MEMORY[0x29EDBA070] numberWithUnsignedInt:v8], info);
+  v15[0] = @"type";
+  v15[1] = @"confidence";
+  v16[0] = v9;
+  v16[1] = -[CLLogFormatter JSONObjectWith_CLMotionActivity__Confidence:info:](self, "JSONObjectWith_CLMotionActivity__Confidence:info:", [MEMORY[0x29EDBA070] numberWithUnsignedInt:v8], info);
   v10 = MEMORY[0x29EDB8DC0];
-  v11 = v17;
-  v12 = v16;
+  v11 = v16;
+  v12 = v15;
   v13 = 2;
-LABEL_7:
-  result = [v10 dictionaryWithObjects:v11 forKeys:v12 count:v13];
-  v15 = *MEMORY[0x29EDCA608];
-  return result;
+  return [v10 dictionaryWithObjects:v11 forKeys:v12 count:v13];
 }
 
 - (id)JSONObjectWith_CMWakeGestureWristOrientation:(id)orientation info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  if (objc_opt_isKindOfClass())
   {
-    goto LABEL_5;
+    intValue = [orientation intValue];
+    if (!intValue)
+    {
+      return @"Left";
+    }
+
+    if (intValue == 1)
+    {
+      return @"Right";
+    }
   }
 
-  intValue = [orientation intValue];
-  if (!intValue)
-  {
-    result = @"Left";
-    goto LABEL_6;
-  }
-
-  if (intValue == 1)
-  {
-    result = @"Right";
-  }
-
-  else
-  {
-LABEL_5:
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CMWakeGestureWristOrientation";
-    v8[2] = @"raw value";
-    v9[2] = orientation;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-LABEL_6:
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CMWakeGestureWristOrientation";
+  v7[2] = @"raw value";
+  v8[2] = orientation;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_CMWakeGestureCrownOrientation:(id)orientation info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  if (objc_opt_isKindOfClass())
   {
-    goto LABEL_5;
+    intValue = [orientation intValue];
+    if (!intValue)
+    {
+      return @"Left";
+    }
+
+    if (intValue == 1)
+    {
+      return @"Right";
+    }
   }
 
-  intValue = [orientation intValue];
-  if (!intValue)
-  {
-    result = @"Left";
-    goto LABEL_6;
-  }
-
-  if (intValue == 1)
-  {
-    result = @"Right";
-  }
-
-  else
-  {
-LABEL_5:
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CMWakeGestureCrownOrientation";
-    v8[2] = @"raw value";
-    v9[2] = orientation;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-LABEL_6:
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CMWakeGestureCrownOrientation";
+  v7[2] = @"raw value";
+  v8[2] = orientation;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_CMWakeGestureState:(id)state info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [state intValue], v5 < 7))
+  if (objc_opt_isKindOfClass())
   {
-    result = *(&off_29F27EF90 + v5);
+    intValue = [state intValue];
+    if (intValue < 7)
+    {
+      return *(&off_29F27EF90 + intValue);
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CMWakeGestureState";
-    v8[2] = @"raw value";
-    v9[2] = state;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CMWakeGestureState";
+  v7[2] = @"raw value";
+  v8[2] = state;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_RTLState:(id)state info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [state intValue], v5 < 0xAu))
+  if (objc_opt_isKindOfClass())
   {
-    result = *(&off_29F27EFC8 + (v5 & 0xF));
+    intValue = [state intValue];
+    if (intValue < 0xAu)
+    {
+      return *(&off_29F27EFC8 + (intValue & 0xF));
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"GestureState";
-    v8[2] = @"raw value";
-    v9[2] = state;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"GestureState";
+  v7[2] = @"raw value";
+  v8[2] = state;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_RTLGestureType:(id)type info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [type intValue], v5 < 0xAu))
+  if (objc_opt_isKindOfClass())
   {
-    result = *(&off_29F27F018 + (v5 & 0xF));
+    intValue = [type intValue];
+    if (intValue < 0xAu)
+    {
+      return *(&off_29F27F018 + (intValue & 0xF));
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"GestureType";
-    v8[2] = @"raw value";
-    v9[2] = type;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"GestureType";
+  v7[2] = @"raw value";
+  v8[2] = type;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_CMMotionCoprocessorReply_Log:(id)log info:(os_log_type_info_s *)info
 {
-  v25[3] = *MEMORY[0x29EDCA608];
+  v24[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -2882,19 +2601,19 @@ LABEL_6:
     {
       bytes = [log bytes];
       array = [MEMORY[0x29EDB8DE8] array];
-      if (v17)
+      if (v16)
       {
-        if (v17 >= 0x10u)
+        if (v16 >= 0x10u)
         {
           v7 = 16;
         }
 
         else
         {
-          v7 = v17;
+          v7 = v16;
         }
 
-        v8 = &v19;
+        v8 = &v18;
         do
         {
           v9 = *v8++;
@@ -2905,197 +2624,183 @@ LABEL_6:
         while (v7);
       }
 
-      v22[0] = @"flags";
-      v23[0] = [MEMORY[0x29EDBA070] numberWithUnsignedChar:v16];
-      v22[1] = @"seq";
-      v10 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:v18];
-      v22[2] = @"data";
-      v23[1] = v10;
-      v23[2] = array;
+      v21[0] = @"flags";
+      v22[0] = [MEMORY[0x29EDBA070] numberWithUnsignedChar:v15];
+      v21[1] = @"seq";
+      v10 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:v17];
+      v21[2] = @"data";
+      v22[1] = v10;
+      v22[2] = array;
       v11 = MEMORY[0x29EDB8DC0];
-      v12 = v23;
-      v13 = v22;
+      v12 = v22;
+      v13 = v21;
     }
 
     else
     {
-      v24[0] = @"type";
-      v24[1] = @"expected type";
-      v25[0] = @"decode failure";
-      v25[1] = @"CMMotionCoprocessorReply::Log";
-      v24[2] = @"raw value";
-      v25[2] = log;
+      v23[0] = @"type";
+      v23[1] = @"expected type";
+      v24[0] = @"decode failure";
+      v24[1] = @"CMMotionCoprocessorReply::Log";
+      v23[2] = @"raw value";
+      v24[2] = log;
       v11 = MEMORY[0x29EDB8DC0];
-      v12 = v25;
-      v13 = v24;
+      v12 = v24;
+      v13 = v23;
     }
   }
 
   else
   {
-    v20[0] = @"type";
-    v20[1] = @"expected type";
-    v21[0] = @"decode failure";
-    v21[1] = @"CMMotionCoprocessorReply::Log";
-    v20[2] = @"raw value";
-    v21[2] = log;
+    v19[0] = @"type";
+    v19[1] = @"expected type";
+    v20[0] = @"decode failure";
+    v20[1] = @"CMMotionCoprocessorReply::Log";
+    v19[2] = @"raw value";
+    v20[2] = log;
     v11 = MEMORY[0x29EDB8DC0];
-    v12 = v21;
-    v13 = v20;
+    v12 = v20;
+    v13 = v19;
   }
 
-  result = [v11 dictionaryWithObjects:v12 forKeys:v13 count:3];
-  v15 = *MEMORY[0x29EDCA608];
-  return result;
+  return [v11 dictionaryWithObjects:v12 forKeys:v13 count:3];
 }
 
 - (id)JSONObjectWith_CLSubHarvesterIdentifier:(id)identifier info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [identifier intValue], v5 < 0x10))
+  if (objc_opt_isKindOfClass())
   {
-    result = *(&off_29F27F068 + v5);
+    intValue = [identifier intValue];
+    if (intValue < 0x10)
+    {
+      return *(&off_29F27F068 + intValue);
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CLSubHarvesterIdentifier";
-    v8[2] = @"raw value";
-    v9[2] = identifier;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CLSubHarvesterIdentifier";
+  v7[2] = @"raw value";
+  v8[2] = identifier;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_CLWifiService_Type__ScanType:(id)type info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [type intValue] + 1, v5 < 0xF))
+  if (objc_opt_isKindOfClass())
   {
-    result = *(&off_29F27F0E8 + v5);
+    v5 = [type intValue] + 1;
+    if (v5 < 0xF)
+    {
+      return *(&off_29F27F0E8 + v5);
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CLWifiService_Type::ScanType";
-    v8[2] = @"raw value";
-    v9[2] = type;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CLWifiService_Type::ScanType";
+  v7[2] = @"raw value";
+  v8[2] = type;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_RTRoutineMode:(id)mode info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [mode intValue], v5 < 3))
+  if (objc_opt_isKindOfClass())
   {
-    result = *(&off_29F27F160 + v5);
+    intValue = [mode intValue];
+    if (intValue < 3)
+    {
+      return *(&off_29F27F160 + intValue);
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"RTRoutineMode";
-    v8[2] = @"raw value";
-    v9[2] = mode;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"RTRoutineMode";
+  v7[2] = @"raw value";
+  v8[2] = mode;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_RTLocationOfInterestType:(id)type info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [type intValue] + 1, v5 < 5))
+  if (objc_opt_isKindOfClass())
   {
-    result = *(&off_29F27F178 + v5);
+    v5 = [type intValue] + 1;
+    if (v5 < 5)
+    {
+      return *(&off_29F27F178 + v5);
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"RTLocationOfInterestType";
-    v8[2] = @"raw value";
-    v9[2] = type;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"RTLocationOfInterestType";
+  v7[2] = @"raw value";
+  v8[2] = type;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_RBSTaskState:(id)state info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [state intValue], v5 < 5u))
+  if (objc_opt_isKindOfClass())
   {
-    result = *(&off_29F27F1A0 + (v5 & 7));
+    intValue = [state intValue];
+    if (intValue < 5u)
+    {
+      return *(&off_29F27F1A0 + (intValue & 7));
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"RBSTaskState";
-    v8[2] = @"raw value";
-    v9[2] = state;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"RBSTaskState";
+  v7[2] = @"raw value";
+  v8[2] = state;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_CLAppMonitor_Type__Notification:(id)notification info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [notification intValue], v5 < 0xD))
+  if (objc_opt_isKindOfClass())
   {
-    result = *(&off_29F27F1C8 + v5);
+    intValue = [notification intValue];
+    if (intValue < 0xD)
+    {
+      return *(&off_29F27F1C8 + intValue);
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CLAppMonitor_Type::Notification";
-    v8[2] = @"raw value";
-    v9[2] = notification;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CLAppMonitor_Type::Notification";
+  v7[2] = @"raw value";
+  v8[2] = notification;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith__CLLocationManagerStateTrackerState:(id)state info:(os_log_type_info_s *)info
 {
-  v42[3] = *MEMORY[0x29EDCA608];
+  v41[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -3110,89 +2815,87 @@ LABEL_6:
       v6 = 80;
     }
 
-    memcpy(v13, bytes, v6);
-    v39[0] = @"distanceFilter";
-    v40[0] = [MEMORY[0x29EDBA070] numberWithDouble:v13[0]];
-    v39[1] = @"desiredAccuracy";
-    v40[1] = [MEMORY[0x29EDBA070] numberWithDouble:v13[1]];
-    v39[2] = @"updatingLocation";
-    v40[2] = [MEMORY[0x29EDBA070] numberWithBool:v14 & 1];
-    v39[3] = @"requestingLocation";
-    v40[3] = [MEMORY[0x29EDBA070] numberWithBool:v15 & 1];
-    v39[4] = @"updatingHeading";
-    v40[4] = [MEMORY[0x29EDBA070] numberWithBool:v16 & 1];
-    v39[5] = @"headingFilter";
-    v40[5] = [MEMORY[0x29EDBA070] numberWithDouble:v17];
-    v39[6] = @"allowsLocationPrompts";
-    v40[6] = [MEMORY[0x29EDBA070] numberWithBool:v18 & 1];
-    v39[7] = @"allowsAlteredAccessoryLocations";
-    v40[7] = [MEMORY[0x29EDBA070] numberWithBool:v19 & 1];
-    v39[8] = @"dynamicAccuracyReductionEnabled";
-    v40[8] = [MEMORY[0x29EDBA070] numberWithBool:v20 & 1];
-    v39[9] = @"previousAuthorizationStatusValid";
-    v40[9] = [MEMORY[0x29EDBA070] numberWithBool:v21 & 1];
-    v39[10] = @"previousAuthorizationStatus";
-    v40[10] = [MEMORY[0x29EDBA070] numberWithUnsignedInt:v22];
-    v39[11] = @"limitsPrecision";
-    v40[11] = [MEMORY[0x29EDBA070] numberWithBool:v23 & 1];
-    v39[12] = @"activityType";
-    v40[12] = [MEMORY[0x29EDBA070] numberWithInteger:v24];
-    v39[13] = @"pausesLocationUpdatesAutomatically";
-    v40[13] = [MEMORY[0x29EDBA070] numberWithUnsignedInt:v25];
-    v39[14] = @"paused";
-    v40[14] = [MEMORY[0x29EDBA070] numberWithBool:v26 & 1];
-    v39[15] = @"allowsBackgroundLocationUpdates";
-    v40[15] = [MEMORY[0x29EDBA070] numberWithBool:v27 & 1];
-    v39[16] = @"showsBackgroundLocationIndicator";
-    v40[16] = [MEMORY[0x29EDBA070] numberWithBool:v28 & 1];
-    v39[17] = @"allowsMapCorrection";
-    v40[17] = [MEMORY[0x29EDBA070] numberWithBool:v29 & 1];
-    v39[18] = @"batchingLocation";
-    v40[18] = [MEMORY[0x29EDBA070] numberWithBool:v30 & 1];
-    v39[19] = @"updatingVehicleSpeed";
-    v40[19] = [MEMORY[0x29EDBA070] numberWithBool:v31 & 1];
-    v39[20] = @"updatingVehicleHeading";
-    v40[20] = [MEMORY[0x29EDBA070] numberWithBool:v32 & 1];
-    v39[21] = @"matchInfoEnabled";
-    v40[21] = [MEMORY[0x29EDBA070] numberWithBool:v33 & 1];
-    v39[22] = @"groundAltitudeEnabled";
-    v40[22] = [MEMORY[0x29EDBA070] numberWithBool:v34 & 1];
-    v39[23] = @"fusionInfoEnabled";
-    v40[23] = [MEMORY[0x29EDBA070] numberWithBool:v35 & 1];
-    v39[24] = @"courtesyPromptNeeded";
-    v40[24] = [MEMORY[0x29EDBA070] numberWithBool:v36 & 1];
-    v39[25] = @"isAuthorizedForWidgetUpdates";
-    v40[25] = [MEMORY[0x29EDBA070] numberWithBool:v37 & 1];
-    v39[26] = @"trackRunInfoEnabled";
-    v40[26] = [MEMORY[0x29EDBA070] numberWithBool:v38 & 1];
+    memcpy(v12, bytes, v6);
+    v38[0] = @"distanceFilter";
+    v39[0] = [MEMORY[0x29EDBA070] numberWithDouble:v12[0]];
+    v38[1] = @"desiredAccuracy";
+    v39[1] = [MEMORY[0x29EDBA070] numberWithDouble:v12[1]];
+    v38[2] = @"updatingLocation";
+    v39[2] = [MEMORY[0x29EDBA070] numberWithBool:v13 & 1];
+    v38[3] = @"requestingLocation";
+    v39[3] = [MEMORY[0x29EDBA070] numberWithBool:v14 & 1];
+    v38[4] = @"updatingHeading";
+    v39[4] = [MEMORY[0x29EDBA070] numberWithBool:v15 & 1];
+    v38[5] = @"headingFilter";
+    v39[5] = [MEMORY[0x29EDBA070] numberWithDouble:v16];
+    v38[6] = @"allowsLocationPrompts";
+    v39[6] = [MEMORY[0x29EDBA070] numberWithBool:v17 & 1];
+    v38[7] = @"allowsAlteredAccessoryLocations";
+    v39[7] = [MEMORY[0x29EDBA070] numberWithBool:v18 & 1];
+    v38[8] = @"dynamicAccuracyReductionEnabled";
+    v39[8] = [MEMORY[0x29EDBA070] numberWithBool:v19 & 1];
+    v38[9] = @"previousAuthorizationStatusValid";
+    v39[9] = [MEMORY[0x29EDBA070] numberWithBool:v20 & 1];
+    v38[10] = @"previousAuthorizationStatus";
+    v39[10] = [MEMORY[0x29EDBA070] numberWithUnsignedInt:v21];
+    v38[11] = @"limitsPrecision";
+    v39[11] = [MEMORY[0x29EDBA070] numberWithBool:v22 & 1];
+    v38[12] = @"activityType";
+    v39[12] = [MEMORY[0x29EDBA070] numberWithInteger:v23];
+    v38[13] = @"pausesLocationUpdatesAutomatically";
+    v39[13] = [MEMORY[0x29EDBA070] numberWithUnsignedInt:v24];
+    v38[14] = @"paused";
+    v39[14] = [MEMORY[0x29EDBA070] numberWithBool:v25 & 1];
+    v38[15] = @"allowsBackgroundLocationUpdates";
+    v39[15] = [MEMORY[0x29EDBA070] numberWithBool:v26 & 1];
+    v38[16] = @"showsBackgroundLocationIndicator";
+    v39[16] = [MEMORY[0x29EDBA070] numberWithBool:v27 & 1];
+    v38[17] = @"allowsMapCorrection";
+    v39[17] = [MEMORY[0x29EDBA070] numberWithBool:v28 & 1];
+    v38[18] = @"batchingLocation";
+    v39[18] = [MEMORY[0x29EDBA070] numberWithBool:v29 & 1];
+    v38[19] = @"updatingVehicleSpeed";
+    v39[19] = [MEMORY[0x29EDBA070] numberWithBool:v30 & 1];
+    v38[20] = @"updatingVehicleHeading";
+    v39[20] = [MEMORY[0x29EDBA070] numberWithBool:v31 & 1];
+    v38[21] = @"matchInfoEnabled";
+    v39[21] = [MEMORY[0x29EDBA070] numberWithBool:v32 & 1];
+    v38[22] = @"groundAltitudeEnabled";
+    v39[22] = [MEMORY[0x29EDBA070] numberWithBool:v33 & 1];
+    v38[23] = @"fusionInfoEnabled";
+    v39[23] = [MEMORY[0x29EDBA070] numberWithBool:v34 & 1];
+    v38[24] = @"courtesyPromptNeeded";
+    v39[24] = [MEMORY[0x29EDBA070] numberWithBool:v35 & 1];
+    v38[25] = @"isAuthorizedForWidgetUpdates";
+    v39[25] = [MEMORY[0x29EDBA070] numberWithBool:v36 & 1];
+    v38[26] = @"trackRunInfoEnabled";
+    v39[26] = [MEMORY[0x29EDBA070] numberWithBool:v37 & 1];
     v7 = MEMORY[0x29EDB8DC0];
-    v8 = v40;
-    v9 = v39;
+    v8 = v39;
+    v9 = v38;
     v10 = 27;
   }
 
   else
   {
-    v41[0] = @"type";
-    v41[1] = @"expected type";
-    v42[0] = @"decode failure";
-    v42[1] = @"_CLLocationManagerStateTrackerState";
-    v41[2] = @"raw value";
-    v42[2] = state;
+    v40[0] = @"type";
+    v40[1] = @"expected type";
+    v41[0] = @"decode failure";
+    v41[1] = @"_CLLocationManagerStateTrackerState";
+    v40[2] = @"raw value";
+    v41[2] = state;
     v7 = MEMORY[0x29EDB8DC0];
-    v8 = v42;
-    v9 = v41;
+    v8 = v41;
+    v9 = v40;
     v10 = 3;
   }
 
-  result = [v7 dictionaryWithObjects:v8 forKeys:v9 count:v10];
-  v12 = *MEMORY[0x29EDCA608];
-  return result;
+  return [v7 dictionaryWithObjects:v8 forKeys:v9 count:v10];
 }
 
 - (id)JSONObjectWith__CLDaemonStatusStateTrackerState:(id)state info:(os_log_type_info_s *)info
 {
-  v24[3] = *MEMORY[0x29EDCA608];
+  v23[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -3207,47 +2910,45 @@ LABEL_6:
       v8 = 40;
     }
 
-    memcpy(&v15, bytes, v8);
-    v21[0] = @"batteryData";
-    v22[0] = -[CLLogFormatter JSONObjectWith_CLDaemonStatus_Type__Battery:info:](self, "JSONObjectWith_CLDaemonStatus_Type__Battery:info:", [MEMORY[0x29EDB8DA0] dataWithBytesNoCopy:&v15 length:24 freeWhenDone:0], info);
-    v21[1] = @"reachability";
-    v22[1] = -[CLLogFormatter JSONObjectWith_CLDaemonStatus_Type__Reachability:info:](self, "JSONObjectWith_CLDaemonStatus_Type__Reachability:info:", [MEMORY[0x29EDBA070] numberWithUnsignedInt:v16], info);
-    v21[2] = @"thermalLevel";
-    v22[2] = [MEMORY[0x29EDBA070] numberWithInt:v17];
-    v21[3] = @"airplaneMode";
-    v22[3] = [MEMORY[0x29EDBA070] numberWithBool:v18];
-    v21[4] = @"batterySaverModeEnabled";
-    v22[4] = [MEMORY[0x29EDBA070] numberWithBool:v19];
-    v21[5] = @"restrictedMode";
-    v22[5] = [MEMORY[0x29EDBA070] numberWithBool:v20];
+    memcpy(&v14, bytes, v8);
+    v20[0] = @"batteryData";
+    v21[0] = -[CLLogFormatter JSONObjectWith_CLDaemonStatus_Type__Battery:info:](self, "JSONObjectWith_CLDaemonStatus_Type__Battery:info:", [MEMORY[0x29EDB8DA0] dataWithBytesNoCopy:&v14 length:24 freeWhenDone:0], info);
+    v20[1] = @"reachability";
+    v21[1] = -[CLLogFormatter JSONObjectWith_CLDaemonStatus_Type__Reachability:info:](self, "JSONObjectWith_CLDaemonStatus_Type__Reachability:info:", [MEMORY[0x29EDBA070] numberWithUnsignedInt:v15], info);
+    v20[2] = @"thermalLevel";
+    v21[2] = [MEMORY[0x29EDBA070] numberWithInt:v16];
+    v20[3] = @"airplaneMode";
+    v21[3] = [MEMORY[0x29EDBA070] numberWithBool:v17];
+    v20[4] = @"batterySaverModeEnabled";
+    v21[4] = [MEMORY[0x29EDBA070] numberWithBool:v18];
+    v20[5] = @"restrictedMode";
+    v21[5] = [MEMORY[0x29EDBA070] numberWithBool:v19];
     v9 = MEMORY[0x29EDB8DC0];
-    v10 = v22;
-    v11 = v21;
+    v10 = v21;
+    v11 = v20;
     v12 = 6;
   }
 
   else
   {
-    v23[0] = @"type";
-    v23[1] = @"expected type";
-    v24[0] = @"decode failure";
-    v24[1] = @"_CLDaemonStatusStateTrackerState";
-    v23[2] = @"raw value";
-    v24[2] = state;
+    v22[0] = @"type";
+    v22[1] = @"expected type";
+    v23[0] = @"decode failure";
+    v23[1] = @"_CLDaemonStatusStateTrackerState";
+    v22[2] = @"raw value";
+    v23[2] = state;
     v9 = MEMORY[0x29EDB8DC0];
-    v10 = v24;
-    v11 = v23;
+    v10 = v23;
+    v11 = v22;
     v12 = 3;
   }
 
-  result = [v9 dictionaryWithObjects:v10 forKeys:v11 count:v12];
-  v14 = *MEMORY[0x29EDCA608];
-  return result;
+  return [v9 dictionaryWithObjects:v10 forKeys:v11 count:v12];
 }
 
 - (id)JSONObjectWith__CLClientManagerStateTrackerState:(id)state info:(os_log_type_info_s *)info
 {
-  v19[3] = *MEMORY[0x29EDCA608];
+  v18[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -3262,64 +2963,60 @@ LABEL_6:
       v6 = 8;
     }
 
-    memcpy(&v14, bytes, v6);
-    v16[0] = @"locationServicesEnabledStatus";
-    v11 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:v14];
-    v16[1] = @"locationRestricted";
-    v17[0] = v11;
-    v17[1] = [MEMORY[0x29EDBA070] numberWithBool:v15 & 1];
+    memcpy(&v13, bytes, v6);
+    v15[0] = @"locationServicesEnabledStatus";
+    v11 = [MEMORY[0x29EDBA070] numberWithUnsignedInt:v13];
+    v15[1] = @"locationRestricted";
+    v16[0] = v11;
+    v16[1] = [MEMORY[0x29EDBA070] numberWithBool:v14 & 1];
     v7 = MEMORY[0x29EDB8DC0];
-    v8 = v17;
-    v9 = v16;
+    v8 = v16;
+    v9 = v15;
     v10 = 2;
   }
 
   else
   {
-    v18[0] = @"type";
-    v18[1] = @"expected type";
-    v19[0] = @"decode failure";
-    v19[1] = @"_CLClientManagerStateTrackerState";
-    v18[2] = @"raw value";
-    v19[2] = state;
+    v17[0] = @"type";
+    v17[1] = @"expected type";
+    v18[0] = @"decode failure";
+    v18[1] = @"_CLClientManagerStateTrackerState";
+    v17[2] = @"raw value";
+    v18[2] = state;
     v7 = MEMORY[0x29EDB8DC0];
-    v8 = v19;
-    v9 = v18;
+    v8 = v18;
+    v9 = v17;
     v10 = 3;
   }
 
-  result = [v7 dictionaryWithObjects:v8 forKeys:v9 count:v10];
-  v13 = *MEMORY[0x29EDCA608];
-  return result;
+  return [v7 dictionaryWithObjects:v8 forKeys:v9 count:v10];
 }
 
 - (id)JSONObjectWith_CLClientRegistrationResult:(id)result info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [result intValue], v5 < 9))
+  if (objc_opt_isKindOfClass())
   {
-    result = *(&off_29F27F230 + v5);
+    intValue = [result intValue];
+    if (intValue < 9)
+    {
+      return *(&off_29F27F230 + intValue);
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CLClientRegistrationResult";
-    v8[2] = @"raw value";
-    v9[2] = result;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CLClientRegistrationResult";
+  v7[2] = @"raw value";
+  v8[2] = result;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_CLSensorRecorder_Types__DataType:(id)type info:(os_log_type_info_s *)info
 {
-  v15[3] = *MEMORY[0x29EDCA608];
+  v14[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -3336,7 +3033,7 @@ LABEL_6:
     }
 
     std::string::basic_string[abi:ne200100]<0>(__p, v7);
-    if (v13 >= 0)
+    if (v12 >= 0)
     {
       v9 = __p;
     }
@@ -3347,7 +3044,7 @@ LABEL_6:
     }
 
     v8 = [v5 stringWithUTF8String:v9];
-    if (v13 < 0)
+    if (v12 < 0)
     {
       operator delete(__p[0]);
     }
@@ -3355,211 +3052,190 @@ LABEL_6:
 
   else
   {
-    v14[0] = @"type";
-    v14[1] = @"expected type";
-    v15[0] = @"decode failure";
-    v15[1] = @"CLSensorRecorder_Types::DataType";
-    v14[2] = @"raw value";
-    v15[2] = type;
-    v8 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
+    v13[0] = @"type";
+    v13[1] = @"expected type";
+    v14[0] = @"decode failure";
+    v14[1] = @"CLSensorRecorder_Types::DataType";
+    v13[2] = @"raw value";
+    v14[2] = type;
+    return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
   }
 
-  v10 = *MEMORY[0x29EDCA608];
   return v8;
 }
 
 - (id)JSONObjectWith_CLSimulationLocationDeliveryBehavior:(id)behavior info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  if (objc_opt_isKindOfClass())
   {
-    goto LABEL_5;
+    intValue = [behavior intValue];
+    if (!intValue)
+    {
+      return @"PassThrough";
+    }
+
+    if (intValue == 1)
+    {
+      return @"ConsiderType";
+    }
   }
 
-  intValue = [behavior intValue];
-  if (!intValue)
-  {
-    result = @"PassThrough";
-    goto LABEL_6;
-  }
-
-  if (intValue == 1)
-  {
-    result = @"ConsiderType";
-  }
-
-  else
-  {
-LABEL_5:
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CLSimulationLocationDeliveryBehavior";
-    v8[2] = @"raw value";
-    v9[2] = behavior;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-LABEL_6:
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CLSimulationLocationDeliveryBehavior";
+  v7[2] = @"raw value";
+  v8[2] = behavior;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_CLSimulationLocationRepeatBehavior:(id)behavior info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [behavior intValue], v5 < 3))
+  if (objc_opt_isKindOfClass())
   {
-    result = off_29F27F290[v5];
+    intValue = [behavior intValue];
+    if (intValue < 3)
+    {
+      return off_29F27F290[intValue];
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CLSimulationLocationRepeatBehavior";
-    v8[2] = @"raw value";
-    v9[2] = behavior;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CLSimulationLocationRepeatBehavior";
+  v7[2] = @"raw value";
+  v8[2] = behavior;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_CLBarometerCalibration_Types__Context:(id)context info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 && (v5 = [context intValue], v5 < 0xC) && ((0x80Fu >> v5))
+  if (objc_opt_isKindOfClass())
   {
-    result = off_29F27F2A8[v5];
+    intValue = [context intValue];
+    if (intValue < 0xC && ((0x80Fu >> intValue) & 1) != 0)
+    {
+      return off_29F27F2A8[intValue];
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"CLBarometerCalibration_Types::Context::";
-    v8[2] = @"raw value";
-    v9[2] = context;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"CLBarometerCalibration_Types::Context::";
+  v7[2] = @"raw value";
+  v8[2] = context;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_NEVPNConnectivityState:(id)state info:(os_log_type_info_s *)info
 {
-  v9[3] = *MEMORY[0x29EDCA608];
+  v8[3] = *MEMORY[0x29EDCA608];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && (v5 = [state intValue], v5 < 6))
+  if (objc_opt_isKindOfClass())
   {
-    result = off_29F27F308[v5];
+    intValue = [state intValue];
+    if (intValue < 6)
+    {
+      return off_29F27F308[intValue];
+    }
   }
 
-  else
-  {
-    v8[0] = @"type";
-    v8[1] = @"expected type";
-    v9[0] = @"decode failure";
-    v9[1] = @"NEVPNConnectivityState";
-    v8[2] = @"raw value";
-    v9[2] = state;
-    result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-  }
-
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  v7[0] = @"type";
+  v7[1] = @"expected type";
+  v8[0] = @"decode failure";
+  v8[1] = @"NEVPNConnectivityState";
+  v7[2] = @"raw value";
+  v8[2] = state;
+  return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 }
 
 - (id)JSONObjectWith_Encrypted_latitude:(id)encrypted_latitude info:(os_log_type_info_s *)info
 {
-  v11[1] = *MEMORY[0x29EDCA608];
+  v10[1] = *MEMORY[0x29EDCA608];
+  v7 = 0;
   v8 = 0;
-  v9 = 0;
-  v4 = extractEncryptedData(encrypted_latitude, &v9, &v8);
-  result = v8;
-  if (!v8)
+  v4 = extractEncryptedData(encrypted_latitude, &v8, &v7);
+  result = v7;
+  if (!v7)
   {
-    if (v9 >= 8)
+    if (v8 >= 8)
     {
       v6 = *v4;
-      v10 = @"lat";
-      v11[0] = [MEMORY[0x29EDBA070] numberWithDouble:v6];
-      result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+      v9 = @"lat";
+      v10[0] = [MEMORY[0x29EDBA070] numberWithDouble:v6];
+      return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     }
 
     else
     {
-      result = &unk_2A20010F0;
+      return &unk_2A20010F0;
     }
   }
 
-  v7 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 - (id)JSONObjectWith_Encrypted_longitude:(id)encrypted_longitude info:(os_log_type_info_s *)info
 {
-  v11[1] = *MEMORY[0x29EDCA608];
+  v10[1] = *MEMORY[0x29EDCA608];
+  v7 = 0;
   v8 = 0;
-  v9 = 0;
-  v4 = extractEncryptedData(encrypted_longitude, &v9, &v8);
-  result = v8;
-  if (!v8)
+  v4 = extractEncryptedData(encrypted_longitude, &v8, &v7);
+  result = v7;
+  if (!v7)
   {
-    if (v9 >= 8)
+    if (v8 >= 8)
     {
       v6 = *v4;
-      v10 = @"lon";
-      v11[0] = [MEMORY[0x29EDBA070] numberWithDouble:v6];
-      result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+      v9 = @"lon";
+      v10[0] = [MEMORY[0x29EDBA070] numberWithDouble:v6];
+      return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     }
 
     else
     {
-      result = &unk_2A20010F0;
+      return &unk_2A20010F0;
     }
   }
 
-  v7 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 - (id)JSONObjectWith_Encrypted_CLLocationCoordinate2D:(id)d info:(os_log_type_info_s *)info
 {
-  v13[2] = *MEMORY[0x29EDCA608];
+  v12[2] = *MEMORY[0x29EDCA608];
+  v9 = 0;
   v10 = 0;
-  v11 = 0;
-  v4 = extractEncryptedData(d, &v11, &v10);
-  result = v10;
-  if (!v10)
+  v4 = extractEncryptedData(d, &v10, &v9);
+  result = v9;
+  if (!v9)
   {
-    if (v11 >= 0x10)
+    if (v10 >= 0x10)
     {
       v6 = *v4;
-      v7 = v4[1];
-      v12[0] = @"lat";
+      v7 = *(v4 + 1);
+      v11[0] = @"lat";
       v8 = [MEMORY[0x29EDBA070] numberWithDouble:v6];
-      v12[1] = @"lon";
-      v13[0] = v8;
-      v13[1] = [MEMORY[0x29EDBA070] numberWithDouble:v7];
-      result = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+      v11[1] = @"lon";
+      v12[0] = v8;
+      v12[1] = [MEMORY[0x29EDBA070] numberWithDouble:v7];
+      return [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
     }
 
     else
     {
-      result = &unk_2A20010A0;
+      return &unk_2A20010A0;
     }
   }
 
-  v9 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -3573,19 +3249,19 @@ LABEL_6:
   {
     if (v19 >= 0x9C)
     {
-      v8 = v6[1];
+      v8 = *(v6 + 1);
       v16[0] = *v6;
       v16[1] = v8;
-      v9 = v6[2];
-      v10 = v6[3];
-      v11 = v6[5];
-      v16[4] = v6[4];
+      v9 = *(v6 + 2);
+      v10 = *(v6 + 3);
+      v11 = *(v6 + 5);
+      v16[4] = *(v6 + 4);
       v16[5] = v11;
       v16[2] = v9;
       v16[3] = v10;
-      v12 = v6[6];
-      v13 = v6[7];
-      v14 = v6[8];
+      v12 = *(v6 + 6);
+      v13 = *(v6 + 7);
+      v14 = *(v6 + 8);
       *&v17[12] = *(v6 + 140);
       v16[7] = v13;
       *v17 = v14;

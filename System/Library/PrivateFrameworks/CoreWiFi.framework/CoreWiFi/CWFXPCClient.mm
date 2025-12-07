@@ -160,50 +160,8 @@
   mutex = v11->_mutex;
   v11->_mutex = v18;
 
-  if (!v11->_mutex)
+  if (!v11->_mutex || (v20 = MEMORY[0x1E696AEC0], sub_1E0BC1A5C(v11->_serviceType), v21 = objc_claimAutoreleasedReturnValue(), [v20 stringWithFormat:@"com.apple.corewifi.client-event.%@", v21], v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v22, "UTF8String"), dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM), v24 = objc_claimAutoreleasedReturnValue(), v25 = dispatch_queue_create(v23, v24), targetQueue = v11->_targetQueue, v11->_targetQueue = v25, targetQueue, v24, v22, v21, !v11->_targetQueue) || (v27 = objc_alloc_init(MEMORY[0x1E695DF90]), mutableEventIDMap = v11->_mutableEventIDMap, v11->_mutableEventIDMap = v27, mutableEventIDMap, !v11->_mutableEventIDMap) || (v29 = objc_alloc_init(MEMORY[0x1E695DF90]), mutableEventCallbackMap = v11->_mutableEventCallbackMap, v11->_mutableEventCallbackMap = v29, mutableEventCallbackMap, !v11->_mutableEventCallbackMap) || (v31 = objc_alloc_init(MEMORY[0x1E695DF90]), mutableEventAckMap = v11->_mutableEventAckMap, v11->_mutableEventAckMap = v31, mutableEventAckMap, !v11->_mutableEventAckMap) || (v33 = objc_alloc_init(MEMORY[0x1E695DF90]), mutableActivityMap = v11->_mutableActivityMap, v11->_mutableActivityMap = v33, mutableActivityMap, !v11->_mutableActivityMap))
   {
-    goto LABEL_19;
-  }
-
-  v20 = MEMORY[0x1E696AEC0];
-  v21 = sub_1E0BC1A5C(v11->_serviceType);
-  v22 = [v20 stringWithFormat:@"com.apple.corewifi.client-event.%@", v21];
-  uTF8String2 = [v22 UTF8String];
-  v24 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v25 = dispatch_queue_create(uTF8String2, v24);
-  targetQueue = v11->_targetQueue;
-  v11->_targetQueue = v25;
-
-  if (!v11->_targetQueue)
-  {
-    goto LABEL_19;
-  }
-
-  v27 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  mutableEventIDMap = v11->_mutableEventIDMap;
-  v11->_mutableEventIDMap = v27;
-
-  if (!v11->_mutableEventIDMap)
-  {
-    goto LABEL_19;
-  }
-
-  v29 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  mutableEventCallbackMap = v11->_mutableEventCallbackMap;
-  v11->_mutableEventCallbackMap = v29;
-
-  if (!v11->_mutableEventCallbackMap)
-  {
-    goto LABEL_19;
-  }
-
-  v31 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  mutableEventAckMap = v11->_mutableEventAckMap;
-  v11->_mutableEventAckMap = v31;
-
-  if (!v11->_mutableEventAckMap || (v33 = objc_alloc_init(MEMORY[0x1E695DF90]), mutableActivityMap = v11->_mutableActivityMap, v11->_mutableActivityMap = v33, mutableActivityMap, !v11->_mutableActivityMap))
-  {
-LABEL_19:
     v12 = 0;
     goto LABEL_20;
   }
@@ -857,7 +815,7 @@ LABEL_18:
 
 - (void)receivedXPCEvent:(id)event
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   v5 = objc_alloc_init(CWFEvent);
   eventID = [eventCopy eventID];
@@ -874,26 +832,24 @@ LABEL_18:
   {
     v10 = sub_1E0BC9038([(CWFEvent *)v5 type]);
     *buf = 138412290;
-    v17 = v10;
+    v16 = v10;
     _os_signpost_emit_with_name_impl(&dword_1E0BBF000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "receivedXPCEvent", "%@", buf, 0xCu);
   }
 
   targetQueue = [(CWFXPCClient *)self targetQueue];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = sub_1E0D10570;
-  v14[3] = &unk_1E86E6420;
-  v14[4] = self;
-  v15 = v5;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = sub_1E0D10570;
+  v13[3] = &unk_1E86E6420;
+  v13[4] = self;
+  v14 = v5;
   v12 = v5;
-  dispatch_async(targetQueue, v14);
-
-  v13 = *MEMORY[0x1E69E9840];
+  dispatch_async(targetQueue, v13);
 }
 
 - (void)receivedAcknowledgedXPCEvent:(id)event reply:(id)reply
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   replyCopy = reply;
   eventCopy = event;
   v8 = objc_alloc_init(CWFEvent);
@@ -912,7 +868,7 @@ LABEL_18:
   {
     v13 = sub_1E0BC9038([(CWFEvent *)v8 type]);
     *buf = 138412290;
-    v35 = v13;
+    v34 = v13;
     _os_signpost_emit_with_name_impl(&dword_1E0BBF000, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "receivedAcknowledgedXPCEvent", "%@", buf, 0xCu);
   }
 
@@ -924,39 +880,37 @@ LABEL_18:
   block[3] = &unk_1E86E6CA8;
   block[4] = self;
   v16 = uUID;
-  v32 = v16;
-  v33 = replyCopy;
+  v31 = v16;
+  v32 = replyCopy;
   v17 = replyCopy;
   dispatch_async(mutex, block);
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = sub_1E0D10974;
-  v29[3] = &unk_1E86E6420;
-  v29[4] = self;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = sub_1E0D10974;
+  v28[3] = &unk_1E86E6420;
+  v28[4] = self;
   v18 = v16;
-  v30 = v18;
-  [(CWFEvent *)v8 setAcknowledge:v29];
+  v29 = v18;
+  [(CWFEvent *)v8 setAcknowledge:v28];
   v19 = dispatch_time(0, [(CWFEvent *)v8 acknowledgementTimeout]);
   v20 = self->_mutex;
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = sub_1E0D10980;
-  v27[3] = &unk_1E86E6420;
-  v27[4] = self;
-  v28 = v18;
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = sub_1E0D10980;
+  v26[3] = &unk_1E86E6420;
+  v26[4] = self;
+  v27 = v18;
   v21 = v18;
-  dispatch_after(v19, v20, v27);
+  dispatch_after(v19, v20, v26);
   targetQueue = [(CWFXPCClient *)self targetQueue];
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = sub_1E0D109CC;
-  v25[3] = &unk_1E86E6420;
-  v25[4] = self;
-  v26 = v8;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = sub_1E0D109CC;
+  v24[3] = &unk_1E86E6420;
+  v24[4] = self;
+  v25 = v8;
   v23 = v8;
-  dispatch_async(targetQueue, v25);
-
-  v24 = *MEMORY[0x1E69E9840];
+  dispatch_async(targetQueue, v24);
 }
 
 - (void)rememberCloudNetworkProfile:(id)profile reply:(id)reply

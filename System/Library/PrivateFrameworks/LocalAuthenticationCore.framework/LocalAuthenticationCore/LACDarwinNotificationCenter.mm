@@ -69,9 +69,11 @@ void __58__LACDarwinNotificationCenter_listenToLaunchNotifications__block_invoke
 
 uint64_t __45__LACDarwinNotificationCenter_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance_14 = objc_alloc_init(LACDarwinNotificationCenter);
+  v0 = objc_alloc_init(LACDarwinNotificationCenter);
+  v1 = sharedInstance_sharedInstance_14;
+  sharedInstance_sharedInstance_14 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (void)stopListeningToAllNotifications
@@ -98,7 +100,7 @@ uint64_t __45__LACDarwinNotificationCenter_sharedInstance__block_invoke()
   return v2;
 }
 
-uint64_t __44__LACDarwinNotificationCenter_observerCount__block_invoke(uint64_t a1, void *a2)
+void *__44__LACDarwinNotificationCenter_observerCount__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 count];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -120,17 +122,16 @@ uint64_t __44__LACDarwinNotificationCenter_observerCount__block_invoke(uint64_t 
 
 - (void)postNotification:(__CFString *)notification
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v5 = LACLogNotifications();
+  v8 = *MEMORY[0x1E69E9840];
+  v5 = LACLogNotifications(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
+    v6 = 138543362;
     notificationCopy = notification;
-    _os_log_impl(&dword_1B0233000, v5, OS_LOG_TYPE_DEFAULT, "Will post %{public}@", &v7, 0xCu);
+    _os_log_impl(&dword_1B0233000, v5, OS_LOG_TYPE_DEFAULT, "Will post %{public}@", &v6, 0xCu);
   }
 
   [(LACDarwinNotificationCenter *)self _postNotification:notification];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)hasObserver:(id)observer
@@ -154,7 +155,7 @@ uint64_t __44__LACDarwinNotificationCenter_observerCount__block_invoke(uint64_t 
   return self;
 }
 
-uint64_t __43__LACDarwinNotificationCenter_hasObserver___block_invoke(uint64_t a1, void *a2)
+void *__43__LACDarwinNotificationCenter_hasObserver___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 containsObject:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -163,77 +164,68 @@ uint64_t __43__LACDarwinNotificationCenter_hasObserver___block_invoke(uint64_t a
 
 - (void)addObserver:(id)observer
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __43__LACDarwinNotificationCenter_addObserver___block_invoke;
-  v8[3] = &unk_1E7A96EE8;
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __43__LACDarwinNotificationCenter_addObserver___block_invoke;
+  v7[3] = &unk_1E7A96EE8;
   v5 = observerCopy;
-  v9 = v5;
-  [(LACDarwinNotificationCenter *)self _synchronizedObservers:v8];
-  v6 = LACLogNotifications();
+  v8 = v5;
+  v6 = LACLogNotifications([(LACDarwinNotificationCenter *)self _synchronizedObservers:v7]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v11 = v5;
+    v10 = v5;
     _os_log_impl(&dword_1B0233000, v6, OS_LOG_TYPE_DEFAULT, "Did register observer %@", buf, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addObserver:(id)observer notification:(__CFString *)notification
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __56__LACDarwinNotificationCenter_addObserver_notification___block_invoke;
-  v10[3] = &unk_1E7A96EE8;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __56__LACDarwinNotificationCenter_addObserver_notification___block_invoke;
+  v9[3] = &unk_1E7A96EE8;
   v7 = observerCopy;
-  v11 = v7;
-  [(LACDarwinNotificationCenter *)self _synchronizedObservers:v10];
-  [(LACDarwinNotificationCenter *)self _startObservingNotification:notification];
-  v8 = LACLogNotifications();
+  v10 = v7;
+  [(LACDarwinNotificationCenter *)self _synchronizedObservers:v9];
+  v8 = LACLogNotifications([(LACDarwinNotificationCenter *)self _startObservingNotification:notification]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v13 = v7;
-    v14 = 2112;
+    v12 = v7;
+    v13 = 2112;
     notificationCopy = notification;
     _os_log_impl(&dword_1B0233000, v8, OS_LOG_TYPE_DEFAULT, "Did register observer %@ of notification %@", buf, 0x16u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeObserver:(id)observer
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __46__LACDarwinNotificationCenter_removeObserver___block_invoke;
-  v8[3] = &unk_1E7A96EE8;
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __46__LACDarwinNotificationCenter_removeObserver___block_invoke;
+  v7[3] = &unk_1E7A96EE8;
   v5 = observerCopy;
-  v9 = v5;
-  [(LACDarwinNotificationCenter *)self _synchronizedObservers:v8];
-  v6 = LACLogNotifications();
+  v8 = v5;
+  v6 = LACLogNotifications([(LACDarwinNotificationCenter *)self _synchronizedObservers:v7]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v11 = v5;
+    v10 = v5;
     _os_log_impl(&dword_1B0233000, v6, OS_LOG_TYPE_DEFAULT, "Did remove observer %@", buf, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_notifyObserversAboutNotification:(__CFString *)notification
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v5 = LACLogNotifications();
+  v21 = *MEMORY[0x1E69E9840];
+  v5 = LACLogNotifications(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138543362;
@@ -243,47 +235,46 @@ uint64_t __43__LACDarwinNotificationCenter_hasObserver___block_invoke(uint64_t a
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__4;
-  v20 = __Block_byref_object_dispose__4;
-  v21 = 0;
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __65__LACDarwinNotificationCenter__notifyObserversAboutNotification___block_invoke;
-  v15[3] = &unk_1E7A96E70;
-  v15[4] = &buf;
-  [(LACDarwinNotificationCenter *)self _synchronizedObservers:v15];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__4;
+  v19 = __Block_byref_object_dispose__4;
+  v20 = 0;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __65__LACDarwinNotificationCenter__notifyObserversAboutNotification___block_invoke;
+  v14[3] = &unk_1E7A96E70;
+  v14[4] = &buf;
+  [(LACDarwinNotificationCenter *)self _synchronizedObservers:v14];
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v6 = *(*(&buf + 1) + 40);
-  v7 = [v6 countByEnumeratingWithState:&v11 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v10 objects:v15 count:16];
   if (v7)
   {
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) notificationCenter:self didReceiveNotification:{notification, v11}];
+        [*(*(&v10 + 1) + 8 * v9++) notificationCenter:self didReceiveNotification:{notification, v10}];
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v11 objects:v16 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v10 objects:v15 count:16];
     }
 
     while (v7);
   }
 
   _Block_object_dispose(&buf, 8);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __65__LACDarwinNotificationCenter__notifyObserversAboutNotification___block_invoke(uint64_t a1, void *a2)
@@ -293,7 +284,7 @@ uint64_t __65__LACDarwinNotificationCenter__notifyObserversAboutNotification___b
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v3, v5);
 }
 
 - (void)_postNotification:(__CFString *)notification
@@ -341,7 +332,7 @@ uint64_t __65__LACDarwinNotificationCenter__notifyObserversAboutNotification___b
   return v3;
 }
 
-uint64_t __62__LACDarwinNotificationCenter__hasSubscriptionToNotification___block_invoke(uint64_t a1, void *a2)
+void *__62__LACDarwinNotificationCenter__hasSubscriptionToNotification___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 containsObject:*(a1 + 40)];
   *(*(*(a1 + 32) + 8) + 24) = result;

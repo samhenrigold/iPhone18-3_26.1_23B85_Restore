@@ -663,26 +663,26 @@ uint64_t __56__ICQPurchase_clearCacheAndNotifyClientsWithCompletion___block_invo
   [v6 teardownOffersForAccount:aa_primaryAppleAccount withCompletion:&__block_literal_global_135];
 }
 
-void __41__ICQPurchase_clearCacheAndNotifyClients__block_invoke()
+void __41__ICQPurchase_clearCacheAndNotifyClients__block_invoke(uint64_t a1)
 {
-  v0 = _ICQGetLogSystem();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = _ICQGetLogSystem();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __41__ICQPurchase_clearCacheAndNotifyClients__block_invoke_cold_1();
   }
 }
 
-void __41__ICQPurchase_clearCacheAndNotifyClients__block_invoke_132()
+void __41__ICQPurchase_clearCacheAndNotifyClients__block_invoke_132(uint64_t a1)
 {
-  v0 = _ICQGetLogSystem();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = _ICQGetLogSystem();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_275623000, v0, OS_LOG_TYPE_DEFAULT, "Offers teardown has completed.", v2, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_275623000, v1, OS_LOG_TYPE_DEFAULT, "Offers teardown has completed.", v3, 2u);
   }
 
-  v1 = [MEMORY[0x277D7F390] sharedOfferManager];
-  [v1 getDefaultOfferWithCompletion:&__block_literal_global_140];
+  v2 = [MEMORY[0x277D7F390] sharedOfferManager];
+  [v2 getDefaultOfferWithCompletion:&__block_literal_global_140];
 }
 
 void __41__ICQPurchase_clearCacheAndNotifyClients__block_invoke_137(uint64_t a1, uint64_t a2, void *a3)

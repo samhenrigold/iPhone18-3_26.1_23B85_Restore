@@ -604,22 +604,22 @@ uint64_t __64__TSWPiOSCanvasViewController_actionForHyperlink_inRep_gesture___bl
   return v17;
 }
 
-BOOL __46__TSWPiOSCanvasViewController__hitRepAtPoint___block_invoke(uint64_t a1)
+BOOL __46__TSWPiOSCanvasViewController__hitRepAtPoint___block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
-  v2 = TSUDynamicCast();
-  v3 = v2;
-  if (v2)
+  v3 = TSUDynamicCast();
+  v4 = v3;
+  if (v3)
   {
-    [v2 convertNaturalPointFromUnscaledCanvas:{*(a1 + 64), *(a1 + 72)}];
-    v5 = v4;
-    v7 = v6;
+    [v3 convertNaturalPointFromUnscaledCanvas:{*(a1 + 64), *(a1 + 72)}];
+    v6 = v5;
+    v8 = v7;
     objc_opt_class();
-    [v3 smartFieldAtPoint:{v5, v7}];
+    [v4 smartFieldAtPoint:{v6, v8}];
     *(*(*(a1 + 48) + 8) + 40) = TSUDynamicCast();
     if (!*(*(*(a1 + 48) + 8) + 40))
     {
-      [*(a1 + 32) beginEditingRep:v3];
+      [*(a1 + 32) beginEditingRep:v4];
     }
   }
 
@@ -628,7 +628,7 @@ BOOL __46__TSWPiOSCanvasViewController__hitRepAtPoint___block_invoke(uint64_t a1
     *(*(*(a1 + 56) + 8) + 24) = 1;
   }
 
-  return v3 != 0;
+  return v4 != 0;
 }
 
 - (id)_hyperLinkFieldAtPoint:(CGPoint)point
@@ -659,27 +659,24 @@ BOOL __46__TSWPiOSCanvasViewController__hitRepAtPoint___block_invoke(uint64_t a1
   return v10;
 }
 
-uint64_t __54__TSWPiOSCanvasViewController__hyperLinkFieldAtPoint___block_invoke(uint64_t a1)
+void __54__TSWPiOSCanvasViewController__hyperLinkFieldAtPoint___block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
-  result = TSUDynamicCast();
-  if (result)
+  v3 = TSUDynamicCast();
+  if (v3)
   {
-    v3 = result;
-    [result convertNaturalPointFromUnscaledCanvas:{*(a1 + 40), *(a1 + 48)}];
-    v5 = v4;
-    v7 = v6;
+    v4 = v3;
+    [v3 convertNaturalPointFromUnscaledCanvas:{*(a1 + 40), *(a1 + 48)}];
+    v6 = v5;
+    v8 = v7;
     objc_opt_class();
-    [v3 smartFieldAtPoint:{v5, v7}];
-    result = TSUDynamicCast();
-    if (result)
+    [v4 smartFieldAtPoint:{v6, v8}];
+    v9 = TSUDynamicCast();
+    if (v9)
     {
-      *(*(*(a1 + 32) + 8) + 40) = result;
-      return 1;
+      *(*(*(a1 + 32) + 8) + 40) = v9;
     }
   }
-
-  return result;
 }
 
 - (BOOL)interactionShouldBegin:(id)begin atPoint:(CGPoint)point
@@ -834,50 +831,50 @@ uint64_t __66__TSWPiOSCanvasViewController_validateInteractionWithLinkAtPoint___
   [(TSDInteractiveCanvasController *)interactiveCanvasController hitRep:0 withGesture:v12 passingTest:?];
 }
 
-BOOL __86__TSWPiOSCanvasViewController__requestTextItemConstrainedToLineAtPoint_resultHandler___block_invoke(uint64_t a1)
+BOOL __86__TSWPiOSCanvasViewController__requestTextItemConstrainedToLineAtPoint_resultHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   objc_opt_class();
-  v2 = TSUDynamicCast();
-  v3 = v2;
-  if (v2)
+  v3 = TSUDynamicCast();
+  v4 = v3;
+  if (v3)
   {
-    [v2 convertNaturalPointFromUnscaledCanvas:{*(a1 + 48), *(a1 + 56)}];
-    v4 = [v3 hyperlinkRegionsConstrainedToLineAtPoint:?];
-    v14 = 0u;
+    [v3 convertNaturalPointFromUnscaledCanvas:{*(a1 + 48), *(a1 + 56)}];
+    v5 = [v4 hyperlinkRegionsConstrainedToLineAtPoint:?];
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
-    if (v5)
+    v18 = 0u;
+    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    if (v6)
     {
-      v6 = v5;
-      v7 = *v15;
+      v7 = v6;
+      v8 = *v16;
       while (2)
       {
-        for (i = 0; i != v6; ++i)
+        for (i = 0; i != v7; ++i)
         {
-          if (*v15 != v7)
+          if (*v16 != v8)
           {
-            objc_enumerationMutation(v4);
+            objc_enumerationMutation(v5);
           }
 
-          [*(*(&v14 + 1) + 8 * i) CGRectValue];
-          [v3 convertNaturalRectToUnscaledCanvas:?];
+          [*(*(&v15 + 1) + 8 * i) CGRectValue];
+          [v4 convertNaturalRectToUnscaledCanvas:?];
           [*(a1 + 32) convertUnscaledToBoundsRect:?];
-          x = v20.origin.x;
-          y = v20.origin.y;
-          width = v20.size.width;
-          height = v20.size.height;
-          if (CGRectContainsPoint(v20, *(a1 + 64)))
+          x = v21.origin.x;
+          y = v21.origin.y;
+          width = v21.size.width;
+          height = v21.size.height;
+          if (CGRectContainsPoint(v21, *(a1 + 64)))
           {
             (*(*(a1 + 40) + 16))(x, y, width, height);
-            return v3 != 0;
+            return v4 != 0;
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
-        if (v6)
+        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        if (v7)
         {
           continue;
         }
@@ -887,7 +884,7 @@ BOOL __86__TSWPiOSCanvasViewController__requestTextItemConstrainedToLineAtPoint_
     }
   }
 
-  return v3 != 0;
+  return v4 != 0;
 }
 
 @end

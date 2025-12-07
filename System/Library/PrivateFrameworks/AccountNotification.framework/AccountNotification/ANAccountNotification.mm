@@ -277,11 +277,10 @@
 
 - (void)initWithManagedObject:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v3 = 62;
-  _os_log_error_impl(&dword_23DC5E000, v0, OS_LOG_TYPE_ERROR, "%s (%d) NSObjectInaccessibleException caught inside [ANAccountNotification initWithManagedObject:]", v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = 62;
+  _os_log_error_impl(&dword_23DC5E000, v0, OS_LOG_TYPE_ERROR, "%s (%d) NSObjectInaccessibleException caught inside [ANAccountNotification initWithManagedObject:]", v1, 0x12u);
 }
 
 @end

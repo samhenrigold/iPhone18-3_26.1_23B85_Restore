@@ -74,7 +74,7 @@ void __48___UIMenuBuilder_Patch___internalDiffForDiffv1___block_invoke_5(uint64_
 {
   v2 = *(a1 + 32);
   v3 = a2;
-  v7 = [v3 anchor];
+  v7 = objc_msgSend_anchor(v3);
   v4 = [v3 fallbacks];
   v5 = [v3 insertsBefore];
   v6 = [v3 insertsAfter];
@@ -84,23 +84,23 @@ void __48___UIMenuBuilder_Patch___internalDiffForDiffv1___block_invoke_5(uint64_
 
 void __48___UIMenuBuilder_Patch___internalDiffForDiffv1___block_invoke_6(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = [a2 anchor];
-  (*(v2 + 16))(v2, v3);
+  v3 = *(a1 + 32);
+  v4 = objc_msgSend_anchor(a2);
+  (*(v3 + 16))(v3, v4);
 }
 
 void __48___UIMenuBuilder_Patch___internalDiffForDiffv1___block_invoke_7(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 32);
   v4 = a2;
-  v5 = [v4 anchor];
+  v5 = objc_msgSend_anchor(v4);
   v6 = [v4 fallbacks];
   v7 = [v4 insertsBefore];
   v8 = [v4 insertsAfter];
   (*(v3 + 16))(v3, v5, 0, v6, v7, v8);
 
   v9 = *(a1 + 40);
-  v12 = [v4 anchor];
+  v12 = objc_msgSend_anchor(v4);
   v10 = [v4 insertsAtStart];
   v11 = [v4 insertsAtEnd];
 
@@ -109,9 +109,9 @@ void __48___UIMenuBuilder_Patch___internalDiffForDiffv1___block_invoke_7(uint64_
 
 void __48___UIMenuBuilder_Patch___internalDiffForDiffv1___block_invoke_8(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = [a2 anchor];
-  (*(v2 + 16))(v2, v3);
+  v3 = *(a1 + 32);
+  v4 = objc_msgSend_anchor(a2);
+  (*(v3 + 16))(v3, v4);
 }
 
 id __44___UIMenuBuilder_Patch___patchInternalDiff___block_invoke(uint64_t a1, void *a2)

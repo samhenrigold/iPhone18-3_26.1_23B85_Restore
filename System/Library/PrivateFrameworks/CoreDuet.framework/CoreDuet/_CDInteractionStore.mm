@@ -1,4 +1,6 @@
 @interface _CDInteractionStore
++ (_CDInteractionStore)storeWithDirectory:(id)directory knowledgeStore:(id)store readOnly:(BOOL)only;
++ (_CDInteractionStore)storeWithDirectory:(id)directory readOnly:(BOOL)only;
 + (id)predicateFilteringUsernameForPredicate:(id)predicate;
 - (BOOL)_deleteMetadataForKey:(id)key moc:(id)moc;
 - (BOOL)deleteStorage;
@@ -7,6 +9,7 @@
 - (BOOL)recordInteractionsBatch:(id)batch error:(id *)error;
 - (BOOL)recordVersionNumber:(int64_t)number;
 - (BOOL)updateInteractionsBatch:(id)batch error:(id *)error;
+- (_CDInteractionStore)initWithDirectory:(id)directory knowledgeStore:(id)store readOnly:(BOOL)only;
 - (id)anonymizedCopyToDirectory:(id)directory salt:(id)salt;
 - (id)appendMissingInformationForRecord:(id)record fromContact:(id)contact cacheUpdateRequired:(BOOL *)required;
 - (id)batchFetchExistingAttachmentRecords:(id)records context:(id)context error:(id *)error;
@@ -75,6 +78,102 @@
 @end
 
 @implementation _CDInteractionStore
+
++ (_CDInteractionStore)storeWithDirectory:(id)directory readOnly:(BOOL)only
+{
+  onlyCopy = only;
+  directoryCopy = directory;
+  v6 = [[_CDInteractionStore alloc] initWithDirectory:directoryCopy knowledgeStore:0 readOnly:onlyCopy];
+
+  return v6;
+}
+
++ (_CDInteractionStore)storeWithDirectory:(id)directory knowledgeStore:(id)store readOnly:(BOOL)only
+{
+  onlyCopy = only;
+  storeCopy = store;
+  directoryCopy = directory;
+  v9 = [[_CDInteractionStore alloc] initWithDirectory:directoryCopy knowledgeStore:storeCopy readOnly:onlyCopy];
+
+  return v9;
+}
+
+- (_CDInteractionStore)initWithDirectory:(id)directory knowledgeStore:(id)store readOnly:(BOOL)only
+{
+  onlyCopy = only;
+  directoryCopy = directory;
+  storeCopy = store;
+  v31.receiver = self;
+  v31.super_class = _CDInteractionStore;
+  v10 = [(_CDInteractionStore *)&v31 init];
+  if (v10)
+  {
+    v11 = dispatch_group_create();
+    waitingForDB = v10->_waitingForDB;
+    v10->_waitingForDB = v11;
+
+    v13 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+    v14 = [v13 pathForResource:@"CDInteractionDataModel" ofType:@"momd"];
+
+    if (v14)
+    {
+      v15 = [MEMORY[0x1E695DFF8] fileURLWithPath:v14];
+      if (v15)
+      {
+        v16 = v15;
+        v17 = [[_DKCoreDataStorage alloc] initWithDirectory:directoryCopy databaseName:@"interaction" modelURL:v15 readOnly:onlyCopy localOnly:1];
+        storage = v10->_storage;
+        v10->_storage = v17;
+
+        v19 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+        v20 = dispatch_queue_create("com.apple.coreduet.interactionstore.work", v19);
+        workQueue = v10->_workQueue;
+        v10->_workQueue = v20;
+
+        v22 = +[_CDInteractionStoreNotifier sharedInstance];
+        notifier = v10->_notifier;
+        v10->_notifier = v22;
+
+        v24 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+        v25 = dispatch_queue_create("com.apple.interactionstore.pending-share-queue", v24);
+        pendingShareInteractionQueue = v10->_pendingShareInteractionQueue;
+        v10->_pendingShareInteractionQueue = v25;
+
+        v10->_inMaintenanceMode = 0;
+        if (storeCopy)
+        {
+          objc_storeStrong(&v10->_knowledgeStore, store);
+        }
+
+        goto LABEL_7;
+      }
+
+      v29 = +[_CDLogging interactionChannel];
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      {
+        [_CDInteractionStore initWithDirectory:knowledgeStore:readOnly:];
+      }
+    }
+
+    else
+    {
+      v28 = +[_CDLogging interactionChannel];
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      {
+        [_CDInteractionStore initWithDirectory:knowledgeStore:readOnly:];
+      }
+    }
+
+    v27 = 0;
+    goto LABEL_15;
+  }
+
+LABEL_7:
+  v27 = v10;
+LABEL_15:
+
+  return v27;
+}
 
 - (void)runHighPriorityDBBlock:(id)block
 {
@@ -410,9 +509,9 @@
 
 - (id)errorForException:(id)exception
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ABC0];
-  v11 = *MEMORY[0x1E696A578];
+  v10 = *MEMORY[0x1E696A578];
   reason = [exception reason];
   v5 = reason;
   v6 = @"Exception Caught";
@@ -421,11 +520,9 @@
     v6 = reason;
   }
 
-  v12[0] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v11[0] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v8 = [v3 errorWithDomain:@"com.apple.coreduet.CDInteractionStore" code:0 userInfo:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -856,7 +953,7 @@
 
 - (id)createInteractionFromRecord:(id)record
 {
-  v83 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   if (recordCopy)
   {
@@ -924,26 +1021,26 @@
       recipients2 = [recordCopy recipients];
       v30 = [v28 initWithCapacity:{objc_msgSend(recipients2, "count")}];
 
-      v78 = 0u;
-      v79 = 0u;
-      v76 = 0u;
       v77 = 0u;
+      v78 = 0u;
+      v75 = 0u;
+      v76 = 0u;
       recipients3 = [recordCopy recipients];
-      v32 = [recipients3 countByEnumeratingWithState:&v76 objects:v82 count:16];
+      v32 = [recipients3 countByEnumeratingWithState:&v75 objects:v81 count:16];
       if (v32)
       {
         v33 = v32;
-        v34 = *v77;
+        v34 = *v76;
         do
         {
           for (i = 0; i != v33; ++i)
           {
-            if (*v77 != v34)
+            if (*v76 != v34)
             {
               objc_enumerationMutation(recipients3);
             }
 
-            v36 = *(*(&v76 + 1) + 8 * i);
+            v36 = *(*(&v75 + 1) + 8 * i);
             v37 = objc_autoreleasePoolPush();
             v38 = [(_CDInteractionStore *)self getContactForRecord:v36];
             [v30 addObject:v38];
@@ -951,7 +1048,7 @@
             objc_autoreleasePoolPop(v37);
           }
 
-          v33 = [recipients3 countByEnumeratingWithState:&v76 objects:v82 count:16];
+          v33 = [recipients3 countByEnumeratingWithState:&v75 objects:v81 count:16];
         }
 
         while (v33);
@@ -969,26 +1066,26 @@
       keywords2 = [recordCopy keywords];
       v43 = [v41 initWithCapacity:{objc_msgSend(keywords2, "count")}];
 
-      v74 = 0u;
-      v75 = 0u;
-      v72 = 0u;
       v73 = 0u;
+      v74 = 0u;
+      v71 = 0u;
+      v72 = 0u;
       keywords3 = [recordCopy keywords];
-      v45 = [keywords3 countByEnumeratingWithState:&v72 objects:v81 count:16];
+      v45 = [keywords3 countByEnumeratingWithState:&v71 objects:v80 count:16];
       if (v45)
       {
         v46 = v45;
-        v47 = *v73;
+        v47 = *v72;
         do
         {
           for (j = 0; j != v46; ++j)
           {
-            if (*v73 != v47)
+            if (*v72 != v47)
             {
               objc_enumerationMutation(keywords3);
             }
 
-            v49 = *(*(&v72 + 1) + 8 * j);
+            v49 = *(*(&v71 + 1) + 8 * j);
             v50 = objc_autoreleasePoolPush();
             v51 = [(_CDInteractionStore *)self createKeywordFromRecord:v49];
             if (v51)
@@ -999,7 +1096,7 @@
             objc_autoreleasePoolPop(v50);
           }
 
-          v46 = [keywords3 countByEnumeratingWithState:&v72 objects:v81 count:16];
+          v46 = [keywords3 countByEnumeratingWithState:&v71 objects:v80 count:16];
         }
 
         while (v46);
@@ -1017,26 +1114,26 @@
       attachments2 = [recordCopy attachments];
       v56 = [v54 initWithCapacity:{objc_msgSend(attachments2, "count")}];
 
-      v70 = 0u;
-      v71 = 0u;
-      v68 = 0u;
       v69 = 0u;
+      v70 = 0u;
+      v67 = 0u;
+      v68 = 0u;
       attachments3 = [recordCopy attachments];
-      v58 = [attachments3 countByEnumeratingWithState:&v68 objects:v80 count:16];
+      v58 = [attachments3 countByEnumeratingWithState:&v67 objects:v79 count:16];
       if (v58)
       {
         v59 = v58;
-        v60 = *v69;
+        v60 = *v68;
         do
         {
           for (k = 0; k != v59; ++k)
           {
-            if (*v69 != v60)
+            if (*v68 != v60)
             {
               objc_enumerationMutation(attachments3);
             }
 
-            v62 = *(*(&v68 + 1) + 8 * k);
+            v62 = *(*(&v67 + 1) + 8 * k);
             v63 = objc_autoreleasePoolPush();
             v64 = [(_CDInteractionStore *)self createAttachmentFromRecord:v62];
             [v56 addObject:v64];
@@ -1044,7 +1141,7 @@
             objc_autoreleasePoolPop(v63);
           }
 
-          v59 = [attachments3 countByEnumeratingWithState:&v68 objects:v80 count:16];
+          v59 = [attachments3 countByEnumeratingWithState:&v67 objects:v79 count:16];
         }
 
         while (v59);
@@ -1061,8 +1158,6 @@
   {
     v5 = 0;
   }
-
-  v66 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -1104,12 +1199,12 @@
 
 - (BOOL)recordInteractionsBatch:(id)batch error:(id *)error
 {
-  v165 = *MEMORY[0x1E69E9840];
+  v164 = *MEMORY[0x1E69E9840];
   batchCopy = batch;
   selfCopy = self;
-  v103 = [(_DKCoreDataStorage *)self->_storage managedObjectContextFor:*MEMORY[0x1E696A388]];
+  v102 = [(_DKCoreDataStorage *)self->_storage managedObjectContextFor:*MEMORY[0x1E696A388]];
   oslog = +[_CDLogging interactionChannel];
-  if (!v103)
+  if (!v102)
   {
     if (os_log_type_enabled(&oslog->super, OS_LOG_TYPE_ERROR))
     {
@@ -1152,10 +1247,10 @@
   block[1] = 3221225472;
   block[2] = __53___CDInteractionStore_recordInteractionsBatch_error___block_invoke;
   block[3] = &unk_1E7367A48;
-  v149 = batchCopy;
-  v101 = v10;
-  v150 = v101;
-  v151 = selfCopy;
+  v148 = batchCopy;
+  v100 = v10;
+  v149 = v100;
+  v150 = selfCopy;
   dispatch_sync(pendingShareInteractionQueue, block);
   v12 = +[_CDLogging interactionChannel];
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
@@ -1163,13 +1258,13 @@
     [_CDInteractionStore recordInteractionsBatch:error:];
   }
 
-  if (![v101 count])
+  if (![v100 count])
   {
     [(_CDMemoryUsageInterval *)oslog end];
     goto LABEL_93;
   }
 
-  v13 = [v101 sortedArrayUsingComparator:&__block_literal_global_31];
+  v13 = [v100 sortedArrayUsingComparator:&__block_literal_global_31];
   v14 = +[_CDLogging interactionChannel];
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
@@ -1179,26 +1274,26 @@
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   dictionary2 = [MEMORY[0x1E695DF90] dictionary];
   array = [MEMORY[0x1E695DF70] array];
-  v146 = 0u;
-  v147 = 0u;
-  v144 = 0u;
   v145 = 0u;
+  v146 = 0u;
+  v143 = 0u;
+  v144 = 0u;
   obj = v13;
-  v16 = [obj countByEnumeratingWithState:&v144 objects:v164 count:16];
+  v16 = [obj countByEnumeratingWithState:&v143 objects:v163 count:16];
   if (v16)
   {
-    v17 = *v145;
+    v17 = *v144;
     do
     {
       v18 = 0;
       do
       {
-        if (*v145 != v17)
+        if (*v144 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v144 + 1) + 8 * v18);
+        v19 = *(*(&v143 + 1) + 8 * v18);
         targetBundleId = [v19 targetBundleId];
         v21 = +[_CDConstants shareSheetTargetBundleIdMail];
         v22 = [targetBundleId isEqualToString:v21];
@@ -1260,68 +1355,68 @@ LABEL_29:
       }
 
       while (v16 != v18);
-      v31 = [obj countByEnumeratingWithState:&v144 objects:v164 count:16];
+      v31 = [obj countByEnumeratingWithState:&v143 objects:v163 count:16];
       v16 = v31;
     }
 
     while (v31);
   }
 
-  v142 = 0u;
-  v143 = 0u;
-  v140 = 0u;
   v141 = 0u;
-  v109 = dictionary2;
-  v107 = [v109 countByEnumeratingWithState:&v140 objects:v163 count:16];
-  if (!v107)
+  v142 = 0u;
+  v139 = 0u;
+  v140 = 0u;
+  v108 = dictionary2;
+  v106 = [v108 countByEnumeratingWithState:&v139 objects:v162 count:16];
+  if (!v106)
   {
     goto LABEL_58;
   }
 
-  v106 = *v141;
+  v105 = *v140;
   do
   {
-    for (i = 0; i != v107; ++i)
+    for (i = 0; i != v106; ++i)
     {
-      if (*v141 != v106)
+      if (*v140 != v105)
       {
-        objc_enumerationMutation(v109);
+        objc_enumerationMutation(v108);
       }
 
-      v33 = *(*(&v140 + 1) + 8 * i);
-      v34 = [v109 objectForKeyedSubscript:v33];
+      v33 = *(*(&v139 + 1) + 8 * i);
+      v34 = [v108 objectForKeyedSubscript:v33];
       [array addObject:v34];
-      v112 = [dictionary objectForKeyedSubscript:v33];
+      v111 = [dictionary objectForKeyedSubscript:v33];
       array2 = [MEMORY[0x1E695DF70] array];
       v36 = MEMORY[0x1E696AE18];
       startDate = [v34 startDate];
-      v121 = [v36 predicateWithFormat:@"(startDate <= %@)", startDate];
+      v120 = [v36 predicateWithFormat:@"(startDate <= %@)", startDate];
 
-      [array2 addObject:v121];
+      [array2 addObject:v120];
       v38 = MEMORY[0x1E696AE18];
       v39 = +[_CDConstants mobileMessagesBundleId];
-      v119 = [v38 predicateWithFormat:@"(bundleId == %@)", v39];
+      v118 = [v38 predicateWithFormat:@"(bundleId == %@)", v39];
 
-      [array2 addObject:v119];
-      v117 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(domainIdentifier == %@)", v33];
-      [array2 addObject:v117];
+      [array2 addObject:v118];
+      v116 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(domainIdentifier == %@)", v33];
+      [array2 addObject:v116];
       v40 = MEMORY[0x1E696AE18];
       v41 = [MEMORY[0x1E695DFD8] setWithArray:&unk_1F05EF338];
-      v115 = [v40 predicateWithFormat:@"(direction IN %@)", v41];
+      v114 = [v40 predicateWithFormat:@"(direction IN %@)", v41];
 
-      [array2 addObject:v115];
-      v114 = [MEMORY[0x1E696AB28] andPredicateWithSubpredicates:array2];
+      [array2 addObject:v114];
+      v113 = [MEMORY[0x1E696AB28] andPredicateWithSubpredicates:array2];
       v42 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startDate" ascending:0];
-      *v152 = 0;
-      v162 = v42;
-      v43 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v162 count:1];
-      v139 = 0;
-      v44 = [(_CDInteractionStore *)selfCopy queryInteractionsUsingPredicate:v114 sortDescriptors:v43 limit:1 offset:0 objectIDs:v152 error:&v139];
-      v45 = v139;
+      *v151 = 0;
+      v161 = v42;
+      v43 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v161 count:1];
+      v138 = 0;
+      v44 = [(_CDInteractionStore *)selfCopy queryInteractionsUsingPredicate:v113 sortDescriptors:v43 limit:1 offset:0 objectIDs:v151 error:&v138];
+      v45 = v138;
       firstObject = [v44 firstObject];
 
       v47 = objc_autoreleasePoolPush();
-      v48 = [MEMORY[0x1E696AE18] predicateWithFormat:@"self in %@", *v152];
+      v48 = [MEMORY[0x1E696AE18] predicateWithFormat:@"self in %@", *v151];
       objc_autoreleasePoolPop(v47);
       if (v45)
       {
@@ -1338,9 +1433,9 @@ LABEL_41:
         goto LABEL_56;
       }
 
-      if (firstObject && v112)
+      if (firstObject && v111)
       {
-        startDate2 = [v112 startDate];
+        startDate2 = [v111 startDate];
         startDate3 = [firstObject startDate];
         [startDate2 timeIntervalSinceDate:startDate3];
         v53 = v52 < 0.0;
@@ -1348,16 +1443,16 @@ LABEL_41:
         if (!v53)
         {
           groupName2 = [v34 groupName];
-          [v112 setGroupName:groupName2];
+          [v111 setGroupName:groupName2];
 
           contentURL = [v34 contentURL];
-          [v112 setContentURL:contentURL];
+          [v111 setContentURL:contentURL];
 
-          v56 = [(_CDInteractionStore *)selfCopy recipientArrayWithMostRecentSenderFirstFromIncomingInteraction:v34 outgoingInteraction:v112];
-          [v112 setRecipients:v56];
+          v56 = [(_CDInteractionStore *)selfCopy recipientArrayWithMostRecentSenderFirstFromIncomingInteraction:v34 outgoingInteraction:v111];
+          [v111 setRecipients:v56];
 
           [dictionary removeObjectForKey:v33];
-          [array addObject:v112];
+          [array addObject:v111];
           goto LABEL_55;
         }
       }
@@ -1387,9 +1482,9 @@ LABEL_41:
       v61 = [(_CDInteractionStore *)selfCopy recipientArrayWithMostRecentSenderFirstFromIncomingInteraction:v34 outgoingInteraction:firstObject];
       [firstObject setRecipients:v61];
 
-      v138 = 0;
-      [(_CDInteractionStore *)selfCopy deleteInteractionsMatchingPredicate:v48 sortDescriptors:0 limit:1 debuggingReason:@"recordInteractionsBatch upsert (case A)" error:&v138];
-      v62 = v138;
+      v137 = 0;
+      [(_CDInteractionStore *)selfCopy deleteInteractionsMatchingPredicate:v48 sortDescriptors:0 limit:1 debuggingReason:@"recordInteractionsBatch upsert (case A)" error:&v137];
+      v62 = v137;
       if (v62)
       {
         v45 = v62;
@@ -1410,10 +1505,10 @@ LABEL_55:
 LABEL_56:
     }
 
-    v107 = [v109 countByEnumeratingWithState:&v140 objects:v163 count:16];
+    v106 = [v108 countByEnumeratingWithState:&v139 objects:v162 count:16];
   }
 
-  while (v107);
+  while (v106);
 LABEL_58:
 
   allValues = [dictionary allValues];
@@ -1422,55 +1517,55 @@ LABEL_58:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v159 = __Block_byref_object_copy__10;
-  v160 = __Block_byref_object_dispose__10;
-  v161 = 0;
+  v158 = __Block_byref_object_copy__10;
+  v159 = __Block_byref_object_dispose__10;
+  v160 = 0;
   v63 = [MEMORY[0x1E695DFA8] set];
-  v132[0] = MEMORY[0x1E69E9820];
-  v132[1] = 3221225472;
-  v132[2] = __53___CDInteractionStore_recordInteractionsBatch_error___block_invoke_164;
-  v132[3] = &unk_1E7368948;
-  v118 = v103;
-  v133 = v118;
+  v131[0] = MEMORY[0x1E69E9820];
+  v131[1] = 3221225472;
+  v131[2] = __53___CDInteractionStore_recordInteractionsBatch_error___block_invoke_164;
+  v131[3] = &unk_1E7368948;
+  v117 = v102;
+  v132 = v117;
   v64 = array;
-  v134 = v64;
-  v135 = selfCopy;
-  v137 = buf;
+  v133 = v64;
+  v134 = selfCopy;
+  v136 = buf;
   v65 = v63;
-  v136 = v65;
-  [(_CDInteractionStore *)selfCopy runLowPriorityDBPreemptableBlock:v132];
+  v135 = v65;
+  [(_CDInteractionStore *)selfCopy runLowPriorityDBPreemptableBlock:v131];
   v66 = [[_CDMemoryUsageInterval alloc] initWithName:@"recordInteractionsBatchPostProcessing" client:0];
   [(_CDMemoryUsageInterval *)v66 begin];
-  v111 = v66;
-  v120 = v64;
-  v130 = 0u;
-  v131 = 0u;
-  v128 = 0u;
+  v110 = v66;
+  v119 = v64;
   v129 = 0u;
-  v116 = v65;
-  v67 = [v116 countByEnumeratingWithState:&v128 objects:v157 count:16];
+  v130 = 0u;
+  v127 = 0u;
+  v128 = 0u;
+  v115 = v65;
+  v67 = [v115 countByEnumeratingWithState:&v127 objects:v156 count:16];
   if (v67)
   {
     LOBYTE(v68) = 0;
-    v122 = *v129;
+    v121 = *v128;
     do
     {
       for (j = 0; j != v67; ++j)
       {
-        if (*v129 != v122)
+        if (*v128 != v121)
         {
-          objc_enumerationMutation(v116);
+          objc_enumerationMutation(v115);
         }
 
-        v70 = *(*(&v128 + 1) + 8 * j);
+        v70 = *(*(&v127 + 1) + 8 * j);
         v71 = [MEMORY[0x1E696AE18] predicateWithFormat:@"uuid == %@", v70];
         v72 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"updateDate" ascending:0];
-        v156 = v72;
-        v73 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v156 count:1];
+        v155 = v72;
+        v73 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v155 count:1];
         v74 = (*&buf[8] + 40);
-        v127 = *(*&buf[8] + 40);
-        v75 = [(_CDInteractionStore *)selfCopy queryInteractionsUsingPredicate:v71 sortDescriptors:v73 limit:1 error:&v127];
-        objc_storeStrong(v74, v127);
+        v126 = *(*&buf[8] + 40);
+        v75 = [(_CDInteractionStore *)selfCopy queryInteractionsUsingPredicate:v71 sortDescriptors:v73 limit:1 error:&v126];
+        objc_storeStrong(v74, v126);
         firstObject2 = [v75 firstObject];
 
         if (v68)
@@ -1506,28 +1601,28 @@ LABEL_64:
           v82 = [v80 predicateWithFormat:@"uuid == %@ AND updateDate < %@", v70, updateDate];
 
           v83 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"updateDate" ascending:0];
-          v155 = v83;
-          v84 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v155 count:1];
+          v154 = v83;
+          v84 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v154 count:1];
           v85 = (*&buf[8] + 40);
-          v126 = *(*&buf[8] + 40);
-          v86 = [(_CDInteractionStore *)selfCopy queryInteractionsUsingPredicate:v82 sortDescriptors:v84 limit:1 error:&v126];
-          objc_storeStrong(v85, v126);
+          v125 = *(*&buf[8] + 40);
+          v86 = [(_CDInteractionStore *)selfCopy queryInteractionsUsingPredicate:v82 sortDescriptors:v84 limit:1 error:&v125];
+          objc_storeStrong(v85, v125);
           firstObject3 = [v86 firstObject];
 
           v88 = +[_CDLogging interactionChannel];
           if (os_log_type_enabled(v88, OS_LOG_TYPE_DEBUG))
           {
-            *v152 = 138412290;
-            *&v152[4] = firstObject2;
-            _os_log_debug_impl(&dword_191750000, v88, OS_LOG_TYPE_DEBUG, "duplicateUUID handling, latest interaction: %@", v152, 0xCu);
+            *v151 = 138412290;
+            *&v151[4] = firstObject2;
+            _os_log_debug_impl(&dword_191750000, v88, OS_LOG_TYPE_DEBUG, "duplicateUUID handling, latest interaction: %@", v151, 0xCu);
           }
 
           v89 = +[_CDLogging interactionChannel];
           if (os_log_type_enabled(v89, OS_LOG_TYPE_DEBUG))
           {
-            *v152 = 138412290;
-            *&v152[4] = firstObject3;
-            _os_log_debug_impl(&dword_191750000, v89, OS_LOG_TYPE_DEBUG, "duplicateUUID handling, toBeDeletedInteraction: %@", v152, 0xCu);
+            *v151 = 138412290;
+            *&v151[4] = firstObject3;
+            _os_log_debug_impl(&dword_191750000, v89, OS_LOG_TYPE_DEBUG, "duplicateUUID handling, toBeDeletedInteraction: %@", v151, 0xCu);
           }
 
           if ([firstObject3 mechanism] == 13)
@@ -1535,27 +1630,27 @@ LABEL_64:
             v90 = +[_CDLogging interactionChannel];
             if (os_log_type_enabled(v90, OS_LOG_TYPE_DEBUG))
             {
-              [(_CDInteractionStore *)&v124 recordInteractionsBatch:v125 error:v90];
+              [(_CDInteractionStore *)&v123 recordInteractionsBatch:v124 error:v90];
             }
 
             v91 = [MEMORY[0x1E696AE18] predicateWithFormat:@"uuid == %@ AND mechanism == %@", v70, &unk_1F05EE7C0];
             v92 = [_CDInteractionStore predicateFilteringUsernameForPredicate:v91];
-            LOBYTE(v99) = 0;
-            [_DKCoreDataStorage deleteObjectsInContext:v118 entityName:@"Interactions" predicate:v92 sortDescriptors:0 fetchLimit:0 includeSubentities:0 includePendingChanges:v99];
+            LOBYTE(v98) = 0;
+            [_DKCoreDataStorage deleteObjectsInContext:v117 entityName:@"Interactions" predicate:v92 sortDescriptors:0 fetchLimit:0 includeSubentities:0 includePendingChanges:v98];
           }
 
           else
           {
             v91 = [_CDInteractionStore predicateFilteringUsernameForPredicate:v82];
-            LOBYTE(v98) = 0;
-            [_DKCoreDataStorage deleteObjectsInContext:v118 entityName:@"Interactions" predicate:v91 sortDescriptors:0 fetchLimit:0 includeSubentities:0 includePendingChanges:v98];
+            LOBYTE(v97) = 0;
+            [_DKCoreDataStorage deleteObjectsInContext:v117 entityName:@"Interactions" predicate:v91 sortDescriptors:0 fetchLimit:0 includeSubentities:0 includePendingChanges:v97];
           }
 
-          [v120 removeObject:firstObject2];
+          [v119 removeObject:firstObject2];
         }
       }
 
-      v67 = [v116 countByEnumeratingWithState:&v128 objects:v157 count:16];
+      v67 = [v115 countByEnumeratingWithState:&v127 objects:v156 count:16];
     }
 
     while (v67);
@@ -1570,29 +1665,28 @@ LABEL_64:
     }
   }
 
-  if ([v120 count])
+  if ([v119 count])
   {
-    [(_CDInteractionStoreNotifier *)selfCopy->_notifier recorded:v120];
+    [(_CDInteractionStoreNotifier *)selfCopy->_notifier recorded:v119];
   }
 
-  [(_CDMemoryUsageInterval *)v111 end];
+  [(_CDMemoryUsageInterval *)v110 end];
   v94 = +[_CDLogging interactionChannel];
   if (os_log_type_enabled(v94, OS_LOG_TYPE_INFO))
   {
-    v95 = [v120 count];
-    *v152 = 134218243;
-    *&v152[4] = v95;
-    v153 = 2117;
-    v154 = v120;
-    _os_log_impl(&dword_191750000, v94, OS_LOG_TYPE_INFO, "recordInteractionsBatch - recorded %tu interactions, %{sensitive}@", v152, 0x16u);
+    v95 = [v119 count];
+    *v151 = 134218243;
+    *&v151[4] = v95;
+    v152 = 2117;
+    v153 = v119;
+    _os_log_impl(&dword_191750000, v94, OS_LOG_TYPE_INFO, "recordInteractionsBatch - recorded %tu interactions, %{sensitive}@", v151, 0x16u);
   }
 
   _Block_object_dispose(buf, 8);
 LABEL_93:
 
 LABEL_94:
-  v96 = *MEMORY[0x1E69E9840];
-  return v103 != 0;
+  return v102 != 0;
 }
 
 - (BOOL)openAndCheckIfReadable
@@ -1692,7 +1786,7 @@ LABEL_20:
 
 - (BOOL)updateInteractionsBatch:(id)batch error:(id *)error
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   batchCopy = batch;
   if ([batchCopy count])
   {
@@ -1701,11 +1795,11 @@ LABEL_20:
     v9 = +[_CDLogging mediaAnalysisChannel];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 134218240;
-      v14 = v8;
-      v15 = 2048;
-      v16 = [batchCopy count];
-      _os_log_impl(&dword_191750000, v9, OS_LOG_TYPE_DEFAULT, "Deleted %tu interactions, creating %tu interactions", &v13, 0x16u);
+      v12 = 134218240;
+      v13 = v8;
+      v14 = 2048;
+      v15 = [batchCopy count];
+      _os_log_impl(&dword_191750000, v9, OS_LOG_TYPE_DEFAULT, "Deleted %tu interactions, creating %tu interactions", &v12, 0x16u);
     }
 
     v10 = [(_CDInteractionStore *)self recordInteractionsBatch:batchCopy error:error];
@@ -1716,7 +1810,6 @@ LABEL_20:
     v10 = 1;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -1812,38 +1905,38 @@ LABEL_20:
 
 - (id)queryInteractionsUsingPredicate:(id)predicate matchingNameTokens:(id)tokens sortDescriptors:(id)descriptors limit:(unint64_t)limit error:(id *)error
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   tokensCopy = tokens;
   descriptorsCopy = descriptors;
   array = [MEMORY[0x1E695DF70] array];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v11 = tokensCopy;
-  v12 = [v11 countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v33;
+    v14 = *v32;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v33 != v14)
+        if (*v32 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v32 + 1) + 8 * i);
+        v16 = *(*(&v31 + 1) + 8 * i);
         v17 = [MEMORY[0x1E696AE18] predicateWithFormat:@"ANY recipients.displayName CONTAINS[cd] %@", v16];
         v18 = [MEMORY[0x1E696AE18] predicateWithFormat:@"sender.displayName CONTAINS[cd] %@", v16];
         [array addObject:v17];
         [array addObject:v18];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
     while (v13);
@@ -1854,17 +1947,15 @@ LABEL_20:
   if (predicateCopy)
   {
     v21 = MEMORY[0x1E696AB28];
-    v36[0] = predicateCopy;
-    v36[1] = v19;
-    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:2];
+    v35[0] = predicateCopy;
+    v35[1] = v19;
+    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:2];
     v23 = [v21 andPredicateWithSubpredicates:v22];
 
     v20 = v23;
   }
 
   v24 = [(_CDInteractionStore *)self queryInteractionsUsingPredicate:v20 sortDescriptors:descriptorsCopy limit:limit offset:0 error:error];
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v24;
 }
@@ -1995,23 +2086,21 @@ LABEL_20:
 
 - (id)queryInteractionsUsingPredicate:(id)predicate withLimit:(unint64_t)limit
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v6 = MEMORY[0x1E696AEB0];
   predicateCopy = predicate;
   v8 = [[v6 alloc] initWithKey:@"startDate" ascending:0];
-  v13[0] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+  v12[0] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
 
   v10 = [(_CDInteractionStore *)self queryInteractionsUsingPredicate:predicateCopy sortDescriptors:v9 limit:limit];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 - (id)queryContactsUsingPredicate:(id)predicate sortDescriptors:(id)descriptors limit:(unint64_t)limit error:(id *)error
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   descriptorsCopy = descriptors;
   v12 = +[_CDLogging interactionChannel];
@@ -2024,39 +2113,39 @@ LABEL_20:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v42 = 0x3032000000;
-  v43 = __Block_byref_object_copy__10;
-  v44 = __Block_byref_object_dispose__10;
-  v45 = 0;
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x3032000000;
-  v38 = __Block_byref_object_copy__10;
-  v39 = __Block_byref_object_dispose__10;
-  v40 = 0;
+  v41 = 0x3032000000;
+  v42 = __Block_byref_object_copy__10;
+  v43 = __Block_byref_object_dispose__10;
+  v44 = 0;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = __Block_byref_object_copy__10;
+  v38 = __Block_byref_object_dispose__10;
+  v39 = 0;
   v13 = [(_DKCoreDataStorage *)self->_storage managedObjectContextFor:*MEMORY[0x1E696A388]];
   v14 = [[_CDMemoryUsageInterval alloc] initWithName:@"queryContactsUsingPredicate" client:0];
-  v23 = MEMORY[0x1E69E9820];
-  v24 = 3221225472;
-  v25 = __79___CDInteractionStore_queryContactsUsingPredicate_sortDescriptors_limit_error___block_invoke;
-  v26 = &unk_1E73689E0;
+  v22 = MEMORY[0x1E69E9820];
+  v23 = 3221225472;
+  v24 = __79___CDInteractionStore_queryContactsUsingPredicate_sortDescriptors_limit_error___block_invoke;
+  v25 = &unk_1E73689E0;
   v15 = v14;
-  v27 = v15;
+  v26 = v15;
   v16 = v13;
-  v28 = v16;
+  v27 = v16;
   v17 = predicateCopy;
-  v29 = v17;
+  v28 = v17;
   v18 = descriptorsCopy;
-  v30 = v18;
+  v29 = v18;
   selfCopy = self;
-  v32 = &v35;
+  v31 = &v34;
   p_buf = &buf;
   limitCopy = limit;
-  [v16 performWithOptions:4 andBlock:&v23];
-  [(_CDMemoryUsageInterval *)v15 end:v23];
+  [v16 performWithOptions:4 andBlock:&v22];
+  [(_CDMemoryUsageInterval *)v15 end:v22];
   if (error)
   {
-    v19 = v36[5];
+    v19 = v35[5];
     if (v19)
     {
       *error = v19;
@@ -2065,10 +2154,8 @@ LABEL_20:
 
   v20 = *(*(&buf + 1) + 40);
 
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v34, 8);
   _Block_object_dispose(&buf, 8);
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -2106,7 +2193,7 @@ LABEL_20:
 
 - (id)queryContactInteractionsUsingPredicate:(id)predicate withLimit:(unint64_t)limit
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   v7 = +[_CDLogging interactionChannel];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
@@ -2118,31 +2205,30 @@ LABEL_20:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy__10;
-  v29 = __Block_byref_object_dispose__10;
-  v30 = 0;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__10;
+  v28 = __Block_byref_object_dispose__10;
+  v29 = 0;
   v8 = [(_DKCoreDataStorage *)self->_storage managedObjectContextFor:*MEMORY[0x1E696A388]];
   v9 = [[_CDMemoryUsageInterval alloc] initWithName:@"queryContactInteractionsUsingPredicate" client:0];
-  v16 = MEMORY[0x1E69E9820];
-  v17 = 3221225472;
-  v18 = __72___CDInteractionStore_queryContactInteractionsUsingPredicate_withLimit___block_invoke;
-  v19 = &unk_1E7368A08;
+  v15 = MEMORY[0x1E69E9820];
+  v16 = 3221225472;
+  v17 = __72___CDInteractionStore_queryContactInteractionsUsingPredicate_withLimit___block_invoke;
+  v18 = &unk_1E7368A08;
   v10 = v9;
-  v20 = v10;
+  v19 = v10;
   v11 = v8;
-  v21 = v11;
+  v20 = v11;
   v12 = predicateCopy;
-  v22 = v12;
+  v21 = v12;
   selfCopy = self;
   p_buf = &buf;
   limitCopy = limit;
-  [v11 performWithOptions:4 andBlock:&v16];
-  [(_CDMemoryUsageInterval *)v10 end:v16];
+  [v11 performWithOptions:4 andBlock:&v15];
+  [(_CDMemoryUsageInterval *)v10 end:v15];
   v13 = *(*(&buf + 1) + 40);
 
   _Block_object_dispose(&buf, 8);
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -2341,31 +2427,30 @@ LABEL_20:
 
 - (unint64_t)deleteInteractionsOlderThanDate:(id)date debuggingReason:(id)reason limit:(unint64_t)limit
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   v8 = MEMORY[0x1E696AEB0];
   reasonCopy = reason;
   dateCopy = date;
   v11 = [v8 sortDescriptorWithKey:@"startDate" ascending:1];
   dateCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"startDate < %@", dateCopy];
 
-  v17[0] = v11;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+  v16[0] = v11;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
   v14 = [(_CDInteractionStore *)self deleteInteractionsMatchingPredicate:dateCopy sortDescriptors:v13 limit:limit debuggingReason:reasonCopy error:0];
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (unint64_t)deleteOldInteractionsIfNeededToLimitTotalNumber:(unint64_t)number limit:(unint64_t)limit
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   v7 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startDate" ascending:0];
   v8 = [(_DKCoreDataStorage *)self->_storage managedObjectContextFor:*MEMORY[0x1E696A388]];
   v9 = [MEMORY[0x1E696AE18] predicateWithValue:1];
-  v22[0] = v7;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
-  LOWORD(v15) = 1;
-  v11 = [_DKCoreDataStorage deleteObjectsIfNeededToLimitTotal:number context:v8 entityName:@"Interactions" predicate:v9 sortDescriptors:v10 fetchLimit:limit includeSubentities:v15 includePendingChanges:?];
+  v21[0] = v7;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+  LOWORD(v14) = 1;
+  v11 = [_DKCoreDataStorage deleteObjectsIfNeededToLimitTotal:number context:v8 entityName:@"Interactions" predicate:v9 sortDescriptors:v10 fetchLimit:limit includeSubentities:v14 includePendingChanges:?];
 
   if (v11)
   {
@@ -2373,10 +2458,10 @@ LABEL_20:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218496;
-      v17 = v11;
-      v18 = 2048;
+      v16 = v11;
+      v17 = 2048;
       numberCopy = number;
-      v20 = 2048;
+      v19 = 2048;
       limitCopy = limit;
       _os_log_impl(&dword_191750000, v12, OS_LOG_TYPE_DEFAULT, "Deleted %tu interactions due to age (deleteOldInteractionsIfNeededToLimitTotalNumber:%tu limit:%tu)", buf, 0x20u);
     }
@@ -2389,7 +2474,6 @@ LABEL_20:
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -2554,7 +2638,7 @@ LABEL_20:
 
 - (void)migrateIMessageDomainIdentifiers
 {
-  v37[2] = *MEMORY[0x1E69E9840];
+  v36[2] = *MEMORY[0x1E69E9840];
   v2 = +[_CDLogging interactionChannel];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -2579,52 +2663,52 @@ LABEL_20:
   {
     v6 = MEMORY[0x1E696AE18];
     v7 = +[_CDConstants mobileMessagesBundleId];
-    v37[0] = v7;
+    v36[0] = v7;
     v8 = +[_CDConstants contactsAutocompleteBundleId];
-    v37[1] = v8;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:2];
+    v36[1] = v8;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:2];
     v10 = +[_CDConstants shareSheetTargetBundleIdMessages];
-    v36 = v10;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v36 count:1];
+    v35 = v10;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
     v12 = [v6 predicateWithFormat:@"noindex(bundleId) in %@ OR noindex(targetBundleId) in %@", v9, v11];
 
     *buf = 0;
-    v33 = buf;
-    v34 = 0x2020000000;
-    v35 = 0;
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x2020000000;
-    v31 = 1;
+    v32 = buf;
+    v33 = 0x2020000000;
+    v34 = 0;
+    v27 = 0;
+    v28 = &v27;
+    v29 = 0x2020000000;
+    v30 = 1;
     v13 = *MEMORY[0x1E696A388];
     do
     {
       v14 = objc_autoreleasePoolPush();
-      v33[24] = 0;
+      v32[24] = 0;
       v15 = [(_DKCoreDataStorage *)self->_storage managedObjectContextFor:v13];
-      v23[0] = MEMORY[0x1E69E9820];
-      v23[1] = 3221225472;
-      v23[2] = __55___CDInteractionStore_migrateIMessageDomainIdentifiers__block_invoke;
-      v23[3] = &unk_1E7368B88;
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = __55___CDInteractionStore_migrateIMessageDomainIdentifiers__block_invoke;
+      v22[3] = &unk_1E7368B88;
       v16 = v15;
-      v24 = v16;
+      v23 = v16;
       v5 = v12;
-      v25 = v5;
-      v26 = &v28;
-      v27 = buf;
-      [v16 performWithOptions:4 andBlock:v23];
+      v24 = v5;
+      v25 = &v27;
+      v26 = buf;
+      [v16 performWithOptions:4 andBlock:v22];
 
       objc_autoreleasePoolPop(v14);
     }
 
-    while ((v33[24] & 1) != 0);
-    if (*(v29 + 24) == 1)
+    while ((v32[24] & 1) != 0);
+    if (*(v28 + 24) == 1)
     {
       v17 = +[_CDLogging interactionChannel];
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        *v22 = 0;
-        _os_log_impl(&dword_191750000, v17, OS_LOG_TYPE_DEFAULT, "migrateIMessageDomainIdentifiers Marking successful migration", v22, 2u);
+        *v21 = 0;
+        _os_log_impl(&dword_191750000, v17, OS_LOG_TYPE_DEFAULT, "migrateIMessageDomainIdentifiers Marking successful migration", v21, 2u);
       }
 
       [(_CDInteractionStore *)self setMetadata:MEMORY[0x1E695E118] forKey:@"migrateIMessageDomainIdentifiers"];
@@ -2635,23 +2719,21 @@ LABEL_20:
       v18 = +[_CDLogging interactionChannel];
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        *v22 = 0;
-        _os_log_impl(&dword_191750000, v18, OS_LOG_TYPE_DEFAULT, "migrateIMessageDomainIdentifiers Migration was not successful", v22, 2u);
+        *v21 = 0;
+        _os_log_impl(&dword_191750000, v18, OS_LOG_TYPE_DEFAULT, "migrateIMessageDomainIdentifiers Migration was not successful", v21, 2u);
       }
     }
 
     v19 = +[_CDLogging interactionChannel];
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      *v22 = 0;
-      _os_log_impl(&dword_191750000, v19, OS_LOG_TYPE_DEFAULT, "migrateIMessageDomainIdentifiers End", v22, 2u);
+      *v21 = 0;
+      _os_log_impl(&dword_191750000, v19, OS_LOG_TYPE_DEFAULT, "migrateIMessageDomainIdentifiers End", v21, 2u);
     }
 
-    _Block_object_dispose(&v28, 8);
+    _Block_object_dispose(&v27, 8);
     _Block_object_dispose(buf, 8);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)deleteStorage
@@ -2667,7 +2749,7 @@ LABEL_20:
 
 - (unint64_t)deleteInteractionsMatchingPredicate:(id)predicate sortDescriptors:(id)descriptors limit:(unint64_t)limit debuggingReason:(id)reason error:(id *)error
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   descriptorsCopy = descriptors;
   reasonCopy = reason;
@@ -2692,17 +2774,17 @@ LABEL_20:
     v14 = 1000;
   }
 
+  v34 = 0;
   v35 = 0;
-  v36 = 0;
-  v15 = [(_CDInteractionStore *)self queryInteractionsUsingPredicate:predicateCopy sortDescriptors:descriptorsCopy limit:v14 offset:0 objectIDs:&v36 error:&v35];
-  v16 = v35;
-  if ([v36 count])
+  v15 = [(_CDInteractionStore *)self queryInteractionsUsingPredicate:predicateCopy sortDescriptors:descriptorsCopy limit:v14 offset:0 objectIDs:&v35 error:&v34];
+  v16 = v34;
+  if ([v35 count])
   {
     v17 = [v15 _pas_mappedArrayWithTransform:&__block_literal_global_343];
     v18 = +[_CDLogging interactionChannel];
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      if ([v36 count] >= v14)
+      if ([v35 count] >= v14)
       {
         v19 = @"at least ";
       }
@@ -2712,25 +2794,25 @@ LABEL_20:
         v19 = &stru_1F05B9908;
       }
 
-      v20 = [v36 count];
+      v20 = [v35 count];
       *buf = 138544131;
-      v38 = v19;
-      v39 = 2048;
-      v40 = v20;
-      v41 = 2114;
-      v42 = reasonCopy;
-      v43 = 2113;
-      v44 = v17;
+      v37 = v19;
+      v38 = 2048;
+      v39 = v20;
+      v40 = 2114;
+      v41 = reasonCopy;
+      v42 = 2113;
+      v43 = v17;
       _os_log_impl(&dword_191750000, v18, OS_LOG_TYPE_DEFAULT, "Deleted %{public}@%tu interactions with reason %{public}@: %{private}@", buf, 0x2Au);
     }
   }
 
-  v21 = [v36 count];
+  v21 = [v35 count];
   v22 = [(_DKCoreDataStorage *)self->_storage managedObjectContextFor:*MEMORY[0x1E696A388]];
   if (v21 >= v14)
   {
     v23 = [_CDInteractionStore predicateFilteringUsernameForPredicate:predicateCopy];
-    LOBYTE(v32) = 0;
+    LOBYTE(v31) = 0;
     v24 = v22;
     v25 = v23;
     v26 = descriptorsCopy;
@@ -2738,14 +2820,14 @@ LABEL_20:
 
   else
   {
-    v23 = [MEMORY[0x1E696AE18] predicateWithFormat:@"self in %@", v36];
-    LOBYTE(v32) = 0;
+    v23 = [MEMORY[0x1E696AE18] predicateWithFormat:@"self in %@", v35];
+    LOBYTE(v31) = 0;
     v24 = v22;
     v25 = v23;
     v26 = 0;
   }
 
-  v27 = [_DKCoreDataStorage deleteObjectsInContext:v24 entityName:@"Interactions" predicate:v25 sortDescriptors:v26 fetchLimit:limit includeSubentities:0 includePendingChanges:v32];
+  v27 = [_DKCoreDataStorage deleteObjectsInContext:v24 entityName:@"Interactions" predicate:v25 sortDescriptors:v26 fetchLimit:limit includeSubentities:0 includePendingChanges:v31];
 
   if (v16 && v27)
   {
@@ -2802,7 +2884,6 @@ LABEL_35:
 LABEL_36:
 
   objc_autoreleasePoolPop(context);
-  v30 = *MEMORY[0x1E69E9840];
   return v27;
 }
 
@@ -2833,45 +2914,44 @@ LABEL_36:
 
 - (unint64_t)deleteInteractionsWithBundleId:(id)id domainIdentifier:(id)identifier error:(id *)error
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v8 = MEMORY[0x1E695DEC8];
   identifierCopy2 = identifier;
   idCopy = id;
   v11 = [v8 arrayWithObjects:&identifierCopy count:1];
 
-  v12 = [(_CDInteractionStore *)self deleteInteractionsWithBundleId:idCopy domainIdentifiers:v11 error:error, identifierCopy, v16];
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = [(_CDInteractionStore *)self deleteInteractionsWithBundleId:idCopy domainIdentifiers:v11 error:error, identifierCopy, v15];
   return v12;
 }
 
 - (unint64_t)deleteInteractionsWithBundleId:(id)id domainIdentifiers:(id)identifiers error:(id *)error
 {
-  v29[2] = *MEMORY[0x1E69E9840];
+  v28[2] = *MEMORY[0x1E69E9840];
   idCopy = id;
   identifiersCopy = identifiers;
   if ([identifiersCopy count])
   {
-    v23 = _CDTargetBundleIdForBundleId(idCopy);
-    v26 = [objc_alloc(MEMORY[0x1E69C5D18]) initWithDomainsFromArray:identifiersCopy];
-    allDomains = [v26 allDomains];
+    v22 = _CDTargetBundleIdForBundleId(idCopy);
+    v25 = [objc_alloc(MEMORY[0x1E69C5D18]) initWithDomainsFromArray:identifiersCopy];
+    allDomains = [v25 allDomains];
     errorCopy = error;
     v11 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(domainIdentifier == $domainIdentifier) OR (domainIdentifier >= $domainIdentifierDot AND domainIdentifier < $domainIdentifierSlash)"];
     allObjects = [allDomains allObjects];
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __78___CDInteractionStore_deleteInteractionsWithBundleId_domainIdentifiers_error___block_invoke;
-    v27[3] = &unk_1E7368BB0;
-    v28 = v11;
-    v24 = v11;
-    v13 = [allObjects _pas_mappedArrayWithTransform:v27];
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __78___CDInteractionStore_deleteInteractionsWithBundleId_domainIdentifiers_error___block_invoke;
+    v26[3] = &unk_1E7368BB0;
+    v27 = v11;
+    v23 = v11;
+    v13 = [allObjects _pas_mappedArrayWithTransform:v26];
 
     v14 = [MEMORY[0x1E696AB28] orPredicateWithSubpredicates:v13];
-    v15 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(noindex(mechanism) != %@ AND noindex(bundleId) == %@) OR (noindex(mechanism) == %@ AND noindex(targetBundleId) == %@)", &unk_1F05EE7D8, idCopy, &unk_1F05EE7D8, v23];
+    v15 = [MEMORY[0x1E696AE18] predicateWithFormat:@"(noindex(mechanism) != %@ AND noindex(bundleId) == %@) OR (noindex(mechanism) == %@ AND noindex(targetBundleId) == %@)", &unk_1F05EE7D8, idCopy, &unk_1F05EE7D8, v22];
     v16 = MEMORY[0x1E696AB28];
-    v29[0] = v14;
-    v29[1] = v15;
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
+    v28[0] = v14;
+    v28[1] = v15;
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
     v18 = [v16 andPredicateWithSubpredicates:v17];
     idCopy = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"deleteInteractionsWithBundleId:%@ domainIdentifiers:(redacted) (bundleId)", idCopy];
     v20 = [(_CDInteractionStore *)self deleteInteractionsMatchingPredicate:v18 sortDescriptors:MEMORY[0x1E695E0F0] limit:20000 debuggingReason:idCopy error:errorCopy];
@@ -2882,7 +2962,6 @@ LABEL_36:
     v20 = 0;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -3124,18 +3203,16 @@ LABEL_36:
 
 - (void)recordInteractionsBatch:error:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_191750000, v0, OS_LOG_TYPE_DEBUG, "recordInteractionsBatch - interactionsToPersist: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_191750000, v0, OS_LOG_TYPE_DEBUG, "recordInteractionsBatch - interactionsToPersist: %@", v1, 0xCu);
 }
 
 - (void)recordInteractionsBatch:error:.cold.3()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_191750000, v0, OS_LOG_TYPE_DEBUG, "recordInteractionsBatch - interactionsToPersistSortedByDate: %{sensitive}@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_191750000, v0, OS_LOG_TYPE_DEBUG, "recordInteractionsBatch - interactionsToPersistSortedByDate: %{sensitive}@", v1, 0xCu);
 }
 
 - (void)recordInteractionsBatch:(os_log_t)log error:.cold.4(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -3147,29 +3224,24 @@ LABEL_36:
 
 - (void)_deleteMetadataForKey:moc:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_6_7();
   OUTLINED_FUNCTION_3_8(&dword_191750000, v0, v1, "metadata: failed to set delete key %{public}@: %{private}@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteInteractionsMatchingPredicate:sortDescriptors:limit:debuggingReason:error:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_6_7();
-  _os_log_error_impl(&dword_191750000, v0, OS_LOG_TYPE_ERROR, "Did not delete any interactions but encountered error fetching interactions, reason: %{public}@, error: %{public}@", v2, 0x16u);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_191750000, v0, OS_LOG_TYPE_ERROR, "Did not delete any interactions but encountered error fetching interactions, reason: %{public}@, error: %{public}@", v1, 0x16u);
 }
 
 - (void)deleteInteractionsMatchingPredicate:sortDescriptors:limit:debuggingReason:error:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_6_7();
   OUTLINED_FUNCTION_3_8(&dword_191750000, v0, v1, "Deleted interactions but encountered error fetching interactions, reason: %{public}@, error: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

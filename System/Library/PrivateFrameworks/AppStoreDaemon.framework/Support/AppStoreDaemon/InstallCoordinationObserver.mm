@@ -47,7 +47,7 @@
       [(NSOperationQueue *)v8->_operationQueue setName:@"com.apple.appstored.AppInstallObserver.policyQueue"];
     }
 
-    v9 = sub_1003C27BC();
+    v9 = sub_1003C27BC(AppInstallsDatabaseStore);
     databaseStore = v2->_databaseStore;
     v2->_databaseStore = v9;
 
@@ -82,7 +82,7 @@
   v10 = reasonCopy;
   v11 = coordinatorCopy;
   [(AppInstallsDatabaseStore *)databaseStore modifyUsingTransaction:&v16];
-  v12 = sub_1003F281C();
+  v12 = sub_1003F281C(ODRDownloadManager);
   identity = [v11 identity];
   bundleID = [identity bundleID];
   uniqueIdentifier = [v11 uniqueIdentifier];
@@ -118,7 +118,7 @@
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v14 = sub_1003F281C();
+    v14 = sub_1003F281C(ODRDownloadManager);
     identity2 = [v12 identity];
     bundleID2 = [identity2 bundleID];
     uniqueIdentifier = [v12 uniqueIdentifier];
@@ -187,7 +187,7 @@
   [(AppInstallsDatabaseStore *)databaseStore modifyUsingTransaction:v17];
   if (*(v22 + 24) == 1)
   {
-    v8 = sub_1001DFF60();
+    v8 = sub_1001DFF60(PurchaseManager);
     identity = [v7 identity];
     bundleID = [identity bundleID];
     v11 = sub_1001E03BC(v8, bundleID);
@@ -231,7 +231,7 @@ LABEL_8:
   v12 = pauseCopy;
   v6 = pauseCopy;
   [(AppInstallsDatabaseStore *)databaseStore modifyUsingTransaction:v11];
-  v7 = sub_1003F281C();
+  v7 = sub_1003F281C(ODRDownloadManager);
   identity = [v6 identity];
   bundleID = [identity bundleID];
   uniqueIdentifier = [v6 uniqueIdentifier];
@@ -250,7 +250,7 @@ LABEL_8:
   selfCopy = self;
   v6 = resumeCopy;
   [(AppInstallsDatabaseStore *)databaseStore modifyUsingTransaction:&v11];
-  v7 = sub_1003F281C();
+  v7 = sub_1003F281C(ODRDownloadManager);
   identity = [v6 identity];
   bundleID = [identity bundleID];
   uniqueIdentifier = [v6 uniqueIdentifier];
@@ -262,7 +262,7 @@ LABEL_8:
   bundleID = [identity bundleID];
   if (self)
   {
-    v4 = sub_1003BBF50();
+    v4 = sub_1003BBF50(Device);
     isHRNMode = [v4 isHRNMode];
 
     if ((isHRNMode & 1) == 0)

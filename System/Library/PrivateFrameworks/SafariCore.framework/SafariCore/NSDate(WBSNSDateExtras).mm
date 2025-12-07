@@ -3,6 +3,7 @@
 + (id)safari_dateOfMidnightNumberOfDaysAgo:()WBSNSDateExtras;
 + (void)safari_dateFromNTPServerWithTimeout:()WBSNSDateExtras completionHandler:;
 - (BOOL)safari_isInclusivelyBetweenDate:()WBSNSDateExtras andDate:;
+- (char)safari_numberOfWeeksUntilDate:()WBSNSDateExtras;
 - (id)_safari_stringWithDashSeparatorWithDateFormatter:()WBSNSDateExtras;
 - (id)safari_startOfDay;
 - (id)safari_stringsFromDateForLocaleIdentifiers:()WBSNSDateExtras;
@@ -11,7 +12,6 @@
 - (uint64_t)safari_isInToday;
 - (uint64_t)safari_isNowOrInRecentPast;
 - (uint64_t)safari_numberOfDaysUntilDate:()WBSNSDateExtras;
-- (uint64_t)safari_numberOfWeeksUntilDate:()WBSNSDateExtras;
 @end
 
 @implementation NSDate(WBSNSDateExtras)
@@ -76,7 +76,7 @@
   dispatch_after(v12, v13, v15);
 }
 
-- (uint64_t)safari_numberOfWeeksUntilDate:()WBSNSDateExtras
+- (char)safari_numberOfWeeksUntilDate:()WBSNSDateExtras
 {
   v4 = a3;
   currentCalendar = [MEMORY[0x1E695DEE8] currentCalendar];
@@ -210,51 +210,51 @@
 
 - (id)safari_stringsFromDateForLocaleIdentifiers:()WBSNSDateExtras
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = [MEMORY[0x1E695DFA8] set];
   v6 = objc_alloc_init(MEMORY[0x1E696AB78]);
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   obj = v4;
-  v25 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
-  if (v25)
+  v24 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
+  if (v24)
   {
-    v24 = *v35;
+    v23 = *v34;
     do
     {
       v7 = 0;
       do
       {
-        if (*v35 != v24)
+        if (*v34 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:*(*(&v34 + 1) + 8 * v7)];
+        v8 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:*(*(&v33 + 1) + 8 * v7)];
         [v6 setLocale:v8];
 
-        v32 = 0u;
-        v33 = 0u;
-        v30 = 0u;
         v31 = 0u;
-        v9 = [&unk_1F308E6B8 countByEnumeratingWithState:&v30 objects:v39 count:16];
+        v32 = 0u;
+        v29 = 0u;
+        v30 = 0u;
+        v9 = [&unk_1F308E6B8 countByEnumeratingWithState:&v29 objects:v38 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v31;
+          v11 = *v30;
           do
           {
             for (i = 0; i != v10; ++i)
             {
-              if (*v31 != v11)
+              if (*v30 != v11)
               {
                 objc_enumerationMutation(&unk_1F308E6B8);
               }
 
-              [v6 setLocalizedDateFormatFromTemplate:*(*(&v30 + 1) + 8 * i)];
+              [v6 setLocalizedDateFormatFromTemplate:*(*(&v29 + 1) + 8 * i)];
               v13 = [v6 stringFromDate:self];
               [v5 addObject:v13];
 
@@ -262,42 +262,42 @@
               [v5 addObject:v14];
             }
 
-            v10 = [&unk_1F308E6B8 countByEnumeratingWithState:&v30 objects:v39 count:16];
+            v10 = [&unk_1F308E6B8 countByEnumeratingWithState:&v29 objects:v38 count:16];
           }
 
           while (v10);
         }
 
-        v28 = 0u;
-        v29 = 0u;
-        v26 = 0u;
         v27 = 0u;
+        v28 = 0u;
+        v25 = 0u;
+        v26 = 0u;
         if (_dateFormatTemplatesWithLongMonth_onceToken != -1)
         {
           [NSDate(WBSNSDateExtras) safari_stringsFromDateForLocaleIdentifiers:];
         }
 
         v15 = _dateFormatTemplatesWithLongMonth_dateFormats;
-        v16 = [v15 countByEnumeratingWithState:&v26 objects:v38 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v25 objects:v37 count:16];
         if (v16)
         {
           v17 = v16;
-          v18 = *v27;
+          v18 = *v26;
           do
           {
             for (j = 0; j != v17; ++j)
             {
-              if (*v27 != v18)
+              if (*v26 != v18)
               {
                 objc_enumerationMutation(v15);
               }
 
-              [v6 setLocalizedDateFormatFromTemplate:*(*(&v26 + 1) + 8 * j)];
+              [v6 setLocalizedDateFormatFromTemplate:*(*(&v25 + 1) + 8 * j)];
               v20 = [v6 stringFromDate:self];
               [v5 addObject:v20];
             }
 
-            v17 = [v15 countByEnumeratingWithState:&v26 objects:v38 count:16];
+            v17 = [v15 countByEnumeratingWithState:&v25 objects:v37 count:16];
           }
 
           while (v17);
@@ -306,14 +306,12 @@
         ++v7;
       }
 
-      while (v7 != v25);
-      v25 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
+      while (v7 != v24);
+      v24 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
     }
 
-    while (v25);
+    while (v24);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

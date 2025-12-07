@@ -10,7 +10,7 @@
   v8 = *(v7 - 8);
   __chkstk_darwin(v7);
   v10 = &v17[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v11 = sub_100080FB4(&unk_1003D0540);
+  v11 = sub_100080FB4(&unk_1003D0540, &unk_1002EDD50);
   __chkstk_darwin(v11 - 8);
   v13 = &v17[-v12];
   if (for)

@@ -69,47 +69,46 @@
 
 uint64_t __61__DOCSidebarItemCellAccessibility_accessibilityCustomActions__block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   v3 = a2;
+  v14 = 0u;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = [WeakRetained safeArrayForKey:@"_accessibilityTrailingViews"];
 
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
         NSClassFromString(&cfstr_Documentmanage_7.isa);
         if (objc_opt_isKindOfClass())
         {
           objc_opt_class();
-          v11 = __UIAccessibilityCastAsClass();
-          v12 = v11;
-          if (v11)
+          v10 = __UIAccessibilityCastAsClass();
+          v11 = v10;
+          if (v10)
           {
-            [v11 sendActionsForControlEvents:64];
+            [v10 sendActionsForControlEvents:64];
 
-            v13 = 1;
+            v12 = 1;
             goto LABEL_12;
           }
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         continue;
@@ -119,11 +118,10 @@ uint64_t __61__DOCSidebarItemCellAccessibility_accessibilityCustomActions__block
     }
   }
 
-  v13 = 0;
+  v12 = 0;
 LABEL_12:
 
-  v14 = *MEMORY[0x29EDCA608];
-  return v13;
+  return v12;
 }
 
 - (id)accessibilityValue

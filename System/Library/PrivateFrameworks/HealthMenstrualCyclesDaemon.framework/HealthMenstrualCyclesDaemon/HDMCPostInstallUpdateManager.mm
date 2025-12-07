@@ -69,45 +69,43 @@
 
 - (BOOL)_triggerInitialAnalysisWithError:(id *)error
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC2E8];
   if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_DEFAULT))
   {
     v6 = v5;
-    v13 = 138543362;
-    v14 = objc_opt_class();
-    v7 = v14;
-    _os_log_impl(&dword_2293D1000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Analyzing due to post install update task", &v13, 0xCu);
+    v12 = 138543362;
+    v13 = objc_opt_class();
+    v7 = v13;
+    _os_log_impl(&dword_2293D1000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Analyzing due to post install update task", &v12, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_profileExtension);
   analysisManager = [WeakRetained analysisManager];
   v10 = [analysisManager analyzeWithError:error];
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10 != 0;
 }
 
 - (BOOL)_updateDeviceScopedStorageWithError:(id *)error
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC2E8];
   if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_DEFAULT))
   {
     v6 = v5;
-    v13 = 138543362;
-    v14 = objc_opt_class();
-    v7 = v14;
-    _os_log_impl(&dword_2293D1000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updating Device-Scoped Storage due to post install update task", &v13, 0xCu);
+    v12 = 138543362;
+    v13 = objc_opt_class();
+    v7 = v13;
+    _os_log_impl(&dword_2293D1000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updating Device-Scoped Storage due to post install update task", &v12, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_profileExtension);
   deviceScopedStorageManager = [WeakRetained deviceScopedStorageManager];
   v10 = [deviceScopedStorageManager updateLocalDeviceValuesNowWithError:error];
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

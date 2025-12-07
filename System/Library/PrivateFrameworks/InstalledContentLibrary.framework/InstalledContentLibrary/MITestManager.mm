@@ -51,7 +51,7 @@
   return v2;
 }
 
-uint64_t __31__MITestManager_sharedInstance__block_invoke()
+uint64_t __31__MITestManager_sharedInstance__block_invoke(uint64_t a1)
 {
   sharedInstance_sharedInstance = objc_alloc_init(objc_opt_class());
 

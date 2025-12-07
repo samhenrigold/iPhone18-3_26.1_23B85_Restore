@@ -134,7 +134,6 @@ LABEL_6:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    rawCount = self->_rawCount;
     PBDataWriterWriteInt64Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -154,7 +153,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  unifiedCount = self->_unifiedCount;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -169,12 +167,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  favoritesCount = self->_favoritesCount;
   PBDataWriterWriteInt64Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_5:
-    showAlert = self->_showAlert;
     PBDataWriterWriteBOOLField();
   }
 

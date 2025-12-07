@@ -33,21 +33,23 @@
   dispatch_sync(queue, block);
 }
 
-uint64_t __96__MTLTelemetryTexture_accumTextureDistribution_category_pixelFormat_baseAddr_rowBytes_isLinear___block_invoke(uint64_t a1)
+void *__96__MTLTelemetryTexture_accumTextureDistribution_category_pixelFormat_baseAddr_rowBytes_isLinear___block_invoke(uint64_t a1)
 {
-  v2 = &std::__hash_table<std::__hash_value_type<MTLPixelFormat,MTLTelemetryTextureDistribution>,std::__unordered_map_hasher<MTLPixelFormat,std::__hash_value_type<MTLPixelFormat,MTLTelemetryTextureDistribution>,std::hash<unsigned long long>,std::equal_to<MTLPixelFormat>,true>,std::__unordered_map_equal<MTLPixelFormat,std::__hash_value_type<MTLPixelFormat,MTLTelemetryTextureDistribution>,std::equal_to<MTLPixelFormat>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<MTLPixelFormat,MTLTelemetryTextureDistribution>>>::__emplace_unique_key_args<MTLPixelFormat,std::piecewise_construct_t const&,std::tuple<MTLPixelFormat const&>,std::tuple<>>((*(*(a1 + 32) + 88) + 224), (a1 + 48))[192 * *(a1 + 72) + 24 * *(a1 + 76)];
-  v3 = [*(*(a1 + 32) + 80) width];
-  if (v3)
+  v2 = *(*(a1 + 32) + 88);
+  v19 = (a1 + 48);
+  v3 = &std::__hash_table<std::__hash_value_type<MTLPixelFormat,MTLTelemetryTextureDistribution>,std::__unordered_map_hasher<MTLPixelFormat,std::__hash_value_type<MTLPixelFormat,MTLTelemetryTextureDistribution>,std::hash<unsigned long long>,std::equal_to<MTLPixelFormat>,true>,std::__unordered_map_equal<MTLPixelFormat,std::__hash_value_type<MTLPixelFormat,MTLTelemetryTextureDistribution>,std::equal_to<MTLPixelFormat>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<MTLPixelFormat,MTLTelemetryTextureDistribution>>>::__emplace_unique_key_args<MTLPixelFormat,std::piecewise_construct_t const&,std::tuple<MTLPixelFormat const&>,std::tuple<>>((v2 + 224), (a1 + 48), &std::piecewise_construct, &v19)[192 * *(a1 + 72) + 24 * *(a1 + 76)];
+  v4 = [*(*(a1 + 32) + 80) width];
+  if (v4)
   {
-    v4 = *(v2 + 16);
-    if (v4)
+    v5 = *(v3 + 16);
+    if (v5)
     {
-      if (*(v2 + 13) < v3)
+      if (*(v3 + 13) < v4)
       {
-        *(v2 + 13) = v3;
+        *(v3 + 13) = v4;
       }
 
-      if (*(v2 + 12) <= v3)
+      if (*(v3 + 12) <= v4)
       {
         goto LABEL_9;
       }
@@ -55,30 +57,30 @@ uint64_t __96__MTLTelemetryTexture_accumTextureDistribution_category_pixelFormat
 
     else
     {
-      *(v2 + 13) = v3;
+      *(v3 + 13) = v4;
     }
 
-    *(v2 + 12) = v3;
+    *(v3 + 12) = v4;
 LABEL_9:
-    v2[7] += v3;
-    *(v2 + 16) = v4 + 1;
+    v3[7] += v4;
+    *(v3 + 16) = v5 + 1;
   }
 
-  v5 = [*(*(a1 + 32) + 80) height];
-  if (!v5)
+  v6 = [*(*(a1 + 32) + 80) height];
+  if (!v6)
   {
     goto LABEL_19;
   }
 
-  v6 = *(v2 + 22);
-  if (v6)
+  v7 = *(v3 + 22);
+  if (v7)
   {
-    if (*(v2 + 19) < v5)
+    if (*(v3 + 19) < v6)
     {
-      *(v2 + 19) = v5;
+      *(v3 + 19) = v6;
     }
 
-    if (*(v2 + 18) <= v5)
+    if (*(v3 + 18) <= v6)
     {
       goto LABEL_18;
     }
@@ -86,29 +88,29 @@ LABEL_9:
 
   else
   {
-    *(v2 + 19) = v5;
+    *(v3 + 19) = v6;
   }
 
-  *(v2 + 18) = v5;
+  *(v3 + 18) = v6;
 LABEL_18:
-  v2[10] += v5;
-  *(v2 + 22) = v6 + 1;
+  v3[10] += v6;
+  *(v3 + 22) = v7 + 1;
 LABEL_19:
-  v7 = [*(*(a1 + 32) + 80) depth];
-  if (!v7)
+  v8 = [*(*(a1 + 32) + 80) depth];
+  if (!v8)
   {
     goto LABEL_28;
   }
 
-  v8 = *(v2 + 28);
-  if (v8)
+  v9 = *(v3 + 28);
+  if (v9)
   {
-    if (*(v2 + 25) < v7)
+    if (*(v3 + 25) < v8)
     {
-      *(v2 + 25) = v7;
+      *(v3 + 25) = v8;
     }
 
-    if (*(v2 + 24) <= v7)
+    if (*(v3 + 24) <= v8)
     {
       goto LABEL_27;
     }
@@ -116,29 +118,29 @@ LABEL_19:
 
   else
   {
-    *(v2 + 25) = v7;
+    *(v3 + 25) = v8;
   }
 
-  *(v2 + 24) = v7;
+  *(v3 + 24) = v8;
 LABEL_27:
-  v2[13] += v7;
-  *(v2 + 28) = v8 + 1;
+  v3[13] += v8;
+  *(v3 + 28) = v9 + 1;
 LABEL_28:
-  v9 = [*(*(a1 + 32) + 80) mipmapLevelCount];
-  if (!v9)
+  v10 = [*(*(a1 + 32) + 80) mipmapLevelCount];
+  if (!v10)
   {
     goto LABEL_37;
   }
 
-  v10 = *(v2 + 34);
-  if (v10)
+  v11 = *(v3 + 34);
+  if (v11)
   {
-    if (*(v2 + 31) < v9)
+    if (*(v3 + 31) < v10)
     {
-      *(v2 + 31) = v9;
+      *(v3 + 31) = v10;
     }
 
-    if (*(v2 + 30) <= v9)
+    if (*(v3 + 30) <= v10)
     {
       goto LABEL_36;
     }
@@ -146,29 +148,29 @@ LABEL_28:
 
   else
   {
-    *(v2 + 31) = v9;
+    *(v3 + 31) = v10;
   }
 
-  *(v2 + 30) = v9;
+  *(v3 + 30) = v10;
 LABEL_36:
-  v2[16] += v9;
-  *(v2 + 34) = v10 + 1;
+  v3[16] += v10;
+  *(v3 + 34) = v11 + 1;
 LABEL_37:
-  v11 = [*(*(a1 + 32) + 80) sampleCount];
-  if (!v11)
+  v12 = [*(*(a1 + 32) + 80) sampleCount];
+  if (!v12)
   {
     goto LABEL_46;
   }
 
-  v12 = *(v2 + 40);
-  if (v12)
+  v13 = *(v3 + 40);
+  if (v13)
   {
-    if (*(v2 + 37) < v11)
+    if (*(v3 + 37) < v12)
     {
-      *(v2 + 37) = v11;
+      *(v3 + 37) = v12;
     }
 
-    if (*(v2 + 36) <= v11)
+    if (*(v3 + 36) <= v12)
     {
       goto LABEL_45;
     }
@@ -176,29 +178,29 @@ LABEL_37:
 
   else
   {
-    *(v2 + 37) = v11;
+    *(v3 + 37) = v12;
   }
 
-  *(v2 + 36) = v11;
+  *(v3 + 36) = v12;
 LABEL_45:
-  v2[19] += v11;
-  *(v2 + 40) = v12 + 1;
+  v3[19] += v12;
+  *(v3 + 40) = v13 + 1;
 LABEL_46:
-  v13 = [*(*(a1 + 32) + 80) arrayLength];
-  if (!v13)
+  v14 = [*(*(a1 + 32) + 80) arrayLength];
+  if (!v14)
   {
     goto LABEL_55;
   }
 
-  v14 = *(v2 + 46);
-  if (v14)
+  v15 = *(v3 + 46);
+  if (v15)
   {
-    if (*(v2 + 43) < v13)
+    if (*(v3 + 43) < v14)
     {
-      *(v2 + 43) = v13;
+      *(v3 + 43) = v14;
     }
 
-    if (*(v2 + 42) <= v13)
+    if (*(v3 + 42) <= v14)
     {
       goto LABEL_54;
     }
@@ -206,47 +208,47 @@ LABEL_46:
 
   else
   {
-    *(v2 + 43) = v13;
+    *(v3 + 43) = v14;
   }
 
-  *(v2 + 42) = v13;
+  *(v3 + 42) = v14;
 LABEL_54:
-  v2[22] += v13;
-  *(v2 + 46) = v14 + 1;
+  v3[22] += v14;
+  *(v3 + 46) = v15 + 1;
 LABEL_55:
   if ([*(a1 + 40) isFramebufferOnly])
   {
-    ++*(v2 + 7);
+    ++*(v3 + 7);
   }
 
   if (([*(a1 + 40) usage] & 2) != 0)
   {
-    ++*(v2 + 8);
+    ++*(v3 + 8);
   }
 
   result = [*(a1 + 40) usage];
   if ((result & 4) != 0)
   {
-    ++*(v2 + 9);
+    ++*(v3 + 9);
   }
 
   if (*(a1 + 80) == 1)
   {
-    v16 = *(a1 + 56);
-    if (!v16)
+    v17 = *(a1 + 56);
+    if (!v17)
     {
       goto LABEL_71;
     }
 
-    v17 = *(v2 + 52);
-    if (v17)
+    v18 = *(v3 + 52);
+    if (v18)
     {
-      if (*(v2 + 49) < v16)
+      if (*(v3 + 49) < v17)
       {
-        *(v2 + 49) = v16;
+        *(v3 + 49) = v17;
       }
 
-      if (*(v2 + 48) <= v16)
+      if (*(v3 + 48) <= v17)
       {
         goto LABEL_70;
       }
@@ -254,21 +256,21 @@ LABEL_55:
 
     else
     {
-      *(v2 + 49) = v16;
+      *(v3 + 49) = v17;
     }
 
-    *(v2 + 48) = v16;
+    *(v3 + 48) = v17;
 LABEL_70:
-    v2[25] += v16;
-    *(v2 + 52) = v17 + 1;
+    v3[25] += v17;
+    *(v3 + 52) = v18 + 1;
 LABEL_71:
-    if (((*(a1 + 64) | v16) & 0x3FLL) != 0)
+    if (((*(a1 + 64) | v17) & 0x3FLL) != 0)
     {
-      ++*(v2 + 10);
+      ++*(v3 + 10);
     }
   }
 
-  ++*(v2 + 6);
+  ++*(v3 + 6);
   return result;
 }
 
@@ -443,21 +445,23 @@ LABEL_71:
   return v14;
 }
 
-uint64_t __104__MTLTelemetryTexture_initWithBaseTexture_device_texture_pixelFormat_textureType_levels_slices_swizzle___block_invoke(uint64_t a1)
+void *__104__MTLTelemetryTexture_initWithBaseTexture_device_texture_pixelFormat_textureType_levels_slices_swizzle___block_invoke(uint64_t a1)
 {
-  v2 = &std::__hash_table<std::__hash_value_type<MTLPixelFormat,MTLTelemetryTextureDistribution>,std::__unordered_map_hasher<MTLPixelFormat,std::__hash_value_type<MTLPixelFormat,MTLTelemetryTextureDistribution>,std::hash<unsigned long long>,std::equal_to<MTLPixelFormat>,true>,std::__unordered_map_equal<MTLPixelFormat,std::__hash_value_type<MTLPixelFormat,MTLTelemetryTextureDistribution>,std::equal_to<MTLPixelFormat>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<MTLPixelFormat,MTLTelemetryTextureDistribution>>>::__emplace_unique_key_args<MTLPixelFormat,std::piecewise_construct_t const&,std::tuple<MTLPixelFormat const&>,std::tuple<>>((*(*(a1 + 32) + 88) + 224), (a1 + 48))[192 * *(a1 + 80) + 24 * *(a1 + 84)];
-  v3 = [*(*(a1 + 32) + 80) width];
-  if (v3)
+  v2 = *(*(a1 + 32) + 88);
+  v17 = (a1 + 48);
+  v3 = &std::__hash_table<std::__hash_value_type<MTLPixelFormat,MTLTelemetryTextureDistribution>,std::__unordered_map_hasher<MTLPixelFormat,std::__hash_value_type<MTLPixelFormat,MTLTelemetryTextureDistribution>,std::hash<unsigned long long>,std::equal_to<MTLPixelFormat>,true>,std::__unordered_map_equal<MTLPixelFormat,std::__hash_value_type<MTLPixelFormat,MTLTelemetryTextureDistribution>,std::equal_to<MTLPixelFormat>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<MTLPixelFormat,MTLTelemetryTextureDistribution>>>::__emplace_unique_key_args<MTLPixelFormat,std::piecewise_construct_t const&,std::tuple<MTLPixelFormat const&>,std::tuple<>>((v2 + 224), (a1 + 48), &std::piecewise_construct, &v17)[192 * *(a1 + 80) + 24 * *(a1 + 84)];
+  v4 = [*(*(a1 + 32) + 80) width];
+  if (v4)
   {
-    v4 = *(v2 + 16);
-    if (v4)
+    v5 = *(v3 + 16);
+    if (v5)
     {
-      if (*(v2 + 13) < v3)
+      if (*(v3 + 13) < v4)
       {
-        *(v2 + 13) = v3;
+        *(v3 + 13) = v4;
       }
 
-      if (*(v2 + 12) <= v3)
+      if (*(v3 + 12) <= v4)
       {
         goto LABEL_9;
       }
@@ -465,30 +469,30 @@ uint64_t __104__MTLTelemetryTexture_initWithBaseTexture_device_texture_pixelForm
 
     else
     {
-      *(v2 + 13) = v3;
+      *(v3 + 13) = v4;
     }
 
-    *(v2 + 12) = v3;
+    *(v3 + 12) = v4;
 LABEL_9:
-    v2[7] += v3;
-    *(v2 + 16) = v4 + 1;
+    v3[7] += v4;
+    *(v3 + 16) = v5 + 1;
   }
 
-  v5 = [*(*(a1 + 32) + 80) height];
-  if (!v5)
+  v6 = [*(*(a1 + 32) + 80) height];
+  if (!v6)
   {
     goto LABEL_19;
   }
 
-  v6 = *(v2 + 22);
-  if (v6)
+  v7 = *(v3 + 22);
+  if (v7)
   {
-    if (*(v2 + 19) < v5)
+    if (*(v3 + 19) < v6)
     {
-      *(v2 + 19) = v5;
+      *(v3 + 19) = v6;
     }
 
-    if (*(v2 + 18) <= v5)
+    if (*(v3 + 18) <= v6)
     {
       goto LABEL_18;
     }
@@ -496,29 +500,29 @@ LABEL_9:
 
   else
   {
-    *(v2 + 19) = v5;
+    *(v3 + 19) = v6;
   }
 
-  *(v2 + 18) = v5;
+  *(v3 + 18) = v6;
 LABEL_18:
-  v2[10] += v5;
-  *(v2 + 22) = v6 + 1;
+  v3[10] += v6;
+  *(v3 + 22) = v7 + 1;
 LABEL_19:
-  v7 = [*(*(a1 + 32) + 80) depth];
-  if (!v7)
+  v8 = [*(*(a1 + 32) + 80) depth];
+  if (!v8)
   {
     goto LABEL_28;
   }
 
-  v8 = *(v2 + 28);
-  if (v8)
+  v9 = *(v3 + 28);
+  if (v9)
   {
-    if (*(v2 + 25) < v7)
+    if (*(v3 + 25) < v8)
     {
-      *(v2 + 25) = v7;
+      *(v3 + 25) = v8;
     }
 
-    if (*(v2 + 24) <= v7)
+    if (*(v3 + 24) <= v8)
     {
       goto LABEL_27;
     }
@@ -526,29 +530,29 @@ LABEL_19:
 
   else
   {
-    *(v2 + 25) = v7;
+    *(v3 + 25) = v8;
   }
 
-  *(v2 + 24) = v7;
+  *(v3 + 24) = v8;
 LABEL_27:
-  v2[13] += v7;
-  *(v2 + 28) = v8 + 1;
+  v3[13] += v8;
+  *(v3 + 28) = v9 + 1;
 LABEL_28:
-  v9 = *(a1 + 56);
-  if (!v9)
+  v10 = *(a1 + 56);
+  if (!v10)
   {
     goto LABEL_37;
   }
 
-  v10 = *(v2 + 34);
-  if (v10)
+  v11 = *(v3 + 34);
+  if (v11)
   {
-    if (*(v2 + 31) < v9)
+    if (*(v3 + 31) < v10)
     {
-      *(v2 + 31) = v9;
+      *(v3 + 31) = v10;
     }
 
-    if (*(v2 + 30) <= v9)
+    if (*(v3 + 30) <= v10)
     {
       goto LABEL_36;
     }
@@ -556,29 +560,29 @@ LABEL_28:
 
   else
   {
-    *(v2 + 31) = v9;
+    *(v3 + 31) = v10;
   }
 
-  *(v2 + 30) = v9;
+  *(v3 + 30) = v10;
 LABEL_36:
-  v2[16] += v9;
-  *(v2 + 34) = v10 + 1;
+  v3[16] += v10;
+  *(v3 + 34) = v11 + 1;
 LABEL_37:
-  v11 = [*(*(a1 + 32) + 80) sampleCount];
-  if (!v11)
+  v12 = [*(*(a1 + 32) + 80) sampleCount];
+  if (!v12)
   {
     goto LABEL_46;
   }
 
-  v12 = *(v2 + 40);
-  if (v12)
+  v13 = *(v3 + 40);
+  if (v13)
   {
-    if (*(v2 + 37) < v11)
+    if (*(v3 + 37) < v12)
     {
-      *(v2 + 37) = v11;
+      *(v3 + 37) = v12;
     }
 
-    if (*(v2 + 36) <= v11)
+    if (*(v3 + 36) <= v12)
     {
       goto LABEL_45;
     }
@@ -586,29 +590,29 @@ LABEL_37:
 
   else
   {
-    *(v2 + 37) = v11;
+    *(v3 + 37) = v12;
   }
 
-  *(v2 + 36) = v11;
+  *(v3 + 36) = v12;
 LABEL_45:
-  v2[19] += v11;
-  *(v2 + 40) = v12 + 1;
+  v3[19] += v12;
+  *(v3 + 40) = v13 + 1;
 LABEL_46:
-  v13 = *(a1 + 72);
-  if (!v13)
+  v14 = *(a1 + 72);
+  if (!v14)
   {
     goto LABEL_55;
   }
 
-  v14 = *(v2 + 46);
-  if (v14)
+  v15 = *(v3 + 46);
+  if (v15)
   {
-    if (*(v2 + 43) < v13)
+    if (*(v3 + 43) < v14)
     {
-      *(v2 + 43) = v13;
+      *(v3 + 43) = v14;
     }
 
-    if (*(v2 + 42) <= v13)
+    if (*(v3 + 42) <= v14)
     {
       goto LABEL_54;
     }
@@ -616,31 +620,31 @@ LABEL_46:
 
   else
   {
-    *(v2 + 43) = v13;
+    *(v3 + 43) = v14;
   }
 
-  *(v2 + 42) = v13;
+  *(v3 + 42) = v14;
 LABEL_54:
-  v2[22] += v13;
-  *(v2 + 46) = v14 + 1;
+  v3[22] += v14;
+  *(v3 + 46) = v15 + 1;
 LABEL_55:
   if ([*(a1 + 40) isFramebufferOnly])
   {
-    ++*(v2 + 7);
+    ++*(v3 + 7);
   }
 
   if (([*(a1 + 40) usage] & 2) != 0)
   {
-    ++*(v2 + 8);
+    ++*(v3 + 8);
   }
 
   result = [*(a1 + 40) usage];
   if ((result & 4) != 0)
   {
-    ++*(v2 + 9);
+    ++*(v3 + 9);
   }
 
-  ++*(v2 + 6);
+  ++*(v3 + 6);
   return result;
 }
 

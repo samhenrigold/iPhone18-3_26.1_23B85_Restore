@@ -1,5 +1,6 @@
 @interface APSNWTCPStream
 + (unsigned)cachedServerCountForDomain:(id)domain;
++ (void)setCachedServerCount:(unsigned int)count forDomain:(id)domain ttl:(unsigned int)ttl;
 - (APSNWTCPStream)initWithEnvironment:(id)environment;
 - (APSTCPStreamDelegate)delegate;
 - (BOOL)isOffloadedConnection;
@@ -17,6 +18,7 @@
 - (void)_connectToServerWithCount:(unsigned int)count;
 - (void)_connectToServerWithPeerName:(id)name;
 - (void)_openWithTXTLookup;
+- (void)_queryRecordReply:(const void *)reply length:(unsigned __int16)length ttl:(unsigned int)ttl errorCode:(int)code;
 - (void)_receiveData;
 - (void)close;
 - (void)dealloc;
@@ -79,6 +81,30 @@
   }
 
   return parameters;
+}
+
++ (void)setCachedServerCount:(unsigned int)count forDomain:(id)domain ttl:(unsigned int)ttl
+{
+  v6 = *&count;
+  domainCopy = domain;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  if (!qword_1001BF7D8)
+  {
+    v9 = objc_alloc_init(NSMutableDictionary);
+    v10 = qword_1001BF7D8;
+    qword_1001BF7D8 = v9;
+  }
+
+  +[NSDate timeIntervalSinceReferenceDate];
+  v12 = v11;
+  v13 = objc_alloc_init(_APSServerCount);
+  [(_APSServerCount *)v13 setTtlBegin:v12];
+  [(_APSServerCount *)v13 setTtlEnd:v12 + ttl];
+  [(_APSServerCount *)v13 setServerCount:v6];
+  [qword_1001BF7D8 setObject:v13 forKey:domainCopy];
+
+  objc_sync_exit(selfCopy);
 }
 
 + (unsigned)cachedServerCountForDomain:(id)domain
@@ -391,6 +417,67 @@ LABEL_5:
   else if (DNSServiceSetDispatchQueue(self->_serviceQuery, &_dispatch_main_q))
   {
     sub_10010B5E8();
+  }
+}
+
+- (void)_queryRecordReply:(const void *)reply length:(unsigned __int16)length ttl:(unsigned int)ttl errorCode:(int)code
+{
+  v6 = *&code;
+  if (reply && (v8 = length) != 0)
+  {
+    v9 = *&ttl;
+    [(APSNWTCPStream *)self _closeQuery];
+    valueLen = 0;
+    ValuePtr = TXTRecordGetValuePtr(v8, reply, "count", &valueLen);
+    v12 = malloc_type_malloc(valueLen + 1, 0xE34EC9B0uLL);
+    memcpy(v12, ValuePtr, valueLen);
+    *(v12 + valueLen) = 0;
+    v13 = strtol(v12, 0, 0);
+    free(v12);
+    if (v13)
+    {
+      v14 = objc_opt_class();
+      domain = [(APSEnvironment *)self->_environment domain];
+      [v14 setCachedServerCount:v13 forDomain:domain ttl:v9];
+
+      [(APSNWTCPStream *)self _connectToServerWithCount:v13];
+    }
+
+    else
+    {
+      [(APSNWTCPStream *)self close];
+      v22 = [NSData dataWithBytes:reply length:v8];
+      WeakRetained = objc_loadWeakRetained(&self->_delegate);
+      v24 = APSError();
+      [WeakRetained tcpStream:self errorOccured:v24 disconnectReason:{32, v22}];
+    }
+  }
+
+  else
+  {
+    [(APSNWTCPStream *)self close];
+    v26 = objc_loadWeakRetained(&self->_delegate);
+    domain2 = [(APSEnvironment *)self->_environment domain];
+    if (v6 == -65554)
+    {
+      v17 = APSError();
+      v18 = v26;
+      selfCopy2 = self;
+      v20 = v17;
+      v21 = 33;
+    }
+
+    else
+    {
+      v25 = v6;
+      v17 = APSError();
+      v18 = v26;
+      selfCopy2 = self;
+      v20 = v17;
+      v21 = 34;
+    }
+
+    [v18 tcpStream:selfCopy2 errorOccured:v20 disconnectReason:{v21, domain2, v25}];
   }
 }
 
@@ -917,16 +1004,16 @@ LABEL_38:
 
   if (os_variant_allows_internal_security_policies() && ![(APSEnvironment *)self->_environment isCertificateValidated])
   {
-    v11 = +[APSLog stream];
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v10 = +[APSLog stream];
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       peerName = self->_peerName;
-      v20 = 138412290;
-      v21 = peerName;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Not performing validation for %@", &v20, 0xCu);
+      v19 = 138412290;
+      v20 = peerName;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Not performing validation for %@", &v19, 0xCu);
     }
 
-    v10 = 1;
+    v9 = 1;
     goto LABEL_20;
   }
 
@@ -939,35 +1026,34 @@ LABEL_38:
     }
   }
 
-  v6 = self->_peerName;
   ApplePushService = SecPolicyCreateApplePushService();
   if (!ApplePushService)
   {
-    v11 = +[APSLog stream];
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v10 = +[APSLog stream];
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
-      sub_10010B9F8(&self->_peerName, v11);
+      sub_10010B9F8(&self->_peerName, v10);
     }
 
     goto LABEL_19;
   }
 
-  v8 = ApplePushService;
-  v9 = [(APSNWTCPStream *)self isTrust:trust validWithPolicy:ApplePushService forPeer:self->_peerName];
-  CFRelease(v8);
-  if ((v9 & 1) == 0)
+  v7 = ApplePushService;
+  v8 = [(APSNWTCPStream *)self isTrust:trust validWithPolicy:ApplePushService forPeer:self->_peerName];
+  CFRelease(v7);
+  if ((v8 & 1) == 0)
   {
-    v11 = +[APSLog stream];
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v10 = +[APSLog stream];
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_10010B988(&self->_peerName, v11, v13, v14, v15, v16, v17, v18);
+      sub_10010B988(&self->_peerName, v10, v12, v13, v14, v15, v16, v17);
     }
 
 LABEL_19:
-    v10 = 0;
+    v9 = 0;
 LABEL_20:
 
-    return v10;
+    return v9;
   }
 
   return 1;
@@ -978,8 +1064,8 @@ LABEL_20:
   errorCopy = error;
   if (!self->_connection)
   {
-    v8 = +[APSLog stream];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = +[APSLog stream];
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_10010BA74();
     }
@@ -1002,9 +1088,9 @@ LABEL_20:
 LABEL_23:
     [(APSNWTCPStream *)self close];
     self->_hasError = 1;
-    v8 = nw_error_copy_cf_error(errorCopy);
+    v7 = nw_error_copy_cf_error(errorCopy);
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    [WeakRetained tcpStream:self errorOccured:v8 disconnectReason:19];
+    [WeakRetained tcpStream:self errorOccured:v7 disconnectReason:19];
 LABEL_24:
 
 LABEL_25:
@@ -1019,102 +1105,100 @@ LABEL_25:
   if (state == 3)
   {
     [(APSNWTCPStream *)self setHasEstablishedConnection:1];
-    connection = self->_connection;
-    v8 = nw_connection_copy_connected_path();
-    if (v8)
+    v7 = nw_connection_copy_connected_path();
+    if (v7)
     {
-      v9 = nw_path_copy_interface();
-      v10 = v9;
-      if (v9)
+      v8 = nw_path_copy_interface();
+      v9 = v8;
+      if (v8)
       {
-        v11 = [NSString stringWithUTF8String:nw_interface_get_name(v9)];
+        v10 = [NSString stringWithUTF8String:nw_interface_get_name(v8)];
         interfaceName = self->_interfaceName;
-        self->_interfaceName = v11;
+        self->_interfaceName = v10;
 
         if (_os_feature_enabled_impl())
         {
-          self->_interfaceConstraint = [PCInterfaceMonitor isPathUltraConstrained:v8];
+          self->_interfaceConstraint = [PCInterfaceMonitor isPathUltraConstrained:v7];
         }
       }
     }
 
-    v13 = self->_connection;
-    v14 = nw_connection_copy_connected_remote_endpoint();
-    WeakRetained = v14;
-    if (v14)
+    v12 = nw_connection_copy_connected_remote_endpoint();
+    WeakRetained = v12;
+    if (v12)
     {
-      self->_ipAddressFamily = nw_endpoint_get_address(v14)->sa_family;
-      v16 = [NSString stringWithUTF8String:nw_endpoint_get_hostname(WeakRetained)];
+      self->_ipAddressFamily = nw_endpoint_get_address(v12)->sa_family;
+      v14 = [NSString stringWithUTF8String:nw_endpoint_get_hostname(WeakRetained)];
       serverIPAddress = self->_serverIPAddress;
-      self->_serverIPAddress = v16;
+      self->_serverIPAddress = v14;
 
       self->_serverPort = nw_endpoint_get_port(WeakRetained);
     }
 
     if (!self->_hasSentPresence)
     {
-      v18 = objc_loadWeakRetained(&self->_delegate);
-      v19 = objc_opt_respondsToSelector();
+      v16 = objc_loadWeakRetained(&self->_delegate);
+      v17 = objc_opt_respondsToSelector();
 
-      if (v19)
+      if (v17)
       {
-        v20 = self->_connection;
-        v21 = nw_protocol_copy_tls_definition();
-        v22 = nw_connection_copy_protocol_metadata(v20, v21);
+        connection = self->_connection;
+        v19 = nw_protocol_copy_tls_definition();
+        v20 = nw_connection_copy_protocol_metadata(connection, v19);
 
-        v43 = v22;
-        if (v22 && nw_protocol_metadata_is_tls(v22))
+        v40 = v20;
+        if (v20 && nw_protocol_metadata_is_tls(v20))
         {
-          v23 = nw_tls_copy_sec_protocol_metadata(v22);
-          v24 = sec_protocol_metadata_copy_negotiated_protocol();
-          if (v24)
+          v21 = nw_tls_copy_sec_protocol_metadata(v20);
+          v22 = sec_protocol_metadata_copy_negotiated_protocol();
+          if (v22)
           {
-            v25 = v24;
-            v26 = [NSString stringWithUTF8String:v24];
-            free(v25);
+            v23 = v22;
+            v24 = [NSString stringWithUTF8String:v22];
+            free(v23);
           }
 
           else
           {
-            v26 = 0;
+            v24 = 0;
           }
         }
 
         else
         {
-          v26 = 0;
+          v24 = 0;
         }
 
-        v27 = +[APSLog stream];
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+        v25 = +[APSLog stream];
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
           *&buf[4] = self;
           *&buf[12] = 2112;
-          *&buf[14] = v26;
-          _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "%@ negotiatedProtocol: %@", buf, 0x16u);
+          *&buf[14] = v24;
+          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "%@ negotiatedProtocol: %@", buf, 0x16u);
         }
 
-        v42 = v26;
-        v41 = [v26 hasPrefix:@"apns-pack-v1"];
-        if (v41)
+        v39 = v24;
+        v38 = [v24 hasPrefix:@"apns-pack-v1"];
+        if (v38)
         {
-          v28 = [v26 componentsSeparatedByString:@":"];
-          v29 = +[APSLog stream];
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+          v26 = [v24 componentsSeparatedByString:@":"];
+          v27 = +[APSLog stream];
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            *&buf[4] = v28;
-            _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Negotiated protocol components: %@", buf, 0xCu);
+            *&buf[4] = v26;
+            _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Negotiated protocol components: %@", buf, 0xCu);
           }
 
-          if ([v28 count] == 3)
+          if ([v26 count] == 3)
           {
-            v30 = [v28 objectAtIndexedSubscript:1];
-            integerValue = [v30 integerValue];
+            v28 = [v26 objectAtIndexedSubscript:1];
+            integerValue = [v28 integerValue];
 
-            v31 = [v28 objectAtIndexedSubscript:2];
-            integerValue2 = [v31 integerValue];
+            v29 = [v26 objectAtIndexedSubscript:2];
+            integerValue2 = [v29 integerValue];
           }
 
           else
@@ -1132,22 +1216,21 @@ LABEL_25:
 
         self->_hasSentPresence = 1;
         memset(buf, 0, sizeof(buf));
-        v33 = self->_connection;
         nw_connection_fillout_tcp_statistics();
-        v34 = [NSNumber numberWithUnsignedInt:*&buf[8]];
-        v35 = [NSNumber numberWithUnsignedInt:*buf];
-        v36 = [NSNumber numberWithUnsignedInt:*&buf[16]];
-        v37 = [NSDictionary dictionaryWithObjectsAndKeys:v35, @"dns", v36, @"tls", v34, @"tcp_handshake", 0];
-        v38 = +[APSLog stream];
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+        v31 = [NSNumber numberWithUnsignedInt:*&buf[8]];
+        v32 = [NSNumber numberWithUnsignedInt:*buf];
+        v33 = [NSNumber numberWithUnsignedInt:*&buf[16]];
+        v34 = [NSDictionary dictionaryWithObjectsAndKeys:v32, @"dns", v33, @"tls", v31, @"tcp_handshake", 0];
+        v35 = +[APSLog stream];
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
-          *v44 = 138412290;
-          v45 = v37;
-          _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "connectionStatistics: %@", v44, 0xCu);
+          *v41 = 138412290;
+          v42 = v34;
+          _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "connectionStatistics: %@", v41, 0xCu);
         }
 
-        v39 = objc_loadWeakRetained(&self->_delegate);
-        [v39 tcpStreamHasConnected:self context:v37 enabledPackedFormat:v41 maxEncoderTableSize:integerValue maxDecoderTableSize:integerValue2 secureHandshakeEnabled:1];
+        v36 = objc_loadWeakRetained(&self->_delegate);
+        [v36 tcpStreamHasConnected:self context:v34 enabledPackedFormat:v38 maxEncoderTableSize:integerValue maxDecoderTableSize:integerValue2 secureHandshakeEnabled:1];
       }
     }
 
@@ -1201,24 +1284,7 @@ LABEL_26:
     }
   }
 
-  if (!self->_forceWWANInterface)
-  {
-    goto LABEL_17;
-  }
-
-  v21 = nw_parameters_copy_default_protocol_stack(v17);
-  v22 = nw_protocol_stack_copy_internet_protocol(v21);
-  nw_ip_options_set_local_address_preference(v22, nw_ip_local_address_preference_stable);
-
-  if (!self->_forceWWANInterface)
-  {
-    goto LABEL_17;
-  }
-
-  v23 = +[PCPersistentInterfaceManager sharedInstance];
-  allowBindingToWWAN = [v23 allowBindingToWWAN];
-
-  if (allowBindingToWWAN)
+  if (self->_forceWWANInterface && (v21 = nw_parameters_copy_default_protocol_stack(v17), v22 = nw_protocol_stack_copy_internet_protocol(v21), nw_ip_options_set_local_address_preference(v22, nw_ip_local_address_preference_stable), v22, v21, self->_forceWWANInterface) && (+[PCPersistentInterfaceManager sharedInstance](PCPersistentInterfaceManager, "sharedInstance"), v23 = objc_claimAutoreleasedReturnValue(), v24 = [v23 allowBindingToWWAN], v23, v24))
   {
     v25 = +[APSLog stream];
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
@@ -1233,7 +1299,6 @@ LABEL_26:
 
   else
   {
-LABEL_17:
     v26 = +[APSLog stream];
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
@@ -1362,46 +1427,45 @@ LABEL_10:
 {
   if (!self->_serverHostname || !self->_connection)
   {
-    v12 = 0;
+    v11 = 0;
     goto LABEL_10;
   }
 
   v3 = nw_connection_copy_connected_local_endpoint();
-  connection = self->_connection;
-  v5 = nw_connection_copy_connected_remote_endpoint();
-  v6 = v5;
+  v4 = nw_connection_copy_connected_remote_endpoint();
+  v5 = v4;
   serverHostname = self->_serverHostname;
   if (!v3)
   {
     port = 0;
     hostname = "";
-    if (v5)
+    if (v4)
     {
       goto LABEL_5;
     }
 
 LABEL_8:
-    v11 = 0;
-    v10 = "";
+    v10 = 0;
+    v9 = "";
     goto LABEL_9;
   }
 
   hostname = nw_endpoint_get_hostname(v3);
   port = nw_endpoint_get_port(v3);
-  if (!v6)
+  if (!v5)
   {
     goto LABEL_8;
   }
 
 LABEL_5:
-  v10 = nw_endpoint_get_hostname(v6);
-  v11 = nw_endpoint_get_port(v6);
+  v9 = nw_endpoint_get_hostname(v5);
+  v10 = nw_endpoint_get_port(v5);
 LABEL_9:
-  v12 = [NSString stringWithFormat:@"%@ ([%s]:%u, [%s]:%u)", serverHostname, hostname, port, v10, v11];
+  v11 = [NSString stringWithFormat:@"%@ ([%s]:%u, [%s]:%u)", serverHostname, hostname, port, v9, v10];
 
 LABEL_10:
 
-  return v12;
+  return v11;
 }
 
 - (APSTCPStreamDelegate)delegate

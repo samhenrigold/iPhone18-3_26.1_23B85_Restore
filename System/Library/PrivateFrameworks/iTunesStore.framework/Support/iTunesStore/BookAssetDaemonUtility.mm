@@ -91,15 +91,14 @@
           v32 = v20;
           v21 = v20;
           LODWORD(v24) = 12;
-          v23 = &v31;
-          v22 = _os_log_send_and_compose_impl();
+          v22 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[%{public}@]: Could not retrieve the storeDownload parameters", &v31, v24);
 
           if (!v22)
           {
             goto LABEL_23;
           }
 
-          oSLogObject = [NSString stringWithCString:v22 encoding:4, &v31, v24];
+          oSLogObject = [NSString stringWithCString:v22 encoding:4];
           free(v22);
           v23 = oSLogObject;
           SSFileLog();
@@ -164,20 +163,19 @@ LABEL_28:
       v71 = 138543362;
       v72 = objc_opt_class();
       v45 = v72;
-      LODWORD(v57) = 12;
-      v46 = _os_log_send_and_compose_impl();
+      v46 = _os_log_send_and_compose_impl(v44, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[%{public}@]: Error importing the base class from BookLibrary", &v71, 12);
 
       if (!v46)
       {
-        goto LABEL_88;
+        goto LABEL_90;
       }
 
-      oSLogObject = [NSString stringWithCString:v46 encoding:4, &v71, v57];
+      oSLogObject = [NSString stringWithCString:v46 encoding:4];
       free(v46);
       SSFileLog();
     }
 
-    goto LABEL_88;
+    goto LABEL_90;
   }
 
   sharedInstance = [v6 sharedInstance];
@@ -218,9 +216,7 @@ LABEL_28:
       v71 = 138543362;
       v72 = objc_opt_class();
       v14 = v72;
-      LODWORD(v57) = 12;
-      v56 = &v71;
-      v15 = _os_log_send_and_compose_impl();
+      v15 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "[%{public}@]: Attempting to send book downloads over to bookassetd", &v71, 12);
 
       if (!v15)
       {
@@ -234,7 +230,7 @@ LABEL_15:
         v17 = [v16 countByEnumeratingWithState:&v66 objects:v70 count:16];
         if (!v17)
         {
-          goto LABEL_61;
+          goto LABEL_63;
         }
 
         v18 = v17;
@@ -262,14 +258,13 @@ LABEL_15:
               if (downloadPermalink)
               {
                 oSLogObject4 = downloadPermalink;
-                goto LABEL_33;
+                goto LABEL_34;
               }
 
-              v56 = 0;
-              oSLogObject4 = [v20 valueForFirstAvailableKey:@"download_permalink"];
+              oSLogObject4 = [v20 valueForFirstAvailableKey:{@"download_permalink", 0}];
               if (oSLogObject4)
               {
-LABEL_33:
+LABEL_34:
                 v29 = [NSURL URLWithString:oSLogObject4, v56];
               }
 
@@ -319,7 +314,7 @@ LABEL_33:
                   v65[3] = &unk_10032C380;
                   v65[4] = self;
                   [sharedInstance addDownloadWithMetadata:v31 completion:v65];
-                  goto LABEL_53;
+                  goto LABEL_55;
                 }
 
                 v34 = +[SSLogConfig sharedDaemonConfig];
@@ -328,50 +323,54 @@ LABEL_33:
                   v34 = +[SSLogConfig sharedConfig];
                 }
 
-                shouldLog3 = [v34 shouldLog];
+                LODWORD(v35) = [v34 shouldLog];
                 if ([v34 shouldLogToDisk])
                 {
-                  shouldLog3 |= 2u;
+                  LODWORD(v35) = v35 | 2;
                 }
 
                 oSLogObject3 = [v34 OSLogObject];
-                if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
+                if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
                 {
-                  shouldLog3 &= 2u;
+                  v35 = v35;
                 }
 
-                if (shouldLog3)
+                else
+                {
+                  v35 &= 2u;
+                }
+
+                if (v35)
                 {
                   v37 = objc_opt_class();
                   v71 = 138543362;
                   v72 = v37;
                   v38 = v37;
                   LODWORD(v57) = 12;
-                  v56 = &v71;
-                  v39 = _os_log_send_and_compose_impl();
+                  v39 = _os_log_send_and_compose_impl(v35, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "[%{public}@]: Could not retrieve the dictionary from storeDownload object", &v71, v57);
 
                   v16 = v61;
                   if (v39)
                   {
-                    oSLogObject3 = [NSString stringWithCString:v39 encoding:4, &v71, v57];
+                    oSLogObject3 = [NSString stringWithCString:v39 encoding:4];
                     free(v39);
                     v56 = oSLogObject3;
                     SSFileLog();
-                    goto LABEL_51;
+                    goto LABEL_53;
                   }
                 }
 
                 else
                 {
-LABEL_51:
+LABEL_53:
                 }
 
                 sharedInstance = v59;
                 self = selfCopy;
-LABEL_53:
+LABEL_55:
               }
 
-              goto LABEL_55;
+              goto LABEL_57;
             }
 
             v22 = +[SSLogConfig sharedDaemonConfig];
@@ -380,21 +379,26 @@ LABEL_53:
               v22 = +[SSLogConfig sharedConfig];
             }
 
-            shouldLog4 = [v22 shouldLog];
+            LODWORD(v25) = [v22 shouldLog];
             if ([v22 shouldLogToDisk])
             {
-              shouldLog4 |= 2u;
+              LODWORD(v25) = v25 | 2;
             }
 
             oSLogObject4 = [v22 OSLogObject];
-            if (!os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
             {
-              shouldLog4 &= 2u;
+              v25 = v25;
             }
 
-            if (!shouldLog4)
+            else
             {
-              goto LABEL_55;
+              v25 &= 2u;
+            }
+
+            if (!v25)
+            {
+              goto LABEL_57;
             }
 
             v26 = objc_opt_class();
@@ -402,23 +406,22 @@ LABEL_53:
             v72 = v26;
             v27 = v26;
             LODWORD(v57) = 12;
-            v56 = &v71;
-            v28 = _os_log_send_and_compose_impl();
+            v28 = _os_log_send_and_compose_impl(v25, 0, 0, 0, &_mh_execute_header, oSLogObject4, 0, "[%{public}@]: Could not retrieve the storeDownload parameters", &v71, v57);
 
             if (v28)
             {
-              oSLogObject4 = [NSString stringWithCString:v28 encoding:4, &v71, v57];
+              oSLogObject4 = [NSString stringWithCString:v28 encoding:4];
               free(v28);
               v56 = oSLogObject4;
               SSFileLog();
               v16 = v61;
-LABEL_55:
+LABEL_57:
 
-              goto LABEL_56;
+              goto LABEL_58;
             }
 
             v16 = v61;
-LABEL_56:
+LABEL_58:
 
             v19 = v19 + 1;
           }
@@ -428,14 +431,14 @@ LABEL_56:
           v18 = v40;
           if (!v40)
           {
-LABEL_61:
+LABEL_63:
             downloadsCopy = v58;
-            goto LABEL_87;
+            goto LABEL_89;
           }
         }
       }
 
-      oSLogObject2 = [NSString stringWithCString:v15 encoding:4, &v71, v57];
+      oSLogObject2 = [NSString stringWithCString:v15 encoding:4];
       free(v15);
       v56 = oSLogObject2;
       SSFileLog();
@@ -451,15 +454,15 @@ LABEL_61:
     v47 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog5 = [v47 shouldLog];
+  shouldLog3 = [v47 shouldLog];
   if ([v47 shouldLogToDisk])
   {
-    v50 = shouldLog5 | 2;
+    v50 = shouldLog3 | 2;
   }
 
   else
   {
-    v50 = shouldLog5;
+    v50 = shouldLog3;
   }
 
   v51 = v47;
@@ -479,25 +482,24 @@ LABEL_61:
     v71 = 138543362;
     v72 = objc_opt_class();
     v54 = v72;
-    LODWORD(v57) = 12;
-    v55 = _os_log_send_and_compose_impl();
+    v55 = _os_log_send_and_compose_impl(v53, 0, 0, 0, &_mh_execute_header, oSLogObject5, 0, "[%{public}@]: Error creating a shared instance of the BookLibrary download queue", &v71, 12);
 
     if (!v55)
     {
-      goto LABEL_86;
+      goto LABEL_88;
     }
 
-    oSLogObject5 = [NSString stringWithCString:v55 encoding:4, &v71, v57];
+    oSLogObject5 = [NSString stringWithCString:v55 encoding:4];
     free(v55);
     SSFileLog();
   }
 
-LABEL_86:
+LABEL_88:
   downloadsCopy = v48;
   v16 = v51;
-LABEL_87:
+LABEL_89:
 
-LABEL_88:
+LABEL_90:
 }
 
 + (void)sendRestoreDownloads:(id)downloads withReason:(id)reason
@@ -539,20 +541,19 @@ LABEL_88:
       v69 = 138543362;
       v70 = objc_opt_class();
       v26 = v70;
-      LODWORD(v60) = 12;
-      v27 = _os_log_send_and_compose_impl();
+      v27 = _os_log_send_and_compose_impl(v25, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[%{public}@]: Error importing the base class from BookLibrary", &v69, 12);
 
       if (!v27)
       {
-        goto LABEL_76;
+        goto LABEL_78;
       }
 
-      oSLogObject = [NSString stringWithCString:v27 encoding:4, &v69, v60];
+      oSLogObject = [NSString stringWithCString:v27 encoding:4];
       free(v27);
       SSFileLog();
     }
 
-    goto LABEL_76;
+    goto LABEL_78;
   }
 
   sharedInstance = [v6 sharedInstance];
@@ -596,15 +597,13 @@ LABEL_88:
       v70 = objc_opt_class();
       v17 = downloadsCopy;
       v18 = v70;
-      LODWORD(v60) = 12;
-      v59 = &v69;
-      v19 = _os_log_send_and_compose_impl();
+      v19 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "[%{public}@]: Attempting to send book restore downloads over to bookassetd", &v69, 12);
 
       downloadsCopy = v17;
       v20 = v14;
       if (v19)
       {
-        v21 = [NSString stringWithCString:v19 encoding:4, &v69, v60];
+        v21 = [NSString stringWithCString:v19 encoding:4];
         free(v19);
         v59 = v21;
         SSFileLog();
@@ -652,7 +651,7 @@ LABEL_88:
               v63[3] = &unk_10032C380;
               v63[4] = self;
               [sharedInstance addRestoreDownloadWithMetadata:v45 completion:v63];
-              goto LABEL_69;
+              goto LABEL_71;
             }
 
             v52 = sharedInstance;
@@ -662,46 +661,50 @@ LABEL_88:
               v53 = +[SSLogConfig sharedConfig];
             }
 
-            shouldLog3 = [v53 shouldLog];
+            LODWORD(v54) = [v53 shouldLog];
             if ([v53 shouldLogToDisk])
             {
-              shouldLog3 |= 2u;
+              LODWORD(v54) = v54 | 2;
             }
 
             oSLogObject3 = [v53 OSLogObject];
-            if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
             {
-              shouldLog3 &= 2u;
+              v54 = v54;
             }
 
-            if (shouldLog3)
+            else
+            {
+              v54 &= 2u;
+            }
+
+            if (v54)
             {
               v56 = objc_opt_class();
               v69 = 138543362;
               v70 = v56;
               v57 = v56;
               LODWORD(v60) = 12;
-              v59 = &v69;
-              v58 = _os_log_send_and_compose_impl();
+              v58 = _os_log_send_and_compose_impl(v54, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "[%{public}@]: Could not retrieve the dictionary from storeDownload object", &v69, v60);
 
               self = selfCopy;
               if (v58)
               {
-                oSLogObject3 = [NSString stringWithCString:v58 encoding:4, &v69, v60];
+                oSLogObject3 = [NSString stringWithCString:v58 encoding:4];
                 free(v58);
                 v59 = oSLogObject3;
                 SSFileLog();
-                goto LABEL_66;
+                goto LABEL_68;
               }
             }
 
             else
             {
-LABEL_66:
+LABEL_68:
             }
 
             sharedInstance = v52;
-            goto LABEL_69;
+            goto LABEL_71;
           }
 
           v45 = +[SSLogConfig sharedDaemonConfig];
@@ -710,26 +713,31 @@ LABEL_66:
             v45 = +[SSLogConfig sharedConfig];
           }
 
-          shouldLog4 = [v45 shouldLog];
+          shouldLog3 = [v45 shouldLog];
           if ([v45 shouldLogToDisk])
           {
-            v47 = shouldLog4 | 2;
+            LODWORD(v47) = shouldLog3 | 2;
           }
 
           else
           {
-            v47 = shouldLog4;
+            LODWORD(v47) = shouldLog3;
           }
 
           oSLogObject4 = [v45 OSLogObject];
-          if (!os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
+          {
+            v47 = v47;
+          }
+
+          else
           {
             v47 &= 2u;
           }
 
           if (!v47)
           {
-            goto LABEL_56;
+            goto LABEL_57;
           }
 
           v49 = objc_opt_class();
@@ -737,23 +745,22 @@ LABEL_66:
           v70 = v49;
           v50 = v49;
           LODWORD(v60) = 12;
-          v59 = &v69;
-          v51 = _os_log_send_and_compose_impl();
+          v51 = _os_log_send_and_compose_impl(v47, 0, 0, 0, &_mh_execute_header, oSLogObject4, 0, "[%{public}@]: Could not retrieve the storeDownload parameters", &v69, v60);
 
           if (v51)
           {
-            oSLogObject4 = [NSString stringWithCString:v51 encoding:4, &v69, v60];
+            oSLogObject4 = [NSString stringWithCString:v51 encoding:4];
             free(v51);
             v59 = oSLogObject4;
             SSFileLog();
             self = selfCopy;
-LABEL_56:
+LABEL_57:
 
-            goto LABEL_69;
+            goto LABEL_71;
           }
 
           self = selfCopy;
-LABEL_69:
+LABEL_71:
         }
 
         v40 = [v38 countByEnumeratingWithState:&v64 objects:v68 count:16];
@@ -773,17 +780,17 @@ LABEL_69:
       v9 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog5 = [v9 shouldLog];
+    shouldLog4 = [v9 shouldLog];
     v11 = [v9 shouldLogToDisk] == 0;
     v29 = v9;
     if (v11)
     {
-      v30 = shouldLog5;
+      v30 = shouldLog4;
     }
 
     else
     {
-      v30 = shouldLog5 | 2;
+      v30 = shouldLog4 | 2;
     }
 
     v31 = v29;
@@ -804,18 +811,17 @@ LABEL_69:
       v69 = 138543362;
       v70 = objc_opt_class();
       v35 = v70;
-      LODWORD(v60) = 12;
-      v36 = _os_log_send_and_compose_impl();
+      v36 = _os_log_send_and_compose_impl(v33, 0, 0, 0, &_mh_execute_header, oSLogObject5, 0, "[%{public}@]: Error creating a shared instance of the BookLibrary download queue", &v69, 12);
 
       if (v36)
       {
-        v37 = [NSString stringWithCString:v36 encoding:4, &v69, v60];
+        v37 = [NSString stringWithCString:v36 encoding:4];
         free(v36);
         v38 = v31;
         SSFileLog();
 
         downloadsCopy = v34;
-        goto LABEL_75;
+        goto LABEL_77;
       }
 
       downloadsCopy = v34;
@@ -828,9 +834,9 @@ LABEL_69:
     v38 = v31;
   }
 
-LABEL_75:
+LABEL_77:
 
-LABEL_76:
+LABEL_78:
 }
 
 + (void)checkAutomaticDownloads
@@ -847,39 +853,43 @@ LABEL_76:
     shouldLog = [sharedInstance shouldLog];
     if ([sharedInstance shouldLogToDisk])
     {
-      v13 = shouldLog | 2;
+      LODWORD(v13) = shouldLog | 2;
     }
 
     else
     {
-      v13 = shouldLog;
+      LODWORD(v13) = shouldLog;
     }
 
     oSLogObject = [sharedInstance OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = v13;
+    }
+
+    else
     {
       v13 &= 2u;
     }
 
     if (v13)
     {
-      v23 = 138543362;
-      v24 = objc_opt_class();
-      v14 = v24;
-      LODWORD(v21) = 12;
-      v15 = _os_log_send_and_compose_impl();
+      v22 = 138543362;
+      v23 = objc_opt_class();
+      v14 = v23;
+      v15 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[%{public}@]: Error importing the base class from BookLibrary", &v22, 12);
 
       if (!v15)
       {
-        goto LABEL_37;
+        goto LABEL_40;
       }
 
-      oSLogObject = [NSString stringWithCString:v15 encoding:4, &v23, v21];
+      oSLogObject = [NSString stringWithCString:v15 encoding:4];
       free(v15);
       SSFileLog();
     }
 
-    goto LABEL_36;
+    goto LABEL_39;
   }
 
   sharedInstance = [v3 sharedInstance];
@@ -895,42 +905,46 @@ LABEL_76:
     shouldLog2 = [oSLogObject shouldLog];
     if ([oSLogObject shouldLogToDisk])
     {
-      v17 = shouldLog2 | 2;
+      LODWORD(v17) = shouldLog2 | 2;
     }
 
     else
     {
-      v17 = shouldLog2;
+      LODWORD(v17) = shouldLog2;
     }
 
     v6OSLogObject = [oSLogObject OSLogObject];
-    if (!os_log_type_enabled(v6OSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v6OSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v17 = v17;
+    }
+
+    else
     {
       v17 &= 2u;
     }
 
     if (!v17)
     {
-      goto LABEL_35;
+      goto LABEL_38;
     }
 
-    v23 = 138543362;
-    v24 = objc_opt_class();
-    v19 = v24;
-    LODWORD(v21) = 12;
-    v20 = _os_log_send_and_compose_impl();
+    v22 = 138543362;
+    v23 = objc_opt_class();
+    v19 = v23;
+    v20 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, v6OSLogObject, 0, "[%{public}@]: Error creating a shared instance of the BookLibrary download queue", &v22, 12);
 
     if (v20)
     {
-      v6OSLogObject = [NSString stringWithCString:v20 encoding:4, &v23, v21];
+      v6OSLogObject = [NSString stringWithCString:v20 encoding:4];
       free(v20);
       SSFileLog();
-LABEL_35:
+LABEL_38:
     }
 
-LABEL_36:
+LABEL_39:
 
-    goto LABEL_37;
+    goto LABEL_40;
   }
 
   if (!v5)
@@ -941,46 +955,50 @@ LABEL_36:
   shouldLog3 = [oSLogObject shouldLog];
   if ([oSLogObject shouldLogToDisk])
   {
-    v8 = shouldLog3 | 2;
+    LODWORD(v8) = shouldLog3 | 2;
   }
 
   else
   {
-    v8 = shouldLog3;
+    LODWORD(v8) = shouldLog3;
   }
 
   v6OSLogObject2 = [oSLogObject OSLogObject];
-  if (!os_log_type_enabled(v6OSLogObject2, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v6OSLogObject2, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = v8;
+  }
+
+  else
   {
     v8 &= 2u;
   }
 
   if (!v8)
   {
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-  v23 = 138543362;
-  v24 = objc_opt_class();
-  v10 = v24;
-  LODWORD(v21) = 12;
-  v11 = _os_log_send_and_compose_impl();
+  v22 = 138543362;
+  v23 = objc_opt_class();
+  v10 = v23;
+  v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, v6OSLogObject2, 0, "[%{public}@]: Attempting to request bookassetd to process automatic downloads", &v22, 12);
 
   if (v11)
   {
-    v6OSLogObject2 = [NSString stringWithCString:v11 encoding:4, &v23, v21];
+    v6OSLogObject2 = [NSString stringWithCString:v11 encoding:4];
     free(v11);
     SSFileLog();
-LABEL_13:
+LABEL_14:
   }
 
-  v22[0] = _NSConcreteStackBlock;
-  v22[1] = 3221225472;
-  v22[2] = sub_1002024D8;
-  v22[3] = &unk_10032C3A0;
-  v22[4] = self;
-  [sharedInstance processAutomaticDownloadsWithReply:v22];
-LABEL_37:
+  v21[0] = _NSConcreteStackBlock;
+  v21[1] = 3221225472;
+  v21[2] = sub_1002024D8;
+  v21[3] = &unk_10032C3A0;
+  v21[4] = self;
+  [sharedInstance processAutomaticDownloadsWithReply:v21];
+LABEL_40:
 }
 
 @end

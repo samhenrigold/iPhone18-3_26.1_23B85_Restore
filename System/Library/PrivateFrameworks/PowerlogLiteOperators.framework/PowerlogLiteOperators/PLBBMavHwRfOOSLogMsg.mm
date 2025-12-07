@@ -11,7 +11,7 @@
 
 - (PLBBMavHwRfOOSLogMsg)init
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v3 = objc_opt_class();
@@ -38,15 +38,15 @@
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v20 = v4;
+        v19 = v4;
         _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
 
-  v17.receiver = self;
-  v17.super_class = PLBBMavHwRfOOSLogMsg;
-  v10 = [(PLBBMavHwRfOOSLogMsg *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = PLBBMavHwRfOOSLogMsg;
+  v10 = [(PLBBMavHwRfOOSLogMsg *)&v16 init];
   if (v10)
   {
     v11 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -60,11 +60,10 @@
     v10->_inited = 1;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
-uint64_t __28__PLBBMavHwRfOOSLogMsg_init__block_invoke(uint64_t a1)
+void *__28__PLBBMavHwRfOOSLogMsg_init__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   _MergedGlobals_1_23 = result;
@@ -73,7 +72,7 @@ uint64_t __28__PLBBMavHwRfOOSLogMsg_init__block_invoke(uint64_t a1)
 
 - (void)setHeaderWithSeqNum:(id)num andDate:(id)date andTimeCal:(double)cal
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   numCopy = num;
   dateCopy = date;
   if ([MEMORY[0x277D3F180] debugEnabled])
@@ -102,7 +101,7 @@ uint64_t __28__PLBBMavHwRfOOSLogMsg_init__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v29 = v11;
+        v28 = v11;
         _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -123,14 +122,14 @@ LABEL_11:
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v19 = objc_opt_class();
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __63__PLBBMavHwRfOOSLogMsg_setHeaderWithSeqNum_andDate_andTimeCal___block_invoke_18;
-    v26[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v26[4] = v19;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __63__PLBBMavHwRfOOSLogMsg_setHeaderWithSeqNum_andDate_andTimeCal___block_invoke_18;
+    v25[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v25[4] = v19;
     if (qword_2811F46D8 != -1)
     {
-      dispatch_once(&qword_2811F46D8, v26);
+      dispatch_once(&qword_2811F46D8, v25);
     }
 
     if (byte_2811F46C2 == 1)
@@ -146,7 +145,7 @@ LABEL_11:
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v29 = v18;
+        v28 = v18;
         _os_log_debug_impl(&dword_21A4C6000, v24, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
@@ -155,18 +154,16 @@ LABEL_11:
   }
 
 LABEL_19:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __63__PLBBMavHwRfOOSLogMsg_setHeaderWithSeqNum_andDate_andTimeCal___block_invoke(uint64_t a1)
+void *__63__PLBBMavHwRfOOSLogMsg_setHeaderWithSeqNum_andDate_andTimeCal___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F46C1 = result;
   return result;
 }
 
-uint64_t __63__PLBBMavHwRfOOSLogMsg_setHeaderWithSeqNum_andDate_andTimeCal___block_invoke_18(uint64_t a1)
+void *__63__PLBBMavHwRfOOSLogMsg_setHeaderWithSeqNum_andDate_andTimeCal___block_invoke_18(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F46C2 = result;
@@ -175,78 +172,76 @@ uint64_t __63__PLBBMavHwRfOOSLogMsg_setHeaderWithSeqNum_andDate_andTimeCal___blo
 
 + (id)entryEventBackwardDefinitionOOSPerRat
 {
-  v32[3] = *MEMORY[0x277D85DE8];
+  v31[3] = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D3F598];
-  v31[0] = *MEMORY[0x277D3F5A8];
-  v31[1] = v2;
-  v32[0] = &unk_282C10B60;
-  v32[1] = &unk_282C10B78;
-  v31[2] = *MEMORY[0x277D3F5A0];
-  v32[2] = &unk_282C10B90;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:3];
-  v29[0] = *MEMORY[0x277D3F4E8];
+  v30[0] = *MEMORY[0x277D3F5A8];
+  v30[1] = v2;
+  v31[0] = &unk_282C10B60;
+  v31[1] = &unk_282C10B78;
+  v30[2] = *MEMORY[0x277D3F5A0];
+  v31[2] = &unk_282C10B90;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:3];
+  v28[0] = *MEMORY[0x277D3F4E8];
   v4 = *MEMORY[0x277D3F508];
-  v27[0] = *MEMORY[0x277D3F568];
-  v27[1] = v4;
-  v28[0] = &unk_282C1BFE8;
-  v28[1] = MEMORY[0x277CBEC28];
+  v26[0] = *MEMORY[0x277D3F568];
+  v26[1] = v4;
+  v27[0] = &unk_282C1BFE8;
+  v27[1] = MEMORY[0x277CBEC28];
   v5 = *MEMORY[0x277D3F558];
-  v27[2] = *MEMORY[0x277D3F548];
-  v27[3] = v5;
-  v28[2] = @"refreshRequestHandler";
-  v28[3] = MEMORY[0x277CBEC38];
-  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:4];
-  v30[0] = v24;
-  v29[1] = *MEMORY[0x277D3F540];
-  v25[0] = @"SeqNum";
+  v26[2] = *MEMORY[0x277D3F548];
+  v26[3] = v5;
+  v27[2] = @"refreshRequestHandler";
+  v27[3] = MEMORY[0x277CBEC38];
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:4];
+  v29[0] = v23;
+  v28[1] = *MEMORY[0x277D3F540];
+  v24[0] = @"SeqNum";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v26[0] = commonTypeDict_IntegerFormat;
-  v25[1] = @"BBDate";
+  v25[0] = commonTypeDict_IntegerFormat;
+  v24[1] = @"BBDate";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat = [mEMORY[0x277D3F198]2 commonTypeDict_DateFormat];
-  v26[1] = commonTypeDict_DateFormat;
-  v25[2] = @"LogDuration";
+  v25[1] = commonTypeDict_DateFormat;
+  v24[2] = @"LogDuration";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat = [mEMORY[0x277D3F198]3 commonTypeDict_RealFormat];
-  v26[2] = commonTypeDict_RealFormat;
-  v25[3] = @"oosInProgress";
+  v25[2] = commonTypeDict_RealFormat;
+  v24[3] = @"oosInProgress";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198]4 commonTypeDict_BoolFormat];
-  v26[3] = commonTypeDict_BoolFormat;
-  v25[4] = @"oosTimes";
+  v25[3] = commonTypeDict_BoolFormat;
+  v24[4] = @"oosTimes";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat];
-  v26[4] = commonTypeDict_IntegerFormat2;
-  v25[5] = @"oosTicks";
+  v25[4] = commonTypeDict_IntegerFormat2;
+  v24[5] = @"oosTicks";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]6 commonTypeDict_IntegerFormat];
-  v26[5] = commonTypeDict_IntegerFormat3;
-  v25[6] = @"pssiTicks";
+  v25[5] = commonTypeDict_IntegerFormat3;
+  v24[6] = @"pssiTicks";
   mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]7 commonTypeDict_IntegerFormat];
-  v26[6] = commonTypeDict_IntegerFormat4;
-  v26[7] = v3;
-  v25[7] = @"oosLtePssiTimes";
-  v25[8] = @"oosLtePssiStatTicks";
-  v26[8] = v3;
-  v26[9] = v3;
-  v25[9] = @"oosGsmPssiTimes";
-  v25[10] = @"oosGsmPssiStatTicks";
-  v26[10] = v3;
-  v26[11] = v3;
-  v25[11] = @"oosWcdmaPssiTimes";
-  v25[12] = @"oosWcdmaPssiStatTicks";
-  v26[12] = v3;
-  v26[13] = v3;
-  v25[13] = @"oosTdsPssiTimes";
-  v25[14] = @"oosTdsPssiStatTicks";
-  v26[14] = v3;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:15];
-  v30[1] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v25[6] = commonTypeDict_IntegerFormat4;
+  v25[7] = v3;
+  v24[7] = @"oosLtePssiTimes";
+  v24[8] = @"oosLtePssiStatTicks";
+  v25[8] = v3;
+  v25[9] = v3;
+  v24[9] = @"oosGsmPssiTimes";
+  v24[10] = @"oosGsmPssiStatTicks";
+  v25[10] = v3;
+  v25[11] = v3;
+  v24[11] = @"oosWcdmaPssiTimes";
+  v24[12] = @"oosWcdmaPssiStatTicks";
+  v25[12] = v3;
+  v25[13] = v3;
+  v24[13] = @"oosTdsPssiTimes";
+  v24[14] = @"oosTdsPssiStatTicks";
+  v25[14] = v3;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:15];
+  v29[1] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
 
   return v14;
 }
@@ -260,17 +255,15 @@ uint64_t __63__PLBBMavHwRfOOSLogMsg_setHeaderWithSeqNum_andDate_andTimeCal___blo
 
 - (id)logEventBackwardBBMavHwRfOos
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   v3 = [(PLOperator *)PLBBAgent entryKeyForType:*MEMORY[0x277D3F5C8] andName:@"BBMavHwRfOos"];
   v4 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v3];
   [(PLBBMavHwRfOOSLogMsg *)self populateEntry:v4];
-  v8[0] = @"entry";
-  v8[1] = @"entryKey";
-  v9[0] = v4;
-  v9[1] = v3;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[0] = @"entry";
+  v7[1] = @"entryKey";
+  v8[0] = v4;
+  v8[1] = v3;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }

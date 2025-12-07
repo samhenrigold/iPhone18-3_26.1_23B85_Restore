@@ -85,46 +85,50 @@ LABEL_10:
 
 - (void)setTransitionCallback:(id)callback
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   callbackCopy = callback;
   [(SUScriptObject *)self lock];
   mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
   oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
 
   if (!v7)
   {
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
-  *v13 = 138543618;
-  *&v13[4] = objc_opt_class();
-  *&v13[12] = 2114;
-  *&v13[14] = callbackCopy;
-  v9 = *&v13[4];
-  LODWORD(v12) = 22;
-  v10 = _os_log_send_and_compose_impl();
+  v12 = 138543618;
+  v13 = objc_opt_class();
+  v14 = 2114;
+  v15 = callbackCopy;
+  v9 = v13;
+  v10 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%{public}@: Setting transition callback: %{public}@", &v12, 22);
 
   if (v10)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, v13, v12, *v13, *&v13[16], v14}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
     free(v10);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 
   transitionCallback = self->_transitionCallback;
@@ -210,39 +214,42 @@ void __59__SUScriptNavigationSimulator_popToViewAtIndex_completion___block_invok
   v7 = [v6 shouldLog];
   if ([v6 shouldLogToDisk])
   {
-    v8 = v7 | 2;
+    LODWORD(v8) = v7 | 2;
   }
 
   else
   {
-    v8 = v7;
+    LODWORD(v8) = v7;
   }
 
   v9 = [v6 OSLogObject];
-  if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = v8;
+  }
+
+  else
   {
     v8 &= 2u;
   }
 
   if (!v8)
   {
-    goto LABEL_10;
+    goto LABEL_11;
   }
 
   v43 = 138543362;
   v44 = objc_opt_class();
   v10 = v44;
-  LODWORD(v35) = 12;
-  v34 = &v43;
-  v11 = _os_log_send_and_compose_impl();
+  v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_1C21AF000, v9, 0, "%{public}@: Received call to pop view", &v43, 12);
 
   if (v11)
   {
-    v9 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, &v43, v35}];
+    v9 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
     free(v11);
     v34 = v9;
     SSFileLog();
-LABEL_10:
+LABEL_11:
   }
 
   if ((v5 & 0x8000000000000000) == 0)
@@ -263,16 +270,21 @@ LABEL_10:
     v17 = [v16 shouldLog];
     if ([v16 shouldLogToDisk])
     {
-      v18 = v17 | 2;
+      LODWORD(v18) = v17 | 2;
     }
 
     else
     {
-      v18 = v17;
+      LODWORD(v18) = v17;
     }
 
     v19 = [v16 OSLogObject];
-    if (!os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    {
+      v18 = v18;
+    }
+
+    else
     {
       v18 &= 2u;
     }
@@ -284,11 +296,11 @@ LABEL_10:
       v44 = v20;
       v21 = v20;
       LODWORD(v35) = 12;
-      v22 = _os_log_send_and_compose_impl();
+      v22 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &dword_1C21AF000, v19, 0, "%{public}@: Popping view controller.", &v43, v35);
 
       if (!v22)
       {
-LABEL_21:
+LABEL_23:
 
         v23 = [*(a1 + 32) navigationController];
         v24 = [v23 popToViewController:v14 animated:1];
@@ -297,12 +309,12 @@ LABEL_21:
         return;
       }
 
-      v19 = [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:{4, &v43, v35}];
+      v19 = [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:4];
       free(v22);
       SSFileLog();
     }
 
-    goto LABEL_21;
+    goto LABEL_23;
   }
 
   v40 = 0u;
@@ -333,7 +345,7 @@ LABEL_21:
 
           v27 = [*(a1 + 32) navigationController];
           v33 = [v27 popToViewController:0 animated:1];
-          goto LABEL_36;
+          goto LABEL_38;
         }
       }
 
@@ -347,9 +359,9 @@ LABEL_21:
     }
   }
 
-LABEL_36:
+LABEL_38:
 
-  (*(*(a1 + 40) + 16))();
+  (*(*(a1 + 40) + 16))(*(a1 + 40));
 }
 
 - (void)pushViewWithCompletion:(id)completion
@@ -407,16 +419,21 @@ void __54__SUScriptNavigationSimulator_pushViewWithCompletion___block_invoke_2(u
     v10 = [v9 shouldLog];
     if ([v9 shouldLogToDisk])
     {
-      v11 = v10 | 2;
+      LODWORD(v11) = v10 | 2;
     }
 
     else
     {
-      v11 = v10;
+      LODWORD(v11) = v10;
     }
 
     v12 = [v9 OSLogObject];
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = v11;
+    }
+
+    else
     {
       v11 &= 2u;
     }
@@ -430,14 +447,12 @@ void __54__SUScriptNavigationSimulator_pushViewWithCompletion___block_invoke_2(u
       v35 = 2048;
       v36 = v7;
       v13 = *&location[4];
-      LODWORD(v27) = 32;
-      v26 = location;
-      v14 = _os_log_send_and_compose_impl();
+      v14 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_1C21AF000, v12, 0, "%{public}@: [fromIndex=%ld toIndex=%ld] Pushing view controller.", location, 32);
 
       v8 = 0x1E69D4000;
       if (v14)
       {
-        v15 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:{4, location, v27}];
+        v15 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
         free(v14);
         v26 = v15;
         SSFileLog();
@@ -455,16 +470,21 @@ void __54__SUScriptNavigationSimulator_pushViewWithCompletion___block_invoke_2(u
       v17 = [(SUSnapshotViewController *)v16 shouldLog];
       if ([(SUSnapshotViewController *)v16 shouldLogToDisk])
       {
-        v18 = v17 | 2;
+        LODWORD(v18) = v17 | 2;
       }
 
       else
       {
-        v18 = v17;
+        LODWORD(v18) = v17;
       }
 
       v19 = [(SUSnapshotViewController *)v16 OSLogObject];
-      if (!os_log_type_enabled(&v19->super.super.super.super, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(&v19->super.super.super.super, OS_LOG_TYPE_DEFAULT))
+      {
+        v18 = v18;
+      }
+
+      else
       {
         v18 &= 2u;
       }
@@ -480,16 +500,16 @@ void __54__SUScriptNavigationSimulator_pushViewWithCompletion___block_invoke_2(u
         v36 = v7;
         v21 = v20;
         LODWORD(v27) = 32;
-        v22 = _os_log_send_and_compose_impl();
+        v22 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &dword_1C21AF000, v19, 0, "%{public}@: [fromIndex=%ld toIndex=%ld] Halting push since VC is already a snapshot.", location, v27);
 
         if (!v22)
         {
-LABEL_22:
+LABEL_24:
 
-          goto LABEL_23;
+          goto LABEL_25;
         }
 
-        v19 = [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:{4, location, v27}];
+        v19 = [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:4];
         free(v22);
         SSFileLog();
       }
@@ -524,31 +544,36 @@ LABEL_22:
       objc_destroyWeak(location);
     }
 
-    goto LABEL_22;
+    goto LABEL_24;
   }
 
-LABEL_23:
+LABEL_25:
 }
 
 void __54__SUScriptNavigationSimulator_pushViewWithCompletion___block_invoke_31(uint64_t a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [MEMORY[0x1E69D4938] sharedConfig];
   v8 = [v7 shouldLog];
   if ([v7 shouldLogToDisk])
   {
-    v9 = v8 | 2;
+    LODWORD(v9) = v8 | 2;
   }
 
   else
   {
-    v9 = v8;
+    LODWORD(v9) = v8;
   }
 
   v10 = [v7 OSLogObject];
-  if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = v9;
+  }
+
+  else
   {
     v9 &= 2u;
   }
@@ -559,19 +584,18 @@ void __54__SUScriptNavigationSimulator_pushViewWithCompletion___block_invoke_31(
     v12 = objc_opt_class();
     v13 = *(a1 + 56);
     v14 = *(a1 + 64);
-    v26 = 138543874;
-    v27 = v12;
-    v28 = 2048;
-    v29 = v13;
-    v30 = 2048;
-    v31 = v14;
+    v25 = 138543874;
+    v26 = v12;
+    v27 = 2048;
+    v28 = v13;
+    v29 = 2048;
+    v30 = v14;
     v15 = v12;
-    LODWORD(v20) = 32;
-    v16 = _os_log_send_and_compose_impl();
+    v16 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1C21AF000, v10, 0, "%{public}@: [fromIndex=%ld toIndex=%ld] Push finished loading.", &v25, 32);
 
     if (v16)
     {
-      v17 = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:{4, &v26, v20}];
+      v17 = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:4];
       free(v16);
       SSFileLog();
     }
@@ -582,18 +606,18 @@ void __54__SUScriptNavigationSimulator_pushViewWithCompletion___block_invoke_31(
   }
 
   v18 = [*(a1 + 32) appearancePromise];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __54__SUScriptNavigationSimulator_pushViewWithCompletion___block_invoke_32;
-  v21[3] = &unk_1E8165290;
-  objc_copyWeak(&v24, (a1 + 48));
-  v25 = *(a1 + 56);
-  v23 = *(a1 + 40);
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __54__SUScriptNavigationSimulator_pushViewWithCompletion___block_invoke_32;
+  v20[3] = &unk_1E8165290;
+  objc_copyWeak(&v23, (a1 + 48));
+  v24 = *(a1 + 56);
+  v22 = *(a1 + 40);
   v19 = v6;
-  v22 = v19;
-  [v18 addFinishBlock:v21];
+  v21 = v19;
+  [v18 addFinishBlock:v20];
 
-  objc_destroyWeak(&v24);
+  objc_destroyWeak(&v23);
 }
 
 void __54__SUScriptNavigationSimulator_pushViewWithCompletion___block_invoke_32(uint64_t a1)
@@ -613,7 +637,7 @@ void __54__SUScriptNavigationSimulator_pushViewWithCompletion___block_invoke_32(
 
 void __54__SUScriptNavigationSimulator_pushViewWithCompletion___block_invoke_2_33(uint64_t a1)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (!WeakRetained)
   {
@@ -621,16 +645,21 @@ void __54__SUScriptNavigationSimulator_pushViewWithCompletion___block_invoke_2_3
     v20 = [v19 shouldLog];
     if ([v19 shouldLogToDisk])
     {
-      v21 = v20 | 2;
+      LODWORD(v21) = v20 | 2;
     }
 
     else
     {
-      v21 = v20;
+      LODWORD(v21) = v20;
     }
 
     v22 = [v19 OSLogObject];
-    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    {
+      v21 = v21;
+    }
+
+    else
     {
       v21 &= 2u;
     }
@@ -641,30 +670,29 @@ void __54__SUScriptNavigationSimulator_pushViewWithCompletion___block_invoke_2_3
       v24 = objc_opt_class();
       v25 = *(a1 + 56);
       v26 = *(a1 + 64);
-      v32 = 138543874;
-      v33 = v24;
-      v34 = 2048;
-      v35 = v25;
-      v36 = 2048;
-      v37 = v26;
+      v31 = 138543874;
+      v32 = v24;
+      v33 = 2048;
+      v34 = v25;
+      v35 = 2048;
+      v36 = v26;
       v27 = v24;
-      LODWORD(v29) = 32;
-      v28 = _os_log_send_and_compose_impl();
+      v28 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &dword_1C21AF000, v22, 16, "%{public}@: [fromIndex=%ld toIndex=%ld] Self has disappeared.", &v31, 32);
 
       if (!v28)
       {
-LABEL_21:
+LABEL_23:
 
-        (*(*(a1 + 40) + 16))();
-        goto LABEL_22;
+        (*(*(a1 + 40) + 16))(*(a1 + 40));
+        goto LABEL_24;
       }
 
-      v22 = [MEMORY[0x1E696AEC0] stringWithCString:v28 encoding:{4, &v32, v29}];
+      v22 = [MEMORY[0x1E696AEC0] stringWithCString:v28 encoding:4];
       free(v28);
       SSFileLog();
     }
 
-    goto LABEL_21;
+    goto LABEL_23;
   }
 
   v3 = [*(a1 + 32) embeddedViewController];
@@ -677,55 +705,59 @@ LABEL_21:
 
   [MEMORY[0x1E6979518] begin];
   v7 = MEMORY[0x1E6979518];
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __54__SUScriptNavigationSimulator_pushViewWithCompletion___block_invoke_34;
-  v30[3] = &unk_1E8165218;
-  v31 = *(a1 + 40);
-  [v7 setCompletionBlock:v30];
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __54__SUScriptNavigationSimulator_pushViewWithCompletion___block_invoke_34;
+  v29[3] = &unk_1E8165218;
+  v30 = *(a1 + 40);
+  [v7 setCompletionBlock:v29];
   v8 = [MEMORY[0x1E69D4938] sharedConfig];
   v9 = [v8 shouldLog];
   if ([v8 shouldLogToDisk])
   {
-    v10 = v9 | 2;
+    LODWORD(v10) = v9 | 2;
   }
 
   else
   {
-    v10 = v9;
+    LODWORD(v10) = v9;
   }
 
   v11 = [v8 OSLogObject];
-  if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = v10;
+  }
+
+  else
   {
     v10 &= 2u;
   }
 
   if (!v10)
   {
-    goto LABEL_10;
+    goto LABEL_11;
   }
 
   v12 = objc_loadWeakRetained((a1 + 48));
   v13 = objc_opt_class();
   v14 = *(a1 + 56);
   v15 = *(a1 + 64);
-  v32 = 138543874;
-  v33 = v13;
-  v34 = 2048;
-  v35 = v14;
-  v36 = 2048;
-  v37 = v15;
+  v31 = 138543874;
+  v32 = v13;
+  v33 = 2048;
+  v34 = v14;
+  v35 = 2048;
+  v36 = v15;
   v16 = v13;
-  LODWORD(v29) = 32;
-  v17 = _os_log_send_and_compose_impl();
+  v17 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_1C21AF000, v11, 0, "%{public}@: [fromIndex=%ld toIndex=%ld] Pushing...", &v31, 32);
 
   if (v17)
   {
-    v11 = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:{4, &v32, v29}];
+    v11 = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:4];
     free(v17);
     SSFileLog();
-LABEL_10:
+LABEL_11:
   }
 
   v18 = [WeakRetained navigationController];
@@ -734,7 +766,7 @@ LABEL_10:
   [MEMORY[0x1E6979518] commit];
   [WeakRetained setLastVisibleIndex:*(a1 + 64)];
 
-LABEL_22:
+LABEL_24:
 }
 
 - (void)_enqueueLoadingState:(id)state
@@ -796,8 +828,7 @@ LABEL_22:
       v39 = 2048;
       v40 = toIndex;
       LODWORD(v33) = 32;
-      v32 = &v35;
-      v19 = _os_log_send_and_compose_impl();
+      v19 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%{public}@: Dropping enqueued transition: [fromIndex=%ld toIndex=%ld].", &v35, v33);
 
       if (v19)
       {
@@ -816,7 +847,7 @@ LABEL_13:
       }
     }
 
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v19 encoding:{4, &v35, v33}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v19 encoding:4];
     free(v19);
     v32 = oSLogObject;
     SSFileLog();
@@ -858,11 +889,11 @@ LABEL_14:
   v37 = 2048;
   v38 = v29;
   LODWORD(v33) = 22;
-  v30 = _os_log_send_and_compose_impl();
+  v30 = _os_log_send_and_compose_impl(v25, 0, 0, 0, &dword_1C21AF000, oSLogObject2, 0, "%{public}@: Enqueued transition. Existing count: %ld", &v35, v33);
 
   if (v30)
   {
-    oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v30 encoding:{4, &v35, v33}];
+    oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v30 encoding:4];
     free(v30);
     SSFileLog();
 LABEL_22:
@@ -910,13 +941,11 @@ LABEL_22:
     v58 = 2048;
     toIndexCopy2 = toIndex;
     v11 = *&location[4];
-    LODWORD(v46) = 32;
-    v45 = location;
-    v12 = _os_log_send_and_compose_impl();
+    v12 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%{public}@: [fromIndex=%ld toIndex=%ld] Popped view controller.", location, 32);
 
     if (v12)
     {
-      v13 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:{4, location, v46}];
+      v13 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
       free(v12);
       v45 = v13;
       SSFileLog();
@@ -1033,7 +1062,7 @@ LABEL_22:
       toIndexCopy2 = toIndex;
       v43 = v42;
       LODWORD(v46) = 32;
-      v44 = _os_log_send_and_compose_impl();
+      v44 = _os_log_send_and_compose_impl(v41, 0, 0, 0, &dword_1C21AF000, oSLogObject2, 0, "%{public}@: [fromIndex=%ld toIndex=%ld] Popped to a VC that is not a container.", location, v46);
 
       if (!v44)
       {
@@ -1042,7 +1071,7 @@ LABEL_36:
         goto LABEL_37;
       }
 
-      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v44 encoding:{4, location, v46}];
+      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v44 encoding:4];
       free(v44);
       SSFileLog();
     }
@@ -1071,69 +1100,73 @@ LABEL_37:
 
 void __59__SUScriptNavigationSimulator__handlePopFromIndex_toIndex___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = [MEMORY[0x1E69D4938] sharedConfig];
   v6 = [v5 shouldLog];
   if ([v5 shouldLogToDisk])
   {
-    v7 = v6 | 2;
+    LODWORD(v7) = v6 | 2;
   }
 
   else
   {
-    v7 = v6;
+    LODWORD(v7) = v6;
   }
 
   v8 = [v5 OSLogObject];
-  if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
 
   if (!v7)
   {
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v10 = objc_opt_class();
   v11 = *(a1 + 40);
   v12 = *(a1 + 48);
-  v21 = 138543874;
-  v22 = v10;
-  v23 = 2048;
-  v24 = v11;
-  v25 = 2048;
-  v26 = v12;
+  v20 = 138543874;
+  v21 = v10;
+  v22 = 2048;
+  v23 = v11;
+  v24 = 2048;
+  v25 = v12;
   v13 = v10;
-  LODWORD(v16) = 32;
-  v14 = _os_log_send_and_compose_impl();
+  v14 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1C21AF000, v8, 0, "%{public}@: [fromIndex=%ld toIndex=%ld] Pop finished loading.", &v20, 32);
 
   if (v14)
   {
-    v8 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:{4, &v21, v16}];
+    v8 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
     free(v14);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __59__SUScriptNavigationSimulator__handlePopFromIndex_toIndex___block_invoke_37;
   block[3] = &unk_1E81652E0;
-  objc_copyWeak(&v19, (a1 + 32));
-  v20 = *(a1 + 40);
-  v18 = v4;
+  objc_copyWeak(&v18, (a1 + 32));
+  v19 = *(a1 + 40);
+  v17 = v4;
   v15 = v4;
   dispatch_async(MEMORY[0x1E69E96A0], block);
 
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v18);
 }
 
 void __59__SUScriptNavigationSimulator__handlePopFromIndex_toIndex___block_invoke_37(uint64_t a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (!WeakRetained)
@@ -1142,48 +1175,52 @@ void __59__SUScriptNavigationSimulator__handlePopFromIndex_toIndex___block_invok
     v19 = [v5 shouldLog];
     if ([v5 shouldLogToDisk])
     {
-      v20 = v19 | 2;
+      LODWORD(v20) = v19 | 2;
     }
 
     else
     {
-      v20 = v19;
+      LODWORD(v20) = v19;
     }
 
     v16 = [v5 OSLogObject];
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      v20 = v20;
+    }
+
+    else
     {
       v20 &= 2u;
     }
 
     if (!v20)
     {
-      goto LABEL_22;
+      goto LABEL_24;
     }
 
     v21 = objc_loadWeakRetained((a1 + 40));
     v22 = objc_opt_class();
     v23 = *(a1 + 48);
     v24 = *(a1 + 56);
-    *v28 = 138543874;
-    *&v28[4] = v22;
-    *&v28[12] = 2048;
-    *&v28[14] = v23;
-    *&v28[22] = 2048;
-    v29 = v24;
+    v27 = 138543874;
+    v28 = v22;
+    v29 = 2048;
+    v30 = v23;
+    v31 = 2048;
+    v32 = v24;
     v25 = v22;
-    LODWORD(v27) = 32;
-    v26 = _os_log_send_and_compose_impl();
+    v26 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &dword_1C21AF000, v16, 16, "%{public}@: [fromIndex=%ld toIndex=%ld] Self has disappeared.", &v27, 32);
 
     if (v26)
     {
-      v16 = [MEMORY[0x1E696AEC0] stringWithCString:v26 encoding:{4, v28, v27, *v28, *&v28[8], v29}];
+      v16 = [MEMORY[0x1E696AEC0] stringWithCString:v26 encoding:4];
       free(v26);
       SSFileLog();
-      goto LABEL_22;
+      goto LABEL_24;
     }
 
-    goto LABEL_23;
+    goto LABEL_25;
   }
 
   v4 = *(a1 + 56);
@@ -1197,16 +1234,21 @@ void __59__SUScriptNavigationSimulator__handlePopFromIndex_toIndex___block_invok
       v7 = [v6 shouldLog];
       if ([v6 shouldLogToDisk])
       {
-        v8 = v7 | 2;
+        LODWORD(v8) = v7 | 2;
       }
 
       else
       {
-        v8 = v7;
+        LODWORD(v8) = v7;
       }
 
       v9 = [v6 OSLogObject];
-      if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      {
+        v8 = v8;
+      }
+
+      else
       {
         v8 &= 2u;
       }
@@ -1217,19 +1259,18 @@ void __59__SUScriptNavigationSimulator__handlePopFromIndex_toIndex___block_invok
         v11 = objc_opt_class();
         v12 = *(a1 + 48);
         v13 = *(a1 + 56);
-        *v28 = 138543874;
-        *&v28[4] = v11;
-        *&v28[12] = 2048;
-        *&v28[14] = v12;
-        *&v28[22] = 2048;
-        v29 = v13;
+        v27 = 138543874;
+        v28 = v11;
+        v29 = 2048;
+        v30 = v12;
+        v31 = 2048;
+        v32 = v13;
         v14 = v11;
-        LODWORD(v27) = 32;
-        v15 = _os_log_send_and_compose_impl();
+        v15 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_1C21AF000, v9, 0, "%{public}@: [fromIndex=%ld toIndex=%ld] Popped...", &v27, 32);
 
         if (!v15)
         {
-LABEL_13:
+LABEL_14:
 
           v16 = [v5 originalViewController];
           v17 = [v16 view];
@@ -1239,20 +1280,20 @@ LABEL_13:
           [v18 layoutIfNeeded];
 
           [*(a1 + 32) setEmbeddedViewController:v16 animated:0 completion:0];
-LABEL_22:
+LABEL_24:
 
-          goto LABEL_23;
+          goto LABEL_25;
         }
 
-        v9 = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:{4, v28, v27, *v28, *&v28[16], v29}];
+        v9 = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:4];
         free(v15);
         SSFileLog();
       }
 
-      goto LABEL_13;
+      goto LABEL_14;
     }
 
-LABEL_23:
+LABEL_25:
   }
 }
 
@@ -1298,14 +1339,14 @@ void __42__SUScriptNavigationSimulator__popHandler__block_invoke(uint64_t a1, vo
   {
     [firstObject setStatus:1];
     objc_initWeak(location, self);
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __51__SUScriptNavigationSimulator__startNextTransition__block_invoke;
-    v13[3] = &unk_1E8165358;
-    objc_copyWeak(&v14, location);
-    [firstObject addFinishBlock:v13];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __51__SUScriptNavigationSimulator__startNextTransition__block_invoke;
+    v12[3] = &unk_1E8165358;
+    objc_copyWeak(&v13, location);
+    [firstObject addFinishBlock:v12];
     [(SUScriptNavigationSimulator *)self _callCallbackWithWithTransition:firstObject];
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v13);
     objc_destroyWeak(location);
   }
 
@@ -1315,16 +1356,21 @@ void __42__SUScriptNavigationSimulator__popHandler__block_invoke(uint64_t a1, vo
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      LODWORD(v7) = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      LODWORD(v7) = shouldLog;
     }
 
     oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = v7;
+    }
+
+    else
     {
       v7 &= 2u;
     }
@@ -1334,12 +1380,11 @@ void __42__SUScriptNavigationSimulator__popHandler__block_invoke(uint64_t a1, vo
       LODWORD(location[0]) = 138543362;
       *(location + 4) = objc_opt_class();
       v9 = *(location + 4);
-      LODWORD(v12) = 12;
-      v10 = _os_log_send_and_compose_impl();
+      v10 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%{public}@: Waiting...", location, 12);
 
       if (v10)
       {
-        v11 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, location, v12}];
+        v11 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
         free(v10);
         SSFileLog();
       }
@@ -1417,16 +1462,14 @@ void __51__SUScriptNavigationSimulator__startNextTransition__block_invoke_2(uint
     v42 = toIndex;
     v43 = 2114;
     v44 = transitionCallback;
-    LODWORD(v33) = 42;
-    v32 = &v37;
-    v15 = _os_log_send_and_compose_impl();
+    v15 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%{public}@: [fromIndex=%ld toIndex=%ld] Calling transition callback: %{public}@", &v37, 42);
 
     if (!v15)
     {
       goto LABEL_11;
     }
 
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:{4, &v37, v33}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:4];
     free(v15);
     v32 = oSLogObject;
     SSFileLog();
@@ -1441,16 +1484,21 @@ LABEL_11:
     shouldLog2 = [mEMORY[0x1E69D4938]2 shouldLog];
     if ([mEMORY[0x1E69D4938]2 shouldLogToDisk])
     {
-      v25 = shouldLog2 | 2;
+      LODWORD(v25) = shouldLog2 | 2;
     }
 
     else
     {
-      v25 = shouldLog2;
+      LODWORD(v25) = shouldLog2;
     }
 
     oSLogObject2 = [mEMORY[0x1E69D4938]2 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    {
+      v25 = v25;
+    }
+
+    else
     {
       v25 &= 2u;
     }
@@ -1468,22 +1516,22 @@ LABEL_11:
       v41 = 2048;
       v42 = toIndex2;
       LODWORD(v33) = 32;
-      v31 = _os_log_send_and_compose_impl();
+      v31 = _os_log_send_and_compose_impl(v25, 0, 0, 0, &dword_1C21AF000, oSLogObject2, 0, "%{public}@: [fromIndex=%ld toIndex=%ld] Calling transition event", &v37, v33);
 
       if (!v31)
       {
-LABEL_22:
+LABEL_23:
 
         [(SUScriptObject *)self dispatchEvent:transitionCopy forName:@"simulatorWillTransition"];
-        goto LABEL_23;
+        goto LABEL_24;
       }
 
-      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v31 encoding:{4, &v37, v33}];
+      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v31 encoding:4];
       free(v31);
       SSFileLog();
     }
 
-    goto LABEL_22;
+    goto LABEL_23;
   }
 
   v17 = [SUScriptFunction alloc];
@@ -1507,12 +1555,12 @@ LABEL_22:
   [(SUScriptFunction *)v19 callWithArguments:v22 completionBlock:v34];
   [(SUScriptFunction *)v19 setThisObject:0];
 
-LABEL_23:
+LABEL_24:
 }
 
 void __63__SUScriptNavigationSimulator__callCallbackWithWithTransition___block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ((objc_opt_respondsToSelector() & 1) == 0 || ![v3 BOOLValue])
   {
@@ -1520,57 +1568,65 @@ void __63__SUScriptNavigationSimulator__callCallbackWithWithTransition___block_i
     v11 = [v10 shouldLog];
     if ([v10 shouldLogToDisk])
     {
-      v12 = v11 | 2;
+      LODWORD(v12) = v11 | 2;
     }
 
     else
     {
-      v12 = v11;
+      LODWORD(v12) = v11;
     }
 
     v13 = [v10 OSLogObject];
-    if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      v12 = v12;
+    }
+
+    else
     {
       v12 &= 2u;
     }
 
     if (v12)
     {
-      *v28 = 138543618;
-      *&v28[4] = objc_opt_class();
-      *&v28[12] = 2114;
-      *&v28[14] = v3;
-      v14 = *&v28[4];
-      LODWORD(v27) = 22;
-      v26 = v28;
-      v15 = _os_log_send_and_compose_impl();
+      v28 = 138543618;
+      v29 = objc_opt_class();
+      v30 = 2114;
+      v31 = v3;
+      v14 = v29;
+      v15 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &dword_1C21AF000, v13, 16, "%{public}@: Callback failed with result: %{public}@", &v28, 22);
 
       if (!v15)
       {
-        goto LABEL_22;
+        goto LABEL_24;
       }
 
-      v13 = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:{4, v28, v27, *v28, *&v28[8]}];
+      v13 = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:4];
       free(v15);
       v26 = v13;
       SSFileLog();
     }
 
-LABEL_22:
+LABEL_24:
     v16 = [MEMORY[0x1E69D4938] sharedConfig];
     v17 = [v16 shouldLog];
     if ([v16 shouldLogToDisk])
     {
-      v18 = v17 | 2;
+      LODWORD(v18) = v17 | 2;
     }
 
     else
     {
-      v18 = v17;
+      LODWORD(v18) = v17;
     }
 
     v19 = [v16 OSLogObject];
-    if (!os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    {
+      v18 = v18;
+    }
+
+    else
     {
       v18 &= 2u;
     }
@@ -1582,69 +1638,73 @@ LABEL_22:
       v22 = v20;
       v23 = [v21 fromIndex];
       v24 = [*(a1 + 40) toIndex];
-      *v28 = 138543874;
-      *&v28[4] = v20;
-      *&v28[12] = 2048;
-      *&v28[14] = v23;
-      *&v28[22] = 2048;
-      v29 = v24;
+      v28 = 138543874;
+      v29 = v20;
+      v30 = 2048;
+      v31 = v23;
+      v32 = 2048;
+      v33 = v24;
       LODWORD(v27) = 32;
-      v25 = _os_log_send_and_compose_impl();
+      v25 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &dword_1C21AF000, v19, 0, "%{public}@: [fromIndex=%ld toIndex=%ld] Attempting to call transition event", &v28, v27);
 
       if (!v25)
       {
-LABEL_31:
+LABEL_34:
 
         [*(a1 + 32) dispatchEvent:*(a1 + 40) forName:@"simulatorWillTransition"];
-        goto LABEL_32;
+        goto LABEL_35;
       }
 
-      v19 = [MEMORY[0x1E696AEC0] stringWithCString:v25 encoding:{4, v28, v27}];
+      v19 = [MEMORY[0x1E696AEC0] stringWithCString:v25 encoding:4];
       free(v25);
       SSFileLog();
     }
 
-    goto LABEL_31;
+    goto LABEL_34;
   }
 
   v4 = [MEMORY[0x1E69D4938] sharedConfig];
   v5 = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = v5 | 2;
+    LODWORD(v6) = v5 | 2;
   }
 
   else
   {
-    v6 = v5;
+    LODWORD(v6) = v5;
   }
 
   v7 = [v4 OSLogObject];
-  if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
 
   if (!v6)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  *v28 = 138543362;
-  *&v28[4] = objc_opt_class();
-  v8 = *&v28[4];
-  LODWORD(v27) = 12;
-  v9 = _os_log_send_and_compose_impl();
+  v28 = 138543362;
+  v29 = objc_opt_class();
+  v8 = v29;
+  v9 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1C21AF000, v7, 0, "%{public}@: Callback succeeded", &v28, 12);
 
   if (v9)
   {
-    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, v28, v27, *v28}];
+    v7 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
     free(v9);
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
-LABEL_32:
+LABEL_35:
 }
 
 + (id)webScriptNameForKeyName:(id)name

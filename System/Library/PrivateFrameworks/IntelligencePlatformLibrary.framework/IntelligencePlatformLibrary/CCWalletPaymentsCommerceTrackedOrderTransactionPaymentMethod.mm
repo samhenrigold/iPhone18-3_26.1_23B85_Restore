@@ -224,15 +224,15 @@ LABEL_21:
 LABEL_38:
             if (*&v6[*v9])
             {
-              v39 = 1;
+              v38 = 1;
             }
 
             else
             {
-              v39 = v26 == 0;
+              v38 = v26 == 0;
             }
 
-            v31 = !v39;
+            v31 = !v38;
 LABEL_44:
             v10 = 0;
             self->_isApplePay = v31;
@@ -251,7 +251,6 @@ LABEL_45:
             v35 = objc_opt_class();
             NSStringFromClass(v35);
             v37 = v36 = dataCopy;
-            v38 = *&v6[*v9];
             v10 = CCSkipFieldErrorForMessage();
 
             dataCopy = v36;
@@ -285,22 +284,21 @@ LABEL_34:
 LABEL_48:
   if (!*&v6[*v9])
   {
-    v43 = 1;
+    v41 = 1;
     goto LABEL_52;
   }
 
 LABEL_49:
-  v40 = objc_opt_class();
-  v10 = NSStringFromClass(v40);
-  v41 = *&v6[*v9];
-  v42 = CCInvalidBufferErrorForMessage();
+  v39 = objc_opt_class();
+  v10 = NSStringFromClass(v39);
+  v40 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
 LABEL_50:
-  v43 = 0;
+  v41 = 0;
 LABEL_52:
 
-  return v43;
+  return v41;
 }
 
 - (CCWalletPaymentsCommerceTrackedOrderTransactionPaymentMethod)initWithDisplayName:(id)name lastFourDigits:(id)digits isApplePay:(id)pay error:(id *)error

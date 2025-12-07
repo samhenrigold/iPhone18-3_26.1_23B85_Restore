@@ -13,7 +13,7 @@ void sub_6F1F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
   _Unwind_Resume(exception_object);
 }
 
-void fst::DfsVisit<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::SccVisitor<fst::ArcTpl<fst::LatticeWeightTpl<float>>>,fst::AnyArcFilter<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>(uint64_t a1, uint64_t a2)
+void fst::DfsVisit<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::SccVisitor<fst::ArcTpl<fst::LatticeWeightTpl<float>>>,fst::AnyArcFilter<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>(uint64_t a1, uint64_t a2, char a3)
 {
   if ((*(*a1 + 16))(a1))
   {
@@ -23,25 +23,25 @@ void fst::DfsVisit<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::SccVisitor<fst
   fst::DfsVisit<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::SccVisitor<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::AnyArcFilter<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>();
 }
 
-void sub_6FAA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_6FAA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
   v19 = va_arg(va1, void);
-  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
+  v27 = va_arg(va1, void);
   fst::MemoryPool<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>::~MemoryPool(va);
   std::deque<fst::DfsState<fst::ArcTpl<fst::TropicalWeightTpl<float>>> *,std::allocator<fst::DfsState<fst::ArcTpl<fst::TropicalWeightTpl<float>>> *>>::~deque[abi:ne200100](va1);
-  v11 = *(v9 - 112);
-  if (v11)
+  v18 = *(v16 - 112);
+  if (v18)
   {
-    *(v9 - 104) = v11;
-    operator delete(v11);
+    *(v16 - 104) = v18;
+    operator delete(v18);
   }
 
   _Unwind_Resume(a1);
@@ -232,19 +232,18 @@ uint64_t fst::SccVisitor<fst::ArcTpl<fst::LatticeWeightTpl<float>>>::ForwardOrCr
   return 1;
 }
 
-uint64_t fst::MemoryPool<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>::~MemoryPool(void *a1)
-{
-  *a1 = off_276088;
-  fst::MemoryArena<fst::MemoryPool<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>::Link>::~MemoryArena(a1 + 1);
-
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
-}
-
 void fst::MemoryPool<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>::~MemoryPool(void *a1)
 {
   *a1 = off_276088;
   fst::MemoryArena<fst::MemoryPool<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>::Link>::~MemoryArena(a1 + 1);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
+}
+
+{
+  *a1 = off_276088;
+  fst::MemoryArena<fst::MemoryPool<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>::Link>::~MemoryArena(a1 + 1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 
   operator delete();
 }
@@ -262,8 +261,8 @@ void fst::MemoryArena<fst::MemoryPool<fst::DfsState<fst::ArcTpl<fst::LatticeWeig
 
 void sub_70194(_Unwind_Exception *a1)
 {
-  std::__list_imp<char *>::clear(v2);
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(v1);
+  std::__list_imp<char *>::clear(v1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
   _Unwind_Resume(a1);
 }
 
@@ -274,75 +273,71 @@ void fst::MemoryArena<fst::MemoryPool<fst::DfsState<fst::ArcTpl<fst::LatticeWeig
   operator delete();
 }
 
-uint64_t fst::MemoryArena<fst::MemoryPool<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>::Link>::~MemoryArena(void *a1)
 {
   *a1 = off_2760C8;
-  v2 = a1 + 3;
-  v3 = a1[4];
-  if (v3 != a1 + 3)
+  v1 = a1 + 3;
+  v2 = a1[4];
+  if (v2 != a1 + 3)
   {
     do
     {
-      if (v3[2])
+      if (v2[2])
       {
         operator delete[]();
       }
 
-      v3 = v3[1];
+      v2 = v2[1];
     }
 
-    while (v3 != v2);
+    while (v2 != v1);
   }
 
-  std::__list_imp<char *>::clear(v2);
+  std::__list_imp<char *>::clear(v1);
 
-  return fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(a1);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 }
 
-void *std::deque<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>>> *,std::allocator<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>>> *>>::push_back(void *result, void *a2)
+void std::deque<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>>> *,std::allocator<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>>> *>>::push_back(unint64_t *result, void *a2)
 {
-  v3 = result;
-  v4 = *(result + 1);
-  v5 = result[2];
-  v6 = result[1];
-  if (v5 == v6)
+  v4 = result[2];
+  v5 = result[1];
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = ((v5 - v6) << 6) - 1;
+    v6 = ((v4 - v5) << 6) - 1;
   }
 
-  v8 = result[5];
-  v9 = v8 + result[4];
-  if (v7 == v9)
+  v7 = result[5];
+  v8 = v7 + result[4];
+  if (v6 == v8)
   {
-    result = std::deque<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>>> *,std::allocator<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>>> *>>::__add_back_capacity(result);
-    v6 = v3[1];
-    v8 = v3[5];
-    v9 = v3[4] + v8;
+    std::deque<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>>> *,std::allocator<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>>> *>>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
-  *(*(v6 + ((v9 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v9 & 0x1FF)) = *a2;
-  v3[5] = v8 + 1;
-  return result;
+  *(*(v5 + ((v8 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v8 & 0x1FF)) = *a2;
+  result[5] = v7 + 1;
 }
 
-void *std::deque<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>>> *,std::allocator<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>>> *>>::__add_back_capacity(void *a1)
+void std::deque<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>>> *,std::allocator<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>>> *>>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -350,25 +345,25 @@ void *std::deque<fst::DfsState<fst::ArcTpl<fst::LatticeWeightTpl<float>>> *,std:
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<fst::DfsState<fst::ArcTpl<fst::TropicalWeightTpl<float>>> **>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<fst::DfsState<fst::ArcTpl<fst::TropicalWeightTpl<float>>> **>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<fst::DfsState<fst::ArcTpl<fst::TropicalWeightTpl<float>>> **,std::allocator<fst::DfsState<fst::ArcTpl<fst::TropicalWeightTpl<float>>> **>>::emplace_back<fst::DfsState<fst::ArcTpl<fst::TropicalWeightTpl<float>>> **&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<fst::DfsState<fst::ArcTpl<fst::TropicalWeightTpl<float>>> **,std::allocator<fst::DfsState<fst::ArcTpl<fst::TropicalWeightTpl<float>>> **>>::emplace_back<fst::DfsState<fst::ArcTpl<fst::TropicalWeightTpl<float>>> **&>(a1, &v9);
 }
 
 void sub_70498(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -509,7 +504,7 @@ double fst::ImplToFst<fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<fst::Latti
   return result;
 }
 
-uint64_t fst::ImplToFst<fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>,fst::MutableFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>::Properties(uint64_t a1, uint64_t a2, int a3)
+unint64_t fst::ImplToFst<fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>,fst::MutableFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>::Properties(uint64_t a1, uint64_t a2, int a3)
 {
   if (a3)
   {
@@ -527,29 +522,17 @@ uint64_t fst::ImplToFst<fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<fst::Lat
   }
 }
 
-void *std::vector<double>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<double>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, uint64_t *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::pair<int,float>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::pair<int,float>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<std::pair<int,float>>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
+  return a1;
 }
 
 void sub_709E8(_Unwind_Exception *exception_object)
@@ -564,20 +547,20 @@ void sub_709E8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<double>::resize(void *a1, unint64_t a2, uint64_t *a3)
+void std::vector<double>::resize(void *result, unint64_t a2, uint64_t *a3)
 {
-  v3 = (a1[1] - *a1) >> 3;
+  v3 = (result[1] - *result) >> 3;
   if (a2 <= v3)
   {
     if (a2 < v3)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<double>::__append(a1, a2 - v3, a3);
+    std::vector<double>::__append(result, a2 - v3, a3);
   }
 }
 
@@ -706,9 +689,7 @@ uint64_t fst::LatticeWeightTpl<float>::Type()
 
 uint64_t fst::LatticeWeightTpl<float>::Write(int *a1, uint64_t a2)
 {
-  v5 = *a1;
   std::ostream::write();
-  v6 = a1[1];
   std::ostream::write();
   return a2;
 }
@@ -738,14 +719,14 @@ uint64_t fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorSta
   return result;
 }
 
-uint64_t fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>::operator=(uint64_t result, uint64_t a2)
+uint64_t fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>::operator=(uint64_t a1, uint64_t a2)
 {
-  if (result != a2)
+  if (a1 != a2)
   {
     operator new();
   }
 
-  return result;
+  return a1;
 }
 
 unint64_t fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>,fst::MutableFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>::SetStart(uint64_t a1, int a2)
@@ -758,12 +739,13 @@ unint64_t fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<
   return result;
 }
 
-uint64_t fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>,fst::MutableFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>::SetFinal(uint64_t a1, int a2, uint64_t *a3)
+unint64_t fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>,fst::MutableFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>::SetFinal(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
+  v4 = a2;
   fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>,fst::MutableFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>::MutateCheck(a1);
   v6 = *(a1 + 8);
   v8 = *a3;
-  return fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>::SetFinal(v6, a2, &v8);
+  return fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>::SetFinal(v6, v4, &v8);
 }
 
 uint64_t fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>,fst::MutableFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>::SetProperties(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -779,14 +761,7 @@ uint64_t fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<f
   return result;
 }
 
-void fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>,fst::MutableFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>::AddState(uint64_t a1)
-{
-  fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>,fst::MutableFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>::MutateCheck(a1);
-  v2 = *(a1 + 8);
-  fst::VectorFstBaseImpl<fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>::AddState();
-}
-
-uint64_t fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>,fst::MutableFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>::AddArc(uint64_t a1, int a2, float *a3)
+uint64_t fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>,fst::MutableFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>::AddArc(uint64_t a1, uint64_t a2, float *a3)
 {
   fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>,fst::MutableFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>::MutateCheck(a1);
   v6 = *(a1 + 8);
@@ -837,20 +812,20 @@ uint64_t fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<f
   return result;
 }
 
-void *fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>::ReserveStates(uint64_t a1, int a2)
+void fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>::ReserveStates(uint64_t a1, int a2)
 {
   fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>,fst::MutableFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>::MutateCheck(a1);
   v4 = (*(a1 + 8) + 64);
 
-  return std::vector<fst::VectorState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>> *,std::allocator<fst::VectorState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>> *>>::reserve(v4, a2);
+  std::vector<fst::VectorState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>> *,std::allocator<fst::VectorState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>> *>>::reserve(v4, a2);
 }
 
-void *fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>::ReserveArcs(uint64_t a1, int a2, unint64_t a3)
+void fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>::ReserveArcs(uint64_t a1, int a2, unint64_t a3)
 {
   fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>,fst::MutableFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>::MutateCheck(a1);
   v6 = (*(*(*(a1 + 8) + 64) + 8 * a2) + 24);
 
-  return std::vector<fst::ArcTpl<fst::LatticeWeightTpl<float>>>::reserve(v6, a3);
+  std::vector<fst::ArcTpl<fst::LatticeWeightTpl<float>>>::reserve(v6, a3);
 }
 
 uint64_t fst::ImplToMutableFst<fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>,fst::MutableFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>::SetInputSymbols(uint64_t a1, uint64_t a2)
@@ -904,7 +879,7 @@ void sub_7167C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, in
   _Unwind_Resume(a1);
 }
 
-uint64_t fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>::WriteFst<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>(void *a1, void *a2, uint64_t a3)
+uint64_t fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>::WriteFst<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>(void *a1, void *a2, uint64_t **a3)
 {
   v34 = 0u;
   v33 = 0u;
@@ -1037,7 +1012,7 @@ LABEL_6:
 
     else
     {
-      v24 = *(a3 + 8);
+      v24 = a3[1];
     }
 
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, v23, v24);
@@ -1141,7 +1116,7 @@ uint64_t fst::FstImpl<fst::ArcTpl<fst::LatticeWeightTpl<float>>>::WriteFstHeader
     }
 
     *(a7 + 60) = v16;
-    fst::FstHeader::Write(a7);
+    fst::FstHeader::Write(a7, a2);
   }
 
   if ((*(*a1 + 112))(a1) && a3[25] == 1)
@@ -1161,7 +1136,7 @@ uint64_t fst::FstImpl<fst::ArcTpl<fst::LatticeWeightTpl<float>>>::WriteFstHeader
   return result;
 }
 
-uint64_t fst::FstImpl<fst::ArcTpl<fst::LatticeWeightTpl<float>>>::UpdateFstHeader(uint64_t a1, void *a2, uint64_t a3, int a4, std::string *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t fst::FstImpl<fst::ArcTpl<fst::LatticeWeightTpl<float>>>::UpdateFstHeader(uint64_t a1, void *a2, uint64_t **a3, int a4, std::string *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   std::ostream::sentry::sentry();
   v16 = a2 + *(*a2 - 24);
@@ -1209,7 +1184,7 @@ uint64_t fst::FstImpl<fst::ArcTpl<fst::LatticeWeightTpl<float>>>::UpdateFstHeade
 
     else
     {
-      v23 = *(a3 + 8);
+      v23 = a3[1];
     }
   }
 
@@ -1240,7 +1215,7 @@ uint64_t fst::FstImpl<fst::ArcTpl<fst::LatticeWeightTpl<float>>>::UpdateFstHeade
 
       else
       {
-        v23 = *(a3 + 8);
+        v23 = a3[1];
       }
     }
 
@@ -1285,7 +1260,7 @@ uint64_t fst::FstImpl<fst::ArcTpl<fst::LatticeWeightTpl<float>>>::UpdateFstHeade
 
       else
       {
-        v23 = *(a3 + 8);
+        v23 = a3[1];
       }
     }
   }
@@ -1311,67 +1286,68 @@ uint64_t fst::ArcTpl<fst::LatticeWeightTpl<float>>::Type()
 
 uint64_t fst::Fst<fst::ArcTpl<fst::LatticeWeightTpl<float>>>::WriteFile(fst *a1, uint64_t a2)
 {
+  v2 = a2;
   if (*(a2 + 23) < 0)
   {
     if (*(a2 + 8))
     {
-      v4 = *a2;
+      a2 = *a2;
 LABEL_6:
-      std::ofstream::basic_ofstream(&v21);
-      if ((v25[*(v21.__r_.__value_.__r.__words[0] - 24)] & 5) != 0)
+      std::ofstream::basic_ofstream(&v20, a2, 20);
+      if ((v24[*(v20.__r_.__value_.__r.__words[0] - 24)] & 5) != 0)
       {
         boost::filesystem::path::path(&__p, "ERROR");
-        v5 = fst::LogMessage::LogMessage(&v20, &__p);
-        v6 = fst::cerr(v5);
-        v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "Fst::Write: Can't open file: ", 29);
-        v8 = *(a2 + 23);
-        if (v8 >= 0)
+        v4 = fst::LogMessage::LogMessage(&v19, &__p);
+        v5 = fst::cerr(v4);
+        v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, "Fst::Write: Can't open file: ", 29);
+        v7 = *(v2 + 23);
+        if (v7 >= 0)
         {
-          v9 = a2;
+          v8 = v2;
         }
 
         else
         {
-          v9 = *a2;
+          v8 = *v2;
         }
 
-        if (v8 >= 0)
+        if (v7 >= 0)
         {
-          v10 = *(a2 + 23);
+          v9 = *(v2 + 23);
         }
 
         else
         {
-          v10 = *(a2 + 8);
+          v9 = *(v2 + 8);
         }
 
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, v9, v10);
-        fst::LogMessage::~LogMessage(&v20);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, v8, v9);
+        fst::LogMessage::~LogMessage(&v19);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
         }
 
-        v11 = 0;
+        v10 = 0;
       }
 
       else
       {
-        v14 = FLAGS_fst_align;
-        if (*(a2 + 23) < 0)
+        v13 = FLAGS_fst_align;
+        if (*(v2 + 23) < 0)
         {
-          std::string::__init_copy_ctor_external(&__p, *a2, *(a2 + 8));
+          std::string::__init_copy_ctor_external(&__p, *v2, *(v2 + 8));
         }
 
         else
         {
-          __p = *a2;
+          __p = *v2;
         }
 
-        v17 = 257;
-        v18 = 1;
-        v19 = v14;
-        v11 = (*(*a1 + 96))(a1, &v21, &__p);
+        v16 = 257;
+        v17 = 1;
+        v18 = v13;
+        v10 = (*(*a1 + 96))(a1, &v20, &__p);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
@@ -1381,7 +1357,7 @@ LABEL_6:
       std::filebuf::~filebuf();
       std::ostream::~ostream();
       std::ios::~ios();
-      return v11;
+      return v10;
     }
   }
 
@@ -1390,26 +1366,26 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v12 = fst::cout(a1);
+  v11 = fst::cout(a1);
   boost::filesystem::path::path(&__p, "standard output");
-  v13 = FLAGS_fst_align;
+  v12 = FLAGS_fst_align;
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v21, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v20, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v21 = __p;
+    v20 = __p;
   }
 
-  v22 = 257;
-  v23 = 1;
-  v24 = v13;
-  v11 = (*(*a1 + 96))(a1, v12, &v21);
-  if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
+  v21 = 257;
+  v22 = 1;
+  v23 = v12;
+  v10 = (*(*a1 + 96))(a1, v11, &v20);
+  if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v21.__r_.__value_.__l.__data_);
+    operator delete(v20.__r_.__value_.__l.__data_);
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -1417,10 +1393,10 @@ LABEL_6:
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  return v11;
+  return v10;
 }
 
-uint64_t fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>::SetFinal(uint64_t *a1, int a2, uint64_t *a3)
+unint64_t fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>::SetFinal(uint64_t *a1, int a2, uint64_t *a3)
 {
   v5 = *(a1[8] + 8 * a2);
   v6 = *a1;
@@ -1434,7 +1410,7 @@ uint64_t fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<f
   return result;
 }
 
-uint64_t fst::SetFinalProperties<fst::LatticeWeightTpl<float>>(unint64_t a1, float *a2, float *a3)
+unint64_t fst::SetFinalProperties<fst::LatticeWeightTpl<float>>(unint64_t a1, float *a2, float *a3)
 {
   if ((*a2 != INFINITY || a2[1] != INFINITY) && (*a2 != 0.0 || a2[1] != 0.0))
   {
@@ -1449,8 +1425,9 @@ uint64_t fst::SetFinalProperties<fst::LatticeWeightTpl<float>>(unint64_t a1, flo
   return a1 & 0x3FFFFFF0007;
 }
 
-uint64_t fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>::AddArc(void *a1, int a2, float *a3)
+uint64_t fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>::AddArc(void *a1, uint64_t a2, float *a3)
 {
+  v4 = a2;
   v6 = *(*(a1[8] + 8 * a2) + 32);
   if (v6 == *(*(a1[8] + 8 * a2) + 24))
   {
@@ -1463,13 +1440,13 @@ uint64_t fst::VectorFstImpl<fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<f
   }
 
   v8 = (*(*a1 + 24))(a1);
-  a1[1] = a1[1] & 4 | fst::AddArcProperties<fst::ArcTpl<fst::LatticeWeightTpl<float>>>(v8, a2, a3, v7);
-  v9 = *(a1[8] + 8 * a2);
+  a1[1] = a1[1] & 4 | fst::AddArcProperties<fst::ArcTpl<fst::LatticeWeightTpl<float>>>(v8, v4, a3, v7);
+  v9 = *(a1[8] + 8 * v4);
 
   return fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>::AddArc(v9, a3);
 }
 
-uint64_t fst::AddArcProperties<fst::ArcTpl<fst::LatticeWeightTpl<float>>>(unint64_t a1, int a2, float *a3, _DWORD *a4)
+unint64_t fst::AddArcProperties<fst::ArcTpl<fst::LatticeWeightTpl<float>>>(unint64_t a1, int a2, float *a3, _DWORD *a4)
 {
   v5 = *a3;
   v4 = *(a3 + 1);
@@ -1485,7 +1462,7 @@ uint64_t fst::AddArcProperties<fst::ArcTpl<fst::LatticeWeightTpl<float>>>(unint6
     v7 = v6 & 0xFFFFFFFFFC3FFFFFLL | 0x1400000;
   }
 
-  if (v5 == 0.0)
+  if (!v5)
   {
     v6 = v7;
   }
@@ -1497,7 +1474,7 @@ uint64_t fst::AddArcProperties<fst::ArcTpl<fst::LatticeWeightTpl<float>>>(unint6
 
   if (a4)
   {
-    if (*a4 > SLODWORD(v5))
+    if (*a4 > v5)
     {
       v6 = v6 & 0xFFFFFFFFCFFFFFFFLL | 0x20000000;
     }
@@ -1508,13 +1485,9 @@ uint64_t fst::AddArcProperties<fst::ArcTpl<fst::LatticeWeightTpl<float>>>(unint6
     }
   }
 
-  if (a3[2] != INFINITY || a3[3] != INFINITY)
+  if ((a3[2] != INFINITY || a3[3] != INFINITY) && (a3[2] != 0.0 || a3[3] != 0.0))
   {
-    v9 = *(a3 + 3);
-    if (a3[2] != 0.0 || a3[3] != 0.0)
-    {
-      v6 = v6 & 0xFFFFFFFCFFFFFFFFLL | 0x100000000;
-    }
+    v6 = v6 & 0xFFFFFFFCFFFFFFFFLL | 0x100000000;
   }
 
   if (*(a3 + 4) <= a2)
@@ -1536,143 +1509,144 @@ uint64_t fst::AddArcProperties<fst::ArcTpl<fst::LatticeWeightTpl<float>>>(unint6
 void fst::VectorFstBaseImpl<fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>::DeleteStates(uint64_t a1, char **a2)
 {
   v4 = (a1 + 64);
-  std::vector<int>::vector[abi:ne200100](__p, (*(a1 + 72) - *(a1 + 64)) >> 3);
-  v5 = *a2;
-  v6 = a2[1] - *a2;
-  if (v6)
+  v5 = (*(a1 + 72) - *(a1 + 64)) >> 3;
+  v36 = 0;
+  std::vector<int>::vector[abi:ne200100](__p, v5, &v36);
+  v6 = *a2;
+  v7 = a2[1] - *a2;
+  if (v7)
   {
-    v7 = v6 >> 2;
-    v8 = __p[0];
-    if (v7 <= 1)
+    v8 = v7 >> 2;
+    v9 = __p[0];
+    if (v8 <= 1)
     {
-      v7 = 1;
+      v8 = 1;
     }
 
     do
     {
-      v9 = *v5;
-      v5 += 4;
-      v8[v9] = -1;
-      --v7;
+      v10 = *v6++;
+      v9[v10] = -1;
+      --v8;
     }
 
-    while (v7);
+    while (v8);
   }
 
-  v10 = *(a1 + 64);
-  if (*(a1 + 72) == v10)
+  v11 = *(a1 + 64);
+  if (*(a1 + 72) == v11)
   {
-    v13 = 0;
+    v14 = 0;
   }
 
   else
   {
-    v11 = 0;
     v12 = 0;
+    v13 = 0;
     do
     {
-      if (*(__p[0] + v11) == -1)
+      if (*(__p[0] + v12) == -1)
       {
-        fst::VectorState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::Destroy(*(v10 + 8 * v11));
+        fst::VectorState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::Destroy(*(v11 + 8 * v12));
       }
 
       else
       {
-        *(__p[0] + v11) = v12;
-        if (v11 != v12)
+        *(__p[0] + v12) = v13;
+        if (v12 != v13)
         {
-          *(v10 + 8 * v12) = *(v10 + 8 * v11);
+          *(v11 + 8 * v13) = *(v11 + 8 * v12);
         }
 
-        ++v12;
+        ++v13;
       }
 
-      ++v11;
-      v10 = *(a1 + 64);
+      ++v12;
+      v11 = *(a1 + 64);
     }
 
-    while (v11 < (*(a1 + 72) - v10) >> 3);
-    v13 = v12;
+    while (v12 < (*(a1 + 72) - v11) >> 3);
+    v14 = v13;
   }
 
-  std::vector<fst::QueueBase<int> *,std::allocator<fst::QueueBase<int> *>>::resize(v4, v13);
-  v14 = *(a1 + 64);
-  if (*(a1 + 72) != v14)
+  std::vector<fst::QueueBase<int> *,std::allocator<fst::QueueBase<int> *>>::resize(v4, v14);
+  v15 = *(a1 + 64);
+  if (*(a1 + 72) != v15)
   {
-    v15 = 0;
+    v16 = 0;
     do
     {
-      v16 = *(v14 + 8 * v15);
-      v18 = *(v16 + 24);
-      v17 = *(v16 + 32);
-      v19 = *(v16 + 8);
-      v20 = v17 - v18;
-      if (v17 == v18)
+      v17 = *(v15 + 8 * v16);
+      v19 = *(v17 + 24);
+      v18 = *(v17 + 32);
+      v20 = *(v17 + 8);
+      v21 = v18 - v19;
+      if (v18 == v19)
       {
-        v27 = 0;
-        v28 = 0xCCCCCCCCCCCCCCCDLL * (v20 >> 2);
-        v29 = *(v16 + 16);
-        v30 = *(v16 + 8);
+        v28 = 0;
+        v29 = 0xCCCCCCCCCCCCCCCDLL * (v21 >> 2);
+        v30 = *(v17 + 16);
+        v31 = *(v17 + 8);
       }
 
       else
       {
-        v21 = 0;
-        v27 = 0;
-        v22 = (v18 + 16);
+        v22 = 0;
+        v28 = 0;
+        v23 = (v19 + 16);
         do
         {
-          v23 = *(__p[0] + *v22);
-          if (v23 == -1)
+          v24 = *(__p[0] + *v23);
+          if (v24 == -1)
           {
-            v25 = *(v22 - 2);
-            v26.i64[0] = v25;
-            v26.i64[1] = HIDWORD(v25);
-            v19 = vaddq_s64(v19, vceqzq_s64(v26));
+            v26 = *(v23 - 2);
+            v27.i64[0] = v26;
+            v27.i64[1] = HIDWORD(v26);
+            v20 = vaddq_s64(v20, vceqzq_s64(v27));
           }
 
           else
           {
-            *v22 = v23;
-            if (v21 != v27)
+            *v23 = v24;
+            if (v22 != v28)
             {
-              v24 = v18 + 20 * v27;
-              *v24 = *(v22 - 2);
-              *(v24 + 8) = *(v22 - 1);
-              *(v24 + 16) = v23;
-              v14 = *v4;
+              v25 = v19 + 20 * v28;
+              *v25 = *(v23 - 2);
+              *(v25 + 8) = *(v23 - 1);
+              *(v25 + 16) = v24;
+              v15 = *v4;
             }
 
-            ++v27;
+            ++v28;
           }
 
-          ++v21;
-          v16 = *(v14 + 8 * v15);
-          v28 = 0xCCCCCCCCCCCCCCCDLL * ((*(v16 + 32) - *(v16 + 24)) >> 2);
-          v22 += 5;
+          ++v22;
+          v17 = *(v15 + 8 * v16);
+          v29 = 0xCCCCCCCCCCCCCCCDLL * ((*(v17 + 32) - *(v17 + 24)) >> 2);
+          v23 += 5;
         }
 
-        while (v21 < v28);
-        v29 = v19.i64[1];
-        v30 = v19.i64[0];
+        while (v22 < v29);
+        v30 = v20.i64[1];
+        v31 = v20.i64[0];
       }
 
-      fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>::DeleteArcs(v16, v28 - v27);
-      v14 = *(a1 + 64);
-      v31 = *(a1 + 72);
-      v32 = *(v14 + 8 * v15);
-      *(v32 + 8) = v30;
-      *(v32 + 16) = v29;
-      ++v15;
+      fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>::DeleteArcs(v17, v29 - v28);
+      v15 = *(a1 + 64);
+      v32 = *(a1 + 72);
+      v33 = *(v15 + 8 * v16);
+      *(v33 + 8) = v31;
+      *(v33 + 16) = v30;
+      ++v16;
     }
 
-    while (v15 < (v31 - v14) >> 3);
+    while (v16 < (v32 - v15) >> 3);
   }
 
-  v33 = *(a1 + 88);
-  if (v33 == -1)
+  v34 = *(a1 + 88);
+  if (v34 == -1)
   {
-    v34 = __p[0];
+    v35 = __p[0];
     if (!__p[0])
     {
       return;
@@ -1681,12 +1655,12 @@ void fst::VectorFstBaseImpl<fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<f
 
   else
   {
-    v34 = __p[0];
-    *(a1 + 88) = *(__p[0] + v33);
+    v35 = __p[0];
+    *(a1 + 88) = *(__p[0] + v34);
   }
 
-  __p[1] = v34;
-  operator delete(v34);
+  __p[1] = v35;
+  operator delete(v35);
 }
 
 void sub_72C28(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
@@ -1877,11 +1851,11 @@ LABEL_18:
   return result;
 }
 
-void sub_73104(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t *a10)
+void sub_73104(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    fst::RemoveEpsLocalClass<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::ReweightPlusDefault<fst::LatticeWeightTpl<float>>>::InitNumArcs(a10);
+    fst::RemoveEpsLocalClass<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::ReweightPlusDefault<fst::LatticeWeightTpl<float>>>::InitNumArcs();
   }
 
   else
@@ -2050,11 +2024,11 @@ LABEL_25:
   return 1;
 }
 
-void sub_73528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t *a10)
+void sub_73528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    fst::RemoveEpsLocalClass<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::ReweightPlusDefault<fst::LatticeWeightTpl<float>>>::InitNumArcs(a10);
+    fst::RemoveEpsLocalClass<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::ReweightPlusDefault<fst::LatticeWeightTpl<float>>>::InitNumArcs();
   }
 
   else
@@ -2107,11 +2081,11 @@ LABEL_7:
   return result;
 }
 
-void sub_73684(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t *a10)
+void sub_73684(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    fst::RemoveEpsLocalClass<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::ReweightPlusDefault<fst::LatticeWeightTpl<float>>>::InitNumArcs(a10);
+    fst::RemoveEpsLocalClass<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::ReweightPlusDefault<fst::LatticeWeightTpl<float>>>::InitNumArcs();
   }
 
   else
@@ -2524,11 +2498,11 @@ LABEL_35:
   return result;
 }
 
-void sub_744C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
+void sub_744C8(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
   if (a16)
   {
-    (*(*a16 + 8))(a16);
+    (*(*a16 + 8))(a16, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -2537,151 +2511,150 @@ void sub_744C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
 uint64_t fst::RemoveEpsLocalClass<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::ReweightPlusDefault<fst::LatticeWeightTpl<float>>>::Reweight(void *a1, __n128 a2, uint64_t a3, uint64_t a4, float32x2_t *a5)
 {
   v8 = a5->i32[1];
-  LODWORD(v39.__locale_) = a5->i32[0];
-  LODWORD(v33) = v8;
-  LODWORD(v29) = 2139095040;
-  LODWORD(v36) = 2139095040;
-  a2.n128_u32[0] = v39.__locale_;
-  if (*&v39.__locale_ == INFINITY)
+  LODWORD(v38.__locale_) = a5->i32[0];
+  LODWORD(v32) = v8;
+  LODWORD(v28) = 2139095040;
+  LODWORD(v35) = 2139095040;
+  a2.n128_u32[0] = v38.__locale_;
+  if (*&v38.__locale_ == INFINITY)
   {
-    a2.n128_u32[0] = v33;
-    if (*&v33 == *&v36)
+    a2.n128_u32[0] = v32;
+    if (*&v32 == *&v35)
     {
       fst::RemoveEpsLocalClass<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::ReweightPlusDefault<fst::TropicalWeightTpl<float>>>::Reweight();
     }
   }
 
-  v9 = *a1;
   (*(**a1 + 288))(a2);
-  (*(*v36 + 64))(v36, a4);
-  v10 = (*(*v36 + 32))(v36);
-  v33 = *v10;
-  v11 = *(v10 + 8);
-  v34 = v11;
-  v35 = *(v10 + 16);
-  if (*(a1[2] + 4 * v35) != 1)
+  (*(*v35 + 64))(v35, a4);
+  v9 = (*(*v35 + 32))(v35);
+  v32 = *v9;
+  v10 = *(v9 + 8);
+  v33 = v10;
+  v34 = *(v9 + 16);
+  if (*(a1[2] + 4 * v34) != 1)
   {
     __assert_rtn("Reweight", "remove-eps-local-inl.h", 147, "num_arcs_in_[arc.nextstate] == 1");
   }
 
-  v34 = vadd_f32(v11, *a5);
-  (*(*v36 + 88))(v36, &v33);
-  (*(**a1 + 288))(*a1, v35, &v32);
-  while (!(*(*v32 + 24))(v32))
+  v33 = vadd_f32(v10, *a5);
+  (*(*v35 + 88))(v35, &v32);
+  (*(**a1 + 288))(*a1, v34, &v31);
+  while (!(*(*v31 + 24))(v31))
   {
-    v12 = (*(*v32 + 32))(v32);
-    v29 = *v12;
-    v13 = *(v12 + 8);
-    v30 = v13;
-    v31 = *(v12 + 16);
-    if (v31 != *(a1 + 2))
+    v11 = (*(*v31 + 32))(v31);
+    v28 = *v11;
+    v12 = *(v11 + 8);
+    v29 = v12;
+    v30 = *(v11 + 16);
+    if (v30 != *(a1 + 2))
     {
-      v14 = vsub_f32(v13, *a5);
-      *v15.f32 = v14;
-      *&v15.u32[2] = v14;
-      v16.i32[0] = vmovn_s32(vceqq_f32(v15, xmmword_217E00)).u32[0];
-      v16.i32[1] = vmovn_s32(vmvnq_s8(vceqq_f32(v15, v15))).i32[1];
-      if (vmaxv_u16(v16))
+      v13 = vsub_f32(v12, *a5);
+      *v14.f32 = v13;
+      *&v14.u32[2] = v13;
+      v15.i32[0] = vmovn_s32(vceqq_f32(v14, xmmword_217E00)).u32[0];
+      v15.i32[1] = vmovn_s32(vmvnq_s8(vceqq_f32(v14, v14))).i32[1];
+      if (vmaxv_u16(v15))
       {
         if ((kaldi::g_kaldi_verbose_level & 0x80000000) == 0)
         {
-          kaldi::KaldiLogMessage::KaldiLogMessage(&v39, "Divide", "../subproject/libquasar/libkaldi/src/fstext/lattice-weight.h", 346);
-          v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v39, "LatticeWeightTpl::Divide, NaN or invalid number produced. ", 58);
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, "[dividing by zero?]  Returning zero.", 36);
-          kaldi::KaldiLogMessage::~KaldiLogMessage(&v39);
+          kaldi::KaldiLogMessage::KaldiLogMessage(&v38, "Divide", "../subproject/libquasar/libkaldi/src/fstext/lattice-weight.h", 346);
+          v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v38, "LatticeWeightTpl::Divide, NaN or invalid number produced. ", 58);
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, "[dividing by zero?]  Returning zero.", 36);
+          kaldi::KaldiLogMessage::~KaldiLogMessage(&v38);
         }
 
+        v17 = INFINITY;
         v18 = INFINITY;
-        v19 = INFINITY;
       }
 
       else
       {
-        if (v14.f32[1] == INFINITY || v14.f32[0] == INFINITY)
+        if (v13.f32[1] == INFINITY || v13.f32[0] == INFINITY)
+        {
+          v17 = INFINITY;
+        }
+
+        else
+        {
+          v17 = v13.f32[0];
+        }
+
+        if (v13.f32[0] == INFINITY)
         {
           v18 = INFINITY;
         }
 
         else
         {
-          v18 = v14.f32[0];
-        }
-
-        if (v14.f32[0] == INFINITY)
-        {
-          v19 = INFINITY;
-        }
-
-        else
-        {
-          v19 = v14.f32[1];
+          v18 = v13.f32[1];
         }
       }
 
-      v30 = __PAIR64__(LODWORD(v19), LODWORD(v18));
-      (*(*v32 + 88))(v32, &v29);
+      v29 = __PAIR64__(LODWORD(v18), LODWORD(v17));
+      (*(*v31 + 88))(v31, &v28);
     }
 
-    (*(*v32 + 40))(v32);
+    (*(*v31 + 40))(v31);
   }
 
-  if (v32)
+  if (v31)
   {
-    (*(*v32 + 8))(v32);
+    (*(*v31 + 8))(v31);
   }
 
-  (*(**a1 + 32))(&v29);
-  LODWORD(v32) = HIDWORD(v29);
-  LODWORD(v39.__locale_) = v29;
-  v38 = 2139095040;
-  v37 = INFINITY;
-  if (*&v29 != INFINITY || *&v32 != v37)
+  (*(**a1 + 32))(&v28);
+  LODWORD(v31) = HIDWORD(v28);
+  LODWORD(v38.__locale_) = v28;
+  v37 = 2139095040;
+  v36 = INFINITY;
+  if (*&v28 != INFINITY || *&v31 != v36)
   {
-    v21 = *a1;
-    v22 = v35;
-    v23 = *&v29 - a5->f32[0];
-    v24 = *(&v29 + 1) - a5->f32[1];
-    if (v23 == -INFINITY || v24 == -INFINITY)
+    v20 = *a1;
+    v21 = v34;
+    v22 = *&v28 - a5->f32[0];
+    v23 = *(&v28 + 1) - a5->f32[1];
+    if (v22 == -INFINITY || v23 == -INFINITY)
     {
       if ((kaldi::g_kaldi_verbose_level & 0x80000000) == 0)
       {
-        kaldi::KaldiLogMessage::KaldiLogMessage(&v39, "Divide", "../subproject/libquasar/libkaldi/src/fstext/lattice-weight.h", 346);
-        v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v39, "LatticeWeightTpl::Divide, NaN or invalid number produced. ", 58);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, "[dividing by zero?]  Returning zero.", 36);
-        kaldi::KaldiLogMessage::~KaldiLogMessage(&v39);
+        kaldi::KaldiLogMessage::KaldiLogMessage(&v38, "Divide", "../subproject/libquasar/libkaldi/src/fstext/lattice-weight.h", 346);
+        v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v38, "LatticeWeightTpl::Divide, NaN or invalid number produced. ", 58);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, "[dividing by zero?]  Returning zero.", 36);
+        kaldi::KaldiLogMessage::~KaldiLogMessage(&v38);
       }
     }
 
-    else if (v23 != INFINITY && v24 != INFINITY)
+    else if (v22 != INFINITY && v23 != INFINITY)
     {
-      *&v39.__locale_ = *&v29 - a5->f32[0];
-      *(&v39.__locale_ + 1) = v24;
+      *&v38.__locale_ = *&v28 - a5->f32[0];
+      *(&v38.__locale_ + 1) = v23;
 LABEL_39:
-      (*(*v21 + 176))(v21, v22, &v39);
+      (*(*v20 + 176))(v20, v21, &v38);
       goto LABEL_40;
     }
 
-    v39.__locale_ = vneg_f32(0x7F0000007FLL);
+    v38.__locale_ = vneg_f32(0x7F0000007FLL);
     goto LABEL_39;
   }
 
 LABEL_40:
-  result = v36;
-  if (v36)
+  result = v35;
+  if (v35)
   {
-    return (*(*v36 + 8))(v36);
+    return (*(*v35 + 8))(v35);
   }
 
   return result;
 }
 
-void sub_74A3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_74A3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   kaldi::KaldiLogMessage::~KaldiLogMessage(va);
-  if (a12)
+  if (a19)
   {
-    (*(*a12 + 8))(a12);
+    (*(*a19 + 8))(a19);
   }
 
   _Unwind_Resume(a1);
@@ -2795,11 +2768,11 @@ uint64_t std::ifstream::~ifstream(uint64_t *a1, uint64_t *a2)
   return std::istream::~istream();
 }
 
-int *std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<int,int> *,false>(int *result, int *a2, uint64_t a3, uint64_t a4, char a5)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<int,int> *,false>(uint64_t result, char *a2, uint64_t a3, uint64_t a4, char a5)
 {
   v8 = result;
 LABEL_2:
-  v9 = a2 - 1;
+  v9 = a2 - 4;
   v10 = v8;
 LABEL_3:
   v11 = 1 - a4;
@@ -2819,12 +2792,12 @@ LABEL_3:
       {
         v88 = *(a2 - 2);
         v89 = *v10;
-        if (v88 < *v10 || v89 >= v88 && *(a2 - 1) < v10[1])
+        if (v88 < *v10 || v89 >= v88 && *(a2 - 1) < *(v10 + 1))
         {
           *v10 = v88;
           *(a2 - 2) = v89;
-          v90 = v10[1];
-          v10[1] = *(a2 - 1);
+          v90 = *(v10 + 1);
+          *(v10 + 1) = *(a2 - 1);
           *(a2 - 1) = v90;
         }
 
@@ -2836,32 +2809,32 @@ LABEL_3:
 
     if (v13 == 3)
     {
-      v91 = v10[2];
+      v91 = *(v10 + 2);
       v92 = *v10;
-      if (v91 >= *v10 && (v92 < v91 || v10[3] >= v10[1]))
+      if (v91 >= *v10 && (v92 < v91 || *(v10 + 3) >= *(v10 + 1)))
       {
         v106 = *(a2 - 2);
-        if (v106 >= v91 && (v91 < v106 || *(a2 - 1) >= v10[3]))
+        if (v106 >= v91 && (v91 < v106 || *(a2 - 1) >= *(v10 + 3)))
         {
           return result;
         }
 
-        v10[2] = v106;
+        *(v10 + 2) = v106;
         *(a2 - 2) = v91;
-        v9 = v10 + 3;
-        v107 = v10[3];
-        v10[3] = *(a2 - 1);
+        v9 = v10 + 12;
+        v107 = *(v10 + 3);
+        *(v10 + 3) = *(a2 - 1);
         *(a2 - 1) = v107;
-        v108 = v10[2];
+        v108 = *(v10 + 2);
         v109 = *v10;
-        if (v108 >= *v10 && (v109 < v108 || v10[3] >= v10[1]))
+        if (v108 >= *v10 && (v109 < v108 || *(v10 + 3) >= *(v10 + 1)))
         {
           return result;
         }
 
         *v10 = v108;
-        v10[2] = v109;
-        v94 = v10 + 1;
+        *(v10 + 2) = v109;
+        v94 = (v10 + 4);
 LABEL_201:
         v113 = *v94;
         *v94 = *v9;
@@ -2874,14 +2847,14 @@ LABEL_201:
       {
 LABEL_156:
         *v10 = v93;
-        v94 = v10 + 1;
+        v94 = (v10 + 4);
         *(a2 - 2) = v92;
         goto LABEL_201;
       }
 
       if (v91 >= v93)
       {
-        v110 = v10[3];
+        v110 = *(v10 + 3);
         if (*(a2 - 1) < v110)
         {
           goto LABEL_156;
@@ -2890,23 +2863,23 @@ LABEL_156:
 
       else
       {
-        v110 = v10[3];
+        v110 = *(v10 + 3);
       }
 
-      v111 = v10[1];
-      v10[3] = v111;
+      v111 = *(v10 + 1);
+      *(v10 + 3) = v111;
       *v10 = v91;
-      v10[1] = v110;
-      v10[2] = v92;
+      *(v10 + 1) = v110;
+      *(v10 + 2) = v92;
       v112 = *(a2 - 2);
       if (v112 >= v92 && (v92 < v112 || *(a2 - 1) >= v111))
       {
         return result;
       }
 
-      v10[2] = v112;
+      *(v10 + 2) = v112;
       *(a2 - 2) = v92;
-      v94 = v10 + 3;
+      v94 = (v10 + 12);
       goto LABEL_201;
     }
 
@@ -2948,74 +2921,35 @@ LABEL_11:
       return result;
     }
 
-    v14 = &v10[2 * (v13 >> 1)];
+    v14 = &v10[8 * (v13 >> 1)];
     v15 = v14;
     if (v13 >= 0x81)
     {
       v16 = *v14;
       v17 = *v10;
-      if (*v14 >= *v10 && (v17 < v16 || v14[1] >= v10[1]))
+      if (*v14 >= *v10 && (v17 < v16 || v14[1] >= *(v10 + 1)))
       {
         v24 = *(a2 - 2);
-        if (v24 >= v16 && (v16 < v24 || *(a2 - 1) >= v14[1]))
-        {
-          goto LABEL_45;
-        }
-
-        *v14 = v24;
-        *(a2 - 2) = v16;
-        v25 = v14 + 1;
-        v26 = v14[1];
-        v14[1] = *(a2 - 1);
-        *(a2 - 1) = v26;
-        v27 = *v14;
-        v28 = *v10;
-        if (*v14 >= *v10 && (v28 < v27 || *v25 >= v10[1]))
+        if (v24 >= v16 && (v16 < v24 || *(a2 - 1) >= v14[1]) || (*v14 = v24, *(a2 - 2) = v16, v25 = (v14 + 1), v26 = v14[1], v14[1] = *(a2 - 1), *(a2 - 1) = v26, v27 = *v14, v28 = *v10, *v14 >= *v10) && (v28 < v27 || *v25 >= *(v10 + 1)))
         {
 LABEL_45:
           v39 = v14 - 2;
           v40 = *(v14 - 2);
-          v41 = v10[2];
-          if (v40 >= v41 && (v41 < v40 || *(v14 - 1) >= v10[3]))
+          v41 = *(v10 + 2);
+          if (v40 >= v41 && (v41 < v40 || *(v14 - 1) >= *(v10 + 3)))
           {
             v44 = *(a2 - 4);
-            if (v44 >= v40 && (v40 < v44 || *(a2 - 3) >= *(v14 - 1)))
-            {
-              goto LABEL_67;
-            }
-
-            *v39 = v44;
-            *(a2 - 4) = v40;
-            v45 = v14 - 1;
-            v46 = *(v14 - 1);
-            *(v14 - 1) = *(a2 - 3);
-            *(a2 - 3) = v46;
-            v47 = *v39;
-            v48 = v10[2];
-            if (*v39 >= v48 && (v48 < v47 || *v45 >= v10[3]))
+            if (v44 >= v40 && (v40 < v44 || *(a2 - 3) >= *(v14 - 1)) || (*v39 = v44, *(a2 - 4) = v40, v45 = (v14 - 1), v46 = *(v14 - 1), *(v14 - 1) = *(a2 - 3), *(a2 - 3) = v46, v47 = *v39, v48 = *(v10 + 2), *v39 >= v48) && (v48 < v47 || *v45 >= *(v10 + 3)))
             {
 LABEL_67:
               v57 = v14[2];
               v55 = v14 + 2;
               v56 = v57;
-              v58 = v10[4];
-              if (v57 >= v58 && (v58 < v56 || v55[1] >= v10[5]))
+              v58 = *(v10 + 4);
+              if (v57 >= v58 && (v58 < v56 || v55[1] >= *(v10 + 5)))
               {
                 v61 = *(a2 - 6);
-                if (v61 >= v56 && (v56 < v61 || *(a2 - 5) >= v55[1]))
-                {
-                  goto LABEL_85;
-                }
-
-                *v55 = v61;
-                *(a2 - 6) = v56;
-                v62 = v55 + 1;
-                v63 = v55[1];
-                v55[1] = *(a2 - 5);
-                *(a2 - 5) = v63;
-                v64 = *v55;
-                v65 = v10[4];
-                if (*v55 >= v65 && (v65 < v64 || *v62 >= v10[5]))
+                if (v61 >= v56 && (v56 < v61 || *(a2 - 5) >= v55[1]) || (*v55 = v61, *(a2 - 6) = v56, v62 = (v55 + 1), v63 = v55[1], v55[1] = *(a2 - 5), *(a2 - 5) = v63, v64 = *v55, v65 = *(v10 + 4), *v55 >= v65) && (v65 < v64 || *v62 >= *(v10 + 5)))
                 {
 LABEL_85:
                   v70 = *v15;
@@ -3066,9 +3000,9 @@ LABEL_103:
 LABEL_104:
                     v82 = *v10;
                     *v10 = v70;
-                    v23 = v10 + 1;
+                    v23 = (v10 + 4);
                     *v15 = v82;
-                    v30 = v15 + 1;
+                    v30 = (v15 + 1);
                     goto LABEL_105;
                   }
 
@@ -3117,9 +3051,9 @@ LABEL_102:
                   goto LABEL_102;
                 }
 
-                v10[4] = v64;
+                *(v10 + 4) = v64;
                 *v55 = v65;
-                v60 = v10 + 5;
+                v60 = (v10 + 20);
 LABEL_84:
                 v69 = *v60;
                 *v60 = *v62;
@@ -3139,11 +3073,11 @@ LABEL_84:
                 if (*(a2 - 5) < v66)
                 {
 LABEL_69:
-                  v10[4] = v59;
+                  *(v10 + 4) = v59;
                   *(a2 - 6) = v58;
-                  v60 = v10 + 5;
+                  v60 = (v10 + 20);
 LABEL_83:
-                  v62 = a2 - 5;
+                  v62 = a2 - 20;
                   goto LABEL_84;
                 }
               }
@@ -3153,9 +3087,9 @@ LABEL_83:
                 v66 = v55[1];
               }
 
-              v67 = v10[5];
-              v10[4] = v56;
-              v10[5] = v66;
+              v67 = *(v10 + 5);
+              *(v10 + 4) = v56;
+              *(v10 + 5) = v66;
               *v55 = v58;
               v55[1] = v67;
               v60 = v55 + 1;
@@ -3170,9 +3104,9 @@ LABEL_83:
               goto LABEL_83;
             }
 
-            v10[2] = v47;
+            *(v10 + 2) = v47;
             *v39 = v48;
-            v43 = v10 + 3;
+            v43 = (v10 + 12);
 LABEL_66:
             v54 = *v43;
             *v43 = *v45;
@@ -3192,11 +3126,11 @@ LABEL_66:
             if (*(a2 - 3) < v49)
             {
 LABEL_47:
-              v10[2] = v42;
+              *(v10 + 2) = v42;
               *(a2 - 4) = v41;
-              v43 = v10 + 3;
+              v43 = (v10 + 12);
 LABEL_65:
-              v45 = a2 - 3;
+              v45 = a2 - 12;
               goto LABEL_66;
             }
           }
@@ -3206,9 +3140,9 @@ LABEL_65:
             v49 = *(v14 - 1);
           }
 
-          v52 = v10[3];
-          v10[2] = v40;
-          v10[3] = v49;
+          v52 = *(v10 + 3);
+          *(v10 + 2) = v40;
+          *(v10 + 3) = v49;
           *v39 = v41;
           *(v14 - 1) = v52;
           v43 = v14 - 1;
@@ -3224,7 +3158,7 @@ LABEL_65:
         }
 
         *v10 = v27;
-        v19 = v10 + 1;
+        v19 = (v10 + 4);
         *v14 = v28;
 LABEL_44:
         v38 = *v19;
@@ -3246,10 +3180,10 @@ LABEL_44:
         {
 LABEL_16:
           *v10 = v18;
-          v19 = v10 + 1;
+          v19 = (v10 + 4);
 LABEL_43:
           *(a2 - 2) = v17;
-          v25 = a2 - 1;
+          v25 = a2 - 4;
           goto LABEL_44;
         }
       }
@@ -3259,9 +3193,9 @@ LABEL_43:
         v34 = v14[1];
       }
 
-      v36 = v10[1];
+      v36 = *(v10 + 1);
       *v10 = v16;
-      v10[1] = v34;
+      *(v10 + 1) = v34;
       *v14 = v17;
       v14[1] = v36;
       v19 = v14 + 1;
@@ -3277,7 +3211,7 @@ LABEL_43:
 
     v20 = *v10;
     v21 = *v14;
-    if (*v10 < *v15 || v21 >= v20 && v10[1] < v15[1])
+    if (*v10 < *v15 || v21 >= v20 && *(v10 + 1) < v15[1])
     {
       v22 = *(a2 - 2);
       if (v22 < v20)
@@ -3287,7 +3221,7 @@ LABEL_43:
 
       if (v20 >= v22)
       {
-        v35 = v10[1];
+        v35 = *(v10 + 1);
         if (*(a2 - 1) >= v35)
         {
           goto LABEL_59;
@@ -3301,14 +3235,14 @@ LABEL_19:
 
       else
       {
-        v35 = v10[1];
+        v35 = *(v10 + 1);
 LABEL_59:
         v50 = v15[1];
         *v15 = v20;
         v15[1] = v35;
         *v10 = v21;
-        v10[1] = v50;
-        v23 = v10 + 1;
+        *(v10 + 1) = v50;
+        v23 = (v10 + 4);
         v51 = *(a2 - 2);
         if (v51 >= v21 && (v21 < v51 || *(a2 - 1) >= v50))
         {
@@ -3319,7 +3253,7 @@ LABEL_59:
         *(a2 - 2) = v21;
       }
 
-      v30 = a2 - 1;
+      v30 = a2 - 4;
 LABEL_105:
       v83 = *v23;
       *v23 = *v30;
@@ -3328,13 +3262,13 @@ LABEL_105:
     }
 
     v29 = *(a2 - 2);
-    if (v29 < v20 || v20 >= v29 && *(a2 - 1) < v10[1])
+    if (v29 < v20 || v20 >= v29 && *(a2 - 1) < *(v10 + 1))
     {
       *v10 = v29;
       *(a2 - 2) = v20;
-      v30 = v10 + 1;
-      v31 = v10[1];
-      v10[1] = *(a2 - 1);
+      v30 = v10 + 4;
+      v31 = *(v10 + 1);
+      *(v10 + 1) = *(a2 - 1);
       *(a2 - 1) = v31;
       v32 = *v10;
       v33 = *v15;
@@ -3351,7 +3285,7 @@ LABEL_106:
     if ((a5 & 1) == 0)
     {
       v84 = *(v10 - 2);
-      if (v84 >= *v10 && (*v10 < v84 || *(v10 - 1) >= v10[1]))
+      if (v84 >= *v10 && (*v10 < v84 || *(v10 - 1) >= *(v10 + 1)))
       {
         result = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::pair<int,int> *,std::__less<void,void> &>(v10, a2);
         v10 = result;
@@ -3366,7 +3300,7 @@ LABEL_106:
     }
 
     v87 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<int,int> *>(v10, v85);
-    v10 = v85 + 2;
+    v10 = (v85 + 2);
     result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<int,int> *>(v85 + 2, a2);
     if (result)
     {
@@ -3385,7 +3319,7 @@ LABEL_106:
     {
 LABEL_144:
       result = std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<int,int> *,false>(v8, v85, a3, -v12, a5 & 1);
-      v10 = v85 + 2;
+      v10 = (v85 + 2);
 LABEL_146:
       a5 = 0;
       a4 = -v12;
@@ -3395,16 +3329,16 @@ LABEL_146:
 
   result = std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<int,int> *,0>(v10, v10 + 2, v10 + 4, v10 + 6);
   v95 = *(a2 - 2);
-  v96 = v10[6];
-  if (v95 < v96 || v96 >= v95 && *(a2 - 1) < v10[7])
+  v96 = *(v10 + 6);
+  if (v95 < v96 || v96 >= v95 && *(a2 - 1) < *(v10 + 7))
   {
-    v10[6] = v95;
+    *(v10 + 6) = v95;
     *(a2 - 2) = v96;
-    v97 = v10[7];
-    v10[7] = *(a2 - 1);
+    v97 = *(v10 + 7);
+    *(v10 + 7) = *(a2 - 1);
     *(a2 - 1) = v97;
-    v98 = v10[6];
-    v99 = v10[4];
+    v98 = *(v10 + 6);
+    v99 = *(v10 + 4);
     if (v98 >= v99)
     {
       if (v99 < v98)
@@ -3412,8 +3346,8 @@ LABEL_146:
         return result;
       }
 
-      v101 = v10[7];
-      v100 = v10[5];
+      v101 = *(v10 + 7);
+      v100 = *(v10 + 5);
       if (v101 >= v100)
       {
         return result;
@@ -3422,15 +3356,15 @@ LABEL_146:
 
     else
     {
-      v100 = v10[5];
-      v101 = v10[7];
+      v100 = *(v10 + 5);
+      v101 = *(v10 + 7);
     }
 
-    v10[4] = v98;
-    v10[5] = v101;
-    v10[6] = v99;
-    v10[7] = v100;
-    v102 = v10[2];
+    *(v10 + 4) = v98;
+    *(v10 + 5) = v101;
+    *(v10 + 6) = v99;
+    *(v10 + 7) = v100;
+    v102 = *(v10 + 2);
     if (v98 >= v102)
     {
       if (v102 < v98)
@@ -3438,7 +3372,7 @@ LABEL_146:
         return result;
       }
 
-      v103 = v10[3];
+      v103 = *(v10 + 3);
       if (v101 >= v103)
       {
         return result;
@@ -3447,13 +3381,13 @@ LABEL_146:
 
     else
     {
-      v103 = v10[3];
+      v103 = *(v10 + 3);
     }
 
-    v10[2] = v98;
-    v10[3] = v101;
-    v10[4] = v102;
-    v10[5] = v103;
+    *(v10 + 2) = v98;
+    *(v10 + 3) = v101;
+    *(v10 + 4) = v102;
+    *(v10 + 5) = v103;
     v104 = *v10;
     if (v98 >= *v10)
     {
@@ -3462,7 +3396,7 @@ LABEL_146:
         return result;
       }
 
-      v105 = v10[1];
+      v105 = *(v10 + 1);
       if (v101 >= v105)
       {
         return result;
@@ -3471,13 +3405,13 @@ LABEL_146:
 
     else
     {
-      v105 = v10[1];
+      v105 = *(v10 + 1);
     }
 
     *v10 = v98;
-    v10[1] = v101;
-    v10[2] = v104;
-    v10[3] = v105;
+    *(v10 + 1) = v101;
+    *(v10 + 2) = v104;
+    *(v10 + 3) = v105;
   }
 
   return result;
@@ -3789,7 +3723,7 @@ int *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,s
   return i;
 }
 
-_DWORD *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::pair<int,int> *,std::__less<void,void> &>(int *a1, _DWORD *a2)
+int *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::pair<int,int> *,std::__less<void,void> &>(int *a1, int *a2)
 {
   v2 = 0;
   v3 = *a1;
@@ -4263,7 +4197,7 @@ LABEL_81:
   }
 }
 
-int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<int,int> *,std::pair<int,int> *>(int *a1, int *a2, int *a3, uint64_t a4)
+char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<int,int> *,std::pair<int,int> *>(char *a1, char *a2, char *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
@@ -4272,7 +4206,7 @@ int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<v
     {
       v9 = (v8 - 2) >> 1;
       v10 = v9 + 1;
-      v11 = &a1[2 * v9];
+      v11 = &a1[8 * v9];
       do
       {
         std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<int,int> *>(a1, a4, v8, v11);
@@ -4291,17 +4225,17 @@ int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<v
       {
         v13 = *v12;
         v14 = *a1;
-        if (*v12 < *a1 || v14 >= v13 && v12[1] < a1[1])
+        if (*v12 < *a1 || v14 >= v13 && *(v12 + 1) < *(a1 + 1))
         {
           *v12 = v14;
           *a1 = v13;
-          v15 = v12[1];
-          v12[1] = a1[1];
-          a1[1] = v15;
+          v15 = *(v12 + 1);
+          *(v12 + 1) = *(a1 + 1);
+          *(a1 + 1) = v15;
           std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<int,int> *>(a1, a4, v8, a1);
         }
 
-        v12 += 2;
+        v12 += 8;
       }
 
       while (v12 != a3);
@@ -4309,28 +4243,28 @@ int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<v
 
     if (v8 >= 2)
     {
-      v16 = a2 - 2;
+      v16 = a2 - 8;
       do
       {
         v18 = *a1;
-        v17 = a1[1];
+        v17 = *(a1 + 1);
         v19 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<int,int> *>(a1, a4, v8);
         if (v16 == v19)
         {
           *v19 = v18;
-          v19[1] = v17;
+          *(v19 + 1) = v17;
         }
 
         else
         {
           *v19 = *v16;
-          v19[1] = v16[1];
+          *(v19 + 1) = *(v16 + 1);
           *v16 = v18;
-          v16[1] = v17;
-          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<int,int> *>(a1, (v19 + 2), a4, ((v19 + 2) - a1) >> 3);
+          *(v16 + 1) = v17;
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<int,int> *>(a1, (v19 + 8), a4, (v19 + 8 - a1) >> 3);
         }
 
-        v16 -= 2;
+        v16 -= 8;
       }
 
       while (v8-- > 2);
@@ -4508,7 +4442,7 @@ LABEL_10:
   return result;
 }
 
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<int>>,std::vector<int>*,std::vector<int>*,std::vector<int>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<int>>,std::vector<int>*,std::vector<int>*,std::vector<int>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v4 = a4;
   v10 = a4;
@@ -4525,8 +4459,8 @@ void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std:
       *v4 = 0;
       v4[1] = 0;
       v4[2] = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v4, *v6, v6[1], (v6[1] - *v6) >> 2);
-      v6 += 3;
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v4, *v6, *(v6 + 8), (*(v6 + 8) - *v6) >> 2);
+      v6 += 24;
       v4 = v11 + 3;
       v11 += 3;
     }
@@ -4654,27 +4588,27 @@ void *kaldi::EventMap::Write(void *a1, const char *a2, uint64_t a3, uint64_t a4,
   }
 }
 
-uint64_t kaldi::EventMap::Read(uint64_t *a1, uint64_t a2)
+void kaldi::EventMap::Read(uint64_t *a1, uint64_t a2)
 {
-  v11 = kaldi::Peek(a1, a2);
-  if (v11 > 0x52u)
+  v10 = kaldi::Peek(a1, a2);
+  if (v10 > 0x52u)
   {
-    if (v11 == 83)
+    if (v10 == 83)
     {
 
       kaldi::SplitEventMap::Read(a1, a2);
     }
 
-    if (v11 == 84)
+    if (v10 == 84)
     {
 
       kaldi::TableEventMap::Read(a1, a2);
     }
 
 LABEL_16:
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v10, "Read", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/tree/event-map.cc", 54);
-    v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, "EventMap::read, was not expecting character ", 44);
-    kaldi::CharToString(&v11, &__p);
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v9, "Read", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/tree/event-map.cc", 54);
+    v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, "EventMap::read, was not expecting character ", 44);
+    kaldi::CharToString(&__p, &v10);
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       p_p = &__p;
@@ -4695,27 +4629,26 @@ LABEL_16:
       size = __p.__r_.__value_.__l.__size_;
     }
 
-    v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, p_p, size);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, ", at file position ", 19);
+    v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, p_p, size);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, ", at file position ", 19);
     std::istream::tellg();
     std::ostream::operator<<();
     std::string::~string(&__p);
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v10);
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v9);
   }
 
-  if (v11 == 67)
+  if (v10 == 67)
   {
 
     kaldi::ConstantEventMap::Read(a1, a2);
   }
 
-  if (v11 != 78)
+  if (v10 != 78)
   {
     goto LABEL_16;
   }
 
   kaldi::ExpectToken(a1, a2, "NULL");
-  return 0;
 }
 
 void sub_76C94(_Unwind_Exception *a1, int a2)
@@ -4728,11 +4661,12 @@ void sub_76C94(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-void kaldi::ConstantEventMap::Read(uint64_t *a1, int a2)
+void kaldi::ConstantEventMap::Read(uint64_t *a1, uint64_t a2)
 {
+  v2 = a2;
   kaldi::ExpectToken(a1, a2, "CE");
   v6 = 0;
-  kaldi::ReadBasicType<int>(a1, a2, &v6, v4, v5);
+  kaldi::ReadBasicType<int>(a1, v2, &v6, v4, v5);
   operator new();
 }
 
@@ -4749,7 +4683,7 @@ void kaldi::TableEventMap::Read(uint64_t *a1, uint64_t a2)
   {
     for (i = 0; i < v11; *(__p + i++) = v9)
     {
-      v9 = kaldi::EventMap::Read(a1, a2);
+      kaldi::EventMap::Read(a1, a2);
     }
   }
 
@@ -4760,44 +4694,43 @@ void kaldi::TableEventMap::Read(uint64_t *a1, uint64_t a2)
 void kaldi::SplitEventMap::Read(uint64_t *a1, uint64_t a2)
 {
   kaldi::ExpectToken(a1, a2, "SE");
-  v12 = 0;
-  kaldi::ReadBasicType<int>(a1, a2, &v12, v4, v5);
-  v9 = 1;
-  v10 = 0u;
-  memset(v11, 0, sizeof(v11));
-  kaldi::ReadIntegerVector<int>(a1, a2, (v11 + 8), 0, 0, 0, 0);
-  kaldi::ConstIntegerSet<int>::InitInternal(&v9);
+  v14 = 0;
+  kaldi::ReadBasicType<int>(a1, a2, &v14, v4, v5);
+  v11 = 1;
+  v12 = 0u;
+  memset(v13, 0, sizeof(v13));
+  kaldi::ReadIntegerVector<int>(a1, a2, (v13 + 8), 0, 0, 0, 0);
+  kaldi::ConstIntegerSet<int>::InitInternal(&v11);
   kaldi::ExpectToken(a1, a2, "{");
-  v6 = kaldi::EventMap::Read(a1, a2);
-  v7 = kaldi::EventMap::Read(a1, a2);
+  kaldi::EventMap::Read(a1, a2);
+  v7 = v6;
+  kaldi::EventMap::Read(a1, a2);
+  v9 = v8;
   kaldi::ExpectToken(a1, a2, "}");
-  if (v6)
+  if (v7)
   {
-    if (v7)
+    if (v9)
     {
       operator new();
     }
   }
 
-  kaldi::KaldiErrorMessage::KaldiErrorMessage(v8, "Read", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/tree/event-map.cc", 225);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "SplitEventMap::Read, NULL pointers.", 35);
-  kaldi::KaldiErrorMessage::~KaldiErrorMessage(v8);
+  kaldi::KaldiErrorMessage::KaldiErrorMessage(v10, "Read", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/tree/event-map.cc", 225);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, "SplitEventMap::Read, NULL pointers.", 35);
+  kaldi::KaldiErrorMessage::~KaldiErrorMessage(v10);
 }
 
-uint64_t kaldi::ConstantEventMap::Write(uint64_t a1, void *a2, const char *a3, uint64_t a4, const char *a5)
+void kaldi::ConstantEventMap::Write(uint64_t a1, void *a2, const char *a3, uint64_t a4, const char *a5)
 {
   v5 = a3;
   kaldi::WriteToken(a2, a3, "CE", a4, a5);
-  v8 = *(a1 + 8);
-  result = kaldi::WriteBasicType<int>(a2, v5);
+  kaldi::WriteBasicType<int>(a2, v5, *(a1 + 8));
   if ((*(a2 + *(*a2 - 24) + 32) & 5) != 0)
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v10, "Write", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/tree/event-map.cc", 65);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v10, "ConstantEventMap::Write(), could not write to stream.");
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v10);
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v8, "Write", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/tree/event-map.cc", 65);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v8, "ConstantEventMap::Write(), could not write to stream.");
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v8);
   }
-
-  return result;
 }
 
 uint64_t kaldi::TableEventMap::Prune(kaldi::TableEventMap *this)
@@ -4847,12 +4780,12 @@ uint64_t kaldi::TableEventMap::Prune(kaldi::TableEventMap *this)
 
 void kaldi::TableEventMap::MapValues(uint64_t a1, void *a2, void *a3)
 {
+  v19 = 0;
   v20 = 0;
   v21 = 0;
-  v22 = 0;
-  std::vector<fst::VectorState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>> *,std::allocator<fst::VectorState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>> *>>::reserve(&v20, (*(a1 + 24) - *(a1 + 16)) >> 3);
+  std::vector<fst::VectorState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>> *,std::allocator<fst::VectorState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>> *>>::reserve(&v19, (*(a1 + 24) - *(a1 + 16)) >> 3);
   v6 = (*(a1 + 24) - *(a1 + 16)) >> 3;
-  v19 = 0;
+  v18 = 0;
   if (v6 >= 1)
   {
     v7 = 0;
@@ -4864,16 +4797,15 @@ void kaldi::TableEventMap::MapValues(uint64_t a1, void *a2, void *a3)
         v9 = (*(*v8 + 32))(v8, a2, a3);
         if (std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::find<int>(a2, (a1 + 8)))
         {
-          v11 = std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::find<int>(a3, &v19);
+          v11 = std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::find<int>(a3, &v18);
           if (!v11)
           {
-            kaldi::KaldiErrorMessage::KaldiErrorMessage(v18, "MapValues", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/tree/event-map.cc", 108);
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, "Could not map value ", 20);
+            kaldi::KaldiErrorMessage::KaldiErrorMessage(v17, "MapValues", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/tree/event-map.cc", 108);
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, "Could not map value ", 20);
             v16 = std::ostream::operator<<();
             std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, " for key ", 9);
-            v17 = *(a1 + 8);
             std::ostream::operator<<();
-            kaldi::KaldiErrorMessage::~KaldiErrorMessage(v18);
+            kaldi::KaldiErrorMessage::~KaldiErrorMessage(v17);
           }
 
           v12 = v11 + 5;
@@ -4881,7 +4813,7 @@ void kaldi::TableEventMap::MapValues(uint64_t a1, void *a2, void *a3)
 
         else
         {
-          v12 = &v19;
+          v12 = &v18;
         }
 
         v13 = *v12;
@@ -4890,27 +4822,27 @@ void kaldi::TableEventMap::MapValues(uint64_t a1, void *a2, void *a3)
           kaldi::KaldiAssertFailure_("MapValues", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/tree/event-map.cc", &stru_68.sectname[9], "mapped_value >= 0", v10);
         }
 
-        v14 = v20;
-        if (v13 >= ((v21 - v20) >> 3))
+        v14 = v19;
+        if (v13 >= ((v20 - v19) >> 3))
         {
-          v18[0] = 0;
-          std::vector<fst::MemoryPoolBase *>::resize(&v20, v13 + 1, v18);
-          v14 = v20;
+          v17[0] = 0;
+          std::vector<fst::MemoryPoolBase *>::resize(&v19, v13 + 1, v17);
+          v14 = v19;
         }
 
         if (*(v14 + 8 * v13))
         {
-          kaldi::KaldiErrorMessage::KaldiErrorMessage(v18, "MapValues", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/tree/event-map.cc", 117);
-          v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, "Multiple values map to the same point: this code cannot ", 56);
+          kaldi::KaldiErrorMessage::KaldiErrorMessage(v17, "MapValues", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/tree/event-map.cc", 117);
+          v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, "Multiple values map to the same point: this code cannot ", 56);
           std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, "handle this case.", 17);
-          kaldi::KaldiErrorMessage::~KaldiErrorMessage(v18);
+          kaldi::KaldiErrorMessage::~KaldiErrorMessage(v17);
         }
 
         *(v14 + 8 * v13) = v9;
-        v7 = v19;
+        v7 = v18;
       }
 
-      v19 = ++v7;
+      v18 = ++v7;
     }
 
     while (v7 < v6);
@@ -4931,46 +4863,43 @@ void sub_77594(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *kaldi::TableEventMap::Write(uint64_t a1, void *a2, const char *a3, uint64_t a4, const char *a5)
+void kaldi::TableEventMap::Write(uint64_t a1, void *a2, const char *a3, uint64_t a4, const char *a5)
 {
   kaldi::WriteToken(a2, a3, "TE", a4, a5);
-  v8 = *(a1 + 8);
-  kaldi::WriteBasicType<int>(a2, a3);
-  v9 = (*(a1 + 24) - *(a1 + 16)) >> 3;
-  kaldi::WriteBasicType<unsigned int>(a2, a3);
-  kaldi::WriteToken(a2, a3, "(", v10, v11);
-  v14 = v9;
-  if (v9)
+  kaldi::WriteBasicType<int>(a2, a3, *(a1 + 8));
+  v8 = (*(a1 + 24) - *(a1 + 16)) >> 3;
+  kaldi::WriteBasicType<unsigned int>(a2, a3, v8);
+  kaldi::WriteToken(a2, a3, "(", v9, v10);
+  v13 = v8;
+  if (v8)
   {
-    v15 = 0;
-    v16 = 8 * v14;
+    v14 = 0;
+    v15 = 8 * v13;
     do
     {
-      kaldi::EventMap::Write(a2, a3, *(*(a1 + 16) + v15), v12, v13);
-      v15 += 8;
+      kaldi::EventMap::Write(a2, a3, *(*(a1 + 16) + v14), v11, v12);
+      v14 += 8;
     }
 
-    while (v16 != v15);
+    while (v15 != v14);
   }
 
-  result = kaldi::WriteToken(a2, a3, ")", v12, v13);
+  kaldi::WriteToken(a2, a3, ")", v11, v12);
   if ((a3 & 1) == 0)
   {
-    LOBYTE(v18[0]) = 10;
-    result = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a2, v18, 1);
+    LOBYTE(v16[0]) = 10;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a2, v16, 1);
   }
 
   if ((*(a2 + *(*a2 - 24) + 32) & 5) != 0)
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v18, "Write", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/tree/event-map.cc", 139);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v18, "TableEventMap::Write(), could not write to stream.");
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v18);
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v16, "Write", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/tree/event-map.cc", 139);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v16, "TableEventMap::Write(), could not write to stream.");
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v16);
   }
-
-  return result;
 }
 
-uint64_t kaldi::WriteBasicType<unsigned int>(void *a1, int a2)
+void *kaldi::WriteBasicType<unsigned int>(void *a1, int a2, uint64_t a3)
 {
   if (a2)
   {
@@ -4980,8 +4909,8 @@ uint64_t kaldi::WriteBasicType<unsigned int>(void *a1, int a2)
 
   else
   {
-    v4 = std::ostream::operator<<();
-    result = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, " ", 1);
+    v5 = std::ostream::operator<<();
+    result = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, " ", 1);
   }
 
   if ((*(a1 + *(*a1 - 24) + 32) & 5) != 0)
@@ -4993,7 +4922,7 @@ uint64_t kaldi::WriteBasicType<unsigned int>(void *a1, int a2)
   return result;
 }
 
-uint64_t kaldi::ReadBasicType<unsigned int>(void *a1, int a2, uint64_t a3, uint64_t a4, const char *a5)
+void kaldi::ReadBasicType<unsigned int>(void *a1, int a2, uint64_t a3, uint64_t a4, const char *a5)
 {
   if (!a3)
   {
@@ -5005,44 +4934,42 @@ uint64_t kaldi::ReadBasicType<unsigned int>(void *a1, int a2, uint64_t a3, uint6
     v6 = std::istream::get();
     if (v6 == -1)
     {
-      kaldi::KaldiErrorMessage::KaldiErrorMessage(v12, "ReadBasicType", "../subproject/libquasar/libkaldi/src/base/io-funcs-inl.h", 73);
-      std::operator<<[abi:ne200100]<std::char_traits<char>>(v12, "ReadBasicType: encountered end of stream.");
-      kaldi::KaldiErrorMessage::~KaldiErrorMessage(v12);
+      kaldi::KaldiErrorMessage::KaldiErrorMessage(v11, "ReadBasicType", "../subproject/libquasar/libkaldi/src/base/io-funcs-inl.h", 73);
+      std::operator<<[abi:ne200100]<std::char_traits<char>>(v11, "ReadBasicType: encountered end of stream.");
+      kaldi::KaldiErrorMessage::~KaldiErrorMessage(v11);
     }
 
     if (v6 << 24 != -67108864)
     {
-      kaldi::KaldiErrorMessage::KaldiErrorMessage(v12, "ReadBasicType", "../subproject/libquasar/libkaldi/src/base/io-funcs-inl.h", 79);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "ReadBasicType: did not get expected integer type, ", 50);
+      kaldi::KaldiErrorMessage::KaldiErrorMessage(v11, "ReadBasicType", "../subproject/libquasar/libkaldi/src/base/io-funcs-inl.h", 79);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, "ReadBasicType: did not get expected integer type, ", 50);
+      v8 = std::ostream::operator<<();
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, " vs. ", 5);
       v9 = std::ostream::operator<<();
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, " vs. ", 5);
-      v10 = std::ostream::operator<<();
-      v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, ".  You can change this code to successfully", 43);
-      std::operator<<[abi:ne200100]<std::char_traits<char>>(v11, " read it later, if needed.");
-      kaldi::KaldiErrorMessage::~KaldiErrorMessage(v12);
+      v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, ".  You can change this code to successfully", 43);
+      std::operator<<[abi:ne200100]<std::char_traits<char>>(v10, " read it later, if needed.");
+      kaldi::KaldiErrorMessage::~KaldiErrorMessage(v11);
     }
 
-    result = std::istream::read();
+    std::istream::read();
   }
 
   else
   {
-    result = std::istream::operator>>();
+    std::istream::operator>>();
   }
 
   if ((*(a1 + *(*a1 - 24) + 32) & 5) != 0)
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v12, "ReadBasicType", "../subproject/libquasar/libkaldi/src/base/io-funcs-inl.h", 97);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "Read failure in ReadBasicType, file position is ", 48);
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v11, "ReadBasicType", "../subproject/libquasar/libkaldi/src/base/io-funcs-inl.h", 97);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, "Read failure in ReadBasicType, file position is ", 48);
     std::istream::tellg();
-    v8 = std::ostream::operator<<();
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, ", next char is ", 15);
+    v7 = std::ostream::operator<<();
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, ", next char is ", 15);
     std::istream::peek();
     std::ostream::operator<<();
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v12);
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v11);
   }
-
-  return result;
 }
 
 void sub_77A18(_Unwind_Exception *a1, int a2)
@@ -5093,33 +5020,32 @@ void kaldi::SplitEventMap::MapValues(uint64_t a1, void *a2, void *a3)
   (*(**(a1 + 88) + 32))(*(a1 + 88), a2, a3);
   if (std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::find<int>(a2, (a1 + 8)))
   {
-    v15 = 0;
-    v14 = 0u;
+    v14 = 0;
+    v13 = 0u;
     for (i = *(a1 + 56); i != *(a1 + 64); ++i)
     {
-      v13 = *i;
-      v7 = std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::find<int>(a3, &v13);
+      v12 = *i;
+      v7 = std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::find<int>(a3, &v12);
       if (!v7)
       {
-        kaldi::KaldiErrorMessage::KaldiErrorMessage(v12, "MapValues", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/tree/event-map.cc", 184);
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "Value ", 6);
+        kaldi::KaldiErrorMessage::KaldiErrorMessage(v11, "MapValues", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/tree/event-map.cc", 184);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, "Value ", 6);
         v9 = std::ostream::operator<<();
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, ", for key ", 10);
-        v10 = *(a1 + 8);
-        v11 = std::ostream::operator<<();
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, ", cannot be mapped.", 19);
-        kaldi::KaldiErrorMessage::~KaldiErrorMessage(v12);
+        v10 = std::ostream::operator<<();
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, ", cannot be mapped.", 19);
+        kaldi::KaldiErrorMessage::~KaldiErrorMessage(v11);
       }
 
-      LODWORD(v12[0]) = *(v7 + 5);
-      std::vector<int>::push_back[abi:ne200100](&v14, v12);
+      LODWORD(v11[0]) = *(v7 + 5);
+      std::vector<int>::push_back[abi:ne200100](&v13, v11);
     }
 
     std::__sort<std::__less<int,int> &,int *>();
-    v8 = std::__unique[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<int *>,std::__wrap_iter<int *>,std::__equal_to &>(v14, *(&v14 + 1));
-    if (v8 != *(&v14 + 1))
+    v8 = std::__unique[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<int *>,std::__wrap_iter<int *>,std::__equal_to &>(v13, *(&v13 + 1));
+    if (v8 != *(&v13 + 1))
     {
-      *(&v14 + 1) = v8;
+      *(&v13 + 1) = v8;
     }
 
     operator new();
@@ -5140,51 +5066,48 @@ void sub_77DA8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *kaldi::SplitEventMap::Write(uint64_t a1, void *a2, const char *a3, uint64_t a4, const char *a5)
+void kaldi::SplitEventMap::Write(uint64_t a1, void *a2, const char *a3, uint64_t a4, const char *a5)
 {
   kaldi::WriteToken(a2, a3, "SE", a4, a5);
-  v8 = *(a1 + 8);
-  kaldi::WriteBasicType<int>(a2, a3);
+  kaldi::WriteBasicType<int>(a2, a3, *(a1 + 8));
   kaldi::WriteIntegerByteArray<int>(a2, a3, 0, (*(a1 + 64) - *(a1 + 56)) >> 2, *(a1 + 56));
   if (!*(a1 + 80) || !*(a1 + 88))
   {
-    kaldi::KaldiAssertFailure_("Write", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/tree/event-map.cc", &stru_B8.sectname[15], "yes_ != NULL && no_ != NULL", v10);
+    kaldi::KaldiAssertFailure_("Write", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/tree/event-map.cc", &stru_B8.sectname[15], "yes_ != NULL && no_ != NULL", v9);
   }
 
-  kaldi::WriteToken(a2, a3, "{", v9, v10);
+  kaldi::WriteToken(a2, a3, "{", v8, v9);
   (*(**(a1 + 80) + 56))(*(a1 + 80), a2, a3);
   (*(**(a1 + 88) + 56))(*(a1 + 88), a2, a3);
-  result = kaldi::WriteToken(a2, a3, "}", v11, v12);
+  kaldi::WriteToken(a2, a3, "}", v10, v11);
   if ((a3 & 1) == 0)
   {
-    LOBYTE(v14[0]) = 10;
-    result = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a2, v14, 1);
+    LOBYTE(v12[0]) = 10;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a2, v12, 1);
   }
 
   if ((*(a2 + *(*a2 - 24) + 32) & 5) != 0)
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v14, "Write", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/tree/event-map.cc", 206);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v14, "SplitEventMap::Write(), could not write to stream.");
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v14);
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v12, "Write", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/tree/event-map.cc", 206);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v12, "SplitEventMap::Write(), could not write to stream.");
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v12);
   }
-
-  return result;
 }
 
-void std::vector<std::pair<int,int>>::resize(void *a1, unint64_t a2)
+void std::vector<std::pair<int,int>>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<std::pair<int,int>>::__append(a1, a2 - v2);
+    std::vector<std::pair<int,int>>::__append(result, a2 - v2);
   }
 }
 
@@ -5340,22 +5263,22 @@ uint64_t kaldi::EventMap::MaxResult(kaldi::EventMap *this)
   return v8;
 }
 
-void sub_78468(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_78468(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   kaldi::KaldiWarnMessage::~KaldiWarnMessage(va);
-  v4 = *(v2 - 72);
-  if (v4)
-  {
-    *(v2 - 64) = v4;
-    operator delete(v4);
-  }
-
-  v5 = *(v2 - 48);
+  v5 = *(v3 - 72);
   if (v5)
   {
-    *(v2 - 40) = v5;
+    *(v3 - 64) = v5;
     operator delete(v5);
+  }
+
+  v6 = *(v3 - 48);
+  if (v6)
+  {
+    *(v3 - 40) = v6;
+    operator delete(v6);
   }
 
   _Unwind_Resume(a1);
@@ -5462,11 +5385,11 @@ uint64_t kaldi::TableEventMap::MultiMap(uint64_t a1, void *a2, uint64_t a3, uint
   return result;
 }
 
-void kaldi::TableEventMap::GetChildren(uint64_t a1, void *a2)
+void kaldi::TableEventMap::GetChildren(uint64_t result, void *a2)
 {
   a2[1] = *a2;
-  v2 = *(a1 + 16);
-  v3 = *(a1 + 24);
+  v2 = *(result + 16);
+  v3 = *(result + 24);
   if (v3 != v2)
   {
     v6 = 0;
@@ -5476,8 +5399,8 @@ void kaldi::TableEventMap::GetChildren(uint64_t a1, void *a2)
       if (*(v2 + v6))
       {
         std::vector<kaldi::EventMap *>::push_back[abi:ne200100](a2, (v2 + v6));
-        v2 = *(a1 + 16);
-        v3 = *(a1 + 24);
+        v2 = *(result + 16);
+        v3 = *(result + 24);
       }
 
       ++v7;
@@ -5490,27 +5413,29 @@ void kaldi::TableEventMap::GetChildren(uint64_t a1, void *a2)
 
 void kaldi::TableEventMap::Copy(uint64_t a1, uint64_t a2)
 {
-  std::vector<kaldi::EventMap *>::vector[abi:ne200100](&__p, (*(a1 + 24) - *(a1 + 16)) >> 3);
-  v5 = *(a1 + 16);
-  v4 = *(a1 + 24);
-  if (v4 != v5)
+  v4 = (*(a1 + 24) - *(a1 + 16)) >> 3;
+  v10 = 0;
+  std::vector<kaldi::EventMap *>::vector[abi:ne200100](&__p, v4, &v10);
+  v6 = *(a1 + 16);
+  v5 = *(a1 + 24);
+  if (v5 != v6)
   {
-    v6 = 0;
+    v7 = 0;
     do
     {
-      v7 = *(v5 + 8 * v6);
-      if (v7)
+      v8 = *(v6 + 8 * v7);
+      if (v8)
       {
-        v8 = (*(*v7 + 24))(v7, a2);
-        *(__p + v6) = v8;
-        v5 = *(a1 + 16);
-        v4 = *(a1 + 24);
+        v9 = (*(*v8 + 24))(v8, a2);
+        *(__p + v7) = v9;
+        v6 = *(a1 + 16);
+        v5 = *(a1 + 24);
       }
 
-      ++v6;
+      ++v7;
     }
 
-    while (v6 < (v4 - v5) >> 3);
+    while (v7 < (v5 - v6) >> 3);
   }
 
   operator new();
@@ -5637,7 +5562,7 @@ void kaldi::SplitEventMap::~SplitEventMap(kaldi::SplitEventMap *this)
   }
 }
 
-uint64_t std::vector<kaldi::EventMap *>::__init_with_size[abi:ne200100]<kaldi::EventMap **,kaldi::EventMap **>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<kaldi::EventMap *>::__init_with_size[abi:ne200100]<kaldi::EventMap **,kaldi::EventMap **>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5659,7 +5584,7 @@ void sub_78E00(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<kaldi::EventMap *>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<kaldi::EventMap *>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -5689,7 +5614,23 @@ uint64_t kaldi::ConstIntegerSet<int>::ConstIntegerSet(uint64_t a1, uint64_t a2)
   *(a1 + 16) = 0u;
   *(a1 + 32) = 0u;
   *(a1 + 48) = 0u;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 40, *(a2 + 40), *(a2 + 48), (*(a2 + 48) - *(a2 + 40)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 40), *(a2 + 40), *(a2 + 48), (*(a2 + 48) - *(a2 + 40)) >> 2);
+  kaldi::ConstIntegerSet<int>::InitInternal(a1);
+  return a1;
+}
+
+{
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 0u;
+  *(a1 + 48) = 0u;
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 40), *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
+  std::__sort<std::__less<int,int> &,int *>();
+  v3 = std::__unique[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<int *>,std::__wrap_iter<int *>,std::__equal_to &>(*(a1 + 40), *(a1 + 48));
+  if (v3 != *(a1 + 48))
+  {
+    *(a1 + 48) = v3;
+  }
+
   kaldi::ConstIntegerSet<int>::InitInternal(a1);
   return a1;
 }
@@ -5711,7 +5652,7 @@ void sub_78F58(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t kaldi::SplitEventMap::SplitEventMap(uint64_t a1, int a2, uint64_t *a3, uint64_t a4, uint64_t a5)
+uint64_t kaldi::SplitEventMap::SplitEventMap(uint64_t a1, int a2, void *a3, uint64_t a4, uint64_t a5)
 {
   *a1 = off_276508;
   *(a1 + 8) = a2;
@@ -5748,26 +5689,6 @@ LABEL_7:
     goto LABEL_6;
   }
 
-  return a1;
-}
-
-uint64_t kaldi::ConstIntegerSet<int>::ConstIntegerSet(uint64_t a1, uint64_t *a2)
-{
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 0u;
-  *(a1 + 48) = 0u;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 40, *a2, a2[1], (a2[1] - *a2) >> 2);
-  v3 = *(a1 + 40);
-  v4 = *(a1 + 48);
-  std::__sort<std::__less<int,int> &,int *>();
-  v5 = std::__unique[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<int *>,std::__wrap_iter<int *>,std::__equal_to &>(*(a1 + 40), *(a1 + 48));
-  if (v5 != *(a1 + 48))
-  {
-    v6 = *(a1 + 48);
-    *(a1 + 48) = v5;
-  }
-
-  kaldi::ConstIntegerSet<int>::InitInternal(a1);
   return a1;
 }
 
@@ -5881,29 +5802,17 @@ void std::vector<kaldi::EventMap *>::push_back[abi:ne200100](uint64_t a1, void *
   *(a1 + 8) = v6;
 }
 
-void *std::vector<kaldi::EventMap *>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<kaldi::EventMap *>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, uint64_t *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<kaldi::EventMap *>::__vallocate[abi:ne200100](result, a2);
+    std::vector<kaldi::EventMap *>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<kaldi::EventMap *>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
+  return a1;
 }
 
 void sub_794AC(_Unwind_Exception *exception_object)
@@ -5932,7 +5841,7 @@ void *kaldi::DeletePointers<kaldi::EventMap>(void *result, uint64_t a2, uint64_t
     result = *v5;
     if (*v5)
     {
-      result = (*(*result + 72))(result);
+      result = (*(*result + 72))(result, a2, a3, a4, a5);
       *v5 = 0;
     }
 
@@ -5959,6 +5868,19 @@ uint64_t kaldi::SplitEventMap::Destroy(kaldi::SplitEventMap *this)
   }
 
   return result;
+}
+
+uint64_t *std::vector<kaldi::EventMap *>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<kaldi::EventMap *>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
 }
 
 void sub_796F8(_Unwind_Exception *exception_object)
@@ -6034,21 +5956,21 @@ void std::vector<std::pair<int,int>>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-void std::vector<std::vector<int>>::__assign_with_size[abi:ne200100]<std::vector<int>*,std::vector<int>*>(uint64_t *a1, char **a2, char **a3, unint64_t a4)
+void std::vector<std::vector<int>>::__assign_with_size[abi:ne200100]<std::vector<int>*,std::vector<int>*>(uint64_t a1, char **a2, char **a3, unint64_t a4)
 {
   v8 = *a1;
-  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) < a4)
+  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) < a4)
   {
     std::vector<std::vector<int>>::__vdeallocate(a1);
     if (a4 <= 0xAAAAAAAAAAAAAAALL)
     {
-      v9 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
+      v9 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
       if (v9 <= a4)
       {
         v9 = a4;
       }
 
-      if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
+      if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
       {
         v10 = 0xAAAAAAAAAAAAAAALL;
       }
@@ -6064,15 +5986,15 @@ void std::vector<std::vector<int>>::__assign_with_size[abi:ne200100]<std::vector
     std::vector<float>::__throw_length_error[abi:ne200100]();
   }
 
-  v11 = a1[1] - v8;
+  v11 = *(a1 + 8) - v8;
   if (0xAAAAAAAAAAAAAAABLL * (v11 >> 3) >= a4)
   {
     std::__copy_impl::operator()[abi:ne200100]<std::vector<int> *,std::vector<int> *,std::vector<int> *>(&v19, a2, a3, v8);
     v13 = v12;
-    v14 = a1[1];
+    v14 = *(a1 + 8);
     if (v14 != v12)
     {
-      v15 = a1[1];
+      v15 = *(a1 + 8);
       do
       {
         v17 = *(v15 - 24);
@@ -6090,13 +6012,13 @@ void std::vector<std::vector<int>>::__assign_with_size[abi:ne200100]<std::vector
       while (v15 != v13);
     }
 
-    a1[1] = v13;
+    *(a1 + 8) = v13;
   }
 
   else
   {
     std::__copy_impl::operator()[abi:ne200100]<std::vector<int> *,std::vector<int> *,std::vector<int> *>(&v18, a2, (a2 + v11), v8);
-    a1[1] = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<int>>,std::vector<int>*,std::vector<int>*,std::vector<int>*>(a1, (a2 + v11), a3, a1[1]);
+    *(a1 + 8) = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<int>>,std::vector<int>*,std::vector<int>*,std::vector<int>*>(a1, a2 + v11, a3, *(a1 + 8));
   }
 }
 
@@ -6112,7 +6034,7 @@ void std::vector<std::vector<int>>::__vdeallocate(uint64_t *a1)
   }
 }
 
-char **std::__copy_impl::operator()[abi:ne200100]<std::vector<int> *,std::vector<int> *,std::vector<int> *>(int a1, char **a2, char **a3, char **a4)
+char **std::__copy_impl::operator()[abi:ne200100]<std::vector<int> *,std::vector<int> *,std::vector<int> *>(int a1, char **a2, char **a3, uint64_t *a4)
 {
   v5 = a2;
   if (a2 != a3)
@@ -6135,9 +6057,9 @@ char **std::__copy_impl::operator()[abi:ne200100]<std::vector<int> *,std::vector
   return v5;
 }
 
-void *std::operator<<[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(void *a1, uint64_t a2)
+void *std::operator<<[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(void *a1, uint64_t ***a2)
 {
-  v2 = *(a2 + 8);
+  v2 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v3 = *(a2 + 23);
@@ -6201,7 +6123,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned short>>(uint
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::vector<unsigned short>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<unsigned short>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -6347,20 +6269,17 @@ void sub_79EF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<std::pair<int,int>>::reserve(void *result, unint64_t a2)
+void std::vector<std::pair<int,int>>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long>>(a1, a2);
     }
 
     std::vector<float>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void kaldi::ContextDependency::Read(uint64_t a1, uint64_t *a2, uint64_t a3)
@@ -6375,24 +6294,24 @@ void kaldi::ContextDependency::Read(uint64_t a1, uint64_t *a2, uint64_t a3)
   kaldi::ExpectToken(a2, a3, "ContextDependency");
   kaldi::ReadBasicType<int>(a2, a3, a1 + 8, v7, v8);
   kaldi::ReadBasicType<int>(a2, a3, a1 + 12, v9, v10);
-  v28 = 0;
   v29 = 0;
   v30 = 0;
-  kaldi::ReadToken(a2, a3, &v28, v11, v12);
-  v13 = HIBYTE(v30);
-  if (SHIBYTE(v30) < 0)
+  v31 = 0;
+  kaldi::ReadToken(a2, a3, &v29, v11, v12);
+  v13 = HIBYTE(v31);
+  if (SHIBYTE(v31) < 0)
   {
-    if (v29 != 8)
+    if (v30 != 8)
     {
       goto LABEL_15;
     }
 
-    v14 = v28;
+    v14 = v29;
   }
 
   else
   {
-    if (HIBYTE(v30) != 8)
+    if (HIBYTE(v31) != 8)
     {
 LABEL_10:
       if (v13 != 5)
@@ -6400,62 +6319,52 @@ LABEL_10:
         goto LABEL_25;
       }
 
-      v15 = &v28;
+      v15 = &v29;
       goto LABEL_17;
     }
 
-    v14 = &v28;
+    v14 = &v29;
   }
 
   if (*v14 == 0x6874676E654C6F54)
   {
-    v16 = kaldi::EventMap::Read(a2, a3);
+    kaldi::EventMap::Read(a2, a3);
     if (v16)
     {
       (*(*v16 + 72))(v16);
     }
 
-    kaldi::ReadToken(a2, a3, &v28, v17, v18);
-    v13 = HIBYTE(v30);
-    if ((v30 & 0x8000000000000000) == 0)
+    kaldi::ReadToken(a2, a3, &v29, v17, v18);
+    v13 = HIBYTE(v31);
+    if ((v31 & 0x8000000000000000) == 0)
     {
       goto LABEL_10;
     }
   }
 
-  else if ((v30 & 0x8000000000000000) == 0)
+  else if ((v31 & 0x8000000000000000) == 0)
   {
     goto LABEL_10;
   }
 
 LABEL_15:
-  if (v29 != 5)
+  if (v30 != 5)
   {
     goto LABEL_25;
   }
 
-  v15 = v28;
+  v15 = v29;
 LABEL_17:
   v19 = *v15;
   v20 = *(v15 + 4);
   if (v19 != 1682992980 || v20 != 102)
   {
 LABEL_25:
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v27, "Read", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/tree/context-dep.cc", 183);
-    v23 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, "Got unexpected token ", 21);
-    if (v30 >= 0)
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v28, "Read", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/tree/context-dep.cc", 183);
+    v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, "Got unexpected token ", 21);
+    if (v31 >= 0)
     {
-      v24 = &v28;
-    }
-
-    else
-    {
-      v24 = v28;
-    }
-
-    if (v30 >= 0)
-    {
-      v25 = HIBYTE(v30);
+      v25 = &v29;
     }
 
     else
@@ -6463,17 +6372,28 @@ LABEL_25:
       v25 = v29;
     }
 
-    v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, v24, v25);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, " reading context-dependency object.", 35);
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v27);
+    if (v31 >= 0)
+    {
+      v26 = HIBYTE(v31);
+    }
+
+    else
+    {
+      v26 = v30;
+    }
+
+    v27 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, v25, v26);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, " reading context-dependency object.", 35);
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v28);
   }
 
-  v22 = kaldi::EventMap::Read(a2, a3);
+  kaldi::EventMap::Read(a2, a3);
+  v23 = v22;
   kaldi::ExpectToken(a2, a3, "EndContextDependency");
-  *(a1 + 16) = v22;
-  if (SHIBYTE(v30) < 0)
+  *(a1 + 16) = v23;
+  if (SHIBYTE(v31) < 0)
   {
-    operator delete(v28);
+    operator delete(v29);
   }
 }
 
@@ -6487,12 +6407,12 @@ void sub_7A20C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void kaldi::ContextDependency::EnumeratePairs(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t *a5, void *a6)
+void kaldi::ContextDependency::EnumeratePairs(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6)
 {
   v51 = 0;
   v52 = 0;
   v53 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v51, *a5, a5[1], (a5[1] - *a5) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v51, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 2);
   v48 = 0;
   v49 = 0;
   v50 = 0;
@@ -6600,7 +6520,7 @@ void kaldi::ContextDependency::EnumeratePairs(uint64_t a1, uint64_t *a2, uint64_
           do
           {
             v41 = *(v45 + v28) | (v29[v30] << 32);
-            std::__hash_table<std::pair<int,int>,kaldi::PairHasher<int>,std::equal_to<std::pair<int,int>>,std::allocator<std::pair<int,int>>>::__emplace_unique_key_args<std::pair<int,int>,std::pair<int,int>>(a6, &v41);
+            std::__hash_table<std::pair<int,int>,kaldi::PairHasher<int>,std::equal_to<std::pair<int,int>>,std::allocator<std::pair<int,int>>>::__emplace_unique_key_args<std::pair<int,int>,std::pair<int,int>>(a6, &v41, &v41);
             ++v30;
             v29 = __p;
             v25 = v43;
@@ -6739,7 +6659,7 @@ void sub_7A6A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
   _Unwind_Resume(exception_object);
 }
 
-void kaldi::ContextDependency::GetPdfInfo(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4, const char *a5)
+void kaldi::ContextDependency::GetPdfInfo(uint64_t a1, uint64_t *a2, uint64_t *a3, const void **a4, const char *a5)
 {
   if (!a4)
   {
@@ -6786,7 +6706,7 @@ void kaldi::ContextDependency::GetPdfInfo(uint64_t a1, uint64_t *a2, uint64_t *a
     do
     {
       v20 = *(v17 + 4 * v18);
-      std::vector<std::vector<std::pair<int,int>>>::resize((*a4 + 24 * v20), (*(v19 + 24 * v20 + 8) - *(v19 + 24 * v20)) >> 3);
+      std::vector<std::vector<std::pair<int,int>>>::resize(*a4 + 3 * v20, (*(v19 + 24 * v20 + 8) - *(v19 + 24 * v20)) >> 3);
       v19 = *a3;
       v21 = *(*a3 + 24 * v20);
       if (*(*a3 + 24 * v20 + 8) != v21)
@@ -6832,7 +6752,7 @@ void kaldi::ContextDependency::GetPdfInfo(uint64_t a1, uint64_t *a2, uint64_t *a
           kaldi::ContextDependency::EnumeratePairs(a1, v6, v24, v25, &__p, &v50);
           for (i = v51; i; i = *i)
           {
-            v31 = *(*a4 + 24 * v20) + 24 * v22;
+            v31 = *(*a4 + 3 * v20) + 24 * v22;
             v33 = *(v31 + 8);
             v32 = *(v31 + 16);
             if (v33 >= v32)
@@ -6862,7 +6782,7 @@ void kaldi::ContextDependency::GetPdfInfo(uint64_t a1, uint64_t *a2, uint64_t *a
 
               if (v38)
               {
-                std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long>>(*(*a4 + 24 * v20) + 24 * v22, v38);
+                std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned long>>(*(*a4 + 3 * v20) + 24 * v22, v38);
               }
 
               *(8 * v35) = i[2];
@@ -6889,10 +6809,10 @@ void kaldi::ContextDependency::GetPdfInfo(uint64_t a1, uint64_t *a2, uint64_t *a
             *(v31 + 8) = v34;
           }
 
-          v42 = *(*a4 + 24 * v20) + 24 * v22;
+          v42 = (*(*a4 + 3 * v20) + 24 * v22);
           v43 = *v42;
-          v44 = *(v42 + 8);
-          v45 = 126 - 2 * __clz((v44 - *v42) >> 3);
+          v44 = v42[1];
+          v45 = 126 - 2 * __clz(&v44[-*v42] >> 3);
           if (v44 == v43)
           {
             v46 = 0;
@@ -6939,9 +6859,9 @@ void sub_7A9F8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::vector<std::vector<std::pair<int,int>>>>::resize(uint64_t a1, unint64_t a2)
+void std::vector<std::vector<std::vector<std::pair<int,int>>>>::resize(const void **a1, unint64_t a2)
 {
-  v3 = *(a1 + 8);
+  v3 = a1[1];
   v4 = 0xAAAAAAAAAAAAAAABLL * ((v3 - *a1) >> 3);
   v5 = a2 >= v4;
   v6 = a2 - v4;
@@ -6961,7 +6881,7 @@ void std::vector<std::vector<std::vector<std::pair<int,int>>>>::resize(uint64_t 
       std::vector<std::vector<std::pair<int,int>>>::__destroy_vector::operator()[abi:ne200100](&v8);
     }
 
-    *(a1 + 8) = v7;
+    a1[1] = v7;
   }
 }
 
@@ -6975,7 +6895,7 @@ void kaldi::ContextDependency::GetPdfInfo(uint64_t a1, uint64_t *a2, void *a3, u
     kaldi::KaldiAssertFailure_("GetPdfInfo", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/tree/context-dep.cc", &stru_108.segname[13], "pdf_info != NULL", a5);
   }
 
-  v7 = (*(*a1 + 40))(a1);
+  v7 = (*(*a1 + 40))(a1, a2, a3, a4, a5);
   std::vector<std::vector<std::pair<int,int>>>::resize(a4, v7);
   v8 = *a2;
   if (a2[1] != *a2)
@@ -6985,7 +6905,7 @@ void kaldi::ContextDependency::GetPdfInfo(uint64_t a1, uint64_t *a2, void *a3, u
     {
       v10 = *(v8 + 4 * v9);
       v49 = v48;
-      v44[0] = *(a1 + 12) | (v10 << 32);
+      v44[0].__locale_ = (*(a1 + 12) | (v10 << 32));
       std::vector<std::pair<int,int>>::push_back[abi:ne200100](&v48, v44);
       if (v10 >= ((a3[1] - *a3) >> 2))
       {
@@ -7002,9 +6922,9 @@ void kaldi::ContextDependency::GetPdfInfo(uint64_t a1, uint64_t *a2, void *a3, u
           v15 = v49;
           v16 = 126 - 2 * __clz((v49 - v48) >> 3);
           *v48 = *(a1 + 12);
-          v14[1] = v10;
-          v14[2] = -1;
-          v14[3] = i;
+          *(v14 + 1) = v10;
+          *(v14 + 2) = -1;
+          *(v14 + 3) = i;
           if (v15 == v14)
           {
             v17 = 0;
@@ -7055,7 +6975,7 @@ void kaldi::ContextDependency::GetPdfInfo(uint64_t a1, uint64_t *a2, void *a3, u
               }
 
               v26 = *a4 + 24 * v25;
-              v44[0] = (i << 32) | v10;
+              v44[0].__locale_ = ((i << 32) | v10);
               std::vector<std::pair<int,int>>::push_back[abi:ne200100](v26, v44);
               ++v24;
               v20 = v45;
@@ -7088,7 +7008,7 @@ void kaldi::ContextDependency::GetPdfInfo(uint64_t a1, uint64_t *a2, void *a3, u
       v29 = (v27 + 24 * v28);
       v30 = *v29;
       v31 = v29[1];
-      v32 = 126 - 2 * __clz((v31 - *v29) >> 3);
+      v32 = 126 - 2 * __clz(&v31[-*v29] >> 3);
       if (v31 == v30)
       {
         v33 = 0;
@@ -7177,44 +7097,44 @@ void kaldi::ContextDependency::~ContextDependency(kaldi::ContextDependency *this
 
 {
   *this = off_276580;
-  v2 = *(this + 2);
-  if (v2)
+  v1 = *(this + 2);
+  if (v1)
   {
-    (*(*v2 + 72))(v2);
+    (*(*v1 + 72))(v1);
   }
 
-  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator(this);
+  fst::MutableArcIterator<fst::VectorFst<fst::ArcTpl<fst::LatticeWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::LatticeWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::LatticeWeightTpl<float>>>>>>::~MutableArcIterator();
 }
 
-uint64_t *std::__hash_table<std::pair<int,int>,kaldi::PairHasher<int>,std::equal_to<std::pair<int,int>>,std::allocator<std::pair<int,int>>>::__emplace_unique_key_args<std::pair<int,int>,std::pair<int,int>>(void *a1, int *a2)
+uint64_t *std::__hash_table<std::pair<int,int>,kaldi::PairHasher<int>,std::equal_to<std::pair<int,int>>,std::allocator<std::pair<int,int>>>::__emplace_unique_key_args<std::pair<int,int>,std::pair<int,int>>(void *a1, int *a2, void *a3)
 {
-  v2 = *a2;
-  v3 = a2[1];
-  v4 = v2 + 7853 * v3;
-  v5 = a1[1];
-  if (!*&v5)
+  v3 = *a2;
+  v4 = a2[1];
+  v5 = v3 + 7853 * v4;
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_22;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = v2 + 7853 * v3;
-    if (v4 >= *&v5)
+    v8 = v3 + 7853 * v4;
+    if (v5 >= *&v6)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v8 = v5 & (*&v6 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_22:
     operator new();
@@ -7222,44 +7142,44 @@ LABEL_22:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_22;
     }
 
 LABEL_21:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_22;
     }
   }
 
-  if (*(v9 + 4) != v2 || *(v9 + 5) != v3)
+  if (*(v10 + 4) != v3 || *(v10 + 5) != v4)
   {
     goto LABEL_21;
   }
 
-  return v9;
+  return v10;
 }
 
 void std::vector<std::vector<std::vector<std::pair<int,int>>>>::__append(const void **a1, unint64_t a2)
@@ -7394,9 +7314,9 @@ LABEL_10:
   kaldi::ParseOptions::Escape(a1, a2);
 }
 
-uint64_t kaldi::ClassifyRxfilename(uint64_t a1)
+uint64_t kaldi::ClassifyRxfilename(char *a1)
 {
-  if (*(a1 + 23) >= 0)
+  if (a1[23] >= 0)
   {
     v1 = a1;
   }
@@ -7446,10 +7366,10 @@ LABEL_11:
   }
 
 LABEL_14:
-  v6 = *(a1 + 23);
+  v6 = a1[23];
   if ((v6 & 0x80u) != 0)
   {
-    v6 = *(a1 + 8);
+    v6 = *(a1 + 1);
   }
 
   v7 = v1[v6 - 1];
@@ -7462,7 +7382,7 @@ LABEL_18:
       {
         kaldi::KaldiWarnMessage::KaldiWarnMessage(v30, "ClassifyRxfilename", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/util/kaldi-io.cc", 123);
         v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, "Cannot have leading or trailing space in filename ", 51);
-        v9 = *(a1 + 23);
+        v9 = a1[23];
         if (v9 >= 0)
         {
           v10 = a1;
@@ -7475,12 +7395,12 @@ LABEL_18:
 
         if (v9 >= 0)
         {
-          v11 = *(a1 + 23);
+          v11 = a1[23];
         }
 
         else
         {
-          v11 = *(a1 + 8);
+          v11 = *(a1 + 1);
         }
 
 LABEL_25:
@@ -7511,7 +7431,7 @@ LABEL_26:
 
       kaldi::KaldiWarnMessage::KaldiWarnMessage(v30, "ClassifyRxfilename", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/util/kaldi-io.cc", 131);
       v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, "Found what looks like an rspecifier instead of a filename ", 59);
-      v19 = *(a1 + 23);
+      v19 = a1[23];
       if (v19 >= 0)
       {
         v10 = a1;
@@ -7524,12 +7444,12 @@ LABEL_26:
 
       if (v19 >= 0)
       {
-        v11 = *(a1 + 23);
+        v11 = a1[23];
       }
 
       else
       {
-        v11 = *(a1 + 8);
+        v11 = *(a1 + 1);
       }
 
       goto LABEL_25;
@@ -7545,7 +7465,7 @@ LABEL_26:
 
     kaldi::KaldiWarnMessage::KaldiWarnMessage(v30, "ClassifyRxfilename", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/util/kaldi-io.cc", 134);
     v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, "Found ~ at the beginning of filename ", 38);
-    v15 = *(a1 + 23);
+    v15 = a1[23];
     if (v15 >= 0)
     {
       v16 = a1;
@@ -7558,12 +7478,12 @@ LABEL_26:
 
     if (v15 >= 0)
     {
-      v17 = *(a1 + 23);
+      v17 = a1[23];
     }
 
     else
     {
-      v17 = *(a1 + 8);
+      v17 = *(a1 + 1);
     }
 
     v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, v16, v17);
@@ -7641,7 +7561,7 @@ LABEL_26:
 
       kaldi::KaldiWarnMessage::KaldiWarnMessage(v30, "ClassifyRxfilename", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/util/kaldi-io.cc", 153);
       v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, "Trying to classify rxfilename with pipe symbol in the wrong place (pipe without | at the end?): ", 96);
-      v26 = *(a1 + 23);
+      v26 = a1[23];
       if (v26 >= 0)
       {
         v27 = a1;
@@ -7654,12 +7574,12 @@ LABEL_26:
 
       if (v26 >= 0)
       {
-        v28 = *(a1 + 23);
+        v28 = a1[23];
       }
 
       else
       {
-        v28 = *(a1 + 8);
+        v28 = *(a1 + 1);
       }
 
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, v27, v28);
@@ -7722,13 +7642,13 @@ void kaldi::OffsetFileInputImpl::~OffsetFileInputImpl(kaldi::OffsetFileInputImpl
   operator delete();
 }
 
-void *kaldi::Input::Input(void *a1, uint64_t a2, _BYTE *a3)
+void kaldi::Input::Input(uint64_t *a1, uint64_t a2, _BYTE *a3)
 {
   *a1 = 0;
   if ((kaldi::Input::OpenInternal(a1, a2, 1, a3) & 1) == 0)
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v9, "Input", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/util/kaldi-io.cc", 711);
-    v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, "Error opening input stream ", 27);
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v7, "Input", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/util/kaldi-io.cc", 711);
+    v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "Error opening input stream ", 27);
     if (*(a2 + 23) < 0)
     {
       std::string::__init_copy_ctor_external(&__p, *a2, *(a2 + 8));
@@ -7739,14 +7659,12 @@ void *kaldi::Input::Input(void *a1, uint64_t a2, _BYTE *a3)
       __p = *a2;
     }
 
-    kaldi::PrintableRxfilename(&__p, &v8);
-    std::operator<<[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v6, &v8);
-    std::string::~string(&v8);
+    kaldi::PrintableRxfilename(&__p, &v6);
+    std::operator<<[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v4, &v6);
+    std::string::~string(&v6);
     std::string::~string(&__p);
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v9);
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v7);
   }
-
-  return a1;
 }
 
 uint64_t kaldi::Input::Close(kaldi::Input *this)
@@ -7761,7 +7679,7 @@ uint64_t kaldi::Input::Close(kaldi::Input *this)
   return result;
 }
 
-uint64_t kaldi::Input::OpenInternal(void *a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+uint64_t kaldi::Input::OpenInternal(uint64_t *a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   v8 = kaldi::ClassifyRxfilename(a2);
   v9 = *a1;
@@ -7901,50 +7819,42 @@ void kaldi::Input::~Input(kaldi::Input *this)
   }
 }
 
-uint64_t kaldi::Input::Stream(kaldi::Input *this)
+void kaldi::Input::Stream(kaldi::Input *this)
 {
   v1 = *this;
   if (!v1)
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v4, "Stream", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/util/kaldi-io.cc", 774);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v4, "Input::Stream(), not open.");
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v4);
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v3, "Stream", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/util/kaldi-io.cc", 774);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v3, "Input::Stream(), not open.");
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v3);
   }
 
   v2 = *(*v1 + 8);
 
-  return v2();
+  v2();
 }
 
-BOOL kaldi::FileInputImpl::Open(uint64_t a1, uint64_t *a2)
+void kaldi::FileInputImpl::Open(uint64_t a1, uint64_t *a2, int a3)
 {
   if (*(a1 + 144))
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v6, "Open", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/util/kaldi-io.cc", 355);
-    v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "FileInputImpl::Open(), ", 23);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v5, "open called on already open file.");
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v6);
-  }
-
-  if (*(a2 + 23) < 0)
-  {
-    v3 = *a2;
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v4, "Open", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/util/kaldi-io.cc", 355);
+    v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "FileInputImpl::Open(), ", 23);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v3, "open called on already open file.");
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v4);
   }
 
   std::ifstream::open();
-  return *(a1 + 144) != 0;
 }
 
-uint64_t kaldi::FileInputImpl::Stream(kaldi::FileInputImpl *this)
+void kaldi::FileInputImpl::Stream(kaldi::FileInputImpl *this)
 {
   if (!*(this + 18))
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v2, "Stream", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/util/kaldi-io.cc", 363);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v2, "FileInputImpl::Stream(), file is not open.");
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v2);
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v1, "Stream", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/util/kaldi-io.cc", 363);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v1, "FileInputImpl::Stream(), file is not open.");
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v1);
   }
-
-  return this + 8;
 }
 
 void kaldi::FileInputImpl::Close(kaldi::FileInputImpl *this)
@@ -7965,32 +7875,31 @@ void kaldi::FileInputImpl::Close(kaldi::FileInputImpl *this)
   }
 }
 
-uint64_t kaldi::StandardInputImpl::Open(uint64_t a1)
+void kaldi::StandardInputImpl::Open(uint64_t a1)
 {
   if (*(a1 + 8) == 1)
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v2, "Open", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/util/kaldi-io.cc", 392);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v2, "StandardInputImpl::Open(), open called on already open file.");
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v2);
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v1, "Open", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/util/kaldi-io.cc", 392);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v1, "StandardInputImpl::Open(), open called on already open file.");
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v1);
   }
 
   *(a1 + 8) = 1;
-  return 1;
 }
 
-std::istream *kaldi::StandardInputImpl::Stream(kaldi::StandardInputImpl *this)
+void kaldi::StandardInputImpl::Stream(kaldi::StandardInputImpl *this)
 {
   if ((*(this + 8) & 1) == 0)
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v2, "Stream", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/util/kaldi-io.cc", 403);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v2, "StandardInputImpl::Stream(), object not initialized.");
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v2);
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v1, "Stream", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/util/kaldi-io.cc", 403);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v1, "StandardInputImpl::Stream(), object not initialized.");
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v1);
   }
 
-  return fst::cin(this);
+  fst::cin(this);
 }
 
-uint64_t kaldi::StandardInputImpl::Close(uint64_t this)
+void kaldi::StandardInputImpl::Close(kaldi::StandardInputImpl *this)
 {
   if ((*(this + 8) & 1) == 0)
   {
@@ -8000,7 +7909,6 @@ uint64_t kaldi::StandardInputImpl::Close(uint64_t this)
   }
 
   *(this + 8) = 0;
-  return this;
 }
 
 uint64_t kaldi::PipeInputImpl::Open(uint64_t a1, uint64_t a2)
@@ -8107,7 +8015,7 @@ LABEL_27:
   return 0;
 }
 
-void sub_7CD2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, char a22)
+void sub_7CD2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, std::locale a22)
 {
   kaldi::KaldiWarnMessage::~KaldiWarnMessage(&a22);
   if (*(v22 - 49) < 0)
@@ -8118,20 +8026,17 @@ void sub_7CD2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, in
   _Unwind_Resume(a1);
 }
 
-uint64_t kaldi::PipeInputImpl::Stream(kaldi::PipeInputImpl *this)
+void kaldi::PipeInputImpl::Stream(kaldi::PipeInputImpl *this)
 {
-  result = *(this + 6);
-  if (!result)
+  if (!*(this + 6))
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v2, "Stream", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/util/kaldi-io.cc", 464);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v2, "PipeInputImpl::Stream(), object not initialized.");
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v2);
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v1, "Stream", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/util/kaldi-io.cc", 464);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v1, "PipeInputImpl::Stream(), object not initialized.");
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v1);
   }
-
-  return result;
 }
 
-uint64_t kaldi::PipeInputImpl::Close(kaldi::PipeInputImpl *this)
+void kaldi::PipeInputImpl::Close(kaldi::PipeInputImpl *this)
 {
   v2 = *(this + 6);
   if (!v2)
@@ -8185,89 +8090,80 @@ uint64_t kaldi::PipeInputImpl::Close(kaldi::PipeInputImpl *this)
   }
 
   *(this + 4) = 0;
-  result = *(this + 5);
-  if (result)
+  v9 = *(this + 5);
+  if (v9)
   {
-    result = (*(*result + 8))(result);
+    (*(*v9 + 8))(v9);
   }
 
   *(this + 5) = 0;
-  return result;
 }
 
-BOOL kaldi::OffsetFileInputImpl::Open(uint64_t a1, uint64_t a2, int a3)
+BOOL kaldi::OffsetFileInputImpl::Open(uint64_t a1, std::string *a2, int a3)
 {
   v5 = (a1 + 40);
-  if (*(a1 + 176))
+  if (!*(a1 + 176))
   {
-    memset(&__str, 0, sizeof(__str));
-    v18 = 0;
-    kaldi::OffsetFileInputImpl::SplitFilename(a2, &__str, &v18);
-    v6 = (a1 + 8);
-    if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      size = HIBYTE(__str.__r_.__value_.__r.__words[2]);
-    }
+    __str.__r_.__value_.__r.__words[0] = 0;
+    kaldi::OffsetFileInputImpl::SplitFilename(a2, a1 + 8, &__str);
+    *(a1 + 32) = a3;
+    std::ifstream::open();
+    return *(a1 + 176) && kaldi::OffsetFileInputImpl::Seek(a1, __str.__r_.__value_.__r.__words[0]);
+  }
 
-    else
-    {
-      size = __str.__r_.__value_.__l.__size_;
-    }
+  memset(&__str, 0, sizeof(__str));
+  v13 = 0;
+  kaldi::OffsetFileInputImpl::SplitFilename(a2, &__str, &v13);
+  if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    size = HIBYTE(__str.__r_.__value_.__r.__words[2]);
+  }
 
-    v8 = *(a1 + 31);
-    v9 = v8;
-    if ((v8 & 0x80u) != 0)
-    {
-      v8 = *(a1 + 16);
-    }
+  else
+  {
+    size = __str.__r_.__value_.__l.__size_;
+  }
 
-    if (size == v8 && ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (p_str = &__str) : (p_str = __str.__r_.__value_.__r.__words[0]), (v11 = *v6, v9 >= 0) ? (v12 = (a1 + 8)) : (v12 = *v6), !memcmp(p_str, v12, size) && *(a1 + 32) == a3))
+  v7 = *(a1 + 31);
+  v8 = v7;
+  if ((v7 & 0x80u) != 0)
+  {
+    v7 = *(a1 + 16);
+  }
+
+  if (size == v7)
+  {
+    v9 = (__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__str : __str.__r_.__value_.__r.__words[0];
+    v10 = v8 >= 0 ? (a1 + 8) : *(a1 + 8);
+    if (!memcmp(v9, v10, size) && *(a1 + 32) == a3)
     {
       std::ios_base::clear((v5 + *(*v5 - 24)), 0);
+LABEL_20:
+      v11 = kaldi::OffsetFileInputImpl::Seek(a1, v13);
+      goto LABEL_24;
     }
-
-    else
-    {
-      if (!std::filebuf::close())
-      {
-        std::ios_base::clear((v5 + *(*v5 - 24)), *(v5 + *(*v5 - 24) + 32) | 4);
-      }
-
-      std::string::operator=((a1 + 8), &__str);
-      if (*(a1 + 31) < 0)
-      {
-        v13 = *v6;
-      }
-
-      std::ifstream::open();
-      if (!*(a1 + 176))
-      {
-        v14 = 0;
-LABEL_28:
-        if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__str.__r_.__value_.__l.__data_);
-        }
-
-        return v14;
-      }
-    }
-
-    v14 = kaldi::OffsetFileInputImpl::Seek(a1, v18);
-    goto LABEL_28;
   }
 
-  __str.__r_.__value_.__r.__words[0] = 0;
-  v15 = (a1 + 8);
-  kaldi::OffsetFileInputImpl::SplitFilename(a2, a1 + 8, &__str);
-  *(a1 + 32) = a3;
-  if (*(a1 + 31) < 0)
+  if (!std::filebuf::close())
   {
-    v16 = *v15;
+    std::ios_base::clear((v5 + *(*v5 - 24)), *(v5 + *(*v5 - 24) + 32) | 4);
   }
 
+  std::string::operator=((a1 + 8), &__str);
   std::ifstream::open();
-  return *(a1 + 176) && kaldi::OffsetFileInputImpl::Seek(a1, __str.__r_.__value_.__r.__words[0]);
+  if (*(a1 + 176))
+  {
+    goto LABEL_20;
+  }
+
+  v11 = 0;
+LABEL_24:
+  if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__str.__r_.__value_.__l.__data_);
+  }
+
+  return v11;
 }
 
 void sub_7D1B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -8280,16 +8176,14 @@ void sub_7D1B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t kaldi::OffsetFileInputImpl::Stream(kaldi::OffsetFileInputImpl *this)
+void kaldi::OffsetFileInputImpl::Stream(kaldi::OffsetFileInputImpl *this)
 {
   if (!*(this + 22))
   {
-    kaldi::KaldiErrorMessage::KaldiErrorMessage(v2, "Stream", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/util/kaldi-io.cc", 598);
-    std::operator<<[abi:ne200100]<std::char_traits<char>>(v2, "FileInputImpl::Stream(), file is not open.");
-    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v2);
+    kaldi::KaldiErrorMessage::KaldiErrorMessage(v1, "Stream", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/util/kaldi-io.cc", 598);
+    std::operator<<[abi:ne200100]<std::char_traits<char>>(v1, "FileInputImpl::Stream(), file is not open.");
+    kaldi::KaldiErrorMessage::~KaldiErrorMessage(v1);
   }
-
-  return this + 40;
 }
 
 void kaldi::OffsetFileInputImpl::Close(kaldi::OffsetFileInputImpl *this)
@@ -8310,7 +8204,7 @@ void kaldi::OffsetFileInputImpl::Close(kaldi::OffsetFileInputImpl *this)
   }
 }
 
-_BYTE *std::string::basic_string[abi:ne200100](_BYTE *__dst, uint64_t *a2, unint64_t a3)
+void *std::string::basic_string[abi:ne200100](void *__dst, uint64_t *a2, unint64_t a3)
 {
   v3 = a2;
   v5 = *(a2 + 23);
@@ -8342,13 +8236,13 @@ LABEL_13:
     operator new();
   }
 
-  __dst[23] = v6;
+  *(__dst + 23) = v6;
   if (v5 != a3)
   {
     memmove(__dst, v3 + a3, v6);
   }
 
-  __dst[v6] = 0;
+  *(__dst + v6) = 0;
   return __dst;
 }
 
@@ -8494,7 +8388,7 @@ uint64_t kaldi::basic_pipebuf<char>::__getchar(uint64_t a1, int a2)
   return v4;
 }
 
-void kaldi::OffsetFileInputImpl::SplitFilename(uint64_t a1, uint64_t a2, uint64_t *a3)
+void kaldi::OffsetFileInputImpl::SplitFilename(std::string *a1, uint64_t a2, uint64_t *a3)
 {
   v6 = std::string::rfind(a1, 58, 0xFFFFFFFFFFFFFFFFLL);
   if (v6 == -1)
@@ -8515,7 +8409,7 @@ void kaldi::OffsetFileInputImpl::SplitFilename(uint64_t a1, uint64_t a2, uint64_
   {
     kaldi::KaldiErrorMessage::KaldiErrorMessage(&v16, "SplitFilename", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/util/kaldi-io.cc", 538);
     v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v16, "Cannot get offset from filename ", 32);
-    v11 = *(a1 + 23);
+    v11 = SHIBYTE(a1->__r_.__value_.__r.__words[2]);
     if (v11 >= 0)
     {
       v12 = a1;
@@ -8523,20 +8417,20 @@ void kaldi::OffsetFileInputImpl::SplitFilename(uint64_t a1, uint64_t a2, uint64_
 
     else
     {
-      v12 = *a1;
+      v12 = a1->__r_.__value_.__r.__words[0];
     }
 
     if (v11 >= 0)
     {
-      v13 = *(a1 + 23);
+      size = HIBYTE(a1->__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v13 = *(a1 + 8);
+      size = a1->__r_.__value_.__l.__size_;
     }
 
-    v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, v12, v13);
+    v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, v12, size);
     v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, " (possibly you compiled in 32-bit and have a >32-bit", 52);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, " byte offset into a file; you'll have to compile 64-bit.", 56);
     kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v16);
@@ -8722,7 +8616,7 @@ LABEL_15:
 
       else
       {
-        v13 = "\\"";
+        v13 = "\";
         v12 = 34;
       }
     }
@@ -8887,7 +8781,7 @@ BOOL std::less<std::string>::operator()[abi:ne200100](uint64_t a1, const void **
   }
 }
 
-uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
+uint64_t std::string::basic_string[abi:ne200100](uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -8899,11 +8793,11 @@ uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<std::string>>(uint64_t a1, unint64_t a2)
@@ -8947,24 +8841,24 @@ void std::__split_buffer<std::string>::__destruct_at_end[abi:ne200100](uint64_t 
   }
 }
 
-uint64_t kaldi::SplitStringToIntegers<int>(uint64_t a1, const char *a2, int a3, std::vector<int> *a4, const char *a5)
+uint64_t kaldi::SplitStringToIntegers<int>(const std::string *a1, const char *a2, uint64_t a3, std::vector<int> *a4, const char *a5)
 {
   if (!a4)
   {
     kaldi::KaldiAssertFailure_("SplitStringToIntegers", "../subproject/libquasar/libkaldi/src/util/text-utils.h", &stru_20.flags, "out != NULL", a5);
   }
 
-  if (*(a1 + 23) >= 0)
+  if ((a1->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     v6 = a1;
   }
 
   else
   {
-    v6 = *a1;
+    v6 = a1->__r_.__value_.__r.__words[0];
   }
 
-  if (*v6)
+  if (v6->__r_.__value_.__s.__data_[0])
   {
     v15 = 0;
     v16 = 0;
@@ -9032,9 +8926,9 @@ LABEL_18:
   return v13;
 }
 
-void sub_7E068(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_7E068(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9085,8 +8979,8 @@ void kaldi::SplitStringToVector(const std::string *a1, const char *a2, int a3, u
 
     else
     {
-      v16 = (v11 + v12);
-      v17 = (v11 + v9);
+      v16 = v11 + v12;
+      v17 = v11 + v9;
 LABEL_17:
       v18 = v13;
       v19 = a2;
@@ -9100,7 +8994,7 @@ LABEL_17:
             goto LABEL_17;
           }
 
-          v17 = (v11 + v12);
+          v17 = v11 + v12;
           break;
         }
       }
@@ -9112,7 +9006,7 @@ LABEL_17:
 
       else
       {
-        v15 = &v17[-v11];
+        v15 = v17 - v11;
       }
 
       if (a3)
@@ -9316,137 +9210,131 @@ std::__split_buffer<std::string>::pointer std::vector<std::string>::__emplace_ba
   return v11;
 }
 
-__int128 **kaldi::TrainingGraphCompiler::TrainingGraphCompiler(__int128 **a1, __int128 *a2, __int128 *a3, __int128 *a4, uint64_t *a5, __int128 **a6)
+void kaldi::TrainingGraphCompiler::TrainingGraphCompiler(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6)
 {
   *a1 = a2;
   a1[1] = a3;
   a1[2] = a4;
   a1[3] = 0;
-  v9 = a1 + 3;
   a1[4] = 0;
   a1[5] = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 3), *a5, a5[1], (a5[1] - *a5) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 3, *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 2);
   a1[6] = 0;
   a1[7] = 0x43E800000;
   *(a1 + 64) = 1;
   *(a1 + 68) = 0x100000002;
-  v11 = *a6;
+  v10 = *a6;
   *(a1 + 22) = *(a6 + 2);
-  a1[10] = v11;
-  v12 = *a1;
+  a1[10] = v10;
+  v11 = *a1;
+  v12 = *(*a1 + 8);
   v13 = **a1;
-  v14 = *(*a1 + 1);
-  v15 = **a1;
-  if (v15 == v14)
+  if (v13 == v12)
   {
-    v17 = "!phone_syms.empty()";
-    v20 = (&stru_20 + 22);
+    v15 = "!phone_syms.empty()";
+    v18 = (&stru_20 + 22);
 LABEL_6:
-    kaldi::KaldiAssertFailure_("TrainingGraphCompiler", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/decoder/training-graph-compiler.cc", v20, v17, v10);
+    kaldi::KaldiAssertFailure_("TrainingGraphCompiler", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/decoder/training-graph-compiler.cc", v18, v15, v9);
   }
 
-  v16 = v15 + 1;
-  v17 = "IsSortedAndUniq(phone_syms)";
-  while (v16 != v14)
+  v14 = v13 + 1;
+  v15 = "IsSortedAndUniq(phone_syms)";
+  while (v14 != v12)
   {
-    v19 = *(v16 - 1);
-    v18 = *v16++;
-    if (v18 <= v19)
+    v17 = *(v14 - 1);
+    v16 = *v14++;
+    if (v16 <= v17)
     {
-      v20 = &stru_20.segname[15];
+      v18 = &stru_20.segname[15];
       goto LABEL_6;
     }
   }
 
+  std::__sort<std::__less<int,int> &,int *>();
+  v20 = std::__unique[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<int *>,std::__wrap_iter<int *>,std::__equal_to &>(a1[3], a1[4]);
   v21 = a1[3];
   v22 = a1[4];
-  std::__sort<std::__less<int,int> &,int *>();
-  v24 = std::__unique[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<int *>,std::__wrap_iter<int *>,std::__equal_to &>(a1[3], a1[4]);
-  v25 = a1[3];
-  v26 = a1[4];
-  if (v24 != v26)
+  if (v20 != v22)
   {
-    v23 = a1[4];
-    v26 = v24;
-    a1[4] = v24;
+    v19 = a1[4];
+    v22 = v20;
+    a1[4] = v20;
   }
 
-  v27 = *(v12 + 1);
-  if (v26 == v25)
+  v23 = *(v11 + 8);
+  if (v22 == v21)
   {
-    v37 = *(v27 - 1);
+    v33 = *(v23 - 1);
   }
 
   else
   {
-    v28 = 0;
-    v29 = v26 - v25;
-    if (v29 <= 1)
+    v24 = 0;
+    v25 = (v22 - v21) >> 2;
+    if (v25 <= 1)
     {
-      v29 = 1;
+      v25 = 1;
     }
 
     do
     {
-      if (v27 != *v12)
+      if (v23 != *v11)
       {
-        v30 = v25[v28];
-        v31 = *v12;
-        v32 = (v27 - *v12) >> 2;
+        v26 = *(v21 + 4 * v24);
+        v27 = *v11;
+        v28 = (v23 - *v11) >> 2;
         do
         {
-          v33 = v32 >> 1;
-          v34 = &v31[v32 >> 1];
-          v35 = *v34;
-          v23 = (v34 + 1);
-          v32 += ~(v32 >> 1);
-          if (v35 < v30)
+          v29 = v28 >> 1;
+          v30 = &v27[v28 >> 1];
+          v31 = *v30;
+          v19 = (v30 + 1);
+          v28 += ~(v28 >> 1);
+          if (v31 < v26)
           {
-            v31 = v23;
+            v27 = v19;
           }
 
           else
           {
-            v32 = v33;
+            v28 = v29;
           }
         }
 
-        while (v32);
-        if (v31 != v27 && v30 >= *v31)
+        while (v28);
+        if (v27 != v23 && v26 >= *v27)
         {
-          kaldi::KaldiErrorMessage::KaldiErrorMessage(v42, "TrainingGraphCompiler", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/decoder/training-graph-compiler.cc", 60);
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v42, "Disambiguation symbol ", 22);
-          v40 = *(*v9 + 4 * v28);
-          v41 = std::ostream::operator<<();
-          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v41, " is also a phone.", 17);
-          kaldi::KaldiErrorMessage::~KaldiErrorMessage(v42);
+          kaldi::KaldiErrorMessage::KaldiErrorMessage(v36, "TrainingGraphCompiler", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/decoder/training-graph-compiler.cc", 60);
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v36, "Disambiguation symbol ", 22);
+          v35 = std::ostream::operator<<();
+          std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v35, " is also a phone.", 17);
+          kaldi::KaldiErrorMessage::~KaldiErrorMessage(v36);
         }
       }
 
-      ++v28;
+      ++v24;
     }
 
-    while (v28 != v29);
-    v36 = *(v26 - 1);
-    if (*(v27 - 1) <= v36)
+    while (v24 != v25);
+    v32 = *(v22 - 4);
+    if (*(v23 - 1) <= v32)
     {
-      v37 = v36;
+      v33 = v32;
     }
 
     else
     {
-      v37 = *(v27 - 1);
+      v33 = *(v23 - 1);
     }
   }
 
-  v38 = (**a3)(a3, v23);
-  if ((*(*a3 + 8))(a3) != v38 - 1)
+  v34 = (**a3)(a3, v19);
+  if ((*(*a3 + 8))(a3) != v34 - 1)
   {
-    fst::AddSubsequentialLoop<fst::ArcTpl<fst::TropicalWeightTpl<float>>>(v37 + 1, a1[2]);
+    fst::AddSubsequentialLoop<fst::ArcTpl<fst::TropicalWeightTpl<float>>>(v33 + 1, a1[2]);
   }
 
   fst::ArcSort<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::OLabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>(a1[2]);
-  return a1;
 }
 
 void sub_7E7A8(_Unwind_Exception *a1)
@@ -9628,13 +9516,13 @@ uint64_t fst::MakeLinearAcceptor<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>
   return (*(*a2 + 176))(a2, v6, 0.0);
 }
 
-void kaldi::TrainingGraphCompiler::CompileGraph(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
+void kaldi::TrainingGraphCompiler::CompileGraph(uint64_t *a1, uint64_t a2, void *a3, uint64_t a4, const char *a5)
 {
-  if (*(a1 + 16))
+  if (a1[2])
   {
     if (a3)
     {
-      fst::VectorFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>::VectorFst();
+      fst::VectorFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::VectorState<fst::ArcTpl<fst::TropicalWeightTpl<float>>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>::VectorFst(&v5);
     }
 
     kaldi::KaldiAssertFailure_("CompileGraph", "/Library/Caches/com.apple.xbs/Sources/SiriTTSTraining/tts-speech-feature/subproject/libquasar/libkaldi/src/decoder/training-graph-compiler.cc", &stru_20.initprot + 3, "out_fst != NULL", a5);
@@ -9665,27 +9553,37 @@ void fst::TableCompose<fst::ArcTpl<fst::TropicalWeightTpl<float>>>(uint64_t a1, 
 {
   if (a4)
   {
-    v4 = a4[6];
-    if (v4 == 1)
+    v6 = a4[6];
+    if (v6 == 1)
     {
+      v7[0] = FLAGS_fst_default_cache_gc;
+      v8 = 0u;
+      v9 = 0u;
+      v10 = 0u;
+      v11 = 0;
       if (!*a4)
       {
         operator new();
       }
 
-      (*(**a4 + 16))(*a4, 0);
-      fst::ComposeFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::CreateBase2<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>();
+      *&v9 = (*(**a4 + 16))(*a4, 0, a3);
+      fst::ComposeFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::CreateBase2<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::SequenceComposeFilter<fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>(a1, a2, v7);
     }
 
-    if (!v4)
+    if (!v6)
     {
+      v7[0] = FLAGS_fst_default_cache_gc;
+      v8 = 0u;
+      v9 = 0u;
+      v10 = 0u;
+      v11 = 0;
       if (!*a4)
       {
         operator new();
       }
 
-      (*(**a4 + 16))(*a4, 0);
-      fst::ComposeFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::CreateBase2<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SequenceComposeFilter<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>();
+      *(&v9 + 1) = (*(**a4 + 16))(*a4, 0, a3);
+      fst::ComposeFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::CreateBase2<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>,fst::SequenceComposeFilter<fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>,fst::TableMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>,fst::SortedMatcher<fst::Fst<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>(a1, a2, v7);
     }
 
     fst::TableCompose<fst::ArcTpl<fst::TropicalWeightTpl<float>>>();
@@ -9694,14 +9592,14 @@ void fst::TableCompose<fst::ArcTpl<fst::TropicalWeightTpl<float>>>(uint64_t a1, 
   fst::TableCompose<fst::ArcTpl<fst::TropicalWeightTpl<float>>>();
 }
 
-void fst::ComposeContextFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>()
+void fst::ComposeContextFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  v0 = FLAGS_fst_default_cache_gc;
-  v1 = 0u;
-  v2 = 0u;
-  v3 = 0u;
-  v4 = 0;
-  fst::ComposeFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::CreateBase2<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>();
+  v4[0] = FLAGS_fst_default_cache_gc;
+  v5 = 0u;
+  v6 = 0u;
+  v7 = 0u;
+  v8 = 0;
+  fst::ComposeFst<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::DefaultCacheStore<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::CreateBase2<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::SequenceComposeFilter<fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>,fst::ContextMatcher<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>>,fst::GenericComposeStateTable<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::IntegerFilterState<signed char>,fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::CompactHashStateTable<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>,fst::ComposeHash<fst::DefaultComposeStateTuple<int,fst::IntegerFilterState<signed char>>>>>>(a1, a2, v4);
 }
 
 void fst::TableCompose<fst::ArcTpl<fst::TropicalWeightTpl<float>>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -9709,7 +9607,7 @@ void fst::TableCompose<fst::ArcTpl<fst::TropicalWeightTpl<float>>>(uint64_t a1, 
   v4 = *(a4 + 16);
   if (v4 == 1)
   {
-    v5 = FLAGS_fst_default_cache_gc;
+    v5[0] = FLAGS_fst_default_cache_gc;
     v6 = 0u;
     v7 = 0u;
     v8 = 0u;
@@ -9719,7 +9617,7 @@ void fst::TableCompose<fst::ArcTpl<fst::TropicalWeightTpl<float>>>(uint64_t a1, 
 
   if (!v4)
   {
-    v5 = FLAGS_fst_default_cache_gc;
+    v5[0] = FLAGS_fst_default_cache_gc;
     v6 = 0u;
     v7 = 0u;
     v8 = 0u;
@@ -9730,7 +9628,7 @@ void fst::TableCompose<fst::ArcTpl<fst::TropicalWeightTpl<float>>>(uint64_t a1, 
   fst::TableCompose<fst::ArcTpl<fst::TropicalWeightTpl<float>>>();
 }
 
-void fst::RemoveSomeInputSymbols<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>(uint64_t *a1, uint64_t a2)
+void fst::RemoveSomeInputSymbols<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>(uint64_t a1, uint64_t a2)
 {
   fst::RemoveSomeInputSymbolsMapper<fst::ArcTpl<fst::TropicalWeightTpl<float>>,int>::RemoveSomeInputSymbolsMapper(v7, a1);
   kaldi::ConstIntegerSet<int>::ConstIntegerSet(v3, v7);
@@ -9772,9 +9670,10 @@ void fst::MinimizeEncoded<fst::ArcTpl<fst::TropicalWeightTpl<float>>>(uint64_t a
   fst::EncodeMapper<fst::ArcTpl<fst::TropicalWeightTpl<float>>>::EncodeMapper(&v2, 3, 1);
 }
 
-void sub_7F9F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
+void sub_7F9F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  fst::EncodeMapper<fst::ArcTpl<fst::TropicalWeightTpl<float>>>::~EncodeMapper(&a12);
+  va_start(va, a11);
+  fst::EncodeMapper<fst::ArcTpl<fst::TropicalWeightTpl<float>>>::~EncodeMapper(va);
   fst::EncodeMapper<fst::ArcTpl<fst::TropicalWeightTpl<float>>>::~EncodeMapper(&a9);
   _Unwind_Resume(a1);
 }
@@ -9803,13 +9702,15 @@ void sub_7FA68(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t fst::DeterminizeStar<fst::ArcTpl<fst::LogWeightTpl<float>>>(uint64_t a1, uint64_t a2, _BYTE *a3, int a4, char a5, float a6)
+uint64_t fst::DeterminizeStar<fst::ArcTpl<fst::LogWeightTpl<float>>>(uint64_t a1, uint64_t a2, _BYTE *a3, uint64_t a4, uint64_t a5, float a6)
 {
+  v6 = a5;
+  v7 = a4;
   v12 = (*(*a1 + 120))(a1);
   (*(*a2 + 280))(a2, v12);
   v13 = (*(*a1 + 112))(a1);
   (*(*a2 + 272))(a2, v13);
-  fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>>>::DeterminizerStar(v16, a1, a4, a5, a6);
+  fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>>>::DeterminizerStar(v16, a1, v7, v6, a6);
   fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>>>::Determinize(v16, a3);
   fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>>>::Output(v16, a2, 1);
   v14 = v16[90];
@@ -9817,9 +9718,130 @@ uint64_t fst::DeterminizeStar<fst::ArcTpl<fst::LogWeightTpl<float>>>(uint64_t a1
   return v14;
 }
 
-void sub_7FBDC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_7FBDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   fst::DeterminizerStar<fst::ArcTpl<fst::LogWeightTpl<float>>>::~DeterminizerStar(va);
   _Unwind_Resume(a1);
+}
+
+uint64_t fst::StateMap<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::ArcSortMapper<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::ILabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>>(uint64_t a1, void *a2)
+{
+  result = (*(*a1 + 24))(a1);
+  if (result != -1)
+  {
+    v5 = (*(*a1 + 64))(a1, 0x3FFFFFFF0007, 0);
+    v6 = (*(**a2 + 24))();
+    (*(*a1 + 168))(a1, v6);
+    if ((*(*a1 + 152))(a1) >= 1)
+    {
+      v7 = 0;
+      do
+      {
+        v8 = fst::ArcSortMapper<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::ILabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::SetState(a2, v7);
+        (*(*a1 + 232))(a1, v7, v8);
+        for (i = a2[5]; ; a2[5] = i)
+        {
+          v10 = a2[2];
+          if (i >= (a2[3] - v10) >> 4)
+          {
+            break;
+          }
+
+          (*(*a1 + 200))(a1, v7, v10 + 16 * i);
+          i = a2[5] + 1;
+        }
+
+        (*(**a2 + 32))(*a2, v7);
+        (*(*a1 + 176))(a1, v7);
+        v7 = (v7 + 1);
+      }
+
+      while (v7 < (*(*a1 + 152))(a1));
+    }
+
+    v11 = *(*a1 + 184);
+
+    return v11(a1, v5 & 0x3FFF0FFF0007 | (((v5 >> 16) & 1) << 30) | 0x10000000, 0x3FFFFFFF0007);
+  }
+
+  return result;
+}
+
+double fst::ArcSortMapper<fst::ArcTpl<fst::TropicalWeightTpl<float>>,fst::ILabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>>>>::SetState(void *a1, uint64_t a2)
+{
+  a1[5] = 0;
+  v4 = a1 + 2;
+  a1[3] = a1[2];
+  v5 = (*(**a1 + 40))(*a1);
+  std::vector<fst::ArcTpl<fst::TropicalWeightTpl<float>>>::reserve(v4, v5);
+  v6 = *a1;
+  v16 = 0;
+  (*(*v6 + 136))(v6, a2, v14);
+  while (1)
+  {
+    if (!v14[0])
+    {
+      if (v16 >= v14[2])
+      {
+        goto LABEL_13;
+      }
+
+LABEL_7:
+      v8 = (v14[1] + 16 * v16);
+      goto LABEL_8;
+    }
+
+    if ((*(*v14[0] + 24))(v14[0]))
+    {
+      break;
+    }
+
+    if (!v14[0])
+    {
+      goto LABEL_7;
+    }
+
+    v8 = (*(*v14[0] + 32))();
+LABEL_8:
+    std::vector<fst::ArcTpl<fst::TropicalWeightTpl<float>>>::push_back[abi:ne200100](v4, v8);
+    if (v14[0])
+    {
+      (*(*v14[0] + 40))(v14[0]);
+    }
+
+    else
+    {
+      ++v16;
+    }
+  }
+
+  if (v14[0])
+  {
+    (*(*v14[0] + 8))();
+    goto LABEL_15;
+  }
+
+LABEL_13:
+  if (v15)
+  {
+    --*v15;
+  }
+
+LABEL_15:
+  v9 = a1[2];
+  v10 = a1[3];
+  v11 = 126 - 2 * __clz(v10 - v9);
+  if (v10 == v9)
+  {
+    v12 = 0;
+  }
+
+  else
+  {
+    v12 = v11;
+  }
+
+  *&result = std::__introsort<std::_ClassicAlgPolicy,fst::ILabelCompare<fst::ArcTpl<fst::TropicalWeightTpl<float>>> &,fst::ArcTpl<fst::TropicalWeightTpl<float>>*,false>(v9, v10, v14, v12, 1, v7).n128_u64[0];
+  return result;
 }

@@ -22,42 +22,40 @@
 
 - (id)categoricalFeatureValueForContext:(id)context candidate:(id)candidate
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   candidateCopy = candidate;
   v8 = objc_opt_new();
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v9 = self->_features;
-  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [*(*(&v18 + 1) + 8 * i) categoricalFeatureValueForContext:contextCopy candidate:{candidateCopy, v18}];
+        v14 = [*(*(&v17 + 1) + 8 * i) categoricalFeatureValueForContext:contextCopy candidate:{candidateCopy, v17}];
         [v8 addObject:v14];
       }
 
-      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v11);
   }
 
   v15 = [v8 componentsJoinedByString:@"_"];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

@@ -7,6 +7,7 @@
 - (id)parentForMailbox:(id)mailbox;
 - (int)levelForMailbox:(id)mailbox;
 - (void)_addChildNode:(id)node toParentNode:(id)parentNode;
+- (void)_insertMailboxUidsFlattenedFromMailboxNode:(id)node intoArray:(id)array currentLevel:(int)level;
 - (void)moveMailbox:(id)mailbox toParent:(id)parent;
 - (void)removeNodeForMailbox:(id)mailbox;
 - (void)setDisplayName:(id)name forMailbox:(id)mailbox;
@@ -67,6 +68,45 @@
   nodesByMailbox = self->_nodesByMailbox;
   mailbox2 = [nodeCopy mailbox];
   [(NSMutableDictionary *)nodesByMailbox setObject:nodeCopy forKey:mailbox2];
+}
+
+- (void)_insertMailboxUidsFlattenedFromMailboxNode:(id)node intoArray:(id)array currentLevel:(int)level
+{
+  v5 = *&level;
+  arrayCopy = array;
+  [node children];
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v9 = v16 = 0u;
+  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v10)
+  {
+    v11 = *v16;
+    do
+    {
+      for (i = 0; i != v10; i = i + 1)
+      {
+        if (*v16 != v11)
+        {
+          objc_enumerationMutation(v9);
+        }
+
+        v13 = *(*(&v15 + 1) + 8 * i);
+        mailbox = [v13 mailbox];
+        if (mailbox)
+        {
+          [v13 setLevel:v5];
+          [arrayCopy addObject:mailbox];
+          [(MailboxHierarchyTree *)self _insertMailboxUidsFlattenedFromMailboxNode:v13 intoArray:arrayCopy currentLevel:(v5 + 1)];
+        }
+      }
+
+      v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    }
+
+    while (v10);
+  }
 }
 
 - (id)flattenedMailboxTreeRepresentation

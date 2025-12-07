@@ -209,9 +209,9 @@ void __49__PKDynamicLayerView__removeParallaxMotionEffect__block_invoke(uint64_t
 
 - (void)layoutSubviews
 {
-  v43.receiver = self;
-  v43.super_class = PKDynamicLayerView;
-  [(PKDynamicLayerView *)&v43 layoutSubviews];
+  v96.receiver = self;
+  v96.super_class = PKDynamicLayerView;
+  [(PKDynamicLayerView *)&v96 layoutSubviews];
   [(PKDynamicLayerView *)self bounds];
   v4 = v3;
   v6 = v5;
@@ -222,66 +222,99 @@ void __49__PKDynamicLayerView__removeParallaxMotionEffect__block_invoke(uint64_t
 
   PKSizeAspectFit();
   staticFallbackView = self->_staticFallbackView;
-  PKSizeAlignedInRect();
+  v13 = *MEMORY[0x1E69BB7F8];
+  v14.n128_u64[0] = v4;
+  v15.n128_u64[0] = v6;
+  v16.n128_u64[0] = v8;
+  v17.n128_u64[0] = v10;
+  PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v18, v19, v14, v15, v16, v17, v20);
   [(UIImageView *)staticFallbackView setFrame:?];
-  v13 = v4;
-  v14 = v6;
-  v15 = v8;
-  v16 = v10;
+  v23 = *&v4;
+  v24 = *&v6;
+  v25 = *&v8;
+  v26 = *&v10;
   if ([(PKDynamicLayerConfiguration *)self->_dynamicLayerConfiguration parallaxEnabled])
   {
-    PKFloatRoundToPixel();
-    PKFloatRoundToPixel();
-    PKSizeAlignedInRect();
-    v13 = v17;
-    v14 = v18;
-    v15 = v19;
-    v16 = v20;
+    v21.n128_f64[0] = *&v10 + self->_parallaxOffset.vertical * 2.0;
+    PKFloatRoundToPixel(v21, v22);
+    v28 = v27;
+    v29.n128_f64[0] = *&v8 + self->_parallaxOffset.horizontal * 2.0;
+    PKFloatRoundToPixel(v29, v30);
+    v31.n128_u64[0] = v28;
+    v32.n128_u64[0] = v4;
+    v33.n128_u64[0] = v6;
+    v34.n128_u64[0] = v8;
+    v35.n128_u64[0] = v10;
+    PKSizeAlignedInRect(v13, v36, v31, v32, v33, v34, v35, v37);
+    v23 = v38;
+    v24 = v39;
+    v25 = v40;
+    v26 = v41;
   }
 
-  [(PKDynamicContentView *)self->_backgroundParallaxView setFrame:v13, v14, v15, v16];
-  [(UIImageView *)self->_backgroundParallaxCrossDissolveView setFrame:v13, v14, v15, v16];
-  [(PKDynamicContentView *)self->_neutralView setFrame:v4, v6, v8, v10];
-  [(PKDynamicContentView *)self->_foregroundParallaxView setFrame:v13, v14, v15, v16];
-  [(UIImageView *)self->_foregroundParallaxCrossDissolveView setFrame:v13, v14, v15, v16];
-  [(PKDynamicContentView *)self->_staticOverlayView setFrame:v4, v6, v8, v10];
+  [(PKDynamicContentView *)self->_backgroundParallaxView setFrame:v23, v24, v25, v26];
+  [(UIImageView *)self->_backgroundParallaxCrossDissolveView setFrame:v23, v24, v25, v26];
+  [(PKDynamicContentView *)self->_neutralView setFrame:*&v4, *&v6, *&v8, *&v10];
+  [(PKDynamicContentView *)self->_foregroundParallaxView setFrame:v23, v24, v25, v26];
+  [(UIImageView *)self->_foregroundParallaxCrossDissolveView setFrame:v23, v24, v25, v26];
+  [(PKDynamicContentView *)self->_staticOverlayView setFrame:*&v4, *&v6, *&v8, *&v10];
   [(UIImageView *)self->_backgroundParallaxCrossDissolveView bounds];
-  PKFloatRoundToPixel();
-  PKSizeAlignedInRect();
-  v22 = v21;
-  v24 = v23;
-  v26 = v25;
-  v28 = v27;
+  v43 = v42;
+  v45 = v44.n128_u64[0];
+  v47 = v46;
+  v49 = *&v48;
+  v50.n128_f64[0] = v48 * 4.0;
+  PKFloatRoundToPixel(v50, v44);
+  v52.n128_u64[0] = v51.n128_u64[0];
+  v53.n128_u64[0] = v43;
+  v54.n128_u64[0] = v45;
+  v55.n128_u64[0] = v47;
+  v56.n128_u64[0] = v49;
+  PKSizeAlignedInRect(v13, v51, v52, v53, v54, v55, v56, v57);
+  v59 = v58;
+  v61 = v60;
+  v63 = v62;
+  v65 = v64;
   maskView = [(UIImageView *)self->_backgroundParallaxCrossDissolveView maskView];
-  [maskView setFrame:{v22, v24, v26, v28}];
+  [maskView setFrame:{v59, v61, v63, v65}];
   backgroundRadialGradientLayer = self->_backgroundRadialGradientLayer;
   [maskView bounds];
   [(CAGradientLayer *)backgroundRadialGradientLayer setFrame:?];
   [(UIImageView *)self->_foregroundParallaxCrossDissolveView bounds];
-  PKFloatRoundToPixel();
-  PKSizeAlignedInRect();
-  v32 = v31;
-  v34 = v33;
-  v36 = v35;
-  v38 = v37;
+  v69 = v68;
+  v71 = v70.n128_u64[0];
+  v73 = v72;
+  v75 = *&v74;
+  v76.n128_f64[0] = v74 * 4.0;
+  PKFloatRoundToPixel(v76, v70);
+  v78.n128_u64[0] = v77.n128_u64[0];
+  v79.n128_u64[0] = v69;
+  v80.n128_u64[0] = v71;
+  v81.n128_u64[0] = v73;
+  v82.n128_u64[0] = v75;
+  PKSizeAlignedInRect(v13, v77, v78, v79, v80, v81, v82, v83);
+  v85 = v84;
+  v87 = v86;
+  v89 = v88;
+  v91 = v90;
   maskView2 = [(UIImageView *)self->_foregroundParallaxCrossDissolveView maskView];
-  [maskView2 setFrame:{v32, v34, v36, v38}];
+  [maskView2 setFrame:{v85, v87, v89, v91}];
   foregroundRadialGradientLayer = self->_foregroundRadialGradientLayer;
   [maskView2 bounds];
   [(CAGradientLayer *)foregroundRadialGradientLayer setFrame:?];
   dimmingLayer = self->_dimmingLayer;
   if (dimmingLayer)
   {
-    [(CALayer *)dimmingLayer setFrame:v4, v6, v8, v10];
-    [(CALayer *)self->_dimmingLayer setPosition:v8 * 0.5, v10 * 0.5];
+    [(CALayer *)dimmingLayer setFrame:*&v4, *&v6, *&v8, *&v10];
+    [(CALayer *)self->_dimmingLayer setPosition:*&v8 * 0.5, *&v10 * 0.5];
   }
 
   transactionEffectLayer = self->_transactionEffectLayer;
   if (transactionEffectLayer)
   {
-    [(CAEmitterLayer *)transactionEffectLayer setFrame:v4, v6, v8, v10];
-    [(CAEmitterLayer *)self->_transactionEffectLayer setPosition:v8 * 0.5, v10 * 0.5];
-    [(PKDynamicLayerTransactionEffectConfiguration *)self->_transactionEffectConfiguration configureTransactionEffectEmitterLayer:self->_transactionEffectLayer withBounds:v4, v6, v8, v10];
+    [(CAEmitterLayer *)transactionEffectLayer setFrame:*&v4, *&v6, *&v8, *&v10];
+    [(CAEmitterLayer *)self->_transactionEffectLayer setPosition:*&v8 * 0.5, *&v10 * 0.5];
+    [(PKDynamicLayerTransactionEffectConfiguration *)self->_transactionEffectConfiguration configureTransactionEffectEmitterLayer:self->_transactionEffectLayer withBounds:*&v4, *&v6, *&v8, *&v10];
   }
 }
 
@@ -291,11 +324,11 @@ void __49__PKDynamicLayerView__removeParallaxMotionEffect__block_invoke(uint64_t
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v34 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   passCopy = pass;
-  v29.receiver = self;
-  v29.super_class = PKDynamicLayerView;
-  height = [(PKDynamicLayerView *)&v29 initWithFrame:x, y, width, height];
+  v43.receiver = self;
+  v43.super_class = PKDynamicLayerView;
+  height = [(PKDynamicLayerView *)&v43 initWithFrame:x, y, width, height];
   v14 = height;
   if (height)
   {
@@ -317,12 +350,19 @@ void __49__PKDynamicLayerView__removeParallaxMotionEffect__block_invoke(uint64_t
     v14->_loaded = 0;
     [(PKPass *)v14->_pass style];
     PKPassFrontFaceContentSize();
-    PKFloatRoundToPixel();
-    PKFloatRoundToPixel();
-    PKFloatRoundToPixel();
-    v14->_parallaxOffset.horizontal = v22;
-    PKFloatRoundToPixel();
-    v14->_parallaxOffset.vertical = v23;
+    v23 = v22;
+    v25 = v24.n128_f64[0];
+    v26.n128_f64[0] = v24.n128_f64[0] * 1.10000002;
+    PKFloatRoundToPixel(v26, v24);
+    v28 = v27;
+    v29.n128_f64[0] = v23 * 1.10000002;
+    PKFloatRoundToPixel(v29, v30);
+    v32.n128_f64[0] = (v31 - v23) * 0.5;
+    PKFloatRoundToPixel(v32, v33);
+    v14->_parallaxOffset.horizontal = v34;
+    v35.n128_f64[0] = (v28 - v25) * 0.5;
+    PKFloatRoundToPixel(v35, v36);
+    v14->_parallaxOffset.vertical = v37;
     if (v14->_automaticallyLoadContent)
     {
       [(PKDynamicLayerView *)v14 loadContent];
@@ -333,16 +373,16 @@ void __49__PKDynamicLayerView__removeParallaxMotionEffect__block_invoke(uint64_t
 
     if (([(PKDynamicLayerConfiguration *)v14->_dynamicLayerConfiguration isSupported]& 1) == 0)
     {
-      v25 = PKLogFacilityTypeGetObject();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      v39 = PKLogFacilityTypeGetObject();
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
       {
-        v26 = *MEMORY[0x1E69BB880];
+        v40 = *MEMORY[0x1E69BB880];
         version = [(PKDynamicLayerConfiguration *)v14->_dynamicLayerConfiguration version];
         *buf = 134218240;
-        v31 = v26;
-        v32 = 2048;
-        v33 = version;
-        _os_log_impl(&dword_1BD026000, v25, OS_LOG_TYPE_DEFAULT, "Using static fallback asset for dynamic pass. Client supported dynamic layer configuration version: %lu pass's version: %lu", buf, 0x16u);
+        v45 = v40;
+        v46 = 2048;
+        v47 = version;
+        _os_log_impl(&dword_1BD026000, v39, OS_LOG_TYPE_DEFAULT, "Using static fallback asset for dynamic pass. Client supported dynamic layer configuration version: %lu pass's version: %lu", buf, 0x16u);
       }
     }
   }

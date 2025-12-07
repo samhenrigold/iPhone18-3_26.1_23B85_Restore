@@ -70,7 +70,7 @@
 - (void)prepareURLRequest:(id)request
 {
   requestCopy = request;
-  v5 = WLKNetworkSignpostLogObject();
+  v5 = WLKNetworkSignpostLogObject(requestCopy);
   signpostIdentifier = [(WLKNetworkRequestOperation *)self signpostIdentifier];
   if (signpostIdentifier - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
@@ -97,7 +97,7 @@ void __51__WLKUTSNetworkRequestOperation_prepareURLRequest___block_invoke(uint64
 {
   v5 = a2;
   v6 = a3;
-  v7 = WLKNetworkSignpostLogObject();
+  v7 = WLKNetworkSignpostLogObject(v6);
   v8 = [*(a1 + 32) signpostIdentifier];
   if ((v8 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
   {

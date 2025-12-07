@@ -139,8 +139,7 @@
   v6 = +[NSMutableArray array];
   [(PLBatteryUITimeUsageCell *)self setSeparatorStyle:0];
   [(PLBatteryUITimeUsageCell *)self fitSize];
-  screenOffText = self->_screenOffText;
-  v8 = _NSDictionaryOfVariableBindings(@"_screenOnText, _screenOffText, _screenOnTimeText, _screenOffTimeText", self->_screenOnText, screenOffText, self->_screenOnTimeText, self->_screenOffTimeText, 0);
+  v7 = _NSDictionaryOfVariableBindings(@"_screenOnText, _screenOffText, _screenOnTimeText, _screenOffTimeText", self->_screenOnText, self->_screenOffText, self->_screenOnTimeText, self->_screenOffTimeText, 0);
   if (bOOLValue)
   {
     _NSDictionaryOfVariableBindings(@"bottomMargin", &off_1738E0, 0);
@@ -150,7 +149,7 @@
   {
     _NSDictionaryOfVariableBindings(@"bottomMargin", &off_1738F8, 0);
   }
-  v9 = ;
+  v8 = ;
   if ([(PLBatteryUITimeUsageCell *)self constraintsAdded])
   {
     if (bOOLValue != [(PLBatteryUITimeUsageCell *)self previousBreakdownNotAvailable])
@@ -161,58 +160,58 @@
       bottomMarginConstraints2 = [(PLBatteryUITimeUsageCell *)self bottomMarginConstraints];
       [bottomMarginConstraints2 removeAllObjects];
 
-      v12 = +[NSLayoutConstraint constraintsWithVisualFormat:options:metrics:views:](NSLayoutConstraint, "constraintsWithVisualFormat:options:metrics:views:", @"V:|-15-[_screenOnText]-2-[_screenOnTimeText]-(bottomMargin)-|", 0, v9, v8);
-      v13 = +[NSLayoutConstraint constraintsWithVisualFormat:options:metrics:views:](NSLayoutConstraint, "constraintsWithVisualFormat:options:metrics:views:", @"V:|-15-[_screenOffText]-2-[_screenOffTimeText]-(bottomMargin)-|", 0, v9, v8);
+      v11 = +[NSLayoutConstraint constraintsWithVisualFormat:options:metrics:views:](NSLayoutConstraint, "constraintsWithVisualFormat:options:metrics:views:", @"V:|-15-[_screenOnText]-2-[_screenOnTimeText]-(bottomMargin)-|", 0, v8, v7);
+      v12 = +[NSLayoutConstraint constraintsWithVisualFormat:options:metrics:views:](NSLayoutConstraint, "constraintsWithVisualFormat:options:metrics:views:", @"V:|-15-[_screenOffText]-2-[_screenOffTimeText]-(bottomMargin)-|", 0, v8, v7);
+      [v6 addObjectsFromArray:v11];
       [v6 addObjectsFromArray:v12];
-      [v6 addObjectsFromArray:v13];
       bottomMarginConstraints3 = [(PLBatteryUITimeUsageCell *)self bottomMarginConstraints];
-      [bottomMarginConstraints3 addObjectsFromArray:v12];
+      [bottomMarginConstraints3 addObjectsFromArray:v11];
 
       bottomMarginConstraints4 = [(PLBatteryUITimeUsageCell *)self bottomMarginConstraints];
-      [bottomMarginConstraints4 addObjectsFromArray:v13];
+      [bottomMarginConstraints4 addObjectsFromArray:v12];
 
       [NSLayoutConstraint activateConstraints:v6];
       [(PLBatteryUITimeUsageCell *)self setPreviousBreakdownNotAvailable:bOOLValue];
     }
 
-    v28.receiver = self;
-    v28.super_class = PLBatteryUITimeUsageCell;
-    [(PLBatteryUITimeUsageCell *)&v28 updateConstraints];
+    v27.receiver = self;
+    v27.super_class = PLBatteryUITimeUsageCell;
+    [(PLBatteryUITimeUsageCell *)&v27 updateConstraints];
   }
 
   else
   {
     [(PLBatteryUITimeUsageCell *)self setPreviousBreakdownNotAvailable:bOOLValue];
-    v24 = +[NSLayoutConstraint constraintsWithVisualFormat:options:metrics:views:](NSLayoutConstraint, "constraintsWithVisualFormat:options:metrics:views:", @"H:|-15-[_screenOnText]-0-[_screenOffText]-15-|", 0, 0, v8);
-    v26 = +[NSLayoutConstraint constraintsWithVisualFormat:options:metrics:views:](NSLayoutConstraint, "constraintsWithVisualFormat:options:metrics:views:", @"H:|-15-[_screenOnTimeText]-0-[_screenOffTimeText]-15-|", 0, 0, v8);
-    v23 = +[NSLayoutConstraint constraintsWithVisualFormat:options:metrics:views:](NSLayoutConstraint, "constraintsWithVisualFormat:options:metrics:views:", @"V:|-15-[_screenOnText]-2-[_screenOnTimeText]-(bottomMargin)-|", 0, v9, v8);
-    v16 = +[NSLayoutConstraint constraintsWithVisualFormat:options:metrics:views:](NSLayoutConstraint, "constraintsWithVisualFormat:options:metrics:views:", @"V:|-15-[_screenOffText]-2-[_screenOffTimeText]-(bottomMargin)-|", 0, v9, v8);
-    [NSLayoutConstraint constraintsWithVisualFormat:@"H:[_screenOnText(==_screenOffText)]" options:0 metrics:0 views:v8];
-    v17 = v25 = v9;
-    v18 = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[_screenOnTimeText(==_screenOffTimeText)]" options:0 metrics:0 views:v8];
-    v19 = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[_screenOnText(==_screenOffText)]" options:0 metrics:0 views:v8];
-    v20 = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[_screenOnTimeText(==_screenOffTimeText)]" options:0 metrics:0 views:v8];
-    [v6 addObjectsFromArray:v24];
+    v23 = +[NSLayoutConstraint constraintsWithVisualFormat:options:metrics:views:](NSLayoutConstraint, "constraintsWithVisualFormat:options:metrics:views:", @"H:|-15-[_screenOnText]-0-[_screenOffText]-15-|", 0, 0, v7);
+    v25 = +[NSLayoutConstraint constraintsWithVisualFormat:options:metrics:views:](NSLayoutConstraint, "constraintsWithVisualFormat:options:metrics:views:", @"H:|-15-[_screenOnTimeText]-0-[_screenOffTimeText]-15-|", 0, 0, v7);
+    v22 = +[NSLayoutConstraint constraintsWithVisualFormat:options:metrics:views:](NSLayoutConstraint, "constraintsWithVisualFormat:options:metrics:views:", @"V:|-15-[_screenOnText]-2-[_screenOnTimeText]-(bottomMargin)-|", 0, v8, v7);
+    v15 = +[NSLayoutConstraint constraintsWithVisualFormat:options:metrics:views:](NSLayoutConstraint, "constraintsWithVisualFormat:options:metrics:views:", @"V:|-15-[_screenOffText]-2-[_screenOffTimeText]-(bottomMargin)-|", 0, v8, v7);
+    [NSLayoutConstraint constraintsWithVisualFormat:@"H:[_screenOnText(==_screenOffText)]" options:0 metrics:0 views:v7];
+    v16 = v24 = v8;
+    v17 = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[_screenOnTimeText(==_screenOffTimeText)]" options:0 metrics:0 views:v7];
+    v18 = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[_screenOnText(==_screenOffText)]" options:0 metrics:0 views:v7];
+    v19 = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[_screenOnTimeText(==_screenOffTimeText)]" options:0 metrics:0 views:v7];
     [v6 addObjectsFromArray:v23];
-    [v6 addObjectsFromArray:v26];
+    [v6 addObjectsFromArray:v22];
+    [v6 addObjectsFromArray:v25];
+    [v6 addObjectsFromArray:v15];
     [v6 addObjectsFromArray:v16];
     [v6 addObjectsFromArray:v17];
     [v6 addObjectsFromArray:v18];
     [v6 addObjectsFromArray:v19];
-    [v6 addObjectsFromArray:v20];
     [NSLayoutConstraint activateConstraints:v6];
     bottomMarginConstraints5 = [(PLBatteryUITimeUsageCell *)self bottomMarginConstraints];
-    [bottomMarginConstraints5 addObjectsFromArray:v23];
+    [bottomMarginConstraints5 addObjectsFromArray:v22];
 
     bottomMarginConstraints6 = [(PLBatteryUITimeUsageCell *)self bottomMarginConstraints];
-    [bottomMarginConstraints6 addObjectsFromArray:v16];
+    [bottomMarginConstraints6 addObjectsFromArray:v15];
 
     [(PLBatteryUITimeUsageCell *)self setConstraintsAdded:1];
-    v27.receiver = self;
-    v27.super_class = PLBatteryUITimeUsageCell;
-    [(PLBatteryUITimeUsageCell *)&v27 updateConstraints];
+    v26.receiver = self;
+    v26.super_class = PLBatteryUITimeUsageCell;
+    [(PLBatteryUITimeUsageCell *)&v26 updateConstraints];
 
-    v9 = v25;
+    v8 = v24;
   }
 }
 

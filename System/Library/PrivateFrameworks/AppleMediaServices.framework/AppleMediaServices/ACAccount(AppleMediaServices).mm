@@ -1886,7 +1886,7 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  [v3 ams_encryptionResult];
+  objc_msgSend_ams_encryptionResult(v3);
   v4 = 1;
   [self ams_setAccountFlags:v3];
 
@@ -3591,7 +3591,7 @@ LABEL_15:
     {
       v18 = v13;
 
-      [v18 ams_encryptionResult];
+      objc_msgSend_ams_encryptionResult(v18);
     }
 
     else
@@ -4315,7 +4315,7 @@ LABEL_6:
 
 - (uint64_t)ams_addCookiesForResponse:()AppleMediaServices error:
 {
-  v6 = [MEMORY[0x1E6959A28] _getSetCookiesForResponse:?];
+  v6 = [MEMORY[0x1E6959A28] _getSetCookiesForResponse:a3];
   v7 = [self ams_asynchronouslyAddCookies:v6];
   v8 = [v7 resultWithError:a4];
 
@@ -4340,7 +4340,7 @@ LABEL_6:
 
 - (uint64_t)_updateCookiesWithCookiesToAdd:()AppleMediaServices cookiesToRemove:error:
 {
-  v6 = [self _updateCookiesWithCookiesToAdd:? cookiesToRemove:?];
+  v6 = [self _updateCookiesWithCookiesToAdd:a3 cookiesToRemove:a4];
   v7 = [v6 resultWithError:a5];
 
   return v7;

@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)locationReferenceFrameAsString:(int)string;
 - (int)StringAsLocationReferenceFrame:(id)frame;
 - (int)locationReferenceFrame;
 - (unint64_t)hash;
@@ -72,6 +73,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)locationReferenceFrameAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E83B8598[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsLocationReferenceFrame:(id)frame
@@ -188,7 +204,6 @@ LABEL_13:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    locationLatitudeDeg = self->_locationLatitudeDeg;
     PBDataWriterWriteDoubleField();
     has = self->_has;
     if ((has & 4) == 0)
@@ -208,7 +223,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  locationLongitudeDeg = self->_locationLongitudeDeg;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 1) == 0)
@@ -223,12 +237,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  locationHorizontalUncertaintyMeters = self->_locationHorizontalUncertaintyMeters;
   PBDataWriterWriteDoubleField();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_5:
-    locationReferenceFrame = self->_locationReferenceFrame;
     PBDataWriterWriteInt32Field();
   }
 

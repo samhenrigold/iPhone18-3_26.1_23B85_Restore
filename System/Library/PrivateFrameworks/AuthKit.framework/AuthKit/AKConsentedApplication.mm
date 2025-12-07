@@ -98,74 +98,68 @@
 
 - (AKConsentedApplication)initWithCoder:(id)coder
 {
-  v40 = &selfCopy;
+  v34 = &selfCopy;
   selfCopy = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, coder);
   v3 = selfCopy;
   selfCopy = 0;
-  v41 = [(AKConsentedApplication *)v3 init];
-  selfCopy = v41;
-  objc_storeStrong(&selfCopy, v41);
-  if (v41)
+  v35 = [(AKConsentedApplication *)v3 init];
+  selfCopy = v35;
+  objc_storeStrong(&selfCopy, v35);
+  if (v35)
   {
-    v31 = location[0];
-    v30 = MEMORY[0x1E695DFD8];
-    v29 = objc_opt_class();
-    v37 = 0x1E696A000uLL;
-    v32 = [v30 setWithObjects:{v29, objc_opt_class(), 0}];
-    v4 = [v31 decodeObjectOfClasses:? forKey:?];
+    v25 = location[0];
+    v24 = MEMORY[0x1E695DFD8];
+    v23 = objc_opt_class();
+    v31 = 0x1E696A000uLL;
+    v26 = [v24 setWithObjects:{v23, objc_opt_class(), 0}];
+    v4 = [v25 decodeObjectOfClasses:? forKey:?];
     scopes = selfCopy->_scopes;
     selfCopy->_scopes = v4;
     MEMORY[0x1E69E5920](scopes);
-    MEMORY[0x1E69E5920](v32);
-    v33 = location[0];
-    v6 = *(v37 + 3776);
-    v7 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"client_id"];
+    MEMORY[0x1E69E5920](v26);
+    v27 = location[0];
+    v6 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"client_id"];
     clientID = selfCopy->_clientID;
-    selfCopy->_clientID = v7;
+    selfCopy->_clientID = v6;
     MEMORY[0x1E69E5920](clientID);
-    v34 = location[0];
-    v9 = *(v37 + 3776);
-    v10 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"client_name"];
+    v28 = location[0];
+    v8 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"client_name"];
     clientName = selfCopy->_clientName;
-    selfCopy->_clientName = v10;
+    selfCopy->_clientName = v8;
     MEMORY[0x1E69E5920](clientName);
-    v12 = [location[0] decodeIntegerForKey:@"credential_state"];
-    v13 = v37;
-    selfCopy->_state = v12;
-    v35 = location[0];
-    v14 = *(v13 + 3776);
-    v15 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"transfer_state"];
+    v10 = [location[0] decodeIntegerForKey:@"credential_state"];
+    selfCopy->_state = v10;
+    v29 = location[0];
+    v11 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"transfer_state"];
     transferState = selfCopy->_transferState;
-    selfCopy->_transferState = v15;
+    selfCopy->_transferState = v11;
     MEMORY[0x1E69E5920](transferState);
-    v36 = location[0];
-    v17 = *(v37 + 3776);
-    v18 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"primary_client_id"];
+    v30 = location[0];
+    v13 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"primary_client_id"];
     primaryClientID = selfCopy->_primaryClientID;
-    selfCopy->_primaryClientID = v18;
+    selfCopy->_primaryClientID = v13;
     MEMORY[0x1E69E5920](primaryClientID);
-    v38 = location[0];
-    v20 = *(v37 + 3776);
-    v21 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"origin"];
+    v32 = location[0];
+    v15 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"origin"];
     origin = selfCopy->_origin;
-    selfCopy->_origin = v21;
+    selfCopy->_origin = v15;
     MEMORY[0x1E69E5920](origin);
-    v39 = location[0];
-    v23 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"consented_date"];
+    v33 = location[0];
+    v17 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"consented_date"];
     creationDate = selfCopy->_creationDate;
-    selfCopy->_creationDate = v23;
+    selfCopy->_creationDate = v17;
     MEMORY[0x1E69E5920](creationDate);
   }
 
-  v26 = &selfCopy;
-  v28 = MEMORY[0x1E69E5928](selfCopy);
+  v20 = &selfCopy;
+  v22 = MEMORY[0x1E69E5928](selfCopy);
   obj = 0;
   objc_storeStrong(location, 0);
-  objc_storeStrong(v26, obj);
-  return v28;
+  objc_storeStrong(v20, obj);
+  return v22;
 }
 
 - (void)encodeWithCoder:(id)coder

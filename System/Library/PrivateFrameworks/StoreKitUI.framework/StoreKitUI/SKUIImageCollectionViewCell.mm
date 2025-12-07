@@ -432,7 +432,7 @@ void __67__SKUIImageCollectionViewCell_reloadWithViewElement_width_context___blo
     [(SKUIImageView *)v11 setImage:v14];
 
     v15 = self->_highlightImageView;
-    [(SKUIImageView *)firstObject transform];
+    objc_msgSend_transform(firstObject);
     [(SKUIImageView *)v15 setTransform:v23];
     contentView = [(SKUIImageCollectionViewCell *)self contentView];
     [contentView insertSubview:self->_highlightImageView aboveSubview:firstObject];
@@ -447,11 +447,29 @@ LABEL_9:
   v1 = "[SKUIImageCollectionViewCell reloadWithCarouselItem:size:context:]";
 }
 
++ (void)prefetchResourcesForViewElement:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIImageCollectionViewCell prefetchResourcesForViewElement:reason:context:]";
+}
+
 + (void)preferredSizeForViewElement:context:.cold.1()
 {
   v2 = *MEMORY[0x277D85DE8];
   v0 = 136446210;
   v1 = "+[SKUIImageCollectionViewCell preferredSizeForViewElement:context:]";
+}
+
++ (void)requestLayoutForViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIImageCollectionViewCell requestLayoutForViewElement:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 viewElement:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIImageCollectionViewCell sizeThatFitsWidth:viewElement:context:]";
 }
 
 @end

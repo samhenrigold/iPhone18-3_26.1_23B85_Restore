@@ -29,36 +29,36 @@
 - (TSCEViewTractRef)initWithTract:(id)tract tableUID:(const TSKUIDStruct *)d preserveFlags:(TSUPreserveFlags)flags columnGroupLevel:(unsigned __int8)level rowGroupLevel:(unsigned __int8)groupLevel aggrIndexLevel:(unsigned __int16)indexLevel
 {
   tractCopy = tract;
-  v23.receiver = self;
-  v23.super_class = TSCEViewTractRef;
-  v19 = [(TSCEViewTractRef *)&v23 init];
-  if (v19)
+  v22.receiver = self;
+  v22.super_class = TSCEViewTractRef;
+  v18 = [(TSCEViewTractRef *)&v22 init];
+  if (v18)
   {
-    v20 = objc_msgSend_copy(tractCopy, v15, v16, v17, v18);
-    tract = v19->_tract;
-    v19->_tract = v20;
+    v19 = objc_msgSend_copy(tractCopy, v15, v16, v17);
+    tract = v18->_tract;
+    v18->_tract = v19;
 
-    v19->_tableUID = *d;
-    v19->_preserveFlags = flags;
-    v19->_aggregateIndexLevel = indexLevel;
-    v19->_columnGroupLevel = level;
-    v19->_rowGroupLevel = groupLevel;
+    v18->_tableUID = *d;
+    v18->_preserveFlags = flags;
+    v18->_aggregateIndexLevel = indexLevel;
+    v18->_columnGroupLevel = level;
+    v18->_rowGroupLevel = groupLevel;
   }
 
-  return v19;
+  return v18;
 }
 
 - (TSCEViewTractRef)initWithTableUID:(const TSKUIDStruct *)d
 {
-  v12.receiver = self;
-  v12.super_class = TSCEViewTractRef;
-  v4 = [(TSCEViewTractRef *)&v12 init];
+  v11.receiver = self;
+  v11.super_class = TSCEViewTractRef;
+  v4 = [(TSCEViewTractRef *)&v11 init];
   if (v4)
   {
     v5 = [TSCEUndoTract alloc];
-    v9 = objc_msgSend_initWithPurpose_(v5, v6, 4, v7, v8);
-    v10 = *(v4 + 1);
-    *(v4 + 1) = v9;
+    v8 = objc_msgSend_initWithPurpose_(v5, v6, 4, v7);
+    v9 = *(v4 + 1);
+    *(v4 + 1) = v8;
 
     *(v4 + 1) = *d;
     v4[32] = 15;
@@ -85,12 +85,12 @@
   tractCopy = tract;
   if (self->_tract != tractCopy)
   {
-    v11 = tractCopy;
-    v9 = objc_msgSend_copy(tractCopy, v5, v6, v7, v8);
+    v10 = tractCopy;
+    v8 = objc_msgSend_copy(tractCopy, v5, v6, v7);
     tract = self->_tract;
-    self->_tract = v9;
+    self->_tract = v8;
 
-    tractCopy = v11;
+    tractCopy = v10;
   }
 }
 
@@ -99,10 +99,10 @@
   p_isa = &self->_tract->super.isa;
   if (p_isa)
   {
-    v7 = objc_msgSend_rowUids(p_isa, a2, v2, v3, v4);
-    if (*v7 == v7[1])
+    v6 = objc_msgSend_rowUids(p_isa, a2, v2, v3);
+    if (*v6 == v6[1])
     {
-      p_isa = objc_msgSend_columnUids(self->_tract, v8, v9, v10, v11);
+      p_isa = objc_msgSend_columnUids(self->_tract, v7, v8, v9);
       LOBYTE(p_isa) = *p_isa == p_isa[1];
     }
 
@@ -128,12 +128,12 @@
   {
     objc_opt_class();
     v6 = TSUDynamicCast();
-    v11 = v6;
-    if (v6 && self->_tableUID._lower == objc_msgSend_tableUID(v6, v7, v8, v9, v10) && self->_tableUID._upper == v12 && (aggregateIndexLevel = self->_aggregateIndexLevel, aggregateIndexLevel == objc_msgSend_aggregateIndexLevel(v11, v12, v13, v14, v15)) && (columnGroupLevel = self->_columnGroupLevel, columnGroupLevel == objc_msgSend_columnGroupLevel(v11, v17, v18, v19, v20)) && (rowGroupLevel = self->_rowGroupLevel, rowGroupLevel == objc_msgSend_rowGroupLevel(v11, v22, v23, v24, v25)) && self->_preserveFlags._flags == objc_msgSend_preserveFlags(v11, v27, v28, v29, v30))
+    v10 = v6;
+    if (v6 && self->_tableUID._lower == objc_msgSend_tableUID(v6, v7, v8, v9) && self->_tableUID._upper == v11 && (aggregateIndexLevel = self->_aggregateIndexLevel, aggregateIndexLevel == objc_msgSend_aggregateIndexLevel(v10, v11, v12, v13)) && (columnGroupLevel = self->_columnGroupLevel, columnGroupLevel == objc_msgSend_columnGroupLevel(v10, v15, v16, v17)) && (rowGroupLevel = self->_rowGroupLevel, rowGroupLevel == objc_msgSend_rowGroupLevel(v10, v19, v20, v21)) && self->_preserveFlags._flags == objc_msgSend_preserveFlags(v10, v23, v24, v25))
     {
       tract = self->_tract;
-      v36 = objc_msgSend_tract(v11, v31, v32, v33, v34);
-      isEqual = objc_msgSend_isEqual_(tract, v37, v36, v38, v39);
+      v30 = objc_msgSend_tract(v10, v26, v27, v28);
+      isEqual = objc_msgSend_isEqual_(tract, v31, v30, v32);
     }
 
     else

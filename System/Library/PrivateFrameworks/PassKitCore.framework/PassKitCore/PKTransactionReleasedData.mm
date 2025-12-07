@@ -302,13 +302,13 @@ LABEL_32:
     if (!elementNamespace || !@"org.iso.18013.5.1")
     {
 
-      LOBYTE(v6) = 0;
+      LOBYTE(isEqualToString) = 0;
       goto LABEL_17;
     }
 
-    v6 = [(__CFString *)elementNamespace isEqualToString:@"org.iso.18013.5.1"];
+    isEqualToString = objc_msgSend_isEqualToString_(elementNamespace);
 
-    if (!v6)
+    if (!isEqualToString)
     {
       goto LABEL_18;
     }
@@ -326,11 +326,11 @@ LABEL_32:
     {
 
 LABEL_16:
-      LOBYTE(v6) = [(__CFString *)v5 containsString:@"age_over_"];
+      LOBYTE(isEqualToString) = [(__CFString *)v5 containsString:@"age_over_"];
       goto LABEL_17;
     }
 
-    v8 = [(__CFString *)identifier isEqualToString:@"age_in_years"];
+    v8 = objc_msgSend_isEqualToString_(identifier);
 
     if ((v8 & 1) == 0)
     {
@@ -338,11 +338,11 @@ LABEL_16:
     }
   }
 
-  LOBYTE(v6) = 1;
+  LOBYTE(isEqualToString) = 1;
 LABEL_17:
 
 LABEL_18:
-  return v6;
+  return isEqualToString;
 }
 
 - (BOOL)isPortraitElement:(id)element
@@ -359,27 +359,27 @@ LABEL_7:
     v8 = v7;
     if (identifier == v7)
     {
-      LOBYTE(v6) = 1;
+      LOBYTE(isEqualToString) = 1;
     }
 
     else
     {
-      LOBYTE(v6) = 0;
+      LOBYTE(isEqualToString) = 0;
       if (identifier && v7)
       {
-        LOBYTE(v6) = [(__CFString *)identifier isEqualToString:v7];
+        LOBYTE(isEqualToString) = objc_msgSend_isEqualToString_(identifier);
       }
     }
 
     goto LABEL_13;
   }
 
-  LOBYTE(v6) = 0;
+  LOBYTE(isEqualToString) = 0;
   if (elementNamespace && @"org.iso.18013.5.1")
   {
-    v6 = [(__CFString *)elementNamespace isEqualToString:@"org.iso.18013.5.1"];
+    isEqualToString = objc_msgSend_isEqualToString_(elementNamespace);
 
-    if (!v6)
+    if (!isEqualToString)
     {
       goto LABEL_14;
     }
@@ -390,7 +390,7 @@ LABEL_7:
 LABEL_13:
 
 LABEL_14:
-  return v6;
+  return isEqualToString;
 }
 
 - (unint64_t)verificationType

@@ -1089,9 +1089,9 @@ LABEL_15:
     goto LABEL_8;
   }
 
-  v7 = [v5 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     _UIButtonBarClearOwners(*&self->_minimumInterItemSpace, self);
@@ -1284,9 +1284,9 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [(NSArray *)v5 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     _UIButtonBarClearOwners(self->_fixedTrailingGroups, self);
@@ -1319,9 +1319,9 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [(_UIButtonBarDelegate *)v5 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     _UIButtonBarClearOwners(self->_delegate, self);
@@ -2312,9 +2312,9 @@ LABEL_11:
     goto LABEL_8;
   }
 
-  v8 = [(_UIBarAppearanceData *)v6 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v6, v7, v7);
 
-  if (!v8)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     objc_storeStrong(&self->_doneItemAppearance, appearance);
@@ -2343,9 +2343,9 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v8 = [(_UIPointerInteractionAssistant *)v6 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v6, v7, v7);
 
-  if ((v8 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     objc_storeStrong(&self->_assistant, appearance);

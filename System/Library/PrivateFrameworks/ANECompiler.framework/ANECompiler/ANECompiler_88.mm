@@ -1,3 +1,664 @@
+void google::protobuf::DescriptorBuilder::BuildReservedRange(void *a1, uint64_t a2, uint64_t a3, int32x2_t *a4)
+{
+  v7 = *(a2 + 24);
+  a4->i32[0] = v7;
+  v8 = *(a2 + 28);
+  a4->i32[1] = v8;
+  if (v7 > 0)
+  {
+    if (v7 < v8)
+    {
+      return;
+    }
+
+    goto LABEL_18;
+  }
+
+  v10 = 0;
+  _X10 = a1[28];
+  __asm { PRFM            #4, [X10] }
+
+  v17 = ((((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + a3) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + a3))) + a3;
+  v18 = 0x9DDFEA08EB382D69 * v17;
+  v19 = (v17 * 0x9DDFEA08EB382D69) >> 64;
+  v20 = a1 + 26;
+  v21 = a1[26];
+  v22 = v19 ^ v18;
+  v23 = vdup_n_s8((v19 ^ v18) & 0x7F);
+  v24 = (((v19 ^ v18) >> 7) ^ (_X10 >> 12)) & v21;
+  v25 = *(_X10 + v24);
+  v26 = vceq_s8(v25, v23);
+  if (!v26)
+  {
+    goto LABEL_8;
+  }
+
+LABEL_5:
+  v27 = a1[29];
+  do
+  {
+    v28 = (v24 + (__clz(__rbit64(v26)) >> 3)) & v21;
+    if (*(v27 + 32 * v28) == a3)
+    {
+      v30 = v27 + 32 * v28;
+      v31 = *(v30 + 8);
+      v32 = __PAIR64__(v8, v7);
+      goto LABEL_13;
+    }
+
+    v26 &= ((v26 & 0x8080808080808080) - 1) & 0x8080808080808080;
+  }
+
+  while (v26);
+LABEL_8:
+  while (1)
+  {
+    v29 = vceq_s8(v25, 0x8080808080808080);
+    if (v29)
+    {
+      break;
+    }
+
+    v10 += 8;
+    v24 = (v10 + v24) & v21;
+    v25 = *(_X10 + v24);
+    v26 = vceq_s8(v25, v23);
+    if (v26)
+    {
+      goto LABEL_5;
+    }
+  }
+
+  inserted = absl::lts_20240722::container_internal::PrepareInsertNonSoo(v20, v22, (v24 + (__clz(__rbit64(v29)) >> 3)) & v21, v10, &absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<google::protobuf::Descriptor const*,google::protobuf::DescriptorBuilder::MessageHints>,absl::lts_20240722::container_internal::HashEq<google::protobuf::Descriptor const*,void>::Hash,absl::lts_20240722::container_internal::HashEq<google::protobuf::Descriptor const*,void>::Eq,std::allocator<std::pair<google::protobuf::Descriptor const* const,google::protobuf::DescriptorBuilder::MessageHints>>>::GetPolicyFunctions(void)::value);
+  v31 = 0;
+  v30 = a1[29] + 32 * inserted;
+  *(v30 + 16) = 0;
+  *(v30 + 24) = 0;
+  *v30 = a3;
+  *(v30 + 8) = 0;
+  *(v30 + 24) = 11;
+  v32 = *a4;
+LABEL_13:
+  v34 = vmin_s32(vmax_s32(v32, 0), 0xE0000000E0000000);
+  v34.i32[0] = vsub_s32(vdup_lane_s32(v34, 1), v34).u32[0];
+  v35 = ((v34.i32[0] & ~(v34.i32[0] >> 31)) + v31) & ~(((v34.i32[0] & ~(v34.i32[0] >> 31)) + v31) >> 31);
+  if (v35 >= 0x1FFFFFFF)
+  {
+    v35 = 0x1FFFFFFF;
+  }
+
+  *(v30 + 8) = v35;
+  if (!*(v30 + 16))
+  {
+    *(v30 + 16) = a2;
+    *(v30 + 24) = 1;
+  }
+
+  google::protobuf::DescriptorBuilder::AddError(a1, *(a3 + 8) + 24, a2, 1, "Reserved numbers must be positive integers.");
+  if (a4->i32[0] >= a4->i32[1])
+  {
+LABEL_18:
+    v36 = *(a3 + 8) + 24;
+
+    google::protobuf::DescriptorBuilder::AddError(a1, v36, a2, 1, "Reserved range end number must be greater than start number.");
+  }
+}
+
+uint64_t google::protobuf::anonymous namespace::FlatAllocatorImpl<char,std::string,google::protobuf::SourceCodeInfo,google::protobuf::FileDescriptorTables,google::protobuf::FeatureSet,google::protobuf::MessageOptions,google::protobuf::FieldOptions,google::protobuf::EnumOptions,google::protobuf::EnumValueOptions,google::protobuf::ExtensionRangeOptions,google::protobuf::OneofOptions,google::protobuf::ServiceOptions,google::protobuf::MethodOptions,google::protobuf::FileOptions>::AllocateArray<std::string const*>(uint64_t *a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *a1;
+  if (!*a1)
+  {
+  }
+
+  v5 = *(a1 + 42);
+  v6 = v5 + 8 * a2;
+  *(a1 + 42) = v6;
+  v7 = *(a1 + 28);
+  if (v6 > v7)
+  {
+  }
+
+  return v3 + v5;
+}
+
+void google::protobuf::DescriptorBuilder::AllocateOptions<google::protobuf::Descriptor>(uint64_t a1, uint64_t a2, void *a3, int a4, void *a5, size_t a6, uint64_t a7)
+{
+  __p = 0;
+  v27 = 0;
+  v28 = 0;
+  google::protobuf::Descriptor::GetLocationPath(a3, &__p);
+  v14 = v27;
+  if (v27 >= v28)
+  {
+    v25 = a2;
+    v19 = __p;
+    v20 = v27 - __p;
+    v21 = (v27 - __p) >> 2;
+    v22 = v21 + 1;
+    if ((v21 + 1) >> 62)
+    {
+      std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
+    }
+
+    v23 = v28 - __p;
+    if ((v28 - __p) >> 1 > v22)
+    {
+      v22 = v23 >> 1;
+    }
+
+    if (v23 >= 0x7FFFFFFFFFFFFFFCLL)
+    {
+      v24 = 0x3FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v24 = v22;
+    }
+
+    if (v24)
+    {
+      if (!(v24 >> 62))
+      {
+        operator new();
+      }
+
+      std::__throw_bad_array_new_length[abi:ne200100]();
+    }
+
+    *(4 * v21) = a4;
+    v15 = 4 * v21 + 4;
+    memcpy(0, v19, v20);
+    __p = 0;
+    v27 = v15;
+    v28 = 0;
+    if (v19)
+    {
+      operator delete(v19);
+    }
+
+    a2 = v25;
+    v27 = (4 * v21 + 4);
+    v16 = a3[1];
+    v17 = *(v16 + 47);
+    if ((v17 & 0x8000000000000000) == 0)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  else
+  {
+    *v27 = a4;
+    v15 = (v14 + 4);
+    v27 = v15;
+    v16 = a3[1];
+    v17 = *(v16 + 47);
+    if ((v17 & 0x8000000000000000) == 0)
+    {
+LABEL_3:
+      v18 = (v16 + 24);
+      goto LABEL_17;
+    }
+  }
+
+  v18 = *(v16 + 24);
+  v17 = *(v16 + 32);
+LABEL_17:
+  a3[4] = google::protobuf::DescriptorBuilder::AllocateOptionsImpl<google::protobuf::Descriptor>(a1, v18, v17, v18, v17, a2, __p, (v15 - __p) >> 2, a5, a6, a7);
+  a3[5] = &google::protobuf::_FeatureSet_default_instance_;
+  a3[6] = &google::protobuf::_FeatureSet_default_instance_;
+  if (__p)
+  {
+    v27 = __p;
+    operator delete(__p);
+  }
+}
+
+void sub_23CD84218(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void google::protobuf::DescriptorBuilder::CheckFieldJsonNameUniqueness(google::protobuf::DescriptorBuilder *this, const google::protobuf::DescriptorProto *a2, const google::protobuf::Descriptor *a3)
+{
+  v6 = *(a3 + 1);
+  if (*(v6 + 47) < 0)
+  {
+    std::string::__init_copy_ctor_external(&__p, *(v6 + 24), *(v6 + 32));
+    if (*(*this + 54))
+    {
+      goto LABEL_6;
+    }
+  }
+
+  else
+  {
+    __p = *(v6 + 24);
+    if (*(*this + 54))
+    {
+      goto LABEL_6;
+    }
+  }
+
+  if (*(*(a3 + 4) + 84) != 1)
+  {
+    google::protobuf::DescriptorBuilder::CheckFieldJsonNameUniqueness(this, &__p, a2, a3, 0);
+    v7 = 1;
+    goto LABEL_9;
+  }
+
+LABEL_6:
+  if (*(*(a3 + 2) + 32) != 999)
+  {
+    goto LABEL_10;
+  }
+
+  v7 = 0;
+LABEL_9:
+  google::protobuf::DescriptorBuilder::CheckFieldJsonNameUniqueness(this, &__p, a2, a3, v7);
+LABEL_10:
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+}
+
+void sub_23CD84330(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+unint64_t *google::protobuf::DescriptorBuilder::CheckFieldJsonNameUniqueness(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
+{
+  v70 = a5;
+  v75[0] = 0;
+  v75[1] = 0;
+  v76 = &unk_23CE31C20;
+  v6 = *(a3 + 24);
+  v5 = a3 + 24;
+  v7 = (v6 + 7);
+  if (v6)
+  {
+    v8 = v7;
+  }
+
+  else
+  {
+    v8 = v5;
+  }
+
+  v9 = *(v5 + 8);
+  if (v9)
+  {
+    v68 = &v8[v9];
+    do
+    {
+      v10 = *v8;
+      v11 = (*(*v8 + 24) & 0xFFFFFFFFFFFFFFFCLL);
+      memset(&v78, 0, sizeof(v78));
+      if ((v11[23] & 0x80u) == 0)
+      {
+        v12 = v11[23];
+      }
+
+      else
+      {
+        v12 = *(v11 + 1);
+      }
+
+      std::string::reserve(&v78, v12);
+      v15 = *(v11 + 1);
+      if ((v11[23] & 0x80u) == 0)
+      {
+        v16 = v11[23];
+      }
+
+      else
+      {
+        v11 = *v11;
+        v16 = v15;
+      }
+
+      if (v16)
+      {
+        v17 = 0;
+        do
+        {
+          v18 = *v11;
+          v19 = v18 == 95;
+          if (v18 != 95)
+          {
+            if (v17)
+            {
+              LOBYTE(v18) = absl::lts_20240722::ascii_internal::kToUpper[v18];
+            }
+
+            std::string::push_back(&v78, v18);
+          }
+
+          ++v11;
+          v17 = v19;
+          --v16;
+        }
+
+        while (v16);
+      }
+
+      if (!v70 || (*(v10 + 16) & 0x10) == 0)
+      {
+        goto LABEL_22;
+      }
+
+      v51 = *(v10 + 56) & 0xFFFFFFFFFFFFFFFCLL;
+      v52 = *(v51 + 23);
+      v53 = *(v51 + 8);
+      if (v52 >= 0)
+      {
+        v54 = *(v51 + 23);
+      }
+
+      else
+      {
+        v54 = *(v51 + 8);
+      }
+
+      size = HIBYTE(v78.__r_.__value_.__r.__words[2]);
+      v56 = HIBYTE(v78.__r_.__value_.__r.__words[2]);
+      if ((v78.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      {
+        size = v78.__r_.__value_.__l.__size_;
+      }
+
+      if (v54 == size)
+      {
+        v57 = v52 >= 0 ? (*(v10 + 56) & 0xFFFFFFFFFFFFFFFCLL) : *v51;
+        v58 = (v78.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v78 : v78.__r_.__value_.__r.__words[0];
+        if (!memcmp(v57, v58, v54))
+        {
+LABEL_22:
+          v72 = v10;
+          __p = v78;
+          v74 = 0;
+          goto LABEL_23;
+        }
+      }
+
+      v72 = v10;
+      if (v52 < 0)
+      {
+        std::string::__init_copy_ctor_external(&__p, *v51, v53);
+        v74 = 1;
+        if ((*(&v78.__r_.__value_.__s + 23) & 0x80) != 0)
+        {
+LABEL_86:
+          operator delete(v78.__r_.__value_.__l.__data_);
+          if ((v74 & 1) == 0)
+          {
+            goto LABEL_23;
+          }
+        }
+      }
+
+      else
+      {
+        v59 = *v51;
+        __p.__r_.__value_.__r.__words[2] = *(v51 + 16);
+        *&__p.__r_.__value_.__l.__data_ = v59;
+        v74 = 1;
+        if (v56 < 0)
+        {
+          goto LABEL_86;
+        }
+      }
+
+      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+      {
+        std::string::__init_copy_ctor_external(&v71, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+      }
+
+      else
+      {
+        v71 = __p;
+      }
+
+      if ((SHIBYTE(v71.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
+      {
+        if (v71.__r_.__value_.__l.__size_ && *v71.__r_.__value_.__l.__data_ == 91)
+        {
+          v62 = *(v71.__r_.__value_.__r.__words[0] + v71.__r_.__value_.__l.__size_ - 1);
+          operator delete(v71.__r_.__value_.__l.__data_);
+          if (v62 == 93)
+          {
+            goto LABEL_98;
+          }
+        }
+
+        else
+        {
+          operator delete(v71.__r_.__value_.__l.__data_);
+        }
+      }
+
+      else if (*(&v71.__r_.__value_.__s + 23) && v71.__r_.__value_.__s.__data_[0] == 91 && *(&v70 + SHIBYTE(v71.__r_.__value_.__r.__words[2]) + 3) == 93)
+      {
+LABEL_98:
+        v78.__r_.__value_.__r.__words[0] = v10;
+        v78.__r_.__value_.__l.__size_ = &v72;
+        google::protobuf::DescriptorBuilder::AddError(a1, a2, v10, 0, &v78, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::CheckFieldJsonNameUniqueness(std::string const&,google::protobuf::DescriptorProto const&,google::protobuf::Descriptor const*,BOOL)::$_0,std::string>);
+        goto LABEL_83;
+      }
+
+LABEL_23:
+      _X8 = v76;
+      __asm { PRFM            #4, [X8] }
+
+      if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        p_p = &__p;
+      }
+
+      else
+      {
+        p_p = __p.__r_.__value_.__r.__words[0];
+      }
+
+      if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v27 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+      }
+
+      else
+      {
+        v27 = __p.__r_.__value_.__l.__size_;
+      }
+
+      v28 = absl::lts_20240722::hash_internal::MixingHashState::combine_contiguous(&absl::lts_20240722::hash_internal::MixingHashState::kSeed, p_p, v27, v13, v14);
+      v29 = 0;
+      v30 = (((v28 + v27) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (v28 + v27));
+      v31 = v76;
+      v32 = v77;
+      v33 = v75[0];
+      v34 = (v76 >> 12) ^ (v30 >> 7);
+      v35 = vdup_n_s8(v30 & 0x7F);
+      if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v36 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+      }
+
+      else
+      {
+        v36 = __p.__r_.__value_.__l.__size_;
+      }
+
+      if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v37 = &__p;
+      }
+
+      else
+      {
+        v37 = __p.__r_.__value_.__r.__words[0];
+      }
+
+      v38 = v34 & v75[0];
+      v39 = *(v76 + (v34 & v75[0]));
+      v40 = vceq_s8(v39, v35);
+      if (!v40)
+      {
+LABEL_45:
+        while (1)
+        {
+          v45 = vceq_s8(v39, 0x8080808080808080);
+          if (v45)
+          {
+            break;
+          }
+
+          v29 += 8;
+          v38 = (v29 + v38) & v33;
+          v39 = *(v31 + v38);
+          v40 = vceq_s8(v39, v35);
+          if (v40)
+          {
+            goto LABEL_36;
+          }
+        }
+
+        v48 = v77 + (inserted << 6);
+        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+        {
+          std::string::__init_copy_ctor_external((v77 + (inserted << 6)), __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+        }
+
+        else
+        {
+          v49 = *&__p.__r_.__value_.__l.__data_;
+          *(v48 + 16) = *(&__p.__r_.__value_.__l + 2);
+          *v48 = v49;
+        }
+
+        *(v48 + 24) = v72;
+        if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+        {
+          std::string::__init_copy_ctor_external((v48 + 32), __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+        }
+
+        else
+        {
+          v61 = *&__p.__r_.__value_.__l.__data_;
+          *(v48 + 48) = *(&__p.__r_.__value_.__l + 2);
+          *(v48 + 32) = v61;
+        }
+
+        *(v48 + 56) = v74;
+        goto LABEL_83;
+      }
+
+LABEL_36:
+      v69 = v8;
+      v65 = v29;
+      while (1)
+      {
+        v41 = v32 + (((v38 + (__clz(__rbit64(v40)) >> 3)) & v33) << 6);
+        v42 = *(v41 + 23);
+        v43 = v42;
+        if ((v42 & 0x80u) != 0)
+        {
+          v42 = *(v41 + 8);
+        }
+
+        if (v42 == v36)
+        {
+          v44 = v43 >= 0 ? v41 : *v41;
+          if (!memcmp(v44, v37, v36))
+          {
+            break;
+          }
+        }
+
+        v40 &= ((v40 & 0x8080808080808080) - 1) & 0x8080808080808080;
+        v8 = v69;
+        v29 = v65;
+        if (!v40)
+        {
+          goto LABEL_45;
+        }
+      }
+
+      v46 = v41 + 24;
+      if (!v70)
+      {
+        v78.__r_.__value_.__r.__words[0] = &v72;
+        v78.__r_.__value_.__l.__size_ = v41 + 24;
+        v78.__r_.__value_.__r.__words[2] = v10;
+        if ((v74 & 1) == 0)
+        {
+          v50 = 0;
+          goto LABEL_74;
+        }
+
+        goto LABEL_54;
+      }
+
+      if (v74)
+      {
+        v78.__r_.__value_.__r.__words[0] = &v72;
+        v78.__r_.__value_.__l.__size_ = v41 + 24;
+        v78.__r_.__value_.__r.__words[2] = v10;
+LABEL_54:
+        v50 = *(v41 + 56);
+        goto LABEL_74;
+      }
+
+      v60 = *(v41 + 56);
+      v8 = v69;
+      if (v60 != 1)
+      {
+        goto LABEL_83;
+      }
+
+      v50 = 0;
+      v78.__r_.__value_.__r.__words[0] = &v72;
+      v78.__r_.__value_.__l.__size_ = v46;
+      v78.__r_.__value_.__r.__words[2] = v10;
+LABEL_74:
+      if (*(*(a4 + 48) + 68) != 2 || (v50 & 1) != 0)
+      {
+        google::protobuf::DescriptorBuilder::AddError(a1, a2, v10, 0, &v78, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::CheckFieldJsonNameUniqueness(std::string const&,google::protobuf::DescriptorProto const&,google::protobuf::Descriptor const*,BOOL)::$_1,std::string>);
+        v8 = v69;
+      }
+
+      else
+      {
+        google::protobuf::DescriptorBuilder::AddWarning(a1, a2, v10, 0, &v78, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::CheckFieldJsonNameUniqueness(std::string const&,google::protobuf::DescriptorProto const&,google::protobuf::Descriptor const*,BOOL)::$_1,std::string>);
+        v8 = v69;
+      }
+
+LABEL_83:
+      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(__p.__r_.__value_.__l.__data_);
+      }
+
+      ++v8;
+    }
+
+    while (v8 != v68);
+  }
+}
+
 void sub_23CD84918(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, unint64_t a32)
 {
   if (a30 < 0)
@@ -108,12 +769,12 @@ LABEL_23:
   return a1;
 }
 
-uint64_t google::protobuf::DescriptorBuilder::BuildFieldOrExtension(uint64_t *a1, uint64_t a2, uint64_t a3, void *a4, int a5, void *a6)
+uint64_t google::protobuf::DescriptorBuilder::BuildFieldOrExtension(void *a1, uint64_t a2, uint64_t a3, void *a4, int a5, void *a6)
 {
   v9 = a1;
-  v192 = *MEMORY[0x277D85DE8];
-  v183 = a4;
-  v184 = a3;
+  v195 = *MEMORY[0x277D85DE8];
+  v186 = a4;
+  v187 = a3;
   if (a3)
   {
     v10 = *(a3 + 8) + 24;
@@ -136,7 +797,7 @@ uint64_t google::protobuf::DescriptorBuilder::BuildFieldOrExtension(uint64_t *a1
 
   if (!*a6)
   {
-    google::protobuf::DescriptorBuilder::BuildFieldOrExtension(&v191);
+    google::protobuf::DescriptorBuilder::BuildFieldOrExtension(&v194);
   }
 
   v12 = (*(a2 + 24) & 0xFFFFFFFFFFFFFFFCLL);
@@ -154,10 +815,10 @@ uint64_t google::protobuf::DescriptorBuilder::BuildFieldOrExtension(uint64_t *a1
       v10 = *v10;
     }
 
-    v191.__r_.__value_.__r.__words[0] = v10;
-    v191.__r_.__value_.__l.__size_ = v13;
-    v190.__r_.__value_.__r.__words[0] = ".";
-    v190.__r_.__value_.__l.__size_ = 1;
+    v194.__r_.__value_.__r.__words[0] = v10;
+    v194.__r_.__value_.__l.__size_ = v13;
+    v193.__r_.__value_.__r.__words[0] = ".";
+    v193.__r_.__value_.__l.__size_ = 1;
     v15 = v12[23];
     if ((v15 & 0x80u) == 0)
     {
@@ -176,7 +837,7 @@ uint64_t google::protobuf::DescriptorBuilder::BuildFieldOrExtension(uint64_t *a1
 
     __p[0].__r_.__value_.__r.__words[0] = v16;
     __p[0].__r_.__value_.__l.__size_ = v15;
-    absl::lts_20240722::StrCat(&v191.__r_.__value_.__l.__data_, &v190, __p, &v187);
+    absl::lts_20240722::StrCat(&v194.__r_.__value_.__l.__data_, &v193, __p, &v190);
 LABEL_19:
     if (v11)
     {
@@ -188,13 +849,13 @@ LABEL_19:
 
   if (v12[23] < 0)
   {
-    std::string::__init_copy_ctor_external(&v187, *v12, *(v12 + 1));
+    std::string::__init_copy_ctor_external(&v190, *v12, *(v12 + 1));
     goto LABEL_19;
   }
 
   v25 = *v12;
-  v187.__r_.__value_.__r.__words[2] = *(v12 + 2);
-  *&v187.__r_.__value_.__l.__data_ = v25;
+  v190.__r_.__value_.__r.__words[2] = *(v12 + 2);
+  *&v190.__r_.__value_.__l.__data_ = v25;
   if (v11)
   {
     goto LABEL_20;
@@ -216,26 +877,26 @@ LABEL_33:
     }
 
 LABEL_20:
-    memset(&v191, 0, sizeof(v191));
-    v17 = std::vector<std::string>::__emplace_back_slow_path<std::string const&>(&v191, v12);
-    v191.__r_.__value_.__l.__size_ = v17;
-    if (v17 >= v191.__r_.__value_.__r.__words[2])
+    memset(&v194, 0, sizeof(v194));
+    v17 = std::vector<std::string>::__emplace_back_slow_path<std::string const&>(&v194, v12);
+    v194.__r_.__value_.__l.__size_ = v17;
+    if (v17 >= v194.__r_.__value_.__r.__words[2])
     {
-      v20 = v191.__r_.__value_.__r.__words[0];
-      v21 = v17 - v191.__r_.__value_.__r.__words[0];
-      v22 = 0xAAAAAAAAAAAAAAABLL * ((v17 - v191.__r_.__value_.__r.__words[0]) >> 3);
+      v20 = v194.__r_.__value_.__r.__words[0];
+      v21 = v17 - v194.__r_.__value_.__r.__words[0];
+      v22 = 0xAAAAAAAAAAAAAAABLL * ((v17 - v194.__r_.__value_.__r.__words[0]) >> 3);
       v23 = v22 + 1;
       if (v22 + 1 > 0xAAAAAAAAAAAAAAALL)
       {
         std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
       }
 
-      if (0x5555555555555556 * ((v191.__r_.__value_.__r.__words[2] - v191.__r_.__value_.__r.__words[0]) >> 3) > v23)
+      if (0x5555555555555556 * ((v194.__r_.__value_.__r.__words[2] - v194.__r_.__value_.__r.__words[0]) >> 3) > v23)
       {
-        v23 = 0x5555555555555556 * ((v191.__r_.__value_.__r.__words[2] - v191.__r_.__value_.__r.__words[0]) >> 3);
+        v23 = 0x5555555555555556 * ((v194.__r_.__value_.__r.__words[2] - v194.__r_.__value_.__r.__words[0]) >> 3);
       }
 
-      if (0xAAAAAAAAAAAAAAABLL * ((v191.__r_.__value_.__r.__words[2] - v191.__r_.__value_.__r.__words[0]) >> 3) >= 0x555555555555555)
+      if (0xAAAAAAAAAAAAAAABLL * ((v194.__r_.__value_.__r.__words[2] - v194.__r_.__value_.__r.__words[0]) >> 3) >= 0x555555555555555)
       {
         v24 = 0xAAAAAAAAAAAAAAALL;
       }
@@ -255,14 +916,14 @@ LABEL_20:
         std::__throw_bad_array_new_length[abi:ne200100]();
       }
 
-      v28 = (8 * ((v17 - v191.__r_.__value_.__r.__words[0]) >> 3));
-      *v28 = v187;
-      memset(&v187, 0, sizeof(v187));
+      v28 = (8 * ((v17 - v194.__r_.__value_.__r.__words[0]) >> 3));
+      *v28 = v190;
+      memset(&v190, 0, sizeof(v190));
       v19 = 24 * v22 + 24;
       v29 = 24 * v22 - v21;
       memcpy(v28 - v21, v20, v21);
-      v191.__r_.__value_.__r.__words[0] = v29;
-      *&v191.__r_.__value_.__r.__words[1] = v19;
+      v194.__r_.__value_.__r.__words[0] = v29;
+      *&v194.__r_.__value_.__r.__words[1] = v19;
       if (v20)
       {
         operator delete(v20);
@@ -271,121 +932,121 @@ LABEL_20:
 
     else
     {
-      v18 = *&v187.__r_.__value_.__l.__data_;
-      *(v17 + 16) = *(&v187.__r_.__value_.__l + 2);
+      v18 = *&v190.__r_.__value_.__l.__data_;
+      *(v17 + 16) = *(&v190.__r_.__value_.__l + 2);
       *v17 = v18;
-      memset(&v187, 0, sizeof(v187));
+      memset(&v190, 0, sizeof(v190));
       v19 = v17 + 24;
     }
 
-    v182 = v9;
-    v191.__r_.__value_.__l.__size_ = v19;
-    v186 = &v191;
+    v185 = v9;
+    v194.__r_.__value_.__l.__size_ = v19;
+    v189 = &v194;
     v30 = a5;
     if (v12[23] < 0)
     {
-      std::string::__init_copy_ctor_external(&v190, *v12, *(v12 + 1));
+      std::string::__init_copy_ctor_external(&v193, *v12, *(v12 + 1));
     }
 
     else
     {
       v31 = *v12;
-      v190.__r_.__value_.__r.__words[2] = *(v12 + 2);
-      *&v190.__r_.__value_.__l.__data_ = v31;
+      v193.__r_.__value_.__r.__words[2] = *(v12 + 2);
+      *&v193.__r_.__value_.__l.__data_ = v31;
     }
 
-    absl::lts_20240722::AsciiStrToLower(&v190);
-    __p[0] = v190;
-    memset(&v190, 0, sizeof(v190));
+    absl::lts_20240722::AsciiStrToLower(&v193);
+    __p[0] = v193;
+    memset(&v193, 0, sizeof(v193));
     if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p[0].__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v188.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v191.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v188.__r_.__value_.__l.__data_);
+      operator delete(v191.__r_.__value_.__l.__data_);
       if (v11)
       {
 LABEL_46:
         if (*(v11 + 23) < 0)
         {
-          std::string::__init_copy_ctor_external(&v185, *v11, *(v11 + 8));
+          std::string::__init_copy_ctor_external(&v188, *v11, *(v11 + 8));
         }
 
         else
         {
           v34 = *v11;
-          v185.__r_.__value_.__r.__words[2] = *(v11 + 16);
-          *&v185.__r_.__value_.__l.__data_ = v34;
+          v188.__r_.__value_.__r.__words[2] = *(v11 + 16);
+          *&v188.__r_.__value_.__l.__data_ = v34;
         }
 
 LABEL_63:
-        if (SHIBYTE(v185.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v188.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v185.__r_.__value_.__l.__data_);
+          operator delete(v188.__r_.__value_.__l.__data_);
         }
 
-        v43 = v42;
-        size = v191.__r_.__value_.__l.__size_;
-        v44 = v191.__r_.__value_.__r.__words[0];
-        if (v191.__r_.__value_.__r.__words[0] != v191.__r_.__value_.__l.__size_)
+        v45 = v43;
+        size = v194.__r_.__value_.__l.__size_;
+        v46 = v194.__r_.__value_.__r.__words[0];
+        if (v194.__r_.__value_.__r.__words[0] != v194.__r_.__value_.__l.__size_)
         {
-          v46 = v42;
+          v48 = v43;
           do
           {
-            if (*(v46 + 23) < 0)
+            if (*(v48 + 23) < 0)
             {
-              operator delete(*v46);
+              operator delete(*v48);
             }
 
-            v47 = *v44;
-            *(v46 + 16) = *(v44 + 16);
-            *v46 = v47;
+            v49 = *v46;
+            *(v48 + 16) = *(v46 + 16);
+            *v48 = v49;
+            v48 += 24;
+            *(v46 + 23) = 0;
+            *v46 = 0;
             v46 += 24;
-            *(v44 + 23) = 0;
-            *v44 = 0;
-            v44 += 24;
           }
 
-          while (v44 != size);
+          while (v46 != size);
         }
 
-        if (SHIBYTE(v190.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v193.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v190.__r_.__value_.__l.__data_);
+          operator delete(v193.__r_.__value_.__l.__data_);
         }
 
-        v48 = v191.__r_.__value_.__r.__words[0];
+        v50 = v194.__r_.__value_.__r.__words[0];
         a5 = v30;
-        v9 = v182;
-        if (v191.__r_.__value_.__r.__words[0])
+        v9 = v185;
+        if (v194.__r_.__value_.__r.__words[0])
         {
-          v49 = v191.__r_.__value_.__l.__size_;
-          v50 = v191.__r_.__value_.__r.__words[0];
-          if (v191.__r_.__value_.__l.__size_ != v191.__r_.__value_.__r.__words[0])
+          v51 = v194.__r_.__value_.__l.__size_;
+          v52 = v194.__r_.__value_.__r.__words[0];
+          if (v194.__r_.__value_.__l.__size_ != v194.__r_.__value_.__r.__words[0])
           {
             do
             {
-              v51 = *(v49 - 1);
-              v49 -= 3;
-              if (v51 < 0)
+              v53 = *(v51 - 1);
+              v51 -= 3;
+              if (v53 < 0)
               {
-                operator delete(*v49);
+                operator delete(*v51);
               }
             }
 
-            while (v49 != v48);
-            v50 = v191.__r_.__value_.__r.__words[0];
+            while (v51 != v50);
+            v52 = v194.__r_.__value_.__r.__words[0];
           }
 
-          v191.__r_.__value_.__l.__size_ = v48;
-          operator delete(v50);
+          v194.__r_.__value_.__l.__size_ = v50;
+          operator delete(v52);
         }
 
-        v52 = v32 & 3;
-        v53 = 4 * (v33 & 3);
-        v54 = 16 * (v41 & 7);
+        v54 = v32 & 3;
+        v55 = 4 * (v33 & 3);
+        v56 = 16 * (v42 & 7);
         goto LABEL_81;
       }
     }
@@ -395,7 +1056,7 @@ LABEL_63:
       goto LABEL_46;
     }
 
-    memset(&v185, 0, sizeof(v185));
+    memset(&v188, 0, sizeof(v188));
     if (v12[23] >= 0)
     {
       v35 = v12[23];
@@ -406,7 +1067,7 @@ LABEL_63:
       v35 = *(v12 + 1);
     }
 
-    std::string::reserve(&v185, v35);
+    std::string::reserve(&v188, v35);
     v36 = *(v12 + 1);
     if (v12[23] >= 0)
     {
@@ -433,7 +1094,7 @@ LABEL_63:
             LOBYTE(v39) = absl::lts_20240722::ascii_internal::kToUpper[v39];
           }
 
-          std::string::push_back(&v185, v39);
+          std::string::push_back(&v188, v39);
         }
 
         ++v12;
@@ -457,32 +1118,32 @@ LABEL_63:
   if (!v26)
   {
 LABEL_180:
+    v56 = 0;
+    v55 = 0;
     v54 = 0;
-    v53 = 0;
-    v52 = 0;
     goto LABEL_81;
   }
 
 LABEL_150:
-  v119 = &v27[v26];
-  v120 = 1;
+  v121 = &v27[v26];
+  v122 = 1;
   do
   {
     while (1)
     {
-      v121 = *v27;
-      if ((v121 - 97) < 0x1A || (v121 - 48) < 0xA)
+      v123 = *v27;
+      if ((v123 - 97) < 0x1A || (v123 - 48) < 0xA)
       {
         break;
       }
 
-      if (v121 != 95)
+      if (v123 != 95)
       {
         goto LABEL_20;
       }
 
-      v120 = 0;
-      if (++v27 == v119)
+      v122 = 0;
+      if (++v27 == v121)
       {
         goto LABEL_204;
       }
@@ -491,8 +1152,8 @@ LABEL_150:
     ++v27;
   }
 
-  while (v27 != v119);
-  if (v120)
+  while (v27 != v121);
+  if (v122)
   {
     goto LABEL_180;
   }
@@ -500,239 +1161,239 @@ LABEL_150:
 LABEL_204:
   if (v12[23] < 0)
   {
-    std::string::__init_copy_ctor_external(&v191, *v12, *(v12 + 1));
+    std::string::__init_copy_ctor_external(&v194, *v12, *(v12 + 1));
   }
 
   else
   {
-    v138 = *v12;
-    v191.__r_.__value_.__r.__words[2] = *(v12 + 2);
-    *&v191.__r_.__value_.__l.__data_ = v138;
+    v140 = *v12;
+    v194.__r_.__value_.__r.__words[2] = *(v12 + 2);
+    *&v194.__r_.__value_.__l.__data_ = v140;
   }
 
-  if (*(v43 + 23) < 0)
+  if (*(v45 + 23) < 0)
   {
-    operator delete(*v43);
+    operator delete(*v45);
   }
 
-  v159 = *&v191.__r_.__value_.__l.__data_;
-  *(v43 + 16) = *(&v191.__r_.__value_.__l + 2);
-  *v43 = v159;
-  *(&v191.__r_.__value_.__s + 23) = 0;
-  v191.__r_.__value_.__s.__data_[0] = 0;
-  __p[0].__r_.__value_.__r.__words[0] = v187.__r_.__value_.__l.__size_;
-  v160 = v187.__r_.__value_.__r.__words[0];
-  *(__p[0].__r_.__value_.__r.__words + 7) = *(&v187.__r_.__value_.__r.__words[1] + 7);
-  v161 = HIBYTE(v187.__r_.__value_.__r.__words[2]);
-  memset(&v187, 0, sizeof(v187));
-  if (*(v43 + 47) < 0)
-  {
-    operator delete(*(v43 + 24));
-  }
-
-  v162 = __p[0].__r_.__value_.__r.__words[0];
-  *(v43 + 24) = v160;
-  *(v43 + 32) = v162;
-  *(v43 + 39) = *(__p[0].__r_.__value_.__r.__words + 7);
-  *(v43 + 47) = v161;
-  v188.__r_.__value_.__r.__words[0] = v190.__r_.__value_.__l.__size_;
+  v162 = *&v194.__r_.__value_.__l.__data_;
+  *(v45 + 16) = *(&v194.__r_.__value_.__l + 2);
+  *v45 = v162;
+  *(&v194.__r_.__value_.__s + 23) = 0;
+  v194.__r_.__value_.__s.__data_[0] = 0;
+  __p[0].__r_.__value_.__r.__words[0] = v190.__r_.__value_.__l.__size_;
   v163 = v190.__r_.__value_.__r.__words[0];
-  *(v188.__r_.__value_.__r.__words + 7) = *(&v190.__r_.__value_.__r.__words[1] + 7);
+  *(__p[0].__r_.__value_.__r.__words + 7) = *(&v190.__r_.__value_.__r.__words[1] + 7);
   v164 = HIBYTE(v190.__r_.__value_.__r.__words[2]);
   memset(&v190, 0, sizeof(v190));
-  if (*(v43 + 71) < 0)
+  if (*(v45 + 47) < 0)
   {
-    operator delete(*(v43 + 48));
+    operator delete(*(v45 + 24));
   }
 
-  v165 = v188.__r_.__value_.__r.__words[0];
-  *(v43 + 48) = v163;
-  *(v43 + 56) = v165;
-  *(v43 + 63) = *(v188.__r_.__value_.__r.__words + 7);
-  *(v43 + 71) = v164;
-  if (SHIBYTE(v191.__r_.__value_.__r.__words[2]) < 0)
+  v165 = __p[0].__r_.__value_.__r.__words[0];
+  *(v45 + 24) = v163;
+  *(v45 + 32) = v165;
+  *(v45 + 39) = *(__p[0].__r_.__value_.__r.__words + 7);
+  *(v45 + 47) = v164;
+  v191.__r_.__value_.__r.__words[0] = v193.__r_.__value_.__l.__size_;
+  v166 = v193.__r_.__value_.__r.__words[0];
+  *(v191.__r_.__value_.__r.__words + 7) = *(&v193.__r_.__value_.__r.__words[1] + 7);
+  v167 = HIBYTE(v193.__r_.__value_.__r.__words[2]);
+  memset(&v193, 0, sizeof(v193));
+  if (*(v45 + 71) < 0)
   {
-    operator delete(v191.__r_.__value_.__l.__data_);
+    operator delete(*(v45 + 48));
   }
 
+  v168 = v191.__r_.__value_.__r.__words[0];
+  *(v45 + 48) = v166;
+  *(v45 + 56) = v168;
+  *(v45 + 63) = *(v191.__r_.__value_.__r.__words + 7);
+  *(v45 + 71) = v167;
+  if (SHIBYTE(v194.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v194.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v193.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v193.__r_.__value_.__l.__data_);
+  }
+
+  v54 = 0;
+  v55 = 8;
+  v56 = 32;
+LABEL_81:
   if (SHIBYTE(v190.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v190.__r_.__value_.__l.__data_);
   }
 
-  v52 = 0;
-  v53 = 8;
-  v54 = 32;
-LABEL_81:
-  if (SHIBYTE(v187.__r_.__value_.__r.__words[2]) < 0)
+  v57 = v186;
+  v186[1] = v45;
+  *(v57 + 3) = *(v57 + 3) & 0xFC | v54;
+  *(v186 + 3) = *(v186 + 3) & 0xF3 | v55;
+  *(v186 + 3) = *(v186 + 3) & 0x8F | v56;
+  v58 = *(a2 + 24) & 0xFFFFFFFFFFFFFFFCLL;
+  v59 = v186[1];
+  v60 = *(v58 + 23);
+  if (v60 < 0)
   {
-    operator delete(v187.__r_.__value_.__l.__data_);
-  }
-
-  v55 = v183;
-  v183[1] = v43;
-  *(v55 + 3) = *(v55 + 3) & 0xFC | v52;
-  *(v183 + 3) = *(v183 + 3) & 0xF3 | v53;
-  *(v183 + 3) = *(v183 + 3) & 0x8F | v54;
-  v56 = *(a2 + 24) & 0xFFFFFFFFFFFFFFFCLL;
-  v57 = v183[1];
-  v58 = *(v56 + 23);
-  if (v58 < 0)
-  {
-    v58 = *(v56 + 8);
-    if (v58)
+    v60 = *(v58 + 8);
+    if (v60)
     {
-      v59 = *v56;
+      v61 = *v58;
       goto LABEL_89;
     }
 
     goto LABEL_95;
   }
 
-  if (!*(v56 + 23))
+  if (!*(v58 + 23))
   {
 LABEL_95:
-    google::protobuf::DescriptorBuilder::AddError(v9, (v57 + 24), a2, 0, "Missing name.");
+    google::protobuf::DescriptorBuilder::AddError(v9, v59 + 24, a2, 0, "Missing name.");
     goto LABEL_96;
   }
 
-  v59 = (*(a2 + 24) & 0xFFFFFFFFFFFFFFFCLL);
+  v61 = (*(a2 + 24) & 0xFFFFFFFFFFFFFFFCLL);
 LABEL_89:
   while (1)
   {
-    v60 = *v59;
-    if ((v60 & 0xFFFFFFDF) - 91 <= 0xFFFFFFE5 && v60 != 95 && (v60 - 58) <= 0xFFFFFFF5)
+    v62 = *v61;
+    if ((v62 & 0xFFFFFFDF) - 91 <= 0xFFFFFFE5 && v62 != 95 && (v62 - 58) <= 0xFFFFFFF5)
     {
       break;
     }
 
-    ++v59;
-    if (!--v58)
+    ++v61;
+    if (!--v60)
     {
       goto LABEL_96;
     }
   }
 
-  v191.__r_.__value_.__r.__words[0] = *(a2 + 24) & 0xFFFFFFFFFFFFFFFCLL;
-  google::protobuf::DescriptorBuilder::AddError(v9, (v57 + 24), a2, 0, &v191, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::ValidateSymbolName(std::string const&,std::string const&,google::protobuf::Message const&)::$_0,std::string>);
+  v194.__r_.__value_.__r.__words[0] = *(a2 + 24) & 0xFFFFFFFFFFFFFFFCLL;
+  google::protobuf::DescriptorBuilder::AddError(v9, v59 + 24, a2, 0, &v194, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::ValidateSymbolName(std::string const&,std::string const&,google::protobuf::Message const&)::$_0,std::string>);
 LABEL_96:
-  v62 = v183;
-  v183[2] = v9[20];
-  *(v62 + 1) = *(a2 + 72);
+  v64 = v186;
+  v186[2] = v9[20];
+  *(v64 + 1) = *(a2 + 72);
   if (a5)
   {
-    v63 = 8;
+    v65 = 8;
   }
 
   else
   {
-    v63 = 0;
+    v65 = 0;
   }
 
-  *(v62 + 1) = *(v62 + 1) & 0xF7 | v63;
-  *(v183 + 1) &= ~0x10u;
+  *(v64 + 1) = *(v64 + 1) & 0xF7 | v65;
+  *(v186 + 1) &= ~0x10u;
   if (*(a2 + 80))
   {
-    v64 = 2;
+    v66 = 2;
   }
 
   else
   {
-    v64 = 0;
+    v66 = 0;
   }
 
-  *(v183 + 1) = *(v183 + 1) & 0xFD | v64;
+  *(v186 + 1) = *(v186 + 1) & 0xFD | v66;
   if (*(a2 + 80) == 1 && *(v9[20] + 32) != 999)
   {
-    v65 = v183[1];
-    v191.__r_.__value_.__r.__words[0] = &v183;
-    google::protobuf::DescriptorBuilder::AddError(v9, (v65 + 24), a2, 2, &v191, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::BuildFieldOrExtension(google::protobuf::FieldDescriptorProto const&,google::protobuf::Descriptor *,google::protobuf::FieldDescriptor *,BOOL,google::protobuf::internal::FlatAllocator &)::$_0,std::string>);
+    v67 = v186[1];
+    v194.__r_.__value_.__r.__words[0] = &v186;
+    google::protobuf::DescriptorBuilder::AddError(v9, v67 + 24, a2, 2, &v194, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::BuildFieldOrExtension(google::protobuf::FieldDescriptorProto const&,google::protobuf::Descriptor *,google::protobuf::FieldDescriptor *,BOOL,google::protobuf::internal::FlatAllocator &)::$_0,std::string>);
   }
 
-  *(v183 + 1) = *(v183 + 1) & 0xFB | (*(a2 + 16) >> 2) & 4;
-  v66 = v183;
-  *(v183 + 2) = *(a2 + 88);
-  *(v66 + 1) = (32 * (*(a2 + 84) & 3)) | *(v66 + 1) & 0x9F;
-  v67 = v183;
-  v68 = *(v183 + 1);
-  if ((v68 & 0x68) == 0x48)
+  *(v186 + 1) = *(v186 + 1) & 0xFB | (*(a2 + 16) >> 2) & 4;
+  v68 = v186;
+  *(v186 + 2) = *(a2 + 88);
+  *(v68 + 1) = (32 * (*(a2 + 84) & 3)) | *(v68 + 1) & 0x9F;
+  v69 = v186;
+  v70 = *(v186 + 1);
+  if ((v70 & 0x68) == 0x48)
   {
-    v69 = v183[1];
-    v191.__r_.__value_.__r.__words[0] = &v183;
-    google::protobuf::DescriptorBuilder::AddError(v9, (v69 + 24), a2, 2, &v191, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::BuildFieldOrExtension(google::protobuf::FieldDescriptorProto const&,google::protobuf::Descriptor *,google::protobuf::FieldDescriptor *,BOOL,google::protobuf::internal::FlatAllocator &)::$_1,std::string>);
-    v67 = v183;
-    v68 = *(v183 + 1);
+    v71 = v186[1];
+    v194.__r_.__value_.__r.__words[0] = &v186;
+    google::protobuf::DescriptorBuilder::AddError(v9, v71 + 24, a2, 2, &v194, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::BuildFieldOrExtension(google::protobuf::FieldDescriptorProto const&,google::protobuf::Descriptor *,google::protobuf::FieldDescriptor *,BOOL,google::protobuf::internal::FlatAllocator &)::$_1,std::string>);
+    v69 = v186;
+    v70 = *(v186 + 1);
   }
 
-  v67[10] = 0;
-  v67[3] = 0;
-  v67[4] = 0;
-  *(v67 + 1) = v68 & 0xFE | ((*(a2 + 16) & 8) != 0);
-  v70 = *(a2 + 16);
-  if ((v70 & 8) != 0 && (~*(v183 + 1) & 0x60) == 0)
+  v69[10] = 0;
+  v69[3] = 0;
+  v69[4] = 0;
+  *(v69 + 1) = v70 & 0xFE | ((*(a2 + 16) & 8) != 0);
+  v72 = *(a2 + 16);
+  if ((v72 & 8) != 0 && (~*(v186 + 1) & 0x60) == 0)
   {
-    google::protobuf::DescriptorBuilder::AddError(v9, (v183[1] + 24), a2, 4, "Repeated fields can't have default values.");
-    v70 = *(a2 + 16);
+    google::protobuf::DescriptorBuilder::AddError(v9, v186[1] + 24, a2, 4, "Repeated fields can't have default values.");
+    v72 = *(a2 + 16);
   }
 
-  if ((v70 & 0x400) != 0)
+  if ((v72 & 0x400) != 0)
   {
-    if ((v70 & 8) == 0)
+    if ((v72 & 8) == 0)
     {
-      v91 = v183;
-      v92 = v183[3];
-      if (v92)
+      v93 = v186;
+      v94 = v186[3];
+      if (v94)
       {
-        v191.__r_.__value_.__r.__words[0] = google::protobuf::FieldDescriptor::TypeOnceInit;
-        v190.__r_.__value_.__r.__words[0] = v183;
-        if (atomic_load_explicit(v92, memory_order_acquire) != 221)
+        v194.__r_.__value_.__r.__words[0] = google::protobuf::FieldDescriptor::TypeOnceInit;
+        v193.__r_.__value_.__r.__words[0] = v186;
+        if (atomic_load_explicit(v94, memory_order_acquire) != 221)
         {
-          absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v92, 1, &v191, &v190);
+          absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v94, 1, &v194, &v193);
         }
       }
 
-      v93 = google::protobuf::FieldDescriptor::kTypeToCppTypeMap[*(v91 + 2)];
-      if (v93 > 5)
+      v95 = google::protobuf::FieldDescriptor::kTypeToCppTypeMap[*(v93 + 2)];
+      if (v95 > 5)
       {
-        if (v93 > 7)
+        if (v95 > 7)
         {
-          if (v93 != 8)
+          if (v95 != 8)
           {
-            if (v93 == 9)
+            if (v95 == 9)
             {
               if ((atomic_load_explicit(google::protobuf::internal::init_protobuf_defaults_state, memory_order_acquire) & 1) == 0)
               {
-                google::protobuf::internal::InitProtobufDefaultsSlow(v92);
+                google::protobuf::internal::InitProtobufDefaultsSlow(v94);
               }
 
-              v183[10] = &google::protobuf::internal::fixed_address_empty_string;
+              v186[10] = &google::protobuf::internal::fixed_address_empty_string;
             }
 
-            else if (v93 == 10)
+            else if (v95 == 10)
             {
-              atomic_store(0, v183 + 10);
+              atomic_store(0, v186 + 10);
             }
 
             goto LABEL_111;
           }
 
 LABEL_208:
-          v183[10] = 0;
+          v186[10] = 0;
           goto LABEL_111;
         }
 
-        if (v93 != 6)
+        if (v95 != 6)
         {
-          *(v183 + 80) = 0;
+          *(v186 + 80) = 0;
           goto LABEL_111;
         }
       }
 
-      else if (v93 <= 2)
+      else if (v95 <= 2)
       {
-        if (v93 != 1)
+        if (v95 != 1)
         {
-          if (v93 != 2)
+          if (v95 != 2)
           {
             goto LABEL_111;
           }
@@ -741,201 +1402,201 @@ LABEL_208:
         }
       }
 
-      else if (v93 != 3)
+      else if (v95 != 3)
       {
         goto LABEL_208;
       }
 
-      *(v183 + 20) = 0;
+      *(v186 + 20) = 0;
       goto LABEL_111;
     }
 
     __p[0].__r_.__value_.__r.__words[0] = 0;
-    v110 = v183;
-    v111 = v183[3];
-    if (v111)
+    v112 = v186;
+    v113 = v186[3];
+    if (v113)
     {
-      v191.__r_.__value_.__r.__words[0] = google::protobuf::FieldDescriptor::TypeOnceInit;
-      v190.__r_.__value_.__r.__words[0] = v183;
-      if (atomic_load_explicit(v111, memory_order_acquire) != 221)
+      v194.__r_.__value_.__r.__words[0] = google::protobuf::FieldDescriptor::TypeOnceInit;
+      v193.__r_.__value_.__r.__words[0] = v186;
+      if (atomic_load_explicit(v113, memory_order_acquire) != 221)
       {
-        absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v111, 1, &v191, &v190);
+        absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v113, 1, &v194, &v193);
       }
     }
 
-    v112 = google::protobuf::FieldDescriptor::kTypeToCppTypeMap[*(v110 + 2)];
-    if (v112 <= 5)
+    v114 = google::protobuf::FieldDescriptor::kTypeToCppTypeMap[*(v112 + 2)];
+    if (v114 <= 5)
     {
-      if (v112 <= 2)
+      if (v114 <= 2)
       {
-        if (v112 != 1)
+        if (v114 != 1)
         {
-          if (v112 != 2)
+          if (v114 != 2)
           {
             goto LABEL_260;
           }
 
-          v139 = *(a2 + 48) & 0xFFFFFFFFFFFFFFFCLL;
-          if (*(v139 + 23) < 0)
+          v141 = *(a2 + 48) & 0xFFFFFFFFFFFFFFFCLL;
+          if (*(v141 + 23) < 0)
           {
-            v139 = *v139;
+            v141 = *v141;
           }
 
-          v140 = strtoll(v139, &__p[0].__r_.__value_.__l.__data_, 0);
+          v142 = strtoll(v141, &__p[0].__r_.__value_.__l.__data_, 0);
           goto LABEL_259;
         }
 
-        v145 = *(a2 + 48) & 0xFFFFFFFFFFFFFFFCLL;
-        if (*(v145 + 23) < 0)
+        v147 = *(a2 + 48) & 0xFFFFFFFFFFFFFFFCLL;
+        if (*(v147 + 23) < 0)
         {
-          v145 = *v145;
+          v147 = *v147;
         }
 
-        v146 = strtol(v145, &__p[0].__r_.__value_.__l.__data_, 0);
+        v148 = strtol(v147, &__p[0].__r_.__value_.__l.__data_, 0);
       }
 
       else
       {
-        if (v112 != 3)
+        if (v114 != 3)
         {
-          if (v112 != 4)
+          if (v114 != 4)
           {
-            v113 = *(a2 + 48);
-            v114 = (v113 & 0xFFFFFFFFFFFFFFFCLL);
-            v115 = *((v113 & 0xFFFFFFFFFFFFFFFCLL) + 23);
-            if (v115 < 0)
+            v115 = *(a2 + 48);
+            v116 = (v115 & 0xFFFFFFFFFFFFFFFCLL);
+            v117 = *((v115 & 0xFFFFFFFFFFFFFFFCLL) + 23);
+            if (v117 < 0)
             {
-              if (v114[1] != 3)
+              if (v116[1] != 3)
               {
                 goto LABEL_289;
               }
 
-              v116 = *v114;
+              v118 = *v116;
             }
 
             else
             {
-              v116 = (v113 & 0xFFFFFFFFFFFFFFFCLL);
-              if (v115 != 3)
+              v118 = (v115 & 0xFFFFFFFFFFFFFFFCLL);
+              if (v117 != 3)
               {
 LABEL_289:
-                if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v114, "-inf"))
+                if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v116, "-inf"))
                 {
-                  v183[10] = 0xFFF0000000000000;
+                  v186[10] = 0xFFF0000000000000;
                 }
 
                 else if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>((*(a2 + 48) & 0xFFFFFFFFFFFFFFFCLL), "nan"))
                 {
-                  v183[10] = 0x7FF8000000000000;
+                  v186[10] = 0x7FF8000000000000;
                 }
 
                 else
                 {
-                  v180 = (*(a2 + 48) & 0xFFFFFFFFFFFFFFFCLL);
-                  if (v180[23] < 0)
+                  v183 = (*(a2 + 48) & 0xFFFFFFFFFFFFFFFCLL);
+                  if (v183[23] < 0)
                   {
-                    v180 = *v180;
+                    v183 = *v183;
                   }
 
-                  v181 = google::protobuf::io::NoLocaleStrtod(v180, __p, v175);
-                  *(v183 + 10) = v181;
+                  v184 = google::protobuf::io::NoLocaleStrtod(v183, __p, v178);
+                  *(v186 + 10) = v184;
                 }
 
                 goto LABEL_260;
               }
             }
 
-            v172 = *v116;
-            v173 = *(v116 + 2);
-            if (v172 == 28265 && v173 == 102)
+            v175 = *v118;
+            v176 = *(v118 + 2);
+            if (v175 == 28265 && v176 == 102)
             {
-              v183[10] = 0x7FF0000000000000;
+              v186[10] = 0x7FF0000000000000;
               goto LABEL_260;
             }
 
             goto LABEL_289;
           }
 
-          v152 = *(a2 + 48) & 0xFFFFFFFFFFFFFFFCLL;
-          if (*(v152 + 23) < 0)
+          v154 = *(a2 + 48) & 0xFFFFFFFFFFFFFFFCLL;
+          if (*(v154 + 23) < 0)
           {
-            v152 = *v152;
+            v154 = *v154;
           }
 
-          v140 = strtoull(v152, &__p[0].__r_.__value_.__l.__data_, 0);
+          v142 = strtoull(v154, &__p[0].__r_.__value_.__l.__data_, 0);
 LABEL_259:
-          v183[10] = v140;
+          v186[10] = v142;
           goto LABEL_260;
         }
 
-        v151 = *(a2 + 48) & 0xFFFFFFFFFFFFFFFCLL;
-        if (*(v151 + 23) < 0)
+        v153 = *(a2 + 48) & 0xFFFFFFFFFFFFFFFCLL;
+        if (*(v153 + 23) < 0)
         {
-          v151 = *v151;
+          v153 = *v153;
         }
 
-        v146 = strtoul(v151, &__p[0].__r_.__value_.__l.__data_, 0);
+        v148 = strtoul(v153, &__p[0].__r_.__value_.__l.__data_, 0);
       }
 
-      *(v183 + 20) = v146;
+      *(v186 + 20) = v148;
       goto LABEL_260;
     }
 
-    if (v112 > 7)
+    if (v114 > 7)
     {
-      switch(v112)
+      switch(v114)
       {
         case 8:
-          v183[10] = 0;
+          v186[10] = 0;
           break;
         case 9:
-          v153 = v183;
-          v154 = v183[3];
-          if (v154)
+          v155 = v186;
+          v156 = v186[3];
+          if (v156)
           {
-            v191.__r_.__value_.__r.__words[0] = google::protobuf::FieldDescriptor::TypeOnceInit;
-            v190.__r_.__value_.__r.__words[0] = v183;
-            if (atomic_load_explicit(v154, memory_order_acquire) != 221)
+            v194.__r_.__value_.__r.__words[0] = google::protobuf::FieldDescriptor::TypeOnceInit;
+            v193.__r_.__value_.__r.__words[0] = v186;
+            if (atomic_load_explicit(v156, memory_order_acquire) != 221)
             {
-              absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v154, 1, &v191, &v190);
+              absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v156, 1, &v194, &v193);
             }
           }
 
-          if (*(v153 + 2) != 12)
+          if (*(v155 + 2) != 12)
           {
             goto LABEL_259;
           }
 
-          memset(&v191, 0, sizeof(v191));
-          v155 = *(a2 + 48);
-          v156 = (v155 & 0xFFFFFFFFFFFFFFFCLL);
-          v157 = *((v155 & 0xFFFFFFFFFFFFFFFCLL) + 23);
-          if ((v157 & 0x8000000000000000) != 0)
+          memset(&v194, 0, sizeof(v194));
+          v157 = *(a2 + 48);
+          v158 = (v157 & 0xFFFFFFFFFFFFFFFCLL);
+          v159 = *((v157 & 0xFFFFFFFFFFFFFFFCLL) + 23);
+          if ((v159 & 0x8000000000000000) != 0)
           {
-            v156 = v156->__r_.__value_.__r.__words[0];
-            v157 = *((v155 & 0xFFFFFFFFFFFFFFFCLL) + 8);
+            v158 = v158->__r_.__value_.__r.__words[0];
+            v159 = *((v157 & 0xFFFFFFFFFFFFFFFCLL) + 8);
           }
 
-          if (absl::lts_20240722::CUnescape(v156, v157, &v191, 0))
+          if (absl::lts_20240722::CUnescape(v158, v159, &v194, 0))
           {
-            v183[10] = v158;
+            v186[10] = v161;
           }
 
           else
           {
-            google::protobuf::DescriptorBuilder::AddError(v9, (v183[1] + 24), a2, 4, "Invalid escaping in default value.");
+            google::protobuf::DescriptorBuilder::AddError(v9, v186[1] + 24, a2, 4, "Invalid escaping in default value.");
           }
 
-          if (SHIBYTE(v191.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v194.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v191.__r_.__value_.__l.__data_);
+            operator delete(v194.__r_.__value_.__l.__data_);
           }
 
           break;
         case 10:
-          google::protobuf::DescriptorBuilder::AddError(v9, (v183[1] + 24), a2, 4, "Messages can't have default values.");
-          *(v183 + 1) &= ~1u;
-          atomic_store(0, v183 + 10);
+          google::protobuf::DescriptorBuilder::AddError(v9, v186[1] + 24, a2, 4, "Messages can't have default values.");
+          *(v186 + 1) &= ~1u;
+          atomic_store(0, v186 + 10);
           break;
       }
 
@@ -945,20 +1606,20 @@ LABEL_260:
         goto LABEL_111;
       }
 
-      v166 = *(a2 + 48) & 0xFFFFFFFFFFFFFFFCLL;
-      if ((*(v166 + 23) & 0x8000000000000000) != 0)
+      v169 = *(a2 + 48) & 0xFFFFFFFFFFFFFFFCLL;
+      if ((*(v169 + 23) & 0x8000000000000000) != 0)
       {
-        if (!*(v166 + 8))
+        if (!*(v169 + 8))
         {
 LABEL_266:
-          v167 = v183[1];
-          v191.__r_.__value_.__r.__words[0] = a2;
-          google::protobuf::DescriptorBuilder::AddError(v9, (v167 + 24), a2, 4, &v191, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::BuildFieldOrExtension(google::protobuf::FieldDescriptorProto const&,google::protobuf::Descriptor *,google::protobuf::FieldDescriptor *,BOOL,google::protobuf::internal::FlatAllocator &)::$_2,std::string>);
+          v170 = v186[1];
+          v194.__r_.__value_.__r.__words[0] = a2;
+          google::protobuf::DescriptorBuilder::AddError(v9, v170 + 24, a2, 4, &v194, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::BuildFieldOrExtension(google::protobuf::FieldDescriptorProto const&,google::protobuf::Descriptor *,google::protobuf::FieldDescriptor *,BOOL,google::protobuf::internal::FlatAllocator &)::$_2,std::string>);
           goto LABEL_111;
         }
       }
 
-      else if (!*(v166 + 23))
+      else if (!*(v169 + 23))
       {
         goto LABEL_266;
       }
@@ -971,101 +1632,101 @@ LABEL_266:
       goto LABEL_266;
     }
 
-    if (v112 != 6)
+    if (v114 != 6)
     {
-      v141 = *(a2 + 48);
-      v142 = (v141 & 0xFFFFFFFFFFFFFFFCLL);
-      v143 = *((v141 & 0xFFFFFFFFFFFFFFFCLL) + 23);
-      if (v143 < 0)
+      v143 = *(a2 + 48);
+      v144 = (v143 & 0xFFFFFFFFFFFFFFFCLL);
+      v145 = *((v143 & 0xFFFFFFFFFFFFFFFCLL) + 23);
+      if (v145 < 0)
       {
-        if (v142[1] != 4)
+        if (v144[1] != 4)
         {
           goto LABEL_270;
         }
 
-        v144 = *v142;
+        v146 = *v144;
       }
 
       else
       {
-        v144 = (v141 & 0xFFFFFFFFFFFFFFFCLL);
-        if (v143 != 4)
+        v146 = (v143 & 0xFFFFFFFFFFFFFFFCLL);
+        if (v145 != 4)
         {
 LABEL_270:
-          if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v142, "false"))
+          if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v144, "false"))
           {
-            *(v183 + 80) = 0;
+            *(v186 + 80) = 0;
           }
 
           else
           {
-            google::protobuf::DescriptorBuilder::AddError(v9, (v183[1] + 24), a2, 4, "Boolean default must be true or false.");
+            google::protobuf::DescriptorBuilder::AddError(v9, v186[1] + 24, a2, 4, "Boolean default must be true or false.");
           }
 
           goto LABEL_260;
         }
       }
 
-      if (*v144 == 1702195828)
+      if (*v146 == 1702195828)
       {
-        *(v183 + 80) = 1;
+        *(v186 + 80) = 1;
         goto LABEL_260;
       }
 
       goto LABEL_270;
     }
 
-    v147 = *(a2 + 48);
-    v148 = (v147 & 0xFFFFFFFFFFFFFFFCLL);
-    v149 = *((v147 & 0xFFFFFFFFFFFFFFFCLL) + 23);
-    if (v149 < 0)
+    v149 = *(a2 + 48);
+    v150 = (v149 & 0xFFFFFFFFFFFFFFFCLL);
+    v151 = *((v149 & 0xFFFFFFFFFFFFFFFCLL) + 23);
+    if (v151 < 0)
     {
-      if (v148[1] != 3)
+      if (v150[1] != 3)
       {
         goto LABEL_279;
       }
 
-      v150 = *v148;
+      v152 = *v150;
     }
 
     else
     {
-      v150 = (v147 & 0xFFFFFFFFFFFFFFFCLL);
-      if (v149 != 3)
+      v152 = (v149 & 0xFFFFFFFFFFFFFFFCLL);
+      if (v151 != 3)
       {
 LABEL_279:
-        if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v148, "-inf"))
+        if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v150, "-inf"))
         {
-          *(v183 + 20) = -8388608;
+          *(v186 + 20) = -8388608;
         }
 
         else if (std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>((*(a2 + 48) & 0xFFFFFFFFFFFFFFFCLL), "nan"))
         {
-          *(v183 + 20) = 2143289344;
+          *(v186 + 20) = 2143289344;
         }
 
         else
         {
-          v176 = (*(a2 + 48) & 0xFFFFFFFFFFFFFFFCLL);
-          if (v176[23] < 0)
+          v179 = (*(a2 + 48) & 0xFFFFFFFFFFFFFFFCLL);
+          if (v179[23] < 0)
           {
-            v176 = *v176;
+            v179 = *v179;
           }
 
-          v177 = google::protobuf::io::NoLocaleStrtod(v176, __p, v171);
-          v179 = google::protobuf::io::SafeDoubleToFloat(v178, v177);
-          *(v183 + 20) = v179;
+          v180 = google::protobuf::io::NoLocaleStrtod(v179, __p, v174);
+          v182 = google::protobuf::io::SafeDoubleToFloat(v181, v180);
+          *(v186 + 20) = v182;
         }
 
         goto LABEL_260;
       }
     }
 
-    v168 = *v150;
-    v169 = *(v150 + 2);
-    if (v168 == 28265 && v169 == 102)
+    v171 = *v152;
+    v172 = *(v152 + 2);
+    if (v171 == 28265 && v172 == 102)
     {
-      *(v183 + 20) = 2139095040;
+      *(v186 + 20) = 2139095040;
       goto LABEL_260;
     }
 
@@ -1073,98 +1734,98 @@ LABEL_279:
   }
 
 LABEL_111:
-  v71 = v183;
-  v72 = *(v183 + 1);
-  if (v72 <= 0)
+  v73 = v186;
+  v74 = *(v186 + 1);
+  if (v74 <= 0)
   {
-    v94 = 0;
+    v96 = 0;
     _X8 = v9[28];
     __asm { PRFM            #4, [X8] }
 
-    v97 = v184;
-    v98 = ((((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v184) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v184))) + v184;
-    v99 = 0x9DDFEA08EB382D69 * v98;
-    v100 = (v98 * 0x9DDFEA08EB382D69) >> 64;
-    v101 = v9[26];
-    v102 = v100 ^ v99;
-    v103 = vdup_n_s8((v100 ^ v99) & 0x7F);
-    v104 = (((v100 ^ v99) >> 7) ^ (_X8 >> 12)) & v101;
-    v105 = *(_X8 + v104);
-    v106 = vceq_s8(v105, v103);
-    if (!v106)
+    v99 = v187;
+    v100 = ((((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v187) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v187))) + v187;
+    v101 = 0x9DDFEA08EB382D69 * v100;
+    v102 = (v100 * 0x9DDFEA08EB382D69) >> 64;
+    v103 = v9[26];
+    v104 = v102 ^ v101;
+    v105 = vdup_n_s8((v102 ^ v101) & 0x7F);
+    v106 = (((v102 ^ v101) >> 7) ^ (_X8 >> 12)) & v103;
+    v107 = *(_X8 + v106);
+    v108 = vceq_s8(v107, v105);
+    if (!v108)
     {
       goto LABEL_133;
     }
 
 LABEL_130:
-    v107 = v9[29];
+    v109 = v9[29];
     do
     {
-      v108 = (v104 + (__clz(__rbit64(v106)) >> 3)) & v101;
-      if (*(v107 + 32 * v108) == v184)
+      v110 = (v106 + (__clz(__rbit64(v108)) >> 3)) & v103;
+      if (*(v109 + 32 * v110) == v187)
       {
-        v117 = v107 + 32 * v108;
-        v118 = *(v117 + 8);
+        v119 = v109 + 32 * v110;
+        v120 = *(v119 + 8);
         goto LABEL_161;
       }
 
-      v106 &= ((v106 & 0x8080808080808080) - 1) & 0x8080808080808080;
+      v108 &= ((v108 & 0x8080808080808080) - 1) & 0x8080808080808080;
     }
 
-    while (v106);
+    while (v108);
 LABEL_133:
     while (1)
     {
-      v109 = vceq_s8(v105, 0x8080808080808080);
-      if (v109)
+      v111 = vceq_s8(v107, 0x8080808080808080);
+      if (v111)
       {
         break;
       }
 
-      v94 += 8;
-      v104 = (v94 + v104) & v101;
-      v105 = *(_X8 + v104);
-      v106 = vceq_s8(v105, v103);
-      if (v106)
+      v96 += 8;
+      v106 = (v96 + v106) & v103;
+      v107 = *(_X8 + v106);
+      v108 = vceq_s8(v107, v105);
+      if (v108)
       {
         goto LABEL_130;
       }
     }
 
-    inserted = absl::lts_20240722::container_internal::PrepareInsertNonSoo(v9 + 26, v102, (v104 + (__clz(__rbit64(v109)) >> 3)) & v101, v94, &absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<google::protobuf::Descriptor const*,google::protobuf::DescriptorBuilder::MessageHints>,absl::lts_20240722::container_internal::HashEq<google::protobuf::Descriptor const*,void>::Hash,absl::lts_20240722::container_internal::HashEq<google::protobuf::Descriptor const*,void>::Eq,std::allocator<std::pair<google::protobuf::Descriptor const* const,google::protobuf::DescriptorBuilder::MessageHints>>>::GetPolicyFunctions(void)::value);
-    v118 = 0;
-    v117 = v9[29] + 32 * inserted;
-    *v117 = v97;
-    *(v117 + 8) = 0;
-    *(v117 + 16) = 0;
-    *(v117 + 24) = 0;
-    *(v117 + 24) = 11;
+    inserted = absl::lts_20240722::container_internal::PrepareInsertNonSoo(v9 + 26, v104, (v106 + (__clz(__rbit64(v111)) >> 3)) & v103, v96, &absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<google::protobuf::Descriptor const*,google::protobuf::DescriptorBuilder::MessageHints>,absl::lts_20240722::container_internal::HashEq<google::protobuf::Descriptor const*,void>::Hash,absl::lts_20240722::container_internal::HashEq<google::protobuf::Descriptor const*,void>::Eq,std::allocator<std::pair<google::protobuf::Descriptor const* const,google::protobuf::DescriptorBuilder::MessageHints>>>::GetPolicyFunctions(void)::value);
+    v120 = 0;
+    v119 = v9[29] + 32 * inserted;
+    *v119 = v99;
+    *(v119 + 8) = 0;
+    *(v119 + 16) = 0;
+    *(v119 + 24) = 0;
+    *(v119 + 24) = 11;
 LABEL_161:
-    if (v118 < 0)
+    if (v120 < 0)
     {
-      v118 = -1;
+      v120 = -1;
     }
 
-    if ((v118 + 1) < 0x1FFFFFFF)
+    if ((v120 + 1) < 0x1FFFFFFF)
     {
-      v124 = v118 + 1;
+      v126 = v120 + 1;
     }
 
     else
     {
-      v124 = 0x1FFFFFFF;
+      v126 = 0x1FFFFFFF;
     }
 
-    *(v117 + 8) = v124;
-    if (!*(v117 + 16))
+    *(v119 + 8) = v126;
+    if (!*(v119 + 16))
     {
-      *(v117 + 16) = a2;
-      *(v117 + 24) = 1;
+      *(v119 + 16) = a2;
+      *(v119 + 24) = 1;
     }
 
-    google::protobuf::DescriptorBuilder::AddError(v9, (v183[1] + 24), a2, 1, "Field numbers must be positive integers.");
+    google::protobuf::DescriptorBuilder::AddError(v9, v186[1] + 24, a2, 1, "Field numbers must be positive integers.");
 LABEL_191:
-    v71 = v183;
+    v73 = v186;
     if (a5)
     {
       goto LABEL_192;
@@ -1178,148 +1839,146 @@ LABEL_191:
 LABEL_192:
     if ((*(a2 + 16) & 2) == 0)
     {
-      google::protobuf::DescriptorBuilder::AddError(v9, (v71[1] + 24), a2, 3, "FieldDescriptorProto.extendee not set for extension field.");
-      v71 = v183;
+      google::protobuf::DescriptorBuilder::AddError(v9, v73[1] + 24, a2, 3, "FieldDescriptorProto.extendee not set for extension field.");
+      v73 = v186;
     }
 
-    v71[5] = v184;
+    v73[5] = v187;
     if ((*(a2 + 16) & 0x80) != 0)
     {
-      google::protobuf::DescriptorBuilder::AddError(v9, (v71[1] + 24), a2, 2, "FieldDescriptorProto.oneof_index should not be set for extensions.");
+      google::protobuf::DescriptorBuilder::AddError(v9, v73[1] + 24, a2, 2, "FieldDescriptorProto.oneof_index should not be set for extensions.");
     }
 
     goto LABEL_203;
   }
 
-  if (v72 >> 29)
+  if (v74 >> 29)
   {
-    v73 = 0;
+    v75 = 0;
     _X8 = v9[28];
     __asm { PRFM            #4, [X8] }
 
-    v78 = v184;
-    v79 = ((((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v184) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v184))) + v184;
-    v80 = 0x9DDFEA08EB382D69 * v79;
-    v81 = (v79 * 0x9DDFEA08EB382D69) >> 64;
-    v82 = v9[26];
-    v83 = v81 ^ v80;
-    v84 = vdup_n_s8((v81 ^ v80) & 0x7F);
-    v85 = (((v81 ^ v80) >> 7) ^ (_X8 >> 12)) & v82;
-    v86 = *(_X8 + v85);
-    v87 = vceq_s8(v86, v84);
-    if (!v87)
+    v80 = v187;
+    v81 = ((((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v187) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v187))) + v187;
+    v82 = 0x9DDFEA08EB382D69 * v81;
+    v83 = (v81 * 0x9DDFEA08EB382D69) >> 64;
+    v84 = v9[26];
+    v85 = v83 ^ v82;
+    v86 = vdup_n_s8((v83 ^ v82) & 0x7F);
+    v87 = (((v83 ^ v82) >> 7) ^ (_X8 >> 12)) & v84;
+    v88 = *(_X8 + v87);
+    v89 = vceq_s8(v88, v86);
+    if (!v89)
     {
       goto LABEL_118;
     }
 
 LABEL_115:
-    v88 = v9[29];
+    v90 = v9[29];
     do
     {
-      v89 = (v85 + (__clz(__rbit64(v87)) >> 3)) & v82;
-      if (*(v88 + 32 * v89) == v184)
+      v91 = (v87 + (__clz(__rbit64(v89)) >> 3)) & v84;
+      if (*(v90 + 32 * v91) == v187)
       {
-        v125 = v88 + 32 * v89;
-        v126 = *(v125 + 8);
+        v127 = v90 + 32 * v91;
+        v128 = *(v127 + 8);
         goto LABEL_183;
       }
 
-      v87 &= ((v87 & 0x8080808080808080) - 1) & 0x8080808080808080;
+      v89 &= ((v89 & 0x8080808080808080) - 1) & 0x8080808080808080;
     }
 
-    while (v87);
+    while (v89);
 LABEL_118:
     while (1)
     {
-      v90 = vceq_s8(v86, 0x8080808080808080);
-      if (v90)
+      v92 = vceq_s8(v88, 0x8080808080808080);
+      if (v92)
       {
         break;
       }
 
-      v73 += 8;
-      v85 = (v73 + v85) & v82;
-      v86 = *(_X8 + v85);
-      v87 = vceq_s8(v86, v84);
-      if (v87)
+      v75 += 8;
+      v87 = (v75 + v87) & v84;
+      v88 = *(_X8 + v87);
+      v89 = vceq_s8(v88, v86);
+      if (v89)
       {
         goto LABEL_115;
       }
     }
 
-    v127 = absl::lts_20240722::container_internal::PrepareInsertNonSoo(v9 + 26, v83, (v85 + (__clz(__rbit64(v90)) >> 3)) & v82, v73, &absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<google::protobuf::Descriptor const*,google::protobuf::DescriptorBuilder::MessageHints>,absl::lts_20240722::container_internal::HashEq<google::protobuf::Descriptor const*,void>::Hash,absl::lts_20240722::container_internal::HashEq<google::protobuf::Descriptor const*,void>::Eq,std::allocator<std::pair<google::protobuf::Descriptor const* const,google::protobuf::DescriptorBuilder::MessageHints>>>::GetPolicyFunctions(void)::value);
-    v126 = 0;
-    v125 = v9[29] + 32 * v127;
-    *v125 = v78;
-    *(v125 + 8) = 0;
-    *(v125 + 16) = 0;
-    *(v125 + 24) = 0;
-    *(v125 + 24) = 11;
+    v129 = absl::lts_20240722::container_internal::PrepareInsertNonSoo(v9 + 26, v85, (v87 + (__clz(__rbit64(v92)) >> 3)) & v84, v75, &absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<google::protobuf::Descriptor const*,google::protobuf::DescriptorBuilder::MessageHints>,absl::lts_20240722::container_internal::HashEq<google::protobuf::Descriptor const*,void>::Hash,absl::lts_20240722::container_internal::HashEq<google::protobuf::Descriptor const*,void>::Eq,std::allocator<std::pair<google::protobuf::Descriptor const* const,google::protobuf::DescriptorBuilder::MessageHints>>>::GetPolicyFunctions(void)::value);
+    v128 = 0;
+    v127 = v9[29] + 32 * v129;
+    *v127 = v80;
+    *(v127 + 8) = 0;
+    *(v127 + 16) = 0;
+    *(v127 + 24) = 0;
+    *(v127 + 24) = 11;
 LABEL_183:
-    if (v126 < 0)
+    if (v128 < 0)
     {
-      v126 = -1;
+      v128 = -1;
     }
 
-    if ((v126 + 1) < 0x1FFFFFFF)
+    if ((v128 + 1) < 0x1FFFFFFF)
     {
-      v128 = v126 + 1;
+      v130 = v128 + 1;
     }
 
     else
     {
-      v128 = 0x1FFFFFFF;
+      v130 = 0x1FFFFFFF;
     }
 
-    *(v125 + 8) = v128;
-    if (!*(v125 + 16))
+    *(v127 + 8) = v130;
+    if (!*(v127 + 16))
     {
-      *(v125 + 16) = a2;
-      *(v125 + 24) = 1;
+      *(v127 + 16) = a2;
+      *(v127 + 24) = 1;
     }
 
-    google::protobuf::DescriptorBuilder::AddError(v9, (v183[1] + 24), a2, 1, &v191, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::BuildFieldOrExtension(google::protobuf::FieldDescriptorProto const&,google::protobuf::Descriptor *,google::protobuf::FieldDescriptor *,BOOL,google::protobuf::internal::FlatAllocator &)::$_3,std::string>);
+    google::protobuf::DescriptorBuilder::AddError(v9, v186[1] + 24, a2, 1, &v194, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::BuildFieldOrExtension(google::protobuf::FieldDescriptorProto const&,google::protobuf::Descriptor *,google::protobuf::FieldDescriptor *,BOOL,google::protobuf::internal::FlatAllocator &)::$_3,std::string>);
     goto LABEL_191;
   }
 
 LABEL_196:
-  v129 = *(a2 + 16);
-  if ((v129 & 2) != 0)
+  v131 = *(a2 + 16);
+  if ((v131 & 2) != 0)
   {
-    google::protobuf::DescriptorBuilder::AddError(v9, (v71[1] + 24), a2, 3, "FieldDescriptorProto.extendee set for non-extension field.");
-    v71 = v183;
-    v129 = *(a2 + 16);
+    google::protobuf::DescriptorBuilder::AddError(v9, v73[1] + 24, a2, 3, "FieldDescriptorProto.extendee set for non-extension field.");
+    v73 = v186;
+    v131 = *(a2 + 16);
   }
 
-  v130 = v184;
-  v71[4] = v184;
-  if ((v129 & 0x80) != 0)
+  v132 = v187;
+  v73[4] = v187;
+  if ((v131 & 0x80) != 0)
   {
-    v131 = *(a2 + 76);
-    if (v131 < 0 || v131 >= *(v130 + 120))
+    v133 = *(a2 + 76);
+    if (v133 < 0 || v133 >= *(v132 + 120))
     {
-      v132 = v71[1];
-      v191.__r_.__value_.__r.__words[0] = a2;
-      v191.__r_.__value_.__l.__size_ = &v184;
-      google::protobuf::DescriptorBuilder::AddError(v9, (v132 + 24), a2, 2, &v191, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::BuildFieldOrExtension(google::protobuf::FieldDescriptorProto const&,google::protobuf::Descriptor *,google::protobuf::FieldDescriptor *,BOOL,google::protobuf::internal::FlatAllocator &)::$_4,std::string>);
+      v134 = v73[1];
+      v194.__r_.__value_.__r.__words[0] = a2;
+      v194.__r_.__value_.__l.__size_ = &v187;
+      google::protobuf::DescriptorBuilder::AddError(v9, v134 + 24, a2, 2, &v194, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::BuildFieldOrExtension(google::protobuf::FieldDescriptorProto const&,google::protobuf::Descriptor *,google::protobuf::FieldDescriptor *,BOOL,google::protobuf::internal::FlatAllocator &)::$_4,std::string>);
     }
 
     else
     {
-      *(v71 + 1) |= 0x10u;
-      v183[5] = *(v130 + 64) + 56 * *(a2 + 76);
+      *(v73 + 1) |= 0x10u;
+      v186[5] = *(v132 + 64) + 56 * *(a2 + 76);
     }
   }
 
 LABEL_203:
-  google::protobuf::DescriptorBuilder::AllocateOptions<google::protobuf::FieldDescriptor>(v9, a2, v183, 8, "google.protobuf.FieldOptions", 0x1CuLL, a6);
-  v134 = v183;
-  v133 = v184;
-  v135 = v183[1];
-  *v183 = 2;
-  result = google::protobuf::DescriptorBuilder::AddSymbol(v9, v135 + 24, v133, v135, a2, v134);
-  v137 = *MEMORY[0x277D85DE8];
-  return result;
+  google::protobuf::DescriptorBuilder::AllocateOptions<google::protobuf::FieldDescriptor>(v9, a2, v186, 8, "google.protobuf.FieldOptions", 0x1CuLL, a6);
+  v136 = v186;
+  v135 = v187;
+  v137 = v186[1];
+  *v186 = 2;
+  return google::protobuf::DescriptorBuilder::AddSymbol(v9, v137 + 24, v135, v137, a2, v136);
 }
 
 void sub_23CD85F00(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, uint64_t a32, uint64_t a33, int a34, __int16 a35, char a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, void *a41, uint64_t a42, int a43, __int16 a44, char a45, char a46)
@@ -1661,7 +2320,7 @@ void google::protobuf::DescriptorBuilder::CheckEnumValueUniqueness(google::proto
   {
     v6 = *v6;
     v7 = *(*(a3 + 1) + 8);
-    memset(&v58, 0, sizeof(v58));
+    memset(&v57, 0, sizeof(v57));
     if (!v7)
     {
       goto LABEL_5;
@@ -1670,7 +2329,7 @@ void google::protobuf::DescriptorBuilder::CheckEnumValueUniqueness(google::proto
 
   else
   {
-    memset(&v58, 0, sizeof(v58));
+    memset(&v57, 0, sizeof(v57));
     if (!v7)
     {
       goto LABEL_5;
@@ -1682,7 +2341,7 @@ void google::protobuf::DescriptorBuilder::CheckEnumValueUniqueness(google::proto
     v9 = *v6;
     if (v9 != 95)
     {
-      std::string::push_back(&v58, absl::lts_20240722::ascii_internal::kToLower[v9]);
+      std::string::push_back(&v57, absl::lts_20240722::ascii_internal::kToLower[v9]);
     }
 
     ++v6;
@@ -1691,26 +2350,26 @@ void google::protobuf::DescriptorBuilder::CheckEnumValueUniqueness(google::proto
 
   while (v7);
 LABEL_5:
-  v49 = this;
-  v57[0] = 0;
-  v57[1] = 0;
-  v57[2] = &unk_23CE31C20;
+  v48 = this;
+  v56[0] = 0;
+  v56[1] = 0;
+  v56[2] = &unk_23CE31C20;
   if (*(a3 + 1) >= 1)
   {
     v8 = 0;
-    v48 = (a2 + 24);
+    v47 = (a2 + 24);
     while (1)
     {
       v11 = *(a3 + 7) + 48 * v8;
-      v56 = v11;
+      v55 = v11;
       v12 = *(v11 + 8);
       v13 = v12[23];
       if ((v13 & 0x8000000000000000) != 0)
       {
         v12 = *v12;
         v13 = *(*(v11 + 8) + 8);
-        v14 = HIBYTE(v58.__r_.__value_.__r.__words[2]);
-        size = v58.__r_.__value_.__l.__size_;
+        v14 = HIBYTE(v57.__r_.__value_.__r.__words[2]);
+        size = v57.__r_.__value_.__l.__size_;
         if (!v13)
         {
 LABEL_29:
@@ -1726,7 +2385,7 @@ LABEL_29:
 
           if (v21)
           {
-            v54 = 0;
+            v53 = 0;
             goto LABEL_61;
           }
 
@@ -1737,8 +2396,8 @@ LABEL_29:
 
       else
       {
-        v14 = HIBYTE(v58.__r_.__value_.__r.__words[2]);
-        size = v58.__r_.__value_.__l.__size_;
+        v14 = HIBYTE(v57.__r_.__value_.__r.__words[2]);
+        size = v57.__r_.__value_.__l.__size_;
         if (!v12[23])
         {
           goto LABEL_29;
@@ -1753,10 +2412,10 @@ LABEL_29:
         v14 = size;
       }
 
-      v19 = v58.__r_.__value_.__r.__words[0];
+      v19 = v57.__r_.__value_.__r.__words[0];
       if (v18 >= 0)
       {
-        v19 = &v58;
+        v19 = &v57;
       }
 
       while (1)
@@ -1808,7 +2467,7 @@ LABEL_47:
                   operator new();
                 }
 
-                v54 = v13;
+                v53 = v13;
                 if (v13)
                 {
                   goto LABEL_60;
@@ -1825,7 +2484,7 @@ LABEL_47:
                 operator new();
               }
 
-              v54 = v13 - v17;
+              v53 = v13 - v17;
               memmove(&__dst, &v12[v17], v22);
               v23 = &__dst + v22;
               goto LABEL_62;
@@ -1858,7 +2517,7 @@ LABEL_111:
       }
 
 LABEL_56:
-      v54 = v13;
+      v53 = v13;
 LABEL_60:
       memmove(&__dst, v12, v13);
 LABEL_61:
@@ -1866,19 +2525,19 @@ LABEL_61:
 LABEL_62:
       *v23 = 0;
       memset(&__p, 0, sizeof(__p));
-      if ((v54 & 0x80u) == 0)
+      if ((v53 & 0x80u) == 0)
       {
-        v24 = v54;
+        v24 = v53;
       }
 
       else
       {
-        v24 = v52;
+        v24 = v51;
       }
 
       std::string::reserve(&__p, v24);
-      v27 = v54;
-      if ((v54 & 0x80u) == 0)
+      v27 = v53;
+      if ((v53 & 0x80u) == 0)
       {
         p_dst = &__dst;
       }
@@ -1888,14 +2547,14 @@ LABEL_62:
         p_dst = __dst;
       }
 
-      if ((v54 & 0x80u) == 0)
+      if ((v53 & 0x80u) == 0)
       {
-        v29 = v54;
+        v29 = v53;
       }
 
       else
       {
-        v29 = v52;
+        v29 = v51;
       }
 
       if (v29)
@@ -1926,7 +2585,7 @@ LABEL_62:
         }
 
         while (v29);
-        v27 = v54;
+        v27 = v53;
       }
 
       if ((v27 & 0x80) != 0)
@@ -1934,33 +2593,33 @@ LABEL_62:
         operator delete(__dst);
       }
 
-      absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<std::string,google::protobuf::EnumValueDescriptor const*>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::pair<std::string const,google::protobuf::EnumValueDescriptor const*>>>::find_or_prepare_insert_non_soo<std::string>(v57, &__p, v25, v26, &__dst);
-      if (v53 != 1)
+      absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<std::string,google::protobuf::EnumValueDescriptor const*>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::pair<std::string const,google::protobuf::EnumValueDescriptor const*>>>::find_or_prepare_insert_non_soo<std::string>(v56, &__p, v25, v26, &__dst);
+      if (v52 != 1)
       {
         goto LABEL_87;
       }
 
-      v34 = v52;
+      v34 = v51;
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(v52, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(v51, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
       }
 
       else
       {
         v35 = *&__p.__r_.__value_.__l.__data_;
-        v52->__r_.__value_.__r.__words[2] = __p.__r_.__value_.__r.__words[2];
+        v51->__r_.__value_.__r.__words[2] = __p.__r_.__value_.__r.__words[2];
         *&v34->__r_.__value_.__l.__data_ = v35;
       }
 
-      v34[1].__r_.__value_.__r.__words[0] = v56;
-      if ((v53 & 1) == 0)
+      v34[1].__r_.__value_.__r.__words[0] = v55;
+      if ((v52 & 1) == 0)
       {
 LABEL_87:
-        data = v52[1].__r_.__value_.__l.__data_;
+        data = v51[1].__r_.__value_.__l.__data_;
         v37 = *(data + 1);
-        v38 = v56;
-        v39 = *(v56 + 8);
+        v38 = v55;
+        v39 = *(v55 + 8);
         v40 = *(v37 + 23);
         if (v40 >= 0)
         {
@@ -1979,40 +2638,40 @@ LABEL_87:
           v42 = *(v39 + 8);
         }
 
-        if (v41 != v42 || (v40 >= 0 ? (v44 = *(data + 1)) : (v44 = *v37), (v45 = *v39, v43 >= 0) ? (v46 = *(v56 + 8)) : (v46 = *v39), memcmp(v44, v46, v41)))
+        if (v41 != v42 || (v40 >= 0 ? (v44 = *(data + 1)) : (v44 = *v37), v43 >= 0 ? (v45 = *(v55 + 8)) : (v45 = *v39), memcmp(v44, v45, v41)))
         {
           if (*(data + 1) != *(v38 + 4))
           {
-            v50[0] = &v56;
-            v50[1] = &__dst;
-            if (((*(*v49 + 54) & 1) != 0 || *(*(a3 + 4) + 82) == 1) && *(*(a3 + 2) + 32) == 998)
+            v49[0] = &v55;
+            v49[1] = &__dst;
+            if (((*(*v48 + 54) & 1) != 0 || *(*(a3 + 4) + 82) == 1) && *(*(a3 + 2) + 32) == 998)
             {
-              if (*v48)
+              if (*v47)
               {
-                v47 = (*v48 + 8 * v8 + 7);
+                v46 = (*v47 + 8 * v8 + 7);
               }
 
               else
               {
-                v47 = v48;
+                v46 = v47;
               }
 
-              google::protobuf::DescriptorBuilder::AddWarning(v49, (v39 + 24), *v47, 0, v50, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::CheckEnumValueUniqueness(google::protobuf::EnumDescriptorProto const&,google::protobuf::EnumDescriptor const*)::$_0,std::string>);
+              google::protobuf::DescriptorBuilder::AddWarning(v48, v39 + 24, *v46, 0, v49, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::CheckEnumValueUniqueness(google::protobuf::EnumDescriptorProto const&,google::protobuf::EnumDescriptor const*)::$_0,std::string>);
             }
 
             else
             {
-              if (*v48)
+              if (*v47)
               {
-                v10 = (*v48 + 8 * v8 + 7);
+                v10 = (*v47 + 8 * v8 + 7);
               }
 
               else
               {
-                v10 = v48;
+                v10 = v47;
               }
 
-              google::protobuf::DescriptorBuilder::AddError(v49, (v39 + 24), *v10, 0, v50, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::CheckEnumValueUniqueness(google::protobuf::EnumDescriptorProto const&,google::protobuf::EnumDescriptor const*)::$_0,std::string>);
+              google::protobuf::DescriptorBuilder::AddError(v48, v39 + 24, *v10, 0, v49, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::CheckEnumValueUniqueness(google::protobuf::EnumDescriptorProto const&,google::protobuf::EnumDescriptor const*)::$_0,std::string>);
             }
           }
         }
@@ -2034,10 +2693,10 @@ LABEL_87:
     }
   }
 
-  absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<std::string,int>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::pair<std::string const,int>>>::~raw_hash_set(v57);
-  if (SHIBYTE(v58.__r_.__value_.__r.__words[2]) < 0)
+  absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<std::string,int>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::pair<std::string const,int>>>::~raw_hash_set(v56);
+  if (SHIBYTE(v57.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v58.__r_.__value_.__l.__data_);
+    operator delete(v57.__r_.__value_.__l.__data_);
   }
 }
 
@@ -2087,7 +2746,6 @@ BOOL std::operator!=[abi:ne200100]<char,std::char_traits<char>,std::allocator<ch
     a1 = *a1;
   }
 
-  v6 = *a2;
   if (v5 < 0)
   {
     a2 = *a2;
@@ -2096,13 +2754,13 @@ BOOL std::operator!=[abi:ne200100]<char,std::char_traits<char>,std::allocator<ch
   return memcmp(a1, a2, v3) != 0;
 }
 
-void google::protobuf::DescriptorBuilder::BuildEnumValue(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void google::protobuf::DescriptorBuilder::BuildEnumValue(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v6 = a4;
-  v55 = *MEMORY[0x277D85DE8];
-  v48 = a4;
-  v49 = a3;
-  memset(&v47, 0, sizeof(v47));
+  v54 = *MEMORY[0x277D85DE8];
+  v47 = a4;
+  v48 = a3;
+  memset(&v46, 0, sizeof(v46));
   v10 = *(a3 + 8);
   v11 = *(v10 + 47);
   if ((v11 & 0x8000000000000000) == 0)
@@ -2144,7 +2802,7 @@ LABEL_3:
 LABEL_17:
   v15 = *(v14 + 8);
 LABEL_4:
-  std::string::reserve(&v47, v15 + v13);
+  std::string::reserve(&v46, v15 + v13);
   v16 = *(a3 + 8);
   v17 = (v16 + 24);
   if (*(v16 + 47) < 0)
@@ -2152,7 +2810,7 @@ LABEL_4:
     v17 = *v17;
   }
 
-  std::string::append(&v47, v17, v13);
+  std::string::append(&v46, v17, v13);
   v18 = *(a2 + 24) & 0xFFFFFFFFFFFFFFFCLL;
   v19 = *(v18 + 23);
   if (v19 >= 0)
@@ -2175,7 +2833,7 @@ LABEL_4:
     v21 = *(v18 + 8);
   }
 
-  std::string::append(&v47, v20, v21);
+  std::string::append(&v46, v20, v21);
   *(v6 + 8) = v22;
   *(v6 + 4) = *(a2 + 40);
   *(v6 + 16) = a3;
@@ -2196,7 +2854,7 @@ LABEL_4:
   if (!*(v23 + 23))
   {
 LABEL_27:
-    google::protobuf::DescriptorBuilder::AddError(a1, (v22 + 24), a2, 0, "Missing name.");
+    google::protobuf::DescriptorBuilder::AddError(a1, v22 + 24, a2, 0, "Missing name.");
     goto LABEL_28;
   }
 
@@ -2217,19 +2875,19 @@ LABEL_21:
     }
   }
 
-  v52 = (*(a2 + 24) & 0xFFFFFFFFFFFFFFFCLL);
-  google::protobuf::DescriptorBuilder::AddError(a1, (v22 + 24), a2, 0, &v52, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::ValidateSymbolName(std::string const&,std::string const&,google::protobuf::Message const&)::$_0,std::string>);
+  v51 = (*(a2 + 24) & 0xFFFFFFFFFFFFFFFCLL);
+  google::protobuf::DescriptorBuilder::AddError(a1, v22 + 24, a2, 0, &v51, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::ValidateSymbolName(std::string const&,std::string const&,google::protobuf::Message const&)::$_0,std::string>);
 LABEL_28:
   google::protobuf::DescriptorBuilder::AllocateOptions<google::protobuf::EnumValueDescriptor>(a1, a2, v6, 3, "google.protobuf.EnumValueOptions", 0x20uLL, a5);
   v28 = *(v6 + 8);
   v29 = *(a3 + 24);
   *v6 = 5;
   v30 = google::protobuf::DescriptorBuilder::AddSymbol(a1, v28 + 24, v29, v28, a2, v6);
-  v31 = a1[21];
+  v31 = *(a1 + 168);
   *(v6 + 1) = 6;
   if (((v30 | google::protobuf::FileDescriptorTables::AddAliasUnderParent(v31, v32, v33, v34, (v6 + 1)) ^ 1) & 1) == 0)
   {
-    memset(&v46, 0, sizeof(v46));
+    memset(&v45, 0, sizeof(v45));
     v35 = *(a3 + 24);
     if (v35)
     {
@@ -2238,59 +2896,59 @@ LABEL_28:
 
     else
     {
-      v36 = *(a1[20] + 16);
+      v36 = *(*(a1 + 160) + 16);
     }
 
-    std::string::operator=(&v46, v36);
-    size = HIBYTE(v46.__r_.__value_.__r.__words[2]);
-    if ((v46.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    std::string::operator=(&v45, v36);
+    size = HIBYTE(v45.__r_.__value_.__r.__words[2]);
+    if ((v45.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      size = v46.__r_.__value_.__l.__size_;
+      size = v45.__r_.__value_.__l.__size_;
     }
 
     if (size)
     {
-      v52 = "";
-      v53 = 1;
-      v38 = &v46;
-      if ((v46.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      v51 = "";
+      v52 = 1;
+      v38 = &v45;
+      if ((v45.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v38 = v46.__r_.__value_.__r.__words[0];
+        v38 = v45.__r_.__value_.__r.__words[0];
       }
 
-      v51[0] = v38;
-      v51[1] = size;
-      v50[0] = "";
-      v50[1] = 1;
-      absl::lts_20240722::StrCat(&v52, v51, v50, &v45);
-      if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+      v50[0] = v38;
+      v50[1] = size;
+      v49[0] = "";
+      v49[1] = 1;
+      absl::lts_20240722::StrCat(&v51, v50, v49, &v44);
+      if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v46.__r_.__value_.__l.__data_);
+        operator delete(v45.__r_.__value_.__l.__data_);
       }
 
-      v46 = v45;
+      v45 = v44;
     }
 
     else
     {
-      MEMORY[0x23EED9020](&v46, "the global scope");
+      MEMORY[0x23EED9020](&v45, "the global scope");
     }
 
     v39 = *(v6 + 8);
-    v52 = &v48;
-    v53 = &v46;
-    v54 = &v49;
-    google::protobuf::DescriptorBuilder::AddError(a1, (v39 + 24), a2, 0, &v52, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::BuildEnumValue(google::protobuf::EnumValueDescriptorProto const&,google::protobuf::EnumDescriptor const*,google::protobuf::EnumValueDescriptor *,google::protobuf::internal::FlatAllocator &)::$_0,std::string>);
-    if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+    v51 = &v47;
+    v52 = &v45;
+    v53 = &v48;
+    google::protobuf::DescriptorBuilder::AddError(a1, v39 + 24, a2, 0, &v51, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::BuildEnumValue(google::protobuf::EnumValueDescriptorProto const&,google::protobuf::EnumDescriptor const*,google::protobuf::EnumValueDescriptor *,google::protobuf::internal::FlatAllocator &)::$_0,std::string>);
+    if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v46.__r_.__value_.__l.__data_);
+      operator delete(v45.__r_.__value_.__l.__data_);
     }
 
-    v6 = v48;
+    v6 = v47;
   }
 
-  v40 = a1[21];
-  v51[0] = v6;
+  v40 = *(a1 + 168);
+  v50[0] = v6;
   v41 = *(v6 + 16);
   v42 = *(*(v41 + 56) + 4);
   v43 = *(v6 + 4);
@@ -2298,12 +2956,10 @@ LABEL_28:
   {
   }
 
-  if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v47.__r_.__value_.__l.__data_);
+    operator delete(v46.__r_.__value_.__l.__data_);
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23CD8704C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25)
@@ -2542,7 +3198,7 @@ void sub_23CD87470(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 void google::protobuf::DescriptorBuilder::BuildMethod(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   *(a4 + 16) = a3;
-  NameStrings = google::protobuf::DescriptorBuilder::AllocateNameStrings(a1, *(a3 + 8) + 24, *(a2 + 24) & 0xFFFFFFFFFFFFFFFCLL, a5);
+  NameStrings = google::protobuf::DescriptorBuilder::AllocateNameStrings(a1, *(a3 + 8) + 24, (*(a2 + 24) & 0xFFFFFFFFFFFFFFFCLL), a5);
   *(a4 + 8) = NameStrings;
   v9 = *(a2 + 24) & 0xFFFFFFFFFFFFFFFCLL;
   v10 = *(v9 + 23);
@@ -2576,22 +3232,22 @@ LABEL_7:
     }
 
     v14 = *(a2 + 24) & 0xFFFFFFFFFFFFFFFCLL;
-    google::protobuf::DescriptorBuilder::AddError(a1, (NameStrings + 24), a2, 0, &v14, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::ValidateSymbolName(std::string const&,std::string const&,google::protobuf::Message const&)::$_0,std::string>);
+    google::protobuf::DescriptorBuilder::AddError(a1, NameStrings + 24, a2, 0, &v14, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::ValidateSymbolName(std::string const&,std::string const&,google::protobuf::Message const&)::$_0,std::string>);
 LABEL_14:
     *(a4 + 40) = 0u;
     *(a4 + 24) = 0u;
-    google::protobuf::DescriptorBuilder::AllocateOptions<google::protobuf::MethodDescriptor>(a1, a2, a4);
+    google::protobuf::DescriptorBuilder::AllocateOptions<google::protobuf::MethodDescriptor>(a1, a2, a4, 4);
   }
 
-  google::protobuf::DescriptorBuilder::AddError(a1, (NameStrings + 24), a2, 0, "Missing name.");
+  google::protobuf::DescriptorBuilder::AddError(a1, NameStrings + 24, a2, 0, "Missing name.");
   goto LABEL_14;
 }
 
-void google::protobuf::DescriptorBuilder::AllocateOptions<google::protobuf::ServiceDescriptor>()
+void google::protobuf::DescriptorBuilder::AllocateOptions<google::protobuf::ServiceDescriptor>(uint64_t a1, uint64_t a2, void *a3, int a4)
 {
   __p = 0;
-  v1 = 0;
-  v2 = 0;
+  v5 = 0;
+  v6 = 0;
   operator new();
 }
 
@@ -2605,12 +3261,11 @@ void sub_23CD877F8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void google::protobuf::DescriptorBuilder::AllocateOptions<google::protobuf::MethodDescriptor>(uint64_t a1, uint64_t a2, uint64_t a3)
+void google::protobuf::DescriptorBuilder::AllocateOptions<google::protobuf::MethodDescriptor>(uint64_t a1, uint64_t a2, void *a3, int a4)
 {
   __p = 0;
   v5 = 0;
   v6 = 0;
-  v3 = *(a3 + 16);
   operator new();
 }
 
@@ -2627,8 +3282,8 @@ void sub_23CD87A54(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 void google::protobuf::DescriptorBuilder::CrossLinkMessage(google::protobuf::DescriptorBuilder *this, google::protobuf::Descriptor *a2, const google::protobuf::DescriptorProto *a3)
 {
   v4 = a2;
-  v91 = *MEMORY[0x277D85DE8];
-  v84 = a2;
+  v90 = *MEMORY[0x277D85DE8];
+  v83 = a2;
   if (!*(a2 + 4))
   {
     *(a2 + 4) = &google::protobuf::_MessageOptions_default_instance_;
@@ -2779,8 +3434,8 @@ LABEL_16:
     while (v27);
   }
 
-  v83 = 0;
-  v79 = a3;
+  v82 = 0;
+  v78 = a3;
   if (*(v4 + 1) >= 1)
   {
     v29 = 0;
@@ -2794,7 +3449,7 @@ LABEL_16:
       }
 
       v32 = *(v31 + 40);
-      v82 = v32;
+      v81 = v32;
       if (!v32)
       {
         goto LABEL_40;
@@ -2818,10 +3473,10 @@ LABEL_16:
           v38 = v37;
         }
 
-        v89 = v34;
-        v90 = v38;
-        v87 = ".";
-        v88 = 1;
+        v88 = v34;
+        v89 = v38;
+        v86 = ".";
+        v87 = 1;
         v39 = *(v31 - 80);
         v40 = *(v39 + 23);
         v41 = v39[1];
@@ -2831,27 +3486,27 @@ LABEL_16:
           v40 = v41;
         }
 
-        v85 = v39;
-        v86 = v40;
-        absl::lts_20240722::StrCat(&v89, &v87, &v85, &__p);
-        v42 = (*v30 + 8 * v83 - 1);
+        v84 = v39;
+        v85 = v40;
+        absl::lts_20240722::StrCat(&v88, &v86, &v84, &__p);
+        v42 = (*v30 + 8 * v82 - 1);
         if ((*v30 & 1) == 0)
         {
           v42 = (a3 + 24);
         }
 
         v43 = *v42;
-        v80[0] = &v84;
-        v80[1] = &v83;
-        v80[2] = &v82;
-        google::protobuf::DescriptorBuilder::AddError(this, &__p, v43, 2, v80, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::CrossLinkMessage(google::protobuf::Descriptor *,google::protobuf::DescriptorProto const&)::$_0,std::string>);
+        v79[0] = &v83;
+        v79[1] = &v82;
+        v79[2] = &v81;
+        google::protobuf::DescriptorBuilder::AddError(this, &__p, v43, 2, v79, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::CrossLinkMessage(google::protobuf::Descriptor *,google::protobuf::DescriptorProto const&)::$_0,std::string>);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
         }
 
-        v4 = v84;
-        v32 = v82;
+        v4 = v83;
+        v32 = v81;
       }
 
       v44 = *(v4 + 8) + 56 * (-1227133513 * ((v32 - *(*(v32 + 16) + 64)) >> 3));
@@ -2866,23 +3521,23 @@ LABEL_16:
 
       else
       {
-        *(v44 + 48) = *(v4 + 7) + 88 * v83;
+        *(v44 + 48) = *(v4 + 7) + 88 * v82;
         if ((*(this + 128) & 1) == 0)
         {
 LABEL_60:
           v46 = *(v44 + 48) + 88 * v45;
-          v47 = *(v4 + 7) + 88 * v83;
+          v47 = *(v4 + 7) + 88 * v82;
           if (v46 != v47)
           {
-            google::protobuf::DescriptorBuilder::CrossLinkMessage(v46, v47);
+            google::protobuf::DescriptorBuilder::CrossLinkMessage(v46, v47, &v88);
           }
         }
       }
 
       *(v44 + 4) = v45 + 1;
-      v29 = v83;
+      v29 = v82;
 LABEL_40:
-      v83 = ++v29;
+      v82 = ++v29;
     }
 
     while (v29 < *(v4 + 1));
@@ -2892,7 +3547,7 @@ LABEL_40:
   {
     v48 = 0;
     v49 = 0;
-    v50 = (v79 + 144);
+    v50 = (v78 + 144);
     v51 = 8;
     do
     {
@@ -2918,10 +3573,10 @@ LABEL_40:
         v58 = v57;
       }
 
-      v89 = v54;
-      v90 = v58;
-      v87 = ".";
-      v88 = 1;
+      v88 = v54;
+      v89 = v58;
+      v86 = ".";
+      v87 = 1;
       v59 = *(v52 + 8);
       v60 = *(v59 + 23);
       v61 = v59[1];
@@ -2931,10 +3586,10 @@ LABEL_40:
         v60 = v61;
       }
 
-      v85 = v59;
-      v86 = v60;
-      absl::lts_20240722::StrCat(&v89, &v87, &v85, &__p);
-      v62 = (*v50 & 1) != 0 ? (*v50 + v51 - 1) : (v79 + 144);
+      v84 = v59;
+      v85 = v60;
+      absl::lts_20240722::StrCat(&v88, &v86, &v84, &__p);
+      v62 = (*v50 & 1) != 0 ? (*v50 + v51 - 1) : (v78 + 144);
       google::protobuf::DescriptorBuilder::AddError(this, &__p, *v62, 0, "Oneof must have at least one field.");
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -2956,19 +3611,19 @@ LABEL_77:
       }
 
       ++v49;
-      v4 = v84;
+      v4 = v83;
       v48 += 56;
       v51 += 8;
     }
 
-    while (v49 < *(v84 + 30));
+    while (v49 < *(v83 + 30));
   }
 
   if (*(v4 + 1) >= 1)
   {
     v63 = 0;
     v64 = 0;
-    v65 = (v79 + 24);
+    v65 = (v78 + 24);
     v66 = 8;
     do
     {
@@ -2982,11 +3637,11 @@ LABEL_77:
 
         else
         {
-          v69 = (v79 + 24);
+          v69 = (v78 + 24);
         }
 
-        google::protobuf::DescriptorBuilder::AddError(this, (*(v4 + 1) + 24), *v69, 11, "Fields with proto3_optional set must be a member of a one-field oneof");
-        v4 = v84;
+        google::protobuf::DescriptorBuilder::AddError(this, *(v4 + 1) + 24, *v69, 11, "Fields with proto3_optional set must be a member of a one-field oneof");
+        v4 = v83;
       }
 
       ++v64;
@@ -3002,7 +3657,7 @@ LABEL_77:
   {
     v71 = 0;
     v72 = 0;
-    v73 = (v79 + 144);
+    v73 = (v78 + 144);
     v74 = -1;
     v75 = 8;
     do
@@ -3025,11 +3680,11 @@ LABEL_77:
 
         else
         {
-          v77 = (v79 + 144);
+          v77 = (v78 + 144);
         }
 
-        google::protobuf::DescriptorBuilder::AddError(this, (*(v4 + 1) + 24), *v77, 11, "Synthetic oneofs must be after all other oneofs");
-        v4 = v84;
+        google::protobuf::DescriptorBuilder::AddError(this, *(v4 + 1) + 24, *v77, 11, "Synthetic oneofs must be after all other oneofs");
+        v4 = v83;
       }
 
       ++v72;
@@ -3046,7 +3701,6 @@ LABEL_77:
   }
 
   *(v4 + 31) = v70;
-  v78 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23CD88154(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
@@ -3103,7 +3757,7 @@ void google::protobuf::DescriptorBuilder::CrossLinkField(google::protobuf::Descr
     if (!*v7)
     {
 LABEL_17:
-      v14 = (*(v4 + 1) + 24);
+      v14 = *(v4 + 1) + 24;
       v15 = *(a3 + 4) & 0xFFFFFFFFFFFFFFFCLL;
 
       google::protobuf::DescriptorBuilder::AddNotDefinedError(this, v14, a3, 3, v15);
@@ -3115,7 +3769,7 @@ LABEL_17:
   {
     v16 = *(v4 + 1);
     v108.__r_.__value_.__r.__words[0] = a3;
-    google::protobuf::DescriptorBuilder::AddError(this, (v16 + 24), a3, 3, &v108, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::CrossLinkField(google::protobuf::FieldDescriptor *,google::protobuf::FieldDescriptorProto const&)::$_0,std::string>);
+    google::protobuf::DescriptorBuilder::AddError(this, v16 + 24, a3, 3, &v108, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::CrossLinkField(google::protobuf::FieldDescriptor *,google::protobuf::FieldDescriptorProto const&)::$_0,std::string>);
     return;
   }
 
@@ -3124,32 +3778,11 @@ LABEL_17:
   if (v9 < 1)
   {
 LABEL_22:
-    if (*(*this + 50) != 1)
+    if (*(*this + 50) != 1 || (v17 = *(a3 + 4) & 0xFFFFFFFFFFFFFFFCLL, (*(v17 + 23) & 0x80000000) == 0) || *(v17 + 8) != 33 || ((v18 = *v17, v19 = *v18, v20 = v18[1], v21 = v18[2], v22 = v18[3], v23 = *(v18 + 32), v19 == 0x702E656C676F6F67) ? (v24 = v20 == 0x2E6675626F746F72) : (v24 = 0), v24 ? (v25 = v21 == 0x4D2E656764697262) : (v25 = 0), v25 ? (v26 = v22 == 0x6553656761737365) : (v26 = 0), v26 ? (v27 = v23 == 116) : (v27 = 0), !v27))
     {
-      goto LABEL_38;
-    }
-
-    v17 = *(a3 + 4) & 0xFFFFFFFFFFFFFFFCLL;
-    if ((*(v17 + 23) & 0x80000000) == 0 || *(v17 + 8) != 33)
-    {
-      goto LABEL_38;
-    }
-
-    v18 = *v17;
-    v19 = *v18;
-    v20 = v18[1];
-    v21 = v18[2];
-    v22 = v18[3];
-    v23 = *(v18 + 32);
-    v24 = v19 == 0x702E656C676F6F67 && v20 == 0x2E6675626F746F72;
-    v25 = v24 && v21 == 0x4D2E656764697262;
-    v26 = v25 && v22 == 0x6553656761737365;
-    if (!v26 || v23 != 116)
-    {
-LABEL_38:
       v28 = *(v4 + 1);
       v108.__r_.__value_.__r.__words[0] = &v104;
-      google::protobuf::DescriptorBuilder::AddError(this, (v28 + 24), a3, 1, &v108, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::CrossLinkField(google::protobuf::FieldDescriptor *,google::protobuf::FieldDescriptorProto const&)::$_1,std::string>);
+      google::protobuf::DescriptorBuilder::AddError(this, v28 + 24, a3, 1, &v108, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::CrossLinkField(google::protobuf::FieldDescriptor *,google::protobuf::FieldDescriptorProto const&)::$_1,std::string>);
       v4 = v104;
     }
   }
@@ -3171,7 +3804,7 @@ LABEL_38:
 LABEL_39:
   if ((*(v4 + 1) & 0x10) != 0 && (*(v4 + 1) & 0x60) != 0x20 && *(v4 + 5) != 0)
   {
-    google::protobuf::DescriptorBuilder::AddError(this, (*(v4 + 1) + 24), a3, 0, "Fields of oneofs must themselves have label LABEL_OPTIONAL.");
+    google::protobuf::DescriptorBuilder::AddError(this, *(v4 + 1) + 24, a3, 0, "Fields of oneofs must themselves have label LABEL_OPTIONAL.");
   }
 
   v30 = *(a3 + 4);
@@ -3217,7 +3850,7 @@ LABEL_55:
       v35 = *(v33 + 1);
       v36 = "Field with message or enum type missing type_name.";
 LABEL_56:
-      v37 = (v35 + 24);
+      v37 = v35 + 24;
       v38 = this;
       v39 = a3;
       v40 = 2;
@@ -3235,7 +3868,7 @@ LABEL_58:
         v105 = *(v104 + 4);
         LODWORD(v106) = v42;
         p_FieldByNumber = v104;
-        absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<std::pair<google::protobuf::Descriptor const*,int>,google::protobuf::FieldDescriptor const*,std::less<std::pair<google::protobuf::Descriptor const*,int>>,std::allocator<std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>,256,false>>::insert_unique<std::pair<google::protobuf::Descriptor const*,int>,std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>(v41 + 264, &v105, &v105, &v108);
+        absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<std::pair<google::protobuf::Descriptor const*,int>,google::protobuf::FieldDescriptor const*,std::less<std::pair<google::protobuf::Descriptor const*,int>>,std::allocator<std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>,256,false>>::insert_unique<std::pair<google::protobuf::Descriptor const*,int>,std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>(v41 + 264, &v105, &v108, &v105);
         if (v108.__r_.__value_.__s.__data_[16] == 1)
         {
           v43 = v108.__r_.__value_.__r.__words[0] + 24 * v108.__r_.__value_.__s.__data_[8];
@@ -3247,7 +3880,7 @@ LABEL_62:
 
         v108.__r_.__value_.__r.__words[0] = this;
         v108.__r_.__value_.__l.__size_ = &v104;
-        google::protobuf::DescriptorBuilder::AddWarning(this, (*(v104 + 1) + 24), a3, 1, &v108, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::CrossLinkField(google::protobuf::FieldDescriptor *,google::protobuf::FieldDescriptorProto const&)::$_8,std::string>);
+        google::protobuf::DescriptorBuilder::AddWarning(this, *(v104 + 1) + 24, a3, 1, &v108, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::CrossLinkField(google::protobuf::FieldDescriptor *,google::protobuf::FieldDescriptorProto const&)::$_8,std::string>);
       }
 
       return;
@@ -3271,7 +3904,7 @@ LABEL_95:
         v105 = &v104;
         v106 = &v108;
         p_FieldByNumber = &FieldByNumber;
-        google::protobuf::DescriptorBuilder::AddError(this, (v50 + 24), a3, 1, &v105, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::CrossLinkField(google::protobuf::FieldDescriptor *,google::protobuf::FieldDescriptorProto const&)::$_7,std::string>);
+        google::protobuf::DescriptorBuilder::AddError(this, v50 + 24, a3, 1, &v105, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::CrossLinkField(google::protobuf::FieldDescriptor *,google::protobuf::FieldDescriptorProto const&)::$_7,std::string>);
         goto LABEL_99;
       }
 
@@ -3298,7 +3931,7 @@ LABEL_98:
     v105 = &v104;
     v106 = &v108;
     p_FieldByNumber = &FieldByNumber;
-    google::protobuf::DescriptorBuilder::AddError(this, (v50 + 24), a3, 1, &v105, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::CrossLinkField(google::protobuf::FieldDescriptor *,google::protobuf::FieldDescriptorProto const&)::$_6,std::string>);
+    google::protobuf::DescriptorBuilder::AddError(this, v50 + 24, a3, 1, &v105, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::CrossLinkField(google::protobuf::FieldDescriptor *,google::protobuf::FieldDescriptorProto const&)::$_6,std::string>);
 LABEL_99:
     if (SHIBYTE(v108.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -3418,7 +4051,7 @@ LABEL_106:
           v108.__r_.__value_.__r.__words[0] = a3;
           v82 = absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::CrossLinkField(google::protobuf::FieldDescriptor *,google::protobuf::FieldDescriptorProto const&)::$_3,std::string>;
 LABEL_148:
-          google::protobuf::DescriptorBuilder::AddError(this, (v81 + 24), a3, 2, &v108, v82);
+          google::protobuf::DescriptorBuilder::AddError(this, v81 + 24, a3, 2, &v108, v82);
           return;
         }
 
@@ -3430,7 +4063,7 @@ LABEL_148:
         v80 = *(v79 + 1);
         v36 = "Messages can't have default values.";
 LABEL_113:
-        v37 = (v80 + 24);
+        v37 = v80 + 24;
         v38 = this;
         v39 = a3;
         v40 = 4;
@@ -3532,7 +4165,7 @@ LABEL_147:
           v100 = *(v104 + 1);
           v108.__r_.__value_.__r.__words[0] = &v104;
           v108.__r_.__value_.__l.__size_ = a3;
-          google::protobuf::DescriptorBuilder::AddError(this, (v100 + 24), a3, 4, &v108, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::CrossLinkField(google::protobuf::FieldDescriptor *,google::protobuf::FieldDescriptorProto const&)::$_5,std::string>);
+          google::protobuf::DescriptorBuilder::AddError(this, v100 + 24, a3, 4, &v108, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::CrossLinkField(google::protobuf::FieldDescriptor *,google::protobuf::FieldDescriptorProto const&)::$_5,std::string>);
           goto LABEL_58;
         }
       }
@@ -3569,7 +4202,7 @@ LABEL_147:
     if (!*Symbol)
     {
 LABEL_119:
-      google::protobuf::DescriptorBuilder::AddNotDefinedError(this, (*(v104 + 1) + 24), a3, 2, *(a3 + 5) & 0xFFFFFFFFFFFFFFFCLL);
+      google::protobuf::DescriptorBuilder::AddNotDefinedError(this, *(v104 + 1) + 24, a3, 2, *(a3 + 5) & 0xFFFFFFFFFFFFFFFCLL);
       return;
     }
 
@@ -3640,7 +4273,7 @@ LABEL_92:
     v105 = *(v104 + 4);
     LODWORD(v106) = v85;
     p_FieldByNumber = v104;
-    absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<std::pair<google::protobuf::Descriptor const*,int>,google::protobuf::FieldDescriptor const*,std::less<std::pair<google::protobuf::Descriptor const*,int>>,std::allocator<std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>,256,false>>::insert_unique<std::pair<google::protobuf::Descriptor const*,int>,std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>(v84 + 264, &v105, &v105, &v108);
+    absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<std::pair<google::protobuf::Descriptor const*,int>,google::protobuf::FieldDescriptor const*,std::less<std::pair<google::protobuf::Descriptor const*,int>>,std::allocator<std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>,256,false>>::insert_unique<std::pair<google::protobuf::Descriptor const*,int>,std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>(v84 + 264, &v105, &v108, &v105);
     if (v108.__r_.__value_.__s.__data_[16] == 1)
     {
       v43 = v108.__r_.__value_.__r.__words[0] + 24 * v108.__r_.__value_.__s.__data_[8];
@@ -3660,22 +4293,22 @@ void sub_23CD88C9C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void google::protobuf::DescriptorBuilder::CheckExtensionDeclarationFieldType(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4, size_t a5)
+void google::protobuf::DescriptorBuilder::CheckExtensionDeclarationFieldType(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4, std::string::size_type a5)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   if (*(a1 + 128))
   {
-    goto LABEL_71;
+    return;
   }
 
   v10 = *(a2 + 24);
   if (v10)
   {
-    v38 = google::protobuf::FieldDescriptor::TypeOnceInit;
-    v36 = a2;
+    v36 = google::protobuf::FieldDescriptor::TypeOnceInit;
+    v34 = a2;
     if (atomic_load_explicit(v10, memory_order_acquire) != 221)
     {
-      absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v10, 1, &v38, &v36);
+      absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v10, 1, &v36, &v34);
     }
   }
 
@@ -3731,10 +4364,10 @@ void google::protobuf::DescriptorBuilder::CheckExtensionDeclarationFieldType(uin
     }
   }
 
-  v38 = a2;
+  v36 = a2;
   if (atomic_load_explicit(v17, memory_order_acquire) != 221)
   {
-    absl::lts_20240722::base_internal::CallOnceImpl<void (&)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v17, 1, google::protobuf::FieldDescriptor::TypeOnceInit, &v38);
+    absl::lts_20240722::base_internal::CallOnceImpl<void (&)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v17, 1, google::protobuf::FieldDescriptor::TypeOnceInit, &v36);
   }
 
 LABEL_20:
@@ -3746,154 +4379,151 @@ LABEL_20:
     {
       goto LABEL_69;
     }
+
+    goto LABEL_31;
   }
 
-  else
+  v20 = *(a2 + 24);
+  if (v20)
   {
-    v20 = *(a2 + 24);
-    if (v20)
+    v36 = a2;
+    if (atomic_load_explicit(v20, memory_order_acquire) != 221)
     {
-      v38 = a2;
-      if (atomic_load_explicit(v20, memory_order_acquire) != 221)
-      {
-        absl::lts_20240722::base_internal::CallOnceImpl<void (&)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v20, 1, google::protobuf::FieldDescriptor::TypeOnceInit, &v38);
-      }
-
-      v18 = *(a2 + 2);
-      v19 = *(a2 + 48);
+      absl::lts_20240722::base_internal::CallOnceImpl<void (&)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v20, 1, google::protobuf::FieldDescriptor::TypeOnceInit, &v36);
     }
 
-    if (v18 != 14 || !v19)
-    {
-      goto LABEL_49;
-    }
-
-    LOBYTE(v18) = 14;
-    if (*(a1 + 128))
-    {
-      goto LABEL_69;
-    }
-  }
-
-  v21 = *(a2 + 24);
-  if (v21)
-  {
-    v38 = a2;
-    if (atomic_load_explicit(v21, memory_order_acquire) != 221)
-    {
-      absl::lts_20240722::base_internal::CallOnceImpl<void (&)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v21, 1, google::protobuf::FieldDescriptor::TypeOnceInit, &v38);
-    }
-
-    LOBYTE(v18) = *(a2 + 2);
+    v18 = *(a2 + 2);
     v19 = *(a2 + 48);
   }
 
-  v22 = *(a2 + 24);
-  if ((v18 & 0xFE) == 0xA && v19)
+  if (v18 != 14 || !v19)
   {
-    if (v22)
+    goto LABEL_49;
+  }
+
+  LOBYTE(v18) = 14;
+  if ((*(a1 + 128) & 1) == 0)
+  {
+LABEL_31:
+    v21 = *(a2 + 24);
+    if (v21)
     {
-      v38 = a2;
-      if (atomic_load_explicit(v22, memory_order_acquire) != 221)
+      v36 = a2;
+      if (atomic_load_explicit(v21, memory_order_acquire) != 221)
       {
+        absl::lts_20240722::base_internal::CallOnceImpl<void (&)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v21, 1, google::protobuf::FieldDescriptor::TypeOnceInit, &v36);
+      }
+
+      LOBYTE(v18) = *(a2 + 2);
+      v19 = *(a2 + 48);
+    }
+
+    v22 = *(a2 + 24);
+    if ((v18 & 0xFE) == 0xA && v19)
+    {
+      if (v22)
+      {
+        v36 = a2;
+        if (atomic_load_explicit(v22, memory_order_acquire) != 221)
+        {
 LABEL_42:
-        absl::lts_20240722::base_internal::CallOnceImpl<void (&)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v22, 1, google::protobuf::FieldDescriptor::TypeOnceInit, &v38);
+          absl::lts_20240722::base_internal::CallOnceImpl<void (&)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v22, 1, google::protobuf::FieldDescriptor::TypeOnceInit, &v36);
+        }
       }
     }
-  }
 
-  else if (v22)
-  {
-    v38 = a2;
-    if (atomic_load_explicit(v22, memory_order_acquire) != 221)
+    else if (v22)
     {
-      goto LABEL_42;
+      v36 = a2;
+      if (atomic_load_explicit(v22, memory_order_acquire) != 221)
+      {
+        goto LABEL_42;
+      }
     }
-  }
 
-  v23 = *(*(a2 + 48) + 8);
-  v24 = *(v23 + 47);
-  if ((v24 & 0x8000000000000000) != 0)
-  {
-    v25 = *(v23 + 24);
-    v24 = *(v23 + 32);
-  }
+    v23 = *(*(a2 + 48) + 8);
+    v24 = *(v23 + 47);
+    if ((v24 & 0x8000000000000000) != 0)
+    {
+      v25 = *(v23 + 24);
+      v24 = *(v23 + 32);
+    }
 
-  else
-  {
-    v25 = (v23 + 24);
-  }
+    else
+    {
+      v25 = (v23 + 24);
+    }
 
-  v38 = ".";
-  p_p = 1;
-  v36 = v25;
-  v37 = v24;
-  absl::lts_20240722::StrCat(&v38, &v36, &v33);
-  if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__dst.__r_.__value_.__l.__data_);
-  }
-
-  __dst = v33;
-LABEL_49:
-  {
-    v38 = ".";
+    v36 = ".";
     p_p = 1;
-    v36 = a4;
-    v37 = a5;
-    absl::lts_20240722::StrCat(&v38, &v36, &v33);
-    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+    v34 = v25;
+    v35 = v24;
+    absl::lts_20240722::StrCat(&v36, &v34, &v31);
+    if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(__p.__r_.__value_.__l.__data_);
+      operator delete(__dst.__r_.__value_.__l.__data_);
     }
 
-    __p = v33;
-  }
+    __dst = v31;
+LABEL_49:
+    {
+      v36 = ".";
+      p_p = 1;
+      v34 = a4;
+      v35 = a5;
+      absl::lts_20240722::StrCat(&v36, &v34, &v31);
+      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(__p.__r_.__value_.__l.__data_);
+      }
 
-  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
-  }
+      __p = v31;
+    }
 
-  else
-  {
-    size = __p.__r_.__value_.__l.__size_;
-  }
+    if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+    }
 
-  v27 = HIBYTE(__dst.__r_.__value_.__r.__words[2]);
-  if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-  {
-    v27 = __dst.__r_.__value_.__l.__size_;
-  }
+    else
+    {
+      size = __p.__r_.__value_.__l.__size_;
+    }
 
-  if (size != v27 || ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v28 = &__p) : (v28 = __p.__r_.__value_.__r.__words[0]), (__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v29 = &__dst) : (v29 = __dst.__r_.__value_.__r.__words[0]), memcmp(v28, v29, size)))
-  {
-    v30 = *(a2 + 8);
-    v38 = a2;
-    p_p = &__p;
-    p_dst = &__dst;
-    google::protobuf::DescriptorBuilder::AddError(a1, (v30 + 24), a3, 3, &v38, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::CheckExtensionDeclarationFieldType(google::protobuf::FieldDescriptor const&,google::protobuf::FieldDescriptorProto const&,std::string_view)::$_0,std::string>);
+    v27 = HIBYTE(__dst.__r_.__value_.__r.__words[2]);
+    if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    {
+      v27 = __dst.__r_.__value_.__l.__size_;
+    }
+
+    if (size != v27 || ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v28 = &__p) : (v28 = __p.__r_.__value_.__r.__words[0]), (__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v29 = &__dst) : (v29 = __dst.__r_.__value_.__r.__words[0]), memcmp(v28, v29, size)))
+    {
+      v30 = *(a2 + 8);
+      v36 = a2;
+      p_p = &__p;
+      p_dst = &__dst;
+      google::protobuf::DescriptorBuilder::AddError(a1, v30 + 24, a3, 3, &v36, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::CheckExtensionDeclarationFieldType(google::protobuf::FieldDescriptor const&,google::protobuf::FieldDescriptorProto const&,std::string_view)::$_0,std::string>);
+    }
   }
 
 LABEL_69:
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
-    operator delete(__p.__r_.__value_.__l.__data_);
     if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
-      goto LABEL_71;
+      return;
     }
-  }
 
-  else if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-  {
-LABEL_71:
-    v31 = *MEMORY[0x277D85DE8];
+LABEL_73:
+    operator delete(__dst.__r_.__value_.__l.__data_);
     return;
   }
 
-  operator delete(__dst.__r_.__value_.__l.__data_);
-  v32 = *MEMORY[0x277D85DE8];
+  operator delete(__p.__r_.__value_.__l.__data_);
+  if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
+  {
+    goto LABEL_73;
+  }
 }
 
 void sub_23CD891A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25)
@@ -3914,7 +4544,6 @@ void sub_23CD891A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 BOOL google::protobuf::anonymous namespace::IsNonMessageType(absl::lts_20240722::hash_internal::MixingHashState *__s2, size_t __n, uint64_t a3, unint64_t a4, const unint64_t *a5)
 {
-  v29 = *MEMORY[0x277D85DE8];
   if ((atomic_load_explicit(&qword_2810C1A60, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2810C1A60))
   {
     operator new();
@@ -3926,44 +4555,42 @@ BOOL google::protobuf::anonymous namespace::IsNonMessageType(absl::lts_20240722:
     _X8 = *(qword_2810C1A58 + 16);
     __asm { PRFM            #4, [X8] }
 
-    v16 = absl::lts_20240722::hash_internal::MixingHashState::combine_contiguous(&absl::lts_20240722::hash_internal::MixingHashState::kSeed, __s2, __n, a4, a5);
-    v17 = 0;
-    v18 = (((v16 + __n) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (v16 + __n));
-    v19 = v7[2];
-    v20 = *v7;
-    v21 = vdup_n_s8(v18 & 0x7F);
-    v22 = ((v18 >> 7) ^ (v19 >> 12)) & *v7;
-    v23 = *(v19 + v22);
-    v24 = vceq_s8(v23, v21);
-    if (!v24)
+    v15 = absl::lts_20240722::hash_internal::MixingHashState::combine_contiguous(&absl::lts_20240722::hash_internal::MixingHashState::kSeed, __s2, __n, a4, a5);
+    v16 = 0;
+    v17 = (((v15 + __n) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (v15 + __n));
+    v18 = v7[2];
+    v19 = *v7;
+    v20 = vdup_n_s8(v17 & 0x7F);
+    v21 = ((v17 >> 7) ^ (v18 >> 12)) & *v7;
+    v22 = *(v18 + v21);
+    v23 = vceq_s8(v22, v20);
+    if (!v23)
     {
       goto LABEL_11;
     }
 
 LABEL_7:
-    v25 = v7[3];
+    v24 = v7[3];
     do
     {
-      v26 = v25 + 16 * ((v22 + (__clz(__rbit64(v24)) >> 3)) & v20);
-      if (*(v26 + 8) == __n && !memcmp(*v26, __s2, __n))
+      v25 = v24 + 16 * ((v21 + (__clz(__rbit64(v23)) >> 3)) & v19);
+      if (*(v25 + 8) == __n && !memcmp(*v25, __s2, __n))
       {
-        result = v19 != 0;
-        v28 = *MEMORY[0x277D85DE8];
-        return result;
+        return v18 != 0;
       }
 
-      v24 &= ((v24 & 0x8080808080808080) - 1) & 0x8080808080808080;
+      v23 &= ((v23 & 0x8080808080808080) - 1) & 0x8080808080808080;
     }
 
-    while (v24);
+    while (v23);
 LABEL_11:
-    while (!*&vceq_s8(v23, 0x8080808080808080))
+    while (!*&vceq_s8(v22, 0x8080808080808080))
     {
-      v17 += 8;
-      v22 = (v17 + v22) & v20;
-      v23 = *(v19 + v22);
-      v24 = vceq_s8(v23, v21);
-      if (v24)
+      v16 += 8;
+      v21 = (v16 + v21) & v19;
+      v22 = *(v18 + v21);
+      v23 = vceq_s8(v22, v20);
+      if (v23)
       {
         goto LABEL_7;
       }
@@ -3972,14 +4599,10 @@ LABEL_11:
 
   else if (*(qword_2810C1A58 + 8) >= 2uLL && *(qword_2810C1A58 + 24) == __n)
   {
-    result = memcmp(*(qword_2810C1A58 + 16), __s2, __n) == 0;
-    v9 = *MEMORY[0x277D85DE8];
-    return result;
+    return memcmp(*(qword_2810C1A58 + 16), __s2, __n) == 0;
   }
 
-  result = 0;
-  v27 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 void sub_23CD89488(_Unwind_Exception *a1)
@@ -3989,80 +4612,82 @@ void sub_23CD89488(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void google::protobuf::DescriptorBuilder::CheckExtensionDeclaration(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4, size_t a5, _BYTE *a6, size_t a7, int a8)
+void google::protobuf::DescriptorBuilder::CheckExtensionDeclaration(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4, size_t a5, _BYTE *a6, std::string::size_type a7, int a8)
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v28[0] = a4;
-  v28[1] = a5;
-  v27 = a8;
+  v32 = *MEMORY[0x277D85DE8];
+  v27[0] = a4;
+  v27[1] = a5;
+  v26 = a8;
   if (a7)
   {
     google::protobuf::DescriptorBuilder::CheckExtensionDeclarationFieldType(a1, a2, a3, a6, a7);
   }
 
-  if (a5)
+  if (!a5)
   {
-    v30 = ".";
-    v31 = 1;
-    v14 = *(a2 + 8);
-    v17 = *(v14 + 24);
-    v15 = v14 + 24;
-    v16 = v17;
-    v18 = *(v15 + 8);
-    if (*(v15 + 23) >= 0)
-    {
-      v19 = *(v15 + 23);
-    }
+    goto LABEL_16;
+  }
 
-    else
-    {
-      v15 = v16;
-      v19 = v18;
-    }
+  v29 = ".";
+  v30 = 1;
+  v14 = *(a2 + 8);
+  v17 = *(v14 + 24);
+  v15 = v14 + 24;
+  v16 = v17;
+  v18 = *(v15 + 8);
+  if (*(v15 + 23) >= 0)
+  {
+    v19 = *(v15 + 23);
+  }
 
-    v29[0] = v15;
-    v29[1] = v19;
-    absl::lts_20240722::StrCat(&v30, v29, &__p);
-    size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+  else
+  {
+    v15 = v16;
+    v19 = v18;
+  }
+
+  v28[0] = v15;
+  v28[1] = v19;
+  absl::lts_20240722::StrCat(&v29, v28, &__p);
+  size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+  v21 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  {
+    size = __p.__r_.__value_.__l.__size_;
+  }
+
+  if (a5 != size || ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v22 = &__p) : (v22 = __p.__r_.__value_.__r.__words[0]), memcmp(a4, v22, a5)))
+  {
+    v23 = *(a2 + 8);
+    v29 = a2;
+    v30 = v27;
+    p_p = &__p;
+    google::protobuf::DescriptorBuilder::AddError(a1, v23 + 24, a3, 3, &v29, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::CheckExtensionDeclaration(google::protobuf::FieldDescriptor const&,google::protobuf::FieldDescriptorProto const&,std::string_view,std::string_view,BOOL)::$_0,std::string>);
     v21 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
-    if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-    {
-      size = __p.__r_.__value_.__l.__size_;
-    }
-
-    if (a5 != size || ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v22 = &__p) : (v22 = __p.__r_.__value_.__r.__words[0]), memcmp(a4, v22, a5)))
-    {
-      v23 = *(a2 + 8);
-      v30 = a2;
-      v31 = v28;
-      p_p = &__p;
-      google::protobuf::DescriptorBuilder::AddError(a1, (v23 + 24), a3, 3, &v30, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::CheckExtensionDeclaration(google::protobuf::FieldDescriptor const&,google::protobuf::FieldDescriptorProto const&,std::string_view,std::string_view,BOOL)::$_0,std::string>);
-      v21 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
-    }
-
-    if (v21 < 0)
-    {
-      operator delete(__p.__r_.__value_.__l.__data_);
-      if ((((~*(a2 + 1) & 0x60) != 0) ^ a8))
-      {
-        goto LABEL_18;
-      }
-
-      goto LABEL_17;
-    }
   }
 
-  if (((((~*(a2 + 1) & 0x60) != 0) ^ a8) & 1) == 0)
+  if (v21 < 0)
   {
-LABEL_17:
-    v24 = *(a2 + 8);
-    v30 = a2;
-    v31 = &v27;
-    google::protobuf::DescriptorBuilder::AddError(a1, (v24 + 24), a3, 3, &v30, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::CheckExtensionDeclaration(google::protobuf::FieldDescriptor const&,google::protobuf::FieldDescriptorProto const&,std::string_view,std::string_view,BOOL)::$_1,std::string>);
+    operator delete(__p.__r_.__value_.__l.__data_);
+    if ((((~*(a2 + 1) & 0x60) != 0) ^ a8))
+    {
+      return;
+    }
   }
 
-LABEL_18:
-  v25 = *MEMORY[0x277D85DE8];
+  else
+  {
+LABEL_16:
+    if ((((~*(a2 + 1) & 0x60) != 0) ^ a8))
+    {
+      return;
+    }
+  }
+
+  v24 = *(a2 + 8);
+  v29 = a2;
+  v30 = &v26;
+  google::protobuf::DescriptorBuilder::AddError(a1, v24 + 24, a3, 3, &v29, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::CheckExtensionDeclaration(google::protobuf::FieldDescriptor const&,google::protobuf::FieldDescriptorProto const&,std::string_view,std::string_view,BOOL)::$_1,std::string>);
 }
 
 void sub_23CD896B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -4083,7 +4708,7 @@ void google::protobuf::DescriptorBuilder::CrossLinkMethod(google::protobuf::Desc
     *(a2 + 7) = &google::protobuf::_MethodOptions_default_instance_;
   }
 
-  v6 = *(a3 + 4) & 0xFFFFFFFFFFFFFFFCLL;
+  v6 = (*(a3 + 4) & 0xFFFFFFFFFFFFFFFCLL);
   v7 = google::protobuf::DescriptorBuilder::LookupSymbolNoPlaceholder(this, v6, *(a2 + 1) + 24, 0, ((*(*this + 49) & 1) == 0));
   v8 = *v7;
   if (*v7)
@@ -4094,10 +4719,10 @@ void google::protobuf::DescriptorBuilder::CrossLinkMethod(google::protobuf::Desc
   v9 = *this;
   if (*(*this + 50) == 1)
   {
-    v10 = *(v6 + 23);
+    v10 = SHIBYTE(v6->__r_.__value_.__r.__words[2]);
     if (v10 < 0)
     {
-      v7 = google::protobuf::DescriptorPool::NewPlaceholderWithMutexHeld(v9, *v6, *(v6 + 8), 0);
+      v7 = google::protobuf::DescriptorPool::NewPlaceholderWithMutexHeld(v9, v6->__r_.__value_.__l.__data_, v6->__r_.__value_.__l.__size_, 0);
       v8 = *v7;
       if (!*v7)
       {
@@ -4130,7 +4755,7 @@ LABEL_4:
     {
       v11 = *(a2 + 1);
       v24[0] = a3;
-      google::protobuf::DescriptorBuilder::AddError(this, (v11 + 24), a3, 5, v24, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::CrossLinkMethod(google::protobuf::MethodDescriptor *,google::protobuf::MethodDescriptorProto const&)::$_0,std::string>);
+      google::protobuf::DescriptorBuilder::AddError(this, v11 + 24, a3, 5, v24, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::CrossLinkMethod(google::protobuf::MethodDescriptor *,google::protobuf::MethodDescriptorProto const&)::$_0,std::string>);
     }
 
     goto LABEL_18;
@@ -4153,11 +4778,11 @@ LABEL_13:
 
   else
   {
-    google::protobuf::DescriptorBuilder::AddNotDefinedError(this, (*(a2 + 1) + 24), a3, 5, *(a3 + 4) & 0xFFFFFFFFFFFFFFFCLL);
+    google::protobuf::DescriptorBuilder::AddNotDefinedError(this, *(a2 + 1) + 24, a3, 5, *(a3 + 4) & 0xFFFFFFFFFFFFFFFCLL);
   }
 
 LABEL_18:
-  v15 = *(a3 + 5) & 0xFFFFFFFFFFFFFFFCLL;
+  v15 = (*(a3 + 5) & 0xFFFFFFFFFFFFFFFCLL);
   v16 = google::protobuf::DescriptorBuilder::LookupSymbolNoPlaceholder(this, v15, *(a2 + 1) + 24, 0, ((*(*this + 49) & 1) == 0));
   v17 = *v16;
   if (*v16)
@@ -4168,10 +4793,10 @@ LABEL_18:
   v18 = *this;
   if (*(*this + 50) == 1)
   {
-    v19 = *(v15 + 23);
+    v19 = SHIBYTE(v15->__r_.__value_.__r.__words[2]);
     if (v19 < 0)
     {
-      v16 = google::protobuf::DescriptorPool::NewPlaceholderWithMutexHeld(v18, *v15, *(v15 + 8), 0);
+      v16 = google::protobuf::DescriptorPool::NewPlaceholderWithMutexHeld(v18, v15->__r_.__value_.__l.__data_, v15->__r_.__value_.__l.__size_, 0);
       v17 = *v16;
       if (!*v16)
       {
@@ -4204,7 +4829,7 @@ LABEL_19:
     {
       v20 = *(a2 + 1);
       v24[0] = a3;
-      google::protobuf::DescriptorBuilder::AddError(this, (v20 + 24), a3, 6, v24, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::CrossLinkMethod(google::protobuf::MethodDescriptor *,google::protobuf::MethodDescriptorProto const&)::$_1,std::string>);
+      google::protobuf::DescriptorBuilder::AddError(this, v20 + 24, a3, 6, v24, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::CrossLinkMethod(google::protobuf::MethodDescriptor *,google::protobuf::MethodDescriptorProto const&)::$_1,std::string>);
     }
 
     return;
@@ -4227,7 +4852,7 @@ LABEL_28:
 
   else
   {
-    google::protobuf::DescriptorBuilder::AddNotDefinedError(this, (*(a2 + 1) + 24), a3, 6, *(a3 + 5) & 0xFFFFFFFFFFFFFFFCLL);
+    google::protobuf::DescriptorBuilder::AddNotDefinedError(this, *(a2 + 1) + 24, a3, 6, *(a3 + 5) & 0xFFFFFFFFFFFFFFFCLL);
   }
 }
 
@@ -4267,25 +4892,25 @@ void *google::protobuf::internal::LazyDescriptor::SetLazy(void *a1, const void *
   return result;
 }
 
-void google::protobuf::DescriptorBuilder::ValidateOptions(google::protobuf::DescriptorBuilder *this, uint64_t **a2, const google::protobuf::FileDescriptorProto *a3, unint64_t a4, const unint64_t *a5)
+void google::protobuf::DescriptorBuilder::ValidateOptions(google::protobuf::DescriptorBuilder *this, const google::protobuf::FileDescriptor *a2, const google::protobuf::FileDescriptorProto *a3, unint64_t a4, const unint64_t *a5)
 {
   v6 = a2;
   v29 = a2;
   if (*(a2 + 8) >= 1000)
   {
-    if (*(a2[18] + 12) == 3)
+    if (*(*(a2 + 18) + 48) == 3)
     {
-      google::protobuf::DescriptorBuilder::AddError(this, a2[1], a3, 10, "Required presence can't be specified by default.");
+      google::protobuf::DescriptorBuilder::AddError(this, *(a2 + 1), a3, 10, "Required presence can't be specified by default.");
     }
 
-    if (*(v6[16] + 162) == 1)
+    if (*(*(v6 + 16) + 162) == 1)
     {
-      google::protobuf::DescriptorBuilder::AddError(this, v6[1], a3, 10, "File option java_string_check_utf8 is not allowed under editions. Use the (pb.java).utf8_validation feature to control this behavior.");
+      google::protobuf::DescriptorBuilder::AddError(this, *(v6 + 1), a3, 10, "File option java_string_check_utf8 is not allowed under editions. Use the (pb.java).utf8_validation feature to control this behavior.");
     }
   }
 
-  v8 = v6[16];
-  if (v8 == &google::protobuf::_FileOptions_default_instance_ || *(v8 + 42) != 3)
+  v8 = *(v6 + 16);
+  if (v8 == &google::protobuf::_FileOptions_default_instance_ || *(v8 + 168) != 3)
   {
     v28 = 0;
     if (*(v6 + 12) >= 1)
@@ -4293,11 +4918,11 @@ void google::protobuf::DescriptorBuilder::ValidateOptions(google::protobuf::Desc
       v9 = 0;
       do
       {
-        v10 = v6[5];
+        v10 = *(v6 + 5);
         if (v10 && (v27[0] = v6, atomic_load_explicit(v10, memory_order_acquire) != 221))
         {
           absl::lts_20240722::base_internal::CallOnceImpl<void (&)(google::protobuf::FileDescriptor const*),google::protobuf::FileDescriptor const*>(v10, 1, google::protobuf::FileDescriptor::DependenciesOnceInit, v27);
-          v11 = v6[9][v9];
+          v11 = *(*(v6 + 9) + 8 * v9);
           if (!v11)
           {
             goto LABEL_10;
@@ -4306,7 +4931,7 @@ void google::protobuf::DescriptorBuilder::ValidateOptions(google::protobuf::Desc
 
         else
         {
-          v11 = v6[9][v9];
+          v11 = *(*(v6 + 9) + 8 * v9);
           if (!v11)
           {
             goto LABEL_10;
@@ -4318,7 +4943,7 @@ void google::protobuf::DescriptorBuilder::ValidateOptions(google::protobuf::Desc
         {
           v13 = v29;
           v14 = v28;
-          v15 = v29[5];
+          v15 = *(v29 + 5);
           if (v15)
           {
             v27[0] = v29;
@@ -4328,7 +4953,7 @@ void google::protobuf::DescriptorBuilder::ValidateOptions(google::protobuf::Desc
             }
           }
 
-          v16 = *(v13[9][v14] + 8);
+          v16 = *(*(*(v13 + 9) + 8 * v14) + 8);
           v27[0] = &v29;
           v27[1] = &v28;
           google::protobuf::DescriptorBuilder::AddError(this, v16, a3, 9, v27, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::ValidateOptions(google::protobuf::FileDescriptor const*,google::protobuf::FileDescriptorProto const&)::$_0,std::string>);
@@ -4366,10 +4991,10 @@ LABEL_10:
           v21 = (a3 + 120);
         }
 
-        google::protobuf::DescriptorBuilder::ValidateProto3Field(this, &v6[15][v17], *v21, a4, a5);
+        google::protobuf::DescriptorBuilder::ValidateProto3Field(this, (*(v6 + 15) + v17), *v21, a4, a5);
         ++v18;
         v20 += 8;
-        v17 += 11;
+        v17 += 88;
       }
 
       while (v18 < *(v6 + 1));
@@ -4393,10 +5018,10 @@ LABEL_10:
           v26 = v24;
         }
 
-        google::protobuf::DescriptorBuilder::ValidateProto3Message(this, &v6[12][v22], *v26, a4, a5);
+        google::protobuf::DescriptorBuilder::ValidateProto3Message(this, (*(v6 + 12) + v22), *v26, a4, a5);
         ++v23;
         v25 += 8;
-        v22 += 19;
+        v22 += 152;
       }
 
       while (v23 < *(v6 + 15));
@@ -4540,7 +5165,7 @@ LABEL_25:
   }
 
   v6 = v45;
-  google::protobuf::DescriptorBuilder::AddError(this, (*(v45 + 1) + 24), a3, 3, "Extensions in proto3 are only allowed for defining options.");
+  google::protobuf::DescriptorBuilder::AddError(this, *(v45 + 1) + 24, a3, 3, "Extensions in proto3 are only allowed for defining options.");
   if (*(*(v45 + 9) + 48) != 3)
   {
 LABEL_31:
@@ -4550,7 +5175,7 @@ LABEL_31:
     }
 
 LABEL_36:
-    google::protobuf::DescriptorBuilder::AddError(this, (*(v6 + 1) + 24), a3, 4, "Explicit default values are not allowed in proto3.");
+    google::protobuf::DescriptorBuilder::AddError(this, *(v6 + 1) + 24, a3, 4, "Explicit default values are not allowed in proto3.");
     v37 = *(v6 + 3);
     if (!v37)
     {
@@ -4561,7 +5186,7 @@ LABEL_36:
   }
 
 LABEL_35:
-  google::protobuf::DescriptorBuilder::AddError(this, (*(v6 + 1) + 24), a3, 2, "Required fields are not allowed in proto3.");
+  google::protobuf::DescriptorBuilder::AddError(this, *(v6 + 1) + 24, a3, 2, "Required fields are not allowed in proto3.");
   if (*(v6 + 1))
   {
     goto LABEL_36;
@@ -4633,7 +5258,7 @@ LABEL_39:
 LABEL_46:
       v40 = *(v45 + 1);
       v47 = &v45;
-      google::protobuf::DescriptorBuilder::AddError(this, (v40 + 24), a3, 2, &v47, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::ValidateProto3Field(google::protobuf::FieldDescriptor const*,google::protobuf::FieldDescriptorProto const&)::$_0,std::string>);
+      google::protobuf::DescriptorBuilder::AddError(this, v40 + 24, a3, 2, &v47, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::ValidateProto3Field(google::protobuf::FieldDescriptor const*,google::protobuf::FieldDescriptorProto const&)::$_0,std::string>);
     }
   }
 
@@ -4654,7 +5279,7 @@ LABEL_47:
   if (*(v41 + 2) == 10)
   {
 LABEL_50:
-    google::protobuf::DescriptorBuilder::AddError(this, (*(v45 + 1) + 24), a3, 2, "Groups are not supported in proto3 syntax.");
+    google::protobuf::DescriptorBuilder::AddError(this, *(v45 + 1) + 24, a3, 2, "Groups are not supported in proto3 syntax.");
   }
 }
 
@@ -4678,7 +5303,7 @@ void google::protobuf::DescriptorBuilder::ValidateProto3Message(google::protobuf
         v12 = (a3 + 48);
       }
 
-      google::protobuf::DescriptorBuilder::ValidateProto3Message(this, (*(a2 + 9) + v8), *v12);
+      google::protobuf::DescriptorBuilder::ValidateProto3Message(this, (*(a2 + 9) + v8), *v12, a4, a5);
       ++v9;
       v8 += 152;
       v11 += 8;
@@ -4750,12 +5375,12 @@ void google::protobuf::DescriptorBuilder::ValidateProto3Message(google::protobuf
       v23 = (v24 + 7);
     }
 
-    google::protobuf::DescriptorBuilder::AddError(this, (*(a2 + 1) + 24), *v23, 1, "Extension ranges are not allowed in proto3.");
+    google::protobuf::DescriptorBuilder::AddError(this, *(a2 + 1) + 24, *v23, 1, "Extension ranges are not allowed in proto3.");
   }
 
   if (*(*(a2 + 4) + 80) == 1)
   {
-    v25 = (*(a2 + 1) + 24);
+    v25 = *(a2 + 1) + 24;
 
     google::protobuf::DescriptorBuilder::AddError(this, v25, a3, 0, "MessageSet is not supported in proto3.");
   }
@@ -4828,7 +5453,7 @@ void google::protobuf::DescriptorBuilder::ValidateExtensionRangeOptions(google::
     {
       v22 = *(a3 + 1);
       v25 = &v28;
-      google::protobuf::DescriptorBuilder::AddError(this, (v22 + 24), a2, 1, &v25, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::ValidateExtensionRangeOptions(google::protobuf::DescriptorProto const&,google::protobuf::Descriptor const&)::$_0,std::string>);
+      google::protobuf::DescriptorBuilder::AddError(this, v22 + 24, a2, 1, &v25, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::ValidateExtensionRangeOptions(google::protobuf::DescriptorProto const&,google::protobuf::Descriptor const&)::$_0,std::string>);
     }
 
     v23 = *(v21 + 8);
@@ -4852,7 +5477,7 @@ void google::protobuf::DescriptorBuilder::ValidateExtensionRangeOptions(google::
       v20 = (a2 + 96);
     }
 
-    google::protobuf::DescriptorBuilder::ValidateExtensionDeclaration(this, (*(a3 + 1) + 24), v23 + 48, *v20, &v26);
+    google::protobuf::DescriptorBuilder::ValidateExtensionDeclaration(this, *(a3 + 1) + 24, v23 + 48, *v20, &v26);
 LABEL_20:
     ++v17;
     v19 += 8;
@@ -4873,7 +5498,7 @@ LABEL_20:
     v24 = (a2 + 96);
   }
 
-  google::protobuf::DescriptorBuilder::AddError(this, (*(a3 + 1) + 24), *v24, 3, &v25, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::ValidateExtensionRangeOptions(google::protobuf::DescriptorProto const&,google::protobuf::Descriptor const&)::$_1,std::string>);
+  google::protobuf::DescriptorBuilder::AddError(this, *(a3 + 1) + 24, *v24, 3, &v25, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::ValidateExtensionRangeOptions(google::protobuf::DescriptorProto const&,google::protobuf::Descriptor const&)::$_1,std::string>);
 LABEL_30:
   if (v26 >= 2)
   {
@@ -4894,13 +5519,13 @@ void sub_23CD8A5C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 void google::protobuf::DescriptorBuilder::ValidateOptions(google::protobuf::DescriptorBuilder *this, atomic_uint **a2, const google::protobuf::FieldDescriptorProto *a3)
 {
   v4 = a2;
-  v76 = *MEMORY[0x277D85DE8];
-  v73 = a2;
+  v75 = *MEMORY[0x277D85DE8];
+  v72 = a2;
   if (*(*this + 49) == 1)
   {
     if (!a2)
     {
-      goto LABEL_142;
+      return;
     }
 
     v6 = a2[3];
@@ -4915,10 +5540,10 @@ void google::protobuf::DescriptorBuilder::ValidateOptions(google::protobuf::Desc
 
     if ((*(v4 + 2) & 0xFE) != 0xA || !*(v4 + 6))
     {
-      goto LABEL_142;
+      return;
     }
 
-    v4 = v73;
+    v4 = v72;
   }
 
   google::protobuf::DescriptorBuilder::ValidateFieldFeatures(this, v4, a3);
@@ -4928,20 +5553,20 @@ void google::protobuf::DescriptorBuilder::ValidateOptions(google::protobuf::Desc
     if (v7)
     {
       __p.__r_.__value_.__r.__words[0] = google::protobuf::FieldDescriptor::TypeOnceInit;
-      v74 = v4;
+      v73 = v4;
       if (atomic_load_explicit(v7, memory_order_acquire) != 221)
       {
-        absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v7, 1, &__p, &v74);
+        absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v7, 1, &__p, &v73);
       }
     }
 
     v8 = *(v4 + 2);
     if (v8 != 9 && v8 != 12)
     {
-      v9 = (*(v73 + 1) + 24);
-      v74 = v9;
-      v75 = absl::lts_20240722::str_format_internal::FormatArgImpl::Dispatch<std::string>;
-      absl::lts_20240722::str_format_internal::FormatPack("Field %s specifies ctype, but is not a string nor bytes field.", 62, &v74, 1uLL, &__p);
+      v9 = *(v72 + 1) + 24;
+      v73 = v9;
+      v74 = absl::lts_20240722::str_format_internal::FormatArgImpl::Dispatch<std::string>;
+      absl::lts_20240722::str_format_internal::FormatPack("Field %s specifies ctype, but is not a string nor bytes field.", 62, &v73, 1uLL, &__p);
       v10 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
       google::protobuf::DescriptorBuilder::AddError(this, v9, a3, 2, v10);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -4950,13 +5575,13 @@ void google::protobuf::DescriptorBuilder::ValidateOptions(google::protobuf::Desc
       }
     }
 
-    v4 = v73;
-    if (*(*(v73 + 7) + 120) == 1 && (*(v73 + 1) & 8) != 0)
+    v4 = v72;
+    if (*(*(v72 + 7) + 120) == 1 && (*(v72 + 1) & 8) != 0)
     {
-      v11 = (*(v73 + 1) + 24);
-      v74 = v11;
-      v75 = absl::lts_20240722::str_format_internal::FormatArgImpl::Dispatch<std::string>;
-      absl::lts_20240722::str_format_internal::FormatPack("Extension %s specifies ctype=CORD which is not supported for extensions.", 72, &v74, 1uLL, &__p);
+      v11 = *(v72 + 1) + 24;
+      v73 = v11;
+      v74 = absl::lts_20240722::str_format_internal::FormatArgImpl::Dispatch<std::string>;
+      absl::lts_20240722::str_format_internal::FormatPack("Extension %s specifies ctype=CORD which is not supported for extensions.", 72, &v73, 1uLL, &__p);
       v12 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
       google::protobuf::DescriptorBuilder::AddError(this, v11, a3, 2, v12);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -4983,18 +5608,18 @@ void google::protobuf::DescriptorBuilder::ValidateOptions(google::protobuf::Desc
   if (v14)
   {
     __p.__r_.__value_.__r.__words[0] = google::protobuf::FieldDescriptor::TypeOnceInit;
-    v74 = v4;
+    v73 = v4;
     if (atomic_load_explicit(v14, memory_order_acquire) != 221)
     {
-      absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v14, 1, &__p, &v74);
+      absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v14, 1, &__p, &v73);
     }
 
-    v15 = v73;
+    v15 = v72;
   }
 
   if (*(v4 + 2) != 11)
   {
-    google::protobuf::DescriptorBuilder::AddError(this, (*(v15 + 1) + 24), a3, 2, "[lazy = true] can only be specified for submessage fields.");
+    google::protobuf::DescriptorBuilder::AddError(this, *(v15 + 1) + 24, a3, 2, "[lazy = true] can only be specified for submessage fields.");
   }
 
   if (*(*(v15 + 7) + 128) == 1)
@@ -5010,13 +5635,13 @@ LABEL_39:
     if (v16)
     {
       __p.__r_.__value_.__r.__words[0] = google::protobuf::FieldDescriptor::TypeOnceInit;
-      v74 = v15;
+      v73 = v15;
       if (atomic_load_explicit(v16, memory_order_acquire) != 221)
       {
-        absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v16, 1, &__p, &v74);
+        absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v16, 1, &__p, &v73);
       }
 
-      v17 = v73;
+      v17 = v72;
     }
 
     v18 = *(v15 + 2) - 13;
@@ -5024,7 +5649,7 @@ LABEL_39:
     if (v18 >= 0xFFFFFFFC)
     {
 LABEL_45:
-      google::protobuf::DescriptorBuilder::AddError(this, (*(v15 + 1) + 24), a3, 2, "[packed = true] can only be specified for repeated primitive fields.");
+      google::protobuf::DescriptorBuilder::AddError(this, *(v15 + 1) + 24, a3, 2, "[packed = true] can only be specified for repeated primitive fields.");
     }
   }
 
@@ -5047,13 +5672,13 @@ LABEL_46:
         if (v21)
         {
           __p.__r_.__value_.__r.__words[0] = google::protobuf::FieldDescriptor::TypeOnceInit;
-          v74 = v15;
+          v73 = v15;
           if (atomic_load_explicit(v21, memory_order_acquire) != 221)
           {
-            absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v21, 1, &__p, &v74);
+            absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v21, 1, &__p, &v73);
           }
 
-          v22 = v73;
+          v22 = v72;
         }
 
         v23 = *(v15 + 2);
@@ -5061,13 +5686,13 @@ LABEL_46:
         if (v23 != 11)
         {
 LABEL_57:
-          google::protobuf::DescriptorBuilder::AddError(this, (*(v15 + 1) + 24), a3, 2, "Extensions of MessageSets must be optional messages.");
+          google::protobuf::DescriptorBuilder::AddError(this, *(v15 + 1) + 24, a3, 2, "Extensions of MessageSets must be optional messages.");
         }
       }
 
       else
       {
-        google::protobuf::DescriptorBuilder::AddError(this, (*(v15 + 1) + 24), a3, 0, "MessageSets cannot have fields, only extensions.");
+        google::protobuf::DescriptorBuilder::AddError(this, *(v15 + 1) + 24, a3, 0, "MessageSets cannot have fields, only extensions.");
       }
     }
   }
@@ -5084,7 +5709,7 @@ LABEL_57:
         v27 = *(v26 + 16);
         if (!v27 || (v28 = *(v27 + 128), v28 == &google::protobuf::_FileOptions_default_instance_) || *(v28 + 168) != 3)
         {
-          google::protobuf::DescriptorBuilder::AddError(this, (*(v15 + 1) + 24), a3, 3, "Extensions to non-lite types can only be declared in non-lite files.  Note that you cannot extend a non-lite type to contain a lite type, but the reverse is allowed.");
+          google::protobuf::DescriptorBuilder::AddError(this, *(v15 + 1) + 24, a3, 3, "Extensions to non-lite types can only be declared in non-lite files.  Note that you cannot extend a non-lite type to contain a lite type, but the reverse is allowed.");
         }
       }
     }
@@ -5094,25 +5719,25 @@ LABEL_57:
   if (v29)
   {
     __p.__r_.__value_.__r.__words[0] = google::protobuf::FieldDescriptor::TypeOnceInit;
-    v74 = v15;
+    v73 = v15;
     if (atomic_load_explicit(v29, memory_order_acquire) != 221)
     {
-      absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v29, 1, &__p, &v74);
+      absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v29, 1, &__p, &v73);
     }
   }
 
   if (*(v15 + 2) == 11)
   {
-    v30 = v73;
-    if (*(*(*(v15 + 6) + 32) + 83) == 1 && (google::protobuf::DescriptorBuilder::ValidateMapEntry(this, v73, a3) & 1) == 0)
+    v30 = v72;
+    if (*(*(*(v15 + 6) + 32) + 83) == 1 && (google::protobuf::DescriptorBuilder::ValidateMapEntry(this, v72, a3) & 1) == 0)
     {
-      google::protobuf::DescriptorBuilder::AddError(this, (*(v30 + 1) + 24), a3, 2, "map_entry should not be set explicitly. Use map<KeyType, ValueType> instead.");
+      google::protobuf::DescriptorBuilder::AddError(this, *(v30 + 1) + 24, a3, 2, "map_entry should not be set explicitly. Use map<KeyType, ValueType> instead.");
     }
   }
 
   else
   {
-    v30 = v73;
+    v30 = v72;
   }
 
   google::protobuf::DescriptorBuilder::ValidateJSType(this, v30, a3);
@@ -5230,7 +5855,7 @@ LABEL_104:
         }
 
 LABEL_108:
-        google::protobuf::DescriptorBuilder::AddError(this, (*(v30 + 1) + 24), a3, 7, "option json_name is not allowed on extension fields.");
+        google::protobuf::DescriptorBuilder::AddError(this, *(v30 + 1) + 24, a3, 7, "option json_name is not allowed on extension fields.");
         goto LABEL_109;
       }
     }
@@ -5285,7 +5910,7 @@ LABEL_109:
 
   if (!v54)
   {
-    google::protobuf::DescriptorBuilder::AddError(this, (v51 + 24), a3, 7, "json_name cannot have embedded null characters.");
+    google::protobuf::DescriptorBuilder::AddError(this, v51 + 24, a3, 7, "json_name cannot have embedded null characters.");
   }
 
 LABEL_118:
@@ -5330,8 +5955,8 @@ LABEL_118:
           if (*(v62 + 44) == 1)
           {
             v64 = *(v30 + 1);
-            __p.__r_.__value_.__r.__words[0] = &v73;
-            google::protobuf::DescriptorBuilder::AddError(this, (v64 + 24), a3, 3, &__p, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::ValidateOptions(google::protobuf::FieldDescriptor const*,google::protobuf::FieldDescriptorProto const&)::$_0,std::string>);
+            __p.__r_.__value_.__r.__words[0] = &v72;
+            google::protobuf::DescriptorBuilder::AddError(this, v64 + 24, a3, 3, &__p, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::ValidateOptions(google::protobuf::FieldDescriptor const*,google::protobuf::FieldDescriptorProto const&)::$_0,std::string>);
           }
 
           else
@@ -5362,15 +5987,12 @@ LABEL_118:
         {
 LABEL_134:
           v63 = *(v30 + 1);
-          __p.__r_.__value_.__r.__words[0] = &v73;
-          google::protobuf::DescriptorBuilder::AddError(this, (v63 + 24), a3, 3, &__p, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::ValidateOptions(google::protobuf::FieldDescriptor const*,google::protobuf::FieldDescriptorProto const&)::$_1,std::string>);
+          __p.__r_.__value_.__r.__words[0] = &v72;
+          google::protobuf::DescriptorBuilder::AddError(this, v63 + 24, a3, 3, &__p, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::ValidateOptions(google::protobuf::FieldDescriptor const*,google::protobuf::FieldDescriptorProto const&)::$_1,std::string>);
         }
       }
     }
   }
-
-LABEL_142:
-  v71 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23CD8AE88(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -5392,7 +6014,7 @@ void google::protobuf::DescriptorBuilder::ValidateFieldFeatures(google::protobuf
 
   if (*(a3 + 21) == 2)
   {
-    google::protobuf::DescriptorBuilder::AddError(this, (*(a2 + 1) + 24), a3, 0, "Required label is not allowed under editions.  Use the feature field_presence = LEGACY_REQUIRED to control this behavior.");
+    google::protobuf::DescriptorBuilder::AddError(this, *(a2 + 1) + 24, a3, 0, "Required label is not allowed under editions.  Use the feature field_presence = LEGACY_REQUIRED to control this behavior.");
     if (*(a3 + 22) != 10)
     {
 LABEL_4:
@@ -5402,7 +6024,7 @@ LABEL_4:
       }
 
 LABEL_9:
-      google::protobuf::DescriptorBuilder::AddError(this, (*(a2 + 1) + 24), a3, 0, "Field option packed is not allowed under editions.  Use the repeated_field_encoding feature to control this behavior.");
+      google::protobuf::DescriptorBuilder::AddError(this, *(a2 + 1) + 24, a3, 0, "Field option packed is not allowed under editions.  Use the repeated_field_encoding feature to control this behavior.");
       if ((*(a2 + 1) & 1) == 0)
       {
         goto LABEL_12;
@@ -5417,7 +6039,7 @@ LABEL_9:
     goto LABEL_4;
   }
 
-  google::protobuf::DescriptorBuilder::AddError(this, (*(a2 + 1) + 24), a3, 0, "Group types are not allowed under editions.  Use the feature message_encoding = DELIMITED to control this behavior.");
+  google::protobuf::DescriptorBuilder::AddError(this, *(a2 + 1) + 24, a3, 0, "Group types are not allowed under editions.  Use the feature message_encoding = DELIMITED to control this behavior.");
   if ((*(*(a2 + 7) + 40) & 8) != 0)
   {
     goto LABEL_9;
@@ -5432,7 +6054,7 @@ LABEL_5:
 LABEL_10:
   if (*(*(a2 + 9) + 48) == 2)
   {
-    google::protobuf::DescriptorBuilder::AddError(this, (*(a2 + 1) + 24), a3, 0, "Implicit presence fields can't specify defaults.");
+    google::protobuf::DescriptorBuilder::AddError(this, *(a2 + 1) + 24, a3, 0, "Implicit presence fields can't specify defaults.");
   }
 
 LABEL_12:
@@ -5468,14 +6090,14 @@ LABEL_12:
 
     if (*(*(v7 + 48) + 52) != 1 && *(*(a2 + 9) + 48) == 2)
     {
-      google::protobuf::DescriptorBuilder::AddError(this, (*(a2 + 1) + 24), a3, 0, "Implicit presence enum fields must always be open.");
+      google::protobuf::DescriptorBuilder::AddError(this, *(a2 + 1) + 24, a3, 0, "Implicit presence enum fields must always be open.");
     }
   }
 
 LABEL_23:
   if ((*(a2 + 1) & 8) != 0 && *(*(a2 + 9) + 48) == 3)
   {
-    google::protobuf::DescriptorBuilder::AddError(this, (*(a2 + 1) + 24), a3, 0, "Extensions can't be required.");
+    google::protobuf::DescriptorBuilder::AddError(this, *(a2 + 1) + 24, a3, 0, "Extensions can't be required.");
   }
 
   v9 = *(a2 + 4);
@@ -5489,7 +6111,7 @@ LABEL_23:
       {
         v12 = "Oneof fields can't specify field presence.";
 LABEL_34:
-        google::protobuf::DescriptorBuilder::AddError(this, (*(a2 + 1) + 24), a3, 0, v12);
+        google::protobuf::DescriptorBuilder::AddError(this, *(a2 + 1) + 24, a3, 0, v12);
         goto LABEL_35;
       }
 
@@ -5530,7 +6152,7 @@ LABEL_34:
 LABEL_35:
     if ((~*(a2 + 1) & 0x60) != 0 && (*(*(a2 + 8) + 40) & 4) != 0)
     {
-      google::protobuf::DescriptorBuilder::AddError(this, (*(a2 + 1) + 24), a3, 0, "Only repeated fields can specify repeated field encoding.");
+      google::protobuf::DescriptorBuilder::AddError(this, *(a2 + 1) + 24, a3, 0, "Only repeated fields can specify repeated field encoding.");
     }
 
     v13 = *(a2 + 3);
@@ -5628,7 +6250,7 @@ LABEL_35:
 LABEL_60:
       if ((*(*(a2 + 8) + 40) & 8) != 0)
       {
-        google::protobuf::DescriptorBuilder::AddError(this, (*(a2 + 1) + 24), a3, 0, "Only string fields can specify utf8 validation.");
+        google::protobuf::DescriptorBuilder::AddError(this, *(a2 + 1) + 24, a3, 0, "Only string fields can specify utf8 validation.");
       }
     }
 
@@ -5653,7 +6275,7 @@ LABEL_62:
 
     if (*(*(a2 + 8) + 56) == 1)
     {
-      google::protobuf::DescriptorBuilder::AddError(this, (*(a2 + 1) + 24), a3, 0, "Only repeated primitive fields can specify PACKED repeated field encoding.");
+      google::protobuf::DescriptorBuilder::AddError(this, *(a2 + 1) + 24, a3, 0, "Only repeated primitive fields can specify PACKED repeated field encoding.");
     }
 
 LABEL_68:
@@ -5678,21 +6300,21 @@ LABEL_71:
 
     if ((*(*(a2 + 8) + 40) & 0x10) != 0)
     {
-      google::protobuf::DescriptorBuilder::AddError(this, (*(a2 + 1) + 24), a3, 0, "Only message fields can specify message encoding.");
+      google::protobuf::DescriptorBuilder::AddError(this, *(a2 + 1) + 24, a3, 0, "Only message fields can specify message encoding.");
     }
   }
 }
 
 uint64_t google::protobuf::DescriptorBuilder::ValidateMapEntry(google::protobuf::DescriptorBuilder *this, const google::protobuf::FieldDescriptor *a2, const google::protobuf::FieldDescriptorProto *a3)
 {
-  v27[6] = *MEMORY[0x277D85DE8];
+  v25[6] = *MEMORY[0x277D85DE8];
   v6 = *(a2 + 3);
   if (v6)
   {
-    v27[0] = a2;
+    v25[0] = a2;
     if (atomic_load_explicit(v6, memory_order_acquire) != 221)
     {
-      absl::lts_20240722::base_internal::CallOnceImpl<void (&)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v6, 1, google::protobuf::FieldDescriptor::TypeOnceInit, v27);
+      absl::lts_20240722::base_internal::CallOnceImpl<void (&)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v6, 1, google::protobuf::FieldDescriptor::TypeOnceInit, v25);
     }
   }
 
@@ -5701,7 +6323,7 @@ uint64_t google::protobuf::DescriptorBuilder::ValidateMapEntry(google::protobuf:
     v7 = *(a2 + 6);
     if (*(v7 + 140))
     {
-      goto LABEL_45;
+      return 0;
     }
   }
 
@@ -5710,57 +6332,57 @@ uint64_t google::protobuf::DescriptorBuilder::ValidateMapEntry(google::protobuf:
     v7 = 0;
     if (MEMORY[0x8C])
     {
-      goto LABEL_45;
+      return 0;
     }
   }
 
   if ((~*(a2 + 1) & 0x60) != 0 || *(v7 + 136) || *(v7 + 128) || *(v7 + 132) || *(v7 + 4) != 2)
   {
-    goto LABEL_45;
+    return 0;
   }
 
   v8 = *(v7 + 8);
-  size = HIBYTE(v24.__r_.__value_.__r.__words[2]);
-  if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  size = HIBYTE(v22.__r_.__value_.__r.__words[2]);
+  if ((v22.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v10 = &v24;
+    v10 = &v22;
   }
 
   else
   {
-    v10 = v24.__r_.__value_.__r.__words[0];
+    v10 = v22.__r_.__value_.__r.__words[0];
   }
 
-  if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  if ((v22.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    size = v24.__r_.__value_.__l.__size_;
+    size = v22.__r_.__value_.__l.__size_;
   }
 
-  v27[0] = v10;
-  v27[1] = size;
-  v26[0] = "Entry";
-  v26[1] = 5;
-  absl::lts_20240722::StrCat(v27, v26, &__p);
+  v25[0] = v10;
+  v25[1] = size;
+  v24[0] = "Entry";
+  v24[1] = 5;
+  absl::lts_20240722::StrCat(v25, v24, &__p);
   v11 = std::operator!=[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v8, &__p) || *(a2 + 4) != *(v7 + 24);
   if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
-    if ((SHIBYTE(v24.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    if ((SHIBYTE(v22.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_23;
     }
 
 LABEL_26:
-    operator delete(v24.__r_.__value_.__l.__data_);
+    operator delete(v22.__r_.__value_.__l.__data_);
     if (v11)
     {
-      goto LABEL_45;
+      return 0;
     }
 
     goto LABEL_27;
   }
 
   operator delete(__p.__r_.__value_.__l.__data_);
-  if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
   {
     goto LABEL_26;
   }
@@ -5768,7 +6390,7 @@ LABEL_26:
 LABEL_23:
   if (v11)
   {
-    goto LABEL_45;
+    return 0;
   }
 
 LABEL_27:
@@ -5786,7 +6408,7 @@ LABEL_27:
 
   if ((*(v12 + 1) & 0x60) != 0x20 || *(v12 + 4) != 1)
   {
-    goto LABEL_45;
+    return 0;
   }
 
   v14 = *(v12 + 8);
@@ -5799,15 +6421,12 @@ LABEL_27:
       goto LABEL_37;
     }
 
-LABEL_45:
-    result = 0;
-    v20 = *MEMORY[0x277D85DE8];
-    return result;
+    return 0;
   }
 
   if (v15 != 3)
   {
-    goto LABEL_45;
+    return 0;
   }
 
 LABEL_37:
@@ -5815,37 +6434,35 @@ LABEL_37:
   v17 = *(v14 + 2);
   if (v16 != 25963 || v17 != 121)
   {
-    goto LABEL_45;
+    return 0;
   }
 
   if ((*(v13 + 1) & 0x60) != 0x20)
   {
-    goto LABEL_45;
+    return 0;
   }
 
-  v23 = v13;
+  v21 = v13;
   if (*(v13 + 4) != 2 || std::operator!=[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(*(v13 + 8), "value"))
   {
-    goto LABEL_45;
+    return 0;
   }
 
-  v21 = google::protobuf::FieldDescriptor::type(v12) - 1;
-  if (v21 <= 0xD && ((0x2E03u >> v21) & 1) != 0)
+  v20 = google::protobuf::FieldDescriptor::type(v12) - 1;
+  if (v20 <= 0xD && ((0x2E03u >> v20) & 1) != 0)
   {
-    google::protobuf::DescriptorBuilder::AddError(this, (*(a2 + 1) + 24), a3, 2, off_278BC40C0[v21]);
+    google::protobuf::DescriptorBuilder::AddError(this, *(a2 + 1) + 24, a3, 2, off_278BC40C0[v20]);
   }
 
-  if (google::protobuf::FieldDescriptor::type(v23) == 14)
+  if (google::protobuf::FieldDescriptor::type(v21) == 14)
   {
-    if (*(*(google::protobuf::FieldDescriptor::enum_type(v23) + 56) + 4))
+    if (*(*(google::protobuf::FieldDescriptor::enum_type(v21) + 56) + 4))
     {
-      google::protobuf::DescriptorBuilder::AddError(this, (*(a2 + 1) + 24), a3, 2, "Enum value in map must define 0 as the first value.");
+      google::protobuf::DescriptorBuilder::AddError(this, *(a2 + 1) + 24, a3, 2, "Enum value in map must define 0 as the first value.");
     }
   }
 
-  result = 1;
-  v22 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 void sub_23CD8B840(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -5886,14 +6503,14 @@ void google::protobuf::DescriptorBuilder::ValidateJSType(google::protobuf::Descr
     v6 = (1 << v4) & 0x50058;
     if (v5 || v6 == 0)
     {
-      google::protobuf::DescriptorBuilder::AddError(this, (*(a2 + 1) + 24), a3, 2, "jstype is only allowed on int64, uint64, sint64, fixed64 or sfixed64 fields.");
+      google::protobuf::DescriptorBuilder::AddError(this, *(a2 + 1) + 24, a3, 2, "jstype is only allowed on int64, uint64, sint64, fixed64 or sfixed64 fields.");
     }
 
     else if ((v12 - 1) >= 2)
     {
       v8 = *(a2 + 1);
       v14 = &v12;
-      google::protobuf::DescriptorBuilder::AddError(this, (v8 + 24), a3, 2, &v14, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::ValidateJSType(google::protobuf::FieldDescriptor const*,google::protobuf::FieldDescriptorProto const&)::$_0,std::string>);
+      google::protobuf::DescriptorBuilder::AddError(this, v8 + 24, a3, 2, &v14, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::ValidateJSType(google::protobuf::FieldDescriptor const*,google::protobuf::FieldDescriptorProto const&)::$_0,std::string>);
     }
   }
 }
@@ -5912,7 +6529,7 @@ void google::protobuf::DescriptorBuilder::ValidateOptions(google::protobuf::Desc
       v6 = (v7 + 7);
     }
 
-    google::protobuf::DescriptorBuilder::AddError(this, (*(v4 + 1) + 24), *v6, 1, "The first enum value must be zero for open enums.");
+    google::protobuf::DescriptorBuilder::AddError(this, *(v4 + 1) + 24, *v6, 1, "The first enum value must be zero for open enums.");
   }
 
   v8 = *(v4 + 4);
@@ -5950,7 +6567,7 @@ void google::protobuf::DescriptorBuilder::ValidateOptions(google::protobuf::Desc
             v14 = (a3 + 24);
           }
 
-          google::protobuf::DescriptorBuilder::AddError(this, (*(v20 + 1) + 24), *v14, 1, v15, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::ValidateOptions(google::protobuf::EnumDescriptor const*,google::protobuf::EnumDescriptorProto const&)::$_0,std::string>);
+          google::protobuf::DescriptorBuilder::AddError(this, *(v20 + 1) + 24, *v14, 1, v15, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::ValidateOptions(google::protobuf::EnumDescriptor const*,google::protobuf::EnumDescriptorProto const&)::$_0,std::string>);
           v4 = v20;
         }
 
@@ -5966,21 +6583,21 @@ void google::protobuf::DescriptorBuilder::ValidateOptions(google::protobuf::Desc
   }
 }
 
-void sub_23CD8BB34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_23CD8BB34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<int,std::string>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<std::pair<int const,std::string>>>::~raw_hash_set(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23CD8BB48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_23CD8BB48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<int,std::string>,absl::lts_20240722::hash_internal::Hash<int>,std::equal_to<int>,std::allocator<std::pair<int const,std::string>>>::~raw_hash_set(va);
   _Unwind_Resume(a1);
 }
 
-void google::protobuf::DescriptorBuilder::ValidateExtensionDeclaration(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t *a5)
+void google::protobuf::DescriptorBuilder::ValidateExtensionDeclaration(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t *a5)
 {
   v75 = xmmword_23CE306D0;
   if (*a3)
@@ -6349,7 +6966,7 @@ LABEL_36:
 LABEL_91:
   v63 = *(v12 + 24);
   __p.__r_.__value_.__r.__words[0] = v12;
-  google::protobuf::DescriptorBuilder::AddError(a1, (v63 & 0xFFFFFFFFFFFFFFFCLL), a4, 0, &__p, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::ValidateExtensionDeclaration(std::string const&,google::protobuf::RepeatedPtrField<google::protobuf::ExtensionRangeOptions_Declaration> const&,google::protobuf::DescriptorProto_ExtensionRange const&,absl::lts_20240722::flat_hash_set<std::string_view,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::string_view>> &)::$_3,std::string>);
+  google::protobuf::DescriptorBuilder::AddError(a1, v63 & 0xFFFFFFFFFFFFFFFCLL, a4, 0, &__p, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::ValidateExtensionDeclaration(std::string const&,google::protobuf::RepeatedPtrField<google::protobuf::ExtensionRangeOptions_Declaration> const&,google::protobuf::DescriptorProto_ExtensionRange const&,absl::lts_20240722::flat_hash_set<std::string_view,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::string_view>> &)::$_3,std::string>);
 LABEL_92:
   if (v75 >= 2)
   {
@@ -6377,10 +6994,10 @@ void sub_23CD8C140(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-const void **google::protobuf::anonymous namespace::ValidateSymbolForDeclaration(const void **result, unsigned __int8 *a2, uint64_t a3)
+std::string *google::protobuf::anonymous namespace::ValidateSymbolForDeclaration(std::string *result, unsigned __int8 *a2, uint64_t a3)
 {
   v3 = result;
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (a3 && *a2 == 46)
   {
     v4 = 0;
@@ -6411,13 +7028,13 @@ const void **google::protobuf::anonymous namespace::ValidateSymbolForDeclaration
           }
         }
 
-        v16 = "";
-        v17 = 1;
-        v14 = a2;
-        v15 = a3;
-        v12 = " contains invalid identifiers.";
-        v13 = 31;
-        result = absl::lts_20240722::StrCat(&v16, &v14, &v12, &v11);
+        v14 = "";
+        v15 = 1;
+        v12 = a2;
+        v13 = a3;
+        v10 = " contains invalid identifiers.";
+        v11 = 31;
+        result = absl::lts_20240722::StrCat(&v14, &v12, &v10, &v9);
         goto LABEL_15;
       }
 
@@ -6426,24 +7043,22 @@ const void **google::protobuf::anonymous namespace::ValidateSymbolForDeclaration
     }
 
     while (v6 != v5);
-    *result = 0;
-    *(result + 24) = 0;
-    v10 = *MEMORY[0x277D85DE8];
+    result->__r_.__value_.__s.__data_[0] = 0;
+    result[1].__r_.__value_.__s.__data_[0] = 0;
   }
 
   else
   {
-    v16 = "";
-    v17 = 1;
-    v14 = a2;
-    v15 = a3;
-    v12 = " must have a leading dot to indicate the fully-qualified scope.";
-    v13 = 64;
-    result = absl::lts_20240722::StrCat(&v16, &v14, &v12, &v11);
+    v14 = "";
+    v15 = 1;
+    v12 = a2;
+    v13 = a3;
+    v10 = " must have a leading dot to indicate the fully-qualified scope.";
+    v11 = 64;
+    result = absl::lts_20240722::StrCat(&v14, &v12, &v10, &v9);
 LABEL_15:
-    *v3 = v11;
+    *v3 = v9;
     v3[1].__r_.__value_.__s.__data_[0] = 1;
-    v9 = *MEMORY[0x277D85DE8];
   }
 
   return result;
@@ -6453,8 +7068,7 @@ void google::protobuf::anonymous namespace::ToCamelCase(std::string *a1, unsigne
 {
   v4 = a2;
   v5 = a1;
-  a1->__r_.__value_.__r.__words[0] = 0;
-  a1->__r_.__value_.__l.__size_ = 0;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
   a1->__r_.__value_.__r.__words[2] = 0;
   if ((a2[23] & 0x80u) == 0)
   {
@@ -6564,7 +7178,7 @@ BOOL std::operator!=[abi:ne200100]<char,std::char_traits<char>,std::allocator<ch
   return 1;
 }
 
-void *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<google::protobuf::Descriptor const*>,google::protobuf::anonymous namespace::DescriptorsByNameHash<google::protobuf::Descriptor>,google::protobuf::anonymous namespace::DescriptorsByNameEq<google::protobuf::Descriptor>,std::allocator<google::protobuf::Descriptor const*>>::find<std::string>(uint64_t *a1, unint64_t *a2, uint64_t a3, unint64_t a4, const unint64_t *a5)
+void *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<google::protobuf::Descriptor const*>,google::protobuf::anonymous namespace::DescriptorsByNameHash<google::protobuf::Descriptor>,google::protobuf::anonymous namespace::DescriptorsByNameEq<google::protobuf::Descriptor>,std::allocator<google::protobuf::Descriptor const*>>::find<std::string>(unint64_t *a1, unint64_t *a2, uint64_t a3, unint64_t a4, const unint64_t *a5)
 {
   if (*a1 > 1)
   {
@@ -6725,24 +7339,20 @@ void *absl::lts_20240722::flat_hash_map<std::vector<int>,std::vector<int>,absl::
   return a1;
 }
 
-uint64_t google::protobuf::DescriptorBuilder::OptionInterpreter::InterpretSingleOption(uint64_t *a1, uint64_t a2, uint64_t a3, void *a4, int a5)
+uint64_t google::protobuf::DescriptorBuilder::OptionInterpreter::InterpretSingleOption(uint64_t *a1, google::protobuf::Message *a2, uint64_t a3, void *a4, int a5)
 {
   v5 = a1;
-  v103 = *MEMORY[0x277D85DE8];
+  v102 = *MEMORY[0x277D85DE8];
   v6 = a1[2];
   if (!*(v6 + 32))
   {
     if (a5)
     {
-LABEL_27:
-      v26 = 1;
-      goto LABEL_157;
+      return 1;
     }
 
-    google::protobuf::DescriptorBuilder::AddError(*a1, (a1[1] + 24), v6, 7, &v101, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::InterpretSingleOption(google::protobuf::Message *,std::vector<int> const&,std::vector<int> const&,BOOL)::$_0,std::string>);
-LABEL_33:
-    v26 = 0;
-    goto LABEL_157;
+    google::protobuf::DescriptorBuilder::AddError(*a1, a1[1] + 24, v6, 7, &v100, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::InterpretSingleOption(google::protobuf::Message *,std::vector<int> const&,std::vector<int> const&,BOOL)::$_0,std::string>);
+    return 0;
   }
 
   v9 = (v6 + 24);
@@ -6777,17 +7387,17 @@ LABEL_33:
   {
     if (a5)
     {
-      goto LABEL_27;
+      return 1;
     }
 
-    google::protobuf::DescriptorBuilder::AddError(*a1, (a1[1] + 24), v6, 7, &v101, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::InterpretSingleOption(google::protobuf::Message *,std::vector<int> const&,std::vector<int> const&,BOOL)::$_1,std::string>);
-    goto LABEL_33;
+    google::protobuf::DescriptorBuilder::AddError(*a1, a1[1] + 24, v6, 7, &v100, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::InterpretSingleOption(google::protobuf::Message *,std::vector<int> const&,std::vector<int> const&,BOOL)::$_1,std::string>);
+    return 0;
   }
 
 LABEL_18:
   if (*(v11 + 32) == a5)
   {
-    goto LABEL_27;
+    return 1;
   }
 
   v19 = *a1;
@@ -6826,7 +7436,7 @@ LABEL_18:
         if (v25 == 9)
         {
           v24 = SymbolNotEnforcingDepsHelper;
-          if (SymbolNotEnforcingDepsHelper == *(v19 + 160))
+          if (SymbolNotEnforcingDepsHelper == v19[20])
           {
             goto LABEL_56;
           }
@@ -6837,7 +7447,7 @@ LABEL_18:
         if (v25 == 10)
         {
           v24 = *(SymbolNotEnforcingDepsHelper + 1);
-          if (v24 == *(v19 + 160))
+          if (v24 == v19[20])
           {
             goto LABEL_56;
           }
@@ -6846,7 +7456,7 @@ LABEL_18:
         }
 
 LABEL_42:
-        if (v24 == *(v19 + 160))
+        if (v24 == v19[20])
         {
           goto LABEL_56;
         }
@@ -6871,20 +7481,20 @@ LABEL_41:
   }
 
   v24 = *(SymbolNotEnforcingDepsHelper + 2);
-  if (v24 == *(v19 + 160))
+  if (v24 == v19[20])
   {
     goto LABEL_56;
   }
 
 LABEL_43:
-  v27 = *(v19 + 176);
+  v27 = v19[22];
   if (v27 > 1)
   {
     v28 = 0;
     v29 = &v24[(((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v24) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v24))];
     v30 = 0x9DDFEA08EB382D69 * v29;
     v31 = (v29 * 0x9DDFEA08EB382D69) >> 64;
-    _X12 = *(v19 + 192);
+    _X12 = v19[24];
     __asm { PRFM            #4, [X12] }
 
     v37 = v31 ^ v30;
@@ -6898,7 +7508,7 @@ LABEL_43:
     }
 
 LABEL_48:
-    while (*(*(v19 + 200) + 8 * ((v39 + (__clz(__rbit64(v41)) >> 3)) & v27)) != v24)
+    while (*(v19[25] + 8 * ((v39 + (__clz(__rbit64(v41)) >> 3)) & v27)) != v24)
     {
       v41 &= ((v41 & 0x8080808080808080) - 1) & 0x8080808080808080;
       if (!v41)
@@ -6928,7 +7538,7 @@ LABEL_50:
     goto LABEL_69;
   }
 
-  if (*(v19 + 184) < 2uLL || *(v19 + 192) != v24)
+  if (v19[23] < 2uLL || v19[24] != v24)
   {
     goto LABEL_69;
   }
@@ -6940,21 +7550,21 @@ LABEL_70:
     v55 = (*(*a2 + 80))(a2);
     if (!v55)
     {
-      google::protobuf::DescriptorBuilder::OptionInterpreter::InterpretSingleOption(&v101);
+      google::protobuf::DescriptorBuilder::OptionInterpreter::InterpretSingleOption(&v100);
     }
 
     v23 = v55;
     goto LABEL_72;
   }
 
-  v42 = *(v19 + 240);
+  v42 = v19[30];
   if (v42 > 1)
   {
     v43 = 0;
     v44 = &v24[(((&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v24) * 0x9DDFEA08EB382D69) >> 64) ^ (0x9DDFEA08EB382D69 * (&absl::lts_20240722::hash_internal::MixingHashState::kSeed + v24))];
     v45 = 0x9DDFEA08EB382D69 * v44;
     v46 = (v44 * 0x9DDFEA08EB382D69) >> 64;
-    _X12 = *(v19 + 256);
+    _X12 = v19[32];
     __asm { PRFM            #4, [X12] }
 
     v49 = v46 ^ v45;
@@ -6971,11 +7581,11 @@ LABEL_70:
     {
 LABEL_62:
       v54 = (v51 + (__clz(__rbit64(v53)) >> 3)) & v42;
-      if (*(*(v19 + 264) + 8 * v54) == v24)
+      if (*(v19[33] + 8 * v54) == v24)
       {
         if (_X12)
         {
-          absl::lts_20240722::container_internal::EraseMetaOnly((v19 + 240), v54);
+          absl::lts_20240722::container_internal::EraseMetaOnly(v19 + 30, v54);
           v25 = *v23;
         }
 
@@ -7000,9 +7610,9 @@ LABEL_64:
     }
   }
 
-  else if (*(v19 + 248) >= 2uLL && *(v19 + 256) == v24)
+  else if (v19[31] >= 2uLL && v19[32] == v24)
   {
-    *(v19 + 248) = 0;
+    v19[31] = 0;
   }
 
 LABEL_69:
@@ -7012,10 +7622,10 @@ LABEL_69:
   }
 
 LABEL_72:
-  v98 = v23;
-  *(&v97.__r_.__value_.__s + 23) = 0;
-  v97.__r_.__value_.__s.__data_[0] = 0;
-  v96 = 0;
+  v97 = v23;
+  *(&v96.__r_.__value_.__s + 23) = 0;
+  v96.__r_.__value_.__s.__data_[0] = 0;
+  v95 = 0;
   v56 = a4[1] - *a4;
   if (v56)
   {
@@ -7027,13 +7637,13 @@ LABEL_72:
     std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
   }
 
-  v95 = v5;
+  v94 = v5;
   if (*(v5[2] + 32) < 1)
   {
     v58 = 0;
     v76 = 0;
 LABEL_139:
-    if (~*(v76 + 1) & 0x60) == 0 || ((*(*a2 + 80))(a2), UnknownFields = google::protobuf::Reflection::GetUnknownFields(v90, a2), (google::protobuf::DescriptorBuilder::OptionInterpreter::ExamineIfOptionIsSet(v5, 0, v58, v76, &v97, UnknownFields)))
+    if (~*(v76 + 1) & 0x60) == 0 || ((*(*a2 + 80))(a2), UnknownFields = google::protobuf::Reflection::GetUnknownFields(v90, a2), (google::protobuf::DescriptorBuilder::OptionInterpreter::ExamineIfOptionIsSet(v5, 0, v58, v76, &v96, UnknownFields)))
     {
       operator new();
     }
@@ -7071,17 +7681,17 @@ LABEL_139:
     }
 
     v67 = *(*v62 + 24);
-    size = HIBYTE(v97.__r_.__value_.__r.__words[2]);
-    if ((v97.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    size = HIBYTE(v96.__r_.__value_.__r.__words[2]);
+    if ((v96.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      size = v97.__r_.__value_.__l.__size_;
+      size = v96.__r_.__value_.__l.__size_;
     }
 
     if (size)
     {
-      v101 = ".";
-      v102 = 1;
-      absl::lts_20240722::StrAppend(&v97, &v101);
+      v100 = ".";
+      v101 = 1;
+      absl::lts_20240722::StrAppend(&v96, &v100);
       v61 = v5[2];
       v65 = *(v61 + 24) & 1;
       v64 = *(v61 + 24) - 1;
@@ -7113,9 +7723,9 @@ LABEL_139:
         v80 = *(v69 + 8);
       }
 
-      v101 = v81;
-      v102 = v80;
-      absl::lts_20240722::StrAppend(&v97, &v101);
+      v100 = v81;
+      v101 = v80;
+      absl::lts_20240722::StrAppend(&v96, &v100);
       v83 = *(v69 + 23);
       if ((v83 & 0x8000000000000000) != 0)
       {
@@ -7125,15 +7735,15 @@ LABEL_139:
 
       NestedSymbol = google::protobuf::FileDescriptorTables::FindNestedSymbol(*(*(v23 + 2) + 152), v23, v69, v83, v82);
       v76 = NestedSymbol;
-      v5 = v95;
+      v5 = v94;
       if (*NestedSymbol != 2 || (NestedSymbol[1] & 8) != 0)
       {
         break;
       }
 
-      v23 = v98;
+      v23 = v97;
       v79 = *(NestedSymbol + 4);
-      if (v79 != v98)
+      if (v79 != v97)
       {
 LABEL_147:
         if (v79 && (v79[1] & 1) != 0)
@@ -7141,17 +7751,17 @@ LABEL_147:
           goto LABEL_149;
         }
 
+        v100 = &v96;
         v101 = &v97;
-        v102 = &v98;
-        google::protobuf::DescriptorBuilder::AddError(*v5, (v5[1] + 24), v5[2], 7, &v101, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::InterpretSingleOption(google::protobuf::Message *,std::vector<int> const&,std::vector<int> const&,BOOL)::$_4,std::string>);
+        google::protobuf::DescriptorBuilder::AddError(*v5, v5[1] + 24, v5[2], 7, &v100, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::InterpretSingleOption(google::protobuf::Message *,std::vector<int> const&,std::vector<int> const&,BOOL)::$_4,std::string>);
         goto LABEL_154;
       }
 
       goto LABEL_113;
     }
 
-    v101 = "(";
-    v102 = 1;
+    v100 = "(";
+    v101 = 1;
     v72 = *(v69 + 23);
     if ((v72 & 0x80u) == 0)
     {
@@ -7168,11 +7778,11 @@ LABEL_147:
       v72 = *(v69 + 8);
     }
 
-    v100[0] = v73;
-    v100[1] = v72;
-    v99[0] = ")";
-    v99[1] = 1;
-    absl::lts_20240722::StrAppend(&v97, &v101, v100, v99);
+    v99[0] = v73;
+    v99[1] = v72;
+    v98[0] = ")";
+    v98[1] = 1;
+    absl::lts_20240722::StrAppend(&v96, &v100, v99, v98);
     v74 = *v5;
     NestedSymbol = google::protobuf::DescriptorBuilder::LookupSymbolNoPlaceholder(*v5, (v67 & 0xFFFFFFFFFFFFFFFCLL), v5[1], 0, 1);
     v76 = NestedSymbol;
@@ -7208,15 +7818,15 @@ LABEL_147:
     }
 
 LABEL_113:
-    v84 = v96 >> 2;
-    if (((v96 >> 2) + 1) >> 62)
+    v84 = v95 >> 2;
+    if (((v95 >> 2) + 1) >> 62)
     {
       std::vector<L2CycleEstimator *>::__throw_length_error[abi:ne200100]();
     }
 
-    if (v96 >> 2 != -1)
+    if (v95 >> 2 != -1)
     {
-      if (!(((v96 >> 2) + 1) >> 62))
+      if (!(((v95 >> 2) + 1) >> 62))
       {
         operator new();
       }
@@ -7225,10 +7835,10 @@ LABEL_113:
     }
 
     *(4 * v84) = *(v76 + 4);
-    memcpy(0, 0, v96);
-    v96 = 4 * v84 + 4;
-    v5 = v95;
-    v85 = *(v95[2] + 32);
+    memcpy(0, 0, v95);
+    v95 = 4 * v84 + 4;
+    v5 = v94;
+    v85 = *(v94[2] + 32);
     if (v57 >= v85 - 1)
     {
       ++v57;
@@ -7244,27 +7854,27 @@ LABEL_113:
       v86 = *(v76 + 24);
       if (v86)
       {
-        v101 = google::protobuf::FieldDescriptor::TypeOnceInit;
-        v100[0] = v76;
+        v100 = google::protobuf::FieldDescriptor::TypeOnceInit;
+        v99[0] = v76;
         if (atomic_load_explicit(v86, memory_order_acquire) != 221)
         {
-          absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v86, 1, &v101, v100);
+          absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v86, 1, &v100, v99);
         }
 
-        v5 = v95;
+        v5 = v94;
       }
 
       if ((*(v76 + 2) & 0xFE) != 0xA)
       {
-        v101 = &v97;
-        google::protobuf::DescriptorBuilder::AddError(*v5, (v5[1] + 24), v5[2], 7, &v101, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::InterpretSingleOption(google::protobuf::Message *,std::vector<int> const&,std::vector<int> const&,BOOL)::$_5,std::string>);
+        v100 = &v96;
+        google::protobuf::DescriptorBuilder::AddError(*v5, v5[1] + 24, v5[2], 7, &v100, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::InterpretSingleOption(google::protobuf::Message *,std::vector<int> const&,std::vector<int> const&,BOOL)::$_5,std::string>);
         goto LABEL_154;
       }
 
       if ((~*(v76 + 1) & 0x60) == 0)
       {
-        v101 = &v97;
-        google::protobuf::DescriptorBuilder::AddError(*v5, (v5[1] + 24), v5[2], 7, &v101, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::InterpretSingleOption(google::protobuf::Message *,std::vector<int> const&,std::vector<int> const&,BOOL)::$_6,std::string>);
+        v100 = &v96;
+        google::protobuf::DescriptorBuilder::AddError(*v5, v5[1] + 24, v5[2], 7, &v100, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::InterpretSingleOption(google::protobuf::Message *,std::vector<int> const&,std::vector<int> const&,BOOL)::$_6,std::string>);
         goto LABEL_154;
       }
 
@@ -7288,17 +7898,17 @@ LABEL_113:
       *(8 * v88) = v76;
       v58 = 8 * v88 + 8;
       memcpy(0, 0, v87);
-      v5 = v95;
+      v5 = v94;
       v89 = *(v76 + 24);
       if (v89)
       {
-        v101 = v76;
+        v100 = v76;
         if (atomic_load_explicit(v89, memory_order_acquire) != 221)
         {
-          absl::lts_20240722::base_internal::CallOnceImpl<void (&)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v89, 1, google::protobuf::FieldDescriptor::TypeOnceInit, &v101);
+          absl::lts_20240722::base_internal::CallOnceImpl<void (&)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v89, 1, google::protobuf::FieldDescriptor::TypeOnceInit, &v100);
         }
 
-        v5 = v95;
+        v5 = v94;
         if ((*(v76 + 2) & 0xFE) == 0xA)
         {
 LABEL_135:
@@ -7314,7 +7924,7 @@ LABEL_135:
 
       v23 = 0;
 LABEL_136:
-      v98 = v23;
+      v97 = v23;
       ++v57;
       v59 += 8;
       if (v57 >= *(v5[2] + 32))
@@ -7341,27 +7951,25 @@ LABEL_149:
 
   if (v92)
   {
-    v101 = &v97;
-    v102 = v5;
-    google::protobuf::DescriptorBuilder::AddError(NestedSymbol, (v5[1] + 24), v5[2], 7, &v101, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::InterpretSingleOption(google::protobuf::Message *,std::vector<int> const&,std::vector<int> const&,BOOL)::$_2,std::string>);
+    v100 = &v96;
+    v101 = v5;
+    google::protobuf::DescriptorBuilder::AddError(NestedSymbol, v5[1] + 24, v5[2], 7, &v100, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::InterpretSingleOption(google::protobuf::Message *,std::vector<int> const&,std::vector<int> const&,BOOL)::$_2,std::string>);
   }
 
   else
   {
-    v101 = &v97;
-    google::protobuf::DescriptorBuilder::AddError(NestedSymbol, (v5[1] + 24), v5[2], 7, &v101, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::InterpretSingleOption(google::protobuf::Message *,std::vector<int> const&,std::vector<int> const&,BOOL)::$_3,std::string>);
+    v100 = &v96;
+    google::protobuf::DescriptorBuilder::AddError(NestedSymbol, v5[1] + 24, v5[2], 7, &v100, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::InterpretSingleOption(google::protobuf::Message *,std::vector<int> const&,std::vector<int> const&,BOOL)::$_3,std::string>);
   }
 
 LABEL_154:
   v26 = 0;
 LABEL_155:
-  if (SHIBYTE(v97.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v96.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v97.__r_.__value_.__l.__data_);
+    operator delete(v96.__r_.__value_.__l.__data_);
   }
 
-LABEL_157:
-  v93 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
@@ -7414,7 +8022,7 @@ void google::protobuf::DescriptorBuilder::OptionInterpreter::AddWithoutInterpret
   google::protobuf::Message::CopyFrom(v11, a2);
 }
 
-uint64_t google::protobuf::DescriptorBuilder::OptionInterpreter::ExamineIfOptionIsSet(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4, void *a5, int **a6)
+uint64_t google::protobuf::DescriptorBuilder::OptionInterpreter::ExamineIfOptionIsSet(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4, void *a5, char **a6)
 {
   v10 = *a6;
   v9 = a6[1];
@@ -7432,7 +8040,7 @@ uint64_t google::protobuf::DescriptorBuilder::OptionInterpreter::ExamineIfOption
     while (1)
     {
       v20 = *a2;
-      if (v10[v18] != *(*a2 + 4))
+      if (*&v10[v18] != *(*a2 + 4))
       {
         goto LABEL_10;
       }
@@ -7454,16 +8062,16 @@ LABEL_15:
             absl::lts_20240722::log_internal::LogMessageFatal::~LogMessageFatal(&__p);
           }
 
-          if (v10[v18 + 1] == 3)
+          if (*&v10[v18 + 4] == 3)
           {
             __p = 0;
             v31 = 0;
             v32 = 0;
-            v23 = *&v10[v18 + 2];
+            v23 = *&v10[v18 + 8];
             v24 = *(v23 + 23);
             if (v24 >= 0)
             {
-              v25 = *&v10[v18 + 2];
+              v25 = *&v10[v18 + 8];
             }
 
             else
@@ -7527,7 +8135,7 @@ LABEL_15:
         }
       }
 
-      if (v10[v18 + 1] == 4 && (google::protobuf::DescriptorBuilder::OptionInterpreter::ExamineIfOptionIsSet(a1, a2 + 1, a3, a4, a5, *&v10[v18 + 2]) & 1) == 0)
+      if (*&v10[v18 + 4] == 4 && (google::protobuf::DescriptorBuilder::OptionInterpreter::ExamineIfOptionIsSet(a1, a2 + 1, a3, a4, a5, *&v10[v18 + 8]) & 1) == 0)
       {
         return 0;
       }
@@ -7537,7 +8145,7 @@ LABEL_9:
       v9 = a6[1];
 LABEL_10:
       ++v19;
-      v18 += 4;
+      v18 += 16;
       if (v19 >= ((v9 - v10) >> 4))
       {
         return 1;
@@ -7554,7 +8162,7 @@ LABEL_10:
   while (1)
   {
     v14 = *v10;
-    v10 += 4;
+    v10 += 16;
     if (v14 == *(a4 + 4))
     {
       break;
@@ -7567,24 +8175,24 @@ LABEL_10:
   }
 
   __p = a5;
-  google::protobuf::DescriptorBuilder::AddError(*a1, (a1[1] + 24), a1[2], 7, &__p, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::ExamineIfOptionIsSet(std::__wrap_iter<google::protobuf::FieldDescriptor const* const*>,std::__wrap_iter<google::protobuf::FieldDescriptor const* const*>,google::protobuf::FieldDescriptor const*,std::string const&,google::protobuf::UnknownFieldSet const&)::$_0,std::string>);
+  google::protobuf::DescriptorBuilder::AddError(*a1, a1[1] + 24, a1[2], 7, &__p, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::ExamineIfOptionIsSet(std::__wrap_iter<google::protobuf::FieldDescriptor const* const*>,std::__wrap_iter<google::protobuf::FieldDescriptor const* const*>,google::protobuf::FieldDescriptor const*,std::string const&,google::protobuf::UnknownFieldSet const&)::$_0,std::string>);
   return 0;
 }
 
-void sub_23CD8DBB4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23CD8DBB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   google::protobuf::UnknownFieldSet::~UnknownFieldSet(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t google::protobuf::DescriptorBuilder::OptionInterpreter::SetOptionValue(google::protobuf::DescriptorBuilder::OptionInterpreter *this, atomic_uint **a2, google::protobuf::UnknownFieldSet *a3)
 {
-  v85 = a2;
+  v84 = a2;
   v5 = a2[3];
-  if (v5 && (v83.__r_.__value_.__r.__words[0] = google::protobuf::FieldDescriptor::TypeOnceInit, v82[0] = a2, atomic_load_explicit(v5, memory_order_acquire) != 221))
+  if (v5 && (v82.__r_.__value_.__r.__words[0] = google::protobuf::FieldDescriptor::TypeOnceInit, v81[0] = a2, atomic_load_explicit(v5, memory_order_acquire) != 221))
   {
-    absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v5, 1, &v83, v82);
+    absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v5, 1, &v82, v81);
     v6 = google::protobuf::FieldDescriptor::kTypeToCppTypeMap[*(a2 + 2)];
     if (v6 <= 5)
     {
@@ -7600,23 +8208,23 @@ LABEL_4:
             v18 = *(v7 + 72);
             if (v18 >> 31)
             {
-              v83.__r_.__value_.__r.__words[0] = &v85;
+              v82.__r_.__value_.__r.__words[0] = &v84;
               v9 = absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::SetOptionValue(google::protobuf::FieldDescriptor const*,google::protobuf::UnknownFieldSet *)::$_0,std::string>;
               goto LABEL_129;
             }
 
-            v27 = v85;
-            v28 = *(v85 + 1);
-            v29 = v85[3];
+            v27 = v84;
+            v28 = *(v84 + 1);
+            v29 = *(v84 + 3);
             if (v29)
             {
-              v83.__r_.__value_.__r.__words[0] = google::protobuf::FieldDescriptor::TypeOnceInit;
-              v82[0] = v85;
+              v82.__r_.__value_.__r.__words[0] = google::protobuf::FieldDescriptor::TypeOnceInit;
+              v81[0] = v84;
               if (atomic_load_explicit(v29, memory_order_acquire) != 221)
               {
-                v80 = v28;
-                absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v29, 1, &v83, v82);
-                v28 = v80;
+                v79 = v28;
+                absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v29, 1, &v82, v81);
+                v28 = v79;
               }
             }
 
@@ -7628,7 +8236,7 @@ LABEL_4:
           {
             if ((v11 & 0x10) == 0)
             {
-              v83.__r_.__value_.__r.__words[0] = &v85;
+              v82.__r_.__value_.__r.__words[0] = &v84;
               v9 = absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::SetOptionValue(google::protobuf::FieldDescriptor const*,google::protobuf::UnknownFieldSet *)::$_2,std::string>;
               goto LABEL_129;
             }
@@ -7636,13 +8244,13 @@ LABEL_4:
             v26 = *(v7 + 80);
             if (v26 <= 0xFFFFFFFF7FFFFFFFLL)
             {
-              v83.__r_.__value_.__r.__words[0] = &v85;
+              v82.__r_.__value_.__r.__words[0] = &v84;
               v9 = absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::SetOptionValue(google::protobuf::FieldDescriptor const*,google::protobuf::UnknownFieldSet *)::$_1,std::string>;
               goto LABEL_129;
             }
 
-            v35 = *(v85 + 1);
-            LODWORD(v29) = google::protobuf::FieldDescriptor::type(v85);
+            v35 = *(v84 + 1);
+            LODWORD(v29) = google::protobuf::FieldDescriptor::type(v84);
             v28 = v35;
             v31 = v26;
             v30 = v29;
@@ -7660,23 +8268,23 @@ LABEL_4:
             v12 = *(v7 + 72);
             if (v12 < 0)
             {
-              v83.__r_.__value_.__r.__words[0] = &v85;
+              v82.__r_.__value_.__r.__words[0] = &v84;
               v9 = absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::SetOptionValue(google::protobuf::FieldDescriptor const*,google::protobuf::UnknownFieldSet *)::$_3,std::string>;
               goto LABEL_129;
             }
 
-            v13 = v85;
-            v14 = *(v85 + 1);
-            v15 = v85[3];
+            v13 = v84;
+            v14 = *(v84 + 1);
+            v15 = *(v84 + 3);
             if (v15)
             {
-              v83.__r_.__value_.__r.__words[0] = google::protobuf::FieldDescriptor::TypeOnceInit;
-              v82[0] = v85;
+              v82.__r_.__value_.__r.__words[0] = google::protobuf::FieldDescriptor::TypeOnceInit;
+              v81[0] = v84;
               if (atomic_load_explicit(v15, memory_order_acquire) != 221)
               {
-                v77 = v14;
-                absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v15, 1, &v83, v82);
-                v14 = v77;
+                v76 = v14;
+                absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v15, 1, &v82, v81);
+                v14 = v76;
               }
             }
 
@@ -7688,26 +8296,26 @@ LABEL_4:
           {
             if ((v10 & 0x10) == 0)
             {
-              v83.__r_.__value_.__r.__words[0] = &v85;
+              v82.__r_.__value_.__r.__words[0] = &v84;
               v9 = absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::SetOptionValue(google::protobuf::FieldDescriptor const*,google::protobuf::UnknownFieldSet *)::$_4,std::string>;
               goto LABEL_129;
             }
 
-            v25 = v85;
-            v14 = *(v85 + 1);
+            v25 = v84;
+            v14 = *(v84 + 1);
             v17 = *(v7 + 80);
-            v15 = v85[3];
+            v15 = *(v84 + 3);
             if (v15)
             {
-              v83.__r_.__value_.__r.__words[0] = google::protobuf::FieldDescriptor::TypeOnceInit;
-              v82[0] = v85;
+              v82.__r_.__value_.__r.__words[0] = google::protobuf::FieldDescriptor::TypeOnceInit;
+              v81[0] = v84;
               if (atomic_load_explicit(v15, memory_order_acquire) != 221)
               {
-                v78 = v17;
-                v79 = v14;
-                absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v15, 1, &v83, v82);
-                v17 = v78;
-                v14 = v79;
+                v77 = v17;
+                v78 = v14;
+                absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v15, 1, &v82, v81);
+                v17 = v77;
+                v14 = v78;
               }
             }
 
@@ -7723,7 +8331,7 @@ LABEL_4:
         v7 = *(this + 2);
         if ((*(v7 + 16) & 8) == 0)
         {
-          v83.__r_.__value_.__r.__words[0] = &v85;
+          v82.__r_.__value_.__r.__words[0] = &v84;
           v9 = absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::SetOptionValue(google::protobuf::FieldDescriptor const*,google::protobuf::UnknownFieldSet *)::$_6,std::string>;
           goto LABEL_129;
         }
@@ -7731,23 +8339,23 @@ LABEL_4:
         v19 = *(v7 + 72);
         if (HIDWORD(v19))
         {
-          v83.__r_.__value_.__r.__words[0] = &v85;
+          v82.__r_.__value_.__r.__words[0] = &v84;
           v9 = absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::SetOptionValue(google::protobuf::FieldDescriptor const*,google::protobuf::UnknownFieldSet *)::$_5,std::string>;
           goto LABEL_129;
         }
 
-        v32 = v85;
-        v33 = *(v85 + 1);
-        v34 = v85[3];
+        v32 = v84;
+        v33 = *(v84 + 1);
+        v34 = *(v84 + 3);
         if (v34)
         {
-          v83.__r_.__value_.__r.__words[0] = google::protobuf::FieldDescriptor::TypeOnceInit;
-          v82[0] = v85;
+          v82.__r_.__value_.__r.__words[0] = google::protobuf::FieldDescriptor::TypeOnceInit;
+          v81[0] = v84;
           if (atomic_load_explicit(v34, memory_order_acquire) != 221)
           {
-            v81 = v33;
-            absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v34, 1, &v83, v82);
-            v33 = v81;
+            v80 = v33;
+            absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v34, 1, &v82, v81);
+            v33 = v80;
           }
         }
 
@@ -7759,26 +8367,26 @@ LABEL_4:
         v7 = *(this + 2);
         if ((*(v7 + 16) & 8) == 0)
         {
-          v83.__r_.__value_.__r.__words[0] = &v85;
+          v82.__r_.__value_.__r.__words[0] = &v84;
           v9 = absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::SetOptionValue(google::protobuf::FieldDescriptor const*,google::protobuf::UnknownFieldSet *)::$_7,std::string>;
           goto LABEL_129;
         }
 
-        v21 = v85;
-        v22 = *(v85 + 1);
+        v21 = v84;
+        v22 = *(v84 + 1);
         v23 = *(v7 + 72);
-        v24 = v85[3];
+        v24 = *(v84 + 3);
         if (v24)
         {
-          v83.__r_.__value_.__r.__words[0] = google::protobuf::FieldDescriptor::TypeOnceInit;
-          v82[0] = v85;
+          v82.__r_.__value_.__r.__words[0] = google::protobuf::FieldDescriptor::TypeOnceInit;
+          v81[0] = v84;
           if (atomic_load_explicit(v24, memory_order_acquire) != 221)
           {
-            v75 = v23;
-            v76 = v22;
-            absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v24, 1, &v83, v82);
-            v23 = v75;
-            v22 = v76;
+            v74 = v23;
+            v75 = v22;
+            absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v24, 1, &v82, v81);
+            v23 = v74;
+            v22 = v75;
           }
         }
 
@@ -7803,21 +8411,21 @@ LABEL_4:
         {
           if ((v8 & 0x10) == 0)
           {
-            v83.__r_.__value_.__r.__words[0] = &v85;
+            v82.__r_.__value_.__r.__words[0] = &v84;
             v9 = absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::SetOptionValue(google::protobuf::FieldDescriptor const*,google::protobuf::UnknownFieldSet *)::$_9,std::string>;
 LABEL_129:
-            v70 = v9;
-            v71 = *this;
-            v72 = *(this + 1);
+            v69 = v9;
+            v70 = *this;
+            v71 = *(this + 1);
 LABEL_130:
-            google::protobuf::DescriptorBuilder::AddError(v71, (v72 + 24), v7, 8, &v83, v70);
+            google::protobuf::DescriptorBuilder::AddError(v70, v71 + 24, v7, 8, &v82, v69);
             return 0;
           }
 
           v20 = *(v7 + 80);
         }
 
-        google::protobuf::UnknownFieldSet::AddFixed64(a3, *(v85 + 1), *&v20);
+        google::protobuf::UnknownFieldSet::AddFixed64(a3, *(v84 + 1), *&v20);
       }
 
       return 1;
@@ -7853,7 +8461,7 @@ LABEL_130:
       {
         if ((v38 & 0x10) == 0)
         {
-          v83.__r_.__value_.__r.__words[0] = &v85;
+          v82.__r_.__value_.__r.__words[0] = &v84;
           v9 = absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::SetOptionValue(google::protobuf::FieldDescriptor const*,google::protobuf::UnknownFieldSet *)::$_8,std::string>;
           goto LABEL_129;
         }
@@ -7861,14 +8469,14 @@ LABEL_130:
         v41 = *(v7 + 80);
       }
 
-      google::protobuf::UnknownFieldSet::AddFixed32(a3, *(v85 + 1), SLODWORD(v41));
+      google::protobuf::UnknownFieldSet::AddFixed32(a3, *(v84 + 1), SLODWORD(v41));
       return 1;
     }
 
     v7 = *(this + 2);
     if ((*(v7 + 16) & 1) == 0)
     {
-      v83.__r_.__value_.__r.__words[0] = &v85;
+      v82.__r_.__value_.__r.__words[0] = &v84;
       v9 = absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::SetOptionValue(google::protobuf::FieldDescriptor const*,google::protobuf::UnknownFieldSet *)::$_10,std::string>;
       goto LABEL_129;
     }
@@ -7885,18 +8493,18 @@ LABEL_130:
       {
         v39 = *v39;
 LABEL_94:
-        v51 = *v39;
-        v52 = *(v39 + 4);
-        if (v51 != 1936482662 || v52 != 101)
+        v50 = *v39;
+        v51 = *(v39 + 4);
+        if (v50 != 1936482662 || v51 != 101)
         {
           goto LABEL_128;
         }
 
-        v54 = 0;
+        v53 = 0;
 LABEL_127:
-        v69 = *(v85 + 1);
+        v68 = *(v84 + 1);
 LABEL_158:
-        google::protobuf::UnknownFieldSet::AddVarint(a3, v69, v54);
+        google::protobuf::UnknownFieldSet::AddVarint(a3, v68, v53);
         return 1;
       }
     }
@@ -7917,13 +8525,13 @@ LABEL_158:
       if (*v39 == 1702195828)
       {
 LABEL_126:
-        v54 = 1;
+        v53 = 1;
         goto LABEL_127;
       }
     }
 
 LABEL_128:
-    v83.__r_.__value_.__r.__words[0] = &v85;
+    v82.__r_.__value_.__r.__words[0] = &v84;
     v9 = absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::SetOptionValue(google::protobuf::FieldDescriptor const*,google::protobuf::UnknownFieldSet *)::$_11,std::string>;
     goto LABEL_129;
   }
@@ -7933,128 +8541,128 @@ LABEL_128:
     v7 = *(this + 2);
     if ((*(v7 + 16) & 1) == 0)
     {
-      v83.__r_.__value_.__r.__words[0] = &v85;
+      v82.__r_.__value_.__r.__words[0] = &v84;
       v9 = absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::SetOptionValue(google::protobuf::FieldDescriptor const*,google::protobuf::UnknownFieldSet *)::$_12,std::string>;
       goto LABEL_129;
     }
 
-    v42 = v85;
-    v43 = v85[3];
+    v42 = v84;
+    v43 = *(v84 + 3);
     if (v43)
     {
-      v83.__r_.__value_.__r.__words[0] = v85;
+      v82.__r_.__value_.__r.__words[0] = v84;
       if (atomic_load_explicit(v43, memory_order_acquire) != 221)
       {
-        absl::lts_20240722::base_internal::CallOnceImpl<void (&)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v43, 1, google::protobuf::FieldDescriptor::TypeOnceInit, &v83);
+        absl::lts_20240722::base_internal::CallOnceImpl<void (&)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v43, 1, google::protobuf::FieldDescriptor::TypeOnceInit, &v82);
       }
 
       v7 = *(this + 2);
     }
 
     v44 = *(v42 + 6);
-    v84 = v44;
+    v83 = v44;
     v45 = *(v7 + 48) & 0xFFFFFFFFFFFFFFFCLL;
     v46 = *(*(v44 + 16) + 24);
     if (v46 == google::protobuf::DescriptorPool::generated_pool(v43))
     {
-      v55 = *(v45 + 23);
-      if ((v55 & 0x8000000000000000) != 0)
+      v54 = *(v45 + 23);
+      if ((v54 & 0x8000000000000000) != 0)
       {
-        v56 = *v45;
-        v55 = *(v45 + 8);
+        v55 = *v45;
+        v54 = *(v45 + 8);
       }
 
       else
       {
-        v56 = v45;
+        v55 = v45;
       }
 
-      ValueByName = google::protobuf::EnumDescriptor::FindValueByName(v44, v56, v55, v47, v48);
+      ValueByName = google::protobuf::EnumDescriptor::FindValueByName(v44, v55, v54, v47, v48);
 LABEL_156:
       if (!ValueByName)
       {
-        v83.__r_.__value_.__r.__words[0] = &v85;
-        v83.__r_.__value_.__l.__size_ = v45;
-        v70 = absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::SetOptionValue(google::protobuf::FieldDescriptor const*,google::protobuf::UnknownFieldSet *)::$_14,std::string>;
-        v71 = *this;
-        v72 = *(this + 1);
+        v82.__r_.__value_.__r.__words[0] = &v84;
+        v82.__r_.__value_.__l.__size_ = v45;
+        v69 = absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::SetOptionValue(google::protobuf::FieldDescriptor const*,google::protobuf::UnknownFieldSet *)::$_14,std::string>;
+        v70 = *this;
+        v71 = *(this + 1);
         v7 = *(this + 2);
         goto LABEL_130;
       }
 
-      v69 = *(v85 + 1);
-      v54 = *(ValueByName + 1);
+      v68 = *(v84 + 1);
+      v53 = *(ValueByName + 1);
       goto LABEL_158;
     }
 
     v49 = *(v44 + 8);
     if (*(v49 + 47) < 0)
     {
-      std::string::__init_copy_ctor_external(&v83, *(v49 + 24), *(v49 + 32));
+      std::string::__init_copy_ctor_external(&v82, *(v49 + 24), *(v49 + 32));
     }
 
     else
     {
-      v83 = *(v49 + 24);
+      v82 = *(v49 + 24);
     }
 
-    size = HIBYTE(v83.__r_.__value_.__r.__words[2]);
-    if ((v83.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    size = HIBYTE(v82.__r_.__value_.__r.__words[2]);
+    if ((v82.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      size = v83.__r_.__value_.__l.__size_;
+      size = v82.__r_.__value_.__l.__size_;
     }
 
-    v58 = *(v44 + 8);
-    v59 = *(v58 + 23);
-    if (v59 < 0)
+    v57 = *(v44 + 8);
+    v58 = *(v57 + 23);
+    if (v58 < 0)
     {
-      v59 = *(v58 + 8);
+      v58 = *(v57 + 8);
     }
 
-    std::string::resize(&v83, size - v59, 0);
-    v60 = *(v45 + 23);
-    if (v60 >= 0)
+    std::string::resize(&v82, size - v58, 0);
+    v59 = *(v45 + 23);
+    if (v59 >= 0)
     {
-      v61 = v45;
+      v60 = v45;
     }
 
     else
     {
-      v61 = *v45;
+      v60 = *v45;
     }
 
-    if (v60 >= 0)
+    if (v59 >= 0)
     {
-      v62 = *(v45 + 23);
+      v61 = *(v45 + 23);
     }
 
     else
     {
-      v62 = *(v45 + 8);
+      v61 = *(v45 + 8);
     }
 
-    std::string::append(&v83, v61, v62);
-    v63 = *this;
-    SymbolNotEnforcingDepsHelper = google::protobuf::DescriptorBuilder::FindSymbolNotEnforcingDepsHelper(*this, **this, &v83.__r_.__value_.__l.__data_, 1uLL, v64);
+    std::string::append(&v82, v60, v61);
+    v62 = *this;
+    SymbolNotEnforcingDepsHelper = google::protobuf::DescriptorBuilder::FindSymbolNotEnforcingDepsHelper(*this, **this, &v82.__r_.__value_.__l.__data_, 1uLL, v63);
     ValueByName = SymbolNotEnforcingDepsHelper;
-    v67 = 0;
-    v68 = *SymbolNotEnforcingDepsHelper;
-    if (v68 <= 4)
+    v66 = 0;
+    v67 = *SymbolNotEnforcingDepsHelper;
+    if (v67 <= 4)
     {
       if (*SymbolNotEnforcingDepsHelper > 2u)
       {
-        if (v68 == 3)
+        if (v67 == 3)
         {
           goto LABEL_140;
         }
 
-        if (v68 != 4)
+        if (v67 != 4)
         {
           goto LABEL_142;
         }
       }
 
-      else if (v68 != 1 && v68 != 2)
+      else if (v67 != 1 && v67 != 2)
       {
         goto LABEL_142;
       }
@@ -8064,32 +8672,32 @@ LABEL_156:
     {
       if (*SymbolNotEnforcingDepsHelper > 7u)
       {
-        if (v68 != 8)
+        if (v67 != 8)
         {
-          if (v68 == 9)
+          if (v67 == 9)
           {
-            v67 = SymbolNotEnforcingDepsHelper;
+            v66 = SymbolNotEnforcingDepsHelper;
           }
 
-          else if (v68 == 10)
+          else if (v67 == 10)
           {
-            v67 = *(SymbolNotEnforcingDepsHelper + 1);
+            v66 = *(SymbolNotEnforcingDepsHelper + 1);
           }
 
 LABEL_142:
-          v82[0] = v67;
-          if (v67 == v63[20] || (v73 = absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<google::protobuf::FileDescriptor const*>,absl::lts_20240722::container_internal::HashEq<google::protobuf::FileDescriptor const*,void>::Hash,absl::lts_20240722::container_internal::HashEq<google::protobuf::FileDescriptor const*,void>::Eq,std::allocator<google::protobuf::FileDescriptor const*>>::contains<google::protobuf::FileDescriptor const*>(v63 + 22, v82), v68 = *ValueByName, v73))
+          v81[0] = v66;
+          if (v66 == v62[20] || (v72 = absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<google::protobuf::FileDescriptor const*>,absl::lts_20240722::container_internal::HashEq<google::protobuf::FileDescriptor const*,void>::Hash,absl::lts_20240722::container_internal::HashEq<google::protobuf::FileDescriptor const*,void>::Eq,std::allocator<google::protobuf::FileDescriptor const*>>::contains<google::protobuf::FileDescriptor const*>(v62 + 22, v81), v67 = *ValueByName, v72))
           {
-            if (v68 - 9 >= 2)
+            if (v67 - 9 >= 2)
             {
-              absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<google::protobuf::FileDescriptor const*>,absl::lts_20240722::container_internal::HashEq<google::protobuf::FileDescriptor const*,void>::Hash,absl::lts_20240722::container_internal::HashEq<google::protobuf::FileDescriptor const*,void>::Eq,std::allocator<google::protobuf::FileDescriptor const*>>::erase<google::protobuf::FileDescriptor const*>(v63 + 30, v82);
-              v68 = *ValueByName;
+              absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<google::protobuf::FileDescriptor const*>,absl::lts_20240722::container_internal::HashEq<google::protobuf::FileDescriptor const*,void>::Hash,absl::lts_20240722::container_internal::HashEq<google::protobuf::FileDescriptor const*,void>::Eq,std::allocator<google::protobuf::FileDescriptor const*>>::erase<google::protobuf::FileDescriptor const*>(v62 + 30, v81);
+              v67 = *ValueByName;
             }
           }
 
-          if (v68 != 5)
+          if (v67 != 5)
           {
-            if (v68 != 6)
+            if (v67 != 6)
             {
               ValueByName = 0;
               goto LABEL_152;
@@ -8100,24 +8708,24 @@ LABEL_142:
 
           if (*(ValueByName + 2) != v44)
           {
-            v82[0] = &v84;
-            v82[1] = v45;
-            v82[2] = &v85;
-            google::protobuf::DescriptorBuilder::AddError(*this, (*(this + 1) + 24), *(this + 2), 8, v82, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::SetOptionValue(google::protobuf::FieldDescriptor const*,google::protobuf::UnknownFieldSet *)::$_13,std::string>);
+            v81[0] = &v83;
+            v81[1] = v45;
+            v81[2] = &v84;
+            google::protobuf::DescriptorBuilder::AddError(*this, *(this + 1) + 24, *(this + 2), 8, v81, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::SetOptionValue(google::protobuf::FieldDescriptor const*,google::protobuf::UnknownFieldSet *)::$_13,std::string>);
             ValueByName = 0;
-            v74 = 0;
+            v73 = 0;
             goto LABEL_153;
           }
 
 LABEL_152:
-          v74 = 1;
+          v73 = 1;
 LABEL_153:
-          if (SHIBYTE(v83.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v82.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v83.__r_.__value_.__l.__data_);
+            operator delete(v82.__r_.__value_.__l.__data_);
           }
 
-          if ((v74 & 1) == 0)
+          if ((v73 & 1) == 0)
           {
             return 0;
           }
@@ -8126,22 +8734,22 @@ LABEL_153:
         }
 
 LABEL_140:
-        v67 = *(*(SymbolNotEnforcingDepsHelper + 2) + 16);
+        v66 = *(*(SymbolNotEnforcingDepsHelper + 2) + 16);
         goto LABEL_142;
       }
 
-      if (v68 == 5)
+      if (v67 == 5)
       {
         goto LABEL_140;
       }
 
-      if (v68 != 7)
+      if (v67 != 7)
       {
         goto LABEL_142;
       }
     }
 
-    v67 = *(SymbolNotEnforcingDepsHelper + 2);
+    v66 = *(SymbolNotEnforcingDepsHelper + 2);
     goto LABEL_142;
   }
 
@@ -8150,11 +8758,10 @@ LABEL_140:
     v7 = *(this + 2);
     if ((*(v7 + 16) & 2) != 0)
     {
-      v50 = *(v7 + 56);
-      google::protobuf::UnknownFieldSet::AddLengthDelimited(a3, *(v85 + 1));
+      google::protobuf::UnknownFieldSet::AddLengthDelimited(a3, *(v84 + 1));
     }
 
-    v83.__r_.__value_.__r.__words[0] = &v85;
+    v82.__r_.__value_.__r.__words[0] = &v84;
     v9 = absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::SetOptionValue(google::protobuf::FieldDescriptor const*,google::protobuf::UnknownFieldSet *)::$_15,std::string>;
     goto LABEL_129;
   }
@@ -8164,7 +8771,7 @@ LABEL_140:
     return 1;
   }
 
-  result = google::protobuf::DescriptorBuilder::OptionInterpreter::SetAggregateOption(this, v85, a3);
+  result = google::protobuf::DescriptorBuilder::OptionInterpreter::SetAggregateOption(this, v84, a3);
   if (result)
   {
     return 1;
@@ -8192,16 +8799,16 @@ uint64_t absl::lts_20240722::log_internal::LogMessage::operator<<<google::protob
   return a1;
 }
 
-void sub_23CD8E5A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23CD8E5A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   absl::lts_20240722::log_internal::LogMessage::OstreamView::~OstreamView(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23CD8E5B4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23CD8E5B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   absl::lts_20240722::log_internal::LogMessage::OstreamView::~OstreamView(va);
   _Unwind_Resume(a1);
 }
@@ -8291,7 +8898,7 @@ LABEL_6:
   google::protobuf::UnknownFieldSet::AddFixed32(this, a2, a3);
 }
 
-void google::protobuf::DescriptorBuilder::OptionInterpreter::SetInt64(int a1, int a2, uint64_t a3, unsigned int a4, google::protobuf::UnknownFieldSet *this)
+void google::protobuf::DescriptorBuilder::OptionInterpreter::SetInt64(int a1, int a2, int64_t a3, unsigned int a4, google::protobuf::UnknownFieldSet *this)
 {
   v7 = a4;
   if (a4 == 18)
@@ -8375,7 +8982,7 @@ uint64_t google::protobuf::DescriptorBuilder::OptionInterpreter::SetAggregateOpt
   if ((*(v5 + 16) & 4) == 0)
   {
     v26.__r_.__value_.__r.__words[0] = &v32;
-    google::protobuf::DescriptorBuilder::AddError(*this, (*(this + 1) + 24), v5, 8, &v26, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::SetAggregateOption(google::protobuf::FieldDescriptor const*,google::protobuf::UnknownFieldSet *)::$_0,std::string>);
+    google::protobuf::DescriptorBuilder::AddError(*this, *(this + 1) + 24, v5, 8, &v26, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::SetAggregateOption(google::protobuf::FieldDescriptor const*,google::protobuf::UnknownFieldSet *)::$_0,std::string>);
     return 0;
   }
 
@@ -8488,7 +9095,7 @@ LABEL_9:
 
   __str.__r_.__value_.__r.__words[0] = &v32;
   __str.__r_.__value_.__l.__size_ = &v28;
-  google::protobuf::DescriptorBuilder::AddError(*this, (*(this + 1) + 24), *(this + 2), 8, &__str, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::SetAggregateOption(google::protobuf::FieldDescriptor const*,google::protobuf::UnknownFieldSet *)::$_1,std::string>);
+  google::protobuf::DescriptorBuilder::AddError(*this, *(this + 1) + 24, *(this + 2), 8, &__str, absl::lts_20240722::functional_internal::InvokeObject<google::protobuf::DescriptorBuilder::OptionInterpreter::SetAggregateOption(google::protobuf::FieldDescriptor const*,google::protobuf::UnknownFieldSet *)::$_1,std::string>);
   ORToolsCpL2AccessVariable::~ORToolsCpL2AccessVariable(&v26);
   ORToolsCpL2AccessVariable::~ORToolsCpL2AccessVariable(v27);
   v28 = &unk_284F451C8;
@@ -8502,7 +9109,7 @@ LABEL_9:
   return v17;
 }
 
-void sub_23CD8EDB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24)
+void sub_23CD8EDB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24)
 {
   if (a17 < 0)
   {
@@ -8678,11 +9285,11 @@ void sub_23CD8F0D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 _BYTE *google::protobuf::FieldDescriptor::InternalTypeOnceInit(google::protobuf::FieldDescriptor *this)
 {
-  v30[6] = *MEMORY[0x277D85DE8];
+  v29[6] = *MEMORY[0x277D85DE8];
   v1 = *(this + 2);
   if ((*(v1 + 2) & 1) == 0)
   {
-    google::protobuf::FieldDescriptor::InternalTypeOnceInit(v30);
+    google::protobuf::FieldDescriptor::InternalTypeOnceInit(v29);
   }
 
   v3 = (*(this + 3) + 4);
@@ -8697,7 +9304,7 @@ _BYTE *google::protobuf::FieldDescriptor::InternalTypeOnceInit(google::protobuf:
       *(this + 6) = result;
     }
 
-    goto LABEL_46;
+    return result;
   }
 
   v8 = &v3[v4 + 1];
@@ -8709,32 +9316,32 @@ _BYTE *google::protobuf::FieldDescriptor::InternalTypeOnceInit(google::protobuf:
     v10 = *(result + 1);
     if (*(v10 + 47) < 0)
     {
-      std::string::__init_copy_ctor_external(&v27, *(v10 + 24), *(v10 + 32));
+      std::string::__init_copy_ctor_external(&v26, *(v10 + 24), *(v10 + 32));
     }
 
     else
     {
-      v27 = *(v10 + 24);
+      v26 = *(v10 + 24);
     }
 
-    v11 = std::string::rfind(&v27, 46, 0xFFFFFFFFFFFFFFFFLL);
+    v11 = std::string::rfind(&v26, 46, 0xFFFFFFFFFFFFFFFFLL);
     if (v11 == -1)
     {
-      MEMORY[0x23EED9020](&v27, v8);
+      MEMORY[0x23EED9020](&v26, v8);
     }
 
     else
     {
-      size = HIBYTE(v27.__r_.__value_.__r.__words[2]);
-      if ((v27.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      size = HIBYTE(v26.__r_.__value_.__r.__words[2]);
+      if ((v26.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v13 = &v27;
+        v13 = &v26;
       }
 
       else
       {
-        size = v27.__r_.__value_.__l.__size_;
-        v13 = v27.__r_.__value_.__r.__words[0];
+        size = v26.__r_.__value_.__l.__size_;
+        v13 = v26.__r_.__value_.__r.__words[0];
       }
 
       if (size >= v11)
@@ -8757,61 +9364,61 @@ _BYTE *google::protobuf::FieldDescriptor::InternalTypeOnceInit(google::protobuf:
         operator new();
       }
 
-      v25 = v14;
+      v24 = v14;
       if (v14)
       {
         memmove(__p, v13, v14);
       }
 
       *(__p + v14) = 0;
-      v16 = v25;
+      v16 = v24;
       v17 = __p;
-      if ((v25 & 0x80u) != 0)
+      if ((v24 & 0x80u) != 0)
       {
         v17 = __p[0];
         v16 = __p[1];
       }
 
-      v30[0] = v17;
-      v30[1] = v16;
-      v29[0] = ".";
-      v29[1] = 1;
+      v29[0] = v17;
+      v29[1] = v16;
+      v28[0] = ".";
+      v28[1] = 1;
       v18 = strlen(v8);
-      v28[0] = v8;
-      v28[1] = v18;
-      absl::lts_20240722::StrCat(v30, v29, v28, &v26);
-      if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
+      v27[0] = v8;
+      v27[1] = v18;
+      absl::lts_20240722::StrCat(v29, v28, v27, &v25);
+      if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v27.__r_.__value_.__l.__data_);
+        operator delete(v26.__r_.__value_.__l.__data_);
       }
 
-      v27 = v26;
-      *(&v26.__r_.__value_.__s + 23) = 0;
-      v26.__r_.__value_.__s.__data_[0] = 0;
-      if (v25 < 0)
+      v26 = v25;
+      *(&v25.__r_.__value_.__s + 23) = 0;
+      v25.__r_.__value_.__s.__data_[0] = 0;
+      if (v24 < 0)
       {
         operator delete(__p[0]);
       }
     }
 
-    if ((v27.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v26.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v19 = &v27;
+      v19 = &v26;
     }
 
     else
     {
-      v19 = v27.__r_.__value_.__r.__words[0];
+      v19 = v26.__r_.__value_.__r.__words[0];
     }
 
-    if ((v27.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v26.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v20 = HIBYTE(v27.__r_.__value_.__r.__words[2]);
+      v20 = HIBYTE(v26.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v20 = v27.__r_.__value_.__l.__size_;
+      v20 = v26.__r_.__value_.__l.__size_;
     }
 
     v21 = google::protobuf::DescriptorPool::CrossLinkOnDemandHelper(*(*(this + 2) + 24), v19, v20, 0, v15);
@@ -8823,50 +9430,48 @@ _BYTE *google::protobuf::FieldDescriptor::InternalTypeOnceInit(google::protobuf:
       {
         v21 = 0;
         *(this + 10) = 0;
-        if ((SHIBYTE(v27.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        if ((SHIBYTE(v26.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
 LABEL_40:
           if (v21)
           {
-            goto LABEL_46;
+            return result;
           }
 
           goto LABEL_44;
         }
 
-        goto LABEL_43;
+LABEL_43:
+        operator delete(v26.__r_.__value_.__l.__data_);
+        result = v9;
+        if (*(this + 10))
+        {
+          return result;
+        }
+
+        goto LABEL_44;
       }
 
       --v21;
     }
 
     *(this + 10) = v21;
-    if ((SHIBYTE(v27.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    if ((SHIBYTE(v26.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_40;
     }
 
-LABEL_43:
-    operator delete(v27.__r_.__value_.__l.__data_);
-    result = v9;
-    if (*(this + 10))
-    {
-      goto LABEL_46;
-    }
-
-    goto LABEL_44;
+    goto LABEL_43;
   }
 
   *(this + 10) = 0;
 LABEL_44:
   if (!*(result + 1))
   {
-    google::protobuf::FieldDescriptor::InternalTypeOnceInit(v30);
+    google::protobuf::FieldDescriptor::InternalTypeOnceInit(v29);
   }
 
   *(this + 10) = *(result + 7);
-LABEL_46:
-  v23 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8971,11 +9576,11 @@ LABEL_18:
   return *(*(v9 + 6) + 8) + 24;
 }
 
-size_t google::protobuf::FileDescriptor::DependenciesOnceInit(size_t this, const google::protobuf::FileDescriptor *a2)
+uint64_t google::protobuf::FileDescriptor::DependenciesOnceInit(uint64_t this, const google::protobuf::FileDescriptor *a2)
 {
   if ((*(this + 2) & 1) == 0)
   {
-    google::protobuf::FileDescriptor::DependenciesOnceInit(&v7);
+    google::protobuf::FileDescriptor::DependenciesOnceInit(&v9);
   }
 
   v2 = this;
@@ -8987,15 +9592,15 @@ size_t google::protobuf::FileDescriptor::DependenciesOnceInit(size_t this, const
     do
     {
       this = strlen(v5);
-      v6 = this;
+      v8 = this;
       if (*v5)
       {
-        this = google::protobuf::DescriptorPool::FindFileByName(*(v2 + 24), v5, this);
+        this = google::protobuf::DescriptorPool::FindFileByName(*(v2 + 24), v5, this, v6, v7);
         *(*(v2 + 72) + 8 * v4) = this;
         v3 = *(v2 + 48);
       }
 
-      v5 += v6 + 1;
+      v5 += v8 + 1;
       ++v4;
     }
 
@@ -9007,53 +9612,53 @@ size_t google::protobuf::FileDescriptor::DependenciesOnceInit(size_t this, const
 
 uint64_t google::protobuf::internal::ParseNoReflection(char *a1, size_t a2, google::protobuf::MessageLite *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   (*(*a3 + 24))(a3);
-  memset(v14, 0, sizeof(v14));
-  v15 = 0u;
-  v16 = 0;
-  v17 = google::protobuf::io::CodedInputStream::default_recursion_limit_;
-  v18 = 0x80000000;
+  memset(v13, 0, sizeof(v13));
+  v14 = 0u;
+  v15 = 0;
+  v16 = google::protobuf::io::CodedInputStream::default_recursion_limit_;
+  v17 = 0x80000000;
+  v18 = 0;
   v19 = 0;
-  v20 = 0;
   if (a2 < 0x11)
   {
     if (a2)
     {
-      memcpy(v14 + 8, a1, a2);
-      v6 = v14 + 8;
-      v13 = 0;
-      v10 = v14 + a2 + 8;
-      v11 = v14 + a2 + 8;
+      memcpy(v13 + 8, a1, a2);
+      v6 = v13 + 8;
       v12 = 0;
-      if (*(&v15 + 1) == 1)
+      v9 = v13 + a2 + 8;
+      v10 = v13 + a2 + 8;
+      v11 = 0;
+      if (*(&v14 + 1) == 1)
       {
-        *(&v15 + 1) = a1 - (v14 + 8);
+        *(&v14 + 1) = a1 - (v13 + 8);
       }
     }
 
     else
     {
-      v13 = 0;
-      v6 = v14 + 8;
-      v10 = v14 + 8;
-      v11 = v14 + 8;
       v12 = 0;
+      v6 = v13 + 8;
+      v9 = v13 + 8;
+      v10 = v13 + 8;
+      v11 = 0;
     }
   }
 
   else
   {
-    v13 = 16;
-    v10 = &a1[a2 - 16];
-    v11 = v10;
-    v12 = v14 + 8;
+    v12 = 16;
+    v9 = &a1[a2 - 16];
+    v10 = v9;
+    v11 = v13 + 8;
     v6 = a1;
   }
 
-  if ((*(*a3 + 56))(a3, v6, &v10))
+  if ((*(*a3 + 56))(a3, v6, &v9))
   {
-    v7 = v16 == 0;
+    v7 = v15 == 0;
   }
 
   else
@@ -9061,23 +9666,17 @@ uint64_t google::protobuf::internal::ParseNoReflection(char *a1, size_t a2, goog
     v7 = 0;
   }
 
-  if (!v7)
+  if (v7)
   {
-    goto LABEL_15;
-  }
+    if ((*(*a3 + 32))(a3))
+    {
+      return 1;
+    }
 
-  if (((*(*a3 + 32))(a3) & 1) == 0)
-  {
     google::protobuf::MessageLite::LogInitializationErrorMessage(a3);
-LABEL_15:
-    result = 0;
-    goto LABEL_16;
   }
 
-  result = 1;
-LABEL_16:
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 BOOL google::protobuf::internal::cpp::HasPreservingUnknownEnumSemantics(atomic_uint **this, const google::protobuf::FieldDescriptor *a2)
@@ -9174,631 +9773,4 @@ LABEL_11:
   }
 
   return (*(*(this + 7) + 132) ^ 1) & 1;
-}
-
-uint64_t google::protobuf::internal::cpp::GetUtf8CheckMode(google::protobuf::internal::cpp *this, const google::protobuf::FieldDescriptor *a2)
-{
-  v2 = *(this + 3);
-  if (v2 && (v28 = this, v29 = google::protobuf::FieldDescriptor::TypeOnceInit, atomic_load_explicit(v2, memory_order_acquire) != 221))
-  {
-    v7 = this;
-    v8 = a2;
-    absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v2, 1, &v29, &v28);
-    this = v7;
-    LODWORD(a2) = v8;
-    v3 = v7[2];
-    if (v3 == 9)
-    {
-      goto LABEL_4;
-    }
-  }
-
-  else
-  {
-    v3 = *(this + 2);
-    if (v3 == 9)
-    {
-      goto LABEL_4;
-    }
-  }
-
-  v9 = *(this + 3);
-  if (v9)
-  {
-    v28 = this;
-    v29 = google::protobuf::FieldDescriptor::TypeOnceInit;
-    if (atomic_load_explicit(v9, memory_order_acquire) != 221)
-    {
-      v14 = this;
-      v15 = a2;
-      absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v9, 1, &v29, &v28);
-      this = v14;
-      LODWORD(a2) = v15;
-    }
-
-    v3 = *(this + 2);
-  }
-
-  if (v3 != 11 || *(*(*(this + 6) + 32) + 83) != 1)
-  {
-    return 2;
-  }
-
-  v10 = *(this + 3);
-  if (!v10)
-  {
-    goto LABEL_20;
-  }
-
-  v29 = this;
-  if (atomic_load_explicit(v10, memory_order_acquire) != 221)
-  {
-    v24 = this;
-    v22 = a2;
-    absl::lts_20240722::base_internal::CallOnceImpl<void (&)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v10, 1, google::protobuf::FieldDescriptor::TypeOnceInit, &v29);
-    this = v24;
-    LODWORD(a2) = v22;
-    if ((*(v24 + 2) & 0xFE) != 0xA)
-    {
-      goto LABEL_24;
-    }
-
-LABEL_20:
-    v11 = *(this + 6);
-    if (*(*(v11 + 32) + 83) == 1)
-    {
-      goto LABEL_21;
-    }
-
-LABEL_25:
-    v12 = 0;
-    v13 = MEMORY[0x18];
-    if (!MEMORY[0x18])
-    {
-      goto LABEL_27;
-    }
-
-    goto LABEL_26;
-  }
-
-  if ((*(this + 2) & 0xFE) == 0xA)
-  {
-    goto LABEL_20;
-  }
-
-LABEL_24:
-  v11 = 0;
-  if (*(MEMORY[0x20] + 83) != 1)
-  {
-    goto LABEL_25;
-  }
-
-LABEL_21:
-  v12 = *(v11 + 56);
-  v13 = *(v12 + 24);
-  if (!v13)
-  {
-LABEL_27:
-    if (*(v12 + 2) == 9)
-    {
-      goto LABEL_4;
-    }
-
-    goto LABEL_28;
-  }
-
-LABEL_26:
-  v28 = v12;
-  v29 = google::protobuf::FieldDescriptor::TypeOnceInit;
-  if (atomic_load_explicit(v13, memory_order_acquire) == 221)
-  {
-    goto LABEL_27;
-  }
-
-  v25 = this;
-  v19 = a2;
-  absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v13, 1, &v29, &v28);
-  this = v25;
-  LODWORD(a2) = v19;
-  if (*(v12 + 2) == 9)
-  {
-    goto LABEL_4;
-  }
-
-LABEL_28:
-  v16 = *(this + 3);
-  if (!v16 || (v29 = this, atomic_load_explicit(v16, memory_order_acquire) == 221))
-  {
-    if ((*(this + 2) & 0xFE) == 0xA)
-    {
-      goto LABEL_31;
-    }
-
-LABEL_36:
-    v17 = 0;
-    if (*(MEMORY[0x20] + 83) != 1)
-    {
-      goto LABEL_32;
-    }
-
-LABEL_37:
-    v18 = *(v17 + 56) + 88;
-    goto LABEL_38;
-  }
-
-  v26 = this;
-  v23 = a2;
-  absl::lts_20240722::base_internal::CallOnceImpl<void (&)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v16, 1, google::protobuf::FieldDescriptor::TypeOnceInit, &v29);
-  this = v26;
-  LODWORD(a2) = v23;
-  if ((*(v26 + 2) & 0xFE) != 0xA)
-  {
-    goto LABEL_36;
-  }
-
-LABEL_31:
-  v17 = *(this + 6);
-  if (*(*(v17 + 32) + 83) == 1)
-  {
-    goto LABEL_37;
-  }
-
-LABEL_32:
-  v18 = 0;
-LABEL_38:
-  v20 = *(v18 + 24);
-  if (v20 && (v28 = v18, v29 = google::protobuf::FieldDescriptor::TypeOnceInit, atomic_load_explicit(v20, memory_order_acquire) != 221))
-  {
-    v27 = this;
-    v21 = a2;
-    absl::lts_20240722::base_internal::CallOnceImpl<void (*)(google::protobuf::FieldDescriptor const*),google::protobuf::FieldDescriptor const*>(v20, 1, &v29, &v28);
-    this = v27;
-    LODWORD(a2) = v21;
-    if (*(v18 + 2) != 9)
-    {
-      return 2;
-    }
-  }
-
-  else if (*(v18 + 2) != 9)
-  {
-    return 2;
-  }
-
-LABEL_4:
-  v4 = *(*(this + 9) + 60);
-  result = v4 != 2;
-  if (v4 != 2 && a2 != 0)
-  {
-    return 2;
-  }
-
-  return result;
-}
-
-BOOL google::protobuf::internal::cpp::IsLazilyInitializedFile(void *a1, int64_t __n)
-{
-  v3 = 0;
-  if (__n > 33)
-  {
-    if (__n != 34)
-    {
-      if (__n != 39)
-      {
-        return v3;
-      }
-
-      return *a1 == 0x61705F6472696874 && a1[1] == 0x746F72702F797472 && a1[2] == 0x7070632F6675626FLL && a1[3] == 0x657275746165665FLL && *(a1 + 31) == 0x6F746F72702E7365;
-    }
-
-    v4 = "google/protobuf/cpp_features.proto";
-  }
-
-  else if (__n == 32)
-  {
-    v4 = "google/protobuf/descriptor.proto";
-  }
-
-  else
-  {
-    if (__n != 33)
-    {
-      return v3;
-    }
-
-    v4 = "net/proto2/proto/descriptor.proto";
-  }
-
-  return memcmp(a1, v4, __n) == 0;
-}
-
-uint64_t *google::protobuf::internal::ShortEditionName(google::protobuf *a1)
-{
-  v2 = google::protobuf::Edition_descriptor(a1);
-  result = google::protobuf::internal::NameOfEnum(v2, a1);
-  v4 = result[1];
-  if (*(result + 23) >= 0)
-  {
-    v5 = *(result + 23);
-  }
-
-  else
-  {
-    result = *result;
-    v5 = v4;
-  }
-
-  if (v5 >= 8 && *result == 0x5F4E4F4954494445)
-  {
-    ++result;
-  }
-
-  return result;
-}
-
-void absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashMapPolicy<std::string,std::unique_ptr<google::protobuf::FeatureSet>>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::pair<std::string const,std::unique_ptr<google::protobuf::FeatureSet>>>>::destroy_slots(void *a1)
-{
-  v2 = a1[2];
-  v1 = a1[3];
-  if (*a1 > 6uLL)
-  {
-    v8 = a1[1];
-    if (v8 >= 2)
-    {
-      v9 = v8 >> 1;
-      do
-      {
-        v10 = *v2 & 0x8080808080808080;
-        if (v10 != 0x8080808080808080)
-        {
-          v11 = v10 ^ 0x8080808080808080;
-          do
-          {
-            v12 = v1 + ((4 * __clz(__rbit64(v11))) & 0x1E0);
-            v13 = *(v12 + 24);
-            *(v12 + 24) = 0;
-            if (v13)
-            {
-              google::protobuf::FeatureSet::~FeatureSet(v13);
-              MEMORY[0x23EED9460]();
-            }
-
-            if (*(v12 + 23) < 0)
-            {
-              operator delete(*v12);
-            }
-
-            --v9;
-            v11 &= v11 - 1;
-          }
-
-          while (v11);
-        }
-
-        ++v2;
-        v1 += 256;
-      }
-
-      while (v9);
-    }
-  }
-
-  else
-  {
-    v3 = *(v2 + *a1) & 0x8080808080808080;
-    if (v3 != 0x8080808080808080)
-    {
-      v4 = v1 - 32;
-      v5 = v3 ^ 0x8080808080808080;
-      do
-      {
-        v6 = v4 + ((4 * __clz(__rbit64(v5))) & 0x1E0);
-        v7 = *(v6 + 24);
-        *(v6 + 24) = 0;
-        if (v7)
-        {
-          google::protobuf::FeatureSet::~FeatureSet(v7);
-          MEMORY[0x23EED9460]();
-        }
-
-        if (*(v6 + 23) < 0)
-        {
-          operator delete(*v6);
-        }
-
-        v5 &= v5 - 1;
-      }
-
-      while (v5);
-    }
-  }
-}
-
-void absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<std::pair<google::protobuf::Descriptor const*,int>,google::protobuf::FieldDescriptor const*,std::less<std::pair<google::protobuf::Descriptor const*,int>>,std::allocator<std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>,256,false>>::clear(unsigned __int8 ***a1)
-{
-  if (!a1[2])
-  {
-    goto LABEL_4;
-  }
-
-  v2 = *a1;
-  if (*(*a1 + 11) || !*(v2 + 10))
-  {
-    operator delete(v2);
-    goto LABEL_4;
-  }
-
-  v3 = *v2;
-  do
-  {
-    v2 = v2[32];
-  }
-
-  while (!*(v2 + 11));
-  v4 = *(v2 + 8);
-  v5 = *v2;
-  while (1)
-  {
-    v6 = *&v5[8 * v4 + 256];
-    if (!v6[11])
-    {
-      break;
-    }
-
-    v7 = v5;
-    operator delete(*&v5[8 * v4 + 256]);
-    v5 = v7;
-    if (v4 >= v7[10])
-    {
-      goto LABEL_15;
-    }
-
-LABEL_9:
-    ++v4;
-  }
-
-  do
-  {
-    v6 = *(v6 + 32);
-  }
-
-  while (!v6[11]);
-  v4 = v6[8];
-  v8 = *v6;
-  operator delete(v6);
-  v5 = v8;
-  if (v4 < v8[10])
-  {
-    goto LABEL_9;
-  }
-
-LABEL_15:
-  while (1)
-  {
-    v4 = v5[8];
-    v9 = *v5;
-    operator delete(v5);
-    if (v9 == v3)
-    {
-      break;
-    }
-
-    v5 = v9;
-    if (v4 < v9[10])
-    {
-      goto LABEL_9;
-    }
-  }
-
-LABEL_4:
-  *a1 = &absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<std::pair<google::protobuf::Descriptor const*,int>,google::protobuf::FieldDescriptor const*,std::less<std::pair<google::protobuf::Descriptor const*,int>>,std::allocator<std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>,256,false>>::EmptyNode(void)::empty_node;
-  a1[1] = &absl::lts_20240722::container_internal::btree<absl::lts_20240722::container_internal::map_params<std::pair<google::protobuf::Descriptor const*,int>,google::protobuf::FieldDescriptor const*,std::less<std::pair<google::protobuf::Descriptor const*,int>>,std::allocator<std::pair<std::pair<google::protobuf::Descriptor const*,int> const,google::protobuf::FieldDescriptor const*>>,256,false>>::EmptyNode(void)::empty_node;
-  a1[2] = 0;
-}
-
-unint64_t *absl::lts_20240722::container_internal::raw_hash_set<absl::lts_20240722::container_internal::FlatHashSetPolicy<std::string>,absl::lts_20240722::container_internal::StringHash,absl::lts_20240722::container_internal::StringEq,std::allocator<std::string>>::~raw_hash_set(unint64_t *a1)
-{
-  v2 = *a1;
-  if (*a1)
-  {
-    v4 = a1[2];
-    v3 = a1[3];
-    if (v2 > 6)
-    {
-      v9 = a1[1];
-      if (v9 >= 2)
-      {
-        v11 = v9 >> 1;
-        do
-        {
-          v12 = *v4 & 0x8080808080808080;
-          if (v12 != 0x8080808080808080)
-          {
-            v13 = v12 ^ 0x8080808080808080;
-            do
-            {
-              v14 = v3 + 24 * (__clz(__rbit64(v13)) >> 3);
-              if (*(v14 + 23) < 0)
-              {
-                operator delete(*v14);
-              }
-
-              --v11;
-              v13 &= v13 - 1;
-            }
-
-            while (v13);
-          }
-
-          ++v4;
-          v3 += 192;
-        }
-
-        while (v11);
-      }
-    }
-
-    else
-    {
-      v5 = *(v4 + v2) & 0x8080808080808080;
-      if (v5 != 0x8080808080808080)
-      {
-        v6 = v3 - 24;
-        v7 = v5 ^ 0x8080808080808080;
-        do
-        {
-          v8 = v6 + 24 * (__clz(__rbit64(v7)) >> 3);
-          if (*(v8 + 23) < 0)
-          {
-            operator delete(*v8);
-          }
-
-          v7 &= v7 - 1;
-        }
-
-        while (v7);
-      }
-    }
-
-    operator delete((a1[2] - (a1[1] & 1) - 8));
-  }
-
-  return a1;
-}
-
-uint64_t google::protobuf::Symbol::full_name(unsigned __int8 **this)
-{
-  v3 = *this;
-  v4 = **this;
-  if (v4 <= 4)
-  {
-    if (**this > 2u)
-    {
-      if (v4 == 3)
-      {
-        v8 = *(v3 + 1);
-        if ((*(v8 + 47) & 0x8000000000000000) == 0)
-        {
-          return v8 + 24;
-        }
-      }
-
-      else
-      {
-        if (v4 != 4)
-        {
-          goto LABEL_36;
-        }
-
-        v8 = *(v3 + 1);
-        if ((*(v8 + 47) & 0x8000000000000000) == 0)
-        {
-          return v8 + 24;
-        }
-      }
-    }
-
-    else if (v4 == 1)
-    {
-      v8 = *(v3 + 1);
-      if ((*(v8 + 47) & 0x8000000000000000) == 0)
-      {
-        return v8 + 24;
-      }
-    }
-
-    else
-    {
-      if (v4 != 2)
-      {
-        goto LABEL_36;
-      }
-
-      v8 = *(v3 + 1);
-      if ((*(v8 + 47) & 0x8000000000000000) == 0)
-      {
-        return v8 + 24;
-      }
-    }
-
-    goto LABEL_31;
-  }
-
-  if (**this <= 7u)
-  {
-    if (v4 == 5)
-    {
-      v8 = *(v3 + 1);
-      if ((*(v8 + 47) & 0x8000000000000000) == 0)
-      {
-        return v8 + 24;
-      }
-    }
-
-    else
-    {
-      if (v4 != 7)
-      {
-        goto LABEL_36;
-      }
-
-      v8 = *(v3 + 1);
-      if ((*(v8 + 47) & 0x8000000000000000) == 0)
-      {
-        return v8 + 24;
-      }
-    }
-
-LABEL_31:
-    result = *(v8 + 24);
-    v9 = *(v8 + 32);
-    return result;
-  }
-
-  if (v4 == 8)
-  {
-    v8 = *(v3 + 1);
-    if ((*(v8 + 47) & 0x8000000000000000) == 0)
-    {
-      return v8 + 24;
-    }
-
-    goto LABEL_31;
-  }
-
-  if (v4 != 9)
-  {
-    if (v4 == 10)
-    {
-      result = *(*(v3 + 1) + 16);
-      v6 = *(result + 23);
-      if ((v6 & 0x8000000000000000) != 0)
-      {
-        result = *result;
-        *(*(*(v3 + 1) + 16) + 8);
-        *(v3 + 1);
-      }
-
-      else if (v6 < *(v3 + 1))
-      {
-        v7 = *(result + 23);
-      }
-
-      return result;
-    }
-
-LABEL_36:
-    v11[2] = v1;
-    v11[3] = v2;
-    google::protobuf::DescriptorPool::Tables::RollbackToLastCheckpoint(v11);
-  }
-
-  result = *(v3 + 2);
-  if ((*(result + 23) & 0x8000000000000000) != 0)
-  {
-    result = *result;
-    v10 = *(*(v3 + 2) + 8);
-  }
-
-  return result;
 }

@@ -68,27 +68,27 @@
 - (BOOL)recordMetadataWithSHA256Data:(id)data error:(id *)error
 {
   dataCopy = data;
-  memset(v46, 0, sizeof(v46));
+  memset(v43, 0, sizeof(v43));
   fileHandle = [(MBFileHandleProxy *)self fileHandle];
-  v8 = [fileHandle statWithBuffer:v46 error:error];
+  v8 = [fileHandle statWithBuffer:v43 error:error];
 
   if (!v8)
   {
     goto LABEL_20;
   }
 
-  v45 = 0;
-  v43 = 0u;
-  v44 = 0u;
+  v42 = 0;
+  v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
-  if (!MBBackwardsCompatibleMBNodeFromStat(v46, &v41, error))
+  v38 = 0u;
+  v39 = 0u;
+  if (!MBBackwardsCompatibleMBNodeFromStat(v43, &v38, error))
   {
     goto LABEL_20;
   }
 
-  [(MBFile *)self->_file setNode:&v41];
-  if (self->_shouldCheckForModifications && [(MBBackupFileHandle *)self _isModifiedSince:*(&v42 + 1) error:error])
+  [(MBFile *)self->_file setNode:&v38];
+  if (self->_shouldCheckForModifications && [(MBBackupFileHandle *)self _isModifiedSince:*(&v39 + 1) error:error])
   {
     goto LABEL_20;
   }
@@ -113,27 +113,16 @@
   fileHandle2 = [(MBFileHandleProxy *)self fileHandle];
   -[MBFile setProtectionClass:](self->_file, "setProtectionClass:", +[MBProtectionClassUtils getWithFD:error:](MBProtectionClassUtils, "getWithFD:error:", [fileHandle2 fd], error));
 
-  if ([(MBFile *)self->_file protectionClass]== 255)
-  {
-    goto LABEL_20;
-  }
-
-  fileHandle3 = [(MBFileHandleProxy *)self fileHandle];
-  v14 = +[MBExtendedAttributes attributesForFD:error:](MBExtendedAttributes, "attributesForFD:error:", [fileHandle3 fd], error);
-  [(MBFile *)self->_file setExtendedAttributes:v14];
-
-  extendedAttributes = [(MBFile *)self->_file extendedAttributes];
-
-  if (!extendedAttributes)
+  if (-[MBFile protectionClass](self->_file, "protectionClass") == 255 || (-[MBFileHandleProxy fileHandle](self, "fileHandle"), v13 = objc_claimAutoreleasedReturnValue(), +[MBExtendedAttributes attributesForFD:error:](MBExtendedAttributes, "attributesForFD:error:", [v13 fd], error), v14 = objc_claimAutoreleasedReturnValue(), -[MBFile setExtendedAttributes:](self->_file, "setExtendedAttributes:", v14), v14, v13, -[MBFile extendedAttributes](self->_file, "extendedAttributes"), v15 = objc_claimAutoreleasedReturnValue(), v15, !v15))
   {
 LABEL_20:
-    v34 = 0;
+    v36 = 0;
   }
 
   else
   {
-    extendedAttributes2 = [(MBFile *)self->_file extendedAttributes];
-    v17 = [MBExtendedAttributes sizeOfAttributes:extendedAttributes2];
+    extendedAttributes = [(MBFile *)self->_file extendedAttributes];
+    v17 = [MBExtendedAttributes sizeOfAttributes:extendedAttributes];
 
     if (v17 >= 0x801)
     {
@@ -142,17 +131,15 @@ LABEL_20:
       {
         absolutePath = [(MBFile *)self->_file absolutePath];
         *buf = 134218498;
-        v48 = v17;
-        v49 = 1024;
-        *v50 = 2048;
-        *&v50[4] = 2112;
-        *&v50[6] = absolutePath;
+        v45 = v17;
+        v46 = 1024;
+        *v47 = 2048;
+        *&v47[4] = 2112;
+        *&v47[6] = absolutePath;
         _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Extended attributes size greater than supported (%lu > %d): %@", buf, 0x1Cu);
 
-        [(MBFile *)self->_file absolutePath];
-        v38 = v37 = 2048;
-        v36 = v17;
-        _MBLog();
+        absolutePath2 = [(MBFile *)self->_file absolutePath];
+        _MBLog(@"Df", "Extended attributes size greater than supported (%lu > %d): %@", v17, 2048, absolutePath2);
       }
 
       [(MBFile *)self->_file setExtendedAttributes:&__NSDictionary0__struct];
@@ -160,48 +147,44 @@ LABEL_20:
 
     if (MBIsInternalInstall())
     {
-      v20 = HIDWORD(v41);
-      v21 = MBGetDefaultLog();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v21 = HIDWORD(v38);
+      v22 = MBGetDefaultLog();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         domain2 = [(MBFile *)self->_file domain];
         relativePath = [(MBFile *)self->_file relativePath];
-        v24 = MBNodeAsString(&v41);
-        v25 = (v20 >> 30) & 1;
+        v25 = MBNodeAsString(&v38);
+        v26 = (v21 >> 30) & 1;
         snapshotManifestDB = [(MBDriveBackupEngine *)self->_engine snapshotManifestDB];
         path = [snapshotManifestDB path];
         *buf = 138413314;
-        v48 = domain2;
-        v49 = 2112;
-        *v50 = relativePath;
-        *&v50[8] = 2112;
-        *&v50[10] = v24;
-        v51 = 1024;
-        v52 = v25;
-        v53 = 2112;
-        v54 = path;
-        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Adding file %@:%@ with mbNode %@ (dataless:%d) to manifest at %@", buf, 0x30u);
+        v45 = domain2;
+        v46 = 2112;
+        *v47 = relativePath;
+        *&v47[8] = 2112;
+        *&v47[10] = v25;
+        v48 = 1024;
+        v49 = v26;
+        v50 = 2112;
+        v51 = path;
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Adding file %@:%@ with mbNode %@ (dataless:%d) to manifest at %@", buf, 0x30u);
 
         domain3 = [(MBFile *)self->_file domain];
         relativePath2 = [(MBFile *)self->_file relativePath];
-        v30 = MBNodeAsString(&v41);
+        v31 = MBNodeAsString(&v38);
         snapshotManifestDB2 = [(MBDriveBackupEngine *)self->_engine snapshotManifestDB];
-        [snapshotManifestDB2 path];
-        v40 = v39 = v25;
-        v37 = relativePath2;
-        v38 = v30;
-        v36 = domain3;
-        _MBLog();
+        path2 = [snapshotManifestDB2 path];
+        _MBLog(@"Df", "Adding file %@:%@ with mbNode %@ (dataless:%d) to manifest at %@", domain3, relativePath2, v31, v26, path2);
       }
     }
 
-    v32 = [(MBDriveBackupEngine *)self->_engine snapshotManifestDB:v36];
-    v33 = [v32 addFile:self->_file flags:0];
+    snapshotManifestDB3 = [(MBDriveBackupEngine *)self->_engine snapshotManifestDB];
+    v35 = [snapshotManifestDB3 addFile:self->_file flags:0];
 
-    v34 = 1;
+    v36 = 1;
   }
 
-  return v34;
+  return v36;
 }
 
 - (int64_t)readWithBytes:(void *)bytes length:(unint64_t)length error:(id *)error
@@ -310,7 +293,7 @@ LABEL_20:
       v30 = ;
       fileID2 = [(MBFile *)self->_file fileID];
       string2 = [fileID2 string];
-      _MBLog();
+      _MBLog(@"Db", "Uploaded: %@ for %@ (%{bytes}llu at %{bytes}llu/s)", v30, string2, v21, (v21 / (v19 - startTime)));
     }
   }
 

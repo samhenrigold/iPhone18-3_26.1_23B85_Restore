@@ -19,8 +19,9 @@
 
 - (BOOL)hasCompletedSetup
 {
-  v10 = *MEMORY[0x1E69E9840];
-  if (SetupAssistantLibraryCore() && SetupAssistantLibraryCore() && getBYSetupAssistantNeedsToRunSymbolLoc())
+  v11 = *MEMORY[0x1E69E9840];
+  v2 = SetupAssistantLibraryCore(0);
+  if (v2 && (v2 = SetupAssistantLibraryCore(0)) != 0 && (v2 = getBYSetupAssistantNeedsToRunSymbolLoc()) != 0)
   {
     BYSetupAssistantNeedsToRunSymbolLoc = getBYSetupAssistantNeedsToRunSymbolLoc();
     if (!BYSetupAssistantNeedsToRunSymbolLoc)
@@ -28,30 +29,30 @@
       +[LACSharingManager isSharingError:];
     }
 
-    v3 = BYSetupAssistantNeedsToRunSymbolLoc() ^ 1;
-    v4 = LACLogDefault();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v4 = BYSetupAssistantNeedsToRunSymbolLoc();
+    v5 = v4 ^ 1;
+    v6 = LACLogDefault(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = [MEMORY[0x1E696AD98] numberWithBool:v3];
-      v8 = 138412290;
-      v9 = v5;
-      _os_log_impl(&dword_1B0233000, v4, OS_LOG_TYPE_DEFAULT, "hasCompletedSetup: %@", &v8, 0xCu);
+      v7 = [MEMORY[0x1E696AD98] numberWithBool:v5];
+      v9 = 138412290;
+      v10 = v7;
+      _os_log_impl(&dword_1B0233000, v6, OS_LOG_TYPE_DEFAULT, "hasCompletedSetup: %@", &v9, 0xCu);
     }
   }
 
   else
   {
-    v4 = LACLogDefault();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = LACLogDefault(v2);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [(LACSetUpStateProvider *)v4 hasCompletedSetup];
+      [(LACSetUpStateProvider *)v6 hasCompletedSetup];
     }
 
-    LOBYTE(v3) = 0;
+    LOBYTE(v5) = 0;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-  return v3;
+  return v5;
 }
 
 uint64_t __39__LACSetUpStateProvider_sharedInstance__block_invoke()

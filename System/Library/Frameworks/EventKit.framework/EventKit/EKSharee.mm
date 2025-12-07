@@ -11,6 +11,8 @@
 + (id)statusStringFromEnum:(unint64_t)enum;
 + (int)_calShareeAccessLevelFromEKShareeAccessLevel:(unint64_t)level;
 + (int)_calShareeStatusFromEKShareeStatus:(unint64_t)status;
++ (unint64_t)_ekShareeAccessLevelFromCalShareeAccessLevel:(int)level;
++ (unint64_t)_ekShareeStatusFromCalShareeStatus:(int)status;
 + (unint64_t)statusEnumFromString:(id)string;
 - (BOOL)isCurrentUserForSharing;
 - (BOOL)isEqualToSharee:(id)sharee;
@@ -32,7 +34,10 @@
 - (void)setEmailAddress:(id)address;
 - (void)setPhoneNumber:(id)number;
 - (void)setShareeAccessLevel:(unint64_t)level;
+- (void)setShareeAccessLevelRaw:(int)raw;
+- (void)setShareeMuteRemoval:(BOOL)removal;
 - (void)setShareeStatus:(unint64_t)status;
+- (void)setShareeStatusRaw:(int)raw;
 @end
 
 @implementation EKSharee
@@ -85,13 +90,11 @@
 
 void __42__EKSharee_knownIdentityKeysForComparison__block_invoke()
 {
-  v3[1] = *MEMORY[0x1E69E9840];
-  v3[0] = *MEMORY[0x1E6992B08];
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:1];
+  v2[1] = *MEMORY[0x1E69E9840];
+  v2[0] = *MEMORY[0x1E6992B08];
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:1];
   v1 = knownIdentityKeysForComparison_keys_9;
   knownIdentityKeysForComparison_keys_9 = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (id)knownSingleValueKeysForComparison
@@ -108,21 +111,19 @@ void __42__EKSharee_knownIdentityKeysForComparison__block_invoke()
 
 void __45__EKSharee_knownSingleValueKeysForComparison__block_invoke()
 {
-  v6[6] = *MEMORY[0x1E69E9840];
+  v5[6] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E6992C78];
-  v6[0] = *MEMORY[0x1E6992C70];
-  v6[1] = v0;
+  v5[0] = *MEMORY[0x1E6992C70];
+  v5[1] = v0;
   v1 = *MEMORY[0x1E6992C88];
-  v6[2] = *MEMORY[0x1E6992C80];
-  v6[3] = v1;
+  v5[2] = *MEMORY[0x1E6992C80];
+  v5[3] = v1;
   v2 = *MEMORY[0x1E6992C98];
-  v6[4] = *MEMORY[0x1E6992C68];
-  v6[5] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:6];
+  v5[4] = *MEMORY[0x1E6992C68];
+  v5[5] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:6];
   v4 = knownSingleValueKeysForComparison_keys_8;
   knownSingleValueKeysForComparison_keys_8 = v3;
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (id)shareeWithName:(id)name emailAddress:(id)address
@@ -293,6 +294,23 @@ LABEL_6:
   return v8;
 }
 
++ (unint64_t)_ekShareeStatusFromCalShareeStatus:(int)status
+{
+  v3 = *&status;
+  if (status < 6)
+  {
+    return status;
+  }
+
+  v5 = EKLogHandle;
+  if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
+  {
+    [(EKSharee *)v3 _ekShareeStatusFromCalShareeStatus:v5, v6, v7, v8, v9, v10, v11];
+  }
+
+  return 0;
+}
+
 + (int)_calShareeStatusFromEKShareeStatus:(unint64_t)status
 {
   if (status < 7)
@@ -309,6 +327,23 @@ LABEL_6:
   }
 
   return result;
+}
+
++ (unint64_t)_ekShareeAccessLevelFromCalShareeAccessLevel:(int)level
+{
+  v3 = *&level;
+  if (level < 4)
+  {
+    return level;
+  }
+
+  v5 = EKLogHandle;
+  if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
+  {
+    [(EKSharee *)v3 _ekShareeAccessLevelFromCalShareeAccessLevel:v5, v6, v7, v8, v9, v10, v11];
+  }
+
+  return 0;
 }
 
 + (int)_calShareeAccessLevelFromEKShareeAccessLevel:(unint64_t)level
@@ -408,6 +443,12 @@ LABEL_6:
   return integerValue;
 }
 
+- (void)setShareeStatusRaw:(int)raw
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithInt:*&raw];
+  [(EKObject *)self setSingleChangedValue:v4 forKey:*MEMORY[0x1E6992C98]];
+}
+
 - (unint64_t)shareeStatus
 {
   shareeStatusRaw = [(EKSharee *)self shareeStatusRaw];
@@ -429,6 +470,12 @@ LABEL_6:
   integerValue = [v2 integerValue];
 
   return integerValue;
+}
+
+- (void)setShareeAccessLevelRaw:(int)raw
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithInt:*&raw];
+  [(EKObject *)self setSingleChangedValue:v4 forKey:*MEMORY[0x1E6992C68]];
 }
 
 - (unint64_t)shareeAccessLevel
@@ -454,6 +501,12 @@ LABEL_6:
   return bOOLValue;
 }
 
+- (void)setShareeMuteRemoval:(BOOL)removal
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:removal];
+  [(EKObject *)self setSingleChangedValue:v4 forKey:*MEMORY[0x1E6992C90]];
+}
+
 - (id)existingContact
 {
   defaultProvider = [MEMORY[0x1E6992F50] defaultProvider];
@@ -467,29 +520,29 @@ LABEL_6:
 
 - (BOOL)isCurrentUserForSharing
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   owner = [(EKSharee *)self owner];
   sharedOwnerAddresses = [owner sharedOwnerAddresses];
 
-  v5 = [sharedOwnerAddresses countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [sharedOwnerAddresses countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(sharedOwnerAddresses);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         address = [(EKSharee *)self address];
         LOBYTE(v9) = [v9 isEqualToString:address];
 
@@ -500,7 +553,7 @@ LABEL_6:
         }
       }
 
-      v6 = [sharedOwnerAddresses countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [sharedOwnerAddresses countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -513,7 +566,6 @@ LABEL_6:
   v11 = 0;
 LABEL_11:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -622,30 +674,30 @@ LABEL_11:
 
 + (void)_ekShareeStatusFromCalShareeStatus:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1A805E000, a2, a3, "Unexpected CalShareeStatus: %d", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_0(&dword_1A805E000, a2, a3, "Unexpected CalShareeStatus: %d", a5, a6, a7, a8, v8);
 }
 
 + (void)_calShareeStatusFromEKShareeStatus:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1A805E000, a2, a3, "Unexpected EKShareeStatus: %d", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_0(&dword_1A805E000, a2, a3, "Unexpected EKShareeStatus: %d", a5, a6, a7, a8, v8);
 }
 
 + (void)_ekShareeAccessLevelFromCalShareeAccessLevel:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1A805E000, a2, a3, "Unexpected CalShareeAccessLevel: %d", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_0(&dword_1A805E000, a2, a3, "Unexpected CalShareeAccessLevel: %d", a5, a6, a7, a8, v8);
 }
 
 + (void)_calShareeAccessLevelFromEKShareeAccessLevel:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1A805E000, a2, a3, "Unexpected EKShareeAccessLevel: %d", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_0(&dword_1A805E000, a2, a3, "Unexpected EKShareeAccessLevel: %d", a5, a6, a7, a8, v8);
 }
 
 @end

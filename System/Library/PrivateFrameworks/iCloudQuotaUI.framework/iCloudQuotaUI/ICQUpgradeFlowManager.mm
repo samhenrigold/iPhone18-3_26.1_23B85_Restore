@@ -2743,68 +2743,68 @@ void __44__ICQUpgradeFlowManager__simulateDoneButton__block_invoke(uint64_t a1)
   else
   {
     *buf = 0;
-    v18 = buf;
-    v19 = 0x3032000000;
-    v20 = __Block_byref_object_copy_;
-    v21 = __Block_byref_object_dispose_;
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x2050000000;
+    v19 = buf;
+    v20 = 0x3032000000;
+    v21 = __Block_byref_object_copy_;
+    v22 = __Block_byref_object_dispose_;
+    v29 = 0;
+    v30 = &v29;
+    v31 = 0x2050000000;
     v4 = getFACircleStateControllerClass_softClass;
-    v31 = getFACircleStateControllerClass_softClass;
+    v32 = getFACircleStateControllerClass_softClass;
     if (!getFACircleStateControllerClass_softClass)
     {
-      *v23 = MEMORY[0x277D85DD0];
-      v24 = 3221225472;
-      v25 = __getFACircleStateControllerClass_block_invoke;
-      v26 = &unk_27A65A9F8;
-      v27 = &v28;
-      __getFACircleStateControllerClass_block_invoke(v23);
-      v4 = v29[3];
+      *v24 = MEMORY[0x277D85DD0];
+      v25 = 3221225472;
+      v26 = __getFACircleStateControllerClass_block_invoke;
+      v27 = &unk_27A65A9F8;
+      v28 = &v29;
+      __getFACircleStateControllerClass_block_invoke(v24);
+      v4 = v30[3];
     }
 
     v5 = v4;
-    _Block_object_dispose(&v28, 8);
-    v22 = [[v4 alloc] initWithPresenter:self->_hostingNavigationController];
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x2050000000;
+    _Block_object_dispose(&v29, 8);
+    v23 = [[v4 alloc] initWithPresenter:self->_hostingNavigationController];
+    v29 = 0;
+    v30 = &v29;
+    v31 = 0x2050000000;
     v6 = getFACircleContextClass_softClass;
-    v31 = getFACircleContextClass_softClass;
+    v32 = getFACircleContextClass_softClass;
     if (!getFACircleContextClass_softClass)
     {
-      *v23 = MEMORY[0x277D85DD0];
-      v24 = 3221225472;
-      v25 = __getFACircleContextClass_block_invoke;
-      v26 = &unk_27A65A9F8;
-      v27 = &v28;
-      __getFACircleContextClass_block_invoke(v23);
-      v6 = v29[3];
+      *v24 = MEMORY[0x277D85DD0];
+      v25 = 3221225472;
+      v26 = __getFACircleContextClass_block_invoke;
+      v27 = &unk_27A65A9F8;
+      v28 = &v29;
+      __getFACircleContextClass_block_invoke(v24);
+      v6 = v30[3];
     }
 
     v7 = v6;
-    _Block_object_dispose(&v28, 8);
+    _Block_object_dispose(&v29, 8);
     v8 = [v6 alloc];
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x2020000000;
+    v29 = 0;
+    v30 = &v29;
+    v31 = 0x2020000000;
     v9 = getFACircleEventTypeInitiateSymbolLoc_ptr;
-    v31 = getFACircleEventTypeInitiateSymbolLoc_ptr;
+    v32 = getFACircleEventTypeInitiateSymbolLoc_ptr;
     if (!getFACircleEventTypeInitiateSymbolLoc_ptr)
     {
-      *v23 = MEMORY[0x277D85DD0];
-      v24 = 3221225472;
-      v25 = __getFACircleEventTypeInitiateSymbolLoc_block_invoke;
-      v26 = &unk_27A65A9F8;
-      v27 = &v28;
+      *v24 = MEMORY[0x277D85DD0];
+      v25 = 3221225472;
+      v26 = __getFACircleEventTypeInitiateSymbolLoc_block_invoke;
+      v27 = &unk_27A65A9F8;
+      v28 = &v29;
       v10 = FamilyCircleUILibrary();
       v11 = dlsym(v10, "FACircleEventTypeInitiate");
-      *(v27[1] + 24) = v11;
-      getFACircleEventTypeInitiateSymbolLoc_ptr = *(v27[1] + 24);
-      v9 = v29[3];
+      *(v28[1] + 24) = v11;
+      getFACircleEventTypeInitiateSymbolLoc_ptr = *(v28[1] + 24);
+      v9 = v30[3];
     }
 
-    _Block_object_dispose(&v28, 8);
+    _Block_object_dispose(&v29, 8);
     if (v9)
     {
       v12 = *v9;
@@ -2814,26 +2814,26 @@ void __44__ICQUpgradeFlowManager__simulateDoneButton__block_invoke(uint64_t a1)
       v14 = _ICQGetLogSystem();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        *v23 = 0;
-        _os_log_impl(&dword_275623000, v14, OS_LOG_TYPE_DEFAULT, "Initiating Family setup flow", v23, 2u);
+        *v24 = 0;
+        _os_log_impl(&dword_275623000, v14, OS_LOG_TYPE_DEFAULT, "Initiating Family setup flow", v24, 2u);
       }
 
-      v15 = *(v18 + 5);
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __49__ICQUpgradeFlowManager__initiateFamilySetupFlow__block_invoke;
-      v16[3] = &unk_27A65A958;
-      v16[4] = self;
-      v16[5] = buf;
-      [v15 performOperationWithContext:v13 completion:v16];
+      v15 = *(v19 + 5);
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __49__ICQUpgradeFlowManager__initiateFamilySetupFlow__block_invoke;
+      v17[3] = &unk_27A65A958;
+      v17[4] = self;
+      v17[5] = buf;
+      [v15 performOperationWithContext:v13 completion:v17];
 
       _Block_object_dispose(buf, 8);
     }
 
     else
     {
-      dlerror();
-      abort_report_np();
+      v16 = dlerror();
+      abort_report_np("%s", v16);
       __break(1u);
     }
   }
@@ -3800,17 +3800,23 @@ LABEL_12:
 
 - (void)_presentLiftUIUsingViewController:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v2 = [a2 serverUIURL];
+  v2 = a1;
+  v3 = [a2 serverUIURL];
+  LODWORD(v10) = 67109378;
+  HIDWORD(v10) = v2;
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1(&dword_275623000, v3, v4, "SIGNPOST BEGIN [id: %hu]: UpsellLoadLiftUI  enableTelemetry=YES URL: %@", v5, v6, v7, v8, 2u);
+  OUTLINED_FUNCTION_1(&dword_275623000, v4, v5, "SIGNPOST BEGIN [id: %hu]: UpsellLoadLiftUI  enableTelemetry=YES URL: %@", v6, v7, v8, v9, v10);
 }
 
 - (void)_presentRemoteViewWithData:(uint64_t)a1 andRequest:(void *)a2 .cold.1(uint64_t a1, void *a2)
 {
-  v2 = [a2 offer];
-  v3 = [v2 remoteUIURL];
+  v2 = a1;
+  v3 = [a2 offer];
+  v4 = [v3 remoteUIURL];
+  LODWORD(v11) = 67109378;
+  HIDWORD(v11) = v2;
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1(&dword_275623000, v4, v5, "SIGNPOST BEGIN [id: %hu]: UpsellLoadRemoteUI  enableTelemetry=YES URL: %@", v6, v7, v8, v9, 2u);
+  OUTLINED_FUNCTION_1(&dword_275623000, v5, v6, "SIGNPOST BEGIN [id: %hu]: UpsellLoadRemoteUI  enableTelemetry=YES URL: %@", v7, v8, v9, v10, v11);
 }
 
 - (void)initWithJourneyId:(NSObject *)a3 params:.cold.1(uint64_t a1, uint64_t a2, NSObject *a3)

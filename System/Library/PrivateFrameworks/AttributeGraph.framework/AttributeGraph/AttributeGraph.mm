@@ -98,7 +98,7 @@ AG::Graph *AG::Graph::Graph(AG::Graph *this)
   v3 = v2 + 1;
   if (*(this + 25) < v2 + 1)
   {
-    AG::vector<std::pair<unsigned int,BOOL>,0ul,unsigned int>::reserve_slow(this + 88, v3);
+    AG::vector<std::pair<unsigned int,BOOL>,0ul,unsigned int>::reserve_slow(this + 11, v3);
     v2 = *(this + 24);
     v3 = v2 + 1;
   }
@@ -114,7 +114,7 @@ AG::Graph *AG::Graph::Graph(AG::Graph *this)
 
   if (dword_1ED56CDFC || xmmword_1ED56CE08)
   {
-    AG::Graph::start_tracing(this, dword_1ED56CDFC);
+    AG::Graph::start_tracing(this, dword_1ED56CDFC, qword_1ED56CE00, xmmword_1ED56CE08);
   }
 
   if (_ZZN2AG5GraphC1EvEDC14profiler_flags11trace_flags16trace_subsystemsE)
@@ -164,7 +164,7 @@ void sub_1B490C898(_Unwind_Exception *a1)
     free(*v5);
   }
 
-  util::UntypedTable::~UntypedTable((v2 + 16));
+  util::UntypedTable::~UntypedTable((v2 + 2));
   AG::vector<std::unique_ptr<AG::AttributeType,AG::AttributeType::deleter>,0ul,unsigned int>::~vector(v2);
   util::UntypedTable::~UntypedTable((v1 + 3));
   _Unwind_Resume(a1);
@@ -266,19 +266,19 @@ uint64_t util::UntypedTable::UntypedTable(uint64_t this, unint64_t (*a2)(util *t
   return this;
 }
 
-void *AG::vector<std::pair<unsigned int,BOOL>,0ul,unsigned int>::reserve_slow(uint64_t a1, unsigned int a2)
+void *AG::vector<std::pair<unsigned int,BOOL>,0ul,unsigned int>::reserve_slow(void **a1, unsigned int a2)
 {
-  if (*(a1 + 12) + (*(a1 + 12) >> 1) <= a2)
+  if (*(a1 + 3) + (*(a1 + 3) >> 1) <= a2)
   {
     v3 = a2;
   }
 
   else
   {
-    v3 = *(a1 + 12) + (*(a1 + 12) >> 1);
+    v3 = *(a1 + 3) + (*(a1 + 3) >> 1);
   }
 
-  result = AG::details::realloc_vector<unsigned int,8ul>(*a1, (a1 + 12), v3);
+  result = AG::details::realloc_vector<unsigned int,8ul>(*a1, a1 + 3, v3);
   *a1 = result;
   return result;
 }
@@ -525,15 +525,15 @@ LABEL_24:
     }
 
     v11 = v18;
-    v12 = v18 + 1;
+    v12 = (v18 + 1);
     if (*(&v18 + 1) < (v18 + 1))
     {
       AG::vector<std::unique_ptr<char const,util::free_deleter>,0ul,unsigned long>::reserve_slow(&v17, v12);
       v11 = v18;
-      v12 = v18 + 1;
+      v12 = (v18 + 1);
     }
 
-    *(v17 + 8 * v11) = v10;
+    v17[v11] = v10;
     *&v18 = v12;
 LABEL_25:
     v14 = &v8[v9];
@@ -590,7 +590,7 @@ uint64_t AGGraphTraceEventEnabled(uint64_t a1, const char *a2)
   return result;
 }
 
-unint64_t AG::Subgraph::Subgraph(unint64_t a1, uint64_t a2, int64x2_t **a3, unsigned int a4)
+unint64_t AG::Subgraph::Subgraph(unint64_t a1, uint64_t a2, uint64_t *a3, unsigned int a4)
 {
   return AG::Subgraph::Subgraph(a1, a2, a3, a4);
 }
@@ -616,19 +616,19 @@ unint64_t AG::Subgraph::Subgraph(unint64_t a1, uint64_t a2, int64x2_t **a3, unsi
     v7 = MEMORY[0x29];
   }
 
-  v8 = v7[18].i64[1];
-  v9 = v7[19].u32[0];
+  v8 = *(v7 + 296);
+  v9 = *(v7 + 304);
   v10 = v8;
   if (v9)
   {
-    v10 = v7[18].i64[1];
-    v11 = v7[19].u32[0];
+    v10 = *(v7 + 296);
+    v11 = *(v7 + 304);
     do
     {
       v12 = v11 >> 1;
-      v13 = (v10 + 8 * (v11 >> 1));
+      v13 = &v10[8 * (v11 >> 1)];
       v15 = *v13;
-      v14 = v13 + 1;
+      v14 = (v13 + 1);
       v11 += ~(v11 >> 1);
       if (v15 < a1)
       {
@@ -644,32 +644,32 @@ unint64_t AG::Subgraph::Subgraph(unint64_t a1, uint64_t a2, int64x2_t **a3, unsi
     while (v11);
   }
 
-  v16 = v7[18].i64[1];
-  if (v7[19].i32[1] < v9 + 1)
+  v16 = *(v7 + 296);
+  if (*(v7 + 308) < v9 + 1)
   {
-    AG::vector<std::pair<unsigned int,BOOL>,0ul,unsigned int>::reserve_slow(&v7[18].i64[1], v9 + 1);
-    v16 = v7[18].i64[1];
-    v9 = v7[19].u32[0];
+    AG::vector<std::pair<unsigned int,BOOL>,0ul,unsigned int>::reserve_slow((v7 + 296), v9 + 1);
+    v16 = *(v7 + 296);
+    v9 = *(v7 + 304);
   }
 
   v17 = v10 - v8;
   if (v9 > (v17 >> 3))
   {
     memmove((v16 + v17 + 8), (v16 + v17), 8 * (v9 - (v17 >> 3)));
-    v9 = v7[19].u32[0];
+    v9 = *(v7 + 304);
   }
 
   *(v16 + v17) = a1;
-  v7[19].i32[0] = v9 + 1;
-  v18 = vaddq_s64(v7[14], vdupq_n_s64(1uLL));
-  v7[14] = v18;
-  v19 = v7[15].u64[0];
+  *(v7 + 304) = v9 + 1;
+  v18 = vaddq_s64(*(v7 + 224), vdupq_n_s64(1uLL));
+  *(v7 + 224) = v18;
+  v19 = *(v7 + 240);
   if (v19 <= v18.i64[0])
   {
     v19 = v18.i64[0];
   }
 
-  v7[15].i64[0] = v19;
+  *(v7 + 240) = v19;
   if (AGSubgraphShouldRecordTree())
   {
     if (a4 <= 3)
@@ -713,12 +713,12 @@ unint64_t AG::Subgraph::Subgraph(unint64_t a1, uint64_t a2, int64x2_t **a3, unsi
   }
 
   v29 = *a3;
-  v30 = v29[11].u32[0];
+  v30 = *(v29 + 176);
   if (v30)
   {
     for (i = 8 * v30 - 8; i != -8; i -= 8)
     {
-      v33 = *(v29[10].i64[1] + i);
+      v33 = *(*(v29 + 168) + i);
       (*(*v33 + 184))(v33, a1);
     }
   }
@@ -726,22 +726,22 @@ unint64_t AG::Subgraph::Subgraph(unint64_t a1, uint64_t a2, int64x2_t **a3, unsi
   return a1;
 }
 
-uint64_t Attribute.init<A>(body:value:flags:update:)(void *a1, unint64_t a2)
+uint64_t Attribute.init<A>(body:value:flags:update:)(void *a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   CurrentGraphContext = AGSubgraphGetCurrentGraphContext();
   if (CurrentGraphContext)
   {
-    v5 = MEMORY[0x1EEE9AC00](CurrentGraphContext);
-    v7 = AGGraphInternAttributeType(v5, v6, sub_1B490E54C);
-    return AGGraphCreateAttribute(v7, a1, a2);
+    MEMORY[0x1EEE9AC00](CurrentGraphContext);
+    v12 = AGGraphInternAttributeType(v10, v11, sub_1B490E54C);
+    return AGGraphCreateAttribute(v12, a1, a2, v13, v14, v15);
   }
 
   else
   {
     sub_1B4949C18();
     MEMORY[0x1B8C7A8D0](0xD000000000000031, 0x80000001B494E940);
-    v9 = sub_1B4949D68();
-    MEMORY[0x1B8C7A8D0](v9);
+    v17 = sub_1B4949D68();
+    MEMORY[0x1B8C7A8D0](v17);
 
     result = sub_1B4949C28();
     __break(1u);
@@ -850,19 +850,19 @@ uint64_t AGGraphRegisterNamedTraceEvent(const char *a1, char *a2)
   return v5;
 }
 
-void *AG::vector<std::pair<unsigned char *,unsigned int>,0ul,unsigned int>::reserve_slow(uint64_t a1, unsigned int a2)
+void *AG::vector<std::pair<unsigned char *,unsigned int>,0ul,unsigned int>::reserve_slow(void **a1, unsigned int a2)
 {
-  if (*(a1 + 12) + (*(a1 + 12) >> 1) <= a2)
+  if (*(a1 + 3) + (*(a1 + 3) >> 1) <= a2)
   {
     v3 = a2;
   }
 
   else
   {
-    v3 = *(a1 + 12) + (*(a1 + 12) >> 1);
+    v3 = *(a1 + 3) + (*(a1 + 3) >> 1);
   }
 
-  result = AG::details::realloc_vector<unsigned int,16ul>(*a1, (a1 + 12), v3);
+  result = AG::details::realloc_vector<unsigned int,16ul>(*a1, a1 + 3, v3);
   *a1 = result;
   return result;
 }
@@ -930,7 +930,7 @@ void sub_1B490DB2C(_Unwind_Exception *a1)
 
 uint64_t AG::Graph::intern_type(uint64_t a1, void *a2, uint64_t (*a3)(void))
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v6 = util::UntypedTable::lookup((a1 + 24), a2, 0);
   if (!v6)
   {
@@ -952,14 +952,14 @@ uint64_t AG::Graph::intern_type(uint64_t a1, void *a2, uint64_t (*a3)(void))
     }
 
     *(v7 + 44) = (v11 + 28) & ~v11;
-    if ((atomic_load_explicit(&qword_1ED56D3A0, memory_order_acquire) & 1) == 0)
+    if ((atomic_load_explicit(byte_1ED56D3A0, memory_order_acquire) & 1) == 0)
     {
       AG::Graph::intern_type();
     }
 
     if (_MergedGlobals_1 == 1 && !*(v9 + 48))
     {
-      *(v9 + 48) = AG::LayoutDescriptor::fetch(*(v9 + 8), (*(v9 + 40) & 3), -1);
+      *(v9 + 48) = AG::LayoutDescriptor::fetch(*(v9 + 8), (*(v9 + 40) & 3), 0xFFFFFFFFLL);
     }
 
     v6 = *(a1 + 96);
@@ -971,7 +971,7 @@ uint64_t AG::Graph::intern_type(uint64_t a1, void *a2, uint64_t (*a3)(void))
     v12 = *(a1 + 96);
     if (*(a1 + 100) <= v6)
     {
-      AG::vector<std::pair<unsigned int,BOOL>,0ul,unsigned int>::reserve_slow(a1 + 88, v6 + 1);
+      AG::vector<std::pair<unsigned int,BOOL>,0ul,unsigned int>::reserve_slow((a1 + 88), v6 + 1);
       v12 = *(a1 + 96);
     }
 
@@ -987,9 +987,9 @@ uint64_t AG::Graph::intern_type(uint64_t a1, void *a2, uint64_t (*a3)(void))
         v15 = *(*(*(v9 + 8) - 8) + 64);
         v16 = AG::swift::metadata::name(*v9, 0);
         *buf = 67109378;
-        v25 = v15;
-        v26 = 2080;
-        v27 = v16;
+        v24 = v15;
+        v25 = 2080;
+        v26 = v16;
         _os_log_impl(&dword_1B490B000, v14, OS_LOG_TYPE_INFO, "large attribute self: %u bytes, %s", buf, 0x12u);
       }
     }
@@ -1004,17 +1004,16 @@ uint64_t AG::Graph::intern_type(uint64_t a1, void *a2, uint64_t (*a3)(void))
         v20 = AG::swift::metadata::name(*v9, 0);
         v21 = AG::swift::metadata::name(*v18, 0);
         *buf = 67109634;
-        v25 = v19;
-        v26 = 2080;
-        v27 = v20;
-        v28 = 2080;
-        v29 = v21;
+        v24 = v19;
+        v25 = 2080;
+        v26 = v20;
+        v27 = 2080;
+        v28 = v21;
         _os_log_impl(&dword_1B490B000, v17, OS_LOG_TYPE_INFO, "large attribute value: %u bytes, %s -> %s", buf, 0x1Cu);
       }
     }
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -1088,146 +1087,146 @@ uint64_t AG::data::zone::alloc_slow(AG::data::zone *this, unsigned int a2, int a
   return v23 + v16;
 }
 
-uint64_t AG::Graph::add_attribute(AG::Graph *this, AG::Subgraph *a2, unsigned int a3, const void *a4, unint64_t a5)
+uint64_t AG::Graph::add_attribute(AG::Graph *this, AG::Subgraph *a2, unsigned int a3, const void *a4, unsigned __int8 *a5, unsigned int a6)
 {
-  v9 = *(*(this + 11) + 8 * a3);
-  v10 = *(v9 + 40);
-  if ((v10 & 0x10) != 0)
+  v10 = *(*(this + 11) + 8 * a3);
+  v11 = *(v10 + 40);
+  if ((v11 & 0x10) != 0)
   {
-    v11 = this;
+    v12 = this;
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  if (a5 | *(*(*(v9 + 8) - 8) + 64))
+  if (a5 | *(*(*(v10 + 8) - 8) + 64))
   {
-    v12 = a5;
-  }
-
-  else
-  {
-    v12 = v11;
-  }
-
-  v13 = *(*v9 - 8);
-  v14 = *(v13 + 80);
-  v15 = *(v13 + 64);
-  if ((v14 & 0x100000) != 0 || v15 > 0x80)
-  {
-    v16 = AG::data::zone::alloc_persistent(a2, v15);
-    LODWORD(v15) = 8;
-    v17 = 7;
+    v13 = a5;
   }
 
   else
   {
-    v16 = 0;
-    v17 = v14;
+    v13 = v12;
   }
 
-  v18 = (((v17 + 28) & ~v17) + v15);
-  v19 = v17 | 3;
-  if (v18 > 0x10)
+  v14 = *(*v10 - 8);
+  v15 = *(v14 + 80);
+  v16 = *(v14 + 64);
+  if ((v15 & 0x100000) != 0 || v16 > 0x80)
   {
-    v21 = *(a2 + 4);
-    if (v21 && (v22 = (*(AG::data::_shared_table_bytes + v21 + 16) + v19) & ~v19, (v22 + v18) <= *(AG::data::_shared_table_bytes + v21 + 12)))
+    v17 = AG::data::zone::alloc_persistent(a2, v16);
+    LODWORD(v16) = 8;
+    v18 = 7;
+  }
+
+  else
+  {
+    v17 = 0;
+    v18 = v15;
+  }
+
+  v19 = (((v18 + 28) & ~v18) + v16);
+  v20 = v18 | 3;
+  if (v19 > 0x10)
+  {
+    v22 = *(a2 + 4);
+    if (v22 && (v23 = (*(AG::data::_shared_table_bytes + v22 + 16) + v20) & ~v20, (v23 + v19) <= *(AG::data::_shared_table_bytes + v22 + 12)))
     {
-      *(AG::data::_shared_table_bytes + v21 + 16) = v22 + v18;
-      v20 = (v22 + v21);
+      *(AG::data::_shared_table_bytes + v22 + 16) = v23 + v19;
+      v21 = (v23 + v22);
     }
 
     else
     {
-      v20 = AG::data::zone::alloc_slow(a2, v18, v19);
+      v21 = AG::data::zone::alloc_slow(a2, v19, v20);
     }
   }
 
   else
   {
-    v20 = AG::data::zone::alloc_bytes_recycle(a2, v18, v19);
+    v21 = AG::data::zone::alloc_bytes_recycle(a2, v19, v20);
   }
 
-  v23 = AG::data::_shared_table_bytes + v20;
-  *v23 = (v10 >> 1) & 4 | (a3 << 8) | v10 & 8;
-  *(v23 + 7) = 32;
-  *(v23 + 8) = 0;
-  *(v23 + 16) = 0;
-  *(v23 + 24) = 0;
+  v24 = AG::data::_shared_table_bytes + v21;
+  *v24 = (v11 >> 1) & 4 | (a3 << 8) | v11 & 8;
+  *(v24 + 7) = 32;
+  *(v24 + 8) = 0;
+  *(v24 + 16) = 0;
+  *(v24 + 24) = 0;
   if (a3 >= 0x100000)
   {
-    AG::Graph::add_attribute(v20, v18);
+    AG::Graph::add_attribute(v21, v19);
   }
 
-  v24 = v20;
-  v25 = (AG::data::_shared_table_bytes + v20);
-  v26 = *v25;
-  *v25 |= 0x20u;
-  if (v26 & 8) != 0 && (*(*(*(v9 + 8) - 8) + 82))
+  v25 = v21;
+  v26 = (AG::data::_shared_table_bytes + v21);
+  v27 = *v26;
+  *v26 |= 0x20u;
+  if (v27 & 8) != 0 && (*(*(*(v10 + 8) - 8) + 82))
   {
-    v27 = ~*(v9 + 40) & 0x20;
+    v28 = ~*(v10 + 40) & 0x20;
   }
 
   else
   {
-    LOBYTE(v27) = 0;
+    LOBYTE(v28) = 0;
   }
 
-  v28 = v25[7] & 0xDF | v27;
-  v25[7] = v28;
-  if (v16)
+  v29 = v26[7] & 0xDF | v28;
+  v26[7] = v29;
+  if (v17)
   {
-    v25[7] = v28 | 1;
-    *(AG::data::_shared_table_bytes + v20 + *(v9 + 44)) = v16;
+    v26[7] = v29 | 1;
+    *(AG::data::_shared_table_bytes + v21 + *(v10 + 44)) = v17;
   }
 
-  v29 = *(*(v9 + 8) - 8);
-  if ((*(v29 + 82) & 0x10) != 0 || *(v29 + 64) >= 0x81uLL)
+  v30 = *(*(v10 + 8) - 8);
+  if ((*(v30 + 82) & 0x10) != 0 || *(v30 + 64) >= 0x81uLL)
   {
-    v25[7] |= 2u;
+    v26[7] |= 2u;
   }
 
-  v30 = vaddq_s64(*(this + 200), vdupq_n_s64(1uLL));
-  *(this + 200) = v30;
-  v31 = *(this + 27);
-  if (v31 <= v30.i64[0])
+  v31 = vaddq_s64(*(this + 200), vdupq_n_s64(1uLL));
+  *(this + 200) = v31;
+  v32 = *(this + 27);
+  if (v32 <= v31.i64[0])
   {
-    v31 = v30.i64[0];
+    v32 = v31.i64[0];
   }
 
-  *(this + 27) = v31;
-  if (*(*(*v9 - 8) + 64))
+  *(this + 27) = v32;
+  if (*(*(*v10 - 8) + 64))
   {
-    v32 = &v25[*(v9 + 44)];
-    if (v25[7])
+    v33 = &v26[*(v10 + 44)];
+    if (v26[7])
     {
-      v32 = *v32;
+      v33 = *v33;
     }
 
-    (*(*(*v9 - 8) + 16))(v32, a4);
+    (*(*(*v10 - 8) + 16))(v33, a4);
   }
 
-  if (v12)
+  if (v13)
   {
-    AG::Graph::value_set_internal(this, v24, v25, v12, *(v9 + 8));
+    AG::Graph::value_set_internal(this, v25, v26, v13, *(v10 + 8), a6);
   }
 
   else
   {
-    *v25 |= 3u;
-    v33 = v25[6];
-    v34 = *(a2 + 25);
-    if ((v33 & ~HIWORD(v34)) != 0)
+    *v26 |= 3u;
+    v34 = v26[6];
+    v35 = *(a2 + 25);
+    if ((v34 & ~HIWORD(v35)) != 0)
     {
-      *(a2 + 25) = v34 & 0xFF00FFFF | ((BYTE2(v34) | v33) << 16);
+      *(a2 + 25) = v35 & 0xFF00FFFF | ((BYTE2(v35) | v34) << 16);
       AG::Subgraph::propagate_dirty_flags(a2);
     }
   }
 
-  AG::Subgraph::add_node(a2, v24);
-  return v24;
+  AG::Subgraph::add_node(a2, v25);
+  return v25;
 }
 
 const char *init_should_record_tree(void *a1)
@@ -1252,34 +1251,35 @@ uint64_t sub_1B490E368(uint64_t a1, uint64_t (**a2)(void, void), uint64_t a3, in
 {
   v9 = swift_slowAlloc();
   v10 = a5();
-  v11 = a2[5](a1, a2);
-  v12 = a2[4](a1, a2);
-  v13 = a2[2](a1, a2);
-  v14 = AGRetainClosure(v10);
-  v16 = v15;
+  v12 = v11;
+  v13 = a2[5](a1, a2);
+  v14 = a2[4](a1, a2);
+  v15 = a2[2](a1, a2);
+  v16 = AGRetainClosure(v10, v12);
+  v18 = v17;
   if (qword_1ED56CD40 != -1)
   {
     swift_once();
   }
 
-  if (v13)
+  if (v15)
   {
-    v17 = v11 | a4 | v12 | 4;
+    v19 = v13 | a4 | v14 | 4;
   }
 
   else
   {
-    v17 = v11 | a4 | v12;
+    v19 = v13 | a4 | v14;
   }
 
-  v18 = qword_1ED56CD48;
+  v20 = qword_1ED56CD48;
 
   *v9 = a1;
   *(v9 + 8) = a3;
-  *(v9 + 16) = v14;
-  *(v9 + 24) = v16;
-  *(v9 + 32) = v18;
-  *(v9 + 40) = v17;
+  *(v9 + 16) = v16;
+  *(v9 + 24) = v18;
+  *(v9 + 32) = v20;
+  *(v9 + 40) = v19;
   *(v9 + 44) = 0;
   *(v9 + 48) = 0;
   *(v9 + 56) = a1;
@@ -1379,39 +1379,39 @@ LABEL_12:
   return result;
 }
 
-uint64_t AGGraphCreateAttribute(uint64_t a1, void *a2, unint64_t a3)
+uint64_t AGGraphCreateAttribute(uint64_t a1, void *a2, unsigned __int8 *a3, uint64_t a4, uint64_t a5, unsigned int a6)
 {
-  v5 = AG::Subgraph::_current_subgraph_key;
-  v6 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8 * v5);
-  if (!v6)
+  v8 = AG::Subgraph::_current_subgraph_key;
+  v9 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8 * v8);
+  if (!v9)
   {
-    AGGraphCreateAttribute_cold_1(a1, v6);
+    AGGraphCreateAttribute_cold_1(a1, v9);
   }
 
-  v8 = a1;
-  v9 = *(v6 + 5);
+  v11 = a1;
+  v12 = *(v9 + 5);
 
-  return AG::Graph::add_attribute(v9, v6, v8, a2, a3);
+  return AG::Graph::add_attribute(v12, v9, v11, a2, a3, a6);
 }
 
-uint64_t AG::data::table::alloc_page(os_unfair_lock_s *this, AG::data::zone *a2, int a3)
+uint64_t AG::data::table::alloc_page(AG::data::table *this, AG::data::zone *a2, int a3)
 {
   os_unfair_lock_lock(this + 4);
   v7 = a3 + 511;
   v8 = (a3 + 511) >> 9;
-  os_unfair_lock_opaque = this[20]._os_unfair_lock_opaque;
-  v10 = os_unfair_lock_opaque << 6;
-  v11 = this[7]._os_unfair_lock_opaque + v8;
-  if (v11 <= os_unfair_lock_opaque << 6 && os_unfair_lock_opaque != 0)
+  v9 = *(this + 20);
+  v10 = v9 << 6;
+  v11 = *(this + 7) + v8;
+  if (v11 <= v9 << 6 && v9 != 0)
   {
     v13 = 0;
-    v14 = *&this[18]._os_unfair_lock_opaque;
-    v15 = this[9]._os_unfair_lock_opaque;
+    v14 = *(this + 9);
+    v15 = *(this + 9);
     do
     {
-      if (v15 + v13 >= os_unfair_lock_opaque)
+      if (v15 + v13 >= v9)
       {
-        v16 = os_unfair_lock_opaque;
+        v16 = v9;
       }
 
       else
@@ -1436,7 +1436,7 @@ LABEL_11:
         {
           v20 = ((v17 << 6) | 1) + v6;
           v21 = v8 - 1;
-          while (os_unfair_lock_opaque != v20 >> 6)
+          while (v9 != v20 >> 6)
           {
             if ((*(v14 + 8 * (v20 >> 6)) >> v20))
             {
@@ -1459,14 +1459,14 @@ LABEL_11:
         }
 
         v10 = (v17 << 6) | v6;
-        this[9]._os_unfair_lock_opaque = v17;
+        *(this + 9) = v17;
       }
 
       ++v13;
       v15 = v17;
     }
 
-    while (v13 != os_unfair_lock_opaque);
+    while (v13 != v9);
   }
 
   if (v7 >= 0x200)
@@ -1476,39 +1476,39 @@ LABEL_11:
     do
     {
       v24 = v23 >> 6;
-      if (this[20]._os_unfair_lock_opaque == v23 >> 6)
+      if (*(this + 20) == v23 >> 6)
       {
         v25 = v23 >> 6;
-        if (this[21]._os_unfair_lock_opaque <= v24)
+        if (*(this + 21) <= v24)
         {
-          AG::vector<std::pair<unsigned int,BOOL>,0ul,unsigned int>::reserve_slow(&this[18], v24 + 1);
-          v25 = this[20]._os_unfair_lock_opaque;
+          AG::vector<std::pair<unsigned int,BOOL>,0ul,unsigned int>::reserve_slow(this + 9, v24 + 1);
+          v25 = *(this + 20);
         }
 
-        *(*&this[18]._os_unfair_lock_opaque + 8 * v25) = 0;
-        this[20]._os_unfair_lock_opaque = v25 + 1;
-        v26 = this[24]._os_unfair_lock_opaque;
+        *(*(this + 9) + 8 * v25) = 0;
+        *(this + 20) = v25 + 1;
+        v26 = *(this + 24);
         v6 = v26 + 1;
-        if (this[25]._os_unfair_lock_opaque < v6)
+        if (*(this + 25) < v6)
         {
-          AG::vector<std::pair<unsigned int,BOOL>,0ul,unsigned int>::reserve_slow(&this[22], v6);
-          v26 = this[24]._os_unfair_lock_opaque;
+          AG::vector<std::pair<unsigned int,BOOL>,0ul,unsigned int>::reserve_slow(this + 11, v6);
+          v26 = *(this + 24);
           v6 = v26 + 1;
         }
 
-        *(*&this[22]._os_unfair_lock_opaque + 8 * v26) = 0;
-        this[24]._os_unfair_lock_opaque = v6;
+        *(*(this + 11) + 8 * v26) = 0;
+        *(this + 24) = v6;
       }
 
-      else if (!*(*&this[18]._os_unfair_lock_opaque + 8 * v24))
+      else if (!*(*(this + 9) + 8 * v24))
       {
         AG::data::table::make_pages_reusable(this, v23, 0);
       }
 
-      *(*&this[18]._os_unfair_lock_opaque + 8 * v24) |= 1 << v23;
+      *(*(this + 9) + 8 * v24) |= 1 << v23;
       if (!v22)
       {
-        *(*&this[22]._os_unfair_lock_opaque + 8 * v24) |= 1 << v23;
+        *(*(this + 11) + 8 * v24) |= 1 << v23;
       }
 
       ++v22;
@@ -1516,26 +1516,26 @@ LABEL_11:
     }
 
     while (v8 != v22);
-    v11 = this[7]._os_unfair_lock_opaque + v8;
+    v11 = *(this + 7) + v8;
   }
 
   v27 = v7 & 0xFFFFFE00;
-  this[7]._os_unfair_lock_opaque = v11;
-  v28 = this[12]._os_unfair_lock_opaque;
-  v29 = this[11]._os_unfair_lock_opaque + v27;
+  *(this + 7) = v11;
+  v28 = *(this + 12);
+  v29 = *(this + 11) + v27;
   if (v28 <= v29)
   {
-    v28 = this[11]._os_unfair_lock_opaque + v27;
+    v28 = *(this + 11) + v27;
   }
 
-  this[11]._os_unfair_lock_opaque = v29;
-  this[12]._os_unfair_lock_opaque = v28;
-  while (this[5]._os_unfair_lock_opaque < (v10 + v8) << 9)
+  *(this + 11) = v29;
+  *(this + 12) = v28;
+  while (*(this + 5) < (v10 + v8) << 9)
   {
     AG::data::table::grow_region(this, v6);
   }
 
-  v30 = *&this->_os_unfair_lock_opaque + (v10 << 9) + 512;
+  v30 = *this + (v10 << 9) + 512;
   *(v30 + 8) = 0;
   *(v30 + 12) = v27;
   *v30 = a2;
@@ -1544,44 +1544,45 @@ LABEL_11:
   return (v10 << 9) + 512;
 }
 
-uint64_t AG::Graph::value_set_internal(AG::Graph *a1, unsigned int a2, AG::Node *this, unsigned __int8 *a4, uint64_t a5)
+uint64_t AG::Graph::value_set_internal(AG::Graph *a1, uint64_t a2, AG::Node *this, unsigned __int8 *a4, uint64_t a5, unsigned int a6)
 {
+  v10 = a2;
   if (*(a1 + 44))
   {
     AG::Graph::value_set_internal();
   }
 
-  v11 = *this;
-  v12 = *(*(a1 + 11) + ((v11 >> 5) & 0x7FFFFF8));
-  v13 = *(v12 + 8);
-  if (v13 != a5)
+  v12 = *this;
+  v13 = *(*(a1 + 11) + ((v12 >> 5) & 0x7FFFFF8));
+  v14 = *(v13 + 8);
+  if (v14 != a5)
   {
-    AG::Graph::value_set_internal(*(v12 + 8));
+    AG::Graph::value_set_internal(*(v13 + 8));
   }
 
-  if ((v11 & 0x10) != 0)
+  if ((v12 & 0x10) != 0)
   {
-    v14 = (AG::data::_shared_table_bytes + *(this + 2));
+    v15 = (AG::data::_shared_table_bytes + *(this + 2));
     if ((*(this + 7) & 2) != 0)
     {
-      v14 = *v14;
+      v15 = *v15;
     }
 
-    v15 = *(v12 + 40);
-    v16 = (v15 & 3 | 0x80000100);
-    v17 = *(v12 + 48);
-    if (!v17)
+    v16 = *(v13 + 40);
+    v17 = (v16 & 3 | 0x80000100);
+    v18 = *(v13 + 48);
+    if (!v18)
     {
-      v17 = AG::LayoutDescriptor::fetch(*(v12 + 8), (v15 & 3 | 0x80000100), 0);
-      *(v12 + 48) = v17;
+      v18 = AG::LayoutDescriptor::fetch(*(v13 + 8), (v16 & 3 | 0x80000100), 0);
+      *(v13 + 48) = v18;
     }
 
-    if (v17 == 1)
+    if (v18 == 1)
     {
-      v17 = 0;
+      v18 = 0;
     }
 
-    if (AG::LayoutDescriptor::compare(v17, v14, a4, *(*(v13 - 8) + 64), v16))
+    if (AG::LayoutDescriptor::compare(v18, v15, a4, *(*(v14 - 8) + 64), v17))
     {
       return 0;
     }
@@ -1593,9 +1594,9 @@ uint64_t AG::Graph::value_set_internal(AG::Graph *a1, unsigned int a2, AG::Node 
 
     else
     {
-      v30 = v13;
-      v19 = *(AG::data::_shared_table_bytes + a2 + 20);
-      if (v19 < 0x20)
+      v31 = v14;
+      v20 = *(AG::data::_shared_table_bytes + v10 + 20);
+      if (v20 < 0x20)
       {
 LABEL_30:
         ++*(a1 + 52);
@@ -1603,65 +1604,65 @@ LABEL_30:
 
       else
       {
-        v20 = 0;
-        v31 = AG::data::_shared_table_bytes + *(AG::data::_shared_table_bytes + a2 + 24);
-        v21 = v19 >> 5;
+        v21 = 0;
+        v32 = AG::data::_shared_table_bytes + *(AG::data::_shared_table_bytes + v10 + 24);
+        v22 = v20 >> 5;
         while (1)
         {
-          v22 = *(v31 + 4 * v20);
-          if ((v22 & 3) != 0)
+          v23 = *(v32 + 4 * v21);
+          if ((v23 & 3) != 0)
           {
             break;
           }
 
-          v23 = AG::data::_shared_table_bytes + v22;
-          v24 = *(AG::data::_shared_table_bytes + v22 + 12);
-          if (v24 >= 0x20)
+          v24 = AG::data::_shared_table_bytes + v23;
+          v25 = *(AG::data::_shared_table_bytes + v23 + 12);
+          if (v25 >= 0x20)
           {
-            v25 = (AG::data::_shared_table_bytes + *(v23 + 16) + 4);
-            v26 = 5 * (v24 >> 5);
+            v26 = (AG::data::_shared_table_bytes + *(v24 + 16) + 4);
+            v27 = 5 * (v25 >> 5);
             while (1)
             {
-              v27 = *(v25 - 1);
-              v32 = v27;
-              if ((v27 & 3) != 0)
+              v28 = *(v26 - 1);
+              v33 = v28;
+              if ((v28 & 3) != 0)
               {
-                v27 = AG::AttributeID::resolve_slow(&v32, 0);
+                v28 = AG::AttributeID::resolve_slow(&v33, 0);
               }
 
-              if (v27 == a2)
+              if (v28 == v10)
               {
-                v28 = *v25;
-                if ((*v25 & 0x10) == 0)
+                v29 = *v26;
+                if ((*v26 & 0x10) == 0)
                 {
-                  if ((*(v25 - 4) & 3) == 0)
+                  if ((*(v26 - 4) & 3) == 0)
                   {
                     goto LABEL_28;
                   }
 
-                  v5 = v5 & 0xFFFFFF0000000000 | *(v25 - 1) | (*v25 << 32);
-                  if ((AG::Graph::compare_edge_values(a1, v5, v12, v14, a4) & 1) == 0)
+                  v6 = v6 & 0xFFFFFF0000000000 | *(v26 - 1) | (*v26 << 32);
+                  if ((AG::Graph::compare_edge_values(a1, v6, v13, v15, a4) & 1) == 0)
                   {
                     break;
                   }
                 }
               }
 
-              v25 += 5;
-              v26 -= 5;
-              if (!v26)
+              v26 += 5;
+              v27 -= 5;
+              if (!v27)
               {
                 goto LABEL_29;
               }
             }
 
-            v28 = *v25;
+            v29 = *v26;
 LABEL_28:
-            *v25 = v28 | 0x10;
+            *v26 = v29 | 0x10;
           }
 
 LABEL_29:
-          if (++v20 == v21)
+          if (++v21 == v22)
           {
             goto LABEL_30;
           }
@@ -1670,24 +1671,24 @@ LABEL_29:
         AG::Graph::mark_changed(a1);
       }
 
-      v13 = v30;
+      v14 = v31;
     }
 
-    (*(*(v13 - 8) + 24))(v14, a4, v13);
+    (*(*(v14 - 8) + 24))(v15, a4, v14);
   }
 
   else
   {
-    AG::Node::allocate_value(this, a1, *(AG::data::_shared_table_bytes + (a2 & 0xFFFFFE00)));
+    AG::Node::allocate_value(this, a1, *(AG::data::_shared_table_bytes + (v10 & 0xFFFFFE00)));
     *this |= 0x10u;
-    AG::Graph::mark_changed(a1, a2, 0, 0, 0);
-    v29 = (AG::data::_shared_table_bytes + *(this + 2));
+    AG::Graph::mark_changed(a1, v10, 0, 0, 0);
+    v30 = (AG::data::_shared_table_bytes + *(this + 2));
     if ((*(this + 7) & 2) != 0)
     {
-      v29 = *v29;
+      v30 = *v30;
     }
 
-    (*(*(v13 - 8) + 16))(v29, a4, v13);
+    (*(*(v14 - 8) + 16))(v30, a4, v14);
   }
 
   return 1;
@@ -1763,12 +1764,12 @@ LABEL_7:
   return v9;
 }
 
-void AG::Graph::mark_changed(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void AG::Graph::mark_changed(uint64_t result, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  if (*(a1 + 176))
+  if (*(result + 176))
   {
 
-    AG::Graph::mark_changed(a1);
+    AG::Graph::mark_changed(result);
   }
 
   else
@@ -1777,7 +1778,7 @@ void AG::Graph::mark_changed(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t
     if (v11 < 0x20)
     {
 LABEL_18:
-      ++*(a1 + 416);
+      ++*(result + 416);
     }
 
     else
@@ -1819,7 +1820,7 @@ LABEL_18:
                 }
 
                 v5 = v5 & 0xFFFFFF0000000000 | *(v17 - 1) | (*v17 << 32);
-                if ((AG::Graph::compare_edge_values(a1, v5, a3, a4, a5) & 1) == 0)
+                if ((AG::Graph::compare_edge_values(result, v5, a3, a4, a5) & 1) == 0)
                 {
                   break;
                 }
@@ -1846,7 +1847,7 @@ LABEL_17:
         }
       }
 
-      AG::Graph::mark_changed(a1);
+      AG::Graph::mark_changed(result);
     }
   }
 }
@@ -1951,7 +1952,7 @@ LABEL_28:
   *v15 = ((a2 & 0xFFFC) - v3) | v4;
 }
 
-uint64_t *AGSubgraphAddChild2(uint64_t a1, uint64_t a2, char a3)
+AG::Subgraph *AGSubgraphAddChild2(uint64_t a1, uint64_t a2, char a3)
 {
   result = *(a1 + 16);
   if (!result)
@@ -1982,21 +1983,21 @@ void AG::Subgraph::add_node(uint64_t a1, unsigned int a2)
       operator new();
     }
 
-    v11[0] = a1;
-    v11[2] = v11;
-    v6 = std::__hash_table<std::__hash_value_type<AG::Subgraph *,AG::Graph::TreeDataElement>,std::__unordered_map_hasher<AG::Subgraph *,std::__hash_value_type<AG::Subgraph *,AG::Graph::TreeDataElement>,std::hash<AG::Subgraph *>,std::equal_to<AG::Subgraph *>,true>,std::__unordered_map_equal<AG::Subgraph *,std::__hash_value_type<AG::Subgraph *,AG::Graph::TreeDataElement>,std::equal_to<AG::Subgraph *>,std::hash<AG::Subgraph *>,true>,std::allocator<std::__hash_value_type<AG::Subgraph *,AG::Graph::TreeDataElement>>>::__emplace_unique_key_args<AG::Subgraph *,std::piecewise_construct_t const&,std::tuple<AG::Subgraph *&&>,std::tuple<>>(v5, v11);
+    v11 = a1;
+    v12 = &v11;
+    v6 = std::__hash_table<std::__hash_value_type<AG::Subgraph *,AG::Graph::TreeDataElement>,std::__unordered_map_hasher<AG::Subgraph *,std::__hash_value_type<AG::Subgraph *,AG::Graph::TreeDataElement>,std::hash<AG::Subgraph *>,std::equal_to<AG::Subgraph *>,true>,std::__unordered_map_equal<AG::Subgraph *,std::__hash_value_type<AG::Subgraph *,AG::Graph::TreeDataElement>,std::equal_to<AG::Subgraph *>,std::hash<AG::Subgraph *>,true>,std::allocator<std::__hash_value_type<AG::Subgraph *,AG::Graph::TreeDataElement>>>::__emplace_unique_key_args<AG::Subgraph *,std::piecewise_construct_t const&,std::tuple<AG::Subgraph *&&>,std::tuple<>>(v5, &v11, &std::piecewise_construct, &v12);
     v7 = v6[4];
     v8 = v7 + 1;
-    if (v6[5] < (v7 + 1))
+    if (v6[5] < v7 + 1)
     {
       v10 = v6;
-      AG::vector<std::unique_ptr<char const,util::free_deleter>,0ul,unsigned long>::reserve_slow((v6 + 3), v8);
+      AG::vector<std::unique_ptr<char const,util::free_deleter>,0ul,unsigned long>::reserve_slow(v6 + 3, v8);
       v6 = v10;
       v7 = v10[4];
       v8 = v7 + 1;
     }
 
-    v9 = (v6[3] + 8 * v7);
+    v9 = v6[3] + 8 * v7;
     *v9 = *(a1 + 96);
     v9[1] = a2;
     v6[4] = v8;
@@ -2017,11 +2018,11 @@ void AG::Subgraph::add_node(uint64_t a1, unsigned int a2)
 
 void AG::Graph::intern_type()
 {
-  if (__cxa_guard_acquire(&qword_1ED56D3A0))
+  if (__cxa_guard_acquire(byte_1ED56D3A0))
   {
     _MergedGlobals_1 = _ZZN2AG5Graph11intern_typeEmNS_17ClosureFunctionVPIPvJEEEENK3__0clEv();
 
-    __cxa_guard_release(&qword_1ED56D3A0);
+    __cxa_guard_release(byte_1ED56D3A0);
   }
 }
 
@@ -2084,7 +2085,7 @@ uint64_t *AG::Subgraph::add_child(AG::Subgraph *this, unint64_t a2, char a3)
   v14 = v13 + 1;
   if (*(this + 19) < v13 + 1)
   {
-    AG::vector<std::pair<unsigned int,BOOL>,0ul,unsigned int>::reserve_slow(this + 64, v14);
+    AG::vector<std::pair<unsigned int,BOOL>,0ul,unsigned int>::reserve_slow(this + 8, v14);
     v13 = *(this + 18);
     v14 = v13 + 1;
   }
@@ -2160,16 +2161,16 @@ uint64_t *AG::indirect_pointer_vector<AG::Subgraph,unsigned long>::push_back(uin
 
 void AG::Graph::propagate_dirty(uint64_t a1)
 {
-  v1 = MEMORY[0x1EEE9AC00](a1);
-  v3 = v2;
-  v54 = v1;
-  v59 = *MEMORY[0x1E69E9840];
-  v57 = 0u;
-  v58 = 256;
-  if ((v2 & 3) > 1)
+  MEMORY[0x1EEE9AC00](a1);
+  v2 = v1;
+  v53 = v3;
+  v58 = *MEMORY[0x1E69E9840];
+  v56 = 0u;
+  v57 = 256;
+  if ((v1 & 3) > 1)
   {
     v5 = 0;
-    if ((v2 & 3) == 2)
+    if ((v1 & 3) == 2)
     {
       goto LABEL_73;
     }
@@ -2178,17 +2179,17 @@ void AG::Graph::propagate_dirty(uint64_t a1)
     goto LABEL_9;
   }
 
-  if ((v2 & 3) != 0)
+  if ((v1 & 3) != 0)
   {
     v7 = AG::data::_shared_table_bytes;
-    v8 = (AG::data::_shared_table_bytes + (v2 & 0xFFFFFFFC));
+    v8 = (AG::data::_shared_table_bytes + (v1 & 0xFFFFFFFC));
     v9 = v8[5];
     v10 = v8[6];
     v11 = *v8;
-    v55 = v11;
+    v54 = v11;
     if ((v11 & 3) != 0)
     {
-      v11 = AG::AttributeID::resolve_slow(&v55, 0);
+      v11 = AG::AttributeID::resolve_slow(&v54, 0);
     }
 
     v5 = (v7 + v10);
@@ -2204,14 +2205,14 @@ LABEL_9:
     goto LABEL_12;
   }
 
-  v4 = (AG::data::_shared_table_bytes + v2);
+  v4 = (AG::data::_shared_table_bytes + v1);
   v5 = (AG::data::_shared_table_bytes + v4[6]);
   LODWORD(v6) = v4[5] >> 5;
 LABEL_11:
   v12 = *v4;
 LABEL_12:
-  v52 = v3;
-  v53 = v3 & 0xFFFFFE00;
+  v51 = v2;
+  v52 = v2 & 0xFFFFFE00;
   v6 = v6;
   while (1)
   {
@@ -2256,15 +2257,15 @@ LABEL_26:
             v32 = *(v31 + 48);
             if (v32)
             {
-              v33 = *(AG::data::_shared_table_bytes + v53);
+              v33 = *(AG::data::_shared_table_bytes + v52);
               if (!v33 || v32 != *(v33 + 48))
               {
-                v34 = util::UntypedTable::lookup((v54 + 104), v32, 0);
+                v34 = util::UntypedTable::lookup((v53 + 104), v32, 0);
                 if (v34)
                 {
                   if (*(v34 + 64) != *(*v34 + 424))
                   {
-                    AG::Graph::Context::call_invalidation(v34, v52);
+                    AG::Graph::Context::call_invalidation(v34, v51);
                   }
                 }
               }
@@ -2275,24 +2276,24 @@ LABEL_26:
 LABEL_27:
           if (i)
           {
-            v28 = *(&v57 + 1);
-            if (v58 < *(&v57 + 1) + 1)
+            v28 = *(&v56 + 1);
+            if (v57 < *(&v56 + 1) + 1)
             {
-              AG::vector<std::pair<AG::ConstOutputEdgeArrayRef,AG::AttributeID>,256ul,unsigned long>::reserve_slow(__dst, *(&v57 + 1) + 1);
-              v28 = *(&v57 + 1);
+              AG::vector<std::pair<AG::ConstOutputEdgeArrayRef,AG::AttributeID>,256ul,unsigned long>::reserve_slow(__dst, (*(&v56 + 1) + 1));
+              v28 = *(&v56 + 1);
             }
 
-            v29 = v57;
-            if (!v57)
+            v29 = v56;
+            if (!v56)
             {
               v29 = __dst;
             }
 
-            v30 = &v29[24 * v28];
+            v30 = &v29[3 * v28];
             *v30 = v19;
-            *(v30 + 1) = v20;
+            v30[1] = v20;
             *(v30 + 4) = v21;
-            ++*(&v57 + 1);
+            ++*(&v56 + 1);
           }
 
           else
@@ -2325,12 +2326,12 @@ LABEL_27:
           goto LABEL_26;
         }
 
-        v25 = *(v54 + 176);
+        v25 = *(v53 + 176);
         if (v25)
         {
           for (j = 8 * v25 - 8; j != -8; j -= 8)
           {
-            v40 = *(*(v54 + 168) + j);
+            v40 = *(*(v53 + 168) + j);
             (*(*v40 + 256))(v40, v14, 1);
           }
 
@@ -2371,15 +2372,15 @@ LABEL_27:
             v36 = *(v35 + 48);
             if (v36)
             {
-              v37 = *(v22 + v53);
+              v37 = *(v22 + v52);
               if (!v37 || v36 != *(v37 + 48))
               {
-                v38 = util::UntypedTable::lookup((v54 + 104), v36, 0);
+                v38 = util::UntypedTable::lookup((v53 + 104), v36, 0);
                 if (v38)
                 {
                   if (*(v38 + 64) != *(*v38 + 424))
                   {
-                    AG::Graph::Context::call_invalidation(v38, v52);
+                    AG::Graph::Context::call_invalidation(v38, v51);
                   }
                 }
               }
@@ -2391,22 +2392,22 @@ LABEL_27:
       }
     }
 
-    if (!*(&v57 + 1))
+    if (!*(&v56 + 1))
     {
       break;
     }
 
-    v43 = v57;
-    if (!v57)
+    v43 = v56;
+    if (!v56)
     {
       v43 = __dst;
     }
 
-    v44 = &v43[24 * *(&v57 + 1)];
+    v44 = &v43[3 * *(&v56 + 1)];
     v5 = *(v44 - 3);
     v6 = *(v44 - 2);
     v12 = *(v44 - 2);
-    --*(&v57 + 1);
+    --*(&v56 + 1);
   }
 
   v45 = AG::Graph::_current_update_key;
@@ -2449,14 +2450,12 @@ LABEL_71:
   }
 
 LABEL_72:
-  v5 = v57;
+  v5 = v56;
 LABEL_73:
   if (v5)
   {
     free(v5);
   }
-
-  v51 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1B490FA44(_Unwind_Exception *exception_object)
@@ -2472,7 +2471,7 @@ void sub_1B490FA44(_Unwind_Exception *exception_object)
 
 uint64_t AG::LayoutDescriptor::Builder::should_visit_fields(AG::LayoutDescriptor::Builder *this, const AG::swift::metadata *a2, char a3, int a4)
 {
-  if ((a3 & 1) != 0 || (v6 = AG::LayoutDescriptor::fetch(a2, (*(this + 2) | 0x80000200), 1u, a4)) == 0)
+  if ((a3 & 1) != 0 || (v6 = AG::LayoutDescriptor::fetch(a2, (*(this + 2) | 0x80000200), 1)) == 0)
   {
     v9 = a2 - 8;
     if (*(*(a2 - 1) + 82))
@@ -2502,20 +2501,20 @@ uint64_t AG::LayoutDescriptor::Builder::should_visit_fields(AG::LayoutDescriptor
 
       else
       {
-        v14 = (this + 40);
+        v14 = this + 40;
       }
 
       v15 = *(this + 2);
       v16 = *(*v9 + 64);
-      v17 = v14[1];
-      if (v14[2] < (v17 + 1))
+      v17 = *(v14 + 1);
+      if (*(v14 + 2) < (v17 + 1))
       {
         v32 = v14;
         v34 = v11;
-        AG::vector<std::variant<AG::LayoutDescriptor::Builder::DataItem,AG::LayoutDescriptor::Builder::EqualsItem,AG::LayoutDescriptor::Builder::EqualsOverrideItem,AG::LayoutDescriptor::Builder::IndirectItem,AG::LayoutDescriptor::Builder::ExistentialItem,AG::LayoutDescriptor::Builder::HeapRefItem,AG::LayoutDescriptor::Builder::NestedItem,AG::LayoutDescriptor::Builder::EnumItem>,0ul,unsigned long>::reserve_slow(v14, v17 + 1);
+        AG::vector<std::variant<AG::LayoutDescriptor::Builder::DataItem,AG::LayoutDescriptor::Builder::EqualsItem,AG::LayoutDescriptor::Builder::EqualsOverrideItem,AG::LayoutDescriptor::Builder::IndirectItem,AG::LayoutDescriptor::Builder::ExistentialItem,AG::LayoutDescriptor::Builder::HeapRefItem,AG::LayoutDescriptor::Builder::NestedItem,AG::LayoutDescriptor::Builder::EnumItem>,0ul,unsigned long>::reserve_slow(v14, (v17 + 1));
         v14 = v32;
         v12 = v34;
-        v17 = v32[1];
+        v17 = *(v32 + 1);
       }
 
       result = 0;
@@ -2544,20 +2543,20 @@ uint64_t AG::LayoutDescriptor::Builder::should_visit_fields(AG::LayoutDescriptor
 
       else
       {
-        v14 = (this + 40);
+        v14 = this + 40;
       }
 
       v29 = *(this + 2);
       v30 = *(*v9 + 64);
-      v31 = v14[1];
-      if (v14[2] < (v31 + 1))
+      v31 = *(v14 + 1);
+      if (*(v14 + 2) < (v31 + 1))
       {
         v33 = v14;
         v36 = v26;
-        AG::vector<std::variant<AG::LayoutDescriptor::Builder::DataItem,AG::LayoutDescriptor::Builder::EqualsItem,AG::LayoutDescriptor::Builder::EqualsOverrideItem,AG::LayoutDescriptor::Builder::IndirectItem,AG::LayoutDescriptor::Builder::ExistentialItem,AG::LayoutDescriptor::Builder::HeapRefItem,AG::LayoutDescriptor::Builder::NestedItem,AG::LayoutDescriptor::Builder::EnumItem>,0ul,unsigned long>::reserve_slow(v14, v31 + 1);
+        AG::vector<std::variant<AG::LayoutDescriptor::Builder::DataItem,AG::LayoutDescriptor::Builder::EqualsItem,AG::LayoutDescriptor::Builder::EqualsOverrideItem,AG::LayoutDescriptor::Builder::IndirectItem,AG::LayoutDescriptor::Builder::ExistentialItem,AG::LayoutDescriptor::Builder::HeapRefItem,AG::LayoutDescriptor::Builder::NestedItem,AG::LayoutDescriptor::Builder::EnumItem>,0ul,unsigned long>::reserve_slow(v14, (v31 + 1));
         v14 = v33;
         v27 = v36;
-        v31 = v33[1];
+        v31 = *(v33 + 1);
       }
 
       result = 0;
@@ -2570,7 +2569,7 @@ uint64_t AG::LayoutDescriptor::Builder::should_visit_fields(AG::LayoutDescriptor
     }
 
     *(v18 + 48) = v19;
-    ++v14[1];
+    ++*(v14 + 1);
     return result;
   }
 
@@ -2591,18 +2590,18 @@ uint64_t AG::LayoutDescriptor::Builder::should_visit_fields(AG::LayoutDescriptor
 
     else
     {
-      v21 = (this + 40);
+      v21 = this + 40;
     }
 
     v22 = *(this + 2);
     v23 = *(*(a2 - 1) + 64);
-    v24 = v21[1];
-    if (v21[2] < (v24 + 1))
+    v24 = *(v21 + 1);
+    if (*(v21 + 2) < (v24 + 1))
     {
       v35 = v6;
-      AG::vector<std::variant<AG::LayoutDescriptor::Builder::DataItem,AG::LayoutDescriptor::Builder::EqualsItem,AG::LayoutDescriptor::Builder::EqualsOverrideItem,AG::LayoutDescriptor::Builder::IndirectItem,AG::LayoutDescriptor::Builder::ExistentialItem,AG::LayoutDescriptor::Builder::HeapRefItem,AG::LayoutDescriptor::Builder::NestedItem,AG::LayoutDescriptor::Builder::EnumItem>,0ul,unsigned long>::reserve_slow(v21, v24 + 1);
+      AG::vector<std::variant<AG::LayoutDescriptor::Builder::DataItem,AG::LayoutDescriptor::Builder::EqualsItem,AG::LayoutDescriptor::Builder::EqualsOverrideItem,AG::LayoutDescriptor::Builder::IndirectItem,AG::LayoutDescriptor::Builder::ExistentialItem,AG::LayoutDescriptor::Builder::HeapRefItem,AG::LayoutDescriptor::Builder::NestedItem,AG::LayoutDescriptor::Builder::EnumItem>,0ul,unsigned long>::reserve_slow(v21, (v24 + 1));
       v7 = v35;
-      v24 = v21[1];
+      v24 = *(v21 + 1);
     }
 
     result = 0;
@@ -2611,7 +2610,7 @@ uint64_t AG::LayoutDescriptor::Builder::should_visit_fields(AG::LayoutDescriptor
     *(v25 + 8) = v23;
     *(v25 + 16) = v7;
     *(v25 + 48) = 6;
-    ++v21[1];
+    ++*(v21 + 1);
   }
 
   return result;
@@ -2657,7 +2656,7 @@ LABEL_1:
           goto LABEL_1;
         }
 
-        result = AG::Subgraph::foreach_ancestor<AG::Subgraph::propagate_node_flags(void)::$_0>();
+        result = AG::Subgraph::foreach_ancestor<AG::Subgraph::propagate_node_flags(void)::$_0>(result);
       }
     }
 
@@ -2800,8 +2799,9 @@ LABEL_29:
   return v22;
 }
 
-unint64_t anonymous namespace::create_offset_attribute(unint64_t a1, const char *a2, unint64_t a3, unsigned __int8 a4)
+unint64_t anonymous namespace::create_offset_attribute(unint64_t a1, const char *a2, unint64_t a3, uint64_t a4)
 {
+  v4 = a4;
   v7 = a1;
   if (a2)
   {
@@ -2817,7 +2817,7 @@ unint64_t anonymous namespace::create_offset_attribute(unint64_t a1, const char 
     if ((a1 & 3) == 1)
     {
       a1 = AG::AttributeID::size(&v12);
-      if (v8 == a4 && (v8 & 1) != 0)
+      if (v8 == v4 && (v8 & 1) != 0)
       {
         if (a1 == a3)
         {
@@ -2825,7 +2825,7 @@ unint64_t anonymous namespace::create_offset_attribute(unint64_t a1, const char 
         }
       }
 
-      else if (v8 == a4)
+      else if (v8 == v4)
       {
         return v7;
       }
@@ -2839,7 +2839,7 @@ unint64_t anonymous namespace::create_offset_attribute(unint64_t a1, const char 
     AGGraphCreateAttribute_cold_1(a1, 0);
   }
 
-  return AG::Graph::add_indirect_attribute(v10[5], v10, v7, a2, a3, a4, 0, 0) | 1;
+  return AG::Graph::add_indirect_attribute(v10[5], v10, v7, a2, a3, v4, 0, 0) | 1;
 }
 
 unint64_t AG::AttributeID::size(AG::AttributeID *this)
@@ -2876,34 +2876,31 @@ unint64_t AG::AttributeID::size(AG::AttributeID *this)
   return v2 | (v3 << 8);
 }
 
-uint64_t AG::LayoutDescriptor::compare(AG::LayoutDescriptor *this, AG::LayoutDescriptor *a2, unsigned __int8 *a3, char *a4, unint64_t *a5)
+uint64_t AG::LayoutDescriptor::compare(AG::LayoutDescriptor **this, AG::LayoutDescriptor *a2, unsigned __int8 *a3, char *a4, unint64_t *a5)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (a2 == a3)
   {
-    v5 = 1;
-LABEL_13:
-    v10 = *MEMORY[0x1E69E9840];
-    return v5;
+    return 1;
   }
 
   if (this)
   {
-    *v14 = 0u;
-    v15 = 8;
-    v5 = AG::LayoutDescriptor::Compare::operator()(v13, this, a2);
-    v6 = v14[0];
-    if (v14[0])
+    *v12 = 0u;
+    v13 = 8;
+    v5 = AG::LayoutDescriptor::Compare::operator()(v11, this, a2, a3, 0, a4, a5);
+    v6 = v12[0];
+    if (v12[0])
     {
-      v7 = v14[0];
+      v7 = v12[0];
     }
 
     else
     {
-      v7 = v13;
+      v7 = v11;
     }
 
-    if (v14[1])
+    if (v12[1])
     {
       v8 = 0;
       do
@@ -2913,8 +2910,8 @@ LABEL_13:
         v7 = (v9 + 64);
       }
 
-      while (v8 < v14[1]);
-      v6 = v14[0];
+      while (v8 < v12[1]);
+      v6 = v12[0];
     }
 
     if (v6)
@@ -2922,68 +2919,66 @@ LABEL_13:
       free(v6);
     }
 
-    goto LABEL_13;
+    return v5;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return AG::LayoutDescriptor::compare_bytes_top_level(a2, a3, a4, a5, a5);
 }
 
-uint64_t AG::Graph::value_set(AG::Graph *a1, const char *a2, uint64_t a3, unsigned __int8 *a4)
+uint64_t AG::Graph::value_set(AG::Graph *a1, const char *a2, uint64_t a3, unsigned __int8 *a4, uint64_t a5, uint64_t a6)
 {
-  v7 = (AG::data::_shared_table_bytes + a2);
-  if (*(v7 + 3) >= 0x20u && (*v7 & 0x10) != 0)
+  v9 = (AG::data::_shared_table_bytes + a2);
+  if (*(v9 + 3) >= 0x20u && (*v9 & 0x10) != 0)
   {
-    AG::precondition_failure("can only set initial value of computed attributes: %u", a2, a2);
+    AG::precondition_failure("can only set initial value of computed attributes: %u", a2, a3, a4, a5, a6, a2);
   }
 
-  v8 = a2;
-  v9 = AG::Graph::_current_update_key;
-  v10 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8 * v9);
-  if ((v10 & 1) == 0)
+  v10 = a2;
+  v11 = AG::Graph::_current_update_key;
+  v12 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8 * v11);
+  if ((v12 & 1) == 0)
   {
-    v11 = (v10 & 0xFFFFFFFFFFFFFFFELL);
-    if (v11)
+    v13 = (v12 & 0xFFFFFFFFFFFFFFFELL);
+    if (v13)
     {
-      if (*v11 == a1)
+      if (*v13 == a1)
       {
-        AG::Graph::value_set(v7, a2);
+        AG::Graph::value_set(v9, a2);
       }
     }
   }
 
-  v12 = AG::Graph::value_set_internal(a1, v8, v7, a4, a3);
-  if (v12)
+  v14 = AG::Graph::value_set_internal(a1, v10, v9, a4, a3, a6);
+  if (v14)
   {
     AG::Graph::propagate_dirty(a1);
   }
 
-  return v12;
+  return v14;
 }
 
-uint64_t AGGraphSetValue(uint64_t a1, char *a2, uint64_t a3)
+uint64_t AGGraphSetValue(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if ((a1 & 3) != 0)
   {
-    AG::precondition_failure("non-direct attribute id: %u", a2, a1);
+    AG::precondition_failure("non-direct attribute id: %u", a2, a3, a4, a5, a6, a1);
   }
 
   if (dword_1ED56D738 <= a1)
   {
-    AG::precondition_failure("invalid data offset: %u", a2, a1);
+    AG::precondition_failure("invalid data offset: %u", a2, a3, a4, a5, a6, a1);
   }
 
-  v3 = *(AG::data::_shared_table_bytes + (a1 & 0xFFFFFE00));
-  if (!v3)
+  v6 = *(AG::data::_shared_table_bytes + (a1 & 0xFFFFFE00));
+  if (!v6)
   {
-    AG::precondition_failure("no graph: %u", a2, a1);
+    AG::precondition_failure("no graph: %u", a2, a3, a4, a5, a6, a1);
   }
 
-  v5 = a1;
-  v6 = *(v3 + 40);
+  v8 = a1;
+  v9 = *(v6 + 40);
 
-  return AG::Graph::value_set(v6, v5, a3, a2);
+  return AG::Graph::value_set(v9, v8, a3, a2, a5, a6);
 }
 
 double AG::absolute_time_to_seconds(AG *this)
@@ -3040,7 +3035,7 @@ uint64_t AG::LayoutDescriptor::mode_for_type(AG::swift::metadata *a1, uint64_t a
   return a2;
 }
 
-void AG::Subgraph::add_indirect(uint64_t a1, int a2, int a3)
+void AG::Subgraph::add_indirect(uint64_t a1, unsigned int a2, int a3)
 {
   AG::Subgraph::insert_attribute(a1, a2 & 0xFFFFFFFE | 1, a3);
   if (*(*(a1 + 40) + 176))
@@ -3109,7 +3104,7 @@ unint64_t AG::LayoutDescriptor::equality_override_for_type(AG::LayoutDescriptor 
 
 uint64_t AG::LayoutDescriptor::Builder::commit(AG::LayoutDescriptor::Builder *this, const AG::swift::metadata *a2)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v4 = *(this + 6);
   if (*(this + 3))
   {
@@ -3124,7 +3119,7 @@ uint64_t AG::LayoutDescriptor::Builder::commit(AG::LayoutDescriptor::Builder *th
   {
     if (!v4)
     {
-      goto LABEL_10;
+      return 1;
     }
 
     if (v4 != 1)
@@ -3136,26 +3131,23 @@ uint64_t AG::LayoutDescriptor::Builder::commit(AG::LayoutDescriptor::Builder *th
     v5 = *(this + 5);
     if (!*(v5 + 48))
     {
-LABEL_10:
-      v6 = 1;
-      goto LABEL_46;
+      return 1;
     }
   }
 
   if (v5 && *(v5 + 48) == 6 && !*v5)
   {
-    v6 = *(v5 + 16);
-    goto LABEL_46;
+    return *(v5 + 16);
   }
 
   v4 = 1;
 LABEL_12:
   *size = 0u;
   v7 = 512;
-  v26 = 512;
-  v21 = __dst;
-  v22 = 0;
-  v23 = 0;
+  v24 = 512;
+  v19 = __dst;
+  v20 = 0;
+  v21 = 0;
   if (v4)
   {
     v8 = 56 * v4;
@@ -3167,7 +3159,7 @@ LABEL_12:
         std::__throw_bad_variant_access[abi:ne200100]();
       }
 
-      __p.__r_.__value_.__r.__words[0] = &v21;
+      __p.__r_.__value_.__r.__words[0] = &v19;
       (off_1F2CB2F70[v9])(&__p, v5);
       v5 += 56;
       v8 -= 56;
@@ -3175,7 +3167,7 @@ LABEL_12:
 
     while (v8);
     v4 = size[1];
-    v7 = v26;
+    v7 = v24;
   }
 
   if (v7 < v4 + 1)
@@ -3194,7 +3186,7 @@ LABEL_12:
   ++size[1];
   if (*(this + 3))
   {
-    if (v23)
+    if (v21)
     {
       v6 = 0;
       goto LABEL_44;
@@ -3255,7 +3247,6 @@ LABEL_26:
         v16 = *MEMORY[0x1E69E9848];
         if (v15)
         {
-          v19 = *(*(a2 - 1) + 64);
           fprintf(v16, "== %s, %d bytes ==\n%s");
         }
 
@@ -3274,8 +3265,8 @@ LABEL_26:
     goto LABEL_44;
   }
 
-  v23 |= v22 > *(*(a2 - 1) + 64);
-  if ((v23 & 1) == 0)
+  v21 |= v20 > *(*(a2 - 1) + 64);
+  if ((v21 & 1) == 0)
   {
     goto LABEL_26;
   }
@@ -3287,8 +3278,6 @@ LABEL_44:
     free(size[0]);
   }
 
-LABEL_46:
-  v17 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -3323,7 +3312,7 @@ void sub_1B4910B48(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_1B4910B8C()
+uint64_t sub_1B4910B8C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -3338,19 +3327,21 @@ void AG::anonymous namespace::TypeDescriptorCache::fetch()
   }
 }
 
-AG *AG::LayoutDescriptor::fetch(AG::LayoutDescriptor *this, const AG::swift::metadata *a2, int a3)
+AG *AG::LayoutDescriptor::fetch(AG::LayoutDescriptor *this, const AG::swift::metadata *a2, uint64_t a3)
 {
+  v3 = a3;
   v4 = a2;
   {
     AG::LayoutDescriptor::compare_heap_objects();
   }
 }
 
-AG *AG::anonymous namespace::TypeDescriptorCache::fetch(uint64_t a1, AG::swift::metadata *a2, int a3, unsigned int a4, int a5)
+AG *AG::anonymous namespace::TypeDescriptorCache::fetch(uint64_t a1, AG::swift::metadata *a2, int a3, uint64_t a4, int a5)
 {
+  v6 = a4;
   v10 = a3;
   os_unfair_lock_lock(a1);
-  v11 = a1 + (a4 << 6);
+  v11 = a1 + (v6 << 6);
   v31 = 0;
   v12 = util::UntypedTable::lookup((v11 + 8), (v10 | a2), &v31);
   if (v31)
@@ -3370,7 +3361,7 @@ LABEL_24:
     {
 LABEL_17:
       v23 = AG::current_time(v14);
-      layout = AG::LayoutDescriptor::make_layout(a2, v10, a4);
+      layout = AG::LayoutDescriptor::make_layout(a2, v10, v6);
       v25 = AG::current_time(layout);
       if (a3 < 0)
       {
@@ -3423,7 +3414,7 @@ LABEL_17:
     v15 = *(a1 + 336);
   }
 
-  v16 = v10 & 0xFF00FFFF | (a4 << 16);
+  v16 = v10 & 0xFF00FFFF | (v6 << 16);
   v17 = *(a1 + 328);
   if (!v17)
   {
@@ -3459,7 +3450,6 @@ LABEL_17:
 
 uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::less<AG::anonymous namespace::TypeDescriptorCache::QueueEntry> &,AG::anonymous namespace::TypeDescriptorCache::QueueEntry*>(uint64_t result, uint64_t a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v3 = a3 - 2;
   if (a3 >= 2)
   {
@@ -3470,8 +3460,8 @@ uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::less<AG::anony
     {
       v8 = *(a2 - 16);
       v7 = a2 - 16;
-      v11 = v8;
-      v12 = *(v7 + 8);
+      v10 = v8;
+      v11 = *(v7 + 8);
       do
       {
         v9 = v7;
@@ -3487,13 +3477,12 @@ uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::less<AG::anony
       }
 
       while (*(v5 + 12) < v6);
-      *v7 = v11;
-      *(v7 + 8) = v12;
+      *v7 = v10;
+      *(v7 + 8) = v11;
       *(v7 + 12) = v6;
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3613,7 +3602,7 @@ double AG::absolute_time_to_seconds(unsigned long long)::$_0::operator()()
 
 uint64_t AG::anonymous namespace::print_layouts(AG::_anonymous_namespace_ *this)
 {
-  if ((atomic_load_explicit(&qword_1ED56D3B0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED56D3B0, memory_order_acquire) & 1) == 0)
   {
   }
 
@@ -3622,10 +3611,10 @@ uint64_t AG::anonymous namespace::print_layouts(AG::_anonymous_namespace_ *this)
 
 void AG::anonymous namespace::print_layouts()
 {
-  if (__cxa_guard_acquire(&qword_1ED56D3B0))
+  if (__cxa_guard_acquire(byte_1ED56D3B0))
   {
 
-    __cxa_guard_release(&qword_1ED56D3B0);
+    __cxa_guard_release(byte_1ED56D3B0);
   }
 }
 
@@ -3641,7 +3630,7 @@ char *AG::anonymous namespace::print_layouts(void)::$_0::operator()()
   return result;
 }
 
-uint64_t AGGraphGetValue(unint64_t a1, const char *a2, AG::swift::metadata *a3, uint64_t a4, uint64_t a5)
+const char *AGGraphGetValue(unint64_t a1, const char *a2, AG::swift::metadata *a3, uint64_t a4, uint64_t a5)
 {
   v5 = a3;
   if ((a2 & 4) == 0)
@@ -3776,13 +3765,13 @@ LABEL_12:
   return AG::Graph::value_ref(v23, a1, 0, a3, &v44);
 }
 
-uint64_t AG::Graph::value_ref(uint64_t result, const char *a2, int a3, AG::swift::metadata *a4, _BYTE *a5)
+const char *AG::Graph::value_ref(const char *a1, const char *a2, int a3, AG::swift::metadata *a4, _BYTE *a5)
 {
   v7 = a3;
   v8 = a2;
-  v9 = result;
+  v9 = a1;
   v22 = a2;
-  ++*(result + 424);
+  ++*(a1 + 106);
   if ((a2 & 3) != 0)
   {
     if (a3)
@@ -3795,16 +3784,16 @@ uint64_t AG::Graph::value_ref(uint64_t result, const char *a2, int a3, AG::swift
       v21 = 11;
     }
 
-    result = AG::AttributeID::resolve_slow(&v22, v21);
-    v8 = result;
+    a1 = AG::AttributeID::resolve_slow(&v22, v21);
+    v8 = a1;
     v10 = a2;
     if (v7)
     {
 LABEL_3:
-      result = 0;
+      a1 = 0;
       if (v8 < 4 || (v8 & 3) != 0)
       {
-        return result;
+        return a1;
       }
     }
   }
@@ -3820,7 +3809,7 @@ LABEL_3:
 
   if (*(*(AG::data::_shared_table_bytes + (v8 & 0xFFFFFE00)) + 40) != v9)
   {
-    AG::Graph::add_input_dependencies(result, a2);
+    AG::Graph::add_input_dependencies(a1, a2);
   }
 
   v11 = (AG::data::_shared_table_bytes + v8);
@@ -3881,7 +3870,7 @@ LABEL_10:
     *a5 |= 1u;
   }
 
-  if ((v16 & 1) == 0 || (v17 = AG::data::table::raw_page_seed(&AG::data::_shared_table_bytes, (v8 & 0xFFFFFE00)), result = 0, (v17 & 0x100000000) != 0) && v7 == v17)
+  if ((v16 & 1) == 0 || (v17 = AG::data::table::raw_page_seed(&AG::data::_shared_table_bytes, (v8 & 0xFFFFFE00)), a1 = 0, (v17 & 0x100000000) != 0) && v7 == v17)
   {
 LABEL_22:
     v18 = *v11;
@@ -3916,17 +3905,17 @@ LABEL_22:
     }
   }
 
-  return result;
+  return a1;
 }
 
-uint64_t AG::LayoutDescriptor::Compare::operator()(void *a1, AG::LayoutDescriptor **a2, const unsigned __int8 *a3, const unsigned __int8 *a4, unint64_t *a5, uint64_t a6, unsigned int a7)
+uint64_t AG::LayoutDescriptor::Compare::operator()(size_t *a1, AG::LayoutDescriptor **a2, const unsigned __int8 *a3, const unsigned __int8 *a4, unint64_t *a5, uint64_t a6, unsigned int a7)
 {
-  v103 = a4;
-  v104 = a3;
-  v108 = *MEMORY[0x1E69E9840];
+  v101 = a4;
+  v102 = a3;
+  v106 = *MEMORY[0x1E69E9840];
   v7 = a1[65];
-  v106 = a1;
-  v107 = v7;
+  v104 = a1;
+  v105 = v7;
   if (a6 == -1)
   {
     v8 = -1;
@@ -3940,16 +3929,16 @@ uint64_t AG::LayoutDescriptor::Compare::operator()(void *a1, AG::LayoutDescripto
   if (v8 <= a5)
   {
 LABEL_121:
-    v89 = 1;
+    v88 = 1;
     goto LABEL_122;
   }
 
   v9 = a5;
   v10 = a2;
   v12 = a2;
-  v102 = v8;
-  v99 = a7;
-  v100 = (a7 >> 8) & 1;
+  v100 = v8;
+  v97 = a7;
+  v98 = (a7 >> 8) & 1;
   while (1)
   {
     v14 = *v12;
@@ -3957,7 +3946,7 @@ LABEL_121:
     v13 = v14;
     if ((v14 - 64) < 0x40)
     {
-      v9 += (v13 & 0x3F) + 1;
+      v9 = (v9 + (v13 & 0x3F) + 1);
       goto LABEL_8;
     }
 
@@ -3971,45 +3960,45 @@ LABEL_121:
 
       if (v13 == 23)
       {
-        v51 = a1[64];
-        if (!v51)
+        v50 = a1[64];
+        if (!v50)
         {
-          v51 = a1;
+          v50 = a1;
         }
 
-        v52 = a1[65];
-        v53 = &v51[8 * v52];
-        v54 = *(v53 - 3);
-        v55 = *(v53 - 6);
-        v56 = *(v53 - 5);
-        v59 = v53 - 8;
-        v57 = *(v53 - 8);
-        v58 = v59[1];
-        v60 = (v55 - v58);
-        v61 = (v56 - v58);
-        v62 = v54 == 1;
-        v63 = v103;
-        if (v62)
+        v51 = a1[65];
+        v52 = &v50[8 * v51];
+        v53 = *(v52 - 3);
+        v54 = *(v52 - 6);
+        v55 = *(v52 - 5);
+        v58 = v52 - 8;
+        v56 = *(v52 - 8);
+        v57 = v58[1];
+        v59 = (v54 - v57);
+        v60 = (v55 - v57);
+        v61 = v53 == 1;
+        v62 = v101;
+        if (v61)
+        {
+          v62 = v59;
+        }
+
+        v101 = v62;
+        v63 = v102;
+        if (v61)
         {
           v63 = v60;
         }
 
-        v103 = v63;
-        v64 = v104;
-        if (v62)
-        {
-          v64 = v61;
-        }
-
-        v104 = v64;
-        v9 = *(*(v57 - 8) + 64) + v58;
-        v65 = v52 - 1;
-        a1[65] = v65;
-        AG::LayoutDescriptor::Compare::Enum::~Enum(&v51[8 * v65]);
+        v102 = v63;
+        v9 = (*(*(v56 - 8) + 64) + v57);
+        v64 = v51 - 1;
+        a1[65] = v64;
+        AG::LayoutDescriptor::Compare::Enum::~Enum(&v50[8 * v64]);
         goto LABEL_79;
       }
 
-      v8 = v102;
+      v8 = v100;
       if (v13 == 13)
       {
         v18 = 0;
@@ -4036,18 +4025,18 @@ LABEL_121:
         if (v13 == 7)
         {
           v45 = 0;
-          v48 = 0;
+          v47 = 0;
           v46 = *(v10 + 1);
           v12 = (v10 + 9);
           do
           {
-            v49 = *v12;
+            v48 = *v12;
             v12 = (v12 + 1);
-            v45 |= (v49 & 0x7F) << v48;
-            v48 += 7;
+            v45 |= (v48 & 0x7F) << v47;
+            v47 += 7;
           }
 
-          while (v49 < 0);
+          while (v48 < 0);
         }
 
         else
@@ -4075,15 +4064,15 @@ LABEL_121:
 
         if (v45 >= v8 - v9)
         {
-          v50 = v8 - v9;
+          v49 = v8 - v9;
         }
 
         else
         {
-          v50 = v45;
+          v49 = v45;
         }
 
-        if (AG::LayoutDescriptor::Compare::operator()(a1, v46, v104))
+        if (AG::LayoutDescriptor::Compare::operator()(a1, v46, v102, v101, v9, v49, v97))
         {
           goto LABEL_56;
         }
@@ -4097,18 +4086,18 @@ LABEL_34:
       v15 = v26;
       v27 = v26 - 8;
       v28 = *(*(v26 - 1) + 88);
-      v29 = &v103[v9];
-      v101 = v28(&v103[v9], v26);
-      v30 = &v104[v9];
-      v17 = v28(&v104[v9], v26);
-      if (v101 != v17)
+      v29 = v9 + v101;
+      v99 = v28(v9 + v101, v26);
+      v30 = v9 + v102;
+      v17 = v28(v9 + v102, v26);
+      if (v99 != v17)
       {
 LABEL_128:
-        AG::LayoutDescriptor::Compare::failed(v17, v99, v104, v103, v9, *(*(v15 - 1) + 64), v15);
+        AG::LayoutDescriptor::Compare::failed(v17, v97, v102, v101, v9, *(*(v15 - 1) + 64), v15);
         goto LABEL_133;
       }
 
-      if (v100)
+      if (v98)
       {
         v34 = 0;
         v32 = v29;
@@ -4121,9 +4110,9 @@ LABEL_128:
         if (v31 <= 0x1000)
         {
           MEMORY[0x1EEE9AC00](v17);
-          v32 = &v98 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
+          v32 = &v96 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
           bzero(v32, v31);
-          MEMORY[0x1EEE9AC00](v66);
+          MEMORY[0x1EEE9AC00](v65);
           v33 = v32;
           bzero(v32, v31);
           v34 = 0;
@@ -4137,61 +4126,61 @@ LABEL_128:
         }
       }
 
-      v67 = a1[65];
-      if (a1[66] < (v67 + 1))
+      v66 = a1[65];
+      if (a1[66] < v66 + 1)
       {
-        AG::vector<AG::LayoutDescriptor::Compare::Enum,8ul,unsigned long>::reserve_slow(a1, v67 + 1);
-        v67 = a1[65];
+        AG::vector<AG::LayoutDescriptor::Compare::Enum,8ul,unsigned long>::reserve_slow(a1, (v66 + 1));
+        v66 = a1[65];
       }
 
-      v68 = a1[64];
+      v67 = a1[64];
+      if (!v67)
+      {
+        v67 = a1;
+      }
+
+      v95 = v34;
+      v68 = v98;
+      AG::LayoutDescriptor::Compare::Enum::Enum(&v67[8 * v66], v15, v98 ^ 1, v99, v9, v29, v30, v32, v33, v95);
+      v69 = a1[65] + 1;
+      a1[65] = v69;
+      v70 = a1[64];
+      if (!v70)
+      {
+        v70 = a1;
+      }
+
+      v71 = &v70[8 * v69 - 4];
+      v72 = (v71[1] - v9);
+      v73 = (*v71 - v9);
+      v74 = v101;
       if (!v68)
       {
-        v68 = a1;
+        v74 = v73;
       }
 
-      v97 = v34;
-      v69 = v100;
-      AG::LayoutDescriptor::Compare::Enum::Enum(&v68[8 * v67], v15, v100 ^ 1, v101, v9, v29, v30, v32, v33, v97);
-      v70 = a1[65] + 1;
-      a1[65] = v70;
-      v71 = a1[64];
-      if (!v71)
+      v75 = v102;
+      if (!v68)
       {
-        v71 = a1;
+        v75 = v72;
       }
 
-      v72 = &v71[8 * v70 - 4];
-      v73 = (v72[1] - v9);
-      v74 = (*v72 - v9);
-      v75 = v103;
-      if (!v69)
-      {
-        v75 = v74;
-      }
-
-      v76 = v104;
-      if (!v69)
-      {
-        v76 = v73;
-      }
-
-      v103 = v75;
-      v104 = v76;
+      v101 = v74;
+      v102 = v75;
 LABEL_76:
-      v77 = a1[64];
-      if (!v77)
+      v76 = a1[64];
+      if (!v76)
       {
-        v77 = a1;
+        v76 = a1;
       }
 
-      if (v18 == LODWORD(v77[8 * a1[65] - 2]))
+      if (v18 == LODWORD(v76[8 * a1[65] - 2]))
       {
         goto LABEL_79;
       }
 
-      v78 = 0;
-      v8 = v102;
+      v77 = 0;
+      v8 = v100;
       while (1)
       {
         while (1)
@@ -4200,118 +4189,118 @@ LABEL_76:
           {
             while (1)
             {
-              v79 = v78;
-              v80 = v12;
-              v82 = *v12;
+              v78 = v77;
+              v79 = v12;
+              v81 = *v12;
               v12 = (v12 + 1);
-              v81 = v82;
-              if (v82 <= 12)
+              v80 = v81;
+              if (v81 <= 12)
               {
                 break;
               }
 
-              if ((v81 - 14) >= 9)
+              if ((v80 - 14) >= 9)
               {
-                if (v81 == 13)
+                if (v80 == 13)
                 {
-                  if (!v78)
+                  if (!v77)
                   {
                     goto LABEL_110;
                   }
 
                   do
                   {
-                    v86 = *v12;
+                    v85 = *v12;
                     v12 = (v12 + 1);
                   }
 
-                  while (v86 < 0);
+                  while (v85 < 0);
                 }
 
-                else if (v81 == 23)
+                else if (v80 == 23)
                 {
-                  --v78;
-                  if (!v79)
+                  --v77;
+                  if (!v78)
                   {
 LABEL_110:
-                    v12 = v80;
+                    v12 = v79;
                     goto LABEL_8;
                   }
                 }
               }
 
-              else if (!v78)
+              else if (!v77)
               {
                 goto LABEL_110;
               }
             }
 
-            if (v81 > 7)
+            if (v80 > 7)
             {
               break;
             }
 
-            if (v81 > 3)
+            if (v80 > 3)
             {
-              if (v81 == 4)
+              if (v80 == 4)
               {
-                v83 = 1;
+                v82 = 1;
 LABEL_104:
-                v12 = (v80 + v83 + 8);
+                v12 = (v79 + v82 + 8);
               }
 
-              else if (v81 == 7)
+              else if (v80 == 7)
               {
-                v12 = (v80 + 9);
+                v12 = (v79 + 9);
                 do
                 {
-                  v85 = *v12;
+                  v84 = *v12;
                   v12 = (v12 + 1);
                 }
 
-                while (v85 < 0);
+                while (v84 < 0);
               }
             }
 
             else
             {
-              if ((v81 - 1) < 3)
+              if ((v80 - 1) < 3)
               {
-                v83 = 9;
+                v82 = 9;
                 goto LABEL_104;
               }
 
-              if (!v81)
+              if (!v80)
               {
                 goto LABEL_110;
               }
             }
           }
 
-          if ((v81 - 10) >= 3)
+          if ((v80 - 10) >= 3)
           {
             break;
           }
 
 LABEL_93:
-          v12 = (v80 + 9);
-          ++v78;
+          v12 = (v79 + 9);
+          ++v77;
         }
 
-        if (v81 == 8)
+        if (v80 == 8)
         {
-          v12 = (v80 + 7);
+          v12 = (v79 + 7);
         }
 
-        else if (v81 == 9)
+        else if (v80 == 9)
         {
           do
           {
-            v84 = *(v80 + 1);
-            v80 = (v80 + 1);
+            v83 = *(v79 + 1);
+            v79 = (v79 + 1);
           }
 
-          while (v84 < 0);
+          while (v83 < 0);
           goto LABEL_93;
         }
       }
@@ -4326,18 +4315,17 @@ LABEL_93:
     {
       v15 = *(v10 + 1);
       v12 = (v10 + 17);
-      v16 = *(*(v15 - 1) + 64) + v9;
+      v16 = (v9 + *(*(v15 - 1) + 64));
       if (v16 <= v8)
       {
         if (v13 == 1)
         {
-          v47 = *(v10 + 1);
           v17 = AGDispatchEquatable();
         }
 
         else
         {
-          v17 = (*(v10 + 9))[1](**(v10 + 9), *(v10 + 1), &v104[v9], &v103[v9]);
+          v17 = (*(v10 + 9))[1](**(v10 + 9), *(v10 + 1), v9 + v102, v9 + v101);
         }
 
         if ((v17 & 1) == 0)
@@ -4348,7 +4336,7 @@ LABEL_93:
 
       else
       {
-        v17 = AG::LayoutDescriptor::compare_bytes(&v104[v9], &v103[v9], (v8 - v9), 0, a5);
+        v17 = AG::LayoutDescriptor::compare_bytes((v9 + v102), (v9 + v101), (v8 - v9), 0, a5);
         if ((v17 & 1) == 0)
         {
           goto LABEL_128;
@@ -4362,7 +4350,7 @@ LABEL_93:
     if (v13 == 3)
     {
       v35 = *(v10 + 1);
-      v105 = *(v10 + 9);
+      v103 = *(v10 + 9);
       v36 = *(*(v35 - 1) + 64);
       v37 = a1[64];
       if (!v37)
@@ -4370,19 +4358,19 @@ LABEL_93:
         v37 = a1;
       }
 
-      v38 = v99;
-      v39 = AG::LayoutDescriptor::compare_indirect(&v105, v37[8 * a1[65] - 8], v35, v99 & 0x7FFFFFFF, &v104[v9], &v103[v9]);
-      *(v10 + 9) = v105;
+      v38 = v97;
+      v39 = AG::LayoutDescriptor::compare_indirect(&v103, v37[8 * a1[65] - 8], v35, v97 & 0x7FFFFFFF, v9 + v102, v9 + v101);
+      *(v10 + 9) = v103;
       if (!v39)
       {
-        AG::LayoutDescriptor::Compare::failed(v39, v38, v104, v103, v9, *(*(v35 - 1) + 64), v35);
+        AG::LayoutDescriptor::Compare::failed(v39, v38, v102, v101, v9, *(*(v35 - 1) + 64), v35);
         goto LABEL_133;
       }
 
       v12 = (v10 + 17);
-      v9 += v36;
+      v9 = (v9 + v36);
 LABEL_79:
-      v8 = v102;
+      v8 = v100;
       goto LABEL_8;
     }
 
@@ -4394,27 +4382,27 @@ LABEL_79:
 LABEL_115:
     if ((v13 & 0x80) != 0)
     {
-      v87 = v13 & 0x7F;
-      if (v8 - v9 >= v87 + 1)
+      v86 = v13 & 0x7F;
+      if (v8 - v9 >= v86 + 1)
       {
-        v50 = v87 + 1;
+        v49 = v86 + 1;
       }
 
       else
       {
-        v50 = v8 - v9;
+        v49 = v8 - v9;
       }
 
-      v105 = 0;
-      v88 = AG::LayoutDescriptor::compare_bytes(&v104[v9], &v103[v9], v50, &v105, a5);
-      if ((v88 & 1) == 0)
+      v103 = 0;
+      v87 = AG::LayoutDescriptor::compare_bytes((v9 + v102), (v9 + v101), v49, &v103, a5);
+      if ((v87 & 1) == 0)
       {
-        AG::LayoutDescriptor::Compare::failed(v88, v99, v104, v103, v105 + v9, 1, 0);
+        AG::LayoutDescriptor::Compare::failed(v87, v97, v102, v101, v9 + v103, 1, 0);
         goto LABEL_133;
       }
 
 LABEL_56:
-      v9 += v50;
+      v9 = (v9 + v49);
     }
 
 LABEL_8:
@@ -4427,15 +4415,15 @@ LABEL_8:
 
   if ((v13 - 5) < 2)
   {
-    v23 = *&v104[v9];
-    v24 = *&v103[v9];
-    if (v23 == v24 || (v25 = AG::LayoutDescriptor::compare_heap_objects(v23, v24, (v99 & 0x7FFFFFFF), v13 == 6), (v25 & 1) != 0))
+    v23 = *(v9 + v102);
+    v24 = *(v9 + v101);
+    if (v23 == v24 || (v25 = AG::LayoutDescriptor::compare_heap_objects(v23, v24, (v97 & 0x7FFFFFFF), v13 == 6), (v25 & 1) != 0))
     {
-      v9 += 8;
+      ++v9;
       goto LABEL_8;
     }
 
-    AG::LayoutDescriptor::Compare::failed(v25, v99, v104, v103, v9, 8, 0);
+    AG::LayoutDescriptor::Compare::failed(v25, v97, v102, v101, v9, 8, 0);
     goto LABEL_133;
   }
 
@@ -4446,43 +4434,42 @@ LABEL_8:
 
   v40 = *v12;
   v41 = *(*(*v12 - 1) + 64);
-  v42 = v103;
-  v43 = v99;
-  v44 = AG::LayoutDescriptor::compare_existential_values(*v12, &v104[v9], &v103[v9], (v99 & 0x7FFFFFFF));
+  v42 = v101;
+  v43 = v97;
+  v44 = AG::LayoutDescriptor::compare_existential_values(*v12, (v9 + v102), v9 + v101, (v97 & 0x7FFFFFFF));
   if (v44)
   {
-    v9 += v41;
+    v9 = (v9 + v41);
     v12 = (v10 + 9);
     goto LABEL_79;
   }
 
-  AG::LayoutDescriptor::Compare::failed(v44, v43, v104, v42, v9, *(*(v40 - 1) + 64), v40);
+  AG::LayoutDescriptor::Compare::failed(v44, v43, v102, v42, v9, *(*(v40 - 1) + 64), v40);
 LABEL_133:
-  v89 = 0;
+  v88 = 0;
 LABEL_122:
-  v90 = v106;
-  v91 = v107;
+  v89 = v104;
+  v90 = v105;
   while (1)
   {
-    v92 = v90[65];
-    if (v92 <= v91)
+    v91 = v89[65];
+    if (v91 <= v90)
     {
       break;
     }
 
-    v93 = v92 - 1;
-    v90[65] = v93;
-    v94 = v90[64];
-    if (!v94)
+    v92 = v91 - 1;
+    v89[65] = v92;
+    v93 = v89[64];
+    if (!v93)
     {
-      v94 = v90;
+      v93 = v89;
     }
 
-    AG::LayoutDescriptor::Compare::Enum::~Enum(&v94[8 * v93]);
+    AG::LayoutDescriptor::Compare::Enum::~Enum(&v93[8 * v92]);
   }
 
-  v95 = *MEMORY[0x1E69E9840];
-  return v89;
+  return v88;
 }
 
 uint64_t AG::Graph::value_state(uint64_t a1, const char *a2)
@@ -4728,24 +4715,24 @@ LABEL_13:
   return v7;
 }
 
-void AG::anonymous namespace::TypeDescriptorCache::drain_queue(AG::_anonymous_namespace_::TypeDescriptorCache *this, void *a2)
+void AG::anonymous namespace::TypeDescriptorCache::drain_queue(size_t *this, void *a2)
 {
   v3 = AG::current_time(this);
   os_unfair_lock_lock(this);
-  v5 = *(this + 42);
+  v5 = this[42];
   if (v5)
   {
     v6 = 0;
     do
     {
-      if (*(this + 41))
+      if (this[41])
       {
-        v7 = *(this + 41);
+        v7 = this[41];
       }
 
       else
       {
-        v7 = this + 200;
+        v7 = (this + 25);
       }
 
       v8 = *v7;
@@ -4753,13 +4740,13 @@ void AG::anonymous namespace::TypeDescriptorCache::drain_queue(AG::_anonymous_na
       if (v5 >= 2)
       {
         v10 = 0;
-        v11 = &v7[16 * v5];
+        v11 = &v7[2 * v5];
         *v26 = *v7;
         v12 = v7;
         do
         {
-          v13 = &v12[16 * v10];
-          v14 = v13 + 16;
+          v13 = &v12[2 * v10];
+          v14 = v13 + 2;
           v15 = (2 * v10) | 1;
           v10 = 2 * v10 + 2;
           if (v10 >= v5)
@@ -4771,7 +4758,7 @@ void AG::anonymous namespace::TypeDescriptorCache::drain_queue(AG::_anonymous_na
           {
             v16 = *(v13 + 7);
             v17 = *(v13 + 11);
-            v18 = v13 + 32;
+            v18 = v13 + 4;
             if (v16 >= v17)
             {
               v10 = v15;
@@ -4788,8 +4775,8 @@ void AG::anonymous namespace::TypeDescriptorCache::drain_queue(AG::_anonymous_na
         }
 
         while (v10 <= ((v5 - 2) >> 1));
-        v19 = v11 - 16;
-        if (v14 == v11 - 16)
+        v19 = v11 - 2;
+        if (v14 == v11 - 2)
         {
           *v14 = *v26;
         }
@@ -4800,12 +4787,12 @@ void AG::anonymous namespace::TypeDescriptorCache::drain_queue(AG::_anonymous_na
           *v19 = *v26;
         }
 
-        v5 = *(this + 42);
+        v5 = this[42];
       }
 
-      *(this + 42) = v5 - 1;
+      this[42] = v5 - 1;
       v20 = v9;
-      v21 = (this + 64 * ((v9 << 8) >> 24) + 8);
+      v21 = &this[8 * ((v9 << 8) >> 24) + 1];
       v26[0] = 0;
       v4 = util::UntypedTable::lookup(v21, (v9 | v8), v26);
       if (v4)
@@ -4827,7 +4814,7 @@ void AG::anonymous namespace::TypeDescriptorCache::drain_queue(AG::_anonymous_na
         ++v6;
       }
 
-      v5 = *(this + 42);
+      v5 = this[42];
     }
 
     while (v5);
@@ -4838,16 +4825,16 @@ void AG::anonymous namespace::TypeDescriptorCache::drain_queue(AG::_anonymous_na
     v6 = 0;
   }
 
-  if (*(this + 43))
+  if (this[43])
   {
-    v4 = AG::details::realloc_vector<unsigned long,16ul>(*(this + 41), this + 200, 8uLL, this + 43, 0);
-    *(this + 41) = v4;
+    v4 = AG::details::realloc_vector<unsigned long,16ul>(this[41], this + 25, 8uLL, this + 43, 0);
+    this[41] = v4;
   }
 
   *(this + 360) = 0;
   v25 = AG::current_time(v4) - v3;
   {
-    fprintf(*MEMORY[0x1E69E9848], "## bg queue ran for %g ms, created %u layouts (%u extant). Totals: %g ms async, %g ms sync. %u hits, %u misses.\n", v25 * 1000.0, v6, *(this + 44) + *(this + 28) + *(this + 12), *(this + 54) * 1000.0, *(this + 55) * 1000.0, *(this + 52), *(this + 53));
+    fprintf(*MEMORY[0x1E69E9848], "## bg queue ran for %g ms, created %u layouts (%u extant). Totals: %g ms async, %g ms sync. %u hits, %u misses.\n", v25 * 1000.0, v6, *(this + 44) + *(this + 28) + *(this + 12), *(this + 54) * 1000.0, *(this + 55) * 1000.0, this[52], this[53]);
   }
 
   *(this + 54) = v25 + *(this + 54);
@@ -4893,7 +4880,7 @@ LABEL_6:
   return result;
 }
 
-uint64_t AG::swift::metadata::mangled_type_name_ref(AG::swift::metadata *a1, _BYTE *a2, int a3, int *a4)
+uint64_t AG::swift::metadata::mangled_type_name_ref(AG::swift::metadata *a1, unsigned __int8 *a2, int a3, int *a4)
 {
   if (!a2)
   {
@@ -4992,7 +4979,7 @@ LABEL_5:
         v20 = v21;
         if (v21 == 92)
         {
-          std::string::append(&v32, "\\\", 2uLL);
+          std::string::append(&v32, "\\\"", 2uLL);
         }
 
         else
@@ -5111,37 +5098,26 @@ uint64_t AG::swift::metadata::visit(AG::swift::metadata *this, AG::swift::metada
                       v10 = v7 + v8;
                     }
 
-                    v34 = v10 + 16;
-                    v35 = (this + 8 * v9 + 4);
-                    v36 = 1;
+                    v31 = v10 + 16;
+                    v32 = this + 8 * v9 + 4;
+                    v33 = 1;
                     do
                     {
-                      v37 = v6[5];
-                      v19 = v36 - 1 >= v37;
-                      if (v36 - 1 >= v37)
+                      v34 = v6[5];
+                      v16 = v33 - 1 >= v34;
+                      if (v33 - 1 >= v34)
                       {
                         break;
                       }
 
-                      v38 = *(v35 - 1);
-                      if (v36 >= v37)
-                      {
-                        v40 = *(*(this - 1) + 64);
-                      }
-
-                      else
-                      {
-                        v39 = *v35;
-                      }
-
-                      v41 = (*(*a2 + 16))(a2, this, v34);
-                      v34 += 12;
-                      ++v35;
-                      ++v36;
+                      v35 = (*(*a2 + 16))(a2, this, v31);
+                      v31 += 12;
+                      v32 += 4;
+                      ++v33;
                     }
 
-                    while ((v41 & 1) != 0);
-                    return v19;
+                    while ((v35 & 1) != 0);
+                    return v16;
                   }
                 }
               }
@@ -5149,35 +5125,35 @@ uint64_t AG::swift::metadata::visit(AG::swift::metadata *this, AG::swift::metada
           }
         }
 
-        goto LABEL_58;
+        goto LABEL_54;
       }
 
-      v20 = *(*a2 + 32);
-      v21 = a2;
-      v22 = this;
+      v17 = *(*a2 + 32);
+      v18 = a2;
+      v19 = this;
 
-      return v20(v21, v22);
+      return v17(v18, v19);
     }
 
-    v23 = AG::swift::metadata::descriptor(this);
-    if (v23)
+    v20 = AG::swift::metadata::descriptor(this);
+    if (v20)
     {
-      if ((*v23 & 0x1Fu) - 17 <= 1)
+      if ((*v20 & 0x1Fu) - 17 <= 1)
       {
-        v24 = v23 + 4;
-        v25 = v23[4];
-        if (v25)
+        v21 = v20 + 4;
+        v22 = v20[4];
+        if (v22)
         {
-          v26 = (v25 & 3) == 1 ? *(v24 + (v25 & 0xFFFFFFFFFFFFFFFCLL)) : (v24 + v25);
-          if ((v23[5] & 0xFFFFFF) != 0)
+          v23 = (v22 & 3) == 1 ? *(v21 + (v22 & 0xFFFFFFFFFFFFFFFCLL)) : (v21 + v22);
+          if ((v20[5] & 0xFFFFFF) != 0)
           {
-            v31 = v26[3];
-            if (v31)
+            v28 = v23[3];
+            if (v28)
             {
-              v32 = 0;
-              for (i = v26 + 4; !i[1] || (*(*a2 + 24))(a2, this, i, v32); i += 3)
+              v29 = 0;
+              for (i = v23 + 4; !i[1] || (*(*a2 + 24))(a2, this, i, v29); i += 3)
               {
-                if (v31 == ++v32)
+                if (v28 == ++v29)
                 {
                   return 1;
                 }
@@ -5192,32 +5168,32 @@ uint64_t AG::swift::metadata::visit(AG::swift::metadata *this, AG::swift::metada
       }
     }
 
-LABEL_58:
-    v28 = **a2;
-    goto LABEL_59;
+LABEL_54:
+    v25 = **a2;
+    goto LABEL_55;
   }
 
   if (v4 > 769)
   {
     if (v4 == 770)
     {
-      v20 = *(*a2 + 48);
-      v21 = a2;
-      v22 = this;
+      v17 = *(*a2 + 48);
+      v18 = a2;
+      v19 = this;
 
-      return v20(v21, v22);
+      return v17(v18, v19);
     }
 
     if (v4 == 771)
     {
-      v20 = *(*a2 + 40);
-      v21 = a2;
-      v22 = this;
+      v17 = *(*a2 + 40);
+      v18 = a2;
+      v19 = this;
 
-      return v20(v21, v22);
+      return v17(v18, v19);
     }
 
-    goto LABEL_58;
+    goto LABEL_54;
   }
 
   if (v4 != 768)
@@ -5225,27 +5201,12 @@ LABEL_58:
     v11 = *(this + 1);
     if (v11)
     {
-      v12 = (this - 8);
-      v13 = this + 48;
-      v14 = 1;
+      v12 = this + 48;
+      v13 = 1;
       do
       {
-        v15 = *(v13 - 3);
-        if (v15)
+        if (*(v12 - 3))
         {
-          v16 = *(v13 - 2);
-          if (*v15 == 772)
-          {
-            v17 = v13;
-            if (v14 >= v11)
-            {
-              v17 = (*v12 + 64);
-            }
-
-            *v17;
-            *(*(v15 - 1) + 64);
-          }
-
           if (!(*(*a2 + 8))(a2))
           {
             return 0;
@@ -5254,10 +5215,10 @@ LABEL_58:
           v11 = *(this + 1);
         }
 
-        v13 += 16;
+        v12 += 16;
       }
 
-      while (v14++ < v11);
+      while (v13++ < v11);
     }
 
     return 1;
@@ -5267,18 +5228,18 @@ LABEL_58:
     AG::swift::metadata::visit(AG::swift::metadata_visitor &)const::native_object = AG::swift::metadata::mangled_type_name_ref(this, "Bo", 1, 0);
   }
 
-  v27 = *a2;
+  v24 = *a2;
   if (AG::swift::metadata::visit(AG::swift::metadata_visitor &)const::native_object != this)
   {
-    v28 = *v27;
-LABEL_59:
+    v25 = *v24;
+LABEL_55:
 
-    return v28(a2);
+    return v25(a2);
   }
 
-  v30 = v27[7];
+  v27 = v24[7];
 
-  return v30(a2, this);
+  return v27(a2, this);
 }
 
 uint64_t AG::swift::metadata::descriptor(AG::swift::metadata *this)
@@ -5313,7 +5274,7 @@ uint64_t AG::swift::metadata::descriptor(AG::swift::metadata *this)
   return 0;
 }
 
-void *AG::LayoutDescriptor::Builder::Emitter<AG::vector<unsigned char,512ul,unsigned long>>::operator()(uint64_t *a1, unint64_t *a2)
+void *AG::LayoutDescriptor::Builder::Emitter<AG::vector<unsigned char,512ul,unsigned long>>::operator()(unint64_t *a1, unint64_t *a2)
 {
   result = AG::LayoutDescriptor::Builder::Emitter<AG::vector<unsigned char,512ul,unsigned long>>::enter(a1, a2);
   v5 = *a1;
@@ -5372,225 +5333,54 @@ void *AG::LayoutDescriptor::Builder::Emitter<AG::vector<unsigned char,512ul,unsi
 
 {
   result = AG::LayoutDescriptor::Builder::Emitter<AG::vector<unsigned char,512ul,unsigned long>>::enter(a1, a2);
-  v5 = a2[4];
-  if (v5)
+  v5 = *a1;
+  v6 = a2[1];
+  if (v6 >= 0x81)
   {
-    v6 = a2[3];
-    v7 = v6 + 40 * v5;
-    v8 = 1;
+    v7 = v5[65];
     do
     {
-      if (v8)
+      if (v5[66] < (v7 + 1))
       {
-        v9 = 9;
+        result = AG::vector<unsigned char,512ul,unsigned long>::reserve_slow(v5, v7 + 1);
+        v7 = v5[65];
       }
 
-      else
+      v8 = v5[64];
+      if (!v8)
       {
-        v9 = 13;
+        v8 = v5;
       }
 
-      if (v8)
-      {
-        v10 = 10;
-      }
-
-      else
-      {
-        v10 = 14;
-      }
-
-      if (v8)
-      {
-        v11 = 12;
-      }
-
-      else
-      {
-        v11 = 22;
-      }
-
-      v12 = *v6 + v10;
-      v13 = *a1;
-      if (v12 <= v11)
-      {
-        v21 = v13[65];
-        if (v13[66] < (v21 + 1))
-        {
-          result = AG::vector<unsigned char,512ul,unsigned long>::reserve_slow(*a1, v21 + 1);
-          v21 = v13[65];
-        }
-
-        v22 = v13[64];
-        if (!v22)
-        {
-          v22 = v13;
-        }
-
-        *(v22 + v21) = v12;
-        ++v13[65];
-      }
-
-      else
-      {
-        v14 = v13[65];
-        if (v13[66] < (v14 + 1))
-        {
-          result = AG::vector<unsigned char,512ul,unsigned long>::reserve_slow(*a1, v14 + 1);
-          v14 = v13[65];
-        }
-
-        v15 = v13[64];
-        if (!v15)
-        {
-          v15 = v13;
-        }
-
-        *(v15 + v14) = v9;
-        ++v13[65];
-        v16 = *a1;
-        v17 = *v6;
-        v18 = *(*a1 + 520);
-        do
-        {
-          if (v16[66] < (v18 + 1))
-          {
-            result = AG::vector<unsigned char,512ul,unsigned long>::reserve_slow(v16, v18 + 1);
-            v18 = v16[65];
-          }
-
-          v19 = v16[64];
-          if (!v19)
-          {
-            v19 = v16;
-          }
-
-          *(v19 + v18) = v17 & 0x7F | ((v17 > 0x7F) << 7);
-          v18 = v16[65] + 1;
-          v16[65] = v18;
-          v20 = v17 > 0x7F;
-          v17 >>= 7;
-        }
-
-        while (v20);
-      }
-
-      if (v8)
-      {
-        v23 = *a1;
-        v24 = a2[2];
-        v25 = *(*a1 + 520);
-        v26 = v25 + 8;
-        if (v25 <= 0xFFFFFFFFFFFFFFF7 && *(*a1 + 528) < v26)
-        {
-          result = AG::vector<unsigned char,512ul,unsigned long>::reserve_slow(*a1, v25 + 8);
-        }
-
-        *(v23 + 520) = v26;
-        v28 = *(v23 + 512);
-        if (!v28)
-        {
-          v28 = v23;
-        }
-
-        *(v28 + v25) = v24;
-      }
-
-      v29 = a1[1];
-      v47 = *a1;
-      v48 = v29;
-      v49 = 0;
-      v30 = *(v6 + 24);
-      if (v30)
-      {
-        v31 = *(v6 + 16);
-        v32 = 56 * v30;
-        do
-        {
-          v33 = *(v31 + 48);
-          if (v33 == -1)
-          {
-            std::__throw_bad_variant_access[abi:ne200100]();
-          }
-
-          v50 = &v47;
-          result = (off_1F2CB2F70[v33])(&v50, v31);
-          v31 += 56;
-          v32 -= 56;
-        }
-
-        while (v32);
-        v34 = a1[1];
-        v29 = v48;
-        LOBYTE(v30) = v49;
-      }
-
-      else
-      {
-        v34 = v29;
-      }
-
-      v8 = 0;
-      *(a1 + 16) = (*(a1 + 16) | v30) & 1 | (v29 > *(*(a2[2] - 8) + 64) + v34);
-      v6 += 40;
+      *(v8 + v7) = -1;
+      v7 = v5[65] + 1;
+      v5[65] = v7;
+      v6 -= 128;
     }
 
-    while (v6 != v7);
+    while (v6 > 0x80);
   }
 
-  else
+  if (v6)
   {
-    v35 = *a1;
-    v36 = *(*a1 + 520);
-    if (*(*a1 + 528) < (v36 + 1))
+    v9 = (v6 - 1) | 0x80;
+    v10 = v5[65];
+    if (v5[66] < (v10 + 1))
     {
-      result = AG::vector<unsigned char,512ul,unsigned long>::reserve_slow(*a1, v36 + 1);
-      v36 = *(v35 + 520);
+      result = AG::vector<unsigned char,512ul,unsigned long>::reserve_slow(v5, v10 + 1);
+      v10 = v5[65];
     }
 
-    v37 = *(v35 + 512);
-    if (!v37)
+    v11 = v5[64];
+    if (!v11)
     {
-      v37 = v35;
+      v11 = v5;
     }
 
-    *(v37 + v36) = 10;
-    ++*(v35 + 520);
-    v38 = *a1;
-    v39 = a2[2];
-    v40 = *(*a1 + 520);
-    v41 = v40 + 8;
-    if (v40 <= 0xFFFFFFFFFFFFFFF7 && *(*a1 + 528) < v41)
-    {
-      result = AG::vector<unsigned char,512ul,unsigned long>::reserve_slow(*a1, v40 + 8);
-    }
-
-    *(v38 + 520) = v41;
-    v43 = *(v38 + 512);
-    if (!v43)
-    {
-      v43 = v38;
-    }
-
-    *(v43 + v40) = v39;
+    *(v11 + v10) = v9;
+    ++v5[65];
   }
 
-  v44 = *a1;
-  v45 = *(*a1 + 520);
-  if (*(*a1 + 528) < (v45 + 1))
-  {
-    result = AG::vector<unsigned char,512ul,unsigned long>::reserve_slow(*a1, v45 + 1);
-    v45 = *(v44 + 520);
-  }
-
-  v46 = *(v44 + 512);
-  if (!v46)
-  {
-    v46 = v44;
-  }
-
-  *(v46 + v45) = 23;
-  ++*(v44 + 520);
   a1[1] += a2[1];
   return result;
 }
@@ -5745,19 +5535,19 @@ void *AG::LayoutDescriptor::Builder::Emitter<AG::vector<unsigned char,512ul,unsi
   return result;
 }
 
-void *AG::vector<std::variant<AG::LayoutDescriptor::Builder::DataItem,AG::LayoutDescriptor::Builder::EqualsItem,AG::LayoutDescriptor::Builder::EqualsOverrideItem,AG::LayoutDescriptor::Builder::IndirectItem,AG::LayoutDescriptor::Builder::ExistentialItem,AG::LayoutDescriptor::Builder::HeapRefItem,AG::LayoutDescriptor::Builder::NestedItem,AG::LayoutDescriptor::Builder::EnumItem>,0ul,unsigned long>::reserve_slow(uint64_t a1, unint64_t a2)
+void *AG::vector<std::variant<AG::LayoutDescriptor::Builder::DataItem,AG::LayoutDescriptor::Builder::EqualsItem,AG::LayoutDescriptor::Builder::EqualsOverrideItem,AG::LayoutDescriptor::Builder::IndirectItem,AG::LayoutDescriptor::Builder::ExistentialItem,AG::LayoutDescriptor::Builder::HeapRefItem,AG::LayoutDescriptor::Builder::NestedItem,AG::LayoutDescriptor::Builder::EnumItem>,0ul,unsigned long>::reserve_slow(void **a1, char *a2)
 {
-  if (*(a1 + 16) + (*(a1 + 16) >> 1) <= a2)
+  if (a1[2] + (a1[2] >> 1) <= a2)
   {
     v3 = a2;
   }
 
   else
   {
-    v3 = *(a1 + 16) + (*(a1 + 16) >> 1);
+    v3 = a1[2] + (a1[2] >> 1);
   }
 
-  result = AG::details::realloc_vector<unsigned long,56ul>(*a1, (a1 + 16), v3);
+  result = AG::details::realloc_vector<unsigned long,56ul>(*a1, a1 + 2, v3);
   *a1 = result;
   return result;
 }
@@ -5792,20 +5582,20 @@ void *AG::details::realloc_vector<unsigned long,56ul>(void *a1, unint64_t *a2, u
   return v4;
 }
 
-_BYTE *AG::LayoutDescriptor::Builder::Emitter<AG::vector<unsigned char,512ul,unsigned long>>::enter(_BYTE *result, unint64_t *a2)
+unint64_t *AG::LayoutDescriptor::Builder::Emitter<AG::vector<unsigned char,512ul,unsigned long>>::enter(unint64_t *result, unint64_t *a2)
 {
   v3 = result;
-  if (result[16])
+  if (result[2])
   {
-    result[16] = 1;
+    *(result + 16) = 1;
   }
 
   else
   {
-    v4 = *(result + 1);
+    v4 = result[1];
     v5 = *a2 >= v4;
     v6 = *a2 - v4;
-    result[16] = *a2 < v4;
+    *(result + 16) = *a2 < v4;
     if (v5)
     {
       v7 = *result;
@@ -5857,7 +5647,7 @@ _BYTE *AG::LayoutDescriptor::Builder::Emitter<AG::vector<unsigned char,512ul,uns
     }
   }
 
-  *(v3 + 1) = *a2;
+  v3[1] = *a2;
   return result;
 }
 
@@ -5916,12 +5706,12 @@ LABEL_8:
   return v7;
 }
 
-char *AG::LayoutDescriptor::Builder::Emitter<AG::vector<unsigned char,512ul,unsigned long>>::operator()(uint64_t *a1, uint64_t a2)
+char *AG::LayoutDescriptor::Builder::Emitter<AG::vector<unsigned char,512ul,unsigned long>>::operator()(unint64_t *a1, uint64_t a2)
 {
   AG::LayoutDescriptor::Builder::Emitter<AG::vector<unsigned char,512ul,unsigned long>>::enter(a1, a2);
   v4 = *(a2 + 16);
   result = AG::LayoutDescriptor::length(v4, v5);
-  v7 = (result - 1);
+  v7 = result - 1;
   if ((result - 1) > 0x1E)
   {
     v14 = v4 - AG::LayoutDescriptor::base_address;
@@ -6052,8 +5842,8 @@ char *AG::LayoutDescriptor::Builder::Emitter<AG::vector<unsigned char,512ul,unsi
   {
     v8 = *a1;
     v9 = *(*a1 + 520);
-    v10 = v9 + v7;
-    if (v9 >= v9 + v7)
+    v10 = &v7[v9];
+    if (v9 >= &v7[v9])
     {
       v11 = *a1;
     }
@@ -6064,9 +5854,9 @@ char *AG::LayoutDescriptor::Builder::Emitter<AG::vector<unsigned char,512ul,unsi
       if (v8[66] < v10)
       {
         v43 = *a1;
-        v12 = v9 + v7;
+        v12 = &v7[v9];
         v13 = *(*a1 + 520);
-        AG::vector<unsigned char,512ul,unsigned long>::reserve_slow(v8, v9 + v7);
+        AG::vector<unsigned char,512ul,unsigned long>::reserve_slow(v8, &v7[v9]);
         v9 = v13;
         v10 = v12;
         v8 = v43;
@@ -6308,38 +6098,36 @@ uint64_t AGTypeApplyFields2::Visitor::visit_field(uint64_t a1, AG::swift::metada
   if (v10)
   {
     v11 = v10;
-    v12 = *(a1 + 8);
-    v13 = *(a3 + 8);
-    if (v13)
+    v12 = *(a3 + 8);
+    if (v12)
     {
-      v14 = (v13 + a3 + 8);
+      v13 = (v12 + a3 + 8);
     }
 
     else
     {
-      v14 = "";
+      v13 = "";
     }
 
-    v15 = *(v12 + 8);
-    return (*v12)(v14, a4, v11) & 1;
+    return (**(a1 + 8))(v13, a4, v11) & 1;
   }
 
   else
   {
-    v17 = **a1;
+    v15 = **a1;
 
-    return v17(a1);
+    return v15(a1);
   }
 }
 
-uint64_t sub_1B4913ACC()
+uint64_t sub_1B4913ACC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
   return GenericValueMetadataWithLayoutString;
 }
 
-uint64_t anonymous namespace::create_indirect_attribute(uint64_t a1, unint64_t a2, unsigned __int8 a3, char a4)
+uint64_t anonymous namespace::create_indirect_attribute(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
   v5 = AG::Subgraph::_current_subgraph_key;
   v6 = *(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8 * v5);
@@ -6350,7 +6138,7 @@ uint64_t anonymous namespace::create_indirect_attribute(uint64_t a1, unint64_t a
   return AG::Graph::add_indirect_attribute(v6[5], v6, a1, 0, a2, a3, 1, a4) | 1;
 }
 
-uint64_t sub_1B4913B60()
+uint64_t sub_1B4913B60(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -6465,12 +6253,12 @@ uint64_t AG::LayoutDescriptor::Builder::visit_case(AG::LayoutDescriptor::Builder
 
   else
   {
-    v11 = (this + 40);
+    v11 = this + 40;
   }
 
   if (a4)
   {
-    v12 = v11[1];
+    v12 = *(v11 + 1);
   }
 
   else
@@ -6482,11 +6270,11 @@ uint64_t AG::LayoutDescriptor::Builder::visit_case(AG::LayoutDescriptor::Builder
     v59 = 0;
     v60 = 0;
     v61 = 0;
-    v14 = v11[1];
-    if (v11[2] < (v14 + 1))
+    v14 = *(v11 + 1);
+    if (*(v11 + 2) < (v14 + 1))
     {
-      AG::vector<std::variant<AG::LayoutDescriptor::Builder::DataItem,AG::LayoutDescriptor::Builder::EqualsItem,AG::LayoutDescriptor::Builder::EqualsOverrideItem,AG::LayoutDescriptor::Builder::IndirectItem,AG::LayoutDescriptor::Builder::ExistentialItem,AG::LayoutDescriptor::Builder::HeapRefItem,AG::LayoutDescriptor::Builder::NestedItem,AG::LayoutDescriptor::Builder::EnumItem>,0ul,unsigned long>::reserve_slow(v11, v14 + 1);
-      v14 = v11[1];
+      AG::vector<std::variant<AG::LayoutDescriptor::Builder::DataItem,AG::LayoutDescriptor::Builder::EqualsItem,AG::LayoutDescriptor::Builder::EqualsOverrideItem,AG::LayoutDescriptor::Builder::IndirectItem,AG::LayoutDescriptor::Builder::ExistentialItem,AG::LayoutDescriptor::Builder::HeapRefItem,AG::LayoutDescriptor::Builder::NestedItem,AG::LayoutDescriptor::Builder::EnumItem>,0ul,unsigned long>::reserve_slow(v11, (v14 + 1));
+      v14 = *(v11 + 1);
     }
 
     v15 = *v11 + 56 * v14;
@@ -6496,8 +6284,8 @@ uint64_t AG::LayoutDescriptor::Builder::visit_case(AG::LayoutDescriptor::Builder
     *(v15 + 32) = 0;
     *(v15 + 40) = 0;
     *(v15 + 48) = 7;
-    v12 = v11[1] + 1;
-    v11[1] = v12;
+    v12 = *(v11 + 1) + 1;
+    *(v11 + 1) = v12;
   }
 
   v16 = *v11 + 56 * v12;
@@ -6579,19 +6367,19 @@ LABEL_43:
             v47 = *(this + 4);
             v48 = *(this + 2);
             v49 = *(*(a2 - 1) + 64);
-            v50 = v47[3];
-            if (v47[4] < (v50 + 1))
+            v50 = *(v47 + 24);
+            if (*(v47 + 32) < (v50 + 1))
             {
-              AG::vector<std::variant<AG::LayoutDescriptor::Builder::DataItem,AG::LayoutDescriptor::Builder::EqualsItem,AG::LayoutDescriptor::Builder::EqualsOverrideItem,AG::LayoutDescriptor::Builder::IndirectItem,AG::LayoutDescriptor::Builder::ExistentialItem,AG::LayoutDescriptor::Builder::HeapRefItem,AG::LayoutDescriptor::Builder::NestedItem,AG::LayoutDescriptor::Builder::EnumItem>,0ul,unsigned long>::reserve_slow((v47 + 2), v50 + 1);
-              v50 = v47[3];
+              AG::vector<std::variant<AG::LayoutDescriptor::Builder::DataItem,AG::LayoutDescriptor::Builder::EqualsItem,AG::LayoutDescriptor::Builder::EqualsOverrideItem,AG::LayoutDescriptor::Builder::IndirectItem,AG::LayoutDescriptor::Builder::ExistentialItem,AG::LayoutDescriptor::Builder::HeapRefItem,AG::LayoutDescriptor::Builder::NestedItem,AG::LayoutDescriptor::Builder::EnumItem>,0ul,unsigned long>::reserve_slow((v47 + 16), (v50 + 1));
+              v50 = *(v47 + 24);
             }
 
-            v51 = v47[2] + 56 * v50;
+            v51 = *(v47 + 16) + 56 * v50;
             *v51 = v48;
             *(v51 + 8) = v49;
             *(v51 + 16) = v27;
             *(v51 + 48) = 3;
-            ++v47[3];
+            ++*(v47 + 24);
           }
         }
 
@@ -6644,18 +6432,18 @@ LABEL_43:
               {
                 v41 = *(this + 4);
                 v42 = *(this + 2);
-                v43 = v41[3];
-                if (v41[4] < (v43 + 1))
+                v43 = *(v41 + 24);
+                if (*(v41 + 32) < (v43 + 1))
                 {
-                  AG::vector<std::variant<AG::LayoutDescriptor::Builder::DataItem,AG::LayoutDescriptor::Builder::EqualsItem,AG::LayoutDescriptor::Builder::EqualsOverrideItem,AG::LayoutDescriptor::Builder::IndirectItem,AG::LayoutDescriptor::Builder::ExistentialItem,AG::LayoutDescriptor::Builder::HeapRefItem,AG::LayoutDescriptor::Builder::NestedItem,AG::LayoutDescriptor::Builder::EnumItem>,0ul,unsigned long>::reserve_slow((v41 + 2), v43 + 1);
-                  v43 = v41[3];
+                  AG::vector<std::variant<AG::LayoutDescriptor::Builder::DataItem,AG::LayoutDescriptor::Builder::EqualsItem,AG::LayoutDescriptor::Builder::EqualsOverrideItem,AG::LayoutDescriptor::Builder::IndirectItem,AG::LayoutDescriptor::Builder::ExistentialItem,AG::LayoutDescriptor::Builder::HeapRefItem,AG::LayoutDescriptor::Builder::NestedItem,AG::LayoutDescriptor::Builder::EnumItem>,0ul,unsigned long>::reserve_slow((v41 + 16), (v43 + 1));
+                  v43 = *(v41 + 24);
                 }
 
-                v44 = v41[2] + 56 * v43;
+                v44 = *(v41 + 16) + 56 * v43;
                 *v44 = v42;
                 *(v44 + 8) = v40;
                 *(v44 + 48) = 0;
-                ++v41[3];
+                ++*(v41 + 24);
               }
             }
           }
@@ -6669,8 +6457,8 @@ LABEL_43:
   }
 
   v45 = *v11;
-  v46 = v11[1] - 1;
-  v11[1] = v46;
+  v46 = *(v11 + 1) - 1;
+  *(v11 + 1) = v46;
   std::__variant_detail::__dtor<std::__variant_detail::__traits<AG::LayoutDescriptor::Builder::DataItem,AG::LayoutDescriptor::Builder::EqualsItem,AG::LayoutDescriptor::Builder::EqualsOverrideItem,AG::LayoutDescriptor::Builder::IndirectItem,AG::LayoutDescriptor::Builder::ExistentialItem,AG::LayoutDescriptor::Builder::HeapRefItem,AG::LayoutDescriptor::Builder::NestedItem,AG::LayoutDescriptor::Builder::EnumItem>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v45 + 56 * v46);
   result = 0;
 LABEL_51:
@@ -6805,22 +6593,22 @@ uint64_t AGGraphGetValueState(char *a1, const char *a2)
   return AG::Graph::value_state(v4, v3);
 }
 
-void AGGraphMutateAttribute(char *a1, const char *a2, char a3, void (*a4)(void *), uint64_t a5)
+void AGGraphMutateAttribute(char *a1, const char *a2, uint64_t a3, void (*a4)(void *), uint64_t a5)
 {
   if ((a1 & 3) != 0)
   {
-    AG::precondition_failure("non-direct attribute id: %u", a2, a1);
+    AG::precondition_failure("non-direct attribute id: %u", a2, a3, a4, a5, a1);
   }
 
   if (dword_1ED56D738 <= a1)
   {
-    AG::precondition_failure("invalid data offset: %u", a2, a1);
+    AG::precondition_failure("invalid data offset: %u", a2, a3, a4, a5, a1);
   }
 
   v5 = *(AG::data::_shared_table_bytes + (a1 & 0xFFFFFE00));
   if (!v5)
   {
-    AG::precondition_failure("no graph: %u", a2, a1);
+    AG::precondition_failure("no graph: %u", a2, a3, a4, a5, a1);
   }
 
   v7 = a1;
@@ -6829,13 +6617,13 @@ void AGGraphMutateAttribute(char *a1, const char *a2, char a3, void (*a4)(void *
   AG::Graph::attribute_modify(v8, v7, a2, a4, a5, a3 & 1);
 }
 
-void AG::Graph::attribute_modify(uint64_t a1, const char *a2, uint64_t a3, void (*a4)(void *), uint64_t a5, int a6)
+void AG::Graph::attribute_modify(uint64_t a1, const char *a2, uint64_t a3, void (*a4)(void *), uint64_t a5, uint64_t a6)
 {
   v6 = (AG::data::_shared_table_bytes + a2);
   v7 = *v6;
   if ((v7 & 0x20) == 0)
   {
-    AG::precondition_failure("no self data: %u", a2, a2);
+    AG::precondition_failure("no self data: %u", a2, a3, a4, a5, a6, a2);
   }
 
   v9 = *(*(a1 + 88) + ((v7 >> 5) & 0x7FFFFF8));
@@ -6844,6 +6632,7 @@ void AG::Graph::attribute_modify(uint64_t a1, const char *a2, uint64_t a3, void 
     AG::precondition_failure("self type mismatch: %u", a2, a2);
   }
 
+  v10 = a6;
   v12 = a2;
   if (*(a1 + 176))
   {
@@ -6860,13 +6649,13 @@ void AG::Graph::attribute_modify(uint64_t a1, const char *a2, uint64_t a3, void 
   if (*(a1 + 176))
   {
     AG::Graph::attribute_modify();
-    if (!a6)
+    if (!v10)
     {
       return;
     }
   }
 
-  else if (!a6)
+  else if (!v10)
   {
     return;
   }
@@ -7030,7 +6819,7 @@ __n128 AG::LayoutDescriptor::Builder::revert(uint64_t a1, unint64_t *a2)
     v3 = (a1 + 40);
   }
 
-  v4 = (a2 + 1);
+  v4 = a2 + 1;
   for (i = v3[1]; i > *a2; i = v3[1])
   {
     v7 = i - 1;
@@ -7040,7 +6829,7 @@ __n128 AG::LayoutDescriptor::Builder::revert(uint64_t a1, unint64_t *a2)
 
   if (i)
   {
-    v9 = v4->n128_u64[0] == -1;
+    v9 = *v4 == -1;
   }
 
   else
@@ -7070,6 +6859,232 @@ __n128 AG::LayoutDescriptor::Builder::revert(uint64_t a1, unint64_t *a2)
   return result;
 }
 
+void *AG::LayoutDescriptor::Builder::Emitter<AG::vector<unsigned char,512ul,unsigned long>>::operator()(uint64_t a1, unint64_t *a2)
+{
+  result = AG::LayoutDescriptor::Builder::Emitter<AG::vector<unsigned char,512ul,unsigned long>>::enter(a1, a2);
+  v5 = a2[4];
+  if (v5)
+  {
+    v6 = a2[3];
+    v7 = v6 + 40 * v5;
+    v8 = 1;
+    do
+    {
+      if (v8)
+      {
+        v9 = 9;
+      }
+
+      else
+      {
+        v9 = 13;
+      }
+
+      if (v8)
+      {
+        v10 = 10;
+      }
+
+      else
+      {
+        v10 = 14;
+      }
+
+      if (v8)
+      {
+        v11 = 12;
+      }
+
+      else
+      {
+        v11 = 22;
+      }
+
+      v12 = *v6 + v10;
+      v13 = *a1;
+      if (v12 <= v11)
+      {
+        v21 = v13[65];
+        if (v13[66] < (v21 + 1))
+        {
+          result = AG::vector<unsigned char,512ul,unsigned long>::reserve_slow(*a1, v21 + 1);
+          v21 = v13[65];
+        }
+
+        v22 = v13[64];
+        if (!v22)
+        {
+          v22 = v13;
+        }
+
+        *(v22 + v21) = v12;
+        ++v13[65];
+      }
+
+      else
+      {
+        v14 = v13[65];
+        if (v13[66] < (v14 + 1))
+        {
+          result = AG::vector<unsigned char,512ul,unsigned long>::reserve_slow(*a1, v14 + 1);
+          v14 = v13[65];
+        }
+
+        v15 = v13[64];
+        if (!v15)
+        {
+          v15 = v13;
+        }
+
+        *(v15 + v14) = v9;
+        ++v13[65];
+        v16 = *a1;
+        v17 = *v6;
+        v18 = *(*a1 + 520);
+        do
+        {
+          if (v16[66] < (v18 + 1))
+          {
+            result = AG::vector<unsigned char,512ul,unsigned long>::reserve_slow(v16, v18 + 1);
+            v18 = v16[65];
+          }
+
+          v19 = v16[64];
+          if (!v19)
+          {
+            v19 = v16;
+          }
+
+          *(v19 + v18) = v17 & 0x7F | ((v17 > 0x7F) << 7);
+          v18 = v16[65] + 1;
+          v16[65] = v18;
+          v20 = v17 > 0x7F;
+          v17 >>= 7;
+        }
+
+        while (v20);
+      }
+
+      if (v8)
+      {
+        v23 = *a1;
+        v24 = a2[2];
+        v25 = *(*a1 + 520);
+        v26 = v25 + 8;
+        if (v25 <= 0xFFFFFFFFFFFFFFF7 && *(*a1 + 528) < v26)
+        {
+          result = AG::vector<unsigned char,512ul,unsigned long>::reserve_slow(*a1, v25 + 8);
+        }
+
+        *(v23 + 520) = v26;
+        v28 = *(v23 + 512);
+        if (!v28)
+        {
+          v28 = v23;
+        }
+
+        *(v28 + v25) = v24;
+      }
+
+      v29 = *(a1 + 8);
+      v47 = *a1;
+      v48 = v29;
+      v49 = 0;
+      v30 = *(v6 + 24);
+      if (v30)
+      {
+        v31 = *(v6 + 16);
+        v32 = 56 * v30;
+        do
+        {
+          v33 = *(v31 + 48);
+          if (v33 == -1)
+          {
+            std::__throw_bad_variant_access[abi:ne200100]();
+          }
+
+          v50 = &v47;
+          result = (off_1F2CB2F70[v33])(&v50, v31);
+          v31 += 56;
+          v32 -= 56;
+        }
+
+        while (v32);
+        v34 = *(a1 + 8);
+        v29 = v48;
+        LOBYTE(v30) = v49;
+      }
+
+      else
+      {
+        v34 = v29;
+      }
+
+      v8 = 0;
+      *(a1 + 16) = (*(a1 + 16) | v30) & 1 | (v29 > *(*(a2[2] - 8) + 64) + v34);
+      v6 += 40;
+    }
+
+    while (v6 != v7);
+  }
+
+  else
+  {
+    v35 = *a1;
+    v36 = *(*a1 + 520);
+    if (*(*a1 + 528) < (v36 + 1))
+    {
+      result = AG::vector<unsigned char,512ul,unsigned long>::reserve_slow(*a1, v36 + 1);
+      v36 = *(v35 + 520);
+    }
+
+    v37 = *(v35 + 512);
+    if (!v37)
+    {
+      v37 = v35;
+    }
+
+    *(v37 + v36) = 10;
+    ++*(v35 + 520);
+    v38 = *a1;
+    v39 = a2[2];
+    v40 = *(*a1 + 520);
+    v41 = v40 + 8;
+    if (v40 <= 0xFFFFFFFFFFFFFFF7 && *(*a1 + 528) < v41)
+    {
+      result = AG::vector<unsigned char,512ul,unsigned long>::reserve_slow(*a1, v40 + 8);
+    }
+
+    *(v38 + 520) = v41;
+    v43 = *(v38 + 512);
+    if (!v43)
+    {
+      v43 = v38;
+    }
+
+    *(v43 + v40) = v39;
+  }
+
+  v44 = *a1;
+  v45 = *(*a1 + 520);
+  if (*(*a1 + 528) < (v45 + 1))
+  {
+    result = AG::vector<unsigned char,512ul,unsigned long>::reserve_slow(*a1, v45 + 1);
+    v45 = *(v44 + 520);
+  }
+
+  v46 = *(v44 + 512);
+  if (!v46)
+  {
+    v46 = v44;
+  }
+
+  *(v46 + v45) = 23;
+  ++*(v44 + 520);
+  *(a1 + 8) += a2[1];
+  return result;
+}
+
 void *AG::vector<AG::LayoutDescriptor::Builder::EnumItem::Case,0ul,unsigned long>::reserve_slow(uint64_t a1, unint64_t a2)
 {
   if (*(a1 + 16) + (*(a1 + 16) >> 1) <= a2)
@@ -7084,61 +7099,6 @@ void *AG::vector<AG::LayoutDescriptor::Builder::EnumItem::Case,0ul,unsigned long
 
   result = AG::details::realloc_vector<unsigned long,40ul>(*a1, (a1 + 16), v3);
   *a1 = result;
-  return result;
-}
-
-void *AG::LayoutDescriptor::Builder::Emitter<AG::vector<unsigned char,512ul,unsigned long>>::operator()(uint64_t a1, unint64_t *a2)
-{
-  result = AG::LayoutDescriptor::Builder::Emitter<AG::vector<unsigned char,512ul,unsigned long>>::enter(a1, a2);
-  v5 = *a1;
-  v6 = a2[1];
-  if (v6 >= 0x81)
-  {
-    v7 = v5[65];
-    do
-    {
-      if (v5[66] < (v7 + 1))
-      {
-        result = AG::vector<unsigned char,512ul,unsigned long>::reserve_slow(v5, v7 + 1);
-        v7 = v5[65];
-      }
-
-      v8 = v5[64];
-      if (!v8)
-      {
-        v8 = v5;
-      }
-
-      *(v8 + v7) = -1;
-      v7 = v5[65] + 1;
-      v5[65] = v7;
-      v6 -= 128;
-    }
-
-    while (v6 > 0x80);
-  }
-
-  if (v6)
-  {
-    v9 = (v6 - 1) | 0x80;
-    v10 = v5[65];
-    if (v5[66] < (v10 + 1))
-    {
-      result = AG::vector<unsigned char,512ul,unsigned long>::reserve_slow(v5, v10 + 1);
-      v10 = v5[65];
-    }
-
-    v11 = v5[64];
-    if (!v11)
-    {
-      v11 = v5;
-    }
-
-    *(v11 + v10) = v9;
-    ++v5[65];
-  }
-
-  *(a1 + 8) += a2[1];
   return result;
 }
 
@@ -7388,7 +7348,7 @@ LABEL_32:
   return result;
 }
 
-uint64_t sub_1B49153D8()
+uint64_t sub_1B49153D8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -7518,9 +7478,9 @@ AG::data::zone *AG::data::zone::realloc_bytes(AG::data::zone *this, _DWORD *a2, 
 
 void AG::Graph::update_main_refs(uint64_t a1, unsigned int a2)
 {
-  v60 = *MEMORY[0x1E69E9840];
-  v58 = 0u;
-  v59 = 64;
+  v59 = *MEMORY[0x1E69E9840];
+  v57 = 0u;
+  v58 = 64;
   if ((a2 & 3) == 1)
   {
     v11 = AG::data::_shared_table_bytes + (a2 & 0xFFFFFFFC);
@@ -7532,7 +7492,7 @@ void AG::Graph::update_main_refs(uint64_t a1, unsigned int a2)
       __dst[1] = v13;
       v14 = 1;
 LABEL_24:
-      *(&v58 + 1) = v14;
+      *(&v57 + 1) = v14;
     }
   }
 
@@ -7540,7 +7500,7 @@ LABEL_24:
   {
     if ((a2 & 3) != 0)
     {
-      goto LABEL_62;
+      return;
     }
 
     v4 = (AG::data::_shared_table_bytes + a2);
@@ -7551,10 +7511,10 @@ LABEL_24:
       if ((v5 & 8) != 0)
       {
 LABEL_63:
-        v55 = *(v4 + 7);
+        v54 = *(v4 + 7);
         v16 = v4 + 7;
-        v15 = v55;
-        if ((v55 & 0x20) != 0)
+        v15 = v54;
+        if ((v54 & 0x20) != 0)
         {
           goto LABEL_25;
         }
@@ -7570,11 +7530,11 @@ LABEL_63:
         v9 = 5 * (v7 >> 5);
         do
         {
-          v56 = *v8;
-          v10 = v56;
-          if ((v56 & 3) != 0)
+          v55 = *v8;
+          v10 = v55;
+          if ((v55 & 3) != 0)
           {
-            v10 = AG::AttributeID::resolve_slow(&v56, 0x10u);
+            v10 = AG::AttributeID::resolve_slow(&v55, 0x10);
           }
 
           if ((v10 & 3) == 0 && (*(AG::data::_shared_table_bytes + v10 + 7) & 0x20) != 0)
@@ -7602,15 +7562,15 @@ LABEL_19:
       v20 = AG::data::_shared_table_bytes;
       v21 = *(AG::data::_shared_table_bytes + v19 + 20);
       v22 = *(AG::data::_shared_table_bytes + v19 + 24);
-      v23 = *(&v58 + 1);
-      if (v59 < *(&v58 + 1) + 1)
+      v23 = *(&v57 + 1);
+      if (v58 < *(&v57 + 1) + 1)
       {
-        AG::vector<AG::ConstOutputEdgeArrayRef,64ul,unsigned long>::reserve_slow(__dst, *(&v58 + 1) + 1);
-        v23 = *(&v58 + 1);
+        AG::vector<AG::ConstOutputEdgeArrayRef,64ul,unsigned long>::reserve_slow(__dst, *(&v57 + 1) + 1);
+        v23 = *(&v57 + 1);
       }
 
-      v24 = v58;
-      if (!v58)
+      v24 = v57;
+      if (!v57)
       {
         v24 = __dst;
       }
@@ -7618,19 +7578,19 @@ LABEL_19:
       v25 = &v24[2 * v23];
       *v25 = v20 + v22;
       v25[1] = v21 >> 5;
-      v14 = *(&v58 + 1) + 1;
+      v14 = *(&v57 + 1) + 1;
       goto LABEL_24;
     }
   }
 
 LABEL_25:
-  v26 = *(&v58 + 1);
-  if (*(&v58 + 1))
+  v26 = *(&v57 + 1);
+  if (*(&v57 + 1))
   {
     while (1)
     {
-      v27 = v58;
-      if (!v58)
+      v27 = v57;
+      if (!v57)
       {
         v27 = __dst;
       }
@@ -7638,7 +7598,7 @@ LABEL_25:
       v28 = &v27[2 * v26];
       v30 = *(v28 - 2);
       v29 = *(v28 - 1);
-      *(&v58 + 1) = --v26;
+      *(&v57 + 1) = --v26;
       v31 = v29 - 1;
       if (v29 - 1 >= 0)
       {
@@ -7681,15 +7641,15 @@ LABEL_47:
         v49 = v46 >> 5;
         if (v31)
         {
-          v50 = *(&v58 + 1);
-          if (v59 < *(&v58 + 1) + 1)
+          v50 = *(&v57 + 1);
+          if (v58 < *(&v57 + 1) + 1)
           {
-            AG::vector<AG::ConstOutputEdgeArrayRef,64ul,unsigned long>::reserve_slow(__dst, *(&v58 + 1) + 1);
-            v50 = *(&v58 + 1);
+            AG::vector<AG::ConstOutputEdgeArrayRef,64ul,unsigned long>::reserve_slow(__dst, *(&v57 + 1) + 1);
+            v50 = *(&v57 + 1);
           }
 
-          v51 = v58;
-          if (!v58)
+          v51 = v57;
+          if (!v57)
           {
             v51 = __dst;
           }
@@ -7697,7 +7657,7 @@ LABEL_47:
           v52 = &v51[2 * v50];
           *v52 = v48;
           v52[1] = v49;
-          ++*(&v58 + 1);
+          ++*(&v57 + 1);
           goto LABEL_54;
         }
 
@@ -7724,11 +7684,11 @@ LABEL_47:
             v38 = 5 * (v36 >> 5);
             while (1)
             {
-              v56 = *v37;
-              v39 = v56;
-              if ((v56 & 3) != 0)
+              v55 = *v37;
+              v39 = v55;
+              if ((v55 & 3) != 0)
               {
-                v39 = AG::AttributeID::resolve_slow(&v56, 0x10u);
+                v39 = AG::AttributeID::resolve_slow(&v55, 0x10);
               }
 
               if ((v39 & 3) == 0 && (*(AG::data::_shared_table_bytes + v39 + 7) & 0x20) != 0)
@@ -7776,20 +7736,17 @@ LABEL_44:
 LABEL_54:
       if ((--v31 & 0x8000000000000000) != 0)
       {
-        v26 = *(&v58 + 1);
+        v26 = *(&v57 + 1);
         goto LABEL_59;
       }
     }
   }
 
 LABEL_60:
-  if (v58)
+  if (v57)
   {
-    free(v58);
+    free(v57);
   }
-
-LABEL_62:
-  v54 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1B4915A54(_Unwind_Exception *exception_object)
@@ -7949,19 +7906,19 @@ unint64_t sub_1B4915DE8()
   return result;
 }
 
-void sub_1B4915E40(uint64_t a1, unint64_t *a2)
+void sub_1B4915E40(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
   }
 }
 
-uint64_t sub_1B4915E8C(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1B4915E8C(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -7976,114 +7933,112 @@ uint64_t sub_1B4915E8C(unint64_t *a1, void (*a2)(uint64_t))
 
 void AG::Graph::invalidate_subgraphs(AG::Graph *this)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if ((*(this + 360) & 1) == 0 && !*(this + 23))
   {
     if (*(this + 80))
     {
-      v3 = 0;
+      v2 = 0;
       do
       {
-        v4 = *(*(this + 39) + 8 * v3);
-        *(v4 + 105) |= 2u;
-        AG::Subgraph::cache_collect(v4);
-        v5 = *(v4 + 105);
-        *(v4 + 105) = v5 & 0xFD;
-        if (v5)
+        v3 = *(*(this + 39) + 8 * v2);
+        *(v3 + 105) |= 2u;
+        AG::Subgraph::cache_collect(v3);
+        v4 = *(v3 + 105);
+        *(v3 + 105) = v4 & 0xFD;
+        if (v4)
         {
-          ++v3;
-          v6 = *(this + 80);
+          ++v2;
+          v5 = *(this + 80);
         }
 
         else
         {
-          v7 = *(this + 39);
-          v6 = *(this + 80) - 1;
-          v8 = *(v7 + 8 * v3);
-          *(v7 + 8 * v3) = *(v7 + 8 * v6);
-          *(v7 + 8 * v6) = v8;
-          *(this + 80) = v6;
+          v6 = *(this + 39);
+          v5 = *(this + 80) - 1;
+          v7 = *(v6 + 8 * v2);
+          *(v6 + 8 * v2) = *(v6 + 8 * v5);
+          *(v6 + 8 * v5) = v7;
+          *(this + 80) = v5;
         }
       }
 
-      while (v3 < v6);
+      while (v2 < v5);
     }
 
     if (*(this + 88))
     {
-      v22 = 0;
-      v9 = 0x200000000;
-      v23 = 0x200000000;
-      v10 = pthread_main_np();
-      v11 = *(this + 88);
-      if (v11)
+      v21 = 0;
+      v8 = 0x200000000;
+      v22 = 0x200000000;
+      v9 = pthread_main_np();
+      v10 = *(this + 88);
+      if (v10)
       {
-        v12 = v10;
+        v11 = v9;
         do
         {
-          v13 = *(this + 43);
-          if (!v13)
+          v12 = *(this + 43);
+          if (!v12)
           {
-            v13 = this + 328;
+            v12 = this + 328;
           }
 
-          v14 = v11 - 1;
-          v15 = *&v13[8 * v14];
-          *(this + 88) = v14;
-          if (!v12 && (*(v15 + 105) & 4) != 0)
+          v13 = v10 - 1;
+          v14 = *&v12[8 * v13];
+          *(this + 88) = v13;
+          if (!v11 && (*(v14 + 105) & 4) != 0)
           {
-            v16 = v23;
-            v17 = v23 + 1;
-            if (HIDWORD(v23) < (v23 + 1))
+            v15 = v22;
+            v16 = v22 + 1;
+            if (HIDWORD(v22) < (v22 + 1))
             {
-              AG::vector<AG::Subgraph *,2ul,unsigned int>::reserve_slow(&__dst, v17);
-              v16 = v23;
-              v17 = v23 + 1;
+              AG::vector<AG::Subgraph *,2ul,unsigned int>::reserve_slow(&__dst, v16);
+              v15 = v22;
+              v16 = v22 + 1;
             }
 
-            p_dst = v22;
-            if (!v22)
+            p_dst = v21;
+            if (!v21)
             {
               p_dst = &__dst;
             }
 
-            *(p_dst + v16) = v15;
-            LODWORD(v23) = v17;
+            *(p_dst + v15) = v14;
+            LODWORD(v22) = v16;
           }
 
           else
           {
-            AG::Subgraph::invalidate_now(v15, this);
+            AG::Subgraph::invalidate_now(v14, this);
           }
 
-          v11 = *(this + 88);
+          v10 = *(this + 88);
         }
 
-        while (v11);
-        v19 = v22;
-        v9 = v23;
+        while (v10);
+        v18 = v21;
+        v8 = v22;
       }
 
       else
       {
-        v19 = 0;
+        v18 = 0;
       }
 
-      v22 = *(this + 43);
-      *(this + 43) = v19;
-      v20 = *(this + 89);
-      LODWORD(v23) = 0;
-      HIDWORD(v23) = v20;
-      *(this + 44) = v9;
+      v21 = *(this + 43);
+      *(this + 43) = v18;
+      v19 = *(this + 89);
+      LODWORD(v22) = 0;
+      HIDWORD(v22) = v19;
+      *(this + 44) = v8;
       AG::vector<AG::Subgraph *,2ul,unsigned int>::swap_inline(&__dst, (this + 328));
-      if (v22)
+      if (v21)
       {
-        free(v22);
+        free(v21);
       }
     }
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1B491614C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12)
@@ -8105,7 +8060,7 @@ uint64_t _s14AttributeGraph3MapV5flagsSo20AGAttributeTypeFlagsVvgZ_0()
   return v1;
 }
 
-uint64_t sub_1B49161BC()
+uint64_t sub_1B49161BC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -8356,7 +8311,7 @@ uint64_t AG::Subgraph::foreach_ancestor<AG::Subgraph::propagate_flags(void)::$_0
         break;
       }
 
-      result = AG::Subgraph::foreach_ancestor<AG::Subgraph::propagate_flags(void)::$_0>();
+      result = AG::Subgraph::foreach_ancestor<AG::Subgraph::propagate_flags(void)::$_0>(result, a2);
 LABEL_13:
       if (v6-- <= 0)
       {
@@ -8368,8 +8323,9 @@ LABEL_13:
   return result;
 }
 
-void AG::Graph::mark_pending(uint64_t a1, unsigned int a2, int *a3)
+void AG::Graph::mark_pending(uint64_t a1, uint64_t a2, int *a3)
 {
+  v4 = a2;
   v6 = *a3;
   if ((*a3 & 2) == 0)
   {
@@ -8379,7 +8335,7 @@ void AG::Graph::mark_pending(uint64_t a1, unsigned int a2, int *a3)
       v9 = 8 * v7 - 8;
       do
       {
-        (*(**(*(a1 + 168) + v9) + 264))(*(*(a1 + 168) + v9), a2, 1);
+        (*(**(*(a1 + 168) + v9) + 264))(*(*(a1 + 168) + v9), v4, 1);
         v9 -= 8;
       }
 
@@ -8399,7 +8355,7 @@ void AG::Graph::mark_pending(uint64_t a1, unsigned int a2, int *a3)
       v10 = 8 * v8 - 8;
       do
       {
-        (*(**(*(a1 + 168) + v10) + 256))(*(*(a1 + 168) + v10), a2, 1);
+        (*(**(*(a1 + 168) + v10) + 256))(*(*(a1 + 168) + v10), v4, 1);
         v10 -= 8;
       }
 
@@ -8410,7 +8366,7 @@ void AG::Graph::mark_pending(uint64_t a1, unsigned int a2, int *a3)
     *a3 = v6 | 1;
     if (*(a3 + 6))
     {
-      AG::Graph::mark_pending(a2, *(a3 + 6));
+      AG::Graph::mark_pending(v4, *(a3 + 6));
     }
 
     AG::Graph::propagate_dirty(a1);
@@ -8443,24 +8399,24 @@ void *AG::LayoutDescriptor::Builder::add_field(void *this, uint64_t a2)
 
     else
     {
-      v4 = this + 5;
+      v4 = (this + 5);
     }
 
-    v5 = v4[1];
+    v5 = *(v4 + 1);
     if (!v5 || (v6 = *v4 + 56 * v5, v6 == 56) || *(v6 - 8) || (v7 = *(v6 - 48), v7 + *(v6 - 56) != this[2]))
     {
       v8 = this[2];
-      if (v4[2] < (v5 + 1))
+      if (*(v4 + 2) < (v5 + 1))
       {
-        this = AG::vector<std::variant<AG::LayoutDescriptor::Builder::DataItem,AG::LayoutDescriptor::Builder::EqualsItem,AG::LayoutDescriptor::Builder::EqualsOverrideItem,AG::LayoutDescriptor::Builder::IndirectItem,AG::LayoutDescriptor::Builder::ExistentialItem,AG::LayoutDescriptor::Builder::HeapRefItem,AG::LayoutDescriptor::Builder::NestedItem,AG::LayoutDescriptor::Builder::EnumItem>,0ul,unsigned long>::reserve_slow(v4, v5 + 1);
-        v5 = v4[1];
+        this = AG::vector<std::variant<AG::LayoutDescriptor::Builder::DataItem,AG::LayoutDescriptor::Builder::EqualsItem,AG::LayoutDescriptor::Builder::EqualsOverrideItem,AG::LayoutDescriptor::Builder::IndirectItem,AG::LayoutDescriptor::Builder::ExistentialItem,AG::LayoutDescriptor::Builder::HeapRefItem,AG::LayoutDescriptor::Builder::NestedItem,AG::LayoutDescriptor::Builder::EnumItem>,0ul,unsigned long>::reserve_slow(v4, (v5 + 1));
+        v5 = *(v4 + 1);
       }
 
       v9 = *v4 + 56 * v5;
       *v9 = v8;
       *(v9 + 8) = a2;
       *(v9 + 48) = 0;
-      ++v4[1];
+      ++*(v4 + 1);
     }
 
     else
@@ -8530,37 +8486,37 @@ uint64_t AG::Subgraph::cache_fetch(AG::Graph **this, uint64_t a2, void *a3, cons
   }
 
   v24 = a2 << 8;
-  v40 = v24;
-  v41 = v16;
-  v42 = 0;
-  v43 = a4;
-  v25 = util::UntypedTable::lookup((v15 + 72), &v40, 0);
+  v41 = v24;
+  v42 = v16;
+  v43 = 0;
+  v44 = a4;
+  v25 = util::UntypedTable::lookup((v15 + 72), &v41, 0);
   if (v25)
   {
-    v26 = v25;
-    v27 = *v25;
+    v27 = v25;
+    v28 = *v25;
     if (*v25)
     {
-      v28 = AG::data::_shared_table_bytes + v16;
-      v29 = *(v25 + 2);
-      v30 = *(v25 + 3);
-      if (v29)
+      v29 = AG::data::_shared_table_bytes + v16;
+      v30 = *(v25 + 2);
+      v31 = *(v25 + 3);
+      if (v30)
       {
-        v31 = *(v25 + 2);
+        v32 = *(v25 + 2);
       }
 
       else
       {
-        v31 = AG::data::_shared_table_bytes + v16;
+        v32 = AG::data::_shared_table_bytes + v16;
       }
 
-      *(v31 + 24) = v30;
-      if (v30)
+      *(v32 + 24) = v31;
+      if (v31)
       {
-        v28 = v30;
+        v29 = v31;
       }
 
-      *(v28 + 16) = v29;
+      *(v29 + 16) = v30;
     }
   }
 
@@ -8571,54 +8527,54 @@ uint64_t AG::Subgraph::cache_fetch(AG::Graph **this, uint64_t a2, void *a3, cons
       return 0;
     }
 
-    v32 = AG::data::_shared_table_bytes;
-    v33 = AG::data::_shared_table_bytes + v16;
-    v26 = *(v33 + 24);
-    if (!v26 || (v34 = *v26, v34 < 2))
+    v33 = AG::data::_shared_table_bytes;
+    v34 = AG::data::_shared_table_bytes + v16;
+    v27 = *(v34 + 24);
+    if (!v27 || (v35 = *v27, v35 < 2))
     {
-      AG::Graph::add_attribute(this[5], this, *(v33 + 32), a4, 0);
+      AG::Graph::add_attribute(this[5], this, *(v34 + 32), a4, 0, v26);
       operator new();
     }
 
-    v35 = *(v26 + 2);
-    v36 = *(v26 + 3);
-    if (v35)
+    v36 = *(v27 + 2);
+    v37 = *(v27 + 3);
+    if (v36)
     {
-      v37 = *(v26 + 2);
+      v38 = *(v27 + 2);
     }
 
     else
     {
-      v37 = AG::data::_shared_table_bytes + v16;
+      v38 = AG::data::_shared_table_bytes + v16;
     }
 
-    *(v37 + 24) = v36;
-    if (v36)
+    *(v38 + 24) = v37;
+    if (v37)
     {
-      v33 = v36;
+      v34 = v37;
     }
 
-    *(v33 + 16) = v35;
-    if (v34 != 255)
+    *(v34 + 16) = v36;
+    if (v35 != 255)
     {
-      util::UntypedTable::remove_ptr((v15 + 72), v26);
-      v32 = AG::data::_shared_table_bytes;
+      util::UntypedTable::remove_ptr((v15 + 72), v27);
+      v33 = AG::data::_shared_table_bytes;
     }
 
-    v38 = v26[3];
-    AG::Graph::remove_all_inputs(this[5], v26[3]);
-    *(v32 + v38) |= 3u;
-    AG::Node::update_self((v32 + v38), this[5], a4);
-    *v26 = *v26 | v24;
-    util::UntypedTable::insert((v15 + 72), v26, v26);
-    v27 = *v26;
+    v39 = v27[3];
+    AG::Graph::remove_all_inputs(this[5], v27[3]);
+    *(v33 + v39) |= 3u;
+    AG::Node::update_self((v33 + v39), this[5], a4);
+    *v27 = *v27 | v24;
+    util::UntypedTable::insert((v15 + 72), v27, v27);
+    v28 = *v27;
   }
 
-  *v26 = v27 & 0xFFFFFFFFFFFFFF00;
-  return v26[3];
+  *v27 = v28 & 0xFFFFFFFFFFFFFF00;
+  return v27[3];
 }
 
-uint64_t anonymous namespace::read_cached_attribute(const char *a1, void *a2, const void *a3, AG::swift::metadata *a4, char a5, unsigned int a6, _BYTE *a7, int a8, uint64_t (*a9)(AG::Graph *), uint64_t a10)
+const char *anonymous namespace::read_cached_attribute(const char *a1, void *a2, const void *a3, AG::swift::metadata *a4, char a5, unsigned int a6, _BYTE *a7, int a8, uint64_t (*a9)(AG::Graph *), uint64_t a10)
 {
   v13 = AG::Graph::_current_update_key;
   StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
@@ -8771,7 +8727,7 @@ LABEL_23:
   return v43 + v36;
 }
 
-uint64_t AGGraphReadCachedAttribute(const char *a1, void *a2, const void *a3, AG::swift::metadata *a4, char a5, unsigned int a6, _BYTE *a7, uint64_t (*a8)(AG::Graph *), uint64_t a9)
+const char *AGGraphReadCachedAttribute(const char *a1, void *a2, const void *a3, AG::swift::metadata *a4, char a5, unsigned int a6, _BYTE *a7, uint64_t (*a8)(AG::Graph *), uint64_t a9)
 {
   v11 = 0;
   if (a7)
@@ -8782,7 +8738,7 @@ uint64_t AGGraphReadCachedAttribute(const char *a1, void *a2, const void *a3, AG
   return result;
 }
 
-uint64_t static Rule<>._cachedValue(options:owner:hashValue:bodyPtr:update:)(char a1, uint64_t a2, const char *a3, const void *a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9)
+const char *static Rule<>._cachedValue(options:owner:hashValue:bodyPtr:update:)(char a1, uint64_t a2, const char *a3, const void *a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9)
 {
   if ((a2 & 0x100000000) != 0)
   {
@@ -8803,17 +8759,17 @@ uint64_t static Rule<>._cachedValue(options:owner:hashValue:bodyPtr:update:)(cha
   return AGGraphReadCachedAttribute(a3, a7, a4, AssociatedTypeWitness, a1, v16, 0, sub_1B491CB58, v19);
 }
 
-uint64_t AG::Graph::input_value_ref_slow(uint64_t result, const char *a2, uint64_t a3, int a4, char a5, AG::swift::metadata *a6, _BYTE *a7, uint64_t a8)
+uint64_t AG::Graph::input_value_ref_slow(uint64_t a1, const char *a2, uint64_t a3, int a4, char a5, AG::swift::metadata *a6, _BYTE *a7, uint64_t a8)
 {
   v11 = a3;
-  v12 = result;
+  v12 = a1;
   v32 = a3;
   v13 = a2;
   v14 = AG::data::_shared_table_bytes + a2;
   if ((a5 & 2) != 0)
   {
-    result = AG::Graph::index_of_input(result, AG::data::_shared_table_bytes + a2, a3 | ((a5 & 9) << 40) | 0xD00000000);
-    a8 = result;
+    a1 = AG::Graph::index_of_input(a1, AG::data::_shared_table_bytes + a2, a3 | ((a5 & 9) << 40) | 0xD00000000);
+    a8 = a1;
   }
 
   if (a4)
@@ -8846,8 +8802,8 @@ uint64_t AG::Graph::input_value_ref_slow(uint64_t result, const char *a2, uint64
   {
     if ((v11 & 3) != 0)
     {
-      result = AG::AttributeID::resolve_slow(&v32, v15);
-      LODWORD(v11) = result;
+      a1 = AG::AttributeID::resolve_slow(&v32, v15);
+      LODWORD(v11) = a1;
       if (a4)
       {
         goto LABEL_13;
@@ -8857,25 +8813,25 @@ uint64_t AG::Graph::input_value_ref_slow(uint64_t result, const char *a2, uint64
     else if (a4)
     {
 LABEL_13:
-      result = 0;
+      a1 = 0;
       if (v11 < 4 || (v11 & 3) != 0)
       {
-        return result;
+        return a1;
       }
     }
 
     if (*(*(AG::data::_shared_table_bytes + (v11 & 0xFFFFFE00)) + 40) != v12)
     {
-      AG::Graph::add_input_dependencies(result, a2);
+      AG::Graph::add_input_dependencies(a1, a2);
     }
 
     AG::Graph::update_attribute(v12, v11, 0);
     LODWORD(v11) = v32;
   }
 
-  result = AG::Graph::add_input(v12, v13, v11, a4 != 0, a5 & 9);
-  a8 = result;
-  if (result < 0)
+  a1 = AG::Graph::add_input(v12, v13, v11, a4 != 0, a5 & 9);
+  a8 = a1;
+  if (a1 < 0)
   {
     return 0;
   }
@@ -8889,9 +8845,9 @@ LABEL_18:
   v31 = v20;
   if ((v20 & 3) != 0)
   {
-    result = AG::AttributeID::resolve_slow(&v31, (v15 | 8));
+    a1 = AG::AttributeID::resolve_slow(&v31, (v15 | 8));
     v21 = a2;
-    v20 = result;
+    v20 = a1;
     if (a4)
     {
 LABEL_20:
@@ -8913,7 +8869,7 @@ LABEL_20:
 
   if (*(*(AG::data::_shared_table_bytes + (v20 & 0xFFFFFE00)) + 40) != v12)
   {
-    AG::Graph::add_input_dependencies(result, a2);
+    AG::Graph::add_input_dependencies(a1, a2);
   }
 
   v29 = v14;
@@ -8927,10 +8883,10 @@ LABEL_20:
       if ((v24 & 0x100000000) != 0)
       {
         v25 = AG::data::table::raw_page_seed(&AG::data::_shared_table_bytes, (v20 & 0xFFFFFE00));
-        result = 0;
+        a1 = 0;
         if ((v25 & 0x100000000) == 0 || (v24 & 0x7FFFFFFF) != v25)
         {
-          return result;
+          return a1;
         }
       }
     }
@@ -8986,7 +8942,7 @@ LABEL_20:
   }
 }
 
-uint64_t AG::Graph::add_input(uint64_t a1, const char *a2, uint64_t a3, int a4, uint64_t a5)
+unint64_t AG::Graph::add_input(uint64_t a1, const char *a2, uint64_t a3, int a4, uint64_t a5)
 {
   v40 = a3;
   v9 = a3;
@@ -9213,7 +9169,7 @@ void AG::Graph::reset_update(uint64_t a1, int a2)
 
 uint64_t AG::Graph::update_attribute(AG::Graph *this, unsigned int a2, uint64_t a3)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   if (*(this + 361) == 1 && !AG::Graph::thread_is_updating(this))
   {
     AG::Graph::call_update(this);
@@ -9223,116 +9179,112 @@ uint64_t AG::Graph::update_attribute(AG::Graph *this, unsigned int a2, uint64_t 
   v7 = *v6;
   if ((*v6 & 0x11) == 0x10)
   {
-    v8 = 0;
+    return 0;
+  }
+
+  ++*(this + 50);
+  if ((v7 & 4) != 0)
+  {
+    ++*(this + 51);
+  }
+
+  StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
+  v27 = this;
+  v28 = StatusReg - 224;
+  v10 = *(StatusReg + 8 * AG::Graph::_current_update_key);
+  v11 = atomic_load(this + 46);
+  v29 = v10;
+  v30 = v11;
+  v32 = 0;
+  v33 = 0;
+  v34 = 8;
+  v35 = a3;
+  v12 = a3;
+  if (v10)
+  {
+    v12 = *((v10 & 0xFFFFFFFFFFFFFFFELL) + 120) & 2 | a3;
+    v35 = v12;
+  }
+
+  *(this + 46) = v28;
+  if ((*(this + 360) & 1) == 0)
+  {
+    *(this + 360) = 1;
+    v35 = v12 | 8;
+  }
+
+  *(StatusReg + 8 * AG::Graph::_current_update_key) = &v27 | (a3 >> 2) & 1;
+  v13 = *(this + 44);
+  if (v13)
+  {
+    for (i = 8 * v13 - 8; i != -8; i -= 8)
+    {
+      v24 = *(*(this + 21) + i);
+      (*(*v24 + 64))(v24, &v27, a2, a3);
+    }
+  }
+
+  if (AG::Graph::UpdateStack::push(&v27, a2, v6, 0, 1))
+  {
+    v8 = AG::Graph::UpdateStack::update(&v27);
   }
 
   else
   {
-    ++*(this + 50);
-    if ((v7 & 4) != 0)
-    {
-      ++*(this + 51);
-    }
+    v8 = 1;
+  }
 
-    StatusReg = _ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3));
-    v28 = this;
-    v29 = StatusReg - 224;
-    v10 = *(StatusReg + 8 * AG::Graph::_current_update_key);
-    v11 = atomic_load(this + 46);
-    v30 = v10;
-    v31 = v11;
-    v33 = 0;
-    v34 = 0;
-    v35 = 8;
-    v36 = a3;
-    v12 = a3;
-    if (v10)
+  v15 = *(this + 44);
+  if (v15)
+  {
+    for (j = 8 * v15 - 8; j != -8; j -= 8)
     {
-      v12 = *((v10 & 0xFFFFFFFFFFFFFFFELL) + 120) & 2 | a3;
-      v36 = v12;
-    }
-
-    *(this + 46) = v29;
-    if ((*(this + 360) & 1) == 0)
-    {
-      *(this + 360) = 1;
-      v36 = v12 | 8;
-    }
-
-    *(StatusReg + 8 * AG::Graph::_current_update_key) = &v28 | (a3 >> 2) & 1;
-    v13 = *(this + 44);
-    if (v13)
-    {
-      for (i = 8 * v13 - 8; i != -8; i -= 8)
-      {
-        v25 = *(*(this + 21) + i);
-        (*(*v25 + 64))(v25, &v28, a2, a3);
-      }
-    }
-
-    if (AG::Graph::UpdateStack::push(&v28, a2, v6, 0, 1))
-    {
-      v8 = AG::Graph::UpdateStack::update(&v28);
-    }
-
-    else
-    {
-      v8 = 1;
-    }
-
-    v15 = *(this + 44);
-    if (v15)
-    {
-      for (j = 8 * v15 - 8; j != -8; j -= 8)
-      {
-        v27 = *(*(this + 21) + j);
-        (*(*v27 + 72))(v27, &v28, a2, v8);
-      }
-    }
-
-    v16 = &v32;
-    if (v33)
-    {
-      v16 = v33;
-    }
-
-    if (v34)
-    {
-      v17 = AG::data::_shared_table_bytes;
-      v18 = 8 * v34;
-      do
-      {
-        v19 = *v16;
-        v16 += 2;
-        *(v17 + v19) -= 64;
-        v18 -= 8;
-      }
-
-      while (v18);
-    }
-
-    v20 = v28;
-    if (v29 != *(v28 + 46))
-    {
-      AG::non_fatal_precondition_failure("invalid graph update (access from multiple threads?)", v14);
-      v20 = v28;
-    }
-
-    v21 = v30;
-    *(v20 + 368) = v31;
-    *(StatusReg + 8 * AG::Graph::_current_update_key) = v21;
-    if ((v36 & 8) != 0)
-    {
-      *(v20 + 360) = 0;
-    }
-
-    if (v33)
-    {
-      free(v33);
+      v26 = *(*(this + 21) + j);
+      (*(*v26 + 72))(v26, &v27, a2, v8);
     }
   }
 
-  v22 = *MEMORY[0x1E69E9840];
+  v16 = &v31;
+  if (v32)
+  {
+    v16 = v32;
+  }
+
+  if (v33)
+  {
+    v17 = AG::data::_shared_table_bytes;
+    v18 = 8 * v33;
+    do
+    {
+      v19 = *v16;
+      v16 += 2;
+      *(v17 + v19) -= 64;
+      v18 -= 8;
+    }
+
+    while (v18);
+  }
+
+  v20 = v27;
+  if (v28 != *(v27 + 46))
+  {
+    AG::non_fatal_precondition_failure("invalid graph update (access from multiple threads?)", v14);
+    v20 = v27;
+  }
+
+  v21 = v29;
+  *(v20 + 368) = v30;
+  *(StatusReg + 8 * AG::Graph::_current_update_key) = v21;
+  if ((v35 & 8) != 0)
+  {
+    *(v20 + 360) = 0;
+  }
+
+  if (v32)
+  {
+    free(v32);
+  }
+
   return v8;
 }
 
@@ -9346,7 +9298,7 @@ void sub_1B4917BC0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t AG::Graph::UpdateStack::push(uint64_t *a1, unsigned int a2, unsigned int *a3, char a4, int a5)
+uint64_t AG::Graph::UpdateStack::push(uint64_t *a1, unsigned int a2, unsigned int *a3, uint64_t a4, int a5)
 {
   v5 = a1[13];
   if (v5 == a1[14] || (*a3 & 0xC0) != 0)
@@ -9363,10 +9315,10 @@ uint64_t AG::Graph::UpdateStack::push(uint64_t *a1, unsigned int a2, unsigned in
 
   v7 = &v6[v5];
   *v7 = a2;
-  *(v7 + 1) = 0;
+  v7[1] = 0;
   if ((*a3 & 2) != 0 || (*a3 & 0x10) == 0 && a5)
   {
-    *(v7 + 1) = 1;
+    v7[1] = 1;
   }
 
   a1[13] = v5 + 1;
@@ -9375,7 +9327,7 @@ uint64_t AG::Graph::UpdateStack::push(uint64_t *a1, unsigned int a2, unsigned in
 
 uint64_t AG::Graph::UpdateStack::update(AG::Graph::UpdateStack *this)
 {
-  v74 = this + 32;
+  v73 = this + 32;
 LABEL_2:
   while (2)
   {
@@ -9385,7 +9337,7 @@ LABEL_2:
       v3 = *(this + 12);
       if (!v3)
       {
-        v3 = v74;
+        v3 = v73;
       }
 
       v4 = &v3[8 * v2];
@@ -9489,24 +9441,24 @@ LABEL_127:
         v20 = *this;
         if (*(*this + 184) && (*v5 & 8) != 0)
         {
-          *v75 = this;
-          v76 = 1;
-          AG::Graph::call_main_handler(v20, v75, AG::Graph::dispatch_main(AG::Graph::UpdateStack &)::$_0::__invoke);
+          *v74 = this;
+          v75 = 1;
+          AG::Graph::call_main_handler(v20, v74, AG::Graph::dispatch_main(AG::Graph::UpdateStack &)::$_0::__invoke);
           ++*(v20 + 408);
-          return v76;
+          return v75;
         }
 
         v21 = *(v20 + 176);
         if (v21)
         {
-          v60 = 8 * v21 - 8;
+          v59 = 8 * v21 - 8;
           do
           {
-            (*(**(*(v20 + 168) + v60) + 80))(*(*(v20 + 168) + v60), *(v4 - 2));
-            v60 -= 8;
+            (*(**(*(v20 + 168) + v59) + 80))(*(*(v20 + 168) + v59), *(v4 - 2));
+            v59 -= 8;
           }
 
-          while (v60 != -8);
+          while (v59 != -8);
           v20 = *this;
         }
 
@@ -9518,40 +9470,39 @@ LABEL_127:
           v24 = *v24;
         }
 
-        v25 = *(v23 + 24);
         (*(v23 + 16))(v24, *(v4 - 2));
-        v26 = *v5;
-        if ((v26 & 0x10) == 0)
+        v25 = *v5;
+        if ((v25 & 0x10) == 0)
         {
           if (*(*(*(v23 + 8) - 8) + 64))
           {
-            v65 = **(*(*this + 88) + ((v26 >> 5) & 0x7FFFFF8));
-            v66 = *(v4 - 2);
-            v67 = AG::swift::metadata::name(v65, 0);
-            AG::precondition_failure("attribute failed to set an initial value: %u, %s", v68, v66, v67);
+            v64 = **(*(*this + 88) + ((v25 >> 5) & 0x7FFFFF8));
+            v65 = *(v4 - 2);
+            v66 = AG::swift::metadata::name(v64, 0);
+            AG::precondition_failure("attribute failed to set an initial value: %u, %s", v67, v65, v66);
           }
 
-          AGGraphSetOutputValue(v75, *(v23 + 8));
+          AGGraphSetOutputValue(v74, *(v23 + 8));
         }
 
-        v27 = *this;
-        v28 = *(*this + 416);
-        v29 = *(*this + 176);
-        if (v29)
+        v26 = *this;
+        v27 = *(*this + 416);
+        v28 = *(*this + 176);
+        if (v28)
         {
-          v61 = 8 * v29 - 8;
+          v60 = 8 * v28 - 8;
           do
           {
-            (*(**(*(v27 + 168) + v61) + 88))(*(*(v27 + 168) + v61), *(v4 - 2), v22 != v28);
-            v61 -= 8;
+            (*(**(*(v26 + 168) + v60) + 88))(*(*(v26 + 168) + v60), *(v4 - 2), v22 != v27);
+            v60 -= 8;
           }
 
-          while (v61 != -8);
+          while (v60 != -8);
         }
 
         v7 = AG::data::_shared_table_bytes + v5[4];
         LODWORD(v10) = v5[3] >> 5;
-        result = v22 != v28;
+        result = v22 != v27;
         LODWORD(v8) = *(v4 - 1);
       }
 
@@ -9571,47 +9522,47 @@ LABEL_127:
             {
               while (1)
               {
-                v44 = 5 * v10--;
-                v45 = (v44 + v7 - 1);
-                v46 = *v45;
-                if ((*v45 & 0x10) != 0)
+                v43 = 5 * v10--;
+                v44 = (v43 + v7 - 1);
+                v45 = *v44;
+                if ((*v44 & 0x10) != 0)
                 {
-                  v48 = *this;
-                  v49 = *(*this + 176);
-                  v43 = *v45;
-                  if (v49)
+                  v47 = *this;
+                  v48 = *(*this + 176);
+                  v42 = *v44;
+                  if (v48)
                   {
-                    v71 = result;
-                    v42 = 8 * v49 - 8;
+                    v70 = result;
+                    v41 = 8 * v48 - 8;
                     do
                     {
-                      v73 = v42;
-                      (*(**(*(v48 + 168) + v42) + 248))(*(*(v48 + 168) + v42), *(v4 - 2), v10, 0);
-                      v42 = v73 - 8;
+                      v72 = v41;
+                      (*(**(*(v47 + 168) + v41) + 248))(*(*(v47 + 168) + v41), *(v4 - 2), v10, 0);
+                      v41 = v72 - 8;
                     }
 
-                    while (v73);
-                    v43 = *v45;
-                    result = v71;
+                    while (v72);
+                    v42 = *v44;
+                    result = v70;
                   }
 
-                  v47 = v43 & 0xEF;
+                  v46 = v42 & 0xEF;
                 }
 
                 else
                 {
-                  v47 = *(v44 + v7 - 1);
+                  v46 = *(v43 + v7 - 1);
                 }
 
-                *v45 = v47 & 0xDF;
-                if (v46 & 0x20 | v47 & 4)
+                *v44 = v46 & 0xDF;
+                if (v45 & 0x20 | v46 & 4)
                 {
                   break;
                 }
 
-                v41 = result;
+                v40 = result;
                 AG::Graph::remove_input(*this, *(v4 - 2), v10);
-                result = v41;
+                result = v40;
                 if (!v10)
                 {
                   goto LABEL_83;
@@ -9623,62 +9574,62 @@ LABEL_127:
           }
 
 LABEL_83:
-          v40 = *v5 - 64;
-          *v5 = v40;
+          v39 = *v5 - 64;
+          *v5 = v39;
 LABEL_84:
           if ((*(v5 + 7) & 0x40) != 0)
           {
             *(v5 + 7) &= ~0x40u;
           }
 
-          if (v40)
+          if (v39)
           {
-            v50 = *this;
-            v51 = *(*this + 176);
-            if (v51)
+            v49 = *this;
+            v50 = *(*this + 176);
+            if (v50)
             {
-              v62 = result;
-              v63 = 8 * v51 - 8;
+              v61 = result;
+              v62 = 8 * v50 - 8;
               do
               {
-                (*(**(*(v50 + 168) + v63) + 256))(*(*(v50 + 168) + v63), *(v4 - 2), 0);
-                v63 -= 8;
+                (*(**(*(v49 + 168) + v62) + 256))(*(*(v49 + 168) + v62), *(v4 - 2), 0);
+                v62 -= 8;
               }
 
-              while (v63 != -8);
-              v40 = *v5;
-              result = v62;
+              while (v62 != -8);
+              v39 = *v5;
+              result = v61;
             }
 
-            v40 &= ~1u;
+            v39 &= ~1u;
           }
 
-          v40 &= (v40 >> 1) | 0xFFFFFFFB;
-          *v5 = v40;
-          if ((v40 & 2) == 0)
+          v39 &= (v39 >> 1) | 0xFFFFFFFB;
+          *v5 = v39;
+          if ((v39 & 2) == 0)
           {
             goto LABEL_92;
           }
 
 LABEL_90:
-          v52 = *this;
-          v53 = *(*this + 176);
-          if (v53)
+          v51 = *this;
+          v52 = *(*this + 176);
+          if (v52)
           {
-            v58 = result;
-            v59 = 8 * v53 - 8;
+            v57 = result;
+            v58 = 8 * v52 - 8;
             do
             {
-              (*(**(*(v52 + 168) + v59) + 264))(*(*(v52 + 168) + v59), *(v4 - 2), 0);
-              v59 -= 8;
+              (*(**(*(v51 + 168) + v58) + 264))(*(*(v51 + 168) + v58), *(v4 - 2), 0);
+              v58 -= 8;
             }
 
-            while (v59 != -8);
-            v40 = *v5;
-            result = v58;
+            while (v58 != -8);
+            v39 = *v5;
+            result = v57;
           }
 
-          *v5 = v40 & 0xFFFFFFFD;
+          *v5 = v39 & 0xFFFFFFFD;
           goto LABEL_92;
         }
       }
@@ -9688,67 +9639,67 @@ LABEL_90:
         goto LABEL_83;
       }
 
-      v30 = (v8 & 8) == 0;
+      v29 = (v8 & 8) == 0;
       if (v10)
       {
         do
         {
           --v10;
-          v34 = v7 + 5 * v10;
-          *v75 = *v34;
-          v35 = *v75;
-          if ((v75[0] & 3) != 0)
+          v33 = v7 + 5 * v10;
+          *v74 = *v33;
+          v34 = *v74;
+          if ((v74[0] & 3) != 0)
           {
-            v69 = result;
-            v35 = AG::AttributeID::resolve_slow(v75, 0);
-            result = v69;
+            v68 = result;
+            v34 = AG::AttributeID::resolve_slow(v74, 0);
+            result = v68;
           }
 
-          if (v35 & 3) != 0 || (*(AG::data::_shared_table_bytes + v35))
+          if (v34 & 3) != 0 || (*(AG::data::_shared_table_bytes + v34))
           {
-            v30 = 0;
+            v29 = 0;
           }
 
           else
           {
-            v36 = *(v4 - 1);
-            if ((v36 & 1) != 0 && (v36 & 8) == 0)
+            v35 = *(v4 - 1);
+            if ((v35 & 1) != 0 && (v35 & 8) == 0)
             {
-              v33 = *(v34 + 4);
-              if ((v33 & 0x10) != 0)
+              v32 = *(v33 + 4);
+              if ((v32 & 0x10) != 0)
               {
-                v37 = *this;
-                v38 = *(*this + 176);
-                if (v38)
+                v36 = *this;
+                v37 = *(*this + 176);
+                if (v37)
                 {
-                  v70 = result;
-                  v32 = 8 * v38 - 8;
+                  v69 = result;
+                  v31 = 8 * v37 - 8;
                   do
                   {
-                    v72 = v32;
-                    (*(**(*(v37 + 168) + v32) + 248))(*(*(v37 + 168) + v32), *(v4 - 2), v10, 0);
-                    v32 = v72 - 8;
+                    v71 = v31;
+                    (*(**(*(v36 + 168) + v31) + 248))(*(*(v36 + 168) + v31), *(v4 - 2), v10, 0);
+                    v31 = v71 - 8;
                   }
 
-                  while (v72);
-                  v33 = *(v34 + 4);
-                  result = v70;
+                  while (v71);
+                  v32 = *(v33 + 4);
+                  result = v69;
                 }
 
-                *(v34 + 4) = v33 & 0xEF;
+                *(v33 + 4) = v32 & 0xEF;
               }
             }
           }
 
           if ((*(v4 - 1) & 9) == 1)
           {
-            v39 = *(v34 + 4);
-            *(v34 + 4) = v39 & 0xDF;
-            if ((v39 & 0x24) == 0)
+            v38 = *(v33 + 4);
+            *(v33 + 4) = v38 & 0xDF;
+            if ((v38 & 0x24) == 0)
             {
-              v31 = result;
+              v30 = result;
               AG::Graph::remove_input(*this, *(v4 - 2), v10);
-              result = v31;
+              result = v30;
             }
           }
         }
@@ -9756,14 +9707,14 @@ LABEL_90:
         while (v10);
       }
 
-      v40 = *v5 - 64;
-      *v5 = v40;
-      if (v30)
+      v39 = *v5 - 64;
+      *v5 = v39;
+      if (v29)
       {
         goto LABEL_84;
       }
 
-      if ((v40 & 2) != 0)
+      if ((v39 & 2) != 0)
       {
         goto LABEL_90;
       }
@@ -9782,20 +9733,20 @@ LABEL_92:
       return 2;
     }
 
-    v54 = *v5;
-    if ((v54 & 0x10) == 0)
+    v53 = *v5;
+    if ((v53 & 0x10) == 0)
     {
-      v55 = *(*(*this + 88) + ((v54 >> 5) & 0x7FFFFF8));
-      v56 = *(*(v55 + 32) + 40);
-      if (v56)
+      v54 = *(*(*this + 88) + ((v53 >> 5) & 0x7FFFFF8));
+      v55 = *(*(v54 + 32) + 40);
+      if (v55)
       {
-        v57 = (v5 + *(v55 + 44));
+        v56 = (v5 + *(v54 + 44));
         if (*(v5 + 7))
         {
-          v57 = *v57;
+          v56 = *v56;
         }
 
-        v56(v55, v57);
+        v55(v54, v56);
         result = 1;
       }
 
@@ -9805,7 +9756,7 @@ LABEL_92:
       }
 
       v5 = (AG::data::_shared_table_bytes + *(v4 - 2));
-      LODWORD(v54) = *v5;
+      LODWORD(v53) = *v5;
       if ((*v5 & 0x10) != 0)
       {
         goto LABEL_120;
@@ -9816,10 +9767,10 @@ LABEL_92:
 
     result = 0;
 LABEL_120:
-    v64 = *(this + 13) - 1;
-    *(this + 13) = v64;
-    *v5 = v54 - 64;
-    if (v64)
+    v63 = *(this + 13) - 1;
+    *(this + 13) = v63;
+    *v5 = v53 - 64;
+    if (v63)
     {
       continue;
     }

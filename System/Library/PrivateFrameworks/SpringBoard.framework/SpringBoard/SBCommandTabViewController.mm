@@ -1120,7 +1120,7 @@ uint64_t __41__SBCommandTabViewController_viewDidLoad__block_invoke(uint64_t a1,
     self->_lastHoverLocation.y = v8;
   }
 
-  [(UIStackView *)self->_stackView frame];
+  objc_msgSend_frame(self->_stackView);
   v20.x = v6;
   v20.y = v8;
   if (CGRectContainsPoint(v23, v20))
@@ -1134,7 +1134,7 @@ uint64_t __41__SBCommandTabViewController_viewDidLoad__block_invoke(uint64_t a1,
         v12 = v11;
         v14 = v13;
         v15 = [(NSMutableArray *)self->_iconViews objectAtIndex:v10];
-        [v15 frame];
+        objc_msgSend_frame(v15);
         v21.x = v12;
         v21.y = v14;
         if (CGRectContainsPoint(v24, v21))
@@ -1165,7 +1165,7 @@ LABEL_15:
   {
     self->_isTouchDown = 0;
     delegate = [(SBCommandTabViewController *)self delegate];
-    [(UIStackView *)self->_stackView frame];
+    objc_msgSend_frame(self->_stackView);
     v22.x = v6;
     v22.y = v8;
     if (CGRectContainsPoint(v25, v22) && self->_isIconSelected)

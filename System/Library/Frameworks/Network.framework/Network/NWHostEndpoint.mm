@@ -24,7 +24,7 @@
   v9 = gLogObj;
   *buf = 136446210;
   v23 = "+[NWHostEndpoint endpointWithHostname:port:]";
-  v10 = _os_log_send_and_compose_impl();
+  v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s nw_endpoint_create_host failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v20 = 0;
@@ -140,7 +140,7 @@ LABEL_15:
   v5 = gLogObj;
   *buf = 136446210;
   v19 = "[NWHostEndpoint port]";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s nw_endpoint_copy_port_string failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v16 = 0;
@@ -283,7 +283,7 @@ LABEL_15:
   v13 = gLogObj;
   *buf = 136446210;
   v27 = "[NWHostEndpoint hostname]";
-  v14 = _os_log_send_and_compose_impl();
+  v14 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v13, 16, "%{public}s nw_endpoint_get_hostname failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v24 = 0;

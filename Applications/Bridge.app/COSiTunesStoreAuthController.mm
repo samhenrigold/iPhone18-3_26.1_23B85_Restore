@@ -11,7 +11,7 @@
 + (id)DSIDForiTunesStoreAccount:(id)account
 {
   accountCopy = account;
-  v4 = sub_10002C8C8();
+  v4 = sub_10002C8C8(accountCopy);
   v5 = [v4 DSIDForAccount:accountCopy service:AIDAServiceTypeStore];
 
   return v5;
@@ -20,7 +20,7 @@
 + (id)altDSIDForiTunesStoreAccount:(id)account
 {
   accountCopy = account;
-  v4 = sub_10002C8C8();
+  v4 = sub_10002C8C8(accountCopy);
   v5 = [v4 altDSIDForAccount:accountCopy service:AIDAServiceTypeStore];
 
   return v5;
@@ -28,7 +28,7 @@
 
 + (id)iTunesStoreAccountInAccountStore
 {
-  v2 = sub_10002C8C8();
+  v2 = sub_10002C8C8(self);
   v3 = [v2 accountForService:AIDAServiceTypeStore];
 
   return v3;

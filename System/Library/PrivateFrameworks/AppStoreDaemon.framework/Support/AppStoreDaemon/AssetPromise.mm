@@ -64,7 +64,7 @@
   v6 = self + OBJC_IVAR____TtC9appstored12AssetPromise__progress;
   selfCopy = self;
   os_unfair_lock_lock(v6);
-  sub_100006F8C(*(v6 + 1));
+  sub_100006F8C(*(v6 + 1), *(v6 + 2));
   *(v6 + 1) = v4;
   *(v6 + 2) = v5;
   os_unfair_lock_unlock(v6);
@@ -106,7 +106,7 @@
 - (void)cancel
 {
   type metadata accessor for CancellationError();
-  sub_1000C4A20(&qword_10059CBF0, &type metadata accessor for CancellationError);
+  sub_1000C4A20(&qword_10059CBF0, &type metadata accessor for CancellationError, &protocol conformance descriptor for CancellationError);
   v3 = swift_allocError();
   selfCopy = self;
   CancellationError.init()();
@@ -146,13 +146,13 @@
   sub_1000C2880(&v19);
 
   v18 = v6;
-  sub_100005518(&v18, &qword_10059C988);
+  sub_100005518(&v18, &qword_10059C988, &qword_100435808);
   v17 = v7;
-  sub_100005518(&v17, &qword_10059C990);
+  sub_100005518(&v17, &qword_10059C990, &qword_100435810);
   v16 = v8;
-  sub_100005518(&v16, &qword_10059C998);
+  sub_100005518(&v16, &qword_10059C998, &qword_100435818);
   v15 = v9;
-  sub_100005518(&v15, &unk_10059C9A0);
+  sub_100005518(&v15, &unk_10059C9A0, &unk_100435820);
 }
 
 - (_TtC9appstored12AssetPromise)init

@@ -26,8 +26,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v14[3] = *MEMORY[0x1E69E9840];
-  v13[0] = @"mediaItems";
+  v13[3] = *MEMORY[0x1E69E9840];
+  v12[0] = @"mediaItems";
   mediaItems = [(INUpdateMediaAffinityIntent *)self mediaItems];
   null = mediaItems;
   if (!mediaItems)
@@ -35,8 +35,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[0] = null;
-  v13[1] = @"mediaSearch";
+  v13[0] = null;
+  v12[1] = @"mediaSearch";
   mediaSearch = [(INUpdateMediaAffinityIntent *)self mediaSearch];
   null2 = mediaSearch;
   if (!mediaSearch)
@@ -44,8 +44,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[1] = null2;
-  v13[2] = @"affinityType";
+  v13[1] = null2;
+  v12[2] = @"affinityType";
   affinityType = [(INUpdateMediaAffinityIntent *)self affinityType];
   v8 = @"unknown";
   if (affinityType == INMediaAffinityTypeDislike)
@@ -59,8 +59,8 @@
   }
 
   v9 = v8;
-  v14[2] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:3];
+  v13[2] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
 
   if (!mediaSearch)
   {
@@ -69,8 +69,6 @@
   if (!mediaItems)
   {
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

@@ -151,8 +151,7 @@
     layer = [anyObject layer];
     [layer clearHasBeenCommitted];
 
-    [anyObject setHidden:0];
-    v8 = PUILogReusableViewCache();
+    v8 = PUILogReusableViewCache([anyObject setHidden:0]);
     if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_7;
@@ -171,7 +170,7 @@
 
   else
   {
-    v8 = PUILogReusableViewCache();
+    v8 = PUILogReusableViewCache(0);
     if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_7;
@@ -194,7 +193,7 @@ LABEL_7:
 
 - (void)recycleView:(id)view
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   viewCopy = view;
   if (viewCopy)
   {
@@ -209,18 +208,19 @@ LABEL_7:
       v7 = objc_opt_class();
       v8 = [(NSMapTable *)self->_recycledViewsByClass objectForKey:v7];
       v9 = [v8 count];
-      if (v9 >= [delegate viewMap:self maxRecycledViewsOfClass:v7] || (objc_opt_respondsToSelector() & 1) != 0 && !objc_msgSend(viewCopy, "isEligibleForReuse") || (objc_opt_respondsToSelector() & 1) != 0 && !objc_msgSend(delegate, "viewMap:shouldRecycleView:", self, viewCopy))
+      v10 = [delegate viewMap:self maxRecycledViewsOfClass:v7];
+      if (v9 >= v10 || (objc_opt_respondsToSelector() & 1) != 0 && (v10 = [viewCopy isEligibleForReuse], !v10) || (objc_opt_respondsToSelector() & 1) != 0 && (v10 = objc_msgSend(delegate, "viewMap:shouldRecycleView:", self, viewCopy), !v10))
       {
-        v11 = PUILogReusableViewCache();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v13 = PUILogReusableViewCache(v10);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218498;
           selfCopy2 = self;
-          v23 = 2112;
-          v24 = v7;
-          v25 = 2048;
-          v26 = viewCopy;
-          _os_log_impl(&dword_1A8C85000, v11, OS_LOG_TYPE_DEFAULT, "(%p) will not recycle reusable view of class: %@/%p", buf, 0x20u);
+          v25 = 2112;
+          v26 = v7;
+          v27 = 2048;
+          v28 = viewCopy;
+          _os_log_impl(&dword_1A8C85000, v13, OS_LOG_TYPE_DEFAULT, "(%p) will not recycle reusable view of class: %@/%p", buf, 0x20u);
         }
 
         v6 = 0;
@@ -230,49 +230,49 @@ LABEL_7:
       {
         if (objc_opt_respondsToSelector())
         {
-          v10 = MEMORY[0x1E69DD250];
-          v19[0] = MEMORY[0x1E69E9820];
-          v19[1] = 3221225472;
-          v19[2] = __34__PUIReusableViewMap_recycleView___block_invoke;
-          v19[3] = &unk_1E7854320;
-          v20 = viewCopy;
-          [v10 performWithoutAnimation:v19];
+          v11 = MEMORY[0x1E69DD250];
+          v21[0] = MEMORY[0x1E69E9820];
+          v21[1] = 3221225472;
+          v21[2] = __34__PUIReusableViewMap_recycleView___block_invoke;
+          v21[3] = &unk_1E7854320;
+          v22 = viewCopy;
+          [v11 performWithoutAnimation:v21];
         }
 
         if (v8)
         {
-          [v8 addObject:viewCopy];
+          v12 = [v8 addObject:viewCopy];
         }
 
         else
         {
           recycledViewsByClass = self->_recycledViewsByClass;
-          v13 = [MEMORY[0x1E695DFA8] setWithObject:viewCopy];
-          [(NSMapTable *)recycledViewsByClass setObject:v13 forKey:v7];
+          v15 = [MEMORY[0x1E695DFA8] setWithObject:viewCopy];
+          [(NSMapTable *)recycledViewsByClass setObject:v15 forKey:v7];
         }
 
-        v11 = PUILogReusableViewCache();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v13 = PUILogReusableViewCache(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218498;
           selfCopy2 = self;
-          v23 = 2112;
-          v24 = v7;
-          v25 = 2048;
-          v26 = (v9 + 1);
-          _os_log_impl(&dword_1A8C85000, v11, OS_LOG_TYPE_DEFAULT, "(%p) recycled reusable view of class: %@ (%lu total)", buf, 0x20u);
+          v25 = 2112;
+          v26 = v7;
+          v27 = 2048;
+          v28 = (v9 + 1);
+          _os_log_impl(&dword_1A8C85000, v13, OS_LOG_TYPE_DEFAULT, "(%p) recycled reusable view of class: %@ (%lu total)", buf, 0x20u);
         }
 
         v6 = 1;
       }
     }
 
-    v14 = [delegate recycledViewsContainerProviderForViewMap:self];
-    recycledViewsContainer = [v14 recycledViewsContainer];
-    v16 = recycledViewsContainer;
-    if (v6 && recycledViewsContainer && ([recycledViewsContainer window], v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(viewCopy, "window"), v18 = objc_claimAutoreleasedReturnValue(), v18, v17, v17 == v18))
+    v16 = [delegate recycledViewsContainerProviderForViewMap:self];
+    recycledViewsContainer = [v16 recycledViewsContainer];
+    v18 = recycledViewsContainer;
+    if (v6 && recycledViewsContainer && ([recycledViewsContainer window], v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(viewCopy, "window"), v20 = objc_claimAutoreleasedReturnValue(), v20, v19, v19 == v20))
     {
-      [v16 addSubview:viewCopy];
+      [v18 addSubview:viewCopy];
     }
 
     else
@@ -309,7 +309,7 @@ LABEL_7:
 - (void)purgeViewsForClass:(Class)class
 {
   v20 = *MEMORY[0x1E69E9840];
-  v5 = PUILogReusableViewCache();
+  v5 = PUILogReusableViewCache(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
@@ -356,7 +356,7 @@ LABEL_7:
 {
   v25 = *MEMORY[0x1E69E9840];
   viewCopy = view;
-  v5 = PUILogReusableViewCache();
+  v5 = PUILogReusableViewCache(viewCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -413,7 +413,7 @@ LABEL_7:
 - (void)purgeAllViews
 {
   v16 = *MEMORY[0x1E69E9840];
-  v3 = PUILogReusableViewCache();
+  v3 = PUILogReusableViewCache(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;

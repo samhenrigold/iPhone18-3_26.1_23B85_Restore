@@ -3,10 +3,22 @@
 - (BOOL)isCompanionReachable;
 - (HMDWatchSystemState)init;
 - (NSHashTable)watchSystemStateDelegates;
+- (void)_callDidUpdateReachabilityChangeForCompanion:(BOOL)companion forDelegate:(id)delegate;
 - (void)registerDelegate:(id)delegate;
+- (void)setCompanionReachable:(BOOL)reachable;
 @end
 
 @implementation HMDWatchSystemState
+
+- (void)_callDidUpdateReachabilityChangeForCompanion:(BOOL)companion forDelegate:(id)delegate
+{
+  companionCopy = companion;
+  delegateCopy = delegate;
+  if ([delegateCopy conformsToProtocol:&unk_283F81448] && (objc_opt_respondsToSelector() & 1) != 0)
+  {
+    [delegateCopy didUpdateReachabilityChangeForCompanion:companionCopy];
+  }
+}
 
 - (void)registerDelegate:(id)delegate
 {
@@ -19,10 +31,82 @@
 - (NSHashTable)watchSystemStateDelegates
 {
   os_unfair_lock_lock_with_options();
-  v3 = [(NSHashTable *)self->_watchSystemStateDelegates copy];
+  v3 = objc_msgSend_copy(self->_watchSystemStateDelegates);
   os_unfair_lock_unlock(&self->_lock);
 
   return v3;
+}
+
+- (void)setCompanionReachable:(BOOL)reachable
+{
+  reachableCopy = reachable;
+  v26 = *MEMORY[0x277D85DE8];
+  os_unfair_lock_lock_with_options();
+  if (self->_companionReachable == reachableCopy)
+  {
+
+    os_unfair_lock_unlock(&self->_lock);
+  }
+
+  else
+  {
+    v5 = objc_autoreleasePoolPush();
+    v6 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    {
+      v7 = HMFGetLogIdentifier();
+      v8 = HMFBooleanToString();
+      v9 = HMFBooleanToString();
+      *buf = 138543874;
+      v21 = v7;
+      v22 = 2112;
+      v23 = v8;
+      v24 = 2112;
+      v25 = v9;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@[HMDWatchState] companion reachability is changing from %@ to %@", buf, 0x20u);
+    }
+
+    objc_autoreleasePoolPop(v5);
+    v10 = +[HMDWatchConnectivityLogEventManager sharedInstance];
+    if (reachableCopy)
+    {
+      [v10 incrementWatchAddedNotificationCount];
+    }
+
+    else
+    {
+      [v10 incrementWatchRemovedNotificationCount];
+    }
+
+    self->_companionReachable = reachableCopy;
+    os_unfair_lock_unlock(&self->_lock);
+    v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    v11 = self->_watchSystemStateDelegates;
+    v12 = [(NSHashTable *)v11 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    if (v12)
+    {
+      v13 = *v16;
+      do
+      {
+        for (i = 0; i != v12; ++i)
+        {
+          if (*v16 != v13)
+          {
+            objc_enumerationMutation(v11);
+          }
+
+          [(HMDWatchSystemState *)self _callDidUpdateReachabilityChangeForCompanion:reachableCopy forDelegate:*(*(&v15 + 1) + 8 * i), v15];
+        }
+
+        v12 = [(NSHashTable *)v11 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      }
+
+      while (v12);
+    }
+  }
 }
 
 - (BOOL)isCompanionReachable

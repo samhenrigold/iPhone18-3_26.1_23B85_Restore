@@ -127,35 +127,35 @@ void __32__COKeyPath_allowedCharacterSet__block_invoke()
 
 + (id)predicateWithComponents:(id)components
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   componentsCopy = components;
   array = [MEMORY[0x277CBEB18] array];
   if ([componentsCopy count])
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v5 = componentsCopy;
-    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v15;
+      v8 = *v14;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v15 != v8)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = [MEMORY[0x277CCAC30] predicateWithFormat:@"SELF contains %@", *(*(&v14 + 1) + 8 * i)];
+          v10 = [MEMORY[0x277CCAC30] predicateWithFormat:@"SELF contains %@", *(*(&v13 + 1) + 8 * i)];
           [array addObject:v10];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v7);
@@ -168,8 +168,6 @@ void __32__COKeyPath_allowedCharacterSet__block_invoke()
   {
     v11 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -216,11 +214,10 @@ void __32__COKeyPath_allowedCharacterSet__block_invoke()
 
 - (void)initWithComponents:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v5[0] = 67109120;
-  v5[1] = [a1 characterAtIndex:a2];
-  _os_log_error_impl(&dword_244328000, a3, OS_LOG_TYPE_ERROR, "COKeyPath components contains an invalid character '%c'", v5, 8u);
-  v4 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v4[0] = 67109120;
+  v4[1] = [a1 characterAtIndex:a2];
+  _os_log_error_impl(&dword_244328000, a3, OS_LOG_TYPE_ERROR, "COKeyPath components contains an invalid character '%c'", v4, 8u);
 }
 
 @end

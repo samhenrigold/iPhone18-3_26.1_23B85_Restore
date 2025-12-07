@@ -79,17 +79,17 @@ void __39__MRProtocolMessageLogger_sharedLogger__block_invoke()
 
 - (void)logMessage:(id)message label:(id)label deviceInfo:(id)info protocolMessage:(id)protocolMessage
 {
-  v47[1] = *MEMORY[0x1E69E9840];
+  v46[1] = *MEMORY[0x1E69E9840];
   messageCopy = message;
   labelCopy = label;
   infoCopy = info;
   protocolMessageCopy = protocolMessage;
   if ([(MRProtocolMessageLogger *)self shouldLog])
   {
-    v47[0] = protocolMessageCopy;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:1];
+    v46[0] = protocolMessageCopy;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:1];
     objc_opt_class();
-    v29 = protocolMessageCopy;
+    v28 = protocolMessageCopy;
     if (objc_opt_isKindOfClass())
     {
       messages = [protocolMessageCopy messages];
@@ -97,27 +97,27 @@ void __39__MRProtocolMessageLogger_sharedLogger__block_invoke()
       v13 = messages;
     }
 
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     v15 = v13;
-    v16 = [v15 countByEnumeratingWithState:&v32 objects:v46 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v31 objects:v45 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v33;
+      v18 = *v32;
       selfCopy = self;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v33 != v18)
+          if (*v32 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v32 + 1) + 8 * i);
+          v20 = *(*(&v31 + 1) + 8 * i);
           if ([v20 shouldLog])
           {
             if (labelCopy)
@@ -132,15 +132,15 @@ LABEL_20:
                   effectiveName = [infoCopy effectiveName];
                   v24 = [v20 description];
                   *buf = 138544386;
-                  v37 = labelCopy;
-                  v38 = 2114;
-                  v39 = messageCopy;
-                  v40 = 2114;
-                  v41 = effectiveIdentifer;
-                  v42 = 2112;
-                  v43 = effectiveName;
-                  v44 = 2114;
-                  v45 = v24;
+                  v36 = labelCopy;
+                  v37 = 2114;
+                  v38 = messageCopy;
+                  v39 = 2114;
+                  v40 = effectiveIdentifer;
+                  v41 = 2112;
+                  v42 = effectiveName;
+                  v43 = 2114;
+                  v44 = v24;
                   v25 = v21;
                   v26 = "%{public}@[%{public}@ <%{public}@-%@>]: %{public}@";
                   v27 = 52;
@@ -182,13 +182,13 @@ LABEL_20:
               effectiveName = [infoCopy effectiveName];
               v24 = [v20 description];
               *buf = 138413058;
-              v37 = messageCopy;
-              v38 = 2114;
-              v39 = effectiveIdentifer;
-              v40 = 2112;
-              v41 = effectiveName;
-              v42 = 2114;
-              v43 = v24;
+              v36 = messageCopy;
+              v37 = 2114;
+              v38 = effectiveIdentifer;
+              v39 = 2112;
+              v40 = effectiveName;
+              v41 = 2114;
+              v42 = v24;
               v25 = v21;
               v26 = "[%@ <%{public}@-%@>]: %{public}@";
               v27 = 42;
@@ -204,16 +204,14 @@ LABEL_24:
           }
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v32 objects:v46 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v31 objects:v45 count:16];
       }
 
       while (v17);
     }
 
-    protocolMessageCopy = v29;
+    protocolMessageCopy = v28;
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 @end

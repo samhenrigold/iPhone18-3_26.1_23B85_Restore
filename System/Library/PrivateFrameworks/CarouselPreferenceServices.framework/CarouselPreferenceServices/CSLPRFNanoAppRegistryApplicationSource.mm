@@ -70,29 +70,8 @@ id __72__CSLPRFNanoAppRegistryApplicationSource_allApplicationsWithCompletion___
   v4 = *(a1 + 32);
   v5 = v3;
   v6 = v5;
-  if (!v4)
+  if (!v4 || (v7 = [v5 isHidden], objc_msgSend(v6, "appTags"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "containsObject:", @"showInDockSettings"), v8, v7) && !v9 || (objc_msgSend(v6, "appState"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "isRestricted"), v10, (v11 & 1) != 0))
   {
-    goto LABEL_5;
-  }
-
-  v7 = [v5 isHidden];
-  v8 = [v6 appTags];
-  v9 = [v8 containsObject:@"showInDockSettings"];
-
-  if (v7)
-  {
-    if (!v9)
-    {
-      goto LABEL_5;
-    }
-  }
-
-  v10 = [v6 appState];
-  v11 = [v10 isRestricted];
-
-  if (v11)
-  {
-LABEL_5:
     v12 = 0;
     v13 = 0;
     v14 = v6;

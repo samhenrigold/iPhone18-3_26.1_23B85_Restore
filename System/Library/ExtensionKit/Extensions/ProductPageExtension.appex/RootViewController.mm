@@ -99,10 +99,10 @@
   v4 = sub_10075D7BC();
   v5 = *(v4 - 8);
   __chkstk_darwin(v4);
-  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10075D79C();
   selfCopy = self;
-  sub_1007469E4();
+  sub_1007469E4(v9);
 
   (*(v5 + 8))(v7, v4);
 }
@@ -112,7 +112,7 @@
   v5 = sub_10076FF9C();
   v7 = v6;
   selfCopy = self;
-  sub_10074E2D8(v5, v7);
+  sub_10074E2D8(v5, v7, v9);
 }
 
 - (BOOL)lookupItemDidLoad:(id)load parameters:(id)parameters
@@ -194,12 +194,13 @@ LABEL_8:
 
 - (void)setVisibleInClientWindow:(id)window
 {
-  v6.receiver = self;
-  v6.super_class = type metadata accessor for RootViewController();
+  v8.receiver = self;
+  v8.super_class = type metadata accessor for RootViewController();
   windowCopy = window;
-  v5 = v6.receiver;
-  [(RootViewController *)&v6 setVisibleInClientWindow:windowCopy];
-  sub_100743B64([windowCopy BOOLValue]);
+  v5 = v8.receiver;
+  [(RootViewController *)&v8 setVisibleInClientWindow:windowCopy];
+  bOOLValue = [windowCopy BOOLValue];
+  sub_100743B64(bOOLValue, v7);
 }
 
 - (void)setPreview:(id)preview

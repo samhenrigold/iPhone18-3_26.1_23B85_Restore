@@ -10,12 +10,12 @@
 
 - (UAPasteboardFileItemProvider)initWithURL:(id)l sandboxExtension:(id)extension
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   lCopy = l;
   extensionCopy = extension;
-  v38.receiver = self;
-  v38.super_class = UAPasteboardFileItemProvider;
-  v8 = [(UAPasteboardFileItemProvider *)&v38 init];
+  v37.receiver = self;
+  v37.super_class = UAPasteboardFileItemProvider;
+  v8 = [(UAPasteboardFileItemProvider *)&v37 init];
   v9 = v8;
   if (v8)
   {
@@ -42,12 +42,12 @@
     if (!type)
     {
       [(UAPasteboardFileItemProvider *)v9 setType:@"public.item"];
-      v37 = 0;
-      v17 = *MEMORY[0x277CBE868];
       v36 = 0;
-      v18 = [lCopy getResourceValue:&v37 forKey:v17 error:&v36];
-      v19 = v37;
-      v20 = v36;
+      v17 = *MEMORY[0x277CBE868];
+      v35 = 0;
+      v18 = [lCopy getResourceValue:&v36 forKey:v17 error:&v35];
+      v19 = v36;
+      v20 = v35;
       v21 = v20;
       if (v18)
       {
@@ -90,20 +90,20 @@
         if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
           *buf = 138478083;
-          v40 = lCopy;
-          v41 = 2112;
-          v42 = v21;
+          v39 = lCopy;
+          v40 = 2112;
+          v41 = v21;
           _os_log_impl(&dword_226A4E000, v26, OS_LOG_TYPE_ERROR, "Error checking if url %{private}@ is directory: %@", buf, 0x16u);
         }
       }
 
 LABEL_18:
-      v35 = 0;
-      v27 = *MEMORY[0x277CBE7B8];
       v34 = 0;
-      v28 = [lCopy getResourceValue:&v35 forKey:v27 error:&v34];
-      v29 = v35;
-      v30 = v34;
+      v27 = *MEMORY[0x277CBE7B8];
+      v33 = 0;
+      v28 = [lCopy getResourceValue:&v34 forKey:v27 error:&v33];
+      v29 = v34;
+      v30 = v33;
 
       if (v28)
       {
@@ -124,9 +124,9 @@ LABEL_24:
         if (os_log_type_enabled(identifier2, OS_LOG_TYPE_INFO))
         {
           *buf = 138543619;
-          v40 = v30;
-          v41 = 2113;
-          v42 = lCopy;
+          v39 = v30;
+          v40 = 2113;
+          v41 = lCopy;
           _os_log_impl(&dword_226A4E000, identifier2, OS_LOG_TYPE_INFO, "Error %{public}@ getting content type for file item provider url=%{private}@", buf, 0x16u);
         }
       }
@@ -137,7 +137,6 @@ LABEL_24:
 
 LABEL_25:
 
-  v32 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -200,14 +199,14 @@ void __59__UAPasteboardFileItemProvider_getDataWithCompletionBlock___block_invok
 
 - (void)accessFileAtURLWithCompletion:(id)completion
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = _uaGetLogForCategory(@"pasteboard-client");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     fileURL = [(UAPasteboardFileItemProvider *)self fileURL];
     *buf = 138412290;
-    v25 = fileURL;
+    v24 = fileURL;
     _os_log_impl(&dword_226A4E000, v5, OS_LOG_TYPE_DEBUG, "Accessing file at URL: %@", buf, 0xCu);
   }
 
@@ -227,16 +226,16 @@ void __59__UAPasteboardFileItemProvider_getDataWithCompletionBlock___block_invok
 
   v13 = [objc_alloc(MEMORY[0x277CCA9E8]) initWithFilePresenter:0];
   fileURL2 = [(UAPasteboardFileItemProvider *)self fileURL];
-  v23 = 0;
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __62__UAPasteboardFileItemProvider_accessFileAtURLWithCompletion___block_invoke;
-  v21[3] = &unk_2785C45D8;
-  v21[4] = self;
+  v22 = 0;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __62__UAPasteboardFileItemProvider_accessFileAtURLWithCompletion___block_invoke;
+  v20[3] = &unk_2785C45D8;
+  v20[4] = self;
   v15 = completionCopy;
-  v22 = v15;
-  [v13 coordinateReadingItemAtURL:fileURL2 options:0 error:&v23 byAccessor:v21];
-  v16 = v23;
+  v21 = v15;
+  [v13 coordinateReadingItemAtURL:fileURL2 options:0 error:&v22 byAccessor:v20];
+  v16 = v22;
 
   if (v16)
   {
@@ -244,7 +243,7 @@ void __59__UAPasteboardFileItemProvider_getDataWithCompletionBlock___block_invok
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v25 = v16;
+      v24 = v16;
       _os_log_impl(&dword_226A4E000, v17, OS_LOG_TYPE_ERROR, "Error coordinating file: %@", buf, 0xCu);
     }
 
@@ -258,25 +257,22 @@ void __59__UAPasteboardFileItemProvider_getDataWithCompletionBlock___block_invok
   {
     sandbox_extension_release();
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __62__UAPasteboardFileItemProvider_accessFileAtURLWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _uaGetLogForCategory(@"pasteboard-client");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     v5 = [*(a1 + 32) fileURL];
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_226A4E000, v4, OS_LOG_TYPE_DEBUG, "Providing URL: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v5;
+    _os_log_impl(&dword_226A4E000, v4, OS_LOG_TYPE_DEBUG, "Providing URL: %@", &v6, 0xCu);
   }
 
   (*(*(a1 + 40) + 16))();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

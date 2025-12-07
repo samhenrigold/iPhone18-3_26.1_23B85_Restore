@@ -38,9 +38,10 @@
   entityCopy = entity;
   contextCopy = context;
   selfCopy = self;
-  v9 = sub_226C8ACA0(context);
+  sub_226C8ACA0(context);
+  v10 = v9;
 
-  return v9;
+  return v10;
 }
 
 - (id)restrictingReadPredicateForEntity:(id)entity fromClientWithContext:(id)context
@@ -48,9 +49,10 @@
   entityCopy = entity;
   contextCopy = context;
   selfCopy = self;
-  v10 = sub_226C89634(entity, context);
+  sub_226C89634(entity, context);
+  v11 = v10;
 
-  return v10;
+  return v11;
 }
 
 - (BOOL)shouldAcceptMetadataChangesFromClientWithContext:(id)context
@@ -58,7 +60,8 @@
   contextCopy = context;
   contextCopy2 = context;
   selfCopy = self;
-  LOBYTE(contextCopy) = sub_226C89E80(contextCopy);
+  sub_226C89E80(contextCopy);
+  LOBYTE(contextCopy) = v7;
 
   return contextCopy & 1;
 }

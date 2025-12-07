@@ -152,7 +152,7 @@ void __31__SFSQLiteStatement_allObjects__block_invoke(uint64_t a1, uint64_t a2)
 
 - (id)objectAtIndex:(unint64_t)index
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = [(SFSQLiteStatement *)self columnTypeAtIndex:?];
   v6 = v5;
   if (v5 <= 2)
@@ -190,15 +190,14 @@ void __31__SFSQLiteStatement_allObjects__block_invoke(uint64_t a1, uint64_t a2)
   v9 = secLogObjForScope("SecError");
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v12[0] = 67109120;
-    v12[1] = v6;
-    _os_log_impl(&dword_1887D2000, v9, OS_LOG_TYPE_DEFAULT, "sfsqlite: Unexpected column type: %d", v12, 8u);
+    v11[0] = 67109120;
+    v11[1] = v6;
+    _os_log_impl(&dword_1887D2000, v9, OS_LOG_TYPE_DEFAULT, "sfsqlite: Unexpected column type: %d", v11, 8u);
   }
 
 LABEL_15:
   v8 = 0;
 LABEL_16:
-  v10 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -366,7 +365,7 @@ LABEL_16:
 
 - (void)bindValue:(id)value atIndex:(unint64_t)index
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -467,17 +466,16 @@ LABEL_18:
     goto LABEL_16;
   }
 
-  v12 = secLogObjForScope("SecError");
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v11 = secLogObjForScope("SecError");
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     *&buf[4] = objc_opt_class();
-    v13 = *&buf[4];
-    _os_log_impl(&dword_1887D2000, v12, OS_LOG_TYPE_DEFAULT, "sfsqlite: Can't bind object of type %@", buf, 0xCu);
+    v12 = *&buf[4];
+    _os_log_impl(&dword_1887D2000, v11, OS_LOG_TYPE_DEFAULT, "sfsqlite: Can't bind object of type %@", buf, 0xCu);
   }
 
 LABEL_19:
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)retainedTemporaryBoundObject:(id)object
@@ -513,7 +511,7 @@ LABEL_19:
 
 - (void)bindText:(id)text atIndex:(unint64_t)index
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   textCopy = text;
   v7 = textCopy;
   if (self->_reset)
@@ -526,11 +524,11 @@ LABEL_19:
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
           SQL = self->_SQL;
-          v13 = 134218242;
+          v12 = 134218242;
           indexCopy = index;
-          v15 = 2112;
-          v16 = SQL;
-          _os_log_impl(&dword_1887D2000, v8, OS_LOG_TYPE_DEFAULT, "sfsqlite: Error binding text at %ld: %@", &v13, 0x16u);
+          v14 = 2112;
+          v15 = SQL;
+          _os_log_impl(&dword_1887D2000, v8, OS_LOG_TYPE_DEFAULT, "sfsqlite: Error binding text at %ld: %@", &v12, 0x16u);
         }
       }
     }
@@ -547,18 +545,16 @@ LABEL_19:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = self->_SQL;
-      v13 = 138412290;
+      v12 = 138412290;
       indexCopy = v11;
-      _os_log_impl(&dword_1887D2000, v10, OS_LOG_TYPE_DEFAULT, "sfsqlite: Statement is not reset: %@", &v13, 0xCu);
+      _os_log_impl(&dword_1887D2000, v10, OS_LOG_TYPE_DEFAULT, "sfsqlite: Statement is not reset: %@", &v12, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)bindBlob:(id)blob atIndex:(unint64_t)index
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   blobCopy = blob;
   v7 = blobCopy;
   if (self->_reset)
@@ -571,11 +567,11 @@ LABEL_19:
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
           SQL = self->_SQL;
-          v13 = 134218242;
+          v12 = 134218242;
           indexCopy = index;
-          v15 = 2112;
-          v16 = SQL;
-          _os_log_impl(&dword_1887D2000, v8, OS_LOG_TYPE_DEFAULT, "sfsqlite: Error binding blob at %ld: %@", &v13, 0x16u);
+          v14 = 2112;
+          v15 = SQL;
+          _os_log_impl(&dword_1887D2000, v8, OS_LOG_TYPE_DEFAULT, "sfsqlite: Error binding blob at %ld: %@", &v12, 0x16u);
         }
       }
     }
@@ -592,159 +588,142 @@ LABEL_19:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = self->_SQL;
-      v13 = 138412290;
+      v12 = 138412290;
       indexCopy = v11;
-      _os_log_impl(&dword_1887D2000, v10, OS_LOG_TYPE_DEFAULT, "sfsqlite: Statement is not reset: %@", &v13, 0xCu);
+      _os_log_impl(&dword_1887D2000, v10, OS_LOG_TYPE_DEFAULT, "sfsqlite: Statement is not reset: %@", &v12, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)bindDouble:(double)double atIndex:(unint64_t)index
 {
-  v17 = *MEMORY[0x1E69E9840];
-  if (!self->_reset)
+  v16 = *MEMORY[0x1E69E9840];
+  if (self->_reset)
   {
+    if (!sqlite3_bind_double(self->_handle, index + 1, double))
+    {
+      return;
+    }
+
     v6 = secLogObjForScope("SecError");
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       SQL = self->_SQL;
-      v13 = 138412290;
-      indexCopy = SQL;
-      v8 = "sfsqlite: Statement is not reset: %@";
-      v9 = v6;
-      v10 = 12;
-      goto LABEL_7;
-    }
-
-LABEL_8:
-
-    goto LABEL_9;
-  }
-
-  if (sqlite3_bind_double(self->_handle, index + 1, double))
-  {
-    v6 = secLogObjForScope("SecError");
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-    {
-      v7 = self->_SQL;
-      v13 = 134218242;
+      v12 = 134218242;
       indexCopy = index;
-      v15 = 2112;
-      v16 = v7;
+      v14 = 2112;
+      v15 = SQL;
       v8 = "sfsqlite: Error binding double at %ld: %@";
       v9 = v6;
       v10 = 22;
 LABEL_7:
-      _os_log_impl(&dword_1887D2000, v9, OS_LOG_TYPE_DEFAULT, v8, &v13, v10);
-      goto LABEL_8;
+      _os_log_impl(&dword_1887D2000, v9, OS_LOG_TYPE_DEFAULT, v8, &v12, v10);
     }
-
-    goto LABEL_8;
   }
 
-LABEL_9:
-  v12 = *MEMORY[0x1E69E9840];
+  else
+  {
+    v6 = secLogObjForScope("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = self->_SQL;
+      v12 = 138412290;
+      indexCopy = v11;
+      v8 = "sfsqlite: Statement is not reset: %@";
+      v9 = v6;
+      v10 = 12;
+      goto LABEL_7;
+    }
+  }
 }
 
 - (void)bindInt64:(int64_t)int64 atIndex:(unint64_t)index
 {
-  v17 = *MEMORY[0x1E69E9840];
-  if (!self->_reset)
+  v16 = *MEMORY[0x1E69E9840];
+  if (self->_reset)
   {
+    if (!sqlite3_bind_int64(self->_handle, index + 1, int64))
+    {
+      return;
+    }
+
     v6 = secLogObjForScope("SecError");
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       SQL = self->_SQL;
-      v13 = 138412290;
-      indexCopy = SQL;
-      v8 = "sfsqlite: Statement is not reset: %@";
-      v9 = v6;
-      v10 = 12;
-      goto LABEL_7;
-    }
-
-LABEL_8:
-
-    goto LABEL_9;
-  }
-
-  if (sqlite3_bind_int64(self->_handle, index + 1, int64))
-  {
-    v6 = secLogObjForScope("SecError");
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-    {
-      v7 = self->_SQL;
-      v13 = 134218242;
+      v12 = 134218242;
       indexCopy = index;
-      v15 = 2112;
-      v16 = v7;
+      v14 = 2112;
+      v15 = SQL;
       v8 = "sfsqlite: Error binding int64 at %ld: %@";
       v9 = v6;
       v10 = 22;
 LABEL_7:
-      _os_log_impl(&dword_1887D2000, v9, OS_LOG_TYPE_DEFAULT, v8, &v13, v10);
-      goto LABEL_8;
+      _os_log_impl(&dword_1887D2000, v9, OS_LOG_TYPE_DEFAULT, v8, &v12, v10);
     }
-
-    goto LABEL_8;
   }
 
-LABEL_9:
-  v12 = *MEMORY[0x1E69E9840];
-}
-
-- (void)bindInt:(int)int atIndex:(unint64_t)index
-{
-  v17 = *MEMORY[0x1E69E9840];
-  if (!self->_reset)
+  else
   {
     v6 = secLogObjForScope("SecError");
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      SQL = self->_SQL;
-      v13 = 138412290;
-      indexCopy = SQL;
+      v11 = self->_SQL;
+      v12 = 138412290;
+      indexCopy = v11;
       v8 = "sfsqlite: Statement is not reset: %@";
       v9 = v6;
       v10 = 12;
       goto LABEL_7;
     }
-
-LABEL_8:
-
-    goto LABEL_9;
   }
+}
 
-  if (sqlite3_bind_int(self->_handle, index + 1, int))
+- (void)bindInt:(int)int atIndex:(unint64_t)index
+{
+  v16 = *MEMORY[0x1E69E9840];
+  if (self->_reset)
   {
+    if (!sqlite3_bind_int(self->_handle, index + 1, int))
+    {
+      return;
+    }
+
     v6 = secLogObjForScope("SecError");
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = self->_SQL;
-      v13 = 134218242;
+      SQL = self->_SQL;
+      v12 = 134218242;
       indexCopy = index;
-      v15 = 2112;
-      v16 = v7;
+      v14 = 2112;
+      v15 = SQL;
       v8 = "sfsqlite: Error binding int at %ld: %@";
       v9 = v6;
       v10 = 22;
 LABEL_7:
-      _os_log_impl(&dword_1887D2000, v9, OS_LOG_TYPE_DEFAULT, v8, &v13, v10);
-      goto LABEL_8;
+      _os_log_impl(&dword_1887D2000, v9, OS_LOG_TYPE_DEFAULT, v8, &v12, v10);
     }
-
-    goto LABEL_8;
   }
 
-LABEL_9:
-  v12 = *MEMORY[0x1E69E9840];
+  else
+  {
+    v6 = secLogObjForScope("SecError");
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = self->_SQL;
+      v12 = 138412290;
+      indexCopy = v11;
+      v8 = "sfsqlite: Statement is not reset: %@";
+      v9 = v6;
+      v10 = 12;
+      goto LABEL_7;
+    }
+  }
 }
 
 - (void)reset
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (!self->_reset)
   {
     if (sqlite3_reset(self->_handle))
@@ -754,12 +733,12 @@ LABEL_9:
       {
 LABEL_9:
 
-        goto LABEL_10;
+        return;
       }
 
       SQL = self->_SQL;
-      v8 = 138412290;
-      v9 = SQL;
+      v7 = 138412290;
+      v8 = SQL;
       v5 = "sfsqlite: Error resetting prepared statement: %@";
     }
 
@@ -769,7 +748,7 @@ LABEL_9:
       {
         [(NSMutableArray *)self->_temporaryBoundObjects removeAllObjects];
         self->_reset = 1;
-        goto LABEL_10;
+        return;
       }
 
       v3 = secLogObjForScope("SecError");
@@ -779,22 +758,19 @@ LABEL_9:
       }
 
       v6 = self->_SQL;
-      v8 = 138412290;
-      v9 = v6;
+      v7 = 138412290;
+      v8 = v6;
       v5 = "sfsqlite: Error clearing prepared statement bindings: %@";
     }
 
-    _os_log_impl(&dword_1887D2000, v3, OS_LOG_TYPE_DEFAULT, v5, &v8, 0xCu);
+    _os_log_impl(&dword_1887D2000, v3, OS_LOG_TYPE_DEFAULT, v5, &v7, 0xCu);
     goto LABEL_9;
   }
-
-LABEL_10:
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)step
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (self->_reset)
   {
     self->_reset = 0;
@@ -808,17 +784,15 @@ LABEL_10:
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       SQL = self->_SQL;
-      v8[0] = 67109378;
-      v8[1] = v3;
-      v9 = 2112;
-      v10 = SQL;
-      _os_log_impl(&dword_1887D2000, v4, OS_LOG_TYPE_DEFAULT, "sfsqlite: Failed to step (%d): %@", v8, 0x12u);
+      v7[0] = 67109378;
+      v7[1] = v3;
+      v8 = 2112;
+      v9 = SQL;
+      _os_log_impl(&dword_1887D2000, v4, OS_LOG_TYPE_DEFAULT, "sfsqlite: Failed to step (%d): %@", v7, 0x12u);
     }
   }
 
-  result = v3 == 100;
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return v3 == 100;
 }
 
 - (void)resetAfterStepError
@@ -834,43 +808,38 @@ LABEL_10:
 
 - (void)finalizeStatement
 {
-  v10 = *MEMORY[0x1E69E9840];
-  if (!self->_reset)
+  v9 = *MEMORY[0x1E69E9840];
+  if (self->_reset)
   {
+    if (!sqlite3_finalize(self->_handle))
+    {
+      return;
+    }
+
     v3 = secLogObjForScope("SecError");
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       SQL = self->_SQL;
-      v8 = 138412290;
-      v9 = SQL;
-      v5 = "sfsqlite: Statement not reset after last use: %@";
-      goto LABEL_7;
+      v7 = 138412290;
+      v8 = SQL;
+      v5 = "sfsqlite: Error finalizing prepared statement: %@";
+LABEL_7:
+      _os_log_impl(&dword_1887D2000, v3, OS_LOG_TYPE_DEFAULT, v5, &v7, 0xCu);
     }
-
-LABEL_8:
-
-    goto LABEL_9;
   }
 
-  if (sqlite3_finalize(self->_handle))
+  else
   {
     v3 = secLogObjForScope("SecError");
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = self->_SQL;
-      v8 = 138412290;
-      v9 = v4;
-      v5 = "sfsqlite: Error finalizing prepared statement: %@";
-LABEL_7:
-      _os_log_impl(&dword_1887D2000, v3, OS_LOG_TYPE_DEFAULT, v5, &v8, 0xCu);
-      goto LABEL_8;
+      v6 = self->_SQL;
+      v7 = 138412290;
+      v8 = v6;
+      v5 = "sfsqlite: Statement not reset after last use: %@";
+      goto LABEL_7;
     }
-
-    goto LABEL_8;
   }
-
-LABEL_9:
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (SFSQLiteStatement)initWithSQLite:(id)lite SQL:(id)l handle:(sqlite3_stmt *)handle

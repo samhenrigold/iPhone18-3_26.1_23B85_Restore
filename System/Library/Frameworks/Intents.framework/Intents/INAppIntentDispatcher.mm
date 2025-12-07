@@ -47,7 +47,7 @@
     v11 = [INIntentDeliverer alloc];
     if (actionCopy)
     {
-      [actionCopy hostProcessAuditToken];
+      objc_msgSend_hostProcessAuditToken(actionCopy);
     }
 
     else

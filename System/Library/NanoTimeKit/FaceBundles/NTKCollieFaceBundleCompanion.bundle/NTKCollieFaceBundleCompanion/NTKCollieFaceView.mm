@@ -1917,7 +1917,7 @@ LABEL_14:
   v5 = +[NTKCollieFaceBundle logObject];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    sub_190D8();
+    sub_190D8(self, immediateCopy);
   }
 
   [(NTKCollieFaceView *)self _pushBackMachineStateResetTimer:0 completionHandler:0.0];

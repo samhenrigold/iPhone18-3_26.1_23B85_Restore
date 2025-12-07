@@ -56,8 +56,7 @@
     v15[0] = dCopy;
     v15[1] = _getProcessMemoryUsed;
     v8 = [NSDictionary dictionaryWithObjects:v15 forKeys:v14 count:2];
-    [(NSMutableArray *)self->_accessLock_memoryRecords addObject:v8];
-    v9 = sub_1000010B0();
+    v9 = sub_1000010B0([(NSMutableArray *)self->_accessLock_memoryRecords addObject:v8]);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = 138543618;
@@ -70,7 +69,7 @@
 
   else
   {
-    v8 = sub_1000010B0();
+    v8 = sub_1000010B0(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_100006138(dCopy, v8);

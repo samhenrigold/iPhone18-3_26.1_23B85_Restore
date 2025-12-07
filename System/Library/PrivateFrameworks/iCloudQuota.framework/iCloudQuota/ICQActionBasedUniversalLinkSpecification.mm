@@ -68,36 +68,36 @@
 
 - (id)icqLinkForContext:(id)context
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   if (contextCopy)
   {
     v5 = [objc_alloc(MEMORY[0x277CCACE0]) initWithString:contextCopy];
     if (v5)
     {
-      v25 = contextCopy;
-      v24 = v5;
+      v24 = contextCopy;
+      v23 = v5;
       queryItems = [v5 queryItems];
+      v25 = 0u;
       v26 = 0u;
       v27 = 0u;
       v28 = 0u;
-      v29 = 0u;
-      v7 = [queryItems countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v7 = [queryItems countByEnumeratingWithState:&v25 objects:v33 count:16];
       if (v7)
       {
         v8 = v7;
         v9 = 0;
-        v10 = *v27;
+        v10 = *v26;
         do
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v27 != v10)
+            if (*v26 != v10)
             {
               objc_enumerationMutation(queryItems);
             }
 
-            v12 = *(*(&v26 + 1) + 8 * i);
+            v12 = *(*(&v25 + 1) + 8 * i);
             name = [v12 name];
             v14 = [name isEqualToString:@"universalLinkAction"];
 
@@ -108,21 +108,21 @@
               {
                 value = [v12 value];
                 *buf = 138412546;
-                v31 = value;
-                v32 = 2112;
-                v33 = v25;
+                v30 = value;
+                v31 = 2112;
+                v32 = v24;
                 _os_log_impl(&dword_275572000, v15, OS_LOG_TYPE_DEFAULT, "icqLinkForContext: found link: %@ for context: %@", buf, 0x16u);
               }
 
               links = [(ICQActionBasedUniversalLinkSpecification *)self links];
               value2 = [v12 value];
-              v19 = [links objectForKeyedSubscript:value2];
+              v19 = objc_msgSend_objectForKeyedSubscript_(links);
 
               v9 = v19;
             }
           }
 
-          v8 = [queryItems countByEnumeratingWithState:&v26 objects:v34 count:16];
+          v8 = [queryItems countByEnumeratingWithState:&v25 objects:v33 count:16];
         }
 
         while (v8);
@@ -133,8 +133,8 @@
         v9 = 0;
       }
 
-      contextCopy = v25;
-      v5 = v24;
+      contextCopy = v24;
+      v5 = v23;
     }
 
     else
@@ -152,7 +152,6 @@
   v21 = [serverUIURL icq_URLByAppendingQueryParamtersFromContext:contextCopy];
 
   [v9 setServerUIURL:v21];
-  v22 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

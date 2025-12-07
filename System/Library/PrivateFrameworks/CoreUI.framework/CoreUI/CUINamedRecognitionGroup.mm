@@ -9,86 +9,86 @@
 
 - (CUINamedRecognitionGroup)initWithName:(id)name contentsFromCatalog:(id)catalog usingRenditionKey:(id)key fromTheme:(unint64_t)theme
 {
-  v40.receiver = self;
-  v40.super_class = CUINamedRecognitionGroup;
-  v8 = [(CUINamedLookup *)&v40 initWithName:name usingRenditionKey:key fromTheme:theme];
+  v28.receiver = self;
+  v28.super_class = CUINamedRecognitionGroup;
+  v8 = [(CUINamedLookup *)&v28 initWithName:name usingRenditionKey:key fromTheme:theme];
   if (v8)
   {
     v9 = [name stringByAppendingString:@"/"];
     contentNames = [(CUIThemeRendition *)[(CUINamedLookup *)v8 _rendition] contentNames];
     if (![contentNames count])
     {
-      _CUILog(4, "CoreUI: NamedRecognitionGroup '%@' has no contents", v11, v12, v13, v14, v15, v16, name);
+      _CUILog(4, "CoreUI: NamedRecognitionGroup '%@' has no contents", name);
 
       return 0;
     }
 
     v8->_imageContents = objc_alloc_init(NSMutableDictionary);
     v8->_objectContents = objc_alloc_init(NSMutableDictionary);
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    v17 = [contentNames countByEnumeratingWithState:&v36 objects:v41 count:16];
-    if (v17)
+    v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v11 = [contentNames countByEnumeratingWithState:&v24 objects:v29 count:16];
+    if (v11)
     {
-      v18 = v17;
-      v19 = *v37;
+      v12 = v11;
+      v13 = *v25;
       do
       {
-        v20 = 0;
+        v14 = 0;
         do
         {
-          if (*v37 != v19)
+          if (*v25 != v13)
           {
             objc_enumerationMutation(contentNames);
           }
 
-          v21 = *(*(&v36 + 1) + 8 * v20);
-          v22 = [catalog _recognitionImageWithName:v21];
-          if (!v22)
+          v15 = *(*(&v24 + 1) + 8 * v14);
+          v16 = [catalog _recognitionImageWithName:v15];
+          if (!v16)
           {
-            v25 = [catalog _recognitionObjectWithName:v21];
-            if (!v25)
+            v19 = [catalog _recognitionObjectWithName:v15];
+            if (!v19)
             {
-              _CUILog(4, "[CUINamedRecognitionGroup initWithName:contentsFromCatalog:usingRenditionKey:fromTheme:] couldn't find any recognitions objects named '%@' skipping", v26, v27, v28, v29, v30, v31, v21);
+              _CUILog(4, "[CUINamedRecognitionGroup initWithName:contentsFromCatalog:usingRenditionKey:fromTheme:] couldn't find any recognitions objects named '%@' skipping", v15);
               goto LABEL_17;
             }
 
 LABEL_14:
-            v32 = v25;
-            if ([v21 rangeOfString:v9 options:8 range:{0, objc_msgSend(v21, "length")}] != 0x7FFFFFFFFFFFFFFFLL)
+            v20 = v19;
+            if ([v15 rangeOfString:v9 options:8 range:{0, objc_msgSend(v15, "length")}] != 0x7FFFFFFFFFFFFFFFLL)
             {
-              v21 = [v21 substringFromIndex:v33];
+              v15 = [v15 substringFromIndex:v21];
             }
 
-            [(NSMutableDictionary *)v8->_objectContents setObject:v32 forKey:v21];
+            [(NSMutableDictionary *)v8->_objectContents setObject:v20 forKey:v15];
             goto LABEL_17;
           }
 
-          v23 = v22;
-          if ([v21 rangeOfString:v9 options:8 range:{0, objc_msgSend(v21, "length")}] != 0x7FFFFFFFFFFFFFFFLL)
+          v17 = v16;
+          if ([v15 rangeOfString:v9 options:8 range:{0, objc_msgSend(v15, "length")}] != 0x7FFFFFFFFFFFFFFFLL)
           {
-            v21 = [v21 substringFromIndex:v24];
+            v15 = [v15 substringFromIndex:v18];
           }
 
-          [(NSMutableDictionary *)v8->_imageContents setObject:v23 forKey:v21];
-          v25 = [catalog _recognitionObjectWithName:v21];
-          if (v25)
+          [(NSMutableDictionary *)v8->_imageContents setObject:v17 forKey:v15];
+          v19 = [catalog _recognitionObjectWithName:v15];
+          if (v19)
           {
             goto LABEL_14;
           }
 
 LABEL_17:
-          v20 = v20 + 1;
+          v14 = v14 + 1;
         }
 
-        while (v18 != v20);
-        v34 = [contentNames countByEnumeratingWithState:&v36 objects:v41 count:16];
-        v18 = v34;
+        while (v12 != v14);
+        v22 = [contentNames countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v12 = v22;
       }
 
-      while (v34);
+      while (v22);
     }
   }
 

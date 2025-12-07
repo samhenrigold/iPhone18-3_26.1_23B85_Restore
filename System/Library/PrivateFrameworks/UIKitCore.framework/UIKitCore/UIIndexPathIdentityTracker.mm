@@ -6,7 +6,7 @@
 void __71___UIIndexPathIdentityTracker__mappingIdentifierForSanitizedIndexPath___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
   v8 = a2;
-  if ([a3 isEqual:*(a1 + 32)])
+  if (objc_msgSend_isEqual_(a3))
   {
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
     *a4 = 1;

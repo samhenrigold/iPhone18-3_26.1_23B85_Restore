@@ -123,7 +123,7 @@
     v12 = 0u;
     if (trackerCopy)
     {
-      [trackerCopy rotateTransform];
+      objc_msgSend_rotateTransform(trackerCopy);
     }
 
     else
@@ -133,7 +133,7 @@
       v9 = 0uLL;
     }
 
-    [(CRLCanvasLayout *)self layoutTransformInInfoSpace:&v9];
+    objc_msgSend_layoutTransformInInfoSpace_(self, v9, v10, v11);
     v9 = v12;
     v10 = v13;
     v11 = v14;
@@ -183,7 +183,7 @@
     v12 = 0u;
     if (trackerCopy)
     {
-      [trackerCopy freeTransformForLayout:self];
+      objc_msgSend_freeTransformForLayout_(trackerCopy);
     }
 
     else
@@ -193,7 +193,7 @@
       v9 = 0uLL;
     }
 
-    [(CRLCanvasLayout *)self layoutTransformInInfoSpace:&v9];
+    objc_msgSend_layoutTransformInInfoSpace_(self, v9, v10, v11);
     v9 = v12;
     v10 = v13;
     v11 = v14;
@@ -243,7 +243,7 @@
     v9 = v8;
     if (layoutGeometryFromInfo)
     {
-      [layoutGeometryFromInfo transform];
+      objc_msgSend_transform(layoutGeometryFromInfo);
     }
 
     else
@@ -271,7 +271,7 @@
     v20 = v19;
     if (layoutGeometryFromInfo)
     {
-      [layoutGeometryFromInfo transform];
+      objc_msgSend_transform(layoutGeometryFromInfo);
     }
 
     else
@@ -330,7 +330,7 @@
   v6 = geometry;
   if (geometry)
   {
-    [geometry fullTransform];
+    objc_msgSend_fullTransform(geometry);
   }
 
   else
@@ -348,7 +348,7 @@
       v9 = parent2;
       if (parent2)
       {
-        [parent2 transformInRoot];
+        objc_msgSend_transformInRoot(parent2);
       }
 
       else

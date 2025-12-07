@@ -183,7 +183,6 @@ LABEL_17:
   toCopy = to;
   if ([(_INPBDeleteEventIntent *)self hasDeleteAllOccurrences])
   {
-    deleteAllOccurrences = self->_deleteAllOccurrences;
     PBDataWriterWriteBOOLField();
   }
 
@@ -197,12 +196,11 @@ LABEL_17:
 
   targetEventIdentifier = [(_INPBDeleteEventIntent *)self targetEventIdentifier];
 
-  v8 = toCopy;
+  v7 = toCopy;
   if (targetEventIdentifier)
   {
-    targetEventIdentifier = self->_targetEventIdentifier;
     PBDataWriterWriteStringField();
-    v8 = toCopy;
+    v7 = toCopy;
   }
 }
 

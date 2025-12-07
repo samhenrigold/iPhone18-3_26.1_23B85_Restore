@@ -8,10 +8,10 @@
 
 - (IOSurfaceTransaction)initWithSharedEvent:(id)event waitValue:(unint64_t)value isWrite:(BOOL)write
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v12.receiver = self;
-  v12.super_class = IOSurfaceTransaction;
-  v8 = [(IOSurfaceTransaction *)&v12 init];
+  v12 = *MEMORY[0x1E69E9840];
+  v11.receiver = self;
+  v11.super_class = IOSurfaceTransaction;
+  v8 = [(IOSurfaceTransaction *)&v11 init];
   v9 = v8;
   if (v8)
   {
@@ -25,11 +25,10 @@
     else
     {
 
-      v9 = 0;
+      return 0;
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -64,20 +63,11 @@ LABEL_8:
 
 - (void)dealloc
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
 
-  v4.receiver = self;
-  v4.super_class = IOSurfaceTransaction;
-  [(IOSurfaceTransaction *)&v4 dealloc];
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-- (void)fromSerialized:.cold.1()
-{
-  v0 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1B0173000, MEMORY[0x1E69E9C10], v1, "[IOSurfaceTransaction fromSerialized] got nil event from serialized data", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v3.receiver = self;
+  v3.super_class = IOSurfaceTransaction;
+  [(IOSurfaceTransaction *)&v3 dealloc];
 }
 
 @end

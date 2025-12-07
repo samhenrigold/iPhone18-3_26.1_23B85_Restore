@@ -1,5 +1,8 @@
 @interface TRILogger
+- (TRILogger)initWithClient:(id)client projectId:(int)id;
 - (TRILogger)initWithClient:(id)client projectId:(int)id logHandlers:(id)handlers;
+- (TRILogger)initWithProjectId:(int)id;
+- (TRILogger)initWithProjectId:(int)id logHandlers:(id)handlers;
 - (id)messageWithOneofField:(id)field withName:(id)name;
 - (unint64_t)_incrementedLogEventCount;
 - (void)_dispatchLogEvent:(id)event;
@@ -18,6 +21,61 @@
 @end
 
 @implementation TRILogger
+
+- (TRILogger)initWithProjectId:(int)id
+{
+  v3 = *&id;
+  v14 = *MEMORY[0x277D85DE8];
+  v5 = TRILogCategory_ClientFramework();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 136315138;
+    v13 = "[TRILogger initWithProjectId:]";
+    _os_log_error_impl(&dword_26F567000, v5, OS_LOG_TYPE_ERROR, "called deprecated method %s", buf, 0xCu);
+  }
+
+  v6 = [MEMORY[0x277D73660] clientWithIdentifier:v3];
+  v7 = objc_opt_new();
+  v11 = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
+  v9 = [(TRILogger *)self initWithClient:v6 projectId:v3 logHandlers:v8];
+
+  if (v9)
+  {
+    v9->_projectId = v3;
+  }
+
+  return v9;
+}
+
+- (TRILogger)initWithProjectId:(int)id logHandlers:(id)handlers
+{
+  v4 = *&id;
+  v6 = MEMORY[0x277D73660];
+  handlersCopy = handlers;
+  v8 = [v6 clientWithIdentifier:v4];
+  v9 = [(TRILogger *)self initWithClient:v8 projectId:v4 logHandlers:handlersCopy];
+
+  return v9;
+}
+
+- (TRILogger)initWithClient:(id)client projectId:(int)id
+{
+  v4 = *&id;
+  v11[1] = *MEMORY[0x277D85DE8];
+  clientCopy = client;
+  v7 = objc_opt_new();
+  v11[0] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v9 = [(TRILogger *)self initWithClient:clientCopy projectId:v4 logHandlers:v8];
+
+  if (v9)
+  {
+    v9->_projectId = v4;
+  }
+
+  return v9;
+}
 
 - (TRILogger)initWithClient:(id)client projectId:(int)id logHandlers:(id)handlers
 {
@@ -50,29 +108,29 @@
 
 - (id)messageWithOneofField:(id)field withName:(id)name
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   fieldCopy = field;
   nameCopy = name;
   descriptor = [fieldCopy descriptor];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   oneofs = [descriptor oneofs];
-  v9 = [oneofs countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [oneofs countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
-    v10 = *v21;
+    v10 = *v20;
     while (2)
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(oneofs);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * i);
+        v12 = *(*(&v19 + 1) + 8 * i);
         name = [v12 name];
         v14 = [name isEqualToString:nameCopy];
 
@@ -88,7 +146,7 @@
         }
       }
 
-      v9 = [oneofs countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [oneofs countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v9)
       {
         continue;
@@ -100,14 +158,12 @@
 
 LABEL_11:
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (void)_dispatchLogEvent:(id)event
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
   bundleIdentifier = [mainBundle bundleIdentifier];
@@ -124,35 +180,33 @@ LABEL_11:
 
   v8 = v7;
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v9 = self->_logHandlers;
-  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v16;
+    v12 = *v15;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v16 != v12)
+        if (*v15 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        [*(*(&v15 + 1) + 8 * i) logEvent:eventCopy subgroupName:v8 queue:{self->_loggingQueue, v15}];
+        [*(*(&v14 + 1) + 8 * i) logEvent:eventCopy subgroupName:v8 queue:{self->_loggingQueue, v14}];
       }
 
-      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v11);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __31__TRILogger__dispatchLogEvent___block_invoke()
@@ -199,49 +253,43 @@ void __38__TRILogger__incrementedLogEventCount__block_invoke()
 
 - (void)logWithTrackingId:(id)id logLevel:(int64_t)level message:(id)message args:(char *)args
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v6 = TRILogCategory_ClientFramework();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v8 = 136315138;
-    v9 = "[TRILogger logWithTrackingId:logLevel:message:args:]";
-    _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, "called deprecated method %s", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[TRILogger logWithTrackingId:logLevel:message:args:]";
+    _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, "called deprecated method %s", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logWithTrackingId:(id)id message:(id)message
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v4 = TRILogCategory_ClientFramework();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 136315138;
-    v7 = "[TRILogger logWithTrackingId:message:]";
-    _os_log_error_impl(&dword_26F567000, v4, OS_LOG_TYPE_ERROR, "called deprecated method %s", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[TRILogger logWithTrackingId:message:]";
+    _os_log_error_impl(&dword_26F567000, v4, OS_LOG_TYPE_ERROR, "called deprecated method %s", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logWithTrackingId:(id)id logLevel:(int64_t)level message:(id)message
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v5 = TRILogCategory_ClientFramework();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v7 = 136315138;
-    v8 = "[TRILogger logWithTrackingId:logLevel:message:]";
-    _os_log_error_impl(&dword_26F567000, v5, OS_LOG_TYPE_ERROR, "called deprecated method %s", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[TRILogger logWithTrackingId:logLevel:message:]";
+    _os_log_error_impl(&dword_26F567000, v5, OS_LOG_TYPE_ERROR, "called deprecated method %s", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logWithTrackingId:(id)id metrics:(id)metrics dimensions:(id)dimensions trialSystemTelemetry:(id)telemetry
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v10 = MEMORY[0x277D73B28];
   projectId = self->_projectId;
   telemetryCopy = telemetry;
@@ -269,18 +317,17 @@ void __38__TRILogger__incrementedLogEventCount__block_invoke()
   if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
   {
     v25 = [v15 description];
-    v27 = 138412290;
-    v28 = v25;
-    _os_log_impl(&dword_26F567000, v24, OS_LOG_TYPE_INFO, "Logging log event: %@", &v27, 0xCu);
+    v26 = 138412290;
+    v27 = v25;
+    _os_log_impl(&dword_26F567000, v24, OS_LOG_TYPE_INFO, "Logging log event: %@", &v26, 0xCu);
   }
 
   [(TRILogger *)self logEvent:v15];
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logWithTrackingId:(id)id metrics:(id)metrics dimensions:(id)dimensions systemDimensions:(id)systemDimensions trialSystemTelemetry:(id)telemetry
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v12 = MEMORY[0x277D73B28];
   projectId = self->_projectId;
   telemetryCopy = telemetry;
@@ -308,18 +355,17 @@ void __38__TRILogger__incrementedLogEventCount__block_invoke()
   if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
   {
     v27 = [v18 description];
-    v29 = 138412290;
-    v30 = v27;
-    _os_log_impl(&dword_26F567000, v26, OS_LOG_TYPE_INFO, "Logging log event: %@", &v29, 0xCu);
+    v28 = 138412290;
+    v29 = v27;
+    _os_log_impl(&dword_26F567000, v26, OS_LOG_TYPE_INFO, "Logging log event: %@", &v28, 0xCu);
   }
 
   [(TRILogger *)self logEvent:v18];
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logWithProjectNameAndTrackingId:(id)id metrics:(id)metrics dimensions:(id)dimensions trialSystemTelemetry:(id)telemetry
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v10 = MEMORY[0x277D73B28];
   projectId = self->_projectId;
   telemetryCopy = telemetry;
@@ -362,13 +408,12 @@ void __38__TRILogger__incrementedLogEventCount__block_invoke()
   if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
   {
     v31 = [v15 description];
-    v33 = 138412290;
-    v34 = v31;
-    _os_log_impl(&dword_26F567000, v30, OS_LOG_TYPE_INFO, "Logging log event: %@", &v33, 0xCu);
+    v32 = 138412290;
+    v33 = v31;
+    _os_log_impl(&dword_26F567000, v30, OS_LOG_TYPE_INFO, "Logging log event: %@", &v32, 0xCu);
   }
 
   [(TRILogger *)self logEvent:v15];
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logWithMLRuntimeDimensions:(id)dimensions metrics:(id)metrics factorState:(id)state
@@ -453,7 +498,7 @@ void __38__TRILogger__incrementedLogEventCount__block_invoke()
 
 - (void)logWithTrackingId:(id)id metric:(id)metric dimensions:(id)dimensions
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   idCopy = id;
   metricCopy = metric;
   dimensionsCopy = dimensions;
@@ -461,28 +506,28 @@ void __38__TRILogger__incrementedLogEventCount__block_invoke()
   if (dimensionsCopy)
   {
     selfCopy = self;
-    v25 = metricCopy;
+    v24 = metricCopy;
     v12 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(dimensionsCopy, "count")}];
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     v13 = v11;
-    v14 = [v13 countByEnumeratingWithState:&v26 objects:v31 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v25 objects:v30 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v27;
+      v16 = *v26;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v27 != v16)
+          if (*v26 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v26 + 1) + 8 * i);
+          v18 = *(*(&v25 + 1) + 8 * i);
           v19 = [v13 objectForKeyedSubscript:v18];
           v20 = v19;
           if (v19 && [v19 length])
@@ -494,13 +539,13 @@ void __38__TRILogger__incrementedLogEventCount__block_invoke()
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v25 objects:v30 count:16];
       }
 
       while (v15);
     }
 
-    metricCopy = v25;
+    metricCopy = v24;
     self = selfCopy;
   }
 
@@ -509,11 +554,9 @@ void __38__TRILogger__incrementedLogEventCount__block_invoke()
     v12 = 0;
   }
 
-  v30 = metricCopy;
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
+  v29 = metricCopy;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
   [(TRILogger *)self logWithTrackingId:idCopy metrics:v22 dimensions:v12];
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logWithNamespaceName:(id)name metrics:(id)metrics dimensions:(id)dimensions
@@ -569,19 +612,18 @@ void __38__TRILogger__incrementedLogEventCount__block_invoke()
 
 - (void)logWithTrackingId:(id)id metric:(id)metric
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   metricCopy = metric;
   idCopy = id;
   v8 = TRILogCategory_ClientFramework();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    v10 = 136315138;
-    v11 = "[TRILogger logWithTrackingId:metric:]";
-    _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, "called deprecated method %s", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = "[TRILogger logWithTrackingId:metric:]";
+    _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, "called deprecated method %s", &v9, 0xCu);
   }
 
   [(TRILogger *)self logWithTrackingId:idCopy metric:metricCopy dimensions:0];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

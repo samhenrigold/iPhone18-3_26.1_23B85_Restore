@@ -134,7 +134,7 @@
   result = self->_connection;
   if (result)
   {
-    return [($115C4C562B26FF47E01F9F4EA65B5887 *)result auditToken];
+    return objc_msgSend_auditToken(result, a3);
   }
 
   *retstr->var0 = 0u;

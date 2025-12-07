@@ -621,25 +621,25 @@ LABEL_22:
   name3 = [keymaster3 name];
   v17 = [EPKeychain storeKeyWithData:data name:name3 keychainGroup:@"com.apple.nanoregistry.migration2"];
 
-  v18 = v13 & v17;
+  v19 = v13 & v17;
   if ((v13 & v17 & 1) == 0)
   {
-    v19 = sub_1000034AC();
-    v20 = os_log_type_enabled(v19, OS_LOG_TYPE_ERROR);
+    v20 = sub_1000034AC(v18);
+    v21 = os_log_type_enabled(v20, OS_LOG_TYPE_ERROR);
 
-    if (v20)
+    if (v21)
     {
-      v21 = sub_1000034AC();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v23 = sub_1000034AC(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         if (v13)
         {
-          v23 = 0;
+          v25 = 0;
         }
 
         else
         {
-          v23 = @"migration";
+          v25 = @"migration";
         }
 
         if (v17)
@@ -653,11 +653,11 @@ LABEL_22:
           name4 = [(EPKey *)self name];
         }
 
-        v25 = 138412546;
-        v26 = v23;
-        v27 = 2112;
-        v28 = name4;
-        _os_log_error_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "EPKey: Unable to store key %@ %@", &v25, 0x16u);
+        v27 = 138412546;
+        v28 = v25;
+        v29 = 2112;
+        v30 = name4;
+        _os_log_error_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "EPKey: Unable to store key %@ %@", &v27, 0x16u);
         if ((v17 & 1) == 0)
         {
         }
@@ -665,7 +665,7 @@ LABEL_22:
     }
   }
 
-  return v18;
+  return v19;
 }
 
 + (id)derivedKeyFrom:(id)from salt:(id)salt

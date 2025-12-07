@@ -19,7 +19,7 @@
   maxSupportedWoLANVersion = [(HMDWoLANInvalidConfigurationLogEvent *)self maxSupportedWoLANVersion];
   [dictionary setObject:maxSupportedWoLANVersion forKeyedSubscript:@"maxSupportedWoLANVersion"];
 
-  v7 = [dictionary copy];
+  v7 = objc_msgSend_copy(dictionary);
 
   return v7;
 }

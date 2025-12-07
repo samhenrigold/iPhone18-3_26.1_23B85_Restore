@@ -57,15 +57,15 @@ LABEL_6:
 
 - (void)createContainerWithIdentifier:(id)identifier
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   bOOLValue = CFPreferencesGetAppBooleanValue(@"developmentEnvironment", @"com.apple.UARPiCloud", 0) != 0;
   if ([identifierCopy containsString:@"com.apple.chip"])
   {
     v6 = [MEMORY[0x277CBEBC0] fileURLWithPath:@"/Library/Managed Preferences/mobile/com.apple.UARPiCloud.plist"];
-    v15 = 0;
-    v7 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithContentsOfURL:v6 error:&v15];
-    v8 = v15;
+    v14 = 0;
+    v7 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithContentsOfURL:v6 error:&v14];
+    v8 = v14;
     if (v7)
     {
       v9 = [v7 objectForKey:@"developmentEnvironment"];
@@ -79,11 +79,11 @@ LABEL_6:
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v17 = "[UARPiCloudContainer createContainerWithIdentifier:]";
-      v18 = 2112;
-      v19 = v6;
-      v20 = 2112;
-      v21 = v8;
+      v16 = "[UARPiCloudContainer createContainerWithIdentifier:]";
+      v17 = 2112;
+      v18 = v6;
+      v19 = 2112;
+      v20 = v8;
       _os_log_impl(&dword_2701F5000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Failed to read managedPrefs at %@ error %@", buf, 0x20u);
     }
   }
@@ -102,24 +102,18 @@ LABEL_6:
   v12 = [objc_alloc(MEMORY[0x277CBC210]) initWithContainerID:v11];
   container = self->_container;
   self->_container = v12;
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setUpdatedZones:(id)zones
 {
-  v4 = [zones mutableCopy];
-  updatedZones = self->_updatedZones;
-  self->_updatedZones = v4;
+  self->_updatedZones = [zones mutableCopy];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)setUpdatedRecords:(id)records
 {
-  v4 = [records mutableCopy];
-  updatedRecords = self->_updatedRecords;
-  self->_updatedRecords = v4;
+  self->_updatedRecords = [records mutableCopy];
 
   MEMORY[0x2821F96F8]();
 }
@@ -256,7 +250,7 @@ LABEL_6:
 
 - (void)processVerificationCertificateRecord:(id)record
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   if ([(UARPiCloudContainer *)self isCHIPContainer])
   {
@@ -266,22 +260,20 @@ LABEL_6:
       v6 = v5;
       v7 = MEMORY[0x277CCAAA0];
       v8 = [v5 dataUsingEncoding:4];
-      v13 = 0;
-      v9 = [v7 JSONObjectWithData:v8 options:0 error:&v13];
-      v10 = v13;
+      v12 = 0;
+      v9 = [v7 JSONObjectWithData:v8 options:0 error:&v12];
+      v10 = v12;
       verificationCertificates = self->_verificationCertificates;
       self->_verificationCertificates = v9;
 
       if (v10 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v15 = v10;
+        v14 = v10;
         _os_log_impl(&dword_2701F5000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Failed to create _verificationCertificates with error: %@", buf, 0xCu);
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

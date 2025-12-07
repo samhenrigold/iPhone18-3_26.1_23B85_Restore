@@ -1,195 +1,3 @@
-void sub_10003B3A8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  sub_100049E5C(*(a1 + 32), 1, "%s => ", a4, a5, a6, a7, a8, a2);
-  v10 = sub_100049864(a3);
-  sub_100017184(*(a1 + 32), 1, 0, v10, v11, v12, v13, v14);
-
-  xpc_release(v10);
-}
-
-void sub_10003B420(uint64_t a1, uint64_t a2, int a3)
-{
-  if (a3 && a3 != 121)
-  {
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    xpc_strerror();
-    sub_10002C908(v4, 5, "failed to add extension %s: %d - %s", v6, v7, v8, v9, v10, v5);
-  }
-
-  v11 = *(a1 + 48);
-  if ((xpc_pipe_routine_reply() | 0x20) != 0x20)
-  {
-    v13 = *(a1 + 32);
-    _os_assumes_log_ctx();
-  }
-
-  xpc_release(*(a1 + 48));
-  v12 = *(a1 + 40);
-
-  free(v12);
-}
-
-void sub_10003B4D8(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v9 = a1[1];
-  v10 = a1[2];
-  sub_10002C908(*a1, 5, "extension removal request finished, sending reply", a4, a5, a6, a7, a8, v11);
-  if ((xpc_pipe_routine_reply() | 0x20) != 0x20)
-  {
-    _os_assumes_log_ctx();
-  }
-
-  dispatch_release(v9);
-  xpc_release(v10);
-
-  sub_10001B648(a1);
-}
-
-uint64_t sub_10003B574(uint64_t a1, uint64_t a2, NSObject *a3)
-{
-  v6 = sub_10000B7FC();
-  v12 = sub_10002DDAC(a1, v6, a2, v7, v8, v9, v10, v11);
-  v13 = v12;
-  if (v12)
-  {
-    if (v12 == 36)
-    {
-      dispatch_retain(a3);
-      dispatch_group_enter(a3);
-      if (*(a2 + 328))
-      {
-        sub_100020018(a2, 5, "An extension-removal request is already in flight; chaining", v14, v15, v16, v17, v18, v27);
-        v19 = *(a2 + 328);
-        v20 = sub_1000157D8();
-        dispatch_group_notify_f(v19, v20, a3, sub_10003B654);
-      }
-
-      else
-      {
-        *(a2 + 328) = a3;
-      }
-    }
-
-    else
-    {
-      xpc_strerror();
-      sub_100020018(a2, 4, "An extension-removal request failed, error: %d - %s", v21, v22, v23, v24, v25, v13);
-    }
-  }
-
-  return v13;
-}
-
-void sub_10003B654(NSObject *a1)
-{
-  dispatch_group_leave(a1);
-
-  dispatch_release(a1);
-}
-
-void *sub_10003B694(unsigned int a1, uint64_t a2)
-{
-  v2 = sub_10003136C(qword_10007D7A8, a1, 0, 0, 0, qword_10007E7B0, a2);
-  sub_10002D82C(v2, &qword_10007F150, 0);
-  return v2;
-}
-
-uint64_t sub_10003B6F8(uint64_t result, FILE *a2)
-{
-  v3 = result;
-  if (*(result + 112) == &unk_10007D720)
-  {
-    v4 = sub_10000D15C();
-    if (v4)
-    {
-      result = sub_100049ECC(a2, 0, "JetsamProperties loaded from path : %s", v5, v6, v7, v8, v9, v4);
-    }
-
-    else
-    {
-      result = sub_100049ECC(a2, 0, "JetsamProperties not loaded", v5, v6, v7, v8, v9);
-    }
-  }
-
-  for (i = 0; i != 23; ++i)
-  {
-    for (j = *(v3 + 336 + 8 * i); j; j = *(j + 120))
-    {
-      result = sub_100026A24(j, a2, 0);
-    }
-  }
-
-  for (k = *(v3 + 320); k; k = *(k + 16))
-  {
-    result = sub_10003B6F8(k, a2);
-  }
-
-  return result;
-}
-
-uint64_t sub_10003B7C4(void *a1, void *a2, uint64_t *a3)
-{
-  value = xpc_dictionary_get_value(a1, "type");
-  if (!value)
-  {
-    return 22;
-  }
-
-  v7 = value;
-  if (xpc_get_type(value) != &_xpc_type_uint64)
-  {
-    return 22;
-  }
-
-  v10 = xpc_uint64_get_value(v7);
-  v11 = xpc_dictionary_get_value(a1, "handle");
-  if (!v11)
-  {
-    return 22;
-  }
-
-  v12 = v11;
-  if (xpc_get_type(v11) != &_xpc_type_uint64)
-  {
-    return 22;
-  }
-
-  v13 = xpc_uint64_get_value(v12);
-  v14 = &off_10007DA58;
-  v15 = 6;
-  while (*(v14 - 2) != v10)
-  {
-    v14 += 2;
-    v8 = 125;
-    if (!--v15)
-    {
-      return v8;
-    }
-  }
-
-  v16 = *v14;
-  if (!v16)
-  {
-    return 125;
-  }
-
-  if (v10 == 3)
-  {
-    return 45;
-  }
-
-  if (v16 == qword_10007D8B8 && v13 == 0)
-  {
-    return 112;
-  }
-
-  v8 = 0;
-  *a2 = v16;
-  *a3 = v13;
-  return v8;
-}
-
 uint64_t sub_10003B8DC(void *a1, uint64_t a2, uint64_t a3)
 {
   if (a1 == &unk_10007D940)
@@ -218,7 +26,7 @@ uint64_t sub_10003B8DC(void *a1, uint64_t a2, uint64_t a3)
   return sub_100032848(a1, a2);
 }
 
-void *sub_10003B96C(void *a1, unint64_t a2, char *a3, char a4, unsigned int *a5, int *a6)
+char *sub_10003B96C(void *a1, unint64_t a2, char *a3, char a4, uint64_t *a5, int *a6)
 {
   if (!a1[13])
   {
@@ -245,11 +53,11 @@ void *sub_10003B96C(void *a1, unint64_t a2, char *a3, char a4, unsigned int *a5,
     return 0;
   }
 
-  memset(v31, 0, sizeof(v31));
+  memset(v25, 0, sizeof(v25));
   v18 = "(premature birth)";
   if (!(a2 >> 31))
   {
-    v19 = a5[5];
+    v19 = *(a5 + 5);
     if ((v19 & 0x80000000) == 0 && v19 == a2)
     {
       v20 = sub_100022BD8(a2);
@@ -260,7 +68,7 @@ void *sub_10003B96C(void *a1, unint64_t a2, char *a3, char a4, unsigned int *a5,
 
       else
       {
-        v21 = sub_100045C2C(a5, v31);
+        v21 = sub_100045C2C(a5, v25);
       }
 
       v18 = v21;
@@ -289,7 +97,7 @@ void *sub_10003B96C(void *a1, unint64_t a2, char *a3, char a4, unsigned int *a5,
   v14 = v24;
   if (a4)
   {
-    sub_10002C908(v24, 5, "Will be pending launches until told otherwise", v25, v26, v27, v28, v29, v30);
+    sub_10002C908(v24, 5, "Will be pending launches until told otherwise");
     *(v14 + 254) |= 0x8000u;
     sub_10002D82C(v14, a5, 0);
     return v14;
@@ -339,7 +147,7 @@ void sub_10003BBB4(void *a1, const char *a2, void *a3, uint64_t a4)
       }
     }
 
-    for (k = a1[40]; k; k = *(k + 16))
+    for (k = a1[40]; k; k = k[2])
     {
       sub_10003BBB4(k, a2, a3, a4);
     }
@@ -348,26 +156,24 @@ void sub_10003BBB4(void *a1, const char *a2, void *a3, uint64_t a4)
 
 void sub_10003BCE0(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   if ((xpc_pipe_routine_reply() | 0x20) != 0x20)
   {
-    v4 = *(a1 + 40);
     _os_assumes_log_ctx();
   }
 
   xpc_release(*(a1 + 32));
-  v3 = *(a1 + 48);
+  v2 = *(a1 + 48);
 
-  dispatch_release(v3);
+  dispatch_release(v2);
 }
 
 uint64_t sub_10003BD50(uint64_t a1, const char *a2, NSObject *a3, uint64_t a4)
 {
   v7 = 0;
-  v29 = a1 + 544;
+  v20 = a1 + 544;
   do
   {
-    v8 = *(v29 + 8 * v7);
+    v8 = *(v20 + 8 * v7);
     if (v8)
     {
       do
@@ -376,22 +182,21 @@ uint64_t sub_10003BD50(uint64_t a1, const char *a2, NSObject *a3, uint64_t a4)
         v10 = sub_100026F08(v8);
         if (sub_100016A6C(v10, a2))
         {
-          memset(v32, 0, sizeof(v32));
+          memset(v23, 0, sizeof(v23));
           v11 = sub_100026F08(v8);
-          sub_100045C2C(a4, v32);
-          v28 = *(a4 + 20);
-          sub_100020018(v8, 5, "Terminating with cryptex %s, caller = %s[%d]", v12, v13, v14, v15, v16, v11);
+          v12 = sub_100045C2C(a4, v23);
+          sub_100020018(v8, 5, "Terminating with cryptex %s, caller = %s[%d]", v11, v12, *(a4 + 20));
           dispatch_group_enter(a3);
-          v17 = *(v8 + 336);
-          if (v17)
+          v13 = *(v8 + 336);
+          if (v13)
           {
-            v18 = sub_1000157D8();
+            v14 = sub_1000157D8();
             block[0] = _NSConcreteStackBlock;
             block[1] = 0x40000000;
             block[2] = sub_10003BF60;
             block[3] = &unk_100079470;
             block[4] = a3;
-            dispatch_group_notify(v17, v18, block);
+            dispatch_group_notify(v13, v14, block);
           }
 
           else
@@ -400,14 +205,14 @@ uint64_t sub_10003BD50(uint64_t a1, const char *a2, NSObject *a3, uint64_t a4)
           }
 
           *(v8 + 368) |= 0x8000u;
-          v19 = sub_100023BF8(v8);
-          v20 = v19;
-          if ((v19 - 36) > 0x35 || ((1 << (v19 - 36)) & 0x20000000000003) == 0)
+          v15 = sub_100023BF8(v8);
+          v16 = v15;
+          if ((v15 - 36) > 0x35 || ((1 << (v15 - 36)) & 0x20000000000003) == 0)
           {
-            if (v19)
+            if (v15)
             {
-              xpc_strerror();
-              sub_10002C908(a1, 3, "Error during cryptex termination: %d - %s", v21, v22, v23, v24, v25, v20);
+              v17 = xpc_strerror();
+              sub_10002C908(a1, 3, "Error during cryptex termination: %d - %s", v16, v17);
             }
           }
         }
@@ -427,12 +232,12 @@ uint64_t sub_10003BD50(uint64_t a1, const char *a2, NSObject *a3, uint64_t a4)
   {
     do
     {
-      v27 = *(result + 16);
-      sub_10003BD50();
-      result = v27;
+      v19 = *(result + 16);
+      sub_10003BD50(result, a2, a3, a4);
+      result = v19;
     }
 
-    while (v27);
+    while (v19);
   }
 
   return result;
@@ -527,7 +332,7 @@ uint64_t sub_10003C0DC(uint64_t a1, uint64_t a2, void *a3, void *a4)
   return v12;
 }
 
-uint64_t sub_10003C1CC(uint64_t a1, unsigned int *a2, void *a3, void *a4)
+uint64_t sub_10003C1CC(uint64_t a1, _DWORD *a2, void *a3, void *a4)
 {
   if (!xpc_dictionary_expects_reply())
   {
@@ -570,10 +375,9 @@ uint64_t sub_10003C1CC(uint64_t a1, unsigned int *a2, void *a3, void *a4)
 
   if ((*(a1 + 1017) & 0x10) != 0 && (uint64 & 0x10) == 0 && *(a1 + 112) == &unk_10007D720 && sub_10004EC0C(v11))
   {
-    memset(v38, 0, sizeof(v38));
-    sub_100045C2C(a2, v38);
-    v37 = a2[5];
-    sub_10002C908(a1, 5, "pending bootstrap lookup during user switch: name = %s, requestor = %s[%d]", v24, v25, v26, v27, v28, v11);
+    memset(v27, 0, sizeof(v27));
+    v24 = sub_100045C2C(a2, v27);
+    sub_10002C908(a1, 5, "pending bootstrap lookup during user switch: name = %s, requestor = %s[%d]", v11, v24, a2[5]);
     if (*(a1 + 136))
     {
       right = xpc_mach_send_get_right();
@@ -603,8 +407,8 @@ uint64_t sub_10003C1CC(uint64_t a1, unsigned int *a2, void *a3, void *a4)
     else
     {
       reply = xpc_dictionary_create_reply(a3);
-      v36 = sub_10004C9DC(v18, 1, v30, v31, v32, v33, v34, v35);
-      xpc_dictionary_set_value(reply, "port", v36);
+      v26 = sub_10004C9DC(v18, 1);
+      xpc_dictionary_set_value(reply, "port", v26);
       if (*(v18 + 88) < 0)
       {
         xpc_dictionary_set_BOOL(reply, "non-launching", 1);
@@ -687,7 +491,7 @@ uint64_t sub_10003C524(uint64_t result)
   return 1103;
 }
 
-uint64_t sub_10003C590(_DWORD *a1, uint64_t a2, char *__s1, void *a4, xpc_object_t *a5)
+uint64_t sub_10003C590(_DWORD *a1, _DWORD *a2, char *__s1, void *a4, xpc_object_t *a5)
 {
   if (!strcmp(__s1, "SubmitJob"))
   {
@@ -701,43 +505,43 @@ uint64_t sub_10003C590(_DWORD *a1, uint64_t a2, char *__s1, void *a4, xpc_object
       *a5 = xpc_array_create(0, 0);
       if (xpc_array_get_count(a4))
       {
-        v46 = 0;
+        v32 = 0;
         do
         {
-          value = xpc_array_get_value(a4, v46);
-          v48 = sub_10003D408(a1, a2, value, 0);
-          xpc_array_set_uint64(*a5, 0xFFFFFFFFFFFFFFFFLL, v48);
-          ++v46;
+          value = xpc_array_get_value(a4, v32);
+          v34 = sub_10003D408(a1, a2, value, 0);
+          xpc_array_set_uint64(*a5, 0xFFFFFFFFFFFFFFFFLL, v34);
+          ++v32;
         }
 
-        while (v46 < xpc_array_get_count(a4));
+        while (v32 < xpc_array_get_count(a4));
       }
 
       return 0;
     }
 
-    v103[0] = 0;
-    v21 = sub_10003D408(a1, a2, a4, v103);
-    if (!v21)
+    v54[0] = 0;
+    v13 = sub_10003D408(a1, a2, a4, v54);
+    if (!v13)
     {
-      v22 = v103[0];
-      if (!v103[0])
+      v14 = v54[0];
+      if (!v54[0])
       {
         goto LABEL_80;
       }
 
-      v23 = v103[0][92];
-      if ((v23 & 8) == 0)
+      v15 = v54[0][92];
+      if ((v15 & 8) == 0)
       {
         goto LABEL_80;
       }
 
-      v103[0][92] = v23 & 0xFFFFFFF7;
-      *(a1 + 124) = v22;
+      v54[0][92] = v15 & 0xFFFFFFF7;
+      *(a1 + 124) = v14;
       return 36;
     }
 
-    return v21;
+    return v13;
   }
 
   if (!strcmp(__s1, "RemoveJob"))
@@ -748,40 +552,40 @@ uint64_t sub_10003C590(_DWORD *a1, uint64_t a2, char *__s1, void *a4, xpc_object
     }
 
     string_ptr = xpc_string_get_string_ptr(a4);
-    v102 = a1;
-    v25 = sub_1000390A8(&v102, string_ptr);
-    if (v25)
+    v53 = a1;
+    v17 = sub_1000390A8(&v53, string_ptr);
+    if (v17)
     {
-      v26 = v25;
-      v27 = v102;
-      v28 = sub_100030410(v102, 4, 8, a2, 0, 0);
-      if (v28 || (v28 = sub_100021F44(), v28))
+      v18 = v17;
+      v19 = v53;
+      v20 = sub_100030410(v53, 4, 8, a2, 0, 0);
+      if (v20 || (v20 = sub_100021F44(), v20))
       {
-        v21 = v28;
-        v101 = string_ptr;
-        v29 = "service removal (%s)";
+        v13 = v20;
+        v52 = string_ptr;
+        v21 = "service removal (%s)";
 LABEL_41:
-        v44 = v27;
+        v30 = v19;
 LABEL_54:
-        sub_1000304FC(v44, a2, v21, v29, v101);
-        return v21;
+        sub_1000304FC(v30, a2, v13, v21, v52);
+        return v13;
       }
 
-      bzero(v103, 0x400uLL);
-      sub_1000350A8(*(a2 + 20), v103);
-      sub_100020018(v26, 5, "%s: caller = %s, value = 0x%llx", v83, v84, v85, v86, v87, "legacy-remove service");
-      v88 = sub_10000B7FC();
-      v94 = sub_10002DDAC(v27, v88, v26, v89, v90, v91, v92, v93);
-      v21 = v94;
-      if (v94)
+      bzero(v54, 0x400uLL);
+      sub_1000350A8(a2[5], v54);
+      sub_100020018(v18, 5, "%s: caller = %s, value = 0x%llx", "legacy-remove service", v54, 0);
+      v49 = sub_10000B7FC();
+      v50 = sub_10002DDAC(v19, v49, v18);
+      v13 = v50;
+      if (v50)
       {
-        if (v94 != 36)
+        if (v50 != 36)
         {
-          xpc_strerror();
-          sub_100020018(v26, 3, "Could not stop service: name = %s, error = %d: %s", v95, v96, v97, v98, v99, string_ptr);
+          v51 = xpc_strerror();
+          sub_100020018(v18, 3, "Could not stop service: name = %s, error = %d: %s", string_ptr, v13, v51);
         }
 
-        return v21;
+        return v13;
       }
 
       goto LABEL_90;
@@ -797,40 +601,40 @@ LABEL_54:
       return 22;
     }
 
-    v30 = xpc_string_get_string_ptr(a4);
-    v103[0] = a1;
-    v31 = sub_1000390A8(v103, v30);
-    if (!v31)
+    v22 = xpc_string_get_string_ptr(a4);
+    v54[0] = a1;
+    v23 = sub_1000390A8(v54, v22);
+    if (!v23)
     {
       return 3;
     }
 
-    v32 = v31;
-    a1 = v103[0];
-    v33 = sub_100030410(v103[0], 4, 8, a2, 0, 0);
-    if (v33)
+    v24 = v23;
+    a1 = v54[0];
+    v25 = sub_100030410(v54[0], 4, 8, a2, 0, 0);
+    if (v25)
     {
-      v21 = v33;
-      v101 = v30;
-      v29 = "service start (%s)";
+      v13 = v25;
+      v52 = v22;
+      v21 = "service start (%s)";
 LABEL_53:
-      v44 = a1;
+      v30 = a1;
       goto LABEL_54;
     }
 
-    v70 = sub_1000234BC(v32, 9, v34, v35, v36, v37, v38, v39);
-    v21 = v70;
-    if (v70 > 0x25 || ((1 << v70) & 0x3000000001) == 0)
+    v47 = sub_1000234BC(v24, 9);
+    v13 = v47;
+    if (v47 > 0x25 || ((1 << v47) & 0x3000000001) == 0)
     {
-      return v21;
+      return v13;
     }
 
 LABEL_80:
-    v71 = xpc_uint64_create(0);
-    v21 = 0;
+    v48 = xpc_uint64_create(0);
+    v13 = 0;
 LABEL_81:
-    *a5 = v71;
-    return v21;
+    *a5 = v48;
+    return v13;
   }
 
   if (!strcmp(__s1, "StopJob"))
@@ -840,33 +644,33 @@ LABEL_81:
       return 22;
     }
 
-    v40 = xpc_string_get_string_ptr(a4);
-    v102 = a1;
-    v41 = sub_1000390A8(&v102, v40);
-    if (v41)
+    v26 = xpc_string_get_string_ptr(a4);
+    v53 = a1;
+    v27 = sub_1000390A8(&v53, v26);
+    if (v27)
     {
-      v42 = v41;
-      v27 = v102;
-      v43 = sub_100030410(v102, 4, 8, a2, 0, 0);
-      if (v43)
+      v28 = v27;
+      v19 = v53;
+      v29 = sub_100030410(v53, 4, 8, a2, 0, 0);
+      if (v29)
       {
-        v21 = v43;
-        v101 = v40;
-        v29 = "service stop (%s)";
+        v13 = v29;
+        v52 = v26;
+        v21 = "service stop (%s)";
         goto LABEL_41;
       }
 
-      bzero(v103, 0x400uLL);
-      sub_1000350A8(*(a2 + 20), v103);
-      sub_100020018(v42, 5, "%s: caller = %s, value = 0x%llx", v72, v73, v74, v75, v76, "legacy-stop service");
-      v21 = sub_1000235C4(v42, a2, v77, v78, v79, v80, v81, v82);
-      if (v21)
+      bzero(v54, 0x400uLL);
+      sub_1000350A8(a2[5], v54);
+      sub_100020018(v28, 5, "%s: caller = %s, value = 0x%llx", "legacy-stop service", v54, 0);
+      v13 = sub_1000235C4(v28, a2);
+      if (v13)
       {
-        return v21;
+        return v13;
       }
 
 LABEL_90:
-      v71 = xpc_uint64_create(0);
+      v48 = xpc_uint64_create(0);
       goto LABEL_81;
     }
 
@@ -880,61 +684,61 @@ LABEL_90:
       return 22;
     }
 
-    v52 = xpc_string_get_string_ptr(a4);
-    v50 = a1;
-    v51 = a2;
-    v53 = 0;
+    v38 = xpc_string_get_string_ptr(a4);
+    v36 = a1;
+    v37 = a2;
+    v39 = 0;
 LABEL_62:
 
-    return sub_10003CE9C(v50, v51, v52, v53, a5, v10, v11, v12);
+    return sub_10003CE9C(v36, v37, v38, v39, a5);
   }
 
   if (!strcmp(__s1, "GetJobs"))
   {
-    v49 = sub_100030410(a1, 5, 128, a2, 0, 0);
-    if (!v49)
+    v35 = sub_100030410(a1, 5, 128, a2, 0, 0);
+    if (!v35)
     {
-      v58 = xpc_dictionary_create(0, 0, 0);
-      v59 = 0;
-      v60 = a1 + 84;
+      v40 = xpc_dictionary_create(0, 0, 0);
+      v41 = 0;
+      v42 = a1 + 84;
       do
       {
-        for (i = *&v60[2 * v59]; i; i = *(i + 120))
+        for (i = *&v42[2 * v41]; i; i = *(i + 120))
         {
-          v62 = sub_100023F54(i);
-          if (v62)
+          v44 = sub_100023F54(i);
+          if (v44)
           {
-            v63 = v62;
-            xpc_dictionary_set_value(v58, (i + 1424), v62);
-            xpc_release(v63);
+            v45 = v44;
+            xpc_dictionary_set_value(v40, (i + 1424), v44);
+            xpc_release(v45);
           }
 
           else
           {
-            xpc_dictionary_set_uint64(v58, (i + 1424), 0x99uLL);
+            xpc_dictionary_set_uint64(v40, (i + 1424), 0x99uLL);
           }
         }
 
-        ++v59;
+        ++v41;
       }
 
-      while (v59 != 23);
-      v21 = 0;
-      *a5 = v58;
-      return v21;
+      while (v41 != 23);
+      v13 = 0;
+      *a5 = v40;
+      return v13;
     }
 
-    v21 = v49;
-    v29 = "all services read";
+    v13 = v35;
+    v21 = "all services read";
     goto LABEL_53;
   }
 
   if (!strcmp(__s1, "CheckIn"))
   {
-    v50 = a1;
-    v51 = a2;
-    v52 = 0;
-    v53 = 1;
+    v36 = a1;
+    v37 = a2;
+    v38 = 0;
+    v39 = 1;
     goto LABEL_62;
   }
 
@@ -943,7 +747,7 @@ LABEL_62:
     if (a4 && xpc_get_type(a4) == &_xpc_type_dictionary)
     {
 
-      return sub_10003D054(a1, a2, a4, a5, v54, v55, v56, v57);
+      return sub_10003D054(a1, a2, a4, a5);
     }
 
     return 22;
@@ -953,9 +757,9 @@ LABEL_62:
   {
     if (a4 && xpc_get_type(a4) == &_xpc_type_string)
     {
-      v64 = xpc_string_get_string_ptr(a4);
+      v46 = xpc_string_get_string_ptr(a4);
 
-      return sub_10003D124(a1, a2, v64, v65, v66, v67, v68, v69);
+      return sub_10003D124(a1, a2, v46);
     }
 
     return 22;
@@ -965,7 +769,7 @@ LABEL_62:
   {
     if (!strcmp(__s1, "SingleUser"))
     {
-      v100 = "LAUNCH_KEY_SINGLEUSER never did anything anyway.";
+      sub_10002C908(a1, 5, "LAUNCH_KEY_SINGLEUSER never did anything anyway.");
     }
 
     else
@@ -974,29 +778,28 @@ LABEL_62:
       {
         if (!strcmp(__s1, "GetResourceUsageSelf"))
         {
-          v18 = a1;
-          v19 = a2;
-          v20 = 0;
+          v10 = a1;
+          v11 = a2;
+          v12 = 0;
           goto LABEL_95;
         }
 
         if (!strcmp(__s1, "GetResourceUsageChildren"))
         {
-          v18 = a1;
-          v19 = a2;
-          v20 = -1;
+          v10 = a1;
+          v11 = a2;
+          v12 = -1;
 LABEL_95:
 
-          return sub_10003D328(v18, v19, v20, a5);
+          return sub_10003D328(v10, v11, v12, a5);
         }
 
         return 22;
       }
 
-      v100 = "rlimit(3)? Really?";
+      sub_10002C908(a1, 5, "rlimit(3)? Really?");
     }
 
-    sub_10002C908(a1, 5, v100, v13, v14, v15, v16, v17, v101);
     return 126;
   }
 
@@ -1023,76 +826,75 @@ void sub_10003CE38(char *__s1, void *a2, uint64_t a3)
   *(a3 + 16) = v10;
 }
 
-uint64_t sub_10003CE9C(_DWORD *a1, uint64_t a2, char *a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_10003CE9C(_DWORD *a1, _DWORD *a2, char *a3, int a4, void *a5)
 {
-  v9 = a4;
-  v25 = a1;
+  v6 = a4;
+  v15 = a1;
   if (!a3 || !a4)
   {
     if (a3)
     {
-      v12 = sub_1000390A8(&v25, a3);
+      v9 = sub_1000390A8(&v15, a3);
     }
 
     else
     {
-      v12 = sub_100039F7C(&v25, *(a2 + 20), 0);
+      v9 = sub_100039F7C(&v15, a2[5], 0);
     }
 
-    v13 = v12;
-    if (!v12 || *(v12 + 296))
+    v10 = v9;
+    if (!v9 || *(v9 + 296))
     {
       return 3;
     }
 
-    if (v9)
+    if (v6)
     {
-      if (sub_100023F20(v12) != *(a2 + 20))
+      if (sub_100023F20(v9) != a2[5])
       {
-        memset(v26, 0, sizeof(v26));
-        v18 = sub_100045C2C(a2, v26);
-        v24 = *(a2 + 20);
-        sub_10002C908(v25, 3, "Unprivileged caller tried to check into job's endpoints: caller = %s.%d, owner = %s", v19, v20, v21, v22, v23, v18);
+        memset(v16, 0, sizeof(v16));
+        sub_100045C2C(a2, v16);
+        sub_10002C908(v15, 3, "Unprivileged caller tried to check into job's endpoints: caller = %s.%d, owner = %s");
         return 1;
       }
 
-      v15 = sub_100023F54(v13);
-      sub_10003D77C(v25, v13, a2, v15, 1);
+      v12 = sub_100023F54(v10);
+      sub_10003D77C(v15, v10, a2, v12, 1);
     }
 
     else
     {
-      v16 = v25;
-      v17 = sub_100030410(v25, 5, 8, a2, 0, 0);
-      if (v17)
+      v13 = v15;
+      v14 = sub_100030410(v15, 5, 8, a2, 0, 0);
+      if (v14)
       {
-        v11 = v17;
-        sub_1000304FC(v16, a2, v17, "service read");
-        return v11;
+        v8 = v14;
+        sub_1000304FC(v13, a2, v14, "service read");
+        return v8;
       }
 
-      sub_100023F20(v13);
-      v15 = sub_100023F54(v13);
-      sub_10003A840(v13, v15);
+      sub_100023F20(v10);
+      v12 = sub_100023F54(v10);
+      sub_10003A840(v10, v12);
     }
 
-    v11 = 0;
-    *a5 = v15;
-    return v11;
+    v8 = 0;
+    *a5 = v12;
+    return v8;
   }
 
-  sub_10002C908(a1, 3, "Caller tried to check into a named job: %s", a4, a5, a6, a7, a8, a3);
+  sub_10002C908(a1, 3, "Caller tried to check into a named job: %s");
   return 1;
 }
 
-uint64_t sub_10003D054(uint64_t a1, unsigned int *a2, uint64_t a3, xpc_object_t *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_10003D054(uint64_t a1, _DWORD *a2, uint64_t a3, xpc_object_t *a4)
 {
   if ((*(*(a1 + 112) + 128) & 2) != 0)
   {
-    v9 = sub_100030410(a1, 4, 8, a2, 0, 0);
-    if (v9)
+    v5 = sub_100030410(a1, 4, 8, a2, 0, 0);
+    if (v5)
     {
-      sub_1000304FC(a1, a2, v9, "set domain environment");
+      sub_1000304FC(a1, a2, v5, "set domain environment");
     }
 
     else
@@ -1104,27 +906,27 @@ uint64_t sub_10003D054(uint64_t a1, unsigned int *a2, uint64_t a3, xpc_object_t 
 
   else
   {
-    sub_10002C908(a1, 3, "LAUNCH_KEY_SETUSERENVIRONMENT is only valid for user domains.", a4, a5, a6, a7, a8, v13);
+    sub_10002C908(a1, 3, "LAUNCH_KEY_SETUSERENVIRONMENT is only valid for user domains.", a4);
     return 125;
   }
 
-  return v9;
+  return v5;
 }
 
-uint64_t sub_10003D124(uint64_t a1, unsigned int *a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_10003D124(uint64_t a1, _DWORD *a2, char *a3)
 {
   if ((*(*(a1 + 112) + 128) & 2) != 0)
   {
-    sub_10002C908(a1, 3, "LAUNCH_KEY_UNSETUSERENVIRONMENT is only valid for user domains.", a4, a5, a6, a7, a8, v13);
+    sub_10002C908(a1, 3, "LAUNCH_KEY_UNSETUSERENVIRONMENT is only valid for user domains.");
     return 125;
   }
 
   else
   {
-    v11 = sub_100030410(a1, 4, 8, a2, 0, 0);
-    if (v11)
+    v6 = sub_100030410(a1, 4, 8, a2, 0, 0);
+    if (v6)
     {
-      sub_1000304FC(a1, a2, v11, "unset domain environment");
+      sub_1000304FC(a1, a2, v6, "unset domain environment");
     }
 
     else
@@ -1133,10 +935,10 @@ uint64_t sub_10003D124(uint64_t a1, unsigned int *a2, char *a3, uint64_t a4, uin
     }
   }
 
-  return v11;
+  return v6;
 }
 
-uint64_t sub_10003D1D4(mach_port_context_t a1, uint64_t a2, xpc_object_t *a3)
+uint64_t sub_10003D1D4(mach_port_context_t a1, _DWORD *a2, xpc_object_t *a3)
 {
   v6 = sub_100030410(a1, 4, 8, a2, 0, 0);
   if (v6)
@@ -1151,10 +953,10 @@ uint64_t sub_10003D1D4(mach_port_context_t a1, uint64_t a2, xpc_object_t *a3)
     v7 = 37;
     if ((v8 & 2) == 0 && (v8 & 1) == 0)
     {
-      bzero(v20, 0x400uLL);
-      sub_1000350A8(*(a2 + 20), v20);
-      sub_10002C908(a1, 196613, "legacy shutdown initiated by: %s", v9, v10, v11, v12, v13, v20);
-      sub_10002C908(a1, 5, "legacy shutdown, caller = %s", v14, v15, v16, v17, v18, v20);
+      bzero(v10, 0x400uLL);
+      sub_1000350A8(a2[5], v10);
+      sub_10002C908(a1, 196613, "legacy shutdown initiated by: %s", v10);
+      sub_10002C908(a1, 5, "legacy shutdown, caller = %s", v10);
       v7 = sub_10000B774(*(a1 + 184), -1, a1);
       if (v7)
       {
@@ -1172,7 +974,7 @@ uint64_t sub_10003D1D4(mach_port_context_t a1, uint64_t a2, xpc_object_t *a3)
   return v7;
 }
 
-uint64_t sub_10003D328(uint64_t a1, unsigned int *a2, int a3, xpc_object_t *a4)
+uint64_t sub_10003D328(uint64_t a1, _DWORD *a2, int a3, xpc_object_t *a4)
 {
   v8 = sub_100030410(a1, 5, 8, a2, 0, 0);
   if (v8)
@@ -1189,7 +991,7 @@ uint64_t sub_10003D328(uint64_t a1, unsigned int *a2, int a3, xpc_object_t *a4)
     {
       if (v10 == -1)
       {
-        sub_100054F58();
+        sub_100054F58(a1);
       }
 
       return *__error();
@@ -1209,55 +1011,54 @@ uint64_t sub_10003D408(_DWORD *a1, uint64_t a2, xpc_object_t object, char **a4)
 {
   if (xpc_get_type(object) == &_xpc_type_dictionary)
   {
-    v15 = sub_10003D5A4(a1, object, a2);
-    v17 = v16;
-    if (v16 == 134 && sub_1000443C8(a1))
+    v10 = sub_10003D5A4(a1, object, a2);
+    v12 = v11;
+    if (v11 == 134 && sub_1000443C8(a1))
     {
-      v18 = a1;
+      v13 = a1;
       do
       {
-        v19 = v18;
-        v18 = *(v18 + 29);
+        v14 = v13;
+        v13 = *(v13 + 29);
       }
 
-      while (v18);
-      v15 = sub_10003D5A4(v19, object, a2);
-      v17 = v20;
+      while (v13);
+      v10 = sub_10003D5A4(v14, object, a2);
+      v12 = v15;
     }
 
     result = 0;
-    if (v17)
+    if (v12)
     {
-      if (v17 != 17 && v17 != 37)
+      if (v12 != 17 && v12 != 37)
       {
-        xpc_dictionary_get_string(object, "Label");
-        v31 = 0u;
-        v32 = 0u;
-        v29 = 0u;
-        v30 = 0u;
-        v21 = sub_100045C2C(a2, &v29);
-        v22 = *(a2 + 20);
-        xpc_strerror();
-        sub_10002C908(a1, 3, "Could not import service from caller: caller = %s[%d], service = %s, error = %d: %s", v23, v24, v25, v26, v27, v21);
-        return v17;
+        string = xpc_dictionary_get_string(object, "Label");
+        v22 = 0u;
+        v23 = 0u;
+        v20 = 0u;
+        v21 = 0u;
+        v17 = sub_100045C2C(a2, &v20);
+        v18 = *(a2 + 20);
+        v19 = xpc_strerror();
+        sub_10002C908(a1, 3, "Could not import service from caller: caller = %s[%d], service = %s, error = %d: %s", v17, v18, string, v12, v19);
+        return v12;
       }
     }
 
     else if (a4)
     {
-      *a4 = v15;
+      *a4 = v10;
     }
   }
 
   else
   {
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
-    v30 = 0u;
-    v8 = sub_100045C2C(a2, &v29);
-    v28 = *(a2 + 20);
-    sub_10002C908(a1, 3, "Could not import service from caller: caller = %s[%d], job is not a dictionary", v9, v10, v11, v12, v13, v8);
+    v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
+    v8 = sub_100045C2C(a2, &v20);
+    sub_10002C908(a1, 3, "Could not import service from caller: caller = %s[%d], job is not a dictionary", v8, *(a2 + 20));
     return 22;
   }
 
@@ -1304,10 +1105,10 @@ char *sub_10003D5A4(_DWORD *a1, void *a2, uint64_t a3)
   if (v10)
   {
     v6 = v10;
-    sub_10001B5B8(v10);
+    sub_10001B5B8(v10, 33);
     sub_10002D910(a1, v6);
     v11 = *(v6 + 176);
-    sub_10001B690(v6);
+    sub_10001B690(v6, 33);
     if ((v11 & 0x20000000) != 0)
     {
       return 0;
@@ -1327,7 +1128,7 @@ char *sub_10003D5A4(_DWORD *a1, void *a2, uint64_t a3)
   return v6;
 }
 
-void sub_10003D77C(uint64_t a1, uint64_t a2, __int128 *a3, void *a4, int a5)
+void sub_10003D77C(uint64_t a1, uint64_t a2, _OWORD *a3, void *a4, int a5)
 {
   v9 = xpc_dictionary_create(0, 0, 0);
   for (i = *(a2 + 192); i; i = *(i + 16))
@@ -1344,61 +1145,63 @@ void sub_10003D77C(uint64_t a1, uint64_t a2, __int128 *a3, void *a4, int a5)
       xpc_dictionary_set_value(v9, (i + 216), v12);
     }
 
-    *&v35 = 0;
+    *&v22 = 0;
     object = 0;
-    if (sub_10001E820(i, a2, a3, &v35, 0, &object))
+    v13 = sub_10001E820(i, a2, a3, &v22, 0, &object);
+    if (v13)
     {
-      xpc_strerror();
-      sub_100020018(a2, 3, "Could not activate socket group: %s: %d: %s", v13, v14, v15, v16, v17, i - 40);
+      v14 = v13;
+      v15 = xpc_strerror();
+      sub_100020018(a2, 3, "Could not activate socket group: %s: %d: %s", (i + 216), v14, v15);
     }
 
     else if (object)
     {
       for (j = 0; j < object; ++j)
       {
-        xpc_array_set_fd(v12, 0xFFFFFFFFFFFFFFFFLL, *(v35 + 4 * j));
+        xpc_array_set_fd(v12, 0xFFFFFFFFFFFFFFFFLL, *(v22 + 4 * j));
       }
     }
 
     xpc_release(v12);
   }
 
-  v19 = a4;
+  v17 = a4;
   xpc_dictionary_set_value(a4, "Sockets", v9);
   xpc_release(v9);
   if (a5)
   {
-    v25 = xpc_dictionary_create(0, 0, 0);
+    v18 = xpc_dictionary_create(0, 0, 0);
     if ((*(a2 + 369) & 2) != 0)
     {
-      sub_100020018(a2, 4, "The launch(3) APIs cannot be used to check in MultipleInstance endpoints.", v20, v21, v22, v23, v24, v33);
+      sub_100020018(a2, 4, "The launch(3) APIs cannot be used to check in MultipleInstance endpoints.");
     }
 
     for (k = *(a2 + 152); k; k = *(k + 16))
     {
       object = 0;
-      *&v27 = -1;
-      *(&v27 + 1) = -1;
-      v35 = v27;
-      v36 = v27;
-      DWORD1(v36) = 0;
-      DWORD1(v36) = sub_100023F20(a2);
-      if (sub_10003A148(a1, &v35, (k + 168), 0, 0, &object, 0))
+      *&v20 = -1;
+      *(&v20 + 1) = -1;
+      v22 = v20;
+      v23 = v20;
+      DWORD1(v23) = 0;
+      DWORD1(v23) = sub_100023F20(a2);
+      if (sub_10003A148(a1, &v22, (k + 168), 0, 0, &object, 0))
       {
-        sub_100020018(a2, 3, "Failed to activate endpoint for legacy check-in. Please just don't use this API: %s", v28, v29, v30, v31, v32, k - 88);
+        sub_100020018(a2, 3, "Failed to activate endpoint for legacy check-in. Please just don't use this API: %s", (k + 168));
       }
 
       else
       {
-        sub_100020018(a2, 4, "Endpoint has been activated through legacy launch(3) APIs. Please switch to XPC or bootstrap_check_in(): %s", v28, v29, v30, v31, v32, k - 88);
+        sub_100020018(a2, 4, "Endpoint has been activated through legacy launch(3) APIs. Please switch to XPC or bootstrap_check_in(): %s", (k + 168));
         xpc_mach_send_get_right();
         xpc_dictionary_set_mach_recv();
         xpc_release(object);
       }
     }
 
-    xpc_dictionary_set_value(v19, "MachServices", v25);
-    xpc_release(v25);
+    xpc_dictionary_set_value(v17, "MachServices", v18);
+    xpc_release(v18);
   }
 }
 
@@ -1419,36 +1222,35 @@ BOOL sub_10003DA64(id a1, unint64_t a2, void *a3)
   return 1;
 }
 
-void sub_10003DA88(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void sub_10003DA88(uint64_t a1, uint64_t a2)
 {
   *(a1 + 184) = a2;
-  v11 = a2;
-  v12 = sub_1000157D8();
-  *(a1 + 152) = dispatch_source_create(&_dispatch_source_type_mach_send, v11, 1uLL, v12);
-  sub_10001BB18(a1);
+  v4 = a2;
+  v5 = sub_1000157D8();
+  *(a1 + 152) = dispatch_source_create(&_dispatch_source_type_mach_send, v4, 1uLL, v5);
+  sub_10001BB18(a1, 10);
   dispatch_set_context(*(a1 + 152), a1);
   dispatch_source_set_event_handler_f(*(a1 + 152), sub_10002CF10);
-  v13 = *(a1 + 152);
   dispatch_source_set_mandatory_cancel_handler_f();
   dispatch_activate(*(a1 + 152));
   if (*(a1 + 112) == qword_10007D8B8)
   {
-    v21 = *(a1 + 120);
-    v22 = sub_1000157D8();
-    *(a1 + 144) = dispatch_source_create(&_dispatch_source_type_proc, v21, 0x20000000uLL, v22);
-    sub_10001BB18(a1);
+    v6 = *(a1 + 120);
+    v7 = sub_1000157D8();
+    *(a1 + 144) = dispatch_source_create(&_dispatch_source_type_proc, v6, 0x20000000uLL, v7);
+    sub_10001BB18(a1, 12);
     dispatch_set_context(*(a1 + 144), a1);
     dispatch_source_set_event_handler_f(*(a1 + 144), sub_10003DC8C);
-    v23 = sub_100022BD8(*(a1 + 120));
-    if (v23 && !sub_100024730(v23))
+    v8 = sub_100022BD8(*(a1 + 120));
+    if (v8 && !sub_100024730(v8))
     {
-      sub_10002C908(a1, 5, "deferring exec source uncork", v24, v25, v26, v27, v28, v29);
+      sub_10002C908(a1, 5, "deferring exec source uncork");
       *(a1 + 1016) |= 0x200u;
     }
 
     else
     {
-      sub_10002C908(a1, 5, "uncorking exec source upfront", v24, v25, v26, v27, v28, v29);
+      sub_10002C908(a1, 5, "uncorking exec source upfront");
       dispatch_activate(*(a1 + 144));
     }
   }
@@ -1456,7 +1258,7 @@ void sub_10003DA88(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   if ((a2 - 1) > 0xFFFFFFFD || sub_1000344C4(a2))
   {
 
-    sub_10002CDD4(a1, v14, v15, v16, v17, v18, v19, v20, a9);
+    sub_10002CDD4(a1);
   }
 }
 
@@ -1471,12 +1273,12 @@ void sub_10003DC34(NSObject *a1)
   dispatch_release(a1);
 }
 
-void sub_10003DC8C(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_10003DC8C(unint64_t a1)
 {
-  sub_10002C908(a1, 5, "domain exec event", a4, a5, a6, a7, a8, v16);
+  sub_10002C908(a1, 5, "domain exec event");
   *(a1 + 1016) |= 0x80u;
 
-  sub_10002CF10(a1, v9, v10, v11, v12, v13, v14, v15);
+  sub_10002CF10(a1);
 }
 
 char *sub_10003DCF0()
@@ -1487,7 +1289,6 @@ char *sub_10003DCF0()
 
 char *sub_10003DD0C(uint64_t a1)
 {
-  v2 = *(a1 + 296) != 0;
 
   return sub_100022158(a1, 1);
 }
@@ -1616,22 +1417,16 @@ void sub_10003DF80(id a1)
 uint64_t sub_10003DFC4(int *a1)
 {
   v1 = *a1;
-  v4 = a1[1];
-  memset(v5, 0, sizeof(v5));
-  if (a1[2])
-  {
-    v2 = a1[2];
-  }
-
-  v6 = v1;
+  memset(v3, 0, sizeof(v3));
+  v4 = v1;
   if (v1 == -101)
   {
-    strcpy(&v5[12], "system");
+    strcpy(&v3[12], "system");
   }
 
   else
   {
-    snprintf(&v5[12], 0xFFuLL, "user.%d", v1);
+    snprintf(&v3[12], 0xFFuLL, "user.%d", v1);
   }
 
   if (kpersona_alloc() == -1)
@@ -1655,7 +1450,6 @@ uint64_t sub_10003E0F4()
 
 uint64_t sub_10003E11C(uint64_t a1)
 {
-  v1 = *(a1 + 20);
   if (kpersona_pidinfo())
   {
     return 0xFFFFFFFFLL;
@@ -1691,7 +1485,7 @@ uint64_t sub_10003E1D8(uint64_t a1, uint64_t a2, uint64_t *a3)
   return result;
 }
 
-uint64_t sub_10003E268()
+uint64_t sub_10003E268(uint64_t a1)
 {
   if (kpersona_info())
   {
@@ -1836,7 +1630,7 @@ uint64_t sub_10003E614(char *a1, xpc_object_t object, _BYTE *a3, _BYTE *a4)
   }
 
   v14 = sub_100016744(string_ptr, v13 - string_ptr);
-  v15 = j___os_feature_enabled_impl();
+  v15 = j___os_feature_enabled_impl(v14, (v13 + 1));
   free(v14);
   a4[1] |= v10 ^ v15;
   result = 1;
@@ -1850,8 +1644,8 @@ BOOL sub_10003E738(char *a1, xpc_object_t object, _BYTE *a3, _BYTE *a4)
   if (type == &_xpc_type_string)
   {
     v11 = sub_100016A6C(a1, "#IfVariant");
-    xpc_string_get_string_ptr(object);
-    a4[1] |= v11 ^ j__os_variant_check();
+    string_ptr = xpc_string_get_string_ptr(object);
+    a4[1] |= v11 ^ j__os_variant_check("com.apple.xpc.launchd", string_ptr);
     *a4 = 1;
   }
 
@@ -1957,7 +1751,7 @@ uint64_t *sub_10003E80C(void *a1, _BYTE *a2)
   return xpc_copy(a1);
 }
 
-uint64_t sub_10003EAC0(uint64_t a1, const char *a2, uint64_t a3)
+uint64_t sub_10003EAC0(uint64_t a1, const char *a2, void *a3)
 {
   v5 = sub_10003E80C(a3, *(a1 + 32));
   if (v5)
@@ -2010,7 +1804,7 @@ LABEL_10:
   return 1;
 }
 
-uint64_t sub_10003EC0C(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t sub_10003EC0C(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = sub_10003E80C(a3, *(a1 + 32));
   if (v4)
@@ -2023,7 +1817,7 @@ uint64_t sub_10003EC0C(uint64_t a1, uint64_t a2, uint64_t a3)
   return 1;
 }
 
-void sub_10003EC5C(void *a1)
+void sub_10003EC5C(void *a1, uint64_t a2)
 {
   if (a1[2] != -1 || a1[3] != -1)
   {
@@ -2035,12 +1829,12 @@ void sub_10003EC5C(void *a1)
     sub_100054404();
   }
 
-  v1 = a1[5];
+  v2 = a1[5];
 
-  sub_10001B690(v1);
+  sub_10001B690(v2, 0);
 }
 
-void sub_10003ECB8(void *a1)
+void sub_10003ECB8(void *a1, uint64_t a2)
 {
   if (a1[5])
   {
@@ -2059,25 +1853,25 @@ void sub_10003ECB8(void *a1)
 
   if (a1[6])
   {
-    v2 = a1[2];
-    v3 = a1[3];
-    if (v2)
+    v3 = a1[2];
+    v4 = a1[3];
+    if (v3)
     {
-      *(v2 + 24) = v3;
+      *(v3 + 24) = v4;
     }
 
-    *v3 = v2;
+    *v4 = v3;
     a1[2] = -1;
     a1[3] = -1;
   }
 
-  sub_10001B690(a1[4]);
-  v4 = a1[7];
+  sub_10001B690(a1[4], 0);
+  v5 = a1[7];
 
-  sub_10001B690(v4);
+  sub_10001B690(v5, 0);
 }
 
-uint64_t sub_10003ED5C(uint64_t result)
+uint64_t sub_10003ED5C(uint64_t result, uint64_t a2)
 {
   if (*(result + 16))
   {
@@ -2087,7 +1881,7 @@ uint64_t sub_10003ED5C(uint64_t result)
   return result;
 }
 
-void sub_10003ED78(void *a1)
+void sub_10003ED78(void *a1, uint64_t a2)
 {
   if (a1[2] != -1 || a1[3] != -1)
   {
@@ -2099,9 +1893,9 @@ void sub_10003ED78(void *a1)
     sub_100054404();
   }
 
-  v1 = a1[7];
+  v2 = a1[7];
 
-  xpc_release(v1);
+  xpc_release(v2);
 }
 
 uint64_t sub_10003EDF0(uint64_t a1, int a2, void *a3, xpc_object_t *a4)
@@ -2118,15 +1912,15 @@ uint64_t sub_10003EDF0(uint64_t a1, int a2, void *a3, xpc_object_t *a4)
         return 22;
       }
 
-      v96 = 0;
-      v10 = sub_1000401D0(a3, 0, *(v9 + 20), 1, &v96);
+      v86 = 0;
+      v10 = sub_1000401D0(a3, 0, *(v9 + 20), 1, &v86);
       if (!v10)
       {
         reply = xpc_dictionary_create_reply(a3);
         *a4 = reply;
-        if (v96)
+        if (v86)
         {
-          v12 = *(v96 + 72);
+          v12 = *(v86 + 9);
         }
 
         else
@@ -2248,10 +2042,10 @@ LABEL_53:
             return 3;
           }
 
-          LODWORD(v96) = 0;
-          v51 = sub_10003F66C(v47, v49, 1, &v96);
-          v10 = v96;
-          if (v96)
+          LODWORD(v86) = 0;
+          v51 = sub_10003F66C(v47, v49, 1, &v86);
+          v10 = v86;
+          if (v86)
           {
             return v10;
           }
@@ -2331,33 +2125,33 @@ LABEL_58:
       }
 
       v73 = xpc_dictionary_get_BOOL(a3, "state");
-      v80 = *(v70 + 80);
-      *(v70 + 80) = v80 & 0xFE | v73;
+      v74 = *(v70 + 80);
+      *(v70 + 80) = v74 & 0xFE | v73;
       if (v73)
       {
-        if ((v80 & 2) != 0)
+        if ((v74 & 2) != 0)
         {
-          v81 = 11;
+          v75 = 11;
         }
 
         else
         {
-          v81 = 8;
+          v75 = 8;
         }
 
-        v82 = sub_1000234BC(*(v70 + 48), v81, v74, v75, v76, v77, v78, v79);
-        if (v82 > 0x25 || ((1 << v82) & 0x3000000001) == 0)
+        v76 = sub_1000234BC(*(v70 + 48), v75);
+        if (v76 > 0x25 || ((1 << v76) & 0x3000000001) == 0)
         {
-          v84 = v82;
-          v85 = *(v70 + 48);
-          xpc_strerror();
-          sub_100020018(v85, 3, "Could not spawn service in response to XPC event state change: %d: %s", v86, v87, v88, v89, v90, v84);
+          v78 = v76;
+          v79 = *(v70 + 48);
+          v80 = xpc_strerror();
+          sub_100020018(v79, 3, "Could not spawn service in response to XPC event state change: %d: %s", v78, v80);
         }
 
         if ((*(v70 + 80) & 2) != 0)
         {
           sub_100040094(v70);
-          sub_10001B690(v70);
+          sub_10001B690(v70, 0);
         }
       }
 
@@ -2504,23 +2298,23 @@ LABEL_107:
 
       xpc_dictionary_set_string(a3, "name", (v72 + 88));
       int64 = xpc_dictionary_get_int64(a3, "subscriber-pid");
-      v96 = 0;
-      v10 = sub_1000401D0(a3, v64, int64, 0, &v96);
+      v86 = 0;
+      v10 = sub_1000401D0(a3, v64, int64, 0, &v86);
       if (!v10)
       {
         v52 = xpc_dictionary_create_reply(a3);
         sub_1000405C0(v52, v64);
-        if (v96)
+        if (v86)
         {
-          v92 = *(v96 + 72);
+          v82 = *(v86 + 9);
         }
 
         else
         {
-          v92 = 0;
+          v82 = 0;
         }
 
-        xpc_dictionary_set_uint64(v52, "token", v92);
+        xpc_dictionary_set_uint64(v52, "token", v82);
 LABEL_59:
         *a4 = v52;
       }
@@ -2613,21 +2407,21 @@ LABEL_59:
         }
       }
 
-      v93 = sub_10003FEB4(v30, v23, v24, value, 0);
-      v94 = xpc_dictionary_create_reply(a3);
-      v52 = v94;
-      if (v93)
+      v83 = sub_10003FEB4(v30, v23, v24, value, 0);
+      v84 = xpc_dictionary_create_reply(a3);
+      v52 = v84;
+      if (v83)
       {
-        sub_1000405C0(v94, v29);
-        v95 = *(v93 + 9);
+        sub_1000405C0(v84, v29);
+        v85 = *(v83 + 9);
       }
 
       else
       {
-        v95 = 0;
+        v85 = 0;
       }
 
-      xpc_dictionary_set_uint64(v52, "token", v95);
+      xpc_dictionary_set_uint64(v52, "token", v85);
       goto LABEL_58;
     default:
       return 33;
@@ -2685,79 +2479,79 @@ LABEL_108:
   }
 }
 
-void *sub_10003F66C(uint64_t a1, const void *a2, char a3, int *a4)
+void *sub_10003F66C(uint64_t a1, const char *a2, char a3, int *a4)
 {
   v8 = sub_10002D754(*(a1 + 248));
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2000000000;
-  v30 = sub_10003F854(v8, a2);
-  v9 = v28[3];
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2000000000;
+  v20 = sub_10003F854(v8, a2);
+  v9 = v18[3];
   if ((a3 & 1) == 0 && !v9)
   {
-    v26[0] = _NSConcreteStackBlock;
-    v26[1] = 0x40000000;
-    v26[2] = sub_10003F918;
-    v26[3] = &unk_100079580;
-    v26[4] = &v27;
-    v26[5] = a2;
-    sub_10003F8AC(v8, v26);
-    v9 = v28[3];
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 0x40000000;
+    v16[2] = sub_10003F918;
+    v16[3] = &unk_100079580;
+    v16[4] = &v17;
+    v16[5] = a2;
+    sub_10003F8AC(v8, v16);
+    v9 = v18[3];
   }
 
   if (v9)
   {
-    v25 = sub_100022158(*(v9 + 32), 2);
-    sub_100020018(a1, 3, "Event stream %s is already monitored by %s, ignoring", v10, v11, v12, v13, v14, a2);
-    free(v25);
-    v15 = 0;
+    v10 = sub_100022158(*(v9 + 32), 2);
+    sub_100020018(a1, 3, "Event stream %s is already monitored by %s, ignoring", a2, v10);
+    free(v10);
+    v11 = 0;
     if (a4)
     {
-      v16 = 17;
+      v12 = 17;
 LABEL_14:
-      *a4 = v16;
+      *a4 = v12;
     }
   }
 
   else if (sub_100002D28(a1, 5))
   {
-    v15 = sub_10001BCFC(0);
-    v22 = sub_10001BD7C(a2);
-    v15[5] = v22;
-    *(v22 + 4) = v15;
-    v23 = *(a1 + 144);
-    v15[2] = v23;
-    if (v23)
+    v11 = sub_10001BCFC(0);
+    v13 = sub_10001BD7C(a2);
+    v11[5] = v13;
+    *(v13 + 4) = v11;
+    v14 = *(a1 + 144);
+    v11[2] = v14;
+    if (v14)
     {
-      *(v23 + 24) = v15 + 2;
+      *(v14 + 24) = v11 + 2;
     }
 
-    *(a1 + 144) = v15;
-    v15[3] = a1 + 144;
-    sub_10004954C(v8[4], a2, v15);
-    v15[4] = a1;
-    *(v15 + 56) = v15[7] & 0xF9 | (2 * (a3 & 3));
-    sub_10003F968(v15, v8);
+    *(a1 + 144) = v11;
+    v11[3] = a1 + 144;
+    sub_10004954C(v8[4], a2, v11);
+    v11[4] = a1;
+    *(v11 + 56) = v11[7] & 0xF9 | (2 * (a3 & 3));
+    sub_10003F968(v11, v8);
     if (a4)
     {
-      v16 = 0;
+      v12 = 0;
       goto LABEL_14;
     }
   }
 
   else
   {
-    sub_100020018(a1, 3, "Non-system service tried to claim event stream %s", v17, v18, v19, v20, v21, a2);
-    v15 = 0;
+    sub_100020018(a1, 3, "Non-system service tried to claim event stream %s", a2);
+    v11 = 0;
     if (a4)
     {
-      v16 = 150;
+      v12 = 150;
       goto LABEL_14;
     }
   }
 
-  _Block_object_dispose(&v27, 8);
-  return v15;
+  _Block_object_dispose(&v17, 8);
+  return v11;
 }
 
 rb_tree_t **sub_10003F854(uint64_t a1, const void *a2)
@@ -2807,7 +2601,7 @@ uint64_t sub_10003F8AC(uint64_t result, uint64_t a2)
       do
       {
         v6 = *(result + 16);
-        sub_10003F8AC();
+        sub_10003F8AC(result, a2);
         result = v6;
       }
 
@@ -2836,7 +2630,7 @@ uint64_t sub_10003F968(uint64_t a1, uint64_t a2)
   if (v4)
   {
     v5 = v4;
-    sub_10001B5B8(v4);
+    sub_10001B5B8(v4, 46);
     v6 = v5[2];
     if (v6)
     {
@@ -2845,19 +2639,19 @@ uint64_t sub_10003F968(uint64_t a1, uint64_t a2)
         v7 = v6->opaque[4];
         if ((*(a1 + 56) & 4) != 0 && !sub_100002D28(v6->opaque[6], 6))
         {
-          sub_100020018(v6->opaque[6], 4, "Rejecting untrusted event subscription on stream %s", v8, v9, v10, v11, v12, *(a1 + 40) + 40);
-          v13 = v6->opaque[2];
-          v14 = v6->opaque[3];
-          if (v13)
+          sub_100020018(v6->opaque[6], 4, "Rejecting untrusted event subscription on stream %s", (*(a1 + 40) + 40));
+          v8 = v6->opaque[2];
+          v9 = v6->opaque[3];
+          if (v8)
           {
-            v13[3] = v14;
+            v8[3] = v9;
           }
 
-          *v14 = v13;
+          *v9 = v8;
           v6->opaque[2] = -1;
           v6->opaque[3] = -1;
           sub_10003FC8C(v6, 1, 1);
-          sub_10001B690(v6);
+          sub_10001B690(v6, 0);
         }
 
         else
@@ -2876,7 +2670,7 @@ uint64_t sub_10003F968(uint64_t a1, uint64_t a2)
     }
 
     sub_10004954C(*(a2 + 56), v5 + 5, 0);
-    sub_10001B690(v5);
+    sub_10001B690(v5, 46);
     return 1;
   }
 
@@ -2887,8 +2681,8 @@ uint64_t sub_10003F968(uint64_t a1, uint64_t a2)
       return 0;
     }
 
-    v16 = *(a2 + 40);
-    if (!v16)
+    v11 = *(a2 + 40);
+    if (!v11)
     {
       return 0;
     }
@@ -2897,16 +2691,16 @@ uint64_t sub_10003F968(uint64_t a1, uint64_t a2)
     {
       do
       {
-        result = sub_10003F968(a1, v16);
+        result = sub_10003F968(a1, v11);
         if (result)
         {
           break;
         }
 
-        v16 = *(v16 + 16);
+        v11 = *(v11 + 16);
       }
 
-      while (v16);
+      while (v11);
     }
   }
 
@@ -2960,7 +2754,6 @@ void sub_10003FB28(uint64_t a1)
   if (v9)
   {
     xpc_dictionary_set_int64(v9, "error", 124);
-    v10 = *(a1 + 48);
     if ((xpc_pipe_routine_reply() & 0xFFFFFFDF) != 0)
     {
       _os_assumes_log();
@@ -2971,34 +2764,34 @@ void sub_10003FB28(uint64_t a1)
   }
 }
 
-void *sub_10003FC1C(uint64_t a1, const void *a2)
+char *sub_10003FC1C(uint64_t a1, const char *a2)
 {
   v4 = sub_100049614(*(a1 + 56), a2);
   if (!v4)
   {
     v4 = sub_10001BD7C(a2);
     sub_10004954C(*(a1 + 56), a2, v4);
-    sub_10001B690(v4);
+    sub_10001B690(v4, 0);
   }
 
   return v4;
 }
 
-void sub_10003FC8C(void *a1, int a2, int a3)
+void sub_10003FC8C(void *result, int a2, int a3)
 {
-  v3 = a1[4];
-  v4 = a1[8];
-  a1[8] = 0;
-  a1[9] = 0;
-  v5 = a1[5];
+  v3 = result[4];
+  v4 = result[8];
+  result[8] = 0;
+  result[9] = 0;
+  v5 = result[5];
   if (v3)
   {
     *(v3 + 40) = v5;
   }
 
   *v5 = v3;
-  a1[4] = -1;
-  a1[5] = -1;
+  result[4] = -1;
+  result[5] = -1;
   --*(v4 + 24);
   if (*(v4 + 32))
   {
@@ -3012,7 +2805,7 @@ void sub_10003FC8C(void *a1, int a2, int a3)
 
   else if (a2 && !*(v4 + 16))
   {
-    v7 = *(sub_10002D754(*(a1[6] + 248)) + 7);
+    v7 = *(sub_10002D754(*(result[6] + 248)) + 7);
 
     sub_10004954C(v7, (v4 + 40), 0);
   }
@@ -3056,36 +2849,37 @@ uint64_t sub_10003FD70(uint64_t a1, FILE *a2, uint64_t a3, uint64_t a4, uint64_t
   return sub_100049ECC(a2, a3, "}", v37, v38, v39, v40, v41);
 }
 
-char *sub_10003FEB4(void *a1, const void *a2, const char *a3, void *a4, int a5)
+char *sub_10003FEB4(void *a1, const char *a2, const char *a3, void *a4, uint64_t a5)
 {
+  v5 = a5;
   v10 = sub_10002D754(a1[31]);
   v11 = sub_10003F854(v10, a2);
   v12 = v11;
   if (v11 && (v11[7] & 4) != 0 && (sub_100002D28(a1, 6) & 1) == 0)
   {
-    sub_100020018(a1, 4, "Rejecting untrusted event subscription on stream %s", v13, v14, v15, v16, v17, a2);
+    sub_100020018(a1, 4, "Rejecting untrusted event subscription on stream %s", a2);
     return 0;
   }
 
-  v18 = (a1 + 17);
-  v19 = strlen(a3);
-  v20 = sub_10001BDCC(v19 + 1);
-  strcpy(v20 + 88, a3);
-  *(v20 + 6) = a1;
-  *(v20 + 7) = xpc_retain(a4);
-  v20[80] = v20[80] & 0xFD | (2 * (strcmp(a2, "com.apple.launchd.helper") == 0));
-  v21 = a1[17];
-  *(v20 + 2) = v21;
-  if (v21)
+  v13 = (a1 + 17);
+  v14 = strlen(a3);
+  v15 = sub_10001BDCC(v14 + 1);
+  strcpy(v15 + 88, a3);
+  *(v15 + 6) = a1;
+  *(v15 + 7) = xpc_retain(a4);
+  v15[80] = v15[80] & 0xFD | (2 * (strcmp(a2, "com.apple.launchd.helper") == 0));
+  v16 = a1[17];
+  *(v15 + 2) = v16;
+  if (v16)
   {
-    *(v21 + 24) = v20 + 16;
+    *(v16 + 24) = v15 + 16;
   }
 
-  *v18 = v20;
-  *(v20 + 3) = v18;
+  *v13 = v15;
+  *(v15 + 3) = v13;
   if (v12)
   {
-    if ((sub_100040AD8(v20, v12, a5) & 1) == 0)
+    if ((sub_100040AD8(v15, v12, v5) & 1) == 0)
     {
       sub_100054404();
     }
@@ -3093,38 +2887,38 @@ char *sub_10003FEB4(void *a1, const void *a2, const char *a3, void *a4, int a5)
 
   else
   {
-    v22 = sub_10003FC1C(v10, a2);
-    sub_10003FD48(v20, v22);
+    v17 = sub_10003FC1C(v10, a2);
+    sub_10003FD48(v15, v17);
   }
 
-  v23 = sub_100033184(a1[31], a1, a2);
-  v24 = strcmp(a2, "com.apple.iokit.matching");
+  v18 = sub_100033184(a1[31], a1, a2);
+  v19 = strcmp(a2, "com.apple.iokit.matching");
   if (xpc_get_type(a4) == &_xpc_type_dictionary)
   {
-    v25 = xpc_dictionary_get_BOOL(a4, "IOMatchLaunchStream");
-    if (v24)
+    v20 = xpc_dictionary_get_BOOL(a4, "IOMatchLaunchStream");
+    if (v19)
     {
 LABEL_15:
-      sub_10004C848(v23);
-      return v20;
+      sub_10004C848(v18);
+      return v15;
     }
   }
 
   else
   {
-    v25 = 0;
-    if (v24)
+    v20 = 0;
+    if (v19)
     {
       goto LABEL_15;
     }
   }
 
-  if (v25)
+  if (v20)
   {
     goto LABEL_15;
   }
 
-  return v20;
+  return v15;
 }
 
 void sub_100040094(void *a1)
@@ -3205,7 +2999,7 @@ uint64_t sub_100040164(uint64_t a1)
   return sub_1000232CC(v2);
 }
 
-uint64_t sub_1000401D0(void *a1, uint64_t a2, int a3, int a4, void *a5)
+uint64_t sub_1000401D0(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, char **a5)
 {
   if (a3)
   {
@@ -3293,7 +3087,7 @@ LABEL_21:
       v15[2] = -1;
       v15[3] = -1;
       sub_10003FC8C(v15, 1, a4);
-      sub_10001B690(v15);
+      sub_10001B690(v15, 0);
 LABEL_27:
       if (value)
       {
@@ -3336,7 +3130,7 @@ uint64_t sub_1000403BC(uint64_t a1, char *__s2, const char *a3)
   return i;
 }
 
-uint64_t sub_100040420(void *a1, void *a2, int a3)
+uint64_t sub_100040420(void *a1, void *a2, uint64_t a3)
 {
   v5 = sub_100022BD8(a3);
   if (!v5)
@@ -3549,14 +3343,14 @@ void sub_100040A4C(uint64_t a1, uint64_t a2)
   if (v3)
   {
     xpc_dictionary_set_string(v4, "user", v3);
-    sub_100020018(a2, 5, "returning username for get_uid_for_token: %s", v5, v6, v7, v8, v9, *(a2 + 800));
+    sub_100020018(a2, 5, "returning username for get_uid_for_token: %s", *(a2 + 800));
   }
 
   else
   {
-    v10 = *(*(a2 + 248) + 56);
+    v5 = *(*(a2 + 248) + 56);
 
-    xpc_dictionary_set_uint64(v4, "uid", v10);
+    xpc_dictionary_set_uint64(v4, "uid", v5);
   }
 }
 
@@ -3585,23 +3379,23 @@ uint64_t sub_100040AD8(void *a1, uint64_t a2, int a3)
   return result;
 }
 
-void sub_100040B64(void *a1, uint64_t a2)
+void sub_100040B64(void *result, uint64_t a2)
 {
-  if (a1[8])
+  if (result[8])
   {
     sub_100054404();
   }
 
   v2 = *(a2 + 16);
-  a1[4] = v2;
-  a1[8] = a2;
+  result[4] = v2;
+  result[8] = a2;
   if (v2)
   {
-    *(v2 + 40) = a1 + 4;
+    *(v2 + 40) = result + 4;
   }
 
-  *(a2 + 16) = a1;
-  a1[5] = a2 + 16;
+  *(a2 + 16) = result;
+  result[5] = a2 + 16;
   v3 = *(a2 + 24);
   *(a2 + 24) = v3 + 1;
   if (v3 == 512)
@@ -3627,9 +3421,10 @@ uint64_t sub_100040BF8(uint64_t a1, int a2, void *a3, xpc_object_t *a4)
             return 144;
           }
 
-          if (xpc_dictionary_get_string(a3, "monitor_id"))
+          string = xpc_dictionary_get_string(a3, "monitor_id");
+          if (string)
           {
-            v11 = launch_service_stats_disable();
+            v11 = launch_service_stats_disable(string);
 LABEL_28:
             v7 = v11;
             if (!v11)
@@ -3653,15 +3448,15 @@ LABEL_28:
         {
           if (sub_10000E554(v8, 23))
           {
-            string = xpc_dictionary_get_string(a3, "monitor_id");
+            v9 = xpc_dictionary_get_string(a3, "monitor_id");
             uint64 = xpc_dictionary_get_uint64(a3, "capacity");
             v7 = 22;
-            if (!string || !uint64)
+            if (!v9 || !uint64)
             {
               return v7;
             }
 
-            v11 = launch_service_stats_enable(string, uint64);
+            v11 = launch_service_stats_enable(v9, uint64);
             goto LABEL_28;
           }
 
@@ -3677,25 +3472,25 @@ LABEL_28:
       return 22;
     }
 
-    v14 = 4294967195;
+    v15 = 4294967195;
     reply = xpc_dictionary_create_reply(a3);
     xpc_dictionary_set_BOOL(reply, "enabled", 1);
-    v15 = sub_1000443F4();
-    if (v15)
+    v16 = sub_1000443F4();
+    if (v16)
     {
-      v16 = v15;
-      if (!sub_1000332CC(v15, 6, 0, v8))
+      v17 = v16;
+      if (!sub_1000332CC(v16, 6, 0, v8))
       {
-        v14 = *(v16 + 56);
+        v15 = *(v17 + 56);
       }
     }
 
-    xpc_dictionary_set_uint64(reply, "foreground_uid", v14);
-    v17 = sub_100022BD8(*(v8 + 5));
-    if (v17)
+    xpc_dictionary_set_uint64(reply, "foreground_uid", v15);
+    v18 = sub_100022BD8(*(v8 + 5));
+    if (v18)
     {
-      v18 = *(v17 + 248);
-      if (v18)
+      v19 = *(v18 + 248);
+      if (v19)
       {
         goto LABEL_21;
       }
@@ -3703,28 +3498,28 @@ LABEL_28:
 
     else
     {
-      v18 = sub_10004AB1C();
-      if (v18)
+      v19 = sub_10004AB1C();
+      if (v19)
       {
 LABEL_21:
-        v19 = *(v18 + 60);
-        if (v19 == -101)
+        v20 = *(v19 + 60);
+        if (v20 == -101)
         {
-          v20 = 0;
+          v21 = 0;
         }
 
         else
         {
-          v20 = v19;
+          v21 = v20;
         }
 
         goto LABEL_50;
       }
     }
 
-    v20 = 0;
+    v21 = 0;
 LABEL_50:
-    xpc_dictionary_set_uint64(reply, "session_uid", v20);
+    xpc_dictionary_set_uint64(reply, "session_uid", v21);
     goto LABEL_51;
   }
 
@@ -3735,14 +3530,20 @@ LABEL_50:
       return v7;
     }
 
-    if (!xpc_dictionary_expects_reply() || !xpc_dictionary_get_string(a3, "monitor_id"))
+    if (!xpc_dictionary_expects_reply())
     {
       return 22;
     }
 
-    v12 = sub_1000011B4();
+    v12 = xpc_dictionary_get_string(a3, "monitor_id");
+    if (!v12)
+    {
+      return 22;
+    }
+
+    v13 = sub_1000011B4(v12);
     reply = xpc_dictionary_create_reply(a3);
-    xpc_dictionary_set_BOOL(reply, "enabled", v12 != 0);
+    xpc_dictionary_set_BOOL(reply, "enabled", v13 != 0);
 LABEL_51:
     v7 = 0;
     *a4 = reply;
@@ -3760,96 +3561,97 @@ LABEL_51:
     return 144;
   }
 
-  if (!xpc_dictionary_get_string(a3, "monitor_id"))
+  v23 = xpc_dictionary_get_string(a3, "monitor_id");
+  if (!v23)
   {
     return 22;
   }
 
-  v21 = sub_1000011B4();
-  if (!v21)
+  v24 = sub_1000011B4(v23);
+  if (!v24)
   {
     return 96;
   }
 
-  v22 = v21;
+  v25 = v24;
   value = xpc_dictionary_get_value(a3, "shmem");
   if (!value)
   {
     return 22;
   }
 
-  v24 = xpc_shmem_map(value, &region);
-  v25 = v24;
-  v44 = region;
-  if (region && v24 >= vm_page_size)
+  v27 = xpc_shmem_map(value, &region);
+  v28 = v27;
+  v47 = region;
+  if (region && v27 >= vm_page_size)
   {
-    v26 = v24 / 0x3B;
-    if (sub_100000E88(v22) < (v24 / 0x3B))
+    v29 = v27 / 0x3B;
+    if (sub_100000E88(v25) < (v27 / 0x3B))
     {
-      LODWORD(v26) = sub_100000E88(v22);
+      LODWORD(v29) = sub_100000E88(v25);
     }
 
-    v27 = sub_100000E88(v22);
-    v28 = xpc_dictionary_create(0, 0, 0);
+    v30 = sub_100000E88(v25);
+    v31 = xpc_dictionary_create(0, 0, 0);
     xarray = xpc_array_create(0, 0);
-    if (v26)
+    if (v29)
     {
-      v42 = v25;
-      v29 = 0;
-      v41 = v26;
-      v30 = 59 * v26;
-      v31 = v27 - v26;
+      v45 = v28;
+      v32 = 0;
+      v44 = v29;
+      v33 = 59 * v29;
+      v34 = (v30 - v29);
       do
       {
-        v32 = sub_100000E90(v22, v31);
-        v33 = *v32;
-        v34 = xpc_dictionary_get_value(v28, *v32);
-        if (v34)
+        v35 = sub_100000E90(v25, v34);
+        v36 = *v35;
+        v37 = xpc_dictionary_get_value(v31, *v35);
+        if (v37)
         {
-          count = xpc_uint64_get_value(v34);
+          count = xpc_uint64_get_value(v37);
         }
 
         else
         {
           count = xpc_array_get_count(xarray);
-          xpc_array_set_string(xarray, 0xFFFFFFFFFFFFFFFFLL, v33);
-          xpc_dictionary_set_uint64(v28, v33, count);
+          xpc_array_set_string(xarray, 0xFFFFFFFFFFFFFFFFLL, v36);
+          xpc_dictionary_set_uint64(v31, v36, count);
         }
 
-        v36 = &v44[v29];
-        *v36 = count;
-        *(v36 + 4) = *(v32 + 8);
-        *(v36 + 20) = *(v32 + 24);
-        v36[28] = *(v32 + 32);
-        *(v36 + 29) = *(v32 + 33);
-        *(v36 + 37) = *(v32 + 41);
-        *(v36 + 45) = *(v32 + 49);
-        *(v36 + 49) = *(v32 + 53);
-        *(v36 + 51) = *(v32 + 55);
-        v29 += 59;
-        ++v31;
+        v39 = &v47[v32];
+        *v39 = count;
+        *(v39 + 4) = *(v35 + 8);
+        *(v39 + 20) = *(v35 + 24);
+        v39[28] = *(v35 + 32);
+        *(v39 + 29) = *(v35 + 33);
+        *(v39 + 37) = *(v35 + 41);
+        *(v39 + 45) = *(v35 + 49);
+        *(v39 + 49) = *(v35 + 53);
+        *(v39 + 51) = *(v35 + 55);
+        v32 += 59;
+        v34 = (v34 + 1);
       }
 
-      while (v30 != v29);
-      v37 = v41;
-      v25 = v42;
+      while (v33 != v32);
+      v40 = v44;
+      v28 = v45;
     }
 
     else
     {
-      v37 = 0;
+      v40 = 0;
     }
 
-    xpc_release(v28);
-    v39 = v22[5];
-    sub_100000DD4(v22);
-    v40 = xpc_dictionary_create_reply(a3);
-    xpc_dictionary_set_uint64(v40, "count", v37);
-    xpc_dictionary_set_uint64(v40, "dropped-count", v39);
-    xpc_dictionary_set_value(v40, "labels", xarray);
+    xpc_release(v31);
+    v42 = v25[5];
+    sub_100000DD4(v25);
+    v43 = xpc_dictionary_create_reply(a3);
+    xpc_dictionary_set_uint64(v43, "count", v40);
+    xpc_dictionary_set_uint64(v43, "dropped-count", v42);
+    xpc_dictionary_set_value(v43, "labels", xarray);
     xpc_release(xarray);
     v7 = 0;
-    *a4 = v40;
+    *a4 = v43;
   }
 
   else
@@ -3862,9 +3664,9 @@ LABEL_51:
     v7 = 22;
   }
 
-  if (region && v25)
+  if (region && v28)
   {
-    munmap(region, v25);
+    munmap(region, v28);
   }
 
   return v7;
@@ -4029,7 +3831,7 @@ void *sub_100041458(const char *a1, uint64_t a2, uint64_t a3, void *a4, ssize_t 
   return v12;
 }
 
-uint8_t *sub_100041558(mach_header_64 *a1, const char *a2, const char *a3)
+uint8_t *sub_100041558(mach_header_64 *a1, const char *a2, const char *a3, uint64_t a4, uint64_t a5)
 {
   if (!a1)
   {
@@ -4037,13 +3839,13 @@ uint8_t *sub_100041558(mach_header_64 *a1, const char *a2, const char *a3)
   }
 
   size = 0;
-  memset(&v7, 0, sizeof(v7));
-  if (!dladdr(a1, &v7))
+  memset(&v9, 0, sizeof(v9));
+  if (!dladdr(a1, &v9))
   {
     return 0;
   }
 
-  result = getsectiondata(v7.dli_fbase, a2, a3, &size);
+  result = getsectiondata(v9.dli_fbase, a2, a3, &size);
   if (result)
   {
     return xpc_create_from_plist_with_string_cache();
@@ -4169,129 +3971,127 @@ uint64_t sub_1000418C8(uint64_t a1, char *__str, void *a3)
     array = xpc_dictionary_get_array(a3, "SystemCalls");
     if (array)
     {
-      v18 = array;
-      v19 = sub_10000FC98(0x800uLL);
-      sub_10000FD40(v19, "%s:", v20, v21, v22, v23, v24, v25, __str);
+      v9 = array;
+      v10 = sub_10000FC98(0x800uLL, v8);
+      sub_10000FD40(v10, "%s:", __str);
       applier[0] = _NSConcreteStackBlock;
       applier[1] = 0x40000000;
       applier[2] = sub_100041AC8;
       applier[3] = &unk_100079670;
       applier[4] = *(a1 + 32);
-      applier[5] = v19;
-      xpc_array_apply(v18, applier);
+      applier[5] = v10;
+      xpc_array_apply(v9, applier);
       if (*(*(*(a1 + 32) + 8) + 24))
       {
-        sub_10000FD04(v19);
+        sub_10000FD04(v10);
       }
 
       else
       {
-        v26 = sub_10000FCFC(v19);
-        sub_10000FD04(v19);
-        v27 = strlen(v26);
-        v28 = sysctl((a1 + 40), *(a1 + 88), 0, 0, v26, v27);
-        free(v26);
-        if (!v28)
+        v11 = sub_10000FCFC(v10);
+        sub_10000FD04(v10);
+        v12 = strlen(v11);
+        v13 = sysctl((a1 + 40), *(a1 + 88), 0, 0, v11, v12);
+        free(v11);
+        if (!v13)
         {
           return 1;
         }
 
-        *(*(*(a1 + 32) + 8) + 24) = v28;
-        sub_100047654("com.apple.xpc.workload_properties", 65541, "sysctl failed with error (%i)", v29, v30, v31, v32, v33, *(*(*(a1 + 32) + 8) + 24));
+        *(*(*(a1 + 32) + 8) + 24) = v13;
+        sub_100047654("com.apple.xpc.workload_properties", 65541, "sysctl failed with error (%i)");
       }
     }
 
     else
     {
       *(*(*(a1 + 32) + 8) + 24) = 109;
-      sub_100047654("com.apple.xpc.workload_properties", 65541, "invalid syscall mask array type (%i)", v13, v14, v15, v16, v17, *(*(*(a1 + 32) + 8) + 24));
+      sub_100047654("com.apple.xpc.workload_properties", 65541, "invalid syscall mask array type (%i)");
     }
   }
 
   else
   {
     *(*(*(a1 + 32) + 8) + 24) = 109;
-    v34 = *(*(*(a1 + 32) + 8) + 24);
-    sub_100047654("com.apple.xpc.workload_properties", 65541, "invalid syscall mask key: %s (%i)", v6, v7, v8, v9, v10, __str);
+    sub_100047654("com.apple.xpc.workload_properties", 65541, "invalid syscall mask key: %s (%i)");
   }
 
   return 0;
 }
 
-BOOL sub_100041AC8(uint64_t a1, char a2, xpc_object_t object)
+BOOL sub_100041AC8(uint64_t a1, uint64_t a2, xpc_object_t object)
 {
   type = xpc_get_type(object);
   if (type == &_xpc_type_string)
   {
-    v12 = *(a1 + 40);
+    v7 = *(a1 + 40);
     string_ptr = xpc_string_get_string_ptr(object);
-    sub_10000FD40(v12, " %s", v14, v15, v16, v17, v18, v19, string_ptr);
+    sub_10000FD40(v7, " %s", string_ptr);
   }
 
   else
   {
     *(*(*(a1 + 32) + 8) + 24) = 109;
-    v21 = *(*(*(a1 + 32) + 8) + 24);
-    sub_100047654("com.apple.xpc.workload_properties", 65541, "invalid syscall mask value at index: %zu  (%i)", v6, v7, v8, v9, v10, a2);
+    sub_100047654("com.apple.xpc.workload_properties", 65541, "invalid syscall mask value at index: %zu  (%i)", a2, *(*(*(a1 + 32) + 8) + 24));
   }
 
   return type == &_xpc_type_string;
 }
 
-void sub_100041B8C(uint64_t a1)
+void sub_100041B8C(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 344);
-  if (v1)
+  v2 = *(a1 + 344);
+  if (v2)
   {
-    if (v1[10])
+    if (v2[10])
     {
       sub_100054404();
     }
 
-    v3 = v1[9];
-    if (v3)
+    v4 = v2[9];
+    if (v4)
     {
       do
       {
-        v4 = *(v3 + 24);
-        sub_100041C44(v3);
-        v3 = v4;
+        v5 = *(v4 + 24);
+        sub_100041C44(v4);
+        v4 = v5;
       }
 
-      while (v4);
+      while (v5);
     }
 
-    v5 = v1[6];
-    if (v5)
-    {
-      xpc_release(v5);
-      v1[6] = 0;
-    }
-
-    v6 = v1[7];
+    v6 = v2[6];
     if (v6)
     {
       xpc_release(v6);
-      v1[7] = 0;
+      v2[6] = 0;
     }
 
-    v7 = v1[8];
+    v7 = v2[7];
     if (v7)
     {
       xpc_release(v7);
+      v2[7] = 0;
     }
 
-    v8 = v1[4];
-    v9 = v1[5];
+    v8 = v2[8];
     if (v8)
     {
-      *(v8 + 40) = v9;
+      xpc_release(v8);
     }
 
-    *v9 = v8;
+    v9 = v2[4];
+    v10 = v2[5];
+    if (v9)
+    {
+      *(v9 + 40) = v10;
+    }
+
+    *v10 = v9;
     *(a1 + 344) = 0;
 
-    free(v1);
+    free(v2);
   }
 }
 
@@ -4398,7 +4198,7 @@ BOOL sub_100041E00(uint64_t a1, void *a2)
   return sub_100041CA0(a1, a2);
 }
 
-unsigned __int8 *sub_100041EA4(void *a1, _DWORD *a2, char a3, unint64_t a4, uint64_t a5, char *a6, _DWORD *a7)
+unsigned __int8 *sub_100041EA4(void *a1, _DWORD *a2, char a3, unint64_t a4, _OWORD *a5, char *a6, _DWORD *a7)
 {
   string = xpc_dictionary_get_string(a1, "Label");
   if (string && sub_1000169A8(string, "com.apple."))
@@ -4432,7 +4232,7 @@ unsigned __int8 *sub_100041EA4(void *a1, _DWORD *a2, char a3, unint64_t a4, uint
       sub_100026CDC(v15, 15);
     }
 
-    sub_10002D90C(*(v16 + 248), v16);
+    sub_10002D90C();
     result = sub_100043370(v16);
   }
 
@@ -4440,7 +4240,7 @@ unsigned __int8 *sub_100041EA4(void *a1, _DWORD *a2, char a3, unint64_t a4, uint
   return result;
 }
 
-uint64_t sub_100041F90(int a1, unsigned __int8 **a2)
+uint64_t sub_100041F90(uint64_t a1, unsigned __int8 **a2)
 {
   v3 = sub_100022BD8(a1);
   if (!v3)
@@ -4448,35 +4248,35 @@ uint64_t sub_100041F90(int a1, unsigned __int8 **a2)
     return 113;
   }
 
-  v4 = *(v3 + 344);
-  if (!v4)
+  v5 = *(v3 + 344);
+  if (!v5)
   {
-    v4 = sub_100041FD8(v3);
+    v5 = sub_100041FD8(v3, v4);
   }
 
   result = 0;
-  *a2 = v4;
+  *a2 = v5;
   return result;
 }
 
-unsigned __int8 *sub_100041FD8(uint64_t a1)
+unsigned __int8 *sub_100041FD8(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 344))
   {
     sub_100054404();
   }
 
-  v2 = sub_100043370(a1);
-  v3 = v2;
-  *(v2 + 3) = *(a1 + 364);
-  v4 = *(a1 + 352);
-  if (v4)
+  v3 = sub_100043370(a1);
+  v4 = v3;
+  *(v3 + 3) = *(a1 + 364);
+  v5 = *(a1 + 352);
+  if (v5)
   {
-    sub_100043180(v2, v4);
+    sub_100043180(v3, v5);
   }
 
   *(a1 + 352) = 0;
-  return v3;
+  return v4;
 }
 
 uint64_t sub_100042068(uint64_t a1, int a2, void *a3, xpc_object_t *a4)
@@ -4516,12 +4316,12 @@ LABEL_158:
         LODWORD(value[0]) = 0;
         if (xpc_dictionary_get_BOOL(a3, "monitor"))
         {
-          v165 = sub_10004353C(v9, value);
-          v166 = v165;
+          v115 = sub_10004353C(v9, value);
+          v116 = v115;
           v10 = LODWORD(value[0]);
           if (LODWORD(value[0]))
           {
-            if (v165)
+            if (v115)
             {
               sub_100054404();
             }
@@ -4529,43 +4329,42 @@ LABEL_158:
             goto LABEL_165;
           }
 
-          v167 = sub_10003DD68(a3);
-          if (v166)
+          v117 = sub_10003DD68(a3);
+          if (v116)
           {
-            v183 = *v166;
             xpc_dictionary_set_mach_recv();
           }
         }
 
         else
         {
-          v167 = sub_10003DD68(a3);
+          v117 = sub_10003DD68(a3);
         }
 
-        v10 = sub_100043728(v9, v167);
+        v10 = sub_100043728(v9, v117);
         if (!v10)
         {
           return v10;
         }
 
 LABEL_165:
-        v168 = *(*v9 + 248);
-        v169 = *v9 + 1424;
-        xpc_strerror();
-        sub_10002C908(v168, 3, "Start job failed: service = %s, error = %d: %s", v170, v171, v172, v173, v174, v169);
-        sub_10002DF94(v168, *v9);
+        v118 = *(*v9 + 248);
+        v119 = (*v9 + 1424);
+        v120 = xpc_strerror();
+        sub_10002C908(v118, 3, "Start job failed: service = %s, error = %d: %s", v119, v10, v120);
+        sub_10002DF94(v118, *v9);
         return v10;
       }
 
       string = xpc_dictionary_get_string(v9, "Label");
       LODWORD(value[0]) = 0;
-      v153 = sub_1000328DC(a3, 0, value);
-      v154 = value[0];
+      v106 = sub_1000328DC(a3, 0, value);
+      v107 = value[0];
       if (LODWORD(value[0]))
       {
-        v155 = xpc_strerror();
-        sub_10004749C(3, "Submit job failed. Unable to find domain. Service = %s, error = %d: %s", string, v154, v155);
-        v156 = value[0];
+        v108 = xpc_strerror();
+        sub_10004749C(3, "Submit job failed. Unable to find domain. Service = %s, error = %d: %s", string, v107, v108);
+        v109 = value[0];
         if (!LODWORD(value[0]))
         {
           sub_1000543E8();
@@ -4574,72 +4373,71 @@ LABEL_165:
         goto LABEL_156;
       }
 
-      v158 = v153;
-      v159 = sub_100043884(v9, v153, 0, v7, value);
-      v9 = v159;
+      v111 = v106;
+      v112 = sub_100043884(v9, v106, 0, v7, value);
+      v9 = v112;
+      v113 = value[0];
       if (!LODWORD(value[0]))
       {
-        if (!v159)
+        if (!v112)
         {
           sub_1000543CC();
         }
 
-        v156 = 0;
+        v109 = 0;
         goto LABEL_157;
       }
 
-      if (v159)
+      if (v112)
       {
         sub_100054404();
       }
 
-      xpc_strerror();
-      sub_10002C908(v158, 3, "Submit job failed: service = %s, error = %d: %s", v160, v161, v162, v163, v164, string);
-      v156 = value[0];
+      v114 = xpc_strerror();
+      sub_10002C908(v111, 3, "Submit job failed: service = %s, error = %d: %s", string, v113, v114);
+      v109 = value[0];
       if (LODWORD(value[0]))
       {
 LABEL_156:
         v9 = 0;
 LABEL_157:
-        v10 = v156;
+        v10 = v109;
         goto LABEL_158;
       }
 
       goto LABEL_200;
     case 1001:
       LODWORD(value[0]) = 0;
-      v82 = sub_1000439E8(a3, value);
-      if (!v82)
+      v66 = sub_1000439E8(a3, value);
+      if (!v66)
       {
         return LODWORD(value[0]);
       }
 
-      v83 = v82;
-      v84 = sub_10004353C(v82, value);
-      v85 = v84;
+      v67 = v66;
+      v68 = sub_10004353C(v66, value);
       v10 = LODWORD(value[0]);
       if (!LODWORD(value[0]))
       {
         reply = xpc_dictionary_create_reply(a3);
-        v135 = *v85;
         xpc_dictionary_set_mach_recv();
-        sub_100043A70(v83, reply, 0);
+        sub_100043A70(v67, reply, 0);
         goto LABEL_131;
       }
 
-      if (v84)
+      if (v68)
       {
         sub_100054404();
       }
 
-      v86 = *v83;
-      xpc_strerror();
-      sub_100020018(v86, 3, "Could not monitor job: error = %d: %s", v87, v88, v89, v90, v91, v10);
+      v69 = *v67;
+      v70 = xpc_strerror();
+      sub_100020018(v69, 3, "Could not monitor job: error = %d: %s", v10, v70);
       return LODWORD(value[0]);
     case 1002:
       LODWORD(value[0]) = 0;
-      v58 = xpc_dictionary_copy_mach_send();
-      if (!v58)
+      v47 = xpc_dictionary_copy_mach_send();
+      if (!v47)
       {
         sub_10004749C(3, "no client port found");
         LODWORD(value[0]) = 22;
@@ -4650,49 +4448,50 @@ LABEL_157:
         goto LABEL_65;
       }
 
-      v59 = xpc_dictionary_get_value(a3, "client-reply-port");
-      right = v59;
-      if (!v59)
+      v48 = xpc_dictionary_get_value(a3, "client-reply-port");
+      right = v48;
+      if (!v48)
       {
         goto LABEL_66;
       }
 
-      if (xpc_get_type(v59) == &_xpc_type_mach_send_once)
+      if (xpc_get_type(v48) == &_xpc_type_mach_send_once)
       {
         right = xpc_mach_send_once_extract_right();
         if ((right - 1) < 0xFFFFFFFE)
         {
-          if (v58)
+          if (v47)
           {
-            v143 = sub_1000439E8(a3, value);
-            if (v143)
+            v100 = sub_1000439E8(a3, value);
+            if (v100)
             {
-              v144 = v143;
-              for (i = *(v143 + 72); i; i = *(i + 24))
+              v101 = v100;
+              for (i = *(v100 + 72); i; i = *(i + 24))
               {
-                if (*i == v58)
+                if (*i == v47)
                 {
                   break;
                 }
               }
 
-              if (sub_10000B760(v58))
+              v103 = sub_10000B760(v47);
+              if (v103)
               {
-                sub_100054420();
+                sub_100054420(v103);
               }
 
               if (i)
               {
                 if (!*(i + 16))
                 {
-                  v186 = *(i + 40);
+                  v131 = *(i + 40);
                   reply_with_port = _xpc_dictionary_create_reply_with_port();
-                  v188 = reply_with_port;
-                  if (v186)
+                  v133 = reply_with_port;
+                  if (v131)
                   {
-                    sub_100043A70(v144, reply_with_port, 0);
+                    sub_100043A70(v101, reply_with_port, 0);
                     v10 = 0;
-                    *a4 = v188;
+                    *a4 = v133;
                     *(i + 40) &= ~1u;
                   }
 
@@ -4705,26 +4504,26 @@ LABEL_157:
                   return v10;
                 }
 
-                sub_100020018(*v144, 5, "job is already monitored", v146, v147, v148, v149, v150, v190);
-                v58 = 0;
-                v151 = 37;
+                sub_100020018(*v101, 5, "job is already monitored");
+                v47 = 0;
+                v104 = 37;
               }
 
               else
               {
-                sub_100020018(*v144, 5, "job is not monitored, can't poll", v146, v147, v148, v149, v150, v190);
-                v58 = 0;
-                v151 = 3;
+                sub_100020018(*v101, 5, "job is not monitored, can't poll");
+                v47 = 0;
+                v104 = 3;
               }
             }
 
             else
             {
               sub_10004749C(3, "job not found, returning ENOSERVICE to %d with manual pipe reply", right);
-              v151 = 113;
+              v104 = 113;
             }
 
-            LODWORD(value[0]) = v151;
+            LODWORD(value[0]) = v104;
           }
 
           reply_from_port = xpc_pipe_create_reply_from_port();
@@ -4733,13 +4532,17 @@ LABEL_157:
             sub_100054404();
           }
 
-          v185 = reply_from_port;
+          v130 = reply_from_port;
           xpc_dictionary_set_int64(reply_from_port, "error", SLODWORD(value[0]));
-          *a4 = v185;
+          *a4 = v130;
 LABEL_67:
-          if (v58 - 1 <= 0xFFFFFFFD && sub_10000B760(v58))
+          if (v47 - 1 <= 0xFFFFFFFD)
           {
-            sub_100054420();
+            v50 = sub_10000B760(v47);
+            if (v50)
+            {
+              sub_100054420(v50);
+            }
           }
 
           return LODWORD(value[0]);
@@ -4762,63 +4565,61 @@ LABEL_66:
         return 22;
       }
 
-      v192 = 0;
-      v64 = sub_1000439E8(a3, &v192);
-      if (!v64)
+      v135 = 0;
+      v54 = sub_1000439E8(a3, &v135);
+      if (!v54)
       {
-        return v192;
+        return v135;
       }
 
-      v65 = *v64;
-      if (sub_100041E00(v7, *(v64 + 48)))
+      v55 = *v54;
+      if (sub_100041E00(v7, *(v54 + 48)))
       {
-        v195 = 0u;
-        v196 = 0u;
+        v138 = 0u;
+        v139 = 0u;
         *value = 0u;
-        v194 = 0u;
-        v66 = sub_100045C2C(v7, value);
-        sub_100020018(v65, 5, "removing job: caller = %s", v67, v68, v69, v70, v71, v66);
-        v72 = sub_10002DF94(*(v65 + 248), v65);
-        v192 = v72;
-        if (v72 == 36)
+        v137 = 0u;
+        v56 = sub_100045C2C(v7, value);
+        sub_100020018(v55, 5, "removing job: caller = %s", v56);
+        v57 = sub_10002DF94(*(v55 + 248), v55);
+        v135 = v57;
+        if (v57 == 36)
         {
-          return v192;
+          return v135;
         }
 
-        v73 = v72;
-        if (!v72)
+        if (!v57)
         {
           *a4 = xpc_dictionary_create_reply(a3);
-          return v192;
+          return v135;
         }
       }
 
       else
       {
-        v73 = -112;
-        v192 = 144;
+        v135 = 144;
       }
 
       xpc_strerror();
-      sub_100020018(v65, 3, "Could not remove job: error = %d: %s", v138, v139, v140, v141, v142, v73);
-      return v192;
+      sub_100020018(v55, 3, "Could not remove job: error = %d: %s");
+      return v135;
     case 1004:
       if (!xpc_dictionary_expects_reply())
       {
         return 22;
       }
 
-      v41 = xpc_dictionary_get_string(a3, "manager");
-      if (!v41)
+      v35 = xpc_dictionary_get_string(a3, "manager");
+      if (!v35)
       {
         return 22;
       }
 
-      v42 = v41;
+      v36 = v35;
       empty = xpc_array_create(0, 0);
       for (j = qword_10007E928; j; j = *(j + 32))
       {
-        if (sub_100041D24(*(j + 48), v42))
+        if (sub_100041D24(*(j + 48), v36))
         {
           xpc_array_set_uuid(empty, 0xFFFFFFFFFFFFFFFFLL, (j + 16));
         }
@@ -4831,29 +4632,29 @@ LABEL_66:
         return 22;
       }
 
-      v102 = xpc_dictionary_get_string(a3, "label");
-      if (!v102)
+      v81 = xpc_dictionary_get_string(a3, "label");
+      if (!v81)
       {
         return 22;
       }
 
-      v103 = v102;
+      v82 = v81;
       LODWORD(value[0]) = 0;
-      v104 = sub_1000328DC(a3, 0, value);
+      v83 = sub_1000328DC(a3, 0, value);
       v10 = LODWORD(value[0]);
       if (LODWORD(value[0]))
       {
         return v10;
       }
 
-      v105 = v104;
-      v53 = sub_100030830(v104, v103);
-      if (v53)
+      v84 = v83;
+      v41 = sub_100030830(v83, v82);
+      if (v41)
       {
         goto LABEL_99;
       }
 
-      sub_10002C908(v105, 3, "Could not find job with label %s", v106, v107, v108, v109, v110, v103);
+      sub_10002C908(v84, 3, "Could not find job with label %s", v82);
       return 113;
     case 1006:
       if (!xpc_dictionary_expects_reply())
@@ -4862,37 +4663,36 @@ LABEL_66:
       }
 
       LODWORD(value[0]) = 0;
-      v113 = sub_1000439E8(a3, value);
-      if (!v113)
+      v87 = sub_1000439E8(a3, value);
+      if (!v87)
       {
         return LODWORD(value[0]);
       }
 
-      v119 = v113;
-      if (*(v113 + 8) == 1)
+      v88 = v87;
+      if (*(v87 + 8) == 1)
       {
-        v120 = xpc_dictionary_create_reply(a3);
-        sub_100043A70(v119, v120, 0);
+        v89 = xpc_dictionary_create_reply(a3);
+        sub_100043A70(v88, v89, 0);
         LODWORD(value[0]) = xpc_pipe_routine_reply();
         if ((LODWORD(value[0]) | 0x20) != 0x20)
         {
-          v189 = *v119;
           _os_assumes_log_ctx();
         }
 
-        xpc_release(v120);
+        xpc_release(v89);
       }
 
       else
       {
-        if (*(v113 + 80))
+        if (*(v87 + 80))
         {
-          sub_100020018(*v113, 3, "Start job failed: another start request is already inflight", v114, v115, v116, v117, v118, v190);
+          sub_100020018(*v87, 3, "Start job failed: another start request is already inflight");
           return 37;
         }
 
-        v157 = sub_10003DD68(a3);
-        sub_100043728(v119, v157);
+        v110 = sub_10003DD68(a3);
+        sub_100043728(v88, v110);
       }
 
       return 0;
@@ -4902,39 +4702,39 @@ LABEL_66:
         return 22;
       }
 
-      v74 = xpc_dictionary_get_value(a3, "overlay");
-      v75 = v74;
-      if (v74)
+      v58 = xpc_dictionary_get_value(a3, "overlay");
+      v59 = v58;
+      if (v58)
       {
-        if (xpc_get_type(v74) != &_xpc_type_dictionary)
+        if (xpc_get_type(v58) != &_xpc_type_dictionary)
         {
           return 22;
         }
       }
 
-      v76 = xpc_dictionary_get_string(a3, "path");
-      if (!v76)
+      v60 = xpc_dictionary_get_string(a3, "path");
+      if (!v60)
       {
         return 22;
       }
 
-      v77 = v76;
-      v192 = 0;
-      v78 = sub_1000328DC(a3, 0, &v192);
-      v10 = v192;
-      if (!v192)
+      v61 = v60;
+      v135 = 0;
+      v62 = sub_1000328DC(a3, 0, &v135);
+      v10 = v135;
+      if (!v135)
       {
-        v79 = v78;
-        v80 = sub_1000166EC(v77);
-        v81 = xpc_dictionary_create_reply(a3);
+        v63 = v62;
+        v64 = sub_1000166EC(v61);
+        v65 = xpc_dictionary_create_reply(a3);
         value[0] = _NSConcreteStackBlock;
         value[1] = 0x40000000;
-        *&v194 = sub_100043C94;
-        *(&v194 + 1) = &unk_1000796F8;
-        *&v195 = v81;
-        *(&v195 + 1) = v79;
-        *&v196 = v80;
-        sub_100018E2C(v79, v77, v75, v7, value);
+        *&v137 = sub_100043C94;
+        *(&v137 + 1) = &unk_1000796F8;
+        *&v138 = v65;
+        *(&v138 + 1) = v63;
+        *&v139 = v64;
+        sub_100018E2C(v63, v61, v59, v7, value);
       }
 
       return v10;
@@ -4972,20 +4772,20 @@ LABEL_66:
       }
 
       LODWORD(value[0]) = 0;
-      v54 = sub_1000439E8(a3, value);
-      if (!v54)
+      v43 = sub_1000439E8(a3, value);
+      if (!v43)
       {
         return LODWORD(value[0]);
       }
 
-      v55 = v54;
-      v56 = *(v54 + 48);
-      v57 = v56 && *(v54 + 56) && sub_100041CA0(v7, v56);
-      v136 = *v55;
+      v44 = v43;
+      v45 = *(v43 + 48);
+      v46 = v45 && *(v43 + 56) && sub_100041CA0(v7, v45);
+      v98 = *v44;
       reply = xpc_dictionary_create_reply(a3);
-      empty = sub_1000241D0(v136, v57);
-      v101 = "attrs";
-      v100 = reply;
+      empty = sub_1000241D0(v98, v46);
+      v80 = "attrs";
+      v79 = reply;
       goto LABEL_128;
     case 1010:
       if (!xpc_dictionary_expects_reply())
@@ -4993,55 +4793,54 @@ LABEL_66:
         return 22;
       }
 
-      v192 = 0;
-      v121 = sub_1000439E8(a3, &v192);
-      if (!v121)
+      v135 = 0;
+      v90 = sub_1000439E8(a3, &v135);
+      if (!v90)
       {
-        return v192;
+        return v135;
       }
 
-      v122 = v121;
+      v91 = v90;
       uuid = xpc_dictionary_get_uuid(a3, "instance-uuid");
       value[0] = 0;
       value[1] = xpc_dictionary_get_string(a3, "sandbox-profile");
-      *&v194 = xpc_dictionary_get_dictionary(a3, "envvars");
-      v124 = *v122;
-      v125 = sub_10002DFD8(*(*v122 + 248), *v122, uuid, 1, value, v7, &v192);
-      if (v125)
+      *&v137 = xpc_dictionary_get_dictionary(a3, "envvars");
+      v93 = *v91;
+      v94 = sub_10002DFD8(*(*v91 + 248), *v91, uuid, 1, value, v7, &v135);
+      if (v94)
       {
-        v126 = v125;
-        if (sub_100026CF8(v124))
+        v95 = v94;
+        if (sub_100026CF8(v93))
         {
-          sub_100026CDC(v126, 15);
+          sub_100026CDC(v95, 15);
         }
 
-        v112 = sub_100043370(v126);
-        if (v112)
+        v86 = sub_100043370(v95);
+        if (v86)
         {
           goto LABEL_102;
         }
       }
 
-      v127 = *v122;
-      v128 = v192;
+      v96 = *v91;
       xpc_strerror();
-      sub_100020018(v127, 4, "instance creation failed: %d %s", v129, v130, v131, v132, v133, v128);
-      return v192;
+      sub_100020018(v96, 4, "instance creation failed: %d %s");
+      return v135;
     case 1011:
       if (!xpc_dictionary_expects_reply())
       {
         return 22;
       }
 
-      v39 = xpc_dictionary_create_reply(a3);
-      v40 = sub_100043D94(v7, a3, v39);
-      if (v40)
+      v33 = xpc_dictionary_create_reply(a3);
+      v34 = sub_100043D94(v7, a3, v33);
+      if (v34)
       {
-        xpc_dictionary_set_int64(v39, "error", v40);
+        xpc_dictionary_set_int64(v33, "error", v34);
       }
 
       v10 = 0;
-      *a4 = v39;
+      *a4 = v33;
       return v10;
     case 1012:
       if (!xpc_dictionary_expects_reply())
@@ -5049,41 +4848,41 @@ LABEL_66:
         return 22;
       }
 
-      v44 = xpc_dictionary_get_value(a3, "endpoint");
-      if (!v44 || xpc_get_type(v44) != &_xpc_type_mach_send)
+      v38 = xpc_dictionary_get_value(a3, "endpoint");
+      if (!v38 || xpc_get_type(v38) != &_xpc_type_mach_send)
       {
         return 22;
       }
 
-      v45 = xpc_mach_send_get_right();
-      if ((v45 - 1) > 0xFFFFFFFD)
+      v39 = xpc_mach_send_get_right();
+      if ((v39 - 1) > 0xFFFFFFFD)
       {
         return 113;
       }
 
-      v52 = sub_100032720(v45, 1, v46, v47, v48, v49, v50, v51);
-      if (!v52)
+      v40 = sub_100032720(v39, 1);
+      if (!v40)
       {
         return 113;
       }
 
-      v53 = sub_10004CC54(v52);
+      v41 = sub_10004CC54(v40);
 LABEL_99:
-      v111 = *(v53 + 344);
-      if (!v111)
+      v85 = *(v41 + 344);
+      if (!v85)
       {
-        v112 = sub_100041FD8(v53);
+        v86 = sub_100041FD8(v41, v42);
 LABEL_102:
-        v111 = v112;
+        v85 = v86;
       }
 
       reply = xpc_dictionary_create_reply(a3);
-      xpc_dictionary_set_uuid(reply, "job-handle", (v111 + 16));
+      xpc_dictionary_set_uuid(reply, "job-handle", (v85 + 16));
       goto LABEL_130;
     case 1013:
       LODWORD(value[0]) = 0;
-      v112 = sub_1000439E8(a3, value);
-      if (v112)
+      v86 = sub_1000439E8(a3, value);
+      if (v86)
       {
         goto LABEL_102;
       }
@@ -5128,15 +4927,15 @@ LABEL_200:
       break;
     case 1015:
       LODWORD(value[0]) = 0;
-      v61 = sub_1000439E8(a3, value);
-      if (!v61)
+      v51 = sub_1000439E8(a3, value);
+      if (!v51)
       {
         return LODWORD(value[0]);
       }
 
-      v62 = v61;
+      v52 = v51;
       reply = xpc_dictionary_create_reply(a3);
-      sub_100043A70(v62, reply, 1);
+      sub_100043A70(v52, reply, 1);
       goto LABEL_130;
     case 1016:
       if (!xpc_dictionary_expects_reply())
@@ -5145,11 +4944,11 @@ LABEL_200:
       }
 
       uint64 = xpc_dictionary_get_uint64(a3, "coalition-id");
-      v12 = sub_10001A5BC();
-      v195 = 0u;
-      v196 = 0u;
+      v12 = sub_10001A5BC(uint64);
+      v138 = 0u;
+      v139 = 0u;
       *value = 0u;
-      v194 = 0u;
+      v137 = 0u;
       v13 = sub_100010B1C(v12);
       v14 = sub_100045C2C(v7, value);
       sub_10004749C(5, "Queried %zu attributed services: caller=%s[%d], coalition=%llu", v13, v14, *(v7 + 5), uint64);
@@ -5190,48 +4989,48 @@ LABEL_200:
         return 22;
       }
 
-      v192 = 0;
-      v92 = sub_1000439E8(a3, &v192);
-      if (!v92)
+      v135 = 0;
+      v71 = sub_1000439E8(a3, &v135);
+      if (!v71)
       {
-        return v192;
+        return v135;
       }
 
-      v93 = v92;
-      v12 = sub_10001A534(*v92);
-      v195 = 0u;
-      v196 = 0u;
+      v72 = v71;
+      v12 = sub_10001A534(*v71);
+      v138 = 0u;
+      v139 = 0u;
       *value = 0u;
-      v194 = 0u;
-      v94 = sub_100022158(*v93, 2);
-      v95 = sub_100010B1C(v12);
-      v96 = sub_100045C2C(v7, value);
-      sub_10004749C(5, "Queried %zu attributed services: caller=%s[%d], service=%s", v95, v96, *(v7 + 5), v94);
-      free(v94);
+      v137 = 0u;
+      v73 = sub_100022158(*v72, 2);
+      v74 = sub_100010B1C(v12);
+      v75 = sub_100045C2C(v7, value);
+      sub_10004749C(5, "Queried %zu attributed services: caller=%s[%d], service=%s", v74, v75, *(v7 + 5), v73);
+      free(v73);
       empty = xpc_array_create_empty();
       if (sub_100010B1C(v12))
       {
-        v97 = 0;
+        v76 = 0;
         do
         {
-          v98 = sub_100010AF4(v12, v97);
-          v99 = sub_100043370(v98);
-          xpc_array_set_uuid(empty, 0xFFFFFFFFFFFFFFFFLL, v99 + 16);
-          ++v97;
+          v77 = sub_100010AF4(v12, v76);
+          v78 = sub_100043370(v77);
+          xpc_array_set_uuid(empty, 0xFFFFFFFFFFFFFFFFLL, v78 + 16);
+          ++v76;
         }
 
-        while (v97 < sub_100010B1C(v12));
+        while (v76 < sub_100010B1C(v12));
       }
 
 LABEL_93:
-      sub_10001B690(v12);
+      sub_10001B690(v12, 0);
 LABEL_94:
-      v100 = xpc_dictionary_create_reply(a3);
-      reply = v100;
-      v101 = "handles";
+      v79 = xpc_dictionary_create_reply(a3);
+      reply = v79;
+      v80 = "handles";
 LABEL_128:
-      xpc_dictionary_set_value(v100, v101, empty);
-      v137 = empty;
+      xpc_dictionary_set_value(v79, v80, empty);
+      v99 = empty;
       goto LABEL_129;
     default:
       return 33;
@@ -5287,45 +5086,45 @@ LABEL_31:
   {
     for (k = 0; k != v26; ++k)
     {
-      sub_10002D450(v25[k], 47, v32, v33, v34, v35, v36, v37, v190);
+      sub_10002D450(v25[k], 47);
     }
 
-    v191 = 0;
+    v134 = 0;
     goto LABEL_171;
   }
 
 LABEL_170:
-  v191 = 1;
+  v134 = 1;
 LABEL_171:
-  v175 = xpc_array_create_empty();
+  v121 = xpc_array_create_empty();
   if (xpc_array_get_count(v23))
   {
-    v176 = 0;
+    v122 = 0;
     do
     {
-      v177 = xpc_array_get_value(v23, v176);
-      v178 = xpc_dictionary_create_empty();
-      v179 = sub_100043D94(v7, v177, v178);
-      if (v179)
+      v123 = xpc_array_get_value(v23, v122);
+      v124 = xpc_dictionary_create_empty();
+      v125 = sub_100043D94(v7, v123, v124);
+      if (v125)
       {
-        xpc_dictionary_set_int64(v178, "error", v179);
+        xpc_dictionary_set_int64(v124, "error", v125);
       }
 
-      xpc_array_set_value(v175, 0xFFFFFFFFFFFFFFFFLL, v178);
-      xpc_release(v178);
-      ++v176;
+      xpc_array_set_value(v121, 0xFFFFFFFFFFFFFFFFLL, v124);
+      xpc_release(v124);
+      ++v122;
     }
 
-    while (v176 < xpc_array_get_count(v23));
+    while (v122 < xpc_array_get_count(v23));
   }
 
-  if ((v191 & 1) == 0)
+  if ((v134 & 1) == 0)
   {
-    v180 = v25;
+    v126 = v25;
     do
     {
-      v181 = *v180++;
-      sub_10002D4F0(v181, 47);
+      v127 = *v126++;
+      sub_10002D4F0(v127, 47);
       --v26;
     }
 
@@ -5334,10 +5133,10 @@ LABEL_171:
 
   free(v25);
   reply = xpc_dictionary_create_reply(a3);
-  xpc_dictionary_set_value(reply, "results", v175);
-  v137 = v175;
+  xpc_dictionary_set_value(reply, "results", v121);
+  v99 = v121;
 LABEL_129:
-  xpc_release(v137);
+  xpc_release(v99);
 LABEL_130:
   v10 = 0;
 LABEL_131:
@@ -5354,7 +5153,7 @@ void sub_100043090(uint64_t a1, int a2, uint64_t a3)
     {
       sub_100043180(v4, 4);
 
-      sub_100041B8C(a1);
+      sub_100041B8C(a1, v7);
     }
 
     else
@@ -5427,33 +5226,32 @@ void sub_100043090(uint64_t a1, int a2, uint64_t a3)
   }
 }
 
-void sub_100043180(uint64_t a1, int a2)
+void sub_100043180(void *a1, uint64_t a2)
 {
   if (!a2)
   {
     sub_100054404();
   }
 
-  *(a1 + 8) = a2;
+  *(a1 + 2) = a2;
   v3 = *a1;
   v4 = sub_100043510(*a1);
-  sub_100020018(v3, 5, "job state = %s", v5, v6, v7, v8, v9, v4);
-  v10 = *(a1 + 80);
-  if (v10)
+  sub_100020018(v3, 5, "job state = %s", v4);
+  v5 = a1[10];
+  if (v5)
   {
-    sub_100043A70(a1, *(a1 + 80), 0);
-    xpc_dictionary_set_uuid(v10, "job-handle", (a1 + 16));
+    sub_100043A70(a1, a1[10], 0);
+    xpc_dictionary_set_uuid(v5, "job-handle", a1 + 16);
     if ((xpc_pipe_routine_reply() | 0x20) != 0x20)
     {
-      v13 = *a1;
       _os_assumes_log_ctx();
     }
 
-    xpc_release(*(a1 + 80));
-    *(a1 + 80) = 0;
+    xpc_release(a1[10]);
+    a1[10] = 0;
   }
 
-  for (i = *(a1 + 72); i; i = *(i + 24))
+  for (i = a1[9]; i; i = *(i + 24))
   {
     *(i + 40) |= 1u;
     if (*(i + 16))
@@ -5461,7 +5259,6 @@ void sub_100043180(uint64_t a1, int a2)
       sub_100043A70(a1, *(i + 16), 0);
       if ((xpc_pipe_routine_reply() | 0x20) != 0x20)
       {
-        v12 = *a1;
         _os_assumes_log_ctx();
       }
 
@@ -5637,10 +5434,10 @@ void *sub_10004353C(uint64_t *a1, int *a2)
   if (!v4)
   {
 LABEL_11:
-    v15 = *a1;
+    v16 = *a1;
     v14 = 12;
-    xpc_strerror();
-    sub_100020018(v15, 3, "Failed to create a job monitor. error = %d: %s", v16, v17, v18, v19, v20, 12);
+    v17 = xpc_strerror();
+    sub_100020018(v16, 3, "Failed to create a job monitor. error = %d: %s", 12, v17);
     v7 = 0;
     goto LABEL_12;
   }
@@ -5655,9 +5452,10 @@ LABEL_11:
       _os_assumes_log();
     }
 
-    if (sub_10000B774(v5, 0, 0))
+    v15 = sub_10000B774(v5, 0, 0);
+    if (v15)
     {
-      sub_100054420();
+      sub_100054420(v15);
     }
 
     goto LABEL_11;
@@ -5714,7 +5512,7 @@ uint64_t sub_100043728(uint64_t a1, uint64_t a2)
 
   v3 = *a1;
   *(a1 + 80) = a2;
-  sub_10001B5B8(v3);
+  sub_10001B5B8(v3, 21);
   v4 = *a1;
   if (sub_1000038AC(*a1))
   {
@@ -5755,21 +5553,21 @@ uint64_t sub_100043728(uint64_t a1, uint64_t a2)
 
   if (*(a1 + 80))
   {
-    xpc_strerror();
-    sub_100020018(v3, 3, "Start job failed: error = %d: %s", v8, v9, v10, v11, v12, v5);
-    v13 = *(a1 + 80);
-    xpc_dictionary_set_int64(v13, "error", v5);
+    v8 = xpc_strerror();
+    sub_100020018(v3, 3, "Start job failed: error = %d: %s", v5, v8);
+    v9 = *(a1 + 80);
+    xpc_dictionary_set_int64(v9, "error", v5);
     if ((xpc_pipe_routine_reply() | 0x20) != 0x20)
     {
       _os_assumes_log_ctx();
     }
 
     *(a1 + 80) = 0;
-    xpc_release(v13);
+    xpc_release(v9);
   }
 
 LABEL_18:
-  sub_10001B690(v3);
+  sub_10001B690(v3, 21);
   return v5;
 }
 
@@ -5810,14 +5608,15 @@ unsigned __int8 *sub_100043884(void *a1, _DWORD *a2, char a3, uint64_t a4, int *
 void sub_1000439A0(uint64_t a1)
 {
   handle = dispatch_source_get_handle(*(a1 + 32));
-  if (sub_10000B760(handle))
+  v3 = sub_10000B760(handle);
+  if (v3)
   {
-    sub_100054420();
+    sub_100054420(v3);
   }
 
-  v3 = *(a1 + 32);
+  v4 = *(a1 + 32);
 
-  dispatch_release(v3);
+  dispatch_release(v4);
 }
 
 uint64_t sub_1000439E8(void *a1, int *a2)
@@ -5950,7 +5749,7 @@ LABEL_15:
   }
 }
 
-void sub_100043C94(uint64_t a1, uint64_t a2, int a3)
+void sub_100043C94(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a2)
   {
@@ -5961,29 +5760,28 @@ void sub_100043C94(uint64_t a1, uint64_t a2, int a3)
 
   else
   {
+    v6 = a3;
     if (!a3)
     {
       sub_100054404();
     }
 
     xpc_dictionary_set_int64(*(a1 + 32), "error", a3);
-    v6 = *(a1 + 40);
-    v7 = *(a1 + 48);
-    xpc_strerror();
-    sub_10002C908(v6, 4, "Could not submit extension %s: %d - %s", v8, v9, v10, v11, v12, v7);
+    v7 = *(a1 + 40);
+    v8 = *(a1 + 48);
+    v9 = xpc_strerror();
+    sub_10002C908(v7, 4, "Could not submit extension %s: %d - %s", v8, v6, v9);
   }
 
-  v13 = *(a1 + 32);
   if ((xpc_pipe_routine_reply() | 0x20) != 0x20)
   {
-    v15 = *(a1 + 40);
     _os_assumes_log_ctx();
   }
 
   xpc_release(*(a1 + 32));
-  v14 = *(a1 + 48);
+  v10 = *(a1 + 48);
 
-  free(v14);
+  free(v10);
 }
 
 uint64_t sub_100043D94(uint64_t a1, xpc_object_t object, void *a3)
@@ -6011,14 +5809,15 @@ uint64_t sub_100043D94(uint64_t a1, xpc_object_t object, void *a3)
   }
 
   string = xpc_dictionary_get_string(v8, "Label");
-  v26 = 0;
-  v10 = sub_1000328DC(object, 0, &v26);
-  result = v26;
-  if (!v26)
+  v17 = 0;
+  v10 = sub_1000328DC(object, 0, &v17);
+  result = v17;
+  if (!v17)
   {
-    v11 = sub_100043884(v8, v10, 1, a1, &v26);
+    v11 = sub_100043884(v8, v10, 1, a1, &v17);
     v12 = v11;
-    if (v26)
+    v13 = v17;
+    if (v17)
     {
       if (v11)
       {
@@ -6026,23 +5825,24 @@ uint64_t sub_100043D94(uint64_t a1, xpc_object_t object, void *a3)
       }
 
 LABEL_10:
-      xpc_strerror();
-      sub_10002C908(v10, 3, "Submit job failed: service = %s, error = %d: %s", v13, v14, v15, v16, v17, string);
+      v14 = xpc_strerror();
+      sub_10002C908(v10, 3, "Submit job failed: service = %s, error = %d: %s", string, v13, v14);
       if (v12)
       {
         sub_10002DF94(v10, *v12);
       }
 
-      return v26;
+      return v17;
     }
 
     if (xpc_dictionary_get_BOOL(object, "monitor"))
     {
-      v18 = sub_10004353C(v12, &v26);
-      v19 = v18;
-      if (v26)
+      v15 = sub_10004353C(v12, &v17);
+      v16 = v15;
+      v13 = v17;
+      if (v17)
       {
-        if (v18)
+        if (v15)
         {
           sub_100054404();
         }
@@ -6051,9 +5851,8 @@ LABEL_10:
       }
 
       xpc_dictionary_set_uuid(a3, "job-handle", v12 + 16);
-      if (v19)
+      if (v16)
       {
-        v25 = *v19;
         xpc_dictionary_set_mach_recv();
       }
     }
@@ -6063,7 +5862,7 @@ LABEL_10:
       xpc_dictionary_set_uuid(a3, "job-handle", v12 + 16);
     }
 
-    sub_10002C908(v10, 5, "Submit job succeeded: service = %s", v20, v21, v22, v23, v24, string);
+    sub_10002C908(v10, 5, "Submit job succeeded: service = %s", string);
     return 0;
   }
 
@@ -6130,7 +5929,7 @@ uint64_t sub_100044024(const char *a1)
   return v3;
 }
 
-uint64_t sub_1000440E0(uint64_t result)
+BOOL sub_1000440E0(_BOOL8 result)
 {
   if (result)
   {
@@ -6144,9 +5943,10 @@ uint64_t sub_1000440E0(uint64_t result)
 
     else
     {
-      memset(v3, 0, sizeof(v3));
+      memset(v4, 0, sizeof(v4));
       __strlcpy_chk();
-      if (sub_100051040(port, v3))
+      v2 = 0;
+      if (sub_100051040(port, v4, &v2))
       {
         _os_assumes_log();
       }
@@ -6156,7 +5956,7 @@ uint64_t sub_1000440E0(uint64_t result)
         _os_assumes_log();
       }
 
-      return 0;
+      return v2 != 0;
     }
   }
 
@@ -6174,7 +5974,7 @@ void sub_1000441E0(char *a1, ...)
     v2[0] = a1;
   }
 
-  sub_100044224();
+  sub_100044224(v2[0]);
 }
 
 void sub_100044244(char *a1, ...)
@@ -6194,7 +5994,7 @@ void sub_100044244(char *a1, ...)
   __break(1u);
 }
 
-void *sub_1000442A0(uint64_t a1)
+char *sub_1000442A0(uint64_t a1)
 {
   if (sub_100032A18(a1) != &unk_10007D720)
   {
@@ -6203,7 +6003,7 @@ void *sub_1000442A0(uint64_t a1)
 
   v2 = sub_100044314();
   result = sub_10003136C(qword_10007D7A8, v2, 0, "iOSUser", 0, a1, &qword_10007F150);
-  *(result + 104) &= ~1u;
+  result[104] &= ~1u;
   return result;
 }
 
@@ -6257,7 +6057,7 @@ uint64_t sub_100044428(uint64_t a1, void *a2)
     }
 
     *(a1 + 176) = xpc_retain(a2);
-    sub_10000FC5C("kern.willuserspacereboot", 1);
+    sub_10000FC5C();
     for (i = *(a1 + 320); i; i = *(i + 16))
     {
       if (*(i + 112) == qword_10007D7A8)
@@ -6277,20 +6077,20 @@ uint64_t sub_100044428(uint64_t a1, void *a2)
           *(i + 168) = sub_100011A04();
         }
 
-        sub_10002CDD4(i, v6, v7, v8, v9, v10, v11, v12, v17);
+        sub_10002CDD4(i);
       }
     }
 
     return 0;
   }
 
-  v13 = *(a1 + 176);
-  if (!v13)
+  v6 = *(a1 + 176);
+  if (!v6)
   {
     sub_100054404();
   }
 
-  if (xpc_get_type(v13) == &_xpc_type_null)
+  if (xpc_get_type(v6) == &_xpc_type_null)
   {
     if ((xpc_pipe_routine_reply() | 0x20) != 0x20)
     {
@@ -6301,20 +6101,19 @@ uint64_t sub_100044428(uint64_t a1, void *a2)
   }
 
   xpc_dictionary_set_int64(*(a1 + 176), "error", 89);
-  v14 = *(a1 + 176);
   if ((xpc_pipe_routine_reply() | 0x20) != 0x20)
   {
     _os_assumes_log_ctx();
   }
 
   xpc_release(*(a1 + 176));
-  v15 = xpc_retain(a2);
+  v7 = xpc_retain(a2);
   result = 0;
-  *(a1 + 176) = v15;
+  *(a1 + 176) = v7;
   return result;
 }
 
-void *sub_100044600(uint64_t a1)
+char *sub_100044600(uint64_t a1)
 {
   if (sub_100032A18(a1) != &unk_10007D720)
   {
@@ -6328,7 +6127,7 @@ void *sub_100044600(uint64_t a1)
     sub_100054404();
   }
 
-  v2[119] = xpc_retain(v3);
+  *(v2 + 119) = xpc_retain(v3);
   sub_10002D82C(v2, &qword_10007F150, 0);
   sub_1000322E4(v2);
   return v2;
@@ -6366,18 +6165,18 @@ uint64_t sub_100044678(uint64_t a1)
 
   *(a1 + 1016) &= ~0x1000u;
   v5 = sub_100044600(a1);
-  if (v5[14] != qword_10007D7A8 || (v6 = v5, !sub_100016A6C(v5[121], "iOSUser")))
+  if (*(v5 + 14) != qword_10007D7A8 || (v6 = v5, !sub_100016A6C(*(v5 + 121), "iOSUser")))
   {
     sub_100054404();
   }
 
-  if (v6[21])
+  if (*(v6 + 21))
   {
     sub_100054404();
   }
 
-  v7 = v6[29];
-  v6[21] = *(v7 + 168);
+  v7 = *(v6 + 29);
+  *(v6 + 21) = *(v7 + 168);
   *(v7 + 168) = 0;
   sub_10002CBB8(a1, 2);
   return 0;
@@ -6446,7 +6245,6 @@ LABEL_12:
       {
         v8 = sub_100044314();
         sub_100015410(v8);
-        v9 = *(v2 + 176);
         if ((xpc_pipe_routine_reply() | 0x20) != 0x20)
         {
           _os_assumes_log_ctx();
@@ -6550,7 +6348,7 @@ LABEL_19:
         v17 = xpc_array_get_count(qword_10007E938);
         sub_10004749C(65541, "gathered %zu jetsam property overlays to persist into %s", v17, v15);
         qword_10007E940 = v14;
-        sub_100044D98(2);
+        sub_100044D98(2, v18);
         return 0;
       }
 
@@ -6595,9 +6393,9 @@ LABEL_4:
   {
     for (j = *(a1 + 336 + 8 * i); j; j = j[7].i64[1])
     {
-      v14 = 0;
-      v10 = sub_10002CAD8(*(a1 + 112), &v14);
-      if (!v14 && (j[88].i8[5] & 8) != 0)
+      v15 = 0;
+      v10 = sub_10002CAD8(*(a1 + 112), &v15);
+      if (!v15 && (j[88].i8[5] & 8) != 0)
       {
         v11 = v10;
         v12 = j[40].i64[1];
@@ -6605,17 +6403,18 @@ LABEL_4:
         {
           if (sub_1000452B0(v12, v7))
           {
-            if (!j[41].i64[0] || !sub_100045384())
+            v13 = j[41].i64[0];
+            if (!v13 || !sub_100045384(v13))
             {
               sub_1000441E0("failed to serialize service plist: %s", j[89].i8);
             }
 
             *keys = *off_100079780;
-            v18 = "plist";
+            v19 = "plist";
             values = xpc_uint64_create(v11);
-            v16 = vextq_s8(j[41], j[41], 8uLL);
-            v13 = xpc_dictionary_create(keys, &values, 3uLL);
-            xpc_array_append_value(a2, v13);
+            v17 = vextq_s8(j[41], j[41], 8uLL);
+            v14 = xpc_dictionary_create(keys, &values, 3uLL);
+            xpc_array_append_value(a2, v14);
             sub_10004749C(65541, "persisting service %s (%s) into %s", j[89].i8, *(*(a1 + 112) + 112), v7);
           }
         }
@@ -6624,25 +6423,25 @@ LABEL_4:
   }
 }
 
-uint64_t sub_100044D98(uint64_t result)
+uint64_t sub_100044D98(uint64_t result, uint64_t a2)
 {
-  v1 = 0;
-  v2 = 1;
-  v3 = &qword_10007DAF8;
+  v2 = 0;
+  v3 = 1;
+  v4 = &qword_10007DAF8;
   do
   {
-    if (*(v3 - 1) == qword_10007DB40 && *v3 == result)
+    if (*(v4 - 1) == qword_10007DB40 && *v4 == result)
     {
       break;
     }
 
-    v2 = v1 < 4;
-    v3 += 2;
-    ++v1;
+    v3 = v2 < 4;
+    v4 += 2;
+    ++v2;
   }
 
-  while (v1 != 5);
-  if (!v2)
+  while (v2 != 5);
+  if (!v3)
   {
     sub_100054404();
   }
@@ -6651,9 +6450,9 @@ uint64_t sub_100044D98(uint64_t result)
   return result;
 }
 
-void sub_100044E10()
+void sub_100044E10(uint64_t a1, uint64_t a2)
 {
-  sub_100044D98(3);
+  sub_100044D98(3, a2);
   if (qword_10007E948)
   {
     sub_100054404();
@@ -6666,26 +6465,26 @@ void sub_100044E10()
 
   init_port_set = 0;
   init_port_setCnt = 0;
-  v0 = mach_ports_lookup(mach_task_self_, &init_port_set, &init_port_setCnt);
-  if (v0)
+  v2 = mach_ports_lookup(mach_task_self_, &init_port_set, &init_port_setCnt);
+  if (v2)
   {
-    sub_1000441E0("mach_ports_lookup() failed: %d", v0);
+    sub_1000441E0("mach_ports_lookup() failed: %d", v2);
   }
 
-  if (init_port_setCnt < 2 || (v1 = init_port_set[1], v1 + 1 <= 1))
+  if (init_port_setCnt < 2 || (v3 = init_port_set[1], v3 + 1 <= 1))
   {
-    v12 = 2;
-    v2 = "no mach port for persistent services: %d";
-    v3 = 65541;
+    v14 = 2;
+    v4 = "no mach port for persistent services: %d";
+    v5 = 65541;
 LABEL_7:
-    sub_10004749C(v3, v2, v12);
+    sub_10004749C(v5, v4, v14);
     return;
   }
 
   init_port_set = 0;
-  if (sub_1000460D8(v1, 0x10uLL, &init_port_set, 1))
+  if (sub_1000460D8(v3, 0x10uLL, &init_port_set, 1))
   {
-    v2 = "failed to map persistent services header";
+    v4 = "failed to map persistent services header";
     goto LABEL_11;
   }
 
@@ -6702,14 +6501,14 @@ LABEL_16:
     return;
   }
 
-  v4 = *(init_port_set + 1);
-  if (v4 <= 0xF)
+  v6 = *(init_port_set + 1);
+  if (v6 <= 0xF)
   {
     sub_10004749C(65539, "persistent services header size is less than header size");
     goto LABEL_16;
   }
 
-  if (sub_100046150(v4, &init_port_set, 1))
+  if (sub_100046150(v6, &init_port_set, 1))
   {
     sub_10004749C(65539, "failed to map persistent services");
     if (munmap(init_port_set, 0x10uLL) == -1)
@@ -6725,7 +6524,7 @@ LABEL_16:
       if (*(init_port_set + 1) > 0xFuLL)
       {
         init_port_setCnt = 0;
-        v5 = sub_100045430(init_port_set, &init_port_setCnt);
+        v7 = sub_100045430(init_port_set, &init_port_setCnt);
         if (munmap(init_port_set, *(init_port_set + 1)) == -1)
         {
           sub_10005455C();
@@ -6733,48 +6532,48 @@ LABEL_16:
 
         if (init_port_setCnt)
         {
-          if (v5)
+          if (v7)
           {
             sub_100054404();
           }
 
-          v12 = init_port_setCnt;
-          v2 = "failed to restore persistent object: %d";
+          v14 = init_port_setCnt;
+          v4 = "failed to restore persistent object: %d";
         }
 
         else
         {
-          array = xpc_dictionary_get_array(v5, "services");
+          array = xpc_dictionary_get_array(v7, "services");
           if (!array)
           {
             sub_1000441E0("no services found in persistent object");
           }
 
-          v7 = array;
-          v8 = xpc_dictionary_get_array(v5, "jetsam-properties");
-          if (!v8)
+          v9 = array;
+          v10 = xpc_dictionary_get_array(v7, "jetsam-properties");
+          if (!v10)
           {
             sub_1000441E0("no jetsam property overlays found in persistent object");
           }
 
-          v9 = v8;
-          if (xpc_get_type(v7) == &_xpc_type_array)
+          v11 = v10;
+          if (xpc_get_type(v9) == &_xpc_type_array)
           {
-            count = xpc_array_get_count(v7);
+            count = xpc_array_get_count(v9);
             sub_10004749C(65541, "validating %zu persistent services", count);
-            if (xpc_array_apply(v7, &stru_1000797D8))
+            if (xpc_array_apply(v9, &stru_1000797D8))
             {
-              if (xpc_get_type(v9) == &_xpc_type_array)
+              if (xpc_get_type(v11) == &_xpc_type_array)
               {
-                v11 = xpc_array_get_count(v9);
-                sub_10004749C(65541, "validating %zu jetsam property overlays", v11);
-                qword_10007E950 = v9;
-                qword_10007E948 = v7;
+                v13 = xpc_array_get_count(v11);
+                sub_10004749C(65541, "validating %zu jetsam property overlays", v13);
+                qword_10007E950 = v11;
+                qword_10007E948 = v9;
                 return;
               }
 
               sub_10004749C(65539, "jetsam properties object is not an array");
-              v2 = "persistent jetsam properties object is invalid";
+              v4 = "persistent jetsam properties object is invalid";
               goto LABEL_11;
             }
           }
@@ -6784,11 +6583,11 @@ LABEL_16:
             sub_10004749C(65539, "persistent services object is not an array");
           }
 
-          v2 = "persistent services object is invalid";
+          v4 = "persistent services object is invalid";
         }
 
 LABEL_11:
-        v3 = 65539;
+        v5 = 65539;
         goto LABEL_7;
       }
 
@@ -6809,9 +6608,9 @@ LABEL_26:
   }
 }
 
-void sub_10004519C()
+void sub_10004519C(uint64_t a1, uint64_t a2)
 {
-  sub_100044D98(4);
+  sub_100044D98(4, a2);
   if (qword_10007E950)
   {
     count = xpc_array_get_count(qword_10007E950);
@@ -6823,8 +6622,8 @@ void sub_10004519C()
 
   if (qword_10007E948)
   {
-    v1 = xpc_array_get_count(qword_10007E948);
-    sub_10004749C(65541, "restoring %zu persistent services", v1);
+    v3 = xpc_array_get_count(qword_10007E948);
+    sub_10004749C(65541, "restoring %zu persistent services", v3);
     xpc_array_apply(qword_10007E948, &stru_100079858);
     xpc_release(qword_10007E948);
     qword_10007E948 = 0;
@@ -6876,21 +6675,21 @@ BOOL sub_1000452B0(void *a1, char *a2)
   }
 }
 
-BOOL sub_100045384()
+BOOL sub_100045384(uint64_t a1)
 {
   serialization = xpc_make_serialization();
-  v1 = serialization;
+  v2 = serialization;
   if (serialization)
   {
     free(serialization);
   }
 
-  return v1 != 0;
+  return v2 != 0;
 }
 
 uint64_t sub_1000453CC(uint64_t a1, uint64_t a2, void *a3)
 {
-  if (!sub_100045384())
+  if (!sub_100045384(a3))
   {
     sub_1000441E0("failed to serialize jetsam properties[%zu]", a2);
   }
@@ -6901,21 +6700,20 @@ uint64_t sub_1000453CC(uint64_t a1, uint64_t a2, void *a3)
 
 uint64_t sub_100045430(uint64_t a1, int *a2)
 {
-  v3 = *(a1 + 8);
-  v4 = xpc_create_from_serialization();
-  if (v4)
+  v3 = xpc_create_from_serialization();
+  if (v3)
   {
-    v5 = 0;
+    v4 = 0;
   }
 
   else
   {
     sub_10004749C(65539, "failed to deserialize persistent object");
-    v5 = 22;
+    v4 = 22;
   }
 
-  *a2 = v5;
-  return v4;
+  *a2 = v4;
+  return v3;
 }
 
 BOOL sub_100045490(id a1, unint64_t a2, void *a3)
@@ -6965,11 +6763,10 @@ BOOL sub_1000455A8(id a1, unint64_t a2, void *a3)
   string = xpc_dictionary_get_string(a3, "origin");
   v7 = xpc_dictionary_get_string(value, "Label");
   v8 = sub_10002CB18(uint64);
-  v9 = v8;
   if (v8 == &unk_10007D720)
   {
-    v11 = sub_10003283C();
-    if (!v11)
+    v10 = sub_10003283C();
+    if (!v10)
     {
 LABEL_15:
       sub_10004749C(65539, "failed to lookup domain for persisted service");
@@ -6984,50 +6781,49 @@ LABEL_15:
       sub_100054404();
     }
 
-    v10 = 0;
+    v9 = 0;
     while (1)
     {
-      v11 = qword_10007D7A8[v10];
-      if (v11)
+      v10 = qword_10007D7A8[v9];
+      if (v10)
       {
         break;
       }
 
 LABEL_7:
-      if (++v10 == 11)
+      if (++v9 == 11)
       {
         goto LABEL_15;
       }
     }
 
-    while (!sub_1000443C8(v11))
+    while (!sub_1000443C8(v10))
     {
-      v11 = *(v11 + 32);
-      if (!v11)
+      v10 = *(v10 + 32);
+      if (!v10)
       {
         goto LABEL_7;
       }
     }
   }
 
-  v17 = 0;
-  v12 = sub_100041E64(value, v11, string, &v17);
-  v13 = v17;
-  if (!v17)
+  v15 = 0;
+  v11 = sub_100041E64(value, v10, string, &v15);
+  v12 = v15;
+  if (!v15)
   {
-    v15 = v9[14];
     sub_10004749C(65541, "successfully submitted persisted service: %s to %s domain");
     return 1;
   }
 
-  if (v12)
+  if (v11)
   {
     sub_100054404();
   }
 
-  v14 = xpc_strerror();
-  sub_10004749C(65539, "persisted submit job failed: service = %s, error = %d: %s", v7, v13, v14);
-  if (v17)
+  v13 = xpc_strerror();
+  sub_10004749C(65539, "persisted submit job failed: service = %s, error = %d: %s", v7, v12, v13);
+  if (v15)
   {
 LABEL_16:
     sub_10004749C(65539, "failed to restore service[%zu]: %d");
@@ -7084,13 +6880,13 @@ LABEL_9:
 
 char *sub_100045838(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  bzero(v11, 0x408uLL);
-  sub_100045AF8(a1, a2, a3, v11);
+  bzero(v12, 0x408uLL);
+  sub_100045AF8(a1, a2, a3, v12, 1032);
   if ((v6 & 0x80000000) == 0)
   {
     if (!v6)
     {
-      return sub_100016744(&size_4, size - 8);
+      return sub_100016744(&size[4], *size - 8);
     }
 
     return 0;
@@ -7101,9 +6897,10 @@ char *sub_100045838(uint64_t a1, uint64_t a2, uint64_t a3)
     return 0;
   }
 
-  v8 = sub_100014514(size, 0xB78E53C6uLL);
-  sub_100045AF8(a1, a2, a3, v8);
-  if (v9)
+  v8 = *size;
+  v9 = sub_100014514(*size, 0xB78E53C6uLL);
+  sub_100045AF8(a1, a2, a3, v9, v8);
+  if (v10)
   {
     if (*__error() != 3 && *__error())
     {
@@ -7115,22 +6912,22 @@ char *sub_100045838(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v7 = sub_100016744(&v8[1], v8->u32[1] - 8);
+    v7 = sub_100016744(&v9[1], v9->u32[1] - 8);
   }
 
-  free(v8);
+  free(v9);
   return v7;
 }
 
 xpc_object_t sub_100045984(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  bzero(&v12, 0x408uLL);
+  bzero(&v13, 0x408uLL);
   if (a3 != 16 && a3 != 7)
   {
     return 0;
   }
 
-  sub_100045AF8(a1, a2, a3, &v12);
+  sub_100045AF8(a1, a2, a3, &v13, 1032);
   if (v6 < 0)
   {
     if (*__error() != 34)
@@ -7138,9 +6935,10 @@ xpc_object_t sub_100045984(uint64_t a1, uint64_t a2, uint64_t a3)
       return 0;
     }
 
-    v8 = sub_100014514(size, 0xD230A7E8uLL);
-    sub_100045AF8(a1, a2, a3, v8);
-    if (v9)
+    v8 = LODWORD(size[0]);
+    v9 = sub_100014514(LODWORD(size[0]), 0xD230A7E8uLL);
+    sub_100045AF8(a1, a2, a3, v9, v8);
+    if (v10)
     {
       if (*__error() != 3 && *__error())
       {
@@ -7150,12 +6948,12 @@ xpc_object_t sub_100045984(uint64_t a1, uint64_t a2, uint64_t a3)
 
     else
     {
-      v11 = v8->u32[1];
-      if (v11 && v8->i32[0])
+      v12 = v9->u32[1];
+      if (v12 && v9->i32[0])
       {
-        v7 = xpc_data_create(&v8[1], v11 - 8);
+        v7 = xpc_data_create(&v9[1], v12 - 8);
 LABEL_19:
-        free(v8);
+        free(v9);
         return v7;
       }
     }
@@ -7164,15 +6962,15 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  if (v6 || !size || !v12)
+  if (v6 || !LODWORD(size[0]) || !v13)
   {
     return 0;
   }
 
-  return xpc_data_create(&size_4, size - 8);
+  return xpc_data_create(size + 4, LODWORD(size[0]) - 8);
 }
 
-int8x8_t sub_100045AF8(uint64_t a1, uint64_t a2, uint64_t a3, int8x8_t *a4)
+int8x8_t sub_100045AF8(uint64_t a1, uint64_t a2, uint64_t a3, int8x8_t *a4, uint64_t a5)
 {
   if (a2)
   {
@@ -7231,7 +7029,7 @@ uint64_t sub_100045BEC(int a1, void *buffer)
   }
 }
 
-const char *sub_100045C2C(uint64_t a1, char *a2)
+char *sub_100045C2C(uint64_t a1, char *a2)
 {
   v3 = sub_100045BAC(*(a1 + 20), a2);
   v4 = "(dead-on-arrival)";
@@ -7404,7 +7202,7 @@ uint64_t sub_100045FDC(const char *a1, void *a2, size_t a3)
   return result;
 }
 
-unint64_t sub_100046060(char *a1, const char *a2, uint64_t a3)
+uint64_t sub_100046060(char *a1, const char *a2, uint64_t a3)
 {
   v5 = strstr(a1, a2);
   if (v5)
@@ -7477,8 +7275,9 @@ uint64_t sub_1000461D4(int a1, rlim_t *a2, rlim_t *a3)
   return result;
 }
 
-uint64_t sub_100046230(int a1, unint64_t a2, unint64_t a3, int a4)
+uint64_t sub_100046230(int a1, unint64_t a2, rlim_t a3, uint64_t a4)
 {
+  v4 = a4;
   if (a2 >= 0x7FFFFFFFFFFFFFFFLL)
   {
     v6 = 0x7FFFFFFFFFFFFFFFLL;
@@ -7512,12 +7311,12 @@ uint64_t sub_100046230(int a1, unint64_t a2, unint64_t a3, int a4)
     v9 = "kern.maxproc";
 LABEL_11:
     sub_100046328(v9, v7, a4);
-    sub_100046328(v8, v6, a4);
+    sub_100046328(v8, v6, v4);
   }
 
   v13.rlim_cur = v6;
   v13.rlim_max = v7;
-  if (a4)
+  if (v4)
   {
     v12.rlim_cur = 0;
     v12.rlim_max = 0;
@@ -7564,7 +7363,7 @@ uint64_t sub_100046328(const char *a1, unint64_t a2, int a3)
   return result;
 }
 
-uint64_t sub_1000463D0(char *__s2, unint64_t a2, unint64_t a3, int a4)
+uint64_t sub_1000463D0(char *__s2, unint64_t a2, rlim_t a3, uint64_t a4)
 {
   v8 = 9;
   for (i = &dword_10007DB50; ; i += 4)
@@ -7624,12 +7423,13 @@ vm_address_t sub_100046508(uint64_t a1)
   return address;
 }
 
-void sub_100046594(int a1, int a2)
+void sub_100046594(int a1, uint64_t a2)
 {
+  v2 = a2;
   if (a1 == 1)
   {
-    sub_100010B3C();
-    reboot(a2);
+    sub_100010B3C(570425404, 0);
+    reboot(v2);
     if (*__error() == 16)
     {
       sub_10004663C();
@@ -7645,17 +7445,17 @@ void sub_100046594(int a1, int a2)
 
   if (a1 != 3)
   {
-    sub_100010B3C();
-    sub_100046650(a2);
+    sub_100010B3C(570425404, 2);
+    sub_100046650(v2);
 LABEL_8:
-    v3 = *__error();
+    __error();
     _os_assert_log();
     _os_crash();
     __break(1u);
   }
 
-  sub_100010B3C();
-  sub_100048D04("recovery-mode", v4, v5, v6, v7, v8, v9, v10, v11);
+  sub_100010B3C(570425404, 1);
+  sub_100048D04("recovery-mode");
   __break(1u);
 }
 
@@ -7669,22 +7469,21 @@ void sub_10004663C()
 
 uint64_t sub_100046650(char a1)
 {
-  v20 = 0;
+  v14 = 0;
   v2 = _NSGetArgv();
-  v3 = **v2;
-  v4 = "-s";
+  v3 = "-s";
   if ((a1 & 2) == 0)
   {
-    v4 = 0;
+    v3 = 0;
   }
 
   __argv[0] = **v2;
-  __argv[1] = v4;
+  __argv[1] = v3;
   __argv[2] = 0;
-  v18 = 0;
+  v12 = 0;
   sub_100015410(0);
-  v17[0] = 1;
-  if ((sub_10003DF3C() & 1) == 0 && sysctlbyname("vm.shared_region_pivot", 0, 0, v17, 4uLL) == -1)
+  v11[0] = 1;
+  if ((sub_10003DF3C() & 1) == 0 && sysctlbyname("vm.shared_region_pivot", 0, 0, v11, 4uLL) == -1)
   {
     goto LABEL_21;
   }
@@ -7696,28 +7495,28 @@ uint64_t sub_100046650(char a1)
     goto LABEL_19;
   }
 
-  if (posix_spawnattr_init(&v20))
+  if (posix_spawnattr_init(&v14))
   {
     _os_assumes_log();
   }
 
-  if (posix_spawnattr_setflags(&v20, 16448))
+  if (posix_spawnattr_setflags(&v14, 16448))
   {
     _os_assumes_log();
   }
 
-  v5 = sub_100048DB4();
-  if (!v5)
+  v4 = sub_100048DB4();
+  if (!v4)
   {
 LABEL_17:
     empty = xpc_dictionary_create_empty();
     xpc_dictionary_set_BOOL(empty, "on-system-volume", 1);
     xpc_dictionary_set_string(empty, "signing-identifier", "com.apple.xpc.launchd");
     xpc_dictionary_set_int64(empty, "validation-category", 1);
-    v8 = sub_100010D84(1, 0, empty);
-    v9 = sub_100010E34(v8);
-    xpc_data_get_bytes_ptr(v9);
-    xpc_data_get_length(v9);
+    v7 = sub_100010D84(1, 0, empty);
+    v8 = sub_100010E34(v7);
+    xpc_data_get_bytes_ptr(v8);
+    xpc_data_get_length(v8);
     if (amfi_launch_constraint_set_spawnattr())
     {
 LABEL_20:
@@ -7725,36 +7524,36 @@ LABEL_20:
       _os_crash();
       __break(1u);
 LABEL_21:
-      v12 = *__error();
+      __error();
       _os_assert_log();
       _os_crash();
       __break(1u);
       goto LABEL_22;
     }
 
-    v10 = _NSGetEnviron();
-    posix_spawn(&v18, "/sbin/launchd", 0, &v20, __argv, *v10);
+    v9 = _NSGetEnviron();
+    posix_spawn(&v12, "/sbin/launchd", 0, &v14, __argv, *v9);
     _os_assert_log();
     _os_crash();
     __break(1u);
 LABEL_19:
-    v11 = *__error();
+    __error();
     _os_assert_log();
     _os_crash();
     __break(1u);
     goto LABEL_20;
   }
 
-  v6 = sub_1000016EC(v5);
-  if (setenv("XPC_USERSPACE_REBOOT_TO_BOOT_MODE", v6, 1) == -1)
+  v5 = sub_1000016EC(v4);
+  if (setenv("XPC_USERSPACE_REBOOT_TO_BOOT_MODE", v5, 1) == -1)
   {
 LABEL_22:
-    v13 = *__error();
+    __error();
     _os_assert_log();
     _os_crash();
     __break(1u);
 LABEL_23:
-    v14 = *__error();
+    __error();
     _os_assert_log();
     _os_crash();
     __break(1u);
@@ -7763,14 +7562,14 @@ LABEL_23:
 
   if (!sub_100048DCC() || setenv("XPC_IN_REM_DEVELOPMENT", "1", 1) != -1)
   {
-    v17[2] = 0;
+    v11[2] = 0;
     if (!sub_100044E04())
     {
       _os_assumes_log();
     }
 
-    v17[0] = 0;
-    v17[1] = _xpc_shmem_get_mach_port();
+    v11[0] = 0;
+    v11[1] = _xpc_shmem_get_mach_port();
     if (posix_spawnattr_set_registered_ports_np() == -1)
     {
       goto LABEL_23;
@@ -7780,14 +7579,14 @@ LABEL_23:
   }
 
 LABEL_24:
-  v15 = *__error();
+  __error();
   _os_assert_log();
   result = _os_crash();
   __break(1u);
   return result;
 }
 
-uint64_t sub_1000468E8()
+uint64_t sub_1000468E8(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4)
 {
   result = terminate_with_reason();
   if (result)
@@ -7825,18 +7624,8 @@ uint64_t sub_100046938()
   return v0;
 }
 
-uint64_t sub_1000469A8(__int128 *a1, __int128 *a2)
-{
-  v5 = *a1;
-  v6 = a1[1];
-  v3 = *a2;
-  v4 = a2[1];
-  return proc_terminate_delegate();
-}
-
 uint64_t sub_1000469E0(uint64_t a1, int a2)
 {
-  v3 = *(a1 + 20);
   if (!csops_audittoken())
   {
     return a2 == 0;
@@ -7883,15 +7672,6 @@ uint64_t sub_100046ABC(pid_t a1, int a2)
   return result;
 }
 
-uint64_t sub_100046AE0(__int128 *a1, __int128 *a2)
-{
-  v5 = *a1;
-  v6 = a1[1];
-  v3 = *a2;
-  v4 = a2[1];
-  return proc_signal_delegate();
-}
-
 uint64_t sub_100046B18(pid_t a1, int *a2, int a3, rusage *a4)
 {
   if (wait4(a1, a2, a3, a4) == -1)
@@ -7919,11 +7699,11 @@ uint64_t sub_100046B54(int pid, integer_t *a2)
   return v3;
 }
 
-uint64_t sub_100046BD4()
+uint64_t sub_100046BD4(uint64_t a1, uint64_t a2)
 {
-  v0 = memorystatus_control();
+  v2 = memorystatus_control();
   result = 0;
-  if (v0 != 24)
+  if (v2 != 24)
   {
     return *__error();
   }
@@ -7998,36 +7778,36 @@ void sub_100046D94()
   {
     bzero(__str, 0x400uLL);
     snprintf(__str, 0x400uLL, "/private/%s", "/var/run/syslog");
-    v20 = 0u;
-    memset(v21, 0, sizeof(v21));
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0;
-    v17 = 0u;
-    v16.sa_family = 1;
-    strncpy(v16.sa_data, __str, 0x67uLL);
+    v14 = 0u;
+    memset(v15, 0, sizeof(v15));
+    v12 = 0u;
+    v13 = 0u;
+    v10 = 0;
+    v11 = 0u;
+    v10.sa_family = 1;
+    strncpy(v10.sa_data, __str, 0x67uLL);
     v0 = socket(1, 2, 0);
     if (v0 == -1)
     {
       v4 = *__error();
-      v5 = *__error();
-      v6 = xpc_strerror();
-      sub_10004749C(65539, "Could not create system logger socket: error = %d: %s", v4, v6);
+      __error();
+      v5 = xpc_strerror();
+      sub_10004749C(65539, "Could not create system logger socket: error = %d: %s", v4, v5);
       goto LABEL_22;
     }
 
     v1 = v0;
-    if (unlink(v16.sa_data) == -1 && *__error() != 2)
+    if (unlink(v10.sa_data) == -1 && *__error() != 2)
     {
-      v7 = *__error();
-      v8 = *__error();
+      __error();
+      __error();
       xpc_strerror();
       sub_10004749C(65539, "Could not unlink previous system logger socket: error = %d: %s");
     }
 
     else
     {
-      v2 = bind(v1, &v16, 0x6Au);
+      v2 = bind(v1, &v10, 0x6Au);
       if (!v2)
       {
         goto LABEL_16;
@@ -8036,7 +7816,7 @@ void sub_100046D94()
       v3 = v2;
       while (*__error() == 35 || *__error() == 4)
       {
-        v3 = bind(v1, &v16, 0x6Au);
+        v3 = bind(v1, &v10, 0x6Au);
         if (!v3)
         {
           goto LABEL_16;
@@ -8046,13 +7826,13 @@ void sub_100046D94()
       if (v3 != -1)
       {
 LABEL_16:
-        if (chmod(v16.sa_data, 0x1B6u) == -1)
+        if (chmod(v10.sa_data, 0x1B6u) == -1)
         {
-          v9 = *__error();
-          v10 = *__error();
-          v11 = xpc_strerror();
-          sub_10004749C(65539, "Could not make system logger socket world-writable: error = %d: %s", v9, v11);
-          if (unlink(v16.sa_data) == -1)
+          v6 = *__error();
+          __error();
+          v7 = xpc_strerror();
+          sub_10004749C(65539, "Could not make system logger socket world-writable: error = %d: %s", v6, v7);
+          if (unlink(v10.sa_data) == -1)
           {
             sub_10005453C();
           }
@@ -8067,8 +7847,8 @@ LABEL_16:
         goto LABEL_22;
       }
 
-      v12 = *__error();
-      v13 = *__error();
+      __error();
+      __error();
       xpc_strerror();
       sub_10004749C(65539, "Could not bind to system logger socket: error = %d: %s");
     }
@@ -8079,9 +7859,9 @@ LABEL_16:
 LABEL_22:
   dispatch_activate(qword_10007E960);
   atomic_store(1u, byte_10007E978);
-  v14 = off_10007DC30;
-  v15 = getpid();
-  sub_1000470CC(65541, "launchd logging initialized. name: %s pid: %d", v14, v15);
+  v8 = off_10007DC30;
+  v9 = getpid();
+  sub_1000470CC(65541, "launchd logging initialized. name: %s pid: %d", v8, v9);
 }
 
 void sub_100047058()
@@ -8094,7 +7874,7 @@ void sub_100047058()
   qword_10007F178 = &qword_10007F170;
 }
 
-void sub_1000470CC(int a1, char *a2, ...)
+void sub_1000470CC(uint64_t a1, char *a2, ...)
 {
   va_start(va, a2);
   sub_1000474DC(0, a1, a2, va, v2);
@@ -8129,7 +7909,7 @@ uint64_t sub_1000471B4()
     v0 = sub_1000168E0("Flushing logs before initialization. Early logs may not be written to file.");
     v1 = sub_10004768C(4, 0, v0, 0);
     sub_100047788(v1, 0);
-    sub_10001B690(v1);
+    sub_10001B690(v1, 0);
   }
 
   os_unfair_lock_lock(&stru_10007E97C);
@@ -8172,7 +7952,7 @@ LABEL_18:
         v18 = &v17;
       }
 
-      sub_10001B690(v4);
+      sub_10001B690(v4, 0);
       ++v5;
       v4 = v17;
       if (!v17)
@@ -8189,16 +7969,16 @@ LABEL_18:
         v9 = sub_1000168E0("Last log repeated %llu times", qword_10007E998);
         v10 = sub_10004768C(5, 0, v9, 0);
         sub_100047788(v10, 0);
-        sub_10001B690(v10);
+        sub_10001B690(v10, 0);
         v8 = qword_10007E990;
       }
 
-      sub_10001B690(v8);
+      sub_10001B690(v8, 0);
       qword_10007E990 = 0;
     }
 
 LABEL_16:
-    qword_10007E990 = sub_10001B5B8(v4);
+    qword_10007E990 = sub_10001B5B8(v4, 0);
     qword_10007E998 = 0;
     v16 = 0;
     sub_100047788(v4, &v16);
@@ -8246,7 +8026,7 @@ LABEL_29:
   if (v13)
   {
     sub_100047788(v13, 0);
-    sub_10001B690(v14);
+    sub_10001B690(v14, 0);
   }
 
 LABEL_31:
@@ -8259,16 +8039,17 @@ LABEL_31:
   return result;
 }
 
-void sub_1000474DC(const char *a1, int a2, char *a3, va_list a4, uint64_t a5)
+void sub_1000474DC(const char *a1, uint64_t a2, char *a3, va_list a4, uint64_t a5)
 {
   if ((a2 & 0xFFFEu) <= 5)
   {
     v13[5] = v5;
     v13[6] = v6;
+    v8 = a2;
     v13[0] = 0;
     if (vasprintf(v13, a3, a4) != -1)
     {
-      v10 = sub_10004768C(a2, a1, v13[0], a5);
+      v10 = sub_10004768C(v8, a1, v13[0], a5);
       v11 = v10;
       if ((atomic_load_explicit(byte_10007E978, memory_order_acquire) & 1) == 0 && BYTE4(v10[1].tv_sec) == 1)
       {
@@ -8298,7 +8079,7 @@ void sub_1000474DC(const char *a1, int a2, char *a3, va_list a4, uint64_t a5)
       {
         ++qword_10007E988;
         os_unfair_lock_unlock(&stru_10007E97C);
-        sub_10001B690(v11);
+        sub_10001B690(v11, 0);
       }
     }
   }
@@ -8364,14 +8145,14 @@ void sub_100047788(uint64_t a1, _DWORD *a2)
     if (!xmmword_10007E9C0)
     {
       *&xmmword_10007E9C0 = getpid();
-      *&v25 = 0;
-      v23 = 0u;
-      v24 = 0u;
+      *&v16 = 0;
+      v14 = 0u;
+      v15 = 0u;
       buffer = 0u;
-      v8 = getpid();
-      proc_pidinfo(v8, 17, 0, &buffer, 56);
-      *(&xmmword_10007E9C0 + 1) = v23;
-      *&xmmword_10007E9D0 = v24;
+      v7 = getpid();
+      proc_pidinfo(v7, 17, 0, &buffer, 56);
+      *(&xmmword_10007E9C0 + 1) = v14;
+      *&xmmword_10007E9D0 = v15;
       uuid_copy(&xmmword_10007E9E0 + 8, &buffer);
       uuid_copy(byte_10007E9F8, &buffer);
       uuid_clear(&xmmword_10007EA00 + 8);
@@ -8379,24 +8160,23 @@ void sub_100047788(uint64_t a1, _DWORD *a2)
       qword_10007EA18 = _NSGetMachExecuteHeader();
     }
 
-    v26 = xmmword_10007E9E0;
-    v27 = unk_10007E9F0;
-    v28 = xmmword_10007EA00;
-    v29 = qword_10007EA10;
+    v17 = xmmword_10007E9E0;
+    v18 = unk_10007E9F0;
+    v19 = xmmword_10007EA00;
+    v20 = qword_10007EA10;
     buffer = xmmword_10007E9A0;
-    v23 = *algn_10007E9B0;
-    v24 = xmmword_10007E9C0;
-    v25 = xmmword_10007E9D0;
-    v9 = *(a1 + 16);
+    v14 = *algn_10007E9B0;
+    v15 = xmmword_10007E9C0;
+    v16 = xmmword_10007E9D0;
     LOBYTE(buffer) = os_log_simple_type_from_asl();
-    v10 = *(a1 + 48);
-    v11 = *(a1 + 56);
+    v8 = *(a1 + 48);
+    v9 = *(a1 + 56);
     *(&buffer + 1) = *(a1 + 24);
-    *&v23 = v10;
-    v12 = *(a1 + 72);
-    *(&v23 + 1) = *(a1 + 64);
-    *(&v25 + 1) = v12;
-    *&v26 = v11 - qword_10007EA18;
+    *&v14 = v8;
+    v10 = *(a1 + 72);
+    *(&v14 + 1) = *(a1 + 64);
+    *(&v16 + 1) = v10;
+    *&v17 = v9 - qword_10007EA18;
     v4 = _os_log_simple_send();
     if (a2)
     {
@@ -8417,42 +8197,31 @@ LABEL_6:
 
     if (*(a1 + 23) == 1)
     {
-      v7 = *(a1 + 16);
-      if (v7 < 8)
+      if (*(a1 + 16) < 8u)
       {
-        v13 = byte_1000577F0[v7];
-        if (*(a1 + 24))
-        {
-          v14 = *(a1 + 24);
-        }
-
-        v15 = *(a1 + 48);
         if (record_system_event_as_kernel())
         {
-          v16 = __error();
-          v17 = *(a1 + 48);
-          v21 = *v16;
+          __error();
           sub_10004749C(3, "Unable to record system event. Result: %d errno: %d Message: %s");
         }
       }
 
       else
       {
-        v20 = *(a1 + 16);
         sub_10004749C(3, "Log level out of bounds for system state conversion: %d");
       }
     }
 
     if (*(a1 + 22) == 1)
     {
-      v18 = qword_10007E970;
-      if (qword_10007E970 || (v18 = sub_10003E478(off_10007DC18[0]), (qword_10007E970 = v18) != 0))
+      v11 = qword_10007E970;
+      if (qword_10007E970 || (v11 = sub_10003E478(off_10007DC18[0]), (qword_10007E970 = v11) != 0))
       {
-        v19 = strlen(v6);
-        fwrite(v6, 1uLL, v19, v18);
+        v12 = strlen(v6);
+        fwrite(v6, 1uLL, v12, v11);
         if (qword_10007DC70 >= 1)
         {
-          qword_10007EA20 += v19;
+          qword_10007EA20 += v12;
           if (qword_10007EA20 >= qword_10007DC70)
           {
             sub_1000415F0(qword_10007E970);
@@ -8475,55 +8244,52 @@ LABEL_6:
 char *sub_100047A74(uint64_t a1)
 {
   *__str = 0;
-  v9 = 0;
-  memset(v10, 0, sizeof(v10));
-  memset(&v7, 0, sizeof(v7));
-  localtime_r((a1 + 32), &v7);
-  snprintf(__str, 0x1BuLL, "%04d-%02d-%02d %02d:%02d:%02d.%06d", v7.tm_year + 1900, v7.tm_mon + 1, v7.tm_mday, v7.tm_hour, v7.tm_min, v7.tm_sec, *(a1 + 40));
-  v2 = (&off_100079C88)[*(a1 + 16)];
-  v3 = *(a1 + 48);
+  v5 = 0;
+  memset(v6, 0, sizeof(v6));
+  memset(&v3, 0, sizeof(v3));
+  localtime_r((a1 + 32), &v3);
+  snprintf(__str, 0x1BuLL, "%04d-%02d-%02d %02d:%02d:%02d.%06d", v3.tm_year + 1900, v3.tm_mon + 1, v3.tm_mday, v3.tm_hour, v3.tm_min, v3.tm_sec, *(a1 + 40));
   if (*(a1 + 24))
   {
-    v6 = (&off_100079C88)[*(a1 + 16)];
     return sub_1000168E0("%s (%s) <%s>: %s\n");
   }
 
   else
   {
-    v5 = (&off_100079C88)[*(a1 + 16)];
     return sub_1000168E0("%s <%s>: %s\n");
   }
 }
 
-void sub_100047B94(char *key, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void sub_100047B94(char *key, uint64_t a2)
 {
   if (!qword_10007F138)
   {
-    sub_1000441E0("boot task dictionary is not populated");
+    sub_1000441E0("boot task dictionary is not populated", a2);
   }
 
+  v3 = a2;
   value = xpc_dictionary_get_value(qword_10007F138, key);
   if (!value)
   {
     sub_1000441E0("undefined boot task %s", key);
   }
 
-  v12 = value;
+  v5 = value;
   if (xpc_get_type(value) != &_xpc_type_dictionary)
   {
     sub_1000441E0("boot task %s is not a dictionary", key);
   }
 
-  if (sub_100047C8C(key, v12))
+  if (sub_100047C8C(key, v5))
   {
 
-    sub_100047DD0(key, v12, a2, v13, v14, v15, v16, v17);
+    sub_100047DD0(key, v5, v3);
   }
 
   else
   {
 
-    sub_100047654(key, 196613, "Skipping boot-task", v13, v14, v15, v16, v17, a9);
+    sub_100047654(key, 196613, "Skipping boot-task");
   }
 }
 
@@ -8558,9 +8324,9 @@ uint64_t sub_100047C8C(const char *a1, xpc_object_t xdict)
   return v4 & 1;
 }
 
-uint64_t sub_100047DD0(const char *a1, void *a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_100047DD0(const char *a1, void *a2, int a3)
 {
-  sub_100047654(a1, 196613, "Doing boot task", a4, a5, a6, a7, a8, v66);
+  sub_100047654(a1, 196613, "Doing boot task");
   sub_100010B58(570425413, a1);
   if (xpc_dictionary_get_string(a2, "Block"))
   {
@@ -8580,175 +8346,183 @@ uint64_t sub_100047DD0(const char *a1, void *a2, int a3, uint64_t a4, uint64_t a
       sub_1000441E0("Malformed boot-task (missing block key): %s", a1);
     }
 
-    v12 = sub_10002B950(string);
-    v12[2]();
-    _Block_release(v12);
+    v7 = sub_10002B950(string);
+    v7[2]();
+    _Block_release(v7);
     return sub_100010B58(570425414, a1);
   }
 
   value = xpc_dictionary_get_value(a2, "RebootOnExitCode");
   if (value)
   {
-    v15 = value;
+    v10 = value;
     if (xpc_get_type(value) == &_xpc_type_int64)
     {
-      v16 = xpc_int64_get_value(v15);
-      sub_10004749C(65543, "%s: will reboot if exits with code: %d", a1, v16);
+      v11 = xpc_int64_get_value(v10);
+      sub_10004749C(65543, "%s: will reboot if exits with code: %d", a1, v11);
     }
   }
 
   if (xpc_dictionary_get_BOOL(a2, "RemoveOnSuccess"))
   {
-    v17 = sub_1000490EC(a2);
-    memset(&v72, 0, sizeof(v72));
-    if (stat(v17, &v72))
+    v12 = sub_1000490EC(a2);
+    memset(&v67, 0, sizeof(v67));
+    if (stat(v12, &v67))
     {
       return sub_100010B58(570425414, a1);
     }
   }
 
-  *&v72.st_dev = *off_100079D48;
-  *&v72.st_uid = *&off_100079D58;
-  v18 = sub_1000490EC(a2);
-  if (!v18)
+  *&v67.st_dev = *off_100079D48;
+  *&v67.st_uid = *&off_100079D58;
+  v13 = sub_1000490EC(a2);
+  if (!v13)
   {
     sub_1000441E0("boot task has no program");
   }
 
-  v19 = v18;
-  v20 = xpc_dictionary_get_value(a2, "ProgramArguments");
-  if (v20)
+  v14 = v13;
+  v15 = xpc_dictionary_get_value(a2, "ProgramArguments");
+  if (v15)
   {
-    v21 = v20;
-    if (xpc_get_type(v20) != &_xpc_type_array)
+    v16 = v15;
+    if (xpc_get_type(v15) != &_xpc_type_array)
     {
       goto LABEL_105;
     }
 
-    v22 = xpc_retain(v21);
+    v17 = xpc_retain(v16);
   }
 
   else
   {
-    v22 = xpc_array_create(0, 0);
+    v17 = xpc_array_create(0, 0);
   }
 
-  v23 = v22;
-  if (!xpc_array_get_count(v22))
+  v18 = v17;
+  if (!xpc_array_get_count(v17))
   {
-    xpc_array_set_string(v23, 0xFFFFFFFFFFFFFFFFLL, v19);
+    xpc_array_set_string(v18, 0xFFFFFFFFFFFFFFFFLL, v14);
   }
 
-  if (xpc_dictionary_get_BOOL(a2, "PassLaunchBootModeAsArgument"))
+  v19 = xpc_dictionary_get_BOOL(a2, "PassLaunchBootModeAsArgument");
+  if (v19)
   {
-    v24 = sub_10000184C();
-    if (v24)
+    v21 = sub_10000184C(v19, v20);
+    if (v21)
     {
-      xpc_array_set_string(v23, 0xFFFFFFFFFFFFFFFFLL, v24);
+      xpc_array_set_string(v18, 0xFFFFFFFFFFFFFFFFLL, v21);
     }
   }
 
-  count = xpc_array_get_count(v23);
-  v26 = count + 1;
-  if (((count == -1) << 63) >> 63 != (count == -1) || v26 >> 61)
+  count = xpc_array_get_count(v18);
+  v23 = count + 1;
+  if (((count == -1) << 63) >> 63 != (count == -1) || v23 >> 61)
   {
     __break(1u);
 LABEL_105:
     sub_1000441E0("boot task argument vector is not an array");
   }
 
-  v27 = count;
-  v28 = sub_100014514(8 * v26, 0x814A2B55uLL);
-  if (v27)
+  v24 = count;
+  v25 = sub_100014514(8 * v23, 0x814A2B55uLL);
+  if (v24)
   {
-    for (i = 0; i != v27; ++i)
+    for (i = 0; i != v24; ++i)
     {
-      v30 = xpc_array_get_string(v23, i);
-      if (v30)
+      v27 = xpc_array_get_string(v18, i);
+      if (v27)
       {
-        v28[i] = v30;
+        v25[i] = v27;
       }
     }
   }
 
-  v71 = 0;
-  if (posix_spawnattr_init(&v71))
+  v66 = 0;
+  v28 = posix_spawnattr_init(&v66);
+  if (v28)
   {
-    sub_100054420();
+    sub_100054420(v28);
   }
 
-  if (posix_spawnattr_setflags(&v71, 16524))
+  v29 = posix_spawnattr_setflags(&v66, 16524);
+  if (v29)
   {
-    sub_100054420();
+    sub_100054420(v29);
   }
 
   if ((a3 & 1) == 0)
   {
     xpc_dictionary_get_BOOL(a2, "AllowCrash");
-    v31 = xpc_dictionary_get_value(a2, "RebootOnExitCode");
-    if (!v31 || xpc_get_type(v31) != &_xpc_type_int64)
+    v30 = xpc_dictionary_get_value(a2, "RebootOnExitCode");
+    if (!v30 || xpc_get_type(v30) != &_xpc_type_int64)
     {
       xpc_dictionary_get_BOOL(a2, "RequireSuccess");
     }
 
-    if (posix_spawnattr_set_crash_behavior_np())
+    v31 = posix_spawnattr_set_crash_behavior_np();
+    if (v31)
     {
-      sub_100054420();
+      sub_100054420(v31);
     }
   }
 
-  if (posix_spawnattr_setprocesstype_np())
+  v32 = posix_spawnattr_setprocesstype_np();
+  if (v32)
   {
-    sub_100054420();
+    sub_100054420(v32);
   }
 
-  if (posix_spawnattr_set_launch_type_np())
+  v33 = posix_spawnattr_set_launch_type_np();
+  if (v33)
   {
-    sub_100054420();
+    sub_100054420(v33);
   }
 
-  v70 = 0;
-  if (posix_spawnattr_setsigmask(&v71, &v70))
+  v65 = 0;
+  v34 = posix_spawnattr_setsigmask(&v66, &v65);
+  if (v34)
   {
-    sub_100054420();
+    sub_100054420(v34);
   }
 
-  v69 = -1;
-  if (posix_spawnattr_setsigdefault(&v71, &v69))
+  v64 = -1;
+  v35 = posix_spawnattr_setsigdefault(&v66, &v64);
+  if (v35)
   {
-    sub_100054420();
+    sub_100054420(v35);
   }
 
-  v68 = 0;
-  if (posix_spawn_file_actions_init(&v68) == -1)
-  {
-    sub_10005453C();
-  }
-
-  if (posix_spawn_file_actions_addopen(&v68, 0, "/dev/console", 0x20000, 0) == -1)
-  {
-    sub_10005453C();
-  }
-
-  if (posix_spawn_file_actions_addopen(&v68, 1, "/dev/console", 131073, 0) == -1)
+  v63 = 0;
+  if (posix_spawn_file_actions_init(&v63) == -1)
   {
     sub_10005453C();
   }
 
-  if (posix_spawn_file_actions_addopen(&v68, 2, "/dev/console", 131074, 0) == -1)
+  if (posix_spawn_file_actions_addopen(&v63, 0, "/dev/console", 0x20000, 0) == -1)
   {
     sub_10005453C();
   }
 
-  v32 = mach_host_self();
-  v33 = sub_10000B9C0(v32);
-  v34 = mach_host_self();
-  sub_100048C5C(v34, 0);
+  if (posix_spawn_file_actions_addopen(&v63, 1, "/dev/console", 131073, 0) == -1)
+  {
+    sub_10005453C();
+  }
+
+  if (posix_spawn_file_actions_addopen(&v63, 2, "/dev/console", 131074, 0) == -1)
+  {
+    sub_10005453C();
+  }
+
+  v36 = mach_host_self();
+  v37 = sub_10000B9C0(v36);
+  v38 = mach_host_self();
+  sub_100048C5C(v38, 0);
   if ((a3 & 4) != 0)
   {
     if (qword_10007EA38)
     {
-      v74 = 0;
+      v69 = 0;
       mach_port = _xpc_shmem_get_mach_port();
       if (posix_spawnattr_set_registered_ports_np() == -1)
       {
@@ -8762,128 +8536,132 @@ LABEL_105:
     }
   }
 
-  v67 = 0;
-  v35 = posix_spawnp(&v67, v19, &v68, &v71, v28, &v72);
-  if (posix_spawn_file_actions_destroy(&v68) == -1)
+  v62 = 0;
+  v39 = posix_spawnp(&v62, v14, &v63, &v66, v25, &v67);
+  if (posix_spawn_file_actions_destroy(&v63) == -1)
   {
     sub_10005453C();
   }
 
-  if (posix_spawnattr_destroy(&v71) == -1)
+  if (posix_spawnattr_destroy(&v66) == -1)
   {
     sub_10005453C();
   }
 
-  free(v28);
-  xpc_release(v23);
-  v36 = mach_host_self();
-  sub_100048C5C(v36, v33);
-  if (v35)
+  free(v25);
+  xpc_release(v18);
+  v40 = mach_host_self();
+  sub_100048C5C(v40, v37);
+  if (v39)
   {
-    v42 = (a3 & 1) == 0 && xpc_dictionary_get_BOOL(a2, "RequireRun");
-    if (v35 != 2)
+    v41 = (a3 & 1) == 0 && xpc_dictionary_get_BOOL(a2, "RequireRun");
+    if (v39 != 2)
     {
-      strerror(v35);
-      sub_100047654(a1, 196611, "posix_spawn(): %d: %s", v52, v53, v54, v55, v56, v35);
-      if (!v42)
+      v51 = strerror(v39);
+      sub_100047654(a1, 196611, "posix_spawn(): %d: %s", v39, v51);
+      if (!v41)
       {
         return sub_100010B58(570425414, a1);
       }
 
-      memset(&v72, 0, 64);
-      v57 = strerror(v35);
-      snprintf(&v72, 0x40uLL, "posix_spawn: %d: %s", v35, v57);
-      v51 = &v72;
+      memset(&v67, 0, 64);
+      v52 = strerror(v39);
+      snprintf(&v67, 0x40uLL, "posix_spawn: %d: %s", v39, v52);
+      v50 = &v67;
 LABEL_70:
-      sub_100048D0C(a1, v51);
+      sub_100048D0C(a1, v50);
     }
 
-    if (v42)
+    if (v41)
     {
-      v49 = 196611;
+      v48 = 196611;
     }
 
     else
     {
-      v49 = 196613;
+      v48 = 196613;
     }
 
-    v50 = "optional";
-    if (v42)
+    v49 = "optional";
+    if (v41)
     {
-      v50 = "required";
+      v49 = "required";
     }
 
-    sub_100047654(a1, v49, "%s boot task not present", v37, v38, v39, v40, v41, v50);
-    if (v42)
+    sub_100047654(a1, v48, "%s boot task not present", v49);
+    if (v41)
     {
-      v51 = "required boot task executable not found";
+      v50 = "required boot task executable not found";
       goto LABEL_70;
     }
   }
 
   else
   {
-    v43 = v67;
-    v44 = xpc_dictionary_get_string(a2, "CSIdentityOverride");
+    v42 = v62;
+    v43 = xpc_dictionary_get_string(a2, "CSIdentityOverride");
     mach_port = 0;
     if (csops() || (mach_port & 0x4000000) == 0)
     {
-      v63 = sub_1000490EC(a2);
-      sub_100044244("boot task is not a platform binary (%s, %s)", a1, v63);
+      v59 = sub_1000490EC(a2);
+      sub_100044244("boot task is not a platform binary (%s, %s)", a1, v59);
     }
 
     *__error() = 0;
-    v45 = sub_100045830(v43, 0);
-    v46 = sub_1000490EC(a2);
-    v47 = v46;
-    if (!v45)
+    v44 = sub_100045830(v42, 0);
+    v45 = sub_1000490EC(a2);
+    v46 = v45;
+    if (!v44)
     {
-      v64 = __error();
-      sub_1000441E0("failed to get the code signing identity for a boot-task (%s, %s) errno: %d", a1, v47, *v64);
+      v60 = __error();
+      sub_1000441E0("failed to get the code signing identity for a boot-task (%s, %s) errno: %d", a1, v46, *v60);
     }
 
-    if (v44)
+    if (v43)
     {
-      v48 = sub_1000166EC(v44);
+      v47 = sub_1000166EC(v43);
     }
 
     else
     {
-      v58 = strrchr(v46, 47);
-      if (v58)
+      v53 = strrchr(v45, 47);
+      if (v53)
       {
-        v59 = v58 + 1;
+        v54 = v53 + 1;
       }
 
       else
       {
-        v59 = v47;
+        v54 = v46;
       }
 
-      v48 = sub_1000168E0("com.apple.%s", v59);
+      v47 = sub_1000168E0("com.apple.%s", v54);
     }
 
-    v60 = v48;
-    if (!v48)
+    v55 = v47;
+    if (!v47)
     {
       sub_100054404();
     }
 
-    if (strcmp(v48, v45))
+    if (strcmp(v47, v44))
     {
-      v65 = sub_1000490EC(a2);
-      sub_100044244("code signing identity mismatch for a boot-task (%s, %s) observed=%s expected=%s", a1, v65, v45, v60);
+      v61 = sub_1000490EC(a2);
+      sub_100044244("code signing identity mismatch for a boot-task (%s, %s) observed=%s expected=%s", a1, v61, v44, v55);
     }
 
-    free(v45);
-    free(v60);
-    if (kill(v67, 19) == -1 && *__error())
+    free(v44);
+    free(v55);
+    if (kill(v62, 19) == -1)
     {
-      sub_100054420();
+      v56 = *__error();
+      if (v56)
+      {
+        sub_100054420(v56);
+      }
     }
 
-    v61 = v67;
+    v57 = v62;
     if (xpc_dictionary_get_BOOL(a2, "Async"))
     {
       if (a3)
@@ -8898,12 +8676,12 @@ LABEL_70:
         qword_10007F060 = empty;
       }
 
-      xpc_dictionary_set_int64(empty, a1, v61);
+      xpc_dictionary_set_int64(empty, a1, v57);
     }
 
     else
     {
-      sub_100049180(a1, a2, a3, v61);
+      sub_100049180(a1, a2, a3, v57);
     }
   }
 
@@ -8912,110 +8690,108 @@ LABEL_70:
 
 void sub_100048590()
 {
-  bzero(&v217, 0x878uLL);
-  if (statfs("/", &v217) == -1)
+  bzero(&v12, 0x878uLL);
+  if (statfs("/", &v12) == -1)
   {
-    v187 = *__error();
+    __error();
     _os_assumes_log();
   }
 
-  else if (v217.f_flags)
+  else if (v12.f_flags)
   {
-    sub_100047B94("fsck", 0, v0, v1, v2, v3, v4, v5, v188);
+    sub_100047B94("fsck", 0);
   }
 
-  sub_100047B94("mount-phase-1", 0, v0, v1, v2, v3, v4, v5, v188);
-  sub_100047B94("data-protection", 0, v6, v7, v8, v9, v10, v11, v189);
-  sub_100047B94("finish-obliteration", 0, v12, v13, v14, v15, v16, v17, v190);
-  sub_100047B94("detect-installed-roots", 0, v18, v19, v20, v21, v22, v23, v191);
-  sub_100047B94("select-boot-mode", 0, v24, v25, v26, v27, v28, v29, v192);
-  sub_100047B94("commit-boot-mode", 0, v30, v31, v32, v33, v34, v35, v193);
+  sub_100047B94("mount-phase-1", 0);
+  sub_100047B94("data-protection", 0);
+  sub_100047B94("finish-obliteration", 0);
+  sub_100047B94("detect-installed-roots", 0);
+  sub_100047B94("select-boot-mode", 0);
+  sub_100047B94("commit-boot-mode", 0);
   if (sub_100033390())
   {
-    sub_100047B94("rem-enable-fuse", 0, v36, v37, v38, v39, v40, v41, v194);
+    sub_100047B94("rem-enable-fuse", 0);
   }
 
-  sub_100047B94("restore-datapartition", 0, v36, v37, v38, v39, v40, v41, v194);
-  sub_100047B94("mount-phase-2", 0, v42, v43, v44, v45, v46, v47, v195);
-  sub_100047B94("init-with-data-volume", 0, v48, v49, v50, v51, v52, v53, v196);
-  sub_100047B94("fixup-mobile-tmp", 0, v54, v55, v56, v57, v58, v59, v197);
-  sub_100047B94("MSUEarlyBootTask", 0, v60, v61, v62, v63, v64, v65, v198);
-  sub_100047B94("MobileAssetEarlyBootTask", 0, v66, v67, v68, v69, v70, v71, v199);
-  sub_100047B94("fips", 0, v72, v73, v74, v75, v76, v77, v200);
+  sub_100047B94("restore-datapartition", 0);
+  sub_100047B94("mount-phase-2", 0);
+  sub_100047B94("init-with-data-volume", 0);
+  sub_100047B94("fixup-mobile-tmp", 0);
+  sub_100047B94("MSUEarlyBootTask", 0);
+  sub_100047B94("MobileAssetEarlyBootTask", 0);
+  sub_100047B94("fips", 0);
   if (os_variant_is_darwinos())
   {
-    sub_100047B94("darwinos-boot-task", 0, v78, v79, v80, v81, v82, v83, v201);
+    sub_100047B94("darwinos-boot-task", 0);
   }
 
-  sub_100047B94("keybag", 0, v78, v79, v80, v81, v82, v83, v201);
-  sub_100047B94("usermanagerd", 0, v84, v85, v86, v87, v88, v89, v202);
-  sub_100047B94("dirs_cleaner", 0, v90, v91, v92, v93, v94, v95, v203);
-  sub_100047B94("dirs_cleaner-usr", 0, v96, v97, v98, v99, v100, v101, v204);
+  sub_100047B94("keybag", 0);
+  sub_100047B94("usermanagerd", 0);
+  sub_100047B94("dirs_cleaner", 0);
+  sub_100047B94("dirs_cleaner-usr", 0);
   sub_100046D94();
   if ((byte_10007F0E4 & 1) == 0 && (byte_10007F0E5 & 1) == 0)
   {
-    nullsub_23(v102, v103);
+    nullsub_23();
   }
 
-  sub_100047B94("xpcroleaccountd", 0, v104, v105, v106, v107, v108, v109, v205);
-  sub_100047B94("init_featureflags", 0, v110, v111, v112, v113, v114, v115, v206);
+  sub_100047B94("xpcroleaccountd", 0);
+  sub_100047B94("init_featureflags", 0);
   j__libSystem_init_after_boot_tasks_4launchd();
   if ((byte_10007F0E4 & 1) == 0 && (byte_10007F0E5 & 1) == 0 && (byte_10007F100 & 1) == 0)
   {
-    v122 = ne_session_initialize_necp_drop_all();
-    if (v122)
+    v0 = ne_session_initialize_necp_drop_all();
+    if (v0)
     {
-      v123 = v122;
-      v124 = strerror(v122);
-      sub_10004749C(65539, "Could not opt into Always-On VPN: %d: %s", v123, v124);
+      v1 = v0;
+      v2 = strerror(v0);
+      sub_10004749C(65539, "Could not opt into Always-On VPN: %d: %s", v1, v2);
     }
   }
 
-  sub_100047B94("auearlyboot", 0, v116, v117, v118, v119, v120, v121, v207);
-  sub_100047B94("tzinit", 0, v125, v126, v127, v128, v129, v130, v208);
-  sub_100047B94("finish-restore", 0, v131, v132, v133, v134, v135, v136, v209);
-  sub_100047B94("finish-demo-restore", 0, v137, v138, v139, v140, v141, v142, v210);
+  sub_100047B94("auearlyboot", 0);
+  sub_100047B94("tzinit", 0);
+  sub_100047B94("finish-restore", 0);
+  sub_100047B94("finish-demo-restore", 0);
   sub_10004E490();
-  sub_100047B94("sysstatuscheck", 0, v143, v144, v145, v146, v147, v148, v211);
-  sub_100047B94("prng_seedctl", 0, v149, v150, v151, v152, v153, v154, v212);
+  sub_100047B94("sysstatuscheck", 0);
+  sub_100047B94("prng_seedctl", 0);
   if ((byte_10007F0E4 & 1) == 0)
   {
-    v213 = -74;
-    v155 = open("/var/run/utmpx", 512);
-    if (v155 != -1)
+    v3 = open("/var/run/utmpx", 512, 438);
+    if (v3 != -1)
     {
-      sub_1000413F8(v155);
+      sub_1000413F8(v3);
     }
 
-    remove("/etc/nologin", v156);
+    remove("/etc/nologin", v4);
   }
 
-  v157 = sub_10001AB48();
-  v164 = v157;
-  if (v157)
+  v5 = sub_10001AB48();
+  v6 = v5;
+  if (v5)
   {
-    bytes_ptr = xpc_data_get_bytes_ptr(v157);
-    length = xpc_data_get_length(v164);
-    v167 = xpc_shmem_create(bytes_ptr, (length + vm_page_size - 1) & -vm_page_size);
-    if (!v167)
+    bytes_ptr = xpc_data_get_bytes_ptr(v5);
+    length = xpc_data_get_length(v6);
+    v9 = xpc_shmem_create(bytes_ptr, (length + vm_page_size - 1) & -vm_page_size);
+    if (!v9)
     {
       sub_100054404();
     }
 
-    qword_10007EA38 = v167;
+    qword_10007EA38 = v9;
   }
 
-  sub_100047B94("launchd_cache_loader", 4, v158, v159, v160, v161, v162, v163, v213);
-  v169 = qword_10007EA38;
+  sub_100047B94("launchd_cache_loader", 4);
   if (qword_10007EA38)
   {
     xpc_release(qword_10007EA38);
     qword_10007EA38 = 0;
   }
 
-  nullsub_23(v169, v168);
-  sub_100047B94("workload-properties-init", 0, v170, v171, v172, v173, v174, v175, v214);
-  sub_100047B94("init-exclavekit", 0, v176, v177, v178, v179, v180, v181, v215);
+  nullsub_23();
+  sub_100047B94("workload-properties-init", 0);
+  sub_100047B94("init-exclavekit", 0);
   if (qword_10007F060)
   {
     xpc_dictionary_apply(qword_10007F060, &stru_100079D28);
@@ -9023,16 +8799,16 @@ void sub_100048590()
     qword_10007F060 = 0;
   }
 
-  sub_10001AC80(v164);
-  if (v164)
+  sub_10001AC80(v6);
+  if (v6)
   {
-    xpc_release(v164);
+    xpc_release(v6);
   }
 
   sub_100011BD4();
-  sub_100047654("boot", 196613, "Early boot complete. Continuing system boot.", v182, v183, v184, v185, v186, v216);
+  sub_100047654("boot", 196613, "Early boot complete. Continuing system boot.");
   sub_1000324D4();
-  sub_10004519C();
+  sub_10004519C(v10, v11);
 }
 
 void sub_1000489A4()
@@ -9045,108 +8821,59 @@ void sub_1000489A4()
   sub_10001055C();
   if ((byte_10007F100 & 1) == 0)
   {
-    v12 = 0u;
-    v13 = 0u;
-    LODWORD(v12) = 3174252;
-    v6 = socket(2, 2, 0);
-    if (v6 == -1)
+    v5 = 0u;
+    v6 = 0u;
+    LODWORD(v5) = 3174252;
+    v0 = socket(2, 2, 0);
+    if (v0 == -1)
     {
       sub_10005455C();
     }
 
     else
     {
-      v7 = v6;
-      v11 = &v12;
-      if (ioctl(v6, 0xC0206911uLL) == -1)
+      v1 = v0;
+      if (ioctl(v0, 0xC0206911uLL, &v5) == -1 || (LOWORD(v6) = v6 | 1, ioctl(v1, 0x80206910uLL, &v5) == -1) || (memset(&v7[1] + 4, 0, 32), *(v7 + 4) = 0u, *(&v7[3] + 1) = 0, strcpy(v7, "lo0"), DWORD1(v7[1]) = 16777343, LOWORD(v7[1]) = 528, DWORD1(v7[3]) = 255, LOWORD(v7[3]) = 528, ioctl(v1, 0x8040691AuLL, v7) == -1))
       {
-        goto LABEL_17;
-      }
-
-      LOWORD(v13) = v13 | 1;
-      v11 = &v12;
-      if (ioctl(v7, 0x80206910uLL) == -1)
-      {
-        goto LABEL_17;
-      }
-
-      memset(&v14[1] + 4, 0, 32);
-      *(v14 + 4) = 0u;
-      *(&v14[3] + 1) = 0;
-      strcpy(v14, "lo0");
-      DWORD1(v14[1]) = 16777343;
-      LOWORD(v14[1]) = 528;
-      DWORD1(v14[3]) = 255;
-      LOWORD(v14[3]) = 528;
-      v11 = v14;
-      if (ioctl(v7, 0x8040691AuLL) == -1)
-      {
-LABEL_17:
-        sub_100055194(v7);
+        sub_100055194(v1);
       }
 
       else
       {
-        sub_1000413F8(v7);
+        sub_1000413F8(v1);
       }
     }
 
     if ((byte_10007F100 & 1) == 0)
     {
-      v8 = socket(30, 2, 0);
-      if (v8 == -1)
+      v2 = socket(30, 2, 0);
+      if (v2 == -1)
       {
         sub_10005455C();
       }
 
       else
       {
-        v9 = v8;
-        v12 = 0u;
-        v13 = 0u;
-        LODWORD(v12) = 3174252;
-        v11 = &v12;
-        if (ioctl(v8, 0xC0206911uLL) == -1)
+        v3 = v2;
+        v5 = 0u;
+        v6 = 0u;
+        LODWORD(v5) = 3174252;
+        if (ioctl(v2, 0xC0206911uLL, &v5) == -1 || (memset(v7, 0, sizeof(v7)), v8 = 0u, v9 = 0u, v11 = 0, v10 = 0u, strcpy(v7, "lo0"), *(&v7[1] + 8) = in6addr_loopback, LOWORD(v7[1]) = 7708, *&v9 = -1, *(&v9 + 1) = -1, WORD4(v8) = 7708, v12 = -1, ioctl(v3, 0x8080691AuLL, v7) == -1) && *__error() != 17)
         {
-          goto LABEL_19;
-        }
-
-        memset(v14, 0, sizeof(v14));
-        v15 = 0u;
-        v16 = 0u;
-        v18 = 0;
-        v17 = 0u;
-        strcpy(v14, "lo0");
-        *(&v14[1] + 8) = in6addr_loopback;
-        LOWORD(v14[1]) = 7708;
-        *&v16 = -1;
-        *(&v16 + 1) = -1;
-        WORD4(v15) = 7708;
-        v19 = -1;
-        v11 = v14;
-        if (ioctl(v9, 0x8080691AuLL) != -1)
-        {
-          goto LABEL_14;
-        }
-
-        if (*__error() != 17)
-        {
-LABEL_19:
-          sub_100055194(v9);
+          sub_100055194(v3);
         }
 
         else
         {
-LABEL_14:
-          sub_1000413F8(v9);
+          sub_1000413F8(v3);
         }
       }
     }
   }
 
-  sub_100047B94("exclaves-boot", 0, v0, v1, v2, v3, v4, v5, v11);
-  v10 = sub_1000157D8();
-  dispatch_async(v10, &stru_100079CE8);
+  sub_100047B94("exclaves-boot", 0);
+  v4 = sub_1000157D8();
+  dispatch_async(v4, &stru_100079CE8);
 }
 
 uint64_t sub_100048C5C(task_t a1, mach_port_t new_port)
@@ -9214,100 +8941,109 @@ void sub_100048E6C()
   __argv[1] = "--recovery-reason";
   __argv[2] = qword_10007EA30;
   __argv[3] = 0;
-  v8 = 0;
-  if (posix_spawnattr_init(&v8))
+  v14 = 0;
+  v0 = posix_spawnattr_init(&v14);
+  if (v0)
   {
-    sub_100054420();
+    sub_100054420(v0);
   }
 
-  if (posix_spawnattr_setflags(&v8, 16396))
+  v1 = posix_spawnattr_setflags(&v14, 16396);
+  if (v1)
   {
-    sub_100054420();
+    sub_100054420(v1);
   }
 
-  if (posix_spawnattr_set_launch_type_np())
+  v2 = posix_spawnattr_set_launch_type_np();
+  if (v2)
   {
-    sub_100054420();
+    sub_100054420(v2);
   }
 
-  v7 = 0;
-  if (posix_spawnattr_setsigmask(&v8, &v7))
+  v13 = 0;
+  v3 = posix_spawnattr_setsigmask(&v14, &v13);
+  if (v3)
   {
-    sub_100054420();
+    sub_100054420(v3);
   }
 
-  v6 = -1;
-  if (posix_spawnattr_setsigdefault(&v8, &v6))
+  v12 = -1;
+  v4 = posix_spawnattr_setsigdefault(&v14, &v12);
+  if (v4)
   {
-    sub_100054420();
+    sub_100054420(v4);
   }
 
-  v5 = 0;
-  if (posix_spawn_file_actions_init(&v5) == -1)
-  {
-    sub_10005453C();
-  }
-
-  if (posix_spawn_file_actions_addopen(&v5, 0, "/dev/console", 0x20000, 0) == -1)
-  {
-    sub_10005453C();
-  }
-
-  if (posix_spawn_file_actions_addopen(&v5, 1, "/dev/console", 131073, 0) == -1)
+  v11 = 0;
+  if (posix_spawn_file_actions_init(&v11) == -1)
   {
     sub_10005453C();
   }
 
-  if (posix_spawn_file_actions_addopen(&v5, 2, "/dev/console", 131074, 0) == -1)
+  if (posix_spawn_file_actions_addopen(&v11, 0, "/dev/console", 0x20000, 0) == -1)
+  {
+    sub_10005453C();
+  }
+
+  if (posix_spawn_file_actions_addopen(&v11, 1, "/dev/console", 131073, 0) == -1)
+  {
+    sub_10005453C();
+  }
+
+  if (posix_spawn_file_actions_addopen(&v11, 2, "/dev/console", 131074, 0) == -1)
   {
     sub_10005453C();
   }
 
   *__envp = *off_100079D48;
-  v11 = *&off_100079D58;
-  v4 = 0;
-  v0 = posix_spawnp(&v4, "/usr/libexec/devicerecoverytool", &v5, &v8, __argv, __envp);
-  if (!v0)
+  v17 = *&off_100079D58;
+  v10 = 0;
+  v5 = posix_spawnp(&v10, "/usr/libexec/devicerecoverytool", &v11, &v14, __argv, __envp);
+  if (!v5)
   {
-    v3 = 0;
-    v1 = waitpid(v4, &v3, 0);
-    if (v1 == v4)
+    v9 = 0;
+    v6 = waitpid(v10, &v9, 0);
+    if (v6 == v10)
     {
-      if ((v3 & 0x7F) != 0x7F)
+      if ((v9 & 0x7F) != 0x7F)
       {
-        if ((v3 & 0x7F) != 0)
+        if ((v9 & 0x7F) != 0)
         {
-          strsignal(v3 & 0x7F);
+          strsignal(v9 & 0x7F);
           sub_10004749C(65539, "%s exited with signal = %s");
         }
 
-        else if (BYTE1(v3))
+        else if (BYTE1(v9))
         {
           sub_10004749C(65539, "%s exited with exit code = %d");
         }
       }
     }
 
-    else if (*__error())
+    else
     {
-      sub_100054420();
+      v7 = *__error();
+      if (v7)
+      {
+        sub_100054420(v7);
+      }
     }
   }
 
-  if (posix_spawnattr_destroy(&v8) == -1)
+  if (posix_spawnattr_destroy(&v14) == -1)
   {
     sub_10005453C();
   }
 
-  if (posix_spawn_file_actions_destroy(&v5) == -1)
+  if (posix_spawn_file_actions_destroy(&v11) == -1)
   {
     sub_10005453C();
   }
 
-  if (v0)
+  if (v5)
   {
-    v2 = strerror(v0);
-    sub_10004749C(65539, "spawn of %s failed: %s", "/usr/libexec/devicerecoverytool", v2);
+    v8 = strerror(v5);
+    sub_10004749C(65539, "spawn of %s failed: %s", "/usr/libexec/devicerecoverytool", v8);
   }
 }
 
@@ -9342,14 +9078,14 @@ char *sub_1000490EC(void *a1)
 
 void sub_100049180(const char *a1, void *a2, char a3, pid_t pid)
 {
-  v35 = 0;
-  memset(v34, 0, sizeof(v34));
-  memset(v36, 0, sizeof(v36));
-  v7 = sub_100049F58(v34, pid, v36);
-  if (LODWORD(v34[0]) != 3)
+  v25 = 0;
+  memset(v24, 0, sizeof(v24));
+  memset(v26, 0, sizeof(v26));
+  v7 = sub_100049F58(v24, pid, v26);
+  if (LODWORD(v24[0]) != 3)
   {
-    v31 = sub_1000490EC(a2);
-    sub_1000441E0("failed to reap boot-task (%s, %s)", a1, v31);
+    v23 = sub_1000490EC(a2);
+    sub_1000441E0("failed to reap boot-task (%s, %s)", a1, v23);
   }
 
   v8 = v7;
@@ -9379,32 +9115,30 @@ void sub_100049180(const char *a1, void *a2, char a3, pid_t pid)
 
   v14 = -1;
 LABEL_8:
-  v15 = sub_10004A5D0(v34) && sub_10004A5FC(v34) == 0;
+  v16 = sub_10004A5D0(v24) && sub_10004A5FC(v24, v15) == 0;
   if (xpc_dictionary_get_BOOL(a2, "RemoveOnSuccess"))
   {
-    v16 = sub_1000490EC(a2);
-    v17 = v16 ? v15 : 0;
-    if (v17 == 1)
+    v17 = sub_1000490EC(a2);
+    v18 = v17 ? v16 : 0;
+    if (v18 == 1)
     {
-      v18 = v16;
+      v19 = v17;
       sub_10004749C(65543, "%s: exited successfully, removing", a1);
-      if (remove(v18, v19) == -1 && *__error() != 2 && *__error())
+      if (remove(v19, v20) == -1 && *__error() != 2 && *__error())
       {
         _os_assumes_log();
       }
     }
   }
 
-  if (sub_10004A5D0(v34) && sub_10004A5FC(v34) == v14)
+  if (sub_10004A5D0(v24) && sub_10004A5FC(v24, v21) == v14)
   {
-    v33 = v14;
-    v32 = "rebooting on exit code: %d";
+    sub_100047654(a1, 196615, "rebooting on exit code: %d");
 LABEL_38:
-    sub_100047654(a1, 196615, v32, v20, v21, v22, v23, v24, v33);
-    sub_100046594(1, 0, 0);
+    sub_100046594(1, 0);
   }
 
-  if (v15)
+  if (v16)
   {
     if (!v11)
     {
@@ -9414,21 +9148,21 @@ LABEL_38:
 
   else
   {
-    if (sub_10004A5D0(v34))
+    if (sub_10004A5D0(v24))
     {
-      v30 = 196615;
+      v22 = 196615;
     }
 
     else
     {
-      v30 = 196611;
+      v22 = 196611;
     }
 
-    sub_100047654(a1, v30, "exited due to %s", v25, v26, v27, v28, v29, v8);
+    sub_100047654(a1, v22, "exited due to %s", v8);
     if (!v11)
     {
 LABEL_24:
-      if (v15)
+      if (v16)
       {
         goto LABEL_32;
       }
@@ -9437,8 +9171,8 @@ LABEL_24:
     }
   }
 
-  v15 |= byte_10007F0E2;
-  if (v15)
+  v16 |= byte_10007F0E2;
+  if (v16)
   {
     goto LABEL_32;
   }
@@ -9446,22 +9180,22 @@ LABEL_24:
 LABEL_31:
   if (v9)
   {
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
-    v40 = 0u;
+    v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     *__str = 0u;
-    v38 = 0u;
+    v28 = 0u;
     snprintf(__str, 0x80uLL, "exited due to %s", v8);
     sub_100048D0C(a1, __str);
   }
 
 LABEL_32:
-  if ((v10 & v15) == 1)
+  if ((v10 & v16) == 1)
   {
-    v32 = "rebooting after success";
+    sub_100047654(a1, 196615, "rebooting after success");
     goto LABEL_38;
   }
 
@@ -9610,7 +9344,7 @@ void sub_100049748(uint64_t a1)
   }
 }
 
-void sub_1000497F4()
+void sub_1000497F4(uint64_t a1)
 {
   if (xpc_make_serialization())
   {
@@ -9622,7 +9356,6 @@ void sub_1000497F4()
 
 uint64_t sub_100049864(uint64_t a1)
 {
-  v1 = *(a1 + 16);
   result = xpc_create_from_serialization();
   if (!result)
   {
@@ -9640,24 +9373,23 @@ void sub_10004988C(uint64_t a1, const void *a2, void *a3)
   {
     if (sub_1000496D0(*(a1 + 16)) >= *(a1 + 24))
     {
-      v18[0] = 0;
-      v18[1] = v18;
-      v18[2] = 0x2000000000;
-      v18[3] = -1;
-      v14 = 0;
-      v15 = &v14;
-      v16 = 0x2000000000;
-      v17 = 0;
+      v17[0] = 0;
+      v17[1] = v17;
+      v17[2] = 0x2000000000;
+      v17[3] = -1;
+      v13 = 0;
+      v14 = &v13;
+      v15 = 0x2000000000;
+      v16 = 0;
       v8 = *(a1 + 16);
-      v13[0] = _NSConcreteStackBlock;
-      v13[1] = 0x40000000;
-      v13[2] = sub_100049C20;
-      v13[3] = &unk_100079D90;
-      v13[4] = v18;
-      v13[5] = &v14;
-      sub_10004964C(v8, v13);
-      string = xpc_dictionary_get_string(v15[3], "key");
-      v10 = v15[3];
+      v12[0] = _NSConcreteStackBlock;
+      v12[1] = 0x40000000;
+      v12[2] = sub_100049C20;
+      v12[3] = &unk_100079D90;
+      v12[4] = v17;
+      v12[5] = &v13;
+      sub_10004964C(v8, v12);
+      string = xpc_dictionary_get_string(v14[3], "key");
       pointer = xpc_dictionary_get_pointer();
       (*(a1 + 40))(string, pointer);
       sub_10004954C(*(a1 + 16), string, 0);
@@ -9667,8 +9399,8 @@ void sub_10004988C(uint64_t a1, const void *a2, void *a3)
         sub_100054404();
       }
 
-      _Block_object_dispose(&v14, 8);
-      _Block_object_dispose(v18, 8);
+      _Block_object_dispose(&v13, 8);
+      _Block_object_dispose(v17, 8);
     }
 
     v7 = xpc_dictionary_create(0, 0, 0);
@@ -9677,9 +9409,9 @@ void sub_10004988C(uint64_t a1, const void *a2, void *a3)
 
   os_retain(a3);
   xpc_dictionary_set_pointer();
-  v12 = *(a1 + 32);
-  *(a1 + 32) = v12 + 1;
-  xpc_dictionary_set_uint64(v7, "timestamp", v12);
+  v11 = *(a1 + 32);
+  *(a1 + 32) = v11 + 1;
+  xpc_dictionary_set_uint64(v7, "timestamp", v11);
   if (!v6)
   {
     sub_10004954C(*(a1 + 16), a2, v7);
@@ -9725,7 +9457,7 @@ void sub_100049B34(uint64_t a1)
   os_release(*(a1 + 16));
 }
 
-void sub_100049BB8(uint64_t a1, uint64_t a2)
+void sub_100049BB8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   pointer = xpc_dictionary_get_pointer();
   (*(*(a1 + 32) + 40))(a2, pointer);
@@ -9828,4 +9560,417 @@ uint64_t sub_100049C94(void *a1, void *a2, uint64_t a3)
   }
 
   return v9;
+}
+
+FILE *sub_100049DE0(FILE *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  if (a2)
+  {
+    v8 = a2;
+    v9 = result;
+    do
+    {
+      result = sub_100049E30(v9, "\t", a3, a4, a5, a6, a7, a8);
+      --v8;
+    }
+
+    while (v8);
+  }
+
+  return result;
+}
+
+uint64_t sub_100049E5C(FILE *a1, uint64_t a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+{
+  va_start(va, a8);
+  if (a2)
+  {
+    v10 = a2;
+    do
+    {
+      sub_100049E30(a1, "\t", a3, a4, a5, a6, a7, a8);
+      --v10;
+    }
+
+    while (v10);
+  }
+
+  return vfprintf(a1, a3, va);
+}
+
+uint64_t sub_100049ECC(FILE *a1, uint64_t a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+{
+  va_start(va, a8);
+  if (a2)
+  {
+    v10 = a2;
+    do
+    {
+      sub_100049E30(a1, "\t", a3, a4, a5, a6, a7, a8);
+      --v10;
+    }
+
+    while (v10);
+  }
+
+  vfprintf(a1, a3, va);
+  return sub_100049E30(a1, "\n", v11, v12, v13, v14, v15, v16);
+}
+
+char *sub_100049F58(int *a1, pid_t pid, uint64_t a3)
+{
+  *(a1 + 6) = 0;
+  *(a1 + 1) = 0u;
+  *(a1 + 2) = 0u;
+  *a1 = 0u;
+  *(a3 + 432) = 0u;
+  *(a3 + 448) = 0u;
+  *(a3 + 400) = 0u;
+  *(a3 + 416) = 0u;
+  *(a3 + 368) = 0u;
+  *(a3 + 384) = 0u;
+  *(a3 + 336) = 0u;
+  *(a3 + 352) = 0u;
+  *(a3 + 304) = 0u;
+  *(a3 + 320) = 0u;
+  *(a3 + 272) = 0u;
+  *(a3 + 288) = 0u;
+  *(a3 + 240) = 0u;
+  *(a3 + 256) = 0u;
+  *(a3 + 208) = 0u;
+  *(a3 + 224) = 0u;
+  *(a3 + 176) = 0u;
+  *(a3 + 192) = 0u;
+  *(a3 + 144) = 0u;
+  *(a3 + 160) = 0u;
+  *(a3 + 112) = 0u;
+  *(a3 + 128) = 0u;
+  *(a3 + 80) = 0u;
+  *(a3 + 96) = 0u;
+  *(a3 + 48) = 0u;
+  *(a3 + 64) = 0u;
+  *(a3 + 16) = 0u;
+  *(a3 + 32) = 0u;
+  *a3 = 0u;
+  flags = 0;
+  if (j__proc_get_dirty(pid, &flags))
+  {
+    _os_assumes_log();
+  }
+
+  *(a1 + 48) = a1[12] & 0xFC | flags & 2 | ((flags & 4) != 0);
+  if (j__proc_pidinfo(pid, 25, 1uLL, a1 + 1, 24) != 24 && *__error() != 2 && *__error())
+  {
+    _os_assumes_log();
+  }
+
+  if (j__proc_pid_rusage(pid, 6, a3))
+  {
+    _os_assumes_log();
+  }
+
+  *(a1 + 2) = *(a3 + 80);
+  v6 = a1[6];
+  if (v6 >= 0x1401)
+  {
+    sub_1000441E0("retrieved exit reason with invalid reason buffer size");
+  }
+
+  if (v6)
+  {
+    v7 = sub_100014514(0x20uLL, 0x1000040E0EAB150uLL);
+    *(v7 + 3) = sub_100014514(v6, 0x1A9BFA44uLL);
+    v7[5] = v6;
+    if (proc_pidinfo(pid, 24, 1uLL, v7, 32) == 32)
+    {
+      goto LABEL_16;
+    }
+
+    if (*__error())
+    {
+      _os_assumes_log();
+    }
+
+    free(*(v7 + 3));
+    free(v7);
+  }
+
+  v7 = 0;
+LABEL_16:
+  if (sub_100046B18(pid, a1 + 7, 0, 0))
+  {
+    _os_assumes_log();
+    v9 = 2;
+  }
+
+  else
+  {
+    v9 = 3;
+  }
+
+  *a1 = v9;
+  if (!v7)
+  {
+LABEL_58:
+    v37 = sub_10004A4D0(a1, v8);
+    if (!v37)
+    {
+      v37 = "(unknown reason)";
+    }
+
+    v33 = sub_1000166EC(v37);
+    goto LABEL_61;
+  }
+
+  v10 = sub_10004A4D0(a1, v8);
+  v11 = *(v7 + 3);
+  if (!v11)
+  {
+    goto LABEL_25;
+  }
+
+  v12 = v7[5];
+  if (!v12)
+  {
+    goto LABEL_25;
+  }
+
+  v13 = v11 + v12;
+  v14 = v11 + 4;
+  if (v11 + 4 <= (v11 + v12))
+  {
+    v15 = *(v7 + 3);
+    do
+    {
+      v42 = v14 + *(v15 + 4);
+      if (v42 > v13 || *v15 == -242132755)
+      {
+        break;
+      }
+
+      if (*v15 == 4098)
+      {
+        goto LABEL_23;
+      }
+
+      v14 = (v42 + 16);
+      v15 = v42;
+    }
+
+    while (v42 + 16 <= v13);
+  }
+
+  v15 = 0;
+  v13 = 0;
+LABEL_23:
+  if (v15 + 16 > v13 || (v16 = *(v15 + 4), v15 + 16 + v16 > v13))
+  {
+LABEL_25:
+    v17 = 0;
+    goto LABEL_26;
+  }
+
+  v43 = *v15;
+  if ((*v15 & 0xFFFFFFF0) == 0x20)
+  {
+    v43 = 17;
+  }
+
+  if (v43 <= 2309)
+  {
+    if (v43 == 17 || v43 == 19)
+    {
+      goto LABEL_92;
+    }
+
+    goto LABEL_89;
+  }
+
+  if (v43 != 2312)
+  {
+    if (v43 == 2310 && v16 == 112 && (*(v15 + 8) & 0x8F) == 0)
+    {
+      LODWORD(v16) = 104;
+      goto LABEL_92;
+    }
+
+LABEL_89:
+    v45 = *(v15 + 8) & 0xF;
+    v27 = v16 >= v45;
+    v46 = v16 - v45;
+    if (v27)
+    {
+      LODWORD(v16) = v46;
+    }
+
+    else
+    {
+      LODWORD(v16) = 0;
+    }
+
+    goto LABEL_92;
+  }
+
+  if (v16 != 32 || (*(v15 + 8) & 0x8F) != 0)
+  {
+    goto LABEL_89;
+  }
+
+  LODWORD(v16) = 24;
+LABEL_92:
+  v47 = (v15 + 16);
+  if (strnlen((v15 + 16), v16) >= v16)
+  {
+    v17 = 0;
+  }
+
+  else
+  {
+    v17 = v47;
+  }
+
+LABEL_26:
+  v18 = 0;
+  v50[0] = 0;
+  if (*v7 == 2)
+  {
+    v19 = v11 + v7[5];
+    v20 = v11 + 4;
+    if ((v11 + 4) > v19)
+    {
+      goto LABEL_28;
+    }
+
+    v48 = v10;
+    v21 = 0;
+    v22 = -1;
+    do
+    {
+      v23 = v11[1];
+      v24 = (v20 + v23);
+      if (v20 + v23 > v19)
+      {
+        break;
+      }
+
+      v25 = *v11;
+      if (*v11 == -242132755)
+      {
+        break;
+      }
+
+      if ((v25 & 0xFFFFFFF0) == 0x20)
+      {
+        v25 = 17;
+      }
+
+      if (v25 == 54)
+      {
+        v30 = v11[2] & 0xF;
+        v27 = v23 >= v30;
+        v31 = v23 - v30;
+        if (!v27)
+        {
+          v31 = 0;
+        }
+
+        if (v31 != 4)
+        {
+          sub_1000441E0("PID size for exit reason mismatch");
+        }
+
+        v22 = v11[4];
+      }
+
+      else if (v25 == 55)
+      {
+        v26 = v11[2] & 0xF;
+        v27 = v23 >= v26;
+        v28 = v23 - v26;
+        v29 = v27 ? v28 : 0;
+        v21 = v11 + 4;
+        if (strnlen(v11 + 16, v29) >= v29)
+        {
+          sub_1000441E0("kernel returned invalid sender procname for signal");
+        }
+      }
+
+      v20 = v24 + 4;
+      v11 = v24;
+    }
+
+    while ((v24 + 4) <= v19);
+    v10 = v48;
+    if (!v21 || v22 == -1)
+    {
+LABEL_28:
+      asprintf(v50, "(signal info malformed)");
+    }
+
+    else
+    {
+      asprintf(v50, "sent by %s[%d]");
+    }
+
+    v18 = v50[0];
+  }
+
+  v32 = 0;
+  v33 = 0;
+  v50[0] = v10;
+  v50[1] = v17;
+  v50[2] = v18;
+  do
+  {
+    v34 = v50[v32];
+    if (v34)
+    {
+      if (v33)
+      {
+        v35 = sub_1000168E0("%s | %s", v33, v34);
+      }
+
+      else
+      {
+        v35 = sub_1000166EC(v34);
+      }
+
+      v36 = v35;
+      free(v33);
+      v33 = v36;
+    }
+
+    ++v32;
+  }
+
+  while (v32 != 3);
+  free(v18);
+  free(*(v7 + 3));
+  free(v7);
+  if (!v33)
+  {
+    goto LABEL_58;
+  }
+
+LABEL_61:
+  v38 = *a1;
+  if (*a1 == 3)
+  {
+    if (a1[1] || (a1[7] & 0x7F) != 0)
+    {
+      return v33;
+    }
+
+    free(v33);
+    v40 = sub_10004A5FC(a1, v39);
+    v33 = sub_1000168E0("exit(%d)", v40);
+    v38 = *a1;
+  }
+
+  if (!v38)
+  {
+    sub_100054404();
+  }
+
+  return v33;
 }

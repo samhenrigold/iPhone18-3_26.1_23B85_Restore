@@ -27,12 +27,10 @@
 
 - (NSString)modalityIdentifier
 {
-  v2 = *(self + OBJC_IVAR____TtC13SeymourClient30AchievementProgressEnvironment_modalityIdentifier);
-  v3 = *(self + OBJC_IVAR____TtC13SeymourClient30AchievementProgressEnvironment_modalityIdentifier + 8);
 
-  v4 = sub_1B4F67F64();
+  v2 = sub_1B4F67F64();
 
-  return v4;
+  return v2;
 }
 
 - (_TtC13SeymourClient30AchievementProgressEnvironment)init

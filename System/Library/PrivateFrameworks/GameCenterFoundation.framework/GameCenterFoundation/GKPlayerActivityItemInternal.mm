@@ -21,32 +21,30 @@
   return v3;
 }
 
-void __55__GKPlayerActivityItemInternal_secureCodedPropertyKeys__block_invoke()
+void __55__GKPlayerActivityItemInternal_secureCodedPropertyKeys__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4[9] = *MEMORY[0x277D85DE8];
-  v3[0] = @"uuid";
-  v4[0] = objc_opt_class();
-  v3[1] = @"scrollId";
-  v4[1] = objc_opt_class();
-  v3[2] = @"activityType";
-  v4[2] = objc_opt_class();
-  v3[3] = @"layoutType";
-  v4[3] = objc_opt_class();
-  v3[4] = @"timeStamp";
-  v4[4] = objc_opt_class();
-  v3[5] = @"message";
-  v4[5] = objc_opt_class();
-  v3[6] = @"summaryMessage";
-  v4[6] = objc_opt_class();
-  v3[7] = @"relationships";
-  v4[7] = objc_opt_class();
-  v3[8] = @"instrumentationKey";
-  v4[8] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:9];
-  v1 = secureCodedPropertyKeys_sSecureCodedKeys_12;
-  secureCodedPropertyKeys_sSecureCodedKeys_12 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
+  v5[9] = *MEMORY[0x277D85DE8];
+  v4[0] = @"uuid";
+  v5[0] = objc_opt_class();
+  v4[1] = @"scrollId";
+  v5[1] = objc_opt_class();
+  v4[2] = @"activityType";
+  v5[2] = objc_opt_class();
+  v4[3] = @"layoutType";
+  v5[3] = objc_opt_class();
+  v4[4] = @"timeStamp";
+  v5[4] = objc_opt_class();
+  v4[5] = @"message";
+  v5[5] = objc_opt_class();
+  v4[6] = @"summaryMessage";
+  v5[6] = objc_opt_class();
+  v4[7] = @"relationships";
+  v5[7] = objc_opt_class();
+  v4[8] = @"instrumentationKey";
+  v5[8] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:9];
+  v3 = secureCodedPropertyKeys_sSecureCodedKeys_12;
+  secureCodedPropertyKeys_sSecureCodedKeys_12 = v2;
 }
 
 - (GKPlayerActivityItemInternal)initWithDictionary:(id)dictionary
@@ -150,24 +148,22 @@ void __55__GKPlayerActivityItemInternal_secureCodedPropertyKeys__block_invoke()
 
 void __49__GKPlayerActivityItemInternal_typeToConstantMap__block_invoke()
 {
-  v4[6] = *MEMORY[0x277D85DE8];
-  v3[0] = &unk_283B33328;
-  v3[1] = &unk_283B33340;
-  v4[0] = @"GAME_WITH_PLAYERS";
-  v4[1] = @"PLAYER_WITH_GAME";
-  v3[2] = &unk_283B33358;
-  v3[3] = &unk_283B33370;
-  v4[2] = @"FRIEND";
-  v4[3] = @"ACHIEVEMENT";
-  v3[4] = &unk_283B33388;
-  v3[5] = &unk_283B333A0;
-  v4[4] = @"SCORE";
-  v4[5] = @"SCORES";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:6];
+  v3[6] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_283B33328;
+  v2[1] = &unk_283B33340;
+  v3[0] = @"GAME_WITH_PLAYERS";
+  v3[1] = @"PLAYER_WITH_GAME";
+  v2[2] = &unk_283B33358;
+  v2[3] = &unk_283B33370;
+  v3[2] = @"FRIEND";
+  v3[3] = @"ACHIEVEMENT";
+  v2[4] = &unk_283B33388;
+  v2[5] = &unk_283B333A0;
+  v3[4] = @"SCORE";
+  v3[5] = @"SCORES";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:6];
   v1 = typeToConstantMap_typeToConstMap;
   typeToConstantMap_typeToConstMap = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (id)typeToConstantMapMetrics
@@ -184,24 +180,22 @@ void __49__GKPlayerActivityItemInternal_typeToConstantMap__block_invoke()
 
 void __56__GKPlayerActivityItemInternal_typeToConstantMapMetrics__block_invoke()
 {
-  v4[6] = *MEMORY[0x277D85DE8];
-  v3[0] = &unk_283B33328;
-  v3[1] = &unk_283B33340;
-  v4[0] = @"multiFriendStartedPlaying";
-  v4[1] = @"friendStartedPlaying";
-  v3[2] = &unk_283B33358;
-  v3[3] = &unk_283B33370;
-  v4[2] = @"newFriend";
-  v4[3] = @"achievement";
-  v3[4] = &unk_283B33388;
-  v3[5] = &unk_283B333A0;
-  v4[4] = @"leaderboard";
-  v4[5] = @"leaderboard";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:6];
+  v3[6] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_283B33328;
+  v2[1] = &unk_283B33340;
+  v3[0] = @"multiFriendStartedPlaying";
+  v3[1] = @"friendStartedPlaying";
+  v2[2] = &unk_283B33358;
+  v2[3] = &unk_283B33370;
+  v3[2] = @"newFriend";
+  v3[3] = @"achievement";
+  v2[4] = &unk_283B33388;
+  v2[5] = &unk_283B333A0;
+  v3[4] = @"leaderboard";
+  v3[5] = @"leaderboard";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:6];
   v1 = typeToConstantMapMetrics_typeToConstMap;
   typeToConstantMapMetrics_typeToConstMap = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (id)constantToTypeMap
@@ -218,24 +212,22 @@ void __56__GKPlayerActivityItemInternal_typeToConstantMapMetrics__block_invoke()
 
 void __49__GKPlayerActivityItemInternal_constantToTypeMap__block_invoke()
 {
-  v4[6] = *MEMORY[0x277D85DE8];
-  v3[0] = @"GAME_WITH_PLAYERS";
-  v3[1] = @"PLAYER_WITH_GAME";
-  v4[0] = &unk_283B33328;
-  v4[1] = &unk_283B33340;
-  v3[2] = @"FRIEND";
-  v3[3] = @"ACHIEVEMENT";
-  v4[2] = &unk_283B33358;
-  v4[3] = &unk_283B33370;
-  v3[4] = @"SCORE";
-  v3[5] = @"SCORES";
-  v4[4] = &unk_283B33388;
-  v4[5] = &unk_283B333A0;
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:6];
+  v3[6] = *MEMORY[0x277D85DE8];
+  v2[0] = @"GAME_WITH_PLAYERS";
+  v2[1] = @"PLAYER_WITH_GAME";
+  v3[0] = &unk_283B33328;
+  v3[1] = &unk_283B33340;
+  v2[2] = @"FRIEND";
+  v2[3] = @"ACHIEVEMENT";
+  v3[2] = &unk_283B33358;
+  v3[3] = &unk_283B33370;
+  v2[4] = @"SCORE";
+  v2[5] = @"SCORES";
+  v3[4] = &unk_283B33388;
+  v3[5] = &unk_283B333A0;
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:6];
   v1 = constantToTypeMap_constToTypeMap;
   constantToTypeMap_constToTypeMap = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description

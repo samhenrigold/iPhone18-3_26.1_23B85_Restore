@@ -142,7 +142,7 @@ void sub_1000020E4(uint64_t a1)
   [v2 removeTarget:*(a1 + 32)];
 }
 
-uint64_t sub_100004E58()
+uint64_t sub_100004E58(uint64_t a1)
 {
   if (!qword_1000116C0)
   {
@@ -154,7 +154,6 @@ uint64_t sub_100004E58()
 
 uint64_t sub_100004F28(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_1000116C0 = result;
   return result;
@@ -162,12 +161,24 @@ uint64_t sub_100004F28(uint64_t a1)
 
 Class sub_100004F9C(uint64_t a1)
 {
-  if (!sub_100004E58())
+  v5 = 0;
+  v2 = sub_100004E58(&v5);
+  v3 = v5;
+  if (v2)
   {
-    v3 = abort_report_np();
-    free(v3);
+    if (!v5)
+    {
+      goto LABEL_3;
+    }
   }
 
+  else
+  {
+    v3 = abort_report_np("%s", v5);
+  }
+
+  free(v3);
+LABEL_3:
   result = objc_getClass("DSHardwareButtonEventMonitor");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
@@ -179,8 +190,9 @@ Class sub_100004F9C(uint64_t a1)
   return result;
 }
 
-void sub_10000502C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000502C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }

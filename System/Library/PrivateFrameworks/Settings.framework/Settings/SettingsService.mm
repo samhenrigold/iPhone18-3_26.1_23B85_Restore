@@ -10,16 +10,14 @@
 - (_TtP8Settings27SettingsHostServiceProvider_)serviceHost
 {
   swift_beginAccess();
-  serviceHost = self->serviceHost;
-  v4 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v4;
+  return v2;
 }
 
 - (void)setServiceHost:(id)host
 {
   swift_beginAccess();
-  serviceHost = self->serviceHost;
   self->serviceHost = host;
   swift_unknownObjectRetain();
   swift_unknownObjectRelease();

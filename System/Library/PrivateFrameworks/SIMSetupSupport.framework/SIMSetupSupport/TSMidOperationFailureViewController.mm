@@ -21,7 +21,7 @@
 - (TSMidOperationFailureViewController)initWithPlans:(id)plans isCrossPlatformTransfer:(BOOL)transfer
 {
   transferCopy = transfer;
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   plansCopy = plans;
   if (transferCopy && +[TSUtilities inBuddy])
   {
@@ -33,19 +33,19 @@
     v11 = [v10 localizedStringForKey:@"CROSSPLATFORM_TRANSFER_FAIL_ON_SOURCE_NUMBER_CROSSPLATFORM_MODEL_BUDDY" value:&stru_28753DF48 table:@"Localizable"];
     v12 = [v9 stringWithFormat:v11];
 
-    v22.receiver = self;
-    v22.super_class = TSMidOperationFailureViewController;
-    v13 = [(TSMidOperationFailureViewController *)&v22 initWithTitle:v8 detailText:v12 icon:0];
+    v21.receiver = self;
+    v21.super_class = TSMidOperationFailureViewController;
+    v13 = [(TSMidOperationFailureViewController *)&v21 initWithTitle:v8 detailText:v12 icon:0];
     v14 = v13;
     if (v13)
     {
       v13->_isEmbeddedInResultView = 0;
       v13->_isContinueByUser = 0;
-      v23 = @"ErrorButton";
+      v22 = @"ErrorButton";
       v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       v16 = [v15 localizedStringForKey:@"CONTINUE" value:&stru_28753DF48 table:@"Localizable"];
-      v24[0] = v16;
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+      v23[0] = v16;
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
       errorHeaderDetail = v14->_errorHeaderDetail;
       v14->_errorHeaderDetail = v17;
 
@@ -61,7 +61,6 @@
 
   v19 = v14;
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -89,7 +88,7 @@
 
 - (TSMidOperationFailureViewController)initWithSecureIntentRejected
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v4 = [v3 localizedStringForKey:@"CROSSPLATFORM_TRANSFER_FAIL_TITLE_SECURENT_INTENT_REJECTED" value:&stru_28753DF48 table:@"Localizable"];
 
@@ -98,32 +97,31 @@
   v7 = [v6 localizedStringForKey:@"CROSSPLATFORM_TRANSFER_FAIL_ON_SOURCE_NUMBER_CROSSPLATFORM_MODEL_SECURENT_INTENT_REJECTED" value:&stru_28753DF48 table:@"Localizable"];
   v8 = [v5 stringWithFormat:v7];
 
-  v17.receiver = self;
-  v17.super_class = TSMidOperationFailureViewController;
-  v9 = [(TSMidOperationFailureViewController *)&v17 initWithTitle:v4 detailText:v8 icon:0];
+  v16.receiver = self;
+  v16.super_class = TSMidOperationFailureViewController;
+  v9 = [(TSMidOperationFailureViewController *)&v16 initWithTitle:v4 detailText:v8 icon:0];
   v10 = v9;
   if (v9)
   {
     v9->_isEmbeddedInResultView = 0;
     v9->_isContinueByUser = 0;
-    v18 = @"ErrorButton";
+    v17 = @"ErrorButton";
     v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v12 = [v11 localizedStringForKey:@"DONE" value:&stru_28753DF48 table:@"Localizable"];
-    v19[0] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v18[0] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     errorHeaderDetail = v10->_errorHeaderDetail;
     v10->_errorHeaderDetail = v13;
 
     v10->_isSourceSideError = 1;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (id)initShowErrorOnSourceWithPlanIdentifier:(id)identifier
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v5 = [v4 localizedStringForKey:@"CROSSPLATFORM_TRANSFER_FAIL_TITLE" value:&stru_28753DF48 table:@"Localizable"];
 
@@ -132,32 +130,31 @@
   v8 = [v7 localizedStringForKey:@"CROSSPLATFORM_TRANSFER_FAIL_ON_SOURCE_NUMBER_CROSSPLATFORM_MODEL" value:&stru_28753DF48 table:@"Localizable"];
   v9 = [v6 stringWithFormat:v8];
 
-  v18.receiver = self;
-  v18.super_class = TSMidOperationFailureViewController;
-  v10 = [(TSMidOperationFailureViewController *)&v18 initWithTitle:v5 detailText:v9 icon:0];
+  v17.receiver = self;
+  v17.super_class = TSMidOperationFailureViewController;
+  v10 = [(TSMidOperationFailureViewController *)&v17 initWithTitle:v5 detailText:v9 icon:0];
   v11 = v10;
   if (v10)
   {
     v10->_isEmbeddedInResultView = 0;
     v10->_isContinueByUser = 0;
-    v19 = @"ErrorButton";
+    v18 = @"ErrorButton";
     v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v13 = [v12 localizedStringForKey:@"DONE" value:&stru_28753DF48 table:@"Localizable"];
-    v20[0] = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v19[0] = v13;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     errorHeaderDetail = v11->_errorHeaderDetail;
     v11->_errorHeaderDetail = v14;
 
     v11->_isSourceSideError = 1;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (id)initShowErrorOnSourceWithDelayedDownloadECSWithPlanIdentifier:(id)identifier
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCA8D8];
   identifierCopy = identifier;
   v6 = [v4 bundleForClass:objc_opt_class()];
@@ -168,26 +165,25 @@
   v10 = [v9 localizedStringForKey:@"CROSSPLATFORM_TRANSFER_FAIL_ON_SOURCE_NUMBER_CROSSPLATFORM_MODEL_DELAYED_%@" value:&stru_28753DF48 table:@"Localizable"];
   identifierCopy = [v8 stringWithFormat:v10, identifierCopy];
 
-  v20.receiver = self;
-  v20.super_class = TSMidOperationFailureViewController;
-  v12 = [(TSMidOperationFailureViewController *)&v20 initWithTitle:v7 detailText:identifierCopy icon:0];
+  v19.receiver = self;
+  v19.super_class = TSMidOperationFailureViewController;
+  v12 = [(TSMidOperationFailureViewController *)&v19 initWithTitle:v7 detailText:identifierCopy icon:0];
   v13 = v12;
   if (v12)
   {
     v12->_isEmbeddedInResultView = 0;
     v12->_isContinueByUser = 0;
-    v21 = @"ErrorButton";
+    v20 = @"ErrorButton";
     v14 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v15 = [v14 localizedStringForKey:@"DONE" value:&stru_28753DF48 table:@"Localizable"];
-    v22[0] = v15;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v21[0] = v15;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
     errorHeaderDetail = v13->_errorHeaderDetail;
     v13->_errorHeaderDetail = v16;
 
     v13->_isSourceSideError = 1;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -340,11 +336,10 @@ LABEL_6:
 
 - (void)_disableMismatchedPlan
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[TSMidOperationFailureViewController _disableMismatchedPlan]";
-  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]Plan item not found @%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[TSMidOperationFailureViewController _disableMismatchedPlan]";
+  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]Plan item not found @%s", &v1, 0xCu);
 }
 
 - (void)_userDidTapCancel

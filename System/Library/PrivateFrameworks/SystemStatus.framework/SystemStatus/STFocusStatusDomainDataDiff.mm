@@ -139,18 +139,18 @@
   [(BSSettings *)v7 enumerateObjectsWithBlock:v9];
 }
 
-uint64_t __50__STFocusStatusDomainDataDiff_applyToMutableData___block_invoke(uint64_t result, uint64_t a2)
+void *__50__STFocusStatusDomainDataDiff_applyToMutableData___block_invoke(void *result, uint64_t a2, uint64_t a3)
 {
-  v2 = result;
+  v3 = result;
   switch(a2)
   {
     case 2:
       result = BSSettingFlagIsExplicitNo();
       if (result)
       {
-        v5 = *(v2 + 32);
+        v6 = v3[4];
 
-        return [v5 setModeSymbol:0];
+        return [v6 setModeSymbol:0];
       }
 
       break;
@@ -158,9 +158,9 @@ uint64_t __50__STFocusStatusDomainDataDiff_applyToMutableData___block_invoke(uin
       result = BSSettingFlagIsExplicitNo();
       if (result)
       {
-        v4 = *(v2 + 32);
+        v5 = v3[4];
 
-        return [v4 setModeName:0];
+        return [v5 setModeName:0];
       }
 
       break;
@@ -168,9 +168,9 @@ uint64_t __50__STFocusStatusDomainDataDiff_applyToMutableData___block_invoke(uin
       result = BSSettingFlagIsExplicitNo();
       if (result)
       {
-        v3 = *(v2 + 32);
+        v4 = v3[4];
 
-        return [v3 setModeIdentifier:0];
+        return [v4 setModeIdentifier:0];
       }
 
       break;

@@ -25,103 +25,103 @@
 
 - (IMPluginPayload)initWithMessage:(id)message
 {
-  v4 = objc_msgSend__imMessageItem(message, a2, message);
-  v6 = objc_msgSend_initWithMessageItem_(self, v5, v4);
+  _imMessageItem = [message _imMessageItem];
+  v5 = [(IMPluginPayload *)self initWithMessageItem:_imMessageItem];
 
-  return v6;
+  return v5;
 }
 
 - (IMPluginPayload)initWithMessageItem:(id)item chatContext:(id)context
 {
-  v171[1] = *MEMORY[0x1E69E9840];
+  v94[1] = *MEMORY[0x1E69E9840];
   itemCopy = item;
   contextCopy = context;
-  v168.receiver = self;
-  v168.super_class = IMPluginPayload;
-  v10 = [(IMPluginPayload *)&v168 init];
-  if (!v10)
+  v91.receiver = self;
+  v91.super_class = IMPluginPayload;
+  v8 = [(IMPluginPayload *)&v91 init];
+  if (!v8)
   {
     goto LABEL_40;
   }
 
-  v11 = objc_msgSend_guid(itemCopy, v8, v9);
-  messageGUID = v10->_messageGUID;
-  v10->_messageGUID = v11;
+  guid = [itemCopy guid];
+  messageGUID = v8->_messageGUID;
+  v8->_messageGUID = guid;
 
-  v15 = objc_msgSend_time(itemCopy, v13, v14);
-  time = v10->_time;
-  v10->_time = v15;
+  time = [itemCopy time];
+  time = v8->_time;
+  v8->_time = time;
 
-  v19 = objc_msgSend_pluginSessionGUID(itemCopy, v17, v18);
-  pluginSessionGUID = v10->_pluginSessionGUID;
-  v10->_pluginSessionGUID = v19;
+  pluginSessionGUID = [itemCopy pluginSessionGUID];
+  pluginSessionGUID = v8->_pluginSessionGUID;
+  v8->_pluginSessionGUID = pluginSessionGUID;
 
-  v23 = objc_msgSend_balloonBundleID(itemCopy, v21, v22);
-  v25 = objc_msgSend__transformPluginBundleIDIfNeeded_(v10, v24, v23);
-  pluginBundleID = v10->_pluginBundleID;
-  v10->_pluginBundleID = v25;
+  balloonBundleID = [itemCopy balloonBundleID];
+  v16 = [(IMPluginPayload *)v8 _transformPluginBundleIDIfNeeded:balloonBundleID];
+  pluginBundleID = v8->_pluginBundleID;
+  v8->_pluginBundleID = v16;
 
-  v29 = objc_msgSend_body(itemCopy, v27, v28);
-  v32 = objc_msgSend__pluginPayloadURLFromIMMessageItemBody(v29, v30, v31);
-  url = v10->_url;
-  v153 = v10;
-  v10->_url = v32;
+  body = [itemCopy body];
+  _pluginPayloadURLFromIMMessageItemBody = [body _pluginPayloadURLFromIMMessageItemBody];
+  url = v8->_url;
+  v76 = v8;
+  v8->_url = _pluginPayloadURLFromIMMessageItemBody;
 
-  v158 = objc_alloc_init(MEMORY[0x1E696AD40]);
-  v36 = objc_msgSend_array(MEMORY[0x1E695DF70], v34, v35);
-  v39 = objc_msgSend_set(MEMORY[0x1E695DFA8], v37, v38);
-  v155 = contextCopy;
-  v41 = objc_msgSend__newMessagePartsForMessageItem_chatContext_(IMMessagePartChatItem, v40, itemCopy, contextCopy);
-  v44 = 0x1E780D000uLL;
-  v156 = itemCopy;
-  if (v41)
+  v81 = objc_alloc_init(MEMORY[0x1E696AD40]);
+  array = [MEMORY[0x1E695DF70] array];
+  v22 = [MEMORY[0x1E695DFA8] set];
+  v78 = contextCopy;
+  v23 = [IMMessagePartChatItem _newMessagePartsForMessageItem:itemCopy chatContext:contextCopy];
+  v24 = 0x1E780D000uLL;
+  v79 = itemCopy;
+  if (v23)
   {
-    v45 = v41;
+    v25 = v23;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v171[0] = v45;
-      v47 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v46, v171, 1);
+      v94[0] = v25;
+      v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v94 count:1];
 
-      v45 = v47;
+      v25 = v26;
     }
 
-    v166 = 0u;
-    v167 = 0u;
-    v164 = 0u;
-    v165 = 0u;
-    obj = v45;
-    v49 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v48, &v164, v170, 16);
-    if (v49)
+    v89 = 0u;
+    v90 = 0u;
+    v87 = 0u;
+    v88 = 0u;
+    obj = v25;
+    v27 = [obj countByEnumeratingWithState:&v87 objects:v93 count:16];
+    if (v27)
     {
-      v50 = v49;
-      v51 = *v165;
+      v28 = v27;
+      v29 = *v88;
       do
       {
-        for (i = 0; i != v50; ++i)
+        for (i = 0; i != v28; ++i)
         {
-          if (*v165 != v51)
+          if (*v88 != v29)
           {
             objc_enumerationMutation(obj);
           }
 
-          v53 = *(*(&v164 + 1) + 8 * i);
+          v31 = *(*(&v87 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v54 = v53;
-            v57 = objc_msgSend_subject(v54, v55, v56);
-            if (!v57)
+            transferGUID = v31;
+            subject = [transferGUID subject];
+            if (!subject)
             {
-              v57 = objc_msgSend_text(v54, v58, v59);
-              if (!v57)
+              subject = [transferGUID text];
+              if (!subject)
               {
                 goto LABEL_18;
               }
             }
 
-            v60 = v57;
-            objc_msgSend_appendAttributedString_(v158, v58, v57, v153);
+            v34 = subject;
+            [v81 appendAttributedString:{subject, v76}];
           }
 
           else
@@ -132,31 +132,31 @@
               continue;
             }
 
-            v54 = objc_msgSend_transferGUID(v53, v61, v62);
-            v65 = objc_msgSend_sharedInstance(IMFileTransferCenter, v63, v64);
-            v60 = objc_msgSend_transferForGUID_(v65, v66, v54);
+            transferGUID = [v31 transferGUID];
+            v35 = +[IMFileTransferCenter sharedInstance];
+            v34 = [v35 transferForGUID:transferGUID];
 
-            v69 = objc_msgSend_localURL(v60, v67, v68);
+            localURL = [v34 localURL];
 
-            if (v69)
+            if (localURL)
             {
-              objc_msgSend_addObject_(v39, v70, v54);
-              v73 = objc_msgSend_localURL(v60, v71, v72);
-              objc_msgSend_addObject_(v36, v74, v73);
+              [v22 addObject:transferGUID];
+              localURL2 = [v34 localURL];
+              [array addObject:localURL2];
             }
           }
 
 LABEL_18:
         }
 
-        v50 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v61, &v164, v170, 16);
+        v28 = [obj countByEnumeratingWithState:&v87 objects:v93 count:16];
       }
 
-      while (v50);
+      while (v28);
     }
 
-    itemCopy = v156;
-    v44 = 0x1E780D000;
+    itemCopy = v79;
+    v24 = 0x1E780D000;
   }
 
   else
@@ -164,323 +164,292 @@ LABEL_18:
     obj = 0;
   }
 
-  v162 = 0u;
-  v163 = 0u;
-  v160 = 0u;
-  v161 = 0u;
-  v75 = objc_msgSend_fileTransferGUIDs(itemCopy, v42, v43, v153);
-  v77 = objc_msgSend_countByEnumeratingWithState_objects_count_(v75, v76, &v160, v169, 16);
-  if (!v77)
+  v85 = 0u;
+  v86 = 0u;
+  v83 = 0u;
+  v84 = 0u;
+  fileTransferGUIDs = [itemCopy fileTransferGUIDs];
+  v39 = [fileTransferGUIDs countByEnumeratingWithState:&v83 objects:v92 count:16];
+  if (!v39)
   {
     goto LABEL_37;
   }
 
-  v79 = v77;
-  v80 = *v161;
+  v40 = v39;
+  v41 = *v84;
   do
   {
-    v81 = 0;
-    v157 = v79;
+    v42 = 0;
+    v80 = v40;
     do
     {
-      if (*v161 != v80)
+      if (*v84 != v41)
       {
-        objc_enumerationMutation(v75);
+        objc_enumerationMutation(fileTransferGUIDs);
       }
 
-      v82 = *(*(&v160 + 1) + 8 * v81);
-      if ((objc_msgSend_containsObject_(v39, v78, v82) & 1) == 0)
+      v43 = *(*(&v83 + 1) + 8 * v42);
+      if (([v22 containsObject:v43] & 1) == 0)
       {
-        objc_msgSend_addObject_(v39, v78, v82);
-        v85 = objc_msgSend_sharedInstance(*(v44 + 2496), v83, v84);
-        v87 = objc_msgSend_transferForGUID_(v85, v86, v82);
+        [v22 addObject:v43];
+        sharedInstance = [*(v24 + 2496) sharedInstance];
+        v45 = [sharedInstance transferForGUID:v43];
 
-        v90 = objc_msgSend_localURL(v87, v88, v89);
-        if (v90)
+        localURL3 = [v45 localURL];
+        if (localURL3)
         {
           goto LABEL_33;
         }
 
-        v93 = objc_msgSend_localPath(v87, v91, v92);
+        localPath = [v45 localPath];
 
-        if (!v93)
+        if (!localPath || (v48 = MEMORY[0x1E695DFF8], [v45 localPath], v49 = v41, v50 = fileTransferGUIDs, v51 = v22, v52 = array, v53 = v24, v54 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v48, "fileURLWithPath:", v54), v55 = objc_claimAutoreleasedReturnValue(), v54, v24 = v53, array = v52, v22 = v51, fileTransferGUIDs = v50, v41 = v49, v40 = v80, !v55))
         {
-          goto LABEL_32;
-        }
-
-        v95 = MEMORY[0x1E695DFF8];
-        objc_msgSend_localPath(v87, v91, v94);
-        v96 = v80;
-        v97 = v75;
-        v98 = v39;
-        v99 = v36;
-        v101 = v100 = v44;
-        v103 = objc_msgSend_fileURLWithPath_(v95, v102, v101);
-
-        v44 = v100;
-        v36 = v99;
-        v39 = v98;
-        v75 = v97;
-        v80 = v96;
-        v79 = v157;
-        if (!v103)
-        {
-LABEL_32:
-          v90 = objc_msgSend_null(MEMORY[0x1E695DFB0], v91, v94);
+          localURL3 = [MEMORY[0x1E695DFB0] null];
 LABEL_33:
-          v103 = v90;
+          v55 = localURL3;
         }
 
-        objc_msgSend_addObject_(v36, v91, v103);
+        [array addObject:v55];
       }
 
-      ++v81;
+      ++v42;
     }
 
-    while (v79 != v81);
-    v79 = objc_msgSend_countByEnumeratingWithState_objects_count_(v75, v78, &v160, v169, 16);
+    while (v40 != v42);
+    v40 = [fileTransferGUIDs countByEnumeratingWithState:&v83 objects:v92 count:16];
   }
 
-  while (v79);
+  while (v40);
 LABEL_37:
 
-  v10 = v154;
-  objc_storeStrong(&v154->_text, v158);
-  itemCopy = v156;
-  v106 = objc_msgSend_breadcrumbText(v156, v104, v105);
-  v109 = objc_msgSend_string(v106, v107, v108);
-  breadcrumbText = v154->_breadcrumbText;
-  v154->_breadcrumbText = v109;
+  v8 = v77;
+  objc_storeStrong(&v77->_text, v81);
+  itemCopy = v79;
+  breadcrumbText = [v79 breadcrumbText];
+  string = [breadcrumbText string];
+  breadcrumbText = v77->_breadcrumbText;
+  v77->_breadcrumbText = string;
 
-  v113 = objc_msgSend_copy(v36, v111, v112);
-  attachments = v154->_attachments;
-  v154->_attachments = v113;
+  v59 = [array copy];
+  attachments = v77->_attachments;
+  v77->_attachments = v59;
 
-  v117 = objc_msgSend_payloadData(v156, v115, v116);
-  v120 = objc_msgSend__FTOptionallyDecompressData(v117, v118, v119);
-  data = v154->_data;
-  v154->_data = v120;
+  payloadData = [v79 payloadData];
+  _FTOptionallyDecompressData = [payloadData _FTOptionallyDecompressData];
+  data = v77->_data;
+  v77->_data = _FTOptionallyDecompressData;
 
-  v154->_sticker = objc_msgSend_isSticker(v156, v122, v123);
-  v126 = objc_msgSend_associatedMessageType(v156, v124, v125);
-  v154->_customAcknowledgement = v126 == 4000;
-  if (v126 == 4000)
+  v77->_sticker = [v79 isSticker];
+  associatedMessageType = [v79 associatedMessageType];
+  v77->_customAcknowledgement = associatedMessageType == 4000;
+  if (associatedMessageType == 4000)
   {
-    v129 = objc_msgSend_associatedMessageGUID(v156, v127, v128);
-    associatedMessageGUID = v154->_associatedMessageGUID;
-    v154->_associatedMessageGUID = v129;
+    associatedMessageGUID = [v79 associatedMessageGUID];
+    associatedMessageGUID = v77->_associatedMessageGUID;
+    v77->_associatedMessageGUID = associatedMessageGUID;
 
-    v133 = objc_msgSend_pluginSessionGUID(v156, v131, v132);
-    v134 = v154->_pluginSessionGUID;
-    v154->_pluginSessionGUID = v133;
+    pluginSessionGUID2 = [v79 pluginSessionGUID];
+    v68 = v77->_pluginSessionGUID;
+    v77->_pluginSessionGUID = pluginSessionGUID2;
   }
 
-  v154->_shouldExpire = objc_msgSend_isExpirable(v156, v127, v128);
-  v137 = objc_msgSend_consumedSessionPayloads(v156, v135, v136);
-  consumedSessionPayloads = v154->_consumedSessionPayloads;
-  v154->_consumedSessionPayloads = v137;
+  v77->_shouldExpire = [v79 isExpirable];
+  consumedSessionPayloads = [v79 consumedSessionPayloads];
+  consumedSessionPayloads = v77->_consumedSessionPayloads;
+  v77->_consumedSessionPayloads = consumedSessionPayloads;
 
-  v154->_isFromMe = objc_msgSend_isFromMe(v156, v139, v140);
-  v143 = objc_msgSend_sender(v156, v141, v142);
-  sender = v154->_sender;
-  v154->_sender = v143;
+  v77->_isFromMe = [v79 isFromMe];
+  sender = [v79 sender];
+  sender = v77->_sender;
+  v77->_sender = sender;
 
-  v154->_isPlayed = objc_msgSend_isPlayed(v156, v145, v146);
-  v149 = objc_msgSend_allObjects(v39, v147, v148);
-  fileTransferGUIDs = v154->_fileTransferGUIDs;
-  v154->_fileTransferGUIDs = v149;
+  v77->_isPlayed = [v79 isPlayed];
+  allObjects = [v22 allObjects];
+  fileTransferGUIDs = v77->_fileTransferGUIDs;
+  v77->_fileTransferGUIDs = allObjects;
 
-  contextCopy = v155;
+  contextCopy = v78;
 LABEL_40:
 
-  v151 = *MEMORY[0x1E69E9840];
-  return v10;
+  return v8;
 }
 
 - (void)addAttachmentsFromFileTransferGUIDs:(id)ds
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
-  if (objc_msgSend_count(dsCopy, v5, v6))
+  if ([dsCopy count])
   {
-    v9 = objc_msgSend_array(MEMORY[0x1E695DF70], v7, v8);
-    v31 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    v34 = 0u;
-    v10 = dsCopy;
-    v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v31, v35, 16);
-    if (v12)
+    array = [MEMORY[0x1E695DF70] array];
+    v16 = 0u;
+    v17 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    v6 = dsCopy;
+    v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    if (v7)
     {
-      v15 = v12;
-      v16 = *v32;
+      v8 = v7;
+      v9 = *v17;
       do
       {
-        v17 = 0;
+        v10 = 0;
         do
         {
-          if (*v32 != v16)
+          if (*v17 != v9)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v6);
           }
 
-          v18 = *(*(&v31 + 1) + 8 * v17);
-          v19 = objc_msgSend_sharedInstance(IMFileTransferCenter, v13, v14, v31);
-          v21 = objc_msgSend_transferForGUID_(v19, v20, v18);
+          v11 = *(*(&v16 + 1) + 8 * v10);
+          v12 = +[IMFileTransferCenter sharedInstance];
+          v13 = [v12 transferForGUID:v11];
 
-          if (v9)
+          if (array)
           {
-            v24 = objc_msgSend_localURL(v21, v22, v23);
+            localURL = [v13 localURL];
 
-            if (v24)
+            if (localURL)
             {
-              v27 = objc_msgSend_localURL(v21, v25, v26);
-              CFArrayAppendValue(v9, v27);
+              localURL2 = [v13 localURL];
+              CFArrayAppendValue(array, localURL2);
             }
           }
 
-          ++v17;
+          ++v10;
         }
 
-        while (v15 != v17);
-        v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v13, &v31, v35, 16);
+        while (v8 != v10);
+        v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
-      while (v15);
+      while (v8);
     }
 
-    objc_msgSend_setAttachments_(self, v28, v9);
-    objc_msgSend_setFileTransferGUIDs_(self, v29, v10);
+    [(IMPluginPayload *)self setAttachments:array];
+    [(IMPluginPayload *)self setFileTransferGUIDs:v6];
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isEqualAttachmentFileURLsToPluginPayload:(id)payload
 {
   v4 = MEMORY[0x1E695DFD8];
   payloadCopy = payload;
-  v8 = objc_msgSend_attachments(self, v6, v7);
-  v10 = objc_msgSend_setWithArray_(v4, v9, v8);
+  attachments = [(IMPluginPayload *)self attachments];
+  v7 = [v4 setWithArray:attachments];
 
-  v11 = MEMORY[0x1E695DFD8];
-  v14 = objc_msgSend_attachments(payloadCopy, v12, v13);
+  v8 = MEMORY[0x1E695DFD8];
+  attachments2 = [payloadCopy attachments];
 
-  v16 = objc_msgSend_setWithArray_(v11, v15, v14);
+  v10 = [v8 setWithArray:attachments2];
 
-  LOBYTE(payloadCopy) = objc_msgSend_isEqualToSet_(v10, v17, v16);
+  LOBYTE(payloadCopy) = [v7 isEqualToSet:v10];
   return payloadCopy;
 }
 
 - (void)acceptPurgedTransfers
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v2 = self->_fileTransferGUIDs;
-  v4 = objc_msgSend_countByEnumeratingWithState_objects_count_(v2, v3, &v14, v18, 16);
-  if (v4)
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v3)
   {
-    v7 = v4;
-    v8 = *v15;
+    v4 = v3;
+    v5 = *v10;
     do
     {
-      v9 = 0;
+      v6 = 0;
       do
       {
-        if (*v15 != v8)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * v9);
-        v11 = objc_msgSend_sharedInstance(IMFileTransferCenter, v5, v6, v14);
-        objc_msgSend_acceptTransfer_(v11, v12, v10);
+        v7 = *(*(&v9 + 1) + 8 * v6);
+        v8 = +[IMFileTransferCenter sharedInstance];
+        [v8 acceptTransfer:v7];
 
-        ++v9;
+        ++v6;
       }
 
-      while (v7 != v9);
-      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v2, v5, &v14, v18, 16);
+      while (v4 != v6);
+      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
-    while (v7);
+    while (v4);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addAttachmentsFromFilePaths:(id)paths
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   pathsCopy = paths;
-  if (objc_msgSend_count(pathsCopy, v5, v6))
+  if ([pathsCopy count])
   {
-    v9 = objc_msgSend_array(MEMORY[0x1E695DF70], v7, v8);
-    v21 = 0u;
-    v22 = 0u;
-    v23 = 0u;
-    v24 = 0u;
-    v10 = pathsCopy;
-    v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v21, v25, 16);
-    if (v12)
+    array = [MEMORY[0x1E695DF70] array];
+    v13 = 0u;
+    v14 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    v6 = pathsCopy;
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    if (v7)
     {
-      v14 = v12;
-      v15 = *v22;
+      v8 = v7;
+      v9 = *v14;
       do
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v8; ++i)
         {
-          if (*v22 != v15)
+          if (*v14 != v9)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v6);
           }
 
-          v17 = objc_msgSend_fileURLWithPath_(MEMORY[0x1E695DFF8], v13, *(*(&v21 + 1) + 8 * i), v21);
-          v18 = v17;
-          if (v9 && v17)
+          v11 = [MEMORY[0x1E695DFF8] fileURLWithPath:{*(*(&v13 + 1) + 8 * i), v13}];
+          v12 = v11;
+          if (array && v11)
           {
-            CFArrayAppendValue(v9, v17);
+            CFArrayAppendValue(array, v11);
           }
         }
 
-        v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v13, &v21, v25, 16);
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
-      while (v14);
+      while (v8);
     }
 
-    objc_msgSend_setAttachments_(self, v19, v9);
+    [(IMPluginPayload *)self setAttachments:array];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_transformPluginBundleIDIfNeeded:(id)needed
 {
   neededCopy = needed;
-  v4 = *MEMORY[0x1E69A6920];
-  v5 = IMBalloonExtensionIDWithSuffix();
-  isEqualToString = objc_msgSend_isEqualToString_(neededCopy, v6, v5);
+  v4 = IMBalloonExtensionIDWithSuffix();
+  v5 = [neededCopy isEqualToString:v4];
 
-  v8 = neededCopy;
-  if (isEqualToString)
+  v6 = neededCopy;
+  if (v5)
   {
-    v9 = *MEMORY[0x1E69A68E0];
-    v8 = IMBalloonExtensionIDWithSuffix();
+    v6 = IMBalloonExtensionIDWithSuffix();
   }
 
-  return v8;
+  return v6;
 }
 
 - (void)setPluginBundleID:(id)d
 {
   if (self->_pluginBundleID != d)
   {
-    v5 = objc_msgSend__transformPluginBundleIDIfNeeded_(self, a2, d);
-    pluginBundleID = self->_pluginBundleID;
+    v5 = [(IMPluginPayload *)self _transformPluginBundleIDIfNeeded:?];
     self->_pluginBundleID = v5;
 
     MEMORY[0x1EEE66BB8](v5);
@@ -489,11 +458,10 @@ LABEL_40:
 
 - (void)setData:(id)data
 {
-  v4 = objc_msgSend__FTOptionallyDecompressData(data, a2, data);
-  data = self->_data;
-  self->_data = v4;
+  _FTOptionallyDecompressData = [data _FTOptionallyDecompressData];
+  self->_data = _FTOptionallyDecompressData;
 
-  MEMORY[0x1EEE66BB8](v4);
+  MEMORY[0x1EEE66BB8](_FTOptionallyDecompressData);
 }
 
 - (NSString)pluginSessionGUID
@@ -511,362 +479,361 @@ LABEL_40:
 
 - (BOOL)shouldHideAttachments
 {
-  v3 = objc_msgSend_data(self, a2, v2);
-  v6 = objc_msgSend_length(v3, v4, v5) != 0;
+  data = [(IMPluginPayload *)self data];
+  v3 = [data length] != 0;
 
-  return v6;
+  return v3;
 }
 
 - (CKContainerSetupInfo)containerSetupInfo
 {
-  collaborationMetadata = self->_collaborationMetadata;
   if (objc_opt_respondsToSelector())
   {
-    v6 = objc_msgSend_containerSetupInfo(self->_collaborationMetadata, v4, v5);
+    containerSetupInfo = [(_SWCollaborationMetadata *)self->_collaborationMetadata containerSetupInfo];
   }
 
   else
   {
-    v6 = 0;
+    containerSetupInfo = 0;
   }
 
-  return v6;
+  return containerSetupInfo;
 }
 
 - (BOOL)isEqualToPluginPayload:(id)payload
 {
   payloadCopy = payload;
-  v7 = objc_msgSend_text(self, v5, v6);
-  v10 = objc_msgSend_text(payloadCopy, v8, v9);
-  v11 = sub_1A8280928(v7, v10);
+  text = [(IMPluginPayload *)self text];
+  text2 = [payloadCopy text];
+  v7 = sub_1A8280928(text, text2);
 
-  if (!v11)
+  if (!v7)
   {
     goto LABEL_44;
   }
 
-  v14 = objc_msgSend_data(self, v12, v13);
-  v17 = objc_msgSend_data(payloadCopy, v15, v16);
-  v18 = sub_1A8280998(v14, v17);
+  data = [(IMPluginPayload *)self data];
+  data2 = [payloadCopy data];
+  v10 = sub_1A8280998(data, data2);
 
-  if (!v18)
+  if (!v10)
   {
     goto LABEL_44;
   }
 
-  v21 = objc_msgSend_generativePlaygroundRecipeData(self, v19, v20);
-  v24 = objc_msgSend_generativePlaygroundRecipeData(payloadCopy, v22, v23);
-  v25 = sub_1A8280998(v21, v24);
+  generativePlaygroundRecipeData = [(IMPluginPayload *)self generativePlaygroundRecipeData];
+  generativePlaygroundRecipeData2 = [payloadCopy generativePlaygroundRecipeData];
+  v13 = sub_1A8280998(generativePlaygroundRecipeData, generativePlaygroundRecipeData2);
 
-  if (!v25)
+  if (!v13)
   {
     goto LABEL_44;
   }
 
-  v28 = objc_msgSend_breadcrumbText(self, v26, v27);
-  v31 = objc_msgSend_breadcrumbText(payloadCopy, v29, v30);
-  v32 = sub_1A8280A08(v28, v31);
+  breadcrumbText = [(IMPluginPayload *)self breadcrumbText];
+  breadcrumbText2 = [payloadCopy breadcrumbText];
+  v16 = sub_1A8280A08(breadcrumbText, breadcrumbText2);
+
+  if (!v16)
+  {
+    goto LABEL_44;
+  }
+
+  statusText = [(IMPluginPayload *)self statusText];
+  statusText2 = [payloadCopy statusText];
+  v19 = sub_1A8280A08(statusText, statusText2);
+
+  if (!v19)
+  {
+    goto LABEL_44;
+  }
+
+  isUpdate = [(IMPluginPayload *)self isUpdate];
+  if (isUpdate != [payloadCopy isUpdate])
+  {
+    goto LABEL_44;
+  }
+
+  v21 = [(IMPluginPayload *)self url];
+  v22 = [payloadCopy url];
+  v23 = sub_1A8280998(v21, v22);
+
+  if (!v23)
+  {
+    goto LABEL_44;
+  }
+
+  userInfo = [(IMPluginPayload *)self userInfo];
+  userInfo2 = [payloadCopy userInfo];
+  v26 = sub_1A8280A78(userInfo, userInfo2);
+
+  if (!v26)
+  {
+    goto LABEL_44;
+  }
+
+  messageGUID = [(IMPluginPayload *)self messageGUID];
+  messageGUID2 = [payloadCopy messageGUID];
+  v29 = sub_1A8280A08(messageGUID, messageGUID2);
+
+  if (!v29)
+  {
+    goto LABEL_44;
+  }
+
+  associatedMessageGUID = [(IMPluginPayload *)self associatedMessageGUID];
+  associatedMessageGUID2 = [payloadCopy associatedMessageGUID];
+  v32 = sub_1A8280A08(associatedMessageGUID, associatedMessageGUID2);
 
   if (!v32)
   {
     goto LABEL_44;
   }
 
-  v35 = objc_msgSend_statusText(self, v33, v34);
-  v38 = objc_msgSend_statusText(payloadCopy, v36, v37);
-  v39 = sub_1A8280A08(v35, v38);
+  pluginSessionGUID = [(IMPluginPayload *)self pluginSessionGUID];
+  pluginSessionGUID2 = [payloadCopy pluginSessionGUID];
+  v35 = sub_1A8280A08(pluginSessionGUID, pluginSessionGUID2);
 
-  if (!v39)
+  if (!v35)
   {
     goto LABEL_44;
   }
 
-  isUpdate = objc_msgSend_isUpdate(self, v40, v41);
-  if (isUpdate != objc_msgSend_isUpdate(payloadCopy, v43, v44))
+  pluginBundleID = [(IMPluginPayload *)self pluginBundleID];
+  pluginBundleID2 = [payloadCopy pluginBundleID];
+  v38 = sub_1A8280A08(pluginBundleID, pluginBundleID2);
+
+  if (!v38)
   {
     goto LABEL_44;
   }
 
-  v47 = objc_msgSend_url(self, v45, v46);
-  v50 = objc_msgSend_url(payloadCopy, v48, v49);
-  v51 = sub_1A8280998(v47, v50);
+  attachments = [(IMPluginPayload *)self attachments];
+  attachments2 = [payloadCopy attachments];
+  v41 = sub_1A8280AE8(attachments, attachments2);
 
-  if (!v51)
+  if (!v41)
   {
     goto LABEL_44;
   }
 
-  v54 = objc_msgSend_userInfo(self, v52, v53);
-  v57 = objc_msgSend_userInfo(payloadCopy, v55, v56);
-  v58 = sub_1A8280A78(v54, v57);
+  fileTransferGUIDs = [(IMPluginPayload *)self fileTransferGUIDs];
+  fileTransferGUIDs2 = [payloadCopy fileTransferGUIDs];
+  v44 = sub_1A8280AE8(fileTransferGUIDs, fileTransferGUIDs2);
 
-  if (!v58)
+  if (!v44)
   {
     goto LABEL_44;
   }
 
-  v61 = objc_msgSend_messageGUID(self, v59, v60);
-  v64 = objc_msgSend_messageGUID(payloadCopy, v62, v63);
-  v65 = sub_1A8280A08(v61, v64);
-
-  if (!v65)
+  isSticker = [(IMPluginPayload *)self isSticker];
+  if (isSticker != [payloadCopy isSticker])
   {
     goto LABEL_44;
   }
 
-  v68 = objc_msgSend_associatedMessageGUID(self, v66, v67);
-  v71 = objc_msgSend_associatedMessageGUID(payloadCopy, v69, v70);
-  v72 = sub_1A8280A08(v68, v71);
-
-  if (!v72)
+  isCustomAcknowledgement = [(IMPluginPayload *)self isCustomAcknowledgement];
+  if (isCustomAcknowledgement != [payloadCopy isCustomAcknowledgement])
   {
     goto LABEL_44;
   }
 
-  v75 = objc_msgSend_pluginSessionGUID(self, v73, v74);
-  v78 = objc_msgSend_pluginSessionGUID(payloadCopy, v76, v77);
-  v79 = sub_1A8280A08(v75, v78);
-
-  if (!v79)
+  shouldExpire = [(IMPluginPayload *)self shouldExpire];
+  if (shouldExpire != [payloadCopy shouldExpire])
   {
     goto LABEL_44;
   }
 
-  v82 = objc_msgSend_pluginBundleID(self, v80, v81);
-  v85 = objc_msgSend_pluginBundleID(payloadCopy, v83, v84);
-  v86 = sub_1A8280A08(v82, v85);
+  sender = [(IMPluginPayload *)self sender];
+  sender2 = [payloadCopy sender];
+  v50 = sub_1A8280A08(sender, sender2);
 
-  if (!v86)
+  if (!v50)
   {
     goto LABEL_44;
   }
 
-  v89 = objc_msgSend_attachments(self, v87, v88);
-  v92 = objc_msgSend_attachments(payloadCopy, v90, v91);
-  v93 = sub_1A8280AE8(v89, v92);
-
-  if (!v93)
+  isFromMe = [(IMPluginPayload *)self isFromMe];
+  if (isFromMe != [payloadCopy isFromMe])
   {
     goto LABEL_44;
   }
 
-  v96 = objc_msgSend_fileTransferGUIDs(self, v94, v95);
-  v99 = objc_msgSend_fileTransferGUIDs(payloadCopy, v97, v98);
-  v100 = sub_1A8280AE8(v96, v99);
-
-  if (!v100)
+  isPlayed = [(IMPluginPayload *)self isPlayed];
+  if (isPlayed != [payloadCopy isPlayed])
   {
     goto LABEL_44;
   }
 
-  isSticker = objc_msgSend_isSticker(self, v101, v102);
-  if (isSticker != objc_msgSend_isSticker(payloadCopy, v104, v105))
+  payloadCollaborationType = [(IMPluginPayload *)self payloadCollaborationType];
+  if (payloadCollaborationType != [payloadCopy payloadCollaborationType])
   {
     goto LABEL_44;
   }
 
-  isCustomAcknowledgement = objc_msgSend_isCustomAcknowledgement(self, v106, v107);
-  if (isCustomAcknowledgement != objc_msgSend_isCustomAcknowledgement(payloadCopy, v109, v110))
+  sendAsCopy = [(IMPluginPayload *)self sendAsCopy];
+  if (sendAsCopy != [payloadCopy sendAsCopy])
   {
     goto LABEL_44;
   }
 
-  shouldExpire = objc_msgSend_shouldExpire(self, v111, v112);
-  if (shouldExpire != objc_msgSend_shouldExpire(payloadCopy, v114, v115))
+  sendAsCopyURL = [(IMPluginPayload *)self sendAsCopyURL];
+  sendAsCopyURL2 = [payloadCopy sendAsCopyURL];
+
+  if (sendAsCopyURL != sendAsCopyURL2)
   {
     goto LABEL_44;
   }
 
-  v118 = objc_msgSend_sender(self, v116, v117);
-  v121 = objc_msgSend_sender(payloadCopy, v119, v120);
-  v122 = sub_1A8280A08(v118, v121);
-
-  if (!v122)
+  skipConfigurePlugin = [(IMPluginPayload *)self skipConfigurePlugin];
+  if (skipConfigurePlugin != [payloadCopy skipConfigurePlugin])
   {
     goto LABEL_44;
   }
 
-  v125 = objc_msgSend_isFromMe(self, v123, v124);
-  if (v125 != objc_msgSend_isFromMe(payloadCopy, v126, v127))
+  cloudKitShare = [(IMPluginPayload *)self cloudKitShare];
+  cloudKitShare2 = [payloadCopy cloudKitShare];
+  v60 = sub_1A8280998(cloudKitShare, cloudKitShare2);
+
+  if (!v60)
   {
     goto LABEL_44;
   }
 
-  isPlayed = objc_msgSend_isPlayed(self, v128, v129);
-  if (isPlayed != objc_msgSend_isPlayed(payloadCopy, v131, v132))
+  containerSetupInfo = [(IMPluginPayload *)self containerSetupInfo];
+  containerSetupInfo2 = [payloadCopy containerSetupInfo];
+  v63 = sub_1A8280998(containerSetupInfo, containerSetupInfo2);
+
+  if (!v63)
   {
     goto LABEL_44;
   }
 
-  v135 = objc_msgSend_payloadCollaborationType(self, v133, v134);
-  if (v135 != objc_msgSend_payloadCollaborationType(payloadCopy, v136, v137))
+  collaborationMetadata = [(IMPluginPayload *)self collaborationMetadata];
+  collaborationMetadata2 = [payloadCopy collaborationMetadata];
+  v66 = sub_1A8280998(collaborationMetadata, collaborationMetadata2);
+
+  if (!v66)
   {
     goto LABEL_44;
   }
 
-  v140 = objc_msgSend_sendAsCopy(self, v138, v139);
-  if (v140 != objc_msgSend_sendAsCopy(payloadCopy, v141, v142))
+  collaborationMetadata3 = [(IMPluginPayload *)self collaborationMetadata];
+  userSelectedShareOptions = [collaborationMetadata3 userSelectedShareOptions];
+  collaborationMetadata4 = [payloadCopy collaborationMetadata];
+  userSelectedShareOptions2 = [collaborationMetadata4 userSelectedShareOptions];
+  v71 = sub_1A8280998(userSelectedShareOptions, userSelectedShareOptions2);
+
+  if (!v71)
   {
     goto LABEL_44;
   }
 
-  v145 = objc_msgSend_sendAsCopyURL(self, v143, v144);
-  v148 = objc_msgSend_sendAsCopyURL(payloadCopy, v146, v147);
+  collaborationOptionsSummary = [(IMPluginPayload *)self collaborationOptionsSummary];
+  collaborationOptionsSummary2 = [payloadCopy collaborationOptionsSummary];
+  v74 = sub_1A8280A08(collaborationOptionsSummary, collaborationOptionsSummary2);
 
-  if (v145 != v148)
+  if (!v74)
   {
     goto LABEL_44;
   }
 
-  v151 = objc_msgSend_skipConfigurePlugin(self, v149, v150);
-  if (v151 != objc_msgSend_skipConfigurePlugin(payloadCopy, v152, v153))
+  groupActivity = [(IMPluginPayload *)self groupActivity];
+  groupActivity2 = [payloadCopy groupActivity];
+  v77 = sub_1A8280998(groupActivity, groupActivity2);
+
+  if (!v77)
   {
     goto LABEL_44;
   }
 
-  v156 = objc_msgSend_cloudKitShare(self, v154, v155);
-  v159 = objc_msgSend_cloudKitShare(payloadCopy, v157, v158);
-  v160 = sub_1A8280998(v156, v159);
+  time = [(IMPluginPayload *)self time];
+  time2 = [payloadCopy time];
+  v80 = sub_1A8280998(time, time2);
 
-  if (!v160)
+  if (!v80)
   {
     goto LABEL_44;
   }
 
-  v163 = objc_msgSend_containerSetupInfo(self, v161, v162);
-  v166 = objc_msgSend_containerSetupInfo(payloadCopy, v164, v165);
-  v167 = sub_1A8280998(v163, v166);
-
-  if (!v167)
-  {
-    goto LABEL_44;
-  }
-
-  v170 = objc_msgSend_collaborationMetadata(self, v168, v169);
-  v173 = objc_msgSend_collaborationMetadata(payloadCopy, v171, v172);
-  v174 = sub_1A8280998(v170, v173);
-
-  if (!v174)
-  {
-    goto LABEL_44;
-  }
-
-  v177 = objc_msgSend_collaborationMetadata(self, v175, v176);
-  v180 = objc_msgSend_userSelectedShareOptions(v177, v178, v179);
-  v183 = objc_msgSend_collaborationMetadata(payloadCopy, v181, v182);
-  v186 = objc_msgSend_userSelectedShareOptions(v183, v184, v185);
-  v187 = sub_1A8280998(v180, v186);
-
-  if (!v187)
-  {
-    goto LABEL_44;
-  }
-
-  v190 = objc_msgSend_collaborationOptionsSummary(self, v188, v189);
-  v193 = objc_msgSend_collaborationOptionsSummary(payloadCopy, v191, v192);
-  v194 = sub_1A8280A08(v190, v193);
-
-  if (!v194)
-  {
-    goto LABEL_44;
-  }
-
-  v197 = objc_msgSend_groupActivity(self, v195, v196);
-  v200 = objc_msgSend_groupActivity(payloadCopy, v198, v199);
-  v201 = sub_1A8280998(v197, v200);
-
-  if (!v201)
-  {
-    goto LABEL_44;
-  }
-
-  v204 = objc_msgSend_time(self, v202, v203);
-  v207 = objc_msgSend_time(payloadCopy, v205, v206);
-  v208 = sub_1A8280998(v204, v207);
-
-  if (!v208)
-  {
-    goto LABEL_44;
-  }
-
-  v211 = objc_msgSend_consumedSessionPayloads(self, v209, v210);
-  v214 = objc_msgSend_consumedSessionPayloads(payloadCopy, v212, v213);
-  v215 = v211;
-  v216 = v214;
-  v218 = v216;
-  if (v215 == v216)
+  consumedSessionPayloads = [(IMPluginPayload *)self consumedSessionPayloads];
+  consumedSessionPayloads2 = [payloadCopy consumedSessionPayloads];
+  v83 = consumedSessionPayloads;
+  v84 = consumedSessionPayloads2;
+  v85 = v84;
+  if (v83 == v84)
   {
   }
 
   else
   {
-    if (!v215 || !v216)
+    if (!v83 || !v84)
     {
 
 LABEL_44:
-      LOBYTE(v249) = 0;
+      LOBYTE(v96) = 0;
       goto LABEL_45;
     }
 
-    isEqualToArray = objc_msgSend_isEqualToArray_(v215, v217, v216);
+    v86 = [v83 isEqualToArray:v84];
 
-    if ((isEqualToArray & 1) == 0)
+    if ((v86 & 1) == 0)
     {
       goto LABEL_44;
     }
   }
 
-  v222 = objc_msgSend_threadIdentifier(self, v220, v221);
-  v225 = objc_msgSend_threadIdentifier(payloadCopy, v223, v224);
-  v226 = sub_1A8280998(v222, v225);
+  threadIdentifier = [(IMPluginPayload *)self threadIdentifier];
+  threadIdentifier2 = [payloadCopy threadIdentifier];
+  v89 = sub_1A8280998(threadIdentifier, threadIdentifier2);
 
-  if (!v226)
+  if (!v89)
   {
     goto LABEL_44;
   }
 
-  v229 = objc_msgSend_dataDetectedResult(self, v227, v228);
-  v232 = objc_msgSend_dataDetectedResult(payloadCopy, v230, v231);
-  v233 = sub_1A8280998(v229, v232);
+  dataDetectedResult = [(IMPluginPayload *)self dataDetectedResult];
+  dataDetectedResult2 = [payloadCopy dataDetectedResult];
+  v92 = sub_1A8280998(dataDetectedResult, dataDetectedResult2);
 
-  if (!v233)
+  if (!v92)
   {
     goto LABEL_44;
   }
 
-  shouldHideAttachments = objc_msgSend_shouldHideAttachments(self, v234, v235);
-  if (shouldHideAttachments != objc_msgSend_shouldHideAttachments(payloadCopy, v237, v238))
+  shouldHideAttachments = [(IMPluginPayload *)self shouldHideAttachments];
+  if (shouldHideAttachments != [payloadCopy shouldHideAttachments])
   {
     goto LABEL_44;
   }
 
-  v241 = objc_msgSend_supportsCollaboration(self, v239, v240);
-  if (v241 != objc_msgSend_supportsCollaboration(payloadCopy, v242, v243))
+  supportsCollaboration = [(IMPluginPayload *)self supportsCollaboration];
+  if (supportsCollaboration != [payloadCopy supportsCollaboration])
   {
     goto LABEL_44;
   }
 
-  v246 = objc_msgSend_liveEditableInEntryView(self, v244, v245);
-  v249 = v246 ^ objc_msgSend_liveEditableInEntryView(payloadCopy, v247, v248) ^ 1;
+  liveEditableInEntryView = [(IMPluginPayload *)self liveEditableInEntryView];
+  v96 = liveEditableInEntryView ^ [payloadCopy liveEditableInEntryView] ^ 1;
 LABEL_45:
 
-  return v249;
+  return v96;
 }
 
 - (unint64_t)hash
 {
-  v4 = objc_msgSend_pluginBundleID(self, a2, v2);
-  v7 = objc_msgSend_hash(v4, v5, v6);
-  v10 = objc_msgSend_data(self, v8, v9);
-  v13 = objc_msgSend_hash(v10, v11, v12) + v7;
-  v16 = objc_msgSend_generativePlaygroundRecipeData(self, v14, v15);
-  v19 = objc_msgSend_hash(v16, v17, v18);
-  v22 = objc_msgSend_url(self, v20, v21);
-  v25 = v13 + v19 + objc_msgSend_hash(v22, v23, v24);
-  v28 = objc_msgSend_messageGUID(self, v26, v27);
-  v31 = objc_msgSend_hash(v28, v29, v30);
+  pluginBundleID = [(IMPluginPayload *)self pluginBundleID];
+  v4 = [pluginBundleID hash];
+  data = [(IMPluginPayload *)self data];
+  v6 = [data hash] + v4;
+  generativePlaygroundRecipeData = [(IMPluginPayload *)self generativePlaygroundRecipeData];
+  v8 = [generativePlaygroundRecipeData hash];
+  v9 = [(IMPluginPayload *)self url];
+  v10 = v6 + v8 + [v9 hash];
+  messageGUID = [(IMPluginPayload *)self messageGUID];
+  v12 = [messageGUID hash];
 
-  return v25 + v31;
+  return v10 + v12;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -874,159 +841,140 @@ LABEL_45:
   equalCopy = equal;
   if (self == equalCopy)
   {
-    isEqualToPluginPayload = 1;
+    v5 = 1;
   }
 
   else
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      isEqualToPluginPayload = objc_msgSend_isEqualToPluginPayload_(self, v5, equalCopy);
-    }
-
-    else
-    {
-      isEqualToPluginPayload = 0;
-    }
+    v5 = (objc_opt_isKindOfClass() & 1) != 0 && [(IMPluginPayload *)self isEqualToPluginPayload:equalCopy];
   }
 
-  return isEqualToPluginPayload;
+  return v5;
 }
 
 - (id)payloadDictionary
 {
-  v23[9] = *MEMORY[0x1E69E9840];
+  v17[9] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DFD8];
-  v23[0] = objc_opt_class();
-  v23[1] = objc_opt_class();
-  v23[2] = objc_opt_class();
-  v23[3] = objc_opt_class();
-  v23[4] = objc_opt_class();
-  v23[5] = objc_opt_class();
-  v23[6] = objc_opt_class();
-  v23[7] = objc_opt_class();
-  v23[8] = objc_opt_class();
-  v5 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v4, v23, 9);
-  v7 = objc_msgSend_setWithArray_(v3, v6, v5);
+  v17[0] = objc_opt_class();
+  v17[1] = objc_opt_class();
+  v17[2] = objc_opt_class();
+  v17[3] = objc_opt_class();
+  v17[4] = objc_opt_class();
+  v17[5] = objc_opt_class();
+  v17[6] = objc_opt_class();
+  v17[7] = objc_opt_class();
+  v17[8] = objc_opt_class();
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:9];
+  v5 = [v3 setWithArray:v4];
 
-  v8 = objc_opt_respondsToSelector();
-  v9 = MEMORY[0x1E696ACD0];
-  v13 = objc_msgSend_data(self, v10, v11);
-  if (v8)
+  v6 = objc_opt_respondsToSelector();
+  v7 = MEMORY[0x1E696ACD0];
+  data = [(IMPluginPayload *)self data];
+  if (v6)
   {
-    v22 = 0;
-    v14 = &v22;
-    v15 = objc_msgSend__strictlyUnarchivedObjectOfClasses_fromData_error_(v9, v12, v7, v13, &v22);
+    v16 = 0;
+    v9 = &v16;
+    v10 = [v7 _strictlyUnarchivedObjectOfClasses:v5 fromData:data error:&v16];
   }
 
   else
   {
-    v21 = 0;
-    v14 = &v21;
-    v15 = objc_msgSend_unarchivedObjectOfClasses_fromData_error_(v9, v12, v7, v13, &v21);
+    v15 = 0;
+    v9 = &v15;
+    v10 = [v7 unarchivedObjectOfClasses:v5 fromData:data error:&v15];
   }
 
-  v16 = v15;
-  v17 = *v14;
+  v11 = v10;
+  v12 = *v9;
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v18 = v16;
+    v13 = v11;
   }
 
   else
   {
-    v18 = 0;
+    v13 = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
-  return v18;
+  return v13;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  v6 = objc_msgSend_text(self, v4, v5);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v7, v6, @"IMPLUGIN_TEXT_KEY");
+  text = [(IMPluginPayload *)self text];
+  [coderCopy encodeObject:text forKey:@"IMPLUGIN_TEXT_KEY"];
 
-  v10 = objc_msgSend_data(self, v8, v9);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v11, v10, @"IMPLUGIN_DATA_KEY");
+  data = [(IMPluginPayload *)self data];
+  [coderCopy encodeObject:data forKey:@"IMPLUGIN_DATA_KEY"];
 
-  v14 = objc_msgSend_url(self, v12, v13);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v15, v14, @"IMPLUGIN_URL_KEY");
+  v6 = [(IMPluginPayload *)self url];
+  [coderCopy encodeObject:v6 forKey:@"IMPLUGIN_URL_KEY"];
 
-  v18 = objc_msgSend_breadcrumbText(self, v16, v17);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v19, v18, @"IMPLUGIN_BREADCRUMBTEXT_KEY");
+  breadcrumbText = [(IMPluginPayload *)self breadcrumbText];
+  [coderCopy encodeObject:breadcrumbText forKey:@"IMPLUGIN_BREADCRUMBTEXT_KEY"];
 
-  v22 = objc_msgSend_statusText(self, v20, v21);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v23, v22, @"IMPLUGIN_STATUSTEXT_KEY");
+  statusText = [(IMPluginPayload *)self statusText];
+  [coderCopy encodeObject:statusText forKey:@"IMPLUGIN_STATUSTEXT_KEY"];
 
-  isUpdate = objc_msgSend_isUpdate(self, v24, v25);
-  objc_msgSend_encodeBool_forKey_(coderCopy, v27, isUpdate, @"IMPLUGIN_UPDATE_KEY");
-  v30 = objc_msgSend_userInfo(self, v28, v29);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v31, v30, @"IMPLUGIN_USERINFO_KEY");
+  [coderCopy encodeBool:-[IMPluginPayload isUpdate](self forKey:{"isUpdate"), @"IMPLUGIN_UPDATE_KEY"}];
+  userInfo = [(IMPluginPayload *)self userInfo];
+  [coderCopy encodeObject:userInfo forKey:@"IMPLUGIN_USERINFO_KEY"];
 
-  v34 = objc_msgSend_messageGUID(self, v32, v33);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v35, v34, @"IMPLUGIN_MESSAGEGUID_KEY");
+  messageGUID = [(IMPluginPayload *)self messageGUID];
+  [coderCopy encodeObject:messageGUID forKey:@"IMPLUGIN_MESSAGEGUID_KEY"];
 
-  v38 = objc_msgSend_associatedMessageGUID(self, v36, v37);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v39, v38, @"IMPLUGIN_ASSOCIATEDMESSAGEGUID_KEY");
+  associatedMessageGUID = [(IMPluginPayload *)self associatedMessageGUID];
+  [coderCopy encodeObject:associatedMessageGUID forKey:@"IMPLUGIN_ASSOCIATEDMESSAGEGUID_KEY"];
 
-  v42 = objc_msgSend_pluginSessionGUID(self, v40, v41);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v43, v42, @"IMPLUGIN_PLUGINSESSIONGUID_KEY");
+  pluginSessionGUID = [(IMPluginPayload *)self pluginSessionGUID];
+  [coderCopy encodeObject:pluginSessionGUID forKey:@"IMPLUGIN_PLUGINSESSIONGUID_KEY"];
 
-  v46 = objc_msgSend_pluginBundleID(self, v44, v45);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v47, v46, @"IMPLUGIN_PLUGINBUNDLEID_KEY");
+  pluginBundleID = [(IMPluginPayload *)self pluginBundleID];
+  [coderCopy encodeObject:pluginBundleID forKey:@"IMPLUGIN_PLUGINBUNDLEID_KEY"];
 
-  v50 = objc_msgSend_attachments(self, v48, v49);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v51, v50, @"IMPLUGIN_ATTACHMENTS_KEY");
+  attachments = [(IMPluginPayload *)self attachments];
+  [coderCopy encodeObject:attachments forKey:@"IMPLUGIN_ATTACHMENTS_KEY"];
 
-  v54 = objc_msgSend_fileTransferGUIDs(self, v52, v53);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v55, v54, @"IMPLUGIN_TRANSFERGUIDS_KEY");
+  fileTransferGUIDs = [(IMPluginPayload *)self fileTransferGUIDs];
+  [coderCopy encodeObject:fileTransferGUIDs forKey:@"IMPLUGIN_TRANSFERGUIDS_KEY"];
 
-  shouldExpire = objc_msgSend_shouldExpire(self, v56, v57);
-  objc_msgSend_encodeBool_forKey_(coderCopy, v59, shouldExpire, @"IMPLUGIN_SHOULD_EXPIRE_KEY");
-  isSticker = objc_msgSend_isSticker(self, v60, v61);
-  objc_msgSend_encodeBool_forKey_(coderCopy, v63, isSticker, @"IMPLUGIN_IS_STICKER_KEY");
-  isCustomAcknowledgement = objc_msgSend_isCustomAcknowledgement(self, v64, v65);
-  objc_msgSend_encodeBool_forKey_(coderCopy, v67, isCustomAcknowledgement, @"IMPLUGIN_IS_CUSTOM_ACKNOWLEDGEMENT_KEY");
-  v70 = objc_msgSend_isFromMe(self, v68, v69);
-  objc_msgSend_encodeBool_forKey_(coderCopy, v71, v70, @"IMPLUGIN_IS_FROM_ME");
-  v74 = objc_msgSend_sender(self, v72, v73);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v75, v74, @"IMPLUGIN_SENDER");
+  [coderCopy encodeBool:-[IMPluginPayload shouldExpire](self forKey:{"shouldExpire"), @"IMPLUGIN_SHOULD_EXPIRE_KEY"}];
+  [coderCopy encodeBool:-[IMPluginPayload isSticker](self forKey:{"isSticker"), @"IMPLUGIN_IS_STICKER_KEY"}];
+  [coderCopy encodeBool:-[IMPluginPayload isCustomAcknowledgement](self forKey:{"isCustomAcknowledgement"), @"IMPLUGIN_IS_CUSTOM_ACKNOWLEDGEMENT_KEY"}];
+  [coderCopy encodeBool:-[IMPluginPayload isFromMe](self forKey:{"isFromMe"), @"IMPLUGIN_IS_FROM_ME"}];
+  sender = [(IMPluginPayload *)self sender];
+  [coderCopy encodeObject:sender forKey:@"IMPLUGIN_SENDER"];
 
-  v78 = objc_msgSend_cloudKitShare(self, v76, v77);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v79, v78, @"IMPLUGIN_CKSHARE");
+  cloudKitShare = [(IMPluginPayload *)self cloudKitShare];
+  [coderCopy encodeObject:cloudKitShare forKey:@"IMPLUGIN_CKSHARE"];
 
-  isPlayed = objc_msgSend_isPlayed(self, v80, v81);
-  objc_msgSend_encodeBool_forKey_(coderCopy, v83, isPlayed, @"IMPLUGIN_IS_PLAYED");
-  v86 = objc_msgSend_payloadCollaborationType(self, v84, v85);
-  objc_msgSend_encodeInteger_forKey_(coderCopy, v87, v86, @"IMPLUGIN_COLLABORATION_TYPE");
-  v90 = objc_msgSend_collaborationMetadata(self, v88, v89);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v91, v90, @"IMPLUGIN_PLUGIN_COLLABORATIONMETADATA_KEY");
+  [coderCopy encodeBool:-[IMPluginPayload isPlayed](self forKey:{"isPlayed"), @"IMPLUGIN_IS_PLAYED"}];
+  [coderCopy encodeInteger:-[IMPluginPayload payloadCollaborationType](self forKey:{"payloadCollaborationType"), @"IMPLUGIN_COLLABORATION_TYPE"}];
+  collaborationMetadata = [(IMPluginPayload *)self collaborationMetadata];
+  [coderCopy encodeObject:collaborationMetadata forKey:@"IMPLUGIN_PLUGIN_COLLABORATIONMETADATA_KEY"];
 
-  v94 = objc_msgSend_collaborationOptionsSummary(self, v92, v93);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v95, v94, @"IMPLUGIN_PLUGIN_COLLABORATIONOPTIONSSUMMARY_KEY");
+  collaborationOptionsSummary = [(IMPluginPayload *)self collaborationOptionsSummary];
+  [coderCopy encodeObject:collaborationOptionsSummary forKey:@"IMPLUGIN_PLUGIN_COLLABORATIONOPTIONSSUMMARY_KEY"];
 
-  v98 = objc_msgSend_skipConfigurePlugin(self, v96, v97);
-  objc_msgSend_encodeBool_forKey_(coderCopy, v99, v98, @"IMPLUGIN_SKIPCONFIGURATION_KEY");
-  v102 = objc_msgSend_sendAsCopyURL(self, v100, v101);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v103, v102, @"IMPLUGIN_SENDASCOPYURL_KEY");
+  [coderCopy encodeBool:-[IMPluginPayload skipConfigurePlugin](self forKey:{"skipConfigurePlugin"), @"IMPLUGIN_SKIPCONFIGURATION_KEY"}];
+  sendAsCopyURL = [(IMPluginPayload *)self sendAsCopyURL];
+  [coderCopy encodeObject:sendAsCopyURL forKey:@"IMPLUGIN_SENDASCOPYURL_KEY"];
 
-  v106 = objc_msgSend_sendAsCopy(self, v104, v105);
-  objc_msgSend_encodeBool_forKey_(coderCopy, v107, v106, @"IMPLUGIN_SENDASCOPY_KEY");
+  [coderCopy encodeBool:-[IMPluginPayload sendAsCopy](self forKey:{"sendAsCopy"), @"IMPLUGIN_SENDASCOPY_KEY"}];
 }
 
 - (IMPluginPayload)initWithCoder:(id)coder additionalAllowedClasses:(id)classes
 {
   coderCopy = coder;
   classesCopy = classes;
-  v116.receiver = self;
-  v116.super_class = IMPluginPayload;
-  v8 = [(IMPluginPayload *)&v116 init];
+  v38.receiver = self;
+  v38.super_class = IMPluginPayload;
+  v8 = [(IMPluginPayload *)&v38 init];
   if (v8)
   {
     v9 = objc_alloc(MEMORY[0x1E695DFA8]);
@@ -1037,99 +985,75 @@ LABEL_45:
     v14 = objc_opt_class();
     v15 = objc_opt_class();
     v16 = objc_opt_class();
-    v17 = objc_opt_class();
-    v115 = v12;
+    v37 = v12;
     classesCopy = v11;
-    v19 = objc_msgSend_initWithObjects_(v9, v18, v10, v115, v13, v14, v15, v16, v17, 0);
-    v21 = v19;
+    v17 = [v9 initWithObjects:{v10, v37, v13, v14, v15, v16, objc_opt_class(), 0}];
+    v18 = v17;
     if (v11)
     {
-      objc_msgSend_unionSet_(v19, v20, v11);
+      [v17 unionSet:v11];
     }
 
-    v22 = objc_opt_class();
-    v24 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v23, v22, @"IMPLUGIN_TEXT_KEY");
-    objc_msgSend_setText_(v8, v25, v24);
+    v19 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"IMPLUGIN_TEXT_KEY"];
+    [(IMPluginPayload *)v8 setText:v19];
 
-    v26 = objc_opt_class();
-    v28 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v27, v26, @"IMPLUGIN_DATA_KEY");
-    objc_msgSend_setData_(v8, v29, v28);
+    v20 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"IMPLUGIN_DATA_KEY"];
+    [(IMPluginPayload *)v8 setData:v20];
 
-    v30 = objc_opt_class();
-    v32 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v31, v30, @"IMPLUGIN_GENERATIVE_PLAYGROUND_RECIPE_DATA_KEY");
-    objc_msgSend_setGenerativePlaygroundRecipeData_(v8, v33, v32);
+    v21 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"IMPLUGIN_GENERATIVE_PLAYGROUND_RECIPE_DATA_KEY"];
+    [(IMPluginPayload *)v8 setGenerativePlaygroundRecipeData:v21];
 
-    v34 = objc_opt_class();
-    v36 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v35, v34, @"IMPLUGIN_URL_KEY");
-    objc_msgSend_setUrl_(v8, v37, v36);
+    v22 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"IMPLUGIN_URL_KEY"];
+    [(IMPluginPayload *)v8 setUrl:v22];
 
-    v38 = objc_opt_class();
-    v40 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v39, v38, @"IMPLUGIN_BREADCRUMBTEXT_KEY");
-    objc_msgSend_setBreadcrumbText_(v8, v41, v40);
+    v23 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"IMPLUGIN_BREADCRUMBTEXT_KEY"];
+    [(IMPluginPayload *)v8 setBreadcrumbText:v23];
 
-    v42 = objc_opt_class();
-    v44 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v43, v42, @"IMPLUGIN_STATUSTEXT_KEY");
-    objc_msgSend_setStatusText_(v8, v45, v44);
+    v24 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"IMPLUGIN_STATUSTEXT_KEY"];
+    [(IMPluginPayload *)v8 setStatusText:v24];
 
-    v47 = objc_msgSend_decodeBoolForKey_(coderCopy, v46, @"IMPLUGIN_UPDATE_KEY");
-    objc_msgSend_setUpdate_(v8, v48, v47);
-    v50 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v49, v21, @"IMPLUGIN_USERINFO_KEY");
-    objc_msgSend_setUserInfo_(v8, v51, v50);
+    -[IMPluginPayload setUpdate:](v8, "setUpdate:", [coderCopy decodeBoolForKey:@"IMPLUGIN_UPDATE_KEY"]);
+    v25 = [coderCopy decodeObjectOfClasses:v18 forKey:@"IMPLUGIN_USERINFO_KEY"];
+    [(IMPluginPayload *)v8 setUserInfo:v25];
 
-    v52 = objc_opt_class();
-    v54 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v53, v52, @"IMPLUGIN_MESSAGEGUID_KEY");
-    objc_msgSend_setMessageGUID_(v8, v55, v54);
+    v26 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"IMPLUGIN_MESSAGEGUID_KEY"];
+    [(IMPluginPayload *)v8 setMessageGUID:v26];
 
-    v56 = objc_opt_class();
-    v58 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v57, v56, @"IMPLUGIN_ASSOCIATEDMESSAGEGUID_KEY");
-    objc_msgSend_setAssociatedMessageGUID_(v8, v59, v58);
+    v27 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"IMPLUGIN_ASSOCIATEDMESSAGEGUID_KEY"];
+    [(IMPluginPayload *)v8 setAssociatedMessageGUID:v27];
 
-    v60 = objc_opt_class();
-    v62 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v61, v60, @"IMPLUGIN_PLUGINSESSIONGUID_KEY");
-    objc_msgSend_setPluginSessionGUID_(v8, v63, v62);
+    v28 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"IMPLUGIN_PLUGINSESSIONGUID_KEY"];
+    [(IMPluginPayload *)v8 setPluginSessionGUID:v28];
 
-    v64 = objc_opt_class();
-    v66 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v65, v64, @"IMPLUGIN_PLUGINBUNDLEID_KEY");
-    objc_msgSend_setPluginBundleID_(v8, v67, v66);
+    v29 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"IMPLUGIN_PLUGINBUNDLEID_KEY"];
+    [(IMPluginPayload *)v8 setPluginBundleID:v29];
 
-    v69 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v68, v21, @"IMPLUGIN_ATTACHMENTS_KEY");
-    objc_msgSend_setAttachments_(v8, v70, v69);
+    v30 = [coderCopy decodeObjectOfClasses:v18 forKey:@"IMPLUGIN_ATTACHMENTS_KEY"];
+    [(IMPluginPayload *)v8 setAttachments:v30];
 
-    v72 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v71, v21, @"IMPLUGIN_TRANSFERGUIDS_KEY");
-    objc_msgSend_setFileTransferGUIDs_(v8, v73, v72);
+    v31 = [coderCopy decodeObjectOfClasses:v18 forKey:@"IMPLUGIN_TRANSFERGUIDS_KEY"];
+    [(IMPluginPayload *)v8 setFileTransferGUIDs:v31];
 
-    v75 = objc_msgSend_decodeBoolForKey_(coderCopy, v74, @"IMPLUGIN_IS_STICKER_KEY");
-    objc_msgSend_setSticker_(v8, v76, v75);
-    v78 = objc_msgSend_decodeBoolForKey_(coderCopy, v77, @"IMPLUGIN_SHOULD_EXPIRE_KEY");
-    objc_msgSend_setShouldExpire_(v8, v79, v78);
-    v81 = objc_msgSend_decodeBoolForKey_(coderCopy, v80, @"IMPLUGIN_IS_FROM_ME");
-    objc_msgSend_setIsFromMe_(v8, v82, v81);
-    v84 = objc_msgSend_decodeBoolForKey_(coderCopy, v83, @"IMPLUGIN_IS_CUSTOM_ACKNOWLEDGEMENT_KEY");
-    objc_msgSend_setCustomAcknowledgement_(v8, v85, v84);
-    v86 = objc_opt_class();
-    v88 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v87, v86, @"IMPLUGIN_SENDER");
-    objc_msgSend_setSender_(v8, v89, v88);
+    -[IMPluginPayload setSticker:](v8, "setSticker:", [coderCopy decodeBoolForKey:@"IMPLUGIN_IS_STICKER_KEY"]);
+    -[IMPluginPayload setShouldExpire:](v8, "setShouldExpire:", [coderCopy decodeBoolForKey:@"IMPLUGIN_SHOULD_EXPIRE_KEY"]);
+    -[IMPluginPayload setIsFromMe:](v8, "setIsFromMe:", [coderCopy decodeBoolForKey:@"IMPLUGIN_IS_FROM_ME"]);
+    -[IMPluginPayload setCustomAcknowledgement:](v8, "setCustomAcknowledgement:", [coderCopy decodeBoolForKey:@"IMPLUGIN_IS_CUSTOM_ACKNOWLEDGEMENT_KEY"]);
+    v32 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"IMPLUGIN_SENDER"];
+    [(IMPluginPayload *)v8 setSender:v32];
 
-    v91 = objc_msgSend_decodeBoolForKey_(coderCopy, v90, @"IMPLUGIN_IS_PLAYED");
-    objc_msgSend_setIsPlayed_(v8, v92, v91);
-    v94 = objc_msgSend_decodeIntegerForKey_(coderCopy, v93, @"IMPLUGIN_COLLABORATION_TYPE");
-    objc_msgSend_setPayloadCollaborationType_(v8, v95, v94);
-    v96 = objc_opt_class();
-    v98 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v97, v96, @"IMPLUGIN_PLUGIN_COLLABORATIONMETADATA_KEY");
-    objc_msgSend_setCollaborationMetadata_(v8, v99, v98);
+    -[IMPluginPayload setIsPlayed:](v8, "setIsPlayed:", [coderCopy decodeBoolForKey:@"IMPLUGIN_IS_PLAYED"]);
+    -[IMPluginPayload setPayloadCollaborationType:](v8, "setPayloadCollaborationType:", [coderCopy decodeIntegerForKey:@"IMPLUGIN_COLLABORATION_TYPE"]);
+    v33 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"IMPLUGIN_PLUGIN_COLLABORATIONMETADATA_KEY"];
+    [(IMPluginPayload *)v8 setCollaborationMetadata:v33];
 
-    v100 = objc_opt_class();
-    v102 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v101, v100, @"IMPLUGIN_PLUGIN_COLLABORATIONOPTIONSSUMMARY_KEY");
-    objc_msgSend_setCollaborationOptionsSummary_(v8, v103, v102);
+    v34 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"IMPLUGIN_PLUGIN_COLLABORATIONOPTIONSSUMMARY_KEY"];
+    [(IMPluginPayload *)v8 setCollaborationOptionsSummary:v34];
 
-    v105 = objc_msgSend_decodeBoolForKey_(coderCopy, v104, @"IMPLUGIN_SKIPCONFIGURATION_KEY");
-    objc_msgSend_setSkipConfigurePlugin_(v8, v106, v105);
-    v107 = objc_opt_class();
-    v109 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v108, v107, @"IMPLUGIN_SENDASCOPYURL_KEY");
-    objc_msgSend_setSendAsCopyURL_(v8, v110, v109);
+    -[IMPluginPayload setSkipConfigurePlugin:](v8, "setSkipConfigurePlugin:", [coderCopy decodeBoolForKey:@"IMPLUGIN_SKIPCONFIGURATION_KEY"]);
+    v35 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"IMPLUGIN_SENDASCOPYURL_KEY"];
+    [(IMPluginPayload *)v8 setSendAsCopyURL:v35];
 
-    v112 = objc_msgSend_decodeBoolForKey_(coderCopy, v111, @"IMPLUGIN_SENDASCOPY_KEY");
-    objc_msgSend_setSendAsCopy_(v8, v113, v112);
+    -[IMPluginPayload setSendAsCopy:](v8, "setSendAsCopy:", [coderCopy decodeBoolForKey:@"IMPLUGIN_SENDASCOPY_KEY"]);
   }
 
   return v8;
@@ -1137,89 +1061,78 @@ LABEL_45:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v5 = objc_opt_class();
-  v7 = objc_msgSend_allocWithZone_(v5, v6, zone);
-  v10 = objc_msgSend_text(self, v8, v9);
-  objc_msgSend_setText_(v7, v11, v10);
+  v4 = [objc_opt_class() allocWithZone:zone];
+  text = [(IMPluginPayload *)self text];
+  [v4 setText:text];
 
-  v14 = objc_msgSend_data(self, v12, v13);
-  objc_msgSend_setData_(v7, v15, v14);
+  data = [(IMPluginPayload *)self data];
+  [v4 setData:data];
 
-  v18 = objc_msgSend_generativePlaygroundRecipeData(self, v16, v17);
-  objc_msgSend_setGenerativePlaygroundRecipeData_(v7, v19, v18);
+  generativePlaygroundRecipeData = [(IMPluginPayload *)self generativePlaygroundRecipeData];
+  [v4 setGenerativePlaygroundRecipeData:generativePlaygroundRecipeData];
 
-  v22 = objc_msgSend_url(self, v20, v21);
-  objc_msgSend_setUrl_(v7, v23, v22);
+  v8 = [(IMPluginPayload *)self url];
+  [v4 setUrl:v8];
 
-  v26 = objc_msgSend_breadcrumbText(self, v24, v25);
-  objc_msgSend_setBreadcrumbText_(v7, v27, v26);
+  breadcrumbText = [(IMPluginPayload *)self breadcrumbText];
+  [v4 setBreadcrumbText:breadcrumbText];
 
-  v30 = objc_msgSend_statusText(self, v28, v29);
-  objc_msgSend_setStatusText_(v7, v31, v30);
+  statusText = [(IMPluginPayload *)self statusText];
+  [v4 setStatusText:statusText];
 
-  isUpdate = objc_msgSend_isUpdate(self, v32, v33);
-  objc_msgSend_setUpdate_(v7, v35, isUpdate);
-  v38 = objc_msgSend_userInfo(self, v36, v37);
-  objc_msgSend_setUserInfo_(v7, v39, v38);
+  [v4 setUpdate:{-[IMPluginPayload isUpdate](self, "isUpdate")}];
+  userInfo = [(IMPluginPayload *)self userInfo];
+  [v4 setUserInfo:userInfo];
 
-  v42 = objc_msgSend_messageGUID(self, v40, v41);
-  objc_msgSend_setMessageGUID_(v7, v43, v42);
+  messageGUID = [(IMPluginPayload *)self messageGUID];
+  [v4 setMessageGUID:messageGUID];
 
-  v46 = objc_msgSend_associatedMessageGUID(self, v44, v45);
-  objc_msgSend_setAssociatedMessageGUID_(v7, v47, v46);
+  associatedMessageGUID = [(IMPluginPayload *)self associatedMessageGUID];
+  [v4 setAssociatedMessageGUID:associatedMessageGUID];
 
-  v50 = objc_msgSend_pluginSessionGUID(self, v48, v49);
-  objc_msgSend_setPluginSessionGUID_(v7, v51, v50);
+  pluginSessionGUID = [(IMPluginPayload *)self pluginSessionGUID];
+  [v4 setPluginSessionGUID:pluginSessionGUID];
 
-  v54 = objc_msgSend_pluginBundleID(self, v52, v53);
-  objc_msgSend_setPluginBundleID_(v7, v55, v54);
+  pluginBundleID = [(IMPluginPayload *)self pluginBundleID];
+  [v4 setPluginBundleID:pluginBundleID];
 
-  v58 = objc_msgSend_attachments(self, v56, v57);
-  objc_msgSend_setAttachments_(v7, v59, v58);
+  attachments = [(IMPluginPayload *)self attachments];
+  [v4 setAttachments:attachments];
 
-  v62 = objc_msgSend_fileTransferGUIDs(self, v60, v61);
-  objc_msgSend_setFileTransferGUIDs_(v7, v63, v62);
+  fileTransferGUIDs = [(IMPluginPayload *)self fileTransferGUIDs];
+  [v4 setFileTransferGUIDs:fileTransferGUIDs];
 
-  shouldExpire = objc_msgSend_shouldExpire(self, v64, v65);
-  objc_msgSend_setShouldExpire_(v7, v67, shouldExpire);
-  isSticker = objc_msgSend_isSticker(self, v68, v69);
-  objc_msgSend_setSticker_(v7, v71, isSticker);
-  isCustomAcknowledgement = objc_msgSend_isCustomAcknowledgement(self, v72, v73);
-  objc_msgSend_setCustomAcknowledgement_(v7, v75, isCustomAcknowledgement);
-  v78 = objc_msgSend_isFromMe(self, v76, v77);
-  objc_msgSend_setIsFromMe_(v7, v79, v78);
-  v82 = objc_msgSend_sender(self, v80, v81);
-  objc_msgSend_setSender_(v7, v83, v82);
+  [v4 setShouldExpire:{-[IMPluginPayload shouldExpire](self, "shouldExpire")}];
+  [v4 setSticker:{-[IMPluginPayload isSticker](self, "isSticker")}];
+  [v4 setCustomAcknowledgement:{-[IMPluginPayload isCustomAcknowledgement](self, "isCustomAcknowledgement")}];
+  [v4 setIsFromMe:{-[IMPluginPayload isFromMe](self, "isFromMe")}];
+  sender = [(IMPluginPayload *)self sender];
+  [v4 setSender:sender];
 
-  isPlayed = objc_msgSend_isPlayed(self, v84, v85);
-  objc_msgSend_setIsPlayed_(v7, v87, isPlayed);
-  v90 = objc_msgSend_datasource(self, v88, v89);
-  objc_msgSend_setDatasource_(v7, v91, v90);
+  [v4 setIsPlayed:{-[IMPluginPayload isPlayed](self, "isPlayed")}];
+  datasource = [(IMPluginPayload *)self datasource];
+  [v4 setDatasource:datasource];
 
-  v94 = objc_msgSend_payloadCollaborationType(self, v92, v93);
-  objc_msgSend_setPayloadCollaborationType_(v7, v95, v94);
-  v98 = objc_msgSend_sendAsCopy(self, v96, v97);
-  objc_msgSend_setSendAsCopy_(v7, v99, v98);
-  v102 = objc_msgSend_skipConfigurePlugin(self, v100, v101);
-  objc_msgSend_setSkipConfigurePlugin_(v7, v103, v102);
-  v106 = objc_msgSend_cloudKitShare(self, v104, v105);
-  objc_msgSend_setCloudKitShare_(v7, v107, v106);
+  [v4 setPayloadCollaborationType:{-[IMPluginPayload payloadCollaborationType](self, "payloadCollaborationType")}];
+  [v4 setSendAsCopy:{-[IMPluginPayload sendAsCopy](self, "sendAsCopy")}];
+  [v4 setSkipConfigurePlugin:{-[IMPluginPayload skipConfigurePlugin](self, "skipConfigurePlugin")}];
+  cloudKitShare = [(IMPluginPayload *)self cloudKitShare];
+  [v4 setCloudKitShare:cloudKitShare];
 
-  v110 = objc_msgSend_groupActivity(self, v108, v109);
-  objc_msgSend_setGroupActivity_(v7, v111, v110);
+  groupActivity = [(IMPluginPayload *)self groupActivity];
+  [v4 setGroupActivity:groupActivity];
 
-  v114 = objc_msgSend_collaborationMetadata(self, v112, v113);
-  objc_msgSend_setCollaborationMetadata_(v7, v115, v114);
+  collaborationMetadata = [(IMPluginPayload *)self collaborationMetadata];
+  [v4 setCollaborationMetadata:collaborationMetadata];
 
-  v118 = objc_msgSend_collaborationOptionsSummary(self, v116, v117);
-  objc_msgSend_setCollaborationOptionsSummary_(v7, v119, v118);
+  collaborationOptionsSummary = [(IMPluginPayload *)self collaborationOptionsSummary];
+  [v4 setCollaborationOptionsSummary:collaborationOptionsSummary];
 
-  v122 = objc_msgSend_sendAsCopyURL(self, v120, v121);
-  objc_msgSend_setSendAsCopyURL_(v7, v123, v122);
+  sendAsCopyURL = [(IMPluginPayload *)self sendAsCopyURL];
+  [v4 setSendAsCopyURL:sendAsCopyURL];
 
-  v126 = objc_msgSend_liveEditableInEntryView(self, v124, v125);
-  objc_msgSend_setLiveEditableInEntryView_(v7, v127, v126);
-  return v7;
+  [v4 setLiveEditableInEntryView:{-[IMPluginPayload liveEditableInEntryView](self, "liveEditableInEntryView")}];
+  return v4;
 }
 
 - (IMBalloonPluginDataSource)datasource

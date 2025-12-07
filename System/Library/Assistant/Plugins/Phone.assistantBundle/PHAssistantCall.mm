@@ -51,7 +51,7 @@
 
 - (CNContact)backingContact
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (!self->_hasComputedBackingContact)
   {
     self->_hasComputedBackingContact = 1;
@@ -59,57 +59,57 @@
     object = [callRecipient object];
     identifier = [object identifier];
 
-    v6 = PHDefaultLog();
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+    v7 = PHDefaultLog(v6);
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
     if (identifier)
     {
-      if (v7)
+      if (v8)
       {
         *buf = 138412290;
-        v22 = identifier;
-        _os_log_impl(&dword_233521000, v6, OS_LOG_TYPE_DEFAULT, "Attempting to find contact with Siri URL: %@", buf, 0xCu);
+        v23 = identifier;
+        _os_log_impl(&dword_233521000, v7, OS_LOG_TYPE_DEFAULT, "Attempting to find contact with Siri URL: %@", buf, 0xCu);
       }
 
       callRecipient2 = [MEMORY[0x277CFBC50] contactIDFromAssistantID:identifier];
-      v9 = *MEMORY[0x277CBCFC0];
-      v20[0] = *MEMORY[0x277CBD018];
-      v20[1] = v9;
-      v20[2] = *MEMORY[0x277CBD098];
-      object2 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
-      v11 = +[PHAssistantServices sharedContactStore];
-      v19 = 0;
-      v12 = [v11 unifiedContactWithIdentifier:callRecipient2 keysToFetch:object2 error:&v19];
-      v6 = v19;
+      v10 = *MEMORY[0x277CBCFC0];
+      v21[0] = *MEMORY[0x277CBD018];
+      v21[1] = v10;
+      v21[2] = *MEMORY[0x277CBD098];
+      object2 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:3];
+      v12 = +[PHAssistantServices sharedContactStore];
+      v20 = 0;
+      v13 = [v12 unifiedContactWithIdentifier:callRecipient2 keysToFetch:object2 error:&v20];
+      v7 = v20;
 
-      if (v12)
+      if (v13)
       {
-        v13 = PHDefaultLog();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v15 = PHDefaultLog(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138739971;
-          v22 = v12;
-          _os_log_impl(&dword_233521000, v13, OS_LOG_TYPE_DEFAULT, "Found contact: %{sensitive}@", buf, 0xCu);
+          v23 = v13;
+          _os_log_impl(&dword_233521000, v15, OS_LOG_TYPE_DEFAULT, "Found contact: %{sensitive}@", buf, 0xCu);
         }
 
-        v14 = v12;
+        v16 = v13;
         p_super = &self->_backingContact->super;
-        self->_backingContact = v14;
+        self->_backingContact = v16;
       }
 
-      else if (v6 && [v6 code]== 200)
+      else if (v7 && (v14 = [v7 code], v14 == 200))
       {
-        p_super = PHDefaultLog();
+        p_super = PHDefaultLog(200);
         if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138739971;
-          v22 = callRecipient2;
+          v23 = callRecipient2;
           _os_log_impl(&dword_233521000, p_super, OS_LOG_TYPE_DEFAULT, "[WARN] No contact found with identifier: %{sensitive}@", buf, 0xCu);
         }
       }
 
       else
       {
-        p_super = PHDefaultLog();
+        p_super = PHDefaultLog(v14);
         if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
         {
           sub_233527284();
@@ -119,7 +119,7 @@
 
     else
     {
-      if (!v7)
+      if (!v8)
       {
 LABEL_19:
 
@@ -129,8 +129,8 @@ LABEL_19:
       callRecipient2 = [(SAPhoneCall *)self callRecipient];
       object2 = [callRecipient2 object];
       *buf = 138412290;
-      v22 = object2;
-      _os_log_impl(&dword_233521000, v6, OS_LOG_TYPE_DEFAULT, "[WARN] No URL found for SAPerson: %@", buf, 0xCu);
+      v23 = object2;
+      _os_log_impl(&dword_233521000, v7, OS_LOG_TYPE_DEFAULT, "[WARN] No URL found for SAPerson: %@", buf, 0xCu);
     }
 
     goto LABEL_19;
@@ -138,14 +138,13 @@ LABEL_19:
 
 LABEL_20:
   backingContact = self->_backingContact;
-  v17 = *MEMORY[0x277D85DE8];
 
   return backingContact;
 }
 
 - (TUHandle)destinationHandle
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   v3 = 0x27DE0E000;
   if (!self->_hasComputedDestinationHandle)
   {
@@ -160,42 +159,42 @@ LABEL_20:
     v9 = backingContact;
     if (isKindOfClass)
     {
-      v61 = 0uLL;
-      v62 = 0uLL;
-      v59 = 0uLL;
-      v60 = 0uLL;
+      v66 = 0uLL;
+      v67 = 0uLL;
+      v64 = 0uLL;
+      v65 = 0uLL;
       emailAddresses = [backingContact emailAddresses];
-      v11 = [emailAddresses countByEnumeratingWithState:&v59 objects:v68 count:16];
+      v11 = [emailAddresses countByEnumeratingWithState:&v64 objects:v73 count:16];
       if (v11)
       {
         v12 = v11;
-        v53 = isKindOfClass;
-        v54 = v9;
-        v13 = *v60;
+        v58 = isKindOfClass;
+        v59 = v9;
+        v13 = *v65;
         while (2)
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v60 != v13)
+            if (*v65 != v13)
             {
               objc_enumerationMutation(emailAddresses);
             }
 
-            v15 = *(*(&v59 + 1) + 8 * i);
+            v15 = *(*(&v64 + 1) + 8 * i);
             label2 = [v15 label];
             v17 = [label2 isEqualToString:label];
 
             if (v17)
             {
-              v26 = PHDefaultLog();
-              if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+              v28 = PHDefaultLog(v18);
+              if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
               {
                 value = [v15 value];
                 *buf = 138412546;
-                v65 = label;
-                v66 = 2112;
-                v67 = value;
-                _os_log_impl(&dword_233521000, v26, OS_LOG_TYPE_DEFAULT, "Found email address with matching label %@: %@", buf, 0x16u);
+                v70 = label;
+                v71 = 2112;
+                v72 = value;
+                _os_log_impl(&dword_233521000, v28, OS_LOG_TYPE_DEFAULT, "Found email address with matching label %@: %@", buf, 0x16u);
               }
 
               value2 = [v15 value];
@@ -203,7 +202,7 @@ LABEL_20:
             }
           }
 
-          v12 = [emailAddresses countByEnumeratingWithState:&v59 objects:v68 count:16];
+          v12 = [emailAddresses countByEnumeratingWithState:&v64 objects:v73 count:16];
           if (v12)
           {
             continue;
@@ -215,9 +214,9 @@ LABEL_20:
 LABEL_20:
         value2 = 0;
         v3 = 0x27DE0E000;
-        v9 = v54;
+        v9 = v59;
 LABEL_29:
-        isKindOfClass = v53;
+        isKindOfClass = v58;
 LABEL_30:
 
         if (value2)
@@ -225,71 +224,71 @@ LABEL_30:
           goto LABEL_50;
         }
 
-        v32 = PHDefaultLog();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+        v35 = PHDefaultLog(v34);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v65 = typedData;
-          _os_log_impl(&dword_233521000, v32, OS_LOG_TYPE_DEFAULT, "Could not determine a destination ID from the backing contact. Checking if a destination ID was explicitly encoded in typed data: %@", buf, 0xCu);
+          v70 = typedData;
+          _os_log_impl(&dword_233521000, v35, OS_LOG_TYPE_DEFAULT, "Could not determine a destination ID from the backing contact. Checking if a destination ID was explicitly encoded in typed data: %@", buf, 0xCu);
         }
 
-        v33 = typedData;
-        v34 = v33;
+        v36 = typedData;
+        v37 = v36;
         if (isKindOfClass)
         {
-          emailAddress = [v33 emailAddress];
+          emailAddress = [v36 emailAddress];
 
-          v36 = PHDefaultLog();
-          v37 = os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT);
+          v40 = PHDefaultLog(v39);
+          v41 = os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT);
           if (emailAddress)
           {
-            if (v37)
+            if (v41)
             {
-              emailAddress2 = [v34 emailAddress];
+              emailAddress2 = [v37 emailAddress];
               *buf = 138412290;
-              v65 = emailAddress2;
-              _os_log_impl(&dword_233521000, v36, OS_LOG_TYPE_DEFAULT, "Explicit destinationID was encoded in the SAEmail: %@", buf, 0xCu);
+              v70 = emailAddress2;
+              _os_log_impl(&dword_233521000, v40, OS_LOG_TYPE_DEFAULT, "Explicit destinationID was encoded in the SAEmail: %@", buf, 0xCu);
             }
 
-            emailAddress3 = [v34 emailAddress];
+            emailAddress3 = [v37 emailAddress];
 LABEL_42:
             value2 = emailAddress3;
             goto LABEL_49;
           }
 
-          if (v37)
+          if (v41)
           {
             *buf = 0;
-            v43 = "No destinationID was explicitly encoded in the SAEmail";
+            v48 = "No destinationID was explicitly encoded in the SAEmail";
 LABEL_47:
-            _os_log_impl(&dword_233521000, v36, OS_LOG_TYPE_DEFAULT, v43, buf, 2u);
+            _os_log_impl(&dword_233521000, v40, OS_LOG_TYPE_DEFAULT, v48, buf, 2u);
           }
         }
 
         else
         {
-          number = [v33 number];
+          number = [v36 number];
 
-          v36 = PHDefaultLog();
-          v41 = os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT);
+          v40 = PHDefaultLog(v45);
+          v46 = os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT);
           if (number)
           {
-            if (v41)
+            if (v46)
             {
-              number2 = [v34 number];
+              number2 = [v37 number];
               *buf = 138412290;
-              v65 = number2;
-              _os_log_impl(&dword_233521000, v36, OS_LOG_TYPE_DEFAULT, "Explicit destinationID was encoded in the SAPhone: %@", buf, 0xCu);
+              v70 = number2;
+              _os_log_impl(&dword_233521000, v40, OS_LOG_TYPE_DEFAULT, "Explicit destinationID was encoded in the SAPhone: %@", buf, 0xCu);
             }
 
-            emailAddress3 = [v34 number];
+            emailAddress3 = [v37 number];
             goto LABEL_42;
           }
 
-          if (v41)
+          if (v46)
           {
             *buf = 0;
-            v43 = "No destinationID was explicitly encoded in the SAPhone";
+            v48 = "No destinationID was explicitly encoded in the SAPhone";
             goto LABEL_47;
           }
         }
@@ -299,13 +298,13 @@ LABEL_49:
 
         if (!value2)
         {
-          value2 = PHDefaultLog();
+          value2 = PHDefaultLog(v49);
           if (os_log_type_enabled(value2, OS_LOG_TYPE_DEFAULT))
           {
             callRecipient2 = [(SAPhoneCall *)self callRecipient];
             typedData2 = [callRecipient2 typedData];
             *buf = 138412290;
-            v65 = typedData2;
+            v70 = typedData2;
             _os_log_impl(&dword_233521000, value2, OS_LOG_TYPE_DEFAULT, "[WARN] No destination found for %@", buf, 0xCu);
           }
 
@@ -315,18 +314,18 @@ LABEL_49:
 LABEL_50:
         if (isKindOfClass)
         {
-          v44 = 3;
+          v50 = 3;
         }
 
         else
         {
-          v44 = 2;
+          v50 = 2;
         }
 
-        v45 = [objc_alloc(MEMORY[0x277D6EEE8]) initWithType:v44 value:value2];
-        v46 = *(v3 + 1976);
-        v47 = *(&self->super.super.super.super.super.super.isa + v46);
-        *(&self->super.super.super.super.super.super.isa + v46) = v45;
+        v51 = [objc_alloc(MEMORY[0x277D6EEE8]) initWithType:v50 value:value2];
+        v52 = *(v3 + 1976);
+        v53 = *(&self->super.super.super.super.super.super.isa + v52);
+        *(&self->super.super.super.super.super.super.isa + v52) = v51;
 
 LABEL_54:
         goto LABEL_55;
@@ -335,57 +334,57 @@ LABEL_54:
 
     else
     {
-      v57 = 0uLL;
-      v58 = 0uLL;
-      v55 = 0uLL;
-      v56 = 0uLL;
+      v62 = 0uLL;
+      v63 = 0uLL;
+      v60 = 0uLL;
+      v61 = 0uLL;
       emailAddresses = [backingContact phoneNumbers];
-      v18 = [emailAddresses countByEnumeratingWithState:&v55 objects:v63 count:16];
-      if (v18)
+      v19 = [emailAddresses countByEnumeratingWithState:&v60 objects:v68 count:16];
+      if (v19)
       {
-        v19 = v18;
-        v53 = isKindOfClass;
-        v54 = v9;
-        v20 = *v56;
+        v20 = v19;
+        v58 = isKindOfClass;
+        v59 = v9;
+        v21 = *v61;
         while (2)
         {
-          for (j = 0; j != v19; ++j)
+          for (j = 0; j != v20; ++j)
           {
-            if (*v56 != v20)
+            if (*v61 != v21)
             {
               objc_enumerationMutation(emailAddresses);
             }
 
-            v22 = *(*(&v55 + 1) + 8 * j);
-            label3 = [v22 label];
-            v24 = [label3 isEqualToString:label];
+            v23 = *(*(&v60 + 1) + 8 * j);
+            label3 = [v23 label];
+            v25 = [label3 isEqualToString:label];
 
-            if (v24)
+            if (v25)
             {
-              v28 = PHDefaultLog();
-              if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+              v30 = PHDefaultLog(v26);
+              if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
               {
-                value3 = [v22 value];
+                value3 = [v23 value];
                 stringValue = [value3 stringValue];
                 *buf = 138412546;
-                v65 = label;
-                v66 = 2112;
-                v67 = stringValue;
-                _os_log_impl(&dword_233521000, v28, OS_LOG_TYPE_DEFAULT, "Found phone number with matching label %@: %@", buf, 0x16u);
+                v70 = label;
+                v71 = 2112;
+                v72 = stringValue;
+                _os_log_impl(&dword_233521000, v30, OS_LOG_TYPE_DEFAULT, "Found phone number with matching label %@: %@", buf, 0x16u);
               }
 
-              value4 = [v22 value];
+              value4 = [v23 value];
               value2 = [value4 stringValue];
 
 LABEL_28:
               v3 = 0x27DE0E000uLL;
-              v9 = v54;
+              v9 = v59;
               goto LABEL_29;
             }
           }
 
-          v19 = [emailAddresses countByEnumeratingWithState:&v55 objects:v63 count:16];
-          if (v19)
+          v20 = [emailAddresses countByEnumeratingWithState:&v60 objects:v68 count:16];
+          if (v20)
           {
             continue;
           }
@@ -400,10 +399,9 @@ LABEL_28:
   }
 
 LABEL_55:
-  v48 = *(&self->super.super.super.super.super.super.isa + *(v3 + 1976));
-  v49 = *MEMORY[0x277D85DE8];
+  v54 = *(&self->super.super.super.super.super.super.isa + *(v3 + 1976));
 
-  return v48;
+  return v54;
 }
 
 - (id)destinationID
@@ -487,13 +485,14 @@ LABEL_55:
 
   if (v6)
   {
-    v11 = 0;
-    v7 = [MEMORY[0x277CBEA60] arrayWithContentsOfURL:v6 error:&v11];
-    v8 = v11;
+    v12 = 0;
+    v7 = [MEMORY[0x277CBEA60] arrayWithContentsOfURL:v6 error:&v12];
+    v8 = v12;
+    v9 = v8;
     if (!v7)
     {
-      v9 = PHDefaultLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = PHDefaultLog(v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         sub_2335272EC();
       }
@@ -516,7 +515,7 @@ LABEL_55:
   v7 = objc_alloc_init(MEMORY[0x277D6EF38]);
   prioritizedSenderIdentities = [providerCopy prioritizedSenderIdentities];
   v9 = [prioritizedSenderIdentities count];
-  v10 = PHDefaultLog();
+  v10 = PHDefaultLog(v9);
   v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
   if (v9)
   {
@@ -552,7 +551,7 @@ LABEL_55:
 
           if (v18)
           {
-            v13 = PHDefaultLog();
+            v13 = PHDefaultLog(v19);
             if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412546;
@@ -593,23 +592,22 @@ LABEL_16:
     LOBYTE(v13) = [v7 isWhitelistedEmergencyNumberForDigits:listedCopy senderIdentityUUID:0];
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (id)_validate
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   emergencyCall = [(SAPhoneCall *)self emergencyCall];
   bOOLValue = [emergencyCall BOOLValue];
 
   if (bOOLValue)
   {
-    v5 = PHDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = PHDefaultLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_233521000, v5, OS_LOG_TYPE_DEFAULT, "[PHAssistantCall _validate]: Call is an emergency call, passing validation", buf, 2u);
+      _os_log_impl(&dword_233521000, v6, OS_LOG_TYPE_DEFAULT, "[PHAssistantCall _validate]: Call is an emergency call, passing validation", buf, 2u);
     }
 
     goto LABEL_5;
@@ -619,14 +617,14 @@ LABEL_16:
 
   if (!callRecipient)
   {
-    v12 = PHDefaultLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v18 = PHDefaultLog(v9);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_23352763C();
     }
 
-    v10 = objc_alloc(MEMORY[0x277D47208]);
-    v11 = @"No recipient was specified";
+    v16 = objc_alloc(MEMORY[0x277D47208]);
+    v17 = @"No recipient was specified";
     goto LABEL_21;
   }
 
@@ -634,45 +632,48 @@ LABEL_16:
 
   if (!destinationID)
   {
-    v13 = PHDefaultLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v19 = PHDefaultLog(v11);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       sub_233527608();
     }
 
-    v10 = objc_alloc(MEMORY[0x277D47208]);
-    v11 = @"No destination ID was specified";
+    v16 = objc_alloc(MEMORY[0x277D47208]);
+    v17 = @"No destination ID was specified";
     goto LABEL_21;
   }
 
   if ([(SAPhoneCall *)self faceTime])
   {
-    if ([MEMORY[0x277D6EDE8] supportsDisplayingFaceTimeVideoCalls])
+    supportsDisplayingFaceTimeVideoCalls = [MEMORY[0x277D6EDE8] supportsDisplayingFaceTimeVideoCalls];
+    if (supportsDisplayingFaceTimeVideoCalls)
     {
-      if ([MEMORY[0x277D6EDE8] supportsFaceTimeVideoCalls])
+      supportsFaceTimeVideoCalls = [MEMORY[0x277D6EDE8] supportsFaceTimeVideoCalls];
+      if (supportsFaceTimeVideoCalls)
       {
-        if ([(PHAssistantCall *)self isCarPlayActive])
+        isCarPlayActive = [(PHAssistantCall *)self isCarPlayActive];
+        if (isCarPlayActive)
         {
-          v9 = PHDefaultLog();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+          v15 = PHDefaultLog(isCarPlayActive);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             sub_2335275D4();
           }
 
-          v10 = objc_alloc(MEMORY[0x277D47208]);
-          v11 = @"FaceTime video not supported in CarPlay";
+          v16 = objc_alloc(MEMORY[0x277D47208]);
+          v17 = @"FaceTime video not supported in CarPlay";
 LABEL_21:
-          v14 = [v10 initWithReason:v11];
+          v20 = [v16 initWithReason:v17];
 LABEL_45:
-          v6 = v14;
+          v7 = v20;
           goto LABEL_46;
         }
 
         goto LABEL_72;
       }
 
-      v15 = PHDefaultLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v23 = PHDefaultLog(supportsFaceTimeVideoCalls);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         sub_233527504();
       }
@@ -680,31 +681,32 @@ LABEL_45:
       goto LABEL_37;
     }
 
-    v16 = PHDefaultLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v24 = PHDefaultLog(supportsDisplayingFaceTimeVideoCalls);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       sub_2335274D0();
     }
 
 LABEL_40:
 
-    v20 = objc_alloc(MEMORY[0x277D47208]);
-    v21 = MEMORY[0x277D47CA0];
+    v30 = objc_alloc(MEMORY[0x277D47208]);
+    v31 = MEMORY[0x277D47CA0];
     goto LABEL_44;
   }
 
   if (![(SAPhoneCall *)self faceTimeAudio])
   {
-    if (([MEMORY[0x277D6EDE8] supportsTelephonyCalls] & 1) == 0)
+    supportsTelephonyCalls = [MEMORY[0x277D6EDE8] supportsTelephonyCalls];
+    if ((supportsTelephonyCalls & 1) == 0)
     {
-      v22 = PHDefaultLog();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v32 = PHDefaultLog(supportsTelephonyCalls);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         sub_233527354();
       }
 
-      v20 = objc_alloc(MEMORY[0x277D47208]);
-      v21 = MEMORY[0x277D48778];
+      v30 = objc_alloc(MEMORY[0x277D47208]);
+      v31 = MEMORY[0x277D48778];
       goto LABEL_44;
     }
 
@@ -714,18 +716,19 @@ LABEL_40:
     }
 
     callRecipient2 = objc_alloc_init(MEMORY[0x277CEC5D0]);
-    if ([callRecipient2 airplaneMode])
+    airplaneMode = [callRecipient2 airplaneMode];
+    if (airplaneMode)
     {
-      v18 = PHDefaultLog();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v28 = PHDefaultLog(airplaneMode);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         sub_233527434();
       }
 
-      v19 = MEMORY[0x277D48760];
+      v29 = MEMORY[0x277D48760];
 LABEL_98:
 
-      v6 = [objc_alloc(MEMORY[0x277D47208]) initWithErrorCode:*v19];
+      v7 = [objc_alloc(MEMORY[0x277D47208]) initWithErrorCode:*v29];
       goto LABEL_99;
     }
 
@@ -737,95 +740,95 @@ LABEL_71:
     }
 
     telephonyClient = [(PHAssistantCall *)self telephonyClient];
-    v26 = objc_opt_respondsToSelector();
+    v35 = objc_opt_respondsToSelector();
 
-    if ((v26 & 1) == 0)
+    if ((v35 & 1) == 0)
     {
 LABEL_95:
-      v18 = PHDefaultLog();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v28 = PHDefaultLog(v36);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         sub_233527400();
       }
 
-      v19 = MEMORY[0x277D48790];
+      v29 = MEMORY[0x277D48790];
       goto LABEL_98;
     }
 
     telephonyClient2 = [(PHAssistantCall *)self telephonyClient];
-    v60 = 0;
-    v28 = [telephonyClient2 getSubscriptionInfoWithError:&v60];
-    v29 = v60;
+    v72 = 0;
+    v38 = [telephonyClient2 getSubscriptionInfoWithError:&v72];
+    v39 = v72;
 
-    if (v28)
+    if (v38)
     {
-      v51 = v28;
-      [v28 subscriptionsInUse];
-      v56 = 0u;
-      v57 = 0u;
-      v58 = 0u;
-      obj = v59 = 0u;
-      v30 = [obj countByEnumeratingWithState:&v56 objects:v65 count:16];
-      if (v30)
+      v63 = v38;
+      [v38 subscriptionsInUse];
+      v68 = 0u;
+      v69 = 0u;
+      v70 = 0u;
+      obj = v71 = 0u;
+      v41 = [obj countByEnumeratingWithState:&v68 objects:v77 count:16];
+      if (v41)
       {
-        v32 = v30;
-        v33 = *v57;
-        v53 = *MEMORY[0x277CC3E68];
-        v52 = *MEMORY[0x277CC3E70];
-        *&v31 = 138412546;
-        v50 = v31;
+        v43 = v41;
+        v44 = *v69;
+        v65 = *MEMORY[0x277CC3E68];
+        v64 = *MEMORY[0x277CC3E70];
+        *&v42 = 138412546;
+        v62 = v42;
         while (2)
         {
-          v34 = 0;
-          v35 = v29;
+          v45 = 0;
+          v46 = v39;
           do
           {
-            if (*v57 != v33)
+            if (*v69 != v44)
             {
               objc_enumerationMutation(obj);
             }
 
-            v36 = *(*(&v56 + 1) + 8 * v34);
-            if ([v36 isSimHidden])
+            v47 = *(*(&v68 + 1) + 8 * v45);
+            if ([v47 isSimHidden])
             {
-              v29 = v35;
+              v39 = v46;
             }
 
             else
             {
               telephonyClient3 = [(PHAssistantCall *)self telephonyClient];
-              v55 = v35;
-              v38 = [telephonyClient3 copyRegistrationStatus:v36 error:&v55];
-              v29 = v55;
+              v67 = v46;
+              v49 = [telephonyClient3 copyRegistrationStatus:v47 error:&v67];
+              v39 = v67;
 
-              if ([v38 isEqualToString:v53] & 1) != 0 || (objc_msgSend(v38, "isEqualToString:", v52))
+              if ([v49 isEqualToString:v65] & 1) != 0 || (v50 = objc_msgSend(v49, "isEqualToString:", v64), (v50))
               {
 
                 goto LABEL_71;
               }
 
-              if (!v38 && v29)
+              if (!v49 && v39)
               {
-                v39 = PHDefaultLog();
-                if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+                v51 = PHDefaultLog(v50);
+                if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
                 {
-                  *buf = v50;
-                  v62 = v29;
-                  v63 = 2112;
-                  v64 = v36;
-                  _os_log_error_impl(&dword_233521000, v39, OS_LOG_TYPE_ERROR, "Retrieving registration status failed with error %@ for subscription context %@.", buf, 0x16u);
+                  *buf = v62;
+                  v74 = v39;
+                  v75 = 2112;
+                  v76 = v47;
+                  _os_log_error_impl(&dword_233521000, v51, OS_LOG_TYPE_ERROR, "Retrieving registration status failed with error %@ for subscription context %@.", buf, 0x16u);
                 }
               }
 
-              v35 = v29;
+              v46 = v39;
             }
 
-            ++v34;
+            ++v45;
           }
 
-          while (v32 != v34);
-          v32 = [obj countByEnumeratingWithState:&v56 objects:v65 count:16];
-          if (v32)
+          while (v43 != v45);
+          v43 = [obj countByEnumeratingWithState:&v68 objects:v77 count:16];
+          if (v43)
           {
             continue;
           }
@@ -834,32 +837,33 @@ LABEL_95:
         }
       }
 
-      v40 = v51;
+      v52 = v63;
     }
 
     else
     {
-      if (!v29)
+      if (!v39)
       {
 LABEL_94:
 
         goto LABEL_95;
       }
 
-      v40 = PHDefaultLog();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+      v52 = PHDefaultLog(v40);
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
       {
-        sub_233527388(v29, v40);
+        sub_233527388(v39, v52);
       }
     }
 
     goto LABEL_94;
   }
 
-  if (([MEMORY[0x277D6EDE8] supportsDisplayingFaceTimeAudioCalls] & 1) == 0)
+  supportsDisplayingFaceTimeAudioCalls = [MEMORY[0x277D6EDE8] supportsDisplayingFaceTimeAudioCalls];
+  if ((supportsDisplayingFaceTimeAudioCalls & 1) == 0)
   {
-    v16 = PHDefaultLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v24 = PHDefaultLog(supportsDisplayingFaceTimeAudioCalls);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       sub_233527468();
     }
@@ -867,20 +871,21 @@ LABEL_94:
     goto LABEL_40;
   }
 
-  if (([MEMORY[0x277D6EDE8] supportsFaceTimeAudioCalls] & 1) == 0)
+  supportsFaceTimeAudioCalls = [MEMORY[0x277D6EDE8] supportsFaceTimeAudioCalls];
+  if ((supportsFaceTimeAudioCalls & 1) == 0)
   {
-    v15 = PHDefaultLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v23 = PHDefaultLog(supportsFaceTimeAudioCalls);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       sub_23352749C();
     }
 
 LABEL_37:
 
-    v20 = objc_alloc(MEMORY[0x277D47208]);
-    v21 = MEMORY[0x277D48788];
+    v30 = objc_alloc(MEMORY[0x277D47208]);
+    v31 = MEMORY[0x277D48788];
 LABEL_44:
-    v14 = [v20 initWithErrorCode:*v21];
+    v20 = [v30 initWithErrorCode:*v31];
     goto LABEL_45;
   }
 
@@ -901,14 +906,14 @@ LABEL_72:
   iSOCountryCode = [(PHAssistantCall *)self ISOCountryCode];
   if (!iSOCountryCode)
   {
-    v47 = PHDefaultLog();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+    v59 = PHDefaultLog(0);
+    if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
     {
       sub_2335275A0();
     }
 
-    v10 = objc_alloc(MEMORY[0x277D47208]);
-    v11 = @"Device has no country code";
+    v16 = objc_alloc(MEMORY[0x277D47208]);
+    v17 = @"Device has no country code";
     goto LABEL_21;
   }
 
@@ -920,46 +925,49 @@ LABEL_83:
 
 LABEL_74:
 LABEL_5:
-    v6 = 0;
+    v7 = 0;
     goto LABEL_46;
   }
 
-  v44 = [(PHAssistantCall *)self _copyExceptionsForCountryCode:callRecipient2];
-  v45 = v44;
-  if (v44 && [v44 containsObject:destinationID2])
+  v56 = [(PHAssistantCall *)self _copyExceptionsForCountryCode:callRecipient2];
+  v57 = v56;
+  if (v56)
   {
-    v46 = PHDefaultLog();
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+    v56 = [v56 containsObject:destinationID2];
+    if (v56)
     {
-      *buf = 138412546;
-      v62 = destinationID2;
-      v63 = 2112;
-      v64 = callRecipient2;
-      _os_log_impl(&dword_233521000, v46, OS_LOG_TYPE_DEFAULT, "[PHAssistantCall _validate]: Destination ID %@ is an exception for country %@, passing validation", buf, 0x16u);
-    }
+      v58 = PHDefaultLog(v56);
+      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412546;
+        v74 = destinationID2;
+        v75 = 2112;
+        v76 = callRecipient2;
+        _os_log_impl(&dword_233521000, v58, OS_LOG_TYPE_DEFAULT, "[PHAssistantCall _validate]: Destination ID %@ is an exception for country %@, passing validation", buf, 0x16u);
+      }
 
-    goto LABEL_83;
+      goto LABEL_83;
+    }
   }
 
-  v48 = PHDefaultLog();
-  if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+  v60 = PHDefaultLog(v56);
+  if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
   {
     sub_233527538();
   }
 
-  v49 = objc_alloc(MEMORY[0x277D47208]);
-  v6 = [v49 initWithErrorCode:*MEMORY[0x277D48780]];
+  v61 = objc_alloc(MEMORY[0x277D47208]);
+  v7 = [v61 initWithErrorCode:*MEMORY[0x277D48780]];
 
 LABEL_99:
 LABEL_46:
-  v23 = *MEMORY[0x277D85DE8];
 
-  return v6;
+  return v7;
 }
 
 - (id)appPunchOutDialRequestWithEndpointIDSDestinationURI:(id)i
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   iCopy = i;
   v5 = objc_alloc_init(MEMORY[0x277D6EE28]);
   destinationID = [(PHAssistantCall *)self destinationID];
@@ -979,90 +987,87 @@ LABEL_46:
     }
 
     destinationHandle = faceTimeProvider;
-    v12 = [objc_alloc(MEMORY[0x277D6EED0]) initWithProvider:faceTimeProvider];
-    [v12 setVideo:{-[SAPhoneCall faceTime](self, "faceTime")}];
-    [v12 setDestinationID:destinationID];
+    v13 = [objc_alloc(MEMORY[0x277D6EED0]) initWithProvider:faceTimeProvider];
+    [v13 setVideo:{-[SAPhoneCall faceTime](self, "faceTime")}];
+    [v13 setDestinationID:destinationID];
     backingContact = [(PHAssistantCall *)self backingContact];
     identifier = [backingContact identifier];
-    [v12 setContactIdentifier:identifier];
+    [v13 setContactIdentifier:identifier];
 
-    [v12 setPerformDialAssist:{-[PHAssistantCall shouldApplyInternationalAssist](self, "shouldApplyInternationalAssist")}];
+    [v13 setPerformDialAssist:{-[PHAssistantCall shouldApplyInternationalAssist](self, "shouldApplyInternationalAssist")}];
 LABEL_17:
 
     goto LABEL_18;
   }
 
-  v9 = PHDefaultLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = PHDefaultLog(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = 138412290;
-    v25 = destinationID;
-    _os_log_impl(&dword_233521000, v9, OS_LOG_TYPE_DEFAULT, "Siri punch out URL is handling an emergency call request, with destination ID %@", &v24, 0xCu);
+    v25 = 138412290;
+    v26 = destinationID;
+    _os_log_impl(&dword_233521000, v10, OS_LOG_TYPE_DEFAULT, "Siri punch out URL is handling an emergency call request, with destination ID %@", &v25, 0xCu);
   }
 
-  v10 = objc_alloc(MEMORY[0x277D6EED0]);
+  v11 = objc_alloc(MEMORY[0x277D6EED0]);
   emergencyProvider = [v5 emergencyProvider];
-  v12 = [v10 initWithProvider:emergencyProvider];
+  v13 = [v11 initWithProvider:emergencyProvider];
 
-  [v12 setPerformDialAssist:0];
+  [v13 setPerformDialAssist:0];
   emergencyProvider2 = [v5 emergencyProvider];
-  v14 = [PHAssistantCall isEmergencyNumberOrIsWhiteListed:destinationID forProvider:emergencyProvider2];
+  v15 = [PHAssistantCall isEmergencyNumberOrIsWhiteListed:destinationID forProvider:emergencyProvider2];
 
-  v15 = PHDefaultLog();
-  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
-  if (destinationID && v14)
+  v17 = PHDefaultLog(v16);
+  v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+  if (destinationID && v15)
   {
-    if (v16)
+    if (v18)
     {
-      v24 = 138412290;
-      v25 = destinationID;
-      _os_log_impl(&dword_233521000, v15, OS_LOG_TYPE_DEFAULT, "The destinationID is whitelisted as an emergency number, so the punch out URL will contain the destinationID: %@", &v24, 0xCu);
+      v25 = 138412290;
+      v26 = destinationID;
+      _os_log_impl(&dword_233521000, v17, OS_LOG_TYPE_DEFAULT, "The destinationID is whitelisted as an emergency number, so the punch out URL will contain the destinationID: %@", &v25, 0xCu);
     }
 
     destinationHandle = [(PHAssistantCall *)self destinationHandle];
-    [v12 setHandle:destinationHandle];
+    [v13 setHandle:destinationHandle];
     goto LABEL_17;
   }
 
-  if (v16)
+  if (v18)
   {
-    LOWORD(v24) = 0;
-    _os_log_impl(&dword_233521000, v15, OS_LOG_TYPE_DEFAULT, "The destinationID is NOT whitelisted, so we will not include the destinationID in the URL but dial a generic emergency number", &v24, 2u);
+    LOWORD(v25) = 0;
+    _os_log_impl(&dword_233521000, v17, OS_LOG_TYPE_DEFAULT, "The destinationID is NOT whitelisted, so we will not include the destinationID in the URL but dial a generic emergency number", &v25, 2u);
   }
 
-  [v12 setDialType:1];
+  [v13 setDialType:1];
 LABEL_18:
   if ([(SAPhoneCall *)self speakerphoneCall])
   {
-    [v12 setAudioSourceIdentifier:*MEMORY[0x277D6F0F0]];
+    [v13 setAudioSourceIdentifier:*MEMORY[0x277D6F0F0]];
   }
 
-  [v12 setEndpointIDSDestinationURI:iCopy];
-  [v12 setOriginatingUIType:11];
-  v21 = PHDefaultLog();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  [v13 setEndpointIDSDestinationURI:iCopy];
+  v23 = PHDefaultLog([v13 setOriginatingUIType:11]);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = 138412290;
-    v25 = v12;
-    _os_log_impl(&dword_233521000, v21, OS_LOG_TYPE_DEFAULT, "Siri punch out URL created dial request %@", &v24, 0xCu);
+    v25 = 138412290;
+    v26 = v13;
+    _os_log_impl(&dword_233521000, v23, OS_LOG_TYPE_DEFAULT, "Siri punch out URL created dial request %@", &v25, 0xCu);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
-  return v12;
+  return v13;
 }
 
 - (void)_performAppPunchOutWithDialRequest:(id)request withServiceHelper:(id)helper completion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   helperCopy = helper;
   completionCopy = completion;
-  v11 = PHDefaultLog();
+  v11 = PHDefaultLog(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v22 = requestCopy;
+    v21 = requestCopy;
     _os_log_impl(&dword_233521000, v11, OS_LOG_TYPE_DEFAULT, "dialRequest: %@", buf, 0xCu);
   }
 
@@ -1073,23 +1078,22 @@ LABEL_18:
     refId = [(PHAssistantCall *)self refId];
     [v13 setRefId:refId];
 
-    [v13 setPunchOutUri:v12];
-    v15 = PHDefaultLog();
+    v15 = PHDefaultLog([v13 setPunchOutUri:v12]);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v22 = v13;
+      v21 = v13;
       _os_log_impl(&dword_233521000, v15, OS_LOG_TYPE_DEFAULT, "appPunchOut: %@", buf, 0xCu);
     }
 
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = sub_233524870;
-    v17[3] = &unk_2789DD7E8;
-    v18 = v12;
-    v19 = requestCopy;
-    v20 = completionCopy;
-    [helperCopy handleCommand:v13 completion:v17];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = sub_233524870;
+    v16[3] = &unk_2789DD7E8;
+    v17 = v12;
+    v18 = requestCopy;
+    v19 = completionCopy;
+    [helperCopy handleCommand:v13 completion:v16];
   }
 
   else
@@ -1097,8 +1101,6 @@ LABEL_18:
     v13 = [objc_alloc(MEMORY[0x277D47208]) initWithReason:@"Unable to call recipient"];
     (*(completionCopy + 2))(completionCopy, v13);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performWithCompletion:(id)completion serviceHelper:(id)helper

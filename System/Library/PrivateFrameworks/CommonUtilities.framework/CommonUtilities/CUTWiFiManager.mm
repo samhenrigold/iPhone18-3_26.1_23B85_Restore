@@ -34,6 +34,7 @@
 - (void)_setupWifiNotifications;
 - (void)_threadedMain;
 - (void)_updateInitialWiFiState;
+- (void)_updateIsWiFiAssociatedAsync:(BOOL)async;
 - (void)_updateIsWiFiEnabled;
 - (void)addDelegate:(id)delegate;
 - (void)addWiFiAutoAssociationClientToken:(id)token;
@@ -63,33 +64,32 @@
 
 - (BOOL)isWiFiEnabled
 {
-  [(NSRecursiveLock *)self->_lock lock];
+  objc_msgSend_lock(self->_lock, a2, v2);
   isWifiEnabled = self->_isWifiEnabled;
-  [(NSRecursiveLock *)self->_lock unlock];
+  objc_msgSend_unlock(self->_lock, v5, v6);
   return isWifiEnabled;
 }
 
 - (BOOL)isWiFiAssociated
 {
-  v10 = *MEMORY[0x1E69E9840];
-  [(NSRecursiveLock *)self->_lock lock];
+  v14 = *MEMORY[0x1E69E9840];
+  objc_msgSend_lock(self->_lock, a2, v2);
   currentNetwork = self->_currentNetwork;
-  [(NSRecursiveLock *)self->_lock unlock];
-  v4 = +[CUTLog network];
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  objc_msgSend_unlock(self->_lock, v5, v6);
+  v9 = objc_msgSend_network(CUTLog, v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = @"NO";
+    v10 = @"NO";
     if (currentNetwork)
     {
-      v5 = @"YES";
+      v10 = @"YES";
     }
 
-    v8 = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_1B2321000, v4, OS_LOG_TYPE_DEFAULT, "is WiFi associated? %@", &v8, 0xCu);
+    v12 = 138412290;
+    v13 = v10;
+    _os_log_impl(&dword_1B2321000, v9, OS_LOG_TYPE_DEFAULT, "is WiFi associated? %@", &v12, 0xCu);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return currentNetwork != 0;
 }
 
@@ -105,7 +105,7 @@
   v4[3] = &unk_1E7B210B0;
   v4[4] = self;
   v4[5] = &v5;
-  [(CUTWiFiManager *)self _performCurrentNetworkBlock:v4];
+  objc_msgSend__performCurrentNetworkBlock_(self, a2, v4);
   v2 = *(v6 + 24);
   _Block_object_dispose(&v5, 8);
   return v2;
@@ -113,89 +113,85 @@
 
 - (BOOL)_isPrimaryCellular
 {
-  [(NSRecursiveLock *)self->_lock lock];
+  objc_msgSend_lock(self->_lock, a2, v2);
   isPrimaryCellularCached = self->_isPrimaryCellularCached;
-  [(NSRecursiveLock *)self->_lock unlock];
+  objc_msgSend_unlock(self->_lock, v5, v6);
   return isPrimaryCellularCached;
 }
 
 - (void)_adjustWiFiAutoAssociationLocked
 {
-  v17 = *MEMORY[0x1E69E9840];
-  [(NSRecursiveLock *)self->_lock lock];
+  v20 = *MEMORY[0x1E69E9840];
+  objc_msgSend_lock(self->_lock, a2, v2);
   if (self->_wifiManager)
   {
-    autoAssociateWiFi = [(CUTWiFiManager *)self autoAssociateWiFi];
-    if (autoAssociateWiFi)
+    v8 = objc_msgSend_autoAssociateWiFi(self, v4, v5);
+    if (v8)
     {
-      if ([(CUTWiFiManager *)self autoAssociateWiFiAsForegroundClient])
+      if (objc_msgSend_autoAssociateWiFiAsForegroundClient(self, v6, v7))
       {
-        v4 = 2;
+        v9 = 2;
       }
 
       else
       {
-        v4 = 1;
+        v9 = 1;
       }
     }
 
     else
     {
-      v4 = 0;
+      v9 = 0;
     }
 
-    wifiManager = self->_wifiManager;
-    if (WiFiManagerClientGetType() != v4)
+    if (WiFiManagerClientGetType() != v9)
     {
-      v8 = +[CUTLog network];
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v13 = objc_msgSend_network(CUTLog, v11, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = "disabling";
+        v14 = "disabling";
         wiFiAutoAssociationTokens = self->_wiFiAutoAssociationTokens;
-        if (autoAssociateWiFi)
+        if (v8)
         {
-          v9 = "enabling";
+          v14 = "enabling";
         }
 
-        v13 = 136446467;
-        v14 = v9;
-        v15 = 2113;
-        v16 = wiFiAutoAssociationTokens;
-        _os_log_impl(&dword_1B2321000, v8, OS_LOG_TYPE_DEFAULT, "Interface manager: %{public}s WiFi association on wake (client tokens: %{private}@)", &v13, 0x16u);
+        v16 = 136446467;
+        v17 = v14;
+        v18 = 2113;
+        v19 = wiFiAutoAssociationTokens;
+        _os_log_impl(&dword_1B2321000, v13, OS_LOG_TYPE_DEFAULT, "Interface manager: %{public}s WiFi association on wake (client tokens: %{private}@)", &v16, 0x16u);
       }
 
-      v11 = self->_wifiManager;
       WiFiManagerClientSetType();
     }
 
-    [(NSRecursiveLock *)self->_lock unlock];
-    v12 = *MEMORY[0x1E69E9840];
+    objc_msgSend_unlock(self->_lock, v11, v12);
   }
 
   else
   {
     lock = self->_lock;
-    v6 = *MEMORY[0x1E69E9840];
 
-    [(NSRecursiveLock *)lock unlock];
+    objc_msgSend_unlock(lock, v4, v5);
   }
 }
 
 - (BOOL)autoAssociateWiFi
 {
-  [(NSRecursiveLock *)self->_lock lock];
-  v3 = [(NSMutableSet *)self->_wiFiAutoAssociationTokens count]!= 0;
-  [(NSRecursiveLock *)self->_lock unlock];
-  return v3;
+  objc_msgSend_lock(self->_lock, a2, v2);
+  v6 = objc_msgSend_count(self->_wiFiAutoAssociationTokens, v4, v5) != 0;
+  objc_msgSend_unlock(self->_lock, v7, v8);
+  return v6;
 }
 
 - (BOOL)isHostingWiFiHotSpot
 {
-  if ([(CUTWiFiManager *)self isWiFiEnabled])
+  if (objc_msgSend_isWiFiEnabled(self, a2, v2))
   {
-    [(NSRecursiveLock *)self->_lock lock];
+    objc_msgSend_lock(self->_lock, v4, v5);
     isHostingHotSpot = self->_isHostingHotSpot;
-    [(NSRecursiveLock *)self->_lock unlock];
+    objc_msgSend_unlock(self->_lock, v7, v8);
   }
 
   else
@@ -208,9 +204,9 @@
 
 - (void)_threadedMain
 {
-  currentRunLoop = [MEMORY[0x1E695DFD0] currentRunLoop];
+  v4 = objc_msgSend_currentRunLoop(MEMORY[0x1E695DFD0], a2, v2);
   wifiRunLoop = self->_wifiRunLoop;
-  self->_wifiRunLoop = currentRunLoop;
+  self->_wifiRunLoop = v4;
 
   memset(&context, 0, sizeof(context));
   self->_runLoopSource = CFRunLoopSourceCreate(*MEMORY[0x1E695E480], 0, &context);
@@ -218,70 +214,68 @@
   CFRunLoopAddSource(Current, self->_runLoopSource, *MEMORY[0x1E695E8E0]);
   while (1)
   {
-    v6 = objc_autoreleasePoolPush();
+    v7 = objc_autoreleasePoolPush();
     CFRunLoopRun();
-    objc_autoreleasePoolPop(v6);
+    objc_autoreleasePoolPop(v7);
   }
 }
 
 - (void)_performBackgroundInit
 {
-  v16 = *MEMORY[0x1E69E9840];
-  [(NSRecursiveLock *)self->_lock lock];
-  v3 = +[CUTLog network];
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v31 = *MEMORY[0x1E69E9840];
+  objc_msgSend_lock(self->_lock, a2, v2);
+  v6 = objc_msgSend_network(CUTLog, v4, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1B2321000, v3, OS_LOG_TYPE_DEFAULT, "Creating wifi manager", buf, 2u);
+    _os_log_impl(&dword_1B2321000, v6, OS_LOG_TYPE_DEFAULT, "Creating wifi manager", buf, 2u);
   }
 
-  [(CUTWiFiManager *)self _setupWifiNotifications];
-  v4 = +[CUTLog network];
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  objc_msgSend__setupWifiNotifications(self, v7, v8);
+  v11 = objc_msgSend_network(CUTLog, v9, v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     wifiManager = self->_wifiManager;
     wifiDevice = self->_wifiDevice;
     *buf = 138543619;
-    v13 = wifiManager;
-    v14 = 2113;
-    v15 = wifiDevice;
-    _os_log_impl(&dword_1B2321000, v4, OS_LOG_TYPE_DEFAULT, " => Done: %{public}@   (Current device: %{private}@)", buf, 0x16u);
+    v28 = wifiManager;
+    v29 = 2113;
+    v30 = wifiDevice;
+    _os_log_impl(&dword_1B2321000, v11, OS_LOG_TYPE_DEFAULT, " => Done: %{public}@   (Current device: %{private}@)", buf, 0x16u);
   }
 
-  [(CUTWiFiManager *)self _createDynamicStore];
-  [(NSRecursiveLock *)self->_lock unlock];
-  v7 = +[CUTLog network];
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  objc_msgSend__createDynamicStore(self, v14, v15);
+  objc_msgSend_unlock(self->_lock, v16, v17);
+  v20 = objc_msgSend_network(CUTLog, v18, v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v13 = "[CUTWiFiManager _performBackgroundInit]";
-    _os_log_impl(&dword_1B2321000, v7, OS_LOG_TYPE_DEFAULT, "%s Running network block sync", buf, 0xCu);
+    v28 = "[CUTWiFiManager _performBackgroundInit]";
+    _os_log_impl(&dword_1B2321000, v20, OS_LOG_TYPE_DEFAULT, "%s Running network block sync", buf, 0xCu);
   }
 
-  [(CUTWiFiManager *)self _updateIsWiFiAssociatedAsync:0];
-  v8 = +[CUTLog network];
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  objc_msgSend__updateIsWiFiAssociatedAsync_(self, v21, 0);
+  v24 = objc_msgSend_network(CUTLog, v22, v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1B2321000, v8, OS_LOG_TYPE_DEFAULT, " => Done running network block", buf, 2u);
+    _os_log_impl(&dword_1B2321000, v24, OS_LOG_TYPE_DEFAULT, " => Done running network block", buf, 2u);
   }
 
-  v9 = dispatch_get_global_queue(0, 0);
+  v25 = dispatch_get_global_queue(0, 0);
   handler[0] = MEMORY[0x1E69E9820];
   handler[1] = 3221225472;
   handler[2] = sub_1B232AD40;
   handler[3] = &unk_1E7B20F20;
   handler[4] = self;
-  notify_register_dispatch("com.apple.wifi.linkdidchange", &self->_linkToken, v9, handler);
-
-  v10 = *MEMORY[0x1E69E9840];
+  notify_register_dispatch("com.apple.wifi.linkdidchange", &self->_linkToken, v25, handler);
 }
 
 - (CUTWiFiManager)init
 {
-  v10.receiver = self;
-  v10.super_class = CUTWiFiManager;
-  v2 = [(CUTWiFiManager *)&v10 init];
+  v22.receiver = self;
+  v22.super_class = CUTWiFiManager;
+  v2 = [(CUTWiFiManager *)&v22 init];
   if (v2)
   {
     v3 = objc_alloc_init(MEMORY[0x1E696AE68]);
@@ -292,17 +286,18 @@
     incomingCallbacksQueue = v2->_incomingCallbacksQueue;
     v2->_incomingCallbacksQueue = v5;
 
-    v7 = [objc_alloc(MEMORY[0x1E696AF00]) initWithTarget:v2 selector:sel__threadedMain object:0];
+    v7 = objc_alloc(MEMORY[0x1E696AF00]);
+    v9 = objc_msgSend_initWithTarget_selector_object_(v7, v8, v2, sel__threadedMain, 0);
     wifiThread = v2->_wifiThread;
-    v2->_wifiThread = v7;
+    v2->_wifiThread = v9;
 
-    [(NSThread *)v2->_wifiThread setName:@"CommonUtilities-WiFi-Thread"];
-    [(NSThread *)v2->_wifiThread start];
-    [(NSRecursiveLock *)v2->_lock lock];
+    objc_msgSend_setName_(v2->_wifiThread, v11, @"CommonUtilities-WiFi-Thread");
+    objc_msgSend_start(v2->_wifiThread, v12, v13);
+    objc_msgSend_lock(v2->_lock, v14, v15);
     v2->_wifiManager = WiFiManagerClientCreate();
-    [(CUTWiFiManager *)v2 _updateInitialWiFiState];
-    [(NSRecursiveLock *)v2->_lock unlock];
-    [(CUTWiFiManager *)v2 performSelector:sel__performBackgroundInit onThread:v2->_wifiThread withObject:0 waitUntilDone:0];
+    objc_msgSend__updateInitialWiFiState(v2, v16, v17);
+    objc_msgSend_unlock(v2->_lock, v18, v19);
+    objc_msgSend_performSelector_onThread_withObject_waitUntilDone_(v2, v20, sel__performBackgroundInit, v2->_wifiThread, 0, 0);
   }
 
   return v2;
@@ -310,10 +305,10 @@
 
 - (void)dealloc
 {
-  [(NSRecursiveLock *)self->_lock lock];
-  [(NSMutableSet *)self->_wiFiAutoAssociationTokens removeAllObjects];
-  [(CUTWiFiManager *)self _adjustWiFiAutoAssociation];
-  [(CUTWiFiManager *)self _handlePotentialDeviceChange:0];
+  objc_msgSend_lock(self->_lock, a2, v2);
+  objc_msgSend_removeAllObjects(self->_wiFiAutoAssociationTokens, v4, v5);
+  objc_msgSend__adjustWiFiAutoAssociation(self, v6, v7);
+  objc_msgSend__handlePotentialDeviceChange_(self, v8, 0);
   dynamicStore = self->_dynamicStore;
   if (dynamicStore)
   {
@@ -340,33 +335,33 @@
     CFRelease(self->_runLoopSource);
   }
 
-  [(NSThread *)self->_wifiThread cancel];
-  [(NSRecursiveLock *)self->_lock unlock];
-  v7.receiver = self;
-  v7.super_class = CUTWiFiManager;
-  [(CUTWiFiManager *)&v7 dealloc];
+  objc_msgSend_cancel(self->_wifiThread, v12, v13);
+  objc_msgSend_unlock(self->_lock, v15, v16);
+  v17.receiver = self;
+  v17.super_class = CUTWiFiManager;
+  [(CUTWiFiManager *)&v17 dealloc];
 }
 
 - (void)addDelegate:(id)delegate
 {
   delegateCopy = delegate;
-  [(NSRecursiveLock *)self->_lock lock];
-  if (![(NSHashTable *)self->_delegateMap containsObject:delegateCopy])
+  objc_msgSend_lock(self->_lock, v4, v5);
+  if ((objc_msgSend_containsObject_(self->_delegateMap, v6, delegateCopy) & 1) == 0)
   {
     delegateMap = self->_delegateMap;
     if (!delegateMap)
     {
-      weakObjectsHashTable = [MEMORY[0x1E696AC70] weakObjectsHashTable];
-      v6 = self->_delegateMap;
-      self->_delegateMap = weakObjectsHashTable;
+      v10 = objc_msgSend_weakObjectsHashTable(MEMORY[0x1E696AC70], v7, v8);
+      v11 = self->_delegateMap;
+      self->_delegateMap = v10;
 
       delegateMap = self->_delegateMap;
     }
 
-    [(NSHashTable *)delegateMap addObject:delegateCopy];
+    objc_msgSend_addObject_(delegateMap, v7, delegateCopy);
   }
 
-  [(NSRecursiveLock *)self->_lock unlock];
+  objc_msgSend_unlock(self->_lock, v7, v8);
 }
 
 - (void)removeDelegate:(id)delegate
@@ -375,80 +370,80 @@
   {
     lock = self->_lock;
     delegateCopy = delegate;
-    [(NSRecursiveLock *)lock lock];
-    [(NSHashTable *)self->_delegateMap removeObject:delegateCopy];
+    objc_msgSend_lock(lock, v6, v7);
+    objc_msgSend_removeObject_(self->_delegateMap, v8, delegateCopy);
 
-    if (![(NSHashTable *)self->_delegateMap count])
+    if (!objc_msgSend_count(self->_delegateMap, v9, v10))
     {
       delegateMap = self->_delegateMap;
       self->_delegateMap = 0;
     }
 
-    v7 = self->_lock;
+    v14 = self->_lock;
 
-    [(NSRecursiveLock *)v7 unlock];
+    objc_msgSend_unlock(v14, v11, v12);
   }
 }
 
 - (void)addWoWClient:(id)client
 {
   clientCopy = client;
-  [(NSRecursiveLock *)self->_lock lock];
-  v4 = [(NSHashTable *)self->_wowClients count];
-  if (![(NSHashTable *)self->_wowClients containsObject:clientCopy])
+  objc_msgSend_lock(self->_lock, v4, v5);
+  v8 = objc_msgSend_count(self->_wowClients, v6, v7);
+  if ((objc_msgSend_containsObject_(self->_wowClients, v9, clientCopy) & 1) == 0)
   {
     wowClients = self->_wowClients;
     if (!wowClients)
     {
-      weakObjectsHashTable = [MEMORY[0x1E696AC70] weakObjectsHashTable];
-      v7 = self->_wowClients;
-      self->_wowClients = weakObjectsHashTable;
+      v13 = objc_msgSend_weakObjectsHashTable(MEMORY[0x1E696AC70], v10, v11);
+      v14 = self->_wowClients;
+      self->_wowClients = v13;
 
       wowClients = self->_wowClients;
     }
 
-    [(NSHashTable *)wowClients addObject:clientCopy];
-    if (!v4)
+    objc_msgSend_addObject_(wowClients, v10, clientCopy);
+    if (!v8)
     {
-      [(CUTWiFiManager *)self _adjustWoWState];
+      objc_msgSend__adjustWoWState(self, v10, v11);
     }
   }
 
-  [(NSRecursiveLock *)self->_lock unlock];
+  objc_msgSend_unlock(self->_lock, v10, v11);
 }
 
 - (void)removeWoWClient:(id)client
 {
   lock = self->_lock;
   clientCopy = client;
-  [(NSRecursiveLock *)lock lock];
-  v6 = [(NSHashTable *)self->_wowClients count];
-  [(NSHashTable *)self->_wowClients removeObject:clientCopy];
+  objc_msgSend_lock(lock, v6, v7);
+  v10 = objc_msgSend_count(self->_wowClients, v8, v9);
+  objc_msgSend_removeObject_(self->_wowClients, v11, clientCopy);
 
-  if (![(NSHashTable *)self->_wowClients count])
+  if (!objc_msgSend_count(self->_wowClients, v12, v13))
   {
     wowClients = self->_wowClients;
     self->_wowClients = 0;
 
-    if (v6)
+    if (v10)
     {
-      [(CUTWiFiManager *)self _adjustWoWState];
+      objc_msgSend__adjustWoWState(self, v14, v15);
     }
   }
 
-  v8 = self->_lock;
+  v17 = self->_lock;
 
-  [(NSRecursiveLock *)v8 unlock];
+  objc_msgSend_unlock(v17, v14, v15);
 }
 
 - (BOOL)hasWoWClient:(id)client
 {
   lock = self->_lock;
   clientCopy = client;
-  [(NSRecursiveLock *)lock lock];
-  LOBYTE(lock) = [(NSHashTable *)self->_wowClients containsObject:clientCopy];
+  objc_msgSend_lock(lock, v6, v7);
+  LOBYTE(lock) = objc_msgSend_containsObject_(self->_wowClients, v8, clientCopy);
 
-  [(NSRecursiveLock *)self->_lock unlock];
+  objc_msgSend_unlock(self->_lock, v9, v10);
   return lock;
 }
 
@@ -456,10 +451,10 @@
 {
   if (self->_wifiManager)
   {
-    v3 = [(NSHashTable *)self->_wowClients count]!= 0;
+    v4 = objc_msgSend_count(self->_wowClients, a2, v2) != 0;
     wifiManager = self->_wifiManager;
 
-    MEMORY[0x1EEE1E7B8](wifiManager, v3);
+    MEMORY[0x1EEE1E7B8](wifiManager, v4);
   }
 }
 
@@ -468,20 +463,17 @@
   if (self->_wifiManager)
   {
     WiFiManagerClientRegisterDeviceAttachmentCallback();
-    wifiManager = self->_wifiManager;
     WiFiManagerClientRegisterNotificationCallback();
     Current = CFRunLoopGetCurrent();
-    v5 = self->_wifiManager;
-    v6 = *MEMORY[0x1E695E8E0];
     WiFiManagerClientScheduleWithRunLoop();
     CFRunLoopWakeUp(Current);
 
-    [(CUTWiFiManager *)self _updateInitialWiFiState];
+    objc_msgSend__updateInitialWiFiState(self, v5, v6);
   }
 
   else
   {
-    v7 = +[CUTLog network];
+    v7 = objc_msgSend_network(CUTLog, a2, v2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       sub_1B2331B1C();
@@ -493,22 +485,22 @@
 {
   if (self->_wifiManager)
   {
-    [(NSRecursiveLock *)self->_lock lock];
-    v4[0] = MEMORY[0x1E69E9820];
-    v4[1] = 3221225472;
-    v4[2] = sub_1B232B480;
-    v4[3] = &unk_1E7B20F48;
-    v4[4] = self;
-    [(CUTWiFiManager *)self _performDeviceBlock:v4 useCache:0];
-    [(CUTWiFiManager *)self _adjustWoWState];
-    [(CUTWiFiManager *)self _adjustWiFiAutoAssociationLocked];
-    [(NSRecursiveLock *)self->_lock unlock];
+    objc_msgSend_lock(self->_lock, a2, v2);
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = sub_1B232B480;
+    v12[3] = &unk_1E7B20F48;
+    v12[4] = self;
+    objc_msgSend__performDeviceBlock_useCache_(self, v4, v12, 0);
+    objc_msgSend__adjustWoWState(self, v5, v6);
+    objc_msgSend__adjustWiFiAutoAssociationLocked(self, v7, v8);
+    objc_msgSend_unlock(self->_lock, v9, v10);
   }
 
   else
   {
-    v3 = +[CUTLog network];
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    v11 = objc_msgSend_network(CUTLog, a2, v2);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       sub_1B2331B1C();
     }
@@ -517,7 +509,7 @@
 
 - (void)_createDynamicStore
 {
-  v3 = [CUTWeakReference weakRefWithObject:self];
+  v3 = objc_msgSend_weakRefWithObject_(CUTWeakReference, a2, self);
   context.version = 0;
   context.info = v3;
   context.retain = MEMORY[0x1E695D7C8];
@@ -528,8 +520,8 @@
   self->_dynamicStore = dynamicStore;
   if (!dynamicStore)
   {
-    v6 = +[CUTLog network];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v8 = objc_msgSend_network(CUTLog, v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       sub_1B2331B90();
     }
@@ -538,167 +530,176 @@
   }
 
   SCDynamicStoreSetDispatchQueue(dynamicStore, self->_incomingCallbacksQueue);
-  v7 = MEMORY[0x1E695E9C0];
+  v9 = MEMORY[0x1E695E9C0];
   Mutable = CFArrayCreateMutable(v4, 0, MEMORY[0x1E695E9C0]);
-  v9 = CFArrayCreateMutable(v4, 0, v7);
-  v10 = *MEMORY[0x1E69822F0];
+  v11 = CFArrayCreateMutable(v4, 0, v9);
+  v12 = *MEMORY[0x1E69822F0];
   NetworkGlobalEntity = SCDynamicStoreKeyCreateNetworkGlobalEntity(v4, *MEMORY[0x1E69822F0], *MEMORY[0x1E6982338]);
   CFArrayAppendValue(Mutable, NetworkGlobalEntity);
   CFRelease(NetworkGlobalEntity);
-  NetworkInterfaceEntity = SCDynamicStoreKeyCreateNetworkInterfaceEntity(v4, v10, *MEMORY[0x1E69822E0], *MEMORY[0x1E6982320]);
-  CFArrayAppendValue(v9, NetworkInterfaceEntity);
+  NetworkInterfaceEntity = SCDynamicStoreKeyCreateNetworkInterfaceEntity(v4, v12, *MEMORY[0x1E69822E0], *MEMORY[0x1E6982320]);
+  CFArrayAppendValue(v11, NetworkInterfaceEntity);
   CFRelease(NetworkInterfaceEntity);
-  SCDynamicStoreSetNotificationKeys(self->_dynamicStore, Mutable, v9);
+  SCDynamicStoreSetNotificationKeys(self->_dynamicStore, Mutable, v11);
   CFRelease(Mutable);
-  CFRelease(v9);
+  CFRelease(v11);
 }
 
 - (BOOL)willTryToAutoAssociateWiFiNetwork
 {
-  if (![(CUTWiFiManager *)self isWiFiEnabled])
+  if (!objc_msgSend_isWiFiEnabled(self, a2, v2))
   {
     return 0;
   }
 
-  [(NSRecursiveLock *)self->_lock lock];
-  if (!self->_wifiManager || (AskToJoinState = WiFiManagerClientGetAskToJoinState(), wifiManager = self->_wifiManager, (v5 = WiFiManagerClientCopyEnabledNetworks()) == 0))
+  objc_msgSend_lock(self->_lock, v4, v5);
+  if (!self->_wifiManager || (AskToJoinState = WiFiManagerClientGetAskToJoinState(), (v9 = WiFiManagerClientCopyEnabledNetworks()) == 0))
   {
-    [(NSRecursiveLock *)self->_lock unlock];
+    objc_msgSend_unlock(self->_lock, v6, v7);
     return 0;
   }
 
-  v6 = v5;
-  v7 = AskToJoinState != 0;
-  Count = CFArrayGetCount(v5);
-  CFRelease(v6);
-  [(NSRecursiveLock *)self->_lock unlock];
+  v10 = v9;
+  v11 = AskToJoinState != 0;
+  Count = CFArrayGetCount(v9);
+  CFRelease(v10);
+  objc_msgSend_unlock(self->_lock, v13, v14);
   if (!Count)
   {
     return 0;
   }
 
-  return v7;
+  return v11;
 }
 
 - (BOOL)willTryToSearchForWiFiNetwork
 {
-  if (![(CUTWiFiManager *)self isWiFiEnabled])
+  if (!objc_msgSend_isWiFiEnabled(self, a2, v2))
   {
     return 0;
   }
 
-  [(NSRecursiveLock *)self->_lock lock];
+  objc_msgSend_lock(self->_lock, v4, v5);
   if (self->_wifiManager)
   {
-    v3 = WiFiManagerClientGetAskToJoinState() != 0;
+    v8 = WiFiManagerClientGetAskToJoinState() != 0;
   }
 
   else
   {
-    v3 = 0;
+    v8 = 0;
   }
 
-  [(NSRecursiveLock *)self->_lock unlock];
-  return v3;
+  objc_msgSend_unlock(self->_lock, v6, v7);
+  return v8;
 }
 
 - (NSNumber)wiFiSignalStrength
 {
-  [(NSRecursiveLock *)self->_lock lock];
+  objc_msgSend_lock(self->_lock, a2, v2);
   if (self->_wifiManager)
   {
-    v3 = WiFiManagerClientCopyDevices();
-    v4 = v3;
-    if (v3 && [v3 count] && (v5 = objc_msgSend(v4, "objectAtIndex:", 0)) != 0)
+    v6 = WiFiManagerClientCopyDevices();
+    v9 = v6;
+    if (v6 && objc_msgSend_count(v6, v7, v8) && (v10 = objc_msgSend_objectAtIndex_(v9, v7, 0)) != 0)
     {
-      v6 = v5;
-      CFRetain(v5);
-      v7 = *MEMORY[0x1E69B2080];
-      v8 = WiFiDeviceClientCopyProperty();
-      CFRelease(v6);
+      v11 = v10;
+      CFRetain(v10);
+      v12 = WiFiDeviceClientCopyProperty();
+      CFRelease(v11);
     }
 
     else
     {
-      v8 = 0;
+      v12 = 0;
     }
 
-    [(NSRecursiveLock *)self->_lock unlock];
+    objc_msgSend_unlock(self->_lock, v7, v8);
   }
 
   else
   {
-    [(NSRecursiveLock *)self->_lock unlock];
-    v8 = 0;
+    objc_msgSend_unlock(self->_lock, v4, v5);
+    v12 = 0;
   }
 
-  return v8;
+  return v12;
 }
 
 - (NSNumber)wiFiScaledRSSI
 {
-  [(NSRecursiveLock *)self->_lock lock];
+  objc_msgSend_lock(self->_lock, a2, v2);
   if (self->_wifiManager)
   {
-    v3 = WiFiManagerClientCopyDevices();
-    v4 = v3;
-    if (v3 && [v3 count] && (v5 = objc_msgSend(v4, "objectAtIndex:", 0)) != 0)
+    v6 = WiFiManagerClientCopyDevices();
+    v9 = v6;
+    if (v6 && objc_msgSend_count(v6, v7, v8) && (v10 = objc_msgSend_objectAtIndex_(v9, v7, 0)) != 0)
     {
-      v6 = v5;
-      CFRetain(v5);
-      v7 = *MEMORY[0x1E69B2070];
-      v8 = WiFiDeviceClientCopyProperty();
-      CFRelease(v6);
+      v11 = v10;
+      CFRetain(v10);
+      v12 = WiFiDeviceClientCopyProperty();
+      CFRelease(v11);
     }
 
     else
     {
-      v8 = 0;
+      v12 = 0;
     }
 
-    [(NSRecursiveLock *)self->_lock unlock];
+    objc_msgSend_unlock(self->_lock, v7, v8);
   }
 
   else
   {
-    [(NSRecursiveLock *)self->_lock unlock];
-    v8 = 0;
+    objc_msgSend_unlock(self->_lock, v4, v5);
+    v12 = 0;
   }
 
-  return v8;
+  return v12;
 }
 
 - (NSNumber)wiFiScaledRate
 {
-  [(NSRecursiveLock *)self->_lock lock];
+  objc_msgSend_lock(self->_lock, a2, v2);
   if (self->_wifiManager)
   {
-    v3 = WiFiManagerClientCopyDevices();
-    v4 = v3;
-    if (v3 && [v3 count] && (v5 = objc_msgSend(v4, "objectAtIndex:", 0)) != 0)
+    v6 = WiFiManagerClientCopyDevices();
+    v9 = v6;
+    if (v6 && objc_msgSend_count(v6, v7, v8) && (v10 = objc_msgSend_objectAtIndex_(v9, v7, 0)) != 0)
     {
-      v6 = v5;
-      CFRetain(v5);
-      v7 = *MEMORY[0x1E69B2078];
-      v8 = WiFiDeviceClientCopyProperty();
-      CFRelease(v6);
+      v11 = v10;
+      CFRetain(v10);
+      v12 = WiFiDeviceClientCopyProperty();
+      CFRelease(v11);
     }
 
     else
     {
-      v8 = 0;
+      v12 = 0;
     }
 
-    [(NSRecursiveLock *)self->_lock unlock];
+    objc_msgSend_unlock(self->_lock, v7, v8);
   }
 
   else
   {
-    [(NSRecursiveLock *)self->_lock unlock];
-    v8 = 0;
+    objc_msgSend_unlock(self->_lock, v4, v5);
+    v12 = 0;
   }
 
-  return v8;
+  return v12;
+}
+
+- (void)_updateIsWiFiAssociatedAsync:(BOOL)async
+{
+  asyncCopy = async;
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = sub_1B232BCDC;
+  v7[3] = &unk_1E7B20F98;
+  v7[4] = self;
+  v5 = MEMORY[0x1B2746240](v7, a2);
+  objc_msgSend__performCurrentNetworkBlock_withDevice_async_(self, v6, v5, 0, asyncCopy);
 }
 
 - (void)_updateIsWiFiEnabled
@@ -707,36 +708,25 @@
   if (self->_wifiManager)
   {
     Power = WiFiManagerClientGetPower();
-    wifiManager = self->_wifiManager;
-    v5 = WiFiManagerClientCopyProperty();
-    bOOLValue = [v5 BOOLValue];
-    if (v5)
+    v4 = WiFiManagerClientCopyProperty();
+    v9 = objc_msgSend_BOOLValue(v4, v5, v6);
+    if (v4)
     {
-      CFRelease(v5);
+      CFRelease(v4);
     }
 
-    v7 = (Power != 0) & bOOLValue;
-    self->_isWifiEnabled = v7;
-    if (v7)
+    v10 = (Power != 0) & v9;
+    self->_isWifiEnabled = v10;
+    v11 = v10 && WiFiManagerClientGetMISState() != 0;
+    self->_isHostingHotSpot = v11;
+    v12 = objc_msgSend_network(CUTLog, v7, v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = self->_wifiManager;
-      v9 = WiFiManagerClientGetMISState() != 0;
+      *v14 = 0;
+      _os_log_impl(&dword_1B2321000, v12, OS_LOG_TYPE_DEFAULT, "Running network block async", v14, 2u);
     }
 
-    else
-    {
-      v9 = 0;
-    }
-
-    self->_isHostingHotSpot = v9;
-    v10 = +[CUTLog network];
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-    {
-      *v11 = 0;
-      _os_log_impl(&dword_1B2321000, v10, OS_LOG_TYPE_DEFAULT, "Running network block async", v11, 2u);
-    }
-
-    [(CUTWiFiManager *)self _updateIsWiFiAssociatedAsync:1];
+    objc_msgSend__updateIsWiFiAssociatedAsync_(self, v13, 1);
   }
 }
 
@@ -749,10 +739,10 @@
     goto LABEL_16;
   }
 
-  v7 = blockCopy;
-  v12 = [blockCopy copy];
+  v9 = blockCopy;
+  v21 = objc_msgSend_copy(blockCopy, v7, v8);
 
-  [(NSRecursiveLock *)self->_lock lock];
+  objc_msgSend_lock(self->_lock, v10, v11);
   if (cacheCopy)
   {
     wifiDevice = self->_wifiDevice;
@@ -766,15 +756,15 @@
 
   if (self->_wifiManager)
   {
-    v9 = WiFiManagerClientCopyDevices();
-    v10 = v9;
-    if (v9 && [v9 count])
+    v15 = WiFiManagerClientCopyDevices();
+    v18 = v15;
+    if (v15 && objc_msgSend_count(v15, v16, v17))
     {
-      v11 = [v10 objectAtIndex:0];
-      wifiDevice = v11;
-      if (v11)
+      v20 = objc_msgSend_objectAtIndex_(v18, v19, 0);
+      wifiDevice = v20;
+      if (v20)
       {
-        CFRetain(v11);
+        CFRetain(v20);
       }
 
       goto LABEL_12;
@@ -783,21 +773,21 @@
 
   else
   {
-    v10 = 0;
+    v18 = 0;
   }
 
   wifiDevice = 0;
 LABEL_12:
 
 LABEL_13:
-  [(NSRecursiveLock *)self->_lock unlock];
-  v12[2](v12, wifiDevice);
+  objc_msgSend_unlock(self->_lock, v12, v13);
+  v21[2](v21, wifiDevice);
   if (wifiDevice)
   {
     CFRelease(wifiDevice);
   }
 
-  blockCopy = v12;
+  blockCopy = v21;
 LABEL_16:
 }
 
@@ -805,7 +795,7 @@ LABEL_16:
 {
   blockCopy = block;
   v4 = objc_autoreleasePoolPush();
-  [(CUTWiFiManager *)self _performDeviceBlock:blockCopy useCache:1];
+  objc_msgSend__performDeviceBlock_useCache_(self, v5, blockCopy, 1);
   objc_autoreleasePoolPop(v4);
 }
 
@@ -815,24 +805,24 @@ LABEL_16:
   v9 = blockCopy;
   if (blockCopy)
   {
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = sub_1B232C3C4;
-    v12[3] = &unk_1E7B20FE8;
-    v12[4] = self;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = sub_1B232C3C4;
+    v13[3] = &unk_1E7B20FE8;
+    v13[4] = self;
     asyncCopy = async;
-    v13 = blockCopy;
-    v10 = MEMORY[0x1B2746240](v12);
+    v14 = blockCopy;
+    v11 = MEMORY[0x1B2746240](v13);
     if (device)
     {
-      v11 = objc_autoreleasePoolPush();
-      (v10)[2](v10, device);
-      objc_autoreleasePoolPop(v11);
+      v12 = objc_autoreleasePoolPush();
+      (v11)[2](v11, device);
+      objc_autoreleasePoolPop(v12);
     }
 
     else
     {
-      [(CUTWiFiManager *)self _performDeviceBlock:v10];
+      objc_msgSend__performDeviceBlock_(self, v10, v11);
     }
   }
 }
@@ -854,11 +844,11 @@ LABEL_16:
 
 - (void)_handleDevicePowerCallback
 {
-  [(NSRecursiveLock *)self->_lock lock];
-  [(CUTWiFiManager *)self _updateIsWiFiEnabled];
+  objc_msgSend_lock(self->_lock, a2, v2);
+  objc_msgSend__updateIsWiFiEnabled(self, v4, v5);
   lock = self->_lock;
 
-  [(NSRecursiveLock *)lock unlock];
+  objc_msgSend_unlock(lock, v6, v7);
 }
 
 - (void)_handleDeviceAttachedCallback
@@ -868,22 +858,22 @@ LABEL_16:
   v2[2] = sub_1B232C890;
   v2[3] = &unk_1E7B20F48;
   v2[4] = self;
-  [(CUTWiFiManager *)self _performDeviceBlock:v2 useCache:0];
+  objc_msgSend__performDeviceBlock_useCache_(self, a2, v2, 0);
 }
 
 - (void)_handleHostAPStateChangedCallback
 {
-  [(NSRecursiveLock *)self->_lock lock];
-  [(CUTWiFiManager *)self _updateIsWiFiEnabled];
+  objc_msgSend_lock(self->_lock, a2, v2);
+  objc_msgSend__updateIsWiFiEnabled(self, v4, v5);
   lock = self->_lock;
 
-  [(NSRecursiveLock *)lock unlock];
+  objc_msgSend_unlock(lock, v6, v7);
 }
 
 - (void)_handlePotentialDeviceChange:(__WiFiDeviceClient *)change
 {
-  v29 = *MEMORY[0x1E69E9840];
-  [(NSRecursiveLock *)self->_lock lock];
+  v28 = *MEMORY[0x1E69E9840];
+  objc_msgSend_lock(self->_lock, a2, change);
   wifiDevice = self->_wifiDevice;
   if (wifiDevice == change)
   {
@@ -895,9 +885,7 @@ LABEL_16:
     if (wifiDevice)
     {
       WiFiDeviceClientRegisterDeviceAvailableCallback();
-      v6 = self->_wifiDevice;
       WiFiDeviceClientRegisterExtendedLinkCallback();
-      v7 = self->_wifiDevice;
       WiFiDeviceClientRegisterHostApStateChangedCallback();
       CFRelease(self->_wifiDevice);
       self->_wifiDevice = 0;
@@ -907,76 +895,70 @@ LABEL_16:
     {
       self->_wifiDevice = change;
       CFRetain(change);
-      wifiManager = self->_wifiManager;
       self->_isWakeOnWiFiSupported = WiFiManagerClientGetWoWCapability() != 0;
-      [(CUTWiFiManager *)self _updateIsWiFiEnabled];
-      v9 = self->_wifiDevice;
+      objc_msgSend__updateIsWiFiEnabled(self, v8, v9);
       WiFiDeviceClientRegisterDeviceAvailableCallback();
-      v10 = self->_wifiDevice;
       WiFiDeviceClientRegisterExtendedLinkCallback();
-      v11 = self->_wifiDevice;
       WiFiDeviceClientRegisterPowerCallback();
-      v12 = self->_wifiDevice;
       WiFiDeviceClientRegisterHostApStateChangedCallback();
-      v26 = 0u;
-      v27 = 0u;
-      v24 = 0u;
       v25 = 0u;
-      v13 = self->_delegateMap;
-      v14 = [(NSHashTable *)v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
-      if (v14)
+      v26 = 0u;
+      v23 = 0u;
+      v24 = 0u;
+      v10 = self->_delegateMap;
+      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v23, v27, 16);
+      if (v12)
       {
-        v15 = v14;
-        v16 = *v25;
-        v17 = MEMORY[0x1E69E96A0];
+        v13 = v12;
+        v14 = *v24;
+        v15 = MEMORY[0x1E69E96A0];
         do
         {
-          for (i = 0; i != v15; ++i)
+          for (i = 0; i != v13; ++i)
           {
-            if (*v25 != v16)
+            if (*v24 != v14)
             {
-              objc_enumerationMutation(v13);
+              objc_enumerationMutation(v10);
             }
 
-            v19 = *(*(&v24 + 1) + 8 * i);
+            v17 = *(*(&v23 + 1) + 8 * i);
             block[0] = MEMORY[0x1E69E9820];
             block[1] = 3221225472;
             block[2] = sub_1B232CCA0;
             block[3] = &unk_1E7B20D70;
-            block[4] = v19;
+            block[4] = v17;
             block[5] = self;
-            dispatch_async(v17, block);
+            dispatch_async(v15, block);
           }
 
-          v15 = [(NSHashTable *)v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
+          v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v18, &v23, v27, 16);
         }
 
-        while (v15);
+        while (v13);
       }
     }
 
     else
     {
       self->_isWifiEnabled = 0;
-      v20 = +[CUTLog network];
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v19 = objc_msgSend_network(CUTLog, v5, v6);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        *v22 = 0;
-        _os_log_impl(&dword_1B2321000, v20, OS_LOG_TYPE_DEFAULT, "Running network block async", v22, 2u);
+        *v21 = 0;
+        _os_log_impl(&dword_1B2321000, v19, OS_LOG_TYPE_DEFAULT, "Running network block async", v21, 2u);
       }
 
-      [(CUTWiFiManager *)self _updateIsWiFiAssociatedAsync:1];
+      objc_msgSend__updateIsWiFiAssociatedAsync_(self, v20, 1);
     }
   }
 
-  [(NSRecursiveLock *)self->_lock unlock];
-  v21 = *MEMORY[0x1E69E9840];
+  objc_msgSend_unlock(self->_lock, v5, v6);
 }
 
 - (void)setCurrentNetwork:(void *)network
 {
-  v11 = *MEMORY[0x1E69E9840];
-  [(NSRecursiveLock *)self->_lock lock];
+  v12 = *MEMORY[0x1E69E9840];
+  objc_msgSend_lock(self->_lock, a2, network);
   currentNetwork = self->_currentNetwork;
   if (currentNetwork != network)
   {
@@ -991,43 +973,42 @@ LABEL_16:
       CFRetain(network);
     }
 
-    v6 = +[CUTLog network];
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = objc_msgSend_network(CUTLog, v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = self->_currentNetwork;
-      v9 = 134217984;
-      v10 = v7;
-      _os_log_impl(&dword_1B2321000, v6, OS_LOG_TYPE_DEFAULT, "_currentNetwork is %p", &v9, 0xCu);
+      v9 = self->_currentNetwork;
+      v10 = 134217984;
+      v11 = v9;
+      _os_log_impl(&dword_1B2321000, v8, OS_LOG_TYPE_DEFAULT, "_currentNetwork is %p", &v10, 0xCu);
     }
   }
 
-  [(NSRecursiveLock *)self->_lock unlock];
-  v8 = *MEMORY[0x1E69E9840];
+  objc_msgSend_unlock(self->_lock, v5, v6);
 }
 
 - (void)_setCurrentNetwork:(__WiFiNetwork *)network
 {
-  [(NSRecursiveLock *)self->_lock lock];
-  [(CUTWiFiManager *)self setCurrentNetwork:network];
-  [(CUTWiFiManager *)self _updateIsWiFiEnabled];
+  objc_msgSend_lock(self->_lock, a2, network);
+  objc_msgSend_setCurrentNetwork_(self, v5, network);
+  objc_msgSend__updateIsWiFiEnabled(self, v6, v7);
   lock = self->_lock;
 
-  [(NSRecursiveLock *)lock unlock];
+  objc_msgSend_unlock(lock, v8, v9);
 }
 
 - (void)_performPowerReading
 {
-  [(NSRecursiveLock *)self->_lock lock];
-  v3 = [(NSHashTable *)self->_delegateMap count];
-  [(NSRecursiveLock *)self->_lock unlock];
-  if (v3)
+  objc_msgSend_lock(self->_lock, a2, v2);
+  v6 = objc_msgSend_count(self->_delegateMap, v4, v5);
+  objc_msgSend_unlock(self->_lock, v7, v8);
+  if (v6)
   {
-    v4[0] = MEMORY[0x1E69E9820];
-    v4[1] = 3221225472;
-    v4[2] = sub_1B232CECC;
-    v4[3] = &unk_1E7B21010;
-    v4[4] = self;
-    [(CUTWiFiManager *)self currentWiFiNetworkPowerUsageWithCompletion:v4];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = sub_1B232CECC;
+    v10[3] = &unk_1E7B21010;
+    v10[4] = self;
+    objc_msgSend_currentWiFiNetworkPowerUsageWithCompletion_(self, v9, v10);
   }
 }
 
@@ -1037,13 +1018,13 @@ LABEL_16:
   v5 = completionCopy;
   if (completionCopy)
   {
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = sub_1B232D188;
-    v6[3] = &unk_1E7B21060;
-    v6[4] = self;
-    v7 = completionCopy;
-    [(CUTWiFiManager *)self _performDeviceBlock:v6];
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = sub_1B232D188;
+    v7[3] = &unk_1E7B21060;
+    v7[4] = self;
+    v8 = completionCopy;
+    objc_msgSend__performDeviceBlock_(self, v6, v7);
   }
 }
 
@@ -1061,7 +1042,7 @@ LABEL_16:
   v4[3] = &unk_1E7B21088;
   v4[4] = self;
   v4[5] = &v5;
-  [(CUTWiFiManager *)self _performCurrentNetworkBlock:v4];
+  objc_msgSend__performCurrentNetworkBlock_(self, a2, v4);
   v2 = v6[5];
   _Block_object_dispose(&v5, 8);
 
@@ -1070,11 +1051,11 @@ LABEL_16:
 
 - (void)_adjustWiFiAutoAssociation
 {
-  [(NSRecursiveLock *)self->_lock lock];
-  [(CUTWiFiManager *)self _adjustWiFiAutoAssociationLocked];
+  objc_msgSend_lock(self->_lock, a2, v2);
+  objc_msgSend__adjustWiFiAutoAssociationLocked(self, v4, v5);
   lock = self->_lock;
 
-  [(NSRecursiveLock *)lock unlock];
+  objc_msgSend_unlock(lock, v6, v7);
 }
 
 - (BOOL)hasWiFiAutoAssociationClientToken:(id)token
@@ -1086,103 +1067,99 @@ LABEL_16:
 
   lock = self->_lock;
   tokenCopy = token;
-  [(NSRecursiveLock *)lock lock];
-  LOBYTE(lock) = [(NSMutableSet *)self->_wiFiAutoAssociationTokens containsObject:tokenCopy];
+  objc_msgSend_lock(lock, v6, v7);
+  LOBYTE(lock) = objc_msgSend_containsObject_(self->_wiFiAutoAssociationTokens, v8, tokenCopy);
 
-  [(NSRecursiveLock *)self->_lock unlock];
+  objc_msgSend_unlock(self->_lock, v9, v10);
   return lock;
 }
 
 - (void)addWiFiAutoAssociationClientToken:(id)token
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   tokenCopy = token;
   if (tokenCopy)
   {
-    [(NSRecursiveLock *)self->_lock lock];
+    objc_msgSend_lock(self->_lock, v4, v5);
     wiFiAutoAssociationTokens = self->_wiFiAutoAssociationTokens;
     if (!wiFiAutoAssociationTokens)
     {
-      v6 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-      v7 = self->_wiFiAutoAssociationTokens;
-      self->_wiFiAutoAssociationTokens = v6;
+      v9 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+      v10 = self->_wiFiAutoAssociationTokens;
+      self->_wiFiAutoAssociationTokens = v9;
 
       wiFiAutoAssociationTokens = self->_wiFiAutoAssociationTokens;
     }
 
-    [(NSMutableSet *)wiFiAutoAssociationTokens addObject:tokenCopy];
-    v8 = +[CUTLog network];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    objc_msgSend_addObject_(wiFiAutoAssociationTokens, v7, tokenCopy);
+    v13 = objc_msgSend_network(CUTLog, v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = self->_wiFiAutoAssociationTokens;
-      v11 = 138478083;
-      v12 = tokenCopy;
-      v13 = 2113;
-      v14 = v9;
-      _os_log_impl(&dword_1B2321000, v8, OS_LOG_TYPE_DEFAULT, "Client token: %{private}@ was added to WiFi association clients (%{private}@)", &v11, 0x16u);
+      v14 = self->_wiFiAutoAssociationTokens;
+      v19 = 138478083;
+      v20 = tokenCopy;
+      v21 = 2113;
+      v22 = v14;
+      _os_log_impl(&dword_1B2321000, v13, OS_LOG_TYPE_DEFAULT, "Client token: %{private}@ was added to WiFi association clients (%{private}@)", &v19, 0x16u);
     }
 
-    [(CUTWiFiManager *)self _adjustWiFiAutoAssociationLocked];
-    [(NSRecursiveLock *)self->_lock unlock];
+    objc_msgSend__adjustWiFiAutoAssociationLocked(self, v15, v16);
+    objc_msgSend_unlock(self->_lock, v17, v18);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeWiFiAutoAssociationClientToken:(id)token
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   tokenCopy = token;
   if (tokenCopy)
   {
-    [(NSRecursiveLock *)self->_lock lock];
-    v5 = +[CUTLog network];
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    objc_msgSend_lock(self->_lock, v4, v5);
+    v9 = objc_msgSend_network(CUTLog, v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       wiFiAutoAssociationTokens = self->_wiFiAutoAssociationTokens;
-      v8 = 138478083;
-      v9 = tokenCopy;
-      v10 = 2113;
-      v11 = wiFiAutoAssociationTokens;
-      _os_log_impl(&dword_1B2321000, v5, OS_LOG_TYPE_DEFAULT, "Client token: %{private}@ being removed from WiFi association clients (%{private}@)", &v8, 0x16u);
+      v16 = 138478083;
+      v17 = tokenCopy;
+      v18 = 2113;
+      v19 = wiFiAutoAssociationTokens;
+      _os_log_impl(&dword_1B2321000, v9, OS_LOG_TYPE_DEFAULT, "Client token: %{private}@ being removed from WiFi association clients (%{private}@)", &v16, 0x16u);
     }
 
-    [(NSMutableSet *)self->_wiFiAutoAssociationTokens removeObject:tokenCopy];
-    [(CUTWiFiManager *)self _adjustWiFiAutoAssociationLocked];
-    [(NSRecursiveLock *)self->_lock unlock];
+    objc_msgSend_removeObject_(self->_wiFiAutoAssociationTokens, v11, tokenCopy);
+    objc_msgSend__adjustWiFiAutoAssociationLocked(self, v12, v13);
+    objc_msgSend_unlock(self->_lock, v14, v15);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)showNetworkOptions
 {
-  [(NSRecursiveLock *)self->_lock lock];
+  objc_msgSend_lock(self->_lock, a2, v2);
   if (self->_wifiManager)
   {
     WiFiManagerClientSetAssociationMode();
     lock = self->_lock;
 
-    [(NSRecursiveLock *)lock unlock];
+    objc_msgSend_unlock(lock, v6, v7);
   }
 
   else
   {
-    v4 = +[CUTLog network];
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v9 = objc_msgSend_network(CUTLog, v4, v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       sub_1B2331BC4();
     }
 
-    [(NSRecursiveLock *)self->_lock unlock];
+    objc_msgSend_unlock(self->_lock, v10, v11);
   }
 }
 
 - (BOOL)isWoWEnabled
 {
-  [(NSRecursiveLock *)self->_lock lock];
+  objc_msgSend_lock(self->_lock, a2, v2);
   isWakeOnWiFiEnabled = self->_isWakeOnWiFiEnabled;
-  [(NSRecursiveLock *)self->_lock unlock];
+  objc_msgSend_unlock(self->_lock, v5, v6);
   return isWakeOnWiFiEnabled;
 }
 

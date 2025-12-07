@@ -2,6 +2,7 @@
 - (VCAggregatorHomeKitAudio)initWithDelegate:(id)delegate;
 - (id)dispatchedAggregatedSessionReport;
 - (void)dealloc;
+- (void)dispatchedProcessEventWithCategory:(unsigned __int16)category type:(unsigned __int16)type payload:(id)payload;
 - (void)reset;
 - (void)updateStreamDirection:(unsigned int)direction time:(double)time;
 @end
@@ -58,6 +59,57 @@ LABEL_6:
   self->_lastStreamDirectionSwitchTime = time;
 }
 
+- (void)dispatchedProcessEventWithCategory:(unsigned __int16)category type:(unsigned __int16)type payload:(id)payload
+{
+  categoryCopy = category;
+  v25.receiver = self;
+  v25.super_class = VCAggregatorHomeKitAudio;
+  [(VCAggregatorAudioStream *)&v25 dispatchedProcessEventWithCategory:category type:type payload:?];
+  [(VCAggregator *)self microFromPayload:payload];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v21 = __76__VCAggregatorHomeKitAudio_dispatchedProcessEventWithCategory_type_payload___block_invoke;
+  v22 = &unk_278BD5528;
+  selfCopy = self;
+  v24 = v8;
+  v9 = [payload objectForKeyedSubscript:@"VCMSDirection"];
+  if (v9)
+  {
+    v21(v20, v9);
+  }
+
+  switch(categoryCopy)
+  {
+    case 242:
+      ++self->_rtcpTimeoutCount;
+      break;
+    case 183:
+      v13 = __76__VCAggregatorHomeKitAudio_dispatchedProcessEventWithCategory_type_payload___block_invoke_3;
+      v14 = &unk_278BD4E38;
+      selfCopy2 = self;
+      v11 = [payload objectForKeyedSubscript:{@"VCMSEndReason", MEMORY[0x277D85DD0], 3221225472}];
+      if (v11)
+      {
+        v13(&v12, v11);
+      }
+
+      break;
+    case 182:
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 3221225472;
+      v17 = __76__VCAggregatorHomeKitAudio_dispatchedProcessEventWithCategory_type_payload___block_invoke_2;
+      v18 = &unk_278BD4E38;
+      selfCopy3 = self;
+      v10 = [payload objectForKeyedSubscript:@"VCMSConnectionType"];
+      if (v10)
+      {
+        v17(v16, v10);
+      }
+
+      break;
+  }
+}
+
 uint64_t __76__VCAggregatorHomeKitAudio_dispatchedProcessEventWithCategory_type_payload___block_invoke(uint64_t a1, void *a2)
 {
   v3 = *(a1 + 32);
@@ -67,14 +119,14 @@ uint64_t __76__VCAggregatorHomeKitAudio_dispatchedProcessEventWithCategory_type_
   return [v3 updateStreamDirection:v4 time:v5];
 }
 
-uint64_t __76__VCAggregatorHomeKitAudio_dispatchedProcessEventWithCategory_type_payload___block_invoke_2(uint64_t a1, void *a2)
+void *__76__VCAggregatorHomeKitAudio_dispatchedProcessEventWithCategory_type_payload___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 unsignedIntValue];
   *(*(a1 + 32) + 1632) = result;
   return result;
 }
 
-uint64_t __76__VCAggregatorHomeKitAudio_dispatchedProcessEventWithCategory_type_payload___block_invoke_3(uint64_t a1, void *a2)
+void *__76__VCAggregatorHomeKitAudio_dispatchedProcessEventWithCategory_type_payload___block_invoke_3(uint64_t a1, void *a2)
 {
   result = [a2 unsignedIntValue];
   *(*(a1 + 32) + 1616) = result;
@@ -98,28 +150,28 @@ uint64_t __76__VCAggregatorHomeKitAudio_dispatchedProcessEventWithCategory_type_
 
 - (void)initWithDelegate:(void *)a1 .cold.1(void *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (objc_opt_class() == a1)
   {
     if (VRTraceGetErrorLogLevelForModule("") < 3)
     {
-      goto LABEL_10;
+      return;
     }
 
     v3 = VRTraceErrorLogLevelToCSTR(3u);
     if (!os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_10;
+      return;
     }
 
-    v13 = 136315650;
-    v14 = v3;
+    v12 = 136315650;
+    v13 = v3;
     OUTLINED_FUNCTION_0();
-    v15 = 33;
+    v14 = 33;
     OUTLINED_FUNCTION_1();
 LABEL_12:
     _os_log_error_impl(v4, v5, v6, v7, v8, v9);
-    goto LABEL_10;
+    return;
   }
 
   if (objc_opt_respondsToSelector())
@@ -138,52 +190,49 @@ LABEL_12:
     v11 = gVRTraceOSLog;
     if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136316162;
-      v14 = v10;
+      v12 = 136316162;
+      v13 = v10;
       OUTLINED_FUNCTION_0();
-      v15 = 33;
-      v16 = 2112;
-      v17 = v2;
-      v18 = 2048;
-      v19 = a1;
+      v14 = 33;
+      v15 = 2112;
+      v16 = v2;
+      v17 = 2048;
+      v18 = a1;
       v4 = &dword_23D4DF000;
       v7 = " [%s] %s:%d %@(%p) Failed to create stream direction histogram";
-      v8 = &v13;
+      v8 = &v12;
       v5 = v11;
       v6 = OS_LOG_TYPE_ERROR;
       v9 = 48;
       goto LABEL_12;
     }
   }
-
-LABEL_10:
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDelegate:.cold.2()
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (!objc_opt_class())
   {
     if (VRTraceGetErrorLogLevelForModule("") < 3)
     {
-      goto LABEL_10;
+      return;
     }
 
     v1 = VRTraceErrorLogLevelToCSTR(3u);
     if (!os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_10;
+      return;
     }
 
-    v11 = 136315650;
-    v12 = v1;
+    v10 = 136315650;
+    v11 = v1;
     OUTLINED_FUNCTION_0();
-    v13 = 30;
+    v12 = 30;
     OUTLINED_FUNCTION_1();
 LABEL_12:
     _os_log_error_impl(v2, v3, v4, v5, v6, v7);
-    goto LABEL_10;
+    return;
   }
 
   if (objc_opt_respondsToSelector())
@@ -202,26 +251,23 @@ LABEL_12:
     v9 = gVRTraceOSLog;
     if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
     {
-      v11 = 136316162;
-      v12 = v8;
+      v10 = 136316162;
+      v11 = v8;
       OUTLINED_FUNCTION_0();
-      v13 = 30;
-      v14 = 2112;
-      v15 = v0;
-      v16 = 2048;
-      v17 = 0;
+      v12 = 30;
+      v13 = 2112;
+      v14 = v0;
+      v15 = 2048;
+      v16 = 0;
       v2 = &dword_23D4DF000;
       v5 = " [%s] %s:%d %@(%p) Failed to initialize HomeKit aggregator";
-      v6 = &v11;
+      v6 = &v10;
       v3 = v9;
       v4 = OS_LOG_TYPE_ERROR;
       v7 = 48;
       goto LABEL_12;
     }
   }
-
-LABEL_10:
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

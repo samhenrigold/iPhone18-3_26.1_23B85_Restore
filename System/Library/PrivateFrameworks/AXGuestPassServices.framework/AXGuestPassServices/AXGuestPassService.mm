@@ -36,8 +36,8 @@
 
 - (void)beginGuestPassTransferWithCompletionBlock:(id)block
 {
-  v5 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E2DF2C0, &qword_23D60D420) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E2DF2C0, &qword_23D60D420);
+  MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(block);
   v9 = swift_allocObject();
@@ -61,8 +61,8 @@
 
 - (void)endGuestPassTransferWithCompletionBlock:(id)block
 {
-  v5 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E2DF2C0, &qword_23D60D420) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E2DF2C0, &qword_23D60D420);
+  MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(block);
   v9 = swift_allocObject();
@@ -86,8 +86,8 @@
 
 - (void)beginGuestPassSessionWithData:(NSData *)data completionBlock:(id)block
 {
-  v7 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E2DF2C0, &qword_23D60D420) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E2DF2C0, &qword_23D60D420);
+  MEMORY[0x28223BE20](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(block);
   v11 = swift_allocObject();
@@ -113,8 +113,8 @@
 
 - (void)endGuestPassSessionWithCompletionBlock:(id)block
 {
-  v5 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E2DF2C0, &qword_23D60D420) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E2DF2C0, &qword_23D60D420);
+  MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(block);
   v9 = swift_allocObject();
@@ -138,8 +138,8 @@
 
 - (void)resumeGuestPassSessionWithCompletionBlock:(id)block
 {
-  v5 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E2DF2C0, &qword_23D60D420) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E2DF2C0, &qword_23D60D420);
+  MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(block);
   v9 = swift_allocObject();
@@ -175,8 +175,8 @@
 
 - (void)initializeSyncEngine
 {
-  v3 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E2DF2C0, &qword_23D60D420) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E2DF2C0, &qword_23D60D420);
+  MEMORY[0x28223BE20](v3 - 8);
   v5 = &v9 - v4;
   v6 = sub_23D60C4D0();
   (*(*(v6 - 8) + 56))(v5, 1, 1, v6);

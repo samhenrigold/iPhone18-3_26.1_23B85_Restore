@@ -14,18 +14,16 @@
 
 - (id)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   startElement = [(HMDTimePeriodNotificationCondition *)self startElement];
   v5 = [v3 initWithName:@"Start" value:startElement];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   endElement = [(HMDTimePeriodNotificationCondition *)self endElement];
   v8 = [v6 initWithName:@"End" value:endElement];
-  v12[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
 
   return v9;
 }
@@ -120,7 +118,7 @@
 
 - (id)timePeriodElementFromDictionary:(id)dictionary
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v5 = objc_opt_class();
   type = [objc_opt_class() type];
@@ -150,18 +148,16 @@ LABEL_5:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     v14 = HMFGetLogIdentifier();
-    v17 = 138543618;
-    v18 = v14;
-    v19 = 2112;
-    v20 = dictionaryCopy;
-    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Unknown time period element found : %@", &v17, 0x16u);
+    v16 = 138543618;
+    v17 = v14;
+    v18 = 2112;
+    v19 = dictionaryCopy;
+    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Unknown time period element found : %@", &v16, 0x16u);
   }
 
   objc_autoreleasePoolPop(v11);
   v10 = 0;
 LABEL_9:
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

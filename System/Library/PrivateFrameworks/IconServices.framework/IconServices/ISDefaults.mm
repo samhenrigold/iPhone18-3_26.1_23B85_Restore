@@ -139,25 +139,26 @@ void __23__ISDefaults_tintColor__block_invoke()
     {
       v2 = _ISColorForString(v1);
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
         objc_storeStrong(&tintColor_ifcolor, v2);
       }
 
-      else if (v2 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+      else if (v2 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0))
       {
-        v3 = [v2 intValue];
-        v4 = [objc_alloc(MEMORY[0x1E69A8968]) initWithSystemColor:v3];
-        v5 = tintColor_ifcolor;
-        tintColor_ifcolor = v4;
+        v4 = [v2 intValue];
+        v5 = [objc_alloc(MEMORY[0x1E69A8968]) initWithSystemColor:v4];
+        v6 = tintColor_ifcolor;
+        tintColor_ifcolor = v5;
       }
 
       else
       {
-        v6 = _ISDefaultLog();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+        v7 = _ISDefaultLog(isKindOfClass);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
         {
-          __23__ISDefaults_tintColor__block_invoke_cold_1(v2, v6);
+          __23__ISDefaults_tintColor__block_invoke_cold_1(v2, v7);
         }
       }
     }
@@ -246,7 +247,7 @@ uint64_t __28__ISDefaults_sharedInstance__block_invoke()
 
     else
     {
-      v8 = _ISDefaultLog();
+      v8 = _ISDefaultLog(0);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
         [(ISDefaults *)&v14 cacheURL];
@@ -435,21 +436,19 @@ uint64_t __22__ISDefaults_safeBoot__block_invoke()
 
 - (void)cacheURL
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *self;
-  v4 = 134217984;
-  v5 = v2;
-  _os_log_fault_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_FAULT, "Failed to get cache path with error: %llu.", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 134217984;
+  v4 = v2;
+  _os_log_fault_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_FAULT, "Failed to get cache path with error: %llu.", &v3, 0xCu);
 }
 
 void __23__ISDefaults_tintColor__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_DEBUG, "Unexpected color %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_DEBUG, "Unexpected color %@", &v2, 0xCu);
 }
 
 @end

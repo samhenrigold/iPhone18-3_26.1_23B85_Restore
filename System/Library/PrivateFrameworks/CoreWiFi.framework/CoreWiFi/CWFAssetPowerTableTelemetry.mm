@@ -25,10 +25,10 @@
 
 - (CWFAssetPowerTableTelemetry)init
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v14.receiver = self;
-  v14.super_class = CWFAssetPowerTableTelemetry;
-  v2 = [(CWFAssetPowerTableTelemetry *)&v14 init];
+  v18 = *MEMORY[0x1E69E9840];
+  v13.receiver = self;
+  v13.super_class = CWFAssetPowerTableTelemetry;
+  v2 = [(CWFAssetPowerTableTelemetry *)&v13 init];
   if (!v2)
   {
     v8 = CWFGetOTAOSLog();
@@ -38,9 +38,9 @@
     }
 
     *buf = 136446466;
-    v16 = "[CWFAssetPowerTableTelemetry init]";
-    v17 = 1024;
-    v18 = 77;
+    v15 = "[CWFAssetPowerTableTelemetry init]";
+    v16 = 1024;
+    v17 = 77;
     v9 = "%{public}s::%d:Failed to init";
     v10 = v8;
     v11 = OS_LOG_TYPE_ERROR;
@@ -63,9 +63,9 @@
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v16 = "[CWFAssetPowerTableTelemetry init]";
-    v17 = 1024;
-    v18 = 85;
+    v15 = "[CWFAssetPowerTableTelemetry init]";
+    v16 = 1024;
+    v17 = 85;
     v9 = "%{public}s::%d:Done";
     v10 = v8;
     v11 = OS_LOG_TYPE_DEFAULT;
@@ -75,7 +75,6 @@ LABEL_4:
 
 LABEL_5:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -91,16 +90,14 @@ LABEL_5:
 
 - (void)setAssetVersionDownloadNotifcation:(id)notifcation reason:(unint64_t)reason
 {
-  reason = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ %llu", notifcation, reason];
-  notificationString = self->_notificationString;
-  self->_notificationString = reason;
+  self->_notificationString = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ %llu", notifcation, reason];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setAssetContentSyncResult:(BOOL)result availableForUseAttributes:(id)attributes newerVersionAttributes:(id)versionAttributes assetType:(id)type assetSpecifier:(id)specifier assetVersion:(id)version error:(id)error
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   specifierCopy = specifier;
   versionCopy = version;
@@ -115,17 +112,15 @@ LABEL_5:
     v18 = CWFGetOTAOSLog();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 136446466;
-      v21 = "[CWFAssetPowerTableTelemetry setAssetContentSyncResult:availableForUseAttributes:newerVersionAttributes:assetType:assetSpecifier:assetVersion:error:]";
-      v22 = 1024;
-      v23 = 119;
-      _os_log_impl(&dword_1E0BBF000, v18, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Error found, sending telemetry now", &v20, 0x12u);
+      v19 = 136446466;
+      v20 = "[CWFAssetPowerTableTelemetry setAssetContentSyncResult:availableForUseAttributes:newerVersionAttributes:assetType:assetSpecifier:assetVersion:error:]";
+      v21 = 1024;
+      v22 = 119;
+      _os_log_impl(&dword_1E0BBF000, v18, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Error found, sending telemetry now", &v19, 0x12u);
     }
 
     [(CWFAssetPowerTableTelemetry *)self sendTelemetryAndClear];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setAssetLocalInfo:(id)info assetSpecifier:(id)specifier assetVersion:(id)version assetBuild:(id)build lastTimeCatalogChecked:(id)checked catalogPostedDate:(id)date assetVersionSanity:(BOOL)sanity osVersionSanity:(BOOL)self0 osRestoreVersionSanity:(BOOL)self1 skuSanity:(BOOL)self2 sanityCheckAssetBuildAttribute:(BOOL)self3 attributes:(id)self4 localURL:(id)self5
@@ -168,7 +163,7 @@ LABEL_5:
 
 - (void)setAssetHandoffInfo:(BOOL)info assetAlreadyHere:(BOOL)here previousAssetCleanedUp:(BOOL)up previousLatestPlist:(id)plist latestPlistDict:(id)dict newPlist:(id)newPlist error:(id)error
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   dictCopy = dict;
   errorCopy = error;
   self->_transferSuccess = info;
@@ -217,17 +212,15 @@ LABEL_5:
     v26 = CWFGetOTAOSLog();
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = 136446466;
-      v29 = "[CWFAssetPowerTableTelemetry setAssetHandoffInfo:assetAlreadyHere:previousAssetCleanedUp:previousLatestPlist:latestPlistDict:newPlist:error:]";
-      v30 = 1024;
-      v31 = 170;
-      _os_log_impl(&dword_1E0BBF000, v26, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Error found, sending telemetry now", &v28, 0x12u);
+      v27 = 136446466;
+      v28 = "[CWFAssetPowerTableTelemetry setAssetHandoffInfo:assetAlreadyHere:previousAssetCleanedUp:previousLatestPlist:latestPlistDict:newPlist:error:]";
+      v29 = 1024;
+      v30 = 170;
+      _os_log_impl(&dword_1E0BBF000, v26, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Error found, sending telemetry now", &v27, 0x12u);
     }
   }
 
   [(CWFAssetPowerTableTelemetry *)self sendTelemetryAndClear];
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)sendTelemetryAndClear

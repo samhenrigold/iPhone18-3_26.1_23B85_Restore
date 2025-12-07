@@ -78,7 +78,7 @@
     v16 = 0u;
     v17 = 0u;
     v15 = 0u;
-    [geometry transform];
+    objc_msgSend_transform(geometry);
     v14[0] = v15;
     v14[1] = v16;
     v14[2] = v17;
@@ -237,7 +237,7 @@
   v3 = [TSDInfoGeometry alloc];
   if (self)
   {
-    [(TSDLayoutGeometry *)self transform];
+    objc_msgSend_transform(self);
   }
 
   else
@@ -256,7 +256,7 @@
   memset(&v17, 0, sizeof(v17));
   if (self)
   {
-    [(TSDLayoutGeometry *)self transform];
+    objc_msgSend_transform(self, a2);
   }
 
   else
@@ -325,7 +325,7 @@
 
   if (self)
   {
-    [(TSDLayoutGeometry *)self transform];
+    objc_msgSend_transform(self);
   }
 
   else
@@ -333,7 +333,7 @@
     memset(v14, 0, sizeof(v14));
   }
 
-  [from transform];
+  objc_msgSend_transform(from);
   return !TSDTransformsDifferOnlyByTranslation(v14, &v13);
 }
 

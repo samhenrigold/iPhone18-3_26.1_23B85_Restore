@@ -1,6 +1,8 @@
 @interface CSDConversationSpatialPersonaResolver
+- (BOOL)upsertWithParticipantID:(unint64_t)d generationID:(unint64_t)iD spatialPersonaState:(int64_t)state participantCluster:(id)cluster;
 - (NSString)description;
 - (NSUUID)localParticipantNearbyClusterUUID;
+- (id)participantStateStrWithTruncate:(BOOL)truncate;
 - (int64_t)nearbyClusterState;
 - (unint64_t)generationCounter;
 - (unint64_t)setLocalSpatialPersonaEnabled:(BOOL)enabled;
@@ -15,16 +17,15 @@
 - (NSUUID)localParticipantNearbyClusterUUID
 {
   v2 = sub_10026D814(&unk_1006A3DD0, &unk_10057C9D0);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8, v4);
-  v6 = &v10 - v5;
+  __chkstk_darwin(v2 - 8);
+  v4 = &v8 - v3;
   sub_100292084();
-  v7 = type metadata accessor for UUID();
+  v5 = type metadata accessor for UUID();
   isa = 0;
-  if (sub_100015468(v6, 1, v7) != 1)
+  if (sub_100015468(v4, 1, v5) != 1)
   {
     isa = UUID._bridgeToObjectiveC()().super.isa;
-    (*(*(v7 - 8) + 8))(v6, v7);
+    (*(*(v5 - 8) + 8))(v4, v5);
   }
 
   return isa;
@@ -33,25 +34,24 @@
 - (void)setLocalParticipantNearbyClusterUUID:(id)d
 {
   v5 = sub_10026D814(&unk_1006A3DD0, &unk_10057C9D0);
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8, v7);
-  v9 = &v13 - v8;
+  __chkstk_darwin(v5 - 8);
+  v7 = &v11 - v6;
   if (d)
   {
     static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-    v10 = type metadata accessor for UUID();
-    v11 = 0;
+    v8 = type metadata accessor for UUID();
+    v9 = 0;
   }
 
   else
   {
-    v10 = type metadata accessor for UUID();
-    v11 = 1;
+    v8 = type metadata accessor for UUID();
+    v9 = 1;
   }
 
-  sub_10000AF74(v9, v11, 1, v10);
+  sub_10000AF74(v7, v9, 1, v8);
   selfCopy = self;
-  sub_1002921B8(v9);
+  sub_1002921B8(v7);
 }
 
 - (unint64_t)generationCounter
@@ -82,15 +82,14 @@
 {
   v8 = type metadata accessor for UUID();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  __chkstk_darwin(v8, v11);
-  v13 = &v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v8);
+  v11 = &v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   clusterCopy = cluster;
   selfCopy = self;
   sub_100294148();
 
-  (*(v9 + 8))(v13, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (unint64_t)setLocalSpatialPersonaEnabled:(BOOL)enabled
@@ -107,6 +106,26 @@
   clusterCopy = cluster;
   selfCopy = self;
   sub_100294D80();
+}
+
+- (BOOL)upsertWithParticipantID:(unint64_t)d generationID:(unint64_t)iD spatialPersonaState:(int64_t)state participantCluster:(id)cluster
+{
+  clusterCopy = cluster;
+  selfCopy = self;
+  sub_1002951A0();
+  v10 = v9;
+
+  return v10 & 1;
+}
+
+- (id)participantStateStrWithTruncate:(BOOL)truncate
+{
+  selfCopy = self;
+  sub_100296554();
+
+  v4 = String._bridgeToObjectiveC()();
+
+  return v4;
 }
 
 - (NSString)description

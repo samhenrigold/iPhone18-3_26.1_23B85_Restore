@@ -47,9 +47,9 @@
   if ([dCopy length])
   {
     indexBarEntryID = [(SKUIViewElement *)self indexBarEntryID];
-    v6 = [indexBarEntryID isEqualToString:dCopy];
+    isEqualToString = objc_msgSend_isEqualToString_(indexBarEntryID);
 
-    if (v6)
+    if (isEqualToString)
     {
       selfCopy = self;
     }
@@ -87,9 +87,9 @@ void __77__SKUIViewElement_SKUIIndexBarAdditions__firstDescendentWithIndexBarEnt
 {
   v11 = a2;
   v6 = [v11 indexBarEntryID];
-  v7 = [v6 isEqualToString:*(a1 + 32)];
+  isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-  if (v7)
+  if (isEqualToString)
   {
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
   }
@@ -170,22 +170,22 @@ LABEL_5:
   if (v19)
   {
     v20 = [elementCopy getAttribute:@"pin"];
-    if ([v20 isEqualToString:@"alone"])
+    if (objc_msgSend_isEqualToString_(v20))
     {
       v21 = 2;
     }
 
-    else if ([v20 isEqualToString:@"group"])
+    else if (objc_msgSend_isEqualToString_(v20))
     {
       v21 = 3;
     }
 
-    else if ([v20 isEqualToString:@"rubberband"])
+    else if (objc_msgSend_isEqualToString_(v20))
     {
       v21 = 4;
     }
 
-    else if ([v20 isEqualToString:@"group-rubberband"])
+    else if (objc_msgSend_isEqualToString_(v20))
     {
       v21 = 5;
     }
@@ -196,7 +196,7 @@ LABEL_5:
       {
 LABEL_18:
         v23 = [elementCopy getAttribute:@"pinGroup"];
-        v19->_pinGroup = [v23 isEqualToString:@"before-top"];
+        v19->_pinGroup = objc_msgSend_isEqualToString_(v23);
 
         goto LABEL_19;
       }
@@ -347,9 +347,9 @@ LABEL_7:
   v19 = __Block_byref_object_dispose__32;
   v20 = 0;
   itmlID = [(SKUIViewElement *)self itmlID];
-  v6 = [itmlID isEqualToString:identifierCopy];
+  isEqualToString = objc_msgSend_isEqualToString_(itmlID);
 
-  if (v6)
+  if (isEqualToString)
   {
     v7 = v16;
     selfCopy = self;
@@ -663,9 +663,9 @@ uint64_t __74__SKUIViewElement_enumerateViewElementsWithDictionary_factory_using
 
         v9 = *(*(&v13 + 1) + 8 * i);
         featureName = [v9 featureName];
-        v11 = [featureName isEqualToString:nameCopy];
+        isEqualToString = objc_msgSend_isEqualToString_(featureName);
 
-        if (v11)
+        if (isEqualToString)
         {
           v6 = v9;
           goto LABEL_11;
@@ -744,9 +744,9 @@ void __44__SKUIViewElement_firstChildForElementType___block_invoke(uint64_t a1, 
 void __44__SKUIViewElement_firstChildForElementName___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   v6 = [a2 elementName];
-  v7 = [v6 isEqualToString:*(a1 + 32)];
+  isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-  if (v7)
+  if (isEqualToString)
   {
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
     *a3 = 1;
@@ -1155,6 +1155,12 @@ void __85__SKUIViewElement_SKUIReviewListPageSection__expandableLabelElementForW
       }
     }
   }
+}
+
+- (void)initWithDOMElement:(uint64_t)a3 parent:(uint64_t)a4 elementFactory:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIViewElement initWithDOMElement:parent:elementFactory:]";
 }
 
 @end

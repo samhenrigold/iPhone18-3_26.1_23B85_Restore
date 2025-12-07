@@ -12,6 +12,7 @@
 - (void)scheduleFile:(AVAudioFile *)file atTime:(AVAudioTime *)when completionCallbackType:(AVAudioPlayerNodeCompletionCallbackType)callbackType completionHandler:(AVAudioPlayerNodeCompletionHandler)completionHandler;
 - (void)scheduleFile:(AVAudioFile *)file atTime:(AVAudioTime *)when completionHandler:(AVAudioNodeCompletionHandler)completionHandler;
 - (void)scheduleSegment:(AVAudioFile *)file startingFrame:(AVAudioFramePosition)startFrame frameCount:(AVAudioFrameCount)numberFrames atTime:(AVAudioTime *)when completionCallbackType:(AVAudioPlayerNodeCompletionCallbackType)callbackType completionHandler:(AVAudioPlayerNodeCompletionHandler)completionHandler;
+- (void)scheduleSegment:(AVAudioFile *)file startingFrame:(AVAudioFramePosition)startFrame frameCount:(AVAudioFrameCount)numberFrames atTime:(AVAudioTime *)when completionHandler:(AVAudioNodeCompletionHandler)completionHandler;
 - (void)stop;
 @end
 
@@ -54,7 +55,7 @@
 
 - (AVAudioTime)playerTimeForNodeTime:(AVAudioTime *)nodeTime
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (nodeTime && ![(AVAudioTime *)nodeTime isSampleTimeValid]&& ![(AVAudioTime *)nodeTime isHostTimeValid])
   {
     if (AVAudioEngineLogCategory(void)::once != -1)
@@ -67,16 +68,16 @@
     {
       *buf = 136316418;
       *&buf[4] = "AVAEInternal.h";
-      v10 = 1024;
-      *v11 = 71;
-      *&v11[4] = 2080;
-      *&v11[6] = "AVAudioPlayerNode.mm";
-      v12 = 1024;
-      v13 = 1245;
-      v14 = 2080;
-      v15 = "[AVAudioPlayerNode playerTimeForNodeTime:]";
-      v16 = 2080;
-      v17 = "nodeTime == nil || nodeTime.sampleTimeValid || nodeTime.hostTimeValid";
+      v9 = 1024;
+      *v10 = 71;
+      *&v10[4] = 2080;
+      *&v10[6] = "AVAudioPlayerNode.mm";
+      v11 = 1024;
+      v12 = 1245;
+      v13 = 2080;
+      v14 = "[AVAudioPlayerNode playerTimeForNodeTime:]";
+      v15 = 2080;
+      v16 = "nodeTime == nil || nodeTime.sampleTimeValid || nodeTime.hostTimeValid";
       _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
     }
 
@@ -85,9 +86,9 @@
 
   AVAudioNodeImplBase::GetAttachAndEngineLock(buf, self->super._impl);
   v6 = AVAudioPlayerNodeImpl::PlayerTimeForNodeTime(self->super._impl, nodeTime);
-  if (v11[10] == 1)
+  if (v10[10] == 1)
   {
-    std::recursive_mutex::unlock(*&v11[2]);
+    std::recursive_mutex::unlock(*&v10[2]);
   }
 
   if (buf[8] == 1)
@@ -95,14 +96,13 @@
     std::recursive_mutex::unlock(*buf);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (AVAudioTime)nodeTimeForPlayerTime:(AVAudioTime *)playerTime
 {
   v3 = playerTime;
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   if (playerTime && ![(AVAudioTime *)playerTime isSampleTimeValid]&& ![(AVAudioTime *)v3 isHostTimeValid])
   {
     if (AVAudioEngineLogCategory(void)::once != -1)
@@ -131,14 +131,14 @@
     [MEMORY[0x1E695DF30] raise:@"com.apple.coreaudio.avfaudio" format:{@"required condition is false: %s", "playerTime == nil || playerTime.sampleTimeValid || playerTime.hostTimeValid"}];
   }
 
-  AVAudioNodeImplBase::GetAttachAndEngineLock(&v17, self->super._impl);
+  AVAudioNodeImplBase::GetAttachAndEngineLock(&v16, self->super._impl);
   impl = self->super._impl;
   if (*(impl + 46) == 1)
   {
     memset(buf, 0, 64);
     if (v3)
     {
-      [(AVAudioTime *)v3 audioTimeStamp];
+      objc_msgSend_audioTimeStamp(v3);
       v7 = buf[56];
       v8 = *&buf[16];
       v3 = *&buf[8];
@@ -153,62 +153,62 @@
     }
 
     v11 = v7 & 7;
-    v28 = v11;
-    v27 = v8;
-    v26 = v3;
+    v27 = v11;
+    v26 = v8;
+    v25 = v3;
     v12 = v9 + *(impl + 24);
-    v25 = v12;
+    v24 = v12;
     if ((v7 & 3) != 3)
     {
-      v23 = 0u;
-      v24 = 0u;
-      v21 = 0u;
       v22 = 0u;
+      v23 = 0u;
+      v20 = 0u;
+      v21 = 0u;
       v13 = (*(*impl + 352))(impl);
       if (v13)
       {
-        [v13 currentAudioTimeStamp];
+        objc_msgSend_currentAudioTimeStamp(v13);
       }
 
       else
       {
-        v23 = 0u;
-        v24 = 0u;
-        v21 = 0u;
         v22 = 0u;
+        v23 = 0u;
+        v20 = 0u;
+        v21 = 0u;
       }
 
       [*(impl + 22) sampleRate];
-      if (v11 != 7 && (v7 & 3) != 0 && (BYTE8(v24) & 3) == 3)
+      if (v11 != 7 && (v7 & 3) != 0 && (BYTE8(v23) & 3) == 3)
       {
         if ((v7 & 4) == 0)
         {
           v8 = 1.0;
-          if ((BYTE8(v24) & 4) != 0)
+          if ((BYTE8(v23) & 4) != 0)
           {
             v11 = v7 & 3 | 4;
-            v8 = *&v22;
-            v27 = *&v22;
+            v8 = *&v21;
+            v26 = *&v21;
           }
         }
 
         if ((v11 & 2) == 0)
         {
-          v3 = (*(&v21 + 1) + (v12 - *&v21) * (v8 * 24000000.0 / v14));
-          v26 = v3;
+          v3 = (*(&v20 + 1) + (v12 - *&v20) * (v8 * 24000000.0 / v14));
+          v25 = v3;
         }
 
         if ((v11 & 1) == 0)
         {
-          v25 = *&v21 + round(v14 / (v8 * 24000000.0) * (v3 - *(&v21 + 1)));
+          v24 = *&v20 + round(v14 / (v8 * 24000000.0) * (v3 - *(&v20 + 1)));
         }
 
-        v28 = v11 | 3;
+        v27 = v11 | 3;
       }
     }
 
     [*(impl + 22) sampleRate];
-    v10 = [AVAudioTime timeWithAudioTimeStamp:&v25 sampleRate:?];
+    v10 = [AVAudioTime timeWithAudioTimeStamp:&v24 sampleRate:?];
   }
 
   else
@@ -216,17 +216,16 @@
     v10 = 0;
   }
 
-  if (v20 == 1)
+  if (v19 == 1)
   {
-    std::recursive_mutex::unlock(v19);
+    std::recursive_mutex::unlock(v18);
   }
 
-  if (v18 == 1)
+  if (v17 == 1)
   {
-    std::recursive_mutex::unlock(v17);
+    std::recursive_mutex::unlock(v16);
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -300,7 +299,7 @@
 
 - (void)scheduleSegment:(AVAudioFile *)file startingFrame:(AVAudioFramePosition)startFrame frameCount:(AVAudioFrameCount)numberFrames atTime:(AVAudioTime *)when completionCallbackType:(AVAudioPlayerNodeCompletionCallbackType)callbackType completionHandler:(AVAudioPlayerNodeCompletionHandler)completionHandler
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (!file)
   {
     if (AVAudioEngineLogCategory(void)::once != -1)
@@ -313,16 +312,16 @@
     {
       *buf = 136316418;
       *&buf[4] = "AVAEInternal.h";
-      v21 = 1024;
-      *v22 = 71;
-      *&v22[4] = 2080;
-      *&v22[6] = "AVAudioPlayerNode.mm";
-      v23 = 1024;
-      v24 = 1191;
-      v25 = 2080;
-      v26 = "[AVAudioPlayerNode scheduleSegment:startingFrame:frameCount:atTime:completionCallbackType:completionHandler:]";
-      v27 = 2080;
-      v28 = "stream != nil";
+      v20 = 1024;
+      *v21 = 71;
+      *&v21[4] = 2080;
+      *&v21[6] = "AVAudioPlayerNode.mm";
+      v22 = 1024;
+      v23 = 1191;
+      v24 = 2080;
+      v25 = "[AVAudioPlayerNode scheduleSegment:startingFrame:frameCount:atTime:completionCallbackType:completionHandler:]";
+      v26 = 2080;
+      v27 = "stream != nil";
       _os_log_impl(&dword_1BA5AC000, v15, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
     }
 
@@ -341,16 +340,16 @@
     {
       *buf = 136316418;
       *&buf[4] = "AVAEInternal.h";
-      v21 = 1024;
-      *v22 = 71;
-      *&v22[4] = 2080;
-      *&v22[6] = "AVAudioPlayerNode.mm";
-      v23 = 1024;
-      v24 = 1192;
-      v25 = 2080;
-      v26 = "[AVAudioPlayerNode scheduleSegment:startingFrame:frameCount:atTime:completionCallbackType:completionHandler:]";
-      v27 = 2080;
-      v28 = "when == nil || when.sampleTimeValid || when.hostTimeValid";
+      v20 = 1024;
+      *v21 = 71;
+      *&v21[4] = 2080;
+      *&v21[6] = "AVAudioPlayerNode.mm";
+      v22 = 1024;
+      v23 = 1192;
+      v24 = 2080;
+      v25 = "[AVAudioPlayerNode scheduleSegment:startingFrame:frameCount:atTime:completionCallbackType:completionHandler:]";
+      v26 = 2080;
+      v27 = "when == nil || when.sampleTimeValid || when.hostTimeValid";
       _os_log_impl(&dword_1BA5AC000, v16, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
     }
 
@@ -369,16 +368,16 @@
     {
       *buf = 136316418;
       *&buf[4] = "AVAEInternal.h";
-      v21 = 1024;
-      *v22 = 71;
-      *&v22[4] = 2080;
-      *&v22[6] = "AVAudioPlayerNode.mm";
-      v23 = 1024;
-      v24 = 1193;
-      v25 = 2080;
-      v26 = "[AVAudioPlayerNode scheduleSegment:startingFrame:frameCount:atTime:completionCallbackType:completionHandler:]";
-      v27 = 2080;
-      v28 = "startFrame >= 0";
+      v20 = 1024;
+      *v21 = 71;
+      *&v21[4] = 2080;
+      *&v21[6] = "AVAudioPlayerNode.mm";
+      v22 = 1024;
+      v23 = 1193;
+      v24 = 2080;
+      v25 = "[AVAudioPlayerNode scheduleSegment:startingFrame:frameCount:atTime:completionCallbackType:completionHandler:]";
+      v26 = 2080;
+      v27 = "startFrame >= 0";
       _os_log_impl(&dword_1BA5AC000, v17, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
     }
 
@@ -397,16 +396,16 @@
     {
       *buf = 136316418;
       *&buf[4] = "AVAEInternal.h";
-      v21 = 1024;
-      *v22 = 71;
-      *&v22[4] = 2080;
-      *&v22[6] = "AVAudioPlayerNode.mm";
-      v23 = 1024;
-      v24 = 1194;
-      v25 = 2080;
-      v26 = "[AVAudioPlayerNode scheduleSegment:startingFrame:frameCount:atTime:completionCallbackType:completionHandler:]";
-      v27 = 2080;
-      v28 = "numberFrames > 0";
+      v20 = 1024;
+      *v21 = 71;
+      *&v21[4] = 2080;
+      *&v21[6] = "AVAudioPlayerNode.mm";
+      v22 = 1024;
+      v23 = 1194;
+      v24 = 2080;
+      v25 = "[AVAudioPlayerNode scheduleSegment:startingFrame:frameCount:atTime:completionCallbackType:completionHandler:]";
+      v26 = 2080;
+      v27 = "numberFrames > 0";
       _os_log_impl(&dword_1BA5AC000, v18, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
     }
 
@@ -415,22 +414,31 @@
 
   AVAudioNodeImplBase::GetAttachAndEngineLock(buf, self->super._impl);
   AVAudioPlayerNodeImpl::ScheduleSegment(self->super._impl, file, startFrame, numberFrames, when, callbackType, completionHandler);
-  if (v22[10] == 1)
+  if (v21[10] == 1)
   {
-    std::recursive_mutex::unlock(*&v22[2]);
+    std::recursive_mutex::unlock(*&v21[2]);
   }
 
   if (buf[8] == 1)
   {
     std::recursive_mutex::unlock(*buf);
   }
+}
 
-  v19 = *MEMORY[0x1E69E9840];
+- (void)scheduleSegment:(AVAudioFile *)file startingFrame:(AVAudioFramePosition)startFrame frameCount:(AVAudioFrameCount)numberFrames atTime:(AVAudioTime *)when completionHandler:(AVAudioNodeCompletionHandler)completionHandler
+{
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __87__AVAudioPlayerNode_scheduleSegment_startingFrame_frameCount_atTime_completionHandler___block_invoke;
+  v7[3] = &unk_1E7EF6520;
+  v7[4] = self;
+  v7[5] = completionHandler;
+  [(AVAudioPlayerNode *)self scheduleSegment:file startingFrame:startFrame frameCount:*&numberFrames atTime:when completionCallbackType:0 completionHandler:v7];
 }
 
 - (void)scheduleFile:(AVAudioFile *)file atTime:(AVAudioTime *)when completionCallbackType:(AVAudioPlayerNodeCompletionCallbackType)callbackType completionHandler:(AVAudioPlayerNodeCompletionHandler)completionHandler
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (!file)
   {
     if (AVAudioEngineLogCategory(void)::once != -1)
@@ -443,16 +451,16 @@
     {
       *buf = 136316418;
       *&buf[4] = "AVAEInternal.h";
-      v15 = 1024;
-      *v16 = 71;
-      *&v16[4] = 2080;
-      *&v16[6] = "AVAudioPlayerNode.mm";
-      v17 = 1024;
-      v18 = 1174;
-      v19 = 2080;
-      v20 = "[AVAudioPlayerNode scheduleFile:atTime:completionCallbackType:completionHandler:]";
-      v21 = 2080;
-      v22 = "file != nil";
+      v14 = 1024;
+      *v15 = 71;
+      *&v15[4] = 2080;
+      *&v15[6] = "AVAudioPlayerNode.mm";
+      v16 = 1024;
+      v17 = 1174;
+      v18 = 2080;
+      v19 = "[AVAudioPlayerNode scheduleFile:atTime:completionCallbackType:completionHandler:]";
+      v20 = 2080;
+      v21 = "file != nil";
       _os_log_impl(&dword_1BA5AC000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
     }
 
@@ -471,16 +479,16 @@
     {
       *buf = 136316418;
       *&buf[4] = "AVAEInternal.h";
-      v15 = 1024;
-      *v16 = 71;
-      *&v16[4] = 2080;
-      *&v16[6] = "AVAudioPlayerNode.mm";
-      v17 = 1024;
-      v18 = 1175;
-      v19 = 2080;
-      v20 = "[AVAudioPlayerNode scheduleFile:atTime:completionCallbackType:completionHandler:]";
-      v21 = 2080;
-      v22 = "when == nil || when.sampleTimeValid || when.hostTimeValid";
+      v14 = 1024;
+      *v15 = 71;
+      *&v15[4] = 2080;
+      *&v15[6] = "AVAudioPlayerNode.mm";
+      v16 = 1024;
+      v17 = 1175;
+      v18 = 2080;
+      v19 = "[AVAudioPlayerNode scheduleFile:atTime:completionCallbackType:completionHandler:]";
+      v20 = 2080;
+      v21 = "when == nil || when.sampleTimeValid || when.hostTimeValid";
       _os_log_impl(&dword_1BA5AC000, v12, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
     }
 
@@ -488,18 +496,16 @@
   }
 
   AVAudioNodeImplBase::GetAttachAndEngineLock(buf, self->super._impl);
-  AVAudioPlayerNodeImpl::ScheduleSegment(self->super._impl, file, 0, -1, when, callbackType, completionHandler);
-  if (v16[10] == 1)
+  AVAudioPlayerNodeImpl::ScheduleSegment(self->super._impl, file, 0, 0xFFFFFFFFFFFFFFFFLL, when, callbackType, completionHandler);
+  if (v15[10] == 1)
   {
-    std::recursive_mutex::unlock(*&v16[2]);
+    std::recursive_mutex::unlock(*&v15[2]);
   }
 
   if (buf[8] == 1)
   {
     std::recursive_mutex::unlock(*buf);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)scheduleFile:(AVAudioFile *)file atTime:(AVAudioTime *)when completionHandler:(AVAudioNodeCompletionHandler)completionHandler

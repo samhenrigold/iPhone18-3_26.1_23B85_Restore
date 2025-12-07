@@ -1,10 +1,10 @@
-IOService_vtbl *Apple16X50PCI::init(IOService *this)
+IOService **Apple16X50PCI::init(IOService *this)
 {
   result = IOMallocZeroTyped();
   if (result)
   {
     this[1].OSObject::OSMetaClassBase::__vftable = result;
-    result->getMetaClass = this;
+    *result = this;
 
     return IOService::init(this);
   }
@@ -24,7 +24,7 @@ void Apple16X50PCI::free(IOService *this)
   IOService::free(this);
 }
 
-uint64_t Apple16X50PCI::Start_Impl(Apple16X50PCI_IVars **this, IOService *a2)
+uint64_t Apple16X50PCI::Start_Impl(IOService *this, IOService *a2)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
@@ -45,7 +45,7 @@ uint64_t Apple16X50PCI::Start_Impl(Apple16X50PCI_IVars **this, IOService *a2)
   }
 
   v6 = v5;
-  v7 = Apple16X50PCI_IVars::probe(this[6], v5);
+  v7 = Apple16X50PCI_IVars::probe(this[1].OSObject::OSMetaClassBase::__vftable, v5);
   if (v7)
   {
     return v7;
@@ -65,7 +65,7 @@ uint64_t Apple16X50PCI::Start_Impl(Apple16X50PCI_IVars **this, IOService *a2)
 
   v9 = 0;
   Apple16X50_IVars::pciDev = v6;
-  *(this[6] + 69) = -1;
+  BYTE5(this[1].OSObject::OSMetaClassBase::__vftable[1].retain) = -1;
   do
   {
     if (v9)
@@ -78,11 +78,11 @@ uint64_t Apple16X50PCI::Start_Impl(Apple16X50PCI_IVars **this, IOService *a2)
       v10 = 8;
     }
 
-    Apple16X50PCI_IVars::setupBAR(this[6], v9++, v10);
+    Apple16X50PCI_IVars::setupBAR(this[1].OSObject::OSMetaClassBase::__vftable, v9++, v10);
   }
 
   while (v9 != 4);
-  if (!*(this[6] + 69))
+  if (!BYTE5(this[1].OSObject::OSMetaClassBase::__vftable[1].retain))
   {
     readData = 0;
     IOPCIDevice::ConfigurationRead8(v6, 4uLL, &readData);
@@ -91,12 +91,12 @@ uint64_t Apple16X50PCI::Start_Impl(Apple16X50PCI_IVars **this, IOService *a2)
     v11 = 0;
     do
     {
-      v12 = Apple16X50PCI_IVars::scanBARforUARTs(this[6], v11) != 1 || v11 == 3;
+      v12 = Apple16X50PCI_IVars::scanBARforUARTs(this[1].OSObject::OSMetaClassBase::__vftable, v11) != 1 || v11 == 3;
       v11 = (v11 + 1);
     }
 
     while (!v12);
-    v13 = this[6];
+    v13 = this[1].OSObject::OSMetaClassBase::__vftable;
     if (*(v13 + 16))
     {
       interruptType = 0;
@@ -106,18 +106,18 @@ uint64_t Apple16X50PCI::Start_Impl(Apple16X50PCI_IVars **this, IOService *a2)
         v14 = IOInterruptDispatchSource::GetInterruptType(a2, 0, &interruptType);
         if (!v14)
         {
-          v17 = (interruptType & 1) != 0 && (*(this[6] + 24) & 1) == 0 && !IOInterruptDispatchSource::GetInterruptType(a2, 1u, &interruptType) && (interruptType & 1) == 0;
-          v18 = IOInterruptDispatchSource::Create(a2, v17, *(this[6] + 1), this[6] + 2);
+          v17 = (interruptType & 1) != 0 && (this[1].isEqualTo & 1) == 0 && !IOInterruptDispatchSource::GetInterruptType(a2, 1u, &interruptType) && (interruptType & 1) == 0;
+          v18 = IOInterruptDispatchSource::Create(a2, v17, this[1].retain, &this[1].release);
           action = 0;
           if (!v18)
           {
             v18 = Apple16X50PCI::CreateActionInterruptOccurred(this, 8uLL, &action);
             if (!v18)
             {
-              v18 = IOInterruptDispatchSource::SetHandler(*(this[6] + 2), action, 0);
+              v18 = IOInterruptDispatchSource::SetHandler(this[1].release, action, 0);
               if (!v18)
               {
-                v18 = IODispatchSource::SetEnable(*(this[6] + 2), 1, 0);
+                v18 = IODispatchSource::SetEnable(this[1].release, 1, 0);
               }
             }
           }
@@ -148,7 +148,7 @@ uint64_t Apple16X50PCI::Start_Impl(Apple16X50PCI_IVars **this, IOService *a2)
 
     action = 0;
 LABEL_30:
-    if (Apple16X50_IVars::UART_Type == 11 && *(this[6] + 16))
+    if (Apple16X50_IVars::UART_Type == 11 && LODWORD(this[1].OSObject::OSMetaClassBase::__vftable[1].retain))
     {
       v15 = 0;
       do
@@ -172,7 +172,7 @@ LABEL_30:
         ++v15;
       }
 
-      while (v15 < *(this[6] + 16));
+      while (v15 < LODWORD(this[1].OSObject::OSMetaClassBase::__vftable[1].retain));
     }
 
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
@@ -1068,7 +1068,6 @@ void ___ZN13Apple16X50PCI22InterruptOccurred_ImplEP8OSActionyy_block_invoke(uint
 
   else if (Apple16X50_IVars::UART_Type == 11)
   {
-    v1 = (3 * *(a1 + 44) + 8);
     Apple16X50_IVars::interruptExar(*(a1 + 32), (*(a1 + 40) >> (3 * *(a1 + 44) + 8)) & 7);
   }
 

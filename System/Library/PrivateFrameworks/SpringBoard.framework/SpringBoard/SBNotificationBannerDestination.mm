@@ -183,14 +183,14 @@
 {
   OUTLINED_FUNCTION_1_6(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_4();
-  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, v0, v1, "canceling replace timer %@", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, v0, v1, "canceling replace timer %@", v2, v3, v4, v5);
 }
 
 - (void)_cancelDismissTimer
 {
   OUTLINED_FUNCTION_1_6(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_4();
-  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, v0, v1, "canceling dismiss timer %@", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, v0, v1, "canceling dismiss timer %@", v2, v3, v4, v5);
 }
 
 - (int64_t)participantState
@@ -1386,7 +1386,7 @@ uint64_t __104__SBNotificationBannerDestination_notificationRequestPresenter_exe
       {
         v6 = [*(a1 + 40) supplementaryActions];
         v7 = [v6 objectForKey:*MEMORY[0x277D77DA0]];
-        if ([v7 containsObject:*(a1 + 48)])
+        if (objc_msgSend_containsObject_(v7))
         {
           v8 = [*(a1 + 48) activationMode];
 
@@ -1908,7 +1908,7 @@ LABEL_7:
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_34(&dword_21ED4E000, v5, v6, "Destination %{public}@ received raise gesture", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_0_34(&dword_21ED4E000, v5, v6, "Destination %{public}@ received raise gesture", v7, v8, v9, v10);
 }
 
 - (void)_updateMotionGestureObservation
@@ -1918,7 +1918,7 @@ LABEL_7:
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_34(&dword_21ED4E000, v5, v6, "Destination %{public}@ is listening to raise gesture", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_0_34(&dword_21ED4E000, v5, v6, "Destination %{public}@ is listening to raise gesture", v7, v8, v9, v10);
 }
 
 - (void)coronaAnimationController:(id)controller willAnimateCoronaTransitionWithAnimator:(id)animator
@@ -2118,7 +2118,7 @@ void __101__SBNotificationBannerDestination_coronaAnimationController_willAnimat
 uint64_t __67__SBNotificationBannerDestination__setReadyForNotificationRequests__block_invoke(uint64_t a1, void *a2)
 {
   v2 = [a2 requestDestinations];
-  v3 = [v2 containsObject:*MEMORY[0x277D77FE0]];
+  v3 = objc_msgSend_containsObject_(v2);
 
   return v3;
 }
@@ -2348,7 +2348,7 @@ uint64_t __67__SBNotificationBannerDestination__setReadyForNotificationRequests_
   if ([(SBNotificationBannerDestination *)self _isUILocked])
   {
     requestDestinations = [lockedCopy requestDestinations];
-    v6 = [requestDestinations containsObject:*MEMORY[0x277D77FE0]];
+    v6 = objc_msgSend_containsObject_(requestDestinations);
   }
 
   else
@@ -3206,14 +3206,14 @@ void __69__SBNotificationBannerDestination__startTimerWithDelay_eventHandler___b
 {
   OUTLINED_FUNCTION_1_6(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_4();
-  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, v0, v1, "started replace timer %@", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, v0, v1, "started replace timer %@", v2, v3, v4, v5);
 }
 
 - (void)_startDismissTimer
 {
   OUTLINED_FUNCTION_1_6(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_4();
-  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, v0, v1, "started dismiss timer %@", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, v0, v1, "started dismiss timer %@", v2, v3, v4, v5);
 }
 
 - (void)_startReplaceAndDismissTimersForRequest:(id)request
@@ -3520,7 +3520,7 @@ LABEL_8:
   v3 = [OUTLINED_FUNCTION_5_6() notificationIdentifier];
   v4 = [v3 un_logDigest];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_34(&dword_21ED4E000, v5, v6, "Modifying notification %{public}@ in banner", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_0_34(&dword_21ED4E000, v5, v6, "Modifying notification %{public}@ in banner", v7, v8, v9, v10);
 }
 
 - (void)withdrawNotificationRequest:(void *)a1 .cold.1(void *a1)
@@ -3529,7 +3529,7 @@ LABEL_8:
   v3 = [OUTLINED_FUNCTION_5_6() notificationIdentifier];
   v4 = [v3 un_logDigest];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_34(&dword_21ED4E000, v5, v6, "Withdrawing notification %{public}@ from banner", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_0_34(&dword_21ED4E000, v5, v6, "Withdrawing notification %{public}@ from banner", v7, v8, v9, v10);
 }
 
 - (void)presentableWillAppearAsBanner:.cold.1()
@@ -3589,7 +3589,7 @@ LABEL_8:
   v3 = [OUTLINED_FUNCTION_5_6() notificationIdentifier];
   v4 = [v3 un_logDigest];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_34(&dword_21ED4E000, v5, v6, "Replacing banner for notification %{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_0_34(&dword_21ED4E000, v5, v6, "Replacing banner for notification %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_revokeAllPresentablesWithRequesterIdentifier:reason:options:.cold.1()

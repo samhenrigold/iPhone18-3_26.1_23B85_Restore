@@ -211,7 +211,7 @@ void __55__CKSearchTokenFilter_queryStringForMessageTypeSearch___block_invoke_3(
 
   v3 = [v6 itemIdentifier];
   v4 = *(*(*(a1 + 32) + 8) + 40);
-  v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(%@ == \"%@\"", *MEMORY[0x1E6963F88], v3, *MEMORY[0x1E6963BA8], v3];
+  v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(%@ == %@", *MEMORY[0x1E6963F88], v3, *MEMORY[0x1E6963BA8], v3];
   [v4 appendString:v5];
 }
 
@@ -226,7 +226,7 @@ void __55__CKSearchTokenFilter_queryStringForMessageTypeSearch___block_invoke_3(
     if (isGroupConversation)
     {
       itemIdentifier = [(CKSearchTokenFilter *)self itemIdentifier];
-      v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(%@ == \"%@\"", *MEMORY[0x1E6963F88], itemIdentifier, *MEMORY[0x1E6963BA8], itemIdentifier];
+      v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(%@ == %@", *MEMORY[0x1E6963F88], itemIdentifier, *MEMORY[0x1E6963BA8], itemIdentifier];
       v8 = self->_queryStringForMessageTypeSearch;
       self->_queryStringForMessageTypeSearch = v7;
       v9 = v7;

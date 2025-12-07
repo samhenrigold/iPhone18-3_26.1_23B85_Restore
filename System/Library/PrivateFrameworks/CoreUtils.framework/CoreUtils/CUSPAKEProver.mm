@@ -12,41 +12,38 @@
 
 - (id)finishAndReturnError:(id *)error
 {
-  v10 = self->_sessionKey;
-  if (v10)
+  v5 = self->_sessionKey;
+  if (v5)
   {
     sessionKey = self->_sessionKey;
     self->_sessionKey = 0;
 
-    v12 = v10;
+    v7 = v5;
   }
 
   else if (error)
   {
-    *error = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960551, "no session key", v5, v6, v7, v8, v9, v14);
+    *error = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960551, "no session key");
   }
 
-  return v10;
+  return v5;
 }
 
 - (id)generateM3WithM2:(id)m2 error:(id *)error
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   m2Copy = m2;
   if (!self->_spakeContext)
   {
-    if (!error)
+    if (error)
     {
-      goto LABEL_22;
+      NSErrorF_safe(*MEMORY[0x1E696A768], 4294960551, "no spake context");
+LABEL_22:
+      *error = v16 = 0;
+      goto LABEL_7;
     }
 
-    v24 = *MEMORY[0x1E696A768];
-    v25 = "no spake context";
-    v26 = 4294960551;
-LABEL_21:
-    NSErrorF_safe(v24, v26, v25, v6, v7, v8, v9, v10, v27);
-    *error = v21 = 0;
-    goto LABEL_7;
+    goto LABEL_23;
   }
 
   ccspake_cp_256_rfc();
@@ -54,32 +51,36 @@ LABEL_21:
   [shareVData length];
   shareVData2 = [m2Copy shareVData];
   [shareVData2 bytes];
-  v14 = ccspake_kex_process();
+  v9 = ccspake_kex_process();
 
-  if (v14)
+  if (v9)
   {
     if (!error)
     {
-      goto LABEL_22;
+      goto LABEL_23;
     }
 
-    v24 = *MEMORY[0x1E696A768];
-    v27 = v14;
-    v25 = "ccspake_kex_process failed: %d";
-    goto LABEL_18;
+    v19 = *MEMORY[0x1E696A768];
+    v22 = v9;
+    v20 = "ccspake_kex_process failed: %d";
+LABEL_18:
+    v21 = 4294960596;
+LABEL_21:
+    NSErrorF_safe(v19, v21, v20, v22);
+    goto LABEL_22;
   }
 
-  v15 = ccspake_mac_compute();
-  if (v15)
+  v10 = ccspake_mac_compute();
+  if (v10)
   {
     if (!error)
     {
-      goto LABEL_22;
+      goto LABEL_23;
     }
 
-    v27 = v15;
-    v25 = "ccspake_mac_compute failed: %d";
-    v24 = *MEMORY[0x1E696A768];
+    v22 = v10;
+    v20 = "ccspake_mac_compute failed: %d";
+    v19 = *MEMORY[0x1E696A768];
     goto LABEL_18;
   }
 
@@ -93,20 +94,18 @@ LABEL_21:
   {
     if (!error)
     {
-      goto LABEL_22;
+      goto LABEL_23;
     }
 
-    v24 = *MEMORY[0x1E696A768];
-    v27 = session_key;
-    v25 = "ccspake verify failed: %d";
-LABEL_18:
-    v26 = 4294960596;
-    goto LABEL_21;
+    v19 = *MEMORY[0x1E696A768];
+    v22 = session_key;
+    v20 = "ccspake verify failed: %d";
+    goto LABEL_18;
   }
 
-  v19 = [MEMORY[0x1E695DEF0] _newZeroingDataWithBytes:v28 length:32];
+  v14 = [MEMORY[0x1E695DEF0] _newZeroingDataWithBytes:v23 length:32];
   sessionKey = self->_sessionKey;
-  self->_sessionKey = v19;
+  self->_sessionKey = v14;
 
   cc_clear();
   if (self->_sessionKey)
@@ -115,59 +114,57 @@ LABEL_18:
     cc_clear();
     free(self->_spakeContext);
     self->_spakeContext = 0;
-    v21 = objc_alloc_init(CUSPAKEM3);
-    v22 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v29 length:32];
-    [(CUSPAKEM3 *)v21 setConfirmPData:v22];
+    v16 = objc_alloc_init(CUSPAKEM3);
+    v17 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v24 length:32];
+    [(CUSPAKEM3 *)v16 setConfirmPData:v17];
 
     goto LABEL_7;
   }
 
   if (error)
   {
-    v24 = *MEMORY[0x1E696A768];
-    v25 = "generate session key failed";
-    v26 = 4294960568;
+    v19 = *MEMORY[0x1E696A768];
+    v20 = "generate session key failed";
+    v21 = 4294960568;
     goto LABEL_21;
   }
 
-LABEL_22:
-  v21 = 0;
+LABEL_23:
+  v16 = 0;
 LABEL_7:
 
-  return v21;
+  return v16;
 }
 
 - (id)generateM1AndReturnError:(id *)error
 {
-  v41[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   ccspake_cp_256_rfc();
-  if (![CUSPAKECommon scryptWithPasswordData:"scryptWithPasswordData:outputPtr:outputLen:error:" outputPtr:self->_passwordData outputLen:v41 - ((2 * (ccspake_sizeof_w() + 8) + 15) & 0xFFFFFFFFFFFFFFF0) error:?])
+  if (![CUSPAKECommon scryptWithPasswordData:"scryptWithPasswordData:outputPtr:outputLen:error:" outputPtr:self->_passwordData outputLen:v12 - ((2 * (ccspake_sizeof_w() + 8) + 15) & 0xFFFFFFFFFFFFFFF0) error:?])
   {
     goto LABEL_25;
   }
 
-  v5 = ccspake_reduce_w();
-  if (v5)
+  if (ccspake_reduce_w())
   {
     if (!error)
     {
       goto LABEL_25;
     }
 
-    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "ccspake_reduce_w failed w0: %d", v6, v7, v8, v9, v10, v5);
-    v40 = LABEL_23:;
+    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "ccspake_reduce_w failed w0: %d");
+    v11 = LABEL_23:;
     goto LABEL_24;
   }
 
-  v11 = ccspake_reduce_w();
-  if (v11)
+  if (ccspake_reduce_w())
   {
     if (!error)
     {
       goto LABEL_25;
     }
 
-    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "ccspake_reduce_w failed w1: %d", v12, v13, v14, v15, v16, v11);
+    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "ccspake_reduce_w failed w1: %d");
     goto LABEL_23;
   }
 
@@ -178,17 +175,17 @@ LABEL_7:
     free(self->_spakeContext);
   }
 
-  v17 = ccspake_sizeof_ctx();
-  v18 = malloc_type_malloc(v17, 0x1060040E1C2CD2EuLL);
-  self->_spakeContext = v18;
-  if (!v18)
+  v5 = ccspake_sizeof_ctx();
+  v6 = malloc_type_malloc(v5, 0x1060040E1C2CD2EuLL);
+  self->_spakeContext = v6;
+  if (!v6)
   {
     if (error)
     {
-      v40 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960568, "ccspake_ctx malloc failed", v19, v20, v21, v22, v23, v41[0]);
+      v11 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960568, "ccspake_ctx malloc failed");
 LABEL_24:
-      v37 = 0;
-      *error = v40;
+      v8 = 0;
+      *error = v11;
       goto LABEL_10;
     }
 
@@ -197,40 +194,38 @@ LABEL_24:
 
   ccspake_mac_hkdf_hmac_sha256();
   ccrng();
-  v24 = ccspake_prover_initialize();
-  if (v24)
+  if (ccspake_prover_initialize())
   {
     if (!error)
     {
       goto LABEL_25;
     }
 
-    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "ccspake_prover_initialize failed: %d", v25, v26, v27, v28, v29, v24);
+    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "ccspake_prover_initialize failed: %d");
     goto LABEL_23;
   }
 
-  v30 = ccspake_sizeof_point();
-  v31 = ccspake_kex_generate();
-  if (!v31)
+  v7 = ccspake_sizeof_point();
+  if (!ccspake_kex_generate())
   {
-    v37 = objc_alloc_init(CUSPAKEM1);
-    v38 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v41 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0) length:v30];
-    [(CUSPAKEM1 *)v37 setSharePData:v38];
+    v8 = objc_alloc_init(CUSPAKEM1);
+    v9 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0) length:v7];
+    [(CUSPAKEM1 *)v8 setSharePData:v9];
 
     goto LABEL_10;
   }
 
   if (error)
   {
-    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "ccspake_kex_generate failed: %d", v32, v33, v34, v35, v36, v31);
+    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "ccspake_kex_generate failed: %d");
     goto LABEL_23;
   }
 
 LABEL_25:
-  v37 = 0;
+  v8 = 0;
 LABEL_10:
 
-  return v37;
+  return v8;
 }
 
 - (void)dealloc

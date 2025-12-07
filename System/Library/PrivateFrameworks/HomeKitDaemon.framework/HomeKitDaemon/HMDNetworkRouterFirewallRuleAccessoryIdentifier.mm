@@ -12,21 +12,19 @@
 
 - (id)attributeDescriptions
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   productGroup = [(HMDNetworkRouterFirewallRuleAccessoryIdentifier *)self productGroup];
   v5 = [v3 initWithName:@"ProductGroup" value:productGroup];
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   productNumber = [(HMDNetworkRouterFirewallRuleAccessoryIdentifier *)self productNumber];
   v8 = [v6 initWithName:@"ProductNumber" value:productNumber];
-  v15[1] = v8;
+  v14[1] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   firmwareVersion = [(HMDNetworkRouterFirewallRuleAccessoryIdentifier *)self firmwareVersion];
   v11 = [v9 initWithName:@"FirmwareVersion" value:firmwareVersion];
-  v15[2] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v14[2] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
 
   return v12;
 }

@@ -5,6 +5,7 @@
 - (void)addLanguage:(id)language;
 - (void)reloadKeyboardSpecifiers;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation KSAddMultilingualLanguageListController
@@ -17,6 +18,17 @@
   v3 = *MEMORY[0x277D3FC60];
   [*(&self->super.super.super.super.super.isa + v3) setEstimatedSectionHeaderHeight:0.0];
   [*(&self->super.super.super.super.super.isa + v3) setEstimatedSectionFooterHeight:0.0];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = KSAddMultilingualLanguageListController;
+  [(KSAddMultilingualLanguageListController *)&v7 viewWillAppear:appear];
+  v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v5 = [v4 localizedStringForKey:@"MULTILINGUAL_DETAIL_ADD_LANGUAGE_TITLE" value:&stru_28679E3A8 table:@"Keyboard"];
+  navigationItem = [(KSAddMultilingualLanguageListController *)self navigationItem];
+  [navigationItem setTitle:v5];
 }
 
 - (id)specifiers
@@ -37,7 +49,7 @@
 
 - (id)newSpecifiers
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   mEMORY[0x277D75688] = [MEMORY[0x277D75688] sharedInputModeController];
   enabledInputModeIdentifiers = [mEMORY[0x277D75688] enabledInputModeIdentifiers];
@@ -45,28 +57,28 @@
   multilingualSet = [(KSAddMultilingualLanguageListController *)self multilingualSet];
   v6 = TIUIGetAddableInputModesForMultilingualSet(multilingualSet);
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   obj = v6;
-  v7 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v20;
     v10 = *MEMORY[0x277D3FFB8];
     do
     {
       v11 = 0;
       do
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * v11);
+        v12 = *(*(&v19 + 1) + 8 * v11);
         v13 = TIInputModeGetLanguageWithRegion();
         v14 = [KSKeyboardListController keyboardDisplayNameForIdentifier:v13];
 
@@ -79,14 +91,13 @@
       }
 
       while (v8 != v11);
-      v8 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v8);
   }
 
   [array sortUsingComparator:&__block_literal_global_3];
-  v16 = *MEMORY[0x277D85DE8];
   return array;
 }
 
@@ -118,7 +129,7 @@ uint64_t __56__KSAddMultilingualLanguageListController_newSpecifiers__block_invo
 
 - (void)addLanguage:(id)language
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v4 = [language propertyForKey:*MEMORY[0x277D3FFB8]];
   multilingualSet = [(KSAddMultilingualLanguageListController *)self multilingualSet];
   v6 = TIUICanAddInputModeToMultilingualSet(v4, multilingualSet);
@@ -129,34 +140,34 @@ uint64_t __56__KSAddMultilingualLanguageListController_newSpecifiers__block_invo
     enabledInputModeIdentifiers = [mEMORY[0x277D75688] enabledInputModeIdentifiers];
 
     TIUIGetProposedMultilingualSetsForAddingInputMode(v4, enabledInputModeIdentifiers);
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
-    v9 = v28 = 0u;
-    v10 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v9 = v27 = 0u;
+    v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v10)
     {
       v12 = v10;
-      v13 = *v26;
-      v24 = enabledInputModeIdentifiers;
+      v13 = *v25;
+      v23 = enabledInputModeIdentifiers;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v26 != v13)
+          if (*v25 != v13)
           {
             objc_enumerationMutation(v9);
           }
 
-          v15 = *(*(&v25 + 1) + 8 * i);
+          v15 = *(*(&v24 + 1) + 8 * i);
           v16 = TIUIProposedInputModeGetCurrent(v15, v11);
           multilingualSet2 = [(KSAddMultilingualLanguageListController *)self multilingualSet];
           v18 = [v16 isEqualToArray:multilingualSet2];
 
           if (v18)
           {
-            enabledInputModeIdentifiers = v24;
-            v19 = TIUIGetInputModesByAddingProposedInputMode(v15, v24);
+            enabledInputModeIdentifiers = v23;
+            v19 = TIUIGetInputModesByAddingProposedInputMode(v15, v23);
             [KSKeyboardListController setInputModes:v19];
             v20 = TIUIProposedInputModeGetMultilingualSet(v15);
             [(KSAddMultilingualLanguageListController *)self setMultilingualSet:v20];
@@ -165,8 +176,8 @@ uint64_t __56__KSAddMultilingualLanguageListController_newSpecifiers__block_invo
           }
         }
 
-        v12 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
-        enabledInputModeIdentifiers = v24;
+        v12 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        enabledInputModeIdentifiers = v23;
         if (v12)
         {
           continue;
@@ -182,8 +193,6 @@ LABEL_12:
   [(KSAddMultilingualLanguageListController *)self reloadKeyboardSpecifiers];
   navigationController = [(KSAddMultilingualLanguageListController *)self navigationController];
   v22 = [navigationController popViewControllerAnimated:1];
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reloadKeyboardSpecifiers

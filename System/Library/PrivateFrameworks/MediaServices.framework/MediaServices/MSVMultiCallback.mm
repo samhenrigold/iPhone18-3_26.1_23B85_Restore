@@ -60,7 +60,7 @@
   return v4;
 }
 
-uint64_t __29__MSVMultiCallback_callbacks__block_invoke(uint64_t a1)
+void *__29__MSVMultiCallback_callbacks__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   if (*(v2 + 16))
@@ -82,75 +82,71 @@ uint64_t __29__MSVMultiCallback_callbacks__block_invoke(uint64_t a1)
 
 - (void)invokeWithObject:(id)object
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   objectCopy = object;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   callbacks = [(MSVMultiCallback *)self callbacks];
-  v6 = [callbacks countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [callbacks countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(callbacks);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) invokeWithObject:objectCopy];
+        [*(*(&v10 + 1) + 8 * v9++) invokeWithObject:objectCopy];
       }
 
       while (v7 != v9);
-      v7 = [callbacks countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [callbacks countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invoke
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   callbacks = [(MSVMultiCallback *)self callbacks];
-  v3 = [callbacks countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [callbacks countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(callbacks);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) invoke];
+        [*(*(&v7 + 1) + 8 * v6++) invoke];
       }
 
       while (v4 != v6);
-      v4 = [callbacks countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [callbacks countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)removeCallback:(id)callback
@@ -176,7 +172,7 @@ uint64_t __29__MSVMultiCallback_callbacks__block_invoke(uint64_t a1)
   return serialQueue;
 }
 
-uint64_t __35__MSVMultiCallback_removeCallback___block_invoke(void *a1)
+void *__35__MSVMultiCallback_removeCallback___block_invoke(void *a1)
 {
   v3 = a1[4];
   v2 = a1[5];

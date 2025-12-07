@@ -7,14 +7,15 @@
 
 + (BOOL)isAvailable
 {
-  sub_10001A3E8();
-  if (sub_1000247B0())
+  v2 = sub_10001A3E8(self, a2);
+  v4 = sub_1000247B0(v2, v3);
+  if (v4)
   {
     return 1;
   }
 
-  sub_10001A3E8();
-  if (sub_10071AAF8())
+  v6 = sub_10001A3E8(v4, v5);
+  if (sub_10071AAF8(v6, v7))
   {
     return 1;
   }
@@ -24,16 +25,16 @@
     sub_101B6C5F0();
   }
 
-  v3 = qword_1025D4508;
+  v9 = qword_1025D4508;
   if (os_log_type_enabled(qword_1025D4508, OS_LOG_TYPE_ERROR))
   {
-    *v5 = 0;
-    _os_log_impl(dword_100000000, v3, OS_LOG_TYPE_ERROR, "Pedestrian fence not supported", v5, 2u);
+    *v11 = 0;
+    _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_ERROR, "Pedestrian fence not supported", v11, 2u);
   }
 
-  v4 = sub_10000A100(121, 0);
+  v10 = sub_10000A100(121, 0);
   result = 0;
-  if (v4)
+  if (v10)
   {
     sub_101B6C604();
     return 0;

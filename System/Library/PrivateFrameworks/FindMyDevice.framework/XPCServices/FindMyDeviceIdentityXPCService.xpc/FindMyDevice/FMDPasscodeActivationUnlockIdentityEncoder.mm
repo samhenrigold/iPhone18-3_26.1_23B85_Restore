@@ -31,24 +31,24 @@
   contextCopy = context;
   completionCopy = completion;
   v8 = +[NSMutableDictionary dictionary];
-  v25[0] = 0;
-  v9 = [(FMDPasscodeActivationUnlockIdentityEncoder *)self _payloadWithContext:contextCopy error:v25];
-  v10 = v25[0];
+  v27[0] = 0;
+  v9 = [(FMDPasscodeActivationUnlockIdentityEncoder *)self _payloadWithContext:contextCopy error:v27];
+  v10 = v27[0];
   v11 = [v9 base64EncodedStringWithOptions:0];
   [v8 fm_safelyMapKey:@"payload" toObject:v11];
   if (!v10)
   {
-    v24 = 0;
-    [(FMDPasscodeActivationUnlockIdentityEncoder *)self _certificateRequestAndRefKeyWithError:&v24];
-    v10 = v24;
+    v26 = 0;
+    [(FMDPasscodeActivationUnlockIdentityEncoder *)self _certificateRequestAndRefKeyWithError:&v26];
+    v10 = v26;
     certRequest = [(FMDPasscodeActivationUnlockIdentityEncoder *)self certRequest];
     [v8 fm_safelyMapKey:@"certRequest" toObject:certRequest];
 
     if (!v10)
     {
-      v23 = 0;
-      v13 = [(FMDPasscodeActivationUnlockIdentityEncoder *)self _signatureForPayload:v9 error:&v23];
-      v10 = v23;
+      v25 = 0;
+      v13 = [(FMDPasscodeActivationUnlockIdentityEncoder *)self _signatureForPayload:v9 error:&v25];
+      v10 = v25;
       v14 = [v13 base64EncodedStringWithOptions:0];
       [v8 fm_safelyMapKey:@"signature" toObject:v14];
     }
@@ -57,40 +57,41 @@
   v15 = [v10 description];
   [v8 fm_safelyMapKey:@"error" toObject:v15];
 
-  v16 = sub_100001AC8();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v17 = sub_100001AC8(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v27 = v8;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "resultDict : %@", buf, 0xCu);
+    v29 = v8;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "resultDict : %@", buf, 0xCu);
   }
 
-  v22 = 0;
-  v17 = [NSJSONSerialization dataWithJSONObject:v8 options:0 error:&v22];
-  v18 = v22;
-  if (v18)
+  v24 = 0;
+  v18 = [NSJSONSerialization dataWithJSONObject:v8 options:0 error:&v24];
+  v19 = v24;
+  v20 = v19;
+  if (v19)
   {
-    v19 = sub_100001AC8();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v21 = sub_100001AC8(v19);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       sub_100004354();
     }
   }
 
-  v20 = [v17 base64EncodedStringWithOptions:0];
+  v22 = [v18 base64EncodedStringWithOptions:0];
   if (completionCopy)
   {
-    if (v18)
+    if (v20)
     {
-      v21 = v18;
+      v23 = v20;
     }
 
     else
     {
-      v21 = v10;
+      v23 = v10;
     }
 
-    (completionCopy)[2](completionCopy, v20, v21);
+    (completionCopy)[2](completionCopy, v22, v23);
   }
 }
 
@@ -98,32 +99,32 @@
 {
   contextCopy = context;
   v7 = [NSMutableDictionary dictionaryWithDictionary:contextCopy];
-  [(FMDPasscodeActivationUnlockIdentityEncoder *)self _populateDeviceIdentifiersIntoDict:v7];
-  v8 = sub_100001AC8();
+  v8 = sub_100001AC8([(FMDPasscodeActivationUnlockIdentityEncoder *)self _populateDeviceIdentifiersIntoDict:v7]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = v7;
+    v19 = v7;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Payload dict : %@", buf, 0xCu);
   }
 
-  v14 = 0;
-  v9 = [NSJSONSerialization dataWithJSONObject:v7 options:0 error:&v14];
-  v10 = v14;
+  v15 = 0;
+  v9 = [NSJSONSerialization dataWithJSONObject:v7 options:0 error:&v15];
+  v10 = v15;
+  v11 = v10;
   if (v10)
   {
-    v11 = sub_100001AC8();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sub_100001AC8(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_100004354();
     }
 
     if (error)
     {
-      v15 = NSUnderlyingErrorKey;
-      v16[0] = v10;
-      v12 = [NSDictionary dictionaryWithObjects:v16 forKeys:&v15 count:1];
-      *error = [NSError errorWithDomain:@"com.apple.icloud.findmydevice.PasscodeActivationUnlock" code:0 userInfo:v12];
+      v16 = NSUnderlyingErrorKey;
+      v17 = v11;
+      v13 = [NSDictionary dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+      *error = [NSError errorWithDomain:@"com.apple.icloud.findmydevice.PasscodeActivationUnlock" code:0 userInfo:v13];
     }
   }
 

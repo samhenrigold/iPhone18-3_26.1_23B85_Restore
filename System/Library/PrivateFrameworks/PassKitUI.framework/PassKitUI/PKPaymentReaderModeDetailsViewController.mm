@@ -131,7 +131,7 @@
   return v14;
 }
 
-void __100__PKPaymentReaderModeDetailsViewController_initWithProvisioningController_context_product_delegate___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __100__PKPaymentReaderModeDetailsViewController_initWithProvisioningController_context_product_delegate___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   v22[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
@@ -450,15 +450,15 @@ void __54__PKPaymentReaderModeDetailsViewController__showTerms__block_invoke_3(u
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __54__PKPaymentReaderModeDetailsViewController__showTerms__block_invoke_5(uint64_t a1)
+uint64_t __54__PKPaymentReaderModeDetailsViewController__showTerms__block_invoke_5(uint64_t a1, uint64_t a2)
 {
   if (!*(a1 + 32))
   {
-    v2 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Skipping Terms & Conditions because no termsURL was set", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Skipping Terms & Conditions because no termsURL was set", v5, 2u);
     }
   }
 

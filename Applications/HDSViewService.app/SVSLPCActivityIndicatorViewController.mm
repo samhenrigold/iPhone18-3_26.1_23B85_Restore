@@ -17,21 +17,18 @@
 
 - (void)spin
 {
-  v2 = *(&self->super.super.super.isa + OBJC_IVAR____TtC14HDSViewService37SVSLPCActivityIndicatorViewController_v);
   selfCopy = self;
   sub_10008C9E0();
 }
 
 - (void)complete
 {
-  v2 = *(&self->super.super.super.isa + OBJC_IVAR____TtC14HDSViewService37SVSLPCActivityIndicatorViewController_v);
   selfCopy = self;
   sub_10008CC14();
 }
 
 - (void)reset
 {
-  v2 = *(&self->super.super.super.isa + OBJC_IVAR____TtC14HDSViewService37SVSLPCActivityIndicatorViewController_v);
   selfCopy = self;
   sub_10008C8D4();
 }

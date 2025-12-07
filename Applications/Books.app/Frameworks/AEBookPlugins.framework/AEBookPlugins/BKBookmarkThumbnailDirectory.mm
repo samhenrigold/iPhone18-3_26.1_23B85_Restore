@@ -251,7 +251,7 @@
     [descriptionLabel setFont:v13];
 
     titleLabel2 = [(BKTOCBookmarksDescription *)self->_noBookmarksView titleLabel];
-    v16 = AEBundle();
+    v16 = AEBundle(titleLabel2);
     v17 = [v16 localizedStringForKey:@"Adding Bookmarks…" value:&stru_1E7188 table:0];
     [titleLabel2 setText:v17];
 
@@ -261,24 +261,24 @@
     book = [(BKContentViewController *)self book];
     LODWORD(v17) = [book contentType];
 
-    v20 = AEBundle();
-    v21 = v20;
+    v21 = AEBundle(v20);
+    v22 = v21;
     if (v17 == 2)
     {
-      v22 = @"When you’re reading a PDF,\ntap the Bookmark button to\nmark the current page.";
+      v23 = @"When you’re reading a PDF,\ntap the Bookmark button to\nmark the current page.";
     }
 
     else
     {
-      v22 = @"When you’re reading a book, tap the Bookmark button to mark the current page.";
+      v23 = @"When you’re reading a book, tap the Bookmark button to mark the current page.";
     }
 
-    v23 = [v20 localizedStringForKey:v22 value:&stru_1E7188 table:0];
+    v24 = [v21 localizedStringForKey:v23 value:&stru_1E7188 table:0];
 
     descriptionLabel2 = [(BKTOCBookmarksDescription *)self->_noBookmarksView descriptionLabel];
-    [descriptionLabel2 setText:v23];
-    v25 = +[UIColor bc_booksSecondaryLabelColor];
-    [descriptionLabel2 setTextColor:v25];
+    [descriptionLabel2 setText:v24];
+    v26 = +[UIColor bc_booksSecondaryLabelColor];
+    [descriptionLabel2 setTextColor:v26];
 
     [descriptionLabel2 setNumberOfLines:0];
     noBookmarksView = self->_noBookmarksView;

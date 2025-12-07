@@ -232,7 +232,7 @@ LABEL_7:
   v46 = 0x404B30CB295E9E1BLL;
   v47 = 0x4019D81D7DBF4880;
   sub_7654(v18);
-  [(TITypingDESPlugin *)self convertAlignedEntriesFromSession:sessionCopy];
+  objc_msgSend_convertAlignedEntriesFromSession_(self);
   if (![v10 isEqualToString:@"shapeMatching"])
   {
     [sessionCopy locale];
@@ -276,7 +276,7 @@ LABEL_7:
   v6 = objc_autoreleasePoolPush();
   [v5 locale];
   localeIdentifier = [objc_claimAutoreleasedReturnValue() localeIdentifier];
-  TI::CP::TestCaseConverter::create_testcase_converter(localeIdentifier, 0);
+  TI::CP::TestCaseConverter::create_testcase_converter(localeIdentifier);
 }
 
 - (id)summaryStatisticsEvalResults:(const void *)results ofEntries:(id)entries

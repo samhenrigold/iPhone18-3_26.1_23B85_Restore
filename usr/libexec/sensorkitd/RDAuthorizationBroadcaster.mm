@@ -10,6 +10,7 @@
 - (void)legacyResearchStudyEntitlement:(id)entitlement;
 - (void)registerForAuthorizationChangeNotificationsWithEffectiveBundleId:(id)id;
 - (void)retrieveCurrentAuthorizedServicesWithReply:(id)reply;
+- (void)setDataCollectionEnabled:(BOOL)enabled;
 - (void)setFirstRunOnboardingCompleted:(BOOL)completed;
 @end
 
@@ -162,26 +163,26 @@
   v5 = _os_activity_create(&_mh_execute_header, "RDAuthorizationBroadcaster registration", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
   os_activity_scope_enter(v5, &state);
   v6 = +[NSXPCConnection currentConnection];
-  v7 = v6;
+  v8 = v6;
   if (id)
   {
     idCopy2 = id;
     if (([id isEqualToString:@"com.apple.private.SensorKit._compositeBundle"] & 1) == 0)
     {
       idCopy2 = id;
-      if (![(RDAuthorizationBroadcaster *)selfCopy valueForEntitlement:@"com.apple.SensorKit.effective-bundle" connection:v7])
+      if (![(RDAuthorizationBroadcaster *)selfCopy valueForEntitlement:@"com.apple.SensorKit.effective-bundle" connection:v8])
       {
-        v9 = qword_100071B38;
+        v10 = qword_100071B38;
         if (os_log_type_enabled(qword_100071B38, OS_LOG_TYPE_ERROR))
         {
-          processIdentifier = [(NSXPCConnection *)v7 processIdentifier];
+          processIdentifier = [(NSXPCConnection *)v8 processIdentifier];
           *buf = 67240192;
-          LODWORD(v81) = processIdentifier;
-          _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Attempting to set effective bundle identifier without proper entitlement, pid %{public}d", buf, 8u);
+          LODWORD(v82) = processIdentifier;
+          _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Attempting to set effective bundle identifier without proper entitlement, pid %{public}d", buf, 8u);
         }
 
 LABEL_86:
-        [(NSXPCConnection *)v7 invalidate];
+        [(NSXPCConnection *)v8 invalidate];
         goto LABEL_87;
       }
     }
@@ -189,298 +190,298 @@ LABEL_86:
 
   else
   {
-    idCopy2 = sub_10001B58C(v6);
+    idCopy2 = sub_10001B58C(v6, v7);
     if (!idCopy2)
     {
-      v52 = qword_100071B38;
+      v53 = qword_100071B38;
       if (os_log_type_enabled(qword_100071B38, OS_LOG_TYPE_FAULT))
       {
-        processIdentifier2 = [(NSXPCConnection *)v7 processIdentifier];
+        processIdentifier2 = [(NSXPCConnection *)v8 processIdentifier];
         *buf = 67240192;
-        LODWORD(v81) = processIdentifier2;
-        _os_log_fault_impl(&_mh_execute_header, v52, OS_LOG_TYPE_FAULT, "Failed to determine bundle id for pid %{public}d", buf, 8u);
+        LODWORD(v82) = processIdentifier2;
+        _os_log_fault_impl(&_mh_execute_header, v53, OS_LOG_TYPE_FAULT, "Failed to determine bundle id for pid %{public}d", buf, 8u);
       }
 
       goto LABEL_86;
     }
   }
 
-  v11 = qword_100071B38;
+  v12 = qword_100071B38;
   if (os_log_type_enabled(qword_100071B38, OS_LOG_TYPE_DEFAULT))
   {
-    processIdentifier3 = [(NSXPCConnection *)v7 processIdentifier];
+    processIdentifier3 = [(NSXPCConnection *)v8 processIdentifier];
     *buf = 138543874;
-    v81 = idCopy2;
-    v82 = 1026;
-    v83 = processIdentifier3;
-    v84 = 1026;
-    v85 = id != 0;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Client bundleId determined, bundle id, %{public}@, pid, %{public}d, effective bundle id used, %{public}d", buf, 0x18u);
+    v82 = idCopy2;
+    v83 = 1026;
+    v84 = processIdentifier3;
+    v85 = 1026;
+    v86 = id != 0;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Client bundleId determined, bundle id, %{public}@, pid, %{public}d, effective bundle id used, %{public}d", buf, 0x18u);
   }
 
-  v13 = [(NSMapTable *)selfCopy->_connectionToBundleIds objectForKey:v7];
-  if (!v13)
-  {
-    v13 = +[NSMutableSet set];
-  }
-
-  obj = v13;
-  [v13 addObject:idCopy2];
-  [(NSMapTable *)selfCopy->_connectionToBundleIds setObject:obj forKey:v7];
-  v14 = [(NSMutableDictionary *)selfCopy->_bundleIdToConnections objectForKeyedSubscript:idCopy2];
+  v14 = [(NSMapTable *)selfCopy->_connectionToBundleIds objectForKey:v8];
   if (!v14)
   {
     v14 = +[NSMutableSet set];
   }
 
-  [v14 addObject:v7];
-  [(NSMutableDictionary *)selfCopy->_bundleIdToConnections setObject:v14 forKeyedSubscript:idCopy2];
+  obj = v14;
+  [v14 addObject:idCopy2];
+  [(NSMapTable *)selfCopy->_connectionToBundleIds setObject:obj forKey:v8];
+  v15 = [(NSMutableDictionary *)selfCopy->_bundleIdToConnections objectForKeyedSubscript:idCopy2];
+  if (!v15)
+  {
+    v15 = +[NSMutableSet set];
+  }
+
+  [v15 addObject:v8];
+  [(NSMutableDictionary *)selfCopy->_bundleIdToConnections setObject:v15 forKeyedSubscript:idCopy2];
   if ([-[SRAuthorizationStore readerAuthorizationBundleIdValues](selfCopy->_authStore "readerAuthorizationBundleIdValues")])
   {
-    v64 = 0u;
     v65 = 0u;
-    v62 = 0u;
+    v66 = 0u;
     v63 = 0u;
-    v55 = [obj countByEnumeratingWithState:&v62 objects:v75 count:16];
-    if (v55)
+    v64 = 0u;
+    v56 = [obj countByEnumeratingWithState:&v63 objects:v76 count:16];
+    if (v56)
     {
-      v56 = *v63;
-      v57 = selfCopy;
-      v54 = v7;
+      v57 = *v64;
+      v58 = selfCopy;
+      v55 = v8;
       do
       {
-        for (i = 0; i != v55; i = i + 1)
+        for (i = 0; i != v56; i = i + 1)
         {
-          if (*v63 != v56)
+          if (*v64 != v57)
           {
             objc_enumerationMutation(obj);
           }
 
-          v60 = *(*(&v62 + 1) + 8 * i);
-          if ([v60 isEqualToString:{@"com.apple.private.SensorKit._compositeBundle", v54}])
+          v61 = *(*(&v63 + 1) + 8 * i);
+          if ([v61 isEqualToString:{@"com.apple.private.SensorKit._compositeBundle", v55}])
           {
-            v15 = +[NSMutableSet set];
+            v16 = +[NSMutableSet set];
             readerAuthorizationBundleIdValues = [(SRAuthorizationStore *)selfCopy->_authStore readerAuthorizationBundleIdValues];
-            v73 = 0u;
             v74 = 0u;
-            v71 = 0u;
+            v75 = 0u;
             v72 = 0u;
-            v17 = [readerAuthorizationBundleIdValues countByEnumeratingWithState:&v71 objects:buf count:16];
-            if (v17)
+            v73 = 0u;
+            v18 = [readerAuthorizationBundleIdValues countByEnumeratingWithState:&v72 objects:buf count:16];
+            if (v18)
             {
-              v18 = *v72;
+              v19 = *v73;
               do
               {
-                for (j = 0; j != v17; j = j + 1)
+                for (j = 0; j != v18; j = j + 1)
                 {
-                  if (*v72 != v18)
+                  if (*v73 != v19)
                   {
                     objc_enumerationMutation(readerAuthorizationBundleIdValues);
                   }
 
-                  v20 = [readerAuthorizationBundleIdValues objectForKeyedSubscript:*(*(&v71 + 1) + 8 * j)];
-                  v69 = 0u;
+                  v21 = [readerAuthorizationBundleIdValues objectForKeyedSubscript:*(*(&v72 + 1) + 8 * j)];
                   v70 = 0u;
-                  v67 = 0u;
+                  v71 = 0u;
                   v68 = 0u;
-                  v21 = [v20 countByEnumeratingWithState:&v67 objects:&v76 count:16];
-                  if (v21)
+                  v69 = 0u;
+                  v22 = [v21 countByEnumeratingWithState:&v68 objects:&v77 count:16];
+                  if (v22)
                   {
-                    v22 = *v68;
+                    v23 = *v69;
                     do
                     {
-                      for (k = 0; k != v21; k = k + 1)
+                      for (k = 0; k != v22; k = k + 1)
                       {
-                        if (*v68 != v22)
+                        if (*v69 != v23)
                         {
-                          objc_enumerationMutation(v20);
+                          objc_enumerationMutation(v21);
                         }
 
-                        v24 = *(*(&v67 + 1) + 8 * k);
-                        if ([objc_msgSend(v20 objectForKeyedSubscript:{v24), "BOOLValue"}])
+                        v25 = *(*(&v68 + 1) + 8 * k);
+                        if ([objc_msgSend(v21 objectForKeyedSubscript:{v25), "BOOLValue"}])
                         {
-                          [v15 addObject:v24];
+                          [v16 addObject:v25];
                         }
                       }
 
-                      v21 = [v20 countByEnumeratingWithState:&v67 objects:&v76 count:16];
+                      v22 = [v21 countByEnumeratingWithState:&v68 objects:&v77 count:16];
                     }
 
-                    while (v21);
+                    while (v22);
                   }
                 }
 
-                v17 = [readerAuthorizationBundleIdValues countByEnumeratingWithState:&v71 objects:buf count:16];
+                v18 = [readerAuthorizationBundleIdValues countByEnumeratingWithState:&v72 objects:buf count:16];
               }
 
-              while (v17);
+              while (v18);
             }
 
-            v25 = v57;
-            v26 = [NSSet setWithSet:v15];
-            v27 = v60;
+            v26 = v58;
+            v27 = [NSSet setWithSet:v16];
+            v28 = v61;
           }
 
           else
           {
             dispatch_assert_queue_V2(selfCopy->_q);
-            v26 = +[NSMutableSet set];
+            v27 = +[NSMutableSet set];
             readerAuthorizationBundleIdValues2 = [(SRAuthorizationStore *)selfCopy->_authStore readerAuthorizationBundleIdValues];
-            v78 = 0u;
             v79 = 0u;
-            v76 = 0u;
+            v80 = 0u;
             v77 = 0u;
-            v29 = [readerAuthorizationBundleIdValues2 objectForKeyedSubscript:v60];
-            v30 = [v29 countByEnumeratingWithState:&v76 objects:buf count:16];
-            v27 = v60;
-            if (v30)
+            v78 = 0u;
+            v30 = [readerAuthorizationBundleIdValues2 objectForKeyedSubscript:v61];
+            v31 = [v30 countByEnumeratingWithState:&v77 objects:buf count:16];
+            v28 = v61;
+            if (v31)
             {
-              v31 = *v77;
+              v32 = *v78;
               do
               {
-                for (m = 0; m != v30; m = m + 1)
+                for (m = 0; m != v31; m = m + 1)
                 {
-                  if (*v77 != v31)
+                  if (*v78 != v32)
                   {
-                    objc_enumerationMutation(v29);
+                    objc_enumerationMutation(v30);
                   }
 
-                  v33 = *(*(&v76 + 1) + 8 * m);
-                  if ([objc_msgSend(objc_msgSend(readerAuthorizationBundleIdValues2 objectForKeyedSubscript:{v60), "objectForKeyedSubscript:", v33), "BOOLValue"}])
+                  v34 = *(*(&v77 + 1) + 8 * m);
+                  if ([objc_msgSend(objc_msgSend(readerAuthorizationBundleIdValues2 objectForKeyedSubscript:{v61), "objectForKeyedSubscript:", v34), "BOOLValue"}])
                   {
-                    [(NSSet *)v26 addObject:v33];
+                    [(NSSet *)v27 addObject:v34];
                   }
                 }
 
-                v30 = [v29 countByEnumeratingWithState:&v76 objects:buf count:16];
+                v31 = [v30 countByEnumeratingWithState:&v77 objects:buf count:16];
               }
 
-              while (v30);
+              while (v31);
             }
 
-            v25 = v57;
+            v26 = v58;
           }
 
-          if ([v27 isEqualToString:@"com.apple.private.SensorKit._compositeBundle"])
+          if ([v28 isEqualToString:@"com.apple.private.SensorKit._compositeBundle"])
           {
-            v34 = +[NSMutableSet set];
-            readerAuthorizationBundleIdValues3 = [(SRAuthorizationStore *)v25->_authStore readerAuthorizationBundleIdValues];
-            v73 = 0u;
+            v35 = +[NSMutableSet set];
+            readerAuthorizationBundleIdValues3 = [(SRAuthorizationStore *)v26->_authStore readerAuthorizationBundleIdValues];
             v74 = 0u;
-            v71 = 0u;
+            v75 = 0u;
             v72 = 0u;
-            v36 = [readerAuthorizationBundleIdValues3 countByEnumeratingWithState:&v71 objects:buf count:16];
-            if (v36)
+            v73 = 0u;
+            v37 = [readerAuthorizationBundleIdValues3 countByEnumeratingWithState:&v72 objects:buf count:16];
+            if (v37)
             {
-              v61 = *v72;
+              v62 = *v73;
               do
               {
-                for (n = 0; n != v36; n = n + 1)
+                for (n = 0; n != v37; n = n + 1)
                 {
-                  if (*v72 != v61)
+                  if (*v73 != v62)
                   {
                     objc_enumerationMutation(readerAuthorizationBundleIdValues3);
                   }
 
-                  v38 = [readerAuthorizationBundleIdValues3 objectForKeyedSubscript:*(*(&v71 + 1) + 8 * n)];
-                  v69 = 0u;
+                  v39 = [readerAuthorizationBundleIdValues3 objectForKeyedSubscript:*(*(&v72 + 1) + 8 * n)];
                   v70 = 0u;
-                  v67 = 0u;
+                  v71 = 0u;
                   v68 = 0u;
-                  v39 = [v38 countByEnumeratingWithState:&v67 objects:&v76 count:16];
-                  if (v39)
+                  v69 = 0u;
+                  v40 = [v39 countByEnumeratingWithState:&v68 objects:&v77 count:16];
+                  if (v40)
                   {
-                    v40 = *v68;
+                    v41 = *v69;
                     do
                     {
-                      for (ii = 0; ii != v39; ii = ii + 1)
+                      for (ii = 0; ii != v40; ii = ii + 1)
                       {
-                        if (*v68 != v40)
+                        if (*v69 != v41)
                         {
-                          objc_enumerationMutation(v38);
+                          objc_enumerationMutation(v39);
                         }
 
-                        v42 = *(*(&v67 + 1) + 8 * ii);
-                        if ([v38 count] && !-[NSSet containsObject:](v26, "containsObject:", v42))
+                        v43 = *(*(&v68 + 1) + 8 * ii);
+                        if ([v39 count] && !-[NSSet containsObject:](v27, "containsObject:", v43))
                         {
-                          [v34 addObject:v42];
+                          [v35 addObject:v43];
                         }
                       }
 
-                      v39 = [v38 countByEnumeratingWithState:&v67 objects:&v76 count:16];
+                      v40 = [v39 countByEnumeratingWithState:&v68 objects:&v77 count:16];
                     }
 
-                    while (v39);
+                    while (v40);
                   }
                 }
 
-                v36 = [readerAuthorizationBundleIdValues3 countByEnumeratingWithState:&v71 objects:buf count:16];
+                v37 = [readerAuthorizationBundleIdValues3 countByEnumeratingWithState:&v72 objects:buf count:16];
               }
 
-              while (v36);
+              while (v37);
             }
 
-            selfCopy = v57;
-            v43 = [NSSet setWithSet:v34];
+            selfCopy = v58;
+            v44 = [NSSet setWithSet:v35];
           }
 
           else
           {
-            dispatch_assert_queue_V2(v25->_q);
-            v43 = +[NSMutableSet set];
-            readerAuthorizationBundleIdValues4 = [(SRAuthorizationStore *)v25->_authStore readerAuthorizationBundleIdValues];
-            v78 = 0u;
+            dispatch_assert_queue_V2(v26->_q);
+            v44 = +[NSMutableSet set];
+            readerAuthorizationBundleIdValues4 = [(SRAuthorizationStore *)v26->_authStore readerAuthorizationBundleIdValues];
             v79 = 0u;
-            v76 = 0u;
+            v80 = 0u;
             v77 = 0u;
-            v45 = [readerAuthorizationBundleIdValues4 objectForKeyedSubscript:v60];
-            v46 = [v45 countByEnumeratingWithState:&v76 objects:buf count:16];
-            if (v46)
+            v78 = 0u;
+            v46 = [readerAuthorizationBundleIdValues4 objectForKeyedSubscript:v61];
+            v47 = [v46 countByEnumeratingWithState:&v77 objects:buf count:16];
+            if (v47)
             {
-              v47 = *v77;
+              v48 = *v78;
               do
               {
-                for (jj = 0; jj != v46; jj = jj + 1)
+                for (jj = 0; jj != v47; jj = jj + 1)
                 {
-                  if (*v77 != v47)
+                  if (*v78 != v48)
                   {
-                    objc_enumerationMutation(v45);
+                    objc_enumerationMutation(v46);
                   }
 
-                  v49 = *(*(&v76 + 1) + 8 * jj);
-                  if (([objc_msgSend(objc_msgSend(readerAuthorizationBundleIdValues4 objectForKeyedSubscript:{v60), "objectForKeyedSubscript:", v49), "BOOLValue"}] & 1) == 0)
+                  v50 = *(*(&v77 + 1) + 8 * jj);
+                  if (([objc_msgSend(objc_msgSend(readerAuthorizationBundleIdValues4 objectForKeyedSubscript:{v61), "objectForKeyedSubscript:", v50), "BOOLValue"}] & 1) == 0)
                   {
-                    [(NSSet *)v43 addObject:v49];
+                    [(NSSet *)v44 addObject:v50];
                   }
                 }
 
-                v46 = [v45 countByEnumeratingWithState:&v76 objects:buf count:16];
+                v47 = [v46 countByEnumeratingWithState:&v77 objects:buf count:16];
               }
 
-              while (v46);
+              while (v47);
             }
 
-            selfCopy = v57;
+            selfCopy = v58;
           }
 
-          v50 = [(NSDictionary *)[(SRAuthorizationStore *)selfCopy->_authStore readerLastModifiedAuthorizationTimes] objectForKeyedSubscript:v60];
-          if (v50)
+          v51 = [(NSDictionary *)[(SRAuthorizationStore *)selfCopy->_authStore readerLastModifiedAuthorizationTimes] objectForKeyedSubscript:v61];
+          if (v51)
           {
-            v51 = v50;
+            v52 = v51;
           }
 
           else
           {
-            v51 = &__NSDictionary0__struct;
+            v52 = &__NSDictionary0__struct;
           }
 
-          [-[NSXPCConnection remoteObjectProxy](v54 "remoteObjectProxy")];
+          [-[NSXPCConnection remoteObjectProxy](v55 "remoteObjectProxy")];
         }
 
-        v55 = [obj countByEnumeratingWithState:&v62 objects:v75 count:16];
+        v56 = [obj countByEnumeratingWithState:&v63 objects:v76 count:16];
       }
 
-      while (v55);
+      while (v56);
     }
   }
 
@@ -927,6 +928,48 @@ LABEL_100:
       *buf = 138543362;
       v116 = v5;
       _os_log_error_impl(&_mh_execute_header, v73, OS_LOG_TYPE_ERROR, "Attempting to read prerequisite values without the proper entitlement, %{public}@", buf, 0xCu);
+    }
+
+    [(NSXPCConnection *)v5 invalidate];
+  }
+}
+
+- (void)setDataCollectionEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  dispatch_assert_queue_V2(self->_q);
+  v5 = +[NSXPCConnection currentConnection];
+  v6 = [(RDAuthorizationBroadcaster *)self valueForEntitlement:@"com.apple.private.SensorKit.prerequisite.readwrite" connection:v5];
+  objc_opt_class();
+  if (objc_opt_isKindOfClass() & 1) != 0 && ([v6 BOOLValue])
+  {
+    defaults = self->_defaults;
+    if (defaults)
+    {
+      sub_100029538(defaults, 0, enabledCopy);
+    }
+
+    sub_10001D9A8(RDNotifier, @"com.apple.SensorKit.prerequisitesUpdated");
+    followUpController = self->_followUpController;
+    *v11 = @"com.apple.SensorKit.followup.enableSensorKit";
+    [(SRFollowUpPosting *)followUpController clearPendingFollowUpItemsWithUniqueIdentifiers:[NSArray completion:"arrayWithObjects:count:" arrayWithObjects:v11 count:1], &stru_100061830];
+    Weak = objc_loadWeak(&self->_delegate);
+    if (objc_opt_respondsToSelector())
+    {
+      [Weak authorizationBroadcaster:self didSetDataCollectionEnabled:enabledCopy];
+    }
+
+    sub_10003C280(&self->super.isa);
+  }
+
+  else
+  {
+    v10 = qword_100071B38;
+    if (os_log_type_enabled(qword_100071B38, OS_LOG_TYPE_ERROR))
+    {
+      *v11 = 138543362;
+      *&v11[4] = v5;
+      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Attempting to set prerequisite values without the proper entitlement, %{public}@", v11, 0xCu);
     }
 
     [(NSXPCConnection *)v5 invalidate];

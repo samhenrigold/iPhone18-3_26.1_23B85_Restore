@@ -14,14 +14,13 @@
 {
   v3 = sub_1B70557C0();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00]();
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v4 + 16))(v7, self + OBJC_IVAR___AAIdentityAvatar_identifier, v3);
-  v8 = sub_1B70557A0();
-  (*(v4 + 8))(v7, v3);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v4 + 16))(v6, self + OBJC_IVAR___AAIdentityAvatar_identifier, v3);
+  v7 = sub_1B70557A0();
+  (*(v4 + 8))(v6, v3);
 
-  return v8;
+  return v7;
 }
 
 - (NSData)imageData
@@ -55,9 +54,9 @@
 - (AAIdentityAvatar)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v4 = sub_1B700EA4C();
+  v5 = sub_1B700EA4C(coderCopy, v4);
 
-  return v4;
+  return v5;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -69,44 +68,39 @@
 
 - (NSValue)cropRectValue
 {
-  v3 = (self + OBJC_IVAR___AAIdentityAvatar_cropRect);
   if (*(self + OBJC_IVAR___AAIdentityAvatar_cropRect + 32))
   {
-    v4 = 0;
+    v3 = 0;
   }
 
   else
   {
-    v6 = v3[2];
-    v7 = v3[3];
-    v8 = *v3;
-    v9 = v3[1];
-    v4 = sub_1B70558D0();
+    v3 = sub_1B70558D0();
   }
 
-  return v4;
+  return v3;
 }
 
 - (AAIdentityAvatar)initWithIdentifier:(id)identifier imageData:(id)data cropRect:(id)rect
 {
-  v7 = *(*(sub_1B70557C0() - 8) + 64);
+  sub_1B70557C0();
   MEMORY[0x1EEE9AC00]();
-  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1B70557B0();
   rectCopy = rect;
   if (data)
   {
     dataCopy = data;
     data = sub_1B7055790();
-    v13 = v12;
+    v12 = v11;
   }
 
   else
   {
-    v13 = 0xF000000000000000;
+    v12 = 0xF000000000000000;
   }
 
-  return Identity.Avatar.init(identifier:imageData:cropRect:)(v9, data, v13, rect);
+  return Identity.Avatar.init(identifier:imageData:cropRect:)(v8, data, v12, rect);
 }
 
 @end

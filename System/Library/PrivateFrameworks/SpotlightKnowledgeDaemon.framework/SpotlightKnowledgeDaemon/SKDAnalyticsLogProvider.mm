@@ -38,11 +38,4 @@
   }
 }
 
-uint64_t __42__SKDAnalyticsLogProvider_sendLog_domain___block_invoke(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
-  return AnalyticsSendEvent();
-}
-
 @end

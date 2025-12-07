@@ -17,7 +17,7 @@
 
 - (void)_stripParenthesesFromBackgroundVocalWord:(id)word backgroundVocalText:(id)text
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   wordCopy = word;
   textCopy = text;
   if (([wordCopy isBackgroundVocal] & 1) == 0)
@@ -57,9 +57,9 @@
       [firstObject setLyricsText:v20];
     }
 
-    v54 = firstObject;
-    v55 = v9;
-    v56 = textCopy;
+    v53 = firstObject;
+    v54 = v9;
+    v55 = textCopy;
     subwords2 = [wordCopy subwords];
     lastObject = [subwords2 lastObject];
 
@@ -75,37 +75,37 @@
       [lastObject setLyricsText:v28];
     }
 
-    v53 = lastObject;
+    v52 = lastObject;
     v29 = MEMORY[0x1E695DF70];
     subwords3 = [wordCopy subwords];
-    v58 = [v29 arrayWithCapacity:{objc_msgSend(subwords3, "count")}];
+    v57 = [v29 arrayWithCapacity:{objc_msgSend(subwords3, "count")}];
 
     lyricsText7 = [wordCopy lyricsText];
     string3 = [lyricsText7 string];
 
-    v62 = 0u;
-    v63 = 0u;
-    v60 = 0u;
     v61 = 0u;
-    v57 = wordCopy;
+    v62 = 0u;
+    v59 = 0u;
+    v60 = 0u;
+    v56 = wordCopy;
     obj = [wordCopy subwords];
-    v33 = [obj countByEnumeratingWithState:&v60 objects:v68 count:16];
+    v33 = [obj countByEnumeratingWithState:&v59 objects:v67 count:16];
     if (v33)
     {
       v34 = v33;
       v35 = 0;
       v36 = 0;
-      v37 = *v61;
+      v37 = *v60;
       do
       {
         for (i = 0; i != v34; ++i)
         {
-          if (*v61 != v37)
+          if (*v60 != v37)
           {
             objc_enumerationMutation(obj);
           }
 
-          v39 = *(*(&v60 + 1) + 8 * i);
+          v39 = *(*(&v59 + 1) + 8 * i);
           lyricsText8 = [v39 lyricsText];
           v41 = [lyricsText8 length];
 
@@ -126,9 +126,9 @@
                 lyricsText10 = [v39 lyricsText];
                 string5 = [lyricsText10 string];
                 *buf = 138412546;
-                v65 = string5;
-                v66 = 2112;
-                v67 = string3;
+                v64 = string5;
+                v65 = 2112;
+                v66 = string3;
                 _os_log_impl(&dword_1AC81F000, v47, OS_LOG_TYPE_ERROR, "Did not find word %@ within background vocal %@", buf, 0x16u);
               }
 
@@ -138,8 +138,8 @@
             else
             {
               [v39 setCharacterRange:{v45, v35}];
-              [v39 setWordIndex:{objc_msgSend(v58, "count")}];
-              [v58 addObject:v39];
+              [v39 setWordIndex:{objc_msgSend(v57, "count")}];
+              [v57 addObject:v39];
               if (v45 + v35 >= [string3 length])
               {
                 goto LABEL_23;
@@ -150,7 +150,7 @@
           }
         }
 
-        v34 = [obj countByEnumeratingWithState:&v60 objects:v68 count:16];
+        v34 = [obj countByEnumeratingWithState:&v59 objects:v67 count:16];
       }
 
       while (v34);
@@ -158,20 +158,18 @@
 
 LABEL_23:
 
-    v50 = [v58 copy];
-    wordCopy = v57;
-    [v57 setSubwords:v50];
+    v50 = [v57 copy];
+    wordCopy = v56;
+    [v56 setSubwords:v50];
 
-    v9 = v55;
-    textCopy = v56;
+    v9 = v54;
+    textCopy = v55;
   }
-
-  v51 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_updateWords:(id)words withWord:(id)word parentText:(id)text
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   wordsCopy = words;
   wordCopy = word;
   textCopy = text;
@@ -182,8 +180,8 @@ LABEL_23:
 
   else
   {
-    v17[0] = wordCopy;
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+    v16[0] = wordCopy;
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
   }
 
   v11 = v10;
@@ -198,14 +196,13 @@ LABEL_23:
   v14 = [mutableText length];
 
   [wordCopy setCharacterRange:{objc_msgSend(textCopy, "length") - v14, v14}];
-  v15 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 - (id)_translatedLyrics:(id)lyrics forLanguage:(id)language
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   lyricsCopy = lyrics;
   languageCopy = language;
   translations = [(MSVLyricsTTMLParser *)self translations];
@@ -214,26 +211,26 @@ LABEL_23:
   {
     if ([languageCopy hasPrefix:@"zh-Hant"])
     {
-      v48 = 0u;
-      v49 = 0u;
-      v46 = 0u;
       v47 = 0u;
+      v48 = 0u;
+      v45 = 0u;
+      v46 = 0u;
       translations2 = [(MSVLyricsTTMLParser *)self translations];
-      v10 = [translations2 countByEnumeratingWithState:&v46 objects:v52 count:16];
+      v10 = [translations2 countByEnumeratingWithState:&v45 objects:v51 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v47;
+        v12 = *v46;
 LABEL_5:
         v13 = 0;
         while (1)
         {
-          if (*v47 != v12)
+          if (*v46 != v12)
           {
             objc_enumerationMutation(translations2);
           }
 
-          v14 = *(*(&v46 + 1) + 8 * v13);
+          v14 = *(*(&v45 + 1) + 8 * v13);
           if (![v14 type])
           {
             language = [v14 language];
@@ -247,7 +244,7 @@ LABEL_5:
 
           if (v11 == ++v13)
           {
-            v11 = [translations2 countByEnumeratingWithState:&v46 objects:v52 count:16];
+            v11 = [translations2 countByEnumeratingWithState:&v45 objects:v51 count:16];
             if (v11)
             {
               goto LABEL_5;
@@ -268,26 +265,26 @@ LABEL_38:
         goto LABEL_39;
       }
 
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
       v43 = 0u;
+      v44 = 0u;
+      v41 = 0u;
+      v42 = 0u;
       translations2 = [(MSVLyricsTTMLParser *)self translations];
-      v17 = [translations2 countByEnumeratingWithState:&v42 objects:v51 count:16];
+      v17 = [translations2 countByEnumeratingWithState:&v41 objects:v50 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v43;
+        v19 = *v42;
 LABEL_16:
         v20 = 0;
         while (1)
         {
-          if (*v43 != v19)
+          if (*v42 != v19)
           {
             objc_enumerationMutation(translations2);
           }
 
-          v14 = *(*(&v42 + 1) + 8 * v20);
+          v14 = *(*(&v41 + 1) + 8 * v20);
           if (![v14 type])
           {
             language2 = [v14 language];
@@ -301,7 +298,7 @@ LABEL_16:
 
           if (v18 == ++v20)
           {
-            v18 = [translations2 countByEnumeratingWithState:&v42 objects:v51 count:16];
+            v18 = [translations2 countByEnumeratingWithState:&v41 objects:v50 count:16];
             if (v18)
             {
               goto LABEL_16;
@@ -318,27 +315,27 @@ LABEL_24:
         if (translations2)
         {
           translations = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(lyricsCopy, "count")}];
+          v37 = 0u;
           v38 = 0u;
           v39 = 0u;
           v40 = 0u;
-          v41 = 0u;
-          v37 = lyricsCopy;
+          v36 = lyricsCopy;
           v24 = lyricsCopy;
-          v25 = [v24 countByEnumeratingWithState:&v38 objects:v50 count:16];
+          v25 = [v24 countByEnumeratingWithState:&v37 objects:v49 count:16];
           if (v25)
           {
             v26 = v25;
-            v27 = *v39;
+            v27 = *v38;
             do
             {
               for (i = 0; i != v26; ++i)
               {
-                if (*v39 != v27)
+                if (*v38 != v27)
                 {
                   objc_enumerationMutation(v24);
                 }
 
-                v29 = *(*(&v38 + 1) + 8 * i);
+                v29 = *(*(&v37 + 1) + 8 * i);
                 translationKey = [v29 translationKey];
 
                 if (translationKey && ([v29 translationKey], v31 = objc_claimAutoreleasedReturnValue(), objc_msgSend(translations2, "objectForKeyedSubscript:", v31), v32 = objc_claimAutoreleasedReturnValue(), v31, v32))
@@ -362,13 +359,13 @@ LABEL_24:
                 }
               }
 
-              v26 = [v24 countByEnumeratingWithState:&v38 objects:v50 count:16];
+              v26 = [v24 countByEnumeratingWithState:&v37 objects:v49 count:16];
             }
 
             while (v26);
           }
 
-          lyricsCopy = v37;
+          lyricsCopy = v36;
           goto LABEL_37;
         }
 
@@ -383,35 +380,33 @@ LABEL_37:
 
 LABEL_39:
 
-  v35 = *MEMORY[0x1E69E9840];
-
   return translations;
 }
 
 - (id)_parentTextElement
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   elementStack = [(MSVLyricsTTMLParser *)self elementStack];
   reverseObjectEnumerator = [elementStack reverseObjectEnumerator];
 
-  v4 = [reverseObjectEnumerator countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [reverseObjectEnumerator countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
-    v5 = *v11;
+    v5 = *v10;
     while (2)
     {
       for (i = 0; i != v4; i = i + 1)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(reverseObjectEnumerator);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * i);
+        v7 = *(*(&v9 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -420,7 +415,7 @@ LABEL_39:
         }
       }
 
-      v4 = [reverseObjectEnumerator countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [reverseObjectEnumerator countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v4)
       {
         continue;
@@ -432,25 +427,22 @@ LABEL_39:
 
 LABEL_11:
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (void)parser:(id)parser parseErrorOccurred:(id)occurred
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   occurredCopy = occurred;
   v6 = os_log_create("com.apple.amp.MediaServices", "LyricsTTMLParser");
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138412290;
-    v9 = occurredCopy;
-    _os_log_impl(&dword_1AC81F000, v6, OS_LOG_TYPE_ERROR, "Parse error: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = occurredCopy;
+    _os_log_impl(&dword_1AC81F000, v6, OS_LOG_TYPE_ERROR, "Parse error: %@", &v7, 0xCu);
   }
 
   [(MSVLyricsTTMLParser *)self setParserError:occurredCopy];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)parser:(id)parser foundCharacters:(id)characters
@@ -501,7 +493,7 @@ LABEL_7:
 
 - (void)parser:(id)parser didEndElement:(id)element namespaceURI:(id)i qualifiedName:(id)name
 {
-  v116 = *MEMORY[0x1E69E9840];
+  v115 = *MEMORY[0x1E69E9840];
   parserCopy = parser;
   elementCopy = element;
   elementStack = [(MSVLyricsTTMLParser *)self elementStack];
@@ -598,9 +590,9 @@ LABEL_7:
       }
 
       elementName2 = [lastObject2 elementName];
-      v49 = [elementName2 msvl_isElementType:@"agent"];
+      v48 = [elementName2 msvl_isElementType:@"agent"];
 
-      if (!v49)
+      if (!v48)
       {
         elementName4 = _MSVLogCategoryLyricsTTMLParser();
         if (!os_log_type_enabled(elementName4, OS_LOG_TYPE_DEFAULT))
@@ -635,26 +627,26 @@ LABEL_22:
     }
 
     _parentTextElement = [(MSVLyricsTTMLParser *)self _parentTextElement];
-    v111 = _parentTextElement;
+    v110 = _parentTextElement;
     if ([v14 type])
     {
       if ([v14 type] == 1 || objc_msgSend(v14, "type") == 3 || objc_msgSend(v14, "type") == 4)
       {
-        v39 = v14;
+        v38 = v14;
         lyricLines3 = [(MSVLyricsTTMLParser *)self lyricLines];
-        [v39 setLineIndex:{objc_msgSend(lyricLines3, "count")}];
+        [v38 setLineIndex:{objc_msgSend(lyricLines3, "count")}];
 
-        [v39 setOriginalLineIndex:{objc_msgSend(v39, "lineIndex")}];
+        [v38 setOriginalLineIndex:{objc_msgSend(v38, "lineIndex")}];
         lyricLines4 = [(MSVLyricsTTMLParser *)self lyricLines];
         lastObject4 = [lyricLines4 lastObject];
 
         if (lastObject4)
         {
-          [lastObject4 setNextLine:v39];
+          [lastObject4 setNextLine:v38];
         }
 
-        v109 = lastObject4;
-        if ([v39 type] == 3)
+        v108 = lastObject4;
+        if ([v38 type] == 3)
         {
           elementName3 = [lastObject2 elementName];
           if ([elementName3 msvl_isElementType:@"translation"])
@@ -664,7 +656,7 @@ LABEL_22:
 
             if (isKindOfClass)
             {
-              v45 = lastObject2;
+              v44 = lastObject2;
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
@@ -672,8 +664,8 @@ LABEL_22:
                 [currentHandler2 handleFailureInMethod:a2 object:self file:@"MSVLyricsTTMLParser.m" lineNumber:483 description:{@"At end of <text> element, an MSVLyricsTranslationText object should be top of stack"}];
               }
 
-              v106 = lastObject;
-              lyricsLineKey = [v106 lyricsLineKey];
+              v105 = lastObject;
+              lyricsLineKey = [v105 lyricsLineKey];
               if (!lyricsLineKey)
               {
                 log = _MSVLogCategoryLyricsTTMLParser();
@@ -681,11 +673,11 @@ LABEL_22:
                 {
                   *buf = 134218242;
                   lineNumber = [parserCopy lineNumber];
-                  v114 = 2112;
-                  v115 = v106;
-                  v47 = "Invalid translation text element at line %ld: %@";
+                  v113 = 2112;
+                  v114 = v105;
+                  v46 = "Invalid translation text element at line %ld: %@";
 LABEL_72:
-                  _os_log_impl(&dword_1AC81F000, log, OS_LOG_TYPE_DEFAULT, v47, buf, 0x16u);
+                  _os_log_impl(&dword_1AC81F000, log, OS_LOG_TYPE_DEFAULT, v46, buf, 0x16u);
                   goto LABEL_73;
                 }
 
@@ -699,17 +691,17 @@ LABEL_72:
           }
         }
 
-        else if ([v39 type] == 4)
+        else if ([v38 type] == 4)
         {
           elementName3 = [lastObject2 elementName];
           if ([elementName3 msvl_isElementType:@"transliteration"])
           {
             objc_opt_class();
-            v56 = objc_opt_isKindOfClass();
+            v55 = objc_opt_isKindOfClass();
 
-            if (v56)
+            if (v55)
             {
-              v45 = lastObject2;
+              v44 = lastObject2;
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
@@ -717,8 +709,8 @@ LABEL_72:
                 [currentHandler3 handleFailureInMethod:a2 object:self file:@"MSVLyricsTTMLParser.m" lineNumber:497 description:{@"At end of <text> element, an MSVLyricsTransliterationText object should be top of stack"}];
               }
 
-              v106 = lastObject;
-              lyricsLineKey = [v106 lyricsLineKey];
+              v105 = lastObject;
+              lyricsLineKey = [v105 lyricsLineKey];
               if (!lyricsLineKey)
               {
                 log = _MSVLogCategoryLyricsTTMLParser();
@@ -726,9 +718,9 @@ LABEL_72:
                 {
                   *buf = 134218242;
                   lineNumber = [parserCopy lineNumber];
-                  v114 = 2112;
-                  v115 = v106;
-                  v47 = "Invalid transliteration text element at line %ld: %@";
+                  v113 = 2112;
+                  v114 = v105;
+                  v46 = "Invalid transliteration text element at line %ld: %@";
                   goto LABEL_72;
                 }
 
@@ -738,45 +730,45 @@ LABEL_73:
               }
 
 LABEL_51:
-              [v45 linesMap];
-              v57 = log = v45;
-              [v57 setObject:v39 forKeyedSubscript:lyricsLineKey];
+              [v44 linesMap];
+              v56 = log = v44;
+              [v56 setObject:v38 forKeyedSubscript:lyricsLineKey];
 
-              v45 = log;
+              v44 = log;
 LABEL_74:
             }
 
 LABEL_75:
-            backgroundVocals = [v39 backgroundVocals];
+            backgroundVocals = [v38 backgroundVocals];
 
             if (backgroundVocals)
             {
-              mutableText3 = [v39 mutableText];
-              v77 = [mutableText3 mutableCopy];
+              mutableText3 = [v38 mutableText];
+              v76 = [mutableText3 mutableCopy];
 
-              backgroundVocals2 = [v39 backgroundVocals];
+              backgroundVocals2 = [v38 backgroundVocals];
               characterRange = [backgroundVocals2 characterRange];
-              [v77 deleteCharactersInRange:{characterRange, v80}];
+              [v76 deleteCharactersInRange:{characterRange, v79}];
 
-              v108 = v77;
-              [v77 replaceOccurrencesOfString:@"()" withString:&stru_1F214F018 options:0 range:{0, objc_msgSend(v77, "length")}];
+              v107 = v76;
+              [v76 replaceOccurrencesOfString:@"()" withString:&stru_1F214F018 options:0 range:{0, objc_msgSend(v76, "length")}];
               whitespaceCharacterSet = [MEMORY[0x1E696AB08] whitespaceCharacterSet];
-              [v77 stringByTrimmingCharactersInSet:whitespaceCharacterSet];
-              v83 = v82 = v39;
+              [v76 stringByTrimmingCharactersInSet:whitespaceCharacterSet];
+              v82 = v81 = v38;
 
-              v84 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v83];
-              [v82 setPrimaryVocalText:v84];
+              v83 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v82];
+              [v81 setPrimaryVocalText:v83];
 
-              v39 = v82;
+              v38 = v81;
             }
 
             objc_opt_class();
-            _parentTextElement = v111;
+            _parentTextElement = v110;
             if (objc_opt_isKindOfClass())
             {
-              v85 = v39;
-              v86 = lastObject2;
-              lines = [v86 lines];
+              v84 = v38;
+              v85 = lastObject2;
+              lines = [v85 lines];
 
               if (!lines)
               {
@@ -784,14 +776,14 @@ LABEL_75:
                 [currentHandler4 handleFailureInMethod:a2 object:self file:@"MSVLyricsTTMLParser.m" lineNumber:526 description:@"-[MSVLyricsSection lines] should never be nil"];
               }
 
-              lines2 = [v86 lines];
-              v89 = [lines2 arrayByAddingObject:v85];
-              [v86 setLines:v89];
+              lines2 = [v85 lines];
+              v88 = [lines2 arrayByAddingObject:v84];
+              [v85 setLines:v88];
 
-              v39 = v85;
-              [v85 setParentSection:v86];
+              v38 = v84;
+              [v84 setParentSection:v85];
 
-              _parentTextElement = v111;
+              _parentTextElement = v110;
             }
 
             goto LABEL_82;
@@ -801,7 +793,7 @@ LABEL_75:
         else
         {
           elementName3 = [(MSVLyricsTTMLParser *)self lyricLines];
-          [elementName3 addObject:v39];
+          [elementName3 addObject:v38];
         }
 
         goto LABEL_75;
@@ -809,69 +801,69 @@ LABEL_75:
 
       if ([v14 type] == 2)
       {
-        v58 = v14;
-        parentLine = [v58 parentLine];
-        v60 = parentLine;
-        v110 = parentLine;
+        v57 = v14;
+        parentLine = [v57 parentLine];
+        v59 = parentLine;
+        v109 = parentLine;
         if (parentLine == _parentTextElement)
         {
           words = [parentLine words];
-          mutableText4 = [v110 mutableText];
-          v63 = [(MSVLyricsTTMLParser *)self _updateWords:words withWord:v58 parentText:mutableText4];
-          [v110 setWords:v63];
+          mutableText4 = [v109 mutableText];
+          v62 = [(MSVLyricsTTMLParser *)self _updateWords:words withWord:v57 parentText:mutableText4];
+          [v109 setWords:v62];
 
-          v60 = v110;
+          v59 = v109;
         }
 
-        parentWord = [v58 parentWord];
+        parentWord = [v57 parentWord];
         if (parentWord)
         {
           subwords = [parentWord subwords];
           mutableText5 = [parentWord mutableText];
-          v66 = [(MSVLyricsTTMLParser *)self _updateWords:subwords withWord:v58 parentText:mutableText5];
-          [parentWord setSubwords:v66];
+          v65 = [(MSVLyricsTTMLParser *)self _updateWords:subwords withWord:v57 parentText:mutableText5];
+          [parentWord setSubwords:v65];
 
-          v60 = v110;
+          v59 = v109;
           if ([parentWord isBackgroundVocal])
           {
-            [v58 setIsBackgroundVocal:1];
+            [v57 setIsBackgroundVocal:1];
           }
         }
 
-        if ([v60 type] == 3)
+        if ([v59 type] == 3)
         {
           translations = [(MSVLyricsTTMLParser *)self translations];
           lastObject5 = [translations lastObject];
-          v69 = [lastObject5 type] == 1;
+          v68 = [lastObject5 type] == 1;
 
-          v60 = v110;
+          v59 = v109;
         }
 
         else
         {
-          v69 = 0;
+          v68 = 0;
         }
 
-        if (![v58 isBackgroundVocal])
+        if (![v57 isBackgroundVocal])
         {
           goto LABEL_91;
         }
 
-        subwords2 = [v58 subwords];
-        v71 = [subwords2 count] != 0 || v69;
+        subwords2 = [v57 subwords];
+        v70 = [subwords2 count] != 0 || v68;
 
-        v60 = v110;
-        if (!v71)
+        v59 = v109;
+        if (!v70)
         {
           goto LABEL_91;
         }
 
-        if ([v110 hasBackgroundVocal])
+        if ([v109 hasBackgroundVocal])
         {
           mutableText7 = _MSVLogCategoryLyricsTTMLParser();
           if (os_log_type_enabled(mutableText7, OS_LOG_TYPE_DEFAULT))
           {
-            lyricsText = [v110 lyricsText];
+            lyricsText = [v109 lyricsText];
             string = [lyricsText string];
             *buf = 138412290;
             lineNumber = string;
@@ -881,30 +873,30 @@ LABEL_75:
 
         else
         {
-          [v110 setHasBackgroundVocal:1];
-          [v110 setBackgroundVocals:v58];
-          if ([v58 keepParentheses])
+          [v109 setHasBackgroundVocal:1];
+          [v109 setBackgroundVocals:v57];
+          if ([v57 keepParentheses])
           {
             goto LABEL_91;
           }
 
-          mutableText6 = [v58 mutableText];
-          v100 = objc_msgSend(mutableText6, "hasPrefix:", @"(");
+          mutableText6 = [v57 mutableText];
+          v99 = objc_msgSend(mutableText6, "hasPrefix:", @"(");
 
-          v60 = v110;
-          if (!v100)
+          v59 = v109;
+          if (!v99)
           {
             goto LABEL_91;
           }
 
-          mutableText7 = [v58 mutableText];
-          [(MSVLyricsTTMLParser *)self _stripParenthesesFromBackgroundVocalWord:v58 backgroundVocalText:mutableText7];
+          mutableText7 = [v57 mutableText];
+          [(MSVLyricsTTMLParser *)self _stripParenthesesFromBackgroundVocalWord:v57 backgroundVocalText:mutableText7];
         }
 
-        v60 = v110;
+        v59 = v109;
 LABEL_91:
 
-        _parentTextElement = v111;
+        _parentTextElement = v110;
       }
     }
 
@@ -912,11 +904,11 @@ LABEL_91:
     {
       lyricsInfo3 = [(MSVLyricsTTMLParser *)self lyricsInfo];
       lyricsSections = [lyricsInfo3 lyricsSections];
-      v54 = [lyricsSections arrayByAddingObject:v14];
+      v53 = [lyricsSections arrayByAddingObject:v14];
       lyricsInfo4 = [(MSVLyricsTTMLParser *)self lyricsInfo];
-      [lyricsInfo4 setLyricsSections:v54];
+      [lyricsInfo4 setLyricsSections:v53];
 
-      _parentTextElement = v111;
+      _parentTextElement = v110;
     }
 
 LABEL_82:
@@ -929,14 +921,14 @@ LABEL_82:
 
       if (!lyricsText2)
       {
-        v93 = objc_alloc(MEMORY[0x1E696AAB0]);
+        v92 = objc_alloc(MEMORY[0x1E696AAB0]);
         currentTextElement3 = [(MSVLyricsTTMLParser *)self currentTextElement];
         mutableText8 = [currentTextElement3 mutableText];
-        v96 = [v93 initWithString:mutableText8];
+        v95 = [v92 initWithString:mutableText8];
         currentTextElement4 = [(MSVLyricsTTMLParser *)self currentTextElement];
-        [currentTextElement4 setLyricsText:v96];
+        [currentTextElement4 setLyricsText:v95];
 
-        _parentTextElement = v111;
+        _parentTextElement = v110;
       }
 
       currentTextElement5 = [(MSVLyricsTTMLParser *)self currentTextElement];
@@ -954,8 +946,8 @@ LABEL_82:
     elementName4 = [lastObject elementName];
     *buf = 138412546;
     lineNumber = elementName4;
-    v114 = 2112;
-    v115 = elementCopy;
+    v113 = 2112;
+    v114 = elementCopy;
     v19 = "Mismatched element names! start:%@, end:%@";
     v20 = lastObject2;
     v21 = OS_LOG_TYPE_ERROR;
@@ -966,13 +958,11 @@ LABEL_8:
   }
 
 LABEL_23:
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 - (void)parser:(id)parser didStartElement:(id)element namespaceURI:(id)i qualifiedName:(id)name attributes:(id)attributes
 {
-  v139 = *MEMORY[0x1E69E9840];
+  v138 = *MEMORY[0x1E69E9840];
   elementCopy = element;
   attributesCopy = attributes;
   elementStack = [(MSVLyricsTTMLParser *)self elementStack];
@@ -1219,20 +1209,20 @@ LABEL_49:
   if ([elementCopy msvl_isElementType:@"translations"])
   {
     elementName4 = [lastObject elementName];
-    v85 = [elementName4 msvl_isElementType:@"iTunesMetadata"];
+    v84 = [elementName4 msvl_isElementType:@"iTunesMetadata"];
 
-    if ((v85 & 1) == 0)
+    if ((v84 & 1) == 0)
     {
-      v86 = _MSVLogCategoryLyricsTTMLParser();
-      if (os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
+      v85 = _MSVLogCategoryLyricsTTMLParser();
+      if (os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1AC81F000, v86, OS_LOG_TYPE_DEFAULT, "Warning: <translations> element should be inside <iTunesMetadata>", buf, 2u);
+        _os_log_impl(&dword_1AC81F000, v85, OS_LOG_TYPE_DEFAULT, "Warning: <translations> element should be inside <iTunesMetadata>", buf, 2u);
       }
     }
 
-    v87 = objc_opt_new();
-    [(MSVLyricsTTMLParser *)self setTranslations:v87];
+    v86 = objc_opt_new();
+    [(MSVLyricsTTMLParser *)self setTranslations:v86];
 LABEL_98:
 
     goto LABEL_54;
@@ -1241,29 +1231,29 @@ LABEL_98:
   if ([elementCopy msvl_isElementType:@"transliterations"])
   {
     elementName5 = [lastObject elementName];
-    v89 = [elementName5 msvl_isElementType:@"iTunesMetadata"];
+    v88 = [elementName5 msvl_isElementType:@"iTunesMetadata"];
 
-    if ((v89 & 1) == 0)
+    if ((v88 & 1) == 0)
     {
-      v90 = _MSVLogCategoryLyricsTTMLParser();
-      if (os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT))
+      v89 = _MSVLogCategoryLyricsTTMLParser();
+      if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1AC81F000, v90, OS_LOG_TYPE_DEFAULT, "Warning: <transliterations> element should be inside <iTunesMetadata>", buf, 2u);
+        _os_log_impl(&dword_1AC81F000, v89, OS_LOG_TYPE_DEFAULT, "Warning: <transliterations> element should be inside <iTunesMetadata>", buf, 2u);
       }
     }
 
-    v87 = objc_opt_new();
-    [(MSVLyricsTTMLParser *)self setTransliterations:v87];
+    v86 = objc_opt_new();
+    [(MSVLyricsTTMLParser *)self setTransliterations:v86];
     goto LABEL_98;
   }
 
   if ([elementCopy msvl_isElementType:@"translation"])
   {
     elementName6 = [lastObject elementName];
-    v92 = [elementName6 msvl_isElementType:@"translations"];
+    v91 = [elementName6 msvl_isElementType:@"translations"];
 
-    if (!v92)
+    if (!v91)
     {
       v37 = _MSVLogCategoryLyricsTTMLParser();
       if (!os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
@@ -1284,37 +1274,37 @@ LABEL_98:
       [currentHandler3 handleFailureInMethod:a2 object:self file:@"MSVLyricsTTMLParser.m" lineNumber:280 description:@"<translation> end element expects translations to be set by start of <translations> element"];
     }
 
-    v94 = [attributesCopy objectForKeyedSubscript:@"xml:lang"];
-    if (v94)
+    v93 = [attributesCopy objectForKeyedSubscript:@"xml:lang"];
+    if (v93)
     {
-      v95 = objc_opt_new();
-      [v95 setLanguage:v94];
-      v96 = [attributesCopy objectForKeyedSubscript:@"automaticallyCreated"];
-      [v95 setAutomaticallyCreated:{objc_msgSend(v96, "isEqualToString:", @"true"}];
+      v94 = objc_opt_new();
+      [v94 setLanguage:v93];
+      v95 = [attributesCopy objectForKeyedSubscript:@"automaticallyCreated"];
+      [v94 setAutomaticallyCreated:{objc_msgSend(v95, "isEqualToString:", @"true"}];
 
-      v97 = [attributesCopy objectForKeyedSubscript:@"type"];
-      [v95 setTypeText:v97];
+      v96 = [attributesCopy objectForKeyedSubscript:@"type"];
+      [v94 setTypeText:v96];
 
-      v98 = objc_opt_new();
-      [v95 setLinesMap:v98];
+      v97 = objc_opt_new();
+      [v94 setLinesMap:v97];
 
-      v50 = v95;
+      v50 = v94;
       translations2 = [(MSVLyricsTTMLParser *)self translations];
 LABEL_111:
-      v106 = translations2;
+      v105 = translations2;
       [translations2 addObject:v50];
 
 LABEL_137:
       goto LABEL_49;
     }
 
-    v113 = _MSVLogCategoryLyricsTTMLParser();
-    if (os_log_type_enabled(v113, OS_LOG_TYPE_DEFAULT))
+    v112 = _MSVLogCategoryLyricsTTMLParser();
+    if (os_log_type_enabled(v112, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v114 = "<translation> element must specify a language with <xml:lang> attribute";
+      v113 = "<translation> element must specify a language with <xml:lang> attribute";
 LABEL_135:
-      _os_log_impl(&dword_1AC81F000, v113, OS_LOG_TYPE_DEFAULT, v114, buf, 2u);
+      _os_log_impl(&dword_1AC81F000, v112, OS_LOG_TYPE_DEFAULT, v113, buf, 2u);
       goto LABEL_136;
     }
 
@@ -1324,9 +1314,9 @@ LABEL_135:
   if ([elementCopy msvl_isElementType:@"transliteration"])
   {
     elementName7 = [lastObject elementName];
-    v101 = [elementName7 msvl_isElementType:@"transliterations"];
+    v100 = [elementName7 msvl_isElementType:@"transliterations"];
 
-    if (!v101)
+    if (!v100)
     {
       v37 = _MSVLogCategoryLyricsTTMLParser();
       if (!os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
@@ -1347,27 +1337,27 @@ LABEL_135:
       [currentHandler4 handleFailureInMethod:a2 object:self file:@"MSVLyricsTTMLParser.m" lineNumber:301 description:@"<transliteration> end element expects transliterations to be set by start of <transliterations> element"];
     }
 
-    v94 = [attributesCopy objectForKeyedSubscript:@"xml:lang"];
-    if (v94)
+    v93 = [attributesCopy objectForKeyedSubscript:@"xml:lang"];
+    if (v93)
     {
-      v103 = objc_opt_new();
-      v104 = [attributesCopy objectForKeyedSubscript:@"automaticallyCreated"];
-      [v103 setAutomaticallyCreated:{objc_msgSend(v104, "isEqualToString:", @"true"}];
+      v102 = objc_opt_new();
+      v103 = [attributesCopy objectForKeyedSubscript:@"automaticallyCreated"];
+      [v102 setAutomaticallyCreated:{objc_msgSend(v103, "isEqualToString:", @"true"}];
 
-      [v103 setLanguage:v94];
-      v105 = objc_opt_new();
-      [v103 setLinesMap:v105];
+      [v102 setLanguage:v93];
+      v104 = objc_opt_new();
+      [v102 setLinesMap:v104];
 
-      v50 = v103;
+      v50 = v102;
       translations2 = [(MSVLyricsTTMLParser *)self transliterations];
       goto LABEL_111;
     }
 
-    v113 = _MSVLogCategoryLyricsTTMLParser();
-    if (os_log_type_enabled(v113, OS_LOG_TYPE_DEFAULT))
+    v112 = _MSVLogCategoryLyricsTTMLParser();
+    if (os_log_type_enabled(v112, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v114 = "<transliteration> element must specify a language with <xml:lang> attribute";
+      v113 = "<transliteration> element must specify a language with <xml:lang> attribute";
       goto LABEL_135;
     }
 
@@ -1380,9 +1370,9 @@ LABEL_136:
   if ([elementCopy msvl_isElementType:@"text"])
   {
     elementName8 = [lastObject elementName];
-    v108 = [elementName8 msvl_isElementType:@"translation"];
+    v107 = [elementName8 msvl_isElementType:@"translation"];
 
-    if (v108 || ([lastObject elementName], v115 = objc_claimAutoreleasedReturnValue(), v116 = objc_msgSend(v115, "msvl_isElementType:", @"transliteration"), v115, v116))
+    if (v107 || ([lastObject elementName], v114 = objc_claimAutoreleasedReturnValue(), v115 = objc_msgSend(v114, "msvl_isElementType:", @"transliteration"), v114, v115))
     {
       v14 = objc_opt_new();
       v16 = [attributesCopy objectForKeyedSubscript:@"for"];
@@ -1395,14 +1385,14 @@ LABEL_136:
 
   if ([elementCopy msvl_isElementType:@"iTunesMetadata"])
   {
-    v109 = [attributesCopy objectForKeyedSubscript:@"leadingSilence"];
-    v37 = v109;
-    if (v109)
+    v108 = [attributesCopy objectForKeyedSubscript:@"leadingSilence"];
+    v37 = v108;
+    if (v108)
     {
-      [v109 msvl_timeValue];
-      v111 = v110;
+      [v108 msvl_timeValue];
+      v110 = v109;
       lyricsInfo10 = [(MSVLyricsTTMLParser *)self lyricsInfo];
-      [lyricsInfo10 setLeadingSilence:v111];
+      [lyricsInfo10 setLeadingSilence:v110];
     }
 
     goto LABEL_34;
@@ -1411,24 +1401,24 @@ LABEL_136:
   if ([elementCopy msvl_isElementType:@"agent"])
   {
     elementName9 = [lastObject elementName];
-    v118 = [elementName9 msvl_isElementType:@"metadata"];
+    v117 = [elementName9 msvl_isElementType:@"metadata"];
 
-    if ((v118 & 1) == 0)
+    if ((v117 & 1) == 0)
     {
-      v119 = _MSVLogCategoryLyricsTTMLParser();
-      if (os_log_type_enabled(v119, OS_LOG_TYPE_DEFAULT))
+      v118 = _MSVLogCategoryLyricsTTMLParser();
+      if (os_log_type_enabled(v118, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1AC81F000, v119, OS_LOG_TYPE_DEFAULT, "Warning: <ttm:agent> element should be inside <metadata>", buf, 2u);
+        _os_log_impl(&dword_1AC81F000, v118, OS_LOG_TYPE_DEFAULT, "Warning: <ttm:agent> element should be inside <metadata>", buf, 2u);
       }
     }
 
     v50 = objc_opt_new();
-    v120 = [attributesCopy objectForKeyedSubscript:@"type"];
-    [v50 setType:v120];
+    v119 = [attributesCopy objectForKeyedSubscript:@"type"];
+    [v50 setType:v119];
 
-    v121 = [attributesCopy objectForKeyedSubscript:@"itunes:artistId"];
-    [v50 setArtistID:v121];
+    v120 = [attributesCopy objectForKeyedSubscript:@"itunes:artistId"];
+    [v50 setArtistID:v120];
 
     agents = [(MSVLyricsTTMLParser *)self agents];
     [agents addObject:v50];
@@ -1438,9 +1428,9 @@ LABEL_136:
   if ([elementCopy msvl_isElementType:@"name"])
   {
     elementName10 = [lastObject elementName];
-    v124 = [elementName10 msvl_isElementType:@"agent"];
+    v123 = [elementName10 msvl_isElementType:@"agent"];
 
-    if (v124)
+    if (v123)
     {
       v50 = objc_opt_new();
       agents = [MEMORY[0x1E696AD60] string];
@@ -1451,11 +1441,11 @@ LABEL_132:
       goto LABEL_56;
     }
 
-    v127 = _MSVLogCategoryLyricsTTMLParser();
-    if (os_log_type_enabled(v127, OS_LOG_TYPE_DEFAULT))
+    v126 = _MSVLogCategoryLyricsTTMLParser();
+    if (os_log_type_enabled(v126, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1AC81F000, v127, OS_LOG_TYPE_DEFAULT, "<ttm:name> element should be inside <ttm:agent>", buf, 2u);
+      _os_log_impl(&dword_1AC81F000, v126, OS_LOG_TYPE_DEFAULT, "<ttm:name> element should be inside <ttm:agent>", buf, 2u);
     }
   }
 
@@ -1469,7 +1459,7 @@ LABEL_56:
     if (v14)
     {
 LABEL_58:
-      v131 = lastObject;
+      v130 = lastObject;
       v57 = v14;
 
       v58 = [attributesCopy objectForKeyedSubscript:@"begin"];
@@ -1503,7 +1493,7 @@ LABEL_58:
         [(MSVLyricsTTMLParser *)self setCurrentStartTime:?];
       }
 
-      v132 = elementCopy;
+      v131 = elementCopy;
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -1513,15 +1503,15 @@ LABEL_58:
       v66 = [attributesCopy objectForKeyedSubscript:@"ttm:agent"];
       if (v66)
       {
-        v130 = attributesCopy;
+        v129 = attributesCopy;
         agents2 = [(MSVLyricsTTMLParser *)self agents];
-        v133[0] = MEMORY[0x1E69E9820];
-        v133[1] = 3221225472;
-        v133[2] = __84__MSVLyricsTTMLParser_parser_didStartElement_namespaceURI_qualifiedName_attributes___block_invoke;
-        v133[3] = &unk_1E7981C40;
+        v132[0] = MEMORY[0x1E69E9820];
+        v132[1] = 3221225472;
+        v132[2] = __84__MSVLyricsTTMLParser_parser_didStartElement_namespaceURI_qualifiedName_attributes___block_invoke;
+        v132[3] = &unk_1E7981C40;
         v68 = v66;
-        v134 = v68;
-        v69 = [agents2 indexOfObjectPassingTest:v133];
+        v133 = v68;
+        v69 = [agents2 indexOfObjectPassingTest:v132];
 
         if (v69 == 0x7FFFFFFFFFFFFFFFLL)
         {
@@ -1530,9 +1520,9 @@ LABEL_58:
           if (os_log_type_enabled(agents3, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v136 = v68;
-            v137 = 2112;
-            v138 = v57;
+            v135 = v68;
+            v136 = 2112;
+            v137 = v57;
             _os_log_impl(&dword_1AC81F000, agents3, OS_LOG_TYPE_DEFAULT, "No agent exists for identifier %@ in element: %@", buf, 0x16u);
           }
         }
@@ -1545,7 +1535,7 @@ LABEL_58:
           [v57 setAgent:v73];
         }
 
-        attributesCopy = v130;
+        attributesCopy = v129;
         self = selfCopy2;
       }
 
@@ -1571,8 +1561,8 @@ LABEL_58:
         }
       }
 
-      lastObject = v131;
-      elementCopy = v132;
+      lastObject = v130;
+      elementCopy = v131;
       goto LABEL_83;
     }
   }
@@ -1605,8 +1595,6 @@ LABEL_83:
 
   elementStack2 = [(MSVLyricsTTMLParser *)self elementStack];
   [elementStack2 addObject:v57];
-
-  v83 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __84__MSVLyricsTTMLParser_parser_didStartElement_namespaceURI_qualifiedName_attributes___block_invoke(uint64_t a1, void *a2)

@@ -15,8 +15,17 @@
 - (NSString)ef_publicDescription;
 - (id)flagsAfterChangingFlags:(id)flags flagsWereChanged:(BOOL *)changed;
 - (unint64_t)hash;
+- (void)changesDeletedTo:(BOOL)to;
+- (void)changesDraftTo:(BOOL)to;
 - (void)changesFlagColorTo:(unint64_t)to;
+- (void)changesFlaggedTo:(BOOL)to;
+- (void)changesForwardedTo:(BOOL)to;
+- (void)changesJunkLevelSetByUserTo:(BOOL)to;
 - (void)changesJunkLevelTo:(unint64_t)to;
+- (void)changesReadTo:(BOOL)to;
+- (void)changesRedirectedTo:(BOOL)to;
+- (void)changesRepliedTo:(BOOL)to;
+- (void)changesTouchedByCleanupTo:(BOOL)to;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -412,6 +421,62 @@ void __64__ECMessageFlagChange_flagsAfterChangingFlags_flagsWereChanged___block_
   [v3 setTouchedByCleanup:*(a1 + 56)];
 }
 
+- (void)changesReadTo:(BOOL)to
+{
+  [(ECMessageFlagChange *)self setRead:to];
+
+  [(ECMessageFlagChange *)self setReadChanged:1];
+}
+
+- (void)changesDeletedTo:(BOOL)to
+{
+  [(ECMessageFlagChange *)self setDeleted:to];
+
+  [(ECMessageFlagChange *)self setDeletedChanged:1];
+}
+
+- (void)changesRepliedTo:(BOOL)to
+{
+  [(ECMessageFlagChange *)self setReplied:to];
+
+  [(ECMessageFlagChange *)self setRepliedChanged:1];
+}
+
+- (void)changesFlaggedTo:(BOOL)to
+{
+  [(ECMessageFlagChange *)self setFlagged:to];
+
+  [(ECMessageFlagChange *)self setFlaggedChanged:1];
+}
+
+- (void)changesDraftTo:(BOOL)to
+{
+  [(ECMessageFlagChange *)self setDraft:to];
+
+  [(ECMessageFlagChange *)self setDraftChanged:1];
+}
+
+- (void)changesForwardedTo:(BOOL)to
+{
+  [(ECMessageFlagChange *)self setForwarded:to];
+
+  [(ECMessageFlagChange *)self setForwardedChanged:1];
+}
+
+- (void)changesRedirectedTo:(BOOL)to
+{
+  [(ECMessageFlagChange *)self setRedirected:to];
+
+  [(ECMessageFlagChange *)self setRedirectedChanged:1];
+}
+
+- (void)changesJunkLevelSetByUserTo:(BOOL)to
+{
+  [(ECMessageFlagChange *)self setJunkLevelSetByUser:to];
+
+  [(ECMessageFlagChange *)self setJunkLevelSetByUserChanged:1];
+}
+
 - (void)changesJunkLevelTo:(unint64_t)to
 {
   [(ECMessageFlagChange *)self setJunkLevel:to];
@@ -424,6 +489,13 @@ void __64__ECMessageFlagChange_flagsAfterChangingFlags_flagsWereChanged___block_
   [(ECMessageFlagChange *)self setFlagColor:to];
 
   [(ECMessageFlagChange *)self setFlagColorChanged:1];
+}
+
+- (void)changesTouchedByCleanupTo:(BOOL)to
+{
+  [(ECMessageFlagChange *)self setTouchedByCleanup:to];
+
+  [(ECMessageFlagChange *)self setTouchedByCleanupChanged:1];
 }
 
 - (BOOL)isEqual:(id)equal

@@ -4,7 +4,9 @@
 - (BOOL)invalidateAndKillWithExplanation:(id)explanation code:(unint64_t)code error:(id *)error;
 - (BOOL)isValid;
 - (NSString)description;
+- (_IOUIAngelServiceAssertions)initWithRBSAssertion:(id)assertion forPid:(int)pid;
 - (id)_initWithUnderlyingAssertion:(id)assertion forPid:(int)pid;
+- (void)_callInvalidationHandler:(BOOL)handler;
 - (void)_callWarningHandler;
 - (void)assertion:(id)assertion didInvalidateWithError:(id)error;
 - (void)assertionWillInvalidate:(id)invalidate;
@@ -28,6 +30,19 @@
   }
 
   return v9;
+}
+
+- (_IOUIAngelServiceAssertions)initWithRBSAssertion:(id)assertion forPid:(int)pid
+{
+  v4 = *&pid;
+  assertionCopy = assertion;
+  v7 = [(_IOUIAngelServiceAssertions *)self _initWithUnderlyingAssertion:assertionCopy forPid:v4];
+  if (v7)
+  {
+    [assertionCopy addObserver:v7];
+  }
+
+  return v7;
 }
 
 - (BOOL)acquireWithError:(id *)error
@@ -109,6 +124,48 @@
   isValid = [underlyingAssertion isValid];
 
   return isValid;
+}
+
+- (void)_callInvalidationHandler:(BOOL)handler
+{
+  handlerCopy = handler;
+  os_unfair_lock_lock(&self->_lock);
+  invalidationHandler = [(_IOUIAngelServiceAssertions *)self invalidationHandler];
+
+  if (invalidationHandler)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      underlyingAssertion = [(_IOUIAngelServiceAssertions *)self underlyingAssertion];
+      v7 = underlyingAssertion;
+      v8 = @"NO";
+      if (handlerCopy)
+      {
+        v8 = @"YES";
+      }
+
+      v10 = 138412546;
+      v11 = underlyingAssertion;
+      v12 = 2112;
+      v13 = v8;
+      _os_log_impl(&def_3A0E8, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Calling invalidation handler for assertion %@, server-initiated: %@", &v10, 0x16u);
+    }
+
+    invalidationHandler2 = [(_IOUIAngelServiceAssertions *)self invalidationHandler];
+    [(_IOUIAngelServiceAssertions *)self setInvalidationHandler:0];
+    [(_IOUIAngelServiceAssertions *)self setWarningHandler:0];
+    os_unfair_lock_unlock(&self->_lock);
+    if (invalidationHandler2)
+    {
+      invalidationHandler2[2](invalidationHandler2, handlerCopy);
+    }
+  }
+
+  else
+  {
+
+    os_unfair_lock_unlock(&self->_lock);
+  }
 }
 
 - (void)_callWarningHandler

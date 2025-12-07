@@ -188,7 +188,7 @@ void __133__SKAStatusSubscriptionManager_retainTransientSubscriptionAssertionFor
 
 void __134__SKAStatusSubscriptionManager_releaseTransientSubscriptionAssertionForSubscriptionIdentifier_statusTypeIdentifier_client_completion___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   v3 = [WeakRetained _removeTransientStatusSubscriptionAssertionForClient:*(a1 + 32) subscriptionIdentifier:*(a1 + 40)];
   v4 = +[SKAStatusSubscriptionManager logger];
@@ -199,7 +199,7 @@ void __134__SKAStatusSubscriptionManager_releaseTransientSubscriptionAssertionFo
     {
       v6 = *(a1 + 40);
       *buf = 138412290;
-      v21 = v6;
+      v20 = v6;
       _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Successfully removed transient subscription assertion from in memory model for subscription identifier: %@", buf, 0xCu);
     }
   }
@@ -214,15 +214,13 @@ void __134__SKAStatusSubscriptionManager_releaseTransientSubscriptionAssertionFo
   v15 = [MEMORY[0x277CBEAA8] now];
   [v13 _markCacheSubscriptionDateForChannelIdentifier:v14 changeTime:v15];
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __134__SKAStatusSubscriptionManager_releaseTransientSubscriptionAssertionForSubscriptionIdentifier_statusTypeIdentifier_client_completion___block_invoke_13;
-  v18[3] = &unk_27843F090;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __134__SKAStatusSubscriptionManager_releaseTransientSubscriptionAssertionForSubscriptionIdentifier_statusTypeIdentifier_client_completion___block_invoke_13;
+  v17[3] = &unk_27843F090;
   v16 = *(a1 + 48);
-  v19 = *(a1 + 56);
-  [v16 updateRegisteredSubscriptionsForActiveAssertionsWithCompletion:v18];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *(a1 + 56);
+  [v16 updateRegisteredSubscriptionsForActiveAssertionsWithCompletion:v17];
 }
 
 void __134__SKAStatusSubscriptionManager_releaseTransientSubscriptionAssertionForSubscriptionIdentifier_statusTypeIdentifier_client_completion___block_invoke_13(uint64_t a1, void *a2)
@@ -278,7 +276,7 @@ void __134__SKAStatusSubscriptionManager_releaseTransientSubscriptionAssertionFo
 
 void __105__SKAStatusSubscriptionManager_releaseAllTransientSubscriptionAssertionsAssociatedWithClient_completion___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   os_unfair_lock_lock(WeakRetained + 2);
   v3 = [*(WeakRetained + 2) objectForKey:*(a1 + 32)];
@@ -293,21 +291,21 @@ void __105__SKAStatusSubscriptionManager_releaseAllTransientSubscriptionAssertio
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
-      v11 = [v3 count];
-      v12 = 2112;
-      v13 = v3;
+      v10 = [v3 count];
+      v11 = 2112;
+      v12 = v3;
       _os_log_impl(&dword_220099000, v4, OS_LOG_TYPE_DEFAULT, "Disconnecting client had %ld transient subscription assertion, removing transient assertions and updating registrations for channels: %@", buf, 0x16u);
     }
 
     [*(WeakRetained + 2) removeObjectForKey:*(a1 + 32)];
     os_unfair_lock_unlock(WeakRetained + 2);
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __105__SKAStatusSubscriptionManager_releaseAllTransientSubscriptionAssertionsAssociatedWithClient_completion___block_invoke_15;
-    v8[3] = &unk_27843F090;
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __105__SKAStatusSubscriptionManager_releaseAllTransientSubscriptionAssertionsAssociatedWithClient_completion___block_invoke_15;
+    v7[3] = &unk_27843F090;
     v5 = *(a1 + 40);
-    v9 = *(a1 + 48);
-    [v5 updateRegisteredSubscriptionsForActiveAssertionsWithCompletion:v8];
+    v8 = *(a1 + 48);
+    [v5 updateRegisteredSubscriptionsForActiveAssertionsWithCompletion:v7];
   }
 
   else
@@ -322,8 +320,6 @@ void __105__SKAStatusSubscriptionManager_releaseAllTransientSubscriptionAssertio
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __105__SKAStatusSubscriptionManager_releaseAllTransientSubscriptionAssertionsAssociatedWithClient_completion___block_invoke_15(uint64_t a1, void *a2)
@@ -385,7 +381,7 @@ void __105__SKAStatusSubscriptionManager_releaseAllTransientSubscriptionAssertio
 
 void __149__SKAStatusSubscriptionManager_retainPersistentSubscriptionAssertionForSubscriptionIdentifier_statusTypeIdentifier_applicationIdentifier_completion___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 72));
   v3 = [WeakRetained databaseManager];
   v4 = [v3 newBackgroundContext];
@@ -406,20 +402,18 @@ void __149__SKAStatusSubscriptionManager_retainPersistentSubscriptionAssertionFo
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v6;
+      v12 = v6;
       _os_log_impl(&dword_220099000, v7, OS_LOG_TYPE_DEFAULT, "Created subscription assertion: %@", buf, 0xCu);
     }
   }
 
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __149__SKAStatusSubscriptionManager_retainPersistentSubscriptionAssertionForSubscriptionIdentifier_statusTypeIdentifier_applicationIdentifier_completion___block_invoke_16;
-  v10[3] = &unk_27843F090;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __149__SKAStatusSubscriptionManager_retainPersistentSubscriptionAssertionForSubscriptionIdentifier_statusTypeIdentifier_applicationIdentifier_completion___block_invoke_16;
+  v9[3] = &unk_27843F090;
   v8 = *(a1 + 56);
-  v11 = *(a1 + 64);
-  [v8 updateRegisteredSubscriptionsForActiveAssertionsWithCompletion:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *(a1 + 64);
+  [v8 updateRegisteredSubscriptionsForActiveAssertionsWithCompletion:v9];
 }
 
 void __149__SKAStatusSubscriptionManager_retainPersistentSubscriptionAssertionForSubscriptionIdentifier_statusTypeIdentifier_applicationIdentifier_completion___block_invoke_16(uint64_t a1, void *a2)
@@ -478,7 +472,7 @@ void __149__SKAStatusSubscriptionManager_retainPersistentSubscriptionAssertionFo
 
 void __150__SKAStatusSubscriptionManager_releasePersistentSubscriptionAssertionForSubscriptionIdentifier_statusTypeIdentifier_applicationIdentifier_completion___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   v3 = [WeakRetained databaseManager];
   v4 = [v3 newBackgroundContext];
@@ -491,7 +485,7 @@ void __150__SKAStatusSubscriptionManager_releasePersistentSubscriptionAssertionF
     {
       v8 = *(a1 + 32);
       *buf = 138412290;
-      v20 = v8;
+      v19 = v8;
       _os_log_impl(&dword_220099000, v7, OS_LOG_TYPE_DEFAULT, "Successfully removed persistent subscription assertion from database for subscription identifier: %@", buf, 0xCu);
     }
   }
@@ -501,15 +495,13 @@ void __150__SKAStatusSubscriptionManager_releasePersistentSubscriptionAssertionF
     __150__SKAStatusSubscriptionManager_releasePersistentSubscriptionAssertionForSubscriptionIdentifier_statusTypeIdentifier_applicationIdentifier_completion___block_invoke_cold_1((a1 + 32), v7, v9, v10, v11, v12, v13, v14);
   }
 
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __150__SKAStatusSubscriptionManager_releasePersistentSubscriptionAssertionForSubscriptionIdentifier_statusTypeIdentifier_applicationIdentifier_completion___block_invoke_17;
-  v17[3] = &unk_27843F090;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __150__SKAStatusSubscriptionManager_releasePersistentSubscriptionAssertionForSubscriptionIdentifier_statusTypeIdentifier_applicationIdentifier_completion___block_invoke_17;
+  v16[3] = &unk_27843F090;
   v15 = *(a1 + 48);
-  v18 = *(a1 + 56);
-  [v15 updateRegisteredSubscriptionsForActiveAssertionsWithCompletion:v17];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *(a1 + 56);
+  [v15 updateRegisteredSubscriptionsForActiveAssertionsWithCompletion:v16];
 }
 
 void __150__SKAStatusSubscriptionManager_releasePersistentSubscriptionAssertionForSubscriptionIdentifier_statusTypeIdentifier_applicationIdentifier_completion___block_invoke_17(uint64_t a1, void *a2)
@@ -561,19 +553,18 @@ void __150__SKAStatusSubscriptionManager_releasePersistentSubscriptionAssertionF
 
 void __113__SKAStatusSubscriptionManager_allSubscriptionIdentifiersWithActiveAssertionsForStatusTypeIdentifier_completion___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = [WeakRetained _fetchAllClientActiveSubscriptionAssertions];
   v4 = +[SKAStatusSubscriptionManager logger];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 134217984;
-    v7 = [v3 count];
-    _os_log_impl(&dword_220099000, v4, OS_LOG_TYPE_DEFAULT, "Returning %lu active assertions.", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = [v3 count];
+    _os_log_impl(&dword_220099000, v4, OS_LOG_TYPE_DEFAULT, "Returning %lu active assertions.", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)allStatusSubscriptionIdentifiersWithActiveSubscriptionsWithCompletion:(id)completion
@@ -608,18 +599,17 @@ void __102__SKAStatusSubscriptionManager_allStatusSubscriptionIdentifiersWithAct
 
 void __102__SKAStatusSubscriptionManager_allStatusSubscriptionIdentifiersWithActiveSubscriptionsWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = +[SKAStatusSubscriptionManager logger];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 134217984;
-    v7 = [v3 count];
-    _os_log_impl(&dword_220099000, v4, OS_LOG_TYPE_DEFAULT, "Returning %lu active subscriptions.", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = [v3 count];
+    _os_log_impl(&dword_220099000, v4, OS_LOG_TYPE_DEFAULT, "Returning %lu active subscriptions.", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)retainPersistentPresenceSubscriptionForPresenceIdentifier:(id)identifier channelIdentifier:(id)channelIdentifier completion:(id)completion
@@ -971,7 +961,7 @@ void __125__SKAStatusSubscriptionManager_retainTransientPresenceSubscriptionForP
 
 void __107__SKAStatusSubscriptionManager_releaseTransientPresenceSubscriptionForChannelIdentifier_client_completion___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   v3 = [WeakRetained _removeTransientPresenceSubscriptionAssertionForClient:*(a1 + 32) channelIdentifier:*(a1 + 40)];
   v4 = +[SKAStatusSubscriptionManager logger];
@@ -982,7 +972,7 @@ void __107__SKAStatusSubscriptionManager_releaseTransientPresenceSubscriptionFor
     {
       v6 = *(a1 + 40);
       *buf = 138412290;
-      v21 = v6;
+      v20 = v6;
       _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Successfully removed presence subscription assertion from in memory model for subscription identifier: %@", buf, 0xCu);
     }
   }
@@ -997,15 +987,13 @@ void __107__SKAStatusSubscriptionManager_releaseTransientPresenceSubscriptionFor
   v15 = [MEMORY[0x277CBEAA8] now];
   [v13 _markCacheSubscriptionDateForChannelIdentifier:v14 changeTime:v15];
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __107__SKAStatusSubscriptionManager_releaseTransientPresenceSubscriptionForChannelIdentifier_client_completion___block_invoke_21;
-  v18[3] = &unk_27843F090;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __107__SKAStatusSubscriptionManager_releaseTransientPresenceSubscriptionForChannelIdentifier_client_completion___block_invoke_21;
+  v17[3] = &unk_27843F090;
   v16 = *(a1 + 48);
-  v19 = *(a1 + 56);
-  [v16 updateRegisteredSubscriptionsForActiveAssertionsWithCompletion:v18];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *(a1 + 56);
+  [v16 updateRegisteredSubscriptionsForActiveAssertionsWithCompletion:v17];
 }
 
 void __107__SKAStatusSubscriptionManager_releaseTransientPresenceSubscriptionForChannelIdentifier_client_completion___block_invoke_21(uint64_t a1, void *a2)
@@ -1061,7 +1049,7 @@ void __107__SKAStatusSubscriptionManager_releaseTransientPresenceSubscriptionFor
 
 void __104__SKAStatusSubscriptionManager_releaseAllTransientPresenceSubscriptionsAssociatedWithClient_completion___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   os_unfair_lock_lock(WeakRetained + 3);
   v3 = [*(WeakRetained + 3) objectForKey:*(a1 + 32)];
@@ -1076,21 +1064,21 @@ void __104__SKAStatusSubscriptionManager_releaseAllTransientPresenceSubscription
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
-      v11 = [v3 count];
-      v12 = 2112;
-      v13 = v3;
+      v10 = [v3 count];
+      v11 = 2112;
+      v12 = v3;
       _os_log_impl(&dword_220099000, v4, OS_LOG_TYPE_DEFAULT, "Disconnecting presence client had %ld transient subscription assertion, removing transient assertions and updating registrations for channels: %@", buf, 0x16u);
     }
 
     [*(WeakRetained + 3) removeObjectForKey:*(a1 + 32)];
     os_unfair_lock_unlock(WeakRetained + 3);
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __104__SKAStatusSubscriptionManager_releaseAllTransientPresenceSubscriptionsAssociatedWithClient_completion___block_invoke_22;
-    v8[3] = &unk_27843F090;
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __104__SKAStatusSubscriptionManager_releaseAllTransientPresenceSubscriptionsAssociatedWithClient_completion___block_invoke_22;
+    v7[3] = &unk_27843F090;
     v5 = *(a1 + 40);
-    v9 = *(a1 + 48);
-    [v5 updateRegisteredSubscriptionsForActiveAssertionsWithCompletion:v8];
+    v8 = *(a1 + 48);
+    [v5 updateRegisteredSubscriptionsForActiveAssertionsWithCompletion:v7];
   }
 
   else
@@ -1105,8 +1093,6 @@ void __104__SKAStatusSubscriptionManager_releaseAllTransientPresenceSubscription
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __104__SKAStatusSubscriptionManager_releaseAllTransientPresenceSubscriptionsAssociatedWithClient_completion___block_invoke_22(uint64_t a1, void *a2)
@@ -1151,61 +1137,61 @@ void __104__SKAStatusSubscriptionManager_releaseAllTransientPresenceSubscription
 
 - (BOOL)activePresenceSubscriptionAssertionsExistForChannelIdentifier:(id)identifier
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   os_unfair_lock_lock(&self->_presenceSubscriptionsLock);
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   selfCopy = self;
   obj = [(NSMapTable *)self->_activeTransientPresenceSubscriptionsByClient objectEnumerator];
-  v5 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v5 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v5)
   {
     v6 = v5;
-    v25 = 0;
-    v7 = *v31;
+    v24 = 0;
+    v7 = *v30;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v31 != v7)
+        if (*v30 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v30 + 1) + 8 * i);
+        v9 = *(*(&v29 + 1) + 8 * i);
+        v25 = 0u;
         v26 = 0u;
         v27 = 0u;
         v28 = 0u;
-        v29 = 0u;
         v10 = v9;
-        v11 = [v10 countByEnumeratingWithState:&v26 objects:v34 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v25 objects:v33 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v27;
+          v13 = *v26;
           while (2)
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v27 != v13)
+              if (*v26 != v13)
               {
                 objc_enumerationMutation(v10);
               }
 
-              channelIdentifier = [*(*(&v26 + 1) + 8 * j) channelIdentifier];
+              channelIdentifier = [*(*(&v25 + 1) + 8 * j) channelIdentifier];
               v16 = [channelIdentifier isEqualToString:identifierCopy];
 
               if (v16)
               {
-                v25 = 1;
+                v24 = 1;
                 goto LABEL_16;
               }
             }
 
-            v12 = [v10 countByEnumeratingWithState:&v26 objects:v34 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v25 objects:v33 count:16];
             if (v12)
             {
               continue;
@@ -1218,7 +1204,7 @@ void __104__SKAStatusSubscriptionManager_releaseAllTransientPresenceSubscription
 LABEL_16:
       }
 
-      v6 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v6 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v6);
@@ -1226,7 +1212,7 @@ LABEL_16:
 
   else
   {
-    v25 = 0;
+    v24 = 0;
   }
 
   os_unfair_lock_unlock(&selfCopy->_presenceSubscriptionsLock);
@@ -1235,8 +1221,7 @@ LABEL_16:
   newBackgroundContext = [databaseManager2 newBackgroundContext];
   v20 = [databaseManager activePresenceSubscriptionForChannelIdentifier:identifierCopy databaseContext:newBackgroundContext];
 
-  v21 = *MEMORY[0x277D85DE8];
-  return (v25 | v20) & 1;
+  return (v24 | v20) & 1;
 }
 
 - (void)updateRegisteredSubscriptionsForActiveAssertionsWithCompletion:(id)completion
@@ -1288,12 +1273,12 @@ void __95__SKAStatusSubscriptionManager_updateRegisteredSubscriptionsForActiveAs
 
 void __95__SKAStatusSubscriptionManager_updateRegisteredSubscriptionsForActiveAssertionsWithCompletion___block_invoke_3(uint64_t a1)
 {
-  v58 = *MEMORY[0x277D85DE8];
-  v44 = [*(a1 + 32) _fetchAllActiveSubscriptionAssertionsWithCache];
+  v57 = *MEMORY[0x277D85DE8];
+  v43 = [*(a1 + 32) _fetchAllActiveSubscriptionAssertionsWithCache];
   v2 = [*(a1 + 32) _recalculateSubscriptionsForActiveStatusSubscriptions:*(a1 + 40) activePresenceSubscriptions:*(a1 + 48) currentSubscriptions:?];
   v3 = [v2 channelsForAction:0];
   v4 = [v2 channelsForAction:2];
-  v45 = 1;
+  v44 = 1;
   v5 = [v2 channelsForAction:1];
   v6 = [v2 channelsForAction:3];
   v7 = [*(a1 + 32) channelManager];
@@ -1311,30 +1296,30 @@ void __95__SKAStatusSubscriptionManager_updateRegisteredSubscriptionsForActiveAs
   v11 = [*(a1 + 32) databaseManager];
   v12 = [v11 newBackgroundContext];
 
-  v43 = v3;
+  v42 = v3;
   v13 = [v3 arrayByAddingObjectsFromArray:v5];
   v14 = v4;
   v15 = [v4 arrayByAddingObjectsFromArray:v6];
-  v48[0] = MEMORY[0x277D85DD0];
-  v48[1] = 3221225472;
-  v48[2] = __95__SKAStatusSubscriptionManager_updateRegisteredSubscriptionsForActiveAssertionsWithCompletion___block_invoke_4;
-  v48[3] = &unk_27843F560;
-  v48[4] = *(a1 + 32);
+  v47[0] = MEMORY[0x277D85DD0];
+  v47[1] = 3221225472;
+  v47[2] = __95__SKAStatusSubscriptionManager_updateRegisteredSubscriptionsForActiveAssertionsWithCompletion___block_invoke_4;
+  v47[3] = &unk_27843F560;
+  v47[4] = *(a1 + 32);
   v16 = v12;
-  v49 = v16;
-  v42 = v13;
-  v17 = [v13 __imArrayByApplyingBlock:v48];
-  v46[0] = MEMORY[0x277D85DD0];
-  v46[1] = 3221225472;
-  v46[2] = __95__SKAStatusSubscriptionManager_updateRegisteredSubscriptionsForActiveAssertionsWithCompletion___block_invoke_5;
-  v46[3] = &unk_27843F560;
-  v46[4] = *(a1 + 32);
+  v48 = v16;
+  v41 = v13;
+  v17 = [v13 __imArrayByApplyingBlock:v47];
+  v45[0] = MEMORY[0x277D85DD0];
+  v45[1] = 3221225472;
+  v45[2] = __95__SKAStatusSubscriptionManager_updateRegisteredSubscriptionsForActiveAssertionsWithCompletion___block_invoke_5;
+  v45[3] = &unk_27843F560;
+  v45[4] = *(a1 + 32);
   v18 = v16;
-  v47 = v18;
-  v41 = v15;
-  v19 = [v15 __imArrayByApplyingBlock:v46];
+  v46 = v18;
+  v40 = v15;
+  v19 = [v15 __imArrayByApplyingBlock:v45];
   v20 = +[SKAPowerLogger shared];
-  v40 = v17;
+  v39 = v17;
   [v20 logEvent:9 ofType:0 onDatabaseChannels:v17];
 
   v21 = +[SKAPowerLogger shared];
@@ -1342,7 +1327,7 @@ void __95__SKAStatusSubscriptionManager_updateRegisteredSubscriptionsForActiveAs
 
   if (([*(a1 + 32) _activeTransientPresenceSubscriptionsExist] & 1) == 0)
   {
-    v45 = [*(a1 + 32) _activePersistentPresenceSubscriptionsExist];
+    v44 = [*(a1 + 32) _activePersistentPresenceSubscriptionsExist];
   }
 
   if ([*(a1 + 32) _activeTransientStatusSubscriptionsExist])
@@ -1370,7 +1355,7 @@ void __95__SKAStatusSubscriptionManager_updateRegisteredSubscriptionsForActiveAs
 
   [v23 switchTopic:0 toFilter:v25];
 
-  if (v45)
+  if (v44)
   {
     v26 = _os_feature_enabled_impl();
     v27 = [*(a1 + 32) pushManager];
@@ -1400,17 +1385,17 @@ void __95__SKAStatusSubscriptionManager_updateRegisteredSubscriptionsForActiveAs
   v32 = os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT);
   if (v30)
   {
-    v33 = v43;
+    v33 = v42;
     if (v32)
     {
       *buf = 138413058;
-      v51 = v6;
-      v52 = 2112;
-      v53 = v14;
-      v54 = 2112;
-      v55 = v5;
-      v56 = 2112;
-      v57 = v43;
+      v50 = v6;
+      v51 = 2112;
+      v52 = v14;
+      v53 = 2112;
+      v54 = v5;
+      v55 = 2112;
+      v56 = v42;
       v34 = "Subscriptions changed after recalculation. Subscribed to (presence channels: %@, status channels: %@) Unsubscribed to (presence channels: %@, status channels: %@)";
       v35 = v31;
       v36 = 42;
@@ -1421,15 +1406,15 @@ LABEL_18:
 
   else
   {
-    v33 = v43;
+    v33 = v42;
     if (v32)
     {
       v38 = *(a1 + 40);
       v37 = *(a1 + 48);
       *buf = 138412546;
-      v51 = v37;
-      v52 = 2112;
-      v53 = v38;
+      v50 = v37;
+      v51 = 2112;
+      v52 = v38;
       v34 = "Subscriptions not changed after recalculation. Currently subscribed to presence channels: %@, status channels: %@";
       v35 = v31;
       v36 = 22;
@@ -1438,7 +1423,6 @@ LABEL_18:
   }
 
   (*(*(a1 + 56) + 16))();
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 id __95__SKAStatusSubscriptionManager_updateRegisteredSubscriptionsForActiveAssertionsWithCompletion___block_invoke_4(uint64_t a1, void *a2)
@@ -1463,69 +1447,69 @@ id __95__SKAStatusSubscriptionManager_updateRegisteredSubscriptionsForActiveAsse
 
 - (id)_recalculateSubscriptionsForActiveStatusSubscriptions:(id)subscriptions activePresenceSubscriptions:(id)presenceSubscriptions currentSubscriptions:(id)currentSubscriptions
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   subscriptionsCopy = subscriptions;
   presenceSubscriptionsCopy = presenceSubscriptions;
   currentSubscriptionsCopy = currentSubscriptions;
   v11 = objc_alloc_init(MEMORY[0x277CBEA60]);
-  v62 = objc_alloc_init(MEMORY[0x277CBEA60]);
-  v67 = objc_alloc_init(MEMORY[0x277CBEA60]);
-  v65 = subscriptionsCopy;
+  v61 = objc_alloc_init(MEMORY[0x277CBEA60]);
   v66 = objc_alloc_init(MEMORY[0x277CBEA60]);
+  v64 = subscriptionsCopy;
+  v65 = objc_alloc_init(MEMORY[0x277CBEA60]);
   v12 = [subscriptionsCopy arrayByAddingObjectsFromArray:presenceSubscriptionsCopy];
-  v63 = currentSubscriptionsCopy;
-  v60 = [(SKAStatusSubscriptionManager *)self _sortAndDedupeSubscriptionIdentifiers:currentSubscriptionsCopy];
+  v62 = currentSubscriptionsCopy;
+  v59 = [(SKAStatusSubscriptionManager *)self _sortAndDedupeSubscriptionIdentifiers:currentSubscriptionsCopy];
   v13 = [(SKAStatusSubscriptionManager *)self _enforceSubscriptionsHardCapOnSubscriptionIdentifiers:?];
   v14 = +[SKAStatusSubscriptionManager logger];
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v80 = v13;
+    v79 = v13;
     _os_log_impl(&dword_220099000, v14, OS_LOG_TYPE_DEFAULT, "StatusKitAgent wants to be subscribed to: %@", buf, 0xCu);
   }
 
   selfCopy = self;
-  v61 = v12;
+  v60 = v12;
   v15 = [(SKAStatusSubscriptionManager *)self _sortAndDedupeSubscriptionIdentifiers:v12];
   v16 = +[SKAStatusSubscriptionManager logger];
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v80 = v15;
+    v79 = v15;
     _os_log_impl(&dword_220099000, v16, OS_LOG_TYPE_DEFAULT, "StatusKitAgent was previously subscribed to: %@", buf, 0xCu);
   }
 
-  v58 = v15;
-  v68 = [v13 differenceFromArray:v15];
-  removals = [v68 removals];
+  v57 = v15;
+  v67 = [v13 differenceFromArray:v15];
+  removals = [v67 removals];
   v18 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v72 = 0u;
   v73 = 0u;
   v74 = 0u;
   v75 = 0u;
-  v76 = 0u;
   v19 = removals;
-  v20 = [v19 countByEnumeratingWithState:&v73 objects:v78 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v72 objects:v77 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v74;
+    v22 = *v73;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v74 != v22)
+        if (*v73 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        object = [*(*(&v73 + 1) + 8 * i) object];
+        object = [*(*(&v72 + 1) + 8 * i) object];
         if ([object length])
         {
           [v18 addObject:object];
         }
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v73 objects:v78 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v72 objects:v77 count:16];
     }
 
     while (v21);
@@ -1535,18 +1519,18 @@ id __95__SKAStatusSubscriptionManager_updateRegisteredSubscriptionsForActiveAsse
   if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v80 = v18;
+    v79 = v18;
     _os_log_impl(&dword_220099000, v25, OS_LOG_TYPE_DEFAULT, "Unsubscribing from channels: %@", buf, 0xCu);
   }
 
-  v59 = v13;
+  v58 = v13;
   if ([v18 count])
   {
     v26 = objc_alloc(MEMORY[0x277CBEB58]);
     v27 = MEMORY[0x277CBEBF8];
-    if (v65)
+    if (v64)
     {
-      v28 = v65;
+      v28 = v64;
     }
 
     else
@@ -1583,7 +1567,7 @@ id __95__SKAStatusSubscriptionManager_updateRegisteredSubscriptionsForActiveAsse
     {
       v37 = allObjects2;
 
-      v67 = v37;
+      v66 = v37;
     }
 
     v38 = presenceSubscriptionsCopy;
@@ -1595,35 +1579,35 @@ id __95__SKAStatusSubscriptionManager_updateRegisteredSubscriptionsForActiveAsse
     v38 = presenceSubscriptionsCopy;
   }
 
-  insertions = [v68 insertions];
+  insertions = [v67 insertions];
   v40 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v68 = 0u;
   v69 = 0u;
   v70 = 0u;
   v71 = 0u;
-  v72 = 0u;
   v41 = insertions;
-  v42 = [v41 countByEnumeratingWithState:&v69 objects:v77 count:16];
+  v42 = [v41 countByEnumeratingWithState:&v68 objects:v76 count:16];
   if (v42)
   {
     v43 = v42;
-    v44 = *v70;
+    v44 = *v69;
     do
     {
       for (j = 0; j != v43; ++j)
       {
-        if (*v70 != v44)
+        if (*v69 != v44)
         {
           objc_enumerationMutation(v41);
         }
 
-        object2 = [*(*(&v69 + 1) + 8 * j) object];
+        object2 = [*(*(&v68 + 1) + 8 * j) object];
         if ([object2 length])
         {
           [v40 addObject:object2];
         }
       }
 
-      v43 = [v41 countByEnumeratingWithState:&v69 objects:v77 count:16];
+      v43 = [v41 countByEnumeratingWithState:&v68 objects:v76 count:16];
     }
 
     while (v43);
@@ -1636,13 +1620,13 @@ id __95__SKAStatusSubscriptionManager_updateRegisteredSubscriptionsForActiveAsse
     if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v80 = v40;
+      v79 = v40;
       _os_log_impl(&dword_220099000, v47, OS_LOG_TYPE_DEFAULT, "Subscribing to channels: %@", buf, 0xCu);
     }
 
     v49 = [(SKAStatusSubscriptionManager *)selfCopy _filterSubscriptionIdentifierToStatus:v40];
     v50 = v36;
-    v51 = v62;
+    v51 = v61;
     if ([v49 count])
     {
       v52 = v49;
@@ -1655,7 +1639,7 @@ id __95__SKAStatusSubscriptionManager_updateRegisteredSubscriptionsForActiveAsse
     {
       v54 = v53;
 
-      v66 = v54;
+      v65 = v54;
     }
   }
 
@@ -1663,26 +1647,24 @@ id __95__SKAStatusSubscriptionManager_updateRegisteredSubscriptionsForActiveAsse
   {
     v48 = v38;
     v50 = v36;
-    v51 = v62;
+    v51 = v61;
   }
 
-  v55 = [[SKASubscriptionChanges alloc] initWithStatusUnsubscriptions:v50 presenceUnsubscriptions:v67 statusSubscriptions:v51 presenceSubscriptions:v66];
-
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = [[SKASubscriptionChanges alloc] initWithStatusUnsubscriptions:v50 presenceUnsubscriptions:v66 statusSubscriptions:v51 presenceSubscriptions:v65];
 
   return v55;
 }
 
 - (BOOL)_addTransientPresenceSubscriptionAssertionForClient:(id)client channelIdentifier:(id)identifier presenceIdentifier:(id)presenceIdentifier
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   identifierCopy = identifier;
   presenceIdentifierCopy = presenceIdentifier;
   dispatch_assert_queue_V2(self->_internalWorkQueue);
   os_unfair_lock_lock(&self->_presenceSubscriptionsLock);
   selfCopy = self;
-  v27 = clientCopy;
+  v26 = clientCopy;
   v10 = [(NSMapTable *)self->_activeTransientPresenceSubscriptionsByClient objectForKey:clientCopy];
   if (!v10)
   {
@@ -1690,26 +1672,26 @@ id __95__SKAStatusSubscriptionManager_updateRegisteredSubscriptionsForActiveAsse
     [(NSMapTable *)self->_activeTransientPresenceSubscriptionsByClient setObject:v10 forKey:clientCopy];
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v11 = v10;
-  v12 = [v11 countByEnumeratingWithState:&v28 objects:v38 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v27 objects:v37 count:16];
   if (v12)
   {
     v13 = 0;
-    v14 = *v29;
+    v14 = *v28;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v29 != v14)
+        if (*v28 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v28 + 1) + 8 * i);
+        v16 = *(*(&v27 + 1) + 8 * i);
         channelIdentifier = [v16 channelIdentifier];
         v18 = [channelIdentifier isEqualToString:identifierCopy];
 
@@ -1719,11 +1701,11 @@ id __95__SKAStatusSubscriptionManager_updateRegisteredSubscriptionsForActiveAsse
           if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412802;
-            v33 = identifierCopy;
-            v34 = 2112;
-            v35 = v27;
-            v36 = 2112;
-            v37 = v16;
+            v32 = identifierCopy;
+            v33 = 2112;
+            v34 = v26;
+            v35 = 2112;
+            v36 = v16;
             _os_log_impl(&dword_220099000, v19, OS_LOG_TYPE_DEFAULT, "Found an existing presence subscription assertion for %@ and client: %@. ExistingAssertion: %@", buf, 0x20u);
           }
 
@@ -1731,7 +1713,7 @@ id __95__SKAStatusSubscriptionManager_updateRegisteredSubscriptionsForActiveAsse
         }
       }
 
-      v12 = [v11 countByEnumeratingWithState:&v28 objects:v38 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v27 objects:v37 count:16];
     }
 
     while (v12);
@@ -1760,7 +1742,7 @@ id __95__SKAStatusSubscriptionManager_updateRegisteredSubscriptionsForActiveAsse
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v33 = identifierCopy;
+    v32 = identifierCopy;
     _os_log_impl(&dword_220099000, v22, OS_LOG_TYPE_DEFAULT, "Successfully added presence subscription assertion to in memory model for subscription identifier: %@", buf, 0xCu);
   }
 
@@ -1768,13 +1750,12 @@ id __95__SKAStatusSubscriptionManager_updateRegisteredSubscriptionsForActiveAsse
 LABEL_22:
 
   os_unfair_lock_unlock(&selfCopy->_presenceSubscriptionsLock);
-  v23 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
 - (BOOL)_removeTransientPresenceSubscriptionAssertionForClient:(id)client channelIdentifier:(id)identifier
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   identifierCopy = identifier;
   dispatch_assert_queue_V2(self->_internalWorkQueue);
@@ -1786,15 +1767,15 @@ LABEL_22:
   }
 
   v9 = objc_alloc_init(MEMORY[0x277CCAB58]);
-  v18 = MEMORY[0x277D85DD0];
-  v19 = 3221225472;
-  v20 = __105__SKAStatusSubscriptionManager__removeTransientPresenceSubscriptionAssertionForClient_channelIdentifier___block_invoke;
-  v21 = &unk_27843F600;
+  v17 = MEMORY[0x277D85DD0];
+  v18 = 3221225472;
+  v19 = __105__SKAStatusSubscriptionManager__removeTransientPresenceSubscriptionAssertionForClient_channelIdentifier___block_invoke;
+  v20 = &unk_27843F600;
   v10 = identifierCopy;
-  v22 = v10;
+  v21 = v10;
   v11 = v9;
-  v23 = v11;
-  [v8 enumerateObjectsUsingBlock:&v18];
+  v22 = v11;
+  [v8 enumerateObjectsUsingBlock:&v17];
   v12 = [v11 count];
   if (v12)
   {
@@ -1805,13 +1786,13 @@ LABEL_22:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138413058;
-      v25 = v10;
-      v26 = 2048;
-      v27 = v13;
-      v28 = 2048;
-      v29 = v14;
-      v30 = 2112;
-      v31 = clientCopy;
+      v24 = v10;
+      v25 = 2048;
+      v26 = v13;
+      v27 = 2048;
+      v28 = v14;
+      v29 = 2112;
+      v30 = clientCopy;
       _os_log_impl(&dword_220099000, v15, OS_LOG_TYPE_DEFAULT, "Successfully removed presence subscription assertion for identifier: %@. Client had %ld transient subscription assertions, now has %ld. Client: %@", buf, 0x2Au);
     }
   }
@@ -1822,17 +1803,16 @@ LABEL_22:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v25 = v10;
-      v26 = 2112;
-      v27 = v8;
-      v28 = 2112;
-      v29 = clientCopy;
+      v24 = v10;
+      v25 = 2112;
+      v26 = v8;
+      v27 = 2112;
+      v28 = clientCopy;
       _os_log_error_impl(&dword_220099000, v15, OS_LOG_TYPE_ERROR, "Could not find presence subscription assertion for subscription identifier: %@. Active transient subscription assertions: %@ for client: %@", buf, 0x20u);
     }
   }
 
   os_unfair_lock_unlock(&self->_presenceSubscriptionsLock);
-  v16 = *MEMORY[0x277D85DE8];
   return v12 != 0;
 }
 
@@ -1852,34 +1832,34 @@ void __105__SKAStatusSubscriptionManager__removeTransientPresenceSubscriptionAss
 
 - (BOOL)_activeTransientPresenceSubscriptionsExist
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_presenceSubscriptionsLock);
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   objectEnumerator = [(NSMapTable *)self->_activeTransientPresenceSubscriptionsByClient objectEnumerator];
-  v4 = [objectEnumerator countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [objectEnumerator countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v9;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        if ([*(*(&v9 + 1) + 8 * i) count])
+        if ([*(*(&v8 + 1) + 8 * i) count])
         {
           LOBYTE(v4) = 1;
           goto LABEL_11;
         }
       }
 
-      v4 = [objectEnumerator countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [objectEnumerator countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v4)
       {
         continue;
@@ -1892,50 +1872,48 @@ void __105__SKAStatusSubscriptionManager__removeTransientPresenceSubscriptionAss
 LABEL_11:
 
   os_unfair_lock_unlock(&self->_presenceSubscriptionsLock);
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (id)_fetchAllActivePersistentPresenceSubscriptions
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   databaseManager = [(SKAStatusSubscriptionManager *)self databaseManager];
   databaseManager2 = [(SKAStatusSubscriptionManager *)self databaseManager];
   newBackgroundContext = [databaseManager2 newBackgroundContext];
   v6 = [databaseManager allExistingPresenceSubscriptionsForDatabaseContext:newBackgroundContext];
 
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        channelIdentifier = [*(*(&v17 + 1) + 8 * i) channelIdentifier];
+        channelIdentifier = [*(*(&v16 + 1) + 8 * i) channelIdentifier];
         [v7 addObject:channelIdentifier];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
   }
 
   v14 = [v7 copy];
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -1950,13 +1928,13 @@ LABEL_11:
 
 - (BOOL)_addTransientStatusSubscriptionAssertionForClient:(id)client subscriptionIdentifier:(id)identifier
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   identifierCopy = identifier;
   dispatch_assert_queue_V2(self->_internalWorkQueue);
   os_unfair_lock_lock(&self->_transientSubscriptionsLock);
   selfCopy = self;
-  v24 = clientCopy;
+  v23 = clientCopy;
   v8 = [(NSMapTable *)self->_activeTransientStatusSubscriptionsByClient objectForKey:clientCopy];
   if (!v8)
   {
@@ -1964,26 +1942,26 @@ LABEL_11:
     [(NSMapTable *)self->_activeTransientStatusSubscriptionsByClient setObject:v8 forKey:clientCopy];
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v9 = v8;
-  v10 = [v9 countByEnumeratingWithState:&v25 objects:v35 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v24 objects:v34 count:16];
   if (v10)
   {
     v11 = 0;
-    v12 = *v26;
+    v12 = *v25;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v26 != v12)
+        if (*v25 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v25 + 1) + 8 * i);
+        v14 = *(*(&v24 + 1) + 8 * i);
         subscriptionIdentifier = [v14 subscriptionIdentifier];
         v16 = [subscriptionIdentifier isEqualToString:identifierCopy];
 
@@ -1993,11 +1971,11 @@ LABEL_11:
           if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412802;
-            v30 = identifierCopy;
-            v31 = 2112;
-            v32 = v24;
-            v33 = 2112;
-            v34 = v14;
+            v29 = identifierCopy;
+            v30 = 2112;
+            v31 = v23;
+            v32 = 2112;
+            v33 = v14;
             _os_log_impl(&dword_220099000, v17, OS_LOG_TYPE_DEFAULT, "Found an existing transient subscription assertion for %@ and client: %@. ExistingAssertion: %@", buf, 0x20u);
           }
 
@@ -2005,7 +1983,7 @@ LABEL_11:
         }
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v25 objects:v35 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v24 objects:v34 count:16];
     }
 
     while (v10);
@@ -2034,7 +2012,7 @@ LABEL_11:
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v30 = identifierCopy;
+    v29 = identifierCopy;
     _os_log_impl(&dword_220099000, v20, OS_LOG_TYPE_DEFAULT, "Successfully added transient subscription assertion to in memory model for subscription identifier: %@", buf, 0xCu);
   }
 
@@ -2042,13 +2020,12 @@ LABEL_11:
 LABEL_22:
 
   os_unfair_lock_unlock(&selfCopy->_transientSubscriptionsLock);
-  v21 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 - (BOOL)_removeTransientStatusSubscriptionAssertionForClient:(id)client subscriptionIdentifier:(id)identifier
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   identifierCopy = identifier;
   dispatch_assert_queue_V2(self->_internalWorkQueue);
@@ -2060,15 +2037,15 @@ LABEL_22:
   }
 
   v9 = objc_alloc_init(MEMORY[0x277CCAB58]);
-  v18 = MEMORY[0x277D85DD0];
-  v19 = 3221225472;
-  v20 = __108__SKAStatusSubscriptionManager__removeTransientStatusSubscriptionAssertionForClient_subscriptionIdentifier___block_invoke;
-  v21 = &unk_27843F628;
+  v17 = MEMORY[0x277D85DD0];
+  v18 = 3221225472;
+  v19 = __108__SKAStatusSubscriptionManager__removeTransientStatusSubscriptionAssertionForClient_subscriptionIdentifier___block_invoke;
+  v20 = &unk_27843F628;
   v10 = identifierCopy;
-  v22 = v10;
+  v21 = v10;
   v11 = v9;
-  v23 = v11;
-  [v8 enumerateObjectsUsingBlock:&v18];
+  v22 = v11;
+  [v8 enumerateObjectsUsingBlock:&v17];
   v12 = [v11 count];
   if (v12)
   {
@@ -2079,13 +2056,13 @@ LABEL_22:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138413058;
-      v25 = v10;
-      v26 = 2048;
-      v27 = v13;
-      v28 = 2048;
-      v29 = v14;
-      v30 = 2112;
-      v31 = clientCopy;
+      v24 = v10;
+      v25 = 2048;
+      v26 = v13;
+      v27 = 2048;
+      v28 = v14;
+      v29 = 2112;
+      v30 = clientCopy;
       _os_log_impl(&dword_220099000, v15, OS_LOG_TYPE_DEFAULT, "Successfully removed transient subscription assertion for identifier: %@. Client had %ld transient subscription assertions, now has %ld. Client: %@", buf, 0x2Au);
     }
   }
@@ -2096,17 +2073,16 @@ LABEL_22:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v25 = v10;
-      v26 = 2112;
-      v27 = v8;
-      v28 = 2112;
-      v29 = clientCopy;
+      v24 = v10;
+      v25 = 2112;
+      v26 = v8;
+      v27 = 2112;
+      v28 = clientCopy;
       _os_log_error_impl(&dword_220099000, v15, OS_LOG_TYPE_ERROR, "Could not find transient subscription assertion for subscription identifier: %@. Active transient subscription assertions: %@ for client: %@", buf, 0x20u);
     }
   }
 
   os_unfair_lock_unlock(&self->_transientSubscriptionsLock);
-  v16 = *MEMORY[0x277D85DE8];
   return v12 != 0;
 }
 
@@ -2126,34 +2102,34 @@ void __108__SKAStatusSubscriptionManager__removeTransientStatusSubscriptionAsser
 
 - (BOOL)_activeTransientStatusSubscriptionsExist
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_transientSubscriptionsLock);
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   objectEnumerator = [(NSMapTable *)self->_activeTransientStatusSubscriptionsByClient objectEnumerator];
-  v4 = [objectEnumerator countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [objectEnumerator countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v9;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        if ([*(*(&v9 + 1) + 8 * i) count])
+        if ([*(*(&v8 + 1) + 8 * i) count])
         {
           LOBYTE(v4) = 1;
           goto LABEL_11;
         }
       }
 
-      v4 = [objectEnumerator countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [objectEnumerator countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v4)
       {
         continue;
@@ -2166,7 +2142,6 @@ void __108__SKAStatusSubscriptionManager__removeTransientStatusSubscriptionAsser
 LABEL_11:
 
   os_unfair_lock_unlock(&self->_transientSubscriptionsLock);
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -2188,43 +2163,39 @@ LABEL_11:
 
 - (void)_markCacheSubscriptionDateForChannelIdentifier:(id)identifier changeTime:(id)time
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   timeCopy = time;
   v8 = +[SKAStatusSubscriptionManager logger];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412290;
-    v13 = identifierCopy;
-    _os_log_impl(&dword_220099000, v8, OS_LOG_TYPE_DEFAULT, "Marking subscription change time for channel %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = identifierCopy;
+    _os_log_impl(&dword_220099000, v8, OS_LOG_TYPE_DEFAULT, "Marking subscription change time for channel %@", &v11, 0xCu);
   }
 
   newBackgroundContext = [(SKADatabaseManaging *)self->_databaseManager newBackgroundContext];
   v10 = [(SKADatabaseManaging *)self->_databaseManager createOrUpdateTransientSubscriptionHistoryForChannelIdentifier:identifierCopy lastSubscriptionDate:timeCopy databaseContext:newBackgroundContext];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_sortAndDedupeSubscriptionIdentifiers:(id)identifiers
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB98];
   identifiersCopy = identifiers;
   v5 = [[v3 alloc] initWithArray:identifiersCopy];
 
   v6 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:0 ascending:1 selector:sel_compare_];
-  v11[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   v8 = [v5 sortedArrayUsingDescriptors:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (id)_enforceSubscriptionsHardCapOnSubscriptionIdentifiers:(id)identifiers
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   _hardMaxSubscriptionCount = [(SKAStatusSubscriptionManager *)self _hardMaxSubscriptionCount];
   v6 = [identifiersCopy count];
@@ -2233,11 +2204,11 @@ LABEL_11:
     v13 = +[SKAStatusSubscriptionManager logger];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 134218240;
-      v18 = v6;
-      v19 = 2048;
-      v20 = _hardMaxSubscriptionCount;
-      _os_log_impl(&dword_220099000, v13, OS_LOG_TYPE_DEFAULT, "Active subscription count %ld does not exceed cap of %ld", &v17, 0x16u);
+      v16 = 134218240;
+      v17 = v6;
+      v18 = 2048;
+      v19 = _hardMaxSubscriptionCount;
+      _os_log_impl(&dword_220099000, v13, OS_LOG_TYPE_DEFAULT, "Active subscription count %ld does not exceed cap of %ld", &v16, 0x16u);
     }
 
     v14 = [identifiersCopy copy];
@@ -2270,68 +2241,66 @@ LABEL_11:
     v14 = [identifiersCopy subarrayWithRange:{0, _hardMaxSubscriptionCount}];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (id)_fetchAllClientActiveSubscriptionAssertions
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   os_unfair_lock_lock(&self->_transientSubscriptionsLock);
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   selfCopy = self;
   objectEnumerator = [(NSMapTable *)self->_activeTransientStatusSubscriptionsByClient objectEnumerator];
-  v5 = [objectEnumerator countByEnumeratingWithState:&v28 objects:v35 count:16];
+  v5 = [objectEnumerator countByEnumeratingWithState:&v27 objects:v34 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v29;
+    v7 = *v28;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v29 != v7)
+        if (*v28 != v7)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        v9 = *(*(&v28 + 1) + 8 * i);
+        v9 = *(*(&v27 + 1) + 8 * i);
+        v23 = 0u;
         v24 = 0u;
         v25 = 0u;
         v26 = 0u;
-        v27 = 0u;
         v10 = v9;
-        v11 = [v10 countByEnumeratingWithState:&v24 objects:v34 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v23 objects:v33 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v25;
+          v13 = *v24;
           do
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v25 != v13)
+              if (*v24 != v13)
               {
                 objc_enumerationMutation(v10);
               }
 
-              subscriptionIdentifier = [*(*(&v24 + 1) + 8 * j) subscriptionIdentifier];
+              subscriptionIdentifier = [*(*(&v23 + 1) + 8 * j) subscriptionIdentifier];
               [v3 addObject:subscriptionIdentifier];
             }
 
-            v12 = [v10 countByEnumeratingWithState:&v24 objects:v34 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v23 objects:v33 count:16];
           }
 
           while (v12);
         }
       }
 
-      v6 = [objectEnumerator countByEnumeratingWithState:&v28 objects:v35 count:16];
+      v6 = [objectEnumerator countByEnumeratingWithState:&v27 objects:v34 count:16];
     }
 
     while (v6);
@@ -2342,7 +2311,7 @@ LABEL_11:
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v33 = v3;
+    v32 = v3;
     _os_log_impl(&dword_220099000, v16, OS_LOG_TYPE_DEFAULT, "Transient subscription assertions: %@", buf, 0xCu);
   }
 
@@ -2352,76 +2321,74 @@ LABEL_11:
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v33 = v18;
+    v32 = v18;
     _os_log_impl(&dword_220099000, v19, OS_LOG_TYPE_DEFAULT, "Persistent subscription assertions: %@", buf, 0xCu);
   }
 
   [v3 addObjectsFromArray:v18];
   v20 = [v3 copy];
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 - (id)_fetchAllActiveSubscriptionAssertionsWithCache
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v39 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v38 = objc_alloc_init(MEMORY[0x277CBEB18]);
   os_unfair_lock_lock(&self->_transientSubscriptionsLock);
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   selfCopy = self;
   objectEnumerator = [(NSMapTable *)self->_activeTransientStatusSubscriptionsByClient objectEnumerator];
-  v5 = [objectEnumerator countByEnumeratingWithState:&v44 objects:v51 count:16];
+  v5 = [objectEnumerator countByEnumeratingWithState:&v43 objects:v50 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v45;
+    v7 = *v44;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v45 != v7)
+        if (*v44 != v7)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        v9 = *(*(&v44 + 1) + 8 * i);
+        v9 = *(*(&v43 + 1) + 8 * i);
+        v39 = 0u;
         v40 = 0u;
         v41 = 0u;
         v42 = 0u;
-        v43 = 0u;
         v10 = v9;
-        v11 = [v10 countByEnumeratingWithState:&v40 objects:v50 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v39 objects:v49 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v41;
+          v13 = *v40;
           do
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v41 != v13)
+              if (*v40 != v13)
               {
                 objc_enumerationMutation(v10);
               }
 
-              subscriptionIdentifier = [*(*(&v40 + 1) + 8 * j) subscriptionIdentifier];
+              subscriptionIdentifier = [*(*(&v39 + 1) + 8 * j) subscriptionIdentifier];
               [v3 addObject:subscriptionIdentifier];
             }
 
-            v12 = [v10 countByEnumeratingWithState:&v40 objects:v50 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v39 objects:v49 count:16];
           }
 
           while (v12);
         }
       }
 
-      v6 = [objectEnumerator countByEnumeratingWithState:&v44 objects:v51 count:16];
+      v6 = [objectEnumerator countByEnumeratingWithState:&v43 objects:v50 count:16];
     }
 
     while (v6);
@@ -2432,29 +2399,29 @@ LABEL_11:
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v49 = v3;
+    v48 = v3;
     _os_log_impl(&dword_220099000, v16, OS_LOG_TYPE_DEFAULT, "Transient status subscription assertions: %@", buf, 0xCu);
   }
 
   _fetchAllActiveTransientPresenceSubscriptions = [(SKAStatusSubscriptionManager *)selfCopy _fetchAllActiveTransientPresenceSubscriptions];
   [v3 addObjectsFromArray:_fetchAllActiveTransientPresenceSubscriptions];
-  [v39 addObjectsFromArray:_fetchAllActiveTransientPresenceSubscriptions];
+  [v38 addObjectsFromArray:_fetchAllActiveTransientPresenceSubscriptions];
   v18 = +[SKAStatusSubscriptionManager logger];
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v49 = _fetchAllActiveTransientPresenceSubscriptions;
+    v48 = _fetchAllActiveTransientPresenceSubscriptions;
     _os_log_impl(&dword_220099000, v18, OS_LOG_TYPE_DEFAULT, "Active transient presence subscription assertions: %@", buf, 0xCu);
   }
 
   _fetchAllActivePersistentPresenceSubscriptions = [(SKAStatusSubscriptionManager *)selfCopy _fetchAllActivePersistentPresenceSubscriptions];
   [v3 addObjectsFromArray:_fetchAllActivePersistentPresenceSubscriptions];
-  [v39 addObjectsFromArray:_fetchAllActivePersistentPresenceSubscriptions];
+  [v38 addObjectsFromArray:_fetchAllActivePersistentPresenceSubscriptions];
   v20 = +[SKAStatusSubscriptionManager logger];
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v49 = _fetchAllActivePersistentPresenceSubscriptions;
+    v48 = _fetchAllActivePersistentPresenceSubscriptions;
     _os_log_impl(&dword_220099000, v20, OS_LOG_TYPE_DEFAULT, "Active persistent presence subscription assertions: %@", buf, 0xCu);
   }
 
@@ -2464,7 +2431,7 @@ LABEL_11:
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v49 = v22;
+    v48 = v22;
     _os_log_impl(&dword_220099000, v23, OS_LOG_TYPE_DEFAULT, "Persistent status subscription assertions: %@", buf, 0xCu);
   }
 
@@ -2474,14 +2441,14 @@ LABEL_11:
   if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v49 = v24;
+    v48 = v24;
     _os_log_impl(&dword_220099000, v25, OS_LOG_TYPE_DEFAULT, "Personal channels requiring self subscription: %@", buf, 0xCu);
   }
 
   [v3 addObjectsFromArray:v24];
   _maxSubscriptionCacheCount = [(SKAStatusSubscriptionManager *)selfCopy _maxSubscriptionCacheCount];
   _maxPresenceSubscriptionCacheCount = [(SKAStatusSubscriptionManager *)selfCopy _maxPresenceSubscriptionCacheCount];
-  v28 = [v39 count];
+  v28 = [v38 count];
   v29 = [v3 count];
   v30 = (_maxSubscriptionCacheCount - v29) & ~((_maxSubscriptionCacheCount - v29) >> 63);
   v31 = (_maxPresenceSubscriptionCacheCount - v28) & ~((_maxPresenceSubscriptionCacheCount - v28) >> 63);
@@ -2492,75 +2459,73 @@ LABEL_11:
   if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v49 = v33;
+    v48 = v33;
     _os_log_impl(&dword_220099000, v34, OS_LOG_TYPE_DEFAULT, "Cached channels for subscription: %@", buf, 0xCu);
   }
 
   [v3 addObjectsFromArray:v33];
   v35 = [v3 copy];
 
-  v36 = *MEMORY[0x277D85DE8];
-
   return v35;
 }
 
 - (id)_fetchAllActiveTransientPresenceSubscriptions
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   os_unfair_lock_lock(&self->_presenceSubscriptionsLock);
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   selfCopy = self;
   objectEnumerator = [(NSMapTable *)self->_activeTransientPresenceSubscriptionsByClient objectEnumerator];
-  v5 = [objectEnumerator countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v5 = [objectEnumerator countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v25;
+    v7 = *v24;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v25 != v7)
+        if (*v24 != v7)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        v9 = *(*(&v24 + 1) + 8 * i);
+        v9 = *(*(&v23 + 1) + 8 * i);
+        v19 = 0u;
         v20 = 0u;
         v21 = 0u;
         v22 = 0u;
-        v23 = 0u;
         v10 = v9;
-        v11 = [v10 countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v19 objects:v27 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v21;
+          v13 = *v20;
           do
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v21 != v13)
+              if (*v20 != v13)
               {
                 objc_enumerationMutation(v10);
               }
 
-              channelIdentifier = [*(*(&v20 + 1) + 8 * j) channelIdentifier];
+              channelIdentifier = [*(*(&v19 + 1) + 8 * j) channelIdentifier];
               [v3 addObject:channelIdentifier];
             }
 
-            v12 = [v10 countByEnumeratingWithState:&v20 objects:v28 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v19 objects:v27 count:16];
           }
 
           while (v12);
         }
       }
 
-      v6 = [objectEnumerator countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v6 = [objectEnumerator countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v6);
@@ -2569,15 +2534,13 @@ LABEL_11:
   os_unfair_lock_unlock(&selfCopy->_presenceSubscriptionsLock);
   v16 = [v3 copy];
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 - (id)_recentlyReleasedTransientSubscriptionAssertionIdentifiersExcludingSubscriptionIdentifiers:(id)identifiers count:(int64_t)count presenceCount:(int64_t)presenceCount databaseContext:(id)context
 {
   presenceCountCopy = presenceCount;
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   contextCopy = context;
   v10 = objc_alloc_init(MEMORY[0x277CBEB58]);
@@ -2594,26 +2557,26 @@ LABEL_11:
   }
 
   -[SKADatabaseManaging existingRecentTransientSubscriptionHistoriesWithLimit:databaseContext:](self->_databaseManager, "existingRecentTransientSubscriptionHistoriesWithLimit:databaseContext:", [identifiersCopy count] + count, contextCopy);
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
-  v16 = v44 = 0u;
-  v40 = [v16 countByEnumeratingWithState:&v41 objects:v47 count:16];
-  if (v40)
+  v16 = v43 = 0u;
+  v39 = [v16 countByEnumeratingWithState:&v40 objects:v46 count:16];
+  if (v39)
   {
-    v37 = 0;
+    v36 = 0;
     selfCopy = self;
-    v39 = *v42;
+    v38 = *v41;
 LABEL_5:
     v17 = 0;
     while (1)
     {
-      if (*v42 != v39)
+      if (*v41 != v38)
       {
         objc_enumerationMutation(v16);
       }
 
-      v18 = *(*(&v41 + 1) + 8 * v17);
+      v18 = *(*(&v40 + 1) + 8 * v17);
       if ([v10 count] >= count)
       {
         break;
@@ -2639,7 +2602,7 @@ LABEL_5:
         channelIdentifier2 = +[SKAStatusSubscriptionManager logger];
         if (os_log_type_enabled(channelIdentifier2, OS_LOG_TYPE_ERROR))
         {
-          [SKAStatusSubscriptionManager _recentlyReleasedTransientSubscriptionAssertionIdentifiersExcludingSubscriptionIdentifiers:v46 count:v18 presenceCount:? databaseContext:?];
+          [SKAStatusSubscriptionManager _recentlyReleasedTransientSubscriptionAssertionIdentifiersExcludingSubscriptionIdentifiers:v45 count:v18 presenceCount:? databaseContext:?];
         }
 
         goto LABEL_27;
@@ -2650,7 +2613,7 @@ LABEL_5:
       if (channelType == 1)
       {
         v24 = v14;
-        if (v37 >= presenceCountCopy)
+        if (v36 >= presenceCountCopy)
         {
 
           break;
@@ -2673,13 +2636,13 @@ LABEL_5:
           if (([identifiersCopy containsObject:channelIdentifier2] & 1) == 0)
           {
             [v10 addObject:channelIdentifier2];
-            v31 = v37;
+            v31 = v36;
             if (channelType == 1)
             {
-              v31 = v37 + 1;
+              v31 = v36 + 1;
             }
 
-            v37 = v31;
+            v36 = v31;
           }
 
           goto LABEL_26;
@@ -2691,7 +2654,7 @@ LABEL_5:
         channelIdentifier2 = +[SKAStatusSubscriptionManager logger];
         if (os_log_type_enabled(channelIdentifier2, OS_LOG_TYPE_DEBUG))
         {
-          [SKAStatusSubscriptionManager _recentlyReleasedTransientSubscriptionAssertionIdentifiersExcludingSubscriptionIdentifiers:v45 count:v21 presenceCount:? databaseContext:?];
+          [SKAStatusSubscriptionManager _recentlyReleasedTransientSubscriptionAssertionIdentifiersExcludingSubscriptionIdentifiers:v44 count:v21 presenceCount:? databaseContext:?];
         }
       }
 
@@ -2701,10 +2664,10 @@ LABEL_26:
       self = selfCopy;
 LABEL_27:
 
-      if (v40 == ++v17)
+      if (v39 == ++v17)
       {
-        v40 = [v16 countByEnumeratingWithState:&v41 objects:v47 count:16];
-        if (v40)
+        v39 = [v16 countByEnumeratingWithState:&v40 objects:v46 count:16];
+        if (v39)
         {
           goto LABEL_5;
         }
@@ -2716,39 +2679,37 @@ LABEL_27:
 
   allObjects = [v10 allObjects];
 
-  v33 = *MEMORY[0x277D85DE8];
-
   return allObjects;
 }
 
 - (id)_allPersonalChannelIdentifiersRequiringSelfSubscriptionWithDatabaseContext:(id)context
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   _statusTypeIdentifiersRequiringSelfSubscription = [(SKAStatusSubscriptionManager *)self _statusTypeIdentifiersRequiringSelfSubscription];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v7 = [_statusTypeIdentifiersRequiringSelfSubscription countByEnumeratingWithState:&v21 objects:v27 count:16];
+  v7 = [_statusTypeIdentifiersRequiringSelfSubscription countByEnumeratingWithState:&v20 objects:v26 count:16];
   if (v7)
   {
     v9 = v7;
-    v10 = *v22;
+    v10 = *v21;
     *&v8 = 138412290;
-    v20 = v8;
+    v19 = v8;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(_statusTypeIdentifiersRequiringSelfSubscription);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * i);
-        v13 = [(SKADatabaseManaging *)self->_databaseManager existingPersonalChannelForStatusTypeIdentifier:v12 databaseContext:contextCopy, v20];
+        v12 = *(*(&v20 + 1) + 8 * i);
+        v13 = [(SKADatabaseManaging *)self->_databaseManager existingPersonalChannelForStatusTypeIdentifier:v12 databaseContext:contextCopy, v19];
         v14 = v13;
         if (v13)
         {
@@ -2763,8 +2724,8 @@ LABEL_27:
             v16 = +[SKAStatusSubscriptionManager logger];
             if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
-              *buf = v20;
-              v26 = v14;
+              *buf = v19;
+              v25 = v14;
               _os_log_error_impl(&dword_220099000, v16, OS_LOG_TYPE_ERROR, "Personal channel has no identifier: %@", buf, 0xCu);
             }
           }
@@ -2775,14 +2736,14 @@ LABEL_27:
           identifier = +[SKAStatusSubscriptionManager logger];
           if (os_log_type_enabled(identifier, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v20;
-            v26 = v12;
+            *buf = v19;
+            v25 = v12;
             _os_log_impl(&dword_220099000, identifier, OS_LOG_TYPE_DEFAULT, "No personal channel for statusTypeIdentifier: %@", buf, 0xCu);
           }
         }
       }
 
-      v9 = [_statusTypeIdentifiersRequiringSelfSubscription countByEnumeratingWithState:&v21 objects:v27 count:16];
+      v9 = [_statusTypeIdentifiersRequiringSelfSubscription countByEnumeratingWithState:&v20 objects:v26 count:16];
     }
 
     while (v9);
@@ -2790,39 +2751,37 @@ LABEL_27:
 
   v17 = [v5 copy];
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 - (id)_filterSubscriptionIdentifierToStatus:(id)status
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   databaseManager = [(SKAStatusSubscriptionManager *)self databaseManager];
   newBackgroundContext = [databaseManager newBackgroundContext];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v8 = statusCopy;
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
+        v13 = *(*(&v17 + 1) + 8 * i);
         databaseManager2 = [(SKAStatusSubscriptionManager *)self databaseManager];
         v15 = [databaseManager2 existingChannelForSubscriptionIdentifier:v13 databaseContext:newBackgroundContext];
 
@@ -2832,45 +2791,43 @@ LABEL_27:
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)_filterSubscriptionIdentifierToPresence:(id)presence
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   presenceCopy = presence;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   databaseManager = [(SKAStatusSubscriptionManager *)self databaseManager];
   newBackgroundContext = [databaseManager newBackgroundContext];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v8 = presenceCopy;
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
+        v13 = *(*(&v17 + 1) + 8 * i);
         databaseManager2 = [(SKAStatusSubscriptionManager *)self databaseManager];
         v15 = [databaseManager2 existingChannelForSubscriptionIdentifier:v13 databaseContext:newBackgroundContext];
 
@@ -2880,20 +2837,18 @@ LABEL_27:
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (int64_t)_maxSubscriptionCacheCount
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (+[SKAEnvironment overrideServerBagCheck])
   {
     v2 = 0;
@@ -2920,19 +2875,18 @@ LABEL_8:
   v5 = +[SKAStatusSubscriptionManager logger];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 134217984;
-    v9 = intValue;
-    _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Server bag indicates our max subscription count should be %lu", &v8, 0xCu);
+    v7 = 134217984;
+    v8 = intValue;
+    _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Server bag indicates our max subscription count should be %lu", &v7, 0xCu);
   }
 
 LABEL_9:
-  v6 = *MEMORY[0x277D85DE8];
   return intValue;
 }
 
 - (int64_t)_maxPresenceSubscriptionCacheCount
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (+[SKAEnvironment overrideServerBagCheck])
   {
     v2 = 0;
@@ -2959,19 +2913,18 @@ LABEL_8:
   v5 = +[SKAStatusSubscriptionManager logger];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 134217984;
-    v9 = intValue;
-    _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Server bag indicates our max presence subscription count should be %lu", &v8, 0xCu);
+    v7 = 134217984;
+    v8 = intValue;
+    _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Server bag indicates our max presence subscription count should be %lu", &v7, 0xCu);
   }
 
 LABEL_9:
-  v6 = *MEMORY[0x277D85DE8];
   return intValue;
 }
 
 - (int64_t)_hardMaxSubscriptionCount
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (+[SKAEnvironment overrideServerBagCheck])
   {
     v2 = 0;
@@ -2998,19 +2951,18 @@ LABEL_8:
   v5 = +[SKAStatusSubscriptionManager logger];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 134217984;
-    v9 = intValue;
-    _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Server bag indicates our hard max subscription count should be %lu", &v8, 0xCu);
+    v7 = 134217984;
+    v8 = intValue;
+    _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Server bag indicates our hard max subscription count should be %lu", &v7, 0xCu);
   }
 
 LABEL_9:
-  v6 = *MEMORY[0x277D85DE8];
   return intValue;
 }
 
 - (double)_statusSubscriptionTTL
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = 86400.0;
   if (+[SKAEnvironment overrideServerBagCheck])
   {
@@ -3031,21 +2983,20 @@ LABEL_9:
         v5 = +[SKAStatusSubscriptionManager logger];
         if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
         {
-          v8 = 134217984;
-          v9 = v2;
-          _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Server bag indicates our status subscription TTL should be %f seconds", &v8, 0xCu);
+          v7 = 134217984;
+          v8 = v2;
+          _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Server bag indicates our status subscription TTL should be %f seconds", &v7, 0xCu);
         }
       }
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (double)_presenceSubscriptionTTL
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = 3600.0;
   if (+[SKAEnvironment overrideServerBagCheck])
   {
@@ -3066,15 +3017,14 @@ LABEL_9:
         v5 = +[SKAStatusSubscriptionManager logger];
         if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
         {
-          v8 = 134217984;
-          v9 = v2;
-          _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Server bag indicates our presence subscription TTL should be %f seconds", &v8, 0xCu);
+          v7 = 134217984;
+          v8 = v2;
+          _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Server bag indicates our presence subscription TTL should be %f seconds", &v7, 0xCu);
         }
       }
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -3097,112 +3047,43 @@ uint64_t __38__SKAStatusSubscriptionManager_logger__block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-void __133__SKAStatusSubscriptionManager_retainTransientSubscriptionAssertionForSubscriptionIdentifier_statusTypeIdentifier_client_completion___block_invoke_10_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Failed to update registered subscriptions following transient assertion retain with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __134__SKAStatusSubscriptionManager_releaseTransientSubscriptionAssertionForSubscriptionIdentifier_statusTypeIdentifier_client_completion___block_invoke_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_0(&dword_220099000, a2, a3, "Could not find transient subscription assertion to remove from in memory model for subscription identifier: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __134__SKAStatusSubscriptionManager_releaseTransientSubscriptionAssertionForSubscriptionIdentifier_statusTypeIdentifier_client_completion___block_invoke_13_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Failed to update registered subscriptions following transient assertion release with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __105__SKAStatusSubscriptionManager_releaseAllTransientSubscriptionAssertionsAssociatedWithClient_completion___block_invoke_15_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Failed to update registered subscriptions following client disconnect with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __149__SKAStatusSubscriptionManager_retainPersistentSubscriptionAssertionForSubscriptionIdentifier_statusTypeIdentifier_applicationIdentifier_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "A subscription assertion already exists, no need to create a new one. Existing: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __149__SKAStatusSubscriptionManager_retainPersistentSubscriptionAssertionForSubscriptionIdentifier_statusTypeIdentifier_applicationIdentifier_completion___block_invoke_16_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Failed to update registered subscriptions following persistent assertion retain with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_0(&dword_220099000, a2, a3, "Could not find transient subscription assertion to remove from in memory model for subscription identifier: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __150__SKAStatusSubscriptionManager_releasePersistentSubscriptionAssertionForSubscriptionIdentifier_statusTypeIdentifier_applicationIdentifier_completion___block_invoke_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_0(&dword_220099000, a2, a3, "Did not delete persistent subscription assertion because one was not found for subscription identifier: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __150__SKAStatusSubscriptionManager_releasePersistentSubscriptionAssertionForSubscriptionIdentifier_statusTypeIdentifier_applicationIdentifier_completion___block_invoke_17_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Failed to update registered subscriptions following persistent assertion release with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __119__SKAStatusSubscriptionManager_retainPersistentPresenceSubscriptionForPresenceIdentifier_channelIdentifier_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Failed to update registered subscriptions following presence assertion retain with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __101__SKAStatusSubscriptionManager_releasePersistentPresenceSubscriptionForChannelIdentifier_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Failed to update registered subscriptions following presence assertion release with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_0(&dword_220099000, a2, a3, "Did not delete persistent subscription assertion because one was not found for subscription identifier: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __107__SKAStatusSubscriptionManager_releaseTransientPresenceSubscriptionForChannelIdentifier_client_completion___block_invoke_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_0(&dword_220099000, a2, a3, "Could not find presence subscription assertion to remove from in memory model for subscription identifier: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_0(&dword_220099000, a2, a3, "Could not find presence subscription assertion to remove from in memory model for subscription identifier: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_enforceSubscriptionsHardCapOnSubscriptionIdentifiers:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
-  v4 = 2048;
-  v5 = v0;
-  _os_log_error_impl(&dword_220099000, v1, OS_LOG_TYPE_ERROR, "Active subscription count %ld exceeds cap of %ld", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2048;
+  v4 = v0;
+  _os_log_error_impl(&dword_220099000, v1, OS_LOG_TYPE_ERROR, "Active subscription count %ld exceeds cap of %ld", v2, 0x16u);
 }
 
 - (void)_enforceSubscriptionsHardCapOnSubscriptionIdentifiers:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
-  v4 = 2048;
-  v5 = v0;
-  _os_log_fault_impl(&dword_220099000, v1, OS_LOG_TYPE_FAULT, "Active subscription count %ld exceeds cap of %ld", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2048;
+  v4 = v0;
+  _os_log_fault_impl(&dword_220099000, v1, OS_LOG_TYPE_FAULT, "Active subscription count %ld exceeds cap of %ld", v2, 0x16u);
 }
 
 - (void)_recentlyReleasedTransientSubscriptionAssertionIdentifiersExcludingSubscriptionIdentifiers:(uint64_t)a1 count:(uint64_t)a2 presenceCount:databaseContext:.cold.1(uint64_t a1, uint64_t a2)

@@ -192,7 +192,7 @@
         }
 
         v12 = *(*(&v16 + 1) + 8 * i);
-        if ([v12 isEqualToString:self->super._keyPath])
+        if (objc_msgSend_isEqualToString_(v12))
         {
           v14 = [NSString stringWithFormat:@"%@: A +keyPathsForValuesAffectingValueForKey: message returned a set that includes the same key that was passed in, which is not valid.\nPassed-in key: %@\nReturned key path set: %@", self->super._containerClass->_originalClass, self->super._keyPath, v7];
 LABEL_19:

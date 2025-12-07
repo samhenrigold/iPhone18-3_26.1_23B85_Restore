@@ -16,13 +16,11 @@
 - (uint64_t)ak_addCircleStatusHeaderForCircleStatus:()AuthKit;
 - (uint64_t)ak_addClientInfoHeader;
 - (uint64_t)ak_addClientTimeHeader;
-- (uint64_t)ak_addDeviceModeHeader;
 - (uint64_t)ak_addFeatureMaskHeader;
 - (uint64_t)ak_addHeaderForSecurityCode:()AuthKit;
-- (uint64_t)ak_addInternalBuildHeader;
 - (uint64_t)ak_addProvisioningUDIDHeader;
-- (uint64_t)ak_addSeedBuildHeader;
 - (uint64_t)ak_addSupportedLanguageHeader;
+- (unint64_t)ak_addDeviceModeHeader;
 - (void)_setAuthorizationHeaderWithToken:()AuthKit altDSID:key:;
 - (void)ak_addAbsintheHeaderWithValue:()AuthKit;
 - (void)ak_addAppProvidedContext:()AuthKit;
@@ -64,6 +62,7 @@
 - (void)ak_addHeaderForMDMOrganizationToken:()AuthKit;
 - (void)ak_addHeaderForSourceAltDSID:()AuthKit;
 - (void)ak_addICSCRecoveryHeaderWithIdentityToken:()AuthKit forAltDSID:;
+- (void)ak_addInternalBuildHeader;
 - (void)ak_addLocalUserUUIDHashHeader;
 - (void)ak_addLocaleHeader;
 - (void)ak_addLoggedInServicesHeaderForServices:()AuthKit;
@@ -91,6 +90,7 @@
 - (void)ak_addRequestContextHeader:()AuthKit;
 - (void)ak_addRequestUUIDHeader:()AuthKit;
 - (void)ak_addSKUCountryHeader;
+- (void)ak_addSeedBuildHeader;
 - (void)ak_addServerBackoffInfoHeader:()AuthKit;
 - (void)ak_addServerBackoffOptInHeader:()AuthKit;
 - (void)ak_addServiceHeaderForServiceType:()AuthKit;
@@ -129,7 +129,6 @@
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   v2 = v7;
 
   return v2;
@@ -156,7 +155,6 @@
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   v2 = v6;
 
   return v2;
@@ -183,7 +181,6 @@
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   v2 = v6;
 
   return v2;
@@ -230,7 +227,7 @@
   objc_storeStrong(&v9[4], 0);
 }
 
-- (uint64_t)ak_addInternalBuildHeader
+- (void)ak_addInternalBuildHeader
 {
   v2 = +[AKDevice currentDevice];
   v4 = 0;
@@ -256,7 +253,7 @@
   return result;
 }
 
-- (uint64_t)ak_addSeedBuildHeader
+- (void)ak_addSeedBuildHeader
 {
   v2 = +[AKDevice currentDevice];
   v4 = 0;
@@ -392,7 +389,7 @@
   objc_storeStrong(location, 0);
 }
 
-- (uint64_t)ak_addDeviceModeHeader
+- (unint64_t)ak_addDeviceModeHeader
 {
   v2 = +[AKDevice currentDevice];
   isInRestrictedSharingMode = [v2 isInRestrictedSharingMode];
@@ -603,7 +600,6 @@
   objc_storeStrong(&v12, 0);
   objc_storeStrong(&v13, 0);
   objc_storeStrong(v14, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)ak_addProxiedAnisetteHeaders:()AuthKit
@@ -651,7 +647,6 @@
   MEMORY[0x1E69E5920](obja);
   objc_storeStrong(&v13, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)ak_addProxiedAttestationHeaders:()AuthKit
@@ -682,7 +677,6 @@
   objc_storeStrong(&v9, 0);
   objc_storeStrong(&attestationHeaders, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)ak_addAuthorizationHeaderWithIdentityToken:()AuthKit forAltDSID:
@@ -992,7 +986,6 @@
   objc_storeStrong(&v6, 0);
   objc_storeStrong(&v7, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)ak_setJSONBodyWithParameters:()AuthKit
@@ -1027,7 +1020,6 @@
   objc_storeStrong(&v6, 0);
   objc_storeStrong(&v7, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)ak_addAbsintheHeaderWithValue:()AuthKit
@@ -1067,7 +1059,6 @@
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)ak_addContextHeaderForServiceType:()AuthKit
@@ -1373,7 +1364,6 @@
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   v2 = v6;
 
   return v2;
@@ -1400,7 +1390,6 @@
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   v2 = v6;
 
   return v2;
@@ -1471,7 +1460,6 @@
   objc_storeStrong(&machineID, 0);
   objc_storeStrong(&v16, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -1521,7 +1509,6 @@
   objc_storeStrong(&machineID, 0);
   objc_storeStrong(&v10, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -1596,7 +1583,6 @@
   objc_storeStrong(&machineID, 0);
   objc_storeStrong(&v10, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -1949,8 +1935,6 @@
   {
     [selfCopy setValue:@"true" forHTTPHeaderField:@"X-Apple-I-Experiment-Mode"];
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)ak_addHeaderForSourceAltDSID:()AuthKit
@@ -2134,7 +2118,6 @@
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 @end

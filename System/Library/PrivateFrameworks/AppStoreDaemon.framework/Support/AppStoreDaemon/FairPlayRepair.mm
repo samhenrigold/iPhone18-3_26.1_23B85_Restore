@@ -211,7 +211,7 @@ LABEL_19:
   applicationCopy = application;
   if (self)
   {
-    v8 = sub_100227468();
+    v8 = sub_100227468(NetworkMonitor);
     isConnected = [v8 isConnected];
 
     if (isConnected)
@@ -307,7 +307,7 @@ LABEL_19:
 
           sub_100406DAC(v40, @"fairPlayRepairFamilyLeave");
           sub_10022DA8C(v44, @"cancel");
-          if (sub_10030B58C())
+          if (sub_10030B58C(Restrictions))
           {
             v46 = ASDLocalizedString();
             v47 = [AMSDialogAction actionWithTitle:v46];

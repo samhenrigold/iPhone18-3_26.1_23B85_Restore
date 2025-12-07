@@ -31,7 +31,7 @@
 
   if (v3)
   {
-    sub_1000065A8(0, &qword_100AE4350);
+    sub_1000065A8(0, &qword_100AE4350, UIKeyCommand_ptr);
     v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
@@ -51,7 +51,7 @@
   [defaultCenter removeObserver:selfCopy];
 
   v6.receiver = selfCopy;
-  v6.super_class = type metadata accessor for CanvasGridView();
+  v6.super_class = type metadata accessor for CanvasGridView(0);
   [(CanvasGridView *)&v6 dealloc];
 }
 
@@ -73,11 +73,11 @@
   viewCopy = view;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1005912CC();
+  sub_1005912CC(v10);
 
   swift_unknownObjectRelease();
   (*(v8 + 8))(v10, v7);
-  sub_1000065A8(0, &unk_100AD4C90);
+  sub_1000065A8(0, &unk_100AD4C90, UIDragItem_ptr);
   v13.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v13.super.isa;
@@ -152,9 +152,9 @@
 
 - (id)collectionView:(id)view dropSessionDidUpdate:(id)update withDestinationIndexPath:(id)path
 {
-  v9 = sub_1000F24EC(&unk_100ADFB90);
+  v9 = sub_1000F24EC(&unk_100ADFB90, &qword_1009512D0);
   __chkstk_darwin(v9 - 8);
-  v11 = &v18 - v10;
+  v11 = &v19 - v10;
   if (path)
   {
     static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
@@ -171,12 +171,13 @@
   viewCopy = view;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v16 = sub_10058A8D8(viewCopy, update);
+  sub_10058A8D8(viewCopy, update);
+  v17 = v16;
 
   swift_unknownObjectRelease();
-  sub_100004F84(v11, &unk_100ADFB90);
+  sub_100004F84(v11, &unk_100ADFB90, &qword_1009512D0);
 
-  return v16;
+  return v17;
 }
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender
@@ -197,7 +198,7 @@
 
   v8 = sub_10058AD9C(action, v10);
 
-  sub_100004F84(v10, &qword_100AD13D0);
+  sub_100004F84(v10, &qword_100AD13D0, &unk_100942DB0);
   return v8;
 }
 

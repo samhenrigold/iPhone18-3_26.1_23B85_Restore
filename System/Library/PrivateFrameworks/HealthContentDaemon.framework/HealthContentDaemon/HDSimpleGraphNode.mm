@@ -1,5 +1,6 @@
 @interface HDSimpleGraphNode
 - (HDSimpleGraphNode)init;
+- (HDSimpleGraphNode)initWithRowID:(int64_t)d attributes:(id)attributes relationships:(id)relationships version:(int64_t)version slots:(unint64_t)slots deleted:(BOOL)deleted;
 - (id)description;
 @end
 
@@ -13,6 +14,24 @@
   [v3 raise:v4 format:{@"The -%@ method is not available on %@", v5, objc_opt_class()}];
 
   return 0;
+}
+
+- (HDSimpleGraphNode)initWithRowID:(int64_t)d attributes:(id)attributes relationships:(id)relationships version:(int64_t)version slots:(unint64_t)slots deleted:(BOOL)deleted
+{
+  deletedCopy = deleted;
+  attributesCopy = attributes;
+  relationshipsCopy = relationships;
+  v20.receiver = self;
+  v20.super_class = HDSimpleGraphNode;
+  v17 = [(HDSimpleGraphObject *)&v20 initWithRowID:d version:version slots:slots deleted:deletedCopy];
+  v18 = v17;
+  if (v17)
+  {
+    objc_storeStrong(&v17->_attributes, attributes);
+    objc_storeStrong(&v18->_relationships, relationships);
+  }
+
+  return v18;
 }
 
 - (id)description

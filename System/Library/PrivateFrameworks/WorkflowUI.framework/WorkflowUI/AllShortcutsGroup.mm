@@ -8,7 +8,7 @@
 {
   changeCopy = change;
   selfCopy = self;
-  sub_274787BE8();
+  sub_274787BE8(selfCopy);
 }
 
 @end

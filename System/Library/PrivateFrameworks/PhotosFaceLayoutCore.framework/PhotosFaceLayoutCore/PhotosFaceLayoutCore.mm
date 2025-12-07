@@ -1,21 +1,23 @@
-double cropTimeAboveFacesNoMask(void *a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9, double a10, double a11)
+double cropTimeAboveFacesNoMask(double a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8, void *x0_0, double a9, double a10)
 {
-  v21 = combineFaceRects(a1);
-  v23 = v22;
-  v25 = v24;
-  v27 = v26;
-  if (!rectPlusCushionInsideImage(v21, v22, v24, v26, a8))
+  v15.n128_f64[0] = combineFaceRects(x0_0);
+  v16 = v15.n128_f64[0];
+  v18 = v17.n128_f64[0];
+  v20 = v19.n128_f64[0];
+  v22 = v21.n128_f64[0];
+  v23.n128_f64[0] = a7;
+  if (!rectPlusCushionInsideImage(v15, v17, v19, v21, v23))
   {
     return *MEMORY[0x277CBF398];
   }
 
-  v28 = maxRectInImageWithAnchorAtPosition(a10 / a11 / (a2 / a3), a8, 0.5, a5 + a7, v21 + v25 * 0.5, v23);
-  if (!rectIsWithinRect(v21, v23, v25, v27, v28, v29, v30, v31))
+  v24 = maxRectInImageWithAnchorAtPosition(a9 / a10 / (a1 / a2), a7, 0.5, a4 + a6, v16 + v20 * 0.5, v18);
+  if (!rectIsWithinRect(v16, v18, v20, v22, v24, v25, v26, v27))
   {
     return *MEMORY[0x277CBF398];
   }
 
-  return v28;
+  return v24;
 }
 
 double combineFaceRects(void *a1)
@@ -66,9 +68,9 @@ double combineFaceRects(void *a1)
   return x;
 }
 
-BOOL rectPlusCushionInsideImage(double a1, double a2, double a3, double a4, double a5)
+BOOL rectPlusCushionInsideImage(__n128 a1, __n128 a2, __n128 a3, __n128 a4, __n128 a5)
 {
-  v5 = expandRect(a1, a2, a3, a4, a5, a5, a5, a5);
+  v5 = expandRect(a1.n128_f64[0], a2.n128_f64[0], a3.n128_f64[0], a4.n128_f64[0], a5.n128_f64[0], a5.n128_f64[0], a5.n128_f64[0], a5.n128_f64[0]);
 
   return rectIsWithinRect(v5, v6, v7, v8, 0.0, 0.0, 1.0, 1.0);
 }
@@ -100,165 +102,169 @@ double maxRectInImageWithAnchorAtPosition(double a1, double a2, double a3, doubl
 
 double cropTimeBelowFacesNoMask(void *a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9, double a10, double a11)
 {
-  v49 = *MEMORY[0x277D85DE8];
-  v21 = a1;
-  v22 = combineFaceRects(v21);
-  v24 = v23;
-  v26 = v25;
-  v28 = v27;
-  if (!rectPlusCushionInsideImage(v22, v23, v25, v27, a8))
+  v45 = *MEMORY[0x277D85DE8];
+  v15 = a1;
+  v16.n128_f64[0] = combineFaceRects(v15);
+  v17 = v16.n128_f64[0];
+  v19 = v18.n128_f64[0];
+  v21 = v20.n128_f64[0];
+  v23 = v22.n128_f64[0];
+  v24.n128_f64[0] = a8;
+  if (!rectPlusCushionInsideImage(v16, v18, v20, v22, v24))
   {
     goto LABEL_14;
   }
 
-  v43 = a5 * 0.3;
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
-  v45 = 0u;
-  v29 = a10 / a11 / (a2 / a3);
-  v30 = v21;
-  v31 = [v30 countByEnumeratingWithState:&v44 objects:v48 count:16];
-  if (v31)
+  v39 = a5 * 0.3;
+  v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v25 = a10 / a11 / (a2 / a3);
+  v26 = v15;
+  v27 = [v26 countByEnumeratingWithState:&v40 objects:v44 count:16];
+  if (v27)
   {
-    v32 = v31;
-    v33 = *v45;
-    v34 = 1.0;
+    v28 = v27;
+    v29 = *v41;
+    v30 = 1.0;
     do
     {
-      for (i = 0; i != v32; ++i)
+      for (i = 0; i != v28; ++i)
       {
-        if (*v45 != v33)
+        if (*v41 != v29)
         {
-          objc_enumerationMutation(v30);
+          objc_enumerationMutation(v26);
         }
 
-        [*(*(&v44 + 1) + 8 * i) rectValue];
-        if (v36 + v37 * 0.3 < v34)
+        [*(*(&v40 + 1) + 8 * i) rectValue];
+        if (v32 + v33 * 0.3 < v30)
         {
-          v34 = v36 + v37 * 0.3;
+          v30 = v32 + v33 * 0.3;
         }
       }
 
-      v32 = [v30 countByEnumeratingWithState:&v44 objects:v48 count:16];
+      v28 = [v26 countByEnumeratingWithState:&v40 objects:v44 count:16];
     }
 
-    while (v32);
+    while (v28);
   }
 
   else
   {
-    v34 = 1.0;
+    v30 = 1.0;
   }
 
-  v38 = maxRectInImageWithAnchorAtPosition(v29, a8, 0.5, v43, v22 + v26 * 0.5, v34);
-  if (!rectIsWithinRect(v22, v24, v26, v28, v38, v39, v40, v41))
+  v34 = maxRectInImageWithAnchorAtPosition(v25, a8, 0.5, v39, v17 + v21 * 0.5, v30);
+  if (!rectIsWithinRect(v17, v19, v21, v23, v34, v35, v36, v37))
   {
 LABEL_14:
-    v38 = *MEMORY[0x277CBF398];
+    v34 = *MEMORY[0x277CBF398];
   }
 
-  return v38;
+  return v34;
 }
 
-double cropTimeAboveFacesWithMask(void *a1, void *a2, uint64_t a3, double a4, double a5, CGFloat a6, CGFloat a7, CGFloat a8, CGFloat a9, double a10, double a11, double a12, double a13)
+double cropTimeAboveFacesWithMask(void *a1, void *a2, double a3, double a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8, double a9, double a10, uint64_t x2_0, double a11, double a12)
 {
-  v23 = a2;
-  v24 = combineFaceRects(a1);
-  v26 = v25;
-  v28 = v27;
-  v30 = v29;
-  if (rectPlusCushionInsideImage(v24, v25, v27, v29, a10))
+  v19 = a2;
+  v20.n128_f64[0] = combineFaceRects(a1);
+  v21 = v20.n128_f64[0];
+  v23 = v22.n128_f64[0];
+  v25 = v24.n128_f64[0];
+  v27 = v26.n128_u64[0];
+  v28.n128_f64[0] = a9;
+  if (rectPlusCushionInsideImage(v20, v22, v24, v26, v28))
   {
-    v66 = v30;
-    v60 = a7 + a9;
-    v67 = v28;
-    v31 = v24 + v28 * 0.5;
-    v32 = (v31 + 0.0) / (a10 + 0.5);
-    v33 = (1.0 - v31) / (a10 + 0.5);
-    if (v32 >= v33)
+    v64 = *&v27;
+    v58 = a6 + a8;
+    v65 = v25;
+    v29 = v21 + v25 * 0.5;
+    v30 = (v29 + 0.0) / (a9 + 0.5);
+    v31 = (1.0 - v29) / (a9 + 0.5);
+    if (v30 >= v31)
     {
-      v34 = v33;
+      v32 = v31;
     }
 
     else
     {
-      v34 = v32;
+      v32 = v30;
     }
 
-    if (1.0 / (a10 * 2.0 + 1.0) >= v26 / (a7 + a9 + a10))
+    if (1.0 / (a9 * 2.0 + 1.0) >= v23 / (a6 + a8 + a9))
     {
-      v35 = v26 / (a7 + a9 + a10);
-    }
-
-    else
-    {
-      v35 = 1.0 / (a10 * 2.0 + 1.0);
-    }
-
-    v36 = v34 / (a12 / a13 / (a4 / a5));
-    if (v36 <= v35)
-    {
-      v35 = v34 / (a12 / a13 / (a4 / a5));
+      v33 = v23 / (a6 + a8 + a9);
     }
 
     else
     {
-      v34 = v34 * (v35 / v36);
+      v33 = 1.0 / (a9 * 2.0 + 1.0);
     }
 
-    v38 = v26;
-    v39 = v26 - v35 * v60;
-    v40 = v24;
-    v41 = v24 + (v67 - v34) * 0.5;
-    v42 = *(MEMORY[0x277CBF398] + 16);
-    v69.origin = *MEMORY[0x277CBF398];
-    v69.size = v42;
-    v64 = v38;
-    v65 = v40;
-    if (rectIsWithinRect(v40, v38, v67, v66, v41, v39, v34, v35))
+    v34 = v32 / (a11 / a12 / (a3 / a4));
+    if (v34 <= v33)
     {
-      v59 = -8.0 / a5;
-      v53 = -8.0 / a4 + 1.0;
-      v46 = ((0.200845666 / (a8 * a9) + -1.0) * 0.2 + 1.0) * 0.185;
-      v47 = dbl_22D12D700[a3 == 2];
-      v58 = v46 / 0.18;
-      v57 = v46 / 0.18 * v47;
-      v56 = v46 * 0.04 / 0.82;
-      v54 = a10 + 1.0;
-      v55 = v56 * v47;
+      v33 = v32 / (a11 / a12 / (a3 / a4));
+    }
+
+    else
+    {
+      v32 = v32 * (v33 / v34);
+    }
+
+    v36 = v23;
+    v37 = v23 - v33 * v58;
+    v38 = v21;
+    v39 = v21 + (v65 - v32) * 0.5;
+    v40 = *(MEMORY[0x277CBF398] + 16);
+    v67.origin = *MEMORY[0x277CBF398];
+    v67.size = v40;
+    v62 = v36;
+    v63 = v38;
+    if (rectIsWithinRect(v38, v36, v65, v64, v39, v37, v32, v33))
+    {
+      v57 = -8.0 / a4;
+      v51 = -8.0 / a3 + 1.0;
+      v44 = ((0.200845666 / (a7 * a8) + -1.0) * 0.2 + 1.0) * 0.185;
+      v45 = dbl_22D12D700[x2_0 == 2];
+      v56 = v44 / 0.18;
+      v55 = v44 / 0.18 * v45;
+      v54 = v44 * 0.04 / 0.82;
+      v52 = a9 + 1.0;
+      v53 = v54 * v45;
       do
       {
-        if (v39 <= 1.0 - v35 * v54)
+        if (v37 <= 1.0 - v33 * v52)
         {
-          v48 = v39;
+          v46 = v37;
         }
 
         else
         {
-          v48 = 1.0 - v35 * v54;
+          v46 = 1.0 - v33 * v52;
         }
 
-        v49 = iterativeVerticalFacesMaskSolver(v23, 0, v68, a10, v41, v48, v34, v35, v43, v44, v45, v65, v64, v67, v66, a6, a7, a8, a9, v59, v56, v58, v55, v57);
-        v51 = v50;
-        x = v69.origin.x;
-        if (!CGRectIsEmpty(v69))
+        v47 = iterativeVerticalFacesMaskSolver(v19, 0, v66, a9, v39, v46, v32, v33, v41, v42, v43, v63, v62, v65, v64, a5, a6, a7, a8, v57, v54, v56, v53, v55);
+        v49 = v48;
+        x = v67.origin.x;
+        if (!CGRectIsEmpty(v67))
         {
           break;
         }
 
-        v34 = v53 * v49;
-        v35 = v53 * v51;
-        v39 = v64 - v53 * v51 * v60;
-        v41 = v65 + (v67 - v34) * 0.5;
+        v32 = v51 * v47;
+        v33 = v51 * v49;
+        v37 = v62 - v51 * v49 * v58;
+        v39 = v63 + (v65 - v32) * 0.5;
       }
 
-      while (rectIsWithinRect(v65, v64, v67, v66, v41, v39, v34, v35));
+      while (rectIsWithinRect(v63, v62, v65, v64, v39, v37, v32, v33));
     }
 
     else
     {
-      x = v69.origin.x;
+      x = v67.origin.x;
     }
   }
 
@@ -272,15 +278,20 @@ double cropTimeAboveFacesWithMask(void *a1, void *a2, uint64_t a3, double a4, do
 
 CGFloat iterativeVerticalFacesMaskSolver(void *a1, uint64_t a2, double *a3, double a4, double a5, double a6, CGFloat a7, CGFloat a8, double a9, double a10, double a11, double a12, double a13, double a14, double a15, CGFloat a16, CGFloat a17, CGFloat a18, CGFloat a19, double a20, double a21, double a22, double a23, double a24)
 {
-  v33 = a1;
-  if (rectPlusCushionInsideImage(a5, a6, a7, a8, a4))
+  v31 = a1;
+  v32.n128_f64[0] = a5;
+  v33.n128_f64[0] = a6;
+  v34.n128_f64[0] = a7;
+  v35.n128_f64[0] = a8;
+  v36.n128_f64[0] = a4;
+  if (rectPlusCushionInsideImage(v32, v33, v34, v35, v36))
   {
     while (rectIsWithinRect(a12, a13, a14, a15, a5, a6, a7, a8))
     {
-      Coverage = findCoverage(a2, v33, a5, a6, a7, a8, a16, a17, a18, a19);
-      if (v35 < a22 && Coverage < a21)
+      v37.n128_f64[0] = findCoverage(a2, v31, a5, a6, a7, a8, a16, a17, a18, a19);
+      if (v38.n128_f64[0] < a22 && v37.n128_f64[0] < a21)
       {
-        if (v35 >= a24 && Coverage >= a23)
+        if (v38.n128_f64[0] >= a24 && v37.n128_f64[0] >= a23)
         {
           a3[12] = a5;
           a3[13] = a6;
@@ -292,7 +303,12 @@ CGFloat iterativeVerticalFacesMaskSolver(void *a1, uint64_t a2, double *a3, doub
       }
 
       a6 = a6 + a20;
-      if (!rectPlusCushionInsideImage(a5, a6, a7, a8, a4))
+      v37.n128_f64[0] = a5;
+      v38.n128_f64[0] = a6;
+      v39.n128_f64[0] = a7;
+      v40.n128_f64[0] = a8;
+      v41.n128_f64[0] = a4;
+      if (!rectPlusCushionInsideImage(v37, v38, v39, v40, v41))
       {
         break;
       }
@@ -304,89 +320,91 @@ CGFloat iterativeVerticalFacesMaskSolver(void *a1, uint64_t a2, double *a3, doub
 
 double cropTimeBelowFacesWithMask(void *a1, void *a2, double a3, double a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8, double a9, double a10, double a11, double a12)
 {
-  v22 = a2;
-  v23 = combineFaceRects(a1);
-  v25 = v24;
-  v27 = v26;
-  v29 = v28;
-  if (rectPlusCushionInsideImage(v23, v24, v26, v28, a9))
+  v17 = a2;
+  v18.n128_f64[0] = combineFaceRects(a1);
+  v19 = v18.n128_f64[0];
+  v21 = v20.n128_f64[0];
+  v23 = v22.n128_f64[0];
+  v25 = v24.n128_f64[0];
+  v26.n128_f64[0] = a9;
+  if (rectPlusCushionInsideImage(v18, v20, v22, v24, v26))
   {
-    v57 = v29;
-    v58 = v27;
-    v30 = v23 + v27 * 0.5;
-    v31 = (v30 + 0.0) / (a9 + 0.5);
-    v32 = (1.0 - v30) / (a9 + 0.5);
-    if (v31 >= v32)
+    v54 = v25;
+    v55 = v23;
+    v27 = v19 + v23 * 0.5;
+    v28 = (v27 + 0.0) / (a9 + 0.5);
+    v29 = (1.0 - v27) / (a9 + 0.5);
+    if (v28 >= v29)
     {
-      v33 = v32;
+      v30 = v29;
     }
 
     else
     {
-      v33 = v31;
+      v30 = v28;
     }
 
-    if (1.0 / (a9 * 2.0 + 1.0) >= (v25 + v29) / (a6 - a9))
+    if (1.0 / (a9 * 2.0 + 1.0) >= (v21 + v25) / (a6 - a9))
     {
-      v34 = (v25 + v29) / (a6 - a9);
-    }
-
-    else
-    {
-      v34 = 1.0 / (a9 * 2.0 + 1.0);
-    }
-
-    v35 = v33 / (a11 / a12 / (a3 / a4));
-    v56 = a4;
-    if (v35 <= v34)
-    {
-      v34 = v33 / (a11 / a12 / (a3 / a4));
+      v31 = (v21 + v25) / (a6 - a9);
     }
 
     else
     {
-      v33 = v33 * (v34 / v35);
+      v31 = 1.0 / (a9 * 2.0 + 1.0);
     }
 
-    v37 = v23 + (v58 - v33) * 0.5;
-    v38 = *(MEMORY[0x277CBF398] + 16);
-    v60.origin = *MEMORY[0x277CBF398];
-    v60.size = v38;
-    if (rectIsWithinRect(v23, v25, v58, v57, v37, v25, v33, v34))
+    v32 = v30 / (a11 / a12 / (a3 / a4));
+    v53 = a4;
+    if (v32 <= v31)
     {
-      v49 = 1.0 - 8.0 / a3;
-      v42 = ((0.200845666 / (a7 * a8) + -1.0) * 0.2 + 1.0) * 0.185;
-      v51 = v42 / 0.18;
-      v52 = v42 * 0.04 / 0.82;
-      v50 = v42 / 0.18 * 0.142857143;
+      v31 = v30 / (a11 / a12 / (a3 / a4));
+    }
+
+    else
+    {
+      v30 = v30 * (v31 / v32);
+    }
+
+    v34 = v19 + (v55 - v30) * 0.5;
+    v35 = *(MEMORY[0x277CBF398] + 16);
+    v57.origin = *MEMORY[0x277CBF398];
+    v57.size = v35;
+    if (rectIsWithinRect(v19, v21, v55, v54, v34, v21, v30, v31))
+    {
+      v46 = 1.0 - 8.0 / a3;
+      v39 = ((0.200845666 / (a7 * a8) + -1.0) * 0.2 + 1.0) * 0.185;
+      v48 = v39 / 0.18;
+      v49 = v39 * 0.04 / 0.82;
+      v47 = v39 / 0.18 * 0.142857143;
       do
       {
-        v43 = 1.0 - v34 * (a9 + 1.0);
-        v44 = v43 - v34;
-        if (v25 + v34 >= v43)
+        v40 = 1.0 - v31 * (a9 + 1.0);
+        v41 = v40 - v31;
+        if (v21 + v31 >= v40)
         {
-          v44 = v25;
+          v41 = v21;
         }
 
-        v45 = iterativeVerticalFacesMaskSolver(v22, 1, v59, a9, v37, v44, v33, v34, v39, v40, v41, v23, v25, v58, v57, a5, a6, a7, a8, 8.0 / v56, v52, v51, v52 * 0.142857143, v50);
-        v47 = v46;
-        x = v60.origin.x;
-        if (!CGRectIsEmpty(v60))
+        v42 = iterativeVerticalFacesMaskSolver(v17, 1, v56, a9, v34, v41, v30, v31, v36, v37, v38, v19, v21, v55, v54, a5, a6, a7, a8, 8.0 / v53, v49, v48, v49 * 0.142857143, v47);
+        v44 = v43;
+        x = v57.origin.x;
+        if (!CGRectIsEmpty(v57))
         {
           break;
         }
 
-        v33 = v49 * v45;
-        v34 = v49 * v47;
-        v37 = v23 + (v58 - v33) * 0.5;
+        v30 = v46 * v42;
+        v31 = v46 * v44;
+        v34 = v19 + (v55 - v30) * 0.5;
       }
 
-      while (rectIsWithinRect(v23, v25, v58, v57, v37, v25, v33, v34));
+      while (rectIsWithinRect(v19, v21, v55, v54, v34, v21, v30, v31));
     }
 
     else
     {
-      x = v60.origin.x;
+      x = v57.origin.x;
     }
   }
 
@@ -398,107 +416,109 @@ double cropTimeBelowFacesWithMask(void *a1, void *a2, double a3, double a4, CGFl
   return x;
 }
 
-double cropTimeLeftOfFacesWithMask(void *a1, void *a2, uint64_t a3, double a4, double a5, double a6, CGFloat a7, double a8, CGFloat a9, double a10, double a11, CGFloat a12, CGFloat a13, CGFloat a14, CGFloat a15, CGFloat a16, CGFloat a17, CGFloat a18, CGFloat a19, double a20, double a21, double a22)
+double cropTimeLeftOfFacesWithMask(void *a1, void *a2, uint64_t a3, double a4, double a5, CGFloat a6, CGFloat a7, CGFloat a8, CGFloat a9, double a10, double a11, CGFloat a12, CGFloat a13, CGFloat a14, CGFloat a15, CGFloat a16, CGFloat a17, CGFloat a18, CGFloat a19, double a20, double a21, double a22)
 {
-  v31 = a2;
-  v32 = combineFaceRects(a1);
-  v34 = v33;
-  v36 = v35;
-  v72 = v37;
-  if (rectPlusCushionInsideImage(v32, v33, v35, v37, a20))
+  v28 = a2;
+  v29.n128_f64[0] = combineFaceRects(a1);
+  v30 = v29.n128_f64[0];
+  v32 = v31.n128_f64[0];
+  v34 = v33.n128_f64[0];
+  v71 = v35.n128_f64[0];
+  v36.n128_f64[0] = a20;
+  if (rectPlusCushionInsideImage(v29, v31, v33, v35, v36))
   {
-    v38 = a6 + a8;
-    v64 = a5;
-    v67 = a4;
-    v39 = a21 / a22 / (a4 / a5);
-    v40 = 1.0 / (a20 * 2.0 + 1.0);
-    v41 = v36 * 1.0001 / (1.0 - (a6 + a8));
-    if (v41 >= v40)
+    v37 = a6 + a8;
+    v63 = a5;
+    v66 = a4;
+    v38 = a21 / a22 / (a4 / a5);
+    v39 = 1.0 / (a20 * 2.0 + 1.0);
+    v40 = v34 * 1.0001 / (1.0 - (a6 + a8));
+    if (v40 >= v39)
     {
-      v41 = 1.0 / (a20 * 2.0 + 1.0);
+      v40 = 1.0 / (a20 * 2.0 + 1.0);
     }
 
-    v42 = v41 / v39;
-    v43 = v39 * v72;
-    if (v42 >= v72)
+    v41 = v40 / v38;
+    v42 = v38 * v71;
+    if (v41 >= v71)
+    {
+      v43 = v41;
+    }
+
+    else
+    {
+      v43 = v71;
+    }
+
+    v68 = a6;
+    if (v41 >= v71)
+    {
+      v44 = v40;
+    }
+
+    else
     {
       v44 = v42;
     }
 
-    else
+    v45 = *(MEMORY[0x277CBF398] + 16);
+    v73.origin = *MEMORY[0x277CBF398];
+    v73.size = v45;
+    v74.origin = v73.origin;
+    v74.size = v45;
+    v69 = v37;
+    v46 = v30 - v44 * v37;
+    v75.origin = v73.origin;
+    v75.size = v45;
+    if (rectIsWithinRect(v30, v32, v34, v71, v46, v32, v44, v43) && v44 <= v39 && v43 <= v39)
     {
-      v44 = v72;
-    }
-
-    v69 = a6;
-    if (v42 >= v72)
-    {
-      v45 = v41;
-    }
-
-    else
-    {
-      v45 = v43;
-    }
-
-    v46 = *(MEMORY[0x277CBF398] + 16);
-    v74.origin = *MEMORY[0x277CBF398];
-    v74.size = v46;
-    v75.origin = v74.origin;
-    v75.size = v46;
-    v70 = v38;
-    v47 = v32 - v45 * v38;
-    v76.origin = v74.origin;
-    v76.size = v46;
-    if (rectIsWithinRect(v32, v34, v36, v72, v47, v34, v45, v44) && v45 <= v40 && v44 <= v40)
-    {
-      v68 = -4.0 / v67;
-      v51 = -8.0 / v64;
-      v65 = 8.0 / v64 + 1.0;
-      v66 = v51;
-      v52 = ((0.200845666 / (a8 * a9) + -1.0) * 0.2 + 1.0) * 0.185;
-      v63 = v52 / 0.18;
-      v61 = a20 + 1.0;
-      v62 = v52 * 0.04 / 0.82;
+      v67 = -4.0 / v66;
+      v50 = -8.0 / v63;
+      v64 = 8.0 / v63 + 1.0;
+      v65 = v50;
+      v51 = ((0.200845666 / (a8 * a9) + -1.0) * 0.2 + 1.0) * 0.185;
+      v62 = v51 / 0.18;
+      v60 = a20 + 1.0;
+      v61 = v51 * 0.04 / 0.82;
       do
       {
-        if (v47 <= 1.0 - v45 * v61)
+        if (v46 <= 1.0 - v44 * v60)
         {
-          v53 = v47;
+          v52 = v46;
         }
 
         else
         {
-          v53 = 1.0 - v45 * v61;
+          v52 = 1.0 - v44 * v60;
         }
 
-        if (v34 <= 1.0 - v44 * v61)
+        if (v32 <= 1.0 - v43 * v60)
         {
-          v54 = v34;
+          v53 = v32;
         }
 
         else
         {
-          v54 = 1.0 - v44 * v61;
+          v53 = 1.0 - v43 * v60;
         }
 
-        v55 = iterativeBidirectionalFacesMaskSolver(v31, 2, a3, 2, &v74.origin.x, a20, v53, v54, v45, v44, v48, v49, v50, v32, v34, v36, v72, v69, a7, a8, a9, a12, a13, a14, a15, a16, a17, a18, a19, v68, v66, v62, v63);
-        v45 = v65 * v55;
-        v44 = v65 * v56;
-        v47 = v32 - v65 * v55 * v70;
+        v54 = iterativeBidirectionalFacesMaskSolver(v28, 2, a3, 2, &v73.origin.x, a20, v52, v53, v44, v43, v47, v48, v49, v30, v32, v34, v71, v68, a7, a8, a9, a12, a13, a14, a15, a16, a17, a18, a19, v67, v65, v61, v62);
+        v44 = v64 * v54;
+        v43 = v64 * v55;
+        v46 = v30 - v64 * v54 * v69;
       }
 
-      while (rectIsWithinRect(v32, v34, v36, v72, v47, v34, v65 * v55, v65 * v56) && v45 <= v40 && v44 <= v40);
+      while (rectIsWithinRect(v30, v32, v34, v71, v46, v32, v64 * v54, v64 * v55) && v44 <= v39 && v43 <= v39);
     }
 
-    x = v74.origin.x;
-    if (CGRectIsEmpty(v74))
+    x = v73.origin.x;
+    if (CGRectIsEmpty(v73))
     {
-      x = v75.origin.x;
-      if (CGRectIsEmpty(v75))
+      x = v74.origin.x;
+      if (CGRectIsEmpty(v74))
       {
-        x = v76.origin.x;
-        CGRectIsEmpty(v76);
+        x = v75.origin.x;
+        CGRectIsEmpty(v75);
       }
     }
   }
@@ -522,18 +542,23 @@ double positionCandidateRectForSizeLeft(uint64_t a1, double a2, double a3, doubl
   return result;
 }
 
-double iterativeBidirectionalFacesMaskSolver(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, double *a5, double a6, double a7, double a8, double a9, double a10, double a11, double a12, double a13, double a14, double a15, double a16, double a17, double a18, CGFloat a19, double a20, CGFloat a21, CGFloat a22, CGFloat a23, CGFloat a24, CGFloat a25, CGFloat a26, CGFloat a27, CGFloat a28, CGFloat a29, double a30, double a31, double a32, double a33)
+double iterativeBidirectionalFacesMaskSolver(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, double *a5, double a6, double a7, double a8, double a9, double a10, double a11, double a12, double a13, double a14, double a15, double a16, double a17, CGFloat a18, CGFloat a19, CGFloat a20, CGFloat a21, CGFloat a22, CGFloat a23, CGFloat a24, CGFloat a25, CGFloat a26, CGFloat a27, CGFloat a28, CGFloat a29, double a30, double a31, double a32, double a33)
 {
   v42 = a1;
-  if (rectPlusCushionInsideImage(a7, a8, a9, a10, a6))
+  v43.n128_f64[0] = a7;
+  v44.n128_f64[0] = a8;
+  v45.n128_f64[0] = a9;
+  v46.n128_f64[0] = a10;
+  v47.n128_f64[0] = a6;
+  if (rectPlusCushionInsideImage(v43, v44, v45, v46, v47))
   {
-    v75 = 1.79769313e308;
-    v76 = 1.79769313e308;
-    v71 = 1.79769313e308;
-    v72 = 1.79769313e308;
-    v69 = 1.79769313e308;
-    v70 = 1.79769313e308;
-    v67 = a6;
+    v92 = 1.79769313e308;
+    v93 = 1.79769313e308;
+    v88 = 1.79769313e308;
+    v89 = 1.79769313e308;
+    v86 = 1.79769313e308;
+    v87 = 1.79769313e308;
+    v84 = a6;
     while (1)
     {
       if (!rectIsWithinRect(a14, a15, a16, a17, a7, a8, a9, a10))
@@ -541,239 +566,249 @@ double iterativeBidirectionalFacesMaskSolver(void *a1, uint64_t a2, uint64_t a3,
         goto LABEL_50;
       }
 
-      if (rectPlusCushionInsideImage(a7, a8, a9, a10, a6))
+      v48.n128_f64[0] = a7;
+      v49.n128_f64[0] = a8;
+      v50.n128_f64[0] = a9;
+      v51.n128_f64[0] = a10;
+      v52.n128_f64[0] = a6;
+      if (rectPlusCushionInsideImage(v48, v49, v50, v51, v52))
       {
         break;
       }
 
 LABEL_49:
       a8 = a8 + a31;
-      if (!rectPlusCushionInsideImage(a7, a8, a9, a10, a6))
+      v53.n128_f64[0] = a7;
+      v54.n128_f64[0] = a8;
+      v55.n128_f64[0] = a9;
+      v56.n128_f64[0] = a10;
+      v57.n128_f64[0] = a6;
+      if (!rectPlusCushionInsideImage(v53, v54, v55, v56, v57))
       {
         goto LABEL_50;
       }
     }
 
-    v43 = (a8 - a15 + -a17 * 0.5) / a10;
-    v73 = vabdd_f64(-0.5, v43);
-    v74 = vabdd_f64(-0.333333333, v43);
-    v44 = a7;
-    v68 = a7;
+    v58 = (a8 - a15 + -a17 * 0.5) / a10;
+    v90 = vabdd_f64(-0.5, v58);
+    v91 = vabdd_f64(-0.333333333, v58);
+    v59 = a7;
+    v85 = a7;
     while (1)
     {
-      if (!rectIsWithinRect(a14, a15, a16, a17, v44, a8, a9, a10))
+      if (!rectIsWithinRect(a14, a15, a16, a17, v59, a8, a9, a10))
       {
         goto LABEL_49;
       }
 
-      v77.origin.x = v44;
-      v77.origin.y = a8;
-      v77.size.width = a9;
-      v77.size.height = a10;
-      if (CGRectIsNull(v77))
+      v94.origin.x = v59;
+      v94.origin.y = a8;
+      v94.size.width = a9;
+      v94.size.height = a10;
+      if (CGRectIsNull(v94))
       {
-        v45 = 1.79769313e308;
+        v60 = 1.79769313e308;
       }
 
       else
       {
         if (a2 == 2)
         {
-          v46 = (a18 + a20 + 1.0) * 0.5;
+          v61 = (a18 + a20 + 1.0) * 0.5;
         }
 
         else
         {
-          v46 = a18 * 0.5;
+          v61 = a18 * 0.5;
         }
 
-        v45 = vabdd_f64((v44 - a14 + -a16 * 0.5) / -a9, v46);
+        v60 = vabdd_f64((v59 - a14 + -a16 * 0.5) / -a9, v61);
       }
 
-      v78.origin.x = v44;
-      v78.origin.y = a8;
-      v78.size.width = a9;
-      v78.size.height = a10;
-      if (!CGRectIsNull(v78))
+      v95.origin.x = v59;
+      v95.origin.y = a8;
+      v95.size.width = a9;
+      v95.size.height = a10;
+      if (!CGRectIsNull(v95))
       {
         if (a3 == 2)
         {
-          v47 = v73;
+          v67 = v90;
         }
 
         else
         {
-          v47 = 0.0;
+          v67 = 0.0;
           if (a3 == 1)
           {
-            v47 = v74;
+            v67 = v91;
           }
         }
 
-        if (v45 < 0.02 && v47 < 0.15)
+        if (v60 < 0.02 && v67 < 0.15)
         {
-          Coverage = findCoverage(a4, v42, v44, a8, a9, a10, a18, a19, a20, a21);
-          if (v49 >= a33 * 0.142857143 && v49 < a33 && Coverage < a32 && Coverage >= a32 * 0.142857143)
+          v62.n128_f64[0] = findCoverage(a4, v42, v59, a8, a9, a10, a18, a19, a20, a21);
+          if (v63.n128_f64[0] >= a33 * 0.142857143 && v63.n128_f64[0] < a33 && v62.n128_f64[0] < a32 && v62.n128_f64[0] >= a32 * 0.142857143)
           {
-            v79.origin.x = v44;
-            v79.origin.y = a8;
-            v79.size.width = a9;
-            v79.size.height = a10;
-            v81.origin.x = a22;
-            v81.origin.y = a23;
-            v81.size.width = a24;
-            v81.size.height = a25;
-            v50 = v45 * 0.98;
-            if (CGRectContainsRect(v79, v81))
+            v96.origin.x = v59;
+            v96.origin.y = a8;
+            v96.size.width = a9;
+            v96.size.height = a10;
+            v98.origin.x = a22;
+            v98.origin.y = a23;
+            v98.size.width = a24;
+            v98.size.height = a25;
+            v68 = v60 * 0.98;
+            if (CGRectContainsRect(v96, v98))
             {
-              if (v47 * 0.99 < v76 && v50 <= v75)
+              if (v67 * 0.99 < v93 && v68 <= v92)
               {
-                v52 = a5 + 5;
-                v51 = a5 + 4;
-                v53 = a5;
-                v55 = a5 + 2;
-                v54 = a5 + 1;
-                v56 = a5 + 3;
-                v57 = v69;
-                v58 = v70;
-                v59 = v71;
-                v60 = v72;
-                v61 = v45;
-                v62 = v47;
+                v70 = a5 + 5;
+                v69 = a5 + 4;
+                v71 = a5;
+                v73 = a5 + 2;
+                v72 = a5 + 1;
+                v74 = a5 + 3;
+                v75 = v86;
+                v76 = v87;
+                v77 = v88;
+                v78 = v89;
+                v79 = v60;
+                v80 = v67;
                 goto LABEL_40;
               }
 
-              if (v45 * 0.99 >= v75)
+              if (v60 * 0.99 >= v92)
               {
                 goto LABEL_48;
               }
 
-              v52 = a5 + 5;
-              v51 = a5 + 4;
-              v53 = a5;
-              v55 = a5 + 2;
-              v54 = a5 + 1;
-              v65 = v47 * 0.98 > v76;
-              v56 = a5 + 3;
-              v57 = v69;
-              v58 = v70;
-              v59 = v71;
-              v60 = v72;
-              v61 = v45;
-              v62 = v47;
+              v70 = a5 + 5;
+              v69 = a5 + 4;
+              v71 = a5;
+              v73 = a5 + 2;
+              v72 = a5 + 1;
+              v82 = v67 * 0.98 > v93;
+              v74 = a5 + 3;
+              v75 = v86;
+              v76 = v87;
+              v77 = v88;
+              v78 = v89;
+              v79 = v60;
+              v80 = v67;
             }
 
             else
             {
-              v80.origin.x = v44;
-              v80.origin.y = a8;
-              v80.size.width = a9;
-              v80.size.height = a10;
-              v82.origin.x = a26;
-              v82.origin.y = a27;
-              v82.size.width = a28;
-              v82.size.height = a29;
-              v63 = CGRectContainsRect(v80, v82);
-              v64 = v47 * 0.99;
-              if (v63)
+              v97.origin.x = v59;
+              v97.origin.y = a8;
+              v97.size.width = a9;
+              v97.size.height = a10;
+              v99.origin.x = a26;
+              v99.origin.y = a27;
+              v99.size.width = a28;
+              v99.size.height = a29;
+              v81 = CGRectContainsRect(v97, v99);
+              v63.n128_f64[0] = v67 * 0.99;
+              if (v81)
               {
-                if (v64 < v72 && v50 <= v70)
+                if (v63.n128_f64[0] < v89 && v68 <= v87)
                 {
-                  v52 = a5 + 11;
-                  v51 = a5 + 10;
-                  v54 = a5 + 7;
-                  v53 = a5 + 6;
-                  v56 = a5 + 9;
-                  v55 = a5 + 8;
-                  v57 = v69;
-                  v59 = v71;
-                  v58 = v45;
-                  v60 = v47;
+                  v70 = a5 + 11;
+                  v69 = a5 + 10;
+                  v72 = a5 + 7;
+                  v71 = a5 + 6;
+                  v74 = a5 + 9;
+                  v73 = a5 + 8;
+                  v75 = v86;
+                  v77 = v88;
+                  v76 = v60;
+                  v78 = v67;
                   goto LABEL_39;
                 }
 
-                if (v45 * 0.99 >= v70)
+                if (v60 * 0.99 >= v87)
                 {
                   goto LABEL_48;
                 }
 
-                v52 = a5 + 11;
-                v51 = a5 + 10;
-                v54 = a5 + 7;
-                v53 = a5 + 6;
-                v59 = v71;
-                v65 = v47 * 0.98 > v72;
-                v56 = a5 + 9;
-                v55 = a5 + 8;
-                v57 = v69;
-                v58 = v45;
-                v60 = v47;
+                v70 = a5 + 11;
+                v69 = a5 + 10;
+                v72 = a5 + 7;
+                v71 = a5 + 6;
+                v77 = v88;
+                v82 = v67 * 0.98 > v89;
+                v74 = a5 + 9;
+                v73 = a5 + 8;
+                v75 = v86;
+                v76 = v60;
+                v78 = v67;
               }
 
               else
               {
-                if (v64 < v71 && v50 <= v69)
+                if (v63.n128_f64[0] < v88 && v68 <= v86)
                 {
-                  v52 = a5 + 17;
-                  v51 = a5 + 16;
-                  v54 = a5 + 13;
-                  v53 = a5 + 12;
-                  v56 = a5 + 15;
-                  v55 = a5 + 14;
-                  v57 = v45;
-                  v59 = v47;
-                  v58 = v70;
-                  v60 = v72;
+                  v70 = a5 + 17;
+                  v69 = a5 + 16;
+                  v72 = a5 + 13;
+                  v71 = a5 + 12;
+                  v74 = a5 + 15;
+                  v73 = a5 + 14;
+                  v75 = v60;
+                  v77 = v67;
+                  v76 = v87;
+                  v78 = v89;
 LABEL_39:
-                  v61 = v75;
-                  v62 = v76;
+                  v79 = v92;
+                  v80 = v93;
 LABEL_40:
-                  a7 = v68;
-                  a6 = v67;
+                  a7 = v85;
+                  a6 = v84;
 LABEL_47:
-                  *v51 = v45;
-                  *v52 = v47;
-                  *v53 = v44;
-                  v69 = v57;
-                  v70 = v58;
-                  *v54 = a8;
-                  v71 = v59;
-                  v72 = v60;
-                  *v55 = a9;
-                  v75 = v61;
-                  v76 = v62;
-                  *v56 = a10;
+                  *v69 = v60;
+                  *v70 = v67;
+                  *v71 = v59;
+                  v86 = v75;
+                  v87 = v76;
+                  *v72 = a8;
+                  v88 = v77;
+                  v89 = v78;
+                  *v73 = a9;
+                  v92 = v79;
+                  v93 = v80;
+                  *v74 = a10;
                   goto LABEL_14;
                 }
 
-                if (v45 * 0.99 >= v69)
+                if (v60 * 0.99 >= v86)
                 {
 LABEL_48:
-                  a7 = v68;
-                  a6 = v67;
+                  a7 = v85;
+                  a6 = v84;
                   goto LABEL_14;
                 }
 
-                v52 = a5 + 17;
-                v51 = a5 + 16;
-                v54 = a5 + 13;
-                v53 = a5 + 12;
-                v58 = v70;
-                v65 = v47 * 0.98 > v71;
-                v56 = a5 + 15;
-                v55 = a5 + 14;
-                v57 = v45;
-                v59 = v47;
-                v60 = v72;
+                v70 = a5 + 17;
+                v69 = a5 + 16;
+                v72 = a5 + 13;
+                v71 = a5 + 12;
+                v76 = v87;
+                v82 = v67 * 0.98 > v88;
+                v74 = a5 + 15;
+                v73 = a5 + 14;
+                v75 = v60;
+                v77 = v67;
+                v78 = v89;
               }
 
-              v61 = v75;
-              v62 = v76;
+              v79 = v92;
+              v80 = v93;
             }
 
-            a7 = v68;
-            a6 = v67;
-            if (!v65)
+            a7 = v85;
+            a6 = v84;
+            if (!v82)
             {
               goto LABEL_47;
             }
@@ -782,8 +817,13 @@ LABEL_48:
       }
 
 LABEL_14:
-      v44 = v44 + a30;
-      if (!rectPlusCushionInsideImage(v44, a8, a9, a10, a6))
+      v59 = v59 + a30;
+      v62.n128_f64[0] = v59;
+      v63.n128_f64[0] = a8;
+      v64.n128_f64[0] = a9;
+      v65.n128_f64[0] = a10;
+      v66.n128_f64[0] = a6;
+      if (!rectPlusCushionInsideImage(v62, v63, v64, v65, v66))
       {
         goto LABEL_49;
       }
@@ -795,103 +835,105 @@ LABEL_50:
   return a9;
 }
 
-double cropTimeRightOfFacesWithMask(void *a1, void *a2, uint64_t a3, double a4, double a5, double a6, CGFloat a7, double a8, CGFloat a9, double a10, double a11, CGFloat a12, CGFloat a13, CGFloat a14, CGFloat a15, CGFloat a16, CGFloat a17, CGFloat a18, CGFloat a19, double a20, double a21, double a22)
+double cropTimeRightOfFacesWithMask(void *a1, void *a2, uint64_t a3, double a4, double a5, CGFloat a6, CGFloat a7, CGFloat a8, CGFloat a9, double a10, double a11, CGFloat a12, CGFloat a13, CGFloat a14, CGFloat a15, CGFloat a16, CGFloat a17, CGFloat a18, CGFloat a19, double a20, double a21, double a22)
 {
-  v31 = a2;
-  v32 = combineFaceRects(a1);
-  v34 = v33;
-  v36 = v35;
-  v69 = v37;
-  if (rectPlusCushionInsideImage(v32, v33, v37, v35, a20))
+  v28 = a2;
+  v29.n128_f64[0] = combineFaceRects(a1);
+  v30 = v29.n128_f64[0];
+  v32 = v31.n128_f64[0];
+  v34 = v33.n128_f64[0];
+  v68 = v35.n128_f64[0];
+  v36.n128_f64[0] = a20;
+  if (rectPlusCushionInsideImage(v29, v31, v35, v33, v36))
   {
-    v62 = a5;
-    v65 = a4;
-    v38 = a21 / a22 / (a4 / a5);
-    v39 = 1.0 / (a20 * 2.0 + 1.0);
-    v40 = v69 * 1.0001 / (1.0 - a6);
-    if (v40 >= v39)
+    v61 = a5;
+    v64 = a4;
+    v37 = a21 / a22 / (a4 / a5);
+    v38 = 1.0 / (a20 * 2.0 + 1.0);
+    v39 = v68 * 1.0001 / (1.0 - a6);
+    if (v39 >= v38)
     {
-      v40 = 1.0 / (a20 * 2.0 + 1.0);
+      v39 = 1.0 / (a20 * 2.0 + 1.0);
     }
 
-    v41 = v40 / v38;
-    v42 = v38 * v36;
-    if (v41 >= v36)
+    v40 = v39 / v37;
+    v41 = v37 * v34;
+    if (v40 >= v34)
     {
-      v43 = v40;
-    }
-
-    else
-    {
-      v43 = v42;
-    }
-
-    v44 = *(MEMORY[0x277CBF398] + 16);
-    v70.origin = *MEMORY[0x277CBF398];
-    v70.size = v44;
-    v71.origin = v70.origin;
-    v71.size = v44;
-    if (v41 >= v36)
-    {
-      v45 = v41;
+      v42 = v39;
     }
 
     else
     {
-      v45 = v36;
+      v42 = v41;
     }
 
-    v72.origin = v70.origin;
-    v72.size = v44;
-    if (rectIsWithinRect(v32, v34, v69, v36, v32, v34, v43, v45) && v43 <= v39 && v45 <= v39)
+    v43 = *(MEMORY[0x277CBF398] + 16);
+    v69.origin = *MEMORY[0x277CBF398];
+    v69.size = v43;
+    v70.origin = v69.origin;
+    v70.size = v43;
+    if (v40 >= v34)
     {
-      v66 = -4.0 / v65;
-      v48 = -8.0 / v62;
-      v63 = 8.0 / v62 + 1.0;
-      v64 = v48;
-      v49 = ((0.200845666 / (a8 * a9) + -1.0) * 0.2 + 1.0) * 0.185;
-      v61 = v49 / 0.18;
-      v59 = a20 + 1.0;
-      v60 = v49 * 0.04 / 0.82;
+      v44 = v40;
+    }
+
+    else
+    {
+      v44 = v34;
+    }
+
+    v71.origin = v69.origin;
+    v71.size = v43;
+    if (rectIsWithinRect(v30, v32, v68, v34, v30, v32, v42, v44) && v42 <= v38 && v44 <= v38)
+    {
+      v65 = -4.0 / v64;
+      v47 = -8.0 / v61;
+      v62 = 8.0 / v61 + 1.0;
+      v63 = v47;
+      v48 = ((0.200845666 / (a8 * a9) + -1.0) * 0.2 + 1.0) * 0.185;
+      v60 = v48 / 0.18;
+      v58 = a20 + 1.0;
+      v59 = v48 * 0.04 / 0.82;
       do
       {
-        v50 = 1.0 - v43 * v59;
-        if (v32 + v43 >= v50)
+        v49 = 1.0 - v42 * v58;
+        if (v30 + v42 >= v49)
+        {
+          v50 = v30;
+        }
+
+        else
+        {
+          v50 = v49 - v42;
+        }
+
+        if (v32 <= 1.0 - v44 * v58)
         {
           v51 = v32;
         }
 
         else
         {
-          v51 = v50 - v43;
+          v51 = 1.0 - v44 * v58;
         }
 
-        if (v34 <= 1.0 - v45 * v59)
-        {
-          v52 = v34;
-        }
-
-        else
-        {
-          v52 = 1.0 - v45 * v59;
-        }
-
-        v53 = iterativeBidirectionalFacesMaskSolver(v31, 1, a3, 3, &v70.origin.x, a20, v51, v52, v43, v45, v59, v46, v47, v32, v34, v69, v36, a6, a7, a8, a9, a12, a13, a14, a15, a16, a17, a18, a19, v66, v64, v60, v61);
-        v43 = v63 * v53;
-        v45 = v63 * v54;
+        v52 = iterativeBidirectionalFacesMaskSolver(v28, 1, a3, 3, &v69.origin.x, a20, v50, v51, v42, v44, v58, v45, v46, v30, v32, v68, v34, a6, a7, a8, a9, a12, a13, a14, a15, a16, a17, a18, a19, v65, v63, v59, v60);
+        v42 = v62 * v52;
+        v44 = v62 * v53;
       }
 
-      while (rectIsWithinRect(v32, v34, v69, v36, v32, v34, v63 * v53, v63 * v54) && v43 <= v39 && v45 <= v39);
+      while (rectIsWithinRect(v30, v32, v68, v34, v30, v32, v62 * v52, v62 * v53) && v42 <= v38 && v44 <= v38);
     }
 
-    x = v70.origin.x;
-    if (CGRectIsEmpty(v70))
+    x = v69.origin.x;
+    if (CGRectIsEmpty(v69))
     {
-      x = v71.origin.x;
-      if (CGRectIsEmpty(v71))
+      x = v70.origin.x;
+      if (CGRectIsEmpty(v70))
       {
-        x = v72.origin.x;
-        CGRectIsEmpty(v72);
+        x = v71.origin.x;
+        CGRectIsEmpty(v71);
       }
     }
   }
@@ -904,180 +946,182 @@ double cropTimeRightOfFacesWithMask(void *a1, void *a2, uint64_t a3, double a4, 
   return x;
 }
 
-BOOL cropTimeLeftFacesNoMask(void *a1, uint64_t a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9, double a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, double a25, double a26, double a27)
+BOOL cropTimeLeftFacesNoMask(void *a1, uint64_t a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9, double a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, CGFloat a25, double a26, double a27)
 {
-  v28 = a25;
-  v103[4] = *MEMORY[0x277D85DE8];
-  v29 = combineFaceRects(a1);
-  v31 = v30;
-  v33 = v32;
-  v35 = v34;
-  result = rectPlusCushionInsideImage(v29, v30, v32, v34, a25);
+  v31 = a25;
+  v108[4] = *MEMORY[0x277D85DE8];
+  v32.n128_f64[0] = combineFaceRects(a1);
+  v33 = v32.n128_f64[0];
+  v35 = v34.n128_f64[0];
+  v37 = v36.n128_f64[0];
+  v39 = v38.n128_f64[0];
+  v40.n128_f64[0] = a25;
+  result = rectPlusCushionInsideImage(v32, v34, v36, v38, v40);
   if (result)
   {
-    v92 = a4;
-    v37 = a26 / a27 / (a3 / a4);
-    v38 = a5 + a7;
-    v39 = 1.0 - (a5 + a7);
-    v40 = v33 * 1.0001 / v39;
-    v99 = 1.0 / (a25 * 2.0 + 1.0);
-    if (v40 >= v99)
+    v97 = a4;
+    v42 = a26 / a27 / (a3 / a4);
+    v43 = a5 + a7;
+    v44 = 1.0 - (a5 + a7);
+    v45 = v37 * 1.0001 / v44;
+    v104 = 1.0 / (a25 * 2.0 + 1.0);
+    if (v45 >= v104)
     {
-      v40 = 1.0 / (a25 * 2.0 + 1.0);
+      v45 = 1.0 / (a25 * 2.0 + 1.0);
     }
 
-    v41 = v40 / v37;
-    v96 = a26 / a27 / (a3 / a4);
-    v42 = v37 * v35;
-    if (v41 < v35)
+    v46 = v45 / v42;
+    v101 = a26 / a27 / (a3 / a4);
+    v47 = v42 * v39;
+    if (v46 < v39)
     {
-      v41 = v35;
-      v40 = v42;
+      v46 = v39;
+      v45 = v47;
     }
 
-    v88 = v39;
-    v89 = v40;
-    v90 = v41;
-    v94 = v38;
-    v43 = positionCandidateRectForSizeLeft(2, v40, v41, v29, v31, v33, v35, v38);
-    v45 = v44;
-    v47 = v46;
-    v49 = v48;
-    v91 = v43;
-    v100 = v33;
-    v101 = v29;
-    v97 = v31;
-    if (rectIsWithinRect(v29, v31, v33, v35, v43, v44, v46, v48) && rectIsWithinRect(v91, v45, v47, v49, a25, a25, v99, v99))
+    v93 = v44;
+    v94 = v45;
+    v95 = v46;
+    v99 = v43;
+    v48 = positionCandidateRectForSizeLeft(2, v45, v46, v33, v35, v37, v39, v43);
+    v50 = v49;
+    v52 = v51;
+    v54 = v53;
+    v96 = v48;
+    v105 = v37;
+    v106 = v33;
+    v102 = v35;
+    if (rectIsWithinRect(v33, v35, v37, v39, v48, v49, v51, v53) && rectIsWithinRect(v96, v50, v52, v54, a25, a25, v104, v104))
     {
-      v86 = v47;
-      v87 = v45;
-      v85 = v35;
-      v102[0] = a17;
-      v102[1] = a18;
-      v102[2] = a19;
-      v102[3] = a20;
-      v103[0] = a21;
-      v103[1] = a22;
-      v93 = 8.0 / v92 + 1.0;
-      v103[2] = a23;
-      v103[3] = a24;
-      v50 = v102;
-      v51 = 1;
+      v91 = v52;
+      v92 = v50;
+      v90 = v39;
+      v107[0] = a17;
+      v107[1] = a18;
+      v107[2] = a19;
+      v107[3] = a20;
+      v108[0] = a21;
+      v108[1] = a22;
+      v98 = 8.0 / v97 + 1.0;
+      v108[2] = a23;
+      v108[3] = a24;
+      v55 = v107;
+      v56 = 1;
       while (1)
       {
-        v52 = v51;
-        v53 = *v50;
-        v54 = v50[1];
-        v56 = v50[2];
-        v55 = v50[3];
-        v104.origin.x = *v50;
-        v104.origin.y = v54;
-        v104.size.width = v56;
-        v104.size.height = v55;
-        if (!CGRectIsNull(v104))
+        v57 = v56;
+        v58 = *v55;
+        v59 = v55[1];
+        v61 = v55[2];
+        v60 = v55[3];
+        v109.origin.x = *v55;
+        v109.origin.y = v59;
+        v109.size.width = v61;
+        v109.size.height = v60;
+        if (!CGRectIsNull(v109))
         {
-          v105.origin.x = v91;
-          v105.size.width = v86;
-          v105.origin.y = v87;
-          v105.size.height = v49;
-          v108.origin.x = v53;
-          v108.origin.y = v54;
-          v108.size.width = v56;
-          v108.size.height = v55;
-          result = CGRectContainsRect(v105, v108);
+          v110.origin.x = v96;
+          v110.size.width = v91;
+          v110.origin.y = v92;
+          v110.size.height = v54;
+          v113.origin.x = v58;
+          v113.origin.y = v59;
+          v113.size.width = v61;
+          v113.size.height = v60;
+          result = CGRectContainsRect(v110, v113);
           if (result)
           {
             return result;
           }
 
-          v57 = v89;
-          v58 = v90;
-          v59 = v89 < v56 || v90 < v55;
-          v60 = v101;
-          if (v59)
+          v62 = v94;
+          v63 = v95;
+          v64 = v94 < v61 || v95 < v60;
+          v65 = v106;
+          if (v64)
           {
-            v57 = v89;
-            v58 = v90;
-            if (v89 < v56)
+            v62 = v94;
+            v63 = v95;
+            if (v94 < v61)
             {
-              v57 = v56;
+              v62 = v61;
             }
 
-            if (v90 < v55)
+            if (v95 < v60)
             {
-              v58 = v55;
+              v63 = v60;
             }
 
-            if (v57 / v58 >= v96)
+            if (v62 / v63 >= v101)
             {
-              v58 = v57 / v96;
+              v63 = v62 / v101;
             }
 
             else
             {
-              v57 = v96 * v58;
+              v62 = v101 * v63;
             }
           }
 
-          v61 = v100;
-          v62 = positionCandidateRectForSizeLeft(2, v57, v58, v101, v97, v100, v85, v94);
-          v64 = v63;
-          v66 = v65;
-          v68 = v67;
-          v106.origin.x = a25;
-          v106.origin.y = a25;
-          v106.size.width = 1.0 / (a25 * 2.0 + 1.0);
-          v106.size.height = v106.size.width;
-          v109.origin.x = v62;
-          v109.origin.y = v64;
-          v109.size.width = v66;
-          v109.size.height = v68;
-          if (CGRectContainsRect(v106, v109))
+          v66 = v105;
+          v67 = positionCandidateRectForSizeLeft(2, v62, v63, v106, v102, v105, v90, v99);
+          v69 = v68;
+          v71 = v70;
+          v73 = v72;
+          v111.origin.x = a25;
+          v111.origin.y = a25;
+          v111.size.width = 1.0 / (a25 * 2.0 + 1.0);
+          v111.size.height = v111.size.width;
+          v114.origin.x = v67;
+          v114.origin.y = v69;
+          v114.size.width = v71;
+          v114.size.height = v73;
+          if (CGRectContainsRect(v111, v114))
           {
             break;
           }
         }
 
 LABEL_27:
-        v51 = 0;
-        v50 = v103;
-        if ((v52 & 1) == 0)
+        v56 = 0;
+        v55 = v108;
+        if ((v57 & 1) == 0)
         {
-          v33 = v100;
-          v29 = v101;
-          v31 = v97;
-          v35 = v85;
-          v28 = a25;
+          v37 = v105;
+          v33 = v106;
+          v35 = v102;
+          v39 = v90;
+          v31 = a25;
           goto LABEL_29;
         }
       }
 
       while (1)
       {
-        if (rectIsWithinRect(v60, v97, v61, v85, v62, v64, v66, v68))
+        if (rectIsWithinRect(v65, v102, v66, v90, v67, v69, v71, v73))
         {
-          result = rectIsWithinRect(v62, v64, v66, v68, a25, a25, v99, v99);
+          result = rectIsWithinRect(v67, v69, v71, v73, a25, a25, v104, v104);
           if (result)
           {
             break;
           }
         }
 
-        v61 = v100;
-        v60 = v101;
-        v62 = positionCandidateRectForSizeLeft(2, v93 * v66, v93 * v68, v101, v97, v100, v85, v94);
-        v64 = v69;
-        v66 = v70;
-        v68 = v71;
-        v107.origin.x = a25;
-        v107.origin.y = a25;
-        v107.size.width = 1.0 / (a25 * 2.0 + 1.0);
-        v107.size.height = v107.size.width;
-        v110.origin.x = v62;
-        v110.origin.y = v64;
-        v110.size.width = v66;
-        v110.size.height = v68;
-        if (!CGRectContainsRect(v107, v110))
+        v66 = v105;
+        v65 = v106;
+        v67 = positionCandidateRectForSizeLeft(2, v98 * v71, v98 * v73, v106, v102, v105, v90, v99);
+        v69 = v74;
+        v71 = v75;
+        v73 = v76;
+        v112.origin.x = a25;
+        v112.origin.y = a25;
+        v112.size.width = 1.0 / (a25 * 2.0 + 1.0);
+        v112.size.height = v112.size.width;
+        v115.origin.x = v67;
+        v115.origin.y = v69;
+        v115.size.width = v71;
+        v115.size.height = v73;
+        if (!CGRectContainsRect(v112, v115))
         {
           goto LABEL_27;
         }
@@ -1087,321 +1131,323 @@ LABEL_27:
     else
     {
 LABEL_29:
-      v95 = v29 + v33 * 0.5;
-      v72 = v35;
-      v73 = v31 + v35 * 0.5;
-      v74 = &cropTimeRightFacesNoMask_thirdsChoices;
-      v75 = &cropTimeRightFacesNoMask_centerChoices;
-      v76 = 7;
+      v100 = v33 + v37 * 0.5;
+      v77 = v39;
+      v78 = v35 + v39 * 0.5;
+      v79 = &cropTimeRightFacesNoMask_thirdsChoices;
+      v80 = &cropTimeRightFacesNoMask_centerChoices;
+      v81 = 7;
       do
       {
         if (a2 == 1)
         {
-          v77 = v74;
+          v82 = v79;
         }
 
         else
         {
-          v77 = v75;
+          v82 = v80;
         }
 
-        v78 = maxRectInImageWithAnchorAtPosition(v96, v28, v94 + v88 * 0.5, *v77, v95, v73);
-        v80 = v79;
-        v82 = v81;
-        v84 = v83;
-        result = rectIsWithinRect(v101, v97, v100, v72, v78, v79, v81, v83);
+        v83 = maxRectInImageWithAnchorAtPosition(v101, v31, v99 + v93 * 0.5, *v82, v100, v78);
+        v85 = v84;
+        v87 = v86;
+        v89 = v88;
+        result = rectIsWithinRect(v106, v102, v105, v77, v83, v84, v86, v88);
         if (result)
         {
-          result = rectIsWithinRect(v78, v80, v82, v84, v28, v28, v99, v99);
+          result = rectIsWithinRect(v83, v85, v87, v89, v31, v31, v104, v104);
           if (result)
           {
             break;
           }
         }
 
-        ++v74;
-        ++v75;
-        --v76;
+        ++v79;
+        ++v80;
+        --v81;
       }
 
-      while (v76);
+      while (v81);
     }
   }
 
   return result;
 }
 
-BOOL cropTimeRightFacesNoMask(void *a1, uint64_t a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9, double a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, double a25, double a26, double a27)
+BOOL cropTimeRightFacesNoMask(void *a1, uint64_t a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9, double a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, CGFloat a25, double a26, double a27)
 {
-  v89[4] = *MEMORY[0x277D85DE8];
-  v26 = combineFaceRects(a1);
-  v28 = v27;
-  v30 = v29;
-  v32 = v31;
-  result = rectPlusCushionInsideImage(v26, v27, v29, v31, a25);
+  v96[4] = *MEMORY[0x277D85DE8];
+  v31.n128_f64[0] = combineFaceRects(a1);
+  v32 = v31.n128_u64[0];
+  v34 = v33.n128_f64[0];
+  v36 = v35.n128_f64[0];
+  v38 = v37.n128_f64[0];
+  v39.n128_f64[0] = a25;
+  result = rectPlusCushionInsideImage(v31, v33, v35, v37, v39);
   if (result)
   {
-    v34 = v26;
-    v77 = a4;
-    v35 = a26 / a27 / (a3 / a4);
-    v36 = v30 * 1.0001 / (1.0 - a5);
-    v83 = v35;
+    v41 = *&v32;
+    v84 = a4;
+    v42 = a26 / a27 / (a3 / a4);
+    v43 = v36 * 1.0001 / (1.0 - a5);
+    v90 = v42;
     rect1 = 1.0 / (a25 * 2.0 + 1.0);
-    if (v36 >= rect1)
+    if (v43 >= rect1)
     {
-      v36 = 1.0 / (a25 * 2.0 + 1.0);
+      v43 = 1.0 / (a25 * 2.0 + 1.0);
     }
 
-    v37 = v36 / v35;
-    v38 = v35 * v32;
-    if (v37 >= v32)
+    v44 = v43 / v42;
+    v45 = v42 * v38;
+    if (v44 >= v38)
     {
-      v39 = v37;
-    }
-
-    else
-    {
-      v39 = v32;
-    }
-
-    if (v37 >= v32)
-    {
-      v40 = v36;
+      v46 = v44;
     }
 
     else
     {
-      v40 = v38;
+      v46 = v38;
     }
 
-    v41 = a5;
+    if (v44 >= v38)
+    {
+      v47 = v43;
+    }
+
+    else
+    {
+      v47 = v45;
+    }
+
+    v48 = a5;
     if (a2 == 2)
     {
-      v42 = v28;
-      v43 = v28 + v39 * -0.5 + v32 * 0.5;
+      v49 = v34;
+      v50 = v34 + v46 * -0.5 + v38 * 0.5;
     }
 
     else
     {
-      v42 = v28;
-      v43 = v28;
+      v49 = v34;
+      v50 = v34;
       if (a2 == 1)
       {
-        v43 = v28 + v39 * -0.333333333 + v32 * 0.5;
+        v50 = v34 + v46 * -0.333333333 + v38 * 0.5;
       }
     }
 
-    v44 = v34;
-    v45 = v34 + -(v30 - v40 * v41) * -0.5;
-    v79 = v43;
-    v80 = v41;
-    v46 = v39;
-    v85 = v30;
-    v86 = v34;
-    v87 = v32;
-    if (rectIsWithinRect(v34, v42, v30, v32, v45, v43, v40, v39) && rectIsWithinRect(v45, v79, v40, v46, a25, a25, rect1, rect1))
+    v51 = v41;
+    v52 = v41 + -(v36 - v47 * v48) * -0.5;
+    v86 = v50;
+    v87 = v48;
+    v53 = v46;
+    v92 = v36;
+    v93 = v41;
+    v94 = v38;
+    if (rectIsWithinRect(v41, v49, v36, v38, v52, v50, v47, v46) && rectIsWithinRect(v52, v86, v47, v53, a25, a25, rect1, rect1))
     {
-      v75 = v40;
-      v76 = v46;
-      v81 = v42;
-      v47 = -v30;
-      v88[0] = a17;
-      v88[1] = a18;
-      v88[2] = a19;
-      v88[3] = a20;
-      v89[0] = a21;
-      v89[1] = a22;
-      v89[2] = a23;
-      v89[3] = a24;
-      v48 = v88;
-      v49 = 1;
-      v78 = 8.0 / v77 + 1.0;
+      v82 = v47;
+      v83 = v53;
+      v88 = v49;
+      v54 = -v36;
+      v95[0] = a17;
+      v95[1] = a18;
+      v95[2] = a19;
+      v95[3] = a20;
+      v96[0] = a21;
+      v96[1] = a22;
+      v96[2] = a23;
+      v96[3] = a24;
+      v55 = v95;
+      v56 = 1;
+      v85 = 8.0 / v84 + 1.0;
       do
       {
-        v50 = v49;
-        v51 = *v48;
-        v52 = v48[1];
-        v54 = v48[2];
-        v53 = v48[3];
-        v90.origin.x = *v48;
-        v90.origin.y = v52;
-        v90.size.width = v54;
-        v90.size.height = v53;
-        if (!CGRectIsNull(v90))
+        v57 = v56;
+        v58 = *v55;
+        v59 = v55[1];
+        v61 = v55[2];
+        v60 = v55[3];
+        v97.origin.x = *v55;
+        v97.origin.y = v59;
+        v97.size.width = v61;
+        v97.size.height = v60;
+        if (!CGRectIsNull(v97))
         {
-          v91.origin.x = v45;
-          v91.origin.y = v79;
-          v91.size.width = v75;
-          v91.size.height = v76;
-          v94.origin.x = v51;
-          v94.origin.y = v52;
-          v94.size.width = v54;
-          v94.size.height = v53;
-          result = CGRectContainsRect(v91, v94);
+          v98.origin.x = v52;
+          v98.origin.y = v86;
+          v98.size.width = v82;
+          v98.size.height = v83;
+          v101.origin.x = v58;
+          v101.origin.y = v59;
+          v101.size.width = v61;
+          v101.size.height = v60;
+          result = CGRectContainsRect(v98, v101);
           if (result)
           {
             return result;
           }
 
-          v55 = v75 < v54 || v76 < v53;
-          v56 = v76;
-          v57 = v75;
-          if (v55)
+          v62 = v82 < v61 || v83 < v60;
+          v63 = v83;
+          v64 = v82;
+          if (v62)
           {
-            if (v75 >= v54)
+            if (v82 >= v61)
             {
-              v57 = v75;
+              v64 = v82;
             }
 
             else
             {
-              v57 = v54;
+              v64 = v61;
             }
 
-            if (v76 >= v53)
+            if (v83 >= v60)
             {
-              v56 = v76;
-            }
-
-            else
-            {
-              v56 = v53;
-            }
-
-            if (v57 / v56 >= v83)
-            {
-              v56 = v57 / v83;
+              v63 = v83;
             }
 
             else
             {
-              v57 = v83 * v56;
+              v63 = v60;
+            }
+
+            if (v64 / v63 >= v90)
+            {
+              v63 = v64 / v90;
+            }
+
+            else
+            {
+              v64 = v90 * v63;
             }
           }
 
           if (a2 == 2)
           {
-            v58 = v81 + v56 * -0.5 + v87 * 0.5;
+            v65 = v88 + v63 * -0.5 + v94 * 0.5;
           }
 
           else
           {
-            v58 = v81;
+            v65 = v88;
             if (a2 == 1)
             {
-              v58 = v81 + v56 * -0.333333333 + v87 * 0.5;
+              v65 = v88 + v63 * -0.333333333 + v94 * 0.5;
             }
           }
 
-          v59 = v86;
-          v60 = v86 + (v47 + v57 * v80) * -0.5;
-          v92.origin.x = a25;
-          v92.origin.y = a25;
-          v92.size.width = 1.0 / (a25 * 2.0 + 1.0);
-          v92.size.height = v92.size.width;
-          v95.origin.x = v60;
-          v95.origin.y = v58;
-          v95.size.width = v57;
-          v95.size.height = v56;
-          if (CGRectContainsRect(v92, v95))
+          v66 = v93;
+          v67 = v93 + (v54 + v64 * v87) * -0.5;
+          v99.origin.x = a25;
+          v99.origin.y = a25;
+          v99.size.width = 1.0 / (a25 * 2.0 + 1.0);
+          v99.size.height = v99.size.width;
+          v102.origin.x = v67;
+          v102.origin.y = v65;
+          v102.size.width = v64;
+          v102.size.height = v63;
+          if (CGRectContainsRect(v99, v102))
           {
             while (1)
             {
-              if (rectIsWithinRect(v59, v81, v85, v87, v60, v58, v57, v56))
+              if (rectIsWithinRect(v66, v88, v92, v94, v67, v65, v64, v63))
               {
-                result = rectIsWithinRect(v60, v58, v57, v56, a25, a25, rect1, rect1);
+                result = rectIsWithinRect(v67, v65, v64, v63, a25, a25, rect1, rect1);
                 if (result)
                 {
                   return result;
                 }
               }
 
-              v56 = v78 * v56;
+              v63 = v85 * v63;
               if (a2 == 2)
               {
                 break;
               }
 
-              v58 = v81;
+              v65 = v88;
               if (a2 == 1)
               {
-                v61 = -0.333333333;
+                v68 = -0.333333333;
 LABEL_44:
-                v58 = v81 + v56 * v61 + v87 * 0.5;
+                v65 = v88 + v63 * v68 + v94 * 0.5;
               }
 
-              v57 = v78 * v57;
-              v59 = v86;
-              v60 = v86 + (v47 + v57 * v80) * -0.5;
-              v93.origin.x = a25;
-              v93.origin.y = a25;
-              v93.size.width = 1.0 / (a25 * 2.0 + 1.0);
-              v93.size.height = v93.size.width;
-              v96.origin.x = v60;
-              v96.origin.y = v58;
-              v96.size.width = v57;
-              v96.size.height = v56;
-              if (!CGRectContainsRect(v93, v96))
+              v64 = v85 * v64;
+              v66 = v93;
+              v67 = v93 + (v54 + v64 * v87) * -0.5;
+              v100.origin.x = a25;
+              v100.origin.y = a25;
+              v100.size.width = 1.0 / (a25 * 2.0 + 1.0);
+              v100.size.height = v100.size.width;
+              v103.origin.x = v67;
+              v103.origin.y = v65;
+              v103.size.width = v64;
+              v103.size.height = v63;
+              if (!CGRectContainsRect(v100, v103))
               {
                 goto LABEL_46;
               }
             }
 
-            v61 = -0.5;
+            v68 = -0.5;
             goto LABEL_44;
           }
         }
 
 LABEL_46:
-        v49 = 0;
-        v48 = v89;
+        v56 = 0;
+        v55 = v96;
       }
 
-      while ((v50 & 1) != 0);
-      v30 = v85;
-      v44 = v86;
-      v42 = v81;
-      v32 = v87;
+      while ((v57 & 1) != 0);
+      v36 = v92;
+      v51 = v93;
+      v49 = v88;
+      v38 = v94;
     }
 
-    v82 = v44 + v30 * 0.5;
-    v62 = v42;
-    v63 = v42 + v32 * 0.5;
-    v64 = &cropTimeRightFacesNoMask_thirdsChoices;
-    v65 = &cropTimeRightFacesNoMask_centerChoices;
-    v66 = 7;
+    v89 = v51 + v36 * 0.5;
+    v69 = v49;
+    v70 = v49 + v38 * 0.5;
+    v71 = &cropTimeRightFacesNoMask_thirdsChoices;
+    v72 = &cropTimeRightFacesNoMask_centerChoices;
+    v73 = 7;
     do
     {
       if (a2 == 1)
       {
-        v67 = v64;
+        v74 = v71;
       }
 
       else
       {
-        v67 = v65;
+        v74 = v72;
       }
 
-      v68 = maxRectInImageWithAnchorAtPosition(v83, a25, v80 * 0.5, *v67, v82, v63);
-      v70 = v69;
-      v72 = v71;
-      v74 = v73;
-      result = rectIsWithinRect(v86, v62, v85, v87, v68, v69, v71, v73);
+      v75 = maxRectInImageWithAnchorAtPosition(v90, a25, v87 * 0.5, *v74, v89, v70);
+      v77 = v76;
+      v79 = v78;
+      v81 = v80;
+      result = rectIsWithinRect(v93, v69, v92, v94, v75, v76, v78, v80);
       if (result)
       {
-        result = rectIsWithinRect(v68, v70, v72, v74, a25, a25, rect1, rect1);
+        result = rectIsWithinRect(v75, v77, v79, v81, a25, a25, rect1, rect1);
         if (result)
         {
           break;
         }
       }
 
-      ++v64;
-      ++v65;
-      --v66;
+      ++v71;
+      ++v72;
+      --v73;
     }
 
-    while (v66);
+    while (v73);
   }
 
   return result;
@@ -1454,34 +1500,34 @@ double findCoverage(uint64_t a1, void *a2, double a3, double a4, CGFloat a5, CGF
 
 PFLCCurationScore *PFLCCurationScoreForAsset(void *a1, uint64_t a2)
 {
-  v123 = *MEMORY[0x277D85DE8];
+  v125 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = objc_alloc_init(MEMORY[0x277CD9880]);
   [v3 setIncludedDetectionTypes:&unk_284052860];
-  v110 = v3;
+  v112 = v3;
   v4 = [MEMORY[0x277CD9868] fetchFacesInAsset:v2 options:v3];
   v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v4, "count")}];
-  v117 = 0u;
-  v118 = 0u;
   v119 = 0u;
   v120 = 0u;
+  v121 = 0u;
+  v122 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v117 objects:&v121 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v119 objects:&v123 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v118;
+    v9 = *v120;
     obj = v6;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v118 != v9)
+        if (*v120 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v117 + 1) + 8 * i);
+        v11 = *(*(&v119 + 1) + 8 * i);
         [v11 size];
         v13 = v12;
         v14 = [v2 pixelWidth];
@@ -1518,42 +1564,42 @@ PFLCCurationScore *PFLCCurationScoreForAsset(void *a1, uint64_t a2)
           v17 = v24 - v21;
         }
 
-        CGAffineTransformMakeScale(&v122, (1.0 / [v2 pixelWidth]), (1.0 / objc_msgSend(v2, "pixelHeight")));
-        v125.origin.x = v19;
-        v125.origin.y = v21;
-        v125.size.width = v23;
-        v125.size.height = v17;
-        v126 = CGRectApplyAffineTransform(v125, &v122);
-        v122.b = 0.0;
-        v122.c = 0.0;
-        *&v122.d = xmmword_22D12D780;
-        v122.a = 1.0;
-        v122.ty = 1.0;
-        v127 = CGRectApplyAffineTransform(v126, &v122);
-        x = v127.origin.x;
-        y = v127.origin.y;
-        width = v127.size.width;
-        height = v127.size.height;
-        v29 = pflc_layout_log();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+        CGAffineTransformMakeScale(&v124, (1.0 / [v2 pixelWidth]), (1.0 / objc_msgSend(v2, "pixelHeight")));
+        v127.origin.x = v19;
+        v127.origin.y = v21;
+        v127.size.width = v23;
+        v127.size.height = v17;
+        v128 = CGRectApplyAffineTransform(v127, &v124);
+        v124.b = 0.0;
+        v124.c = 0.0;
+        *&v124.d = xmmword_22D12D780;
+        v124.a = 1.0;
+        v124.ty = 1.0;
+        v129 = CGRectApplyAffineTransform(v128, &v124);
+        x = v129.origin.x;
+        y = v129.origin.y;
+        width = v129.size.width;
+        height = v129.size.height;
+        v30 = pflc_layout_log(v29);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
         {
-          v30 = _rectAsString(x, y, width, height);
-          v31 = [v11 detectionType];
-          LODWORD(v122.a) = 136315650;
-          *(&v122.a + 4) = "NSArray<NSValue *> * _Nullable faceRectsForAsset(PHAsset *__strong)";
-          WORD2(v122.b) = 2112;
-          *(&v122.b + 6) = v30;
-          HIWORD(v122.c) = 2048;
-          *&v122.d = v31;
-          _os_log_impl(&dword_22D126000, v29, OS_LOG_TYPE_DEFAULT, "%s: face at %@, detectionType == %ld", &v122, 0x20u);
+          v31 = _rectAsString(x, y, width, height);
+          v32 = [v11 detectionType];
+          LODWORD(v124.a) = 136315650;
+          *(&v124.a + 4) = "NSArray<NSValue *> * _Nullable faceRectsForAsset(PHAsset *__strong)";
+          WORD2(v124.b) = 2112;
+          *(&v124.b + 6) = v31;
+          HIWORD(v124.c) = 2048;
+          *&v124.d = v32;
+          _os_log_impl(&dword_22D126000, v30, OS_LOG_TYPE_DEFAULT, "%s: face at %@, detectionType == %ld", &v124, 0x20u);
         }
 
-        v32 = [MEMORY[0x277CCAE60] valueWithRect:{x, y, width, height}];
-        [v5 addObject:v32];
+        v33 = [MEMORY[0x277CCAE60] valueWithRect:{x, y, width, height}];
+        [v5 addObject:v33];
       }
 
       v6 = obj;
-      v8 = [obj countByEnumeratingWithState:&v117 objects:&v121 count:16];
+      v8 = [obj countByEnumeratingWithState:&v119 objects:&v123 count:16];
     }
 
     while (v8);
@@ -1561,598 +1607,600 @@ PFLCCurationScore *PFLCCurationScoreForAsset(void *a1, uint64_t a2)
 
   if (![v5 count])
   {
-    v33 = pflc_layout_log();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v34 = pflc_layout_log(0);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
-      v34 = [v2 localIdentifier];
-      LODWORD(v122.a) = 136315394;
-      *(&v122.a + 4) = "NSArray<NSValue *> * _Nullable faceRectsForAsset(PHAsset *__strong)";
-      WORD2(v122.b) = 2112;
-      *(&v122.b + 6) = v34;
-      _os_log_impl(&dword_22D126000, v33, OS_LOG_TYPE_DEFAULT, "%s: No PHFace data in asset %@", &v122, 0x16u);
+      v35 = [v2 localIdentifier];
+      LODWORD(v124.a) = 136315394;
+      *(&v124.a + 4) = "NSArray<NSValue *> * _Nullable faceRectsForAsset(PHAsset *__strong)";
+      WORD2(v124.b) = 2112;
+      *(&v124.b + 6) = v35;
+      _os_log_impl(&dword_22D126000, v34, OS_LOG_TYPE_DEFAULT, "%s: No PHFace data in asset %@", &v124, 0x16u);
     }
   }
 
-  v35 = [v2 pixelWidth];
-  v36 = [v2 pixelHeight];
+  v36 = [v2 pixelWidth];
+  v37 = [v2 pixelHeight];
   [v2 preferredCropRect];
-  v108 = v38;
-  v109 = v37;
-  v106 = v40;
-  v107 = v39;
+  v110 = v39;
+  v111 = v38;
+  v108 = v41;
+  v109 = v40;
   [v2 acceptableCropRect];
-  v104 = v42;
-  v105 = v41;
-  v102 = v44;
-  v103 = v43;
-  v45 = [MEMORY[0x277CBEB38] dictionary];
-  v99 = 0;
+  v106 = v43;
+  v107 = v42;
+  v104 = v45;
+  v105 = v44;
+  v46 = [MEMORY[0x277CBEB38] dictionary];
+  v101 = 0;
   if (v5)
   {
-    v46 = a2 == 0;
+    v47 = a2 == 0;
   }
 
   else
   {
-    v46 = 0;
+    v47 = 0;
   }
 
-  if (v46)
+  if (v47)
   {
-    v47 = 1;
+    v48 = 1;
   }
 
   else
   {
-    v47 = a2;
+    v48 = a2;
   }
 
-  v48 = *MEMORY[0x277D3B3B8] * 0.5;
-  v100 = *(MEMORY[0x277D3B3C0] + 8);
-  v101 = *MEMORY[0x277D3B3C0];
-  v49 = *MEMORY[0x277D3B3C0] / v100;
-  v50 = v35 * v48 + 0.0;
-  v51 = v36 * v48 + 0.0;
-  v52 = v48 * -2.0 + 1.0;
-  v53 = v52 * v35;
-  v54 = v52 * v36;
-  v55 = v49 * v54;
-  if (v49 * v54 >= v53)
+  v49 = *MEMORY[0x277D3B3B8] * 0.5;
+  v102 = *(MEMORY[0x277D3B3C0] + 8);
+  v103 = *MEMORY[0x277D3B3C0];
+  v50 = *MEMORY[0x277D3B3C0] / v102;
+  v51 = v36 * v49 + 0.0;
+  v52 = v37 * v49 + 0.0;
+  v53 = v49 * -2.0 + 1.0;
+  v54 = v53 * v36;
+  v55 = v53 * v37;
+  v56 = v50 * v55;
+  if (v50 * v55 >= v54)
   {
-    v55 = v53;
+    v56 = v54;
   }
 
-  v98 = v55;
-  v56 = v50 + fmax((v53 - v55) * 0.5, 0.0);
-  v57 = v53 / v49;
-  if (v57 >= v54)
+  v100 = v56;
+  v57 = v51 + fmax((v54 - v56) * 0.5, 0.0);
+  v58 = v54 / v50;
+  if (v58 >= v55)
   {
-    v57 = v54;
+    v58 = v55;
   }
 
-  v96 = v57;
-  v97 = v56;
-  v111 = v36;
-  v113 = v35;
-  v94 = 1.0 / v35;
-  v95 = v51 + fmax((v54 - v57) * 0.5, 0.0);
-  v93 = 1.0 / v36;
-  v114 = -1.0;
+  v98 = v58;
+  v99 = v57;
+  v113 = v37;
+  v115 = v36;
+  v96 = 1.0 / v36;
+  v97 = v52 + fmax((v55 - v58) * 0.5, 0.0);
+  v95 = 1.0 / v37;
+  v116 = -1.0;
   for (j = 1; j != 9; ++j)
   {
     PFCRectForTimePosition();
-    v60 = v59;
-    v62 = v61;
-    v64 = v63;
-    v66 = v65;
-    v71 = PFLCCalculateLayout(0, 1, v47, v5, 0, j, v113, v111, v109, v108, v107, v106, v67, v68, v69, v70, v105, v104, v103, v102, v101, v100, v59, v61, v63, v65);
-    [v71 visibleRect];
-    obja = v64;
-    if (CGRectIsEmpty(v128))
+    v61 = v60;
+    v63 = v62;
+    v65 = v64;
+    v67 = v66;
+    v72 = PFLCCalculateLayout(0, 1, v48, v5, 0, j, v115, v113, v111, v110, v109, v108, v70, v71, v68, v69, v107, v106, v105, v104, v103, v102, v60, v62, v64, v66);
+    [v72 visibleRect];
+    obja = v65;
+    if (CGRectIsEmpty(v130))
     {
-      CGAffineTransformMakeScale(&v121, v94, v93);
-      v129.origin.x = v97;
-      v129.size.width = v98;
-      v129.origin.y = v95;
-      v129.size.height = v96;
-      v130 = CGRectApplyAffineTransform(v129, &v121);
-      v72 = v130.origin.x;
-      v73 = v130.origin.y;
-      v74 = v130.size.width;
-      v75 = v130.size.height;
-      v76 = pflc_layout_log();
-      if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
+      CGAffineTransformMakeScale(&v123, v96, v95);
+      v131.origin.x = v99;
+      v131.size.width = v100;
+      v131.origin.y = v97;
+      v131.size.height = v98;
+      v132 = CGRectApplyAffineTransform(v131, &v123);
+      v73 = v132.origin.x;
+      v74 = v132.origin.y;
+      v75 = v132.size.width;
+      v76 = v132.size.height;
+      v78 = pflc_layout_log(v77);
+      if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
       {
-        v77 = _rectAsString(v72, v73, v74, v75);
-        LODWORD(v121.a) = 138412290;
-        *(&v121.a + 4) = v77;
-        _os_log_impl(&dword_22D126000, v76, OS_LOG_TYPE_DEFAULT, "PFLCCurationScoreForAsset: Backup crop: %@", &v121, 0xCu);
+        v79 = _rectAsString(v73, v74, v75, v76);
+        LODWORD(v123.a) = 138412290;
+        *(&v123.a + 4) = v79;
+        _os_log_impl(&dword_22D126000, v78, OS_LOG_TYPE_DEFAULT, "PFLCCurationScoreForAsset: Backup crop: %@", &v123, 0xCu);
       }
 
-      v78 = v66;
+      v80 = v67;
 
-      v79 = [[PFLCLayout alloc] initWithCropScore:0 layoutScore:0.0 foregroundCoverage:0.0 visibleRect:0.0 usesMask:v72, v73, v74, v75];
-      v71 = v79;
+      v81 = [[PFLCLayout alloc] initWithCropScore:0 layoutScore:0.0 foregroundCoverage:0.0 visibleRect:0.0 usesMask:v73, v74, v75, v76];
+      v72 = v81;
     }
 
     else
     {
-      v78 = v66;
+      v80 = v67;
     }
 
-    v80 = [PFLCCurationPositionScore alloc];
-    [v71 cropScore];
-    v82 = v81;
-    [v71 visibleRect];
-    v121.a = 1.0;
-    v121.b = 0.0;
-    v121.c = 0.0;
-    *&v121.d = xmmword_22D12D780;
-    v121.ty = 1.0;
-    v132 = CGRectApplyAffineTransform(v131, &v121);
-    v83 = v132.origin.x;
-    v84 = v132.origin.y;
-    v85 = v132.size.width;
-    v86 = v132.size.height;
-    v121.a = 1.0;
-    v121.b = 0.0;
-    v121.c = 0.0;
-    *&v121.d = xmmword_22D12D780;
-    v121.ty = 1.0;
-    v132.origin.x = v60;
-    v132.origin.y = v62;
-    v132.size.width = obja;
-    v132.size.height = v78;
-    v133 = CGRectApplyAffineTransform(v132, &v121);
-    v87 = [(PFLCCurationPositionScore *)v80 initWithCropScore:v47 cropRect:v82 timeLabelRect:v83 classification:v84, v85, v86, *&v133.origin.x, *&v133.origin.y, *&v133.size.width, *&v133.size.height];
-    v88 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:j];
-    [v45 setObject:v87 forKeyedSubscript:v88];
+    v82 = [PFLCCurationPositionScore alloc];
+    [v72 cropScore];
+    v84 = v83;
+    [v72 visibleRect];
+    v123.a = 1.0;
+    v123.b = 0.0;
+    v123.c = 0.0;
+    *&v123.d = xmmword_22D12D780;
+    v123.ty = 1.0;
+    v134 = CGRectApplyAffineTransform(v133, &v123);
+    v85 = v134.origin.x;
+    v86 = v134.origin.y;
+    v87 = v134.size.width;
+    v88 = v134.size.height;
+    v123.a = 1.0;
+    v123.b = 0.0;
+    v123.c = 0.0;
+    *&v123.d = xmmword_22D12D780;
+    v123.ty = 1.0;
+    v134.origin.x = v61;
+    v134.origin.y = v63;
+    v134.size.width = obja;
+    v134.size.height = v80;
+    v135 = CGRectApplyAffineTransform(v134, &v123);
+    v89 = [(PFLCCurationPositionScore *)v82 initWithCropScore:v48 cropRect:v84 timeLabelRect:v85 classification:v86, v87, v88, *&v135.origin.x, *&v135.origin.y, *&v135.size.width, *&v135.size.height];
+    v90 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:j];
+    [v46 setObject:v89 forKeyedSubscript:v90];
 
-    [v71 cropScore];
-    if (v89 > v114)
+    [v72 cropScore];
+    if (v91 > v116)
     {
-      [v71 cropScore];
-      v114 = v90;
-      v99 = j;
+      [v72 cropScore];
+      v116 = v92;
+      v101 = j;
     }
   }
 
-  v91 = [[PFLCCurationScore alloc] initWithPositionScores:v45 preferredPosition:v99];
+  v93 = [[PFLCCurationScore alloc] initWithPositionScores:v46 preferredPosition:v101];
 
-  return v91;
+  return v93;
 }
 
-PFLCLayout *PFLCCalculateLayout(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void *a5, uint64_t a6, double a7, double a8, CGFloat a9, CGFloat a10, CGFloat a11, CGFloat a12, uint64_t a13, uint64_t a14, double a15, double a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, double a21, double a22, double a23, CGFloat a24, double a25, CGFloat a26)
+PFLCLayout *PFLCCalculateLayout(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void *a5, uint64_t a6, double a7, double a8, CGFloat a9, CGFloat a10, CGFloat a11, CGFloat a12, double a13, double a14, void x6_0, void x7_0, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, double a19, double a20, CGFloat a21, CGFloat a22, CGFloat a23, CGFloat a24)
 {
-  v145 = *MEMORY[0x277D85DE8];
+  v148 = *MEMORY[0x277D85DE8];
   v30 = a4;
   v31 = a5;
-  v32 = *MEMORY[0x277CBF3A0];
-  v33 = *(MEMORY[0x277CBF3A0] + 8);
-  v34 = *(MEMORY[0x277CBF3A0] + 16);
-  v35 = *(MEMORY[0x277CBF3A0] + 24);
-  v125 = a7;
-  v118 = a21 * 0.8;
-  v131 = v34;
-  v133 = v35;
-  rect1 = v33;
+  v32 = v31;
+  v33 = *MEMORY[0x277CBF3A0];
+  v34 = *(MEMORY[0x277CBF3A0] + 8);
+  v35 = *(MEMORY[0x277CBF3A0] + 16);
+  v36 = *(MEMORY[0x277CBF3A0] + 24);
+  v128 = a7;
+  v121 = a19 * 0.8;
+  v134 = v35;
+  v136 = v36;
+  rect1 = v34;
   if (!a1)
   {
-    v128 = 0.0;
-    v49 = 0;
-    v50 = 0.0;
-    v44 = *MEMORY[0x277CBF3A0];
-    v119 = 0.0;
-    v43 = *(MEMORY[0x277CBF3A0] + 16);
-    v41 = *(MEMORY[0x277CBF3A0] + 24);
+    v131 = 0.0;
+    v50 = 0;
+    v51 = 0.0;
+    v45 = *MEMORY[0x277CBF3A0];
+    v122 = 0.0;
+    v44 = *(MEMORY[0x277CBF3A0] + 16);
+    v42 = *(MEMORY[0x277CBF3A0] + 24);
     goto LABEL_32;
   }
 
-  v36 = pflc_layout_log();
-  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+  v37 = pflc_layout_log(v31);
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v140 = a3;
-    _os_log_impl(&dword_22D126000, v36, OS_LOG_TYPE_DEFAULT, "PFLCCalculateLayout(%ld): trying with a mask", buf, 0xCu);
+    v143 = a3;
+    _os_log_impl(&dword_22D126000, v37, OS_LOG_TYPE_DEFAULT, "PFLCCalculateLayout(%ld): trying with a mask", buf, 0xCu);
   }
 
-  v37 = [[PFLCCoverageValidator alloc] initWithMaskImage:a1 orientation:a2];
-  v40 = v37;
+  v38 = [[PFLCCoverageValidator alloc] initWithMaskImage:a1 orientation:a2];
+  v41 = v38;
   if (a3 > 2)
   {
-    v128 = 0.0;
+    v131 = 0.0;
     if (a3 == 3)
     {
-      v45 = layoutNatureMatte(v37, a6, a7, a8, a9, a10, a11, a12, v38, v39, *&a17, *&a18, *&a19, *&a20, a21, a22, a23, a24, a25, a26);
+      v46 = layoutNatureMatte(v38, a6, a7, a8, a9, a10, a11, a12, v39, v40, *&a15, *&a16, *&a17, *&a18, a19, a20, a21, a22, a23, a24);
       goto LABEL_14;
     }
 
-    v41 = v35;
-    v51 = a7;
-    v43 = v34;
-    v44 = v32;
+    v42 = v36;
+    v52 = a7;
+    v44 = v35;
+    v45 = v33;
     if (a3 == 4)
     {
-      v45 = layoutCityScapeMatte(v37, a6, v51, a8, a9, a10, a11, a12, v38, v39, *&a17, *&a18, *&a19, *&a20, a21, a22, a23, a24, a25, a26);
+      v46 = layoutCityScapeMatte(v38, a6, v52, a8, a9, a10, a11, a12, v39, v40, *&a15, *&a16, *&a17, *&a18, a19, a20, a21, a22, a23, a24);
       goto LABEL_14;
     }
   }
 
   else
   {
-    v128 = 0.0;
+    v131 = 0.0;
     if (a3 == 1)
     {
-      v45 = layoutPeopleMatte(v37, v30, a6, a7, a8, a9, a10, a11, a12, v38, v39, *&a17, *&a18, *&a19, *&a20, a21, a22, a23, a24, a25, a26);
+      v46 = layoutPeopleMatte(v38, v30, a6, a7, a8, a9, a10, a11, a12, v39, v40, *&a15, *&a16, *&a17, *&a18, a19, a20, a21, a22, a23, a24);
       goto LABEL_14;
     }
 
-    v41 = v35;
-    v42 = a7;
-    v43 = v34;
-    v44 = v32;
+    v42 = v36;
+    v43 = a7;
+    v44 = v35;
+    v45 = v33;
     if (a3 == 2)
     {
-      v45 = layoutPetsMatte(v37, v30, v42, a8, a9, a10, a11, a12, v31, a6, v38, v39, *&a17, *&a18, *&a19, *&a20, a21, a22, a23, a24, a25, a26);
+      v46 = layoutPetsMatte(v38, v30, v43, a8, a9, a10, a11, a12, v32, a6, v39, v40, *&a15, *&a16, *&a17, *&a18, a19, a20, a21, a22, a23, a24);
 LABEL_14:
-      v44 = v45;
-      v33 = v46;
-      v43 = v47;
-      v41 = v48;
+      v45 = v46;
+      v34 = v47;
+      v44 = v48;
+      v42 = v49;
     }
   }
 
-  v147.origin.x = v44;
-  v147.origin.y = v33;
-  v147.size.width = v43;
-  v147.size.height = v41;
-  if (CGRectIsEmpty(v147) || !rectIsWithinRect(v44, v33, v43, v41, 0.0, 0.0, 1.0, 1.0))
+  v150.origin.x = v45;
+  v150.origin.y = v34;
+  v150.size.width = v44;
+  v150.size.height = v42;
+  if (CGRectIsEmpty(v150) || !rectIsWithinRect(v45, v34, v44, v42, 0.0, 0.0, 1.0, 1.0))
   {
 
-    v49 = 0;
-    v50 = 0.0;
-    v119 = 0.0;
-    v44 = v32;
-    v33 = rect1;
-    v43 = v34;
-    v41 = v133;
+    v50 = 0;
+    v51 = 0.0;
+    v122 = 0.0;
+    v45 = v33;
+    v34 = rect1;
+    v44 = v35;
+    v42 = v136;
   }
 
   else
   {
-    [(PFLCCoverageValidator *)v40 coverageOfTimeLabel:renormalizeRect(a23, a24, a25, a26, v44, v33, v43, v41)];
-    v53 = v52;
-    v54 = pflc_layout_log();
-    if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+    v53 = [(PFLCCoverageValidator *)v41 coverageOfTimeLabel:renormalizeRect(a21, a22, a23, a24, v45, v34, v44, v42)];
+    v55 = v54;
+    v56 = pflc_layout_log(v53);
+    if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
     {
-      v55 = _rectAsString(v44, v33, v43, v41);
+      v57 = _rectAsString(v45, v34, v44, v42);
       *buf = 134218498;
-      v140 = a3;
-      v141 = 2112;
-      v142 = v55;
-      v143 = 2048;
-      v144 = v53;
-      _os_log_impl(&dword_22D126000, v54, OS_LOG_TYPE_DEFAULT, "PFLCCalculateLayout(%ld): found rect %@, coverage %.3f", buf, 0x20u);
+      v143 = a3;
+      v144 = 2112;
+      v145 = v57;
+      v146 = 2048;
+      v147 = v55;
+      _os_log_impl(&dword_22D126000, v56, OS_LOG_TYPE_DEFAULT, "PFLCCalculateLayout(%ld): found rect %@, coverage %.3f", buf, 0x20u);
     }
 
-    v119 = v53;
+    v122 = v55;
 
-    v56 = 0.0;
-    if (v43 > 0.0)
+    v58 = 0.0;
+    if (v44 > 0.0)
     {
-      v57 = v43;
+      v59 = v44;
     }
 
     else
     {
-      v57 = 0.0;
+      v59 = 0.0;
     }
 
-    if (v41 > 0.0)
+    if (v42 > 0.0)
     {
-      v58 = v41;
+      v60 = v42;
     }
 
     else
     {
-      v58 = 0.0;
+      v60 = 0.0;
     }
 
-    v59 = (v58 + v57) * 0.1 * 0.5;
-    if (v59 > 0.1)
+    v61 = (v60 + v59) * 0.1 * 0.5;
+    if (v61 > 0.1)
     {
-      v59 = 0.1;
+      v61 = 0.1;
     }
 
-    v60 = 1.0 - v59;
-    if (v125 * v43 < v118)
+    v62 = 1.0 - v61;
+    if (v128 * v44 < v121)
     {
-      v56 = 1.0 - v125 * v43 / v118;
+      v58 = 1.0 - v128 * v44 / v121;
     }
 
-    v61 = v60 + v56 * -0.3;
+    v63 = v62 + v58 * -0.3;
 
-    v49 = 1;
-    v128 = v61;
-    v62 = v61 == 0.0;
-    v50 = 1.0;
-    if (!v62)
+    v50 = 1;
+    v131 = v63;
+    v64 = v63 == 0.0;
+    v51 = 1.0;
+    if (!v64)
     {
       goto LABEL_81;
     }
   }
 
 LABEL_32:
-  v63 = pflc_layout_log();
-  if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+  v65 = pflc_layout_log(v31);
+  if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v140 = a3;
-    _os_log_impl(&dword_22D126000, v63, OS_LOG_TYPE_DEFAULT, "PFLCCalculateLayout(%ld): trying with no mask", buf, 0xCu);
+    v143 = a3;
+    _os_log_impl(&dword_22D126000, v65, OS_LOG_TYPE_DEFAULT, "PFLCCalculateLayout(%ld): trying with no mask", buf, 0xCu);
   }
 
   if (a3 > 2)
   {
     if (a3 == 3)
     {
-      v74 = layoutNatureNoMatte(a6, v125, a8, a9, a10, a11, a12, v70, v71, *&a17, *&a18, *&a19, *&a20, a21, a22, a23, a24, a25, a26);
+      v76 = layoutNatureNoMatte(a6, v128, a8, a9, a10, a11, a12, v72, v73, *&a15, *&a16, *&a17, *&a18, a19, a20, a21, a22, a23, a24);
       goto LABEL_46;
     }
 
     if (a3 == 4)
     {
-      v74 = layoutCityScapeNoMatte(a6, v125, a8, a9, a10, a11, a12, v70, v71, *&a17, *&a18, *&a19, *&a20, a21, a22, a23, a24, a25, a26);
+      v76 = layoutCityScapeNoMatte(a6, v128, a8, a9, a10, a11, a12, v72, v73, *&a15, *&a16, *&a17, *&a18, a19, a20, a21, a22, a23, a24);
       goto LABEL_46;
     }
 
-    v72 = v41;
-    v34 = v43;
-    v73 = v33;
-    v74 = v44;
+    v74 = v42;
+    v35 = v44;
+    v75 = v34;
+    v76 = v45;
     if (a3 == 5)
     {
-      v34 = v131;
-      v72 = v133;
-      v73 = rect1;
-      v74 = v32;
+      v35 = v134;
+      v74 = v136;
+      v75 = rect1;
+      v76 = v33;
     }
   }
 
   else
   {
-    v72 = v133;
-    v73 = rect1;
-    v74 = v32;
+    v74 = v136;
+    v75 = rect1;
+    v76 = v33;
     if (a3)
     {
       if (a3 == 1)
       {
-        v74 = layoutPeopleNoMatte(v30, a6, v125, a8, a9, a10, a11, a12, v70, v71, v64, v65, v66, v67, v68, v69, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26);
+        v76 = layoutPeopleNoMatte(v30, a6, v128, a8, a9, a10, a11, a12, v72, v73, v66, v67, v68, v69, v70, v71, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24);
         goto LABEL_46;
       }
 
-      v72 = v41;
-      v34 = v43;
-      v73 = v33;
-      v74 = v44;
+      v74 = v42;
+      v35 = v44;
+      v75 = v34;
+      v76 = v45;
       if (a3 == 2)
       {
-        v74 = layoutPetsNoMatte(v30, v125, a8, a9, a10, a11, a12, v31, a6, v70, v71, *&a17, *&a18, *&a19, *&a20, a21, a22, a23, a24, a25, a26);
+        v76 = layoutPetsNoMatte(v30, v128, a8, a9, a10, a11, a12, v32, a6, v72, v73, v67, v68, v69, v70, v71, *&a15, *&a16, a17, a18, a19, a20, a21, a22, a23, a24);
 LABEL_46:
-        v34 = v75;
-        v72 = v76;
+        v35 = v77;
+        v74 = v78;
       }
     }
   }
 
-  v77 = v74;
-  v78 = v73;
-  v79 = v34;
-  v80 = v72;
-  if (CGRectIsEmpty(*&v74) || !rectIsWithinRect(v77, v78, v34, v72, 0.0, 0.0, 1.0, 1.0))
+  v79 = v76;
+  v80 = v75;
+  v81 = v35;
+  v82 = v74;
+  IsEmpty = CGRectIsEmpty(*&v76);
+  if (IsEmpty || !(IsEmpty = rectIsWithinRect(v79, v80, v35, v74, 0.0, 0.0, 1.0, 1.0)))
   {
-    v113 = pflc_layout_log();
-    if (os_log_type_enabled(v113, OS_LOG_TYPE_DEFAULT))
+    v116 = pflc_layout_log(IsEmpty);
+    if (os_log_type_enabled(v116, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v140 = a3;
-      _os_log_impl(&dword_22D126000, v113, OS_LOG_TYPE_DEFAULT, "PFLCCalculateLayout(%ld): no rect found", buf, 0xCu);
+      v143 = a3;
+      _os_log_impl(&dword_22D126000, v116, OS_LOG_TYPE_DEFAULT, "PFLCCalculateLayout(%ld): no rect found", buf, 0xCu);
     }
 
-    v44 = v32;
-    v33 = rect1;
-    v43 = v131;
-    v41 = v133;
+    v45 = v33;
+    v34 = rect1;
+    v44 = v134;
+    v42 = v136;
   }
 
   else
   {
-    v132 = v77;
-    v134 = v78;
-    v81 = pflc_layout_log();
-    v82 = v72;
-    if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
+    v135 = v79;
+    v137 = v80;
+    v84 = pflc_layout_log(IsEmpty);
+    v85 = v74;
+    if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
     {
-      v83 = _rectAsString(v77, v78, v34, v72);
+      v86 = _rectAsString(v79, v80, v35, v74);
       *buf = 134218242;
-      v140 = a3;
-      v141 = 2112;
-      v142 = v83;
-      _os_log_impl(&dword_22D126000, v81, OS_LOG_TYPE_DEFAULT, "PFLCCalculateLayout(%ld): found rect %@", buf, 0x16u);
+      v143 = a3;
+      v144 = 2112;
+      v145 = v86;
+      _os_log_impl(&dword_22D126000, v84, OS_LOG_TYPE_DEFAULT, "PFLCCalculateLayout(%ld): found rect %@", buf, 0x16u);
     }
 
-    v84 = 0.0;
-    rect1a = v34;
-    if (v34 > 0.0)
+    v87 = 0.0;
+    rect1a = v35;
+    if (v35 > 0.0)
     {
-      v85 = v34;
+      v88 = v35;
     }
 
     else
     {
-      v85 = 0.0;
+      v88 = 0.0;
     }
 
-    if (v72 > 0.0)
+    if (v74 > 0.0)
     {
-      v84 = v72;
+      v87 = v74;
     }
 
-    v86 = (v84 + v85) * 0.1 * 0.5;
-    if (v86 > 0.1)
+    v89 = (v87 + v88) * 0.1 * 0.5;
+    if (v89 > 0.1)
     {
-      v86 = 0.1;
+      v89 = 0.1;
     }
 
-    v50 = 0.9;
-    v126 = 0.9 - v86;
-    v87 = v30;
-    v88 = [v87 count];
-    v89 = 0.0;
-    v90 = a21 * 0.8;
-    v91 = v125;
-    if (v88)
+    v51 = 0.9;
+    v129 = 0.9 - v89;
+    v90 = v30;
+    v91 = [v90 count];
+    v92 = 0.0;
+    v93 = a19 * 0.8;
+    v94 = v128;
+    if (v91)
     {
-      v92 = v88;
-      v137 = 0u;
+      v95 = v91;
+      v140 = 0u;
+      v141 = 0u;
       v138 = 0u;
-      v135 = 0u;
-      v136 = 0u;
-      v93 = v87;
-      v94 = [v93 countByEnumeratingWithState:&v135 objects:buf count:16];
-      if (v94)
+      v139 = 0u;
+      v96 = v90;
+      v97 = [v96 countByEnumeratingWithState:&v138 objects:buf count:16];
+      if (v97)
       {
-        v95 = v94;
-        v96 = *v136;
-        v127 = 0.0;
-        v97 = v34;
+        v98 = v97;
+        v99 = *v139;
+        v130 = 0.0;
+        v100 = v35;
         do
         {
-          for (i = 0; i != v95; ++i)
+          for (i = 0; i != v98; ++i)
           {
-            if (*v136 != v96)
+            if (*v139 != v99)
             {
-              objc_enumerationMutation(v93);
+              objc_enumerationMutation(v96);
             }
 
-            [*(*(&v135 + 1) + 8 * i) rectValue];
-            v100 = v99;
-            v102 = v101;
-            v104 = v103;
-            v106 = v105;
-            v148.origin.x = v132;
-            v148.origin.y = v134;
-            v148.size.width = v97;
-            v148.size.height = v82;
-            v150.origin.x = v100;
-            v150.origin.y = v102;
-            v150.size.width = v104;
-            v150.size.height = v106;
-            if (!CGRectContainsRect(v148, v150))
+            [*(*(&v138 + 1) + 8 * i) rectValue];
+            v103 = v102;
+            v105 = v104;
+            v107 = v106;
+            v109 = v108;
+            v151.origin.x = v135;
+            v151.origin.y = v137;
+            v151.size.width = v100;
+            v151.size.height = v85;
+            v153.origin.x = v103;
+            v153.origin.y = v105;
+            v153.size.width = v107;
+            v153.size.height = v109;
+            if (!CGRectContainsRect(v151, v153))
             {
-              v107 = v82;
-              v108 = 1;
+              v110 = v85;
+              v111 = 1;
               while (1)
               {
-                v109 = vcvtd_n_f64_u32(v108, 2uLL);
-                v151.origin.x = expandRect(v100, v102, v104, v106, v109 * -0.05, v109 * -0.2, v109 * -0.1, v109 * -0.2);
-                v151.origin.y = v110;
-                v151.size.width = v111;
-                v151.size.height = v112;
-                v149.origin.x = v132;
-                v149.origin.y = v134;
-                v149.size.width = rect1a;
-                v149.size.height = v107;
-                if (CGRectContainsRect(v149, v151))
+                v112 = vcvtd_n_f64_u32(v111, 2uLL);
+                v154.origin.x = expandRect(v103, v105, v107, v109, v112 * -0.05, v112 * -0.2, v112 * -0.1, v112 * -0.2);
+                v154.origin.y = v113;
+                v154.size.width = v114;
+                v154.size.height = v115;
+                v152.origin.x = v135;
+                v152.origin.y = v137;
+                v152.size.width = rect1a;
+                v152.size.height = v110;
+                if (CGRectContainsRect(v152, v154))
                 {
                   break;
                 }
 
-                if (++v108 == 5)
+                if (++v111 == 5)
                 {
-                  v109 = 1.25;
+                  v112 = 1.25;
                   break;
                 }
               }
 
-              v127 = v127 + v109;
-              v82 = v107;
-              v97 = rect1a;
+              v130 = v130 + v112;
+              v85 = v110;
+              v100 = rect1a;
             }
           }
 
-          v95 = [v93 countByEnumeratingWithState:&v135 objects:buf count:16];
+          v98 = [v96 countByEnumeratingWithState:&v138 objects:buf count:16];
         }
 
-        while (v95);
+        while (v98);
       }
 
       else
       {
-        v127 = 0.0;
+        v130 = 0.0;
       }
 
-      v89 = v127 / v92;
-      v91 = v125;
-      v90 = a21 * 0.8;
-      v50 = 0.9;
+      v92 = v130 / v95;
+      v94 = v128;
+      v93 = a19 * 0.8;
+      v51 = 0.9;
     }
 
-    v114 = v126 + v89 * -0.3;
-    v43 = rect1a;
-    v115 = 1.0 - v91 * rect1a / v90;
-    if (v91 * rect1a >= v90)
+    v117 = v129 + v92 * -0.3;
+    v44 = rect1a;
+    v118 = 1.0 - v94 * rect1a / v93;
+    if (v94 * rect1a >= v93)
     {
-      v115 = 0.0;
+      v118 = 0.0;
     }
 
-    v128 = v114 + v115 * -0.3;
-    v44 = v132;
-    v33 = v134;
-    v41 = v82;
+    v131 = v117 + v118 * -0.3;
+    v45 = v135;
+    v34 = v137;
+    v42 = v85;
   }
 
 LABEL_81:
-  v116 = [[PFLCLayout alloc] initWithCropScore:v49 layoutScore:v128 foregroundCoverage:v50 visibleRect:v119 usesMask:v44, v33, v43, v41];
+  v119 = [[PFLCLayout alloc] initWithCropScore:v50 layoutScore:v131 foregroundCoverage:v51 visibleRect:v122 usesMask:v45, v34, v44, v42];
 
-  return v116;
+  return v119;
 }
 
-double layoutNatureMatte(void *a1, uint64_t a2, double a3, double a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8, double a9, double a10, double a11, double a12, double a13, double a14, double a15, double a16, double a17, CGFloat a18, double a19, CGFloat a20)
+double layoutNatureMatte(void *a1, uint64_t a2, double a3, double a4, CGFloat a5, CGFloat a6, CGFloat a7, CGFloat a8, double a9, double a10, double a11, double a12, double a13, double a14, double a15, double a16, CGFloat a17, CGFloat a18, CGFloat a19, CGFloat a20)
 {
-  v53[1] = *MEMORY[0x277D85DE8];
-  v25 = a1;
-  v26 = *MEMORY[0x277CBF3A0];
-  v27 = *MEMORY[0x277D3B3B8] * 0.5;
+  v49[1] = *MEMORY[0x277D85DE8];
+  v21 = a1;
+  v22 = *MEMORY[0x277CBF3A0];
+  v23 = *MEMORY[0x277D3B3B8] * 0.5;
   if (a2 > 4)
   {
     if (a2 == 5)
     {
-      v49[0] = a11 + a13 * 0.333333333;
-      v49[1] = a12;
-      v49[2] = a13 * 0.666666667;
-      v49[3] = a14;
-      v33 = v27;
-      v34 = [MEMORY[0x277CCAE60] valueWithBytes:v49 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
-      v52 = v34;
-      v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v52 count:1];
+      v45[0] = a11 + a13 * 0.333333333;
+      v45[1] = a12;
+      v45[2] = a13 * 0.666666667;
+      v45[3] = a14;
+      v29 = v23;
+      v30 = [MEMORY[0x277CCAE60] valueWithBytes:v45 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
+      v48 = v30;
+      v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v48 count:1];
 
-      v32 = cropTimeLeftOfFacesWithMask(v30, v25, 2, a3, a4, a17, a18, a19, a20, v35, v36, a5, a6, a7, a8, *MEMORY[0x277CBF398], *(MEMORY[0x277CBF398] + 8), *(MEMORY[0x277CBF398] + 16), *(MEMORY[0x277CBF398] + 24), v33, a15, a16);
+      v28 = cropTimeLeftOfFacesWithMask(v26, v21, 2, a3, a4, a17, a18, a19, a20, v31, v32, a5, a6, a7, a8, *MEMORY[0x277CBF398], *(MEMORY[0x277CBF398] + 8), *(MEMORY[0x277CBF398] + 16), *(MEMORY[0x277CBF398] + 24), v29, a15, a16);
       goto LABEL_11;
     }
 
     if (a2 == 6)
     {
-      *v48 = a11;
-      *&v48[1] = a12;
-      *&v48[2] = a13 * 0.666666667;
-      *&v48[3] = a14;
-      v37 = v27;
-      v38 = [MEMORY[0x277CCAE60] valueWithBytes:v48 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
-      v51 = v38;
-      v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v51 count:1];
+      *v44 = a11;
+      *&v44[1] = a12;
+      *&v44[2] = a13 * 0.666666667;
+      *&v44[3] = a14;
+      v33 = v23;
+      v34 = [MEMORY[0x277CCAE60] valueWithBytes:v44 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
+      v47 = v34;
+      v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v47 count:1];
 
-      v32 = cropTimeRightOfFacesWithMask(v30, v25, 2, a3, a4, a17, a18, a19, a20, v39, v40, a5, a6, a7, a8, *MEMORY[0x277CBF398], *(MEMORY[0x277CBF398] + 8), *(MEMORY[0x277CBF398] + 16), *(MEMORY[0x277CBF398] + 24), v37, a15, a16);
+      v28 = cropTimeRightOfFacesWithMask(v26, v21, 2, a3, a4, a17, a18, a19, a20, v35, v36, a5, a6, a7, a8, *MEMORY[0x277CBF398], *(MEMORY[0x277CBF398] + 8), *(MEMORY[0x277CBF398] + 16), *(MEMORY[0x277CBF398] + 24), v33, a15, a16);
       goto LABEL_11;
     }
 
@@ -2162,18 +2210,18 @@ double layoutNatureMatte(void *a1, uint64_t a2, double a3, double a4, CGFloat a5
     }
 
 LABEL_8:
-    *v50 = a11;
-    *&v50[1] = a12 + a14 * 0.5;
-    *&v50[2] = a13;
-    *&v50[3] = a14 * 0.5;
-    v28 = v27;
-    v29 = [MEMORY[0x277CCAE60] valueWithBytes:v50 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
-    v53[0] = v29;
-    v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:1];
+    *v46 = a11;
+    *&v46[1] = a12 + a14 * 0.5;
+    *&v46[2] = a13;
+    *&v46[3] = a14 * 0.5;
+    v24 = v23;
+    v25 = [MEMORY[0x277CCAE60] valueWithBytes:v46 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
+    v49[0] = v25;
+    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:1];
 
-    v32 = cropTimeAboveFacesWithMask(v30, v25, 3, a3, a4, a17, a18, a19, a20, v28, v31, a15, a16);
+    v28 = cropTimeAboveFacesWithMask(v26, v21, a3, a4, a17, a18, a19, a20, v24, v27, 3, a15, a16);
 LABEL_11:
-    v26 = v32;
+    v22 = v28;
 
     goto LABEL_12;
   }
@@ -2185,14 +2233,14 @@ LABEL_11:
 
 LABEL_12:
 
-  return v26;
+  return v22;
 }
 
 double layoutNatureNoMatte(uint64_t a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9, double a10, double a11, double a12, double a13, double a14, double a15, double a16, double a17, double a18, double a19)
 {
-  v67[1] = *MEMORY[0x277D85DE8];
-  v25 = *MEMORY[0x277CBF3A0];
-  v26 = *MEMORY[0x277D3B3B8] * 0.5;
+  v62[1] = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277CBF3A0];
+  v21 = *MEMORY[0x277D3B3B8] * 0.5;
   if (a1 <= 4)
   {
     if (a1 > 2)
@@ -2200,15 +2248,15 @@ double layoutNatureNoMatte(uint64_t a1, double a2, double a3, double a4, double 
       if (a1 != 3)
       {
 LABEL_14:
-        *v62 = a10;
-        *&v62[1] = a11;
-        *&v62[2] = a12;
-        *&v62[3] = a13;
-        v43 = [MEMORY[0x277CCAE60] valueWithBytes:v62 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
-        v66 = v43;
-        v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v66 count:1];
+        *v57 = a10;
+        *&v57[1] = a11;
+        *&v57[2] = a12;
+        *&v57[3] = a13;
+        v38 = [MEMORY[0x277CCAE60] valueWithBytes:v57 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
+        v61 = v38;
+        v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
 
-        v40 = cropTimeBelowFacesNoMask(v31, a2, a3, a16, a17, a18, a19, v26, v44, a14, a15);
+        v35 = cropTimeBelowFacesNoMask(v26, a2, a3, a16, a17, a18, a19, v21, v39, a14, a15);
         goto LABEL_16;
       }
     }
@@ -2217,54 +2265,54 @@ LABEL_14:
     {
       if (a1 != 2)
       {
-        return v25;
+        return v20;
       }
 
       goto LABEL_14;
     }
 
 LABEL_13:
-    *v63 = a10;
-    *&v63[1] = a11;
-    *&v63[2] = a12;
-    *&v63[3] = a13;
-    v41 = [MEMORY[0x277CCAE60] valueWithBytes:v63 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
-    v67[0] = v41;
-    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:1];
+    *v58 = a10;
+    *&v58[1] = a11;
+    *&v58[2] = a12;
+    *&v58[3] = a13;
+    v36 = [MEMORY[0x277CCAE60] valueWithBytes:v58 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
+    v62[0] = v36;
+    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:1];
 
-    v40 = cropTimeAboveFacesNoMask(v31, a2, a3, a16, a17, a18, a19, v26, v42, a14, a15);
+    v35 = cropTimeAboveFacesNoMask(a2, a3, a16, a17, a18, a19, v21, v37, v26, a14, a15);
 LABEL_16:
-    v25 = v40;
+    v20 = v35;
 
-    return v25;
+    return v20;
   }
 
   if (a1 <= 6)
   {
     if (a1 == 5)
     {
-      v61[0] = a10 + a12 * 0.333333333;
-      v61[1] = a11;
-      v61[2] = a12 * 0.666666667;
-      v61[3] = a13;
-      v48 = [MEMORY[0x277CCAE60] valueWithBytes:v61 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
-      v65 = v48;
-      v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v65 count:1];
+      v56[0] = a10 + a12 * 0.333333333;
+      v56[1] = a11;
+      v56[2] = a12 * 0.666666667;
+      v56[3] = a13;
+      v43 = [MEMORY[0x277CCAE60] valueWithBytes:v56 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
+      v60 = v43;
+      v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
 
-      cropTimeLeftFacesNoMask(v31, 2, a2, a3, a16, a17, a18, a19, v55, v56, v49, v50, v51, v52, v53, v54, *&a4, *&a5, *&a6, *&a7, *MEMORY[0x277CBF398], *(MEMORY[0x277CBF398] + 8), *(MEMORY[0x277CBF398] + 16), *(MEMORY[0x277CBF398] + 24), v26, a14, a15);
+      cropTimeLeftFacesNoMask(v26, 2, a2, a3, a16, a17, a18, a19, v50, v51, v44, v45, v46, v47, v48, v49, *&a4, *&a5, *&a6, *&a7, *MEMORY[0x277CBF398], *(MEMORY[0x277CBF398] + 8), *(MEMORY[0x277CBF398] + 16), *(MEMORY[0x277CBF398] + 24), v21, a14, a15);
     }
 
     else
     {
-      *v60 = a10;
-      *&v60[1] = a11;
-      *&v60[2] = a12 * 0.666666667;
-      *&v60[3] = a13;
-      v30 = [MEMORY[0x277CCAE60] valueWithBytes:v60 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
-      v64 = v30;
-      v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v64 count:1];
+      *v55 = a10;
+      *&v55[1] = a11;
+      *&v55[2] = a12 * 0.666666667;
+      *&v55[3] = a13;
+      v25 = [MEMORY[0x277CCAE60] valueWithBytes:v55 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
+      v59 = v25;
+      v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v59 count:1];
 
-      cropTimeRightFacesNoMask(v31, 2, a2, a3, a16, a17, a18, a19, v38, v39, v32, v33, v34, v35, v36, v37, *&a4, *&a5, *&a6, *&a7, *MEMORY[0x277CBF398], *(MEMORY[0x277CBF398] + 8), *(MEMORY[0x277CBF398] + 16), *(MEMORY[0x277CBF398] + 24), v26, a14, a15);
+      cropTimeRightFacesNoMask(v26, 2, a2, a3, a16, a17, a18, a19, v33, v34, v27, v28, v29, v30, v31, v32, *&a4, *&a5, *&a6, *&a7, *MEMORY[0x277CBF398], *(MEMORY[0x277CBF398] + 8), *(MEMORY[0x277CBF398] + 16), *(MEMORY[0x277CBF398] + 24), v21, a14, a15);
     }
 
     goto LABEL_16;
@@ -2280,31 +2328,31 @@ LABEL_16:
     goto LABEL_13;
   }
 
-  return v25;
+  return v20;
 }
 
-double layoutPeopleMatte(void *a1, void *a2, uint64_t a3, double a4, double a5, CGFloat a6, CGFloat a7, CGFloat a8, CGFloat a9, double a10, double a11, CGFloat a12, CGFloat a13, CGFloat a14, CGFloat a15, double a16, double a17, double a18, CGFloat a19, double a20, CGFloat a21)
+double layoutPeopleMatte(void *a1, void *a2, uint64_t a3, double a4, double a5, CGFloat a6, CGFloat a7, CGFloat a8, CGFloat a9, double a10, double a11, CGFloat a12, CGFloat a13, CGFloat a14, CGFloat a15, double a16, double a17, CGFloat a18, CGFloat a19, CGFloat a20, CGFloat a21)
 {
-  v30 = a1;
-  v31 = a2;
-  v32 = *MEMORY[0x277CBF3A0];
-  if ([v31 count])
+  v27 = a1;
+  v28 = a2;
+  v29 = *MEMORY[0x277CBF3A0];
+  if ([v28 count])
   {
     if (a3 > 4)
     {
       if (a3 == 5)
       {
-        v37 = *MEMORY[0x277D3B3B8] * 0.5;
-        v34 = expandRects(v31, 0.01, 0.01, 0.05, 0.01);
-        v36 = cropTimeLeftOfFacesWithMask(v34, v30, 1, a4, a5, a18, a19, a20, a21, v38, v39, a6, a7, a8, a9, a12, a13, a14, a15, v37, a16, a17);
+        v34 = *MEMORY[0x277D3B3B8] * 0.5;
+        v31 = expandRects(v28, 0.01, 0.01, 0.05, 0.01);
+        v33 = cropTimeLeftOfFacesWithMask(v31, v27, 1, a4, a5, a18, a19, a20, a21, v35, v36, a6, a7, a8, a9, a12, a13, a14, a15, v34, a16, a17);
         goto LABEL_12;
       }
 
       if (a3 == 6)
       {
-        v40 = *MEMORY[0x277D3B3B8] * 0.5;
-        v34 = expandRects(v31, 0.01, 0.01, 0.05, 0.01);
-        v36 = cropTimeRightOfFacesWithMask(v34, v30, 1, a4, a5, a18, a19, a20, a21, v41, v42, a6, a7, a8, a9, a12, a13, a14, a15, v40, a16, a17);
+        v37 = *MEMORY[0x277D3B3B8] * 0.5;
+        v31 = expandRects(v28, 0.01, 0.01, 0.05, 0.01);
+        v33 = cropTimeRightOfFacesWithMask(v31, v27, 1, a4, a5, a18, a19, a20, a21, v38, v39, a6, a7, a8, a9, a12, a13, a14, a15, v37, a16, a17);
         goto LABEL_12;
       }
 
@@ -2314,11 +2362,11 @@ double layoutPeopleMatte(void *a1, void *a2, uint64_t a3, double a4, double a5, 
       }
 
 LABEL_9:
-      v33 = *MEMORY[0x277D3B3B8] * 0.5;
-      v34 = expandRects(v31, 0.0, 0.01, 0.02, 0.01);
-      v36 = cropTimeAboveFacesWithMask(v34, v30, 1, a4, a5, a18, a19, a20, a21, v33, v35, a16, a17);
+      v30 = *MEMORY[0x277D3B3B8] * 0.5;
+      v31 = expandRects(v28, 0.0, 0.01, 0.02, 0.01);
+      v33 = cropTimeAboveFacesWithMask(v31, v27, a4, a5, a18, a19, a20, a21, v30, v32, 1, a16, a17);
 LABEL_12:
-      v32 = v36;
+      v29 = v33;
 
       goto LABEL_13;
     }
@@ -2331,16 +2379,16 @@ LABEL_12:
 
 LABEL_13:
 
-  return v32;
+  return v29;
 }
 
 double layoutPeopleNoMatte(void *a1, uint64_t a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9, double a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, double a21, double a22, double a23, double a24, double a25, double a26)
 {
-  v29 = a1;
+  v31 = a1;
   x = *MEMORY[0x277CBF3A0];
-  if ([v29 count])
+  if ([v31 count])
   {
-    v97 = *MEMORY[0x277D3B3B8] * 0.5;
+    v99 = *MEMORY[0x277D3B3B8] * 0.5;
     if (a2 <= 4)
     {
       if (a2 > 2)
@@ -2348,23 +2396,23 @@ double layoutPeopleNoMatte(void *a1, uint64_t a2, double a3, double a4, double a
         if (a2 != 3)
         {
 LABEL_29:
-          v31 = expandRects(v29, 0.01, 0.01, 0.0, 0.01);
-          v107.origin.x = cropTimeBelowFacesNoMask(v31, a3, a4, a23, a24, a25, a26, v97, v63, a21, a22);
-          x = v107.origin.x;
-          if (CGRectIsNull(v107))
+          v33 = expandRects(v31, 0.01, 0.01, 0.0, 0.01);
+          v109.origin.x = cropTimeBelowFacesNoMask(v33, a3, a4, a23, a24, a25, a26, v99, v65, a21, a22);
+          x = v109.origin.x;
+          if (CGRectIsNull(v109))
           {
-            v64 = 1;
+            v66 = 1;
             do
             {
-              v65 = v31;
-              v66 = vcvtd_n_f64_u32(v64, 2uLL);
-              v31 = expandRects(v29, v66 * -0.05, v66 * -0.2, v66 * -0.1, v66 * -0.2);
+              v67 = v33;
+              v68 = vcvtd_n_f64_u32(v66, 2uLL);
+              v33 = expandRects(v31, v68 * -0.05, v68 * -0.2, v68 * -0.1, v68 * -0.2);
 
-              v108.origin.x = cropTimeBelowFacesNoMask(v31, a3, a4, a23, a24, a25, a26, v97, v67, a21, a22);
-              x = v108.origin.x;
+              v110.origin.x = cropTimeBelowFacesNoMask(v33, a3, a4, a23, a24, a25, a26, v99, v69, a21, a22);
+              x = v110.origin.x;
             }
 
-            while (CGRectIsNull(v108) && v64++ < 4);
+            while (CGRectIsNull(v110) && v66++ < 4);
           }
 
 LABEL_44:
@@ -2384,23 +2432,23 @@ LABEL_44:
       }
 
 LABEL_21:
-      v31 = expandRects(v29, 0.0, 0.01, 0.02, 0.01);
-      v105.origin.x = cropTimeAboveFacesNoMask(v31, a3, a4, a23, a24, a25, a26, v97, v57, a21, a22);
-      x = v105.origin.x;
-      if (CGRectIsNull(v105))
+      v33 = expandRects(v31, 0.0, 0.01, 0.02, 0.01);
+      v107.origin.x = cropTimeAboveFacesNoMask(a3, a4, a23, a24, a25, a26, v99, v59, v33, a21, a22);
+      x = v107.origin.x;
+      if (CGRectIsNull(v107))
       {
-        v58 = 1;
+        v60 = 1;
         do
         {
-          v59 = v31;
-          v60 = vcvtd_n_f64_u32(v58, 2uLL);
-          v31 = expandRects(v29, v60 * -0.05, v60 * -0.2, v60 * -0.1, v60 * -0.2);
+          v61 = v33;
+          v62 = vcvtd_n_f64_u32(v60, 2uLL);
+          v33 = expandRects(v31, v62 * -0.05, v62 * -0.2, v62 * -0.1, v62 * -0.2);
 
-          v106.origin.x = cropTimeAboveFacesNoMask(v31, a3, a4, a23, a24, a25, a26, v97, v61, a21, a22);
-          x = v106.origin.x;
+          v108.origin.x = cropTimeAboveFacesNoMask(a3, a4, a23, a24, a25, a26, v99, v63, v33, a21, a22);
+          x = v108.origin.x;
         }
 
-        while (CGRectIsNull(v106) && v58++ < 4);
+        while (CGRectIsNull(v108) && v60++ < 4);
       }
 
       goto LABEL_44;
@@ -2408,62 +2456,62 @@ LABEL_21:
 
     if (a2 <= 6)
     {
-      v98 = *&a5;
+      v100 = *&a5;
       if (a2 == 5)
       {
-        v31 = expandRects(v29, 0.01, 0.01, 0.05, 0.01);
-        v69 = a4;
-        cropTimeLeftFacesNoMask(v31, 1, a3, a4, a23, a24, a25, a26, v76, v77, v70, v71, v72, v73, v74, v75, v98, *&a6, *&a7, *&a8, a17, a18, a19, a20, v97, a21, a22);
-        x = v109.origin.x;
-        if (CGRectIsNull(v109))
+        v33 = expandRects(v31, 0.01, 0.01, 0.05, 0.01);
+        v71 = a4;
+        cropTimeLeftFacesNoMask(v33, 1, a3, a4, a23, a24, a25, a26, v78, v79, v72, v73, v74, v75, v76, v77, v100, *&a6, *&a7, *&a8, a17, a18, a19, a20, v99, a21, a22);
+        x = v111.origin.x;
+        if (CGRectIsNull(v111))
         {
-          v102 = a3;
-          v79 = *MEMORY[0x277CBF398];
-          v78 = *(MEMORY[0x277CBF398] + 8);
-          v96 = v69;
-          v80 = *(MEMORY[0x277CBF398] + 16);
-          v81 = *(MEMORY[0x277CBF398] + 24);
-          v82 = 1;
+          v104 = a3;
+          v81 = *MEMORY[0x277CBF398];
+          v80 = *(MEMORY[0x277CBF398] + 8);
+          v98 = v71;
+          v82 = *(MEMORY[0x277CBF398] + 16);
+          v83 = *(MEMORY[0x277CBF398] + 24);
+          v84 = 1;
           do
           {
-            v83 = v31;
-            v84 = vcvtd_n_f64_u32(v82, 2uLL);
-            v31 = expandRects(v29, v84 * -0.05, v84 * -0.2, v84 * -0.1, v84 * -0.2);
+            v85 = v33;
+            v86 = vcvtd_n_f64_u32(v84, 2uLL);
+            v33 = expandRects(v31, v86 * -0.05, v86 * -0.2, v86 * -0.1, v86 * -0.2);
 
-            cropTimeLeftFacesNoMask(v31, 1, v102, v96, a23, a24, a25, a26, v91, v92, v85, v86, v87, v88, v89, v90, v79, v78, v80, v81, v79, v78, v80, v81, v97, a21, a22);
-            x = v110.origin.x;
+            cropTimeLeftFacesNoMask(v33, 1, v104, v98, a23, a24, a25, a26, v93, v94, v87, v88, v89, v90, v91, v92, v81, v80, v82, v83, v81, v80, v82, v83, v99, a21, a22);
+            x = v112.origin.x;
           }
 
-          while (CGRectIsNull(v110) && v82++ < 4);
+          while (CGRectIsNull(v112) && v84++ < 4);
         }
       }
 
       else
       {
-        v31 = expandRects(v29, 0.01, 0.01, 0.05, 0.01);
-        v32 = a4;
-        cropTimeRightFacesNoMask(v31, 1, a3, a4, a23, a24, a25, a26, v39, v40, v33, v34, v35, v36, v37, v38, v98, *&a6, *&a7, *&a8, a17, a18, a19, a20, v97, a21, a22);
-        x = v103.origin.x;
-        if (CGRectIsNull(v103))
+        v33 = expandRects(v31, 0.01, 0.01, 0.05, 0.01);
+        v34 = a4;
+        cropTimeRightFacesNoMask(v33, 1, a3, a4, a23, a24, a25, a26, v41, v42, v35, v36, v37, v38, v39, v40, v100, *&a6, *&a7, *&a8, a17, a18, a19, a20, v99, a21, a22);
+        x = v105.origin.x;
+        if (CGRectIsNull(v105))
         {
-          v101 = a3;
-          v42 = *MEMORY[0x277CBF398];
-          v41 = *(MEMORY[0x277CBF398] + 8);
-          v95 = v32;
-          v43 = *(MEMORY[0x277CBF398] + 16);
-          v44 = *(MEMORY[0x277CBF398] + 24);
-          v45 = 1;
+          v103 = a3;
+          v44 = *MEMORY[0x277CBF398];
+          v43 = *(MEMORY[0x277CBF398] + 8);
+          v97 = v34;
+          v45 = *(MEMORY[0x277CBF398] + 16);
+          v46 = *(MEMORY[0x277CBF398] + 24);
+          v47 = 1;
           do
           {
-            v46 = v31;
-            v47 = vcvtd_n_f64_u32(v45, 2uLL);
-            v31 = expandRects(v29, v47 * -0.05, v47 * -0.2, v47 * -0.1, v47 * -0.2);
+            v48 = v33;
+            v49 = vcvtd_n_f64_u32(v47, 2uLL);
+            v33 = expandRects(v31, v49 * -0.05, v49 * -0.2, v49 * -0.1, v49 * -0.2);
 
-            cropTimeRightFacesNoMask(v31, 1, v101, v95, a23, a24, a25, a26, v54, v55, v48, v49, v50, v51, v52, v53, v42, v41, v43, v44, v42, v41, v43, v44, v97, a21, a22);
-            x = v104.origin.x;
+            cropTimeRightFacesNoMask(v33, 1, v103, v97, a23, a24, a25, a26, v56, v57, v50, v51, v52, v53, v54, v55, v44, v43, v45, v46, v44, v43, v45, v46, v99, a21, a22);
+            x = v106.origin.x;
           }
 
-          while (CGRectIsNull(v104) && v45++ < 4);
+          while (CGRectIsNull(v106) && v47++ < 4);
         }
       }
 
@@ -2488,51 +2536,51 @@ LABEL_45:
 
 double layoutPetsMatte(void *a1, void *a2, double a3, double a4, CGFloat a5, CGFloat a6, double a7, CGFloat a8, uint64_t a9, uint64_t a10, double a11, double a12, CGFloat a13, CGFloat a14, CGFloat a15, CGFloat a16, double a17, double a18, CGFloat a19, CGFloat a20, CGFloat a21, CGFloat a22)
 {
-  v54[1] = *MEMORY[0x277D85DE8];
-  v29 = a1;
-  v30 = a2;
-  v50 = *MEMORY[0x277CBF3A0];
-  v31 = v30;
-  if ([v31 count])
+  v52[1] = *MEMORY[0x277D85DE8];
+  v27 = a1;
+  v28 = a2;
+  v48 = *MEMORY[0x277CBF3A0];
+  v29 = v28;
+  if ([v29 count])
   {
-    v44 = a15;
-    v45 = a13;
-    v46 = a5;
-    v51 = a3;
-    v52 = a4;
-    v32 = -0.2;
-    v33 = v31;
+    v42 = a15;
+    v43 = a13;
+    v44 = a5;
+    v49 = a3;
+    v50 = a4;
+    v30 = -0.2;
+    v31 = v29;
   }
 
   else
   {
-    v55.origin.x = a13;
-    v55.origin.y = a14;
-    v55.size.width = a15;
-    v55.size.height = a16;
-    if (CGRectIsEmpty(v55))
+    v53.origin.x = a13;
+    v53.origin.y = a14;
+    v53.size.width = a15;
+    v53.size.height = a16;
+    if (CGRectIsEmpty(v53))
     {
-      v33 = v31;
+      v31 = v29;
       goto LABEL_5;
     }
 
-    v45 = a13;
-    v46 = a5;
-    v51 = a3;
-    v52 = a4;
-    *v53 = a13;
-    *&v53[1] = a14;
-    v44 = a15;
-    *&v53[2] = a15;
-    *&v53[3] = a16;
-    v35 = [MEMORY[0x277CCAE60] valueWithBytes:v53 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
-    v54[0] = v35;
-    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:1];
+    v43 = a13;
+    v44 = a5;
+    v49 = a3;
+    v50 = a4;
+    *v51 = a13;
+    *&v51[1] = a14;
+    v42 = a15;
+    *&v51[2] = a15;
+    *&v51[3] = a16;
+    v33 = [MEMORY[0x277CCAE60] valueWithBytes:v51 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
+    v52[0] = v33;
+    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:1];
 
-    v32 = 0.0;
+    v30 = 0.0;
   }
 
-  v36 = *MEMORY[0x277D3B3B8] * 0.5;
+  v34 = *MEMORY[0x277D3B3B8] * 0.5;
   if (a10 <= 4)
   {
     if (a10 > 2)
@@ -2540,8 +2588,8 @@ double layoutPetsMatte(void *a1, void *a2, double a3, double a4, CGFloat a5, CGF
       if (a10 != 3)
       {
 LABEL_20:
-        v37 = expandRects(v33, v32, 0.01, 0.0, 0.01);
-        v39 = cropTimeBelowFacesWithMask(v37, v29, v51, v52, a19, a20, a21, a22, v36, v41, a17, a18);
+        v35 = expandRects(v31, v30, 0.01, 0.0, 0.01);
+        v37 = cropTimeBelowFacesWithMask(v35, v27, v49, v50, a19, a20, a21, a22, v34, v39, a17, a18);
         goto LABEL_22;
       }
     }
@@ -2557,25 +2605,25 @@ LABEL_20:
     }
 
 LABEL_19:
-    v37 = expandRects(v33, v32, 0.01, 0.02, 0.01);
-    v39 = cropTimeAboveFacesWithMask(v37, v29, 2, v51, v52, a19, a20, a21, a22, v36, v40, a17, a18);
+    v35 = expandRects(v31, v30, 0.01, 0.02, 0.01);
+    v37 = cropTimeAboveFacesWithMask(v35, v27, v49, v50, a19, a20, a21, a22, v34, v38, 2, a17, a18);
 LABEL_22:
-    v34 = v39;
+    v32 = v37;
 
     goto LABEL_23;
   }
 
   if (a10 <= 6)
   {
-    expandRects(v33, v32, 0.01, 0.02, 0.01);
+    expandRects(v31, v30, 0.01, 0.02, 0.01);
     if (a10 == 5)
-      v37 = {;
-      v39 = cropTimeLeftOfFacesWithMask(v37, v29, 1, v51, v52, a19, a20, a21, a22, a7, v42, v46, a6, a7, a8, v45, a14, v44, a16, v36, a17, a18);
+      v35 = {;
+      v37 = cropTimeLeftOfFacesWithMask(v35, v27, 1, v49, v50, a19, a20, a21, a22, a7, v40, v44, a6, a7, a8, v43, a14, v42, a16, v34, a17, a18);
     }
 
     else
-      v37 = {;
-      v39 = cropTimeRightOfFacesWithMask(v37, v29, 1, v51, v52, a19, a20, a21, a22, a7, v38, v46, a6, a7, a8, v45, a14, v44, a16, v36, a17, a18);
+      v35 = {;
+      v37 = cropTimeRightOfFacesWithMask(v35, v27, 1, v49, v50, a19, a20, a21, a22, a7, v36, v44, a6, a7, a8, v43, a14, v42, a16, v34, a17, a18);
     }
 
     goto LABEL_22;
@@ -2592,51 +2640,51 @@ LABEL_22:
   }
 
 LABEL_5:
-  v34 = v50;
+  v32 = v48;
 LABEL_23:
 
-  return v34;
+  return v32;
 }
 
-double layoutPetsNoMatte(void *a1, double a2, double a3, double a4, double a5, double a6, double a7, uint64_t a8, uint64_t a9, double a10, double a11, CGFloat a12, CGFloat a13, CGFloat a14, CGFloat a15, double a16, double a17, double a18, double a19, double a20, double a21)
+double layoutPetsNoMatte(void *a1, double a2, double a3, double a4, double a5, double a6, double a7, uint64_t a8, uint64_t a9, double a10, double a11, void x3_0, void x4_0, void x5_0, void x6_0, void x7_0, CGFloat a12, CGFloat a13, uint64_t a14, uint64_t a15, double a16, double a17, double a18, double a19, double a20, double a21)
 {
-  v108[1] = *MEMORY[0x277D85DE8];
-  v27 = a1;
+  v105[1] = *MEMORY[0x277D85DE8];
+  v24 = a1;
   x = *MEMORY[0x277CBF3A0];
-  v29 = v27;
-  v100 = a3;
-  v106 = a2;
-  if ([v29 count])
+  v26 = v24;
+  v97 = a3;
+  v103 = a2;
+  if ([v26 count])
   {
-    v95 = *&a13;
-    v96 = *&a12;
-    v30 = -0.2;
-    v31 = v29;
+    v92 = *&a13;
+    v93 = a12;
+    v27 = -0.2;
+    v28 = v26;
   }
 
   else
   {
-    v109.origin.x = a12;
-    v109.origin.y = a13;
-    v109.size.width = a14;
-    v109.size.height = a15;
-    if (CGRectIsEmpty(v109))
+    v106.origin.x = a12;
+    v106.origin.y = a13;
+    *&v106.size.width = a14;
+    *&v106.size.height = a15;
+    if (CGRectIsEmpty(v106))
     {
-      v31 = v29;
+      v28 = v26;
       goto LABEL_49;
     }
 
-    v95 = *&a13;
-    v96 = *&a12;
-    *v107 = a12;
-    *&v107[1] = a13;
-    *&v107[2] = a14;
-    *&v107[3] = a15;
-    v32 = [MEMORY[0x277CCAE60] valueWithBytes:v107 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
-    v108[0] = v32;
-    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v108 count:1];
+    v92 = *&a13;
+    v93 = a12;
+    *v104 = a12;
+    *&v104[1] = a13;
+    v104[2] = a14;
+    v104[3] = a15;
+    v29 = [MEMORY[0x277CCAE60] valueWithBytes:v104 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
+    v105[0] = v29;
+    v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v105 count:1];
 
-    v30 = 0.0;
+    v27 = 0.0;
   }
 
   if (a9 <= 4)
@@ -2646,25 +2694,25 @@ double layoutPetsNoMatte(void *a1, double a2, double a3, double a4, double a5, d
       if (a9 != 3)
       {
 LABEL_33:
-        v104 = v30;
-        v64 = *MEMORY[0x277D3B3B8] * 0.5;
-        v34 = expandRects(v31, v30, 0.01, 0.0, 0.01);
-        v114.origin.x = cropTimeBelowFacesNoMask(v34, a2, a3, a18, a19, a20, a21, v64, v65, a16, a17);
-        x = v114.origin.x;
-        if (CGRectIsNull(v114))
+        v101 = v27;
+        v61 = *MEMORY[0x277D3B3B8] * 0.5;
+        v31 = expandRects(v28, v27, 0.01, 0.0, 0.01);
+        v111.origin.x = cropTimeBelowFacesNoMask(v31, a2, a3, a18, a19, a20, a21, v61, v62, a16, a17);
+        x = v111.origin.x;
+        if (CGRectIsNull(v111))
         {
-          v66 = 1;
+          v63 = 1;
           do
           {
-            v67 = v34;
-            v68 = vcvtd_n_f64_u32(v66, 2uLL);
-            v34 = expandRects(v29, v104 + v68 * -0.05, v68 * -0.2, v68 * -0.1, v68 * -0.2);
+            v64 = v31;
+            v65 = vcvtd_n_f64_u32(v63, 2uLL);
+            v31 = expandRects(v26, v101 + v65 * -0.05, v65 * -0.2, v65 * -0.1, v65 * -0.2);
 
-            v115.origin.x = cropTimeBelowFacesNoMask(v34, a2, a3, a18, a19, a20, a21, v64, v69, a16, a17);
-            x = v115.origin.x;
+            v112.origin.x = cropTimeBelowFacesNoMask(v31, a2, a3, a18, a19, a20, a21, v61, v66, a16, a17);
+            x = v112.origin.x;
           }
 
-          while (CGRectIsNull(v115) && v66++ < 4);
+          while (CGRectIsNull(v112) && v63++ < 4);
         }
 
 LABEL_48:
@@ -2684,25 +2732,25 @@ LABEL_48:
     }
 
 LABEL_25:
-    v103 = v30;
-    v57 = *MEMORY[0x277D3B3B8] * 0.5;
-    v34 = expandRects(v31, v30, 0.01, 0.02, 0.01);
-    v112.origin.x = cropTimeAboveFacesNoMask(v34, a2, a3, a18, a19, a20, a21, v57, v58, a16, a17);
-    x = v112.origin.x;
-    if (CGRectIsNull(v112))
+    v100 = v27;
+    v54 = *MEMORY[0x277D3B3B8] * 0.5;
+    v31 = expandRects(v28, v27, 0.01, 0.02, 0.01);
+    v109.origin.x = cropTimeAboveFacesNoMask(a2, a3, a18, a19, a20, a21, v54, v55, v31, a16, a17);
+    x = v109.origin.x;
+    if (CGRectIsNull(v109))
     {
-      v59 = 1;
+      v56 = 1;
       do
       {
-        v60 = v34;
-        v61 = vcvtd_n_f64_u32(v59, 2uLL);
-        v34 = expandRects(v29, v103 + v61 * -0.05, v61 * -0.2, v61 * -0.1, v61 * -0.2);
+        v57 = v31;
+        v58 = vcvtd_n_f64_u32(v56, 2uLL);
+        v31 = expandRects(v26, v100 + v58 * -0.05, v58 * -0.2, v58 * -0.1, v58 * -0.2);
 
-        v113.origin.x = cropTimeAboveFacesNoMask(v34, a2, a3, a18, a19, a20, a21, v57, v62, a16, a17);
-        x = v113.origin.x;
+        v110.origin.x = cropTimeAboveFacesNoMask(a2, a3, a18, a19, a20, a21, v54, v59, v31, a16, a17);
+        x = v110.origin.x;
       }
 
-      while (CGRectIsNull(v113) && v59++ < 4);
+      while (CGRectIsNull(v110) && v56++ < 4);
     }
 
     goto LABEL_48;
@@ -2712,57 +2760,57 @@ LABEL_25:
   {
     if (a9 == 5)
     {
-      v105 = v30;
-      v71 = *MEMORY[0x277D3B3B8] * 0.5;
-      v34 = expandRects(v31, v30, 0.01, 0.02, 0.01);
-      cropTimeLeftFacesNoMask(v34, 1, a2, a3, a18, a19, a20, a21, a6, *&v96, v72, v73, v74, v75, v76, v77, *&a4, *&a5, *&a6, *&a7, v96, v95, *&a14, *&a15, v71, a16, a17);
-      x = v116.origin.x;
-      if (CGRectIsNull(v116))
+      v102 = v27;
+      v68 = *MEMORY[0x277D3B3B8] * 0.5;
+      v31 = expandRects(v28, v27, 0.01, 0.02, 0.01);
+      cropTimeLeftFacesNoMask(v31, 1, a2, a3, a18, a19, a20, a21, a6, v93, v69, v70, v71, v72, v73, v74, *&a4, *&a5, *&a6, *&a7, *&v93, v92, a14, a15, v68, a16, a17);
+      x = v113.origin.x;
+      if (CGRectIsNull(v113))
       {
-        v78 = *MEMORY[0x277CBF398];
-        v79 = *(MEMORY[0x277CBF398] + 8);
-        v80 = *(MEMORY[0x277CBF398] + 16);
-        v81 = *(MEMORY[0x277CBF398] + 24);
-        v82 = 1;
+        v75 = *MEMORY[0x277CBF398];
+        v76 = *(MEMORY[0x277CBF398] + 8);
+        v77 = *(MEMORY[0x277CBF398] + 16);
+        v78 = *(MEMORY[0x277CBF398] + 24);
+        v79 = 1;
         do
         {
-          v83 = v34;
-          v84 = vcvtd_n_f64_u32(v82, 2uLL);
-          v34 = expandRects(v29, v105 + v84 * -0.05, v84 * -0.2, v84 * -0.1, v84 * -0.2);
+          v80 = v31;
+          v81 = vcvtd_n_f64_u32(v79, 2uLL);
+          v31 = expandRects(v26, v102 + v81 * -0.05, v81 * -0.2, v81 * -0.1, v81 * -0.2);
 
-          cropTimeLeftFacesNoMask(v34, 1, v106, v100, a18, a19, a20, a21, v91, v92, v85, v86, v87, v88, v89, v90, v78, v79, v80, v81, v78, v79, v80, v81, v71, a16, a17);
-          x = v117.origin.x;
+          cropTimeLeftFacesNoMask(v31, 1, v103, v97, a18, a19, a20, a21, v88, v89, v82, v83, v84, v85, v86, v87, v75, v76, v77, v78, v75, v76, v77, v78, v68, a16, a17);
+          x = v114.origin.x;
         }
 
-        while (CGRectIsNull(v117) && v82++ < 4);
+        while (CGRectIsNull(v114) && v79++ < 4);
       }
     }
 
     else
     {
-      v102 = v30;
-      v33 = *MEMORY[0x277D3B3B8] * 0.5;
-      v34 = expandRects(v31, v30, 0.01, 0.02, 0.01);
-      cropTimeRightFacesNoMask(v34, 1, a2, a3, a18, a19, a20, a21, a6, *&v96, v35, v36, v37, v38, v39, v40, *&a4, *&a5, *&a6, *&a7, v96, v95, *&a14, *&a15, v33, a16, a17);
-      x = v110.origin.x;
-      if (CGRectIsNull(v110))
+      v99 = v27;
+      v30 = *MEMORY[0x277D3B3B8] * 0.5;
+      v31 = expandRects(v28, v27, 0.01, 0.02, 0.01);
+      cropTimeRightFacesNoMask(v31, 1, a2, a3, a18, a19, a20, a21, a6, v93, v32, v33, v34, v35, v36, v37, *&a4, *&a5, *&a6, *&a7, *&v93, v92, a14, a15, v30, a16, a17);
+      x = v107.origin.x;
+      if (CGRectIsNull(v107))
       {
-        v41 = *MEMORY[0x277CBF398];
-        v42 = *(MEMORY[0x277CBF398] + 8);
-        v43 = *(MEMORY[0x277CBF398] + 16);
-        v44 = *(MEMORY[0x277CBF398] + 24);
-        v45 = 1;
+        v38 = *MEMORY[0x277CBF398];
+        v39 = *(MEMORY[0x277CBF398] + 8);
+        v40 = *(MEMORY[0x277CBF398] + 16);
+        v41 = *(MEMORY[0x277CBF398] + 24);
+        v42 = 1;
         do
         {
-          v46 = v34;
-          v47 = vcvtd_n_f64_u32(v45, 2uLL);
-          v34 = expandRects(v29, v102 + v47 * -0.05, v47 * -0.2, v47 * -0.1, v47 * -0.2);
+          v43 = v31;
+          v44 = vcvtd_n_f64_u32(v42, 2uLL);
+          v31 = expandRects(v26, v99 + v44 * -0.05, v44 * -0.2, v44 * -0.1, v44 * -0.2);
 
-          cropTimeRightFacesNoMask(v34, 1, v106, v100, a18, a19, a20, a21, v54, v55, v48, v49, v50, v51, v52, v53, v41, v42, v43, v44, v41, v42, v43, v44, v33, a16, a17);
-          x = v111.origin.x;
+          cropTimeRightFacesNoMask(v31, 1, v103, v97, a18, a19, a20, a21, v51, v52, v45, v46, v47, v48, v49, v50, v38, v39, v40, v41, v38, v39, v40, v41, v30, a16, a17);
+          x = v108.origin.x;
         }
 
-        while (CGRectIsNull(v111) && v45++ < 4);
+        while (CGRectIsNull(v108) && v42++ < 4);
       }
     }
 
@@ -2784,16 +2832,16 @@ LABEL_49:
   return x;
 }
 
-id pflc_layout_log()
+id pflc_layout_log(uint64_t a1)
 {
   if (pflc_layout_log_onceToken != -1)
   {
     pflc_layout_log_cold_1();
   }
 
-  v1 = pflc_layout_log___logger;
+  v2 = pflc_layout_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __pflc_layout_log_block_invoke()

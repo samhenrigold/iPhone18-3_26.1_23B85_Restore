@@ -118,16 +118,16 @@ LABEL_15:
 
 - (void)configurationDidUpdateOnLongPressSource:(id)source
 {
-  v10 = *MEMORY[0x277D85DE8];
-  [source longPressInterval];
-  self->_activationInterval = v4;
-  v5 = SBLogButtonsInteraction();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v11 = *MEMORY[0x277D85DE8];
+  longPressInterval = [source longPressInterval];
+  self->_activationInterval = v5;
+  v6 = SBLogButtonsInteraction(longPressInterval);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     activationInterval = self->_activationInterval;
-    v8 = 134217984;
-    v9 = activationInterval;
-    _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "Siri: updating activation interval to %f", &v8, 0xCu);
+    v9 = 134217984;
+    v10 = activationInterval;
+    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Siri: updating activation interval to %f", &v9, 0xCu);
   }
 
   hardwareButtonGestureParameters = [(SBSiriHardwareButtonInteraction *)self hardwareButtonGestureParameters];
@@ -145,10 +145,10 @@ LABEL_15:
   siriPreheatAssertion = self->_siriPreheatAssertion;
   if (siriPreheatAssertion)
   {
-    [(SiriAssertion *)siriPreheatAssertion invalidate];
+    siriPreheatAssertion = [(SiriAssertion *)siriPreheatAssertion invalidate];
   }
 
-  v5 = SBLogButtonsInteraction();
+  v5 = SBLogButtonsInteraction(siriPreheatAssertion);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [SBSiriHardwareButtonInteraction _preheatSiriForPresentationAfterInterval:];
@@ -161,11 +161,11 @@ LABEL_15:
   if (v8)
   {
     prepareForActivation = [(SiriLongPressButtonSource *)self->_siriActivationSource prepareForActivation];
-    v10 = self->_siriPreheatAssertion;
+    v11 = self->_siriPreheatAssertion;
     self->_siriPreheatAssertion = prepareForActivation;
 
-    v11 = SBLogButtonsInteraction();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v13 = SBLogButtonsInteraction(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       [SBSiriHardwareButtonInteraction _preheatSiriForPresentationAfterInterval:];
     }
@@ -173,8 +173,8 @@ LABEL_15:
 
   else
   {
-    v11 = SBLogButtonsInteraction();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v13 = SBLogButtonsInteraction(v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       [SBSiriHardwareButtonInteraction _preheatSiriForPresentationAfterInterval:];
     }
@@ -185,7 +185,7 @@ LABEL_15:
 {
   if (self->_siriPreheatAssertion)
   {
-    v3 = SBLogButtonsInteraction();
+    v3 = SBLogButtonsInteraction(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       [SBSiriHardwareButtonInteraction _cancelPreheating];
@@ -199,102 +199,103 @@ LABEL_15:
 
 - (void)_cancelAllSiriActions
 {
+  selfCopy = self;
   if (self->_siriPreheatAssertion)
   {
-    [(SBSiriHardwareButtonInteraction *)self _cancelPreheating];
+    self = [(SBSiriHardwareButtonInteraction *)self _cancelPreheating];
   }
 
-  if (self->_siriButtonDownAssertion)
+  if (selfCopy->_siriButtonDownAssertion)
   {
-    v3 = SBLogButtonsInteraction();
+    v3 = SBLogButtonsInteraction(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       [SBSiriHardwareButtonInteraction _cancelAllSiriActions];
     }
 
-    [(SiriAssertion *)self->_siriButtonDownAssertion invalidate];
-    siriButtonDownAssertion = self->_siriButtonDownAssertion;
-    self->_siriButtonDownAssertion = 0;
+    [(SiriAssertion *)selfCopy->_siriButtonDownAssertion invalidate];
+    siriButtonDownAssertion = selfCopy->_siriButtonDownAssertion;
+    selfCopy->_siriButtonDownAssertion = 0;
   }
 }
 
 - (BOOL)consumeInitialPressDown
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   Current = CFAbsoluteTimeGetCurrent();
   v5 = [(SiriLongPressButtonSource *)self->_siriActivationSource speechInteractionActivityWithTimestamp:?];
   siriButtonDownAssertion = self->_siriButtonDownAssertion;
   self->_siriButtonDownAssertion = v5;
 
-  v7 = SBLogButtonsInteraction();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = SBLogButtonsInteraction(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [SBSiriHardwareButtonInteraction consumeInitialPressDown];
   }
 
-  v8 = +[SBSyncController sharedInstance];
-  if ([v8 isRestoring])
+  v9 = +[SBSyncController sharedInstance];
+  if ([v9 isRestoring])
   {
 
 LABEL_6:
-    v11 = SBLogButtonsHome();
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v12 = SBLogButtonsHome();
+    if (!os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
 LABEL_9:
 
       goto LABEL_10;
     }
 
-    v12 = NSStringFromSelector(a2);
-    v21 = 138543362;
-    v22 = v12;
-    v13 = "%{public}@ result: not preheating Siri due to SBSyncController restoring/resetting";
+    v13 = NSStringFromSelector(a2);
+    v22 = 138543362;
+    v23 = v13;
+    v14 = "%{public}@ result: not preheating Siri due to SBSyncController restoring/resetting";
 LABEL_8:
-    _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_INFO, v13, &v21, 0xCu);
+    _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_INFO, v14, &v22, 0xCu);
 
     goto LABEL_9;
   }
 
-  v9 = +[SBSyncController sharedInstance];
-  isResetting = [v9 isResetting];
+  v10 = +[SBSyncController sharedInstance];
+  isResetting = [v10 isResetting];
 
   if (isResetting)
   {
     goto LABEL_6;
   }
 
-  v15 = +[SBWorkspace mainWorkspace];
-  isPowerDownTransientOverlayTopmost = [v15 isPowerDownTransientOverlayTopmost];
+  v16 = +[SBWorkspace mainWorkspace];
+  isPowerDownTransientOverlayTopmost = [v16 isPowerDownTransientOverlayTopmost];
 
-  v11 = SBLogButtonsHome();
-  v17 = os_log_type_enabled(v11, OS_LOG_TYPE_INFO);
+  v12 = SBLogButtonsHome();
+  v18 = os_log_type_enabled(v12, OS_LOG_TYPE_INFO);
   if (isPowerDownTransientOverlayTopmost)
   {
-    if (!v17)
+    if (!v18)
     {
       goto LABEL_9;
     }
 
-    v12 = NSStringFromSelector(a2);
-    v21 = 138543362;
-    v22 = v12;
-    v13 = "%{public}@ result: not preheating Siri due to power down transient overlay";
+    v13 = NSStringFromSelector(a2);
+    v22 = 138543362;
+    v23 = v13;
+    v14 = "%{public}@ result: not preheating Siri due to power down transient overlay";
     goto LABEL_8;
   }
 
-  if (v17)
+  if (v18)
   {
-    v18 = NSStringFromSelector(a2);
-    v21 = 138543362;
-    v22 = v18;
-    _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_INFO, "%{public}@ result: ignored; starting Siri preheat", &v21, 0xCu);
+    v19 = NSStringFromSelector(a2);
+    v22 = 138543362;
+    v23 = v19;
+    _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_INFO, "%{public}@ result: ignored; starting Siri preheat", &v22, 0xCu);
   }
 
   activationInterval = self->_activationInterval;
-  v20 = fmax(activationInterval - (Current - self->_initialPressDownTime), 0.0);
-  if (activationInterval > v20)
+  v21 = fmax(activationInterval - (Current - self->_initialPressDownTime), 0.0);
+  if (activationInterval > v21)
   {
-    activationInterval = v20;
+    activationInterval = v21;
   }
 
   [(SBSiriHardwareButtonInteraction *)self _preheatSiriForPresentationAfterInterval:activationInterval];

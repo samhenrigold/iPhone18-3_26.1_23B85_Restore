@@ -12,10 +12,9 @@
   endpointURL = [(CMSExtensionEndpointConfiguration *)self endpointURL];
   groupHeaders = [(CMSExtensionEndpointConfiguration *)self groupHeaders];
   headers = [(CMSExtensionEndpointConfiguration *)self headers];
-  keySystemIdentifier = self->_keySystemIdentifier;
-  v8 = [v3 stringWithFormat:@"<CMSExtensionQueuesContentProtectionEndpointConfiguration: endpointURL:%@ groupHeaders:%@ headers:%@ keySystem:%@ certURL:%@>", endpointURL, groupHeaders, headers, keySystemIdentifier, self->_fairPlayKeySystemCertificateUrl];
+  v7 = [v3 stringWithFormat:@"<CMSExtensionQueuesContentProtectionEndpointConfiguration: endpointURL:%@ groupHeaders:%@ headers:%@ keySystem:%@ certURL:%@>", endpointURL, groupHeaders, headers, self->_keySystemIdentifier, self->_fairPlayKeySystemCertificateUrl];
 
-  return v8;
+  return v7;
 }
 
 - (CMSExtensionQueuesContentProtectionEndpointConfiguration)init
@@ -42,7 +41,7 @@
   v14 = [dictionaryCopy cmsOptionalDictionaryForKey:@"cks"];
   if (!v14)
   {
-    v15 = _CMSILogingFacility();
+    v15 = _CMSILogingFacility(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [CMSExtensionQueuesContentProtectionEndpointConfiguration initWithDictionary:endpoint:baseURL:groupHeaders:];
@@ -54,9 +53,9 @@
   v15 = v14;
   v16 = [v14 cmsOptionalStringForKey:@"keySystem"];
   v17 = v16;
-  if (!v16 || ([v16 isEqualToString:@"ContentKeySystemFairPlayStreaming"] & 1) == 0)
+  if (!v16 || (v16 = [v16 isEqualToString:@"ContentKeySystemFairPlayStreaming"], (v16 & 1) == 0))
   {
-    v18 = _CMSILogingFacility();
+    v18 = _CMSILogingFacility(v16);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [CMSExtensionQueuesContentProtectionEndpointConfiguration initWithDictionary:endpoint:baseURL:groupHeaders:];
@@ -69,7 +68,7 @@
   v18 = [v15 cmsOptionalStringForKey:@"certUrl"];
   if (![v18 length])
   {
-    v23 = _CMSILogingFacility();
+    v23 = _CMSILogingFacility(0);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       [CMSExtensionQueuesContentProtectionEndpointConfiguration initWithDictionary:endpoint:baseURL:groupHeaders:];
@@ -93,27 +92,12 @@ LABEL_14:
   return v21;
 }
 
-- (void)initWithDictionary:endpoint:baseURL:groupHeaders:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)initWithDictionary:endpoint:baseURL:groupHeaders:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  v4 = 2114;
-  v5 = v0;
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithDictionary:endpoint:baseURL:groupHeaders:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = 2114;
+  v4 = v0;
 }
 
 @end

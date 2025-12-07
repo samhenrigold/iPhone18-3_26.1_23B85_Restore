@@ -117,7 +117,7 @@
 
 - (BMResourceSpecifier)initWithCoder:(id)coder
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeIntegerForKey:@"type"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"name"];
@@ -135,14 +135,13 @@
   if (!v11)
   {
     v12 = MEMORY[0x1E696ABC0];
-    v17 = *MEMORY[0x1E696A578];
-    v18[0] = @"Decoding failure";
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v16 = *MEMORY[0x1E696A578];
+    v17[0] = @"Decoding failure";
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
     v14 = [v12 errorWithDomain:@"Biome" code:-1 userInfo:v13];
     [coderCopy failWithError:v14];
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -167,11 +166,10 @@
 
 - (void)initWithType:(uint64_t)a1 name:(NSObject *)a2 descriptors:options:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1AC15D000, a2, OS_LOG_TYPE_ERROR, "Invalid resource name %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1AC15D000, a2, OS_LOG_TYPE_ERROR, "Invalid resource name %@", &v2, 0xCu);
 }
 
 @end

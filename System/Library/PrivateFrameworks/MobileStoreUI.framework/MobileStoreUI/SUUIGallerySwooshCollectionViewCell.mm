@@ -9,13 +9,13 @@
 
 - (void)setColoringWithColorScheme:(id)scheme
 {
-  primaryTextColor = [scheme primaryTextColor];
+  v4 = objc_msgSend_primaryTextColor(scheme, a2);
   titleColor = self->_titleColor;
-  if (titleColor != primaryTextColor)
+  if (titleColor != v4)
   {
-    obj = primaryTextColor;
-    titleColor = [titleColor isEqual:primaryTextColor];
-    primaryTextColor = obj;
+    obj = v4;
+    titleColor = [titleColor isEqual:v4];
+    v4 = obj;
     if ((titleColor & 1) == 0)
     {
       objc_storeStrong(&self->_titleColor, obj);
@@ -31,11 +31,11 @@
         [(UILabel *)titleLabel setTextColor:v7];
       }
 
-      primaryTextColor = obj;
+      v4 = obj;
     }
   }
 
-  MEMORY[0x2821F96F8](titleColor, primaryTextColor);
+  MEMORY[0x2821F96F8](titleColor, v4);
 }
 
 - (void)setContentChildView:(id)view
@@ -67,7 +67,7 @@
 {
   titleCopy = title;
   text = [(UILabel *)self->_titleLabel text];
-  if (text != titleCopy && ([text isEqualToString:titleCopy] & 1) == 0)
+  if (text != titleCopy && (objc_msgSend_isEqualToString_(text) & 1) == 0)
   {
     titleLabel = self->_titleLabel;
     if (titleCopy)

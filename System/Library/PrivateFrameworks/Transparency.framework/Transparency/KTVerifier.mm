@@ -49,15 +49,15 @@
 
 - (KTVerifier)initWithApplication:(id)application
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   applicationCopy = application;
   v6 = [TransparencyApplication applicationValueForIdentifier:applicationCopy];
 
   if (v6)
   {
-    v15.receiver = self;
-    v15.super_class = KTVerifier;
-    v7 = [(KTVerifier *)&v15 init];
+    v14.receiver = self;
+    v14.super_class = KTVerifier;
+    v7 = [(KTVerifier *)&v14 init];
     v8 = v7;
     if (v7)
     {
@@ -82,14 +82,13 @@
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v17 = applicationCopy;
+      v16 = applicationCopy;
       _os_log_impl(&dword_1E10DB000, v12, OS_LOG_TYPE_ERROR, "Unknown application identifier: %@", buf, 0xCu);
     }
 
     selfCopy = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -122,7 +121,7 @@ uint64_t __34__KTVerifier_initWithApplication___block_invoke()
 
 void __62__KTVerifier_invokeXPCAsynchronousCallWithBlock_failureBlock___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -136,9 +135,9 @@ void __62__KTVerifier_invokeXPCAsynchronousCallWithBlock_failureBlock___block_in
     v9 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_7;
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_7, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138412290;
-      v12 = v7;
-      _os_log_impl(&dword_1E10DB000, v9, OS_LOG_TYPE_ERROR, "Unknown invokeXPCAsynchronousCallWithBlock error: %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v7;
+      _os_log_impl(&dword_1E10DB000, v9, OS_LOG_TYPE_ERROR, "Unknown invokeXPCAsynchronousCallWithBlock error: %@", &v10, 0xCu);
     }
 
     v8 = *(*(a1 + 32) + 16);
@@ -150,8 +149,6 @@ void __62__KTVerifier_invokeXPCAsynchronousCallWithBlock_failureBlock___block_in
   }
 
   v8();
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __62__KTVerifier_invokeXPCAsynchronousCallWithBlock_failureBlock___block_invoke_2()
@@ -183,7 +180,7 @@ uint64_t __62__KTVerifier_invokeXPCAsynchronousCallWithBlock_failureBlock___bloc
 
 void __61__KTVerifier_invokeXPCSynchronousCallWithBlock_failureBlock___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -197,9 +194,9 @@ void __61__KTVerifier_invokeXPCSynchronousCallWithBlock_failureBlock___block_inv
     v9 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_7;
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_7, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138412290;
-      v12 = v7;
-      _os_log_impl(&dword_1E10DB000, v9, OS_LOG_TYPE_ERROR, "Unknown invokeXPCSynchronousCallWithBlock error: %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v7;
+      _os_log_impl(&dword_1E10DB000, v9, OS_LOG_TYPE_ERROR, "Unknown invokeXPCSynchronousCallWithBlock error: %@", &v10, 0xCu);
     }
 
     v8 = *(*(a1 + 32) + 16);
@@ -211,8 +208,6 @@ void __61__KTVerifier_invokeXPCSynchronousCallWithBlock_failureBlock___block_inv
   }
 
   v8();
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __61__KTVerifier_invokeXPCSynchronousCallWithBlock_failureBlock___block_invoke_2()
@@ -813,7 +808,7 @@ uint64_t __60__KTVerifier_validateEnrollmentResult_uuid_completionBlock___block_
 
 void __42__KTVerifier_forceValidateUUID_uri_block___block_invoke(void *a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_7 != -1)
   {
@@ -824,14 +819,12 @@ void __42__KTVerifier_forceValidateUUID_uri_block___block_invoke(void *a1, void 
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_7, OS_LOG_TYPE_INFO))
   {
     v5 = a1[4];
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_INFO, "Sending forceValidateUUID(%@)", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v5;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_INFO, "Sending forceValidateUUID(%@)", &v6, 0xCu);
   }
 
   [v3 forceValidateUUID:a1[4] uri:a1[5] block:a1[6]];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __42__KTVerifier_forceValidateUUID_uri_block___block_invoke_2()
@@ -867,7 +860,7 @@ uint64_t __42__KTVerifier_forceValidateUUID_uri_block___block_invoke_2()
 
 void __52__KTVerifier_forceValidateUUID_uri_completionBlock___block_invoke(void *a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_7 != -1)
   {
@@ -878,14 +871,12 @@ void __52__KTVerifier_forceValidateUUID_uri_completionBlock___block_invoke(void 
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_7, OS_LOG_TYPE_INFO))
   {
     v5 = a1[4];
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_INFO, "Sending forceValidateUUID(%@)", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v5;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_INFO, "Sending forceValidateUUID(%@)", &v6, 0xCu);
   }
 
   [v3 forceValidateUUID:a1[4] uri:a1[5] completionBlock:a1[6]];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __52__KTVerifier_forceValidateUUID_uri_completionBlock___block_invoke_2()
@@ -917,7 +908,7 @@ uint64_t __52__KTVerifier_forceValidateUUID_uri_completionBlock___block_invoke_2
 
 void __42__KTVerifier_resetRequestToPending_block___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_7 != -1)
   {
@@ -928,14 +919,12 @@ void __42__KTVerifier_resetRequestToPending_block___block_invoke(uint64_t a1, vo
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_7, OS_LOG_TYPE_INFO))
   {
     v5 = *(a1 + 32);
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_INFO, "Sending resetRequestToPending(%@)", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v5;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_INFO, "Sending resetRequestToPending(%@)", &v6, 0xCu);
   }
 
   [v3 resetRequestToPending:*(a1 + 32) block:*(a1 + 40)];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __42__KTVerifier_resetRequestToPending_block___block_invoke_2()
@@ -965,7 +954,7 @@ uint64_t __42__KTVerifier_resetRequestToPending_block___block_invoke_2()
 
 void __25__KTVerifier_clearState___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_7 != -1)
   {
@@ -978,15 +967,13 @@ void __25__KTVerifier_clearState___block_invoke(uint64_t a1, void *a2)
     v5 = *(a1 + 32);
     v6 = v4;
     v7 = [v5 applicationIdentifier];
-    v10 = 138543362;
-    v11 = v7;
-    _os_log_impl(&dword_1E10DB000, v6, OS_LOG_TYPE_INFO, "Sending clearApplicationState(%{public}@)", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v7;
+    _os_log_impl(&dword_1E10DB000, v6, OS_LOG_TYPE_INFO, "Sending clearApplicationState(%{public}@)", &v9, 0xCu);
   }
 
   v8 = [*(a1 + 32) applicationIdentifier];
   [v3 clearApplicationState:v8 completionBlock:*(a1 + 40)];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __25__KTVerifier_clearState___block_invoke_2()
@@ -1449,7 +1436,7 @@ uint64_t __37__KTVerifier_forceCloudConfigUpdate___block_invoke_2()
 
 void __40__KTVerifier_copyDeviceStatus_complete___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_7 != -1)
   {
@@ -1461,19 +1448,17 @@ void __40__KTVerifier_copyDeviceStatus_complete___block_invoke(uint64_t a1, void
   {
     v5 = *(a1 + 32);
     *buf = 138412290;
-    v11 = v5;
+    v10 = v5;
     _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_INFO, "Sending copyDeviceStatus for %@", buf, 0xCu);
   }
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __40__KTVerifier_copyDeviceStatus_complete___block_invoke_90;
-  v8[3] = &unk_1E8701DF8;
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __40__KTVerifier_copyDeviceStatus_complete___block_invoke_90;
+  v7[3] = &unk_1E8701DF8;
   v6 = *(a1 + 32);
-  v9 = *(a1 + 40);
-  [v3 copyDeviceStatus:v6 complete:v8];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8 = *(a1 + 40);
+  [v3 copyDeviceStatus:v6 complete:v7];
 }
 
 uint64_t __40__KTVerifier_copyDeviceStatus_complete___block_invoke_2()
@@ -1741,7 +1726,7 @@ uint64_t __40__KTVerifier_copyApplicationTranscript___block_invoke_2()
 
 void __39__KTVerifier_ignoreFailure_uuid_error___block_invoke(void *a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_7 != -1)
   {
@@ -1754,22 +1739,20 @@ void __39__KTVerifier_ignoreFailure_uuid_error___block_invoke(void *a1, void *a2
     v5 = a1[4];
     v6 = a1[5];
     *buf = 138412546;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v6;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v6;
     _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_INFO, "Sending synchronous ignoreFailure for %@, request id %@", buf, 0x16u);
   }
 
   v7 = a1[4];
   v8 = a1[5];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __39__KTVerifier_ignoreFailure_uuid_error___block_invoke_110;
-  v10[3] = &unk_1E8701788;
-  v10[4] = a1[6];
-  [v3 ignoreFailure:v7 uuid:v8 completionBlock:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __39__KTVerifier_ignoreFailure_uuid_error___block_invoke_110;
+  v9[3] = &unk_1E8701788;
+  v9[4] = a1[6];
+  [v3 ignoreFailure:v7 uuid:v8 completionBlock:v9];
 }
 
 uint64_t __39__KTVerifier_ignoreFailure_uuid_error___block_invoke_2()
@@ -1882,7 +1865,7 @@ uint64_t __45__KTVerifier_batchQuery_userInitiated_block___block_invoke_2()
 
 void __53__KTVerifier_validatePeers_fetchNow_completionBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_7 != -1)
   {
@@ -1896,16 +1879,14 @@ void __53__KTVerifier_validatePeers_fetchNow_completionBlock___block_invoke(uint
     v6 = v4;
     v7 = [v5 allKeys];
     v8 = [v7 componentsJoinedByString:{@", "}];
-    v12 = 138412290;
-    v13 = v8;
-    _os_log_impl(&dword_1E10DB000, v6, OS_LOG_TYPE_INFO, "Sending validatePeers for uris: %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = v8;
+    _os_log_impl(&dword_1E10DB000, v6, OS_LOG_TYPE_INFO, "Sending validatePeers for uris: %@", &v11, 0xCu);
   }
 
   v9 = *(a1 + 32);
   v10 = [*(a1 + 40) applicationIdentifier];
   [v3 validatePeers:v9 application:v10 fetchNow:*(a1 + 56) completionBlock:*(a1 + 48)];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __53__KTVerifier_validatePeers_fetchNow_completionBlock___block_invoke_2()
@@ -1917,30 +1898,30 @@ uint64_t __53__KTVerifier_validatePeers_fetchNow_completionBlock___block_invoke_
 
 void __53__KTVerifier_validatePeers_fetchNow_completionBlock___block_invoke_122(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   obj = *(a1 + 32);
-  v5 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       v8 = 0;
       do
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * v8);
+        v9 = *(*(&v14 + 1) + 8 * v8);
         v10 = [KTVerifierResult alloc];
         v11 = [*(a1 + 40) applicationIdentifier];
         v12 = [(KTVerifierResult *)v10 initWithUri:v9 application:v11 failure:v3];
@@ -1950,14 +1931,13 @@ void __53__KTVerifier_validatePeers_fetchNow_completionBlock___block_invoke_122(
       }
 
       while (v6 != v8);
-      v6 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
   }
 
   (*(*(a1 + 48) + 16))();
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)validatePeers:(id)peers completionBlock:(id)block
@@ -1982,7 +1962,7 @@ void __53__KTVerifier_validatePeers_fetchNow_completionBlock___block_invoke_122(
 
 void __44__KTVerifier_validatePeers_completionBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_7 != -1)
   {
@@ -1997,14 +1977,12 @@ void __44__KTVerifier_validatePeers_completionBlock___block_invoke(uint64_t a1, 
     v7 = [v5 uriToVerificationInfo];
     v8 = [v7 allKeys];
     v9 = [v8 componentsJoinedByString:{@", "}];
-    v11 = 138412290;
-    v12 = v9;
-    _os_log_impl(&dword_1E10DB000, v6, OS_LOG_TYPE_INFO, "Sending validatePeers for uris: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v9;
+    _os_log_impl(&dword_1E10DB000, v6, OS_LOG_TYPE_INFO, "Sending validatePeers for uris: %@", &v10, 0xCu);
   }
 
   [v3 validatePeers:*(a1 + 32) completionBlock:*(a1 + 40)];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __44__KTVerifier_validatePeers_completionBlock___block_invoke_2()
@@ -2039,7 +2017,7 @@ uint64_t __44__KTVerifier_validatePeers_completionBlock___block_invoke_2()
 
 void __59__KTVerifier_getCachedValidatePeerResults_completionBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_7 != -1)
   {
@@ -2052,16 +2030,14 @@ void __59__KTVerifier_getCachedValidatePeerResults_completionBlock___block_invok
     v5 = *(a1 + 32);
     v6 = v4;
     v7 = [v5 componentsJoinedByString:{@", "}];
-    v11 = 138412290;
-    v12 = v7;
-    _os_log_impl(&dword_1E10DB000, v6, OS_LOG_TYPE_INFO, "Sending getCachedValidatePeerResults for uris: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v7;
+    _os_log_impl(&dword_1E10DB000, v6, OS_LOG_TYPE_INFO, "Sending getCachedValidatePeerResults for uris: %@", &v10, 0xCu);
   }
 
   v8 = *(a1 + 32);
   v9 = [*(a1 + 40) applicationIdentifier];
   [v3 getCachedValidatePeerResults:v8 application:v9 completionBlock:*(a1 + 48)];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __59__KTVerifier_getCachedValidatePeerResults_completionBlock___block_invoke_2()
@@ -2073,30 +2049,30 @@ uint64_t __59__KTVerifier_getCachedValidatePeerResults_completionBlock___block_i
 
 void __59__KTVerifier_getCachedValidatePeerResults_completionBlock___block_invoke_129(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   obj = *(a1 + 32);
-  v5 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       v8 = 0;
       do
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * v8);
+        v9 = *(*(&v14 + 1) + 8 * v8);
         v10 = [KTVerifierResult alloc];
         v11 = [*(a1 + 40) applicationIdentifier];
         v12 = [(KTVerifierResult *)v10 initWithUri:v9 application:v11 failure:v3];
@@ -2106,14 +2082,13 @@ void __59__KTVerifier_getCachedValidatePeerResults_completionBlock___block_invok
       }
 
       while (v6 != v8);
-      v6 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
   }
 
   (*(*(a1 + 48) + 16))();
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initiateQueryForUris:(id)uris completionBlock:(id)block
@@ -2145,7 +2120,7 @@ void __59__KTVerifier_getCachedValidatePeerResults_completionBlock___block_invok
 
 void __51__KTVerifier_initiateQueryForUris_completionBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_7 != -1)
   {
@@ -2159,20 +2134,18 @@ void __51__KTVerifier_initiateQueryForUris_completionBlock___block_invoke(uint64
     v6 = v4;
     v7 = [v5 componentsJoinedByString:{@", "}];
     *buf = 138412290;
-    v14 = v7;
+    v13 = v7;
     _os_log_impl(&dword_1E10DB000, v6, OS_LOG_TYPE_INFO, "Sending initiateQueryForUris for %@", buf, 0xCu);
   }
 
   v8 = *(a1 + 32);
   v9 = [*(a1 + 40) applicationIdentifier];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __51__KTVerifier_initiateQueryForUris_completionBlock___block_invoke_135;
-  v11[3] = &unk_1E87013C8;
-  v12 = *(a1 + 48);
-  [v3 initiateQueryForUris:v8 application:v9 completionBlock:v11];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __51__KTVerifier_initiateQueryForUris_completionBlock___block_invoke_135;
+  v10[3] = &unk_1E87013C8;
+  v11 = *(a1 + 48);
+  [v3 initiateQueryForUris:v8 application:v9 completionBlock:v10];
 }
 
 uint64_t __51__KTVerifier_initiateQueryForUris_completionBlock___block_invoke_2()
@@ -2184,39 +2157,37 @@ uint64_t __51__KTVerifier_initiateQueryForUris_completionBlock___block_invoke_2(
 
 - (id)urisFromResults:(id)results
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   resultsCopy = results;
   array = [MEMORY[0x1E695DF70] array];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = resultsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [*(*(&v13 + 1) + 8 * i) uri];
+        v10 = [*(*(&v12 + 1) + 8 * i) uri];
         [array addObject:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -2263,7 +2234,7 @@ uint64_t __51__KTVerifier_initiateQueryForUris_completionBlock___block_invoke_2(
 
 void __46__KTVerifier_markFailureSeenForResults_error___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_7 != -1)
   {
@@ -2279,20 +2250,18 @@ void __46__KTVerifier_markFailureSeenForResults_error___block_invoke(uint64_t a1
     v8 = [v5 urisFromResults:v6];
     v9 = [v8 componentsJoinedByString:{@", "}];
     *buf = 138412290;
-    v15 = v9;
+    v14 = v9;
     _os_log_impl(&dword_1E10DB000, v7, OS_LOG_TYPE_INFO, "Sending synchronous markFailureSeenForUris for %@", buf, 0xCu);
   }
 
   v10 = *(a1 + 40);
   v11 = [*(a1 + 32) applicationIdentifier];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __46__KTVerifier_markFailureSeenForResults_error___block_invoke_139;
-  v13[3] = &unk_1E8701788;
-  v13[4] = *(a1 + 48);
-  [v3 markFailureSeenForResults:v10 application:v11 completionBlock:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __46__KTVerifier_markFailureSeenForResults_error___block_invoke_139;
+  v12[3] = &unk_1E8701788;
+  v12[4] = *(a1 + 48);
+  [v3 markFailureSeenForResults:v10 application:v11 completionBlock:v12];
 }
 
 uint64_t __46__KTVerifier_markFailureSeenForResults_error___block_invoke_2()
@@ -2366,7 +2335,7 @@ void __46__KTVerifier_markFailureSeenForResults_error___block_invoke_2_140(uint6
 
 void __44__KTVerifier_ignoreFailureForResults_error___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_7 != -1)
   {
@@ -2382,20 +2351,18 @@ void __44__KTVerifier_ignoreFailureForResults_error___block_invoke(uint64_t a1, 
     v8 = [v5 urisFromResults:v6];
     v9 = [v8 componentsJoinedByString:{@", "}];
     *buf = 138412290;
-    v15 = v9;
+    v14 = v9;
     _os_log_impl(&dword_1E10DB000, v7, OS_LOG_TYPE_INFO, "Sending synchronous ignoreFailureForResults for %@", buf, 0xCu);
   }
 
   v10 = *(a1 + 40);
   v11 = [*(a1 + 32) applicationIdentifier];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __44__KTVerifier_ignoreFailureForResults_error___block_invoke_143;
-  v13[3] = &unk_1E8701788;
-  v13[4] = *(a1 + 48);
-  [v3 ignoreFailureForResults:v10 application:v11 completionBlock:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __44__KTVerifier_ignoreFailureForResults_error___block_invoke_143;
+  v12[3] = &unk_1E8701788;
+  v12[4] = *(a1 + 48);
+  [v3 ignoreFailureForResults:v10 application:v11 completionBlock:v12];
 }
 
 uint64_t __44__KTVerifier_ignoreFailureForResults_error___block_invoke_2()
@@ -2443,7 +2410,7 @@ void __44__KTVerifier_ignoreFailureForResults_error___block_invoke_2_144(uint64_
 - (unint64_t)getDisplayStatusForResults:(id)results isSelfOptedIn:(BOOL)in
 {
   inCopy = in;
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   resultsCopy = results;
   v6 = resultsCopy;
   if (inCopy)
@@ -2451,30 +2418,30 @@ void __44__KTVerifier_ignoreFailureForResults_error___block_invoke_2_144(uint64_
     if ([resultsCopy count])
     {
       v7 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v6, "count")}];
+      v23 = 0u;
       v24 = 0u;
       v25 = 0u;
       v26 = 0u;
-      v27 = 0u;
       v8 = v6;
-      v9 = [v8 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v23 objects:v28 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v25;
+        v11 = *v24;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v25 != v11)
+            if (*v24 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(*(&v24 + 1) + 8 * i), "uiStatus", v24)}];
+            v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(*(&v23 + 1) + 8 * i), "uiStatus", v23)}];
             [v7 addObject:v13];
           }
 
-          v10 = [v8 countByEnumeratingWithState:&v24 objects:v29 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v23 objects:v28 count:16];
         }
 
         while (v10);
@@ -2513,7 +2480,7 @@ LABEL_20:
         }
       }
 
-      v21 = [v14 objectAtIndexedSubscript:{0, v24}];
+      v21 = [v14 objectAtIndexedSubscript:{0, v23}];
       unsignedIntValue2 = [v21 unsignedIntValue];
 
 LABEL_26:
@@ -2542,7 +2509,6 @@ LABEL_26:
 
 LABEL_27:
 
-  v22 = *MEMORY[0x1E69E9840];
   return unsignedIntValue2;
 }
 
@@ -2614,7 +2580,7 @@ uint64_t __55__KTVerifier_getDisplayStatusForResults_isSelfOptedIn___block_invok
 
 void __35__KTVerifier_clearPeerCache_error___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_7 != -1)
   {
@@ -2628,20 +2594,18 @@ void __35__KTVerifier_clearPeerCache_error___block_invoke(uint64_t a1, void *a2)
     v6 = v4;
     v7 = [v5 componentsJoinedByString:{@", "}];
     *buf = 138412290;
-    v13 = v7;
+    v12 = v7;
     _os_log_impl(&dword_1E10DB000, v6, OS_LOG_TYPE_INFO, "Sending synchronous clearPeerCache for %@", buf, 0xCu);
   }
 
   v8 = *(a1 + 32);
   v9 = [*(a1 + 40) applicationIdentifier];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __35__KTVerifier_clearPeerCache_error___block_invoke_192;
-  v11[3] = &unk_1E8701788;
-  v11[4] = *(a1 + 48);
-  [v3 clearPeerCache:v8 application:v9 completionBlock:v11];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __35__KTVerifier_clearPeerCache_error___block_invoke_192;
+  v10[3] = &unk_1E8701788;
+  v10[4] = *(a1 + 48);
+  [v3 clearPeerCache:v8 application:v9 completionBlock:v10];
 }
 
 uint64_t __35__KTVerifier_clearPeerCache_error___block_invoke_2()

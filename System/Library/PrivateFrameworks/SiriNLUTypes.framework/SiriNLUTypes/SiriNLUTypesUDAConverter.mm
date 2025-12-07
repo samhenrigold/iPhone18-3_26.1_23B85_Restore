@@ -20,16 +20,14 @@
 
 + (void)convertUtteranceAlignment:(id)alignment
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = loggerContext(1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "+[SiriNLUTypesUDAConverter convertUtteranceAlignment:]";
-    _os_log_impl(&dword_1C8774000, v3, OS_LOG_TYPE_INFO, "%s [WARN]: UtteranceAlignment was recently and doesn't have a hand-crafted SIRINLU equivalent", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "+[SiriNLUTypesUDAConverter convertUtteranceAlignment:]";
+    _os_log_impl(&dword_1C8774000, v3, OS_LOG_TYPE_INFO, "%s [WARN]: UtteranceAlignment was recently and doesn't have a hand-crafted SIRINLU equivalent", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (id)convertUserStatedTask:(id)task
@@ -147,44 +145,42 @@
 
 + (id)convertRewriteMessages:(id)messages
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if (messagesCopy)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v6 = messagesCopy;
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = [self convertRewriteMessage:{*(*(&v13 + 1) + 8 * i), v13}];
+          v10 = [self convertRewriteMessage:{*(*(&v12 + 1) + 8 * i), v12}];
           if (v10)
           {
             [v5 addObject:v10];
           }
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -374,51 +370,49 @@
 
 + (id)convertUserDialogActs:(id)acts
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   actsCopy = acts;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if (actsCopy)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v6 = actsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = [self convertUserDialogAct:{*(*(&v13 + 1) + 8 * i), v13}];
+          v10 = [self convertUserDialogAct:{*(*(&v12 + 1) + 8 * i), v12}];
           if (v10)
           {
             [v5 addObject:v10];
           }
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 + (id)convertUserDialogAct:(id)act
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   actCopy = act;
   v5 = actCopy;
   if (actCopy)
@@ -498,18 +492,16 @@ LABEL_22:
     v10 = loggerContext(1);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v13 = 136315394;
-      v14 = "+[SiriNLUTypesUDAConverter convertUserDialogAct:]";
-      v15 = 2112;
-      v16 = v5;
-      _os_log_impl(&dword_1C8774000, v10, OS_LOG_TYPE_INFO, "%s [WARN]: Encountered an unknown UDA %@", &v13, 0x16u);
+      v12 = 136315394;
+      v13 = "+[SiriNLUTypesUDAConverter convertUserDialogAct:]";
+      v14 = 2112;
+      v15 = v5;
+      _os_log_impl(&dword_1C8774000, v10, OS_LOG_TYPE_INFO, "%s [WARN]: Encountered an unknown UDA %@", &v12, 0x16u);
     }
   }
 
   v9 = 0;
 LABEL_27:
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

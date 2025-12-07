@@ -1,16 +1,16 @@
 uint64_t hoseSBAR_getAudioBytesPerSec(__int128 *a1, const __CFDictionary *a2, double a3, double a4, double a5)
 {
   v6 = a1;
-  v23 = 0;
+  v22 = 0;
+  v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v20 = 0;
   v19 = 0;
+  v18 = 0;
   valuePtr = 0;
   if (!a1)
   {
-    HIDWORD(v22) = 2;
-    v6 = &v21;
+    HIDWORD(v21) = 2;
+    v6 = &v20;
   }
 
   v7 = *(v6 + 2);
@@ -37,10 +37,10 @@ uint64_t hoseSBAR_getAudioBytesPerSec(__int128 *a1, const __CFDictionary *a2, do
             goto LABEL_36;
           }
 
-          v17 = *(v6 + 3);
+          v8 = *(v6 + 3);
         }
 
-        LogPrintF();
+        LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "int32_t hoseSBAR_getAudioBytesPerSec(AudioStreamBasicDescription *, CFDictionaryRef)", 33554522, "Unknown ALAC format flag: %d\n", v8);
       }
     }
 
@@ -61,22 +61,22 @@ LABEL_36:
     goto LABEL_17;
   }
 
-  ASBDToAPAudioFormat(v6, &v20);
-  if (v20 < 2)
+  ASBDToAPAudioFormat(v6, &v19);
+  if (v19 < 2)
   {
     v11 = 0;
     goto LABEL_11;
   }
 
-  if (v20 > 0x3FFFFFFF)
+  if (v19 > 0x3FFFFFFF)
   {
-    if (v20 <= 0x7FFFFFFFFFFFLL)
+    if (v19 <= 0x7FFFFFFFFFFFLL)
     {
-      if (v20 > 0xFFFFFFFFFFLL)
+      if (v19 > 0xFFFFFFFFFFLL)
       {
-        if (v20 <= 0x7FFFFFFFFFFLL)
+        if (v19 <= 0x7FFFFFFFFFFLL)
         {
-          switch(v20)
+          switch(v19)
           {
             case 0x10000000000:
               v11 = 40;
@@ -90,15 +90,15 @@ LABEL_36:
           }
         }
 
-        else if (v20 > 0x1FFFFFFFFFFFLL)
+        else if (v19 > 0x1FFFFFFFFFFFLL)
         {
-          if (v20 == 0x200000000000)
+          if (v19 == 0x200000000000)
           {
             v11 = 45;
             goto LABEL_11;
           }
 
-          if (v20 == 0x400000000000)
+          if (v19 == 0x400000000000)
           {
             v11 = 46;
             goto LABEL_11;
@@ -107,13 +107,13 @@ LABEL_36:
 
         else
         {
-          if (v20 == 0x80000000000)
+          if (v19 == 0x80000000000)
           {
             v11 = 43;
             goto LABEL_11;
           }
 
-          if (v20 == 0x100000000000)
+          if (v19 == 0x100000000000)
           {
             v11 = 44;
             goto LABEL_11;
@@ -121,9 +121,9 @@ LABEL_36:
         }
       }
 
-      else if (v20 <= 0x1FFFFFFFFLL)
+      else if (v19 <= 0x1FFFFFFFFLL)
       {
-        switch(v20)
+        switch(v19)
         {
           case 0x40000000:
             v11 = 30;
@@ -137,15 +137,15 @@ LABEL_36:
         }
       }
 
-      else if (v20 > 0x3FFFFFFFFFLL)
+      else if (v19 > 0x3FFFFFFFFFLL)
       {
-        if (v20 == 0x4000000000)
+        if (v19 == 0x4000000000)
         {
           v11 = 38;
           goto LABEL_11;
         }
 
-        if (v20 == 0x8000000000)
+        if (v19 == 0x8000000000)
         {
           v11 = 39;
           goto LABEL_11;
@@ -154,13 +154,13 @@ LABEL_36:
 
       else
       {
-        if (v20 == 0x200000000)
+        if (v19 == 0x200000000)
         {
           v11 = 33;
           goto LABEL_11;
         }
 
-        if (v20 == 0x400000000)
+        if (v19 == 0x400000000)
         {
           v11 = 34;
           goto LABEL_11;
@@ -168,11 +168,11 @@ LABEL_36:
       }
     }
 
-    else if (v20 <= 0x3FFFFFFFFFFFFFLL)
+    else if (v19 <= 0x3FFFFFFFFFFFFFLL)
     {
-      if (v20 <= 0x3FFFFFFFFFFFFLL)
+      if (v19 <= 0x3FFFFFFFFFFFFLL)
       {
-        switch(v20)
+        switch(v19)
         {
           case 0x800000000000:
             v11 = 47;
@@ -186,15 +186,15 @@ LABEL_36:
         }
       }
 
-      else if (v20 > 0xFFFFFFFFFFFFFLL)
+      else if (v19 > 0xFFFFFFFFFFFFFLL)
       {
-        if (v20 == 0x10000000000000)
+        if (v19 == 0x10000000000000)
         {
           v11 = 52;
           goto LABEL_11;
         }
 
-        if (v20 == 0x20000000000000)
+        if (v19 == 0x20000000000000)
         {
           v11 = 53;
           goto LABEL_11;
@@ -203,13 +203,13 @@ LABEL_36:
 
       else
       {
-        if (v20 == 0x4000000000000)
+        if (v19 == 0x4000000000000)
         {
           v11 = 50;
           goto LABEL_11;
         }
 
-        if (v20 == 0x8000000000000)
+        if (v19 == 0x8000000000000)
         {
           v11 = 51;
           goto LABEL_11;
@@ -217,17 +217,17 @@ LABEL_36:
       }
     }
 
-    else if (v20 > 0x3FFFFFFFFFFFFFFLL)
+    else if (v19 > 0x3FFFFFFFFFFFFFFLL)
     {
-      if (v20 > 0x1FFFFFFFFFFFFFFFLL)
+      if (v19 > 0x1FFFFFFFFFFFFFFFLL)
       {
-        if (v20 == 0x2000000000000000)
+        if (v19 == 0x2000000000000000)
         {
           v11 = 61;
           goto LABEL_11;
         }
 
-        if (v20 == 0x4000000000000000)
+        if (v19 == 0x4000000000000000)
         {
           v11 = 62;
           goto LABEL_11;
@@ -236,13 +236,13 @@ LABEL_36:
 
       else
       {
-        if (v20 == 0x400000000000000)
+        if (v19 == 0x400000000000000)
         {
           v11 = 58;
           goto LABEL_11;
         }
 
-        if (v20 == 0x1000000000000000)
+        if (v19 == 0x1000000000000000)
         {
           v11 = 60;
           goto LABEL_11;
@@ -250,15 +250,15 @@ LABEL_36:
       }
     }
 
-    else if (v20 > 0xFFFFFFFFFFFFFFLL)
+    else if (v19 > 0xFFFFFFFFFFFFFFLL)
     {
-      if (v20 == 0x100000000000000)
+      if (v19 == 0x100000000000000)
       {
         v11 = 56;
         goto LABEL_11;
       }
 
-      if (v20 == 0x200000000000000)
+      if (v19 == 0x200000000000000)
       {
         v11 = 57;
         goto LABEL_11;
@@ -267,13 +267,13 @@ LABEL_36:
 
     else
     {
-      if (v20 == 0x40000000000000)
+      if (v19 == 0x40000000000000)
       {
         v11 = 54;
         goto LABEL_11;
       }
 
-      if (v20 == 0x80000000000000)
+      if (v19 == 0x80000000000000)
       {
         v11 = 55;
         goto LABEL_11;
@@ -281,13 +281,13 @@ LABEL_36:
     }
   }
 
-  else if (v20 < 0x8000)
+  else if (v19 < 0x8000)
   {
-    if (v20 > 255)
+    if (v19 > 255)
     {
-      if (v20 <= 2047)
+      if (v19 <= 2047)
       {
-        switch(v20)
+        switch(v19)
         {
           case 256:
             v11 = 8;
@@ -301,15 +301,15 @@ LABEL_36:
         }
       }
 
-      else if (v20 >= 0x2000)
+      else if (v19 >= 0x2000)
       {
-        if (v20 == 0x2000)
+        if (v19 == 0x2000)
         {
           v11 = 13;
           goto LABEL_11;
         }
 
-        if (v20 == 0x4000)
+        if (v19 == 0x4000)
         {
           v11 = 14;
           goto LABEL_11;
@@ -318,13 +318,13 @@ LABEL_36:
 
       else
       {
-        if (v20 == 2048)
+        if (v19 == 2048)
         {
           v11 = 11;
           goto LABEL_11;
         }
 
-        if (v20 == 4096)
+        if (v19 == 4096)
         {
           v11 = 12;
           goto LABEL_11;
@@ -332,9 +332,9 @@ LABEL_36:
       }
     }
 
-    else if (v20 <= 7)
+    else if (v19 <= 7)
     {
-      switch(v20)
+      switch(v19)
       {
         case 0x8000000000000000:
           v11 = 63;
@@ -348,15 +348,15 @@ LABEL_36:
       }
     }
 
-    else if (v20 > 31)
+    else if (v19 > 31)
     {
-      if (v20 == 32)
+      if (v19 == 32)
       {
         v11 = 5;
         goto LABEL_11;
       }
 
-      if (v20 == 128)
+      if (v19 == 128)
       {
         v11 = 7;
         goto LABEL_11;
@@ -365,13 +365,13 @@ LABEL_36:
 
     else
     {
-      if (v20 == 8)
+      if (v19 == 8)
       {
         v11 = 3;
         goto LABEL_11;
       }
 
-      if (v20 == 16)
+      if (v19 == 16)
       {
         v11 = 4;
         goto LABEL_11;
@@ -379,11 +379,11 @@ LABEL_36:
     }
   }
 
-  else if (v20 < 0x400000)
+  else if (v19 < 0x400000)
   {
-    if (v20 < 0x40000)
+    if (v19 < 0x40000)
     {
-      switch(v20)
+      switch(v19)
       {
         case 0x8000:
           v11 = 15;
@@ -397,15 +397,15 @@ LABEL_36:
       }
     }
 
-    else if (v20 >= 0x100000)
+    else if (v19 >= 0x100000)
     {
-      if (v20 == 0x100000)
+      if (v19 == 0x100000)
       {
         v11 = 20;
         goto LABEL_11;
       }
 
-      if (v20 == 0x200000)
+      if (v19 == 0x200000)
       {
         v11 = 21;
         goto LABEL_11;
@@ -414,13 +414,13 @@ LABEL_36:
 
     else
     {
-      if (v20 == 0x40000)
+      if (v19 == 0x40000)
       {
         v11 = 18;
         goto LABEL_11;
       }
 
-      if (v20 == 0x80000)
+      if (v19 == 0x80000)
       {
         v11 = 19;
         goto LABEL_11;
@@ -428,17 +428,17 @@ LABEL_36:
     }
   }
 
-  else if (v20 > 0x3FFFFFF)
+  else if (v19 > 0x3FFFFFF)
   {
-    if (v20 > 0xFFFFFFF)
+    if (v19 > 0xFFFFFFF)
     {
-      if (v20 == 0x10000000)
+      if (v19 == 0x10000000)
       {
         v11 = 28;
         goto LABEL_11;
       }
 
-      if (v20 == 0x20000000)
+      if (v19 == 0x20000000)
       {
         v11 = 29;
         goto LABEL_11;
@@ -447,13 +447,13 @@ LABEL_36:
 
     else
     {
-      if (v20 == 0x4000000)
+      if (v19 == 0x4000000)
       {
         v11 = 26;
         goto LABEL_11;
       }
 
-      if (v20 == 0x8000000)
+      if (v19 == 0x8000000)
       {
         v11 = 27;
         goto LABEL_11;
@@ -461,15 +461,15 @@ LABEL_36:
     }
   }
 
-  else if (v20 > 0xFFFFFF)
+  else if (v19 > 0xFFFFFF)
   {
-    if (v20 == 0x1000000)
+    if (v19 == 0x1000000)
     {
       v11 = 24;
       goto LABEL_11;
     }
 
-    if (v20 == 0x2000000)
+    if (v19 == 0x2000000)
     {
       v11 = 25;
       goto LABEL_11;
@@ -478,13 +478,13 @@ LABEL_36:
 
   else
   {
-    if (v20 == 0x400000)
+    if (v19 == 0x400000)
     {
       v11 = 22;
       goto LABEL_11;
     }
 
-    if (v20 == 0x800000)
+    if (v19 == 0x800000)
     {
       v11 = 23;
       goto LABEL_11;
@@ -492,7 +492,7 @@ LABEL_36:
   }
 
   v11 = 35;
-  if (v20 != 0x800000000)
+  if (v19 != 0x800000000)
   {
     v11 = 0;
   }
@@ -503,13 +503,13 @@ LABEL_11:
   Value = CFDictionaryGetValue(a2, v12);
   if (Value)
   {
-    CFNumberGetValue(Value, kCFNumberSInt32Type, &v19);
-    v14 = v19 / 8;
+    CFNumberGetValue(Value, kCFNumberSInt32Type, &v18);
+    v14 = v18 / 8;
     goto LABEL_18;
   }
 
 LABEL_17:
-  v19 = 409600;
+  v18 = 409600;
   v14 = 51200;
 LABEL_18:
   v15 = ((*(v6 + 7) + 1) >> 1) * v14;
@@ -526,253 +526,289 @@ void __hoseSBAR_createSynchronizerAndRenderer_embedded_block_invoke(uint64_t a1)
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
   v4 = *(a1 + 48);
-  v39 = 0;
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   v6 = DerivedStorage;
   valuePtr = 0;
   if (!v4 && !*(DerivedStorage + 280))
   {
     v11 = 0;
-    v25 = 0;
-    v12 = *(DerivedStorage + 272);
-    goto LABEL_33;
-  }
-
-  v7 = *MEMORY[0x277CBECE8];
-  UsingAuxiliaryAVAudioSession = FigAudioSessionCreateUsingAuxiliaryAVAudioSession();
-  v39 = UsingAuxiliaryAVAudioSession;
-  if (!UsingAuxiliaryAVAudioSession)
-  {
-    v9 = *(v6 + 32);
-    v10 = *MEMORY[0x277CC1968];
-    FigCFEqual();
-    v11 = CFStringCreateF();
-    v12 = *(v6 + 264);
-    if (v12 && (v13 = *(v6 + 264), (v14 = *(CMBaseObjectGetVTable() + 16)) != 0))
+    v21 = 0;
+    v13 = *(DerivedStorage + 272);
+    v28 = "F";
+LABEL_39:
+    v30 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+    if (v30)
     {
-      v15 = *(v14 + 56);
-      if (v15)
+      v20 = v30(v3, *MEMORY[0x277CD6428], v13);
+      HIDWORD(valuePtr) = v20;
+      if (!v20)
       {
-        v16 = *(v14 + 56);
-        v17 = v15(v12, *MEMORY[0x277D271E0], v11);
-        v39 = v17;
-        if (v17)
+        if (gLogCategory_APSEndpointStreamAudioHoseSBAR > 50)
         {
-          goto LABEL_27;
+          goto LABEL_51;
         }
 
-        v18 = *(CMBaseObjectGetVTable() + 16);
-        if (v18)
+        if (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize())
         {
-          v19 = *(v18 + 56);
-          if (v19)
+          if (*(v6 + 280))
           {
-            v20 = *(v18 + 56);
-            v17 = v19(v12, *MEMORY[0x277D27298], *MEMORY[0x277CBED10]);
-            v39 = v17;
-            if (v17)
-            {
-              goto LABEL_27;
-            }
-
-            v21 = *(CMBaseObjectGetVTable() + 16);
-            if (v21)
-            {
-              v22 = *(v21 + 56);
-              if (v22)
-              {
-                v23 = *(v21 + 56);
-                v17 = v22(v12, *MEMORY[0x277D271A8], *MEMORY[0x277D27060]);
-                v39 = v17;
-                if (!v17)
-                {
-                  valuePtr = 16;
-                  v24 = CFNumberCreate(v7, kCFNumberSInt32Type, &valuePtr);
-                  v25 = v24;
-                  if (!v24)
-                  {
-                    goto LABEL_48;
-                  }
-
-                  v24 = FigAudioSessionSetMXSessionProperty(v12, *MEMORY[0x277D27280], v24);
-                  v39 = v24;
-                  if (v24)
-                  {
-                    goto LABEL_48;
-                  }
-
-                  v26 = *(v6 + 48);
-                  if (!v26)
-                  {
-                    goto LABEL_20;
-                  }
-
-                  v27 = *(CMBaseObjectGetVTable() + 16);
-                  if (v27)
-                  {
-                    v28 = *(v27 + 56);
-                    if (v28)
-                    {
-                      v29 = *(v27 + 56);
-                      v24 = v28(v12, *MEMORY[0x277D271E8], v26);
-                      v39 = v24;
-                      if (v24)
-                      {
-                        goto LABEL_48;
-                      }
-
-LABEL_20:
-                      v30 = *(v6 + 296);
-                      if (!v30)
-                      {
-                        goto LABEL_33;
-                      }
-
-                      v31 = *(CMBaseObjectGetVTable() + 16);
-                      if (v31)
-                      {
-                        v32 = *(v31 + 56);
-                        if (v32)
-                        {
-                          v33 = *(v31 + 56);
-                          v24 = v32(v12, *MEMORY[0x277D27340], v30);
-                          v39 = v24;
-                          if (!v24)
-                          {
-LABEL_33:
-                            v34 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-                            if (v34)
-                            {
-                              v24 = v34(v3, *MEMORY[0x277CD6428], v12);
-                              v39 = v24;
-                              if (!v24)
-                              {
-                                if (gLogCategory_APSEndpointStreamAudioHoseSBAR > 50)
-                                {
-                                  goto LABEL_42;
-                                }
-
-                                if (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize())
-                                {
-                                  v35 = *(v6 + 48);
-                                  v36 = *(v6 + 296);
-                                  *(v6 + 280);
-                                  LogPrintF();
-                                }
-
-                                goto LABEL_28;
-                              }
-                            }
-
-                            else
-                            {
-                              v24 = 4294954514;
-                              v39 = -12782;
-                            }
-                          }
-
-LABEL_48:
-                          APSLogErrorAt(v24);
-LABEL_28:
-                          if (!v39)
-                          {
-                            goto LABEL_42;
-                          }
-
-                          goto LABEL_29;
-                        }
-
-                        v24 = 4294948071;
-                      }
-
-                      else
-                      {
-                        v24 = 4294948075;
-                      }
-
-                      v39 = v24;
-                      goto LABEL_48;
-                    }
-
-                    v24 = 4294948071;
-                  }
-
-                  else
-                  {
-                    v24 = 4294948075;
-                  }
-
-                  v39 = v24;
-                  goto LABEL_48;
-                }
-
-LABEL_27:
-                APSLogErrorAt(v17);
-                v25 = 0;
-                goto LABEL_28;
-              }
-
-              v17 = 4294948071;
-            }
-
-            else
-            {
-              v17 = 4294948075;
-            }
-
-            v39 = v17;
-            goto LABEL_27;
+            v31 = "T";
           }
 
-          v17 = 4294948071;
+          else
+          {
+            v31 = "F";
+          }
+
+          LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_createAndAddFigAudioSessionToAudioRenderer(APSEndpointStreamAudioHoseSBARRef, FigSampleBufferAudioRendererRef, Boolean)", 33554482, "[%{ptr}] Added FigAudioSession %{ptr} to Renderer: %{ptr}. clientPID=%@ shadowSessionID=%@ createNewAudioSession=%s prefersShadowSession=%s\n", v2, v13, v3, *(v6 + 48), *(v6 + 296), v28, v31, valuePtr);
         }
 
-        else
-        {
-          v17 = 4294948075;
-        }
-
-        v39 = v17;
-        goto LABEL_27;
+        goto LABEL_34;
       }
-
-      v17 = 4294948071;
     }
 
     else
     {
-      v17 = 4294948075;
+      v20 = 4294954514;
+      HIDWORD(valuePtr) = -12782;
     }
 
-    v39 = v17;
-    goto LABEL_27;
+    goto LABEL_57;
   }
 
-  APSLogErrorAt(UsingAuxiliaryAVAudioSession);
-  v11 = 0;
-  v25 = 0;
-LABEL_29:
-  if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
+  v7 = *MEMORY[0x277CBECE8];
+  UsingAuxiliaryAVAudioSession = FigAudioSessionCreateUsingAuxiliaryAVAudioSession();
+  HIDWORD(valuePtr) = UsingAuxiliaryAVAudioSession;
+  if (UsingAuxiliaryAVAudioSession)
   {
-    LogPrintF();
+    v29 = UsingAuxiliaryAVAudioSession;
+    APSLogErrorAt(UsingAuxiliaryAVAudioSession);
+    v11 = 0;
+    v21 = 0;
+    goto LABEL_35;
   }
 
-  v37 = *(v6 + 264);
-  if (v37)
+  v9 = FigCFEqual();
+  v10 = "Buffered";
+  if (!v9)
   {
-    CFRelease(v37);
+    v10 = "RealTime";
+  }
+
+  if (v4)
+  {
+    v11 = CFStringCreateF(&valuePtr + 4, "shadowSessionForFigSbarOnAudio-%{ptr}-%s", v2, v10);
+    v12 = HIDWORD(valuePtr);
+    if (HIDWORD(valuePtr))
+    {
+      goto LABEL_33;
+    }
+  }
+
+  else
+  {
+    v11 = CFStringCreateF(&valuePtr + 4, "shadowSessionForFigSbarOnMusic-%{ptr}-%s", v2, v10);
+    v12 = HIDWORD(valuePtr);
+    if (HIDWORD(valuePtr))
+    {
+      goto LABEL_33;
+    }
+  }
+
+  v13 = *(v6 + 264);
+  if (!v13 || (v14 = *(CMBaseObjectGetVTable() + 16)) == 0)
+  {
+    v12 = 4294948075;
+LABEL_32:
+    HIDWORD(valuePtr) = v12;
+    goto LABEL_33;
+  }
+
+  v15 = *(v14 + 56);
+  if (!v15)
+  {
+    v12 = 4294948071;
+    goto LABEL_32;
+  }
+
+  v12 = v15(v13, *MEMORY[0x277D271E0], v11);
+  HIDWORD(valuePtr) = v12;
+  if (v12)
+  {
+LABEL_33:
+    APSLogErrorAt(v12);
+    v21 = 0;
+    goto LABEL_34;
+  }
+
+  v16 = *(CMBaseObjectGetVTable() + 16);
+  if (!v16)
+  {
+    v12 = 4294948075;
+LABEL_60:
+    HIDWORD(valuePtr) = v12;
+    goto LABEL_33;
+  }
+
+  v17 = *(v16 + 56);
+  if (!v17)
+  {
+    v12 = 4294948071;
+    goto LABEL_60;
+  }
+
+  v12 = v17(v13, *MEMORY[0x277D27298], *MEMORY[0x277CBED10]);
+  HIDWORD(valuePtr) = v12;
+  if (v12)
+  {
+    goto LABEL_33;
+  }
+
+  v18 = *(CMBaseObjectGetVTable() + 16);
+  if (!v18)
+  {
+    v12 = 4294948075;
+LABEL_66:
+    HIDWORD(valuePtr) = v12;
+    goto LABEL_33;
+  }
+
+  v19 = *(v18 + 56);
+  if (!v19)
+  {
+    v12 = 4294948071;
+    goto LABEL_66;
+  }
+
+  v12 = v19(v13, *MEMORY[0x277D271A8], *MEMORY[0x277D27060]);
+  HIDWORD(valuePtr) = v12;
+  if (v12)
+  {
+    goto LABEL_33;
+  }
+
+  LODWORD(valuePtr) = 16;
+  v20 = CFNumberCreate(v7, kCFNumberSInt32Type, &valuePtr);
+  v21 = v20;
+  if (!v20)
+  {
+    goto LABEL_57;
+  }
+
+  v20 = FigAudioSessionSetMXSessionProperty(v13, *MEMORY[0x277D27280], v20);
+  HIDWORD(valuePtr) = v20;
+  if (v20)
+  {
+    goto LABEL_57;
+  }
+
+  v22 = *(v6 + 48);
+  if (v22)
+  {
+    v23 = *(CMBaseObjectGetVTable() + 16);
+    if (v23)
+    {
+      v24 = *(v23 + 56);
+      if (v24)
+      {
+        v20 = v24(v13, *MEMORY[0x277D271E8], v22);
+        HIDWORD(valuePtr) = v20;
+        if (v20)
+        {
+          goto LABEL_57;
+        }
+
+        goto LABEL_26;
+      }
+
+      v20 = 4294948071;
+    }
+
+    else
+    {
+      v20 = 4294948075;
+    }
+
+    HIDWORD(valuePtr) = v20;
+    goto LABEL_57;
+  }
+
+LABEL_26:
+  v25 = *(v6 + 296);
+  if (!v25)
+  {
+LABEL_30:
+    v28 = "T";
+    goto LABEL_39;
+  }
+
+  v26 = *(CMBaseObjectGetVTable() + 16);
+  if (!v26)
+  {
+    v20 = 4294948075;
+LABEL_76:
+    HIDWORD(valuePtr) = v20;
+    goto LABEL_57;
+  }
+
+  v27 = *(v26 + 56);
+  if (!v27)
+  {
+    v20 = 4294948071;
+    goto LABEL_76;
+  }
+
+  v20 = v27(v13, *MEMORY[0x277D27340], v25);
+  HIDWORD(valuePtr) = v20;
+  if (!v20)
+  {
+    goto LABEL_30;
+  }
+
+LABEL_57:
+  APSLogErrorAt(v20);
+LABEL_34:
+  v29 = HIDWORD(valuePtr);
+  if (!HIDWORD(valuePtr))
+  {
+    goto LABEL_51;
+  }
+
+LABEL_35:
+  if (gLogCategory_APSEndpointStreamAudioHoseSBAR > 90)
+  {
+    goto LABEL_49;
+  }
+
+  if (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1)
+  {
+    goto LABEL_37;
+  }
+
+  if (_LogCategory_Initialize())
+  {
+    v29 = HIDWORD(valuePtr);
+LABEL_37:
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_createAndAddFigAudioSessionToAudioRenderer(APSEndpointStreamAudioHoseSBARRef, FigSampleBufferAudioRendererRef, Boolean)", 33554522, "####### Error [%{ptr}] creating and adding the FigAudioSession to the Renderer: %d\n", v2, v29);
+  }
+
+LABEL_49:
+  v32 = *(v6 + 264);
+  if (v32)
+  {
+    CFRelease(v32);
     *(v6 + 264) = 0;
   }
 
-LABEL_42:
+LABEL_51:
   if (v11)
   {
     CFRelease(v11);
   }
 
-  if (v25)
+  if (v21)
   {
-    CFRelease(v25);
+    CFRelease(v21);
   }
 
   CFRelease(*(a1 + 40));
@@ -782,125 +818,124 @@ LABEL_42:
 uint64_t hoseSBAR_setVolumeFadeInCurve(uint64_t a1, CMTime *a2, CMTime *a3)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  memset(&v19, 0, sizeof(v19));
+  memset(&v22, 0, sizeof(v22));
   lhs = *a2;
   rhs = *a3;
-  CMTimeAdd(&v19, &lhs, &rhs);
-  v6 = *MEMORY[0x277CBECE8];
+  CMTimeAdd(&v22, &lhs, &rhs);
+  v7 = *MEMORY[0x277CBECE8];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (!Mutable)
   {
-    v15 = 4294894966;
+    v18 = 4294894966;
     APSLogErrorAt(0);
-    return v15;
+    return v18;
   }
 
-  v8 = Mutable;
-  v9 = CFArrayCreateMutable(v6, 0, MEMORY[0x277CBF128]);
-  if (!v9)
+  v9 = Mutable;
+  v10 = CFArrayCreateMutable(v7, 0, MEMORY[0x277CBF128]);
+  if (!v10)
   {
-    v15 = 4294894966;
+    v18 = 4294894966;
     APSLogErrorAt(0);
     goto LABEL_18;
   }
 
-  v10 = v9;
+  v11 = v10;
   if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
   {
     lhs = *a3;
-    CMTimeGetSeconds(&lhs);
+    Seconds = CMTimeGetSeconds(&lhs);
     lhs = *a2;
-    CMTimeGetSeconds(&lhs);
-    LogPrintF();
+    v13 = CMTimeGetSeconds(&lhs);
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_setVolumeFadeInCurve(APSEndpointStreamAudioHoseSBARRef, CMTime, CMTime)", 33554482, "[%{ptr}] Apply fade-in volume curve with duration: %.3fs, start at:%.3f", a1, *&Seconds, *&v13);
   }
 
   lhs = *a2;
   appended = FigCFArrayAppendCMTime();
   if (appended)
   {
-    v15 = appended;
+    v18 = appended;
     goto LABEL_16;
   }
 
   appended = FigCFArrayAppendDouble();
   if (appended)
   {
-    v15 = appended;
+    v18 = appended;
     goto LABEL_16;
   }
 
-  v12 = *MEMORY[0x277CD6398];
-  CFArrayAppendValue(v10, *MEMORY[0x277CD6398]);
-  lhs = v19;
+  v15 = *MEMORY[0x277CD6398];
+  CFArrayAppendValue(v11, *MEMORY[0x277CD6398]);
+  lhs = v22;
   appended = FigCFArrayAppendCMTime();
   if (appended)
   {
-    v15 = appended;
+    v18 = appended;
     goto LABEL_16;
   }
 
   appended = FigCFArrayAppendDouble();
   if (appended)
   {
-    v15 = appended;
+    v18 = appended;
     goto LABEL_16;
   }
 
-  CFArrayAppendValue(v10, v12);
-  CFDictionarySetValue(v8, *MEMORY[0x277CD63A0], v10);
-  v13 = *(DerivedStorage + 104);
-  v14 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-  if (!v14)
+  CFArrayAppendValue(v11, v15);
+  CFDictionarySetValue(v9, *MEMORY[0x277CD63A0], v11);
+  v16 = *(DerivedStorage + 104);
+  v17 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+  if (!v17)
   {
-    v15 = 4294954514;
+    v18 = 4294954514;
 LABEL_15:
-    appended = v15;
+    appended = v18;
 LABEL_16:
     APSLogErrorAt(appended);
     goto LABEL_17;
   }
 
-  v15 = v14(v13, *MEMORY[0x277CD6448], v8);
-  if (v15)
+  v18 = v17(v16, *MEMORY[0x277CD6448], v9);
+  if (v18)
   {
     goto LABEL_15;
   }
 
 LABEL_17:
-  CFRelease(v10);
+  CFRelease(v11);
 LABEL_18:
-  CFRelease(v8);
-  return v15;
+  CFRelease(v9);
+  return v18;
 }
 
 void hoseSBAR_handleTimedManagerTriggeredNotification(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void *a5)
 {
-  DerivedStorage = CMBaseObjectGetDerivedStorage();
-  if (a5 && (v8 = DerivedStorage, v9 = CFGetTypeID(a5), v9 == CFDictionaryGetTypeID()))
+  CMBaseObjectGetDerivedStorage();
+  if (a5 && (v7 = CFGetTypeID(a5), v7 == CFDictionaryGetTypeID()))
   {
     ValueIfPresent = FigCFDictionaryGetValueIfPresent();
     if (ValueIfPresent)
     {
       if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_handleTimedManagerTriggeredNotification(CMNotificationCenterRef, const void *, CFStringRef, const void *, CFTypeRef)", 33554482, "[%{ptr}] TimedManagerTimerTriggerNotification: AudioFormat changed to %s", a2, "");
       }
 
       ValueIfPresent = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
       if (ValueIfPresent)
       {
-        v11 = ValueIfPresent;
+        v9 = ValueIfPresent;
         CFDictionarySetValue(ValueIfPresent, @"AudioFormat", 0);
-        v12 = *(v8 + 8);
         CMNotificationCenterGetDefaultLocalCenter();
         FigDispatchAsyncPostNotification();
         CFBooleanGetTypeID();
-        v13 = CFDictionaryGetTypedValue() == *MEMORY[0x277CBED28];
+        v10 = CFDictionaryGetTypedValue() == *MEMORY[0x277CBED28];
         APSLogErrorAt(0);
         APSLogErrorAt(0);
         APSLogErrorAt(0);
-        hoseSBAR_setPreferencesOnAudioSessionSetValues(a2, v13, 0, 0.0);
-        CFRelease(v11);
+        hoseSBAR_setPreferencesOnAudioSessionSetValues(a2, v10, 0, 0.0);
+        CFRelease(v9);
         return;
       }
     }
@@ -914,8 +949,9 @@ void hoseSBAR_handleTimedManagerTriggeredNotification(uint64_t a1, uint64_t a2, 
   APSLogErrorAt(ValueIfPresent);
 }
 
-uint64_t hoseSBAR_setPreferencesOnAudioSessionSetValues(uint64_t a1, int a2, int a3, double a4)
+uint64_t hoseSBAR_setPreferencesOnAudioSessionSetValues(uint64_t a1, uint64_t a2, int a3, double a4)
 {
+  v6 = a2;
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (APSIsAPMSpeaker_sCheckOnce != -1)
   {
@@ -923,12 +959,10 @@ uint64_t hoseSBAR_setPreferencesOnAudioSessionSetValues(uint64_t a1, int a2, int
   }
 
   v9 = APSIsAPMSpeaker_sIsAPMSpeaker;
-  v11 = *(DerivedStorage + 264);
-  v10 = *(DerivedStorage + 272);
   result = FigCFEqual();
   if (result)
   {
-    v13 = 0;
+    v11 = 0;
     if (v9)
     {
       return result;
@@ -937,82 +971,82 @@ uint64_t hoseSBAR_setPreferencesOnAudioSessionSetValues(uint64_t a1, int a2, int
 
   else
   {
-    v13 = *(DerivedStorage + 264);
+    v11 = *(DerivedStorage + 264);
     if (v9)
     {
       return result;
     }
   }
 
-  v14 = *(DerivedStorage + 272);
-  v35 = a4;
-  v15 = *MEMORY[0x277CBECE8];
-  v16 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberFloat64Type, &v35);
-  if (v16)
+  v12 = *(DerivedStorage + 272);
+  v33 = a4;
+  v13 = *MEMORY[0x277CBECE8];
+  v14 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberFloat64Type, &v33);
+  if (v14)
   {
-    v17 = v16;
-    v18 = MEMORY[0x277D27308];
-    if (v14 && (v19 = hoseSBAR_setMXSessionPropertyOnAudioSessionIfNecessary(a1, v14, 0, *MEMORY[0x277D27308], v16, a2), v19))
+    v15 = v14;
+    v16 = MEMORY[0x277D27308];
+    if (v12 && (v17 = hoseSBAR_setMXSessionPropertyOnAudioSessionIfNecessary(a1, v12, 0, *MEMORY[0x277D27308], v14, v6), v17))
     {
-      v31 = v19;
+      v29 = v17;
     }
 
     else
     {
-      if (!v13 || (v19 = hoseSBAR_setMXSessionPropertyOnAudioSessionIfNecessary(a1, v13, 1, *v18, v17, a2), !v19))
+      if (!v11 || (v17 = hoseSBAR_setMXSessionPropertyOnAudioSessionIfNecessary(a1, v11, 1, *v16, v15, v6), !v17))
       {
-        CFRelease(v17);
+        CFRelease(v15);
         goto LABEL_13;
       }
 
-      v31 = v19;
+      v29 = v17;
     }
 
-    APSLogErrorAt(v19);
-    CFRelease(v17);
-    v32 = v31;
-    return APSLogErrorAt(v32);
+    APSLogErrorAt(v17);
+    CFRelease(v15);
+    v30 = v29;
+    return APSLogErrorAt(v30);
   }
 
   APSLogErrorAt(0);
 LABEL_13:
-  v20 = *(DerivedStorage + 272);
+  v18 = *(DerivedStorage + 272);
   valuePtr = a3;
-  v21 = CFNumberCreate(v15, kCFNumberSInt32Type, &valuePtr);
-  if (v21)
+  v19 = CFNumberCreate(v13, kCFNumberSInt32Type, &valuePtr);
+  if (v19)
   {
-    v22 = v21;
-    v23 = MEMORY[0x277D27300];
-    if (v20 && (v24 = hoseSBAR_setMXSessionPropertyOnAudioSessionIfNecessary(a1, v20, 0, *MEMORY[0x277D27300], v21, a2), v24))
+    v20 = v19;
+    v21 = MEMORY[0x277D27300];
+    if (v18 && (v22 = hoseSBAR_setMXSessionPropertyOnAudioSessionIfNecessary(a1, v18, 0, *MEMORY[0x277D27300], v19, v6), v22))
     {
-      v33 = v24;
+      v31 = v22;
     }
 
     else
     {
-      if (!v13 || (v24 = hoseSBAR_setMXSessionPropertyOnAudioSessionIfNecessary(a1, v13, 1, *v23, v22, a2), !v24))
+      if (!v11 || (v22 = hoseSBAR_setMXSessionPropertyOnAudioSessionIfNecessary(a1, v11, 1, *v21, v20, v6), !v22))
       {
-        CFRelease(v22);
+        CFRelease(v20);
         goto LABEL_19;
       }
 
-      v33 = v24;
+      v31 = v22;
     }
 
-    APSLogErrorAt(v24);
-    CFRelease(v22);
-    v32 = v33;
-    return APSLogErrorAt(v32);
+    APSLogErrorAt(v22);
+    CFRelease(v20);
+    v30 = v31;
+    return APSLogErrorAt(v30);
   }
 
   APSLogErrorAt(0);
 LABEL_19:
-  v25 = *(DerivedStorage + 272);
-  v26 = CMBaseObjectGetDerivedStorage();
-  v27 = *(v26 + 704);
-  if (v27)
+  v23 = *(DerivedStorage + 272);
+  v24 = CMBaseObjectGetDerivedStorage();
+  v25 = *(v24 + 704);
+  if (v25)
   {
-    result = *(v27 + 56);
+    result = *(v25 + 56);
   }
 
   else
@@ -1021,37 +1055,37 @@ LABEL_19:
     result = 4294901760;
   }
 
-  if (*(v26 + 281) && (result = APSAudioFormatDoesAudioChannelLayoutTagHaveHeights(result), result))
+  if (*(v24 + 281) && (result = APSAudioFormatDoesAudioChannelLayoutTagHaveHeights(result), result))
   {
-    v28 = MEMORY[0x277D270A8];
+    v26 = MEMORY[0x277D270A8];
   }
 
   else
   {
-    v28 = MEMORY[0x277D270A0];
+    v26 = MEMORY[0x277D270A0];
   }
 
-  v29 = *v28;
-  v30 = MEMORY[0x277D272F0];
-  if (v25)
+  v27 = *v26;
+  v28 = MEMORY[0x277D272F0];
+  if (v23)
   {
-    result = hoseSBAR_setMXSessionPropertyOnAudioSessionIfNecessary(a1, v25, 0, *MEMORY[0x277D272F0], *v28, a2);
+    result = hoseSBAR_setMXSessionPropertyOnAudioSessionIfNecessary(a1, v23, 0, *MEMORY[0x277D272F0], *v26, v6);
     if (result)
     {
-      v34 = result;
+      v32 = result;
 LABEL_41:
       APSLogErrorAt(result);
-      v32 = v34;
-      return APSLogErrorAt(v32);
+      v30 = v32;
+      return APSLogErrorAt(v30);
     }
   }
 
-  if (v13)
+  if (v11)
   {
-    result = hoseSBAR_setMXSessionPropertyOnAudioSessionIfNecessary(a1, v13, 1, *v30, v29, a2);
+    result = hoseSBAR_setMXSessionPropertyOnAudioSessionIfNecessary(a1, v11, 1, *v28, v27, v6);
     if (result)
     {
-      v34 = result;
+      v32 = result;
       goto LABEL_41;
     }
   }
@@ -1062,15 +1096,15 @@ LABEL_41:
 uint64_t hoseSBAR_setMXSessionPropertyOnAudioSessionIfNecessary(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, int a6)
 {
   cf = 0;
-  v10 = *MEMORY[0x277CBECE8];
-  v11 = "Shadow Session";
+  v11 = *MEMORY[0x277CBECE8];
+  v12 = "Shadow Session";
   if (!a3)
   {
-    v11 = "Parent Session";
+    v12 = "Parent Session";
   }
 
-  v12 = CFStringCreateWithFormat(v10, 0, @"%s", v11);
-  if (!v12)
+  v13 = CFStringCreateWithFormat(v11, 0, @"%s", v12);
+  if (!v13)
   {
     APSLogErrorAt(0);
     v17 = 4294894966;
@@ -1081,7 +1115,7 @@ uint64_t hoseSBAR_setMXSessionPropertyOnAudioSessionIfNecessary(uint64_t a1, uin
   {
     if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_setMXSessionPropertyOnAudioSessionIfNecessary(APSEndpointStreamAudioHoseRef, FigAudioSessionRef, Boolean, CFStringRef, CFTypeRef, Boolean)", 33554482, "[%{ptr}] Force Setting %@: %@ to %@.", a1, a4, a5, v13);
     }
 
     v18 = *(CMBaseObjectGetVTable() + 16);
@@ -1090,7 +1124,6 @@ uint64_t hoseSBAR_setMXSessionPropertyOnAudioSessionIfNecessary(uint64_t a1, uin
       v19 = *(v18 + 56);
       if (v19)
       {
-        v20 = *(v18 + 56);
         v17 = v19(a2, a4, a5);
         if (!v17)
         {
@@ -1109,28 +1142,27 @@ uint64_t hoseSBAR_setMXSessionPropertyOnAudioSessionIfNecessary(uint64_t a1, uin
       v17 = 4294948075;
     }
 
-    v21 = v17;
+    v20 = v17;
     goto LABEL_26;
   }
 
-  v13 = *(CMBaseObjectGetVTable() + 16);
-  if (!v13)
+  v14 = *(CMBaseObjectGetVTable() + 16);
+  if (!v14)
   {
     v17 = 4294948075;
 LABEL_25:
-    v21 = v17;
+    v20 = v17;
     goto LABEL_26;
   }
 
-  v14 = *(v13 + 48);
-  if (!v14)
+  v15 = *(v14 + 48);
+  if (!v15)
   {
     v17 = 4294948071;
     goto LABEL_25;
   }
 
-  v15 = *(v13 + 48);
-  v16 = v14(a2, a4, v10, &cf);
+  v16 = v15(a2, a4, v11, &cf);
   if (v16)
   {
     v17 = v16;
@@ -1141,17 +1173,16 @@ LABEL_25:
   {
     if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_setMXSessionPropertyOnAudioSessionIfNecessary(APSEndpointStreamAudioHoseRef, FigAudioSessionRef, Boolean, CFStringRef, CFTypeRef, Boolean)", 33554482, "[%{ptr}] Setting %@: %@ to %@.", a1, a4, a5, v13);
     }
 
-    v23 = *(CMBaseObjectGetVTable() + 16);
-    if (v23)
+    v22 = *(CMBaseObjectGetVTable() + 16);
+    if (v22)
     {
-      v24 = *(v23 + 56);
-      if (v24)
+      v23 = *(v22 + 56);
+      if (v23)
       {
-        v25 = *(v23 + 56);
-        v17 = v24(a2, a4, a5);
+        v17 = v23(a2, a4, a5);
         if (!v17)
         {
           goto LABEL_27;
@@ -1169,15 +1200,15 @@ LABEL_25:
       v17 = 4294948075;
     }
 
-    v21 = v17;
+    v20 = v17;
 LABEL_26:
-    APSLogErrorAt(v21);
+    APSLogErrorAt(v20);
     goto LABEL_27;
   }
 
   if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_setMXSessionPropertyOnAudioSessionIfNecessary(APSEndpointStreamAudioHoseRef, FigAudioSessionRef, Boolean, CFStringRef, CFTypeRef, Boolean)", 33554482, "[%{ptr}] Not Setting %@ on %@ as preference has not changed.", a1, a4, v13);
   }
 
   v17 = 0;
@@ -1187,9 +1218,9 @@ LABEL_27:
     CFRelease(cf);
   }
 
-  if (v12)
+  if (v13)
   {
-    CFRelease(v12);
+    CFRelease(v13);
   }
 
   return v17;
@@ -1199,56 +1230,56 @@ uint64_t hoseSBAR_handleDriftThresholdExceededNotification(uint64_t a1, uint64_t
 {
   result = CMBaseObjectGetDerivedStorage();
   v8 = result;
+  memset(&v19, 0, sizeof(v19));
   memset(&v18, 0, sizeof(v18));
   memset(&v17, 0, sizeof(v17));
   memset(&v16, 0, sizeof(v16));
-  memset(&v15, 0, sizeof(v15));
   if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50)
   {
     if (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || (result = _LogCategory_Initialize(), result))
     {
       CMTimeMakeFromDictionary(&time, a5);
-      CMTimeGetSeconds(&time);
-      result = LogPrintF();
+      Seconds = CMTimeGetSeconds(&time);
+      result = LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_handleDriftThresholdExceededNotification(CMNotificationCenterRef, const void *, CFStringRef, const void *, CFTypeRef)", 33554482, "[%{ptr}] Drift from remote timebase exceeded by %1.6f secs", a2, *&Seconds);
     }
   }
 
   if (*(v8 + 281) && *(v8 + 480))
   {
-    CMTimebaseGetTime(&v17, *(v8 + 120));
-    time = v17;
-    hoseSBAR_getMediaTimeForSynchronizerTime(&v16, a2, &time);
-    v9 = *(v8 + 112);
-    v10 = *(*(CMBaseObjectGetVTable() + 16) + 24);
-    if (v10)
+    CMTimebaseGetTime(&v18, *(v8 + 120));
+    time = v18;
+    hoseSBAR_getMediaTimeForSynchronizerTime(&v17, a2, &time);
+    v10 = *(v8 + 112);
+    v11 = *(*(CMBaseObjectGetVTable() + 16) + 24);
+    if (v11)
     {
       time = **&MEMORY[0x277CC0898];
-      v11 = v10(v9, &time, 0.0);
-      if (!v11)
+      v12 = v11(v10, &time, 0.0);
+      if (!v12)
       {
-        v11 = APSClockDriftMonitorSuspend(*(v8 + 1000));
-        if (!v11)
+        v12 = APSClockDriftMonitorSuspend(*(v8 + 1000));
+        if (!v12)
         {
-          hoseSBAR_waitForTimebaseRate(0.0);
+          hoseSBAR_waitForTimebaseRate(a2, 0.0);
           hoseSBAR_updateSynchronizerState(a2, 0);
-          CMTimeMakeFromDictionary(&v15, a5);
-          time = v17;
-          rhs = v15;
-          CMTimeAdd(&v18, &time, &rhs);
-          v12 = *(v8 + 112);
-          v14 = v18;
-          v13 = *(*(CMBaseObjectGetVTable() + 16) + 56);
-          if (v13)
+          CMTimeMakeFromDictionary(&v16, a5);
+          time = v18;
+          rhs = v16;
+          CMTimeAdd(&v19, &time, &rhs);
+          v13 = *(v8 + 112);
+          v15 = v19;
+          v14 = *(*(CMBaseObjectGetVTable() + 16) + 56);
+          if (v14)
           {
-            time = v16;
-            rhs = v14;
-            v11 = v13(v12, &time, &rhs, 1.0);
-            if (!v11)
+            time = v17;
+            rhs = v15;
+            v12 = v14(v13, &time, &rhs, 1.0);
+            if (!v12)
             {
-              v11 = APSClockDriftMonitorResume(*(v8 + 1000));
-              if (!v11)
+              v12 = APSClockDriftMonitorResume(*(v8 + 1000));
+              if (!v12)
               {
-                hoseSBAR_waitForTimebaseRate(1.0);
+                hoseSBAR_waitForTimebaseRate(a2, 1.0);
                 CMTimebaseSetTimerDispatchSourceToFireImmediately(*(v8 + 120), *(v8 + 648));
                 return hoseSBAR_updateSynchronizerState(a2, 1);
               }
@@ -1257,7 +1288,7 @@ uint64_t hoseSBAR_handleDriftThresholdExceededNotification(uint64_t a1, uint64_t
 
           else
           {
-            v11 = 4294954514;
+            v12 = 4294954514;
           }
         }
       }
@@ -1265,10 +1296,10 @@ uint64_t hoseSBAR_handleDriftThresholdExceededNotification(uint64_t a1, uint64_t
 
     else
     {
-      v11 = 4294954514;
+      v12 = 4294954514;
     }
 
-    return APSLogErrorAt(v11);
+    return APSLogErrorAt(v12);
   }
 
   return result;
@@ -1298,21 +1329,22 @@ __n128 hoseSBAR_getMediaTimeForSynchronizerTime(CMTime *a1, uint64_t a2, CMTime 
   return result;
 }
 
-uint64_t hoseSBAR_waitForTimebaseRate(double a1)
+uint64_t hoseSBAR_waitForTimebaseRate(uint64_t a1, double a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
   {
-    CMTimebaseGetRate(*(DerivedStorage + 120));
-    LogPrintF();
+    v5 = *(DerivedStorage + 120);
+    Rate = CMTimebaseGetRate(v5);
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_waitForTimebaseRate(APSEndpointStreamAudioHoseSBARRef, Float64)", 33554482, "[%{ptr}] hoseSBAR_waitForTimebaseRate( %1.3f) called. synchronizerTimebase: [%p], current Timebase rate: %1.3f", a1, *&a2, v5, *&Rate);
   }
 
-  if (CMTimebaseGetRate(*(DerivedStorage + 120)) != a1)
+  if (CMTimebaseGetRate(*(DerivedStorage + 120)) != a2)
   {
-    v3 = *(DerivedStorage + 120);
-    if (v3)
+    v7 = *(DerivedStorage + 120);
+    if (v7)
     {
-      if ((*&a1 & 0x7FFFFFFFFFFFFFFFuLL) < 0x7FF0000000000000)
+      if ((*&a2 & 0x7FFFFFFFFFFFFFFFuLL) < 0x7FF0000000000000)
       {
         if (gAPSEndpointStreamAudioHoseSBARTimebaseRateChangeListenerInitOnce != -1)
         {
@@ -1322,58 +1354,58 @@ uint64_t hoseSBAR_waitForTimebaseRate(double a1)
         Instance = _CFRuntimeCreateInstance();
         if (Instance)
         {
-          v5 = Instance;
+          v9 = Instance;
           Instance[2] = 0.0;
           Instance[3] = 0.0;
           Instance[4] = 0.0;
-          *(Instance + 3) = CFRetain(v3);
-          v5[2] = a1;
-          v6 = dispatch_semaphore_create(0);
-          *(v5 + 4) = v6;
-          if (v6)
+          *(Instance + 3) = CFRetain(v7);
+          v9[2] = a2;
+          v10 = dispatch_semaphore_create(0);
+          *(v9 + 4) = v10;
+          if (v10)
           {
             CMNotificationCenterGetDefaultLocalCenter();
-            v7 = *MEMORY[0x277CC0908];
-            v8 = FigNotificationCenterAddWeakListener();
-            if (!v8)
+            v11 = FigNotificationCenterAddWeakListener();
+            if (!v11)
             {
-              v9 = CFRetain(v5);
-              CFRelease(v5);
-              if (CMTimebaseGetRate(*(DerivedStorage + 120)) != a1)
+              v12 = CFRetain(v9);
+              CFRelease(v9);
+              if (CMTimebaseGetRate(*(DerivedStorage + 120)) != a2)
               {
                 if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
                 {
-                  LogPrintF();
+                  LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_waitForTimebaseRate(APSEndpointStreamAudioHoseSBARRef, Float64)", 33554482, "[%{ptr}] hoseSBAR_waitForTimebaseRate( %1.3f) waiting...", a1, *&a2);
                 }
 
-                v10 = v9[4];
-                v11 = dispatch_time(0, 2500000000);
-                if (dispatch_semaphore_wait(v10, v11))
+                v13 = v12[4];
+                v14 = dispatch_time(0, 2500000000);
+                if (dispatch_semaphore_wait(v13, v14))
                 {
-                  if (CMTimebaseGetRate(*(DerivedStorage + 120)) != a1)
+                  if (CMTimebaseGetRate(*(DerivedStorage + 120)) != a2)
                   {
                     APSLogErrorAt(0);
                     if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
                     {
-                      CMTimebaseGetRate(*(DerivedStorage + 120));
-                      LogPrintF();
+                      v15 = *(DerivedStorage + 120);
+                      v16 = CMTimebaseGetRate(v15);
+                      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_waitForTimebaseRate(APSEndpointStreamAudioHoseSBARRef, Float64)", 33554522, "### [%{ptr}] hoseSBAR_waitForTimebaseRate( %1.3f) timed out! synchronizerTimebase: [%p], current Timebase rate: %1.3f", a1, *&a2, v15, *&v16);
                     }
 
-                    v12 = 4294960574;
+                    v17 = 4294960574;
                     goto LABEL_31;
                   }
 
                   if (gLogCategory_APSEndpointStreamAudioHoseSBAR > 50)
                   {
-                    v12 = 0;
+                    v17 = 0;
 LABEL_31:
-                    CFRelease(v9);
-                    return v12;
+                    CFRelease(v12);
+                    return v17;
                   }
 
                   if (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize())
                   {
-                    LogPrintF();
+                    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_waitForTimebaseRate(APSEndpointStreamAudioHoseSBARRef, Float64)", 33554482, "[%{ptr}] hoseSBAR_waitForTimebaseRate( %1.3f) timed out, but Timebase Rate is now correct. Continuing.", a1, *&a2);
                   }
                 }
               }
@@ -1381,80 +1413,81 @@ LABEL_31:
               goto LABEL_26;
             }
 
-            v12 = v8;
-            APSLogErrorAt(v8);
+            v17 = v11;
+            APSLogErrorAt(v11);
           }
 
           else
           {
             APSLogErrorAt(0);
-            v12 = 4294894966;
+            v17 = 4294894966;
           }
 
-          CFRelease(v5);
+          CFRelease(v9);
         }
 
         else
         {
           APSLogErrorAt(0);
-          v12 = 4294960568;
+          v17 = 4294960568;
         }
 
 LABEL_40:
-        APSLogErrorAt(v12);
+        APSLogErrorAt(v17);
         if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_waitForTimebaseRate(APSEndpointStreamAudioHoseSBARRef, Float64)", 33554522, "### [%{ptr}] hoseSBAR_waitForTimebaseRate( %1.3f) failed to create listener!", a1, *&a2);
         }
 
-        return v12;
+        return v17;
       }
 
-      v12 = 4294894965;
+      v17 = 4294894965;
     }
 
     else
     {
-      v12 = 4294894965;
+      v17 = 4294894965;
     }
 
     APSLogErrorAt(0);
     goto LABEL_40;
   }
 
-  v9 = 0;
+  v12 = 0;
 LABEL_26:
   if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
   {
-    CMTimebaseGetRate(*(DerivedStorage + 120));
-    LogPrintF();
+    v18 = CMTimebaseGetRate(*(DerivedStorage + 120));
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_waitForTimebaseRate(APSEndpointStreamAudioHoseSBARRef, Float64)", 33554482, "[%{ptr}] hoseSBAR_waitForTimebaseRate( %1.3f) rate now %1.3f", a1, *&a2, *&v18);
   }
 
-  v12 = 0;
-  if (v9)
+  v17 = 0;
+  if (v12)
   {
     goto LABEL_31;
   }
 
-  return v12;
+  return v17;
 }
 
-uint64_t hoseSBAR_updateSynchronizerState(uint64_t a1, int a2)
+uint64_t hoseSBAR_updateSynchronizerState(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   result = CMBaseObjectGetDerivedStorage();
-  v4 = result;
+  v5 = result;
   if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50)
   {
     if (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || (result = _LogCategory_Initialize(), result))
     {
-      hoseSBAR_synchronizerStateToName(*(v4 + 480));
-      hoseSBAR_synchronizerStateToName(a2);
-      CMTimebaseGetRate(*(v4 + 120));
-      result = LogPrintF();
+      v6 = hoseSBAR_synchronizerStateToName(*(v5 + 480));
+      v7 = hoseSBAR_synchronizerStateToName(v2);
+      Rate = CMTimebaseGetRate(*(v5 + 120));
+      result = LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_updateSynchronizerState(APSEndpointStreamAudioHoseSBARRef, APSEndpointStreamAudioHoseSBARSynchronizerState)", 33554482, "[%{ptr}] Updating hose state from %s to %s; currentRate: %1.3f\n", a1, v6, v7, *&Rate);
     }
   }
 
-  *(v4 + 480) = a2;
+  *(v5 + 480) = v2;
   return result;
 }
 
@@ -1472,7 +1505,7 @@ const char *hoseSBAR_synchronizerStateToName(int a1)
 
   if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "const char *hoseSBAR_synchronizerStateToName(APSEndpointStreamAudioHoseSBARSynchronizerState)", 33554522, "Unknown hose state: %d", a1);
   }
 
   return "Unknown?";
@@ -1482,17 +1515,15 @@ uint64_t hoseSBARTimebaseRateChangeListener_timebaseRateChangedNotification(uint
 {
   if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
   {
-    CMTimebaseGetRate(*(a2 + 24));
-    v6 = *(a2 + 16);
-    LogPrintF();
+    v3 = *(a2 + 24);
+    Rate = CMTimebaseGetRate(v3);
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBARTimebaseRateChangeListener_timebaseRateChangedNotification(CMNotificationCenterRef, const void *, CFStringRef, const void *, CFTypeRef)", 33554482, "hoseSBARTimebaseRateChangeListener_timebaseRateChangedNotification called. Notifying Timebase: [%p], Notifying Timebase Rate: %1.3f, requested rate: %1.3f", v3, Rate, *(a2 + 16));
   }
 
   if (CMTimebaseGetRate(*(a2 + 24)) == *(a2 + 16))
   {
     dispatch_semaphore_signal(*(a2 + 32));
     CMNotificationCenterGetDefaultLocalCenter();
-    v3 = *MEMORY[0x277CC0908];
-    v4 = *(a2 + 24);
 
     return FigNotificationCenterRemoveWeakListener();
   }
@@ -1516,21 +1547,19 @@ void _APSEndpointStreamAudioHoseSBARTimebaseRateChangeListenerFinalize(uint64_t 
   if (*(a1 + 24))
   {
     CMNotificationCenterGetDefaultLocalCenter();
-    v2 = *MEMORY[0x277CC0908];
-    v3 = *(a1 + 24);
     FigNotificationCenterRemoveWeakListener();
-    v4 = *(a1 + 24);
-    if (v4)
+    v2 = *(a1 + 24);
+    if (v2)
     {
-      CFRelease(v4);
+      CFRelease(v2);
     }
   }
 
-  v5 = *(a1 + 32);
-  if (v5)
+  v3 = *(a1 + 32);
+  if (v3)
   {
 
-    dispatch_release(v5);
+    dispatch_release(v3);
   }
 }
 
@@ -1564,7 +1593,7 @@ void hoseSBAR_sbarLowWaterTimerFired()
     CMBaseObjectGetDerivedStorage();
     if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_sbarLowWaterTimerFired(void *)", 33554482, "[%{ptr}] lowWaterTimerFire, filling to high water", v1);
     }
 
     v2 = hoseSBAR_fillSBARToHighWater(v1);
@@ -1579,7 +1608,7 @@ void hoseSBAR_sbarLowWaterTimerFired()
 
 uint64_t hoseSBAR_fillSBARToHighWater(uint64_t a1)
 {
-  v111 = *MEMORY[0x277D85DE8];
+  v117 = *MEMORY[0x277D85DE8];
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   v2 = DerivedStorage;
   cf = 0;
@@ -1593,36 +1622,37 @@ uint64_t hoseSBAR_fillSBARToHighWater(uint64_t a1)
 
   else if ((*(DerivedStorage + 612) & 1) == 0 || (*(DerivedStorage + 564) & 1) == 0)
   {
-    goto LABEL_196;
+    goto LABEL_199;
   }
 
   if ((*(DerivedStorage + 588) & 1) == 0)
   {
-LABEL_196:
-    v44 = 0;
-    goto LABEL_184;
+LABEL_199:
+    v43 = 0;
+    v3 = 0;
+    goto LABEL_187;
   }
 
 LABEL_8:
   if (CMBufferQueueIsEmpty(*(DerivedStorage + 664)))
   {
-    goto LABEL_196;
+    goto LABEL_199;
   }
 
   v3 = 0;
   allocator = *MEMORY[0x277CBECE8];
   key = *MEMORY[0x277CC0760];
-  v88 = *MEMORY[0x277CC1AA8];
-  v89 = v2;
-  v86 = *MEMORY[0x277CD6420];
+  v94 = *MEMORY[0x277CC1AA8];
+  v95 = v2;
+  v92 = *MEMORY[0x277CD6420];
   while (2)
   {
     v4 = *(v2 + 104);
     v5 = *(*(CMBaseObjectGetVTable() + 16) + 8);
     if (!v5 || v5(v4))
     {
-      v44 = 0;
-      goto LABEL_184;
+      v43 = 0;
+      goto LABEL_187;
     }
 
     if (cf)
@@ -1632,23 +1662,23 @@ LABEL_8:
     }
 
     v6 = CMBaseObjectGetDerivedStorage();
-    memset(&v105, 0, sizeof(v105));
-    CMTimeMake(&v105, 500, 1000);
-    v92 = *MEMORY[0x277CC0898];
+    memset(&v111, 0, sizeof(v111));
+    CMTimeMake(&v111, 500, 1000);
+    v98 = *MEMORY[0x277CC0898];
     *&start.value = *MEMORY[0x277CC0898];
-    v91 = *(MEMORY[0x277CC0898] + 16);
-    start.epoch = v91;
+    v97 = *(MEMORY[0x277CC0898] + 16);
+    start.epoch = v97;
     lhs = **&MEMORY[0x277CC08F0];
     v7 = *(v6 + 688);
     if (v7 && CFArrayGetCount(*(v7 + 40)))
     {
       APSLogErrorAt(0);
       APSCMSampleBufferMergerFlush(*(v6 + 688));
-      v44 = 4294960587;
-      goto LABEL_193;
+      v43 = 4294960587;
+      goto LABEL_196;
     }
 
-    v90 = v3;
+    v96 = v3;
     v8 = 0;
     while (1)
     {
@@ -1691,15 +1721,15 @@ LABEL_8:
       }
 
       v15 = CMBaseObjectGetDerivedStorage();
-      *&time1.duration.value = v92;
-      time1.duration.epoch = v91;
+      *&time1.duration.value = v98;
+      time1.duration.epoch = v97;
       if (*(v15 + 420))
       {
         v16 = v15;
         CMTimebaseGetTime(&time2.start, *(v15 + 120));
-        v110.value = time2.start.value;
+        v116.value = time2.start.value;
         v17 = time2.start.flags;
-        v110.timescale = time2.start.timescale;
+        v116.timescale = time2.start.timescale;
         if (time2.start.flags)
         {
           v18 = time2.start.epoch;
@@ -1709,14 +1739,14 @@ LABEL_8:
         v17 = *(v16 + 396);
         if (v17)
         {
-          v110.value = *(v16 + 384);
-          v110.timescale = *(v16 + 392);
+          v116.value = *(v16 + 384);
+          v116.timescale = *(v16 + 392);
           v18 = *(v16 + 400);
 LABEL_27:
           *&time2.start.value = *(v16 + 408);
           time2.start.epoch = *(v16 + 424);
-          rhs.start.value = v110.value;
-          rhs.start.timescale = v110.timescale;
+          rhs.start.value = v116.value;
+          rhs.start.timescale = v116.timescale;
           rhs.start.flags = v17;
           rhs.start.epoch = v18;
           CMTimeSubtract(&time1.duration, &time2.start, &rhs.start);
@@ -1745,15 +1775,15 @@ LABEL_28:
       {
         *&time1.duration.value = *(v6 + 432);
         time1.duration.epoch = *(v6 + 448);
-        CMTimeGetSeconds(&time1.duration);
-        v94 = *(v6 + 432);
-        v21 = *(v6 + 440);
+        Seconds = CMTimeGetSeconds(&time1.duration);
+        v100 = *(v6 + 432);
+        v22 = *(v6 + 440);
         time1.duration.value = value;
         time1.duration.timescale = timescale;
         time1.duration.flags = flags;
         time1.duration.epoch = epoch;
-        CMTimeGetSeconds(&time1.duration);
-        LogPrintF();
+        v23 = CMTimeGetSeconds(&time1.duration);
+        LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_dequeueAndRetainMergedBufferForSBAR(APSEndpointStreamAudioHoseSBARRef, CMSampleBufferRef *)", v20 | 0x2000000u, "[%{ptr}] discontinuity, yielding until low water. lastEndPTSDequeuedForSBAR=%1.6f (%lld/%d), peekSBufPTS=%1.6f (%lld/%d), isBelowLowWaterLevel=%d\n", a1, *&Seconds, v100, v22, *&v23, value, timescale, v19);
       }
 
       if (!v19)
@@ -1762,16 +1792,16 @@ LABEL_28:
       }
 
 LABEL_36:
-      v22 = CMBaseObjectGetDerivedStorage();
+      CMBaseObjectGetDerivedStorage();
       if (CMGetAttachment(v10, @"HoseSBARCryptorID", 0))
       {
-        FigCFNumberGetUInt64();
-        v23 = *(v22 + 928);
+        UInt64 = FigCFNumberGetUInt64();
         if (!FigCFDictionaryGetValue())
         {
           if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            v90 = 4294960569;
+            LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_attachCryptorIfNecessary(APSEndpointStreamAudioHoseSBARRef, CMSampleBufferRef)", 33554522, "[%{ptr}] Failed to look up cryptor 0x%llx, error: %#m", a1, UInt64);
           }
 
           break;
@@ -1781,91 +1811,88 @@ LABEL_36:
         CMRemoveAttachment(v10, @"HoseSBARCryptorID");
       }
 
-      v95 = value;
-      v24 = CMBaseObjectGetDerivedStorage();
+      v101 = value;
+      CMBaseObjectGetDerivedStorage();
       sbuf.value = 0;
       sampleSizeArray.value = 0;
-      LODWORD(v108) = 0;
+      LODWORD(v114) = 0;
       formatDescriptionOut.value = 0;
       v25 = CMGetAttachment(v10, @"HoseSBARMagicCookieID", 0);
       if (!v25)
       {
-        v41 = 1;
+        v40 = 1;
         goto LABEL_64;
       }
 
       memset(&time1, 0, sizeof(time1));
       memset(&time2, 0, 40);
       memset(&rhs, 0, 32);
-      FigCFNumberGetUInt64();
-      v26 = *(v24 + 952);
+      v26 = FigCFNumberGetUInt64();
       v27 = FigCFDictionaryGetValue();
       if (!v27)
       {
-        if (gLogCategory_APSEndpointStreamAudioHoseSBAR > 90 || gLogCategory_APSEndpointStreamAudioHoseSBAR == -1 && !_LogCategory_Initialize())
+        if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
         {
-          goto LABEL_83;
+          LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_copySBufWithMagicCookieIfNecessary(APSEndpointStreamAudioHoseSBARRef, CMSampleBufferRef, CMSampleBufferRef *)", 33554522, "[%{ptr}] Failed to look up magic cookie 0x%llx, magicCookieID: %@ error: %#m", a1, v26, v25, 4294960569);
         }
 
-LABEL_79:
-        LogPrintF();
         goto LABEL_83;
       }
 
       v28 = v27;
       if (!CMGetAttachment(v10, @"HoseSBARAudioFormatIndex", 0))
       {
-        if (gLogCategory_APSEndpointStreamAudioHoseSBAR > 90 || gLogCategory_APSEndpointStreamAudioHoseSBAR == -1 && !_LogCategory_Initialize())
+        if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
         {
-          goto LABEL_83;
+          LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_copySBufWithMagicCookieIfNecessary(APSEndpointStreamAudioHoseSBARRef, CMSampleBufferRef, CMSampleBufferRef *)", 33554522, "[%{ptr}] Audio format attachment not found, error: %#m", a1, 4294960569, v90, v91);
         }
 
-        goto LABEL_79;
+        goto LABEL_83;
       }
 
-      v29 = *(v24 + 960);
-      v30 = FigCFDictionaryGetValue();
-      if (!v30)
+      v29 = FigCFDictionaryGetValue();
+      if (v29)
+      {
+        formatDescriptionOut.value = CFRetain(v29);
+        if (formatDescriptionOut.value)
+        {
+          goto LABEL_49;
+        }
+      }
+
+      else
       {
         formatDescriptionOut.value = 0;
-LABEL_46:
-        UInt64 = FigCFNumberGetUInt64();
-        v32 = APAudioFormatIndexToASBD(UInt64, &time2);
-        if (v32 || (v32 = APAudioFormatIndexToAudioChannelLayout(UInt64, &rhs.start.value, &v108), v32) || (BytePtr = CFDataGetBytePtr(v28), Length = CFDataGetLength(v28), v32 = CMAudioFormatDescriptionCreate(allocator, &time2, v108, &rhs, Length, BytePtr, 0, &formatDescriptionOut), v32))
-        {
-          APSLogErrorAt(v32);
-          goto LABEL_83;
-        }
-
-        goto LABEL_49;
       }
 
-      formatDescriptionOut.value = CFRetain(v30);
-      if (!formatDescriptionOut.value)
+      v30 = FigCFNumberGetUInt64();
+      v31 = APAudioFormatIndexToASBD(v30, &time2);
+      if (v31 || (v31 = APAudioFormatIndexToAudioChannelLayout(v30, &rhs.start.value, &v114), v31) || (BytePtr = CFDataGetBytePtr(v28), Length = CFDataGetLength(v28), v31 = CMAudioFormatDescriptionCreate(allocator, &time2, v114, &rhs, Length, BytePtr, 0, &formatDescriptionOut), v31))
       {
-        goto LABEL_46;
+        APSLogErrorAt(v31);
+        goto LABEL_83;
       }
 
 LABEL_49:
       DataBuffer = CMSampleBufferGetDataBuffer(v10);
       sampleSizeArray.value = CMBlockBufferGetDataLength(DataBuffer);
       CMSampleBufferGetPresentationTimeStamp(&time1.presentationTimeStamp, v10);
-      CMSampleBufferGetDuration(&v110, v10);
-      time1.duration = v110;
-      CMSampleBufferGetDecodeTimeStamp(&v110, v10);
-      time1.decodeTimeStamp = v110;
-      v36 = CMSampleBufferCreateReady(allocator, DataBuffer, formatDescriptionOut.value, 1, 1, &time1, 1, &sampleSizeArray, &sbuf);
-      if (!v36)
+      CMSampleBufferGetDuration(&v116, v10);
+      time1.duration = v116;
+      CMSampleBufferGetDecodeTimeStamp(&v116, v10);
+      time1.decodeTimeStamp = v116;
+      v35 = CMSampleBufferCreateReady(allocator, DataBuffer, formatDescriptionOut.value, 1, 1, &time1, 1, &sampleSizeArray, &sbuf);
+      if (!v35)
       {
         SampleAttachmentsArray = CMSampleBufferGetSampleAttachmentsArray(v10, 0);
-        v38 = CMSampleBufferGetSampleAttachmentsArray(sbuf.value, 1u);
+        v37 = CMSampleBufferGetSampleAttachmentsArray(sbuf.value, 1u);
         if (SampleAttachmentsArray)
         {
-          v39 = v38;
+          v38 = v37;
           if (CFArrayGetCount(SampleAttachmentsArray) >= 1)
           {
             CFArrayGetValueAtIndex(SampleAttachmentsArray, 0);
-            CFArrayGetValueAtIndex(v39, 0);
+            CFArrayGetValueAtIndex(v38, 0);
             FigCFDictionaryAddEntriesToDictionaryWithRecursion();
           }
         }
@@ -1877,16 +1904,16 @@ LABEL_49:
         FigSampleBufferSetDecryptor();
         if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 30 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_copySBufWithMagicCookieIfNecessary(APSEndpointStreamAudioHoseSBARRef, CMSampleBufferRef, CMSampleBufferRef *)", 33554462, "[%{ptr}] Create SBuf with correct magic cookie information", a1);
         }
 
         v25 = sbuf.value;
         sbuf.value = 0;
-        v40 = 1;
+        v39 = 1;
         goto LABEL_58;
       }
 
-      APSLogErrorAt(v36);
+      APSLogErrorAt(v35);
       if (sbuf.value)
       {
         CFRelease(sbuf.value);
@@ -1894,14 +1921,14 @@ LABEL_49:
 
 LABEL_83:
       v25 = 0;
-      v40 = 0;
+      v39 = 0;
 LABEL_58:
       if (formatDescriptionOut.value)
       {
         CFRelease(formatDescriptionOut.value);
       }
 
-      if (!v40)
+      if (!v39)
       {
         goto LABEL_94;
       }
@@ -1910,13 +1937,13 @@ LABEL_58:
       {
         CFRetain(v25);
         CFRelease(v10);
-        v41 = 0;
+        v40 = 0;
         v10 = v25;
       }
 
       else
       {
-        v41 = 1;
+        v40 = 1;
       }
 
 LABEL_64:
@@ -1926,7 +1953,7 @@ LABEL_64:
         time2.start = lhs;
         rhs.start = start;
         CMTimeAdd(&time1.duration, &time2.start, &rhs.start);
-        time2.start = v105;
+        time2.start = v111;
         if (CMTimeCompare(&time1.duration, &time2.start) > 0)
         {
           goto LABEL_95;
@@ -1938,14 +1965,14 @@ LABEL_64:
         goto LABEL_94;
       }
 
-      v42 = CMBufferQueueDequeueAndRetain(*(v6 + 664));
-      if (v42)
+      v41 = CMBufferQueueDequeueAndRetain(*(v6 + 664));
+      if (v41)
       {
-        CFRelease(v42);
+        CFRelease(v41);
       }
 
       CMSampleBufferGetDuration(&time2.start, v10);
-      rhs.start.value = v95;
+      rhs.start.value = v101;
       rhs.start.timescale = timescale;
       rhs.start.flags = flags;
       rhs.start.epoch = epoch;
@@ -1956,7 +1983,7 @@ LABEL_64:
       time2.start = start;
       CMTimeAdd(&lhs, &time1.duration, &time2.start);
       CFRelease(v10);
-      if ((v41 & 1) == 0)
+      if ((v40 & 1) == 0)
       {
         CFRelease(v25);
       }
@@ -1973,19 +2000,19 @@ LABEL_64:
 LABEL_94:
     if (!v8)
     {
-      v44 = 0;
+      v43 = 0;
       cf = 0;
-      v45 = v90;
+      v3 = v96;
       goto LABEL_98;
     }
 
 LABEL_95:
-    v43 = APSCMSampleBufferMergerCopyMergedSBuf(*(v6 + 688), &cf);
-    v44 = v43;
-    v45 = v90;
-    if (v43)
+    v42 = APSCMSampleBufferMergerCopyMergedSBuf(*(v6 + 688), &cf);
+    v43 = v42;
+    v3 = v96;
+    if (v42)
     {
-      APSLogErrorAt(v43);
+      APSLogErrorAt(v42);
     }
 
 LABEL_98:
@@ -2000,110 +2027,110 @@ LABEL_98:
     }
 
     APSCMSampleBufferMergerFlush(*(v6 + 688));
-    if (v44)
+    if (v43)
     {
-LABEL_193:
-      v84 = v44;
-      goto LABEL_195;
+LABEL_196:
+      v89 = v43;
+      goto LABEL_198;
     }
 
-    v46 = cf;
+    v44 = cf;
     if (!cf)
     {
-      v44 = 0;
-      goto LABEL_187;
+      v43 = 0;
+      goto LABEL_190;
     }
 
-    v47 = CMBaseObjectGetDerivedStorage();
-    *&v110.value = v92;
-    v110.epoch = v91;
-    v48 = *(MEMORY[0x277CC0898] + 12);
-    v107 = 0;
-    v108 = v48;
+    v45 = CMBaseObjectGetDerivedStorage();
+    *&v116.value = v98;
+    v116.epoch = v97;
+    v46 = *(MEMORY[0x277CC0898] + 12);
+    v113 = 0;
+    v114 = v46;
     epoch_high = *(MEMORY[0x277CC0898] + 20);
-    v49 = *(MEMORY[0x277CC08C8] + 16);
+    v47 = *(MEMORY[0x277CC08C8] + 16);
     *&time1.duration.value = *MEMORY[0x277CC08C8];
-    *&time1.duration.epoch = v49;
+    *&time1.duration.epoch = v47;
     *&time1.presentationTimeStamp.timescale = *(MEMORY[0x277CC08C8] + 32);
     *&time2.start.value = *&time1.duration.value;
-    *&time2.start.epoch = v49;
+    *&time2.start.epoch = v47;
     *&time2.duration.timescale = *&time1.presentationTimeStamp.timescale;
-    *&v105.value = v92;
-    v105.epoch = v91;
-    CMSampleBufferGetOutputPresentationTimeStamp(&v110, v46);
-    v50 = (v47 + 624);
-    if (*(v47 + 636))
+    *&v111.value = v98;
+    v111.epoch = v97;
+    CMSampleBufferGetOutputPresentationTimeStamp(&v116, v44);
+    v48 = (v45 + 624);
+    if (*(v45 + 636))
     {
-      rhs.start = v110;
-      *&start.value = *v50;
-      start.epoch = *(v47 + 640);
+      rhs.start = v116;
+      *&start.value = *v48;
+      start.epoch = *(v45 + 640);
       if (CMTimeCompare(&rhs.start, &start) < 0)
       {
-        v54 = 0;
-        v44 = 0;
+        v52 = 0;
+        v43 = 0;
 LABEL_116:
-        v2 = v89;
-        goto LABEL_171;
+        v2 = v95;
+        goto LABEL_174;
       }
     }
 
-    start = v110;
+    start = v116;
     hoseSBAR_getSynchronizerTimeForMediaTime(&rhs.start, a1, &start);
-    v51 = rhs.start.value;
-    v52 = rhs.start.timescale;
-    v108 = *&rhs.start.flags;
+    v49 = rhs.start.value;
+    v50 = rhs.start.timescale;
+    v114 = *&rhs.start.flags;
     epoch_high = HIDWORD(rhs.start.epoch);
-    v53 = CMSampleBufferCreateCopy(allocator, v46, &v107);
-    if (v53)
+    v51 = CMSampleBufferCreateCopy(allocator, v44, &v113);
+    if (v51)
     {
-      v44 = v53;
-LABEL_179:
-      APSLogErrorAt(v53);
-      v54 = 0;
+      v43 = v51;
+LABEL_182:
+      APSLogErrorAt(v51);
+      v52 = 0;
       goto LABEL_116;
     }
 
-    rhs.start.value = v51;
-    rhs.start.timescale = v52;
-    *&rhs.start.flags = v108;
+    rhs.start.value = v49;
+    rhs.start.timescale = v50;
+    *&rhs.start.flags = v114;
     HIDWORD(rhs.start.epoch) = epoch_high;
-    v53 = CMSampleBufferSetOutputPresentationTimeStamp(v107, &rhs.start);
-    if (v53)
+    v51 = CMSampleBufferSetOutputPresentationTimeStamp(v113, &rhs.start);
+    if (v51)
     {
-      v44 = v53;
-      goto LABEL_179;
+      v43 = v51;
+      goto LABEL_182;
     }
 
-    CMSampleBufferGetOutputDuration(&rhs.start, v46);
-    start = v110;
+    CMSampleBufferGetOutputDuration(&rhs.start, v44);
+    start = v116;
     CMTimeRangeMake(&time1, &start, &rhs.start);
-    if (*(v47 + 636))
+    if (*(v45 + 636))
     {
       *&rhs.start.value = *&time1.duration.value;
       *&rhs.start.epoch = *&time1.duration.epoch;
-      v56 = *v50;
+      v54 = *v48;
       *&rhs.duration.timescale = *&time1.presentationTimeStamp.timescale;
-      *&start.value = v56;
-      start.epoch = *(v47 + 640);
-      v55 = v88;
+      *&start.value = v54;
+      start.epoch = *(v45 + 640);
+      v53 = v94;
       if (CMTimeRangeContainsTime(&rhs, &start))
       {
         memset(&rhs, 0, 24);
-        *&start.value = *v50;
-        start.epoch = *(v47 + 640);
-        lhs = v110;
+        *&start.value = *v48;
+        start.epoch = *(v45 + 640);
+        lhs = v116;
         CMTimeSubtract(&rhs.start, &start, &lhs);
-        v57 = CMGetAttachment(v107, key, 0);
-        if (v57)
+        v55 = CMGetAttachment(v113, key, 0);
+        if (v55)
         {
-          CMTimeMakeFromDictionary(&v105, v57);
-          lhs = v105;
+          CMTimeMakeFromDictionary(&v111, v55);
+          lhs = v111;
           sbuf = rhs.start;
           CMTimeAdd(&start, &lhs, &sbuf);
-          CMSampleBufferGetOutputDuration(&lhs, v107);
+          CMSampleBufferGetOutputDuration(&lhs, v113);
           if ((CMTimeCompare(&start, &lhs) & 0x80000000) == 0)
           {
-            CMSampleBufferGetOutputDuration(&lhs, v107);
+            CMSampleBufferGetOutputDuration(&lhs, v113);
             sbuf = rhs.start;
             CMTimeAdd(&start, &lhs, &sbuf);
             rhs.start = start;
@@ -2111,70 +2138,68 @@ LABEL_179:
         }
 
         start = rhs.start;
-        v54 = CMTimeCopyAsDictionary(&start, allocator);
-        CMSetAttachment(v107, key, v54, 1u);
+        v52 = CMTimeCopyAsDictionary(&start, allocator);
+        CMSetAttachment(v113, key, v52, 1u);
       }
 
       else
       {
-        v54 = 0;
+        v52 = 0;
       }
     }
 
     else
     {
-      v54 = 0;
-      v55 = v88;
+      v52 = 0;
+      v53 = v94;
     }
 
-    v58 = v55;
-    v59 = CMGetAttachment(v107, v55, 0);
-    v60 = *(v47 + 976);
+    v56 = v53;
+    v57 = CMGetAttachment(v113, v53, 0);
     if (FigCFEqual())
     {
-      CMRemoveAttachment(v107, v58);
+      CMRemoveAttachment(v113, v56);
     }
 
     else
     {
       if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_enqueueIntoSBARDecryptedMediaSBufInternal(APSEndpointStreamAudioHoseSBARRef, CMSampleBufferRef)", 33554482, "[%{ptr}] Forwarding Loudness info to sbar %@", a1, v57);
       }
 
-      v61 = *(v47 + 976);
-      *(v47 + 976) = v59;
-      if (v59)
+      v58 = *(v45 + 976);
+      *(v45 + 976) = v57;
+      if (v57)
       {
-        CFRetain(v59);
+        CFRetain(v57);
       }
 
-      if (v61)
+      if (v58)
       {
-        CFRelease(v61);
+        CFRelease(v58);
       }
     }
 
-    v62 = CMGetAttachment(v107, @"HoseSBARSourceAudioFormatIndex", 0);
-    if (v62)
+    v59 = CMGetAttachment(v113, @"HoseSBARSourceAudioFormatIndex", 0);
+    if (v59)
     {
-      v63 = v62;
-      v64 = *(v47 + 984);
+      v60 = v59;
       if (!FigCFEqual())
       {
-        v65 = CMBaseObjectGetDerivedStorage();
+        v61 = CMBaseObjectGetDerivedStorage();
         rhs.start.value = 0;
         start.value = 0;
-        v66 = FigCFNumberGetUInt64();
-        if (v66)
+        v62 = FigCFNumberGetUInt64();
+        if (v62)
         {
-          v67 = APSAudioFormatDescriptionCreateWithAudioFormatIndex(allocator, v66, 0, &rhs.start.value);
-          if (v67)
+          v63 = APSAudioFormatDescriptionCreateWithAudioFormatIndex(allocator, v62, 0, &rhs.start.value);
+          if (v63)
           {
             goto LABEL_143;
           }
 
-          v67 = rhs.start.value;
+          v63 = rhs.start.value;
           if (!rhs.start.value)
           {
             goto LABEL_143;
@@ -2182,31 +2207,31 @@ LABEL_179:
 
           if (*(rhs.start.value + 44) >= 3u)
           {
-            v67 = APSBadgingConvertAPSourceFormatToMATSourceFormat(rhs.start.value, &start.value);
-            if (v67)
+            v63 = APSBadgingConvertAPSourceFormatToMATSourceFormat(rhs.start.value, &start.value);
+            if (v63)
             {
               goto LABEL_143;
             }
 
             if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
             {
-              LogPrintF();
+              LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_setSourceFormatOnSBARIfNessary(APSEndpointStreamAudioHoseSBARRef, CFNumberRef)", 33554482, "[%{ptr}] Forwarding source format info to sbar %@", a1, start.value);
             }
 
-            v68 = *(v65 + 104);
-            v69 = start.value;
-            v70 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-            if (!v70)
+            v64 = *(v61 + 104);
+            v65 = start.value;
+            v66 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+            if (!v66)
             {
-              v67 = 4294954514;
+              v63 = 4294954514;
               goto LABEL_143;
             }
 
-            v67 = v70(v68, v86, v69);
-            if (v67)
+            v63 = v66(v64, v92, v65);
+            if (v63)
             {
 LABEL_143:
-              APSLogErrorAt(v67);
+              APSLogErrorAt(v63);
             }
           }
 
@@ -2221,166 +2246,179 @@ LABEL_143:
           }
         }
 
-        v71 = *(v47 + 984);
-        *(v47 + 984) = v63;
-        CFRetain(v63);
-        if (v71)
+        v67 = *(v45 + 984);
+        *(v45 + 984) = v60;
+        CFRetain(v60);
+        if (v67)
         {
-          CFRelease(v71);
+          CFRelease(v67);
         }
       }
     }
 
-    CMRemoveAttachment(v107, @"HoseSBARSourceAudioFormatIndex");
-    CMSampleBufferGetOutputDuration(&rhs.start, v107);
-    start.value = v51;
-    start.timescale = v52;
-    *&start.flags = v108;
+    CMRemoveAttachment(v113, @"HoseSBARSourceAudioFormatIndex");
+    CMSampleBufferGetOutputDuration(&rhs.start, v113);
+    start.value = v49;
+    start.timescale = v50;
+    *&start.flags = v114;
     HIDWORD(start.epoch) = epoch_high;
     CMTimeRangeMake(&time2, &start, &rhs.start);
     if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 30 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
     {
-      CMTimebaseGetTime(&rhs.start, *(v47 + 120));
-      CMTimeGetSeconds(&rhs.start);
-      rhs.start.value = v51;
-      rhs.start.timescale = v52;
-      *&rhs.start.flags = v108;
+      CMTimebaseGetTime(&rhs.start, *(v45 + 120));
+      v68 = CMTimeGetSeconds(&rhs.start);
+      rhs.start.value = v49;
+      rhs.start.timescale = v50;
+      *&rhs.start.flags = v114;
       HIDWORD(rhs.start.epoch) = epoch_high;
-      CMTimeGetSeconds(&rhs.start);
+      v69 = CMTimeGetSeconds(&rhs.start);
       rhs = time2;
       CMTimeRangeGetEnd(&start, &rhs);
-      CMTimeGetSeconds(&start);
+      v70 = CMTimeGetSeconds(&start);
       rhs = time2;
       CMTimeRangeGetEnd(&start, &rhs);
+      v71 = start.value;
       rhs = time2;
       CMTimeRangeGetEnd(&lhs, &rhs);
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_enqueueIntoSBARDecryptedMediaSBufInternal(APSEndpointStreamAudioHoseSBARRef, CMSampleBufferRef)", 33554462, "[%{ptr}] Enqueueing into sbar nowSynchronizerTime: %1.3f; sbuf time: [%1.3f:%1.3f] (%llu/%u) (%llu/%u)", a1, *&v68, *&v69, *&v70, v49, v50, v71, lhs.timescale);
     }
 
-    v72 = *(v47 + 104);
-    v73 = v107;
+    v72 = *(v45 + 104);
+    v73 = v113;
     v74 = *(*(CMBaseObjectGetVTable() + 16) + 16);
     if (!v74)
     {
-      v44 = 4294954514;
-LABEL_166:
-      APSLogErrorAt(v44);
-      goto LABEL_170;
+      v43 = 4294954514;
+LABEL_169:
+      APSLogErrorAt(v43);
+      goto LABEL_173;
     }
 
     v75 = v74(v72, v73);
     if (v75)
     {
-      v44 = v75;
-      goto LABEL_166;
+      v43 = v75;
+      goto LABEL_169;
     }
 
-    if ((*(v47 + 396) & 1) == 0)
+    if ((*(v45 + 396) & 1) == 0)
     {
-      *(v47 + 384) = v51;
-      *(v47 + 392) = v52;
-      *(v47 + 396) = v108;
-      *(v47 + 404) = epoch_high;
+      *(v45 + 384) = v49;
+      *(v45 + 392) = v50;
+      *(v45 + 396) = v114;
+      *(v45 + 404) = epoch_high;
     }
 
     rhs = time2;
     CMTimeRangeGetEnd(&sbuf, &rhs);
-    *(v47 + 408) = sbuf;
-    if (*(v47 + 420))
+    *(v45 + 408) = sbuf;
+    if (*(v45 + 420))
     {
-      v76 = *(v47 + 120);
-      v77 = *(v47 + 680);
-      sbuf = *(v47 + 408);
-      sampleSizeArray = *(v47 + 232);
+      v76 = *(v45 + 120);
+      v77 = *(v45 + 680);
+      sbuf = *(v45 + 408);
+      sampleSizeArray = *(v45 + 232);
       CMTimeSubtract(&rhs.start, &sbuf, &sampleSizeArray);
       CMTimebaseSetTimerDispatchSourceNextFireTime(v76, v77, &rhs.start, 0);
     }
 
-    v78 = hoseSBAR_configureUnderrunTrackingIfNeeded();
+    v78 = hoseSBAR_configureUnderrunTrackingIfNeeded(a1);
     if (v78)
     {
-      v44 = v78;
+      v43 = v78;
       APSLogErrorAt(v78);
       goto LABEL_116;
     }
 
     v79 = mach_absolute_time();
-    if (v79 > *(v47 + 744))
+    if (v79 > *(v45 + 744))
     {
       v80 = v79;
       memset(&sbuf, 0, sizeof(sbuf));
-      CMTimebaseGetTime(&sbuf, *(v47 + 120));
+      CMTimebaseGetTime(&sbuf, *(v45 + 120));
       memset(&sampleSizeArray, 0, sizeof(sampleSizeArray));
-      rhs.start.value = v51;
-      rhs.start.timescale = v52;
-      *&rhs.start.flags = v108;
+      rhs.start.value = v49;
+      rhs.start.timescale = v50;
+      *&rhs.start.flags = v114;
       HIDWORD(rhs.start.epoch) = epoch_high;
       formatDescriptionOut = sbuf;
       CMTimeSubtract(&sampleSizeArray, &rhs.start, &formatDescriptionOut);
       rhs.start = sampleSizeArray;
-      CMTimeGetSeconds(&rhs.start);
-      if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
+      v81 = CMTimeGetSeconds(&rhs.start);
+      if (v81 >= 1.0)
       {
-        rhs.start = sbuf;
-        CMTimeGetSeconds(&rhs.start);
-        rhs.start.value = v51;
-        rhs.start.timescale = v52;
-        *&rhs.start.flags = v108;
-        HIDWORD(rhs.start.epoch) = epoch_high;
-        CMTimeGetSeconds(&rhs.start);
-        rhs = time2;
-        CMTimeRangeGetEnd(&formatDescriptionOut, &rhs);
-        CMTimeGetSeconds(&formatDescriptionOut);
-        v85 = *(v47 + 740);
-        LogPrintF();
+        v82 = "";
       }
 
-      v81 = *(v47 + 752);
-      *(v47 + 744) = v80 + UpTicksPerSecond() / 0x3E8uLL * v81;
+      else
+      {
+        v82 = "#######";
+      }
+
+      if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50)
+      {
+        v83 = v81;
+        if (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize())
+        {
+          rhs.start = sbuf;
+          v84 = CMTimeGetSeconds(&rhs.start);
+          rhs.start.value = v49;
+          rhs.start.timescale = v50;
+          *&rhs.start.flags = v114;
+          HIDWORD(rhs.start.epoch) = epoch_high;
+          v85 = CMTimeGetSeconds(&rhs.start);
+          rhs = time2;
+          CMTimeRangeGetEnd(&formatDescriptionOut, &rhs);
+          v86 = CMTimeGetSeconds(&formatDescriptionOut);
+          LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_enqueueIntoSBARDecryptedMediaSBufInternal(APSEndpointStreamAudioHoseSBARRef, CMSampleBufferRef)", 33554482, "[%{ptr}] Enqueueing to sbar aheadBy: %1.3f; nowSyncerTime: %1.3f; sbufTime: [%1.3f:%1.3f] (%d) %s", a1, *&v83, *&v84, *&v85, *&v86, *(v45 + 740), v82);
+        }
+      }
+
+      v87 = *(v45 + 752);
+      *(v45 + 744) = v80 + UpTicksPerSecond() / 0x3E8uLL * v87;
     }
 
-    v44 = 0;
-    ++*(v47 + 740);
-LABEL_170:
-    v2 = v89;
-LABEL_171:
-    if (v107)
+    v43 = 0;
+    ++*(v45 + 740);
+LABEL_173:
+    v2 = v95;
+LABEL_174:
+    if (v113)
     {
-      CFRelease(v107);
+      CFRelease(v113);
     }
 
-    if (v54)
+    if (v52)
     {
-      CFRelease(v54);
+      CFRelease(v52);
     }
 
-    if (!v44)
+    if (!v43)
     {
-      v3 = v45 + 1;
+      v3 = (v3 + 1);
       continue;
     }
 
     break;
   }
 
-  v84 = v44;
-LABEL_195:
-  APSLogErrorAt(v84);
-LABEL_184:
+  v89 = v43;
+LABEL_198:
+  APSLogErrorAt(v89);
+LABEL_187:
   if (cf)
   {
     CFRelease(cf);
     cf = 0;
   }
 
-LABEL_187:
+LABEL_190:
   if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 30 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_fillSBARToHighWater(APSEndpointStreamAudioHoseSBARRef)", 33554462, "[%{ptr}] Enqueued to HighWater: %d buffs\n", a1, v3);
   }
 
-  v82 = *MEMORY[0x277D85DE8];
-  return v44;
+  return v43;
 }
 
 __n128 hoseSBAR_getSynchronizerTimeForMediaTime(CMTime *a1, uint64_t a2, __n128 *a3)
@@ -2407,93 +2445,91 @@ __n128 hoseSBAR_getSynchronizerTimeForMediaTime(CMTime *a1, uint64_t a2, __n128 
   return result;
 }
 
-uint64_t hoseSBAR_configureUnderrunTrackingIfNeeded()
+uint64_t hoseSBAR_configureUnderrunTrackingIfNeeded(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v1 = DerivedStorage;
-  v2 = *(MEMORY[0x277CC08C8] + 16);
-  *&v15.start.value = *MEMORY[0x277CC08C8];
-  *&v15.start.epoch = v2;
-  *&v15.duration.timescale = *(MEMORY[0x277CC08C8] + 32);
+  v2 = DerivedStorage;
+  v3 = *(MEMORY[0x277CC08C8] + 16);
+  *&v14.start.value = *MEMORY[0x277CC08C8];
+  *&v14.start.epoch = v3;
+  *&v14.duration.timescale = *(MEMORY[0x277CC08C8] + 32);
   if ((*(DerivedStorage + 768) & 1) != 0 && (*(DerivedStorage + 792) & 1) != 0 && !*(DerivedStorage + 796) && (*(DerivedStorage + 780) & 0x8000000000000000) == 0 || (*(DerivedStorage + 396) & 1) == 0)
   {
     return 0;
   }
 
-  *&v13.start.value = *(DerivedStorage + 384);
-  v13.start.epoch = *(DerivedStorage + 400);
+  *&v12.start.value = *(DerivedStorage + 384);
+  v12.start.epoch = *(DerivedStorage + 400);
   duration = **&MEMORY[0x277CC08B0];
-  CMTimeRangeMake(&v15, &v13.start, &duration);
-  v3 = *MEMORY[0x277CBECE8];
-  v13 = v15;
-  v4 = CMTimeRangeCopyAsDictionary(&v13, v3);
-  if (!v4)
+  CMTimeRangeMake(&v14, &v12.start, &duration);
+  v4 = *MEMORY[0x277CBECE8];
+  v12 = v14;
+  v5 = CMTimeRangeCopyAsDictionary(&v12, v4);
+  if (!v5)
   {
     APSLogErrorAt(0);
     return 4294894966;
   }
 
-  v5 = v4;
-  v6 = *(v1 + 104);
-  VTable = CMBaseObjectGetVTable();
-  v8 = *(*(VTable + 8) + 56);
+  v6 = v5;
+  v7 = *(v2 + 104);
+  v8 = *(*(CMBaseObjectGetVTable() + 8) + 56);
   if (!v8)
   {
-    v10 = 4294954514;
-LABEL_12:
-    APSLogErrorAt(v10);
-    goto LABEL_13;
+    v9 = 4294954514;
+    goto LABEL_11;
   }
 
-  v9 = *(VTable + 8) + 56;
-  v10 = v8(v6, *MEMORY[0x277CD6438], v5);
-  if (v10)
+  v9 = v8(v7, *MEMORY[0x277CD6438], v6);
+  if (v9)
   {
+LABEL_11:
+    APSLogErrorAt(v9);
     goto LABEL_12;
   }
 
-  v11 = *&v15.start.epoch;
-  *(v1 + 756) = *&v15.start.value;
-  *(v1 + 772) = v11;
-  *(v1 + 788) = *&v15.duration.timescale;
-LABEL_13:
-  CFRelease(v5);
-  return v10;
+  v10 = *&v14.start.epoch;
+  *(v2 + 756) = *&v14.start.value;
+  *(v2 + 772) = v10;
+  *(v2 + 788) = *&v14.duration.timescale;
+LABEL_12:
+  CFRelease(v6);
+  return v9;
 }
 
 void hoseSBAR_purgeTimerFired()
 {
-  v77 = *MEMORY[0x277D85DE8];
-  memset(v64, 0, sizeof(v64));
-  memset(&v63, 0, sizeof(v63));
-  *&v62.value = *MEMORY[0x277CC0898];
+  v83 = *MEMORY[0x277D85DE8];
+  memset(v70, 0, sizeof(v70));
+  memset(&v69, 0, sizeof(v69));
+  *&v68.value = *MEMORY[0x277CC0898];
   v0 = *(MEMORY[0x277CC0898] + 16);
-  v62.epoch = v0;
-  *&v61.value = *&v62.value;
-  v61.epoch = v0;
-  v75 = *MEMORY[0x277CC0898];
-  v76 = *(MEMORY[0x277CC0898] + 8);
+  v68.epoch = v0;
+  *&v67.value = *&v68.value;
+  v67.epoch = v0;
+  v81 = *MEMORY[0x277CC0898];
+  v82 = *(MEMORY[0x277CC0898] + 8);
   v1 = FigCFWeakReferenceHolderCopyReferencedObject();
   if (!v1)
   {
-    goto LABEL_63;
+    goto LABEL_66;
   }
 
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   v3 = CMBaseObjectGetDerivedStorage();
-  *&time2.value = *&v62.value;
+  *&time2.value = *&v68.value;
   time2.epoch = v0;
-  *&v72.value = *&v62.value;
-  v72.epoch = v0;
-  *&v71.value = *&v62.value;
-  v71.epoch = v0;
-  *&v70.value = *&v62.value;
-  v70.epoch = v0;
-  *&v69.value = *&v62.value;
-  v69.epoch = v0;
-  v67 = 0;
+  *&v78.value = *&v68.value;
+  v78.epoch = v0;
+  *&v77.value = *&v68.value;
+  v77.epoch = v0;
+  *&v76.value = *&v68.value;
+  v76.epoch = v0;
+  *&v75.value = *&v68.value;
+  v75.epoch = v0;
+  v73 = 0;
   hostTime = 0;
-  v66 = 0uLL;
+  v72 = 0uLL;
   v4 = *(v3 + 64);
   v5 = *(*(CMBaseObjectGetVTable() + 16) + 8);
   if (!v5)
@@ -2502,16 +2538,16 @@ void hoseSBAR_purgeTimerFired()
     goto LABEL_12;
   }
 
-  v6 = v5(v4, &v66);
+  v6 = v5(v4, &v72);
   if (v6)
   {
     goto LABEL_12;
   }
 
-  *(&v66 + 1) = 0;
+  *(&v72 + 1) = 0;
   v7 = *(v3 + 64);
-  *&lhs.value = v66;
-  lhs.epoch = v67;
+  *&lhs.value = v72;
+  lhs.epoch = v73;
   v8 = *(*(CMBaseObjectGetVTable() + 16) + 24);
   if (!v8)
   {
@@ -2528,367 +2564,319 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  CMClockMakeHostTimeFromSystemUnits(&v72, hostTime);
+  CMClockMakeHostTimeFromSystemUnits(&v78, hostTime);
   HostTimeClock = CMClockGetHostTimeClock();
   v10 = *(v3 + 120);
-  time = v72;
-  CMSyncConvertTime(&v71, &time, HostTimeClock, v10);
+  time = v78;
+  CMSyncConvertTime(&v77, &time, HostTimeClock, v10);
   v11 = CMClockGetHostTimeClock();
   TimeOfDayClock = FigGetTimeOfDayClock();
-  time = v72;
-  CMSyncConvertTime(&v69, &time, v11, TimeOfDayClock);
-  time = v71;
-  hoseSBAR_getMediaTimeForSynchronizerTime(&v70, v1, &time);
-  CMTimeMakeWithSeconds(&time, v67 + *(&v66 + 1) * 5.42101086e-20, 1000);
-  lhs = v69;
+  time = v78;
+  CMSyncConvertTime(&v75, &time, v11, TimeOfDayClock);
+  time = v77;
+  hoseSBAR_getMediaTimeForSynchronizerTime(&v76, v1, &time);
+  v13 = v73 + *(&v72 + 1) * 5.42101086e-20;
+  CMTimeMakeWithSeconds(&time, v13, 1000);
+  lhs = v75;
   CMTimeSubtract(&time2, &lhs, &time);
   if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
   {
-    time = v71;
-    CMTimeGetSeconds(&time);
-    time = v70;
-    CMTimeGetSeconds(&time);
-    time = v69;
-    CMTimeGetSeconds(&time);
+    time = v77;
+    Seconds = CMTimeGetSeconds(&time);
+    time = v76;
+    v15 = CMTimeGetSeconds(&time);
+    time = v75;
+    v16 = CMTimeGetSeconds(&time);
     time = time2;
-    CMTimeGetSeconds(&time);
-    LogPrintF();
+    v17 = CMTimeGetSeconds(&time);
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_performSynchronizationDebugLogging(APSEndpointStreamAudioHoseSBARRef)", 33554482, "[%{ptr}] Network Time: %1.6f; SynchronizerTime: %1.6f; mediaTime: %1.6f; wallClockTime: %1.6f; wallVsNetDiff(should be similar for all playing devices): %1.6f;", v1, *&v13, *&Seconds, *&v15, *&v16, *&v17);
   }
 
 LABEL_13:
-  v13 = *(DerivedStorage + 120);
   CMTimebaseGetTimeWithLogging();
   CMBufferQueueGetDuration(&time, *(DerivedStorage + 656));
-  CMTimeGetSeconds(&time);
-  if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
+  v18 = CMTimeGetSeconds(&time);
+  if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50)
   {
-    CMTimebaseGetRate(*(DerivedStorage + 120));
-    time = v64[1];
-    CMTimeGetSeconds(&time);
-    LogPrintF();
+    v19 = v18;
+    if (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize())
+    {
+      v20 = v19;
+      v21 = *(DerivedStorage + 120);
+      Rate = CMTimebaseGetRate(v21);
+      time = v70[1];
+      v23 = CMTimeGetSeconds(&time);
+      LODWORD(v24) = ((((v20 / 120.0) * 100.0) / -100.0 + 1.0) * 50.0) & ~(((((v20 / 120.0) * 100.0) / -100.0 + 1.0) * 50.0) >> 31);
+      if (v24 >= 50)
+      {
+        v24 = 50;
+      }
+
+      else
+      {
+        v24 = v24;
+      }
+
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_purgeTimerFired(void *)", 33554482, "[%{ptr}] synchronizerTimebase: %p synchronizerRate: %1.1f nowSynchronizerTime: %1.3f BufferedMSecs (%d) BufferedSecs (%3.3f) %s\n", v1, v21, *&Rate, *&v23, (v20 * 1000.0), v20, &asc_222352949[v24]);
+    }
   }
 
   hoseSBAR_maybeTriggerPullAudioBBuffs(v1);
   if (CMTimebaseGetRate(*(DerivedStorage + 120)) == 0.0)
   {
     APSLogErrorAt(0);
-LABEL_63:
-    v27 = 0;
-LABEL_64:
-    v32 = 0;
-    v33 = 0;
-    v34 = 0;
-    v35 = 0;
-    goto LABEL_40;
+LABEL_66:
+    v42 = 0;
+LABEL_67:
+    v47 = 0;
+    v48 = 0;
+    v49 = 0;
+    v50 = 0;
+    goto LABEL_43;
   }
 
-  v64[0] = v64[1];
-  time2 = v64[1];
+  v70[0] = v70[1];
+  time2 = v70[1];
   hoseSBAR_getMediaTimeForSynchronizerTime(&time, v1, &time2);
   value = time.value;
   timescale = time.timescale;
   flags = time.flags;
   epoch = time.epoch;
   CMTimeMake(&time, 1, 1);
-  time2 = v64[1];
-  CMTimeAdd(&v63, &time2, &time);
+  time2 = v70[1];
+  CMTimeAdd(&v69, &time2, &time);
   if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 30 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
   {
-    v18 = *(DerivedStorage + 656);
-    v19 = epoch;
-    v20 = *(DerivedStorage + 664);
-    time = v64[1];
-    CMTimeGetSeconds(&time);
-    CMTimebaseGetRate(*(DerivedStorage + 120));
-    time = v64[0];
-    CMTimeGetSeconds(&time);
-    time = v63;
-    CMTimeGetSeconds(&time);
-    epoch = v19;
-    LogPrintF();
+    v29 = *(DerivedStorage + 656);
+    v30 = epoch;
+    v31 = *(DerivedStorage + 664);
+    time = v70[1];
+    v32 = CMTimeGetSeconds(&time);
+    v33 = CMTimebaseGetRate(*(DerivedStorage + 120));
+    time = v70[0];
+    v34 = CMTimeGetSeconds(&time);
+    time = v69;
+    v35 = CMTimeGetSeconds(&time);
+    v60 = v31;
+    epoch = v30;
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_purgeTimerFired(void *)", 33554462, "[%{ptr}] Purging the bufferStash [%{ptr}] and buffersForSBAR [%{ptr}]; nowSynchronizer: %1.3f; rate: %1.3f purgeUntil: %1.3f; purgeUntilMedia: %lld/%d; scheduling for %1.3f", v1, v29, v60, *&v32, *&v33, *&v34, value, timescale, *&v35);
   }
 
-  if ((flags & 1) == 0)
+  if (flags & 1) == 0 || (v36 = *(DerivedStorage + 656), time.value = value, time.timescale = timescale, time.flags = flags, time.epoch = epoch, hoseSBAR_pruneBufferQueueToTimestamp(v1, &time, v36), v37 = *(DerivedStorage + 664), time.value = value, time.timescale = timescale, time.flags = flags, time.epoch = epoch, hoseSBAR_pruneBufferQueueToTimestamp(v1, &time, v37), CMBufferQueueGetEndPresentationTimeStamp(&time, *(DerivedStorage + 664)), v81 = time.value, v38 = time.flags, v82 = time.timescale, (time.flags & 1) == 0) || (v39 = time.epoch, time.value = value, time.timescale = timescale, time.flags = flags, time.epoch = epoch, time2.value = v81, time2.timescale = v82, time2.flags = v38, time2.epoch = v39, (CMTimeCompare(&time, &time2) & 0x80000000) == 0) || (*(DerivedStorage + 840))
   {
-    goto LABEL_38;
-  }
-
-  v21 = *(DerivedStorage + 656);
-  time.value = value;
-  time.timescale = timescale;
-  time.flags = flags;
-  time.epoch = epoch;
-  hoseSBAR_pruneBufferQueueToTimestamp(v1, &time, v21);
-  v22 = *(DerivedStorage + 664);
-  time.value = value;
-  time.timescale = timescale;
-  time.flags = flags;
-  time.epoch = epoch;
-  hoseSBAR_pruneBufferQueueToTimestamp(v1, &time, v22);
-  CMBufferQueueGetEndPresentationTimeStamp(&time, *(DerivedStorage + 664));
-  v75 = time.value;
-  v23 = time.flags;
-  v76 = time.timescale;
-  if ((time.flags & 1) == 0)
-  {
-    goto LABEL_38;
-  }
-
-  v24 = time.epoch;
-  time.value = value;
-  time.timescale = timescale;
-  time.flags = flags;
-  time.epoch = epoch;
-  time2.value = v75;
-  time2.timescale = v76;
-  time2.flags = v23;
-  time2.epoch = v24;
-  if (CMTimeCompare(&time, &time2) & 0x80000000) == 0 || (*(DerivedStorage + 840))
-  {
-LABEL_38:
-    v27 = 0;
-    v32 = 0;
-    v33 = 0;
-    v34 = 0;
-    v35 = 0;
-LABEL_39:
+    v42 = 0;
+    v47 = 0;
+    v48 = 0;
+    v49 = 0;
+    v50 = 0;
+LABEL_42:
     hoseSBAR_updateBufferingPriority(v1);
-    v36 = *(DerivedStorage + 120);
-    v37 = *(DerivedStorage + 648);
-    time = v63;
-    CMTimebaseSetTimerDispatchSourceNextFireTime(v36, v37, &time, 0);
-    goto LABEL_40;
+    v51 = *(DerivedStorage + 120);
+    v52 = *(DerivedStorage + 648);
+    time = v69;
+    CMTimebaseSetTimerDispatchSourceNextFireTime(v51, v52, &time, 0);
+    goto LABEL_43;
   }
 
   Count = CFDictionaryGetCount(*(DerivedStorage + 944));
   if (Count < 1)
   {
-    v31 = &unk_27D00A000;
-    v60 = 0;
-    v27 = 0;
-    goto LABEL_48;
+    v46 = &unk_27D00A000;
+    v66 = 0;
+    v42 = 0;
+    goto LABEL_51;
   }
 
-  v26 = Count;
-  v27 = malloc_type_calloc(Count, 8uLL, 0x6004044C4A2DFuLL);
-  if (!v27 || (v28 = malloc_type_calloc(v26, 8uLL, 0x6004044C4A2DFuLL)) == 0)
+  v41 = Count;
+  v42 = malloc_type_calloc(Count, 8uLL, 0x6004044C4A2DFuLL);
+  if (!v42 || (v43 = malloc_type_calloc(v41, 8uLL, 0x6004044C4A2DFuLL)) == 0)
   {
     APSLogErrorAt(0);
-    goto LABEL_64;
+    goto LABEL_67;
   }
 
-  v29 = v27;
-  v60 = v28;
-  CFDictionaryGetKeysAndValues(*(DerivedStorage + 944), v27, v28);
-  for (i = 0; i != v26; ++i)
+  v44 = v42;
+  v66 = v43;
+  CFDictionaryGetKeysAndValues(*(DerivedStorage + 944), v42, v43);
+  for (i = 0; i != v41; ++i)
   {
-    CMTimeMakeFromDictionary(&v62, v60[i]);
+    CMTimeMakeFromDictionary(&v68, v66[i]);
     time.value = value;
     time.timescale = timescale;
     time.flags = flags;
     time.epoch = epoch;
-    time2 = v62;
+    time2 = v68;
     if ((CMTimeCompare(&time, &time2) & 0x80000000) == 0)
     {
       if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
       {
-        v53 = v29[i];
-        LogPrintF();
+        LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_purgeTimerFired(void *)", 33554482, "Purge magic cookie with magicCookieID: %@", v44[i]);
       }
 
-      CFDictionaryRemoveValue(*(DerivedStorage + 952), v29[i]);
-      CFDictionaryRemoveValue(*(DerivedStorage + 944), v29[i]);
+      CFDictionaryRemoveValue(*(DerivedStorage + 952), v44[i]);
+      CFDictionaryRemoveValue(*(DerivedStorage + 944), v44[i]);
     }
   }
 
-  v31 = &unk_27D00A000;
-  v27 = v29;
-LABEL_48:
-  v39 = CFDictionaryGetCount(*(DerivedStorage + 936));
-  if (v39 < 1)
+  v46 = &unk_27D00A000;
+  v42 = v44;
+LABEL_51:
+  v53 = CFDictionaryGetCount(*(DerivedStorage + 936));
+  if (v53 < 1)
   {
-    v32 = 0;
-    v34 = 0;
-    v35 = 0;
-    v33 = v60;
-    goto LABEL_39;
+    v47 = 0;
+    v49 = 0;
+    v50 = 0;
+    v48 = v66;
+    goto LABEL_42;
   }
 
-  v40 = v39;
-  keys = malloc_type_calloc(v39, 8uLL, 0x6004044C4A2DFuLL);
+  v54 = v53;
+  keys = malloc_type_calloc(v53, 8uLL, 0x6004044C4A2DFuLL);
   if (keys)
   {
-    v55 = v27;
-    v58 = v40;
-    v41 = malloc_type_calloc(v40, 8uLL, 0x6004044C4A2DFuLL);
-    if (v41)
+    v61 = v42;
+    v64 = v54;
+    v55 = malloc_type_calloc(v54, 8uLL, 0x6004044C4A2DFuLL);
+    if (v55)
     {
-      v42 = v31;
-      v32 = keys;
-      v59 = v41;
-      CFDictionaryGetKeysAndValues(*(DerivedStorage + 936), keys, v41);
-      v35 = 0;
-      v43 = 0;
+      v56 = v46;
+      v47 = keys;
+      v65 = v55;
+      CFDictionaryGetKeysAndValues(*(DerivedStorage + 936), keys, v55);
+      v50 = 0;
+      v57 = 0;
       allocator = *MEMORY[0x277CBECE8];
       while (1)
       {
-        CMTimeMakeFromDictionary(&v61, v59[v43]);
+        CMTimeMakeFromDictionary(&v67, v65[v57]);
         time.value = value;
         time.timescale = timescale;
         time.flags = flags;
         time.epoch = epoch;
-        time2 = v61;
+        time2 = v67;
         if ((CMTimeCompare(&time, &time2) & 0x80000000) == 0)
         {
-          v44 = v42[164];
-          if (v44 <= 50 && (v44 != -1 || _LogCategory_Initialize()))
+          v58 = v56[164];
+          if (v58 <= 50 && (v58 != -1 || _LogCategory_Initialize()))
           {
-            v54 = v32[v43];
-            LogPrintF();
+            LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_purgeTimerFired(void *)", 33554482, "Purge old cryptor with cryptorID: %@", v47[v57]);
           }
 
           Mutable = CFDictionaryCreateMutable(allocator, 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-          v35 = Mutable;
+          v50 = Mutable;
           if (!Mutable)
           {
             APSLogErrorAt(0);
-            v27 = v55;
-            v34 = v59;
-            v33 = v60;
-            goto LABEL_40;
+            v42 = v61;
+            v49 = v65;
+            v48 = v66;
+            goto LABEL_43;
           }
 
-          CFDictionarySetValue(Mutable, @"CryptorID", v32[v43]);
-          v46 = epoch;
-          v47 = flags;
-          v48 = v1;
-          v49 = timescale;
-          v50 = value;
-          v51 = v42;
-          v52 = *(DerivedStorage + 8);
+          CFDictionarySetValue(Mutable, @"CryptorID", v47[v57]);
           CMNotificationCenterGetDefaultLocalCenter();
-          v42 = v51;
-          value = v50;
-          timescale = v49;
-          v1 = v48;
-          flags = v47;
-          epoch = v46;
-          v32 = keys;
+          v47 = keys;
           FigDispatchAsyncPostNotification();
-          CFDictionaryRemoveValue(*(DerivedStorage + 928), keys[v43]);
-          CFDictionaryRemoveValue(*(DerivedStorage + 936), keys[v43]);
+          CFDictionaryRemoveValue(*(DerivedStorage + 928), keys[v57]);
+          CFDictionaryRemoveValue(*(DerivedStorage + 936), keys[v57]);
         }
 
-        if (v58 == ++v43)
+        if (v64 == ++v57)
         {
-          v27 = v55;
-          v34 = v59;
-          v33 = v60;
-          goto LABEL_39;
+          v42 = v61;
+          v49 = v65;
+          v48 = v66;
+          goto LABEL_42;
         }
       }
     }
 
     APSLogErrorAt(0);
-    v34 = 0;
-    v35 = 0;
-    v33 = v60;
-    v32 = keys;
+    v49 = 0;
+    v50 = 0;
+    v48 = v66;
+    v47 = keys;
   }
 
   else
   {
     APSLogErrorAt(0);
-    v32 = 0;
-    v34 = 0;
-    v35 = 0;
-    v33 = v60;
+    v47 = 0;
+    v49 = 0;
+    v50 = 0;
+    v48 = v66;
   }
 
-LABEL_40:
-  free(v27);
-  free(v32);
-  free(v33);
-  free(v34);
+LABEL_43:
+  free(v42);
+  free(v47);
+  free(v48);
+  free(v49);
   if (v1)
   {
     CFRelease(v1);
   }
 
-  if (v35)
+  if (v50)
   {
-    CFRelease(v35);
+    CFRelease(v50);
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void hoseSBAR_maybeTriggerPullAudioBBuffs(void *a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  if (*DerivedStorage)
+  if (!*DerivedStorage)
   {
-    return;
-  }
-
-  v3 = DerivedStorage;
-  if (!*(DerivedStorage + 457))
-  {
-    if (gLogCategory_APSEndpointStreamAudioHoseSBAR > 30 || gLogCategory_APSEndpointStreamAudioHoseSBAR == -1 && !_LogCategory_Initialize())
+    v3 = DerivedStorage;
+    if (*(DerivedStorage + 457))
     {
-      return;
+      if (*(DerivedStorage + 460))
+      {
+        if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 30 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
+        {
+          LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_maybeTriggerPullAudioBBuffs(APSEndpointStreamAudioHoseSBARRef)", 33554462, "[%{ptr}] flush from time in flight\n", a1);
+        }
+      }
+
+      else
+      {
+        CFRetain(a1);
+        v4 = *(v3 + 352);
+
+        dispatch_async_f(v4, a1, hoseSBAR_pullAudioBBuffsDispatchFunction);
+      }
     }
 
-LABEL_12:
-    LogPrintF();
-    return;
-  }
-
-  if (*(DerivedStorage + 460))
-  {
-    if (gLogCategory_APSEndpointStreamAudioHoseSBAR > 30 || gLogCategory_APSEndpointStreamAudioHoseSBAR == -1 && !_LogCategory_Initialize())
+    else if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 30 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
     {
-      return;
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_maybeTriggerPullAudioBBuffs(APSEndpointStreamAudioHoseSBARRef)", 33554462, "[%{ptr}] no data from audio engine: no kick", a1);
     }
-
-    goto LABEL_12;
   }
-
-  CFRetain(a1);
-  v4 = *(v3 + 352);
-
-  dispatch_async_f(v4, a1, hoseSBAR_pullAudioBBuffsDispatchFunction);
 }
 
 void hoseSBAR_pruneBufferQueueToTimestamp(uint64_t a1, uint64_t a2, opaqueCMBufferQueue *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   CMBaseObjectGetDerivedStorage();
-  if ((*(a2 + 12) & 1) == 0)
+  if ((*(a2 + 12) & 1) == 0 || !a3)
   {
-    v11 = *MEMORY[0x277D85DE8];
-LABEL_29:
 
     APSLogErrorAt(0);
     return;
   }
 
-  if (!a3)
+  v6 = CMBufferQueueCopyHead(a3);
+  if (!v6)
   {
-    v12 = *MEMORY[0x277D85DE8];
-    goto LABEL_29;
+    return;
   }
 
-  v5 = CMBufferQueueCopyHead(a3);
-  if (!v5)
-  {
-    goto LABEL_21;
-  }
-
-  v6 = v5;
+  v7 = v6;
   while (1)
   {
-    CMSampleBufferGetOutputPresentationTimeStamp(&time, v6);
+    CMSampleBufferGetOutputPresentationTimeStamp(&time, v7);
     value = time.value;
     flags = time.flags;
     timescale = time.timescale;
@@ -2899,9 +2887,9 @@ LABEL_29:
     }
 
     CMBufferQueueGetMinPresentationTimeStamp(&time, a3);
-    v15 = time.value;
+    v16 = time.value;
     flags = time.flags;
-    v16 = time.timescale;
+    v17 = time.timescale;
     if ((time.flags & 1) == 0)
     {
       break;
@@ -2910,16 +2898,16 @@ LABEL_29:
     epoch = time.epoch;
     if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 30 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
     {
-      time.value = v15;
-      time.timescale = v16;
+      time.value = v16;
+      time.timescale = v17;
       time.flags = flags;
       time.epoch = epoch;
-      CMTimeGetSeconds(&time);
-      LogPrintF();
+      Seconds = CMTimeGetSeconds(&time);
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_pruneBufferQueueToTimestamp(APSEndpointStreamAudioHoseSBARRef, CMTime, CMBufferQueueRef)", 33554462, "[%{ptr}] sbuf in bufferQueue [%{ptr}] has invalid PTS. Setting currentOPTS to minOPTS: %1.3f. Sbuf: %@", a1, a3, *&Seconds, v7);
     }
 
-    value = v15;
-    timescale = v16;
+    value = v16;
+    timescale = v17;
 LABEL_13:
     time = *a2;
     time2.value = value;
@@ -2937,48 +2925,46 @@ LABEL_13:
       time.timescale = timescale;
       time.flags = flags;
       time.epoch = epoch;
-      CMTimeGetSeconds(&time);
+      v11 = CMTimeGetSeconds(&time);
       time = *a2;
-      CMTimeGetSeconds(&time);
-      LogPrintF();
+      v12 = CMTimeGetSeconds(&time);
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_pruneBufferQueueToTimestamp(APSEndpointStreamAudioHoseSBARRef, CMTime, CMBufferQueueRef)", 33554462, "[%{ptr}] pruning sbuf from bufferQueue [%{ptr}] because currentOPTS %1.3f <= inPruneTimestamp %1.3f. Sbuf: %@", a1, a3, *&v11, *&v12, v7);
     }
 
-    v9 = CMBufferQueueDequeueAndRetain(a3);
-    if (v9)
+    v13 = CMBufferQueueDequeueAndRetain(a3);
+    if (v13)
     {
-      CFRelease(v9);
+      CFRelease(v13);
     }
 
-    CFRelease(v6);
-    v6 = CMBufferQueueCopyHead(a3);
-    if (!v6)
+    CFRelease(v7);
+    v7 = CMBufferQueueCopyHead(a3);
+    if (!v7)
     {
-      goto LABEL_21;
+      return;
     }
   }
 
   if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 30 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_pruneBufferQueueToTimestamp(APSEndpointStreamAudioHoseSBARRef, CMTime, CMBufferQueueRef)", 33554462, "[%{ptr}] bufferQueue [%{ptr}] has no valid minimum PTS.", a1, a3);
   }
 
 LABEL_26:
-  CFRelease(v6);
-LABEL_21:
-  v10 = *MEMORY[0x277D85DE8];
+  CFRelease(v7);
 }
 
 uint64_t hoseSBAR_updateBufferingPriority(const void *a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  memset(&v11, 0, sizeof(v11));
-  CMTimebaseGetTime(&v11, *(DerivedStorage + 120));
-  v10 = **&MEMORY[0x277CC08A0];
+  memset(&v9, 0, sizeof(v9));
+  CMTimebaseGetTime(&v9, *(DerivedStorage + 120));
+  v8 = **&MEMORY[0x277CC08A0];
   if (*(DerivedStorage + 420))
   {
     lhs = *(DerivedStorage + 408);
-    v8 = v11;
-    CMTimeSubtract(&v10, &lhs, &v8);
+    v6 = v9;
+    CMTimeSubtract(&v8, &lhs, &v6);
   }
 
   if (hoseSBAR_getBufferingPriorityThreshold_sHoseSBARBufferingPriorityThresholdOnce != -1)
@@ -2987,8 +2973,8 @@ uint64_t hoseSBAR_updateBufferingPriority(const void *a1)
   }
 
   lhs = *hoseSBAR_getBufferingPriorityThreshold_sHoseSBARBufferingPriorityThreshold;
-  v8 = v10;
-  if (CMTimeCompare(&v8, &lhs) < 0)
+  v6 = v8;
+  if (CMTimeCompare(&v6, &lhs) < 0)
   {
     v3 = 36;
   }
@@ -2998,7 +2984,6 @@ uint64_t hoseSBAR_updateBufferingPriority(const void *a1)
     v3 = 37;
   }
 
-  v4 = *(DerivedStorage + 288);
   FigSimpleMutexLock();
   if (*(DerivedStorage + 308) != v3)
   {
@@ -3007,7 +2992,6 @@ uint64_t hoseSBAR_updateBufferingPriority(const void *a1)
     APSCMNotificationCenterPostNotificationAsync(DefaultLocalCenter, @"BufferingPriorityChanged", a1, 0, 0, *(DerivedStorage + 8), QOS_CLASS_USER_INITIATED);
   }
 
-  v6 = *(DerivedStorage + 288);
   return FigSimpleMutexUnlock();
 }
 
@@ -3025,351 +3009,346 @@ void hoseSBAR_pullAudioBBuffsDispatchFunction(const void *a1)
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (*DerivedStorage)
   {
-    goto LABEL_84;
+    goto LABEL_83;
   }
 
   v3 = DerivedStorage;
-  if (!*(DerivedStorage + 457))
+  if (*(DerivedStorage + 457))
   {
-    if (gLogCategory_APSEndpointStreamAudioHoseSBAR > 30 || gLogCategory_APSEndpointStreamAudioHoseSBAR == -1 && !_LogCategory_Initialize())
+    if (*(DerivedStorage + 460))
     {
-      goto LABEL_84;
-    }
-
-LABEL_93:
-    LogPrintF();
-    goto LABEL_84;
-  }
-
-  if (*(DerivedStorage + 460))
-  {
-    if (gLogCategory_APSEndpointStreamAudioHoseSBAR > 30 || gLogCategory_APSEndpointStreamAudioHoseSBAR == -1 && !_LogCategory_Initialize())
-    {
-      goto LABEL_84;
-    }
-
-    goto LABEL_93;
-  }
-
-  if (hoseSBAR_hoseIsAboveHighWater())
-  {
-    if (gLogCategory_APSEndpointStreamAudioHoseSBAR > 30 || gLogCategory_APSEndpointStreamAudioHoseSBAR == -1 && !_LogCategory_Initialize())
-    {
-      goto LABEL_84;
-    }
-
-    goto LABEL_93;
-  }
-
-  v36 = v3;
-  if (!*(CMBaseObjectGetDerivedStorage() + 488))
-  {
-    if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
-    {
-      LogPrintF();
-    }
-
-    goto LABEL_81;
-  }
-
-  v4 = 0;
-  allocator = *MEMORY[0x277CBECE8];
-  v5 = *MEMORY[0x277CC1968];
-  v6 = MEMORY[0x277CC0898];
-LABEL_7:
-  while (!hoseSBAR_hoseIsAboveHighWater())
-  {
-    if (v4)
-    {
-      CFRelease(v4);
-    }
-
-    v7 = CMBaseObjectGetDerivedStorage();
-    *theArray = 0;
-    if (!*(v7 + 488))
-    {
-      if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 30 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
       {
-LABEL_22:
-        LogPrintF();
-      }
-
-LABEL_24:
-      v4 = 0;
-      goto LABEL_25;
-    }
-
-    v8 = v7;
-    v9 = *(v7 + 464);
-    if (v9)
-    {
-      Count = CFArrayGetCount(v9);
-      MutableCopy = *(v8 + 464);
-      if (Count)
-      {
-        goto LABEL_18;
-      }
-
-      if (MutableCopy)
-      {
-        CFRelease(MutableCopy);
-        *(v8 + 464) = 0;
+        LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_pullAudioBBuffsDispatchFunction(void *)", 33554462, "[%{ptr}] flush from time in flight\n", a1);
       }
     }
 
-    (*(*(v8 + 488) + 8))(*(v8 + 496), a1, theArray, 0);
-    if (!*theArray || !CFArrayGetCount(*theArray))
+    else
     {
-      *(v8 + 457) = 0;
-      if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 10 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
+      if (!hoseSBAR_hoseIsAboveHighWater(a1))
       {
-        goto LABEL_22;
-      }
+        v28 = v3;
+        if (!*(CMBaseObjectGetDerivedStorage() + 488))
+        {
+          if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
+          {
+            LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_pullAudioBBuffsInternal(APSEndpointStreamAudioHoseSBARRef)", 33554482, "[%{ptr}] No callbacks", a1);
+          }
 
-      goto LABEL_24;
-    }
+          goto LABEL_80;
+        }
 
-    MutableCopy = CFArrayCreateMutableCopy(allocator, 0, *theArray);
-    *(v8 + 464) = MutableCopy;
-    if (!MutableCopy)
-    {
-      APSLogErrorAt(0);
-      goto LABEL_24;
-    }
-
-LABEL_18:
-    ValueAtIndex = CFArrayGetValueAtIndex(MutableCopy, 0);
-    v4 = CFRetain(ValueAtIndex);
-    if (v4)
-    {
-      v13 = *(v8 + 288);
-      FigSimpleMutexLock();
-      *(v8 + 320) = 1;
-      v14 = *(v8 + 288);
-      FigSimpleMutexUnlock();
-      CFArrayRemoveValueAtIndex(*(v8 + 464), 0);
-    }
-
-LABEL_25:
-    if (*theArray)
-    {
-      CFRelease(*theArray);
-    }
-
-    if (!v4)
-    {
-      goto LABEL_81;
-    }
-
-    v15 = CMBaseObjectGetDerivedStorage();
-    v41[0] = 0;
-    memset(theArray, 0, sizeof(theArray));
-    v39 = *v6;
-    v16 = *(CMBaseObjectGetDerivedStorage() + 32);
-    if (FigCFEqual())
-    {
-      v17 = *(CMBaseObjectGetDerivedStorage() + 712);
-      (*(*(v15 + 96) + 8))(a1, v4, theArray, v41);
-      *v38 = *theArray;
-      *&v38[12] = *&theArray[12];
-      hoseSBAR_getMediaTimeForTransportTime(&v39, a1, v38);
-      if (v17)
-      {
-        v18 = 1;
+        v4 = 0;
+        allocator = *MEMORY[0x277CBECE8];
+        v5 = MEMORY[0x277CC0898];
         while (1)
         {
-          if (v17[16] == 1)
+LABEL_7:
+          if (hoseSBAR_hoseIsAboveHighWater(a1))
           {
-            v19 = *(v17 + 5);
-            if (((v19 - v41[0]) & 0x800000) == 0 && ((v19 ^ v41[0]) & 0xFFFFFF) != 0)
+            v26 = 0;
+            if (!v4)
             {
-              break;
+              goto LABEL_79;
             }
 
-            v20 = *(v17 + 13);
-            if (((v20 - v41[0]) & 0x800000) == 0 && ((v20 ^ v41[0]) & 0xFFFFFF) != 0)
+LABEL_78:
+            CFRelease(v4);
+LABEL_79:
+            if (v26)
             {
-              if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 30)
-              {
-                if (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1)
-                {
-                  goto LABEL_64;
-                }
+              started = v26;
+            }
 
-                if (_LogCategory_Initialize())
+            else
+            {
+LABEL_80:
+              if (*(v28 + 282) || (started = hoseSBAR_startTheSynchronizerIfNecessary(a1, 1), !started))
+              {
+                started = hoseSBAR_fillSBARToHighWater(a1);
+                if (!started)
                 {
-                  v32 = *(v17 + 5);
-                  v33 = *(v17 + 13);
-                  goto LABEL_64;
+                  goto LABEL_83;
                 }
               }
-
-              goto LABEL_7;
             }
 
-            if (((v20 + 20 - v41[0]) & 0x800000) != 0 || (((v20 + 20) ^ v41[0]) & 0xFFFFFF) == 0)
+            APSLogErrorAt(started);
+            goto LABEL_83;
+          }
+
+          if (v4)
+          {
+            CFRelease(v4);
+          }
+
+          v6 = CMBaseObjectGetDerivedStorage();
+          *theArray = 0;
+          if (!*(v6 + 488))
+          {
+            if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
             {
-              if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50)
-              {
-                if (gLogCategory_APSEndpointStreamAudioHoseSBAR == -1)
-                {
-                  if (!_LogCategory_Initialize())
-                  {
-                    goto LABEL_55;
-                  }
-
-                  v28 = *(v17 + 5);
-                  v29 = *(v17 + 13);
-                }
-
-                *v38 = v39;
-LABEL_51:
-                LogPrintF();
-                goto LABEL_55;
-              }
-
-              goto LABEL_55;
+              LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "CMBlockBufferRef hoseSBAR_copyAndDequeueNextAudioBBuff(APSEndpointStreamAudioHoseSBARRef)", 33554482, "[%{ptr}] No callbacks", a1);
             }
 
-LABEL_45:
-            if ((v18 & 1) == 0)
+            goto LABEL_24;
+          }
+
+          v7 = v6;
+          v8 = *(v6 + 464);
+          if (v8)
+          {
+            Count = CFArrayGetCount(v8);
+            MutableCopy = *(v7 + 464);
+            if (Count)
             {
-              goto LABEL_55;
+              goto LABEL_18;
             }
 
-            v17 = *v17;
-            v18 = 1;
-            if (!v17)
+            if (MutableCopy)
             {
-              break;
+              CFRelease(MutableCopy);
+              *(v7 + 464) = 0;
             }
           }
 
-          else
+          (*(*(v7 + 488) + 8))(*(v7 + 496), a1, theArray, 0);
+          if (!*theArray || !CFArrayGetCount(*theArray))
           {
-            v21 = *(v17 + 13);
-            if (((v21 - v41[0]) & 0x800000) == 0 && ((v21 ^ v41[0]) & 0xFFFFFF) != 0)
+            *(v7 + 457) = 0;
+            if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 10 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
             {
-              if (gLogCategory_APSEndpointStreamAudioHoseSBAR > 30)
-              {
-                goto LABEL_7;
-              }
-
-              if (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1)
-              {
-                goto LABEL_64;
-              }
-
-              if (_LogCategory_Initialize())
-              {
-                v31 = *(v17 + 13);
-LABEL_64:
-                LogPrintF();
-                goto LABEL_7;
-              }
-
-              goto LABEL_7;
+              LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "CMBlockBufferRef hoseSBAR_copyAndDequeueNextAudioBBuff(APSEndpointStreamAudioHoseSBARRef)", 33554442, "[%{ptr}] No data from Audio Engine", a1);
             }
 
-            if (((v21 + 20 - v41[0]) & 0x800000) == 0 && (((v21 + 20) ^ v41[0]) & 0xFFFFFF) != 0)
-            {
-              goto LABEL_45;
-            }
+            goto LABEL_24;
+          }
 
-            if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50)
+          MutableCopy = CFArrayCreateMutableCopy(allocator, 0, *theArray);
+          *(v7 + 464) = MutableCopy;
+          if (!MutableCopy)
+          {
+            APSLogErrorAt(0);
+LABEL_24:
+            v4 = 0;
+            goto LABEL_25;
+          }
+
+LABEL_18:
+          ValueAtIndex = CFArrayGetValueAtIndex(MutableCopy, 0);
+          v4 = CFRetain(ValueAtIndex);
+          if (v4)
+          {
+            FigSimpleMutexLock();
+            *(v7 + 320) = 1;
+            FigSimpleMutexUnlock();
+            CFArrayRemoveValueAtIndex(*(v7 + 464), 0);
+          }
+
+LABEL_25:
+          if (*theArray)
+          {
+            CFRelease(*theArray);
+          }
+
+          if (!v4)
+          {
+            goto LABEL_80;
+          }
+
+          v12 = CMBaseObjectGetDerivedStorage();
+          v33[0] = 0;
+          memset(theArray, 0, sizeof(theArray));
+          v31 = *v5;
+          CMBaseObjectGetDerivedStorage();
+          if (FigCFEqual())
+          {
+            v13 = *(CMBaseObjectGetDerivedStorage() + 712);
+            (*(*(v12 + 96) + 8))(a1, v4, theArray, v33);
+            *v30 = *theArray;
+            *&v30[12] = *&theArray[12];
+            hoseSBAR_getMediaTimeForTransportTime(&v31, a1, v30);
+            if (v13)
             {
-              if (gLogCategory_APSEndpointStreamAudioHoseSBAR == -1)
+              v14 = 1;
+              while (1)
               {
-                if (!_LogCategory_Initialize())
+                v15 = v33[0];
+                if (v13[16] == 1)
                 {
-                  goto LABEL_55;
+                  v16 = *(v13 + 5);
+                  if (((v16 - v33[0]) & 0x800000) == 0 && ((v16 ^ v33[0]) & 0xFFFFFF) != 0)
+                  {
+                    break;
+                  }
+
+                  v17 = *(v13 + 13);
+                  if (((v17 - v33[0]) & 0x800000) == 0 && ((v17 ^ v33[0]) & 0xFFFFFF) != 0)
+                  {
+                    if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 30)
+                    {
+                      if (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1)
+                      {
+                        goto LABEL_66;
+                      }
+
+                      if (_LogCategory_Initialize())
+                      {
+                        v15 = v33[0];
+                        v16 = *(v13 + 5);
+                        v17 = *(v13 + 13);
+LABEL_66:
+                        LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "Boolean hoseSBAR_processFlushesOnIncomingBBuf(APSEndpointStreamAudioHoseSBARRef, CMBlockBufferRef)", 33554462, "[%{ptr}] Process FlushWithinRange [%{ptr}] -- discarding packet with Seq: %u, FlushFromSeq: %u, FlushUntilSeq: %u", a1, v13, v15, v16, v17);
+                      }
+                    }
+
+                    goto LABEL_7;
+                  }
+
+                  if (((v17 + 20 - v33[0]) & 0x800000) != 0 || (((v17 + 20) ^ v33[0]) & 0xFFFFFF) == 0)
+                  {
+                    if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50)
+                    {
+                      if (gLogCategory_APSEndpointStreamAudioHoseSBAR == -1)
+                      {
+                        if (!_LogCategory_Initialize())
+                        {
+                          goto LABEL_54;
+                        }
+
+                        v15 = v33[0];
+                        v16 = *(v13 + 5);
+                        v17 = *(v13 + 13);
+                      }
+
+                      *v30 = v31;
+                      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "Boolean hoseSBAR_processFlushesOnIncomingBBuf(APSEndpointStreamAudioHoseSBARRef, CMBlockBufferRef)", 33554482, "[%{ptr}] Discarding FlushWithinRage operation [%{ptr}] at Seq: %u, Timestamap: %1.6f FlushFromSeq: %u, FlushUntilSeq: %u", a1, v13, v15, v30, v16, v17);
+                    }
+
+                    goto LABEL_54;
+                  }
+
+LABEL_45:
+                  if ((v14 & 1) == 0)
+                  {
+                    goto LABEL_54;
+                  }
+
+                  v13 = *v13;
+                  v14 = 1;
+                  if (!v13)
+                  {
+                    break;
+                  }
                 }
 
-                v22 = *(v17 + 13);
+                else
+                {
+                  v18 = *(v13 + 13);
+                  if (((v18 - v33[0]) & 0x800000) == 0 && ((v18 ^ v33[0]) & 0xFFFFFF) != 0)
+                  {
+                    if (gLogCategory_APSEndpointStreamAudioHoseSBAR > 30)
+                    {
+                      goto LABEL_7;
+                    }
+
+                    if (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1)
+                    {
+                      goto LABEL_63;
+                    }
+
+                    if (_LogCategory_Initialize())
+                    {
+                      v15 = v33[0];
+                      v18 = *(v13 + 13);
+LABEL_63:
+                      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "Boolean hoseSBAR_processFlushesOnIncomingBBuf(APSEndpointStreamAudioHoseSBARRef, CMBlockBufferRef)", 33554462, "[%{ptr}] Process Flush [%{ptr}] -- discarding packet with Seq: %u, FlushUntilSeq: %u", a1, v13, v15, v18);
+                      goto LABEL_7;
+                    }
+
+                    goto LABEL_7;
+                  }
+
+                  if (((v18 + 20 - v33[0]) & 0x800000) == 0 && (((v18 + 20) ^ v33[0]) & 0xFFFFFF) != 0)
+                  {
+                    goto LABEL_45;
+                  }
+
+                  if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50)
+                  {
+                    if (gLogCategory_APSEndpointStreamAudioHoseSBAR == -1)
+                    {
+                      if (!_LogCategory_Initialize())
+                      {
+                        goto LABEL_54;
+                      }
+
+                      v15 = v33[0];
+                      v18 = *(v13 + 13);
+                    }
+
+                    *v30 = v31;
+                    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "Boolean hoseSBAR_processFlushesOnIncomingBBuf(APSEndpointStreamAudioHoseSBARRef, CMBlockBufferRef)", 33554482, "[%{ptr}] Discarding Flush operation [%{ptr}] at Seq: %u, Timestamp: %1.6f FlushUntilSeq: %u", a1, v13, v15, v30, v18, v27);
+                  }
+
+LABEL_54:
+                  v19 = CMBaseObjectGetDerivedStorage();
+                  v20 = *v13;
+                  v21 = *(v13 + 1);
+                  v22 = (v19 + 720);
+                  if (*v13)
+                  {
+                    v22 = (*v13 + 8);
+                  }
+
+                  *v22 = v21;
+                  *v21 = v20;
+                  free(v13);
+                  v23 = CMBaseObjectGetDerivedStorage();
+                  v14 = 0;
+                  v13 = *(v23 + 712);
+                  if (!v13)
+                  {
+                    break;
+                  }
+                }
               }
-
-              *v38 = v39;
-              goto LABEL_51;
             }
+          }
 
-LABEL_55:
-            v23 = CMBaseObjectGetDerivedStorage();
-            v24 = *v17;
-            v25 = *(v17 + 1);
-            v26 = (v23 + 720);
-            if (*v17)
-            {
-              v26 = (*v17 + 8);
-            }
-
-            *v26 = v25;
-            *v25 = v24;
-            free(v17);
-            v27 = CMBaseObjectGetDerivedStorage();
-            v18 = 0;
-            v17 = *(v27 + 712);
-            if (!v17)
-            {
-              break;
-            }
+          v24 = hoseSBAR_enqueueAudioBBuffToInternalBuffersInternal(a1, v4);
+          if (v24)
+          {
+            v26 = v24;
+            APSLogErrorAt(v24);
+            goto LABEL_78;
           }
         }
       }
-    }
 
-    v30 = hoseSBAR_enqueueAudioBBuffToInternalBuffersInternal(a1, v4);
-    if (v30)
-    {
-      v35 = v30;
-      APSLogErrorAt(v30);
-      goto LABEL_79;
+      if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 30 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
+      {
+        LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_pullAudioBBuffsDispatchFunction(void *)", 33554462, "[%{ptr}] above high water; no kick", a1);
+      }
     }
   }
 
-  v35 = 0;
-  if (!v4)
+  else if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 30 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
   {
-    goto LABEL_80;
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_pullAudioBBuffsDispatchFunction(void *)", 33554462, "[%{ptr}] no data from audio engine: no kick", a1);
   }
 
-LABEL_79:
-  CFRelease(v4);
-LABEL_80:
-  if (v35)
-  {
-    started = v35;
-LABEL_98:
-    APSLogErrorAt(started);
-    goto LABEL_84;
-  }
-
-LABEL_81:
-  if (!*(v36 + 282))
-  {
-    started = hoseSBAR_startTheSynchronizerIfNecessary(a1, 1);
-    if (started)
-    {
-      goto LABEL_98;
-    }
-  }
-
-  started = hoseSBAR_fillSBARToHighWater(a1);
-  if (started)
-  {
-    goto LABEL_98;
-  }
-
-LABEL_84:
+LABEL_83:
   CFRelease(a1);
 }
 
-BOOL hoseSBAR_hoseIsAboveHighWater()
+BOOL hoseSBAR_hoseIsAboveHighWater(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v11 = **&MEMORY[0x277CC0898];
+  v10 = **&MEMORY[0x277CC0898];
   CMBufferQueueGetDuration(&time1, *(DerivedStorage + 656));
-  v9 = *(DerivedStorage + 208);
-  if ((CMTimeCompare(&time1, &v9) & 0x80000000) == 0)
+  v8 = *(DerivedStorage + 208);
+  if ((CMTimeCompare(&time1, &v8) & 0x80000000) == 0)
   {
     return 1;
   }
@@ -3379,43 +3358,41 @@ BOOL hoseSBAR_hoseIsAboveHighWater()
     return 0;
   }
 
-  v2 = (DerivedStorage + 408);
+  v3 = (DerivedStorage + 408);
   if (CMTimebaseGetRate(*(DerivedStorage + 120)) == 0.0)
   {
-    *&time1.value = *v2;
+    *&time1.value = *v3;
     time1.epoch = *(DerivedStorage + 424);
-    v9 = *(DerivedStorage + 384);
+    v8 = *(DerivedStorage + 384);
     p_time1 = &time1;
-    v4 = &v9;
+    v5 = &v8;
   }
 
   else
   {
     CMTimebaseGetTime(&time1, *(DerivedStorage + 120));
-    *&v9.value = *v2;
-    v9.epoch = *(DerivedStorage + 424);
-    p_time1 = &v9;
-    v4 = &time1;
+    *&v8.value = *v3;
+    v8.epoch = *(DerivedStorage + 424);
+    p_time1 = &v8;
+    v5 = &time1;
   }
 
-  CMTimeSubtract(&v11, p_time1, v4);
-  time1 = v11;
-  v9 = *(DerivedStorage + 208);
-  if (CMTimeCompare(&time1, &v9) < 0)
+  CMTimeSubtract(&v10, p_time1, v5);
+  time1 = v10;
+  v8 = *(DerivedStorage + 208);
+  if (CMTimeCompare(&time1, &v8) < 0)
   {
     return 0;
   }
 
-  v5 = *(DerivedStorage + 104);
-  VTable = CMBaseObjectGetVTable();
-  v7 = *(*(VTable + 16) + 8);
+  v6 = *(DerivedStorage + 104);
+  v7 = *(*(CMBaseObjectGetVTable() + 16) + 8);
   if (!v7)
   {
     return 1;
   }
 
-  v8 = *(VTable + 16) + 8;
-  return v7(v5) != 0;
+  return v7(v6) != 0;
 }
 
 CMTime *hoseSBAR_getMediaTimeForTransportTime(CMTime *result, uint64_t a2, uint64_t a3)
@@ -3440,109 +3417,109 @@ CMTime *hoseSBAR_getMediaTimeForTransportTime(CMTime *result, uint64_t a2, uint6
 
 uint64_t hoseSBAR_enqueueAudioBBuffToInternalBuffersInternal(uint64_t a1, uint64_t a2)
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v59 = 0;
-  memset(v58, 0, 28);
-  v57 = 0;
-  v60 = *(MEMORY[0x277CC0898] + 12);
+  v60 = 0;
+  memset(v59, 0, 28);
+  v58 = 0;
+  v61 = *(MEMORY[0x277CC0898] + 12);
   epoch_high = *(MEMORY[0x277CC0898] + 20);
+  v57 = 0;
   v56 = 0;
-  v55 = 0;
   *value = 0u;
   *uuid = 0u;
-  memset(v53, 0, sizeof(v53));
-  v50 = 0u;
+  memset(v54, 0, sizeof(v54));
   v51 = 0u;
-  v48 = 0u;
-  *v49 = 0u;
-  memset(v47, 0, sizeof(v47));
-  v45 = *MEMORY[0x277CC0898];
-  v46 = *(MEMORY[0x277CC0898] + 16);
-  v5 = (*(*(DerivedStorage + 96) + 8))(a1, a2, v58, &v57);
+  v52 = 0u;
+  v49 = 0u;
+  *v50 = 0u;
+  memset(v48, 0, sizeof(v48));
+  v46 = *MEMORY[0x277CC0898];
+  v47 = *(MEMORY[0x277CC0898] + 16);
+  v5 = (*(*(DerivedStorage + 96) + 8))(a1, a2, v59, &v58);
   if (v5)
   {
-    v34 = v5;
-LABEL_124:
+    v36 = v5;
+LABEL_126:
     APSLogErrorAt(v5);
-LABEL_139:
+LABEL_141:
     v11 = 0;
     v12 = 0;
     v13 = 0;
     v9 = 0;
     v15 = 0;
-    goto LABEL_90;
+    goto LABEL_92;
   }
 
-  v5 = (*(*(DerivedStorage + 96) + 16))(a1, a2, &v59, v47);
+  v5 = (*(*(DerivedStorage + 96) + 16))(a1, a2, &v60, v48);
   if (v5)
   {
-    v34 = v5;
-    goto LABEL_124;
+    v36 = v5;
+    goto LABEL_126;
   }
 
-  *time = v58[0];
-  *&time[12] = *(v58 + 12);
+  *time = v59[0];
+  *&time[12] = *(v59 + 12);
   hoseSBAR_updateRTPRolloverStateAssumingIncreasingTransportTimes(a1, time);
-  *time = v58[0];
-  *&time[12] = *(v58 + 12);
+  *time = v59[0];
+  *&time[12] = *(v59 + 12);
   hoseSBAR_getMediaTimeForTransportTime(&lhs, a1, time);
   epoch_high = HIDWORD(lhs.epoch);
-  v60 = *&lhs.flags;
+  v61 = *&lhs.flags;
   rhs = *(DerivedStorage + 184);
   CMTimeSubtract(time, &lhs, &rhs);
   v6 = *time;
   v7 = *&time[8];
-  v60 = *&time[12];
+  v61 = *&time[12];
   epoch_high = *&time[20];
-  if (LOBYTE(v53[0]))
+  if (LOBYTE(v54[0]))
   {
-    if (!CMBlockBufferGetDataLength(v59))
+    if (!CMBlockBufferGetDataLength(v60))
     {
       v8 = *MEMORY[0x277CBECE8];
-      v5 = CMSampleBufferCreate(*MEMORY[0x277CBECE8], 0, 1u, 0, 0, 0, 0, 0, 0, 0, 0, &v56);
+      v5 = CMSampleBufferCreate(*MEMORY[0x277CBECE8], 0, 1u, 0, 0, 0, 0, 0, 0, 0, 0, &v57);
       if (!v5)
       {
         v9 = CFNumberCreate(v8, kCFNumberSInt64Type, &uuid[1]);
-        CMSetAttachment(v56, *MEMORY[0x277CC0750], v9, 1u);
-        v40 = 0;
+        CMSetAttachment(v57, *MEMORY[0x277CC0750], v9, 1u);
+        v41 = 0;
         cf = 0;
-        v39 = 0;
+        v40 = 0;
         v10 = 0;
         v11 = 0;
         v12 = 0;
         v13 = 0;
         v14 = 0;
         v15 = 0;
-LABEL_73:
+LABEL_75:
         if (!*(DerivedStorage + 129))
         {
           UInt32 = 0;
-          goto LABEL_77;
+          goto LABEL_79;
         }
 
         UInt32 = FigCFNumberCreateUInt32();
         if (UInt32)
         {
-          CMSetAttachment(v56, @"HoseSBARTransportSeqNum", UInt32, 0);
-LABEL_77:
-          CMBufferQueueEnqueue(*(DerivedStorage + 656), v56);
-          CMBufferQueueEnqueue(*(DerivedStorage + 664), v56);
-          v34 = 0;
-          goto LABEL_78;
+          CMSetAttachment(v57, @"HoseSBARTransportSeqNum", UInt32, 0);
+LABEL_79:
+          CMBufferQueueEnqueue(*(DerivedStorage + 656), v57);
+          CMBufferQueueEnqueue(*(DerivedStorage + 664), v57);
+          v36 = 0;
+          goto LABEL_80;
         }
 
-        v34 = 4294894966;
+        v36 = 4294894966;
         APSLogErrorAt(0);
-LABEL_78:
-        v35 = cf;
-        v36 = v39;
+LABEL_80:
+        v37 = cf;
+        v38 = v40;
         if (!cf)
         {
-LABEL_80:
-          if (v36)
+LABEL_82:
+          if (v38)
           {
-            CFRelease(v36);
+            CFRelease(v38);
           }
 
           if (v10)
@@ -3550,73 +3527,70 @@ LABEL_80:
             CFRelease(v10);
           }
 
-LABEL_84:
-          v18 = v40;
+LABEL_86:
+          v18 = v41;
           if (!v14)
           {
-            goto LABEL_86;
+            goto LABEL_88;
           }
 
-          goto LABEL_85;
+          goto LABEL_87;
         }
 
-LABEL_79:
-        CFRelease(v35);
-        goto LABEL_80;
+LABEL_81:
+        CFRelease(v37);
+        goto LABEL_82;
       }
 
-      v34 = v5;
-      goto LABEL_124;
+      v36 = v5;
+      goto LABEL_126;
     }
 
-    if (gLogCategory_APSEndpointStreamAudioHoseSBAR > 50 || gLogCategory_APSEndpointStreamAudioHoseSBAR == -1 && !_LogCategory_Initialize())
+    if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
     {
-LABEL_138:
-      v34 = 0;
-      goto LABEL_139;
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_enqueueAudioBBuffToInternalBuffersInternal(APSEndpointStreamAudioHoseSBARRef, CMBlockBufferRef)", 33554482, "[%{ptr}] Encountered sbuf with transitionID with non-empty media data. Discarding sbuf seq=%u\n", a1, v58);
     }
 
-LABEL_122:
-    LogPrintF();
-    goto LABEL_138;
+LABEL_140:
+    v36 = 0;
+    goto LABEL_141;
   }
 
-  v16 = *&v47[0];
-  if (!CMBlockBufferGetDataLength(v59))
+  v16 = *&v48[0];
+  if (!CMBlockBufferGetDataLength(v60))
   {
-    if (gLogCategory_APSEndpointStreamAudioHoseSBAR > 50 || gLogCategory_APSEndpointStreamAudioHoseSBAR == -1 && !_LogCategory_Initialize())
+    if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
     {
-      goto LABEL_138;
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_enqueueAudioBBuffToInternalBuffersInternal(APSEndpointStreamAudioHoseSBARRef, CMBlockBufferRef)", 33554482, "[%{ptr}] Discarded an empty audio buffer seq=%u\n", a1, v58);
     }
 
-    goto LABEL_122;
+    goto LABEL_140;
   }
 
   v17 = *MEMORY[0x277CBECE8];
   *time = v6;
   *&time[8] = v7;
-  *&time[12] = v60;
+  *&time[12] = v61;
   *&time[20] = epoch_high;
   v5 = CMTimeCopyAsDictionary(time, v17);
   if (!v5)
   {
-    v34 = 4294894966;
-    goto LABEL_124;
+    v36 = 4294894966;
+    goto LABEL_126;
   }
 
   v18 = v5;
-  v40 = v5;
+  v41 = v5;
   if (value[0])
   {
     Int64 = CFNumberCreateInt64();
     if (!Int64)
     {
-      goto LABEL_141;
+      goto LABEL_143;
     }
 
     v14 = Int64;
-    v20 = *(DerivedStorage + 944);
-    if (!FigCFDictionaryGetCMTimeIfPresent() || (BYTE12(v45) & 1) != 0 && (*time = v45, *&time[16] = v46, lhs.value = v6, lhs.timescale = v7, *&lhs.flags = v60, HIDWORD(lhs.epoch) = epoch_high, CMTimeCompare(time, &lhs) < 0))
+    if (!FigCFDictionaryGetCMTimeIfPresent() || (BYTE12(v46) & 1) != 0 && (*time = v46, *&time[16] = v47, lhs.value = v6, lhs.timescale = v7, *&lhs.flags = v61, HIDWORD(lhs.epoch) = epoch_high, CMTimeCompare(time, &lhs) < 0))
     {
       CFDictionarySetValue(*(DerivedStorage + 944), v14, v18);
     }
@@ -3626,56 +3600,56 @@ LABEL_122:
       CFDictionarySetValue(*(DerivedStorage + 952), v14, value[1]);
     }
 
-    v21 = CFDictionaryContainsKey(*(DerivedStorage + 952), v14);
-    if (v21 && !CFDictionaryContainsKey(*(DerivedStorage + 960), v14))
+    v20 = CFDictionaryContainsKey(*(DerivedStorage + 952), v14);
+    if (v20 && !CFDictionaryContainsKey(*(DerivedStorage + 960), v14))
     {
-      v22 = 1;
+      v21 = 1;
     }
 
     else
     {
       CFRelease(v14);
       v14 = 0;
-      v22 = v21 != 0;
+      v21 = v20 != 0;
     }
   }
 
   else
   {
-    v22 = 0;
+    v21 = 0;
     v14 = 0;
   }
 
   *time = v6;
   *&time[8] = v7;
-  *&time[12] = v60;
+  *&time[12] = v61;
   *&time[20] = epoch_high;
-  lhs = *(v53 + 4);
-  v23 = hoseSBAR_createSbufWithAudioDataAndOPTS(a1, v59, time, v16, v50, v14, &lhs, &v56);
-  if (v23)
+  lhs = *(v54 + 4);
+  v22 = hoseSBAR_createSbufWithAudioDataAndOPTS(a1, v60, time, v16, v51, v14, &lhs, &v57);
+  if (v22)
   {
-    v34 = v23;
-    APSLogErrorAt(v23);
+    v36 = v22;
+    APSLogErrorAt(v22);
     v15 = 0;
     UInt32 = 0;
     v9 = 0;
     v13 = 0;
     v12 = 0;
     v11 = 0;
-    goto LABEL_84;
+    goto LABEL_86;
   }
 
   if (value[0])
   {
-    v24 = v22;
+    v23 = v21;
   }
 
   else
   {
-    v24 = 1;
+    v23 = 1;
   }
 
-  if ((v24 & 1) != 0 || *(DerivedStorage + 968))
+  if ((v23 & 1) != 0 || *(DerivedStorage + 968))
   {
     cf = 0;
     goto LABEL_29;
@@ -3693,7 +3667,7 @@ LABEL_122:
     v27 = CFNumberCreateInt64();
     if (!v27)
     {
-      v34 = 4294894966;
+      v36 = 4294894966;
       APSLogErrorAt(0);
       v11 = 0;
       v12 = 0;
@@ -3701,31 +3675,31 @@ LABEL_122:
       v9 = 0;
       UInt32 = 0;
       v15 = 0;
-      v18 = v40;
-LABEL_85:
+      v18 = v41;
+LABEL_87:
       CFRelease(v14);
-LABEL_86:
+LABEL_88:
       if (!v18)
       {
-        goto LABEL_88;
+        goto LABEL_90;
       }
 
-      goto LABEL_87;
+      goto LABEL_89;
     }
 
     v28 = v27;
-    CMSetAttachment(v56, @"HoseSBARMagicCookieID", v14, 0);
+    CMSetAttachment(v57, @"HoseSBARMagicCookieID", v14, 0);
     cf = v28;
-    CMSetAttachment(v56, @"HoseSBARAudioFormatIndex", v28, 0);
+    CMSetAttachment(v57, @"HoseSBARAudioFormatIndex", v28, 0);
 LABEL_29:
-    if (*(&v47[0] + 1))
+    if (*(&v48[0] + 1))
     {
-      v39 = CFNumberCreateInt64();
-      if (!v39)
+      v40 = CFNumberCreateInt64();
+      if (!v40)
       {
-        v34 = 4294894966;
+        v36 = 4294894966;
         APSLogErrorAt(0);
-        v36 = 0;
+        v38 = 0;
         v10 = 0;
         v11 = 0;
         v12 = 0;
@@ -3733,41 +3707,40 @@ LABEL_29:
         v9 = 0;
         UInt32 = 0;
         v15 = 0;
-        v35 = cf;
+        v37 = cf;
         if (!cf)
         {
-          goto LABEL_80;
+          goto LABEL_82;
         }
 
-        goto LABEL_79;
+        goto LABEL_81;
       }
 
-      CMSetAttachment(v56, @"HoseSBARSourceAudioFormatIndex", cf, 0);
+      CMSetAttachment(v57, @"HoseSBARSourceAudioFormatIndex", cf, 0);
     }
 
     else
     {
-      v39 = 0;
+      v40 = 0;
     }
 
-    if (*&v47[1])
+    if (*&v48[1])
     {
       v10 = CFNumberCreateInt64();
       if (!v10)
       {
-        v34 = 4294894966;
+        v36 = 4294894966;
         APSLogErrorAt(0);
         v11 = 0;
-        goto LABEL_132;
+        goto LABEL_134;
       }
 
-      v25 = *(DerivedStorage + 936);
-      if (!FigCFDictionaryGetCMTimeIfPresent() || (BYTE12(v45) & 1) != 0 && (*time = v45, *&time[16] = v46, lhs.value = v6, lhs.timescale = v7, *&lhs.flags = v60, HIDWORD(lhs.epoch) = epoch_high, CMTimeCompare(time, &lhs) < 0))
+      if (!FigCFDictionaryGetCMTimeIfPresent() || (BYTE12(v46) & 1) != 0 && (*time = v46, *&time[16] = v47, lhs.value = v6, lhs.timescale = v7, *&lhs.flags = v61, HIDWORD(lhs.epoch) = epoch_high, CMTimeCompare(time, &lhs) < 0))
       {
-        CFDictionarySetValue(*(DerivedStorage + 936), v10, v40);
+        CFDictionarySetValue(*(DerivedStorage + 936), v10, v41);
       }
 
-      CMSetAttachment(v56, @"HoseSBARCryptorID", v10, 0);
+      CMSetAttachment(v57, @"HoseSBARCryptorID", v10, 0);
     }
 
     else
@@ -3775,21 +3748,25 @@ LABEL_29:
       v10 = 0;
     }
 
-    if ((BYTE4(v47[2]) & 1) == 0)
+    if ((BYTE4(v48[2]) & 1) == 0)
     {
       v11 = 0;
 LABEL_54:
-      if ((BYTE12(v48) & 1) == 0)
+      if ((BYTE12(v49) & 1) == 0)
       {
         v12 = 0;
 LABEL_62:
-        if (v55)
+        if (v56)
         {
-          v29 = *(DerivedStorage + 32);
-          v30 = *MEMORY[0x277CC1968];
-          FigCFEqual();
-          v15 = CFStringCreateF();
-          CMSetAttachment(v56, *MEMORY[0x277CD62C0], v55, 1u);
+          v31 = FigCFEqual();
+          v32 = "Buffered";
+          if (!v31)
+          {
+            v32 = "RealTime";
+          }
+
+          v15 = CFStringCreateF(0, "HoseSbar-ToInternalBuffer-%{ptr}-%s", a1, v32);
+          CMSetAttachment(v57, *MEMORY[0x277CD62C0], v56, 1u);
           FigEndpointStreamAudioEngineSbufTracerDebugPrint();
         }
 
@@ -3798,23 +3775,23 @@ LABEL_62:
           v15 = 0;
         }
 
-        if (v49[1])
+        if (v50[1])
         {
-          CMSetAttachment(v56, *MEMORY[0x277CC1AA8], v49[1], 1u);
+          CMSetAttachment(v57, *MEMORY[0x277CC1AA8], v50[1], 1u);
         }
 
         if (uuid[0])
         {
-          SampleAttachmentsArray = CMSampleBufferGetSampleAttachmentsArray(v56, 1u);
+          SampleAttachmentsArray = CMSampleBufferGetSampleAttachmentsArray(v57, 1u);
           v13 = CFUUIDCreateString(v17, uuid[0]);
           if (!v13)
           {
             APSLogErrorAt(0);
-            v34 = 4294894965;
-            APSSignalErrorAt(4294894965);
+            v36 = 4294894965;
+            APSSignalErrorAt(0xFFFEE575, "Failed to create CFString from CFUUID", "hoseSBAR_enqueueAudioBBuffToInternalBuffersInternal");
             v9 = 0;
             UInt32 = 0;
-            goto LABEL_78;
+            goto LABEL_80;
           }
 
           ValueAtIndex = CFArrayGetValueAtIndex(SampleAttachmentsArray, 0);
@@ -3830,73 +3807,73 @@ LABEL_62:
         }
 
         v9 = 0;
-        goto LABEL_73;
+        goto LABEL_75;
       }
 
-      *time = v48;
-      *&time[16] = v49[0];
+      *time = v49;
+      *&time[16] = v50[0];
       v12 = CMTimeCopyAsDictionary(time, v17);
       if (v12)
       {
         if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
         {
-          *time = v48;
-          *&time[16] = v49[0];
-          CMTimeGetSeconds(time);
+          *time = v49;
+          *&time[16] = v50[0];
+          Seconds = CMTimeGetSeconds(time);
           *time = v6;
           *&time[8] = v7;
-          *&time[12] = v60;
+          *&time[12] = v61;
           *&time[20] = epoch_high;
-          CMTimeGetSeconds(time);
-          LogPrintF();
+          v30 = CMTimeGetSeconds(time);
+          LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_enqueueAudioBBuffToInternalBuffersInternal(APSEndpointStreamAudioHoseSBARRef, CMBlockBufferRef)", 33554482, "[%{ptr}] Received TrimAtEnd marker with trim duration %1.3f seconds, Timestamp = %1.6f (%lld/%d)", a1, *&Seconds, *&v30, v6, v7);
         }
 
-        CMSetAttachment(v56, *MEMORY[0x277CC0758], v12, 1u);
+        CMSetAttachment(v57, *MEMORY[0x277CC0758], v12, 1u);
         goto LABEL_62;
       }
 
-      v34 = 4294894966;
+      v36 = 4294894966;
       APSLogErrorAt(0);
-LABEL_134:
+LABEL_136:
       v13 = 0;
       v9 = 0;
       UInt32 = 0;
       v15 = 0;
-      goto LABEL_78;
+      goto LABEL_80;
     }
 
-    *time = *(&v47[1] + 8);
-    *&time[16] = *(&v47[2] + 1);
+    *time = *(&v48[1] + 8);
+    *&time[16] = *(&v48[2] + 1);
     v11 = CMTimeCopyAsDictionary(time, v17);
     if (v11)
     {
       if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
       {
-        *time = *(&v47[1] + 8);
-        *&time[16] = *(&v47[2] + 1);
-        CMTimeGetSeconds(time);
+        *time = *(&v48[1] + 8);
+        *&time[16] = *(&v48[2] + 1);
+        v24 = CMTimeGetSeconds(time);
         *time = v6;
         *&time[8] = v7;
-        *&time[12] = v60;
+        *&time[12] = v61;
         *&time[20] = epoch_high;
-        CMTimeGetSeconds(time);
-        LogPrintF();
+        v25 = CMTimeGetSeconds(time);
+        LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_enqueueAudioBBuffToInternalBuffersInternal(APSEndpointStreamAudioHoseSBARRef, CMBlockBufferRef)", 33554482, "[%{ptr}] Received TrimAtStart marker with trim duration %1.3f seconds, Timestamp = %1.6f (%lld/%d)", a1, *&v24, *&v25, v6, v7);
       }
 
-      CMSetAttachment(v56, *MEMORY[0x277CC0760], v11, 1u);
+      CMSetAttachment(v57, *MEMORY[0x277CC0760], v11, 1u);
       goto LABEL_54;
     }
 
-    v34 = 4294894966;
+    v36 = 4294894966;
     APSLogErrorAt(0);
-LABEL_132:
+LABEL_134:
     v12 = 0;
-    goto LABEL_134;
+    goto LABEL_136;
   }
 
-  v18 = v40;
-LABEL_141:
-  v34 = 4294894966;
+  v18 = v41;
+LABEL_143:
+  v36 = 4294894966;
   APSLogErrorAt(0);
   v15 = 0;
   UInt32 = 0;
@@ -3904,18 +3881,18 @@ LABEL_141:
   v13 = 0;
   v12 = 0;
   v11 = 0;
-LABEL_87:
+LABEL_89:
   CFRelease(v18);
-LABEL_88:
+LABEL_90:
   if (UInt32)
   {
     CFRelease(UInt32);
   }
 
-LABEL_90:
-  if (v59)
+LABEL_92:
+  if (v60)
   {
-    CFRelease(v59);
+    CFRelease(v60);
   }
 
   if (v11)
@@ -3928,9 +3905,9 @@ LABEL_90:
     CFRelease(v12);
   }
 
-  if (v56)
+  if (v57)
   {
-    CFRelease(v56);
+    CFRelease(v57);
   }
 
   if (v13)
@@ -3948,9 +3925,9 @@ LABEL_90:
     CFRelease(v15);
   }
 
-  if (v49[1])
+  if (v50[1])
   {
-    CFRelease(v49[1]);
+    CFRelease(v50[1]);
   }
 
   if (uuid[0])
@@ -3963,29 +3940,28 @@ LABEL_90:
     CFRelease(value[1]);
   }
 
-  if (v55)
+  if (v56)
   {
-    CFRelease(v55);
+    CFRelease(v56);
   }
 
-  v37 = *MEMORY[0x277D85DE8];
-  return v34;
+  return v36;
 }
 
 uint64_t hoseSBAR_startTheSynchronizerIfNecessary(const void *a1, int a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v20 = *MEMORY[0x277CC08F0];
-  v21 = *(MEMORY[0x277CC08F0] + 16);
-  memset(&v19, 0, sizeof(v19));
+  v23 = *MEMORY[0x277CC08F0];
+  v24 = *(MEMORY[0x277CC08F0] + 16);
+  memset(&v22, 0, sizeof(v22));
   HostTimeClock = CMClockGetHostTimeClock();
-  CMClockGetTime(&v19, HostTimeClock);
+  CMClockGetTime(&v22, HostTimeClock);
   if (!*(DerivedStorage + 282))
   {
     v6 = hoseSBAR_enqueueIntoSBARPrimingSBufIfNecessary(a1);
     if (v6)
     {
-      v13 = v6;
+      v16 = v6;
       goto LABEL_27;
     }
   }
@@ -4013,9 +3989,9 @@ uint64_t hoseSBAR_startTheSynchronizerIfNecessary(const void *a1, int a2)
       return 0;
     }
 
-    v20 = *(DerivedStorage + 576);
-    v21 = *(DerivedStorage + 592);
-    v19 = *(DerivedStorage + 552);
+    v23 = *(DerivedStorage + 576);
+    v24 = *(DerivedStorage + 592);
+    v22 = *(DerivedStorage + 552);
   }
 
   v9 = *(DerivedStorage + 480);
@@ -4038,82 +4014,87 @@ uint64_t hoseSBAR_startTheSynchronizerIfNecessary(const void *a1, int a2)
   {
     v9 = *(DerivedStorage + 480);
 LABEL_16:
-    hoseSBAR_synchronizerStateToName(v9);
-    LogPrintF();
+    v10 = hoseSBAR_synchronizerStateToName(v9);
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_startTheSynchronizerIfNecessary(APSEndpointStreamAudioHoseSBARRef, Boolean)", 33554482, "[%{ptr}] Ensuring the synchronizer is started; current state: %s", a1, v10);
   }
 
 LABEL_18:
-  v10 = *(DerivedStorage + 112);
-  v18 = v19;
-  v11 = *(*(CMBaseObjectGetVTable() + 16) + 56);
-  if (!v11)
+  v11 = *(DerivedStorage + 112);
+  v21 = v22;
+  v12 = *(*(CMBaseObjectGetVTable() + 16) + 56);
+  if (!v12)
   {
-    v13 = 4294954514;
+    v16 = 4294954514;
 LABEL_26:
-    v6 = v13;
+    v6 = v16;
 LABEL_27:
     APSLogErrorAt(v6);
-    return v13;
+    return v16;
   }
 
-  v23 = v20;
-  v24 = v21;
-  v22 = v18;
-  v12 = v11(v10, &v23, &v22, 1.0);
-  if (v12)
+  v26 = v23;
+  v27 = v24;
+  v25 = v21;
+  v13 = v12(v11, &v26, &v25, 1.0);
+  if (v13)
   {
-    v13 = v12;
+    v16 = v13;
     goto LABEL_26;
   }
 
   v6 = APSClockDriftMonitorResume(*(DerivedStorage + 1000));
   if (v6)
   {
-    v13 = v6;
+    v16 = v6;
     goto LABEL_27;
   }
 
-  if (!hoseSBAR_waitForTimebaseRate(1.0))
+  v14 = hoseSBAR_waitForTimebaseRate(a1, 1.0);
+  if (!v14)
   {
     CMTimebaseSetTimerDispatchSourceToFireImmediately(*(DerivedStorage + 120), *(DerivedStorage + 648));
-    v14 = MEMORY[0x277CC0898];
+    v17 = MEMORY[0x277CC0898];
     *(DerivedStorage + 600) = *MEMORY[0x277CC0898];
-    *(DerivedStorage + 616) = *(v14 + 16);
+    *(DerivedStorage + 616) = *(v17 + 16);
     hoseSBAR_updateSynchronizerState(a1, 1);
-    v13 = 0;
+    v16 = 0;
     *(DerivedStorage + 376) = mach_absolute_time();
-    return v13;
+    return v16;
   }
 
-  if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90)
   {
-    LogPrintF();
+    v15 = v14;
+    if (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize())
+    {
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_startTheSynchronizerIfNecessary(APSEndpointStreamAudioHoseSBARRef, Boolean)", 33554522, "### [%{ptr}] Starting the Synchronizer failed with err: %#m", a1, v15);
+    }
   }
 
-  v15 = *(DerivedStorage + 112);
-  v16 = *(*(CMBaseObjectGetVTable() + 16) + 24);
-  if (v16)
+  v18 = *(DerivedStorage + 112);
+  v19 = *(*(CMBaseObjectGetVTable() + 16) + 24);
+  if (v19)
   {
-    v23 = *MEMORY[0x277CC0898];
-    v24 = *(MEMORY[0x277CC0898] + 16);
-    v16(v15, &v23, 0.0);
+    v26 = *MEMORY[0x277CC0898];
+    v27 = *(MEMORY[0x277CC0898] + 16);
+    v19(v18, &v26, 0.0);
   }
 
   v6 = APSClockDriftMonitorSuspend(*(DerivedStorage + 1000));
-  v13 = v6;
+  v16 = v6;
   if (v6)
   {
     goto LABEL_27;
   }
 
-  return v13;
+  return v16;
 }
 
 uint64_t hoseSBAR_enqueueIntoSBARPrimingSBufIfNecessary(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  memset(&v16, 0, sizeof(v16));
-  CMTimeMake(&v16, -1, 1);
+  memset(&v17, 0, sizeof(v17));
+  CMTimeMake(&v17, -1, 1);
   cf = 0;
   blockBufferOut = 0;
   if (*(DerivedStorage + 672))
@@ -4128,14 +4109,14 @@ uint64_t hoseSBAR_enqueueIntoSBARPrimingSBufIfNecessary(uint64_t a1)
     {
       v4 = v3;
       CMSampleBufferGetOutputPresentationTimeStamp(&time, v3);
-      *&v16.timescale = *&time.timescale;
-      v16.epoch = time.epoch;
-      v16.value = time.value - time.timescale;
+      *&v17.timescale = *&time.timescale;
+      v17.epoch = time.epoch;
+      v17.value = time.value - time.timescale;
       goto LABEL_6;
     }
 
 LABEL_27:
-    v11 = 0;
+    v12 = 0;
     goto LABEL_22;
   }
 
@@ -4144,7 +4125,7 @@ LABEL_6:
   v5 = CMBlockBufferCreateWithMemoryBlock(*MEMORY[0x277CBECE8], 0, 0x40uLL, *MEMORY[0x277CBECE8], 0, 0, 0x40uLL, 1u, &blockBufferOut);
   if (v5)
   {
-    v11 = v5;
+    v12 = v5;
     goto LABEL_20;
   }
 
@@ -4159,11 +4140,11 @@ LABEL_6:
     v7 = 0;
   }
 
-  time = v16;
+  time = v17;
   v5 = hoseSBAR_createSbufWithAudioDataAndOPTS(a1, blockBufferOut, &time, v7, 0, 0, MEMORY[0x277CC0898], &cf);
   if (v5)
   {
-    v11 = v5;
+    v12 = v5;
 LABEL_20:
     APSLogErrorAt(v5);
     if (!v4)
@@ -4176,25 +4157,25 @@ LABEL_20:
 
   if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
   {
-    time = v16;
-    CMTimeGetSeconds(&time);
-    LogPrintF();
+    time = v17;
+    Seconds = CMTimeGetSeconds(&time);
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_enqueueIntoSBARPrimingSBufIfNecessary(APSEndpointStreamAudioHoseSBARRef)", 33554482, "[%{ptr}] Enqueueing priming sbuf with opts: %1.3f\n", a1, *&Seconds);
   }
 
-  v8 = *(DerivedStorage + 104);
-  v9 = cf;
-  v10 = *(*(CMBaseObjectGetVTable() + 16) + 16);
-  if (!v10)
+  v9 = *(DerivedStorage + 104);
+  v10 = cf;
+  v11 = *(*(CMBaseObjectGetVTable() + 16) + 16);
+  if (!v11)
   {
-    v11 = 4294954514;
+    v12 = 4294954514;
     goto LABEL_19;
   }
 
-  v11 = v10(v8, v9);
-  if (v11)
+  v12 = v11(v9, v10);
+  if (v12)
   {
 LABEL_19:
-    v5 = v11;
+    v5 = v12;
     goto LABEL_20;
   }
 
@@ -4216,14 +4197,14 @@ LABEL_22:
     CFRelease(cf);
   }
 
-  return v11;
+  return v12;
 }
 
 uint64_t hoseSBAR_createSbufWithAudioDataAndOPTS(uint64_t a1, OpaqueCMBlockBuffer *a2, CMTime *a3, unint64_t a4, UInt32 a5, uint64_t a6, uint64_t a7, void *a8)
 {
   keys[2] = *MEMORY[0x277D85DE8];
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v83 = 0;
+  v81 = 0;
   sampleBufferOut = 0;
   packetDescriptions.mStartOffset = 0;
   *&packetDescriptions.mVariableFramesInPacket = 0;
@@ -4237,7 +4218,7 @@ uint64_t hoseSBAR_createSbufWithAudioDataAndOPTS(uint64_t a1, OpaqueCMBlockBuffe
   v16 = CMBaseObjectGetDerivedStorage();
   memset(&asbd, 0, sizeof(asbd));
   memset(&layout, 0, sizeof(layout));
-  v90 = 0;
+  v88 = 0;
   memset(&magicCookieSize_4, 0, sizeof(magicCookieSize_4));
   keys[0] = 0;
   magicCookieSize = 0;
@@ -4263,8 +4244,8 @@ uint64_t hoseSBAR_createSbufWithAudioDataAndOPTS(uint64_t a1, OpaqueCMBlockBuffe
   }
 
   asbd.mFramesPerPacket = mFramesPerPacket;
-  v79 = a2;
-  v80 = a3;
+  v77 = a2;
+  v78 = a3;
   if (!*(v16 + 696))
   {
     goto LABEL_15;
@@ -4302,15 +4283,15 @@ LABEL_8:
     v26 = 0;
     v27 = 0;
 LABEL_11:
-    a2 = v79;
-    a3 = v80;
+    a2 = v77;
+    a3 = v78;
     goto LABEL_162;
   }
 
 LABEL_16:
   mFormatID = asbd.mFormatID;
   mChannelsPerFrame = asbd.mChannelsPerFrame;
-  v75 = v24;
+  v73 = v24;
   if (a4 > 0x3F || ((1 << a4) & 0xC03E000E00000000) == 0)
   {
     v30 = *(v16 + 281) != 0;
@@ -4352,7 +4333,7 @@ LABEL_28:
 
   if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_copyFormatDescriptionForAudioFormat(APSEndpointStreamAudioHoseSBARRef, APAudioFormatIndex, uint32_t, CFNumberRef, Boolean *, CMAudioFormatDescriptionRef *)", 33554482, "[%{ptr}] Forcing DDPAtmos to EnhancedAC3 codec, 6 channels.  Original %{asbd}", a1, &asbd);
   }
 
   v32 = 1902207795;
@@ -4463,7 +4444,7 @@ LABEL_28:
         goto LABEL_114;
       }
 
-      goto LABEL_178;
+      goto LABEL_179;
     }
 
     if (asbd.mFormatID <= 1886745440)
@@ -4572,7 +4553,7 @@ LABEL_113:
       goto LABEL_114;
     }
 
-LABEL_178:
+LABEL_179:
     v32 = 1700998451;
     goto LABEL_114;
   }
@@ -4611,7 +4592,7 @@ LABEL_114:
   *(v16 + 968) = 1;
   v31 = 50;
 LABEL_115:
-  v38 = APAudioFormatIndexToAudioChannelLayout(v31, &layout, &v90);
+  v38 = APAudioFormatIndexToAudioChannelLayout(v31, &layout, &v88);
   if (v38)
   {
     v27 = v38;
@@ -4622,17 +4603,16 @@ LABEL_115:
   }
 
 LABEL_116:
-  v39 = *(v16 + 952);
-  v74 = v23;
+  v72 = v23;
   if (FigCFDictionaryGetValueIfPresent() && !*(v16 + 968))
   {
-    v40 = a1;
+    v39 = a1;
     values[0] = CFDataGetBytePtr(keys[0]);
     magicCookieSize = CFDataGetLength(keys[0]);
     if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
     {
-      FigCFNumberGetUInt64();
-      LogPrintF();
+      UInt64 = FigCFNumberGetUInt64();
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_copyFormatDescriptionForAudioFormat(APSEndpointStreamAudioHoseSBARRef, APAudioFormatIndex, uint32_t, CFNumberRef, Boolean *, CMAudioFormatDescriptionRef *)", 33554482, "[%{ptr}] Created new format with Magic Cookie: 0x%llx", a1, UInt64);
     }
   }
 
@@ -4640,10 +4620,10 @@ LABEL_116:
   {
     if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_copyFormatDescriptionForAudioFormat(APSEndpointStreamAudioHoseSBARRef, APAudioFormatIndex, uint32_t, CFNumberRef, Boolean *, CMAudioFormatDescriptionRef *)", 33554482, "[%{ptr}] Created new format with default Magic Cookie", a1);
     }
 
-    v40 = a1;
+    v39 = a1;
     if ((asbd.mFormatID & 0xEFFFFFFF) == 0x616C6163)
     {
       LODWORD(magicCookieSize_4.value) = bswap32(asbd.mFramesPerPacket);
@@ -4690,22 +4670,22 @@ LABEL_132:
   }
 
 LABEL_136:
-  v76 = v40;
+  v74 = v39;
   v42 = *v18;
   v43 = magicCookieSize;
   v44 = values[0];
-  v45 = CMAudioFormatDescriptionCreate(*v18, &asbd, v90, &layout, magicCookieSize, values[0], 0, &formatDescriptionOut);
+  v45 = CMAudioFormatDescriptionCreate(*v18, &asbd, v88, &layout, magicCookieSize, values[0], 0, &formatDescriptionOut);
   if (v45)
   {
     v27 = v45;
     APSLogErrorAt(v45);
     v25 = 0;
     v26 = 0;
-    a2 = v79;
-LABEL_205:
-    a3 = v80;
-LABEL_207:
-    a1 = v76;
+    a2 = v77;
+LABEL_270:
+    a3 = v78;
+LABEL_272:
+    a1 = v74;
     v19 = &unk_27D00A000;
     goto LABEL_162;
   }
@@ -4723,50 +4703,48 @@ LABEL_207:
     CFRelease(v46);
   }
 
-  if (!v75)
+  if (!v73)
   {
-    v48 = *(v16 + 960);
-    v49 = *(v16 + 696);
     FigCFDictionarySetValue();
   }
 
-  v50 = *(v16 + 704);
-  if (v50)
+  v48 = *(v16 + 704);
+  if (v48)
   {
-    CFRelease(v50);
+    CFRelease(v48);
   }
 
   asbd.mFormatID = mFormatID;
   asbd.mChannelsPerFrame = mChannelsPerFrame;
-  v51 = APAudioFormatIndexToAudioChannelLayout(a4, &layout, &v90);
-  a2 = v79;
-  if (v51)
+  v49 = APAudioFormatIndexToAudioChannelLayout(a4, &layout, &v88);
+  a2 = v77;
+  if (v49)
   {
-    v27 = v51;
-    APSLogErrorAt(v51);
+    v27 = v49;
+    APSLogErrorAt(v49);
     v25 = 0;
     v26 = 0;
-    goto LABEL_205;
+    goto LABEL_270;
   }
 
-  v52 = CMAudioFormatDescriptionCreate(v42, &asbd, v90, &layout, v43, v44, 0, &desc);
-  a3 = v80;
+  v50 = CMAudioFormatDescriptionCreate(v42, &asbd, v88, &layout, v43, v44, 0, &desc);
+  a3 = v78;
+  if (v50)
+  {
+    v27 = v50;
+    APSLogErrorAt(v50);
+    v25 = 0;
+    v26 = 0;
+    goto LABEL_272;
+  }
+
+  v51 = (v16 + 704);
+  v52 = APSAudioFormatDescriptionCreateWithCMFormatDescription(v42, desc, (v16 + 704));
+  v19 = &unk_27D00A000;
   if (v52)
   {
     v27 = v52;
     APSLogErrorAt(v52);
-    v25 = 0;
-    v26 = 0;
-    goto LABEL_207;
-  }
-
-  v53 = (v16 + 704);
-  v54 = APSAudioFormatDescriptionCreateWithCMFormatDescription(v42, desc, (v16 + 704));
-  v19 = &unk_27D00A000;
-  if (v54)
-  {
-    v27 = v54;
-    APSLogErrorAt(v54);
     v25 = 0;
     v26 = 0;
   }
@@ -4775,21 +4753,21 @@ LABEL_207:
   {
     v25 = formatDescriptionOut;
     formatDescriptionOut = 0;
-    if (v74)
+    if (v72)
     {
       v27 = 0;
       v26 = 0;
-      a1 = v76;
+      a1 = v74;
       goto LABEL_164;
     }
 
     cf = 0;
     if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
     {
-      APSAudioFormatDescriptionCopyDebugString(*v53, &cf);
+      APSAudioFormatDescriptionCopyDebugString(*v51, &cf);
       if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_copyFormatDescriptionForAudioFormat(APSEndpointStreamAudioHoseSBARRef, APAudioFormatIndex, uint32_t, CFNumberRef, Boolean *, CMAudioFormatDescriptionRef *)", 33554482, "[%{ptr}] Transport audio format changed %{asbd} channelLayoutTag 0x%08x - %@", v74, &asbd, layout.mChannelLayoutTag, cf);
       }
 
       if (cf)
@@ -4802,7 +4780,7 @@ LABEL_207:
     v26 = 1;
   }
 
-  a1 = v76;
+  a1 = v74;
 LABEL_162:
   if (formatDescriptionOut)
   {
@@ -4817,178 +4795,318 @@ LABEL_164:
 
   if (v27)
   {
-    v70 = v27;
-    goto LABEL_210;
+    v69 = v27;
+    goto LABEL_275;
   }
 
   if (!v26)
   {
-    v60 = *v18;
-    goto LABEL_187;
+    v61 = *v18;
+    goto LABEL_252;
   }
 
   if (CMTimebaseGetRate(*(DerivedStorage + 120)) == 0.0)
   {
-    v61 = CMBaseObjectGetDerivedStorage();
-    v60 = *v18;
+    v62 = CMBaseObjectGetDerivedStorage();
+    v61 = *v18;
     Mutable = CFDictionaryCreateMutable(*v18, 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
     if (Mutable)
     {
-      v63 = Mutable;
-      CFDictionarySetValue(Mutable, @"AudioFormat", *(v61 + 704));
-      v64 = *(v61 + 8);
+      v64 = Mutable;
+      CFDictionarySetValue(Mutable, @"AudioFormat", *(v62 + 704));
       CMNotificationCenterGetDefaultLocalCenter();
       FigDispatchAsyncPostNotification();
       hoseSBAR_setPreferencesOnAudioSession(a1, 0);
-LABEL_186:
-      CFRelease(v63);
-      goto LABEL_187;
+LABEL_251:
+      CFRelease(v64);
+      goto LABEL_252;
     }
   }
 
   else
   {
     magicCookieSize_4 = *a3;
-    v55 = v19;
-    v56 = CMBaseObjectGetDerivedStorage();
-    v57 = *(v56 + 704);
+    v53 = v19;
+    v54 = CMBaseObjectGetDerivedStorage();
+    v55 = *(v54 + 704);
     CMTimeMake(&asbd, 1, 1);
     *&layout.mChannelLayoutTag = *&magicCookieSize_4.value;
     *&layout.mChannelDescriptions[0].mChannelFlags = magicCookieSize_4.epoch;
     CMTimeSubtract(&magicCookieSize_4, &layout, &asbd);
-    v58 = v55[164];
-    if (v58 <= 50 && (v58 != -1 || _LogCategory_Initialize()))
+    v56 = v53[164];
+    if (v56 <= 50 && (v56 != -1 || _LogCategory_Initialize()))
     {
-      CMTimebaseGetTime(&asbd, *(v56 + 120));
-      CMTimeGetSeconds(&asbd);
+      CMTimebaseGetTime(&asbd, *(v54 + 120));
+      Seconds = CMTimeGetSeconds(&asbd);
       *&asbd.mSampleRate = *&magicCookieSize_4.value;
       *&asbd.mBytesPerPacket = magicCookieSize_4.epoch;
-      CMTimeGetSeconds(&asbd);
-      if (v57)
+      v58 = CMTimeGetSeconds(&asbd);
+      if (v55)
       {
-        v59 = v57[8];
+        v59 = v55[8];
+        v60 = "PCM/24000/16/1";
         switch(v59)
         {
           case 2:
+            v60 = "PCM/8000/16/1";
+            break;
           case 3:
+            v60 = "PCM/8000/16/2";
+            break;
           case 4:
+            v60 = "PCM/16000/16/1";
+            break;
           case 5:
+            v60 = "PCM/16000/16/2";
+            break;
           case 6:
+            break;
           case 7:
+            v60 = "PCM/24000/16/2";
+            break;
           case 8:
+            v60 = "PCM/32000/16/1";
+            break;
           case 9:
+            v60 = "PCM/32000/16/2";
+            break;
           case 10:
+            v60 = "PCM/44100/16/1";
+            break;
           case 11:
+            v60 = "PCM/44100/16/2";
+            break;
           case 12:
+            v60 = "PCM/44100/24/1";
+            break;
           case 13:
+            v60 = "PCM/44100/24/2";
+            break;
           case 14:
+            v60 = "PCM/48000/16/1";
+            break;
           case 15:
+            v60 = "PCM/48000/16/2";
+            break;
           case 16:
+            v60 = "PCM/48000/24/1";
+            break;
           case 17:
+            v60 = "PCM/48000/24/2";
+            break;
           case 18:
+            v60 = "ALAC/44100/16/2";
+            break;
           case 19:
+            v60 = "ALAC/44100/24/2";
+            break;
           case 20:
+            v60 = "ALAC/48000/16/2";
+            break;
           case 21:
+            v60 = "ALAC/48000/24/2";
+            break;
           case 22:
+            v60 = "AAC-LC/44100/2";
+            break;
           case 23:
+            v60 = "AAC-LC/48000/2";
+            break;
           case 24:
+            v60 = "AAC-ELD/44100/2";
+            break;
           case 25:
+            v60 = "AAC-ELD/48000/2";
+            break;
           case 26:
+            v60 = "AAC-ELD/16000/1";
+            break;
           case 27:
+            v60 = "AAC-ELD/24000/1";
+            break;
           case 28:
+            v60 = "OPUS/16000/1";
+            break;
           case 29:
+            v60 = "OPUS/24000/1";
+            break;
           case 30:
+            v60 = "OPUS/48000/1";
+            break;
           case 31:
+            v60 = "AAC-ELD/44100/1";
+            break;
           case 32:
+            v60 = "AAC-ELD/48000/1";
+            break;
           case 38:
+            v60 = "PCM/48000/16/5.1.2";
+            break;
           case 39:
+            v60 = "AAC_LC/48000/5.1";
+            break;
           case 40:
+            v60 = "AAC_LC/48000/5.1.2";
+            break;
           case 41:
+            v60 = "AAC_ELD/48000/5.1";
+            break;
           case 42:
+            v60 = "AAC_ELD/48000/5.1.2";
+            break;
           case 43:
+            v60 = "AAC-ELD/32000/1";
+            break;
           case 44:
+            v60 = "PCM/48000/16/5.1";
+            break;
           case 45:
+            v60 = "PCM/48000/32f/1";
+            break;
           case 46:
+            v60 = "PCM/48000/32f/2";
+            break;
           case 47:
+            v60 = "PCM/48000/32f/5.1";
+            break;
           case 48:
+            v60 = "PCM/48000/32f/5.1.2";
+            break;
           case 49:
+            v60 = "DDPLUS/48000/2";
+            break;
           case 50:
+            v60 = "DDPLUS/48000/5.1";
+            break;
           case 51:
+            v60 = "DDPLUS/48000/5.1.2";
+            break;
           case 52:
+            v60 = "DDPLUS/48000/7.1.4";
+            break;
           case 53:
+            v60 = "DDPLUS/48000/9.1.6";
+            break;
           case 54:
+            v60 = "QAAC/48000/2";
+            break;
           case 55:
+            v60 = "QAAC/48000/5.1";
+            break;
           case 56:
+            v60 = "QAAC/48000/5.1.2";
+            break;
           case 57:
+            v60 = "QAACHE/48000/2";
+            break;
           case 69:
+            v60 = "PCM/48000/32f/7.1.4";
+            break;
           case 78:
+            v60 = "PCM/48000/16/7.1";
+            break;
           case 79:
+            v60 = "PCM/48000/32f/7.1";
+            break;
           case 80:
+            v60 = "PCM/48000/16/5.1.4";
+            break;
           case 81:
+            v60 = "PCM/48000/32f/5.1.4";
+            break;
           case 82:
+            v60 = "PCM/48000/16/7.1.2";
+            break;
           case 83:
+            v60 = "PCM/48000/32f/7.1.2";
+            break;
           case 84:
+            v60 = "PCM/48000/16/7.1.4";
+            break;
           case 85:
+            v60 = "ALAC/44100/20/2";
+            break;
           case 86:
+            v60 = "ALAC/48000/20/2";
+            break;
           case 90:
+            v60 = "AAC_LC/48000/7.1";
+            break;
           case 93:
+            v60 = "PCM/48000/16/9.1.6";
+            break;
           case 94:
+            v60 = "PCM/48000/32f/9.1.6";
             break;
           default:
             v65 = v59 - 33;
             if (v59 - 33) < 0x3C && ((0xDC01BEFFA000007uLL >> v65))
             {
-              v66 = off_2784A4890[v65];
+              v60 = off_2784A4890[v65];
+            }
+
+            else
+            {
+              v60 = "MP3/48000/2";
+              if (v59 != 75)
+              {
+                v60 = "";
+              }
             }
 
             break;
         }
       }
 
-      LogPrintF();
+      else
+      {
+        v60 = "";
+      }
+
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_scheduleFormatChangeHandlingForAudioSessionOnTimer(APSEndpointStreamAudioHoseSBARRef, CMTime, Boolean)", 33554482, "[%{ptr}] hoseSBAR_scheduleHandlingFormatChangeForAudioSessionOnTimer synchronizerTimebase=%1.3f, OPTS=%1.3f, newAudioFormat=%s", a1, *&Seconds, *&v58, v60);
     }
 
-    v60 = *v18;
+    v61 = *v18;
     keys[0] = @"ForceSetPreferences";
     keys[1] = @"NewAudioFormat";
     values[0] = *MEMORY[0x277CBED10];
-    values[1] = v57;
-    v67 = CFDictionaryCreate(v60, keys, values, 2, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-    if (v67)
+    values[1] = v55;
+    v66 = CFDictionaryCreate(v61, keys, values, 2, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+    if (v66)
     {
-      v63 = v67;
-      v68 = *(v56 + 992);
+      v64 = v66;
+      v67 = *(v54 + 992);
       *&asbd.mSampleRate = *&magicCookieSize_4.value;
       *&asbd.mBytesPerPacket = magicCookieSize_4.epoch;
-      v69 = APSTimedInfoManagerAddTimedInfo(v68, &asbd, v63);
-      if (v69)
+      v68 = APSTimedInfoManagerAddTimedInfo(v67, &asbd, v64);
+      if (v68)
       {
-        APSLogErrorAt(v69);
+        APSLogErrorAt(v68);
       }
 
-      goto LABEL_186;
+      goto LABEL_251;
     }
   }
 
   APSLogErrorAt(0);
-LABEL_187:
+LABEL_252:
   packetDescriptions.mStartOffset = 0;
   packetDescriptions.mVariableFramesInPacket = 352;
   packetDescriptions.mDataByteSize = CMBlockBufferGetDataLength(a2);
   *&asbd.mSampleRate = *&a3->value;
   *&asbd.mBytesPerPacket = a3->epoch;
-  v70 = CMAudioSampleBufferCreateReadyWithPacketDescriptions(v60, a2, v25, 1, &asbd, &packetDescriptions, &sampleBufferOut);
-  if (v70)
+  v69 = CMAudioSampleBufferCreateReadyWithPacketDescriptions(v61, a2, v25, 1, &asbd, &packetDescriptions, &sampleBufferOut);
+  if (v69)
   {
-    v27 = v70;
+    v27 = v69;
   }
 
   else
   {
-    v70 = APSAPACApplyIndependentDecodableDependancy(sampleBufferOut);
-    if (v70)
+    v69 = APSAPACApplyIndependentDecodableDependancy(sampleBufferOut);
+    if (v69)
     {
-      v27 = v70;
+      v27 = v69;
     }
 
     else
@@ -5000,56 +5118,55 @@ LABEL_187:
         sampleBufferOut = 0;
         if (!v25)
         {
-          goto LABEL_192;
+          goto LABEL_257;
         }
 
-        goto LABEL_191;
+        goto LABEL_256;
       }
 
       CMSampleBufferGetPresentationTimeStamp(&sampleTimingArray.presentationTimeStamp, sampleBufferOut);
       *&sampleTimingArray.duration.value = *a7;
       sampleTimingArray.duration.epoch = *(a7 + 16);
-      v70 = CMSampleBufferCreateCopyWithNewTiming(v60, sampleBufferOut, 1, &sampleTimingArray, &v83);
-      v27 = v70;
-      if (!v70)
+      v69 = CMSampleBufferCreateCopyWithNewTiming(v61, sampleBufferOut, 1, &sampleTimingArray, &v81);
+      v27 = v69;
+      if (!v69)
       {
-        *a8 = v83;
-        v83 = 0;
+        *a8 = v81;
+        v81 = 0;
         if (!v25)
         {
-          goto LABEL_192;
+          goto LABEL_257;
         }
 
-LABEL_191:
+LABEL_256:
         CFRelease(v25);
-        goto LABEL_192;
+        goto LABEL_257;
       }
     }
   }
 
-LABEL_210:
-  APSLogErrorAt(v70);
+LABEL_275:
+  APSLogErrorAt(v69);
   if (v25)
   {
-    goto LABEL_191;
+    goto LABEL_256;
   }
 
-LABEL_192:
+LABEL_257:
   if (sampleBufferOut)
   {
     CFRelease(sampleBufferOut);
   }
 
-  if (v83)
+  if (v81)
   {
-    CFRelease(v83);
+    CFRelease(v81);
   }
 
-  v71 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
-uint64_t hoseSBAR_setPreferencesOnAudioSession(uint64_t a1, int a2)
+uint64_t hoseSBAR_setPreferencesOnAudioSession(uint64_t a1, uint64_t a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   v5 = *(DerivedStorage + 704);
@@ -5116,11 +5233,11 @@ uint64_t hoseSBAR_updateRTPRolloverStateAssumingIncreasingTransportTimes(uint64_
 uint64_t hoseSBAR_getRTPTimeForTransportTime(uint64_t a1, uint64_t a2, char *a3)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v6 = (a2 + 4);
+  v7 = (a2 + 4);
   if (*a2 == 1)
   {
-    result = *v6;
-    v9 = 1;
+    result = *v7;
+    v10 = 1;
     if (!a3)
     {
       return result;
@@ -5139,8 +5256,8 @@ uint64_t hoseSBAR_getRTPTimeForTransportTime(uint64_t a1, uint64_t a2, char *a3)
     goto LABEL_7;
   }
 
-  v10 = *(DerivedStorage + 88);
-  if (!v10)
+  v11 = *(DerivedStorage + 88);
+  if (!v11)
   {
     APSLogErrorAt(0);
     if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90)
@@ -5151,7 +5268,7 @@ uint64_t hoseSBAR_getRTPTimeForTransportTime(uint64_t a1, uint64_t a2, char *a3)
         if (!result)
         {
 LABEL_8:
-          v9 = 0;
+          v10 = 0;
           if (!a3)
           {
             return result;
@@ -5161,7 +5278,7 @@ LABEL_8:
         }
       }
 
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "uint32_t hoseSBAR_getRTPTimeForTransportTime(APSEndpointStreamAudioHoseSBARRef, APSAudioTransportTime, Boolean *)", 33554522, "### [%{ptr}] hoseSBAR_getRTPTimeForTransportTime must not be called when using mixed sample rate stream\n", a1);
     }
 
 LABEL_7:
@@ -5169,52 +5286,47 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  *&time.value = *v6;
+  *&time.value = *v7;
   time.epoch = *(a2 + 20);
-  v9 = 1;
-  CMTimeConvertScale(&v12, &time, v10, kCMTimeRoundingMethod_RoundHalfAwayFromZero);
-  result = LODWORD(v12.value);
+  v10 = 1;
+  CMTimeConvertScale(&v13, &time, v11, kCMTimeRoundingMethod_RoundHalfAwayFromZero);
+  result = LODWORD(v13.value);
   if (a3)
   {
 LABEL_11:
-    *a3 = v9;
+    *a3 = v10;
   }
 
   return result;
 }
 
-uint64_t hoseSBAR_updateRTPRolloverStateAssumingIncreasingRTPTimes(uint64_t a1, unsigned int a2)
+uint64_t hoseSBAR_updateRTPRolloverStateAssumingIncreasingRTPTimes(uint64_t a1, uint64_t a2)
 {
   result = CMBaseObjectGetDerivedStorage();
-  v4 = result;
+  v5 = result;
   if (!*(result + 736))
   {
-    if (gLogCategory_APSEndpointStreamAudioHoseSBAR > 50)
+    if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50)
     {
-      goto LABEL_18;
-    }
-
-    if (gLogCategory_APSEndpointStreamAudioHoseSBAR == -1)
-    {
-      result = _LogCategory_Initialize();
-      if (!result)
+      if (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || (result = _LogCategory_Initialize(), result))
       {
-        goto LABEL_18;
+        result = LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_updateRTPRolloverStateAssumingIncreasingRTPTimes(APSEndpointStreamAudioHoseSBARRef, uint32_t)", 33554482, "[%{ptr}] RTP Rollover Detection: Initial RTP Time: %u\n", a1, a2);
       }
     }
 
-    goto LABEL_12;
+    goto LABEL_18;
   }
 
-  v5 = *(result + 732);
-  if ((v5 - a2) < 1)
+  v6 = *(result + 732);
+  if (v6 - a2 < 1)
   {
-    if (v5 <= a2)
+    if (v6 <= a2)
     {
       goto LABEL_18;
     }
 
-    ++*(result + 728);
+    v7 = (*(result + 728) + 1);
+    *(result + 728) = v7;
     if (gLogCategory_APSEndpointStreamAudioHoseSBAR > 50)
     {
       goto LABEL_18;
@@ -5228,15 +5340,14 @@ uint64_t hoseSBAR_updateRTPRolloverStateAssumingIncreasingRTPTimes(uint64_t a1, 
         goto LABEL_18;
       }
 
-      v7 = *(v4 + 728);
-      v8 = *(v4 + 732);
+      v7 = *(v5 + 728);
+      v6 = *(v5 + 732);
     }
 
-LABEL_12:
-    result = LogPrintF();
+    result = LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_updateRTPRolloverStateAssumingIncreasingRTPTimes(APSEndpointStreamAudioHoseSBARRef, uint32_t)", 33554482, "[%{ptr}] RTP Rollover Detection: Rollover: new count: %d; inRTPTime: %u; lastRTPTimeEncountered: %u\n", a1, v7, a2, v6);
 LABEL_18:
-    *(v4 + 732) = a2;
-    *(v4 + 736) = 1;
+    *(v5 + 732) = a2;
+    *(v5 + 736) = 1;
     return result;
   }
 
@@ -5244,14 +5355,14 @@ LABEL_18:
   {
     if (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_updateRTPRolloverStateAssumingIncreasingRTPTimes(APSEndpointStreamAudioHoseSBARRef, uint32_t)", 33554482, "[%{ptr}] RTP Rollover Detection: Non-increasing RTP Time; last: %u, current: %u\n", a1, v6, a2);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      v6 = *(v4 + 732);
-      return LogPrintF();
+      v6 = *(v5 + 732);
+      return LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_updateRTPRolloverStateAssumingIncreasingRTPTimes(APSEndpointStreamAudioHoseSBARRef, uint32_t)", 33554482, "[%{ptr}] RTP Rollover Detection: Non-increasing RTP Time; last: %u, current: %u\n", a1, v6, a2);
     }
   }
 
@@ -5261,98 +5372,100 @@ LABEL_18:
 CMTime *hoseSBAR_getMediaTimeForRTPTime(CMTime *a1, uint64_t a2, unsigned int a3)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v6 = *(DerivedStorage + 88);
-  v7 = MEMORY[0x277CC0898];
-  a1->epoch = *(MEMORY[0x277CC0898] + 16);
-  *&a1->value = *v7;
-  if (**(DerivedStorage + 96) != 1)
+  v7 = *(DerivedStorage + 88);
+  *a1 = **&MEMORY[0x277CC0898];
+  if (**(DerivedStorage + 96) == 1)
   {
-    result = APSLogErrorAt(0);
-    if (gLogCategory_APSEndpointStreamAudioHoseSBAR > 90)
+    if (*(DerivedStorage + 736))
     {
-      return result;
+      v8 = *(DerivedStorage + 732);
+      v9 = a3 >= v8;
+      v10 = a3 - v8;
+      v11 = !v9;
+      v12 = v10 != 0 && v9;
+      v13 = v10 < 1;
+      if (v10 < 1)
+      {
+        v14 = -1;
+      }
+
+      else
+      {
+        v14 = 1;
+      }
+
+      if (v13)
+      {
+        v11 = v12;
+      }
+
+      if (!v11)
+      {
+        v14 = 0;
+      }
+
+      v15 = a3 | ((*(DerivedStorage + 728) + v14) << 32);
+
+      return CMTimeMake(a1, v15, v7);
     }
 
-    if (gLogCategory_APSEndpointStreamAudioHoseSBAR == -1)
+    else
     {
-      result = _LogCategory_Initialize();
-      if (!result)
+      result = APSLogErrorAt(0);
+      if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90)
       {
-        return result;
+        if (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1)
+        {
+          return LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "CMTime hoseSBAR_getMediaTimeForRTPTime(APSEndpointStreamAudioHoseSBARRef, uint32_t)", 33554522, "### [%{ptr}] RTP Rollover Detection: mediaTimeStartTime Query before rollover state was initialized\n", a2);
+        }
+
+        result = _LogCategory_Initialize();
+        if (result)
+        {
+          return LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "CMTime hoseSBAR_getMediaTimeForRTPTime(APSEndpointStreamAudioHoseSBARRef, uint32_t)", 33554522, "### [%{ptr}] RTP Rollover Detection: mediaTimeStartTime Query before rollover state was initialized\n", a2);
+        }
       }
     }
-
-    return LogPrintF();
-  }
-
-  if (!*(DerivedStorage + 736))
-  {
-    result = APSLogErrorAt(0);
-    if (gLogCategory_APSEndpointStreamAudioHoseSBAR > 90)
-    {
-      return result;
-    }
-
-    if (gLogCategory_APSEndpointStreamAudioHoseSBAR == -1)
-    {
-      result = _LogCategory_Initialize();
-      if (!result)
-      {
-        return result;
-      }
-    }
-
-    return LogPrintF();
-  }
-
-  v8 = *(DerivedStorage + 732);
-  v9 = a3 >= v8;
-  v10 = a3 - v8;
-  v11 = !v9;
-  v12 = v10 != 0 && v9;
-  v13 = v10 < 1;
-  if (v10 < 1)
-  {
-    v14 = -1;
   }
 
   else
   {
-    v14 = 1;
+    result = APSLogErrorAt(0);
+    if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90)
+    {
+      if (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1)
+      {
+        return LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "CMTime hoseSBAR_getMediaTimeForRTPTime(APSEndpointStreamAudioHoseSBARRef, uint32_t)", 33554522, "### [%{ptr}] hoseSBAR_getMediaTimeForRTPTime must only be called for TransportTimeType RTP\n", a2);
+      }
+
+      result = _LogCategory_Initialize();
+      if (result)
+      {
+        return LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "CMTime hoseSBAR_getMediaTimeForRTPTime(APSEndpointStreamAudioHoseSBARRef, uint32_t)", 33554522, "### [%{ptr}] hoseSBAR_getMediaTimeForRTPTime must only be called for TransportTimeType RTP\n", a2);
+      }
+    }
   }
 
-  if (v13)
-  {
-    v11 = v12;
-  }
-
-  if (!v11)
-  {
-    v14 = 0;
-  }
-
-  v15 = a3 | ((*(DerivedStorage + 728) + v14) << 32);
-
-  return CMTimeMake(a1, v15, v6);
+  return result;
 }
 
-void hoseSBAR_handleSynchronizerTimebaseRateChangedNotification()
+void hoseSBAR_handleSynchronizerTimebaseRateChangedNotification(uint64_t a1, uint64_t a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (!*DerivedStorage)
   {
-    v1 = DerivedStorage;
+    v3 = DerivedStorage;
     if (CMTimebaseGetRate(*(DerivedStorage + 120)) != 0.0)
     {
-      CMTimebaseSetTimerDispatchSourceToFireImmediately(*(v1 + 120), *(v1 + 648));
-      if (*(v1 + 420))
+      CMTimebaseSetTimerDispatchSourceToFireImmediately(*(v3 + 120), *(v3 + 648));
+      if (*(v3 + 420))
       {
-        v2 = *(v1 + 120);
-        v3 = *(v1 + 680);
-        lhs = *(v1 + 408);
-        v4 = *(v1 + 232);
-        CMTimeSubtract(&fireTime, &lhs, &v4);
-        CMTimebaseSetTimerDispatchSourceNextFireTime(v2, v3, &fireTime, 1u);
+        v4 = *(v3 + 120);
+        v5 = *(v3 + 680);
+        lhs = *(v3 + 408);
+        v6 = *(v3 + 232);
+        CMTimeSubtract(&fireTime, &lhs, &v6);
+        CMTimebaseSetTimerDispatchSourceNextFireTime(v4, v5, &fireTime, 1u);
       }
     }
   }
@@ -5378,12 +5491,10 @@ void hoseSBAR_handleSBARUnderrunNotification(uint64_t a1, uint64_t a2, uint64_t 
     goto LABEL_15;
   }
 
-  v11 = *MEMORY[0x277CD63E8];
   if (FigCFEqual())
   {
     if ((*(v9 + 816) & 1) == 0)
     {
-      v12 = *MEMORY[0x277CD63C8];
       FigCFDictionaryGetCMTimeIfPresent();
 
       hoseSBAR_beginUnderrunIfNeeded(a2);
@@ -5393,7 +5504,6 @@ void hoseSBAR_handleSBARUnderrunNotification(uint64_t a1, uint64_t a2, uint64_t 
     goto LABEL_15;
   }
 
-  v13 = *MEMORY[0x277CD63F0];
   if (!FigCFEqual())
   {
     return;
@@ -5407,13 +5517,12 @@ LABEL_15:
     return;
   }
 
-  v14 = MEMORY[0x277CC0898];
+  v11 = MEMORY[0x277CC0898];
   *(v9 + 804) = *MEMORY[0x277CC0898];
-  *(v9 + 820) = *(v14 + 16);
-  v15 = *MEMORY[0x277CD63D0];
+  *(v9 + 820) = *(v11 + 16);
   FigCFDictionaryGetCMTimeRangeIfPresent();
 
-  hoseSBAR_endUnderrun();
+  hoseSBAR_endUnderrun(a2);
 }
 
 _BYTE *hoseSBAR_beginUnderrunIfNeeded(uint64_t a1)
@@ -5428,15 +5537,14 @@ _BYTE *hoseSBAR_beginUnderrunIfNeeded(uint64_t a1)
       v5 = result + 804;
       if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_beginUnderrunIfNeeded(APSEndpointStreamAudioHoseSBARRef)", 33554522, "### [%{ptr}] Underrun Began", a1);
       }
 
-      *&v7.value = *v5;
-      v7.epoch = *(v3 + 820);
-      hoseSBAR_getMediaTimeForSynchronizerTime(&v8, a1, &v7);
-      *v4 = *&v8.value;
-      *(v3 + 844) = v8.epoch;
-      v6 = v3[1];
+      *&v6.value = *v5;
+      v6.epoch = *(v3 + 820);
+      hoseSBAR_getMediaTimeForSynchronizerTime(&v7, a1, &v6);
+      *v4 = *&v7.value;
+      *(v3 + 844) = v7.epoch;
       CMNotificationCenterGetDefaultLocalCenter();
 
       return FigDispatchAsyncPostNotification();
@@ -5446,45 +5554,44 @@ _BYTE *hoseSBAR_beginUnderrunIfNeeded(uint64_t a1)
   return result;
 }
 
-void hoseSBAR_endUnderrun()
+void hoseSBAR_endUnderrun(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (*(DerivedStorage + 840))
   {
-    v1 = DerivedStorage;
+    v3 = DerivedStorage;
     if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_endUnderrun(APSEndpointStreamAudioHoseRef)", 33554482, "[%{ptr}] Underrun Ended", a1);
     }
 
-    v2 = v1 + 828;
-    v3 = *(v1 + 8);
+    v4 = v3 + 828;
     CMNotificationCenterGetDefaultLocalCenter();
     FigDispatchAsyncPostNotification();
     HostTimeClock = CMClockGetHostTimeClock();
     CMClockGetTime(&lhs, HostTimeClock);
-    rhs = *(v1 + 504);
+    rhs = *(v3 + 504);
     CMTimeSubtract(&time, &lhs, &rhs);
     Seconds = CMTimeGetSeconds(&time);
-    v6 = (v1 + 852);
-    if (*(v1 + 864) & 1) != 0 && (*(v1 + 888))
+    v7 = (v3 + 852);
+    if (*(v3 + 864) & 1) != 0 && (*(v3 + 888))
     {
-      v7 = v1 + 876;
-      if (!*(v7 + 16) && (*v7 & 0x8000000000000000) == 0)
+      v8 = v3 + 876;
+      if (!*(v8 + 16) && (*v8 & 0x8000000000000000) == 0)
       {
-        v11 = Seconds;
-        v12 = *v7;
-        time.epoch = *(v7 + 16);
-        *&time.value = v12;
-        if (CMTimeGetSeconds(&time) < 5.0 && v11 >= 20.0)
+        v12 = Seconds;
+        v13 = *v8;
+        time.epoch = *(v8 + 16);
+        *&time.value = v13;
+        if (CMTimeGetSeconds(&time) < 5.0 && v12 >= 20.0)
         {
           if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
           {
-            v13 = *v7;
-            time.epoch = *(v7 + 16);
-            *&time.value = v13;
-            CMTimeGetSeconds(&time);
-            LogPrintF();
+            v14 = *v8;
+            time.epoch = *(v8 + 16);
+            *&time.value = v14;
+            v15 = CMTimeGetSeconds(&time);
+            LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_endUnderrun(APSEndpointStreamAudioHoseRef)", 33554482, "[%{ptr}] Posting underrun notification to WiFi underrunRangeDuration: %1.3f timeSinceLastSetRateOne: %1.3f", a1, *&v15, *&v12);
           }
 
           DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
@@ -5493,18 +5600,18 @@ void hoseSBAR_endUnderrun()
       }
     }
 
-    v8 = MEMORY[0x277CC0898];
-    *v2 = *MEMORY[0x277CC0898];
-    *(v2 + 16) = *(v8 + 16);
-    v9 = MEMORY[0x277CC08C8];
-    v10 = *(MEMORY[0x277CC08C8] + 16);
-    *v6 = *MEMORY[0x277CC08C8];
-    v6[1] = v10;
-    v6[2] = *(v9 + 32);
+    v9 = MEMORY[0x277CC0898];
+    *v4 = *MEMORY[0x277CC0898];
+    *(v4 + 16) = *(v9 + 16);
+    v10 = MEMORY[0x277CC08C8];
+    v11 = *(MEMORY[0x277CC08C8] + 16);
+    *v7 = *MEMORY[0x277CC08C8];
+    v7[1] = v11;
+    v7[2] = *(v10 + 32);
   }
 }
 
-_BYTE *hoseSBAR_handleSBARWasFlushedAutomaticallyAndRebuildCouldBenefitFidelityNotification(uint64_t a1, void *a2)
+_BYTE *hoseSBAR_handleSBARWasFlushedAutomaticallyAndRebuildCouldBenefitFidelityNotification(uint64_t a1, void *a2, uint64_t a3)
 {
   result = CMBaseObjectGetDerivedStorage();
   if (*result)
@@ -5512,56 +5619,56 @@ _BYTE *hoseSBAR_handleSBARWasFlushedAutomaticallyAndRebuildCouldBenefitFidelityN
     return result;
   }
 
-  v4 = result;
+  v6 = result;
   if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_handleSBARWasFlushedAutomaticallyAndRebuildCouldBenefitFidelityNotification(CMNotificationCenterRef, const void *, CFStringRef, const void *, CFTypeRef)", 33554482, "[%{ptr}] SBAR notification %@, re-enqueuing sbufs from buffer stash\n", a2, a3);
   }
 
-  v5 = *(v4 + 122);
-  if (v5)
+  v7 = *(v6 + 122);
+  if (v7)
   {
-    CFRelease(v5);
-    *(v4 + 122) = 0;
+    CFRelease(v7);
+    *(v6 + 122) = 0;
   }
 
-  v6 = *(v4 + 123);
-  if (v6)
-  {
-    CFRelease(v6);
-    *(v4 + 123) = 0;
-  }
-
-  v7 = *(v4 + 13);
-  v8 = *(*(CMBaseObjectGetVTable() + 16) + 24);
+  v8 = *(v6 + 123);
   if (v8)
   {
-    v9 = v8(v7);
-    if (!v9)
-    {
-      v4[672] = 0;
-      v10 = MEMORY[0x277CC08C8];
-      v11 = *(MEMORY[0x277CC08C8] + 16);
-      *(v4 + 756) = *MEMORY[0x277CC08C8];
-      *(v4 + 772) = v11;
-      *(v4 + 788) = *(v10 + 32);
-      v9 = hoseSBAR_transferStashedSBufsIntoBuffersForSBAR(a2);
-      if (!v9)
-      {
-        v12 = *(v4 + 15);
-        v13 = *(v4 + 81);
+    CFRelease(v8);
+    *(v6 + 123) = 0;
+  }
 
-        return CMTimebaseSetTimerDispatchSourceToFireImmediately(v12, v13);
+  v9 = *(v6 + 13);
+  v10 = *(*(CMBaseObjectGetVTable() + 16) + 24);
+  if (v10)
+  {
+    v11 = v10(v9);
+    if (!v11)
+    {
+      v6[672] = 0;
+      v12 = MEMORY[0x277CC08C8];
+      v13 = *(MEMORY[0x277CC08C8] + 16);
+      *(v6 + 756) = *MEMORY[0x277CC08C8];
+      *(v6 + 772) = v13;
+      *(v6 + 788) = *(v12 + 32);
+      v11 = hoseSBAR_transferStashedSBufsIntoBuffersForSBAR(a2);
+      if (!v11)
+      {
+        v14 = *(v6 + 15);
+        v15 = *(v6 + 81);
+
+        return CMTimebaseSetTimerDispatchSourceToFireImmediately(v14, v15);
       }
     }
   }
 
   else
   {
-    v9 = 4294954514;
+    v11 = 4294954514;
   }
 
-  return APSLogErrorAt(v9);
+  return APSLogErrorAt(v11);
 }
 
 uint64_t hoseSBAR_transferStashedSBufsIntoBuffersForSBAR(void *a1)
@@ -5592,17 +5699,17 @@ LABEL_7:
   return v4;
 }
 
-uint64_t hoseSBAR_transferStashedSBufsIntoBuffersForSBARCallback(const void *a1)
+uint64_t hoseSBAR_transferStashedSBufsIntoBuffersForSBARCallback(const void *a1, uint64_t a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v3 = CMBufferQueueEnqueue(*(DerivedStorage + 664), a1);
-  v4 = v3;
-  if (v3)
+  v4 = CMBufferQueueEnqueue(*(DerivedStorage + 664), a1);
+  v5 = v4;
+  if (v4)
   {
-    APSLogErrorAt(v3);
+    APSLogErrorAt(v4);
   }
 
-  return v4;
+  return v5;
 }
 
 _BYTE *hoseSBAR_handleSBARLowWaterNotification(uint64_t a1, uint64_t a2)
@@ -5630,8 +5737,6 @@ uint64_t FigAudioSessionSetMXSessionProperty(uint64_t a1, uint64_t a2, uint64_t 
   {
     return 4294948071;
   }
-
-  v8 = *(v6 + 56);
 
   return v7(a1, a2, a3);
 }
@@ -6004,103 +6109,102 @@ LABEL_20:
   return v19;
 }
 
-uint64_t hoseSBAR_decodeAPAPExtensionItem(uint64_t a1, OpaqueCMBlockBuffer *a2, uint64_t *a3)
+uint64_t hoseSBAR_decodeAPAPExtensionItem(uint64_t a1, OpaqueCMBlockBuffer *a2, uint64_t a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v6 = *a3;
+  v29 = *MEMORY[0x277D85DE8];
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v8 = 0;
+  v7 = 0;
   switch(a1)
   {
     case 2:
-      v9 = DerivedStorage;
-      v26.value = 0;
-      BigUIntAsUInt64 = APSCMBlockBufferGetBigUIntAsUInt64(a2, &v26);
-      v8 = BigUIntAsUInt64;
+      v8 = DerivedStorage;
+      v24.value = 0;
+      BigUIntAsUInt64 = APSCMBlockBufferGetBigUIntAsUInt64(a2, &v24);
+      v7 = BigUIntAsUInt64;
       if (BigUIntAsUInt64)
       {
         goto LABEL_65;
       }
 
-      value = v26.value;
-      if (!v26.value)
+      value = v24.value;
+      if (!v24.value)
       {
-        value = *(v9 + 704);
+        value = *(v8 + 704);
         if (value)
         {
           value = *(value + 64);
         }
       }
 
-      a3[1] = value;
-      break;
+      *(a3 + 8) = value;
+      return v7;
     case 3:
-      v26.value = 0;
-      BigUIntAsUInt64 = APSCMBlockBufferGetBigUIntAsUInt64(a2, &v26);
-      v8 = BigUIntAsUInt64;
+      v24.value = 0;
+      BigUIntAsUInt64 = APSCMBlockBufferGetBigUIntAsUInt64(a2, &v24);
+      v7 = BigUIntAsUInt64;
       if (BigUIntAsUInt64)
       {
         goto LABEL_65;
       }
 
-      a3[3] = v26.value;
-      break;
+      *(a3 + 24) = v24.value;
+      return v7;
     case 4:
-      v28 = 0;
+      v26 = 0;
       destination = 0;
       BigUIntAsUInt64 = CMBlockBufferCopyDataBytes(a2, 0, 0xCuLL, &destination);
       if (BigUIntAsUInt64)
       {
-        v8 = BigUIntAsUInt64;
+        v7 = BigUIntAsUInt64;
         goto LABEL_65;
       }
 
-      CMTimeMake(&v26, bswap64(destination), bswap32(v28));
-      v29 = v26.value;
-      flags = v26.flags;
-      timescale = v26.timescale;
-      if ((v26.flags & 1) == 0)
+      CMTimeMake(&v24, bswap64(destination), bswap32(v26));
+      v27 = v24.value;
+      flags = v24.flags;
+      timescale = v24.timescale;
+      if ((v24.flags & 1) == 0)
       {
         goto LABEL_66;
       }
 
-      v8 = 0;
-      epoch = v26.epoch;
-      a3[4] = v29;
-      *(a3 + 10) = timescale;
-      *(a3 + 11) = flags;
-      a3[6] = epoch;
-      break;
+      v7 = 0;
+      epoch = v24.epoch;
+      *(a3 + 32) = v27;
+      *(a3 + 40) = timescale;
+      *(a3 + 44) = flags;
+      *(a3 + 48) = epoch;
+      return v7;
     case 5:
-      v28 = 0;
+      v26 = 0;
       destination = 0;
       BigUIntAsUInt64 = CMBlockBufferCopyDataBytes(a2, 0, 0xCuLL, &destination);
       if (BigUIntAsUInt64)
       {
-        v8 = BigUIntAsUInt64;
+        v7 = BigUIntAsUInt64;
         goto LABEL_65;
       }
 
-      CMTimeMake(&v26, bswap64(destination), bswap32(v28));
-      v29 = v26.value;
-      v14 = v26.flags;
-      timescale = v26.timescale;
-      if ((v26.flags & 1) == 0)
+      CMTimeMake(&v24, bswap64(destination), bswap32(v26));
+      v27 = v24.value;
+      v13 = v24.flags;
+      timescale = v24.timescale;
+      if ((v24.flags & 1) == 0)
       {
         goto LABEL_66;
       }
 
-      v8 = 0;
-      v15 = v26.epoch;
-      a3[7] = v29;
-      *(a3 + 16) = timescale;
-      *(a3 + 17) = v14;
-      a3[9] = v15;
-      break;
+      v7 = 0;
+      v14 = v24.epoch;
+      *(a3 + 56) = v27;
+      *(a3 + 64) = timescale;
+      *(a3 + 68) = v13;
+      *(a3 + 72) = v14;
+      return v7;
     case 7:
-      v26.value = 0;
-      BigUIntAsUInt64 = APSAPAPExtensionConvertSoundCheckInfoBBufAndMergeIntoLoudnessInfoDict(a2, a3[10], &v26);
-      v8 = BigUIntAsUInt64;
+      v24.value = 0;
+      BigUIntAsUInt64 = APSAPAPExtensionConvertSoundCheckInfoBBufAndMergeIntoLoudnessInfoDict(a2, *(a3 + 80), &v24);
+      v7 = BigUIntAsUInt64;
       if (!BigUIntAsUInt64)
       {
         goto LABEL_42;
@@ -6108,49 +6212,49 @@ uint64_t hoseSBAR_decodeAPAPExtensionItem(uint64_t a1, OpaqueCMBlockBuffer *a2, 
 
       goto LABEL_65;
     case 8:
-      v26.value = 0;
-      BigUIntAsUInt64 = APSCMBlockBufferGetBigUIntAsUInt64(a2, &v26);
-      v8 = BigUIntAsUInt64;
+      v24.value = 0;
+      BigUIntAsUInt64 = APSCMBlockBufferGetBigUIntAsUInt64(a2, &v24);
+      v7 = BigUIntAsUInt64;
       if (BigUIntAsUInt64)
       {
         goto LABEL_65;
       }
 
-      a3[11] = v26.value;
-      break;
+      *(a3 + 88) = v24.value;
+      return v7;
     case 9:
-      v26.value = 0;
-      BigUIntAsUInt64 = APSCMBlockBufferCopyAsUUID(a2, &v26);
-      v8 = BigUIntAsUInt64;
+      v24.value = 0;
+      BigUIntAsUInt64 = APSCMBlockBufferCopyAsUUID(a2, &v24);
+      v7 = BigUIntAsUInt64;
       if (BigUIntAsUInt64)
       {
         goto LABEL_65;
       }
 
-      v18 = a3[15];
-      if (v18)
+      v17 = *(a3 + 120);
+      if (v17)
       {
-        CFRelease(v18);
+        CFRelease(v17);
       }
 
-      a3[15] = v26.value;
-      break;
+      *(a3 + 120) = v24.value;
+      return v7;
     case 10:
-      v26.value = 0;
-      BigUIntAsUInt64 = APSCMBlockBufferGetBigUIntAsUInt64(a2, &v26);
-      v8 = BigUIntAsUInt64;
+      v24.value = 0;
+      BigUIntAsUInt64 = APSCMBlockBufferGetBigUIntAsUInt64(a2, &v24);
+      v7 = BigUIntAsUInt64;
       if (BigUIntAsUInt64)
       {
         goto LABEL_65;
       }
 
-      a3[16] = v26.value;
+      *(a3 + 128) = v24.value;
       *(a3 + 136) = 1;
-      break;
+      return v7;
     case 11:
-      v26.value = 0;
-      BigUIntAsUInt64 = APSAPAPExtensionConvertLoudnessParametersBBufAndMergeIntoLoudnessInfoDict(a2, a3[10], &v26);
-      v8 = BigUIntAsUInt64;
+      v24.value = 0;
+      BigUIntAsUInt64 = APSAPAPExtensionConvertLoudnessParametersBBufAndMergeIntoLoudnessInfoDict(a2, *(a3 + 80), &v24);
+      v7 = BigUIntAsUInt64;
       if (!BigUIntAsUInt64)
       {
         goto LABEL_42;
@@ -6158,171 +6262,170 @@ uint64_t hoseSBAR_decodeAPAPExtensionItem(uint64_t a1, OpaqueCMBlockBuffer *a2, 
 
       goto LABEL_65;
     case 12:
-      v26.value = 0;
-      BigUIntAsUInt64 = APSAPAPExtensionConvertMediaKindBBufAndMergeIntoLoudnessInfoDict(a2, a3[10], &v26);
-      v8 = BigUIntAsUInt64;
+      v24.value = 0;
+      BigUIntAsUInt64 = APSAPAPExtensionConvertMediaKindBBufAndMergeIntoLoudnessInfoDict(a2, *(a3 + 80), &v24);
+      v7 = BigUIntAsUInt64;
       if (BigUIntAsUInt64)
       {
         goto LABEL_65;
       }
 
 LABEL_42:
-      v22 = a3[10];
-      if (v22)
+      v21 = *(a3 + 80);
+      if (v21)
       {
-        CFRelease(v22);
+        CFRelease(v21);
       }
 
-      a3[10] = v26.value;
-      break;
+      *(a3 + 80) = v24.value;
+      return v7;
     case 13:
-      v28 = 0;
+      v26 = 0;
       destination = 0;
       BigUIntAsUInt64 = CMBlockBufferCopyDataBytes(a2, 0, 0xCuLL, &destination);
       if (BigUIntAsUInt64)
       {
-        v8 = BigUIntAsUInt64;
+        v7 = BigUIntAsUInt64;
         goto LABEL_65;
       }
 
-      CMTimeMake(&v26, bswap64(destination), bswap32(v28));
-      v29 = v26.value;
-      v12 = v26.flags;
-      timescale = v26.timescale;
-      if (v26.flags)
+      CMTimeMake(&v24, bswap64(destination), bswap32(v26));
+      v27 = v24.value;
+      v11 = v24.flags;
+      timescale = v24.timescale;
+      if (v24.flags)
       {
-        v8 = 0;
-        v13 = v26.epoch;
-        *(a3 + 140) = v29;
-        *(a3 + 37) = timescale;
-        *(a3 + 38) = v12;
-        *(a3 + 156) = v13;
+        v7 = 0;
+        v12 = v24.epoch;
+        *(a3 + 140) = v27;
+        *(a3 + 148) = timescale;
+        *(a3 + 152) = v11;
+        *(a3 + 156) = v12;
       }
 
       else
       {
 LABEL_66:
         APSLogErrorAt(0);
-        v8 = 4294960559;
+        v7 = 4294960559;
       }
 
       break;
     case 14:
-      v26.value = 0;
-      BigUIntAsUInt64 = APSCMBlockBufferGetBigUIntAsUInt64(a2, &v26);
-      v8 = BigUIntAsUInt64;
+      v24.value = 0;
+      BigUIntAsUInt64 = APSCMBlockBufferGetBigUIntAsUInt64(a2, &v24);
+      v7 = BigUIntAsUInt64;
       if (BigUIntAsUInt64)
       {
         goto LABEL_65;
       }
 
-      a3[12] = v26.value;
-      break;
+      *(a3 + 96) = v24.value;
+      return v7;
     case 15:
-      v26.value = 0;
-      BigUIntAsUInt64 = APSCMBlockBufferGetBigUIntAsUInt64(a2, &v26);
-      v8 = BigUIntAsUInt64;
+      v24.value = 0;
+      BigUIntAsUInt64 = APSCMBlockBufferGetBigUIntAsUInt64(a2, &v24);
+      v7 = BigUIntAsUInt64;
       if (BigUIntAsUInt64)
       {
         goto LABEL_65;
       }
 
-      a3[13] = v26.value;
-      break;
+      *(a3 + 104) = v24.value;
+      return v7;
     case 16:
-      v26.value = 0;
-      BigUIntAsUInt64 = APSCMBlockBufferGetBigUIntAsUInt64(a2, &v26);
-      v8 = BigUIntAsUInt64;
+      v24.value = 0;
+      BigUIntAsUInt64 = APSCMBlockBufferGetBigUIntAsUInt64(a2, &v24);
+      v7 = BigUIntAsUInt64;
       if (BigUIntAsUInt64)
       {
         goto LABEL_65;
       }
 
-      a3[14] = v26.value;
-      break;
+      *(a3 + 112) = v24.value;
+      return v7;
     case 17:
-      v26.value = 0;
-      BigUIntAsUInt64 = APSCMBlockBufferGetBigUIntAsUInt64(a2, &v26);
-      v8 = BigUIntAsUInt64;
+      v24.value = 0;
+      BigUIntAsUInt64 = APSCMBlockBufferGetBigUIntAsUInt64(a2, &v24);
+      v7 = BigUIntAsUInt64;
       if (BigUIntAsUInt64)
       {
         goto LABEL_65;
       }
 
-      a3[21] = v26.value;
-      break;
+      *(a3 + 168) = v24.value;
+      return v7;
     case 18:
       DataLength = CMBlockBufferGetDataLength(a2);
-      v20 = malloc_type_calloc(1uLL, DataLength, 0x100004077774924uLL);
-      BigUIntAsUInt64 = CMBlockBufferCopyDataBytes(a2, 0, DataLength, v20);
+      v19 = malloc_type_calloc(1uLL, DataLength, 0x100004077774924uLL);
+      BigUIntAsUInt64 = CMBlockBufferCopyDataBytes(a2, 0, DataLength, v19);
       if (BigUIntAsUInt64)
       {
-        v8 = BigUIntAsUInt64;
+        v7 = BigUIntAsUInt64;
 LABEL_65:
         APSLogErrorAt(BigUIntAsUInt64);
       }
 
       else
       {
-        v21 = CFDataCreate(*MEMORY[0x277CBECE8], v20, DataLength);
-        if (v21)
+        v20 = CFDataCreate(*MEMORY[0x277CBECE8], v19, DataLength);
+        if (v20)
         {
-          a3[22] = v21;
-          free(v20);
-          v8 = 0;
+          *(a3 + 176) = v20;
+          free(v19);
+          v7 = 0;
         }
 
         else
         {
           APSLogErrorAt(0);
-          v8 = 4294960587;
+          v7 = 4294960587;
         }
       }
 
       break;
     case 19:
-      v26.value = 0;
-      BigUIntAsUInt64 = APSAPAPExtensionConvertSbufTracerBBufToSbufTracerDict(a2, &v26);
-      v8 = BigUIntAsUInt64;
+      v24.value = 0;
+      BigUIntAsUInt64 = APSAPAPExtensionConvertSbufTracerBBufToSbufTracerDict(a2, &v24);
+      v7 = BigUIntAsUInt64;
       if (BigUIntAsUInt64)
       {
         goto LABEL_65;
       }
 
-      v23 = a3[23];
-      if (v23)
+      v22 = *(a3 + 184);
+      if (v22)
       {
-        CFRelease(v23);
+        CFRelease(v22);
       }
 
-      a3[23] = v26.value;
-      break;
+      *(a3 + 184) = v24.value;
+      return v7;
     case 20:
-      v26.value = 0;
-      BigUIntAsUInt64 = APSCMBlockBufferGetBigUIntAsUInt64(a2, &v26);
-      v8 = BigUIntAsUInt64;
+      v24.value = 0;
+      BigUIntAsUInt64 = APSCMBlockBufferGetBigUIntAsUInt64(a2, &v24);
+      v7 = BigUIntAsUInt64;
       if (BigUIntAsUInt64)
       {
         goto LABEL_65;
       }
 
-      a3[2] = v26.value;
-      break;
+      *(a3 + 16) = v24.value;
+      return v7;
     default:
-      break;
+      return v7;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-  return v8;
+  return v7;
 }
 
 uint64_t hoseSBAR_decodeAPAPHeader(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v14 = *MEMORY[0x277CC0898];
-  v15 = *(MEMORY[0x277CC0898] + 16);
-  v13 = 0;
-  v6 = APSAPAPBBufDecodeHeader(a2, &v14, &v13);
+  v17 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277CC0898];
+  v14 = *(MEMORY[0x277CC0898] + 16);
+  v12 = 0;
+  v6 = APSAPAPBBufDecodeHeader(a2, &v13, &v12);
   v7 = v6;
   if (v6)
   {
@@ -6333,11 +6436,11 @@ uint64_t hoseSBAR_decodeAPAPHeader(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD
   {
     if (a3)
     {
-      v8 = HIDWORD(v14);
-      if ((BYTE12(v14) & 0x1D) == 1 && v15 == 0)
+      v8 = HIDWORD(v13);
+      if ((BYTE12(v13) & 0x1D) == 1 && v14 == 0)
       {
-        v16 = v14;
-        v17 = DWORD2(v14);
+        v15 = v13;
+        v16 = DWORD2(v13);
         v10 = 2;
       }
 
@@ -6345,24 +6448,23 @@ uint64_t hoseSBAR_decodeAPAPHeader(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD
       {
         v8 = 0;
         v10 = 0;
-        v17 = 0;
         v16 = 0;
+        v15 = 0;
       }
 
       *a3 = v10;
-      *(a3 + 4) = v16;
-      *(a3 + 12) = v17;
+      *(a3 + 4) = v15;
+      *(a3 + 12) = v16;
       *(a3 + 16) = v8;
       *(a3 + 20) = 0;
     }
 
     if (a4)
     {
-      *a4 = v13;
+      *a4 = v12;
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -6572,12 +6674,10 @@ uint64_t hoseSBAR_GetLastSentMediaTime(uint64_t a1, uint64_t a2)
   if (a2)
   {
     v4 = DerivedStorage;
-    v5 = *(DerivedStorage + 288);
     FigSimpleMutexLock();
-    v6 = *(v4 + 324);
+    v5 = *(v4 + 324);
     *(a2 + 16) = *(v4 + 340);
-    *a2 = v6;
-    v7 = *(v4 + 288);
+    *a2 = v5;
     FigSimpleMutexUnlock();
     return 0;
   }
@@ -6592,12 +6692,10 @@ uint64_t hoseSBAR_GetLastSentMediaTime(uint64_t a1, uint64_t a2)
 uint64_t hoseSBAR_SetLastSentMediaTime(uint64_t a1, uint64_t a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v4 = *(DerivedStorage + 288);
   FigSimpleMutexLock();
-  v5 = *(a2 + 16);
+  v4 = *(a2 + 16);
   *(DerivedStorage + 324) = *a2;
-  *(DerivedStorage + 340) = v5;
-  v6 = *(DerivedStorage + 288);
+  *(DerivedStorage + 340) = v4;
   FigSimpleMutexUnlock();
   return 0;
 }
@@ -6614,7 +6712,7 @@ uint64_t hoseSBAR_audioHoseSetMagicCookie(const void *a1, uint64_t a2, const voi
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_audioHoseSetMagicCookie(APSEndpointStreamAudioHoseRef, uint64_t, CFDataRef, APSEndpointStreamAudioHoseSetMagicCookieCompletionHandler, void *)", 33554482, "[%{ptr}] Set Magic Cookie [%{ptr}] with magicCookieID: 0x%llx", a1, a3, a2);
   }
 
   if (a1)
@@ -6646,7 +6744,7 @@ uint64_t hoseSBAR_audioHoseSetMagicCookie(const void *a1, uint64_t a2, const voi
   return 0;
 }
 
-void hoseSBAR_audioHoseSetMagicCookieCallbackDispatchInternal(void *a1)
+void hoseSBAR_audioHoseSetMagicCookieCallbackDispatchInternal(uint64_t *a1)
 {
   v3 = *a1;
   v2 = a1[1];
@@ -6657,7 +6755,7 @@ void hoseSBAR_audioHoseSetMagicCookieCallbackDispatchInternal(void *a1)
     v6 = DerivedStorage;
     if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_audioHoseSetMagicCookieCallbackInternal(APSEndpointStreamAudioHoseSBARRef, uint64_t, CFDataRef)", 33554482, "[%{ptr}] Storing magic cookie [%{ptr}] with magicCookieID 0x%llx", v3, v4, v2);
     }
 
     Int64 = CFNumberCreateInt64();
@@ -6706,7 +6804,7 @@ uint64_t hoseSBAR_audioHoseSetCryptor(const void *a1, uint64_t a2, const void *a
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_audioHoseSetCryptor(APSEndpointStreamAudioHoseRef, uint64_t, FigCPECryptorRef, APSEndpointStreamAudioHoseSetCryptorCompletionHandler, void *)", 33554482, "[%{ptr}] Set Cryptor [%{ptr}] with cryptorID: 0x%llx", a1, a3, a2);
   }
 
   if (a1)
@@ -6738,7 +6836,7 @@ uint64_t hoseSBAR_audioHoseSetCryptor(const void *a1, uint64_t a2, const void *a
   return 0;
 }
 
-void hoseSBAR_audioHoseSetCryptorCallbackDispatchInternal(void *a1)
+void hoseSBAR_audioHoseSetCryptorCallbackDispatchInternal(uint64_t *a1)
 {
   v3 = *a1;
   v2 = a1[1];
@@ -6749,7 +6847,7 @@ void hoseSBAR_audioHoseSetCryptorCallbackDispatchInternal(void *a1)
     v6 = DerivedStorage;
     if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_audioHoseSetCryptorCallbackInternal(APSEndpointStreamAudioHoseSBARRef, uint64_t, FigCPECryptorRef)", 33554482, "[%{ptr}] Storing cryptor [%{ptr}] with cryptorID 0x%llx", v3, v4, v2);
     }
 
     Int64 = CFNumberCreateInt64();
@@ -6793,13 +6891,13 @@ void hoseSBAR_audioHoseSetCryptorCallbackDispatchInternal(void *a1)
   }
 }
 
-uint64_t hoseSBAR_audioHoseGetAnchor(const void *a1, int a2, uint64_t a3, uint64_t a4)
+uint64_t hoseSBAR_audioHoseGetAnchor(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   v12 = 0;
   if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_audioHoseGetAnchor(APSEndpointStreamAudioHoseRef, uint32_t, APSEndpointStreamAudioHoseSetRateCompletionHandler, void *)", 33554482, "[%{ptr}] Get Anchor: %u", a1, a2);
   }
 
   if (a1)
@@ -6822,18 +6920,18 @@ uint64_t hoseSBAR_audioHoseGetAnchor(const void *a1, int a2, uint64_t a3, uint64
 
 void hoseSBAR_audioHoseGetAnchorCallbackDispatchInternal(uint64_t a1)
 {
-  memset(v27, 0, 28);
-  *&v26.value = kAPSNetworkTimeInvalid;
-  v26.epoch = 0x100000000;
+  memset(v29, 0, 28);
+  *&v28.value = kAPSNetworkTimeInvalid;
+  v28.epoch = 0x100000000;
   v2 = *a1;
   v3 = *(a1 + 8);
-  memset(v33, 0, sizeof(v33));
+  memset(v35, 0, sizeof(v35));
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v32 = 0;
-  v31 = **&MEMORY[0x277CC0898];
-  v30 = v31;
-  *&v29.value = kAPSNetworkTimeInvalid;
-  v29.epoch = 0x100000000;
+  v34 = 0;
+  v33 = **&MEMORY[0x277CC0898];
+  v32 = v33;
+  *&v31.value = kAPSNetworkTimeInvalid;
+  v31.epoch = 0x100000000;
   if (v3 != 1)
   {
     v8 = 4294894965;
@@ -6852,7 +6950,7 @@ void hoseSBAR_audioHoseGetAnchorCallbackDispatchInternal(uint64_t a1)
 
   v12 = v5 + 22;
   hostTime = time;
-  v13 = v7(epoch, &hostTime, &v32);
+  v13 = v7(epoch, &hostTime, &v34);
   if (v13 != -71976)
   {
     v8 = v13;
@@ -6863,15 +6961,15 @@ void hoseSBAR_audioHoseGetAnchorCallbackDispatchInternal(uint64_t a1)
 
     v14 = *v5[4].value;
     hostTime = v5[24];
-    hoseSBAR_getTransportTimeForMediaTime(v33, v2, &hostTime, v14);
-    if (*v33 == 1 || *v33 == 2 && (v33[16] & 0x1D) == 1 && !*&v33[20])
+    hoseSBAR_getTransportTimeForMediaTime(v35, v2, &hostTime, v14);
+    if (*v35 == 1 || *v35 == 2 && (v35[16] & 0x1D) == 1 && !*&v35[20])
     {
       hostTime = *v12;
 LABEL_16:
       v8 = 0;
-      v27[0] = *v33;
-      *(v27 + 12) = *&v33[12];
-      v26 = hostTime;
+      v29[0] = *v35;
+      *(v29 + 12) = *&v35[12];
+      v28 = hostTime;
       goto LABEL_4;
     }
 
@@ -6882,7 +6980,7 @@ LABEL_8:
   }
 
   CMTimebaseGetTime(&hostTime, v5[5].value);
-  hoseSBAR_getMediaTimeForSynchronizerTime(&v31, v2, &hostTime);
+  hoseSBAR_getMediaTimeForSynchronizerTime(&v33, v2, &hostTime);
   v15 = v5[4].epoch;
   v16 = *(*(CMBaseObjectGetVTable() + 16) + 64);
   if (!v16)
@@ -6892,14 +6990,14 @@ LABEL_25:
     APSLogErrorAt(v8);
     if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_audioHoseGetAnchorCallbackInternal(APSEndpointStreamAudioHoseSBARRef, uint32_t, APSAudioTransportTime *, APSNetworkTime *)", 33554522, "[%{ptr}] FigSampleBufferRenderSynchronizerConvertTime failed, err %d\n", v2, v8);
     }
 
     goto LABEL_4;
   }
 
-  hostTime = v31;
-  v17 = v16(v15, 1831681640, &hostTime, &v30);
+  hostTime = v33;
+  v17 = v16(v15, 1831681640, &hostTime, &v32);
   if (v17)
   {
     v8 = v17;
@@ -6907,32 +7005,32 @@ LABEL_25:
   }
 
   v18 = v5[2].epoch;
-  hostTime = v30;
+  hostTime = v32;
   v19 = CMClockConvertHostTimeToSystemUnits(&hostTime);
   v20 = *(*(CMBaseObjectGetVTable() + 16) + 16);
   if (v20)
   {
-    v21 = v20(v18, v19, &v29);
+    v21 = v20(v18, v19, &v31);
     if (!v21)
     {
       v22 = *v5[4].value;
+      hostTime = v33;
+      hoseSBAR_getTransportTimeForMediaTime(v35, v2, &hostTime, v22);
+      v23 = *&v31.value;
       hostTime = v31;
-      hoseSBAR_getTransportTimeForMediaTime(v33, v2, &hostTime, v22);
-      v23 = *&v29.value;
-      hostTime = v29;
-      v24 = v29.epoch;
-      v5[24] = v31;
-      v5[23] = v30;
+      v24 = v31.epoch;
+      v5[24] = v33;
+      v5[23] = v32;
       v5[22].epoch = v24;
       *&v12->value = v23;
       if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
       {
         v25 = SLODWORD(v5[22].epoch) + *&v5[22].timescale * 5.42101086e-20;
         time = v5[23];
-        CMTimeGetSeconds(&time);
+        Seconds = CMTimeGetSeconds(&time);
         time = v5[24];
-        CMTimeGetSeconds(&time);
-        LogPrintF();
+        v27 = CMTimeGetSeconds(&time);
+        LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_audioHoseGetAnchorCallbackInternal(APSEndpointStreamAudioHoseSBARRef, uint32_t, APSAudioTransportTime *, APSNetworkTime *)", 33554482, "[%{ptr}] Updated anchor data: net: %1.6f; host: %1.6f; media: %1.6f ", v2, *&v25, *&Seconds, *&v27);
       }
 
       goto LABEL_16;
@@ -6949,7 +7047,7 @@ LABEL_25:
   APSLogErrorAt(v8);
   if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_audioHoseGetAnchorCallbackInternal(APSEndpointStreamAudioHoseSBARRef, uint32_t, APSAudioTransportTime *, APSNetworkTime *)", 33554522, "[%{ptr}] ConvertUpTicksToNetworkTime failed, err %d\n", v2, v8);
   }
 
 LABEL_4:
@@ -6958,10 +7056,10 @@ LABEL_4:
   {
     v10 = *a1;
     v11 = *(a1 + 24);
-    *v33 = v27[0];
-    *&v33[12] = *(v27 + 12);
-    hostTime = v26;
-    v9(v10, v33, &hostTime, v8, v11);
+    *v35 = v29[0];
+    *&v35[12] = *(v29 + 12);
+    hostTime = v28;
+    v9(v10, v35, &hostTime, v8, v11);
   }
 
   CFRelease(*a1);
@@ -6999,17 +7097,17 @@ CMTime *hoseSBAR_getTransportTimeForMediaTime(CMTime *result, uint64_t a2, uint6
 
     else if (a4 == 1)
     {
-      *&v9.value = *a3;
-      v9.epoch = *(a3 + 16);
+      *&v10.value = *a3;
+      v10.epoch = *(a3 + 16);
       DerivedStorage = CMBaseObjectGetDerivedStorage();
       if (**(DerivedStorage + 96) == 1)
       {
-        v7 = *(DerivedStorage + 88);
-        time = v9;
-        result = CMTimeConvertScale(&v11, &time, v7, kCMTimeRoundingMethod_RoundHalfAwayFromZero);
-        if (v11.flags)
+        v8 = *(DerivedStorage + 88);
+        time = v10;
+        result = CMTimeConvertScale(&v12, &time, v8, kCMTimeRoundingMethod_RoundHalfAwayFromZero);
+        if (v12.flags)
         {
-          value = v11.value;
+          value = v12.value;
           *&v5->timescale = 0;
           v5->epoch = 0;
           LODWORD(v5[1].value) = 0;
@@ -7024,7 +7122,7 @@ CMTime *hoseSBAR_getTransportTimeForMediaTime(CMTime *result, uint64_t a2, uint6
         APSLogErrorAt(0);
         if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "uint32_t hoseSBAR_getRTPTimeForMediaTime(APSEndpointStreamAudioHoseSBARRef, CMTime, Boolean *)", 33554522, "### [%{ptr}] hoseSBAR_getRTPTimeForMediaTime must only be called for TransportTimeType RTP\n", a2);
         }
       }
 
@@ -7035,7 +7133,7 @@ CMTime *hoseSBAR_getTransportTimeForMediaTime(CMTime *result, uint64_t a2, uint6
   return result;
 }
 
-uint64_t hoseSBAR_protocolDriverHoseSetRate(const void *a1, int a2, _OWORD *a3, uint64_t a4, uint64_t a5)
+uint64_t hoseSBAR_protocolDriverHoseSetRate(const void *a1, uint64_t a2, _OWORD *a3, uint64_t a4, uint64_t a5)
 {
   v6[0] = *a3;
   *(v6 + 12) = *(a3 + 12);
@@ -7043,12 +7141,12 @@ uint64_t hoseSBAR_protocolDriverHoseSetRate(const void *a1, int a2, _OWORD *a3, 
   return 0;
 }
 
-uint64_t hoseSBAR_audioHoseSetRate(const void *a1, int a2, _OWORD *a3, uint64_t a4, uint64_t a5)
+uint64_t hoseSBAR_audioHoseSetRate(const void *a1, uint64_t a2, _OWORD *a3, uint64_t a4, uint64_t a5)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_audioHoseSetRate(APSEndpointStreamAudioHoseRef, uint32_t, APSAudioTransportTime, APSEndpointStreamAudioHoseSetRateCompletionHandler, void *)", 33554482, "[%{ptr}] Set Rate and get anchor: %u", a1, a2);
   }
 
   if (a1)
@@ -7129,18 +7227,18 @@ LABEL_5:
 
 uint64_t hoseSBAR_audioHosePrepareRTPTimestampsAndTransferBufferForSBAR(void *a1, _OWORD *a2, __int128 *a3, CMTime *a4, _OWORD *a5)
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  *&v56.value = *MEMORY[0x277CC0898];
+  *&v63.value = *MEMORY[0x277CC0898];
   v11 = *(MEMORY[0x277CC0898] + 16);
-  v56.epoch = v11;
-  v54 = *&v56.value;
-  v55 = v11;
-  v49 = *&v56.value;
-  v52 = kAPSNetworkTimeInvalid;
-  v53 = 0x100000000;
-  *&v51.value = *&v56.value;
-  v51.epoch = v11;
+  v63.epoch = v11;
+  v61 = *&v63.value;
+  v62 = v11;
+  v56 = *&v63.value;
+  v59 = kAPSNetworkTimeInvalid;
+  v60 = 0x100000000;
+  *&v58.value = *&v63.value;
+  v58.epoch = v11;
   *hostTime = *a2;
   *&hostTime[12] = *(a2 + 12);
   hoseSBAR_updateRTPRolloverStateAssumingIncreasingTransportTimes(a1, hostTime);
@@ -7154,67 +7252,67 @@ uint64_t hoseSBAR_audioHosePrepareRTPTimestampsAndTransferBufferForSBAR(void *a1
   *hostTime = *a5;
   *&hostTime[12] = *(a5 + 12);
   hoseSBAR_getMediaTimeForTransportTime(&lhs, a1, hostTime);
-  v59 = lhs.value;
-  v60 = lhs.timescale;
+  v66 = lhs.value;
+  v67 = lhs.timescale;
   if ((flags & 1) == 0)
   {
-    v40 = 4294894965;
+    v48 = 4294894965;
     APSLogErrorAt(0);
     *hostTime = *a2;
     *&hostTime[12] = *(a2 + 12);
-    v41 = APSAudioTransportTimeCopyDebugDesc(hostTime);
+    v49 = APSAudioTransportTimeCopyDebugDesc(hostTime);
     if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_audioHosePrepareRTPTimestampsAndTransferBufferForSBAR(APSEndpointStreamAudioHoseSBARRef, APSAudioTransportTime, APSNetworkTime, CMTime, APSAudioTransportTime)", 33554482, "### [%{ptr}] SetRate: Invalid SynchronizerTime from transportTime=%@\n", a1, v49);
     }
 
 LABEL_57:
-    v42 = CMBaseObjectGetDerivedStorage();
-    v43 = hoseSBAR_stopTheSynchronizer(a1);
-    if (!v43)
+    v50 = CMBaseObjectGetDerivedStorage();
+    v51 = hoseSBAR_stopTheSynchronizer(a1);
+    if (!v51)
     {
-      v44 = *(v42 + 104);
-      v45 = *(*(CMBaseObjectGetVTable() + 16) + 24);
-      if (v45)
+      v52 = *(v50 + 104);
+      v53 = *(*(CMBaseObjectGetVTable() + 16) + 24);
+      if (v53)
       {
-        v43 = v45(v44);
-        if (!v43)
+        v51 = v53(v52);
+        if (!v51)
         {
-          *(v42 + 600) = v49;
-          *(v42 + 616) = v11;
-          *(v42 + 544) = 0x100000000;
-          *(v42 + 528) = kAPSNetworkTimeInvalid;
-          *(v42 + 552) = v49;
-          *(v42 + 568) = v11;
-          *(v42 + 592) = v11;
-          *(v42 + 576) = v49;
-          *(v42 + 640) = v11;
-          *(v42 + 624) = v49;
-          v43 = hoseSBAR_transferStashedSBufsIntoBuffersForSBAR(a1);
-          if (!v43)
+          *(v50 + 600) = v56;
+          *(v50 + 616) = v11;
+          *(v50 + 544) = 0x100000000;
+          *(v50 + 528) = kAPSNetworkTimeInvalid;
+          *(v50 + 552) = v56;
+          *(v50 + 568) = v11;
+          *(v50 + 592) = v11;
+          *(v50 + 576) = v56;
+          *(v50 + 640) = v11;
+          *(v50 + 624) = v56;
+          v51 = hoseSBAR_transferStashedSBufsIntoBuffersForSBAR(a1);
+          if (!v51)
           {
-            if (!v41)
+            if (!v49)
             {
-              goto LABEL_63;
+              return v48;
             }
 
 LABEL_62:
-            CFRelease(v41);
-            goto LABEL_63;
+            CFRelease(v49);
+            return v48;
           }
         }
       }
 
       else
       {
-        v43 = 4294954514;
+        v51 = 4294954514;
       }
     }
 
-    APSLogErrorAt(v43);
-    if (!v41)
+    APSLogErrorAt(v51);
+    if (!v49)
     {
-      goto LABEL_63;
+      return v48;
     }
 
     goto LABEL_62;
@@ -7222,8 +7320,8 @@ LABEL_62:
 
   v14 = lhs.flags;
   v15 = lhs.epoch;
-  *(DerivedStorage + 624) = v59;
-  *(DerivedStorage + 632) = v60;
+  *(DerivedStorage + 624) = v66;
+  *(DerivedStorage + 632) = v67;
   *(DerivedStorage + 636) = v14;
   *(DerivedStorage + 640) = v15;
   *hostTime = *a5;
@@ -7243,39 +7341,44 @@ LABEL_62:
   lhs.flags = flags;
   lhs.epoch = epoch;
   rhs = *hostTime;
-  if (hoseSBAR_setVolumeFadeInCurve(a1, &lhs, &rhs))
+  v17 = hoseSBAR_setVolumeFadeInCurve(a1, &lhs, &rhs);
+  if (v17)
   {
-    if (gLogCategory_APSEndpointStreamAudioHoseSBAR > 90 || gLogCategory_APSEndpointStreamAudioHoseSBAR == -1 && !_LogCategory_Initialize())
+    if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90)
     {
-      goto LABEL_14;
-    }
-
-LABEL_7:
-    LogPrintF();
-    goto LABEL_14;
-  }
-
-  if (*(v16 + 900))
-  {
-    v17 = *(v16 + 256);
-    lhs = *(v16 + 904);
-    if (hoseSBAR_postNotifyStyleAudioFadeAppliedForAirPlayPlayback(a1, "com.apple.mediaexperience.fadeinappliedforplaybackhandoff", v17, &lhs))
-    {
-      if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
+      v18 = v17;
+      if (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize())
       {
-        goto LABEL_7;
+        LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_audioHoseApplyFadeInVolume(APSEndpointStreamAudioHoseRef, CMTime)", 33554522, "[%{ptr}] Failed to apply fade-in volume curve, error: %#m", a1, v18);
       }
     }
   }
 
-LABEL_14:
-  v18 = *a3;
+  else if (*(v16 + 900))
+  {
+    v19 = *(v16 + 256);
+    lhs = *(v16 + 904);
+    v20 = hoseSBAR_postNotifyStyleAudioFadeAppliedForAirPlayPlayback(a1, "com.apple.mediaexperience.fadeinappliedforplaybackhandoff", v19, &lhs);
+    if (v20)
+    {
+      if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90)
+      {
+        v21 = v20;
+        if (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize())
+        {
+          LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_audioHoseApplyFadeInVolume(APSEndpointStreamAudioHoseRef, CMTime)", 33554522, "[%{ptr}] Failed to post volume fade-in notification, error: %#m", a1, v21);
+        }
+      }
+    }
+  }
+
+  v22 = *a3;
   *(DerivedStorage + 544) = *(a3 + 2);
-  *(DerivedStorage + 528) = v18;
-  v19 = (DerivedStorage + 552);
-  v20 = *&a4->value;
+  *(DerivedStorage + 528) = v22;
+  v23 = (DerivedStorage + 552);
+  v24 = *&a4->value;
   *(DerivedStorage + 568) = a4->epoch;
-  *(DerivedStorage + 552) = v20;
+  *(DerivedStorage + 552) = v24;
   *(DerivedStorage + 576) = value;
   *(DerivedStorage + 584) = timescale;
   *(DerivedStorage + 588) = flags;
@@ -7285,138 +7388,135 @@ LABEL_14:
     started = hoseSBAR_transferStashedSBufsIntoBuffersForSBAR(a1);
     if (started)
     {
-      v40 = started;
+      v48 = started;
       goto LABEL_78;
     }
 
-    v22 = 0;
+    v26 = 0;
   }
 
   else
   {
-    v22 = 1;
+    v26 = 1;
   }
 
   started = hoseSBAR_startTheSynchronizerIfNecessary(a1, 0);
   if (started)
   {
-    v40 = started;
+    v48 = started;
 LABEL_78:
     APSLogErrorAt(started);
-    goto LABEL_56;
+LABEL_56:
+    v49 = 0;
+    goto LABEL_57;
   }
 
-  v23 = (DerivedStorage + 576);
-  v24 = *(DerivedStorage + 112);
+  v27 = (DerivedStorage + 576);
+  v28 = *(DerivedStorage + 112);
   if ((*(DerivedStorage + 564) & 1) == 0)
   {
-    v25 = *(DerivedStorage + 112);
-    v26 = *(*(CMBaseObjectGetVTable() + 16) + 64);
-    if (v26)
+    v29 = *(*(CMBaseObjectGetVTable() + 16) + 64);
+    if (v29)
     {
-      v48 = v22;
+      v55 = v26;
       *hostTime = value;
       *&hostTime[8] = timescale;
       *&hostTime[12] = flags;
       *&hostTime[16] = epoch;
-      v27 = v26(v24, 1831681640, hostTime, &v54);
-      if (!v27)
+      v30 = v29(v28, 1831681640, hostTime, &v61);
+      if (!v30)
       {
-        v28 = v54;
-        *v19 = v54;
-        v29 = v55;
-        *(DerivedStorage + 568) = v55;
-        v30 = *(DerivedStorage + 64);
-        *hostTime = v28;
-        *&hostTime[16] = v29;
-        v31 = CMClockConvertHostTimeToSystemUnits(hostTime);
-        v32 = *(*(CMBaseObjectGetVTable() + 16) + 16);
-        if (v32)
+        v31 = v61;
+        *v23 = v61;
+        v32 = v62;
+        *(DerivedStorage + 568) = v62;
+        v33 = *(DerivedStorage + 64);
+        *hostTime = v31;
+        *&hostTime[16] = v32;
+        v34 = CMClockConvertHostTimeToSystemUnits(hostTime);
+        v35 = *(*(CMBaseObjectGetVTable() + 16) + 16);
+        if (v35)
         {
-          v33 = v32(v30, v31, &v52);
-          if (!v33)
+          v36 = v35(v33, v34, &v59);
+          if (!v36)
           {
-            *(DerivedStorage + 528) = v52;
-            *(DerivedStorage + 544) = v53;
-            v34 = MEMORY[0x277CC08F0];
+            *(DerivedStorage + 528) = v59;
+            *(DerivedStorage + 544) = v60;
+            v37 = MEMORY[0x277CC08F0];
             *(DerivedStorage + 600) = *MEMORY[0x277CC08F0];
-            *(DerivedStorage + 616) = *(v34 + 16);
-            v22 = v48;
+            *(DerivedStorage + 616) = *(v37 + 16);
+            v26 = v55;
             goto LABEL_29;
           }
 
-          v40 = v33;
+          v48 = v36;
         }
 
         else
         {
-          v40 = 4294954514;
+          v48 = 4294954514;
         }
 
-        APSLogErrorAt(v40);
-        if (gLogCategory_APSEndpointStreamAudioHoseSBAR > 90 || gLogCategory_APSEndpointStreamAudioHoseSBAR == -1 && !_LogCategory_Initialize())
+        APSLogErrorAt(v48);
+        if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
         {
-          goto LABEL_56;
+          LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_audioHosePrepareRTPTimestampsAndTransferBufferForSBAR(APSEndpointStreamAudioHoseSBARRef, APSAudioTransportTime, APSNetworkTime, CMTime, APSAudioTransportTime)", 33554522, "### [%{ptr}] ConvertUpTicksToNetworkTime failed, err %#m\n", a1, v48);
         }
 
-LABEL_44:
-        LogPrintF();
-LABEL_56:
-        v41 = 0;
-        goto LABEL_57;
+        goto LABEL_56;
       }
 
-      v40 = v27;
+      v48 = v30;
     }
 
     else
     {
-      v40 = 4294954514;
+      v48 = 4294954514;
     }
 
-    APSLogErrorAt(v40);
-    if (gLogCategory_APSEndpointStreamAudioHoseSBAR > 90 || gLogCategory_APSEndpointStreamAudioHoseSBAR == -1 && !_LogCategory_Initialize())
+    APSLogErrorAt(v48);
+    if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
     {
-      goto LABEL_56;
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_audioHosePrepareRTPTimestampsAndTransferBufferForSBAR(APSEndpointStreamAudioHoseSBARRef, APSAudioTransportTime, APSNetworkTime, CMTime, APSAudioTransportTime)", 33554522, "### [%{ptr}] Failed to convert MediaTime to HostTime, error: %#m", a1, v48);
     }
 
-    goto LABEL_44;
+    goto LABEL_56;
   }
 
   lhs = *a4;
-  v35 = *(*(CMBaseObjectGetVTable() + 16) + 64);
-  if (!v35)
+  v38 = *(*(CMBaseObjectGetVTable() + 16) + 64);
+  if (!v38)
   {
-    v40 = 4294954514;
+    v48 = 4294954514;
 LABEL_38:
-    APSLogErrorAt(v40);
-    if (gLogCategory_APSEndpointStreamAudioHoseSBAR > 90 || gLogCategory_APSEndpointStreamAudioHoseSBAR == -1 && !_LogCategory_Initialize())
+    APSLogErrorAt(v48);
+    if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
     {
-      goto LABEL_56;
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_audioHosePrepareRTPTimestampsAndTransferBufferForSBAR(APSEndpointStreamAudioHoseSBARRef, APSAudioTransportTime, APSNetworkTime, CMTime, APSAudioTransportTime)", 33554522, "### [%{ptr}] Failed to convert HostTime to MediaTime, error: %#m", a1, v48);
     }
 
-    goto LABEL_44;
+    goto LABEL_56;
   }
 
   *hostTime = lhs;
-  v36 = v35(v24, 1747795565, hostTime, &v56);
-  if (v36)
+  v39 = v38(v28, 1747795565, hostTime, &v63);
+  if (v39)
   {
-    v40 = v36;
+    v48 = v39;
     goto LABEL_38;
   }
 
-  lhs = v56;
-  *&rhs.value = *v23;
+  lhs = v63;
+  *&rhs.value = *v27;
   rhs.epoch = *(DerivedStorage + 592);
   CMTimeSubtract(hostTime, &lhs, &rhs);
   *(DerivedStorage + 600) = *hostTime;
   *(DerivedStorage + 616) = *&hostTime[16];
 LABEL_29:
-  started = hoseSBAR_configureUnderrunTrackingIfNeeded();
+  started = hoseSBAR_configureUnderrunTrackingIfNeeded(a1);
   if (started)
   {
-    v40 = started;
+    v48 = started;
     goto LABEL_78;
   }
 
@@ -7424,55 +7524,52 @@ LABEL_29:
   TimeOfDayClock = FigGetTimeOfDayClock();
   *hostTime = *&a4->value;
   *&hostTime[16] = a4->epoch;
-  CMSyncConvertTime(&v51, hostTime, HostTimeClock, TimeOfDayClock);
+  CMSyncConvertTime(&v58, hostTime, HostTimeClock, TimeOfDayClock);
   if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
   {
-    v39 = *(DerivedStorage + 544) + *(DerivedStorage + 536) * 5.42101086e-20;
-    *hostTime = *v19;
-    *&hostTime[16] = *(DerivedStorage + 568);
-    CMTimeGetSeconds(hostTime);
+    v42 = *(DerivedStorage + 544) + *(DerivedStorage + 536) * 5.42101086e-20;
     *hostTime = *v23;
+    *&hostTime[16] = *(DerivedStorage + 568);
+    Seconds = CMTimeGetSeconds(hostTime);
+    *hostTime = *v27;
     *&hostTime[16] = *(DerivedStorage + 592);
-    CMTimeGetSeconds(hostTime);
-    *hostTime = v51;
-    CMTimeGetSeconds(hostTime);
+    v44 = CMTimeGetSeconds(hostTime);
+    *hostTime = v58;
+    v45 = CMTimeGetSeconds(hostTime);
     *hostTime = *(DerivedStorage + 600);
     *&hostTime[16] = *(DerivedStorage + 616);
-    CMTimeGetSeconds(hostTime);
+    v46 = CMTimeGetSeconds(hostTime);
     CMBufferQueueGetDuration(hostTime, *(DerivedStorage + 656));
-    CMTimeGetSeconds(hostTime);
-    LogPrintF();
+    v47 = CMTimeGetSeconds(hostTime);
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_audioHosePrepareRTPTimestampsAndTransferBufferForSBAR(APSEndpointStreamAudioHoseSBARRef, APSAudioTransportTime, APSNetworkTime, CMTime, APSAudioTransportTime)", 33554482, "[%{ptr}] New anchor data: net: %1.6f; host: %1.6f; media: %1.6f; wall: %1.6f; mediaToSynchronizerOffset: %1.6f; bufferedSecs: %1.3f", a1, *&v42, *&Seconds, *&v44, *&v45, *&v46, *&v47);
   }
 
-  if (v22)
+  if (v26)
   {
     started = hoseSBAR_transferStashedSBufsIntoBuffersForSBAR(a1);
     if (started)
     {
-      v40 = started;
+      v48 = started;
       goto LABEL_78;
     }
   }
 
   hoseSBAR_beginUnderrunIfNeeded(a1);
-  v40 = 0;
-LABEL_63:
-  v46 = *MEMORY[0x277D85DE8];
-  return v40;
+  return 0;
 }
 
 uint64_t hoseSBAR_updateRTPRolloverStateOnFlushFromTransportTime(uint64_t a1, _OWORD *a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v14 = 0;
+  v13 = 0;
   v6 = *(DerivedStorage + 96);
   result = DerivedStorage + 96;
   if (*v6 == 1)
   {
-    *v13 = *a2;
-    *&v13[12] = *(a2 + 12);
-    RTPTimeForTransportTime = hoseSBAR_getRTPTimeForTransportTime(a1, v13, &v14);
-    if (!v14)
+    *v12 = *a2;
+    *&v12[12] = *(a2 + 12);
+    RTPTimeForTransportTime = hoseSBAR_getRTPTimeForTransportTime(a1, v12, &v13);
+    if (!v13)
     {
       return APSLogErrorAt(0);
     }
@@ -7486,14 +7583,15 @@ uint64_t hoseSBAR_updateRTPRolloverStateOnFlushFromTransportTime(uint64_t a1, _O
 
     v9 = result;
     v10 = *(result + 732);
-    if ((v8 - v10) < 0)
+    if (v8 - v10 < 0)
     {
       if (v8 <= v10)
       {
         goto LABEL_10;
       }
 
-      --*(result + 728);
+      v11 = (*(result + 728) - 1);
+      *(result + 728) = v11;
       if (gLogCategory_APSEndpointStreamAudioHoseSBAR > 50)
       {
         goto LABEL_10;
@@ -7508,10 +7606,10 @@ uint64_t hoseSBAR_updateRTPRolloverStateOnFlushFromTransportTime(uint64_t a1, _O
         }
 
         v11 = *(v9 + 728);
-        v12 = *(v9 + 732);
+        v10 = *(v9 + 732);
       }
 
-      result = LogPrintF();
+      result = LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_updateRTPRolloverStateOnFlushFromRTPTime(APSEndpointStreamAudioHoseSBARRef, uint32_t)", 33554482, "[%{ptr}] RTP Rollover Detection: Decrementing the Rollover Count; new count: %d; inRTPTime: %u; lastRTPTimeEncountered: %u\n", a1, v11, v8, v10);
 LABEL_10:
       *(v9 + 732) = v8;
     }
@@ -7530,12 +7628,14 @@ uint64_t hoseSBAR_postNotifyStyleAudioFadeAppliedForAirPlayPlayback(uint64_t a1,
 
   time = *a4;
   Seconds = CMTimeGetSeconds(&time);
-  if (notify_set_state(a3, (Seconds * 1000.0)))
+  v8 = notify_set_state(a3, (Seconds * 1000.0));
+  if (v8)
   {
+    v10 = v8;
     APSLogErrorAt(0);
     if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_postNotifyStyleAudioFadeAppliedForAirPlayPlayback(APSEndpointStreamAudioHoseSBARRef, const char *, int, CMTime)", 33554522, "[%{ptr}] Failed to set fadeInNotifyToken state (notifyStatus=%u)", a1, v10);
     }
 
     return 4294960582;
@@ -7554,7 +7654,7 @@ uint64_t hoseSBAR_postNotifyStyleAudioFadeAppliedForAirPlayPlayback(uint64_t a1,
 
   if (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || (result = _LogCategory_Initialize(), result))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_postNotifyStyleAudioFadeAppliedForAirPlayPlayback(APSEndpointStreamAudioHoseSBARRef, const char *, int, CMTime)", 33554482, "[%{ptr}] Posted notifyd style notification %s with duration %.3fs", a1, a2, *&Seconds);
     return 0;
   }
 
@@ -7565,50 +7665,48 @@ uint64_t hoseSBAR_stopTheSynchronizer(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   v3 = *(DerivedStorage + 112);
-  VTable = CMBaseObjectGetVTable();
-  v5 = *(*(VTable + 16) + 24);
-  if (!v5)
+  v4 = *(*(CMBaseObjectGetVTable() + 16) + 24);
+  if (!v4)
   {
-    v9 = 4294954514;
+    v7 = 4294954514;
+LABEL_6:
+    v6 = v7;
 LABEL_7:
-    v8 = v9;
-LABEL_8:
-    APSLogErrorAt(v8);
-    return v9;
+    APSLogErrorAt(v6);
+    return v7;
   }
 
-  v6 = *(VTable + 16) + 24;
-  v11 = *MEMORY[0x277CC0898];
-  v12 = *(MEMORY[0x277CC0898] + 16);
-  v7 = v5(v3, &v11, 0.0);
-  if (v7)
+  v9 = *MEMORY[0x277CC0898];
+  v10 = *(MEMORY[0x277CC0898] + 16);
+  v5 = v4(v3, &v9, 0.0);
+  if (v5)
   {
-    v9 = v7;
+    v7 = v5;
+    goto LABEL_6;
+  }
+
+  v6 = APSClockDriftMonitorSuspend(*(DerivedStorage + 1000));
+  v7 = v6;
+  if (v6)
+  {
     goto LABEL_7;
   }
 
-  v8 = APSClockDriftMonitorSuspend(*(DerivedStorage + 1000));
-  v9 = v8;
-  if (v8)
-  {
-    goto LABEL_8;
-  }
-
-  hoseSBAR_waitForTimebaseRate(0.0);
+  hoseSBAR_waitForTimebaseRate(a1, 0.0);
   hoseSBAR_updateSynchronizerState(a1, 0);
-  return v9;
+  return v7;
 }
 
 uint64_t hoseSBAR_audioHoseApplyVolumeFade(uint64_t a1, unsigned int a2, CMTime *a3)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  *&v15[4] = 0;
+  *&v18[4] = 0;
   if (a2 >= 3)
   {
-    v9 = 4294894965;
-LABEL_13:
+    v12 = 4294894965;
+LABEL_18:
     APSLogErrorAt(0);
-    return v9;
+    return v12;
   }
 
   v7 = DerivedStorage;
@@ -7616,36 +7714,52 @@ LABEL_13:
   time2 = **&MEMORY[0x277CC08F0];
   if (CMTimeCompare(&time1, &time2) <= 0)
   {
-    v9 = 4294894965;
-    goto LABEL_13;
+    v12 = 4294894965;
+    goto LABEL_18;
   }
 
   if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
   {
+    v8 = "Invalid";
+    if (a2 == 2)
+    {
+      v8 = "FadeOut";
+    }
+
+    if (a2 == 1)
+    {
+      v9 = "FadeIn";
+    }
+
+    else
+    {
+      v9 = v8;
+    }
+
     time1 = *a3;
-    CMTimeGetSeconds(&time1);
-    LogPrintF();
+    Seconds = CMTimeGetSeconds(&time1);
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_audioHoseApplyVolumeFade(APSEndpointStreamAudioHoseRef, APSVolumeFadeType, CMTime)", 33554482, "[%{ptr}] Applying volume fade type %s with duration: %.3fs", a1, v9, *&Seconds);
   }
 
-  v12 = a1;
-  v13 = a2;
-  v14 = *&a3->value;
-  *v15 = a3->epoch;
-  v8 = *(v7 + 352);
+  v15 = a1;
+  v16 = a2;
+  v17 = *&a3->value;
+  *v18 = a3->epoch;
+  v11 = *(v7 + 352);
   LODWORD(time2.value) = 0;
   time1.value = &time2;
-  *&time1.timescale = &v12;
+  *&time1.timescale = &v15;
   time1.epoch = hoseSBAR_audioHoseApplyVolumeFadeCallbackDispatchInternal;
-  if (!v8)
+  if (!v11)
   {
     return 4294960591;
   }
 
-  dispatch_sync_f(v8, &time1, APSDispatchSyncTaskCallback);
+  dispatch_sync_f(v11, &time1, APSDispatchSyncTaskCallback);
   return LODWORD(time2.value);
 }
 
-uint64_t hoseSBAR_audioHoseApplyVolumeFadeCallbackDispatchInternal(uint64_t a1)
+uint64_t hoseSBAR_audioHoseApplyVolumeFadeCallbackDispatchInternal(void *a1)
 {
   v2 = *a1;
   DerivedStorage = CMBaseObjectGetDerivedStorage();
@@ -7655,19 +7769,18 @@ uint64_t hoseSBAR_audioHoseApplyVolumeFadeCallbackDispatchInternal(uint64_t a1)
   }
 
   v4 = DerivedStorage;
-  v5 = *(a1 + 8);
+  v5 = *(a1 + 2);
   if (v5 == 2)
   {
     if (!*(DerivedStorage + 304))
     {
       APSLogErrorAt(0);
-      if (gLogCategory_APSEndpointStreamAudioHoseSBAR > 90 || gLogCategory_APSEndpointStreamAudioHoseSBAR == -1 && !_LogCategory_Initialize())
+      if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
       {
-        return 4294960591;
+        LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_audioHoseApplyVolumeFadeCallbackDispatchInternal(void *)", 33554522, "[%{ptr}] Fade-out may only be applied when audio is playing, current rate: %u\n", v2, *(v4 + 304));
       }
 
-      v23 = *(v4 + 304);
-      goto LABEL_14;
+      return 4294960591;
     }
 
     *&v24.value = *(a1 + 12);
@@ -7696,8 +7809,8 @@ uint64_t hoseSBAR_audioHoseApplyVolumeFadeCallbackDispatchInternal(uint64_t a1)
     if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
     {
       time = v24;
-      CMTimeGetSeconds(&time);
-      LogPrintF();
+      Seconds = CMTimeGetSeconds(&time);
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_setVolumeFadeOutCurve(APSEndpointStreamAudioHoseSBARRef, CMTime)", 33554482, "[%{ptr}] Apply fade-out volume curve with duration: %.3fs", v2, *&Seconds);
     }
 
     time = **&MEMORY[0x277CC08F0];
@@ -7717,7 +7830,7 @@ uint64_t hoseSBAR_audioHoseApplyVolumeFadeCallbackDispatchInternal(uint64_t a1)
 
       else
       {
-        v15 = *MEMORY[0x277CD6398];
+        v16 = *MEMORY[0x277CD6398];
         CFArrayAppendValue(v13, *MEMORY[0x277CD6398]);
         time = v24;
         appended = FigCFArrayAppendCMTime();
@@ -7736,13 +7849,13 @@ uint64_t hoseSBAR_audioHoseApplyVolumeFadeCallbackDispatchInternal(uint64_t a1)
 
           else
           {
-            CFArrayAppendValue(v13, v15);
+            CFArrayAppendValue(v13, v16);
             CFDictionarySetValue(v11, *MEMORY[0x277CD63A0], v13);
-            v16 = *(v8 + 104);
-            v17 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-            if (v17)
+            v17 = *(v8 + 104);
+            v18 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+            if (v18)
             {
-              v6 = v17(v16, *MEMORY[0x277CD6448], v11);
+              v6 = v18(v17, *MEMORY[0x277CD6448], v11);
               if (!v6)
               {
                 goto LABEL_28;
@@ -7767,14 +7880,22 @@ LABEL_28:
     if (!v6)
     {
       *(v4 + 900) = 1;
-      v18 = *(a1 + 12);
+      v19 = *(a1 + 12);
       *(v4 + 920) = *(a1 + 28);
-      *(v4 + 904) = v18;
-      v19 = *(v4 + 260);
+      *(v4 + 904) = v19;
+      v20 = *(v4 + 260);
       time = *(a1 + 12);
-      if (hoseSBAR_postNotifyStyleAudioFadeAppliedForAirPlayPlayback(v2, "com.apple.mediaexperience.fadeoutappliedforplaybackhandoff", v19, &time) && gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
+      v21 = hoseSBAR_postNotifyStyleAudioFadeAppliedForAirPlayPlayback(v2, "com.apple.mediaexperience.fadeoutappliedforplaybackhandoff", v20, &time);
+      if (v21)
       {
-        LogPrintF();
+        if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90)
+        {
+          v22 = v21;
+          if (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize())
+          {
+            LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_audioHoseApplyVolumeFadeCallbackDispatchInternal(void *)", 33554522, "[%{ptr}] Failed to post volume fade-out notification, error: %#m", v2, v22);
+          }
+        }
       }
 
       return 0;
@@ -7787,36 +7908,33 @@ LABEL_44:
 
   if (v5 != 1)
   {
-    if (gLogCategory_APSEndpointStreamAudioHoseSBAR > 90)
+    if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90)
     {
-      return 4294960591;
-    }
-
-    if (gLogCategory_APSEndpointStreamAudioHoseSBAR == -1)
-    {
-      if (!_LogCategory_Initialize())
+      if (gLogCategory_APSEndpointStreamAudioHoseSBAR == -1)
       {
-        return 4294960591;
+        if (!_LogCategory_Initialize())
+        {
+          return 4294960591;
+        }
+
+        v5 = *(a1 + 2);
       }
 
-      v21 = *(a1 + 8);
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_audioHoseApplyVolumeFadeCallbackDispatchInternal(void *)", 33554522, "[%{ptr}] Invalid FadeType %u\n", v2, v5);
     }
 
-LABEL_14:
-    LogPrintF();
     return 4294960591;
   }
 
   if (*(DerivedStorage + 304))
   {
     APSLogErrorAt(0);
-    if (gLogCategory_APSEndpointStreamAudioHoseSBAR > 90 || gLogCategory_APSEndpointStreamAudioHoseSBAR == -1 && !_LogCategory_Initialize())
+    if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
     {
-      return 4294960591;
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_audioHoseApplyVolumeFadeCallbackDispatchInternal(void *)", 33554522, "[%{ptr}] Fade-in may only be applied when audio is not playing, current rate: %u\n", v2, *(v4 + 304));
     }
 
-    v22 = *(v4 + 304);
-    goto LABEL_14;
+    return 4294960591;
   }
 
   v6 = 0;
@@ -7827,7 +7945,7 @@ LABEL_14:
   return v6;
 }
 
-uint64_t hoseSBAR_protocolDriverHoseSetRateAndAnchorTime(const void *a1, int a2, _OWORD *a3, __int128 *a4, _OWORD *a5, uint64_t a6, uint64_t a7)
+uint64_t hoseSBAR_protocolDriverHoseSetRateAndAnchorTime(const void *a1, uint64_t a2, _OWORD *a3, __int128 *a4, _OWORD *a5, uint64_t a6, uint64_t a7)
 {
   v11[0] = *a3;
   *(v11 + 12) = *(a3 + 12);
@@ -7839,13 +7957,13 @@ uint64_t hoseSBAR_protocolDriverHoseSetRateAndAnchorTime(const void *a1, int a2,
   return 0;
 }
 
-uint64_t hoseSBAR_audioHoseSetRateAndAnchorTime(const void *a1, int a2, _OWORD *a3, uint64_t a4, _OWORD *a5, uint64_t a6, uint64_t a7)
+uint64_t hoseSBAR_audioHoseSetRateAndAnchorTime(const void *a1, uint64_t a2, _OWORD *a3, uint64_t a4, _OWORD *a5, uint64_t a6, uint64_t a7)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   *&v21[24] = 0;
   if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_audioHoseSetRateAndAnchorTime(APSEndpointStreamAudioHoseRef, uint32_t, APSAudioTransportTime, APSNetworkTime, APSAudioTransportTime, APSEndpointStreamAudioHoseSetRateAndAnchorTimeCompletionHandler, void *)", 33554482, "[%{ptr}] Begin Rate Change: %u", a1, a2);
   }
 
   if (a1)
@@ -7872,23 +7990,23 @@ uint64_t hoseSBAR_audioHoseSetRateAndAnchorTime(const void *a1, int a2, _OWORD *
   return 0;
 }
 
-void hoseSBAR_audioHoseSetRateAndAnchorTimeCallbackDispatchInternal(uint64_t a1)
+void hoseSBAR_audioHoseSetRateAndAnchorTimeCallbackDispatchInternal(CFTypeRef *a1)
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   timescale = 0;
   value = 0;
-  *&v61.value = kAPSNetworkTimeInvalid;
-  v61.epoch = 0x100000000;
+  *&v53.value = kAPSNetworkTimeInvalid;
+  v53.epoch = 0x100000000;
   v2 = *a1;
-  *&v3 = *(a1 + 8);
-  *v60 = *(a1 + 12);
-  *&v60[12] = *(a1 + 24);
-  v59.epoch = *(a1 + 56);
-  *&v59.value = *(a1 + 40);
-  *&v58[12] = *(a1 + 76);
-  *v58 = *(a1 + 64);
+  v3 = *(a1 + 2);
+  *v52 = *(a1 + 12);
+  *&v52[12] = *(a1 + 3);
+  v51.epoch = a1[7];
+  *&v51.value = *(a1 + 5);
+  *&v50[12] = *(a1 + 76);
+  *v50 = *(a1 + 4);
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v57 = v3;
+  v49 = v3;
   if (*DerivedStorage)
   {
     APSLogErrorAt(0);
@@ -7901,22 +8019,21 @@ void hoseSBAR_audioHoseSetRateAndAnchorTimeCallbackDispatchInternal(uint64_t a1)
 
   v5 = CMBaseObjectGetDerivedStorage();
   v6 = v5;
-  if (!LODWORD(v3))
+  if (!v3)
   {
     memset(time, 0, sizeof(time));
-    *v62 = *MEMORY[0x277CC0898];
-    *&v62[16] = *(MEMORY[0x277CC0898] + 16);
-    v10 = *&v62[16];
-    v55 = *v62;
-    v67 = *v62;
-    v70.value = *(v5 + 576);
-    v70.timescale = *(v5 + 584);
+    *v54 = *MEMORY[0x277CC0898];
+    *&v54[16] = *(MEMORY[0x277CC0898] + 16);
+    v10 = *&v54[16];
+    v47 = *v54;
+    v59 = *v54;
+    v62.value = *(v5 + 576);
+    v62.timescale = *(v5 + 584);
     v11 = *(v5 + 588);
     v12 = *(v5 + 592);
     if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
     {
-      v50 = v2;
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_audioHoseSetRateAndAnchorTime_RateToZero(APSEndpointStreamAudioHoseSBARRef, APSAudioTransportTime *)", 33554482, "[%{ptr}] SetRateAndAnchorTime Callback; rate to zero\n", v2);
     }
 
     v13 = hoseSBAR_stopTheSynchronizer(v2);
@@ -7928,13 +8045,13 @@ void hoseSBAR_audioHoseSetRateAndAnchorTimeCallbackDispatchInternal(uint64_t a1)
 
     CMBufferQueueGetFirstPresentationTimeStamp(&rhs, *(v6 + 656));
     hoseSBAR_getTransportTimeForMediaTime(time, v2, &rhs, **(v6 + 96));
-    *(v6 + 600) = *v62;
+    *(v6 + 600) = *v54;
     *(v6 + 616) = v10;
     *(v6 + 544) = 0x100000000;
     *(v6 + 528) = kAPSNetworkTimeInvalid;
-    *(v6 + 552) = v55;
+    *(v6 + 552) = v47;
     *(v6 + 568) = v10;
-    *(v6 + 576) = v55;
+    *(v6 + 576) = v47;
     *(v6 + 592) = v10;
     v14 = *(v6 + 976);
     if (v14)
@@ -7961,36 +8078,35 @@ void hoseSBAR_audioHoseSetRateAndAnchorTimeCallbackDispatchInternal(uint64_t a1)
         v19 = CMBaseObjectGetDerivedStorage();
         if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
         {
-          v50 = v2;
-          LogPrintF();
+          LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_clearVolumeFadeCurve(APSEndpointStreamAudioHoseSBARRef)", 33554482, "[%{ptr}] Clear fade-in volume curve", v2);
         }
 
         Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
         if (!Mutable)
         {
-          v49 = 4294894966;
+          v46 = 4294894966;
           APSLogErrorAt(0);
           goto LABEL_75;
         }
 
-        v44 = Mutable;
-        v45 = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
-        if (!v45)
+        v41 = Mutable;
+        v42 = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
+        if (!v42)
         {
-          v49 = 4294894966;
+          v46 = 4294894966;
           APSLogErrorAt(0);
-          CFRelease(v44);
+          CFRelease(v41);
           goto LABEL_75;
         }
 
-        v46 = v45;
-        CFDictionarySetValue(v44, *MEMORY[0x277CD63A0], v45);
-        v47 = *(v19 + 104);
-        v48 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-        if (v48)
+        v43 = v42;
+        CFDictionarySetValue(v41, *MEMORY[0x277CD63A0], v42);
+        v44 = *(v19 + 104);
+        v45 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+        if (v45)
         {
-          *&v49 = COERCE_DOUBLE(v48(v47, *MEMORY[0x277CD6448], v44));
-          if (!v49)
+          v46 = v45(v44, *MEMORY[0x277CD6448], v41);
+          if (!v46)
           {
             goto LABEL_74;
           }
@@ -7998,32 +8114,32 @@ void hoseSBAR_audioHoseSetRateAndAnchorTimeCallbackDispatchInternal(uint64_t a1)
 
         else
         {
-          v49 = 4294954514;
+          v46 = 4294954514;
         }
 
-        APSLogErrorAt(v49);
+        APSLogErrorAt(v46);
 LABEL_74:
-        CFRelease(v46);
-        CFRelease(v44);
-        if (!v49)
+        CFRelease(v43);
+        CFRelease(v41);
+        if (!v46)
         {
           if (v11)
           {
-            CMTimebaseGetTime(v62, *(v6 + 120));
+            CMTimebaseGetTime(v54, *(v6 + 120));
             CMTimeMake(&rhs, 1000, 1000);
-            lhs.value = v70.value;
-            lhs.timescale = v70.timescale;
+            lhs.value = v62.value;
+            lhs.timescale = v62.timescale;
             lhs.flags = v11;
             lhs.epoch = v12;
-            CMTimeAdd(&v67, &lhs, &rhs);
+            CMTimeAdd(&v59, &lhs, &rhs);
             if (*(v6 + 900))
             {
-              rhs = *v62;
-              lhs = v67;
+              rhs = *v54;
+              lhs = v59;
               if ((CMTimeCompare(&rhs, &lhs) & 0x80000000) == 0)
               {
                 *(v6 + 900) = 0;
-                *(v6 + 904) = v55;
+                *(v6 + 904) = v47;
                 *(v6 + 920) = v10;
               }
             }
@@ -8041,13 +8157,13 @@ LABEL_83:
             v13 = hoseSBAR_enqueueIntoSBARPrimingSBufIfNecessary(v2);
             if (!v13)
             {
-              hoseSBAR_endUnderrun();
+              hoseSBAR_endUnderrun(v2);
               value = *&time[4];
               v21 = *time;
               flags = *&time[16];
               timescale = *&time[12];
               v23 = *&time[20];
-              *(DerivedStorage + 504) = v55;
+              *(DerivedStorage + 504) = v47;
               *(DerivedStorage + 520) = v10;
               goto LABEL_53;
             }
@@ -8069,9 +8185,7 @@ LABEL_23:
 LABEL_75:
         if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
         {
-          v50 = v2;
-          v51 = *&v49;
-          LogPrintF();
+          LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_audioHoseSetRateAndAnchorTime_RateToZero(APSEndpointStreamAudioHoseSBARRef, APSAudioTransportTime *)", 33554522, "[%{ptr}] Failed to clear volume curve, error: %#m", v2, v46);
         }
 
         goto LABEL_83;
@@ -8089,23 +8203,21 @@ LABEL_75:
     goto LABEL_23;
   }
 
-  v67 = **&MEMORY[0x277CC0898];
-  v56 = *&v67.value;
-  epoch = v67.epoch;
-  v66 = 0;
-  *time = *v60;
-  *&time[12] = *&v60[12];
-  v8 = COERCE_DOUBLE(APSAudioTransportTimeCopyDebugDesc(time));
-  *time = *v58;
-  *&time[12] = *&v58[12];
+  v59 = **&MEMORY[0x277CC0898];
+  v48 = *&v59.value;
+  epoch = v59.epoch;
+  v58 = 0;
+  *time = *v52;
+  *&time[12] = *&v52[12];
+  v8 = APSAudioTransportTimeCopyDebugDesc(time);
+  *time = *v50;
+  *&time[12] = *&v50[12];
   v9 = APSAudioTransportTimeCopyDebugDesc(time);
-  *&rhs.value = v56;
+  *&rhs.value = v48;
   rhs.epoch = epoch;
   if ((*(v6 + 588) & 1) != 0 && gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
   {
-    v50 = v2;
-    v51 = v8;
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_audioHoseSetRateAndAnchorTime_RateToOne(APSEndpointStreamAudioHoseSBARRef, APSAudioTransportTime, APSNetworkTime, APSAudioTransportTime, APSAudioTransportTime *, APSNetworkTime *)", 33554482, "[%{ptr}] Current rate 1.0, honoring incoming SetRate 1.0 request anchorTransportTime: %@\n", v2, v8);
   }
 
   v24 = *(v6 + 64);
@@ -8117,49 +8229,43 @@ LABEL_31:
     APSLogErrorAt(v20);
     if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
     {
-      v50 = v2;
-      v51 = *&v20;
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_audioHoseSetRateAndAnchorTime_RateToOne(APSEndpointStreamAudioHoseSBARRef, APSAudioTransportTime, APSNetworkTime, APSAudioTransportTime, APSAudioTransportTime *, APSNetworkTime *)", 33554522, "### [%{ptr}] ConvertNetworkTimeToUpTicks failed, err %#m\n", v2, v20);
     }
 
     goto LABEL_39;
   }
 
-  *time = *&v59.value;
-  *&time[16] = v59.epoch;
-  v26 = v25(v24, time, &v66);
+  *time = *&v51.value;
+  *&time[16] = v51.epoch;
+  v26 = v25(v24, time, &v58);
   if (v26)
   {
     v20 = v26;
     goto LABEL_31;
   }
 
-  CMClockMakeHostTimeFromSystemUnits(&v67, v66);
+  CMClockMakeHostTimeFromSystemUnits(&v59, v58);
   if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
   {
-    *time = v67;
+    *time = v59;
     Seconds = CMTimeGetSeconds(time);
     HostTimeClock = CMClockGetHostTimeClock();
     CMSyncGetTime(time, HostTimeClock);
-    v53 = *&v8;
-    v54 = v9;
-    v51 = Seconds;
-    v52 = CMTimeGetSeconds(time);
-    v50 = v2;
-    LogPrintF();
+    v29 = CMTimeGetSeconds(time);
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_audioHoseSetRateAndAnchorTime_RateToOne(APSEndpointStreamAudioHoseSBARRef, APSAudioTransportTime, APSNetworkTime, APSAudioTransportTime, APSAudioTransportTime *, APSNetworkTime *)", 33554482, "[%{ptr}] SetRateAndAnchorTime Callback hostTimeSecs = %1.3f; (nowHost: %1.3f) anchorTransportTime: %@; firstAudibleRTP: %@\n", v2, *&Seconds, *&v29, v8, v9);
   }
 
-  *time = *v60;
-  *&time[12] = *&v60[12];
-  lhs = v59;
-  v70 = v67;
-  *v62 = *v58;
-  *&v62[12] = *&v58[12];
-  v29 = hoseSBAR_audioHosePrepareRTPTimestampsAndTransferBufferForSBAR(v2, time, &lhs.value, &v70, v62);
-  v20 = v29;
-  if (v29)
+  *time = *v52;
+  *&time[12] = *&v52[12];
+  lhs = v51;
+  v62 = v59;
+  *v54 = *v50;
+  *&v54[12] = *&v50[12];
+  v30 = hoseSBAR_audioHosePrepareRTPTimestampsAndTransferBufferForSBAR(v2, time, &lhs.value, &v62, v54);
+  v20 = v30;
+  if (v30)
   {
-    APSLogErrorAt(v29);
+    APSLogErrorAt(v30);
   }
 
 LABEL_39:
@@ -8191,17 +8297,17 @@ LABEL_39:
     v21 = 0;
   }
 
-  v30 = *(v6 + 64);
-  v31 = *(v6 + 376);
-  v32 = *(*(CMBaseObjectGetVTable() + 16) + 16);
-  if (v32)
+  v31 = *(v6 + 64);
+  v32 = *(v6 + 376);
+  v33 = *(*(CMBaseObjectGetVTable() + 16) + 16);
+  if (v33)
   {
-    v32(v30, v31, &v61);
+    v33(v31, v32, &v53);
   }
 
-  if (v8 != 0.0)
+  if (v8)
   {
-    CFRelease(*&v8);
+    CFRelease(v8);
   }
 
   if (v9)
@@ -8211,14 +8317,14 @@ LABEL_39:
 
   if (!v20)
   {
-    v33 = CMClockGetHostTimeClock();
-    CMClockGetTime(time, v33);
+    v34 = CMClockGetHostTimeClock();
+    CMClockGetTime(time, v34);
     v23 = 0;
     *(DerivedStorage + 504) = *time;
     *(DerivedStorage + 520) = *&time[16];
 LABEL_53:
     hoseSBAR_updateBufferingPriority(v2);
-    *&v20 = 0.0;
+    v20 = 0;
     goto LABEL_54;
   }
 
@@ -8227,55 +8333,47 @@ LABEL_53:
 LABEL_54:
   if (!*DerivedStorage)
   {
-    v34 = *(DerivedStorage + 288);
     FigSimpleMutexLock();
     if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
     {
-      v53 = v20;
-      *&v51 = *(DerivedStorage + 304);
-      v52 = v57;
-      v50 = v2;
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_audioHoseSetRateAndAnchorTimeCallbackInternal(APSEndpointStreamAudioHoseSBARRef, uint32_t, APSAudioTransportTime, APSNetworkTime, APSAudioTransportTime, APSAudioTransportTime *, APSNetworkTime *)", 33554482, "[%{ptr}] Finished Rate Change: %u -> %u. (err=%d)\n", v2, *(DerivedStorage + 304), v49, v20);
     }
 
-    if (!v20 && *(DerivedStorage + 304) != LODWORD(v57))
+    if (!v20 && *(DerivedStorage + 304) != v49)
     {
       v35 = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-      *(DerivedStorage + 304) = LODWORD(v57);
+      *(DerivedStorage + 304) = v49;
       CFDictionarySetInt64();
-      v36 = *(DerivedStorage + 8);
       CMNotificationCenterGetDefaultLocalCenter();
       FigDispatchAsyncPostNotification();
       CFRelease(v35);
     }
 
-    v37 = *(DerivedStorage + 288);
     FigSimpleMutexUnlock();
   }
 
-  v38 = *(a1 + 96);
-  if (v38)
+  v36 = a1[12];
+  if (v36)
   {
-    v39 = *a1;
-    v40 = *(a1 + 8);
-    v41 = *(a1 + 104);
+    v37 = *a1;
+    v38 = *(a1 + 2);
+    v39 = a1[13];
     *time = *(a1 + 12);
-    *&time[12] = *(a1 + 24);
-    v67 = *(a1 + 40);
-    *&v62[4] = value;
-    *v62 = v21;
-    *&v62[12] = timescale;
-    *&v62[16] = flags;
-    *&v62[20] = v23;
-    rhs = v61;
-    v38(v39, v40, time, &v67, v62, &rhs, v20, v41, v50, *&v51, *&v52, v53, v54);
+    *&time[12] = *(a1 + 3);
+    v59 = *(a1 + 5);
+    *&v54[4] = value;
+    *v54 = v21;
+    *&v54[12] = timescale;
+    *&v54[16] = flags;
+    *&v54[20] = v23;
+    rhs = v53;
+    (v36)(v37, v38, time, &v59, v54, &rhs, v20, v39);
   }
 
   CFRelease(*a1);
-  v42 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t hoseSBAR_protocolDriverHoseLegacyFlushWithinSampleRange(const void *a1, int a2, _OWORD *a3, int a4, _OWORD *a5, uint64_t a6, uint64_t a7)
+uint64_t hoseSBAR_protocolDriverHoseLegacyFlushWithinSampleRange(const void *a1, uint64_t a2, _OWORD *a3, uint64_t a4, _OWORD *a5, uint64_t a6, uint64_t a7)
 {
   v9[0] = *a3;
   *(v9 + 12) = *(a3 + 12);
@@ -8303,107 +8401,107 @@ uint64_t hoseSBAR_audioHoseFlushWithinSampleRange(const void *a1, int a2, _OWORD
 
 void hoseSBAR_audioHoseFlushWithinSampleRangeDispatchInternal(uint64_t a1)
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v49 = *(a1 + 8);
-  v50 = *(a1 + 40);
+  v45 = *(a1 + 8);
+  v46 = *(a1 + 40);
   v3 = *(a1 + 72);
-  v48 = *(a1 + 80);
-  v52[0] = *(a1 + 12);
-  *(v52 + 12) = *(a1 + 24);
-  v51[0] = *(a1 + 44);
-  *(v51 + 12) = *(a1 + 56);
+  v44 = *(a1 + 80);
+  v48[0] = *(a1 + 12);
+  *(v48 + 12) = *(a1 + 24);
+  v47[0] = *(a1 + 44);
+  *(v47 + 12) = *(a1 + 56);
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   v5 = MEMORY[0x277CC0898];
-  v59 = *MEMORY[0x277CC0898];
-  v60 = *(MEMORY[0x277CC0898] + 8);
-  v6 = APSAudioTransportTimeCopyDebugDesc(v52);
-  v7 = APSAudioTransportTimeCopyDebugDesc(v51);
+  v55 = *MEMORY[0x277CC0898];
+  v56 = *(MEMORY[0x277CC0898] + 8);
+  v6 = APSAudioTransportTimeCopyDebugDesc(v48);
+  v7 = APSAudioTransportTimeCopyDebugDesc(v47);
   v8 = *(MEMORY[0x277CC08C8] + 16);
-  *&v57.start.value = *MEMORY[0x277CC08C8];
-  *&v57.start.epoch = v8;
-  *&v57.duration.timescale = *(MEMORY[0x277CC08C8] + 32);
-  v56 = *v5;
-  v55 = v56;
+  *&v53.start.value = *MEMORY[0x277CC08C8];
+  *&v53.start.epoch = v8;
+  *&v53.duration.timescale = *(MEMORY[0x277CC08C8] + 32);
+  v52 = *v5;
+  v51 = v52;
   if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
   {
     *&time[16] = *(DerivedStorage + 424);
     *time = *(DerivedStorage + 408);
-    CMTimeGetSeconds(time);
-    LogPrintF();
+    Seconds = CMTimeGetSeconds(time);
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_audioHoseFlushWithinSampleRangeInternal(APSEndpointStreamAudioHoseRef, uint32_t, APSAudioTransportTime, uint32_t, APSAudioTransportTime, APSEndpointStreamAudioHoseFlushWithinSampleRangeCompletionHandler, void *)", 33554482, "[%{ptr}] FlushCallback called - WithinRange [%@:%@] Seq [%u:%u]; lastEndOPTSEnqueued: %1.3f\n", v2, v6, v7, v45, v46, *&Seconds);
   }
 
   if (*DerivedStorage)
   {
-    LODWORD(v23) = -72332;
-    v46 = 0;
+    LODWORD(v24) = -72332;
+    v43 = 0;
 LABEL_58:
-    APSLogErrorAt(v46);
+    APSLogErrorAt(v43);
     goto LABEL_71;
   }
 
-  v9 = CMBaseObjectGetDerivedStorage();
-  v10 = *(v9 + 464);
-  if (v10)
+  v10 = CMBaseObjectGetDerivedStorage();
+  v11 = *(v10 + 464);
+  if (v11)
   {
-    Count = CFArrayGetCount(v10);
+    Count = CFArrayGetCount(v11);
     if (Count >= 1)
     {
-      v12 = Count;
-      for (i = 0; i != v12; ++i)
+      v13 = Count;
+      for (i = 0; i != v13; ++i)
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(*(v9 + 464), i);
+        ValueAtIndex = CFArrayGetValueAtIndex(*(v10 + 464), i);
         hoseSBAR_enqueueAudioBBuffToInternalBuffersInternal(v2, ValueAtIndex);
       }
     }
 
-    v15 = *(v9 + 464);
-    if (v15)
+    v16 = *(v10 + 464);
+    if (v16)
     {
-      CFRelease(v15);
-      *(v9 + 464) = 0;
+      CFRelease(v16);
+      *(v10 + 464) = 0;
     }
   }
 
-  *time = v52[0];
-  *&time[12] = *(v52 + 12);
-  hoseSBAR_getMediaTimeForTransportTime(&v56, v2, time);
-  *time = v51[0];
-  *&time[12] = *(v51 + 12);
-  hoseSBAR_getMediaTimeForTransportTime(&v55, v2, time);
-  v16 = CMBaseObjectGetDerivedStorage();
+  *time = v48[0];
+  *&time[12] = *(v48 + 12);
+  hoseSBAR_getMediaTimeForTransportTime(&v52, v2, time);
+  *time = v47[0];
+  *&time[12] = *(v47 + 12);
+  hoseSBAR_getMediaTimeForTransportTime(&v51, v2, time);
+  v17 = CMBaseObjectGetDerivedStorage();
   *queueOut = 0;
-  *&time[8] = v56;
+  *&time[8] = v52;
   *time = 0;
-  v17 = *MEMORY[0x277CBECE8];
-  v18 = CMBufferQueueCreate(*MEMORY[0x277CBECE8], 0, *(v16 + 136), queueOut);
-  if (v18)
+  v18 = *MEMORY[0x277CBECE8];
+  v19 = CMBufferQueueCreate(*MEMORY[0x277CBECE8], 0, *(v17 + 136), queueOut);
+  if (v19)
   {
-    v23 = v18;
+    v24 = v19;
 LABEL_66:
-    APSLogErrorAt(v18);
+    APSLogErrorAt(v19);
     goto LABEL_27;
   }
 
   *time = *queueOut;
-  v18 = CMBufferQueueCallForEachBuffer(*(v16 + 656), hoseSBAR_bufferQueuePopBackAfterTimeCallback, time);
-  if (v18)
+  v19 = CMBufferQueueCallForEachBuffer(*(v17 + 656), hoseSBAR_bufferQueuePopBackAfterTimeCallback, time);
+  if (v19)
   {
-    v23 = v18;
+    v24 = v19;
     goto LABEL_66;
   }
 
-  v19 = *(v16 + 656);
-  v20 = *queueOut;
-  *(v16 + 656) = *queueOut;
-  if (v20)
+  v20 = *(v17 + 656);
+  v21 = *queueOut;
+  *(v17 + 656) = *queueOut;
+  if (v21)
   {
-    CFRetain(v20);
+    CFRetain(v21);
   }
 
-  if (v19)
+  if (v20)
   {
-    CFRelease(v19);
+    CFRelease(v20);
   }
 
   if (*queueOut)
@@ -8412,149 +8510,148 @@ LABEL_66:
     *queueOut = 0;
   }
 
-  v18 = CMBufferQueueCreate(v17, 0, *(v16 + 136), queueOut);
-  if (v18)
+  v19 = CMBufferQueueCreate(v18, 0, *(v17 + 136), queueOut);
+  if (v19)
   {
-    v23 = v18;
+    v24 = v19;
     goto LABEL_66;
   }
 
   *time = *queueOut;
-  v18 = CMBufferQueueCallForEachBuffer(*(v16 + 664), hoseSBAR_bufferQueuePopBackAfterTimeCallback, time);
-  if (v18)
+  v19 = CMBufferQueueCallForEachBuffer(*(v17 + 664), hoseSBAR_bufferQueuePopBackAfterTimeCallback, time);
+  if (v19)
   {
-    v23 = v18;
+    v24 = v19;
     goto LABEL_66;
   }
 
-  v21 = *(v16 + 664);
-  v22 = *queueOut;
-  *(v16 + 664) = *queueOut;
+  v22 = *(v17 + 664);
+  v23 = *queueOut;
+  *(v17 + 664) = *queueOut;
+  if (v23)
+  {
+    CFRetain(v23);
+  }
+
   if (v22)
   {
-    CFRetain(v22);
+    CFRelease(v22);
   }
 
-  if (v21)
-  {
-    CFRelease(v21);
-  }
-
-  v23 = 0;
+  v24 = 0;
 LABEL_27:
   if (*queueOut)
   {
     CFRelease(*queueOut);
   }
 
-  if (v23)
+  if (v24)
   {
-    v46 = v23;
+    v43 = v24;
     goto LABEL_58;
   }
 
-  *time = v52[0];
-  *&time[12] = *(v52 + 12);
+  *time = v48[0];
+  *&time[12] = *(v48 + 12);
   hoseSBAR_getMediaTimeForTransportTime(queueOut, v2, time);
   hoseSBAR_getSynchronizerTimeForMediaTime(time, v2, queueOut);
-  v59 = *time;
-  v24 = *&time[12];
-  v60 = *&time[8];
+  v55 = *time;
+  v25 = *&time[12];
+  v56 = *&time[8];
   if (time[12])
   {
-    v25 = v6;
-    v26 = v7;
-    v27 = *&time[16];
-    v28 = malloc_type_calloc(1uLL, 0x78uLL, 0x10A004079E0F624uLL);
-    if (v28)
+    v26 = v6;
+    v27 = v7;
+    v28 = *&time[16];
+    v29 = malloc_type_calloc(1uLL, 0x78uLL, 0x10A004079E0F624uLL);
+    if (v29)
     {
-      v29 = v28;
-      *(v28 + 8) = 0;
-      v30 = CFRetain(v2);
-      *(v29 + 12) = v49;
-      *(v29 + 4) = *(v52 + 12);
-      *(v29 + 52) = v52[0];
-      *(v29 + 20) = v50;
-      *(v29 + 84) = v51[0];
-      *(v29 + 6) = *(v51 + 12);
-      v31 = v59;
-      *v29 = v30;
-      *(v29 + 1) = v31;
-      *(v29 + 4) = v60;
-      *(v29 + 5) = v24;
-      *(v29 + 3) = v27;
-      *(v29 + 5) = v3;
-      *(v29 + 14) = v48;
+      v30 = v29;
+      *(v29 + 8) = 0;
+      v31 = CFRetain(v2);
+      *(v30 + 12) = v45;
+      *(v30 + 4) = *(v48 + 12);
+      *(v30 + 52) = v48[0];
+      *(v30 + 20) = v46;
+      *(v30 + 84) = v47[0];
+      *(v30 + 6) = *(v47 + 12);
+      v32 = v55;
+      *v30 = v31;
+      *(v30 + 1) = v32;
+      *(v30 + 4) = v56;
+      *(v30 + 5) = v25;
+      *(v30 + 3) = v28;
+      *(v30 + 5) = v3;
+      *(v30 + 14) = v44;
       ++*(DerivedStorage + 460);
-      v32 = *(DerivedStorage + 976);
-      if (v32)
-      {
-        CFRelease(v32);
-        *(DerivedStorage + 976) = 0;
-      }
-
-      v33 = *(DerivedStorage + 984);
+      v33 = *(DerivedStorage + 976);
       if (v33)
       {
         CFRelease(v33);
+        *(DerivedStorage + 976) = 0;
+      }
+
+      v34 = *(DerivedStorage + 984);
+      if (v34)
+      {
+        CFRelease(v34);
         *(DerivedStorage + 984) = 0;
       }
 
-      v34 = *(DerivedStorage + 104);
-      v35 = *(*(CMBaseObjectGetVTable() + 16) + 56);
-      if (v35)
+      v35 = *(DerivedStorage + 104);
+      v36 = *(*(CMBaseObjectGetVTable() + 16) + 56);
+      if (v36)
       {
-        *time = v59;
-        *&time[8] = v60;
-        *&time[12] = v24;
-        *&time[16] = v27;
-        v36 = v35(v34, time, hoseSBAR_audioEngineFlushFromTimeSBARCallback, v29);
-        if (!v36)
+        *time = v55;
+        *&time[8] = v56;
+        *&time[12] = v25;
+        *&time[16] = v28;
+        v37 = v36(v35, time, hoseSBAR_audioEngineFlushFromTimeSBARCallback, v30);
+        if (!v37)
         {
-          v37 = *(CMBaseObjectGetDerivedStorage() + 32);
-          v38 = *MEMORY[0x277CC1968];
-          v7 = v26;
+          CMBaseObjectGetDerivedStorage();
+          v7 = v27;
           if (FigCFEqual())
           {
             *time = 1;
-            *&time[4] = v49;
-            *&time[8] = v52[0];
-            *&time[20] = *(v52 + 12);
-            *&time[36] = v50;
-            *&time[40] = v51[0];
-            *&time[52] = *(v51 + 12);
+            *&time[4] = v45;
+            *&time[8] = v48[0];
+            *&time[20] = *(v48 + 12);
+            *&time[36] = v46;
+            *&time[40] = v47[0];
+            *&time[52] = *(v47 + 12);
             hoseSBAR_addPendingFlushOperation(v2, time);
           }
 
-          *queueOut = v55;
-          rhs = v56;
+          *queueOut = v51;
+          rhs = v52;
           CMTimeSubtract(time, queueOut, &rhs);
-          *queueOut = v56;
-          CMTimeRangeMake(&v57, queueOut, time);
-          v39 = *(DerivedStorage + 992);
-          *time = v57;
-          APSTimedInfoManagerFlushWithinTimeRange(v39, time);
-          v40 = APSTimedInfoManagerSuspend(*(DerivedStorage + 992), 0);
-          v6 = v25;
-          if (v40)
+          *queueOut = v52;
+          CMTimeRangeMake(&v53, queueOut, time);
+          v38 = *(DerivedStorage + 992);
+          *time = v53;
+          APSTimedInfoManagerFlushWithinTimeRange(v38, time);
+          v39 = APSTimedInfoManagerSuspend(*(DerivedStorage + 992), 0);
+          v6 = v26;
+          if (v39)
           {
-            LODWORD(v23) = v40;
+            LODWORD(v24) = v39;
           }
 
           else
           {
-            v40 = APSTimedInfoManagerResume(*(DerivedStorage + 992), *(DerivedStorage + 120));
-            LODWORD(v23) = v40;
-            if (!v40)
+            v39 = APSTimedInfoManagerResume(*(DerivedStorage + 992), *(DerivedStorage + 120));
+            LODWORD(v24) = v39;
+            if (!v39)
             {
               goto LABEL_42;
             }
           }
 
-          APSLogErrorAt(v40);
+          APSLogErrorAt(v39);
 LABEL_42:
-          v41 = 0;
-          if (!v25)
+          v40 = 0;
+          if (!v26)
           {
             goto LABEL_48;
           }
@@ -8564,32 +8661,31 @@ LABEL_47:
           goto LABEL_48;
         }
 
-        v23 = v36;
+        v24 = v37;
       }
 
       else
       {
-        v42 = *v29;
-        v43 = CMBaseObjectGetDerivedStorage();
-        v23 = 4294954514;
-        *(v29 + 8) = -12782;
-        dispatch_async_f(*(v43 + 352), v29, hoseSBAR_audioEngineFlushFromTimeSBARCallbackInternal);
+        v41 = CMBaseObjectGetDerivedStorage();
+        v24 = 4294954514;
+        *(v30 + 8) = -12782;
+        dispatch_async_f(*(v41 + 352), v30, hoseSBAR_audioEngineFlushFromTimeSBARCallbackInternal);
       }
 
-      APSLogErrorAt(v23);
-      v41 = 0;
+      APSLogErrorAt(v24);
+      v40 = 0;
     }
 
     else
     {
       APSLogErrorAt(0);
-      LODWORD(v23) = -72330;
-      v41 = 1;
+      LODWORD(v24) = -72330;
+      v40 = 1;
     }
 
-    v7 = v26;
-    v6 = v25;
-    if (!v25)
+    v7 = v27;
+    v6 = v26;
+    if (!v26)
     {
       goto LABEL_48;
     }
@@ -8600,13 +8696,12 @@ LABEL_47:
   APSLogErrorAt(0);
   if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
   {
-    v47 = *(DerivedStorage + 88);
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_audioHoseFlushWithinSampleRangeInternal(APSEndpointStreamAudioHoseRef, uint32_t, APSAudioTransportTime, uint32_t, APSAudioTransportTime, APSEndpointStreamAudioHoseFlushWithinSampleRangeCompletionHandler, void *)", 33554522, "[%{ptr}] Error making flush time; inFlushFromTS: %@; initialSampleRate: %u", v2, v6, *(DerivedStorage + 88));
   }
 
-  LODWORD(v23) = 0;
+  LODWORD(v24) = 0;
 LABEL_71:
-  v41 = 1;
+  v40 = 1;
   if (v6)
   {
     goto LABEL_47;
@@ -8618,51 +8713,55 @@ LABEL_48:
     CFRelease(v7);
   }
 
-  v44 = v41 ^ 1;
+  v42 = v40 ^ 1;
   if (!v3)
   {
-    v44 = 1;
+    v42 = 1;
   }
 
-  if ((v44 & 1) == 0)
+  if ((v42 & 1) == 0)
   {
-    *time = v52[0];
-    *&time[12] = *(v52 + 12);
-    *queueOut = v51[0];
-    *&queueOut[12] = *(v51 + 12);
-    hoseSBAR_callAudioHoseFlushWithinSampleRangeCompletionHandlerInternal(v2, v3, v49, time, v50, queueOut, v23, v48);
+    *time = v48[0];
+    *&time[12] = *(v48 + 12);
+    *queueOut = v47[0];
+    *&queueOut[12] = *(v47 + 12);
+    hoseSBAR_callAudioHoseFlushWithinSampleRangeCompletionHandlerInternal(v2, v3, v45, time, v46, queueOut, v24, v44);
   }
 
   CFRelease(*a1);
-  v45 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t hoseSBAR_addPendingFlushOperation(uint64_t a1, uint64_t a2)
+_OWORD *hoseSBAR_addPendingFlushOperation(uint64_t a1, uint64_t a2)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   result = malloc_type_calloc(1uLL, 0x58uLL, 0x10A00403B7FD5E2uLL);
   if (result)
   {
-    v5 = result;
-    *(result + 16) = *a2;
-    v6 = *(a2 + 16);
-    v7 = *(a2 + 32);
-    v8 = *(a2 + 48);
-    *(result + 80) = *(a2 + 64);
-    *(result + 48) = v7;
-    *(result + 64) = v8;
-    *(result + 32) = v6;
-    v9 = *(DerivedStorage + 720);
+    v6 = result;
+    result[1] = *a2;
+    v7 = *(a2 + 16);
+    v8 = *(a2 + 32);
+    v9 = *(a2 + 48);
+    *(result + 20) = *(a2 + 64);
+    result[3] = v8;
+    result[4] = v9;
+    result[2] = v7;
+    v10 = *(DerivedStorage + 720);
     *result = 0;
-    *(result + 8) = v9;
-    *v9 = result;
+    *(result + 1) = v10;
+    *v10 = result;
     *(DerivedStorage + 720) = result;
     if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50)
     {
       if (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || (result = _LogCategory_Initialize(), result))
       {
-        *(v5 + 16);
-        return LogPrintF();
+        v11 = 84;
+        if (!*(v6 + 16))
+        {
+          v11 = 70;
+        }
+
+        return LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_addPendingFlushOperation(APSEndpointStreamAudioHoseSBARRef, const APLESFlushOperation *)", 33554482, "[%{ptr}] Adding pending flush operation: [%{ptr}] flushWithinRange: %c \n", a1, v6, v11);
       }
     }
   }
@@ -8672,7 +8771,7 @@ uint64_t hoseSBAR_addPendingFlushOperation(uint64_t a1, uint64_t a2)
     if (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || (result = _LogCategory_Initialize(), result))
     {
 
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_addPendingFlushOperation(APSEndpointStreamAudioHoseSBARRef, const APLESFlushOperation *)", 33554522, "### Unable to allocate a flush node. Losing a flush.");
     }
   }
 
@@ -8716,83 +8815,82 @@ void hoseSBAR_callAudioEngineFlushWithinSampleRangeCompletionHandlerCaller(uint6
   CFRelease(*a1);
 }
 
-void hoseSBAR_audioEngineFlushFromTimeSBARCallbackInternal(uint64_t a1)
+void hoseSBAR_audioEngineFlushFromTimeSBARCallbackInternal(void **a1)
 {
-  v2 = *a1;
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   *time = *(a1 + 52);
-  *&time[12] = *(a1 + 64);
-  v4 = APSAudioTransportTimeCopyDebugDesc(time);
+  *&time[12] = *(a1 + 4);
+  v3 = APSAudioTransportTimeCopyDebugDesc(time);
   *time = *(a1 + 84);
-  *&time[12] = *(a1 + 96);
-  v5 = APSAudioTransportTimeCopyDebugDesc(time);
+  *&time[12] = *(a1 + 6);
+  v4 = APSAudioTransportTimeCopyDebugDesc(time);
   if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
   {
-    v6 = *a1;
-    *time = *(a1 + 8);
-    *&time[16] = *(a1 + 24);
-    CMTimeGetSeconds(time);
-    v7 = *(a1 + 32);
+    v5 = *a1;
+    *time = *(a1 + 1);
+    *&time[16] = a1[3];
+    Seconds = CMTimeGetSeconds(time);
+    v7 = *(a1 + 8);
     v8 = *(DerivedStorage + 460);
     *time = *(DerivedStorage + 408);
     *&time[16] = *(DerivedStorage + 424);
-    CMTimeGetSeconds(time);
-    LogPrintF();
+    v9 = CMTimeGetSeconds(time);
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_audioEngineFlushFromTimeSBARCallbackInternal(void *)", 33554482, "[%{ptr}] SBAR Callback for flushFromTime [%@:%@]; synchronizerTime: %1.3f; result: %d; outstanding call (including this): %d; lastEndOPTSEnqueued: %1.3f\n", v5, v3, v4, *&Seconds, v7, v8, *&v9);
   }
 
   --*(DerivedStorage + 460);
-  v9 = *(a1 + 32);
-  if (!v9)
+  v10 = *(a1 + 8);
+  if (!v10)
   {
-    *time1 = *(a1 + 8);
-    *&time1[16] = *(a1 + 24);
+    *time1 = *(a1 + 1);
+    *&time1[16] = a1[3];
     time2 = *(DerivedStorage + 408);
     CMTimeMinimum(time, time1, &time2);
     *(DerivedStorage + 408) = *time;
     *(DerivedStorage + 424) = *&time[16];
-    *time1 = *(a1 + 8);
-    *&time1[16] = *(a1 + 24);
+    *time1 = *(a1 + 1);
+    *&time1[16] = a1[3];
     time2 = *(DerivedStorage + 432);
     CMTimeMinimum(time, time1, &time2);
     *(DerivedStorage + 432) = *time;
     *(DerivedStorage + 448) = *&time[16];
     if (*(DerivedStorage + 420))
     {
-      v10 = *(DerivedStorage + 120);
-      v11 = *(DerivedStorage + 680);
+      v11 = *(DerivedStorage + 120);
+      v12 = *(DerivedStorage + 680);
       *time1 = *(DerivedStorage + 408);
       *&time1[16] = *(DerivedStorage + 424);
       time2 = *(DerivedStorage + 232);
       CMTimeSubtract(time, time1, &time2);
-      CMTimebaseSetTimerDispatchSourceNextFireTime(v10, v11, time, 1u);
+      CMTimebaseSetTimerDispatchSourceNextFireTime(v11, v12, time, 1u);
     }
 
-    v12 = *a1;
+    v13 = *a1;
     *time = *(a1 + 52);
-    *&time[12] = *(a1 + 64);
-    hoseSBAR_updateRTPRolloverStateOnFlushFromTransportTime(v12, time);
-    v9 = *(a1 + 32);
+    *&time[12] = *(a1 + 4);
+    hoseSBAR_updateRTPRolloverStateOnFlushFromTransportTime(v13, time);
+    v10 = *(a1 + 8);
   }
 
-  v13 = *a1;
-  v14 = *(a1 + 40);
-  v15 = *(a1 + 48);
-  v16 = *(a1 + 80);
-  v17 = *(a1 + 112);
+  v14 = *a1;
+  v15 = a1[5];
+  v16 = *(a1 + 12);
+  v17 = *(a1 + 20);
+  v18 = a1[14];
   *time = *(a1 + 52);
-  *&time[12] = *(a1 + 64);
+  *&time[12] = *(a1 + 4);
   *time1 = *(a1 + 84);
-  *&time1[12] = *(a1 + 96);
-  hoseSBAR_callAudioHoseFlushWithinSampleRangeCompletionHandlerInternal(v13, v14, v15, time, v16, time1, v9, v17);
+  *&time1[12] = *(a1 + 6);
+  hoseSBAR_callAudioHoseFlushWithinSampleRangeCompletionHandlerInternal(v14, v15, v16, time, v17, time1, v10, v18);
   hoseSBAR_maybeTriggerPullAudioBBuffs(*a1);
+  if (v3)
+  {
+    CFRelease(v3);
+  }
+
   if (v4)
   {
     CFRelease(v4);
-  }
-
-  if (v5)
-  {
-    CFRelease(v5);
   }
 
   CFRelease(*a1);
@@ -8801,12 +8899,11 @@ void hoseSBAR_audioEngineFlushFromTimeSBARCallbackInternal(uint64_t a1)
 
 void hoseSBAR_audioEngineFlushFromTimeSBARCallback(int a1, _DWORD *a2)
 {
-  v4 = *a2;
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   a2[8] = a1;
-  v6 = *(DerivedStorage + 352);
+  v5 = *(DerivedStorage + 352);
 
-  dispatch_async_f(v6, a2, hoseSBAR_audioEngineFlushFromTimeSBARCallbackInternal);
+  dispatch_async_f(v5, a2, hoseSBAR_audioEngineFlushFromTimeSBARCallbackInternal);
 }
 
 uint64_t hoseSBAR_bufferQueuePopBackAfterTimeCallback(opaqueCMSampleBuffer *a1, uint64_t a2)
@@ -8894,7 +8991,7 @@ LABEL_11:
   return 0;
 }
 
-uint64_t hoseSBAR_protocolDriverHoseLegacyFlush(const void *a1, int a2, _OWORD *a3, uint64_t a4, uint64_t a5)
+uint64_t hoseSBAR_protocolDriverHoseLegacyFlush(const void *a1, uint64_t a2, _OWORD *a3, uint64_t a4, uint64_t a5)
 {
   v6[0] = *a3;
   *(v6 + 12) = *(a3 + 12);
@@ -8931,20 +9028,20 @@ void hoseSBAR_audioHoseFlushCallbackDispatchInternal(uint64_t a1)
   v3 = *(a1 + 8);
   v5 = *(a1 + 40);
   v4 = *(a1 + 48);
-  v30[0] = *(a1 + 12);
-  *(v30 + 12) = *(a1 + 24);
+  v26[0] = *(a1 + 12);
+  *(v26 + 12) = *(a1 + 24);
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   v7 = *(DerivedStorage + 480);
-  v8 = APSAudioTransportTimeCopyDebugDesc(v30);
+  v8 = APSAudioTransportTimeCopyDebugDesc(v26);
   if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_audioHoseFlushEverythingInternal(APSEndpointStreamAudioHoseRef, uint32_t, APSAudioTransportTime, APSEndpointStreamAudioHoseFlushCompletionHandler, void *)", 33554482, "[%{ptr}] FlushCallback called - Everything: ts: %@ seq: %u shouldStopSynchronizer: %d\n", v2, v8, v3, v7 == 1);
   }
 
   if (*DerivedStorage)
   {
     APSLogErrorAt(0);
-    LODWORD(v28) = -72332;
+    LODWORD(v24) = -72332;
     if (!v8)
     {
       goto LABEL_33;
@@ -8964,25 +9061,25 @@ LABEL_32:
   v10 = *(*(CMBaseObjectGetVTable() + 16) + 24);
   if (!v10)
   {
-    v28 = 4294954514;
+    v24 = 4294954514;
 LABEL_30:
-    v12 = v28;
+    v12 = v24;
     goto LABEL_31;
   }
 
-  *v31 = *MEMORY[0x277CC0898];
-  *&v31[16] = *(MEMORY[0x277CC0898] + 16);
-  v11 = v10(v9, v31, 0.0);
+  *v27 = *MEMORY[0x277CC0898];
+  *&v27[16] = *(MEMORY[0x277CC0898] + 16);
+  v11 = v10(v9, v27, 0.0);
   if (v11)
   {
-    v28 = v11;
+    v24 = v11;
     goto LABEL_30;
   }
 
   v12 = APSClockDriftMonitorSuspend(*(DerivedStorage + 1000));
   if (v12)
   {
-    LODWORD(v28) = v12;
+    LODWORD(v24) = v12;
 LABEL_31:
     APSLogErrorAt(v12);
     if (!v8)
@@ -8993,31 +9090,29 @@ LABEL_31:
     goto LABEL_32;
   }
 
-  hoseSBAR_waitForTimebaseRate(0.0);
+  hoseSBAR_waitForTimebaseRate(v2, 0.0);
   hoseSBAR_updateSynchronizerState(v2, 0);
 LABEL_11:
-  v13 = *(DerivedStorage + 288);
   FigSimpleMutexLock();
   *(DerivedStorage + 320) = 0;
-  v14 = *(DerivedStorage + 288);
   FigSimpleMutexUnlock();
-  v15 = *(DerivedStorage + 104);
-  v16 = *(*(CMBaseObjectGetVTable() + 16) + 24);
-  if (v16)
+  v13 = *(DerivedStorage + 104);
+  v14 = *(*(CMBaseObjectGetVTable() + 16) + 24);
+  if (v14)
   {
-    v16(v15);
+    v14(v13);
   }
 
   *(DerivedStorage + 672) = 0;
-  v17 = MEMORY[0x277CC08C8];
-  v18 = *(MEMORY[0x277CC08C8] + 16);
+  v15 = MEMORY[0x277CC08C8];
+  v16 = *(MEMORY[0x277CC08C8] + 16);
   *(DerivedStorage + 756) = *MEMORY[0x277CC08C8];
-  *(DerivedStorage + 772) = v18;
-  *(DerivedStorage + 788) = *(v17 + 32);
+  *(DerivedStorage + 772) = v16;
+  *(DerivedStorage + 788) = *(v15 + 32);
   v12 = CMBufferQueueReset(*(DerivedStorage + 664));
   if (v12)
   {
-    LODWORD(v28) = v12;
+    LODWORD(v24) = v12;
     goto LABEL_31;
   }
 
@@ -9026,81 +9121,80 @@ LABEL_11:
     hoseSBAR_enqueueIntoSBARPrimingSBufIfNecessary(v2);
   }
 
-  v19 = *(CMBaseObjectGetDerivedStorage() + 32);
-  v20 = *MEMORY[0x277CC1968];
+  CMBaseObjectGetDerivedStorage();
   if (FigCFEqual())
   {
-    memset(v31, 0, 36);
-    hoseSBAR_clearPendingFlushes();
-    v31[0] = 0;
-    *&v31[36] = v3;
-    *&v31[40] = v30[0];
-    *&v31[52] = *(v30 + 12);
-    hoseSBAR_addPendingFlushOperation(v2, v31);
+    memset(v27, 0, 36);
+    hoseSBAR_clearPendingFlushes(v2);
+    v27[0] = 0;
+    *&v27[36] = v3;
+    *&v27[40] = v26[0];
+    *&v27[52] = *(v26 + 12);
+    hoseSBAR_addPendingFlushOperation(v2, v27);
   }
 
   v12 = APSTimedInfoManagerFlush(*(DerivedStorage + 992));
   if (v12)
   {
-    LODWORD(v28) = v12;
+    LODWORD(v24) = v12;
     goto LABEL_31;
   }
 
   v12 = APSTimedInfoManagerSuspend(*(DerivedStorage + 992), 0);
   if (v12)
   {
-    LODWORD(v28) = v12;
+    LODWORD(v24) = v12;
     goto LABEL_31;
   }
 
   v12 = APSTimedInfoManagerResume(*(DerivedStorage + 992), *(DerivedStorage + 120));
   if (v12)
   {
-    LODWORD(v28) = v12;
+    LODWORD(v24) = v12;
     goto LABEL_31;
   }
 
-  v21 = *(DerivedStorage + 464);
-  if (v21)
+  v17 = *(DerivedStorage + 464);
+  if (v17)
   {
-    CFRelease(v21);
+    CFRelease(v17);
     *(DerivedStorage + 464) = 0;
   }
 
   CMBufferQueueReset(*(DerivedStorage + 656));
   *(DerivedStorage + 544) = 0x100000000;
   *(DerivedStorage + 528) = kAPSNetworkTimeInvalid;
-  v22 = MEMORY[0x277CC0898];
-  v23 = *MEMORY[0x277CC0898];
+  v18 = MEMORY[0x277CC0898];
+  v19 = *MEMORY[0x277CC0898];
   *(DerivedStorage + 552) = *MEMORY[0x277CC0898];
-  v24 = *(v22 + 16);
-  *(DerivedStorage + 568) = v24;
-  *(DerivedStorage + 576) = v23;
-  *(DerivedStorage + 592) = v24;
-  *(DerivedStorage + 600) = v23;
-  *(DerivedStorage + 616) = v24;
-  *(DerivedStorage + 640) = v24;
-  *(DerivedStorage + 624) = v23;
-  *(DerivedStorage + 400) = v24;
-  *(DerivedStorage + 384) = v23;
-  *(DerivedStorage + 424) = v24;
-  *(DerivedStorage + 408) = v23;
-  *(DerivedStorage + 448) = v24;
-  *(DerivedStorage + 432) = v23;
+  v20 = *(v18 + 16);
+  *(DerivedStorage + 568) = v20;
+  *(DerivedStorage + 576) = v19;
+  *(DerivedStorage + 592) = v20;
+  *(DerivedStorage + 600) = v19;
+  *(DerivedStorage + 616) = v20;
+  *(DerivedStorage + 640) = v20;
+  *(DerivedStorage + 624) = v19;
+  *(DerivedStorage + 400) = v20;
+  *(DerivedStorage + 384) = v19;
+  *(DerivedStorage + 424) = v20;
+  *(DerivedStorage + 408) = v19;
+  *(DerivedStorage + 448) = v20;
+  *(DerivedStorage + 432) = v19;
   *(DerivedStorage + 740) = 0;
   *(DerivedStorage + 744) = 0;
   dispatch_source_set_timer(*(DerivedStorage + 680), 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0);
-  v25 = *(DerivedStorage + 976);
-  if (v25)
+  v21 = *(DerivedStorage + 976);
+  if (v21)
   {
-    CFRelease(v25);
+    CFRelease(v21);
     *(DerivedStorage + 976) = 0;
   }
 
-  v26 = *(DerivedStorage + 984);
-  if (v26)
+  v22 = *(DerivedStorage + 984);
+  if (v22)
   {
-    CFRelease(v26);
+    CFRelease(v22);
     *(DerivedStorage + 984) = 0;
   }
 
@@ -9109,10 +9203,10 @@ LABEL_11:
   CFDictionaryRemoveAllValues(*(DerivedStorage + 952));
   CFDictionaryRemoveAllValues(*(DerivedStorage + 944));
   CFDictionaryRemoveAllValues(*(DerivedStorage + 960));
-  v27 = CMBaseObjectGetDerivedStorage();
-  LODWORD(v28) = 0;
-  *(v27 + 728) = 0;
-  *(v27 + 736) = 0;
+  v23 = CMBaseObjectGetDerivedStorage();
+  LODWORD(v24) = 0;
+  *(v23 + 728) = 0;
+  *(v23 + 736) = 0;
   *(DerivedStorage + 456) = 0;
   if (v8)
   {
@@ -9122,26 +9216,26 @@ LABEL_11:
 LABEL_33:
   if (v5)
   {
-    v29 = CMBaseObjectGetDerivedStorage();
-    *&v31[48] = 0;
-    *v31 = CFRetain(v2);
-    *&v31[8] = v5;
-    *&v31[16] = v3;
-    *&v31[20] = v30[0];
-    *&v31[32] = *(v30 + 12);
-    *&v31[48] = v28;
-    *&v31[56] = v4;
-    APSDispatchAsyncFHelper(*(v29 + 8), hoseSBAR_callAudioHoseFlushCompletionHandlerCaller, v31, 0x40uLL);
+    v25 = CMBaseObjectGetDerivedStorage();
+    *&v27[48] = 0;
+    *v27 = CFRetain(v2);
+    *&v27[8] = v5;
+    *&v27[16] = v3;
+    *&v27[20] = v26[0];
+    *&v27[32] = *(v26 + 12);
+    *&v27[48] = v24;
+    *&v27[56] = v4;
+    APSDispatchAsyncFHelper(*(v25 + 8), hoseSBAR_callAudioHoseFlushCompletionHandlerCaller, v27, 0x40uLL);
   }
 
   CFRelease(*a1);
 }
 
-uint64_t hoseSBAR_clearPendingFlushes()
+uint64_t hoseSBAR_clearPendingFlushes(uint64_t a1)
 {
   if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_clearPendingFlushes(APSEndpointStreamAudioHoseSBARRef)", 33554482, "[${ptr}] Clear pending flush queue", a1);
   }
 
   while (1)
@@ -9153,20 +9247,20 @@ uint64_t hoseSBAR_clearPendingFlushes()
     }
 
     DerivedStorage = CMBaseObjectGetDerivedStorage();
-    v1 = *(DerivedStorage + 712);
-    if (v1)
+    v3 = *(DerivedStorage + 712);
+    if (v3)
     {
-      v2 = *v1;
-      v3 = v1[1];
-      v4 = (DerivedStorage + 720);
-      if (*v1)
+      v4 = *v3;
+      v5 = v3[1];
+      v6 = (DerivedStorage + 720);
+      if (*v3)
       {
-        v4 = (*v1 + 8);
+        v6 = (*v3 + 8);
       }
 
-      *v4 = v3;
-      *v3 = v2;
-      free(v1);
+      *v6 = v5;
+      *v5 = v4;
+      free(v3);
     }
   }
 
@@ -9274,7 +9368,7 @@ void hoseSBAR_notifyAudioDataAvailableEngineCallbackDispatchInternal(void **a1)
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 30 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_notifyAudioDataAvailableEngineCallbackInternal(APSEndpointStreamAudioHoseSBARRef)", 33554462, "[%{ptr}] notifyAudioDataAvailableEngineCallback", v2);
   }
 
   if (!*DerivedStorage)
@@ -9319,187 +9413,221 @@ uint64_t hoseSBAR_audioHoseTimeAnnounce(const void *a1, int a2, const void *a3)
   return 0;
 }
 
-void hoseSBAR_audioHoseTimeAnnounceDispatchInternal(uint64_t a1)
+void hoseSBAR_audioHoseTimeAnnounceDispatchInternal(CFTypeRef *a1)
 {
   v2 = *a1;
-  v3 = *(a1 + 8);
-  v4 = *(a1 + 16);
+  v3 = *(a1 + 2);
+  v4 = a1[2];
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v36 = **&MEMORY[0x277CC0898];
-  v35 = v36;
+  v43 = **&MEMORY[0x277CC0898];
+  v42 = v43;
   if (*DerivedStorage)
   {
-    goto LABEL_48;
+    goto LABEL_50;
   }
 
   v6 = DerivedStorage;
   if (DerivedStorage[456])
   {
-    goto LABEL_48;
+    goto LABEL_50;
   }
 
-  if (v3 > 1952542317)
+  if (v3 <= 1952542317)
   {
-    if (v3 != 1952542318)
+    if (v3 != 1950436942)
     {
-      v7 = 1953526896;
-LABEL_8:
-      if (v3 != v7)
+      v7 = 1951421520;
+      goto LABEL_8;
+    }
+
+LABEL_13:
+    dataPointerOut.value = 0;
+    v41.value = 0;
+    DataPointer = CMBlockBufferGetDataPointer(v4, 0, 0, 0, &dataPointerOut);
+    if (DataPointer)
+    {
+      goto LABEL_49;
+    }
+
+    v15 = *dataPointerOut.value;
+    v16 = *(dataPointerOut.value + 4);
+    v17 = *(dataPointerOut.value + 8);
+    v18 = *(v6 + 8);
+    v19 = *(*(CMBaseObjectGetVTable() + 16) + 24);
+    if (v19)
+    {
+      v20 = bswap32(v16) + bswap32(v17) * 2.32830644e-10 + -2208988800.0;
+      time.value = 0;
+      *&time.timescale = vcvtd_n_u64_f64(v20 - floor(v20), 0x40uLL);
+      time.epoch = vcvtmd_s64_f64(v20);
+      v21 = v19(v18, &time, &v41);
+      if (!v21)
       {
-        if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
+LABEL_31:
+        v23 = bswap32(v15);
+        v24 = UpTicksToNanoseconds();
+        CMTimeMake(&v42, v24, 1000000000);
+        if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 30 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
         {
-          goto LABEL_36;
+          time = v42;
+          Seconds = CMTimeGetSeconds(&time);
+          LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_audioHoseTimeAnnounceInternal(APSEndpointStreamAudioHoseRef, OSType, CMBlockBufferRef)", 33554462, "[%{ptr}] Time Announce Callback hostTimeSecs = %f\n", v2, *&Seconds);
         }
 
-        goto LABEL_48;
-      }
-
-      dataPointerOut.value = 0;
-      v34.value = 0;
-      DataPointer = CMBlockBufferGetDataPointer(v4, 0, 0, 0, &dataPointerOut);
-      if (!DataPointer)
-      {
-        v9 = *(dataPointerOut.value + 4);
-        v10 = *(dataPointerOut.value + 16);
-        v11 = *(v6 + 8);
-        v12 = *(*(CMBaseObjectGetVTable() + 16) + 24);
-        if (!v12 || (v13 = bswap64(v9) / 1000000000.0, time.value = bswap64(v10), *&time.timescale = vcvtd_n_u64_f64(v13 - floor(v13), 0x40uLL), time.epoch = vcvtmd_s64_f64(v13), v12(v11, &time, &v34)))
-        {
-          if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
-          {
-            LogPrintF();
-          }
-        }
-
-        v20 = UpTicksToNanoseconds();
-        CMTimeMake(&v35, v20, 1000000000);
-        v21 = bswap32(*dataPointerOut.value);
-        goto LABEL_33;
-      }
-
-LABEL_47:
-      APSLogErrorAt(DataPointer);
-      goto LABEL_48;
-    }
-  }
-
-  else if (v3 != 1950436942)
-  {
-    v7 = 1951421520;
-    goto LABEL_8;
-  }
-
-  dataPointerOut.value = 0;
-  v34.value = 0;
-  DataPointer = CMBlockBufferGetDataPointer(v4, 0, 0, 0, &dataPointerOut);
-  if (DataPointer)
-  {
-    goto LABEL_47;
-  }
-
-  v14 = *dataPointerOut.value;
-  v15 = *(dataPointerOut.value + 4);
-  v16 = *(dataPointerOut.value + 8);
-  v17 = *(v6 + 8);
-  v18 = *(*(CMBaseObjectGetVTable() + 16) + 24);
-  if (!v18 || (v19 = bswap32(v15) + bswap32(v16) * 2.32830644e-10 + -2208988800.0, time.value = 0, *&time.timescale = vcvtd_n_u64_f64(v19 - floor(v19), 0x40uLL), time.epoch = vcvtmd_s64_f64(v19), v18(v17, &time, &v34)))
-  {
-    if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
-    {
-      LogPrintF();
-    }
-  }
-
-  v21 = bswap32(v14);
-  v22 = UpTicksToNanoseconds();
-  CMTimeMake(&v35, v22, 1000000000);
-  if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 30 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
-  {
-    time = v35;
-    CMTimeGetSeconds(&time);
-    LogPrintF();
-  }
-
-LABEL_33:
-  hoseSBAR_updateRTPRolloverStateAssumingIncreasingRTPTimes(v2, v21);
-  hoseSBAR_getMediaTimeForRTPTime(&v36, v2, v21);
-  *(v6 + 23) = v35;
-  v23 = *&v36.value;
-  *(v6 + 36) = *&v36.value;
-  epoch = v36.epoch;
-  *(v6 + 74) = v36.epoch;
-  v25 = MEMORY[0x277CC08F0];
-  *(v6 + 600) = *MEMORY[0x277CC08F0];
-  *(v6 + 77) = *(v25 + 16);
-  *&dataPointerOut.value = v23;
-  dataPointerOut.epoch = epoch;
-  hoseSBAR_getSynchronizerTimeForMediaTime(&time, v2, &dataPointerOut);
-  flags = time.flags;
-  if (time.flags)
-  {
-    value = time.value;
-    timescale = time.timescale;
-    v29 = time.epoch;
-    if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
-    {
-      time.value = value;
-      time.timescale = timescale;
-      time.flags = flags;
-      time.epoch = v29;
-      CMTimeGetSeconds(&time);
-      time = v35;
-      CMTimeGetSeconds(&time);
-      HostTimeClock = CMClockGetHostTimeClock();
-      CMClockGetTime(&time, HostTimeClock);
-      CMTimeGetSeconds(&time);
-      LogPrintF();
-    }
-
-    v31 = *(v6 + 14);
-    v34 = v35;
-    v32 = *(*(CMBaseObjectGetVTable() + 16) + 56);
-    if (v32)
-    {
-      time.value = value;
-      time.timescale = timescale;
-      time.flags = flags;
-      time.epoch = v29;
-      dataPointerOut = v34;
-      DataPointer = v32(v31, &time, &dataPointerOut, 1.0);
-      if (!DataPointer)
-      {
-        hoseSBAR_waitForTimebaseRate(1.0);
-        CMTimebaseSetTimerDispatchSourceToFireImmediately(*(v6 + 15), *(v6 + 81));
-        hoseSBAR_updateSynchronizerState(v2, 1);
-        v6[456] = 1;
-        goto LABEL_48;
+        goto LABEL_35;
       }
     }
 
     else
     {
-      DataPointer = 4294954514;
+      v21 = 4294954514;
     }
 
-    goto LABEL_47;
+    if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_audioHoseTimeAnnounceInternal(APSEndpointStreamAudioHoseRef, OSType, CMBlockBufferRef)", 33554522, "### [%{ptr}] ConvertNetworkTimeToUpTicks failed, err %#m\n", v2, v21);
+    }
+
+    goto LABEL_31;
   }
 
-  if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
+  if (v3 == 1952542318)
   {
-LABEL_36:
-    LogPrintF();
+    goto LABEL_13;
   }
 
-LABEL_48:
+  v7 = 1953526896;
+LABEL_8:
+  if (v3 == v7)
+  {
+    dataPointerOut.value = 0;
+    v41.value = 0;
+    DataPointer = CMBlockBufferGetDataPointer(v4, 0, 0, 0, &dataPointerOut);
+    if (DataPointer)
+    {
+      goto LABEL_49;
+    }
+
+    v9 = *(dataPointerOut.value + 4);
+    v10 = *(dataPointerOut.value + 16);
+    v11 = *(v6 + 8);
+    v12 = *(*(CMBaseObjectGetVTable() + 16) + 24);
+    if (v12)
+    {
+      v13 = bswap64(v9) / 1000000000.0;
+      time.value = bswap64(v10);
+      *&time.timescale = vcvtd_n_u64_f64(v13 - floor(v13), 0x40uLL);
+      time.epoch = vcvtmd_s64_f64(v13);
+      v14 = v12(v11, &time, &v41);
+      if (!v14)
+      {
+LABEL_29:
+        v22 = UpTicksToNanoseconds();
+        CMTimeMake(&v42, v22, 1000000000);
+        v23 = bswap32(*dataPointerOut.value);
+LABEL_35:
+        hoseSBAR_updateRTPRolloverStateAssumingIncreasingRTPTimes(v2, v23);
+        hoseSBAR_getMediaTimeForRTPTime(&v43, v2, v23);
+        *(v6 + 23) = v42;
+        v26 = *&v43.value;
+        *(v6 + 36) = *&v43.value;
+        epoch = v43.epoch;
+        *(v6 + 74) = v43.epoch;
+        v28 = MEMORY[0x277CC08F0];
+        *(v6 + 600) = *MEMORY[0x277CC08F0];
+        *(v6 + 77) = *(v28 + 16);
+        *&dataPointerOut.value = v26;
+        dataPointerOut.epoch = epoch;
+        hoseSBAR_getSynchronizerTimeForMediaTime(&time, v2, &dataPointerOut);
+        flags = time.flags;
+        if ((time.flags & 1) == 0)
+        {
+          if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
+          {
+            LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_audioHoseTimeAnnounceInternal(APSEndpointStreamAudioHoseRef, OSType, CMBlockBufferRef)", 33554482, "### [%{ptr}] TimeAnnounce: Invalid synchronizerTimeStartTime\n", v2, v40);
+          }
+
+          goto LABEL_50;
+        }
+
+        value = time.value;
+        timescale = time.timescale;
+        v32 = time.epoch;
+        if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 50 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
+        {
+          time.value = value;
+          time.timescale = timescale;
+          time.flags = flags;
+          time.epoch = v32;
+          v33 = CMTimeGetSeconds(&time);
+          time = v42;
+          v34 = CMTimeGetSeconds(&time);
+          HostTimeClock = CMClockGetHostTimeClock();
+          CMClockGetTime(&time, HostTimeClock);
+          v36 = CMTimeGetSeconds(&time);
+          LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_audioHoseTimeAnnounceInternal(APSEndpointStreamAudioHoseRef, OSType, CMBlockBufferRef)", 33554482, "[%{ptr}] synchronizerTimeStartTime = %1.3f (%ld/%d) hostTimeStart = %1.3f nowHostTime = %1.3f\n", v2, *&v33, value, timescale, *&v34, *&v36, v41.value);
+        }
+
+        v37 = *(v6 + 14);
+        v41 = v42;
+        v38 = *(*(CMBaseObjectGetVTable() + 16) + 56);
+        if (v38)
+        {
+          time.value = value;
+          time.timescale = timescale;
+          time.flags = flags;
+          time.epoch = v32;
+          dataPointerOut = v41;
+          DataPointer = v38(v37, &time, &dataPointerOut, 1.0);
+          if (!DataPointer)
+          {
+            hoseSBAR_waitForTimebaseRate(v2, 1.0);
+            CMTimebaseSetTimerDispatchSourceToFireImmediately(*(v6 + 15), *(v6 + 81));
+            hoseSBAR_updateSynchronizerState(v2, 1);
+            v6[456] = 1;
+            goto LABEL_50;
+          }
+        }
+
+        else
+        {
+          DataPointer = 4294954514;
+        }
+
+LABEL_49:
+        APSLogErrorAt(DataPointer);
+        goto LABEL_50;
+      }
+    }
+
+    else
+    {
+      v14 = 4294954514;
+    }
+
+    if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_audioHoseTimeAnnounceInternal(APSEndpointStreamAudioHoseRef, OSType, CMBlockBufferRef)", 33554522, "### [%{ptr}] ConvertNetworkTimeToUpTicks failed, err %#m\n", v2, v14);
+    }
+
+    goto LABEL_29;
+  }
+
+  if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_audioHoseTimeAnnounceInternal(APSEndpointStreamAudioHoseRef, OSType, CMBlockBufferRef)", 33554522, "### [%{ptr}] Unexpected message received '%C'\n", v2, v3);
+  }
+
+LABEL_50:
   if (*a1)
   {
     CFRelease(*a1);
   }
 
-  v33 = *(a1 + 16);
-  if (v33)
+  v39 = a1[2];
+  if (v39)
   {
-    CFRelease(v33);
+    CFRelease(v39);
   }
 }
 
@@ -9542,37 +9670,36 @@ uint64_t hoseSBAR_audioHoseSendAudio(const void *a1, int a2, const void *a3)
   }
 }
 
-void hoseSBAR_hoseSendAudioDataDispatchInternal(uint64_t a1)
+void hoseSBAR_hoseSendAudioDataDispatchInternal(CFTypeRef *a1)
 {
   v3 = *a1;
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v6[0] = v3;
-  v6[1] = v2;
+  v6 = v3;
+  v7 = v2;
   if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 30 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "void hoseSBAR_hoseSendAudioDataInternal(APSEndpointStreamAudioHoseRef, CMBlockBufferRef)", 33554462, "[%{ptr}] SendAudioDataInternal; bbuf: %{ptr}", v3, v2, v6, v7);
   }
 
   if (!*DerivedStorage)
   {
     CFRetain(v3);
     CFRetain(v2);
-    APSDispatchAsyncFHelper(*(DerivedStorage + 352), hoseSBAR_sbarEnqueueSingleAudioBBuffDispatchFunction, v6, 0x10uLL);
+    APSDispatchAsyncFHelper(*(DerivedStorage + 352), hoseSBAR_sbarEnqueueSingleAudioBBuffDispatchFunction, &v6, 0x10uLL);
   }
 
   CFRelease(*a1);
-  v5 = *(a1 + 8);
+  v5 = a1[1];
   if (v5)
   {
     CFRelease(v5);
   }
 }
 
-void hoseSBAR_sbarEnqueueSingleAudioBBuffDispatchFunction(uint64_t a1)
+void hoseSBAR_sbarEnqueueSingleAudioBBuffDispatchFunction(uint64_t *a1)
 {
-  v2 = *a1;
-  if (!*(CMBaseObjectGetDerivedStorage() + 282) && (started = hoseSBAR_startTheSynchronizerIfNecessary(*a1, 1), started) || (started = hoseSBAR_enqueueAudioBBuffToInternalBuffersInternal(*a1, *(a1 + 8)), started) || (started = hoseSBAR_fillSBARToHighWater(*a1), started))
+  if (!*(CMBaseObjectGetDerivedStorage() + 282) && (started = hoseSBAR_startTheSynchronizerIfNecessary(*a1, 1), started) || (started = hoseSBAR_enqueueAudioBBuffToInternalBuffersInternal(*a1, a1[1]), started) || (started = hoseSBAR_fillSBARToHighWater(*a1), started))
   {
     APSLogErrorAt(started);
   }
@@ -9582,11 +9709,11 @@ void hoseSBAR_sbarEnqueueSingleAudioBBuffDispatchFunction(uint64_t a1)
     CFRelease(*a1);
   }
 
-  v4 = *(a1 + 8);
-  if (v4)
+  v3 = a1[1];
+  if (v3)
   {
 
-    CFRelease(v4);
+    CFRelease(v3);
   }
 }
 
@@ -9599,21 +9726,21 @@ __CFString *hoseSBAR_audioHoseProtocolCopyDebugDescription(uint64_t a1)
 
 uint64_t hoseSBAR_SetProperty(const void *a1, const void *a2, const void *a3)
 {
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2000000000;
   v26 = 0;
-  v27 = &v26;
-  v28 = 0x2000000000;
-  v29 = 0;
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 30 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_SetProperty(CMBaseObjectRef, CFStringRef, CFTypeRef)", 33554462, "[%{ptr}] %###s propertyKey: '%@'\n", a1, "OSStatus hoseSBAR_SetProperty(CMBaseObjectRef, CFStringRef, CFTypeRef)", a2);
   }
 
   if (*DerivedStorage)
   {
     APSLogErrorAt(0);
-    v22 = v27;
-    v23 = -72332;
+    v19 = v24;
+    v20 = -72332;
     goto LABEL_48;
   }
 
@@ -9634,7 +9761,7 @@ uint64_t hoseSBAR_SetProperty(const void *a1, const void *a2, const void *a3)
         if (v11)
         {
           v12 = v11(v10, *MEMORY[0x277CD6440], a3);
-          *(v27 + 6) = v12;
+          *(v24 + 6) = v12;
           if (!v12)
           {
             goto LABEL_8;
@@ -9644,7 +9771,7 @@ uint64_t hoseSBAR_SetProperty(const void *a1, const void *a2, const void *a3)
         else
         {
           v12 = 4294954514;
-          *(v27 + 6) = -12782;
+          *(v24 + 6) = -12782;
         }
 
 LABEL_16:
@@ -9660,7 +9787,6 @@ LABEL_16:
   {
     if (!a3 || (v13 = CFGetTypeID(a3), v13 == CFNumberGetTypeID()))
     {
-      v14 = *(DerivedStorage + 296);
       if (!FigCFEqual())
       {
         if (a1)
@@ -9673,16 +9799,16 @@ LABEL_16:
           CFRetain(a3);
         }
 
-        v15 = *(DerivedStorage + 352);
+        v14 = *(DerivedStorage + 352);
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 0x40000000;
         block[2] = __hoseSBAR_SetProperty_block_invoke;
         block[3] = &unk_2784A2C88;
-        block[4] = &v26;
+        block[4] = &v23;
         block[5] = DerivedStorage;
         block[6] = a3;
         block[7] = a1;
-        dispatch_async(v15, block);
+        dispatch_async(v14, block);
       }
 
       goto LABEL_8;
@@ -9690,8 +9816,8 @@ LABEL_16:
 
 LABEL_50:
     APSLogErrorAt(0);
-    v22 = v27;
-    v23 = -72331;
+    v19 = v24;
+    v20 = -72331;
     goto LABEL_48;
   }
 
@@ -9700,7 +9826,7 @@ LABEL_50:
     if (CFEqual(a2, @"MuteStream"))
     {
       v12 = FigSampleBufferAudioRendererSetProperty(*(DerivedStorage + 104), *MEMORY[0x277CD6430], a3);
-      *(v27 + 6) = v12;
+      *(v24 + 6) = v12;
       if (!v12)
       {
         goto LABEL_8;
@@ -9711,20 +9837,20 @@ LABEL_50:
 
     if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 30 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_APSEndpointStreamAudioHoseSBAR, "OSStatus hoseSBAR_SetProperty(CMBaseObjectRef, CFStringRef, CFTypeRef)", 33554462, "[%{ptr}] %###s %@ unsupported\n", a1, "OSStatus hoseSBAR_SetProperty(CMBaseObjectRef, CFStringRef, CFTypeRef)", a2);
     }
 
-    v22 = v27;
-    v23 = -12784;
+    v19 = v24;
+    v20 = -12784;
 LABEL_48:
-    *(v22 + 6) = v23;
+    *(v19 + 6) = v20;
     goto LABEL_8;
   }
 
   if (a3)
   {
-    v16 = CFGetTypeID(a3);
-    if (v16 != CFNumberGetTypeID())
+    v15 = CFGetTypeID(a3);
+    if (v15 != CFNumberGetTypeID())
     {
       goto LABEL_50;
     }
@@ -9732,7 +9858,18 @@ LABEL_48:
 
   if (a1)
   {
-    v17 = CFRetain(a1);
+    v16 = CFRetain(a1);
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  v21[0] = v16;
+  if (a3)
+  {
+    v17 = CFRetain(a3);
   }
 
   else
@@ -9740,92 +9877,24 @@ LABEL_48:
     v17 = 0;
   }
 
-  v24[0] = v17;
-  if (a3)
-  {
-    v18 = CFRetain(a3);
-  }
-
-  else
-  {
-    v18 = 0;
-  }
-
-  v24[1] = v18;
-  v19 = *(DerivedStorage + 288);
+  v21[1] = v17;
   FigSimpleMutexLock();
-  APSDispatchAsyncFHelper(*(DerivedStorage + 352), hoseSBAR_setAudioProcessingTapIDInternal, v24, 0x10uLL);
-  v20 = *(DerivedStorage + 312);
+  APSDispatchAsyncFHelper(*(DerivedStorage + 352), hoseSBAR_setAudioProcessingTapIDInternal, v21, 0x10uLL);
+  v18 = *(DerivedStorage + 312);
   *(DerivedStorage + 312) = a3;
   if (a3)
   {
     CFRetain(a3);
   }
 
-  if (v20)
+  if (v18)
   {
-    CFRelease(v20);
+    CFRelease(v18);
   }
 
-  v21 = *(DerivedStorage + 288);
   FigSimpleMutexUnlock();
 LABEL_8:
-  v7 = *(v27 + 6);
-  _Block_object_dispose(&v26, 8);
+  v7 = *(v24 + 6);
+  _Block_object_dispose(&v23, 8);
   return v7;
-}
-
-uint64_t FigSampleBufferAudioRendererSetProperty(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  VTable = CMBaseObjectGetVTable();
-  v7 = *(*(VTable + 8) + 56);
-  if (!v7)
-  {
-    return 4294954514;
-  }
-
-  v8 = *(VTable + 8) + 56;
-
-  return v7(a1, a2, a3);
-}
-
-void hoseSBAR_setAudioProcessingTapIDInternal(uint64_t a1)
-{
-  v2 = *a1;
-  v3 = *(CMBaseObjectGetDerivedStorage() + 104);
-  v4 = *(a1 + 8);
-  v5 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-  if (v5)
-  {
-    v6 = v5(v3, *MEMORY[0x277CD6400], v4);
-    if (!v6)
-    {
-      goto LABEL_10;
-    }
-  }
-
-  else
-  {
-    v6 = 4294954514;
-  }
-
-  if (gLogCategory_APSEndpointStreamAudioHoseSBAR <= 90 && (gLogCategory_APSEndpointStreamAudioHoseSBAR != -1 || _LogCategory_Initialize()))
-  {
-    v8 = *a1;
-    LogPrintF();
-  }
-
-  APSLogErrorAt(v6);
-LABEL_10:
-  if (*a1)
-  {
-    CFRelease(*a1);
-  }
-
-  v7 = *(a1 + 8);
-  if (v7)
-  {
-
-    CFRelease(v7);
-  }
 }

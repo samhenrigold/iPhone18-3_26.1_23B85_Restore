@@ -63,13 +63,17 @@
 + (void)locationFromJPEGAtPath:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 path];
-  OUTLINED_FUNCTION_0(&dword_1A3640000, v2, v3, "Unable to create image source for '%{public}@'.", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0(&dword_1A3640000, v2, v3, "Unable to create image source for '%{public}@'.", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 + (void)locationFromJPEGAtPath:(void *)a1 .cold.2(void *a1)
 {
   v1 = [a1 path];
-  OUTLINED_FUNCTION_0(&dword_1A3640000, v2, v3, "locationFromJPEGAtPath: Unable to read data from file '%{public}@'.", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0(&dword_1A3640000, v2, v3, "locationFromJPEGAtPath: Unable to read data from file '%{public}@'.", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

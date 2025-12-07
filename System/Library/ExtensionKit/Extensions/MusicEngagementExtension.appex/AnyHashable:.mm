@@ -36,7 +36,7 @@ LABEL_4:
 
   v6(v7, v8, ObjCClassMetadata, a4);
 
-  outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v7);
+  outlined consume of (@escaping @callee_guaranteed @Sendable () -> (@owned [ActionMenu.Element]))?(v7, v8);
 }
 
 @end

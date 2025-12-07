@@ -34,20 +34,22 @@
   coderCopy = coder;
   ptr = self->_guardedData.__ptr_;
   pthread_mutex_lock((ptr + 8));
-  [coderCopy encodeInt32:*(*ptr + 24) forKey:@"count"];
-  v5 = *ptr;
+  objc_msgSend_encodeInt32_forKey_(coderCopy, v5, v6, *(*ptr + 24), @"count");
+  v7 = *ptr;
   if (*(*ptr + 24))
   {
-    v6 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:**ptr length:4 * *(*ptr + 24)];
-    [coderCopy encodeObject:v6 forKey:@"scores"];
+    v8 = objc_alloc(MEMORY[0x277CBEA90]);
+    v11 = objc_msgSend_initWithBytes_length_(v8, v9, v10, **ptr, 4 * *(*ptr + 24));
+    objc_msgSend_encodeObject_forKey_(coderCopy, v12, v13, v11, @"scores");
 
-    v5 = *ptr;
+    v7 = *ptr;
   }
 
-  if (v5[7])
+  if (v7[7])
   {
-    v7 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:*(*ptr + 32) length:4 * *(*ptr + 56)];
-    [coderCopy encodeObject:v7 forKey:@"abs"];
+    v14 = objc_alloc(MEMORY[0x277CBEA90]);
+    v17 = objc_msgSend_initWithBytes_length_(v14, v15, v16, *(*ptr + 32), 4 * *(*ptr + 56));
+    objc_msgSend_encodeObject_forKey_(coderCopy, v18, v19, v17, @"abs");
   }
 
   pthread_mutex_unlock((ptr + 8));
@@ -56,28 +58,29 @@
 - (ATXHistogramData)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v6 = [(ATXHistogramData *)self init];
-  if (v6)
+  v9 = objc_msgSend_init(self, v6, v8, v7);
+  if (v9)
   {
-    v7 = objc_autoreleasePoolPush();
-    ptr = v6->_guardedData.__ptr_;
+    v10 = objc_autoreleasePoolPush();
+    ptr = v9->_guardedData.__ptr_;
     pthread_mutex_lock((ptr + 1));
-    v9 = [coderCopy decodeInt32ForKey:@"count"];
-    if (!v9)
+    v14 = objc_msgSend_decodeInt32ForKey_(coderCopy, v12, v13, @"count");
+    if (!v14)
     {
 LABEL_15:
       pthread_mutex_unlock((ptr + 1));
-      objc_autoreleasePoolPop(v7);
+      objc_autoreleasePoolPop(v10);
       goto LABEL_16;
     }
 
-    v10 = v9;
-    sub_25469B988(*ptr, v9);
-    sub_25469BBA0((*ptr + 4), v10);
-    v11 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"scores"];
-    if ([v11 length] == 4 * v10)
+    v15 = v14;
+    sub_25469B988(*ptr, v14);
+    sub_25469BBA0(*ptr + 4, v15);
+    v16 = objc_opt_class();
+    v19 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v17, v18, v16, @"scores");
+    if (objc_msgSend_length(v19, v20, v22, v21) == 4 * v15)
     {
-      if (!v11)
+      if (!v19)
       {
         goto LABEL_6;
       }
@@ -85,35 +88,36 @@ LABEL_15:
 
     else
     {
-      currentHandler = [MEMORY[0x277CCA890] currentHandler];
-      [currentHandler handleFailureInMethod:a2 object:v6 file:@"ATXHistogramData.mm" lineNumber:519 description:{@"Invalid parameter not satisfying: %@", @"data.length == count * sizeof(sp->scores[0])"}];
+      v61 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v23, v25, v24);
+      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v61, v62, v63, a2, v9, @"ATXHistogramData.mm", 519, @"Invalid parameter not satisfying: %@", @"data.length == count * sizeof(sp->scores[0])");
 
-      if (!v11)
+      if (!v19)
       {
 LABEL_6:
-        v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"abs"];
+        v36 = objc_opt_class();
+        v39 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v37, v38, v36, @"abs");
 
-        if ([v12 length] == 4 * v10)
+        if (objc_msgSend_length(v39, v40, v42, v41) == 4 * v15)
         {
-          if (!v12)
+          if (!v39)
           {
 LABEL_9:
-            v13 = (*ptr)[3];
-            if (v13)
+            v56 = (*ptr)[3];
+            if (v56)
             {
-              v14 = **ptr;
-              v15 = 1;
+              v57 = **ptr;
+              v58 = 1;
               do
               {
-                if ((*v14 & 0x7FFFFFFFu) >= 0x7F800000)
+                if ((*v57 & 0x7FFFFFFFu) >= 0x7F800000)
                 {
-                  *v14 = 0;
+                  *v57 = 0;
                 }
 
-                ++v14;
+                ++v57;
               }
 
-              while (v13 > v15++);
+              while (v56 > v58++);
             }
 
             goto LABEL_15;
@@ -122,27 +126,35 @@ LABEL_9:
 
         else
         {
-          currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
-          [currentHandler2 handleFailureInMethod:a2 object:v6 file:@"ATXHistogramData.mm" lineNumber:524 description:{@"Invalid parameter not satisfying: %@", @"data.length == count * sizeof(sp->abs[0])"}];
+          v64 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v43, v45, v44);
+          objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v64, v65, v66, a2, v9, @"ATXHistogramData.mm", 524, @"Invalid parameter not satisfying: %@", @"data.length == count * sizeof(sp->abs[0])");
 
-          if (!v12)
+          if (!v39)
           {
             goto LABEL_9;
           }
         }
 
-        memcpy((*ptr)[4], [v12 bytes], objc_msgSend(v12, "length"));
+        v46 = (*ptr)[4];
+        v47 = v39;
+        v51 = objc_msgSend_bytes(v47, v48, v50, v49);
+        v55 = objc_msgSend_length(v39, v52, v54, v53);
+        memcpy(v46, v51, v55);
         goto LABEL_9;
       }
     }
 
-    memcpy(**ptr, [v11 bytes], objc_msgSend(v11, "length"));
+    v26 = **ptr;
+    v27 = v19;
+    v31 = objc_msgSend_bytes(v27, v28, v30, v29);
+    v35 = objc_msgSend_length(v19, v32, v34, v33);
+    memcpy(v26, v31, v35);
     goto LABEL_6;
   }
 
 LABEL_16:
 
-  return v6;
+  return v9;
 }
 
 - (id)bSet
@@ -150,25 +162,25 @@ LABEL_16:
   v3 = objc_opt_new();
   ptr = self->_guardedData.__ptr_;
   pthread_mutex_lock((ptr + 8));
-  v5 = *ptr;
+  v7 = *ptr;
   if (*(*ptr + 56))
   {
-    v6 = 0;
-    v7 = 1;
+    v8 = 0;
+    v9 = 1;
     do
     {
-      [v3 addIndex:*(*(v5 + 32) + 4 * v6)];
-      v6 = v7;
-      v5 = *ptr;
+      objc_msgSend_addIndex_(v3, v5, v6, *(*(v7 + 32) + 4 * v8));
+      v8 = v9;
+      v7 = *ptr;
     }
 
-    while (*(*ptr + 56) > v7++);
+    while (*(*ptr + 56) > v9++);
   }
 
-  v9 = v3;
+  v11 = v3;
   pthread_mutex_unlock((ptr + 8));
 
-  return v9;
+  return v11;
 }
 
 - (id)aSet
@@ -176,32 +188,33 @@ LABEL_16:
   v3 = objc_opt_new();
   ptr = self->_guardedData.__ptr_;
   pthread_mutex_lock((ptr + 8));
-  v5 = *ptr;
+  v7 = *ptr;
   if (*(*ptr + 56))
   {
-    v6 = 0;
-    v7 = 1;
+    v8 = 0;
+    v9 = 1;
     do
     {
-      [v3 addIndex:*(*(v5 + 32) + 4 * v6 + 2)];
-      v6 = v7;
-      v5 = *ptr;
+      objc_msgSend_addIndex_(v3, v5, v6, *(*(v7 + 32) + 4 * v8 + 2));
+      v8 = v9;
+      v7 = *ptr;
     }
 
-    while (*(*ptr + 56) > v7++);
+    while (*(*ptr + 56) > v9++);
   }
 
-  v9 = v3;
+  v11 = v3;
   pthread_mutex_unlock((ptr + 8));
 
-  return v9;
+  return v11;
 }
 
 - (void)decayWithHalfLifeInDays:(float)days
 {
-  exp2(-1.0 / days);
+  v4.n128_f64[0] = exp2(-1.0 / days);
+  v4.n128_f32[0] = v4.n128_f64[0];
 
-  MEMORY[0x2821F9670](self, sel_decayByFactor_);
+  MEMORY[0x2821F9670](self, sel_decayByFactor_, v4);
 }
 
 - (void)decayByFactor:(float)factor
@@ -258,48 +271,50 @@ LABEL_16:
   {
     ptr = self->_guardedData.__ptr_;
     pthread_mutex_lock((ptr + 8));
-    v5 = *(*ptr + 24);
+    v6 = *(*ptr + 24);
     pthread_mutex_unlock((ptr + 8));
-    return v5;
+    return v6;
   }
 
   if (a == 0xFFFF)
   {
-    v12 = 0;
-    v13 = &v12;
-    v14 = 0x2020000000;
-    v15 = 0;
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = sub_25469C430;
-    v10[3] = &unk_279780160;
+    v13 = 0;
+    v14 = &v13;
+    v15 = 0x2020000000;
+    v16 = 0;
+    v11[0] = MEMORY[0x277D85DD0];
+    v4.n128_u64[0] = 3221225472;
+    v11[1] = 3221225472;
+    v11[2] = sub_25469C430;
+    v11[3] = &unk_279780160;
     bCopy = b;
-    v10[4] = &v12;
-    [(ATXHistogramData *)self enumerate:v10];
+    v11[4] = &v13;
+    objc_msgSend_enumerate_(self, a2, v4, v11);
 LABEL_8:
-    v5 = *(v13 + 6);
-    _Block_object_dispose(&v12, 8);
-    return v5;
+    v6 = *(v14 + 6);
+    _Block_object_dispose(&v13, 8);
+    return v6;
   }
 
   if (b == 0xFFFF)
   {
-    v12 = 0;
-    v13 = &v12;
-    v14 = 0x2020000000;
-    v15 = 0;
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = sub_25469C454;
-    v8[3] = &unk_279780160;
+    v13 = 0;
+    v14 = &v13;
+    v15 = 0x2020000000;
+    v16 = 0;
+    v9[0] = MEMORY[0x277D85DD0];
+    v4.n128_u64[0] = 3221225472;
+    v9[1] = 3221225472;
+    v9[2] = sub_25469C454;
+    v9[3] = &unk_279780160;
     aCopy = a;
-    v8[4] = &v12;
-    [(ATXHistogramData *)self enumerate:v8];
+    v9[4] = &v13;
+    objc_msgSend_enumerate_(self, a2, v4, v9);
     goto LABEL_8;
   }
 
-  [ATXHistogramData lookupUnsmoothedA:"lookupUnsmoothedA:b:" b:?];
-  return v4 > 0.0;
+  objc_msgSend_lookupUnsmoothedA_b_(self, a2, v4, a);
+  return v5 > 0.0;
 }
 
 - (void)enumerate:(id)enumerate
@@ -353,8 +368,8 @@ LABEL_8:
   countCopy = count;
   if (b == 0xFFFF)
   {
-    currentHandler = [MEMORY[0x277CCA890] currentHandler];
-    [currentHandler handleFailureInMethod:a2 object:self file:@"ATXHistogramData.mm" lineNumber:321 description:{@"Invalid parameter not satisfying: %@", @"b != SUMALL"}];
+    v48 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], a2, *&scale, count);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v48, v49, v50, a2, self, @"ATXHistogramData.mm", 321, @"Invalid parameter not satisfying: %@", @"b != SUMALL");
   }
 
   ptr = self->_guardedData.__ptr_;
@@ -410,10 +425,10 @@ LABEL_8:
     while (v15 > v14);
   }
 
-  v49 = v29;
-  v51 = v19;
+  v51 = v29;
+  v53 = v19;
   pthread_mutex_unlock((ptr + 8));
-  v45 = vaddq_f32(v51, v49);
+  v45 = vaddq_f32(v53, v51);
   result = vaddv_f32(vadd_f32(*v45.i8, *&vextq_s8(v45, v45, 8uLL)));
   if ((LODWORD(result) & 0x7FFFFFFFu) >= 0x7F800000)
   {
@@ -521,12 +536,12 @@ LABEL_7:
         if (add >= 0.0)
         {
           v12 = v9[3];
-          sub_25469B988(*ptr, v12 + 1);
+          sub_25469B988(*ptr, (v12 + 1));
           *(*v9 + 4 * v12) = fmaxf(add, 0.0);
           v13 = *ptr;
           v14 = *(*ptr + 56);
-          sub_25469BBA0(*ptr + 32, v14 + 1);
-          *(*(v13 + 32) + 4 * v14) = bCopy | (aCopy << 16);
+          sub_25469BBA0((*ptr + 32), (v14 + 1));
+          *(v13[4] + 4 * v14) = bCopy | (aCopy << 16);
         }
       }
 
@@ -547,17 +562,17 @@ LABEL_7:
   else
   {
     sub_25469B988(*ptr, 0);
-    sub_25469BBA0(*ptr + 32, 0);
+    sub_25469BBA0((*ptr + 32), 0);
     pthread_mutex_unlock((ptr + 8));
   }
 }
 
 - (ATXHistogramData)init
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v11.receiver = self;
-  v11.super_class = ATXHistogramData;
-  v2 = [(ATXHistogramData *)&v11 init];
+  v11 = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = ATXHistogramData;
+  v2 = [(ATXHistogramData *)&v10 init];
   v3 = v2;
   if (v2)
   {
@@ -593,7 +608,6 @@ LABEL_7:
     operator new();
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

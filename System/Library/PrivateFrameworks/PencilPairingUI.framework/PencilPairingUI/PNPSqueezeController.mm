@@ -17,9 +17,9 @@
 {
   delegateCopy = delegate;
   v10 = [PNPSqueezeController alloc];
-  v11 = PencilPairingUIBundle();
+  v11 = PencilPairingUIBundle(v10);
   v12 = [v11 localizedStringForKey:@"SQUEEZE_TITLE" value:&stru_286FDFDB8 table:@"PencilPairingSqueeze-B532"];
-  v13 = PencilPairingUIBundle();
+  v13 = PencilPairingUIBundle(v12);
   v14 = [v13 localizedStringForKey:@"SQUEEZE_DESCRIPTION" value:&stru_286FDFDB8 table:@"PencilPairingSqueeze-B532"];
   v15 = [(PNPWelcomeController *)v10 initWithTitle:v12 detailText:v14 icon:0];
 

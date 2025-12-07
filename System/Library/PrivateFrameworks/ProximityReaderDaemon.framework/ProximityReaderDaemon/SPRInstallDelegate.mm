@@ -8,10 +8,9 @@
 {
   if (event == 3)
   {
-    v7 = *self->installProgress;
-    v6 = *&self->installProgress[8];
+    v6 = *self->installProgress;
 
-    v7(progress);
+    v6(progress);
   }
 }
 

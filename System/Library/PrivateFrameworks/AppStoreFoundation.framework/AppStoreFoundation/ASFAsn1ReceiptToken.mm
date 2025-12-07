@@ -122,24 +122,23 @@ LABEL_25:
   selfCopy = self;
   if (self)
   {
-    v2 = *(self + 24);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v4 = *(selfCopy + 24);
-      if (v4)
+      v3 = *(selfCopy + 24);
+      if (v3)
       {
-        v5 = objc_getProperty(v4, v3, 32, 1);
-        if (v5 && !*(v5 + 8))
+        v4 = objc_getProperty(v3, v2, 32, 1);
+        if (v4 && !*(v4 + 8))
         {
-          selfCopy = v5[2] == 2;
+          selfCopy = v4[2] == 2;
           goto LABEL_9;
         }
       }
 
       else
       {
-        v5 = 0;
+        v4 = 0;
       }
 
       selfCopy = 0;

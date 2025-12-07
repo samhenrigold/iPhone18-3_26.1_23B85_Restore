@@ -6,6 +6,7 @@
 - (unsigned)crc32;
 - (void)close;
 - (void)dealloc;
+- (void)seekToOffset:(int64_t)offset whence:(int)whence;
 - (void)writeBuffer:(const char *)buffer size:(unint64_t)size;
 @end
 
@@ -112,6 +113,23 @@
     localizedDescription = [v9 localizedDescription];
     +[NSException raise:format:](NSException, "raise:format:", NSGenericException, @"SFUCryptor failed. %@: %@", localizedDescription, [v9 localizedFailureReason]);
   }
+}
+
+- (void)seekToOffset:(int64_t)offset whence:(int)whence
+{
+  [TSUAssertionHandler _atomicIncrementAssertCount:offset];
+  if (TSUAssertCat_init_token != -1)
+  {
+    sub_100159850();
+  }
+
+  if (os_log_type_enabled(TSUAssertCat_log_t, OS_LOG_TYPE_ERROR))
+  {
+    sub_100159864();
+  }
+
+  [TSUAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[SFUCryptoOutputStream seekToOffset:whence:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/utility/sf/SFUCryptoOutputStream.mm"] lineNumber:124 isFatal:0 description:"SFUCryptoOutputStream cannot seek."];
+  +[TSUAssertionHandler logBacktraceThrottled];
 }
 
 - (id)inputStream

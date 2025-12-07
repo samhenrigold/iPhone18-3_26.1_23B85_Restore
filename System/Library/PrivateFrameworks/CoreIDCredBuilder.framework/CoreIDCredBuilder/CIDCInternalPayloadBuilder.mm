@@ -10,16 +10,16 @@
 {
   swift_unknownObjectRetain();
   builderCopy = builder;
-  v6 = sub_24567E3B8();
+  v7 = sub_24567E3B8(delegate, builderCopy);
   swift_unknownObjectRelease();
 
-  return v6;
+  return v7;
 }
 
 - (void)buildPayloadWithDetails:(CIDCPayloadBuilderDetails *)details completionHandler:(id)handler
 {
-  v7 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE208D0, &qword_245682BF8) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE208D0, &qword_245682BF8);
+  MEMORY[0x28223BE20](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
   v11 = swift_allocObject();

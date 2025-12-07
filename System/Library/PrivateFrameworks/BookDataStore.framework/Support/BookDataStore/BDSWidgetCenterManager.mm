@@ -61,41 +61,41 @@
   v5 = +[BUBag defaultBag];
   booksReadingNowWidgetRolloutRate = [v5 booksReadingNowWidgetRolloutRate];
   valuePromise = [booksReadingNowWidgetRolloutRate valuePromise];
-  v21 = 0;
-  v8 = [valuePromise resultWithTimeout:&v21 error:2.0];
-  v9 = v21;
+  v22 = 0;
+  v8 = [valuePromise resultWithTimeout:&v22 error:2.0];
+  v9 = v22;
   [v8 doubleValue];
   v11 = v10;
 
-  v12 = drand48();
+  v13 = drand48();
   if (v9)
   {
-    v13 = sub_10000DE28();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = sub_10000DE28(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218754;
-      v23 = v11;
-      v24 = 2048;
-      v25 = v12;
-      v26 = 1024;
-      v27 = 0;
-      v28 = 2112;
-      v29 = v9;
-      _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "BDSWidgetCenterManager - failed to retrieve bag key value. Rollout rate: %f, random number: %f, isPassRolloutTest: %d, error: %@", buf, 0x26u);
+      v24 = v11;
+      v25 = 2048;
+      v26 = v13;
+      v27 = 1024;
+      v28 = 0;
+      v29 = 2112;
+      v30 = v9;
+      _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "BDSWidgetCenterManager - failed to retrieve bag key value. Rollout rate: %f, random number: %f, isPassRolloutTest: %d, error: %@", buf, 0x26u);
     }
   }
 
-  v15 = v12 <= v11 && v9 == 0 && relevanceCopy;
-  [(BDSWidgetCenterManager *)self setShouldDonateRelevance:v15];
-  v16 = [[BDSOSTransaction alloc] initWithTransactionName:"com.apple.bookdatastored.BDSWidgetCenterManager.reloadWidgetTimelinesWithShouldDonateRelevance"];
+  v16 = v13 <= v11 && v9 == 0 && relevanceCopy;
+  [(BDSWidgetCenterManager *)self setShouldDonateRelevance:v16];
+  v17 = [[BDSOSTransaction alloc] initWithTransactionName:"com.apple.bookdatastored.BDSWidgetCenterManager.reloadWidgetTimelinesWithShouldDonateRelevance"];
   coalescingBlock = [(BDSWidgetCenterManager *)self coalescingBlock];
-  v19[0] = _NSConcreteStackBlock;
-  v19[1] = 3221225472;
-  v19[2] = sub_100046A50;
-  v19[3] = &unk_10023F6B0;
-  v20 = v16;
-  v18 = v16;
-  [coalescingBlock signalWithCompletion:v19];
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_100046A50;
+  v20[3] = &unk_10023F6B0;
+  v21 = v17;
+  v19 = v17;
+  [coalescingBlock signalWithCompletion:v20];
 }
 
 @end

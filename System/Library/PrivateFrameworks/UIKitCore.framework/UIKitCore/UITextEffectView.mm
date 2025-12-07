@@ -10,15 +10,16 @@
 
 - (void)didMoveToSuperview
 {
-  v5.receiver = self;
-  v5.super_class = type metadata accessor for UITextEffectView();
-  v2 = v5.receiver;
-  [(UIView *)&v5 didMoveToSuperview];
-  _scroller = [v2 _scroller];
-  if (_scroller)
+  type metadata accessor for UITextEffectView();
+  v7.receiver = self;
+  v7.super_class = v3;
+  selfCopy = self;
+  [(UIView *)&v7 didMoveToSuperview];
+  v5 = [(UIView *)selfCopy _scroller:v7.receiver];
+  if (v5)
   {
-    v4 = _scroller;
-    [_scroller _addScrollViewScrollObserver_];
+    v6 = v5;
+    [v5 _addScrollViewScrollObserver_];
   }
 }
 
@@ -38,10 +39,11 @@
 
 - (void)layoutSubviews
 {
-  v3.receiver = self;
-  v3.super_class = type metadata accessor for UITextEffectView();
-  v2 = v3.receiver;
-  [(UIView *)&v3 layoutSubviews];
+  type metadata accessor for UITextEffectView();
+  v5.receiver = self;
+  v5.super_class = v3;
+  selfCopy = self;
+  [(UIView *)&v5 layoutSubviews];
   sub_18900264C();
 }
 
@@ -54,11 +56,12 @@
 
 - (void)_observeScrollViewDidScroll:(id)scroll
 {
-  v6.receiver = self;
-  v6.super_class = type metadata accessor for UITextEffectView();
+  type metadata accessor for UITextEffectView();
+  v8.receiver = self;
+  v8.super_class = v5;
   scrollCopy = scroll;
-  v5 = v6.receiver;
-  [(UIView *)&v6 _observeScrollViewDidScroll:scrollCopy];
+  selfCopy = self;
+  [(UIView *)&v8 _observeScrollViewDidScroll:scrollCopy];
   sub_18900264C();
 }
 

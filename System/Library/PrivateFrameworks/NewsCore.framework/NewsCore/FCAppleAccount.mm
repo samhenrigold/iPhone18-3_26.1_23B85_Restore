@@ -58,9 +58,11 @@
 
 uint64_t __31__FCAppleAccount_sharedAccount__block_invoke(uint64_t a1)
 {
-  qword_1EDB27860 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = qword_1EDB27860;
+  qword_1EDB27860 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 + (id)sharedAccount
@@ -106,7 +108,7 @@ uint64_t __31__FCAppleAccount_sharedAccount__block_invoke(uint64_t a1)
 
 - (void)_reloadAccountsFromAccountStore
 {
-  v40[2] = *MEMORY[0x1E69E9840];
+  v39[2] = *MEMORY[0x1E69E9840];
   if (self)
   {
     v4 = objc_getProperty(self, a2, 24, 1);
@@ -122,11 +124,11 @@ uint64_t __31__FCAppleAccount_sharedAccount__block_invoke(uint64_t a1)
   }
 
   v8 = *MEMORY[0x1E6959930];
-  v40[0] = *MEMORY[0x1E69597F8];
-  v40[1] = v8;
+  v39[0] = *MEMORY[0x1E69597F8];
+  v39[1] = v8;
   v9 = MEMORY[0x1E695DEC8];
   v10 = accountStore;
-  v11 = [v9 arrayWithObjects:v40 count:2];
+  v11 = [v9 arrayWithObjects:v39 count:2];
   v12 = [(ACAccountStore *)v10 accountsWithAccountTypeIdentifiers:v11 error:0];
 
   v13 = [v12 fc_firstObjectPassingTest:&__block_literal_global_90];
@@ -193,15 +195,15 @@ LABEL_11:
 
   if (self)
   {
-    v37 = self->_accountStore;
+    v36 = self->_accountStore;
   }
 
   else
   {
-    v37 = 0;
+    v36 = 0;
   }
 
-  v2 = v37;
+  v2 = v36;
   ams_localiTunesAccount = [(ACAccountStore *)v2 ams_localiTunesAccount];
   v19 = 1;
   if (self)
@@ -215,7 +217,7 @@ LABEL_17:
   {
   }
 
-  v38 = v13;
+  v37 = v13;
   v21 = v4;
   v23 = v6;
   if (self)
@@ -263,8 +265,6 @@ LABEL_17:
       dispatch_async(MEMORY[0x1E69E96A0], block);
     }
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __49__FCAppleAccount__reloadAccountsFromAccountStore__block_invoke(uint64_t a1, void *a2)
@@ -376,7 +376,7 @@ uint64_t __49__FCAppleAccount__reloadAccountsFromAccountStore__block_invoke_3(ui
     base64GSTokenPromise = self->_base64GSTokenPromise;
     self->_base64GSTokenPromise = getNewGSTokenPromise;
 
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](getNewGSTokenPromise, base64GSTokenPromise);
   }
 }
 
@@ -428,17 +428,17 @@ void __37__FCAppleAccount_primaryLanguageCode__block_invoke(uint64_t a1)
 
 - (id)dynamicPrimaryLanguageCodes
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   if (self)
   {
     preferredLanguages = [MEMORY[0x1E695DF58] preferredLanguages];
     v3 = [preferredLanguages fc_arrayByTransformingWithBlock:&__block_literal_global_151];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __45__FCAppleAccount_dynamicPrimaryLanguageCodes__block_invoke_2;
-    v10[3] = &unk_1E7C38B40;
-    v10[4] = self;
-    v4 = [v3 fc_arrayOfObjectsPassingTest:v10];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __45__FCAppleAccount_dynamicPrimaryLanguageCodes__block_invoke_2;
+    v9[3] = &unk_1E7C38B40;
+    v9[4] = self;
+    v4 = [v3 fc_arrayOfObjectsPassingTest:v9];
     v5 = v4;
     if (v4)
     {
@@ -447,8 +447,8 @@ void __37__FCAppleAccount_primaryLanguageCode__block_invoke(uint64_t a1)
 
     else
     {
-      v11[0] = @"en";
-      v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+      v10[0] = @"en";
+      v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
     }
 
     v7 = v6;
@@ -458,8 +458,6 @@ void __37__FCAppleAccount_primaryLanguageCode__block_invoke(uint64_t a1)
   {
     v7 = 0;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -610,11 +608,11 @@ uint64_t __45__FCAppleAccount_dynamicPrimaryLanguageCodes__block_invoke_2(uint64
 
 void __48__FCAppleAccount_notifyObserversOfAccountChange__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v1 = *(a1 + 32);
   if (v1)
   {
@@ -627,30 +625,28 @@ void __48__FCAppleAccount_notifyObserversOfAccountChange__block_invoke(uint64_t 
   }
 
   v3 = [v2 copy];
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v9 + 1) + 8 * i) appleAccountChanged];
+        [*(*(&v8 + 1) + 8 * i) appleAccountChanged];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isUserSignedInToiCloud
@@ -1014,7 +1010,7 @@ uint64_t __40__FCAppleAccount_preferredLanguageCodes__block_invoke(uint64_t a1)
 
 void __54__FCAppleAccount_loadStoreFrontWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -1022,9 +1018,9 @@ void __54__FCAppleAccount_loadStoreFrontWithCompletionHandler___block_invoke(uin
     v7 = FCDefaultLog;
     if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138543362;
-      v11 = v6;
-      _os_log_error_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_ERROR, "failed to obtain metrics URL from bag with error: %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v6;
+      _os_log_error_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_ERROR, "failed to obtain metrics URL from bag with error: %{public}@", &v9, 0xCu);
     }
   }
 
@@ -1033,8 +1029,6 @@ void __54__FCAppleAccount_loadStoreFrontWithCompletionHandler___block_invoke(uin
   {
     (*(v8 + 16))();
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)checkAllDevicesRunningMinimumiOSVersion:(id)version macOSVersion:(id)sVersion orInactiveForTimeInterval:(double)interval completionHandler:(id)handler
@@ -1043,7 +1037,7 @@ void __54__FCAppleAccount_loadStoreFrontWithCompletionHandler___block_invoke(uin
   var0 = sVersion.var0;
   v9 = version.var1;
   v10 = version.var0;
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v14 = objc_alloc_init(MEMORY[0x1E698DD68]);
   if (self)
@@ -1060,31 +1054,29 @@ void __54__FCAppleAccount_loadStoreFrontWithCompletionHandler___block_invoke(uin
   [v14 setAltDSID:aa_altDSID];
 
   [v14 setIncludeUntrustedDevices:1];
-  v28[0] = *MEMORY[0x1E698DC58];
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
+  v27[0] = *MEMORY[0x1E698DC58];
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
   [v14 setServices:v17];
 
   [v14 setOperatingSystems:&unk_1F2E6FAE0];
   v18 = objc_alloc_init(MEMORY[0x1E698DCC0]);
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __115__FCAppleAccount_checkAllDevicesRunningMinimumiOSVersion_macOSVersion_orInactiveForTimeInterval_completionHandler___block_invoke;
-  v21[3] = &unk_1E7C45230;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __115__FCAppleAccount_checkAllDevicesRunningMinimumiOSVersion_macOSVersion_orInactiveForTimeInterval_completionHandler___block_invoke;
+  v20[3] = &unk_1E7C45230;
   intervalCopy = interval;
-  v24 = v10;
-  v25 = v9;
-  v26 = var0;
-  v27 = var1;
-  v22 = handlerCopy;
+  v23 = v10;
+  v24 = v9;
+  v25 = var0;
+  v26 = var1;
+  v21 = handlerCopy;
   v19 = handlerCopy;
-  [v18 fetchDeviceListWithContext:v14 completion:v21];
-
-  v20 = *MEMORY[0x1E69E9840];
+  [v18 fetchDeviceListWithContext:v14 completion:v20];
 }
 
 void __115__FCAppleAccount_checkAllDevicesRunningMinimumiOSVersion_macOSVersion_orInactiveForTimeInterval_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = FCDefaultLog;
@@ -1093,7 +1085,7 @@ void __115__FCAppleAccount_checkAllDevicesRunningMinimumiOSVersion_macOSVersion_
     if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v41 = v6;
+      v40 = v6;
       _os_log_error_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_ERROR, "encountered error fetching device list: %{public}@", buf, 0xCu);
     }
 
@@ -1102,38 +1094,38 @@ void __115__FCAppleAccount_checkAllDevicesRunningMinimumiOSVersion_macOSVersion_
 
   else
   {
-    v30 = a1;
+    v29 = a1;
     if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_DEFAULT))
     {
       v8 = v7;
       *buf = 134217984;
-      v41 = [v5 count];
+      v40 = [v5 count];
       _os_log_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_DEFAULT, "successfully fetched device list with %lu devices", buf, 0xCu);
     }
 
     v9 = [MEMORY[0x1E695DF90] dictionary];
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
-    v31 = v5;
+    v30 = v5;
     obj = v5;
-    v10 = [obj countByEnumeratingWithState:&v36 objects:v46 count:16];
+    v10 = [obj countByEnumeratingWithState:&v35 objects:v45 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v37;
+      v12 = *v36;
       do
       {
         v13 = 0;
         do
         {
-          if (*v37 != v12)
+          if (*v36 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v36 + 1) + 8 * v13);
+          v14 = *(*(&v35 + 1) + 8 * v13);
           v15 = FCDefaultLog;
           if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_DEFAULT))
           {
@@ -1143,11 +1135,11 @@ void __115__FCAppleAccount_checkAllDevicesRunningMinimumiOSVersion_macOSVersion_
             v19 = [v14 lastUpdatedDate];
             v20 = [v19 fc_stringWithISO8601Format];
             *buf = 138543874;
-            v41 = v17;
-            v42 = 2114;
-            v43 = v18;
-            v44 = 2114;
-            v45[0] = v20;
+            v40 = v17;
+            v41 = 2114;
+            v42 = v18;
+            v43 = 2114;
+            v44[0] = v20;
             _os_log_impl(&dword_1B63EF000, v16, OS_LOG_TYPE_DEFAULT, "fetched device: %{public}@ %{public}@; last updated %{public}@", buf, 0x20u);
           }
 
@@ -1165,13 +1157,13 @@ void __115__FCAppleAccount_checkAllDevicesRunningMinimumiOSVersion_macOSVersion_
           {
             v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "serialNumber"];
             *buf = 136315906;
-            v41 = "[FCAppleAccount checkAllDevicesRunningMinimumiOSVersion:macOSVersion:orInactiveForTimeInterval:completionHandler:]_block_invoke";
-            v42 = 2080;
-            v43 = "FCAppleAccount.m";
-            v44 = 1024;
-            LODWORD(v45[0]) = 434;
-            WORD2(v45[0]) = 2114;
-            *(v45 + 6) = v26;
+            v40 = "[FCAppleAccount checkAllDevicesRunningMinimumiOSVersion:macOSVersion:orInactiveForTimeInterval:completionHandler:]_block_invoke";
+            v41 = 2080;
+            v42 = "FCAppleAccount.m";
+            v43 = 1024;
+            LODWORD(v44[0]) = 434;
+            WORD2(v44[0]) = 2114;
+            *(v44 + 6) = v26;
             _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
           }
 
@@ -1179,29 +1171,27 @@ void __115__FCAppleAccount_checkAllDevicesRunningMinimumiOSVersion_macOSVersion_
         }
 
         while (v11 != v13);
-        v11 = [obj countByEnumeratingWithState:&v36 objects:v46 count:16];
+        v11 = [obj countByEnumeratingWithState:&v35 objects:v45 count:16];
       }
 
       while (v11);
     }
 
     v27 = [v9 allValues];
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[4] = *(v30 + 40);
-    v28 = *(v30 + 64);
-    v34 = *(v30 + 48);
-    v35 = v28;
-    v33[2] = __115__FCAppleAccount_checkAllDevicesRunningMinimumiOSVersion_macOSVersion_orInactiveForTimeInterval_completionHandler___block_invoke_55;
-    v33[3] = &__block_descriptor_72_e24_B16__0__AKRemoteDevice_8l;
-    [v27 fc_allObjectsPassTest:v33];
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[4] = *(v29 + 40);
+    v28 = *(v29 + 64);
+    v33 = *(v29 + 48);
+    v34 = v28;
+    v32[2] = __115__FCAppleAccount_checkAllDevicesRunningMinimumiOSVersion_macOSVersion_orInactiveForTimeInterval_completionHandler___block_invoke_55;
+    v32[3] = &__block_descriptor_72_e24_B16__0__AKRemoteDevice_8l;
+    [v27 fc_allObjectsPassTest:v32];
 
-    (*(*(v30 + 32) + 16))();
+    (*(*(v29 + 32) + 16))();
     v6 = 0;
-    v5 = v31;
+    v5 = v30;
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __115__FCAppleAccount_checkAllDevicesRunningMinimumiOSVersion_macOSVersion_orInactiveForTimeInterval_completionHandler___block_invoke_55(uint64_t a1, void *a2)
@@ -1272,7 +1262,7 @@ LABEL_21:
 
 - (void)fetchMinimumDeviceVersionsActiveSinceInterval:(double)interval completionHandler:(id)handler
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v8 = objc_alloc_init(MEMORY[0x1E698DD68]);
   if (self)
@@ -1289,33 +1279,31 @@ LABEL_21:
   [v8 setAltDSID:aa_altDSID];
 
   [v8 setIncludeUntrustedDevices:1];
-  v18[0] = *MEMORY[0x1E698DC58];
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+  v17[0] = *MEMORY[0x1E698DC58];
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
   [v8 setServices:v11];
 
   [v8 setOperatingSystems:&unk_1F2E6FAF8];
   v12 = objc_alloc_init(MEMORY[0x1E698DCC0]);
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __82__FCAppleAccount_fetchMinimumDeviceVersionsActiveSinceInterval_completionHandler___block_invoke;
-  v15[3] = &unk_1E7C45280;
-  v16 = handlerCopy;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __82__FCAppleAccount_fetchMinimumDeviceVersionsActiveSinceInterval_completionHandler___block_invoke;
+  v14[3] = &unk_1E7C45280;
+  v15 = handlerCopy;
   intervalCopy = interval;
   v13 = handlerCopy;
-  [v12 fetchDeviceListWithContext:v8 completion:v15];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [v12 fetchDeviceListWithContext:v8 completion:v14];
 }
 
 void __82__FCAppleAccount_fetchMinimumDeviceVersionsActiveSinceInterval_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v99 = *MEMORY[0x1E69E9840];
+  v98 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
   if (!v6)
   {
-    v72 = a1;
+    v71 = a1;
     v9 = FCDefaultLog;
     if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_DEFAULT))
     {
@@ -1326,28 +1314,28 @@ void __82__FCAppleAccount_fetchMinimumDeviceVersionsActiveSinceInterval_completi
     }
 
     v11 = [MEMORY[0x1E695DF90] dictionary];
+    v80 = 0u;
     v81 = 0u;
     v82 = 0u;
     v83 = 0u;
-    v84 = 0u;
-    v65 = v5;
+    v64 = v5;
     obj = v5;
-    v12 = [obj countByEnumeratingWithState:&v81 objects:v98 count:16];
-    v74 = v11;
+    v12 = [obj countByEnumeratingWithState:&v80 objects:v97 count:16];
+    v73 = v11;
     if (v12)
     {
       v13 = v12;
-      v14 = *v82;
+      v14 = *v81;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v82 != v14)
+          if (*v81 != v14)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v81 + 1) + 8 * i);
+          v16 = *(*(&v80 + 1) + 8 * i);
           v17 = FCDefaultLog;
           if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_DEFAULT))
           {
@@ -1361,29 +1349,18 @@ void __82__FCAppleAccount_fetchMinimumDeviceVersionsActiveSinceInterval_completi
             *&buf[12] = 2114;
             *&buf[14] = v20;
             *&buf[22] = 2114;
-            *&v93 = v22;
+            *&v92 = v22;
             _os_log_impl(&dword_1B63EF000, v18, OS_LOG_TYPE_DEFAULT, "fetched device: %{public}@ %{public}@; last updated %{public}@", buf, 0x20u);
 
-            v11 = v74;
+            v11 = v73;
           }
 
           v23 = [v16 serialNumber];
           if (v23)
           {
             v24 = [v11 objectForKeyedSubscript:v23];
-            if (!v24)
+            if (!v24 || ([v16 lastUpdatedDate], v25 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v24, "lastUpdatedDate"), v26 = objc_claimAutoreleasedReturnValue(), v27 = objc_msgSend(v25, "fc_isLaterThan:", v26), v26, v11 = v73, v25, v27))
             {
-              goto LABEL_15;
-            }
-
-            v25 = [v16 lastUpdatedDate];
-            v26 = [v24 lastUpdatedDate];
-            v27 = [v25 fc_isLaterThan:v26];
-
-            v11 = v74;
-            if (v27)
-            {
-LABEL_15:
               [v11 setObject:v16 forKeyedSubscript:v23];
             }
           }
@@ -1396,33 +1373,33 @@ LABEL_15:
             *&buf[12] = 2080;
             *&buf[14] = "FCAppleAccount.m";
             *&buf[22] = 1024;
-            LODWORD(v93) = 511;
-            WORD2(v93) = 2114;
-            *(&v93 + 6) = v28;
+            LODWORD(v92) = 511;
+            WORD2(v92) = 2114;
+            *(&v92 + 6) = v28;
             _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
           }
         }
 
-        v13 = [obj countByEnumeratingWithState:&v81 objects:v98 count:16];
+        v13 = [obj countByEnumeratingWithState:&v80 objects:v97 count:16];
       }
 
       while (v13);
     }
 
-    v79 = 0u;
-    v80 = 0u;
-    v77 = 0u;
     v78 = 0u;
-    v73 = [v11 allValues];
-    v29 = [v73 countByEnumeratingWithState:&v77 objects:v97 count:16];
+    v79 = 0u;
+    v76 = 0u;
+    v77 = 0u;
+    v72 = [v11 allValues];
+    v29 = [v72 countByEnumeratingWithState:&v76 objects:v96 count:16];
     if (!v29)
     {
-      v70 = 0;
-      v71 = 0;
-      v68 = 0;
       v69 = 0;
-      v66 = 0;
+      v70 = 0;
       v67 = 0;
+      v68 = 0;
+      v65 = 0;
+      v66 = 0;
       v31 = 0;
       obja = 0;
       v33 = a1;
@@ -1430,27 +1407,27 @@ LABEL_15:
     }
 
     v30 = v29;
-    v70 = 0;
-    v71 = 0;
-    v68 = 0;
     v69 = 0;
-    v66 = 0;
+    v70 = 0;
     v67 = 0;
+    v68 = 0;
+    v65 = 0;
+    v66 = 0;
     v31 = 0;
     obja = 0;
-    v32 = *v78;
+    v32 = *v77;
     v33 = a1;
     while (1)
     {
       v34 = 0;
       do
       {
-        if (*v78 != v32)
+        if (*v77 != v32)
         {
-          objc_enumerationMutation(v73);
+          objc_enumerationMutation(v72);
         }
 
-        v35 = *(*(&v77 + 1) + 8 * v34);
+        v35 = *(*(&v76 + 1) + 8 * v34);
         v36 = [v35 lastUpdatedDate];
         [v36 fc_timeIntervalUntilNow];
         v38 = v37;
@@ -1480,39 +1457,39 @@ LABEL_15:
 
           if (v47)
           {
-            if (v45 < v71)
+            if (v45 < v70)
             {
               v48 = v43;
             }
 
             else
             {
-              v48 = v70;
+              v48 = v69;
             }
 
-            if (v45 < v71)
+            if (v45 < v70)
             {
               v49 = v45;
             }
 
             else
             {
-              v49 = v71;
+              v49 = v70;
             }
 
-            if (v43 > v70)
+            if (v43 > v69)
             {
-              v48 = v70;
-              v49 = v71;
+              v48 = v69;
+              v49 = v70;
             }
 
-            if (v43 < v70)
+            if (v43 < v69)
             {
               v48 = v43;
               v49 = v45;
             }
 
-            if (v70)
+            if (v69)
             {
               v50 = v48;
             }
@@ -1522,7 +1499,7 @@ LABEL_15:
               v50 = v43;
             }
 
-            if (v70)
+            if (v69)
             {
               v51 = v49;
             }
@@ -1532,8 +1509,8 @@ LABEL_15:
               v51 = v45;
             }
 
-            v70 = v50;
-            v71 = v51;
+            v69 = v50;
+            v70 = v51;
             goto LABEL_66;
           }
 
@@ -1542,39 +1519,39 @@ LABEL_15:
 
           if (v53)
           {
-            if (v45 < v68)
+            if (v45 < v67)
             {
               v54 = v43;
             }
 
             else
             {
-              v54 = v69;
+              v54 = v68;
             }
 
-            if (v45 < v68)
+            if (v45 < v67)
             {
               v55 = v45;
             }
 
             else
             {
-              v55 = v68;
+              v55 = v67;
             }
 
-            if (v43 > v69)
+            if (v43 > v68)
             {
-              v54 = v69;
-              v55 = v68;
+              v54 = v68;
+              v55 = v67;
             }
 
-            if (v43 < v69)
+            if (v43 < v68)
             {
               v54 = v43;
               v55 = v45;
             }
 
-            if (v69)
+            if (v68)
             {
               v56 = v54;
             }
@@ -1584,7 +1561,7 @@ LABEL_15:
               v56 = v43;
             }
 
-            if (v69)
+            if (v68)
             {
               v57 = v55;
             }
@@ -1594,12 +1571,12 @@ LABEL_15:
               v57 = v45;
             }
 
-            v68 = v57;
-            v69 = v56;
+            v67 = v57;
+            v68 = v56;
 LABEL_66:
             v43 = v31;
             v45 = obja;
-            v33 = v72;
+            v33 = v71;
 LABEL_67:
 
             v31 = v43;
@@ -1612,18 +1589,18 @@ LABEL_67:
 
           if (v59)
           {
-            if (!v67)
+            if (!v66)
             {
-              v66 = v45;
-              v67 = v43;
+              v65 = v45;
+              v66 = v43;
               goto LABEL_66;
             }
 
-            v33 = v72;
-            if (v43 < v67 || v43 <= v67 && v45 < v66)
+            v33 = v71;
+            if (v43 < v66 || v43 <= v66 && v45 < v65)
             {
-              v66 = v45;
-              v67 = v43;
+              v65 = v45;
+              v66 = v43;
             }
           }
 
@@ -1637,7 +1614,7 @@ LABEL_67:
               goto LABEL_66;
             }
 
-            v33 = v72;
+            v33 = v71;
             if (!v31 || v43 < v31 || v43 <= v31 && v45 < obja)
             {
               goto LABEL_67;
@@ -1654,72 +1631,68 @@ LABEL_68:
       }
 
       while (v30 != v34);
-      v62 = [v73 countByEnumeratingWithState:&v77 objects:v97 count:16];
+      v62 = [v72 countByEnumeratingWithState:&v76 objects:v96 count:16];
       v30 = v62;
       if (!v62)
       {
 LABEL_87:
 
         v63 = *(*(v33 + 32) + 16);
-        *buf = v70;
-        *&buf[8] = v71;
-        *&buf[16] = v69;
-        *&v93 = v68;
-        *(&v93 + 1) = v67;
-        v94 = v66;
-        v95 = v31;
-        v96 = obja;
+        *buf = v69;
+        *&buf[8] = v70;
+        *&buf[16] = v68;
+        *&v92 = v67;
+        *(&v92 + 1) = v66;
+        v93 = v65;
+        v94 = v31;
+        v95 = obja;
         v63();
         v7 = 0;
-        v5 = v65;
-        v8 = v74;
+        v5 = v64;
+        v8 = v73;
         goto LABEL_88;
       }
     }
   }
 
-  v85[0] = MEMORY[0x1E69E9820];
-  v85[1] = 3221225472;
-  v85[2] = __82__FCAppleAccount_fetchMinimumDeviceVersionsActiveSinceInterval_completionHandler___block_invoke_2;
-  v85[3] = &unk_1E7C45258;
-  v86 = v6;
-  v87 = *(a1 + 32);
+  v84[0] = MEMORY[0x1E69E9820];
+  v84[1] = 3221225472;
+  v84[2] = __82__FCAppleAccount_fetchMinimumDeviceVersionsActiveSinceInterval_completionHandler___block_invoke_2;
+  v84[3] = &unk_1E7C45258;
+  v85 = v6;
+  v86 = *(a1 + 32);
+  v87 = 0u;
   v88 = 0u;
   v89 = 0u;
   v90 = 0u;
-  v91 = 0u;
-  __82__FCAppleAccount_fetchMinimumDeviceVersionsActiveSinceInterval_completionHandler___block_invoke_2(v85);
+  __82__FCAppleAccount_fetchMinimumDeviceVersionsActiveSinceInterval_completionHandler___block_invoke_2(v84);
 
-  v8 = v86;
+  v8 = v85;
 LABEL_88:
-
-  v64 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __82__FCAppleAccount_fetchMinimumDeviceVersionsActiveSinceInterval_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = FCDefaultLog;
   if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
   {
-    v15 = *(a1 + 32);
-    LODWORD(v16[0]) = 138543362;
-    *(v16 + 4) = v15;
-    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "encountered error fetching device list: %{public}@", v16, 0xCu);
+    v14 = *(a1 + 32);
+    LODWORD(v15[0]) = 138543362;
+    *(v15 + 4) = v14;
+    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "encountered error fetching device list: %{public}@", v15, 0xCu);
   }
 
   v9 = *(a1 + 32);
   v8 = *(a1 + 40);
   v10 = *(v8 + 16);
   v11 = *(a1 + 64);
-  v16[0] = *(a1 + 48);
-  v16[1] = v11;
+  v15[0] = *(a1 + 48);
+  v15[1] = v11;
   v12 = *(a1 + 96);
-  v16[2] = *(a1 + 80);
-  v16[3] = v12;
-  result = v10(v8, v16, v9, v3, v4, v5, v6, v7);
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  v15[2] = *(a1 + 80);
+  v15[3] = v12;
+  return v10(v8, v15, v9, v3, v4, v5, v6, v7);
 }
 
 - (void)getGSTokenWithCompletionHandler:(id)handler

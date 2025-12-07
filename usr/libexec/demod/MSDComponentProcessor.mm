@@ -12,19 +12,19 @@
 
 - (MSDComponentProcessor)initWithQoS:(int64_t)s
 {
-  v39.receiver = self;
-  v39.super_class = MSDComponentProcessor;
-  v4 = [(MSDComponentProcessor *)&v39 init];
+  v40.receiver = self;
+  v40.super_class = MSDComponentProcessor;
+  v4 = [(MSDComponentProcessor *)&v40 init];
   if (v4)
   {
     if (os_variant_has_internal_content() && (+[MSDTestPreferences sharedInstance](MSDTestPreferences, "sharedInstance"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 concurrentDownloadOperation], v5, v6 >= 1))
     {
-      v7 = sub_100063A54();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = sub_100063A54(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v41 = v6;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Override default number of concurrent download operation: %ld", buf, 0xCu);
+        v42 = v6;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Override default number of concurrent download operation: %ld", buf, 0xCu);
       }
     }
 
@@ -33,8 +33,8 @@
       v6 = 2;
     }
 
-    v8 = objc_alloc_init(MSDOperationQueue);
-    [(MSDComponentProcessor *)v4 setDefaultQueue:v8];
+    v9 = objc_alloc_init(MSDOperationQueue);
+    [(MSDComponentProcessor *)v4 setDefaultQueue:v9];
 
     defaultQueue = [(MSDComponentProcessor *)v4 defaultQueue];
     [defaultQueue setMaxConcurrentOperationCount:1];
@@ -48,8 +48,8 @@
     defaultQueue4 = [(MSDComponentProcessor *)v4 defaultQueue];
     [defaultQueue4 setName:@"com.apple.msd.default_queue"];
 
-    v13 = objc_alloc_init(MSDOperationQueue);
-    [(MSDComponentProcessor *)v4 setPrepareQueue:v13];
+    v14 = objc_alloc_init(MSDOperationQueue);
+    [(MSDComponentProcessor *)v4 setPrepareQueue:v14];
 
     prepareQueue = [(MSDComponentProcessor *)v4 prepareQueue];
     [prepareQueue setMaxConcurrentOperationCount:1];
@@ -63,8 +63,8 @@
     prepareQueue4 = [(MSDComponentProcessor *)v4 prepareQueue];
     [prepareQueue4 setName:@"com.apple.msd.prepare_queue"];
 
-    v18 = objc_alloc_init(MSDOperationQueue);
-    [(MSDComponentProcessor *)v4 setDownloadQueue:v18];
+    v19 = objc_alloc_init(MSDOperationQueue);
+    [(MSDComponentProcessor *)v4 setDownloadQueue:v19];
 
     downloadQueue = [(MSDComponentProcessor *)v4 downloadQueue];
     [downloadQueue setMaxConcurrentOperationCount:v6];
@@ -78,8 +78,8 @@
     downloadQueue4 = [(MSDComponentProcessor *)v4 downloadQueue];
     [downloadQueue4 setName:@"com.apple.msd.download_queue"];
 
-    v23 = objc_alloc_init(MSDOperationQueue);
-    [(MSDComponentProcessor *)v4 setInstallQueue:v23];
+    v24 = objc_alloc_init(MSDOperationQueue);
+    [(MSDComponentProcessor *)v4 setInstallQueue:v24];
 
     installQueue = [(MSDComponentProcessor *)v4 installQueue];
     [installQueue setMaxConcurrentOperationCount:1];
@@ -93,8 +93,8 @@
     installQueue4 = [(MSDComponentProcessor *)v4 installQueue];
     [installQueue4 setName:@"com.apple.msd.install_queue"];
 
-    v28 = objc_alloc_init(MSDOperationQueue);
-    [(MSDComponentProcessor *)v4 setParallelInstallQueue:v28];
+    v29 = objc_alloc_init(MSDOperationQueue);
+    [(MSDComponentProcessor *)v4 setParallelInstallQueue:v29];
 
     parallelInstallQueue = [(MSDComponentProcessor *)v4 parallelInstallQueue];
     [parallelInstallQueue setMaxConcurrentOperationCount:5];
@@ -108,8 +108,8 @@
     parallelInstallQueue4 = [(MSDComponentProcessor *)v4 parallelInstallQueue];
     [parallelInstallQueue4 setName:@"com.apple.msd.parallel_install_queue"];
 
-    v33 = objc_alloc_init(MSDOperationQueue);
-    [(MSDComponentProcessor *)v4 setUninstallQueue:v33];
+    v34 = objc_alloc_init(MSDOperationQueue);
+    [(MSDComponentProcessor *)v4 setUninstallQueue:v34];
 
     uninstallQueue = [(MSDComponentProcessor *)v4 uninstallQueue];
     [uninstallQueue setMaxConcurrentOperationCount:1];
@@ -244,7 +244,7 @@
 {
   executionCopy = execution;
   v5 = [(MSDComponentProcessor *)self _queueForOperation:executionCopy];
-  v6 = sub_100063A54();
+  v6 = sub_100063A54(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     sub_1000DB424(executionCopy, v5, v6);

@@ -6,6 +6,7 @@
 - (SBUIProudLockIconViewAccessibility)initWithFrame:(CGRect)frame;
 - (id)lockViewAccessibilityLabel;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)setState:(int64_t)state animated:(BOOL)animated updateText:(BOOL)text options:(int64_t)options completion:(id)completion;
 @end
 
 @implementation SBUIProudLockIconViewAccessibility
@@ -189,6 +190,26 @@ LABEL_18:
   v3 = [(SBUIProudLockIconViewAccessibility *)&v5 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   [(SBUIProudLockIconViewAccessibility *)v3 _accessibilityLoadAccessibilityInformation];
   return v3;
+}
+
+- (void)setState:(int64_t)state animated:(BOOL)animated updateText:(BOOL)text options:(int64_t)options completion:(id)completion
+{
+  textCopy = text;
+  animatedCopy = animated;
+  completionCopy = completion;
+  if ([(SBUIProudLockIconViewAccessibility *)self safeIntegerForKey:@"state"]!= state && UIAccessibilityIsVoiceOverRunning() && ![(SBUIProudLockIconViewAccessibility *)self _accessibilityIsBuddyRunning]&& ![(SBUIProudLockIconViewAccessibility *)self _accessibilityIsInSleepState])
+  {
+    v14 = MEMORY[0x29EDCA5F8];
+    v15 = 3221225472;
+    v16 = __86__SBUIProudLockIconViewAccessibility_setState_animated_updateText_options_completion___block_invoke;
+    v17 = &__block_descriptor_40_e5_v8__0l;
+    stateCopy = state;
+    AXPerformBlockOnMainThread();
+  }
+
+  v13.receiver = self;
+  v13.super_class = SBUIProudLockIconViewAccessibility;
+  [(SBUIProudLockIconViewAccessibility *)&v13 setState:state animated:animatedCopy updateText:textCopy options:options completion:completionCopy];
 }
 
 void __86__SBUIProudLockIconViewAccessibility_setState_animated_updateText_options_completion___block_invoke(uint64_t a1)

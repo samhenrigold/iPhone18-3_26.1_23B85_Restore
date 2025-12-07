@@ -6,12 +6,111 @@
 - (NRDeviceOperationalProperties)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
+- (unsigned)getDefaultLinkSubtypeForLinkType:(unsigned __int8)type;
 - (void)encodeWithCoder:(id)coder;
 - (void)mergeProperties:(id)properties;
 - (void)setAllowsApplicationServiceConnections:(BOOL)connections;
 @end
 
 @implementation NRDeviceOperationalProperties
+
+- (unsigned)getDefaultLinkSubtypeForLinkType:(unsigned __int8)type
+{
+  v27 = *MEMORY[0x277D85DE8];
+  if (!type)
+  {
+    v18 = nrCopyLogObj_1215();
+    if (sNRCopyLogToStdErr == 1)
+    {
+    }
+
+    else
+    {
+      v19 = v18;
+      v20 = os_log_type_enabled(v18, OS_LOG_TYPE_FAULT);
+
+      if (!v20)
+      {
+        return 0;
+      }
+    }
+
+    v21 = nrCopyLogObj_1215();
+    _NRLogWithArgs(v21, 17, "%s called with null linkType != NRLinkTypeInvalid", "[NRDeviceOperationalProperties getDefaultLinkSubtypeForLinkType:]");
+
+    return 0;
+  }
+
+  typeCopy = type;
+  allowedLinkTypes = [(NRDeviceOperationalProperties *)self allowedLinkTypes];
+  v6 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:typeCopy];
+  v7 = [allowedLinkTypes containsObject:v6];
+
+  if (v7)
+  {
+    v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    allowedLinkSubtypes = [(NRDeviceOperationalProperties *)self allowedLinkSubtypes];
+    v9 = [allowedLinkSubtypes countByEnumeratingWithState:&v22 objects:v26 count:16];
+    if (v9)
+    {
+      v10 = v9;
+      v11 = *v23;
+      while (2)
+      {
+        for (i = 0; i != v10; ++i)
+        {
+          if (*v23 != v11)
+          {
+            objc_enumerationMutation(allowedLinkSubtypes);
+          }
+
+          unsignedShortValue = [*(*(&v22 + 1) + 8 * i) unsignedShortValue];
+          v14 = unsignedShortValue;
+          if (unsignedShortValue - 101 >= 4)
+          {
+            if (unsignedShortValue - 120 >= 2)
+            {
+              if (unsignedShortValue)
+              {
+                v14 = 0;
+              }
+            }
+
+            else
+            {
+              v14 = 1;
+            }
+          }
+
+          else
+          {
+            v14 = 2;
+          }
+
+          if (v14 == typeCopy)
+          {
+            v16 = unsignedShortValue;
+
+            return v16;
+          }
+        }
+
+        v10 = [allowedLinkSubtypes countByEnumeratingWithState:&v22 objects:v26 count:16];
+        if (v10)
+        {
+          continue;
+        }
+
+        break;
+      }
+    }
+  }
+
+  return 0;
+}
 
 - (void)setAllowsApplicationServiceConnections:(BOOL)connections
 {
@@ -26,35 +125,35 @@
 
 - (id)description
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CCAB68]) initWithFormat:@"["];
   [v3 appendFormat:@" v:%u", -[NRDeviceOperationalProperties version](self, "version")];
   [v3 appendFormat:@" prx:%llu", -[NRDeviceOperationalProperties proxyCapability](self, "proxyCapability")];
   [v3 appendFormat:@", bt:%llu", -[NRDeviceOperationalProperties bluetoothRole](self, "bluetoothRole")];
-  v36 = v3;
+  v35 = v3;
   [v3 appendFormat:@", bt-end:%llu", -[NRDeviceOperationalProperties bluetoothEndpointType](self, "bluetoothEndpointType")];
   v4 = objc_alloc_init(MEMORY[0x277CCAB68]);
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   selfCopy = self;
   allowedLinkTypes = [(NRDeviceOperationalProperties *)self allowedLinkTypes];
-  v6 = [allowedLinkTypes countByEnumeratingWithState:&v42 objects:v47 count:16];
+  v6 = [allowedLinkTypes countByEnumeratingWithState:&v41 objects:v46 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v43;
+    v8 = *v42;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v43 != v8)
+        if (*v42 != v8)
         {
           objc_enumerationMutation(allowedLinkTypes);
         }
 
-        unsignedShortValue = [*(*(&v42 + 1) + 8 * i) unsignedShortValue];
+        unsignedShortValue = [*(*(&v41 + 1) + 8 * i) unsignedShortValue];
         if ((unsignedShortValue - 1) < 4u)
         {
           v10 = off_27996AE50[(unsignedShortValue - 1)];
@@ -82,33 +181,33 @@ LABEL_6:
         [v4 appendFormat:@" %@ ", v10];
       }
 
-      v7 = [allowedLinkTypes countByEnumeratingWithState:&v42 objects:v47 count:16];
+      v7 = [allowedLinkTypes countByEnumeratingWithState:&v41 objects:v46 count:16];
     }
 
     while (v7);
   }
 
   v15 = objc_alloc_init(MEMORY[0x277CCAB68]);
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   allowedLinkSubtypes = [(NRDeviceOperationalProperties *)selfCopy allowedLinkSubtypes];
-  v17 = [allowedLinkSubtypes countByEnumeratingWithState:&v38 objects:v46 count:16];
+  v17 = [allowedLinkSubtypes countByEnumeratingWithState:&v37 objects:v45 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v39;
+    v19 = *v38;
     do
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v39 != v19)
+        if (*v38 != v19)
         {
           objc_enumerationMutation(allowedLinkSubtypes);
         }
 
-        unsignedShortValue2 = [*(*(&v38 + 1) + 8 * j) unsignedShortValue];
+        unsignedShortValue2 = [*(*(&v37 + 1) + 8 * j) unsignedShortValue];
         if (unsignedShortValue2 > 0x67u)
         {
           if (unsignedShortValue2 == 104)
@@ -159,61 +258,61 @@ LABEL_21:
         [v15 appendFormat:@" %@ ", StringFromNRLinkSubtype];
       }
 
-      v18 = [allowedLinkSubtypes countByEnumeratingWithState:&v38 objects:v46 count:16];
+      v18 = [allowedLinkSubtypes countByEnumeratingWithState:&v37 objects:v45 count:16];
     }
 
     while (v18);
   }
 
-  [v36 appendFormat:@", lnks:[%@][%@]", v4, v15];
+  [v35 appendFormat:@", lnks:[%@][%@]", v4, v15];
   if ([(NRDeviceOperationalProperties *)selfCopy handlesLinkRecommendations])
   {
-    [v36 appendString:{@", lnkRec"}];
+    [v35 appendString:{@", lnkRec"}];
   }
 
   if ([(NRDeviceOperationalProperties *)selfCopy requiresReachability])
   {
-    [v36 appendString:{@", rch"}];
+    [v35 appendString:{@", rch"}];
   }
 
   if ([(NRDeviceOperationalProperties *)selfCopy proxyProviderRequiresWiFi])
   {
-    [v36 appendString:{@", prx-wifi"}];
+    [v35 appendString:{@", prx-wifi"}];
   }
 
   if ([(NRDeviceOperationalProperties *)selfCopy usesTLS])
   {
-    [v36 appendString:{@", tls"}];
+    [v35 appendString:{@", tls"}];
   }
 
   if ([(NRDeviceOperationalProperties *)selfCopy providesPhoneCallRelaySupport])
   {
-    [v36 appendString:{@", pcr"}];
+    [v35 appendString:{@", pcr"}];
   }
 
   if ([(NRDeviceOperationalProperties *)selfCopy allowsPermittedClientsOnly])
   {
-    [v36 appendString:{@", prm"}];
+    [v35 appendString:{@", prm"}];
   }
 
   if ([(NRDeviceOperationalProperties *)selfCopy allowsDirectToCloud])
   {
-    [v36 appendString:{@", dtc"}];
+    [v35 appendString:{@", dtc"}];
   }
 
   if ([(NRDeviceOperationalProperties *)selfCopy allowsDeviceDiscovery])
   {
-    [v36 appendString:{@", disc"}];
+    [v35 appendString:{@", disc"}];
   }
 
   if ([(NRDeviceOperationalProperties *)selfCopy allowsDeadPeerDetection])
   {
-    [v36 appendString:{@", dpd"}];
+    [v35 appendString:{@", dpd"}];
   }
 
   if ([(NRDeviceOperationalProperties *)selfCopy hasCompanionDatapath])
   {
-    [v36 appendString:{@", cmpn-dp"}];
+    [v35 appendString:{@", cmpn-dp"}];
   }
 
   proxyProviderCriteria = [(NRDeviceOperationalProperties *)selfCopy proxyProviderCriteria];
@@ -221,17 +320,17 @@ LABEL_21:
   if (proxyProviderCriteria)
   {
     proxyProviderCriteria2 = [(NRDeviceOperationalProperties *)selfCopy proxyProviderCriteria];
-    [v36 appendFormat:@", %@", proxyProviderCriteria2];
+    [v35 appendFormat:@", %@", proxyProviderCriteria2];
   }
 
   if ([(NRDeviceOperationalProperties *)selfCopy operationalScope])
   {
-    [v36 appendFormat:@", sc %#llx", -[NRDeviceOperationalProperties operationalScope](selfCopy, "operationalScope")];
+    [v35 appendFormat:@", sc %#llx", -[NRDeviceOperationalProperties operationalScope](selfCopy, "operationalScope")];
   }
 
   if ([(NRDeviceOperationalProperties *)selfCopy flags])
   {
-    [v36 appendFormat:@", fl %#llx", -[NRDeviceOperationalProperties flags](selfCopy, "flags")];
+    [v35 appendFormat:@", fl %#llx", -[NRDeviceOperationalProperties flags](selfCopy, "flags")];
   }
 
   if ([(NRDeviceOperationalProperties *)selfCopy proxyCapability]== 1)
@@ -296,14 +395,12 @@ LABEL_75:
     }
 
     v33 = v32;
-    [v36 appendFormat:@", prx-type:%@ prx-auth:%@", v29, v32];
+    [v35 appendFormat:@", prx-type:%@ prx-auth:%@", v29, v32];
   }
 
-  [v36 appendString:@"]"];
+  [v35 appendString:@"]"];
 
-  v34 = *MEMORY[0x277D85DE8];
-
-  return v36;
+  return v35;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -344,41 +441,41 @@ LABEL_75:
 
 - (NRDeviceOperationalProperties)initWithCoder:(id)coder
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v26.receiver = self;
-  v26.super_class = NRDeviceOperationalProperties;
-  v5 = [(NRDeviceProperties *)&v26 initWithCoder:coderCopy];
+  v22.receiver = self;
+  v22.super_class = NRDeviceOperationalProperties;
+  v5 = [(NRDeviceProperties *)&v22 initWithCoder:coderCopy];
   if (!v5)
   {
-    v12 = nrCopyLogObj_1215();
+    v11 = nrCopyLogObj_1215();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v13 = v12;
-      v14 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
+      v12 = v11;
+      v13 = os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
 
-      if (!v14)
+      if (!v13)
       {
         goto LABEL_7;
       }
     }
 
-    v15 = nrCopyLogObj_1215();
-    _NRLogWithArgs(v15, 16, "%s%.30s:%-4d ABORTING: [super initWithCoder:] failed", v16, v17, v18, v19, v20, "");
+    v14 = nrCopyLogObj_1215();
+    _NRLogWithArgs(v14, 16, "%s%.30s:%-4d ABORTING: [super initWithCoder:] failed", ", "[NRDeviceOperationalProperties initWithCoder:]"", 314);
 
 LABEL_7:
-    v21 = _os_log_pack_size();
-    MEMORY[0x28223BE20](v21, v22);
-    v23 = *__error();
-    v24 = _os_log_pack_fill();
-    *v24 = 136446210;
-    *(v24 + 4) = "[NRDeviceOperationalProperties initWithCoder:]";
-    v25 = nrCopyLogObj_1215();
-    _NRLogAbortWithPack(v25);
+    v15 = _os_log_pack_size();
+    v17 = &v21 - ((MEMORY[0x28223BE20](v15, v16) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v18 = __error();
+    v19 = _os_log_pack_fill(v17, v15, *v18, &dword_25B98C000, "%{public}s [super initWithCoder:] failed");
+    *v19 = 136446210;
+    *(v19 + 4) = "[NRDeviceOperationalProperties initWithCoder:]";
+    v20 = nrCopyLogObj_1215();
+    _NRLogAbortWithPack(v20, v17);
   }
 
   v6 = v5;
@@ -411,7 +508,6 @@ LABEL_7:
   -[NRDeviceOperationalProperties setProxyProviderType:](v6, "setProxyProviderType:", [coderCopy decodeInt64ForKey:@"proxyProviderType"]);
   -[NRDeviceOperationalProperties setProxyProviderAuthMode:](v6, "setProxyProviderAuthMode:", [coderCopy decodeInt64ForKey:@"proxyProviderAuthMode"]);
 
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -457,40 +553,40 @@ LABEL_7:
 - (void)mergeProperties:(id)properties
 {
   propertiesCopy = properties;
-  v25 = propertiesCopy;
+  v15 = propertiesCopy;
   if (propertiesCopy)
   {
     -[NRDeviceOperationalProperties setVersion:](self, "setVersion:", [propertiesCopy version]);
-    -[NRDeviceOperationalProperties setProxyCapability:](self, "setProxyCapability:", [v25 proxyCapability]);
-    -[NRDeviceOperationalProperties setBluetoothRole:](self, "setBluetoothRole:", [v25 bluetoothRole]);
-    -[NRDeviceOperationalProperties setHandlesLinkRecommendations:](self, "setHandlesLinkRecommendations:", [v25 handlesLinkRecommendations]);
-    -[NRDeviceOperationalProperties setRequiresReachability:](self, "setRequiresReachability:", [v25 requiresReachability]);
-    -[NRDeviceOperationalProperties setProxyProviderRequiresWiFi:](self, "setProxyProviderRequiresWiFi:", [v25 proxyProviderRequiresWiFi]);
-    -[NRDeviceOperationalProperties setUsesTLS:](self, "setUsesTLS:", [v25 usesTLS]);
-    -[NRDeviceOperationalProperties setProvidesPhoneCallRelaySupport:](self, "setProvidesPhoneCallRelaySupport:", [v25 providesPhoneCallRelaySupport]);
-    -[NRDeviceOperationalProperties setAllowsPermittedClientsOnly:](self, "setAllowsPermittedClientsOnly:", [v25 allowsPermittedClientsOnly]);
-    -[NRDeviceOperationalProperties setBluetoothEndpointType:](self, "setBluetoothEndpointType:", [v25 bluetoothEndpointType]);
-    -[NRDeviceOperationalProperties setAllowsDirectToCloud:](self, "setAllowsDirectToCloud:", [v25 allowsDirectToCloud]);
-    -[NRDeviceOperationalProperties setAllowsDeviceDiscovery:](self, "setAllowsDeviceDiscovery:", [v25 allowsDeviceDiscovery]);
-    -[NRDeviceOperationalProperties setAllowedPeerDeviceType:](self, "setAllowedPeerDeviceType:", [v25 allowedPeerDeviceType]);
-    -[NRDeviceOperationalProperties setAllowsDeadPeerDetection:](self, "setAllowsDeadPeerDetection:", [v25 allowsDeadPeerDetection]);
-    -[NRDeviceOperationalProperties setIsReachableOverWiFi:](self, "setIsReachableOverWiFi:", [v25 isReachableOverWiFi]);
-    -[NRDeviceOperationalProperties setOperationalScope:](self, "setOperationalScope:", [v25 operationalScope]);
-    -[NRDeviceOperationalProperties setFlags:](self, "setFlags:", [v25 flags]);
-    allowedLinkTypes = [v25 allowedLinkTypes];
+    -[NRDeviceOperationalProperties setProxyCapability:](self, "setProxyCapability:", [v15 proxyCapability]);
+    -[NRDeviceOperationalProperties setBluetoothRole:](self, "setBluetoothRole:", [v15 bluetoothRole]);
+    -[NRDeviceOperationalProperties setHandlesLinkRecommendations:](self, "setHandlesLinkRecommendations:", [v15 handlesLinkRecommendations]);
+    -[NRDeviceOperationalProperties setRequiresReachability:](self, "setRequiresReachability:", [v15 requiresReachability]);
+    -[NRDeviceOperationalProperties setProxyProviderRequiresWiFi:](self, "setProxyProviderRequiresWiFi:", [v15 proxyProviderRequiresWiFi]);
+    -[NRDeviceOperationalProperties setUsesTLS:](self, "setUsesTLS:", [v15 usesTLS]);
+    -[NRDeviceOperationalProperties setProvidesPhoneCallRelaySupport:](self, "setProvidesPhoneCallRelaySupport:", [v15 providesPhoneCallRelaySupport]);
+    -[NRDeviceOperationalProperties setAllowsPermittedClientsOnly:](self, "setAllowsPermittedClientsOnly:", [v15 allowsPermittedClientsOnly]);
+    -[NRDeviceOperationalProperties setBluetoothEndpointType:](self, "setBluetoothEndpointType:", [v15 bluetoothEndpointType]);
+    -[NRDeviceOperationalProperties setAllowsDirectToCloud:](self, "setAllowsDirectToCloud:", [v15 allowsDirectToCloud]);
+    -[NRDeviceOperationalProperties setAllowsDeviceDiscovery:](self, "setAllowsDeviceDiscovery:", [v15 allowsDeviceDiscovery]);
+    -[NRDeviceOperationalProperties setAllowedPeerDeviceType:](self, "setAllowedPeerDeviceType:", [v15 allowedPeerDeviceType]);
+    -[NRDeviceOperationalProperties setAllowsDeadPeerDetection:](self, "setAllowsDeadPeerDetection:", [v15 allowsDeadPeerDetection]);
+    -[NRDeviceOperationalProperties setIsReachableOverWiFi:](self, "setIsReachableOverWiFi:", [v15 isReachableOverWiFi]);
+    -[NRDeviceOperationalProperties setOperationalScope:](self, "setOperationalScope:", [v15 operationalScope]);
+    -[NRDeviceOperationalProperties setFlags:](self, "setFlags:", [v15 flags]);
+    allowedLinkTypes = [v15 allowedLinkTypes];
     v6 = [allowedLinkTypes copy];
     [(NRDeviceOperationalProperties *)self setAllowedLinkTypes:v6];
 
-    allowedLinkSubtypes = [v25 allowedLinkSubtypes];
+    allowedLinkSubtypes = [v15 allowedLinkSubtypes];
     v8 = [allowedLinkSubtypes copy];
     [(NRDeviceOperationalProperties *)self setAllowedLinkSubtypes:v8];
 
-    proxyProviderCriteria = [v25 proxyProviderCriteria];
+    proxyProviderCriteria = [v15 proxyProviderCriteria];
     v10 = [proxyProviderCriteria copy];
     [(NRDeviceOperationalProperties *)self setProxyProviderCriteria:v10];
 
-    -[NRDeviceOperationalProperties setProxyProviderType:](self, "setProxyProviderType:", [v25 proxyProviderType]);
-    -[NRDeviceOperationalProperties setProxyProviderAuthMode:](self, "setProxyProviderAuthMode:", [v25 proxyProviderAuthMode]);
+    -[NRDeviceOperationalProperties setProxyProviderType:](self, "setProxyProviderType:", [v15 proxyProviderType]);
+    -[NRDeviceOperationalProperties setProxyProviderAuthMode:](self, "setProxyProviderAuthMode:", [v15 proxyProviderAuthMode]);
     if (nrCopyLogObj_onceToken_1219 != -1)
     {
       dispatch_once(&nrCopyLogObj_onceToken_1219, &__block_literal_global_498);
@@ -498,30 +594,30 @@ LABEL_7:
 
     if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_1220, OS_LOG_TYPE_DEFAULT))
     {
-      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1220, 0, "%s%.30s:%-4d merged properties: %@", v11, v12, v13, v14, v15, "");
+      _NRLogWithArgs(nrCopyLogObj_sNRLogObj_1220, 0, "%s%.30s:%-4d merged properties: %@", ", "[NRDeviceOperationalProperties mergeProperties:]"", 279, self);
     }
   }
 
   else
   {
-    v16 = nrCopyLogObj_1215();
+    v11 = nrCopyLogObj_1215();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v17 = v16;
-      v18 = os_log_type_enabled(v16, OS_LOG_TYPE_FAULT);
+      v12 = v11;
+      v13 = os_log_type_enabled(v11, OS_LOG_TYPE_FAULT);
 
-      if (!v18)
+      if (!v13)
       {
         goto LABEL_7;
       }
     }
 
-    v19 = nrCopyLogObj_1215();
-    _NRLogWithArgs(v19, 17, "%s called with null prop", v20, v21, v22, v23, v24, "[NRDeviceOperationalProperties mergeProperties:]");
+    v14 = nrCopyLogObj_1215();
+    _NRLogWithArgs(v14, 17, "%s called with null prop", "[NRDeviceOperationalProperties mergeProperties:]");
   }
 
 LABEL_7:
@@ -737,40 +833,40 @@ LABEL_37:
 
 - (NRDeviceOperationalProperties)init
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v20.receiver = self;
-  v20.super_class = NRDeviceOperationalProperties;
-  v2 = [(NRDeviceOperationalProperties *)&v20 init];
+  v17 = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = NRDeviceOperationalProperties;
+  v2 = [(NRDeviceOperationalProperties *)&v16 init];
   if (!v2)
   {
-    v6 = nrCopyLogObj_1215();
+    v5 = nrCopyLogObj_1215();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v7 = v6;
-      v8 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
+      v6 = v5;
+      v7 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
 
-      if (!v8)
+      if (!v7)
       {
         goto LABEL_7;
       }
     }
 
-    v9 = nrCopyLogObj_1215();
-    _NRLogWithArgs(v9, 16, "%s%.30s:%-4d ABORTING: [super init] failed", v10, v11, v12, v13, v14, "");
+    v8 = nrCopyLogObj_1215();
+    _NRLogWithArgs(v8, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRDeviceOperationalProperties init]"", 208);
 
 LABEL_7:
-    v15 = _os_log_pack_size();
-    MEMORY[0x28223BE20](v15, v16);
-    v17 = *__error();
-    v18 = _os_log_pack_fill();
-    *v18 = 136446210;
-    *(v18 + 4) = "[NRDeviceOperationalProperties init]";
-    v19 = nrCopyLogObj_1215();
-    _NRLogAbortWithPack(v19);
+    v9 = _os_log_pack_size();
+    v11 = &v15 - ((MEMORY[0x28223BE20](v9, v10) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v12 = __error();
+    v13 = _os_log_pack_fill(v11, v9, *v12, &dword_25B98C000, "%{public}s [super init] failed");
+    *v13 = 136446210;
+    *(v13 + 4) = "[NRDeviceOperationalProperties init]";
+    v14 = nrCopyLogObj_1215();
+    _NRLogAbortWithPack(v14, v11);
   }
 
   v3 = v2;
@@ -778,7 +874,6 @@ LABEL_7:
   [(NRDeviceOperationalProperties *)v3 setAllowedLinkTypes:&unk_286D2D130];
   [(NRDeviceOperationalProperties *)v3 setBluetoothEndpointType:3];
   [(NRDeviceOperationalProperties *)v3 setIsReachableOverWiFi:1];
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

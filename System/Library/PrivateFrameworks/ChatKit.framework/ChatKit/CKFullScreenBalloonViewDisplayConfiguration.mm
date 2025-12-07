@@ -374,7 +374,7 @@
   v2 = _s7ChatKit41FullScreenBalloonViewDisplayConfigurationC20tapbackPickerContextACyFZ_0();
   v3 = OBJC_IVAR___CKFullScreenBalloonViewDisplayConfiguration_shouldPresentAsTapbackKeyboardInput;
   swift_beginAccess();
-  v2[v3] = 1;
+  *(v2 + v3) = 1;
 
   return v2;
 }

@@ -24,8 +24,8 @@
 
 - (id)toDict
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v12[0] = @"startInvitedCount";
+  v12[2] = *MEMORY[0x277D85DE8];
+  v11[0] = @"startInvitedCount";
   startInvitedCount = [(ICASStartCollaborationCollaboratorData *)self startInvitedCount];
   if (startInvitedCount)
   {
@@ -38,8 +38,8 @@
   }
 
   v5 = startInvitedCount2;
-  v12[1] = @"startAcceptedCount";
-  v13[0] = startInvitedCount2;
+  v11[1] = @"startAcceptedCount";
+  v12[0] = startInvitedCount2;
   startAcceptedCount = [(ICASStartCollaborationCollaboratorData *)self startAcceptedCount];
   if (startAcceptedCount)
   {
@@ -52,10 +52,8 @@
   }
 
   v8 = startAcceptedCount2;
-  v13[1] = startAcceptedCount2;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = startAcceptedCount2;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
 
   return v9;
 }

@@ -24,7 +24,7 @@
     v11->_personIdentifierToPerson = dictionary;
 
     v11->_globalTriggerID = 0;
-    [descriptorCopy colorSize];
+    objc_msgSend_colorSize(descriptorCopy);
     v15 = v14;
     v17 = v16;
     handGestureDetector = [resourcesCopy handGestureDetector];
@@ -85,7 +85,7 @@ LABEL_11:
 {
   if ((stamp->var2 & 1) == 0)
   {
-    v3 = _PTLogSystem();
+    v3 = _PTLogSystem(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [PTEffectReactionProvider runGestureDetectionForTimeStamp:v3];
@@ -134,33 +134,33 @@ LABEL_11:
 
 - (void)gesturesAvailable:(id)available forTimeStamp:(id *)stamp
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v94 = *MEMORY[0x277D85DE8];
   availableCopy = available;
   [(PTEffectReactionProvider *)self setLatestGestures:availableCopy];
-  v84 = 0u;
+  v87 = 0u;
+  v88 = 0u;
   v85 = 0u;
-  v82 = 0u;
-  v83 = 0u;
+  v86 = 0u;
   selfCopy = self;
   allValues = [(NSMutableDictionary *)self->_personIdentifierToPerson allValues];
-  v7 = [allValues countByEnumeratingWithState:&v82 objects:v90 count:16];
+  v7 = [allValues countByEnumeratingWithState:&v85 objects:v93 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v83;
+    v9 = *v86;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v83 != v9)
+        if (*v86 != v9)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v82 + 1) + 8 * i) setNumFramesInactive:{objc_msgSend(*(*(&v82 + 1) + 8 * i), "numFramesInactive") + 1}];
+        [*(*(&v85 + 1) + 8 * i) setNumFramesInactive:{objc_msgSend(*(*(&v85 + 1) + 8 * i), "numFramesInactive") + 1}];
       }
 
-      v8 = [allValues countByEnumeratingWithState:&v82 objects:v90 count:16];
+      v8 = [allValues countByEnumeratingWithState:&v85 objects:v93 count:16];
     }
 
     while (v8);
@@ -181,16 +181,16 @@ LABEL_11:
   }
 
   v15 = selfCopy;
-  v70 = v11;
+  v73 = v11;
   if ([availableCopy count])
   {
     v16 = 0;
     v17 = 1;
     *&v14 = 67109120;
-    v67 = v14;
+    v70 = v14;
     do
     {
-      v18 = [v11 objectAtIndexedSubscript:{v16, v67}];
+      v18 = [v11 objectAtIndexedSubscript:{v16, v70}];
       intValue = [v18 intValue];
 
       if (intValue)
@@ -222,83 +222,83 @@ LABEL_11:
           identifier = [(PTPersonWithReactions *)v23 identifier];
           [(NSMutableDictionary *)v27 setObject:v23 forKey:identifier];
 
-          v29 = _PTLogSystem();
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+          v30 = _PTLogSystem(v29);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
           {
             identifier2 = [(PTPersonWithReactions *)v23 identifier];
             intValue2 = [identifier2 intValue];
-            *buf = v67;
+            *buf = v70;
             *&buf[4] = intValue2;
-            _os_log_impl(&dword_2243FB000, v29, OS_LOG_TYPE_INFO, "ReactionProvider: Created person %i", buf, 8u);
+            _os_log_impl(&dword_2243FB000, v30, OS_LOG_TYPE_INFO, "ReactionProvider: Created person %i", buf, 8u);
           }
         }
 
-        v71 = v16 + 1;
+        v74 = v16 + 1;
         if ([availableCopy count] <= v16 + 1)
         {
-          v32 = 0;
+          v33 = 0;
         }
 
         else
         {
-          v32 = 0;
-          v33 = v17;
+          v33 = 0;
+          v34 = v17;
           do
           {
-            v34 = [availableCopy objectAtIndexedSubscript:v33];
-            personID3 = [v34 personID];
-            v36 = [availableCopy objectAtIndexedSubscript:v16];
-            personID4 = [v36 personID];
+            v35 = [availableCopy objectAtIndexedSubscript:v34];
+            personID3 = [v35 personID];
+            v37 = [availableCopy objectAtIndexedSubscript:v16];
+            personID4 = [v37 personID];
 
             if (personID3 == personID4)
             {
-              v38 = [availableCopy objectAtIndexedSubscript:v33];
+              v39 = [availableCopy objectAtIndexedSubscript:v34];
 
-              handChirality = [v38 handChirality];
-              v40 = [availableCopy objectAtIndexedSubscript:v16];
-              handChirality2 = [v40 handChirality];
+              handChirality = [v39 handChirality];
+              v41 = [availableCopy objectAtIndexedSubscript:v16];
+              handChirality2 = [v41 handChirality];
 
               if (handChirality == handChirality2)
               {
-                v42 = _PTLogSystem();
-                if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+                v44 = _PTLogSystem(v43);
+                if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
                 {
-                  [(PTEffectReactionProvider *)&v80 gesturesAvailable:v81 forTimeStamp:v42];
+                  [(PTEffectReactionProvider *)&v83 gesturesAvailable:v84 forTimeStamp:v44];
                 }
               }
 
-              [v70 setObject:MEMORY[0x277CBEC38] atIndexedSubscript:v33];
-              v32 = v38;
+              [v73 setObject:MEMORY[0x277CBEC38] atIndexedSubscript:v34];
+              v33 = v39;
             }
 
-            ++v33;
+            ++v34;
           }
 
-          while ([availableCopy count] > v33);
+          while ([availableCopy count] > v34);
         }
 
-        v43 = [availableCopy objectAtIndexedSubscript:v16];
-        handChirality3 = [v43 handChirality];
+        v45 = [availableCopy objectAtIndexedSubscript:v16];
+        handChirality3 = [v45 handChirality];
 
         if (handChirality3 == 1)
         {
-          v45 = [availableCopy objectAtIndexedSubscript:v16];
-          v46 = v32;
+          v47 = [availableCopy objectAtIndexedSubscript:v16];
+          v48 = v33;
         }
 
         else
         {
-          v45 = v32;
-          v46 = [availableCopy objectAtIndexedSubscript:v16];
+          v47 = v33;
+          v48 = [availableCopy objectAtIndexedSubscript:v16];
         }
 
-        v47 = v46;
+        v49 = v48;
         *buf = *&stamp->var0;
         var3 = stamp->var3;
-        [(PTPersonWithReactions *)v23 updateWithLeftHand:v45 rightHand:v46 timeStamp:buf];
+        [(PTPersonWithReactions *)v23 updateWithLeftHand:v47 rightHand:v48 timeStamp:buf];
 
-        v11 = v70;
-        v16 = v71;
+        v11 = v73;
+        v16 = v74;
         v15 = selfCopy;
       }
 
@@ -309,47 +309,47 @@ LABEL_11:
   }
 
   array = [MEMORY[0x277CBEB18] array];
-  v76 = 0u;
-  v77 = 0u;
-  v78 = 0u;
   v79 = 0u;
+  v80 = 0u;
+  v81 = 0u;
+  v82 = 0u;
   allValues2 = [(NSMutableDictionary *)v15->_personIdentifierToPerson allValues];
-  v50 = [allValues2 countByEnumeratingWithState:&v76 objects:v87 count:16];
-  if (v50)
+  v52 = [allValues2 countByEnumeratingWithState:&v79 objects:v90 count:16];
+  if (v52)
   {
-    v51 = v50;
-    v52 = *v77;
+    v53 = v52;
+    v54 = *v80;
     do
     {
-      for (j = 0; j != v51; ++j)
+      for (j = 0; j != v53; ++j)
       {
-        if (*v77 != v52)
+        if (*v80 != v54)
         {
           objc_enumerationMutation(allValues2);
         }
 
-        v54 = *(*(&v76 + 1) + 8 * j);
-        if ([v54 numFramesInactive] >= 3)
+        v56 = *(*(&v79 + 1) + 8 * j);
+        if ([v56 numFramesInactive] >= 3)
         {
-          identifier3 = [v54 identifier];
+          identifier3 = [v56 identifier];
           [array addObject:identifier3];
 
-          v56 = _PTLogSystem();
-          if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
+          v59 = _PTLogSystem(v58);
+          if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
           {
-            identifier4 = [v54 identifier];
+            identifier4 = [v56 identifier];
             intValue3 = [identifier4 intValue];
             *buf = 67109120;
             *&buf[4] = intValue3;
-            _os_log_impl(&dword_2243FB000, v56, OS_LOG_TYPE_INFO, "ReactionProvider: Removed person %i", buf, 8u);
+            _os_log_impl(&dword_2243FB000, v59, OS_LOG_TYPE_INFO, "ReactionProvider: Removed person %i", buf, 8u);
           }
         }
       }
 
-      v51 = [allValues2 countByEnumeratingWithState:&v76 objects:v87 count:16];
+      v53 = [allValues2 countByEnumeratingWithState:&v79 objects:v90 count:16];
     }
 
-    while (v51);
+    while (v53);
   }
 
   if ([array count])
@@ -357,38 +357,38 @@ LABEL_11:
     [(NSMutableDictionary *)selfCopy->_personIdentifierToPerson removeObjectsForKeys:array];
   }
 
-  v59 = [(NSMutableDictionary *)selfCopy->_personIdentifierToPerson count];
-  v60 = [MEMORY[0x277CBEB18] arrayWithCapacity:3 * v59];
-  v72 = 0u;
-  v73 = 0u;
-  v74 = 0u;
+  v62 = [(NSMutableDictionary *)selfCopy->_personIdentifierToPerson count];
+  v63 = [MEMORY[0x277CBEB18] arrayWithCapacity:3 * v62];
   v75 = 0u;
+  v76 = 0u;
+  v77 = 0u;
+  v78 = 0u;
   allValues3 = [(NSMutableDictionary *)selfCopy->_personIdentifierToPerson allValues];
-  v62 = [allValues3 countByEnumeratingWithState:&v72 objects:v86 count:16];
-  if (v62)
+  v65 = [allValues3 countByEnumeratingWithState:&v75 objects:v89 count:16];
+  if (v65)
   {
-    v63 = v62;
-    v64 = *v73;
+    v66 = v65;
+    v67 = *v76;
     do
     {
-      for (k = 0; k != v63; ++k)
+      for (k = 0; k != v66; ++k)
       {
-        if (*v73 != v64)
+        if (*v76 != v67)
         {
           objc_enumerationMutation(allValues3);
         }
 
-        reactions = [*(*(&v72 + 1) + 8 * k) reactions];
-        [v60 addObjectsFromArray:reactions];
+        reactions = [*(*(&v75 + 1) + 8 * k) reactions];
+        [v63 addObjectsFromArray:reactions];
       }
 
-      v63 = [allValues3 countByEnumeratingWithState:&v72 objects:v86 count:16];
+      v66 = [allValues3 countByEnumeratingWithState:&v75 objects:v89 count:16];
     }
 
-    while (v63);
+    while (v66);
   }
 
-  [(PTEffectReactionProvider *)selfCopy setLatestReactions:v60];
+  [(PTEffectReactionProvider *)selfCopy setLatestReactions:v63];
 }
 
 - (void)gesturesAvailable:(os_log_t)log forTimeStamp:.cold.1(uint8_t *buf, _BYTE *a2, os_log_t log)

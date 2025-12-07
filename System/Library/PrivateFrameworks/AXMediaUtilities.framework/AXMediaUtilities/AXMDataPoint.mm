@@ -42,11 +42,11 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [AXMDataPoint allocWithZone:zone];
-  xValue = [(AXMDataPoint *)self xValue];
+  v5 = objc_msgSend_xValue(self);
   yValue = [(AXMDataPoint *)self yValue];
   additionalValues = [(AXMDataPoint *)self additionalValues];
   label = [(AXMDataPoint *)self label];
-  v9 = [(AXMDataPoint *)v4 initWithX:xValue y:yValue additionalValues:additionalValues label:label];
+  v9 = [(AXMDataPoint *)v4 initWithX:v5 y:yValue additionalValues:additionalValues label:label];
 
   return v9;
 }
@@ -166,19 +166,19 @@ LABEL_11:
 
 - (id)description
 {
-  xValue = [(AXMDataPoint *)self xValue];
-  category = [xValue category];
+  v3 = objc_msgSend_xValue(self, a2);
+  category = [v3 category];
   if (category)
   {
-    xValue2 = [(AXMDataPoint *)self xValue];
-    [xValue2 category];
+    v5 = objc_msgSend_xValue(self);
+    [v5 category];
   }
 
   else
   {
     v6 = MEMORY[0x1E696AD98];
-    xValue2 = [(AXMDataPoint *)self xValue];
-    [xValue2 number];
+    v5 = objc_msgSend_xValue(self);
+    [v5 number];
     [v6 numberWithDouble:?];
   }
   v29 = ;
@@ -251,19 +251,19 @@ LABEL_11:
 
   else
   {
-    xValue = [(AXMDataPoint *)self xValue];
-    category = [xValue category];
-    xValue2 = [(AXMDataPoint *)self xValue];
-    v8 = xValue2;
+    v5 = objc_msgSend_xValue(self, a2);
+    category = [v5 category];
+    v7 = objc_msgSend_xValue(self);
+    v8 = v7;
     if (category)
     {
-      category2 = [xValue2 category];
+      category2 = [v7 category];
       v3 = [AXMDataPointValue valueWithCategory:category2];
     }
 
     else
     {
-      [xValue2 number];
+      [v7 number];
       v3 = [AXMDataPointValue valueWithNumber:?];
     }
   }

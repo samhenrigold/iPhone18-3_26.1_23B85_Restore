@@ -13,9 +13,11 @@
 - (id)getFirmwareBootTimestamps;
 - (id)getHostBootTimestamps;
 - (id)getPMUFaultInfo;
+- (id)getPowerStats:(BOOL)stats;
 - (id)getSiKPublicKey;
 - (id)ping;
 - (id)preflightQuery;
+- (id)rawCommand:(id)command gid:(unsigned __int8)gid oid:(unsigned __int8)oid;
 - (id)shellCommand:(id)command;
 - (int)createController:(id *)controller;
 - (int)powerCycle;
@@ -26,6 +28,7 @@
 - (void)dealloc;
 - (void)destroyController;
 - (void)handleCrashlogAvailable;
+- (void)handleErrorFromSource:(unsigned int)source errorCode:(unsigned int)code arg:(unint64_t)arg driverInstance:(unint64_t)instance;
 - (void)invalidate;
 - (void)log;
 - (void)setHardwareHealth:(BOOL)health;
@@ -62,7 +65,7 @@
 {
   if (self->_active)
   {
-    v3 = sub_100025204();
+    v3 = sub_100025204(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [objc_opt_class() description];
@@ -72,7 +75,7 @@
       sub_100029A78();
     }
 
-    abort_report_np();
+    abort_report_np("assertion failure: !_active -- unexpected dealloc");
     __break(1u);
   }
 
@@ -83,35 +86,36 @@
 
 - (BOOL)activate:(id *)activate
 {
-  v14 = 0;
-  v6 = sub_100025204();
+  v15 = 0;
+  v6 = sub_100025204(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [objc_opt_class() description];
     v8 = NSStringFromSelector(a2);
     *buf = 138543618;
-    v16 = v7;
-    v17 = 2114;
-    v18 = v8;
+    v17 = v7;
+    v18 = 2114;
+    v19 = v8;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: ", buf, 0x16u);
   }
 
   ChipPower = CentauriControllerGetChipPower();
   if (ChipPower)
   {
-    *activate = [NSString stringWithFormat:@"getChipPowerFailure:0x%08x", ChipPower];
-    v11 = sub_100025204();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    chipPower = [NSString stringWithFormat:@"getChipPowerFailure:0x%08x", ChipPower];
+    *activate = chipPower;
+    v12 = sub_100025204(chipPower);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v12 = [objc_opt_class() description];
-      v13 = NSStringFromSelector(a2);
+      v13 = [objc_opt_class() description];
+      v14 = NSStringFromSelector(a2);
       *buf = 138543874;
-      v16 = v12;
-      v17 = 2114;
-      v18 = v13;
-      v19 = 1024;
-      v20 = ChipPower;
-      _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: failed to get chip power state: 0x%08x", buf, 0x1Cu);
+      v17 = v13;
+      v18 = 2114;
+      v19 = v14;
+      v20 = 1024;
+      v21 = ChipPower;
+      _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: failed to get chip power state: 0x%08x", buf, 0x1Cu);
     }
 
     return 0;
@@ -129,7 +133,7 @@
 
 - (void)invalidate
 {
-  v4 = sub_100025204();
+  v4 = sub_100025204(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [objc_opt_class() description];
@@ -163,7 +167,7 @@
       if (v8 == TypeID)
       {
         v11 = [[NSString alloc] initWithData:v7 encoding:1];
-        v15 = sub_100025204();
+        v15 = sub_100025204(v11);
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           v12 = [objc_opt_class() description];
@@ -182,7 +186,7 @@
 
       else
       {
-        v15 = sub_100025204();
+        v15 = sub_100025204(TypeID);
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           [objc_opt_class() description];
@@ -218,8 +222,8 @@
   parent = 0;
   if (!hardware)
   {
-    v22 = sub_100025204();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v23 = sub_100025204(self);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       [objc_opt_class() description];
       objc_claimAutoreleasedReturnValue();
@@ -228,14 +232,15 @@
       sub_100029B98();
     }
 
-    goto LABEL_39;
+    abort_report_np("assertion failure: builtIn -- bad parameter");
+    goto LABEL_46;
   }
 
   v5 = IOServiceNameMatching("centauri");
   if (!v5)
   {
-    v22 = sub_100025204();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v24 = sub_100025204(0);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       [objc_opt_class() description];
       objc_claimAutoreleasedReturnValue();
@@ -244,25 +249,26 @@
       sub_100029B50();
     }
 
-    goto LABEL_39;
+    goto LABEL_36;
   }
 
   MatchingService = IOServiceGetMatchingService(kIOMainPortDefault, v5);
+  v7 = MatchingService;
   if (MatchingService)
   {
-    CFProperty = 0;
     v8 = 0;
-    v9 = 1;
+    v9 = 0;
+    v10 = 1;
 LABEL_14:
-    v14 = 1;
+    v15 = 1;
     goto LABEL_15;
   }
 
-  v10 = IOServiceMatching("AppleCentauriManager");
-  if (!v10)
+  v11 = IOServiceMatching("AppleCentauriManager");
+  if (!v11)
   {
-    v22 = sub_100025204();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v24 = sub_100025204(0);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       [objc_opt_class() description];
       objc_claimAutoreleasedReturnValue();
@@ -271,60 +277,62 @@ LABEL_14:
       sub_100029B50();
     }
 
-LABEL_39:
+LABEL_36:
 
-    abort_report_np();
+    abort_report_np("assertion failure: matchingDict -- failed to create matching dict");
     goto LABEL_46;
   }
 
-  v11 = IOServiceGetMatchingService(kIOMainPortDefault, v10);
-  if (v11)
+  v12 = IOServiceGetMatchingService(kIOMainPortDefault, v11);
+  if (v12)
   {
-    v8 = v11;
-    ParentEntry = IORegistryEntryGetParentEntry(v11, "IOService", &parent);
+    v9 = v12;
+    ParentEntry = IORegistryEntryGetParentEntry(v12, "IOService", &parent);
     if (ParentEntry)
     {
-      v13 = 1;
+      v14 = 1;
     }
 
     else
     {
-      v13 = parent == 0;
+      v14 = parent == 0;
     }
 
-    if (!v13)
+    if (!v14)
     {
-      CFProperty = IORegistryEntryCreateCFProperty(parent, @"centauri-builtin", kCFAllocatorDefault, 0);
-      if (!CFProperty)
+      MatchingService = IORegistryEntryCreateCFProperty(parent, @"centauri-builtin", kCFAllocatorDefault, 0);
+      v8 = MatchingService;
+      if (!MatchingService)
       {
-        CFProperty = IORegistryEntryCreateCFProperty(parent, @"centauri-builtin-protium", kCFAllocatorDefault, 0);
+        MatchingService = IORegistryEntryCreateCFProperty(parent, @"centauri-builtin-protium", kCFAllocatorDefault, 0);
+        v8 = MatchingService;
       }
 
-      v9 = CFProperty != 0;
+      v10 = v8 != 0;
       goto LABEL_14;
     }
 
-    v24 = sub_100025204();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v26 = sub_100025204(parent);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      v25 = [objc_opt_class() description];
-      v26 = NSStringFromSelector(a2);
+      v27 = [objc_opt_class() description];
+      v28 = NSStringFromSelector(a2);
       *buf = 138543874;
-      v29 = v25;
-      v30 = 2114;
-      v31 = v26;
-      v32 = 1024;
-      LODWORD(v33) = ParentEntry;
-      _os_log_error_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: assertion failure: (kr == kIOReturnSuccess) && bridgeService -- failed to get manager's parent: 0x%08x", buf, 0x1Cu);
+      v31 = v27;
+      v32 = 2114;
+      v33 = v28;
+      v34 = 1024;
+      LODWORD(v35) = ParentEntry;
+      _os_log_error_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: assertion failure: (kr == kIOReturnSuccess) && bridgeService -- failed to get manager's parent: 0x%08x", buf, 0x1Cu);
     }
 
-    abort_report_np();
+    abort_report_np("assertion failure: (kr == kIOReturnSuccess) && bridgeService -- failed to get manager's parent: 0x%08x", ParentEntry);
 LABEL_46:
     __break(1u);
   }
 
-  v23 = sub_100025204();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+  v25 = sub_100025204(v12);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
   {
     [objc_opt_class() description];
     objc_claimAutoreleasedReturnValue();
@@ -333,47 +341,47 @@ LABEL_46:
     sub_100029B08();
   }
 
-  CFProperty = 0;
   v8 = 0;
   v9 = 0;
-  v14 = 0;
+  v10 = 0;
+  v15 = 0;
 LABEL_15:
-  v15 = sub_100025204();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = sub_100025204(MatchingService);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = [objc_opt_class() description];
-    v17 = NSStringFromSelector(a2);
-    v18 = v17;
-    v19 = "no";
+    v17 = [objc_opt_class() description];
+    v18 = NSStringFromSelector(a2);
+    v19 = v18;
+    v20 = "no";
     *buf = 138544130;
-    v30 = 2114;
-    if (v14)
+    v32 = 2114;
+    if (v15)
     {
-      v20 = "yes";
+      v21 = "yes";
     }
 
     else
     {
-      v20 = "no";
+      v21 = "no";
     }
 
-    v29 = v16;
     v31 = v17;
-    if (v9)
+    v33 = v18;
+    if (v10)
     {
-      v19 = "yes";
+      v20 = "yes";
     }
 
-    v32 = 2080;
-    v33 = v20;
     v34 = 2080;
-    v35 = v19;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: hasHardware: %s, builtIn: %s", buf, 0x2Au);
+    v35 = v21;
+    v36 = 2080;
+    v37 = v20;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: hasHardware: %s, builtIn: %s", buf, 0x2Au);
   }
 
-  if (CFProperty)
+  if (v8)
   {
-    CFRelease(CFProperty);
+    CFRelease(v8);
   }
 
   if (parent)
@@ -382,18 +390,18 @@ LABEL_15:
     parent = 0;
   }
 
-  if (v8)
+  if (v9)
   {
-    IOObjectRelease(v8);
+    IOObjectRelease(v9);
   }
 
-  if (MatchingService)
+  if (v7)
   {
-    IOObjectRelease(MatchingService);
+    IOObjectRelease(v7);
   }
 
-  *hardware = v9;
-  return v14;
+  *hardware = v10;
+  return v15;
 }
 
 + (id)stateAsString:(int64_t)string
@@ -432,13 +440,13 @@ LABEL_15:
 {
   dataCopy = data;
   pathsCopy = paths;
+  v53 = 0u;
+  v54 = 0u;
   v51 = 0u;
   v52 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v47 = 0u;
-  v48 = 0u;
-  v11 = sub_100025204();
+  v11 = sub_100025204(pathsCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = [objc_opt_class() description];
@@ -447,40 +455,40 @@ LABEL_15:
     v15 = v14;
     v16 = "yes";
     *buf = 138544130;
-    v62 = 2114;
-    v61 = v12;
+    v64 = 2114;
+    v63 = v12;
     if (!dataCopy)
     {
       v16 = "no";
     }
 
-    v63 = v13;
-    v64 = 2112;
-    v65 = v14;
-    v66 = 2080;
-    v67 = v16;
+    v65 = v13;
+    v66 = 2112;
+    v67 = v14;
+    v68 = 2080;
+    v69 = v16;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: mode %@, lpmData %s", buf, 0x2Au);
   }
 
   v17 = &stru_10005D038;
   if ([(Chip *)self state]!= 1)
   {
-    v37 = [objc_opt_class() stateAsString:{-[Chip state](self, "state")}];
-    *reason = [NSString stringWithFormat:@"wrongState:%@", v37];
+    v38 = [objc_opt_class() stateAsString:{-[Chip state](self, "state")}];
+    *reason = [NSString stringWithFormat:@"wrongState:%@", v38];
 
-    v38 = sub_100025204();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    v40 = sub_100025204(v39);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
     {
-      v41 = [objc_opt_class() description];
-      v42 = NSStringFromSelector(a2);
-      v43 = [objc_opt_class() stateAsString:{-[Chip state](self, "state")}];
+      v43 = [objc_opt_class() description];
+      v44 = NSStringFromSelector(a2);
+      v45 = [objc_opt_class() stateAsString:{-[Chip state](self, "state")}];
       *buf = 138543874;
-      v61 = v41;
-      v62 = 2114;
-      v63 = v42;
-      v64 = 2112;
-      v65 = v43;
-      _os_log_error_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: wrong state %@", buf, 0x20u);
+      v63 = v43;
+      v64 = 2114;
+      v65 = v44;
+      v66 = 2112;
+      v67 = v45;
+      _os_log_error_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: wrong state %@", buf, 0x20u);
     }
 
     v21 = 0;
@@ -488,17 +496,17 @@ LABEL_15:
     goto LABEL_38;
   }
 
-  *&v47 = sub_100009CC0;
-  LODWORD(v48) = 2;
-  *&v52 = self->_controller;
+  *&v49 = sub_100009CC0;
+  LODWORD(v50) = 2;
+  *&v54 = self->_controller;
   if (![(Chip *)self builtIn])
   {
-    *(&v48 + 1) = "/usr/local/standalone/firmware/Centauri/ftab.bin";
+    *(&v50 + 1) = "/usr/local/standalone/firmware/Centauri/ftab.bin";
   }
 
   if (mode == 1)
   {
-    DWORD2(v49) = 1;
+    DWORD2(v51) = 1;
   }
 
   getCentauriBootArgs = [objc_opt_class() getCentauriBootArgs];
@@ -512,9 +520,9 @@ LABEL_15:
 
   if (mode == 2)
   {
-    v59[0] = getCentauriBootArgs;
-    v59[1] = @"lpm-firmware=1";
-    v20 = [NSArray arrayWithObjects:v59 count:2];
+    v61[0] = getCentauriBootArgs;
+    v61[1] = @"lpm-firmware=1";
+    v20 = [NSArray arrayWithObjects:v61 count:2];
     v21 = [v20 componentsJoinedByString:@" "];
   }
 
@@ -525,19 +533,19 @@ LABEL_15:
 
   if ([v21 length])
   {
-    v57 = @"bootargs";
-    v58 = v21;
-    *&v49 = [NSDictionary dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+    v59 = @"bootargs";
+    v60 = v21;
+    *&v51 = [NSDictionary dictionaryWithObjects:&v60 forKeys:&v59 count:1];
   }
 
   if (dataCopy)
   {
-    *(&v51 + 1) = dataCopy;
+    *(&v53 + 1) = dataCopy;
   }
 
   if (pathsCopy)
   {
-    *(&v52 + 1) = pathsCopy;
+    *(&v54 + 1) = pathsCopy;
   }
 
   v22 = +[NSUserDefaults standardUserDefaults];
@@ -548,10 +556,10 @@ LABEL_15:
 
   if ((v23 | v25))
   {
-    BYTE8(v50) = v23;
+    BYTE8(v52) = v23;
     v26 = NSTemporaryDirectory();
     v27 = v26;
-    *&v51 = [v26 UTF8String];
+    *&v53 = [v26 UTF8String];
   }
 
   self->_booted = 1;
@@ -561,17 +569,18 @@ LABEL_15:
   v29 = CentauriBooterCreate();
   if (v29)
   {
-    if (CentauriBooterBootChip())
+    v30 = CentauriBooterBootChip();
+    if (v30)
     {
       CFRelease(v29);
       v29 = 0;
-      v30 = 1;
+      v31 = 1;
       goto LABEL_25;
     }
 
     *reason = @"bootFailure";
-    v40 = sub_100025204();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    v42 = sub_100025204(v30);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
     {
       [objc_opt_class() description];
       objc_claimAutoreleasedReturnValue();
@@ -584,8 +593,8 @@ LABEL_15:
   else
   {
     *reason = @"booterCreateFailure";
-    v40 = sub_100025204();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    v42 = sub_100025204(0);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
     {
       [objc_opt_class() description];
       objc_claimAutoreleasedReturnValue();
@@ -597,35 +606,34 @@ LABEL_15:
     v29 = 0;
   }
 
-  v30 = 0;
+  v31 = 0;
 LABEL_25:
   v17 = &stru_10005D038;
   objc_autoreleasePoolPop(v28);
-  if (!v30)
+  if (!v31)
   {
     goto LABEL_30;
   }
 
   cchiInterface = self->_cchiInterface;
-  v46 = &stru_10005D038;
-  v32 = [(CCHIInterface *)cchiInterface start:&v46];
-  v17 = v46;
-  if (v32)
+  v48 = &stru_10005D038;
+  v33 = [(CCHIInterface *)cchiInterface start:&v48];
+  v17 = v48;
+  if (v33)
   {
-    [(Chip *)self setState:3];
-    v33 = sub_100025204();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v34 = sub_100025204([(Chip *)self setState:3]);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
-      v34 = [objc_opt_class() description];
-      v35 = NSStringFromSelector(a2);
-      *v53 = 138543618;
-      v54 = v34;
-      v55 = 2114;
+      v35 = [objc_opt_class() description];
+      v36 = NSStringFromSelector(a2);
+      *v55 = 138543618;
       v56 = v35;
-      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: success", v53, 0x16u);
+      v57 = 2114;
+      v58 = v36;
+      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: success", v55, 0x16u);
     }
 
-    LOBYTE(v30) = 1;
+    LOBYTE(v31) = 1;
 LABEL_30:
     if (!v29)
     {
@@ -636,7 +644,7 @@ LABEL_30:
   }
 
   [NSString stringWithFormat:@"interfaceStartFailure:%@", v17];
-  *reason = LOBYTE(v30) = 0;
+  *reason = LOBYTE(v31) = 0;
   if (v29)
   {
 LABEL_31:
@@ -644,59 +652,61 @@ LABEL_31:
   }
 
 LABEL_32:
-  if ((v30 & 1) == 0)
+  if ((v31 & 1) == 0)
   {
 LABEL_38:
     [(Chip *)self setState:2];
-    v36 = 0;
+    v37 = 0;
     goto LABEL_39;
   }
 
-  v36 = 1;
+  v37 = 1;
 LABEL_39:
 
-  return v36;
+  return v37;
 }
 
 - (id)ping
 {
-  v4 = sub_100025204();
+  v4 = sub_100025204(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [objc_opt_class() description];
     v6 = NSStringFromSelector(a2);
-    v15 = 138543618;
-    v16 = v5;
-    v17 = 2114;
-    v18 = v6;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: ", &v15, 0x16u);
+    v17 = 138543618;
+    v18 = v5;
+    v19 = 2114;
+    v20 = v6;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: ", &v17, 0x16u);
   }
 
-  if ([(Chip *)self state]!= 3)
+  state = [(Chip *)self state];
+  if (state != 3)
   {
-    v8 = sub_100025204();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = sub_100025204(state);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v12 = [objc_opt_class() description];
-      v13 = NSStringFromSelector(a2);
-      v14 = [objc_opt_class() stateAsString:{-[Chip state](self, "state")}];
-      v15 = 138543874;
-      v16 = v12;
-      v17 = 2114;
-      v18 = v13;
-      v19 = 2112;
-      v20 = v14;
-      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: wrong state %@", &v15, 0x20u);
+      v14 = [objc_opt_class() description];
+      v15 = NSStringFromSelector(a2);
+      v16 = [objc_opt_class() stateAsString:{-[Chip state](self, "state")}];
+      v17 = 138543874;
+      v18 = v14;
+      v19 = 2114;
+      v20 = v15;
+      v21 = 2112;
+      v22 = v16;
+      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: wrong state %@", &v17, 0x20u);
     }
 
     goto LABEL_14;
   }
 
   hello = [(CCHIInterface *)self->_cchiInterface hello];
+  v9 = hello;
   if (!hello)
   {
-    v8 = sub_100025204();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = sub_100025204(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [objc_opt_class() description];
       objc_claimAutoreleasedReturnValue();
@@ -706,91 +716,92 @@ LABEL_39:
     }
 
 LABEL_14:
-    hello = 0;
+    v9 = 0;
     goto LABEL_7;
   }
 
-  v8 = sub_100025204();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100025204(hello);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = [objc_opt_class() description];
-    v10 = NSStringFromSelector(a2);
-    v15 = 138543874;
-    v16 = v9;
-    v17 = 2114;
-    v18 = v10;
+    v11 = [objc_opt_class() description];
+    v12 = NSStringFromSelector(a2);
+    v17 = 138543874;
+    v18 = v11;
     v19 = 2114;
-    v20 = hello;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: success: '%{public}@'", &v15, 0x20u);
+    v20 = v12;
+    v21 = 2114;
+    v22 = v9;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: success: '%{public}@'", &v17, 0x20u);
   }
 
 LABEL_7:
 
-  return hello;
+  return v9;
 }
 
 - (BOOL)reset
 {
-  v4 = sub_100025204();
+  v4 = sub_100025204(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [objc_opt_class() description];
     v6 = NSStringFromSelector(a2);
-    v16 = 138543618;
-    v17 = v5;
-    v18 = 2114;
-    v19 = v6;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: ", &v16, 0x16u);
+    v17 = 138543618;
+    v18 = v5;
+    v19 = 2114;
+    v20 = v6;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: ", &v17, 0x16u);
   }
 
-  if ([(Chip *)self state]== 5)
+  state = [(Chip *)self state];
+  if (state == 5)
   {
-    v10 = sub_100025204();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_100025204(5);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v11 = [objc_opt_class() description];
-      v12 = NSStringFromSelector(a2);
-      v13 = [objc_opt_class() stateAsString:{-[Chip state](self, "state")}];
-      v16 = 138543874;
-      v17 = v11;
-      v18 = 2114;
-      v19 = v12;
-      v20 = 2112;
-      v21 = v13;
-      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: wrong state %@", &v16, 0x20u);
+      v12 = [objc_opt_class() description];
+      v13 = NSStringFromSelector(a2);
+      v14 = [objc_opt_class() stateAsString:{-[Chip state](self, "state")}];
+      v17 = 138543874;
+      v18 = v12;
+      v19 = 2114;
+      v20 = v13;
+      v21 = 2112;
+      v22 = v14;
+      _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: wrong state %@", &v17, 0x20u);
     }
   }
 
   else if (self->_controller)
   {
     [(CCHIInterface *)self->_cchiInterface stop];
-    controller = self->_controller;
     v8 = CentauriControllerReset();
+    v9 = v8;
     if (!v8)
     {
       [(Chip *)self setState:1];
       return 1;
     }
 
-    v10 = sub_100025204();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_100025204(v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v14 = [objc_opt_class() description];
-      v15 = NSStringFromSelector(a2);
-      v16 = 138543874;
-      v17 = v14;
-      v18 = 2114;
-      v19 = v15;
-      v20 = 1024;
-      LODWORD(v21) = v8;
-      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: reset failed: 0x%08x", &v16, 0x1Cu);
+      v15 = [objc_opt_class() description];
+      v16 = NSStringFromSelector(a2);
+      v17 = 138543874;
+      v18 = v15;
+      v19 = 2114;
+      v20 = v16;
+      v21 = 1024;
+      LODWORD(v22) = v9;
+      _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: reset failed: 0x%08x", &v17, 0x1Cu);
     }
   }
 
   else
   {
-    v10 = sub_100025204();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_100025204(state);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [objc_opt_class() description];
       objc_claimAutoreleasedReturnValue();
@@ -807,7 +818,7 @@ LABEL_7:
 {
   fatalCopy = fatal;
   reasonCopy = reason;
-  v10 = sub_100025204();
+  v10 = sub_100025204(reasonCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = [objc_opt_class() description];
@@ -815,36 +826,37 @@ LABEL_7:
     v13 = v12;
     v14 = "nonfatal";
     *buf = 138544130;
-    v42 = v11;
-    v43 = 2114;
+    v39 = v11;
+    v40 = 2114;
     if (fatalCopy)
     {
       v14 = "fatal";
     }
 
-    v44 = v12;
-    v45 = 2080;
-    v46 = v14;
-    v47 = 2114;
-    v48[0] = reasonCopy;
+    v41 = v12;
+    v42 = 2080;
+    v43 = v14;
+    v44 = 2114;
+    v45[0] = reasonCopy;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: %s: '%{public}@'", buf, 0x2Au);
   }
 
-  if ([(Chip *)self state]== 5)
+  state = [(Chip *)self state];
+  if (state == 5)
   {
-    v19 = sub_100025204();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v21 = sub_100025204(5);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v20 = [objc_opt_class() description];
-      v21 = NSStringFromSelector(a2);
-      v22 = [objc_opt_class() stateAsString:{-[Chip state](self, "state")}];
+      v22 = [objc_opt_class() description];
+      v23 = NSStringFromSelector(a2);
+      v24 = [objc_opt_class() stateAsString:{-[Chip state](self, "state")}];
       *buf = 138543874;
-      v42 = v20;
-      v43 = 2114;
-      v44 = v21;
-      v45 = 2112;
-      v46 = v22;
-      _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: wrong state %@", buf, 0x20u);
+      v39 = v22;
+      v40 = 2114;
+      v41 = v23;
+      v42 = 2112;
+      v43 = v24;
+      _os_log_error_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: wrong state %@", buf, 0x20u);
     }
 
     goto LABEL_22;
@@ -852,8 +864,8 @@ LABEL_7:
 
   if (!self->_controller)
   {
-    v19 = sub_100025204();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v21 = sub_100025204(state);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       [objc_opt_class() description];
       objc_claimAutoreleasedReturnValue();
@@ -865,35 +877,36 @@ LABEL_7:
     goto LABEL_22;
   }
 
-  v15 = reasonCopy;
+  v16 = reasonCopy;
   [reasonCopy UTF8String];
-  v16 = CentauriControllerCollectLogsWithOptions();
-  if (v16)
+  v17 = CentauriControllerCollectLogsWithOptions();
+  v18 = v17;
+  if (v17)
   {
-    v23 = sub_100025204();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v25 = sub_100025204(v17);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      v34 = [objc_opt_class() description];
-      v35 = NSStringFromSelector(a2);
-      v36 = reasonCopy;
+      v31 = [objc_opt_class() description];
+      v32 = NSStringFromSelector(a2);
+      v33 = reasonCopy;
       uTF8String = [reasonCopy UTF8String];
-      v38 = "nonfatal";
+      v35 = "nonfatal";
       *buf = 138544386;
-      v43 = 2114;
-      v42 = v34;
+      v40 = 2114;
+      v39 = v31;
       if (fatalCopy)
       {
-        v38 = "fatal";
+        v35 = "fatal";
       }
 
-      v44 = v35;
-      v45 = 2080;
-      v46 = v38;
-      v47 = 1024;
-      LODWORD(v48[0]) = v16;
-      WORD2(v48[0]) = 2080;
-      *(v48 + 6) = uTF8String;
-      _os_log_error_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: %s log collection failed: 0x%08x: '%s'", buf, 0x30u);
+      v41 = v32;
+      v42 = 2080;
+      v43 = v35;
+      v44 = 1024;
+      LODWORD(v45[0]) = v18;
+      WORD2(v45[0]) = 2080;
+      *(v45 + 6) = uTF8String;
+      _os_log_error_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: %s log collection failed: 0x%08x: '%s'", buf, 0x30u);
     }
 
     if (!sub_10002529C())
@@ -901,19 +914,20 @@ LABEL_7:
       goto LABEL_23;
     }
 
-    v24 = reasonCopy;
-    [reasonCopy UTF8String];
-    v32 = "nonfatal";
+    v26 = reasonCopy;
+    uTF8String2 = [reasonCopy UTF8String];
+    v28 = "nonfatal";
     if (fatalCopy)
     {
-      v32 = "fatal";
+      v28 = "fatal";
     }
 
-    v33 = sub_100030D78("%s log collection failed: 0x%08x: '%s'", v25, v26, v27, v28, v29, v30, v31, v32);
-    if (!v33)
+    v29 = sub_100030D78("%s log collection failed: 0x%08x: '%s'", v28, v18, uTF8String2);
+    v30 = v29;
+    if (!v29)
     {
 LABEL_23:
-      v17 = 0;
+      v19 = 0;
       if (!fatalCopy)
       {
         goto LABEL_10;
@@ -922,18 +936,18 @@ LABEL_23:
       goto LABEL_9;
     }
 
-    v19 = sub_100025204();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v21 = sub_100025204(v29);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v39 = [objc_opt_class() description];
-      v40 = NSStringFromSelector(a2);
+      v36 = [objc_opt_class() description];
+      v37 = NSStringFromSelector(a2);
       *buf = 138543874;
-      v42 = v39;
-      v43 = 2114;
-      v44 = v40;
-      v45 = 1024;
-      LODWORD(v46) = v33;
-      _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: failed to generate simulated crash log: %{darwin.errno}d", buf, 0x1Cu);
+      v39 = v36;
+      v40 = 2114;
+      v41 = v37;
+      v42 = 1024;
+      LODWORD(v43) = v30;
+      _os_log_error_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: failed to generate simulated crash log: %{darwin.errno}d", buf, 0x1Cu);
     }
 
 LABEL_22:
@@ -941,7 +955,7 @@ LABEL_22:
     goto LABEL_23;
   }
 
-  v17 = 1;
+  v19 = 1;
   if (fatalCopy)
   {
 LABEL_9:
@@ -950,12 +964,12 @@ LABEL_9:
 
 LABEL_10:
 
-  return v17;
+  return v19;
 }
 
 - (int)powerCycle
 {
-  v4 = sub_100025204();
+  v4 = sub_100025204(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     [objc_opt_class() description];
@@ -971,33 +985,33 @@ LABEL_10:
 
 - (int)powerOff
 {
-  v4 = sub_100025204();
+  v4 = sub_100025204(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [objc_opt_class() description];
     v6 = NSStringFromSelector(a2);
-    v16 = 138543618;
-    v17 = v5;
-    v18 = 2114;
-    v19 = v6;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: ", &v16, 0x16u);
+    v17 = 138543618;
+    v18 = v5;
+    v19 = 2114;
+    v20 = v6;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: ", &v17, 0x16u);
   }
 
   if ([(Chip *)self state]== 5)
   {
-    v9 = sub_100025204();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100025204(5);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v11 = [objc_opt_class() description];
-      v12 = NSStringFromSelector(a2);
-      v13 = [objc_opt_class() stateAsString:{-[Chip state](self, "state")}];
-      v16 = 138543874;
-      v17 = v11;
-      v18 = 2114;
-      v19 = v12;
-      v20 = 2112;
-      v21 = v13;
-      _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: wrong state %@", &v16, 0x20u);
+      v12 = [objc_opt_class() description];
+      v13 = NSStringFromSelector(a2);
+      v14 = [objc_opt_class() stateAsString:{-[Chip state](self, "state")}];
+      v17 = 138543874;
+      v18 = v12;
+      v19 = 2114;
+      v20 = v13;
+      v21 = 2112;
+      v22 = v14;
+      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: wrong state %@", &v17, 0x20u);
     }
 
     return -536870212;
@@ -1008,20 +1022,21 @@ LABEL_10:
     [(CCHIInterface *)self->_cchiInterface stop];
     [(Chip *)self destroyController];
     v7 = CentauriControllerSetChipPower();
+    v8 = v7;
     if (v7)
     {
-      v10 = sub_100025204();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = sub_100025204(v7);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v14 = [objc_opt_class() description];
-        v15 = NSStringFromSelector(a2);
-        v16 = 138543874;
-        v17 = v14;
-        v18 = 2114;
-        v19 = v15;
-        v20 = 1024;
-        LODWORD(v21) = v7;
-        _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: power off failed: 0x%08x", &v16, 0x1Cu);
+        v15 = [objc_opt_class() description];
+        v16 = NSStringFromSelector(a2);
+        v17 = 138543874;
+        v18 = v15;
+        v19 = 2114;
+        v20 = v16;
+        v21 = 1024;
+        LODWORD(v22) = v8;
+        _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: power off failed: 0x%08x", &v17, 0x1Cu);
       }
     }
 
@@ -1032,20 +1047,20 @@ LABEL_10:
     }
   }
 
-  return v7;
+  return v8;
 }
 
 - (int)powerOn:(id *)on
 {
-  v6 = sub_100025204();
+  v6 = sub_100025204(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [objc_opt_class() description];
     v8 = NSStringFromSelector(a2);
     *buf = 138543618;
-    v30 = v7;
-    v31 = 2114;
-    v32 = v8;
+    v34 = v7;
+    v35 = 2114;
+    v36 = v8;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: ", buf, 0x16u);
   }
 
@@ -1054,19 +1069,19 @@ LABEL_10:
     v12 = [objc_opt_class() stateAsString:{-[Chip state](self, "state")}];
     *on = [NSString stringWithFormat:@"wrongState:%@", v12];
 
-    v13 = sub_100025204();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = sub_100025204(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v21 = [objc_opt_class() description];
-      v22 = NSStringFromSelector(a2);
-      v23 = [objc_opt_class() stateAsString:{-[Chip state](self, "state")}];
+      v25 = [objc_opt_class() description];
+      v26 = NSStringFromSelector(a2);
+      v27 = [objc_opt_class() stateAsString:{-[Chip state](self, "state")}];
       *buf = 138543874;
-      v30 = v21;
-      v31 = 2114;
-      v32 = v22;
-      v33 = 2112;
-      v34 = v23;
-      _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: wrong state %@", buf, 0x20u);
+      v34 = v25;
+      v35 = 2114;
+      v36 = v26;
+      v37 = 2112;
+      v38 = v27;
+      _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: wrong state %@", buf, 0x20u);
     }
 
     LODWORD(v9) = -536870212;
@@ -1076,19 +1091,20 @@ LABEL_10:
   v9 = CentauriControllerSetChipPower();
   if (v9)
   {
-    *on = [NSString stringWithFormat:@"setChipPowerOnFailure:0x%08x", v9];
-    v14 = sub_100025204();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = [NSString stringWithFormat:@"setChipPowerOnFailure:0x%08x", v9];
+    *on = v15;
+    v16 = sub_100025204(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v24 = [objc_opt_class() description];
-      v25 = NSStringFromSelector(a2);
+      v28 = [objc_opt_class() description];
+      v29 = NSStringFromSelector(a2);
       *buf = 138543874;
-      v30 = v24;
-      v31 = 2114;
-      v32 = v25;
-      v33 = 1024;
-      LODWORD(v34) = v9;
-      _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: power on failed: 0x%08x", buf, 0x1Cu);
+      v34 = v28;
+      v35 = 2114;
+      v36 = v29;
+      v37 = 1024;
+      LODWORD(v38) = v9;
+      _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: power on failed: 0x%08x", buf, 0x1Cu);
     }
 
 LABEL_14:
@@ -1096,43 +1112,45 @@ LABEL_14:
     goto LABEL_7;
   }
 
-  v28 = &stru_10005D038;
-  LODWORD(v9) = [(Chip *)self createController:&v28];
-  v10 = v28;
+  v32 = &stru_10005D038;
+  LODWORD(v9) = [(Chip *)self createController:&v32];
+  v10 = v32;
   if (v9)
   {
-    *on = [NSString stringWithFormat:@"createControllerFailure:%@", v10];
-    v15 = sub_100025204();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = [NSString stringWithFormat:@"createControllerFailure:%@", v10];
+    *on = v17;
+    v18 = sub_100025204(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = [objc_opt_class() description];
-      v17 = NSStringFromSelector(a2);
+      v19 = [objc_opt_class() description];
+      v20 = NSStringFromSelector(a2);
       *buf = 138543618;
-      v30 = v16;
-      v31 = 2114;
-      v32 = v17;
-      v18 = v17;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: powering off again", buf, 0x16u);
+      v34 = v19;
+      v35 = 2114;
+      v36 = v20;
+      v21 = v20;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: powering off again", buf, 0x16u);
     }
 
-    v19 = CentauriControllerSetChipPower();
-    if (v19)
+    v22 = CentauriControllerSetChipPower();
+    v23 = v22;
+    if (v22)
     {
-      v20 = sub_100025204();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v24 = sub_100025204(v22);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        v26 = [objc_opt_class() description];
-        v27 = NSStringFromSelector(a2);
+        v30 = [objc_opt_class() description];
+        v31 = NSStringFromSelector(a2);
         *buf = 138543874;
-        v30 = v26;
-        v31 = 2114;
-        v32 = v27;
-        v33 = 1024;
-        LODWORD(v34) = v19;
-        _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: power off failed: 0x%08x", buf, 0x1Cu);
+        v34 = v30;
+        v35 = 2114;
+        v36 = v31;
+        v37 = 1024;
+        LODWORD(v38) = v23;
+        _os_log_error_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: power off failed: 0x%08x", buf, 0x1Cu);
       }
 
-      *on = [*on stringByAppendingFormat:@", setChipPowerOffFailure:0x%08x", v19];
+      *on = [*on stringByAppendingFormat:@", setChipPowerOffFailure:0x%08x", v23];
     }
   }
 
@@ -1151,7 +1169,7 @@ LABEL_7:
 {
   if ([(Chip *)self state]== 5)
   {
-    v6 = sub_100025204();
+    v6 = sub_100025204(5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v12 = [objc_opt_class() description];
@@ -1173,7 +1191,7 @@ LABEL_7:
     v5 = Crashlogs;
     if (Crashlogs == -536870160)
     {
-      v6 = sub_100025204();
+      v6 = sub_100025204(Crashlogs);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         v7 = [objc_opt_class() description];
@@ -1188,7 +1206,7 @@ LABEL_7:
 
     else if (Crashlogs)
     {
-      v6 = sub_100025204();
+      v6 = sub_100025204(Crashlogs);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         v10 = [objc_opt_class() description];
@@ -1205,7 +1223,7 @@ LABEL_7:
 
     else
     {
-      v6 = sub_100025204();
+      v6 = sub_100025204(0);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         [objc_opt_class() description];
@@ -1219,7 +1237,7 @@ LABEL_7:
 
   else
   {
-    v6 = sub_100025204();
+    v6 = sub_100025204(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [objc_opt_class() description];
@@ -1233,26 +1251,379 @@ LABEL_7:
   return 0;
 }
 
+- (id)rawCommand:(id)command gid:(unsigned __int8)gid oid:(unsigned __int8)oid
+{
+  oidCopy = oid;
+  gidCopy = gid;
+  commandCopy = command;
+  v10 = sub_100025204(commandCopy);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = [objc_opt_class() description];
+    v12 = NSStringFromSelector(a2);
+    v23 = 138544386;
+    v24 = v11;
+    v25 = 2114;
+    v26 = v12;
+    v27 = 1024;
+    *v28 = gidCopy;
+    *&v28[4] = 1024;
+    *&v28[6] = oidCopy;
+    v29 = 2048;
+    v30 = [commandCopy length];
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: gid %u, oid %u, payload %lu bytes", &v23, 0x2Cu);
+  }
+
+  state = [(Chip *)self state];
+  if (state != 3)
+  {
+    v16 = sub_100025204(state);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      v20 = [objc_opt_class() description];
+      v21 = NSStringFromSelector(a2);
+      v22 = [objc_opt_class() stateAsString:{-[Chip state](self, "state")}];
+      v23 = 138543874;
+      v24 = v20;
+      v25 = 2114;
+      v26 = v21;
+      v27 = 2112;
+      *v28 = v22;
+      _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: wrong state %@", &v23, 0x20u);
+    }
+
+    goto LABEL_14;
+  }
+
+  v14 = [(CCHIInterface *)self->_cchiInterface raw:commandCopy gid:gidCopy oid:oidCopy];
+  v15 = v14;
+  if (!v14)
+  {
+    v16 = sub_100025204(0);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      [objc_opt_class() description];
+      objc_claimAutoreleasedReturnValue();
+      NSStringFromSelector(a2);
+      objc_claimAutoreleasedReturnValue();
+      sub_100029C70();
+    }
+
+LABEL_14:
+    v15 = 0;
+    goto LABEL_7;
+  }
+
+  v16 = sub_100025204(v14);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  {
+    v17 = [objc_opt_class() description];
+    v18 = NSStringFromSelector(a2);
+    v23 = 138543874;
+    v24 = v17;
+    v25 = 2114;
+    v26 = v18;
+    v27 = 2114;
+    *v28 = v15;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: success: '%{public}@'", &v23, 0x20u);
+  }
+
+LABEL_7:
+
+  return v15;
+}
+
 - (id)shellCommand:(id)command
 {
   commandCopy = command;
-  v6 = sub_100025204();
+  v6 = sub_100025204(commandCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [objc_opt_class() description];
     v8 = NSStringFromSelector(a2);
-    v17 = 138543874;
-    v18 = v7;
-    v19 = 2114;
-    v20 = v8;
-    v21 = 2112;
-    v22 = commandCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: %@", &v17, 0x20u);
+    v19 = 138543874;
+    v20 = v7;
+    v21 = 2114;
+    v22 = v8;
+    v23 = 2112;
+    v24 = commandCopy;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: %@", &v19, 0x20u);
   }
 
-  if ([(Chip *)self state]!= 3)
+  state = [(Chip *)self state];
+  if (state != 3)
   {
-    v10 = sub_100025204();
+    v12 = sub_100025204(state);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      v16 = [objc_opt_class() description];
+      v17 = NSStringFromSelector(a2);
+      v18 = [objc_opt_class() stateAsString:{-[Chip state](self, "state")}];
+      v19 = 138543874;
+      v20 = v16;
+      v21 = 2114;
+      v22 = v17;
+      v23 = 2112;
+      v24 = v18;
+      _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: wrong state %@", &v19, 0x20u);
+    }
+
+    goto LABEL_14;
+  }
+
+  v10 = [(CCHIInterface *)self->_cchiInterface shell:commandCopy];
+  v11 = v10;
+  if (!v10)
+  {
+    v12 = sub_100025204(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      [objc_opt_class() description];
+      objc_claimAutoreleasedReturnValue();
+      NSStringFromSelector(a2);
+      objc_claimAutoreleasedReturnValue();
+      sub_100029C70();
+    }
+
+LABEL_14:
+    v11 = 0;
+    goto LABEL_7;
+  }
+
+  v12 = sub_100025204(v10);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    v13 = [objc_opt_class() description];
+    v14 = NSStringFromSelector(a2);
+    v19 = 138543874;
+    v20 = v13;
+    v21 = 2114;
+    v22 = v14;
+    v23 = 2114;
+    v24 = v11;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: success: '%{public}@'", &v19, 0x20u);
+  }
+
+LABEL_7:
+
+  return v11;
+}
+
+- (id)getPowerStats:(BOOL)stats
+{
+  statsCopy = stats;
+  v5 = sub_100025204(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = [objc_opt_class() description];
+    v7 = NSStringFromSelector(a2);
+    *buf = 138543874;
+    v61 = v6;
+    v62 = 2114;
+    v63 = v7;
+    v64 = 1024;
+    LODWORD(v65) = statsCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: reset %u", buf, 0x1Cu);
+  }
+
+  state = [(Chip *)self state];
+  if (state != 3)
+  {
+    log = sub_100025204(state);
+    if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
+    {
+      v39 = [objc_opt_class() description];
+      v40 = NSStringFromSelector(a2);
+      v41 = [objc_opt_class() stateAsString:{-[Chip state](self, "state")}];
+      *buf = 138543874;
+      v61 = v39;
+      v62 = 2114;
+      v63 = v40;
+      v64 = 2112;
+      v65 = v41;
+      _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: wrong state %@", buf, 0x20u);
+    }
+
+    goto LABEL_18;
+  }
+
+  v9 = [(CCHIInterface *)self->_cchiInterface getPowerStats:statsCopy];
+  v10 = v9;
+  if (!v9)
+  {
+    log = sub_100025204(0);
+    if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
+    {
+      [objc_opt_class() description];
+      objc_claimAutoreleasedReturnValue();
+      NSStringFromSelector(a2);
+      objc_claimAutoreleasedReturnValue();
+      sub_100029C70();
+    }
+
+LABEL_18:
+    v10 = 0;
+    goto LABEL_11;
+  }
+
+  v11 = sub_100025204(v9);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    loga = [objc_opt_class() description];
+    v12 = NSStringFromSelector(a2);
+    v52 = [v10 objectForKeyedSubscript:@"AwakeCount"];
+    v49 = [v10 objectForKeyedSubscript:@"AwakeDuration"];
+    v13 = [v10 objectForKeyedSubscript:@"AwakeL3Count"];
+    v14 = [v10 objectForKeyedSubscript:@"AwakeL3Duration"];
+    v15 = [v10 objectForKeyedSubscript:@"WarmSleepCount"];
+    v16 = [v10 objectForKeyedSubscript:@"WarmSleepDuration"];
+    v17 = [v10 objectForKeyedSubscript:@"DeepSleepCount"];
+    v18 = [v10 objectForKeyedSubscript:@"DeepSleepDuration"];
+    *buf = 138545666;
+    v61 = loga;
+    v62 = 2114;
+    v63 = v12;
+    v64 = 2114;
+    v65 = v52;
+    v66 = 2114;
+    v67 = v49;
+    v68 = 2114;
+    v69 = v13;
+    v70 = 2114;
+    v71 = v14;
+    v72 = 2114;
+    v73 = v15;
+    v74 = 2114;
+    v75 = v16;
+    v76 = 2114;
+    v77 = v17;
+    v78 = 2114;
+    v79 = v18;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: Awake (%{public}@, %{public}@us), AwakeL3 (%{public}@, %{public}@us), WarmSleep (%{public}@, %{public}@us), DeepSleep (%{public}@, %{public}@us)", buf, 0x66u);
+  }
+
+  v20 = sub_100025204(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  {
+    v53 = [objc_opt_class() description];
+    logb = NSStringFromSelector(a2);
+    v50 = [v10 objectForKeyedSubscript:@"PCIeL0EntryCount"];
+    v47 = [v10 objectForKeyedSubscript:@"PCIeL0Duration"];
+    v45 = [v10 objectForKeyedSubscript:@"PCIeL1EntryCount"];
+    v21 = [v10 objectForKeyedSubscript:@"PCIeL1Duration"];
+    v22 = [v10 objectForKeyedSubscript:@"PCIeL1Dot1EntryCount"];
+    v23 = [v10 objectForKeyedSubscript:@"PCIeL1Dot1Duration"];
+    v24 = [v10 objectForKeyedSubscript:@"PCIeL1Dot2EntryCount"];
+    v25 = [v10 objectForKeyedSubscript:@"PCIeL1Dot2Duration"];
+    v26 = [v10 objectForKeyedSubscript:@"PCIeL3EntryCount"];
+    v27 = [v10 objectForKeyedSubscript:@"PCIeL3Duration"];
+    *buf = 138546178;
+    v61 = v53;
+    v62 = 2114;
+    v63 = logb;
+    v64 = 2114;
+    v65 = v50;
+    v66 = 2114;
+    v67 = v47;
+    v68 = 2114;
+    v69 = v45;
+    v70 = 2114;
+    v71 = v21;
+    v72 = 2114;
+    v73 = v22;
+    v74 = 2114;
+    v75 = v23;
+    v76 = 2114;
+    v77 = v24;
+    v78 = 2114;
+    v79 = v25;
+    v80 = 2114;
+    v81 = v26;
+    v82 = 2114;
+    v83 = v27;
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: L0 (%{public}@, %{public}@us), L1 (%{public}@, %{public}@us), L1.1 (%{public}@, %{public}@us), L1.2 (%{public}@, %{public}@us), L3 (%{public}@, %{public}@us)", buf, 0x7Au);
+  }
+
+  log = sub_100025204(v28);
+  if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
+  {
+    v54 = [objc_opt_class() description];
+    aSelectora = NSStringFromSelector(a2);
+    v51 = [v10 objectForKeyedSubscript:@"CCPUIdleDuration"];
+    v48 = [v10 objectForKeyedSubscript:@"WiFiUMACIdleDuration"];
+    v46 = [v10 objectForKeyedSubscript:@"WiFiPHY2GIdleDuration"];
+    v44 = [v10 objectForKeyedSubscript:@"WiFiPHY5GIdleDuration"];
+    v43 = [v10 objectForKeyedSubscript:@"WiFiTXIdleDuration"];
+    v42 = [v10 objectForKeyedSubscript:@"WiFiRXIdleDuration"];
+    v29 = [v10 objectForKeyedSubscript:@"WiFiLMACCommonIdleDuration"];
+    v30 = [v10 objectForKeyedSubscript:@"WiFiLMAC2GIdleDuration"];
+    v31 = [v10 objectForKeyedSubscript:@"WiFiLMAC5GIdleDuration"];
+    v32 = [v10 objectForKeyedSubscript:@"WiFiScanIdleDuration"];
+    v33 = [v10 objectForKeyedSubscript:@"BTMainIdleDuration"];
+    v34 = [v10 objectForKeyedSubscript:@"BTSecondaryIdleDuration"];
+    v35 = [v10 objectForKeyedSubscript:@"BTScanIdleDuration"];
+    v36 = [v10 objectForKeyedSubscript:@"BTPHY2GIdleDuration"];
+    v37 = [v10 objectForKeyedSubscript:@"BTPHY5GIdleDuration"];
+    *buf = 138547458;
+    v61 = v54;
+    v62 = 2114;
+    v63 = aSelectora;
+    v64 = 2114;
+    v65 = v51;
+    v66 = 2114;
+    v67 = v48;
+    v68 = 2114;
+    v69 = v46;
+    v70 = 2114;
+    v71 = v44;
+    v72 = 2114;
+    v73 = v43;
+    v74 = 2114;
+    v75 = v42;
+    v76 = 2114;
+    v77 = v29;
+    v78 = 2114;
+    v79 = v30;
+    v80 = 2114;
+    v81 = v31;
+    v82 = 2114;
+    v83 = v32;
+    v84 = 2114;
+    v85 = v33;
+    v86 = 2114;
+    v87 = v34;
+    v88 = 2114;
+    v89 = v35;
+    v90 = 2114;
+    v91 = v36;
+    v92 = 2114;
+    v93 = v37;
+    _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: idle: CCPU %{public}@, WiFiUMAC %{public}@, WiFiPHY2G %{public}@, WiFiPHY5G %{public}@, WiFiTX %{public}@, WiFiRX %{public}@, WiFiLMAC %{public}@, LMAC2G %{public}@, WiFiLMAC5G %{public}@, WiFiScan %{public}@, BTMain %{public}@, BTSecondary %{public}@, BTScan %{public}@, BTPHY2G %{public}@, BTPHY5G %{public}@", buf, 0xACu);
+  }
+
+LABEL_11:
+
+  return v10;
+}
+
+- (id)getPMUFaultInfo
+{
+  v4 = sub_100025204(self);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = [objc_opt_class() description];
+    v6 = NSStringFromSelector(a2);
+    v17 = 138543618;
+    v18 = v5;
+    v19 = 2114;
+    v20 = v6;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: ", &v17, 0x16u);
+  }
+
+  state = [(Chip *)self state];
+  if (state != 3)
+  {
+    v10 = sub_100025204(state);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v14 = [objc_opt_class() description];
@@ -1270,10 +1641,11 @@ LABEL_7:
     goto LABEL_14;
   }
 
-  v9 = [(CCHIInterface *)self->_cchiInterface shell:commandCopy];
-  if (!v9)
+  getPMUFaultInfo = [(CCHIInterface *)self->_cchiInterface getPMUFaultInfo];
+  v9 = getPMUFaultInfo;
+  if (!getPMUFaultInfo)
   {
-    v10 = sub_100025204();
+    v10 = sub_100025204(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [objc_opt_class() description];
@@ -1288,7 +1660,7 @@ LABEL_14:
     goto LABEL_7;
   }
 
-  v10 = sub_100025204();
+  v10 = sub_100025204(getPMUFaultInfo);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = [objc_opt_class() description];
@@ -1307,116 +1679,47 @@ LABEL_7:
   return v9;
 }
 
-- (id)getPMUFaultInfo
-{
-  v4 = sub_100025204();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-  {
-    v5 = [objc_opt_class() description];
-    v6 = NSStringFromSelector(a2);
-    v15 = 138543618;
-    v16 = v5;
-    v17 = 2114;
-    v18 = v6;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: ", &v15, 0x16u);
-  }
-
-  if ([(Chip *)self state]!= 3)
-  {
-    v8 = sub_100025204();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-    {
-      v12 = [objc_opt_class() description];
-      v13 = NSStringFromSelector(a2);
-      v14 = [objc_opt_class() stateAsString:{-[Chip state](self, "state")}];
-      v15 = 138543874;
-      v16 = v12;
-      v17 = 2114;
-      v18 = v13;
-      v19 = 2112;
-      v20 = v14;
-      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: wrong state %@", &v15, 0x20u);
-    }
-
-    goto LABEL_14;
-  }
-
-  getPMUFaultInfo = [(CCHIInterface *)self->_cchiInterface getPMUFaultInfo];
-  if (!getPMUFaultInfo)
-  {
-    v8 = sub_100025204();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-    {
-      [objc_opt_class() description];
-      objc_claimAutoreleasedReturnValue();
-      NSStringFromSelector(a2);
-      objc_claimAutoreleasedReturnValue();
-      sub_100029C70();
-    }
-
-LABEL_14:
-    getPMUFaultInfo = 0;
-    goto LABEL_7;
-  }
-
-  v8 = sub_100025204();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-  {
-    v9 = [objc_opt_class() description];
-    v10 = NSStringFromSelector(a2);
-    v15 = 138543874;
-    v16 = v9;
-    v17 = 2114;
-    v18 = v10;
-    v19 = 2114;
-    v20 = getPMUFaultInfo;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: success: '%{public}@'", &v15, 0x20u);
-  }
-
-LABEL_7:
-
-  return getPMUFaultInfo;
-}
-
 - (id)getSiKPublicKey
 {
-  v4 = sub_100025204();
+  v4 = sub_100025204(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [objc_opt_class() description];
     v6 = NSStringFromSelector(a2);
-    v15 = 138543618;
-    v16 = v5;
-    v17 = 2114;
-    v18 = v6;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: ", &v15, 0x16u);
+    v17 = 138543618;
+    v18 = v5;
+    v19 = 2114;
+    v20 = v6;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: ", &v17, 0x16u);
   }
 
-  if ([(Chip *)self state]!= 3)
+  state = [(Chip *)self state];
+  if (state != 3)
   {
-    v8 = sub_100025204();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = sub_100025204(state);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v12 = [objc_opt_class() description];
-      v13 = NSStringFromSelector(a2);
-      v14 = [objc_opt_class() stateAsString:{-[Chip state](self, "state")}];
-      v15 = 138543874;
-      v16 = v12;
-      v17 = 2114;
-      v18 = v13;
-      v19 = 2112;
-      v20 = v14;
-      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: wrong state %@", &v15, 0x20u);
+      v14 = [objc_opt_class() description];
+      v15 = NSStringFromSelector(a2);
+      v16 = [objc_opt_class() stateAsString:{-[Chip state](self, "state")}];
+      v17 = 138543874;
+      v18 = v14;
+      v19 = 2114;
+      v20 = v15;
+      v21 = 2112;
+      v22 = v16;
+      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: wrong state %@", &v17, 0x20u);
     }
 
     goto LABEL_14;
   }
 
   getSiKPublicKey = [(CCHIInterface *)self->_cchiInterface getSiKPublicKey];
+  v9 = getSiKPublicKey;
   if (!getSiKPublicKey)
   {
-    v8 = sub_100025204();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = sub_100025204(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [objc_opt_class() description];
       objc_claimAutoreleasedReturnValue();
@@ -1426,68 +1729,70 @@ LABEL_7:
     }
 
 LABEL_14:
-    getSiKPublicKey = 0;
+    v9 = 0;
     goto LABEL_7;
   }
 
-  v8 = sub_100025204();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100025204(getSiKPublicKey);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = [objc_opt_class() description];
-    v10 = NSStringFromSelector(a2);
-    v15 = 138543874;
-    v16 = v9;
-    v17 = 2114;
-    v18 = v10;
+    v11 = [objc_opt_class() description];
+    v12 = NSStringFromSelector(a2);
+    v17 = 138543874;
+    v18 = v11;
     v19 = 2114;
-    v20 = getSiKPublicKey;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: success: '%{public}@'", &v15, 0x20u);
+    v20 = v12;
+    v21 = 2114;
+    v22 = v9;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: success: '%{public}@'", &v17, 0x20u);
   }
 
 LABEL_7:
 
-  return getSiKPublicKey;
+  return v9;
 }
 
 - (id)getFirmwareBootTimestamps
 {
-  v4 = sub_100025204();
+  v4 = sub_100025204(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [objc_opt_class() description];
     v6 = NSStringFromSelector(a2);
-    v15 = 138543618;
-    v16 = v5;
-    v17 = 2114;
-    v18 = v6;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: ", &v15, 0x16u);
+    v17 = 138543618;
+    v18 = v5;
+    v19 = 2114;
+    v20 = v6;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: ", &v17, 0x16u);
   }
 
-  if ([(Chip *)self state]!= 3)
+  state = [(Chip *)self state];
+  if (state != 3)
   {
-    v8 = sub_100025204();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = sub_100025204(state);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v12 = [objc_opt_class() description];
-      v13 = NSStringFromSelector(a2);
-      v14 = [objc_opt_class() stateAsString:{-[Chip state](self, "state")}];
-      v15 = 138543874;
-      v16 = v12;
-      v17 = 2114;
-      v18 = v13;
-      v19 = 2112;
-      v20 = v14;
-      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: wrong state %@", &v15, 0x20u);
+      v14 = [objc_opt_class() description];
+      v15 = NSStringFromSelector(a2);
+      v16 = [objc_opt_class() stateAsString:{-[Chip state](self, "state")}];
+      v17 = 138543874;
+      v18 = v14;
+      v19 = 2114;
+      v20 = v15;
+      v21 = 2112;
+      v22 = v16;
+      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: wrong state %@", &v17, 0x20u);
     }
 
     goto LABEL_14;
   }
 
   getBootPerformanceStats = [(CCHIInterface *)self->_cchiInterface getBootPerformanceStats];
+  v9 = getBootPerformanceStats;
   if (!getBootPerformanceStats)
   {
-    v8 = sub_100025204();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = sub_100025204(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [objc_opt_class() description];
       objc_claimAutoreleasedReturnValue();
@@ -1497,62 +1802,62 @@ LABEL_7:
     }
 
 LABEL_14:
-    getBootPerformanceStats = 0;
+    v9 = 0;
     goto LABEL_7;
   }
 
-  v8 = sub_100025204();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100025204(getBootPerformanceStats);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = [objc_opt_class() description];
-    v10 = NSStringFromSelector(a2);
-    v15 = 138543618;
-    v16 = v9;
-    v17 = 2114;
-    v18 = v10;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: success", &v15, 0x16u);
+    v11 = [objc_opt_class() description];
+    v12 = NSStringFromSelector(a2);
+    v17 = 138543618;
+    v18 = v11;
+    v19 = 2114;
+    v20 = v12;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: success", &v17, 0x16u);
   }
 
 LABEL_7:
 
-  return getBootPerformanceStats;
+  return v9;
 }
 
 - (BOOL)storeFirmwareBootTimestamps:(id)timestamps
 {
   timestampsCopy = timestamps;
-  v3 = sub_100025204();
+  v3 = sub_100025204(timestampsCopy);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [objc_opt_class() description];
     v5 = NSStringFromSelector(a2);
     *buf = 138543618;
-    v29 = v4;
-    v30 = 2114;
-    v31 = v5;
+    v30 = v4;
+    v31 = 2114;
+    v32 = v5;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: ", buf, 0x16u);
   }
 
   v6 = objc_alloc_init(NSMutableDictionary);
-  v26 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
+  v26 = 0u;
   v7 = timestampsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v24 objects:v34 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v25 objects:v35 count:16];
   if (v8)
   {
-    v9 = *v25;
+    v9 = *v26;
     do
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v25 != v9)
+        if (*v26 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v24 + 1) + 8 * i);
+        v11 = *(*(&v25 + 1) + 8 * i);
         v12 = [v7 objectForKeyedSubscript:v11];
         longLongValue = [v12 longLongValue];
 
@@ -1560,76 +1865,78 @@ LABEL_7:
         [v6 setObject:v14 forKey:v11];
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v24 objects:v34 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v25 objects:v35 count:16];
     }
 
     while (v8);
   }
 
   v15 = CentauriControllerSendFirmwareBootTimestamps();
+  v16 = v15;
   if (v15)
   {
-    v16 = sub_100025204();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = sub_100025204(v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v20 = [objc_opt_class() description];
-      v21 = NSStringFromSelector(a2);
+      v21 = [objc_opt_class() description];
+      v22 = NSStringFromSelector(a2);
       *buf = 138543874;
-      v29 = v20;
-      v30 = 2114;
-      v31 = v21;
-      v32 = 1024;
-      v33 = v15;
-      _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: failed: 0x%08x", buf, 0x1Cu);
+      v30 = v21;
+      v31 = 2114;
+      v32 = v22;
+      v33 = 1024;
+      v34 = v16;
+      _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: failed: 0x%08x", buf, 0x1Cu);
     }
   }
 
   else
   {
-    v16 = sub_100025204();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = sub_100025204(v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = [objc_opt_class() description];
-      v18 = NSStringFromSelector(a2);
+      v18 = [objc_opt_class() description];
+      v19 = NSStringFromSelector(a2);
       *buf = 138543618;
-      v29 = v17;
-      v30 = 2114;
-      v31 = v18;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: success", buf, 0x16u);
+      v30 = v18;
+      v31 = 2114;
+      v32 = v19;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: success", buf, 0x16u);
     }
   }
 
-  return v15 == 0;
+  return v16 == 0;
 }
 
 - (id)getHostBootTimestamps
 {
-  v3 = sub_100025204();
+  v3 = sub_100025204(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [objc_opt_class() description];
     v5 = NSStringFromSelector(a2);
     *buf = 138543618;
-    v13 = v4;
-    v14 = 2114;
-    v15 = v5;
+    v14 = v4;
+    v15 = 2114;
+    v16 = v5;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: ", buf, 0x16u);
   }
 
   BootTimestamps = CentauriControllerGetBootTimestamps();
-  v7 = sub_100025204();
-  v8 = v7;
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v7 = BootTimestamps;
+  v8 = sub_100025204(BootTimestamps);
+  v9 = v8;
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_opt_class() description];
-    v11 = NSStringFromSelector(a2);
+    v11 = [objc_opt_class() description];
+    v12 = NSStringFromSelector(a2);
     *buf = 138543874;
-    v13 = v10;
-    v14 = 2114;
-    v15 = v11;
-    v16 = 1024;
-    v17 = BootTimestamps;
-    _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: failed: 0x%08x", buf, 0x1Cu);
+    v14 = v11;
+    v15 = 2114;
+    v16 = v12;
+    v17 = 1024;
+    v18 = v7;
+    _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: failed: 0x%08x", buf, 0x1Cu);
   }
 
   return 0;
@@ -1637,36 +1944,40 @@ LABEL_7:
 
 - (id)preflightQuery
 {
-  v4 = sub_100025204();
+  v4 = sub_100025204(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [objc_opt_class() description];
     v6 = NSStringFromSelector(a2);
     *buf = 138543618;
-    v19 = v5;
-    v20 = 2114;
-    v21 = v6;
+    v21 = v5;
+    v22 = 2114;
+    v23 = v6;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: ", buf, 0x16u);
   }
 
-  if ([(Chip *)self state]!= 3 && [(Chip *)self state]!= 1)
+  if ([(Chip *)self state]!= 3)
   {
-    v8 = sub_100025204();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    state = [(Chip *)self state];
+    if (state != 1)
     {
-      v14 = [objc_opt_class() description];
-      v15 = NSStringFromSelector(a2);
-      v16 = [objc_opt_class() stateAsString:{-[Chip state](self, "state")}];
-      *buf = 138543874;
-      v19 = v14;
-      v20 = 2114;
-      v21 = v15;
-      v22 = 2112;
-      v23 = v16;
-      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: wrong state %@", buf, 0x20u);
-    }
+      v10 = sub_100025204(state);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      {
+        v16 = [objc_opt_class() description];
+        v17 = NSStringFromSelector(a2);
+        v18 = [objc_opt_class() stateAsString:{-[Chip state](self, "state")}];
+        *buf = 138543874;
+        v21 = v16;
+        v22 = 2114;
+        v23 = v17;
+        v24 = 2112;
+        v25 = v18;
+        _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: wrong state %@", buf, 0x20u);
+      }
 
-    goto LABEL_20;
+      goto LABEL_20;
+    }
   }
 
   if ([(Chip *)self state]== 3)
@@ -1675,11 +1986,12 @@ LABEL_7:
   }
 
   [(Chip *)self state];
-  v7 = CentauriBooterCopyPreflightParameters();
-  if (!v7)
+  v8 = CentauriBooterCopyPreflightParameters();
+  v9 = v8;
+  if (!v8)
   {
-    v8 = sub_100025204();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = sub_100025204(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [objc_opt_class() description];
       objc_claimAutoreleasedReturnValue();
@@ -1689,76 +2001,77 @@ LABEL_7:
     }
 
 LABEL_20:
-    v11 = 0;
+    v13 = 0;
     goto LABEL_11;
   }
 
-  v8 = sub_100025204();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100025204(v8);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = [objc_opt_class() description];
-    v10 = NSStringFromSelector(a2);
+    v11 = [objc_opt_class() description];
+    v12 = NSStringFromSelector(a2);
     *buf = 138543874;
-    v19 = v9;
-    v20 = 2114;
-    v21 = v10;
+    v21 = v11;
     v22 = 2114;
-    v23 = v7;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: success: %{public}@", buf, 0x20u);
+    v23 = v12;
+    v24 = 2114;
+    v25 = v9;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: success: %{public}@", buf, 0x20u);
   }
 
-  v11 = v7;
+  v13 = v9;
 LABEL_11:
 
   if ([(Chip *)self state]== 3)
   {
     cchiInterface = self->_cchiInterface;
-    v17 = &stru_10005D038;
-    [(CCHIInterface *)cchiInterface start:&v17];
+    v19 = &stru_10005D038;
+    [(CCHIInterface *)cchiInterface start:&v19];
   }
 
-  return v11;
+  return v13;
 }
 
 - (void)setHardwareHealth:(BOOL)health
 {
   healthCopy = health;
-  v5 = sub_100025204();
+  v5 = sub_100025204(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [objc_opt_class() description];
     v7 = NSStringFromSelector(a2);
-    v12 = 138543874;
-    v13 = v6;
-    v14 = 2114;
-    v15 = v7;
-    v16 = 1024;
-    v17 = healthCopy;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: status: %d", &v12, 0x1Cu);
+    v13 = 138543874;
+    v14 = v6;
+    v15 = 2114;
+    v16 = v7;
+    v17 = 1024;
+    v18 = healthCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: status: %d", &v13, 0x1Cu);
   }
 
   v8 = CentauriControllerSetHardwareHealth();
+  v9 = v8;
   if (v8)
   {
-    v9 = sub_100025204();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100025204(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v10 = [objc_opt_class() description];
-      v11 = NSStringFromSelector(a2);
-      v12 = 138543874;
-      v13 = v10;
-      v14 = 2114;
-      v15 = v11;
-      v16 = 1024;
-      v17 = v8;
-      _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: failed: 0x%08x", &v12, 0x1Cu);
+      v11 = [objc_opt_class() description];
+      v12 = NSStringFromSelector(a2);
+      v13 = 138543874;
+      v14 = v11;
+      v15 = 2114;
+      v16 = v12;
+      v17 = 1024;
+      v18 = v9;
+      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: failed: 0x%08x", &v13, 0x1Cu);
     }
   }
 }
 
 - (void)log
 {
-  v4 = sub_100025204();
+  v4 = sub_100025204(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [objc_opt_class() description];
@@ -1768,31 +2081,31 @@ LABEL_11:
     hasFirmware = self->_hasFirmware;
     builtIn = self->_builtIn;
     controller = self->_controller;
-    v22 = 138545154;
-    v23 = v5;
-    v24 = 2114;
-    v25 = v6;
-    v26 = 2112;
-    v27 = v7;
-    v28 = 1024;
-    v29 = hasHardware;
+    v24 = 138545154;
+    v25 = v5;
+    v26 = 2114;
+    v27 = v6;
+    v28 = 2112;
+    v29 = v7;
     v30 = 1024;
-    v31 = hasFirmware;
+    v31 = hasHardware;
     v32 = 1024;
-    v33 = builtIn;
+    v33 = hasFirmware;
     v34 = 1024;
-    v35 = controller != 0;
-    v36 = 2048;
+    v35 = builtIn;
+    v36 = 1024;
+    v37 = controller != 0;
+    v38 = 2048;
     driverInstance = [(Chip *)self driverInstance];
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: state %@, HW %u, FW %u, builtin %u, controller %u, driver 0x%llx", &v22, 0x42u);
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: state %@, HW %u, FW %u, builtin %u, controller %u, driver 0x%llx", &v24, 0x42u);
   }
 
-  v12 = sub_100025204();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = sub_100025204(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = [objc_opt_class() description];
-    v14 = NSStringFromSelector(a2);
-    v15 = v14;
+    v14 = [objc_opt_class() description];
+    v15 = NSStringFromSelector(a2);
+    v16 = v15;
     if (self->_booted)
     {
       activeBootArgs = self->_activeBootArgs;
@@ -1803,21 +2116,21 @@ LABEL_11:
       activeBootArgs = @"unknown";
     }
 
-    v22 = 138543874;
-    v23 = v13;
-    v24 = 2114;
+    v24 = 138543874;
     v25 = v14;
     v26 = 2114;
-    v27 = activeBootArgs;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: active firmware boot-args: %{public}@", &v22, 0x20u);
+    v27 = v15;
+    v28 = 2114;
+    v29 = activeBootArgs;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: active firmware boot-args: %{public}@", &v24, 0x20u);
   }
 
-  v17 = sub_100025204();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v19 = sub_100025204(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = [objc_opt_class() description];
-    v19 = NSStringFromSelector(a2);
-    v20 = v19;
+    v20 = [objc_opt_class() description];
+    v21 = NSStringFromSelector(a2);
+    v22 = v21;
     if (self->_booted)
     {
       activePowerTablePaths = self->_activePowerTablePaths;
@@ -1828,13 +2141,13 @@ LABEL_11:
       activePowerTablePaths = @"unknown";
     }
 
-    v22 = 138543874;
-    v23 = v18;
-    v24 = 2114;
-    v25 = v19;
+    v24 = 138543874;
+    v25 = v20;
     v26 = 2114;
-    v27 = activePowerTablePaths;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: active power table paths: %{public}@", &v22, 0x20u);
+    v27 = v21;
+    v28 = 2114;
+    v29 = activePowerTablePaths;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: active power table paths: %{public}@", &v24, 0x20u);
   }
 
   [(CCHIInterface *)self->_cchiInterface log];
@@ -1842,36 +2155,37 @@ LABEL_11:
 
 - (int)createController:(id *)controller
 {
-  v6 = sub_100025204();
+  v6 = sub_100025204(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [objc_opt_class() description];
     v8 = NSStringFromSelector(a2);
     *buf = 138543618;
-    v25 = v7;
-    v26 = 2114;
-    v27 = v8;
+    v26 = v7;
+    v27 = 2114;
+    v28 = v8;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: ", buf, 0x16u);
   }
 
+  v24[0] = _NSConcreteStackBlock;
+  v24[1] = 3221225472;
+  v24[2] = sub_10000EA60;
+  v24[3] = &unk_10005C848;
+  v24[4] = self;
+  v9 = objc_retainBlock(v24);
   v23[0] = _NSConcreteStackBlock;
   v23[1] = 3221225472;
-  v23[2] = sub_10000EA60;
-  v23[3] = &unk_10005C848;
+  v23[2] = sub_10000EA78;
+  v23[3] = &unk_10005C870;
   v23[4] = self;
-  v9 = objc_retainBlock(v23);
-  v22[0] = _NSConcreteStackBlock;
-  v22[1] = 3221225472;
-  v22[2] = sub_10000EA78;
-  v22[3] = &unk_10005C870;
-  v22[4] = self;
-  v10 = objc_retainBlock(v22);
+  v10 = objc_retainBlock(v23);
+  v11 = v10;
   if (self->_controller)
   {
     *controller = @"alreadyCreated";
-    v17 = sub_100025204();
-    LODWORD(v11) = -536870212;
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v16 = sub_100025204(v10);
+    LODWORD(v12) = -536870212;
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [objc_opt_class() description];
       objc_claimAutoreleasedReturnValue();
@@ -1883,12 +2197,13 @@ LABEL_11:
 
   else
   {
-    v11 = CentauriControllerCreateWithParameters();
-    if (v11 || !self->_controller)
+    v12 = CentauriControllerCreateWithParameters();
+    if (v12 || !self->_controller)
     {
-      *controller = [NSString stringWithFormat:@"createFailure:0x%08x", v11];
-      v17 = sub_100025204();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v15 = [NSString stringWithFormat:@"createFailure:0x%08x", v12];
+      *controller = v15;
+      v16 = sub_100025204(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         [objc_opt_class() description];
         objc_claimAutoreleasedReturnValue();
@@ -1900,69 +2215,68 @@ LABEL_11:
 
     else
     {
-      queue = self->_queue;
-      v11 = CentauriControllerRegisterUniqueErrorHandlerWithQueue();
-      if (v11)
+      v12 = CentauriControllerRegisterUniqueErrorHandlerWithQueue();
+      if (v12)
       {
-        *controller = [NSString stringWithFormat:@"registerErrorHandlerFailure:0x%08x", v11];
-        v17 = sub_100025204();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v17 = [NSString stringWithFormat:@"registerErrorHandlerFailure:0x%08x", v12];
+        *controller = v17;
+        v16 = sub_100025204(v17);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           v18 = [objc_opt_class() description];
           v19 = NSStringFromSelector(a2);
           *buf = 138543874;
-          v25 = v18;
-          v26 = 2114;
-          v27 = v19;
-          v28 = 1024;
-          v29 = v11;
-          _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: failed to register error handler: 0x%08x", buf, 0x1Cu);
+          v26 = v18;
+          v27 = 2114;
+          v28 = v19;
+          v29 = 1024;
+          v30 = v12;
+          _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: failed to register error handler: 0x%08x", buf, 0x1Cu);
         }
       }
 
       else
       {
-        controller = self->_controller;
-        v14 = self->_queue;
-        v11 = CentauriControllerRegisterCrashlogHandler();
-        if (!v11)
+        v12 = CentauriControllerRegisterCrashlogHandler();
+        if (!v12)
         {
-          v15 = 0;
+          v13 = 0;
           goto LABEL_9;
         }
 
-        *controller = [NSString stringWithFormat:@"registerCrashlogHandlerFailure:0x%08x", v11];
-        v17 = sub_100025204();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v20 = [NSString stringWithFormat:@"registerCrashlogHandlerFailure:0x%08x", v12];
+        *controller = v20;
+        v16 = sub_100025204(v20);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
-          v20 = [objc_opt_class() description];
-          v21 = NSStringFromSelector(a2);
+          v21 = [objc_opt_class() description];
+          v22 = NSStringFromSelector(a2);
           *buf = 138543874;
-          v25 = v20;
-          v26 = 2114;
-          v27 = v21;
-          v28 = 1024;
-          v29 = v11;
-          _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: failed to register crashlog handler: 0x%08x", buf, 0x1Cu);
+          v26 = v21;
+          v27 = 2114;
+          v28 = v22;
+          v29 = 1024;
+          v30 = v12;
+          _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: failed to register crashlog handler: 0x%08x", buf, 0x1Cu);
         }
       }
     }
   }
 
   [(Chip *)self destroyController];
-  if (v11)
+  if (v12)
   {
-    v15 = v11;
+    v13 = v12;
   }
 
   else
   {
-    v15 = -536870212;
+    v13 = -536870212;
   }
 
 LABEL_9:
 
-  return v15;
+  return v13;
 }
 
 - (int64_t)getChipState
@@ -1972,48 +2286,49 @@ LABEL_9:
     if (self->_controller)
     {
       ChipState = CentauriControllerGetChipState();
+      v6 = ChipState;
       if (!ChipState)
       {
         v4 = 0;
-        v6 = sub_100025204();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        v7 = sub_100025204(ChipState);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
-          v7 = [objc_opt_class() description];
-          v8 = NSStringFromSelector(a2);
-          v9 = [objc_opt_class() stateAsString:0];
+          v8 = [objc_opt_class() description];
+          v9 = NSStringFromSelector(a2);
+          v10 = [objc_opt_class() stateAsString:0];
           *buf = 138544130;
-          v14 = v7;
-          v15 = 2114;
-          v16 = v8;
-          v17 = 1024;
-          v18 = 7;
-          v19 = 2112;
-          v20 = v9;
-          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: %d -> %@", buf, 0x26u);
+          v15 = v8;
+          v16 = 2114;
+          v17 = v9;
+          v18 = 1024;
+          v19 = 7;
+          v20 = 2112;
+          v21 = v10;
+          _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: %d -> %@", buf, 0x26u);
         }
 
         goto LABEL_7;
       }
 
-      v6 = sub_100025204();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = sub_100025204(ChipState);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v11 = [objc_opt_class() description];
-        v12 = NSStringFromSelector(a2);
+        v12 = [objc_opt_class() description];
+        v13 = NSStringFromSelector(a2);
         *buf = 138543874;
-        v14 = v11;
-        v15 = 2114;
-        v16 = v12;
-        v17 = 1024;
-        v18 = ChipState;
-        _os_log_error_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: get chip state failed: 0x%08x", buf, 0x1Cu);
+        v15 = v12;
+        v16 = 2114;
+        v17 = v13;
+        v18 = 1024;
+        v19 = v6;
+        _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: get chip state failed: 0x%08x", buf, 0x1Cu);
       }
     }
 
     else
     {
-      v6 = sub_100025204();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = sub_100025204(0);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         [objc_opt_class() description];
         objc_claimAutoreleasedReturnValue();
@@ -2036,28 +2351,72 @@ LABEL_7:
 {
   if (self->_controller)
   {
-    v4 = sub_100025204();
+    v4 = sub_100025204(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = [objc_opt_class() description];
       v6 = NSStringFromSelector(a2);
-      v8 = 138543618;
-      v9 = v5;
-      v10 = 2114;
-      v11 = v6;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: ", &v8, 0x16u);
+      v7 = 138543618;
+      v8 = v5;
+      v9 = 2114;
+      v10 = v6;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@::%{public}@: ", &v7, 0x16u);
     }
 
-    controller = self->_controller;
     CentauriControllerFree();
     self->_controller = 0;
+  }
+}
+
+- (void)handleErrorFromSource:(unsigned int)source errorCode:(unsigned int)code arg:(unint64_t)arg driverInstance:(unint64_t)instance
+{
+  v8 = *&code;
+  v9 = *&source;
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  v13 = sub_100025204(WeakRetained);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  {
+    v14 = [objc_opt_class() description];
+    v15 = NSStringFromSelector(a2);
+    v16 = 138544642;
+    v17 = v14;
+    v18 = 2114;
+    v19 = v15;
+    v20 = 1024;
+    v21 = v9;
+    v22 = 1024;
+    v23 = v8;
+    v24 = 2048;
+    argCopy = arg;
+    v26 = 2048;
+    instanceCopy = instance;
+    _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: source %u, code %u, arg %llu, instance 0x%llx", &v16, 0x36u);
+  }
+
+  if (!(v8 | v9))
+  {
+    [(Chip *)self setState:[(Chip *)self getChipState]];
+  }
+
+  if (!v9 && v8 <= 0xB && ((1 << v8) & 0x844) != 0)
+  {
+    [(Chip *)self setState:[(Chip *)self getChipState]];
+    if ([(Chip *)self state]!= 3)
+    {
+      [(CCHIInterface *)self->_cchiInterface stop];
+    }
+  }
+
+  if (objc_opt_respondsToSelector())
+  {
+    [WeakRetained chip:self didExperienceErrorFromSource:v9 errorCode:v8 arg:arg driverInstance:instance];
   }
 }
 
 - (void)handleCrashlogAvailable
 {
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  v5 = sub_100025204();
+  v5 = sub_100025204(WeakRetained);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [objc_opt_class() description];
@@ -2079,8 +2438,8 @@ LABEL_7:
 {
   if (!self->_controller)
   {
-    v5 = sub_100025204();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = sub_100025204(0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [objc_opt_class() description];
       objc_claimAutoreleasedReturnValue();
@@ -2093,20 +2452,21 @@ LABEL_7:
   }
 
   CurrentDriverInstance = CentauriControllerGetCurrentDriverInstance();
+  v4 = CurrentDriverInstance;
   if (CurrentDriverInstance)
   {
-    v5 = sub_100025204();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = sub_100025204(CurrentDriverInstance);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_opt_class() description];
-      v7 = NSStringFromSelector(a2);
+      v7 = [objc_opt_class() description];
+      v8 = NSStringFromSelector(a2);
       *buf = 138543874;
-      v9 = v6;
-      v10 = 2114;
-      v11 = v7;
-      v12 = 1024;
-      v13 = CurrentDriverInstance;
-      _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: failed to get driver instance: 0x%08x", buf, 0x1Cu);
+      v10 = v7;
+      v11 = 2114;
+      v12 = v8;
+      v13 = 1024;
+      v14 = v4;
+      _os_log_error_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "%{public}@::%{public}@: failed to get driver instance: 0x%08x", buf, 0x1Cu);
     }
 
 LABEL_8:

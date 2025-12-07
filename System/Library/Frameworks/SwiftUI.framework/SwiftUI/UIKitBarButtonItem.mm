@@ -54,7 +54,7 @@
 
   if (v3)
   {
-    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIAccessibilityCustomAction);
+    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIAccessibilityCustomAction, 0x1E69DC5E8);
     v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 

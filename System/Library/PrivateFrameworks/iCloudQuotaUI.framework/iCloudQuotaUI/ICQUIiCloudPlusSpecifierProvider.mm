@@ -114,11 +114,11 @@ void __62__ICQUIiCloudPlusSpecifierProvider__buildiCloudPlusSpecifiers__block_in
   }
 }
 
-void __62__ICQUIiCloudPlusSpecifierProvider__buildiCloudPlusSpecifiers__block_invoke_2(id *a1, uint64_t a2, uint64_t a3)
+void __62__ICQUIiCloudPlusSpecifierProvider__buildiCloudPlusSpecifiers__block_invoke_2(id *a1, uint64_t a2, char *a3)
 {
   v8 = [a1[4] _buildiCloudPlusFeatureSpecifiersFrom:a2];
   v5 = [a1[5] featureList];
-  v6 = [v5 count] - 1;
+  v6 = ([v5 count] - 1);
 
   if (v6 == a3)
   {

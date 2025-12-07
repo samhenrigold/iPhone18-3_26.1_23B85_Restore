@@ -140,7 +140,7 @@ LABEL_14:
 
 void __51__WFCustomIntentOutputContentItem_propertyBuilders__block_invoke_2(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v6 = a4;
   v7 = [a2 customObject];
   v8 = [*(a1 + 32) propertyName];
@@ -150,27 +150,27 @@ void __51__WFCustomIntentOutputContentItem_propertyBuilders__block_invoke_2(uint
   if (objc_opt_isKindOfClass())
   {
     v10 = objc_opt_new();
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v11 = v9;
-    v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v20;
+      v14 = *v19;
       do
       {
         v15 = 0;
         do
         {
-          if (*v20 != v14)
+          if (*v19 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = [*(a1 + 32) wf_contentItemForValue:{*(*(&v19 + 1) + 8 * v15), v19}];
+          v16 = [*(a1 + 32) wf_contentItemForValue:{*(*(&v18 + 1) + 8 * v15), v18}];
           if (v16)
           {
             [v10 addObject:v16];
@@ -180,7 +180,7 @@ void __51__WFCustomIntentOutputContentItem_propertyBuilders__block_invoke_2(uint
         }
 
         while (v13 != v15);
-        v13 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v13);
@@ -200,8 +200,6 @@ void __51__WFCustomIntentOutputContentItem_propertyBuilders__block_invoke_2(uint
   }
 
   v6[2](v6, v17);
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 + (id)localizedTypeDescriptionWithContext:(id)context
@@ -267,9 +265,9 @@ void __51__WFCustomIntentOutputContentItem_propertyBuilders__block_invoke_2(uint
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"bundleIdentifier"];
-    v7 = [(__CFString *)v6 isEqualToString:@"com.apple.Bridge"];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
     v8 = @"com.apple.PBBridgeSupport.BridgeIntents";
-    if (!v7)
+    if (!isEqualToString)
     {
       v8 = v6;
     }
@@ -361,7 +359,7 @@ void __51__WFCustomIntentOutputContentItem_propertyBuilders__block_invoke_2(uint
 void __49__WFCustomIntentOutputContentItem_initWithCoder___block_invoke(uint64_t a1)
 {
   v2 = [MEMORY[0x1E6963620] bundleRecordWithBundleIdentifier:*(a1 + 32) allowPlaceholder:0 error:0];
-  v7 = v2;
+  v6 = v2;
   if (v2)
   {
     [MEMORY[0x1E696E9B8] schemaWithBundleRecord:v2 fallbackToSystemSchema:0];
@@ -369,34 +367,31 @@ void __49__WFCustomIntentOutputContentItem_initWithCoder___block_invoke(uint64_t
 
   else
   {
-    v4 = *(a1 + 32);
     INSyncedSchemaWithBundleID();
   }
   v3 = ;
-  v5 = *(*(a1 + 40) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v3;
+  v4 = *(*(a1 + 40) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 }
 
 - (id)generateObjectRepresentationsForClass:(Class)class options:(id)options error:(id *)error
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   if (objc_opt_class() == class)
   {
     v7 = MEMORY[0x1E6996EC8];
     customObject = [(WFCustomIntentOutputContentItem *)self customObject];
     displayString = [customObject displayString];
     v10 = [v7 object:displayString];
-    v13[0] = v10;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+    v12[0] = v10;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
   }
 
   else
   {
     v6 = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

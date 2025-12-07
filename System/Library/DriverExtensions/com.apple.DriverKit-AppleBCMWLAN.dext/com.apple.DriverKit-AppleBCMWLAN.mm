@@ -170,7 +170,7 @@ uint64_t AppleBCMWLANLQM::freeResources(AppleBCMWLANLQM *this)
   return result;
 }
 
-uint64_t AppleBCMWLANLQM::handleStatUpdates(AppleBCMWLANCore ***a1, AppleBCMWLANCore *a2)
+AppleBCMWLANCore *AppleBCMWLANLQM::handleStatUpdates(AppleBCMWLANCore ***a1, AppleBCMWLANCore *a2)
 {
   *&v16.octet[4] = 0;
   *v16.octet = 0;
@@ -275,539 +275,536 @@ void AppleBCMWLANLQM::free(AppleBCMWLANLQM *this)
   OSObject::free(this);
 }
 
-void AppleBCMWLANLQM::updateLinkQualityMetrics(AppleBCMWLANLQM *this, int a2)
+void AppleBCMWLANLQM::updateLinkQualityMetrics(AppleBCMWLANCore ***this, int a2)
 {
-  v114 = 0xAAAAAAAAAAAAAAAALL;
-  v115 = 0xAAAAAAAAAAAAAAAALL;
+  v111 = 0xAAAAAAAAAAAAAAAALL;
+  v112 = 0xAAAAAAAAAAAAAAAALL;
   if (a2)
   {
     mach_continuous_time();
-    v5 = (this + 40);
-    v4 = *(this + 5);
+    v4 = (this + 5);
     absolutetime_to_nanoseconds();
-    v6 = *(this + 5);
-    if (*(*v5 + 148) > (*(*v5 + 144) - 1))
+    v5 = this[5];
+    if (*(*v4 + 148) > (*(*v4 + 144) - 1))
     {
-      *(v6 + 148) = 0;
-      v6 = *v5;
+      *(v5 + 37) = 0;
+      v5 = *v4;
     }
 
-    if ((IO80211BssManager::isAssociatedToAdhoc(*(v6 + 16)) & 1) == 0)
+    if ((IO80211BssManager::isAssociatedToAdhoc(v5[2]) & 1) == 0)
     {
-      v7 = *v5;
-      v114 = *v5 + 4816;
-      v115 = 0x500050005;
-      v8 = AppleBCMWLANCommander::runIOVarGet(*(v7 + 8), "bssload_report", &kNoTxPayload, &v114, 0);
-      v9 = v8 == -469794543 || v8 == -469794537;
-      v10 = v9 || v8 == 0;
-      if (!v10 && *(*v5 + 24) && CCLogStream::shouldLog())
+      v6 = *v4;
+      v111 = *v4 + 4816;
+      v112 = 0x500050005;
+      v7 = AppleBCMWLANCommander::runIOVarGet(*(v6 + 8), "bssload_report", &kNoTxPayload, &v111, 0);
+      v8 = v7 == -469794543 || v7 == -469794537;
+      v9 = v8 || v7 == 0;
+      if (!v9 && *(*v4 + 24) && CCLogStream::shouldLog())
       {
-        AppleBCMWLANLQM::updateLinkQualityMetrics(this + 5);
+        AppleBCMWLANLQM::updateLinkQualityMetrics((this + 5));
       }
     }
 
-    v11 = *v5;
-    v12 = *(*v5 + 148);
-    if (!v12)
+    v10 = *v4;
+    v11 = *(*v4 + 148);
+    if (!v11)
     {
-      v12 = *(v11 + 144);
+      v11 = *(v10 + 144);
     }
 
-    v13 = (v12 - 1);
-    isAssociatedToAdhoc = IO80211BssManager::isAssociatedToAdhoc(*(v11 + 16));
-    v15 = *v5;
-    if ((isAssociatedToAdhoc & 1) != 0 || (isStaInfoIoVarSupported = AppleBCMWLANCore::isStaInfoIoVarSupported(*v15), v15 = *v5, !isStaInfoIoVarSupported) || *(v15 + 4272) < 4u)
+    v12 = (v11 - 1);
+    isAssociatedToAdhoc = IO80211BssManager::isAssociatedToAdhoc(*(v10 + 16));
+    v14 = *v4;
+    if ((isAssociatedToAdhoc & 1) != 0 || (isStaInfoIoVarSupported = AppleBCMWLANCore::isStaInfoIoVarSupported(*v14), v14 = *v4, !isStaInfoIoVarSupported) || *(v14 + 4272) < 4u)
     {
-      v59 = *(v15 + 104 * v13 + 152);
-      if (v59)
+      v58 = *(v14 + 104 * v12 + 152);
+      if (v58)
       {
-        v60 = *(v15 + 2760);
-        *(v15 + 104 * *(v15 + 148) + 568) = v60 - v59;
-        v15 = *v5;
-        if (v60 < v59)
+        v59 = *(v14 + 2760);
+        *(v14 + 104 * *(v14 + 148) + 568) = v59 - v58;
+        v14 = *v4;
+        if (v59 < v58)
         {
-          if (*(v15 + 24))
+          if (*(v14 + 24))
           {
             shouldLog = CCLogStream::shouldLog();
-            v15 = *v5;
+            v14 = *v4;
             if (shouldLog)
             {
-              CCLogStream::logAlert(*(v15 + 24), "[dk] %s@%d: Overflow detected\n", "updateLinkQualityMetrics", 626);
-              v15 = *v5;
+              CCLogStream::logAlert(*(v14 + 24), "[dk] %s@%d: Overflow detected\n", "updateLinkQualityMetrics", 626);
+              v14 = *v4;
             }
           }
         }
       }
 
-      v61 = *(v15 + 104 * v13 + 168);
-      if (v61)
+      v60 = *(v14 + 104 * v12 + 168);
+      if (v60)
       {
-        v62 = *(v15 + 2720);
-        *(v15 + 104 * *(v15 + 148) + 584) = v62 - v61;
-        v15 = *v5;
-        if (v62 < v61)
+        v61 = *(v14 + 2720);
+        *(v14 + 104 * *(v14 + 148) + 584) = v61 - v60;
+        v14 = *v4;
+        if (v61 < v60)
         {
-          if (*(v15 + 24))
+          if (*(v14 + 24))
           {
-            v111 = CCLogStream::shouldLog();
-            v15 = *v5;
-            if (v111)
+            v108 = CCLogStream::shouldLog();
+            v14 = *v4;
+            if (v108)
             {
-              CCLogStream::logAlert(*(v15 + 24), "[dk] %s@%d: Overflow detected\n", "updateLinkQualityMetrics", 632);
-              v15 = *v5;
+              CCLogStream::logAlert(*(v14 + 24), "[dk] %s@%d: Overflow detected\n", "updateLinkQualityMetrics", 632);
+              v14 = *v4;
             }
           }
         }
       }
 
-      v63 = *(v15 + 104 * v13 + 160);
-      if (v63)
+      v62 = *(v14 + 104 * v12 + 160);
+      if (v62)
       {
-        v64 = *(v15 + 2888);
-        *(v15 + 104 * *(v15 + 148) + 576) = v64 - v63;
-        v15 = *v5;
-        if (v64 < v63)
+        v63 = *(v14 + 2888);
+        *(v14 + 104 * *(v14 + 148) + 576) = v63 - v62;
+        v14 = *v4;
+        if (v63 < v62)
         {
-          if (*(v15 + 24))
+          if (*(v14 + 24))
           {
-            v112 = CCLogStream::shouldLog();
-            v15 = *v5;
-            if (v112)
+            v109 = CCLogStream::shouldLog();
+            v14 = *v4;
+            if (v109)
             {
-              CCLogStream::logAlert(*(v15 + 24), "[dk] %s@%d: Overflow detected\n", "updateLinkQualityMetrics", 638);
-              v15 = *v5;
+              CCLogStream::logAlert(*(v14 + 24), "[dk] %s@%d: Overflow detected\n", "updateLinkQualityMetrics", 638);
+              v14 = *v4;
             }
           }
         }
       }
 
-      *(v15 + 104 * *(v15 + 148) + 152) = *(v15 + 2760);
-      *(*v5 + 104 * *(*v5 + 148) + 168) = *(*v5 + 2720);
-      *(*v5 + 104 * *(*v5 + 148) + 160) = *(*v5 + 2888);
-      v65 = *v5;
-      v66 = *(*v5 + 216 * v13 + 988);
-      if (v66)
+      *(v14 + 104 * *(v14 + 148) + 152) = *(v14 + 2760);
+      *(*v4 + 104 * *(*v4 + 148) + 168) = *(*v4 + 2720);
+      *(*v4 + 104 * *(*v4 + 148) + 160) = *(*v4 + 2888);
+      v64 = *v4;
+      v65 = *(*v4 + 216 * v12 + 988);
+      if (v65)
       {
-        v67 = *(v65 + 2808);
-        v25 = v67 >= v66;
-        v68 = v67 - v66;
-        *(v65 + 216 * *(v65 + 148) + 1852) = v68;
-        v65 = *v5;
-        if (!v25 || HIDWORD(v68))
+        v66 = *(v64 + 2808);
+        v24 = v66 >= v65;
+        v67 = v66 - v65;
+        *(v64 + 216 * *(v64 + 148) + 1852) = v67;
+        v64 = *v4;
+        if (!v24 || HIDWORD(v67))
         {
-          if (*(v65 + 24))
+          if (*(v64 + 24))
           {
-            v113 = CCLogStream::shouldLog();
-            v65 = *v5;
-            if (v113)
+            v110 = CCLogStream::shouldLog();
+            v64 = *v4;
+            if (v110)
             {
-              CCLogStream::logAlert(*(v65 + 24), "[dk] %s@%d: Overflow detected\n", "updateLinkQualityMetrics", 649);
-              v65 = *v5;
+              CCLogStream::logAlert(*(v64 + 24), "[dk] %s@%d: Overflow detected\n", "updateLinkQualityMetrics", 649);
+              v64 = *v4;
             }
           }
         }
       }
 
-      *(v65 + 216 * *(v65 + 148) + 988) = *(v65 + 2808);
+      *(v64 + 216 * *(v64 + 148) + 988) = *(v64 + 2808);
     }
 
     else
     {
-      v17 = *(v15 + 4436);
-      if (v17)
+      v16 = *(v14 + 4436);
+      if (v16)
       {
-        v18 = *(v15 + 104 * v13 + 152);
-        v19 = (v15 + 104 * *(v15 + 148) + 568);
-        if (v17 < v18)
+        v17 = *(v14 + 104 * v12 + 152);
+        v18 = (v14 + 104 * *(v14 + 148) + 568);
+        if (v16 < v17)
         {
-          AppleBCMWLANLQM::updateLinkQualityMetrics(v17, v19, this + 40);
+          AppleBCMWLANLQM::updateLinkQualityMetrics(v16, v18, (this + 5));
         }
 
         else
         {
-          *v19 = v17 - v18;
+          *v18 = v16 - v17;
         }
       }
 
-      v20 = *(*v5 + 4444);
-      v21 = *(*v5 + 4436);
-      if (v20 | v21)
+      v19 = *(*v4 + 4444);
+      v20 = *(*v4 + 4436);
+      if (v19 | v20)
       {
-        *(*v5 + 104 * *(*v5 + 148) + 584) = v21 + v20;
-        v22 = *v5 + 104 * *(*v5 + 148);
-        v23 = *(v22 + 584);
-        v24 = *(*v5 + 104 * v13 + 168);
-        v25 = v23 >= v24;
-        v26 = v23 - v24;
-        if (v25)
+        *(*v4 + 104 * *(*v4 + 148) + 584) = v20 + v19;
+        v21 = *v4 + 104 * *(*v4 + 148);
+        v22 = *(v21 + 584);
+        v23 = *(*v4 + 104 * v12 + 168);
+        v24 = v22 >= v23;
+        v25 = v22 - v23;
+        if (v24)
         {
-          *(v22 + 584) = v26;
+          *(v21 + 584) = v25;
         }
 
         else
         {
-          AppleBCMWLANLQM::updateLinkQualityMetrics(*v5);
+          AppleBCMWLANLQM::updateLinkQualityMetrics(*v4);
         }
       }
 
-      v27 = *v5;
-      v28 = *(*v5 + 4448);
-      if (v28)
+      v26 = *v4;
+      v27 = *(*v4 + 4448);
+      if (v27)
       {
-        v29 = *(v27 + 104 * v13 + 160);
-        v30 = (v27 + 104 * *(v27 + 148) + 576);
-        if (v28 < v29)
+        v28 = *(v26 + 104 * v12 + 160);
+        v29 = (v26 + 104 * *(v26 + 148) + 576);
+        if (v27 < v28)
         {
-          AppleBCMWLANLQM::updateLinkQualityMetrics(v28, v30, this + 40);
+          AppleBCMWLANLQM::updateLinkQualityMetrics(v27, v29, (this + 5));
         }
 
         else
         {
-          *v30 = v28 - v29;
+          *v29 = v27 - v28;
         }
       }
 
-      *(*v5 + 104 * *(*v5 + 148) + 152) = *(*v5 + 4436);
-      *(*v5 + 104 * *(*v5 + 148) + 168) = *(*v5 + 4436) + *(*v5 + 4444);
-      *(*v5 + 104 * *(*v5 + 148) + 160) = *(*v5 + 4448);
-      v31 = *v5;
-      v32 = *(*v5 + 4460);
-      if (v32)
+      *(*v4 + 104 * *(*v4 + 148) + 152) = *(*v4 + 4436);
+      *(*v4 + 104 * *(*v4 + 148) + 168) = *(*v4 + 4436) + *(*v4 + 4444);
+      *(*v4 + 104 * *(*v4 + 148) + 160) = *(*v4 + 4448);
+      v30 = *v4;
+      v31 = *(*v4 + 4460);
+      if (v31)
       {
-        v33 = *(v31 + 104 * v13 + 176);
-        v34 = (v31 + 104 * *(v31 + 148) + 592);
-        if (v32 < v33)
+        v32 = *(v30 + 104 * v12 + 176);
+        v33 = (v30 + 104 * *(v30 + 148) + 592);
+        if (v31 < v32)
         {
-          AppleBCMWLANLQM::updateLinkQualityMetrics(v32, v34, this + 40);
+          AppleBCMWLANLQM::updateLinkQualityMetrics(v31, v33, (this + 5));
         }
 
         else
         {
-          *v34 = v32 - v33;
+          *v33 = v31 - v32;
         }
       }
 
-      v35 = *(*v5 + 4452);
-      v36 = *(*v5 + 4460);
-      if (v35 | v36)
+      v34 = *(*v4 + 4452);
+      v35 = *(*v4 + 4460);
+      if (v34 | v35)
       {
-        *(*v5 + 104 * *(*v5 + 148) + 608) = v36 + v35;
-        v37 = *v5 + 104 * *(*v5 + 148);
-        v38 = *(v37 + 608);
-        v39 = *(*v5 + 104 * v13 + 192);
-        v25 = v38 >= v39;
-        v40 = v38 - v39;
-        if (v25)
+        *(*v4 + 104 * *(*v4 + 148) + 608) = v35 + v34;
+        v36 = *v4 + 104 * *(*v4 + 148);
+        v37 = *(v36 + 608);
+        v38 = *(*v4 + 104 * v12 + 192);
+        v24 = v37 >= v38;
+        v39 = v37 - v38;
+        if (v24)
         {
-          *(v37 + 608) = v40;
+          *(v36 + 608) = v39;
         }
 
         else
         {
-          AppleBCMWLANLQM::updateLinkQualityMetrics(*v5);
+          AppleBCMWLANLQM::updateLinkQualityMetrics(*v4);
         }
       }
 
-      v41 = *v5;
-      v42 = *(*v5 + 4456);
-      if (v42)
+      v40 = *v4;
+      v41 = *(*v4 + 4456);
+      if (v41)
       {
-        v43 = *(v41 + 104 * v13 + 184);
-        v44 = (v41 + 104 * *(v41 + 148) + 600);
-        if (v42 < v43)
+        v42 = *(v40 + 104 * v12 + 184);
+        v43 = (v40 + 104 * *(v40 + 148) + 600);
+        if (v41 < v42)
         {
-          AppleBCMWLANLQM::updateLinkQualityMetrics(v42, v44, this + 40);
+          AppleBCMWLANLQM::updateLinkQualityMetrics(v41, v43, (this + 5));
         }
 
         else
         {
-          *v44 = v42 - v43;
+          *v43 = v41 - v42;
         }
       }
 
-      *(*v5 + 104 * *(*v5 + 148) + 176) = *(*v5 + 4460);
-      *(*v5 + 104 * *(*v5 + 148) + 192) = *(*v5 + 4460) + *(*v5 + 4452);
-      *(*v5 + 104 * *(*v5 + 148) + 184) = *(*v5 + 4456);
-      v45 = *v5;
-      v46 = *(*v5 + 4340);
-      if (v46 == -1)
+      *(*v4 + 104 * *(*v4 + 148) + 176) = *(*v4 + 4460);
+      *(*v4 + 104 * *(*v4 + 148) + 192) = *(*v4 + 4460) + *(*v4 + 4452);
+      *(*v4 + 104 * *(*v4 + 148) + 184) = *(*v4 + 4456);
+      v44 = *v4;
+      v45 = *(*v4 + 4340);
+      if (v45 == -1)
       {
-        *(v45 + 4340) = 0;
-        v45 = *v5;
-        v46 = *(*v5 + 4340);
+        *(v44 + 4340) = 0;
+        v44 = *v4;
+        v45 = *(*v4 + 4340);
       }
 
-      *(v45 + 104 * *(v45 + 148) + 200) = v46;
-      v47 = *v5;
-      v48 = *(*v5 + 4468);
-      if (v48 == -1)
+      *(v44 + 104 * *(v44 + 148) + 200) = v45;
+      v46 = *v4;
+      v47 = *(*v4 + 4468);
+      if (v47 == -1)
       {
-        *(v47 + 4468) = 0;
-        v47 = *v5;
-        v48 = *(*v5 + 4468);
+        *(v46 + 4468) = 0;
+        v46 = *v4;
+        v47 = *(*v4 + 4468);
       }
 
-      *(v47 + 104 * *(v47 + 148) + 208) = v48;
-      v49 = *v5;
-      v50 = *(*v5 + 4360);
-      if (v50)
+      *(v46 + 104 * *(v46 + 148) + 208) = v47;
+      v48 = *v4;
+      v49 = *(*v4 + 4360);
+      if (v49)
       {
-        v51 = *(v49 + 216 * v13 + 988);
-        v52 = (v49 + 216 * *(v49 + 148) + 1852);
-        if (v50 < v51)
+        v50 = *(v48 + 216 * v12 + 988);
+        v51 = (v48 + 216 * *(v48 + 148) + 1852);
+        if (v49 < v50)
         {
-          AppleBCMWLANLQM::updateLinkQualityMetrics(v50, v52, this + 40);
+          AppleBCMWLANLQM::updateLinkQualityMetrics(v49, v51, (this + 5));
         }
 
         else
         {
-          *v52 = v50 - v51;
+          *v51 = v49 - v50;
         }
       }
 
-      *(*v5 + 216 * *(*v5 + 148) + 988) = *(*v5 + 4360);
-      v53 = *v5;
-      v54 = *(*v5 + 4464);
-      if (v54)
+      *(*v4 + 216 * *(*v4 + 148) + 988) = *(*v4 + 4360);
+      v52 = *v4;
+      v53 = *(*v4 + 4464);
+      if (v53)
       {
-        v55 = *(v53 + 216 * v13 + 984);
-        v56 = (v53 + 216 * *(v53 + 148) + 1848);
-        if (v54 < v55)
+        v54 = *(v52 + 216 * v12 + 984);
+        v55 = (v52 + 216 * *(v52 + 148) + 1848);
+        if (v53 < v54)
         {
-          AppleBCMWLANLQM::updateLinkQualityMetrics(v54, v56, this + 40);
+          AppleBCMWLANLQM::updateLinkQualityMetrics(v53, v55, (this + 5));
         }
 
         else
         {
-          *v56 = v54 - v55;
+          *v55 = v53 - v54;
         }
       }
 
-      *(*v5 + 216 * *(*v5 + 148) + 984) = *(*v5 + 4464);
-      v57 = *v5;
-      v58 = *(*v5 + 4344);
-      if (v58 == -1)
+      *(*v4 + 216 * *(*v4 + 148) + 984) = *(*v4 + 4464);
+      v56 = *v4;
+      v57 = *(*v4 + 4344);
+      if (v57 == -1)
       {
-        *(v57 + 4344) = 0;
-        v57 = *v5;
-        v58 = *(*v5 + 4344);
+        *(v56 + 4344) = 0;
+        v56 = *v4;
+        v57 = *(*v4 + 4344);
       }
 
-      *(v57 + 216 * *(v57 + 148) + 992) = v58;
+      *(v56 + 216 * *(v56 + 148) + 992) = v57;
     }
 
-    v69 = *v5;
-    v70 = *(*v5 + 8 * v13 + 4212);
-    if (v70)
+    v68 = *v4;
+    v69 = *(*v4 + 8 * v12 + 4212);
+    if (v69)
     {
-      v71 = *(v69 + 3040);
-      *(v69 + 8 * *(v69 + 148) + 4244) = v71 - v70;
-      v69 = *v5;
-      if (v71 < v70)
+      v70 = *(v68 + 3040);
+      *(v68 + 8 * *(v68 + 148) + 4244) = v70 - v69;
+      v68 = *v4;
+      if (v70 < v69)
       {
-        if (*(v69 + 24))
+        if (*(v68 + 24))
         {
-          v108 = CCLogStream::shouldLog();
-          v69 = *v5;
-          if (v108)
+          v105 = CCLogStream::shouldLog();
+          v68 = *v4;
+          if (v105)
           {
-            CCLogStream::logAlert(*(v69 + 24), "[dk] %s@%d: Overflow detected\n", "updateLinkQualityMetrics", 660);
-            v69 = *v5;
+            CCLogStream::logAlert(*(v68 + 24), "[dk] %s@%d: Overflow detected\n", "updateLinkQualityMetrics", 660);
+            v68 = *v4;
           }
         }
       }
     }
 
-    *(v69 + 8 * *(v69 + 148) + 4212) = *(v69 + 3040);
-    v72 = *v5;
-    v73 = *(*v5 + 8 * v13 + 4208);
-    if (v73)
+    *(v68 + 8 * *(v68 + 148) + 4212) = *(v68 + 3040);
+    v71 = *v4;
+    v72 = *(*v4 + 8 * v12 + 4208);
+    if (v72)
     {
-      v74 = *(v72 + 3044);
-      *(v72 + 8 * *(v72 + 148) + 4240) = v74 - v73;
-      v72 = *v5;
-      if (v74 < v73)
+      v73 = *(v71 + 3044);
+      *(v71 + 8 * *(v71 + 148) + 4240) = v73 - v72;
+      v71 = *v4;
+      if (v73 < v72)
       {
-        if (*(v72 + 24))
+        if (*(v71 + 24))
         {
-          v109 = CCLogStream::shouldLog();
-          v72 = *v5;
-          if (v109)
+          v106 = CCLogStream::shouldLog();
+          v71 = *v4;
+          if (v106)
           {
-            CCLogStream::logAlert(*(v72 + 24), "[dk] %s@%d: Overflow detected\n", "updateLinkQualityMetrics", 667);
-            v72 = *v5;
+            CCLogStream::logAlert(*(v71 + 24), "[dk] %s@%d: Overflow detected\n", "updateLinkQualityMetrics", 667);
+            v71 = *v4;
           }
         }
       }
     }
 
-    *(v72 + 8 * *(v72 + 148) + 4208) = *(v72 + 3044);
-    if ((IO80211BssManager::isAssociatedToAdhoc(*(*v5 + 16)) & 1) == 0 && AppleBCMWLANCore::isEnhancedTrgDisconnectEnabled(**v5) && *(*v5 + 4272) <= 3u && *(*v5 + 24) && CCLogStream::shouldLog())
+    *(v71 + 8 * *(v71 + 148) + 4208) = *(v71 + 3044);
+    if ((IO80211BssManager::isAssociatedToAdhoc(*(*v4 + 16)) & 1) == 0 && AppleBCMWLANCore::isEnhancedTrgDisconnectEnabled(**v4) && *(*v4 + 4272) <= 3u && *(*v4 + 24) && CCLogStream::shouldLog())
     {
-      AppleBCMWLANLQM::updateLinkQualityMetrics(this + 40);
+      AppleBCMWLANLQM::updateLinkQualityMetrics((this + 5));
     }
 
     AppleBCMWLANLQM::logAdditionalTxRxCounters(this);
   }
 
-  if ((*(*(this + 5) + 4593) & 1) != 0 || ((v75 = *(*(this + 5) + 4592), v75 != 5) ? (v76 = v75 == 0) : (v76 = 1), v76))
+  if ((*(this[5] + 4593) & 1) != 0 || ((v74 = *(this[5] + 4592), v74 != 5) ? (v75 = v74 == 0) : (v75 = 1), v75))
   {
     AppleBCMWLANLQM::recalculateRSSIAvg(this);
-    v77 = *(this + 5);
-    v78 = *(v77 + 44);
-    v79 = *(v77 + 4600);
-    if (v78 >= v79)
+    v76 = this[5];
+    v77 = *(v76 + 11);
+    v78 = *(v76 + 1150);
+    if (v77 >= v78)
     {
-      v80 = 100;
+      v79 = 100;
     }
 
     else
     {
-      v80 = -2;
+      v79 = -2;
     }
 
-    if (v78 >= 1)
+    if (v77 >= 1)
     {
-      v80 = -2;
+      v79 = -2;
     }
 
-    if (v78 >= v79)
+    if (v77 >= v78)
     {
-      v81 = v80;
+      v80 = v79;
     }
 
     else
     {
-      v81 = 50;
+      v80 = 50;
     }
 
-    if (IO80211BssManager::isAssociatedOn2G(*(v77 + 16)))
+    if (IO80211BssManager::isAssociatedOn2G(v76[2]))
     {
-      BtCoexState = AppleBCMWLANCore::getBtCoexState(**(this + 5));
-      v83 = v81 == 100 ? 50 : v81;
+      BtCoexState = AppleBCMWLANCore::getBtCoexState(*this[5]);
+      v82 = v80 == 100 ? 50 : v80;
       if ((BtCoexState & 3) != 0)
       {
-        v81 = v83;
+        v80 = v82;
       }
     }
 
-    v84 = *(this + 5);
-    if (v81 != *(v84 + 4604))
+    v83 = this[5];
+    if (v80 != *(v83 + 1151))
     {
-      *(v84 + 4604) = v81;
-      v85 = *(this + 5);
-      if (*(v85 + 24))
+      *(v83 + 1151) = v80;
+      v84 = this[5];
+      if (v84[3])
       {
-        v86 = CCLogStream::shouldLog();
-        v85 = *(this + 5);
-        if (v86)
+        v85 = CCLogStream::shouldLog();
+        v84 = this[5];
+        if (v85)
         {
-          CCLogStream::logAlert(*(v85 + 24), "[dk] %s@%d:Report LQM to User Land %d, ivars->fAverageRSSI %d\n", "updateLinkQualityMetrics", 709, *(v85 + 4604), *(v85 + 44));
-          v85 = *(this + 5);
+          CCLogStream::logAlert(v84[3], "[dk] %s@%d:Report LQM to User Land %d, ivars->fAverageRSSI %d\n", "updateLinkQualityMetrics", 709, *(v84 + 1151), *(v84 + 11));
+          v84 = this[5];
         }
       }
 
-      v87 = *(v85 + 4604);
-      AppleBCMWLANCore::setLQM(*v85);
+      AppleBCMWLANCore::setLQM(*v84);
     }
   }
 
   if (a2)
   {
-    v88 = *(this + 5);
-    v89 = *(v88 + 148);
-    if (v89 < *(v88 + 144) - 1)
+    v86 = this[5];
+    v87 = *(v86 + 37);
+    if (v87 < *(v86 + 36) - 1)
     {
-      v90 = v89 + 1;
+      v88 = v87 + 1;
     }
 
     else
     {
-      v90 = 0;
+      v88 = 0;
     }
 
-    *(v88 + 148) = v90;
-    v91 = *(this + 5);
-    v92 = v91[760];
-    v93 = v91[1629];
-    v91[1628] = v92 - v93;
-    v94 = *(this + 5);
-    if (v92 < v93)
+    *(v86 + 37) = v88;
+    v89 = this[5];
+    v90 = *(v89 + 760);
+    v91 = *(v89 + 1629);
+    *(v89 + 1628) = v90 - v91;
+    v92 = this[5];
+    if (v90 < v91)
     {
-      if (*(v94 + 24))
+      if (v92[3])
       {
-        v95 = CCLogStream::shouldLog();
-        v94 = *(this + 5);
-        if (v95)
+        v93 = CCLogStream::shouldLog();
+        v92 = this[5];
+        if (v93)
         {
-          CCLogStream::logAlert(*(v94 + 24), "[dk] %s@%d: Overflow detected calculating ivars->fRxBeacons ivars->fInfraSpecificStatistics.rxbeaconmbss %d, ivars->fRxBeaconsStartCount %d, ivars->fRxBeacons %d \n", "updateLinkQualityMetrics", 727, *(v94 + 3040), *(v94 + 6516), *(v94 + 6512));
-          v94 = *(this + 5);
+          CCLogStream::logAlert(v92[3], "[dk] %s@%d: Overflow detected calculating ivars->fRxBeacons ivars->fInfraSpecificStatistics.rxbeaconmbss %d, ivars->fRxBeaconsStartCount %d, ivars->fRxBeacons %d \n", "updateLinkQualityMetrics", 727, *(v92 + 760), *(v92 + 1629), *(v92 + 1628));
+          v92 = this[5];
         }
       }
     }
 
-    v96 = AppleBCMWLANCore::is4387C2Up(*v94);
-    v97 = *(this + 5);
-    if (v96 && *(v97 + 3032) == 2 && (*(v97 + 3036) & 2) != 0)
+    v94 = AppleBCMWLANCore::is4387C2Up(*v92);
+    v95 = this[5];
+    if (v94 && *(v95 + 1516) == 2 && (*(v95 + 3036) & 2) != 0)
     {
-      v98 = *(v97 + 3060);
-      v99 = *(v97 + 6524);
-      *(v97 + 6520) = v98 - v99;
-      v100 = *(this + 5);
-      if (v98 < v99)
+      v96 = *(v95 + 765);
+      v97 = *(v95 + 1631);
+      *(v95 + 1630) = v96 - v97;
+      v98 = this[5];
+      if (v96 < v97)
       {
-        if (*(v100 + 24))
+        if (v98[3])
         {
-          v101 = CCLogStream::shouldLog();
-          v100 = *(this + 5);
-          if (v101)
+          v99 = CCLogStream::shouldLog();
+          v98 = this[5];
+          if (v99)
           {
-            CCLogStream::logAlert(*(v100 + 24), "[dk] %s@%d: Overflow detected calculating ivars->fRxDurMulticast (%d), ivars->fInfraSpecificStatistics.rxdur_multicast %d, ivars->fRxDurStartMulticast %d \n", "updateLinkQualityMetrics", 734, *(v100 + 6520), *(v100 + 3060), *(v100 + 6524));
-            v100 = *(this + 5);
+            CCLogStream::logAlert(v98[3], "[dk] %s@%d: Overflow detected calculating ivars->fRxDurMulticast (%d), ivars->fInfraSpecificStatistics.rxdur_multicast %d, ivars->fRxDurStartMulticast %d \n", "updateLinkQualityMetrics", 734, *(v98 + 1630), *(v98 + 765), *(v98 + 1631));
+            v98 = this[5];
           }
         }
       }
 
-      v102 = *(v100 + 3056);
-      v103 = *(v100 + 6532);
-      *(v100 + 6528) = v102 - v103;
-      v104 = *(this + 5);
-      if (v102 < v103)
+      v100 = *(v98 + 764);
+      v101 = *(v98 + 1633);
+      *(v98 + 1632) = v100 - v101;
+      v102 = this[5];
+      if (v100 < v101)
       {
-        if (*(v104 + 24))
+        if (v102[3])
         {
-          v105 = CCLogStream::shouldLog();
-          v104 = *(this + 5);
-          if (v105)
+          v103 = CCLogStream::shouldLog();
+          v102 = this[5];
+          if (v103)
           {
-            CCLogStream::logAlert(*(v104 + 24), "[dk] %s@%d: Overflow detected calculating ivars->fRxDurBroadcast (%d), ivars->fInfraSpecificStatistics.rxdur_broadcast %d,\tivars->fRxDurBroadcast %d \n", "updateLinkQualityMetrics", 739, *(v104 + 6528), *(v104 + 3056), *(v104 + 6532));
-            v104 = *(this + 5);
+            CCLogStream::logAlert(v102[3], "[dk] %s@%d: Overflow detected calculating ivars->fRxDurBroadcast (%d), ivars->fInfraSpecificStatistics.rxdur_broadcast %d,\tivars->fRxDurBroadcast %d \n", "updateLinkQualityMetrics", 739, *(v102 + 1632), *(v102 + 764), *(v102 + 1633));
+            v102 = this[5];
           }
         }
       }
 
-      if (*(v104 + 24))
+      if (v102[3])
       {
-        v106 = CCLogStream::shouldLog();
-        v104 = *(this + 5);
-        if (v106)
+        v104 = CCLogStream::shouldLog();
+        v102 = this[5];
+        if (v104)
         {
-          CCLogStream::logAlert(*(v104 + 24), "[dk] %s@%d:For current session updated fRxDurMulticast %d, fRxDurBroadcast %d \n", "updateLinkQualityMetrics", 741, *(v104 + 6520), *(v104 + 6528));
-          v104 = *(this + 5);
+          CCLogStream::logAlert(v102[3], "[dk] %s@%d:For current session updated fRxDurMulticast %d, fRxDurBroadcast %d \n", "updateLinkQualityMetrics", 741, *(v102 + 1630), *(v102 + 1632));
+          v102 = this[5];
         }
       }
 
-      *(v104 + 3064) = *(v104 + 4336);
-      *(*(this + 5) + 3072) = *(*(this + 5) + 4408);
-      v97 = *(this + 5);
+      v102[383] = *(v102 + 1084);
+      this[5][384] = this[5][551];
+      v95 = this[5];
     }
 
-    v114 = v97 + 4832;
-    v115 = 0xC400C400C4;
-    if (!AppleBCMWLANCommander::runIOVarGet(*(v97 + 8), "wme_counters", &kNoTxPayload, &v114, 0))
+    v111 = (v95 + 604);
+    v112 = 0xC400C400C4;
+    if (!AppleBCMWLANCommander::runIOVarGet(v95[1], "wme_counters", &kNoTxPayload, &v111, 0))
     {
       mach_continuous_time();
-      v107 = *(this + 5);
       absolutetime_to_nanoseconds();
     }
   }
@@ -829,22 +826,22 @@ void AppleBCMWLANLQM::logAdditionalTxRxCounters(AppleBCMWLANLQM *this)
   *(*v3 + 1142) = v5;
   *&v7 = 0xAAAAAAAAAAAAAAAALL;
   *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v57 = v7;
-  v58 = v7;
-  v55 = v7;
   v56 = v7;
-  v53 = v7;
+  v57 = v7;
   v54 = v7;
-  v51 = v7;
+  v55 = v7;
   v52 = v7;
-  v49 = v7;
+  v53 = v7;
   v50 = v7;
-  v47 = v7;
+  v51 = v7;
   v48 = v7;
-  v45 = v7;
+  v49 = v7;
   v46 = v7;
-  *__str = v7;
+  v47 = v7;
   v44 = v7;
+  v45 = v7;
+  *__str = v7;
+  v43 = v7;
   v8 = *v3;
   if (*(*v3 + 724))
   {
@@ -1010,12 +1007,12 @@ void AppleBCMWLANLQM::logAdditionalTxRxCounters(AppleBCMWLANLQM *this)
       RxPer = AppleBCMWLANCore::getRxPer(**v3);
       snprintf(__str, 0x100uLL, "WME RX MPDUs (rxPER %u %%) in tids 0:%u, 1:%u, 2:%u, 3:%u, 4:%u, 5:%u, 6:%u, 7:%u\n", RxPer, *RxWmeStats, RxWmeStats[1], RxWmeStats[2], RxWmeStats[3], RxWmeStats[4], RxWmeStats[5], RxWmeStats[6], RxWmeStats[7]);
       AppleBCMWLANCore::refreshLQMLogs(**v3, 6u, __str);
-      DeltaTxWmeStats = AppleBCMWLANCore::getDeltaTxWmeStats(**v3, v5);
+      AppleBCMWLANCore::getDeltaTxWmeStats(**v3, v5);
       if ((*v3)[3])
       {
         if (CCLogStream::shouldLog())
         {
-          AppleBCMWLANLQM::logAdditionalTxRxCounters(v3, DeltaTxWmeStats);
+          AppleBCMWLANLQM::logAdditionalTxRxCounters(v3);
         }
       }
     }
@@ -1251,7 +1248,6 @@ uint64_t AppleBCMWLANLQM::resetLinkQualityMetrics(AppleBCMWLANLQM *this, int a2)
     }
   }
 
-  v22 = *(v20 + 4604);
   result = AppleBCMWLANCore::setLQM(*v20);
   *(*(this + 5) + 4592) = 0;
   return result;
@@ -1458,21 +1454,20 @@ IO80211Controller *AppleBCMWLANLQM::updateLQM(uint64_t a1, char *a2, int a3)
       a2[18] = 1;
       IO80211BssManager::getCurrentCCA((*v5)[2], a2 + 19);
       isCcaStatsExtSupported = AppleBCMWLANCore::isCcaStatsExtSupported(**v5);
-      v29 = (*v5)[2];
       CurrentCCAStats = IO80211BssManager::getCurrentCCAStats();
-      v31 = CurrentCCAStats;
+      v30 = CurrentCCAStats;
       if (isCcaStatsExtSupported)
       {
-        v32 = (*v5)[3];
-        if (v31)
+        v31 = (*v5)[3];
+        if (v30)
         {
-          if (v32 && CCLogStream::shouldLog())
+          if (v31 && CCLogStream::shouldLog())
           {
             AppleBCMWLANLQM::updateLQM(v5);
           }
         }
 
-        else if (v32 && CCLogStream::shouldLog())
+        else if (v31 && CCLogStream::shouldLog())
         {
           AppleBCMWLANLQM::updateLQM(v5);
         }
@@ -1486,21 +1481,21 @@ IO80211Controller *AppleBCMWLANLQM::updateLQM(uint64_t a1, char *a2, int a3)
       a2[332] = *(*v5 + 8780);
       if (*(*v5 + 8780))
       {
-        v33 = *v5 + 8660;
-        v34 = *v33;
-        v35 = *(*v5 + 8676);
-        v36 = *(*v5 + 8708);
+        v32 = *v5 + 8660;
+        v33 = *v32;
+        v34 = *(*v5 + 8676);
+        v35 = *(*v5 + 8708);
         *(a2 + 380) = *(*v5 + 8692);
-        *(a2 + 396) = v36;
-        *(a2 + 348) = v34;
-        *(a2 + 364) = v35;
-        v37 = *(v33 + 64);
-        v38 = *(v33 + 80);
-        v39 = *(v33 + 96);
-        *(a2 + 460) = *(v33 + 112);
-        *(a2 + 428) = v38;
-        *(a2 + 444) = v39;
-        *(a2 + 412) = v37;
+        *(a2 + 396) = v35;
+        *(a2 + 348) = v33;
+        *(a2 + 364) = v34;
+        v36 = *(v32 + 64);
+        v37 = *(v32 + 80);
+        v38 = *(v32 + 96);
+        *(a2 + 460) = *(v32 + 112);
+        *(a2 + 428) = v37;
+        *(a2 + 444) = v38;
+        *(a2 + 412) = v36;
         a2[333] = *(*v5 + 8781);
         *(a2 + 84) = *(*v5 + 2196);
         *(a2 + 85) = *(*v5 + 2197);
@@ -1512,9 +1507,9 @@ IO80211Controller *AppleBCMWLANLQM::updateLQM(uint64_t a1, char *a2, int a3)
 
       if (*a2 || a2[14] || a2[11] || a2[8])
       {
-        v40 = **v5;
+        v39 = **v5;
 
-        return AppleBCMWLANCore::postLQMEvent(v40, a2);
+        return AppleBCMWLANCore::postLQMEvent(v39, a2);
       }
 
       else
@@ -1556,14 +1551,14 @@ uint64_t AppleBCMWLANLQM::updatePerCoreRssi(uint64_t a1, uint64_t a2)
   v10 = 0;
   v8[0] = &v9;
   v8[1] = 0x1000100010;
-  v3 = (a1 + 40);
+  v3 = a1 + 40;
   v4 = *(*(a1 + 40) + 8);
   v7[0] = &v9;
   v7[1] = 16;
   v5 = AppleBCMWLANCommander::runIOVarGet(v4, "phy_rssi_ant", v7, v8, 0);
   if (v5)
   {
-    if ((*v3)[3] && CCLogStream::shouldLog())
+    if (*(*v3 + 24) && CCLogStream::shouldLog())
     {
       AppleBCMWLANLQM::updatePerCoreRssi(v3);
     }
@@ -1627,12 +1622,12 @@ uint64_t AppleBCMWLANLQM::updatePerCoreRssiAsync(uint64_t a1, const void *a2)
   {
     v5 = v4;
     memcpy(v4, a2, 0x1D8uLL);
-    v12[0] = a1;
-    v12[1] = AppleBCMWLANLQM::handlePerCoreRssiAsyncCallback;
-    v12[2] = v5;
+    *&v12 = a1;
+    *(&v12 + 1) = AppleBCMWLANLQM::handlePerCoreRssiAsyncCallback;
+    v13 = v5;
     v6 = *(*(a1 + 40) + 8);
     v11 = 1048592;
-    v7 = AppleBCMWLANCommander::sendIOVarGet(v6, "phy_rssi_ant", &kNoTxPayload, &v11, v12, 0);
+    v7 = AppleBCMWLANCommander::sendIOVarGet(v6, "phy_rssi_ant", &kNoTxPayload, &v11, &v12, 0);
     if (v7 && *(*(a1 + 40) + 24) && CCLogStream::shouldLog())
     {
       CCLogStream::logAlert(*(*(a1 + 40) + 24), "[dk] %s@%d: Failed GET phy_rssi_ant IOCTL, cret[0x%08x]\n", "updatePerCoreRssiAsync", 1164, v7);
@@ -1653,11 +1648,11 @@ uint64_t AppleBCMWLANLQM::updatePerCoreRssiAsync(uint64_t a1, const void *a2)
   return v7;
 }
 
-void AppleBCMWLANLQM::handlePerCoreRssiAsyncCallback(uint64_t a1, int a2, int a3, uint64_t *a4, char *address)
+void AppleBCMWLANLQM::handlePerCoreRssiAsyncCallback(uint64_t a1, int a2, uint64_t a3, uint64_t *a4, char *address)
 {
   if (a3)
   {
-    v7 = (a1 + 40);
+    v7 = a1 + 40;
     if (*(*(a1 + 40) + 24) && CCLogStream::shouldLog())
     {
       AppleBCMWLANLQM::handlePerCoreRssiAsyncCallback(v7);
@@ -2046,29 +2041,29 @@ uint64_t AppleBCMWLANLQM::updateInfraSpecificStatistics(AppleBCMWLANLQM *this, O
   return v13;
 }
 
-uint64_t AppleBCMWLANLQM::updateInfraControlManagementStatistics(AppleBCMWLANLQM *this, OSData *a2)
+uint64_t AppleBCMWLANLQM::updateInfraControlManagementStatistics(AppleBCMWLANLQM *this, OSData *a2, uint64_t a3, uint64_t a4, unsigned int a5)
 {
-  v5 = 0;
-  *(*(this + 5) + 2928) = AppleBCMWLANUtil::getCounterValueSafe(&v5, 4uLL, a2, 4uLL);
-  *(*(this + 5) + 2932) = AppleBCMWLANUtil::getCounterValueSafe(&v5, 4uLL, a2, 8uLL);
-  *(*(this + 5) + 2936) = AppleBCMWLANUtil::getCounterValueSafe(&v5, 4uLL, a2, 0xCuLL);
-  *(*(this + 5) + 2940) = AppleBCMWLANUtil::getCounterValueSafe(&v5, 4uLL, a2, 0x10uLL);
-  *(*(this + 5) + 2944) = AppleBCMWLANUtil::getCounterValueSafe(&v5, 4uLL, a2, 0x14uLL);
-  *(*(this + 5) + 2948) = AppleBCMWLANUtil::getCounterValueSafe(&v5, 4uLL, a2, 0x18uLL);
-  *(*(this + 5) + 2960) = AppleBCMWLANUtil::getCounterValueSafe(&v5, 4uLL, a2, 0x24uLL);
-  *(*(this + 5) + 2964) = AppleBCMWLANUtil::getCounterValueSafe(&v5, 4uLL, a2, 0x28uLL);
-  *(*(this + 5) + 2968) = AppleBCMWLANUtil::getCounterValueSafe(&v5, 4uLL, a2, 0x2CuLL);
-  *(*(this + 5) + 2980) = AppleBCMWLANUtil::getCounterValueSafe(&v5, 4uLL, a2, 0x38uLL);
-  *(*(this + 5) + 2984) = AppleBCMWLANUtil::getCounterValueSafe(&v5, 4uLL, a2, 0x3CuLL);
-  *(*(this + 5) + 2988) = AppleBCMWLANUtil::getCounterValueSafe(&v5, 4uLL, a2, 0x40uLL);
-  *(*(this + 5) + 2992) = AppleBCMWLANUtil::getCounterValueSafe(&v5, 4uLL, a2, 0x44uLL);
-  *(*(this + 5) + 2996) = AppleBCMWLANUtil::getCounterValueSafe(&v5, 4uLL, a2, 0x48uLL);
-  *(*(this + 5) + 3000) = AppleBCMWLANUtil::getCounterValueSafe(&v5, 4uLL, a2, 0x4CuLL);
-  *(*(this + 5) + 3004) = AppleBCMWLANUtil::getCounterValueSafe(&v5, 4uLL, a2, 0x50uLL);
-  *(*(this + 5) + 3016) = AppleBCMWLANUtil::getCounterValueSafe(&v5, 4uLL, a2, 0x5CuLL);
-  *(*(this + 5) + 3020) = AppleBCMWLANUtil::getCounterValueSafe(&v5, 4uLL, a2, 0x60uLL);
-  *(*(this + 5) + 3024) = AppleBCMWLANUtil::getCounterValueSafe(&v5, 4uLL, a2, 0x64uLL);
-  *(*(this + 5) + 3028) = AppleBCMWLANUtil::getCounterValueSafe(&v5, 4uLL, a2, 0x68uLL);
+  v8 = 0;
+  *(*(this + 5) + 2928) = AppleBCMWLANUtil::getCounterValueSafe(&v8, 4uLL, a2, 4uLL);
+  *(*(this + 5) + 2932) = AppleBCMWLANUtil::getCounterValueSafe(&v8, 4uLL, a2, 8uLL);
+  *(*(this + 5) + 2936) = AppleBCMWLANUtil::getCounterValueSafe(&v8, 4uLL, a2, 0xCuLL);
+  *(*(this + 5) + 2940) = AppleBCMWLANUtil::getCounterValueSafe(&v8, 4uLL, a2, 0x10uLL);
+  *(*(this + 5) + 2944) = AppleBCMWLANUtil::getCounterValueSafe(&v8, 4uLL, a2, 0x14uLL);
+  *(*(this + 5) + 2948) = AppleBCMWLANUtil::getCounterValueSafe(&v8, 4uLL, a2, 0x18uLL);
+  *(*(this + 5) + 2960) = AppleBCMWLANUtil::getCounterValueSafe(&v8, 4uLL, a2, 0x24uLL);
+  *(*(this + 5) + 2964) = AppleBCMWLANUtil::getCounterValueSafe(&v8, 4uLL, a2, 0x28uLL);
+  *(*(this + 5) + 2968) = AppleBCMWLANUtil::getCounterValueSafe(&v8, 4uLL, a2, 0x2CuLL);
+  *(*(this + 5) + 2980) = AppleBCMWLANUtil::getCounterValueSafe(&v8, 4uLL, a2, 0x38uLL);
+  *(*(this + 5) + 2984) = AppleBCMWLANUtil::getCounterValueSafe(&v8, 4uLL, a2, 0x3CuLL);
+  *(*(this + 5) + 2988) = AppleBCMWLANUtil::getCounterValueSafe(&v8, 4uLL, a2, 0x40uLL);
+  *(*(this + 5) + 2992) = AppleBCMWLANUtil::getCounterValueSafe(&v8, 4uLL, a2, 0x44uLL);
+  *(*(this + 5) + 2996) = AppleBCMWLANUtil::getCounterValueSafe(&v8, 4uLL, a2, 0x48uLL);
+  *(*(this + 5) + 3000) = AppleBCMWLANUtil::getCounterValueSafe(&v8, 4uLL, a2, 0x4CuLL);
+  *(*(this + 5) + 3004) = AppleBCMWLANUtil::getCounterValueSafe(&v8, 4uLL, a2, 0x50uLL);
+  *(*(this + 5) + 3016) = AppleBCMWLANUtil::getCounterValueSafe(&v8, 4uLL, a2, 0x5CuLL);
+  *(*(this + 5) + 3020) = AppleBCMWLANUtil::getCounterValueSafe(&v8, 4uLL, a2, 0x60uLL);
+  *(*(this + 5) + 3024) = AppleBCMWLANUtil::getCounterValueSafe(&v8, 4uLL, a2, 0x64uLL);
+  *(*(this + 5) + 3028) = AppleBCMWLANUtil::getCounterValueSafe(&v8, 4uLL, a2, 0x68uLL);
   return 0;
 }
 
@@ -2375,19 +2370,25 @@ __n128 AppleBCMWLANLQM::printDeltaSliceUcodeRxErrs(AppleBCMWLANLQM *this, unsign
       {
         if (*v7 && IO80211Controller::isLQMOSLOGEnabled(*v7))
         {
-          io80211_os_log();
-        }
-
-        v45 = **(this + 5);
-        if (v45 && IO80211Controller::isLQMIOLOGEnabled(v45))
-        {
-          v46 = "2G";
+          v45 = "2G";
           if (isAssociatedOnHighBand)
           {
-            v46 = "HighBand";
+            v45 = "HighBand";
           }
 
-          IOLog("LQM-WIFI: (%s)  rxNotPrimary20s=%u ucodeLateDrop=%u rxInvalidUcodeLateWrongMACPHY=%u rxLate30us=%u rxLegacyFrmInvalid=%u txSifsErr=%u ooseqMacSusp=%u\n", v46, v19, v25, v28, v33, v36, v41, v43);
+          io80211_os_log("LQM-WIFI: (%s)  rxNotPrimary20s=%u ucodeLateDrop=%u rxInvalidUcodeLateWrongMACPHY=%u rxLate30us=%u rxLegacyFrmInvalid=%u txSifsErr=%u ooseqMacSusp=%u\n", v45, v19, v25, v28, v33, v36, v41, v43);
+        }
+
+        v46 = **(this + 5);
+        if (v46 && IO80211Controller::isLQMIOLOGEnabled(v46))
+        {
+          v47 = "2G";
+          if (isAssociatedOnHighBand)
+          {
+            v47 = "HighBand";
+          }
+
+          IOLog("LQM-WIFI: (%s)  rxNotPrimary20s=%u ucodeLateDrop=%u rxInvalidUcodeLateWrongMACPHY=%u rxLate30us=%u rxLegacyFrmInvalid=%u txSifsErr=%u ooseqMacSusp=%u\n", v47, v19, v25, v28, v33, v36, v41, v43);
         }
 
         v7 = *(this + 5);
@@ -2397,21 +2398,21 @@ __n128 AppleBCMWLANLQM::printDeltaSliceUcodeRxErrs(AppleBCMWLANLQM *this, unsign
           v7 = *(this + 5);
           if (isLQMCCLOGEnabled)
           {
-            v48 = *v7;
-            v49 = "2G";
+            v49 = *v7;
+            v50 = "2G";
             if (isAssociatedOnHighBand)
             {
-              v49 = "HighBand";
+              v50 = "HighBand";
             }
 
-            IO80211Controller::logLQMToCC(v48, "LQM-WIFI: (%s)  rxNotPrimary20s=%u ucodeLateDrop=%u rxInvalidUcodeLateWrongMACPHY=%u rxLate30us=%u rxLegacyFrmInvalid=%u txSifsErr=%u ooseqMacSusp=%u\n", v49, v19, v25, v28, v33, v36, v41, v43);
+            IO80211Controller::logLQMToCC(v49, "LQM-WIFI: (%s)  rxNotPrimary20s=%u ucodeLateDrop=%u rxInvalidUcodeLateWrongMACPHY=%u rxLate30us=%u rxLegacyFrmInvalid=%u txSifsErr=%u ooseqMacSusp=%u\n", v50, v19, v25, v28, v33, v36, v41, v43);
             v7 = *(this + 5);
           }
         }
       }
 
       v14 = &v7[6 * v6 + 514];
-      goto LABEL_35;
+      goto LABEL_37;
     }
   }
 
@@ -2428,12 +2429,12 @@ __n128 AppleBCMWLANLQM::printDeltaSliceUcodeRxErrs(AppleBCMWLANLQM *this, unsign
 
   if (v15)
   {
-LABEL_35:
-    v50 = &v7[6 * v6];
-    result = *(v50 + 251);
-    v51 = *(v50 + 253);
-    *(v14 + 16) = *(v50 + 252);
-    *(v14 + 32) = v51;
+LABEL_37:
+    v51 = &v7[6 * v6];
+    result = *(v51 + 251);
+    v52 = *(v51 + 253);
+    *(v14 + 16) = *(v51 + 252);
+    *(v14 + 32) = v52;
     *v14 = result;
   }
 
@@ -2544,7 +2545,7 @@ __n128 AppleBCMWLANLQM::printDeltaDynBWStats(AppleBCMWLANLQM *this)
   {
     if (*v2 && IO80211Controller::isLQMOSLOGEnabled(*v2))
     {
-      io80211_os_log();
+      io80211_os_log("LQM-WIFI: Dynamic BW Stats: TxRTS [%u,  %u,  %u,  %u]   RxRTS [%u,  %u,  %u,  %u]   TxCTS [%u,  %u,  %u,  %u]   RxCTS [%u,  %u,  %u,  %u]\n", v109, v108, v107, v106, v105, v104, v103, v102, v101, v100, v99, v98, v97, v96, v47, v51);
     }
 
     v79 = **(this + 5);
@@ -2566,7 +2567,7 @@ __n128 AppleBCMWLANLQM::printDeltaDynBWStats(AppleBCMWLANLQM *this)
 
       if (*v82 && IO80211Controller::isLQMOSLOGEnabled(*v82))
       {
-        io80211_os_log();
+        io80211_os_log("LQM-WIFI: Dynamic BW Stats: TxMPDU [%u,  %u,  %u,  %u]   RxMPDU [%u,  %u,  %u,  %u]\n", v95, v94, v93, v92, v91, v90, v89, v77);
       }
     }
 
@@ -3012,8 +3013,9 @@ uint64_t AppleBCMWLANLQM::updateDynBwStats(AppleBCMWLANLQM *this, int a2, OSData
   return result;
 }
 
-uint64_t AppleBCMWLANLQM::updateSliceRxAmpduStats(AppleBCMWLANLQM *this, OSData *a2, unsigned int a3)
+uint64_t AppleBCMWLANLQM::updateSliceRxAmpduStats(AppleBCMWLANLQM *this, OSData *a2, uint64_t a3)
 {
+  v3 = a3;
   v72 = 0;
   v5 = (this + 40);
   isAssociatedOnHighBand = IO80211BssManager::isAssociatedOnHighBand(*(*(this + 5) + 16));
@@ -3023,7 +3025,7 @@ uint64_t AppleBCMWLANLQM::updateSliceRxAmpduStats(AppleBCMWLANLQM *this, OSData 
   v70 = v7;
   v67 = v7;
   v68 = v7;
-  if (a3 >= 2)
+  if (v3 >= 2)
   {
     AppleBCMWLANLQM::updateSliceRxAmpduStats(v5);
     return v72;
@@ -3037,7 +3039,7 @@ uint64_t AppleBCMWLANLQM::updateSliceRxAmpduStats(AppleBCMWLANLQM *this, OSData 
   }
 
   v71 = 0xAAAAAAAAAAAAAAAALL;
-  v9 = 9 * a3;
+  v9 = 9 * v3;
   LODWORD((*v5)[v9 + 468]) = AppleBCMWLANUtil::getCounterValueSafe(&v72, 4uLL, a2, 4uLL);
   HIDWORD((*v5)[v9 + 468]) = AppleBCMWLANUtil::getCounterValueSafe(&v72, 4uLL, a2, 8uLL);
   LODWORD((*v5)[v9 + 469]) = AppleBCMWLANUtil::getCounterValueSafe(&v72, 4uLL, a2, 0x20uLL);
@@ -3053,24 +3055,24 @@ uint64_t AppleBCMWLANLQM::updateSliceRxAmpduStats(AppleBCMWLANLQM *this, OSData 
   LODWORD((*v5)[v9 + 474]) = AppleBCMWLANUtil::getCounterValueSafe(&v72, 4uLL, a2, 0x24uLL);
   if (OSData::getLength(a2) >= 0x55)
   {
-    HIDWORD((*v5)[9 * a3 + 474]) = AppleBCMWLANUtil::getCounterValueSafe(&v72, 4uLL, a2, 0x54uLL);
+    HIDWORD((*v5)[9 * v3 + 474]) = AppleBCMWLANUtil::getCounterValueSafe(&v72, 4uLL, a2, 0x54uLL);
   }
 
-  LODWORD((*v5)[9 * a3 + 466]) = 1;
+  LODWORD((*v5)[9 * v3 + 466]) = 1;
   mach_continuous_time();
   absolutetime_to_nanoseconds();
   v10 = v71;
-  (*v5)[9 * a3 + 467] = v71;
+  (*v5)[9 * v3 + 467] = v71;
   v11 = *v5;
-  v12 = &(*v5)[9 * a3 + 484];
+  v12 = &(*v5)[9 * v3 + 484];
   v13 = *(v12 + 8);
   v14 = v10 >= v13;
   v15 = v10 - v13;
   v16 = !v14;
   v17 = *v12;
-  if ((v8 ^ 1) == a3 && v17 && v15 > 0x10C388CFFLL)
+  if ((v8 ^ 1) == v3 && v17 && v15 > 0x10C388CFFLL)
   {
-    v18 = &v11[9 * a3];
+    v18 = &v11[9 * v3];
     v19 = *(v18 + 936);
     v20 = *(v12 + 16);
     HIDWORD(v67) = v19 - v20;
@@ -3163,7 +3165,7 @@ uint64_t AppleBCMWLANLQM::updateSliceRxAmpduStats(AppleBCMWLANLQM *this, OSData 
   if (!v17 || v15 > 0x10C388CFFLL)
   {
 LABEL_63:
-    v65 = &v11[9 * a3];
+    v65 = &v11[9 * v3];
     *(v65 + 243) = *(v65 + 234);
     *(v65 + 244) = *(v65 + 235);
     *(v65 + 245) = *(v65 + 236);
@@ -3174,7 +3176,7 @@ LABEL_63:
   return v72;
 }
 
-uint64_t AppleBCMWLANLQM::dumpStats(AppleBCMWLANCore ***this, char *a2, unsigned int a3, int a4)
+uint64_t AppleBCMWLANLQM::dumpStats(AppleBCMWLANCore ***this, char *a2, unsigned int a3, unsigned int a4)
 {
   AppleBCMWLANLQM::recalculateRSSIAvg(this);
   NetAdapter = AppleBCMWLANCore::getNetAdapter(*this[5]);
@@ -3184,97 +3186,94 @@ uint64_t AppleBCMWLANLQM::dumpStats(AppleBCMWLANCore ***this, char *a2, unsigned
   v10 = this[5];
   v11 = v10[3];
   v12 = AppleBCMWLANCore::getNetAdapter(*v10);
-  v62 = v9 / 0x3B9ACA00;
-  v63 = v9 % 0x3B9ACA00;
   isRealTimeTrafficSettingEnabled = AppleBCMWLANNetAdapter::isRealTimeTrafficSettingEnabled(v12);
-  v61 = 0x2DD01FC06;
-  v64 = a3;
-  v13 = IO80211Print();
-  v14 = this[5][2];
-  if (v14)
+  v59 = a3;
+  v14 = IO80211Print(v11, 5, -1, 0, a2, a3, a4, "isRealtime %u now %llu.%09llu @ %llu.%09llu \n", isRealTimeTrafficSettingEnabled, 0x2DD01FC06, 473034410, v9 / 0x3B9ACA00, v9 % 0x3B9ACA00);
+  v15 = this[5][2];
+  if (v15)
   {
-    v13 += IO80211BssManager::dumpBSS(v14, a2);
+    v14 += IO80211BssManager::dumpBSS(v15, a2);
   }
 
-  v65 = a4;
-  v15 = IOMallocZeroData();
-  v16 = v15;
-  if (!v15 || (*v15 = 0, LODWORD(v15) = snprintf(v15, 0x400uLL, "RSSI         Avg %d [", *(this[5] + 11)), v17 = 1024, v15 <= 0x3FF))
+  v60 = a4;
+  v16 = IOMallocZeroData();
+  v17 = v16;
+  v58 = a3;
+  if (!v16 || (*v16 = 0, LODWORD(v16) = snprintf(v16, 0x400uLL, "RSSI         Avg %d [", *(this[5] + 11)), v18 = 1024, v16 <= 0x3FF))
   {
-    v17 = v15;
+    v18 = v16;
   }
 
   for (i = 36; i != 44; ++i)
   {
-    v19 = 0;
-    if (!v16 || v17 > 0x3FE || ((v20 = 1024, v21 = *(this[5] + i), i != 43) ? (v22 = " ") : (v22 = "]"), v19 = snprintf(&v16[v17], 1024 - v17, "%d%s", *(this[5] + i), v22), v19 <= 0x3FF))
+    v20 = 0;
+    if (!v17 || v18 > 0x3FE || ((v21 = 1024, i != 43) ? (v22 = " ") : (v22 = "]"), v20 = snprintf(&v17[v18], 1024 - v18, "%d%s", *(this[5] + i), v22), v20 <= 0x3FF))
     {
-      v20 = v19;
+      v21 = v20;
     }
 
-    v17 += v20;
+    v18 += v21;
   }
 
   v23 = 0;
-  if (!v16 || v17 > 0x3FE || (v24 = 1024, v23 = snprintf(&v16[v17], 1024 - v17, "\n", isRealTimeTrafficSettingEnabled, v61, 473034410, v62, v63), v23 <= 0x3FF))
+  if (!v17 || v18 > 0x3FE || (v24 = 1024, v23 = snprintf(&v17[v18], 1024 - v18, "\n"), v23 <= 0x3FF))
   {
     v24 = v23;
   }
 
-  v66 = a2;
+  v61 = a2;
   if (a2)
   {
-    if (v16)
+    if (v17)
     {
-      v25 = &a2[v64 + v13];
-      if (v65 - v13 >= v24 + v17)
+      v25 = &a2[v59 + v14];
+      if (v60 - v14 >= v24 + v18)
       {
-        v26 = v24 + v17;
+        v26 = v24 + v18;
       }
 
       else
       {
-        v26 = v65 - v13;
+        v26 = v60 - v14;
       }
 
       if (v25 > 0x7FFFFDFFFFFFLL)
       {
-        IOLog("%s:%06u: BUF_PRINT_EMIT: Invalid address detected: buf[%p] addr[%p] len[%6d] remain[%6d] printed[%6d] e[%d]\n", "dumpStats", 2350, v16, &a2[v64 + v13], v26, v65 - v13, v24 + v17, 0);
+        IOLog("%s:%06u: BUF_PRINT_EMIT: Invalid address detected: buf[%p] addr[%p] len[%6d] remain[%6d] printed[%6d] e[%d]\n", "dumpStats", 2350, v17, &a2[v59 + v14], v26, v60 - v14, v24 + v18, 0);
       }
 
       else
       {
-        memmove(v25, v16, v26);
+        memmove(v25, v17, v26);
       }
 
-      *v16 = 0;
-      v13 += v26;
+      *v17 = 0;
+      v14 += v26;
       goto LABEL_34;
     }
 
 LABEL_31:
-    v28 = 0;
+    v27 = 0;
 LABEL_35:
-    v29 = v28;
+    v28 = v27;
     goto LABEL_36;
   }
 
-  if (!v16)
+  if (!v17)
   {
     goto LABEL_31;
   }
 
   if (this[5][3] && CCLogStream::shouldLog())
   {
-    v27 = this[5][3];
-    CCLogStream::log();
+    CCLogStream::log(this[5][3], 5, "%s", v17);
   }
 
-  *v16 = 0;
+  *v17 = 0;
 LABEL_34:
-  v29 = 1024;
-  v28 = snprintf(v16, 0x400uLL, "RSSI Rx Data Avg %d [", *(this[5] + 35));
-  if (v28 <= 0x3FF)
+  v28 = 1024;
+  v27 = snprintf(v17, 0x400uLL, "RSSI Rx Data Avg %d [", *(this[5] + 35));
+  if (v27 <= 0x3FF)
   {
     goto LABEL_35;
   }
@@ -3282,227 +3281,199 @@ LABEL_34:
 LABEL_36:
   for (j = 0; j != 64; ++j)
   {
-    v31 = 0;
-    if (!v16 || v29 > 0x3FE)
+    v30 = 0;
+    if (!v17 || v28 > 0x3FE)
     {
       goto LABEL_45;
     }
 
-    v32 = 1024;
-    v33 = *(this[5] + j + 76);
+    v31 = 1024;
     if ((j & 7) != 0)
     {
-      v34 = " ";
+      v32 = " ";
     }
 
     else
     {
-      v34 = "  ";
+      v32 = "  ";
     }
 
     if (j == 63)
     {
-      v34 = "]";
+      v32 = "]";
     }
 
-    v31 = snprintf(&v16[v29], 1024 - v29, "%d%s", *(this[5] + j + 76), v34);
-    if (v31 <= 0x3FF)
+    v30 = snprintf(&v17[v28], 1024 - v28, "%d%s", *(this[5] + j + 76), v32);
+    if (v30 <= 0x3FF)
     {
 LABEL_45:
-      v32 = v31;
+      v31 = v30;
     }
 
-    v29 += v32;
+    v28 += v31;
   }
 
-  v35 = 0;
-  if (!v16 || v29 > 0x3FE || (v36 = 1024, v35 = snprintf(&v16[v29], 1024 - v29, "\n"), v35 <= 0x3FF))
+  v33 = 0;
+  if (!v17 || v28 > 0x3FE || (v34 = 1024, v33 = snprintf(&v17[v28], 1024 - v28, "\n"), v33 <= 0x3FF))
   {
-    v36 = v35;
+    v34 = v33;
   }
 
   if (!a2)
   {
-    if (v16)
+    if (v17)
     {
       if (this[5][3] && CCLogStream::shouldLog())
       {
-        v39 = this[5][3];
-        CCLogStream::log();
+        CCLogStream::log(this[5][3], 5, "%s", v17);
       }
 
       goto LABEL_65;
     }
 
 LABEL_62:
-    v40 = 0;
+    v37 = 0;
     goto LABEL_66;
   }
 
-  if (!v16)
+  if (!v17)
   {
     goto LABEL_62;
   }
 
-  v37 = &a2[v64 + v13];
-  if (v65 - v13 >= v36 + v29)
+  v35 = &a2[v59 + v14];
+  if (v60 - v14 >= v34 + v28)
   {
-    v38 = v36 + v29;
+    v36 = v34 + v28;
   }
 
   else
   {
-    v38 = v65 - v13;
+    v36 = v60 - v14;
   }
 
-  if (v37 > 0x7FFFFDFFFFFFLL)
+  if (v35 > 0x7FFFFDFFFFFFLL)
   {
-    IOLog("%s:%06u: BUF_PRINT_EMIT: Invalid address detected: buf[%p] addr[%p] len[%6d] remain[%6d] printed[%6d] e[%d]\n", "dumpStats", 2360, v16, &a2[v64 + v13], v38, v65 - v13, v36 + v29, 0);
+    IOLog("%s:%06u: BUF_PRINT_EMIT: Invalid address detected: buf[%p] addr[%p] len[%6d] remain[%6d] printed[%6d] e[%d]\n", "dumpStats", 2360, v17, &a2[v59 + v14], v36, v60 - v14, v34 + v28, 0);
   }
 
   else
   {
-    memmove(v37, v16, v38);
+    memmove(v35, v17, v36);
   }
 
-  v13 += v38;
+  v14 += v36;
 LABEL_65:
-  strcpy(v16, "TxStats [");
-  v40 = 9;
+  strcpy(v17, "TxStats [");
+  v37 = 9;
 LABEL_66:
-  v41 = this[5];
-  LODWORD(v42) = *(v41 + 36);
-  if (v42)
+  v38 = this[5];
+  LODWORD(v39) = *(v38 + 36);
+  if (v39)
   {
-    v43 = 0;
-    v44 = 0;
+    v40 = 0;
+    v41 = 0;
     do
     {
-      v45 = 0;
-      if (!v16 || v40 > 0x3FE || ((v46 = 1024, v47 = &v41[v43], v48 = *(v47 + 19), v49 = v47[21], v44 != v42 - 1) ? (v50 = " ") : (v50 = "]"), v45 = snprintf(&v16[v40], 1024 - v40, "(Fl=%u Rt=%u Tx=%u)%s", v48, DWORD2(v48), v49, v50), v45 <= 0x3FF))
+      v42 = 0;
+      if (!v17 || v37 > 0x3FE || ((v43 = 1024, v44 = &v38[v40], v45 = *(v44 + 19), v46 = v44[21], v41 != v39 - 1) ? (v47 = " ") : (v47 = "]"), v42 = snprintf(&v17[v37], 1024 - v37, "(Fl=%u Rt=%u Tx=%u)%s", v45, DWORD2(v45), v46, v47), v42 <= 0x3FF))
       {
-        v46 = v45;
+        v43 = v42;
       }
 
-      v40 += v46;
-      ++v44;
-      v41 = this[5];
-      v42 = *(v41 + 36);
-      v43 += 13;
+      v37 += v43;
+      ++v41;
+      v38 = this[5];
+      v39 = *(v38 + 36);
+      v40 += 13;
     }
 
-    while (v44 < v42);
+    while (v41 < v39);
   }
 
-  v51 = 0;
-  if (v16)
+  v48 = 0;
+  if (!v17)
   {
-    v52 = v66;
-    if (v40 <= 0x3FE)
+    v49 = v61;
+    goto LABEL_87;
+  }
+
+  v49 = v61;
+  if (v37 > 0x3FE || (v50 = 1024, v48 = snprintf(&v17[v37], 1024 - v37, "\n"), v48 <= 0x3FF))
+  {
+LABEL_87:
+    v50 = v48;
+    if (v49)
     {
-      v53 = 1024;
-      v51 = snprintf(&v16[v40], 1024 - v40, "\n");
-      if (v51 > 0x3FF)
-      {
-        if (v66)
-        {
-          goto LABEL_80;
-        }
-
-        goto LABEL_88;
-      }
+      goto LABEL_80;
     }
+
+    goto LABEL_88;
   }
 
-  else
-  {
-    v52 = v66;
-  }
-
-  v53 = v51;
-  if (v52)
+  if (v61)
   {
 LABEL_80:
-    if (v16)
+    if (v17)
     {
-      v54 = v53 + v40;
-      v55 = &v52[v64 + v13];
-      if (v65 - v13 >= v53 + v40)
+      v51 = v50 + v37;
+      v52 = &v49[v59 + v14];
+      v53 = v60;
+      if (v60 - v14 >= v51)
       {
-        v56 = v54;
+        v54 = v51;
       }
 
       else
       {
-        v56 = v65 - v13;
+        v54 = v60 - v14;
       }
 
-      if (v55 > 0x7FFFFDFFFFFFLL)
+      if (v52 > 0x7FFFFDFFFFFFLL)
       {
-        IOLog("%s:%06u: BUF_PRINT_EMIT: Invalid address detected: buf[%p] addr[%p] len[%6d] remain[%6d] printed[%6d] e[%d]\n", "dumpStats", 2371, v16, &v52[v64 + v13], v56, v65 - v13, v54, 0);
+        IOLog("%s:%06u: BUF_PRINT_EMIT: Invalid address detected: buf[%p] addr[%p] len[%6d] remain[%6d] printed[%6d] e[%d]\n", "dumpStats", 2371, v17, &v49[v59 + v14], v54, v60 - v14, v51, 0);
       }
 
       else
       {
-        memmove(v55, v16, v56);
+        memmove(v52, v17, v54);
       }
 
-      *v16 = 0;
-      v13 += v56;
-      v52 = v66;
+      v55 = v58;
+      *v17 = 0;
+      v14 += v54;
+      v49 = v61;
+      goto LABEL_97;
     }
 
-    goto LABEL_96;
+    v55 = v58;
+    goto LABEL_94;
   }
 
 LABEL_88:
-  if (v16)
+  v55 = v58;
+  if (!v17)
   {
-    if (this[5][3] && CCLogStream::shouldLog())
-    {
-      v57 = this[5][3];
-      CCLogStream::log();
-    }
-
-    *v16 = 0;
+LABEL_94:
+    v53 = v60;
+    goto LABEL_97;
   }
 
-LABEL_96:
-  v58 = AppleBCMWLANLQM::dumpWmeCounters(this, v52);
-  if (v16)
+  v53 = v60;
+  if (this[5][3] && CCLogStream::shouldLog())
+  {
+    CCLogStream::log(this[5][3], 5, "%s", v17);
+  }
+
+  *v17 = 0;
+LABEL_97:
+  v56 = AppleBCMWLANLQM::dumpWmeCounters(this, v49, v14 + v55, v53 - v14);
+  if (v17)
   {
     IOFreeData();
   }
 
-  return v58 + v13;
-}
-
-uint64_t AppleBCMWLANLQM::dumpWmeCounters(AppleBCMWLANLQM *this, char *a2)
-{
-  v2 = *(this + 5);
-  v3 = *(v2 + 24);
-  v4 = *(v2 + 6504);
-  v24 = *(v2 + 4948);
-  v25 = *(v2 + 4956);
-  v22 = *(v2 + 4932);
-  v23 = *(v2 + 4940);
-  v20 = *(v2 + 4916);
-  v21 = *(v2 + 4924);
-  v18 = *(v2 + 4900);
-  v19 = *(v2 + 4908);
-  v16 = *(v2 + 5012);
-  v17 = *(v2 + 5020);
-  v14 = *(v2 + 4996);
-  v15 = *(v2 + 5004);
-  v12 = *(v2 + 4884);
-  v13 = *(v2 + 4892);
-  v10 = *(v2 + 4868);
-  v11 = *(v2 + 4876);
-  v8 = *(v2 + 4852);
-  v9 = *(v2 + 4860);
-  v6 = *(v2 + 4836);
-  v7 = *(v2 + 4844);
-  return IO80211Print();
+  return v56 + v14;
 }
 
 uint64_t AppleBCMWLANLQM::setStatsTimerIntervalMS(AppleBCMWLANLQM *this, uint64_t a2)
@@ -3547,7 +3518,7 @@ uint64_t AppleBCMWLANLQM::loadBss(AppleBCMWLANCore ***this, BOOL *a2, ether_addr
 {
   v5 = 3766625283;
   *a2 = 1;
-  v6 = (this + 5);
+  v6 = this + 5;
   if (AppleBCMWLANCore::isAssociated(*this[5]))
   {
     *(*v6 + 1635) = 1936;
@@ -3655,51 +3626,37 @@ uint64_t AppleBCMWLANLQM::checkForChannelSwitch(uint64_t a1, uint64_t a2)
       v10 = *v3;
       if (shouldLog)
       {
-        v21 = v10[3];
+        v16 = v10[3];
         CurrentBSS = AppleBCMWLANBssManager::getCurrentBSS(v10[2]);
-        v23 = *AppleBCMWLANBssManager::getCurrentBSS((*v3)[2]);
-        v24 = (*(v23 + 256))();
-        CCLogStream::logAlertIf(v21, 0x200uLL, "[dk] %s@%d:updating channel %p spec %x %u -> %x ctl %u\n", "checkForChannelSwitch", 2534, CurrentBSS, v9, v24, *(a2 + 76), *(a2 + 92));
+        v18 = *AppleBCMWLANBssManager::getCurrentBSS((*v3)[2]);
+        v19 = (*(v18 + 256))();
+        CCLogStream::logAlertIf(v16, 0x200uLL, "[dk] %s@%d:updating channel %p spec %x %u -> %x ctl %u\n", "checkForChannelSwitch", 2534, CurrentBSS, v9, v19, *(a2 + 76), *(a2 + 92));
         v10 = *v3;
       }
     }
 
     AppleBCMWLANBssManager::getCurrentBSS(v10[2]);
-    if (*(a2 + 85))
-    {
-      v12 = *(a2 + 92);
-    }
-
-    else
+    if (!*(a2 + 85))
     {
       ChanSpecGetPrimaryChannel();
     }
 
     IO80211BSSBeacon::updateChannelInfo();
-    v13 = AppleBCMWLANCore::getChanSpecHandler(**v3);
-    v14 = *AppleBCMWLANBssManager::getCurrentBSS((*v3)[2]);
-    v15 = (*(v14 + 264))();
-    BCMChannelSpec = AppleBCMWLANChanSpec::getBCMChannelSpec(v13, v15);
-    v17 = *v3;
-    if ((*v3)[3])
+    v12 = AppleBCMWLANCore::getChanSpecHandler(**v3);
+    v13 = *AppleBCMWLANBssManager::getCurrentBSS((*v3)[2]);
+    v14 = (*(v13 + 264))();
+    BCMChannelSpec = AppleBCMWLANChanSpec::getBCMChannelSpec(v12, v14);
+    if ((*v3)[3] && CCLogStream::shouldLog())
     {
-      v18 = (*v3)[3];
-      v19 = CCLogStream::shouldLog();
-      v17 = *v3;
-      if (v19)
-      {
-        AppleBCMWLANLQM::checkForChannelSwitch(v17, BCMChannelSpec, v3, &v25);
-        v17 = v25;
-      }
+      AppleBCMWLANLQM::checkForChannelSwitch(*v3, BCMChannelSpec, v3, &v20);
     }
 
-    v25 = 0xAAAAAAAAAAAAAAAALL;
-    v26 = -1431655766;
-    v20 = v17[2];
+    v20 = 0xAAAAAAAAAAAAAAAALL;
+    v21 = -1431655766;
     result = IO80211BssManager::getCurrentChannel();
     if (!result)
     {
-      return AppleBCMWLANCore::postMessageInfra(**v3, 0x52u, &v25, 0xCuLL);
+      return AppleBCMWLANCore::postMessageInfra(**v3, 0x52u, &v20, 0xCuLL);
     }
   }
 
@@ -4225,7 +4182,7 @@ LABEL_45:
   v37 = StaInfo;
   if (*(v11 + 24) && CCLogStream::shouldLog())
   {
-    AppleBCMWLANLQM::getMloPerLinkStats(this + 5);
+    AppleBCMWLANLQM::getMloPerLinkStats(this + 40);
   }
 
 LABEL_48:
@@ -4396,33 +4353,32 @@ IO80211Controller *AppleBCMWLANLQM::handleLQMEvent(IO80211Controller *result, _D
 
 uint64_t AppleBCMWLANLQM::getLegacyCCAStats(AppleBCMWLANCore ***this)
 {
-  v19 = 0xAAAAAAAAAAAAAAAALL;
-  v20 = -1431655766;
-  v1 = (this + 5);
+  v18 = 0xAAAAAAAAAAAAAAAALL;
+  v19 = -1431655766;
+  v1 = this + 5;
   result = AppleBCMWLANCore::isAssociated(*this[5]);
   if (result)
   {
+    v15 = 0;
     v16 = 0;
     v17 = 0;
-    v18 = 0;
     result = IOMallocZeroData();
     if (result)
     {
       v3 = result;
-      v4 = (*v1)[2];
       if (!IO80211BssManager::getCurrentChannel())
       {
-        *v3 = WORD2(v19) | 0xD000;
+        *v3 = WORD2(v18) | 0xD000;
         *(v3 + 2) = 5;
         *(v3 + 12) = 0;
         *(v3 + 4) = 0;
         *(v3 + 20) = 0;
-        v15[0] = v3;
-        v15[1] = 0x1800180018;
-        v5 = (*v1)[1];
         v14[0] = v3;
-        v14[1] = 24;
-        if (AppleBCMWLANCommander::runIOVarGet(v5, "cca_get_stats", v14, v15, 0))
+        v14[1] = 0x1800180018;
+        v4 = (*v1)[1];
+        v13[0] = v3;
+        v13[1] = 24;
+        if (AppleBCMWLANCommander::runIOVarGet(v4, "cca_get_stats", v13, v14, 0))
         {
           if ((*v1)[3])
           {
@@ -4435,46 +4391,46 @@ uint64_t AppleBCMWLANLQM::getLegacyCCAStats(AppleBCMWLANCore ***this)
 
         else
         {
-          v18 = *(v3 + 20);
-          v6 = *(v3 + 2);
+          v17 = *(v3 + 20);
+          v5 = *(v3 + 2);
           if (*(v3 + 2))
           {
+            v6 = 0;
             v7 = 0;
             v8 = 0;
             v9 = 0;
-            v10 = 0;
-            v11 = (v3 + 12);
+            v10 = (v3 + 12);
             do
             {
-              v12 = v11[-1].i32[0];
-              if (v12)
+              v11 = v10[-1].i32[0];
+              if (v11)
               {
-                v8 += v12;
-                v9 += v11[-1].i32[1];
-                v10 = vadd_s32(*v11, v10);
-                ++v7;
+                v7 += v11;
+                v8 += v10[-1].i32[1];
+                v9 = vadd_s32(*v10, v9);
+                ++v6;
               }
 
-              v11 = (v11 + 20);
-              --v6;
+              v10 = (v10 + 20);
+              --v5;
             }
 
-            while (v6);
-            LODWORD(v6) = 100 * v9;
-            v13 = vmul_s32(v10, 0x6400000064);
+            while (v5);
+            LODWORD(v5) = 100 * v8;
+            v12 = vmul_s32(v9, 0x6400000064);
           }
 
           else
           {
-            v8 = 0;
             v7 = 0;
-            v13 = 0;
+            v6 = 0;
+            v12 = 0;
           }
 
-          LODWORD(v16) = v8 / v7;
-          HIDWORD(v16) = v6 / v8;
-          LODWORD(v17) = v13.i32[0] / v8;
-          HIDWORD(v17) = v13.i32[1] / v8;
+          LODWORD(v15) = v7 / v6;
+          HIDWORD(v15) = v5 / v7;
+          LODWORD(v16) = v12.i32[0] / v7;
+          HIDWORD(v16) = v12.i32[1] / v7;
           if (AppleBCMWLANBssManager::getCurrentBSS((*v1)[2]))
           {
             AppleBCMWLANBssManager::getCurrentBSS((*v1)[2]);
@@ -4483,7 +4439,7 @@ uint64_t AppleBCMWLANLQM::getLegacyCCAStats(AppleBCMWLANCore ***this)
 
           if ((*v1)[3] && CCLogStream::shouldLog())
           {
-            CCLogStream::logNoticeIf((*v1)[3], 0x200uLL, "[dk] %s@%d:Legacy CCA Stats: duration:%d congest_ibss:%d congest_obss:%d interference:%d timestamp:%d \n", "getLegacyCCAStats", 3030, v16, HIDWORD(v16), v17, HIDWORD(v17), *(v3 + 20));
+            CCLogStream::logNoticeIf((*v1)[3], 0x200uLL, "[dk] %s@%d:Legacy CCA Stats: duration:%d congest_ibss:%d congest_obss:%d interference:%d timestamp:%d \n", "getLegacyCCAStats", 3030, v15, HIDWORD(v15), v16, HIDWORD(v16), *(v3 + 20));
           }
         }
       }
@@ -4505,12 +4461,11 @@ uint64_t AppleBCMWLANLQM::updateCCA(uint64_t a1, _DWORD *a2)
   v4 = (100 * a2[1]) / *a2;
   CurrentBSS = AppleBCMWLANBssManager::getCurrentBSS(*(*(a1 + 40) + 16));
   IO80211BSSBeacon::updateCCA(CurrentBSS, v4);
-  v6 = *(*(a1 + 40) + 16);
   IO80211BssManager::getCurrentChannel();
-  v7 = *(a1 + 40);
-  *(v7 + 8488) = 0u;
-  *(v7 + 8504) = 0;
-  *(v7 + 8512) = 0;
+  v6 = *(a1 + 40);
+  *(v6 + 8488) = 0u;
+  *(v6 + 8504) = 0;
+  *(v6 + 8512) = 0;
   *(*(a1 + 40) + 8494) = v4;
   *(*(a1 + 40) + 8492) = -21846;
   *(*(a1 + 40) + 8488) = a2[2];
@@ -4545,100 +4500,94 @@ uint64_t AppleBCMWLANLQM::updateCCAStats(uint64_t a1, unsigned int *a2, unsigned
       v8 = 100 * (a2[2] + a2[1] + a2[3]) / *a2;
       CurrentBSS = AppleBCMWLANBssManager::getCurrentBSS((*v7)[2]);
       IO80211BSSBeacon::updateCCA(CurrentBSS, v8);
-      v10 = (*v7)[2];
       IO80211BssManager::getCurrentChannel();
-      v11 = *v7;
-      *(v11 + 1061) = 0u;
-      v11[1063] = 0;
-      *(v11 + 2128) = 0;
+      v10 = *v7;
+      *(v10 + 1061) = 0u;
+      v10[1063] = 0;
+      *(v10 + 2128) = 0;
       *(*v7 + 8494) = v8;
       *(*v7 + 4246) = -21846;
-      v12 = a2[4];
-      *(*v7 + 2122) = v12;
-      v13 = *v7;
+      v11 = a2[4];
+      *(*v7 + 2122) = v11;
+      v12 = *v7;
       if ((*v7)[3])
       {
         shouldLog = CCLogStream::shouldLog();
-        v13 = *v7;
-        v12 = a2[4];
+        v12 = *v7;
+        v11 = a2[4];
         if (shouldLog)
         {
-          CCLogStream::logNoticeIf(v13[3], 0x200uLL, "[dk] %s@%d:RawStats: Total[self:%d other:%d intf:%d dur:%d ts:%d] Wake[self:%d other:%d intf:%d dur:%d ts:%d] Sleep[self:%d other:%d intf:%d dur:%d ts:%d]\n", "updateCCAStats", 3101, a2[1], a2[2], a2[3], *a2, v12, a4[1], a4[2], a4[3], *a4, a4[4], a3[1], a3[2], a3[3], *a3, a3[4]);
-          v13 = *v7;
-          v12 = a2[4];
+          CCLogStream::logNoticeIf(v12[3], 0x200uLL, "[dk] %s@%d:RawStats: Total[self:%d other:%d intf:%d dur:%d ts:%d] Wake[self:%d other:%d intf:%d dur:%d ts:%d] Sleep[self:%d other:%d intf:%d dur:%d ts:%d]\n", "updateCCAStats", 3101, a2[1], a2[2], a2[3], *a2, v11, a4[1], a4[2], a4[3], *a4, a4[4], a3[1], a3[2], a3[3], *a3, a3[4]);
+          v12 = *v7;
+          v11 = a2[4];
         }
       }
 
-      *(v13 + 8496) = 0;
-      *(*v7 + 4249) = v12;
-      v15 = *a2;
-      v16 = a2[1];
-      if (v16 <= *a2 && a2[2] <= v15 && v15 >= 0x64)
+      *(v12 + 8496) = 0;
+      *(*v7 + 4249) = v11;
+      v14 = *a2;
+      v15 = a2[1];
+      if (v15 <= *a2 && a2[2] <= v14 && v14 >= 0x64)
       {
-        v17 = a2[3];
-        if (v17 <= v15)
+        v16 = a2[3];
+        if (v16 <= v14)
         {
-          *(*v7 + 8500) = 100 * v16 / v15;
-          *(*v7 + 8501) = 100 * a2[2] / v15;
-          *(*v7 + 8502) = 100 * v17 / v15;
+          *(*v7 + 8500) = 100 * v15 / v14;
+          *(*v7 + 8501) = 100 * a2[2] / v14;
+          *(*v7 + 8502) = 100 * v16 / v14;
           *(*v7 + 8496) = 1;
         }
       }
 
       *(*v7 + 4252) = a3[4];
-      v18 = *a3;
-      v19 = a3[1];
-      if (v19 <= *a3 && a3[2] <= v18 && v18 >= 0x64)
+      v17 = *a3;
+      v18 = a3[1];
+      if (v18 <= *a3 && a3[2] <= v17 && v17 >= 0x64)
       {
-        v20 = a3[3];
-        if (v20 <= v18)
+        v19 = a3[3];
+        if (v19 <= v17)
         {
-          *(*v7 + 8506) = 100 * v19 / v18;
-          *(*v7 + 8507) = 100 * a3[2] / v18;
-          *(*v7 + 8508) = 100 * v20 / v18;
+          *(*v7 + 8506) = 100 * v18 / v17;
+          *(*v7 + 8507) = 100 * a3[2] / v17;
+          *(*v7 + 8508) = 100 * v19 / v17;
           *(*v7 + 8496) = 1;
         }
       }
 
       *(*v7 + 4255) = a4[4];
-      v21 = *a4;
-      v22 = a4[1];
-      if (v22 <= *a4 && a4[2] <= v21 && v21 >= 0x64)
+      v20 = *a4;
+      v21 = a4[1];
+      if (v21 <= *a4 && a4[2] <= v20 && v20 >= 0x64)
       {
-        v23 = a4[3];
-        if (v23 <= v21)
+        v22 = a4[3];
+        if (v22 <= v20)
         {
-          *(*v7 + 8512) = 100 * v22 / v21;
-          *(*v7 + 8513) = 100 * a4[2] / v21;
-          *(*v7 + 8514) = 100 * v23 / v21;
+          *(*v7 + 8512) = 100 * v21 / v20;
+          *(*v7 + 8513) = 100 * a4[2] / v20;
+          *(*v7 + 8514) = 100 * v22 / v20;
           *(*v7 + 8496) = 1;
         }
       }
 
-      v24 = *v7;
+      v23 = *v7;
       if ((*v7)[3])
       {
-        v25 = CCLogStream::shouldLog();
-        v26 = *v7;
-        if (v25)
+        v24 = CCLogStream::shouldLog();
+        v25 = *v7;
+        if (v24)
         {
-          CCLogStream::logNoticeIf(v26[3], 0x200uLL, "[dk] %s@%d:CCA:%d CCAStats(pc) Total[self:%d other:%d intf:%d ts:%d] Wake[self:%d other:%d intf:%d ts:%d] Sleep[self:%d other:%d intf:%d ts:%d]\n", "updateCCAStats", 3139, v8, *(v24 + 8500), *(v24 + 8501), *(v24 + 8502), *(v24 + 4249), *(v24 + 8512), *(v24 + 8513), *(v24 + 8514), *(v24 + 4255), *(v24 + 8506), *(v24 + 8507), *(v24 + 8508), *(v24 + 4252));
-          v26 = *v7;
+          CCLogStream::logNoticeIf(v25[3], 0x200uLL, "[dk] %s@%d:CCA:%d CCAStats(pc) Total[self:%d other:%d intf:%d ts:%d] Wake[self:%d other:%d intf:%d ts:%d] Sleep[self:%d other:%d intf:%d ts:%d]\n", "updateCCAStats", 3139, v8, *(v23 + 8500), *(v23 + 8501), *(v23 + 8502), *(v23 + 4249), *(v23 + 8512), *(v23 + 8513), *(v23 + 8514), *(v23 + 4255), *(v23 + 8506), *(v23 + 8507), *(v23 + 8508), *(v23 + 4252));
+          v25 = *v7;
         }
       }
 
       else
       {
-        v26 = *v7;
+        v25 = *v7;
       }
 
-      AppleBCMWLANBssManager::getCurrentBSS(v26[2]);
-      v28 = *v7;
+      AppleBCMWLANBssManager::getCurrentBSS(v25[2]);
       IO80211BSSBeacon::updateCCAStats();
-      v33 = *(*v7 + 8501);
-      v34 = *(*v7 + 8502);
-      v32 = *(*v7 + 8500);
-      v29 = **v7;
       IO80211Controller::setChanExtendedCCA();
       Split_us = AppleBCMWLANStopwatch::getSplit_us((*v7)[1060]);
       if (Split_us < 0x4C4B40)
@@ -4658,7 +4607,7 @@ uint64_t AppleBCMWLANLQM::updateCCAStats(uint64_t a1, unsigned int *a2, unsigned
 
     else
     {
-      v27 = 3758097084;
+      v26 = 3758097084;
       if ((*v7)[3] && CCLogStream::shouldLog())
       {
         AppleBCMWLANLQM::updateCCAStats(v7);
@@ -4668,27 +4617,25 @@ uint64_t AppleBCMWLANLQM::updateCCAStats(uint64_t a1, unsigned int *a2, unsigned
 
   else
   {
-    v27 = 3758097084;
+    v26 = 3758097084;
     if ((*v7)[3] && CCLogStream::shouldLog())
     {
       CCLogStream::logAlert((*v7)[3], "[dk] %s@%d:Null args ccaTotal(%p) ccaNoPM(%p) ccaPM(%p)\n", "updateCCAStats", 3075, a2, a4, a3);
     }
   }
 
-  return v27;
+  return v26;
 }
 
 uint64_t AppleBCMWLANLQM::retriggerAssocTimer(AppleBCMWLANLQM *this)
 {
-  v2 = *(this + 5);
-  result = *(v2 + 8528);
+  result = *(*(this + 5) + 8528);
   if (result)
   {
-    *(v2 + 6537);
     (*(*result + 72))(result);
-    v4 = *(**(*(this + 5) + 8528) + 56);
+    v3 = *(**(*(this + 5) + 8528) + 56);
 
-    return v4();
+    return v3();
   }
 
   return result;
@@ -4772,7 +4719,24 @@ uint64_t AppleBCMWLANLQM::findPeerStatsIndex(AppleBCMWLANLQM *this, const ether_
   return v2;
 }
 
-uint64_t AppleBCMWLANLQM::printPeerCommonStats(uint64_t a1, unsigned __int8 *a2, int a3, uint64_t a4)
+uint64_t AppleBCMWLANLQM::printPeerCommonStats(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v4 = a1 + 40;
+  result = *(*(a1 + 40) + 24);
+  if (result)
+  {
+    v7 = a3;
+    result = CCLogStream::shouldLog();
+    if (result)
+    {
+      return AppleBCMWLANLQM::printPeerCommonStats(v4, a4, a2, v7);
+    }
+  }
+
+  return result;
+}
+
+uint64_t AppleBCMWLANLQM::printPeerChanStats(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v4 = a1 + 40;
   result = *(*(a1 + 40) + 24);
@@ -4781,70 +4745,32 @@ uint64_t AppleBCMWLANLQM::printPeerCommonStats(uint64_t a1, unsigned __int8 *a2,
     result = CCLogStream::shouldLog();
     if (result)
     {
-      return AppleBCMWLANLQM::printPeerCommonStats(v4, a4, a2, a3);
+      return AppleBCMWLANLQM::printPeerChanStats(v4);
     }
   }
 
   return result;
 }
 
-uint64_t AppleBCMWLANLQM::printPeerChanStats(uint64_t a1)
-{
-  v1 = a1 + 40;
-  result = *(*(a1 + 40) + 24);
-  if (result)
-  {
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      return AppleBCMWLANLQM::printPeerChanStats(v1);
-    }
-  }
-
-  return result;
-}
-
-{
-  v1 = OUTLINED_FUNCTION_3(a1);
-  v4 = "P2P Peer";
-  if (v5)
-  {
-    v4 = "SoftAP Client";
-  }
-
-  return CCLogStream::logAlert(v1, "[dk] %s@%d:%s chan %u, rssi %d dBm, txrate %u, rxrate %u, txdur %u ms, rxdur %u ms, txrts %u rxcts %u, txctrl %u, txucast %u, txphyerr %u\n", "printPeerChanStats", 3459, v4, v2, v3[4], v3[6], v3[7], v3[2], v3[3], v3[8], v3[9], v3[12], v3[11], v3[10]);
-}
-
-uint64_t AppleBCMWLANLQM::printPeerRxAmpduStats(uint64_t a1)
-{
-  v1 = a1 + 40;
-  result = *(*(a1 + 40) + 24);
-  if (result)
-  {
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      return AppleBCMWLANLQM::printPeerRxAmpduStats(v1);
-    }
-  }
-
-  return result;
-}
-
-{
-  v1 = OUTLINED_FUNCTION_3(a1);
-  v3 = "P2P Peer";
-  if (v4)
-  {
-    v3 = "SoftAP Client";
-  }
-
-  return CCLogStream::logAlert(v1, "[dk] %s@%d:%s RXAMPDU: ampdu %u, mpdu %u, holes %u, dup %u, stuck %u, oow %u, oos %u, bar %u, txback %u, addbareq %u, txaddbaresp %u \n", "printPeerRxAmpduStats", 3468, v3, *v2, v2[1], v2[2], v2[3], v2[4], v2[5], v2[6], v2[12], v2[7], v2[10], v2[11]);
-}
-
-uint64_t AppleBCMWLANLQM::printPeerTxAmpduStats(uint64_t a1, uint64_t a2, int a3)
+uint64_t AppleBCMWLANLQM::printPeerRxAmpduStats(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = a1 + 40;
+  result = *(*(a1 + 40) + 24);
+  if (result)
+  {
+    result = CCLogStream::shouldLog();
+    if (result)
+    {
+      return AppleBCMWLANLQM::printPeerRxAmpduStats(v3);
+    }
+  }
+
+  return result;
+}
+
+uint64_t AppleBCMWLANLQM::printPeerTxAmpduStats(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5)
+{
+  v5 = a1 + 40;
   result = *(*(a1 + 40) + 24);
   if (a3)
   {
@@ -4853,7 +4779,7 @@ uint64_t AppleBCMWLANLQM::printPeerTxAmpduStats(uint64_t a1, uint64_t a2, int a3
       result = CCLogStream::shouldLog();
       if (result)
       {
-        return AppleBCMWLANLQM::printPeerTxAmpduStats(v3);
+        return AppleBCMWLANLQM::printPeerTxAmpduStats(v5);
       }
     }
   }
@@ -4863,14 +4789,14 @@ uint64_t AppleBCMWLANLQM::printPeerTxAmpduStats(uint64_t a1, uint64_t a2, int a3
     result = CCLogStream::shouldLog();
     if (result)
     {
-      return AppleBCMWLANLQM::printPeerTxAmpduStats(v3);
+      return AppleBCMWLANLQM::printPeerTxAmpduStats(v5);
     }
   }
 
   return result;
 }
 
-uint64_t AppleBCMWLANLQM::updatePerPeerCommonStats(AppleBCMWLANLQM *a1, int a2, ether_addr *a3)
+uint64_t AppleBCMWLANLQM::updatePerPeerCommonStats(AppleBCMWLANLQM *a1, uint64_t a2, ether_addr *a3)
 {
   PeerStatsIndex = AppleBCMWLANLQM::findPeerStatsIndex(a1, a3);
   v7 = *(a1 + 5) + 311 * PeerStatsIndex;
@@ -4879,11 +4805,11 @@ uint64_t AppleBCMWLANLQM::updatePerPeerCommonStats(AppleBCMWLANLQM *a1, int a2, 
   *(v7 + 5264) = v8;
   *(*(a1 + 5) + 311 * PeerStatsIndex + 5266) = a2;
   *(*(a1 + 5) + 311 * PeerStatsIndex + 5270) = *&a3[1].octet[2];
-  AppleBCMWLANLQM::printPeerCommonStats(a1, a3->octet, a2, 0);
+  AppleBCMWLANLQM::printPeerCommonStats(a1, a3, a2, 0);
   return PeerStatsIndex;
 }
 
-uint64_t AppleBCMWLANLQM::updatePerPeerChanStats(AppleBCMWLANLQM *this, unsigned int a2, _DWORD *a3)
+uint64_t AppleBCMWLANLQM::updatePerPeerChanStats(AppleBCMWLANLQM *this, unsigned int a2, unsigned __int16 *a3)
 {
   v5 = 0;
   v6 = *(this + 5);
@@ -4929,23 +4855,23 @@ uint64_t AppleBCMWLANLQM::updatePerPeerChanStats(AppleBCMWLANLQM *this, unsigned
 LABEL_8:
   ChanSpecHandler = AppleBCMWLANCore::getChanSpecHandler(*v6);
   AppleBCMWLANChanSpec::getAppleChannelSpec(ChanSpecHandler, *a3);
-  ChanSpecGetPrimaryChannel();
+  PrimaryChannel = ChanSpecGetPrimaryChannel();
   *(*(this + 5) + 311 * a2 + 50 * v5 + 5274) = *a3;
-  *(*(this + 5) + 311 * a2 + 50 * v5 + 5276) = a3[1];
+  *(*(this + 5) + 311 * a2 + 50 * v5 + 5276) = *(a3 + 1);
   *(*(this + 5) + 311 * a2 + 50 * v5 + 5280) = *(a3 + 1);
   *(*(this + 5) + 311 * a2 + 50 * v5 + 5288) = *(a3 + 1);
-  v12 = *(this + 5) + 311 * a2 + 50 * v5;
-  v13 = a3[12];
-  *(v12 + 5304) = *(a3 + 2);
-  *(v12 + 5320) = v13;
+  v13 = *(this + 5) + 311 * a2 + 50 * v5;
+  v14 = *(a3 + 12);
+  *(v13 + 5304) = *(a3 + 2);
+  *(v13 + 5320) = v14;
 
-  return AppleBCMWLANLQM::printPeerChanStats(this);
+  return AppleBCMWLANLQM::printPeerChanStats(this, a3, PrimaryChannel, 0);
 }
 
-uint64_t AppleBCMWLANLQM::updatePerPeerRxAmpduStats(uint64_t this, unsigned int a2, __int128 *a3)
+uint64_t AppleBCMWLANLQM::updatePerPeerRxAmpduStats(AppleBCMWLANLQM *this, unsigned int a2, __int128 *a3)
 {
-  v3 = *(this + 40) + 311 * a2 + 5260;
-  v4 = *(this + 40) + 311 * a2 + 5474;
+  v3 = *(this + 5) + 311 * a2 + 5260;
+  v4 = *(this + 5) + 311 * a2 + 5474;
   v5 = *(a3 + 44);
   v6 = *a3;
   v7 = a3[1];
@@ -4953,7 +4879,7 @@ uint64_t AppleBCMWLANLQM::updatePerPeerRxAmpduStats(uint64_t this, unsigned int 
   *(v3 + 230) = v7;
   *(v3 + 214) = v6;
   *(v4 + 44) = v5;
-  return AppleBCMWLANLQM::printPeerRxAmpduStats(this);
+  return AppleBCMWLANLQM::printPeerRxAmpduStats(this, a3, 0);
 }
 
 uint64_t AppleBCMWLANLQM::updatePerPeerTxAmpduStats(AppleBCMWLANLQM *this, unsigned int a2, _OWORD *a3)
@@ -4963,9 +4889,7 @@ uint64_t AppleBCMWLANLQM::updatePerPeerTxAmpduStats(AppleBCMWLANLQM *this, unsig
   *v3 = *a3;
   v3[1] = v4;
   v5 = *(this + 5) + 311 * a2;
-  v6 = *(v5 + 5566);
-  v7 = *(v5 + 5567);
-  return AppleBCMWLANLQM::printPeerTxAmpduStats(this, a3, 0);
+  return AppleBCMWLANLQM::printPeerTxAmpduStats(this, a3, 0, *(v5 + 5566), *(v5 + 5567));
 }
 
 uint64_t AppleBCMWLANLQM::updateChanSeqCommonStats(uint64_t result, uint64_t a2, __int128 *a3)
@@ -5084,49 +5008,19 @@ void AppleBCMWLANUtil::AutoreleasedAlignedOSData::~AutoreleasedAlignedOSData(App
 
   if (*(this + 1))
   {
-    v3 = *(this + 4);
     IOFreeData();
     *(this + 1) = 0;
     *(this + 4) = 0;
   }
 }
 
-uint64_t *OUTLINED_FUNCTION_0(uint64_t ***a1)
-{
-  v1 = (*a1)[3];
-  result = **a1;
-  v3 = *result;
-  return result;
-}
-
-void OUTLINED_FUNCTION_11(uint64_t a1, char *a2, uint64_t a3)
-{
-  v3 = *a2;
-  v4 = *(a3 + 312);
-  v5 = *(a3 + 313);
-  v6 = *(a3 + 314);
-  v7 = *(a3 + 310);
-}
-
-uint64_t OUTLINED_FUNCTION_12()
+uint64_t OUTLINED_FUNCTION_12(uint64_t a1)
 {
 
   return CCLogStream::shouldLog();
 }
 
-void OUTLINED_FUNCTION_15(uint64_t a1, unsigned int *a2)
-{
-  v2 = *a2;
-  v3 = a2[1];
-  v4 = a2[2];
-  v5 = a2[3];
-  v6 = a2[4];
-  v7 = a2[5];
-  v8 = a2[6];
-  v9 = a2[7];
-}
-
-uint64_t OUTLINED_FUNCTION_16()
+uint64_t OUTLINED_FUNCTION_16(uint64_t a1)
 {
 
   return CCLogStream::shouldLog();
@@ -5268,11 +5162,11 @@ uint64_t AppleBCMWLANBGScanAdapter::initWithDriver(AppleBCMWLANBGScanAdapter *th
 
 BOOL AppleBCMWLANBGScanAdapter::initScanMac(AppleBCMWLANBGScanAdapter *this)
 {
-  v19 = 0;
   v18 = 0;
-  *v20 = 0;
+  v17 = 0;
+  *v19 = 0;
+  v20 = 0;
   v21 = 0;
-  v22 = 0;
   v2 = this + 40;
   *(*(this + 5) + 4858) = 0;
   *(*(this + 5) + 4860) = 3600000;
@@ -5286,34 +5180,34 @@ BOOL AppleBCMWLANBGScanAdapter::initScanMac(AppleBCMWLANBGScanAdapter *this)
   v5 = *(this + 5);
   *(v5 + 4882) = 0;
   *(v5 + 4886) = 0;
-  if (IOParseBootArgNumber("wlan.privmac.scanbitmap", &v19, 2))
+  if (IOParseBootArgNumber("wlan.privmac.scanbitmap", &v18, 2))
   {
-    *(*v2 + 4858) = v19;
+    *(*v2 + 4858) = v18;
     if (*(*v2 + 24))
     {
       if (CCLogStream::shouldLog())
       {
-        CCLogStream::logAlert(*(*v2 + 24), "[dk] %s@%d:boot-args set scanmac bitmap 0x%x\n", "initScanMac", 1733, v19);
+        CCLogStream::logAlert(*(*v2 + 24), "[dk] %s@%d:boot-args set scanmac bitmap 0x%x\n", "initScanMac", 1733, v18);
       }
     }
   }
 
-  IOParseBootArgNumber("wlan.debug.disableScanRandomMac", &v18, 4);
-  if (v18)
+  IOParseBootArgNumber("wlan.debug.disableScanRandomMac", &v17, 4);
+  if (v17)
   {
     *(*v2 + 4858) = 64;
     if (*(*v2 + 24))
     {
       if (CCLogStream::shouldLog())
       {
-        CCLogStream::logAlert(*(*v2 + 24), "[dk] %s@%d:boot-args disableScanRandomMac %d\n", "initScanMac", 1740, v18);
+        CCLogStream::logAlert(*(*v2 + 24), "[dk] %s@%d:boot-args disableScanRandomMac %d\n", "initScanMac", 1740, v17);
       }
     }
   }
 
-  if (IOParseBootArgString("wlan.privmac.address", v20, 18))
+  if (IOParseBootArgString("wlan.privmac.address", v19, 18))
   {
-    v6 = _parseMacAddress((*v2 + 4864), v20);
+    v6 = _parseMacAddress((*v2 + 4864), v19);
     v7 = *v2;
     v8 = *(*v2 + 24);
     if (v6)
@@ -5324,7 +5218,7 @@ BOOL AppleBCMWLANBGScanAdapter::initScanMac(AppleBCMWLANBGScanAdapter *this)
         v7 = *v2;
         if (shouldLog)
         {
-          CCLogStream::logAlert(*(v7 + 24), "[dk] %s@%d:fail to parse Private MAC address <%s> ret %d \n", "initScanMac", 1755, v20, v6);
+          CCLogStream::logAlert(*(v7 + 24), "[dk] %s@%d:fail to parse Private MAC address <%s> ret %d \n", "initScanMac", 1755, v19, v6);
           v7 = *v2;
         }
       }
@@ -5339,9 +5233,9 @@ BOOL AppleBCMWLANBGScanAdapter::initScanMac(AppleBCMWLANBGScanAdapter *this)
     }
   }
 
-  if (IOParseBootArgString("wlan.scanmac.randommask", v20, 18))
+  if (IOParseBootArgString("wlan.scanmac.randommask", v19, 18))
   {
-    v10 = _parseMacAddress((*v2 + 4876), v20);
+    v10 = _parseMacAddress((*v2 + 4876), v19);
     v11 = *v2;
     v12 = *(*v2 + 24);
     if (v10)
@@ -5352,7 +5246,7 @@ BOOL AppleBCMWLANBGScanAdapter::initScanMac(AppleBCMWLANBGScanAdapter *this)
         v11 = *v2;
         if (v13)
         {
-          CCLogStream::logAlert(*(v11 + 24), "[dk] %s@%d:fail to parse Scan MAC Random Mask <%s> ret %d \n", "initScanMac", 1770, v20, v10);
+          CCLogStream::logAlert(*(v11 + 24), "[dk] %s@%d:fail to parse Scan MAC Random Mask <%s> ret %d \n", "initScanMac", 1770, v19, v10);
           v11 = *v2;
         }
       }
@@ -5367,16 +5261,15 @@ BOOL AppleBCMWLANBGScanAdapter::initScanMac(AppleBCMWLANBGScanAdapter *this)
     }
   }
 
-  v14 = *(*(this + 5) + 4848);
   *(*(this + 5) + 4912) = IO80211TimerSource::allocWithParams();
-  v15 = *(this + 5);
-  v16 = *(v15 + 4912);
-  if (!v16 && *(v15 + 24) && CCLogStream::shouldLog())
+  v14 = *(this + 5);
+  v15 = *(v14 + 4912);
+  if (!v15 && *(v14 + 24) && CCLogStream::shouldLog())
   {
     AppleBCMWLANBGScanAdapter::initScanMac(v2);
   }
 
-  return v16 != 0;
+  return v15 != 0;
 }
 
 void AppleBCMWLANBGScanAdapter::free(OSObject *this)
@@ -5449,13 +5342,13 @@ uint64_t AppleBCMWLANBGScanAdapter::configureMotionProfileMapping(AppleBCMWLANBG
   v13 = 0u;
   v12 = 0u;
   memset(&v11[1], 0, 80);
-  v1 = (this + 40);
+  v1 = this + 40;
   MotionProfileGPIOConfig = AppleBCMWLANConfigManager::getMotionProfileGPIOConfig(*(*(this + 5) + 16));
   v3 = *v1;
   if (MotionProfileGPIOConfig)
   {
     v4 = MotionProfileGPIOConfig;
-    MotionProfiles = AppleBCMWLANConfigManager::getMotionProfiles(v3[2]);
+    MotionProfiles = AppleBCMWLANConfigManager::getMotionProfiles(*(v3 + 16));
     v11[0] = 1;
     v11[2] = v4;
     v6.i32[0] = v4;
@@ -5471,11 +5364,11 @@ uint64_t AppleBCMWLANBGScanAdapter::configureMotionProfileMapping(AppleBCMWLANBG
     v11[28] = HIWORD(MotionProfiles);
     v11[29] = 3;
     strcpy(&v11[30], "Driving");
-    v7 = (*v1)[1];
+    v7 = *(*v1 + 8);
     v10[0] = v11;
     v10[1] = 136;
     v8 = AppleBCMWLANCommander::runIOVarSet(v7, "mpf_map", v10, 0, 0);
-    if (v8 && (*v1)[3] && CCLogStream::shouldLog())
+    if (v8 && *(*v1 + 24) && CCLogStream::shouldLog())
     {
       AppleBCMWLANBGScanAdapter::configureMotionProfileMapping(v1);
     }
@@ -5484,7 +5377,7 @@ uint64_t AppleBCMWLANBGScanAdapter::configureMotionProfileMapping(AppleBCMWLANBG
   else
   {
     v8 = 3758097095;
-    if (v3[3] && CCLogStream::shouldLog())
+    if (*(v3 + 24) && CCLogStream::shouldLog())
     {
       AppleBCMWLANBGScanAdapter::configureMotionProfileMapping(v1);
     }
@@ -5545,7 +5438,7 @@ LABEL_13:
   v10 = AppleBCMWLANCommander::runIOVarSet(v11, "pfn_mpfset", v13, 0, 0);
   if (v10 && *(*(a1 + 40) + 24) && CCLogStream::shouldLog())
   {
-    AppleBCMWLANBGScanAdapter::configureMotionProfilePNO((a1 + 40));
+    AppleBCMWLANBGScanAdapter::configureMotionProfilePNO(a1 + 40);
   }
 
   return v10;
@@ -5620,7 +5513,7 @@ LABEL_19:
   v12 = AppleBCMWLANCommander::runIOVarSet(v13, "pfn_mpfset", v15, 0, 0);
   if (v12 && *(*(a1 + 40) + 24) && CCLogStream::shouldLog())
   {
-    AppleBCMWLANBGScanAdapter::configureMotionProfileEPNO((a1 + 40));
+    AppleBCMWLANBGScanAdapter::configureMotionProfileEPNO(a1 + 40);
   }
 
   return v12;
@@ -5687,29 +5580,29 @@ uint64_t AppleBCMWLANBGScanAdapter::setWCL_CONFIG_BG_NETWORK(AppleBCMWLANCore **
   v12 = *a2;
   *(*v4 + 4845) = v12;
   *(*v4 + 4846) = a2[2];
-  v55 = 0uLL;
-  v56 = 0;
-  v54 = 2;
+  v54 = 0uLL;
+  v55 = 0;
+  v53 = 2;
   v13 = (a2[1] != 0) << 6;
-  *(&v55 + 4) = v13;
+  *(&v54 + 4) = v13;
   if (v12)
   {
-    WORD2(v55) = v13 | 0x1020;
+    WORD2(v54) = v13 | 0x1020;
     v14 = *AppleBCMWLANCore::getBus(**v4);
     if ((*(v14 + 368))() >> 1 >= 0x88D)
     {
-      WORD2(v55) = v13 | 0x3020;
+      WORD2(v54) = v13 | 0x3020;
     }
   }
 
   v15 = *(a2 + 4);
-  WORD3(v55) = 30;
+  WORD3(v54) = 30;
   v16 = a2[12] * v15;
-  HIDWORD(v54) = v15;
-  LODWORD(v55) = v16;
-  BYTE10(v55) = a2[11];
-  BYTE11(v55) = a2[10];
-  HIDWORD(v55) = 0;
+  HIDWORD(v53) = v15;
+  LODWORD(v54) = v16;
+  BYTE10(v54) = a2[11];
+  BYTE11(v54) = a2[10];
+  HIDWORD(v54) = 0;
   if (!*a2)
   {
     LOBYTE(v20) = 3;
@@ -5723,7 +5616,7 @@ uint64_t AppleBCMWLANBGScanAdapter::setWCL_CONFIG_BG_NETWORK(AppleBCMWLANCore **
   }
 
   v17 = *(a2 + 5);
-  BYTE9(v55) = *(a2 + 5);
+  BYTE9(v54) = *(a2 + 5);
   Bus = AppleBCMWLANCore::getBus(**v4);
   v19 = (*(*Bus + 368))(Bus);
   if ((v19 - 4377) <= 1 && v17 >= 0x1F)
@@ -5734,37 +5627,37 @@ uint64_t AppleBCMWLANBGScanAdapter::setWCL_CONFIG_BG_NETWORK(AppleBCMWLANCore **
 
   if (v19 == 4387)
   {
-    v57[2] = 0;
-    *v57 = 0;
-    AppleBCMWLANCore::getChipRevString(**v4, v57, 3uLL);
-    v36 = *v57 ^ 0x3042 | v57[2];
-    if (v36 || BYTE9(v55) <= 0x1Eu)
+    v56[2] = 0;
+    *v56 = 0;
+    AppleBCMWLANCore::getChipRevString(**v4, v56, 3uLL);
+    v35 = *v56 ^ 0x3042 | v56[2];
+    if (v35 || BYTE9(v54) <= 0x1Eu)
     {
-      if (!v36 || BYTE9(v55) < 0x29u)
+      if (!v35 || BYTE9(v54) < 0x29u)
       {
 LABEL_87:
         if ((*v4)[3] && CCLogStream::shouldLog())
         {
-          CCLogStream::logAlert((*v4)[3], "[dk] %s@%d:Detected 4387-%s and overiding scan record limit value %d\n", "setWCL_CONFIG_BG_NETWORK", 308, v57, BYTE9(v55));
+          CCLogStream::logAlert((*v4)[3], "[dk] %s@%d:Detected 4387-%s and overiding scan record limit value %d\n", "setWCL_CONFIG_BG_NETWORK", 308, v56, BYTE9(v54));
         }
 
         goto LABEL_28;
       }
 
-      v37 = 40;
+      v36 = 40;
     }
 
     else
     {
-      v37 = 30;
+      v36 = 30;
     }
 
-    BYTE9(v55) = v37;
+    BYTE9(v54) = v36;
     goto LABEL_87;
   }
 
-  v53 = v19 == 4399 || v19 == 4388;
-  if (v53 && v17 >= 0x29)
+  v52 = v19 == 4399 || v19 == 4388;
+  if (v52 && v17 >= 0x29)
   {
     LOBYTE(v20) = 40;
   }
@@ -5780,9 +5673,9 @@ LABEL_87:
   }
 
 LABEL_27:
-  BYTE9(v55) = v20;
+  BYTE9(v54) = v20;
 LABEL_28:
-  BYTE8(v55) = *(a2 + 4);
+  BYTE8(v54) = *(a2 + 4);
   if (AppleBCMWLANCore::getFirmwareInterfaceVersion(**v4) <= 0xB)
   {
     v21 = 2;
@@ -5793,12 +5686,12 @@ LABEL_28:
     v21 = 3;
   }
 
-  LOWORD(v54) = v21;
-  LOWORD(v56) = 5140;
+  LOWORD(v53) = v21;
+  LOWORD(v55) = 5140;
   v22 = (*v4)[1];
-  *v57 = &v54;
-  v58 = 28;
-  v23 = AppleBCMWLANCommander::runIOVarSet(v22, "pfn_set", v57, 0, 0);
+  *v56 = &v53;
+  v57 = 28;
+  v23 = AppleBCMWLANCommander::runIOVarSet(v22, "pfn_set", v56, 0, 0);
   if (v23)
   {
     v9 = v23;
@@ -5810,42 +5703,41 @@ LABEL_28:
     return v9;
   }
 
-  v24 = 56 * *(a2 + 6);
-  v25 = IOMallocZeroData();
-  if (!v25)
+  v24 = IOMallocZeroData();
+  if (!v24)
   {
     return 12;
   }
 
-  v26 = v25;
+  v25 = v24;
   if (*(a2 + 6))
   {
-    v27 = 0;
-    v28 = (a2 + 28);
-    v29 = v25;
+    v26 = 0;
+    v27 = a2 + 28;
+    v28 = v24;
     do
     {
-      AppleBCMWLANBGScanAdapter::populatePreferredSSIDNetworks(a1, v29, v28);
+      AppleBCMWLANBGScanAdapter::populatePreferredSSIDNetworks(a1, v28, v27);
       *(a1[5] + 36) |= 1u;
-      v29 += 56;
-      ++v27;
-      v30 = *(a2 + 6);
       v28 += 56;
+      ++v26;
+      v29 = *(a2 + 6);
+      v27 += 56;
     }
 
-    while (v27 < v30);
-    if (v30)
+    while (v26 < v29);
+    if (v29)
     {
-      v31 = (*v4)[1];
-      v32 = 56 * v30;
-      v33 = v32 & 0xFFF8;
-      v34 = (v32 & 0xFFF8) != 0 ? v26 : 0;
-      *v57 = v34;
-      v58 = v33;
-      v35 = AppleBCMWLANCommander::runIOVarSet(v31, "pfn_add", v57, 0, 0);
-      if (v35)
+      v30 = (*v4)[1];
+      v31 = 56 * v29;
+      v32 = v31 & 0xFFF8;
+      v33 = (v31 & 0xFFF8) != 0 ? v25 : 0;
+      *v56 = v33;
+      v57 = v32;
+      v34 = AppleBCMWLANCommander::runIOVarSet(v30, "pfn_add", v56, 0, 0);
+      if (v34)
       {
-        v9 = v35;
+        v9 = v34;
         if ((*v4)[3] && CCLogStream::shouldLog())
         {
           CCLogStream::logAlert((*v4)[3], "[dk] %s@%d: Failure to add network to PNO list: %d\n", "setWCL_CONFIG_BG_NETWORK", 356, v9);
@@ -5856,95 +5748,95 @@ LABEL_28:
     }
   }
 
-  v38 = *(a2 + 231);
-  if (v38 <= 0xB4)
+  v37 = *(a2 + 231);
+  if (v37 <= 0xB4)
   {
-    v39 = 8 * v38;
+    v38 = 8 * v37;
   }
 
   else
   {
-    v39 = 1440;
+    v38 = 1440;
   }
 
-  v40 = IOMallocZeroData();
-  if (!v40)
+  v39 = IOMallocZeroData();
+  if (!v39)
   {
     v9 = 12;
     goto LABEL_97;
   }
 
-  v41 = v40;
+  v40 = v39;
   if (!*(a2 + 231))
   {
     v9 = 0;
     goto LABEL_96;
   }
 
+  v41 = 0;
   v42 = 0;
-  v43 = 0;
-  v44 = (a2 + 928);
-  v45 = v40;
+  v43 = a2 + 928;
+  v44 = v39;
   while (1)
   {
-    AppleBCMWLANBGScanAdapter::populatePreferredBSSIDNetworks(a1, v45, v44);
+    AppleBCMWLANBGScanAdapter::populatePreferredBSSIDNetworks(a1, v44, v43);
     *(a1[5] + 36) |= 2u;
-    v46 = (v42 + 1);
-    HIDWORD(v47) = -1527099483 * v46;
-    LODWORD(v47) = -1527099483 * v46;
-    if ((v47 >> 2) < 0x16C16C2)
+    v45 = (v41 + 1);
+    HIDWORD(v46) = -1527099483 * v45;
+    LODWORD(v46) = -1527099483 * v45;
+    if ((v46 >> 2) < 0x16C16C2)
     {
       break;
     }
 
-    v48 = *(a2 + 231);
-    if (v48 == v46)
+    v47 = *(a2 + 231);
+    if (v47 == v45)
     {
       break;
     }
 
-    v45 += 8;
+    v44 += 8;
 LABEL_68:
-    ++v42;
-    v44 += 7;
-    if (v42 >= v48)
+    ++v41;
+    v43 += 7;
+    if (v41 >= v47)
     {
       v9 = 0;
       goto LABEL_96;
     }
   }
 
-  v49 = (*v4)[1];
-  v50 = v46 - v43;
-  if (((8 * v50) & 0xFFF8) != 0)
+  v48 = (*v4)[1];
+  v49 = v45 - v42;
+  if (((8 * v49) & 0xFFF8) != 0)
   {
-    v51 = v41;
+    v50 = v40;
   }
 
   else
   {
-    v51 = 0;
+    v50 = 0;
   }
 
-  *v57 = v51;
-  v58 = 8 * (v50 & 0x1FFF);
-  v9 = AppleBCMWLANCommander::runIOVarSet(v49, "pfn_add_bssid", v57, 0, 0);
-  v52 = (*v4)[3];
+  *v56 = v50;
+  v57 = 8 * (v49 & 0x1FFF);
+  v9 = AppleBCMWLANCommander::runIOVarSet(v48, "pfn_add_bssid", v56, 0, 0);
+  v51 = (*v4)[3];
   if (!v9)
   {
-    if (v52 && CCLogStream::shouldLog())
+    if (v51 && CCLogStream::shouldLog())
     {
-      CCLogStream::logAlert((*v4)[3], "[dk] %s@%d: Enhanced PNO: Added %d new set of preferred Networks Total %d \n", "setWCL_CONFIG_BG_NETWORK", 401, v50, (v42 + 1));
+      CCLogStream::logAlert((*v4)[3], "[dk] %s@%d: Enhanced PNO: Added %d new set of preferred Networks Total %d \n", "setWCL_CONFIG_BG_NETWORK", 401, v49, (v41 + 1));
     }
 
-    bzero(v41, v39);
-    v48 = *(a2 + 231);
-    v43 = (v42 + 1);
-    v45 = v41;
+    bzero(v40, v38);
+    v47 = *(a2 + 231);
+    v42 = (v41 + 1);
+    v44 = v40;
     goto LABEL_68;
   }
 
-  if (v52 && CCLogStream::shouldLog())
+  if (v51 && CCLogStream::shouldLog())
   {
     CCLogStream::logAlert((*v4)[3], "[dk] %s@%d: Failure to add network to PNO list: %d\n", "setWCL_CONFIG_BG_NETWORK", 398, v9);
   }
@@ -5973,17 +5865,20 @@ uint64_t AppleBCMWLANBGScanAdapter::configurePFN(AppleBCMWLANBGScanAdapter *this
 
 uint64_t AppleBCMWLANBGScanAdapter::configurePFNSuspend(AppleBCMWLANBGScanAdapter *this, int a2)
 {
-  v4 = (this + 40);
+  v4 = this + 40;
   v3 = *(this + 5);
-  v12 = a2;
+  v14 = a2;
   v5 = (*(**v3 + 88))();
   if ((*(*v5 + 136))(v5))
   {
-    v9 = this;
-    v10 = AppleBCMWLANBGScanAdapter::handlePFNSuspendAsyncCallBack;
-    v11 = 0;
-    v6 = AppleBCMWLANCommander::sendIOVarSet(*(*(this + 5) + 8), "pfn_suspend");
-    if (v6 && (*v4)[3] && CCLogStream::shouldLog())
+    v11 = this;
+    v12 = AppleBCMWLANBGScanAdapter::handlePFNSuspendAsyncCallBack;
+    v13 = 0;
+    v6 = *(*(this + 5) + 8);
+    v10[0] = &v14;
+    v10[1] = 4;
+    v7 = AppleBCMWLANCommander::sendIOVarSet(v6, "pfn_suspend", v10, kNoRxExpected, &v11, 0);
+    if (v7 && *(*v4 + 24) && CCLogStream::shouldLog())
     {
       AppleBCMWLANBGScanAdapter::configurePFNSuspend(v4);
     }
@@ -5991,17 +5886,17 @@ uint64_t AppleBCMWLANBGScanAdapter::configurePFNSuspend(AppleBCMWLANBGScanAdapte
 
   else
   {
-    v7 = (*v4)[1];
-    v9 = &v12;
-    v10 = 4;
-    v6 = AppleBCMWLANCommander::runIOVarSet(v7, "pfn_suspend", &v9, 0, 0);
-    if (v6 && (*v4)[3] && CCLogStream::shouldLog())
+    v8 = *(*v4 + 8);
+    v11 = &v14;
+    v12 = 4;
+    v7 = AppleBCMWLANCommander::runIOVarSet(v8, "pfn_suspend", &v11, 0, 0);
+    if (v7 && *(*v4 + 24) && CCLogStream::shouldLog())
     {
       AppleBCMWLANBGScanAdapter::configurePFNSuspend(v4);
     }
   }
 
-  return v6;
+  return v7;
 }
 
 uint64_t AppleBCMWLANBGScanAdapter::populatePreferredSSIDNetworks(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -6141,23 +6036,22 @@ uint64_t AppleBCMWLANBGScanAdapter::configPNO(AppleBCMWLANBGScanAdapter *this, i
 
   v6 = (this + 40);
   v5 = *(this + 5);
-  v23 = v4;
+  v22 = v4;
   v7 = *(v5 + 8);
-  v22[0] = &v23;
-  v22[1] = 4;
-  v8 = AppleBCMWLANCommander::runIOVarSet(v7, "scan_nprobes", v22, 0, 0);
+  v21[0] = &v22;
+  v21[1] = 4;
+  v8 = AppleBCMWLANCommander::runIOVarSet(v7, "scan_nprobes", v21, 0, 0);
   v9 = *v6;
   if (v8)
   {
     if (v9[3])
     {
-      v10 = v9[3];
       shouldLog = CCLogStream::shouldLog();
       v9 = *v6;
       if (shouldLog)
       {
-        AppleBCMWLANBGScanAdapter::configPNO(v9, v8, v6, v22);
-        v9 = v22[0];
+        AppleBCMWLANBGScanAdapter::configPNO(v9, v8, v6, v21);
+        v9 = v21[0];
       }
     }
   }
@@ -6167,16 +6061,16 @@ uint64_t AppleBCMWLANBGScanAdapter::configPNO(AppleBCMWLANBGScanAdapter *this, i
     if (!a2)
     {
 LABEL_17:
-      v13 = this;
-      v14 = 1;
+      v12 = this;
+      v13 = 1;
       goto LABEL_18;
     }
 
 LABEL_14:
-    v13 = this;
-    v14 = 0;
+    v12 = this;
+    v13 = 0;
 LABEL_18:
-    v16 = AppleBCMWLANBGScanAdapter::configurePFN(v13, v14);
+    v15 = AppleBCMWLANBGScanAdapter::configurePFN(v12, v13);
     goto LABEL_21;
   }
 
@@ -6184,26 +6078,26 @@ LABEL_18:
   {
     if (!a2)
     {
-      v12 = AppleBCMWLANBGScanAdapter::configureBGScanParams(this, 2);
-      if (v12)
+      v11 = AppleBCMWLANBGScanAdapter::configureBGScanParams(this, 2);
+      if (v11)
       {
 LABEL_22:
         if ((*v6)[3] && CCLogStream::shouldLog())
         {
           if (a2)
           {
-            v17 = "Suspend";
+            v16 = "Suspend";
           }
 
           else
           {
-            v17 = "Resume";
+            v16 = "Resume";
           }
 
-          CCLogStream::logAlert((*v6)[3], "[dk] %s@%d:Failed to %s PNO\n", "configPNO", 517, v17);
+          CCLogStream::logAlert((*v6)[3], "[dk] %s@%d:Failed to %s PNO\n", "configPNO", 517, v16);
         }
 
-        return v12;
+        return v11;
       }
 
       goto LABEL_17;
@@ -6214,47 +6108,47 @@ LABEL_22:
 
   if (a2)
   {
-    v15 = 1;
+    v14 = 1;
   }
 
   else
   {
-    v15 = 3;
+    v14 = 3;
   }
 
-  v16 = AppleBCMWLANBGScanAdapter::configureBGScanParams(this, v15);
+  v15 = AppleBCMWLANBGScanAdapter::configureBGScanParams(this, v14);
 LABEL_21:
-  v12 = v16;
-  if (v16)
+  v11 = v15;
+  if (v15)
   {
     goto LABEL_22;
   }
 
-  v18 = *v6;
+  v17 = *v6;
   if ((*v6)[3])
   {
-    v19 = CCLogStream::shouldLog();
-    v18 = *v6;
-    if (v19)
+    v18 = CCLogStream::shouldLog();
+    v17 = *v6;
+    if (v18)
     {
       if (a2)
       {
-        v21 = "Suspend";
+        v20 = "Suspend";
       }
 
       else
       {
-        v21 = "Resume";
+        v20 = "Resume";
       }
 
-      CCLogStream::logAlert(v18[3], "[dk] %s@%d:Succesfully %s PNO\n", "configPNO", 519, v21);
-      v18 = *v6;
+      CCLogStream::logAlert(v17[3], "[dk] %s@%d:Succesfully %s PNO\n", "configPNO", 519, v20);
+      v17 = *v6;
     }
   }
 
-  v12 = 0;
-  *(v18 + 4844) = a2 == 0;
-  return v12;
+  v11 = 0;
+  *(v17 + 4844) = a2 == 0;
+  return v11;
 }
 
 uint64_t AppleBCMWLANBGScanAdapter::configEPNO(AppleBCMWLANBGScanAdapter *this, int a2)
@@ -6353,11 +6247,11 @@ LABEL_15:
   return v6;
 }
 
-uint64_t AppleBCMWLANBGScanAdapter::handlePFNSuspendAsyncCallBack(uint64_t result, uint64_t a2, int a3)
+uint64_t AppleBCMWLANBGScanAdapter::handlePFNSuspendAsyncCallBack(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
-    v3 = (result + 40);
+    v3 = result + 40;
     result = *(*(result + 40) + 24);
     if (result)
     {
@@ -6643,27 +6537,49 @@ uint64_t AppleBCMWLANBGScanAdapter::setWCL_CONFIG_BG_PARAMS(AppleBCMWLANBGScanAd
 
 uint64_t AppleBCMWLANBGScanAdapter::configureDynamicScanFreq(uint64_t a1, int a2, uint64_t a3)
 {
+  v12[0] = a1;
+  v12[1] = AppleBCMWLANBGScanAdapter::handleSetDynamicScanFreqAsyncCallBack;
+  v12[2] = 0;
+  v14 = 0;
+  v15 = 0;
+  v13 = 1;
   if (a2)
   {
-    v8 = *(a3 + 4);
-    v7 = *(a3 + 8);
-    v10 = *(a3 + 14);
-    v9 = *(a3 + 16) * *(a3 + 12);
-    *a3;
+    v4 = *(a3 + 8);
+    WORD2(v13) = *(a3 + 4);
+    WORD1(v13) = v4;
+    v5 = *(a3 + 12);
+    WORD1(v15) = *(a3 + 14);
+    v14 = __PAIR64__(*(a3 + 16) * v5, v5);
+    if (*a3)
+    {
+      v6 = 3;
+    }
+
+    else
+    {
+      v6 = 0;
+    }
+
+    LOWORD(v15) = v6;
   }
 
-  v4 = (a1 + 40);
-  v5 = AppleBCMWLANCommander::sendIOVarSet(*(*(a1 + 40) + 8), "pfn_override");
-  if (v5 && (*v4)[3] && CCLogStream::shouldLog())
+  v7 = (a1 + 40);
+  v8 = *(*(a1 + 40) + 8);
+  v11[0] = &v13;
+  v11[1] = 24;
+  v9 = AppleBCMWLANCommander::sendIOVarSet(v8, "pfn_override", v11, kNoRxExpected, v12, 0);
+  if (v9 && *(*v7 + 24) && CCLogStream::shouldLog())
   {
-    AppleBCMWLANBGScanAdapter::configureDynamicScanFreq(v4, a2 == 0);
+    AppleBCMWLANBGScanAdapter::configureDynamicScanFreq(v7, a2 == 0);
   }
 
-  return v5;
+  return v9;
 }
 
-uint64_t AppleBCMWLANBGScanAdapter::configureUnAssociatedScanTime(AppleBCMWLANBGScanAdapter *this, char a2, int a3)
+uint64_t AppleBCMWLANBGScanAdapter::configureUnAssociatedScanTime(AppleBCMWLANBGScanAdapter *this, uint64_t a2, int a3)
 {
+  v3 = a2;
   v11 = a3;
   v4 = (this + 40);
   v5 = *(*(this + 5) + 8);
@@ -6672,9 +6588,9 @@ uint64_t AppleBCMWLANBGScanAdapter::configureUnAssociatedScanTime(AppleBCMWLANBG
   v6 = AppleBCMWLANCommander::runIOVarSet(v5, "scan_unassoc_time", v10, 0, 0);
   v7 = v6;
   v8 = v6 == -469794537 || v6 == 0;
-  if (!v8 && (*v4)[3] && CCLogStream::shouldLog())
+  if (!v8 && *(*v4 + 24) && CCLogStream::shouldLog())
   {
-    AppleBCMWLANBGScanAdapter::configureUnAssociatedScanTime(v4, a2);
+    AppleBCMWLANBGScanAdapter::configureUnAssociatedScanTime(v4, v3);
   }
 
   return v7;
@@ -6727,37 +6643,37 @@ uint64_t AppleBCMWLANBGScanAdapter::collectBGScanCachedResults(uint64_t a1, unsi
   return result;
 }
 
-uint64_t *AppleBCMWLANBGScanAdapter::getMotionProfileState(AppleBCMWLANBGScanAdapter *this)
+uint64_t AppleBCMWLANBGScanAdapter::getMotionProfileState(AppleBCMWLANBGScanAdapter *this)
 {
   v3 = (this + 40);
   v2 = *(this + 5);
+  v18 = 0xAAAAAAAAAAAAAAAALL;
   v19 = 0xAAAAAAAAAAAAAAAALL;
-  v20 = 0xAAAAAAAAAAAAAAAALL;
   result = AppleBCMWLANConfigManager::getMotionProfileGPIOConfig(*(v2 + 16));
   if (result)
   {
-    v17[0] = &v18;
-    v17[1] = 0x1400140014;
-    v18 = 1;
+    v16[0] = &v17;
+    v16[1] = 0x1400140014;
+    v17 = 1;
     v5 = (*(***v3 + 88))(**v3);
     if ((*(*v5 + 136))(v5))
     {
-      v14 = this;
-      v15 = AppleBCMWLANBGScanAdapter::handleGetMotionStateAsyncCallBack;
-      v16 = 0;
+      *&v14 = this;
+      *(&v14 + 1) = AppleBCMWLANBGScanAdapter::handleGetMotionStateAsyncCallBack;
+      v15 = 0;
       v6 = *(*(this + 5) + 8);
-      v13[0] = &v18;
+      v13[0] = &v17;
       v13[1] = 20;
       v12 = 1310740;
       v7 = AppleBCMWLANCommander::sendIOVarGet(v6, "mpf_state", v13, &v12, &v14, 0);
       if (v7)
       {
         v8 = v7;
-        if ((*v3)[3])
+        if (*(*v3 + 24))
         {
           if (CCLogStream::shouldLog())
           {
-            CCLogStream::logAlert((*v3)[3], "[dk] %s@%d: Failed GET IOCTL, cret[0x%08x]\n", "getMotionProfileState", 842, v8);
+            CCLogStream::logAlert(*(*v3 + 24), "[dk] %s@%d: Failed GET IOCTL, cret[0x%08x]\n", "getMotionProfileState", 842, v8);
           }
         }
       }
@@ -6765,10 +6681,10 @@ uint64_t *AppleBCMWLANBGScanAdapter::getMotionProfileState(AppleBCMWLANBGScanAda
       return 0;
     }
 
-    v9 = (*v3)[1];
-    v14 = &v18;
-    v15 = 20;
-    v10 = AppleBCMWLANCommander::runIOVarGet(v9, "mpf_state", &v14, v17, 0);
+    v9 = *(*v3 + 8);
+    *&v14 = &v17;
+    *(&v14 + 1) = 20;
+    v10 = AppleBCMWLANCommander::runIOVarGet(v9, "mpf_state", &v14, v16, 0);
     if (v10 == -469794537)
     {
       return 0;
@@ -6777,10 +6693,10 @@ uint64_t *AppleBCMWLANBGScanAdapter::getMotionProfileState(AppleBCMWLANBGScanAda
     v11 = v10;
     if (!v10)
     {
-      return v19;
+      return v18;
     }
 
-    result = (*v3)[3];
+    result = *(*v3 + 24);
     if (result)
     {
       result = CCLogStream::shouldLog();
@@ -6795,11 +6711,11 @@ uint64_t *AppleBCMWLANBGScanAdapter::getMotionProfileState(AppleBCMWLANBGScanAda
   return result;
 }
 
-uint64_t AppleBCMWLANBGScanAdapter::handleGetMotionStateAsyncCallBack(uint64_t a1, uint64_t a2, int a3, void *a4)
+uint64_t AppleBCMWLANBGScanAdapter::handleGetMotionStateAsyncCallBack(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   if (a3)
   {
-    v4 = (a1 + 40);
+    v4 = a1 + 40;
     result = *(*(a1 + 40) + 24);
     if (result)
     {
@@ -6840,11 +6756,11 @@ uint64_t AppleBCMWLANBGScanAdapter::handleGetMotionStateAsyncCallBack(uint64_t a
   return result;
 }
 
-uint64_t AppleBCMWLANBGScanAdapter::handleSetDynamicScanFreqAsyncCallBack(uint64_t result, uint64_t a2, int a3)
+uint64_t AppleBCMWLANBGScanAdapter::handleSetDynamicScanFreqAsyncCallBack(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
-    v3 = (result + 40);
+    v3 = result + 40;
     result = *(*(result + 40) + 24);
     if (result)
     {
@@ -6859,7 +6775,7 @@ uint64_t AppleBCMWLANBGScanAdapter::handleSetDynamicScanFreqAsyncCallBack(uint64
   return result;
 }
 
-uint64_t getCurrentContinuousTimeMilliSeconds(void)
+unint64_t getCurrentContinuousTimeMilliSeconds(void)
 {
   mach_continuous_time();
   absolutetime_to_nanoseconds();
@@ -7159,7 +7075,7 @@ uint64_t AppleBCMWLANBGScanAdapter::parsePFNAllGoneExtEvent(uint64_t a1, uint64_
   return result;
 }
 
-uint64_t AppleBCMWLANBGScanAdapter::parseBGScanEvent(uint64_t a1, uint64_t a2)
+AppleBCMWLANCore *AppleBCMWLANBGScanAdapter::parseBGScanEvent(uint64_t a1, uint64_t a2)
 {
   v4 = (a1 + 40);
   if (AppleBCMWLANCore::isEnhancedPNOEnabled(**(a1 + 40)))
@@ -7176,7 +7092,6 @@ uint64_t AppleBCMWLANBGScanAdapter::parseBGScanEvent(uint64_t a1, uint64_t a2)
       result = CCLogStream::shouldLog();
       if (result)
       {
-        v19 = *(a2 + 20);
         return CCLogStream::logAlert((*v4)[3], "[dk] %s@%d:Event msg length is too short %u");
       }
     }
@@ -7206,7 +7121,7 @@ uint64_t AppleBCMWLANBGScanAdapter::parseBGScanEvent(uint64_t a1, uint64_t a2)
   {
     if (AppleBCMWLANCore::checkForScanCoreSupport(**v4) && (AppleBCMWLANCore::checkForLPSCDisable(**v4) & 1) == 0 && *(a2 + 20) >= 0x3Cu && (*v4)[3] && CCLogStream::shouldLog())
     {
-      AppleBCMWLANBGScanAdapter::parseBGScanEvent(v4, a2);
+      AppleBCMWLANBGScanAdapter::parseBGScanEvent(v4);
     }
 
 LABEL_32:
@@ -7233,7 +7148,7 @@ LABEL_22:
 
   if (AppleBCMWLANCore::checkForScanCoreSupport(**v4) && (AppleBCMWLANCore::checkForLPSCDisable(**v4) & 1) == 0 && *(a2 + 20) >= 0x40u && (*v4)[3] && CCLogStream::shouldLog())
   {
-    AppleBCMWLANBGScanAdapter::parseBGScanEvent(v4, a2);
+    AppleBCMWLANBGScanAdapter::parseBGScanEvent(v4);
   }
 
   v7 = 16;
@@ -7241,22 +7156,21 @@ LABEL_22:
 LABEL_33:
   if (v8 <= *(a2 + 20))
   {
-    memset(&v25[1], 0, 112);
-    v22 = 0u;
-    v23 = 0u;
+    memset(&v22[1], 0, 112);
+    v19 = 0u;
+    v20 = 0u;
     v9 = a2 + 48 + v7;
-    v24 = 0;
+    v21 = 0;
     if (v6 > 4)
     {
       v14 = *v9;
       v15 = *(v9 + 8);
-      v16 = *(v9 + 9);
-      *v21 = v16;
-      *&v21[16] = *(v9 + 25);
-      *&v21[31] = *(v9 + 40);
-      WORD2(v25[6]) = WORD2(*v9);
-      LODWORD(v25[6]) = v14;
-      HIDWORD(v25[1]) = v15;
+      *v18 = *(v9 + 9);
+      *&v18[16] = *(v9 + 25);
+      *&v18[31] = *(v9 + 40);
+      WORD2(v22[6]) = WORD2(*v9);
+      LODWORD(v22[6]) = v14;
+      HIDWORD(v22[1]) = v15;
       if (v15 >= 0x21)
       {
         if ((*v4)[3] && CCLogStream::shouldLog())
@@ -7264,20 +7178,20 @@ LABEL_33:
           CCLogStream::logAlert((*v4)[3], "[dk] %s@%d:Invalid SSID length %u, truncated it to maximum legal length\n", "parseBGScanEvent", 1476, v15);
         }
 
-        HIDWORD(v25[1]) = 32;
+        HIDWORD(v22[1]) = 32;
       }
 
-      v12 = *&v21[3];
-      v13 = *&v21[19];
+      v12 = *&v18[3];
+      v13 = *&v18[19];
     }
 
     else
     {
       v10 = *v9;
-      WORD2(v25[6]) = *(v9 + 4);
+      WORD2(v22[6]) = *(v9 + 4);
       v11 = *(v9 + 7);
-      LODWORD(v25[6]) = v10;
-      HIDWORD(v25[1]) = v11;
+      LODWORD(v22[6]) = v10;
+      HIDWORD(v22[1]) = v11;
       if (v11 >= 0x21)
       {
         if ((*v4)[3] && CCLogStream::shouldLog())
@@ -7285,32 +7199,32 @@ LABEL_33:
           CCLogStream::logAlert((*v4)[3], "[dk] %s@%d:Invalid SSID length %u, truncated it to maximum legal length\n", "parseBGScanEvent", 1460, v11);
         }
 
-        HIDWORD(v25[1]) = 32;
+        HIDWORD(v22[1]) = 32;
       }
 
       v12 = *(v9 + 8);
       v13 = *(v9 + 24);
     }
 
-    *&v25[2] = v12;
-    *&v25[4] = v13;
-    v22 = v12;
-    v23 = v13;
-    v17 = *v4;
+    *&v22[2] = v12;
+    *&v22[4] = v13;
+    v19 = v12;
+    v20 = v13;
+    v16 = *v4;
     if ((*v4)[3])
     {
       shouldLog = CCLogStream::shouldLog();
-      v17 = *v4;
+      v16 = *v4;
       if (shouldLog)
       {
-        CCLogStream::logAlert(v17[3], "[dk] %s@%d: FOUND PNO network with SSID: %s \n", "parseBGScanEvent", 1484, &v22);
-        v17 = *v4;
+        CCLogStream::logAlert(v16[3], "[dk] %s@%d: FOUND PNO network with SSID: %s \n", "parseBGScanEvent", 1484, &v19);
+        v16 = *v4;
       }
     }
 
-    BYTE6(v25[6]) = 1;
-    v25[0] = 0x100000002;
-    return AppleBCMWLANCore::postMessageInfra(*v17, 0x1Fu, v25, 0x40uLL);
+    BYTE6(v22[6]) = 1;
+    v22[0] = 0x100000002;
+    return AppleBCMWLANCore::postMessageInfra(*v16, 0x1Fu, v22, 0x40uLL);
   }
 
   else
@@ -7321,7 +7235,6 @@ LABEL_33:
       result = CCLogStream::shouldLog();
       if (result)
       {
-        v20 = *(a2 + 20);
         return CCLogStream::logAlert((*v4)[3], "[dk] %s@%d:Invalid BG scan event msg length %u");
       }
     }
@@ -7330,20 +7243,10 @@ LABEL_33:
   return result;
 }
 
-{
-  v2 = OUTLINED_FUNCTION_2_0(a1, a2);
-  return CCLogStream::logAlert(v2, "[dk] %s@%d:Got WLC_E_PFN_NET_FOUND event with flag = %d (0/1 - legacy scan/low power scan)\n", "parseBGScanEvent", 1432, v4);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_2_0(a1, a2);
-  return CCLogStream::logAlert(v2, "[dk] %s@%d:Got WLC_E_PFN_NET_FOUND event with flag = %d (0/1 - legacy scan/low power scan)\n", "parseBGScanEvent", 1423, v4);
-}
-
 uint64_t AppleBCMWLANBGScanAdapter::retrievePfnScanInfo(uint64_t a1, uint64_t a2)
 {
   v2 = a2;
-  v42 = -86;
+  v38 = -86;
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
   __dst[0] = v4;
@@ -7352,7 +7255,6 @@ uint64_t AppleBCMWLANBGScanAdapter::retrievePfnScanInfo(uint64_t a1, uint64_t a2
   {
     if (*(*(a1 + 40) + 24) && CCLogStream::shouldLog())
     {
-      v35 = *(v2 + 20);
       CCLogStream::logAlert(*(*(a1 + 40) + 24), "[dk] %s@%d:Check1:Event msg length is too short %u");
     }
 
@@ -7374,7 +7276,7 @@ uint64_t AppleBCMWLANBGScanAdapter::retrievePfnScanInfo(uint64_t a1, uint64_t a2
 
         if ((*v7)[3] && CCLogStream::shouldLog())
         {
-          AppleBCMWLANBGScanAdapter::retrievePfnScanInfo(a1 + 40, v2);
+          AppleBCMWLANBGScanAdapter::retrievePfnScanInfo(a1 + 40);
         }
       }
 
@@ -7398,7 +7300,7 @@ uint64_t AppleBCMWLANBGScanAdapter::retrievePfnScanInfo(uint64_t a1, uint64_t a2
 
         if ((*v7)[3] && CCLogStream::shouldLog())
         {
-          AppleBCMWLANBGScanAdapter::retrievePfnScanInfo(a1 + 40, v2);
+          AppleBCMWLANBGScanAdapter::retrievePfnScanInfo(a1 + 40);
         }
       }
 
@@ -7417,7 +7319,6 @@ LABEL_27:
   {
     if (*(*(a1 + 40) + 24) && CCLogStream::shouldLog())
     {
-      v36 = *(v2 + 20);
       CCLogStream::logAlert(*(*(a1 + 40) + 24), "[dk] %s@%d:check2:Invalid event msg length %u");
     }
 
@@ -7443,8 +7344,6 @@ LABEL_27:
     {
       if (*(*(a1 + 40) + 24) && CCLogStream::shouldLog())
       {
-        v38 = *(v2 + 56);
-        v37 = *(v2 + 20);
         CCLogStream::logAlert(*(*(a1 + 40) + 24), "[dk] %s@%d:check3:Invalid event msg length %u, version %u, number of records %u\n");
       }
 
@@ -7453,10 +7352,10 @@ LABEL_27:
 
     v15 = 0;
     v16 = v2 + 48 + v6;
-    v17 = &v43[2];
-    memset(&v43[1], 0, 116);
-    v43[0] = v5;
-    v39 = v2;
+    v17 = &v39[2];
+    memset(&v39[1], 0, 116);
+    v39[0] = v5;
+    v35 = v2;
     while (1)
     {
       while (1)
@@ -7466,9 +7365,9 @@ LABEL_27:
           v23 = v5;
           v24 = *v16;
           v21 = *(v16 + 8);
-          *&v40[31] = *(v16 + 40);
-          *v40 = *(v16 + 9);
-          *&v40[16] = *(v16 + 25);
+          *&v36[31] = *(v16 + 40);
+          *v36 = *(v16 + 9);
+          *&v36[16] = *(v16 + 25);
           v25 = *(v16 + 44);
           v26 = *(v16 + 46);
           v18 = v15;
@@ -7488,14 +7387,14 @@ LABEL_27:
             v28[1] = 32;
           }
 
-          *(v28 + 2) = *&v40[3];
-          *(v28 + 6) = *&v40[19];
+          *(v28 + 2) = *&v36[3];
+          *(v28 + 6) = *&v36[19];
           *(v28 + 24) = v25;
           v28[13] = v26;
           v16 += 48;
           v5 = v23;
           v17 = v27;
-          v2 = v39;
+          v2 = v35;
         }
 
         else
@@ -7560,7 +7459,7 @@ LABEL_27:
           AppleBCMWLANBGScanAdapter::retrievePfnScanInfo(a1 + 40);
         }
 
-        v43[1] = ++v15;
+        v39[1] = ++v15;
         if (v15 < 2u)
         {
           break;
@@ -7569,7 +7468,7 @@ LABEL_27:
         v33 = **(a1 + 40);
         v34 = 56 * v15 + 8;
 LABEL_71:
-        AppleBCMWLANCore::postMessageInfra(v33, 0x1Fu, v43, v34);
+        AppleBCMWLANCore::postMessageInfra(v33, 0x1Fu, v39, v34);
         v15 = 0;
         if (!*(v2 + 56))
         {
@@ -7594,16 +7493,6 @@ LABEL_71:
   }
 
   return 0;
-}
-
-{
-  v2 = OUTLINED_FUNCTION_2_0(a1, a2);
-  return CCLogStream::logAlert(v2, "[dk] %s@%d:Got WLC_E_PFN_NET_FOUND event with flag = %d (0/1 - legacy scan/low power scan)\n", "retrievePfnScanInfo", 1552, v4);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_2_0(a1, a2);
-  return CCLogStream::logAlert(v2, "[dk] %s@%d:Got WLC_E_PFN_NET_FOUND event with flag = %d (0/1 - legacy scan/low power scan)\n", "retrievePfnScanInfo", 1539, v4);
 }
 
 uint64_t _parseMacAddress(ether_addr *a1, char *a2)
@@ -7709,24 +7598,24 @@ uint64_t AppleBCMWLANBGScanAdapter::scanPrivacyMACTimer(uint64_t result, uint64_
   return result;
 }
 
-uint64_t AppleBCMWLANBGScanAdapter::generateAndApplyNewPrivateMACForScans(AppleBCMWLANCore ***this)
+AppleBCMWLANCore *AppleBCMWLANBGScanAdapter::generateAndApplyNewPrivateMACForScans(AppleBCMWLANCore ***this)
 {
-  memset(v16, 0, sizeof(v16));
-  v2 = (this + 5);
+  memset(v15, 0, sizeof(v15));
+  v2 = this + 5;
   if (!AppleBCMWLANCore::isPrivateMacEnabled(*this[5]))
   {
     return 0;
   }
 
-  v15 = 0;
-  v14 = 0x80000;
+  v14 = 0;
+  v13 = 0x80000;
   if ((*(*(*v2)[606] + 136))((*v2)[606]))
   {
-    v11 = this;
-    v12 = AppleBCMWLANBGScanAdapter::handleGetScanMacStateAsyncCallBack;
-    v13 = 0;
+    *&v11 = this;
+    *(&v11 + 1) = AppleBCMWLANBGScanAdapter::handleGetScanMacStateAsyncCallBack;
+    v12 = 0;
     v3 = this[5][1];
-    v9 = &v14;
+    v9 = &v13;
     v10 = 12;
     v8 = 786436;
     if (AppleBCMWLANCommander::sendIOVarGet(v3, "scanmac", &v9, &v8, &v11, 0) && (*v2)[3] && CCLogStream::shouldLog())
@@ -7737,10 +7626,10 @@ uint64_t AppleBCMWLANBGScanAdapter::generateAndApplyNewPrivateMACForScans(AppleB
     return 0;
   }
 
-  v11 = &v14;
-  v12 = 0xC0004000CLL;
+  *&v11 = &v13;
+  *(&v11 + 1) = 0xC0004000CLL;
   v6 = (*v2)[1];
-  v9 = &v14;
+  v9 = &v13;
   v10 = 12;
   v7 = AppleBCMWLANCommander::runIOVarGet(v6, "scanmac", &v9, &v11, 0);
   if (v7)
@@ -7754,7 +7643,7 @@ uint64_t AppleBCMWLANBGScanAdapter::generateAndApplyNewPrivateMACForScans(AppleB
 
   else
   {
-    if (!v15)
+    if (!v14)
     {
       if ((*v2)[3] && CCLogStream::shouldLog())
       {
@@ -7786,10 +7675,10 @@ uint64_t AppleBCMWLANBGScanAdapter::enablePrivateMACForScans(AppleBCMWLANBGScanA
   return 0;
 }
 
-uint64_t AppleBCMWLANBGScanAdapter::configurePrivateMACForScans(AppleBCMWLANCore ***this, int a2)
+AppleBCMWLANCore *AppleBCMWLANBGScanAdapter::configurePrivateMACForScans(AppleBCMWLANCore ***this, int a2)
 {
-  *v13 = 0;
-  v4 = (this + 5);
+  v22 = 0uLL;
+  v4 = this + 5;
   result = AppleBCMWLANCore::isPrivateMacEnabled(*this[5]);
   if (!result)
   {
@@ -7797,91 +7686,118 @@ uint64_t AppleBCMWLANBGScanAdapter::configurePrivateMACForScans(AppleBCMWLANCore
   }
 
   result = 0;
+  v21 = 0;
   if (a2 > 1)
   {
     if (a2 == 2)
     {
-      v6 = *v4;
-      if (*(*v4 + 4876) | *(*v4 + 4880))
+      v8 = *v4;
+      if (*(*v4 + 1219) | *(*v4 + 2440))
       {
-        *&v13[6] = *(v6 + 4876);
-        v14 = *(v6 + 4880);
-        v7 = v13[6] & 0xFC;
+        *(&v22 + 6) = *(v8 + 1219);
+        WORD5(v22) = *(v8 + 2440);
+        v9 = BYTE6(v22) & 0xFC;
       }
 
       else
       {
-        v14 = -1;
-        *&v13[6] = -1;
-        v7 = -4;
+        WORD5(v22) = -1;
+        *(&v22 + 6) = -1;
+        v9 = -4;
       }
 
-      v13[6] = v7;
-      if (*(v6 + 4864) | *(v6 + 4868))
+      BYTE6(v22) = v9;
+      if (*(v8 + 1216) | *(v8 + 2434))
       {
-        *v13 = *(v6 + 4864);
-        *&v13[4] = *(v6 + 4868);
+        LODWORD(v22) = *(v8 + 1216);
+        WORD2(v22) = *(v8 + 2434);
       }
 
       else
       {
         read_random();
-        v6 = *v4;
+        v8 = *v4;
       }
 
-      v13[0] = v13[0] & 0xFC | 2;
-      *(v6 + 4858);
-      if (*(v6 + 24))
+      LOBYTE(v22) = v22 & 0xFC | 2;
+      v10 = *(v8 + 2429);
+      if (!v10)
+      {
+        v10 = 61;
+      }
+
+      WORD6(v22) = v10;
+      if (v8[3])
       {
         shouldLog = CCLogStream::shouldLog();
-        v6 = *v4;
+        v8 = *v4;
         if (shouldLog)
         {
-          CCLogStream::logAlertIf(*(v6 + 24), 0x40000000000uLL, "[dk] %s@%d:PRIVATE MAC %02x:%02x:%02x:%02x:%02x:%02x\n", "configurePrivateMACForScans", 1998, v13[0], v13[1], v13[2], v13[3], v13[4], v13[5]);
-          v6 = *v4;
+          CCLogStream::logAlertIf(v8[3], 0x40000000000uLL, "[dk] %s@%d:PRIVATE MAC %02x:%02x:%02x:%02x:%02x:%02x\n", "configurePrivateMACForScans", 1998, v22, BYTE1(v22), BYTE2(v22), BYTE3(v22), BYTE4(v22), BYTE5(v22));
+          v8 = *v4;
         }
       }
 
-      if (*(v6 + 24))
+      if (v8[3])
       {
-        v9 = CCLogStream::shouldLog();
-        v6 = *v4;
-        if (v9)
+        v12 = CCLogStream::shouldLog();
+        v8 = *v4;
+        if (v12)
         {
-          CCLogStream::logAlertIf(*(v6 + 24), 0x40000000000uLL, "[dk] %s@%d:scan mac random mask %02x:%02x:%02x:%02x:%02x:%02x\n", "configurePrivateMACForScans", 2001, v13[6], v13[7], v13[8], v13[9], v14, HIBYTE(v14));
-          v6 = *v4;
+          CCLogStream::logAlertIf(v8[3], 0x40000000000uLL, "[dk] %s@%d:scan mac random mask %02x:%02x:%02x:%02x:%02x:%02x\n", "configurePrivateMACForScans", 2001, BYTE6(v22), BYTE7(v22), BYTE8(v22), BYTE9(v22), BYTE10(v22), BYTE11(v22));
+          v8 = *v4;
         }
       }
 
-      *(v6 + 4870) = *v13;
-      *(v6 + 4874) = *&v13[4];
-      v10 = *v4;
-      *(v10 + 4888) = *(*v4 + 4894);
-      *(v10 + 4892) = *(v10 + 4898);
-      v11 = *v4;
-      *(v11 + 4894) = *v13;
-      *(v11 + 4898) = *&v13[4];
-      v12 = *v4;
-      *(v12 + 4882) = *&v13[6];
-      *(v12 + 4886) = v14;
+      v13 = v22;
+      *(v8 + 4870) = v22;
+      v14 = WORD2(v22);
+      *(v8 + 2437) = WORD2(v22);
+      v15 = *v4;
+      *(v15 + 1222) = *(*v4 + 4894);
+      *(v15 + 2446) = *(v15 + 2449);
+      v16 = *v4;
+      *(v16 + 4894) = v13;
+      *(v16 + 2449) = v14;
+      v17 = *v4;
+      *(v17 + 4882) = *(&v22 + 6);
+      *(v17 + 2443) = WORD5(v22);
+      LOWORD(v21) = 2;
+      v6 = 16;
+      v7 = 20;
+      goto LABEL_28;
     }
 
-    else if (a2 != 4)
+    if (a2 != 4)
     {
       return result;
     }
 
-    return AppleBCMWLANCommander::sendIOVarSet(this[5][1], "scanmac");
+    LOBYTE(v22) = 0;
+LABEL_12:
+    LOWORD(v21) = 0;
+    v6 = 8;
+    v7 = 12;
+LABEL_28:
+    HIWORD(v21) = v6;
+    v20[0] = this;
+    v20[1] = AppleBCMWLANBGScanAdapter::handleSetPrivateMACForScansAsyncCallBack;
+    v20[2] = 0;
+    v18 = this[5][1];
+    v19[0] = &v21;
+    v19[1] = v7;
+    return AppleBCMWLANCommander::sendIOVarSet(v18, "scanmac", v19, kNoRxExpected, v20, 0);
   }
 
   if (!a2)
   {
-    return AppleBCMWLANCommander::sendIOVarSet(this[5][1], "scanmac");
+    LOBYTE(v22) = 1;
+    goto LABEL_12;
   }
 
   if (a2 == 1)
   {
-    result = *(*v4 + 24);
+    result = (*v4)[3];
     if (result)
     {
       result = CCLogStream::shouldLog();
@@ -7908,11 +7824,11 @@ uint64_t AppleBCMWLANBGScanAdapter::disablePrivateMACForScans(AppleBCMWLANBGScan
   return 0;
 }
 
-uint64_t AppleBCMWLANBGScanAdapter::handleGetScanMacStateAsyncCallBack(AppleBCMWLANBGScanAdapter *this, uint64_t a2, int a3, uint64_t a4)
+uint64_t AppleBCMWLANBGScanAdapter::handleGetScanMacStateAsyncCallBack(AppleBCMWLANBGScanAdapter *this, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a3)
   {
-    v5 = (this + 40);
+    v5 = this + 40;
     result = *(*(this + 5) + 24);
     if (result)
     {
@@ -7977,9 +7893,9 @@ uint64_t AppleBCMWLANBGScanAdapter::handleGetScanMacStateAsyncCallBack(AppleBCMW
   return result;
 }
 
-uint64_t AppleBCMWLANBGScanAdapter::handleSetPrivateMACForScansAsyncCallBack(AppleBCMWLANBGScanAdapter *this, uint64_t a2, int a3)
+uint64_t AppleBCMWLANBGScanAdapter::handleSetPrivateMACForScansAsyncCallBack(AppleBCMWLANBGScanAdapter *this, uint64_t a2, uint64_t a3)
 {
-  v5 = (this + 40);
+  v5 = this + 40;
   v4 = *(this + 5);
   if (a3)
   {
@@ -8109,20 +8025,6 @@ uint64_t AppleBCMWLANBGScanAdapter::getPrevAndCurrentBGScanPrivateMac(uint64_t t
   return this;
 }
 
-uint64_t *OUTLINED_FUNCTION_1_0@<X0>(uint64_t **a1@<X8>)
-{
-  result = *a1;
-  v2 = **a1;
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_2_0(uint64_t a1, uint64_t a2)
-{
-  result = *(*a1 + 24);
-  v3 = *(a2 + 54) & 1;
-  return result;
-}
-
 AppleBCMWLANNetAdapter *AppleBCMWLANNetAdapter::withDriver(AppleBCMWLANNetAdapter *this, AppleBCMWLANCore *a2)
 {
   v5 = 0xAAAAAAAAAAAAAAAALL;
@@ -8199,7 +8101,6 @@ uint64_t AppleBCMWLANNetAdapter::initWithDriver(AppleBCMWLANNetAdapter *this, Ap
 
   *(*(this + 5) + 40) = AppleBCMWLANCore::getFaultReporter(**(this + 5));
   (*(**(*(this + 5) + 40) + 8))(*(*(this + 5) + 40));
-  v9 = *(*(this + 5) + 40);
   getClassNameHelper(this);
   CCFaultReporter::registerCallbacks();
   *(*(this + 5) + 48) = 10;
@@ -8214,7 +8115,7 @@ uint64_t AppleBCMWLANNetAdapter::collectImmediateFaultDataCallback(AppleBCMWLANC
   if (v4)
   {
     v5 = v4;
-    AppleBCMWLANNetAdapter::dumpStats(this, v4, 0, 4095);
+    AppleBCMWLANNetAdapter::dumpStats(this, v4, 0, 0xFFFu);
     v6 = OSString::withCString("NetManagerState.txt");
     v7 = OSString::withCString(v5);
     (*(*a2 + 192))(a2, v6, v7);
@@ -8304,17 +8205,17 @@ BOOL (__cdecl *AppleBCMWLANNetAdapter::stop(OSObject *this))(OSObject *__hidden 
 
 uint64_t AppleBCMWLANNetAdapter::configureShortRetryLimit(AppleBCMWLANNetAdapter *this, int a2)
 {
-  v9 = a2;
-  v3 = (this + 40);
+  v10 = a2;
+  v3 = this + 40;
   v2 = *(this + 5);
-  v8[0] = this;
-  v8[1] = AppleBCMWLANNetAdapter::setShortRetryLimitAsyncCallback;
-  v8[2] = 0;
+  *&v8 = this;
+  *(&v8 + 1) = AppleBCMWLANNetAdapter::setShortRetryLimitAsyncCallback;
+  v9 = 0;
   v4 = *(v2 + 8);
-  v7[0] = &v9;
+  v7[0] = &v10;
   v7[1] = 4;
-  v5 = AppleBCMWLANCommander::sendIOCtlSet(v4, 32, v7, kNoRxExpected, v8, 0);
-  if (v5 && (*v3)[4] && CCLogStream::shouldLog())
+  v5 = AppleBCMWLANCommander::sendIOCtlSet(v4, 32, v7, kNoRxExpected, &v8, 0);
+  if (v5 && *(*v3 + 32) && CCLogStream::shouldLog())
   {
     AppleBCMWLANNetAdapter::configureShortRetryLimit(v3);
   }
@@ -8322,11 +8223,11 @@ uint64_t AppleBCMWLANNetAdapter::configureShortRetryLimit(AppleBCMWLANNetAdapter
   return v5;
 }
 
-uint64_t AppleBCMWLANNetAdapter::setShortRetryLimitAsyncCallback(uint64_t result, uint64_t a2, int a3)
+uint64_t AppleBCMWLANNetAdapter::setShortRetryLimitAsyncCallback(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
-    v3 = (result + 40);
+    v3 = result + 40;
     result = *(*(result + 40) + 32);
     if (result)
     {
@@ -8343,17 +8244,17 @@ uint64_t AppleBCMWLANNetAdapter::setShortRetryLimitAsyncCallback(uint64_t result
 
 uint64_t AppleBCMWLANNetAdapter::configureLongRetryLimit(AppleBCMWLANNetAdapter *this, int a2)
 {
-  v9 = a2;
-  v3 = (this + 40);
+  v10 = a2;
+  v3 = this + 40;
   v2 = *(this + 5);
-  v8[0] = this;
-  v8[1] = AppleBCMWLANNetAdapter::setLongRetryLimitAsyncCallback;
-  v8[2] = 0;
+  *&v8 = this;
+  *(&v8 + 1) = AppleBCMWLANNetAdapter::setLongRetryLimitAsyncCallback;
+  v9 = 0;
   v4 = *(v2 + 8);
-  v7[0] = &v9;
+  v7[0] = &v10;
   v7[1] = 4;
-  v5 = AppleBCMWLANCommander::sendIOCtlSet(v4, 34, v7, kNoRxExpected, v8, 0);
-  if (v5 && (*v3)[4] && CCLogStream::shouldLog())
+  v5 = AppleBCMWLANCommander::sendIOCtlSet(v4, 34, v7, kNoRxExpected, &v8, 0);
+  if (v5 && *(*v3 + 32) && CCLogStream::shouldLog())
   {
     AppleBCMWLANNetAdapter::configureLongRetryLimit(v3);
   }
@@ -8361,11 +8262,11 @@ uint64_t AppleBCMWLANNetAdapter::configureLongRetryLimit(AppleBCMWLANNetAdapter 
   return v5;
 }
 
-uint64_t AppleBCMWLANNetAdapter::setLongRetryLimitAsyncCallback(uint64_t result, uint64_t a2, int a3)
+uint64_t AppleBCMWLANNetAdapter::setLongRetryLimitAsyncCallback(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
-    v3 = (result + 40);
+    v3 = result + 40;
     result = *(*(result + 40) + 32);
     if (result)
     {
@@ -8380,23 +8281,31 @@ uint64_t AppleBCMWLANNetAdapter::setLongRetryLimitAsyncCallback(uint64_t result,
   return result;
 }
 
-uint64_t AppleBCMWLANNetAdapter::configureRTSThreshold(AppleBCMWLANNetAdapter *this)
+uint64_t AppleBCMWLANNetAdapter::configureRTSThreshold(AppleBCMWLANNetAdapter *this, int a2)
 {
-  v1 = (this + 40);
-  v2 = AppleBCMWLANCommander::sendIOVarSet(*(*(this + 5) + 8), "rtsthresh");
-  if (v2 && (*v1)[4] && CCLogStream::shouldLog())
+  v9 = a2;
+  v3 = this + 40;
+  v2 = *(this + 5);
+  v8[0] = this;
+  v8[1] = AppleBCMWLANNetAdapter::setRTSThresholdAsyncCallback;
+  v8[2] = 0;
+  v4 = *(v2 + 8);
+  v7[0] = &v9;
+  v7[1] = 4;
+  v5 = AppleBCMWLANCommander::sendIOVarSet(v4, "rtsthresh", v7, kNoRxExpected, v8, 0);
+  if (v5 && *(*v3 + 32) && CCLogStream::shouldLog())
   {
-    AppleBCMWLANNetAdapter::configureRTSThreshold(v1);
+    AppleBCMWLANNetAdapter::configureRTSThreshold(v3);
   }
 
-  return v2;
+  return v5;
 }
 
-uint64_t AppleBCMWLANNetAdapter::setRTSThresholdAsyncCallback(uint64_t result, uint64_t a2, int a3)
+uint64_t AppleBCMWLANNetAdapter::setRTSThresholdAsyncCallback(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
-    v3 = (result + 40);
+    v3 = result + 40;
     result = *(*(result + 40) + 32);
     if (result)
     {
@@ -8465,63 +8374,85 @@ uint64_t AppleBCMWLANNetAdapter::getFWHotChannels(uint64_t a1, uint64_t a2)
   return v6;
 }
 
-uint64_t AppleBCMWLANNetAdapter::sendReassocCommand(AppleBCMWLANNetAdapter *this, void *a2, unsigned __int16 a3)
+uint64_t AppleBCMWLANNetAdapter::sendReassocCommand(AppleBCMWLANNetAdapter *this, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   v5 = (this + 40);
-  v6 = *(*(this + 5) + 32);
   IO80211Hexdump();
-  v7 = *v5;
-  v16[0] = **v5;
-  v16[1] = AppleBCMWLANCore::startRoamScanAsyncCallback;
-  v16[2] = 0;
-  v8 = v7[1];
-  v9 = a3;
-  if (a3)
+  v6 = *v5;
+  *&v15 = **v5;
+  *(&v15 + 1) = AppleBCMWLANCore::startRoamScanAsyncCallback;
+  v16 = 0;
+  v7 = v6[1];
+  v8 = v3;
+  if (v3)
   {
-    v10 = a2;
+    v9 = a2;
   }
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
   if (!a2)
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  v15[0] = v10;
-  v15[1] = v9;
-  v11 = a3;
-  if (a3 <= 6u)
+  v14[0] = v9;
+  v14[1] = v8;
+  v10 = v3;
+  if (v3 <= 6u)
   {
-    v11 = 6;
+    v10 = 6;
   }
 
-  v14 = (v11 << 16) | 6;
-  v12 = AppleBCMWLANCommander::sendIOCtlSet(v8, 53, v15, &v14, v16, 0);
-  if (v12 && (*v5)[4] && CCLogStream::shouldLog())
+  v13 = (v10 << 16) | 6;
+  v11 = AppleBCMWLANCommander::sendIOCtlSet(v7, 53, v14, &v13, &v15, 0);
+  if (v11 && (*v5)[4] && CCLogStream::shouldLog())
   {
     AppleBCMWLANNetAdapter::sendReassocCommand(v5);
   }
 
-  return v12;
+  return v11;
 }
 
-uint64_t AppleBCMWLANNetAdapter::sendIOVReassocCommand(AppleBCMWLANNetAdapter *this, void *a2)
+uint64_t AppleBCMWLANNetAdapter::sendIOVReassocCommand(AppleBCMWLANNetAdapter *this, uint64_t a2, uint64_t a3)
 {
-  v2 = (this + 40);
-  v3 = *(*(this + 5) + 32);
+  v3 = a3;
+  v5 = (this + 40);
   IO80211Hexdump();
-  v6 = **v2;
-  v4 = AppleBCMWLANCommander::sendIOVarSet((*v2)[1], "reassoc");
-  if (v4 && (*v2)[4] && CCLogStream::shouldLog())
+  v6 = *v5;
+  v13[0] = **v5;
+  v13[1] = AppleBCMWLANCore::startRoamScanAsyncCallback;
+  v13[2] = 0;
+  v7 = v6[1];
+  v8 = v3;
+  if (v3)
   {
-    AppleBCMWLANNetAdapter::sendIOVReassocCommand(v2);
+    v9 = a2;
   }
 
-  return v4;
+  else
+  {
+    v9 = 0;
+  }
+
+  if (!a2)
+  {
+    v8 = 0;
+  }
+
+  v12[0] = v9;
+  v12[1] = v8;
+  v10 = AppleBCMWLANCommander::sendIOVarSet(v7, "reassoc", v12, kNoRxExpected, v13, 0);
+  if (v10 && (*v5)[4] && CCLogStream::shouldLog())
+  {
+    AppleBCMWLANNetAdapter::sendIOVReassocCommand(v5);
+  }
+
+  return v10;
 }
 
 uint64_t AppleBCMWLANNetAdapter::sendReassocCommandLegacy(AppleBCMWLANCore ***a1, unsigned __int16 *a2)
@@ -8566,7 +8497,7 @@ uint64_t AppleBCMWLANNetAdapter::sendReassocCommandLegacy(AppleBCMWLANCore ***a1
 
     DWORD2(v10[0]) = v7;
     AppleBCMWLANNetAdapter::getChanspecArray(a1, a2, (v10 | 0xC), v7);
-    return AppleBCMWLANNetAdapter::sendReassocCommand(a1, v10, 0x44u);
+    return AppleBCMWLANNetAdapter::sendReassocCommand(a1, v10, 68);
   }
 
   else
@@ -8667,14 +8598,15 @@ uint64_t AppleBCMWLANNetAdapter::sendReassocCommandV3(AppleBCMWLANCore ***a1, ui
       *(v9 + 4) |= 4u;
     }
 
-    *(v9 + 2) = 2 * *(v9 + 28) + 6 * *(v9 + 18) + 32;
-    v13 = AppleBCMWLANNetAdapter::sendIOVReassocCommand(a1, v9);
+    v15 = 2 * *(v9 + 28) + 6 * *(v9 + 18);
+    *(v9 + 2) = v15 + 32;
+    v13 = AppleBCMWLANNetAdapter::sendIOVReassocCommand(a1, v9, v15 + 32);
   }
 
   else
   {
     AppleBCMWLANNetAdapter::sendReassocCommandV3();
-    v13 = v16;
+    v13 = v17;
   }
 
   IOFreeData();
@@ -8754,14 +8686,15 @@ uint64_t AppleBCMWLANNetAdapter::sendReassocCommandV1(AppleBCMWLANCore ***a1, ui
       *(v9 + 4) |= 4u;
     }
 
-    *(v9 + 2) = 2 * *(v9 + 20) + 6 * *(v9 + 18) + 24;
-    v13 = AppleBCMWLANNetAdapter::sendIOVReassocCommand(a1, v9);
+    v15 = 2 * *(v9 + 20) + 6 * *(v9 + 18);
+    *(v9 + 2) = v15 + 24;
+    v13 = AppleBCMWLANNetAdapter::sendIOVReassocCommand(a1, v9, v15 + 24);
   }
 
   else
   {
     AppleBCMWLANNetAdapter::sendReassocCommandV1();
-    v13 = v16;
+    v13 = v17;
   }
 
   IOFreeData();
@@ -8783,16 +8716,19 @@ uint64_t AppleBCMWLANNetAdapter::configureWmeParams(uint64_t a1, _BYTE *a2)
   return AppleBCMWLANCommander::runIOVarSet(v3, "wme_ac_sta", v5, 0, 0);
 }
 
-uint64_t AppleBCMWLANNetAdapter::configureWmeParamsAsync(uint64_t a1, _BYTE *a2)
+uint64_t AppleBCMWLANNetAdapter::configureWmeParamsAsync(uint64_t a1, _BYTE *a2, void *a3)
 {
-  v2 = *(a1 + 40);
-  if (*(v2 + 70) == 1)
+  v3 = *(a1 + 40);
+  if (*(v3 + 70) == 1)
   {
     *a2 |= 0x80u;
-    v2 = *(a1 + 40);
+    v3 = *(a1 + 40);
   }
 
-  return AppleBCMWLANCommander::sendIOVarSet(*(v2 + 8), "wme_ac_sta");
+  v4 = *(v3 + 8);
+  v6[0] = a2;
+  v6[1] = 4;
+  return AppleBCMWLANCommander::sendIOVarSet(v4, "wme_ac_sta", v6, kNoRxExpected, a3, 0);
 }
 
 uint64_t AppleBCMWLANNetAdapter::sendReassocCommand(AppleBCMWLANCore ***a1, unsigned __int16 *a2)
@@ -8824,7 +8760,6 @@ uint64_t AppleBCMWLANNetAdapter::setDefaultMode(AppleBCMWLANNetAdapter *this)
   v2 = (this + 40);
   *(*(this + 5) + 52) = 0;
   mach_continuous_time();
-  v3 = *v2;
   absolutetime_to_nanoseconds();
   if (!AppleBCMWLANCore::isAssociated(**v2))
   {
@@ -8833,19 +8768,31 @@ uint64_t AppleBCMWLANNetAdapter::setDefaultMode(AppleBCMWLANNetAdapter *this)
 
   if ((*(*v2 + 70) & 1) == 0)
   {
-    v4 = AppleBCMWLANNetAdapter::configureShortRetryLimit(this, 7);
-    v5 = v4;
-    if (v4 == -536870185 || v4 == -536870165)
+    v3 = AppleBCMWLANNetAdapter::configureShortRetryLimit(this, 7);
+    v4 = v3;
+    if (v3 == -536870185 || v3 == -536870165)
     {
-      return v5;
+      return v4;
     }
   }
 
-  v6 = AppleBCMWLANNetAdapter::configureLongRetryLimit(this, 6);
-  v5 = v6;
+  v5 = AppleBCMWLANNetAdapter::configureLongRetryLimit(this, 6);
+  v4 = v5;
+  if (v5 == -536870185 || v5 == -536870165)
+  {
+    return v4;
+  }
+
+  if (!AppleBCMWLANCore::isAssociated(**v2))
+  {
+    return 3766625283;
+  }
+
+  v6 = AppleBCMWLANNetAdapter::configureRTSThreshold(this, 2347);
+  v4 = v6;
   if (v6 == -536870185 || v6 == -536870165)
   {
-    return v5;
+    return v4;
   }
 
   if (!AppleBCMWLANCore::isAssociated(**v2))
@@ -8853,50 +8800,38 @@ uint64_t AppleBCMWLANNetAdapter::setDefaultMode(AppleBCMWLANNetAdapter *this)
     return 3766625283;
   }
 
-  v7 = AppleBCMWLANNetAdapter::configureRTSThreshold(this);
-  v5 = v7;
-  if (v7 == -536870185 || v7 == -536870165)
-  {
-    return v5;
-  }
-
-  if (!AppleBCMWLANCore::isAssociated(**v2))
-  {
-    return 3766625283;
-  }
-
-  v14 = *AppleBCMWLANCore::getWmeParams(**(this + 5), 3u);
-  v8 = AppleBCMWLANNetAdapter::configureWmeParams(this, &v14);
-  v9 = *(this + 5);
-  if (!v8)
+  v13 = *AppleBCMWLANCore::getWmeParams(**(this + 5), 3u);
+  v7 = AppleBCMWLANNetAdapter::configureWmeParams(this, &v13);
+  v8 = *(this + 5);
+  if (!v7)
   {
     goto LABEL_18;
   }
 
-  v5 = v8;
-  if (v9[4] && CCLogStream::shouldLog())
+  v4 = v7;
+  if (v8[4] && CCLogStream::shouldLog())
   {
     AppleBCMWLANNetAdapter::setDefaultMode(v2);
   }
 
-  if (v5 != -536870185 && v5 != -536870165)
+  if (v4 != -536870185 && v4 != -536870165)
   {
-    v9 = *v2;
+    v8 = *v2;
 LABEL_18:
-    v5 = 3766625283;
-    if (AppleBCMWLANCore::isAssociated(*v9))
+    v4 = 3766625283;
+    if (AppleBCMWLANCore::isAssociated(*v8))
     {
-      v14 = *AppleBCMWLANCore::getWmeParams(**(this + 5), 2u);
-      v10 = AppleBCMWLANNetAdapter::configureWmeParams(this, &v14);
-      if (v10)
+      v13 = *AppleBCMWLANCore::getWmeParams(**(this + 5), 2u);
+      v9 = AppleBCMWLANNetAdapter::configureWmeParams(this, &v13);
+      if (v9)
       {
-        v11 = v10;
+        v10 = v9;
         if ((*v2)[4] && CCLogStream::shouldLog())
         {
           AppleBCMWLANNetAdapter::setDefaultMode(v2);
         }
 
-        if (v11 == -536870185 || v11 == -536870165)
+        if (v10 == -536870185 || v10 == -536870165)
         {
           return 3758097084;
         }
@@ -8914,15 +8849,14 @@ LABEL_18:
     }
   }
 
-  return v5;
+  return v4;
 }
 
 uint64_t AppleBCMWLANNetAdapter::setRealTimeMode(AppleBCMWLANNetAdapter *this)
 {
-  v14 = 0;
+  v13 = 0;
   mach_continuous_time();
-  v3 = (this + 40);
-  v2 = *(this + 5);
+  v2 = (this + 40);
   absolutetime_to_nanoseconds();
   *(*(this + 5) + 52) = 1;
   if (!AppleBCMWLANCore::isAssociated(**(this + 5)))
@@ -8930,112 +8864,112 @@ uint64_t AppleBCMWLANNetAdapter::setRealTimeMode(AppleBCMWLANNetAdapter *this)
     return 3766625283;
   }
 
-  v4 = AppleBCMWLANNetAdapter::configureLongRetryLimit(this, 12);
-  v5 = v4;
-  if (v4 == -536870185 || v4 == -536870165)
+  v3 = AppleBCMWLANNetAdapter::configureLongRetryLimit(this, 12);
+  v4 = v3;
+  if (v3 == -536870185 || v3 == -536870165)
   {
-    return v5;
+    return v4;
   }
 
-  if (!AppleBCMWLANCore::isAssociated(**v3))
+  if (!AppleBCMWLANCore::isAssociated(**v2))
   {
     return 3766625283;
   }
 
-  v6 = *(AppleBCMWLANCore::getWmeParams(**v3, 2u) + 1);
-  WmeParams = AppleBCMWLANCore::getWmeParams(**v3, 3u);
-  v8 = *v3;
-  if (*(*v3 + 12) <= *(WmeParams + 1) >> 4)
+  v5 = *(AppleBCMWLANCore::getWmeParams(**v2, 2u) + 1);
+  WmeParams = AppleBCMWLANCore::getWmeParams(**v2, 3u);
+  v7 = *v2;
+  if (*(*v2 + 12) <= *(WmeParams + 1) >> 4)
   {
     goto LABEL_14;
   }
 
-  v14 = *AppleBCMWLANCore::getWmeParams(*v8, 3u);
-  if (!AppleBCMWLANCore::isAssociated(**v3))
+  v13 = *AppleBCMWLANCore::getWmeParams(*v7, 3u);
+  if (!AppleBCMWLANCore::isAssociated(**v2))
   {
     return 3766625283;
   }
 
-  BYTE1(v14) = *(AppleBCMWLANCore::getWmeParams(**(this + 5), 3u) + 1) & 0xF | (16 * *(*(this + 5) + 48));
-  v9 = AppleBCMWLANNetAdapter::configureWmeParams(this, &v14);
-  v8 = *(this + 5);
-  if (v9)
+  BYTE1(v13) = *(AppleBCMWLANCore::getWmeParams(**(this + 5), 3u) + 1) & 0xF | (16 * *(*(this + 5) + 48));
+  v8 = AppleBCMWLANNetAdapter::configureWmeParams(this, &v13);
+  v7 = *(this + 5);
+  if (v8)
   {
-    v5 = v9;
-    if (v8[4] && CCLogStream::shouldLog())
+    v4 = v8;
+    if (v7[4] && CCLogStream::shouldLog())
     {
-      AppleBCMWLANNetAdapter::setRealTimeMode(this + 5);
+      AppleBCMWLANNetAdapter::setRealTimeMode(this + 40);
     }
 
-    if (v5 == -536870185 || v5 == -536870165)
+    if (v4 == -536870185 || v4 == -536870165)
     {
-      return v5;
+      return v4;
     }
 
-    v8 = *v3;
+    v7 = *v2;
   }
 
 LABEL_14:
-  if (*(v8 + 12) <= v6 >> 4)
+  if (*(v7 + 12) <= v5 >> 4)
   {
     return 0;
   }
 
-  v14 = *AppleBCMWLANCore::getWmeParams(*v8, 2u);
-  v5 = 3766625283;
-  if (!AppleBCMWLANCore::isAssociated(**v3))
+  v13 = *AppleBCMWLANCore::getWmeParams(*v7, 2u);
+  v4 = 3766625283;
+  if (!AppleBCMWLANCore::isAssociated(**v2))
   {
-    return v5;
+    return v4;
   }
 
-  BYTE1(v14) = *(AppleBCMWLANCore::getWmeParams(**(this + 5), 2u) + 1) & 0xF | (16 * *(*(this + 5) + 48));
-  v10 = AppleBCMWLANNetAdapter::configureWmeParams(this, &v14);
-  if (!v10)
+  BYTE1(v13) = *(AppleBCMWLANCore::getWmeParams(**(this + 5), 2u) + 1) & 0xF | (16 * *(*(this + 5) + 48));
+  v9 = AppleBCMWLANNetAdapter::configureWmeParams(this, &v13);
+  if (!v9)
   {
     return 0;
   }
 
-  v11 = v10;
-  if ((*v3)[4] && CCLogStream::shouldLog())
+  v10 = v9;
+  if ((*v2)[4] && CCLogStream::shouldLog())
   {
-    AppleBCMWLANNetAdapter::setRealTimeMode(v3);
+    AppleBCMWLANNetAdapter::setRealTimeMode(v2);
   }
 
-  if (v11 == -536870185)
+  if (v10 == -536870185)
   {
-    v12 = -536870185;
+    v11 = -536870185;
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
-  if (v11 == -536870165)
+  if (v10 == -536870165)
   {
     return 3758097131;
   }
 
   else
   {
-    return v12;
+    return v11;
   }
 }
 
-uint64_t *AppleBCMWLANNetAdapter::setDefaultWMEParamsSync(AppleBCMWLANNetAdapter *this)
+uint64_t AppleBCMWLANNetAdapter::setDefaultWMEParamsSync(AppleBCMWLANNetAdapter *this)
 {
   v4 = 0;
-  v2 = (this + 40);
+  v2 = this + 40;
   *(*(this + 5) + 52) = 0;
   AppleBCMWLANNetAdapter::configureLongRetryLimit(this, 6);
-  AppleBCMWLANNetAdapter::configureRTSThreshold(this);
+  AppleBCMWLANNetAdapter::configureRTSThreshold(this, 2347);
   if ((*(*v2 + 70) & 1) == 0)
   {
     AppleBCMWLANNetAdapter::configureShortRetryLimit(this, 7);
     v4 = 41987;
     if (AppleBCMWLANNetAdapter::configureWmeParams(this, &v4))
     {
-      if ((*v2)[4] && CCLogStream::shouldLog())
+      if (*(*v2 + 32) && CCLogStream::shouldLog())
       {
         AppleBCMWLANNetAdapter::setDefaultWMEParamsSync(v2);
       }
@@ -9043,7 +8977,7 @@ uint64_t *AppleBCMWLANNetAdapter::setDefaultWMEParamsSync(AppleBCMWLANNetAdapter
   }
 
   v4 = 3093090;
-  if (AppleBCMWLANNetAdapter::configureWmeParams(this, &v4) && (*v2)[4] && CCLogStream::shouldLog())
+  if (AppleBCMWLANNetAdapter::configureWmeParams(this, &v4) && *(*v2 + 32) && CCLogStream::shouldLog())
   {
     AppleBCMWLANNetAdapter::setDefaultWMEParamsSync(v2);
   }
@@ -9052,7 +8986,7 @@ uint64_t *AppleBCMWLANNetAdapter::setDefaultWMEParamsSync(AppleBCMWLANNetAdapter
   result = AppleBCMWLANNetAdapter::configureWmeParams(this, &v4);
   if (result)
   {
-    result = (*v2)[4];
+    result = *(*v2 + 32);
     if (result)
     {
       result = CCLogStream::shouldLog();
@@ -9068,10 +9002,10 @@ uint64_t *AppleBCMWLANNetAdapter::setDefaultWMEParamsSync(AppleBCMWLANNetAdapter
 
 uint64_t AppleBCMWLANNetAdapter::setEnhancedDisassocParams(uint64_t a1, int a2, int a3, int a4)
 {
-  v8 = (a1 + 40);
+  v8 = a1 + 40;
   MaxCmdTxPayload = AppleBCMWLANCommander::getMaxCmdTxPayload(*(*(a1 + 40) + 8));
-  MaxCmdRxPayload = AppleBCMWLANCommander::getMaxCmdRxPayload((*v8)[1]);
-  v11 = (*v8)[1];
+  MaxCmdRxPayload = AppleBCMWLANCommander::getMaxCmdRxPayload(*(*v8 + 8));
+  v11 = *(*v8 + 8);
   if (MaxCmdTxPayload >= MaxCmdRxPayload)
   {
     AppleBCMWLANCommander::getMaxCmdRxPayload(v11);
@@ -9104,10 +9038,13 @@ uint64_t AppleBCMWLANNetAdapter::setEnhancedDisassocParams(uint64_t a1, int a2, 
     *(result + 21) = a3;
     if (a4 == 10)
     {
-      v16 = a1;
-      v17 = AppleBCMWLANNetAdapter::setDisassocReasonAppleIEAsyncCallback;
-      v18 = 0;
-      if (AppleBCMWLANCommander::sendIOVarSet(*(*(a1 + 40) + 8), "vndr_ie") && (*v8)[4] && CCLogStream::shouldLog())
+      v18 = a1;
+      v19 = AppleBCMWLANNetAdapter::setDisassocReasonAppleIEAsyncCallback;
+      v20 = 0;
+      v16 = *(*(a1 + 40) + 8);
+      v17[0] = v13;
+      v17[1] = 28;
+      if (AppleBCMWLANCommander::sendIOVarSet(v16, "vndr_ie", v17, kNoRxExpected, &v18, 0) && *(*v8 + 32) && CCLogStream::shouldLog())
       {
         AppleBCMWLANNetAdapter::setEnhancedDisassocParams(v8);
       }
@@ -9115,12 +9052,12 @@ uint64_t AppleBCMWLANNetAdapter::setEnhancedDisassocParams(uint64_t a1, int a2, 
 
     else if (a4 == 6)
     {
-      v15 = (*v8)[1];
-      v16 = v13;
-      v17 = 28;
-      if (AppleBCMWLANCommander::runIOVarSet(v15, "vndr_ie", &v16, 0, 0))
+      v15 = *(*v8 + 8);
+      v18 = v13;
+      v19 = 28;
+      if (AppleBCMWLANCommander::runIOVarSet(v15, "vndr_ie", &v18, 0, 0))
       {
-        if ((*v8)[4])
+        if (*(*v8 + 32))
         {
           if (CCLogStream::shouldLog())
           {
@@ -9136,11 +9073,11 @@ uint64_t AppleBCMWLANNetAdapter::setEnhancedDisassocParams(uint64_t a1, int a2, 
   return result;
 }
 
-uint64_t AppleBCMWLANNetAdapter::setDisassocReasonAppleIEAsyncCallback(uint64_t result, uint64_t a2, int a3)
+uint64_t AppleBCMWLANNetAdapter::setDisassocReasonAppleIEAsyncCallback(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
-    v3 = (result + 40);
+    v3 = result + 40;
     result = *(*(result + 40) + 32);
     if (result)
     {
@@ -9157,7 +9094,7 @@ uint64_t AppleBCMWLANNetAdapter::setDisassocReasonAppleIEAsyncCallback(uint64_t 
 
 uint64_t AppleBCMWLANNetAdapter::getRSSIPerAntenna(AppleBCMWLANCore ***this, int32x4_t *a2)
 {
-  v3 = (this + 5);
+  v3 = this + 5;
   if (!AppleBCMWLANCore::isAssociated(*this[5]))
   {
     return 3766625283;
@@ -9190,7 +9127,7 @@ uint64_t AppleBCMWLANNetAdapter::getRSSIPerAntenna(AppleBCMWLANCore ***this, int
 
 uint64_t AppleBCMWLANNetAdapter::checkCcaStatsExtSupport(AppleBCMWLANCore ***this)
 {
-  v1 = (this + 5);
+  v1 = this + 5;
   if (AppleBCMWLANCore::getFirmwareInterfaceVersion(*this[5]) >= 0x15)
   {
     v2 = 88;
@@ -9228,8 +9165,8 @@ uint64_t AppleBCMWLANNetAdapter::checkCcaStatsExtSupport(AppleBCMWLANCore ***thi
     v9[1] = v2 | (v2 << 32);
     v8[0] = v5;
     v8[1] = v2;
-    v6 = AppleBCMWLANCommander::runIOVarGet(*(*v1 + 8), "cca_get_stats_ext", v8, v9, 0);
-    if (v6 == -469794537 && *(*v1 + 32) && CCLogStream::shouldLog())
+    v6 = AppleBCMWLANCommander::runIOVarGet((*v1)[1], "cca_get_stats_ext", v8, v9, 0);
+    if (v6 == -469794537 && (*v1)[4] && CCLogStream::shouldLog())
     {
       AppleBCMWLANNetAdapter::checkCcaStatsExtSupport(v1);
     }
@@ -9240,7 +9177,7 @@ uint64_t AppleBCMWLANNetAdapter::checkCcaStatsExtSupport(AppleBCMWLANCore ***thi
   else
   {
     v6 = 3758097084;
-    if (*(v4 + 32) && CCLogStream::shouldLog())
+    if (v4[4] && CCLogStream::shouldLog())
     {
       AppleBCMWLANNetAdapter::checkCcaStatsExtSupport(v1);
     }
@@ -9285,7 +9222,7 @@ uint64_t AppleBCMWLANNetAdapter::checkRoamCacheQuerySupport(AppleBCMWLANNetAdapt
   return v5;
 }
 
-uint64_t AppleBCMWLANNetAdapter::handleRoam(uint64_t a1, uint64_t a2)
+AppleBCMWLANCore *AppleBCMWLANNetAdapter::handleRoam(uint64_t a1, uint64_t a2)
 {
   v3 = (a1 + 40);
   if ((!*(*(a1 + 40) + 32) || (CCLogStream::shouldLogConsole() & 1) == 0) && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
@@ -9372,7 +9309,7 @@ LABEL_11:
 
   if ((*v3)[4] && CCLogStream::shouldLog())
   {
-    AppleBCMWLANNetAdapter::handleRoam(v3);
+    AppleBCMWLANNetAdapter::handleRoam();
     if (CurrentBSS)
     {
       goto LABEL_26;
@@ -9408,31 +9345,13 @@ LABEL_13:
   return result;
 }
 
-{
-  OUTLINED_FUNCTION_6_0(a1);
-  LQM = AppleBCMWLANCore::getLQM(*v4);
-  isBssidUpdatePendingPostRoam = AppleBCMWLANLQM::isBssidUpdatePendingPostRoam(LQM);
-  if (a2)
-  {
-    v7 = *(a2 + 8);
-  }
-
-  else
-  {
-    v7 = 1;
-  }
-
-  return CCLogStream::logNotice(v2, "[dk] %s@%d:%s: BssidUpdatePostRoam=%u status:%u\n", "handleRoam", 947, "handleRoam", isBssidUpdatePendingPostRoam, v7);
-}
-
 uint64_t AppleBCMWLANNetAdapter::handleLink(uint64_t a1, uint64_t a2)
 {
-  v16 = 0;
+  v15 = 0;
   v4 = (a1 + 40);
   v3 = *(a1 + 40);
   if (*(v3 + 32))
   {
-    v5 = *(v3 + 32);
     shouldLog = CCLogStream::shouldLog();
     v3 = *v4;
     if (shouldLog)
@@ -9443,17 +9362,17 @@ uint64_t AppleBCMWLANNetAdapter::handleLink(uint64_t a1, uint64_t a2)
   }
 
   JoinAdapter = AppleBCMWLANCore::getJoinAdapter(*v3);
-  v8 = AppleBCMWLANJoinAdapter::configureDefaultUnAssocDwell(JoinAdapter);
+  v7 = AppleBCMWLANJoinAdapter::configureDefaultUnAssocDwell(JoinAdapter);
   if (*(a2 + 8))
   {
     if ((!*(*v4 + 32) || (CCLogStream::shouldLogConsole() & 1) == 0) && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109634;
       *&buf[4] = 87;
-      v18 = 2080;
-      v19 = "handleLink";
-      v20 = 1024;
-      v21 = 982;
+      v17 = 2080;
+      v18 = "handleLink";
+      v19 = 1024;
+      v20 = 982;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%c [dk] %s@%d:      Link change event indicates failure\n", buf, 0x18u);
     }
 
@@ -9470,13 +9389,13 @@ uint64_t AppleBCMWLANNetAdapter::handleLink(uint64_t a1, uint64_t a2)
 
   else
   {
-    v13 = *(a2 + 2) & 1;
-    v11 = *(a2 + 24);
-    v12 = *(a2 + 28);
-    Apple80211LinkReason = AppleBCMWLANNetAdapter::getApple80211LinkReason(v8, *(a2 + 12));
-    v10 = (*(***v4 + 128))(**v4);
-    v14 = (*(*v10 + 672))(v10);
-    return AppleBCMWLANCore::postMessageInfra(**v4, 0xD8u, &v11, 0x10uLL);
+    v12 = *(a2 + 2) & 1;
+    v10 = *(a2 + 24);
+    v11 = *(a2 + 28);
+    Apple80211LinkReason = AppleBCMWLANNetAdapter::getApple80211LinkReason(v7, *(a2 + 12));
+    v9 = (*(***v4 + 128))(**v4);
+    v13 = (*(*v9 + 672))(v9);
+    return AppleBCMWLANCore::postMessageInfra(**v4, 0xD8u, &v10, 0x10uLL);
   }
 
   return result;
@@ -9495,10 +9414,10 @@ uint64_t AppleBCMWLANNetAdapter::getApple80211LinkReason(AppleBCMWLANNetAdapter 
   }
 }
 
-uint64_t AppleBCMWLANNetAdapter::setLinkDown(uint64_t ***this)
+uint64_t AppleBCMWLANNetAdapter::setLinkDown(AppleBCMWLANNetAdapter *this)
 {
-  v1 = (this + 5);
-  AppleBCMWLANCore::updateInactivityAndSleepCounters(*this[5], 2);
+  v1 = (this + 40);
+  AppleBCMWLANCore::updateInactivityAndSleepCounters(**(this + 5), 2);
   isAssociated = AppleBCMWLANCore::isAssociated(**v1);
   v3 = *v1;
   if (isAssociated)
@@ -9583,8 +9502,8 @@ uint64_t AppleBCMWLANNetAdapter::getBssInfo(uint64_t a1, uint64_t a2)
       else
       {
         ChanSpecHandler = AppleBCMWLANCore::getChanSpecHandler(**v7);
-        LOWORD(v13[0]) = AppleBCMWLANChanSpec::getAppleChannelSpec(ChanSpecHandler, *(v6 + 38));
-        v2 = (*(a2 + 16))(a2, v6 + 1, v13);
+        LOWORD(v13[0]) = AppleBCMWLANChanSpec::getAppleChannelSpec(ChanSpecHandler, *(v6 + 76));
+        v2 = (*(a2 + 16))(a2, v6 + 4, v13);
       }
 
       IOFreeData();
@@ -9599,7 +9518,7 @@ uint64_t AppleBCMWLANNetAdapter::getBssInfo(uint64_t a1, uint64_t a2)
   return v2;
 }
 
-uint64_t ___ZN22AppleBCMWLANNetAdapter9setLinkUpER10ether_addrbb_block_invoke(uint64_t a1, unsigned int *a2, __int16 *a3)
+uint64_t ___ZN22AppleBCMWLANNetAdapter9setLinkUpER10ether_addrbb_block_invoke(uint64_t a1, unsigned int *a2, unsigned __int16 *a3)
 {
   v5 = *a3;
   v6 = a2[1];
@@ -9627,9 +9546,9 @@ uint64_t AppleBCMWLANNetAdapter::updateMCSSetAsync(AppleBCMWLANNetAdapter *this)
     return 3825172759;
   }
 
-  v8[0] = this;
-  v8[1] = AppleBCMWLANNetAdapter::updateMCSSetAsyncCallback;
-  v8[2] = 0;
+  *&v8 = this;
+  *(&v8 + 1) = AppleBCMWLANNetAdapter::updateMCSSetAsyncCallback;
+  v9 = 0;
   if (AppleBCMWLANCore::getFirmwareInterfaceVersion(*v1) >= 7)
   {
     if (AppleBCMWLANCore::getFirmwareInterfaceVersion(**v2) >= 0xF)
@@ -9650,7 +9569,7 @@ uint64_t AppleBCMWLANNetAdapter::updateMCSSetAsync(AppleBCMWLANNetAdapter *this)
 
   v5 = (*v2)[1];
   v7 = v3;
-  v4 = AppleBCMWLANCommander::sendIOVarGet(v5, "cur_rateset", &kNoTxPayload, &v7, v8, 0);
+  v4 = AppleBCMWLANCommander::sendIOVarGet(v5, "cur_rateset", &kNoTxPayload, &v7, &v8, 0);
   if (v4 && (*v2)[4] && CCLogStream::shouldLog())
   {
     AppleBCMWLANNetAdapter::updateMCSSetAsync(v2);
@@ -9661,14 +9580,14 @@ uint64_t AppleBCMWLANNetAdapter::updateMCSSetAsync(AppleBCMWLANNetAdapter *this)
 
 uint64_t AppleBCMWLANNetAdapter::updateRateSetAsync(AppleBCMWLANNetAdapter *this)
 {
-  v6[0] = this;
-  v6[1] = AppleBCMWLANNetAdapter::updateRateSetAsyncCallback;
-  v6[2] = 0;
-  v1 = (this + 40);
+  *&v6 = this;
+  *(&v6 + 1) = AppleBCMWLANNetAdapter::updateRateSetAsyncCallback;
+  v7 = 0;
+  v1 = this + 40;
   v2 = *(*(this + 5) + 8);
   v5 = 1310740;
-  v3 = AppleBCMWLANCommander::sendIOCtlGet(v2, 114, &kNoTxPayload, &v5, v6, 0);
-  if (v3 && (*v1)[4] && CCLogStream::shouldLog())
+  v3 = AppleBCMWLANCommander::sendIOCtlGet(v2, 114, &kNoTxPayload, &v5, &v6, 0);
+  if (v3 && *(*v1 + 32) && CCLogStream::shouldLog())
   {
     AppleBCMWLANNetAdapter::updateRateSetAsync(v1);
   }

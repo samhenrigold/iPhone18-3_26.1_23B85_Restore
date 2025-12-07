@@ -159,7 +159,7 @@
 - (void)_setupView
 {
   v16 = *MEMORY[0x277D85DE8];
-  v3 = LA_LOG_LAUIAuthenticationView();
+  v3 = LA_LOG_LAUIAuthenticationView(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 136315394;
@@ -196,7 +196,7 @@
 - (void)biometryState:(int64_t)state completionHandler:(id)handler
 {
   handlerCopy = handler;
-  v7 = LA_LOG_LAUIAuthenticationView();
+  v7 = LA_LOG_LAUIAuthenticationView(handlerCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [(LAUIAuthenticationView *)state biometryState:v7 completionHandler:?];
@@ -364,7 +364,7 @@ void __41__LAUIAuthenticationView__stateOfSuccess__block_invoke_2(uint64_t a1)
 
 - (void)authenticationResult:(id)result error:(id)error context:(id)context
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   errorCopy = error;
   contextCopy = context;
@@ -373,28 +373,28 @@ void __41__LAUIAuthenticationView__stateOfSuccess__block_invoke_2(uint64_t a1)
 
   if (v12)
   {
-    v13 = LA_LOG_LAUIAuthenticationView();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = LA_LOG_LAUIAuthenticationView(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       if (resultCopy)
       {
-        v14 = resultCopy;
+        v15 = resultCopy;
       }
 
       else
       {
-        v14 = errorCopy;
+        v15 = errorCopy;
       }
 
-      v16 = 136315906;
-      v17 = "[LAUIAuthenticationView authenticationResult:error:context:]";
-      v18 = 2114;
-      v19 = v14;
-      v20 = 2114;
-      v21 = contextCopy;
-      v22 = 2112;
+      v17 = 136315906;
+      v18 = "[LAUIAuthenticationView authenticationResult:error:context:]";
+      v19 = 2114;
+      v20 = v15;
+      v21 = 2114;
+      v22 = contextCopy;
+      v23 = 2112;
       selfCopy = self;
-      _os_log_impl(&dword_2560E6000, v13, OS_LOG_TYPE_DEFAULT, "%s %{public}@, %{public}@ on %@", &v16, 0x2Au);
+      _os_log_impl(&dword_2560E6000, v14, OS_LOG_TYPE_DEFAULT, "%s %{public}@, %{public}@ on %@", &v17, 0x2Au);
     }
 
     delegate2 = [(LAUIAuthenticationView *)self delegate];
@@ -404,20 +404,20 @@ void __41__LAUIAuthenticationView__stateOfSuccess__block_invoke_2(uint64_t a1)
 
 - (void)biometricNoMatch
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   delegate = [(LAUIAuthenticationView *)self delegate];
   v4 = objc_opt_respondsToSelector();
 
   if (v4)
   {
-    v5 = LA_LOG_LAUIAuthenticationView();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = LA_LOG_LAUIAuthenticationView(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315394;
-      v8 = "[LAUIAuthenticationView biometricNoMatch]";
-      v9 = 2112;
+      v8 = 136315394;
+      v9 = "[LAUIAuthenticationView biometricNoMatch]";
+      v10 = 2112;
       selfCopy = self;
-      _os_log_impl(&dword_2560E6000, v5, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v7, 0x16u);
+      _os_log_impl(&dword_2560E6000, v6, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v8, 0x16u);
     }
 
     delegate2 = [(LAUIAuthenticationView *)self delegate];
@@ -427,20 +427,20 @@ void __41__LAUIAuthenticationView__stateOfSuccess__block_invoke_2(uint64_t a1)
 
 - (void)_biometryIdle
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   delegate = [(LAUIAuthenticationView *)self delegate];
   v4 = objc_opt_respondsToSelector();
 
   if (v4)
   {
-    v5 = LA_LOG_LAUIAuthenticationView();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = LA_LOG_LAUIAuthenticationView(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315394;
-      v8 = "[LAUIAuthenticationView _biometryIdle]";
-      v9 = 2112;
+      v8 = 136315394;
+      v9 = "[LAUIAuthenticationView _biometryIdle]";
+      v10 = 2112;
       selfCopy = self;
-      _os_log_impl(&dword_2560E6000, v5, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v7, 0x16u);
+      _os_log_impl(&dword_2560E6000, v6, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v8, 0x16u);
     }
 
     delegate2 = [(LAUIAuthenticationView *)self delegate];

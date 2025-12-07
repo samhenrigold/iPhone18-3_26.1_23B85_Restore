@@ -167,9 +167,9 @@ void __66__HKHealthManageStorageViewController__loadCloudSyncStorageStatus__bloc
   dispatch_async(MEMORY[0x1E69E96A0], v2);
 }
 
-uint64_t __66__HKHealthManageStorageViewController__loadCloudSyncStorageStatus__block_invoke_2(uint64_t result)
+void *__66__HKHealthManageStorageViewController__loadCloudSyncStorageStatus__block_invoke_2(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if (!*(v1 + 1456))
   {
     v2 = 3;
@@ -179,7 +179,7 @@ uint64_t __66__HKHealthManageStorageViewController__loadCloudSyncStorageStatus__
     }
 
     *(v1 + 1456) = v2;
-    return [*(result + 32) reloadSpecifiers];
+    return [*(result + 4) reloadSpecifiers];
   }
 
   return result;

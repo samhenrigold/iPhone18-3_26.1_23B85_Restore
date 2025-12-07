@@ -52,7 +52,7 @@
 - (DCCredentialStoreClient)init
 {
   v48[4] = *MEMORY[0x277D85DE8];
-  v3 = DC_LOG_CLIENT_1();
+  v3 = DC_LOG_CLIENT_1(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [DCCredentialStoreClient init];
@@ -61,85 +61,85 @@
   v42.receiver = self;
   v42.super_class = DCCredentialStoreClient;
   v4 = [(DCCredentialStoreClient *)&v42 init];
+  v5 = v4;
   if (v4)
   {
-    v5 = DC_LOG_CLIENT_1();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = DC_LOG_CLIENT_1(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       [DCCredentialStoreClient init];
     }
 
-    v6 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:@"com.apple.idcredd.storage.xpc" options:4096];
-    [(DCCredentialStoreClient *)v4 setServerConnection:v6];
+    v7 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:@"com.apple.idcredd.storage.xpc" options:4096];
+    [(DCCredentialStoreClient *)v5 setServerConnection:v7];
 
-    v7 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_285875448];
-    serverConnection = [(DCCredentialStoreClient *)v4 serverConnection];
-    [serverConnection setRemoteObjectInterface:v7];
+    v8 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_285875448];
+    serverConnection = [(DCCredentialStoreClient *)v5 serverConnection];
+    [serverConnection setRemoteObjectInterface:v8];
 
-    serverConnection2 = [(DCCredentialStoreClient *)v4 serverConnection];
+    serverConnection2 = [(DCCredentialStoreClient *)v5 serverConnection];
     remoteObjectInterface = [serverConnection2 remoteObjectInterface];
-    v11 = MEMORY[0x277CBEB98];
+    v12 = MEMORY[0x277CBEB98];
     v48[0] = objc_opt_class();
     v48[1] = objc_opt_class();
     v48[2] = objc_opt_class();
     v48[3] = objc_opt_class();
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:4];
-    v13 = [v11 setWithArray:v12];
-    [remoteObjectInterface setClasses:v13 forSelector:sel_elementsOfCredential_elementIdentifiers_authData_completion_ argumentIndex:0 ofReply:1];
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:4];
+    v14 = [v12 setWithArray:v13];
+    [remoteObjectInterface setClasses:v14 forSelector:sel_elementsOfCredential_elementIdentifiers_authData_completion_ argumentIndex:0 ofReply:1];
 
-    serverConnection3 = [(DCCredentialStoreClient *)v4 serverConnection];
+    serverConnection3 = [(DCCredentialStoreClient *)v5 serverConnection];
     remoteObjectInterface2 = [serverConnection3 remoteObjectInterface];
-    v16 = MEMORY[0x277CBEB98];
+    v17 = MEMORY[0x277CBEB98];
     v47[0] = objc_opt_class();
     v47[1] = objc_opt_class();
     v47[2] = objc_opt_class();
     v47[3] = objc_opt_class();
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:4];
-    v18 = [v16 setWithArray:v17];
-    [remoteObjectInterface2 setClasses:v18 forSelector:sel_allElementsOfCredential_authData_completion_ argumentIndex:0 ofReply:1];
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:4];
+    v19 = [v17 setWithArray:v18];
+    [remoteObjectInterface2 setClasses:v19 forSelector:sel_allElementsOfCredential_authData_completion_ argumentIndex:0 ofReply:1];
 
-    serverConnection4 = [(DCCredentialStoreClient *)v4 serverConnection];
+    serverConnection4 = [(DCCredentialStoreClient *)v5 serverConnection];
     remoteObjectInterface3 = [serverConnection4 remoteObjectInterface];
-    v21 = MEMORY[0x277CBEB98];
+    v22 = MEMORY[0x277CBEB98];
     v46[0] = objc_opt_class();
     v46[1] = objc_opt_class();
-    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:2];
-    v23 = [v21 setWithArray:v22];
-    [remoteObjectInterface3 setClasses:v23 forSelector:sel_payloadsOfCredential_completion_ argumentIndex:0 ofReply:1];
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:2];
+    v24 = [v22 setWithArray:v23];
+    [remoteObjectInterface3 setClasses:v24 forSelector:sel_payloadsOfCredential_completion_ argumentIndex:0 ofReply:1];
 
-    serverConnection5 = [(DCCredentialStoreClient *)v4 serverConnection];
+    serverConnection5 = [(DCCredentialStoreClient *)v5 serverConnection];
     remoteObjectInterface4 = [serverConnection5 remoteObjectInterface];
-    v26 = MEMORY[0x277CBEB98];
+    v27 = MEMORY[0x277CBEB98];
     v45[0] = objc_opt_class();
     v45[1] = objc_opt_class();
-    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:2];
-    v28 = [v26 setWithArray:v27];
-    [remoteObjectInterface4 setClasses:v28 forSelector:sel_generatePresentmentKeysForCredential_numKeys_completion_ argumentIndex:0 ofReply:1];
+    v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:2];
+    v29 = [v27 setWithArray:v28];
+    [remoteObjectInterface4 setClasses:v29 forSelector:sel_generatePresentmentKeysForCredential_numKeys_completion_ argumentIndex:0 ofReply:1];
 
-    serverConnection6 = [(DCCredentialStoreClient *)v4 serverConnection];
+    serverConnection6 = [(DCCredentialStoreClient *)v5 serverConnection];
     remoteObjectInterface5 = [serverConnection6 remoteObjectInterface];
-    v31 = MEMORY[0x277CBEB98];
+    v32 = MEMORY[0x277CBEB98];
     v44[0] = objc_opt_class();
     v44[1] = objc_opt_class();
-    v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
-    v33 = [v31 setWithArray:v32];
-    [remoteObjectInterface5 setClasses:v33 forSelector:sel_occupiedLegacySEKeySlotsWithCompletion_ argumentIndex:0 ofReply:1];
+    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
+    v34 = [v32 setWithArray:v33];
+    [remoteObjectInterface5 setClasses:v34 forSelector:sel_occupiedLegacySEKeySlotsWithCompletion_ argumentIndex:0 ofReply:1];
 
-    serverConnection7 = [(DCCredentialStoreClient *)v4 serverConnection];
+    serverConnection7 = [(DCCredentialStoreClient *)v5 serverConnection];
     remoteObjectInterface6 = [serverConnection7 remoteObjectInterface];
-    v36 = MEMORY[0x277CBEB98];
+    v37 = MEMORY[0x277CBEB98];
     v43[0] = objc_opt_class();
     v43[1] = objc_opt_class();
-    v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:2];
-    v38 = [v36 setWithArray:v37];
-    [remoteObjectInterface6 setClasses:v38 forSelector:sel_keyInfoForCredential_completion_ argumentIndex:0 ofReply:1];
+    v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:2];
+    v39 = [v37 setWithArray:v38];
+    [remoteObjectInterface6 setClasses:v39 forSelector:sel_keyInfoForCredential_completion_ argumentIndex:0 ofReply:1];
 
-    serverConnection8 = [(DCCredentialStoreClient *)v4 serverConnection];
+    serverConnection8 = [(DCCredentialStoreClient *)v5 serverConnection];
     [serverConnection8 activate];
   }
 
-  v40 = *MEMORY[0x277D85DE8];
-  return v4;
+  return v5;
 }
 
 - (void)dealloc
@@ -168,7 +168,7 @@
 {
   completionCopy = completion;
   partitionsCopy = partitions;
-  v8 = DC_LOG_CLIENT_1();
+  v8 = DC_LOG_CLIENT_1(partitionsCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [DCCredentialStoreClient configureWithPartitions:completion:];
@@ -188,7 +188,7 @@
 void __62__DCCredentialStoreClient_configureWithPartitions_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = DC_LOG_CLIENT_1();
+  v4 = DC_LOG_CLIENT_1(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
   if (v3)
   {
@@ -211,7 +211,7 @@ void __62__DCCredentialStoreClient_configureWithPartitions_completion___block_in
   completionCopy = completion;
   optionsCopy = options;
   partitionCopy = partition;
-  v11 = DC_LOG_CLIENT_1();
+  v11 = DC_LOG_CLIENT_1(partitionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [DCCredentialStoreClient createCredentialInPartition:options:completion:];
@@ -238,7 +238,7 @@ void __74__DCCredentialStoreClient_createCredentialInPartition_options_completio
 {
   v5 = a3;
   v6 = a2;
-  v7 = DC_LOG_CLIENT_1();
+  v7 = DC_LOG_CLIENT_1(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -260,7 +260,7 @@ void __74__DCCredentialStoreClient_createCredentialInPartition_options_completio
 {
   completionCopy = completion;
   credentialCopy = credential;
-  v8 = DC_LOG_CLIENT_1();
+  v8 = DC_LOG_CLIENT_1(credentialCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [DCCredentialStoreClient generateKeySigningKeyForCredential:completion:];
@@ -287,7 +287,7 @@ void __73__DCCredentialStoreClient_generateKeySigningKeyForCredential_completion
 {
   v5 = a3;
   v6 = a2;
-  v7 = DC_LOG_CLIENT_1();
+  v7 = DC_LOG_CLIENT_1(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -309,7 +309,7 @@ void __73__DCCredentialStoreClient_generateKeySigningKeyForCredential_completion
 {
   completionCopy = completion;
   identifierCopy = identifier;
-  v8 = DC_LOG_CLIENT_1();
+  v8 = DC_LOG_CLIENT_1(identifierCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [DCCredentialStoreClient isAccountKeySigningKeyAvailableForAccountKeyIdentifier:completion:];
@@ -335,7 +335,7 @@ void __73__DCCredentialStoreClient_generateKeySigningKeyForCredential_completion
 void __93__DCCredentialStoreClient_isAccountKeySigningKeyAvailableForAccountKeyIdentifier_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  v5 = DC_LOG_CLIENT_1();
+  v5 = DC_LOG_CLIENT_1(v4);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
   if (v4)
   {
@@ -357,7 +357,7 @@ void __93__DCCredentialStoreClient_isAccountKeySigningKeyAvailableForAccountKeyI
 {
   completionCopy = completion;
   identifierCopy = identifier;
-  v8 = DC_LOG_CLIENT_1();
+  v8 = DC_LOG_CLIENT_1(identifierCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [DCCredentialStoreClient createAccountKeySigningKeyForAccountKeyIdentifier:completion:];
@@ -384,7 +384,7 @@ void __88__DCCredentialStoreClient_createAccountKeySigningKeyForAccountKeyIdenti
 {
   v5 = a3;
   v6 = a2;
-  v7 = DC_LOG_CLIENT_1();
+  v7 = DC_LOG_CLIENT_1(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -406,7 +406,7 @@ void __88__DCCredentialStoreClient_createAccountKeySigningKeyForAccountKeyIdenti
 {
   completionCopy = completion;
   identifierCopy = identifier;
-  v8 = DC_LOG_CLIENT_1();
+  v8 = DC_LOG_CLIENT_1(identifierCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [DCCredentialStoreClient deleteAccountKeySigningKeyForAccountKeyIdentifier:completion:];
@@ -432,7 +432,7 @@ void __88__DCCredentialStoreClient_createAccountKeySigningKeyForAccountKeyIdenti
 void __88__DCCredentialStoreClient_deleteAccountKeySigningKeyForAccountKeyIdentifier_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = DC_LOG_CLIENT_1();
+  v4 = DC_LOG_CLIENT_1(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
   if (v3)
   {
@@ -454,7 +454,7 @@ void __88__DCCredentialStoreClient_deleteAccountKeySigningKeyForAccountKeyIdenti
 {
   completionCopy = completion;
   identifierCopy = identifier;
-  v8 = DC_LOG_CLIENT_1();
+  v8 = DC_LOG_CLIENT_1(identifierCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [DCCredentialStoreClient retrieveAccountKeySigningKeyForAccountKeyIdentifier:completion:];
@@ -481,7 +481,7 @@ void __90__DCCredentialStoreClient_retrieveAccountKeySigningKeyForAccountKeyIden
 {
   v5 = a3;
   v6 = a2;
-  v7 = DC_LOG_CLIENT_1();
+  v7 = DC_LOG_CLIENT_1(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -503,7 +503,7 @@ void __90__DCCredentialStoreClient_retrieveAccountKeySigningKeyForAccountKeyIden
 {
   completionCopy = completion;
   credentialCopy = credential;
-  v10 = DC_LOG_CLIENT_1();
+  v10 = DC_LOG_CLIENT_1(credentialCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [DCCredentialStoreClient generateDeviceEncryptionKeyForCredential:keyType:completion:];
@@ -530,7 +530,7 @@ void __87__DCCredentialStoreClient_generateDeviceEncryptionKeyForCredential_keyT
 {
   v5 = a3;
   v6 = a2;
-  v7 = DC_LOG_CLIENT_1();
+  v7 = DC_LOG_CLIENT_1(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -575,7 +575,7 @@ void __104__DCCredentialStoreClient_generateAccountKeyAuthorizationForCredential
   v7 = a4;
   v8 = a3;
   v9 = a2;
-  v10 = DC_LOG_CLIENT_1();
+  v10 = DC_LOG_CLIENT_1(v9);
   v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
   if (v7)
   {
@@ -597,7 +597,7 @@ void __104__DCCredentialStoreClient_generateAccountKeyAuthorizationForCredential
 {
   completionCopy = completion;
   credentialCopy = credential;
-  v8 = DC_LOG_CLIENT_1();
+  v8 = DC_LOG_CLIENT_1(credentialCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [DCCredentialStoreClient generatePresentmentKeyForCredential:completion:];
@@ -624,7 +624,7 @@ void __74__DCCredentialStoreClient_generatePresentmentKeyForCredential_completio
 {
   v5 = a3;
   v6 = a2;
-  v7 = DC_LOG_CLIENT_1();
+  v7 = DC_LOG_CLIENT_1(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -646,7 +646,7 @@ void __74__DCCredentialStoreClient_generatePresentmentKeyForCredential_completio
 {
   completionCopy = completion;
   credentialCopy = credential;
-  v10 = DC_LOG_CLIENT_1();
+  v10 = DC_LOG_CLIENT_1(credentialCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [DCCredentialStoreClient generatePresentmentKeysForCredential:numKeys:completion:];
@@ -673,7 +673,7 @@ void __83__DCCredentialStoreClient_generatePresentmentKeysForCredential_numKeys_
 {
   v5 = a3;
   v6 = a2;
-  v7 = DC_LOG_CLIENT_1();
+  v7 = DC_LOG_CLIENT_1(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -696,7 +696,7 @@ void __83__DCCredentialStoreClient_generatePresentmentKeysForCredential_numKeys_
   completionCopy = completion;
   identifierCopy = identifier;
   credentialCopy = credential;
-  v11 = DC_LOG_CLIENT_1();
+  v11 = DC_LOG_CLIENT_1(credentialCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [DCCredentialStoreClient authorizeDeviceKeySigningKeyOfCredential:accountKeyIdentifier:completion:];
@@ -723,7 +723,7 @@ void __100__DCCredentialStoreClient_authorizeDeviceKeySigningKeyOfCredential_acc
 {
   v5 = a3;
   v6 = a2;
-  v7 = DC_LOG_CLIENT_1();
+  v7 = DC_LOG_CLIENT_1(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -746,7 +746,7 @@ void __100__DCCredentialStoreClient_authorizeDeviceKeySigningKeyOfCredential_acc
   completionCopy = completion;
   keyCopy = key;
   credentialCopy = credential;
-  v11 = DC_LOG_CLIENT_1();
+  v11 = DC_LOG_CLIENT_1(credentialCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [DCCredentialStoreClient authorizeRemoteKeySigningKeyWithCredential:remoteKey:completion:];
@@ -773,7 +773,7 @@ void __91__DCCredentialStoreClient_authorizeRemoteKeySigningKeyWithCredential_re
 {
   v5 = a3;
   v6 = a2;
-  v7 = DC_LOG_CLIENT_1();
+  v7 = DC_LOG_CLIENT_1(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -796,7 +796,7 @@ void __91__DCCredentialStoreClient_authorizeRemoteKeySigningKeyWithCredential_re
   completionCopy = completion;
   identifierCopy = identifier;
   credentialCopy = credential;
-  v11 = DC_LOG_CLIENT_1();
+  v11 = DC_LOG_CLIENT_1(credentialCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [DCCredentialStoreClient associateExternalPresentmentKeyWithCredential:publicKeyIdentifier:completion:];
@@ -816,7 +816,7 @@ void __91__DCCredentialStoreClient_authorizeRemoteKeySigningKeyWithCredential_re
 void __104__DCCredentialStoreClient_associateExternalPresentmentKeyWithCredential_publicKeyIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = DC_LOG_CLIENT_1();
+  v4 = DC_LOG_CLIENT_1(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
   if (v3)
   {
@@ -838,7 +838,7 @@ void __104__DCCredentialStoreClient_associateExternalPresentmentKeyWithCredentia
 {
   completionCopy = completion;
   identifierCopy = identifier;
-  v8 = DC_LOG_CLIENT_1();
+  v8 = DC_LOG_CLIENT_1(identifierCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [DCCredentialStoreClient credentialIdentifiersForPublicKeyIdentifier:completion:];
@@ -865,7 +865,7 @@ void __82__DCCredentialStoreClient_credentialIdentifiersForPublicKeyIdentifier_c
 {
   v5 = a2;
   v6 = a3;
-  v7 = DC_LOG_CLIENT_1();
+  v7 = DC_LOG_CLIENT_1(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v6)
   {
@@ -888,7 +888,7 @@ void __82__DCCredentialStoreClient_credentialIdentifiersForPublicKeyIdentifier_c
   completionCopy = completion;
   payloadCopy = payload;
   credentialCopy = credential;
-  v13 = DC_LOG_CLIENT_1();
+  v13 = DC_LOG_CLIENT_1(credentialCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [DCCredentialStoreClient replacePayloadOfCredential:withPayload:format:completion:];
@@ -908,7 +908,7 @@ void __82__DCCredentialStoreClient_credentialIdentifiersForPublicKeyIdentifier_c
 void __84__DCCredentialStoreClient_replacePayloadOfCredential_withPayload_format_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = DC_LOG_CLIENT_1();
+  v4 = DC_LOG_CLIENT_1(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
   if (v3)
   {
@@ -930,7 +930,7 @@ void __84__DCCredentialStoreClient_replacePayloadOfCredential_withPayload_format
 {
   completionCopy = completion;
   partitionsCopy = partitions;
-  v8 = DC_LOG_CLIENT_1();
+  v8 = DC_LOG_CLIENT_1(partitionsCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [DCCredentialStoreClient credentialIdentifiersInPartitions:completion:];
@@ -957,7 +957,7 @@ void __72__DCCredentialStoreClient_credentialIdentifiersInPartitions_completion_
 {
   v5 = a3;
   v6 = a2;
-  v7 = DC_LOG_CLIENT_1();
+  v7 = DC_LOG_CLIENT_1(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -980,7 +980,7 @@ void __72__DCCredentialStoreClient_credentialIdentifiersInPartitions_completion_
   completionCopy = completion;
   typeCopy = type;
   partitionsCopy = partitions;
-  v11 = DC_LOG_CLIENT_1();
+  v11 = DC_LOG_CLIENT_1(partitionsCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [DCCredentialStoreClient credentialIdentifiersInPartitions:docType:completion:];
@@ -1007,7 +1007,7 @@ void __80__DCCredentialStoreClient_credentialIdentifiersInPartitions_docType_com
 {
   v5 = a3;
   v6 = a2;
-  v7 = DC_LOG_CLIENT_1();
+  v7 = DC_LOG_CLIENT_1(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -1030,7 +1030,7 @@ void __80__DCCredentialStoreClient_credentialIdentifiersInPartitions_docType_com
   typesCopy = types;
   completionCopy = completion;
   partitionsCopy = partitions;
-  v11 = DC_LOG_CLIENT_1();
+  v11 = DC_LOG_CLIENT_1(partitionsCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [DCCredentialStoreClient activeRegionsInPartitions:docTypes:completion:];
@@ -1057,7 +1057,7 @@ void __73__DCCredentialStoreClient_activeRegionsInPartitions_docTypes_completion
 {
   v5 = a3;
   v6 = a2;
-  v7 = DC_LOG_CLIENT_1();
+  v7 = DC_LOG_CLIENT_1(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -1079,7 +1079,7 @@ void __73__DCCredentialStoreClient_activeRegionsInPartitions_docTypes_completion
 {
   completionCopy = completion;
   credentialCopy = credential;
-  v8 = DC_LOG_CLIENT_1();
+  v8 = DC_LOG_CLIENT_1(credentialCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [DCCredentialStoreClient deleteCredential:completion:];
@@ -1099,7 +1099,7 @@ void __73__DCCredentialStoreClient_activeRegionsInPartitions_docTypes_completion
 void __55__DCCredentialStoreClient_deleteCredential_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = DC_LOG_CLIENT_1();
+  v4 = DC_LOG_CLIENT_1(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
   if (v3)
   {
@@ -1121,7 +1121,7 @@ void __55__DCCredentialStoreClient_deleteCredential_completion___block_invoke(ui
 {
   completionCopy = completion;
   credentialCopy = credential;
-  v8 = DC_LOG_CLIENT_1();
+  v8 = DC_LOG_CLIENT_1(credentialCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [DCCredentialStoreClient propertiesOfCredential:completion:];
@@ -1152,7 +1152,7 @@ void __61__DCCredentialStoreClient_propertiesOfCredential_completion___block_inv
   if (v6)
   {
     v8 = [v6 code];
-    v9 = DC_LOG_CLIENT_1();
+    v9 = DC_LOG_CLIENT_1(v8);
     v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG);
     if (v8 == -5015)
     {
@@ -1170,7 +1170,7 @@ void __61__DCCredentialStoreClient_propertiesOfCredential_completion___block_inv
 
   else
   {
-    v9 = DC_LOG_CLIENT_1();
+    v9 = DC_LOG_CLIENT_1(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       __61__DCCredentialStoreClient_propertiesOfCredential_completion___block_invoke_2_cold_3();
@@ -1184,7 +1184,7 @@ void __61__DCCredentialStoreClient_propertiesOfCredential_completion___block_inv
 {
   completionCopy = completion;
   credentialCopy = credential;
-  v10 = DC_LOG_CLIENT_1();
+  v10 = DC_LOG_CLIENT_1(credentialCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [DCCredentialStoreClient setStateOfCredential:to:completion:];
@@ -1204,7 +1204,7 @@ void __61__DCCredentialStoreClient_propertiesOfCredential_completion___block_inv
 void __62__DCCredentialStoreClient_setStateOfCredential_to_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = DC_LOG_CLIENT_1();
+  v4 = DC_LOG_CLIENT_1(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
   if (v3)
   {
@@ -1226,7 +1226,7 @@ void __62__DCCredentialStoreClient_setStateOfCredential_to_completion___block_in
 {
   completionCopy = completion;
   credentialCopy = credential;
-  v8 = DC_LOG_CLIENT_1();
+  v8 = DC_LOG_CLIENT_1(credentialCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [DCCredentialStoreClient payloadAuthACLForCredential:completion:];
@@ -1253,7 +1253,7 @@ void __66__DCCredentialStoreClient_payloadAuthACLForCredential_completion___bloc
 {
   v5 = a3;
   v6 = a2;
-  v7 = DC_LOG_CLIENT_1();
+  v7 = DC_LOG_CLIENT_1(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -1277,7 +1277,7 @@ void __66__DCCredentialStoreClient_payloadAuthACLForCredential_completion___bloc
   dataCopy = data;
   identifiersCopy = identifiers;
   credentialCopy = credential;
-  v14 = DC_LOG_CLIENT_1();
+  v14 = DC_LOG_CLIENT_1(credentialCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     [DCCredentialStoreClient elementsOfCredential:elementIdentifiers:authData:completion:];
@@ -1304,7 +1304,7 @@ void __87__DCCredentialStoreClient_elementsOfCredential_elementIdentifiers_authD
 {
   v5 = a3;
   v6 = a2;
-  v7 = DC_LOG_CLIENT_1();
+  v7 = DC_LOG_CLIENT_1(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -1326,7 +1326,7 @@ void __87__DCCredentialStoreClient_elementsOfCredential_elementIdentifiers_authD
 {
   completionCopy = completion;
   credentialCopy = credential;
-  v8 = DC_LOG_CLIENT_1();
+  v8 = DC_LOG_CLIENT_1(credentialCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [DCCredentialStoreClient checkCompletenessOfCredential:completion:];
@@ -1352,7 +1352,7 @@ void __87__DCCredentialStoreClient_elementsOfCredential_elementIdentifiers_authD
 void __68__DCCredentialStoreClient_checkCompletenessOfCredential_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  v5 = DC_LOG_CLIENT_1();
+  v5 = DC_LOG_CLIENT_1(v4);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
   if (v4)
   {
@@ -1402,7 +1402,7 @@ void __59__DCCredentialStoreClient_payloadsOfCredential_completion___block_invok
 {
   v5 = a3;
   v6 = a2;
-  v7 = DC_LOG_CLIENT_1();
+  v7 = DC_LOG_CLIENT_1(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -1446,7 +1446,7 @@ void __71__DCCredentialStoreClient_allElementsOfCredential_authData_completion__
 {
   v5 = a3;
   v6 = a2;
-  v7 = DC_LOG_CLIENT_1();
+  v7 = DC_LOG_CLIENT_1(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -1488,7 +1488,7 @@ void __66__DCCredentialStoreClient_occupiedLegacySEKeySlotsWithCompletion___bloc
 {
   v5 = a3;
   v6 = a2;
-  v7 = DC_LOG_CLIENT_1();
+  v7 = DC_LOG_CLIENT_1(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -1523,7 +1523,7 @@ void __66__DCCredentialStoreClient_occupiedLegacySEKeySlotsWithCompletion___bloc
 void __59__DCCredentialStoreClient_eraseLegacySEKeySlot_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = DC_LOG_CLIENT_1();
+  v4 = DC_LOG_CLIENT_1(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
   if (v3)
   {
@@ -1559,7 +1559,7 @@ void __59__DCCredentialStoreClient_eraseLegacySEKeySlot_completion___block_invok
 void __76__DCCredentialStoreClient_clearPresentmentKeyUsageForCredential_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = DC_LOG_CLIENT_1();
+  v4 = DC_LOG_CLIENT_1(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
   if (v3)
   {
@@ -1602,7 +1602,7 @@ void __59__DCCredentialStoreClient_keyInfoForCredential_completion___block_invok
 {
   v5 = a3;
   v6 = a2;
-  v7 = DC_LOG_CLIENT_1();
+  v7 = DC_LOG_CLIENT_1(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -1639,7 +1639,7 @@ void __59__DCCredentialStoreClient_keyInfoForCredential_completion___block_invok
 void __61__DCCredentialStoreClient_remoteObjectProxyWithErrorHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = DC_LOG_CLIENT_1();
+  v4 = DC_LOG_CLIENT_1(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __61__DCCredentialStoreClient_remoteObjectProxyWithErrorHandler___block_invoke_cold_1();
@@ -1659,7 +1659,7 @@ void __61__DCCredentialStoreClient_remoteObjectProxyWithErrorHandler___block_inv
   credentialIdentifierCopy = credentialIdentifier;
   dataCopy = data;
   identifierCopy = identifier;
-  v14 = DC_LOG_CLIENT_1();
+  v14 = DC_LOG_CLIENT_1(identifierCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     [DCCredentialStoreClient storePIITokenInSyncableKeyStoreForIdentifier:data:credentialIdentifier:completion:];
@@ -1685,7 +1685,7 @@ void __61__DCCredentialStoreClient_remoteObjectProxyWithErrorHandler___block_inv
 void __109__DCCredentialStoreClient_storePIITokenInSyncableKeyStoreForIdentifier_data_credentialIdentifier_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = DC_LOG_CLIENT_1();
+  v4 = DC_LOG_CLIENT_1(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
   if (v3)
   {
@@ -1707,7 +1707,7 @@ void __109__DCCredentialStoreClient_storePIITokenInSyncableKeyStoreForIdentifier
 {
   completionCopy = completion;
   identifierCopy = identifier;
-  v8 = DC_LOG_CLIENT_1();
+  v8 = DC_LOG_CLIENT_1(identifierCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [DCCredentialStoreClient retrievePIITokenFromSyncableKeyStoreForIdentifier:completion:];
@@ -1734,7 +1734,7 @@ void __88__DCCredentialStoreClient_retrievePIITokenFromSyncableKeyStoreForIdenti
 {
   v5 = a3;
   v6 = a2;
-  v7 = DC_LOG_CLIENT_1();
+  v7 = DC_LOG_CLIENT_1(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -1757,7 +1757,7 @@ void __88__DCCredentialStoreClient_retrievePIITokenFromSyncableKeyStoreForIdenti
   completionCopy = completion;
   credentialIdentifierCopy = credentialIdentifier;
   identifierCopy = identifier;
-  v11 = DC_LOG_CLIENT_1();
+  v11 = DC_LOG_CLIENT_1(identifierCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [DCCredentialStoreClient deletePIITokenFromSyncableKeyStoreForIdentifier:credentialIdentifier:completion:];
@@ -1783,7 +1783,7 @@ void __88__DCCredentialStoreClient_retrievePIITokenFromSyncableKeyStoreForIdenti
 void __107__DCCredentialStoreClient_deletePIITokenFromSyncableKeyStoreForIdentifier_credentialIdentifier_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = DC_LOG_CLIENT_1();
+  v4 = DC_LOG_CLIENT_1(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
   if (v3)
   {
@@ -1807,7 +1807,7 @@ void __107__DCCredentialStoreClient_deletePIITokenFromSyncableKeyStoreForIdentif
   credentialIdentifierCopy = credentialIdentifier;
   updateCopy = update;
   identifierCopy = identifier;
-  v14 = DC_LOG_CLIENT_1();
+  v14 = DC_LOG_CLIENT_1(identifierCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     [DCCredentialStoreClient updatePIITokenInSyncableKeyStoreForIdentifier:attributesToUpdate:credentialIdentifier:completion:];
@@ -1833,7 +1833,7 @@ void __107__DCCredentialStoreClient_deletePIITokenFromSyncableKeyStoreForIdentif
 void __124__DCCredentialStoreClient_updatePIITokenInSyncableKeyStoreForIdentifier_attributesToUpdate_credentialIdentifier_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = DC_LOG_CLIENT_1();
+  v4 = DC_LOG_CLIENT_1(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
   if (v3)
   {
@@ -1856,7 +1856,7 @@ void __124__DCCredentialStoreClient_updatePIITokenInSyncableKeyStoreForIdentifie
   completionCopy = completion;
   dataCopy = data;
   identifierCopy = identifier;
-  v13 = DC_LOG_CLIENT_1();
+  v13 = DC_LOG_CLIENT_1(identifierCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [DCCredentialStoreClient storePIIHashInSyncableKeyStoreForIdentifier:data:keystoreType:completion:];
@@ -1882,7 +1882,7 @@ void __124__DCCredentialStoreClient_updatePIITokenInSyncableKeyStoreForIdentifie
 void __100__DCCredentialStoreClient_storePIIHashInSyncableKeyStoreForIdentifier_data_keystoreType_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = DC_LOG_CLIENT_1();
+  v4 = DC_LOG_CLIENT_1(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
   if (v3)
   {
@@ -1904,7 +1904,7 @@ void __100__DCCredentialStoreClient_storePIIHashInSyncableKeyStoreForIdentifier_
 {
   completionCopy = completion;
   identifierCopy = identifier;
-  v10 = DC_LOG_CLIENT_1();
+  v10 = DC_LOG_CLIENT_1(identifierCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [DCCredentialStoreClient retrievePIIHashFromSyncableKeyStoreForIdentifier:keystoreType:completion:];
@@ -1931,7 +1931,7 @@ void __100__DCCredentialStoreClient_retrievePIIHashFromSyncableKeyStoreForIdenti
 {
   v5 = a3;
   v6 = a2;
-  v7 = DC_LOG_CLIENT_1();
+  v7 = DC_LOG_CLIENT_1(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -1953,7 +1953,7 @@ void __100__DCCredentialStoreClient_retrievePIIHashFromSyncableKeyStoreForIdenti
 {
   completionCopy = completion;
   identifierCopy = identifier;
-  v10 = DC_LOG_CLIENT_1();
+  v10 = DC_LOG_CLIENT_1(identifierCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [DCCredentialStoreClient deletePIIHashFromSyncableKeyStoreForIdentifier:keystoreType:completion:];
@@ -1979,7 +1979,7 @@ void __100__DCCredentialStoreClient_retrievePIIHashFromSyncableKeyStoreForIdenti
 void __98__DCCredentialStoreClient_deletePIIHashFromSyncableKeyStoreForIdentifier_keystoreType_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = DC_LOG_CLIENT_1();
+  v4 = DC_LOG_CLIENT_1(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
   if (v3)
   {
@@ -2001,7 +2001,7 @@ void __98__DCCredentialStoreClient_deletePIIHashFromSyncableKeyStoreForIdentifie
 {
   completionCopy = completion;
   identifierCopy = identifier;
-  v8 = DC_LOG_CLIENT_1();
+  v8 = DC_LOG_CLIENT_1(identifierCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [DCCredentialStoreClient isPIITokenAvailableForIdentifier:completion:];
@@ -2027,7 +2027,7 @@ void __98__DCCredentialStoreClient_deletePIIHashFromSyncableKeyStoreForIdentifie
 void __71__DCCredentialStoreClient_isPIITokenAvailableForIdentifier_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  v5 = DC_LOG_CLIENT_1();
+  v5 = DC_LOG_CLIENT_1(v4);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
   if (v4)
   {
@@ -2047,10 +2047,9 @@ void __71__DCCredentialStoreClient_isPIITokenAvailableForIdentifier_completion__
 
 - (void)init
 {
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
 - (void)configureWithPartitions:completion:.cold.1()
@@ -2062,11 +2061,9 @@ void __71__DCCredentialStoreClient_isPIITokenAvailableForIdentifier_completion__
 
 void __62__DCCredentialStoreClient_configureWithPartitions_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __62__DCCredentialStoreClient_configureWithPartitions_completion___block_invoke_cold_2()
@@ -2085,11 +2082,9 @@ void __62__DCCredentialStoreClient_configureWithPartitions_completion___block_in
 
 void __74__DCCredentialStoreClient_createCredentialInPartition_options_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __74__DCCredentialStoreClient_createCredentialInPartition_options_completion___block_invoke_2_cold_2()
@@ -2108,11 +2103,9 @@ void __74__DCCredentialStoreClient_createCredentialInPartition_options_completio
 
 void __73__DCCredentialStoreClient_generateKeySigningKeyForCredential_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __73__DCCredentialStoreClient_generateKeySigningKeyForCredential_completion___block_invoke_2_cold_2()
@@ -2131,11 +2124,9 @@ void __73__DCCredentialStoreClient_generateKeySigningKeyForCredential_completion
 
 void __93__DCCredentialStoreClient_isAccountKeySigningKeyAvailableForAccountKeyIdentifier_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __93__DCCredentialStoreClient_isAccountKeySigningKeyAvailableForAccountKeyIdentifier_completion___block_invoke_2_cold_2()
@@ -2154,11 +2145,9 @@ void __93__DCCredentialStoreClient_isAccountKeySigningKeyAvailableForAccountKeyI
 
 void __88__DCCredentialStoreClient_createAccountKeySigningKeyForAccountKeyIdentifier_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __88__DCCredentialStoreClient_createAccountKeySigningKeyForAccountKeyIdentifier_completion___block_invoke_2_cold_2()
@@ -2177,11 +2166,9 @@ void __88__DCCredentialStoreClient_createAccountKeySigningKeyForAccountKeyIdenti
 
 void __88__DCCredentialStoreClient_deleteAccountKeySigningKeyForAccountKeyIdentifier_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __88__DCCredentialStoreClient_deleteAccountKeySigningKeyForAccountKeyIdentifier_completion___block_invoke_2_cold_2()
@@ -2200,11 +2187,9 @@ void __88__DCCredentialStoreClient_deleteAccountKeySigningKeyForAccountKeyIdenti
 
 void __90__DCCredentialStoreClient_retrieveAccountKeySigningKeyForAccountKeyIdentifier_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __90__DCCredentialStoreClient_retrieveAccountKeySigningKeyForAccountKeyIdentifier_completion___block_invoke_2_cold_2()
@@ -2223,11 +2208,9 @@ void __90__DCCredentialStoreClient_retrieveAccountKeySigningKeyForAccountKeyIden
 
 void __87__DCCredentialStoreClient_generateDeviceEncryptionKeyForCredential_keyType_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __87__DCCredentialStoreClient_generateDeviceEncryptionKeyForCredential_keyType_completion___block_invoke_2_cold_2()
@@ -2239,11 +2222,9 @@ void __87__DCCredentialStoreClient_generateDeviceEncryptionKeyForCredential_keyT
 
 void __104__DCCredentialStoreClient_generateAccountKeyAuthorizationForCredential_accountKeyIdentifier_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __104__DCCredentialStoreClient_generateAccountKeyAuthorizationForCredential_accountKeyIdentifier_completion___block_invoke_2_cold_2()
@@ -2262,11 +2243,9 @@ void __104__DCCredentialStoreClient_generateAccountKeyAuthorizationForCredential
 
 void __74__DCCredentialStoreClient_generatePresentmentKeyForCredential_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __74__DCCredentialStoreClient_generatePresentmentKeyForCredential_completion___block_invoke_2_cold_2()
@@ -2285,11 +2264,9 @@ void __74__DCCredentialStoreClient_generatePresentmentKeyForCredential_completio
 
 void __83__DCCredentialStoreClient_generatePresentmentKeysForCredential_numKeys_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __83__DCCredentialStoreClient_generatePresentmentKeysForCredential_numKeys_completion___block_invoke_2_cold_2()
@@ -2308,11 +2285,9 @@ void __83__DCCredentialStoreClient_generatePresentmentKeysForCredential_numKeys_
 
 void __100__DCCredentialStoreClient_authorizeDeviceKeySigningKeyOfCredential_accountKeyIdentifier_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __100__DCCredentialStoreClient_authorizeDeviceKeySigningKeyOfCredential_accountKeyIdentifier_completion___block_invoke_2_cold_2()
@@ -2331,11 +2306,9 @@ void __100__DCCredentialStoreClient_authorizeDeviceKeySigningKeyOfCredential_acc
 
 void __91__DCCredentialStoreClient_authorizeRemoteKeySigningKeyWithCredential_remoteKey_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __91__DCCredentialStoreClient_authorizeRemoteKeySigningKeyWithCredential_remoteKey_completion___block_invoke_2_cold_2()
@@ -2354,11 +2327,9 @@ void __91__DCCredentialStoreClient_authorizeRemoteKeySigningKeyWithCredential_re
 
 void __104__DCCredentialStoreClient_associateExternalPresentmentKeyWithCredential_publicKeyIdentifier_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __104__DCCredentialStoreClient_associateExternalPresentmentKeyWithCredential_publicKeyIdentifier_completion___block_invoke_cold_2()
@@ -2377,11 +2348,9 @@ void __104__DCCredentialStoreClient_associateExternalPresentmentKeyWithCredentia
 
 void __82__DCCredentialStoreClient_credentialIdentifiersForPublicKeyIdentifier_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __82__DCCredentialStoreClient_credentialIdentifiersForPublicKeyIdentifier_completion___block_invoke_2_cold_2()
@@ -2400,11 +2369,9 @@ void __82__DCCredentialStoreClient_credentialIdentifiersForPublicKeyIdentifier_c
 
 void __84__DCCredentialStoreClient_replacePayloadOfCredential_withPayload_format_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __84__DCCredentialStoreClient_replacePayloadOfCredential_withPayload_format_completion___block_invoke_cold_2()
@@ -2423,11 +2390,9 @@ void __84__DCCredentialStoreClient_replacePayloadOfCredential_withPayload_format
 
 void __72__DCCredentialStoreClient_credentialIdentifiersInPartitions_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __72__DCCredentialStoreClient_credentialIdentifiersInPartitions_completion___block_invoke_2_cold_2()
@@ -2446,11 +2411,9 @@ void __72__DCCredentialStoreClient_credentialIdentifiersInPartitions_completion_
 
 void __80__DCCredentialStoreClient_credentialIdentifiersInPartitions_docType_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __80__DCCredentialStoreClient_credentialIdentifiersInPartitions_docType_completion___block_invoke_2_cold_2()
@@ -2462,20 +2425,16 @@ void __80__DCCredentialStoreClient_credentialIdentifiersInPartitions_docType_com
 
 - (void)activeRegionsInPartitions:docTypes:completion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __73__DCCredentialStoreClient_activeRegionsInPartitions_docTypes_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __73__DCCredentialStoreClient_activeRegionsInPartitions_docTypes_completion___block_invoke_2_cold_2()
@@ -2494,11 +2453,9 @@ void __73__DCCredentialStoreClient_activeRegionsInPartitions_docTypes_completion
 
 void __55__DCCredentialStoreClient_deleteCredential_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __55__DCCredentialStoreClient_deleteCredential_completion___block_invoke_cold_2()
@@ -2517,11 +2474,9 @@ void __55__DCCredentialStoreClient_deleteCredential_completion___block_invoke_co
 
 void __61__DCCredentialStoreClient_propertiesOfCredential_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __61__DCCredentialStoreClient_propertiesOfCredential_completion___block_invoke_2_cold_2()
@@ -2547,11 +2502,9 @@ void __61__DCCredentialStoreClient_propertiesOfCredential_completion___block_inv
 
 void __62__DCCredentialStoreClient_setStateOfCredential_to_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __62__DCCredentialStoreClient_setStateOfCredential_to_completion___block_invoke_cold_2()
@@ -2570,11 +2523,9 @@ void __62__DCCredentialStoreClient_setStateOfCredential_to_completion___block_in
 
 void __66__DCCredentialStoreClient_payloadAuthACLForCredential_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __66__DCCredentialStoreClient_payloadAuthACLForCredential_completion___block_invoke_2_cold_2()
@@ -2593,11 +2544,9 @@ void __66__DCCredentialStoreClient_payloadAuthACLForCredential_completion___bloc
 
 void __87__DCCredentialStoreClient_elementsOfCredential_elementIdentifiers_authData_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __87__DCCredentialStoreClient_elementsOfCredential_elementIdentifiers_authData_completion___block_invoke_2_cold_2()
@@ -2616,11 +2565,9 @@ void __87__DCCredentialStoreClient_elementsOfCredential_elementIdentifiers_authD
 
 void __68__DCCredentialStoreClient_checkCompletenessOfCredential_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __68__DCCredentialStoreClient_checkCompletenessOfCredential_completion___block_invoke_2_cold_2()
@@ -2632,11 +2579,9 @@ void __68__DCCredentialStoreClient_checkCompletenessOfCredential_completion___bl
 
 void __59__DCCredentialStoreClient_payloadsOfCredential_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __59__DCCredentialStoreClient_payloadsOfCredential_completion___block_invoke_2_cold_2()
@@ -2648,11 +2593,9 @@ void __59__DCCredentialStoreClient_payloadsOfCredential_completion___block_invok
 
 void __71__DCCredentialStoreClient_allElementsOfCredential_authData_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __71__DCCredentialStoreClient_allElementsOfCredential_authData_completion___block_invoke_2_cold_2()
@@ -2664,11 +2607,9 @@ void __71__DCCredentialStoreClient_allElementsOfCredential_authData_completion__
 
 void __66__DCCredentialStoreClient_occupiedLegacySEKeySlotsWithCompletion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __66__DCCredentialStoreClient_occupiedLegacySEKeySlotsWithCompletion___block_invoke_2_cold_2()
@@ -2680,11 +2621,9 @@ void __66__DCCredentialStoreClient_occupiedLegacySEKeySlotsWithCompletion___bloc
 
 void __59__DCCredentialStoreClient_eraseLegacySEKeySlot_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __59__DCCredentialStoreClient_eraseLegacySEKeySlot_completion___block_invoke_cold_2()
@@ -2696,11 +2635,9 @@ void __59__DCCredentialStoreClient_eraseLegacySEKeySlot_completion___block_invok
 
 void __76__DCCredentialStoreClient_clearPresentmentKeyUsageForCredential_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __76__DCCredentialStoreClient_clearPresentmentKeyUsageForCredential_completion___block_invoke_cold_2()
@@ -2712,11 +2649,9 @@ void __76__DCCredentialStoreClient_clearPresentmentKeyUsageForCredential_complet
 
 void __59__DCCredentialStoreClient_keyInfoForCredential_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __59__DCCredentialStoreClient_keyInfoForCredential_completion___block_invoke_2_cold_2()
@@ -2728,10 +2663,9 @@ void __59__DCCredentialStoreClient_keyInfoForCredential_completion___block_invok
 
 void __61__DCCredentialStoreClient_remoteObjectProxyWithErrorHandler___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(&dword_24560F000, v0, OS_LOG_TYPE_ERROR, "DCCredentialStoreClient remote object proxy error: %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24560F000, v0, OS_LOG_TYPE_ERROR, "DCCredentialStoreClient remote object proxy error: %{public}@", v1, 0xCu);
 }
 
 - (void)storePIITokenInSyncableKeyStoreForIdentifier:data:credentialIdentifier:completion:.cold.1()
@@ -2743,11 +2677,9 @@ void __61__DCCredentialStoreClient_remoteObjectProxyWithErrorHandler___block_inv
 
 void __109__DCCredentialStoreClient_storePIITokenInSyncableKeyStoreForIdentifier_data_credentialIdentifier_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __109__DCCredentialStoreClient_storePIITokenInSyncableKeyStoreForIdentifier_data_credentialIdentifier_completion___block_invoke_2_cold_2()
@@ -2766,11 +2698,9 @@ void __109__DCCredentialStoreClient_storePIITokenInSyncableKeyStoreForIdentifier
 
 void __88__DCCredentialStoreClient_retrievePIITokenFromSyncableKeyStoreForIdentifier_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __88__DCCredentialStoreClient_retrievePIITokenFromSyncableKeyStoreForIdentifier_completion___block_invoke_2_cold_2()
@@ -2789,11 +2719,9 @@ void __88__DCCredentialStoreClient_retrievePIITokenFromSyncableKeyStoreForIdenti
 
 void __107__DCCredentialStoreClient_deletePIITokenFromSyncableKeyStoreForIdentifier_credentialIdentifier_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __107__DCCredentialStoreClient_deletePIITokenFromSyncableKeyStoreForIdentifier_credentialIdentifier_completion___block_invoke_2_cold_2()
@@ -2812,11 +2740,9 @@ void __107__DCCredentialStoreClient_deletePIITokenFromSyncableKeyStoreForIdentif
 
 void __124__DCCredentialStoreClient_updatePIITokenInSyncableKeyStoreForIdentifier_attributesToUpdate_credentialIdentifier_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __124__DCCredentialStoreClient_updatePIITokenInSyncableKeyStoreForIdentifier_attributesToUpdate_credentialIdentifier_completion___block_invoke_2_cold_2()
@@ -2835,11 +2761,9 @@ void __124__DCCredentialStoreClient_updatePIITokenInSyncableKeyStoreForIdentifie
 
 void __100__DCCredentialStoreClient_storePIIHashInSyncableKeyStoreForIdentifier_data_keystoreType_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __100__DCCredentialStoreClient_storePIIHashInSyncableKeyStoreForIdentifier_data_keystoreType_completion___block_invoke_2_cold_2()
@@ -2858,11 +2782,9 @@ void __100__DCCredentialStoreClient_storePIIHashInSyncableKeyStoreForIdentifier_
 
 void __100__DCCredentialStoreClient_retrievePIIHashFromSyncableKeyStoreForIdentifier_keystoreType_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __100__DCCredentialStoreClient_retrievePIIHashFromSyncableKeyStoreForIdentifier_keystoreType_completion___block_invoke_2_cold_2()
@@ -2881,11 +2803,9 @@ void __100__DCCredentialStoreClient_retrievePIIHashFromSyncableKeyStoreForIdenti
 
 void __98__DCCredentialStoreClient_deletePIIHashFromSyncableKeyStoreForIdentifier_keystoreType_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __98__DCCredentialStoreClient_deletePIIHashFromSyncableKeyStoreForIdentifier_keystoreType_completion___block_invoke_2_cold_2()
@@ -2904,11 +2824,9 @@ void __98__DCCredentialStoreClient_deletePIIHashFromSyncableKeyStoreForIdentifie
 
 void __71__DCCredentialStoreClient_isPIITokenAvailableForIdentifier_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __71__DCCredentialStoreClient_isPIITokenAvailableForIdentifier_completion___block_invoke_2_cold_2()

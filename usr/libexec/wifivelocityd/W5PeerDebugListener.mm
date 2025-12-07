@@ -8,9 +8,9 @@
 - (W5PeerDebugListener)initWithDebugManager:(id)manager
 {
   managerCopy = manager;
-  v10.receiver = self;
-  v10.super_class = W5PeerDebugListener;
-  v6 = [(W5PeerDebugListener *)&v10 init];
+  v11.receiver = self;
+  v11.super_class = W5PeerDebugListener;
+  v6 = [(W5PeerDebugListener *)&v11 init];
   v7 = v6;
   if (!v6 || (objc_storeStrong(&v6->_debugManager, manager), !v7->_debugManager))
   {
@@ -18,13 +18,14 @@
     v8 = sub_100098A04();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315650;
-      v12 = "[W5PeerDebugListener initWithDebugManager:]";
-      v13 = 2080;
-      v14 = "W5PeerDebugListener.m";
-      v15 = 1024;
-      v16 = 36;
-      _os_log_send_and_compose_impl();
+      v12 = 136315650;
+      v13 = "[W5PeerDebugListener initWithDebugManager:]";
+      v14 = 2080;
+      v15 = "W5PeerDebugListener.m";
+      v16 = 1024;
+      v17 = 36;
+      LODWORD(v10) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v8, 0, "[wifivelocity] %s (%s:%u) init error!", &v12, v10, LODWORD(v11.receiver));
     }
 
     v7 = 0;
@@ -56,9 +57,7 @@
     v46 = configuration;
     v47 = 2050;
     requestType2 = [payload requestType];
-    LODWORD(v27) = 68;
-    v26 = &v35;
-    _os_log_send_and_compose_impl();
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v7, 0, "[wifivelocity] %s (%s:%u) incoming request='%{public}@', payload='%{public}@', debug_config='%{public}@', type='%{public}ld'", &v35, 68);
   }
 
   v9 = objc_alloc_init(W5PeerDebugResponsePayload);
@@ -103,9 +102,8 @@ LABEL_21:
         v38 = "W5PeerDebugListener.m";
         v39 = 1024;
         v40 = 69;
-        LODWORD(v27) = 28;
-        v26 = &v35;
-        _os_log_send_and_compose_impl();
+        LODWORD(v26) = 28;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v23, 0, "[wifivelocity] %s (%s:%u) failed to unarchive responseObject object", &v35, v26, v27);
       }
 
       v31 = NSLocalizedFailureReasonErrorKey;
@@ -139,9 +137,8 @@ LABEL_21:
         v40 = 60;
         v41 = 2114;
         v42 = configuration2;
-        LODWORD(v27) = 38;
-        v26 = &v35;
-        _os_log_send_and_compose_impl();
+        LODWORD(v26) = 38;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v21, 0, "[wifivelocity] %s (%s:%u) failed to retrieve debug configuration error='%{public}@'", &v35, v26);
       }
 
       v33 = NSLocalizedFailureReasonErrorKey;
@@ -159,7 +156,7 @@ LABEL_21:
       v18 = 1;
     }
 
-    [(W5PeerDebugResponsePayload *)v9 setStatus:v18, v26, v27];
+    [(W5PeerDebugResponsePayload *)v9 setStatus:v18];
 
     goto LABEL_21;
   }

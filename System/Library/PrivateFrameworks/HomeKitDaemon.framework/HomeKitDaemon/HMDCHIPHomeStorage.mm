@@ -80,7 +80,7 @@
     [array addObject:v30];
   }
 
-  v31 = [array copy];
+  v31 = objc_msgSend_copy(array);
 
   return v31;
 }
@@ -127,7 +127,7 @@
 
 - (HMDCHIPHomeStorage)initWithCoder:(id)coder
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [(HMDCHIPHomeStorage *)self init];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMCFS.fabricID"];
@@ -146,15 +146,14 @@
   [(HMDCHIPHomeStorage *)v5 setIntermediateCertificate:v10];
 
   v11 = MEMORY[0x277CBEB98];
+  v16 = objc_opt_class();
   v17 = objc_opt_class();
   v18 = objc_opt_class();
-  v19 = objc_opt_class();
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:3];
-  v13 = [v11 setWithArray:{v12, v17, v18}];
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:3];
+  v13 = [v11 setWithArray:{v12, v16, v17}];
   v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"HMCFS.keyValueStore"];
 
   [(HMDCHIPHomeStorage *)v5 setKeyValueStore:v14];
-  v15 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -220,52 +219,7 @@
   }
 
   v6 = v5;
-  if (!v6)
-  {
-    goto LABEL_11;
-  }
-
-  fabricID = [(HMDCHIPHomeStorage *)self fabricID];
-  fabricID2 = [v6 fabricID];
-  v9 = HMFEqualObjects();
-
-  if (!v9)
-  {
-    goto LABEL_11;
-  }
-
-  lastNodeID = [(HMDCHIPHomeStorage *)self lastNodeID];
-  lastNodeID2 = [v6 lastNodeID];
-  v12 = HMFEqualObjects();
-
-  if (!v12)
-  {
-    goto LABEL_11;
-  }
-
-  rootCertificate = [(HMDCHIPHomeStorage *)self rootCertificate];
-  rootCertificate2 = [v6 rootCertificate];
-  v15 = HMFEqualObjects();
-
-  if (!v15)
-  {
-    goto LABEL_11;
-  }
-
-  operationalCertificate = [(HMDCHIPHomeStorage *)self operationalCertificate];
-  operationalCertificate2 = [v6 operationalCertificate];
-  v18 = HMFEqualObjects();
-
-  if (!v18)
-  {
-    goto LABEL_11;
-  }
-
-  intermediateCertificate = [(HMDCHIPHomeStorage *)self intermediateCertificate];
-  intermediateCertificate2 = [v6 intermediateCertificate];
-  v21 = HMFEqualObjects();
-
-  if (v21)
+  if (v6 && (-[HMDCHIPHomeStorage fabricID](self, "fabricID"), v7 = objc_claimAutoreleasedReturnValue(), [v6 fabricID], v8 = objc_claimAutoreleasedReturnValue(), v9 = HMFEqualObjects(), v8, v7, v9) && (-[HMDCHIPHomeStorage lastNodeID](self, "lastNodeID"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "lastNodeID"), v11 = objc_claimAutoreleasedReturnValue(), v12 = HMFEqualObjects(), v11, v10, v12) && (-[HMDCHIPHomeStorage rootCertificate](self, "rootCertificate"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "rootCertificate"), v14 = objc_claimAutoreleasedReturnValue(), v15 = HMFEqualObjects(), v14, v13, v15) && (-[HMDCHIPHomeStorage operationalCertificate](self, "operationalCertificate"), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "operationalCertificate"), v17 = objc_claimAutoreleasedReturnValue(), v18 = HMFEqualObjects(), v17, v16, v18) && (-[HMDCHIPHomeStorage intermediateCertificate](self, "intermediateCertificate"), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "intermediateCertificate"), v20 = objc_claimAutoreleasedReturnValue(), v21 = HMFEqualObjects(), v20, v19, v21))
   {
     keyValueStore = [(HMDCHIPHomeStorage *)self keyValueStore];
     keyValueStore2 = [v6 keyValueStore];
@@ -274,7 +228,6 @@
 
   else
   {
-LABEL_11:
     v24 = 0;
   }
 
@@ -329,7 +282,7 @@ LABEL_11:
 
 - (BOOL)updateUsingHomeModel:(id)model
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   setProperties = [modelCopy setProperties];
   if (![setProperties containsObject:@"chipFabricID"])
@@ -357,13 +310,13 @@ LABEL_7:
     v12 = HMFGetLogIdentifier();
     fabricID2 = [(HMDCHIPHomeStorage *)selfCopy fabricID];
     chipFabricID2 = [modelCopy chipFabricID];
-    v67 = 138543874;
-    v68 = v12;
-    v69 = 2112;
-    v70 = fabricID2;
-    v71 = 2112;
-    v72 = chipFabricID2;
-    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Updating storage fabric ID from %@ to %@", &v67, 0x20u);
+    v66 = 138543874;
+    v67 = v12;
+    v68 = 2112;
+    v69 = fabricID2;
+    v70 = 2112;
+    v71 = chipFabricID2;
+    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Updating storage fabric ID from %@ to %@", &v66, 0x20u);
   }
 
   objc_autoreleasePoolPop(v9);
@@ -392,13 +345,13 @@ LABEL_8:
       v24 = HMFGetLogIdentifier();
       lastNodeID2 = [(HMDCHIPHomeStorage *)selfCopy2 lastNodeID];
       chipLastNodeID2 = [modelCopy chipLastNodeID];
-      v67 = 138543874;
-      v68 = v24;
-      v69 = 2112;
-      v70 = lastNodeID2;
-      v71 = 2112;
-      v72 = chipLastNodeID2;
-      _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Updating storage last node ID from %@ to %@", &v67, 0x20u);
+      v66 = 138543874;
+      v67 = v24;
+      v68 = 2112;
+      v69 = lastNodeID2;
+      v70 = 2112;
+      v71 = chipLastNodeID2;
+      _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Updating storage last node ID from %@ to %@", &v66, 0x20u);
     }
 
     objc_autoreleasePoolPop(v21);
@@ -428,13 +381,13 @@ LABEL_14:
       v34 = HMFGetLogIdentifier();
       rootCertificate2 = [(HMDCHIPHomeStorage *)selfCopy3 rootCertificate];
       chipRootCertificate2 = [modelCopy chipRootCertificate];
-      v67 = 138543874;
-      v68 = v34;
-      v69 = 2112;
-      v70 = rootCertificate2;
-      v71 = 2112;
-      v72 = chipRootCertificate2;
-      _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_INFO, "%{public}@Updating storage root certificate from %@ to %@", &v67, 0x20u);
+      v66 = 138543874;
+      v67 = v34;
+      v68 = 2112;
+      v69 = rootCertificate2;
+      v70 = 2112;
+      v71 = chipRootCertificate2;
+      _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_INFO, "%{public}@Updating storage root certificate from %@ to %@", &v66, 0x20u);
     }
 
     objc_autoreleasePoolPop(v31);
@@ -464,13 +417,13 @@ LABEL_20:
       v44 = HMFGetLogIdentifier();
       operationalCertificate2 = [(HMDCHIPHomeStorage *)selfCopy4 operationalCertificate];
       chipOperationalCertificate2 = [modelCopy chipOperationalCertificate];
-      v67 = 138543874;
-      v68 = v44;
-      v69 = 2112;
-      v70 = operationalCertificate2;
-      v71 = 2112;
-      v72 = chipOperationalCertificate2;
-      _os_log_impl(&dword_229538000, v43, OS_LOG_TYPE_INFO, "%{public}@Updating storage operational certificate from %@ to %@", &v67, 0x20u);
+      v66 = 138543874;
+      v67 = v44;
+      v68 = 2112;
+      v69 = operationalCertificate2;
+      v70 = 2112;
+      v71 = chipOperationalCertificate2;
+      _os_log_impl(&dword_229538000, v43, OS_LOG_TYPE_INFO, "%{public}@Updating storage operational certificate from %@ to %@", &v66, 0x20u);
     }
 
     objc_autoreleasePoolPop(v41);
@@ -500,13 +453,13 @@ LABEL_26:
       v54 = HMFGetLogIdentifier();
       intermediateCertificate2 = [(HMDCHIPHomeStorage *)selfCopy5 intermediateCertificate];
       chipIntermediateCertificate2 = [modelCopy chipIntermediateCertificate];
-      v67 = 138543874;
-      v68 = v54;
-      v69 = 2112;
-      v70 = intermediateCertificate2;
-      v71 = 2112;
-      v72 = chipIntermediateCertificate2;
-      _os_log_impl(&dword_229538000, v53, OS_LOG_TYPE_INFO, "%{public}@Updating storage intermediate certificate from %@ to %@", &v67, 0x20u);
+      v66 = 138543874;
+      v67 = v54;
+      v68 = 2112;
+      v69 = intermediateCertificate2;
+      v70 = 2112;
+      v71 = chipIntermediateCertificate2;
+      _os_log_impl(&dword_229538000, v53, OS_LOG_TYPE_INFO, "%{public}@Updating storage intermediate certificate from %@ to %@", &v66, 0x20u);
     }
 
     objc_autoreleasePoolPop(v51);
@@ -536,9 +489,9 @@ LABEL_37:
     if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
     {
       v64 = HMFGetLogIdentifier();
-      v67 = 138543362;
-      v68 = v64;
-      _os_log_impl(&dword_229538000, v63, OS_LOG_TYPE_INFO, "%{public}@Updating storage key-value store", &v67, 0xCu);
+      v66 = 138543362;
+      v67 = v64;
+      _os_log_impl(&dword_229538000, v63, OS_LOG_TYPE_INFO, "%{public}@Updating storage key-value store", &v66, 0xCu);
     }
 
     objc_autoreleasePoolPop(v61);
@@ -550,7 +503,6 @@ LABEL_37:
 
 LABEL_38:
 
-  v65 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -575,7 +527,7 @@ LABEL_38:
   keyValueStore = [(HMDCHIPHomeStorage *)self keyValueStore];
   [dictionary setObject:keyValueStore forKeyedSubscript:@"Key-Value Store"];
 
-  v10 = [dictionary copy];
+  v10 = objc_msgSend_copy(dictionary);
 
   return v10;
 }
@@ -594,10 +546,9 @@ LABEL_38:
 
 void __33__HMDCHIPHomeStorage_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v8_80345;
-  logCategory__hmf_once_v8_80345 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v8_80345;
+  logCategory__hmf_once_v8_80345 = v0;
 }
 
 @end

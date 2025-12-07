@@ -40,7 +40,7 @@
 - (void)handleCompactOrMinimalViewTapEvent
 {
   selfCopy = self;
-  sub_100026510();
+  sub_100026510(selfCopy, v2);
 }
 
 - (void)nowPlayingController:(id)controller endpointController:(id)endpointController didChangeRoute:(id)route

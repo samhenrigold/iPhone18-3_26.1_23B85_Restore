@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)eventAsString:(int)string;
+- (id)frAsString:(int)string;
 - (int)StringAsEvent:(id)event;
 - (int)StringAsFr:(id)fr;
 - (int)event;
@@ -44,6 +46,29 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)eventAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"ENDC_ON";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"ENDC_OFF";
+  }
+
+  return v4;
 }
 
 - (int)StringAsEvent:(id)event
@@ -103,6 +128,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)frAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278259940[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsFr:(id)fr
@@ -237,7 +277,6 @@ LABEL_18:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -257,7 +296,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  event = self->_event;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -272,12 +310,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  subsId = self->_subsId;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_5:
-    fr = self->_fr;
     PBDataWriterWriteInt32Field();
   }
 

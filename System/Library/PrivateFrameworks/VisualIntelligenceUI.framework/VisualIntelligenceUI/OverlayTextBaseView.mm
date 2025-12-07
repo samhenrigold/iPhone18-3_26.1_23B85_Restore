@@ -17,7 +17,7 @@
 - (void)touchesEnded:(id)ended withEvent:(id)event
 {
   sub_21E0A358C();
-  sub_21E0A35D8(&unk_27CEACB60, sub_21E0A358C);
+  sub_21E0A35D8(&unk_27CEACB60, sub_21E0A358C, MEMORY[0x277D85378]);
   sub_21E1424B4();
   eventCopy = event;
   selfCopy = self;

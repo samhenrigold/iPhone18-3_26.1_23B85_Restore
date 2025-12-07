@@ -155,7 +155,7 @@
   }
 }
 
-uint64_t __49__LPVisualMediaView_componentViewDidMoveToWindow__block_invoke(uint64_t a1)
+void *__49__LPVisualMediaView_componentViewDidMoveToWindow__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isParented];
   if ((result & 1) == 0)
@@ -388,55 +388,55 @@ uint64_t __49__LPVisualMediaView_componentViewDidMoveToWindow__block_invoke(uint
     posterFrame = self->_posterFrame;
 LABEL_7:
     platformImage = [(LPImage *)posterFrame platformImage];
-    [platformImage size];
-    sizeFittingInsideSizeMaintainingAspectRatio(v13, v14, width, height);
-    width = v15;
-    v11 = v16;
+    v14 = [platformImage size];
+    sizeFittingInsideSizeMaintainingAspectRatio(v14, v15, v16, width, height);
+    width = v17;
+    v12 = v18;
 
     goto LABEL_8;
   }
 
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3010000000;
-  v29 = &unk_1AE9D67E1;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3010000000;
+  v31 = &unk_1AE9D67E1;
   v7 = MEMORY[0x1E695F060];
-  v30 = *MEMORY[0x1E695F060];
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
+  v32 = *MEMORY[0x1E695F060];
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
   video = self->_video;
-  v25 = 1;
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __34__LPVisualMediaView_sizeThatFits___block_invoke;
-  v21[3] = &unk_1E7A359A0;
-  v21[5] = &v26;
-  v21[6] = &v22;
-  v21[4] = self;
-  [(LPVideo *)video _intrinsicSizeWithCompletionHandler:v21];
-  *(v23 + 24) = 0;
-  v9 = v27[4];
-  v10 = v27[5];
-  if (v9 == *v7 && v10 == v7[1])
+  v27 = 1;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __34__LPVisualMediaView_sizeThatFits___block_invoke;
+  v23[3] = &unk_1E7A359A0;
+  v23[5] = &v28;
+  v23[6] = &v24;
+  v23[4] = self;
+  v9 = [(LPVideo *)video _intrinsicSizeWithCompletionHandler:v23];
+  *(v25 + 24) = 0;
+  v10 = v29[4];
+  v11 = v29[5];
+  if (v10 == *v7 && v11 == v7[1])
   {
-    v11 = width * 0.75;
+    v12 = width * 0.75;
   }
 
   else
   {
-    sizeFittingInsideSizeMaintainingAspectRatio(v9, v10, width, height);
-    width = v19;
-    v11 = v20;
+    sizeFittingInsideSizeMaintainingAspectRatio(v9, v10, v11, width, height);
+    width = v21;
+    v12 = v22;
   }
 
-  _Block_object_dispose(&v22, 8);
-  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v28, 8);
 LABEL_8:
-  v17 = width;
-  v18 = v11;
-  result.height = v18;
-  result.width = v17;
+  v19 = width;
+  v20 = v12;
+  result.height = v20;
+  result.width = v19;
   return result;
 }
 
@@ -654,7 +654,7 @@ void __48__LPVisualMediaView__startPlaybackWatchdogTimer__block_invoke(uint64_t 
   }
 }
 
-uint64_t __43__LPVisualMediaView_didChangePlayingState___block_invoke(uint64_t a1)
+void *__43__LPVisualMediaView_didChangePlayingState___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) removePlaceholderViews];
   v3 = *(a1 + 32);

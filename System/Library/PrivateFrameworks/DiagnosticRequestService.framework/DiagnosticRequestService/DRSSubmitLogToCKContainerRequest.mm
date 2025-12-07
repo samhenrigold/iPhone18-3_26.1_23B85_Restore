@@ -6,6 +6,7 @@
 - (DRSSubmitLogToCKContainerRequest)initWithXPCDict:(id)dict;
 - (id)_initWithSubmitLogToCKContainerRequestMO_ON_MOC_QUEUE:(id)e;
 - (id)debugDescription;
+- (id)jsonCompatibleDictionaryRepresentationVerbose:(BOOL)verbose;
 - (id)recordRepresentation;
 - (id)zoneID;
 - (void)_configureRequestMO:(id)o;
@@ -50,11 +51,11 @@
 
 - (DRSSubmitLogToCKContainerRequest)initWithXPCDict:(id)dict
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   dictCopy = dict;
-  v39.receiver = self;
-  v39.super_class = DRSSubmitLogToCKContainerRequest;
-  v5 = [(DRSRequest *)&v39 initWithXPCDict:dictCopy];
+  v40.receiver = self;
+  v40.super_class = DRSSubmitLogToCKContainerRequest;
+  v5 = [(DRSRequest *)&v40 initWithXPCDict:dictCopy];
   if (v5)
   {
     string = xpc_dictionary_get_string(dictCopy, "containerName");
@@ -104,45 +105,46 @@
 
       if (recordDictionary)
       {
-        v36 = 0u;
         v37 = 0u;
-        v34 = 0u;
+        v38 = 0u;
         v35 = 0u;
+        v36 = 0u;
         recordDictionary2 = [(DRSSubmitLogToCKContainerRequest *)v5 recordDictionary];
         allKeys = [recordDictionary2 allKeys];
 
-        v24 = [allKeys countByEnumeratingWithState:&v34 objects:v42 count:16];
-        if (v24)
+        v25 = [allKeys countByEnumeratingWithState:&v35 objects:v43 count:16];
+        if (v25)
         {
-          v25 = v24;
-          v26 = *v35;
+          v26 = v25;
+          v27 = *v36;
           while (2)
           {
-            for (i = 0; i != v25; ++i)
+            for (i = 0; i != v26; ++i)
             {
-              if (*v35 != v26)
+              if (*v36 != v27)
               {
                 objc_enumerationMutation(allKeys);
               }
 
-              v28 = *(*(&v34 + 1) + 8 * i);
+              v29 = *(*(&v35 + 1) + 8 * i);
               objc_opt_class();
-              if ((objc_opt_isKindOfClass() & 1) == 0)
+              isKindOfClass = objc_opt_isKindOfClass();
+              if ((isKindOfClass & 1) == 0)
               {
-                v31 = DPLogHandle_SubmitLogToCKContainerError();
-                if (os_signpost_enabled(v31))
+                v33 = DPLogHandle_SubmitLogToCKContainerError(isKindOfClass);
+                if (os_signpost_enabled(v33))
                 {
                   *buf = 138543362;
-                  v41 = v28;
-                  _os_signpost_emit_with_name_impl(&dword_232906000, v31, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "InvalidRecordKey", "%{public}@", buf, 0xCu);
+                  v42 = v29;
+                  _os_signpost_emit_with_name_impl(&dword_232906000, v33, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "InvalidRecordKey", "%{public}@", buf, 0xCu);
                 }
 
                 goto LABEL_26;
               }
             }
 
-            v25 = [allKeys countByEnumeratingWithState:&v34 objects:v42 count:16];
-            if (v25)
+            v26 = [allKeys countByEnumeratingWithState:&v35 objects:v43 count:16];
+            if (v26)
             {
               continue;
             }
@@ -155,42 +157,41 @@
         goto LABEL_17;
       }
 
-      allKeys = DPLogHandle_SubmitLogToCKContainerError();
+      allKeys = DPLogHandle_SubmitLogToCKContainerError(v22);
       if (!os_signpost_enabled(allKeys))
       {
         goto LABEL_26;
       }
 
       *buf = 0;
-      v30 = "FailedToDeserializeRecordDictionaryData";
+      v32 = "FailedToDeserializeRecordDictionaryData";
     }
 
     else
     {
-      allKeys = DPLogHandle_SubmitLogToCKContainerError();
+      allKeys = DPLogHandle_SubmitLogToCKContainerError(data);
       if (!os_signpost_enabled(allKeys))
       {
 LABEL_26:
 
 LABEL_27:
-        v29 = 0;
+        v31 = 0;
         goto LABEL_28;
       }
 
       *buf = 0;
-      v30 = "SubmitLogToCKContainerMissingRecordData";
+      v32 = "SubmitLogToCKContainerMissingRecordData";
     }
 
-    _os_signpost_emit_with_name_impl(&dword_232906000, allKeys, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v30, &unk_232980861, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_232906000, allKeys, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v32, &unk_232980861, buf, 2u);
     goto LABEL_26;
   }
 
 LABEL_17:
-  v29 = v5;
+  v31 = v5;
 LABEL_28:
 
-  v32 = *MEMORY[0x277D85DE8];
-  return v29;
+  return v31;
 }
 
 + (BOOL)_requestMOHasRequiredFields_ON_MOC_QUEUE:(id)e
@@ -231,9 +232,9 @@ LABEL_28:
 - (id)_initWithSubmitLogToCKContainerRequestMO_ON_MOC_QUEUE:(id)e
 {
   eCopy = e;
-  v24.receiver = self;
-  v24.super_class = DRSSubmitLogToCKContainerRequest;
-  v5 = [(DRSSubmitLogRequest *)&v24 _initWithSubmitLogRequestMO_ON_MOC_QUEUE:eCopy];
+  v26.receiver = self;
+  v26.super_class = DRSSubmitLogToCKContainerRequest;
+  v5 = [(DRSSubmitLogRequest *)&v26 _initWithSubmitLogRequestMO_ON_MOC_QUEUE:eCopy];
   if (!v5)
   {
     goto LABEL_4;
@@ -255,39 +256,39 @@ LABEL_28:
 
   if (!recordDictionaryData2)
   {
-    v20 = DPLogHandle_SubmitLogToCKContainerError();
-    if (os_signpost_enabled(v20))
+    v22 = DPLogHandle_SubmitLogToCKContainerError(v13);
+    if (os_signpost_enabled(v22))
     {
-      *v23 = 0;
-      v21 = "MissingRecordDictionaryDataFromMO";
+      *v25 = 0;
+      v23 = "MissingRecordDictionaryDataFromMO";
 LABEL_9:
-      _os_signpost_emit_with_name_impl(&dword_232906000, v20, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v21, &unk_232980861, v23, 2u);
+      _os_signpost_emit_with_name_impl(&dword_232906000, v22, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v23, &unk_232980861, v25, 2u);
     }
 
 LABEL_10:
 
-    v19 = 0;
+    v21 = 0;
     goto LABEL_11;
   }
 
   fileAssetField = [eCopy fileAssetField];
-  v14 = v5[20];
+  v15 = v5[20];
   v5[20] = fileAssetField;
 
   recordDictionaryData3 = [v5 recordDictionaryData];
-  v16 = DRSDictionaryForData(recordDictionaryData3);
-  v17 = v5[22];
-  v5[22] = v16;
+  v17 = DRSDictionaryForData(recordDictionaryData3);
+  v18 = v5[22];
+  v5[22] = v17;
 
   recordDictionary = [v5 recordDictionary];
 
   if (!recordDictionary)
   {
-    v20 = DPLogHandle_SubmitLogToCKContainerError();
-    if (os_signpost_enabled(v20))
+    v22 = DPLogHandle_SubmitLogToCKContainerError(v20);
+    if (os_signpost_enabled(v22))
     {
-      *v23 = 0;
-      v21 = "FailedToDeserializeRecordDictionaryDataFromMO";
+      *v25 = 0;
+      v23 = "FailedToDeserializeRecordDictionaryDataFromMO";
       goto LABEL_9;
     }
 
@@ -295,10 +296,10 @@ LABEL_10:
   }
 
 LABEL_4:
-  v19 = v5;
+  v21 = v5;
 LABEL_11:
 
-  return v19;
+  return v21;
 }
 
 - (BOOL)isEqualToRequest:(id)request
@@ -350,6 +351,52 @@ LABEL_11:
   }
 
   return v13;
+}
+
+- (id)jsonCompatibleDictionaryRepresentationVerbose:(BOOL)verbose
+{
+  verboseCopy = verbose;
+  v20 = *MEMORY[0x277D85DE8];
+  v5 = objc_autoreleasePoolPush();
+  v17.receiver = self;
+  v17.super_class = DRSSubmitLogToCKContainerRequest;
+  v6 = [(DRSRequest *)&v17 jsonCompatibleDictionaryRepresentationVerbose:verboseCopy];
+  v7 = MEMORY[0x277CCAAA0];
+  recordDictionary = [(DRSSubmitLogToCKContainerRequest *)self recordDictionary];
+  LODWORD(v7) = [v7 isValidJSONObject:recordDictionary];
+
+  if (v7)
+  {
+    recordDictionary2 = [(DRSSubmitLogToCKContainerRequest *)self recordDictionary];
+    [v6 setObject:recordDictionary2 forKeyedSubscript:@"recordDictionary"];
+  }
+
+  else
+  {
+    v11 = DPLogHandle_Request(v9);
+    if (os_signpost_enabled(v11))
+    {
+      v12 = [(DRSSubmitLogToCKContainerRequest *)self debugDescription];
+      *buf = 138543362;
+      v19 = v12;
+      _os_signpost_emit_with_name_impl(&dword_232906000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SkippedRecordDictionaryJSONSerialization", "Record dictionary for %{public}@ cannot be serialized in JSON", buf, 0xCu);
+    }
+
+    [v6 setObject:@"<Could not serialize>" forKeyedSubscript:@"recordDictionary"];
+  }
+
+  containerName = [(DRSSubmitLogToCKContainerRequest *)self containerName];
+  [v6 setObject:containerName forKeyedSubscript:@"containerName"];
+
+  recordType = [(DRSSubmitLogToCKContainerRequest *)self recordType];
+  [v6 setObject:recordType forKeyedSubscript:@"recordType"];
+
+  fileAssetField = [(DRSSubmitLogToCKContainerRequest *)self fileAssetField];
+  [v6 setObject:fileAssetField forKeyedSubscript:@"fileAssetField"];
+
+  objc_autoreleasePoolPop(v5);
+
+  return v6;
 }
 
 + (id)xcRecordZoneID
@@ -430,111 +477,109 @@ LABEL_7:
 
 - (id)recordRepresentation
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   logs = [(DRSRequest *)self logs];
   v4 = [logs count];
 
   if (v4)
   {
     recordDictionary = [(DRSSubmitLogToCKContainerRequest *)self recordDictionary];
-    v33 = 0;
-    v6 = DRValidateCKRecordDictionary(recordDictionary, &v33);
-    v7 = v33;
+    v35 = 0;
+    v7 = DRValidateCKRecordDictionary(recordDictionary, &v35);
+    v8 = v35;
 
-    if (v6)
+    if (v7)
     {
       zoneID = [(DRSSubmitLogToCKContainerRequest *)self zoneID];
-      v9 = objc_alloc(MEMORY[0x277CBC5A0]);
+      v11 = objc_alloc(MEMORY[0x277CBC5A0]);
       recordType = [(DRSSubmitLogToCKContainerRequest *)self recordType];
       if (zoneID)
       {
-        v11 = [v9 initWithRecordType:recordType zoneID:zoneID];
+        v13 = [v11 initWithRecordType:recordType zoneID:zoneID];
       }
 
       else
       {
-        v11 = [v9 initWithRecordType:recordType];
+        v13 = [v11 initWithRecordType:recordType];
       }
 
-      v19 = v11;
+      v21 = v13;
 
       recordDictionary2 = [(DRSSubmitLogToCKContainerRequest *)self recordDictionary];
-      v28 = MEMORY[0x277D85DD0];
-      v29 = 3221225472;
-      v30 = __74__DRSSubmitLogToCKContainerRequest_CKRecord_Private__recordRepresentation__block_invoke;
-      v31 = &unk_27899F010;
-      v14 = v19;
-      v32 = v14;
-      [recordDictionary2 enumerateKeysAndObjectsUsingBlock:&v28];
+      v30 = MEMORY[0x277D85DD0];
+      v31 = 3221225472;
+      v32 = __74__DRSSubmitLogToCKContainerRequest_CKRecord_Private__recordRepresentation__block_invoke;
+      v33 = &unk_27899F010;
+      v16 = v21;
+      v34 = v16;
+      [recordDictionary2 enumerateKeysAndObjectsUsingBlock:&v30];
 
-      v21 = [(DRSRequest *)self fileAssets:v28];
-      firstObject = [v21 firstObject];
+      v23 = [(DRSRequest *)self fileAssets:v30];
+      firstObject = [v23 firstObject];
 
       if (firstObject)
       {
         fileAssetField = [(DRSSubmitLogToCKContainerRequest *)self fileAssetField];
-        [v14 setObject:firstObject forKeyedSubscript:fileAssetField];
+        [v16 setObject:firstObject forKeyedSubscript:fileAssetField];
 
-        v13 = v14;
+        v15 = v16;
       }
 
       else
       {
-        v24 = DPLogHandle_CKRecordError();
-        if (os_signpost_enabled(v24))
+        v27 = DPLogHandle_CKRecordError(v25);
+        if (os_signpost_enabled(v27))
         {
           requestID = [(DRSRequest *)self requestID];
           *buf = 138543362;
-          v35 = requestID;
-          _os_signpost_emit_with_name_impl(&dword_232906000, v24, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "MissingFileAsset", "No file asset found for %{public}@", buf, 0xCu);
+          v37 = requestID;
+          _os_signpost_emit_with_name_impl(&dword_232906000, v27, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "MissingFileAsset", "No file asset found for %{public}@", buf, 0xCu);
         }
 
-        v13 = 0;
+        v15 = 0;
       }
     }
 
     else
     {
-      v14 = DPLogHandle_CKRecordError();
-      if (os_signpost_enabled(v14))
+      v16 = DPLogHandle_CKRecordError(v9);
+      if (os_signpost_enabled(v16))
       {
-        v15 = [(DRSSubmitLogToCKContainerRequest *)self debugDescription];
-        localizedDescription = [v7 localizedDescription];
-        v17 = localizedDescription;
-        v18 = @"Unknown error";
+        v17 = [(DRSSubmitLogToCKContainerRequest *)self debugDescription];
+        localizedDescription = [v8 localizedDescription];
+        v19 = localizedDescription;
+        v20 = @"Unknown error";
         if (localizedDescription)
         {
-          v18 = localizedDescription;
+          v20 = localizedDescription;
         }
 
         *buf = 138543618;
-        v35 = v15;
-        v36 = 2114;
-        v37 = v18;
-        _os_signpost_emit_with_name_impl(&dword_232906000, v14, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "MalformedRecordDictionary", "Record dictionary for %{public}@ is malformed: %{public}@", buf, 0x16u);
+        v37 = v17;
+        v38 = 2114;
+        v39 = v20;
+        _os_signpost_emit_with_name_impl(&dword_232906000, v16, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "MalformedRecordDictionary", "Record dictionary for %{public}@ is malformed: %{public}@", buf, 0x16u);
       }
 
-      v13 = 0;
+      v15 = 0;
     }
   }
 
   else
   {
-    v7 = DPLogHandle_CKRecordError();
-    if (os_signpost_enabled(v7))
+    v8 = DPLogHandle_CKRecordError(v5);
+    if (os_signpost_enabled(v8))
     {
       requestID2 = [(DRSRequest *)self requestID];
       *buf = 138543362;
-      v35 = requestID2;
-      _os_signpost_emit_with_name_impl(&dword_232906000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "MissingFilePaths", "No file paths found for %{public}@", buf, 0xCu);
+      v37 = requestID2;
+      _os_signpost_emit_with_name_impl(&dword_232906000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "MissingFilePaths", "No file paths found for %{public}@", buf, 0xCu);
     }
 
-    v13 = 0;
+    v15 = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
-  return v13;
+  return v15;
 }
 
 @end

@@ -42,9 +42,9 @@
 
 - (CATTransport)init
 {
-  v23.receiver = self;
-  v23.super_class = CATTransport;
-  v2 = [(CATTransport *)&v23 init];
+  v25.receiver = self;
+  v25.super_class = CATTransport;
+  v2 = [(CATTransport *)&v25 init];
   if (v2)
   {
     v3 = objc_opt_new();
@@ -54,65 +54,65 @@
     v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%p.control", objc_opt_class(), v2];
     [(CATOperationQueue *)v2->mControlQueue setName:v5];
 
-    v6 = CATGetCatalystQueue();
-    [(CATOperationQueue *)v2->mControlQueue setUnderlyingQueue:v6];
+    v7 = CATGetCatalystQueue(v6);
+    [(CATOperationQueue *)v2->mControlQueue setUnderlyingQueue:v7];
 
-    v7 = objc_opt_new();
+    v8 = objc_opt_new();
     mMessageQueue = v2->mMessageQueue;
-    v2->mMessageQueue = v7;
+    v2->mMessageQueue = v8;
 
     [(CATOperationQueue *)v2->mMessageQueue setMaxConcurrentOperationCount:1];
-    v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%p.messages", objc_opt_class(), v2];
-    [(CATOperationQueue *)v2->mMessageQueue setName:v9];
+    v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%p.messages", objc_opt_class(), v2];
+    [(CATOperationQueue *)v2->mMessageQueue setName:v10];
 
-    v10 = CATGetCatalystQueue();
-    [(CATOperationQueue *)v2->mMessageQueue setUnderlyingQueue:v10];
+    v12 = CATGetCatalystQueue(v11);
+    [(CATOperationQueue *)v2->mMessageQueue setUnderlyingQueue:v12];
 
     [(CATOperationQueue *)v2->mMessageQueue setSuspended:1];
-    v11 = [[CATStateMachine alloc] initWithTarget:v2];
+    v13 = [[CATStateMachine alloc] initWithTarget:v2];
     mFSM = v2->mFSM;
-    v2->mFSM = v11;
+    v2->mFSM = v13;
 
     standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
-    v14 = [standardUserDefaults valueForKey:@"CATTransportLogLevel"];
-    -[CATStateMachine setLogLevel:](v2->mFSM, "setLogLevel:", [v14 integerValue]);
+    v16 = [standardUserDefaults valueForKey:@"CATTransportLogLevel"];
+    -[CATStateMachine setLogLevel:](v2->mFSM, "setLogLevel:", [v16 integerValue]);
 
-    v15 = [(CATStateMachine *)v2->mFSM addStateWithName:@"Not Connected (Suspended)"];
-    v16 = [(CATStateMachine *)v2->mFSM addStateWithName:@"Connecting"];
-    v17 = [(CATStateMachine *)v2->mFSM addStateWithName:@"Connecting (Suspended)"];
-    v18 = [(CATStateMachine *)v2->mFSM addStateWithName:@"Connected"];
-    v22 = [(CATStateMachine *)v2->mFSM addStateWithName:@"Connected (Suspended)"];
-    v19 = [(CATStateMachine *)v2->mFSM addStateWithName:@"Invalidating"];
-    v21 = [(CATStateMachine *)v2->mFSM addStateWithName:@"Invalidated"];
-    [v15 addTransitionToState:v16 triggeringEvent:@"resume" action:sel_sendHelloMessageAndResumeQueue];
-    [v15 addTransitionToState:v19 triggeringEvent:@"invalidate"];
-    [v15 addTransitionToState:0 triggeringEvent:? action:?];
-    [v17 addTransitionToState:v16 triggeringEvent:@"resume" action:?];
-    [v17 addTransitionToState:v19 triggeringEvent:@"invalidate" action:sel_cancelHelloMessageAndResumeQueueOperations];
-    [v17 addTransitionToState:0 triggeringEvent:@"sendMessage:" action:sel_enqueueSendForMessage_];
-    [v16 addTransitionToState:v17 triggeringEvent:@"suspend" action:sel_suspendQueueAndConnection];
-    [v16 addTransitionToState:v19 triggeringEvent:@"invalidate" action:sel_cancelHelloMessageAndResumeQueueOperations];
-    [v16 addTransitionToState:0 triggeringEvent:@"sendMessage:" action:sel_enqueueSendForMessage_];
-    [v16 addTransitionToState:v18 triggeringEvent:@"didReceiveMessage:" action:sel_enqueueDelegateDidConnect];
-    [v16 addTransitionToState:0 triggeringEvent:@"didInterruptWithError:" action:sel_enqueueDelegateCouldNotConnectWithError_];
-    [v18 addTransitionToState:v22 triggeringEvent:@"suspend" action:sel_suspendQueueAndConnection];
-    [v18 addTransitionToState:v19 triggeringEvent:@"invalidate"];
+    v17 = [(CATStateMachine *)v2->mFSM addStateWithName:@"Not Connected (Suspended)"];
+    v18 = [(CATStateMachine *)v2->mFSM addStateWithName:@"Connecting"];
+    v19 = [(CATStateMachine *)v2->mFSM addStateWithName:@"Connecting (Suspended)"];
+    v20 = [(CATStateMachine *)v2->mFSM addStateWithName:@"Connected"];
+    v24 = [(CATStateMachine *)v2->mFSM addStateWithName:@"Connected (Suspended)"];
+    v21 = [(CATStateMachine *)v2->mFSM addStateWithName:@"Invalidating"];
+    v23 = [(CATStateMachine *)v2->mFSM addStateWithName:@"Invalidated"];
+    [v17 addTransitionToState:v18 triggeringEvent:@"resume" action:sel_sendHelloMessageAndResumeQueue];
+    [v17 addTransitionToState:v21 triggeringEvent:@"invalidate"];
+    [v17 addTransitionToState:0 triggeringEvent:? action:?];
+    [v19 addTransitionToState:v18 triggeringEvent:@"resume" action:?];
+    [v19 addTransitionToState:v21 triggeringEvent:@"invalidate" action:sel_cancelHelloMessageAndResumeQueueOperations];
+    [v19 addTransitionToState:0 triggeringEvent:@"sendMessage:" action:sel_enqueueSendForMessage_];
+    [v18 addTransitionToState:v19 triggeringEvent:@"suspend" action:sel_suspendQueueAndConnection];
+    [v18 addTransitionToState:v21 triggeringEvent:@"invalidate" action:sel_cancelHelloMessageAndResumeQueueOperations];
     [v18 addTransitionToState:0 triggeringEvent:@"sendMessage:" action:sel_enqueueSendForMessage_];
-    [v18 addTransitionToState:0 triggeringEvent:@"didReceiveMessage:" action:sel_enqueueDelegateDidReceiveMessage_];
-    [v18 addTransitionToState:0 triggeringEvent:@"didInterruptWithError:" action:sel_enqueueDelegateDidInterruptWithError_];
-    [v22 addTransitionToState:v18 triggeringEvent:@"resume" action:sel_resumeQueueAndConnection];
-    [v22 addTransitionToState:v19 triggeringEvent:@"invalidate"];
-    [v22 addTransitionToState:0 triggeringEvent:@"sendMessage:" action:sel_enqueueSendForMessage_];
-    [v19 setEnterAction:sel_cancelAndResumeQueuesAndEnqueueInvalidateConnection];
-    [v19 addTransitionToState:0 triggeringEvent:@"invalidate"];
-    [v19 addTransitionToState:0 triggeringEvent:@"sendMessage:" action:sel_invalidSendForMessage_];
-    [v19 addTransitionToState:v21 triggeringEvent:@"didInvalidate"];
-    [v19 addTransitionToState:0 triggeringEvent:@"didReceiveMessage:"];
-    [v19 addTransitionToState:0 triggeringEvent:@"didInterruptWithError:"];
-    [v21 setEnterAction:sel_enqueueDelegateDidInvalidateAndFinalize];
+    [v18 addTransitionToState:v20 triggeringEvent:@"didReceiveMessage:" action:sel_enqueueDelegateDidConnect];
+    [v18 addTransitionToState:0 triggeringEvent:@"didInterruptWithError:" action:sel_enqueueDelegateCouldNotConnectWithError_];
+    [v20 addTransitionToState:v24 triggeringEvent:@"suspend" action:sel_suspendQueueAndConnection];
+    [v20 addTransitionToState:v21 triggeringEvent:@"invalidate"];
+    [v20 addTransitionToState:0 triggeringEvent:@"sendMessage:" action:sel_enqueueSendForMessage_];
+    [v20 addTransitionToState:0 triggeringEvent:@"didReceiveMessage:" action:sel_enqueueDelegateDidReceiveMessage_];
+    [v20 addTransitionToState:0 triggeringEvent:@"didInterruptWithError:" action:sel_enqueueDelegateDidInterruptWithError_];
+    [v24 addTransitionToState:v20 triggeringEvent:@"resume" action:sel_resumeQueueAndConnection];
+    [v24 addTransitionToState:v21 triggeringEvent:@"invalidate"];
+    [v24 addTransitionToState:0 triggeringEvent:@"sendMessage:" action:sel_enqueueSendForMessage_];
+    [v21 setEnterAction:sel_cancelAndResumeQueuesAndEnqueueInvalidateConnection];
     [v21 addTransitionToState:0 triggeringEvent:@"invalidate"];
     [v21 addTransitionToState:0 triggeringEvent:@"sendMessage:" action:sel_invalidSendForMessage_];
+    [v21 addTransitionToState:v23 triggeringEvent:@"didInvalidate"];
+    [v21 addTransitionToState:0 triggeringEvent:@"didReceiveMessage:"];
     [v21 addTransitionToState:0 triggeringEvent:@"didInterruptWithError:"];
+    [v23 setEnterAction:sel_enqueueDelegateDidInvalidateAndFinalize];
+    [v23 addTransitionToState:0 triggeringEvent:@"invalidate"];
+    [v23 addTransitionToState:0 triggeringEvent:@"sendMessage:" action:sel_invalidSendForMessage_];
+    [v23 addTransitionToState:0 triggeringEvent:@"didInterruptWithError:"];
     [(CATStateMachine *)v2->mFSM start];
   }
 
@@ -157,7 +157,7 @@
 
 - (void)resume
 {
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v4);
 
   mFSM = self->mFSM;
@@ -168,7 +168,7 @@
 
 - (void)suspend
 {
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v4);
 
   mFSM = self->mFSM;
@@ -179,7 +179,7 @@
 
 - (void)invalidate
 {
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v4);
 
   mFSM = self->mFSM;
@@ -191,7 +191,7 @@
 - (void)sendMessage:(id)message
 {
   messageCopy = message;
-  v6 = CATGetCatalystQueue();
+  v6 = CATGetCatalystQueue(messageCopy);
   CATAssertIsQueue(v6);
 
   mFSM = self->mFSM;
@@ -204,7 +204,7 @@
 - (void)didReceiveMessage:(id)message
 {
   messageCopy = message;
-  v6 = CATGetCatalystQueue();
+  v6 = CATGetCatalystQueue(messageCopy);
   CATAssertIsQueue(v6);
 
   v7 = NSStringFromSelector(a2);
@@ -234,7 +234,7 @@ void __34__CATTransport_didReceiveMessage___block_invoke(uint64_t a1)
 - (void)didInterruptWithError:(id)error
 {
   errorCopy = error;
-  v6 = CATGetCatalystQueue();
+  v6 = CATGetCatalystQueue(errorCopy);
   CATAssertIsQueue(v6);
 
   mFSM = self->mFSM;
@@ -246,7 +246,7 @@ void __34__CATTransport_didReceiveMessage___block_invoke(uint64_t a1)
 
 - (void)didInvalidate
 {
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v4);
 
   mFSM = self->mFSM;
@@ -257,7 +257,7 @@ void __34__CATTransport_didReceiveMessage___block_invoke(uint64_t a1)
 
 - (void)sendHelloMessageAndResumeQueue
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   objc_initWeak(&location, self);
@@ -294,7 +294,7 @@ void __34__CATTransport_didReceiveMessage___block_invoke(uint64_t a1)
 void __46__CATTransport_sendHelloMessageAndResumeQueue__block_invoke(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(v2);
   CATAssertIsQueue(v3);
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -309,7 +309,7 @@ void __46__CATTransport_sendHelloMessageAndResumeQueue__block_invoke(uint64_t a1
 void __46__CATTransport_sendHelloMessageAndResumeQueue__block_invoke_2(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(v2);
   CATAssertIsQueue(v3);
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -320,7 +320,7 @@ void __46__CATTransport_sendHelloMessageAndResumeQueue__block_invoke_2(uint64_t 
 
 - (void)resumeQueueAndConnection
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   objc_initWeak(&location, self);
@@ -341,7 +341,7 @@ void __46__CATTransport_sendHelloMessageAndResumeQueue__block_invoke_2(uint64_t 
 void __40__CATTransport_resumeQueueAndConnection__block_invoke(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(v2);
   CATAssertIsQueue(v3);
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -358,7 +358,7 @@ void __40__CATTransport_resumeQueueAndConnection__block_invoke(uint64_t a1)
 
 - (void)suspendQueueAndConnection
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   [(CATTransport *)self suspendConnection];
@@ -368,7 +368,7 @@ void __40__CATTransport_resumeQueueAndConnection__block_invoke(uint64_t a1)
 
 - (void)resumeQueue
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   mMessageQueue = self->mMessageQueue;
@@ -378,7 +378,7 @@ void __40__CATTransport_resumeQueueAndConnection__block_invoke(uint64_t a1)
 
 - (void)suspendQueue
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   mMessageQueue = self->mMessageQueue;
@@ -389,7 +389,7 @@ void __40__CATTransport_resumeQueueAndConnection__block_invoke(uint64_t a1)
 - (void)enqueueSendForMessage:(id)message
 {
   messageCopy = message;
-  v5 = CATGetCatalystQueue();
+  v5 = CATGetCatalystQueue(messageCopy);
   CATAssertIsQueue(v5);
 
   v6 = [(CATTransport *)self operationToSendMessage:messageCopy];
@@ -418,7 +418,7 @@ void __40__CATTransport_resumeQueueAndConnection__block_invoke(uint64_t a1)
 void __38__CATTransport_enqueueSendForMessage___block_invoke(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(v2);
   CATAssertIsQueue(v3);
 
   v4 = [*(a1 + 32) error];
@@ -481,7 +481,7 @@ LABEL_12:
 - (void)invalidSendForMessage:(id)message
 {
   messageCopy = message;
-  v5 = CATGetCatalystQueue();
+  v5 = CATGetCatalystQueue(messageCopy);
   CATAssertIsQueue(v5);
 
   objc_initWeak(&location, self);
@@ -504,7 +504,7 @@ LABEL_12:
 void __38__CATTransport_invalidSendForMessage___block_invoke(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(v2);
   CATAssertIsQueue(v3);
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -526,7 +526,7 @@ void __38__CATTransport_invalidSendForMessage___block_invoke(uint64_t a1)
 
 - (void)cancelAndResumeQueuesAndEnqueueInvalidateConnection
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   objc_storeStrong(&self->mStrongSelf, self);
@@ -560,7 +560,7 @@ void __67__CATTransport_cancelAndResumeQueuesAndEnqueueInvalidateConnection__blo
 void __55__CATTransport_enqueueDelegateDidInvalidateAndFinalize__block_invoke(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(v2);
   CATAssertIsQueue(v3);
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -572,7 +572,7 @@ void __55__CATTransport_enqueueDelegateDidInvalidateAndFinalize__block_invoke(ui
 void __55__CATTransport_enqueueDelegateDidInvalidateAndFinalize__block_invoke_2(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(v2);
   CATAssertIsQueue(v3);
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -618,7 +618,7 @@ void __55__CATTransport_enqueueDelegateDidInvalidateAndFinalize__block_invoke_2(
 
 - (void)delegateDidResume
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   delegate = [(CATTransport *)self delegate];
@@ -633,7 +633,7 @@ void __55__CATTransport_enqueueDelegateDidInvalidateAndFinalize__block_invoke_2(
 
 - (void)enqueueDelegateDidConnect
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   objc_initWeak(&location, self);
@@ -655,7 +655,7 @@ void __55__CATTransport_enqueueDelegateDidInvalidateAndFinalize__block_invoke_2(
 void __41__CATTransport_enqueueDelegateDidConnect__block_invoke(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(v2);
   CATAssertIsQueue(v3);
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -676,7 +676,7 @@ void __41__CATTransport_enqueueDelegateDidConnect__block_invoke(uint64_t a1)
 - (void)enqueueDelegateDidReceiveMessage:(id)message
 {
   messageCopy = message;
-  v5 = CATGetCatalystQueue();
+  v5 = CATGetCatalystQueue(messageCopy);
   CATAssertIsQueue(v5);
 
   objc_initWeak(&location, self);
@@ -700,7 +700,7 @@ void __41__CATTransport_enqueueDelegateDidConnect__block_invoke(uint64_t a1)
 void __49__CATTransport_enqueueDelegateDidReceiveMessage___block_invoke(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(v2);
   CATAssertIsQueue(v3);
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -720,25 +720,24 @@ void __49__CATTransport_enqueueDelegateDidReceiveMessage___block_invoke(uint64_t
 
 - (void)enqueueDelegateCouldNotConnectWithError:(id)error
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  v5 = CATGetCatalystQueue();
+  v5 = CATGetCatalystQueue(errorCopy);
   CATAssertIsQueue(v5);
 
-  v9 = *MEMORY[0x277CCA7E8];
-  v10[0] = errorCopy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x277CCA7E8];
+  v9[0] = errorCopy;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   v7 = CATErrorWithCodeAndUserInfo(202, v6);
 
   [(CATTransport *)self enqueueDelegateDidInterruptWithError:v7];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enqueueDelegateDidInterruptWithError:(id)error
 {
   errorCopy = error;
-  v5 = CATGetCatalystQueue();
+  v5 = CATGetCatalystQueue(errorCopy);
   CATAssertIsQueue(v5);
 
   objc_initWeak(&location, self);
@@ -762,7 +761,7 @@ void __49__CATTransport_enqueueDelegateDidReceiveMessage___block_invoke(uint64_t
 void __53__CATTransport_enqueueDelegateDidInterruptWithError___block_invoke(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(v2);
   CATAssertIsQueue(v3);
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -782,7 +781,7 @@ void __53__CATTransport_enqueueDelegateDidInterruptWithError___block_invoke(uint
 
 - (void)delegateDidInvalidate
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   delegate = [(CATTransport *)self delegate];

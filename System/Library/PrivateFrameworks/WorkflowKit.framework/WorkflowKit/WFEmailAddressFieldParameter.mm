@@ -6,10 +6,9 @@
 
 - (id)supportedContactProperties
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = @"Email";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = @"Email";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 
   return v2;
 }

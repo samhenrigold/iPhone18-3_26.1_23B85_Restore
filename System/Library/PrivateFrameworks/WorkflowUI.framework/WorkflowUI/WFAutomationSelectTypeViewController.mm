@@ -182,14 +182,14 @@ id __55__WFAutomationSelectTypeViewController_currentSections__block_invoke(uint
   return v9;
 }
 
-uint64_t __55__WFAutomationSelectTypeViewController_currentSections__block_invoke_2(uint64_t a1)
+uint64_t __55__WFAutomationSelectTypeViewController_currentSections__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = objc_opt_class();
-  v3 = [MEMORY[0x277D7A048] defaultContext];
-  v4 = [v2 localizedDisplayNameWithContext:v3];
+  v3 = objc_opt_class();
+  v4 = [MEMORY[0x277D7A048] defaultContext];
+  v5 = [v3 localizedDisplayNameWithContext:v4];
 
-  v5 = [v4 localizedCaseInsensitiveContainsString:*(a1 + 32)];
-  return v5;
+  v6 = [v5 localizedCaseInsensitiveContainsString:*(a1 + 32)];
+  return v6;
 }
 
 - (id)tableView:(id)view viewForHeaderInSection:(int64_t)section

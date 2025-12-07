@@ -584,9 +584,9 @@ LABEL_41:
     {
       highlightedSuggestionIdentifier = [(_UIWTCHighlightContainerView *)self->_highlightContainer highlightedSuggestionIdentifier];
       identifier2 = [v5 identifier];
-      v9 = [highlightedSuggestionIdentifier isEqual:identifier2];
+      isEqual = objc_msgSend_isEqual_(highlightedSuggestionIdentifier);
 
-      if (v9)
+      if (isEqual)
       {
         highlightSubview = [(_UIWTCHighlightContainerView *)self->_highlightContainer highlightSubview];
         [highlightSubview setPath:0];

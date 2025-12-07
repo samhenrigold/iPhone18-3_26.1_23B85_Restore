@@ -70,13 +70,13 @@
 - (RPFileTransferResumeState)initWithDictionaryRepresentation:(id)representation error:(id *)error
 {
   representationCopy = representation;
-  v18.receiver = self;
-  v18.super_class = RPFileTransferResumeState;
-  v7 = [(RPFileTransferResumeState *)&v18 init];
+  v25.receiver = self;
+  v25.super_class = RPFileTransferResumeState;
+  v7 = [(RPFileTransferResumeState *)&v25 init];
   v8 = v7;
   if (!v7)
   {
-    v16 = 0;
+    v22 = 0;
     goto LABEL_9;
   }
 
@@ -86,34 +86,40 @@
   v10 = [representationCopy objectForKey:@"fileInfo"];
   v11 = [v10 objectForKey:@"activeFiles"];
   v12 = [v10 objectForKey:@"finishedFiles"];
-  v13 = v12;
+  v19 = v12;
   if (!v9)
   {
-    if (error)
+    if (!error)
     {
-      goto LABEL_17;
+      goto LABEL_19;
     }
 
-    goto LABEL_18;
+    v24 = "No versionNumber";
+LABEL_18:
+    RPErrorF(4294960591, v24, v13, v14, v15, v16, v17, v18, v25.receiver);
+    *error = v22 = 0;
+    goto LABEL_7;
   }
 
   if (!v10)
   {
-    if (error)
+    if (!error)
     {
-      goto LABEL_17;
+      goto LABEL_19;
     }
 
+    v24 = "No fileInfo";
     goto LABEL_18;
   }
 
   if (!v11)
   {
-    if (error)
+    if (!error)
     {
-      goto LABEL_17;
+      goto LABEL_19;
     }
 
+    v24 = "No activeFiles";
     goto LABEL_18;
   }
 
@@ -121,26 +127,24 @@
   {
     if (error)
     {
-LABEL_17:
-      RPErrorF();
-      *error = v16 = 0;
-      goto LABEL_7;
+      v24 = "No finishedFiles";
+      goto LABEL_18;
     }
 
-LABEL_18:
-    v16 = 0;
+LABEL_19:
+    v22 = 0;
     goto LABEL_7;
   }
 
-  v14 = [objc_alloc(MEMORY[0x1E695DF90]) initWithDictionary:representationCopy];
+  v20 = [objc_alloc(MEMORY[0x1E695DF90]) initWithDictionary:representationCopy];
   stateInfo = v8->_stateInfo;
-  v8->_stateInfo = v14;
+  v8->_stateInfo = v20;
 
-  v16 = v8;
+  v22 = v8;
 LABEL_7:
 
 LABEL_9:
-  return v16;
+  return v22;
 }
 
 - (void)dealloc
@@ -456,31 +460,31 @@ uint64_t __51__RPFileTransferResumeState_scheduleStateFileFlush__block_invoke(ui
 
 - (BOOL)removeUnusableSourceFileItems
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   activeFiles = [(RPFileTransferResumeState *)self activeFiles];
   v3 = [activeFiles copy];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = [v4 objectForKey:*(*(&v17 + 1) + 8 * i)];
+        v10 = [v4 objectForKey:*(*(&v16 + 1) + 8 * i)];
         v11 = [[RPFileTransferResumeStateItem alloc] initWithStateDict:v10];
         itemURL = [(RPFileTransferResumeStateItem *)v11 itemURL];
         path = [itemURL path];
@@ -492,7 +496,7 @@ uint64_t __51__RPFileTransferResumeState_scheduleStateFileFlush__block_invoke(ui
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v6);
@@ -503,37 +507,36 @@ uint64_t __51__RPFileTransferResumeState_scheduleStateFileFlush__block_invoke(ui
     v7 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v7 & 1;
 }
 
 - (BOOL)removeUnusableOutputFileItems
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   activeFiles = [(RPFileTransferResumeState *)self activeFiles];
   v4 = [activeFiles copy];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v16 = 0;
-    v8 = *v18;
+    v15 = 0;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [v5 objectForKey:*(*(&v17 + 1) + 8 * i)];
+        v10 = [v5 objectForKey:*(*(&v16 + 1) + 8 * i)];
         v11 = [[RPFileTransferResumeStateItem alloc] initWithStateDict:v10];
         outputPath = [(RPFileTransferResumeState *)self outputPath];
         v13 = [(RPFileTransferResumeStateItem *)v11 outputFileItemUsable:outputPath];
@@ -541,11 +544,11 @@ uint64_t __51__RPFileTransferResumeState_scheduleStateFileFlush__block_invoke(ui
         if (!v13)
         {
           [(RPFileTransferResumeState *)self removeActiveFile:v11];
-          v16 = 1;
+          v15 = 1;
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
@@ -553,11 +556,10 @@ uint64_t __51__RPFileTransferResumeState_scheduleStateFileFlush__block_invoke(ui
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-  return v16 & 1;
+  return v15 & 1;
 }
 
 - (BOOL)removeAllActiveAndFinishedFileItems
@@ -583,16 +585,16 @@ uint64_t __51__RPFileTransferResumeState_scheduleStateFileFlush__block_invoke(ui
 
 - (void)loadStateFile
 {
-  [self ucat];
+  ucat = [self ucat];
   path = [a2 path];
-  LogPrintF();
+  LogPrintF(ucat, "[RPFileTransferResumeState loadStateFile]", 30, "Couldn't load Rapport resumable file transfer state file, path = %@, error = %@\n", path, a3);
 }
 
 - (void)removeStateFile
 {
-  [self ucat];
+  ucat = [self ucat];
   path = [a2 path];
-  LogPrintF();
+  LogPrintF(ucat, "[RPFileTransferResumeState removeStateFile]", 30, "Couldn't remove Rapport resumable file transfer state file, path = %@, error = %@\n", path, a3);
 }
 
 @end

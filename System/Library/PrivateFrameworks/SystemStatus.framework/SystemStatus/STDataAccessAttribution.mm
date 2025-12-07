@@ -4,6 +4,7 @@
 - (STActivityAttribution)activityAttribution;
 - (STActivityAttribution)audioRecordingActivityAttribution;
 - (STAttributedEntity)attributedEntity;
+- (STDataAccessAttribution)initWithAudioRecordingActivityAttribution:(id)attribution recent:(BOOL)recent startTimestamp:(double)timestamp endTimestamp:(double)endTimestamp;
 - (STDataAccessAttribution)initWithCoder:(id)coder;
 - (STDataAccessAttribution)initWithDataAccessAttribution:(id)attribution;
 - (STDataAccessAttribution)initWithDataAccessType:(unint64_t)type microphoneRecordingAttribution:(id)attribution mutedMicrophoneRecordingActivityAttribution:(id)activityAttribution cameraCaptureAttribution:(id)captureAttribution locationAttribution:(id)locationAttribution recent:(BOOL)recent startTimestamp:(double)timestamp endTimestamp:(double)self0;
@@ -95,10 +96,9 @@ LABEL_11:
 
 - (double)accessDuration
 {
-  accessEndTimestamp = self->_accessEndTimestamp;
   if (BSFloatGreaterThanOrEqualToFloat())
   {
-    v4 = self->_accessEndTimestamp;
+    accessEndTimestamp = self->_accessEndTimestamp;
   }
 
   else
@@ -106,13 +106,23 @@ LABEL_11:
     BSContinuousMachTimeNow();
   }
 
-  result = v4 - self->_accessStartTimestamp;
+  result = accessEndTimestamp - self->_accessStartTimestamp;
   if (result < 0.0)
   {
     return 0.0;
   }
 
   return result;
+}
+
+- (STDataAccessAttribution)initWithAudioRecordingActivityAttribution:(id)attribution recent:(BOOL)recent startTimestamp:(double)timestamp endTimestamp:(double)endTimestamp
+{
+  recentCopy = recent;
+  attributionCopy = attribution;
+  v11 = [[STMediaStatusDomainMicrophoneRecordingAttribution alloc] initWithActivityAttribution:attributionCopy];
+
+  v12 = [(STDataAccessAttribution *)self initWithDataAccessType:0 microphoneRecordingAttribution:v11 mutedMicrophoneRecordingActivityAttribution:0 cameraCaptureAttribution:0 locationAttribution:0 recent:recentCopy startTimestamp:timestamp endTimestamp:endTimestamp];
+  return v12;
 }
 
 - (STDataAccessAttribution)initWithDataAccessAttribution:(id)attribution
@@ -322,7 +332,7 @@ void __65__STDataAccessAttribution_descriptionBuilderWithMultilinePrefix___block
     v5 = @"recent";
   }
 
-  v28 = v5;
+  v27 = v5;
   v6 = *(a1 + 32);
   if (!v6)
   {
@@ -338,7 +348,7 @@ void __65__STDataAccessAttribution_descriptionBuilderWithMultilinePrefix___block
 
   if (v8 < 3.0)
   {
-    v9 = [(__CFString *)v28 stringByAppendingString:@" (in minimum on time)"];
+    v9 = [(__CFString *)v27 stringByAppendingString:@" (in minimum on time)"];
 
     v10 = v9;
   }
@@ -346,10 +356,10 @@ void __65__STDataAccessAttribution_descriptionBuilderWithMultilinePrefix___block
   else
   {
 LABEL_11:
-    v10 = v28;
+    v10 = v27;
   }
 
-  v29 = v10;
+  v28 = v10;
   [*(a1 + 40) appendString:? withName:?];
   v11 = *(a1 + 32);
   v12 = *(a1 + 40);
@@ -371,12 +381,11 @@ LABEL_11:
   v17 = *(a1 + 40);
   if (v18)
   {
-    v19 = *(v18 + 8);
     if (BSFloatGreaterThanOrEqualToFloat())
     {
-      v20 = v18[8];
+      v19 = v18[8];
       BSContinuousMachTimeNow();
-      v18 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:v20 - v21];
+      v18 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:v19 - v20];
     }
 
     else
@@ -385,15 +394,15 @@ LABEL_11:
     }
   }
 
-  v22 = [v17 appendObject:v18 withName:@"endDate" skipIfNil:1];
+  v21 = [v17 appendObject:v18 withName:@"endDate" skipIfNil:1];
 
   if (v2 > 1)
   {
-    v23 = v29;
+    v22 = v28;
     if (v2 == 2)
     {
-      v24 = *(a1 + 40);
-      v25 = [*(a1 + 32) locationAttribution];
+      v23 = *(a1 + 40);
+      v24 = [*(a1 + 32) locationAttribution];
     }
 
     else
@@ -403,14 +412,14 @@ LABEL_11:
         goto LABEL_28;
       }
 
-      v24 = *(a1 + 40);
-      v25 = [*(a1 + 32) mutedMicrophoneRecordingActivityAttribution];
+      v23 = *(a1 + 40);
+      v24 = [*(a1 + 32) mutedMicrophoneRecordingActivityAttribution];
     }
   }
 
   else
   {
-    v23 = v29;
+    v22 = v28;
     if (v2)
     {
       if (v2 != 1)
@@ -418,21 +427,21 @@ LABEL_11:
         goto LABEL_28;
       }
 
-      v24 = *(a1 + 40);
-      v25 = [*(a1 + 32) cameraCaptureAttribution];
+      v23 = *(a1 + 40);
+      v24 = [*(a1 + 32) cameraCaptureAttribution];
     }
 
     else
     {
-      v24 = *(a1 + 40);
-      v25 = [*(a1 + 32) microphoneRecordingAttribution];
+      v23 = *(a1 + 40);
+      v24 = [*(a1 + 32) microphoneRecordingAttribution];
     }
   }
 
-  v26 = v25;
-  v27 = [v24 appendObject:v25 withName:@"attribution"];
+  v25 = v24;
+  v26 = [v23 appendObject:v24 withName:@"attribution"];
 
-  v23 = v29;
+  v22 = v28;
 LABEL_28:
 }
 
@@ -461,7 +470,7 @@ LABEL_28:
 
 - (STDataAccessAttribution)initWithCoder:(id)coder
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeIntegerForKey:@"dataAccessType"];
   if (v5 > 3)
@@ -493,25 +502,24 @@ LABEL_12:
     {
       if (v5 > 3)
       {
-        v20 = @"invalid";
+        v19 = @"invalid";
       }
 
       else
       {
-        v20 = off_1E85DF278[v5];
+        v19 = off_1E85DF278[v5];
       }
 
-      v21 = 134349314;
-      v22 = v5;
-      v23 = 2114;
-      v24 = v20;
-      _os_log_error_impl(&dword_1DA9C2000, v17, OS_LOG_TYPE_ERROR, "decoded invalid data access attribution of type: %{public}lu (%{public}@)", &v21, 0x16u);
+      v20 = 134349314;
+      v21 = v5;
+      v22 = 2114;
+      v23 = v19;
+      _os_log_error_impl(&dword_1DA9C2000, v17, OS_LOG_TYPE_ERROR, "decoded invalid data access attribution of type: %{public}lu (%{public}@)", &v20, 0x16u);
     }
 
     selfCopy = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

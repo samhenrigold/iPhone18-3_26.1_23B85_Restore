@@ -49,7 +49,7 @@
 
 - (void)handleUpdatedCurrentFabricIndex
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   productInfo = [MEMORY[0x277D0F8E8] productInfo];
   productPlatform = [productInfo productPlatform];
 
@@ -62,7 +62,7 @@
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v32 = v16;
+      v30 = v16;
       _os_log_impl(&dword_22AEAE000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@Ignoring resident updates on non-tvOS device", buf, 0xCu);
       goto LABEL_8;
     }
@@ -70,8 +70,6 @@
 LABEL_9:
 
     objc_autoreleasePoolPop(v13);
-LABEL_10:
-    v18 = *MEMORY[0x277D85DE8];
     return;
   }
 
@@ -96,9 +94,9 @@ LABEL_10:
         v16 = HMFGetLogIdentifier();
         fabricID2 = [(HMMTRStorageEventDispatcher *)selfCopy2 fabricID];
         *buf = 138543618;
-        v32 = v16;
-        v33 = 2112;
-        v34 = fabricID2;
+        v30 = v16;
+        v31 = 2112;
+        v32 = fabricID2;
         _os_log_impl(&dword_22AEAE000, v15, OS_LOG_TYPE_INFO, "%{public}@Ignoring spurious fabric index update notification for fabric ID %@", buf, 0x16u);
 
 LABEL_8:
@@ -118,56 +116,54 @@ LABEL_8:
   currentFabricUUID2 = [dataSource3 currentFabricUUID];
   if ([fabricUUID3 isEqual:currentFabricUUID2])
   {
+
+LABEL_15:
+
+    [(HMMTRStorageEventDispatcher *)self handleUpdatedDataWithIsLocalChange:0];
+    return;
   }
 
-  else
+  dataSource4 = [(HMMTRStorageEventDispatcher *)self dataSource];
+  currentFabricUUID3 = [dataSource4 currentFabricUUID];
+
+  if (currentFabricUUID3)
   {
-    dataSource4 = [(HMMTRStorageEventDispatcher *)self dataSource];
-    currentFabricUUID3 = [dataSource4 currentFabricUUID];
-
-    if (!currentFabricUUID3)
-    {
-      v25 = objc_autoreleasePoolPush();
-      selfCopy3 = self;
-      v27 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
-      {
-        v28 = HMFGetLogIdentifier();
-        *buf = 138543362;
-        v32 = v28;
-        _os_log_impl(&dword_22AEAE000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@Current device is no longer the primary resident", buf, 0xCu);
-      }
-
-      objc_autoreleasePoolPop(v25);
-      delegate = [(HMMTRStorageEventDispatcher *)selfCopy3 delegate];
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __62__HMMTRStorageEventDispatcher_handleUpdatedCurrentFabricIndex__block_invoke;
-      v30[3] = &unk_2786F0CA8;
-      v30[4] = selfCopy3;
-      [delegate handleDeviceNoLongerPrimaryResidentWithCompletion:v30];
-
-      goto LABEL_10;
-    }
+    goto LABEL_15;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = objc_autoreleasePoolPush();
+  selfCopy3 = self;
+  v25 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+  {
+    v26 = HMFGetLogIdentifier();
+    *buf = 138543362;
+    v30 = v26;
+    _os_log_impl(&dword_22AEAE000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@Current device is no longer the primary resident", buf, 0xCu);
+  }
 
-  [(HMMTRStorageEventDispatcher *)self handleUpdatedDataWithIsLocalChange:0];
+  objc_autoreleasePoolPop(v23);
+  delegate = [(HMMTRStorageEventDispatcher *)selfCopy3 delegate];
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __62__HMMTRStorageEventDispatcher_handleUpdatedCurrentFabricIndex__block_invoke;
+  v28[3] = &unk_2786F0CA8;
+  v28[4] = selfCopy3;
+  [delegate handleDeviceNoLongerPrimaryResidentWithCompletion:v28];
 }
 
 void __62__HMMTRStorageEventDispatcher_handleUpdatedCurrentFabricIndex__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = HMFGetLogIdentifier();
-    v12 = 138543362;
-    v13 = v5;
-    _os_log_impl(&dword_22AEAE000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Resetting fabric ID to nil", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = v5;
+    _os_log_impl(&dword_22AEAE000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Resetting fabric ID to nil", &v11, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -182,13 +178,12 @@ void __62__HMMTRStorageEventDispatcher_handleUpdatedCurrentFabricIndex__block_in
   *(v9 + 32) = 0;
 
   os_unfair_lock_unlock(v6 + 2);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleUpdatedDataWithIsLocalChange:(BOOL)change
 {
   changeCopy = change;
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
   v7 = HMFGetOSLogHandle();
@@ -203,9 +198,9 @@ void __62__HMMTRStorageEventDispatcher_handleUpdatedCurrentFabricIndex__block_in
     }
 
     *buf = 138543618;
-    v34 = v8;
-    v35 = 2080;
-    v36 = v10;
+    v33 = v8;
+    v34 = 2080;
+    v35 = v10;
     _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling updated data storage due to %s change", buf, 0x16u);
   }
 
@@ -252,15 +247,15 @@ void __62__HMMTRStorageEventDispatcher_handleUpdatedCurrentFabricIndex__block_in
     fabricUUID2 = [(HMMTRStorageEventDispatcher *)v20 fabricUUID];
     fabricID2 = [(HMMTRStorageEventDispatcher *)v20 fabricID];
     *buf = 138544386;
-    v34 = v22;
-    v35 = 2112;
-    v36 = fabricUUID2;
-    v37 = 2112;
-    v38 = fabricID2;
-    v39 = 2112;
-    v40 = currentFabricUUID;
-    v41 = 2112;
-    v42 = v14;
+    v33 = v22;
+    v34 = 2112;
+    v35 = fabricUUID2;
+    v36 = 2112;
+    v37 = fabricID2;
+    v38 = 2112;
+    v39 = currentFabricUUID;
+    v40 = 2112;
+    v41 = v14;
     _os_log_impl(&dword_22AEAE000, v21, OS_LOG_TYPE_INFO, "%{public}@Current target fabric changed from %@/%@ to %@/%@", buf, 0x34u);
   }
 
@@ -281,15 +276,13 @@ LABEL_16:
   }
 
   workQueue = [(HMMTRStorageEventDispatcher *)selfCopy workQueue];
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __67__HMMTRStorageEventDispatcher__handleUpdatedDataWithIsLocalChange___block_invoke;
-  v31[3] = &unk_2786F0C80;
-  v31[4] = selfCopy;
-  v32 = changeCopy;
-  dispatch_async(workQueue, v31);
-
-  v30 = *MEMORY[0x277D85DE8];
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __67__HMMTRStorageEventDispatcher__handleUpdatedDataWithIsLocalChange___block_invoke;
+  v30[3] = &unk_2786F0C80;
+  v30[4] = selfCopy;
+  v31 = changeCopy;
+  dispatch_async(workQueue, v30);
 }
 
 void __67__HMMTRStorageEventDispatcher__handleUpdatedDataWithIsLocalChange___block_invoke(uint64_t a1)
@@ -371,12 +364,11 @@ void __67__HMMTRStorageEventDispatcher__handleUpdatedDataWithIsLocalChange___blo
 
 uint64_t __42__HMMTRStorageEventDispatcher_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v11_12170;
-  logCategory__hmf_once_v11_12170 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v11_12170;
+  logCategory__hmf_once_v11_12170 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

@@ -1,6 +1,7 @@
 @interface ActionStats
 - (ActionStats)init;
 - (ActionStats)initWithCoder:(id)coder;
+- (ActionStats)initWithValues:(int)values rewardMean:(double)mean;
 - (void)dealloc;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -22,6 +23,24 @@
   }
 
   return v3;
+}
+
+- (ActionStats)initWithValues:(int)values rewardMean:(double)mean
+{
+  v5 = *&values;
+  v9.receiver = self;
+  v9.super_class = ActionStats;
+  v6 = [(ActionStats *)&v9 init];
+  v7 = v6;
+  if (v6)
+  {
+    [(ActionStats *)v6 setCount:v5];
+    [(ActionStats *)v7 setRewardMean:mean];
+    [(ActionStats *)v7 setIndex:INFINITY];
+    [(ActionStats *)v7 setIndexValid:0];
+  }
+
+  return v7;
 }
 
 - (ActionStats)initWithCoder:(id)coder

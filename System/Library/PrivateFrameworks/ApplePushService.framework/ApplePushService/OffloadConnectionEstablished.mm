@@ -9,12 +9,10 @@
 - (NSString)name
 {
   swift_beginAccess();
-  v4 = *(self + 3);
-  v3 = *(self + 4);
 
-  v5 = String._bridgeToObjectiveC()();
+  v2 = String._bridgeToObjectiveC()();
 
-  return v5;
+  return v2;
 }
 
 - (void)setName:(id)name
@@ -22,7 +20,6 @@
   v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v6 = v5;
   swift_beginAccess();
-  v7 = *(self + 4);
   *(self + 3) = v4;
   *(self + 4) = v6;
 }

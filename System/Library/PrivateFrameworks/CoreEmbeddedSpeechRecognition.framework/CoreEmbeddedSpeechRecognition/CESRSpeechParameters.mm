@@ -366,189 +366,108 @@
     {
       v5 = equalCopy;
       narrowband = self->_narrowband;
-      if (narrowband != [(CESRSpeechParameters *)v5 narrowband])
-      {
-        goto LABEL_50;
-      }
-
-      detectUtterances = self->_detectUtterances;
-      if (detectUtterances != [(CESRSpeechParameters *)v5 detectUtterances])
-      {
-        goto LABEL_50;
-      }
-
-      censorSpeech = self->_censorSpeech;
-      if (censorSpeech != [(CESRSpeechParameters *)v5 censorSpeech])
-      {
-        goto LABEL_50;
-      }
-
-      farField = self->_farField;
-      if (farField != [(CESRSpeechParameters *)v5 farField])
-      {
-        goto LABEL_50;
-      }
-
-      secureOfflineOnly = self->_secureOfflineOnly;
-      if (secureOfflineOnly != [(CESRSpeechParameters *)v5 secureOfflineOnly])
-      {
-        goto LABEL_50;
-      }
-
-      shouldStoreAudioOnDevice = self->_shouldStoreAudioOnDevice;
-      if (shouldStoreAudioOnDevice != [(CESRSpeechParameters *)v5 shouldStoreAudioOnDevice])
-      {
-        goto LABEL_50;
-      }
-
-      continuousListening = self->_continuousListening;
-      if (continuousListening != [(CESRSpeechParameters *)v5 continuousListening])
-      {
-        goto LABEL_50;
-      }
-
-      shouldHandleCapitalization = self->_shouldHandleCapitalization;
-      if (shouldHandleCapitalization != [(CESRSpeechParameters *)v5 shouldHandleCapitalization])
-      {
-        goto LABEL_50;
-      }
-
-      isSpeechAPIRequest = self->_isSpeechAPIRequest;
-      if (isSpeechAPIRequest != [(CESRSpeechParameters *)v5 isSpeechAPIRequest])
-      {
-        goto LABEL_50;
-      }
-
-      maximumRecognitionDuration = self->_maximumRecognitionDuration;
-      [(CESRSpeechParameters *)v5 maximumRecognitionDuration];
-      if (maximumRecognitionDuration != v16)
-      {
-        goto LABEL_50;
-      }
-
-      endpointStart = self->_endpointStart;
-      [(CESRSpeechParameters *)v5 endpointStart];
-      if (endpointStart != v18)
-      {
-        goto LABEL_50;
-      }
-
-      deliverEagerPackage = self->_deliverEagerPackage;
-      if (deliverEagerPackage != [(CESRSpeechParameters *)v5 deliverEagerPackage])
-      {
-        goto LABEL_50;
-      }
-
-      selfCopy = self;
-      disableDeliveringAsrFeatures = self->_disableDeliveringAsrFeatures;
-      if (disableDeliveringAsrFeatures != [(CESRSpeechParameters *)v5 disableDeliveringAsrFeatures])
-      {
-        goto LABEL_50;
-      }
-
-      enableEmojiRecognition = selfCopy->_enableEmojiRecognition;
-      if (enableEmojiRecognition == [(CESRSpeechParameters *)v5 enableEmojiRecognition]&& (enableAutoPunctuation = selfCopy->_enableAutoPunctuation, enableAutoPunctuation == [(CESRSpeechParameters *)v5 enableAutoPunctuation]) && (enableVoiceCommands = selfCopy->_enableVoiceCommands, enableVoiceCommands == [(CESRSpeechParameters *)v5 enableVoiceCommands]) && (recognitionStart = selfCopy->_recognitionStart, [(CESRSpeechParameters *)v5 recognitionStart], recognitionStart == v26) && (shouldGenerateVoiceCommandCandidates = selfCopy->_shouldGenerateVoiceCommandCandidates, shouldGenerateVoiceCommandCandidates == [(CESRSpeechParameters *)v5 shouldGenerateVoiceCommandCandidates]))
+      if (narrowband == [(CESRSpeechParameters *)v5 narrowband]&& (detectUtterances = self->_detectUtterances, detectUtterances == [(CESRSpeechParameters *)v5 detectUtterances]) && (censorSpeech = self->_censorSpeech, censorSpeech == [(CESRSpeechParameters *)v5 censorSpeech]) && (farField = self->_farField, farField == [(CESRSpeechParameters *)v5 farField]) && (secureOfflineOnly = self->_secureOfflineOnly, secureOfflineOnly == [(CESRSpeechParameters *)v5 secureOfflineOnly]) && (shouldStoreAudioOnDevice = self->_shouldStoreAudioOnDevice, shouldStoreAudioOnDevice == [(CESRSpeechParameters *)v5 shouldStoreAudioOnDevice]) && (continuousListening = self->_continuousListening, continuousListening == [(CESRSpeechParameters *)v5 continuousListening]) && (shouldHandleCapitalization = self->_shouldHandleCapitalization, shouldHandleCapitalization == [(CESRSpeechParameters *)v5 shouldHandleCapitalization]) && (isSpeechAPIRequest = self->_isSpeechAPIRequest, isSpeechAPIRequest == [(CESRSpeechParameters *)v5 isSpeechAPIRequest]) && (maximumRecognitionDuration = self->_maximumRecognitionDuration, [(CESRSpeechParameters *)v5 maximumRecognitionDuration], maximumRecognitionDuration == v16) && (endpointStart = self->_endpointStart, [(CESRSpeechParameters *)v5 endpointStart], endpointStart == v18) && (deliverEagerPackage = self->_deliverEagerPackage, deliverEagerPackage == [(CESRSpeechParameters *)v5 deliverEagerPackage]) && (v20 = self, disableDeliveringAsrFeatures = self->_disableDeliveringAsrFeatures, disableDeliveringAsrFeatures == [(CESRSpeechParameters *)v5 disableDeliveringAsrFeatures]) && (enableEmojiRecognition = v20->_enableEmojiRecognition, enableEmojiRecognition == [(CESRSpeechParameters *)v5 enableEmojiRecognition]) && (enableAutoPunctuation = v20->_enableAutoPunctuation, enableAutoPunctuation == [(CESRSpeechParameters *)v5 enableAutoPunctuation]) && (enableVoiceCommands = v20->_enableVoiceCommands, enableVoiceCommands == [(CESRSpeechParameters *)v5 enableVoiceCommands]) && (recognitionStart = v20->_recognitionStart, [(CESRSpeechParameters *)v5 recognitionStart], recognitionStart == v26) && (shouldGenerateVoiceCommandCandidates = v20->_shouldGenerateVoiceCommandCandidates, shouldGenerateVoiceCommandCandidates == [(CESRSpeechParameters *)v5 shouldGenerateVoiceCommandCandidates]))
       {
         language = [(CESRSpeechParameters *)v5 language];
-        language = selfCopy->_language;
+        language = v20->_language;
         if (language == language || [(NSString *)language isEqual:language])
         {
           requestIdentifier = [(CESRSpeechParameters *)v5 requestIdentifier];
-          requestIdentifier = selfCopy->_requestIdentifier;
+          requestIdentifier = v20->_requestIdentifier;
           if (requestIdentifier == requestIdentifier || [(NSString *)requestIdentifier isEqual:requestIdentifier])
           {
             dictationUIInteractionIdentifier = [(CESRSpeechParameters *)v5 dictationUIInteractionIdentifier];
-            dictationUIInteractionIdentifier = selfCopy->_dictationUIInteractionIdentifier;
+            dictationUIInteractionIdentifier = v20->_dictationUIInteractionIdentifier;
             if (dictationUIInteractionIdentifier == dictationUIInteractionIdentifier || [(NSString *)dictationUIInteractionIdentifier isEqual:dictationUIInteractionIdentifier])
             {
               task = [(CESRSpeechParameters *)v5 task];
-              task = selfCopy->_task;
+              task = v20->_task;
               if (task == task || [(NSString *)task isEqual:task])
               {
                 loggingContext = [(CESRSpeechParameters *)v5 loggingContext];
-                loggingContext = selfCopy->_loggingContext;
+                loggingContext = v20->_loggingContext;
                 if (loggingContext == loggingContext || [(NSArray *)loggingContext isEqual:loggingContext])
                 {
                   applicationName = [(CESRSpeechParameters *)v5 applicationName];
-                  applicationName = selfCopy->_applicationName;
+                  applicationName = v20->_applicationName;
                   if (applicationName == applicationName || [(NSString *)applicationName isEqual:applicationName])
                   {
                     profile = [(CESRSpeechParameters *)v5 profile];
-                    profile = selfCopy->_profile;
+                    profile = v20->_profile;
                     if (profile == profile || [(NSData *)profile isEqual:profile])
                     {
                       overrides = [(CESRSpeechParameters *)v5 overrides];
-                      overrides = selfCopy->_overrides;
+                      overrides = v20->_overrides;
                       v89 = overrides;
                       if (overrides == overrides || [(NSDictionary *)overrides isEqual:overrides])
                       {
                         modelOverrideURL = [(CESRSpeechParameters *)v5 modelOverrideURL];
-                        modelOverrideURL = selfCopy->_modelOverrideURL;
+                        modelOverrideURL = v20->_modelOverrideURL;
                         v88 = modelOverrideURL;
                         if (modelOverrideURL == modelOverrideURL || [(NSURL *)modelOverrideURL isEqual:modelOverrideURL])
                         {
                           originalAudioFileURL = [(CESRSpeechParameters *)v5 originalAudioFileURL];
-                          originalAudioFileURL = selfCopy->_originalAudioFileURL;
+                          originalAudioFileURL = v20->_originalAudioFileURL;
                           v87 = originalAudioFileURL;
                           if (originalAudioFileURL == originalAudioFileURL || [(NSURL *)originalAudioFileURL isEqual:originalAudioFileURL])
                           {
                             codec = [(CESRSpeechParameters *)v5 codec];
-                            codec = selfCopy->_codec;
+                            codec = v20->_codec;
                             v86 = codec;
                             if (codec == codec || [(NSString *)codec isEqual:codec])
                             {
                               inputOrigin = [(CESRSpeechParameters *)v5 inputOrigin];
-                              inputOrigin = selfCopy->_inputOrigin;
+                              inputOrigin = v20->_inputOrigin;
                               v85 = inputOrigin;
                               if (inputOrigin == inputOrigin || [(NSString *)inputOrigin isEqual:inputOrigin])
                               {
                                 location = [(CESRSpeechParameters *)v5 location];
-                                location = selfCopy->_location;
+                                location = v20->_location;
                                 v84 = location;
                                 if (location == location || ([(CLLocation *)location distanceFromLocation:location], v54 == 0.0))
                                 {
                                   jitGrammar = [(CESRSpeechParameters *)v5 jitGrammar];
-                                  jitGrammar = selfCopy->_jitGrammar;
+                                  jitGrammar = v20->_jitGrammar;
                                   v83 = jitGrammar;
                                   if (jitGrammar == jitGrammar || [(NSArray *)jitGrammar isEqual:jitGrammar])
                                   {
                                     sharedUserInfos = [(CESRSpeechParameters *)v5 sharedUserInfos];
-                                    sharedUserInfos = selfCopy->_sharedUserInfos;
+                                    sharedUserInfos = v20->_sharedUserInfos;
                                     v82 = sharedUserInfos;
                                     if (sharedUserInfos == sharedUserInfos || [(NSArray *)sharedUserInfos isEqual:sharedUserInfos])
                                     {
                                       prefixText = [(CESRSpeechParameters *)v5 prefixText];
-                                      prefixText = selfCopy->_prefixText;
+                                      prefixText = v20->_prefixText;
                                       v81 = prefixText;
                                       if (prefixText == prefixText || [(NSString *)prefixText isEqual:prefixText])
                                       {
                                         postfixText = [(CESRSpeechParameters *)v5 postfixText];
-                                        postfixText = selfCopy->_postfixText;
+                                        postfixText = v20->_postfixText;
                                         v80 = postfixText;
                                         if (postfixText == postfixText || [(NSString *)postfixText isEqual:postfixText])
                                         {
                                           selectedText = [(CESRSpeechParameters *)v5 selectedText];
-                                          selectedText = selfCopy->_selectedText;
+                                          selectedText = v20->_selectedText;
                                           v79 = selectedText;
                                           if (selectedText == selectedText || [(NSString *)selectedText isEqual:selectedText])
                                           {
                                             powerContext = [(CESRSpeechParameters *)v5 powerContext];
-                                            powerContext = selfCopy->_powerContext;
+                                            powerContext = v20->_powerContext;
                                             v78 = powerContext;
                                             if (powerContext == powerContext || [(AFPowerContextPolicy *)powerContext isEqual:powerContext])
                                             {
                                               asrId = [(CESRSpeechParameters *)v5 asrId];
-                                              asrId = selfCopy->_asrId;
+                                              asrId = v20->_asrId;
                                               v77 = asrId;
                                               if (asrId == asrId || [(NSUUID *)asrId isEqual:asrId])
                                               {
                                                 activeUserInfo = [(CESRSpeechParameters *)v5 activeUserInfo];
-                                                activeUserInfo = selfCopy->_activeUserInfo;
+                                                activeUserInfo = v20->_activeUserInfo;
                                                 v76 = activeUserInfo;
                                                 if (activeUserInfo == activeUserInfo || [(AFASRSharedUserInfo *)activeUserInfo isEqual:activeUserInfo])
                                                 {
                                                   messagesContext = [(CESRSpeechParameters *)v5 messagesContext];
-                                                  messagesContext = selfCopy->_messagesContext;
+                                                  messagesContext = v20->_messagesContext;
                                                   v75 = messagesContext;
                                                   v55 = messagesContext == messagesContext || [(NSArray *)messagesContext isEqual:messagesContext];
                                                 }
@@ -681,7 +600,6 @@
 
       else
       {
-LABEL_50:
         v55 = 0;
       }
     }
@@ -761,53 +679,53 @@ LABEL_50:
 
 - (id)_descriptionWithIndent:(unint64_t)indent
 {
-  v130[40] = *MEMORY[0x277D85DE8];
-  v112 = objc_alloc(MEMORY[0x277CCACA8]);
-  v129.receiver = self;
-  v129.super_class = CESRSpeechParameters;
-  v128 = [(CESRSpeechParameters *)&v129 description];
+  v129[40] = *MEMORY[0x277D85DE8];
+  v111 = objc_alloc(MEMORY[0x277CCACA8]);
+  v128.receiver = self;
+  v128.super_class = CESRSpeechParameters;
+  v127 = [(CESRSpeechParameters *)&v128 description];
   v4 = objc_alloc(MEMORY[0x277CCACA8]);
-  v127 = [(NSString *)self->_language description];
-  v127 = [v4 initWithFormat:@"language = %@", v127];
-  v130[0] = v127;
+  v126 = [(NSString *)self->_language description];
+  v126 = [v4 initWithFormat:@"language = %@", v126];
+  v129[0] = v126;
   v5 = objc_alloc(MEMORY[0x277CCACA8]);
-  v125 = [(NSString *)self->_requestIdentifier description];
-  v125 = [v5 initWithFormat:@"requestIdentifier = %@", v125];
-  v130[1] = v125;
+  v124 = [(NSString *)self->_requestIdentifier description];
+  v124 = [v5 initWithFormat:@"requestIdentifier = %@", v124];
+  v129[1] = v124;
   v6 = objc_alloc(MEMORY[0x277CCACA8]);
-  v123 = [(NSString *)self->_dictationUIInteractionIdentifier description];
-  v123 = [v6 initWithFormat:@"dictationUIInteractionIdentifier = %@", v123];
-  v130[2] = v123;
+  v122 = [(NSString *)self->_dictationUIInteractionIdentifier description];
+  v122 = [v6 initWithFormat:@"dictationUIInteractionIdentifier = %@", v122];
+  v129[2] = v122;
   v7 = objc_alloc(MEMORY[0x277CCACA8]);
-  v121 = [(NSString *)self->_task description];
-  v121 = [v7 initWithFormat:@"task = %@", v121];
-  v130[3] = v121;
+  v120 = [(NSString *)self->_task description];
+  v120 = [v7 initWithFormat:@"task = %@", v120];
+  v129[3] = v120;
   v8 = objc_alloc(MEMORY[0x277CCACA8]);
-  v119 = [(NSArray *)self->_loggingContext description];
-  v119 = [v8 initWithFormat:@"loggingContext = %@", v119];
-  v130[4] = v119;
+  v118 = [(NSArray *)self->_loggingContext description];
+  v118 = [v8 initWithFormat:@"loggingContext = %@", v118];
+  v129[4] = v118;
   v9 = objc_alloc(MEMORY[0x277CCACA8]);
-  v117 = [(NSString *)self->_applicationName description];
-  v117 = [v9 initWithFormat:@"applicationName = %@", v117];
-  v130[5] = v117;
-  v115 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"profile = (%ld bytes)", -[NSData length](self->_profile, "length")];
-  v130[6] = v115;
+  v116 = [(NSString *)self->_applicationName description];
+  v116 = [v9 initWithFormat:@"applicationName = %@", v116];
+  v129[5] = v116;
+  v114 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"profile = (%ld bytes)", -[NSData length](self->_profile, "length")];
+  v129[6] = v114;
   v10 = objc_alloc(MEMORY[0x277CCACA8]);
-  v114 = [(NSDictionary *)self->_overrides description];
-  v114 = [v10 initWithFormat:@"overrides = %@", v114];
-  v130[7] = v114;
+  v113 = [(NSDictionary *)self->_overrides description];
+  v113 = [v10 initWithFormat:@"overrides = %@", v113];
+  v129[7] = v113;
   v11 = objc_alloc(MEMORY[0x277CCACA8]);
-  v110 = [(NSURL *)self->_modelOverrideURL description];
-  v110 = [v11 initWithFormat:@"modelOverrideURL = %@", v110];
-  v130[8] = v110;
+  v109 = [(NSURL *)self->_modelOverrideURL description];
+  v109 = [v11 initWithFormat:@"modelOverrideURL = %@", v109];
+  v129[8] = v109;
   v12 = objc_alloc(MEMORY[0x277CCACA8]);
-  v108 = [(NSURL *)self->_originalAudioFileURL description];
-  v108 = [v12 initWithFormat:@"originalAudioFileURL = %@", v108];
-  v130[9] = v108;
+  v107 = [(NSURL *)self->_originalAudioFileURL description];
+  v107 = [v12 initWithFormat:@"originalAudioFileURL = %@", v107];
+  v129[9] = v107;
   v13 = objc_alloc(MEMORY[0x277CCACA8]);
-  v106 = [(NSString *)self->_codec description];
-  v106 = [v13 initWithFormat:@"codec = %@", v106];
-  v130[10] = v106;
+  v105 = [(NSString *)self->_codec description];
+  v105 = [v13 initWithFormat:@"codec = %@", v105];
+  v129[10] = v105;
   v14 = objc_alloc(MEMORY[0x277CCACA8]);
   if (self->_narrowband)
   {
@@ -819,8 +737,8 @@ LABEL_50:
     v15 = @"NO";
   }
 
-  v104 = [v14 initWithFormat:@"narrowband = %@", v15];
-  v130[11] = v104;
+  v103 = [v14 initWithFormat:@"narrowband = %@", v15];
+  v129[11] = v103;
   v16 = objc_alloc(MEMORY[0x277CCACA8]);
   if (self->_detectUtterances)
   {
@@ -832,8 +750,8 @@ LABEL_50:
     v17 = @"NO";
   }
 
-  v103 = [v16 initWithFormat:@"detectUtterances = %@", v17];
-  v130[12] = v103;
+  v102 = [v16 initWithFormat:@"detectUtterances = %@", v17];
+  v129[12] = v102;
   v18 = objc_alloc(MEMORY[0x277CCACA8]);
   if (self->_censorSpeech)
   {
@@ -845,8 +763,8 @@ LABEL_50:
     v19 = @"NO";
   }
 
-  v102 = [v18 initWithFormat:@"censorSpeech = %@", v19];
-  v130[13] = v102;
+  v101 = [v18 initWithFormat:@"censorSpeech = %@", v19];
+  v129[13] = v101;
   v20 = objc_alloc(MEMORY[0x277CCACA8]);
   if (self->_farField)
   {
@@ -858,8 +776,8 @@ LABEL_50:
     v21 = @"NO";
   }
 
-  v101 = [v20 initWithFormat:@"farField = %@", v21];
-  v130[14] = v101;
+  v100 = [v20 initWithFormat:@"farField = %@", v21];
+  v129[14] = v100;
   v22 = objc_alloc(MEMORY[0x277CCACA8]);
   if (self->_secureOfflineOnly)
   {
@@ -871,8 +789,8 @@ LABEL_50:
     v23 = @"NO";
   }
 
-  v100 = [v22 initWithFormat:@"secureOfflineOnly = %@", v23];
-  v130[15] = v100;
+  v99 = [v22 initWithFormat:@"secureOfflineOnly = %@", v23];
+  v129[15] = v99;
   v24 = objc_alloc(MEMORY[0x277CCACA8]);
   if (self->_shouldStoreAudioOnDevice)
   {
@@ -884,8 +802,8 @@ LABEL_50:
     v25 = @"NO";
   }
 
-  v99 = [v24 initWithFormat:@"shouldStoreAudioOnDevice = %@", v25];
-  v130[16] = v99;
+  v98 = [v24 initWithFormat:@"shouldStoreAudioOnDevice = %@", v25];
+  v129[16] = v98;
   v26 = objc_alloc(MEMORY[0x277CCACA8]);
   if (self->_continuousListening)
   {
@@ -897,8 +815,8 @@ LABEL_50:
     v27 = @"NO";
   }
 
-  v98 = [v26 initWithFormat:@"continuousListening = %@", v27];
-  v130[17] = v98;
+  v97 = [v26 initWithFormat:@"continuousListening = %@", v27];
+  v129[17] = v97;
   v28 = objc_alloc(MEMORY[0x277CCACA8]);
   if (self->_shouldHandleCapitalization)
   {
@@ -910,8 +828,8 @@ LABEL_50:
     v29 = @"NO";
   }
 
-  v97 = [v28 initWithFormat:@"shouldHandleCapitalization = %@", v29];
-  v130[18] = v97;
+  v96 = [v28 initWithFormat:@"shouldHandleCapitalization = %@", v29];
+  v129[18] = v96;
   v30 = objc_alloc(MEMORY[0x277CCACA8]);
   if (self->_isSpeechAPIRequest)
   {
@@ -923,24 +841,24 @@ LABEL_50:
     v31 = @"NO";
   }
 
-  v96 = [v30 initWithFormat:@"isSpeechAPIRequest = %@", v31];
-  v130[19] = v96;
+  v95 = [v30 initWithFormat:@"isSpeechAPIRequest = %@", v31];
+  v129[19] = v95;
   v32 = objc_alloc(MEMORY[0x277CCACA8]);
-  v95 = [MEMORY[0x277CCABB0] numberWithDouble:self->_maximumRecognitionDuration];
-  v94 = [v32 initWithFormat:@"maximumRecognitionDuration = %@", v95];
-  v130[20] = v94;
+  v94 = [MEMORY[0x277CCABB0] numberWithDouble:self->_maximumRecognitionDuration];
+  v93 = [v32 initWithFormat:@"maximumRecognitionDuration = %@", v94];
+  v129[20] = v93;
   v33 = objc_alloc(MEMORY[0x277CCACA8]);
-  v93 = [MEMORY[0x277CCABB0] numberWithDouble:self->_endpointStart];
-  v92 = [v33 initWithFormat:@"endpointStart = %@", v93];
-  v130[21] = v92;
+  v92 = [MEMORY[0x277CCABB0] numberWithDouble:self->_endpointStart];
+  v91 = [v33 initWithFormat:@"endpointStart = %@", v92];
+  v129[21] = v91;
   v34 = objc_alloc(MEMORY[0x277CCACA8]);
-  v91 = [(NSString *)self->_inputOrigin description];
-  v90 = [v34 initWithFormat:@"inputOrigin = %@", v91];
-  v130[22] = v90;
+  v90 = [(NSString *)self->_inputOrigin description];
+  v89 = [v34 initWithFormat:@"inputOrigin = %@", v90];
+  v129[22] = v89;
   v35 = objc_alloc(MEMORY[0x277CCACA8]);
-  v89 = [(CLLocation *)self->_location description];
-  v88 = [v35 initWithFormat:@"location = %@", v89];
-  v130[23] = v88;
+  v88 = [(CLLocation *)self->_location description];
+  v87 = [v35 initWithFormat:@"location = %@", v88];
+  v129[23] = v87;
   v36 = objc_alloc(MEMORY[0x277CCACA8]);
   if (self->_jitGrammar)
   {
@@ -952,8 +870,8 @@ LABEL_50:
     v37 = 0;
   }
 
-  v87 = [v36 initWithFormat:@"jitGrammar = %@", v37];
-  v130[24] = v87;
+  v86 = [v36 initWithFormat:@"jitGrammar = %@", v37];
+  v129[24] = v86;
   v38 = objc_alloc(MEMORY[0x277CCACA8]);
   if (self->_deliverEagerPackage)
   {
@@ -965,8 +883,8 @@ LABEL_50:
     v39 = @"NO";
   }
 
-  v86 = [v38 initWithFormat:@"deliverEagerPackage = %@", v39];
-  v130[25] = v86;
+  v85 = [v38 initWithFormat:@"deliverEagerPackage = %@", v39];
+  v129[25] = v85;
   v40 = objc_alloc(MEMORY[0x277CCACA8]);
   if (self->_disableDeliveringAsrFeatures)
   {
@@ -978,8 +896,8 @@ LABEL_50:
     v41 = @"NO";
   }
 
-  v85 = [v40 initWithFormat:@"disableDeliveringAsrFeatures = %@", v41];
-  v130[26] = v85;
+  v84 = [v40 initWithFormat:@"disableDeliveringAsrFeatures = %@", v41];
+  v129[26] = v84;
   v42 = objc_alloc(MEMORY[0x277CCACA8]);
   if (self->_enableEmojiRecognition)
   {
@@ -991,8 +909,8 @@ LABEL_50:
     v43 = @"NO";
   }
 
-  v84 = [v42 initWithFormat:@"enableEmojiRecognition = %@", v43];
-  v130[27] = v84;
+  v83 = [v42 initWithFormat:@"enableEmojiRecognition = %@", v43];
+  v129[27] = v83;
   v44 = objc_alloc(MEMORY[0x277CCACA8]);
   if (self->_enableAutoPunctuation)
   {
@@ -1004,8 +922,8 @@ LABEL_50:
     v45 = @"NO";
   }
 
-  v83 = [v44 initWithFormat:@"enableAutoPunctuation = %@", v45];
-  v130[28] = v83;
+  v82 = [v44 initWithFormat:@"enableAutoPunctuation = %@", v45];
+  v129[28] = v82;
   v46 = objc_alloc(MEMORY[0x277CCACA8]);
   if (self->_enableVoiceCommands)
   {
@@ -1017,12 +935,12 @@ LABEL_50:
     v47 = @"NO";
   }
 
-  v82 = [v46 initWithFormat:@"enableVoiceCommands = %@", v47];
-  v130[29] = v82;
+  v81 = [v46 initWithFormat:@"enableVoiceCommands = %@", v47];
+  v129[29] = v81;
   v48 = objc_alloc(MEMORY[0x277CCACA8]);
-  v81 = [(NSArray *)self->_sharedUserInfos description];
-  v80 = [v48 initWithFormat:@"sharedUserInfos = %@", v81];
-  v130[30] = v80;
+  v80 = [(NSArray *)self->_sharedUserInfos description];
+  v79 = [v48 initWithFormat:@"sharedUserInfos = %@", v80];
+  v129[30] = v79;
   v49 = objc_alloc(MEMORY[0x277CCACA8]);
   if (self->_prefixText)
   {
@@ -1034,8 +952,8 @@ LABEL_50:
     v50 = 0;
   }
 
-  v79 = [v49 initWithFormat:@"prefixText = %@", v50];
-  v130[31] = v79;
+  v78 = [v49 initWithFormat:@"prefixText = %@", v50];
+  v129[31] = v78;
   v51 = objc_alloc(MEMORY[0x277CCACA8]);
   if (self->_postfixText)
   {
@@ -1047,8 +965,8 @@ LABEL_50:
     v52 = 0;
   }
 
-  v78 = [v51 initWithFormat:@"postfixText = %@", v52];
-  v130[32] = v78;
+  v77 = [v51 initWithFormat:@"postfixText = %@", v52];
+  v129[32] = v77;
   v53 = objc_alloc(MEMORY[0x277CCACA8]);
   if (self->_selectedText)
   {
@@ -1060,16 +978,16 @@ LABEL_50:
     v54 = 0;
   }
 
-  v77 = [v53 initWithFormat:@"selectedText = %@", v54];
-  v130[33] = v77;
+  v76 = [v53 initWithFormat:@"selectedText = %@", v54];
+  v129[33] = v76;
   v55 = objc_alloc(MEMORY[0x277CCACA8]);
-  v76 = [(AFPowerContextPolicy *)self->_powerContext description];
-  v75 = [v55 initWithFormat:@"powerContext = %@", v76];
-  v130[34] = v75;
+  v75 = [(AFPowerContextPolicy *)self->_powerContext description];
+  v74 = [v55 initWithFormat:@"powerContext = %@", v75];
+  v129[34] = v74;
   v56 = objc_alloc(MEMORY[0x277CCACA8]);
   v57 = [MEMORY[0x277CCABB0] numberWithDouble:self->_recognitionStart];
   v58 = [v56 initWithFormat:@"recognitionStart = %@", v57];
-  v130[35] = v58;
+  v129[35] = v58;
   v59 = objc_alloc(MEMORY[0x277CCACA8]);
   if (self->_shouldGenerateVoiceCommandCandidates)
   {
@@ -1082,15 +1000,15 @@ LABEL_50:
   }
 
   v61 = [v59 initWithFormat:@"shouldGenerateVoiceCommandCandidates = %@", v60];
-  v130[36] = v61;
+  v129[36] = v61;
   v62 = objc_alloc(MEMORY[0x277CCACA8]);
   v63 = [(NSUUID *)self->_asrId description];
   v64 = [v62 initWithFormat:@"asrId = %@", v63];
-  v130[37] = v64;
+  v129[37] = v64;
   v65 = objc_alloc(MEMORY[0x277CCACA8]);
   v66 = [(AFASRSharedUserInfo *)self->_activeUserInfo description];
   v67 = [v65 initWithFormat:@"activeUserInfo = %@", v66];
-  v130[38] = v67;
+  v129[38] = v67;
   v68 = objc_alloc(MEMORY[0x277CCACA8]);
   if (self->_messagesContext)
   {
@@ -1103,14 +1021,12 @@ LABEL_50:
   }
 
   v70 = [v68 initWithFormat:@"messagesContext = %@", v69];
-  v130[39] = v70;
-  v71 = [MEMORY[0x277CBEA60] arrayWithObjects:v130 count:40];
+  v129[39] = v70;
+  v71 = [MEMORY[0x277CBEA60] arrayWithObjects:v129 count:40];
   v72 = [v71 componentsJoinedByString:{@", "}];
-  v113 = [v112 initWithFormat:@"%@ {%@}", v128, v72];
+  v112 = [v111 initWithFormat:@"%@ {%@}", v127, v72];
 
-  v73 = *MEMORY[0x277D85DE8];
-
-  return v113;
+  return v112;
 }
 
 - (CESRSpeechParameters)initWithLanguage:(id)language requestIdentifier:(id)identifier dictationUIInteractionIdentifier:(id)interactionIdentifier task:(id)task loggingContext:(id)context applicationName:(id)name profile:(id)profile overrides:(id)self0 modelOverrideURL:(id)self1 originalAudioFileURL:(id)self2 codec:(id)self3 narrowband:(BOOL)self4 detectUtterances:(BOOL)self5 censorSpeech:(BOOL)self6 farField:(BOOL)self7 secureOfflineOnly:(BOOL)self8 shouldStoreAudioOnDevice:(BOOL)self9 continuousListening:(BOOL)listening shouldHandleCapitalization:(BOOL)capitalization isSpeechAPIRequest:(BOOL)request maximumRecognitionDuration:(double)duration endpointStart:(double)start inputOrigin:(id)origin location:(id)location jitGrammar:(id)grammar deliverEagerPackage:(BOOL)package disableDeliveringAsrFeatures:(BOOL)features enableEmojiRecognition:(BOOL)language0 enableAutoPunctuation:(BOOL)language1 enableVoiceCommands:(BOOL)language2 sharedUserInfos:(id)language3 prefixText:(id)language4 postfixText:(id)language5 selectedText:(id)language6 powerContext:(id)language7 recognitionStart:(double)language8 shouldGenerateVoiceCommandCandidates:(BOOL)language9 asrId:(id)identifier0 activeUserInfo:(id)identifier1 messagesContext:(id)identifier2

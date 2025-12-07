@@ -1,322 +1,19 @@
-uint64_t FlatbufferSymbolOwnerData::symbol_for_address(FlatbufferSymbolOwnerData *this, CSCppSymbolOwner *a2, unint64_t a3)
-{
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x3802000000;
-  v10 = __Block_byref_object_copy__2;
-  v12 = 0;
-  v13 = 0;
-  v11 = __Block_byref_object_dispose__2;
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 0x40000000;
-  v6[2] = ___ZN25FlatbufferSymbolOwnerData18symbol_for_addressEP16CSCppSymbolOwnery_block_invoke;
-  v6[3] = &unk_1E8583530;
-  v6[4] = &v7;
-  v6[5] = this;
-  FlatbufferSymbolOwnerData::symbols_in_address_range(this, a2, a3, 1, v6);
-  v3 = v8[5];
-  v4 = v8[6];
-  _Block_object_dispose(&v7, 8);
-  return v3;
-}
-
-void sub_1D9707284(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
-{
-  va_start(va, a8);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-__n128 __Block_byref_object_copy__2(uint64_t a1, uint64_t a2)
-{
-  result = *(a2 + 40);
-  *(a1 + 40) = result;
-  return result;
-}
-
-BOOL ___ZN25FlatbufferSymbolOwnerData18symbol_for_addressEP16CSCppSymbolOwnery_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  result = CSIsNull(a2, a3);
-  v7 = (a3 & 0xFFFFFFFFFFFFFFFCLL);
-  if (result)
-  {
-    v7 = 0;
-  }
-
-  v8 = (v7 - *v7);
-  if (*v8 < 0x13u || (v9 = v8[9]) == 0 || (*(v7 + v9) & 0x10) == 0)
-  {
-    v10 = *(*(a1 + 32) + 8);
-    *(v10 + 40) = a2;
-    *(v10 + 48) = a3;
-  }
-
-  return result;
-}
-
-uint64_t FlatbufferSymbolOwnerData::source_infos(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a1 + 88);
-  if (!v3)
-  {
-    return 0;
-  }
-
-  v4 = (v3 - *v3);
-  if (*v4 < 9u)
-  {
-    return 0;
-  }
-
-  v5 = v4[4];
-  if (!v5)
-  {
-    return 0;
-  }
-
-  v6 = *(v3 + v5);
-  v7 = (v3 + v5 + v6);
-  v8 = (4 * *v7);
-  if (!v8)
-  {
-    return 0;
-  }
-
-  v10 = 0;
-  v38 = v7 + v8;
-  v11 = v7 + 3;
-  v12 = v3 + v6 + v5 + 12;
-  do
-  {
-    v15 = v7[1];
-    v14 = (v7 + 1);
-    v13 = v15;
-    v16 = &v14[v15];
-    v17 = &v16[-*v16];
-    v41 = v11;
-    v42 = v14;
-    v40 = v12;
-    if (*v17 >= 0xBu)
-    {
-      v18 = *(v17 + 5);
-      if (v18)
-      {
-        v19 = &v16[v18];
-        v20 = *&v16[v18];
-        v21 = &v19[v20];
-        v22 = (4 * *&v19[v20]);
-        if (v22)
-        {
-          v23 = &v21[v22];
-          v24 = v11 + v13 + v18 + v20;
-          v25 = v12 + v13 + v20 + v18;
-          v39 = &v21[v22];
-          do
-          {
-            v27 = *(v21 + 1);
-            v21 += 4;
-            v26 = v27;
-            v28 = &v21[v27];
-            v29 = &v28[-*v28];
-            if (*v29 >= 0xDu && (v30 = *(v29 + 6)) != 0)
-            {
-              v31 = &v28[v30];
-              v32 = *&v28[v30];
-              v33 = *&v31[v32];
-              v34 = 4 * v33;
-              if (v34)
-              {
-                v35 = &v24[v26 + v30 + v32];
-                v36 = (v25 + v26 + v32 + v30);
-                do
-                {
-                  if (a3)
-                  {
-                    (*(a3 + 16))(a3, a2 | 6, &v35[*v36]);
-                  }
-
-                  v35 += 4;
-                  ++v36;
-                  v34 -= 4;
-                }
-
-                while (v34);
-                v23 = v39;
-              }
-            }
-
-            else
-            {
-              v33 = 0;
-            }
-
-            v10 += v33;
-            v24 += 4;
-            v25 += 4;
-          }
-
-          while (v21 != v23);
-        }
-      }
-    }
-
-    v11 = v41 + 1;
-    v12 = v40 + 4;
-    v7 = v42;
-  }
-
-  while (v42 != v38);
-  return v10;
-}
-
-uint64_t FlatbufferSymbolOwnerData::source_infos_in_address_range(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5)
-{
-  if (a3 == -1)
-  {
-    return 0;
-  }
-
-  v5 = a1;
-  v7 = *(a1 + 136);
-  v8 = *(a1 + 144);
-  v6 = (a1 + 136);
-  if (v7 == v8)
-  {
-    return 0;
-  }
-
-  v11 = 0;
-  v12 = a4 + a3;
-  do
-  {
-    v13 = *v7;
-    if (*v7 < v12)
-    {
-      v14 = v7[1] + v13;
-      if (a3 < v14)
-      {
-        v15 = v13 <= a3 ? a3 : *v7;
-        v16 = v12 >= v14 ? v7[1] + v13 : v12;
-        v17 = v16 - v15;
-        if (v16 != v15)
-        {
-          v44 = 0;
-          if (TThreadsafeAddressRelocator<Pointer64>::relocate(v6, v15, &v44))
-          {
-            v37 = v44;
-            v18 = FlatbufferSymbolOwnerData::findMatchingEntryInFlatbufferTypeWithVMAddressRange<FlatbufferSymbols::SymbolOwner,flatbuffers::Vector<flatbuffers::Offset<FlatbufferSymbols::Segment>,unsigned int> const* (FlatbufferSymbols::SymbolOwner::*)(void)const,FlatbufferSymbols::Segment const*>(v5, *(v5 + 88), FlatbufferSymbols::SymbolOwner::segments, 0, v44, v17);
-            if (v18)
-            {
-              v19 = (v18 - *v18);
-              if (*v19 >= 0xBu)
-              {
-                v20 = v19[5];
-                if (v20)
-                {
-                  v33 = v6;
-                  v21 = (v18 + v20 + *(v18 + v20));
-                  v44 = v21 + 1;
-                  v43 = (v21 + (4 * *v21) + 4);
-                  FlatbufferSymbolOwnerData::findUpperAndLowerRangeForVMAddressRange<flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::Symbol>,FlatbufferSymbols::Symbol const*,unsigned char const*,unsigned int>>(&v44, &v43, v37, v17, &v40);
-                  v23 = v40;
-                  v22 = v41;
-                  if (v40 != v41)
-                  {
-                    v35 = v17;
-                    v36 = v5;
-                    v34 = v41;
-                    do
-                    {
-                      v24 = (v23 + *v23);
-                      v25 = (v24 - *v24);
-                      if (*v25 >= 0xDu && (v26 = v25[6]) != 0)
-                      {
-                        v27 = (v24 + v26 + *(v24 + v26));
-                        v43 = v27 + 1;
-                        v42 = (v27 + (4 * *v27) + 4);
-                        FlatbufferSymbolOwnerData::findUpperAndLowerRangeForVMAddressRange<flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SourceInfo>,FlatbufferSymbols::SourceInfo const*,unsigned char const*,unsigned int>>(&v43, &v42, v37, v17, &v44);
-                        v28 = v44;
-                        v29 = v45;
-                        v38 = v45 - v44 + (v45 - v44 < 0 ? 3uLL : 0);
-                        if (v45 != v44)
-                        {
-                          v30 = v44;
-                          do
-                          {
-                            if (a5)
-                            {
-                              (*(a5 + 16))(a5, a2 | 6, v28 + *v30);
-                            }
-
-                            ++v30;
-                            ++v28;
-                          }
-
-                          while (v30 != v29);
-                        }
-
-                        v31 = v38 >> 2;
-                        v17 = v35;
-                        v5 = v36;
-                        v22 = v34;
-                      }
-
-                      else
-                      {
-                        v31 = 0;
-                      }
-
-                      v11 += v31;
-                      ++v23;
-                    }
-
-                    while (v23 != v22);
-                  }
-
-                  v6 = v33;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
-    v7 += 3;
-  }
-
-  while (v7 != v8);
-  return v11;
-}
-
 _DWORD *FlatbufferSymbolOwnerData::source_info_for_address(FlatbufferSymbolOwnerData *this, unint64_t a2, unint64_t a3)
 {
   v6 = FlatbufferSymbolOwnerData::findMatchingEntryInFlatbufferTypeWithVMAddressRange<FlatbufferSymbols::SymbolOwner,flatbuffers::Vector<flatbuffers::Offset<FlatbufferSymbols::Segment>,unsigned int> const* (FlatbufferSymbols::SymbolOwner::*)(void)const,FlatbufferSymbols::Segment const*>(this, *(this + 11), FlatbufferSymbols::SymbolOwner::segments, 0, a3, 1);
   v7 = FlatbufferSymbolOwnerData::findMatchingEntryInFlatbufferTypeWithVMAddressRange<FlatbufferSymbols::Segment,flatbuffers::Vector<flatbuffers::Offset<FlatbufferSymbols::Symbol>,unsigned int> const* (FlatbufferSymbols::Segment::*)(void)const,FlatbufferSymbols::Symbol const*>(this, v6, FlatbufferSymbols::Segment::symbols, 0, a3, 1);
-  v8 = FlatbufferSymbolOwnerData::findMatchingEntryInFlatbufferTypeWithVMAddressRange<FlatbufferSymbols::Symbol,flatbuffers::Vector<flatbuffers::Offset<FlatbufferSymbols::InlineSymbol>,unsigned int> const* (FlatbufferSymbols::Symbol::*)(void)const,FlatbufferSymbols::InlineSymbol const*>(this, v7, FlatbufferSymbols::Symbol::inline_symbols, 0, a3, 1);
-  if (v8)
+  if (FlatbufferSymbolOwnerData::findMatchingEntryInFlatbufferTypeWithVMAddressRange<FlatbufferSymbols::Symbol,flatbuffers::Vector<flatbuffers::Offset<FlatbufferSymbols::InlineSymbol>,unsigned int> const* (FlatbufferSymbols::Symbol::*)(void)const,FlatbufferSymbols::InlineSymbol const*>(this, v7, FlatbufferSymbols::Symbol::inline_symbols, 0, a3, 1))
   {
-    v9 = (v8 - *v8);
-    if (*v9 >= 0xDu)
-    {
-      v10 = v9[6];
-      if (v10)
-      {
-        v11 = v8 + v10 + *(v8 + v10);
-      }
-    }
+    return (a2 | 6);
   }
 
-  else
+  result = FlatbufferSymbolOwnerData::findMatchingEntryInFlatbufferTypeWithVMAddressRange<FlatbufferSymbols::Symbol,flatbuffers::Vector<flatbuffers::Offset<FlatbufferSymbols::SourceInfo>,unsigned int> const* (FlatbufferSymbols::Symbol::*)(void)const,FlatbufferSymbols::SourceInfo const*>(this, v7, FlatbufferSymbols::Symbol::source_infos, 0, a3, 1);
+  if (result)
   {
-    result = FlatbufferSymbolOwnerData::findMatchingEntryInFlatbufferTypeWithVMAddressRange<FlatbufferSymbols::Symbol,flatbuffers::Vector<flatbuffers::Offset<FlatbufferSymbols::SourceInfo>,unsigned int> const* (FlatbufferSymbols::Symbol::*)(void)const,FlatbufferSymbols::SourceInfo const*>(this, v7, FlatbufferSymbols::Symbol::source_infos, 0, a3, 1);
-    if (!result)
-    {
-      return result;
-    }
+    return (a2 | 6);
   }
 
-  return (a2 | 6);
+  return result;
 }
 
 uint64_t FlatbufferSymbolOwnerData::for_each_stack_frame_at_address(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
@@ -495,8 +192,9 @@ LABEL_33:
   return k;
 }
 
-uint64_t FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth(uint64_t a1, uint64_t a2, char a3, uint64_t a4, int a5, uint64_t a6)
+uint64_t FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth(uint64_t a1, unint64_t a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
+  v7 = a5;
   if (CSIsNull(a3, a4) || (a3 & 7 | (8 * (a4 & 3))) != 0xA)
   {
     if (CSIsNull(a3, a4))
@@ -506,10 +204,10 @@ uint64_t FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth(ui
 
     else
     {
-      v14 = a4 & 0xFFFFFFFFFFFFFFFCLL;
+      v14 = (a4 & 0xFFFFFFFFFFFFFFFCLL);
     }
 
-    return FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth_impl<FlatbufferSymbols::Symbol const>(a1, a2, v14, a5, a6);
+    return FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth_impl<FlatbufferSymbols::Symbol const>(a1, a2, v14, v7, a6);
   }
 
   else
@@ -524,11 +222,11 @@ uint64_t FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth(ui
       v12 = a4 & 0xFFFFFFFFFFFFFFFCLL;
     }
 
-    return FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth_impl<FlatbufferSymbols::InlineSymbol const>(a1, a2, v12, a5, a6);
+    return FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth_impl<FlatbufferSymbols::InlineSymbol const>(a1, a2, v12, v7, a6);
   }
 }
 
-uint64_t FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth_impl<FlatbufferSymbols::InlineSymbol const>(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5)
+uint64_t FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth_impl<FlatbufferSymbols::InlineSymbol const>(uint64_t a1, unint64_t a2, uint64_t a3, int a4, uint64_t a5)
 {
   v5 = a3;
   v37 = 0;
@@ -663,7 +361,7 @@ void sub_1D9707FDC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth_impl<FlatbufferSymbols::Symbol const>(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5)
+uint64_t FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth_impl<FlatbufferSymbols::Symbol const>(uint64_t a1, unint64_t a2, void **a3, int a4, uint64_t a5)
 {
   v5 = a3;
   v34 = 0;
@@ -831,8 +529,9 @@ uint64_t FlatbufferSymbolOwnerData::forEachInlinedSymbolInSymbol<FlatbufferSymbo
       v10 = v9;
       do
       {
-        v11 = *v10++;
-        (*(a3 + 16))(a3, v9 + v11);
+        v11 = *v10;
+        v10 += 4;
+        (*(a3 + 16))(a3, &v9[v11]);
         v9 = v10;
         v7 -= 4;
       }
@@ -862,8 +561,9 @@ uint64_t FlatbufferSymbolOwnerData::forEachInlinedSymbolInSymbol<FlatbufferSymbo
       v10 = v9;
       do
       {
-        v11 = *v10++;
-        (*(a3 + 16))(a3, v9 + v11);
+        v11 = *v10;
+        v10 += 4;
+        (*(a3 + 16))(a3, &v9[v11]);
         v9 = v10;
         v7 -= 4;
       }
@@ -882,7 +582,7 @@ uint64_t FlatbufferSymbolOwnerData::forEachInlinedSymbolInSymbol<FlatbufferSymbo
 
 uint64_t FlatbufferSymbolOwnerData::for_each_deduplicated_variant_for_symbol(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  Range = CSSymbolGetRange(a3, a4);
+  Range = CSSymbolGetRange(a3, a4, a3);
   if (Range == -1)
   {
     return 0;
@@ -1040,7 +740,7 @@ char *FlatbufferSymbolOwnerData::rawBytesForRangeWithoutFaulting(uint64_t a1, ui
   return 0;
 }
 
-unint64_t FlatbufferSymbolOwnerData::rawBytesForRangeWithOnDemandFaulting(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
+uint64_t FlatbufferSymbolOwnerData::rawBytesForRangeWithOnDemandFaulting(uint64_t a1, CSCppSymbolOwner *a2, unint64_t a3, uint64_t a4)
 {
   std::mutex::lock((a1 + 16));
   v8 = (a1 + 184);
@@ -1053,24 +753,23 @@ unint64_t FlatbufferSymbolOwnerData::rawBytesForRangeWithOnDemandFaulting(uint64
   section_descriptor_for_range = CSCppTextSectionDescriptorMap<Pointer64>::find_section_descriptor_for_range(*v8, a3, a4);
   if (!section_descriptor_for_range)
   {
-    v10 = *v8;
-    CSCppTextSectionDescriptorMap<Pointer64>::create_section_descriptor_for_range();
+    CSCppTextSectionDescriptorMap<Pointer64>::create_section_descriptor_for_range(*v8, a2, a3, a4);
   }
 
-  CSCppTextSectionDataDescriptor::get_text_section_for_range<Pointer64>(section_descriptor_for_range, a3, a4, a2, v13);
-  if (a4 + a3 <= v13[0] + v13[1])
+  CSCppTextSectionDataDescriptor::get_text_section_for_range<Pointer64>(section_descriptor_for_range, a3, a4, &v12, a2);
+  if (a4 + a3 <= v12.n128_u64[0] + v12.n128_u64[1])
   {
-    v11 = v13[2] + a3 - v13[0];
+    v10 = v13 + a3 - v12.n128_u64[0];
   }
 
   else
   {
-    v11 = 0;
+    v10 = 0;
   }
 
-  if (a3 >= v13[0])
+  if (a3 >= v12.n128_u64[0])
   {
-    return v11;
+    return v10;
   }
 
   else
@@ -1136,44 +835,44 @@ LABEL_12:
   return v12;
 }
 
-__n128 CSCppTextSectionDataDescriptor::get_text_section_for_range<Pointer64>@<Q0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+__n128 CSCppTextSectionDataDescriptor::get_text_section_for_range<Pointer64>@<Q0>(__n128 *a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, __n128 *a4@<X8>, uint64_t a5@<X3>)
 {
-  CSCppTextSectionDataDescriptor::get_text_section<Pointer64>(a1, a4, v10);
-  if (*(a1 + 16))
+  CSCppTextSectionDataDescriptor::get_text_section<Pointer64>(a1, a2, a3, a5, v10);
+  if (a1[1].n128_u64[0])
   {
-    if (*(a1 + 136) == 1)
+    if (a1[8].n128_u32[2] == 1)
     {
-      CSCppTextSectionDataDescriptor::_perform_partial_mapping_for_file<Pointer64>(a1, a2, a3, a5);
+      CSCppTextSectionDataDescriptor::_perform_partial_mapping_for_file<Pointer64>(a1->n128_u64, a2, a3, a4);
     }
 
     else
     {
       result = *a1;
-      *a5 = *a1;
-      *(a5 + 16) = *(a1 + 16);
+      *a4 = *a1;
+      a4[1].n128_u64[0] = a1[1].n128_u64[0];
     }
   }
 
   else
   {
-    *a5 = 0;
-    *(a5 + 8) = 0;
-    *(a5 + 16) = 0;
+    a4->n128_u64[0] = 0;
+    a4->n128_u64[1] = 0;
+    a4[1].n128_u64[0] = 0;
   }
 
   return result;
 }
 
-void sub_1D9708AF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1D9708AF0(_Unwind_Exception *a1, __n128 a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  va_start(va, a4);
+  va_start(va, a8);
   std::unique_ptr<CSCppTextSectionDataDescriptor>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-char *FlatbufferSymbolOwnerData::raw_bytes_for_range(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
+char *FlatbufferSymbolOwnerData::raw_bytes_for_range(uint64_t a1, CSCppSymbolOwner *a2, unint64_t a3, uint64_t a4)
 {
-  v8 = atomic_load((*(a2 + 8) + 40));
+  v8 = atomic_load((*(a2 + 1) + 40));
   result = FlatbufferSymbolOwnerData::rawBytesForRangeWithoutFaulting(a1, a2, a3, a4);
   if (!result && (v8 & 0x602) != 0x602)
   {
@@ -1209,8 +908,7 @@ const char *FlatbufferSymbolOwnerData::demangledNameForSymbol(FlatbufferSymbolOw
 std::string *CSCppSymbolOwnerData::get_description@<X0>(std::string *this@<X0>, std::string *a2@<X8>)
 {
   v2 = this;
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   v4 = atomic_load(&this->__r_.__value_.__r.__words[1] + 1);
   if (v4)
@@ -1447,7 +1145,7 @@ void sub_1D9708F34(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<CSCppSegmentRange>::__init_with_size[abi:ne200100]<CSCppSegmentRange*,CSCppSegmentRange*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<CSCppSegmentRange>::__init_with_size[abi:ne200100]<CSCppSegmentRange*,CSCppSegmentRange*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1469,7 +1167,7 @@ void sub_1D9708FB0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<CSCppSegmentRange>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<CSCppSegmentRange>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -1479,256 +1177,211 @@ void std::vector<CSCppSegmentRange>::__vallocate[abi:ne200100](uint64_t a1, unin
   std::vector<std::shared_ptr<CSCppSymbolOwner>>::__throw_length_error[abi:ne200100]();
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppSegmentRange *,false>(unint64_t a1, __n128 *a2, uint64_t a3, uint64_t a4, char a5, __n128 a6)
+__n128 std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppSegmentRange *,false>(unint64_t a1, char *a2, uint64_t a3, uint64_t a4, char a5, __n128 result)
 {
-  v167 = *MEMORY[0x1E69E9840];
-LABEL_2:
-  v9 = a2 - 2;
-  v10 = a2 - 4;
-  v11 = a2 - 6;
+LABEL_1:
+  v9 = (a2 - 32);
+  v10 = a2 - 64;
+  v11 = a2 - 96;
   v12 = a1;
-LABEL_3:
+LABEL_2:
   v13 = 1 - a4;
   while (1)
   {
     a1 = v12;
     v14 = v13;
-    v15 = (a2 - v12) >> 5;
+    v15 = &a2[-v12] >> 5;
     if (v15 <= 2)
     {
       if (v15 < 2)
       {
-        goto LABEL_110;
+        return result;
       }
 
       if (v15 == 2)
       {
-        v81 = a2[-2].n128_u64[0];
-        v74 = a2 - 2;
-        if (v81 >= *v12)
+        v78 = *(a2 - 4);
+        v73 = (a2 - 32);
+        if (v78 >= *v12)
         {
-          goto LABEL_110;
+          return result;
         }
 
-        goto LABEL_78;
+        goto LABEL_77;
       }
 
-      goto LABEL_11;
+      goto LABEL_10;
     }
 
-    switch(v15)
+    if (v15 == 3)
     {
-      case 3:
-        v71 = (v12 + 32);
-        v72 = *(v12 + 32);
-        v75 = a2[-2].n128_u64[0];
-        v74 = a2 - 2;
-        v73 = v75;
-        if (v72 < *v12)
-        {
-          if (v73 < v72)
-          {
-LABEL_78:
-            v133 = *v12;
-            v161 = *(v12 + 16);
-            v82 = v74[1];
-            *v12 = *v74;
-            *(v12 + 16) = v82;
-            *v74 = v133;
-            v74[1] = v161;
-            goto LABEL_110;
-          }
-
-          v132 = *v12;
-          v160 = *(v12 + 16);
-          v76 = *(v12 + 48);
-          *v12 = *v71;
-          *(v12 + 16) = v76;
-          *v71 = v132;
-          *(v12 + 48) = v160;
-          if (v74->n128_u64[0] < *(v12 + 32))
-          {
-            v78 = *v71;
-            v77 = *(v12 + 48);
-            v79 = v74[1];
-            *v71 = *v74;
-            *(v12 + 48) = v79;
-            *v74 = v78;
-            v74[1] = v77;
-          }
-
-          goto LABEL_110;
-        }
-
-        if (v73 >= v72)
-        {
-          goto LABEL_110;
-        }
-
-        v90 = *v71;
-        v89 = *(v12 + 48);
-        v91 = v74[1];
-        *v71 = *v74;
-        *(v12 + 48) = v91;
-        *v74 = v90;
-        v74[1] = v89;
-LABEL_108:
-        if (*(v12 + 32) < *v12)
-        {
-          v138 = *v12;
-          v166 = *(v12 + 16);
-          v112 = v71[1];
-          *v12 = *v71;
-          *(v12 + 16) = v112;
-          *v71 = v138;
-          v71[1] = v166;
-        }
-
-        goto LABEL_110;
-      case 4:
-        v71 = (v12 + 32);
-        v83 = *(v12 + 32);
-        v84 = (v12 + 64);
-        v85 = *(v12 + 64);
-        if (v83 >= *v12)
-        {
-          if (v85 < v83)
-          {
-            v93 = *v71;
-            v92 = *(v12 + 48);
-            v94 = *(v12 + 80);
-            *v71 = *v84;
-            *(v12 + 48) = v94;
-            *v84 = v93;
-            *(v12 + 80) = v92;
-            if (*(v12 + 32) < *v12)
-            {
-              v135 = *v12;
-              v163 = *(v12 + 16);
-              v95 = *(v12 + 48);
-              *v12 = *v71;
-              *(v12 + 16) = v95;
-              *v71 = v135;
-              *(v12 + 48) = v163;
-            }
-          }
-        }
-
-        else if (v85 >= v83)
-        {
-          v137 = *v12;
-          v165 = *(v12 + 16);
-          v102 = *(v12 + 48);
-          *v12 = *v71;
-          *(v12 + 16) = v102;
-          *v71 = v137;
-          *(v12 + 48) = v165;
-          if (v85 < *(v12 + 32))
-          {
-            v104 = *v71;
-            v103 = *(v12 + 48);
-            v105 = *(v12 + 80);
-            *v71 = *v84;
-            *(v12 + 48) = v105;
-            *v84 = v104;
-            *(v12 + 80) = v103;
-          }
-        }
-
-        else
-        {
-          v134 = *v12;
-          v162 = *(v12 + 16);
-          v86 = *(v12 + 80);
-          *v12 = *v84;
-          *(v12 + 16) = v86;
-          *v84 = v134;
-          *(v12 + 80) = v162;
-        }
-
-        if (v9->n128_u64[0] >= v84->n128_u64[0])
-        {
-          goto LABEL_110;
-        }
-
-        v107 = *v84;
-        v106 = *(v12 + 80);
-        v108 = a2[-1];
-        *v84 = *v9;
-        *(v12 + 80) = v108;
-        *v9 = v107;
-        a2[-1] = v106;
-        if (v84->n128_u64[0] >= v71->n128_u64[0])
-        {
-          goto LABEL_110;
-        }
-
-        v110 = *v71;
-        v109 = *(v12 + 48);
-        v111 = *(v12 + 80);
-        *v71 = *v84;
-        *(v12 + 48) = v111;
-        *v84 = v110;
-        *(v12 + 80) = v109;
-        goto LABEL_108;
-      case 5:
-        v80 = *MEMORY[0x1E69E9840];
-
-        std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppSegmentRange *,0>(v12, (v12 + 32), (v12 + 64), (v12 + 96), a2 - 2, a6);
-        return;
+      break;
     }
 
-LABEL_11:
+    if (v15 == 4)
+    {
+      v70 = (v12 + 32);
+      v80 = *(v12 + 32);
+      v81 = (v12 + 64);
+      v82 = *(v12 + 64);
+      if (v80 >= *v12)
+      {
+        if (v82 < v80)
+        {
+          v86 = *v70;
+          result = *(v12 + 48);
+          v87 = *(v12 + 80);
+          *v70 = *v81;
+          *(v12 + 48) = v87;
+          *v81 = v86;
+          *(v12 + 80) = result;
+          if (*(v12 + 32) < *v12)
+          {
+            v124 = *v12;
+            v152 = *(v12 + 16);
+            v88 = *(v12 + 48);
+            *v12 = *v70;
+            *(v12 + 16) = v88;
+            result = v124;
+            *v70 = v124;
+            *(v12 + 48) = v152;
+          }
+        }
+      }
+
+      else if (v82 >= v80)
+      {
+        v126 = *v12;
+        v154 = *(v12 + 16);
+        v95 = *(v12 + 48);
+        *v12 = *v70;
+        *(v12 + 16) = v95;
+        result = v126;
+        *v70 = v126;
+        *(v12 + 48) = v154;
+        if (v82 < *(v12 + 32))
+        {
+          v96 = *v70;
+          result = *(v12 + 48);
+          v97 = *(v12 + 80);
+          *v70 = *v81;
+          *(v12 + 48) = v97;
+          *v81 = v96;
+          *(v12 + 80) = result;
+        }
+      }
+
+      else
+      {
+        v123 = *v12;
+        v151 = *(v12 + 16);
+        v83 = *(v12 + 80);
+        *v12 = *v81;
+        *(v12 + 16) = v83;
+        result = v123;
+        *v81 = v123;
+        *(v12 + 80) = v151;
+      }
+
+      if (v9->n128_u64[0] < v81->n128_u64[0])
+      {
+        v98 = *v81;
+        result = *(v12 + 80);
+        v99 = *(a2 - 1);
+        *v81 = *v9;
+        *(v12 + 80) = v99;
+        *v9 = v98;
+        *(a2 - 1) = result;
+        if (v81->n128_u64[0] < v70->n128_u64[0])
+        {
+          v100 = *v70;
+          result = *(v12 + 48);
+          v101 = *(v12 + 80);
+          *v70 = *v81;
+          *(v12 + 48) = v101;
+          *v81 = v100;
+          *(v12 + 80) = result;
+LABEL_107:
+          if (*(v12 + 32) < *v12)
+          {
+            v127 = *v12;
+            v155 = *(v12 + 16);
+            v102 = v70[1];
+            *v12 = *v70;
+            *(v12 + 16) = v102;
+            result = v127;
+            *v70 = v127;
+            v70[1] = v155;
+          }
+
+          return result;
+        }
+      }
+
+      return result;
+    }
+
+    if (v15 == 5)
+    {
+
+      result.n128_u64[0] = std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppSegmentRange *,0>(v12, (v12 + 32), (v12 + 64), (v12 + 96), a2 - 2, result).n128_u64[0];
+      return result;
+    }
+
+LABEL_10:
     if (v15 <= 23)
     {
       if (a5)
       {
-        v87 = *MEMORY[0x1E69E9840];
 
         std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppSegmentRange *>(v12, a2);
-        return;
       }
 
-      if (v12 != a2)
+      else if (v12 != a2)
       {
-        v96 = (v12 + 32);
-        while (v96 != a2)
+        v89 = (v12 + 32);
+        while (v89 != a2)
         {
-          v97 = v96;
-          v98 = *(a1 + 32);
-          if (v98 < *a1)
+          v90 = v89;
+          v91 = *(a1 + 32);
+          if (v91 < *a1)
           {
-            v136 = *(a1 + 40);
-            v164 = *(a1 + 56);
-            v99 = v97;
+            v125 = *(a1 + 40);
+            v153 = *(a1 + 56);
+            v92 = v90;
             do
             {
-              v100 = v99[-1];
-              *v99 = v99[-2];
-              v99[1] = v100;
-              v101 = v99[-4].n128_u64[0];
-              v99 -= 2;
+              v93 = *(v92 - 16);
+              *v92 = *(v92 - 32);
+              *(v92 + 16) = v93;
+              v94 = *(v92 - 64);
+              v92 -= 32;
             }
 
-            while (v98 < v101);
-            v99->n128_u64[0] = v98;
-            v99[1].n128_u64[1] = v164;
-            *(v99 + 8) = v136;
+            while (v91 < v94);
+            *v92 = v91;
+            result = v125;
+            *(v92 + 24) = v153;
+            *(v92 + 8) = v125;
           }
 
-          v96 = v97 + 2;
-          a1 = v97;
+          v89 = (v90 + 32);
+          a1 = v90;
         }
       }
 
-LABEL_110:
-      v113 = *MEMORY[0x1E69E9840];
-      return;
+      return result;
     }
 
     if (v13 == 1)
     {
-      break;
+      if (v12 != a2)
+      {
+
+        std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppSegmentRange *,CSCppSegmentRange *>(v12, a2, a2, a3);
+      }
+
+      return result;
     }
 
     v16 = v12 + 32 * (v15 >> 1);
@@ -1741,22 +1394,22 @@ LABEL_110:
       {
         if (v18 < v19)
         {
-          v117 = *v16;
-          v141 = *(v16 + 16);
-          v23 = a2[-1];
+          v106 = *v16;
+          v130 = *(v16 + 16);
+          v23 = *(a2 - 1);
           *v16 = *v9;
           *(v16 + 16) = v23;
-          *v9 = v117;
-          a2[-1] = v141;
+          *v9 = v106;
+          *(a2 - 1) = v130;
           if (*v16 < *v12)
           {
-            v118 = *v12;
-            v142 = *(v12 + 16);
+            v107 = *v12;
+            v131 = *(v12 + 16);
             v24 = *(v16 + 16);
             *v12 = *v16;
             *(v12 + 16) = v24;
-            *v16 = v118;
-            *(v16 + 16) = v142;
+            *v16 = v107;
+            *(v16 + 16) = v131;
           }
         }
       }
@@ -1765,58 +1418,58 @@ LABEL_110:
       {
         if (v18 < v19)
         {
-          v115 = *v12;
-          v139 = *(v12 + 16);
-          v20 = a2[-1];
+          v104 = *v12;
+          v128 = *(v12 + 16);
+          v20 = *(a2 - 1);
           *v12 = *v9;
           *(v12 + 16) = v20;
-          goto LABEL_28;
+          goto LABEL_27;
         }
 
-        v121 = *v12;
-        v145 = *(v12 + 16);
+        v110 = *v12;
+        v134 = *(v12 + 16);
         v27 = *(v16 + 16);
         *v12 = *v16;
         *(v12 + 16) = v27;
-        *v16 = v121;
-        *(v16 + 16) = v145;
+        *v16 = v110;
+        *(v16 + 16) = v134;
         if (v9->n128_u64[0] < *v16)
         {
-          v115 = *v16;
-          v139 = *(v16 + 16);
-          v28 = a2[-1];
+          v104 = *v16;
+          v128 = *(v16 + 16);
+          v28 = *(a2 - 1);
           *v16 = *v9;
           *(v16 + 16) = v28;
-LABEL_28:
-          *v9 = v115;
-          a2[-1] = v139;
+LABEL_27:
+          *v9 = v104;
+          *(a2 - 1) = v128;
         }
       }
 
       v29 = (v12 + 32);
       v30 = (v16 - 32);
       v31 = *(v16 - 32);
-      v32 = v10->n128_u64[0];
+      v32 = *v10;
       if (v31 >= *(v12 + 32))
       {
         if (v32 < v31)
         {
-          v122 = *v30;
-          v146 = *(v16 - 16);
-          v36 = a2[-3];
+          v111 = *v30;
+          v135 = *(v16 - 16);
+          v36 = *(a2 - 3);
           *v30 = *v10;
           *(v16 - 16) = v36;
-          *v10 = v122;
-          a2[-3] = v146;
-          if (v30->n128_u64[0] < v29->n128_u64[0])
+          *v10 = v111;
+          *(a2 - 3) = v135;
+          if (*v30 < *v29)
           {
             v37 = *v29;
-            v147 = *(v12 + 48);
+            v136 = *(v12 + 48);
             v38 = *(v16 - 16);
             *v29 = *v30;
             *(v12 + 48) = v38;
             *v30 = v37;
-            *(v16 - 16) = v147;
+            *(v16 - 16) = v136;
           }
         }
       }
@@ -1827,31 +1480,31 @@ LABEL_28:
         {
           v34 = *v29;
           v33 = *(v12 + 48);
-          v35 = a2[-3];
+          v35 = *(a2 - 3);
           *v29 = *v10;
           *(v12 + 48) = v35;
           *v10 = v34;
-          goto LABEL_40;
+          goto LABEL_39;
         }
 
         v41 = *v29;
-        v149 = *(v12 + 48);
+        v138 = *(v12 + 48);
         v42 = *(v16 - 16);
         *v29 = *v30;
         *(v12 + 48) = v42;
         *v30 = v41;
-        *(v16 - 16) = v149;
-        if (v10->n128_u64[0] < v30->n128_u64[0])
+        *(v16 - 16) = v138;
+        if (*v10 < *v30)
         {
-          v124 = *v30;
-          v150 = *(v16 - 16);
-          v43 = a2[-3];
+          v113 = *v30;
+          v139 = *(v16 - 16);
+          v43 = *(a2 - 3);
           *v30 = *v10;
           *(v16 - 16) = v43;
-          *v10 = v124;
-          v33 = v150;
-LABEL_40:
-          a2[-3] = v33;
+          *v10 = v113;
+          v33 = v139;
+LABEL_39:
+          *(a2 - 3) = v33;
         }
       }
 
@@ -1859,27 +1512,27 @@ LABEL_40:
       v47 = *(v16 + 32);
       v45 = (v16 + 32);
       v46 = v47;
-      v48 = v11->n128_u64[0];
+      v48 = *v11;
       if (v47 >= *(v12 + 64))
       {
         if (v48 < v46)
         {
-          v125 = *v45;
-          v151 = v45[1];
-          v52 = a2[-5];
+          v114 = *v45;
+          v140 = v45[1];
+          v52 = *(a2 - 5);
           *v45 = *v11;
           v45[1] = v52;
-          *v11 = v125;
-          a2[-5] = v151;
-          if (v45->n128_u64[0] < v44->n128_u64[0])
+          *v11 = v114;
+          *(a2 - 5) = v140;
+          if (*v45 < *v44)
           {
             v53 = *v44;
-            v152 = *(v12 + 80);
+            v141 = *(v12 + 80);
             v54 = v45[1];
             *v44 = *v45;
             *(v12 + 80) = v54;
             *v45 = v53;
-            v45[1] = v152;
+            v45[1] = v141;
           }
         }
       }
@@ -1890,56 +1543,56 @@ LABEL_40:
         {
           v50 = *v44;
           v49 = *(v12 + 80);
-          v51 = a2[-5];
+          v51 = *(a2 - 5);
           *v44 = *v11;
           *(v12 + 80) = v51;
           *v11 = v50;
-          goto LABEL_49;
+          goto LABEL_48;
         }
 
         v55 = *v44;
-        v153 = *(v12 + 80);
+        v142 = *(v12 + 80);
         v56 = v45[1];
         *v44 = *v45;
         *(v12 + 80) = v56;
         *v45 = v55;
-        v45[1] = v153;
-        if (v11->n128_u64[0] < v45->n128_u64[0])
+        v45[1] = v142;
+        if (*v11 < *v45)
         {
-          v126 = *v45;
-          v154 = v45[1];
-          v57 = a2[-5];
+          v115 = *v45;
+          v143 = v45[1];
+          v57 = *(a2 - 5);
           *v45 = *v11;
           v45[1] = v57;
-          *v11 = v126;
-          v49 = v154;
-LABEL_49:
-          a2[-5] = v49;
+          *v11 = v115;
+          v49 = v143;
+LABEL_48:
+          *(a2 - 5) = v49;
         }
       }
 
       v58 = *v17;
-      v59 = v45->n128_u64[0];
-      if (*v17 >= v30->n128_u64[0])
+      v59 = *v45;
+      if (*v17 >= *v30)
       {
         if (v59 < v58)
         {
-          v128 = *v17;
-          v156 = *(v17 + 16);
+          v117 = *v17;
+          v145 = *(v17 + 16);
           v61 = v45[1];
           *v17 = *v45;
           *(v17 + 16) = v61;
-          *v45 = v128;
-          v45[1] = v156;
-          if (*v17 < v30->n128_u64[0])
+          *v45 = v117;
+          v45[1] = v145;
+          if (*v17 < *v30)
           {
-            v129 = *v30;
-            v157 = v30[1];
+            v118 = *v30;
+            v146 = v30[1];
             v62 = *(v17 + 16);
             *v30 = *v17;
             v30[1] = v62;
-            *v17 = v129;
-            *(v17 + 16) = v157;
+            *v17 = v118;
+            *(v17 + 16) = v146;
           }
         }
       }
@@ -1948,42 +1601,42 @@ LABEL_49:
       {
         if (v59 < v58)
         {
-          v127 = *v30;
-          v155 = v30[1];
+          v116 = *v30;
+          v144 = v30[1];
           v60 = v45[1];
           *v30 = *v45;
           v30[1] = v60;
-          goto LABEL_58;
+          goto LABEL_57;
         }
 
-        v130 = *v30;
-        v158 = v30[1];
+        v119 = *v30;
+        v147 = v30[1];
         v63 = *(v17 + 16);
         *v30 = *v17;
         v30[1] = v63;
-        *v17 = v130;
-        *(v17 + 16) = v158;
-        if (v45->n128_u64[0] < *v17)
+        *v17 = v119;
+        *(v17 + 16) = v147;
+        if (*v45 < *v17)
         {
-          v127 = *v17;
-          v155 = *(v17 + 16);
+          v116 = *v17;
+          v144 = *(v17 + 16);
           v64 = v45[1];
           *v17 = *v45;
           *(v17 + 16) = v64;
-LABEL_58:
-          *v45 = v127;
-          v45[1] = v155;
+LABEL_57:
+          *v45 = v116;
+          v45[1] = v144;
         }
       }
 
-      v131 = *v12;
-      v159 = *(v12 + 16);
+      v120 = *v12;
+      v148 = *(v12 + 16);
       v65 = *(v17 + 16);
       *v12 = *v17;
       *(v12 + 16) = v65;
-      *v17 = v131;
-      *(v17 + 16) = v159;
-      goto LABEL_60;
+      *v17 = v120;
+      *(v17 + 16) = v148;
+      goto LABEL_59;
     }
 
     v21 = *v12;
@@ -1991,22 +1644,22 @@ LABEL_58:
     {
       if (v18 < v21)
       {
-        v119 = *v12;
-        v143 = *(v12 + 16);
-        v25 = a2[-1];
+        v108 = *v12;
+        v132 = *(v12 + 16);
+        v25 = *(a2 - 1);
         *v12 = *v9;
         *(v12 + 16) = v25;
-        *v9 = v119;
-        a2[-1] = v143;
+        *v9 = v108;
+        *(a2 - 1) = v132;
         if (*v12 < *v17)
         {
-          v120 = *v17;
-          v144 = *(v17 + 16);
+          v109 = *v17;
+          v133 = *(v17 + 16);
           v26 = *(v12 + 16);
           *v17 = *v12;
           *(v17 + 16) = v26;
-          *v12 = v120;
-          *(v12 + 16) = v144;
+          *v12 = v109;
+          *(v12 + 16) = v133;
         }
       }
     }
@@ -2015,83 +1668,131 @@ LABEL_58:
     {
       if (v18 < v21)
       {
-        v116 = *v17;
-        v140 = *(v17 + 16);
-        v22 = a2[-1];
+        v105 = *v17;
+        v129 = *(v17 + 16);
+        v22 = *(a2 - 1);
         *v17 = *v9;
         *(v17 + 16) = v22;
-LABEL_37:
-        *v9 = v116;
-        a2[-1] = v140;
-        goto LABEL_60;
+LABEL_36:
+        *v9 = v105;
+        *(a2 - 1) = v129;
+        goto LABEL_59;
       }
 
-      v123 = *v17;
-      v148 = *(v17 + 16);
+      v112 = *v17;
+      v137 = *(v17 + 16);
       v39 = *(v12 + 16);
       *v17 = *v12;
       *(v17 + 16) = v39;
-      *v12 = v123;
-      *(v12 + 16) = v148;
+      *v12 = v112;
+      *(v12 + 16) = v137;
       if (v9->n128_u64[0] < *v12)
       {
-        v116 = *v12;
-        v140 = *(v12 + 16);
-        v40 = a2[-1];
+        v105 = *v12;
+        v129 = *(v12 + 16);
+        v40 = *(a2 - 1);
         *v12 = *v9;
         *(v12 + 16) = v40;
-        goto LABEL_37;
+        goto LABEL_36;
       }
     }
 
-LABEL_60:
+LABEL_59:
     if ((a5 & 1) == 0 && *(v12 - 32) >= *v12)
     {
       v12 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,CSCppSegmentRange *,std::__less<void,void> &>(v12, a2);
-      goto LABEL_67;
+      goto LABEL_66;
     }
 
     v66 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,CSCppSegmentRange *,std::__less<void,void> &>(v12, a2);
-    if ((v68 & 1) == 0)
+    if ((v67 & 1) == 0)
     {
-      goto LABEL_65;
+      goto LABEL_64;
     }
 
-    v69 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppSegmentRange *>(v12, v66, v67);
-    v12 = v66 + 32;
-    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppSegmentRange *>(v66 + 32, a2, v70))
+    v68 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppSegmentRange *>(v12, v66, result);
+    v12 = (v66 + 4);
+    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppSegmentRange *>((v66 + 4), a2, v69))
     {
       a4 = -v14;
       a2 = v66;
-      if (v69)
+      if (v68)
       {
-        goto LABEL_110;
+        return result;
       }
 
-      goto LABEL_2;
+      goto LABEL_1;
     }
 
     v13 = v14 + 1;
-    if (!v69)
+    if (!v68)
     {
-LABEL_65:
-      std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppSegmentRange *,false>(a1, v66, a3, -v14, a5 & 1);
-      v12 = v66 + 32;
-LABEL_67:
+LABEL_64:
+      result = std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppSegmentRange *,false>(a1, v66, a3, -v14, a5 & 1, result);
+      v12 = (v66 + 4);
+LABEL_66:
       a5 = 0;
       a4 = -v14;
-      goto LABEL_3;
+      goto LABEL_2;
     }
   }
 
-  if (v12 == a2)
+  v70 = (v12 + 32);
+  v71 = *(v12 + 32);
+  v74 = *(a2 - 4);
+  v73 = (a2 - 32);
+  v72 = v74;
+  if (v71 >= *v12)
   {
-    goto LABEL_110;
+    if (v72 >= v71)
+    {
+      return result;
+    }
+
+    v84 = *v70;
+    result = *(v12 + 48);
+    v85 = v73[1];
+    *v70 = *v73;
+    *(v12 + 48) = v85;
+    *v73 = v84;
+    v73[1] = result;
+    goto LABEL_107;
   }
 
-  v88 = *MEMORY[0x1E69E9840];
+  if (v72 < v71)
+  {
+LABEL_77:
+    v122 = *v12;
+    v150 = *(v12 + 16);
+    v79 = v73[1];
+    *v12 = *v73;
+    *(v12 + 16) = v79;
+    *v73 = v122;
+    result = v150;
+    v73[1] = v150;
+    return result;
+  }
 
-  std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppSegmentRange *,CSCppSegmentRange *>(v12, a2, a2, a3);
+  v121 = *v12;
+  v149 = *(v12 + 16);
+  v75 = *(v12 + 48);
+  *v12 = *v70;
+  *(v12 + 16) = v75;
+  result = v121;
+  *v70 = v121;
+  *(v12 + 48) = v149;
+  if (v73->n128_u64[0] < *(v12 + 32))
+  {
+    v76 = *v70;
+    result = *(v12 + 48);
+    v77 = v73[1];
+    *v70 = *v73;
+    *(v12 + 48) = v77;
+    *v73 = v76;
+    v73[1] = result;
+  }
+
+  return result;
 }
 
 __n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppSegmentRange *,0>(__n128 *a1, __n128 *a2, __n128 *a3, __n128 *a4, __n128 *a5, __n128 result)
@@ -2233,7 +1934,6 @@ LABEL_10:
 
 uint64_t std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppSegmentRange *>(uint64_t result, uint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
   if (result != a2)
   {
     v2 = result + 32;
@@ -2247,8 +1947,8 @@ uint64_t std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<
         v6 = *(v4 + 32);
         if (v6 < *v4)
         {
-          v12 = *(v4 + 40);
-          v13 = *(v4 + 56);
+          v11 = *(v4 + 40);
+          v12 = *(v4 + 56);
           v7 = v3;
           while (1)
           {
@@ -2272,8 +1972,8 @@ uint64_t std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<
           v10 = result;
 LABEL_10:
           *v10 = v6;
-          *(v10 + 8) = v12;
-          *(v10 + 24) = v13;
+          *(v10 + 8) = v11;
+          *(v10 + 24) = v12;
         }
 
         v2 = v5 + 32;
@@ -2285,19 +1985,17 @@ LABEL_10:
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,CSCppSegmentRange *,std::__less<void,void> &>(unint64_t a1, _OWORD *a2)
+unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,CSCppSegmentRange *,std::__less<void,void> &>(uint64_t *a1, _OWORD *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v15 = *(a1 + 8);
-  v16 = *(a1 + 24);
+  v14 = *(a1 + 1);
+  v15 = a1[3];
   if (*a1 >= *(a2 - 4))
   {
-    v5 = a1 + 32;
+    v5 = (a1 + 4);
     do
     {
       v3 = v5;
@@ -2337,13 +2035,13 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
 
   while (v3 < a2)
   {
-    v13 = *v3;
-    v14 = *(v3 + 16);
+    v12 = *v3;
+    v13 = *(v3 + 16);
     v7 = a2[1];
     *v3 = *a2;
     *(v3 + 16) = v7;
-    *a2 = v13;
-    a2[1] = v14;
+    *a2 = v12;
+    a2[1] = v13;
     do
     {
       v8 = *(v3 + 32);
@@ -2360,27 +2058,25 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
     while (v2 < v9);
   }
 
-  if (v3 - 32 != a1)
+  if ((v3 - 32) != a1)
   {
     v10 = *(v3 - 16);
     *a1 = *(v3 - 32);
-    *(a1 + 16) = v10;
+    *(a1 + 1) = v10;
   }
 
   *(v3 - 32) = v2;
-  *(v3 - 8) = v16;
-  *(v3 - 24) = v15;
-  v11 = *MEMORY[0x1E69E9840];
+  *(v3 - 8) = v15;
+  *(v3 - 24) = v14;
   return v3;
 }
 
-unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,CSCppSegmentRange *,std::__less<void,void> &>(uint64_t *a1, _OWORD *a2)
+uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,CSCppSegmentRange *,std::__less<void,void> &>(uint64_t *a1, uint64_t *a2)
 {
   v2 = 0;
-  v20 = *MEMORY[0x1E69E9840];
   v3 = *a1;
-  v18 = *(a1 + 1);
-  v19 = a1[3];
+  v17 = *(a1 + 1);
+  v18 = a1[3];
   do
   {
     v4 = a1[v2 + 4];
@@ -2399,7 +2095,7 @@ unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
       }
 
       v7 = *(a2 - 4);
-      a2 -= 2;
+      a2 -= 4;
     }
 
     while (v7 >= v3);
@@ -2410,7 +2106,7 @@ unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
     do
     {
       v6 = *(a2 - 4);
-      a2 -= 2;
+      a2 -= 4;
     }
 
     while (v6 >= v3);
@@ -2423,23 +2119,23 @@ unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
     do
     {
       v10 = *v8;
-      v17 = *(v8 + 16);
-      v11 = v9[1];
+      v16 = *(v8 + 1);
+      v11 = *(v9 + 1);
       *v8 = *v9;
-      *(v8 + 16) = v11;
+      *(v8 + 1) = v11;
       *v9 = v10;
-      v9[1] = v17;
+      *(v9 + 1) = v16;
       do
       {
-        v12 = *(v8 + 32);
-        v8 += 32;
+        v12 = v8[4];
+        v8 += 4;
       }
 
       while (v12 < v3);
       do
       {
         v13 = *(v9 - 4);
-        v9 -= 2;
+        v9 -= 4;
       }
 
       while (v13 >= v3);
@@ -2448,23 +2144,21 @@ unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
     while (v8 < v9);
   }
 
-  if ((v8 - 32) != a1)
+  if (v8 - 4 != a1)
   {
-    v14 = *(v8 - 16);
-    *a1 = *(v8 - 32);
+    v14 = *(v8 - 1);
+    *a1 = *(v8 - 2);
     *(a1 + 1) = v14;
   }
 
-  *(v8 - 32) = v3;
-  *(v8 - 8) = v19;
-  *(v8 - 24) = v18;
-  v15 = *MEMORY[0x1E69E9840];
-  return v8 - 32;
+  *(v8 - 4) = v3;
+  *(v8 - 1) = v18;
+  *(v8 - 3) = v17;
+  return v8 - 4;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppSegmentRange *>(uint64_t a1, uint64_t a2, __n128 a3)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppSegmentRange *>(uint64_t a1, uint64_t *a2, __n128 a3)
 {
-  v77 = *MEMORY[0x1E69E9840];
   v3 = (a2 - a1) >> 5;
   if (v3 > 2)
   {
@@ -2472,8 +2166,8 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
     {
       v6 = (a1 + 32);
       v7 = *(a1 + 32);
-      v9 = *(a2 - 32);
-      v4 = a2 - 32;
+      v9 = *(a2 - 4);
+      v4 = a2 - 4;
       v8 = v9;
       if (v7 < *a1)
       {
@@ -2488,12 +2182,12 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
           *(a1 + 48) = v44;
           if (*v4 >= *(a1 + 32))
           {
-            goto LABEL_52;
+            return 1;
           }
 
           v11 = *v6;
           v10 = *(a1 + 48);
-          v47 = *(v4 + 16);
+          v47 = *(v4 + 1);
           *v6 = *v4;
           *(a1 + 48) = v47;
           goto LABEL_13;
@@ -2502,27 +2196,27 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
 LABEL_12:
         v11 = *a1;
         v10 = *(a1 + 16);
-        v12 = *(v4 + 16);
+        v12 = *(v4 + 1);
         *a1 = *v4;
         *(a1 + 16) = v12;
 LABEL_13:
         *v4 = v11;
-        *(v4 + 16) = v10;
-        goto LABEL_52;
+        *(v4 + 1) = v10;
+        return 1;
       }
 
       if (v8 >= v7)
       {
-        goto LABEL_52;
+        return 1;
       }
 
       v30 = *v6;
       v29 = *(a1 + 48);
-      v31 = *(v4 + 16);
+      v31 = *(v4 + 1);
       *v6 = *v4;
       *(a1 + 48) = v31;
       *v4 = v30;
-      *(v4 + 16) = v29;
+      *(v4 + 1) = v29;
 LABEL_50:
       if (*(a1 + 32) < *a1)
       {
@@ -2535,7 +2229,7 @@ LABEL_50:
         v6[1] = v70;
       }
 
-      goto LABEL_52;
+      return 1;
     }
 
     if (v3 != 4)
@@ -2545,17 +2239,15 @@ LABEL_50:
         goto LABEL_14;
       }
 
-      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppSegmentRange *,0>(a1, (a1 + 32), (a1 + 64), (a1 + 96), (a2 - 32), a3);
-LABEL_52:
-      result = 1;
-      goto LABEL_53;
+      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppSegmentRange *,0>(a1, (a1 + 32), (a1 + 64), (a1 + 96), a2 - 2, a3);
+      return 1;
     }
 
     v6 = (a1 + 32);
     v21 = *(a1 + 32);
     v22 = (a1 + 64);
     v23 = *(a1 + 64);
-    v24 = (a2 - 32);
+    v24 = (a2 - 4);
     v25 = *a1;
     if (v21 >= *a1)
     {
@@ -2618,19 +2310,19 @@ LABEL_52:
 LABEL_47:
     if (v24->n128_u64[0] >= v22->n128_u64[0])
     {
-      goto LABEL_52;
+      return 1;
     }
 
     v65 = *v22;
     v64 = *(a1 + 80);
-    v66 = *(a2 - 16);
+    v66 = *(a2 - 1);
     *v22 = *v24;
     *(a1 + 80) = v66;
     *v24 = v65;
-    *(a2 - 16) = v64;
+    *(a2 - 1) = v64;
     if (v22->n128_u64[0] >= v6->n128_u64[0])
     {
-      goto LABEL_52;
+      return 1;
     }
 
     v68 = *v6;
@@ -2645,16 +2337,16 @@ LABEL_47:
 
   if (v3 < 2)
   {
-    goto LABEL_52;
+    return 1;
   }
 
   if (v3 == 2)
   {
-    v5 = *(a2 - 32);
-    v4 = a2 - 32;
+    v5 = *(a2 - 4);
+    v4 = a2 - 4;
     if (v5 >= *a1)
     {
-      goto LABEL_52;
+      return 1;
     }
 
     goto LABEL_12;
@@ -2727,10 +2419,10 @@ LABEL_14:
   }
 
 LABEL_33:
-  v52 = a1 + 96;
-  if (a1 + 96 == a2)
+  v52 = (a1 + 96);
+  if ((a1 + 96) == a2)
   {
-    goto LABEL_52;
+    return 1;
   }
 
   v53 = 0;
@@ -2740,8 +2432,8 @@ LABEL_33:
     v55 = *v52;
     if (*v52 < v13->n128_u64[0])
     {
-      v75 = *(v52 + 8);
-      v76 = *(v52 + 24);
+      v74 = *(v52 + 1);
+      v75 = v52[3];
       v56 = v53;
       while (1)
       {
@@ -2765,30 +2457,25 @@ LABEL_33:
       v59 = a1;
 LABEL_41:
       *v59 = v55;
-      *(v59 + 8) = v75;
-      *(v59 + 24) = v76;
+      *(v59 + 8) = v74;
+      *(v59 + 24) = v75;
       if (++v54 == 8)
       {
-        break;
+        return v52 + 4 == a2;
       }
     }
 
     v13 = v52;
     v53 += 32;
-    v52 += 32;
+    v52 += 4;
     if (v52 == a2)
     {
-      goto LABEL_52;
+      return 1;
     }
   }
-
-  result = v52 + 32 == a2;
-LABEL_53:
-  v74 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
-__int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppSegmentRange *,CSCppSegmentRange *>(uint64_t a1, __int128 *a2, __int128 *a3, uint64_t a4)
+char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppSegmentRange *,CSCppSegmentRange *>(char *a1, char *a2, char *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
@@ -2798,7 +2485,7 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__l
     {
       v9 = (v8 - 2) >> 1;
       v10 = v9 + 1;
-      v11 = (a1 + 32 * v9);
+      v11 = &a1[32 * v9];
       do
       {
         std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppSegmentRange *>(a1, a4, v8, v11);
@@ -2818,16 +2505,16 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__l
         if (*v12 < *a1)
         {
           v14 = *v12;
-          v13 = v12[1];
-          v15 = *(a1 + 16);
+          v13 = *(v12 + 1);
+          v15 = *(a1 + 1);
           *v12 = *a1;
-          v12[1] = v15;
+          *(v12 + 1) = v15;
           *a1 = v14;
-          *(a1 + 16) = v13;
+          *(a1 + 1) = v13;
           std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppSegmentRange *>(a1, a4, v8, a1);
         }
 
-        v12 += 2;
+        v12 += 32;
       }
 
       while (v12 != a3);
@@ -2839,12 +2526,12 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__l
       {
         v16 = 0;
         v27 = *a1;
-        v28 = *(a1 + 16);
+        v28 = *(a1 + 1);
         v17 = a1;
         do
         {
-          v18 = &v17[2 * v16];
-          v19 = v18 + 2;
+          v18 = &v17[32 * v16];
+          v19 = v18 + 32;
           v20 = (2 * v16) | 1;
           v16 = 2 * v16 + 2;
           if (v16 >= v8)
@@ -2855,7 +2542,7 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__l
           else
           {
             v22 = *(v18 + 8);
-            v21 = v18 + 4;
+            v21 = v18 + 64;
             if (*(v21 - 4) >= v22)
             {
               v16 = v20;
@@ -2867,28 +2554,28 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__l
             }
           }
 
-          v23 = v19[1];
+          v23 = *(v19 + 1);
           *v17 = *v19;
-          v17[1] = v23;
+          *(v17 + 1) = v23;
           v17 = v19;
         }
 
         while (v16 <= ((v8 - 2) >> 1));
-        v6 -= 2;
+        v6 -= 32;
         if (v19 == v6)
         {
           *v19 = v27;
-          v19[1] = v28;
+          *(v19 + 1) = v28;
         }
 
         else
         {
-          v24 = v6[1];
+          v24 = *(v6 + 1);
           *v19 = *v6;
-          v19[1] = v24;
+          *(v19 + 1) = v24;
           *v6 = v27;
-          v6[1] = v28;
-          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppSegmentRange *>(a1, (v19 + 2), a4, (v19 - a1 + 32) >> 5);
+          *(v6 + 1) = v28;
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppSegmentRange *>(a1, (v19 + 32), a4, (v19 + 32 - a1) >> 5);
         }
       }
 
@@ -2901,18 +2588,17 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__l
   return a3;
 }
 
-uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppSegmentRange *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t *a4)
+__n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppSegmentRange *>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4)
 {
-  v21 = *MEMORY[0x1E69E9840];
   if (a3 >= 2)
   {
-    v4 = a4 - result;
+    v4 = a4 - a1;
     v5 = (a3 - 2) >> 1;
-    if (v5 >= (a4 - result) >> 5)
+    if (v5 >= (a4 - a1) >> 5)
     {
       v6 = v4 >> 4;
       v7 = (v4 >> 4) + 1;
-      v8 = (result + 32 * v7);
+      v8 = a1 + 32 * v7;
       v9 = v6 + 2;
       if (v9 >= a3)
       {
@@ -2922,15 +2608,15 @@ uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,
       else
       {
         v10 = *v8;
-        v11 = v8[4];
+        v11 = *(v8 + 32);
         if (*v8 <= v11)
         {
-          v10 = v8[4];
+          v10 = *(v8 + 32);
         }
 
         if (*v8 < v11)
         {
-          v8 += 4;
+          v8 += 32;
           v7 = v9;
         }
       }
@@ -2944,7 +2630,7 @@ uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,
         {
           v13 = a4;
           a4 = v8;
-          v14 = *(v8 + 1);
+          v14 = *(v8 + 16);
           *v13 = *v8;
           *(v13 + 1) = v14;
           if (v5 < v7)
@@ -2953,7 +2639,7 @@ uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,
           }
 
           v15 = (2 * v7) | 1;
-          v8 = (result + 32 * v15);
+          v8 = a1 + 32 * v15;
           v7 = 2 * v7 + 2;
           if (v7 >= a3)
           {
@@ -2964,10 +2650,10 @@ uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,
           else
           {
             v16 = *v8;
-            v17 = v8[4];
+            v17 = *(v8 + 32);
             if (*v8 <= v17)
             {
-              v16 = v8[4];
+              v16 = *(v8 + 32);
             }
 
             if (*v8 >= v17)
@@ -2977,31 +2663,30 @@ uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,
 
             else
             {
-              v8 += 4;
+              v8 += 32;
             }
           }
         }
 
         while (v16 >= v12);
         *a4 = v12;
+        result = v19;
         a4[3] = v20;
         *(a4 + 1) = v19;
       }
     }
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppSegmentRange *>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+__n128 std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,CSCppSegmentRange *>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v14 = *MEMORY[0x1E69E9840];
   v4 = a4 - 2;
   if (a4 >= 2)
   {
     v5 = v4 >> 1;
-    v6 = (result + 32 * (v4 >> 1));
+    v6 = (a1 + 32 * (v4 >> 1));
     v7 = (a2 - 32);
     v8 = *(a2 - 32);
     if (*v6 < v8)
@@ -3021,17 +2706,17 @@ uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
         }
 
         v5 = (v5 - 1) >> 1;
-        v6 = (result + 32 * v5);
+        v6 = (a1 + 32 * v5);
       }
 
       while (*v6 < v8);
       *v7 = v8;
+      result = v12;
       *(v7 + 8) = v12;
       *(v7 + 3) = v13;
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3045,7 +2730,7 @@ void std::allocator<CSCppFlatbufferRelocation>::allocate_at_least[abi:ne200100](
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-_BYTE *std::string::basic_string[abi:ne200100](_BYTE *__dst, void *__src, size_t __len)
+void *std::string::basic_string[abi:ne200100](void *__dst, void *__src, size_t __len)
 {
   if (__len >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -3057,13 +2742,13 @@ _BYTE *std::string::basic_string[abi:ne200100](_BYTE *__dst, void *__src, size_t
     operator new();
   }
 
-  __dst[23] = __len;
+  *(__dst + 23) = __len;
   if (__len)
   {
     memmove(__dst, __src, __len);
   }
 
-  __dst[__len] = 0;
+  *(__dst + __len) = 0;
   return __dst;
 }
 
@@ -3171,7 +2856,7 @@ void *std::vector<std::unique_ptr<CSCppMemory>>::clear[abi:ne200100](void *resul
   return result;
 }
 
-unsigned int **FlatbufferSymbolOwnerData::findMatchingEntryForVMAddressRange<flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::Segment>,FlatbufferSymbols::Segment const*,unsigned char const*,unsigned int>>@<X0>(unsigned int **a1@<X1>, unsigned int **a2@<X2>, unint64_t a3@<X3>, uint64_t a4@<X4>, unsigned int **a5@<X8>)
+unsigned int **FlatbufferSymbolOwnerData::findMatchingEntryForVMAddressRange<flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::Segment>,FlatbufferSymbols::Segment const*,unsigned char const*,unsigned int>>@<X0>(uint64_t *a1@<X1>, uint64_t *a2@<X2>, unint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t *a5@<X8>)
 {
   v10 = *a1;
   v11 = *a2;
@@ -3179,38 +2864,8 @@ unsigned int **FlatbufferSymbolOwnerData::findMatchingEntryForVMAddressRange<fla
   v22 = v11;
   v23 = v10;
   result = std::__upper_bound[abi:ne200100]<std::_ClassicAlgPolicy,AddressComparison,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::Segment>,FlatbufferSymbols::Segment const*,unsigned char const*,unsigned int>,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::Segment>,FlatbufferSymbols::Segment const*,unsigned char const*,unsigned int>,unsigned long long,std::__identity>(&v23, &v22, &v20, &v21);
-  if (v21 == *a1)
+  if (v21 == *a1 || ((v13 = v21 - 4, v14 = (v21 - 4 + *(v21 - 4)), v15 = (v14 - *v14), v16 = *v15, v16 < 7) ? (v18 = 0, v17 = -1) : (!v15[3] ? (v17 = -1) : (v17 = *(v14 + v15[3])), v16 < 9 || (v19 = v15[4]) == 0 ? (v18 = 0) : (v18 = *(v14 + v19))), a3 < v17 || a4 + a3 > v18 + v17))
   {
-    goto LABEL_13;
-  }
-
-  v13 = v21 - 1;
-  v14 = (v21 + *(v21 - 1) - 4);
-  v15 = (v14 - *v14);
-  v16 = *v15;
-  if (v16 < 7)
-  {
-    v18 = 0;
-    v17 = -1;
-  }
-
-  else
-  {
-    v17 = v15[3] ? *(v14 + v15[3]) : -1;
-    if (v16 >= 9 && (v19 = v15[4]) != 0)
-    {
-      v18 = *(v14 + v19);
-    }
-
-    else
-    {
-      v18 = 0;
-    }
-  }
-
-  if (a3 < v17 || a4 + a3 > v18 + v17)
-  {
-LABEL_13:
     v13 = *a2;
   }
 
@@ -3218,49 +2873,48 @@ LABEL_13:
   return result;
 }
 
-unsigned int **std::__upper_bound[abi:ne200100]<std::_ClassicAlgPolicy,AddressComparison,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::Segment>,FlatbufferSymbols::Segment const*,unsigned char const*,unsigned int>,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::Segment>,FlatbufferSymbols::Segment const*,unsigned char const*,unsigned int>,unsigned long long,std::__identity>@<X0>(unsigned int **result@<X0>, unsigned int **a2@<X1>, unint64_t *a3@<X2>, unsigned int **a4@<X8>)
+unsigned int **std::__upper_bound[abi:ne200100]<std::_ClassicAlgPolicy,AddressComparison,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::Segment>,FlatbufferSymbols::Segment const*,unsigned char const*,unsigned int>,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::Segment>,FlatbufferSymbols::Segment const*,unsigned char const*,unsigned int>,unsigned long long,std::__identity>@<X0>(unsigned int **result@<X0>, void *a2@<X1>, unint64_t *a3@<X2>, unsigned int **a4@<X8>)
 {
   v4 = *result;
   v5 = *a2 - *result;
   if ((v5 + 3) >= 7)
   {
-    v6 = *a2 == *result;
-    v7 = v5 / 4;
-    v8 = *a3;
+    v6 = v5 / 4;
+    v7 = *a3;
     do
     {
-      v9 = (v4 + ((2 * v7) & 0xFFFFFFFC));
-      v10 = (v9 + *v9);
-      v11 = (v10 - *v10);
-      if (*v11 >= 7u && (v12 = v11[3]) != 0)
+      v8 = (v4 + ((2 * v6) & 0xFFFFFFFC));
+      v9 = (v8 + *v8);
+      v10 = (v9 - *v9);
+      if (*v10 >= 7u && (v11 = v10[3]) != 0)
       {
-        v13 = *(v10 + v12);
+        v12 = *(v9 + v11);
       }
 
       else
       {
-        v13 = -1;
+        v12 = -1;
       }
 
-      v14 = v7 >> 1;
-      if (v13 <= v8)
+      v13 = v6 >> 1;
+      if (v12 <= v7)
       {
-        v4 = v9 + 1;
-        *result = v9 + 1;
-        v14 = v7 + ~v14;
+        v4 = v8 + 1;
+        *result = v8 + 1;
+        v13 = v6 + ~v13;
       }
 
-      v7 = v14;
+      v6 = v13;
     }
 
-    while (v14);
+    while (v13);
   }
 
   *a4 = v4;
   return result;
 }
 
-unsigned int **FlatbufferSymbolOwnerData::findMatchingEntryForVMAddressRange<flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::Symbol>,FlatbufferSymbols::Symbol const*,unsigned char const*,unsigned int>>@<X0>(unsigned int **a1@<X1>, unsigned int **a2@<X2>, unint64_t a3@<X3>, uint64_t a4@<X4>, unsigned int **a5@<X8>)
+unsigned int **FlatbufferSymbolOwnerData::findMatchingEntryForVMAddressRange<flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::Symbol>,FlatbufferSymbols::Symbol const*,unsigned char const*,unsigned int>>@<X0>(uint64_t *a1@<X1>, uint64_t *a2@<X2>, unint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t *a5@<X8>)
 {
   v10 = *a1;
   v11 = *a2;
@@ -3268,38 +2922,8 @@ unsigned int **FlatbufferSymbolOwnerData::findMatchingEntryForVMAddressRange<fla
   v22 = v11;
   v23 = v10;
   result = std::__upper_bound[abi:ne200100]<std::_ClassicAlgPolicy,AddressComparison,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::Symbol>,FlatbufferSymbols::Symbol const*,unsigned char const*,unsigned int>,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::Symbol>,FlatbufferSymbols::Symbol const*,unsigned char const*,unsigned int>,unsigned long long,std::__identity>(&v23, &v22, &v20, &v21);
-  if (v21 == *a1)
+  if (v21 == *a1 || ((v13 = v21 - 4, v14 = (v21 - 4 + *(v21 - 4)), v15 = (v14 - *v14), v16 = *v15, v16 < 5) ? (v18 = 0, v17 = -1) : (!v15[2] ? (v17 = -1) : (v17 = *(v14 + v15[2])), v16 < 7 || (v19 = v15[3]) == 0 ? (v18 = 0) : (v18 = *(v14 + v19))), a3 < v17 || a4 + a3 > v18 + v17))
   {
-    goto LABEL_13;
-  }
-
-  v13 = v21 - 1;
-  v14 = (v21 + *(v21 - 1) - 4);
-  v15 = (v14 - *v14);
-  v16 = *v15;
-  if (v16 < 5)
-  {
-    v18 = 0;
-    v17 = -1;
-  }
-
-  else
-  {
-    v17 = v15[2] ? *(v14 + v15[2]) : -1;
-    if (v16 >= 7 && (v19 = v15[3]) != 0)
-    {
-      v18 = *(v14 + v19);
-    }
-
-    else
-    {
-      v18 = 0;
-    }
-  }
-
-  if (a3 < v17 || a4 + a3 > v18 + v17)
-  {
-LABEL_13:
     v13 = *a2;
   }
 
@@ -3307,62 +2931,58 @@ LABEL_13:
   return result;
 }
 
-unsigned int **std::__upper_bound[abi:ne200100]<std::_ClassicAlgPolicy,AddressComparison,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::Symbol>,FlatbufferSymbols::Symbol const*,unsigned char const*,unsigned int>,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::Symbol>,FlatbufferSymbols::Symbol const*,unsigned char const*,unsigned int>,unsigned long long,std::__identity>@<X0>(unsigned int **result@<X0>, unsigned int **a2@<X1>, unint64_t *a3@<X2>, unsigned int **a4@<X8>)
+unsigned int **std::__upper_bound[abi:ne200100]<std::_ClassicAlgPolicy,AddressComparison,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::Symbol>,FlatbufferSymbols::Symbol const*,unsigned char const*,unsigned int>,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::Symbol>,FlatbufferSymbols::Symbol const*,unsigned char const*,unsigned int>,unsigned long long,std::__identity>@<X0>(unsigned int **result@<X0>, void *a2@<X1>, unint64_t *a3@<X2>, unsigned int **a4@<X8>)
 {
   v4 = *result;
   v5 = *a2 - *result;
   if ((v5 + 3) >= 7)
   {
-    v6 = *a2 == *result;
-    v7 = v5 / 4;
-    v8 = *a3;
+    v6 = v5 / 4;
+    v7 = *a3;
     do
     {
-      v9 = (v4 + ((2 * v7) & 0xFFFFFFFC));
-      v10 = (v9 + *v9);
-      v11 = (v10 - *v10);
-      if (*v11 >= 5u && (v12 = v11[2]) != 0)
+      v8 = (v4 + ((2 * v6) & 0xFFFFFFFC));
+      v9 = (v8 + *v8);
+      v10 = (v9 - *v9);
+      if (*v10 >= 5u && (v11 = v10[2]) != 0)
       {
-        v13 = *(v10 + v12);
+        v12 = *(v9 + v11);
       }
 
       else
       {
-        v13 = -1;
+        v12 = -1;
       }
 
-      v14 = v7 >> 1;
-      if (v13 <= v8)
+      v13 = v6 >> 1;
+      if (v12 <= v7)
       {
-        v4 = v9 + 1;
-        *result = v9 + 1;
-        v14 = v7 + ~v14;
+        v4 = v8 + 1;
+        *result = v8 + 1;
+        v13 = v6 + ~v13;
       }
 
-      v7 = v14;
+      v6 = v13;
     }
 
-    while (v14);
+    while (v13);
   }
 
   *a4 = v4;
   return result;
 }
 
-void *std::vector<TRangeValue<Pointer64,unsigned long long>>::reserve(void *result, unint64_t a2)
+void std::vector<TRangeValue<Pointer64,unsigned long long>>::reserve(void *a1, unint64_t a2)
 {
-  if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 3) < a2)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) < a2)
   {
     if (a2 < 0xAAAAAAAAAAAAAABLL)
     {
-      v2 = result[1] - *result;
-      std::allocator<TRangeValue<Pointer64,unsigned long long>>::allocate_at_least[abi:ne200100](result, a2);
+      std::allocator<TRangeValue<Pointer64,unsigned long long>>::allocate_at_least[abi:ne200100](a1, a2);
     }
 
     std::vector<std::shared_ptr<CSCppSymbolOwner>>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 BOOL CSCppFlatbufferRelocation::is_skippable(CSCppFlatbufferRelocation *this)
@@ -3379,7 +2999,7 @@ BOOL CSCppFlatbufferRelocation::is_skippable(CSCppFlatbufferRelocation *this)
   }
 }
 
-uint64_t std::vector<CSCppSegmentRange>::__init_with_size[abi:ne200100]<std::__wrap_iter<CSCppSegmentRange const*>,std::__wrap_iter<CSCppSegmentRange const*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<CSCppSegmentRange>::__init_with_size[abi:ne200100]<std::__wrap_iter<CSCppSegmentRange const*>,std::__wrap_iter<CSCppSegmentRange const*>>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3401,7 +3021,7 @@ void sub_1D970AC48(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<CSCppFlatbufferRelocation>::__init_with_size[abi:ne200100]<std::__wrap_iter<CSCppFlatbufferRelocation const*>,std::__wrap_iter<CSCppFlatbufferRelocation const*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<CSCppFlatbufferRelocation>::__init_with_size[abi:ne200100]<std::__wrap_iter<CSCppFlatbufferRelocation const*>,std::__wrap_iter<CSCppFlatbufferRelocation const*>>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3423,7 +3043,7 @@ void sub_1D970ACC8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<CSCppFlatbufferRelocation>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<CSCppFlatbufferRelocation>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -3433,15 +3053,15 @@ void std::vector<CSCppFlatbufferRelocation>::__vallocate[abi:ne200100](uint64_t 
   std::vector<std::shared_ptr<CSCppSymbolOwner>>::__throw_length_error[abi:ne200100]();
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,false>(unint64_t *a1, unint64_t *a2, uint64_t a3, uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,false>(__n128 *result, __n128 *a2, uint64_t a3, uint64_t a4, char a5)
 {
 LABEL_1:
-  v9 = a1;
+  v9 = result;
 LABEL_2:
   v10 = 1 - a4;
   while (1)
   {
-    a1 = v9;
+    result = v9;
     v11 = v10;
     v12 = (a2 - v9) >> 5;
     if (v12 <= 2)
@@ -3453,30 +3073,30 @@ LABEL_2:
 
       if (v12 == 2)
       {
-        if (*(a2 - 1))
+        if (a2[-1].n128_u64[1])
         {
-          v23 = *(a2 - 1);
+          v23 = a2[-1].n128_u64[1];
         }
 
         else
         {
-          v23 = *(a2 - 2);
+          v23 = a2[-1].n128_u64[0];
         }
 
-        if (v9[3])
+        if (v9[1].n128_u64[1])
         {
-          v24 = v9[3];
+          v24 = v9[1].n128_u64[1];
         }
 
         else
         {
-          v24 = v9[2];
+          v24 = v9[1].n128_u64[0];
         }
 
         v25 = strncmp(v23, v24, 0x10uLL);
-        v27 = *(a2 - 4);
-        v26 = a2 - 4;
-        v28 = v27 < *v9;
+        v27 = a2[-2].n128_u64[0];
+        v26 = &a2[-2];
+        v28 = v27 < v9->n128_u64[0];
         if (v25)
         {
           v28 = v25 < 0;
@@ -3485,10 +3105,10 @@ LABEL_2:
         if (v28)
         {
           v31 = *v9;
-          v33 = *(v9 + 1);
+          v33 = v9[1];
           v29 = *(v26 + 1);
           *v9 = *v26;
-          *(v9 + 1) = v29;
+          v9[1] = v29;
           *v26 = v31;
           *(v26 + 1) = v33;
         }
@@ -3507,14 +3127,14 @@ LABEL_2:
     if (v12 == 4)
     {
 
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,0>(v9, v9 + 4, v9 + 8, a2 - 4);
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,0>(v9, v9 + 2, v9 + 4, a2 - 2);
       return;
     }
 
     if (v12 == 5)
     {
 
-      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,0>(v9, v9 + 4, v9 + 8, v9 + 12, a2 - 4);
+      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,0>(v9, v9 + 2, v9 + 4, v9 + 6, a2 - 2);
       return;
     }
 
@@ -3524,13 +3144,13 @@ LABEL_10:
       if (a5)
       {
 
-        std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*>(v9, a2);
+        std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*>(v9->n128_u64, a2->n128_u64);
       }
 
       else
       {
 
-        std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*>(v9, a2);
+        std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*>(v9->n128_u64, a2->n128_u64);
       }
 
       return;
@@ -3548,10 +3168,10 @@ LABEL_10:
     }
 
     v13 = v12 >> 1;
-    v14 = &v9[4 * (v12 >> 1)];
+    v14 = &v9[2 * (v12 >> 1)];
     if (v12 < 0x81)
     {
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,0>(&v9[4 * (v12 >> 1)], v9, a2 - 4);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,0>(v9[2 * (v12 >> 1)].n128_u64, v9->n128_u64, a2[-2].n128_u64);
       if (a5)
       {
         goto LABEL_25;
@@ -3560,45 +3180,45 @@ LABEL_10:
 
     else
     {
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,0>(v9, &v9[4 * (v12 >> 1)], a2 - 4);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,0>(v9 + 4, v14 - 4, a2 - 8);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,0>(v9 + 8, &v9[4 * v13 + 4], a2 - 12);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,0>(v14 - 4, v14, &v9[4 * v13 + 4]);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,0>(v9->n128_u64, v9[2 * (v12 >> 1)].n128_u64, a2[-2].n128_u64);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,0>(v9[2].n128_u64, v14[-2].n128_u64, a2[-4].n128_u64);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,0>(v9[4].n128_u64, v9[2 * v13 + 2].n128_u64, a2[-6].n128_u64);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,0>(v14[-2].n128_u64, v14->n128_u64, v9[2 * v13 + 2].n128_u64);
       v30 = *v9;
-      v32 = *(v9 + 1);
-      v15 = *(v14 + 1);
+      v32 = v9[1];
+      v15 = v14[1];
       *v9 = *v14;
-      *(v9 + 1) = v15;
+      v9[1] = v15;
       *v14 = v30;
-      *(v14 + 1) = v32;
+      v14[1] = v32;
       if (a5)
       {
         goto LABEL_25;
       }
     }
 
-    if (*(v9 - 1))
+    if (v9[-1].n128_u64[1])
     {
-      v16 = *(v9 - 1);
+      v16 = v9[-1].n128_u64[1];
     }
 
     else
     {
-      v16 = *(v9 - 2);
+      v16 = v9[-1].n128_u64[0];
     }
 
-    if (v9[3])
+    if (v9[1].n128_u64[1])
     {
-      v17 = v9[3];
+      v17 = v9[1].n128_u64[1];
     }
 
     else
     {
-      v17 = v9[2];
+      v17 = v9[1].n128_u64[0];
     }
 
     v18 = strncmp(v16, v17, 0x10uLL);
-    v19 = *(v9 - 4) < *v9;
+    v19 = v9[-2].n128_u64[0] < v9->n128_u64[0];
     if (v18)
     {
       v19 = v18 < 0;
@@ -3606,7 +3226,7 @@ LABEL_10:
 
     if (!v19)
     {
-      v9 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,CSCppSegmentRange *,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &>(v9, a2);
+      v9 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,CSCppSegmentRange *,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &>(v9->n128_u64, a2->n128_u64);
       goto LABEL_30;
     }
 
@@ -3618,8 +3238,8 @@ LABEL_25:
     }
 
     v22 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*>(v9, v20);
-    v9 = v20 + 4;
-    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*>(v20 + 4, a2))
+    v9 = v20 + 2;
+    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*>(v20 + 2, a2))
     {
       a4 = -v11;
       a2 = v20;
@@ -3635,8 +3255,8 @@ LABEL_25:
     if (!v22)
     {
 LABEL_28:
-      std::__introsort<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,false>(a1, v20, a3, -v11, a5 & 1);
-      v9 = v20 + 4;
+      std::__introsort<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,false>(result, v20, a3, -v11, a5 & 1);
+      v9 = v20 + 2;
 LABEL_30:
       a5 = 0;
       a4 = -v11;
@@ -3644,7 +3264,7 @@ LABEL_30:
     }
   }
 
-  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,0>(v9, v9 + 4, a2 - 4);
+  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,0>(v9->n128_u64, v9[2].n128_u64, a2[-2].n128_u64);
 }
 
 uint64_t std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,0>(unint64_t *a1, unint64_t *a2, unint64_t *a3)
@@ -3815,31 +3435,31 @@ uint64_t std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeVal
   return 0;
 }
 
-__n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,0>(unint64_t *a1, unint64_t *a2, unint64_t *a3, unint64_t *a4)
+__n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,0>(__n128 *a1, __n128 *a2, __n128 *a3, __n128 *a4)
 {
-  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,0>(a1, a2, a3);
-  if (a4[3])
+  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,0>(a1->n128_u64, a2->n128_u64, a3->n128_u64);
+  if (a4[1].n128_u64[1])
   {
-    v8 = a4[3];
+    v8 = a4[1].n128_u64[1];
   }
 
   else
   {
-    v8 = a4[2];
+    v8 = a4[1].n128_u64[0];
   }
 
-  if (a3[3])
+  if (a3[1].n128_u64[1])
   {
-    v9 = a3[3];
+    v9 = a3[1].n128_u64[1];
   }
 
   else
   {
-    v9 = a3[2];
+    v9 = a3[1].n128_u64[0];
   }
 
   v10 = strncmp(v8, v9, 0x10uLL);
-  v12 = *a4 < *a3;
+  v12 = a4->n128_u64[0] < a3->n128_u64[0];
   if (v10)
   {
     v12 = v10 < 0;
@@ -3848,34 +3468,34 @@ __n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue
   if (v12)
   {
     v14 = *a3;
-    v13 = *(a3 + 1);
-    v15 = *(a4 + 1);
+    v13 = a3[1];
+    v15 = a4[1];
     *a3 = *a4;
-    *(a3 + 1) = v15;
+    a3[1] = v15;
     *a4 = v14;
-    *(a4 + 1) = v13;
-    if (a3[3])
+    a4[1] = v13;
+    if (a3[1].n128_u64[1])
     {
-      v16 = a3[3];
+      v16 = a3[1].n128_u64[1];
     }
 
     else
     {
-      v16 = a3[2];
+      v16 = a3[1].n128_u64[0];
     }
 
-    if (a2[3])
+    if (a2[1].n128_u64[1])
     {
-      v17 = a2[3];
+      v17 = a2[1].n128_u64[1];
     }
 
     else
     {
-      v17 = a2[2];
+      v17 = a2[1].n128_u64[0];
     }
 
     v18 = strncmp(v16, v17, 0x10uLL);
-    v19 = *a3 < *a2;
+    v19 = a3->n128_u64[0] < a2->n128_u64[0];
     if (v18)
     {
       v19 = v18 < 0;
@@ -3884,34 +3504,34 @@ __n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue
     if (v19)
     {
       v21 = *a2;
-      v20 = *(a2 + 1);
-      v22 = *(a3 + 1);
+      v20 = a2[1];
+      v22 = a3[1];
       *a2 = *a3;
-      *(a2 + 1) = v22;
+      a2[1] = v22;
       *a3 = v21;
-      *(a3 + 1) = v20;
-      if (a2[3])
+      a3[1] = v20;
+      if (a2[1].n128_u64[1])
       {
-        v23 = a2[3];
+        v23 = a2[1].n128_u64[1];
       }
 
       else
       {
-        v23 = a2[2];
+        v23 = a2[1].n128_u64[0];
       }
 
-      if (a1[3])
+      if (a1[1].n128_u64[1])
       {
-        v24 = a1[3];
+        v24 = a1[1].n128_u64[1];
       }
 
       else
       {
-        v24 = a1[2];
+        v24 = a1[1].n128_u64[0];
       }
 
       v25 = strncmp(v23, v24, 0x10uLL);
-      v26 = *a2 < *a1;
+      v26 = a2->n128_u64[0] < a1->n128_u64[0];
       if (v25)
       {
         v26 = v25 < 0;
@@ -3920,12 +3540,12 @@ __n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue
       if (v26)
       {
         v27 = *a1;
-        result = *(a1 + 1);
-        v28 = *(a2 + 1);
+        result = a1[1];
+        v28 = a2[1];
         *a1 = *a2;
-        *(a1 + 1) = v28;
+        a1[1] = v28;
         *a2 = v27;
-        *(a2 + 1) = result;
+        a2[1] = result;
       }
     }
   }
@@ -3933,31 +3553,31 @@ __n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue
   return result;
 }
 
-__n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,0>(unint64_t *a1, unint64_t *a2, unint64_t *a3, unint64_t *a4, unint64_t *a5)
+__n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,0>(__n128 *a1, __n128 *a2, __n128 *a3, __n128 *a4, __n128 *a5)
 {
   std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,0>(a1, a2, a3, a4);
-  if (a5[3])
+  if (a5[1].n128_u64[1])
   {
-    v10 = a5[3];
+    v10 = a5[1].n128_u64[1];
   }
 
   else
   {
-    v10 = a5[2];
+    v10 = a5[1].n128_u64[0];
   }
 
-  if (a4[3])
+  if (a4[1].n128_u64[1])
   {
-    v11 = a4[3];
+    v11 = a4[1].n128_u64[1];
   }
 
   else
   {
-    v11 = a4[2];
+    v11 = a4[1].n128_u64[0];
   }
 
   v12 = strncmp(v10, v11, 0x10uLL);
-  v14 = *a5 < *a4;
+  v14 = a5->n128_u64[0] < a4->n128_u64[0];
   if (v12)
   {
     v14 = v12 < 0;
@@ -3966,34 +3586,34 @@ __n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue
   if (v14)
   {
     v16 = *a4;
-    v15 = *(a4 + 1);
-    v17 = *(a5 + 1);
+    v15 = a4[1];
+    v17 = a5[1];
     *a4 = *a5;
-    *(a4 + 1) = v17;
+    a4[1] = v17;
     *a5 = v16;
-    *(a5 + 1) = v15;
-    if (a4[3])
+    a5[1] = v15;
+    if (a4[1].n128_u64[1])
     {
-      v18 = a4[3];
+      v18 = a4[1].n128_u64[1];
     }
 
     else
     {
-      v18 = a4[2];
+      v18 = a4[1].n128_u64[0];
     }
 
-    if (a3[3])
+    if (a3[1].n128_u64[1])
     {
-      v19 = a3[3];
+      v19 = a3[1].n128_u64[1];
     }
 
     else
     {
-      v19 = a3[2];
+      v19 = a3[1].n128_u64[0];
     }
 
     v20 = strncmp(v18, v19, 0x10uLL);
-    v21 = *a4 < *a3;
+    v21 = a4->n128_u64[0] < a3->n128_u64[0];
     if (v20)
     {
       v21 = v20 < 0;
@@ -4002,34 +3622,34 @@ __n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue
     if (v21)
     {
       v23 = *a3;
-      v22 = *(a3 + 1);
-      v24 = *(a4 + 1);
+      v22 = a3[1];
+      v24 = a4[1];
       *a3 = *a4;
-      *(a3 + 1) = v24;
+      a3[1] = v24;
       *a4 = v23;
-      *(a4 + 1) = v22;
-      if (a3[3])
+      a4[1] = v22;
+      if (a3[1].n128_u64[1])
       {
-        v25 = a3[3];
+        v25 = a3[1].n128_u64[1];
       }
 
       else
       {
-        v25 = a3[2];
+        v25 = a3[1].n128_u64[0];
       }
 
-      if (a2[3])
+      if (a2[1].n128_u64[1])
       {
-        v26 = a2[3];
+        v26 = a2[1].n128_u64[1];
       }
 
       else
       {
-        v26 = a2[2];
+        v26 = a2[1].n128_u64[0];
       }
 
       v27 = strncmp(v25, v26, 0x10uLL);
-      v28 = *a3 < *a2;
+      v28 = a3->n128_u64[0] < a2->n128_u64[0];
       if (v27)
       {
         v28 = v27 < 0;
@@ -4038,34 +3658,34 @@ __n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue
       if (v28)
       {
         v30 = *a2;
-        v29 = *(a2 + 1);
-        v31 = *(a3 + 1);
+        v29 = a2[1];
+        v31 = a3[1];
         *a2 = *a3;
-        *(a2 + 1) = v31;
+        a2[1] = v31;
         *a3 = v30;
-        *(a3 + 1) = v29;
-        if (a2[3])
+        a3[1] = v29;
+        if (a2[1].n128_u64[1])
         {
-          v32 = a2[3];
+          v32 = a2[1].n128_u64[1];
         }
 
         else
         {
-          v32 = a2[2];
+          v32 = a2[1].n128_u64[0];
         }
 
-        if (a1[3])
+        if (a1[1].n128_u64[1])
         {
-          v33 = a1[3];
+          v33 = a1[1].n128_u64[1];
         }
 
         else
         {
-          v33 = a1[2];
+          v33 = a1[1].n128_u64[0];
         }
 
         v34 = strncmp(v32, v33, 0x10uLL);
-        v35 = *a2 < *a1;
+        v35 = a2->n128_u64[0] < a1->n128_u64[0];
         if (v34)
         {
           v35 = v34 < 0;
@@ -4074,12 +3694,12 @@ __n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue
         if (v35)
         {
           v36 = *a1;
-          result = *(a1 + 1);
-          v37 = *(a2 + 1);
+          result = a1[1];
+          v37 = a2[1];
           *a1 = *a2;
-          *(a1 + 1) = v37;
+          a1[1] = v37;
           *a2 = v36;
-          *(a2 + 1) = result;
+          a2[1] = result;
         }
       }
     }
@@ -4193,7 +3813,7 @@ LABEL_23:
   return result;
 }
 
-void *std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*>(void *result, void *a2)
+unint64_t *std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*>(unint64_t *result, unint64_t *a2)
 {
   if (result != a2)
   {
@@ -4240,7 +3860,7 @@ void *std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,std::
         {
           v15 = *(v13 - 1);
           *v13 = *(v13 - 2);
-          v13[1] = v15;
+          *(v13 + 1) = v15;
           if (*(v13 - 5))
           {
             v16 = *(v13 - 5);
@@ -4258,8 +3878,8 @@ void *std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,std::
             v17 = result < 0;
           }
 
-          v14 = (v13 - 2);
-          v13 -= 2;
+          v14 = v13 - 4;
+          v13 -= 4;
         }
 
         while (v17);
@@ -4269,7 +3889,7 @@ void *std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,std::
         v14[3] = v6;
       }
 
-      v4 = v5 + 2;
+      v4 = v5 + 4;
       v3 = v5;
     }
   }
@@ -4471,7 +4091,7 @@ unint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPo
   return v12;
 }
 
-__int128 *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,CSCppSegmentRange *,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &>(__int128 *a1, _OWORD *a2)
+__int128 *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,CSCppSegmentRange *,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &>(__int128 *a1, __int128 *a2)
 {
   v4 = 0;
   v5 = *(a1 + 2);
@@ -4578,27 +4198,27 @@ __int128 *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
     do
     {
       v23 = *v21;
-      v36 = *(v21 + 16);
+      v36 = v21[1];
       v24 = v22[1];
       *v21 = *v22;
-      *(v21 + 16) = v24;
+      v21[1] = v24;
       *v22 = v23;
       v22[1] = v36;
       do
       {
-        if (*(v21 + 56))
+        if (*(v21 + 7))
         {
-          v25 = *(v21 + 56);
+          v25 = *(v21 + 7);
         }
 
         else
         {
-          v25 = *(v21 + 48);
+          v25 = *(v21 + 6);
         }
 
         v26 = strncmp(v25, v7, 0x10uLL);
-        v27 = *(v21 + 32);
-        v21 += 32;
+        v27 = *(v21 + 4);
+        v21 += 2;
         v28 = v27 < v8;
         if (v26)
         {
@@ -4635,21 +4255,21 @@ __int128 *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
     while (v21 < v22);
   }
 
-  result = (v21 - 32);
-  if ((v21 - 32) != a1)
+  result = v21 - 2;
+  if (v21 - 2 != a1)
   {
-    v34 = *(v21 - 16);
+    v34 = *(v21 - 1);
     *a1 = *result;
     a1[1] = v34;
   }
 
-  *(v21 - 32) = v35;
-  *(v21 - 16) = v5;
-  *(v21 - 8) = v6;
+  *(v21 - 2) = v35;
+  *(v21 - 2) = v5;
+  *(v21 - 1) = v6;
   return result;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*>(unint64_t *a1, unint64_t *a2)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*>(__n128 *a1, __n128 *a2)
 {
   v2 = a2;
   v4 = (a2 - a1) >> 5;
@@ -4659,30 +4279,30 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
     {
       if (v4 == 2)
       {
-        if (*(a2 - 1))
+        if (a2[-1].n128_u64[1])
         {
-          v5 = *(a2 - 1);
+          v5 = a2[-1].n128_u64[1];
         }
 
         else
         {
-          v5 = *(a2 - 2);
+          v5 = a2[-1].n128_u64[0];
         }
 
-        if (a1[3])
+        if (a1[1].n128_u64[1])
         {
-          v6 = a1[3];
+          v6 = a1[1].n128_u64[1];
         }
 
         else
         {
-          v6 = a1[2];
+          v6 = a1[1].n128_u64[0];
         }
 
         v7 = strncmp(v5, v6, 0x10uLL);
         v9 = *(v2 - 4);
-        v8 = v2 - 4;
-        v10 = v9 < *a1;
+        v8 = (v2 - 4);
+        v10 = v9 < a1->n128_u64[0];
         if (v7)
         {
           v10 = v7 < 0;
@@ -4691,12 +4311,12 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
         if (v10)
         {
           v12 = *a1;
-          v11 = *(a1 + 1);
-          v13 = *(v8 + 1);
+          v11 = a1[1];
+          v13 = v8[1];
           *a1 = *v8;
-          *(a1 + 1) = v13;
+          a1[1] = v13;
           *v8 = v12;
-          *(v8 + 1) = v11;
+          v8[1] = v11;
         }
 
         return 1;
@@ -4711,21 +4331,21 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
   switch(v4)
   {
     case 3:
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,0>(a1, a1 + 4, a2 - 4);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,0>(a1->n128_u64, a1[2].n128_u64, a2[-2].n128_u64);
       return 1;
     case 4:
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,0>(a1, a1 + 4, a1 + 8, a2 - 4);
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,0>(a1, a1 + 2, a1 + 4, a2 - 2);
       return 1;
     case 5:
-      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,0>(a1, a1 + 4, a1 + 8, a1 + 12, a2 - 4);
+      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,0>(a1, a1 + 2, a1 + 4, a1 + 6, a2 - 2);
       return 1;
   }
 
 LABEL_19:
-  v14 = a1 + 8;
-  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,0>(a1, a1 + 4, a1 + 8);
-  v15 = a1 + 12;
-  if (a1 + 12 == v2)
+  n128_u64 = a1[4].n128_u64;
+  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,0>(a1->n128_u64, a1[2].n128_u64, a1[4].n128_u64);
+  v15 = a1[6].n128_u64;
+  if (&a1[6] == v2)
   {
     return 1;
   }
@@ -4747,19 +4367,19 @@ LABEL_19:
       v20 = v15[2];
     }
 
-    if (v14[3])
+    if (n128_u64[3])
     {
-      v21 = v14[3];
+      v21 = n128_u64[3];
     }
 
     else
     {
-      v21 = v14[2];
+      v21 = n128_u64[2];
     }
 
     v22 = strncmp(v20, v21, 0x10uLL);
     v23 = *v15;
-    v24 = *v15 < *v14;
+    v24 = *v15 < *n128_u64;
     if (v22)
     {
       v24 = v22 < 0;
@@ -4772,7 +4392,7 @@ LABEL_19:
       while (1)
       {
         v26 = a1 + v25;
-        v27 = *(a1 + v25 + 80);
+        v27 = *(&a1[5] + v25);
         *(v26 + 6) = *(a1 + v25 + 64);
         *(v26 + 7) = v27;
         if (v25 == -64)
@@ -4808,17 +4428,17 @@ LABEL_19:
       v31 = a1;
 LABEL_40:
       v2 = v33;
-      *v31 = v23;
-      v31[1] = v34;
-      v31[2] = v19;
-      v31[3] = v18;
+      v31->n128_u64[0] = v23;
+      v31->n128_u64[1] = v34;
+      v31[1].n128_u64[0] = v19;
+      v31[1].n128_u64[1] = v18;
       if (++v17 == 8)
       {
         return v15 + 4 == v33;
       }
     }
 
-    v14 = v15;
+    n128_u64 = v15;
     v16 += 32;
     v15 += 4;
     if (v15 == v2)
@@ -4828,7 +4448,7 @@ LABEL_40:
   }
 }
 
-unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,CSCppSegmentRange*>(unint64_t *a1, unint64_t *a2, unint64_t *a3, uint64_t a4)
+char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*,CSCppSegmentRange*>(char *a1, char *a2, char *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
@@ -4837,7 +4457,7 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::ve
     {
       v9 = (v8 - 2) >> 1;
       v10 = v9 + 1;
-      v11 = &a1[4 * v9];
+      v11 = &a1[32 * v9];
       do
       {
         std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*>(a1, a4, v8, v11);
@@ -4854,24 +4474,24 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::ve
       v12 = a2;
       do
       {
-        if (v12[3])
+        if (*(v12 + 3))
         {
-          v13 = v12[3];
+          v13 = *(v12 + 3);
         }
 
         else
         {
-          v13 = v12[2];
+          v13 = *(v12 + 2);
         }
 
-        if (a1[3])
+        if (*(a1 + 3))
         {
-          v14 = a1[3];
+          v14 = *(a1 + 3);
         }
 
         else
         {
-          v14 = a1[2];
+          v14 = *(a1 + 2);
         }
 
         v15 = strncmp(v13, v14, 0x10uLL);
@@ -4893,7 +4513,7 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::ve
           std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*>(a1, a4, v8, a1);
         }
 
-        v12 += 4;
+        v12 += 32;
       }
 
       while (v12 != a3);
@@ -4901,7 +4521,7 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::ve
 
     if (v8 >= 2)
     {
-      v20 = a2 - 4;
+      v20 = a2 - 32;
       do
       {
         v25 = *a1;
@@ -4920,10 +4540,10 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::ve
           *(v21 + 1) = v22;
           *v20 = v25;
           *(v20 + 1) = v26;
-          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*>(a1, (v21 + 4), a4, ((v21 + 4) - a1) >> 5);
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppSegmentRange*>(a1, (v21 + 32), a4, (v21 + 32 - a1) >> 5);
         }
 
-        v20 -= 4;
+        v20 -= 32;
       }
 
       while (v8-- > 2);
@@ -5261,18 +4881,18 @@ uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeV
   return result;
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppFlatbufferRelocation*,false>(__n128 *a1, unint64_t *a2, uint64_t a3, uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppFlatbufferRelocation*,false>(__n128 *result, __n128 *a2, uint64_t a3, uint64_t a4, char a5)
 {
 LABEL_1:
-  v9 = a1;
+  v9 = result;
 LABEL_2:
   v10 = 1 - a4;
   while (1)
   {
-    a1 = v9;
+    result = v9;
     v11 = v10;
     v12 = a2 - v9;
-    v13 = 0xAAAAAAAAAAAAAAABLL * (a2 - v9);
+    v13 = 0xAAAAAAAAAAAAAAABLL * ((a2 - v9) >> 3);
     if (v13 <= 2)
     {
       if (v13 < 2)
@@ -5282,26 +4902,26 @@ LABEL_2:
 
       if (v13 == 2)
       {
-        v29 = (*(a2 - 1) + *(*(a2 - 1) - **(a2 - 1) + 4));
-        v30 = (v9[2] + *(v9[2] - *v9[2] + 4));
-        v31 = strncmp(&v29[*v29 + 4], &v30[*v30 + 4], 0x10uLL);
-        v33 = *(a2 - 3);
-        v32 = a2 - 3;
-        v34 = v33 < *v9;
-        if (v31)
+        v28 = (a2[-1].n128_u64[1] + *(a2[-1].n128_u64[1] - *a2[-1].n128_u64[1] + 4));
+        v29 = (v9[1].n128_u64[0] + *(v9[1].n128_u64[0] - *v9[1].n128_u64[0] + 4));
+        v30 = strncmp(&v28[*v28 + 4], &v29[*v29 + 4], 0x10uLL);
+        v32 = a2[-2].n128_u64[1];
+        v31 = &a2[-2].n128_i8[8];
+        v33 = v32 < v9->n128_u64[0];
+        if (v30)
         {
-          v34 = v31 < 0;
+          v33 = v30 < 0;
         }
 
-        if (v34)
+        if (v33)
         {
-          v39 = v9[2];
-          v37 = *v9;
-          v35 = *v32;
-          v9[2] = v32[2];
-          *v9 = v35;
-          *v32 = v37;
-          v32[2] = v39;
+          v38 = v9[1].n128_u64[0];
+          v36 = *v9;
+          v34 = *v31;
+          v9[1].n128_u64[0] = *(v31 + 2);
+          *v9 = v34;
+          *v31 = v36;
+          *(v31 + 2) = v38;
         }
 
         return;
@@ -5318,14 +4938,14 @@ LABEL_2:
     if (v13 == 4)
     {
 
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppFlatbufferRelocation*,0>(v9, v9 + 3, v9 + 6, a2 - 3);
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppFlatbufferRelocation*,0>(v9->n128_u64, &v9[1].n128_u64[1], v9[3].n128_u64, &a2[-2].n128_u64[1]);
       return;
     }
 
     if (v13 == 5)
     {
 
-      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppFlatbufferRelocation*,0>(v9, v9 + 3, v9 + 6, v9 + 9, a2 - 3);
+      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppFlatbufferRelocation*,0>(v9->n128_u64, &v9[1].n128_u64[1], v9[3].n128_u64, &v9[4].n128_u64[1], &a2[-2].n128_u64[1]);
       return;
     }
 
@@ -5335,13 +4955,13 @@ LABEL_10:
       if (a5)
       {
 
-        std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppFlatbufferRelocation*>(v9, a2);
+        std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppFlatbufferRelocation*>(v9->n128_u64, a2->n128_u64);
       }
 
       else
       {
 
-        std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppFlatbufferRelocation*>(v9, a2);
+        std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppFlatbufferRelocation*>(v9->n128_u64, a2->n128_u64);
       }
 
       return;
@@ -5359,10 +4979,10 @@ LABEL_10:
     }
 
     v14 = v13 >> 1;
-    v15 = &v9[3 * (v13 >> 1)];
+    v15 = &v9->n128_u64[3 * (v13 >> 1)];
     if (v12 < 0xC01)
     {
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppFlatbufferRelocation*,0>(&v9[3 * v14], v9, a2 - 3);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppFlatbufferRelocation*,0>(&v9->n128_u64[3 * v14], v9->n128_u64, &a2[-2].n128_u64[1]);
       if (a5)
       {
         goto LABEL_19;
@@ -5371,30 +4991,30 @@ LABEL_10:
 
     else
     {
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppFlatbufferRelocation*,0>(v9, &v9[3 * v14], a2 - 3);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppFlatbufferRelocation*,0>(v9->n128_u64, &v9->n128_u64[3 * v14], &a2[-2].n128_u64[1]);
       v16 = 3 * v14;
-      v17 = &v9[3 * v14 - 3];
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppFlatbufferRelocation*,0>(v9 + 3, v17, a2 - 6);
-      v18 = &v9[v16 + 3];
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppFlatbufferRelocation*,0>(a1[3].n128_u64, v18, a2 - 9);
+      v17 = &v9[-1] + 3 * v14 - 1;
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppFlatbufferRelocation*,0>(&v9[1].n128_u64[1], v17, a2[-3].n128_u64);
+      v18 = &v9[1].n128_u64[v16 + 1];
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppFlatbufferRelocation*,0>(result[3].n128_u64, v18, &a2[-5].n128_u64[1]);
       std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppFlatbufferRelocation*,0>(v17, v15, v18);
-      v38 = a1[1].n128_u64[0];
-      v36 = *a1;
+      v37 = result[1].n128_u64[0];
+      v35 = *result;
       v19 = *v15;
-      a1[1].n128_u64[0] = v15[2];
-      *a1 = v19;
-      v15[2] = v38;
-      *v15 = v36;
+      result[1].n128_u64[0] = v15[2];
+      *result = v19;
+      v15[2] = v37;
+      *v15 = v35;
       if (a5)
       {
         goto LABEL_19;
       }
     }
 
-    v20 = (a1[-1].n128_u64[1] + *(a1[-1].n128_u64[1] - *a1[-1].n128_u64[1] + 4));
-    v21 = (a1[1].n128_u64[0] + *(a1[1].n128_u64[0] - *a1[1].n128_u64[0] + 4));
+    v20 = (result[-1].n128_u64[1] + *(result[-1].n128_u64[1] - *result[-1].n128_u64[1] + 4));
+    v21 = (result[1].n128_u64[0] + *(result[1].n128_u64[0] - *result[1].n128_u64[0] + 4));
     v22 = strncmp(&v20[*v20 + 4], &v21[*v21 + 4], 0x10uLL);
-    v23 = a1[-2].n128_u64[1] < a1->n128_u64[0];
+    v23 = result[-2].n128_u64[1] < result->n128_u64[0];
     if (v22)
     {
       v23 = v22 < 0;
@@ -5402,25 +5022,25 @@ LABEL_10:
 
     if (!v23)
     {
-      v9 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,CSCppFlatbufferRelocation *,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &>(a1->n128_u64, a2);
+      v9 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,CSCppFlatbufferRelocation *,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &>(result->n128_u64, a2);
       goto LABEL_24;
     }
 
 LABEL_19:
-    v25 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,CSCppFlatbufferRelocation *,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &>(a1, a2);
-    v26 = v24;
-    if ((v27 & 1) == 0)
+    std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,CSCppFlatbufferRelocation *,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &>(result, a2);
+    v25 = v24;
+    if ((v26 & 1) == 0)
     {
       goto LABEL_22;
     }
 
-    v28 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppFlatbufferRelocation*>(a1->n128_u64, v24);
-    v9 = v26 + 3;
-    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppFlatbufferRelocation*>(v26 + 3, a2))
+    v27 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppFlatbufferRelocation*>(result->n128_u64, v24);
+    v9 = (v25 + 3);
+    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppFlatbufferRelocation*>(v25 + 3, a2->n128_u64))
     {
       a4 = -v11;
-      a2 = v26;
-      if (v28)
+      a2 = v25;
+      if (v27)
       {
         return;
       }
@@ -5429,11 +5049,11 @@ LABEL_19:
     }
 
     v10 = v11 + 1;
-    if (!v28)
+    if (!v27)
     {
 LABEL_22:
-      std::__introsort<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppFlatbufferRelocation*,false>(a1, v26, a3, -v11, a5 & 1, v25);
-      v9 = v26 + 3;
+      std::__introsort<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppFlatbufferRelocation*,false>(result, v25, a3, -v11, a5 & 1);
+      v9 = (v25 + 3);
 LABEL_24:
       a5 = 0;
       a4 = -v11;
@@ -5441,7 +5061,7 @@ LABEL_24:
     }
   }
 
-  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppFlatbufferRelocation*,0>(v9, v9 + 3, a2 - 3);
+  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppFlatbufferRelocation*,0>(v9->n128_u64, &v9[1].n128_u64[1], &a2[-2].n128_u64[1]);
 }
 
 uint64_t std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppFlatbufferRelocation*,0>(unint64_t *a1, unint64_t *a2, unint64_t *a3)
@@ -6212,17 +5832,17 @@ LABEL_25:
   }
 }
 
-unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppFlatbufferRelocation*,CSCppFlatbufferRelocation*>(unint64_t *a1, unint64_t *a2, unint64_t *a3, uint64_t a4)
+char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppFlatbufferRelocation*,CSCppFlatbufferRelocation*>(char *a1, char *a2, char *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
     v8 = a2 - a1;
-    v9 = 0xAAAAAAAAAAAAAAABLL * (a2 - a1);
+    v9 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 3);
     if (a2 - a1 >= 25)
     {
       v10 = (v9 - 2) >> 1;
       v11 = v10 + 1;
-      v12 = &a1[3 * v10];
+      v12 = &a1[24 * v10];
       do
       {
         std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppFlatbufferRelocation*>(a1, a4, v9, v12);
@@ -6239,8 +5859,8 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::ve
       v13 = a2;
       do
       {
-        v14 = (v13[2] + *(v13[2] - *v13[2] + 4));
-        v15 = (a1[2] + *(a1[2] - *a1[2] + 4));
+        v14 = (*(v13 + 2) + *(*(v13 + 2) - **(v13 + 2) + 4));
+        v15 = (*(a1 + 2) + *(*(a1 + 2) - **(a1 + 2) + 4));
         v16 = strncmp(&v14[*v14 + 4], &v15[*v15 + 4], 0x10uLL);
         v17 = *v13 < *a1;
         if (v16)
@@ -6250,17 +5870,17 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::ve
 
         if (v17)
         {
-          v18 = v13[2];
+          v18 = *(v13 + 2);
           v19 = *v13;
-          v20 = a1[2];
+          v20 = *(a1 + 2);
           *v13 = *a1;
-          v13[2] = v20;
+          *(v13 + 2) = v20;
           *a1 = v19;
-          a1[2] = v18;
+          *(a1 + 2) = v18;
           std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppFlatbufferRelocation*>(a1, a4, v9, a1);
         }
 
-        v13 += 3;
+        v13 += 24;
       }
 
       while (v13 != a3);
@@ -6269,29 +5889,29 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::ve
     if (v8 >= 25)
     {
       v21 = 0xAAAAAAAAAAAAAAABLL * (v8 >> 3);
-      v22 = a2 - 3;
+      v22 = a2 - 24;
       do
       {
         v27 = *a1;
-        v28 = a1[2];
+        v28 = *(a1 + 2);
         v23 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppFlatbufferRelocation*>(a1, a4, v21);
         if (v22 == v23)
         {
           *v23 = v27;
-          v23[2] = v28;
+          *(v23 + 2) = v28;
         }
 
         else
         {
           v24 = *v22;
-          v23[2] = v22[2];
+          *(v23 + 2) = *(v22 + 2);
           *v23 = v24;
           *v22 = v27;
-          v22[2] = v28;
-          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppFlatbufferRelocation*>(a1, (v23 + 3), a4, 0xAAAAAAAAAAAAAAABLL * (v23 + 3 - a1));
+          *(v22 + 2) = v28;
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::vector<TRangeValue<Pointer64,Pointer64::off_t>> create_segment_relocation_deltas<Pointer64,CSCppSegmentRange,CSCppFlatbufferRelocation>(std::vector<CSCppSegmentRange> const&,std::vector<CSCppFlatbufferRelocation> const&,BOOL)::{lambda(Pointer64&,CSCppSegmentRange&)#1} &,CSCppFlatbufferRelocation*>(a1, (v23 + 24), a4, 0xAAAAAAAAAAAAAAABLL * ((v23 + 24 - a1) >> 3));
         }
 
-        v22 -= 3;
+        v22 -= 24;
       }
 
       while (v21-- > 2);
@@ -6545,15 +6165,14 @@ void std::allocator<TRangeValue<Pointer64,unsigned long long>>::allocate_at_leas
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer64,unsigned long long> *,false>(unint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4, char a5, __n128 a6)
+__n128 std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer64,unsigned long long> *,false>(__n128 *a1, __n128 *a2, uint64_t a3, uint64_t a4, char a5, __n128 result)
 {
-  v156 = *MEMORY[0x1E69E9840];
-LABEL_2:
-  v9 = (a2 - 3);
-  v10 = a2 - 6;
-  v11 = a2 - 9;
+LABEL_1:
+  v9 = &a2[-2].n128_i8[8];
+  v10 = &a2[-3];
+  v11 = &a2[-5].n128_i8[8];
   v12 = a1;
-LABEL_3:
+LABEL_2:
   v13 = 1 - a4;
   while (1)
   {
@@ -6565,256 +6184,215 @@ LABEL_3:
     {
       if (v16 < 2)
       {
-        goto LABEL_109;
+        return result;
       }
 
       if (v16 == 2)
       {
-        v79 = *(a2 - 3);
-        v73 = a2 - 3;
-        if (v79 >= *v12)
+        v77 = a2[-2].n128_u64[1];
+        v73 = &a2[-2].n128_i8[8];
+        if (v77 >= v12->n128_u64[0])
         {
-          goto LABEL_109;
+          return result;
         }
 
-        goto LABEL_76;
+        goto LABEL_75;
       }
 
-      goto LABEL_11;
+      goto LABEL_10;
     }
 
-    switch(v16)
-    {
-      case 3uLL:
-        v70 = v12 + 3;
-        v71 = v12[3];
-        v74 = *(a2 - 3);
-        v73 = a2 - 3;
-        v72 = v74;
-        if (v71 < *v12)
-        {
-          if (v72 < v71)
-          {
-LABEL_76:
-            v151 = v12[2];
-            v123 = *v12;
-            v80 = *v73;
-            v12[2] = v73[2];
-            *v12 = v80;
-            *v73 = v123;
-            v73[2] = v151;
-            goto LABEL_109;
-          }
-
-          v150 = v12[2];
-          v122 = *v12;
-          *v12 = *v70;
-          v12[2] = v12[5];
-          *v70 = v122;
-          v12[5] = v150;
-          if (*v73 < v12[3])
-          {
-            v75 = v12[5];
-            v76 = *v70;
-            v77 = v73[2];
-            *v70 = *v73;
-            v12[5] = v77;
-            *v73 = v76;
-            v73[2] = v75;
-          }
-
-          goto LABEL_109;
-        }
-
-        if (v72 >= v71)
-        {
-          goto LABEL_109;
-        }
-
-        v87 = v12[5];
-        v88 = *v70;
-        v89 = v73[2];
-        *v70 = *v73;
-        v12[5] = v89;
-        *v73 = v88;
-        v73[2] = v87;
-        goto LABEL_107;
-      case 4uLL:
-        v70 = v12 + 3;
-        v81 = v12[3];
-        v82 = (v12 + 6);
-        v83 = v12[6];
-        if (v81 >= *v12)
-        {
-          if (v83 < v81)
-          {
-            v90 = v12[5];
-            v91 = *v70;
-            *v70 = *v82;
-            v12[5] = v12[8];
-            *v82 = v91;
-            v12[8] = v90;
-            if (v12[3] < *v12)
-            {
-              v153 = v12[2];
-              v125 = *v12;
-              *v12 = *v70;
-              v12[2] = v12[5];
-              *v70 = v125;
-              v12[5] = v153;
-            }
-          }
-        }
-
-        else
-        {
-          if (v83 < v81)
-          {
-            v152 = v12[2];
-            v124 = *v12;
-            *v12 = *v82;
-            v12[2] = v12[8];
-            *v82 = v124;
-            v84 = v152;
-            goto LABEL_103;
-          }
-
-          v154 = v12[2];
-          v127 = *v12;
-          *v12 = *v70;
-          v12[2] = v12[5];
-          *v70 = v127;
-          v12[5] = v154;
-          if (v83 < v12[3])
-          {
-            v84 = v12[5];
-            v97 = *v70;
-            *v70 = *v82;
-            v12[5] = v12[8];
-            *v82 = v97;
-LABEL_103:
-            v12[8] = v84;
-          }
-        }
-
-        if (*v9 >= v82->n128_u64[0])
-        {
-          goto LABEL_109;
-        }
-
-        v98 = v12[8];
-        v99 = *v82;
-        v100 = *(a2 - 1);
-        *v82 = *v9;
-        v12[8] = v100;
-        *v9 = v99;
-        *(a2 - 1) = v98;
-        if (v82->n128_u64[0] >= *v70)
-        {
-          goto LABEL_109;
-        }
-
-        v101 = v12[5];
-        v102 = *v70;
-        *v70 = *v82;
-        v12[5] = v12[8];
-        *v82 = v102;
-        v12[8] = v101;
-LABEL_107:
-        if (v12[3] < *v12)
-        {
-          v155 = v12[2];
-          v128 = *v12;
-          *v12 = *v70;
-          v12[2] = v70[2];
-          *v70 = v128;
-          v70[2] = v155;
-        }
-
-        goto LABEL_109;
-      case 5uLL:
-        v78 = *MEMORY[0x1E69E9840];
-
-        std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer64,unsigned long long> *,0>(v12, (v12 + 3), v12 + 6, (v12 + 9), (a2 - 3), a6);
-        return;
-    }
-
-LABEL_11:
-    if (v15 <= 575)
-    {
-      if (a5)
-      {
-        v85 = *MEMORY[0x1E69E9840];
-
-        std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer64,unsigned long long> *>(v12, a2);
-        return;
-      }
-
-      if (v12 != a2)
-      {
-        v92 = v12 + 3;
-        while (v92 != a2)
-        {
-          v93 = v92;
-          v94 = a1[3];
-          if (v94 < *a1)
-          {
-            v126 = *(a1 + 2);
-            v95 = v93;
-            do
-            {
-              *v95 = *(v95 - 3);
-              v95[2] = *(v95 - 1);
-              v96 = *(v95 - 6);
-              v95 -= 3;
-            }
-
-            while (v94 < v96);
-            *v95 = v94;
-            *(v95 + 1) = v126;
-          }
-
-          v92 = v93 + 3;
-          a1 = v93;
-        }
-      }
-
-LABEL_109:
-      v103 = *MEMORY[0x1E69E9840];
-      return;
-    }
-
-    if (v14 == 1)
+    if (v16 == 3)
     {
       break;
     }
 
+    if (v16 == 4)
+    {
+      v70 = (v12 + 24);
+      v79 = v12[1].n128_u64[1];
+      v80 = v12 + 3;
+      v81 = v12[3].n128_u64[0];
+      if (v79 >= v12->n128_u64[0])
+      {
+        if (v81 < v79)
+        {
+          v85 = v12[2].n128_u64[1];
+          result = *v70;
+          *v70 = *v80;
+          v12[2].n128_u64[1] = v12[4].n128_u64[0];
+          *v80 = result;
+          v12[4].n128_u64[0] = v85;
+          if (v12[1].n128_u64[1] < v12->n128_u64[0])
+          {
+            v143 = v12[1].n128_u64[0];
+            v115 = *v12;
+            *v12 = *v70;
+            v12[1].n128_u64[0] = v12[2].n128_u64[1];
+            result = v115;
+            *v70 = v115;
+            v12[2].n128_u64[1] = v143;
+          }
+        }
+      }
+
+      else
+      {
+        if (v81 < v79)
+        {
+          v142 = v12[1].n128_u64[0];
+          v114 = *v12;
+          *v12 = *v80;
+          v12[1].n128_u64[0] = v12[4].n128_u64[0];
+          result = v114;
+          *v80 = v114;
+          v82 = v142;
+          goto LABEL_102;
+        }
+
+        v144 = v12[1].n128_u64[0];
+        v117 = *v12;
+        *v12 = *v70;
+        v12[1].n128_u64[0] = v12[2].n128_u64[1];
+        result = v117;
+        *v70 = v117;
+        v12[2].n128_u64[1] = v144;
+        if (v81 < v12[1].n128_u64[1])
+        {
+          v82 = v12[2].n128_u64[1];
+          result = *v70;
+          *v70 = *v80;
+          v12[2].n128_u64[1] = v12[4].n128_u64[0];
+          *v80 = result;
+LABEL_102:
+          v12[4].n128_u64[0] = v82;
+        }
+      }
+
+      if (*v9 >= v80->n128_u64[0])
+      {
+        return result;
+      }
+
+      v91 = v12[4].n128_u64[0];
+      result = *v80;
+      v92 = a2[-1].n128_u64[1];
+      *v80 = *v9;
+      v12[4].n128_u64[0] = v92;
+      *v9 = result;
+      a2[-1].n128_u64[1] = v91;
+      if (v80->n128_u64[0] >= v70->n128_u64[0])
+      {
+        return result;
+      }
+
+      v93 = v12[2].n128_u64[1];
+      result = *v70;
+      *v70 = *v80;
+      v12[2].n128_u64[1] = v12[4].n128_u64[0];
+      *v80 = result;
+      v12[4].n128_u64[0] = v93;
+LABEL_106:
+      if (v12[1].n128_u64[1] < v12->n128_u64[0])
+      {
+        v145 = v12[1].n128_u64[0];
+        v118 = *v12;
+        *v12 = *v70;
+        v12[1].n128_u64[0] = v70[1].n128_u64[0];
+        result = v118;
+        *v70 = v118;
+        v70[1].n128_u64[0] = v145;
+      }
+
+      return result;
+    }
+
+    if (v16 == 5)
+    {
+
+      result.n128_u64[0] = std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer64,unsigned long long> *,0>(v12, (v12 + 24), v12[3].n128_u64, &v12[4].n128_i64[1], &a2[-2].n128_i64[1], result).n128_u64[0];
+      return result;
+    }
+
+LABEL_10:
+    if (v15 <= 575)
+    {
+      if (a5)
+      {
+
+        std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer64,unsigned long long> *>(v12, a2);
+      }
+
+      else if (v12 != a2)
+      {
+        v86 = &v12[1].n128_i8[8];
+        while (v86 != a2)
+        {
+          v87 = v86;
+          v88 = a1[1].n128_u64[1];
+          if (v88 < a1->n128_u64[0])
+          {
+            v116 = a1[2];
+            v89 = v87;
+            do
+            {
+              *v89 = *(v89 - 24);
+              v89[1].n128_u64[0] = v89[-1].n128_u64[1];
+              v90 = v89[-3].n128_u64[0];
+              v89 = (v89 - 24);
+            }
+
+            while (v88 < v90);
+            v89->n128_u64[0] = v88;
+            result = v116;
+            *(v89 + 8) = v116;
+          }
+
+          v86 = &v87[1].n128_i8[8];
+          a1 = v87;
+        }
+      }
+
+      return result;
+    }
+
+    if (v14 == 1)
+    {
+      if (v12 != a2)
+      {
+
+        std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer64,unsigned long long> *,TRangeValue<Pointer64,unsigned long long> *>(v12, a2, a2, a3);
+      }
+
+      return result;
+    }
+
     v17 = v16 >> 1;
-    v18 = &v12[3 * (v16 >> 1)];
+    v18 = &v12->n128_u64[3 * (v16 >> 1)];
     v19 = *v9;
     if (v15 >= 0xC01)
     {
       v20 = *v18;
-      if (*v18 >= *v12)
+      if (*v18 >= v12->n128_u64[0])
       {
         if (v19 < v20)
         {
-          v131 = v18[2];
-          v107 = *v18;
+          v121 = v18[2];
+          v97 = *v18;
           v24 = *v9;
-          v18[2] = *(a2 - 1);
+          v18[2] = a2[-1].n128_u64[1];
           *v18 = v24;
-          *v9 = v107;
-          *(a2 - 1) = v131;
-          if (*v18 < *v12)
+          *v9 = v97;
+          a2[-1].n128_u64[1] = v121;
+          if (*v18 < v12->n128_u64[0])
           {
-            v132 = v12[2];
-            v108 = *v12;
+            v122 = v12[1].n128_u64[0];
+            v98 = *v12;
             v25 = *v18;
-            v12[2] = v18[2];
+            v12[1].n128_u64[0] = v18[2];
             *v12 = v25;
-            v18[2] = v132;
-            *v18 = v108;
+            v18[2] = v122;
+            *v18 = v98;
           }
         }
       }
@@ -6823,59 +6401,59 @@ LABEL_109:
       {
         if (v19 < v20)
         {
-          v129 = v12[2];
-          v105 = *v12;
+          v119 = v12[1].n128_u64[0];
+          v95 = *v12;
           v21 = *v9;
-          v12[2] = *(a2 - 1);
+          v12[1].n128_u64[0] = a2[-1].n128_u64[1];
           *v12 = v21;
-          goto LABEL_28;
+          goto LABEL_27;
         }
 
-        v135 = v12[2];
-        v111 = *v12;
+        v125 = v12[1].n128_u64[0];
+        v101 = *v12;
         v28 = *v18;
-        v12[2] = v18[2];
+        v12[1].n128_u64[0] = v18[2];
         *v12 = v28;
-        v18[2] = v135;
-        *v18 = v111;
+        v18[2] = v125;
+        *v18 = v101;
         if (*v9 < *v18)
         {
-          v129 = v18[2];
-          v105 = *v18;
+          v119 = v18[2];
+          v95 = *v18;
           v29 = *v9;
-          v18[2] = *(a2 - 1);
+          v18[2] = a2[-1].n128_u64[1];
           *v18 = v29;
-LABEL_28:
-          *v9 = v105;
-          *(a2 - 1) = v129;
+LABEL_27:
+          *v9 = v95;
+          a2[-1].n128_u64[1] = v119;
         }
       }
 
-      v30 = (v12 + 3);
-      v31 = &v12[3 * v17];
+      v30 = &v12[1].n128_i8[8];
+      v31 = v12 + 24 * v17;
       v34 = *(v31 - 3);
-      v32 = v31 - 3;
+      v32 = v31 - 24;
       v33 = v34;
       v35 = *v10;
-      if (v34 >= v12[3])
+      if (v34 >= v12[1].n128_u64[1])
       {
         if (v35 < v33)
         {
-          v136 = v32[2];
-          v112 = *v32;
+          v126 = *(v32 + 2);
+          v102 = *v32;
           v39 = *v10;
-          v32[2] = *(a2 - 4);
+          *(v32 + 2) = a2[-2].n128_u64[0];
           *v32 = v39;
-          *v10 = v112;
-          *(a2 - 4) = v136;
+          *v10 = v102;
+          a2[-2].n128_u64[0] = v126;
           if (*v32 < *v30)
           {
             v40 = *v30;
-            v137 = v12[5];
-            v41 = v32[2];
+            v127 = v12[2].n128_u64[1];
+            v41 = *(v32 + 2);
             *v30 = *v32;
-            v12[5] = v41;
-            v32[2] = v137;
+            v12[2].n128_u64[1] = v41;
+            *(v32 + 2) = v127;
             *v32 = v40;
           }
         }
@@ -6884,60 +6462,60 @@ LABEL_28:
       else if (v35 >= v33)
       {
         v44 = *v30;
-        v139 = v12[5];
-        v45 = v32[2];
+        v129 = v12[2].n128_u64[1];
+        v45 = *(v32 + 2);
         *v30 = *v32;
-        v12[5] = v45;
-        v32[2] = v139;
+        v12[2].n128_u64[1] = v45;
+        *(v32 + 2) = v129;
         *v32 = v44;
         if (*v10 < *v32)
         {
-          v140 = v32[2];
-          v114 = *v32;
+          v130 = *(v32 + 2);
+          v104 = *v32;
           v46 = *v10;
-          v32[2] = *(a2 - 4);
+          *(v32 + 2) = a2[-2].n128_u64[0];
           *v32 = v46;
-          *v10 = v114;
-          *(a2 - 4) = v140;
+          *v10 = v104;
+          a2[-2].n128_u64[0] = v130;
         }
       }
 
       else
       {
-        v36 = v12[5];
+        v36 = v12[2].n128_u64[1];
         v37 = *v30;
-        v38 = *(a2 - 4);
+        v38 = a2[-2].n128_u64[0];
         *v30 = *v10;
-        v12[5] = v38;
+        v12[2].n128_u64[1] = v38;
         *v10 = v37;
-        *(a2 - 4) = v36;
+        a2[-2].n128_u64[0] = v36;
       }
 
-      v47 = (v12 + 6);
-      v48 = &v12[3 * v17];
-      v51 = v48[3];
-      v49 = v48 + 3;
+      v47 = v12 + 3;
+      v48 = v12 + 24 * v17;
+      v51 = *(v48 + 3);
+      v49 = (v48 + 24);
       v50 = v51;
       v52 = *v11;
-      if (v51 >= v12[6])
+      if (v51 >= v12[3].n128_u64[0])
       {
         if (v52 < v50)
         {
-          v141 = v49[2];
-          v115 = *v49;
+          v131 = v49[1].n128_u64[0];
+          v105 = *v49;
           v56 = *v11;
-          v49[2] = *(a2 - 7);
+          v49[1].n128_u64[0] = a2[-4].n128_u64[1];
           *v49 = v56;
-          *v11 = v115;
-          *(a2 - 7) = v141;
-          if (*v49 < *v47)
+          *v11 = v105;
+          a2[-4].n128_u64[1] = v131;
+          if (v49->n128_u64[0] < v47->n128_u64[0])
           {
             v57 = *v47;
-            v142 = v12[8];
-            v58 = v49[2];
+            v132 = v12[4].n128_u64[0];
+            v58 = v49[1].n128_u64[0];
             *v47 = *v49;
-            v12[8] = v58;
-            v49[2] = v142;
+            v12[4].n128_u64[0] = v58;
+            v49[1].n128_u64[0] = v132;
             *v49 = v57;
           }
         }
@@ -6946,55 +6524,55 @@ LABEL_28:
       else if (v52 >= v50)
       {
         v59 = *v47;
-        v143 = v12[8];
-        v60 = v49[2];
+        v133 = v12[4].n128_u64[0];
+        v60 = v49[1].n128_u64[0];
         *v47 = *v49;
-        v12[8] = v60;
-        v49[2] = v143;
+        v12[4].n128_u64[0] = v60;
+        v49[1].n128_u64[0] = v133;
         *v49 = v59;
-        if (*v11 < *v49)
+        if (*v11 < v49->n128_u64[0])
         {
-          v144 = v49[2];
-          v116 = *v49;
+          v134 = v49[1].n128_u64[0];
+          v106 = *v49;
           v61 = *v11;
-          v49[2] = *(a2 - 7);
+          v49[1].n128_u64[0] = a2[-4].n128_u64[1];
           *v49 = v61;
-          *v11 = v116;
-          *(a2 - 7) = v144;
+          *v11 = v106;
+          a2[-4].n128_u64[1] = v134;
         }
       }
 
       else
       {
-        v53 = v12[8];
+        v53 = v12[4].n128_u64[0];
         v54 = *v47;
-        v55 = *(a2 - 7);
+        v55 = a2[-4].n128_u64[1];
         *v47 = *v11;
-        v12[8] = v55;
+        v12[4].n128_u64[0] = v55;
         *v11 = v54;
-        *(a2 - 7) = v53;
+        a2[-4].n128_u64[1] = v53;
       }
 
       v62 = *v18;
-      v63 = *v49;
+      v63 = v49->n128_u64[0];
       if (*v18 >= *v32)
       {
         if (v63 < v62)
         {
-          v146 = v18[2];
-          v118 = *v18;
+          v136 = v18[2];
+          v108 = *v18;
           *v18 = *v49;
-          v18[2] = v49[2];
-          v49[2] = v146;
-          *v49 = v118;
+          v18[2] = v49[1].n128_u64[0];
+          v49[1].n128_u64[0] = v136;
+          *v49 = v108;
           if (*v18 < *v32)
           {
-            v147 = v32[2];
-            v119 = *v32;
+            v137 = *(v32 + 2);
+            v109 = *v32;
             *v32 = *v18;
-            v32[2] = v18[2];
-            v18[2] = v147;
-            *v18 = v119;
+            *(v32 + 2) = v18[2];
+            v18[2] = v137;
+            *v18 = v109;
           }
         }
       }
@@ -7003,62 +6581,62 @@ LABEL_28:
       {
         if (v63 < v62)
         {
-          v145 = v32[2];
-          v117 = *v32;
+          v135 = *(v32 + 2);
+          v107 = *v32;
           *v32 = *v49;
-          v32[2] = v49[2];
-          goto LABEL_56;
+          *(v32 + 2) = v49[1].n128_u64[0];
+          goto LABEL_55;
         }
 
-        v148 = v32[2];
-        v120 = *v32;
+        v138 = *(v32 + 2);
+        v110 = *v32;
         *v32 = *v18;
-        v32[2] = v18[2];
-        v18[2] = v148;
-        *v18 = v120;
-        if (*v49 < *v18)
+        *(v32 + 2) = v18[2];
+        v18[2] = v138;
+        *v18 = v110;
+        if (v49->n128_u64[0] < *v18)
         {
-          v145 = v18[2];
-          v117 = *v18;
+          v135 = v18[2];
+          v107 = *v18;
           *v18 = *v49;
-          v18[2] = v49[2];
-LABEL_56:
-          v49[2] = v145;
-          *v49 = v117;
+          v18[2] = v49[1].n128_u64[0];
+LABEL_55:
+          v49[1].n128_u64[0] = v135;
+          *v49 = v107;
         }
       }
 
-      v149 = v12[2];
-      v121 = *v12;
+      v139 = v12[1].n128_u64[0];
+      v111 = *v12;
       v64 = *v18;
-      v12[2] = v18[2];
+      v12[1].n128_u64[0] = v18[2];
       *v12 = v64;
-      v18[2] = v149;
-      *v18 = v121;
-      goto LABEL_58;
+      v18[2] = v139;
+      *v18 = v111;
+      goto LABEL_57;
     }
 
-    v22 = *v12;
-    if (*v12 >= *v18)
+    v22 = v12->n128_u64[0];
+    if (v12->n128_u64[0] >= *v18)
     {
       if (v19 < v22)
       {
-        v133 = v12[2];
-        v109 = *v12;
+        v123 = v12[1].n128_u64[0];
+        v99 = *v12;
         v26 = *v9;
-        v12[2] = *(a2 - 1);
+        v12[1].n128_u64[0] = a2[-1].n128_u64[1];
         *v12 = v26;
-        *v9 = v109;
-        *(a2 - 1) = v133;
-        if (*v12 < *v18)
+        *v9 = v99;
+        a2[-1].n128_u64[1] = v123;
+        if (v12->n128_u64[0] < *v18)
         {
-          v134 = v18[2];
-          v110 = *v18;
+          v124 = v18[2];
+          v100 = *v18;
           v27 = *v12;
-          v18[2] = v12[2];
+          v18[2] = v12[1].n128_u64[0];
           *v18 = v27;
-          v12[2] = v134;
-          *v12 = v110;
+          v12[1].n128_u64[0] = v124;
+          *v12 = v100;
         }
       }
     }
@@ -7067,46 +6645,46 @@ LABEL_56:
     {
       if (v19 < v22)
       {
-        v130 = v18[2];
-        v106 = *v18;
+        v120 = v18[2];
+        v96 = *v18;
         v23 = *v9;
-        v18[2] = *(a2 - 1);
+        v18[2] = a2[-1].n128_u64[1];
         *v18 = v23;
-LABEL_37:
-        *v9 = v106;
-        *(a2 - 1) = v130;
-        goto LABEL_58;
+LABEL_36:
+        *v9 = v96;
+        a2[-1].n128_u64[1] = v120;
+        goto LABEL_57;
       }
 
-      v138 = v18[2];
-      v113 = *v18;
+      v128 = v18[2];
+      v103 = *v18;
       v42 = *v12;
-      v18[2] = v12[2];
+      v18[2] = v12[1].n128_u64[0];
       *v18 = v42;
-      v12[2] = v138;
-      *v12 = v113;
-      if (*v9 < *v12)
+      v12[1].n128_u64[0] = v128;
+      *v12 = v103;
+      if (*v9 < v12->n128_u64[0])
       {
-        v130 = v12[2];
-        v106 = *v12;
+        v120 = v12[1].n128_u64[0];
+        v96 = *v12;
         v43 = *v9;
-        v12[2] = *(a2 - 1);
+        v12[1].n128_u64[0] = a2[-1].n128_u64[1];
         *v12 = v43;
-        goto LABEL_37;
+        goto LABEL_36;
       }
     }
 
-LABEL_58:
-    if ((a5 & 1) == 0 && *(v12 - 3) >= *v12)
+LABEL_57:
+    if ((a5 & 1) == 0 && v12[-2].n128_u64[1] >= v12->n128_u64[0])
     {
-      v12 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,TRangeValue<Pointer64,unsigned long long> *,std::__less<void,void> &>(v12, a2);
-      goto LABEL_65;
+      v12 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,TRangeValue<Pointer64,unsigned long long> *,std::__less<void,void> &>(v12->n128_u64, a2->n128_u64);
+      goto LABEL_64;
     }
 
     v65 = std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,TRangeValue<Pointer64,unsigned long long> *,std::__less<void,void> &>(v12, a2);
     if ((v67 & 1) == 0)
     {
-      goto LABEL_63;
+      goto LABEL_62;
     }
 
     v68 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer64,unsigned long long> *>(v12, v65, v66);
@@ -7117,33 +6695,80 @@ LABEL_58:
       a2 = v65;
       if (v68)
       {
-        goto LABEL_109;
+        return result;
       }
 
-      goto LABEL_2;
+      goto LABEL_1;
     }
 
     v13 = v14 + 1;
     if (!v68)
     {
-LABEL_63:
-      std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer64,unsigned long long> *,false>(a1, v65, a3, -v14, a5 & 1);
+LABEL_62:
+      result = std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer64,unsigned long long> *,false>(a1, v65, a3, -v14, a5 & 1);
       v12 = (v65 + 3);
-LABEL_65:
+LABEL_64:
       a5 = 0;
       a4 = -v14;
-      goto LABEL_3;
+      goto LABEL_2;
     }
   }
 
-  if (v12 == a2)
+  v70 = (v12 + 24);
+  v71 = v12[1].n128_u64[1];
+  v74 = a2[-2].n128_u64[1];
+  v73 = &a2[-2].n128_i8[8];
+  v72 = v74;
+  if (v71 >= v12->n128_u64[0])
   {
-    goto LABEL_109;
+    if (v72 >= v71)
+    {
+      return result;
+    }
+
+    v83 = v12[2].n128_u64[1];
+    result = *v70;
+    v84 = *(v73 + 2);
+    *v70 = *v73;
+    v12[2].n128_u64[1] = v84;
+    *v73 = result;
+    *(v73 + 2) = v83;
+    goto LABEL_106;
   }
 
-  v86 = *MEMORY[0x1E69E9840];
+  if (v72 < v71)
+  {
+LABEL_75:
+    v141 = v12[1].n128_u64[0];
+    v113 = *v12;
+    v78 = *v73;
+    v12[1].n128_u64[0] = *(v73 + 2);
+    *v12 = v78;
+    result = v113;
+    *v73 = v113;
+    *(v73 + 2) = v141;
+    return result;
+  }
 
-  std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer64,unsigned long long> *,TRangeValue<Pointer64,unsigned long long> *>(v12, a2, a2, a3);
+  v140 = v12[1].n128_u64[0];
+  v112 = *v12;
+  *v12 = *v70;
+  v12[1].n128_u64[0] = v12[2].n128_u64[1];
+  result = v112;
+  *v70 = v112;
+  v12[2].n128_u64[1] = v140;
+  if (*v73 < v12[1].n128_u64[1])
+  {
+    v75 = v12[2].n128_u64[1];
+    result = *v70;
+    v76 = *(v73 + 2);
+    *v70 = *v73;
+    v12[2].n128_u64[1] = v76;
+    *v73 = result;
+    *(v73 + 2) = v75;
+  }
+
+  return result;
 }
 
 __n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer64,unsigned long long> *,0>(__n128 *a1, __n128 *a2, unint64_t *a3, uint64_t a4, uint64_t a5, __n128 result)
@@ -7154,7 +6779,7 @@ __n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> 
   {
     if (v7 < v6)
     {
-      v10 = a2[1].n128_i64[0];
+      v10 = a2[1].n128_u64[0];
       result = *a2;
       v11 = a3[2];
       *a2 = *a3;
@@ -7219,7 +6844,7 @@ LABEL_10:
     *(a4 + 16) = v17;
     if (*a3 < a2->n128_u64[0])
     {
-      v19 = a2[1].n128_i64[0];
+      v19 = a2[1].n128_u64[0];
       result = *a2;
       v20 = a3[2];
       *a2 = *a3;
@@ -7259,7 +6884,7 @@ LABEL_10:
       *(a4 + 16) = v25;
       if (*a3 < a2->n128_u64[0])
       {
-        v27 = a2[1].n128_i64[0];
+        v27 = a2[1].n128_u64[0];
         result = *a2;
         v28 = a3[2];
         *a2 = *a3;
@@ -7285,7 +6910,6 @@ LABEL_10:
 
 uint64_t std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer64,unsigned long long> *>(uint64_t result, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
   if (result != a2)
   {
     v2 = result + 24;
@@ -7299,7 +6923,7 @@ uint64_t std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<
         v6 = *(v4 + 24);
         if (v6 < *v4)
         {
-          v11 = *(v4 + 32);
+          v10 = *(v4 + 32);
           v7 = v3;
           while (1)
           {
@@ -7322,7 +6946,7 @@ uint64_t std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<
           v9 = result;
 LABEL_10:
           *v9 = v6;
-          *(v9 + 8) = v11;
+          *(v9 + 8) = v10;
         }
 
         v2 = v5 + 24;
@@ -7334,16 +6958,14 @@ LABEL_10:
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-unint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,TRangeValue<Pointer64,unsigned long long> *,std::__less<void,void> &>(unint64_t *a1, unint64_t a2)
+unint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,TRangeValue<Pointer64,unsigned long long> *,std::__less<void,void> &>(unint64_t *a1, unint64_t *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v15 = *(a1 + 1);
-  if (*a1 >= *(a2 - 24))
+  v14 = *(a1 + 1);
+  if (*a1 >= *(a2 - 3))
   {
     v5 = a1 + 3;
     do
@@ -7376,8 +6998,8 @@ unint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPo
   {
     do
     {
-      v6 = *(a2 - 24);
-      a2 -= 24;
+      v6 = *(a2 - 3);
+      a2 -= 3;
     }
 
     while (v2 < v6);
@@ -7385,13 +7007,13 @@ unint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPo
 
   while (v3 < a2)
   {
-    v14 = v3[2];
-    v13 = *v3;
+    v13 = v3[2];
+    v12 = *v3;
     v7 = *a2;
-    v3[2] = *(a2 + 16);
+    v3[2] = a2[2];
     *v3 = v7;
-    *(a2 + 16) = v14;
-    *a2 = v13;
+    a2[2] = v13;
+    *a2 = v12;
     do
     {
       v8 = v3[3];
@@ -7401,8 +7023,8 @@ unint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPo
     while (v2 >= v8);
     do
     {
-      v9 = *(a2 - 24);
-      a2 -= 24;
+      v9 = *(a2 - 3);
+      a2 -= 3;
     }
 
     while (v2 < v9);
@@ -7416,17 +7038,15 @@ unint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPo
   }
 
   *(v3 - 3) = v2;
-  *(v3 - 1) = v15;
-  v11 = *MEMORY[0x1E69E9840];
+  *(v3 - 1) = v14;
   return v3;
 }
 
 uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,TRangeValue<Pointer64,unsigned long long> *,std::__less<void,void> &>(uint64_t *a1, unint64_t a2)
 {
   v2 = 0;
-  v19 = *MEMORY[0x1E69E9840];
   v3 = *a1;
-  v18 = *(a1 + 1);
+  v17 = *(a1 + 1);
   do
   {
     v4 = a1[v2 + 3];
@@ -7502,14 +7122,12 @@ uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
   }
 
   *(v8 - 3) = v3;
-  *(v8 - 1) = v18;
-  v16 = *MEMORY[0x1E69E9840];
+  *(v8 - 1) = v17;
   return v8 - 3;
 }
 
 BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer64,unsigned long long> *>(uint64_t a1, _OWORD *a2, __n128 a3)
 {
-  v66 = *MEMORY[0x1E69E9840];
   v3 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 3);
   if (v3 > 2)
   {
@@ -7518,7 +7136,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
       v6 = (a1 + 24);
       v7 = *(a1 + 24);
       v9 = *(a2 - 3);
-      v4 = (a2 - 24);
+      v4 = a2 - 24;
       v8 = v9;
       if (v7 < *a1)
       {
@@ -7530,43 +7148,43 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
           *(a1 + 16) = *(a1 + 40);
           *v6 = v39;
           *(a1 + 40) = v38;
-          if (v4->n128_u64[0] < *(a1 + 24))
+          if (*v4 < *(a1 + 24))
           {
             v40 = *(a1 + 40);
             v41 = *v6;
-            v42 = v4[1].n128_i64[0];
+            v42 = *(v4 + 2);
             *v6 = *v4;
             *(a1 + 40) = v42;
             *v4 = v41;
-            v4[1].n128_u64[0] = v40;
+            *(v4 + 2) = v40;
           }
 
-          goto LABEL_50;
+          return 1;
         }
 
 LABEL_12:
         v10 = *(a1 + 16);
         v11 = *a1;
-        v12 = v4[1].n128_i64[0];
+        v12 = *(v4 + 2);
         *a1 = *v4;
         *(a1 + 16) = v12;
         *v4 = v11;
-        v4[1].n128_u64[0] = v10;
-        goto LABEL_50;
+        *(v4 + 2) = v10;
+        return 1;
       }
 
       if (v8 >= v7)
       {
-        goto LABEL_50;
+        return 1;
       }
 
       v27 = *(a1 + 40);
       v28 = *v6;
-      v29 = v4[1].n128_i64[0];
+      v29 = *(v4 + 2);
       *v6 = *v4;
       *(a1 + 40) = v29;
       *v4 = v28;
-      v4[1].n128_u64[0] = v27;
+      *(v4 + 2) = v27;
 LABEL_48:
       if (*(a1 + 24) < *a1)
       {
@@ -7578,7 +7196,7 @@ LABEL_48:
         v6[1].n128_u64[0] = v61;
       }
 
-      goto LABEL_50;
+      return 1;
     }
 
     if (v3 != 4)
@@ -7589,9 +7207,7 @@ LABEL_48:
       }
 
       std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer64,unsigned long long> *,0>(a1, (a1 + 24), (a1 + 48), a1 + 72, a2 - 24, a3);
-LABEL_50:
-      result = 1;
-      goto LABEL_51;
+      return 1;
     }
 
     v6 = (a1 + 24);
@@ -7656,7 +7272,7 @@ LABEL_50:
 LABEL_45:
     if (v23->n128_u64[0] >= v21->n128_u64[0])
     {
-      goto LABEL_50;
+      return 1;
     }
 
     v56 = *(a1 + 64);
@@ -7668,7 +7284,7 @@ LABEL_45:
     *(a2 - 1) = v56;
     if (v21->n128_u64[0] >= v6->n128_u64[0])
     {
-      goto LABEL_50;
+      return 1;
     }
 
     v59 = *(a1 + 40);
@@ -7682,16 +7298,16 @@ LABEL_45:
 
   if (v3 < 2)
   {
-    goto LABEL_50;
+    return 1;
   }
 
   if (v3 == 2)
   {
     v5 = *(a2 - 3);
-    v4 = (a2 - 24);
+    v4 = a2 - 24;
     if (v5 >= *a1)
     {
-      goto LABEL_50;
+      return 1;
     }
 
     goto LABEL_12;
@@ -7757,7 +7373,7 @@ LABEL_13:
   v47 = (a1 + 72);
   if ((a1 + 72) == a2)
   {
-    goto LABEL_50;
+    return 1;
   }
 
   v48 = 0;
@@ -7767,7 +7383,7 @@ LABEL_13:
     v50 = *v47;
     if (*v47 < v13->n128_u64[0])
     {
-      v65 = *(v47 + 8);
+      v64 = *(v47 + 8);
       v51 = v48;
       while (1)
       {
@@ -7790,10 +7406,10 @@ LABEL_13:
       v53 = a1;
 LABEL_39:
       *v53 = v50;
-      *(v53 + 8) = v65;
+      *(v53 + 8) = v64;
       if (++v49 == 8)
       {
-        break;
+        return (v47 + 24) == a2;
       }
     }
 
@@ -7802,28 +7418,23 @@ LABEL_39:
     v47 = (v47 + 24);
     if (v47 == a2)
     {
-      goto LABEL_50;
+      return 1;
     }
   }
-
-  result = (v47 + 24) == a2;
-LABEL_51:
-  v64 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
-unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer64,unsigned long long> *,TRangeValue<Pointer64,unsigned long long> *>(unint64_t *a1, unint64_t *a2, unint64_t *a3, uint64_t a4)
+char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer64,unsigned long long> *,TRangeValue<Pointer64,unsigned long long> *>(char *a1, char *a2, char *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
     v6 = a2;
     v8 = a2 - a1;
-    v9 = 0xAAAAAAAAAAAAAAABLL * (a2 - a1);
+    v9 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 3);
     if (a2 - a1 >= 25)
     {
       v10 = (v9 - 2) >> 1;
       v11 = v10 + 1;
-      v12 = &a1[3 * v10];
+      v12 = &a1[24 * v10];
       do
       {
         std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer64,unsigned long long> *>(a1, a4, v9, v12);
@@ -7842,17 +7453,17 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__
       {
         if (*v13 < *a1)
         {
-          v14 = v13[2];
+          v14 = *(v13 + 2);
           v15 = *v13;
-          v16 = a1[2];
+          v16 = *(a1 + 2);
           *v13 = *a1;
-          v13[2] = v16;
+          *(v13 + 2) = v16;
           *a1 = v15;
-          a1[2] = v14;
+          *(a1 + 2) = v14;
           std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer64,unsigned long long> *>(a1, a4, v9, a1);
         }
 
-        v13 += 3;
+        v13 += 24;
       }
 
       while (v13 != a3);
@@ -7865,12 +7476,12 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__
       {
         v18 = 0;
         v29 = *a1;
-        v30 = a1[2];
+        v30 = *(a1 + 2);
         v19 = a1;
         do
         {
-          v20 = &v19[3 * v18];
-          v21 = v20 + 3;
+          v20 = &v19[24 * v18];
+          v21 = v20 + 24;
           v22 = (2 * v18) | 1;
           v18 = 2 * v18 + 2;
           if (v18 >= v17)
@@ -7880,8 +7491,8 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__
 
           else
           {
-            v24 = v20[6];
-            v23 = v20 + 6;
+            v24 = *(v20 + 6);
+            v23 = v20 + 48;
             if (*(v23 - 3) >= v24)
             {
               v18 = v22;
@@ -7894,27 +7505,27 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__
           }
 
           v25 = *v21;
-          v19[2] = v21[2];
+          *(v19 + 2) = *(v21 + 2);
           *v19 = v25;
           v19 = v21;
         }
 
         while (v18 <= ((v17 - 2) >> 1));
-        v6 -= 3;
+        v6 -= 24;
         if (v21 == v6)
         {
-          v21[2] = v30;
+          *(v21 + 2) = v30;
           *v21 = v29;
         }
 
         else
         {
           v26 = *v6;
-          v21[2] = v6[2];
+          *(v21 + 2) = *(v6 + 2);
           *v21 = v26;
           *v6 = v29;
-          v6[2] = v30;
-          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer64,unsigned long long> *>(a1, (v21 + 3), a4, 0xAAAAAAAAAAAAAAABLL * (v21 + 3 - a1));
+          *(v6 + 2) = v30;
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer64,unsigned long long> *>(a1, (v21 + 24), a4, 0xAAAAAAAAAAAAAAABLL * ((v21 + 24 - a1) >> 3));
         }
       }
 
@@ -7927,17 +7538,16 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__
   return a3;
 }
 
-uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer64,unsigned long long> *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t *a4)
+__n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer64,unsigned long long> *>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4)
 {
-  v17 = *MEMORY[0x1E69E9840];
   if (a3 >= 2)
   {
     v4 = (a3 - 2) >> 1;
-    if (v4 >= (0xAAAAAAAAAAAAAAABLL * ((a4 - result) >> 3)))
+    if (v4 >= (0xAAAAAAAAAAAAAAABLL * ((a4 - a1) >> 3)))
     {
-      v5 = (0x5555555555555556 * ((a4 - result) >> 3)) | 1;
-      v6 = (result + 24 * v5);
-      if (0x5555555555555556 * ((a4 - result) >> 3) + 2 >= a3)
+      v5 = (0x5555555555555556 * ((a4 - a1) >> 3)) | 1;
+      v6 = (a1 + 24 * v5);
+      if (0x5555555555555556 * ((a4 - a1) >> 3) + 2 >= a3)
       {
         v7 = *v6;
       }
@@ -7954,7 +7564,7 @@ uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,
         if (*v6 < v8)
         {
           v6 += 3;
-          v5 = 0x5555555555555556 * ((a4 - result) >> 3) + 2;
+          v5 = 0x5555555555555556 * ((a4 - a1) >> 3) + 2;
         }
       }
 
@@ -7975,7 +7585,7 @@ uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,
           }
 
           v12 = (2 * v5) | 1;
-          v6 = (result + 24 * v12);
+          v6 = (a1 + 24 * v12);
           v5 = 2 * v5 + 2;
           if (v5 >= a3)
           {
@@ -8006,22 +7616,21 @@ uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,
 
         while (v13 >= v9);
         *a4 = v9;
+        result = v16;
         *(a4 + 1) = v16;
       }
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer64,unsigned long long> *>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+__n128 std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer64,unsigned long long> *>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v12 = *MEMORY[0x1E69E9840];
   if (a4 >= 2)
   {
     v4 = (a4 - 2) >> 1;
-    v5 = (result + 24 * v4);
+    v5 = (a1 + 24 * v4);
     v6 = (a2 - 24);
     v7 = *(a2 - 24);
     if (*v5 < v7)
@@ -8040,20 +7649,20 @@ uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
         }
 
         v4 = (v4 - 1) >> 1;
-        v5 = (result + 24 * v4);
+        v5 = (a1 + 24 * v4);
       }
 
       while (*v5 < v7);
       *v6 = v7;
+      result = v11;
       *(v6 + 8) = v11;
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t std::vector<TRangeValue<Pointer64,unsigned long long>>::__init_with_size[abi:ne200100]<TRangeValue<Pointer64,unsigned long long>*,TRangeValue<Pointer64,unsigned long long>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<TRangeValue<Pointer64,unsigned long long>>::__init_with_size[abi:ne200100]<TRangeValue<Pointer64,unsigned long long>*,TRangeValue<Pointer64,unsigned long long>*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8075,7 +7684,7 @@ void sub_1D970FD24(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<TRangeValue<Pointer64,unsigned long long>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<TRangeValue<Pointer64,unsigned long long>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -8157,40 +7766,40 @@ unsigned int **FlatbufferSymbolOwnerData::findUpperAndLowerRangeForVMAddressRang
   return result;
 }
 
-unsigned int **std::__equal_range[abi:ne200100]<std::_ClassicAlgPolicy,StringComparison &,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry>,FlatbufferSymbols::SymbolNameEntry const*,unsigned char const*,unsigned int>,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry>,FlatbufferSymbols::SymbolNameEntry const*,unsigned char const*,unsigned int>,char const*,std::__identity>@<X0>(unsigned int **result@<X0>, char **a2@<X1>, const char **a3@<X2>, uint64_t a4@<X8>)
+unsigned int **std::__equal_range[abi:ne200100]<std::_ClassicAlgPolicy,StringComparison &,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry>,FlatbufferSymbols::SymbolNameEntry const*,unsigned char const*,unsigned int>,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry>,FlatbufferSymbols::SymbolNameEntry const*,unsigned char const*,unsigned int>,char const*,std::__identity>@<X0>(unsigned int **result@<X0>, char **a2@<X1>, const char **a3@<X2>, unsigned int **a6@<X8>)
 {
-  v5 = *result;
-  v6 = *a2;
+  v7 = *result;
+  v8 = *a2;
   if ((*a2 - *result + 3) < 7)
   {
 LABEL_8:
-    *a4 = v5;
-    *(a4 + 8) = v5;
+    *a6 = v7;
+    a6[1] = v7;
   }
 
   else
   {
-    v8 = result;
-    v9 = (*a2 - *result) / 4;
+    v10 = result;
+    v11 = (*a2 - *result) / 4;
     while (1)
     {
       while (1)
       {
-        v10 = v9 >> 1;
-        v11 = (2 * v9) & 0xFFFFFFFC;
-        v12 = v5 + v11;
-        v13 = (v5 + v11 + *(v5 + v11));
-        v14 = v13 + *(v13 - *v13 + 4);
-        result = strcmp(&v14[*v14 + 4], *a3);
+        v12 = v11 >> 1;
+        v13 = (2 * v11) & 0xFFFFFFFC;
+        v14 = v7 + v13;
+        v15 = (v7 + v13 + *(v7 + v13));
+        v16 = v15 + *(v15 - *v15 + 4);
+        result = strcmp(&v16[*v16 + 4], *a3);
         if ((result & 0x80000000) == 0)
         {
           break;
         }
 
-        v5 = (v12 + 4);
-        *v8 = v12 + 4;
-        v9 += ~v10;
-        if (!v9)
+        v7 = (v14 + 4);
+        *v10 = v14 + 4;
+        v11 += ~v12;
+        if (!v11)
         {
           goto LABEL_8;
         }
@@ -8201,20 +7810,20 @@ LABEL_8:
         break;
       }
 
-      v6 = v5 + v11;
-      v9 >>= 1;
-      if (!v10)
+      v8 = v7 + v13;
+      v11 >>= 1;
+      if (!v12)
       {
         goto LABEL_8;
       }
     }
 
-    v17 = v5;
-    std::__lower_bound_bisecting[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry>,FlatbufferSymbols::SymbolNameEntry const*,unsigned char const*,unsigned int>,char const*,std::__identity,StringComparison>(&v17, a3, v11 >> 2, &v16);
-    v17 = (v12 + 4);
-    v15 = v6;
-    result = std::__upper_bound[abi:ne200100]<std::_ClassicAlgPolicy,StringComparison &,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry>,FlatbufferSymbols::SymbolNameEntry const*,unsigned char const*,unsigned int>,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry>,FlatbufferSymbols::SymbolNameEntry const*,unsigned char const*,unsigned int>,char const*,std::__identity &>(&v17, &v15, a3, (a4 + 8));
-    *a4 = v16;
+    v19 = v7;
+    std::__lower_bound_bisecting[abi:ne200100]<std::_ClassicAlgPolicy,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry>,FlatbufferSymbols::SymbolNameEntry const*,unsigned char const*,unsigned int>,char const*,std::__identity,StringComparison>(&v19, a3, v13 >> 2, &v18);
+    v19 = (v14 + 4);
+    v17 = v8;
+    result = std::__upper_bound[abi:ne200100]<std::_ClassicAlgPolicy,StringComparison &,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry>,FlatbufferSymbols::SymbolNameEntry const*,unsigned char const*,unsigned int>,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SymbolNameEntry>,FlatbufferSymbols::SymbolNameEntry const*,unsigned char const*,unsigned int>,char const*,std::__identity &>(&v19, &v17, a3, a6 + 1);
+    *a6 = v18;
   }
 
   return result;
@@ -8376,7 +7985,7 @@ uint64_t FlatbufferSymbols::Symbol::source_infos(FlatbufferSymbols::Symbol *this
   }
 }
 
-unsigned int **FlatbufferSymbolOwnerData::findUpperAndLowerRangeForVMAddressRange<flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SourceInfo>,FlatbufferSymbols::SourceInfo const*,unsigned char const*,unsigned int>>@<X0>(unsigned int **a1@<X1>, unsigned int **a2@<X2>, unsigned int *a3@<X3>, uint64_t a4@<X4>, unsigned int **a5@<X8>)
+unsigned int **FlatbufferSymbolOwnerData::findUpperAndLowerRangeForVMAddressRange<flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SourceInfo>,FlatbufferSymbols::SourceInfo const*,unsigned char const*,unsigned int>>@<X0>(uint64_t *a1@<X1>, uint64_t *a2@<X2>, unsigned int *a3@<X3>, uint64_t a4@<X4>, uint64_t *a5@<X8>)
 {
   v10 = *a1;
   v11 = *a2;
@@ -8393,7 +8002,8 @@ unsigned int **FlatbufferSymbolOwnerData::findUpperAndLowerRangeForVMAddressRang
     v16 = v26;
     do
     {
-      v18 = *--v16;
+      v18 = *(v16 - 4);
+      v16 -= 4;
       v17 = v18;
       v19 = v18 - *(v15 + v18 - 4);
       v20 = *(v15 + v19 - 4);
@@ -8448,42 +8058,41 @@ unsigned int **FlatbufferSymbolOwnerData::findUpperAndLowerRangeForVMAddressRang
   return result;
 }
 
-unsigned int **std::__upper_bound[abi:ne200100]<std::_ClassicAlgPolicy,AddressComparison,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SourceInfo>,FlatbufferSymbols::SourceInfo const*,unsigned char const*,unsigned int>,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SourceInfo>,FlatbufferSymbols::SourceInfo const*,unsigned char const*,unsigned int>,unsigned long long,std::__identity>@<X0>(unsigned int **result@<X0>, unsigned int **a2@<X1>, unint64_t *a3@<X2>, unsigned int **a4@<X8>)
+unsigned int **std::__upper_bound[abi:ne200100]<std::_ClassicAlgPolicy,AddressComparison,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SourceInfo>,FlatbufferSymbols::SourceInfo const*,unsigned char const*,unsigned int>,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SourceInfo>,FlatbufferSymbols::SourceInfo const*,unsigned char const*,unsigned int>,unsigned long long,std::__identity>@<X0>(unsigned int **result@<X0>, void *a2@<X1>, unint64_t *a3@<X2>, unsigned int **a4@<X8>)
 {
   v4 = *result;
   v5 = *a2 - *result;
   if ((v5 + 3) >= 7)
   {
-    v6 = *a2 == *result;
-    v7 = v5 / 4;
-    v8 = *a3;
+    v6 = v5 / 4;
+    v7 = *a3;
     do
     {
-      v9 = (v4 + ((2 * v7) & 0xFFFFFFFC));
-      v10 = (v9 + *v9);
-      v11 = (v10 - *v10);
-      if (*v11 >= 0xDu && (v12 = v11[6]) != 0)
+      v8 = (v4 + ((2 * v6) & 0xFFFFFFFC));
+      v9 = (v8 + *v8);
+      v10 = (v9 - *v9);
+      if (*v10 >= 0xDu && (v11 = v10[6]) != 0)
       {
-        v13 = *(v10 + v12);
+        v12 = *(v9 + v11);
       }
 
       else
       {
-        v13 = -1;
+        v12 = -1;
       }
 
-      v14 = v7 >> 1;
-      if (v13 <= v8)
+      v13 = v6 >> 1;
+      if (v12 <= v7)
       {
-        v4 = v9 + 1;
-        *result = v9 + 1;
-        v14 = v7 + ~v14;
+        v4 = v8 + 1;
+        *result = v8 + 1;
+        v13 = v6 + ~v13;
       }
 
-      v7 = v14;
+      v6 = v13;
     }
 
-    while (v14);
+    while (v13);
   }
 
   *a4 = v4;
@@ -8523,7 +8132,7 @@ _DWORD *FlatbufferSymbolOwnerData::findMatchingEntryInFlatbufferTypeWithVMAddres
     v10 = result;
     v11 = result + 1;
     v13 = result + 1;
-    v12 = (result + (4 * *result) + 4);
+    v12 = result + (4 * *result) + 4;
     FlatbufferSymbolOwnerData::findMatchingEntryForVMAddressRange<flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::Symbol>,FlatbufferSymbols::Symbol const*,unsigned char const*,unsigned int>>(&v13, &v12, a5, a6, &v14);
     if (v14 == (v11 + (4 * *v10)))
     {
@@ -8582,38 +8191,8 @@ unsigned int **FlatbufferSymbolOwnerData::findMatchingEntryForVMAddressRange<fla
   v22 = v11;
   v23 = v10;
   result = std::__upper_bound[abi:ne200100]<std::_ClassicAlgPolicy,AddressComparison,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SourceInfo>,FlatbufferSymbols::SourceInfo const*,unsigned char const*,unsigned int>,flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::SourceInfo>,FlatbufferSymbols::SourceInfo const*,unsigned char const*,unsigned int>,unsigned long long,std::__identity>(&v23, &v22, &v20, &v21);
-  if (v21 == *a1)
+  if (v21 == *a1 || ((v13 = v21 - 1, v14 = (v21 + *(v21 - 1) - 4), v15 = (v14 - *v14), v16 = *v15, v16 < 0xD) ? (v18 = 0, v17 = -1) : (!v15[6] ? (v17 = -1) : (v17 = *(v14 + v15[6])), v16 < 0xF || (v19 = v15[7]) == 0 ? (v18 = 0) : (v18 = *(v14 + v19))), a3 < v17 || a4 + a3 > v18 + v17))
   {
-    goto LABEL_13;
-  }
-
-  v13 = v21 - 1;
-  v14 = (v21 + *(v21 - 1) - 4);
-  v15 = (v14 - *v14);
-  v16 = *v15;
-  if (v16 < 0xD)
-  {
-    v18 = 0;
-    v17 = -1;
-  }
-
-  else
-  {
-    v17 = v15[6] ? *(v14 + v15[6]) : -1;
-    if (v16 >= 0xF && (v19 = v15[7]) != 0)
-    {
-      v18 = *(v14 + v19);
-    }
-
-    else
-    {
-      v18 = 0;
-    }
-  }
-
-  if (a3 < v17 || a4 + a3 > v18 + v17)
-  {
-LABEL_13:
     v13 = *a2;
   }
 
@@ -8654,7 +8233,7 @@ _DWORD *FlatbufferSymbolOwnerData::findMatchingEntryInFlatbufferTypeWithVMAddres
     v10 = result;
     v11 = result + 1;
     v13 = result + 1;
-    v12 = (result + (4 * *result) + 4);
+    v12 = result + (4 * *result) + 4;
     FlatbufferSymbolOwnerData::findMatchingEntryForVMAddressRange<flatbuffers::VectorIterator<flatbuffers::Offset<FlatbufferSymbols::Symbol>,FlatbufferSymbols::Symbol const*,unsigned char const*,unsigned int>>(&v13, &v12, a5, a6, &v14);
     if (v14 == (v11 + (4 * *v10)))
     {
@@ -8739,7 +8318,7 @@ void std::allocator<_CSTypeRef>::allocate_at_least[abi:ne200100](uint64_t a1, un
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t FlatbufferSymbolOwnerData::forEachElementInFlatbufferTypeWithAccessor<FlatbufferSymbols::InlineSymbol,flatbuffers::Vector<flatbuffers::Offset<FlatbufferSymbols::InlineSymbol>,unsigned int> const* (FlatbufferSymbols::InlineSymbol::*)(void)const,unsigned long FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth_impl<FlatbufferSymbols::InlineSymbol const>(CSCppSymbolOwner *,FlatbufferSymbols::InlineSymbol const *,int,void({block_pointer})(_CSRange,_CSTypeRef *,_CSTypeRef *,unsigned long))::{lambda(FlatbufferSymbols::InlineSymbol const*)#1}>(uint64_t a1, uint64_t a2, uint64_t (*a3)(void *), uint64_t a4, uint64_t **a5)
+uint64_t FlatbufferSymbolOwnerData::forEachElementInFlatbufferTypeWithAccessor<FlatbufferSymbols::InlineSymbol,flatbuffers::Vector<flatbuffers::Offset<FlatbufferSymbols::InlineSymbol>,unsigned int> const* (FlatbufferSymbols::InlineSymbol::*)(void)const,unsigned long FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth_impl<FlatbufferSymbols::InlineSymbol const>(CSCppSymbolOwner *,FlatbufferSymbols::InlineSymbol const *,int,void({block_pointer})(_CSRange,_CSTypeRef *,_CSTypeRef *,unsigned long))::{lambda(FlatbufferSymbols::InlineSymbol const*)#1}>(uint64_t a1, uint64_t a2, uint64_t (*a3)(void *), uint64_t a4, uint64_t a5)
 {
   if (!a2)
   {
@@ -8781,10 +8360,10 @@ uint64_t FlatbufferSymbolOwnerData::forEachElementInFlatbufferTypeWithAccessor<F
   return v8;
 }
 
-uint64_t FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth_impl<FlatbufferSymbols::InlineSymbol const>(CSCppSymbolOwner *,FlatbufferSymbols::InlineSymbol const *,int,void({block_pointer})(_CSRange,_CSTypeRef *,_CSTypeRef *,unsigned long))const::{lambda(FlatbufferSymbols::InlineSymbol const*,FlatbufferSymbols::InlineSymbol const&)#1}::operator()<{lambda(FlatbufferSymbols::InlineSymbol const*,FlatbufferSymbols::InlineSymbol const&)#1}>(uint64_t **a1, uint64_t a2, uint64_t a3)
+uint64_t FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth_impl<FlatbufferSymbols::InlineSymbol const>(CSCppSymbolOwner *,FlatbufferSymbols::InlineSymbol const *,int,void({block_pointer})(_CSRange,_CSTypeRef *,_CSTypeRef *,unsigned long))const::{lambda(FlatbufferSymbols::InlineSymbol const*,FlatbufferSymbols::InlineSymbol const&)#1}::operator()<{lambda(FlatbufferSymbols::InlineSymbol const*,FlatbufferSymbols::InlineSymbol const&)#1}>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = a1[7];
-  v7 = *(a1 + 6);
+  v6 = *(a1 + 56);
+  v7 = *(a1 + 24);
   v8 = (a2 - *a2);
   v9 = *v8;
   if (v9 < 5)
@@ -8816,13 +8395,13 @@ uint64_t FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth_im
     }
   }
 
-  v13 = *a1[2];
-  *&v48 = 0;
-  v14 = TThreadsafeAddressRelocator<Pointer64>::relocate((v6 + 160), v13, &v48);
+  v13 = **(a1 + 16);
+  *&v35 = 0;
+  v14 = TThreadsafeAddressRelocator<Pointer64>::relocate((v6 + 160), v13, &v35);
   v15 = v14;
   if (v14)
   {
-    v16 = v48;
+    v16 = v35;
   }
 
   else
@@ -8832,30 +8411,27 @@ uint64_t FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth_im
 
   if (v7 == -1)
   {
-    v17 = a1[2];
+    v17 = *(a1 + 16);
     v18 = v10 - *v17;
     if (v10 > *v17)
     {
       if (v14)
       {
-        v19 = *a1[1];
-        v20 = **a1;
-        v21 = (*a1)[1];
-        ++*a1[5];
-        v22 = a1[4];
-        if (v22)
+        ++**(a1 + 40);
+        v19 = *(a1 + 32);
+        if (v19)
         {
-          (v22[2])(v22, v16, v18);
-          v17 = a1[2];
+          (*(v19 + 16))(v19, v16, v18);
+          v17 = *(a1 + 16);
         }
       }
 
       *v17 = v10;
-      *&v48 = 0;
-      v15 = TThreadsafeAddressRelocator<Pointer64>::relocate((v6 + 160), v10, &v48);
+      *&v35 = 0;
+      v15 = TThreadsafeAddressRelocator<Pointer64>::relocate((v6 + 160), v10, &v35);
       if (v15)
       {
-        v16 = v48;
+        v16 = v35;
       }
 
       else
@@ -8865,90 +8441,84 @@ uint64_t FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth_im
     }
   }
 
-  v23 = (a2 - *a2);
-  if (*v23 >= 0xDu && (v24 = v23[6]) != 0)
+  v20 = (a2 - *a2);
+  if (*v20 >= 0xDu && (v21 = v20[6]) != 0)
   {
-    v25 = a2 + v24 + *(a2 + v24);
+    v22 = a2 + v21 + *(a2 + v21);
   }
 
   else
   {
-    v25 = 0;
+    v22 = 0;
   }
 
-  v26 = *a1;
-  *&v48 = a1[6] | 2;
-  *(&v48 + 1) = a2 | 1;
-  std::vector<_CSTypeRef>::push_back[abi:ne200100](v26, &v48);
-  v27 = a1[1];
-  if (v25)
+  v23 = *a1;
+  *&v35 = *(a1 + 48) | 2;
+  *(&v35 + 1) = a2 | 1;
+  std::vector<_CSTypeRef>::push_back[abi:ne200100](v23, &v35);
+  v24 = *(a1 + 8);
+  if (v22)
   {
-    *&v48 = a1[6] | 6;
-    *(&v48 + 1) = v25;
+    *&v35 = *(a1 + 48) | 6;
+    *(&v35 + 1) = v22;
   }
 
   else
   {
-    v48 = a1[6];
+    v35 = *(a1 + 48);
   }
 
-  std::vector<_CSTypeRef>::push_back[abi:ne200100](v27, &v48);
-  v28 = v11 + v10;
-  v47 = v11 + v10;
-  if (*(a1 + 6) + 1 == ((*a1)[1] - **a1) >> 4)
+  std::vector<_CSTypeRef>::push_back[abi:ne200100](v24, &v35);
+  v25 = v11 + v10;
+  v34 = v11 + v10;
+  if (*(a1 + 24) + 1 == (*(*a1 + 8) - **a1) >> 4)
   {
-    *&v48 = 0;
-    result = TThreadsafeAddressRelocator<Pointer64>::relocate((v6 + 160), v10, &v48);
+    *&v35 = 0;
+    result = TThreadsafeAddressRelocator<Pointer64>::relocate((v6 + 160), v10, &v35);
     if (result)
     {
-      v30 = v48;
-      v31 = *a1[1];
-      v32 = **a1;
-      v33 = (*a1)[1];
-      ++*a1[5];
-      result = a1[4];
+      v27 = v35;
+      ++**(a1 + 40);
+      result = *(a1 + 32);
       if (result)
       {
-        result = (*(result + 16))(result, v30, v11);
+        result = (*(result + 16))(result, v27, v11);
       }
     }
   }
 
   else
   {
-    result = FlatbufferSymbolOwnerData::forEachElementInFlatbufferTypeWithAccessor<FlatbufferSymbols::InlineSymbol,flatbuffers::Vector<flatbuffers::Offset<FlatbufferSymbols::InlineSymbol>,unsigned int> const* (FlatbufferSymbols::InlineSymbol::*)(void)const,void unsigned long FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth_impl<FlatbufferSymbols::InlineSymbol const>(CSCppSymbolOwner *,FlatbufferSymbols::InlineSymbol const *,int,void({block_pointer})(_CSRange,_CSTypeRef *,_CSTypeRef *,unsigned long))::{lambda(FlatbufferSymbols::InlineSymbol const*,FlatbufferSymbols::InlineSymbol const&)#1}::operator()<{lambda(FlatbufferSymbols::InlineSymbol const*,FlatbufferSymbols::InlineSymbol const&)#1}> const(FlatbufferSymbols::InlineSymbol const*,FlatbufferSymbols::InlineSymbol const&)::{lambda(FlatbufferSymbols::InlineSymbol const*)#1}>(v6, a2, FlatbufferSymbols::InlineSymbol::inline_symbols, 0, a3, &v47);
+    result = FlatbufferSymbolOwnerData::forEachElementInFlatbufferTypeWithAccessor<FlatbufferSymbols::InlineSymbol,flatbuffers::Vector<flatbuffers::Offset<FlatbufferSymbols::InlineSymbol>,unsigned int> const* (FlatbufferSymbols::InlineSymbol::*)(void)const,void unsigned long FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth_impl<FlatbufferSymbols::InlineSymbol const>(CSCppSymbolOwner *,FlatbufferSymbols::InlineSymbol const *,int,void({block_pointer})(_CSRange,_CSTypeRef *,_CSTypeRef *,unsigned long))::{lambda(FlatbufferSymbols::InlineSymbol const*,FlatbufferSymbols::InlineSymbol const&)#1}::operator()<{lambda(FlatbufferSymbols::InlineSymbol const*,FlatbufferSymbols::InlineSymbol const&)#1}> const(FlatbufferSymbols::InlineSymbol const*,FlatbufferSymbols::InlineSymbol const&)::{lambda(FlatbufferSymbols::InlineSymbol const*)#1}>(v6, a2, FlatbufferSymbols::InlineSymbol::inline_symbols, 0, a3, &v34);
   }
 
   if (v7 == -1)
   {
-    v34 = v47;
-    v35 = a1[2];
-    v36 = *v35;
-    v37 = v47 - *v35;
-    if (v47 > *v35)
+    v28 = v34;
+    v29 = *(a1 + 16);
+    v30 = *v29;
+    v31 = v34 - *v29;
+    if (v34 > *v29)
     {
       if (v15)
       {
-        v38 = *a1[1];
-        v39 = **a1;
-        v40 = (*a1)[1];
-        ++*a1[5];
-        v41 = a1[4];
-        if (v41)
+        ++**(a1 + 40);
+        v32 = *(a1 + 32);
+        if (v32)
         {
-          (v41[2])(v41, v16, v37);
-          v34 = v47;
-          v35 = a1[2];
+          (*(v32 + 16))(v32, v16, v31);
+          v28 = v34;
+          v29 = *(a1 + 16);
         }
       }
 
-      *v35 = v34;
-      *&v48 = 0;
-      result = TThreadsafeAddressRelocator<Pointer64>::relocate((v6 + 160), v34, &v48);
+      *v29 = v28;
+      *&v35 = 0;
+      result = TThreadsafeAddressRelocator<Pointer64>::relocate((v6 + 160), v28, &v35);
       v15 = result;
       if (result)
       {
-        v16 = v48;
+        v16 = v35;
       }
 
       else
@@ -8956,35 +8526,31 @@ uint64_t FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth_im
         v16 = 0;
       }
 
-      v35 = a1[2];
-      v36 = *v35;
+      v29 = *(a1 + 16);
+      v30 = *v29;
     }
 
-    v42 = v28 - v36;
-    if (v28 > v36)
+    if (v25 > v30)
     {
       if (v15)
       {
-        v43 = *a1[1];
-        v44 = **a1;
-        v45 = (*a1)[1];
-        ++*a1[5];
-        v46 = a1[4];
-        if (v46)
+        ++**(a1 + 40);
+        v33 = *(a1 + 32);
+        if (v33)
         {
-          (v46[2])(v46, v16, v42);
-          v35 = a1[2];
+          (*(v33 + 16))(v33, v16, v25 - v30);
+          v29 = *(a1 + 16);
         }
       }
 
-      *v35 = v28;
-      *&v48 = 0;
-      result = TThreadsafeAddressRelocator<Pointer64>::relocate((v6 + 160), v11 + v10, &v48);
+      *v29 = v25;
+      *&v35 = 0;
+      result = TThreadsafeAddressRelocator<Pointer64>::relocate((v6 + 160), v11 + v10, &v35);
     }
   }
 
-  (*a1)[1] -= 16;
-  a1[1][1] -= 16;
+  *(*a1 + 8) -= 16;
+  *(*(a1 + 8) + 8) -= 16;
   return result;
 }
 
@@ -9014,7 +8580,7 @@ uint64_t FlatbufferSymbolOwnerData::forEachElementInFlatbufferTypeWithAccessor<F
         v14 = &v10[i / 4];
         v15 = v10[i / 4 + 1];
         v16 = &v10[i / 4] + v15;
-        FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth_impl<FlatbufferSymbols::InlineSymbol const>(CSCppSymbolOwner *,FlatbufferSymbols::InlineSymbol const *,int,void({block_pointer})(_CSRange,_CSTypeRef *,_CSTypeRef *,unsigned long))const::{lambda(FlatbufferSymbols::InlineSymbol const*,FlatbufferSymbols::InlineSymbol const&)#1}::operator()<{lambda(FlatbufferSymbols::InlineSymbol const*,FlatbufferSymbols::InlineSymbol const&)#1}>(a5, v16 + 4, a5);
+        FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth_impl<FlatbufferSymbols::InlineSymbol const>(CSCppSymbolOwner *,FlatbufferSymbols::InlineSymbol const *,int,void({block_pointer})(_CSRange,_CSTypeRef *,_CSTypeRef *,unsigned long))const::{lambda(FlatbufferSymbols::InlineSymbol const*,FlatbufferSymbols::InlineSymbol const&)#1}::operator()<{lambda(FlatbufferSymbols::InlineSymbol const*,FlatbufferSymbols::InlineSymbol const&)#1}>(a5, (v16 + 4), a5);
         v17 = v15 - *(v16 + 1);
         v18 = *(&v10[i / 4 + 1] + v17);
         if (v18 < 5)
@@ -9063,7 +8629,7 @@ uint64_t FlatbufferSymbolOwnerData::forEachElementInFlatbufferTypeWithAccessor<F
   return v11;
 }
 
-uint64_t FlatbufferSymbolOwnerData::forEachElementInFlatbufferTypeWithAccessor<FlatbufferSymbols::Symbol,flatbuffers::Vector<flatbuffers::Offset<FlatbufferSymbols::InlineSymbol>,unsigned int> const* (FlatbufferSymbols::Symbol::*)(void)const,unsigned long FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth_impl<FlatbufferSymbols::Symbol const>(CSCppSymbolOwner *,FlatbufferSymbols::Symbol const *,int,void({block_pointer})(_CSRange,_CSTypeRef *,_CSTypeRef *,unsigned long))::{lambda(FlatbufferSymbols::InlineSymbol const*)#1}>(uint64_t a1, uint64_t a2, uint64_t (*a3)(void *), uint64_t a4, uint64_t **a5)
+uint64_t FlatbufferSymbolOwnerData::forEachElementInFlatbufferTypeWithAccessor<FlatbufferSymbols::Symbol,flatbuffers::Vector<flatbuffers::Offset<FlatbufferSymbols::InlineSymbol>,unsigned int> const* (FlatbufferSymbols::Symbol::*)(void)const,unsigned long FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth_impl<FlatbufferSymbols::Symbol const>(CSCppSymbolOwner *,FlatbufferSymbols::Symbol const *,int,void({block_pointer})(_CSRange,_CSTypeRef *,_CSTypeRef *,unsigned long))::{lambda(FlatbufferSymbols::InlineSymbol const*)#1}>(uint64_t a1, uint64_t a2, uint64_t (*a3)(void *), uint64_t a4, uint64_t a5)
 {
   if (!a2)
   {
@@ -9105,10 +8671,10 @@ uint64_t FlatbufferSymbolOwnerData::forEachElementInFlatbufferTypeWithAccessor<F
   return v8;
 }
 
-uint64_t FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth_impl<FlatbufferSymbols::Symbol const>(CSCppSymbolOwner *,FlatbufferSymbols::Symbol const *,int,void({block_pointer})(_CSRange,_CSTypeRef *,_CSTypeRef *,unsigned long))const::{lambda(FlatbufferSymbols::InlineSymbol const*,FlatbufferSymbols::Symbol const&)#1}::operator()<{lambda(FlatbufferSymbols::InlineSymbol const*,FlatbufferSymbols::Symbol const&)#1}>(uint64_t **a1, uint64_t a2, uint64_t a3)
+uint64_t FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth_impl<FlatbufferSymbols::Symbol const>(CSCppSymbolOwner *,FlatbufferSymbols::Symbol const *,int,void({block_pointer})(_CSRange,_CSTypeRef *,_CSTypeRef *,unsigned long))const::{lambda(FlatbufferSymbols::InlineSymbol const*,FlatbufferSymbols::Symbol const&)#1}::operator()<{lambda(FlatbufferSymbols::InlineSymbol const*,FlatbufferSymbols::Symbol const&)#1}>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = a1[7];
-  v7 = *(a1 + 6);
+  v6 = *(a1 + 56);
+  v7 = *(a1 + 24);
   v8 = (a2 - *a2);
   v9 = *v8;
   if (v9 < 5)
@@ -9140,13 +8706,13 @@ uint64_t FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth_im
     }
   }
 
-  v13 = *a1[2];
-  *&v48 = 0;
-  v14 = TThreadsafeAddressRelocator<Pointer64>::relocate((v6 + 160), v13, &v48);
+  v13 = **(a1 + 16);
+  *&v35 = 0;
+  v14 = TThreadsafeAddressRelocator<Pointer64>::relocate((v6 + 160), v13, &v35);
   v15 = v14;
   if (v14)
   {
-    v16 = v48;
+    v16 = v35;
   }
 
   else
@@ -9156,30 +8722,27 @@ uint64_t FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth_im
 
   if (v7 == -1)
   {
-    v17 = a1[2];
+    v17 = *(a1 + 16);
     v18 = v10 - *v17;
     if (v10 > *v17)
     {
       if (v14)
       {
-        v19 = *a1[1];
-        v20 = **a1;
-        v21 = (*a1)[1];
-        ++*a1[5];
-        v22 = a1[4];
-        if (v22)
+        ++**(a1 + 40);
+        v19 = *(a1 + 32);
+        if (v19)
         {
-          (v22[2])(v22, v16, v18);
-          v17 = a1[2];
+          (*(v19 + 16))(v19, v16, v18);
+          v17 = *(a1 + 16);
         }
       }
 
       *v17 = v10;
-      *&v48 = 0;
-      v15 = TThreadsafeAddressRelocator<Pointer64>::relocate((v6 + 160), v10, &v48);
+      *&v35 = 0;
+      v15 = TThreadsafeAddressRelocator<Pointer64>::relocate((v6 + 160), v10, &v35);
       if (v15)
       {
-        v16 = v48;
+        v16 = v35;
       }
 
       else
@@ -9189,90 +8752,84 @@ uint64_t FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth_im
     }
   }
 
-  v23 = (a2 - *a2);
-  if (*v23 >= 0xDu && (v24 = v23[6]) != 0)
+  v20 = (a2 - *a2);
+  if (*v20 >= 0xDu && (v21 = v20[6]) != 0)
   {
-    v25 = a2 + v24 + *(a2 + v24);
+    v22 = a2 + v21 + *(a2 + v21);
   }
 
   else
   {
-    v25 = 0;
+    v22 = 0;
   }
 
-  v26 = *a1;
-  *&v48 = a1[6] | 2;
-  *(&v48 + 1) = a2 | 1;
-  std::vector<_CSTypeRef>::push_back[abi:ne200100](v26, &v48);
-  v27 = a1[1];
-  if (v25)
+  v23 = *a1;
+  *&v35 = *(a1 + 48) | 2;
+  *(&v35 + 1) = a2 | 1;
+  std::vector<_CSTypeRef>::push_back[abi:ne200100](v23, &v35);
+  v24 = *(a1 + 8);
+  if (v22)
   {
-    *&v48 = a1[6] | 6;
-    *(&v48 + 1) = v25;
+    *&v35 = *(a1 + 48) | 6;
+    *(&v35 + 1) = v22;
   }
 
   else
   {
-    v48 = a1[6];
+    v35 = *(a1 + 48);
   }
 
-  std::vector<_CSTypeRef>::push_back[abi:ne200100](v27, &v48);
-  v28 = v11 + v10;
-  v47 = v11 + v10;
-  if (*(a1 + 6) + 1 == ((*a1)[1] - **a1) >> 4)
+  std::vector<_CSTypeRef>::push_back[abi:ne200100](v24, &v35);
+  v25 = v11 + v10;
+  v34 = v11 + v10;
+  if (*(a1 + 24) + 1 == (*(*a1 + 8) - **a1) >> 4)
   {
-    *&v48 = 0;
-    result = TThreadsafeAddressRelocator<Pointer64>::relocate((v6 + 160), v10, &v48);
+    *&v35 = 0;
+    result = TThreadsafeAddressRelocator<Pointer64>::relocate((v6 + 160), v10, &v35);
     if (result)
     {
-      v30 = v48;
-      v31 = *a1[1];
-      v32 = **a1;
-      v33 = (*a1)[1];
-      ++*a1[5];
-      result = a1[4];
+      v27 = v35;
+      ++**(a1 + 40);
+      result = *(a1 + 32);
       if (result)
       {
-        result = (*(result + 16))(result, v30, v11);
+        result = (*(result + 16))(result, v27, v11);
       }
     }
   }
 
   else
   {
-    result = FlatbufferSymbolOwnerData::forEachElementInFlatbufferTypeWithAccessor<FlatbufferSymbols::InlineSymbol,flatbuffers::Vector<flatbuffers::Offset<FlatbufferSymbols::InlineSymbol>,unsigned int> const* (FlatbufferSymbols::InlineSymbol::*)(void)const,void unsigned long FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth_impl<FlatbufferSymbols::Symbol const>(CSCppSymbolOwner *,FlatbufferSymbols::Symbol const *,int,void({block_pointer})(_CSRange,_CSTypeRef *,_CSTypeRef *,unsigned long))::{lambda(FlatbufferSymbols::InlineSymbol const*,FlatbufferSymbols::Symbol const&)#1}::operator()<{lambda(FlatbufferSymbols::InlineSymbol const*,FlatbufferSymbols::Symbol const&)#1}> const(FlatbufferSymbols::InlineSymbol const*,FlatbufferSymbols::Symbol const&)::{lambda(FlatbufferSymbols::InlineSymbol const*)#1}>(v6, a2, FlatbufferSymbols::InlineSymbol::inline_symbols, 0, a3, &v47);
+    result = FlatbufferSymbolOwnerData::forEachElementInFlatbufferTypeWithAccessor<FlatbufferSymbols::InlineSymbol,flatbuffers::Vector<flatbuffers::Offset<FlatbufferSymbols::InlineSymbol>,unsigned int> const* (FlatbufferSymbols::InlineSymbol::*)(void)const,void unsigned long FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth_impl<FlatbufferSymbols::Symbol const>(CSCppSymbolOwner *,FlatbufferSymbols::Symbol const *,int,void({block_pointer})(_CSRange,_CSTypeRef *,_CSTypeRef *,unsigned long))::{lambda(FlatbufferSymbols::InlineSymbol const*,FlatbufferSymbols::Symbol const&)#1}::operator()<{lambda(FlatbufferSymbols::InlineSymbol const*,FlatbufferSymbols::Symbol const&)#1}> const(FlatbufferSymbols::InlineSymbol const*,FlatbufferSymbols::Symbol const&)::{lambda(FlatbufferSymbols::InlineSymbol const*)#1}>(v6, a2, FlatbufferSymbols::InlineSymbol::inline_symbols, 0, a3, &v34);
   }
 
   if (v7 == -1)
   {
-    v34 = v47;
-    v35 = a1[2];
-    v36 = *v35;
-    v37 = v47 - *v35;
-    if (v47 > *v35)
+    v28 = v34;
+    v29 = *(a1 + 16);
+    v30 = *v29;
+    v31 = v34 - *v29;
+    if (v34 > *v29)
     {
       if (v15)
       {
-        v38 = *a1[1];
-        v39 = **a1;
-        v40 = (*a1)[1];
-        ++*a1[5];
-        v41 = a1[4];
-        if (v41)
+        ++**(a1 + 40);
+        v32 = *(a1 + 32);
+        if (v32)
         {
-          (v41[2])(v41, v16, v37);
-          v34 = v47;
-          v35 = a1[2];
+          (*(v32 + 16))(v32, v16, v31);
+          v28 = v34;
+          v29 = *(a1 + 16);
         }
       }
 
-      *v35 = v34;
-      *&v48 = 0;
-      result = TThreadsafeAddressRelocator<Pointer64>::relocate((v6 + 160), v34, &v48);
+      *v29 = v28;
+      *&v35 = 0;
+      result = TThreadsafeAddressRelocator<Pointer64>::relocate((v6 + 160), v28, &v35);
       v15 = result;
       if (result)
       {
-        v16 = v48;
+        v16 = v35;
       }
 
       else
@@ -9280,35 +8837,31 @@ uint64_t FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth_im
         v16 = 0;
       }
 
-      v35 = a1[2];
-      v36 = *v35;
+      v29 = *(a1 + 16);
+      v30 = *v29;
     }
 
-    v42 = v28 - v36;
-    if (v28 > v36)
+    if (v25 > v30)
     {
       if (v15)
       {
-        v43 = *a1[1];
-        v44 = **a1;
-        v45 = (*a1)[1];
-        ++*a1[5];
-        v46 = a1[4];
-        if (v46)
+        ++**(a1 + 40);
+        v33 = *(a1 + 32);
+        if (v33)
         {
-          (v46[2])(v46, v16, v42);
-          v35 = a1[2];
+          (*(v33 + 16))(v33, v16, v25 - v30);
+          v29 = *(a1 + 16);
         }
       }
 
-      *v35 = v28;
-      *&v48 = 0;
-      result = TThreadsafeAddressRelocator<Pointer64>::relocate((v6 + 160), v11 + v10, &v48);
+      *v29 = v25;
+      *&v35 = 0;
+      result = TThreadsafeAddressRelocator<Pointer64>::relocate((v6 + 160), v11 + v10, &v35);
     }
   }
 
-  (*a1)[1] -= 16;
-  a1[1][1] -= 16;
+  *(*a1 + 8) -= 16;
+  *(*(a1 + 8) + 8) -= 16;
   return result;
 }
 
@@ -9338,7 +8891,7 @@ uint64_t FlatbufferSymbolOwnerData::forEachElementInFlatbufferTypeWithAccessor<F
         v14 = &v10[i / 4];
         v15 = v10[i / 4 + 1];
         v16 = &v10[i / 4] + v15;
-        FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth_impl<FlatbufferSymbols::Symbol const>(CSCppSymbolOwner *,FlatbufferSymbols::Symbol const *,int,void({block_pointer})(_CSRange,_CSTypeRef *,_CSTypeRef *,unsigned long))const::{lambda(FlatbufferSymbols::InlineSymbol const*,FlatbufferSymbols::Symbol const&)#1}::operator()<{lambda(FlatbufferSymbols::InlineSymbol const*,FlatbufferSymbols::Symbol const&)#1}>(a5, v16 + 4, a5);
+        FlatbufferSymbolOwnerData::for_each_inline_range_for_symbol_at_depth_impl<FlatbufferSymbols::Symbol const>(CSCppSymbolOwner *,FlatbufferSymbols::Symbol const *,int,void({block_pointer})(_CSRange,_CSTypeRef *,_CSTypeRef *,unsigned long))const::{lambda(FlatbufferSymbols::InlineSymbol const*,FlatbufferSymbols::Symbol const&)#1}::operator()<{lambda(FlatbufferSymbols::InlineSymbol const*,FlatbufferSymbols::Symbol const&)#1}>(a5, (v16 + 4), a5);
         v17 = v15 - *(v16 + 1);
         v18 = *(&v10[i / 4 + 1] + v17);
         if (v18 < 5)
@@ -9387,10 +8940,12 @@ uint64_t FlatbufferSymbolOwnerData::forEachElementInFlatbufferTypeWithAccessor<F
   return v11;
 }
 
-void CSCppTextSectionDataDescriptor::get_text_section<Pointer64>(uint64_t a1@<X0>, uint64_t a2@<X3>, void *a3@<X8>)
+void CSCppTextSectionDataDescriptor::get_text_section<Pointer64>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
 {
+  v8[0] = a2;
+  v8[1] = a3;
   std::mutex::lock((a1 + 144));
-  CSCppTextSectionDataDescriptor::_get_text_section_locked<Pointer64>(a1, a2, a3);
+  CSCppTextSectionDataDescriptor::_get_text_section_locked<Pointer64>(a1, v8, a4, a5);
   std::mutex::unlock((a1 + 144));
 }
 
@@ -9419,10 +8974,10 @@ void CSCppTextSectionDataDescriptor::_perform_partial_mapping_for_file<Pointer64
 
   std::mutex::lock((a1 + 18));
   v10 = v9 - *a1 + a1[14] + a1[15];
-  v11 = (a1 + 4);
-  for (i = a1[4]; i; i = i[v10 >= i[4]])
+  v11 = a1 + 4;
+  for (i = a1[4]; i; i = *(i + 8 * (v10 >= *(i + 32))))
   {
-    if (v10 < i[4])
+    if (v10 < *(i + 32))
     {
       v11 = i;
     }
@@ -9472,80 +9027,75 @@ void CSCppTextSectionDataDescriptor::_perform_partial_mapping_for_file<Pointer64
 LABEL_28:
     if (*(a1 + 48) != 1)
     {
-      if (*(a1 + 79) < 0)
-      {
-        v22 = a1[7];
-      }
-
       operator new();
     }
 
     *a4 = *a1;
     *(a4 + 16) = a1[2];
-    goto LABEL_49;
+    goto LABEL_47;
   }
 
-  v23 = a2 - v10 + v17;
-  v24 = v10 - a2 - v17;
-  v25 = v16 - v24;
-  v26 = v14[6] + v24;
-  v27 = v17 >= v10 - a2;
-  v28 = v17 - (v10 - a2);
-  if (v27)
+  v22 = a2 - v10 + v17;
+  v23 = v10 - a2 - v17;
+  v24 = v16 - v23;
+  v25 = v14[6] + v23;
+  v26 = v17 >= v10 - a2;
+  v27 = v17 - (v10 - a2);
+  if (v26)
   {
-    v29 = v14[6];
+    v28 = v14[6];
   }
 
   else
   {
-    v29 = v26;
+    v28 = v25;
   }
 
-  if (v27)
+  if (v26)
   {
-    v30 = v14[5];
+    v29 = v14[5];
   }
 
   else
   {
-    v30 = v25;
+    v29 = v24;
   }
 
-  if (v27)
+  if (v26)
+  {
+    v30 = v27;
+  }
+
+  else
+  {
+    v30 = 0;
+  }
+
+  if (v10 > a2)
   {
     v31 = v28;
   }
 
   else
   {
-    v31 = 0;
-  }
-
-  if (v10 > a2)
-  {
-    v32 = v29;
-  }
-
-  else
-  {
-    v32 = v14[6];
+    v31 = v14[6];
   }
 
   if (v10 <= a2)
   {
-    v33 = v23;
+    v32 = v22;
   }
 
   else
   {
-    v16 = v30;
-    v33 = v31;
+    v16 = v29;
+    v32 = v30;
   }
 
-  *a4 = v33;
+  *a4 = v32;
   *(a4 + 8) = v16;
-  *(a4 + 16) = v32;
-LABEL_49:
+  *(a4 + 16) = v31;
+LABEL_47:
   std::mutex::unlock((a1 + 18));
 }
 
@@ -9556,52 +9106,52 @@ void sub_1D9711888(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t CSCppTextSectionDataDescriptor::_get_text_section_locked<Pointer64>@<X0>(uint64_t result@<X0>, uint64_t a2@<X2>, void *a3@<X8>)
+uint64_t CSCppTextSectionDataDescriptor::_get_text_section_locked<Pointer64>@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
 {
-  v3 = result;
+  v4 = result;
   if (*(result + 96) == *(result + 88) && *(result + 208) != 1)
   {
     *(result + 208) = 1;
-    v7 = *(a2 + 112);
-    is_little_endian = CSCppArchitecture::is_little_endian(&v7);
-    result = CSCppArchitecture::is_64_bit(&v7);
+    v9 = *(a3 + 112);
+    is_little_endian = CSCppArchitecture::is_little_endian(&v9);
+    result = CSCppArchitecture::is_64_bit(&v9);
     if (is_little_endian)
     {
       if (result)
       {
-        return CSCppTextSectionDataDescriptor::_fault_text<SizeAndEndianness<Pointer64,LittleEndian>,Pointer64>(v3, a2, a3);
+        return CSCppTextSectionDataDescriptor::_fault_text<SizeAndEndianness<Pointer64,LittleEndian>,Pointer64>(v4, a2, a3, a4);
       }
 
       else
       {
-        return CSCppTextSectionDataDescriptor::_fault_text<SizeAndEndianness<Pointer32,LittleEndian>,Pointer64>(v3, a2, a3);
+        return CSCppTextSectionDataDescriptor::_fault_text<SizeAndEndianness<Pointer32,LittleEndian>,Pointer64>(v4, a2, a3, a4);
       }
     }
 
     else
     {
-      *a3 = 0;
-      a3[1] = 0;
-      a3[2] = 0;
+      *a4 = 0;
+      a4[1] = 0;
+      a4[2] = 0;
     }
   }
 
   else
   {
-    *a3 = *result;
-    a3[2] = *(result + 16);
+    *a4 = *result;
+    a4[2] = *(result + 16);
   }
 
   return result;
 }
 
-uint64_t CSCppTextSectionDataDescriptor::_fault_text<SizeAndEndianness<Pointer32,LittleEndian>,Pointer64>@<X0>(uint64_t result@<X0>, uint64_t a2@<X2>, uint64_t a3@<X8>)
+void *CSCppTextSectionDataDescriptor::_fault_text<SizeAndEndianness<Pointer32,LittleEndian>,Pointer64>@<X0>(void *result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
-  v3 = result;
-  if (*(result + 16))
+  v4 = result;
+  if (result[2])
   {
-    *a3 = *result;
-    *(a3 + 16) = *(result + 16);
+    *a4 = *result;
+    *(a4 + 16) = result[2];
   }
 
   else
@@ -9611,33 +9161,33 @@ uint64_t CSCppTextSectionDataDescriptor::_fault_text<SizeAndEndianness<Pointer32
       CSCppTextSectionDataDescriptor::_fault_text_from_local_shared_cache<SizeAndEndianness<Pointer32,LittleEndian>,Pointer64>();
     }
 
-    if (*(a2 + 120))
+    if (*(a3 + 120))
     {
       CSCppTextSectionDataDescriptor::_fault_text_from_path<SizeAndEndianness<Pointer32,LittleEndian>,Pointer64>();
     }
 
-    result = (*(**(*(a2 + 8) + 32) + 40))(*(*(a2 + 8) + 32));
+    result = (*(**(*(a3 + 8) + 32) + 40))(*(*(a3 + 8) + 32), a2);
     if (result)
     {
       CSCppTextSectionDataDescriptor::_fault_text_from_task<SizeAndEndianness<Pointer32,LittleEndian>,Pointer64>();
     }
 
-    *(v3 + 136) = 0;
-    *(a3 + 8) = 0;
-    *(a3 + 16) = 0;
-    *a3 = 0;
+    *(v4 + 34) = 0;
+    *(a4 + 8) = 0;
+    *(a4 + 16) = 0;
+    *a4 = 0;
   }
 
   return result;
 }
 
-uint64_t CSCppTextSectionDataDescriptor::_fault_text<SizeAndEndianness<Pointer64,LittleEndian>,Pointer64>@<X0>(uint64_t result@<X0>, uint64_t a2@<X2>, uint64_t a3@<X8>)
+void *CSCppTextSectionDataDescriptor::_fault_text<SizeAndEndianness<Pointer64,LittleEndian>,Pointer64>@<X0>(void *result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
-  v3 = result;
-  if (*(result + 16))
+  v4 = result;
+  if (result[2])
   {
-    *a3 = *result;
-    *(a3 + 16) = *(result + 16);
+    *a4 = *result;
+    *(a4 + 16) = result[2];
   }
 
   else
@@ -9647,21 +9197,21 @@ uint64_t CSCppTextSectionDataDescriptor::_fault_text<SizeAndEndianness<Pointer64
       CSCppTextSectionDataDescriptor::_fault_text_from_local_shared_cache<SizeAndEndianness<Pointer64,LittleEndian>,Pointer64>();
     }
 
-    if (*(a2 + 120))
+    if (*(a3 + 120))
     {
       CSCppTextSectionDataDescriptor::_fault_text_from_path<SizeAndEndianness<Pointer64,LittleEndian>,Pointer64>();
     }
 
-    result = (*(**(*(a2 + 8) + 32) + 40))(*(*(a2 + 8) + 32));
+    result = (*(**(*(a3 + 8) + 32) + 40))(*(*(a3 + 8) + 32), a2);
     if (result)
     {
       CSCppTextSectionDataDescriptor::_fault_text_from_task<SizeAndEndianness<Pointer64,LittleEndian>,Pointer64>();
     }
 
-    *(v3 + 136) = 0;
-    *(a3 + 8) = 0;
-    *(a3 + 16) = 0;
-    *a3 = 0;
+    *(v4 + 34) = 0;
+    *(a4 + 8) = 0;
+    *(a4 + 16) = 0;
+    *a4 = 0;
   }
 
   return result;
@@ -9682,18 +9232,18 @@ void sub_1D9711EC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1D97123D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1D97123D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v6 = va_arg(va1, void **);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v9 = va_arg(va1, void **);
   if (LOBYTE(STACK[0x468]) == 1)
   {
     CSCppDsymData::~CSCppDsymData(va1);
   }
 
   std::unique_ptr<CSCppDsymData>::reset[abi:ne200100](va, 0);
-  (*(*v4 + 8))(v4);
+  (*(*v7 + 8))(v7);
   _Unwind_Resume(a1);
 }
 
@@ -9712,16 +9262,16 @@ void sub_1D971274C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1D971291C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
+void sub_1D971291C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
 {
   if (a14)
   {
-    (*(*a14 + 8))(a14);
+    (*(*a14 + 8))(a14, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v14)
   {
-    (*(*v14 + 8))(v14);
+    (*(*v14 + 8))(v14, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -9767,4 +9317,453 @@ uint64_t TRawSymbolOwnerData<Pointer32>::footprint(void *a1)
   }
 
   return v6 + a1[21] + a1[24] + a1[27] - (a1[20] + a1[23] + a1[26]);
+}
+
+unint64_t TRawSymbolOwnerData<Pointer32>::regions_in_address_range(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5)
+{
+  if (*(a1 + 160) == *(a1 + 168) || a3 > 0xFFFFFFFE)
+  {
+    return 0;
+  }
+
+  if ((a4 + a3) >> 32)
+  {
+    v9 = 0xFFFFFFFFLL;
+  }
+
+  else
+  {
+    v9 = (a4 + a3);
+  }
+
+  v11 = 0;
+  v12 = 0;
+  v6 = 0;
+  if (find_lower_and_upper_bounds_of_range<Pointer64,CSCppSectionRange>(a3, v9, (a1 + 160), &v12, &v11))
+  {
+    v6 = 0xAAAAAAAAAAAAAAABLL * ((v11 - v12) >> 3);
+    if (a5)
+    {
+      do
+      {
+        (*(a5 + 16))(a5, a2 | 4);
+        v12 += 24;
+      }
+
+      while (v12 < v11);
+    }
+  }
+
+  return v6;
+}
+
+uint64_t TRawSymbolOwnerData<Pointer32>::symbols(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 184);
+  if (v3 >= *(a1 + 192))
+  {
+    return 0;
+  }
+
+  v7 = 0;
+  v8 = *(a1 + 184);
+  do
+  {
+    if ((atomic_load_explicit((v8 + 20), memory_order_acquire) & 0x800) == 0 || atomic_load_explicit((v8 + 20), memory_order_acquire) == 2048)
+    {
+      if (a3)
+      {
+        (*(a3 + 16))(a3, a2 | 5, v3);
+      }
+
+      ++v7;
+    }
+
+    v8 += 96;
+    v3 += 96;
+  }
+
+  while (v8 < *(a1 + 192));
+  return v7;
+}
+
+uint64_t TRawSymbolOwnerData<Pointer32>::symbols_for_name(uint64_t a1, uint64_t a2, char *a3, uint64_t a4)
+{
+  TRawSymbolOwnerData<Pointer32>::_initialize_demangled_names_hash_once(a1);
+
+  return TRawSymbolOwnerData<Pointer32>::_invoke_callback_on_name_match<std::unordered_multimap<std::string_view,unsigned int>,std::vector<TRawSymbol<Pointer32>>>(a1, a2, a3, a4, (a1 + 272), (a1 + 184), 1);
+}
+
+uint64_t TRawSymbolOwnerData<Pointer32>::symbols_for_mangled_name(uint64_t a1, uint64_t a2, char *a3, uint64_t a4)
+{
+  TRawSymbolOwnerData<Pointer32>::_initialize_mangled_names_hash_once(a1);
+
+  return TRawSymbolOwnerData<Pointer32>::_invoke_callback_on_name_match<std::unordered_multimap<std::string_view,unsigned int>,std::vector<TRawSymbol<Pointer32>>>(a1, a2, a3, a4, (a1 + 312), (a1 + 184), 1);
+}
+
+uint64_t TRawSymbolOwnerData<Pointer32>::symbol_for_name(uint64_t a1, uint64_t a2, char *a3, uint64_t a4)
+{
+  TRawSymbolOwnerData<Pointer32>::_initialize_demangled_names_hash_once(a1);
+
+  return TRawSymbolOwnerData<Pointer32>::_invoke_callback_on_name_match<std::unordered_multimap<std::string_view,unsigned int>,std::vector<TRawSymbol<Pointer32>>>(a1, a2, a3, a4, (a1 + 272), (a1 + 184), 0);
+}
+
+uint64_t TRawSymbolOwnerData<Pointer32>::symbol_for_mangled_name(uint64_t a1, uint64_t a2, char *a3, uint64_t a4)
+{
+  TRawSymbolOwnerData<Pointer32>::_initialize_mangled_names_hash_once(a1);
+
+  return TRawSymbolOwnerData<Pointer32>::_invoke_callback_on_name_match<std::unordered_multimap<std::string_view,unsigned int>,std::vector<TRawSymbol<Pointer32>>>(a1, a2, a3, a4, (a1 + 312), (a1 + 184), 0);
+}
+
+uint64_t TRawSymbolOwnerData<Pointer32>::symbols_in_address_range(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5)
+{
+  if (a3 > 0xFFFFFFFE || *(a1 + 184) == *(a1 + 192))
+  {
+    return 0;
+  }
+
+  if ((a4 + a3) >> 32)
+  {
+    v7 = -1;
+  }
+
+  else
+  {
+    v7 = a4 + a3;
+  }
+
+  v12 = 0;
+  v13 = 0;
+  v8 = 0;
+  if (find_lower_and_upper_bounds_of_range<Pointer32,TRawSymbol<Pointer32>>(a3, v7, (a1 + 184), &v13, &v12))
+  {
+    v8 = 0;
+    v9 = v13;
+    do
+    {
+      v10 = (v9 + 20);
+      if ((atomic_load_explicit(v10, memory_order_acquire) & 0x800) == 0 || atomic_load_explicit(v10, memory_order_acquire) == 2048)
+      {
+        if (a5)
+        {
+          (*(a5 + 16))(a5, a2 | 5, v13);
+        }
+
+        ++v8;
+      }
+
+      v9 = v13 + 96;
+      v13 = v9;
+    }
+
+    while (v9 < v12);
+  }
+
+  return v8;
+}
+
+uint64_t TRawSymbolOwnerData<Pointer32>::symbol_for_address(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x3802000000;
+  v9 = __Block_byref_object_copy__2;
+  v11 = 0;
+  v12 = 0;
+  v10 = __Block_byref_object_dispose__2;
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 0x40000000;
+  v5[2] = ___ZN19TRawSymbolOwnerDataI9Pointer32E18symbol_for_addressEP16CSCppSymbolOwnery_block_invoke;
+  v5[3] = &unk_1E8583558;
+  v5[4] = &v6;
+  (*(*a1 + 128))(a1, a2, a3, 1, v5);
+  v3 = v7[5];
+  _Block_object_dispose(&v6, 8);
+  return v3;
+}
+
+void sub_1D9713044(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+{
+  va_start(va, a15);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t TRawSymbolOwnerData<Pointer32>::source_infos(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (a3)
+  {
+    v5 = *(a1 + 208);
+    v4 = *(a1 + 216);
+    if (v5 < v4)
+    {
+      v8 = *(a1 + 208);
+      do
+      {
+        (*(a3 + 16))(a3, a2 | 6, v5);
+        v8 += 32;
+        v4 = *(a1 + 216);
+        v5 += 32;
+      }
+
+      while (v8 < v4);
+    }
+  }
+
+  else
+  {
+    v4 = *(a1 + 216);
+  }
+
+  return (v4 - *(a1 + 208)) >> 5;
+}
+
+uint64_t TRawSymbolOwnerData<Pointer32>::source_infos_in_address_range(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5)
+{
+  if (*(a1 + 208) == *(a1 + 216) || a3 > 0xFFFFFFFE)
+  {
+    return 0;
+  }
+
+  if ((a4 + a3) >> 32)
+  {
+    v9 = -1;
+  }
+
+  else
+  {
+    v9 = a4 + a3;
+  }
+
+  v11 = 0;
+  v12 = 0;
+  v6 = 0;
+  if (find_lower_and_upper_bounds_of_range<Pointer32,TRawSourceInfo<Pointer32>>(a3, v9, (a1 + 208), &v12, &v11))
+  {
+    v6 = (v11 - v12) >> 5;
+    if (a5)
+    {
+      do
+      {
+        (*(a5 + 16))(a5, a2 | 6);
+        v12 += 32;
+      }
+
+      while (v12 < v11);
+    }
+  }
+
+  return v6;
+}
+
+uint64_t TRawSymbolOwnerData<Pointer32>::source_info_for_address(void *a1, uint64_t a2, unint64_t a3)
+{
+  v5 = a1[26];
+  v4 = a1[27];
+  if (a3 <= 0xFFFFFFFE && v5 != v4)
+  {
+    v7 = a3;
+    v26[0] = a3;
+    v26[1] = 1;
+    v10 = a1[23];
+    v9 = a1[24];
+    if (v9 != v10)
+    {
+      v11 = 0xAAAAAAAAAAAAAAABLL * ((v9 - v10) >> 5);
+      v9 = v10;
+      do
+      {
+        v12 = v11 >> 1;
+        v13 = &v9[96 * (v11 >> 1)];
+        v15 = *v13;
+        v14 = (v13 + 24);
+        v11 += ~(v11 >> 1);
+        if (v15 > a3)
+        {
+          v11 = v12;
+        }
+
+        else
+        {
+          v9 = v14;
+        }
+      }
+
+      while (v11);
+    }
+
+    if (v9 != v10)
+    {
+      v17 = *(v9 - 24);
+      v18 = *(v9 - 23);
+      v16 = (v9 - 96);
+      if (a3 - v17 < v18)
+      {
+        if (TRawSymbol<Pointer32>::find_enclosing_inlined_function(v16, v26))
+        {
+          v19 = 5;
+          return v19 | a2;
+        }
+
+        v5 = a1[26];
+        v4 = a1[27];
+      }
+    }
+
+    if (v4 != v5)
+    {
+      v20 = (v4 - v5) >> 5;
+      v4 = v5;
+      do
+      {
+        v21 = v20 >> 1;
+        v22 = &v4[32 * (v20 >> 1)];
+        v24 = *v22;
+        v23 = (v22 + 8);
+        v20 += ~(v20 >> 1);
+        if (v26[0] < v24)
+        {
+          v20 = v21;
+        }
+
+        else
+        {
+          v4 = v23;
+        }
+      }
+
+      while (v20);
+    }
+
+    if (v4 != v5 && (v7 - *(v4 - 8)) < *(v4 - 7))
+    {
+      v19 = 6;
+      return v19 | a2;
+    }
+  }
+
+  return 0;
+}
+
+uint64_t TRawSymbolOwnerData<Pointer32>::for_each_stack_frame_at_address(void *a1, uint64_t a2, unsigned int a3, uint64_t a4)
+{
+  v8 = (*(*a1 + 136))(a1);
+  v10 = v9;
+  if (CSIsNull(v8, v9))
+  {
+    return 0;
+  }
+
+  v11 = v10 & 0xFFFFFFFFFFFFFFFCLL;
+  v29[0] = a3;
+  v29[1] = 1;
+  v13 = a1[26];
+  v12 = a1[27];
+  if (v12 != v13)
+  {
+    v14 = (v12 - v13) >> 5;
+    v12 = a1[26];
+    do
+    {
+      v15 = v14 >> 1;
+      v16 = &v12[32 * (v14 >> 1)];
+      v18 = *v16;
+      v17 = (v16 + 8);
+      v14 += ~(v14 >> 1);
+      if (v18 > a3)
+      {
+        v14 = v15;
+      }
+
+      else
+      {
+        v12 = v17;
+      }
+    }
+
+    while (v14);
+  }
+
+  if (v12 != v13)
+  {
+    v20 = *(v12 - 8);
+    v21 = *(v12 - 7);
+    v19 = v12 - 32;
+    if (a3 - v20 >= v21)
+    {
+      v22 = 0;
+    }
+
+    else
+    {
+      v22 = v19;
+    }
+
+    if (v11)
+    {
+      goto LABEL_13;
+    }
+
+    return 0;
+  }
+
+  v22 = 0;
+  if (!v11)
+  {
+    return 0;
+  }
+
+LABEL_13:
+  enclosing_inlined_function = TRawSymbol<Pointer32>::find_enclosing_inlined_function(v11, v29);
+  if (enclosing_inlined_function)
+  {
+    v24 = enclosing_inlined_function;
+    v25 = 1;
+    do
+    {
+      if ((atomic_load_explicit(v24 + 5, memory_order_acquire) & 0x80000000) != 0 && *(v24 + 5))
+      {
+        (*(a4 + 16))(a4, a2 | 5, v11, a2 | 5, v24);
+      }
+
+      else
+      {
+        (*(a4 + 16))(a4, a2 | 5, v11, 0, 0);
+      }
+
+      v11 = v24;
+      ++v25;
+      v24 = TRawSymbol<Pointer32>::find_enclosing_inlined_function(v24, v29);
+    }
+
+    while (v24);
+  }
+
+  else
+  {
+    v25 = 1;
+  }
+
+  if (v22)
+  {
+    v26 = a2 | 6;
+  }
+
+  else
+  {
+    v26 = 0;
+  }
+
+  if (v22)
+  {
+    v27 = v22;
+  }
+
+  else
+  {
+    v27 = 0;
+  }
+
+  (*(a4 + 16))(a4, a2 | 5, v11, v26, v27);
+  return v25;
 }

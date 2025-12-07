@@ -260,8 +260,9 @@ LABEL_7:
     CMTimeMakeWithSeconds(&time, v10, s->timescale);
     exifOrientation = [a2 exifOrientation];
     v12 = *(v6 + 3);
-    v13 = time;
-    return FigCaptureMetadataUtilitiesCreateVideoOrientationSampleBuffer(&v13, 0, exifOrientation, v12);
+    v13 = *(v6 + 8);
+    v14 = time;
+    return FigCaptureMetadataUtilitiesCreateVideoOrientationSampleBuffer(&v14, 0, exifOrientation, v12, v13);
   }
 
   return result;

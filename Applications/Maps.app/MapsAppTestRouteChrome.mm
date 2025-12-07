@@ -37,8 +37,8 @@
   [testCoordinator pptTestResetForLaunchURL];
 
   [(MapsAppTest *)self setupForVKTest];
-  options = [(MapsAppTest *)self options];
-  _mapstest_directionsPlan = [options _mapstest_directionsPlan];
+  v4 = objc_msgSend_options(self);
+  _mapstest_directionsPlan = [v4 _mapstest_directionsPlan];
 
   objc_initWeak(&location, self);
   v8[0] = _NSConcreteStackBlock;

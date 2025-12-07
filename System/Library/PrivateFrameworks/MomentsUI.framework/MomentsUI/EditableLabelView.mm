@@ -47,7 +47,7 @@
 {
   *(&self->super.super.super.isa + OBJC_IVAR____TtC9MomentsUI17EditableLabelView_isEditing) = 1;
   selfCopy = self;
-  EditableLabelView.isEditing.didset();
+  EditableLabelView.isEditing.didset(selfCopy);
 }
 
 - (BOOL)textFieldShouldReturn:(id)return

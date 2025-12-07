@@ -52,7 +52,7 @@
 {
   viewCopy = view;
   selfCopy = self;
-  v7 = sub_10007F100();
+  v7 = sub_10007F100(viewCopy);
 
   return v7;
 }
@@ -64,7 +64,7 @@
   if (view)
   {
     v7 = view;
-    sub_100016C60(0, &qword_100922300);
+    sub_100016C60(0, &qword_100922300, UIView_ptr);
     sub_1007477B4();
     v9 = v8;
     v11 = v10;
@@ -92,27 +92,27 @@
 {
   viewCopy = view;
   selfCopy = self;
-  sub_10007F1A4();
-  v9 = v8;
+  sub_10007F1A4(viewCopy, row);
+  v10 = v9;
 
-  if (v9)
+  if (v10)
   {
-    v10 = sub_100753064();
+    v11 = sub_100753064();
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 - (void)pickerView:(id)view didSelectRow:(int64_t)row inComponent:(int64_t)component
 {
   viewCopy = view;
   selfCopy = self;
-  sub_10007F260();
+  sub_10007F260(viewCopy, row);
 }
 
 - (_TtC22SubscribePageExtension35DebugStorefrontPickerViewController)initWithNibName:(id)name bundle:(id)bundle

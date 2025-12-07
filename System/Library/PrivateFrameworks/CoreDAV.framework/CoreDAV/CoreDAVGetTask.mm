@@ -36,7 +36,7 @@
 
 - (void)finishCoreDAVTaskWithError:(id)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = errorCopy;
   if (errorCopy)
@@ -54,8 +54,8 @@
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
           *buf = 138543362;
-          v27 = objc_opt_class();
-          v11 = v27;
+          v26 = objc_opt_class();
+          v11 = v26;
           v12 = "%{public}@ cancelled";
           v13 = v10;
           v14 = OS_LOG_TYPE_INFO;
@@ -76,10 +76,10 @@ LABEL_9:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v27 = objc_opt_class();
-        v28 = 2112;
-        v29 = v5;
-        v11 = v27;
+        v26 = objc_opt_class();
+        v27 = 2112;
+        v28 = v5;
+        v11 = v26;
         v12 = "%{public}@ failed: %@";
         v13 = v16;
         v14 = OS_LOG_TYPE_ERROR;
@@ -117,11 +117,9 @@ LABEL_10:
     [(CoreDAVTask *)self setDelegate:0];
   }
 
-  v25.receiver = self;
-  v25.super_class = CoreDAVGetTask;
-  [(CoreDAVTask *)&v25 finishCoreDAVTaskWithError:v5];
-
-  v24 = *MEMORY[0x277D85DE8];
+  v24.receiver = self;
+  v24.super_class = CoreDAVGetTask;
+  [(CoreDAVTask *)&v24 finishCoreDAVTaskWithError:v5];
 }
 
 @end

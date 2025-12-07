@@ -19,12 +19,12 @@
   [(_UIDismissInteractionUpdate *)self originalTrackingViewPosition];
   [coderCopy encodeCGPoint:@"originalTrackingViewPosition" forKey:?];
   v5 = MEMORY[0x1E696B098];
-  [(_UIDismissInteractionUpdate *)self translation];
+  objc_msgSend_translation(self);
   v6 = [v5 bs_valueWithCGAffineTransform:v9];
   [coderCopy encodeObject:v6 forKey:@"translation"];
 
   v7 = MEMORY[0x1E696B098];
-  [(_UIDismissInteractionUpdate *)self transform];
+  objc_msgSend_transform(self);
   v8 = [v7 bs_valueWithCGAffineTransform:v9];
   [coderCopy encodeObject:v8 forKey:@"transform"];
 
@@ -54,7 +54,7 @@
     v7 = v6;
     if (v6)
     {
-      [v6 bs_CGAffineTransformValue];
+      objc_msgSend_bs_CGAffineTransformValue(v6);
     }
 
     else
@@ -73,7 +73,7 @@
     v9 = v8;
     if (v8)
     {
-      [v8 bs_CGAffineTransformValue];
+      objc_msgSend_bs_CGAffineTransformValue(v8);
     }
 
     else
@@ -108,9 +108,9 @@
   coderCopy = coder;
   [(_UIDismissInteractionUpdate *)self originalTrackingViewPosition];
   [coderCopy encodeCGPoint:@"originalTrackingViewPosition" forKey:?];
-  [(_UIDismissInteractionUpdate *)self translation];
+  objc_msgSend_translation(self);
   [coderCopy encodeCGAffineTransform:v5 forKey:@"translation"];
-  [(_UIDismissInteractionUpdate *)self transform];
+  objc_msgSend_transform(self);
   [coderCopy encodeCGAffineTransform:v5 forKey:@"transform"];
   [(_UIDismissInteractionUpdate *)self scale];
   [coderCopy encodeDouble:@"scale" forKey:?];
@@ -136,12 +136,12 @@
     [(_UIDismissInteractionUpdate *)v5 setOriginalTrackingViewPosition:?];
     if (coderCopy)
     {
-      [coderCopy decodeCGAffineTransformForKey:@"translation"];
+      objc_msgSend_decodeCGAffineTransformForKey_(coderCopy);
       v10 = v13;
       v11 = v14;
       v12 = v15;
       [(_UIDismissInteractionUpdate *)v5 setTranslation:&v10];
-      [coderCopy decodeCGAffineTransformForKey:@"transform"];
+      objc_msgSend_decodeCGAffineTransformForKey_(coderCopy);
     }
 
     else
@@ -191,7 +191,7 @@
   v10 = equalCopy;
   v57 = v10;
   v11 = [v5 appendCGPoint:v56 counterpart:{v7, v9}];
-  [(_UIDismissInteractionUpdate *)self translation];
+  objc_msgSend_translation(self);
   v53[0] = MEMORY[0x1E69E9820];
   v53[1] = 3221225472;
   v53[2] = __39___UIDismissInteractionUpdate_isEqual___block_invoke_2;
@@ -199,7 +199,7 @@
   v12 = v10;
   v54 = v12;
   v13 = [v5 appendCGAffineTransform:v55 counterpart:v53];
-  [(_UIDismissInteractionUpdate *)self transform];
+  objc_msgSend_transform(self);
   v51[0] = MEMORY[0x1E69E9820];
   v51[1] = 3221225472;
   v51[2] = __39___UIDismissInteractionUpdate_isEqual___block_invoke_3;

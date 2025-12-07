@@ -1,6 +1,6 @@
 uint64_t start(int a1, char **a2)
 {
-  v98 = basename(*a2);
+  v97 = basename(*a2);
   v4 = &qword_100008000;
   if (a1 <= 1)
   {
@@ -13,14 +13,14 @@ uint64_t start(int a1, char **a2)
   v6 = 0;
   LODWORD(v7) = 1;
   theDict = Mutable;
-  v99 = a1;
+  v98 = a1;
   while (1)
   {
     v8 = v6;
     v6 = a2[v7];
     if (!strcasecmp(v6, "-help") || !strcasecmp(v6, "-h"))
     {
-      sub_1000016A4(v98);
+      sub_1000016A4(v97);
       exit(0);
     }
 
@@ -29,8 +29,8 @@ uint64_t start(int a1, char **a2)
     {
       if (v7 + 1 == a1 || (v39 = a2[v7 + 1], *v39 == 45))
       {
-        warnx("you must specify a device to eject", v93);
-        goto LABEL_177;
+        warnx("you must specify a device to eject", v92);
+        goto LABEL_176;
       }
 
       v4 = &qword_100008000;
@@ -85,7 +85,7 @@ LABEL_74:
 
 LABEL_166:
           warnx("eject failed: error 0x%x = %d");
-          goto LABEL_178;
+          goto LABEL_177;
         }
       }
 
@@ -105,8 +105,8 @@ LABEL_166:
 
     if (!strcasecmp(v6, "-shadow"))
     {
-      warnx("-shadow option not supported", v93);
-      goto LABEL_177;
+      warnx("-shadow option not supported", v92);
+      goto LABEL_176;
     }
 
     if (strcasecmp(v6, "-nomount"))
@@ -154,429 +154,336 @@ LABEL_46:
 
         valuePtr = 0;
         Value = CFDictionaryGetValue(Mutable, @"image-path");
-        if (!Value)
+        if (Value)
         {
-          v43 = 22;
-          goto LABEL_161;
-        }
-
-        v51 = CFStringCreateFromExternalRepresentation(kCFAllocatorDefault, Value, 0x8000100u);
-        if (v51)
-        {
-          v52 = v51;
-          v53 = CFURLCreateWithString(kCFAllocatorDefault, v51, 0);
-          if (v53)
+          v51 = CFStringCreateFromExternalRepresentation(kCFAllocatorDefault, Value, 0x8000100u);
+          if (v51)
           {
-            v54 = v53;
-            memset(&__endptr, 0, sizeof(__endptr));
-            v55 = CFURLCopyScheme(v53);
-            v56 = v55;
-            if (v55 && CFStringCompare(v55, @"file", 0))
+            v52 = v51;
+            v53 = CFURLCreateWithString(kCFAllocatorDefault, v51, 0);
+            if (v53)
             {
-              CFRelease(v52);
-              v57 = 0;
-              v58 = 0;
-              v43 = 0;
-LABEL_107:
-              CFRelease(v56);
-LABEL_108:
-              CFRelease(v54);
+              v54 = v53;
+              memset(&__endptr, 0, sizeof(__endptr));
+              v55 = CFURLCopyScheme(v53);
+              v56 = v55;
+              if (v55 && CFStringCompare(v55, @"file", 0))
+              {
+                CFRelease(v52);
+                v57 = 0;
+                v58 = 0;
+                v43 = 0;
+                goto LABEL_107;
+              }
+
+              if (!CFURLGetFileSystemRepresentation(v54, 1u, bytes, 1024) || stat(bytes, &__endptr) < 0)
+              {
+                v58 = 0;
+                v57 = 0;
+                v43 = 2;
+                goto LABEL_106;
+              }
+
+              valuePtr = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"d%d:i%llu", __endptr.st_dev, __endptr.st_ino);
               if (valuePtr)
               {
-                CFRelease(valuePtr);
-                valuePtr = 0;
-              }
-
-              if (v58)
-              {
-                CFRelease(v58);
-              }
-
-              if (v57)
-              {
-                CFRelease(v57);
-              }
-
-              if (!v43)
-              {
-                __endptr.st_dev = 0;
-                *&bytes[0].st_dev = 0;
-                v60 = IOServiceMatching("IOHDIXController");
-                MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v60);
-                if (MatchingService)
+                v58 = CFArrayCreate(kCFAllocatorDefault, &valuePtr, 1, &kCFTypeArrayCallBacks);
+                if (v58)
                 {
-                  v62 = MatchingService;
-                }
-
-                else
-                {
-                  v64 = IOServiceMatching("IOResources");
-                  if (IOServiceGetMatchingServices(kIOMasterPortDefault, v64, &__endptr))
+                  v59 = CFDictionaryCreateMutable(kCFAllocatorDefault, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+                  v57 = v59;
+                  if (v59)
                   {
-                    goto LABEL_120;
+                    CFDictionarySetValue(v59, @"writeable-components", v58);
+                    CFDictionarySetValue(Mutable, @"backingstore-id", v57);
+                    v43 = 0;
+                    goto LABEL_106;
                   }
 
-                  if (!IOIteratorIsValid(__endptr.st_dev))
+LABEL_105:
+                  v43 = 12;
+LABEL_106:
+                  CFRelease(v52);
+                  if (v56)
                   {
-                    IOIteratorReset(__endptr.st_dev);
+LABEL_107:
+                    CFRelease(v56);
                   }
 
-                  v71 = IOIteratorNext(__endptr.st_dev);
-                  if (!v71)
+                  CFRelease(v54);
+                  if (valuePtr)
                   {
-LABEL_120:
-                    v63 = 0;
-                    goto LABEL_121;
+                    CFRelease(valuePtr);
+                    valuePtr = 0;
                   }
 
-                  v62 = v71;
-                  if (IORegistryEntrySetCFProperty(v71, @"com.apple.AppleDiskImageController.load", kCFBooleanTrue))
+                  if (v58)
                   {
-                    v63 = 0;
-                    goto LABEL_118;
+                    CFRelease(v58);
                   }
 
-                  *&bytes[0].st_dev = 5;
-                  v89 = IOKitWaitQuiet(kIOMasterPortDefault, bytes);
-                  if (v89)
+                  if (v57)
                   {
-                    warnx("IOKit timed out waiting for driver to load: error %08x.", v89);
+                    CFRelease(v57);
                   }
-                }
 
-                v63 = 1;
-LABEL_118:
-                IOObjectRelease(v62);
-LABEL_121:
-                if (__endptr.st_dev)
-                {
-                  IOObjectRelease(__endptr.st_dev);
-                }
-
-                if (v63)
-                {
-                  LODWORD(valuePtr) = 0;
-                  v65 = IOServiceMatching("IOHDIXController");
-                  v66 = IOServiceGetMatchingService(kIOMasterPortDefault, v65);
-                  if (v66)
+                  if (!v43)
                   {
-                    v67 = v66;
-                    memset(bytes, 0, 256);
-                    outputStruct = 0;
-                    v68 = IOServiceOpen(v66, mach_task_self_, 0, &valuePtr);
-                    if (!v68)
+                    __endptr.st_dev = 0;
+                    *&bytes[0].st_dev = 0;
+                    v60 = IOServiceMatching("IOHDIXController");
+                    MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v60);
+                    if (MatchingService)
                     {
-                      Data = CFPropertyListCreateData(kCFAllocatorDefault, Mutable, kCFPropertyListXMLFormat_v1_0, 0, 0);
-                      if (Data)
+                      v62 = MatchingService;
+                      goto LABEL_117;
+                    }
+
+                    v64 = IOServiceMatching("IOResources");
+                    if (IOServiceGetMatchingServices(kIOMasterPortDefault, v64, &__endptr))
+                    {
+                      goto LABEL_120;
+                    }
+
+                    if (!IOIteratorIsValid(__endptr.st_dev))
+                    {
+                      IOIteratorReset(__endptr.st_dev);
+                    }
+
+                    v71 = IOIteratorNext(__endptr.st_dev);
+                    if (!v71)
+                    {
+LABEL_120:
+                      v63 = 0;
+                    }
+
+                    else
+                    {
+                      v62 = v71;
+                      if (IORegistryEntrySetCFProperty(v71, @"com.apple.AppleDiskImageController.load", kCFBooleanTrue))
                       {
-                        v70 = Data;
-                        memset(&bytes[0].st_rdev, 0, 232);
-                        *&bytes[0].st_dev = 0x1BEEFFEEDLL;
-                        bytes[0].st_ino = CFDataGetBytePtr(Data);
-                        *&bytes[0].st_uid = CFDataGetLength(v70);
-                        *&__endptr.st_dev = 4;
-                        v68 = IOConnectCallStructMethod(valuePtr, 0, bytes, 0x100uLL, &outputStruct, &__endptr);
-                        CFRelease(v70);
+                        v63 = 0;
                       }
 
                       else
                       {
-                        v68 = 4;
-                      }
-                    }
-
-                    IOObjectRelease(v67);
-                    if (valuePtr)
-                    {
-                      IOServiceClose(valuePtr);
-                    }
-
-                    if (!v68)
-                    {
-                      qword_100008010 = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
-                      bytes[0].st_dev = 0;
-                      v72 = IONotificationPortCreate(kIOMasterPortDefault);
-                      if (!v72)
-                      {
-                        goto LABEL_155;
-                      }
-
-                      v73 = v72;
-                      v74 = IOServiceMatching("IOMedia");
-                      v75 = IOServiceAddMatchingNotification(v73, "IOServiceMatched", v74, sub_10000177C, 0, bytes);
-                      if (!v75)
-                      {
-                        sub_10000177C(0, bytes[0].st_dev);
-                        if (!byte_100008008)
+                        *&bytes[0].st_dev = 5;
+                        v89 = IOKitWaitQuiet(kIOMasterPortDefault, bytes);
+                        if (v89)
                         {
-                          Current = CFRunLoopGetCurrent();
-                          RunLoopSource = IONotificationPortGetRunLoopSource(v73);
-                          CFRunLoopAddSource(Current, RunLoopSource, kCFRunLoopDefaultMode);
-                          v78 = CFRunLoopGetCurrent();
-                          v79 = IONotificationPortGetRunLoopSource(v73);
-                          CFRunLoopRemoveSource(v78, v79, kCFRunLoopDefaultMode);
+                          warnx("IOKit timed out waiting for driver to load: error %08x.", v89);
                         }
+
+LABEL_117:
+                        v63 = 1;
                       }
 
-                      IONotificationPortDestroy(v73);
-                      if (bytes[0].st_dev)
-                      {
-                        IOObjectRelease(bytes[0].st_dev);
-                      }
+                      IOObjectRelease(v62);
+                    }
 
-                      if (v75)
+                    if (__endptr.st_dev)
+                    {
+                      IOObjectRelease(__endptr.st_dev);
+                    }
+
+                    if (v63)
+                    {
+                      LODWORD(valuePtr) = 0;
+                      v65 = IOServiceMatching("IOHDIXController");
+                      v66 = IOServiceGetMatchingService(kIOMasterPortDefault, v65);
+                      if (v66)
                       {
+                        v67 = v66;
+                        memset(bytes, 0, 256);
+                        outputStruct = 0;
+                        v68 = IOServiceOpen(v66, mach_task_self_, 0, &valuePtr);
+                        if (!v68)
+                        {
+                          Data = CFPropertyListCreateData(kCFAllocatorDefault, Mutable, kCFPropertyListXMLFormat_v1_0, 0, 0);
+                          if (Data)
+                          {
+                            v70 = Data;
+                            memset(&bytes[0].st_rdev, 0, 232);
+                            *&bytes[0].st_dev = 0x1BEEFFEEDLL;
+                            bytes[0].st_ino = CFDataGetBytePtr(Data);
+                            *&bytes[0].st_uid = CFDataGetLength(v70);
+                            *&__endptr.st_dev = 4;
+                            v68 = IOConnectCallStructMethod(valuePtr, 0, bytes, 0x100uLL, &outputStruct, &__endptr);
+                            CFRelease(v70);
+                          }
+
+                          else
+                          {
+                            v68 = 4;
+                          }
+                        }
+
+                        IOObjectRelease(v67);
+                        if (valuePtr)
+                        {
+                          IOServiceClose(valuePtr);
+                        }
+
+                        if (!v68)
+                        {
+                          qword_100008010 = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
+                          bytes[0].st_dev = 0;
+                          v72 = IONotificationPortCreate(kIOMasterPortDefault);
+                          if (!v72)
+                          {
+                            goto LABEL_155;
+                          }
+
+                          v73 = v72;
+                          v74 = IOServiceMatching("IOMedia");
+                          v75 = IOServiceAddMatchingNotification(v73, "IOServiceMatched", v74, sub_10000177C, 0, bytes);
+                          if (!v75)
+                          {
+                            sub_10000177C(0, bytes[0].st_dev);
+                            if (!byte_100008008)
+                            {
+                              Current = CFRunLoopGetCurrent();
+                              RunLoopSource = IONotificationPortGetRunLoopSource(v73);
+                              CFRunLoopAddSource(Current, RunLoopSource, kCFRunLoopDefaultMode);
+                              v78 = CFRunLoopGetCurrent();
+                              v79 = IONotificationPortGetRunLoopSource(v73);
+                              CFRunLoopRemoveSource(v78, v79, kCFRunLoopDefaultMode);
+                            }
+                          }
+
+                          IONotificationPortDestroy(v73);
+                          if (bytes[0].st_dev)
+                          {
+                            IOObjectRelease(bytes[0].st_dev);
+                          }
+
+                          if (v75)
+                          {
 LABEL_155:
-                        warnx("unable to locate attached image");
-                        v43 = 2;
-                        goto LABEL_178;
-                      }
-
-                      Count = CFArrayGetCount(qword_100008010);
-                      v105.location = 0;
-                      v105.length = Count;
-                      CFArraySortValues(qword_100008010, v105, sub_100001980, 0);
-                      if (Count >= 1)
-                      {
-                        for (i = 0; i != Count; ++i)
-                        {
-                          ValueAtIndex = CFArrayGetValueAtIndex(qword_100008010, i);
-                          v83 = CFDictionaryGetValue(ValueAtIndex, @"dev-entry");
-                          v84 = CFDictionaryGetValue(ValueAtIndex, @"content-hint");
-                          v85 = sub_1000019E4(v83, 0x8000100u);
-                          if (v85)
-                          {
-                            v86 = v85;
-                            printf("%-20.20s", v85);
-                            free(v86);
+                            warnx("unable to locate attached image");
+                            v43 = 2;
+                            goto LABEL_177;
                           }
 
-                          else
+                          Count = CFArrayGetCount(qword_100008010);
+                          v104.location = 0;
+                          v104.length = Count;
+                          CFArraySortValues(qword_100008010, v104, sub_100001980, 0);
+                          if (Count >= 1)
                           {
-                            printf("%-20.20s", " ");
+                            for (i = 0; i != Count; ++i)
+                            {
+                              ValueAtIndex = CFArrayGetValueAtIndex(qword_100008010, i);
+                              v83 = CFDictionaryGetValue(ValueAtIndex, @"dev-entry");
+                              v84 = CFDictionaryGetValue(ValueAtIndex, @"content-hint");
+                              v85 = sub_1000019E4(v83, 0x8000100u);
+                              if (v85)
+                              {
+                                v86 = v85;
+                                printf("%-20.20s", v85);
+                                free(v86);
+                              }
+
+                              else
+                              {
+                                printf("%-20.20s", " ");
+                              }
+
+                              putchar(9);
+                              v87 = sub_1000019E4(v84, 0x8000100u);
+                              if (v87)
+                              {
+                                v88 = v87;
+                                printf("%-31.31s", v87);
+                                free(v88);
+                              }
+
+                              else
+                              {
+                                printf("%-31.31s", " ");
+                              }
+
+                              putchar(9);
+                              putchar(10);
+                            }
+
+                            v43 = 0;
+                            Mutable = theDict;
+                            goto LABEL_177;
                           }
-
-                          putchar(9);
-                          v87 = sub_1000019E4(v84, 0x8000100u);
-                          if (v87)
-                          {
-                            v88 = v87;
-                            printf("%-31.31s", v87);
-                            free(v88);
-                          }
-
-                          else
-                          {
-                            printf("%-31.31s", " ");
-                          }
-
-                          putchar(9);
-                          putchar(10);
-                        }
-
-                        v43 = 0;
-                        Mutable = theDict;
-                        goto LABEL_178;
-                      }
 
 LABEL_154:
-                      v43 = 0;
-                      goto LABEL_178;
+                          v43 = 0;
+                          goto LABEL_177;
+                        }
+                      }
+
+                      else
+                      {
+                        v68 = 3758097088;
+                      }
+
+                      warnx("attach failed: error 0x%x = %d", v68, v68);
+                      v43 = v68;
+                      goto LABEL_177;
                     }
-                  }
 
-                  else
-                  {
-                    v68 = 3758097088;
-                  }
-
-                  warnx("attach failed: error 0x%x = %d", v68, v68);
-                  v43 = v68;
-                  goto LABEL_178;
-                }
-
-                warnx("unable to load driver");
+                    warnx("unable to load driver");
 LABEL_100:
-                v43 = 22;
-                goto LABEL_178;
-              }
+                    v43 = 22;
+                    goto LABEL_177;
+                  }
 
 LABEL_161:
-              warnx("couldn't construct backing store identifier");
-              goto LABEL_178;
-            }
-
-            if (!CFURLGetFileSystemRepresentation(v54, 1u, bytes, 1024) || stat(bytes, &__endptr) < 0)
-            {
-              v58 = 0;
-              v57 = 0;
-              v43 = 2;
-              goto LABEL_106;
-            }
-
-            valuePtr = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"d%d:i%llu", __endptr.st_dev, __endptr.st_ino);
-            if (valuePtr)
-            {
-              v58 = CFArrayCreate(kCFAllocatorDefault, &valuePtr, 1, &kCFTypeArrayCallBacks);
-              if (v58)
-              {
-                v59 = CFDictionaryCreateMutable(kCFAllocatorDefault, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-                v57 = v59;
-                if (v59)
-                {
-                  CFDictionarySetValue(v59, @"writeable-components", v58);
-                  CFDictionarySetValue(Mutable, @"backingstore-id", v57);
-                  v43 = 0;
-                  goto LABEL_106;
+                  warnx("couldn't construct backing store identifier");
+                  goto LABEL_177;
                 }
-
-                goto LABEL_105;
               }
+
+              else
+              {
+                v58 = 0;
+              }
+
+              v57 = 0;
+              goto LABEL_105;
             }
 
-            else
-            {
-              v58 = 0;
-            }
-
-            v57 = 0;
-LABEL_105:
-            v43 = 12;
-LABEL_106:
             CFRelease(v52);
-            if (!v56)
-            {
-              goto LABEL_108;
-            }
-
-            goto LABEL_107;
           }
 
-          CFRelease(v52);
+          v43 = 12;
+          goto LABEL_161;
         }
 
-        v43 = 12;
+        v43 = 22;
         goto LABEL_161;
       }
 
 LABEL_102:
       warnx("must be run by root");
       v43 = 1;
-      goto LABEL_178;
-    }
-  }
-
-  if (strcasecmp(v6, "-drivekey"))
-  {
-    if (!strcasecmp(v6, "-encryption"))
-    {
-      v7 = v7 + 1;
-      if (v9 + 1 == a1)
-      {
-        warnx("missing <encryption-key+hmacsha1-key> parameter", v93);
-      }
-
-      else
-      {
-        v22 = strlen(a2[v7]);
-        LOBYTE(valuePtr) = 0;
-        if (v22 == 72)
-        {
-          printf("encryption-key:");
-          v23 = 0;
-          for (j = 0; j != 16; ++j)
-          {
-            v25 = sscanf(&a2[v7][v23], "%02hhx", &valuePtr);
-            printf("%02x", valuePtr);
-            fflush(0);
-            if (v25 != 1)
-            {
-              warnx("improper encryption-key portion of string", v94);
-              goto LABEL_177;
-            }
-
-            *(&__endptr.st_dev + j) = valuePtr;
-            v23 += 2;
-          }
-
-          putchar(10);
-          printf("hmacsha1-key:");
-          v26 = 0;
-          v27 = 32;
-          while (1)
-          {
-            v28 = sscanf(&a2[v7][v27], "%02hhx", &valuePtr);
-            printf("%02x", valuePtr);
-            if (v28 != 1)
-            {
-              break;
-            }
-
-            *(&bytes[0].st_dev + v26++) = valuePtr;
-            v27 += 2;
-            if (v26 == 20)
-            {
-              putchar(10);
-              CFDictionarySetValue(Mutable, @"image-encrypted", kCFBooleanTrue);
-              v29 = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-              v30 = CFDataCreate(kCFAllocatorDefault, &__endptr, 16);
-              CFDictionarySetValue(v29, @"encryption-key", v30);
-              CFRelease(v30);
-              v31 = CFDataCreate(kCFAllocatorDefault, bytes, 20);
-              CFDictionarySetValue(v29, @"hmacsha1-key", v31);
-              CFRelease(v31);
-              CFDictionarySetValue(Mutable, @"image-secrets", v29);
-              CFRelease(v29);
-              v6 = v8;
-              goto LABEL_45;
-            }
-          }
-
-          warnx("improper hmacsha1-key portion of string", v93);
-        }
-
-        else
-        {
-          warnx("<encryption-key+hmacsha1-key> must be 72 ASCII chars");
-        }
-      }
-
       goto LABEL_177;
     }
+  }
 
-    if (*v6 == 45)
+  if (!strcasecmp(v6, "-drivekey"))
+  {
+    v7 = v7 + 1;
+    if (v9 + 1 == a1)
     {
-      warnx("unknown option %s");
-      goto LABEL_177;
+      warnx("missing -drivekey parameter", v92);
+      goto LABEL_176;
     }
 
-    if (v8)
+    v10 = a2[v7];
+    v11 = strchr(v10, 61);
+    if (!v11 || v11 == v10 || !v11[1] || (v12 = strlen(v10), (v13 = malloc_type_malloc(v12 + 1, 0x100004077774924uLL)) == 0))
     {
-      warnx("only one image may be specified", v93);
-      goto LABEL_177;
+      warnx("unable to process -drivekey parameter %s");
+      goto LABEL_176;
     }
 
-    goto LABEL_46;
-  }
-
-  v7 = v7 + 1;
-  if (v9 + 1 == a1)
-  {
-    warnx("missing -drivekey parameter", v93);
-    goto LABEL_177;
-  }
-
-  v10 = a2[v7];
-  v11 = strchr(v10, 61);
-  if (!v11 || v11 == v10 || !v11[1])
-  {
-    goto LABEL_176;
-  }
-
-  v12 = strlen(v10);
-  v13 = malloc_type_malloc(v12 + 1, 0x100004077774924uLL);
-  if (v13)
-  {
     v14 = v13;
     strlcpy(v13, v10, v12 + 1);
     v15 = strchr(v14, 61);
@@ -607,9 +514,9 @@ LABEL_102:
 
               else
               {
-                v95 = v37;
+                v94 = v37;
                 v21 = CFNumberGetValue(v37, kCFNumberSInt64Type, &valuePtr);
-                CFRelease(v95);
+                CFRelease(v94);
               }
 
               v20 = cf;
@@ -631,34 +538,35 @@ LABEL_59:
 LABEL_40:
                 CFDictionarySetValue(theDict, v17, v33);
                 CFRelease(v33);
-                if (v17)
+                if (!v17)
                 {
-LABEL_41:
-                  CFRelease(v17);
+                  goto LABEL_42;
                 }
 
-LABEL_42:
-                if (v18)
-                {
-                  CFRelease(v18);
-                }
-
-                free(v14);
-                v6 = v8;
-                Mutable = theDict;
-LABEL_45:
-                a1 = v99;
-                goto LABEL_46;
+                goto LABEL_41;
               }
             }
 
 LABEL_62:
             CFDictionarySetValue(theDict, v17, v18);
-            if (v17)
+            if (!v17)
             {
-              goto LABEL_41;
+LABEL_42:
+              if (v18)
+              {
+                CFRelease(v18);
+              }
+
+              free(v14);
+              v6 = v8;
+              Mutable = theDict;
+LABEL_45:
+              a1 = v98;
+              goto LABEL_46;
             }
 
+LABEL_41:
+            CFRelease(v17);
             goto LABEL_42;
           }
         }
@@ -669,13 +577,13 @@ LABEL_62:
           if (v34 != CFBooleanGetTypeID())
           {
             v36 = CFGetTypeID(v18);
-            if (v36 == CFNumberGetTypeID())
+            if (v36 != CFNumberGetTypeID())
             {
-              v21 = CFNumberGetValue(v18, kCFNumberSInt64Type, &valuePtr);
-              goto LABEL_59;
+              goto LABEL_62;
             }
 
-            goto LABEL_62;
+            v21 = CFNumberGetValue(v18, kCFNumberSInt64Type, &valuePtr);
+            goto LABEL_59;
           }
 
           bytes[0].st_dev = CFBooleanGetValue(v18) != 0;
@@ -710,17 +618,102 @@ LABEL_62:
     goto LABEL_62;
   }
 
-  v90 = a2[v7];
+  if (strcasecmp(v6, "-encryption"))
+  {
+    if (*v6 == 45)
+    {
+      warnx("unknown option %s");
+      goto LABEL_176;
+    }
+
+    if (v8)
+    {
+      warnx("only one image may be specified", v92);
+      goto LABEL_176;
+    }
+
+    goto LABEL_46;
+  }
+
+  v7 = v7 + 1;
+  if (v9 + 1 == a1)
+  {
+    warnx("missing <encryption-key+hmacsha1-key> parameter", v92);
+  }
+
+  else
+  {
+    v22 = strlen(a2[v7]);
+    LOBYTE(valuePtr) = 0;
+    if (v22 == 72)
+    {
+      printf("encryption-key:");
+      v23 = 0;
+      for (j = 0; j != 16; ++j)
+      {
+        v25 = sscanf(&a2[v7][v23], "%02hhx", &valuePtr);
+        printf("%02x", valuePtr);
+        fflush(0);
+        if (v25 != 1)
+        {
+          warnx("improper encryption-key portion of string", v93);
+          goto LABEL_176;
+        }
+
+        *(&__endptr.st_dev + j) = valuePtr;
+        v23 += 2;
+      }
+
+      putchar(10);
+      printf("hmacsha1-key:");
+      v26 = 0;
+      v27 = 32;
+      while (1)
+      {
+        v28 = sscanf(&a2[v7][v27], "%02hhx", &valuePtr);
+        printf("%02x", valuePtr);
+        if (v28 != 1)
+        {
+          break;
+        }
+
+        *(&bytes[0].st_dev + v26++) = valuePtr;
+        v27 += 2;
+        if (v26 == 20)
+        {
+          putchar(10);
+          CFDictionarySetValue(Mutable, @"image-encrypted", kCFBooleanTrue);
+          v29 = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+          v30 = CFDataCreate(kCFAllocatorDefault, &__endptr, 16);
+          CFDictionarySetValue(v29, @"encryption-key", v30);
+          CFRelease(v30);
+          v31 = CFDataCreate(kCFAllocatorDefault, bytes, 20);
+          CFDictionarySetValue(v29, @"hmacsha1-key", v31);
+          CFRelease(v31);
+          CFDictionarySetValue(Mutable, @"image-secrets", v29);
+          CFRelease(v29);
+          v6 = v8;
+          goto LABEL_45;
+        }
+      }
+
+      warnx("improper hmacsha1-key portion of string", v92);
+    }
+
+    else
+    {
+      warnx("<encryption-key+hmacsha1-key> must be 72 ASCII chars");
+    }
+  }
+
 LABEL_176:
-  warnx("unable to process -drivekey parameter %s");
-LABEL_177:
   v43 = 22;
   v4 = &qword_100008000;
-LABEL_178:
-  v91 = v4[2];
-  if (v91)
+LABEL_177:
+  v90 = v4[2];
+  if (v90)
   {
-    CFRelease(v91);
+    CFRelease(v90);
     v4[2] = 0;
   }
 
@@ -731,7 +724,7 @@ LABEL_178:
 
   if (v43 == 22)
   {
-    sub_1000016A4(v98);
+    sub_1000016A4(v97);
     exit(1);
   }
 

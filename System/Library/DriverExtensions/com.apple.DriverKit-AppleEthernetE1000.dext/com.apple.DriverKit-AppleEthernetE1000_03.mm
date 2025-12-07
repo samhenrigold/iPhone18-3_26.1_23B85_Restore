@@ -907,7 +907,7 @@ LABEL_17:
 
     if ((v2 - 16) <= 1)
     {
-      result = v3(a1, 2u, &v11);
+      result = v3(a1, 2, &v11);
       if (result)
       {
         return result;
@@ -1923,7 +1923,7 @@ uint64_t e1000_validate_nvm_checksum_82571(uint64_t a1)
   return e1000_validate_nvm_checksum_generic(a1);
 }
 
-uint64_t e1000_valid_led_default_82571(uint64_t a1, __int16 *a2)
+uint64_t e1000_valid_led_default_82571(uint64_t a1, unsigned __int16 *a2)
 {
   result = (*(a1 + 1160))(a1, 4, 1, a2);
   if (!result)
@@ -1951,7 +1951,7 @@ LABEL_11:
   return result;
 }
 
-uint64_t e1000_write_nvm_82571(uint64_t a1, unsigned int a2, unsigned int a3, uint64_t a4)
+uint64_t e1000_write_nvm_82571(uint64_t a1, unsigned int a2, signed int a3, unsigned __int16 *a4)
 {
   v4 = a4;
   v6 = *(a1 + 284);
@@ -3841,6 +3841,14 @@ void DriverKit_AppleEthernetE1000_IVars::updateCarrier()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    OUTLINED_FUNCTION_3();
+    _os_log_impl(v0, v1, v2, v3, v4, 0x1Eu);
+  }
+}
+
+{
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_3();
     _os_log_impl(v0, v1, v2, v3, v4, 0x22u);
@@ -3917,17 +3925,6 @@ void DriverKit_AppleEthernetE1000_IVars::updateCarrier(_DWORD *a1)
   }
 
   *a1 = 3;
-}
-
-void DriverKit_AppleEthernetE1000_IVars::updateCarrier(unsigned __int16 *a1, unsigned __int16 *a2)
-{
-  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
-  {
-    v9 = *a1;
-    v10 = *a2;
-    OUTLINED_FUNCTION_3();
-    _os_log_impl(v4, v5, v6, v7, v8, 0x1Eu);
-  }
 }
 
 void DriverKit_AppleEthernetE1000_IVars::getSupportedMediaArray()
@@ -4099,9 +4096,9 @@ uint64_t DriverKit_AppleEthernetE1000_IVars::initReceiveUnit(IOPCIDevice **this)
   {
     readData = 136315394;
     OUTLINED_FUNCTION_23();
-    v138 = 613;
+    v132 = 613;
     OUTLINED_FUNCTION_26();
-    _os_log_impl(v98, v99, v100, v101, v102, 0x12u);
+    _os_log_impl(v94, v95, v96, v97, v98, 0x12u);
   }
 
   v3 = OUTLINED_FUNCTION_5();
@@ -4113,76 +4110,43 @@ uint64_t DriverKit_AppleEthernetE1000_IVars::initReceiveUnit(IOPCIDevice **this)
     IOPCIDevice::MemoryWrite32(this[2], 0, 0x100uLL, readData & 0xFFFFFFFD);
   }
 
-  v134 = readData;
   e1000_rar_set(this);
   OUTLINED_FUNCTION_25();
   if (v6)
   {
-    if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT) || (v99 = *(this + 272), v100 = *(this + 273), v101 = *(this + 274), v102 = *(this + 275), v103 = *(this + 276), v104 = *(this + 277), readData = 136316930, v130 = "initReceiveUnit", v131 = 1024, v132 = 626, v133 = 1024, v134 = v99, v135 = 1024, v136 = v100, v137 = 1024, v138 = v101, v139 = 1024, v140 = v102, v141 = 1024, v142 = v103, v143 = 1024, v144 = v104, OUTLINED_FUNCTION_26(), _os_log_impl(v105, v106, v107, v108, v109, 0x36u), OUTLINED_FUNCTION_25(), (v110 & 1) != 0))
     {
-      goto LABEL_129;
-    }
-
-    v103 = *(this + 272);
-    v104 = *(this + 273);
-    v105 = *(this + 274);
-    v106 = *(this + 275);
-    v107 = *(this + 276);
-    v108 = *(this + 277);
-    readData = 136316930;
-    v136 = "initReceiveUnit";
-    v137 = 1024;
-    v138 = 626;
-    v139 = 1024;
-    v140 = v103;
-    v141 = 1024;
-    v142 = v104;
-    v143 = 1024;
-    v144 = v105;
-    v145 = 1024;
-    v146 = v106;
-    v147 = 1024;
-    v148 = v107;
-    v149 = 1024;
-    v150 = v108;
-    OUTLINED_FUNCTION_26();
-    _os_log_impl(v109, v110, v111, v112, v113, 0x36u);
-    OUTLINED_FUNCTION_25();
-    if (v114)
-    {
-LABEL_129:
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
         readData = 0;
-        v115 = this[2];
         OUTLINED_FUNCTION_17();
         if (v47 ^ v48 | v46)
         {
-          v117 = 64;
+          v112 = 64;
         }
 
         else
         {
-          v117 = 21504;
+          v112 = 21504;
         }
 
-        IOPCIDevice::MemoryRead32(v116, 0, v117, &readData);
+        IOPCIDevice::MemoryRead32(v111, 0, v112, &readData);
         __dmb(1u);
-        v118 = readData;
-        v119 = OUTLINED_FUNCTION_5();
-        IOPCIDevice::MemoryRead32(v119, v120, 0x5404uLL, v121);
+        v113 = readData;
+        v114 = OUTLINED_FUNCTION_5();
+        IOPCIDevice::MemoryRead32(v114, v115, 0x5404uLL, v116);
         __dmb(1u);
-        v122 = readData;
+        v117 = readData;
         readData = 136315906;
-        v136 = "initReceiveUnit";
-        v137 = 1024;
-        v138 = 628;
-        v139 = 1024;
-        v140 = v118;
-        v141 = 1024;
-        v142 = v122;
+        v130 = "initReceiveUnit";
+        v131 = 1024;
+        v132 = 628;
+        v133 = 1024;
+        v134 = v113;
+        v135 = 1024;
+        v136 = v117;
         OUTLINED_FUNCTION_26();
-        _os_log_impl(v123, v124, v125, v126, v127, 0x1Eu);
+        _os_log_impl(v118, v119, v120, v121, v122, 0x1Eu);
       }
     }
   }
@@ -4474,13 +4438,12 @@ LABEL_77:
     if (*(this + 2597) >= 0x5DDu)
     {
       __dmb(2u);
-      v56 = this[2];
       readData = 0;
-      v57 = OUTLINED_FUNCTION_19();
-      IOPCIDevice::MemoryRead32(v57, v58, 0x2828uLL, v59);
+      v56 = OUTLINED_FUNCTION_19();
+      IOPCIDevice::MemoryRead32(v56, v57, 0x2828uLL, v58);
       __dmb(1u);
-      v60 = OUTLINED_FUNCTION_19();
-      IOPCIDevice::MemoryWrite32(v60, v61, 0x2828uLL, v62);
+      v59 = OUTLINED_FUNCTION_19();
+      IOPCIDevice::MemoryWrite32(v59, v60, 0x2828uLL, v61);
     }
   }
 
@@ -4488,33 +4451,33 @@ LABEL_77:
   {
     if (!v53)
     {
-      v63 = 0;
-      v64 = 49192;
-      v65 = 10280;
+      v62 = 0;
+      v63 = 49192;
+      v64 = 10280;
       do
       {
         readData = 0;
-        if (v63 >= 4)
+        if (v62 >= 4)
         {
-          v66 = v64;
+          v65 = v63;
         }
 
         else
         {
-          v66 = v65;
+          v65 = v64;
         }
 
-        IOPCIDevice::MemoryRead32(this[2], 0, v66, &readData);
+        IOPCIDevice::MemoryRead32(this[2], 0, v65, &readData);
         __dmb(1u);
-        v67 = readData;
+        v66 = readData;
         __dmb(2u);
-        IOPCIDevice::MemoryWrite32(this[2], 0, v66, v67 | 0x1040420);
-        ++v63;
-        v64 += 64;
-        v65 += 256;
+        IOPCIDevice::MemoryWrite32(this[2], 0, v65, v66 | 0x1040420);
+        ++v62;
+        v63 += 64;
+        v64 += 256;
       }
 
-      while (v63 < *(this + 9673));
+      while (v62 < *(this + 9673));
     }
   }
 
@@ -4527,55 +4490,55 @@ LABEL_77:
 
     if (!v53)
     {
-      v82 = 0;
+      v78 = 0;
       do
       {
-        v83 = (*(this + 2597) >> 10) - 2113928192;
+        v79 = (*(this + 2597) >> 10) - 2113928192;
         __dmb(2u);
-        if (v82 >= 4)
+        if (v78 >= 4)
         {
-          v84 = (v82 << 6) + 49164;
+          v80 = (v78 << 6) + 49164;
         }
 
         else
         {
-          v84 = (v82 << 8) | 0x280C;
+          v80 = (v78 << 8) | 0x280C;
         }
 
-        if (v82 >= 4)
+        if (v78 >= 4)
         {
-          v85 = (v82 << 6) + 49192;
+          v81 = (v78 << 6) + 49192;
         }
 
         else
         {
-          v85 = (v82 << 8) | 0x2828;
+          v81 = (v78 << 8) | 0x2828;
         }
 
-        IOPCIDevice::MemoryWrite32(this[2], 0, v84, v83);
+        IOPCIDevice::MemoryWrite32(this[2], 0, v80, v79);
         __dmb(2u);
-        v86 = OUTLINED_FUNCTION_18();
-        IOPCIDevice::MemoryWrite32(v86, v87, v85, 0x2040808u);
-        v88 = OUTLINED_FUNCTION_5();
-        IOPCIDevice::MemoryRead32(v88, v89, v85, v90);
+        v82 = OUTLINED_FUNCTION_18();
+        IOPCIDevice::MemoryWrite32(v82, v83, v81, 0x2040808u);
+        v84 = OUTLINED_FUNCTION_5();
+        IOPCIDevice::MemoryRead32(v84, v85, v81, v86);
         __dmb(1u);
         if ((readData & 0x2000000) == 0)
         {
-          v91 = 1;
-          v92 = 10000;
-          while (v92)
+          v87 = 1;
+          v88 = 10000;
+          while (v88)
           {
             IODelay(0x3E8uLL);
-            v93 = OUTLINED_FUNCTION_5();
-            IOPCIDevice::MemoryRead32(v93, v94, v85, v95);
+            v89 = OUTLINED_FUNCTION_5();
+            IOPCIDevice::MemoryRead32(v89, v90, v81, v91);
             __dmb(1u);
-            --v91;
-            --v92;
+            --v87;
+            --v88;
             if ((readData & 0x2000000) != 0)
             {
-              if (-v91 < 0x270F)
+              if (-v87 < 0x270F)
               {
-                goto LABEL_112;
+                goto LABEL_110;
               }
 
               break;
@@ -4583,52 +4546,45 @@ LABEL_77:
           }
 
           OUTLINED_FUNCTION_25();
-          if ((v96 & 2) != 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+          if ((v92 & 2) != 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
           {
             readData = 136315650;
             OUTLINED_FUNCTION_23();
-            v138 = 697;
-            v139 = v97;
-            v140 = v82;
+            v132 = 697;
+            v133 = v93;
+            v134 = v78;
             _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "e1000::%s(%d): Enable not set in rxdctl for ring[%d]\n", &readData, 0x18u);
           }
         }
 
-LABEL_112:
-        ++v82;
+LABEL_110:
+        ++v78;
       }
 
-      while (v82 < *(this + 9673));
+      while (v78 < *(this + 9673));
     }
   }
 
-  v68 = OUTLINED_FUNCTION_5();
-  IOPCIDevice::MemoryRead32(v68, v69, 8uLL, v70);
+  v67 = OUTLINED_FUNCTION_5();
+  IOPCIDevice::MemoryRead32(v67, v68, 8uLL, v69);
   __dmb(1u);
-  v71 = v134 & 0xFBFC4FD9 | (*(this + 76) << 12);
-  if (*(this + 71) <= 28)
-  {
-    v72 = *(this + 2597);
-    v73 = v134 & 0xF9FC4FD9 | (*(this + 76) << 12) & 0xF9FF7FD9 | 0x4008022;
-  }
-
   __dmb(2u);
-  v74 = OUTLINED_FUNCTION_18();
-  IOPCIDevice::MemoryWrite32(v74, v75, 0x100uLL, v76);
-  v77 = OUTLINED_FUNCTION_5();
-  IOPCIDevice::MemoryRead32(v77, v78, 8uLL, v79);
+  v70 = OUTLINED_FUNCTION_18();
+  IOPCIDevice::MemoryWrite32(v70, v71, 0x100uLL, v72);
+  v73 = OUTLINED_FUNCTION_5();
+  IOPCIDevice::MemoryRead32(v73, v74, 8uLL, v75);
   __dmb(1u);
   IODelay(0xC350uLL);
   OUTLINED_FUNCTION_25();
-  if ((v80 & 1) != 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  if ((v76 & 1) != 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
     readData = 136315650;
     OUTLINED_FUNCTION_23();
-    v138 = 747;
-    v139 = v128;
-    v140 = 0;
+    v132 = 747;
+    v133 = v123;
+    v134 = 0;
     OUTLINED_FUNCTION_26();
-    _os_log_impl(v129, v130, v131, v132, v133, 0x18u);
+    _os_log_impl(v124, v125, v126, v127, v128, 0x18u);
   }
 
   return 0;
@@ -4638,27 +4594,26 @@ void DriverKit_AppleEthernetE1000_IVars::activateWOL(uint64_t a1, uint64_t a2)
 {
   if ((pcindkll & 0x20000) != 0)
   {
-    if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT) || (v5 = *(a2 + 10), OUTLINED_FUNCTION_4(), OUTLINED_FUNCTION_3_0(), OUTLINED_FUNCTION_3(), _os_log_impl(v6, v7, v8, v9, v10, 0x18u), (pcindkll & 0x20000) != 0))
+    if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT) || (OUTLINED_FUNCTION_4(), OUTLINED_FUNCTION_3_0(), OUTLINED_FUNCTION_3(), _os_log_impl(v5, v6, v7, v8, v9, 0x18u), (pcindkll & 0x20000) != 0))
     {
-      if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT) || (v11 = *(a2 + 13), OUTLINED_FUNCTION_4(), OUTLINED_FUNCTION_3_0(), OUTLINED_FUNCTION_3(), _os_log_impl(v12, v13, v14, v15, v16, 0x18u), (pcindkll & 0x20000) != 0))
+      if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT) || (OUTLINED_FUNCTION_4(), OUTLINED_FUNCTION_3_0(), OUTLINED_FUNCTION_3(), _os_log_impl(v10, v11, v12, v13, v14, 0x18u), (pcindkll & 0x20000) != 0))
       {
-        if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT) || (v17 = *(a2 + 15), OUTLINED_FUNCTION_4(), OUTLINED_FUNCTION_3_0(), OUTLINED_FUNCTION_3(), _os_log_impl(v18, v19, v20, v21, v22, 0x18u), (pcindkll & 0x20000) != 0))
+        if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT) || (OUTLINED_FUNCTION_4(), OUTLINED_FUNCTION_3_0(), OUTLINED_FUNCTION_3(), _os_log_impl(v15, v16, v17, v18, v19, 0x18u), (pcindkll & 0x20000) != 0))
         {
-          if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT) || (v23 = *(a2 + 32), OUTLINED_FUNCTION_4(), OUTLINED_FUNCTION_3_0(), OUTLINED_FUNCTION_3(), _os_log_impl(v24, v25, v26, v27, v28, 0x18u), (pcindkll & 0x20000) != 0))
+          if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT) || (OUTLINED_FUNCTION_4(), OUTLINED_FUNCTION_3_0(), OUTLINED_FUNCTION_3(), _os_log_impl(v20, v21, v22, v23, v24, 0x18u), (pcindkll & 0x20000) != 0))
           {
-            if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT) || (v29 = *(a2 + 34), OUTLINED_FUNCTION_4(), OUTLINED_FUNCTION_3_0(), OUTLINED_FUNCTION_3(), _os_log_impl(v30, v31, v32, v33, v34, 0x18u), (pcindkll & 0x20000) != 0))
+            if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT) || (OUTLINED_FUNCTION_4(), OUTLINED_FUNCTION_3_0(), OUTLINED_FUNCTION_3(), _os_log_impl(v25, v26, v27, v28, v29, 0x18u), (pcindkll & 0x20000) != 0))
             {
-              if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT) || (v35 = *(a2 + 44), OUTLINED_FUNCTION_4(), OUTLINED_FUNCTION_3_0(), OUTLINED_FUNCTION_3(), _os_log_impl(v36, v37, v38, v39, v40, 0x18u), (pcindkll & 0x20000) != 0))
+              if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT) || (OUTLINED_FUNCTION_4(), OUTLINED_FUNCTION_3_0(), OUTLINED_FUNCTION_3(), _os_log_impl(v30, v31, v32, v33, v34, 0x18u), (pcindkll & 0x20000) != 0))
               {
-                if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT) || (v41 = *(a2 + 46), OUTLINED_FUNCTION_4(), OUTLINED_FUNCTION_3_0(), OUTLINED_FUNCTION_3(), _os_log_impl(v42, v43, v44, v45, v46, 0x18u), (pcindkll & 0x20000) != 0))
+                if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT) || (OUTLINED_FUNCTION_4(), OUTLINED_FUNCTION_3_0(), OUTLINED_FUNCTION_3(), _os_log_impl(v35, v36, v37, v38, v39, 0x18u), (pcindkll & 0x20000) != 0))
                 {
                   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
                   {
-                    v47 = *(a2 + 64);
                     OUTLINED_FUNCTION_4();
                     OUTLINED_FUNCTION_3_0();
                     OUTLINED_FUNCTION_3();
-                    _os_log_impl(v48, v49, v50, v51, v52, 0x18u);
+                    _os_log_impl(v40, v41, v42, v43, v44, 0x18u);
                   }
                 }
               }
@@ -4692,27 +4647,28 @@ void DriverKit_AppleEthernetE1000_IVars::probe()
   *v0 = -536870208;
 }
 
-void DriverKit_AppleEthernetE1000_IVars::probe(uint64_t a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = *(a1 + 8);
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3();
-    _os_log_impl(v3, v4, v5, v6, v7, 0x1Cu);
+    _os_log_impl(v0, v1, v2, v3, v4, 0x1Cu);
   }
 }
 
-void DriverKit_AppleEthernetE1000_IVars::start(unsigned int *a1)
+void DriverKit_AppleEthernetE1000_IVars::start()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = *a1;
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3_0();
     OUTLINED_FUNCTION_3();
-    _os_log_impl(v3, v4, v5, v6, v7, 0x1Eu);
+    _os_log_impl(v0, v1, v2, v3, v4, 0x1Eu);
   }
+}
+
+{
+  __assert_rtn("start", "AppleEthernetE1000.cpp", 388, "!owner->ReportNicProxyLimits(nicproxy_limits_info)");
 }
 
 void DriverKit_AppleEthernetE1000_IVars::resetHW()
@@ -4755,19 +4711,17 @@ void DriverKit_AppleEthernetE1000_IVars::resetHW()
   }
 }
 
-void DriverKit_AppleEthernetE1000_IVars::initHW(uint64_t a1)
+void DriverKit_AppleEthernetE1000_IVars::initHW()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = *(a1 + 10396);
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_3_0();
     OUTLINED_FUNCTION_3();
-    _os_log_impl(v3, v4, v5, v6, v7, 0x18u);
+    _os_log_impl(v0, v1, v2, v3, v4, 0x18u);
   }
 }
 
-void DriverKit_AppleEthernetE1000_IVars::initHW()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
@@ -4989,26 +4943,20 @@ void DriverKit_AppleEthernetE1000_IVars::setMcastAddresses()
   }
 }
 
-void DriverKit_AppleEthernetE1000_IVars::hashMcastAddress(void *a1, int *a2, int *a3)
+void DriverKit_AppleEthernetE1000_IVars::hashMcastAddress()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = *a1 >> 16;
-    v12 = *a2;
-    v13 = *a3;
     OUTLINED_FUNCTION_3();
-    _os_log_impl(v6, v7, v8, v9, v10, 0x28u);
+    _os_log_impl(v0, v1, v2, v3, v4, 0x28u);
   }
 }
 
-void DriverKit_AppleEthernetE1000_IVars::hashMcastAddress(void *a1, int *a2)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = *a1 >> 16;
-    v10 = *a2;
     OUTLINED_FUNCTION_3();
-    _os_log_impl(v4, v5, v6, v7, v8, 0x28u);
+    _os_log_impl(v0, v1, v2, v3, v4, 0x28u);
   }
 }
 
@@ -5025,9 +4973,10 @@ void DriverKit_AppleEthernetE1000_IVars::mDNS_Callback()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_6();
+    OUTLINED_FUNCTION_3_0();
     OUTLINED_FUNCTION_3();
-    _os_log_impl(v0, v1, v2, v3, v4, 0x12u);
+    _os_log_impl(v0, v1, v2, v3, v4, 0x18u);
   }
 }
 
@@ -5037,6 +4986,35 @@ void DriverKit_AppleEthernetE1000_IVars::mDNS_Callback()
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_3();
     _os_log_impl(v0, v1, v2, v3, v4, 0x12u);
+  }
+}
+
+{
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    OUTLINED_FUNCTION_6();
+    OUTLINED_FUNCTION_3_0();
+    OUTLINED_FUNCTION_3();
+    _os_log_impl(v0, v1, v2, v3, v4, 0x18u);
+  }
+}
+
+{
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_3();
+    _os_log_impl(v0, v1, v2, v3, v4, 0x12u);
+  }
+}
+
+{
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    OUTLINED_FUNCTION_6();
+    OUTLINED_FUNCTION_3_0();
+    OUTLINED_FUNCTION_3();
+    _os_log_impl(v0, v1, v2, v3, v4, 0x18u);
   }
 }
 
@@ -5079,40 +5057,6 @@ void DriverKit_AppleEthernetE1000_IVars::mDNS_Callback()
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_3();
     _os_log_impl(v0, v1, v2, v3, v4, 0x12u);
-  }
-}
-
-void DriverKit_AppleEthernetE1000_IVars::mDNS_Callback(unsigned __int16 *a1)
-{
-  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
-  {
-    v2 = *a1;
-    OUTLINED_FUNCTION_6();
-    OUTLINED_FUNCTION_3_0();
-    OUTLINED_FUNCTION_3();
-    _os_log_impl(v3, v4, v5, v6, v7, 0x18u);
-  }
-}
-
-{
-  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
-  {
-    v2 = *a1;
-    OUTLINED_FUNCTION_6();
-    OUTLINED_FUNCTION_3_0();
-    OUTLINED_FUNCTION_3();
-    _os_log_impl(v3, v4, v5, v6, v7, 0x18u);
-  }
-}
-
-{
-  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
-  {
-    v2 = *a1;
-    OUTLINED_FUNCTION_6();
-    OUTLINED_FUNCTION_3_0();
-    OUTLINED_FUNCTION_3();
-    _os_log_impl(v3, v4, v5, v6, v7, 0x18u);
   }
 }
 
@@ -5443,6 +5387,16 @@ void flasher_dump_sector()
 }
 
 {
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    OUTLINED_FUNCTION_6();
+    OUTLINED_FUNCTION_3_0();
+    OUTLINED_FUNCTION_3();
+    _os_log_impl(v0, v1, v2, v3, v4, 0x18u);
+  }
+}
+
+{
   OUTLINED_FUNCTION_22();
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
@@ -5466,18 +5420,6 @@ void flasher_dump_sector()
   }
 
   *v0 = v1;
-}
-
-void flasher_dump_sector(unsigned __int8 *a1)
-{
-  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
-  {
-    v2 = *a1;
-    OUTLINED_FUNCTION_6();
-    OUTLINED_FUNCTION_3_0();
-    OUTLINED_FUNCTION_3();
-    _os_log_impl(v3, v4, v5, v6, v7, 0x18u);
-  }
 }
 
 void flasher_dump_sector(void *a1)
@@ -5582,13 +5524,11 @@ void DriverKit_AppleEthernetE1000::SetInterfaceEnable_Impl()
   }
 }
 
-void DriverKit_AppleEthernetE1000::SetInterfaceEnable_Impl(uint64_t a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = *(*a1 + 24);
     OUTLINED_FUNCTION_3();
-    _os_log_impl(v2, v3, v4, v5, v6, 0x18u);
+    _os_log_impl(v0, v1, v2, v3, v4, 0x18u);
   }
 }
 
@@ -5627,8 +5567,13 @@ void DriverKit_AppleEthernetE1000_IVars::allocRing(uint64_t a1)
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = *(a1 + 280);
-    OUTLINED_FUNCTION_2_1(&_mh_execute_header, &_os_log_default, v2, "e1000::%s(%d): <== ringsize=%d\n", v3, v4, v5, v6, 2u);
+    *v7 = 136315650;
+    *&v7[4] = "allocRing";
+    *&v7[12] = 1024;
+    *&v7[14] = 14;
+    *&v7[18] = 1024;
+    *&v7[20] = *(a1 + 280);
+    OUTLINED_FUNCTION_2_1(&_mh_execute_header, &_os_log_default, v2, "e1000::%s(%d): <== ringsize=%d\n", v3, v4, v5, v6, *v7, *&v7[8], *&v7[16]);
   }
 }
 
@@ -5684,9 +5629,10 @@ void DriverKit_AppleEthernetE1000_IVars::allocRing()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136315650;
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_2();
-    OUTLINED_FUNCTION_2_1(&_mh_execute_header, &_os_log_default, v0, "e1000::%s(%d): ==> 0x%08x\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2_1(&_mh_execute_header, &_os_log_default, v0, "e1000::%s(%d): ==> 0x%08x\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -5703,9 +5649,10 @@ void DriverKit_AppleEthernetE1000_IVars::allocateRings()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136315650;
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_2();
-    OUTLINED_FUNCTION_2_1(&_mh_execute_header, &_os_log_default, v0, "e1000::%s(%d): ==> 0x%08x\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2_1(&_mh_execute_header, &_os_log_default, v0, "e1000::%s(%d): ==> 0x%08x\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -5714,9 +5661,10 @@ void DriverKit_AppleEthernetE1000_IVars::startInterface()
   OUTLINED_FUNCTION_22();
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136315650;
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_1_1();
-    OUTLINED_FUNCTION_2_1(&_mh_execute_header, &_os_log_default, v2, "e1000::%s(%d): ==> 0x%08x\n", v3, v4, v5, v6, 2u);
+    OUTLINED_FUNCTION_2_1(&_mh_execute_header, &_os_log_default, v2, "e1000::%s(%d): ==> 0x%08x\n", v3, v4, v5, v6, v7);
   }
 
   *v0 = v1;
@@ -5726,9 +5674,10 @@ void DriverKit_AppleEthernetE1000_IVars::startInterface()
   OUTLINED_FUNCTION_22();
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136315650;
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_1_1();
-    OUTLINED_FUNCTION_2_1(&_mh_execute_header, &_os_log_default, v2, "e1000::%s(%d): ==> 0x%08x\n", v3, v4, v5, v6, 2u);
+    OUTLINED_FUNCTION_2_1(&_mh_execute_header, &_os_log_default, v2, "e1000::%s(%d): ==> 0x%08x\n", v3, v4, v5, v6, v7);
   }
 
   *v0 = v1;
@@ -5738,9 +5687,10 @@ void DriverKit_AppleEthernetE1000_IVars::startInterface()
   OUTLINED_FUNCTION_22();
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136315650;
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_1_1();
-    OUTLINED_FUNCTION_2_1(&_mh_execute_header, &_os_log_default, v2, "e1000::%s(%d): ==> 0x%08x\n", v3, v4, v5, v6, 2u);
+    OUTLINED_FUNCTION_2_1(&_mh_execute_header, &_os_log_default, v2, "e1000::%s(%d): ==> 0x%08x\n", v3, v4, v5, v6, v7);
   }
 
   *v0 = v1;
@@ -5750,9 +5700,10 @@ void DriverKit_AppleEthernetE1000_IVars::startInterface()
   OUTLINED_FUNCTION_22();
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136315650;
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_1_1();
-    OUTLINED_FUNCTION_2_1(&_mh_execute_header, &_os_log_default, v2, "e1000::%s(%d): ==> 0x%08x\n", v3, v4, v5, v6, 2u);
+    OUTLINED_FUNCTION_2_1(&_mh_execute_header, &_os_log_default, v2, "e1000::%s(%d): ==> 0x%08x\n", v3, v4, v5, v6, v7);
   }
 
   *v0 = v1;
@@ -5762,9 +5713,10 @@ void DriverKit_AppleEthernetE1000_IVars::startInterface()
   OUTLINED_FUNCTION_22();
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136315650;
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_1_1();
-    OUTLINED_FUNCTION_2_1(&_mh_execute_header, &_os_log_default, v2, "e1000::%s(%d): ==> 0x%08x\n", v3, v4, v5, v6, 2u);
+    OUTLINED_FUNCTION_2_1(&_mh_execute_header, &_os_log_default, v2, "e1000::%s(%d): ==> 0x%08x\n", v3, v4, v5, v6, v7);
   }
 
   *v0 = v1;
@@ -5774,9 +5726,10 @@ void DriverKit_AppleEthernetE1000_IVars::startInterface()
   OUTLINED_FUNCTION_22();
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136315650;
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_1_1();
-    OUTLINED_FUNCTION_2_1(&_mh_execute_header, &_os_log_default, v2, "e1000::%s(%d): ==> 0x%08x\n", v3, v4, v5, v6, 2u);
+    OUTLINED_FUNCTION_2_1(&_mh_execute_header, &_os_log_default, v2, "e1000::%s(%d): ==> 0x%08x\n", v3, v4, v5, v6, v7);
   }
 
   *v0 = v1;
@@ -5786,9 +5739,10 @@ void DriverKit_AppleEthernetE1000_IVars::startInterface()
   OUTLINED_FUNCTION_22();
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136315650;
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_1_1();
-    OUTLINED_FUNCTION_2_1(&_mh_execute_header, &_os_log_default, v2, "e1000::%s(%d): ==> 0x%08x\n", v3, v4, v5, v6, 2u);
+    OUTLINED_FUNCTION_2_1(&_mh_execute_header, &_os_log_default, v2, "e1000::%s(%d): ==> 0x%08x\n", v3, v4, v5, v6, v7);
   }
 
   *v0 = v1;
@@ -5798,9 +5752,10 @@ void DriverKit_AppleEthernetE1000_IVars::startInterface()
   OUTLINED_FUNCTION_22();
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136315650;
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_1_1();
-    OUTLINED_FUNCTION_2_1(&_mh_execute_header, &_os_log_default, v2, "e1000::%s(%d): ==> 0x%08x\n", v3, v4, v5, v6, 2u);
+    OUTLINED_FUNCTION_2_1(&_mh_execute_header, &_os_log_default, v2, "e1000::%s(%d): ==> 0x%08x\n", v3, v4, v5, v6, v7);
   }
 
   *v0 = v1;
@@ -5810,9 +5765,10 @@ void DriverKit_AppleEthernetE1000_IVars::startInterface()
   OUTLINED_FUNCTION_22();
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136315650;
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_1_1();
-    OUTLINED_FUNCTION_2_1(&_mh_execute_header, &_os_log_default, v2, "e1000::%s(%d): ==> 0x%08x\n", v3, v4, v5, v6, 2u);
+    OUTLINED_FUNCTION_2_1(&_mh_execute_header, &_os_log_default, v2, "e1000::%s(%d): ==> 0x%08x\n", v3, v4, v5, v6, v7);
   }
 
   *v0 = v1;
@@ -5822,9 +5778,10 @@ void DriverKit_AppleEthernetE1000_IVars::startInterface()
   OUTLINED_FUNCTION_22();
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136315650;
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_1_1();
-    OUTLINED_FUNCTION_2_1(&_mh_execute_header, &_os_log_default, v2, "e1000::%s(%d): ==> 0x%08x\n", v3, v4, v5, v6, 2u);
+    OUTLINED_FUNCTION_2_1(&_mh_execute_header, &_os_log_default, v2, "e1000::%s(%d): ==> 0x%08x\n", v3, v4, v5, v6, v7);
   }
 
   *v0 = v1;
@@ -5833,9 +5790,10 @@ void DriverKit_AppleEthernetE1000_IVars::startInterface()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136315650;
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_2();
-    OUTLINED_FUNCTION_2_1(&_mh_execute_header, &_os_log_default, v0, "e1000::%s(%d): ==> 0x%08x\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2_1(&_mh_execute_header, &_os_log_default, v0, "e1000::%s(%d): ==> 0x%08x\n", v1, v2, v3, v4, v5);
   }
 }
 

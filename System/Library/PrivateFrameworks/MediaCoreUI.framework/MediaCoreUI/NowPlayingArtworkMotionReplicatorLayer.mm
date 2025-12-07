@@ -28,7 +28,7 @@
 - (void)layoutSublayers
 {
   selfCopy = self;
-  sub_1C5AFB1B4();
+  sub_1C5AFB1B4(selfCopy);
 }
 
 - (_TtC11MediaCoreUI38NowPlayingArtworkMotionReplicatorLayer)initWithLayer:(id)layer

@@ -3,6 +3,7 @@
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToRequest:(id)request;
 - (CLPrefetchFloorRequest)initWithCoder:(id)coder;
+- (CLPrefetchFloorRequest)initWithFloor:(id)floor inVenue:(id)venue lastRelevant:(id)relevant hasCompleteFloor:(BOOL)completeFloor allowCellularDownload:(BOOL)download locationContext:(int64_t)context;
 - (CLPrefetchFloorRequest)initWithFloor:(id)floor inVenue:(id)venue lastRelevant:(id)relevant hasCompleteFloor:(BOOL)completeFloor allowCellularDownload:(BOOL)download locationContext:(int64_t)context ranking:(int64_t)ranking;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -18,6 +19,29 @@
   Relevant_locationContext = objc_msgSend_initWithFloor_inVenue_lastRelevant_locationContext_(v12, v13, v14, v15, v16, floorCopy, venueCopy, relevantCopy, context);
 
   return Relevant_locationContext;
+}
+
+- (CLPrefetchFloorRequest)initWithFloor:(id)floor inVenue:(id)venue lastRelevant:(id)relevant hasCompleteFloor:(BOOL)completeFloor allowCellularDownload:(BOOL)download locationContext:(int64_t)context
+{
+  downloadCopy = download;
+  completeFloorCopy = completeFloor;
+  floorCopy = floor;
+  venueCopy = venue;
+  relevantCopy = relevant;
+  v24.receiver = self;
+  v24.super_class = CLPrefetchFloorRequest;
+  v17 = [(CLPrefetchFloorRequest *)&v24 init];
+  if (v17)
+  {
+    hasCompleteFloor_allowCellularDownload_locationContext_priority = objc_msgSend_initWithFloor_inVenue_lastRelevant_hasCompleteFloor_allowCellularDownload_locationContext_priority_(v17, v18, v19, v20, v21, floorCopy, venueCopy, relevantCopy, completeFloorCopy, downloadCopy, context, 1);
+  }
+
+  else
+  {
+    hasCompleteFloor_allowCellularDownload_locationContext_priority = 0;
+  }
+
+  return hasCompleteFloor_allowCellularDownload_locationContext_priority;
 }
 
 - (CLPrefetchFloorRequest)initWithFloor:(id)floor inVenue:(id)venue lastRelevant:(id)relevant hasCompleteFloor:(BOOL)completeFloor allowCellularDownload:(BOOL)download locationContext:(int64_t)context ranking:(int64_t)ranking

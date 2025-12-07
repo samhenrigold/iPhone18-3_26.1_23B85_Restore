@@ -55,7 +55,7 @@
   _Block_object_dispose(v14, 8);
 }
 
-uint64_t __67__PUPhotoKitDestructiveActionsPerformer_performUserInteractionTask__block_invoke(uint64_t a1)
+void *__67__PUPhotoKitDestructiveActionsPerformer_performUserInteractionTask__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) state];
   if (result == 10)

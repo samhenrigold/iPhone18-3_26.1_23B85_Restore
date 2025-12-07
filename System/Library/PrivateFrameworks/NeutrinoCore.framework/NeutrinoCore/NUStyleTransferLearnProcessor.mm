@@ -7,7 +7,7 @@ uint64_t __75___NUStyleTransferLearnProcessor_processWithInputs_arguments_output
 {
   v44 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  [*(a1 + 32) region];
+  objc_msgSend_region(*(a1 + 32));
   v5 = v4;
   v7 = v6;
   v9 = v8;

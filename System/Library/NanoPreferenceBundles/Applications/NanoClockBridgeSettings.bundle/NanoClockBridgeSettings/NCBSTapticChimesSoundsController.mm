@@ -2,6 +2,7 @@
 - (id)specifiers;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation NCBSTapticChimesSoundsController
@@ -14,6 +15,14 @@
   v3 = +[AXTimeOutputPreferences sharedInstance];
   tapticChimesSoundsLocalizedTitle = [v3 tapticChimesSoundsLocalizedTitle];
   [(NCBSTapticChimesSoundsController *)self setTitle:tapticChimesSoundsLocalizedTitle];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = NCBSTapticChimesSoundsController;
+  [(NCBSAccessibilityPreferenceListController *)&v3 viewWillAppear:appear];
+  +[NCBSClockSettingsNavigationDonation donateUserVisitForSoundsSettings];
 }
 
 - (id)specifiers

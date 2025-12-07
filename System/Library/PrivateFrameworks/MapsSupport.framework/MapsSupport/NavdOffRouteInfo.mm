@@ -8,11 +8,9 @@
 
 - (id)description
 {
-  v3 = [NSMutableString alloc];
-  destinationCoordinate = self->_destinationCoordinate;
-  v5 = [v3 initWithFormat:@"Date: %@\r\nLast Update: %@\r\nCoordinates: <%.6f, %.6f>\r\nDistance To Destination: %f\r\n DistancePenalty: %f, Throttled reroutes Penalty: %f\r\nPenalty: %f", self->_date, self->_lastUpdate, *&self->_destinationCoordinate.latitude, *&self->_destinationCoordinate.longitude, *&self->_originalDistanceFromDestination, *&self->_distancePenalty, *&self->_throttledReroutesPenalty, *&self->_penalty];
+  v2 = [[NSMutableString alloc] initWithFormat:@"Date: %@\r\nLast Update: %@\r\nCoordinates: <%.6f, %.6f>\r\nDistance To Destination: %f\r\n DistancePenalty: %f, Throttled reroutes Penalty: %f\r\nPenalty: %f", self->_date, self->_lastUpdate, *&self->_destinationCoordinate.latitude, *&self->_destinationCoordinate.longitude, *&self->_originalDistanceFromDestination, *&self->_distancePenalty, *&self->_throttledReroutesPenalty, *&self->_penalty];
 
-  return v5;
+  return v2;
 }
 
 - (NavdOffRouteInfo)initWithCurrentDate:(id)date location:(id)location destination:(id)destination
@@ -43,38 +41,36 @@
   objc_storeStrong(&self->_lastUpdate, date);
   if (rerouteCopy)
   {
-    latitude = self->_destinationCoordinate.latitude;
-    longitude = self->_destinationCoordinate.longitude;
     GEOCalculateDistance();
-    v13 = v12;
+    v11 = v10;
     originalDistanceFromDestination = self->_originalDistanceFromDestination;
     self->_distancePenalty = 0.0;
     GEOConfigGetDouble();
-    v15 = v13 - originalDistanceFromDestination;
-    if (v15 > v16)
+    v13 = v11 - originalDistanceFromDestination;
+    if (v13 > v14)
     {
       GEOConfigGetDouble();
-      v18 = v17;
+      v16 = v15;
       GEOConfigGetDouble();
-      self->_distancePenalty = v19 * (v15 - v18);
+      self->_distancePenalty = v17 * (v13 - v16);
     }
 
     GEOConfigGetDouble();
-    self->_throttledReroutesPenalty = v20 - pow((count + 1), -0.7) * v20;
+    self->_throttledReroutesPenalty = v18 - pow((count + 1), -0.7) * v18;
   }
 
   [dateCopy timeIntervalSinceDate:self->_date];
+  v20 = v19;
+  GEOConfigGetDouble();
   v22 = v21;
   GEOConfigGetDouble();
   v24 = v23;
   GEOConfigGetDouble();
   v26 = v25;
   GEOConfigGetDouble();
-  v28 = v27;
-  GEOConfigGetDouble();
-  v29 = self->_distancePenalty + self->_throttledReroutesPenalty;
-  v31 = fmin(fmax((v22 - v24) / (v26 - v28), 0.0), 1.0);
-  self->_penalty = v29 + v30 - (v29 + v30) * v31;
+  v27 = self->_distancePenalty + self->_throttledReroutesPenalty;
+  v29 = fmin(fmax((v20 - v22) / (v24 - v26), 0.0), 1.0);
+  self->_penalty = v27 + v28 - (v27 + v28) * v29;
 }
 
 @end

@@ -228,45 +228,42 @@ LABEL_15:
 {
   toCopy = to;
   has = self->_has;
-  v14 = toCopy;
+  v7 = toCopy;
   if ((has & 8) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteUint32Field();
-    toCopy = v14;
+    toCopy = v7;
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    sessionID = self->_sessionID;
     PBDataWriterWriteUint32Field();
-    toCopy = v14;
+    toCopy = v7;
   }
 
   if (self->_token)
   {
     PBDataWriterWriteDataField();
-    toCopy = v14;
+    toCopy = v7;
   }
 
   if (self->_longTermKey)
   {
     PBDataWriterWriteDataField();
-    toCopy = v14;
+    toCopy = v7;
   }
 
-  v8 = self->_has;
-  if (v8)
+  v6 = self->_has;
+  if (v6)
   {
-    errorCode = self->_errorCode;
     PBDataWriterWriteUint32Field();
-    toCopy = v14;
-    v8 = self->_has;
-    if ((v8 & 2) == 0)
+    toCopy = v7;
+    v6 = self->_has;
+    if ((v6 & 2) == 0)
     {
 LABEL_11:
-      if ((v8 & 0x40) == 0)
+      if ((v6 & 0x40) == 0)
       {
         goto LABEL_12;
       }
@@ -280,14 +277,13 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  failureReasons = self->_failureReasons;
   PBDataWriterWriteUint32Field();
-  toCopy = v14;
-  v8 = self->_has;
-  if ((v8 & 0x40) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((v6 & 0x40) == 0)
   {
 LABEL_12:
-    if ((v8 & 0x20) == 0)
+    if ((v6 & 0x20) == 0)
     {
       goto LABEL_13;
     }
@@ -296,14 +292,13 @@ LABEL_12:
   }
 
 LABEL_22:
-  ltkSyncing = self->_ltkSyncing;
   PBDataWriterWriteBOOLField();
-  toCopy = v14;
-  v8 = self->_has;
-  if ((v8 & 0x20) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((v6 & 0x20) == 0)
   {
 LABEL_13:
-    if ((v8 & 0x10) == 0)
+    if ((v6 & 0x10) == 0)
     {
       goto LABEL_15;
     }
@@ -312,22 +307,20 @@ LABEL_13:
   }
 
 LABEL_23:
-  watchOldLTKSyncStatus = self->_watchOldLTKSyncStatus;
   PBDataWriterWriteInt32Field();
-  toCopy = v14;
+  toCopy = v7;
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_14:
-    watchNewLTKSyncStatus = self->_watchNewLTKSyncStatus;
     PBDataWriterWriteInt32Field();
-    toCopy = v14;
+    toCopy = v7;
   }
 
 LABEL_15:
   if (self->_ltkHash)
   {
     PBDataWriterWriteDataField();
-    toCopy = v14;
+    toCopy = v7;
   }
 }
 
@@ -535,7 +528,6 @@ LABEL_11:
     goto LABEL_46;
   }
 
-  v5 = *(equalCopy + 64);
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 64) & 8) == 0 || self->_version != *(equalCopy + 12))
@@ -577,7 +569,6 @@ LABEL_11:
     }
   }
 
-  v8 = *(equalCopy + 64);
   if (*&self->_has)
   {
     if ((*(equalCopy + 64) & 1) == 0 || self->_errorCode != *(equalCopy + 2))
@@ -612,7 +603,7 @@ LABEL_11:
     }
 
 LABEL_46:
-    v11 = 0;
+    v8 = 0;
     goto LABEL_47;
   }
 
@@ -621,7 +612,6 @@ LABEL_46:
     goto LABEL_46;
   }
 
-  v9 = *(equalCopy + 60);
   if (self->_ltkSyncing)
   {
     if ((*(equalCopy + 60) & 1) == 0)
@@ -665,17 +655,17 @@ LABEL_28:
   ltkHash = self->_ltkHash;
   if (ltkHash | *(equalCopy + 3))
   {
-    v11 = [(NSData *)ltkHash isEqual:?];
+    v8 = [(NSData *)ltkHash isEqual:?];
   }
 
   else
   {
-    v11 = 1;
+    v8 = 1;
   }
 
 LABEL_47:
 
-  return v11;
+  return v8;
 }
 
 - (unint64_t)hash

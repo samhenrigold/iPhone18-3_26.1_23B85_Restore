@@ -37,14 +37,13 @@
 {
   v4 = sub_213D9036C();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_213D9035C();
-  v9 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtCV15_MapKit_SwiftUI11MapPolyline12CocoaWrapper_wrapped);
+  v8 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtCV15_MapKit_SwiftUI11MapPolyline12CocoaWrapper_wrapped);
   selfCopy = self;
-  v11 = sub_213D9034C();
-  locationsAtPointIndexes_ = [v9 locationsAtPointIndexes_];
+  v10 = sub_213D9034C();
+  locationsAtPointIndexes_ = [v8 locationsAtPointIndexes_];
 
   if (!locationsAtPointIndexes_)
   {
@@ -53,7 +52,7 @@
     locationsAtPointIndexes_ = sub_213D919EC();
   }
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 
   return locationsAtPointIndexes_;
 }

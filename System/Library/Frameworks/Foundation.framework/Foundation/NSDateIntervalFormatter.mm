@@ -214,7 +214,7 @@
 - (void)setDateTemplate:(NSString *)dateTemplate
 {
   os_unfair_lock_lock(&self->_lock);
-  if (![(NSString *)self->_dateTemplate isEqualToString:dateTemplate])
+  if ((objc_msgSend_isEqualToString_(self->_dateTemplate) & 1) == 0)
   {
 
     self->_dateTemplate = [(NSString *)dateTemplate copyWithZone:0];

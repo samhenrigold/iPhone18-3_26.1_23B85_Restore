@@ -15,7 +15,7 @@
 {
   ObjectType = swift_getObjectType();
   type metadata accessor for PXActionParameterKey();
-  sub_1A3C38304(&unk_1EB1356B0, type metadata accessor for PXActionParameterKey);
+  sub_1A3C38304(&unk_1EB1356B0, type metadata accessor for PXActionParameterKey, &unk_1A5377DC0);
   sub_1A524C3E4();
   *(&self->super.super.super.isa + OBJC_IVAR____TtC12PhotosUICore38SocialGroupReorderGroupActionPerformer_sourceGroup) = 0;
   v9 = self + OBJC_IVAR____TtC12PhotosUICore38SocialGroupReorderGroupActionPerformer_destinationIndex;

@@ -148,11 +148,11 @@ VCRateControllerManager *__41__VCRateControllerManager_sharedInstance__block_inv
 
   if (policy == 2)
   {
-    objc_opt_class();
-    if (OUTLINED_FUNCTION_41())
+    v7 = objc_opt_class();
+    if (OUTLINED_FUNCTION_41(v7))
     {
-      v5 = [OUTLINED_FUNCTION_18_0() prepareCallIDKeyFromConnection:?];
-      if (v5)
+      v6 = [OUTLINED_FUNCTION_18_0() prepareCallIDKeyFromConnection:?];
+      if (v6)
       {
         goto LABEL_11;
       }
@@ -226,7 +226,7 @@ LABEL_34:
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_16_0();
 LABEL_47:
-    _os_log_error_impl(v7, v8, v9, v10, v11, v12);
+    _os_log_error_impl(v9, v10, v11, v12, v13, v14);
     return;
   }
 
@@ -235,8 +235,8 @@ LABEL_47:
     return;
   }
 
-  objc_opt_class();
-  if ((OUTLINED_FUNCTION_41() & 1) == 0)
+  v5 = objc_opt_class();
+  if ((OUTLINED_FUNCTION_41(v5) & 1) == 0)
   {
     if (objc_opt_class() != self)
     {
@@ -271,13 +271,13 @@ LABEL_47:
     goto LABEL_34;
   }
 
-  v5 = [OUTLINED_FUNCTION_18_0() prepareEndPointKeyFromConnection:?];
-  if (v5)
+  v6 = [OUTLINED_FUNCTION_18_0() prepareEndPointKeyFromConnection:?];
+  if (v6)
   {
 LABEL_11:
-    v6 = v5;
+    v8 = v6;
     pthread_mutex_lock(&self->_sharingGroupMutex);
-    [(NSMutableDictionary *)self->_sharingGroupDict setObject:0 forKeyedSubscript:v6];
+    [(NSMutableDictionary *)self->_sharingGroupDict setObject:0 forKeyedSubscript:v8];
 
     pthread_mutex_unlock(&self->_sharingGroupMutex);
     return;
@@ -322,7 +322,7 @@ LABEL_46:
 - (id)getRateControllerSharingGroupWithConnection:(id)connection usePolicy:(unsigned int)policy
 {
   v6 = *&policy;
-  v89 = *MEMORY[0x1E69E9840];
+  v91 = *MEMORY[0x1E69E9840];
   connectionCopy2 = 184;
   pthread_mutex_lock(&self->_sharingGroupMutex);
   v10 = self->_defaultSharingGroup;
@@ -335,19 +335,19 @@ LABEL_46:
         goto LABEL_57;
       }
 
-      objc_opt_class();
-      if (OUTLINED_FUNCTION_41())
+      v11 = objc_opt_class();
+      if (OUTLINED_FUNCTION_41(v11))
       {
-        v11 = [(VCRateControllerManager *)self prepareEndPointKeyFromConnection:connection];
-        if (v11)
+        v12 = [(VCRateControllerManager *)self prepareEndPointKeyFromConnection:connection];
+        if (v12)
         {
-          v12 = OUTLINED_FUNCTION_39_5(v11);
-          v13 = objc_opt_class();
-          if (v12)
+          v13 = OUTLINED_FUNCTION_39_5(v12);
+          v14 = objc_opt_class();
+          if (v13)
           {
-            v72 = 1;
+            v74 = 1;
             OUTLINED_FUNCTION_13_4();
-            if (v14 != self)
+            if (v15 != self)
             {
               if (OUTLINED_FUNCTION_25_2())
               {
@@ -382,7 +382,7 @@ LABEL_46:
             goto LABEL_28;
           }
 
-          if (v13 == self)
+          if (v14 == self)
           {
             if (VRTraceGetErrorLogLevelForModule() >= 7)
             {
@@ -394,7 +394,7 @@ LABEL_46:
                 OUTLINED_FUNCTION_6_17();
                 OUTLINED_FUNCTION_21_2();
 LABEL_46:
-                _os_log_impl(v25, v26, v27, v28, v29, v30);
+                _os_log_impl(v27, v28, v29, v30, v31, v32);
               }
             }
           }
@@ -415,14 +415,14 @@ LABEL_46:
                 OUTLINED_FUNCTION_5_13();
                 OUTLINED_FUNCTION_4_11();
                 OUTLINED_FUNCTION_20_1();
-                v30 = 58;
+                v32 = 58;
                 goto LABEL_46;
               }
             }
           }
 
-          v37 = [[VCRateSharingGroup alloc] initWithIdentifier:v4 useMediaQueue:1];
-          if (!v37)
+          v39 = [[VCRateSharingGroup alloc] initWithIdentifier:v4 useMediaQueue:1];
+          if (!v39)
           {
             if (objc_opt_class() != self)
             {
@@ -458,14 +458,14 @@ LABEL_46:
 
             OUTLINED_FUNCTION_6_14();
             OUTLINED_FUNCTION_5_13();
-            v76 = 135;
+            v78 = 135;
             goto LABEL_116;
           }
 
           goto LABEL_56;
         }
 
-        v53 = v6;
+        v55 = v6;
         OUTLINED_FUNCTION_13_4();
         if (objc_opt_class() != self)
         {
@@ -501,18 +501,18 @@ LABEL_46:
 
         OUTLINED_FUNCTION_3_12();
         OUTLINED_FUNCTION_5_13();
-        v76 = 131;
+        v78 = 131;
 LABEL_93:
         OUTLINED_FUNCTION_16_0();
-        _os_log_error_impl(v54, v55, v56, v57, v58, v59);
+        _os_log_error_impl(v56, v57, v58, v59, v60, v61);
 LABEL_109:
         connectionCopy2 = connection;
         connection = v6;
-        LODWORD(v6) = v53;
+        LODWORD(v6) = v55;
         goto LABEL_57;
       }
 
-      v53 = v6;
+      v55 = v6;
       OUTLINED_FUNCTION_13_4();
       if (objc_opt_class() == self)
       {
@@ -529,7 +529,7 @@ LABEL_109:
 
         OUTLINED_FUNCTION_3_12();
         OUTLINED_FUNCTION_5_13();
-        v76 = 129;
+        v78 = 129;
         goto LABEL_93;
       }
 
@@ -552,10 +552,10 @@ LABEL_109:
       goto LABEL_108;
     }
 
-    objc_opt_class();
-    if ((OUTLINED_FUNCTION_41() & 1) == 0)
+    v16 = objc_opt_class();
+    if ((OUTLINED_FUNCTION_41(v16) & 1) == 0)
     {
-      v53 = v6;
+      v55 = v6;
       OUTLINED_FUNCTION_13_4();
       if (objc_opt_class() == self)
       {
@@ -572,7 +572,7 @@ LABEL_109:
 
         OUTLINED_FUNCTION_3_12();
         OUTLINED_FUNCTION_5_13();
-        v76 = 144;
+        v78 = 144;
         goto LABEL_93;
       }
 
@@ -598,14 +598,14 @@ LABEL_108:
       OUTLINED_FUNCTION_6_17();
       OUTLINED_FUNCTION_16_8();
       OUTLINED_FUNCTION_7_3();
-      _os_log_error_impl(v60, v61, v62, v63, v64, v65);
+      _os_log_error_impl(v62, v63, v64, v65, v66, v67);
       goto LABEL_109;
     }
 
-    v15 = [(VCRateControllerManager *)self prepareCallIDKeyFromConnection:connection];
-    if (!v15)
+    v17 = [(VCRateControllerManager *)self prepareCallIDKeyFromConnection:connection];
+    if (!v17)
     {
-      v53 = v6;
+      v55 = v6;
       OUTLINED_FUNCTION_13_4();
       if (objc_opt_class() == self)
       {
@@ -622,7 +622,7 @@ LABEL_108:
 
         OUTLINED_FUNCTION_3_12();
         OUTLINED_FUNCTION_5_13();
-        v76 = 146;
+        v78 = 146;
         goto LABEL_93;
       }
 
@@ -645,13 +645,13 @@ LABEL_108:
       goto LABEL_108;
     }
 
-    v16 = OUTLINED_FUNCTION_39_5(v15);
-    v17 = objc_opt_class();
-    if (v16)
+    v18 = OUTLINED_FUNCTION_39_5(v17);
+    v19 = objc_opt_class();
+    if (v18)
     {
-      v72 = 2;
+      v74 = 2;
       OUTLINED_FUNCTION_13_4();
-      if (v18 != self)
+      if (v20 != self)
       {
         if (OUTLINED_FUNCTION_25_2())
         {
@@ -674,7 +674,7 @@ LABEL_34:
         OUTLINED_FUNCTION_5_13();
         OUTLINED_FUNCTION_4_11();
         OUTLINED_FUNCTION_20_1();
-        v24 = 58;
+        v26 = 58;
         goto LABEL_35;
       }
 
@@ -695,16 +695,16 @@ LABEL_28:
       OUTLINED_FUNCTION_6_17();
       OUTLINED_FUNCTION_21_2();
 LABEL_35:
-      _os_log_impl(v19, v20, v21, v22, v23, v24);
+      _os_log_impl(v21, v22, v23, v24, v25, v26);
 LABEL_36:
       v10 = [*(&self->super.super.isa + v5) objectForKeyedSubscript:v4];
       connectionCopy2 = connection;
       connection = v6;
-      LODWORD(v6) = v72;
+      LODWORD(v6) = v74;
       goto LABEL_57;
     }
 
-    if (v17 == self)
+    if (v19 == self)
     {
       if (VRTraceGetErrorLogLevelForModule() >= 7)
       {
@@ -716,7 +716,7 @@ LABEL_36:
           OUTLINED_FUNCTION_6_17();
           OUTLINED_FUNCTION_21_2();
 LABEL_54:
-          _os_log_impl(v31, v32, v33, v34, v35, v36);
+          _os_log_impl(v33, v34, v35, v36, v37, v38);
         }
       }
     }
@@ -737,14 +737,14 @@ LABEL_54:
           OUTLINED_FUNCTION_5_13();
           OUTLINED_FUNCTION_4_11();
           OUTLINED_FUNCTION_20_1();
-          v36 = 58;
+          v38 = 58;
           goto LABEL_54;
         }
       }
     }
 
-    v37 = [[VCRateSharingGroup alloc] initWithIdentifier:v4 useMediaQueue:0];
-    if (!v37)
+    v39 = [[VCRateSharingGroup alloc] initWithIdentifier:v4 useMediaQueue:0];
+    if (!v39)
     {
       if (objc_opt_class() != self)
       {
@@ -786,19 +786,19 @@ LABEL_123:
 
       OUTLINED_FUNCTION_6_14();
       OUTLINED_FUNCTION_5_13();
-      v76 = 150;
+      v78 = 150;
 LABEL_116:
       OUTLINED_FUNCTION_16_0();
 LABEL_124:
-      _os_log_error_impl(v66, v67, v68, v69, v70, v71);
+      _os_log_error_impl(v68, v69, v70, v71, v72, v73);
 LABEL_122:
       v10 = 0;
       goto LABEL_57;
     }
 
 LABEL_56:
-    v10 = v37;
-    [*(&self->super.super.isa + v5) setObject:v37 forKeyedSubscript:v4];
+    v10 = v39;
+    [*(&self->super.super.isa + v5) setObject:v39 forKeyedSubscript:v4];
   }
 
 LABEL_57:
@@ -807,30 +807,30 @@ LABEL_57:
   {
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
-      v39 = VRTraceErrorLogLevelToCSTR();
-      v40 = *MEMORY[0x1E6986650];
+      v41 = VRTraceErrorLogLevelToCSTR();
+      v42 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        v73 = 136316674;
-        v74 = v39;
-        v75 = 2080;
+        v75 = 136316674;
+        v76 = v41;
+        v77 = 2080;
         OUTLINED_FUNCTION_27_4();
-        v77 = 2048;
-        v78 = v10;
         v79 = 2048;
-        selfCopy = v41;
+        v80 = v10;
         v81 = 2048;
+        selfCopy = v43;
+        v83 = 2048;
         connectionCopy3 = connection;
-        v83 = v42;
-        LODWORD(v84) = v6;
-        v43 = &dword_1DB56E000;
-        v44 = " [%s] %s:%d Returning sharingGroup=%p defaultSharingGroup=%p connection=%p policy=%d";
-        v45 = &v73;
-        v46 = v40;
-        v47 = OS_LOG_TYPE_DEFAULT;
-        v48 = 64;
+        v85 = v44;
+        LODWORD(v86) = v6;
+        v45 = &dword_1DB56E000;
+        v46 = " [%s] %s:%d Returning sharingGroup=%p defaultSharingGroup=%p connection=%p policy=%d";
+        v47 = &v75;
+        v48 = v42;
+        v49 = OS_LOG_TYPE_DEFAULT;
+        v50 = 64;
 LABEL_67:
-        _os_log_impl(v43, v46, v47, v44, v45, v48);
+        _os_log_impl(v45, v48, v49, v46, v47, v50);
       }
     }
   }
@@ -839,37 +839,37 @@ LABEL_67:
   {
     if (objc_opt_respondsToSelector())
     {
-      v38 = OUTLINED_FUNCTION_37_3();
+      v40 = OUTLINED_FUNCTION_37_3();
     }
 
     else
     {
-      v38 = &stru_1F570E008;
+      v40 = &stru_1F570E008;
     }
 
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
-      v49 = VRTraceErrorLogLevelToCSTR();
+      v51 = VRTraceErrorLogLevelToCSTR();
       if (OUTLINED_FUNCTION_36_2())
       {
-        v73 = 136317186;
-        v74 = v49;
-        v75 = 2080;
+        v75 = 136317186;
+        v76 = v51;
+        v77 = 2080;
         OUTLINED_FUNCTION_27_4();
-        v77 = 2112;
-        v78 = v38;
-        v79 = 2048;
-        selfCopy = self;
+        v79 = 2112;
+        v80 = v40;
         v81 = 2048;
-        connectionCopy3 = v10;
+        selfCopy = self;
         v83 = 2048;
-        v84 = v50;
+        connectionCopy3 = v10;
         v85 = 2048;
+        v86 = v52;
+        v87 = 2048;
         connectionCopy4 = connection;
-        v87 = v51;
-        v88 = v6;
+        v89 = v53;
+        v90 = v6;
         OUTLINED_FUNCTION_20_1();
-        v48 = 84;
+        v50 = 84;
         goto LABEL_67;
       }
     }

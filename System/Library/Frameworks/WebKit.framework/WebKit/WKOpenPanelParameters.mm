@@ -10,8 +10,8 @@
 {
   API::Array::createStringArray(&self->_openPanelParameters.m_storage.data[24], &v8);
   v2 = v8;
-  v3 = v8[1];
-  if (!v3)
+  var1 = v8->var1;
+  if (!var1)
   {
     v6 = 0;
     goto LABEL_4;
@@ -20,12 +20,12 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = v3;
-    v5 = v3;
-    v6 = *(v2 + 1);
+    v4 = var1;
+    v5 = var1;
+    v6 = v2->var1;
 LABEL_4:
     CFRelease(v6);
-    return v3;
+    return var1;
   }
 
   result = 117;
@@ -37,8 +37,8 @@ LABEL_4:
 {
   API::Array::createStringArray(&self->_openPanelParameters.m_storage.data[40], &v8);
   v2 = v8;
-  v3 = v8[1];
-  if (!v3)
+  var1 = v8->var1;
+  if (!var1)
   {
     v6 = 0;
     goto LABEL_4;
@@ -47,12 +47,12 @@ LABEL_4:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = v3;
-    v5 = v3;
-    v6 = *(v2 + 1);
+    v4 = var1;
+    v5 = var1;
+    v6 = v2->var1;
 LABEL_4:
     CFRelease(v6);
-    return v3;
+    return var1;
   }
 
   result = 117;
@@ -63,8 +63,8 @@ LABEL_4:
 - (NSArray)_allowedFileExtensions
 {
   API::OpenPanelParameters::allowedFileExtensions(&v8);
-  v2 = *(v8 + 1);
-  if (!v2)
+  var1 = v8->var1;
+  if (!var1)
   {
     v6 = 0;
     v8 = 0;
@@ -74,19 +74,19 @@ LABEL_4:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v3 = v2;
-    v4 = v2;
+    v3 = var1;
+    v4 = var1;
     v5 = v8;
     v8 = 0;
     if (!v5)
     {
-      return v2;
+      return var1;
     }
 
-    v6 = *(v5 + 1);
+    v6 = v5->var1;
 LABEL_5:
     CFRelease(v6);
-    return v2;
+    return var1;
   }
 
   result = 117;

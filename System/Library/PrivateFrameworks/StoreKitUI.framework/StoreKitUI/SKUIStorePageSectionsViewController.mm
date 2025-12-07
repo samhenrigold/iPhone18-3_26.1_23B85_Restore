@@ -233,7 +233,7 @@ void __46__SKUIStorePageSectionsViewController_dealloc__block_invoke(uint64_t a1
     v8 = self->_collectionView;
     self->_collectionView = v7;
 
-    [(SKUICollectionView *)self->_collectionView setSemanticContentAttribute:storeSemanticContentAttribute()];
+    [(SKUICollectionView *)self->_collectionView setSemanticContentAttribute:storeSemanticContentAttribute(v9, v10)];
     [(SKUICollectionView *)self->_collectionView registerClass:objc_opt_class() forCellWithReuseIdentifier:@"UICollectionViewCell"];
     [(SKUICollectionView *)self->_collectionView setClipsToBounds:!self->_rendersWithPerspective];
     [(SKUICollectionView *)self->_collectionView setIndexBarControl:self->_indexBarControl];
@@ -243,7 +243,7 @@ void __46__SKUIStorePageSectionsViewController_dealloc__block_invoke(uint64_t a1
     }
 
     backgroundColor = [(SKUIColorScheme *)self->_colorScheme backgroundColor];
-    v10 = backgroundColor;
+    v12 = backgroundColor;
     if (backgroundColor)
     {
       systemBackgroundColor = backgroundColor;
@@ -254,28 +254,28 @@ void __46__SKUIStorePageSectionsViewController_dealloc__block_invoke(uint64_t a1
       systemBackgroundColor = [MEMORY[0x277D75348] systemBackgroundColor];
     }
 
-    v12 = systemBackgroundColor;
+    v14 = systemBackgroundColor;
 
-    [(SKUICollectionView *)self->_collectionView setBackgroundColor:v12];
+    [(SKUICollectionView *)self->_collectionView setBackgroundColor:v14];
     [(SKUICollectionView *)self->_collectionView setDataSource:self];
     [(SKUICollectionView *)self->_collectionView setDelegate:self];
-    v13 = [objc_alloc(MEMORY[0x277D75708]) initWithTarget:self action:sel__longPressAction_];
-    [(SKUICollectionView *)self->_collectionView addGestureRecognizer:v13];
-    [v13 setCancelsTouchesInView:1];
-    [v13 setDelaysTouchesBegan:0];
-    v14 = [objc_alloc(MEMORY[0x277D75B80]) initWithTarget:self action:sel__handleTap_];
+    v15 = [objc_alloc(MEMORY[0x277D75708]) initWithTarget:self action:sel__longPressAction_];
+    [(SKUICollectionView *)self->_collectionView addGestureRecognizer:v15];
+    [v15 setCancelsTouchesInView:1];
+    [v15 setDelaysTouchesBegan:0];
+    v16 = [objc_alloc(MEMORY[0x277D75B80]) initWithTarget:self action:sel__handleTap_];
     collectionViewTapGestureRecognizer = self->_collectionViewTapGestureRecognizer;
-    self->_collectionViewTapGestureRecognizer = v14;
+    self->_collectionViewTapGestureRecognizer = v16;
 
     [(SKUICollectionView *)self->_collectionView addGestureRecognizer:self->_collectionViewTapGestureRecognizer];
     [(UITapGestureRecognizer *)self->_collectionViewTapGestureRecognizer setEnabled:0];
     [(UITapGestureRecognizer *)self->_collectionViewTapGestureRecognizer setDelegate:self];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __53__SKUIStorePageSectionsViewController_collectionView__block_invoke;
-    v17[3] = &unk_2781FA7D8;
-    v17[4] = self;
-    [(SKUIStorePageSectionsViewController *)self _enumerateSectionContextsUsingBlock:v17];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __53__SKUIStorePageSectionsViewController_collectionView__block_invoke;
+    v19[3] = &unk_2781FA7D8;
+    v19[4] = self;
+    [(SKUIStorePageSectionsViewController *)self _enumerateSectionContextsUsingBlock:v19];
 
     collectionView = self->_collectionView;
   }
@@ -2254,12 +2254,12 @@ LABEL_8:
     if (didInitialReload)
     {
       mEMORY[0x277D75128]2 = [MEMORY[0x277D75128] sharedApplication];
-      v62[0] = MEMORY[0x277D85DD0];
-      v62[1] = 3221225472;
-      v62[2] = __76__SKUIStorePageSectionsViewController_skuiCollectionViewWillLayoutSubviews___block_invoke;
-      v62[3] = &unk_2781F80F0;
-      v62[4] = self;
-      [mEMORY[0x277D75128]2 _performBlockAfterCATransactionCommits:v62];
+      v64[0] = MEMORY[0x277D85DD0];
+      v64[1] = 3221225472;
+      v64[2] = __76__SKUIStorePageSectionsViewController_skuiCollectionViewWillLayoutSubviews___block_invoke;
+      v64[3] = &unk_2781F80F0;
+      v64[4] = self;
+      [mEMORY[0x277D75128]2 _performBlockAfterCATransactionCommits:v64];
 
       goto LABEL_6;
     }
@@ -2308,36 +2308,36 @@ LABEL_6:
       }
 
       [(UIView *)splitsDividerView setBackgroundColor:v22];
-      v56 = 0;
-      v57 = &v56;
-      v58 = 0x4010000000;
-      v59 = &unk_215F8ACD7;
+      v58 = 0;
+      v59 = &v58;
+      v60 = 0x4010000000;
+      v61 = &unk_215F8ACD7;
       v26 = *(MEMORY[0x277CBF3A0] + 16);
-      v60 = *MEMORY[0x277CBF3A0];
-      v61 = v26;
+      v62 = *MEMORY[0x277CBF3A0];
+      v63 = v26;
       _collectionViewSublayouts = [(SKUIStorePageSectionsViewController *)self _collectionViewSublayouts];
       splitsDescription = self->_splitsDescription;
-      v49 = MEMORY[0x277D85DD0];
-      v50 = 3221225472;
-      v51 = __76__SKUIStorePageSectionsViewController_skuiCollectionViewWillLayoutSubviews___block_invoke_2;
-      v52 = &unk_2781FA8A0;
-      v53 = leftSplit;
+      v51 = MEMORY[0x277D85DD0];
+      v52 = 3221225472;
+      v53 = __76__SKUIStorePageSectionsViewController_skuiCollectionViewWillLayoutSubviews___block_invoke_2;
+      v54 = &unk_2781FA8A0;
+      v55 = leftSplit;
       v29 = _collectionViewSublayouts;
-      v54 = v29;
-      v55 = &v56;
-      [(SKUIStorePageSplitsDescription *)splitsDescription enumerateSplitsUsingBlock:&v49];
+      v56 = v29;
+      v57 = &v58;
+      [(SKUIStorePageSplitsDescription *)splitsDescription enumerateSplitsUsingBlock:&v51];
       [subviewsCopy frame];
       v31 = v30;
       mainScreen = [MEMORY[0x277D759A0] mainScreen];
       [mainScreen scale];
       v34 = v33;
 
-      ShouldReverseLayoutDirection = storeShouldReverseLayoutDirection();
-      x = v57[1].origin.x;
-      y = v57[1].origin.y;
-      width = v57[1].size.width;
-      height = v57[1].size.height;
-      v40 = 1.0 / v34;
+      ShouldReverseLayoutDirection = storeShouldReverseLayoutDirection(v35, v36);
+      x = v59[1].origin.x;
+      y = v59[1].origin.y;
+      width = v59[1].size.width;
+      height = v59[1].size.height;
+      v42 = 1.0 / v34;
       if (ShouldReverseLayoutDirection)
       {
         MinX = CGRectGetMinX(*&x);
@@ -2345,33 +2345,33 @@ LABEL_6:
 
       else
       {
-        MinX = CGRectGetMaxX(*&x) - v40;
+        MinX = CGRectGetMaxX(*&x) - v42;
       }
 
-      MinY = CGRectGetMinY(v57[1]);
+      MinY = CGRectGetMinY(v59[1]);
       [subviewsCopy contentOffset];
-      v44 = v43;
+      v46 = v45;
       [subviewsCopy contentInset];
-      v46 = v44 + v45;
-      v47 = v57[1].origin.y;
-      if (v47 <= 0.00000011920929)
+      v48 = v46 + v47;
+      v49 = v59[1].origin.y;
+      if (v49 <= 0.00000011920929)
       {
-        v48 = v46;
+        v50 = v48;
       }
 
       else
       {
-        v48 = 0.0;
-        if (v46 >= v47)
+        v50 = 0.0;
+        if (v48 >= v49)
         {
-          v48 = v46 - v47;
+          v50 = v48 - v49;
         }
       }
 
-      [(UIView *)self->_splitsDividerView setFrame:MinX, MinY + v48, v40, v31];
+      [(UIView *)self->_splitsDividerView setFrame:MinX, MinY + v50, v42, v31];
       [(UIView *)self->_splitsDividerView setHidden:0];
 
-      _Block_object_dispose(&v56, 8);
+      _Block_object_dispose(&v58, 8);
     }
   }
 
@@ -2386,7 +2386,7 @@ void __76__SKUIStorePageSectionsViewController_skuiCollectionViewWillLayoutSubvi
 {
   if (*(a1 + 32) == a2)
   {
-    v12 = [*(a1 + 40) objectAtIndex:?];
+    v12 = [*(a1 + 40) objectAtIndex:a3];
     [v12 _frame];
     v7 = *(*(a1 + 48) + 8);
     v7[4] = v8;
@@ -3122,9 +3122,9 @@ void __80__SKUIStorePageSectionsViewController__entityProviderDidInvalidateNotif
     [controlCopy setBackgroundColor:clearColor];
   }
 
-  primaryTextColor = [schemeCopy primaryTextColor];
+  v8 = objc_msgSend_primaryTextColor(schemeCopy);
 
-  [controlCopy setTintColor:primaryTextColor];
+  [controlCopy setTintColor:v8];
 }
 
 - (void)_beginActiveImpressionsForImpressionableViewElements

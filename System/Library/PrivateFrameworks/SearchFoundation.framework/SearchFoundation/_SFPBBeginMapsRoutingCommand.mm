@@ -368,18 +368,14 @@ LABEL_19:
 
 - (void)setName:(id)name
 {
-  v4 = [name copy];
-  name = self->_name;
-  self->_name = v4;
+  self->_name = [name copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setMapsData:(id)data
 {
-  v4 = [data copy];
-  mapsData = self->_mapsData;
-  self->_mapsData = v4;
+  self->_mapsData = [data copy];
 
   MEMORY[0x1EEE66BB8]();
 }

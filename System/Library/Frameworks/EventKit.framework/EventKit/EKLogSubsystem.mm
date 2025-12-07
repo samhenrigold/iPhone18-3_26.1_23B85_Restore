@@ -25,9 +25,11 @@
 
 uint64_t __34__EKLogSubsystem_predicateMonitor__block_invoke()
 {
-  predicateMonitor_logHandle = os_log_create("com.apple.calendar.ek", "EKPredicateMonitor");
+  v0 = os_log_create("com.apple.calendar.ek", "EKPredicateMonitor");
+  v1 = predicateMonitor_logHandle;
+  predicateMonitor_logHandle = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (OS_os_log)defaultCategory
@@ -44,9 +46,11 @@ uint64_t __34__EKLogSubsystem_predicateMonitor__block_invoke()
 
 uint64_t __33__EKLogSubsystem_defaultCategory__block_invoke()
 {
-  defaultCategory_logHandle = os_log_create("com.apple.calendar.ek", "Default");
+  v0 = os_log_create("com.apple.calendar.ek", "Default");
+  v1 = defaultCategory_logHandle;
+  defaultCategory_logHandle = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (OS_os_log)autocomplete
@@ -63,9 +67,11 @@ uint64_t __33__EKLogSubsystem_defaultCategory__block_invoke()
 
 uint64_t __30__EKLogSubsystem_autocomplete__block_invoke()
 {
-  autocomplete_logHandle = os_log_create("com.apple.calendar.ek", "Autocomplete");
+  v0 = os_log_create("com.apple.calendar.ek", "Autocomplete");
+  v1 = autocomplete_logHandle;
+  autocomplete_logHandle = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (OS_os_log)availabilitySearch
@@ -82,9 +88,11 @@ uint64_t __30__EKLogSubsystem_autocomplete__block_invoke()
 
 uint64_t __36__EKLogSubsystem_availabilitySearch__block_invoke()
 {
-  availabilitySearch_logHandle = os_log_create("com.apple.calendar.ek", "AvailabilitySearch");
+  v0 = os_log_create("com.apple.calendar.ek", "AvailabilitySearch");
+  v1 = availabilitySearch_logHandle;
+  availabilitySearch_logHandle = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (OS_os_log)exchangeSync
@@ -101,9 +109,11 @@ uint64_t __36__EKLogSubsystem_availabilitySearch__block_invoke()
 
 uint64_t __30__EKLogSubsystem_exchangeSync__block_invoke()
 {
-  exchangeSync_logHandle = os_log_create("com.apple.calendar.ek", "ExchangeSync");
+  v0 = os_log_create("com.apple.calendar.ek", "ExchangeSync");
+  v1 = exchangeSync_logHandle;
+  exchangeSync_logHandle = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (OS_os_log)junk
@@ -120,9 +130,11 @@ uint64_t __30__EKLogSubsystem_exchangeSync__block_invoke()
 
 uint64_t __22__EKLogSubsystem_junk__block_invoke()
 {
-  junk_logHandle = os_log_create("com.apple.calendar.ek", "Junk");
+  v0 = os_log_create("com.apple.calendar.ek", "Junk");
+  v1 = junk_logHandle;
+  junk_logHandle = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (OS_os_log)locationSearch
@@ -139,9 +151,11 @@ uint64_t __22__EKLogSubsystem_junk__block_invoke()
 
 uint64_t __32__EKLogSubsystem_locationSearch__block_invoke()
 {
-  locationSearch_logHandle = os_log_create("com.apple.calendar.ek", "LocationSearch");
+  v0 = os_log_create("com.apple.calendar.ek", "LocationSearch");
+  v1 = locationSearch_logHandle;
+  locationSearch_logHandle = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (OS_os_log)savingSignposts
@@ -158,9 +172,11 @@ uint64_t __32__EKLogSubsystem_locationSearch__block_invoke()
 
 uint64_t __33__EKLogSubsystem_savingSignposts__block_invoke()
 {
-  savingSignposts_logHandle = os_log_create("com.apple.calendar.ek", "SavingSignposts");
+  v0 = os_log_create("com.apple.calendar.ek", "SavingSignposts");
+  v1 = savingSignposts_logHandle;
+  savingSignposts_logHandle = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

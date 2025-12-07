@@ -234,7 +234,7 @@
 
 - (void)slideInText:(id)text afterDelay:(double)delay completion:(id)completion
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   textCopy = text;
   completionCopy = completion;
   _shouldReverseLayoutDirection = [(VTUIPagedLabel *)self _shouldReverseLayoutDirection];
@@ -257,9 +257,9 @@
   [v14 setAlignment:1];
   [v13 headerTitleLinespacing];
   [v14 setLineSpacing:?];
-  v33 = *MEMORY[0x277D74118];
-  v34[0] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+  v32 = *MEMORY[0x277D74118];
+  v33[0] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
   if (textCopy)
   {
     v16 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:textCopy attributes:v15];
@@ -291,27 +291,25 @@
   }
 
   v23 = MEMORY[0x277D75D18];
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __52__VTUIPagedLabel_slideInText_afterDelay_completion___block_invoke;
-  v32[3] = &unk_279E549B8;
-  v32[4] = self;
-  v32[5] = v17;
-  v32[6] = v18;
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __52__VTUIPagedLabel_slideInText_afterDelay_completion___block_invoke_2;
-  v27[3] = &unk_279E549E0;
-  v27[4] = self;
-  v28 = v16;
-  v30 = v19;
-  v31 = v20;
-  v29 = completionCopy;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __52__VTUIPagedLabel_slideInText_afterDelay_completion___block_invoke;
+  v31[3] = &unk_279E549B8;
+  v31[4] = self;
+  v31[5] = v17;
+  v31[6] = v18;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __52__VTUIPagedLabel_slideInText_afterDelay_completion___block_invoke_2;
+  v26[3] = &unk_279E549E0;
+  v26[4] = self;
+  v27 = v16;
+  v29 = v19;
+  v30 = v20;
+  v28 = completionCopy;
   v24 = completionCopy;
   v25 = v16;
-  [v23 animateWithDuration:0 delay:v32 options:v27 animations:0.3 completion:delay];
-
-  v26 = *MEMORY[0x277D85DE8];
+  [v23 animateWithDuration:0 delay:v31 options:v26 animations:0.3 completion:delay];
 }
 
 uint64_t __52__VTUIPagedLabel_slideInText_afterDelay_completion___block_invoke(uint64_t a1)

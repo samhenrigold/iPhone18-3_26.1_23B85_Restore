@@ -24,7 +24,7 @@
   equalCopy = equal;
   if (self == equalCopy)
   {
-    LOBYTE(v12) = 1;
+    LOBYTE(isEqualToString) = 1;
   }
 
   else
@@ -45,7 +45,7 @@
 
       else
       {
-        LOBYTE(v12) = 0;
+        LOBYTE(isEqualToString) = 0;
         v13 = v10;
         v14 = v9;
         if (!v9 || !v10)
@@ -56,9 +56,9 @@ LABEL_18:
           goto LABEL_19;
         }
 
-        v12 = [v9 isEqualToString:v10];
+        isEqualToString = objc_msgSend_isEqualToString_(v9);
 
-        if (!v12)
+        if (!isEqualToString)
         {
           goto LABEL_18;
         }
@@ -71,27 +71,27 @@ LABEL_18:
       v13 = v17;
       if (v14 == v17)
       {
-        LOBYTE(v12) = 1;
+        LOBYTE(isEqualToString) = 1;
       }
 
       else
       {
-        LOBYTE(v12) = 0;
+        LOBYTE(isEqualToString) = 0;
         if (v14 && v17)
         {
-          LOBYTE(v12) = [v14 isEqualToString:v17];
+          LOBYTE(isEqualToString) = objc_msgSend_isEqualToString_(v14);
         }
       }
 
       goto LABEL_17;
     }
 
-    LOBYTE(v12) = 0;
+    LOBYTE(isEqualToString) = 0;
   }
 
 LABEL_19:
 
-  return v12;
+  return isEqualToString;
 }
 
 - (WFTimeZoneDescriptor)initWithALCity:(id)city

@@ -120,13 +120,11 @@
 
 - (id)description
 {
-  flags = self->_flags;
-  audioScore = self->_audioScore;
-  deviceAddress = self->_deviceAddress;
-  clientID = self->_clientID;
-  NSAppendPrintF();
+  v4 = 0;
+  NSAppendPrintF(&v4, "BTAudioRoutingRequest, CID 0x%X, auSc %d, dAdr %@, flags %#{flags}", self->_clientID, self->_audioScore, self->_deviceAddress, self->_flags, &unk_241535E65);
+  v2 = v4;
 
-  return 0;
+  return v2;
 }
 
 - (void)activate
@@ -144,7 +142,7 @@
 {
   if (gLogCategory_BTAudioRoutingRequest <= 30 && (gLogCategory_BTAudioRoutingRequest != -1 || _LogCategory_Initialize()))
   {
-    [(BTAudioRoutingRequest *)self _activate];
+    [BTAudioRoutingRequest _activate];
   }
 
   _ensureXPCStarted = [(BTAudioRoutingRequest *)self _ensureXPCStarted];
@@ -406,8 +404,8 @@ _BYTE *__42__BTAudioRoutingRequest__ensureXPCStarted__block_invoke_2(uint64_t a1
     [BTAudioRoutingRequest _interrupted];
   }
 
-  v3 = BTErrorF();
-  [(BTAudioRoutingRequest *)self _reportError:v3];
+  v10 = BTErrorF(4294960596, "XPC interrupted", v2, v3, v4, v5, v6, v7, v9);
+  [(BTAudioRoutingRequest *)self _reportError:v10];
 }
 
 - (void)invalidate
@@ -421,23 +419,23 @@ _BYTE *__42__BTAudioRoutingRequest__ensureXPCStarted__block_invoke_2(uint64_t a1
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __35__BTAudioRoutingRequest_invalidate__block_invoke(uint64_t result)
+void *__35__BTAudioRoutingRequest_invalidate__block_invoke(void *result)
 {
-  v2 = *(result + 32);
+  v2 = result[4];
   if ((*(v2 + 8) & 1) == 0)
   {
     v3 = result;
     *(v2 + 8) = 1;
-    if ((*(*(result + 32) + 9) & 1) == 0 && gLogCategory_BTAudioRoutingRequest <= 30 && (gLogCategory_BTAudioRoutingRequest != -1 || _LogCategory_Initialize()))
+    if ((*(result[4] + 9) & 1) == 0 && gLogCategory_BTAudioRoutingRequest <= 30 && (gLogCategory_BTAudioRoutingRequest != -1 || _LogCategory_Initialize()))
     {
       __35__BTAudioRoutingRequest_invalidate__block_invoke_cold_1();
     }
 
-    v4 = *(v3 + 32);
+    v4 = v3[4];
     if (v4[2])
     {
       [v4[2] invalidate];
-      v4 = *(v3 + 32);
+      v4 = v3[4];
     }
 
     return [v4 _invalidated];
@@ -457,17 +455,17 @@ uint64_t __35__BTAudioRoutingRequest_invalidate__block_invoke(uint64_t result)
 
     if (!self->_xpcCnx)
     {
-      v7 = MEMORY[0x245CE9060](self->_responseHandler, a2);
+      v14 = MEMORY[0x245CE9060](self->_responseHandler, a2);
       responseHandler = self->_responseHandler;
       self->_responseHandler = 0;
 
-      if (v7)
+      if (v14)
       {
         v4 = objc_alloc_init(BTAudioRoutingResponse);
-        v5 = BTErrorF();
-        [(BTAudioRoutingResponse *)v4 setError:v5];
+        v11 = BTErrorF(4294896148, "Invaliated", v5, v6, v7, v8, v9, v10, v13);
+        [(BTAudioRoutingResponse *)v4 setError:v11];
 
-        v7[2](v7, v4);
+        v14[2](v14, v4);
       }
 
       xpcCnx = self->_xpcCnx;
@@ -501,7 +499,7 @@ void __52__BTAudioRoutingRequest_updateAudioState_withState___block_invoke(uint6
 {
   if (gLogCategory_BTAudioRoutingRequest <= 50 && (gLogCategory_BTAudioRoutingRequest != -1 || _LogCategory_Initialize()))
   {
-    __52__BTAudioRoutingRequest_updateAudioState_withState___block_invoke_cold_1(a1);
+    __52__BTAudioRoutingRequest_updateAudioState_withState___block_invoke_cold_1();
   }
 
   v2 = [*(a1 + 32) _ensureXPCStarted];
@@ -569,19 +567,6 @@ void __52__BTAudioRoutingRequest_updateAudioState_withState___block_invoke_2(uin
     [(BTAudioRoutingResponse *)v6 setError:errorCopy];
     (v4)[2](v4, v6);
   }
-}
-
-uint64_t __52__BTAudioRoutingRequest_updateAudioState_withState___block_invoke_cold_1(uint64_t a1)
-{
-  v1 = *(a1 + 48);
-  if (v1 <= 2)
-  {
-    v2 = off_278CDDF30[v1];
-  }
-
-  v5 = *(a1 + 40);
-  v4 = *(*(a1 + 32) + 32);
-  return LogPrintF();
 }
 
 @end

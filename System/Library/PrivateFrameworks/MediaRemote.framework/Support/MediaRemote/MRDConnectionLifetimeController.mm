@@ -56,7 +56,7 @@
 
     uTF8String = [v15 UTF8String];
     v17 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v18 = sub_1000FAE0C();
+    v18 = sub_1000FAE0C(v17);
     v19 = dispatch_queue_create_with_target_V2(uTF8String, v17, v18);
     queue = v9->_queue;
     v9->_queue = v19;

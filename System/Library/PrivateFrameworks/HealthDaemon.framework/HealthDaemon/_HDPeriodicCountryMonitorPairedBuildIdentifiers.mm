@@ -13,11 +13,11 @@
   v8 = [(_HDPeriodicCountryMonitorPairedBuildIdentifiers *)&v14 init];
   if (v8)
   {
-    v9 = [identifierCopy copy];
+    v9 = objc_msgSend_copy(identifierCopy);
     pairingIdentifier = v8->_pairingIdentifier;
     v8->_pairingIdentifier = v9;
 
-    v11 = [buildIdentifierCopy copy];
+    v11 = objc_msgSend_copy(buildIdentifierCopy);
     buildIdentifier = v8->_buildIdentifier;
     v8->_buildIdentifier = v11;
   }

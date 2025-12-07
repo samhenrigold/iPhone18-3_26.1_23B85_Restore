@@ -16,7 +16,7 @@
 
 - (void)trackPlaylist:(id)playlist using:(id)using
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   playlistCopy = playlist;
   usingCopy = using;
   if ([playlistCopy conformsToProtocol:&unk_286A515C8])
@@ -68,8 +68,8 @@
 
       else
       {
-        v22[0] = v13;
-        v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+        v21[0] = v13;
+        v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
         v20 = selfCopy2->_playlistBindings;
         selfCopy2->_playlistBindings = v19;
       }
@@ -82,8 +82,6 @@
       [MEMORY[0x277CBEAD8] raise:@"NotSupported" format:{@"Unsupported playlist type: %@.", objc_opt_class()}];
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)playStartedWithPlaybackRate:(float)rate atMilliseconds:(unint64_t)milliseconds type:(id)type reason:(id)reason eventData:(id)data
@@ -191,68 +189,23 @@
 
 - (void)updateEventData:(id)data
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __32__MTPAFTracker_updateEventData___block_invoke;
-  v17[3] = &unk_2798CE680;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __32__MTPAFTracker_updateEventData___block_invoke;
+  v16[3] = &unk_2798CE680;
   v5 = dataCopy;
-  v18 = v5;
-  [(MTPAFTracker *)self forEachVideoTracker:v17];
+  v17 = v5;
+  [(MTPAFTracker *)self forEachVideoTracker:v16];
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  playlistBindings = [(MTPAFTracker *)selfCopy playlistBindings];
-  v8 = [playlistBindings countByEnumeratingWithState:&v13 objects:v19 count:16];
-  if (v8)
-  {
-    v9 = *v14;
-    do
-    {
-      v10 = 0;
-      do
-      {
-        if (*v14 != v9)
-        {
-          objc_enumerationMutation(playlistBindings);
-        }
-
-        playlist = [*(*(&v13 + 1) + 8 * v10) playlist];
-        [playlist updateEventData:v5];
-
-        ++v10;
-      }
-
-      while (v8 != v10);
-      v8 = [playlistBindings countByEnumeratingWithState:&v13 objects:v19 count:16];
-    }
-
-    while (v8);
-  }
-
-  objc_sync_exit(selfCopy);
-  v12 = *MEMORY[0x277D85DE8];
-}
-
-- (void)forEachVideoTracker:(id)tracker
-{
-  v17 = *MEMORY[0x277D85DE8];
-  trackerCopy = tracker;
-  selfCopy = self;
-  objc_sync_enter(selfCopy);
-  videoTrackers = [(MTPAFTracker *)selfCopy videoTrackers];
-  objc_sync_exit(selfCopy);
-
-  v14 = 0u;
-  v15 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v7 = videoTrackers;
-  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v14 = 0u;
+  v15 = 0u;
+  playlistBindings = [(MTPAFTracker *)selfCopy playlistBindings];
+  v8 = [playlistBindings countByEnumeratingWithState:&v12 objects:v18 count:16];
   if (v8)
   {
     v9 = *v13;
@@ -263,25 +216,67 @@
       {
         if (*v13 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(playlistBindings);
         }
 
-        trackerCopy[2](trackerCopy, *(*(&v12 + 1) + 8 * v10++));
+        playlist = [*(*(&v12 + 1) + 8 * v10) playlist];
+        [playlist updateEventData:v5];
+
+        ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [playlistBindings countByEnumeratingWithState:&v12 objects:v18 count:16];
     }
 
     while (v8);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
+  objc_sync_exit(selfCopy);
+}
+
+- (void)forEachVideoTracker:(id)tracker
+{
+  v16 = *MEMORY[0x277D85DE8];
+  trackerCopy = tracker;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  videoTrackers = [(MTPAFTracker *)selfCopy videoTrackers];
+  objc_sync_exit(selfCopy);
+
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v7 = videoTrackers;
+  v8 = [v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v8)
+  {
+    v9 = *v12;
+    do
+    {
+      v10 = 0;
+      do
+      {
+        if (*v12 != v9)
+        {
+          objc_enumerationMutation(v7);
+        }
+
+        trackerCopy[2](trackerCopy, *(*(&v11 + 1) + 8 * v10++));
+      }
+
+      while (v8 != v10);
+      v8 = [v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    }
+
+    while (v8);
+  }
 }
 
 - (void)startActivity:(int64_t)activity playbackRate:(float)rate atMilliseconds:(unint64_t)milliseconds triggerType:(id)type reason:(id)reason eventData:(id)data
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   reasonCopy = reason;
   dataCopy = data;
@@ -304,31 +299,31 @@
 
     if (playlistBindings)
     {
-      v40 = 0u;
-      v41 = 0u;
-      v38 = 0u;
       v39 = 0u;
+      v40 = 0u;
+      v37 = 0u;
+      v38 = 0u;
       v28 = playlistBindings;
-      v29 = [v28 countByEnumeratingWithState:&v38 objects:v42 count:16];
+      v29 = [v28 countByEnumeratingWithState:&v37 objects:v41 count:16];
       if (v29)
       {
-        v30 = *v39;
+        v30 = *v38;
         do
         {
           for (i = 0; i != v29; ++i)
           {
-            if (*v39 != v30)
+            if (*v38 != v30)
             {
               objc_enumerationMutation(v28);
             }
 
-            v32 = *(*(&v38 + 1) + 8 * i);
+            v32 = *(*(&v37 + 1) + 8 * i);
             playlist = [v32 playlist];
             pafKit = [v32 pafKit];
             [(MTPAFActivity *)v25 addItemsFromPlaylist:playlist pafKit:pafKit];
           }
 
-          v29 = [v28 countByEnumeratingWithState:&v38 objects:v42 count:16];
+          v29 = [v28 countByEnumeratingWithState:&v37 objects:v41 count:16];
         }
 
         while (v29);
@@ -337,8 +332,6 @@
 
     [(MTPAFTracker *)selfCopy setCurrentActivity:v25, typeCopy];
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopActivity:(int64_t)activity atMilliseconds:(unint64_t)milliseconds triggerType:(id)type reason:(id)reason eventData:(id)data

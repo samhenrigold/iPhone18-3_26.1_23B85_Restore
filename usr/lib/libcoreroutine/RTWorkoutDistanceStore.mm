@@ -97,32 +97,32 @@
   dispatch_async(queue, v13);
 }
 
-void __80__RTWorkoutDistanceStore_updateWorkoutDistancesWithObjectIDs_isVisited_handler___block_invoke(uint64_t a1)
+void __80__RTWorkoutDistanceStore_updateWorkoutDistancesWithObjectIDs_isVisited_handler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  if (!v2)
+  v3 = *(a1 + 32);
+  if (!v3)
   {
-    v5 = *(a1 + 40);
-    v7 = [objc_opt_class() propertyDictionaryForIsVisited:*(a1 + 56)];
-    [v5 _updateWorkoutDistancesWithPredicate:0 propertiesDictionary:v7 handler:*(a1 + 48)];
+    v6 = *(a1 + 40);
+    v8 = [objc_opt_class() propertyDictionaryForIsVisited:*(a1 + 56)];
+    [v6 _updateWorkoutDistancesWithPredicate:0 propertiesDictionary:v8 handler:*(a1 + 48)];
     goto LABEL_5;
   }
 
-  if ([v2 count])
+  if ([v3 count])
   {
-    v3 = *(a1 + 40);
-    v7 = [objc_opt_class() predicateForObjectIDs:*(a1 + 32)];
-    v4 = [objc_opt_class() propertyDictionaryForIsVisited:*(a1 + 56)];
-    [v3 _updateWorkoutDistancesWithPredicate:v7 propertiesDictionary:v4 handler:*(a1 + 48)];
+    v4 = *(a1 + 40);
+    v8 = [objc_opt_class() predicateForObjectIDs:*(a1 + 32)];
+    v5 = [objc_opt_class() propertyDictionaryForIsVisited:*(a1 + 56)];
+    [v4 _updateWorkoutDistancesWithPredicate:v8 propertiesDictionary:v5 handler:*(a1 + 48)];
 
 LABEL_5:
 
     return;
   }
 
-  v6 = *(*(a1 + 48) + 16);
+  v7 = *(*(a1 + 48) + 16);
 
-  v6();
+  v7();
 }
 
 - (void)_updateWorkoutDistancesWithPredicate:(id)predicate propertiesDictionary:(id)dictionary handler:(id)handler

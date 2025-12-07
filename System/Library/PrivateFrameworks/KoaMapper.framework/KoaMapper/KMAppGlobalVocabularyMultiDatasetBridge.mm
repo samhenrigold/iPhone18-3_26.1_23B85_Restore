@@ -11,45 +11,43 @@
 
 - (id)_sortAppIntentVocabularyByCascadeItemType:(id)type
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = typeCopy;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
-        v13[0] = MEMORY[0x277D85DD0];
-        v13[1] = 3221225472;
-        v13[2] = __85__KMAppGlobalVocabularyMultiDatasetBridge__sortAppIntentVocabularyByCascadeItemType___block_invoke;
-        v13[3] = &unk_279805C58;
-        v14 = v4;
-        v15 = v10;
-        [v10 enumerateFieldsUsingBlock:v13];
+        v10 = *(*(&v15 + 1) + 8 * i);
+        v12[0] = MEMORY[0x277D85DD0];
+        v12[1] = 3221225472;
+        v12[2] = __85__KMAppGlobalVocabularyMultiDatasetBridge__sortAppIntentVocabularyByCascadeItemType___block_invoke;
+        v12[3] = &unk_279805C58;
+        v13 = v4;
+        v14 = v10;
+        [v10 enumerateFieldsUsingBlock:v12];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -82,7 +80,7 @@ void __85__KMAppGlobalVocabularyMultiDatasetBridge__sortAppIntentVocabularyByCas
 
 - (id)_extractAllAppIntentVocabularyFromBundle:(__CFBundle *)bundle languageCode:(id)code
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   codeCopy = code;
   v7 = CFBundleCopyResourceURLForLocalization(bundle, @"AppIntentVocabulary", @"plist", 0, codeCopy);
   if (!v7)
@@ -124,9 +122,9 @@ void __85__KMAppGlobalVocabularyMultiDatasetBridge__sortAppIntentVocabularyByCas
   if (v14)
   {
     itemMapper = self->_itemMapper;
-    v23 = 0;
-    v16 = [(KVItemMapper *)itemMapper mapObject:v14 error:&v23];
-    v17 = v23;
+    v22 = 0;
+    v16 = [(KVItemMapper *)itemMapper mapObject:v14 error:&v22];
+    v17 = v22;
     if (v16)
     {
       v18 = v16;
@@ -138,9 +136,9 @@ void __85__KMAppGlobalVocabularyMultiDatasetBridge__sortAppIntentVocabularyByCas
       if (os_log_type_enabled(KMLogContextCore, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v25 = "[KMAppGlobalVocabularyMultiDatasetBridge _extractAllAppIntentVocabularyFromBundle:languageCode:]";
-        v26 = 2112;
-        v27 = v17;
+        v24 = "[KMAppGlobalVocabularyMultiDatasetBridge _extractAllAppIntentVocabularyFromBundle:languageCode:]";
+        v25 = 2112;
+        v26 = v17;
         _os_log_error_impl(&dword_2559DF000, v20, OS_LOG_TYPE_ERROR, "%s Failed to map appIntentVocabulary with error: %@", buf, 0x16u);
       }
     }
@@ -152,9 +150,9 @@ void __85__KMAppGlobalVocabularyMultiDatasetBridge__sortAppIntentVocabularyByCas
     if (os_log_type_enabled(KMLogContextCore, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v25 = "[KMAppGlobalVocabularyMultiDatasetBridge _extractAllAppIntentVocabularyFromBundle:languageCode:]";
-      v26 = 2112;
-      v27 = v7;
+      v24 = "[KMAppGlobalVocabularyMultiDatasetBridge _extractAllAppIntentVocabularyFromBundle:languageCode:]";
+      v25 = 2112;
+      v26 = v7;
       _os_log_error_impl(&dword_2559DF000, v19, OS_LOG_TYPE_ERROR, "%s Failed to initialize appIntentVocabulary dictionary from URL: %@", buf, 0x16u);
     }
 
@@ -163,69 +161,65 @@ void __85__KMAppGlobalVocabularyMultiDatasetBridge__sortAppIntentVocabularyByCas
   }
 
 LABEL_19:
-  v21 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 - (id)_extractAllAppIntentVocabularyForApp:(id)app languageCode:(id)code
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   appCopy = app;
   codeCopy = code;
   if (codeCopy)
   {
-    v18 = 0;
-    v8 = [MEMORY[0x277CC1E90] bundleRecordWithBundleIdentifier:appCopy allowPlaceholder:0 error:&v18];
-    v9 = v18;
-    v10 = *MEMORY[0x277CBECE8];
+    v16 = 0;
+    v8 = [MEMORY[0x277CC1E90] bundleRecordWithBundleIdentifier:appCopy allowPlaceholder:0 error:&v16];
+    v9 = v16;
     [v8 URL];
     Unique = _CFBundleCreateUnique();
     if (Unique)
     {
-      v12 = Unique;
-      v13 = [(KMAppGlobalVocabularyMultiDatasetBridge *)self _extractAllAppIntentVocabularyFromBundle:Unique languageCode:codeCopy];
+      v11 = Unique;
+      v12 = [(KMAppGlobalVocabularyMultiDatasetBridge *)self _extractAllAppIntentVocabularyFromBundle:Unique languageCode:codeCopy];
       _CFBundleFlushBundleCaches();
-      CFRelease(v12);
+      CFRelease(v11);
     }
 
     else
     {
-      v15 = KMLogContextCore;
+      v14 = KMLogContextCore;
       if (os_log_type_enabled(KMLogContextCore, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v20 = "[KMAppGlobalVocabularyMultiDatasetBridge _extractAllAppIntentVocabularyForApp:languageCode:]";
-        v21 = 2112;
-        v22 = appCopy;
-        _os_log_error_impl(&dword_2559DF000, v15, OS_LOG_TYPE_ERROR, "%s Cannot create a bundle instance with appId: %@", buf, 0x16u);
+        v18 = "[KMAppGlobalVocabularyMultiDatasetBridge _extractAllAppIntentVocabularyForApp:languageCode:]";
+        v19 = 2112;
+        v20 = appCopy;
+        _os_log_error_impl(&dword_2559DF000, v14, OS_LOG_TYPE_ERROR, "%s Cannot create a bundle instance with appId: %@", buf, 0x16u);
       }
 
-      v13 = 0;
+      v12 = 0;
     }
   }
 
   else
   {
-    v14 = KMLogContextCore;
+    v13 = KMLogContextCore;
     if (os_log_type_enabled(KMLogContextCore, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v20 = "[KMAppGlobalVocabularyMultiDatasetBridge _extractAllAppIntentVocabularyForApp:languageCode:]";
-      _os_log_error_impl(&dword_2559DF000, v14, OS_LOG_TYPE_ERROR, "%s nil languageCode", buf, 0xCu);
+      v18 = "[KMAppGlobalVocabularyMultiDatasetBridge _extractAllAppIntentVocabularyForApp:languageCode:]";
+      _os_log_error_impl(&dword_2559DF000, v13, OS_LOG_TYPE_ERROR, "%s nil languageCode", buf, 0xCu);
     }
 
-    v13 = 0;
+    v12 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
-  return v13;
+  return v12;
 }
 
 - (void)enumerateAllDatasets:(unint64_t *)datasets usingBlock:(id)block
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v6 = KMLogContextCore;
   if (os_log_type_enabled(KMLogContextCore, OS_LOG_TYPE_INFO))
@@ -235,110 +229,109 @@ LABEL_19:
     v9 = v6;
     v10 = [v7 numberWithUnsignedInteger:{-[NSSet count](modifiedAppIds, "count")}];
     *buf = 136315394;
-    v46 = "[KMAppGlobalVocabularyMultiDatasetBridge enumerateAllDatasets:usingBlock:]";
-    v47 = 2112;
-    v48 = v10;
+    v45 = "[KMAppGlobalVocabularyMultiDatasetBridge enumerateAllDatasets:usingBlock:]";
+    v46 = 2112;
+    v47 = v10;
     _os_log_impl(&dword_2559DF000, v9, OS_LOG_TYPE_INFO, "%s Scanning app global terms for %@ modified apps", buf, 0x16u);
   }
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   obj = self->_modifiedAppIds;
-  v30 = [(NSSet *)obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+  v29 = [(NSSet *)obj countByEnumeratingWithState:&v38 objects:v43 count:16];
   v11 = 0;
-  if (v30)
+  if (v29)
   {
-    v29 = *v40;
+    v28 = *v39;
     selfCopy = self;
     do
     {
-      for (i = 0; i != v30; ++i)
+      for (i = 0; i != v29; ++i)
       {
-        if (*v40 != v29)
+        if (*v39 != v28)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v39 + 1) + 8 * i);
+        v13 = *(*(&v38 + 1) + 8 * i);
         v14 = objc_autoreleasePoolPush();
         v15 = [(KMAppGlobalVocabularyMultiDatasetBridge *)self _extractAllAppIntentVocabularyForApp:v13 languageCode:self->_languageCode];
         if (v15)
         {
-          v32 = v14;
-          v33 = i;
-          v31 = v15;
+          v31 = v14;
+          v32 = i;
+          v30 = v15;
           v16 = [(KMAppGlobalVocabularyMultiDatasetBridge *)self _sortAppIntentVocabularyByCascadeItemType:v15];
+          v34 = 0u;
           v35 = 0u;
           v36 = 0u;
           v37 = 0u;
-          v38 = 0u;
-          v17 = [v16 countByEnumeratingWithState:&v35 objects:v43 count:16];
+          v17 = [v16 countByEnumeratingWithState:&v34 objects:v42 count:16];
           if (v17)
           {
             v18 = v17;
-            v19 = *v36;
+            v19 = *v35;
             do
             {
-              v34 = v11;
+              v33 = v11;
               for (j = 0; j != v18; ++j)
               {
-                if (*v36 != v19)
+                if (*v35 != v19)
                 {
                   objc_enumerationMutation(v16);
                 }
 
-                v21 = *(*(&v35 + 1) + 8 * j);
+                v21 = *(*(&v34 + 1) + 8 * j);
                 v22 = [v16 objectForKey:v21];
                 v23 = -[KMAppGlobalVocabularyBridge initWithOriginAppId:cascadeItemType:items:]([KMAppGlobalVocabularyBridge alloc], "initWithOriginAppId:cascadeItemType:items:", v13, [v21 unsignedShortValue], v22);
                 v24 = KMLogContextCore;
                 if (os_log_type_enabled(KMLogContextCore, OS_LOG_TYPE_INFO))
                 {
                   *buf = 136315394;
-                  v46 = "[KMAppGlobalVocabularyMultiDatasetBridge enumerateAllDatasets:usingBlock:]";
-                  v47 = 2112;
-                  v48 = v13;
+                  v45 = "[KMAppGlobalVocabularyMultiDatasetBridge enumerateAllDatasets:usingBlock:]";
+                  v46 = 2112;
+                  v47 = v13;
                   _os_log_impl(&dword_2559DF000, v24, OS_LOG_TYPE_INFO, "%s Extracting app global terms for app: %@", buf, 0x16u);
                 }
 
                 blockCopy[2](blockCopy, v23);
               }
 
-              v11 = v34 + v18;
-              v18 = [v16 countByEnumeratingWithState:&v35 objects:v43 count:16];
+              v11 = v33 + v18;
+              v18 = [v16 countByEnumeratingWithState:&v34 objects:v42 count:16];
             }
 
             while (v18);
           }
 
           self = selfCopy;
-          v14 = v32;
-          i = v33;
-          v15 = v31;
+          v14 = v31;
+          i = v32;
+          v15 = v30;
         }
 
         objc_autoreleasePoolPop(v14);
       }
 
-      v30 = [(NSSet *)obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+      v29 = [(NSSet *)obj countByEnumeratingWithState:&v38 objects:v43 count:16];
     }
 
-    while (v30);
+    while (v29);
   }
 
   *datasets = v11;
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (KMAppGlobalVocabularyMultiDatasetBridge)initWithModifiedOriginAppIds:(id)ids languageCode:(id)code
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   idsCopy = ids;
   codeCopy = code;
-  v22.receiver = self;
-  v22.super_class = KMAppGlobalVocabularyMultiDatasetBridge;
-  v9 = [(KMAppGlobalVocabularyMultiDatasetBridge *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = KMAppGlobalVocabularyMultiDatasetBridge;
+  v9 = [(KMAppGlobalVocabularyMultiDatasetBridge *)&v21 init];
   v10 = v9;
   if (!v9)
   {
@@ -355,20 +348,20 @@ LABEL_19:
     {
       languageCode = v10->_languageCode;
       *buf = 136315650;
-      v24 = "[KMAppGlobalVocabularyMultiDatasetBridge initWithModifiedOriginAppIds:languageCode:]";
-      v25 = 2112;
-      v26 = modifiedAppIds;
-      v27 = 2112;
-      v28 = languageCode;
+      v23 = "[KMAppGlobalVocabularyMultiDatasetBridge initWithModifiedOriginAppIds:languageCode:]";
+      v24 = 2112;
+      v25 = modifiedAppIds;
+      v26 = 2112;
+      v27 = languageCode;
       _os_log_error_impl(&dword_2559DF000, v16, OS_LOG_TYPE_ERROR, "%s Invalid {modified: %@ language: %@}", buf, 0x20u);
     }
 
     goto LABEL_12;
   }
 
-  v21 = 0;
-  v12 = [objc_alloc(MEMORY[0x277D22D30]) initWithObjectClass:objc_opt_class() error:&v21];
-  v13 = v21;
+  v20 = 0;
+  v12 = [objc_alloc(MEMORY[0x277D22D30]) initWithObjectClass:objc_opt_class() error:&v20];
+  v13 = v20;
   itemMapper = v10->_itemMapper;
   v10->_itemMapper = v12;
 
@@ -378,9 +371,9 @@ LABEL_19:
     if (os_log_type_enabled(KMLogContextCore, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v24 = "[KMAppGlobalVocabularyMultiDatasetBridge initWithModifiedOriginAppIds:languageCode:]";
-      v25 = 2112;
-      v26 = v13;
+      v23 = "[KMAppGlobalVocabularyMultiDatasetBridge initWithModifiedOriginAppIds:languageCode:]";
+      v24 = 2112;
+      v25 = v13;
       _os_log_error_impl(&dword_2559DF000, v18, OS_LOG_TYPE_ERROR, "%s Cannot initialize item mapper with error: %@", buf, 0x16u);
     }
 
@@ -393,7 +386,6 @@ LABEL_6:
   v15 = v10;
 LABEL_13:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v15;
 }
 

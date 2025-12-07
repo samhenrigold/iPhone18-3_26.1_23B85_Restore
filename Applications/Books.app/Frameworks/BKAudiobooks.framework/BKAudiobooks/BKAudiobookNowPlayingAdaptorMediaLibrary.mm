@@ -54,7 +54,7 @@
 
         if (&currentChapterIndex[offset] >= v15)
         {
-          v18 = 0;
+          v19 = 0;
           identifier = 0;
         }
 
@@ -62,27 +62,27 @@
         {
           objc_opt_class();
           chapters2 = [v8 chapters];
-          v17 = [chapters2 objectAtIndexedSubscript:&currentChapterIndex[offset]];
-          v18 = BUDynamicCast();
+          v18 = [chapters2 objectAtIndexedSubscript:&currentChapterIndex[offset]];
+          v19 = BUDynamicCast();
 
-          contentItem = [v18 contentItem];
+          contentItem = [v19 contentItem];
           identifier = [contentItem identifier];
         }
 
-        v26 = BKAudiobooksNowPlayingAdaptorLog();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        v27 = BKAudiobooksNowPlayingAdaptorLog(v16);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
-          v27 = [NSNumber numberWithInteger:offset];
-          contentItem2 = [v18 contentItem];
+          v28 = [NSNumber numberWithInteger:offset];
+          contentItem2 = [v19 contentItem];
           identifier2 = [contentItem2 identifier];
-          v30 = [NSNumber numberWithInteger:currentChapterIndex];
-          v32 = 138412802;
-          v33 = v27;
-          v34 = 2112;
-          v35 = identifier2;
-          v36 = 2112;
-          v37 = v30;
-          _os_log_impl(&dword_0, v26, OS_LOG_TYPE_DEFAULT, "contentItemIDForOffset[%@]=%@ chapter=%@", &v32, 0x20u);
+          v31 = [NSNumber numberWithInteger:currentChapterIndex];
+          v33 = 138412802;
+          v34 = v28;
+          v35 = 2112;
+          v36 = identifier2;
+          v37 = 2112;
+          v38 = v31;
+          _os_log_impl(&dword_0, v27, OS_LOG_TYPE_DEFAULT, "contentItemIDForOffset[%@]=%@ chapter=%@", &v33, 0x20u);
         }
       }
 
@@ -132,55 +132,54 @@
   v8 = BUDynamicCast();
   if (v8)
   {
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     player2 = [(BKAudiobookNowPlayingAdaptor *)self player];
     currentAudiobook2 = [player2 currentAudiobook];
     chapters = [currentAudiobook2 chapters];
 
-    v12 = [chapters countByEnumeratingWithState:&v35 objects:v45 count:16];
+    v12 = [chapters countByEnumeratingWithState:&v34 objects:v44 count:16];
     if (v12)
     {
-      v34 = currentAudiobook;
-      v13 = *v36;
+      v33 = currentAudiobook;
+      v13 = *v35;
       while (2)
       {
-        for (i = 0; i != v12; i = i + 1)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v36 != v13)
+          if (*v35 != v13)
           {
             objc_enumerationMutation(chapters);
           }
 
-          v15 = *(*(&v35 + 1) + 8 * i);
           objc_opt_class();
-          v16 = BUDynamicCast();
-          contentItem = [v16 contentItem];
+          v15 = BUDynamicCast();
+          contentItem = [v15 contentItem];
           identifier = [contentItem identifier];
-          v19 = [identifier isEqualToString:dCopy];
+          v18 = [identifier isEqualToString:dCopy];
 
-          if (v19)
+          if (v18)
           {
             v12 = contentItem;
-            v20 = BKAudiobooksNowPlayingAdaptorLog();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+            v19 = BKAudiobooksNowPlayingAdaptorLog(v12);
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
             {
               identifier2 = [v12 identifier];
               *buf = 138412546;
-              v42 = identifier2;
-              v43 = 2112;
-              v44 = v12;
-              _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "contentItemForID[%@]=%@", buf, 0x16u);
+              v41 = identifier2;
+              v42 = 2112;
+              v43 = v12;
+              _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "contentItemForID[%@]=%@", buf, 0x16u);
             }
 
-            currentAudiobook = v34;
+            currentAudiobook = v33;
             goto LABEL_16;
           }
         }
 
-        v12 = [chapters countByEnumeratingWithState:&v35 objects:v45 count:16];
+        v12 = [chapters countByEnumeratingWithState:&v34 objects:v44 count:16];
         if (v12)
         {
           continue;
@@ -189,21 +188,21 @@
         break;
       }
 
-      currentAudiobook = v34;
+      currentAudiobook = v33;
     }
   }
 
   else
   {
-    if (![currentAudiobook isAudiobookPreview] || (objc_msgSend(currentAudiobook, "assetID"), v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(dCopy, "isEqual:", v22), v22, !v23))
+    if (![currentAudiobook isAudiobookPreview] || (objc_msgSend(currentAudiobook, "assetID"), v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(dCopy, "isEqual:", v21), v21, !v22))
     {
       v12 = 0;
       goto LABEL_23;
     }
 
-    v24 = [MPNowPlayingContentItem alloc];
+    v23 = [MPNowPlayingContentItem alloc];
     assetID = [currentAudiobook assetID];
-    v12 = [v24 initWithIdentifier:assetID];
+    v12 = [v23 initWithIdentifier:assetID];
 
     [v12 setMediaType:4];
     author = [currentAudiobook author];
@@ -222,32 +221,31 @@
     [v12 setDuration:?];
     [v12 setElapsedTime:0.0];
     [v12 setPlaybackRate:0.0];
-    LODWORD(v30) = 1.0;
-    [v12 setDefaultPlaybackRate:v30];
+    LODWORD(v29) = 1.0;
+    [v12 setDefaultPlaybackRate:v29];
     [v12 setNumberOfChildren:0];
     [v12 setContainer:0];
     [v12 setHasArtwork:1];
     [v12 setPlayable:1];
-    v39[0] = kMRMediaRemoteNowPlayingInfoChapterNumber;
-    v39[1] = kMRMediaRemoteNowPlayingInfoTotalChapterCount;
-    v40[0] = &off_3E0D8;
-    v40[1] = &off_3E0F0;
-    v39[2] = kMRMediaRemoteNowPlayingInfoUniqueIdentifier;
+    v38[0] = kMRMediaRemoteNowPlayingInfoChapterNumber;
+    v38[1] = kMRMediaRemoteNowPlayingInfoTotalChapterCount;
+    v39[0] = &off_3E0D8;
+    v39[1] = &off_3E0F0;
+    v38[2] = kMRMediaRemoteNowPlayingInfoUniqueIdentifier;
     assetID2 = [currentAudiobook assetID];
-    v40[2] = assetID2;
-    chapters = [NSDictionary dictionaryWithObjects:v40 forKeys:v39 count:3];
+    v39[2] = assetID2;
+    chapters = [NSDictionary dictionaryWithObjects:v39 forKeys:v38 count:3];
 
     [v12 setNowPlayingInfo:chapters];
-    [(BKAudiobookNowPlayingAdaptorMediaLibrary *)self setContentItemForPreviews:v12];
-    v16 = BKAudiobooksNowPlayingAdaptorLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v15 = BKAudiobooksNowPlayingAdaptorLog([(BKAudiobookNowPlayingAdaptorMediaLibrary *)self setContentItemForPreviews:v12]);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       identifier3 = [v12 identifier];
       *buf = 138412546;
-      v42 = identifier3;
-      v43 = 2112;
-      v44 = 0;
-      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "contentItemForID[%@]=%@", buf, 0x16u);
+      v41 = identifier3;
+      v42 = 2112;
+      v43 = 0;
+      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "contentItemForID[%@]=%@", buf, 0x16u);
     }
 
 LABEL_16:
@@ -267,42 +265,43 @@ LABEL_24:
   itemCopy = item;
   completionCopy = completion;
   audiobookPlayerActiveOutput = [(BKAudiobookNowPlayingAdaptor *)self audiobookPlayerActiveOutput];
-  v15 = BKAudiobooksNowPlayingAdaptorLog();
-  v16 = v15;
-  if (audiobookPlayerActiveOutput)
+  v15 = audiobookPlayerActiveOutput;
+  v16 = BKAudiobooksNowPlayingAdaptorLog(audiobookPlayerActiveOutput);
+  v17 = v16;
+  if (v15)
   {
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "Attempting to fetch artwork for active audiobook.", buf, 2u);
+      _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "Attempting to fetch artwork for active audiobook.", buf, 2u);
     }
 
     player = [(BKAudiobookNowPlayingAdaptor *)self player];
     currentAudiobook = [player currentAudiobook];
 
     objc_initWeak(buf, self);
-    v21[0] = _NSConcreteStackBlock;
-    v21[1] = 3221225472;
-    v21[2] = sub_C1B0;
-    v21[3] = &unk_3CD58;
-    objc_copyWeak(v25, buf);
-    v19 = currentAudiobook;
-    v22 = v19;
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = sub_C1B0;
+    v22[3] = &unk_3CD58;
+    objc_copyWeak(v26, buf);
+    v20 = currentAudiobook;
+    v23 = v20;
     selfCopy = self;
-    v24 = completionCopy;
-    v25[1] = *&width;
-    v25[2] = *&height;
-    [v19 artworkWithCompletion:v21];
+    v25 = completionCopy;
+    v26[1] = *&width;
+    v26[2] = *&height;
+    [v20 artworkWithCompletion:v22];
 
-    objc_destroyWeak(v25);
+    objc_destroyWeak(v26);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      sub_213DC(v16);
+      sub_213DC(v17);
     }
 
     (*(completionCopy + 2))(completionCopy, 0, 0);
@@ -352,8 +351,8 @@ LABEL_24:
 
   if (contentItem)
   {
-    *&v20 = v10;
-    [contentItem setElapsedTime:v13 playbackRate:v20];
+    *&v21 = v10;
+    [contentItem setElapsedTime:v13 playbackRate:v21];
     player6 = [(BKAudiobookNowPlayingAdaptor *)self player];
     [player6 playbackRate];
     [contentItem setDefaultPlaybackRate:?];
@@ -376,57 +375,57 @@ LABEL_24:
       isLoadingResources = [player8 isLoadingResources];
     }
 
-    v27 = MPNowPlayingContentItemUserInfoKeyIsLoading;
-    v28 = [userInfo objectForKey:MPNowPlayingContentItemUserInfoKeyIsLoading];
-    bOOLValue = [v28 BOOLValue];
+    v28 = MPNowPlayingContentItemUserInfoKeyIsLoading;
+    v29 = [userInfo objectForKey:MPNowPlayingContentItemUserInfoKeyIsLoading];
+    bOOLValue = [v29 BOOLValue];
 
     if (isLoadingResources != bOOLValue)
     {
-      v30 = [userInfo mutableCopy];
-      v31 = [NSNumber numberWithBool:isLoadingResources];
-      [v30 setObject:v31 forKey:v27];
+      v32 = [userInfo mutableCopy];
+      v33 = [NSNumber numberWithBool:isLoadingResources];
+      [v32 setObject:v33 forKey:v28];
 
-      [contentItem setUserInfo:v30];
+      [contentItem setUserInfo:v32];
     }
 
-    v32 = BKAudiobooksNowPlayingAdaptorLog();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v34 = BKAudiobooksNowPlayingAdaptorLog(v31);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       identifier = [contentItem identifier];
       [contentItem playbackRate];
-      v35 = v34;
-      [contentItem elapsedTime];
       v37 = v36;
-      v38 = [NSNumber numberWithBool:isLoadingResources];
-      v45 = 138413058;
-      v46 = identifier;
-      v47 = 2048;
-      v48 = v35;
+      [contentItem elapsedTime];
+      v39 = v38;
+      v40 = [NSNumber numberWithBool:isLoadingResources];
+      v47 = 138413058;
+      v48 = identifier;
       v49 = 2048;
       v50 = v37;
-      v51 = 2112;
-      v52 = v38;
-      _os_log_impl(&dword_0, v32, OS_LOG_TYPE_DEFAULT, "nowPlayingInfoChanged identifier=%@ rate=%f elapsedTime=%f isLoading=%@", &v45, 0x2Au);
+      v51 = 2048;
+      v52 = v39;
+      v53 = 2112;
+      v54 = v40;
+      _os_log_impl(&dword_0, v34, OS_LOG_TYPE_DEFAULT, "nowPlayingInfoChanged identifier=%@ rate=%f elapsedTime=%f isLoading=%@", &v47, 0x2Au);
     }
   }
 
   else
   {
-    userInfo = BKAudiobooksNowPlayingAdaptorLog();
+    userInfo = BKAudiobooksNowPlayingAdaptorLog(v20);
     if (os_log_type_enabled(userInfo, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v45) = 0;
-      _os_log_impl(&dword_0, userInfo, OS_LOG_TYPE_DEFAULT, "nowPlayingInfoChanged no contentItem available", &v45, 2u);
+      LOWORD(v47) = 0;
+      _os_log_impl(&dword_0, userInfo, OS_LOG_TYPE_DEFAULT, "nowPlayingInfoChanged no contentItem available", &v47, 2u);
     }
   }
 
   player9 = [(BKAudiobookNowPlayingAdaptor *)self player];
   [player9 playbackRate];
-  v41 = v40;
-  v42 = +[MPRemoteCommandCenter sharedCommandCenter];
-  changePlaybackRateCommand = [v42 changePlaybackRateCommand];
-  LODWORD(v44) = v41;
-  [changePlaybackRateCommand setPreferredRate:v44];
+  v43 = v42;
+  v44 = +[MPRemoteCommandCenter sharedCommandCenter];
+  changePlaybackRateCommand = [v44 changePlaybackRateCommand];
+  LODWORD(v46) = v43;
+  [changePlaybackRateCommand setPreferredRate:v46];
 }
 
 - (void)player:(id)player audiobookDidChange:(id)change
@@ -458,8 +457,7 @@ LABEL_24:
   artworkCompletionBlocks = [(BKAudiobookNowPlayingAdaptorMediaLibrary *)self artworkCompletionBlocks];
   v9 = [artworkCompletionBlocks copy];
 
-  [(BKAudiobookNowPlayingAdaptorMediaLibrary *)self setArtworkCompletionBlocks:0];
-  v10 = BKAudiobooksNowPlayingAdaptorLog();
+  v10 = BKAudiobooksNowPlayingAdaptorLog([(BKAudiobookNowPlayingAdaptorMediaLibrary *)self setArtworkCompletionBlocks:0]);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     [imageCopy size];

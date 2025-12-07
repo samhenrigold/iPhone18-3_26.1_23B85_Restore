@@ -68,17 +68,8 @@
     [(SFMapRegion *)self southLat];
     v7 = v6;
     [(SFMapRegion *)v5 southLat];
-    if (vabdd_f64(v7, v8) >= 2.22044605e-16)
+    if (vabdd_f64(v7, v8) >= 2.22044605e-16 || ([(SFMapRegion *)self westLng], v10 = v9, [(SFMapRegion *)v5 westLng], vabdd_f64(v10, v11) >= 2.22044605e-16) || ([(SFMapRegion *)self northLat], v13 = v12, [(SFMapRegion *)v5 northLat], vabdd_f64(v13, v14) >= 2.22044605e-16) || ([(SFMapRegion *)self eastLng], v16 = v15, [(SFMapRegion *)v5 eastLng], vabdd_f64(v16, v17) >= 2.22044605e-16))
     {
-      goto LABEL_10;
-    }
-
-    [(SFMapRegion *)self westLng];
-    v10 = v9;
-    [(SFMapRegion *)v5 westLng];
-    if (vabdd_f64(v10, v11) >= 2.22044605e-16 || ([(SFMapRegion *)self northLat], v13 = v12, [(SFMapRegion *)v5 northLat], vabdd_f64(v13, v14) >= 2.22044605e-16) || ([(SFMapRegion *)self eastLng], v16 = v15, [(SFMapRegion *)v5 eastLng], vabdd_f64(v16, v17) >= 2.22044605e-16))
-    {
-LABEL_10:
       v21 = 0;
     }
 

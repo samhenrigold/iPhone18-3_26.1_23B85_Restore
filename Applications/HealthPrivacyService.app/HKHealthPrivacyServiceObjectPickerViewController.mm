@@ -17,6 +17,7 @@
 - (void)_queryMedicalRecordsWithQueryDescriptors:(id)descriptors completion:(id)completion;
 - (void)pickerControllerDidFinish:(id)finish error:(id)error;
 - (void)setPromptSession:(id)session presentationRequests:(id)requests;
+- (void)viewDidDisappear:(BOOL)disappear;
 @end
 
 @implementation HKHealthPrivacyServiceObjectPickerViewController
@@ -383,7 +384,7 @@ LABEL_19:
     v9 = HKLogAuthorization();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      sub_1000060E8();
+      sub_1000060E8(self);
     }
   }
 
@@ -416,6 +417,36 @@ LABEL_19:
     v5 = [NSError errorWithDomain:HKErrorDomain code:5 userInfo:0];
     [(HKHealthPrivacyServiceObjectPickerViewController *)self _finishWithError:v5];
     [(HKHealthStore *)self->_healthStore endAuthorizationDelegateTransactionWithSessionIdentifier:self->_sessionIdentifier error:v5];
+    sessionIdentifier = self->_sessionIdentifier;
+    self->_sessionIdentifier = 0;
+  }
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v10.receiver = self;
+  v10.super_class = HKHealthPrivacyServiceObjectPickerViewController;
+  [(HKHealthPrivacyServiceObjectPickerViewController *)&v10 viewDidDisappear:disappear];
+  if (self->_sessionIdentifier)
+  {
+    v4 = self->_transactionError;
+    transactionError = self->_transactionError;
+    self->_transactionError = 0;
+
+    _HKInitializeLogging();
+    v6 = HKLogAuthorization();
+    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG);
+
+    if (v7)
+    {
+      v8 = HKLogAuthorization();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      {
+        sub_10000616C(self);
+      }
+    }
+
+    [(HKHealthStore *)self->_healthStore endAuthorizationDelegateTransactionWithSessionIdentifier:self->_sessionIdentifier error:v4];
     sessionIdentifier = self->_sessionIdentifier;
     self->_sessionIdentifier = 0;
   }
@@ -708,7 +739,7 @@ LABEL_19:
     v13 = HKLogAuthorization();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      sub_1000062D8();
+      sub_1000062D8(self);
     }
   }
 

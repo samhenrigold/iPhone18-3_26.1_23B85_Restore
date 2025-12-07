@@ -22,12 +22,12 @@
 
 - (_TtC10ContactsUI25CNAvatarView_SwiftWrapper)initWithContacts:(id)contacts listener:(id)listener
 {
-  sub_199A7A02C(0, &qword_1ED615BF0);
-  v4 = sub_199DFA0CC();
+  sub_199A7A02C(0, &qword_1ED615BF0, 0x1E695CD58);
+  v5 = sub_199DFA0CC();
   swift_unknownObjectRetain();
-  v5 = sub_199AD094C(v4);
+  v6 = sub_199AD094C(v5, listener);
   swift_unknownObjectRelease();
-  return v5;
+  return v6;
 }
 
 - (void)setBackgroundStyle:(unint64_t)style
@@ -49,7 +49,7 @@
 
   sub_199DF780C();
 
-  sub_199A7A02C(0, &qword_1ED615BF0);
+  sub_199A7A02C(0, &qword_1ED615BF0, 0x1E695CD58);
   v3 = sub_199DFA0BC();
 
   return v3;
@@ -57,7 +57,7 @@
 
 - (void)setContacts:(id)contacts
 {
-  sub_199A7A02C(0, &qword_1ED615BF0);
+  sub_199A7A02C(0, &qword_1ED615BF0, 0x1E695CD58);
   v4 = sub_199DFA0CC();
   selfCopy = self;
   sub_199ACEEFC(v4);

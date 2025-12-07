@@ -42,7 +42,7 @@
 
   if (v9)
   {
-    sub_100005744(0, &qword_1009759D0);
+    sub_100005744(0, &qword_1009759D0, UICollectionViewLayoutAttributes_ptr);
     v10.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
@@ -152,9 +152,9 @@ LABEL_7:
   y = change.origin.y;
   x = change.origin.x;
   selfCopy = self;
-  v8 = sub_10013C470(x, y, width, height);
+  v9 = sub_10013C470(selfCopy, v8, x, y, width, height);
 
-  return v8;
+  return v9;
 }
 
 @end

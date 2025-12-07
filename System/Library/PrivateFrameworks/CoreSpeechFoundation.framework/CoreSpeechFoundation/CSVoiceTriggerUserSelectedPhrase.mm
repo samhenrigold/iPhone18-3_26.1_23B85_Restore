@@ -90,7 +90,7 @@ void __55__CSVoiceTriggerUserSelectedPhrase_multiPhraseSelected__block_invoke(ui
 
 void __77__CSVoiceTriggerUserSelectedPhrase_vtPhraseTypeDidChangeNotificationReceived__block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = objc_loadWeakRetained((a1 + 32));
   [v2 setUSelectedPhraseType:{objc_msgSend(v2, "_fetchUserSelectedPhraseType")}];
 
@@ -105,13 +105,13 @@ void __77__CSVoiceTriggerUserSelectedPhrase_vtPhraseTypeDidChangeNotificationRec
     v7 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 136315650;
-      v16 = "[CSVoiceTriggerUserSelectedPhrase vtPhraseTypeDidChangeNotificationReceived]_block_invoke";
-      v17 = 1024;
-      v18 = v4;
-      v19 = 1024;
-      v20 = v6;
-      _os_log_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_DEFAULT, "%s User multi-phrase selection change from %d -> %d", &v15, 0x18u);
+      v14 = 136315650;
+      v15 = "[CSVoiceTriggerUserSelectedPhrase vtPhraseTypeDidChangeNotificationReceived]_block_invoke";
+      v16 = 1024;
+      v17 = v4;
+      v18 = 1024;
+      v19 = v6;
+      _os_log_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_DEFAULT, "%s User multi-phrase selection change from %d -> %d", &v14, 0x18u);
     }
 
     v8 = objc_loadWeakRetained((a1 + 32));
@@ -128,13 +128,11 @@ void __77__CSVoiceTriggerUserSelectedPhrase_vtPhraseTypeDidChangeNotificationRec
       [v12 CSVoiceTriggerUserSelectedPhraseDidChange:{objc_msgSend(v13, "mphSelected")}];
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)_fetchUserSelectedPhraseType
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (+[CSUtils isDarwinOS])
   {
     v3 = 3;
@@ -153,34 +151,32 @@ void __77__CSVoiceTriggerUserSelectedPhrase_vtPhraseTypeDidChangeNotificationRec
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v10 = "[CSVoiceTriggerUserSelectedPhrase _fetchUserSelectedPhraseType]";
-      v11 = 2112;
-      v12 = v5;
+      v9 = "[CSVoiceTriggerUserSelectedPhrase _fetchUserSelectedPhraseType]";
+      v10 = 2112;
+      v11 = v5;
       _os_log_error_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_ERROR, "%s Error fetching the user selected phrase type %@", buf, 0x16u);
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v8 = "[CSVoiceTriggerUserSelectedPhrase dealloc]";
+    v7 = "[CSVoiceTriggerUserSelectedPhrase dealloc]";
     _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterRemoveObserver(DarwinNotifyCenter, self, *MEMORY[0x1E69E14A0], 0);
-  v6.receiver = self;
-  v6.super_class = CSVoiceTriggerUserSelectedPhrase;
-  [(CSVoiceTriggerUserSelectedPhrase *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = CSVoiceTriggerUserSelectedPhrase;
+  [(CSVoiceTriggerUserSelectedPhrase *)&v5 dealloc];
 }
 
 - (void)setDelegate:(id)delegate

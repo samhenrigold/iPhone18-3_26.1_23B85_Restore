@@ -8,7 +8,7 @@
 - (id)hd_predicateForDeletedObjectsCreatedOnOrAfterDate:()HDDeletedObjectEntityPredicates minusDays:
 {
   v4 = [self hk_dateBySubtractingDays:a4 fromDate:a3];
-  v5 = HDDeletedObjectPredicateForDeletionDate(6);
+  v5 = HDDeletedObjectPredicateForDeletionDate(6, v4);
 
   return v5;
 }
@@ -16,7 +16,7 @@
 - (id)hd_predicateForDeletedObjectsCreatedBeforeDate:()HDDeletedObjectEntityPredicates minusDays:
 {
   v4 = [self hk_dateBySubtractingDays:a4 fromDate:a3];
-  v5 = HDDeletedObjectPredicateForDeletionDate(3);
+  v5 = HDDeletedObjectPredicateForDeletionDate(3, v4);
 
   return v5;
 }

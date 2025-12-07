@@ -200,7 +200,7 @@ LABEL_16:
   }
 }
 
-uint64_t __96__PXComposeRecipientTableViewController_photoRecipientViewController_didCompleteWithRecipients___block_invoke(uint64_t a1, uint64_t a2)
+void *__96__PXComposeRecipientTableViewController_photoRecipientViewController_didCompleteWithRecipients___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) indexOfComposeRecipientForRecipient:a2];
   if (result != 0x7FFFFFFFFFFFFFFFLL)

@@ -18,15 +18,13 @@ void sub_2371BA5EC()
 
 void sub_2371BA64C(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v4 = 138412290;
-    v5 = a2;
-    _os_log_error_impl(&dword_2371B9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "#locationButton Error with proxy, error: %@", &v4, 0xCu);
+    v3 = 138412290;
+    v4 = a2;
+    _os_log_error_impl(&dword_2371B9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "#locationButton Error with proxy, error: %@", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2371BAC74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, id a23)
@@ -40,46 +38,44 @@ void sub_2371BAC74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void sub_2371BACD0(uint64_t a1, void *a2, void *a3)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v11 = objc_msgSend_traitCollection(v5, v7, v9, v10);
-    hasDifferentColorAppearanceComparedToTraitCollection = objc_msgSend_hasDifferentColorAppearanceComparedToTraitCollection_(v6, v12, v13, v14, v11);
+    v13 = objc_msgSend_traitCollection(v5, v7, v11, v12, v8, v9);
+    hasDifferentColorAppearanceComparedToTraitCollection = objc_msgSend_hasDifferentColorAppearanceComparedToTraitCollection_(v6, v14, v16, v17, v13, v15);
 
     if (hasDifferentColorAppearanceComparedToTraitCollection)
     {
-      v19 = WeakRetained[58];
-      v20 = objc_msgSend_traitCollection(v5, v16, v17, v18);
-      v24 = objc_msgSend_resolvedColorWithTraitCollection_(v19, v21, v22, v23, v20);
-      v25 = WeakRetained[60];
-      WeakRetained[60] = v24;
+      v24 = WeakRetained[58];
+      v25 = objc_msgSend_traitCollection(v5, v19, v22, v23, v20, v21);
+      v30 = objc_msgSend_resolvedColorWithTraitCollection_(v24, v26, v28, v29, v25, v27);
+      v31 = WeakRetained[60];
+      WeakRetained[60] = v30;
 
-      v26 = WeakRetained[59];
-      v30 = objc_msgSend_traitCollection(v5, v27, v28, v29);
-      v34 = objc_msgSend_resolvedColorWithTraitCollection_(v26, v31, v32, v33, v30);
-      v35 = WeakRetained[61];
-      WeakRetained[61] = v34;
+      v32 = WeakRetained[59];
+      v38 = objc_msgSend_traitCollection(v5, v33, v36, v37, v34, v35);
+      v43 = objc_msgSend_resolvedColorWithTraitCollection_(v32, v39, v41, v42, v38, v40);
+      v44 = WeakRetained[61];
+      WeakRetained[61] = v43;
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
       {
-        v40 = objc_msgSend_traitCollection(v5, v36, v37, v38);
-        v41 = WeakRetained[60];
-        v42 = WeakRetained[61];
-        v43 = 138412802;
-        v44 = v40;
-        v45 = 2112;
-        v46 = v41;
-        v47 = 2112;
-        v48 = v42;
-        _os_log_debug_impl(&dword_2371B9000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "#locationButton traitCollection: %@ backgroundColor:%@ tintColor:%@", &v43, 0x20u);
+        v50 = objc_msgSend_traitCollection(v5, v45, v48, v49, v46, v47);
+        v51 = WeakRetained[60];
+        v52 = WeakRetained[61];
+        v53 = 138412802;
+        v54 = v50;
+        v55 = 2112;
+        v56 = v51;
+        v57 = 2112;
+        v58 = v52;
+        _os_log_debug_impl(&dword_2371B9000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "#locationButton traitCollection: %@ backgroundColor:%@ tintColor:%@", &v53, 0x20u);
       }
     }
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2371BAE94(uint64_t a1, uint64_t a2, void *a3, void *a4)
@@ -90,19 +86,19 @@ void sub_2371BAE94(uint64_t a1, uint64_t a2, void *a3, void *a4)
   objc_msgSend__yieldSlotViewContentForLayerContextID_slotStyle_withYieldBlock_(WeakRetained, v9, v10, v11, a2, v8, v7);
 }
 
-void sub_2371BB674(uint64_t a1, const char *a2, __n128 a3, __n128 a4)
+void sub_2371BB674(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, __n128 a5, __n128 a6)
 {
-  v5 = objc_msgSend_locationUIProxy(*(a1 + 32), a2, a3, a4);
-  v6 = *(a1 + 40);
-  v7 = *(a1 + 48);
-  v8 = *(a1 + 56);
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = sub_2371BB73C;
-  v13[3] = &unk_278A27DC8;
-  v9 = *(a1 + 72);
-  v14 = *(a1 + 64);
-  objc_msgSend_getRemoteContentForStyle_layerContext_tag_sandboxExtension_completionHandler_(v5, v10, v11, v12, v6, v9, v7, v8, v13);
+  v7 = objc_msgSend_locationUIProxy(*(a1 + 32), a2, a5, a6, a3, a4);
+  v8 = *(a1 + 40);
+  v9 = *(a1 + 48);
+  v10 = *(a1 + 56);
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = sub_2371BB73C;
+  v15[3] = &unk_278A27DC8;
+  v11 = *(a1 + 72);
+  v16 = *(a1 + 64);
+  objc_msgSend_getRemoteContentForStyle_layerContext_tag_sandboxExtension_completionHandler_(v7, v12, v13, v14, v8, v11, v9, v10, v15);
 }
 
 void sub_2371BB73C(uint64_t a1, void *a2)
@@ -128,9 +124,9 @@ void sub_2371BB73C(uint64_t a1, void *a2)
 
 void sub_2371BC09C(uint64_t a1, void *a2)
 {
-  v8 = a2;
-  objc_msgSend_setAccessibilityContrast_(v8, v2, v3, v4, 0);
-  objc_msgSend_setAccessibilityButtonShapes_(v8, v5, v6, v7, 0);
+  v10 = a2;
+  objc_msgSend_setAccessibilityContrast_(v10, v2, v4, v5, 0, v3);
+  objc_msgSend_setAccessibilityButtonShapes_(v10, v6, v8, v9, 0, v7);
 }
 
 double sub_2371BC43C(void *a1, void *a2, double a3)

@@ -26,7 +26,7 @@
 - (double)presentationValueForAnimatableProperty:(id)property
 {
   propertyCopy = property;
-  if ([(NSSet *)self->_keys containsObject:propertyCopy])
+  if (objc_msgSend_containsObject_(self->_keys))
   {
     presentationValue = self->_presentationValue;
   }

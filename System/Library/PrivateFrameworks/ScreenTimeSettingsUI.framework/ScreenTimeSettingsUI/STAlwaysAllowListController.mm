@@ -756,21 +756,21 @@ LABEL_14:
   }
 }
 
-uint64_t __78__STAlwaysAllowListController_tableView_commitEditingStyle_forRowAtIndexPath___block_invoke(uint64_t result, int a2)
+id *__78__STAlwaysAllowListController_tableView_commitEditingStyle_forRowAtIndexPath___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _insertAllowedAppSpecifier:*(result + 40)];
+    return [result[4] _insertAllowedAppSpecifier:result[5]];
   }
 
   return result;
 }
 
-uint64_t __78__STAlwaysAllowListController_tableView_commitEditingStyle_forRowAtIndexPath___block_invoke_2(uint64_t result, int a2)
+id *__78__STAlwaysAllowListController_tableView_commitEditingStyle_forRowAtIndexPath___block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _removeAllowedAppSpecifier:*(result + 40)];
+    return [result[4] _removeAllowedAppSpecifier:result[5]];
   }
 
   return result;

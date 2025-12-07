@@ -45,7 +45,7 @@
   sectionType = [v11 sectionType];
   v13 = [sectionType isEqualToString:@"contactCardFieldPickerPhotoSection"];
 
-  if (v13 && (-[CNContactCardFieldPicker contacts](self, "contacts"), v14 = objc_claimAutoreleasedReturnValue(), v15 = [v14 count], v14, v15 == 1))
+  if (v13 && (objc_msgSend_contacts(self), v14 = objc_claimAutoreleasedReturnValue(), v15 = [v14 count], v14, v15 == 1))
   {
     [CNContactCardFieldPickerCell estimatedHeightDisplayingValue:1];
   }
@@ -399,8 +399,8 @@ LABEL_10:
 - (void)selectDefaultFieldKeys
 {
   v27[6] = *MEMORY[0x1E69E9840];
-  contacts = [(CNContactCardFieldPicker *)self contacts];
-  v26 = [CNContactCardFieldPicker privateCardPropertiesForContacts:contacts];
+  v3 = objc_msgSend_contacts(self, a2);
+  v26 = [CNContactCardFieldPicker privateCardPropertiesForContacts:v3];
 
   tableView = [(CNContactCardFieldPicker *)self tableView];
   numberOfSections = [tableView numberOfSections];
@@ -511,17 +511,17 @@ LABEL_12:
 {
   if (![(CNContactCardFieldPicker *)self isNameDropSession]|| [(CNContactCardFieldPicker *)self isAnyHandleSelected])
   {
-    contacts = [(CNContactCardFieldPicker *)self contacts];
-    v4 = [contacts count];
+    v3 = objc_msgSend_contacts(self);
+    v4 = [v3 count];
 
-    contacts2 = [(CNContactCardFieldPicker *)self contacts];
+    v5 = objc_msgSend_contacts(self);
     v8[0] = MEMORY[0x1E69E9820];
     v8[1] = 3221225472;
     v8[2] = __48__CNContactCardFieldPicker_saveFilteredContacts__block_invoke;
     v8[3] = &unk_1E74E3140;
     v8[4] = self;
     v8[5] = v4;
-    v6 = [contacts2 _cn_map:v8];
+    v6 = [v5 _cn_map:v8];
 
     delegate = [(CNContactCardFieldPicker *)self delegate];
     [delegate contactCardFieldPicker:self didFinishWithContacts:v6];
@@ -902,7 +902,7 @@ LABEL_11:
     v9 = MEMORY[0x1E696AEC0];
     v6 = CNContactsUIBundle();
     v7 = [v6 localizedStringForKey:@"SHARE_SELECTED_FIELDS_SHEET_TITLE" value:&stru_1F0CE7398 table:@"Localized"];
-    navigationItem = [(CNContactCardFieldPicker *)self contacts];
+    navigationItem = objc_msgSend_contacts(self);
     v10 = [v9 localizedStringWithFormat:v7, objc_msgSend(navigationItem, "count")];
     navigationItem2 = [(CNContactCardFieldPicker *)self navigationItem];
     [navigationItem2 setTitle:v10];

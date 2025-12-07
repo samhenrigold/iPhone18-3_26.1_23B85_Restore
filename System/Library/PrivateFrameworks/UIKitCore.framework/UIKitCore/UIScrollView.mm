@@ -175,6 +175,7 @@
 - (id)_asyncDeliveryTargetForScrollEvent:(id)event;
 - (id)_backgroundShadowForSlideAnimation;
 - (id)_boundingPathForSubtree;
+- (id)_cancelTouchDelayGestureRecognizerIfNecessary;
 - (id)_constraintsFromContentSize;
 - (id)_createStaticScrollBar;
 - (id)_edgeEffectForEdge:(unint64_t)edge;
@@ -209,8 +210,6 @@
 - (int64_t)_pocketStyleForEdge:(unint64_t)edge;
 - (int64_t)_scrubbingForPoint:(CGPoint)point touch:(id)touch;
 - (int64_t)_scrubbingForPoint:(CGPoint)point touchType:(int64_t)type;
-- (uint64_t)_cancelTouchDelayGestureRecognizerIfNecessary;
-- (uint64_t)_layoutHorizontalScrollIndicatorWithBounds:(double)bounds effectiveInset:(double)inset contentOffset:(double)offset fraction:(double)fraction additionalInset:(double)additionalInset cornerAdjust:(double)adjust needsIndicator:(double)indicator showing:(uint64_t)self0 recalcSize:(uint64_t)self1 verticalIndicatorFrame:(uint64_t)self2;
 - (unint64_t)_abuttedEdgesForContentOffset:(CGPoint)offset;
 - (unint64_t)_abuttedPagingEdges;
 - (unint64_t)_contentScrollableAxes;
@@ -298,6 +297,7 @@
 - (void)_incrementForScrollTest:(id)test;
 - (void)_intelligenceCollectContentIn:(CGRect)in collector:(id)collector;
 - (void)_layoutDonatedTitleView;
+- (void)_layoutHorizontalScrollIndicatorWithBounds:(double)bounds effectiveInset:(double)inset contentOffset:(double)offset fraction:(double)fraction additionalInset:(double)additionalInset cornerAdjust:(double)adjust needsIndicator:(double)indicator showing:(uint64_t)self0 recalcSize:(uint64_t)self1 verticalIndicatorFrame:(uint64_t)self2;
 - (void)_lowFidelityScrollInDirection:(CGPoint)direction;
 - (void)_markScrollViewAnimationForKey:(id)key ofView:(id)view;
 - (void)_notifyAdjustedContentInsetDidChange;
@@ -2930,7 +2930,7 @@ void __32__UIScrollView__notifyDidScroll__block_invoke(uint64_t a1, void *a2)
     delegate = [_layoutEngineCreateIfNecessary delegate];
     if ((dyld_program_sdk_at_least() & 1) != 0 || (*&v13 = 1.0, v19 = v13, delegate) && [delegate _forceLayoutEngineSolutionInRationalEdges])
     {
-      [_getDelegateZoomView transform];
+      objc_msgSend_transform(_getDelegateZoomView, v19);
       *&v19 = v26;
     }
 
@@ -3807,7 +3807,7 @@ LABEL_168:
     self->_verticalVelocity = -(v22 * self->_velocityScaleFactor);
     if (v12 && ![v12 _scrollType])
     {
-      if (((_UIInternalPreferenceUsesDefault(&_MergedGlobals_957, @"DiscreteScrollAnimationEnabled", _UIInternalPreferenceUpdateBool) & 1) != 0 || byte_1ED48B6A4) && !_AXSReduceMotionEnabled())
+      if ((_UIInternalPreferenceUsesDefault(&_MergedGlobals_957, @"DiscreteScrollAnimationEnabled", _UIInternalPreferenceUpdateBool) || byte_1ED48B6A4) && !_AXSReduceMotionEnabled())
       {
         window = [(UIView *)self window];
         v136 = window != 0;
@@ -4143,7 +4143,7 @@ LABEL_121:
             *(p_scrollViewFlags + 12) = *(p_scrollViewFlags + 12) & 0xFFFFFFFFFFFFF7FFLL | ((v77 >= 0.0) << 11);
           }
 
-          if ((_UIInternalPreferenceUsesDefault(&dword_1ED48B6A8, @"DiscreteFastScrollEnabled", _UIInternalPreferenceUpdateBool) & 1) != 0 || byte_1ED48B6AC)
+          if (_UIInternalPreferenceUsesDefault(&dword_1ED48B6A8, @"DiscreteFastScrollEnabled", _UIInternalPreferenceUpdateBool) || byte_1ED48B6AC)
           {
             v86 = _UIInternalPreferenceUsesDefault(&unk_1ED48B750, @"DiscreteFastScrollTriggerVelocity", _UIInternalPreferenceUpdateDouble);
             v87 = *&qword_1ED48B758;
@@ -4352,15 +4352,15 @@ LABEL_120:
   return WeakRetained;
 }
 
-- (uint64_t)_cancelTouchDelayGestureRecognizerIfNecessary
+- (id)_cancelTouchDelayGestureRecognizerIfNecessary
 {
   if (result)
   {
     v1 = result;
-    result = [*(result + 1008) isEnabled];
+    result = [result[126] isEnabled];
     if (result)
     {
-      result = *(v1 + 1008);
+      result = v1[126];
       if (result)
       {
         if ((*(result + 12) & 8) != 0)
@@ -4368,8 +4368,8 @@ LABEL_120:
           result = [result state];
           if (!result)
           {
-            [*(v1 + 1008) setEnabled:0];
-            v2 = *(v1 + 1008);
+            [v1[126] setEnabled:0];
+            v2 = v1[126];
 
             return [v2 setEnabled:1];
           }
@@ -4528,7 +4528,7 @@ LABEL_7:
 
 - (void)_beginScrollingCursorOverrideIfNecessary
 {
-  if (((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_OverrideCursorDuringScroll, @"OverrideCursorDuringScroll", _UIInternalPreferenceUpdateBool) & 1) != 0 || byte_1ED48B694) && !self->_scrollingPointerRegion)
+  if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_OverrideCursorDuringScroll, @"OverrideCursorDuringScroll", _UIInternalPreferenceUpdateBool) || byte_1ED48B694) && !self->_scrollingPointerRegion)
   {
     [(UIView *)self frame];
     v3 = [UIPointerRegion regionWithRect:@"UIScrollView.scrollingPointerRegion" identifier:?];
@@ -4641,7 +4641,7 @@ void __64__UIScrollView__registerForSpringBoardBlankedScreenNotification__block_
 
 - (void)_endScrollingCursorOverrideIfNecessary
 {
-  if (((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_OverrideCursorDuringScroll, @"OverrideCursorDuringScroll", _UIInternalPreferenceUpdateBool) & 1) != 0 || byte_1ED48B694) && self->_scrollingPointerRegion)
+  if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_OverrideCursorDuringScroll, @"OverrideCursorDuringScroll", _UIInternalPreferenceUpdateBool) || byte_1ED48B694) && self->_scrollingPointerRegion)
   {
     v3 = +[_UIPointerArbiter sharedArbiter];
     [v3 endScrollingWithRegion:self->_scrollingPointerRegion];
@@ -4889,7 +4889,7 @@ uint64_t __37__UIScrollView__hideScrollIndicators__block_invoke(uint64_t a1)
 {
   collectorCopy = collector;
   selfCopy = self;
-  _sSo12UIScrollViewC5UIKitE27_intelligenceCollectContent2in9collectorySo6CGRectV_21UIIntelligenceSupport0J16ElementCollectorCtF_0();
+  _sSo12UIScrollViewC5UIKitE27_intelligenceCollectContent2in9collectorySo6CGRectV_21UIIntelligenceSupport0J16ElementCollectorCtF_0(v6);
 }
 
 - (void)startScrollViewMonitoring
@@ -5213,7 +5213,7 @@ LABEL_8:
   _Block_object_dispose(&v11, 8);
 }
 
-uint64_t __82__UIScrollView__UIOldConstraintBasedLayoutSupport___didRemoveDependentConstraint___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__82__UIScrollView__UIOldConstraintBasedLayoutSupport___didRemoveDependentConstraint___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) _constraintAffectsContentSize:a2];
   if (result)
@@ -6447,18 +6447,18 @@ LABEL_7:
   }
 }
 
-uint64_t __72__UIScrollView__flashScrollIndicatorsForAxes_persistingPreviousFlashes___block_invoke(uint64_t result)
+double *__72__UIScrollView__flashScrollIndicatorsForAxes_persistingPreviousFlashes___block_invoke(double *result)
 {
   v1 = result;
   if (*(result + 56) == 1)
   {
-    result = [*(*(result + 32) + 1536) setAlpha:*(result + 40)];
+    result = [*(*(result + 4) + 1536) setAlpha:result[5]];
   }
 
   if (*(v1 + 57) == 1)
   {
-    v2 = *(v1 + 48);
-    v3 = *(*(v1 + 32) + 1528);
+    v2 = v1[6];
+    v3 = *(*(v1 + 4) + 1528);
 
     return [v3 setAlpha:v2];
   }
@@ -7883,7 +7883,7 @@ uint64_t __51__UIScrollView__setAllowedNavigationOverlapAmount___block_invoke(ui
           }
 
           v54 = v28;
-          if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_ScrollViewOffsetChangeLogging, @"ScrollViewOffsetChangeLogging", _UIInternalPreferenceUpdateBool) & 1) != 0 || !byte_1ED48B69C)
+          if (_UIInternalPreferenceUsesDefault(&_UIInternalPreference_ScrollViewOffsetChangeLogging, @"ScrollViewOffsetChangeLogging", _UIInternalPreferenceUpdateBool) || !byte_1ED48B69C)
           {
             v62[0] = MEMORY[0x1E69E9820];
             v62[1] = 3221225472;
@@ -7904,7 +7904,7 @@ uint64_t __51__UIScrollView__setAllowedNavigationOverlapAmount___block_invoke(ui
             _telemetryDownsample_sample = v32 + 1;
             if (v32 >= 0x80)
             {
-              (v63)(v31);
+              v63(v31);
               _telemetryDownsample_sample = 1;
             }
           }
@@ -11860,7 +11860,7 @@ LABEL_19:
             v29 = *(__UILogGetCategoryCachedImpl("Assert", &_gestureRecognizer_shouldReceiveTouch____s_category) + 8);
             if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
             {
-              *v31 = 0;
+              v31[0] = 0;
               _os_log_impl(&dword_188A29000, v29, OS_LOG_TYPE_ERROR, "_UIScrollViewScrollIndicatorVisualStyle should provide a feedback generator.", v31, 2u);
             }
           }
@@ -12213,7 +12213,7 @@ LABEL_16:
 
 - (void)_handleSwipe:(id)swipe
 {
-  [(UIScrollView *)self _cancelTouchDelayGestureRecognizerIfNecessary];
+  [(UIScrollView *)&self->super.super.super.isa _cancelTouchDelayGestureRecognizerIfNecessary];
   v4 = 1.0;
   if ((*(&self->_scrollViewFlags + 12) & 0x80) == 0)
   {
@@ -12228,7 +12228,7 @@ LABEL_16:
 - (void)handlePinch:(id)pinch
 {
   pinchCopy = pinch;
-  [(UIScrollView *)self _cancelTouchDelayGestureRecognizerIfNecessary];
+  [(UIScrollView *)&self->super.super.super.isa _cancelTouchDelayGestureRecognizerIfNecessary];
   state = [pinchCopy state];
 
   [(UIScrollView *)self _updatePinchGestureForState:state];
@@ -12237,7 +12237,7 @@ LABEL_16:
 - (void)handlePan:(id)pan
 {
   panCopy = pan;
-  [(UIScrollView *)self _cancelTouchDelayGestureRecognizerIfNecessary];
+  [(UIScrollView *)&self->super.super.super.isa _cancelTouchDelayGestureRecognizerIfNecessary];
   state = [panCopy state];
   switch(state)
   {
@@ -12462,7 +12462,7 @@ intptr_t __61__UIScrollView__asynchronouslyDeliverScrollEvent_completion___block
 - (void)_handleKnobLongPressGesture:(id)gesture
 {
   gestureCopy = gesture;
-  [(UIScrollView *)self _cancelTouchDelayGestureRecognizerIfNecessary];
+  [(UIScrollView *)&self->super.super.super.isa _cancelTouchDelayGestureRecognizerIfNecessary];
   state = [gestureCopy state];
   if ((state - 3) >= 2)
   {
@@ -12907,7 +12907,7 @@ LABEL_6:
 - (void)_handleDirectionalPress:(id)press
 {
   pressCopy = press;
-  [(UIScrollView *)self _cancelTouchDelayGestureRecognizerIfNecessary];
+  [(UIScrollView *)&self->super.super.super.isa _cancelTouchDelayGestureRecognizerIfNecessary];
   if ([pressCopy state] == 1 || objc_msgSend(pressCopy, "changeCount"))
   {
     isEnabled = [(UIGestureRecognizer *)self->_pan isEnabled];
@@ -13393,7 +13393,7 @@ LABEL_27:
         }
       }
 
-      v5 = v11(v4);
+      v5 = (v11)(v4);
       goto LABEL_11;
     }
 
@@ -13404,7 +13404,7 @@ LABEL_27:
   {
     if (!v2)
     {
-      v5 = __39__UIScrollView_allowsKeyboardScrolling__block_invoke(v3);
+      __39__UIScrollView_allowsKeyboardScrolling__block_invoke(v3);
 LABEL_11:
       v6 = v5;
       goto LABEL_12;
@@ -13418,18 +13418,12 @@ LABEL_12:
   return v6;
 }
 
-uint64_t __39__UIScrollView_allowsKeyboardScrolling__block_invoke(uint64_t a1)
+void __39__UIScrollView_allowsKeyboardScrolling__block_invoke(uint64_t a1)
 {
   v1 = [*(a1 + 32) traitCollection];
-  v2 = [v1 userInterfaceIdiom];
+  [v1 userInterfaceIdiom];
 
-  result = dyld_program_sdk_at_least();
-  if (result)
-  {
-    return v2 == 6 || (v2 & 0xFFFFFFFFFFFFFFFBLL) == 1;
-  }
-
-  return result;
+  dyld_program_sdk_at_least();
 }
 
 - (void)touchesBegan:(id)began withEvent:(id)event
@@ -13510,7 +13504,7 @@ uint64_t __39__UIScrollView_allowsKeyboardScrolling__block_invoke(uint64_t a1)
 - (void)_handleKeyboardScrollingPressGesture:(id)gesture
 {
   gestureCopy = gesture;
-  [(UIScrollView *)self _cancelTouchDelayGestureRecognizerIfNecessary];
+  [(UIScrollView *)&self->super.super.super.isa _cancelTouchDelayGestureRecognizerIfNecessary];
   _activePressesEvent = [(UIGestureRecognizer *)gestureCopy _activePressesEvent];
   if (!_activePressesEvent)
   {
@@ -14153,9 +14147,9 @@ void __48__UIScrollView__setAutomaticContentConstraints___block_invoke(uint64_t 
 
         v14 = *(*(&v57 + 1) + 8 * i);
         identifier = [v14 identifier];
-        v16 = [identifier isEqualToString:v7];
+        isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-        if (v16)
+        if (isEqualToString)
         {
           v17 = v14;
           v8 = v17;
@@ -14434,7 +14428,7 @@ id __53__UIScrollView__layoutGuideOfType_createIfNecessary___block_invoke(uint64
   {
     if (viewCopy)
     {
-      [viewCopy transform];
+      objc_msgSend_transform(viewCopy);
       v11 = v15;
       v10 = 0.0;
       if (v15 == 1.0)
@@ -15065,95 +15059,95 @@ uint64_t __103__UIScrollView_setZoomScale_withAnchorPoint_allowRubberbanding_ani
   return [UIView _modifyAnimationsWithPreferredFrameRateRange:1048624 updateReason:v2 animations:*&v5.minimum, *&v5.maximum, *&v5.preferred];
 }
 
-void *__103__UIScrollView_setZoomScale_withAnchorPoint_allowRubberbanding_animated_duration_notifyDelegate_force___block_invoke_3(uint64_t a1)
+void *__103__UIScrollView_setZoomScale_withAnchorPoint_allowRubberbanding_animated_duration_notifyDelegate_force___block_invoke_3(uint64_t a1, const char *a2)
 {
   if (*(a1 + 88) == 1)
   {
     [*(*(a1 + 32) + 1344) _animationStarted];
     ++*(*(a1 + 32) + 1208);
-    v2 = +[UIView _currentViewAnimationState];
-    v3 = *(*(a1 + 56) + 8);
-    v4 = *(v3 + 40);
-    *(v3 + 40) = v2;
+    v3 = +[UIView _currentViewAnimationState];
+    v4 = *(*(a1 + 56) + 8);
+    v5 = *(v4 + 40);
+    *(v4 + 40) = v3;
   }
 
-  v5 = *(a1 + 40);
-  if (v5)
+  v6 = *(a1 + 40);
+  if (v6)
   {
-    [v5 transform];
-    v6 = *&v57;
-    v5 = *(a1 + 40);
+    objc_msgSend_transform(v6);
+    v7 = *&v58;
+    v6 = *(a1 + 40);
   }
 
   else
   {
-    v58 = 0u;
     v59 = 0u;
-    v57 = 0u;
-    v6 = 0.0;
+    v60 = 0u;
+    v58 = 0u;
+    v7 = 0.0;
   }
 
-  v7 = [v5 layer];
-  [v7 position];
-  v9 = v8;
-  v11 = v10;
+  v8 = [v6 layer];
+  [v8 position];
+  v10 = v9;
+  v12 = v11;
 
   [*(a1 + 40) bounds];
-  v13 = v12;
-  v15 = v14;
-  v17 = v16;
-  v19 = v18;
+  v14 = v13;
+  v16 = v15;
+  v18 = v17;
+  v20 = v19;
   [*(a1 + 32) convertPoint:*(a1 + 40) fromView:?];
-  v54 = v21;
-  v55 = v20;
-  v22 = *(a1 + 40);
-  CGAffineTransformMakeScale(&v56, *(a1 + 64), *(a1 + 64));
-  [v22 setTransform:&v56];
-  v23 = *(a1 + 64);
-  v24 = v9 - v6 * v17 * 0.5 + v17 * v23 * 0.5;
-  v25 = v11 - v6 * v19 * 0.5 + v19 * v23 * 0.5;
-  v26 = [*(a1 + 40) layer];
-  [v26 setPosition:{v24, v25}];
+  v55 = v22;
+  v56 = v21;
+  v23 = *(a1 + 40);
+  CGAffineTransformMakeScale(&v57, *(a1 + 64), *(a1 + 64));
+  [v23 setTransform:&v57];
+  v24 = *(a1 + 64);
+  v25 = v10 - v7 * v18 * 0.5 + v18 * v24 * 0.5;
+  v26 = v12 - v7 * v20 * 0.5 + v20 * v24 * 0.5;
+  v27 = [*(a1 + 40) layer];
+  [v27 setPosition:{v25, v26}];
 
-  [*(a1 + 32) convertPoint:*(a1 + 40) fromView:{v13, v15}];
-  v28 = v27 - v55;
-  v30 = v29 - v54;
-  if (v27 - v55 != 0.0 || v30 != 0.0)
+  [*(a1 + 32) convertPoint:*(a1 + 40) fromView:{v14, v16}];
+  v29 = v28 - v56;
+  v31 = v30 - v55;
+  if (v28 - v56 != 0.0 || v31 != 0.0)
   {
-    v31 = [*(a1 + 40) layer];
-    [v31 setPosition:{v24 - v28, v25 - v30}];
+    v32 = [*(a1 + 40) layer];
+    [v32 setPosition:{v25 - v29, v26 - v31}];
   }
 
-  [*(a1 + 32) _adjustContentSizeForView:*(a1 + 40) atScale:{*(a1 + 64), *&v54, *&v55}];
+  [*(a1 + 32) _adjustContentSizeForView:*(a1 + 40) atScale:{*(a1 + 64), *&v55, *&v56}];
   [*(a1 + 32) _centerContentIfNecessaryAdjustingContentOffset:0];
-  v32 = *(a1 + 32);
-  [v32 _zoomAnchorPoint];
-  [v32 convertPoint:*(a1 + 40) fromView:?];
-  v34 = v33;
-  v36 = v35;
-  v37 = [*(a1 + 32) window];
-  v38 = *(a1 + 32);
-  v39 = [v38 window];
-  if (v37)
+  v33 = *(a1 + 32);
+  [v33 _zoomAnchorPoint];
+  [v33 convertPoint:*(a1 + 40) fromView:?];
+  v35 = v34;
+  v37 = v36;
+  v38 = [*(a1 + 32) window];
+  v39 = *(a1 + 32);
+  v40 = [v39 window];
+  if (v38)
   {
-    [v39 _convertDoublePointFromSceneReferenceSpace:{*(a1 + 72), *(a1 + 80)}];
-    v41 = v40;
-    v43 = v42;
-    v44 = [*(a1 + 32) window];
-    [v38 convertPoint:v44 fromView:{v41, v43}];
-    v46 = v45;
-    v48 = v47;
+    [v40 _convertDoublePointFromSceneReferenceSpace:{*(a1 + 72), *(a1 + 80)}];
+    v42 = v41;
+    v44 = v43;
+    v45 = [*(a1 + 32) window];
+    [v39 convertPoint:v45 fromView:{v42, v44}];
+    v47 = v46;
+    v49 = v48;
   }
 
   else
   {
-    [v38 convertPoint:v39 fromView:{*(a1 + 72), *(a1 + 80)}];
-    v46 = v49;
-    v48 = v50;
+    [v39 convertPoint:v40 fromView:{*(a1 + 72), *(a1 + 80)}];
+    v47 = v50;
+    v49 = v51;
   }
 
   [*(a1 + 32) bounds];
-  [*(a1 + 32) _rubberBandContentOffsetForOffset:0 outsideX:0 outsideY:{v34 - (v46 - v51), v36 - (v48 - v52)}];
+  [*(a1 + 32) _rubberBandContentOffsetForOffset:0 outsideX:0 outsideY:{v35 - (v47 - v52), v37 - (v49 - v53)}];
   [*(a1 + 32) setContentOffset:?];
   result = [*(a1 + 32) _adjustContentOffsetIfNecessary];
   if ((*(*(a1 + 32) + 1806) & 0x20) != 0)
@@ -15173,11 +15167,11 @@ void *__103__UIScrollView_setZoomScale_withAnchorPoint_allowRubberbanding_animat
   return result;
 }
 
-uint64_t __103__UIScrollView_setZoomScale_withAnchorPoint_allowRubberbanding_animated_duration_notifyDelegate_force___block_invoke_4(uint64_t result)
+id *__103__UIScrollView_setZoomScale_withAnchorPoint_allowRubberbanding_animated_duration_notifyDelegate_force___block_invoke_4(id *result)
 {
   if (*(result + 40) == 1)
   {
-    return [*(result + 32) _zoomAnimationDidStop];
+    return [result[4] _zoomAnimationDidStop];
   }
 
   return result;
@@ -15267,7 +15261,7 @@ uint64_t __103__UIScrollView_setZoomScale_withAnchorPoint_allowRubberbanding_ani
     goto LABEL_6;
   }
 
-  [presentationLayer affineTransform];
+  objc_msgSend_affineTransform(presentationLayer);
   v9 = v11;
   if (layerCopy)
   {
@@ -16828,10 +16822,10 @@ void __61__UIScrollView__pushTrackingRunLoopModeIfNecessaryForReason___block_inv
       v9 = poppedCopy;
       userInfo = [poppedCopy userInfo];
       v7 = [userInfo objectForKey:@"_UIApplicationRunLoopMode"];
-      v8 = [v7 isEqualToString:@"UITrackingRunLoopMode"];
+      isEqualToString = objc_msgSend_isEqualToString_(v7);
 
       poppedCopy = v9;
-      if (v8)
+      if (isEqualToString)
       {
         [(UIScrollView *)self _stopScrollingNotify:1 pin:1];
         poppedCopy = v9;
@@ -17247,7 +17241,7 @@ LABEL_82:
     if (v12)
     {
       [(CADisplayLink *)self->_scrollHeartbeat setHighFrameRateReason:1048607];
-      [(_UIScrollViewVFD *)self->_vfd updateDisplayLink:?];
+      [(_UIScrollViewVFD *)&self->_vfd->super.isa updateDisplayLink:?];
     }
 
     else
@@ -17773,20 +17767,20 @@ LABEL_10:
 
 - (double)_iOS_frameForLayoutVerticalScrollIndicatorWithBounds:(double)bounds effectiveInset:(double)inset indicatorInsets:(float64_t)insets contentOffset:(double)offset fraction:(double)fraction additionalInset:(double)additionalInset cornerAdjust:(double)adjust needsIndicator:(double)self0 showing:(double)self1 recalcSize:(double)self2
 {
-  v28 = *(self + 104);
-  v29 = self + 1792;
-  v30 = dyld_program_sdk_at_least();
-  if ((v28 & 0x400000) != 0)
+  v22 = *(self + 104);
+  v23 = self + 1792;
+  v24 = dyld_program_sdk_at_least();
+  if ((v22 & 0x400000) != 0)
   {
-    v31 = v30;
+    v25 = v24;
   }
 
   else
   {
-    v31 = 1;
+    v25 = 1;
   }
 
-  if (v31)
+  if (v25)
   {
     showingCopy = showing;
   }
@@ -17796,7 +17790,7 @@ LABEL_10:
     showingCopy = a13;
   }
 
-  if (v31)
+  if (v25)
   {
     showingCopy2 = a13;
   }
@@ -17806,41 +17800,21 @@ LABEL_10:
     showingCopy2 = showing;
   }
 
-  v51 = showingCopy2;
+  v45 = showingCopy2;
   [*(self + 1528) frame];
   [self _verticalScrollIndicatorWidth];
-  v35 = *(self + 1200);
+  v29 = *(self + 1200);
   boundsCopy = bounds;
-  v37 = a2 + showingCopy;
-  v38 = inset - (showing + a13);
-  v39.f64[0] = *(self + 1296) - offset;
-  if (*&v35 == 1.0)
+  v31 = a2 + showingCopy;
+  v32 = inset - (showing + a13);
+  v33.f64[0] = *(self + 1296) - offset;
+  if (*&v29 == 1.0)
   {
-    v47 = round(v39.f64[0]);
-    v42 = v38 + v37 - v34 + a18;
-    if ((v28 & 0x400000) != 0)
+    v41 = round(v33.f64[0]);
+    v36 = v32 + v31 - v28 + a18;
+    if ((v22 & 0x400000) != 0)
     {
-      v42 = v37 - a18;
-    }
-
-    if (boundsCopy < v47)
-    {
-      goto LABEL_21;
-    }
-
-    v43 = boundsCopy + insets;
-    v46 = round(additionalInset + *(self + 424));
-  }
-
-  else
-  {
-    v39.f64[1] = insets;
-    v40 = vrndmq_f64(v39);
-    *&v41 = *&vaddq_f64(v40, vdivq_f64(vrndaq_f64(vmulq_n_f64(vsubq_f64(v39, v40), *&v35)), vdupq_lane_s64(v35, 0)));
-    v42 = v38 + v37 - v34 + a18;
-    if ((v28 & 0x400000) != 0)
-    {
-      v42 = v37 - a18;
+      v36 = v31 - a18;
     }
 
     if (boundsCopy < v41)
@@ -17848,41 +17822,61 @@ LABEL_10:
       goto LABEL_21;
     }
 
-    v43 = boundsCopy + insets;
-    v44 = additionalInset + *(self + 424);
-    v45 = floor(v44);
-    v46 = v45 + round(*&v35 * (v44 - v45)) / *&v35;
-  }
-
-  if (v43 > v46)
-  {
-LABEL_21:
-    v48 = *(v29 + 12) | 4;
-    goto LABEL_23;
-  }
-
-  v48 = *(v29 + 12) & 0xFFFFFFFFFFFFFFFBLL;
-LABEL_23:
-  *(v29 + 12) = v48;
-  if (v42 >= v37)
-  {
-    v49 = v42;
+    v37 = boundsCopy + insets;
+    v40 = round(additionalInset + *(self + 424));
   }
 
   else
   {
-    v49 = a2 + showingCopy;
+    v33.f64[1] = insets;
+    v34 = vrndmq_f64(v33);
+    *&v35 = *&vaddq_f64(v34, vdivq_f64(vrndaq_f64(vmulq_n_f64(vsubq_f64(v33, v34), *&v29)), vdupq_lane_s64(v29, 0)));
+    v36 = v32 + v31 - v28 + a18;
+    if ((v22 & 0x400000) != 0)
+    {
+      v36 = v31 - a18;
+    }
+
+    if (boundsCopy < v35)
+    {
+      goto LABEL_21;
+    }
+
+    v37 = boundsCopy + insets;
+    v38 = additionalInset + *(self + 424);
+    v39 = floor(v38);
+    v40 = v39 + round(*&v29 * (v38 - v39)) / *&v29;
   }
 
-  if (v49 >= a2 + inset - v34 - v51)
+  if (v37 > v40)
   {
-    v49 = a2 + inset - v34 - v51;
+LABEL_21:
+    v42 = *(v23 + 12) | 4;
+    goto LABEL_23;
   }
 
-  return v49 - *(self + 1080);
+  v42 = *(v23 + 12) & 0xFFFFFFFFFFFFFFFBLL;
+LABEL_23:
+  *(v23 + 12) = v42;
+  if (v36 >= v31)
+  {
+    v43 = v36;
+  }
+
+  else
+  {
+    v43 = a2 + showingCopy;
+  }
+
+  if (v43 >= a2 + inset - v28 - v45)
+  {
+    v43 = a2 + inset - v28 - v45;
+  }
+
+  return v43 - *(self + 1080);
 }
 
-- (uint64_t)_layoutHorizontalScrollIndicatorWithBounds:(double)bounds effectiveInset:(double)inset contentOffset:(double)offset fraction:(double)fraction additionalInset:(double)additionalInset cornerAdjust:(double)adjust needsIndicator:(double)indicator showing:(uint64_t)self0 recalcSize:(uint64_t)self1 verticalIndicatorFrame:(uint64_t)self2
+- (void)_layoutHorizontalScrollIndicatorWithBounds:(double)bounds effectiveInset:(double)inset contentOffset:(double)offset fraction:(double)fraction additionalInset:(double)additionalInset cornerAdjust:(double)adjust needsIndicator:(double)indicator showing:(uint64_t)self0 recalcSize:(uint64_t)self1 verticalIndicatorFrame:(uint64_t)self2
 {
   if (frame)
   {
@@ -17961,214 +17955,214 @@ LABEL_9:
 
 - (double)_iOS_frameForLayoutHorizontalScrollIndicatorWithBounds:(CGFloat)bounds effectiveInset:(CGFloat)inset indicatorInsets:(CGFloat)insets contentOffset:(double)offset fraction:(double)fraction additionalInset:(double)additionalInset cornerAdjust:(double)adjust needsIndicator:(uint64_t)self0 showing:(uint64_t)self1 recalcSize:(uint64_t)self2 verticalIndicatorFrame:(char)self3
 {
-  v33 = self + 1792;
-  v34 = *(self + 104);
-  v79 = a15;
-  v35 = a17;
-  v81.origin.x = a23;
-  v81.origin.y = a24;
-  v81.size.width = a25;
-  v81.size.height = a26;
-  if (!CGRectIsNull(v81))
+  v30 = self + 1792;
+  v31 = *(self + 104);
+  v76 = a15;
+  v32 = a17;
+  v78.origin.x = a23;
+  v78.origin.y = a24;
+  v78.size.width = a25;
+  v78.size.height = a26;
+  if (!CGRectIsNull(v78))
   {
-    if ((v34 & 0x400000) != 0)
+    if ((v31 & 0x400000) != 0)
     {
-      v84.origin.x = a23;
-      v84.origin.y = a24;
-      v84.size.width = a25;
-      v84.size.height = a26;
-      MaxX = CGRectGetMaxX(v84);
-      v85.origin.x = a2;
-      v85.origin.y = bounds;
-      v85.size.width = inset;
-      v85.size.height = insets;
-      v39 = MaxX - CGRectGetMinX(v85);
-      v40 = a15;
-      if (a15 < v39)
-      {
-        v40 = v39;
-      }
-
-      v79 = v40;
-    }
-
-    else
-    {
+      v81.origin.x = a23;
+      v81.origin.y = a24;
+      v81.size.width = a25;
+      v81.size.height = a26;
+      MaxX = CGRectGetMaxX(v81);
       v82.origin.x = a2;
       v82.origin.y = bounds;
       v82.size.width = inset;
       v82.size.height = insets;
-      v36 = CGRectGetMaxX(v82);
-      v83.origin.x = a23;
-      v83.origin.y = a24;
-      v83.size.width = a25;
-      v83.size.height = a26;
-      v37 = v36 - CGRectGetMinX(v83);
-      v35 = a17;
-      if (a17 < v37)
+      v36 = MaxX - CGRectGetMinX(v82);
+      v37 = a15;
+      if (a15 < v36)
       {
-        v35 = v37;
+        v37 = v36;
+      }
+
+      v76 = v37;
+    }
+
+    else
+    {
+      v79.origin.x = a2;
+      v79.origin.y = bounds;
+      v79.size.width = inset;
+      v79.size.height = insets;
+      v33 = CGRectGetMaxX(v79);
+      v80.origin.x = a23;
+      v80.origin.y = a24;
+      v80.size.width = a25;
+      v80.size.height = a26;
+      v34 = v33 - CGRectGetMinX(v80);
+      v32 = a17;
+      if (a17 < v34)
+      {
+        v32 = v34;
       }
     }
   }
 
-  v41 = dyld_program_sdk_at_least();
-  if ((v34 & 0x400000) != 0)
+  v38 = dyld_program_sdk_at_least();
+  if ((v31 & 0x400000) != 0)
   {
-    v42 = v41;
+    v39 = v38;
   }
 
   else
   {
-    v42 = 1;
+    v39 = 1;
   }
 
-  if (v42)
+  if (v39)
   {
-    v43 = v79;
+    v40 = v76;
   }
 
   else
   {
-    v43 = v35;
+    v40 = v32;
   }
 
-  if (v42)
+  if (v39)
   {
-    v44 = v35;
+    v41 = v32;
   }
 
   else
   {
-    v44 = v79;
+    v41 = v76;
   }
 
-  v75 = v44;
-  v45 = inset - (v79 + v35);
+  v72 = v41;
+  v42 = inset - (v76 + v32);
   [*(self + 1536) frame];
-  v47 = v46;
+  v44 = v43;
   [self _horizontalScrollIndicatorHeight];
-  if ((frame & 1) != 0 || (*(v33 + 12) & 8) != 0)
+  if ((frame & 1) != 0 || (*(v30 + 12) & 8) != 0)
   {
-    v48 = *(self + 1200);
-    v52 = v45 * a20;
+    v45 = *(self + 1200);
+    v49 = v42 * a20;
     adjustCopy2 = adjust;
-    if (*&v48 == 1.0)
+    if (*&v45 == 1.0)
     {
-      v54 = round(v52);
+      v51 = round(v49);
     }
 
     else
     {
-      v53 = floor(v52);
-      v54 = v53 + round((v52 - v53) * *&v48) / *&v48;
+      v50 = floor(v49);
+      v51 = v50 + round((v49 - v50) * *&v45) / *&v45;
     }
 
     fractionCopy2 = fraction;
     insetCopy2 = inset;
-    if (v54 >= 36.0)
+    if (v51 >= 36.0)
     {
-      v47 = v54;
+      v44 = v51;
     }
 
     else
     {
-      v47 = 36.0;
+      v44 = 36.0;
     }
   }
 
   else
   {
-    v48 = *(self + 1200);
+    v45 = *(self + 1200);
     adjustCopy2 = adjust;
     fractionCopy2 = fraction;
     insetCopy2 = inset;
   }
 
-  v55 = a2 + v43;
-  v56 = v45 - v47;
-  v57.f64[0] = *(self + 1288) - fractionCopy2;
-  if (*&v48 != 1.0)
+  v52 = a2 + v40;
+  v53 = v42 - v44;
+  v54.f64[0] = *(self + 1288) - fractionCopy2;
+  if (*&v45 != 1.0)
   {
-    v57.f64[1] = insetCopy2;
-    v58 = vrndmq_f64(v57);
-    v59 = *(self + 416);
-    v60 = adjustCopy2 + fractionCopy2 + v59;
-    v61 = floor(v60);
-    v62 = vaddq_f64(v58, vdivq_f64(vrndaq_f64(vmulq_n_f64(vsubq_f64(v57, v58), *&v48)), vdupq_lane_s64(v48, 0)));
-    v63.f64[0] = a18;
-    v63.f64[1] = v61 + round(*&v48 * (v60 - v61)) / *&v48;
-    v64 = vsubq_f64(v63, v62);
-    v65 = v55 + v56 * vdivq_f64(v64, vdupq_laneq_s64(v64, 1)).f64[0];
-    v64.f64[0] = floor(v65);
-    v66 = v64.f64[0] + round(*&v48 * (v65 - v64.f64[0])) / *&v48;
-    if (a2 >= v62.f64[0])
+    v54.f64[1] = insetCopy2;
+    v55 = vrndmq_f64(v54);
+    v56 = *(self + 416);
+    v57 = adjustCopy2 + fractionCopy2 + v56;
+    v58 = floor(v57);
+    v59 = vaddq_f64(v55, vdivq_f64(vrndaq_f64(vmulq_n_f64(vsubq_f64(v54, v55), *&v45)), vdupq_lane_s64(v45, 0)));
+    v60.f64[0] = a18;
+    v60.f64[1] = v58 + round(*&v45 * (v57 - v58)) / *&v45;
+    v61 = vsubq_f64(v60, v59);
+    v62 = v52 + v53 * vdivq_f64(v61, vdupq_laneq_s64(v61, 1)).f64[0];
+    v61.f64[0] = floor(v62);
+    v63 = v61.f64[0] + round(*&v45 * (v62 - v61.f64[0])) / *&v45;
+    if (a2 >= v59.f64[0])
     {
-      v67 = a2 + insetCopy2;
-      v68 = adjustCopy2 + v59;
-      v69 = floor(v68);
-      v70 = v69 + round(*&v48 * (v68 - v69)) / *&v48;
+      v64 = a2 + insetCopy2;
+      v65 = adjustCopy2 + v56;
+      v66 = floor(v65);
+      v67 = v66 + round(*&v45 * (v65 - v66)) / *&v45;
       goto LABEL_35;
     }
 
 LABEL_31:
-    if (v47 - (v62.f64[0] - a2) >= 7.0)
+    if (v44 - (v59.f64[0] - a2) >= 7.0)
     {
-      v47 = v47 - (v62.f64[0] - a2);
+      v44 = v44 - (v59.f64[0] - a2);
     }
 
     else
     {
-      v47 = 7.0;
+      v44 = 7.0;
     }
 
     goto LABEL_39;
   }
 
-  v62.f64[0] = round(v57.f64[0]);
-  v71 = *(self + 416);
-  v66 = round(v55 + v56 * ((a18 - v62.f64[0]) / (round(adjustCopy2 + fractionCopy2 + v71) - round(insetCopy2))));
-  if (a2 < v62.f64[0])
+  v59.f64[0] = round(v54.f64[0]);
+  v68 = *(self + 416);
+  v63 = round(v52 + v53 * ((a18 - v59.f64[0]) / (round(adjustCopy2 + fractionCopy2 + v68) - round(insetCopy2))));
+  if (a2 < v59.f64[0])
   {
     goto LABEL_31;
   }
 
-  v67 = a2 + insetCopy2;
-  v70 = round(adjustCopy2 + v71);
+  v64 = a2 + insetCopy2;
+  v67 = round(adjustCopy2 + v68);
 LABEL_35:
-  if (v67 > v70)
+  if (v64 > v67)
   {
-    v72 = v67 - v70;
-    v66 = v66 + v72;
-    if (v47 - v72 >= 7.0)
+    v69 = v64 - v67;
+    v63 = v63 + v69;
+    if (v44 - v69 >= 7.0)
     {
-      v47 = v47 - v72;
+      v44 = v44 - v69;
     }
 
     else
     {
-      v47 = 7.0;
+      v44 = 7.0;
     }
 
 LABEL_39:
-    v73 = *(v33 + 12) | 8;
+    v70 = *(v30 + 12) | 8;
     goto LABEL_41;
   }
 
-  v73 = *(v33 + 12) & 0xFFFFFFFFFFFFFFF7;
+  v70 = *(v30 + 12) & 0xFFFFFFFFFFFFFFF7;
 LABEL_41:
-  *(v33 + 12) = v73;
-  if (v66 < v55)
+  *(v30 + 12) = v70;
+  if (v63 < v52)
   {
-    v66 = v55;
+    v63 = v52;
   }
 
-  if (v66 >= a2 + insetCopy2 - v47 - v75 - a22)
+  if (v63 >= a2 + insetCopy2 - v44 - v72 - a22)
   {
-    v66 = a2 + insetCopy2 - v47 - v75 - a22;
+    v63 = a2 + insetCopy2 - v44 - v72 - a22;
   }
 
-  return v66 - *(self + 1080);
+  return v63 - *(self + 1080);
 }
 
 - (CGRect)_scrollIndicatorContainerRectForAxis:(unint64_t)axis
@@ -18648,7 +18642,7 @@ LABEL_47:
 - (void)_handleLowFidelitySwipe:(id)swipe
 {
   swipeCopy = swipe;
-  [(UIScrollView *)self _cancelTouchDelayGestureRecognizerIfNecessary];
+  [(UIScrollView *)&self->super.super.super.isa _cancelTouchDelayGestureRecognizerIfNecessary];
   v4 = swipeCopy;
   direction = 0;
   v6 = 0;
@@ -19661,7 +19655,7 @@ LABEL_10:
   v3 = self->__donatedTitleView;
   if (v3)
   {
-    if (![(UIView *)self _safeAreaInsetsFrozen]|| ([(UIView *)self transform], CGAffineTransformIsIdentity(&v29)))
+    if (![(UIView *)self _safeAreaInsetsFrozen]|| (objc_msgSend_transform(self), CGAffineTransformIsIdentity(&v29)))
     {
       view = [(_UIScrollViewDonatedTitleView *)v3 view];
       [(UIScrollView *)self _addScrollPocketAsSubview:view];

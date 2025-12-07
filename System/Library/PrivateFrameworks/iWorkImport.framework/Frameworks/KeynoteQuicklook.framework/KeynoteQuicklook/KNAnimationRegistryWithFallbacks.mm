@@ -8,31 +8,31 @@
 
 - (KNAnimationRegistryWithFallbacks)init
 {
-  v8.receiver = self;
-  v8.super_class = KNAnimationRegistryWithFallbacks;
-  v4 = [(KNAnimationRegistryWithFallbacks *)&v8 init];
-  if (v4)
+  v6.receiver = self;
+  v6.super_class = KNAnimationRegistryWithFallbacks;
+  v2 = [(KNAnimationRegistryWithFallbacks *)&v6 init];
+  if (v2)
   {
-    v5 = objc_msgSend_instance(KNAnimationRegistry, v2, v3);
-    registry = v4->_registry;
-    v4->_registry = v5;
+    v3 = +[KNAnimationRegistry instance];
+    registry = v2->_registry;
+    v2->_registry = v3;
   }
 
-  return v4;
+  return v2;
 }
 
 - (id)animationInfoForEffectIdentifier:(id)identifier animationType:(int64_t)type
 {
   identifierCopy = identifier;
   fallbacks = self->_fallbacks;
-  if (!fallbacks || (objc_msgSend_objectForKeyedSubscript_(fallbacks, v6, identifierCopy), (v10 = objc_claimAutoreleasedReturnValue()) == 0))
+  if (!fallbacks || ([(NSMutableDictionary *)fallbacks objectForKeyedSubscript:identifierCopy], (v8 = objc_claimAutoreleasedReturnValue()) == 0))
   {
-    v10 = identifierCopy;
+    v8 = identifierCopy;
   }
 
-  v11 = objc_msgSend_animationInfoForEffectIdentifier_animationType_(self->_registry, v9, v10, type);
+  v9 = [(KNAnimationRegistry *)self->_registry animationInfoForEffectIdentifier:v8 animationType:type];
 
-  return v11;
+  return v9;
 }
 
 - (void)registerFallbackEffectIdentifer:(id)identifer forEffectIdentifer:(id)effectIdentifer
@@ -42,14 +42,14 @@
   fallbacks = self->_fallbacks;
   if (!fallbacks)
   {
-    v9 = objc_msgSend_dictionaryWithCapacity_(MEMORY[0x277CBEB38], v6, 1);
-    v10 = self->_fallbacks;
-    self->_fallbacks = v9;
+    v8 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:1];
+    v9 = self->_fallbacks;
+    self->_fallbacks = v8;
 
     fallbacks = self->_fallbacks;
   }
 
-  objc_msgSend_setObject_forKeyedSubscript_(fallbacks, v6, identiferCopy, effectIdentiferCopy);
+  [(NSMutableDictionary *)fallbacks setObject:identiferCopy forKeyedSubscript:effectIdentiferCopy];
 }
 
 @end

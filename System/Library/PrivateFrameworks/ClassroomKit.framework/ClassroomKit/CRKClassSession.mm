@@ -72,7 +72,7 @@
   v14 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEAA8] now];
   v4 = [(CRKClassSession *)self lastMatchMessageForCurrentDate:v3];
-  v5 = _CRKLogBluetooth();
+  v5 = _CRKLogBluetooth(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [(CRKClassSession *)self identifier];

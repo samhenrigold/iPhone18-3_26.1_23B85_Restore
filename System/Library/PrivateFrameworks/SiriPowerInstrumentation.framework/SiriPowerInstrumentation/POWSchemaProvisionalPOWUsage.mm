@@ -31,7 +31,6 @@
   toCopy = to;
   if (*&self->_has)
   {
-    process = self->_process;
     PBDataWriterWriteInt32Field();
   }
 
@@ -45,7 +44,6 @@
 
   if ((*&self->_has & 2) != 0)
   {
-    context = self->_context;
     PBDataWriterWriteInt32Field();
   }
 }

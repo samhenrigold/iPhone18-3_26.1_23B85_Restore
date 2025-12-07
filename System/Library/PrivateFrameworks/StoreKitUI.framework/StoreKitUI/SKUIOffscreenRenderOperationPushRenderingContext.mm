@@ -3,7 +3,7 @@
 
 @implementation SKUIOffscreenRenderOperationPushRenderingContext
 
-unint64_t ___SKUIOffscreenRenderOperationPushRenderingContext_block_invoke(uint64_t a1)
+void *___SKUIOffscreenRenderOperationPushRenderingContext_block_invoke(uint64_t a1)
 {
   v2 = sRendererStackArray;
   if (!sRendererStackArray)

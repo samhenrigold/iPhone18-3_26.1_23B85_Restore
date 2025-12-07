@@ -24,12 +24,11 @@
 {
   if (result)
   {
-    v1 = *(result + 8);
     OUTLINED_FUNCTION_0_11();
-    v4 = v2 + 8 * v3;
-    *(v2 + 8) = v5 + 1;
+    v3 = v1 + 8 * v2;
+    *(v1 + 8) = v4 + 1;
     result = IOHIDEventGetTimeStamp();
-    *(v4 + 24) = result;
+    *(v3 + 24) = result;
   }
 
   return result;

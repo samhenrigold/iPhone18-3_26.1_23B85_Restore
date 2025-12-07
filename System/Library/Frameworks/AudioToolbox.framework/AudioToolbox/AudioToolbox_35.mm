@@ -3961,7 +3961,7 @@ AUFIREngineKernel::XfadeChannel *AUFIREngineKernel::XfadeChannel::XfadeChannel(A
   v7 = a3;
   v8 = a4;
   LODWORD(v13) = 0;
-  std::vector<float>::vector[abi:ne200100](&__p, a4);
+  std::vector<float>::vector[abi:ne200100](&__p, a4, &v13);
   std::vector<std::vector<float>>::vector[abi:ne200100](this, v7);
   if (__p)
   {
@@ -3971,7 +3971,7 @@ AUFIREngineKernel::XfadeChannel *AUFIREngineKernel::XfadeChannel::XfadeChannel(A
 
   std::vector<std::span<float,18446744073709551615ul>>::vector[abi:ne200100](this + 3, v7);
   LODWORD(__p) = 0;
-  std::vector<float>::vector[abi:ne200100](this + 6, v8);
+  std::vector<float>::vector[abi:ne200100](this + 6, v8, &__p);
   *(this + 9) = 0;
   *(this + 10) = 0;
   __p = 0;
@@ -3999,7 +3999,7 @@ AUFIREngineKernel::XfadeChannel *AUFIREngineKernel::XfadeChannel::XfadeChannel(A
 
   *(this + 28) = 1065353216;
   LODWORD(v13) = 1065353216;
-  std::vector<float>::vector[abi:ne200100](&__p, v7);
+  std::vector<float>::vector[abi:ne200100](&__p, v7, &v13);
   std::vector<std::vector<float>>::vector[abi:ne200100](this + 15, a2);
   if (__p)
   {
@@ -4090,7 +4090,7 @@ void std::vector<std::span<float,18446744073709551615ul>>::__vallocate[abi:ne200
   std::vector<std::complex<float>>::__throw_length_error[abi:ne200100]();
 }
 
-void *std::vector<BOOL>::vector(void *result, uint64_t a2)
+uint64_t *std::vector<BOOL>::vector(uint64_t *result, uint64_t a2)
 {
   *result = 0;
   result[1] = 0;
@@ -4254,7 +4254,7 @@ void AUFIREngineKernel::PrepareXfadeChannel(AUFIREngineKernel *this, unsigned in
     }
 
     *(v4 + 628) = *(this + 577);
-    std::vector<std::vector<float>>::__assign_with_size[abi:ne200100]<std::vector<float>*,std::vector<float>*>(v4 + 315, *(this + 289), *(this + 290), 0xAAAAAAAAAAAAAAABLL * ((*(this + 290) - *(this + 289)) >> 3));
+    std::vector<std::vector<float>>::__assign_with_size[abi:ne200100]<std::vector<float>*,std::vector<float>*>((v4 + 2520), *(this + 289), *(this + 290), 0xAAAAAAAAAAAAAAABLL * ((*(this + 290) - *(this + 289)) >> 3));
     v4[2544] = 1;
     v12 = *this;
     if (v12)
@@ -4667,7 +4667,7 @@ void AUFIREngineKernel::AUFIREngineKernel(uint64_t a1, unsigned int a2, unsigned
   *(a1 + 152) = 0u;
   *(a1 + 168) = 0;
   __p = (a1 + 152);
-  LOBYTE(v14) = 0;
+  LOBYTE(v15) = 0;
   *(a1 + 176) = 0;
   *(a1 + 192) = &unk_1F5933058;
   *(a1 + 256) = &unk_1F5933078;
@@ -4675,14 +4675,16 @@ void AUFIREngineKernel::AUFIREngineKernel(uint64_t a1, unsigned int a2, unsigned
   boost::lockfree::queue<std::vector<std::vector<float>> *,boost::lockfree::capacity<10ul>>::queue((a1 + 1280));
   *(a1 + 2241) = 0;
   *(a1 + 2304) = 0;
-  std::vector<float>::vector[abi:ne200100](&__p, a3);
+  v13 = 1065353216;
+  std::vector<float>::vector[abi:ne200100](&__p, a3, &v13);
   std::vector<std::vector<float>>::vector[abi:ne200100]((a1 + 2312), v9);
   if (__p)
   {
-    v14 = __p;
+    v15 = __p;
     operator delete(__p);
   }
 
+  LOBYTE(v13) = 0;
   std::vector<BOOL>::vector(&__p, a3);
   std::vector<std::vector<BOOL>>::vector[abi:ne200100]((a1 + 2336), v9);
   if (__p)
@@ -4690,6 +4692,7 @@ void AUFIREngineKernel::AUFIREngineKernel(uint64_t a1, unsigned int a2, unsigned
     operator delete(__p);
   }
 
+  LOBYTE(v13) = 0;
   std::vector<BOOL>::vector(&__p, a3);
   std::vector<std::vector<BOOL>>::vector[abi:ne200100]((a1 + 2360), v9);
   if (__p)
@@ -5280,11 +5283,11 @@ LABEL_63:
         std::string::basic_string[abi:ne200100]<0>(&v139, "Lrs");
         std::string::basic_string[abi:ne200100]<0>(v140, "Rrs");
         std::vector<std::string>::__assign_with_size[abi:ne200100]<std::string const*,std::string const*>((a1 + 8), __p, &v141, 7uLL);
-        for (kk = 0; kk != -168; kk -= 24)
+        for (kk = 0; kk != -21; kk -= 3)
         {
-          if (v140[kk + 23] < 0)
+          if (SHIBYTE(v140[kk + 2]) < 0)
           {
-            operator delete(*&v140[kk]);
+            operator delete(v140[kk]);
           }
         }
 
@@ -5370,11 +5373,11 @@ LABEL_63:
       std::string::basic_string[abi:ne200100]<0>(&v139, "Lrs");
       std::string::basic_string[abi:ne200100]<0>(v140, "Rrs");
       std::vector<std::string>::__assign_with_size[abi:ne200100]<std::string const*,std::string const*>((a1 + 8), __p, &v141, 7uLL);
-      for (mm = 0; mm != -168; mm -= 24)
+      for (mm = 0; mm != -21; mm -= 3)
       {
-        if (v140[mm + 23] < 0)
+        if (SHIBYTE(v140[mm + 2]) < 0)
         {
-          operator delete(*&v140[mm]);
+          operator delete(v140[mm]);
         }
       }
 
@@ -5425,11 +5428,11 @@ LABEL_63:
       std::string::basic_string[abi:ne200100]<0>(&v141, "Ltr");
       std::string::basic_string[abi:ne200100]<0>(v142, "Rtr");
       std::vector<std::string>::__assign_with_size[abi:ne200100]<std::string const*,std::string const*>((a1 + 8), __p, &v143, 9uLL);
-      for (i1 = 0; i1 != -216; i1 -= 24)
+      for (i1 = 0; i1 != -27; i1 -= 3)
       {
-        if (v142[i1 + 23] < 0)
+        if (SHIBYTE(v142[i1 + 2]) < 0)
         {
-          operator delete(*&v142[i1]);
+          operator delete(v142[i1]);
         }
       }
 
@@ -5469,11 +5472,11 @@ LABEL_63:
       std::string::basic_string[abi:ne200100]<0>(&v141, "Ltm");
       std::string::basic_string[abi:ne200100]<0>(v142, "Rtm");
       std::vector<std::string>::__assign_with_size[abi:ne200100]<std::string const*,std::string const*>((a1 + 8), __p, &v143, 9uLL);
-      for (i2 = 0; i2 != -216; i2 -= 24)
+      for (i2 = 0; i2 != -27; i2 -= 3)
       {
-        if (v142[i2 + 23] < 0)
+        if (SHIBYTE(v142[i2 + 2]) < 0)
         {
-          operator delete(*&v142[i2]);
+          operator delete(v142[i2]);
         }
       }
 
@@ -5564,11 +5567,11 @@ LABEL_63:
     std::string::basic_string[abi:ne200100]<0>(&v139, "Ltm");
     std::string::basic_string[abi:ne200100]<0>(v140, "Rtm");
     std::vector<std::string>::__assign_with_size[abi:ne200100]<std::string const*,std::string const*>((a1 + 8), __p, &v141, 7uLL);
-    for (i3 = 0; i3 != -168; i3 -= 24)
+    for (i3 = 0; i3 != -21; i3 -= 3)
     {
-      if (v140[i3 + 23] < 0)
+      if (SHIBYTE(v140[i3 + 2]) < 0)
       {
-        operator delete(*&v140[i3]);
+        operator delete(v140[i3]);
       }
     }
 
@@ -5776,7 +5779,7 @@ LABEL_215:
       }
 
       *__p = 0;
-      std::vector<float>::vector[abi:ne200100](&v122, v61);
+      std::vector<float>::vector[abi:ne200100](&v122, v61, __p);
       v120 = 0;
       v121 = 0uLL;
       v117 = 0;
@@ -5833,7 +5836,7 @@ LABEL_215:
           }
 
           *__p = 0;
-          std::vector<float>::vector[abi:ne200100](&v112, v70);
+          std::vector<float>::vector[abi:ne200100](&v112, v70, __p);
           *__p = v64;
           memset(&__p[8], 0, 24);
           std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p[8], 0, v65, v65 >> 2);
@@ -5896,12 +5899,12 @@ LABEL_215:
                 *(v79 + 32) = 0;
                 *(v79 + 40) = 0;
                 *(v79 + 48) = 0;
-                std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v77 + v78 * 8 + 32, v80[4], v80[5], (v80[5] - v80[4]) >> 2);
+                std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((v77 + v78 * 8 + 32), v80[4], v80[5], (v80[5] - v80[4]) >> 2);
                 v81 = v77 + v78 * 8;
                 *(v81 + 56) = 0;
                 *(v81 + 64) = 0;
-                v82 = v77 + v78 * 8 + 56;
-                *(v82 + 16) = 0;
+                v82 = (v77 + v78 * 8 + 56);
+                v82[2] = 0;
                 std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v82, v80[7], v80[8], (v80[8] - v80[7]) >> 2);
                 v78 += 10;
               }
@@ -6038,7 +6041,7 @@ LABEL_215:
           do
           {
             v96 = v94 + v95;
-            v97 = (v92 + v95);
+            v97 = v92 + v95;
             *v96 = *(v92 + v95);
             *(v94 + v95 + 8) = 0;
             *(v96 + 16) = 0;
@@ -6047,23 +6050,23 @@ LABEL_215:
             *(v96 + 32) = 0;
             *(v96 + 40) = 0;
             *(v96 + 48) = 0;
-            std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v94 + v95 + 32, v97[4], v97[5], (v97[5] - v97[4]) >> 2);
+            std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((v94 + v95 + 32), *(v97 + 32), *(v97 + 40), (*(v97 + 40) - *(v97 + 32)) >> 2);
             v98 = v94;
             v99 = (v94 + v95);
             v99[7] = 0;
             v99[8] = 0;
             v99[9] = 0;
-            std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((v99 + 7), v97[7], v97[8], (v97[8] - v97[7]) >> 2);
+            std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v99 + 7, *(v97 + 56), *(v97 + 64), (*(v97 + 64) - *(v97 + 56)) >> 2);
             v99[10] = 0;
             v99[11] = 0;
             v99 += 10;
             v99[2] = 0;
-            std::vector<std::tuple<float const,std::vector<int> const,std::vector<float> const,std::vector<float>>>::__init_with_size[abi:ne200100]<std::tuple<float const,std::vector<int> const,std::vector<float> const,std::vector<float>>*,std::tuple<float const,std::vector<int> const,std::vector<float> const,std::vector<float>>*>(v99, v97[10], v97[11], 0xCCCCCCCCCCCCCCCDLL * ((v97[11] - v97[10]) >> 4));
+            std::vector<std::tuple<float const,std::vector<int> const,std::vector<float> const,std::vector<float>>>::__init_with_size[abi:ne200100]<std::tuple<float const,std::vector<int> const,std::vector<float> const,std::vector<float>>*,std::tuple<float const,std::vector<int> const,std::vector<float> const,std::vector<float>>*>(v99, *(v97 + 80), *(v97 + 88), 0xCCCCCCCCCCCCCCCDLL * ((*(v97 + 88) - *(v97 + 80)) >> 4));
             v95 += 104;
             v94 = v98;
           }
 
-          while (v97 + 13 != v93);
+          while (v97 + 104 != v93);
           v50 = v107;
           do
           {
@@ -6233,7 +6236,7 @@ uint64_t std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul>,float const,std
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
   *(a1 + 48) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 32, *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 32), *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 2);
   *(a1 + 56) = 0;
   *(a1 + 64) = 0;
   *(a1 + 72) = 0;
@@ -6267,7 +6270,7 @@ uint64_t std::__tuple_impl<std::__tuple_indices<0ul,1ul,2ul,3ul,4ul>,float const
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
   *(a1 + 48) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 32, *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 32), *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 2);
   *(a1 + 56) = 0;
   *(a1 + 64) = 0;
   *(a1 + 72) = 0;
@@ -6446,7 +6449,7 @@ void std::vector<std::string>::__assign_with_size[abi:ne200100]<std::string cons
   }
 }
 
-void *std::vector<unsigned int>::__assign_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<unsigned int>::__assign_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v7 = result;
   v8 = result[2];

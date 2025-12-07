@@ -7,9 +7,9 @@
 
 - (AVOutputDeviceScreenBorrowToken)initWithEndpoint:(OpaqueFigEndpoint *)endpoint client:(id)client reason:(id)reason
 {
-  v17.receiver = self;
-  v17.super_class = AVOutputDeviceScreenBorrowToken;
-  v8 = [(AVOutputDeviceScreenBorrowToken *)&v17 init];
+  v15.receiver = self;
+  v15.super_class = AVOutputDeviceScreenBorrowToken;
+  v8 = [(AVOutputDeviceScreenBorrowToken *)&v15 init];
   if (v8)
   {
     if (endpoint)
@@ -33,12 +33,10 @@
       {
         client = v8->_client;
         reason = v8->_reason;
-        VTable = CMBaseObjectGetVTable();
-        v14 = *(*(VTable + 24) + 16);
-        if (v14)
+        v13 = *(*(CMBaseObjectGetVTable() + 24) + 16);
+        if (v13)
         {
-          v15 = *(VTable + 24) + 16;
-          v14(endpoint, client, reason);
+          v13(endpoint, client, reason);
         }
       }
     }
@@ -57,25 +55,23 @@
     {
       client = self->_client;
       reason = self->_reason;
-      VTable = CMBaseObjectGetVTable();
-      v7 = *(*(VTable + 24) + 24);
-      if (v7)
+      v6 = *(*(CMBaseObjectGetVTable() + 24) + 24);
+      if (v6)
       {
-        v8 = *(VTable + 24) + 24;
-        v7(endpoint, client, reason);
+        v6(endpoint, client, reason);
       }
     }
 
-    v9 = self->_endpoint;
-    if (v9)
+    v7 = self->_endpoint;
+    if (v7)
     {
-      CFRelease(v9);
+      CFRelease(v7);
     }
   }
 
-  v10.receiver = self;
-  v10.super_class = AVOutputDeviceScreenBorrowToken;
-  [(AVOutputDeviceScreenBorrowToken *)&v10 dealloc];
+  v8.receiver = self;
+  v8.super_class = AVOutputDeviceScreenBorrowToken;
+  [(AVOutputDeviceScreenBorrowToken *)&v8 dealloc];
 }
 
 @end

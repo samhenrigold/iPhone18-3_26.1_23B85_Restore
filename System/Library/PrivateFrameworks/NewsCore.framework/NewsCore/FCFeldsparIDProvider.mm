@@ -25,9 +25,11 @@
 
 uint64_t __38__FCFeldsparIDProvider_sharedInstance__block_invoke()
 {
-  _MergedGlobals_142 = objc_alloc_init(FCFeldsparIDProvider);
+  v0 = objc_alloc_init(FCFeldsparIDProvider);
+  v1 = _MergedGlobals_142;
+  _MergedGlobals_142 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (FCFeldsparIDProvider)init
@@ -77,7 +79,7 @@ LABEL_6:
 
 - (void)registerUserInfo:(id)info
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   [MEMORY[0x1E696AF00] isMainThread];
   if (infoCopy)
@@ -95,24 +97,22 @@ LABEL_6:
 
   else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "userInfo"];
+    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "userInfo"];
     *buf = 136315906;
-    v11 = "[FCFeldsparIDProvider registerUserInfo:]";
-    v12 = 2080;
-    v13 = "FCFeldsparIDProvider.m";
-    v14 = 1024;
-    v15 = 67;
-    v16 = 2114;
-    v17 = v9;
+    v10 = "[FCFeldsparIDProvider registerUserInfo:]";
+    v11 = 2080;
+    v12 = "FCFeldsparIDProvider.m";
+    v13 = 1024;
+    v14 = 67;
+    v15 = 2114;
+    v16 = v8;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addObserver:(id)observer
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   [MEMORY[0x1E696AF00] isMainThread];
   if (observerCopy)
@@ -130,23 +130,22 @@ LABEL_6:
 
     observers = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "observer"];
     *buf = 136315906;
-    v8 = "[FCFeldsparIDProvider addObserver:]";
-    v9 = 2080;
-    v10 = "FCFeldsparIDProvider.m";
-    v11 = 1024;
-    v12 = 87;
-    v13 = 2114;
-    v14 = observers;
+    v7 = "[FCFeldsparIDProvider addObserver:]";
+    v8 = 2080;
+    v9 = "FCFeldsparIDProvider.m";
+    v10 = 1024;
+    v11 = 87;
+    v12 = 2114;
+    v13 = observers;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_5:
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeObserver:(id)observer
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   [MEMORY[0x1E696AF00] isMainThread];
   if (observerCopy)
@@ -164,18 +163,17 @@ LABEL_5:
 
     observers = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "observer"];
     *buf = 136315906;
-    v8 = "[FCFeldsparIDProvider removeObserver:]";
-    v9 = 2080;
-    v10 = "FCFeldsparIDProvider.m";
-    v11 = 1024;
-    v12 = 98;
-    v13 = 2114;
-    v14 = observers;
+    v7 = "[FCFeldsparIDProvider removeObserver:]";
+    v8 = 2080;
+    v9 = "FCFeldsparIDProvider.m";
+    v10 = 1024;
+    v11 = 98;
+    v12 = 2114;
+    v13 = observers;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_5:
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)userInfoDidChangeFeldsparID:(id)d fromCloud:(BOOL)cloud
@@ -193,7 +191,7 @@ LABEL_5:
 
 - (void)_updateFeldsparID:(id)d
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dCopy = d;
   [MEMORY[0x1E696AF00] isMainThread];
   if ([dCopy length])
@@ -207,29 +205,29 @@ LABEL_5:
       v7 = NewsCoreSensitiveUserDefaults();
       [v7 setValue:dCopy forKey:@"provider_user_id"];
 
-      v18 = 0u;
-      v19 = 0u;
-      v16 = 0u;
       v17 = 0u;
+      v18 = 0u;
+      v15 = 0u;
+      v16 = 0u;
       observers = [(FCFeldsparIDProvider *)self observers];
       v9 = [observers copy];
 
-      v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v17;
+        v12 = *v16;
         do
         {
           v13 = 0;
           do
           {
-            if (*v17 != v12)
+            if (*v16 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            v14 = *(*(&v16 + 1) + 8 * v13);
+            v14 = *(*(&v15 + 1) + 8 * v13);
             if (objc_opt_respondsToSelector())
             {
               [v14 feldsparIDProviderDidChangeFeldsparID:self];
@@ -239,15 +237,13 @@ LABEL_5:
           }
 
           while (v11 != v13);
-          v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
         }
 
         while (v11);
       }
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 @end

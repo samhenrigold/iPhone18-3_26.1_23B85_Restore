@@ -8,11 +8,11 @@
 
 + (id)authorizationStatusForTypes:(id)types bundleIdentifier:(id)identifier profile:(id)profile error:(id *)error
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   typesCopy = types;
   identifierCopy = identifier;
   profileCopy = profile;
-  v36 = typesCopy;
+  v35 = typesCopy;
   if (!identifierCopy)
   {
     v28 = MEMORY[0x277CCA9B8];
@@ -34,26 +34,26 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x3032000000;
-  v49 = __Block_byref_object_copy__175;
-  v50 = __Block_byref_object_dispose__175;
-  v51 = 0;
+  v45 = 0;
+  v46 = &v45;
+  v47 = 0x3032000000;
+  v48 = __Block_byref_object_copy__175;
+  v49 = __Block_byref_object_dispose__175;
+  v50 = 0;
   v12 = objc_alloc_init(HDMutableDatabaseTransactionContext);
   [(HDMutableDatabaseTransactionContext *)v12 setHighPriority:1];
   database = [profileCopy database];
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = __84__HDAuthorizationStatus_authorizationStatusForTypes_bundleIdentifier_profile_error___block_invoke;
-  v41[3] = &unk_27861D560;
-  v45 = &v46;
-  v42 = identifierCopy;
+  v40[0] = MEMORY[0x277D85DD0];
+  v40[1] = 3221225472;
+  v40[2] = __84__HDAuthorizationStatus_authorizationStatusForTypes_bundleIdentifier_profile_error___block_invoke;
+  v40[3] = &unk_27861D560;
+  v44 = &v45;
+  v41 = identifierCopy;
   v14 = typesCopy;
-  v43 = v14;
-  v44 = profileCopy;
-  v15 = [(HDHealthEntity *)HDAuthorizationEntity performReadTransactionWithHealthDatabase:database context:v12 error:error block:v41];
-  v35 = profileCopy;
+  v42 = v14;
+  v43 = profileCopy;
+  v15 = [(HDHealthEntity *)HDAuthorizationEntity performReadTransactionWithHealthDatabase:database context:v12 error:error block:v40];
+  v34 = profileCopy;
 
   if (!v15)
   {
@@ -61,7 +61,7 @@ LABEL_20:
     goto LABEL_22;
   }
 
-  v16 = [v47[5] mutableCopy];
+  v16 = [v46[5] mutableCopy];
   v17 = [MEMORY[0x277CCD720] _typesIncludingParentTypes:v14];
   v18 = [v16 count];
   if (v18 == [v17 count])
@@ -69,35 +69,35 @@ LABEL_20:
     goto LABEL_17;
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v19 = v17;
-  v20 = [v19 countByEnumeratingWithState:&v37 objects:v52 count:16];
-  v34 = v17;
+  v20 = [v19 countByEnumeratingWithState:&v36 objects:v51 count:16];
+  v33 = v17;
   if (!v20)
   {
     goto LABEL_16;
   }
 
-  v21 = *v38;
+  v21 = *v37;
   do
   {
     for (i = 0; i != v20; ++i)
     {
-      if (*v38 != v21)
+      if (*v37 != v21)
       {
         objc_enumerationMutation(v19);
       }
 
-      v23 = *(*(&v37 + 1) + 8 * i);
+      v23 = *(*(&v36 + 1) + 8 * i);
       [v23 code];
       v24 = HKDataTypeRequiresAuthorization();
       v25 = &unk_283CB3F30;
       if (v24)
       {
-        v26 = [v47[5] objectForKeyedSubscript:v23];
+        v26 = [v46[5] objectForKeyedSubscript:v23];
         v27 = v26 == 0;
 
         if (!v27)
@@ -111,29 +111,27 @@ LABEL_20:
       [v16 setObject:v25 forKeyedSubscript:v23];
     }
 
-    v20 = [v19 countByEnumeratingWithState:&v37 objects:v52 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v36 objects:v51 count:16];
   }
 
   while (v20);
 LABEL_16:
 
-  v17 = v34;
+  v17 = v33;
 LABEL_17:
 
 LABEL_22:
-  _Block_object_dispose(&v46, 8);
+  _Block_object_dispose(&v45, 8);
 
-  profileCopy = v35;
+  profileCopy = v34;
 LABEL_23:
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 BOOL __84__HDAuthorizationStatus_authorizationStatusForTypes_bundleIdentifier_profile_error___block_invoke(void *a1, uint64_t a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = [HDAuthorizationEntity authorizationStatusesForBundleIdentifier:a1[4] types:a1[5] profile:a1[6] error:a3];
   v5 = *(a1[7] + 8);
   v6 = *(v5 + 40);
@@ -152,16 +150,14 @@ BOOL __84__HDAuthorizationStatus_authorizationStatusForTypes_bundleIdentifier_pr
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         v11 = a1[5];
-        v14 = 138412290;
-        v15 = v11;
-        _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_INFO, "Could not determine authorization status for types %@", &v14, 0xCu);
+        v13 = 138412290;
+        v14 = v11;
+        _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_INFO, "Could not determine authorization status for types %@", &v13, 0xCu);
       }
     }
   }
 
-  result = v7 != 0;
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return v7 != 0;
 }
 
 + (BOOL)isAuthorizedForObjectType:(id)type authorizationStatus:(id)status clientEntitlements:(id)entitlements sharing:(BOOL)sharing error:(id *)error

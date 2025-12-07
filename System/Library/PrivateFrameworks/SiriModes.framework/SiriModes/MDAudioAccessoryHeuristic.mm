@@ -46,31 +46,31 @@
 
 - (void)_fetchConnectedAudioAccessoryState
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   outputDevices = [(AVOutputContext *)self->_sharedSystemAudioContext outputDevices];
   self->_connectedToAudioAccessory = 0;
   if ([outputDevices count])
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v4 = outputDevices;
-    v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v14;
+      v7 = *v13;
 LABEL_4:
       v8 = 0;
       while (1)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        deviceType = [*(*(&v13 + 1) + 8 * v8) deviceType];
+        deviceType = [*(*(&v12 + 1) + 8 * v8) deviceType];
         if (deviceType <= 4 && ((1 << deviceType) & 0x13) != 0)
         {
           self->_connectedToAudioAccessory = 1;
@@ -82,7 +82,7 @@ LABEL_4:
 
         if (v6 == ++v8)
         {
-          v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+          v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
           if (v6)
           {
             goto LABEL_4;
@@ -93,8 +93,6 @@ LABEL_4:
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_connectedOutputDevicesDidChange:(id)change
@@ -112,19 +110,17 @@ LABEL_4:
 
 void __62__MDAudioAccessoryHeuristic__connectedOutputDevicesDidChange___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[MDAudioAccessoryHeuristic _connectedOutputDevicesDidChange:]_block_invoke";
-    _os_log_impl(&dword_26807E000, v2, OS_LOG_TYPE_DEFAULT, "%s #modes: output devices changed, re-fetching connected audio accessory state", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[MDAudioAccessoryHeuristic _connectedOutputDevicesDidChange:]_block_invoke";
+    _os_log_impl(&dword_26807E000, v2, OS_LOG_TYPE_DEFAULT, "%s #modes: output devices changed, re-fetching connected audio accessory state", &v4, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _fetchConnectedAudioAccessoryState];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -319,7 +319,7 @@ void __50__EKLocationEditItemViewController_viewDidAppear___block_invoke(uint64_
   [(EKLocationEditItemViewController *)&v10 viewWillTransitionToSize:coordinatorCopy withTransitionCoordinator:width, height];
   if (coordinatorCopy)
   {
-    [coordinatorCopy targetTransform];
+    objc_msgSend_targetTransform(coordinatorCopy);
   }
 
   else

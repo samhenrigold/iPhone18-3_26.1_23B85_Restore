@@ -762,40 +762,39 @@ LABEL_42:
   selfCopy = self;
   providerCopy = provider;
   ckAssetProperties = [objc_opt_class() ckAssetProperties];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
-  v9 = [ckAssetProperties countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v9 = [ckAssetProperties countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v9)
   {
     v10 = v9;
     v11 = 0;
-    v31 = recordCopy;
-    v32 = 0;
+    v30 = recordCopy;
+    v31 = 0;
     v12 = &CPCopyBundleIdentifierAndTeamFromAuditToken_ptr;
-    v13 = *v36;
+    v13 = *v35;
     while (1)
     {
       for (i = 0; i != v10; i = i + 1)
       {
-        if (*v36 != v13)
+        if (*v35 != v13)
         {
           objc_enumerationMutation(ckAssetProperties);
         }
 
-        v15 = *(*(&v35 + 1) + 8 * i);
+        v15 = *(*(&v34 + 1) + 8 * i);
         v16 = [recordCopy objectForKey:v15];
         if (v16)
         {
-          v17 = v12[458];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
             assetContent = [v16 assetContent];
             if (assetContent)
             {
-              v19 = assetContent;
+              v18 = assetContent;
               if (!v11)
               {
                 goto LABEL_10;
@@ -804,28 +803,28 @@ LABEL_42:
               goto LABEL_11;
             }
 
-            v20 = v12;
-            v33 = v11;
-            v21 = ckAssetProperties;
+            v19 = v12;
+            v32 = v11;
+            v20 = ckAssetProperties;
             fileURL = [v16 fileURL];
-            if (fileURL && (+[NSFileManager defaultManager](NSFileManager, "defaultManager"), v23 = objc_claimAutoreleasedReturnValue(), v24 = [v23 cplFileExistsAtURL:fileURL], v23, (v24 & 1) != 0))
+            if (fileURL && (+[NSFileManager defaultManager](NSFileManager, "defaultManager"), v22 = objc_claimAutoreleasedReturnValue(), v23 = [v22 cplFileExistsAtURL:fileURL], v22, (v23 & 1) != 0))
             {
-              v19 = [[NSData alloc] initWithContentsOfURL:fileURL];
+              v18 = [[NSData alloc] initWithContentsOfURL:fileURL];
 
-              if (v19)
+              if (v18)
               {
-                ckAssetProperties = v21;
-                v11 = v33;
-                v12 = v20;
-                recordCopy = v31;
-                if (!v33)
+                ckAssetProperties = v20;
+                v11 = v32;
+                v12 = v19;
+                recordCopy = v30;
+                if (!v32)
                 {
 LABEL_10:
                   v11 = objc_alloc_init(NSMutableDictionary);
                 }
 
 LABEL_11:
-                [v11 setObject:v19 forKeyedSubscript:v15];
+                [v11 setObject:v18 forKeyedSubscript:v15];
 
                 goto LABEL_21;
               }
@@ -835,25 +834,25 @@ LABEL_11:
             {
             }
 
-            ckAssetProperties = v21;
-            v25 = v32;
-            v12 = v20;
-            if (!v32)
+            ckAssetProperties = v20;
+            v24 = v31;
+            v12 = v19;
+            if (!v31)
             {
-              v25 = objc_alloc_init(NSMutableArray);
+              v24 = objc_alloc_init(NSMutableArray);
             }
 
-            v32 = v25;
-            [v25 addObject:v15];
-            v11 = v33;
-            recordCopy = v31;
+            v31 = v24;
+            [v24 addObject:v15];
+            v11 = v32;
+            recordCopy = v30;
           }
         }
 
 LABEL_21:
       }
 
-      v10 = [ckAssetProperties countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v10 = [ckAssetProperties countByEnumeratingWithState:&v34 objects:v38 count:16];
       if (!v10)
       {
         goto LABEL_25;
@@ -862,17 +861,17 @@ LABEL_21:
   }
 
   v11 = 0;
-  v32 = 0;
+  v31 = 0;
 LABEL_25:
-  *properties = v32;
+  *properties = v31;
   if ([(CPLRecordChange *)selfCopy supportsResources])
   {
-    v34 = 1;
+    v33 = 1;
     scopedIdentifier = [(CPLRecordChange *)selfCopy scopedIdentifier];
-    v27 = [recordCopy cplResourcesWithScopedIdentifier:scopedIdentifier coherent:&v34 forRecord:selfCopy scopeProvider:providerCopy];
-    [(CPLRecordChange *)selfCopy setResources:v27];
+    v26 = [recordCopy cplResourcesWithScopedIdentifier:scopedIdentifier coherent:&v33 forRecord:selfCopy scopeProvider:providerCopy];
+    [(CPLRecordChange *)selfCopy setResources:v26];
 
-    if ((v34 & 1) == 0)
+    if ((v33 & 1) == 0)
     {
       [(CPLRecordChange *)selfCopy setServerRecordIsCorrupted:1];
     }

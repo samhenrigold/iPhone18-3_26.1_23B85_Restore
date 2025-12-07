@@ -200,17 +200,16 @@ void __44___LTDisambiguableSentence__restoreChanges___block_invoke_2(uint64_t a1
   _Block_object_dispose(&v12, 8);
 }
 
-double __44___LTDisambiguableSentence__restoreChanges___block_invoke_3(void *a1)
+double __44___LTDisambiguableSentence__restoreChanges___block_invoke_3(uint64_t a1)
 {
-  v2 = a1[6];
-  v3 = (*(a1[4] + 16))();
-  v4 = *(a1[5] + 8);
-  result = v3 + *(v4 + 24);
-  *(v4 + 24) = result;
+  v2 = (*(*(a1 + 32) + 16))();
+  v3 = *(*(a1 + 40) + 8);
+  result = v2 + *(v3 + 24);
+  *(v3 + 24) = result;
   return result;
 }
 
-uint64_t __44___LTDisambiguableSentence__restoreChanges___block_invoke_4(uint64_t a1, void *a2, uint64_t a3)
+void *__44___LTDisambiguableSentence__restoreChanges___block_invoke_4(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 doubleValue];
   v7 = *(*(a1 + 32) + 8);
@@ -294,94 +293,99 @@ void __121___LTDisambiguableSentence__generateAttributedStringForLocation_result
 
 void __53___LTDisambiguableSentence__validateAndPopulateEdges__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v52 = *MEMORY[0x277D85DE8];
-  v34 = a2;
-  v38 = [MEMORY[0x277CBEB18] array];
-  v37 = [MEMORY[0x277CBEB18] array];
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
-  v46 = 0u;
-  obj = [v34 links];
-  v41 = [obj countByEnumeratingWithState:&v45 objects:v51 count:16];
-  if (v41)
+  v57 = *MEMORY[0x277D85DE8];
+  v39 = a2;
+  v43 = [MEMORY[0x277CBEB18] array];
+  v42 = [MEMORY[0x277CBEB18] array];
+  v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
+  obj = [v39 links];
+  v46 = [obj countByEnumeratingWithState:&v50 objects:v56 count:16];
+  if (v46)
   {
-    v40 = *v46;
+    v45 = *v51;
     *&v4 = 134217984;
-    v33 = v4;
+    v38 = v4;
     while (2)
     {
-      for (i = 0; i != v41; ++i)
+      for (i = 0; i != v46; ++i)
       {
-        if (*v46 != v40)
+        if (*v51 != v45)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v45 + 1) + 8 * i);
+        v6 = *(*(&v50 + 1) + 8 * i);
         v7 = [v6 unvalidatedAdjacencyList];
         v8 = [v6 adjacencyList];
-        if (![v7 count] && objc_msgSend(v8, "count"))
+        if (![v7 count])
         {
-          v31 = _LTOSLogDisambiguation();
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+          v9 = [v8 count];
+          if (v9)
           {
-            __53___LTDisambiguableSentence__validateAndPopulateEdges__block_invoke_cold_1(v31);
-          }
+            v37 = _LTOSLogDisambiguation(v9, v10);
+            if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+            {
+              __53___LTDisambiguableSentence__validateAndPopulateEdges__block_invoke_cold_1(v37);
+            }
 
 LABEL_24:
-          goto LABEL_25;
+            goto LABEL_25;
+          }
         }
 
-        v43[0] = MEMORY[0x277D85DD0];
-        v43[1] = 3221225472;
-        v43[2] = __53___LTDisambiguableSentence__validateAndPopulateEdges__block_invoke_35;
-        v43[3] = &unk_278B6CBF8;
-        objc_copyWeak(&v44, (a1 + 48));
-        v9 = [v7 _ltCompactMap:v43];
-        v10 = [v9 count];
-        v11 = [v7 count];
-        if (v10 == v11)
+        v48[0] = MEMORY[0x277D85DD0];
+        v48[1] = 3221225472;
+        v48[2] = __53___LTDisambiguableSentence__validateAndPopulateEdges__block_invoke_35;
+        v48[3] = &unk_278B6CBF8;
+        objc_copyWeak(&v49, (a1 + 48));
+        v11 = [v7 _ltCompactMap:v48];
+        v12 = [v11 count];
+        v13 = [v7 count];
+        v15 = v13;
+        if (v12 == v13)
         {
-          v12 = MEMORY[0x277CCAE60];
-          v13 = [v6 sourceRange];
-          v15 = [v12 valueWithRange:{v13, v14}];
-          [v38 addObject:v15];
-
           v16 = MEMORY[0x277CCAE60];
-          v17 = [v6 targetRange];
+          v17 = [v6 sourceRange];
           v19 = [v16 valueWithRange:{v17, v18}];
-          [v37 addObject:v19];
+          [v43 addObject:v19];
 
-          v20 = [v6 _unvalidatedEdgeFromAdjacencyListMatchingTargetNodeIndex:a3];
-          v21 = [v20 targetGender];
-          v22 = [v20 defaultGender];
-          [v6 _validateWithAdjacencyList:v9 gender:v21 defaultGender:v22];
+          v20 = MEMORY[0x277CCAE60];
+          v21 = [v6 targetRange];
+          v23 = [v20 valueWithRange:{v21, v22}];
+          [v42 addObject:v23];
+
+          v24 = [v6 _unvalidatedEdgeFromAdjacencyListMatchingTargetNodeIndex:a3];
+          v25 = [v24 targetGender];
+          v26 = [v24 defaultGender];
+          [v6 _validateWithAdjacencyList:v11 gender:v25 defaultGender:v26];
         }
 
         else
         {
-          v23 = _LTOSLogDisambiguation();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+          v27 = _LTOSLogDisambiguation(v13, v14);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
           {
-            *buf = v33;
-            v50 = a3;
-            _os_log_error_impl(&dword_23AAF5000, v23, OS_LOG_TYPE_ERROR, "Failed to validate sentence; node %zu has some invalid edges", buf, 0xCu);
+            *buf = v38;
+            v55 = a3;
+            _os_log_error_impl(&dword_23AAF5000, v27, OS_LOG_TYPE_ERROR, "Failed to validate sentence; node %zu has some invalid edges", buf, 0xCu);
           }
 
           *(*(*(a1 + 40) + 8) + 24) = 0;
           *a4 = 1;
         }
 
-        objc_destroyWeak(&v44);
-        if (v10 != v11)
+        objc_destroyWeak(&v49);
+        if (v12 != v15)
         {
           goto LABEL_24;
         }
       }
 
-      v41 = [obj countByEnumeratingWithState:&v45 objects:v51 count:16];
-      if (v41)
+      v46 = [obj countByEnumeratingWithState:&v50 objects:v56 count:16];
+      if (v46)
       {
         continue;
       }
@@ -390,12 +394,13 @@ LABEL_24:
     }
   }
 
-  if (([*(a1 + 32) _hasOverlapInRangeArray:v38] & 1) != 0 || objc_msgSend(*(a1 + 32), "_hasOverlapInRangeArray:", v37))
+  v28 = [*(a1 + 32) _hasOverlapInRangeArray:v43];
+  if ((v28 & 1) != 0 || (v28 = [*(a1 + 32) _hasOverlapInRangeArray:v42], v28))
   {
-    v24 = _LTOSLogDisambiguation();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v30 = _LTOSLogDisambiguation(v28, v29);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
-      __53___LTDisambiguableSentence__validateAndPopulateEdges__block_invoke_cold_2(a3, v24, v25, v26, v27, v28, v29, v30);
+      __53___LTDisambiguableSentence__validateAndPopulateEdges__block_invoke_cold_2(a3, v30, v31, v32, v33, v34, v35, v36);
     }
 
     *(*(*(a1 + 40) + 8) + 24) = 0;
@@ -403,8 +408,6 @@ LABEL_24:
   }
 
 LABEL_25:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 id __53___LTDisambiguableSentence__validateAndPopulateEdges__block_invoke_35(uint64_t a1, void *a2)
@@ -440,9 +443,9 @@ uint64_t __52___LTDisambiguableSentence__hasOverlapInRangeArray___block_invoke(u
 
 void __53___LTDisambiguableSentence__validateAndPopulateEdges__block_invoke_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2(&dword_23AAF5000, a2, a3, "Failed to validate sentence; node %zu has some overlapping ranges", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2(&dword_23AAF5000, a2, a3, "Failed to validate sentence; node %zu has some overlapping ranges", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

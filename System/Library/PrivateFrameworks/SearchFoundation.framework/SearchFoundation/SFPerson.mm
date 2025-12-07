@@ -13,11 +13,11 @@
 
 - (SFPerson)initWithProtobuf:(id)protobuf
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v39.receiver = self;
-  v39.super_class = SFPerson;
-  v5 = [(SFPerson *)&v39 init];
+  v38.receiver = self;
+  v38.super_class = SFPerson;
+  v5 = [(SFPerson *)&v38 init];
   if (v5)
   {
     personIdentifier = [protobufCopy personIdentifier];
@@ -55,32 +55,32 @@
       v13 = 0;
     }
 
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     phoneNumbers2 = [protobufCopy phoneNumbers];
-    v15 = [phoneNumbers2 countByEnumeratingWithState:&v35 objects:v41 count:16];
+    v15 = [phoneNumbers2 countByEnumeratingWithState:&v34 objects:v40 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v36;
+      v17 = *v35;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v36 != v17)
+          if (*v35 != v17)
           {
             objc_enumerationMutation(phoneNumbers2);
           }
 
-          if (*(*(&v35 + 1) + 8 * i))
+          if (*(*(&v34 + 1) + 8 * i))
           {
             [v13 addObject:?];
           }
         }
 
-        v16 = [phoneNumbers2 countByEnumeratingWithState:&v35 objects:v41 count:16];
+        v16 = [phoneNumbers2 countByEnumeratingWithState:&v34 objects:v40 count:16];
       }
 
       while (v16);
@@ -98,32 +98,32 @@
       v20 = 0;
     }
 
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     emailAddresses2 = [protobufCopy emailAddresses];
-    v22 = [emailAddresses2 countByEnumeratingWithState:&v31 objects:v40 count:16];
+    v22 = [emailAddresses2 countByEnumeratingWithState:&v30 objects:v39 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v32;
+      v24 = *v31;
       do
       {
         for (j = 0; j != v23; ++j)
         {
-          if (*v32 != v24)
+          if (*v31 != v24)
           {
             objc_enumerationMutation(emailAddresses2);
           }
 
-          if (*(*(&v31 + 1) + 8 * j))
+          if (*(*(&v30 + 1) + 8 * j))
           {
             [v20 addObject:?];
           }
         }
 
-        v23 = [emailAddresses2 countByEnumeratingWithState:&v31 objects:v40 count:16];
+        v23 = [emailAddresses2 countByEnumeratingWithState:&v30 objects:v39 count:16];
       }
 
       while (v23);
@@ -141,7 +141,6 @@
     v28 = v5;
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

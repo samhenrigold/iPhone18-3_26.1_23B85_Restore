@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)predictedContextSourceAsString:(int)string;
 - (int)StringAsPredictedContextSource:(id)source;
 - (int)predictedContextSource;
 - (unint64_t)hash;
@@ -102,6 +103,21 @@
   {
     return 0;
   }
+}
+
+- (id)predictedContextSourceAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E83B8608[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsPredictedContextSource:(id)source
@@ -413,7 +429,6 @@
     goto LABEL_21;
   }
 
-  v5 = *(equalCopy + 72);
   if (*&self->_has)
   {
     if ((*(equalCopy + 72) & 1) == 0 || self->_predictedContextSource != *(equalCopy + 14))
@@ -425,7 +440,7 @@
   else if (*(equalCopy + 72))
   {
 LABEL_21:
-    v13 = 0;
+    v12 = 0;
     goto LABEL_22;
   }
 
@@ -483,17 +498,17 @@ LABEL_21:
   propagatedLocation = self->_propagatedLocation;
   if (propagatedLocation | *(equalCopy + 8))
   {
-    v13 = [(PCPLocationWithTimestamp *)propagatedLocation isEqual:?];
+    v12 = [(PCPLocationWithTimestamp *)propagatedLocation isEqual:?];
   }
 
   else
   {
-    v13 = 1;
+    v12 = 1;
   }
 
 LABEL_22:
 
-  return v13;
+  return v12;
 }
 
 - (unint64_t)hash

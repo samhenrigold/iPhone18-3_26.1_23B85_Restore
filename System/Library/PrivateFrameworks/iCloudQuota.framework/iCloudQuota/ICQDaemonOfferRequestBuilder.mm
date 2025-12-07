@@ -30,7 +30,7 @@
 
 - (id)requestWithQuotaKey:(id)key reason:(id)reason offerStub:(id)stub notificationID:(id)d contextDictionary:(id)dictionary mlDaemonExtraFields:(id)fields sourceIsServerSample:(BOOL)sample
 {
-  v90 = *MEMORY[0x277D85DE8];
+  v89 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   stubCopy = stub;
   dCopy = d;
@@ -49,36 +49,36 @@
   v24 = v23;
   if (v23)
   {
-    v82 = v23;
-    v83 = fieldsCopy;
+    v81 = v23;
+    v82 = fieldsCopy;
     v25 = [MEMORY[0x277CCAB70] requestWithURL:v23 cachePolicy:1 timeoutInterval:30.0];
     requestProvider = self->_requestProvider;
     offerId = [stubCopy offerId];
     LODWORD(requestProvider) = [(ICQRequestProvider *)requestProvider willUseNewKey:v20 offerID:offerId notificationID:dCopy];
 
-    v81 = v21;
+    v80 = v21;
     if (!requestProvider)
     {
-      v84[0] = @"event";
-      v84[1] = @"ck_hw_id";
-      v85[0] = @"quota_alert";
-      v85[1] = @"ALL";
-      v84[2] = @"dsid";
+      v83[0] = @"event";
+      v83[1] = @"ck_hw_id";
+      v84[0] = @"quota_alert";
+      v84[1] = @"ALL";
+      v83[2] = @"dsid";
       aa_personID = [(ACAccount *)self->_account aa_personID];
-      v85[2] = aa_personID;
-      v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v85 forKeys:v84 count:3];
+      v84[2] = aa_personID;
+      v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v84 forKeys:v83 count:3];
       v36 = [v35 mutableCopy];
 
       [v36 setObject:reasonCopy forKeyedSubscript:@"reason"];
       if (stubCopy)
       {
         [ICQRequestProvider addEntriesToPostDictionary:v36 forStub:stubCopy];
-        v37 = v83;
+        v37 = v82;
       }
 
       else
       {
-        v37 = v83;
+        v37 = v82;
         if ([(__CFString *)v20 isEqualToString:@"quotaFetchOffersURL"])
         {
           if (sample)
@@ -126,11 +126,11 @@
         if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v87 = v83;
+          v86 = v82;
           _os_log_impl(&dword_275572000, v60, OS_LOG_TYPE_DEFAULT, "[SUBD] Setting extra request fields [%@].", buf, 0xCu);
         }
 
-        [v36 addEntriesFromDictionary:v83];
+        [v36 addEntriesFromDictionary:v82];
       }
 
       v61 = [v36 copy];
@@ -138,7 +138,7 @@
       if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v87 = v61;
+        v86 = v61;
         _os_log_impl(&dword_275572000, v62, OS_LOG_TYPE_DEFAULT, "fetchOffer(s) with postDict %@", buf, 0xCu);
       }
 
@@ -147,17 +147,17 @@
       {
         v33 = 0;
 LABEL_76:
-        fieldsCopy = v83;
+        fieldsCopy = v82;
 
-        v24 = v82;
+        v24 = v81;
         goto LABEL_77;
       }
 
-      v80 = dictionaryCopy;
+      v79 = dictionaryCopy;
 LABEL_67:
       v64 = reasonCopy;
       [(ICQDaemonOfferRequestBuilder *)self addPremiumOffersHeaderIfNeededForRequest:v25];
-      if (v81)
+      if (v80)
       {
         [v25 setValue:@"true" forHTTPHeaderField:@"X-Apple-Storage-Include-BuddyOffer"];
       }
@@ -190,12 +190,12 @@ LABEL_67:
       v33 = [v25 copy];
 
       reasonCopy = v64;
-      dictionaryCopy = v80;
+      dictionaryCopy = v79;
       goto LABEL_76;
     }
 
-    v77 = dCopy;
-    v80 = dictionaryCopy;
+    v76 = dCopy;
+    v79 = dictionaryCopy;
     conditionsWhenChosen = [stubCopy conditionsWhenChosen];
 
     if (conditionsWhenChosen)
@@ -235,7 +235,7 @@ LABEL_67:
     }
 
     v41 = v40;
-    v78 = v41;
+    v77 = v41;
     if (v20 == @"quotaFetchOffersURL")
     {
       v42 = v41;
@@ -299,11 +299,11 @@ LABEL_47:
       v49 = [v47 componentsWithURL:v48 resolvingAgainstBaseURL:1];
 
       v50 = [MEMORY[0x277CCAD18] queryItemWithName:@"photos-icp" value:v39];
-      [MEMORY[0x277CCAD18] queryItemWithName:@"photos-optimize" value:v78];
-      v79 = v50;
-      v89 = v88 = v50;
-      v76 = v89;
-      v51 = [MEMORY[0x277CBEA60] arrayWithObjects:&v88 count:2];
+      [MEMORY[0x277CCAD18] queryItemWithName:@"photos-optimize" value:v77];
+      v78 = v50;
+      v88 = v87 = v50;
+      v75 = v88;
+      v51 = [MEMORY[0x277CBEA60] arrayWithObjects:&v87 count:2];
       [v49 setQueryItems:v51];
 
       v52 = MEMORY[0x277CCAB70];
@@ -312,18 +312,18 @@ LABEL_47:
 
       v25 = v54;
       [v54 setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-      dCopy = v77;
-      if (v83 && [v83 count])
+      dCopy = v76;
+      if (v82 && [v82 count])
       {
         v55 = _ICQGetLogSystem();
         if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v87 = v83;
+          v86 = v82;
           _os_log_impl(&dword_275572000, v55, OS_LOG_TYPE_DEFAULT, "[SUBD] Setting extra request fields [%@].", buf, 0xCu);
         }
 
-        v36 = [v83 mutableCopy];
+        v36 = [v82 mutableCopy];
       }
 
       else
@@ -360,8 +360,6 @@ LABEL_47:
   v33 = 0;
 LABEL_77:
 
-  v74 = *MEMORY[0x277D85DE8];
-
   return v33;
 }
 
@@ -381,12 +379,13 @@ LABEL_77:
   [requestCopy icq_renewAuthorizationHeadersForAccount:account store:accountStore completion:v12];
 }
 
-uint64_t __70__ICQDaemonOfferRequestBuilder_renewAuthHeadersForRequest_completion___block_invoke(uint64_t a1, char a2)
+uint64_t __70__ICQDaemonOfferRequestBuilder_renewAuthHeadersForRequest_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = _ICQGetLogSystem();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    __70__ICQDaemonOfferRequestBuilder_renewAuthHeadersForRequest_completion___block_invoke_cold_1(a2, v4);
+    __70__ICQDaemonOfferRequestBuilder_renewAuthHeadersForRequest_completion___block_invoke_cold_1(v2, v4);
   }
 
   return (*(*(a1 + 32) + 16))();
@@ -429,11 +428,10 @@ void __73__ICQDaemonOfferRequestBuilder_addPremiumOffersHeaderIfNeededForRequest
 
 void __70__ICQDaemonOfferRequestBuilder_renewAuthHeadersForRequest_completion___block_invoke_cold_1(char a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1 & 1;
-  _os_log_debug_impl(&dword_275572000, a2, OS_LOG_TYPE_DEBUG, "ICQDaemonOfferRequestBuilder renewAuthHeadersForRequest validation completed with success: %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1 & 1;
+  _os_log_debug_impl(&dword_275572000, a2, OS_LOG_TYPE_DEBUG, "ICQDaemonOfferRequestBuilder renewAuthHeadersForRequest validation completed with success: %d", v2, 8u);
 }
 
 @end

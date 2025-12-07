@@ -3,6 +3,7 @@
 + (OS_dispatch_workloop)snapshotWorkloop;
 + (id)concurrentQueueTargetingWorkloop:(id)workloop label:(id)label withQoS:(unsigned int)s;
 + (id)serialQueueTargetingSharedWorkloop:(id)workloop;
++ (id)serialQueueTargetingSharedWorkloop:(id)workloop withQoS:(unsigned int)s;
 + (id)serialQueueTargetingWorkloop:(id)workloop label:(id)label withQoS:(unsigned int)s;
 @end
 
@@ -66,6 +67,16 @@ void __30__PFWorkloop_snapshotWorkloop__block_invoke()
   v6 = dispatch_queue_create_with_target_V2(uTF8String, v4, v5);
 
   return v6;
+}
+
++ (id)serialQueueTargetingSharedWorkloop:(id)workloop withQoS:(unsigned int)s
+{
+  v4 = *&s;
+  workloopCopy = workloop;
+  v7 = +[PFWorkloop sharedWorkloop];
+  v8 = [self serialQueueTargetingWorkloop:v7 label:workloopCopy withQoS:v4];
+
+  return v8;
 }
 
 + (id)serialQueueTargetingWorkloop:(id)workloop label:(id)label withQoS:(unsigned int)s

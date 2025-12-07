@@ -69,7 +69,7 @@
 + (BOOL)isFromPreferencesFramework
 {
   v2 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v3 = PSPreferencesFrameworkBundle();
+  v3 = PSPreferencesFrameworkBundle(v2);
   v4 = [v2 isEqual:v3];
 
   return v4;
@@ -204,18 +204,19 @@ void __45__PSTableCell_traitsThatImpactImageRendering__block_invoke()
 
 - (id)blankIcon
 {
-  if ([(PSTableCell *)self iconShape]== 4)
+  iconShape = [(PSTableCell *)self iconShape];
+  if (iconShape == 4)
   {
-    PSBlankMessageAppIconImage();
+    PSBlankMessageAppIconImage(4);
   }
 
   else
   {
-    PSBlankIconImage();
+    PSBlankIconImage(iconShape);
   }
-  v2 = ;
+  v3 = ;
 
-  return v2;
+  return v3;
 }
 
 - (PSSpecifier)specifier
@@ -285,7 +286,7 @@ void __45__PSTableCell_traitsThatImpactImageRendering__block_invoke()
   }
 
   v6 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v7 = PSPreferencesFrameworkBundle();
+  v7 = PSPreferencesFrameworkBundle(v6);
   if ([v6 isEqual:v7])
   {
     v8 = 1;
@@ -310,7 +311,7 @@ void __45__PSTableCell_traitsThatImpactImageRendering__block_invoke()
     v15 = layer;
     if (layer)
     {
-      [layer cornerRadii];
+      objc_msgSend_cornerRadii(layer);
     }
 
     else
@@ -859,7 +860,7 @@ LABEL_80:
 
 + (int64_t)cellTypeFromString:(id)string
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   if ([stringCopy length] < 3)
   {
@@ -973,18 +974,19 @@ LABEL_80:
   if (v6 != 84)
   {
 LABEL_21:
-    if ([stringCopy isEqualToString:@"PSButtonCell"])
+    v7 = [stringCopy isEqualToString:@"PSButtonCell"];
+    if (v7)
     {
       v4 = 13;
       goto LABEL_3;
     }
 
-    v7 = _PSLoggingFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _PSLoggingFacility(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = stringCopy;
-      _os_log_impl(&dword_18B008000, v7, OS_LOG_TYPE_DEFAULT, "CellType String (%@) Fell Back to PSDefaultCell", &v8, 0xCu);
+      v9 = 138412290;
+      v10 = stringCopy;
+      _os_log_impl(&dword_18B008000, v8, OS_LOG_TYPE_DEFAULT, "CellType String (%@) Fell Back to PSDefaultCell", &v9, 0xCu);
     }
 
     goto LABEL_2;
@@ -1380,7 +1382,7 @@ LABEL_19:
 
 - (void)loadISIconFromSpecifier:(id)specifier
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   specifierCopy = specifier;
   objc_opt_class();
   lazyIconUTTypeIdentifier = [(PSTableCell *)self lazyIconUTTypeIdentifier];
@@ -1406,18 +1408,18 @@ LABEL_19:
   imageDescriptor = [(PSTableCell *)self imageDescriptor];
   v11 = [v7 imageForDescriptor:imageDescriptor];
 
-  if (v7 && ([v11 placeholder] & 1) == 0)
+  if (v7 && (v12 = [v11 placeholder], (v12 & 1) == 0))
   {
-    v22 = _PSLoggingFacility();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v23 = _PSLoggingFacility(v12);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       specifier = [(PSTableCell *)self specifier];
       identifier = [specifier identifier];
       *buf = 136315394;
-      v44 = "[PSTableCell loadISIconFromSpecifier:]";
-      v45 = 2112;
-      v46 = identifier;
-      _os_log_impl(&dword_18B008000, v22, OS_LOG_TYPE_DEFAULT, "%s: found fast icon for %@", buf, 0x16u);
+      v45 = "[PSTableCell loadISIconFromSpecifier:]";
+      v46 = 2112;
+      v47 = identifier;
+      _os_log_impl(&dword_18B008000, v23, OS_LOG_TYPE_DEFAULT, "%s: found fast icon for %@", buf, 0x16u);
     }
 
     getLazyIconID = [(PSTableCell *)self getLazyIconID];
@@ -1431,12 +1433,12 @@ LABEL_19:
         goto LABEL_14;
       }
 
-      v27 = MEMORY[0x1E69DCAB8];
+      v28 = MEMORY[0x1E69DCAB8];
       cGImage = [v11 CGImage];
       [v11 scale];
-      getLazyIconID2 = [v27 imageWithCGImage:cGImage scale:0 orientation:?];
+      getLazyIconID2 = [v28 imageWithCGImage:cGImage scale:0 orientation:?];
       getLazyIconID3 = [(PSTableCell *)self getLazyIconID];
-      v30 = getLazyIconID3;
+      v31 = getLazyIconID3;
       if (getLazyIconID3 == getLazyIconID)
       {
         specifier3 = [(PSTableCell *)self specifier];
@@ -1467,31 +1469,31 @@ LABEL_19:
     getLazyIconID = [(PSTableCell *)self getLazyIconID];
     if (getLazyIconID)
     {
-      v14 = [(PSTableCell *)self lazyIconQueue:specifierCopy];
+      v15 = [(PSTableCell *)self lazyIconQueue:specifierCopy];
       aBlock[0] = MEMORY[0x1E69E9820];
       aBlock[1] = 3221225472;
       aBlock[2] = __39__PSTableCell_loadISIconFromSpecifier___block_invoke;
       aBlock[3] = &unk_1E71DC570;
       aBlock[4] = self;
-      v15 = getLazyIconID;
-      v42 = v15;
-      v16 = _Block_copy(aBlock);
-      v17 = MEMORY[0x1E696AAE0];
-      v33 = MEMORY[0x1E69E9820];
-      v34 = 3221225472;
-      v35 = __39__PSTableCell_loadISIconFromSpecifier___block_invoke_3;
-      v36 = &unk_1E71DCB90;
+      v16 = getLazyIconID;
+      v43 = v16;
+      v17 = _Block_copy(aBlock);
+      v18 = MEMORY[0x1E696AAE0];
+      v34 = MEMORY[0x1E69E9820];
+      v35 = 3221225472;
+      v36 = __39__PSTableCell_loadISIconFromSpecifier___block_invoke_3;
+      v37 = &unk_1E71DCB90;
       selfCopy = self;
-      getLazyIconID = v15;
-      v38 = getLazyIconID;
-      v40 = v16;
-      v18 = specifierCopy;
-      v39 = v18;
-      v19 = v16;
-      v20 = [v17 blockOperationWithBlock:&v33];
-      [v20 setQualityOfService:{25, v33, v34, v35, v36, selfCopy}];
-      v21 = [(PSTableCell *)self lazyIconQueue:v18];
-      [v21 addOperation:v20];
+      getLazyIconID = v16;
+      v39 = getLazyIconID;
+      v41 = v17;
+      v19 = specifierCopy;
+      v40 = v19;
+      v20 = v17;
+      v21 = [v18 blockOperationWithBlock:&v34];
+      [v21 setQualityOfService:{25, v34, v35, v36, v37, selfCopy}];
+      v22 = [(PSTableCell *)self lazyIconQueue:v19];
+      [v22 addOperation:v21];
     }
   }
 
@@ -2011,8 +2013,7 @@ LABEL_84:
 
   if (![specifierCopy controllerLoadAction] && (CFPreferencesGetAppBooleanValue(@"kDontUseOldAction", @"com.apple.Preferences", 0) || !objc_msgSend(specifierCopy, "legacyAction")) && !*(specifierCopy + 3) && !*(specifierCopy + 8) && !v80 && !*(specifierCopy + 6) && (v17 & 0xFFFFFFFFFFFFFFFDLL) != 0xD && v17 - 5 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    [(PSTableCell *)self setCellEnabled:0];
-    v100 = _PSLoggingFacility();
+    v100 = _PSLoggingFacility([(PSTableCell *)self setCellEnabled:0]);
     if (os_log_type_enabled(v100, OS_LOG_TYPE_DEFAULT))
     {
       WeakRetained = objc_loadWeakRetained(&self->_specifier);
@@ -2526,12 +2527,12 @@ intptr_t __26__PSTableCell_getLazyIcon__block_invoke(uint64_t a1, uint64_t a2, u
   if (shape == 4)
   {
 
-    v5 = PSSizeForMessagesIcon();
+    v5 = PSSizeForMessagesIcon(self, a2);
   }
 
   else
   {
-    v7 = PSBlankIconImage();
+    v7 = PSBlankIconImage(self);
     [v7 size];
     v9 = v8;
     v11 = v10;

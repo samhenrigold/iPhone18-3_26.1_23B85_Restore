@@ -137,9 +137,9 @@ void __58___UIVisualEffectVibrantLayerConfig_deconfigureLayerView___block_invoke
 
         v10 = *(*(&v13 + 1) + 8 * i);
         v11 = [v10 type];
-        v12 = [v11 isEqualToString:*(a1 + 40)];
+        isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-        if (v12)
+        if (isEqualToString)
         {
           [v4 removeObject:v10];
         }

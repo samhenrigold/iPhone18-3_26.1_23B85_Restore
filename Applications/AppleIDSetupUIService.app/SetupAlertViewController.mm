@@ -17,7 +17,7 @@
 - (_TtC21AppleIDSetupUIService24SetupAlertViewController)init
 {
   ObjectType = swift_getObjectType();
-  type metadata accessor for PresentationRequest();
+  type metadata accessor for PresentationRequest(0);
   swift_storeEnumTagMultiPayload();
   *&self->super.SBUIRemoteAlertServiceViewController_opaque[OBJC_IVAR____TtC21AppleIDSetupUIService24SetupAlertViewController_rootViewController] = 0;
   v5.receiver = self;
@@ -27,7 +27,7 @@
 
 - (_TtC21AppleIDSetupUIService24SetupAlertViewController)initWithCoder:(id)coder
 {
-  type metadata accessor for PresentationRequest();
+  type metadata accessor for PresentationRequest(0);
   swift_storeEnumTagMultiPayload();
   *&self->super.SBUIRemoteAlertServiceViewController_opaque[OBJC_IVAR____TtC21AppleIDSetupUIService24SetupAlertViewController_rootViewController] = 0;
   result = _assertionFailure(_:_:file:line:flags:)();
@@ -53,7 +53,7 @@
   contextCopy = context;
   selfCopy = self;
   sub_100001E70(context, v6, v7);
-  sub_10000651C(v6);
+  sub_10000651C(v6, v7);
 }
 
 - (void)prepareForActivationWithContext:(id)context completion:(id)completion
@@ -74,7 +74,7 @@
   contextCopy = context;
   selfCopy = self;
   sub_100002F20(context, v6, v7);
-  sub_10000651C(v6);
+  sub_10000651C(v6, v7);
 }
 
 - (void)viewDidLoad
@@ -87,19 +87,19 @@
 - (void)viewWillAppear:(BOOL)appear
 {
   selfCopy = self;
-  sub_100004570(appear);
+  sub_100004570(appear, selfCopy);
 }
 
 - (void)viewDidAppear:(BOOL)appear
 {
   selfCopy = self;
-  sub_1000048B8(appear);
+  sub_1000048B8(appear, selfCopy);
 }
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
   selfCopy = self;
-  sub_100004C88(disappear);
+  sub_100004C88(disappear, selfCopy);
 }
 
 - (void)dismissViewControllerAnimated:(BOOL)animated completion:(id)completion
@@ -107,13 +107,19 @@
   v6 = _Block_copy(completion);
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
     v6 = sub_100006564;
   }
 
+  else
+  {
+    v7 = 0;
+  }
+
   selfCopy = self;
-  sub_1000062B0(animated);
-  sub_10000651C(v6);
+  sub_1000062B0(animated, selfCopy);
+  sub_10000651C(v6, v7);
 }
 
 - (void)handleButtonActions:(id)actions

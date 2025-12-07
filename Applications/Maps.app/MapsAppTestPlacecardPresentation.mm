@@ -8,8 +8,8 @@
 
 - (void)startPlaceViewControllerPresentationTest
 {
-  options = [(MapsAppTest *)self options];
-  _mapstest_location = [options _mapstest_location];
+  v3 = objc_msgSend_options(self, a2);
+  _mapstest_location = [v3 _mapstest_location];
 
   v4 = [[MKMapItem alloc] initWithCLLocation:_mapstest_location];
   v5 = [[SearchResult alloc] initWithMapItem:v4];

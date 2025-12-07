@@ -12,16 +12,16 @@ id CPLDaemonProcessInterface()
   return v0;
 }
 
-id sub_100001C9C()
+id sub_100001C9C(uint64_t a1)
 {
   if (qword_100040B90 != -1)
   {
     sub_10001D5C8();
   }
 
-  v1 = qword_100040B98;
+  v2 = qword_100040B98;
 
-  return v1;
+  return v2;
 }
 
 void sub_100001DBC(id a1)
@@ -104,11 +104,12 @@ void sub_100002E80(id a1)
   _objc_release_x1();
 }
 
-void sub_1000033CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_1000033CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  _Block_object_dispose(&a31, 8);
-  _Block_object_dispose((v31 - 176), 8);
-  _Block_object_dispose((v31 - 128), 8);
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v30 - 176), 8);
+  _Block_object_dispose((v30 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -145,9 +146,9 @@ void sub_100003498(uint64_t a1, void *a2, void *a3)
   }
 }
 
-intptr_t sub_100003548(intptr_t result)
+void *sub_100003548(void *result)
 {
-  if ((*(*(*(result + 40) + 8) + 24) & 1) == 0)
+  if ((*(*(result[5] + 8) + 24) & 1) == 0)
   {
     v2 = result;
     v3 = [CPLErrors cplErrorWithCode:83 description:@"failed to get management service in time"];
@@ -199,16 +200,14 @@ uint64_t sub_10000422C(uint64_t a1)
     v7 = +[NSDate distantFuture];
   }
 
-  v8 = *(a1 + 32);
-  v9 = *(v8 + 64);
-  *(v8 + 64) = v7;
+  *(*(a1 + 32) + 64) = v7;
 
   return _objc_release_x1();
 }
 
-void sub_100004408(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100004408(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -220,16 +219,16 @@ uint64_t sub_100004444(uint64_t result, uint64_t a2)
   return result;
 }
 
-id sub_100004E20()
+id sub_100004E20(uint64_t a1)
 {
   if (qword_100040BA8 != -1)
   {
     sub_10001E008();
   }
 
-  v1 = qword_100040BB0;
+  v2 = qword_100040BB0;
 
-  return v1;
+  return v2;
 }
 
 id sub_100004E64(uint64_t a1)
@@ -342,16 +341,18 @@ void sub_100005438(id a1)
   _objc_release_x1();
 }
 
-void sub_100005478(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100005478(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_100005498(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100005498(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 BOOL sub_1000054C4(NSObject *a1)
@@ -444,16 +445,16 @@ void sub_10000A05C(uint64_t a1, void *a2)
   }
 }
 
-id sub_10000A0FC()
+id sub_10000A0FC(uint64_t a1)
 {
   if (qword_100040C00 != -1)
   {
     sub_10001E888();
   }
 
-  v1 = qword_100040C08;
+  v2 = qword_100040C08;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000AB44(_Unwind_Exception *a1)
@@ -576,10 +577,7 @@ uint64_t sub_10000AF40(uint64_t a1)
 
 uint64_t sub_10000AFBC(uint64_t a1)
 {
-  v2 = [CPLErrors cplErrorWithCode:83 description:@"too too long"];
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 32) + 8) + 40) = [CPLErrors cplErrorWithCode:83 description:@"too too long"];
 
   return _objc_release_x1();
 }
@@ -611,11 +609,12 @@ void sub_10000B0F0(uint64_t a1)
   objc_storeStrong(v3, v2);
 }
 
-void sub_10000B548(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_10000B548(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  _Block_object_dispose(&a33, 8);
-  _Block_object_dispose((v33 - 192), 8);
-  _Block_object_dispose((v33 - 144), 8);
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v32 - 192), 8);
+  _Block_object_dispose((v32 - 144), 8);
   _Unwind_Resume(a1);
 }
 
@@ -710,24 +709,21 @@ uint64_t sub_10000C2E4(uint64_t a1)
     sub_10001E9FC();
   }
 
-  v2 = [*(a1 + 40) copy];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 32);
-  *(v3 + 32) = v2;
+  *(*(a1 + 32) + 32) = [*(a1 + 40) copy];
 
   return _objc_release_x1();
 }
 
-void sub_10000C3F0(uint64_t a1)
+void sub_10000C3F0(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  v3 = *(v2 + 32);
-  if (!v3)
+  v3 = *(a1 + 32);
+  v4 = *(v3 + 32);
+  if (!v4)
   {
     sub_10001EA28();
   }
 
-  *(v2 + 32) = 0;
+  *(v3 + 32) = 0;
 }
 
 uint64_t sub_10000C494(uint64_t a1)
@@ -749,10 +745,11 @@ void sub_10000C964(id a1)
   _objc_release_x1();
 }
 
-void sub_10000C9A4(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void sub_10000C9A4(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
 
-  _os_log_impl(a1, v11, OS_LOG_TYPE_ERROR, a4, &buf, 0x16u);
+  _os_log_impl(a1, v10, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void sub_100011D84(id a1)
@@ -1236,7 +1233,7 @@ void sub_10001666C(uint64_t a1, void *a2, void *a3)
 void sub_100017174(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a65, 8);
-  _Block_object_dispose(&a71, 8);
+  _Block_object_dispose(&a66, 8);
   _Block_object_dispose(&STACK[0x210], 8);
   _Unwind_Resume(a1);
 }
@@ -1491,16 +1488,16 @@ void sub_100017944(id *a1)
   }
 }
 
-void sub_100017E70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_100017E70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va1, a10);
-  va_start(va, a10);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a17);
+  va_start(va, a17);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -1659,47 +1656,8 @@ id sub_1000196EC(uint64_t a1)
   v2 = *(a1 + 32);
   if (*(v2 + 473) == 1)
   {
-    if (*(v2 + 451))
+    if (*(v2 + 451) & 1) != 0 || (v28[0] = *(v2 + 496), v28[1] = @"listcloudphotoguids", +[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", v28, 2), v3 = objc_claimAutoreleasedReturnValue(), [v2 collectOutputOfCommandAndArguments:v3 label:@"Getting local photo cloudGUIDs" filename:@"local_photo_cloud_guids.txt" outputIsStderr:0 timeout:*(*(a1 + 32) + 448)], v3, v4 = *(a1 + 32), v27[0] = v4[62], v27[1] = @"librarysummary", +[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", v27, 2), v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "collectOutputOfCommandAndArguments:label:filename:outputIsStderr:timeout:", v5, @"Getting local library summary", @"local_asset_counts.txt", 0, *(*(a1 + 32) + 448)), v5, v6 = *(a1 + 32), v26[0] = v6[62], v26[1] = @"resource", v26[2] = @"status", +[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", v26, 3), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "collectOutputOfCommandAndArguments:label:filename:outputIsStderr:timeout:", v7, @"Getting resource model summary", @"resource_model_status.txt", 0, *(*(a1 + 32) + 448)), v7, v8 = *(a1 + 32), v25[0] = v8[62], v25[1] = @"printmoments", +[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", v25, 2), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "collectOutputOfCommandAndArguments:label:filename:outputIsStderr:timeout:", v9, @"Getting Moments info", @"moments.txt", 0, *(*(a1 + 32) + 448)), v9, v10 = *(a1 + 32), v24[0] = v10[62], v24[1] = @"graph", v24[2] = @"statistics", v24[3] = @"contactsuggestions", +[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", v24, 4), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "collectOutputOfCommandAndArguments:label:filename:outputIsStderr:timeout:", v11, @"Getting people contact suggestions diagnosis", @"people_contact_suggestions_diagnosis.log", 0, *(*(a1 + 32) + 448)), v11, v2 = *(a1 + 32), (*(v2 + 473)))
     {
-      goto LABEL_4;
-    }
-
-    v28[0] = *(v2 + 496);
-    v28[1] = @"listcloudphotoguids";
-    v3 = [NSArray arrayWithObjects:v28 count:2];
-    [v2 collectOutputOfCommandAndArguments:v3 label:@"Getting local photo cloudGUIDs" filename:@"local_photo_cloud_guids.txt" outputIsStderr:0 timeout:*(*(a1 + 32) + 448)];
-
-    v4 = *(a1 + 32);
-    v27[0] = v4[62];
-    v27[1] = @"librarysummary";
-    v5 = [NSArray arrayWithObjects:v27 count:2];
-    [v4 collectOutputOfCommandAndArguments:v5 label:@"Getting local library summary" filename:@"local_asset_counts.txt" outputIsStderr:0 timeout:*(*(a1 + 32) + 448)];
-
-    v6 = *(a1 + 32);
-    v26[0] = v6[62];
-    v26[1] = @"resource";
-    v26[2] = @"status";
-    v7 = [NSArray arrayWithObjects:v26 count:3];
-    [v6 collectOutputOfCommandAndArguments:v7 label:@"Getting resource model summary" filename:@"resource_model_status.txt" outputIsStderr:0 timeout:*(*(a1 + 32) + 448)];
-
-    v8 = *(a1 + 32);
-    v25[0] = v8[62];
-    v25[1] = @"printmoments";
-    v9 = [NSArray arrayWithObjects:v25 count:2];
-    [v8 collectOutputOfCommandAndArguments:v9 label:@"Getting Moments info" filename:@"moments.txt" outputIsStderr:0 timeout:*(*(a1 + 32) + 448)];
-
-    v10 = *(a1 + 32);
-    v24[0] = v10[62];
-    v24[1] = @"graph";
-    v24[2] = @"statistics";
-    v24[3] = @"contactsuggestions";
-    v11 = [NSArray arrayWithObjects:v24 count:4];
-    [v10 collectOutputOfCommandAndArguments:v11 label:@"Getting people contact suggestions diagnosis" filename:@"people_contact_suggestions_diagnosis.log" outputIsStderr:0 timeout:*(*(a1 + 32) + 448)];
-
-    v2 = *(a1 + 32);
-    if (*(v2 + 473))
-    {
-LABEL_4:
       v23[0] = *(v2 + 496);
       v23[1] = @"triage-log";
       v23[2] = @"json-pretty";
@@ -1755,18 +1713,18 @@ void *CPLDiagnoseRecursiveFileListing()
   v2 = v1;
   v4 = v3;
   v6 = v5;
-  v130 = v7;
+  v127 = v7;
   v9 = v8;
   v10 = v0;
   v11 = v9;
   v12 = v11;
   if (v4)
   {
-    v138 = v4 + 2;
-    v131 = v4 + 5;
-    v132 = v4 + 1;
-    v124 = v4 + 3;
-    v125 = v4 + 4;
+    v135 = v4 + 2;
+    v128 = v4 + 5;
+    v129 = v4 + 1;
+    v121 = v4 + 3;
+    v122 = v4 + 4;
     if (!v6)
     {
       goto LABEL_4;
@@ -1775,18 +1733,18 @@ void *CPLDiagnoseRecursiveFileListing()
     goto LABEL_3;
   }
 
-  v143 = 0;
-  v144 = 0;
-  v141 = 0;
-  v142 = 0;
-  v4 = &v144;
-  v125 = &v140;
-  v124 = &v141;
-  v139 = 0;
   v140 = 0;
-  v131 = &v139;
-  v138 = &v142;
-  v132 = &v143;
+  v141 = 0;
+  v138 = 0;
+  v139 = 0;
+  v4 = &v141;
+  v122 = &v137;
+  v121 = &v138;
+  v136 = 0;
+  v137 = 0;
+  v128 = &v136;
+  v135 = &v139;
+  v129 = &v140;
   if (v6)
   {
 LABEL_3:
@@ -1794,22 +1752,22 @@ LABEL_3:
   }
 
 LABEL_4:
-  v120 = v6;
+  v117 = v6;
   v13 = fopen([v11 fileSystemRepresentation], "wx");
   if (v13)
   {
     v14 = v13;
-    v121 = malloc_type_malloc(0x100000uLL, 0x7B6407BFuLL);
-    setvbuf(v14, v121, 0, 0x100000uLL);
-    v151[0] = [v10 fileSystemRepresentation];
-    v151[1] = 0;
-    v15 = fts_open_b(v151, 81, &stru_1000352F0);
-    v122 = v15 != 0;
+    v118 = malloc_type_malloc(0x100000uLL, 0x7B6407BFuLL);
+    setvbuf(v14, v118, 0, 0x100000uLL);
+    v148[0] = [v10 fileSystemRepresentation];
+    v148[1] = 0;
+    v15 = fts_open_b(v148, 81, &stru_1000352F0);
+    v119 = v15 != 0;
     if (v15)
     {
       v16 = v15;
-      v118 = v12;
-      v119 = v10;
+      v115 = v12;
+      v116 = v10;
       fwrite("mode link_count inode purgeable_flags uid gid file_size modification_date filename\n\n", 0x54uLL, 1uLL, v14);
       v17 = fts_read(v16);
       if (!v17)
@@ -1820,8 +1778,8 @@ LABEL_4:
       v18 = v17;
       v19 = 0uLL;
       v20 = 1;
-      v123 = v16;
-      v126 = v4;
+      v120 = v16;
+      v123 = v4;
       while (1)
       {
         fts_info = v18->fts_info;
@@ -1847,54 +1805,54 @@ LABEL_4:
         }
 
         fts_path = v18->fts_path;
-        *&v154.f_mntonname[392] = v19;
-        *&v154.f_mntonname[408] = v19;
-        *&v154.f_mntonname[360] = v19;
-        *&v154.f_mntonname[376] = v19;
-        *&v154.f_mntonname[328] = v19;
-        *&v154.f_mntonname[344] = v19;
-        *&v154.f_mntonname[296] = v19;
-        *&v154.f_mntonname[312] = v19;
-        *&v154.f_mntonname[264] = v19;
-        *&v154.f_mntonname[280] = v19;
-        *&v154.f_mntonname[232] = v19;
-        *&v154.f_mntonname[248] = v19;
-        *&v154.f_mntonname[200] = v19;
-        *&v154.f_mntonname[216] = v19;
-        *&v154.f_mntonname[168] = v19;
-        *&v154.f_mntonname[184] = v19;
-        *&v154.f_mntonname[136] = v19;
-        *&v154.f_mntonname[152] = v19;
-        *&v154.f_mntonname[104] = v19;
-        *&v154.f_mntonname[120] = v19;
-        *&v154.f_mntonname[72] = v19;
-        *&v154.f_mntonname[88] = v19;
-        *&v154.f_mntonname[40] = v19;
-        *&v154.f_mntonname[56] = v19;
-        *&v154.f_mntonname[8] = v19;
-        *&v154.f_mntonname[24] = v19;
-        *&v154.f_flags = v19;
-        *&v154.f_fstypename[8] = v19;
-        *&v154.f_files = v19;
-        *v154.f_fsid.val = v19;
-        *&v154.f_bsize = v19;
-        *&v154.f_bfree = v19;
-        if (statfs(fts_path, &v154))
+        *&v151.f_mntonname[392] = v19;
+        *&v151.f_mntonname[408] = v19;
+        *&v151.f_mntonname[360] = v19;
+        *&v151.f_mntonname[376] = v19;
+        *&v151.f_mntonname[328] = v19;
+        *&v151.f_mntonname[344] = v19;
+        *&v151.f_mntonname[296] = v19;
+        *&v151.f_mntonname[312] = v19;
+        *&v151.f_mntonname[264] = v19;
+        *&v151.f_mntonname[280] = v19;
+        *&v151.f_mntonname[232] = v19;
+        *&v151.f_mntonname[248] = v19;
+        *&v151.f_mntonname[200] = v19;
+        *&v151.f_mntonname[216] = v19;
+        *&v151.f_mntonname[168] = v19;
+        *&v151.f_mntonname[184] = v19;
+        *&v151.f_mntonname[136] = v19;
+        *&v151.f_mntonname[152] = v19;
+        *&v151.f_mntonname[104] = v19;
+        *&v151.f_mntonname[120] = v19;
+        *&v151.f_mntonname[72] = v19;
+        *&v151.f_mntonname[88] = v19;
+        *&v151.f_mntonname[40] = v19;
+        *&v151.f_mntonname[56] = v19;
+        *&v151.f_mntonname[8] = v19;
+        *&v151.f_mntonname[24] = v19;
+        *&v151.f_flags = v19;
+        *&v151.f_fstypename[8] = v19;
+        *&v151.f_files = v19;
+        *v151.f_fsid.val = v19;
+        *&v151.f_bsize = v19;
+        *&v151.f_bfree = v19;
+        if (statfs(fts_path, &v151))
         {
           v25 = __stderrp;
           v26 = __error();
           strerror(*v26);
-          v16 = v123;
+          v16 = v120;
           fprintf(v25, "error finding volume info for %s: %s\n");
         }
 
         else
         {
-          memset(v161, 0, 28);
+          memset(v158, 0, 28);
           *flagset_p = 0u;
           *__str = xmmword_100025E20;
-          v159 = 0;
-          if (getattrlist(v154.f_mntonname, __str, flagset_p, 0x2CuLL, 0))
+          v156 = 0;
+          if (getattrlist(v151.f_mntonname, __str, flagset_p, 0x2CuLL, 0))
           {
             v27 = __stderrp;
             v28 = __error();
@@ -1902,18 +1860,18 @@ LABEL_4:
             fprintf(v27, "error finding volume capabilities for %s: %s\n");
           }
 
-          else if ((v161[1] & 2) != 0)
+          else if ((v158[1] & 2) != 0)
           {
-            v156 = 0;
-            *v155 = xmmword_100025E38;
+            v153 = 0;
+            *v152 = xmmword_100025E38;
             *__bp = 0;
-            if (getattrlist(fts_path, v155, __bp, 8uLL, 0))
+            if (getattrlist(fts_path, v152, __bp, 8uLL, 0))
             {
-              v98 = __stderrp;
-              v99 = __error();
-              strerror(*v99);
-              v16 = v123;
-              fprintf(v98, "error finding ATTR_DIR_ENTRYCOUNT for %s: %s\n");
+              v97 = __stderrp;
+              v98 = __error();
+              strerror(*v98);
+              v16 = v120;
+              fprintf(v97, "error finding ATTR_DIR_ENTRYCOUNT for %s: %s\n");
             }
 
             else if (*&__bp[4] >= 0xC351u)
@@ -1940,16 +1898,16 @@ LABEL_4:
         if (!v18->fts_level)
         {
           v31 = [NSString stringWithUTF8String:v18->fts_path];
-          memset(&v154, 0, 144);
-          if (!stat([v31 fileSystemRepresentation], &v154))
+          memset(&v151, 0, 144);
+          if (!stat([v31 fileSystemRepresentation], &v151))
           {
-            sub_10001B494(".", &v154, v14);
+            sub_10001B494(".", &v151, v14);
           }
 
           v32 = [v31 stringByAppendingPathComponent:@".."];
-          if (!stat([v32 fileSystemRepresentation], &v154))
+          if (!stat([v32 fileSystemRepresentation], &v151))
           {
-            sub_10001B494("..", &v154, v14);
+            sub_10001B494("..", &v151, v14);
           }
 
           fputc(10, v14);
@@ -1961,9 +1919,9 @@ LABEL_4:
         st_nlink = 0;
         st_size = 0;
         v35 = v30;
-        v136 = 1;
-        v137 = 1;
-        v135 = 1;
+        v133 = 1;
+        v134 = 1;
+        v132 = 1;
         do
         {
           v36 = v35->fts_info;
@@ -1982,9 +1940,9 @@ LABEL_4:
             }
 
             v40 = snprintf(__str, 0x400uLL, "%u", fts_statp->st_uid);
-            if (v40 <= v137)
+            if (v40 <= v134)
             {
-              v41 = v137;
+              v41 = v134;
             }
 
             else
@@ -1992,11 +1950,11 @@ LABEL_4:
               v41 = v40;
             }
 
-            v137 = v41;
+            v134 = v41;
             v42 = snprintf(__str, 0x400uLL, "%u", fts_statp->st_gid);
-            if (v42 <= v136)
+            if (v42 <= v133)
             {
-              v43 = v136;
+              v43 = v133;
             }
 
             else
@@ -2004,11 +1962,11 @@ LABEL_4:
               v43 = v42;
             }
 
-            v136 = v43;
+            v133 = v43;
             v44 = snprintf(__str, 0x400uLL, "%llu", fts_statp->st_ino);
-            if (v44 <= v135)
+            if (v44 <= v132)
             {
-              v45 = v135;
+              v45 = v132;
             }
 
             else
@@ -2016,7 +1974,7 @@ LABEL_4:
               v45 = v44;
             }
 
-            v135 = v45;
+            v132 = v45;
             if (fts_statp->st_size > st_size)
             {
               st_size = fts_statp->st_size;
@@ -2027,8 +1985,8 @@ LABEL_4:
         }
 
         while (v35);
-        v129 = snprintf(__str, 0x400uLL, "%hu", st_nlink);
-        v128 = snprintf(__str, 0x400uLL, "%lld", st_size);
+        v126 = snprintf(__str, 0x400uLL, "%hu", st_nlink);
+        v125 = snprintf(__str, 0x400uLL, "%lld", st_size);
         do
         {
           v46 = v30->fts_info;
@@ -2087,7 +2045,7 @@ LABEL_4:
 
           fputc(v54, v14);
           v55 = localtime(&v48->st_mtimespec.tv_sec);
-          strftime(v155, 0x28uLL, "%FT%T", v55);
+          strftime(v152, 0x28uLL, "%FT%T", v55);
           tv_nsec = v48->st_mtimespec.tv_nsec;
           if (tv_nsec <= 0)
           {
@@ -2099,240 +2057,239 @@ LABEL_4:
             v57 = tv_nsec / 0xF4240uLL;
           }
 
-          v145 = 0;
-          fsctl(fts_name, 0x40084A47uLL, &v145, 0);
-          fprintf(v14, " %*d %*llu %04llx %-*u  %-*u  %*lld %s.%03ld ", v129, v48->st_nlink, v135, v48->st_ino, v145, v137, v48->st_uid, v136, v48->st_gid, v128, v48->st_size, v155, v57);
+          v142 = 0;
+          fsctl(fts_name, 0x40084A47uLL, &v142, 0);
+          fprintf(v14, " %*d %*llu %04llx %-*u  %-*u  %*lld %s.%03ld ", v126, v48->st_nlink, v132, v48->st_ino, v142, v134, v48->st_uid, v133, v48->st_gid, v125, v48->st_size, v152, v57);
           sub_10001B5B4(v30->fts_name, v14);
           v58 = v48->st_mode & 0xF000;
-          v59 = v131;
+          v59 = v128;
           if (v58 != 0x4000)
           {
             if (v58 == 40960)
             {
               if (v30->fts_level)
               {
-                fts_accpath = v30->fts_parent->fts_accpath;
-                snprintf(&v154, 0x401uLL, "%s/%s");
+                snprintf(&v151, 0x401uLL, "%s/%s");
               }
 
               else
               {
-                snprintf(&v154, 0x401uLL, "%s");
+                snprintf(&v151, 0x401uLL, "%s");
               }
 
-              v61 = readlink(&v154, flagset_p, 0x400uLL);
-              if (v61 == -1)
+              v60 = readlink(&v151, flagset_p, 0x400uLL);
+              if (v60 == -1)
               {
-                v62 = __error();
-                v63 = strerror(*v62);
-                fprintf(v14, "\nERROR ls: %s: %s\n", &v154, v63);
+                v61 = __error();
+                v62 = strerror(*v61);
+                fprintf(v14, "\nERROR ls: %s: %s\n", &v151, v62);
               }
 
               else
               {
-                *(flagset_p + v61) = 0;
+                *(flagset_p + v60) = 0;
                 fwrite(" -> ", 4uLL, 1uLL, v14);
                 sub_10001B5B4(flagset_p, v14);
               }
 
-              v59 = v125;
+              v59 = v122;
             }
 
             else
             {
-              v59 = v124;
+              v59 = v121;
             }
           }
 
           ++*v59;
           fputc(10, v14);
           *v4 += v48->st_size;
-          *v132 += v48->st_blocks;
-          if (!v130 || v50 < 1)
+          *v129 += v48->st_blocks;
+          if (!v127 || v50 < 1)
           {
             goto LABEL_128;
           }
 
-          v127 = v48;
-          v64 = v50 & ~(v50 >> 63);
-          v65 = malloc_type_malloc(v64, 0xD1269FB9uLL);
-          v66 = 1;
-          listxattr(fts_name, v65, v64, 1);
+          v124 = v48;
+          v63 = v50 & ~(v50 >> 63);
+          v64 = malloc_type_malloc(v63, 0xD1269FB9uLL);
+          v65 = 1;
+          listxattr(fts_name, v64, v63, 1);
+          v66 = 0;
           v67 = 0;
-          v68 = 0;
-          *v138 += v64;
-          v69 = &v65[v64];
-          v70 = 4;
-          __s1 = v65;
-          v71 = v65;
+          *v135 += v63;
+          v68 = &v64[v63];
+          v69 = 4;
+          __s1 = v64;
+          v70 = v64;
           do
           {
-            v72 = v66;
-            v68 = reallocf(v68, v70);
-            v73 = getxattr(fts_name, v71, 0, 0, 0, 1);
-            if (v73 >= 1)
+            v71 = v65;
+            v67 = reallocf(v67, v69);
+            v72 = getxattr(fts_name, v70, 0, 0, 0, 1);
+            if (v72 >= 1)
             {
-              *v138 += v73;
+              *v135 += v72;
             }
 
-            v68[v67] = v73;
-            v71 += strlen(v71) + 1;
-            v70 += 4;
-            ++v67;
+            v67[v66] = v72;
+            v70 += strlen(v70) + 1;
+            v69 += 4;
             ++v66;
+            ++v65;
           }
 
-          while (v71 < v69);
-          v74 = 0;
-          v75 = __s1;
+          while (v70 < v68);
+          v73 = 0;
+          v74 = __s1;
           do
           {
-            if (strcmp(v75, "com.apple.quarantine"))
+            if (strcmp(v74, "com.apple.quarantine"))
             {
               fputc(9, v14);
-              sub_10001B5B4(v75, v14);
+              sub_10001B5B4(v74, v14);
               fputc(9, v14);
-              fprintf(v14, "%*jd ", v128, v68[v74]);
+              fprintf(v14, "%*jd ", v125, v67[v73]);
               fputc(10, v14);
-              v75 += strlen(v75) + 1;
+              v74 += strlen(v74) + 1;
             }
 
-            ++v74;
+            ++v73;
           }
 
-          while (v72 != v74);
+          while (v71 != v73);
           free(__s1);
-          free(v68);
-          v4 = v126;
-          v76 = acl;
+          free(v67);
+          v4 = v123;
+          v75 = acl;
           if (acl)
           {
-            st_mode = v127->st_mode;
-            *&v154.f_bsize = 0;
+            st_mode = v124->st_mode;
+            *&v151.f_bsize = 0;
             tag_type_p = ACL_UNDEFINED_TAG;
             flagset_p[0] = 0;
             permset_p = 0;
-            if (!acl_get_entry(acl, 0, &v154))
+            if (!acl_get_entry(acl, 0, &v151))
             {
-              v78 = 0;
+              v77 = 0;
               if ((st_mode & 0xF000) == 0x4000)
               {
-                v79 = 1;
+                v78 = 1;
               }
 
               else
               {
-                v79 = 2;
+                v78 = 2;
               }
 
               do
               {
-                if (!acl_get_tag_type(*&v154.f_bsize, &tag_type_p) && !acl_get_flagset_np(*&v154.f_bsize, flagset_p) && !acl_get_permset(*&v154.f_bsize, &permset_p))
+                if (!acl_get_tag_type(*&v151.f_bsize, &tag_type_p) && !acl_get_flagset_np(*&v151.f_bsize, flagset_p) && !acl_get_permset(*&v151.f_bsize, &permset_p))
                 {
-                  qualifier = acl_get_qualifier(*&v154.f_bsize);
+                  qualifier = acl_get_qualifier(*&v151.f_bsize);
                   if (qualifier)
                   {
-                    v81 = qualifier;
-                    v82 = malloc_type_malloc(0x105uLL, 0x100004077774924uLL);
-                    if (!v82)
+                    v80 = qualifier;
+                    v81 = malloc_type_malloc(0x105uLL, 0x100004077774924uLL);
+                    if (!v81)
                     {
                       sub_10001EC94();
                     }
 
-                    v83 = v82;
-                    uuid_unparse_upper(v81, v82);
-                    acl_free(v81);
-                    v84 = "unknown";
+                    v82 = v81;
+                    uuid_unparse_upper(v80, v81);
+                    acl_free(v80);
+                    v83 = "unknown";
                     if (tag_type_p == ACL_EXTENDED_DENY)
                     {
-                      v84 = "deny";
+                      v83 = "deny";
                     }
 
                     if (tag_type_p == ACL_EXTENDED_ALLOW)
                     {
-                      v85 = "allow";
+                      v84 = "allow";
                     }
 
                     else
                     {
-                      v85 = v84;
+                      v84 = v83;
                     }
 
                     flag_np = acl_get_flag_np(flagset_p[0], ACL_ENTRY_INHERITED);
-                    v87 = " inherited";
+                    v86 = " inherited";
                     if (!flag_np)
                     {
-                      v87 = "";
+                      v86 = "";
                     }
 
-                    fprintf(v14, " %d: %s%s %s ", v78, v83, v87, v85);
-                    free(v83);
-                    v88 = 0;
-                    v89 = &dword_100035320;
-                    v90 = 17;
-                    v91 = "read";
+                    fprintf(v14, " %d: %s%s %s ", v77, v82, v86, v84);
+                    free(v82);
+                    v87 = 0;
+                    v88 = &dword_100035320;
+                    v89 = 17;
+                    v90 = "read";
                     do
                     {
-                      if (acl_get_perm_np(permset_p, *(v89 - 4)) && (*v89 & v79) != 0)
+                      if (acl_get_perm_np(permset_p, *(v88 - 4)) && (*v88 & v78) != 0)
                       {
-                        v92 = ",";
-                        if (!v88)
+                        v91 = ",";
+                        if (!v87)
                         {
-                          v92 = "";
+                          v91 = "";
                         }
 
-                        fprintf(v14, "%s%s", v92, v91);
-                        ++v88;
+                        fprintf(v14, "%s%s", v91, v90);
+                        ++v87;
                       }
 
-                      v91 = *(v89 + 2);
-                      v89 += 6;
-                      --v90;
+                      v90 = *(v88 + 2);
+                      v88 += 6;
+                      --v89;
                     }
 
-                    while (v90);
-                    v93 = &dword_1000354D0;
-                    v94 = 4;
-                    v95 = "file_inherit";
+                    while (v89);
+                    v92 = &dword_1000354D0;
+                    v93 = 4;
+                    v94 = "file_inherit";
                     do
                     {
-                      if (acl_get_flag_np(flagset_p[0], *(v93 - 4)) && (*v93 & v79) != 0)
+                      if (acl_get_flag_np(flagset_p[0], *(v92 - 4)) && (*v92 & v78) != 0)
                       {
-                        v96 = ",";
-                        if (!v88)
+                        v95 = ",";
+                        if (!v87)
                         {
-                          v96 = "";
+                          v95 = "";
                         }
 
-                        fprintf(v14, "%s%s", v96, v95);
-                        ++v88;
+                        fprintf(v14, "%s%s", v95, v94);
+                        ++v87;
                       }
 
-                      v95 = *(v93 + 2);
-                      v93 += 6;
-                      --v94;
+                      v94 = *(v92 + 2);
+                      v92 += 6;
+                      --v93;
                     }
 
-                    while (v94);
+                    while (v93);
                     fputc(10, v14);
-                    v4 = v126;
-                    v76 = acl;
+                    v4 = v123;
+                    v75 = acl;
                   }
                 }
 
-                ++v78;
-                if (*&v154.f_bsize)
+                ++v77;
+                if (*&v151.f_bsize)
                 {
-                  v97 = -1;
+                  v96 = -1;
                 }
 
                 else
                 {
-                  v97 = 0;
+                  v96 = 0;
                 }
               }
 
-              while (!acl_get_entry(v76, v97, &v154));
+              while (!acl_get_entry(v75, v96, &v151));
             }
 
 LABEL_128:
@@ -2349,7 +2306,7 @@ LABEL_130:
         while (v30);
         v20 = 0;
 LABEL_132:
-        v16 = v123;
+        v16 = v120;
 LABEL_133:
         v18 = fts_read(v16);
         v19 = 0uLL;
@@ -2359,27 +2316,25 @@ LABEL_140:
           fts_close(v16);
           if (ftell(v14))
           {
-            v100 = *v4;
-            v101 = *v124;
-            fprintf(v14, "\nTOTALS st_size=%lld st_blocks=%lld xattr_size=%lld directories=%ld files=%ld symlinks=%ld\n", *v4, *v132, *v138, *v131, *v124, *v125);
-            fprintf(v14, "       size in MiB: %lldMiB, blocks in MiB: %lldMiB\n", *v4 / 0x100000, *v132 / 2048);
+            fprintf(v14, "\nTOTALS st_size=%lld st_blocks=%lld xattr_size=%lld directories=%ld files=%ld symlinks=%ld\n", *v4, *v129, *v135, *v128, *v121, *v122);
+            fprintf(v14, "       size in MiB: %lldMiB, blocks in MiB: %lldMiB\n", *v4 / 0x100000, *v129 / 2048);
             fclose(v14);
-            free(v121);
-            v12 = v118;
-            v10 = v119;
+            free(v118);
+            v12 = v115;
+            v10 = v116;
           }
 
           else
           {
             fclose(v14);
-            free(v121);
-            v12 = v118;
-            v115 = [v118 fileSystemRepresentation];
-            remove(v115, v116);
-            v10 = v119;
-            if (v120)
+            free(v118);
+            v12 = v115;
+            v112 = [v115 fileSystemRepresentation];
+            remove(v112, v113);
+            v10 = v116;
+            if (v117)
             {
-              *v120 = 1;
+              *v117 = 1;
             }
           }
 
@@ -2390,47 +2345,47 @@ LABEL_140:
 
     if (v2)
     {
-      v109 = __error();
-      v110 = [NSString stringWithUTF8String:strerror(*v109)];
-      v111 = v10;
-      v112 = *__error();
-      v149[0] = NSLocalizedDescriptionKey;
-      v149[1] = NSLocalizedFailureReasonErrorKey;
-      v150[0] = @"Error opening path to find recursive listing.";
-      v150[1] = v110;
-      v149[2] = NSFilePathErrorKey;
-      v150[2] = v111;
-      v113 = [NSDictionary dictionaryWithObjects:v150 forKeys:v149 count:3];
-      v114 = v112;
-      v10 = v111;
-      *v2 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v114 userInfo:v113];
+      v106 = __error();
+      v107 = [NSString stringWithUTF8String:strerror(*v106)];
+      v108 = v10;
+      v109 = *__error();
+      v146[0] = NSLocalizedDescriptionKey;
+      v146[1] = NSLocalizedFailureReasonErrorKey;
+      v147[0] = @"Error opening path to find recursive listing.";
+      v147[1] = v107;
+      v146[2] = NSFilePathErrorKey;
+      v147[2] = v108;
+      v110 = [NSDictionary dictionaryWithObjects:v147 forKeys:v146 count:3];
+      v111 = v109;
+      v10 = v108;
+      *v2 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v111 userInfo:v110];
     }
 
     fclose(v14);
-    free(v121);
+    free(v118);
 LABEL_151:
-    v2 = v122;
+    v2 = v119;
   }
 
   else if (v2)
   {
-    v102 = __error();
-    v103 = [NSString stringWithUTF8String:strerror(*v102)];
-    v104 = v12;
-    v105 = *__error();
-    v152[0] = NSLocalizedDescriptionKey;
-    v152[1] = NSLocalizedFailureReasonErrorKey;
-    v153[0] = @"Error opening recursive listing file for writing.";
-    v153[1] = v103;
-    v152[2] = NSFilePathErrorKey;
-    v153[2] = v104;
-    [NSDictionary dictionaryWithObjects:v153 forKeys:v152 count:3];
-    v107 = v106 = v10;
-    v108 = v105;
-    v12 = v104;
-    *v2 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v108 userInfo:v107];
+    v99 = __error();
+    v100 = [NSString stringWithUTF8String:strerror(*v99)];
+    v101 = v12;
+    v102 = *__error();
+    v149[0] = NSLocalizedDescriptionKey;
+    v149[1] = NSLocalizedFailureReasonErrorKey;
+    v150[0] = @"Error opening recursive listing file for writing.";
+    v150[1] = v100;
+    v149[2] = NSFilePathErrorKey;
+    v150[2] = v101;
+    [NSDictionary dictionaryWithObjects:v150 forKeys:v149 count:3];
+    v104 = v103 = v10;
+    v105 = v102;
+    v12 = v101;
+    *v2 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v105 userInfo:v104];
 
-    v10 = v106;
+    v10 = v103;
     v2 = 0;
   }
 
@@ -2562,6 +2517,13 @@ void sub_10001B950(id a1)
   qword_100040C38 = MGCopyAnswer();
 
   _objc_release_x1();
+}
+
+void sub_10001C2E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
+{
+  va_start(va, a36);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void *sub_10001C31C(void *result)
@@ -2701,10 +2663,11 @@ void sub_10001D090(id a1)
   exit(0);
 }
 
-void sub_10001D0E8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10001D0E8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_10001D104(uint64_t a1, uint64_t a2)
@@ -2803,7 +2766,7 @@ void sub_10001D404(void *a1, uint64_t a2, uint64_t a3)
 
 void sub_10001D524(uint64_t a1)
 {
-  v2 = sub_100001C9C();
+  v2 = sub_100001C9C(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v3 = 138412290;
@@ -2816,7 +2779,7 @@ void sub_10001D5F0(void *a1, void *a2)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = sub_100001C9C();
+    v4 = sub_100001C9C(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 138543618;
@@ -2836,24 +2799,24 @@ void sub_10001D6D8(void *a1, void *a2, void *a3)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_100001C9C();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = sub_100001C9C(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v6 = [a2 libraryIdentifier];
-      v7 = [a2 cloudLibraryResourceStorageURL];
-      v12 = 138412546;
-      v13 = v6;
-      v14 = 2112;
-      v15 = v7;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Client asked to store some weird path for %@: %@", &v12, 0x16u);
+      v7 = [a2 libraryIdentifier];
+      v8 = [a2 cloudLibraryResourceStorageURL];
+      v13 = 138412546;
+      v14 = v7;
+      v15 = 2112;
+      v16 = v8;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Client asked to store some weird path for %@: %@", &v13, 0x16u);
     }
   }
 
-  v8 = a3[1];
-  v9 = +[NSDate date];
-  v10 = [a2 libraryIdentifier];
-  v11 = [a3 _keyForInsanityForLibraryIdentifier:v10];
-  [v8 setObject:v9 forKey:v11];
+  v9 = a3[1];
+  v10 = +[NSDate date];
+  v11 = [a2 libraryIdentifier];
+  v12 = [a3 _keyForInsanityForLibraryIdentifier:v11];
+  [v9 setObject:v10 forKey:v12];
 }
 
 void sub_10001D830(uint64_t a1, uint64_t a2)
@@ -2894,15 +2857,16 @@ void sub_10001D914(uint64_t a1)
   }
 
   free(v3);
-  if (posix_spawn_file_actions_destroy(*(a1 + 40)) && (_CPLSilentLogging & 1) == 0)
+  v5 = posix_spawn_file_actions_destroy(*(a1 + 40));
+  if (v5 && (_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_100004E20();
-    if (sub_1000054DC(v5))
+    v6 = sub_100004E20(v5);
+    if (sub_1000054DC(v6))
     {
-      v6 = __error();
-      strerror(*v6);
+      v7 = __error();
+      strerror(*v7);
       sub_1000054B8();
-      sub_100005498(&_mh_execute_header, v7, v8, "Unable to detroy the file actions properly (%s).", v9, v10, v11, v12, v13);
+      sub_100005498(&_mh_execute_header, v8, v9, "Unable to detroy the file actions properly (%s).", v10, v11, v12, v13);
     }
   }
 
@@ -2911,13 +2875,14 @@ void sub_10001D914(uint64_t a1)
 
 void sub_10001D9F8(NSObject *a1, int a2)
 {
-  *(*(a1[5].isa + 1) + 24) = signal(2, 1);
+  v4 = signal(2, 1);
+  *(*(a1[5].isa + 1) + 24) = v4;
   if (*(*(a1[5].isa + 1) + 24) == -1)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v9 = sub_100004E20();
-      if (sub_1000054C4(v9))
+      v10 = sub_100004E20(v4);
+      if (sub_1000054C4(v10))
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, a1, OS_LOG_TYPE_ERROR, "Unable to retreive handler for SIGINT.", buf, 2u);
@@ -2927,32 +2892,33 @@ void sub_10001D9F8(NSObject *a1, int a2)
 
   else
   {
-    v4 = dispatch_get_global_queue(0, 0);
-    v5 = dispatch_source_create(&_dispatch_source_type_signal, 2uLL, 0, v4);
-    v6 = *(a1[6].isa + 1);
-    v7 = *(v6 + 40);
-    *(v6 + 40) = v5;
+    v5 = dispatch_get_global_queue(0, 0);
+    v6 = dispatch_source_create(&_dispatch_source_type_signal, 2uLL, 0, v5);
+    v7 = *(a1[6].isa + 1);
+    v8 = *(v7 + 40);
+    *(v7 + 40) = v6;
 
-    v8 = *(*(a1[6].isa + 1) + 40);
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_10000507C;
-    v10[3] = &unk_100034C68;
-    v11 = a2;
-    v10[4] = a1[4].isa;
-    dispatch_source_set_event_handler(v8, v10);
+    v9 = *(*(a1[6].isa + 1) + 40);
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_10000507C;
+    v11[3] = &unk_100034C68;
+    v12 = a2;
+    v11[4] = a1[4].isa;
+    dispatch_source_set_event_handler(v9, v11);
     dispatch_resume(*(*(a1[6].isa + 1) + 40));
   }
 }
 
-void sub_10001DB60(int a1)
+void sub_10001DB60(uint64_t a1)
 {
-  v3 = sub_100004E20();
+  v2 = a1;
+  v3 = sub_100004E20(a1);
   if (sub_1000054C4(v3))
   {
-    strerror(a1);
+    strerror(v2);
     sub_1000054B8();
-    sub_100005478(&_mh_execute_header, v4, v5, "Unable to spawn a new process (%s).", v6, v7, v8, v9, v10);
+    sub_100005478(&_mh_execute_header, v4, v5, "Unable to spawn a new process (%s).", v6, v7, v8, v9);
   }
 }
 
@@ -2960,13 +2926,13 @@ void sub_10001DBF0(void *a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_100004E20();
+    v3 = sub_100004E20(a1);
     if (sub_1000054DC(v3))
     {
       v4 = __error();
       strerror(*v4);
       sub_1000054B8();
-      sub_100005498(&_mh_execute_header, v5, v6, "Unable to initialize the file actions properly (%s).", v7, v8, v9, v10, v11);
+      sub_100005498(&_mh_execute_header, v5, v6, "Unable to initialize the file actions properly (%s).", v7, v8, v9, v10);
     }
   }
 
@@ -2977,52 +2943,52 @@ void sub_10001DC9C(void *a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_100004E20();
+    v3 = sub_100004E20(a1);
     if (sub_1000054DC(v3))
     {
       v4 = __error();
       strerror(*v4);
       sub_1000054B8();
-      sub_100005498(&_mh_execute_header, v5, v6, "Unable to perform spawn action (%s).", v7, v8, v9, v10, v11);
+      sub_100005498(&_mh_execute_header, v5, v6, "Unable to perform spawn action (%s).", v7, v8, v9, v10);
     }
   }
 
   *a1 = 1;
 }
 
-void sub_10001DD48()
+void sub_10001DD48(uint64_t a1)
 {
-  v1 = sub_100004E20();
-  if (sub_1000054C4(v1))
+  v2 = sub_100004E20(a1);
+  if (sub_1000054C4(v2))
   {
-    v2 = __error();
-    strerror(*v2);
+    v3 = __error();
+    strerror(*v3);
     sub_1000054B8();
-    sub_100005478(&_mh_execute_header, v3, v4, "Unable to redirect stdin (%s).", v5, v6, v7, v8, v9);
+    sub_100005478(&_mh_execute_header, v4, v5, "Unable to redirect stdin (%s).", v6, v7, v8, v9);
   }
 }
 
-void sub_10001DDD8()
+void sub_10001DDD8(uint64_t a1)
 {
-  v1 = sub_100004E20();
-  if (sub_1000054C4(v1))
+  v2 = sub_100004E20(a1);
+  if (sub_1000054C4(v2))
   {
-    v2 = __error();
-    strerror(*v2);
+    v3 = __error();
+    strerror(*v3);
     sub_1000054B8();
-    sub_100005478(&_mh_execute_header, v3, v4, "Unable to redirect stderr (%s).", v5, v6, v7, v8, v9);
+    sub_100005478(&_mh_execute_header, v4, v5, "Unable to redirect stderr (%s).", v6, v7, v8, v9);
   }
 }
 
-void sub_10001DE68()
+void sub_10001DE68(uint64_t a1)
 {
-  v1 = sub_100004E20();
-  if (sub_1000054C4(v1))
+  v2 = sub_100004E20(a1);
+  if (sub_1000054C4(v2))
   {
-    v2 = __error();
-    strerror(*v2);
+    v3 = __error();
+    strerror(*v3);
     sub_1000054B8();
-    sub_100005478(&_mh_execute_header, v3, v4, "Unable to perform spawn action (%s).", v5, v6, v7, v8, v9);
+    sub_100005478(&_mh_execute_header, v4, v5, "Unable to perform spawn action (%s).", v6, v7, v8, v9);
   }
 }
 
@@ -3043,15 +3009,16 @@ void sub_10001DEF8(void **a1, posix_spawn_file_actions_t *a2)
   }
 
   free(a1);
-  if (posix_spawn_file_actions_destroy(a2) && (_CPLSilentLogging & 1) == 0)
+  v7 = posix_spawn_file_actions_destroy(a2);
+  if (v7 && (_CPLSilentLogging & 1) == 0)
   {
-    v7 = sub_100004E20();
-    if (sub_1000054DC(v7))
+    v8 = sub_100004E20(v7);
+    if (sub_1000054DC(v8))
     {
-      v8 = __error();
-      strerror(*v8);
+      v9 = __error();
+      strerror(*v9);
       sub_1000054B8();
-      sub_100005498(&_mh_execute_header, v9, v10, "Unable to destroy the file actions properly (%s).", v11, v12, v13, v14, v15);
+      sub_100005498(&_mh_execute_header, v10, v11, "Unable to destroy the file actions properly (%s).", v12, v13, v14, v15);
     }
   }
 
@@ -3061,14 +3028,15 @@ void sub_10001DEF8(void **a1, posix_spawn_file_actions_t *a2)
 void sub_10001E120(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3 && (_CPLSilentLogging & 1) == 0)
   {
-    v4 = sub_10000A0FC();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = sub_10000A0FC(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v5 = 138412290;
-      v6 = v3;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "Error closing daemon's library manager: %@", &v5, 0xCu);
+      v6 = 138412290;
+      v7 = v4;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "Error closing daemon's library manager: %@", &v6, 0xCu);
     }
   }
 
@@ -3084,7 +3052,7 @@ void sub_10001E4FC(uint64_t a1, const char *a2)
     {
       v5 = objc_opt_class();
       v18 = NSStringFromSelector(a2);
-      sub_10000C9A4(&_mh_execute_header, v6, v7, "+[%@ %@] called twice", v8, v9, v10, v11, v16, v17, 2u);
+      sub_10000C9A4(&_mh_execute_header, v6, v7, "+[%@ %@] called twice", v8, v9, v10, v11, v16, v17);
     }
   }
 
@@ -3106,7 +3074,7 @@ void sub_10001E62C(uint64_t a1, const char *a2)
     {
       v5 = objc_opt_class();
       v18 = NSStringFromSelector(a2);
-      sub_10000C9A4(&_mh_execute_header, v6, v7, "+[%@ %@] has not been set yet", v8, v9, v10, v11, v16, v17, 2u);
+      sub_10000C9A4(&_mh_execute_header, v6, v7, "+[%@ %@] has not been set yet", v8, v9, v10, v11, v16, v17);
     }
   }
 

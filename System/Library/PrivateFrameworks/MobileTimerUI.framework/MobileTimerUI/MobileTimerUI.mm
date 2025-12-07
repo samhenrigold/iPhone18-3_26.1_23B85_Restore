@@ -1,4 +1,4 @@
-uint64_t MTUIIsPadIdiom()
+uint64_t MTUIIsPadIdiom(uint64_t a1, uint64_t a2)
 {
   if (MTUIIsPadIdiom_onceToken != -1)
   {
@@ -34,7 +34,7 @@ double MTUIFloorToPixel(double a1)
   return floor(*&MTUIMainScreenScale_screenScale * a1) / *&MTUIMainScreenScale_screenScale;
 }
 
-double MTUIMainScreenScale()
+double MTUIMainScreenScale(uint64_t a1, uint64_t a2)
 {
   if (MTUIMainScreenScale_onceToken != -1)
   {
@@ -62,16 +62,16 @@ double MTUIStandardizeAngle(double result)
   return result;
 }
 
-id MTImageCache()
+id MTImageCache(uint64_t a1)
 {
   if (MTImageCache_onceToken != -1)
   {
     MTImageCache_cold_1();
   }
 
-  v1 = MTImageCache_imageCache;
+  v2 = MTImageCache_imageCache;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __MTImageCache_block_invoke()
@@ -83,7 +83,7 @@ uint64_t __MTImageCache_block_invoke()
   return MEMORY[0x2821F96F8](v0, v1);
 }
 
-uint64_t MTUIIsPhoneIdiom()
+uint64_t MTUIIsPhoneIdiom(uint64_t a1, uint64_t a2)
 {
   if (MTUIIsPhoneIdiom_onceToken != -1)
   {

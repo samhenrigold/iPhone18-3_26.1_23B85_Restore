@@ -1,9 +1,28 @@
 @interface MKPhotoLibraryAlbumMigrator
+- (MKPhotoLibraryAlbumMigrator)initWithReuseDatabase:(BOOL)database;
 - (void)setCollections;
 - (void)setIdentifier:(id)identifier forAsset:(id)asset;
 @end
 
 @implementation MKPhotoLibraryAlbumMigrator
+
+- (MKPhotoLibraryAlbumMigrator)initWithReuseDatabase:(BOOL)database
+{
+  databaseCopy = database;
+  v8.receiver = self;
+  v8.super_class = MKPhotoLibraryAlbumMigrator;
+  v4 = [(MKMigrator *)&v8 init];
+  if (v4)
+  {
+    v5 = [[MKPhotoLibraryAssetDatabase alloc] initWithType:2 reuse:databaseCopy];
+    db = v4->_db;
+    v4->_db = v5;
+
+    [(MKMigrator *)v4 setType:13];
+  }
+
+  return v4;
+}
 
 - (void)setIdentifier:(id)identifier forAsset:(id)asset
 {
@@ -17,35 +36,35 @@
 
 - (void)setCollections
 {
-  v42 = *MEMORY[0x277D85DE8];
-  v29 = [[MKPhotoLibrary alloc] initWithContentType:0];
+  v41 = *MEMORY[0x277D85DE8];
+  v28 = [[MKPhotoLibrary alloc] initWithContentType:0];
   v3 = 80;
   [(MKPhotoLibraryAssetDatabase *)self->_db collections];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  obj = v34 = 0u;
-  v4 = [obj countByEnumeratingWithState:&v31 objects:v41 count:16];
+  obj = v33 = 0u;
+  v4 = [obj countByEnumeratingWithState:&v30 objects:v40 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v32;
-    v26 = *v32;
+    v6 = *v31;
+    v25 = *v31;
     do
     {
       v7 = 0;
-      v27 = v5;
+      v26 = v5;
       do
       {
-        if (*v32 != v6)
+        if (*v31 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v31 + 1) + 8 * v7);
-        v30 = 0;
-        v9 = [(MKPhotoLibrary *)v29 countForCollection:v8 error:&v30, v26];
-        v10 = v30;
+        v8 = *(*(&v30 + 1) + 8 * v7);
+        v29 = 0;
+        v9 = [(MKPhotoLibrary *)v28 countForCollection:v8 error:&v29, v25];
+        v10 = v29;
         v11 = v10;
         if (v9 >> 3 < 0x271)
         {
@@ -92,26 +111,26 @@
                   if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
                   {
                     *buf = 138412802;
-                    v36 = v8;
-                    v37 = 2048;
-                    v38 = v18;
-                    v39 = 2048;
-                    v40 = v16;
+                    v35 = v8;
+                    v36 = 2048;
+                    v37 = v18;
+                    v38 = 2048;
+                    v39 = v16;
                     _os_log_impl(&dword_2592D2000, v22, OS_LOG_TYPE_INFO, "will set collections. collection=%@, offset=%ld, limit=%ld", buf, 0x20u);
                   }
 
                   [(MKMigrator *)self migratorWillMeasureImport];
-                  [(MKPhotoLibrary *)v29 setCollection:v8 forLocalIdentifiers:v21];
+                  [(MKPhotoLibrary *)v28 setCollection:v8 forLocalIdentifiers:v21];
                   [(MKMigrator *)self migratorDidMeasureImport];
                   v23 = +[MKLog log];
                   if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
                   {
                     *buf = 138412802;
-                    v36 = v8;
-                    v37 = 2048;
-                    v38 = v18;
-                    v39 = 2048;
-                    v40 = v16;
+                    v35 = v8;
+                    v36 = 2048;
+                    v37 = v18;
+                    v38 = 2048;
+                    v39 = v16;
                     _os_log_impl(&dword_2592D2000, v23, OS_LOG_TYPE_INFO, "did set collections. collection=%@, offset=%ld, limit=%ld", buf, 0x20u);
                   }
 
@@ -136,7 +155,7 @@
 
               [(MKMigrator *)self migratorDidImport];
               [*(&self->super.super.isa + v3) removeCollection:v8];
-              v6 = v26;
+              v6 = v25;
               v11 = 0;
             }
 
@@ -147,7 +166,7 @@
               [*(&self->super.super.isa + v3) removeCollection:v8];
             }
 
-            v5 = v27;
+            v5 = v26;
           }
         }
 
@@ -157,11 +176,11 @@
           if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
           {
             *buf = 138412802;
-            v36 = v8;
-            v37 = 2048;
-            v38 = 5000;
-            v39 = 2048;
-            v40 = v9;
+            v35 = v8;
+            v36 = 2048;
+            v37 = 5000;
+            v38 = 2048;
+            v39 = v9;
             _os_log_impl(&dword_2592D2000, v12, OS_LOG_TYPE_INFO, "will skip a collection. collection=%@, capacity=%ld, assets=%ld", buf, 0x20u);
           }
 
@@ -174,7 +193,7 @@
       }
 
       while (v7 != v5);
-      v5 = [obj countByEnumeratingWithState:&v31 objects:v41 count:16];
+      v5 = [obj countByEnumeratingWithState:&v30 objects:v40 count:16];
     }
 
     while (v5);
@@ -182,8 +201,6 @@
 
   v24 = *(&self->super.super.isa + v3);
   *(&self->super.super.isa + v3) = 0;
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 @end

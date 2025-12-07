@@ -10,7 +10,7 @@
 
 - (id)_associatedMessageGUIDForInput:(id)input error:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   associatedMessageGUID = [inputCopy associatedMessageGUID];
   associatedMessageFallbackHash = [inputCopy associatedMessageFallbackHash];
@@ -56,7 +56,7 @@
         if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
           *buf = 134217984;
-          v23 = [associatedMessageFallbackHash length];
+          v22 = [associatedMessageFallbackHash length];
           _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "<IMResolveFallbackHashesProcessingPipelineComponent> Found no source message GUID for fallback hash with length %llu, rejecting replicated message", buf, 0xCu);
         }
       }
@@ -80,14 +80,12 @@
     v17 = associatedMessageGUID;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 - (id)_threadIdentifierForInput:(id)input error:(id *)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   threadIdentifierGUID = [inputCopy threadIdentifierGUID];
   threadOriginatorFallbackHash = [inputCopy threadOriginatorFallbackHash];
@@ -125,7 +123,7 @@
           if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
           {
             *buf = 134217984;
-            v22 = [threadOriginatorFallbackHash length];
+            v21 = [threadOriginatorFallbackHash length];
             _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "<IMResolveFallbackHashesProcessingPipelineComponent> Found no source message GUID for fallback hash with length %llu, rejecting replicated message", buf, 0xCu);
           }
         }
@@ -155,14 +153,12 @@
     v16 = threadIdentifierGUID;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 - (id)_messageGUIDForInput:(id)input providedGUID:(id)d fallbackHash:(id)hash
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   dCopy = d;
   hashCopy = hash;
@@ -179,9 +175,9 @@
         v14 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
-          v23 = 138412290;
-          v24 = dCopy;
-          _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "<IMResolveFallbackHashesProcessingPipelineComponent> Found existing message for GUID %@", &v23, 0xCu);
+          v22 = 138412290;
+          v23 = dCopy;
+          _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "<IMResolveFallbackHashesProcessingPipelineComponent> Found existing message for GUID %@", &v22, 0xCu);
         }
       }
 
@@ -198,9 +194,9 @@ LABEL_8:
         v16 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
-          v23 = 138412290;
-          v24 = dCopy;
-          _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "<IMResolveFallbackHashesProcessingPipelineComponent> Found no existing message for GUID %@, using fallback hash", &v23, 0xCu);
+          v22 = 138412290;
+          v23 = dCopy;
+          _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "<IMResolveFallbackHashesProcessingPipelineComponent> Found no existing message for GUID %@, using fallback hash", &v22, 0xCu);
         }
       }
 
@@ -220,11 +216,11 @@ LABEL_8:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       v19 = [hashCopy length];
-      v23 = 138412546;
-      v24 = dCopy;
-      v25 = 2048;
-      v26 = v19;
-      _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "<IMResolveFallbackHashesProcessingPipelineComponent> No existing message found with provided GUID %@ or fallbackHash (len: %llu)", &v23, 0x16u);
+      v22 = 138412546;
+      v23 = dCopy;
+      v24 = 2048;
+      v25 = v19;
+      _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "<IMResolveFallbackHashesProcessingPipelineComponent> No existing message found with provided GUID %@ or fallbackHash (len: %llu)", &v22, 0x16u);
     }
   }
 
@@ -241,14 +237,12 @@ LABEL_8:
   v15 = v20;
 LABEL_23:
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (id)_messageGUIDForMessageWithFallbackHash:(id)hash chat:(id)chat
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   hashCopy = hash;
   chatCopy = chat;
   if (chatCopy)
@@ -263,11 +257,11 @@ LABEL_23:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         guid = [firstObject guid];
-        v15 = 138412546;
-        v16 = guid;
-        v17 = 2048;
-        v18 = [hashCopy length];
-        _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "<IMResolveFallbackHashesProcessingPipelineComponent> Found message %@ for fallback hash with length %llu", &v15, 0x16u);
+        v14 = 138412546;
+        v15 = guid;
+        v16 = 2048;
+        v17 = [hashCopy length];
+        _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "<IMResolveFallbackHashesProcessingPipelineComponent> Found message %@ for fallback hash with length %llu", &v14, 0x16u);
       }
     }
 
@@ -278,8 +272,6 @@ LABEL_23:
   {
     guid2 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return guid2;
 }

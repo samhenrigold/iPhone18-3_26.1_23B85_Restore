@@ -57,20 +57,21 @@
 
 + (void)JFX_rotateFrameSet:(id *)set toOrientation:(int64_t)orientation pixelRotationSession:(id *)session
 {
-  v12 = [*set metadataObjectForKey:*MEMORY[0x277D41A00]];
-  cameraPosition = [v12 cameraPosition];
-  v10 = +[JFXRotationTransforms rotationFromCaptureDevicePosition:captureVideoOrientation:toInterfaceOrientation:](JFXRotationTransforms, "rotationFromCaptureDevicePosition:captureVideoOrientation:toInterfaceOrientation:", cameraPosition, [v12 captureVideoOrientation], orientation);
+  v14 = [*set metadataObjectForKey:*MEMORY[0x277D41A00]];
+  cameraPosition = [v14 cameraPosition];
+  v10 = +[JFXRotationTransforms rotationFromCaptureDevicePosition:captureVideoOrientation:toInterfaceOrientation:](JFXRotationTransforms, "rotationFromCaptureDevicePosition:captureVideoOrientation:toInterfaceOrientation:", cameraPosition, [v14 captureVideoOrientation], orientation);
+  v12 = v10;
   if (cameraPosition == 2)
   {
-    v11 = useMirroredFrontCameraInStreamMode();
+    v13 = useMirroredFrontCameraInStreamMode(v10, v11);
   }
 
   else
   {
-    v11 = 0;
+    v13 = 0;
   }
 
-  [self rotateFrameSet:set by:v10 mirror:v11 pixelRotationSession:session];
+  [self rotateFrameSet:set by:v12 mirror:v13 pixelRotationSession:session];
 }
 
 + (const)toVTRotation:(int)rotation
@@ -156,7 +157,7 @@
     v24 = 0;
     if (setCopy)
     {
-      [setCopy presentationTimeStamp];
+      objc_msgSend_presentationTimeStamp(setCopy);
     }
 
     memset(&v22, 0, sizeof(v22));

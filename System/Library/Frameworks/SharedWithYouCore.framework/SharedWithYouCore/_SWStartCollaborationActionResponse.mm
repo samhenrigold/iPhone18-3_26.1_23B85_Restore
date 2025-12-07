@@ -146,11 +146,11 @@ LABEL_15:
 
 - (_SWStartCollaborationActionResponse)initWithDestinationResponse:(id)response
 {
-  v20[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   responseCopy = response;
-  v19.receiver = self;
-  v19.super_class = _SWStartCollaborationActionResponse;
-  v5 = [(_SWActionResponse *)&v19 initWithDestinationResponse:responseCopy];
+  v18.receiver = self;
+  v18.super_class = _SWStartCollaborationActionResponse;
+  v5 = [(_SWActionResponse *)&v18 initWithDestinationResponse:responseCopy];
   if (v5)
   {
     info = [responseCopy info];
@@ -158,9 +158,9 @@ LABEL_15:
 
     v8 = MEMORY[0x1E696ACD0];
     v9 = MEMORY[0x1E695DFD8];
-    v20[0] = objc_opt_class();
-    v20[1] = objc_opt_class();
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
+    v19[0] = objc_opt_class();
+    v19[1] = objc_opt_class();
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
     v11 = [v9 setWithArray:v10];
     v12 = [v8 unarchivedObjectOfClasses:v11 fromData:v7 error:0];
     updatedMetadata = v5->_updatedMetadata;
@@ -172,7 +172,6 @@ LABEL_15:
     v5->_url = v15;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

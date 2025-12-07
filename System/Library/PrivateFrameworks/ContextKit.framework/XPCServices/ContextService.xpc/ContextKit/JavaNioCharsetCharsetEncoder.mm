@@ -77,7 +77,6 @@
 
   if (self->maxBytesPerChar_ < v8)
   {
-    v13 = *(array + 2);
     v11 = JreStrcat("$I$F", a2, array, v3, v4, v5, v6, v7, @"replacement.length > maxBytesPerChar: ");
 LABEL_8:
     v12 = new_JavaLangIllegalArgumentException_initWithNSString_(v11);

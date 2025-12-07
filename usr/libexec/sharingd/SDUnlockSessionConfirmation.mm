@@ -166,7 +166,6 @@ LABEL_7:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 1) == 0)
@@ -186,7 +185,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  sessionID = self->_sessionID;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -201,7 +199,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  success = self->_success;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 8) == 0)
@@ -216,12 +213,10 @@ LABEL_5:
   }
 
 LABEL_13:
-  supportsACK = self->_supportsACK;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_6:
-    suppressNotification = self->_suppressNotification;
     PBDataWriterWriteBOOLField();
   }
 
@@ -406,7 +401,6 @@ LABEL_6:
       goto LABEL_34;
     }
 
-    v6 = *(equalCopy + 16);
     if (self->_success)
     {
       if ((*(equalCopy + 16) & 1) == 0)
@@ -433,7 +427,6 @@ LABEL_6:
       goto LABEL_34;
     }
 
-    v7 = *(equalCopy + 17);
     if (self->_supportsACK)
     {
       if ((*(equalCopy + 17) & 1) == 0)

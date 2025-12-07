@@ -23,7 +23,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_27445449C();
+  sub_27445449C(delegate);
 }
 
 - (WFVariableProvider)variableProvider
@@ -37,7 +37,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_274454584();
+  sub_274454584(provider);
 }
 
 - (WFVariableUIDelegate)variableUIDelegate
@@ -51,7 +51,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_27445466C();
+  sub_27445466C(delegate);
 }
 
 - (_TtC14WorkflowEditor34ParameterValuePickerViewController)initWithParameter:(id)parameter allowsVariables:(BOOL)variables allowsMultipleSelection:(BOOL)selection initialCollection:(id)collection currentState:(id)state

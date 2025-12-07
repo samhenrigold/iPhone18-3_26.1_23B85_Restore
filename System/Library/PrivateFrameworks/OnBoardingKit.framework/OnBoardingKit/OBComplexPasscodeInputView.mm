@@ -12,10 +12,10 @@
 - (OBComplexPasscodeInputView)initWithFrame:(CGRect)frame numericOnly:(BOOL)only
 {
   onlyCopy = only;
-  v39[5] = *MEMORY[0x1E69E9840];
-  v38.receiver = self;
-  v38.super_class = OBComplexPasscodeInputView;
-  v5 = [(OBComplexPasscodeInputView *)&v38 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v38[5] = *MEMORY[0x1E69E9840];
+  v37.receiver = self;
+  v37.super_class = OBComplexPasscodeInputView;
+  v5 = [(OBComplexPasscodeInputView *)&v37 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v5)
   {
     v6 = objc_alloc_init(MEMORY[0x1E69DD0B0]);
@@ -42,13 +42,13 @@
     [layer setBorderWidth:1.0];
 
     traitCollection = [(OBComplexPasscodeInputView *)v5 traitCollection];
-    v36[0] = MEMORY[0x1E69E9820];
-    v36[1] = 3221225472;
-    v36[2] = __56__OBComplexPasscodeInputView_initWithFrame_numericOnly___block_invoke;
-    v36[3] = &unk_1E7C15590;
+    v35[0] = MEMORY[0x1E69E9820];
+    v35[1] = 3221225472;
+    v35[2] = __56__OBComplexPasscodeInputView_initWithFrame_numericOnly___block_invoke;
+    v35[3] = &unk_1E7C15590;
     v12 = v5;
-    v37 = v12;
-    [traitCollection performAsCurrentTraitCollection:v36];
+    v36 = v12;
+    [traitCollection performAsCurrentTraitCollection:v35];
 
     layer2 = [(UITextField *)v5->_passcodeField layer];
     [layer2 setCornerRadius:10.0];
@@ -58,32 +58,31 @@
     [(UITextField *)v14 setTextColor:labelColor];
 
     [(OBComplexPasscodeInputView *)v12 addSubview:v5->_passcodeField];
-    v29 = MEMORY[0x1E696ACD8];
+    v28 = MEMORY[0x1E696ACD8];
     heightAnchor = [(UITextField *)v5->_passcodeField heightAnchor];
     [(UITextField *)v5->_passcodeField intrinsicContentSize];
-    v33 = [heightAnchor constraintEqualToConstant:v16 + v16];
-    v39[0] = v33;
+    v32 = [heightAnchor constraintEqualToConstant:v16 + v16];
+    v38[0] = v32;
     leadingAnchor = [(UITextField *)v5->_passcodeField leadingAnchor];
     leadingAnchor2 = [(OBComplexPasscodeInputView *)v12 leadingAnchor];
-    v30 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v39[1] = v30;
+    v29 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v38[1] = v29;
     trailingAnchor = [(UITextField *)v5->_passcodeField trailingAnchor];
     trailingAnchor2 = [(OBComplexPasscodeInputView *)v12 trailingAnchor];
     v18 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v39[2] = v18;
+    v38[2] = v18;
     topAnchor = [(UITextField *)v5->_passcodeField topAnchor];
     topAnchor2 = [(OBComplexPasscodeInputView *)v12 topAnchor];
     v21 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v39[3] = v21;
+    v38[3] = v21;
     bottomAnchor = [(UITextField *)v5->_passcodeField bottomAnchor];
     bottomAnchor2 = [(OBComplexPasscodeInputView *)v12 bottomAnchor];
     v24 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v39[4] = v24;
-    v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:5];
-    [v29 activateConstraints:v25];
+    v38[4] = v24;
+    v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:5];
+    [v28 activateConstraints:v25];
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

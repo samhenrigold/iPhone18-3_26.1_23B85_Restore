@@ -82,102 +82,201 @@ LABEL_140:
   {
     if (v14)
     {
-      v54 = v17;
+      v53 = v17;
     }
 
     else
     {
-      v54 = 0;
+      v53 = 0;
     }
 
-    v52 = v9 >= v54;
-    v55 = v9 - v54;
-    v56 = !v52;
-    if (HIDWORD(v55))
+    v51 = v9 >= v53;
+    v54 = v9 - v53;
+    v55 = !v51;
+    if (HIDWORD(v54))
     {
-      v56 = 1;
+      v55 = 1;
     }
 
-    v57 = v55 + 1 > v18 || v55 == -1;
-    v58 = ((v56 | v57) & 1) == 0;
-    v59 = 0xFFFFFFFFLL;
-    if (v58)
+    v56 = v54 + 1 > v18 || v54 == -1;
+    v57 = ((v55 | v56) & 1) == 0;
+    v58 = 0xFFFFFFFFLL;
+    if (v57)
     {
-      v59 = v55;
+      v58 = v54;
     }
 
-    v10[2](v10, "Hash map at %llu has invalid buckets range %llu-(%llu*%zu)", v59, v16, *v9, 8uLL);
+    v10[2](v10, "Hash map at %llu has invalid buckets range %llu-(%llu*%zu)", v58, v16, *v9, 8uLL);
     goto LABEL_140;
   }
 
   v20 = 0;
-  v21 = *MEMORY[0x1E69E54E8];
-  v82 = *MEMORY[0x1E69E54E8];
-  v83 = *(MEMORY[0x1E69E54E8] + 24);
+  v76 = *MEMORY[0x1E69E54E8];
+  v77 = *(MEMORY[0x1E69E54E8] + 24);
   if (v12 <= 1)
   {
-    v22 = 1;
+    v21 = 1;
   }
 
   else
   {
-    v22 = v12;
+    v21 = v12;
   }
 
   do
   {
-    v23 = &v13[2 * v20];
-    v24 = v23[1];
-    if (v24 != -1)
+    v22 = &v13[2 * v20];
+    v23 = v22[1];
+    if (v23 != -1)
     {
-      v25 = *v23;
-      if (v25 >> 29 || __CFADD__(v24, 8 * v25) || (v26 = *(v14 + 8), v27 = *(v26 + 12), v24 + 8 * v25 > v27))
+      v24 = *v22;
+      if (v24 >> 29 || __CFADD__(v23, 8 * v24) || (v25 = *(v14 + 8), v26 = *(v25 + 12), v23 + 8 * v24 > v26))
       {
         if (v14)
         {
-          v72 = v17;
+          v71 = v17;
         }
 
         else
         {
-          v72 = 0;
+          v71 = 0;
         }
 
-        v52 = v9 >= v72;
-        v73 = v9 - v72;
-        v74 = !v52;
-        if (HIDWORD(v73))
+        v51 = v9 >= v71;
+        v72 = v9 - v71;
+        v73 = !v51;
+        if (HIDWORD(v72))
         {
-          v74 = 1;
+          v73 = 1;
         }
 
-        v75 = v73 + 1 > v18 || v73 == -1;
-        if ((v74 | v75))
+        v74 = v72 + 1 > v18 || v72 == -1;
+        if ((v73 | v74))
         {
-          v73 = 0xFFFFFFFFLL;
+          v72 = 0xFFFFFFFFLL;
         }
 
-        v10[2](v10, "Bucket [%llu,%llu] has invalid key-value pairs offset range %llu-(%llu*%zu)", v73, v20, v24, v25, 8uLL);
+        v10[2](v10, "Bucket [%llu,%llu] has invalid key-value pairs offset range %llu-(%llu*%zu)", v72, v20, v23, v24, 8uLL);
         goto LABEL_140;
       }
 
-      v28 = v26 + v24;
-      v29 = v27 <= v24 ? 0 : v28;
-      if (v25)
+      v27 = v25 + v23;
+      v28 = v26 <= v23 ? 0 : v27;
+      if (v24)
       {
-        for (i = 0; v25 != i; ++i)
+        for (i = 0; v24 != i; ++i)
         {
-          v31 = v29[1];
-          if (v31 != -1)
+          v30 = v28[1];
+          if (v30 != -1)
           {
-            if (v18 <= v31)
+            if (v18 <= v30)
             {
-              std::ostringstream::basic_ostringstream[abi:nn200100](&v86);
-              MEMORY[0x1BFAE5BE0](&v86, v29[1]);
-              v60 = *v5;
+              std::ostringstream::basic_ostringstream[abi:nn200100](&v80);
+              MEMORY[0x1BFAE5BE0](&v80, v28[1]);
+              v59 = *v5;
               if (*v5)
               {
-                v61 = *(v60 + 8);
+                v60 = *(v59 + 8);
+              }
+
+              else
+              {
+                v60 = 0;
+              }
+
+              v65 = 0xFFFFFFFFLL;
+              v51 = v9 >= v60;
+              v66 = v9 - v60;
+              if (v51 && !HIDWORD(v66))
+              {
+                if ((v66 + 1) > *(*(v59 + 8) + 12) || v66 == -1)
+                {
+                  v65 = 0xFFFFFFFFLL;
+                }
+
+                else
+                {
+                  v65 = v66;
+                }
+              }
+
+              if ((v87 & 0x10) != 0)
+              {
+                v69 = v86;
+                if (v86 < v83)
+                {
+                  v86 = v83;
+                  v69 = v83;
+                }
+
+                locale = v82[4].__locale_;
+              }
+
+              else
+              {
+                if ((v87 & 8) == 0)
+                {
+                  v68 = 0;
+                  v79 = 0;
+LABEL_133:
+                  *(&__dst + v68) = 0;
+                  p_dst = &__dst;
+                  if (v79 < 0)
+                  {
+                    p_dst = __dst;
+                  }
+
+                  v11[2](v11, "Key-value pair [%llu,%llu,%llu] has invalid value (interpreted as Offset) %s", v65, v20, i, p_dst);
+                  if (v79 < 0)
+                  {
+                    operator delete(__dst);
+                  }
+
+                  v80 = v76;
+                  *(&v80 + *(v76 - 24)) = v77;
+                  v81 = MEMORY[0x1E69E5548] + 16;
+                  if (v85 < 0)
+                  {
+                    operator delete(__p);
+                  }
+
+                  v81 = MEMORY[0x1E69E5538] + 16;
+                  std::locale::~locale(v82);
+                  std::ostream::~ostream();
+                  MEMORY[0x1BFAE5C80](&v88);
+                  goto LABEL_140;
+                }
+
+                locale = v82[1].__locale_;
+                v69 = v82[3].__locale_;
+              }
+
+              v68 = v69 - locale;
+              if ((v69 - locale) >= 0x7FFFFFFFFFFFFFF8)
+              {
+                std::vector<unsigned int>::__throw_length_error[abi:nn200100]();
+              }
+
+              if (v68 >= 0x17)
+              {
+                operator new();
+              }
+
+              v79 = v69 - locale;
+              if (v68)
+              {
+                memmove(&__dst, locale, v68);
+              }
+
+              goto LABEL_133;
+            }
+
+            v31 = (*v28 >> 2) % v12;
+            if (v20 != v31)
+            {
+              if (v14)
+              {
+                v61 = v17;
               }
 
               else
@@ -185,126 +284,26 @@ LABEL_140:
                 v61 = 0;
               }
 
-              v66 = 0xFFFFFFFFLL;
-              v52 = v9 >= v61;
-              v67 = v9 - v61;
-              if (v52 && !HIDWORD(v67))
+              v51 = v9 >= v61;
+              v62 = v9 - v61;
+              v63 = !v51;
+              if (HIDWORD(v62))
               {
-                if ((v67 + 1) > *(*(v60 + 8) + 12) || v67 == -1)
-                {
-                  v66 = 0xFFFFFFFFLL;
-                }
-
-                else
-                {
-                  v66 = v67;
-                }
+                v63 = 1;
               }
 
-              if ((v93 & 0x10) != 0)
+              v64 = v62 + 1 > v18 || v62 == -1;
+              if ((v63 | v64))
               {
-                v70 = v92;
-                if (v92 < v89)
-                {
-                  v92 = v89;
-                  v70 = v89;
-                }
-
-                locale = v88[4].__locale_;
+                v62 = 0xFFFFFFFFLL;
               }
 
-              else
-              {
-                if ((v93 & 8) == 0)
-                {
-                  v69 = 0;
-                  v85 = 0;
-LABEL_133:
-                  *(&__dst + v69) = 0;
-                  p_dst = &__dst;
-                  if (v85 < 0)
-                  {
-                    p_dst = __dst;
-                  }
-
-                  v11[2](v11, "Key-value pair [%llu,%llu,%llu] has invalid value (interpreted as Offset) %s", v66, v20, i, p_dst);
-                  if (v85 < 0)
-                  {
-                    operator delete(__dst);
-                  }
-
-                  v86 = v82;
-                  *(&v86 + *(v82 - 24)) = v83;
-                  v87 = MEMORY[0x1E69E5548] + 16;
-                  if (v91 < 0)
-                  {
-                    operator delete(__p);
-                  }
-
-                  v87 = MEMORY[0x1E69E5538] + 16;
-                  std::locale::~locale(v88);
-                  std::ostream::~ostream();
-                  MEMORY[0x1BFAE5C80](&v94);
-                  goto LABEL_140;
-                }
-
-                locale = v88[1].__locale_;
-                v70 = v88[3].__locale_;
-              }
-
-              v69 = v70 - locale;
-              if ((v70 - locale) >= 0x7FFFFFFFFFFFFFF8)
-              {
-                std::vector<unsigned int>::__throw_length_error[abi:nn200100]();
-              }
-
-              if (v69 >= 0x17)
-              {
-                operator new();
-              }
-
-              v85 = v70 - locale;
-              if (v69)
-              {
-                memmove(&__dst, locale, v69);
-              }
-
-              goto LABEL_133;
-            }
-
-            v32 = (*v29 >> 2) % v12;
-            if (v20 != v32)
-            {
-              if (v14)
-              {
-                v62 = v17;
-              }
-
-              else
-              {
-                v62 = 0;
-              }
-
-              v52 = v9 >= v62;
-              v63 = v9 - v62;
-              v64 = !v52;
-              if (HIDWORD(v63))
-              {
-                v64 = 1;
-              }
-
-              v65 = v63 + 1 > v18 || v63 == -1;
-              if ((v64 | v65))
-              {
-                v63 = 0xFFFFFFFFLL;
-              }
-
-              v10[2](v10, "Key-value pair [%llu,%llu,%llu] is in the wrong bucket (should be %llu)", v63, v20, i, v32);
+              v10[2](v10, "Key-value pair [%llu,%llu,%llu] is in the wrong bucket (should be %llu)", v62, v20, i, v31);
               goto LABEL_140;
             }
           }
 
-          v29 += 2;
+          v28 += 2;
         }
       }
     }
@@ -312,81 +311,76 @@ LABEL_133:
     ++v20;
   }
 
-  while (v20 != v22);
+  while (v20 != v21);
 
-  v33 = *(*(a1 + 40) + 8);
-  v34 = *(v33 + 24);
-  v35 = *v9;
-  if (!v35)
+  v32 = *(*(a1 + 40) + 8);
+  v33 = *(v32 + 24);
+  v34 = *v9;
+  if (!v34)
   {
     goto LABEL_64;
   }
 
-  v36 = 0;
-  v37 = *(a1 + 48);
+  v35 = 0;
+  v36 = *(a1 + 48);
   do
   {
-    v38 = &v13[2 * v36];
-    v39 = *v38;
-    if (*v38 - 0x20000000 >= 0xE0000001)
+    v37 = &v13[2 * v35];
+    v38 = *v37;
+    if (*v37 - 0x20000000 >= 0xE0000001)
     {
-      v40 = v38[1];
-      v41 = v40 + 8 * v39;
-      if (!__CFADD__(v40, 8 * v39))
+      v39 = v37[1];
+      v40 = v39 + 8 * v38;
+      if (!__CFADD__(v39, 8 * v38))
       {
-        v42 = *(*v37 + 8);
-        v43 = *(v42 + 12);
-        if (v41 <= v43 && v43 > v40)
+        v41 = *(*v36 + 8);
+        v42 = *(v41 + 12);
+        if (v40 <= v42 && v42 > v39)
         {
-          v45 = 0;
-          v46 = (v42 + v40);
+          v44 = 0;
+          v45 = v41 + v39;
           while (1)
           {
-            v47 = v46[1];
-            if (v47 != -1)
+            v46 = *(v45 + 4);
+            if (v46 != -1)
             {
-              v48 = *(*v37 + 8);
-              v49 = *(v48 + 12);
-              if (v49 <= v47)
+              v47 = *(*v36 + 8);
+              v48 = *(v47 + 12);
+              if (v48 <= v46)
               {
-                v78 = *v46;
-                v80 = (4 * *a2);
                 (*(*(a1 + 32) + 16))(*(a1 + 32), "Unit %llx in table %llx has an invalid address.");
                 goto LABEL_59;
               }
 
-              v50 = (v48 + v47);
-              v51 = *(v48 + v47 + 4);
-              if (v51 >> 25)
+              v49 = (v47 + v46);
+              v50 = *(v47 + v46 + 4);
+              if (v50 >> 25)
               {
-                v77 = *v46;
                 (*(*(a1 + 32) + 16))(*(a1 + 32), "Unit %llx is insanely long (payload %llu bytes long.)");
 LABEL_59:
-                v34 = 0;
+                v33 = 0;
                 goto LABEL_60;
               }
 
-              if (v47 >= 0xFFFFFFF8 || v47 + 8 > v49 || (v52 = __CFADD__(v47, v51 + 8), v53 = v47 + v51 + 8, v52) || v53 > v49)
+              if (v46 >= 0xFFFFFFF8 || v46 + 8 > v48 || (v51 = __CFADD__(v46, v50 + 8), v52 = v46 + v50 + 8, v51) || v52 > v48)
               {
-                v79 = *v46;
                 (*(*(a1 + 32) + 16))(*(a1 + 32), "Unit %llx is out of range (total %llu bytes long.)");
                 goto LABEL_59;
               }
 
-              if (((*a2 & 0x3FFFFFFF) == 1073732445) != (*v50 >> 30 == 1))
+              if (((*a2 & 0x3FFFFFFF) == 1073732445) != (*v49 >> 30 == 1))
               {
-                v81 = *v46;
                 (*(*(a1 + 32) + 16))(*(a1 + 32), "Unit %llx/%llx is garbage");
                 goto LABEL_59;
               }
             }
 
 LABEL_60:
-            ++v45;
-            v46 += 2;
-            if (v45 >= *v38)
+            ++v44;
+            v45 += 8;
+            if (v44 >= *v37)
             {
-              v35 = *v9;
+              v34 = *v9;
               break;
             }
           }
@@ -394,13 +388,13 @@ LABEL_60:
       }
     }
 
-    ++v36;
+    ++v35;
   }
 
-  while (v36 < v35);
-  v33 = *(*(a1 + 40) + 8);
+  while (v35 < v34);
+  v32 = *(*(a1 + 40) + 8);
 LABEL_64:
-  *(v33 + 24) = v34;
+  *(v32 + 24) = v33;
 }
 
 void ___CSStoreValidate_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)

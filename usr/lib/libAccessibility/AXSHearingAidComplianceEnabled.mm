@@ -3,7 +3,7 @@
 
 @implementation AXSHearingAidComplianceEnabled
 
-uint64_t ___AXSHearingAidComplianceEnabled_block_invoke()
+void *___AXSHearingAidComplianceEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

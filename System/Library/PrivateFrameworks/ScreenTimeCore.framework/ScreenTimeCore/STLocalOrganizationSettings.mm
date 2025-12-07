@@ -166,7 +166,7 @@
 
 - (void)didChangeValueForKey:(id)key
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   if ([keyCopy isEqualToString:@"passcode"])
   {
@@ -175,28 +175,28 @@
 
     if (!passcode)
     {
-      v20 = 0u;
-      v21 = 0u;
-      v18 = 0u;
       v19 = 0u;
+      v20 = 0u;
+      v17 = 0u;
+      v18 = 0u;
       organization = [(STLocalOrganizationSettings *)self organization];
       blueprints = [organization blueprints];
 
-      v8 = [blueprints countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [blueprints countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v19;
+        v10 = *v18;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v19 != v10)
+            if (*v18 != v10)
             {
               objc_enumerationMutation(blueprints);
             }
 
-            v12 = *(*(&v18 + 1) + 8 * i);
+            v12 = *(*(&v17 + 1) + 8 * i);
             users = [v12 users];
             user = [(STLocalOrganizationSettings *)self user];
             v15 = [users containsObject:user];
@@ -207,7 +207,7 @@
             }
           }
 
-          v9 = [blueprints countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v9 = [blueprints countByEnumeratingWithState:&v17 objects:v21 count:16];
         }
 
         while (v9);
@@ -215,20 +215,16 @@
     }
   }
 
-  v17.receiver = self;
-  v17.super_class = STLocalOrganizationSettings;
-  [(STLocalOrganizationSettings *)&v17 didChangeValueForKey:keyCopy];
-
-  v16 = *MEMORY[0x1E69E9840];
+  v16.receiver = self;
+  v16.super_class = STLocalOrganizationSettings;
+  [(STLocalOrganizationSettings *)&v16 didChangeValueForKey:keyCopy];
 }
 
 - (void)updateWithDictionaryRepresentation:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_6();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

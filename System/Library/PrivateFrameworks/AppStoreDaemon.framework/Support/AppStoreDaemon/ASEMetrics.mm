@@ -13,8 +13,8 @@
   ObjectType = swift_getObjectType();
   sub_1000056D0(bag + OBJC_IVAR___Bag_bag, &v11);
   bagCopy = bag;
-  sub_100085D40(&qword_10059C3D0);
-  sub_100085D40(&unk_10059CE80);
+  sub_100085D40(&qword_10059C3D0, &qword_1004353A0);
+  sub_100085D40(&unk_10059CE80, &unk_100436170);
   swift_dynamicCast();
   v8 = objc_allocWithZone(ObjectType);
   v9 = sub_100101074(type, v12);
@@ -26,7 +26,7 @@
 
 - (void)enqueueEvent:(AMSMetricsEvent *)event flushEvents:(BOOL)events completionHandler:(id)handler
 {
-  v9 = sub_100085D40(&qword_10059C3E0);
+  v9 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);
@@ -54,7 +54,7 @@
 
 - (void)enqueueEvents:(NSArray *)events flushEvents:(BOOL)flushEvents completionHandler:(id)handler
 {
-  v9 = sub_100085D40(&qword_10059C3E0);
+  v9 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);
@@ -82,7 +82,7 @@
 
 - (void)flushWithCompletionHandler:(id)handler
 {
-  v5 = sub_100085D40(&qword_10059C3E0);
+  v5 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);

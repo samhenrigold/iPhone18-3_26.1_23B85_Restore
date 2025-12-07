@@ -13,14 +13,14 @@ void __95__HKUnknownRecord_Displayable__fetchDetailItemsWithHealthRecordsStore_c
     v7 = *MEMORY[0x1E696B948];
     if (os_log_type_enabled(*MEMORY[0x1E696B948], OS_LOG_TYPE_DEBUG))
     {
-      __95__HKUnknownRecord_Displayable__fetchDetailItemsWithHealthRecordsStore_conceptStore_completion___block_invoke_cold_1(v7);
+      __95__HKUnknownRecord_Displayable__fetchDetailItemsWithHealthRecordsStore_conceptStore_completion___block_invoke_cold_1(v7, v6);
     }
   }
 
   v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if ([v5 count])
   {
-    v9 = HRNewlineJoinedStrings();
+    v9 = HRNewlineJoinedStrings(v5);
     v10 = HRLocalizedString(@"MEDICAL_RECORD_DETAIL_TITLE_EXTRACTION_FAILURE_REASON");
     v11 = [WDMedicalRecordDisplayItem detailSubtitleItemWithTitle:v10 subtitle:v9 extraTopPadding:0];
 
@@ -44,14 +44,14 @@ void __95__HKUnknownRecord_Displayable__fetchDetailItemsWithHealthRecordsStore_c
   (*(*(a1 + 40) + 16))();
 }
 
-void __95__HKUnknownRecord_Displayable__fetchDetailItemsWithHealthRecordsStore_conceptStore_completion___block_invoke_cold_1(void *a1)
+void __95__HKUnknownRecord_Displayable__fetchDetailItemsWithHealthRecordsStore_conceptStore_completion___block_invoke_cold_1(void *a1, uint64_t a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = a1;
-  v2 = HKSensitiveLogItem();
-  v3 = 138543362;
-  v4 = v2;
-  _os_log_debug_impl(&dword_1D101F000, v1, OS_LOG_TYPE_DEBUG, "Error stringifying failure reasons: %{public}@", &v3, 0xCu);
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = a1;
+  v3 = HKSensitiveLogItem();
+  v4 = 138543362;
+  v5 = v3;
+  _os_log_debug_impl(&dword_1D101F000, v2, OS_LOG_TYPE_DEBUG, "Error stringifying failure reasons: %{public}@", &v4, 0xCu);
 }
 
 @end

@@ -1,10 +1,68 @@
-uint64_t sub_100310060(uint64_t a1, char a2)
+uint64_t type metadata accessor for InstantAnswerContentView(uint64_t a1)
+{
+  v2 = qword_1006D9248;
+  if (!qword_1006D9248)
+  {
+    return swift_getSingletonMetadata();
+  }
+
+  return v2;
+}
+
+unint64_t sub_10030FE20()
+{
+  v2 = qword_1006D8E10;
+  if (!qword_1006D8E10)
+  {
+    type metadata accessor for InstantAnswerContentView(255);
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &qword_1006D8E10);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+void *sub_10030FEA0(void *a1)
+{
+  sub_10025C9B0(&qword_1006D88D0, &qword_100501CE8);
+  if (swift_getEnumCaseMultiPayload() == 1)
+  {
+    v1 = type metadata accessor for ContentSizeCategory();
+    (*(*(v1 - 8) + 8))(a1);
+  }
+
+  else
+  {
+  }
+
+  v5 = type metadata accessor for InstantAnswerContentView(0);
+  sub_100310060(*(a1 + v5[5]), *(a1 + v5[5] + 8) & 1);
+  v6 = a1 + v5[6];
+  sub_10025C9B0(&qword_1006D88A0, &qword_100502510);
+  if (swift_getEnumCaseMultiPayload() == 1)
+  {
+    v2 = type metadata accessor for ColorScheme();
+    (*(*(v2 - 8) + 8))(v6);
+  }
+
+  else
+  {
+  }
+
+  v3 = a1 + v5[7];
+  sub_1002F5D8C(*v3, *(v3 + 1), *(v3 + 2), *(v3 + 3), *(v3 + 4), *(v3 + 5), *(v3 + 6), *(v3 + 7), *(v3 + 8), *(v3 + 9), *(v3 + 10), v3[88]);
+
+  return a1;
+}
+
+uint64_t sub_100310060(uint64_t result, char a2)
 {
   if ((a2 & 1) == 0)
   {
   }
 
-  return result;
+  return v2;
 }
 
 unint64_t sub_100310094()
@@ -12,7 +70,7 @@ unint64_t sub_100310094()
   v2 = qword_1006D8E18;
   if (!qword_1006D8E18)
   {
-    sub_10025CAA4(&qword_1006D8DE0);
+    sub_10025CAA4(&qword_1006D8DE0, &qword_100502530);
     sub_10030FE20();
     sub_10031013C();
     WitnessTable = swift_getWitnessTable();
@@ -28,7 +86,7 @@ unint64_t sub_10031013C()
   v2 = qword_1006D8E20;
   if (!qword_1006D8E20)
   {
-    sub_10025CAA4(&qword_1006D8E28);
+    sub_10025CAA4(&qword_1006D8E28, &qword_100502590);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D8E20);
     return WitnessTable;
@@ -37,9 +95,9 @@ unint64_t sub_10031013C()
   return v2;
 }
 
-uint64_t sub_1003101C4(uint64_t a1)
+void *sub_1003101C4(void *a1)
 {
-  sub_10025C9B0(&qword_1006D88D0);
+  sub_10025C9B0(&qword_1006D88D0, &qword_100501CE8);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
     v1 = type metadata accessor for ContentSizeCategory();
@@ -50,10 +108,10 @@ uint64_t sub_1003101C4(uint64_t a1)
   {
   }
 
-  v5 = type metadata accessor for InstantAnswerContentView();
+  v5 = type metadata accessor for InstantAnswerContentView(0);
   sub_100310060(*(a1 + v5[5]), *(a1 + v5[5] + 8) & 1);
   v6 = a1 + v5[6];
-  sub_10025C9B0(&qword_1006D88A0);
+  sub_10025C9B0(&qword_1006D88A0, &qword_100502510);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
     v2 = type metadata accessor for ColorScheme();
@@ -65,9 +123,9 @@ uint64_t sub_1003101C4(uint64_t a1)
   }
 
   v3 = a1 + v5[7];
-  sub_1002F5D8C(*v3, *(v3 + 8), *(v3 + 16), *(v3 + 24), *(v3 + 32), *(v3 + 40), *(v3 + 48), *(v3 + 56), *(v3 + 64), *(v3 + 72), *(v3 + 80), *(v3 + 88));
+  sub_1002F5D8C(*v3, *(v3 + 1), *(v3 + 2), *(v3 + 3), *(v3 + 4), *(v3 + 5), *(v3 + 6), *(v3 + 7), *(v3 + 8), *(v3 + 9), *(v3 + 10), v3[88]);
 
-  sub_10025C9B0(&qword_1006D8DE0);
+  sub_10025C9B0(&qword_1006D8DE0, &qword_100502530);
 
   return a1;
 }
@@ -91,7 +149,7 @@ unint64_t sub_100310428()
   v2 = qword_1006D8E38;
   if (!qword_1006D8E38)
   {
-    sub_10025CAA4(&qword_1006D8DE8);
+    sub_10025CAA4(&qword_1006D8DE8, &qword_100502538);
     sub_100310094();
     sub_1003104D0();
     WitnessTable = swift_getWitnessTable();
@@ -107,7 +165,7 @@ unint64_t sub_1003104D0()
   v2 = qword_1006D8E40;
   if (!qword_1006D8E40)
   {
-    sub_10025CAA4(&qword_1006D8E48);
+    sub_10025CAA4(&qword_1006D8E48, &qword_100502598);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D8E40);
     return WitnessTable;
@@ -121,7 +179,7 @@ unint64_t sub_100310558()
   v2 = qword_1006D8E50;
   if (!qword_1006D8E50)
   {
-    sub_10025CAA4(&qword_1006D8DD8);
+    sub_10025CAA4(&qword_1006D8DD8, &unk_100502520);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D8E50);
     return WitnessTable;
@@ -137,9 +195,9 @@ uint64_t sub_1003105E0(uint64_t a1)
   return a1;
 }
 
-uint64_t sub_10031063C(uint64_t a1)
+void *sub_10031063C(void *a1)
 {
-  sub_10025C9B0(&qword_1006D88D0);
+  sub_10025C9B0(&qword_1006D88D0, &qword_100501CE8);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
     v1 = type metadata accessor for ContentSizeCategory();
@@ -150,10 +208,10 @@ uint64_t sub_10031063C(uint64_t a1)
   {
   }
 
-  v8 = type metadata accessor for InstantAnswerContentView();
+  v8 = type metadata accessor for InstantAnswerContentView(0);
   sub_100310060(*(a1 + v8[5]), *(a1 + v8[5] + 8) & 1);
   v9 = a1 + v8[6];
-  sub_10025C9B0(&qword_1006D88A0);
+  sub_10025C9B0(&qword_1006D88A0, &qword_100502510);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
     v2 = type metadata accessor for ColorScheme();
@@ -165,13 +223,13 @@ uint64_t sub_10031063C(uint64_t a1)
   }
 
   v3 = a1 + v8[7];
-  sub_1002F5D8C(*v3, *(v3 + 8), *(v3 + 16), *(v3 + 24), *(v3 + 32), *(v3 + 40), *(v3 + 48), *(v3 + 56), *(v3 + 64), *(v3 + 72), *(v3 + 80), *(v3 + 88));
+  sub_1002F5D8C(*v3, *(v3 + 1), *(v3 + 2), *(v3 + 3), *(v3 + 4), *(v3 + 5), *(v3 + 6), *(v3 + 7), *(v3 + 8), *(v3 + 9), *(v3 + 10), v3[88]);
 
-  sub_10025C9B0(&qword_1006D8DE0);
+  sub_10025C9B0(&qword_1006D8DE0, &qword_100502530);
 
-  v6 = a1 + *(sub_10025C9B0(&qword_1006D8DE8) + 36);
+  v6 = a1 + *(sub_10025C9B0(&qword_1006D8DE8, &qword_100502538) + 36);
 
-  v7 = v6 + *(sub_10025C9B0(&qword_1006D8E48) + 28);
+  v7 = &v6[*(sub_10025C9B0(&qword_1006D8E48, &qword_100502598) + 28)];
   v4 = type metadata accessor for ColorScheme();
   (*(*(v4 - 8) + 8))(v7);
   return a1;
@@ -182,9 +240,9 @@ unint64_t sub_1003108B0()
   v2 = qword_1006D8E60;
   if (!qword_1006D8E60)
   {
-    sub_10025CAA4(&qword_1006D8DF8);
-    sub_10025CAA4(&qword_1006D8DE8);
-    sub_10025CAA4(&qword_1006D8DD8);
+    sub_10025CAA4(&qword_1006D8DF8, &qword_100502548);
+    sub_10025CAA4(&qword_1006D8DE8, &qword_100502538);
+    sub_10025CAA4(&qword_1006D8DD8, &unk_100502520);
     sub_100310428();
     sub_100310558();
     swift_getOpaqueTypeConformance2();
@@ -201,7 +259,7 @@ unint64_t sub_1003109D4()
   v2 = qword_1006D8E68;
   if (!qword_1006D8E68)
   {
-    sub_10025CAA4(&qword_1006D8E58);
+    sub_10025CAA4(&qword_1006D8E58, &qword_1005025A0);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D8E68);
     return WitnessTable;
@@ -215,7 +273,7 @@ unint64_t sub_100310A5C()
   v2 = qword_1006D8E70;
   if (!qword_1006D8E70)
   {
-    sub_10025CAA4(&qword_1006D8E00);
+    sub_10025CAA4(&qword_1006D8E00, &qword_100502550);
     sub_1003108B0();
     sub_100310B04();
     WitnessTable = swift_getWitnessTable();
@@ -231,7 +289,7 @@ unint64_t sub_100310B04()
   v2 = qword_1006D8E78;
   if (!qword_1006D8E78)
   {
-    sub_10025CAA4(&qword_1006D8E80);
+    sub_10025CAA4(&qword_1006D8E80, &qword_1005025A8);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D8E78);
     return WitnessTable;
@@ -245,7 +303,7 @@ unint64_t sub_100310B8C()
   v2 = qword_1006D8E88;
   if (!qword_1006D8E88)
   {
-    sub_10025CAA4(&qword_1006D8E08);
+    sub_10025CAA4(&qword_1006D8E08, &qword_100502558);
     sub_100310A5C();
     sub_1002FAEDC();
     WitnessTable = swift_getWitnessTable();
@@ -269,13 +327,13 @@ unint64_t sub_100310C34()
   return v2;
 }
 
-uint64_t sub_100310CB0(uint64_t a1, char a2)
+uint64_t sub_100310CB0(uint64_t result, char a2)
 {
   if ((a2 & 1) == 0)
   {
   }
 
-  return result;
+  return v2;
 }
 
 uint64_t sub_100310CE4(uint64_t a1)
@@ -295,7 +353,7 @@ unint64_t sub_100310D94()
   v2 = qword_1006D8EB0;
   if (!qword_1006D8EB0)
   {
-    sub_10025CAA4(&qword_1006D8EA8);
+    sub_10025CAA4(&qword_1006D8EA8, &qword_100502600);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D8EB0);
     return WitnessTable;
@@ -309,7 +367,7 @@ unint64_t sub_100310E1C()
   v2 = qword_1006D8ED0;
   if (!qword_1006D8ED0)
   {
-    sub_10025CAA4(&qword_1006D8EB8);
+    sub_10025CAA4(&qword_1006D8EB8, &qword_100502608);
     sub_1003104D0();
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D8ED0);
@@ -319,14 +377,14 @@ unint64_t sub_100310E1C()
   return v2;
 }
 
-uint64_t sub_100310EC0(uint64_t a1)
+void *sub_100310EC0(void *a1)
 {
 
-  v3 = a1 + *(sub_10025C9B0(&qword_1006D8EB8) + 36);
+  v3 = a1 + *(sub_10025C9B0(&qword_1006D8EB8, &qword_100502608) + 36);
 
-  v4 = *(sub_10025C9B0(&qword_1006D8E48) + 28);
+  v4 = *(sub_10025C9B0(&qword_1006D8E48, &qword_100502598) + 28);
   v1 = type metadata accessor for ColorScheme();
-  (*(*(v1 - 8) + 8))(v3 + v4);
+  (*(*(v1 - 8) + 8))(&v3[v4]);
   return a1;
 }
 
@@ -335,7 +393,7 @@ unint64_t sub_100310F78()
   v2 = qword_1006D8ED8;
   if (!qword_1006D8ED8)
   {
-    sub_10025CAA4(&qword_1006D8EC0);
+    sub_10025CAA4(&qword_1006D8EC0, &qword_100502610);
     sub_100310E1C();
     sub_1002FE55C();
     WitnessTable = swift_getWitnessTable();
@@ -346,15 +404,15 @@ unint64_t sub_100310F78()
   return v2;
 }
 
-uint64_t sub_100311020(uint64_t a1)
+void *sub_100311020(void *a1)
 {
 
-  v3 = a1 + *(sub_10025C9B0(&qword_1006D8EB8) + 36);
+  v3 = a1 + *(sub_10025C9B0(&qword_1006D8EB8, &qword_100502608) + 36);
 
-  v4 = *(sub_10025C9B0(&qword_1006D8E48) + 28);
+  v4 = *(sub_10025C9B0(&qword_1006D8E48, &qword_100502598) + 28);
   v1 = type metadata accessor for ColorScheme();
-  (*(*(v1 - 8) + 8))(v3 + v4);
-  sub_10025C9B0(&qword_1006D8EC0);
+  (*(*(v1 - 8) + 8))(&v3[v4]);
+  sub_10025C9B0(&qword_1006D8EC0, &qword_100502610);
 
   return a1;
 }
@@ -364,7 +422,7 @@ unint64_t sub_10031111C()
   v2 = qword_1006D8F00;
   if (!qword_1006D8F00)
   {
-    sub_10025CAA4(&qword_1006D8EF8);
+    sub_10025CAA4(&qword_1006D8EF8, &qword_100502638);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D8F00);
     return WitnessTable;
@@ -378,7 +436,7 @@ unint64_t sub_1003111A4()
   v2 = qword_1006D8F08;
   if (!qword_1006D8F08)
   {
-    sub_10025CAA4(&qword_1006D8EE0);
+    sub_10025CAA4(&qword_1006D8EE0, &qword_100502620);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D8F08);
     return WitnessTable;
@@ -392,7 +450,7 @@ unint64_t sub_10031122C()
   v2 = qword_1006D8F78;
   if (!qword_1006D8F78)
   {
-    sub_10025CAA4(&qword_1006D8EE8);
+    sub_10025CAA4(&qword_1006D8EE8, &qword_100502628);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D8F78);
     return WitnessTable;
@@ -406,7 +464,7 @@ unint64_t sub_1003112B4()
   v2 = qword_1006D8FB0;
   if (!qword_1006D8FB0)
   {
-    sub_10025CAA4(&qword_1006D8EF0);
+    sub_10025CAA4(&qword_1006D8EF0, &qword_100502630);
     sub_10031122C();
     sub_1003111A4();
     WitnessTable = swift_getWitnessTable();
@@ -422,7 +480,7 @@ unint64_t sub_100311364()
   v2 = qword_1006D8FC0;
   if (!qword_1006D8FC0)
   {
-    sub_10025CAA4(&qword_1006D8FB8);
+    sub_10025CAA4(&qword_1006D8FB8, &qword_1005026D8);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D8FC0);
     return WitnessTable;
@@ -431,15 +489,15 @@ unint64_t sub_100311364()
   return v2;
 }
 
-uint64_t type metadata accessor for InstantAnswerButton()
+uint64_t type metadata accessor for InstantAnswerButton(uint64_t a1)
 {
-  v1 = qword_1006D92F8;
+  v2 = qword_1006D92F8;
   if (!qword_1006D92F8)
   {
     return swift_getSingletonMetadata();
   }
 
-  return v1;
+  return v2;
 }
 
 unint64_t sub_100311470()
@@ -447,7 +505,7 @@ unint64_t sub_100311470()
   v2 = qword_1006D8FF0;
   if (!qword_1006D8FF0)
   {
-    sub_10025CAA4(&qword_1006D8FE8);
+    sub_10025CAA4(&qword_1006D8FE8, &qword_100502700);
     sub_100311518();
     sub_1003115A0();
     WitnessTable = swift_getWitnessTable();
@@ -463,7 +521,7 @@ unint64_t sub_100311518()
   v2 = qword_1006D8FF8;
   if (!qword_1006D8FF8)
   {
-    sub_10025CAA4(&qword_1006D9000);
+    sub_10025CAA4(&qword_1006D9000, &qword_100502708);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D8FF8);
     return WitnessTable;
@@ -477,7 +535,7 @@ unint64_t sub_1003115A0()
   v2 = qword_1006D9008;
   if (!qword_1006D9008)
   {
-    sub_10025CAA4(&qword_1006D9010);
+    sub_10025CAA4(&qword_1006D9010, &qword_100502710);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D9008);
     return WitnessTable;
@@ -504,7 +562,7 @@ unint64_t sub_1003116A4()
   v2 = qword_1006D9020;
   if (!qword_1006D9020)
   {
-    sub_10025CAA4(&qword_1006D8FC8);
+    sub_10025CAA4(&qword_1006D8FC8, &qword_1005026E0);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D9020);
     return WitnessTable;
@@ -518,7 +576,7 @@ unint64_t sub_10031172C()
   v2 = qword_1006D9028;
   if (!qword_1006D9028)
   {
-    sub_10025CAA4(&qword_1006D8FD0);
+    sub_10025CAA4(&qword_1006D8FD0, &qword_1005026E8);
     sub_1003116A4();
     sub_1003117D4();
     WitnessTable = swift_getWitnessTable();
@@ -534,7 +592,7 @@ unint64_t sub_1003117D4()
   v2 = qword_1006D9030;
   if (!qword_1006D9030)
   {
-    sub_10025CAA4(&qword_1006D9038);
+    sub_10025CAA4(&qword_1006D9038, &qword_100502718);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D9030);
     return WitnessTable;
@@ -583,7 +641,7 @@ unint64_t sub_1003119C0()
   v2 = qword_1006D9060;
   if (!qword_1006D9060)
   {
-    sub_10025CAA4(&qword_1006D9058);
+    sub_10025CAA4(&qword_1006D9058, &qword_100502728);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D9060);
     return WitnessTable;
@@ -597,7 +655,7 @@ unint64_t sub_100311A48()
   v2 = qword_1006D9068;
   if (!qword_1006D9068)
   {
-    sub_10025CAA4(&qword_1006D9050);
+    sub_10025CAA4(&qword_1006D9050, &qword_100502720);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D9068);
     return WitnessTable;
@@ -608,10 +666,10 @@ unint64_t sub_100311A48()
 
 uint64_t sub_100311AD0(uint64_t a1)
 {
-  v4 = *(sub_10025C9B0(&qword_1006D9070) + 44);
+  v4 = *(sub_10025C9B0(&qword_1006D9070, &qword_100502730) + 44);
   v1 = type metadata accessor for LabelStyleConfiguration.Icon();
   (*(*(v1 - 8) + 8))();
-  v5 = *(sub_10025C9B0(&qword_1006D9078) + 48);
+  v5 = *(sub_10025C9B0(&qword_1006D9078, &qword_100502738) + 48);
   v2 = type metadata accessor for LabelStyleConfiguration.Title();
   (*(*(v2 - 8) + 8))(a1 + v4 + v5);
   return a1;
@@ -621,10 +679,10 @@ uint64_t sub_100311BB8(uint64_t a1, uint64_t a2)
 {
   *a2 = *a1;
   *(a2 + 16) = *(a1 + 16);
-  v5 = *(sub_10025C9B0(&qword_1006D9070) + 44);
+  v5 = *(sub_10025C9B0(&qword_1006D9070, &qword_100502730) + 44);
   v2 = type metadata accessor for LabelStyleConfiguration.Icon();
   (*(*(v2 - 8) + 16))();
-  v7 = *(sub_10025C9B0(&qword_1006D9078) + 48);
+  v7 = *(sub_10025C9B0(&qword_1006D9078, &qword_100502738) + 48);
   v3 = type metadata accessor for LabelStyleConfiguration.Title();
   (*(*(v3 - 8) + 16))(a2 + v5 + v7, a1 + v5 + v7);
   return a2;
@@ -650,39 +708,39 @@ uint64_t sub_100311D84@<X0>(_BYTE *a1@<X8>)
   return result;
 }
 
-uint64_t sub_100311E5C()
+unint64_t sub_100311E5C(uint64_t a1)
 {
-  v3 = sub_100311F4C();
-  if (v0 <= 0x3F)
+  v4 = sub_100311F4C(319);
+  if (v1 <= 0x3F)
   {
-    v3 = type metadata accessor for InstantAnswerView.State();
-    if (v1 <= 0x3F)
+    v4 = type metadata accessor for InstantAnswerView.State(319);
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
       return 0;
     }
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t sub_100311F4C()
+unint64_t sub_100311F4C(uint64_t a1)
 {
-  v4 = qword_1006D90F0;
+  v5 = qword_1006D90F0;
   if (!qword_1006D90F0)
   {
     type metadata accessor for ColorScheme();
-    v3 = type metadata accessor for Environment();
-    v4 = v3;
-    if (!v0)
+    v4 = type metadata accessor for Environment();
+    v5 = v4;
+    if (!v1)
     {
-      v1 = v3;
-      atomic_store(v3, &qword_1006D90F0);
-      return v1;
+      v2 = v4;
+      atomic_store(v4, &qword_1006D90F0);
+      return v2;
     }
   }
 
-  return v4;
+  return v5;
 }
 
 uint64_t sub_100312024(uint64_t a1, unsigned int a2)
@@ -1001,10 +1059,10 @@ uint64_t sub_100312E04(uint64_t result, unsigned int a2, unsigned int a3)
   return result;
 }
 
-uint64_t sub_10031300C()
+uint64_t sub_10031300C(uint64_t a1)
 {
   updated = type metadata accessor for ObservationRegistrar();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     updated = swift_updateClassMetadata2();
     if (!updated)
@@ -1016,16 +1074,16 @@ uint64_t sub_10031300C()
   return updated;
 }
 
-uint64_t sub_10031314C()
+unint64_t sub_10031314C(uint64_t a1)
 {
-  v4 = sub_1002FDCA8();
-  if (v0 <= 0x3F)
+  v5 = sub_1002FDCA8(319);
+  if (v1 <= 0x3F)
   {
-    v4 = sub_100313290();
-    if (v1 <= 0x3F)
+    v5 = sub_100313290(319);
+    if (v2 <= 0x3F)
     {
-      v4 = sub_100311F4C();
-      if (v2 <= 0x3F)
+      v5 = sub_100311F4C(319);
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
         return 0;
@@ -1033,37 +1091,37 @@ uint64_t sub_10031314C()
     }
   }
 
-  return v4;
+  return v5;
 }
 
-uint64_t sub_100313290()
+unint64_t sub_100313290(uint64_t a1)
 {
-  v4 = qword_1006D9258;
+  v5 = qword_1006D9258;
   if (!qword_1006D9258)
   {
-    v3 = type metadata accessor for Environment();
-    v4 = v3;
-    if (!v0)
+    v4 = type metadata accessor for Environment();
+    v5 = v4;
+    if (!v1)
     {
-      v1 = v3;
-      atomic_store(v3, &qword_1006D9258);
-      return v1;
+      v2 = v4;
+      atomic_store(v4, &qword_1006D9258);
+      return v2;
     }
   }
 
-  return v4;
+  return v5;
 }
 
-uint64_t sub_100313374()
+unint64_t sub_100313374(uint64_t a1)
 {
-  v4 = sub_100311F4C();
-  if (v0 <= 0x3F)
+  v5 = sub_100311F4C(319);
+  if (v1 <= 0x3F)
   {
-    v4 = sub_1002FDCA8();
-    if (v1 <= 0x3F)
+    v5 = sub_1002FDCA8(319);
+    if (v2 <= 0x3F)
     {
-      v4 = sub_100313290();
-      if (v2 <= 0x3F)
+      v5 = sub_100313290(319);
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
         return 0;
@@ -1071,7 +1129,7 @@ uint64_t sub_100313374()
     }
   }
 
-  return v4;
+  return v5;
 }
 
 unint64_t sub_1003134D8()
@@ -1079,7 +1137,7 @@ unint64_t sub_1003134D8()
   v2 = qword_1006D9340;
   if (!qword_1006D9340)
   {
-    sub_10025CAA4(&qword_1006D9348);
+    sub_10025CAA4(&qword_1006D9348, &qword_100502B98);
     sub_1002FE4B8();
     sub_100313580();
     WitnessTable = swift_getWitnessTable();
@@ -1095,7 +1153,7 @@ unint64_t sub_100313580()
   v2 = qword_1006D9350;
   if (!qword_1006D9350)
   {
-    sub_10025CAA4(&qword_1006D9358);
+    sub_10025CAA4(&qword_1006D9358, qword_100502BA0);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D9350);
     return WitnessTable;
@@ -1109,7 +1167,7 @@ unint64_t sub_100313608()
   v2 = qword_1006D9360;
   if (!qword_1006D9360)
   {
-    sub_10025CAA4(&qword_1006D9368);
+    sub_10025CAA4(&qword_1006D9368, qword_100502BF0);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D9360);
     return WitnessTable;
@@ -1123,8 +1181,8 @@ unint64_t sub_100313690()
   v2 = qword_1006D9370;
   if (!qword_1006D9370)
   {
-    sub_10025CAA4(&qword_1006D8F68);
-    sub_10025CAA4(&qword_1006D8EC0);
+    sub_10025CAA4(&qword_1006D8F68, &qword_100502698);
+    sub_10025CAA4(&qword_1006D8EC0, &qword_100502610);
     sub_100310F78();
     swift_getOpaqueTypeConformance2();
     sub_1002FE6D0();
@@ -1141,8 +1199,8 @@ unint64_t sub_100313788()
   v2 = qword_1006D9378;
   if (!qword_1006D9378)
   {
-    sub_10025CAA4(&qword_1006D9380);
-    sub_10025CAA4(&qword_1006D8FD0);
+    sub_10025CAA4(&qword_1006D9380, &qword_100502CB0);
+    sub_10025CAA4(&qword_1006D8FD0, &qword_1005026E8);
     type metadata accessor for BorderedButtonStyle();
     sub_10031172C();
     sub_10031185C();
@@ -1161,7 +1219,7 @@ unint64_t sub_1003138A8()
   v2 = qword_1006D9388;
   if (!qword_1006D9388)
   {
-    sub_10025CAA4(&qword_1006D9390);
+    sub_10025CAA4(&qword_1006D9390, qword_100502CB8);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D9388);
     return WitnessTable;
@@ -1203,7 +1261,7 @@ unint64_t sub_100313AE4()
   v2 = qword_1006D93B0;
   if (!qword_1006D93B0)
   {
-    sub_10025CAA4(&qword_1006D93A8);
+    sub_10025CAA4(&qword_1006D93A8, &qword_100502E68);
     sub_100313580();
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D93B0);
@@ -1215,9 +1273,9 @@ unint64_t sub_100313AE4()
 
 uint64_t sub_100313B88(uint64_t a1)
 {
-  v1 = sub_10025C9B0(&qword_1006D9000);
+  v1 = sub_10025C9B0(&qword_1006D9000, &qword_100502708);
   (*(*(v1 - 8) + 8))(a1);
-  sub_10025C9B0(&qword_1006D8FE8);
+  sub_10025C9B0(&qword_1006D8FE8, &qword_100502700);
 
   return a1;
 }
@@ -1227,7 +1285,7 @@ unint64_t sub_100313C20()
   v2 = qword_1006D93D0;
   if (!qword_1006D93D0)
   {
-    sub_10025CAA4(&qword_1006D93C8);
+    sub_10025CAA4(&qword_1006D93C8, &qword_100502E80);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D93D0);
     return WitnessTable;
@@ -1241,7 +1299,7 @@ unint64_t sub_100313CA8()
   v2 = qword_1006D93D8;
   if (!qword_1006D93D8)
   {
-    sub_10025CAA4(&qword_1006D93C0);
+    sub_10025CAA4(&qword_1006D93C0, &qword_100502E78);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D93D8);
     return WitnessTable;
@@ -1255,7 +1313,7 @@ unint64_t sub_100313D30()
   v2 = qword_1006D93E0;
   if (!qword_1006D93E0)
   {
-    sub_10025CAA4(&qword_1006D8FA0);
+    sub_10025CAA4(&qword_1006D8FA0, &qword_1005026C8);
     sub_100313CA8();
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D93E0);
@@ -1270,7 +1328,7 @@ unint64_t sub_100313DD4()
   v2 = qword_1006D93E8;
   if (!qword_1006D93E8)
   {
-    type metadata accessor for InstantAnswerHotelContentView();
+    type metadata accessor for InstantAnswerHotelContentView(255);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D93E8);
     return WitnessTable;
@@ -1279,9 +1337,9 @@ unint64_t sub_100313DD4()
   return v2;
 }
 
-uint64_t sub_100313E54(uint64_t a1)
+void *sub_100313E54(void *a1)
 {
-  sub_10025C9B0(&qword_1006D88D0);
+  sub_10025C9B0(&qword_1006D88D0, &qword_100501CE8);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
     v1 = type metadata accessor for ContentSizeCategory();
@@ -1292,14 +1350,14 @@ uint64_t sub_100313E54(uint64_t a1)
   {
   }
 
-  type metadata accessor for InstantAnswerHotelContentView();
+  type metadata accessor for InstantAnswerHotelContentView(0);
 
   return a1;
 }
 
 void *sub_100313F28(uint64_t *a1, void *a2)
 {
-  sub_10025C9B0(&qword_1006D88D0);
+  sub_10025C9B0(&qword_1006D88D0, &qword_100501CE8);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
     v2 = type metadata accessor for ContentSizeCategory();
@@ -1314,7 +1372,7 @@ void *sub_100313F28(uint64_t *a1, void *a2)
   }
 
   swift_storeEnumTagMultiPayload();
-  v3 = type metadata accessor for InstantAnswerHotelContentView();
+  v3 = type metadata accessor for InstantAnswerHotelContentView(0);
   v8 = (a2 + *(v3 + 20));
   v7 = (a1 + *(v3 + 20));
   *v8 = *v7;
@@ -1338,7 +1396,7 @@ unint64_t sub_10031408C()
   v2 = qword_1006D93F0;
   if (!qword_1006D93F0)
   {
-    type metadata accessor for InstantAnswerFlightContentView();
+    type metadata accessor for InstantAnswerFlightContentView(255);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D93F0);
     return WitnessTable;
@@ -1349,10 +1407,10 @@ unint64_t sub_10031408C()
 
 char *sub_10031410C(char *a1, char *a2)
 {
-  sub_10025C9B0(&qword_1006D8F28);
+  sub_10025C9B0(&qword_1006D8F28, &qword_100502658);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    v10 = sub_10025C9B0(&qword_1006D88D0);
+    v10 = sub_10025C9B0(&qword_1006D88D0, &qword_100501CE8);
     if (swift_getEnumCaseMultiPayload() == 1)
     {
       v7 = type metadata accessor for ContentSizeCategory();
@@ -1365,14 +1423,14 @@ char *sub_10031410C(char *a1, char *a2)
       memcpy(a2, a1, *(*(v10 - 8) + 64));
     }
 
-    v8 = type metadata accessor for InstantAnswerHotelContentView();
+    v8 = type metadata accessor for InstantAnswerHotelContentView(0);
     memcpy(&a2[*(v8 + 20)], &a1[*(v8 + 20)], 0x30uLL);
     swift_storeEnumTagMultiPayload();
   }
 
   else
   {
-    v12 = sub_10025C9B0(&qword_1006D88D0);
+    v12 = sub_10025C9B0(&qword_1006D88D0, &qword_100501CE8);
     if (swift_getEnumCaseMultiPayload() == 1)
     {
       v2 = type metadata accessor for ContentSizeCategory();
@@ -1385,7 +1443,7 @@ char *sub_10031410C(char *a1, char *a2)
       memcpy(a2, a1, *(*(v12 - 8) + 64));
     }
 
-    v11 = type metadata accessor for InstantAnswerFlightContentView();
+    v11 = type metadata accessor for InstantAnswerFlightContentView(0);
     v3 = &a2[v11[5]];
     v4 = &a1[v11[5]];
     *v3 = *v4;
@@ -1406,23 +1464,23 @@ char *sub_10031410C(char *a1, char *a2)
 
 uint64_t sub_1003143D0(uint64_t a1)
 {
-  v4 = *(sub_10025C9B0(&qword_1006D8F38) + 44);
-  v5 = *(sub_10025C9B0(&qword_1006D8F40) + 44);
-  v1 = sub_10025C9B0(&qword_1006D8F48);
+  v4 = *(sub_10025C9B0(&qword_1006D8F38, &qword_100502668) + 44);
+  v5 = *(sub_10025C9B0(&qword_1006D8F40, &qword_100502670) + 44);
+  v1 = sub_10025C9B0(&qword_1006D8F48, &qword_100502678);
   (*(*(v1 - 8) + 8))(a1 + v4 + v5);
-  v6 = *(sub_10025C9B0(&qword_1006D8F50) + 48);
-  v7 = *(sub_10025C9B0(&qword_1006D8F58) + 44);
-  v2 = sub_10025C9B0(&qword_1006D8F60);
+  v6 = *(sub_10025C9B0(&qword_1006D8F50, &qword_100502680) + 48);
+  v7 = *(sub_10025C9B0(&qword_1006D8F58, &qword_100502688) + 44);
+  v2 = sub_10025C9B0(&qword_1006D8F60, &qword_100502690);
   (*(*(v2 - 8) + 8))(a1 + v4 + v6 + v7);
   return a1;
 }
 
 void *sub_100314510(uint64_t *a1, void *a2)
 {
-  sub_10025C9B0(&qword_1006D8F28);
+  sub_10025C9B0(&qword_1006D8F28, &qword_100502658);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    sub_10025C9B0(&qword_1006D88D0);
+    sub_10025C9B0(&qword_1006D88D0, &qword_100501CE8);
     if (swift_getEnumCaseMultiPayload() == 1)
     {
       v7 = type metadata accessor for ContentSizeCategory();
@@ -1437,7 +1495,7 @@ void *sub_100314510(uint64_t *a1, void *a2)
     }
 
     swift_storeEnumTagMultiPayload();
-    v8 = type metadata accessor for InstantAnswerHotelContentView();
+    v8 = type metadata accessor for InstantAnswerHotelContentView(0);
     v13 = (a2 + *(v8 + 20));
     v12 = (a1 + *(v8 + 20));
     *v13 = *v12;
@@ -1457,7 +1515,7 @@ void *sub_100314510(uint64_t *a1, void *a2)
 
   else
   {
-    sub_10025C9B0(&qword_1006D88D0);
+    sub_10025C9B0(&qword_1006D88D0, &qword_100501CE8);
     if (swift_getEnumCaseMultiPayload() == 1)
     {
       v2 = type metadata accessor for ContentSizeCategory();
@@ -1472,7 +1530,7 @@ void *sub_100314510(uint64_t *a1, void *a2)
     }
 
     swift_storeEnumTagMultiPayload();
-    v31 = type metadata accessor for InstantAnswerFlightContentView();
+    v31 = type metadata accessor for InstantAnswerFlightContentView(0);
     v16 = a2 + v31[5];
     v3 = a1 + v31[5];
     *v16 = *v3;
@@ -1529,21 +1587,21 @@ void *sub_100314510(uint64_t *a1, void *a2)
 _BYTE *sub_10031496C(_BYTE *a1, _BYTE *a2)
 {
   *a2 = *a1;
-  v2 = sub_10025C9B0(&qword_1006D8F38);
+  v2 = sub_10025C9B0(&qword_1006D8F38, &qword_100502668);
   v9 = &a1[*(v2 + 44)];
   v10 = &a2[*(v2 + 44)];
   *v10 = *v9;
   v10[16] = v9[16];
-  v8 = *(sub_10025C9B0(&qword_1006D8F40) + 44);
-  v3 = sub_10025C9B0(&qword_1006D8F48);
+  v8 = *(sub_10025C9B0(&qword_1006D8F40, &qword_100502670) + 44);
+  v3 = sub_10025C9B0(&qword_1006D8F48, &qword_100502678);
   (*(*(v3 - 8) + 16))(&v10[v8], &v9[v8]);
-  v4 = sub_10025C9B0(&qword_1006D8F50);
+  v4 = sub_10025C9B0(&qword_1006D8F50, &qword_100502680);
   v13 = &v9[*(v4 + 48)];
   v11 = &v10[*(v4 + 48)];
   *v11 = *v13;
   v11[16] = v13[16];
-  v12 = *(sub_10025C9B0(&qword_1006D8F58) + 44);
-  v5 = sub_10025C9B0(&qword_1006D8F60);
+  v12 = *(sub_10025C9B0(&qword_1006D8F58, &qword_100502688) + 44);
+  v5 = sub_10025C9B0(&qword_1006D8F60, &qword_100502690);
   (*(*(v5 - 8) + 16))(&v11[v12], &v13[v12]);
   return a2;
 }
@@ -1553,7 +1611,7 @@ unint64_t sub_100314B20()
   v2 = qword_1006D93F8;
   if (!qword_1006D93F8)
   {
-    sub_10025CAA4(&qword_1006D93B8);
+    sub_10025CAA4(&qword_1006D93B8, &qword_100502E70);
     sub_10031408C();
     sub_100313DD4();
     WitnessTable = swift_getWitnessTable();
@@ -1564,12 +1622,12 @@ unint64_t sub_100314B20()
   return v2;
 }
 
-uint64_t sub_100314BC8(uint64_t a1)
+void *sub_100314BC8(void *a1)
 {
-  sub_10025C9B0(&qword_1006D8F28);
+  sub_10025C9B0(&qword_1006D8F28, &qword_100502658);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    sub_10025C9B0(&qword_1006D88D0);
+    sub_10025C9B0(&qword_1006D88D0, &qword_100501CE8);
     if (swift_getEnumCaseMultiPayload() == 1)
     {
       v2 = type metadata accessor for ContentSizeCategory();
@@ -1580,12 +1638,12 @@ uint64_t sub_100314BC8(uint64_t a1)
     {
     }
 
-    type metadata accessor for InstantAnswerHotelContentView();
+    type metadata accessor for InstantAnswerHotelContentView(0);
   }
 
   else
   {
-    sub_10025C9B0(&qword_1006D88D0);
+    sub_10025C9B0(&qword_1006D88D0, &qword_100501CE8);
     if (swift_getEnumCaseMultiPayload() == 1)
     {
       v1 = type metadata accessor for ContentSizeCategory();
@@ -1596,15 +1654,15 @@ uint64_t sub_100314BC8(uint64_t a1)
     {
     }
 
-    type metadata accessor for InstantAnswerFlightContentView();
+    type metadata accessor for InstantAnswerFlightContentView(0);
   }
 
   return a1;
 }
 
-uint64_t sub_100314DFC(uint64_t a1)
+void *sub_100314DFC(void *a1)
 {
-  sub_10025C9B0(&qword_1006D88D0);
+  sub_10025C9B0(&qword_1006D88D0, &qword_100501CE8);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
     v1 = type metadata accessor for ContentSizeCategory();
@@ -1615,16 +1673,16 @@ uint64_t sub_100314DFC(uint64_t a1)
   {
   }
 
-  type metadata accessor for InstantAnswerFlightContentView();
+  type metadata accessor for InstantAnswerFlightContentView(0);
 
   return a1;
 }
 
-void __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> sub_100314F4C()
+void __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> sub_100314F4C(void *a1)
 {
 }
 
-void *sub_100314FA8(uint64_t *a1, void *a2)
+void *sub_100314FA8(void *a1, void *a2)
 {
   v3 = *a1;
 
@@ -1650,7 +1708,7 @@ unint64_t sub_100315054()
   v2 = qword_1006D9410;
   if (!qword_1006D9410)
   {
-    sub_10025CAA4(&qword_1006D9408);
+    sub_10025CAA4(&qword_1006D9408, &qword_100502E90);
     sub_1003134D8();
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D9410);
@@ -1665,7 +1723,7 @@ unint64_t sub_1003150F8()
   v2 = qword_1006D9420;
   if (!qword_1006D9420)
   {
-    sub_10025CAA4(&qword_1006D9418);
+    sub_10025CAA4(&qword_1006D9418, &qword_100502E98);
     sub_100315054();
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D9420);
@@ -1675,7 +1733,7 @@ unint64_t sub_1003150F8()
   return v2;
 }
 
-void __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> sub_10031519C()
+void __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> sub_10031519C(void *a1)
 {
 }
 
@@ -1684,7 +1742,7 @@ unint64_t sub_10031520C()
   v2 = qword_1006D9430;
   if (!qword_1006D9430)
   {
-    sub_10025CAA4(&qword_1006D9428);
+    sub_10025CAA4(&qword_1006D9428, &qword_100502EA0);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D9430);
     return WitnessTable;
@@ -1698,7 +1756,7 @@ unint64_t sub_100315294()
   v2 = qword_1006D9438;
   if (!qword_1006D9438)
   {
-    sub_10025CAA4(&qword_1006D9400);
+    sub_10025CAA4(&qword_1006D9400, &qword_100502E88);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D9438);
     return WitnessTable;
@@ -1709,11 +1767,11 @@ unint64_t sub_100315294()
 
 uint64_t sub_10031531C(uint64_t a1)
 {
-  v11 = *(sub_10025C9B0(&qword_1006D8F20) + 44);
-  sub_10025C9B0(&qword_1006D8F28);
+  v11 = *(sub_10025C9B0(&qword_1006D8F20, &qword_100502650) + 44);
+  sub_10025C9B0(&qword_1006D8F28, &qword_100502658);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    sub_10025C9B0(&qword_1006D88D0);
+    sub_10025C9B0(&qword_1006D88D0, &qword_100501CE8);
     if (swift_getEnumCaseMultiPayload() == 1)
     {
       v2 = type metadata accessor for ContentSizeCategory();
@@ -1724,12 +1782,12 @@ uint64_t sub_10031531C(uint64_t a1)
     {
     }
 
-    type metadata accessor for InstantAnswerHotelContentView();
+    type metadata accessor for InstantAnswerHotelContentView(0);
   }
 
   else
   {
-    sub_10025C9B0(&qword_1006D88D0);
+    sub_10025C9B0(&qword_1006D88D0, &qword_100501CE8);
     if (swift_getEnumCaseMultiPayload() == 1)
     {
       v1 = type metadata accessor for ContentSizeCategory();
@@ -1740,17 +1798,17 @@ uint64_t sub_10031531C(uint64_t a1)
     {
     }
 
-    type metadata accessor for InstantAnswerFlightContentView();
+    type metadata accessor for InstantAnswerFlightContentView(0);
   }
 
-  v6 = a1 + v11 + *(sub_10025C9B0(&qword_1006D8F30) + 48);
-  v8 = v6 + *(sub_10025C9B0(&qword_1006D8F38) + 44);
-  v7 = v8 + *(sub_10025C9B0(&qword_1006D8F40) + 44);
-  v3 = sub_10025C9B0(&qword_1006D8F48);
+  v6 = a1 + v11 + *(sub_10025C9B0(&qword_1006D8F30, &qword_100502660) + 48);
+  v8 = v6 + *(sub_10025C9B0(&qword_1006D8F38, &qword_100502668) + 44);
+  v7 = v8 + *(sub_10025C9B0(&qword_1006D8F40, &qword_100502670) + 44);
+  v3 = sub_10025C9B0(&qword_1006D8F48, &qword_100502678);
   (*(*(v3 - 8) + 8))(v7);
-  v9 = v8 + *(sub_10025C9B0(&qword_1006D8F50) + 48);
-  v10 = v9 + *(sub_10025C9B0(&qword_1006D8F58) + 44);
-  v4 = sub_10025C9B0(&qword_1006D8F60);
+  v9 = v8 + *(sub_10025C9B0(&qword_1006D8F50, &qword_100502680) + 48);
+  v10 = v9 + *(sub_10025C9B0(&qword_1006D8F58, &qword_100502688) + 44);
+  v4 = sub_10025C9B0(&qword_1006D8F60, &qword_100502690);
   (*(*(v4 - 8) + 8))(v10);
   return a1;
 }
@@ -1760,7 +1818,7 @@ unint64_t sub_1003156F4()
   v2 = qword_1006D9440;
   if (!qword_1006D9440)
   {
-    sub_10025CAA4(&qword_1006D8F70);
+    sub_10025CAA4(&qword_1006D8F70, &qword_1005026A0);
     sub_100313690();
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D9440);
@@ -1770,7 +1828,7 @@ unint64_t sub_1003156F4()
   return v2;
 }
 
-void *sub_100315798(uint64_t *a1, void *a2)
+void *sub_100315798(void *a1, void *a2)
 {
   v3 = *a1;
 
@@ -1802,11 +1860,11 @@ uint64_t sub_100315894(uint64_t a1, uint64_t a2)
 {
   *a2 = *a1;
   *(a2 + 16) = *(a1 + 16);
-  v51 = *(sub_10025C9B0(&qword_1006D8F20) + 44);
-  sub_10025C9B0(&qword_1006D8F28);
+  v51 = *(sub_10025C9B0(&qword_1006D8F20, &qword_100502650) + 44);
+  sub_10025C9B0(&qword_1006D8F28, &qword_100502658);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    sub_10025C9B0(&qword_1006D88D0);
+    sub_10025C9B0(&qword_1006D88D0, &qword_100501CE8);
     if (swift_getEnumCaseMultiPayload() == 1)
     {
       v7 = type metadata accessor for ContentSizeCategory();
@@ -1821,7 +1879,7 @@ uint64_t sub_100315894(uint64_t a1, uint64_t a2)
     }
 
     swift_storeEnumTagMultiPayload();
-    v8 = type metadata accessor for InstantAnswerHotelContentView();
+    v8 = type metadata accessor for InstantAnswerHotelContentView(0);
     v30 = (a2 + v51 + *(v8 + 20));
     v29 = (a1 + v51 + *(v8 + 20));
     *v30 = *v29;
@@ -1841,7 +1899,7 @@ uint64_t sub_100315894(uint64_t a1, uint64_t a2)
 
   else
   {
-    sub_10025C9B0(&qword_1006D88D0);
+    sub_10025C9B0(&qword_1006D88D0, &qword_100501CE8);
     if (swift_getEnumCaseMultiPayload() == 1)
     {
       v2 = type metadata accessor for ContentSizeCategory();
@@ -1856,7 +1914,7 @@ uint64_t sub_100315894(uint64_t a1, uint64_t a2)
     }
 
     swift_storeEnumTagMultiPayload();
-    v48 = type metadata accessor for InstantAnswerFlightContentView();
+    v48 = type metadata accessor for InstantAnswerFlightContentView(0);
     v33 = a2 + v51 + v48[5];
     v3 = a1 + v51 + v48[5];
     *v33 = *v3;
@@ -1907,29 +1965,29 @@ uint64_t sub_100315894(uint64_t a1, uint64_t a2)
     swift_storeEnumTagMultiPayload();
   }
 
-  v9 = sub_10025C9B0(&qword_1006D8F30);
+  v9 = sub_10025C9B0(&qword_1006D8F30, &qword_100502660);
   v17 = (a2 + v51 + *(v9 + 48));
   v18 = (a1 + v51 + *(v9 + 48));
   *v17 = *v18;
-  v10 = sub_10025C9B0(&qword_1006D8F38);
+  v10 = sub_10025C9B0(&qword_1006D8F38, &qword_100502668);
   v21 = &v17[*(v10 + 44)];
   v22 = &v18[*(v10 + 44)];
   *v21 = *v22;
   v21[16] = v22[16];
-  v11 = sub_10025C9B0(&qword_1006D8F40);
+  v11 = sub_10025C9B0(&qword_1006D8F40, &qword_100502670);
   v20 = &v21[*(v11 + 44)];
   v19 = &v22[*(v11 + 44)];
-  v12 = sub_10025C9B0(&qword_1006D8F48);
+  v12 = sub_10025C9B0(&qword_1006D8F48, &qword_100502678);
   (*(*(v12 - 8) + 16))(v20, v19);
-  v13 = sub_10025C9B0(&qword_1006D8F50);
+  v13 = sub_10025C9B0(&qword_1006D8F50, &qword_100502680);
   v23 = &v21[*(v13 + 48)];
   v24 = &v22[*(v13 + 48)];
   *v23 = *v24;
   v23[16] = v24[16];
-  v14 = sub_10025C9B0(&qword_1006D8F58);
+  v14 = sub_10025C9B0(&qword_1006D8F58, &qword_100502688);
   v26 = &v23[*(v14 + 44)];
   v25 = &v24[*(v14 + 44)];
-  v15 = sub_10025C9B0(&qword_1006D8F60);
+  v15 = sub_10025C9B0(&qword_1006D8F60, &qword_100502690);
   (*(*(v15 - 8) + 16))(v26, v25);
   return a2;
 }
@@ -2004,7 +2062,7 @@ unint64_t sub_100316268()
   v2 = qword_1006D9460;
   if (!qword_1006D9460)
   {
-    sub_10025CAA4(&qword_1006D8F48);
+    sub_10025CAA4(&qword_1006D8F48, &qword_100502678);
     sub_100316300();
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D9460);
@@ -2019,7 +2077,7 @@ unint64_t sub_100316300()
   v2 = qword_1006D9468;
   if (!qword_1006D9468)
   {
-    sub_10025CAA4(&qword_1006D9470);
+    sub_10025CAA4(&qword_1006D9470, &qword_100502EC0);
     sub_1003163A8();
     sub_1002FAEDC();
     WitnessTable = swift_getWitnessTable();
@@ -2035,7 +2093,7 @@ unint64_t sub_1003163A8()
   v2 = qword_1006D9478;
   if (!qword_1006D9478)
   {
-    type metadata accessor for InstantAnswerButton();
+    type metadata accessor for InstantAnswerButton(255);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D9478);
     return WitnessTable;
@@ -2049,7 +2107,7 @@ unint64_t sub_100316428()
   v2 = qword_1006D9480;
   if (!qword_1006D9480)
   {
-    sub_10025CAA4(&qword_1006D9458);
+    sub_10025CAA4(&qword_1006D9458, &qword_100502EB8);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D9480);
     return WitnessTable;
@@ -2060,8 +2118,8 @@ unint64_t sub_100316428()
 
 uint64_t sub_1003164B0(uint64_t a1)
 {
-  v3 = *(sub_10025C9B0(&qword_1006D8F40) + 44);
-  v1 = sub_10025C9B0(&qword_1006D8F48);
+  v3 = *(sub_10025C9B0(&qword_1006D8F40, &qword_100502670) + 44);
+  v1 = sub_10025C9B0(&qword_1006D8F48, &qword_100502678);
   (*(*(v1 - 8) + 8))(a1 + v3);
   return a1;
 }
@@ -2071,7 +2129,7 @@ unint64_t sub_100316544()
   v2 = qword_1006D9488;
   if (!qword_1006D9488)
   {
-    sub_10025CAA4(&qword_1006D8F60);
+    sub_10025CAA4(&qword_1006D8F60, &qword_100502690);
     sub_1003163A8();
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D9488);
@@ -2086,7 +2144,7 @@ unint64_t sub_1003165DC()
   v2 = qword_1006D9490;
   if (!qword_1006D9490)
   {
-    sub_10025CAA4(&qword_1006D9450);
+    sub_10025CAA4(&qword_1006D9450, &qword_100502EB0);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D9490);
     return WitnessTable;
@@ -2097,8 +2155,8 @@ unint64_t sub_1003165DC()
 
 uint64_t sub_100316664(uint64_t a1)
 {
-  v3 = *(sub_10025C9B0(&qword_1006D8F58) + 44);
-  v1 = sub_10025C9B0(&qword_1006D8F60);
+  v3 = *(sub_10025C9B0(&qword_1006D8F58, &qword_100502688) + 44);
+  v1 = sub_10025C9B0(&qword_1006D8F60, &qword_100502690);
   (*(*(v1 - 8) + 8))(a1 + v3);
   return a1;
 }
@@ -2107,8 +2165,8 @@ uint64_t sub_1003166F0(uint64_t a1, uint64_t a2)
 {
   *a2 = *a1;
   *(a2 + 16) = *(a1 + 16);
-  v4 = *(sub_10025C9B0(&qword_1006D8F40) + 44);
-  v2 = sub_10025C9B0(&qword_1006D8F48);
+  v4 = *(sub_10025C9B0(&qword_1006D8F40, &qword_100502670) + 44);
+  v2 = sub_10025C9B0(&qword_1006D8F48, &qword_100502678);
   (*(*(v2 - 8) + 16))(a2 + v4, a1 + v4);
   return a2;
 }
@@ -2117,8 +2175,8 @@ uint64_t sub_1003167A4(uint64_t a1, uint64_t a2)
 {
   *a2 = *a1;
   *(a2 + 16) = *(a1 + 16);
-  v4 = *(sub_10025C9B0(&qword_1006D8F58) + 44);
-  v2 = sub_10025C9B0(&qword_1006D8F60);
+  v4 = *(sub_10025C9B0(&qword_1006D8F58, &qword_100502688) + 44);
+  v2 = sub_10025C9B0(&qword_1006D8F60, &qword_100502690);
   (*(*(v2 - 8) + 16))(a2 + v4, a1 + v4);
   return a2;
 }
@@ -2128,7 +2186,7 @@ unint64_t sub_100316858()
   v2 = qword_1006D94A0;
   if (!qword_1006D94A0)
   {
-    sub_10025CAA4(&qword_1006D9498);
+    sub_10025CAA4(&qword_1006D9498, &qword_100502EE8);
     WitnessTable = swift_getWitnessTable();
     atomic_store(WitnessTable, &qword_1006D94A0);
     return WitnessTable;
@@ -2137,9 +2195,9 @@ unint64_t sub_100316858()
   return v2;
 }
 
-uint64_t sub_1003168E0(uint64_t a1)
+void *sub_1003168E0(void *a1)
 {
-  sub_10025C9B0(&qword_1006D88A0);
+  sub_10025C9B0(&qword_1006D88A0, &qword_100502510);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
     v1 = type metadata accessor for ColorScheme();
@@ -2150,9 +2208,9 @@ uint64_t sub_1003168E0(uint64_t a1)
   {
   }
 
-  v4 = type metadata accessor for InstantAnswerButton();
+  v4 = type metadata accessor for InstantAnswerButton(0);
   v5 = a1 + *(v4 + 20);
-  sub_10025C9B0(&qword_1006D88D0);
+  sub_10025C9B0(&qword_1006D88D0, &qword_100501CE8);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
     v2 = type metadata accessor for ContentSizeCategory();
@@ -2170,7 +2228,7 @@ uint64_t sub_1003168E0(uint64_t a1)
 
 void *sub_100316A70(uint64_t *a1, void *a2)
 {
-  sub_10025C9B0(&qword_1006D88A0);
+  sub_10025C9B0(&qword_1006D88A0, &qword_100502510);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
     v2 = type metadata accessor for ColorScheme();
@@ -2185,10 +2243,10 @@ void *sub_100316A70(uint64_t *a1, void *a2)
   }
 
   swift_storeEnumTagMultiPayload();
-  v18 = type metadata accessor for InstantAnswerButton();
+  v18 = type metadata accessor for InstantAnswerButton(0);
   v19 = (a2 + v18[5]);
   v20 = (a1 + v18[5]);
-  sub_10025C9B0(&qword_1006D88D0);
+  sub_10025C9B0(&qword_1006D88D0, &qword_100501CE8);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
     v3 = type metadata accessor for ContentSizeCategory();
@@ -2237,7 +2295,7 @@ void *sub_100316A70(uint64_t *a1, void *a2)
 
 void *sub_100316D40(const void *a1, void *a2)
 {
-  v6 = sub_10025C9B0(&qword_1006D88A0);
+  v6 = sub_10025C9B0(&qword_1006D88A0, &qword_100502510);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
     v2 = type metadata accessor for ColorScheme();
@@ -2253,9 +2311,9 @@ void *sub_100316D40(const void *a1, void *a2)
   return a2;
 }
 
-uint64_t sub_100316E14(uint64_t a1)
+void *sub_100316E14(void *a1)
 {
-  sub_10025C9B0(&qword_1006D88A0);
+  sub_10025C9B0(&qword_1006D88A0, &qword_100502510);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
     v1 = type metadata accessor for ColorScheme();
@@ -2266,9 +2324,9 @@ uint64_t sub_100316E14(uint64_t a1)
   {
   }
 
-  v6 = type metadata accessor for InstantAnswerButton();
+  v6 = type metadata accessor for InstantAnswerButton(0);
   v7 = a1 + *(v6 + 20);
-  sub_10025C9B0(&qword_1006D88D0);
+  sub_10025C9B0(&qword_1006D88D0, &qword_100501CE8);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
     v2 = type metadata accessor for ContentSizeCategory();
@@ -2281,7 +2339,7 @@ uint64_t sub_100316E14(uint64_t a1)
 
   sub_100310060(*(a1 + *(v6 + 24)), *(a1 + *(v6 + 24) + 8) & 1);
 
-  v5 = a1 + *(sub_10025C9B0(&qword_1006D9470) + 36);
+  v5 = a1 + *(sub_10025C9B0(&qword_1006D9470, &qword_100502EC0) + 36);
   v3 = type metadata accessor for AccessibilityAttachmentModifier();
   (*(*(v3 - 8) + 8))(v5);
   return a1;
@@ -2289,7 +2347,7 @@ uint64_t sub_100316E14(uint64_t a1)
 
 void *sub_100317000(uint64_t *a1, void *a2)
 {
-  sub_10025C9B0(&qword_1006D88A0);
+  sub_10025C9B0(&qword_1006D88A0, &qword_100502510);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
     v2 = type metadata accessor for ColorScheme();
@@ -2304,10 +2362,10 @@ void *sub_100317000(uint64_t *a1, void *a2)
   }
 
   swift_storeEnumTagMultiPayload();
-  v22 = type metadata accessor for InstantAnswerButton();
+  v22 = type metadata accessor for InstantAnswerButton(0);
   v23 = (a2 + v22[5]);
   v24 = (a1 + v22[5]);
-  sub_10025C9B0(&qword_1006D88D0);
+  sub_10025C9B0(&qword_1006D88D0, &qword_100501CE8);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
     v3 = type metadata accessor for ContentSizeCategory();
@@ -2350,7 +2408,7 @@ void *sub_100317000(uint64_t *a1, void *a2)
   v17[6] = v16;
   v17[7] = v18;
   *(a2 + v22[8]) = *(a1 + v22[8]);
-  v6 = sub_10025C9B0(&qword_1006D9470);
+  v6 = sub_10025C9B0(&qword_1006D9470, &qword_100502EC0);
   v20 = a2 + *(v6 + 36);
   v19 = a1 + *(v6 + 36);
   v7 = type metadata accessor for AccessibilityAttachmentModifier();
@@ -2385,7 +2443,7 @@ uint64_t sub_100317440(uint64_t a1)
   v3 = *(type metadata accessor for RoundedRectangle() + 20);
   v1 = type metadata accessor for RoundedCornerStyle();
   (*(*(v1 - 8) + 8))(a1 + v3);
-  sub_10025C9B0(&qword_1006D8E58);
+  sub_10025C9B0(&qword_1006D8E58, &qword_1005025A0);
 
   return a1;
 }
@@ -2396,7 +2454,7 @@ char *sub_1003174E4(char *a1, char *a2)
   v4 = *(type metadata accessor for RoundedRectangle() + 20);
   v2 = type metadata accessor for RoundedCornerStyle();
   (*(*(v2 - 8) + 16))(&a2[v4], &a1[v4]);
-  v8 = sub_10025C9B0(&qword_1006D8E58);
+  v8 = sub_10025C9B0(&qword_1006D8E58, &qword_1005025A0);
   v6 = *(v8 + 52);
   v7 = *&a1[v6];
 
@@ -2781,7 +2839,7 @@ uint64_t sub_1003175E8()
   v163(v164, v161);
 
   v213 = v179;
-  v182 = sub_10025C9B0(&qword_1006D9508);
+  v182 = sub_10025C9B0(&qword_1006D9508, &qword_100502EF0);
   v41 = _allocateUninitializedArray<A>(_:)();
   v42 = v165;
   v43 = v166;
@@ -2801,7 +2859,6 @@ uint64_t sub_1003175E8()
   v57 = v180;
   v183 = v41;
   *v58 = v181;
-  v59 = v183;
   v58[1] = v57;
   v58[2] = v1;
   v58[3] = v2;
@@ -2831,32 +2888,32 @@ uint64_t sub_1003175E8()
   v184 = v59;
   v211 = static _AssistantIntent.Builder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(v185);
+  sub_100264880(v186);
+  sub_100264880(v187);
+  sub_100264880(v188);
+  sub_100264880(v189);
+  sub_100264880(v190);
+  sub_100264880(v191);
+  sub_100264880(v192);
+  sub_100264880(v193);
+  sub_100264880(v194);
+  sub_100264880(v195);
+  sub_100264880(v196);
+  sub_100264880(v197);
+  sub_100264880(v198);
+  sub_100264880(v199);
+  sub_100264880(v200);
+  sub_100264880(v201);
+  sub_100264880(v202);
+  sub_100264880(v203);
+  sub_100264880(v204);
+  sub_100264880(v205);
+  sub_100264880(v206);
+  sub_100264880(v207);
+  sub_100264880(v208);
+  sub_100264880(v209);
+  sub_100264880(v210);
   return v211;
 }
 
@@ -2932,7 +2989,7 @@ uint64_t sub_100318AC4(uint64_t a1)
   v391 = 0;
   v355 = &v390;
   v390 = 0;
-  v315 = sub_10025C9B0(&qword_1006D9718);
+  v315 = sub_10025C9B0(&qword_1006D9718, &qword_100503938);
   v136 = *(v315 - 8);
   v137 = v315 - 8;
   v123 = (v136[8] + 15) & 0xFFFFFFFFFFFFFFF0;
@@ -2944,7 +3001,7 @@ uint64_t sub_100318AC4(uint64_t a1)
   v125 = (v2 + 15) & 0xFFFFFFFFFFFFFFF0;
   __chkstk_darwin(&v123 - v124);
   v318 = &v123 - v125;
-  v320 = sub_10025C9B0(&qword_1006D9720);
+  v320 = sub_10025C9B0(&qword_1006D9720, &qword_100503940);
   v129 = *(v320 - 8);
   v130 = v320 - 8;
   v126 = (*(v129 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
@@ -3712,7 +3769,7 @@ uint64_t sub_100318AC4(uint64_t a1)
   v322(v323, v320);
 
   v390 = v339;
-  v342 = sub_10025C9B0(&qword_1006D9728);
+  v342 = sub_10025C9B0(&qword_1006D9728, &qword_100503948);
   v103 = _allocateUninitializedArray<A>(_:)();
   v104 = v325;
   v105 = v326;
@@ -3740,7 +3797,6 @@ uint64_t sub_100318AC4(uint64_t a1)
   v120[6] = v348;
   v120[7] = v349;
   v120[8] = v350;
-  v121 = v351;
   v120[9] = v119;
   v120[10] = v17;
   v120[11] = v21;
@@ -3770,110 +3826,113 @@ uint64_t sub_100318AC4(uint64_t a1)
   v354 = v121;
   v389 = static _AssistantIntent.PhraseBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(v355);
+  sub_100264880(v356);
+  sub_100264880(v357);
+  sub_100264880(v358);
+  sub_100264880(v359);
+  sub_100264880(v360);
+  sub_100264880(v361);
+  sub_100264880(v362);
+  sub_100264880(v363);
+  sub_100264880(v364);
+  sub_100264880(v365);
+  sub_100264880(v366);
+  sub_100264880(v367);
+  sub_100264880(v368);
+  sub_100264880(v369);
+  sub_100264880(v370);
+  sub_100264880(v371);
+  sub_100264880(v372);
+  sub_100264880(v373);
+  sub_100264880(v374);
+  sub_100264880(v375);
+  sub_100264880(v376);
+  sub_100264880(v377);
+  sub_100264880(v378);
+  sub_100264880(v379);
+  sub_100264880(v380);
+  sub_100264880(v381);
+  sub_100264880(v382);
+  sub_100264880(v383);
+  sub_100264880(v384);
+  sub_100264880(v385);
+  sub_100264880(v386);
+  sub_100264880(v387);
+  sub_100264880(v388);
   return v389;
 }
 
-_BYTE *sub_10031BE64@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+void *sub_10031BE64@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   sub_10028B3B4(a1, v5);
   memcpy(__dst, v5, sizeof(__dst));
   v2 = sub_1002895B8();
   result = __dst;
   *a2 = v2;
-  sub_10028E32C();
+  sub_10028E32C(__dst);
   return result;
 }
 
-_BYTE *sub_10031BECC(uint64_t *a1, uint64_t *a2)
+void *sub_10031BECC(void *a1, void *a2)
 {
-  sub_1002A730C(a1, &v5);
-  sub_10028B3B4(a2, v4);
-  memcpy(__dst, v4, sizeof(__dst));
-  sub_100289614();
+  sub_1002A730C(a1, &v6);
+  v4 = v6;
+  sub_10028B3B4(a2, v5);
+  memcpy(__dst, v5, sizeof(__dst));
+  sub_100289614(v4);
   result = __dst;
-  sub_10028E32C();
+  sub_10028E32C(__dst);
   return result;
 }
 
-_BYTE *sub_10031BF40@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+void *sub_10031BF40@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   sub_10028B3B4(a1, v5);
   memcpy(__dst, v5, sizeof(__dst));
   v2 = sub_1002896B4();
   result = __dst;
   *a2 = v2;
-  sub_10028E32C();
+  sub_10028E32C(__dst);
   return result;
 }
 
-_BYTE *sub_10031BFA8(uint64_t *a1, uint64_t *a2)
+void *sub_10031BFA8(void *a1, void *a2)
 {
-  sub_1002A730C(a1, &v5);
-  sub_10028B3B4(a2, v4);
-  memcpy(__dst, v4, sizeof(__dst));
-  sub_100289710();
+  sub_1002A730C(a1, &v6);
+  v4 = v6;
+  sub_10028B3B4(a2, v5);
+  memcpy(__dst, v5, sizeof(__dst));
+  sub_100289710(v4);
   result = __dst;
-  sub_10028E32C();
+  sub_10028E32C(__dst);
   return result;
 }
 
-_BYTE *sub_10031C01C@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+void *sub_10031C01C@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   sub_10028B3B4(a1, v5);
   memcpy(__dst, v5, sizeof(__dst));
   v2 = sub_1002897B0();
   result = __dst;
   *a2 = v2;
-  sub_10028E32C();
+  sub_10028E32C(__dst);
   return result;
 }
 
-_BYTE *sub_10031C084(uint64_t *a1, uint64_t *a2)
+void *sub_10031C084(void *a1, void *a2)
 {
-  sub_1002A730C(a1, &v5);
-  sub_10028B3B4(a2, v4);
-  memcpy(__dst, v4, sizeof(__dst));
-  sub_10028980C();
+  sub_1002A730C(a1, &v6);
+  v4 = v6;
+  sub_10028B3B4(a2, v5);
+  memcpy(__dst, v5, sizeof(__dst));
+  sub_10028980C(v4);
   result = __dst;
-  sub_10028E32C();
+  sub_10028E32C(__dst);
   return result;
 }
 
-_BYTE *sub_10031C0F8@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+void *sub_10031C0F8@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   sub_10028B3B4(a1, v6);
   memcpy(__dst, v6, sizeof(__dst));
@@ -3881,26 +3940,28 @@ _BYTE *sub_10031C0F8@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
   result = __dst;
   *a2 = v2;
   a2[1] = v4;
-  sub_10028E32C();
+  sub_10028E32C(__dst);
   return result;
 }
 
-_BYTE *sub_10031C164(void *a1, uint64_t *a2)
+void *sub_10031C164(void *a1, void *a2)
 {
-  sub_100268860(a1, &v5);
-  sub_10028B3B4(a2, v4);
-  memcpy(__dst, v4, sizeof(__dst));
-  sub_100289950();
+  sub_100268860(a1, v7);
+  v4 = v7[0];
+  v5 = v7[1];
+  sub_10028B3B4(a2, v6);
+  memcpy(__dst, v6, sizeof(__dst));
+  sub_100289950(v4, v5);
   result = __dst;
-  sub_10028E32C();
+  sub_10028E32C(__dst);
   return result;
 }
 
-_BYTE *sub_10031C1E4@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+void *sub_10031C1E4@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   v8 = a2;
   v4 = a1;
-  v5 = (*(*(sub_10025C9B0(&unk_1006D7380) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v5 = (*(*(sub_10025C9B0(&unk_1006D7380, &qword_100500790) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   v2 = __chkstk_darwin(v4);
   v7 = &v4 - v5;
   v6 = v10;
@@ -3910,15 +3971,15 @@ _BYTE *sub_10031C1E4@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
   sub_100289A40();
   sub_100342710(v7, v8);
   result = v9;
-  sub_10028E32C();
+  sub_10028E32C(v9);
   return result;
 }
 
-_BYTE *sub_10031C2BC(uint64_t a1, uint64_t *a2)
+void *sub_10031C2BC(uint64_t a1, void *a2)
 {
   v4 = a1;
   v6 = a2;
-  v5 = (*(*(sub_10025C9B0(&unk_1006D7380) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v5 = (*(*(sub_10025C9B0(&unk_1006D7380, &qword_100500790) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   v2 = __chkstk_darwin(v4);
   v8 = &v4 - v5;
   sub_100289B6C(v2, &v4 - v5);
@@ -3928,11 +3989,11 @@ _BYTE *sub_10031C2BC(uint64_t a1, uint64_t *a2)
   memcpy(__dst, v7, sizeof(__dst));
   sub_100289A94(v8);
   result = v9;
-  sub_10028E32C();
+  sub_10028E32C(v9);
   return result;
 }
 
-_BYTE *sub_10031C390@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+void *sub_10031C390@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   sub_10028B3B4(a1, v7);
   memcpy(__dst, v7, sizeof(__dst));
@@ -3941,19 +4002,21 @@ _BYTE *sub_10031C390@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
   *a2 = v2;
   a2[1] = v4;
   a2[2] = v5;
-  sub_10028E32C();
+  sub_10028E32C(__dst);
   return result;
 }
 
-_BYTE *sub_10031C400(uint64_t a1, uint64_t *a2)
+void *sub_10031C400(uint64_t a1, void *a2)
 {
-  sub_100342660(a1, &v6);
-  v4 = v6;
-  sub_10028B3B4(a2, v5);
-  memcpy(__dst, v5, sizeof(__dst));
-  sub_100289D70(v4);
+  sub_100342660(a1, v8);
+  v4 = v8[0];
+  v5 = v8[1];
+  v6 = v8[2];
+  sub_10028B3B4(a2, v7);
+  memcpy(__dst, v7, sizeof(__dst));
+  sub_100289D70(v4, v5, v6);
   result = __dst;
-  sub_10028E32C();
+  sub_10028E32C(__dst);
   return result;
 }
 
@@ -4042,50 +4105,60 @@ uint64_t sub_10031C48C(uint64_t a1)
   v33(v34, v31);
 
   v50 = v40;
-  v41 = sub_10025C9B0(&qword_1006D9518);
-  v2 = _allocateUninitializedArray<A>(_:)();
-  v3 = v36;
-  v4 = v37;
-  v5 = v38;
-  v6 = v39;
-  v7 = v40;
-  *v8 = v35;
-  v8[1] = v3;
-  v8[2] = v4;
-  v8[3] = v5;
-  v8[4] = v6;
-  v8[5] = v7;
+  v41 = sub_10025C9B0(&qword_1006D9518, &qword_100502F78);
+  _allocateUninitializedArray<A>(_:)();
+  v2 = v36;
+  v3 = v37;
+  v4 = v38;
+  v5 = v39;
+  v6 = v40;
+  *v7 = v35;
+  v7[1] = v2;
+  v7[2] = v3;
+  v7[3] = v4;
+  v7[4] = v5;
+  v7[5] = v6;
   sub_1002612B0();
-  v42 = v2;
+  v42 = v8;
   v49 = static _AssistantIntent.ParameterValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(v43);
+  sub_100264880(v44);
+  sub_100264880(v45);
+  sub_100264880(v46);
+  sub_100264880(v47);
+  sub_100264880(v48);
   return v49;
 }
 
 uint64_t sub_10031CA70()
 {
+  v12 = 0;
+  v11 = 0;
+  v10 = 0;
+  v9 = 0;
+  v8 = 0;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("lasagna recipe", 0xEuLL, 1);
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v12 = v2;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Brazil trip itinerary", 0x15uLL, 1);
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v11 = v3;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("please respond by EOD", 0x15uLL, 1);
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v10 = v4;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("photos from team dinner", 0x17uLL, 1);
   v5 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v9 = v5;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("meeting details", 0xFuLL, 1);
   v6 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
-  sub_10025C9B0(&unk_1006D69B0);
+  v8 = v6;
+  sub_10025C9B0(&unk_1006D69B0, &unk_100503A00);
   _allocateUninitializedArray<A>(_:)();
   *v0 = v2;
   v0[1] = v3;
@@ -4095,32 +4168,42 @@ uint64_t sub_10031CA70()
   sub_1002612B0();
   v7 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(&v8);
+  sub_100264880(&v9);
+  sub_100264880(&v10);
+  sub_100264880(&v11);
+  sub_100264880(&v12);
   return v7;
 }
 
 uint64_t sub_10031CCC0()
 {
+  v12 = 0;
+  v11 = 0;
+  v10 = 0;
+  v9 = 0;
+  v8 = 0;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("what should we do this weekend? let me know what your schedule is", 0x41uLL, 1);
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v12 = v2;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("please notify all team members and directs about your decision by end of the day today. thanks", 0x5EuLL, 1);
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v11 = v3;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("here's the lasagna recipe i tried last night, it was amazing! let me know what you think of it", 0x5EuLL, 1);
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v10 = v4;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("the deadline is approaching, please confirm your commitment", 0x3BuLL, 1);
   v5 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v9 = v5;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("I've attached flight itinerary, hotel confirmation, and excursion details. Can't wait!", 0x56uLL, 1);
   v6 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
-  sub_10025C9B0(&unk_1006D69B0);
+  v8 = v6;
+  sub_10025C9B0(&unk_1006D69B0, &unk_100503A00);
   _allocateUninitializedArray<A>(_:)();
   *v0 = v2;
   v0[1] = v3;
@@ -4130,29 +4213,37 @@ uint64_t sub_10031CCC0()
   sub_1002612B0();
   v7 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(&v8);
+  sub_100264880(&v9);
+  sub_100264880(&v10);
+  sub_100264880(&v11);
+  sub_100264880(&v12);
   return v7;
 }
 
 uint64_t sub_10031CF10()
 {
+  v10 = 0;
+  v9 = 0;
+  v8 = 0;
+  v7 = 0;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("my boss", 7uLL, 1);
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v10 = v2;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("John Smith", 0xAuLL, 1);
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v9 = v3;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Jane", 4uLL, 1);
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v8 = v4;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("bob@example.com", 0xFuLL, 1);
   v5 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
-  sub_10025C9B0(&unk_1006D69B0);
+  v7 = v5;
+  sub_10025C9B0(&unk_1006D69B0, &unk_100503A00);
   _allocateUninitializedArray<A>(_:)();
   *v0 = v2;
   v0[1] = v3;
@@ -4161,28 +4252,36 @@ uint64_t sub_10031CF10()
   sub_1002612B0();
   v6 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(&v7);
+  sub_100264880(&v8);
+  sub_100264880(&v9);
+  sub_100264880(&v10);
   return v6;
 }
 
 uint64_t sub_10031D100()
 {
+  v10 = 0;
+  v9 = 0;
+  v8 = 0;
+  v7 = 0;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("work", 4uLL, 1);
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v10 = v2;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Gmail", 5uLL, 1);
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v9 = v3;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("school", 6uLL, 1);
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v8 = v4;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("bob@example.com", 0xFuLL, 1);
   v5 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
-  sub_10025C9B0(&unk_1006D69B0);
+  v7 = v5;
+  sub_10025C9B0(&unk_1006D69B0, &unk_100503A00);
   _allocateUninitializedArray<A>(_:)();
   *v0 = v2;
   v0[1] = v3;
@@ -4191,10 +4290,10 @@ uint64_t sub_10031D100()
   sub_1002612B0();
   v6 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(&v7);
+  sub_100264880(&v8);
+  sub_100264880(&v9);
+  sub_100264880(&v10);
   return v6;
 }
 
@@ -4224,7 +4323,7 @@ uint64_t sub_10031D2F0(uint64_t a1)
   v206 = 0;
   v193 = &v205;
   v205 = 0;
-  v169 = sub_10025C9B0(&qword_1006D9700);
+  v169 = sub_10025C9B0(&qword_1006D9700, &qword_100503830);
   v71 = *(v169 - 8);
   v72 = v169 - 8;
   v59 = (v71[8] + 15) & 0xFFFFFFFFFFFFFFF0;
@@ -4236,7 +4335,7 @@ uint64_t sub_10031D2F0(uint64_t a1)
   v61 = (v2 + 15) & 0xFFFFFFFFFFFFFFF0;
   __chkstk_darwin(&v58 - v60);
   v172 = &v58 - v61;
-  v174 = sub_10025C9B0(&qword_1006D9708);
+  v174 = sub_10025C9B0(&qword_1006D9708, &qword_100503838);
   v65 = *(v174 - 8);
   v66 = v174 - 8;
   v62 = (*(v65 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
@@ -4591,59 +4690,59 @@ uint64_t sub_10031D2F0(uint64_t a1)
   v176(v177, v174);
 
   v205 = v188;
-  v189 = sub_10025C9B0(&qword_1006D9710);
-  v45 = _allocateUninitializedArray<A>(_:)();
-  v46 = v179;
-  v47 = v180;
-  v48 = v181;
-  v49 = v182;
-  v50 = v183;
-  v51 = v184;
-  v52 = v185;
-  v53 = v186;
-  v54 = v187;
-  v55 = v188;
-  *v56 = v178;
-  v56[1] = v46;
-  v56[2] = v47;
-  v56[3] = v48;
-  v56[4] = v49;
-  v56[5] = v50;
-  v56[6] = v51;
-  v56[7] = v52;
-  v56[8] = v53;
-  v56[9] = v54;
-  v56[10] = v55;
+  v189 = sub_10025C9B0(&qword_1006D9710, &qword_100503840);
+  _allocateUninitializedArray<A>(_:)();
+  v45 = v179;
+  v46 = v180;
+  v47 = v181;
+  v48 = v182;
+  v49 = v183;
+  v50 = v184;
+  v51 = v185;
+  v52 = v186;
+  v53 = v187;
+  v54 = v188;
+  *v55 = v178;
+  v55[1] = v45;
+  v55[2] = v46;
+  v55[3] = v47;
+  v55[4] = v48;
+  v55[5] = v49;
+  v55[6] = v50;
+  v55[7] = v51;
+  v55[8] = v52;
+  v55[9] = v53;
+  v55[10] = v54;
   sub_1002612B0();
-  v192 = v45;
+  v192 = v56;
   v204 = static _AssistantIntent.PhraseBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(v193);
+  sub_100264880(v194);
+  sub_100264880(v195);
+  sub_100264880(v196);
+  sub_100264880(v197);
+  sub_100264880(v198);
+  sub_100264880(v199);
+  sub_100264880(v200);
+  sub_100264880(v201);
+  sub_100264880(v202);
+  sub_100264880(v203);
   return v204;
 }
 
-_BYTE *sub_10031F514@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+void *sub_10031F514@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   sub_1002E1A40(a1, v4);
   memcpy(__dst, v4, sizeof(__dst));
   sub_1002DFF74(v5);
   memcpy(a2, v5, 0x80uLL);
   result = __dst;
-  sub_1002E4218();
+  sub_1002E4218(__dst);
   return result;
 }
 
-_BYTE *sub_10031F58C(void *a1, uint64_t *a2)
+void *sub_10031F58C(void *a1, void *a2)
 {
   sub_1002E0080(a1, v5);
   memcpy(__dst, v5, sizeof(__dst));
@@ -4651,15 +4750,15 @@ _BYTE *sub_10031F58C(void *a1, uint64_t *a2)
   memcpy(v7, v4, sizeof(v7));
   sub_1002DFFF8(__dst);
   result = v7;
-  sub_1002E4218();
+  sub_1002E4218(v7);
   return result;
 }
 
-_BYTE *sub_10031F614@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+void *sub_10031F614@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   v8 = a2;
   v4 = a1;
-  v5 = (*(*(sub_10025C9B0(&unk_1006D7380) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v5 = (*(*(sub_10025C9B0(&unk_1006D7380, &qword_100500790) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   v2 = __chkstk_darwin(v4);
   v7 = &v4 - v5;
   v6 = v10;
@@ -4669,15 +4768,15 @@ _BYTE *sub_10031F614@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
   sub_100289A40();
   sub_100342710(v7, v8);
   result = v9;
-  sub_1002E4218();
+  sub_1002E4218(v9);
   return result;
 }
 
-_BYTE *sub_10031F6EC(uint64_t a1, uint64_t *a2)
+void *sub_10031F6EC(uint64_t a1, void *a2)
 {
   v4 = a1;
   v6 = a2;
-  v5 = (*(*(sub_10025C9B0(&unk_1006D7380) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v5 = (*(*(sub_10025C9B0(&unk_1006D7380, &qword_100500790) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   v2 = __chkstk_darwin(v4);
   v8 = &v4 - v5;
   sub_100289B6C(v2, &v4 - v5);
@@ -4687,77 +4786,80 @@ _BYTE *sub_10031F6EC(uint64_t a1, uint64_t *a2)
   memcpy(__dst, v7, sizeof(__dst));
   sub_1002DFE9C(v8);
   result = v9;
-  sub_1002E4218();
+  sub_1002E4218(v9);
   return result;
 }
 
-_BYTE *sub_10031F7C0@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+void *sub_10031F7C0@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   sub_1002E1A40(a1, v5);
   memcpy(__dst, v5, sizeof(__dst));
   v2 = sub_1002895B8();
   result = __dst;
   *a2 = v2;
-  sub_1002E4218();
+  sub_1002E4218(__dst);
   return result;
 }
 
-_BYTE *sub_10031F828(uint64_t *a1, uint64_t *a2)
+void *sub_10031F828(void *a1, void *a2)
 {
-  sub_1002A730C(a1, &v5);
-  sub_1002E1A40(a2, v4);
-  memcpy(__dst, v4, sizeof(__dst));
-  sub_100289614();
+  sub_1002A730C(a1, &v6);
+  v4 = v6;
+  sub_1002E1A40(a2, v5);
+  memcpy(__dst, v5, sizeof(__dst));
+  sub_100289614(v4);
   result = __dst;
-  sub_1002E4218();
+  sub_1002E4218(__dst);
   return result;
 }
 
-_BYTE *sub_10031F89C@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+void *sub_10031F89C@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   sub_1002E1A40(a1, v5);
   memcpy(__dst, v5, sizeof(__dst));
   v2 = sub_1002896B4();
   result = __dst;
   *a2 = v2;
-  sub_1002E4218();
+  sub_1002E4218(__dst);
   return result;
 }
 
-_BYTE *sub_10031F904(uint64_t *a1, uint64_t *a2)
+void *sub_10031F904(void *a1, void *a2)
 {
-  sub_1002A730C(a1, &v5);
-  sub_1002E1A40(a2, v4);
-  memcpy(__dst, v4, sizeof(__dst));
-  sub_100289710();
+  sub_1002A730C(a1, &v6);
+  v4 = v6;
+  sub_1002E1A40(a2, v5);
+  memcpy(__dst, v5, sizeof(__dst));
+  sub_100289710(v4);
   result = __dst;
-  sub_1002E4218();
+  sub_1002E4218(__dst);
   return result;
 }
 
-_BYTE *sub_10031F978@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+void *sub_10031F978@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   sub_1002E1A40(a1, v5);
   memcpy(__dst, v5, sizeof(__dst));
   v2 = sub_1002897B0();
   result = __dst;
   *a2 = v2;
-  sub_1002E4218();
+  sub_1002E4218(__dst);
   return result;
 }
 
-_BYTE *sub_10031F9E0(uint64_t *a1, uint64_t *a2)
+void *sub_10031F9E0(void *a1, void *a2)
 {
-  sub_1002A730C(a1, &v5);
-  sub_1002E1A40(a2, v4);
-  memcpy(__dst, v4, sizeof(__dst));
-  sub_10028980C();
+  sub_1002A730C(a1, &v6);
+  v4 = v6;
+  sub_1002E1A40(a2, v5);
+  memcpy(__dst, v5, sizeof(__dst));
+  sub_10028980C(v4);
   result = __dst;
-  sub_1002E4218();
+  sub_1002E4218(__dst);
   return result;
 }
 
-_BYTE *sub_10031FA54@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+void *sub_10031FA54@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   sub_1002E1A40(a1, v7);
   memcpy(__dst, v7, sizeof(__dst));
@@ -4766,23 +4868,25 @@ _BYTE *sub_10031FA54@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
   *a2 = v2;
   a2[1] = v4;
   a2[2] = v5;
-  sub_1002E4218();
+  sub_1002E4218(__dst);
   return result;
 }
 
-_BYTE *sub_10031FAC4(uint64_t a1, uint64_t *a2)
+void *sub_10031FAC4(uint64_t a1, void *a2)
 {
-  sub_100342660(a1, &v6);
-  v4 = v6;
-  sub_1002E1A40(a2, v5);
-  memcpy(__dst, v5, sizeof(__dst));
-  sub_100289D70(v4);
+  sub_100342660(a1, v8);
+  v4 = v8[0];
+  v5 = v8[1];
+  v6 = v8[2];
+  sub_1002E1A40(a2, v7);
+  memcpy(__dst, v7, sizeof(__dst));
+  sub_100289D70(v4, v5, v6);
   result = __dst;
-  sub_1002E4218();
+  sub_1002E4218(__dst);
   return result;
 }
 
-_BYTE *sub_10031FB50@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+void *sub_10031FB50@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   sub_1002E1A40(a1, v6);
   memcpy(__dst, v6, sizeof(__dst));
@@ -4790,18 +4894,20 @@ _BYTE *sub_10031FB50@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
   result = __dst;
   *a2 = v2;
   a2[1] = v4;
-  sub_1002E4218();
+  sub_1002E4218(__dst);
   return result;
 }
 
-_BYTE *sub_10031FBBC(void *a1, uint64_t *a2)
+void *sub_10031FBBC(void *a1, void *a2)
 {
-  sub_100268860(a1, &v5);
-  sub_1002E1A40(a2, v4);
-  memcpy(__dst, v4, sizeof(__dst));
-  sub_100289950();
+  sub_100268860(a1, v7);
+  v4 = v7[0];
+  v5 = v7[1];
+  sub_1002E1A40(a2, v6);
+  memcpy(__dst, v6, sizeof(__dst));
+  sub_100289950(v4, v5);
   result = __dst;
-  sub_1002E4218();
+  sub_1002E4218(__dst);
   return result;
 }
 
@@ -4902,50 +5008,58 @@ uint64_t sub_10031FC3C(uint64_t a1)
   v32(v33, v30);
 
   v51 = v40;
-  v41 = sub_10025C9B0(&qword_1006D9518);
-  v2 = _allocateUninitializedArray<A>(_:)();
-  v3 = v35;
-  v4 = v36;
-  v5 = v37;
-  v6 = v38;
-  v7 = v39;
-  v8 = v40;
-  *v9 = v34;
-  v9[1] = v3;
-  v9[2] = v4;
-  v9[3] = v5;
-  v9[4] = v6;
-  v9[5] = v7;
-  v9[6] = v8;
+  v41 = sub_10025C9B0(&qword_1006D9518, &qword_100502F78);
+  _allocateUninitializedArray<A>(_:)();
+  v2 = v35;
+  v3 = v36;
+  v4 = v37;
+  v5 = v38;
+  v6 = v39;
+  v7 = v40;
+  *v8 = v34;
+  v8[1] = v2;
+  v8[2] = v3;
+  v8[3] = v4;
+  v8[4] = v5;
+  v8[5] = v6;
+  v8[6] = v7;
   sub_1002612B0();
-  v42 = v2;
+  v42 = v9;
   v50 = static _AssistantIntent.ParameterValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(v43);
+  sub_100264880(v44);
+  sub_100264880(v45);
+  sub_100264880(v46);
+  sub_100264880(v47);
+  sub_100264880(v48);
+  sub_100264880(v49);
   return v50;
 }
 
 uint64_t sub_100320330()
 {
+  v10 = 0;
+  v9 = 0;
+  v8 = 0;
+  v7 = 0;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Recommendation letter request", 0x1DuLL, 1);
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v10 = v2;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Board meeting minutes", 0x15uLL, 1);
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v9 = v3;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("How are you?", 0xCuLL, 1);
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v8 = v4;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("URGENT: need immediate attention", 0x20uLL, 1);
   v5 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
-  sub_10025C9B0(&unk_1006D69B0);
+  v7 = v5;
+  sub_10025C9B0(&unk_1006D69B0, &unk_100503A00);
   _allocateUninitializedArray<A>(_:)();
   *v0 = v2;
   v0[1] = v3;
@@ -4954,25 +5068,31 @@ uint64_t sub_100320330()
   sub_1002612B0();
   v6 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(&v7);
+  sub_100264880(&v8);
+  sub_100264880(&v9);
+  sub_100264880(&v10);
   return v6;
 }
 
 uint64_t sub_100320520()
 {
+  v8 = 0;
+  v7 = 0;
+  v6 = 0;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("here you go", 0xBuLL, 1);
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v8 = v2;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("FYI this is what I was talking about", 0x24uLL, 1);
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v7 = v3;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("let me know when you get this", 0x1DuLL, 1);
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
-  sub_10025C9B0(&unk_1006D69B0);
+  v6 = v4;
+  sub_10025C9B0(&unk_1006D69B0, &unk_100503A00);
   _allocateUninitializedArray<A>(_:)();
   *v0 = v2;
   v0[1] = v3;
@@ -4980,27 +5100,35 @@ uint64_t sub_100320520()
   sub_1002612B0();
   v5 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(&v6);
+  sub_100264880(&v7);
+  sub_100264880(&v8);
   return v5;
 }
 
 uint64_t sub_1003206B0()
 {
+  v10 = 0;
+  v9 = 0;
+  v8 = 0;
+  v7 = 0;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("my boyfriend", 0xCuLL, 1);
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v10 = v2;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("John Appleseed", 0xEuLL, 1);
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v9 = v3;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("George", 6uLL, 1);
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v8 = v4;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("87fdswe55@example.com", 0x15uLL, 1);
   v5 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
-  sub_10025C9B0(&unk_1006D69B0);
+  v7 = v5;
+  sub_10025C9B0(&unk_1006D69B0, &unk_100503A00);
   _allocateUninitializedArray<A>(_:)();
   *v0 = v2;
   v0[1] = v3;
@@ -5009,28 +5137,36 @@ uint64_t sub_1003206B0()
   sub_1002612B0();
   v6 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(&v7);
+  sub_100264880(&v8);
+  sub_100264880(&v9);
+  sub_100264880(&v10);
   return v6;
 }
 
 uint64_t sub_1003208A0()
 {
+  v10 = 0;
+  v9 = 0;
+  v8 = 0;
+  v7 = 0;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("the email message from Ian", 0x1AuLL, 1);
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v10 = v2;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("the email about the baseball schedule", 0x25uLL, 1);
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v9 = v3;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("the mail I received yesterday", 0x1DuLL, 1);
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v8 = v4;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("the mail message I sent to Brian last week", 0x2AuLL, 1);
   v5 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
-  sub_10025C9B0(&unk_1006D69B0);
+  v7 = v5;
+  sub_10025C9B0(&unk_1006D69B0, &unk_100503A00);
   _allocateUninitializedArray<A>(_:)();
   *v0 = v2;
   v0[1] = v3;
@@ -5039,10 +5175,10 @@ uint64_t sub_1003208A0()
   sub_1002612B0();
   v6 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(&v7);
+  sub_100264880(&v8);
+  sub_100264880(&v9);
+  sub_100264880(&v10);
   return v6;
 }
 
@@ -5056,13 +5192,13 @@ uint64_t sub_100320A90(uint64_t a1)
   v75 = 0;
   v70 = &v74;
   v74 = 0;
-  v59 = sub_10025C9B0(&qword_1006D96E8);
+  v59 = sub_10025C9B0(&qword_1006D96E8, &qword_100503700);
   v31 = *(v59 - 8);
   v32 = v59 - 8;
   v20 = (*(v31 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   __chkstk_darwin(v59);
   v62 = &v19 - v20;
-  v54 = sub_10025C9B0(&qword_1006D96F0);
+  v54 = sub_10025C9B0(&qword_1006D96F0, &qword_100503708);
   v29 = *(v54 - 8);
   v30 = v54 - 8;
   v21 = (v29[8] + 15) & 0xFFFFFFFFFFFFFFF0;
@@ -5158,31 +5294,31 @@ uint64_t sub_100320A90(uint64_t a1)
   v61(v62, v59);
 
   v74 = v65;
-  v66 = sub_10025C9B0(&qword_1006D96F8);
-  v14 = _allocateUninitializedArray<A>(_:)();
-  v15 = v64;
-  v16 = v65;
-  *v17 = v63;
-  v17[1] = v15;
-  v17[2] = v16;
+  v66 = sub_10025C9B0(&qword_1006D96F8, &qword_100503710);
+  _allocateUninitializedArray<A>(_:)();
+  v14 = v64;
+  v15 = v65;
+  *v16 = v63;
+  v16[1] = v14;
+  v16[2] = v15;
   sub_1002612B0();
-  v69 = v14;
+  v69 = v17;
   v73 = static _AssistantIntent.PhraseBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(v70);
+  sub_100264880(v71);
+  sub_100264880(v72);
   return v73;
 }
 
-uint64_t sub_1003212D0@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_1003212D0@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   sub_1002F0674(a1, &v5);
   sub_10035F9D8();
   memcpy(a2, v4, 0x50uLL);
 }
 
-uint64_t sub_100321328(void *a1, uint64_t *a2)
+uint64_t sub_100321328(void *a1, void *a2)
 {
   sub_10027EB5C(a1, v5);
   sub_1002F0674(a2, &v4);
@@ -5213,14 +5349,14 @@ uint64_t sub_100321378(uint64_t a1)
   (*(v11 + 8))(v14, v13);
 
   v20 = v15;
-  v16 = sub_10025C9B0(&qword_1006D9518);
-  v2 = _allocateUninitializedArray<A>(_:)();
-  *v3 = v15;
+  v16 = sub_10025C9B0(&qword_1006D9518, &qword_100502F78);
+  _allocateUninitializedArray<A>(_:)();
+  *v2 = v15;
   sub_1002612B0();
-  v17 = v2;
+  v17 = v3;
   v19 = static _AssistantIntent.ParameterValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
+  sub_100264880(v18);
   return v19;
 }
 
@@ -5239,19 +5375,27 @@ unint64_t sub_100321530()
 
 uint64_t sub_1003215A8()
 {
+  v10 = 0;
+  v9 = 0;
+  v8 = 0;
+  v7 = 0;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("drafts", 6uLL, 1);
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v10 = v2;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("inbox", 5uLL, 1);
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v9 = v3;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("archive", 7uLL, 1);
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v8 = v4;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("all inboxes", 0xBuLL, 1);
   v5 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
-  sub_10025C9B0(&unk_1006D69B0);
+  v7 = v5;
+  sub_10025C9B0(&unk_1006D69B0, &unk_100503A00);
   _allocateUninitializedArray<A>(_:)();
   *v0 = v2;
   v0[1] = v3;
@@ -5260,10 +5404,10 @@ uint64_t sub_1003215A8()
   sub_1002612B0();
   v6 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(&v7);
+  sub_100264880(&v8);
+  sub_100264880(&v9);
+  sub_100264880(&v10);
   return v6;
 }
 
@@ -5291,7 +5435,7 @@ uint64_t sub_100321798(uint64_t a1)
   v188 = 0;
   v176 = &v187;
   v187 = 0;
-  v153 = sub_10025C9B0(&qword_1006D96D0);
+  v153 = sub_10025C9B0(&qword_1006D96D0, &qword_100503698);
   v67 = *(v153 - 8);
   v68 = v153 - 8;
   v52 = (v67[8] + 15) & 0xFFFFFFFFFFFFFFF0;
@@ -5303,7 +5447,7 @@ uint64_t sub_100321798(uint64_t a1)
   v54 = (v2 + 15) & 0xFFFFFFFFFFFFFFF0;
   __chkstk_darwin(&v51 - v53);
   v156 = &v51 - v54;
-  v158 = sub_10025C9B0(&qword_1006D96D8);
+  v158 = sub_10025C9B0(&qword_1006D96D8, &qword_1005036A0);
   v58 = *(v158 - 8);
   v59 = v158 - 8;
   v55 = (*(v58 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
@@ -5619,56 +5763,56 @@ uint64_t sub_100321798(uint64_t a1)
   v160(v161, v158);
 
   v187 = v171;
-  v172 = sub_10025C9B0(&qword_1006D96E0);
-  v39 = _allocateUninitializedArray<A>(_:)();
-  v40 = v163;
-  v41 = v164;
-  v42 = v165;
-  v43 = v166;
-  v44 = v167;
-  v45 = v168;
-  v46 = v169;
-  v47 = v170;
-  v48 = v171;
-  *v49 = v162;
-  v49[1] = v40;
-  v49[2] = v41;
-  v49[3] = v42;
-  v49[4] = v43;
-  v49[5] = v44;
-  v49[6] = v45;
-  v49[7] = v46;
-  v49[8] = v47;
-  v49[9] = v48;
+  v172 = sub_10025C9B0(&qword_1006D96E0, &qword_1005036A8);
+  _allocateUninitializedArray<A>(_:)();
+  v39 = v163;
+  v40 = v164;
+  v41 = v165;
+  v42 = v166;
+  v43 = v167;
+  v44 = v168;
+  v45 = v169;
+  v46 = v170;
+  v47 = v171;
+  *v48 = v162;
+  v48[1] = v39;
+  v48[2] = v40;
+  v48[3] = v41;
+  v48[4] = v42;
+  v48[5] = v43;
+  v48[6] = v44;
+  v48[7] = v45;
+  v48[8] = v46;
+  v48[9] = v47;
   sub_1002612B0();
-  v175 = v39;
+  v175 = v49;
   v186 = static _AssistantIntent.PhraseBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(v176);
+  sub_100264880(v177);
+  sub_100264880(v178);
+  sub_100264880(v179);
+  sub_100264880(v180);
+  sub_100264880(v181);
+  sub_100264880(v182);
+  sub_100264880(v183);
+  sub_100264880(v184);
+  sub_100264880(v185);
   return v186;
 }
 
-_BYTE *sub_1003235D4@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+void *sub_1003235D4@<X0>(void *a1@<X8>, void *a2@<X0>)
 {
-  sub_100342838(a1, v4);
+  sub_100342838(a2, v4);
   memcpy(__dst, v4, sizeof(__dst));
   sub_1003FAF74(v5);
-  memcpy(a2, v5, 0x80uLL);
+  memcpy(a1, v5, 0x80uLL);
   result = __dst;
-  sub_100342970();
+  sub_100342970(__dst);
   return result;
 }
 
-_BYTE *sub_10032364C(void *a1, uint64_t *a2)
+void *sub_10032364C(void *a1, void *a2)
 {
   sub_1002E0080(a1, v5);
   memcpy(__dst, v5, sizeof(__dst));
@@ -5676,37 +5820,38 @@ _BYTE *sub_10032364C(void *a1, uint64_t *a2)
   memcpy(v7, v4, sizeof(v7));
   sub_1003FAFF8(__dst);
   result = v7;
-  sub_100342970();
+  sub_100342970(v7);
   return result;
 }
 
-_BYTE *sub_1003236D4@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+void *sub_1003236D4@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   sub_100342838(a1, v5);
   memcpy(__dst, v5, sizeof(__dst));
   v2 = sub_1002895B8();
   result = __dst;
   *a2 = v2;
-  sub_100342970();
+  sub_100342970(__dst);
   return result;
 }
 
-_BYTE *sub_10032373C(uint64_t *a1, uint64_t *a2)
+void *sub_10032373C(void *a1, void *a2)
 {
-  sub_1002A730C(a1, &v5);
-  sub_100342838(a2, v4);
-  memcpy(__dst, v4, sizeof(__dst));
-  sub_100289614();
+  sub_1002A730C(a1, &v6);
+  v4 = v6;
+  sub_100342838(a2, v5);
+  memcpy(__dst, v5, sizeof(__dst));
+  sub_100289614(v4);
   result = __dst;
-  sub_100342970();
+  sub_100342970(__dst);
   return result;
 }
 
-_BYTE *sub_1003237B0@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+void *sub_1003237B0@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   v8 = a2;
   v4 = a1;
-  v5 = (*(*(sub_10025C9B0(&unk_1006D7380) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v5 = (*(*(sub_10025C9B0(&unk_1006D7380, &qword_100500790) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   v2 = __chkstk_darwin(v4);
   v7 = &v4 - v5;
   v6 = v10;
@@ -5716,15 +5861,15 @@ _BYTE *sub_1003237B0@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
   sub_100289A40();
   sub_100342710(v7, v8);
   result = v9;
-  sub_100342970();
+  sub_100342970(v9);
   return result;
 }
 
-_BYTE *sub_100323888(uint64_t a1, uint64_t *a2)
+void *sub_100323888(uint64_t a1, void *a2)
 {
   v4 = a1;
   v6 = a2;
-  v5 = (*(*(sub_10025C9B0(&unk_1006D7380) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v5 = (*(*(sub_10025C9B0(&unk_1006D7380, &qword_100500790) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   v2 = __chkstk_darwin(v4);
   v8 = &v4 - v5;
   sub_100289B6C(v2, &v4 - v5);
@@ -5734,77 +5879,80 @@ _BYTE *sub_100323888(uint64_t a1, uint64_t *a2)
   memcpy(__dst, v7, sizeof(__dst));
   sub_1003FB080(v8);
   result = v9;
-  sub_100342970();
+  sub_100342970(v9);
   return result;
 }
 
-_BYTE *sub_10032395C@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+void *sub_10032395C@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   sub_100342838(a1, v5);
   memcpy(__dst, v5, sizeof(__dst));
   v2 = sub_1002896B4();
   result = __dst;
   *a2 = v2;
-  sub_100342970();
+  sub_100342970(__dst);
   return result;
 }
 
-_BYTE *sub_1003239C4(uint64_t *a1, uint64_t *a2)
+void *sub_1003239C4(void *a1, void *a2)
 {
-  sub_1002A730C(a1, &v5);
-  sub_100342838(a2, v4);
-  memcpy(__dst, v4, sizeof(__dst));
-  sub_100289710();
+  sub_1002A730C(a1, &v6);
+  v4 = v6;
+  sub_100342838(a2, v5);
+  memcpy(__dst, v5, sizeof(__dst));
+  sub_100289710(v4);
   result = __dst;
-  sub_100342970();
+  sub_100342970(__dst);
   return result;
 }
 
-_BYTE *sub_100323A38@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+void *sub_100323A38@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   sub_100342838(a1, v5);
   memcpy(__dst, v5, sizeof(__dst));
   v2 = sub_100289ED8();
   result = __dst;
   *a2 = v2;
-  sub_100342970();
+  sub_100342970(__dst);
   return result;
 }
 
-_BYTE *sub_100323AA0(uint64_t *a1, uint64_t *a2)
+void *sub_100323AA0(void *a1, void *a2)
 {
-  sub_1002A730C(a1, &v5);
-  sub_100342838(a2, v4);
-  memcpy(__dst, v4, sizeof(__dst));
-  sub_100289F34();
+  sub_1002A730C(a1, &v6);
+  v4 = v6;
+  sub_100342838(a2, v5);
+  memcpy(__dst, v5, sizeof(__dst));
+  sub_100289F34(v4);
   result = __dst;
-  sub_100342970();
+  sub_100342970(__dst);
   return result;
 }
 
-_BYTE *sub_100323B14@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+void *sub_100323B14@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   sub_100342838(a1, v5);
   memcpy(__dst, v5, sizeof(__dst));
   v2 = sub_1002897B0();
   result = __dst;
   *a2 = v2;
-  sub_100342970();
+  sub_100342970(__dst);
   return result;
 }
 
-_BYTE *sub_100323B7C(uint64_t *a1, uint64_t *a2)
+void *sub_100323B7C(void *a1, void *a2)
 {
-  sub_1002A730C(a1, &v5);
-  sub_100342838(a2, v4);
-  memcpy(__dst, v4, sizeof(__dst));
-  sub_10028980C();
+  sub_1002A730C(a1, &v6);
+  v4 = v6;
+  sub_100342838(a2, v5);
+  memcpy(__dst, v5, sizeof(__dst));
+  sub_10028980C(v4);
   result = __dst;
-  sub_100342970();
+  sub_100342970(__dst);
   return result;
 }
 
-_BYTE *sub_100323BF0@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+void *sub_100323BF0@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   sub_100342838(a1, v7);
   memcpy(__dst, v7, sizeof(__dst));
@@ -5813,23 +5961,25 @@ _BYTE *sub_100323BF0@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
   *a2 = v2;
   a2[1] = v4;
   a2[2] = v5;
-  sub_100342970();
+  sub_100342970(__dst);
   return result;
 }
 
-_BYTE *sub_100323C60(uint64_t a1, uint64_t *a2)
+void *sub_100323C60(uint64_t a1, void *a2)
 {
-  sub_100342660(a1, &v6);
-  v4 = v6;
-  sub_100342838(a2, v5);
-  memcpy(__dst, v5, sizeof(__dst));
-  sub_100289D70(v4);
+  sub_100342660(a1, v8);
+  v4 = v8[0];
+  v5 = v8[1];
+  v6 = v8[2];
+  sub_100342838(a2, v7);
+  memcpy(__dst, v7, sizeof(__dst));
+  sub_100289D70(v4, v5, v6);
   result = __dst;
-  sub_100342970();
+  sub_100342970(__dst);
   return result;
 }
 
-_BYTE *sub_100323CEC@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+void *sub_100323CEC@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   sub_100342838(a1, v6);
   memcpy(__dst, v6, sizeof(__dst));
@@ -5837,18 +5987,20 @@ _BYTE *sub_100323CEC@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
   result = __dst;
   *a2 = v2;
   a2[1] = v4;
-  sub_100342970();
+  sub_100342970(__dst);
   return result;
 }
 
-_BYTE *sub_100323D58(void *a1, uint64_t *a2)
+void *sub_100323D58(void *a1, void *a2)
 {
-  sub_100268860(a1, &v5);
-  sub_100342838(a2, v4);
-  memcpy(__dst, v4, sizeof(__dst));
-  sub_100289950();
+  sub_100268860(a1, v7);
+  v4 = v7[0];
+  v5 = v7[1];
+  sub_100342838(a2, v6);
+  memcpy(__dst, v6, sizeof(__dst));
+  sub_100289950(v4, v5);
   result = __dst;
-  sub_100342970();
+  sub_100342970(__dst);
   return result;
 }
 
@@ -5973,38 +6125,38 @@ uint64_t sub_100323DD8(uint64_t a1)
   v38(v39, v36);
 
   v61 = v48;
-  v49 = sub_10025C9B0(&qword_1006D9518);
-  v2 = _allocateUninitializedArray<A>(_:)();
-  v3 = v41;
-  v4 = v42;
-  v5 = v43;
-  v6 = v44;
-  v7 = v45;
-  v8 = v46;
-  v9 = v47;
-  v10 = v48;
-  *v11 = v40;
-  v11[1] = v3;
-  v11[2] = v4;
-  v11[3] = v5;
-  v11[4] = v6;
-  v11[5] = v7;
-  v11[6] = v8;
-  v11[7] = v9;
-  v11[8] = v10;
+  v49 = sub_10025C9B0(&qword_1006D9518, &qword_100502F78);
+  _allocateUninitializedArray<A>(_:)();
+  v2 = v41;
+  v3 = v42;
+  v4 = v43;
+  v5 = v44;
+  v6 = v45;
+  v7 = v46;
+  v8 = v47;
+  v9 = v48;
+  *v10 = v40;
+  v10[1] = v2;
+  v10[2] = v3;
+  v10[3] = v4;
+  v10[4] = v5;
+  v10[5] = v6;
+  v10[6] = v7;
+  v10[7] = v8;
+  v10[8] = v9;
   sub_1002612B0();
-  v50 = v2;
+  v50 = v11;
   v60 = static _AssistantIntent.ParameterValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(v51);
+  sub_100264880(v52);
+  sub_100264880(v53);
+  sub_100264880(v54);
+  sub_100264880(v55);
+  sub_100264880(v56);
+  sub_100264880(v57);
+  sub_100264880(v58);
+  sub_100264880(v59);
   return v60;
 }
 
@@ -6023,19 +6175,27 @@ unint64_t sub_100324770()
 
 uint64_t sub_1003247E8()
 {
+  v10 = 0;
+  v9 = 0;
+  v8 = 0;
+  v7 = 0;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("your car's extended warranty", 0x1CuLL, 1);
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v10 = v2;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Furniture for sale", 0x12uLL, 1);
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v9 = v3;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Learn something new", 0x13uLL, 1);
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v8 = v4;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("your order confirmation #2342556", 0x20uLL, 1);
   v5 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
-  sub_10025C9B0(&unk_1006D69B0);
+  v7 = v5;
+  sub_10025C9B0(&unk_1006D69B0, &unk_100503A00);
   _allocateUninitializedArray<A>(_:)();
   *v0 = v2;
   v0[1] = v3;
@@ -6044,25 +6204,31 @@ uint64_t sub_1003247E8()
   sub_1002612B0();
   v6 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(&v7);
+  sub_100264880(&v8);
+  sub_100264880(&v9);
+  sub_100264880(&v10);
   return v6;
 }
 
 uint64_t sub_1003249D8()
 {
+  v8 = 0;
+  v7 = 0;
+  v6 = 0;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("can't wait to celebrate!", 0x18uLL, 1);
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v8 = v2;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("please find relevant documents attached", 0x27uLL, 1);
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v7 = v3;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("bump, can we get an update here?", 0x20uLL, 1);
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
-  sub_10025C9B0(&unk_1006D69B0);
+  v6 = v4;
+  sub_10025C9B0(&unk_1006D69B0, &unk_100503A00);
   _allocateUninitializedArray<A>(_:)();
   *v0 = v2;
   v0[1] = v3;
@@ -6070,27 +6236,35 @@ uint64_t sub_1003249D8()
   sub_1002612B0();
   v5 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(&v6);
+  sub_100264880(&v7);
+  sub_100264880(&v8);
   return v5;
 }
 
 uint64_t sub_100324B68()
 {
+  v10 = 0;
+  v9 = 0;
+  v8 = 0;
+  v7 = 0;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Dan", 3uLL, 1);
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v10 = v2;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("mother", 6uLL, 1);
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v9 = v3;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("jimmy@example.com", 0x11uLL, 1);
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v8 = v4;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Bob Jones", 9uLL, 1);
   v5 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
-  sub_10025C9B0(&unk_1006D69B0);
+  v7 = v5;
+  sub_10025C9B0(&unk_1006D69B0, &unk_100503A00);
   _allocateUninitializedArray<A>(_:)();
   *v0 = v2;
   v0[1] = v3;
@@ -6099,25 +6273,31 @@ uint64_t sub_100324B68()
   sub_1002612B0();
   v6 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(&v7);
+  sub_100264880(&v8);
+  sub_100264880(&v9);
+  sub_100264880(&v10);
   return v6;
 }
 
 uint64_t sub_100324D58()
 {
+  v8 = 0;
+  v7 = 0;
+  v6 = 0;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("the drop off schedule spreadsheet", 0x21uLL, 1);
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v8 = v2;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("my grocery list from Notes", 0x1AuLL, 1);
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v7 = v3;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("the pitch deck in Keynote", 0x19uLL, 1);
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
-  sub_10025C9B0(&unk_1006D69B0);
+  v6 = v4;
+  sub_10025C9B0(&unk_1006D69B0, &unk_100503A00);
   _allocateUninitializedArray<A>(_:)();
   *v0 = v2;
   v0[1] = v3;
@@ -6125,24 +6305,30 @@ uint64_t sub_100324D58()
   sub_1002612B0();
   v5 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(&v6);
+  sub_100264880(&v7);
+  sub_100264880(&v8);
   return v5;
 }
 
 uint64_t sub_100324EE8()
 {
+  v8 = 0;
+  v7 = 0;
+  v6 = 0;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("that flagged mail from yesterday afternoon", 0x2AuLL, 1);
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v8 = v2;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("the email about John's surprise party", 0x25uLL, 1);
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v7 = v3;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("the thread with Justin and Mark", 0x1FuLL, 1);
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
-  sub_10025C9B0(&unk_1006D69B0);
+  v6 = v4;
+  sub_10025C9B0(&unk_1006D69B0, &unk_100503A00);
   _allocateUninitializedArray<A>(_:)();
   *v0 = v2;
   v0[1] = v3;
@@ -6150,45 +6336,47 @@ uint64_t sub_100324EE8()
   sub_1002612B0();
   v5 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(&v6);
+  sub_100264880(&v7);
+  sub_100264880(&v8);
   return v5;
 }
 
-_BYTE *sub_100325078@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+void *sub_100325078@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
 {
   sub_100342838(a1, v5);
   memcpy(__dst, v5, sizeof(__dst));
   v2 = sub_1003FB158();
   result = __dst;
   *a2 = v2 & 1;
-  sub_100342970();
+  sub_100342970(__dst);
   return result;
 }
 
-_BYTE *sub_1003250E4(uint64_t a1, uint64_t *a2)
+void *sub_1003250E4(char *a1, void *a2)
 {
   sub_100342838(a2, v3);
   memcpy(__dst, v3, sizeof(__dst));
   sub_1003FB1B8();
   result = __dst;
-  sub_100342970();
+  sub_100342970(__dst);
   return result;
 }
 
 uint64_t sub_100325154()
 {
+  v4 = 0;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("true", 4uLL, 1);
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
-  sub_10025C9B0(&unk_1006D69B0);
+  v4 = v2;
+  sub_10025C9B0(&unk_1006D69B0, &unk_100503A00);
   _allocateUninitializedArray<A>(_:)();
   *v0 = v2;
   sub_1002612B0();
   v3 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
+  sub_100264880(&v4);
   return v3;
 }
 
@@ -6218,7 +6406,7 @@ uint64_t sub_100325220(uint64_t a1)
   v201 = 0;
   v188 = &v200;
   v200 = 0;
-  v163 = sub_10025C9B0(&qword_1006D96D0);
+  v163 = sub_10025C9B0(&qword_1006D96D0, &qword_100503698);
   v71 = *(v163 - 8);
   v72 = v163 - 8;
   v56 = (v71[8] + 15) & 0xFFFFFFFFFFFFFFF0;
@@ -6230,7 +6418,7 @@ uint64_t sub_100325220(uint64_t a1)
   v58 = (v2 + 15) & 0xFFFFFFFFFFFFFFF0;
   __chkstk_darwin(&v55 - v57);
   v166 = &v55 - v58;
-  v168 = sub_10025C9B0(&qword_1006D96D8);
+  v168 = sub_10025C9B0(&qword_1006D96D8, &qword_1005036A0);
   v62 = *(v168 - 8);
   v63 = v168 - 8;
   v59 = (*(v62 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
@@ -6571,44 +6759,44 @@ uint64_t sub_100325220(uint64_t a1)
   v170(v171, v168);
 
   v200 = v183;
-  v184 = sub_10025C9B0(&qword_1006D96E0);
-  v42 = _allocateUninitializedArray<A>(_:)();
-  v43 = v174;
-  v44 = v175;
-  v45 = v176;
-  v46 = v177;
-  v47 = v178;
-  v48 = v179;
-  v49 = v180;
-  v50 = v181;
-  v51 = v182;
-  v52 = v183;
-  *v53 = v173;
-  v53[1] = v43;
-  v53[2] = v44;
-  v53[3] = v45;
-  v53[4] = v46;
-  v53[5] = v47;
-  v53[6] = v48;
-  v53[7] = v49;
-  v53[8] = v50;
-  v53[9] = v51;
-  v53[10] = v52;
+  v184 = sub_10025C9B0(&qword_1006D96E0, &qword_1005036A8);
+  _allocateUninitializedArray<A>(_:)();
+  v42 = v174;
+  v43 = v175;
+  v44 = v176;
+  v45 = v177;
+  v46 = v178;
+  v47 = v179;
+  v48 = v180;
+  v49 = v181;
+  v50 = v182;
+  v51 = v183;
+  *v52 = v173;
+  v52[1] = v42;
+  v52[2] = v43;
+  v52[3] = v44;
+  v52[4] = v45;
+  v52[5] = v46;
+  v52[6] = v47;
+  v52[7] = v48;
+  v52[8] = v49;
+  v52[9] = v50;
+  v52[10] = v51;
   sub_1002612B0();
-  v187 = v42;
+  v187 = v53;
   v199 = static _AssistantIntent.PhraseBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(v188);
+  sub_100264880(v189);
+  sub_100264880(v190);
+  sub_100264880(v191);
+  sub_100264880(v192);
+  sub_100264880(v193);
+  sub_100264880(v194);
+  sub_100264880(v195);
+  sub_100264880(v196);
+  sub_100264880(v197);
+  sub_100264880(v198);
   return v199;
 }
 
@@ -6721,50 +6909,56 @@ uint64_t sub_1003272D4(uint64_t a1)
   v39(v40, v37);
 
   v60 = v48;
-  v49 = sub_10025C9B0(&qword_1006D9518);
-  v2 = _allocateUninitializedArray<A>(_:)();
-  v3 = v42;
-  v4 = v43;
-  v5 = v44;
-  v6 = v45;
-  v7 = v46;
-  v8 = v47;
-  v9 = v48;
-  *v10 = v41;
-  v10[1] = v3;
-  v10[2] = v4;
-  v10[3] = v5;
-  v10[4] = v6;
-  v10[5] = v7;
-  v10[6] = v8;
-  v10[7] = v9;
+  v49 = sub_10025C9B0(&qword_1006D9518, &qword_100502F78);
+  _allocateUninitializedArray<A>(_:)();
+  v2 = v42;
+  v3 = v43;
+  v4 = v44;
+  v5 = v45;
+  v6 = v46;
+  v7 = v47;
+  v8 = v48;
+  *v9 = v41;
+  v9[1] = v2;
+  v9[2] = v3;
+  v9[3] = v4;
+  v9[4] = v5;
+  v9[5] = v6;
+  v9[6] = v7;
+  v9[7] = v8;
   sub_1002612B0();
-  v50 = v2;
+  v50 = v10;
   v59 = static _AssistantIntent.ParameterValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(v51);
+  sub_100264880(v52);
+  sub_100264880(v53);
+  sub_100264880(v54);
+  sub_100264880(v55);
+  sub_100264880(v56);
+  sub_100264880(v57);
+  sub_100264880(v58);
   return v59;
 }
 
 uint64_t sub_100327AEC()
 {
+  v8 = 0;
+  v7 = 0;
+  v6 = 0;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("What's going on?", 0x10uLL, 1);
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v8 = v2;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Apartment rental inquiry", 0x18uLL, 1);
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v7 = v3;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("congratulations!", 0x10uLL, 1);
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
-  sub_10025C9B0(&unk_1006D69B0);
+  v6 = v4;
+  sub_10025C9B0(&unk_1006D69B0, &unk_100503A00);
   _allocateUninitializedArray<A>(_:)();
   *v0 = v2;
   v0[1] = v3;
@@ -6772,24 +6966,30 @@ uint64_t sub_100327AEC()
   sub_1002612B0();
   v5 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(&v6);
+  sub_100264880(&v7);
+  sub_100264880(&v8);
   return v5;
 }
 
 uint64_t sub_100327C7C()
 {
+  v8 = 0;
+  v7 = 0;
+  v6 = 0;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("what time should I pick you up?", 0x1FuLL, 1);
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v8 = v2;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("it's nice to hear from you", 0x1AuLL, 1);
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v7 = v3;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("let me know what you think of this", 0x22uLL, 1);
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
-  sub_10025C9B0(&unk_1006D69B0);
+  v6 = v4;
+  sub_10025C9B0(&unk_1006D69B0, &unk_100503A00);
   _allocateUninitializedArray<A>(_:)();
   *v0 = v2;
   v0[1] = v3;
@@ -6797,27 +6997,35 @@ uint64_t sub_100327C7C()
   sub_1002612B0();
   v5 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(&v6);
+  sub_100264880(&v7);
+  sub_100264880(&v8);
   return v5;
 }
 
 uint64_t sub_100327E0C()
 {
+  v10 = 0;
+  v9 = 0;
+  v8 = 0;
+  v7 = 0;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Nathan", 6uLL, 1);
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v10 = v2;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("sister", 6uLL, 1);
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v9 = v3;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("kramer@example.com", 0x12uLL, 1);
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v8 = v4;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Billie Joe", 0xAuLL, 1);
   v5 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
-  sub_10025C9B0(&unk_1006D69B0);
+  v7 = v5;
+  sub_10025C9B0(&unk_1006D69B0, &unk_100503A00);
   _allocateUninitializedArray<A>(_:)();
   *v0 = v2;
   v0[1] = v3;
@@ -6826,25 +7034,31 @@ uint64_t sub_100327E0C()
   sub_1002612B0();
   v6 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(&v7);
+  sub_100264880(&v8);
+  sub_100264880(&v9);
+  sub_100264880(&v10);
   return v6;
 }
 
 uint64_t sub_100327FFC()
 {
+  v8 = 0;
+  v7 = 0;
+  v6 = 0;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("my trip itinerary document", 0x1AuLL, 1);
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v8 = v2;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("the conference calendar event", 0x1DuLL, 1);
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v7 = v3;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("the meeting notes from this morning", 0x23uLL, 1);
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
-  sub_10025C9B0(&unk_1006D69B0);
+  v6 = v4;
+  sub_10025C9B0(&unk_1006D69B0, &unk_100503A00);
   _allocateUninitializedArray<A>(_:)();
   *v0 = v2;
   v0[1] = v3;
@@ -6852,24 +7066,30 @@ uint64_t sub_100327FFC()
   sub_1002612B0();
   v5 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(&v6);
+  sub_100264880(&v7);
+  sub_100264880(&v8);
   return v5;
 }
 
 uint64_t sub_10032818C()
 {
+  v8 = 0;
+  v7 = 0;
+  v6 = 0;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("the mail my mom sent me last week", 0x21uLL, 1);
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v8 = v2;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("that email thread about the punk rock concert", 0x2DuLL, 1);
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v7 = v3;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("mail thread with my manager", 0x1BuLL, 1);
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
-  sub_10025C9B0(&unk_1006D69B0);
+  v6 = v4;
+  sub_10025C9B0(&unk_1006D69B0, &unk_100503A00);
   _allocateUninitializedArray<A>(_:)();
   *v0 = v2;
   v0[1] = v3;
@@ -6877,9 +7097,9 @@ uint64_t sub_10032818C()
   sub_1002612B0();
   v5 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(&v6);
+  sub_100264880(&v7);
+  sub_100264880(&v8);
   return v5;
 }
 
@@ -6893,7 +7113,7 @@ uint64_t sub_10032831C(uint64_t a1)
   v30 = 0;
   v25 = &v29;
   v29 = 0;
-  v14 = sub_10025C9B0(&qword_1006D96C0);
+  v14 = sub_10025C9B0(&qword_1006D96C0, &qword_100503548);
   v11 = *(v14 - 8);
   v12 = v14 - 8;
   v8 = (*(v11 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
@@ -6924,20 +7144,20 @@ uint64_t sub_10032831C(uint64_t a1)
   v16(v17, v14);
 
   v29 = v20;
-  v21 = sub_10025C9B0(&qword_1006D96C8);
-  v2 = _allocateUninitializedArray<A>(_:)();
-  v3 = v19;
-  v4 = v20;
-  *v5 = v18;
-  v5[1] = v3;
-  v5[2] = v4;
+  v21 = sub_10025C9B0(&qword_1006D96C8, &qword_100503550);
+  _allocateUninitializedArray<A>(_:)();
+  v2 = v19;
+  v3 = v20;
+  *v4 = v18;
+  v4[1] = v2;
+  v4[2] = v3;
   sub_1002612B0();
-  v24 = v2;
+  v24 = v5;
   v28 = static _AssistantIntent.PhraseBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(v25);
+  sub_100264880(v26);
+  sub_100264880(v27);
   return v28;
 }
 
@@ -6955,7 +7175,7 @@ uint64_t sub_10032861C(uint64_t a1)
   v73 = 0;
   v66 = &v72;
   v72 = 0;
-  v47 = sub_10025C9B0(&qword_1006D96A8);
+  v47 = sub_10025C9B0(&qword_1006D96A8, &qword_100503530);
   v31 = *(v47 - 8);
   v32 = v47 - 8;
   v18 = (v31[8] + 15) & 0xFFFFFFFFFFFFFFF0;
@@ -6967,7 +7187,7 @@ uint64_t sub_10032861C(uint64_t a1)
   v20 = (v2 + 15) & 0xFFFFFFFFFFFFFFF0;
   __chkstk_darwin(&v17 - v19);
   v50 = &v17 - v20;
-  v52 = sub_10025C9B0(&qword_1006D96B0);
+  v52 = sub_10025C9B0(&qword_1006D96B0, &qword_100503538);
   v24 = *(v52 - 8);
   v25 = v52 - 8;
   v21 = (*(v24 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
@@ -7053,40 +7273,41 @@ uint64_t sub_10032861C(uint64_t a1)
   v54(v55, v52);
 
   v72 = v61;
-  v62 = sub_10025C9B0(&qword_1006D96B8);
-  v10 = _allocateUninitializedArray<A>(_:)();
-  v11 = v58;
-  v12 = v59;
-  v13 = v60;
-  v14 = v61;
-  *v15 = v57;
-  v15[1] = v11;
-  v15[2] = v12;
-  v15[3] = v13;
-  v15[4] = v14;
+  v62 = sub_10025C9B0(&qword_1006D96B8, &qword_100503540);
+  _allocateUninitializedArray<A>(_:)();
+  v10 = v58;
+  v11 = v59;
+  v12 = v60;
+  v13 = v61;
+  *v14 = v57;
+  v14[1] = v10;
+  v14[2] = v11;
+  v14[3] = v12;
+  v14[4] = v13;
   sub_1002612B0();
-  v65 = v10;
+  v65 = v15;
   v71 = static _AssistantIntent.PhraseBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(v66);
+  sub_100264880(v67);
+  sub_100264880(v68);
+  sub_100264880(v69);
+  sub_100264880(v70);
   return v71;
 }
 
-uint64_t sub_100328EB8@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t sub_100328EB8@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
-  sub_10027ECA8(a1, &v4);
-  *a2 = sub_1002BA89C();
+  sub_10027ECA8(a1, v4);
+  *a2 = sub_1002BA89C(v4[0], v4[1]);
 }
 
-uint64_t sub_100328F10(uint64_t *a1, uint64_t *a2)
+uint64_t sub_100328F10(void *a1, void *a2)
 {
-  sub_1002A730C(a1, &v5);
-  sub_10027ECA8(a2, &v4);
-  sub_1002BA900();
+  sub_1002A730C(a1, &v6);
+  v4 = v6;
+  sub_10027ECA8(a2, v5);
+  sub_1002BA900(v4, v5[0], v5[1]);
 }
 
 uint64_t sub_100328F74(uint64_t a1)
@@ -7113,29 +7334,35 @@ uint64_t sub_100328F74(uint64_t a1)
   (*(v11 + 8))(v14, v13);
 
   v20 = v15;
-  v16 = sub_10025C9B0(&qword_1006D9518);
-  v2 = _allocateUninitializedArray<A>(_:)();
-  *v3 = v15;
+  v16 = sub_10025C9B0(&qword_1006D9518, &qword_100502F78);
+  _allocateUninitializedArray<A>(_:)();
+  *v2 = v15;
   sub_1002612B0();
-  v17 = v2;
+  v17 = v3;
   v19 = static _AssistantIntent.ParameterValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
+  sub_100264880(v18);
   return v19;
 }
 
 uint64_t sub_10032912C()
 {
+  v8 = 0;
+  v7 = 0;
+  v6 = 0;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("draft email to my boss", 0x16uLL, 1);
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v8 = v2;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("the draft mail about summer vacation travel", 0x2BuLL, 1);
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v7 = v3;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("draft message regarding conference schedule", 0x2BuLL, 1);
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
-  sub_10025C9B0(&unk_1006D69B0);
+  v6 = v4;
+  sub_10025C9B0(&unk_1006D69B0, &unk_100503A00);
   _allocateUninitializedArray<A>(_:)();
   *v0 = v2;
   v0[1] = v3;
@@ -7143,9 +7370,9 @@ uint64_t sub_10032912C()
   sub_1002612B0();
   v5 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(&v6);
+  sub_100264880(&v7);
+  sub_100264880(&v8);
   return v5;
 }
 
@@ -7167,7 +7394,7 @@ uint64_t sub_1003292BC(uint64_t a1)
   v97 = 0;
   v88 = &v96;
   v96 = 0;
-  v66 = sub_10025C9B0(&qword_1006D9690);
+  v66 = sub_10025C9B0(&qword_1006D9690, &qword_1005034F0);
   v38 = *(v66 - 8);
   v39 = v66 - 8;
   v26 = (v38[8] + 15) & 0xFFFFFFFFFFFFFFF0;
@@ -7179,7 +7406,7 @@ uint64_t sub_1003292BC(uint64_t a1)
   v28 = (v2 + 15) & 0xFFFFFFFFFFFFFFF0;
   __chkstk_darwin(&v25 - v27);
   v69 = &v25 - v28;
-  v73 = sub_10025C9B0(&qword_1006D9698);
+  v73 = sub_10025C9B0(&qword_1006D9698, &qword_1005034F8);
   v32 = *(v73 - 8);
   v33 = v73 - 8;
   v29 = (*(v32 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
@@ -7313,43 +7540,43 @@ uint64_t sub_1003292BC(uint64_t a1)
   v75(v76, v73);
 
   v96 = v83;
-  v84 = sub_10025C9B0(&qword_1006D96A0);
-  v16 = _allocateUninitializedArray<A>(_:)();
-  v17 = v78;
-  v18 = v79;
-  v19 = v80;
-  v20 = v81;
-  v21 = v82;
-  v22 = v83;
-  *v23 = v77;
-  v23[1] = v17;
-  v23[2] = v18;
-  v23[3] = v19;
-  v23[4] = v20;
-  v23[5] = v21;
-  v23[6] = v22;
+  v84 = sub_10025C9B0(&qword_1006D96A0, &qword_100503500);
+  _allocateUninitializedArray<A>(_:)();
+  v16 = v78;
+  v17 = v79;
+  v18 = v80;
+  v19 = v81;
+  v20 = v82;
+  v21 = v83;
+  *v22 = v77;
+  v22[1] = v16;
+  v22[2] = v17;
+  v22[3] = v18;
+  v22[4] = v19;
+  v22[5] = v20;
+  v22[6] = v21;
   sub_1002612B0();
-  v87 = v16;
+  v87 = v23;
   v95 = static _AssistantIntent.PhraseBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(v88);
+  sub_100264880(v89);
+  sub_100264880(v90);
+  sub_100264880(v91);
+  sub_100264880(v92);
+  sub_100264880(v93);
+  sub_100264880(v94);
   return v95;
 }
 
-uint64_t sub_10032A014@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_10032A014@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   sub_10027ECA8(a1, v4);
   sub_1003FFE00(v4[0], v4[1], v5);
   memcpy(a2, v5, 0x48uLL);
 }
 
-uint64_t sub_10032A07C(void *a1, uint64_t *a2)
+uint64_t sub_10032A07C(void *a1, void *a2)
 {
   sub_1002CD078(a1, v5);
   memcpy(__dst, v5, sizeof(__dst));
@@ -7381,14 +7608,14 @@ uint64_t sub_10032A0F4(uint64_t a1)
   (*(v11 + 8))(v14, v13);
 
   v20 = v15;
-  v16 = sub_10025C9B0(&qword_1006D9518);
-  v2 = _allocateUninitializedArray<A>(_:)();
-  *v3 = v15;
+  v16 = sub_10025C9B0(&qword_1006D9518, &qword_100502F78);
+  _allocateUninitializedArray<A>(_:)();
+  *v2 = v15;
   sub_1002612B0();
-  v17 = v2;
+  v17 = v3;
   v19 = static _AssistantIntent.ParameterValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
+  sub_100264880(v18);
   return v19;
 }
 
@@ -7407,25 +7634,37 @@ unint64_t sub_10032A2AC()
 
 uint64_t sub_10032A324()
 {
+  v14 = 0;
+  v13 = 0;
+  v12 = 0;
+  v11 = 0;
+  v10 = 0;
+  v9 = 0;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("my email to Justine", 0x13uLL, 1);
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v14 = v2;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("this morning's email draft", 0x1AuLL, 1);
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v13 = v3;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("the mail about San Diego Zoo Trip", 0x21uLL, 1);
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v12 = v4;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("this draft", 0xAuLL, 1);
   v5 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v11 = v5;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("this email", 0xAuLL, 1);
   v6 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v10 = v6;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("this", 4uLL, 1);
   v7 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
-  sub_10025C9B0(&unk_1006D69B0);
+  v9 = v7;
+  sub_10025C9B0(&unk_1006D69B0, &unk_100503A00);
   _allocateUninitializedArray<A>(_:)();
   *v0 = v2;
   v0[1] = v3;
@@ -7436,12 +7675,12 @@ uint64_t sub_10032A324()
   sub_1002612B0();
   v8 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(&v9);
+  sub_100264880(&v10);
+  sub_100264880(&v11);
+  sub_100264880(&v12);
+  sub_100264880(&v13);
+  sub_100264880(&v14);
   return v8;
 }
 
@@ -7473,7 +7712,7 @@ uint64_t sub_10032A5DC(uint64_t a1)
   v152 = 0;
   v138 = &v151;
   v151 = 0;
-  v113 = sub_10025C9B0(&qword_1006D9678);
+  v113 = sub_10025C9B0(&qword_1006D9678, &qword_1005034B0);
   v58 = *(v113 - 8);
   v59 = v113 - 8;
   v46 = (v58[8] + 15) & 0xFFFFFFFFFFFFFFF0;
@@ -7485,7 +7724,7 @@ uint64_t sub_10032A5DC(uint64_t a1)
   v48 = (v2 + 15) & 0xFFFFFFFFFFFFFFF0;
   __chkstk_darwin(&v45 - v47);
   v116 = &v45 - v48;
-  v118 = sub_10025C9B0(&qword_1006D9680);
+  v118 = sub_10025C9B0(&qword_1006D9680, &qword_1005034B8);
   v52 = *(v118 - 8);
   v53 = v118 - 8;
   v49 = (*(v52 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
@@ -7735,47 +7974,47 @@ uint64_t sub_10032A5DC(uint64_t a1)
   v120(v121, v118);
 
   v151 = v133;
-  v134 = sub_10025C9B0(&qword_1006D9688);
-  v31 = _allocateUninitializedArray<A>(_:)();
-  v32 = v123;
-  v33 = v124;
-  v34 = v125;
-  v35 = v126;
-  v36 = v127;
-  v37 = v128;
-  v38 = v129;
-  v39 = v130;
-  v40 = v131;
-  v41 = v132;
-  v42 = v133;
-  *v43 = v122;
-  v43[1] = v32;
-  v43[2] = v33;
-  v43[3] = v34;
-  v43[4] = v35;
-  v43[5] = v36;
-  v43[6] = v37;
-  v43[7] = v38;
-  v43[8] = v39;
-  v43[9] = v40;
-  v43[10] = v41;
-  v43[11] = v42;
+  v134 = sub_10025C9B0(&qword_1006D9688, &qword_1005034C0);
+  _allocateUninitializedArray<A>(_:)();
+  v31 = v123;
+  v32 = v124;
+  v33 = v125;
+  v34 = v126;
+  v35 = v127;
+  v36 = v128;
+  v37 = v129;
+  v38 = v130;
+  v39 = v131;
+  v40 = v132;
+  v41 = v133;
+  *v42 = v122;
+  v42[1] = v31;
+  v42[2] = v32;
+  v42[3] = v33;
+  v42[4] = v34;
+  v42[5] = v35;
+  v42[6] = v36;
+  v42[7] = v37;
+  v42[8] = v38;
+  v42[9] = v39;
+  v42[10] = v40;
+  v42[11] = v41;
   sub_1002612B0();
-  v137 = v31;
+  v137 = v43;
   v150 = static _AssistantIntent.PhraseBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(v138);
+  sub_100264880(v139);
+  sub_100264880(v140);
+  sub_100264880(v141);
+  sub_100264880(v142);
+  sub_100264880(v143);
+  sub_100264880(v144);
+  sub_100264880(v145);
+  sub_100264880(v146);
+  sub_100264880(v147);
+  sub_100264880(v148);
+  sub_100264880(v149);
   return v150;
 }
 
@@ -7783,22 +8022,22 @@ uint64_t sub_10032BFA4@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   v7 = a2;
   v4 = a1;
-  v5 = (*(*(sub_10025C9B0(&qword_1006D8740) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v5 = (*(*(sub_10025C9B0(&qword_1006D8740, &unk_100501CB0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   v2 = __chkstk_darwin(v4);
   v6 = &v4 - v5;
-  sub_100342058(v2, v11);
-  v8 = v11[0];
-  v9 = v11[1];
-  v10 = v11[2];
-  sub_10042D0A0();
+  sub_100342058(v2, &v11);
+  v8 = v11;
+  v9 = v12;
+  v10 = v13;
+  sub_10042D0A0(v11, v12);
   sub_1002A7168(v6, v7);
 }
 
-uint64_t sub_10032C07C(uint64_t a1, uint64_t *a2)
+uint64_t sub_10032C07C(uint64_t a1, void *a2)
 {
   v4 = a1;
   v6 = a2;
-  v5 = (*(*(sub_10025C9B0(&qword_1006D8740) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v5 = (*(*(sub_10025C9B0(&qword_1006D8740, &unk_100501CB0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   v2 = __chkstk_darwin(v4);
   v7 = &v4 - v5;
   sub_1002F29E4(v2, &v4 - v5);
@@ -7809,14 +8048,14 @@ uint64_t sub_10032C07C(uint64_t a1, uint64_t *a2)
   sub_10042D104(v7, v11, v12, v13);
 }
 
-uint64_t sub_10032C150@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_10032C150@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   sub_100342058(a1, v4);
   sub_10042D1FC(v4[0], v4[1], v4[2], v5);
   memcpy(a2, v5, 0x48uLL);
 }
 
-uint64_t sub_10032C1C8(void *a1, uint64_t *a2)
+uint64_t sub_10032C1C8(void *a1, void *a2)
 {
   sub_1002CD078(a1, v5);
   memcpy(__dst, v5, sizeof(__dst));
@@ -7863,17 +8102,17 @@ uint64_t sub_10032C250(uint64_t a1)
   v15(v16, v13);
 
   v24 = v18;
-  v19 = sub_10025C9B0(&qword_1006D9518);
-  v2 = _allocateUninitializedArray<A>(_:)();
-  v3 = v18;
-  *v4 = v17;
-  v4[1] = v3;
+  v19 = sub_10025C9B0(&qword_1006D9518, &qword_100502F78);
+  _allocateUninitializedArray<A>(_:)();
+  v2 = v18;
+  *v3 = v17;
+  v3[1] = v2;
   sub_1002612B0();
-  v20 = v2;
+  v20 = v4;
   v23 = static _AssistantIntent.ParameterValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(v21);
+  sub_100264880(v22);
   return v23;
 }
 
@@ -7892,51 +8131,71 @@ unint64_t sub_10032C4C8()
 
 uint64_t sub_10032C540()
 {
+  v6 = 0;
+  v5 = 0;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("my email to Justine", 0x13uLL, 1);
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v6 = v2;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("this morning's email draft", 0x1AuLL, 1);
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
-  sub_10025C9B0(&unk_1006D69B0);
+  v5 = v3;
+  sub_10025C9B0(&unk_1006D69B0, &unk_100503A00);
   _allocateUninitializedArray<A>(_:)();
   *v0 = v2;
   v0[1] = v3;
   sub_1002612B0();
   v4 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(&v5);
+  sub_100264880(&v6);
   return v4;
 }
 
 uint64_t sub_10032C670()
 {
+  v18 = 0;
+  v17 = 0;
+  v16 = 0;
+  v15 = 0;
+  v14 = 0;
+  v13 = 0;
+  v12 = 0;
+  v11 = 0;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("later", 5uLL, 1);
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v18 = v2;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("at a later time", 0xFuLL, 1);
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v17 = v3;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("at 5:30 today", 0xDuLL, 1);
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v16 = v4;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("tomorrow morning at 8", 0x15uLL, 1);
   v5 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v15 = v5;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("at 6 this evening", 0x11uLL, 1);
   v6 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v14 = v6;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("later today at like 2", 0x15uLL, 1);
   v7 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v13 = v7;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("at a later time tonight at 8", 0x1CuLL, 1);
   v8 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v12 = v8;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("at 5 am", 7uLL, 1);
   v9 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
-  sub_10025C9B0(&unk_1006D69B0);
+  v11 = v9;
+  sub_10025C9B0(&unk_1006D69B0, &unk_100503A00);
   _allocateUninitializedArray<A>(_:)();
   *v0 = v2;
   v0[1] = v3;
@@ -7949,14 +8208,14 @@ uint64_t sub_10032C670()
   sub_1002612B0();
   v10 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(&v11);
+  sub_100264880(&v12);
+  sub_100264880(&v13);
+  sub_100264880(&v14);
+  sub_100264880(&v15);
+  sub_100264880(&v16);
+  sub_100264880(&v17);
+  sub_100264880(&v18);
   return v10;
 }
 
@@ -7972,7 +8231,7 @@ uint64_t sub_10032C9E8(uint64_t a1)
   v34 = 0;
   v28 = &v33;
   v33 = 0;
-  v16 = sub_10025C9B0(&qword_1006D9668);
+  v16 = sub_10025C9B0(&qword_1006D9668, &qword_100503450);
   v13 = *(v16 - 8);
   v14 = v16 - 8;
   v10 = (*(v13 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
@@ -8009,23 +8268,23 @@ uint64_t sub_10032C9E8(uint64_t a1)
   v18(v19, v16);
 
   v33 = v23;
-  v24 = sub_10025C9B0(&qword_1006D9670);
-  v2 = _allocateUninitializedArray<A>(_:)();
-  v3 = v21;
-  v4 = v22;
-  v5 = v23;
-  *v6 = v20;
-  v6[1] = v3;
-  v6[2] = v4;
-  v6[3] = v5;
+  v24 = sub_10025C9B0(&qword_1006D9670, &qword_100503458);
+  _allocateUninitializedArray<A>(_:)();
+  v2 = v21;
+  v3 = v22;
+  v4 = v23;
+  *v5 = v20;
+  v5[1] = v2;
+  v5[2] = v3;
+  v5[3] = v4;
   sub_1002612B0();
-  v27 = v2;
+  v27 = v6;
   v32 = static _AssistantIntent.PhraseBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(v28);
+  sub_100264880(v29);
+  sub_100264880(v30);
+  sub_100264880(v31);
   return v32;
 }
 
@@ -8096,13 +8355,13 @@ uint64_t sub_10032CDCC(uint64_t a1)
   v336 = 0;
   v309 = &v335;
   v335 = 0;
-  v285 = sub_10025C9B0(&qword_1006D9650);
+  v285 = sub_10025C9B0(&qword_1006D9650, &qword_100503438);
   v123 = *(v285 - 8);
   v124 = v285 - 8;
   v113 = (*(v123 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   __chkstk_darwin(v285);
   v288 = &v113 - v113;
-  v280 = sub_10025C9B0(&qword_1006D9658);
+  v280 = sub_10025C9B0(&qword_1006D9658, &qword_100503440);
   v121 = *(v280 - 8);
   v122 = v280 - 8;
   v114 = (v121[8] + 15) & 0xFFFFFFFFFFFFFFF0;
@@ -8754,81 +9013,81 @@ uint64_t sub_10032CDCC(uint64_t a1)
   v287(v288, v285);
 
   v335 = v304;
-  v305 = sub_10025C9B0(&qword_1006D9660);
-  v95 = _allocateUninitializedArray<A>(_:)();
-  v96 = v290;
-  v97 = v291;
-  v98 = v292;
-  v99 = v293;
-  v100 = v294;
-  v101 = v295;
-  v102 = v296;
-  v103 = v297;
-  v104 = v298;
-  v105 = v299;
-  v106 = v300;
-  v107 = v301;
-  v108 = v302;
-  v109 = v303;
-  v110 = v304;
-  *v111 = v9;
-  v111[1] = v14;
-  v111[2] = v18;
-  v111[3] = v22;
-  v111[4] = v26;
-  v111[5] = v30;
-  v111[6] = v35;
-  v111[7] = v40;
-  v111[8] = v94;
-  v111[9] = v47;
-  v111[10] = v96;
-  v111[11] = v97;
-  v111[12] = v98;
-  v111[13] = v99;
-  v111[14] = v100;
-  v111[15] = v101;
-  v111[16] = v102;
-  v111[17] = v103;
-  v111[18] = v104;
-  v111[19] = v105;
-  v111[20] = v106;
-  v111[21] = v107;
-  v111[22] = v108;
-  v111[23] = v109;
-  v111[24] = v110;
+  v305 = sub_10025C9B0(&qword_1006D9660, &qword_100503448);
+  _allocateUninitializedArray<A>(_:)();
+  v95 = v290;
+  v96 = v291;
+  v97 = v292;
+  v98 = v293;
+  v99 = v294;
+  v100 = v295;
+  v101 = v296;
+  v102 = v297;
+  v103 = v298;
+  v104 = v299;
+  v105 = v300;
+  v106 = v301;
+  v107 = v302;
+  v108 = v303;
+  v109 = v304;
+  *v110 = v9;
+  v110[1] = v14;
+  v110[2] = v18;
+  v110[3] = v22;
+  v110[4] = v26;
+  v110[5] = v30;
+  v110[6] = v35;
+  v110[7] = v40;
+  v110[8] = v94;
+  v110[9] = v47;
+  v110[10] = v95;
+  v110[11] = v96;
+  v110[12] = v97;
+  v110[13] = v98;
+  v110[14] = v99;
+  v110[15] = v100;
+  v110[16] = v101;
+  v110[17] = v102;
+  v110[18] = v103;
+  v110[19] = v104;
+  v110[20] = v105;
+  v110[21] = v106;
+  v110[22] = v107;
+  v110[23] = v108;
+  v110[24] = v109;
   sub_1002612B0();
-  v308 = v95;
+  v308 = v111;
   v334 = static _AssistantIntent.PhraseBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(v309);
+  sub_100264880(v310);
+  sub_100264880(v311);
+  sub_100264880(v312);
+  sub_100264880(v313);
+  sub_100264880(v314);
+  sub_100264880(v315);
+  sub_100264880(v316);
+  sub_100264880(v317);
+  sub_100264880(v318);
+  sub_100264880(v319);
+  sub_100264880(v320);
+  sub_100264880(v321);
+  sub_100264880(v322);
+  sub_100264880(v323);
+  sub_100264880(v324);
+  sub_100264880(v325);
+  sub_100264880(v326);
+  sub_100264880(v327);
+  sub_100264880(v328);
+  sub_100264880(v329);
+  sub_100264880(v330);
+  sub_100264880(v331);
+  sub_100264880(v332);
+  sub_100264880(v333);
   return v334;
 }
 
-_BYTE *sub_100331030@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+void *sub_100331030@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   sub_1002E1A40(a1, v6);
   memcpy(__dst, v6, sizeof(__dst));
@@ -8836,33 +9095,35 @@ _BYTE *sub_100331030@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
   result = __dst;
   *a2 = v2;
   a2[1] = v4;
-  sub_1002E4218();
+  sub_1002E4218(__dst);
   return result;
 }
 
-_BYTE *sub_10033109C(void *a1, uint64_t *a2)
+void *sub_10033109C(void *a1, void *a2)
 {
-  sub_100268860(a1, &v5);
-  sub_1002E1A40(a2, v4);
-  memcpy(__dst, v4, sizeof(__dst));
-  sub_1004693C8();
+  sub_100268860(a1, v7);
+  v4 = v7[0];
+  v5 = v7[1];
+  sub_1002E1A40(a2, v6);
+  memcpy(__dst, v6, sizeof(__dst));
+  sub_1004693C8(v4, v5);
   result = __dst;
-  sub_1002E4218();
+  sub_1002E4218(__dst);
   return result;
 }
 
-_BYTE *sub_10033111C@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+void *sub_10033111C@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   sub_1002E1A40(a1, v4);
   memcpy(__dst, v4, sizeof(__dst));
   sub_100469450(v5);
   memcpy(a2, v5, 0x48uLL);
   result = __dst;
-  sub_1002E4218();
+  sub_1002E4218(__dst);
   return result;
 }
 
-_BYTE *sub_100331194(void *a1, uint64_t *a2)
+void *sub_100331194(void *a1, void *a2)
 {
   sub_1002CD078(a1, v5);
   memcpy(__dst, v5, sizeof(__dst));
@@ -8870,15 +9131,15 @@ _BYTE *sub_100331194(void *a1, uint64_t *a2)
   memcpy(v7, v4, sizeof(v7));
   sub_1004694D4(__dst);
   result = v7;
-  sub_1002E4218();
+  sub_1002E4218(v7);
   return result;
 }
 
-_BYTE *sub_10033121C@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+void *sub_10033121C@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   v8 = a2;
   v4 = a1;
-  v5 = (*(*(sub_10025C9B0(&unk_1006D7380) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v5 = (*(*(sub_10025C9B0(&unk_1006D7380, &qword_100500790) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   v2 = __chkstk_darwin(v4);
   v7 = &v4 - v5;
   v6 = v10;
@@ -8888,15 +9149,15 @@ _BYTE *sub_10033121C@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
   sub_10046955C();
   sub_100342710(v7, v8);
   result = v9;
-  sub_1002E4218();
+  sub_1002E4218(v9);
   return result;
 }
 
-_BYTE *sub_1003312F4(uint64_t a1, uint64_t *a2)
+void *sub_1003312F4(uint64_t a1, void *a2)
 {
   v4 = a1;
   v6 = a2;
-  v5 = (*(*(sub_10025C9B0(&unk_1006D7380) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v5 = (*(*(sub_10025C9B0(&unk_1006D7380, &qword_100500790) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   v2 = __chkstk_darwin(v4);
   v8 = &v4 - v5;
   sub_100289B6C(v2, &v4 - v5);
@@ -8906,55 +9167,57 @@ _BYTE *sub_1003312F4(uint64_t a1, uint64_t *a2)
   memcpy(__dst, v7, sizeof(__dst));
   sub_1004695B0(v8);
   result = v9;
-  sub_1002E4218();
+  sub_1002E4218(v9);
   return result;
 }
 
-_BYTE *sub_1003313C8@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+void *sub_1003313C8@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   sub_1002E1A40(a1, v5);
   memcpy(__dst, v5, sizeof(__dst));
   v2 = sub_100469688();
   result = __dst;
   *a2 = v2;
-  sub_1002E4218();
+  sub_1002E4218(__dst);
   return result;
 }
 
-_BYTE *sub_100331430(uint64_t *a1, uint64_t *a2)
+void *sub_100331430(void *a1, void *a2)
 {
-  sub_1002A730C(a1, &v5);
-  sub_1002E1A40(a2, v4);
-  memcpy(__dst, v4, sizeof(__dst));
-  sub_1004696E4();
+  sub_1002A730C(a1, &v6);
+  v4 = v6;
+  sub_1002E1A40(a2, v5);
+  memcpy(__dst, v5, sizeof(__dst));
+  sub_1004696E4(v4);
   result = __dst;
-  sub_1002E4218();
+  sub_1002E4218(__dst);
   return result;
 }
 
-_BYTE *sub_1003314A4@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+void *sub_1003314A4@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   sub_1002E1A40(a1, v5);
   memcpy(__dst, v5, sizeof(__dst));
   v2 = sub_100469758();
   result = __dst;
   *a2 = v2;
-  sub_1002E4218();
+  sub_1002E4218(__dst);
   return result;
 }
 
-_BYTE *sub_10033150C(uint64_t *a1, uint64_t *a2)
+void *sub_10033150C(void *a1, void *a2)
 {
-  sub_1002A730C(a1, &v5);
-  sub_1002E1A40(a2, v4);
-  memcpy(__dst, v4, sizeof(__dst));
-  sub_1004697B4();
+  sub_1002A730C(a1, &v6);
+  v4 = v6;
+  sub_1002E1A40(a2, v5);
+  memcpy(__dst, v5, sizeof(__dst));
+  sub_1004697B4(v4);
   result = __dst;
-  sub_1002E4218();
+  sub_1002E4218(__dst);
   return result;
 }
 
-_BYTE *sub_100331580@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+void *sub_100331580@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   sub_1002E1A40(a1, v7);
   memcpy(__dst, v7, sizeof(__dst));
@@ -8963,19 +9226,21 @@ _BYTE *sub_100331580@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
   *a2 = v2;
   a2[1] = v4;
   a2[2] = v5;
-  sub_1002E4218();
+  sub_1002E4218(__dst);
   return result;
 }
 
-_BYTE *sub_1003315F0(uint64_t a1, uint64_t *a2)
+void *sub_1003315F0(uint64_t a1, void *a2)
 {
-  sub_100342660(a1, &v6);
-  v4 = v6;
-  sub_1002E1A40(a2, v5);
-  memcpy(__dst, v5, sizeof(__dst));
-  sub_10046989C(v4);
+  sub_100342660(a1, v8);
+  v4 = v8[0];
+  v5 = v8[1];
+  v6 = v8[2];
+  sub_1002E1A40(a2, v7);
+  memcpy(__dst, v7, sizeof(__dst));
+  sub_10046989C(v4, v5, v6);
   result = __dst;
-  sub_1002E4218();
+  sub_1002E4218(__dst);
   return result;
 }
 
@@ -9088,35 +9353,35 @@ uint64_t sub_10033167C(uint64_t a1)
   v39(v40, v37);
 
   v60 = v48;
-  v49 = sub_10025C9B0(&qword_1006D9518);
-  v2 = _allocateUninitializedArray<A>(_:)();
-  v3 = v42;
-  v4 = v43;
-  v5 = v44;
-  v6 = v45;
-  v7 = v46;
-  v8 = v47;
-  v9 = v48;
-  *v10 = v41;
-  v10[1] = v3;
-  v10[2] = v4;
-  v10[3] = v5;
-  v10[4] = v6;
-  v10[5] = v7;
-  v10[6] = v8;
-  v10[7] = v9;
+  v49 = sub_10025C9B0(&qword_1006D9518, &qword_100502F78);
+  _allocateUninitializedArray<A>(_:)();
+  v2 = v42;
+  v3 = v43;
+  v4 = v44;
+  v5 = v45;
+  v6 = v46;
+  v7 = v47;
+  v8 = v48;
+  *v9 = v41;
+  v9[1] = v2;
+  v9[2] = v3;
+  v9[3] = v4;
+  v9[4] = v5;
+  v9[5] = v6;
+  v9[6] = v7;
+  v9[7] = v8;
   sub_1002612B0();
-  v50 = v2;
+  v50 = v10;
   v59 = static _AssistantIntent.ParameterValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(v51);
+  sub_100264880(v52);
+  sub_100264880(v53);
+  sub_100264880(v54);
+  sub_100264880(v55);
+  sub_100264880(v56);
+  sub_100264880(v57);
+  sub_100264880(v58);
   return v59;
 }
 
@@ -9135,16 +9400,22 @@ unint64_t sub_100331E94()
 
 uint64_t sub_100331F0C()
 {
+  v8 = 0;
+  v7 = 0;
+  v6 = 0;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("the email about todo list", 0x19uLL, 1);
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v8 = v2;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("my email to Steve", 0x11uLL, 1);
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v7 = v3;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("yesterday's email to mom", 0x18uLL, 1);
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
-  sub_10025C9B0(&unk_1006D69B0);
+  v6 = v4;
+  sub_10025C9B0(&unk_1006D69B0, &unk_100503A00);
   _allocateUninitializedArray<A>(_:)();
   *v0 = v2;
   v0[1] = v3;
@@ -9152,27 +9423,35 @@ uint64_t sub_100331F0C()
   sub_1002612B0();
   v5 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(&v6);
+  sub_100264880(&v7);
+  sub_100264880(&v8);
   return v5;
 }
 
 uint64_t sub_10033209C()
 {
+  v10 = 0;
+  v9 = 0;
+  v8 = 0;
+  v7 = 0;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("book club meeting recap", 0x17uLL, 1);
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v10 = v2;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Memorial Day family picnic", 0x1AuLL, 1);
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v9 = v3;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("coffee session", 0xEuLL, 1);
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v8 = v4;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("10 year high school reunion", 0x1BuLL, 1);
   v5 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
-  sub_10025C9B0(&unk_1006D69B0);
+  v7 = v5;
+  sub_10025C9B0(&unk_1006D69B0, &unk_100503A00);
   _allocateUninitializedArray<A>(_:)();
   *v0 = v2;
   v0[1] = v3;
@@ -9181,28 +9460,36 @@ uint64_t sub_10033209C()
   sub_1002612B0();
   v6 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(&v7);
+  sub_100264880(&v8);
+  sub_100264880(&v9);
+  sub_100264880(&v10);
   return v6;
 }
 
 uint64_t sub_10033228C()
 {
+  v10 = 0;
+  v9 = 0;
+  v8 = 0;
+  v7 = 0;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("today we discussed the final chapter of Sense and Sensibility", 0x3DuLL, 1);
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v10 = v2;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("potluck signup is attached to this email. meet at Balboa Park on Sunday by noon!", 0x50uLL, 1);
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v9 = v3;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("let's get coffee this Saturday afternoon", 0x28uLL, 1);
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v8 = v4;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("we can't wait to see you all this Friday night at The Den", 0x39uLL, 1);
   v5 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
-  sub_10025C9B0(&unk_1006D69B0);
+  v7 = v5;
+  sub_10025C9B0(&unk_1006D69B0, &unk_100503A00);
   _allocateUninitializedArray<A>(_:)();
   *v0 = v2;
   v0[1] = v3;
@@ -9211,28 +9498,36 @@ uint64_t sub_10033228C()
   sub_1002612B0();
   v6 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(&v7);
+  sub_100264880(&v8);
+  sub_100264880(&v9);
+  sub_100264880(&v10);
   return v6;
 }
 
 uint64_t sub_10033247C()
 {
+  v10 = 0;
+  v9 = 0;
+  v8 = 0;
+  v7 = 0;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Rick", 4uLL, 1);
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v10 = v2;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Morty", 5uLL, 1);
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v9 = v3;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Jane", 4uLL, 1);
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v8 = v4;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("bob@example.com", 0xFuLL, 1);
   v5 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
-  sub_10025C9B0(&unk_1006D69B0);
+  v7 = v5;
+  sub_10025C9B0(&unk_1006D69B0, &unk_100503A00);
   _allocateUninitializedArray<A>(_:)();
   *v0 = v2;
   v0[1] = v3;
@@ -9241,30 +9536,34 @@ uint64_t sub_10033247C()
   sub_1002612B0();
   v6 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(&v7);
+  sub_100264880(&v8);
+  sub_100264880(&v9);
+  sub_100264880(&v10);
   return v6;
 }
 
 uint64_t sub_100332668()
 {
+  v6 = 0;
+  v5 = 0;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("my contact card", 0xFuLL, 1);
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v6 = v2;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("potluck signup spreadsheet", 0x1AuLL, 1);
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
-  sub_10025C9B0(&unk_1006D69B0);
+  v5 = v3;
+  sub_10025C9B0(&unk_1006D69B0, &unk_100503A00);
   _allocateUninitializedArray<A>(_:)();
   *v0 = v2;
   v0[1] = v3;
   sub_1002612B0();
   v4 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(&v5);
+  sub_100264880(&v6);
   return v4;
 }
 
@@ -9280,13 +9579,13 @@ uint64_t sub_100332798(uint64_t a1)
   v86 = 0;
   v80 = &v85;
   v85 = 0;
-  v68 = sub_10025C9B0(&qword_1006D9628);
+  v68 = sub_10025C9B0(&qword_1006D9628, &qword_1005032D8);
   v33 = *(v68 - 8);
   v34 = v68 - 8;
   v23 = (*(v33 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   __chkstk_darwin(v68);
   v71 = &v23 - v23;
-  v63 = sub_10025C9B0(&qword_1006D9630);
+  v63 = sub_10025C9B0(&qword_1006D9630, &qword_1005032E0);
   v31 = *(v63 - 8);
   v32 = v63 - 8;
   v24 = (v31[8] + 15) & 0xFFFFFFFFFFFFFFF0;
@@ -9406,37 +9705,38 @@ uint64_t sub_100332798(uint64_t a1)
   v70(v71, v68);
 
   v85 = v75;
-  v76 = sub_10025C9B0(&qword_1006D9638);
-  v17 = _allocateUninitializedArray<A>(_:)();
-  v18 = v73;
-  v19 = v74;
-  v20 = v75;
-  *v21 = v72;
-  v21[1] = v18;
-  v21[2] = v19;
-  v21[3] = v20;
+  v76 = sub_10025C9B0(&qword_1006D9638, &qword_1005032E8);
+  _allocateUninitializedArray<A>(_:)();
+  v17 = v73;
+  v18 = v74;
+  v19 = v75;
+  *v20 = v72;
+  v20[1] = v17;
+  v20[2] = v18;
+  v20[3] = v19;
   sub_1002612B0();
-  v79 = v17;
+  v79 = v21;
   v84 = static _AssistantIntent.PhraseBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(v80);
+  sub_100264880(v81);
+  sub_100264880(v82);
+  sub_100264880(v83);
   return v84;
 }
 
-uint64_t sub_1003331DC@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t sub_1003331DC@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
-  sub_10027ECA8(a1, &v4);
-  *a2 = sub_10027A6E8();
+  sub_10027ECA8(a1, v4);
+  *a2 = sub_10027A6E8(v4[0], v4[1]);
 }
 
-uint64_t sub_100333234(uint64_t *a1, uint64_t *a2)
+uint64_t sub_100333234(void *a1, void *a2)
 {
-  sub_1002A730C(a1, &v5);
-  sub_10027ECA8(a2, &v4);
-  sub_10027A74C();
+  sub_1002A730C(a1, &v6);
+  v4 = v6;
+  sub_10027ECA8(a2, v5);
+  sub_10027A74C(v4, v5[0], v5[1]);
 }
 
 uint64_t sub_100333298(uint64_t a1)
@@ -9463,32 +9763,40 @@ uint64_t sub_100333298(uint64_t a1)
   (*(v11 + 8))(v14, v13);
 
   v20 = v15;
-  v16 = sub_10025C9B0(&qword_1006D9518);
-  v2 = _allocateUninitializedArray<A>(_:)();
-  *v3 = v15;
+  v16 = sub_10025C9B0(&qword_1006D9518, &qword_100502F78);
+  _allocateUninitializedArray<A>(_:)();
+  *v2 = v15;
   sub_1002612B0();
-  v17 = v2;
+  v17 = v3;
   v19 = static _AssistantIntent.ParameterValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
+  sub_100264880(v18);
   return v19;
 }
 
 uint64_t sub_100333450()
 {
+  v10 = 0;
+  v9 = 0;
+  v8 = 0;
+  v7 = 0;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("my emails about chess club", 0x1AuLL, 1);
   v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v10 = v2;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("all mail about airport pickup", 0x1DuLL, 1);
   v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v9 = v3;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Book club emails", 0x10uLL, 1);
   v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
+  v8 = v4;
   String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("comic con San Diego mail messages", 0x21uLL, 1);
   v5 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
 
-  sub_10025C9B0(&unk_1006D69B0);
+  v7 = v5;
+  sub_10025C9B0(&unk_1006D69B0, &unk_100503A00);
   _allocateUninitializedArray<A>(_:)();
   *v0 = v2;
   v0[1] = v3;
@@ -9497,10 +9805,10 @@ uint64_t sub_100333450()
   sub_1002612B0();
   v6 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(&v7);
+  sub_100264880(&v8);
+  sub_100264880(&v9);
+  sub_100264880(&v10);
   return v6;
 }
 
@@ -9512,13 +9820,13 @@ uint64_t sub_100333640(uint64_t a1)
   v62 = 0;
   v58 = &v61;
   v61 = 0;
-  v48 = sub_10025C9B0(&qword_1006D9610);
+  v48 = sub_10025C9B0(&qword_1006D9610, &qword_100503298);
   v26 = *(v48 - 8);
   v27 = v48 - 8;
   v15 = (*(v26 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   __chkstk_darwin(v48);
   v51 = &v15 - v15;
-  v43 = sub_10025C9B0(&qword_1006D9618);
+  v43 = sub_10025C9B0(&qword_1006D9618, &qword_1005032A0);
   v24 = *(v43 - 8);
   v25 = v43 - 8;
   v16 = (v24[8] + 15) & 0xFFFFFFFFFFFFFFF0;
@@ -9590,17 +9898,17 @@ uint64_t sub_100333640(uint64_t a1)
   v50(v51, v48);
 
   v61 = v53;
-  v54 = sub_10025C9B0(&qword_1006D9620);
-  v11 = _allocateUninitializedArray<A>(_:)();
-  v12 = v53;
-  *v13 = v52;
-  v13[1] = v12;
+  v54 = sub_10025C9B0(&qword_1006D9620, &qword_1005032A8);
+  _allocateUninitializedArray<A>(_:)();
+  v11 = v53;
+  *v12 = v52;
+  v12[1] = v11;
   sub_1002612B0();
-  v57 = v11;
+  v57 = v13;
   v60 = static _AssistantIntent.PhraseBuilder.buildBlock(_:)();
 
-  sub_100264880();
-  sub_100264880();
+  sub_100264880(v58);
+  sub_100264880(v59);
   return v60;
 }
 
@@ -9628,329 +9936,13 @@ uint64_t sub_100333C84(uint64_t a1)
   (*(v11 + 8))(v14, v13);
 
   v20 = v15;
-  v16 = sub_10025C9B0(&qword_1006D9518);
-  v2 = _allocateUninitializedArray<A>(_:)();
-  *v3 = v15;
+  v16 = sub_10025C9B0(&qword_1006D9518, &qword_100502F78);
+  _allocateUninitializedArray<A>(_:)();
+  *v2 = v15;
   sub_1002612B0();
-  v17 = v2;
+  v17 = v3;
   v19 = static _AssistantIntent.ParameterValueBuilder.buildBlock(_:)();
 
-  sub_100264880();
+  sub_100264880(v18);
   return v19;
-}
-
-uint64_t sub_100333E3C()
-{
-  String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("emails from John Appleseed", 0x1AuLL, 1);
-  v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-
-  String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("emails from my ex", 0x11uLL, 1);
-  v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-
-  String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("emails about your car's extended warranty", 0x29uLL, 1);
-  v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-
-  sub_10025C9B0(&unk_1006D69B0);
-  _allocateUninitializedArray<A>(_:)();
-  *v0 = v2;
-  v0[1] = v3;
-  v0[2] = v4;
-  sub_1002612B0();
-  v5 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
-
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  return v5;
-}
-
-uint64_t sub_100333FCC(uint64_t a1)
-{
-  v41 = a1;
-  v77 = 0;
-  v72 = &v76;
-  v76 = 0;
-  v71 = &v75;
-  v75 = 0;
-  v70 = &v74;
-  v74 = 0;
-  v59 = sub_10025C9B0(&qword_1006D95F8);
-  v31 = *(v59 - 8);
-  v32 = v59 - 8;
-  v20 = (*(v31 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin(v59);
-  v62 = &v19 - v20;
-  v54 = sub_10025C9B0(&qword_1006D9600);
-  v29 = *(v54 - 8);
-  v30 = v54 - 8;
-  v21 = (v29[8] + 15) & 0xFFFFFFFFFFFFFFF0;
-  v1 = __chkstk_darwin(v41);
-  v58 = &v19 - v21;
-  v22 = (v2 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v3 = __chkstk_darwin(v1);
-  v51 = &v19 - v22;
-  v23 = (v4 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v5 = __chkstk_darwin(v3);
-  v57 = &v19 - v23;
-  v77 = v5;
-  v68 = sub_1002BDAB0();
-  v24 = 7;
-  v40 = 1;
-  v67 = &unk_1006597C0;
-  _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
-  v47 = 1;
-  v6 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Delete ", v24, 1);
-  object = v6._object;
-  _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v6);
-
-  v43 = &unk_100503230;
-  KeyPath = swift_getKeyPath();
-  v44 = sub_10027D124();
-  v26 = _AssistantIntent.IntentProjection.subscript.getter();
-  _AssistantIntent.Phrase.StringInterpolation.appendInterpolation(_:)();
-
-  v37 = "";
-  v38 = 0;
-  v7 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, v47 & 1);
-  v28 = v7._object;
-  _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v7);
-  v8 = v57;
-
-  v50 = v29[2];
-  v49 = v29 + 2;
-  v50(v51, v8, v54);
-  v53 = v29[4];
-  v52 = v29 + 4;
-  v53(v58, v51, v54);
-  v56 = v29[1];
-  v55 = v29 + 1;
-  v56(v8, v54);
-  _AssistantIntent.Phrase.init(stringInterpolation:)();
-  v63 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
-  v61 = *(v31 + 8);
-  v60 = v31 + 8;
-  v61(v62, v59);
-
-  v76 = v63;
-  v33 = 6;
-  _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
-  v9 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Trash ", v33, v47 & 1);
-  v34 = v9._object;
-  _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v9);
-
-  v36 = swift_getKeyPath();
-  v35 = _AssistantIntent.IntentProjection.subscript.getter();
-  _AssistantIntent.Phrase.StringInterpolation.appendInterpolation(_:)();
-
-  v10 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(v37, v38, v47 & 1);
-  v39 = v10._object;
-  _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v10);
-  v11 = v57;
-
-  v50(v51, v11, v54);
-  v53(v58, v51, v54);
-  v56(v11, v54);
-  _AssistantIntent.Phrase.init(stringInterpolation:)();
-  v64 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
-  v61(v62, v59);
-
-  v75 = v64;
-  _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
-  v12 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Can you please move ", 0x14uLL, v47 & 1);
-  v42 = v12._object;
-  _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v12);
-
-  v46 = swift_getKeyPath();
-  v45 = _AssistantIntent.IntentProjection.subscript.getter();
-  _AssistantIntent.Phrase.StringInterpolation.appendInterpolation(_:)();
-
-  v13 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(" to garbage", 0xBuLL, v47 & 1);
-  v48 = v13._object;
-  _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v13);
-
-  v50(v51, v57, v54);
-  v53(v58, v51, v54);
-  v56(v57, v54);
-  _AssistantIntent.Phrase.init(stringInterpolation:)();
-  v65 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
-  v61(v62, v59);
-
-  v74 = v65;
-  v66 = sub_10025C9B0(&qword_1006D9608);
-  v14 = _allocateUninitializedArray<A>(_:)();
-  v15 = v64;
-  v16 = v65;
-  *v17 = v63;
-  v17[1] = v15;
-  v17[2] = v16;
-  sub_1002612B0();
-  v69 = v14;
-  v73 = static _AssistantIntent.PhraseBuilder.buildBlock(_:)();
-
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  return v73;
-}
-
-uint64_t sub_10033480C(uint64_t a1)
-{
-  v8 = 0;
-  v7 = sub_1003349C4;
-  v21 = 0;
-  v18 = &v20;
-  v20 = 0;
-  v13 = type metadata accessor for _AssistantIntent.Value();
-  v11 = *(v13 - 8);
-  v12 = v13 - 8;
-  v6 = (*(v11 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin(v13);
-  v14 = &v5 - v6;
-  v21 = a1;
-  KeyPath = swift_getKeyPath();
-  sub_10027D124();
-  v9 = _AssistantIntent.IntentProjection.subscript.getter();
-  sub_1002BDAB0();
-  _AssistantIntent.Value.init<A>(for:builder:)();
-
-  v15 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
-  (*(v11 + 8))(v14, v13);
-
-  v20 = v15;
-  v16 = sub_10025C9B0(&qword_1006D9518);
-  v2 = _allocateUninitializedArray<A>(_:)();
-  *v3 = v15;
-  sub_1002612B0();
-  v17 = v2;
-  v19 = static _AssistantIntent.ParameterValueBuilder.buildBlock(_:)();
-
-  sub_100264880();
-  return v19;
-}
-
-uint64_t sub_1003349C4()
-{
-  String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("any emails about furniture delivery", 0x23uLL, 1);
-  v2 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-
-  String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("the boxing class emails", 0x17uLL, 1);
-  v3 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-
-  String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("all mail messages from Temu", 0x1BuLL, 1);
-  v4 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-
-  sub_10025C9B0(&unk_1006D69B0);
-  _allocateUninitializedArray<A>(_:)();
-  *v0 = v2;
-  v0[1] = v3;
-  v0[2] = v4;
-  sub_1002612B0();
-  v5 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
-
-  sub_100264880();
-  sub_100264880();
-  sub_100264880();
-  return v5;
-}
-
-uint64_t sub_100334B54(uint64_t a1)
-{
-  v30 = a1;
-  v65 = 0;
-  v61 = &v64;
-  v64 = 0;
-  v60 = &v63;
-  v63 = 0;
-  v50 = sub_10025C9B0(&qword_1006D95E0);
-  v26 = *(v50 - 8);
-  v27 = v50 - 8;
-  v15 = (*(v26 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin(v50);
-  v53 = &v15 - v15;
-  v45 = sub_10025C9B0(&qword_1006D95E8);
-  v24 = *(v45 - 8);
-  v25 = v45 - 8;
-  v16 = (v24[8] + 15) & 0xFFFFFFFFFFFFFFF0;
-  v1 = __chkstk_darwin(v30);
-  v49 = &v15 - v16;
-  v17 = (v2 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v3 = __chkstk_darwin(v1);
-  v42 = &v15 - v17;
-  v18 = (v4 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v5 = __chkstk_darwin(v3);
-  v48 = &v15 - v18;
-  v65 = v5;
-  v58 = sub_100335360();
-  v19 = 31;
-  v28 = 1;
-  v57 = &unk_10065EC30;
-  _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
-  v38 = 1;
-  v6 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Remove follow up suggestion on ", v19, 1);
-  object = v6._object;
-  _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v6);
-
-  v32 = &unk_1005031F0;
-  KeyPath = swift_getKeyPath();
-  v33 = sub_10027D124();
-  v21 = _AssistantIntent.IntentProjection.subscript.getter();
-  _AssistantIntent.Phrase.StringInterpolation.appendInterpolation(_:)();
-
-  v36 = "";
-  v37 = 0;
-  v7 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("", 0, v38 & 1);
-  v23 = v7._object;
-  _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v7);
-  v8 = v48;
-
-  v41 = v24[2];
-  v40 = v24 + 2;
-  v41(v42, v8, v45);
-  v44 = v24[4];
-  v43 = v24 + 4;
-  v44(v49, v42, v45);
-  v47 = v24[1];
-  v46 = v24 + 1;
-  v47(v8, v45);
-  _AssistantIntent.Phrase.init(stringInterpolation:)();
-  v54 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
-  v52 = *(v26 + 8);
-  v51 = v26 + 8;
-  v52(v53, v50);
-
-  v64 = v54;
-  v29 = 32;
-  _AssistantIntent.Phrase.StringInterpolation.init(literalCapacity:interpolationCount:)();
-  v9 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Stop suggesting to follow up on ", v29, v38 & 1);
-  v31 = v9._object;
-  _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v9);
-
-  v35 = swift_getKeyPath();
-  v34 = _AssistantIntent.IntentProjection.subscript.getter();
-  _AssistantIntent.Phrase.StringInterpolation.appendInterpolation(_:)();
-
-  v10 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(v36, v37, v38 & 1);
-  v39 = v10._object;
-  _AssistantIntent.Phrase.StringInterpolation.appendLiteral(_:)(v10);
-
-  v41(v42, v48, v45);
-  v44(v49, v42, v45);
-  v47(v48, v45);
-  _AssistantIntent.Phrase.init(stringInterpolation:)();
-  v55 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
-  v52(v53, v50);
-
-  v63 = v55;
-  v56 = sub_10025C9B0(&qword_1006D95F0);
-  v11 = _allocateUninitializedArray<A>(_:)();
-  v12 = v55;
-  *v13 = v54;
-  v13[1] = v12;
-  sub_1002612B0();
-  v59 = v11;
-  v62 = static _AssistantIntent.PhraseBuilder.buildBlock(_:)();
-
-  sub_100264880();
-  sub_100264880();
-  return v62;
 }

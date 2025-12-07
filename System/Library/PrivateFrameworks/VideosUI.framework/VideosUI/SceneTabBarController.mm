@@ -18,7 +18,7 @@
   selfCopy = self;
   sub_1E382807C();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECF2C8C0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECF2C8C0, &unk_1E42A1250);
   OUTLINED_FUNCTION_19_3();
   v3 = sub_1E42062A4();
 
@@ -92,7 +92,7 @@
 
 - (void)updateWithTabBarItems:(id)items setSelectedIdentifierFromDefaults:(BOOL)defaults appContext:(id)context
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECF2C8C0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECF2C8C0, &unk_1E42A1250);
   v8 = sub_1E42062B4();
   contextCopy = context;
   selfCopy = self;

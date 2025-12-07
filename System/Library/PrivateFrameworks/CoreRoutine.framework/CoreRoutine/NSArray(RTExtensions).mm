@@ -7,31 +7,31 @@
 
 - (id)flatten
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = objc_opt_new();
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v3 = [self copy];
-  v4 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
     do
     {
       v7 = 0;
       do
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * v7);
+        v8 = *(*(&v15 + 1) + 8 * v7);
         v9 = objc_opt_class();
-        if ([v9 isSubclassOfClass:{objc_opt_class(), v16}])
+        if ([v9 isSubclassOfClass:{objc_opt_class(), v15}])
         {
           flatten = [v8 flatten];
           [v2 addObjectsFromArray:flatten];
@@ -63,14 +63,12 @@ LABEL_14:
       }
 
       while (v5 != v7);
-      v13 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v13 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
       v5 = v13;
     }
 
     while (v13);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v2;
 }

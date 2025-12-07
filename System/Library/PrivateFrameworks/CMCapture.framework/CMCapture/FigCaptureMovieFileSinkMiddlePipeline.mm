@@ -3,7 +3,7 @@
 - (id)audioOutputForTailIndex:(unint64_t)index;
 - (id)metadataOutputsForTailIndex:(unint64_t)index;
 - (id)videoOutputForTailIndex:(unint64_t)index;
-- (uint64_t)_buildMovieFileSinkExtendedCVISMiddleWithConfiguration:(void *)configuration graph:(id *)graph parentPipeline:(void *)pipeline headPipeline:(uint64_t)headPipeline captureDevicesByConnectionID:(uint64_t)d workgroup:;
+- (void)_buildMovieFileSinkExtendedCVISMiddleWithConfiguration:(char *)configuration graph:(id *)graph parentPipeline:(void *)pipeline headPipeline:(uint64_t)headPipeline captureDevicesByConnectionID:(uint64_t)d workgroup:;
 - (void)dealloc;
 @end
 
@@ -156,12 +156,12 @@
   }
 }
 
-- (uint64_t)_buildMovieFileSinkExtendedCVISMiddleWithConfiguration:(void *)configuration graph:(id *)graph parentPipeline:(void *)pipeline headPipeline:(uint64_t)headPipeline captureDevicesByConnectionID:(uint64_t)d workgroup:
+- (void)_buildMovieFileSinkExtendedCVISMiddleWithConfiguration:(char *)configuration graph:(id *)graph parentPipeline:(void *)pipeline headPipeline:(uint64_t)headPipeline captureDevicesByConnectionID:(uint64_t)d workgroup:
 {
   if (result)
   {
     v11 = result;
-    v102[0] = 0;
+    v122[0] = 0;
     movieFileSinkPipelineConfiguration = [a2 movieFileSinkPipelineConfiguration];
     [a2 movieFilePipelineStage];
     v13 = [BWPipelineStage pipelineStageWithName:@"com.apple.coremedia.capture.moviefile.middle" priority:14 workgroup:d];
@@ -175,31 +175,31 @@
     movieFileSinkPipelineConfiguration2 = [a2 movieFileSinkPipelineConfiguration];
     if (movieFileSinkPipelineConfiguration2)
     {
-      v100 = *(movieFileSinkPipelineConfiguration2 + 16);
+      v120 = *(movieFileSinkPipelineConfiguration2 + 16);
       if (movieFileSinkPipelineConfiguration)
       {
 LABEL_5:
-        v96 = *(movieFileSinkPipelineConfiguration + 215);
+        v116 = *(movieFileSinkPipelineConfiguration + 215);
         goto LABEL_6;
       }
     }
 
     else
     {
-      v100 = 0;
+      v120 = 0;
       if (movieFileSinkPipelineConfiguration)
       {
         goto LABEL_5;
       }
     }
 
-    v96 = 0;
+    v116 = 0;
 LABEL_6:
-    [(__CFString *)v100 connectionID];
+    [(__CFString *)v120 connectionID];
     v17 = [OUTLINED_FUNCTION_17() objectForKeyedSubscript:?];
     if (v17)
     {
-      v18 = *(v17 + 16);
+      v18 = v17[4];
     }
 
     else
@@ -211,7 +211,7 @@ LABEL_6:
     v20 = &OBJC_IVAR___BWInferenceEngineControllerConfiguration__fastMattingEnabled;
     if (!v19 && (!movieFileSinkPipelineConfiguration || *(movieFileSinkPipelineConfiguration + 120) != 1))
     {
-      v22 = 0;
+      v23 = 0;
 LABEL_52:
       if (graph)
       {
@@ -220,45 +220,45 @@ LABEL_52:
 
       if (movieFileSinkPipelineConfiguration && *(movieFileSinkPipelineConfiguration + 138) == 1)
       {
-        v59 = [[BWOverCaptureAttachedMediaSplitNode alloc] initWithBackPressureExtraRetainBufferCount:0];
+        v62 = [[BWOverCaptureAttachedMediaSplitNode alloc] initWithBackPressureExtraRetainBufferCount:0];
       }
 
       else
       {
-        v59 = [[BWFanOutNode alloc] initWithFanOutCount:1 mediaType:1986618469];
-        [(BWNode *)v59 setName:@"Just Here To Drop Tagged Buffers"];
+        v62 = [[BWFanOutNode alloc] initWithFanOutCount:1 mediaType:1986618469];
+        [(BWNode *)v62 setName:@"Just Here To Drop Tagged Buffers"];
       }
 
-      [(BWNodeInput *)[(BWNode *)v59 input] setDiscardsSampleDataTaggedToBeDropped:v22];
-      if (([graph addNode:v59 error:0] & 1) == 0)
+      [(BWNodeInput *)[(BWNode *)v62 input] setDiscardsSampleDataTaggedToBeDropped:v23];
+      if (([graph addNode:v62 error:0] & 1) == 0)
       {
         goto LABEL_77;
       }
 
-      [(BWNode *)v59 input];
+      [(BWNode *)v62 input];
       if (([OUTLINED_FUNCTION_24_0() connectOutput:output toInput:? pipelineStage:?] & 1) == 0)
       {
         goto LABEL_77;
       }
 
-      *(v11 + 40) = v59;
+      *(v11 + 5) = v62;
 LABEL_61:
-      if ([OUTLINED_FUNCTION_22_4() audioOutput] && *(v11 + 80) >= 2uLL)
+      if ([OUTLINED_FUNCTION_22_4() audioOutput] && *(v11 + 10) >= 2uLL)
       {
-        v60 = [(BWFanOutNode *)[BWOverCaptureFanOutNode alloc] initWithFanOutCount:2 mediaType:1936684398];
-        if (([graph addNode:v60 error:0] & 1) == 0)
+        v63 = [(BWFanOutNode *)[BWOverCaptureFanOutNode alloc] initWithFanOutCount:2 mediaType:1936684398];
+        if (([graph addNode:v63 error:0] & 1) == 0)
         {
           goto LABEL_77;
         }
 
         audioOutput = [OUTLINED_FUNCTION_22_4() audioOutput];
-        [(BWNode *)v60 input];
+        [(BWNode *)v63 input];
         if (([OUTLINED_FUNCTION_24_0() connectOutput:audioOutput toInput:? pipelineStage:?] & 1) == 0)
         {
           goto LABEL_77;
         }
 
-        *(v11 + 56) = v60;
+        *(v11 + 7) = v63;
       }
 
       result = [objc_msgSend(OUTLINED_FUNCTION_22_4() "metadataOutputs")];
@@ -267,38 +267,38 @@ LABEL_61:
         goto LABEL_74;
       }
 
-      if (*(v11 + 80) < 2uLL)
+      if (*(v11 + 10) < 2uLL)
       {
         goto LABEL_73;
       }
 
-      v62 = objc_alloc(MEMORY[0x1E695DF70]);
+      v65 = objc_alloc(MEMORY[0x1E695DF70]);
       [objc_msgSend(OUTLINED_FUNCTION_22_4() "metadataOutputs")];
-      *(v11 + 64) = [OUTLINED_FUNCTION_17() initWithCapacity:?];
+      *(v11 + 8) = [OUTLINED_FUNCTION_17() initWithCapacity:?];
       result = [objc_msgSend(OUTLINED_FUNCTION_22_4() "metadataOutputs")];
       if (!result)
       {
         goto LABEL_74;
       }
 
-      v63 = 0;
+      v66 = 0;
       while (1)
       {
-        v64 = [(BWFanOutNode *)[BWOverCaptureFanOutNode alloc] initWithFanOutCount:2 mediaType:1835365473];
-        if (([graph addNode:v64 error:0] & 1) == 0)
+        v67 = [(BWFanOutNode *)[BWOverCaptureFanOutNode alloc] initWithFanOutCount:2 mediaType:1835365473];
+        if (([graph addNode:v67 error:0] & 1) == 0)
         {
           break;
         }
 
-        v65 = [objc_msgSend(OUTLINED_FUNCTION_22_4() "metadataOutputs")];
-        [(BWNode *)v64 input];
-        if (([OUTLINED_FUNCTION_24_0() connectOutput:v65 toInput:? pipelineStage:?] & 1) == 0)
+        v68 = [objc_msgSend(OUTLINED_FUNCTION_22_4() "metadataOutputs")];
+        [(BWNode *)v67 input];
+        if (([OUTLINED_FUNCTION_24_0() connectOutput:v68 toInput:? pipelineStage:?] & 1) == 0)
         {
           break;
         }
 
-        [*(v11 + 64) addObject:v64];
-        if ([objc_msgSend(OUTLINED_FUNCTION_22_4() "metadataOutputs")] <= ++v63)
+        [*(v11 + 8) addObject:v67];
+        if ([objc_msgSend(OUTLINED_FUNCTION_22_4() "metadataOutputs")] <= ++v66)
         {
           goto LABEL_73;
         }
@@ -306,50 +306,51 @@ LABEL_61:
 
 LABEL_77:
       OUTLINED_FUNCTION_0();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
 LABEL_73:
       result = 0;
 LABEL_74:
-      if (v102[0])
+      if (v122[0])
       {
-        return [v102[0] code];
+        return [v122[0] code];
       }
 
       return result;
     }
 
-    v98 = [objc_msgSend(pipeline "irisStagingNode")];
-    v95 = [(__CFString *)mfsp_avVideoCodec(v100) isEqualToString:@"hvc1"];
-    [(__CFString *)v100 connectionID];
+    v118 = [objc_msgSend(pipeline "irisStagingNode")];
+    v21 = mfsp_avVideoCodec(v120);
+    isEqualToString = objc_msgSend_isEqualToString_(v21);
+    [(__CFString *)v120 connectionID];
     [OUTLINED_FUNCTION_24_1() objectForKeyedSubscript:?];
-    if (v96)
+    if (v116)
     {
-      v94 = 1;
-      v21 = 1;
+      v114 = 1;
+      v22 = 1;
     }
 
     else if (movieFileSinkPipelineConfiguration && (*(movieFileSinkPipelineConfiguration + 120) & 1) != 0)
     {
-      v94 = 0;
-      v21 = 4;
+      v114 = 0;
+      v22 = 4;
     }
 
     else
     {
       if (graph)
       {
-        v21 = [graph[7] irisStagingNode] != 0;
+        v22 = [graph[7] irisStagingNode] != 0;
       }
 
       else
       {
-        v21 = 0;
+        v22 = 0;
       }
 
-      v94 = 1;
+      v114 = 1;
     }
 
-    v23 = [FigCaptureVISPipeline alloc];
+    v24 = [FigCaptureVISPipeline alloc];
     if (v17)
     {
       if (movieFileSinkPipelineConfiguration)
@@ -375,75 +376,75 @@ LABEL_23:
       if (movieFileSinkPipelineConfiguration)
       {
 LABEL_24:
-        v24 = *(movieFileSinkPipelineConfiguration + 144);
-        v25 = *(movieFileSinkPipelineConfiguration + 148);
-        v26 = *(movieFileSinkPipelineConfiguration + 149);
-        v27 = *(movieFileSinkPipelineConfiguration + 176);
-        v28 = *(movieFileSinkPipelineConfiguration + 212);
-        v29 = *(movieFileSinkPipelineConfiguration + 213);
-        v30 = *(movieFileSinkPipelineConfiguration + 210);
-        v31 = *(movieFileSinkPipelineConfiguration + 211);
-        v32 = *(movieFileSinkPipelineConfiguration + 128);
+        v25 = *(movieFileSinkPipelineConfiguration + 144);
+        v26 = *(movieFileSinkPipelineConfiguration + 148);
+        v27 = *(movieFileSinkPipelineConfiguration + 149);
+        v28 = *(movieFileSinkPipelineConfiguration + 176);
+        v29 = *(movieFileSinkPipelineConfiguration + 212);
+        v30 = *(movieFileSinkPipelineConfiguration + 213);
+        v31 = *(movieFileSinkPipelineConfiguration + 210);
+        v32 = *(movieFileSinkPipelineConfiguration + 211);
+        v33 = *(movieFileSinkPipelineConfiguration + 128);
         goto LABEL_25;
       }
 
 LABEL_97:
-      v31 = 0;
-      v29 = 0;
-      v27 = 0;
-      v25 = 0;
-      v24 = 0;
-      v26 = 0;
-      v28 = 0;
-      v30 = 0;
       v32 = 0;
+      v30 = 0;
+      v28 = 0;
+      v26 = 0;
+      v25 = 0;
+      v27 = 0;
+      v29 = 0;
+      v31 = 0;
+      v33 = 0;
 LABEL_25:
-      v91 = v32;
-      v90 = v31 & 1;
-      v88 = v30 & 1;
-      v86 = v29 & 1;
-      v84 = v28 & 1;
-      v82 = v27 & 1;
-      v81 = v26 & 1;
-      v79 = v25 & 1;
-      v77 = v24;
-      v93 = *MEMORY[0x1E6960CF8];
-      v76 = *MEMORY[0x1E6960CF8];
+      v111 = v33;
+      v110 = v32 & 1;
+      v108 = v31 & 1;
+      v106 = v30 & 1;
+      v104 = v29 & 1;
+      v102 = v28 & 1;
+      v101 = v27 & 1;
+      v99 = v26 & 1;
+      v97 = v25;
+      v113 = *MEMORY[0x1E6960CF8];
+      v96 = *MEMORY[0x1E6960CF8];
       OUTLINED_FUNCTION_42_4();
-      HIBYTE(v66) = v33 & 1;
-      LOBYTE(v66) = v95;
-      v40 = [FigCaptureVISPipeline initWithUpstreamOutput:v34 graph:output name:configuration parentPipeline:@"Middle Over-Capture VIS Pipeline Transforms" videoCaptureConnectionConfiguration:graph pipelineStage:v100 sdofPipelineStage:v13 videoStabilizationType:0 motionAttachmentsSource:v36 fillExtendedRowsOfOutputBuffer:v37 overCaptureEnabled:v66 stereoMode:0 videoStabilizationOverscanOverride:v38 videoStabilizationStrength:v35 motionMetadataPreloadingEnabled:v21 visExecutionMode:v39 pipelineTraceID:v68 captureDevice:v70 outputDimensions:v72 generatedTransformsOutputDimensionsOverride:v74 P3ToBT2020ConversionEnabled:SHIBYTE(v74) stabilizeDepthAttachments:v76 outputDepthDimensions:v77 maxLossyCompressionLevel:v79 videoSTFEnabled:v81 videoGreenGhostMitigationEnabled:v82 lightSourceMaskAndKeypointDescriptorDataEnabled:v84 videoGreenGhostOfflineMetadataEnabled:v86 videoGreenGhostOfflineLightSourceMaskEnabled:0 personSegmentationRenderingEnabled:v88 smartStyleRenderingEnabled:v90 smartStyleReversibilityEnabled:0 lowResImageUsedByVideoEncoderEnabled:v91 portTypesWithGeometricDistortionCorrectionInVISEnabled:0 visProcessingSemaphore:?];
-      *(v11 + 32) = v40;
-      if (v40)
+      HIBYTE(v76) = v34 & 1;
+      LOBYTE(v76) = isEqualToString;
+      v42 = [FigCaptureVISPipeline initWithUpstreamOutput:v35 graph:output name:configuration parentPipeline:v41 videoCaptureConnectionConfiguration:@"Middle Over-Capture VIS Pipeline Transforms" pipelineStage:graph sdofPipelineStage:v120 videoStabilizationType:v13 motionAttachmentsSource:0 fillExtendedRowsOfOutputBuffer:v37 overCaptureEnabled:v38 stereoMode:v76 videoStabilizationOverscanOverride:0 videoStabilizationStrength:v39 motionMetadataPreloadingEnabled:v36 visExecutionMode:v22 pipelineTraceID:v40 captureDevice:v84 outputDimensions:v87 generatedTransformsOutputDimensionsOverride:v90 P3ToBT2020ConversionEnabled:v93 stabilizeDepthAttachments:v96 outputDepthDimensions:v97 maxLossyCompressionLevel:v99 videoSTFEnabled:v101 videoGreenGhostMitigationEnabled:v102 lightSourceMaskAndKeypointDescriptorDataEnabled:v104 videoGreenGhostOfflineMetadataEnabled:v106 videoGreenGhostOfflineLightSourceMaskEnabled:0 personSegmentationRenderingEnabled:v108 smartStyleRenderingEnabled:v110 smartStyleReversibilityEnabled:0 lowResImageUsedByVideoEncoderEnabled:v111 portTypesWithGeometricDistortionCorrectionInVISEnabled:0 visProcessingSemaphore:?];
+      *(v11 + 4) = v42;
+      if (v42)
       {
         if (movieFileSinkPipelineConfiguration)
         {
-          v41 = *(movieFileSinkPipelineConfiguration + 138) ^ 1;
+          v43 = *(movieFileSinkPipelineConfiguration + 138) ^ 1;
         }
 
         else
         {
-          v41 = 1;
+          v43 = 1;
         }
 
-        v42 = v94 & v41;
-        if (v98)
+        v44 = v114 & v43;
+        if (v118)
         {
-          v22 = v42;
+          v23 = v44;
         }
 
         else
         {
-          v22 = 0;
+          v23 = 0;
         }
 
-        [-[FigCaptureVISPipeline visNode](v40) setGeneratesDroppedSampleMarkerBuffers:v22];
-        if (v98)
+        [-[FigCaptureVISPipeline visNode](v42) setGeneratesDroppedSampleMarkerBuffers:v23];
+        if (v118)
         {
           [objc_msgSend(pipeline "fileCoordinatorNode")];
         }
 
-        output = [-[FigCaptureVISPipeline visNode](*(v11 + 32)) output];
+        output = [-[FigCaptureVISPipeline visNode](*(v11 + 4)) output];
         if (!movieFileSinkPipelineConfiguration || *(movieFileSinkPipelineConfiguration + 138) != 1)
         {
 LABEL_51:
@@ -451,108 +452,112 @@ LABEL_51:
           goto LABEL_52;
         }
 
-        v43 = [BWAttachedMediaSwapNode alloc];
-        v101 = *off_1E798D470;
-        v44 = -[BWAttachedMediaSwapNode initWithPrimaryFormatToAttachedMediaKey:attachedMediaKeyToPrimaryFormat:sampleBufferAttachmentsToTransfer:generatesDroppedSampleMarkerBuffers:](v43, "initWithPrimaryFormatToAttachedMediaKey:attachedMediaKeyToPrimaryFormat:sampleBufferAttachmentsToTransfer:generatesDroppedSampleMarkerBuffers:", 0x1F216E930, @"SynchronizedSlaveFrame", [MEMORY[0x1E695DEC8] arrayWithObjects:&v101 count:1], 0);
-        if (!v44)
+        v45 = [BWAttachedMediaSwapNode alloc];
+        v121 = *off_1E798D470;
+        v46 = -[BWAttachedMediaSwapNode initWithPrimaryFormatToAttachedMediaKey:attachedMediaKeyToPrimaryFormat:sampleBufferAttachmentsToTransfer:generatesDroppedSampleMarkerBuffers:](v45, "initWithPrimaryFormatToAttachedMediaKey:attachedMediaKeyToPrimaryFormat:sampleBufferAttachmentsToTransfer:generatesDroppedSampleMarkerBuffers:", 0x1F216E930, @"SynchronizedSlaveFrame", [MEMORY[0x1E695DEC8] arrayWithObjects:&v121 count:1], 0);
+        if (!v46)
         {
           goto LABEL_77;
         }
 
-        v45 = v44;
-        [(BWNode *)v44 setName:@"Swap Primary and Synchronized Slave"];
-        if (([graph addNode:v45 error:v102] & 1) == 0)
+        v47 = v46;
+        [(BWNode *)v46 setName:@"Swap Primary and Synchronized Slave"];
+        if (([graph addNode:v47 error:v122] & 1) == 0)
         {
           goto LABEL_77;
         }
 
-        [(BWNode *)v45 input];
+        [(BWNode *)v47 input];
         if (([OUTLINED_FUNCTION_24_0() connectOutput:output toInput:? pipelineStage:?] & 1) == 0)
         {
           goto LABEL_77;
         }
 
-        output2 = [(BWNode *)v45 output];
-        if (v96)
+        output2 = [(BWNode *)v47 output];
+        if (v116)
         {
-          v97 = 1;
-          v47 = 1;
+          v117 = 1;
+          v49 = 1;
         }
 
         else
         {
-          v97 = *(movieFileSinkPipelineConfiguration + 120) ^ 1;
+          v117 = *(movieFileSinkPipelineConfiguration + 120) ^ 1;
           if (*(movieFileSinkPipelineConfiguration + 120))
           {
-            v47 = 4;
+            v49 = 4;
           }
 
           else
           {
-            v47 = 2;
+            v49 = 2;
           }
         }
 
-        v48 = [FigCaptureVISPipeline alloc];
-        v92 = *(movieFileSinkPipelineConfiguration + 128);
-        v89 = *(movieFileSinkPipelineConfiguration + 210);
-        v87 = *(movieFileSinkPipelineConfiguration + 213);
-        v85 = *(movieFileSinkPipelineConfiguration + 212);
-        v83 = *(movieFileSinkPipelineConfiguration + 176);
-        v80 = *(movieFileSinkPipelineConfiguration + 148);
-        v78 = *(movieFileSinkPipelineConfiguration + 144);
+        v50 = [FigCaptureVISPipeline alloc];
+        v112 = *(movieFileSinkPipelineConfiguration + 128);
+        v109 = *(movieFileSinkPipelineConfiguration + 210);
+        v107 = *(movieFileSinkPipelineConfiguration + 213);
+        v105 = *(movieFileSinkPipelineConfiguration + 212);
+        v103 = *(movieFileSinkPipelineConfiguration + 176);
+        v100 = *(movieFileSinkPipelineConfiguration + 148);
+        v98 = *(movieFileSinkPipelineConfiguration + 144);
         OUTLINED_FUNCTION_42_4();
-        HIBYTE(v67) = v49 & 1;
-        LOBYTE(v67) = v95;
-        v55 = [FigCaptureVISPipeline initWithUpstreamOutput:v50 graph:output2 name:configuration parentPipeline:@"Middle Over-Capture VIS Pipeline Synchronized Slave Transforms" videoCaptureConnectionConfiguration:graph pipelineStage:v100 sdofPipelineStage:v13 videoStabilizationType:0 motionAttachmentsSource:v52 fillExtendedRowsOfOutputBuffer:v51 overCaptureEnabled:v67 stereoMode:0 videoStabilizationOverscanOverride:v53 videoStabilizationStrength:0 motionMetadataPreloadingEnabled:v47 visExecutionMode:v54 pipelineTraceID:v69 captureDevice:v71 outputDimensions:v73 generatedTransformsOutputDimensionsOverride:v75 P3ToBT2020ConversionEnabled:SHIBYTE(v75) stabilizeDepthAttachments:v93 outputDepthDimensions:v78 maxLossyCompressionLevel:v80 videoSTFEnabled:HIBYTE(v80) videoGreenGhostMitigationEnabled:v83 lightSourceMaskAndKeypointDescriptorDataEnabled:v85 videoGreenGhostOfflineMetadataEnabled:v87 videoGreenGhostOfflineLightSourceMaskEnabled:0 personSegmentationRenderingEnabled:v89 smartStyleRenderingEnabled:HIBYTE(v89) smartStyleReversibilityEnabled:0 lowResImageUsedByVideoEncoderEnabled:v92 portTypesWithGeometricDistortionCorrectionInVISEnabled:0 visProcessingSemaphore:?];
-        *(v11 + 48) = v55;
-        if (v55)
+        HIBYTE(v78) = v51 & 1;
+        LOBYTE(v78) = isEqualToString;
+        v58 = [FigCaptureVISPipeline initWithUpstreamOutput:v52 graph:output2 name:configuration parentPipeline:v57 videoCaptureConnectionConfiguration:@"Middle Over-Capture VIS Pipeline Synchronized Slave Transforms" pipelineStage:graph sdofPipelineStage:v120 videoStabilizationType:v13 motionAttachmentsSource:0 fillExtendedRowsOfOutputBuffer:v54 overCaptureEnabled:v53 stereoMode:v78 videoStabilizationOverscanOverride:0 videoStabilizationStrength:v55 motionMetadataPreloadingEnabled:0 visExecutionMode:v49 pipelineTraceID:v56 captureDevice:v85 outputDimensions:v88 generatedTransformsOutputDimensionsOverride:v91 P3ToBT2020ConversionEnabled:v94 stabilizeDepthAttachments:v113 outputDepthDimensions:v98 maxLossyCompressionLevel:v100 videoSTFEnabled:HIBYTE(v100) videoGreenGhostMitigationEnabled:v103 lightSourceMaskAndKeypointDescriptorDataEnabled:v105 videoGreenGhostOfflineMetadataEnabled:v107 videoGreenGhostOfflineLightSourceMaskEnabled:0 personSegmentationRenderingEnabled:v109 smartStyleRenderingEnabled:HIBYTE(v109) smartStyleReversibilityEnabled:0 lowResImageUsedByVideoEncoderEnabled:v112 portTypesWithGeometricDistortionCorrectionInVISEnabled:0 visProcessingSemaphore:?];
+        *(v11 + 6) = v58;
+        if (v58)
         {
-          output3 = [-[FigCaptureVISPipeline visNode](v55) output];
-          if (v98)
+          output3 = [-[FigCaptureVISPipeline visNode](v58) output];
+          if (v118)
           {
-            v22 = v97;
+            v23 = v117;
           }
 
           else
           {
-            v22 = 0;
+            v23 = 0;
           }
 
-          v57 = [[BWAttachedMediaSwapNode alloc] initWithPrimaryFormatToAttachedMediaKey:@"SynchronizedSlaveFrame" attachedMediaKeyToPrimaryFormat:0x1F216E930 sampleBufferAttachmentsToTransfer:0 generatesDroppedSampleMarkerBuffers:v22];
-          if (!v57)
+          v60 = [[BWAttachedMediaSwapNode alloc] initWithPrimaryFormatToAttachedMediaKey:@"SynchronizedSlaveFrame" attachedMediaKeyToPrimaryFormat:0x1F216E930 sampleBufferAttachmentsToTransfer:0 generatesDroppedSampleMarkerBuffers:v23];
+          if (!v60)
           {
             goto LABEL_77;
           }
 
-          v58 = v57;
-          [(BWNode *)v57 setName:@"Unswap Primary and Synchronized Slave"];
-          if (([graph addNode:v58 error:v102] & 1) == 0)
+          v61 = v60;
+          [(BWNode *)v60 setName:@"Unswap Primary and Synchronized Slave"];
+          if (([graph addNode:v61 error:v122] & 1) == 0)
           {
             goto LABEL_77;
           }
 
-          [(BWNode *)v58 input];
+          [(BWNode *)v61 input];
           if (([OUTLINED_FUNCTION_24_0() connectOutput:output3 toInput:? pipelineStage:?] & 1) == 0)
           {
             goto LABEL_77;
           }
 
-          output = [(BWNode *)v58 output];
+          output = [(BWNode *)v61 output];
           goto LABEL_51;
         }
 
         OUTLINED_FUNCTION_16_13();
-        FigDebugAssert3();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v74, v79, v81, v83, v86, v89, v92, v95);
+        v71 = qword_1ED8440A8;
+        v72 = 1850;
       }
 
       else
       {
         OUTLINED_FUNCTION_16_13();
-        FigDebugAssert3();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v73, v77, v80, v82, v85, v88, v91, v94);
+        v71 = qword_1ED8440A8;
+        v72 = 1764;
       }
 
-      result = FigSignalErrorAtGM();
+      result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v71, 0xFFFFCE0ELL, "<<<< FigCaptureMovieFileSinkPipeline >>>>", v72, v17, v69, v70, v75);
       if (result)
       {
         return result;
@@ -571,12 +576,6 @@ LABEL_96:
   }
 
   return result;
-}
-
-- (void)initWithConfiguration:(uint64_t)a1 graph:(void *)a2 parentPipeline:headPipeline:captureDevicesByConnectionID:workgroup:.cold.1(uint64_t a1, void *a2)
-{
-  OUTLINED_FUNCTION_1_5();
-  FigDebugAssert3();
 }
 
 @end

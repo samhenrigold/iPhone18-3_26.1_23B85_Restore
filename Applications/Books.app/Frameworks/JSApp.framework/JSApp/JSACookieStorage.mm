@@ -235,7 +235,7 @@ LABEL_7:
 - (void)registerOnCookieStorageChange:(id)change
 {
   changeCopy = change;
-  v5 = JSALog();
+  v5 = JSALog(changeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -249,10 +249,11 @@ LABEL_7:
 
 - (void)notificationHandler:(id)handler
 {
-  v5 = JSALog();
+  v5 = JSALog(self);
   if (sub_27AEC(v5))
   {
-    sub_27ACC(&dword_0, v6, v7, "[JSACookieStorage] Received NSHTTPCookieStorage changed notification", v8, v9, v10, v11, 0);
+    v12 = 0;
+    sub_27ACC(&dword_0, v6, v7, "[JSACookieStorage] Received NSHTTPCookieStorage changed notification", v8, v9, v10, v11, v12);
   }
 
   if (self)
@@ -263,10 +264,11 @@ LABEL_7:
 
 - (void)_handleCookieDidExpire:(id)expire
 {
-  v5 = JSALog();
+  v5 = JSALog(self);
   if (sub_27AEC(v5))
   {
-    sub_27ACC(&dword_0, v6, v7, "[JSACookieStorage] A cookie has expired", v8, v9, v10, v11, 0);
+    v12 = 0;
+    sub_27ACC(&dword_0, v6, v7, "[JSACookieStorage] A cookie has expired", v8, v9, v10, v11, v12);
   }
 
   if (self)
@@ -277,10 +279,11 @@ LABEL_7:
 
 - (void)account:(unint64_t)account didChangeWithReason:(unint64_t)reason
 {
-  v6 = JSALog();
+  v6 = JSALog(self);
   if (sub_27AEC(v6))
   {
-    sub_27ACC(&dword_0, v7, v8, "[JSACookieStorage] Received account changed notification", v9, v10, v11, v12, 0);
+    v13 = 0;
+    sub_27ACC(&dword_0, v7, v8, "[JSACookieStorage] Received account changed notification", v9, v10, v11, v12, v13);
   }
 
   if (self)

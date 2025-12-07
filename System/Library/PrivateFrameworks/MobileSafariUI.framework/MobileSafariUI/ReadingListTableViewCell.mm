@@ -307,7 +307,7 @@ void __74__ReadingListTableViewCell_displayThumbnailIconForBookmark_synchronousl
   dispatch_async(MEMORY[0x277D85CD0], v5);
 }
 
-uint64_t __74__ReadingListTableViewCell_displayThumbnailIconForBookmark_synchronously___block_invoke_2(uint64_t a1)
+void *__74__ReadingListTableViewCell_displayThumbnailIconForBookmark_synchronously___block_invoke_2(uint64_t a1)
 {
   v2 = [*(a1 + 32) bookmarkID];
   result = [*(a1 + 40) identifier];

@@ -49,19 +49,19 @@
 
 - (FCOperationThrottler)initWithDelegate:(id)delegate
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
   if (!delegateCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "delegate != nil"];
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "delegate != nil"];
     *buf = 136315906;
-    v12 = "[FCOperationThrottler initWithDelegate:]";
-    v13 = 2080;
-    v14 = "FCOperationThrottler.m";
-    v15 = 1024;
-    v16 = 31;
-    v17 = 2114;
-    v18 = v10;
+    v11 = "[FCOperationThrottler initWithDelegate:]";
+    v12 = 2080;
+    v13 = "FCOperationThrottler.m";
+    v14 = 1024;
+    v15 = 31;
+    v16 = 2114;
+    v17 = v9;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -69,32 +69,31 @@
   v6 = dispatch_queue_create(0, v5);
   v7 = [(FCOperationThrottler *)self initWithDelegate:delegateCopy updateQueue:v6];
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (FCOperationThrottler)initWithDelegate:(id)delegate updateQueue:(id)queue
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
   queueCopy = queue;
   if (!delegateCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "delegate != nil"];
+    v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "delegate != nil"];
     *location = 136315906;
     *&location[4] = "[FCOperationThrottler initWithDelegate:updateQueue:]";
-    v33 = 2080;
-    v34 = "FCOperationThrottler.m";
-    v35 = 1024;
-    v36 = 38;
-    v37 = 2114;
-    v38 = v19;
+    v32 = 2080;
+    v33 = "FCOperationThrottler.m";
+    v34 = 1024;
+    v35 = 38;
+    v36 = 2114;
+    v37 = v18;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", location, 0x26u);
   }
 
-  v31.receiver = self;
-  v31.super_class = FCOperationThrottler;
-  v8 = [(FCOperationThrottler *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = FCOperationThrottler;
+  v8 = [(FCOperationThrottler *)&v30 init];
   v9 = v8;
   if (v8)
   {
@@ -110,35 +109,35 @@
       v9->_dispatchSource = v11;
       v13 = v11;
 
-      objc_initWeak(&v29, v13);
+      objc_initWeak(&v28, v13);
       handler[0] = MEMORY[0x1E69E9820];
       handler[1] = 3221225472;
       handler[2] = __53__FCOperationThrottler_initWithDelegate_updateQueue___block_invoke;
       handler[3] = &unk_1E7C480F8;
       v14 = v10;
-      v24 = v14;
-      objc_copyWeak(&v26, &from);
-      objc_copyWeak(&v27, location);
-      objc_copyWeak(&v28, &v29);
+      v23 = v14;
+      objc_copyWeak(&v25, &from);
+      objc_copyWeak(&v26, location);
+      objc_copyWeak(&v27, &v28);
       v15 = queueCopy;
-      v25 = v15;
+      v24 = v15;
       dispatch_source_set_event_handler(v13, handler);
       dispatch_group_enter(v14);
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = __53__FCOperationThrottler_initWithDelegate_updateQueue___block_invoke_5;
-      v20[3] = &unk_1E7C36C58;
-      v21 = v15;
-      v22 = v14;
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __53__FCOperationThrottler_initWithDelegate_updateQueue___block_invoke_5;
+      v19[3] = &unk_1E7C36C58;
+      v20 = v15;
+      v21 = v14;
       v16 = v14;
-      dispatch_source_set_cancel_handler(v13, v20);
+      dispatch_source_set_cancel_handler(v13, v19);
       dispatch_resume(v13);
 
-      objc_destroyWeak(&v28);
       objc_destroyWeak(&v27);
       objc_destroyWeak(&v26);
+      objc_destroyWeak(&v25);
 
-      objc_destroyWeak(&v29);
+      objc_destroyWeak(&v28);
       objc_destroyWeak(&from);
       objc_destroyWeak(location);
     }
@@ -150,7 +149,6 @@
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -192,7 +190,6 @@ void __53__FCOperationThrottler_initWithDelegate_updateQueue___block_invoke_2(id
 void __53__FCOperationThrottler_initWithDelegate_updateQueue___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 32);
   if (objc_opt_respondsToSelector())
   {
     [*(a1 + 32) operationThrottlerPerformOperation:v3];
@@ -203,15 +200,15 @@ void __53__FCOperationThrottler_initWithDelegate_updateQueue___block_invoke_3(ui
     WeakRetained = objc_loadWeakRetained((a1 + 48));
     dispatch_suspend(WeakRetained);
     dispatch_suspend(*(a1 + 40));
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __53__FCOperationThrottler_initWithDelegate_updateQueue___block_invoke_4;
-    v8[3] = &unk_1E7C36C58;
-    v9 = WeakRetained;
-    v6 = *(a1 + 32);
-    v10 = *(a1 + 40);
-    v7 = WeakRetained;
-    [v6 operationThrottler:v3 performAsyncOperationWithCompletion:v8];
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __53__FCOperationThrottler_initWithDelegate_updateQueue___block_invoke_4;
+    v7[3] = &unk_1E7C36C58;
+    v8 = WeakRetained;
+    v5 = *(a1 + 32);
+    v9 = *(a1 + 40);
+    v6 = WeakRetained;
+    [v5 operationThrottler:v3 performAsyncOperationWithCompletion:v7];
   }
 }
 
@@ -256,25 +253,23 @@ void __53__FCOperationThrottler_initWithDelegate_updateQueue___block_invoke_5(ui
 
 - (void)addCompletionForCurrentOperation:(id)operation
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   operationCopy = operation;
   if (!operationCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "completion"];
+    v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "completion"];
     *buf = 136315906;
-    v8 = "[FCOperationThrottler addCompletionForCurrentOperation:]";
-    v9 = 2080;
-    v10 = "FCOperationThrottler.m";
-    v11 = 1024;
-    v12 = 135;
-    v13 = 2114;
-    v14 = v6;
+    v7 = "[FCOperationThrottler addCompletionForCurrentOperation:]";
+    v8 = 2080;
+    v9 = "FCOperationThrottler.m";
+    v10 = 1024;
+    v11 = 135;
+    v12 = 2114;
+    v13 = v5;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   dispatch_async(self->_serialQueue, operationCopy);
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSuspended:(BOOL)suspended

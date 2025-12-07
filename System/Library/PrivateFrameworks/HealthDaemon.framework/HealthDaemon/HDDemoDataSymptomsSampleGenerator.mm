@@ -75,13 +75,13 @@
 
 - (void)generateObjectsForDemoPerson:(id)person fromTime:(double)time toTime:(double)toTime currentDate:(id)date objectCollection:(id)collection
 {
-  v43[5] = *MEMORY[0x277D85DE8];
-  v40.receiver = self;
-  v40.super_class = HDDemoDataSymptomsSampleGenerator;
+  v42[5] = *MEMORY[0x277D85DE8];
+  v39.receiver = self;
+  v39.super_class = HDDemoDataSymptomsSampleGenerator;
   collectionCopy = collection;
   dateCopy = date;
   personCopy = person;
-  [(HDDemoDataBaseSampleGenerator *)&v40 generateObjectsForDemoPerson:personCopy fromTime:dateCopy toTime:collectionCopy currentDate:toTime objectCollection:toTime];
+  [(HDDemoDataBaseSampleGenerator *)&v39 generateObjectsForDemoPerson:personCopy fromTime:dateCopy toTime:collectionCopy currentDate:toTime objectCollection:toTime];
   v14 = personCopy;
   v15 = dateCopy;
   v16 = collectionCopy;
@@ -102,43 +102,41 @@
         v24 = v23 + 10.0;
 
         self->_nextSingleRandomSymptomTime = v24 + self->_nextSingleRandomSymptomTime;
-        v39 = arc4random_uniform(3u) + 2;
+        v38 = arc4random_uniform(3u) + 2;
         v25 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB8D0]];
-        v43[0] = v25;
+        v42[0] = v25;
         v26 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCB958]];
-        v43[1] = v26;
+        v42[1] = v26;
         v27 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCBA18]];
-        v43[2] = v27;
+        v42[2] = v27;
         v28 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCBA48]];
-        v43[3] = v28;
+        v42[3] = v28;
         v29 = [MEMORY[0x277CCD0C0] categoryTypeForIdentifier:*MEMORY[0x277CCBAF8]];
-        v43[4] = v29;
-        v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:5];
+        v42[4] = v29;
+        v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:5];
 
         v17 = 0x277CBE000uLL;
         v31 = [v30 objectAtIndex:{arc4random_uniform(objc_msgSend(v30, "count"))}];
-        v32 = [MEMORY[0x277CCD0B0] categorySampleWithType:v31 value:v39 startDate:v15 endDate:v15];
+        v32 = [MEMORY[0x277CCD0B0] categorySampleWithType:v31 value:v38 startDate:v15 endDate:v15];
         [v16 addObjectFromPhone:v32];
       }
     }
   }
 
   v33 = *MEMORY[0x277CCBAD0];
-  v42[0] = *MEMORY[0x277CCB940];
-  v42[1] = v33;
+  v41[0] = *MEMORY[0x277CCB940];
+  v41[1] = v33;
   v34 = *MEMORY[0x277CCBAA8];
-  v42[2] = *MEMORY[0x277CCBA90];
-  v42[3] = v34;
-  v35 = [*(v17 + 2656) arrayWithObjects:v42 count:4];
+  v41[2] = *MEMORY[0x277CCBA90];
+  v41[3] = v34;
+  v35 = [*(v17 + 2656) arrayWithObjects:v41 count:4];
   [(HDDemoDataSymptomsSampleGenerator *)self generateSymptomSamplesForDemoPerson:v14 atTime:v15 sampleDate:0 nextTime:v35 condition:v16 sampleTypes:toTime frequency:self->_nextCommonColdSymptomsTime objectCollection:60.0];
   v36 = *MEMORY[0x277CCBA40];
-  v41[0] = *MEMORY[0x277CCBAF0];
-  v41[1] = v36;
-  v41[2] = *MEMORY[0x277CCB948];
-  v37 = [*(v17 + 2656) arrayWithObjects:v41 count:3];
+  v40[0] = *MEMORY[0x277CCBAF0];
+  v40[1] = v36;
+  v40[2] = *MEMORY[0x277CCB948];
+  v37 = [*(v17 + 2656) arrayWithObjects:v40 count:3];
   [(HDDemoDataSymptomsSampleGenerator *)self generateSymptomSamplesForDemoPerson:v14 atTime:v15 sampleDate:1 nextTime:v37 condition:v16 sampleTypes:toTime frequency:self->_nextFoodPoisoningSymptomsTime objectCollection:90.0];
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)generateSymptomSamplesForDemoPerson:(void *)person atTime:(uint64_t)time sampleDate:(void *)date nextTime:(void *)nextTime condition:(double)condition sampleTypes:(double)types frequency:(double)frequency objectCollection:

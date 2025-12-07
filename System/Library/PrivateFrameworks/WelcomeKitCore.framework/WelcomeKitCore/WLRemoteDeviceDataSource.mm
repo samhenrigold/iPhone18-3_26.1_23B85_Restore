@@ -3,6 +3,7 @@
 - (BOOL)_shouldHandleHTTPErrorWithResponse:(id)response expectedContentLength:(unint64_t)length error:(id *)error;
 - (BOOL)_shouldRetryLaterWithResponse:(id)response error:(id)error;
 - (BOOL)_shouldRetryWithData:(id)data response:(id)response error:(id)error;
+- (WLRemoteDeviceDataSource)initWithHost:(id)host port:(unsigned __int16)port session:(id)session;
 - (double)_taskDurationSinceStartDate:(id)date;
 - (id)_urlForAccountsWithMigrator:(id)migrator;
 - (id)_urlForRecordForMigrator:(id)migrator withSummaryIdentifier:(id)identifier accountIdentifier:(id)accountIdentifier segmentByteRange:(_NSRange *)range;
@@ -25,6 +26,34 @@
 @end
 
 @implementation WLRemoteDeviceDataSource
+
+- (WLRemoteDeviceDataSource)initWithHost:(id)host port:(unsigned __int16)port session:(id)session
+{
+  portCopy = port;
+  hostCopy = host;
+  sessionCopy = session;
+  v17.receiver = self;
+  v17.super_class = WLRemoteDeviceDataSource;
+  v10 = [(WLRemoteDeviceDataSource *)&v17 init];
+  v11 = v10;
+  if (v10)
+  {
+    [(WLRemoteDeviceDataSource *)v10 setPort:portCopy];
+    [(WLRemoteDeviceDataSource *)v11 setHost:hostCopy];
+    [(WLRemoteDeviceDataSource *)v11 setSession:sessionCopy];
+    v12 = objc_alloc_init(MEMORY[0x277CCABD8]);
+    queue = v11->_queue;
+    v11->_queue = v12;
+
+    v14 = v11->_queue;
+    v15 = +[WLRemoteDeviceDataSource _requestSerialQueue];
+    [(NSOperationQueue *)v14 setUnderlyingQueue:v15];
+
+    [(NSOperationQueue *)v11->_queue setMaxConcurrentOperationCount:1];
+  }
+
+  return v11;
+}
 
 - (void)dealloc
 {
@@ -68,9 +97,9 @@ void __63__WLRemoteDeviceDataSource_accountsDataForMigrator_completion___block_i
   v9 = a5;
   if (v8)
   {
-    v20 = 0;
-    v10 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v8 options:0 error:&v20];
-    v11 = v20;
+    v19 = 0;
+    v10 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v8 options:0 error:&v19];
+    v11 = v19;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -85,8 +114,8 @@ void __63__WLRemoteDeviceDataSource_accountsDataForMigrator_completion___block_i
     else
     {
       v15 = *(a1 + 32);
-      v18 = [v8 length];
-      v19 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v8 encoding:4];
+      v17 = [v8 length];
+      v18 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v8 encoding:4];
       _WLLog();
 
       v16 = *(a1 + 40);
@@ -99,7 +128,6 @@ void __63__WLRemoteDeviceDataSource_accountsDataForMigrator_completion___block_i
 
   else
   {
-    v17 = *(a1 + 32);
     _WLLog();
     v14 = *(a1 + 40);
     if (v14)
@@ -153,9 +181,9 @@ void __72__WLRemoteDeviceDataSource_summariesDataForAccount_migrator_completion_
   v9 = a5;
   if (v8)
   {
-    v20 = 0;
-    v10 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v8 options:0 error:&v20];
-    v11 = v20;
+    v19 = 0;
+    v10 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v8 options:0 error:&v19];
+    v11 = v19;
     if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
       v12 = v10;
@@ -169,8 +197,8 @@ void __72__WLRemoteDeviceDataSource_summariesDataForAccount_migrator_completion_
     else
     {
       v14 = *(a1 + 32);
-      v18 = [v8 length];
-      v19 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v8 encoding:4];
+      v17 = [v8 length];
+      v18 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v8 encoding:4];
       _WLLog();
 
       v15 = *(a1 + 40);
@@ -183,7 +211,6 @@ void __72__WLRemoteDeviceDataSource_summariesDataForAccount_migrator_completion_
 
   else
   {
-    v17 = *(a1 + 32);
     _WLLog();
     v16 = *(a1 + 40);
     if (v16)
@@ -255,14 +282,13 @@ void __72__WLRemoteDeviceDataSource_summariesDataForAccount_migrator_completion_
 
 void __67__WLRemoteDeviceDataSource_itemSizeForSummary_migrator_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v14 = a2;
+  v13 = a2;
   v7 = a3;
   v8 = a4;
   if (v8)
   {
     v9 = v8;
 LABEL_3:
-    v12 = *(a1 + 32);
     _WLLog();
 LABEL_4:
     v10 = 0;
@@ -280,7 +306,7 @@ LABEL_4:
     v11 = 0;
   }
 
-  v13 = *(a1 + 32);
+  v12 = *(a1 + 32);
   _WLLog();
   if (![v11 length])
   {
@@ -329,10 +355,9 @@ LABEL_10:
 
 void __76__WLRemoteDeviceDataSource_fileForSummary_migrator_fileAccessor_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
+  v3 = a2;
   _WLLog();
-  (*(*(a1 + 40) + 16))(*(a1 + 40), v4);
+  (*(*(a1 + 40) + 16))(*(a1 + 40), v3);
 }
 
 - (id)_urlForRecordForMigrator:(id)migrator withSummaryIdentifier:(id)identifier accountIdentifier:(id)accountIdentifier segmentByteRange:(_NSRange *)range
@@ -441,7 +466,7 @@ LABEL_9:
 
 void __131__WLRemoteDeviceDataSource__performDownloadRequest_expectedContentLength_numberOfRetriesAllowed_startDate_fileAccessor_completion___block_invoke(uint64_t a1)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -453,15 +478,13 @@ void __131__WLRemoteDeviceDataSource__performDownloadRequest_expectedContentLeng
   {
     v4 = MEMORY[0x277CCA9B8];
     v5 = *MEMORY[0x277D7B8F8];
-    v9 = *MEMORY[0x277CCA450];
-    v10[0] = @"WLRemoteDeviceDataSource was deallocated.";
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v8 = *MEMORY[0x277CCA450];
+    v9[0] = @"WLRemoteDeviceDataSource was deallocated.";
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
     v7 = [v4 errorWithDomain:v5 code:1 userInfo:v6];
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_downloadTaskWithRequest:(id)request expectedContentLength:(unint64_t)length numberOfRetriesAllowed:(unint64_t)allowed startDate:(id)date fileAccessor:(id)accessor completion:(id)completion
@@ -496,7 +519,7 @@ void __131__WLRemoteDeviceDataSource__performDownloadRequest_expectedContentLeng
 
 void __132__WLRemoteDeviceDataSource__downloadTaskWithRequest_expectedContentLength_numberOfRetriesAllowed_startDate_fileAccessor_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v62[1] = *MEMORY[0x277D85DE8];
+  v61[1] = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -504,13 +527,13 @@ void __132__WLRemoteDeviceDataSource__downloadTaskWithRequest_expectedContentLen
   if (WeakRetained)
   {
     v11 = [*(a1 + 32) URL];
-    v39 = [v11 absoluteString];
+    v38 = [v11 absoluteString];
     _WLLog();
 
     v12 = *(a1 + 72);
-    v60 = v9;
-    v13 = [WeakRetained _shouldHandleHTTPErrorWithResponse:v8 expectedContentLength:v12 error:{&v60, WeakRetained, v39, v9}];
-    v14 = v60;
+    v59 = v9;
+    v13 = [WeakRetained _shouldHandleHTTPErrorWithResponse:v8 expectedContentLength:v12 error:{&v59, WeakRetained, v38, v9}];
+    v14 = v59;
 
     if (v13)
     {
@@ -519,29 +542,29 @@ void __132__WLRemoteDeviceDataSource__downloadTaskWithRequest_expectedContentLen
       block[1] = 3221225472;
       block[2] = __132__WLRemoteDeviceDataSource__downloadTaskWithRequest_expectedContentLength_numberOfRetriesAllowed_startDate_fileAccessor_completion___block_invoke_2;
       block[3] = &unk_279EB5DB8;
-      v59 = *(a1 + 48);
+      v58 = *(a1 + 48);
       v9 = v14;
-      v58 = v9;
+      v57 = v9;
       dispatch_async(v15, block);
 
-      v16 = v59;
+      v16 = v58;
     }
 
     else if ([WeakRetained _shouldRetryLaterWithResponse:v8 error:v14])
     {
       v20 = [*(a1 + 32) URL];
-      v40 = [v20 absoluteString];
+      v39 = [v20 absoluteString];
       _WLLog();
 
       v21 = dispatch_time(0, 1000000000 * [WeakRetained _retryLaterDelayInSeconds]);
       v22 = dispatch_get_global_queue(25, 0);
-      v52[0] = MEMORY[0x277D85DD0];
-      v52[1] = 3221225472;
-      v52[2] = __132__WLRemoteDeviceDataSource__downloadTaskWithRequest_expectedContentLength_numberOfRetriesAllowed_startDate_fileAccessor_completion___block_invoke_3;
-      v52[3] = &unk_279EB5DE0;
-      v53 = WeakRetained;
+      v51[0] = MEMORY[0x277D85DD0];
+      v51[1] = 3221225472;
+      v51[2] = __132__WLRemoteDeviceDataSource__downloadTaskWithRequest_expectedContentLength_numberOfRetriesAllowed_startDate_fileAccessor_completion___block_invoke_3;
+      v51[3] = &unk_279EB5DE0;
+      v52 = WeakRetained;
       v23 = *(a1 + 32);
-      v56 = *(a1 + 72);
+      v55 = *(a1 + 72);
       v24 = *(a1 + 40);
       v25 = *(a1 + 56);
       v26 = *(a1 + 48);
@@ -549,56 +572,56 @@ void __132__WLRemoteDeviceDataSource__downloadTaskWithRequest_expectedContentLen
       *(&v27 + 1) = v26;
       *&v28 = v23;
       *(&v28 + 1) = v24;
-      v54 = v28;
-      v55 = v27;
-      dispatch_after(v21, v22, v52);
+      v53 = v28;
+      v54 = v27;
+      dispatch_after(v21, v22, v51);
 
-      v16 = v53;
+      v16 = v52;
       v9 = v14;
     }
 
     else if (!v7 || v14)
     {
       v31 = dispatch_get_global_queue(25, 0);
-      v41[0] = MEMORY[0x277D85DD0];
-      v41[1] = 3221225472;
-      v41[2] = __132__WLRemoteDeviceDataSource__downloadTaskWithRequest_expectedContentLength_numberOfRetriesAllowed_startDate_fileAccessor_completion___block_invoke_5;
-      v41[3] = &unk_279EB5E08;
-      v47 = *(a1 + 80);
-      v42 = WeakRetained;
-      v43 = v8;
+      v40[0] = MEMORY[0x277D85DD0];
+      v40[1] = 3221225472;
+      v40[2] = __132__WLRemoteDeviceDataSource__downloadTaskWithRequest_expectedContentLength_numberOfRetriesAllowed_startDate_fileAccessor_completion___block_invoke_5;
+      v40[3] = &unk_279EB5E08;
+      v46 = *(a1 + 80);
+      v41 = WeakRetained;
+      v42 = v8;
       v9 = v14;
-      v44 = v9;
+      v43 = v9;
       v32 = *(a1 + 32);
       v33 = *(a1 + 40);
-      v48 = *(a1 + 72);
+      v47 = *(a1 + 72);
       v34 = *(a1 + 56);
       v35 = *(a1 + 48);
       *&v36 = v34;
       *(&v36 + 1) = v35;
       *&v37 = v32;
       *(&v37 + 1) = v33;
-      v45 = v37;
-      v46 = v36;
-      dispatch_async(v31, v41);
+      v44 = v37;
+      v45 = v36;
+      dispatch_async(v31, v40);
 
-      v16 = v42;
+      v16 = v41;
     }
 
     else
     {
       v29 = (*(*(a1 + 56) + 16))();
       v30 = dispatch_get_global_queue(25, 0);
-      v49[0] = MEMORY[0x277D85DD0];
-      v49[1] = 3221225472;
-      v49[2] = __132__WLRemoteDeviceDataSource__downloadTaskWithRequest_expectedContentLength_numberOfRetriesAllowed_startDate_fileAccessor_completion___block_invoke_4;
-      v49[3] = &unk_279EB5DB8;
-      v51 = *(a1 + 48);
+      v48[0] = MEMORY[0x277D85DD0];
+      v48[1] = 3221225472;
+      v48[2] = __132__WLRemoteDeviceDataSource__downloadTaskWithRequest_expectedContentLength_numberOfRetriesAllowed_startDate_fileAccessor_completion___block_invoke_4;
+      v48[3] = &unk_279EB5DB8;
+      v50 = *(a1 + 48);
       v9 = v29;
-      v50 = v9;
-      dispatch_async(v30, v49);
+      v49 = v9;
+      dispatch_async(v30, v48);
 
-      v16 = v51;
+      v16 = v50;
     }
 
     goto LABEL_12;
@@ -608,16 +631,14 @@ void __132__WLRemoteDeviceDataSource__downloadTaskWithRequest_expectedContentLen
   {
     v17 = MEMORY[0x277CCA9B8];
     v18 = *MEMORY[0x277D7B8F8];
-    v61 = *MEMORY[0x277CCA450];
-    v62[0] = @"WLRemoteDeviceDataSource was deallocated.";
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v62 forKeys:&v61 count:1];
+    v60 = *MEMORY[0x277CCA450];
+    v61[0] = @"WLRemoteDeviceDataSource was deallocated.";
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v61 forKeys:&v60 count:1];
     v16 = [v17 errorWithDomain:v18 code:1 userInfo:v19];
 
     (*(*(a1 + 48) + 16))();
 LABEL_12:
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __132__WLRemoteDeviceDataSource__downloadTaskWithRequest_expectedContentLength_numberOfRetriesAllowed_startDate_fileAccessor_completion___block_invoke_5(uint64_t a1)
@@ -626,11 +647,11 @@ uint64_t __132__WLRemoteDeviceDataSource__downloadTaskWithRequest_expectedConten
   {
     v2 = *(a1 + 32);
     v3 = [*(a1 + 56) URL];
-    v14 = [v3 absoluteString];
-    v15 = *(a1 + 48);
+    v13 = [v3 absoluteString];
+    v14 = *(a1 + 48);
     _WLLog();
 
-    v4 = [*(a1 + 32) _newNumberOfRetriesAllowed:*(a1 + 88) startDate:{*(a1 + 64), v2, v14, v15}];
+    v4 = [*(a1 + 32) _newNumberOfRetriesAllowed:*(a1 + 88) startDate:{*(a1 + 64), v2, v13, v14}];
     v5 = *(a1 + 32);
     v6 = *(a1 + 96);
     v7 = *(a1 + 56);
@@ -643,10 +664,9 @@ uint64_t __132__WLRemoteDeviceDataSource__downloadTaskWithRequest_expectedConten
 
   else
   {
-    v12 = *(a1 + 48);
-    v13 = *(*(a1 + 80) + 16);
+    v12 = *(*(a1 + 80) + 16);
 
-    return v13();
+    return v12();
   }
 }
 
@@ -678,27 +698,25 @@ uint64_t __132__WLRemoteDeviceDataSource__downloadTaskWithRequest_expectedConten
 
 void __80__WLRemoteDeviceDataSource_dataSegmentForSummary_byteRange_migrator_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v11 = a2;
+  v9 = a2;
   v6 = a4;
-  v7 = *(a1 + 32);
-  v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v11, "length")}];
+  v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v9, "length")}];
   _WLLog();
 
   if (v6)
   {
-    v9 = *(a1 + 32);
     _WLLog();
 
-    v8 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v8 = v11;
+    v7 = v9;
   }
 
-  v12 = v8;
-  (*(*(a1 + 40) + 16))(*(a1 + 40), v8);
+  v10 = v7;
+  (*(*(a1 + 40) + 16))(*(a1 + 40), v7);
 }
 
 - (void)dataForSummary:(id)summary migrator:(id)migrator completion:(id)completion
@@ -727,27 +745,25 @@ void __80__WLRemoteDeviceDataSource_dataSegmentForSummary_byteRange_migrator_com
 
 void __63__WLRemoteDeviceDataSource_dataForSummary_migrator_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v11 = a2;
+  v9 = a2;
   v6 = a4;
-  v7 = *(a1 + 32);
-  v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v11, "length")}];
+  v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v9, "length")}];
   _WLLog();
 
   if (v6)
   {
-    v9 = *(a1 + 32);
     _WLLog();
 
-    v8 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v8 = v11;
+    v7 = v9;
   }
 
-  v12 = v8;
-  (*(*(a1 + 40) + 16))(*(a1 + 40), v8);
+  v10 = v7;
+  (*(*(a1 + 40) + 16))(*(a1 + 40), v7);
 }
 
 - (void)updateUIWithProgress:(double)progress remainingTime:(double)time logString:(id)string completion:(id)completion
@@ -877,7 +893,7 @@ void __47__WLRemoteDeviceDataSource__requestSerialQueue__block_invoke()
 
 void __174__WLRemoteDeviceDataSource__performRequest_expectedContentLength_numberOfRetriesAllowed_preventRetriesAfterTaskExceedsDuration_taskDurationLimit_startDate_completionHandler___block_invoke(uint64_t a1)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -889,9 +905,9 @@ void __174__WLRemoteDeviceDataSource__performRequest_expectedContentLength_numbe
   {
     v4 = MEMORY[0x277CCA9B8];
     v5 = *MEMORY[0x277D7B8F8];
-    v11 = *MEMORY[0x277CCA450];
-    v12[0] = @"WLRemoteDeviceDataSource was deallocated.";
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x277CCA450];
+    v11[0] = @"WLRemoteDeviceDataSource was deallocated.";
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v7 = [v4 errorWithDomain:v5 code:1 userInfo:v6];
 
     v8 = *(a1 + 48);
@@ -899,8 +915,6 @@ void __174__WLRemoteDeviceDataSource__performRequest_expectedContentLength_numbe
     [v9 timeIntervalSinceDate:*(a1 + 32)];
     (*(v8 + 16))(v8, 0, 0, v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_runTaskWithRequest:(id)request expectedContentLength:(unint64_t)length numberOfRetriesAllowed:(unint64_t)allowed preventRetriesAfterTaskExceedsDuration:(BOOL)duration taskDurationLimit:(double)limit startDate:(id)date completionHandler:(id)handler
@@ -942,7 +956,7 @@ void __174__WLRemoteDeviceDataSource__performRequest_expectedContentLength_numbe
 
 void __178__WLRemoteDeviceDataSource__runTaskWithRequest_expectedContentLength_numberOfRetriesAllowed_preventRetriesAfterTaskExceedsDuration_taskDurationLimit_startDate_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v43[1] = *MEMORY[0x277D85DE8];
+  v42[1] = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -953,7 +967,7 @@ void __178__WLRemoteDeviceDataSource__runTaskWithRequest_expectedContentLength_n
     [WeakRetained _taskDurationSinceStartDate:*(a1 + 40)];
     v13 = v12;
     v14 = [*(a1 + 48) URL];
-    v27 = [v14 absoluteString];
+    v26 = [v14 absoluteString];
     _WLLog();
 
     v15 = dispatch_get_global_queue(25, 0);
@@ -961,26 +975,26 @@ void __178__WLRemoteDeviceDataSource__runTaskWithRequest_expectedContentLength_n
     block[1] = 3221225472;
     block[2] = __178__WLRemoteDeviceDataSource__runTaskWithRequest_expectedContentLength_numberOfRetriesAllowed_preventRetriesAfterTaskExceedsDuration_taskDurationLimit_startDate_completionHandler___block_invoke_2;
     block[3] = &unk_279EB5ED0;
-    v29 = v11;
+    v28 = v11;
     v16 = v8;
     v17 = *(a1 + 80);
-    v30 = v16;
-    v37 = v17;
-    v36 = *(a1 + 64);
-    v31 = v7;
-    v38 = v13;
-    v32 = v9;
+    v29 = v16;
+    v36 = v17;
+    v35 = *(a1 + 64);
+    v30 = v7;
+    v37 = v13;
+    v31 = v9;
     v18 = *(a1 + 48);
     v19 = *(a1 + 56);
-    v33 = v18;
-    v34 = v19;
-    v39 = *(a1 + 88);
-    v41 = *(a1 + 104);
-    v40 = *(a1 + 96);
-    v35 = *(a1 + 32);
+    v32 = v18;
+    v33 = v19;
+    v38 = *(a1 + 88);
+    v40 = *(a1 + 104);
+    v39 = *(a1 + 96);
+    v34 = *(a1 + 32);
     dispatch_async(v15, block);
 
-    v20 = v29;
+    v20 = v28;
 LABEL_5:
 
     goto LABEL_6;
@@ -990,9 +1004,9 @@ LABEL_5:
   {
     v21 = MEMORY[0x277CCA9B8];
     v22 = *MEMORY[0x277D7B8F8];
-    v42 = *MEMORY[0x277CCA450];
-    v43[0] = @"WLRemoteDeviceDataSource was deallocated.";
-    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:&v42 count:1];
+    v41 = *MEMORY[0x277CCA450];
+    v42[0] = @"WLRemoteDeviceDataSource was deallocated.";
+    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:&v41 count:1];
     v20 = [v21 errorWithDomain:v22 code:1 userInfo:v23];
 
     v24 = *(a1 + 64);
@@ -1004,8 +1018,6 @@ LABEL_5:
   }
 
 LABEL_6:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __178__WLRemoteDeviceDataSource__runTaskWithRequest_expectedContentLength_numberOfRetriesAllowed_preventRetriesAfterTaskExceedsDuration_taskDurationLimit_startDate_completionHandler___block_invoke_2(uint64_t a1)
@@ -1013,53 +1025,50 @@ void __178__WLRemoteDeviceDataSource__runTaskWithRequest_expectedContentLength_n
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
   v4 = *(a1 + 96);
-  v36 = 0;
-  v5 = [v2 _shouldHandleHTTPErrorWithResponse:v3 expectedContentLength:v4 error:&v36];
-  v6 = v36;
+  v29 = 0;
+  v5 = [v2 _shouldHandleHTTPErrorWithResponse:v3 expectedContentLength:v4 error:&v29];
+  v6 = v29;
   if (v5)
   {
     v8 = *(a1 + 88);
     if (v8)
     {
-      v10 = *(a1 + 40);
-      v9 = *(a1 + 48);
-      v7.n128_u64[0] = *(a1 + 104);
-      (*(v8 + 16))(v7);
+      goto LABEL_11;
     }
   }
 
   else if ([*(a1 + 32) _shouldRetryLaterWithResponse:*(a1 + 40) error:*(a1 + 56)])
   {
-    v12 = *(a1 + 32);
-    v13 = [*(a1 + 64) URL];
-    v24 = [v13 absoluteString];
+    v9 = *(a1 + 32);
+    v10 = [*(a1 + 64) URL];
+    v17 = [v10 absoluteString];
     _WLLog();
 
-    v14 = dispatch_time(0, 1000000000 * [*(a1 + 32) _retryLaterDelayInSeconds]);
-    v15 = dispatch_get_global_queue(25, 0);
+    v11 = dispatch_time(0, 1000000000 * [*(a1 + 32) _retryLaterDelayInSeconds]);
+    v12 = dispatch_get_global_queue(25, 0);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __178__WLRemoteDeviceDataSource__runTaskWithRequest_expectedContentLength_numberOfRetriesAllowed_preventRetriesAfterTaskExceedsDuration_taskDurationLimit_startDate_completionHandler___block_invoke_3;
     block[3] = &unk_279EB5EA8;
-    v27 = *(a1 + 64);
-    v16 = v27.i64[0];
-    v29 = vextq_s8(v27, v27, 8uLL);
-    v17 = *(a1 + 112);
-    v32 = *(a1 + 96);
-    v33 = v17;
-    v35 = *(a1 + 128);
-    v34 = *(a1 + 120);
-    v30 = *(a1 + 80);
-    v31 = *(a1 + 88);
-    dispatch_after(v14, v15, block);
+    v20 = *(a1 + 64);
+    v13 = v20.i64[0];
+    v22 = vextq_s8(v20, v20, 8uLL);
+    v14 = *(a1 + 112);
+    v25 = *(a1 + 96);
+    v26 = v14;
+    v28 = *(a1 + 128);
+    v27 = *(a1 + 120);
+    v23 = *(a1 + 80);
+    v24 = *(a1 + 88);
+    dispatch_after(v11, v12, block);
   }
 
   else if (*(a1 + 112) && [*(a1 + 32) _shouldRetryWithData:*(a1 + 48) response:*(a1 + 40) error:*(a1 + 56)] && objc_msgSend(*(a1 + 32), "_shouldRetryWithPreventRetriesAfterTaskExceedsDuration:taskDurationLimit:taskDuration:", *(a1 + 128), *(a1 + 120), *(a1 + 104)))
   {
-    v18 = *(a1 + 32);
-    v19 = [*(a1 + 64) URL];
-    v25 = [v19 absoluteString];
-    v26 = *(a1 + 56);
+    v15 = *(a1 + 32);
+    v16 = [*(a1 + 64) URL];
+    v18 = [v16 absoluteString];
+    v19 = *(a1 + 56);
     _WLLog();
 
     [*(a1 + 32) _willRetryPerformRequest];
@@ -1068,14 +1077,12 @@ void __178__WLRemoteDeviceDataSource__runTaskWithRequest_expectedContentLength_n
 
   else
   {
-    v20 = *(a1 + 88);
-    if (v20)
+    v8 = *(a1 + 88);
+    if (v8)
     {
-      v22 = *(a1 + 40);
-      v21 = *(a1 + 48);
-      v23 = *(a1 + 56);
-      v11.n128_u64[0] = *(a1 + 104);
-      (*(v20 + 16))(v11);
+LABEL_11:
+      v7.n128_u64[0] = *(a1 + 104);
+      (*(v8 + 16))(v7);
     }
   }
 }

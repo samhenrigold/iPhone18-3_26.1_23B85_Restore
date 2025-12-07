@@ -13,41 +13,40 @@ __CFString *RKStringFromRoutineSituation(uint64_t a1)
 
 uint64_t static RelevantContext.date(_:priority:)@<X0>(uint64_t a1@<X0>, unint64_t a2@<X1>, void *a3@<X8>)
 {
-  v6 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFAC808, &qword_23A860490) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v8 = v18 - v7;
-  v9 = sub_23A85F788();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20]();
-  v13 = v18 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v10 + 16))(v13, a1, v9);
-  (*(v10 + 56))(v8, 1, 1, v9);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFAC808, &qword_23A860490);
+  MEMORY[0x28223BE20](v6 - 8, v7);
+  v9 = v19 - v8;
+  v10 = sub_23A85F788();
+  v11 = *(v10 - 8);
+  MEMORY[0x28223BE20](v10, v12);
+  v14 = v19 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v11 + 16))(v14, a1, v10);
+  (*(v11 + 56))(v9, 1, 1, v10);
   if (a2 >= 3)
   {
-    v18[1] = a2;
+    v19[1] = a2;
     result = sub_23A85F7F8();
     __break(1u);
   }
 
   else
   {
-    v14 = sub_23A85F778();
-    if ((*(v10 + 48))(v8, 1, v9) == 1)
+    v15 = sub_23A85F778();
+    if ((*(v11 + 48))(v9, 1, v10) == 1)
     {
-      v15 = 0;
+      v16 = 0;
     }
 
     else
     {
-      v15 = sub_23A85F778();
-      (*(v10 + 8))(v8, v9);
+      v16 = sub_23A85F778();
+      (*(v11 + 8))(v9, v10);
     }
 
-    v16 = [objc_allocWithZone(RKDateRelevantContext) initWithStartDate:v14 endDate:v15 priority:a2 + 1];
+    v17 = [objc_allocWithZone(RKDateRelevantContext) initWithStartDate:v15 endDate:v16 priority:a2 + 1];
 
-    result = (*(v10 + 8))(v13, v9);
-    *a3 = v16;
+    result = (*(v11 + 8))(v14, v10);
+    *a3 = v17;
   }
 
   return result;
@@ -58,7 +57,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -68,43 +66,42 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
 
 uint64_t static RelevantContext.date(from:to:priority:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, void *a4@<X8>)
 {
-  v8 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFAC808, &qword_23A860490) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v10 = v21 - v9;
-  v11 = sub_23A85F788();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  MEMORY[0x28223BE20]();
-  v15 = v21 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = *(v12 + 16);
-  v16(v15, a1, v11);
-  v16(v10, a2, v11);
-  (*(v12 + 56))(v10, 0, 1, v11);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFAC808, &qword_23A860490);
+  MEMORY[0x28223BE20](v8 - 8, v9);
+  v11 = v22 - v10;
+  v12 = sub_23A85F788();
+  v13 = *(v12 - 8);
+  MEMORY[0x28223BE20](v12, v14);
+  v16 = v22 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = *(v13 + 16);
+  v17(v16, a1, v12);
+  v17(v11, a2, v12);
+  (*(v13 + 56))(v11, 0, 1, v12);
   if (a3 >= 3)
   {
-    v21[1] = a3;
+    v22[1] = a3;
     result = sub_23A85F7F8();
     __break(1u);
   }
 
   else
   {
-    v17 = sub_23A85F778();
-    if ((*(v12 + 48))(v10, 1, v11) == 1)
+    v18 = sub_23A85F778();
+    if ((*(v13 + 48))(v11, 1, v12) == 1)
     {
-      v18 = 0;
+      v19 = 0;
     }
 
     else
     {
-      v18 = sub_23A85F778();
-      (*(v12 + 8))(v10, v11);
+      v19 = sub_23A85F778();
+      (*(v13 + 8))(v11, v12);
     }
 
-    v19 = [objc_allocWithZone(RKDateRelevantContext) initWithStartDate:v17 endDate:v18 priority:a3 + 1];
+    v20 = [objc_allocWithZone(RKDateRelevantContext) initWithStartDate:v18 endDate:v19 priority:a3 + 1];
 
-    result = (*(v12 + 8))(v15, v11);
-    *a4 = v19;
+    result = (*(v13 + 8))(v16, v12);
+    *a4 = v20;
   }
 
   return result;
@@ -140,15 +137,15 @@ uint64_t sub_23A85D364()
   return sub_23A85F828();
 }
 
-uint64_t sub_23A85D3D8()
+uint64_t sub_23A85D3D8(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_23A85F808();
-  MEMORY[0x23EE8D970](v1);
+  MEMORY[0x23EE8D970](v2);
   return sub_23A85F828();
 }
 
-uint64_t *sub_23A85D41C@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
+unint64_t *sub_23A85D41C@<X0>(unint64_t *result@<X0>, uint64_t a2@<X8>)
 {
   v2 = *result;
   v3 = *result > 2;
@@ -164,92 +161,89 @@ uint64_t *sub_23A85D41C@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
 
 uint64_t static RelevantContext.date(_:kind:)@<X0>(uint64_t a1@<X0>, char *a2@<X1>, void *a3@<X8>)
 {
-  v6 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFAC808, &qword_23A860490) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v8 = &v20 - v7;
-  v9 = sub_23A85F788();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20]();
-  v13 = &v20 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = *a2;
-  (*(v10 + 16))(v13, a1, v9);
-  (*(v10 + 56))(v8, 1, 1, v9);
-  v15 = qword_23A860460[v14];
-  v16 = sub_23A85F778();
-  v17 = 0;
-  if ((*(v10 + 48))(v8, 1, v9) != 1)
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFAC808, &qword_23A860490);
+  MEMORY[0x28223BE20](v6 - 8, v7);
+  v9 = &v21 - v8;
+  v10 = sub_23A85F788();
+  v11 = *(v10 - 8);
+  MEMORY[0x28223BE20](v10, v12);
+  v14 = &v21 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = *a2;
+  (*(v11 + 16))(v14, a1, v10);
+  (*(v11 + 56))(v9, 1, 1, v10);
+  v16 = qword_23A860460[v15];
+  v17 = sub_23A85F778();
+  v18 = 0;
+  if ((*(v11 + 48))(v9, 1, v10) != 1)
   {
-    v17 = sub_23A85F778();
-    (*(v10 + 8))(v8, v9);
+    v18 = sub_23A85F778();
+    (*(v11 + 8))(v9, v10);
   }
 
-  v18 = [objc_allocWithZone(RKDateRelevantContext) initWithStartDate:v16 endDate:v17 priority:v15];
+  v19 = [objc_allocWithZone(RKDateRelevantContext) initWithStartDate:v17 endDate:v18 priority:v16];
 
-  result = (*(v10 + 8))(v13, v9);
-  *a3 = v18;
+  result = (*(v11 + 8))(v14, v10);
+  *a3 = v19;
   return result;
 }
 
 uint64_t static RelevantContext.date(interval:kind:)@<X0>(char *a1@<X1>, void *a2@<X8>)
 {
-  v4 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFAC808, &qword_23A860490) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v6 = &v18 - v5;
-  v7 = sub_23A85F788();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20]();
-  v11 = &v18 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = *a1;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFAC808, &qword_23A860490);
+  MEMORY[0x28223BE20](v4 - 8, v5);
+  v7 = &v19 - v6;
+  v8 = sub_23A85F788();
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8, v10);
+  v12 = &v19 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = *a1;
   sub_23A85F768();
   sub_23A85F758();
-  (*(v8 + 56))(v6, 0, 1, v7);
-  v13 = qword_23A860460[v12];
-  v14 = sub_23A85F778();
-  v15 = 0;
-  if ((*(v8 + 48))(v6, 1, v7) != 1)
+  (*(v9 + 56))(v7, 0, 1, v8);
+  v14 = qword_23A860460[v13];
+  v15 = sub_23A85F778();
+  v16 = 0;
+  if ((*(v9 + 48))(v7, 1, v8) != 1)
   {
-    v15 = sub_23A85F778();
-    (*(v8 + 8))(v6, v7);
+    v16 = sub_23A85F778();
+    (*(v9 + 8))(v7, v8);
   }
 
-  v16 = [objc_allocWithZone(RKDateRelevantContext) initWithStartDate:v14 endDate:v15 priority:v13];
+  v17 = [objc_allocWithZone(RKDateRelevantContext) initWithStartDate:v15 endDate:v16 priority:v14];
 
-  result = (*(v8 + 8))(v11, v7);
-  *a2 = v16;
+  result = (*(v9 + 8))(v12, v8);
+  *a2 = v17;
   return result;
 }
 
 uint64_t static RelevantContext.date(range:kind:)@<X0>(uint64_t a1@<X0>, char *a2@<X1>, void *a3@<X8>)
 {
-  v6 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFAC808, &qword_23A860490) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v8 = &v22 - v7;
-  v9 = sub_23A85F788();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20]();
-  v13 = &v22 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = *a2;
-  v15 = *(v10 + 16);
-  v15(v13, a1, v9);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFAC818, &qword_23A8603B0);
-  v15(v8, a1 + *(v16 + 36), v9);
-  (*(v10 + 56))(v8, 0, 1, v9);
-  v17 = qword_23A860460[v14];
-  v18 = sub_23A85F778();
-  v19 = 0;
-  if ((*(v10 + 48))(v8, 1, v9) != 1)
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFAC808, &qword_23A860490);
+  MEMORY[0x28223BE20](v6 - 8, v7);
+  v9 = &v23 - v8;
+  v10 = sub_23A85F788();
+  v11 = *(v10 - 8);
+  MEMORY[0x28223BE20](v10, v12);
+  v14 = &v23 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = *a2;
+  v16 = *(v11 + 16);
+  v16(v14, a1, v10);
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFAC818, &qword_23A8603B0);
+  v16(v9, a1 + *(v17 + 36), v10);
+  (*(v11 + 56))(v9, 0, 1, v10);
+  v18 = qword_23A860460[v15];
+  v19 = sub_23A85F778();
+  v20 = 0;
+  if ((*(v11 + 48))(v9, 1, v10) != 1)
   {
-    v19 = sub_23A85F778();
-    (*(v10 + 8))(v8, v9);
+    v20 = sub_23A85F778();
+    (*(v11 + 8))(v9, v10);
   }
 
-  v20 = [objc_allocWithZone(RKDateRelevantContext) initWithStartDate:v18 endDate:v19 priority:v17];
+  v21 = [objc_allocWithZone(RKDateRelevantContext) initWithStartDate:v19 endDate:v20 priority:v18];
 
-  result = (*(v10 + 8))(v13, v9);
-  *a3 = v20;
+  result = (*(v11 + 8))(v14, v10);
+  *a3 = v21;
   return result;
 }
 
@@ -261,11 +255,11 @@ uint64_t sub_23A85DA94()
   return sub_23A85F828();
 }
 
-uint64_t sub_23A85DADC()
+uint64_t sub_23A85DADC(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_23A85F808();
-  MEMORY[0x23EE8D970](v1);
+  MEMORY[0x23EE8D970](v2);
   return sub_23A85F828();
 }
 
@@ -452,45 +446,45 @@ id RelevantContext.lnContext.getter()
 
 void static RelevantContext.date(_:)(void *a1@<X8>)
 {
-  v2 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFAC808, &qword_23A860490) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v4 = &v10 - v3;
-  v5 = sub_23A85F788();
-  v6 = *(v5 - 8);
-  (*(v6 + 56))(v4, 1, 1, v5);
-  v7 = sub_23A85F778();
-  v8 = 0;
-  if ((*(v6 + 48))(v4, 1, v5) != 1)
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFAC808, &qword_23A860490);
+  MEMORY[0x28223BE20](v2 - 8, v3);
+  v5 = &v11 - v4;
+  v6 = sub_23A85F788();
+  v7 = *(v6 - 8);
+  (*(v7 + 56))(v5, 1, 1, v6);
+  v8 = sub_23A85F778();
+  v9 = 0;
+  if ((*(v7 + 48))(v5, 1, v6) != 1)
   {
-    v8 = sub_23A85F778();
-    (*(v6 + 8))(v4, v5);
+    v9 = sub_23A85F778();
+    (*(v7 + 8))(v5, v6);
   }
 
-  v9 = [objc_allocWithZone(RKDateRelevantContext) initWithStartDate:v7 endDate:v8];
+  v10 = [objc_allocWithZone(RKDateRelevantContext) initWithStartDate:v8 endDate:v9];
 
-  *a1 = v9;
+  *a1 = v10;
 }
 
 void static RelevantContext.date(from:to:)(uint64_t a1@<X1>, void *a2@<X8>)
 {
-  v4 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFAC808, &qword_23A860490) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v6 = &v12 - v5;
-  v7 = sub_23A85F788();
-  v8 = *(v7 - 8);
-  (*(v8 + 16))(v6, a1, v7);
-  (*(v8 + 56))(v6, 0, 1, v7);
-  v9 = sub_23A85F778();
-  v10 = 0;
-  if ((*(v8 + 48))(v6, 1, v7) != 1)
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFAC808, &qword_23A860490);
+  MEMORY[0x28223BE20](v4 - 8, v5);
+  v7 = &v13 - v6;
+  v8 = sub_23A85F788();
+  v9 = *(v8 - 8);
+  (*(v9 + 16))(v7, a1, v8);
+  (*(v9 + 56))(v7, 0, 1, v8);
+  v10 = sub_23A85F778();
+  v11 = 0;
+  if ((*(v9 + 48))(v7, 1, v8) != 1)
   {
-    v10 = sub_23A85F778();
-    (*(v8 + 8))(v6, v7);
+    v11 = sub_23A85F778();
+    (*(v9 + 8))(v7, v8);
   }
 
-  v11 = [objc_allocWithZone(RKDateRelevantContext) initWithStartDate:v9 endDate:v10];
+  v12 = [objc_allocWithZone(RKDateRelevantContext) initWithStartDate:v10 endDate:v11];
 
-  *a2 = v11;
+  *a2 = v12;
 }
 
 id static RelevantContext.location(_:)@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
@@ -552,7 +546,7 @@ uint64_t sub_23A85E230()
   return sub_23A85F828();
 }
 
-uint64_t sub_23A85E274()
+uint64_t sub_23A85E274(uint64_t a1)
 {
   sub_23A85F808();
   MEMORY[0x23EE8D970](0);
@@ -568,34 +562,33 @@ id static RelevantContext.home(_:)@<X0>(unsigned __int8 *a1@<X0>, void *a2@<X8>)
 
 void static RelevantContext.nearbyAudioDevice(_:)(uint64_t *a1@<X0>, void *a2@<X8>)
 {
-  v3 = *a1;
-  v4 = a1[1];
-  v5 = *(a1 + 16);
-  if (v5 != 2)
+  v3 = a1[1];
+  v4 = *(a1 + 16);
+  if (v4 != 2)
   {
-    v6 = [objc_allocWithZone(MEMORY[0x277CCABB0]) initWithBool_];
-    if (v4)
+    v5 = [objc_allocWithZone(MEMORY[0x277CCABB0]) initWithBool_];
+    if (v3)
     {
       goto LABEL_3;
     }
 
 LABEL_5:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_6;
   }
 
-  v6 = 0;
-  if (!v4)
+  v5 = 0;
+  if (!v3)
   {
     goto LABEL_5;
   }
 
 LABEL_3:
-  v7 = sub_23A85F798();
+  v6 = sub_23A85F798();
 LABEL_6:
-  v8 = [objc_allocWithZone(RKNearbyAudioDeviceRelevantContext) initWithDeviceIdentifier:v7 isPlaying:v6];
+  v7 = [objc_allocWithZone(RKNearbyAudioDeviceRelevantContext) initWithDeviceIdentifier:v6 isPlaying:v5];
 
-  *a2 = v8;
+  *a2 = v7;
 }
 
 AppIntents::RelevantContext::NearbyAudioDeviceCondition __swiftcall RelevantContext.NearbyAudioDeviceCondition.init(deviceIdentifier:isPlaying:)(AppIntents::RelevantContext::NearbyAudioDeviceCondition deviceIdentifier, Swift::Bool_optional isPlaying)
@@ -609,7 +602,6 @@ AppIntents::RelevantContext::NearbyAudioDeviceCondition __swiftcall RelevantCont
 uint64_t RelevantContext.NearbyAudioDeviceCondition.deviceIdentifier.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
@@ -633,18 +625,16 @@ id static RelevantContext.solar(_:)@<X0>(_BYTE *a1@<X0>, void *a2@<X8>)
 
 void static RelevantContext.regulatoryDomain(_:)(void *a1@<X0>, void *a2@<X8>)
 {
-  v3 = a1[3];
-  v4 = __swift_project_boxed_opaque_existential_1(a1, v3);
-  v5 = *(*(v3 - 8) + 64);
-  MEMORY[0x28223BE20](v4, v4);
-  (*(v7 + 16))(&v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v3 = __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  MEMORY[0x28223BE20](v3, v3);
+  (*(v5 + 16))(&v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
   sub_23A85F7C8();
-  v8 = objc_allocWithZone(RKRegulatoryDomainRelevantContext);
-  v9 = sub_23A85F7B8();
+  v6 = objc_allocWithZone(RKRegulatoryDomainRelevantContext);
+  v7 = sub_23A85F7B8();
 
-  v10 = [v8 initWithCountryCodes_];
+  v8 = [v6 initWithCountryCodes_];
 
-  *a2 = v10;
+  *a2 = v8;
 }
 
 void *__swift_project_boxed_opaque_existential_1(void *result, uint64_t a2)
@@ -661,20 +651,18 @@ void static RelevantContext.group(_:)(uint64_t *a1@<X0>, void *a2@<X8>)
 {
   if (a1[1])
   {
-    v3 = *a1;
-    v4 = a1[1];
 
-    v5 = sub_23A85F798();
+    v3 = sub_23A85F798();
   }
 
   else
   {
-    v5 = 0;
+    v3 = 0;
   }
 
-  v6 = [objc_allocWithZone(RKMutualExclusionGroupRelevantContext) initWithGroupIdentifier_];
+  v4 = [objc_allocWithZone(RKMutualExclusionGroupRelevantContext) initWithGroupIdentifier_];
 
-  *a2 = v6;
+  *a2 = v4;
 }
 
 uint64_t static RelevantContext.Group.named(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
@@ -780,34 +768,28 @@ uint64_t _s10AppIntents15RelevantContextV12RelevanceKitE16LocationCategoryV2eeoi
 
 uint64_t sub_23A85E778()
 {
-  v1 = *v0;
   sub_23A85F808();
   sub_23A85F7A8();
 
   return sub_23A85F828();
 }
 
-uint64_t sub_23A85E814()
+uint64_t sub_23A85E814(uint64_t a1)
 {
-  *v0;
-  *v0;
   sub_23A85F7A8();
 }
 
-uint64_t sub_23A85E89C()
+uint64_t sub_23A85E89C(uint64_t a1)
 {
-  v1 = *v0;
   sub_23A85F808();
   sub_23A85F7A8();
 
   return sub_23A85F828();
 }
 
-uint64_t sub_23A85E934@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+unint64_t sub_23A85E934@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v4 = *a1;
-  v3 = a1[1];
-  result = sub_23A85F698();
+  result = sub_23A85F698(*a1, a1[1]);
   *a2 = result;
   return result;
 }
@@ -837,9 +819,8 @@ void sub_23A85E964(unint64_t *a1@<X8>)
   a1[1] = v4 | 0x8000000000000000;
 }
 
-void static RelevantContext.location(category:)(_BYTE *a1@<X0>, void *a2@<X8>)
+void static RelevantContext.location(category:)(void *a2@<X8>)
 {
-  *a1;
   v3 = objc_allocWithZone(RKLocationCategoryRelevantContext);
   v4 = sub_23A85F798();
 
@@ -848,13 +829,13 @@ void static RelevantContext.location(category:)(_BYTE *a1@<X0>, void *a2@<X8>)
   *a2 = v5;
 }
 
-void static RelevantContext.location(rawCategory:)(void *a1@<X8>)
+void static RelevantContext.location(rawCategory:)(void *a3@<X8>)
 {
-  v2 = objc_allocWithZone(RKLocationCategoryRelevantContext);
-  v3 = sub_23A85F798();
-  v4 = [v2 initWithRawCategory_];
+  v4 = objc_allocWithZone(RKLocationCategoryRelevantContext);
+  v5 = sub_23A85F798();
+  v6 = [v4 initWithRawCategory_];
 
-  *a1 = v4;
+  *a3 = v6;
 }
 
 uint64_t sub_23A85EB24(uint64_t *a1, int a2)
@@ -1815,17 +1796,17 @@ unint64_t sub_23A85F644()
   return result;
 }
 
-uint64_t sub_23A85F698()
+unint64_t sub_23A85F698(uint64_t a1, uint64_t a2)
 {
-  v0 = sub_23A85F7D8();
+  v2 = sub_23A85F7D8();
 
-  if (v0 >= 3)
+  if (v2 >= 3)
   {
     return 3;
   }
 
   else
   {
-    return v0;
+    return v2;
   }
 }

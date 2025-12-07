@@ -23,6 +23,7 @@
 - (id)newContact;
 - (id)rsvpStatusDisplayString;
 - (int)scheduleStatus;
+- (void)setScheduleForceSend:(BOOL)send;
 - (void)setURL:(id)l;
 @end
 
@@ -128,13 +129,11 @@ LABEL_19:
 
 void __47__EKParticipant_knownIdentityKeysForComparison__block_invoke()
 {
-  v3[1] = *MEMORY[0x1E69E9840];
-  v3[0] = *MEMORY[0x1E6992B08];
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:1];
+  v2[1] = *MEMORY[0x1E69E9840];
+  v2[0] = *MEMORY[0x1E6992B08];
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:1];
   v1 = knownIdentityKeysForComparison_keys_4;
   knownIdentityKeysForComparison_keys_4 = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (id)knownSingleValueKeysForComparison
@@ -151,24 +150,22 @@ void __47__EKParticipant_knownIdentityKeysForComparison__block_invoke()
 
 void __50__EKParticipant_knownSingleValueKeysForComparison__block_invoke()
 {
-  v7[8] = *MEMORY[0x1E69E9840];
+  v6[8] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E6992B40];
-  v7[0] = *MEMORY[0x1E6992B38];
-  v7[1] = v0;
+  v6[0] = *MEMORY[0x1E6992B38];
+  v6[1] = v0;
   v1 = *MEMORY[0x1E6992B50];
-  v7[2] = *MEMORY[0x1E6992B48];
-  v7[3] = v1;
+  v6[2] = *MEMORY[0x1E6992B48];
+  v6[3] = v1;
   v2 = *MEMORY[0x1E6992B60];
-  v7[4] = *MEMORY[0x1E6992B58];
-  v7[5] = v2;
+  v6[4] = *MEMORY[0x1E6992B58];
+  v6[5] = v2;
   v3 = *MEMORY[0x1E6992B78];
-  v7[6] = *MEMORY[0x1E6992B70];
-  v7[7] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:8];
+  v6[6] = *MEMORY[0x1E6992B70];
+  v6[7] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:8];
   v5 = knownSingleValueKeysForComparison_keys_2;
   knownSingleValueKeysForComparison_keys_2 = v4;
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (id)knownRelationshipWeakKeys
@@ -185,13 +182,11 @@ void __50__EKParticipant_knownSingleValueKeysForComparison__block_invoke()
 
 void __42__EKParticipant_knownRelationshipWeakKeys__block_invoke()
 {
-  v3[1] = *MEMORY[0x1E69E9840];
-  v3[0] = *MEMORY[0x1E6992B18];
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:1];
+  v2[1] = *MEMORY[0x1E69E9840];
+  v2[0] = *MEMORY[0x1E6992B18];
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:1];
   v1 = knownRelationshipWeakKeys_keys_1;
   knownRelationshipWeakKeys_keys_1 = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)name
@@ -301,6 +296,12 @@ LABEL_9:
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setScheduleForceSend:(BOOL)send
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:send];
+  [(EKObject *)self setSingleChangedValue:v4 forKey:*MEMORY[0x1E6992B90]];
 }
 
 - (BOOL)isEqualToParticipant:(id)participant
@@ -427,7 +428,7 @@ LABEL_9:
 - (id)rsvpStatusDisplayString
 {
   participantStatus = [(EKParticipant *)self participantStatus];
-  v3 = EKBundle();
+  v3 = EKBundle(participantStatus);
   v4 = v3;
   if ((participantStatus - 2) > 2)
   {

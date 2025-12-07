@@ -492,10 +492,10 @@ LABEL_52:
         memset(&v35, 0, sizeof(v35));
         if (v8)
         {
-          [v8 start];
+          objc_msgSend_start(v8);
           v33 = 0uLL;
           epoch = 0;
-          [v9 last];
+          objc_msgSend_last(v9);
         }
 
         else

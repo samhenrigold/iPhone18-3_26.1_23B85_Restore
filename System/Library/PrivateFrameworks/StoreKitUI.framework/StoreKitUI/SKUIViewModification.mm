@@ -456,9 +456,9 @@ LABEL_64:
     {
       v20 = [(SKUIViewModification *)self addReusableViewWithReuseIdentifier:0x28280C848];
       sizeVariant = [elementCopy sizeVariant];
-      v36 = [sizeVariant isEqualToString:@"large"];
+      isEqualToString = objc_msgSend_isEqualToString_(sizeVariant);
 
-      [v20 setStyle:v36];
+      [v20 setStyle:isEqualToString];
       playItemIdentifier = [elementCopy playItemIdentifier];
       if ([v20 isIndeterminate])
       {
@@ -990,7 +990,7 @@ uint64_t __80__SKUIViewModification_SKUIViewElementView__addButtonWithElement_wi
     v19 = [(SKUIViewModification *)self _addImageViewWithReuseIdentifier:0x28280C868 viewElement:elementCopy context:contextCopy];
     if (style)
     {
-      [style transform];
+      objc_msgSend_transform(style);
       [v19 setTransform:v35];
     }
 
@@ -1062,7 +1062,7 @@ uint64_t __80__SKUIViewModification_SKUIViewElementView__addButtonWithElement_wi
 
     if (style)
     {
-      [style transform];
+      objc_msgSend_transform(style);
       [v19 setTransform:v35];
     }
 
@@ -1098,7 +1098,7 @@ uint64_t __80__SKUIViewModification_SKUIViewElementView__addButtonWithElement_wi
     v19 = [(SKUIViewModification *)self _addImageViewWithReuseIdentifier:0x28280CA08 viewElement:thumbnailImage context:contextCopy];
     if (style)
     {
-      [style transform];
+      objc_msgSend_transform(style);
       [v19 setTransform:&v21];
     }
   }
@@ -1625,7 +1625,7 @@ uint64_t __80__SKUIViewModification_SKUIViewElementView__addButtonWithElement_wi
   [buttonCopy setEnabled:{objc_msgSend(v12, "isEnabled")}];
   [buttonCopy setDisabledButSelectable:{objc_msgSend(v12, "isDisabledButSelectable")}];
   badgeResourceName = [v12 badgeResourceName];
-  [buttonCopy setUniversal:{objc_msgSend(badgeResourceName, "isEqualToString:", @"plus"}];
+  [buttonCopy setUniversal:objc_msgSend_isEqualToString_(badgeResourceName)];
 }
 
 - (id)_attributedStringViewForLayout:(id)layout

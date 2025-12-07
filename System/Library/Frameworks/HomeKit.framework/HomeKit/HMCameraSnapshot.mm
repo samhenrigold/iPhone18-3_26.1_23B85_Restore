@@ -14,7 +14,7 @@
 
 - (NSArray)attributeDescriptions
 {
-  v16[3] = *MEMORY[0x1E69E9840];
+  v15[3] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   slotIdentifier = [(HMCameraSource *)self slotIdentifier];
   v5 = [v3 initWithName:@"Slot Identifier" value:slotIdentifier];
@@ -23,14 +23,12 @@
   [(HMCameraSource *)self aspectRatio];
   v8 = [v7 numberWithDouble:?];
   v9 = [v6 initWithName:@"Aspect Ratio" value:v8];
-  v16[1] = v9;
+  v15[1] = v9;
   v10 = objc_alloc(MEMORY[0x1E69A29C8]);
   captureDate = [(HMCameraSnapshot *)self captureDate];
   v12 = [v10 initWithName:@"Capture Date" value:captureDate];
-  v16[2] = v12;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:3];
-
-  v14 = *MEMORY[0x1E69E9840];
+  v15[2] = v12;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:3];
 
   return v13;
 }
@@ -44,7 +42,7 @@
 
 - (void)_releaseSlotIdentifier
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -53,9 +51,9 @@
     v6 = HMFGetLogIdentifier();
     slotIdentifier = [(HMCameraSource *)selfCopy slotIdentifier];
     *buf = 138543618;
-    v21 = v6;
-    v22 = 2112;
-    v23 = slotIdentifier;
+    v20 = v6;
+    v21 = 2112;
+    v22 = slotIdentifier;
     _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_INFO, "%{public}@Releasing snapshot slot identifier: %@", buf, 0x16u);
   }
 
@@ -72,19 +70,17 @@
   v12 = [v10 initWithTarget:profileUniqueIdentifier];
 
   slotIdentifier2 = [(HMCameraSource *)selfCopy slotIdentifier];
-  v19 = slotIdentifier2;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+  v18 = slotIdentifier2;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
 
   v15 = [objc_alloc(MEMORY[0x1E69A2A10]) initWithName:@"HMCameraSnapshotReleaseSnapshotMessage" destination:v12 payload:v14];
   messageDispatcher = [v9 messageDispatcher];
   [messageDispatcher sendMessage:v15];
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fillSlotWithCompletionHandler:(id)handler
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -94,9 +90,9 @@
     v8 = HMFGetLogIdentifier();
     slotIdentifier = [(HMCameraSource *)selfCopy slotIdentifier];
     *buf = 138543618;
-    v28 = v8;
-    v29 = 2112;
-    v30 = slotIdentifier;
+    v27 = v8;
+    v28 = 2112;
+    v29 = slotIdentifier;
     _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Filling snapshot slot identifier: %@", buf, 0x16u);
   }
 
@@ -113,31 +109,29 @@
   profileUniqueIdentifier = [(HMCameraSource *)selfCopy profileUniqueIdentifier];
   v14 = [v12 initWithTarget:profileUniqueIdentifier];
 
-  v25 = @"kSlotIdentifierKey";
+  v24 = @"kSlotIdentifierKey";
   slotIdentifier2 = [(HMCameraSource *)selfCopy slotIdentifier];
-  v26 = slotIdentifier2;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+  v25 = slotIdentifier2;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
 
   v17 = [objc_alloc(MEMORY[0x1E69A2A10]) initWithName:@"HMCameraSnapshotFillSnapshotSlotMessage" destination:v14 payload:v16];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __50__HMCameraSnapshot_fillSlotWithCompletionHandler___block_invoke;
-  v22[3] = &unk_1E754E480;
-  v22[4] = selfCopy;
-  v23 = v11;
-  v24 = handlerCopy;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __50__HMCameraSnapshot_fillSlotWithCompletionHandler___block_invoke;
+  v21[3] = &unk_1E754E480;
+  v21[4] = selfCopy;
+  v22 = v11;
+  v23 = handlerCopy;
   v18 = handlerCopy;
   v19 = v11;
-  [v17 setResponseHandler:v22];
+  [v17 setResponseHandler:v21];
   messageDispatcher = [v19 messageDispatcher];
   [messageDispatcher sendMessage:v17];
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __50__HMCameraSnapshot_fillSlotWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -149,24 +143,24 @@ void __50__HMCameraSnapshot_fillSlotWithCompletionHandler___block_invoke(uint64_
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v18 = 138543618;
-      v19 = v11;
-      v20 = 2112;
-      v21 = v5;
+      v17 = 138543618;
+      v18 = v11;
+      v19 = 2112;
+      v20 = v5;
       v12 = "%{public}@Failed to fill slot: %@";
       v13 = v10;
       v14 = OS_LOG_TYPE_ERROR;
       v15 = 22;
 LABEL_6:
-      _os_log_impl(&dword_19BB39000, v13, v14, v12, &v18, v15);
+      _os_log_impl(&dword_19BB39000, v13, v14, v12, &v17, v15);
     }
   }
 
   else if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v18 = 138543362;
-    v19 = v11;
+    v17 = 138543362;
+    v18 = v11;
     v12 = "%{public}@Successfully filled slot";
     v13 = v10;
     v14 = OS_LOG_TYPE_INFO;
@@ -177,8 +171,6 @@ LABEL_6:
   objc_autoreleasePoolPop(v7);
   v16 = [*(a1 + 40) delegateCaller];
   [v16 callCompletion:*(a1 + 48) error:v5];
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -267,10 +259,11 @@ LABEL_11:
 
 uint64_t __31__HMCameraSnapshot_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  logCategory__hmf_once_v5_6430 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v5_6430;
+  logCategory__hmf_once_v5_6430 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

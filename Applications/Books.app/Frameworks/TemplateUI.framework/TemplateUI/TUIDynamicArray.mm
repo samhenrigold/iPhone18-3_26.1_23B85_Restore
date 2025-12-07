@@ -199,7 +199,7 @@
 {
   updateCopy = update;
   transaction = [updateCopy transaction];
-  v6 = TUITransactionLog();
+  v6 = TUITransactionLog(transaction);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     debugName = [(TUIDynamicArray *)self debugName];
@@ -288,14 +288,14 @@
 - (BOOL)tui_hasProperty:(id)property
 {
   propertyCopy = property;
-  if ([propertyCopy isEqualToString:@"count"])
+  if (objc_msgSend_isEqualToString_(propertyCopy))
   {
     v4 = 1;
   }
 
   else
   {
-    v4 = [propertyCopy isEqualToString:@"empty"];
+    v4 = objc_msgSend_isEqualToString_(propertyCopy);
   }
 
   return v4;
@@ -304,7 +304,7 @@
 - (id)tui_valueForProperty:(id)property
 {
   propertyCopy = property;
-  if ([propertyCopy isEqualToString:@"count"])
+  if (objc_msgSend_isEqualToString_(propertyCopy))
   {
     v5 = off_25CD20;
 LABEL_5:
@@ -312,7 +312,7 @@ LABEL_5:
     goto LABEL_7;
   }
 
-  if ([propertyCopy isEqualToString:@"empty"])
+  if (objc_msgSend_isEqualToString_(propertyCopy))
   {
     v5 = off_25CD28;
     goto LABEL_5;

@@ -22,14 +22,14 @@ id getCAFenceHandleClass()
   return v1;
 }
 
-void sub_186346538(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_186346538(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t _BKSServerPortHelper(const char *a1, mach_port_name_t *a2, CFTypeRef *a3, void (__cdecl *a4)(CFMachPortRef, void *))
+uint64_t _BKSServerPortHelper(const char *a1, mach_port_name_t *a2, CFMachPortRef *a3, void (__cdecl *a4)(CFMachPortRef, void *))
 {
   pthread_mutex_lock(&BKSServerPortLock);
   ptype = 0;
@@ -115,7 +115,7 @@ id BKLogBacklight()
 
 void BKSHIDServicesCancelTouchesOnDisplay(void *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v1 = a1;
   bzero(buffer, 0x400uLL);
   if (!v1 || CFStringGetCString(v1, buffer, 1024, 0x8000100u))
@@ -123,34 +123,32 @@ void BKSHIDServicesCancelTouchesOnDisplay(void *a1)
     v2 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
     _BKSHIDCancelTouchesOnDisplay(v2, buffer);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t _BKSHIDCancelTouchesOnDisplay(mach_port_name_t a1, const char *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  memset(v10, 0, 480);
+  v10 = *MEMORY[0x1E69E9840];
+  memset(v9, 0, 480);
   *name = 0u;
-  v9 = 0u;
-  *(&v9 + 1) = *MEMORY[0x1E69E99E0];
+  v8 = 0u;
+  *(&v8 + 1) = *MEMORY[0x1E69E99E0];
   if (MEMORY[0x1EEE9AC40])
   {
-    v3 = mig_strncpy_zerofill(v10 + 8, a2, 1024);
+    v3 = mig_strncpy_zerofill(v9 + 8, a2, 1024);
   }
 
   else
   {
-    v3 = mig_strncpy(v10 + 8, a2, 1024);
+    v3 = mig_strncpy(v9 + 8, a2, 1024);
   }
 
-  LODWORD(v10[0]) = 0;
-  DWORD1(v10[0]) = v3;
+  LODWORD(v9[0]) = 0;
+  DWORD1(v9[0]) = v3;
   v4 = (v3 + 3) & 0xFFFFFFFC;
   name[0] = 19;
   name[2] = a1;
   name[3] = 0;
-  *&v9 = 0x5B8D9900000000;
+  *&v8 = 0x5B8D9900000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(name);
@@ -167,7 +165,6 @@ uint64_t _BKSHIDCancelTouchesOnDisplay(mach_port_name_t a1, const char *a2)
     mach_msg_destroy(name);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -208,10 +205,11 @@ id BKSHIDEventGetBaseAttributes(uint64_t a1)
 
   if (*(AttributeDataPtr + 4))
   {
-    v5 = [BKSHIDEventBaseAttributes deserializeFromBytes:AttributeDataPtr byteCount:IOHIDEventGetAttributeDataLength()];
+    IOHIDEventGetAttributeDataLength();
+    v5 = [BKSHIDEventBaseAttributes deserializeFromBytes:"deserializeFromBytes:byteCount:" byteCount:?];
     if (v5)
     {
-      _BKSHIDEventSetAttachment(a1, @"backboardd-attr-cache-17000404");
+      _BKSHIDEventSetAttachment(a1, @"backboardd-attr-cache-17000404", v5);
     }
   }
 
@@ -226,50 +224,46 @@ LABEL_10:
   return v5;
 }
 
-void _BKSHIDEventSetAttachment(uint64_t a1, void *a2)
+void _BKSHIDEventSetAttachment(uint64_t a1, void *a2, uint64_t a3)
 {
   v7 = *MEMORY[0x1E69E9840];
-  v2 = a2;
+  v3 = a2;
   if (!_IOHIDEventSetAttachment())
   {
-    v3 = BKLogEventDelivery();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = BKLogEventDelivery();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = 138543362;
-      v6 = v2;
-      _os_log_error_impl(&dword_186345000, v3, OS_LOG_TYPE_ERROR, "failed to set attachment with key: %{public}@", &v5, 0xCu);
+      v6 = v3;
+      _os_log_error_impl(&dword_186345000, v4, OS_LOG_TYPE_ERROR, "failed to set attachment with key: %{public}@", &v5, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t BKSHIDEventGetRemoteTimestamp()
+void *BKSHIDEventGetRemoteTimestamp()
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   IOHIDEventGetChildren();
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v0 = v15 = 0u;
-  v1 = [v0 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v10 = 0u;
+  v11 = 0u;
+  v0 = v12 = 0u;
+  v1 = [v0 countByEnumeratingWithState:0 objects:? count:?];
   if (v1)
   {
-    v2 = *v13;
+    v2 = *v10;
     while (2)
     {
-      for (i = 0; i != v1; ++i)
+      for (i = 0; i != v1; i = (i + 1))
       {
-        if (*v13 != v2)
+        if (*v10 != v2)
         {
           objc_enumerationMutation(v0);
         }
 
-        v4 = *(*(&v12 + 1) + 8 * i);
         Type = IOHIDEventGetType();
         IntegerValue = IOHIDEventGetIntegerValue();
-        v7 = IOHIDEventGetIntegerValue();
-        if (Type == 1 && (IntegerValue == 65308 || IntegerValue == 65280) && v7 == 258 && IOHIDEventGetIntegerValue() >= 8)
+        v6 = IOHIDEventGetIntegerValue();
+        if (Type == 1 && (IntegerValue == 65308 || IntegerValue == 65280) && v6 == 258 && IOHIDEventGetIntegerValue() >= 8)
         {
           DataValue = IOHIDEventGetDataValue();
           if (DataValue)
@@ -280,7 +274,7 @@ uint64_t BKSHIDEventGetRemoteTimestamp()
         }
       }
 
-      v1 = [v0 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v1 = [v0 countByEnumeratingWithState:? objects:? count:?];
       if (v1)
       {
         continue;
@@ -292,21 +286,19 @@ uint64_t BKSHIDEventGetRemoteTimestamp()
 
 LABEL_19:
 
-  v10 = *MEMORY[0x1E69E9840];
   return v1;
 }
 
 void BKSHIDEventSetAttributes(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v7 = a2;
+  v15 = *MEMORY[0x1E69E9840];
+  v6 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v3 = 6;
 LABEL_13:
-    _BKSHIDEventSetAttributes(a1, v7, v3);
-    v4 = *MEMORY[0x1E69E9840];
+    _BKSHIDEventSetAttributes(a1, v6, v3);
 
     return;
   }
@@ -346,44 +338,44 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"don't know what type to use for %@", objc_opt_class()];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:objc_opt_class()];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BKSHIDEventSetAttributes(IOHIDEventRef _Nonnull, BKSHIDEventBaseAttributes *__strong _Nonnull)"}];
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
     *buf = 138544130;
-    v9 = v6;
-    v10 = 2114;
-    v11 = @"BKSHIDEvent.m";
-    v12 = 1024;
-    v13 = 390;
-    v14 = 2114;
-    v15 = v5;
+    v8 = v5;
+    v9 = 2114;
+    v10 = @"BKSHIDEvent.m";
+    v11 = 1024;
+    v12 = 390;
+    v13 = 2114;
+    v14 = v4;
     _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
   }
 
-  [v5 UTF8String];
+  [v4 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 void _BKSHIDEventSetAttributes(uint64_t a1, void *a2, char a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a2;
-  v14 = 0;
-  v6 = [MEMORY[0x1E698E750] encodeObject:v5 error:&v14];
-  v7 = v14;
+  v13 = 0;
+  v6 = [MEMORY[0x1E698E750] encodeObject:? error:?];
+  v7 = v13;
   if (v6)
   {
     v8 = [v6 length];
     MEMORY[0x1EEE9AC00]();
-    v10 = &v13 - v9;
-    *(&v13 - v9) = 0;
-    memcpy(&v13 - v9 + 8, [v6 bytes], v8);
+    v10 = &v12 - v9;
+    *(&v12 - v9) = 0;
+    memcpy(&v12 - v9 + 8, [v6 bytes], v8);
     *v10 = a3;
     *(v10 + 1) = v8;
     IOHIDEventSetAttributeData();
-    _BKSHIDEventSetAttachment(a1, @"backboardd-attr-cache-17000404");
+    _BKSHIDEventSetAttachment(a1, @"backboardd-attr-cache-17000404", v5);
   }
 
   else
@@ -392,12 +384,10 @@ void _BKSHIDEventSetAttributes(uint64_t a1, void *a2, char a3)
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v16 = v7;
+      v15 = v7;
       _os_log_error_impl(&dword_186345000, v11, OS_LOG_TYPE_ERROR, "could not encode attribute data:%{public}@", buf, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 id BKLogEventDelivery()
@@ -466,22 +456,22 @@ uint64_t _BKSDisplayServicesGetMainScreenInfo(_DWORD *a1, _DWORD *a2, _DWORD *a3
 
 uint64_t BKSDisplayServicesStart()
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v11 = 0;
-  v9 = 0;
-  v10 = 1065353216;
+  v19 = *MEMORY[0x1E69E9840];
+  v10 = 0;
   v8 = 0;
-  MainScreenInfo = _BKSDisplayServicesGetMainScreenInfo(&v11 + 1, &v11, &v10, &v9, &v8 + 1, &v8);
+  v9 = 1065353216;
+  v7 = 0;
+  MainScreenInfo = _BKSDisplayServicesGetMainScreenInfo(&v10 + 1, &v10, &v9, &v8, &v7 + 1, &v7);
   if (MainScreenInfo == -308)
   {
-    MainScreenInfo = _BKSDisplayServicesGetMainScreenInfo(&v11 + 1, &v11, &v10, &v9, &v8 + 1, &v8);
+    MainScreenInfo = _BKSDisplayServicesGetMainScreenInfo(&v10 + 1, &v10, &v9, &v8, &v7 + 1, &v7);
     if (MainScreenInfo == -308)
     {
-      v7 = BKLogCommon();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v6 = BKLogCommon();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_186345000, v7, OS_LOG_TYPE_ERROR, "Exiting because we are unable to communicate with backboardd.", buf, 2u);
+        _os_log_error_impl(&dword_186345000, v6, OS_LOG_TYPE_ERROR, "Exiting because we are unable to communicate with backboardd.", buf, 2u);
       }
 
       exit(-1);
@@ -490,52 +480,51 @@ uint64_t BKSDisplayServicesStart()
 
   if (MainScreenInfo)
   {
-    v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"backboardd isn't running -- or we couldn't talk to it -- result: %s (%X)", mach_error_string(MainScreenInfo), MainScreenInfo];
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:mach_error_string(MainScreenInfo), MainScreenInfo];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Boolean BKSDisplayServicesStart(void)"];
+      v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v13 = v4;
-      v14 = 2114;
-      v15 = @"BKSDisplayServices.m";
-      v16 = 1024;
-      v17 = 113;
-      v18 = 2114;
-      v19 = v3;
+      v12 = v3;
+      v13 = 2114;
+      v14 = @"BKSDisplayServices.m";
+      v15 = 1024;
+      v16 = 113;
+      v17 = 2114;
+      v18 = v2;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v3 UTF8String];
+    [v2 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863486BCLL);
   }
 
   GSSetMainScreenInfo();
-  if ((v8 & 0x100) == 0 && (v8 & 1) == 0 && (*(&v11 + 1) <= 0.0 || *&v11 <= 0.0))
+  if ((v7 & 0x100) == 0 && (v7 & 1) == 0 && (*(&v10 + 1) <= 0.0 || *&v10 <= 0.0))
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"GetMainScreenInfo width: %f height: %f", *(&v11 + 1), *&v11];
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:*(&v10 + 1), *&v10];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Boolean BKSDisplayServicesStart(void)"];
+      v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v13 = v6;
-      v14 = 2114;
-      v15 = @"BKSDisplayServices.m";
-      v16 = 1024;
-      v17 = 118;
-      v18 = 2114;
-      v19 = v5;
+      v12 = v5;
+      v13 = 2114;
+      v14 = @"BKSDisplayServices.m";
+      v15 = 1024;
+      v16 = 118;
+      v17 = 2114;
+      v18 = v4;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v5 UTF8String];
+    [v4 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x186348790);
   }
 
-  v1 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -655,30 +644,32 @@ LABEL_26:
 
 NSObject *_BKDecodeArrayOfClass(void *a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = a3;
-  v7 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), a2, 0}];
-  v8 = [v5 decodeObjectOfClasses:v7 forKey:v6];
+  v7 = MEMORY[0x1E695DFD8];
+  objc_opt_class();
+  v8 = [v7 setWithObjects:{a2, 0}];
+  v9 = [v5 decodeObjectOfClasses:? forKey:?];
 
-  if (!v8)
+  if (!v9)
   {
 LABEL_18:
     v16 = MEMORY[0x1E695E0F0];
     goto LABEL_19;
   }
 
-  v9 = v8;
+  v10 = v9;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v10 = BKLogEventDelivery();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = BKLogEventDelivery();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v28 = objc_opt_class();
-      v17 = v28;
-      _os_log_error_impl(&dword_186345000, v10, OS_LOG_TYPE_ERROR, "expected NSArray, got %{public}@", buf, 0xCu);
+      v23 = objc_opt_class();
+      v17 = v23;
+      _os_log_error_impl(&dword_186345000, v11, OS_LOG_TYPE_ERROR, "expected NSArray, got %{public}@", buf, 0xCu);
     }
 
 LABEL_17:
@@ -686,37 +677,32 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v10 = v9;
-  v11 = [v10 countByEnumeratingWithState:&v23 objects:v31 count:16];
-  if (v11)
+  v11 = v10;
+  v12 = [NSObject countByEnumeratingWithState:v11 objects:"countByEnumeratingWithState:objects:count:" count:?];
+  if (v12)
   {
-    v12 = v11;
-    v13 = *v24;
+    v13 = v12;
+    v14 = MEMORY[0];
     while (2)
     {
-      for (i = 0; i != v12; ++i)
+      for (i = 0; i != v13; i = (i + 1))
       {
-        if (*v24 != v13)
+        if (MEMORY[0] != v14)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v11);
         }
 
-        v15 = *(*(&v23 + 1) + 8 * i);
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           v18 = BKLogEventDelivery();
           if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
-            v21 = objc_opt_class();
+            v20 = objc_opt_class();
             *buf = 138543618;
-            v28 = a2;
-            v29 = 2114;
-            v30 = v21;
-            v22 = v21;
+            v23 = a2;
+            v24 = 2114;
+            v25 = v20;
+            v21 = v20;
             _os_log_error_impl(&dword_186345000, v18, OS_LOG_TYPE_ERROR, "expected %{public}@, got %{public}@", buf, 0x16u);
           }
 
@@ -724,8 +710,8 @@ LABEL_17:
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v23 objects:v31 count:16];
-      if (v12)
+      v13 = [NSObject countByEnumeratingWithState:v11 objects:"countByEnumeratingWithState:objects:count:" count:?];
+      if (v13)
       {
         continue;
       }
@@ -734,38 +720,36 @@ LABEL_17:
     }
   }
 
-  v16 = v10;
+  v16 = v11;
 LABEL_19:
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
 
 uint64_t _BKSHIDSetHitTestRegionsForDisplay(mach_port_t a1, uint64_t a2, unsigned int a3, char *src)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  memset(v15, 0, 448);
-  *&v14[8] = 0u;
+  v15 = *MEMORY[0x1E69E9840];
+  memset(v14, 0, 448);
+  *&v13[8] = 0u;
   memset(&name, 0, sizeof(name));
-  v11 = 1;
-  v12 = a2;
-  v13 = 16777472;
-  *v14 = a3;
-  *&v14[4] = *MEMORY[0x1E69E99E0];
-  *&v14[12] = a3;
+  v10 = 1;
+  v11 = a2;
+  v12 = 16777472;
+  *v13 = a3;
+  *&v13[4] = *MEMORY[0x1E69E99E0];
+  *&v13[12] = a3;
   if (MEMORY[0x1EEE9AC40])
   {
-    v5 = mig_strncpy_zerofill(v15, src, 1024);
+    v5 = mig_strncpy_zerofill(v14, src, 1024);
   }
 
   else
   {
-    v5 = mig_strncpy(v15, src, 1024);
+    v5 = mig_strncpy(v14, src, 1024);
   }
 
-  *&v14[16] = 0;
-  *&v14[20] = v5;
+  *&v13[16] = 0;
+  *&v13[20] = v5;
   v6 = (v5 + 3) & 0xFFFFFFFC;
   name.msgh_bits = -2147483629;
   name.msgh_remote_port = a1;
@@ -787,13 +771,12 @@ uint64_t _BKSHIDSetHitTestRegionsForDisplay(mach_port_t a1, uint64_t a2, unsigne
     mach_msg_destroy(&name);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 void BKSHIDServicesSetHitTestRegionsForDisplay(void *a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   bzero(buffer, 0x400uLL);
@@ -807,20 +790,20 @@ void BKSHIDServicesSetHitTestRegionsForDisplay(void *a1, void *a2)
     v5 = 1;
   }
 
-  v6 = [MEMORY[0x1E69E58C0] bs_secureDataFromObject:v3];
+  v6 = [MEMORY[0x1E69E58C0] bs_secureDataFromObject:?];
   v7 = v6;
   if (v3 && !v6)
   {
     v8 = BKLogCommon();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v16 = 138543362;
-      v17 = v3;
+      v15 = 138543362;
+      v16 = v3;
       v9 = "Error encoding hittestRegions: %{public}@";
       v10 = v8;
       v11 = 12;
 LABEL_12:
-      _os_log_error_impl(&dword_186345000, v10, OS_LOG_TYPE_ERROR, v9, &v16, v11);
+      _os_log_error_impl(&dword_186345000, v10, OS_LOG_TYPE_ERROR, v9, &v15, v11);
       goto LABEL_13;
     }
 
@@ -837,8 +820,8 @@ LABEL_12:
       v8 = BKLogCommon();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v16 = 67109120;
-        LODWORD(v17) = v14;
+        v15 = 67109120;
+        LODWORD(v16) = v14;
         v9 = "Error sending hittestRegions: 0x%x";
         v10 = v8;
         v11 = 8;
@@ -848,15 +831,13 @@ LABEL_12:
 LABEL_13:
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 __CFString *NSStringFromBKSHIDEventHardwareType(unint64_t a1)
 {
   if (a1 >= 0xB)
   {
-    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<unknown:0x%lX>", a1];
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:a1];
   }
 
   else
@@ -888,7 +869,6 @@ uint64_t BKSHIDEventRegisterEventCallbackOnRunLoop(uint64_t a1, uint64_t a2, uin
 
   v6 = _getHIDEventSystemClient___hidEventSystemClientRef;
   CFRunLoopGetCurrent();
-  v7 = *MEMORY[0x1E695E8D0];
   IOHIDEventSystemClientScheduleWithRunLoop();
 
   return MEMORY[0x1EEDC80F0](v6, a1, a2, a3);
@@ -896,7 +876,7 @@ uint64_t BKSHIDEventRegisterEventCallbackOnRunLoop(uint64_t a1, uint64_t a2, uin
 
 void ___getHIDEventSystemClient_block_invoke()
 {
-  v11[3] = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (!_getHIDEventSystemClient___hidEventSystemClientRef)
   {
     v0 = [MEMORY[0x1E696AAE8] mainBundle];
@@ -913,32 +893,31 @@ void ___getHIDEventSystemClient_block_invoke()
     }
 
     v3 = BKSHIDServicesDeviceHasHighFrequencyDigitizer_hasHighFrequencyDigitizer;
-    v11[0] = v2;
-    v10[0] = @"bundleID";
-    v10[1] = @"pid";
-    v4 = [MEMORY[0x1E696AD98] numberWithInt:getpid()];
-    v5 = v4;
-    v10[2] = @"HighFrequency";
-    v6 = MEMORY[0x1E695E110];
+    v12 = v2;
+    v9 = @"bundleID";
+    v10 = @"pid";
+    v4 = MEMORY[0x1E696AD98];
+    getpid();
+    v5 = [v4 numberWithInt:?];
+    v6 = v5;
+    v11 = @"HighFrequency";
+    v7 = MEMORY[0x1E695E110];
     if (v3)
     {
-      v6 = MEMORY[0x1E695E118];
+      v7 = MEMORY[0x1E695E118];
     }
 
-    v11[1] = v4;
-    v11[2] = v6;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:3];
+    v13 = v5;
+    v14 = v7;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
 
-    v8 = *MEMORY[0x1E695E480];
     _getHIDEventSystemClient___hidEventSystemClientRef = IOHIDEventSystemClientCreateWithType();
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 id _BKSHIDEventGetAttachment(uint64_t a1, void *a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = _IOHIDEventCopyAttachment();
   if (objc_opt_isKindOfClass())
@@ -953,21 +932,19 @@ id _BKSHIDEventGetAttachment(uint64_t a1, void *a2, uint64_t a3)
       v7 = BKLogEventDelivery();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v11 = 138543874;
-        v12 = v4;
-        v13 = 2114;
-        v14 = a3;
-        v15 = 2114;
-        v16 = objc_opt_class();
-        v10 = v16;
-        _os_log_error_impl(&dword_186345000, v7, OS_LOG_TYPE_ERROR, "failed to get attachment for key: %{public}@ expected class %{public}@ but got class %{public}@ ", &v11, 0x20u);
+        v10 = 138543874;
+        v11 = v4;
+        v12 = 2114;
+        v13 = a3;
+        v14 = 2114;
+        v15 = objc_opt_class();
+        v9 = v15;
+        _os_log_error_impl(&dword_186345000, v7, OS_LOG_TYPE_ERROR, "failed to get attachment for key: %{public}@ expected class %{public}@ but got class %{public}@ ", &v10, 0x20u);
       }
     }
 
     v6 = 0;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -1015,9 +992,11 @@ uint64_t __BKSHIDServicesDeviceHasHighFrequencyDigitizer_block_invoke()
 
 uint64_t __BKLogEventDelivery_block_invoke()
 {
-  BKLogEventDelivery___logObj = os_log_create("com.apple.BackBoard", "EventDelivery");
+  v0 = os_log_create("com.apple.BackBoard", "EventDelivery");
+  v1 = BKLogEventDelivery___logObj;
+  BKLogEventDelivery___logObj = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 float BKSDisplayBrightnessGetCurrent()
@@ -1250,7 +1229,7 @@ __CFString *NSStringFromBKSHIDEventDeferringPolicyStatus(unint64_t a1)
 {
   if (a1 >= 3)
   {
-    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<invalid:%X>", a1];
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:a1];
   }
 
   else
@@ -1306,8 +1285,8 @@ double BKSHIDServicesLastUserEventTime()
 
 uint64_t _BKSHIDGetLastUserEventTime(int a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v12 = 0u;
+  v12 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   *&msg[20] = 0u;
   *&msg[4] = 0;
   special_reply_port = mig_get_special_reply_port();
@@ -1348,8 +1327,8 @@ uint64_t _BKSHIDGetLastUserEventTime(int a1, void *a2)
               v7 = *&msg[32];
               if (!*&msg[32])
               {
-                *a2 = v12;
-                goto LABEL_27;
+                *a2 = v11;
+                return v7;
               }
 
               goto LABEL_26;
@@ -1392,7 +1371,7 @@ uint64_t _BKSHIDGetLastUserEventTime(int a1, void *a2)
 
 LABEL_26:
       mach_msg_destroy(msg);
-      goto LABEL_27;
+      return v7;
     }
 
     mig_dealloc_special_reply_port();
@@ -1408,8 +1387,6 @@ LABEL_26:
     goto LABEL_26;
   }
 
-LABEL_27:
-  v9 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -1530,7 +1507,7 @@ id NSStringFromBKSSceneHostTouchBehavior(unint64_t a1)
 {
   if (a1 >= 3)
   {
-    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<unknown:%d>", a1];
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:a1];
   }
 
   else
@@ -1612,9 +1589,11 @@ id BKLogDisplay()
 
 uint64_t __BKLogDisplay_block_invoke()
 {
-  BKLogDisplay___logObj = os_log_create("com.apple.BackBoard", "Display");
+  v0 = os_log_create("com.apple.BackBoard", "Display");
+  v1 = BKLogDisplay___logObj;
+  BKLogDisplay___logObj = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id BKLogMousePointer()
@@ -1631,55 +1610,56 @@ id BKLogMousePointer()
 
 uint64_t __BKLogMousePointer_block_invoke()
 {
-  BKLogMousePointer___logObj = os_log_create("com.apple.BackBoard", "MousePointer");
+  v0 = os_log_create("com.apple.BackBoard", "MousePointer");
+  v1 = BKLogMousePointer___logObj;
+  BKLogMousePointer___logObj = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 Class __getFBSSystemServiceClass_block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v7[0] = 0;
+  v9 = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
   if (!FrontBoardServicesLibraryCore_frameworkLibrary)
   {
-    v7[1] = MEMORY[0x1E69E9820];
-    v7[2] = 3221225472;
-    v7[3] = __FrontBoardServicesLibraryCore_block_invoke;
-    v7[4] = &__block_descriptor_40_e5_v8__0l;
-    v7[5] = v7;
-    v8 = xmmword_1E6F46F20;
-    v9 = 0;
+    v6[1] = MEMORY[0x1E69E9820];
+    v6[2] = 3221225472;
+    v6[3] = __FrontBoardServicesLibraryCore_block_invoke;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_1E6F46F20;
+    v8 = 0;
     FrontBoardServicesLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!FrontBoardServicesLibraryCore_frameworkLibrary)
   {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *FrontBoardServicesLibrary(void)"];
-    [v4 handleFailureInFunction:v5 file:@"BKSSystemService.m" lineNumber:15 description:{@"%s", v7[0]}];
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
+    [v3 handleFailureInFunction:v6[0] file:? lineNumber:? description:?];
 
     goto LABEL_10;
   }
 
-  if (v7[0])
+  if (v6[0])
   {
-    free(v7[0]);
+    free(v6[0]);
   }
 
   result = objc_getClass("FBSSystemService");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getFBSSystemServiceClass(void)_block_invoke"];
-    [v4 handleFailureInFunction:v6 file:@"BKSSystemService.m" lineNumber:16 description:{@"Unable to find class %s", "FBSSystemService"}];
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
+    [v3 handleFailureInFunction:"FBSSystemService" file:? lineNumber:? description:?];
 
 LABEL_10:
     __break(1u);
   }
 
   getFBSSystemServiceClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1736,35 +1716,35 @@ id getCADisplayClass()
   return v1;
 }
 
-void sub_18634D0C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18634D0C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 double _BKSGetExternalDisplayScale(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (!v1)
   {
-    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"display != ((void *)0)"];
+    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"display != ((void *)0)"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"CGFloat _BKSGetExternalDisplayScale(CADisplay *__strong _Nonnull)"];
+      v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v10 = v8;
-      v11 = 2114;
-      v12 = @"BKSDisplayServices.m";
-      v13 = 1024;
-      v14 = 366;
-      v15 = 2114;
-      v16 = v7;
+      v9 = v7;
+      v10 = 2114;
+      v11 = @"BKSDisplayServices.m";
+      v12 = 1024;
+      v13 = 366;
+      v14 = 2114;
+      v15 = v6;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v7 UTF8String];
+    [v6 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x18634D244);
@@ -1778,11 +1758,10 @@ double _BKSGetExternalDisplayScale(void *a1)
     v3 = [v4 preferredScale];
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
-uint64_t BKSHIDEventContainsUpdates()
+uint64_t BKSHIDEventContainsUpdates(uint64_t a1)
 {
   if (IOHIDEventGetType() != 11)
   {
@@ -1820,7 +1799,7 @@ id BKLogTouchDeliveryPolicy()
   return v1;
 }
 
-uint64_t BKSHIDDigitizerEventIsFirstTouchDown()
+uint64_t BKSHIDDigitizerEventIsFirstTouchDown(uint64_t a1)
 {
   if ((IOHIDEventGetIntegerValue() & 2) == 0)
   {
@@ -1836,29 +1815,29 @@ uint64_t BKSHIDDigitizerEventIsFirstTouchDown()
       __assert_rtn("BKSHIDDigitizerEventIsFirstTouchDown", "BKSHIDEvent.m", 711, "pathEvents");
     }
 
-    v2 = Children;
+    v3 = Children;
     Count = CFArrayGetCount(Children);
     if (Count >= 1)
     {
-      v4 = Count;
-      v5 = 0;
+      v5 = Count;
+      v6 = 0;
       while (1)
       {
-        CFArrayGetValueAtIndex(v2, v5);
+        CFArrayGetValueAtIndex(v3, v6);
         if (IOHIDEventGetType() == 11)
         {
           IntegerValue = IOHIDEventGetIntegerValue();
-          v7 = IOHIDEventGetIntegerValue();
           v8 = IOHIDEventGetIntegerValue();
-          v9 = (IntegerValue & 2) == 0 || v7 == 0;
-          v10 = v8 && (v7 | IntegerValue & 2) == 0;
-          if (!v10 && v9)
+          v9 = IOHIDEventGetIntegerValue();
+          v10 = (IntegerValue & 2) == 0 || v8 == 0;
+          v11 = v9 && (v8 | IntegerValue & 2) == 0;
+          if (!v11 && v10)
           {
             break;
           }
         }
 
-        if (v4 == ++v5)
+        if (v5 == ++v6)
         {
           return 1;
         }
@@ -1873,27 +1852,27 @@ uint64_t BKSHIDDigitizerEventIsFirstTouchDown()
   return result;
 }
 
-uint64_t BKSHIDEventDigitizerGetTouchLocus(uint64_t a1, uint64_t a2)
+void *BKSHIDEventDigitizerGetTouchLocus(uint64_t a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"pathCollectionEvent"];
+    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"pathCollectionEvent"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BKSHIDTouchLocus BKSHIDEventDigitizerGetTouchLocus(IOHIDEventRef, IOHIDEventRef)"}];
+      v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v11 = v7;
-      v12 = 2114;
-      v13 = @"BKSHIDEvent.m";
-      v14 = 1024;
-      v15 = 562;
-      v16 = 2114;
-      v17 = v6;
+      v10 = v6;
+      v11 = 2114;
+      v12 = @"BKSHIDEvent.m";
+      v13 = 1024;
+      v14 = 562;
+      v15 = 2114;
+      v16 = v5;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v6 UTF8String];
+    [v5 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x18634D88CLL);
@@ -1901,22 +1880,22 @@ uint64_t BKSHIDEventDigitizerGetTouchLocus(uint64_t a1, uint64_t a2)
 
   if (!a2)
   {
-    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"pathEvent"];
+    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"pathEvent"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BKSHIDTouchLocus BKSHIDEventDigitizerGetTouchLocus(IOHIDEventRef, IOHIDEventRef)"}];
+      v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v11 = v9;
-      v12 = 2114;
-      v13 = @"BKSHIDEvent.m";
-      v14 = 1024;
-      v15 = 563;
-      v16 = 2114;
-      v17 = v8;
+      v10 = v8;
+      v11 = 2114;
+      v12 = @"BKSHIDEvent.m";
+      v13 = 1024;
+      v14 = 563;
+      v15 = 2114;
+      v16 = v7;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v8 UTF8String];
+    [v7 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x18634D960);
@@ -1925,14 +1904,12 @@ uint64_t BKSHIDEventDigitizerGetTouchLocus(uint64_t a1, uint64_t a2)
   v2 = _BKSHIDEventGetSubEventInfoFromDigitierEventForPathEvent(a1, a2);
   v3 = [v2 locus];
 
-  v4 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 id _BKSHIDEventGetSubEventInfoFromDigitierEventForPathEvent(uint64_t a1, uint64_t a2)
 {
   v2 = 0;
-  v20 = *MEMORY[0x1E69E9840];
   if (a1 && a2)
   {
     if (IOHIDEventGetType() == 11)
@@ -1942,26 +1919,22 @@ id _BKSHIDEventGetSubEventInfoFromDigitierEventForPathEvent(uint64_t a1, uint64_
       v6 = v5;
       if (v5)
       {
-        v17 = 0u;
-        v18 = 0u;
-        v15 = 0u;
-        v16 = 0u;
         v7 = [v5 pathAttributes];
-        v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [v7 countByEnumeratingWithState:? objects:? count:?];
         if (v8)
         {
           v9 = v8;
-          v10 = *v16;
+          v10 = MEMORY[0];
           while (2)
           {
-            for (i = 0; i != v9; ++i)
+            for (i = 0; i != v9; i = (i + 1))
             {
-              if (*v16 != v10)
+              if (MEMORY[0] != v10)
               {
                 objc_enumerationMutation(v7);
               }
 
-              v12 = *(*(&v15 + 1) + 8 * i);
+              v12 = *(8 * i);
               if ([v12 pathIndex] == IntegerValue)
               {
                 v2 = v12;
@@ -1969,7 +1942,7 @@ id _BKSHIDEventGetSubEventInfoFromDigitierEventForPathEvent(uint64_t a1, uint64_
               }
             }
 
-            v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+            v9 = [v7 countByEnumeratingWithState:? objects:? count:?];
             if (v9)
             {
               continue;
@@ -1994,8 +1967,6 @@ LABEL_16:
       v2 = 0;
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -2039,7 +2010,7 @@ __CFString *NSStringFromBKSHitTestRegionLocation(unint64_t a1)
 {
   if (a1 >= 3)
   {
-    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<invalid:%X>", a1];
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:a1];
   }
 
   else
@@ -2050,11 +2021,12 @@ __CFString *NSStringFromBKSHitTestRegionLocation(unint64_t a1)
   return v2;
 }
 
-uint64_t BKSDisplaySetSecureMode(char a1)
+uint64_t BKSDisplaySetSecureMode(uint64_t a1)
 {
+  v1 = a1;
   v2 = _BKSServerPortHelper("com.apple.backboard.display.services", BKSDisplayServerPort, &BKSDisplayServerMachPort, _InvalidateDisplayServicesPort);
 
-  return _BKSDisplaySetSecureMode(v2, a1);
+  return _BKSDisplaySetSecureMode(v2, v1);
 }
 
 uint64_t _BKSDisplaySetSecureMode(int a1, char a2)
@@ -2149,7 +2121,7 @@ __CFString *NSStringFromBKSHIDUISensorDisplayState(unint64_t a1)
 {
   if (a1 >= 4)
   {
-    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<unknown:%X>", a1];
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:a1];
   }
 
   else
@@ -2176,13 +2148,13 @@ id _BKSHIDEventGetConciseDescriptionKeyboard(uint64_t a1, uint64_t a2)
 {
   SenderID = IOHIDEventGetSenderID();
   IntegerValue = IOHIDEventGetIntegerValue();
-  v36 = IOHIDEventGetIntegerValue();
+  v35 = IOHIDEventGetIntegerValue();
   v4 = IOHIDEventGetIntegerValue();
   v5 = IOHIDEventGetIntegerValue();
   Phase = IOHIDEventGetPhase();
   v7 = IOHIDEventGetIntegerValue();
-  v37 = BKSHIDEventGetBaseAttributes(a1);
-  v34 = MEMORY[0x1E696AEC0];
+  v36 = BKSHIDEventGetBaseAttributes(a1);
+  v33 = MEMORY[0x1E696AEC0];
   if (v4 == 7)
   {
     v8 = @"KeyPress";
@@ -2737,13 +2709,13 @@ LABEL_129:
   }
 
 LABEL_3:
-  v32 = v8;
-  v35 = v5;
+  v31 = v8;
+  v34 = v5;
   if (a2)
   {
     v9 = a2;
     v10 = NSStringFromBKSHIDEventSource(a2);
-    v11 = [@"source" stringByAppendingFormat:@":%@ ", v10];
+    v11 = [@"source" stringByAppendingFormat:v10];
   }
 
   else
@@ -2776,7 +2748,7 @@ LABEL_3:
         }
 
 LABEL_22:
-        v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(AppleVendorSenderID:0x%X) ", v16];
+        v17 = [MEMORY[0x1E696AEC0] stringWithFormat:v16];
         goto LABEL_24;
       }
     }
@@ -2789,22 +2761,20 @@ LABEL_22:
 LABEL_24:
   if ((SenderID + 0x7FFFFFF7E8CE6C8FLL) < 6 || SenderID == 0x8000000817319378)
   {
-    v31 = SenderID;
-    v18 = @":%llX(AX) ";
+    v30 = SenderID;
 LABEL_26:
-    [@"senderID" stringByAppendingFormat:v18, v31];
+    [@"senderID" stringByAppendingFormat:v30];
     goto LABEL_27;
   }
 
   if (!SenderID)
   {
-    v18 = @":zero(!) ";
     goto LABEL_26;
   }
 
   if (!v9)
   {
-    v19 = &stru_1EF552F68;
+    v18 = &stru_1EF552F68;
     if (Phase)
     {
       goto LABEL_28;
@@ -2813,84 +2783,84 @@ LABEL_26:
     goto LABEL_78;
   }
 
-  [@"senderID" stringByAppendingFormat:@":%llX ", SenderID];
-  v19 = LABEL_27:;
+  [@"senderID" stringByAppendingFormat:SenderID];
+  v18 = LABEL_27:;
   if (Phase)
   {
 LABEL_28:
-    v20 = [@"phase" stringByAppendingFormat:@":0x%lX ", Phase];
+    v19 = [@"phase" stringByAppendingFormat:Phase];
     goto LABEL_79;
   }
 
 LABEL_78:
-  v20 = &stru_1EF552F68;
+  v19 = &stru_1EF552F68;
 LABEL_79:
   if (v7 == 1)
+  {
+    v20 = &stru_1EF552F68;
+  }
+
+  else
+  {
+    v20 = [@"pressCount" stringByAppendingFormat:v7];
+  }
+
+  if (v35)
+  {
+    v21 = [@"longPress" stringByAppendingFormat:1];
+  }
+
+  else
   {
     v21 = &stru_1EF552F68;
   }
 
-  else
-  {
-    v21 = [@"pressCount" stringByAppendingFormat:@":%d ", v7];
-  }
-
-  if (v36)
-  {
-    v22 = [@"longPress" stringByAppendingFormat:@":%d ", 1];
-  }
-
-  else
-  {
-    v22 = &stru_1EF552F68;
-  }
-
   if (IntegerValue && (Phase & 1) != 0)
   {
-    v23 = @"began";
+    v22 = @"began";
   }
 
   else if ((Phase & 4) != 0 && IntegerValue)
   {
-    v23 = @"end";
+    v22 = @"end";
   }
 
   else if (IntegerValue || (Phase & 4) == 0)
   {
-    v23 = @"up";
+    v22 = @"up";
     if (IntegerValue)
     {
-      v23 = @"down";
+      v22 = @"down";
     }
 
-    if (v36)
+    if (v35)
     {
-      v23 = @"long press";
+      v22 = @"long press";
     }
   }
 
   else
   {
-    v23 = @"timeout";
+    v22 = @"timeout";
   }
 
-  v24 = v23;
-  v25 = [v37 options];
-  if (v25)
+  v23 = v22;
+  v24 = [v36 options];
+  if (v24)
   {
-    v26 = MEMORY[0x1E696AEC0];
-    v27 = NSStringFromBKSHIDEventAttributeOptions(v25);
-    v28 = [v26 stringWithFormat:@" (%@)", v27];
+    v25 = MEMORY[0x1E696AEC0];
+    v26 = NSStringFromBKSHIDEventAttributeOptions(v24);
+    v27 = [v25 stringWithFormat:v26];
   }
 
   else
   {
-    v28 = &stru_1EF552F68;
+    v27 = &stru_1EF552F68;
   }
 
-  v29 = [v34 stringWithFormat:@"%@ page:0x%X usage:0x%X downEvent:%d %@%@%@%@%@%@%@%@", v32, v4, v35, IntegerValue != 0, v11, v17, v19, v20, v21, v22, v24, v28];
+  v28 = [v33 stringWithFormat:v31, v4, v34, IntegerValue != 0, v11, v17, v18, v19, v20, v21, v23, v27];
 
-  return v29;
+  return v28;
 }
 
 uint64_t _BKSHIDRequestUISensorMode(int a1, uint64_t a2, int a3)
@@ -2922,11 +2892,12 @@ uint64_t _BKSHIDRequestUISensorMode(int a1, uint64_t a2, int a3)
   return v3;
 }
 
-uint64_t BKSHIDServicesAmbientLightSensorEnableAutoBrightness(char a1)
+uint64_t BKSHIDServicesAmbientLightSensorEnableAutoBrightness(uint64_t a1)
 {
+  v1 = a1;
   v2 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
 
-  return _BKSHIDAmbientLightSensorEnableAutoBrightness(v2, a1);
+  return _BKSHIDAmbientLightSensorEnableAutoBrightness(v2, v1);
 }
 
 uint64_t _BKSHIDAmbientLightSensorEnableAutoBrightness(mach_port_t a1, char a2)
@@ -2968,7 +2939,7 @@ __CFString *NSStringFromBKSHIDServicesProximityDetectionMode(uint64_t a1)
 
   else
   {
-    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<unknown:%d>", a1];
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:a1];
   }
 
   return v2;
@@ -2976,14 +2947,14 @@ __CFString *NSStringFromBKSHIDServicesProximityDetectionMode(uint64_t a1)
 
 void BKSHIDEventSetSimpleDeliveryInfo(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
-  v7 = [BKSHIDEventBaseAttributes baseAttributesFromProvider:a4];
-  [v7 setSource:a2];
+  v6 = [BKSHIDEventBaseAttributes baseAttributesFromProvider:?];
+  [v6 setSource:?];
   if (a3)
   {
-    [v7 setOptions:1];
+    [v6 setOptions:?];
   }
 
-  _BKSHIDEventSetAttributes(a1, v7, 1);
+  _BKSHIDEventSetAttributes(a1, v6, 1);
 }
 
 id _BKSHIDEventGetConciseDescriptionProximity(uint64_t a1)
@@ -3005,12 +2976,12 @@ id _BKSHIDEventGetConciseDescriptionProximity(uint64_t a1)
 
   v8 = MEMORY[0x1E696AEC0];
   v9 = BKSNSStringFromIOHIDProximityDetectionMask(IntegerValue);
-  v10 = [v8 stringWithFormat:@"Proximity [%@]: (%@) sender:%llX t:%llu", v7, v9, SenderID, TimeStamp];
+  v10 = [v8 stringWithFormat:v7, v9, SenderID, TimeStamp];
 
   return v10;
 }
 
-id BKSHIDEventGetConciseDescription(uint64_t a1)
+id BKSHIDEventGetConciseDescription(void *a1)
 {
   Type = IOHIDEventGetType();
   if (Type <= 5)
@@ -3019,24 +2990,24 @@ id BKSHIDEventGetConciseDescription(uint64_t a1)
     {
       if (Type == 3)
       {
-        v25 = BKSHIDEventGetBaseAttributes(a1);
-        v26 = [v25 source];
+        v23 = BKSHIDEventGetBaseAttributes(a1);
+        v24 = [v23 source];
 
-        v24 = _BKSHIDEventGetConciseDescriptionKeyboard(a1, v26);
+        v22 = _BKSHIDEventGetConciseDescriptionKeyboard(a1, v24);
       }
 
       else
       {
         if (Type == 4)
         {
-          _BKSHIDEventGetConciseDescriptionTranslation();
+          _BKSHIDEventGetConciseDescriptionTranslation(a1);
         }
 
         else
         {
-          _BKSHIDEventGetConciseDescriptionRotation();
+          _BKSHIDEventGetConciseDescriptionRotation(a1);
         }
-        v24 = ;
+        v22 = ;
       }
 
       goto LABEL_46;
@@ -3044,7 +3015,7 @@ id BKSHIDEventGetConciseDescription(uint64_t a1)
 
     if (Type == 1)
     {
-      v24 = _BKSHIDEventGetConciseDescriptionVendorDefined();
+      v22 = _BKSHIDEventGetConciseDescriptionVendorDefined(a1);
     }
 
     else
@@ -3054,7 +3025,7 @@ id BKSHIDEventGetConciseDescription(uint64_t a1)
         goto LABEL_45;
       }
 
-      v24 = _BKSHIDEventGetConciseDescriptionButton();
+      v22 = _BKSHIDEventGetConciseDescriptionButton(a1);
     }
 
     goto LABEL_46;
@@ -3065,39 +3036,39 @@ id BKSHIDEventGetConciseDescription(uint64_t a1)
     switch(Type)
     {
       case 14:
-        v24 = _BKSHIDEventGetConciseDescriptionProximity(a1);
+        v22 = _BKSHIDEventGetConciseDescriptionProximity(a1);
         break;
       case 17:
-        v24 = _BKSHIDEventGetConciseDescriptionPointer(a1);
+        v22 = _BKSHIDEventGetConciseDescriptionPointer(a1);
         break;
       case 39:
-        v24 = _BKSHIDEventGetConciseDescriptionGenericGesture();
+        v22 = _BKSHIDEventGetConciseDescriptionGenericGesture(a1);
         break;
       default:
         goto LABEL_45;
     }
 
 LABEL_46:
-    v23 = v24;
+    v21 = v22;
     goto LABEL_47;
   }
 
   if (Type == 6)
   {
-    v24 = _BKSHIDEventGetConciseDescriptionScroll();
+    v22 = _BKSHIDEventGetConciseDescriptionScroll(a1);
     goto LABEL_46;
   }
 
   if (Type == 7)
   {
-    v24 = _BKSHIDEventGetConciseDescriptionScale();
+    v22 = _BKSHIDEventGetConciseDescriptionScale(a1);
     goto LABEL_46;
   }
 
   if (Type != 11)
   {
 LABEL_45:
-    v24 = [MEMORY[0x1E696AD60] stringWithFormat:@"%@", IOHIDEventTypeGetName()];
+    v22 = [MEMORY[0x1E696AD60] stringWithFormat:IOHIDEventTypeGetName()];
     goto LABEL_46;
   }
 
@@ -3108,17 +3079,17 @@ LABEL_45:
   if (v5)
   {
     v7 = [v5 token];
-    v8 = [v4 appendObject:v7 withName:@"token"];
+    v8 = [v4 appendObject:? withName:?];
 
     v9 = [v6 options];
     if ((v9 & 0x200) != 0)
     {
-      [v4 appendString:@"more" withName:0];
+      [v4 appendString:? withName:?];
     }
 
     if ((v9 & 0x400) != 0)
     {
-      [v4 appendString:@"abs" withName:0];
+      [v4 appendString:? withName:?];
     }
 
     _BKSHIDEventAppendEventFlags(a1, v4);
@@ -3126,80 +3097,72 @@ LABEL_45:
     if (v10)
     {
       v11 = NSStringFromBKSTouchStreamIdentifier(v10);
-      [v4 appendString:v11 withName:@"strm"];
+      [v4 appendString:? withName:?];
     }
 
     if ([v6 systemGestureStateChange])
     {
-      [v4 appendString:@"systemGestureStateChange" withName:0];
+      [v4 appendString:? withName:?];
     }
 
     if ([v6 systemGesturesPossible])
     {
-      [v4 appendString:@"sgp" withName:0];
+      [v4 appendString:? withName:?];
     }
 
     v12 = [v6 activeModifiers];
     if (v12)
     {
-      v40[0] = MEMORY[0x1E69E9820];
-      v40[1] = 3221225472;
-      v40[2] = ___BKSHIDEventConciseDescriptionDigitizer_block_invoke;
-      v40[3] = &__block_descriptor_40_e43_v16__0___BSDescriptionStringAppendTarget__8l;
-      v40[4] = v12;
-      [v4 appendCustomFormatWithName:@"modifiers" block:v40];
+      v31 = MEMORY[0x1E69E9820];
+      v32 = 3221225472;
+      v33 = ___BKSHIDEventConciseDescriptionDigitizer_block_invoke;
+      v34 = &__block_descriptor_40_e43_v16__0___BSDescriptionStringAppendTarget__8l;
+      v35 = v12;
+      [v4 appendCustomFormatWithName:? block:?];
     }
 
     v13 = [v6 sceneTouchBehavior];
     if (v13)
     {
       v14 = NSStringFromBKSSceneHostTouchBehavior(v13);
-      [v4 appendString:v14 withName:@"behavior"];
+      [v4 appendString:? withName:?];
     }
   }
 
-  IntegerValue = IOHIDEventGetIntegerValue();
-  if (IntegerValue)
+  if (IOHIDEventGetIntegerValue())
   {
-    v16 = [v4 appendInteger:IntegerValue withName:@"gen"];
+    v15 = [v4 appendInteger:? withName:?];
   }
 
-  v17 = IOHIDEventGetChildren();
-  v18 = [v6 pathAttributes];
-  v19 = [v18 count];
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x2020000000;
-  v39 = 0;
-  v28 = MEMORY[0x1E69E9820];
-  v29 = 3221225472;
-  v30 = ___BKSHIDEventConciseDescriptionDigitizer_block_invoke_2;
-  v31 = &unk_1E6F47AB0;
-  v20 = v4;
-  v32 = v20;
-  v34 = &v36;
-  v35 = v19;
-  v21 = v18;
-  v33 = v21;
-  [v20 appendCollection:v17 withName:@"subevents" itemBlock:&v28];
-  if (!v37[3])
+  v16 = IOHIDEventGetChildren();
+  v17 = [v6 pathAttributes];
+  [v17 count];
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2020000000;
+  v30 = 0;
+  v26 = MEMORY[0x1E69E9820];
+  v18 = v4;
+  v19 = v17;
+  [v18 appendCollection:? withName:? itemBlock:?];
+  if (!v28[3])
   {
-    _BKSHIDEventAppendEventFlags(a1, v20);
+    _BKSHIDEventAppendEventFlags(a1, v18);
   }
 
-  v22 = [v20 description];
+  v20 = [v18 description];
 
-  _Block_object_dispose(&v36, 8);
-  v23 = [v3 stringWithFormat:@"Digitizer %@", v22, v28, v29, v30, v31];
+  _Block_object_dispose(&v27, 8);
+  v21 = [v3 stringWithFormat:v20, v26, 3221225472, ___BKSHIDEventConciseDescriptionDigitizer_block_invoke_2, &unk_1E6F47AB0];
 
 LABEL_47:
 
-  return v23;
+  return v21;
 }
 
-void sub_18635117C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_18635117C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3240,48 +3203,47 @@ LABEL_9:
 
 Class __getCAFenceHandleClass_block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v7[0] = 0;
+  v9 = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
   if (!QuartzCoreLibraryCore_frameworkLibrary_8152)
   {
-    v7[1] = MEMORY[0x1E69E9820];
-    v7[2] = 3221225472;
-    v7[3] = __QuartzCoreLibraryCore_block_invoke_8153;
-    v7[4] = &__block_descriptor_40_e5_v8__0l;
-    v7[5] = v7;
-    v8 = xmmword_1E6F47080;
-    v9 = 0;
+    v6[1] = MEMORY[0x1E69E9820];
+    v6[2] = 3221225472;
+    v6[3] = __QuartzCoreLibraryCore_block_invoke_8153;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_1E6F47080;
+    v8 = 0;
     QuartzCoreLibraryCore_frameworkLibrary_8152 = _sl_dlopen();
   }
 
   if (!QuartzCoreLibraryCore_frameworkLibrary_8152)
   {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *QuartzCoreLibrary(void)"];
-    [v4 handleFailureInFunction:v5 file:@"BKSAnimationFence.m" lineNumber:16 description:{@"%s", v7[0]}];
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
+    [v3 handleFailureInFunction:v6[0] file:? lineNumber:? description:?];
 
     goto LABEL_10;
   }
 
-  if (v7[0])
+  if (v6[0])
   {
-    free(v7[0]);
+    free(v6[0]);
   }
 
   result = objc_getClass("CAFenceHandle");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getCAFenceHandleClass(void)_block_invoke"];
-    [v4 handleFailureInFunction:v6 file:@"BKSAnimationFence.m" lineNumber:17 description:{@"Unable to find class %s", "CAFenceHandle"}];
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
+    [v3 handleFailureInFunction:"CAFenceHandle" file:? lineNumber:? description:?];
 
 LABEL_10:
     __break(1u);
   }
 
   getCAFenceHandleClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3295,90 +3257,84 @@ _BKSTouchDeliveryPolicyConcreteServerReference *BKSTouchDeliveryPolicyServerGetP
   }
 
   v3 = objc_alloc_init(_BKSTouchDeliveryPolicyConcreteServerReference);
-  [(_BKSTouchDeliveryPolicyConcreteServerReference *)v3 setServer:BKSTouchDeliveryPolicyServerGetProxyWithErrorHandler_server];
-  [(_BKSTouchDeliveryPolicyConcreteServerReference *)v3 setErrorHandler:v2];
+  [(_BKSTouchDeliveryPolicyConcreteServerReference *)v3 setServer:?];
+  [(_BKSTouchDeliveryPolicyConcreteServerReference *)v3 setErrorHandler:?];
 
   return v3;
 }
 
 void __BKSTouchDeliveryPolicyServerGetProxyWithErrorHandler_block_invoke()
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v0 = objc_alloc_init(_BKSTouchDeliveryPolicyConcreteServerInterface);
   v1 = BKSTouchDeliveryPolicyServerGetProxyWithErrorHandler_server;
   BKSTouchDeliveryPolicyServerGetProxyWithErrorHandler_server = v0;
 
   if (!BKSTouchDeliveryPolicyServerGetProxyWithErrorHandler_server)
   {
-    v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"need a server instance"];
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"id<BKSTouchDeliveryPolicyServerInterface> BKSTouchDeliveryPolicyServerGetProxyWithErrorHandler(void (^__strong)(NSError *__strong))_block_invoke"];
-      v5 = 138544130;
-      v6 = v4;
-      v7 = 2114;
-      v8 = @"BKSTouchDeliveryPolicyServerInterface.m";
-      v9 = 1024;
-      v10 = 70;
-      v11 = 2114;
-      v12 = v3;
-      _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", &v5, 0x26u);
+      v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
+      v4 = 138544130;
+      v5 = v3;
+      v6 = 2114;
+      v7 = @"BKSTouchDeliveryPolicyServerInterface.m";
+      v8 = 1024;
+      v9 = 70;
+      v10 = 2114;
+      v11 = v2;
+      _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", &v4, 0x26u);
     }
 
-    [v3 UTF8String];
+    [v2 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x18635181CLL);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __BKLogTouchDeliveryPolicy_block_invoke()
 {
-  BKLogTouchDeliveryPolicy___logObj = os_log_create("com.apple.BackBoard", "TouchDeliveryPolicy");
+  v0 = os_log_create("com.apple.BackBoard", "TouchDeliveryPolicy");
+  v1 = BKLogTouchDeliveryPolicy___logObj;
+  BKLogTouchDeliveryPolicy___logObj = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 void collectPolicies(void *a1, void *a2)
 {
   v3 = a2;
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __collectPolicies_block_invoke;
-  v6[3] = &unk_1E6F46C08;
-  v7 = v3;
+  v6 = MEMORY[0x1E69E9820];
+  v7 = 3221225472;
+  v8 = __collectPolicies_block_invoke;
+  v9 = &unk_1E6F46C08;
+  v10 = v3;
   v4 = v3;
-  v5 = [a1 reducePolicyToObjectWithBlock:v6];
+  v5 = [a1 reducePolicyToObjectWithBlock:?];
 }
 
 id __collectPolicies_block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __collectPolicies_block_invoke_2;
-  v10[3] = &unk_1E6F46C30;
-  v11 = *(a1 + 32);
-  v12 = v3;
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __collectPolicies_block_invoke_3;
-  v7[3] = &unk_1E6F46C58;
+  v9 = *(a1 + 32);
+  v10 = v3;
+  v7 = MEMORY[0x1E69E9820];
   v8 = *(a1 + 32);
-  v9 = v12;
-  v4 = v12;
-  v5 = [v4 matchSharingTouchesPolicy:v10 orCancelTouchesPolicy:v7 orCombinedPolicy:&__block_literal_global_4589];
+  v4 = v10;
+  v5 = [v4 matchSharingTouchesPolicy:v7 orCancelTouchesPolicy:3221225472 orCombinedPolicy:{__collectPolicies_block_invoke_3, &unk_1E6F46C58}];
 
   return v5;
 }
 
 uint64_t __BKLogKeyboard_block_invoke()
 {
-  BKLogKeyboard___logObj = os_log_create("com.apple.BackBoard", "Keyboard");
+  v0 = os_log_create("com.apple.BackBoard", "Keyboard");
+  v1 = BKLogKeyboard___logObj;
+  BKLogKeyboard___logObj = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t BKSHIDServicesProximityDetectionActive()
@@ -3494,9 +3450,11 @@ LABEL_26:
   return v7;
 }
 
-uint64_t _BKSDisplayServicesNotifySetDisplayBlanked(const __CFString *a1, char a2, char a3)
+uint64_t _BKSDisplayServicesNotifySetDisplayBlanked(const __CFString *a1, uint64_t a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v3 = a3;
+  v4 = a2;
+  v9 = *MEMORY[0x1E69E9840];
   bzero(buffer, 0x400uLL);
   if (a1)
   {
@@ -3504,30 +3462,28 @@ uint64_t _BKSDisplayServicesNotifySetDisplayBlanked(const __CFString *a1, char a
   }
 
   v6 = _BKSServerPortHelper("com.apple.backboard.display.services", BKSDisplayServerPort, &BKSDisplayServerMachPort, _InvalidateDisplayServicesPort);
-  result = _BKSDisplayNotifySetDisplayBlanked(v6, buffer, a2, a3);
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return _BKSDisplayNotifySetDisplayBlanked(v6, buffer, v4, v3);
 }
 
 uint64_t _BKSDisplayNotifySetDisplayBlanked(mach_port_name_t a1, const char *a2, char a3, char a4)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  memset(v15, 0, 480);
+  v15 = *MEMORY[0x1E69E9840];
+  memset(v14, 0, 480);
   *name = 0u;
-  v14 = 0u;
-  *(&v14 + 1) = *MEMORY[0x1E69E99E0];
+  v13 = 0u;
+  *(&v13 + 1) = *MEMORY[0x1E69E99E0];
   if (MEMORY[0x1EEE9AC40])
   {
-    v7 = mig_strncpy_zerofill(v15 + 8, a2, 1024);
+    v7 = mig_strncpy_zerofill(v14 + 8, a2, 1024);
   }
 
   else
   {
-    v7 = mig_strncpy(v15 + 8, a2, 1024);
+    v7 = mig_strncpy(v14 + 8, a2, 1024);
   }
 
-  LODWORD(v15[0]) = 0;
-  DWORD1(v15[0]) = v7;
+  LODWORD(v14[0]) = 0;
+  DWORD1(v14[0]) = v7;
   v8 = (v7 + 3) & 0xFFFFFFFC;
   v9 = name + v8;
   v9[40] = a3;
@@ -3539,7 +3495,7 @@ uint64_t _BKSDisplayNotifySetDisplayBlanked(mach_port_name_t a1, const char *a2,
   name[0] = 19;
   name[2] = a1;
   name[3] = 0;
-  *&v14 = 0x5B916B00000000;
+  *&v13 = 0x5B916B00000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(name);
@@ -3556,7 +3512,6 @@ uint64_t _BKSDisplayNotifySetDisplayBlanked(mach_port_name_t a1, const char *a2,
     mach_msg_destroy(name);
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -3673,62 +3628,60 @@ LABEL_26:
   return v7;
 }
 
-void BKSHIDServicesGetHumanPresenceStatus(void *a1, void *a2, BOOL *a3, _DWORD *a4)
+void BKSHIDServicesGetHumanPresenceStatus(void *a1, void *a2, BOOL *a3, int *a4)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v7 = a1;
   bzero(buffer, 0x400uLL);
   if (!v7 || CFStringGetCString(v7, buffer, 1024, 0x8000100u))
   {
-    v12 = 0;
     v11 = 0;
     v10 = 0;
+    v9 = 0;
     v8 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
-    _BKSHIDGetHumanPresenceStatus(v8, buffer, &v12, &v11, &v10);
+    _BKSHIDGetHumanPresenceStatus(v8, buffer, &v11, &v10, &v9);
     if (a2)
     {
-      *a2 = v12;
+      *a2 = v11;
     }
 
     if (a3)
     {
-      *a3 = v11 != 0;
+      *a3 = v10 != 0;
     }
 
     if (a4)
     {
-      *a4 = v10;
+      *a4 = v9;
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t _BKSHIDGetHumanPresenceStatus(mach_port_name_t a1, const char *a2, _DWORD *a3, _BYTE *a4, _DWORD *a5)
 {
-  v21 = *MEMORY[0x1E69E9840];
-  memset(v20, 0, 480);
+  v20 = *MEMORY[0x1E69E9840];
+  memset(v19, 0, 480);
   *name = 0u;
-  v19 = 0u;
-  *(&v19 + 1) = *MEMORY[0x1E69E99E0];
+  v18 = 0u;
+  *(&v18 + 1) = *MEMORY[0x1E69E99E0];
   if (MEMORY[0x1EEE9AC40])
   {
-    v9 = mig_strncpy_zerofill(v20 + 8, a2, 1024);
+    v9 = mig_strncpy_zerofill(v19 + 8, a2, 1024);
   }
 
   else
   {
-    v9 = mig_strncpy(v20 + 8, a2, 1024);
+    v9 = mig_strncpy(v19 + 8, a2, 1024);
   }
 
-  LODWORD(v20[0]) = 0;
-  DWORD1(v20[0]) = v9;
+  LODWORD(v19[0]) = 0;
+  DWORD1(v19[0]) = v9;
   v10 = (v9 + 3) & 0xFFFFFFFC;
   special_reply_port = mig_get_special_reply_port();
   name[2] = a1;
   name[3] = special_reply_port;
   name[0] = 5395;
-  *&v19 = 0x5B8DBD00000000;
+  *&v18 = 0x5B8DBD00000000;
   if (MEMORY[0x1EEE9AC50])
   {
     voucher_mach_msg_set(name);
@@ -3746,12 +3699,12 @@ uint64_t _BKSHIDGetHumanPresenceStatus(mach_port_name_t a1, const char *a2, _DWO
   {
     if (!v13)
     {
-      if (DWORD1(v19) == 71)
+      if (DWORD1(v18) == 71)
       {
         v14 = 4294966988;
       }
 
-      else if (DWORD1(v19) == 6000161)
+      else if (DWORD1(v18) == 6000161)
       {
         if ((name[0] & 0x80000000) == 0)
         {
@@ -3759,13 +3712,13 @@ uint64_t _BKSHIDGetHumanPresenceStatus(mach_port_name_t a1, const char *a2, _DWO
           {
             if (!name[2])
             {
-              v14 = LODWORD(v20[0]);
-              if (!LODWORD(v20[0]))
+              v14 = LODWORD(v19[0]);
+              if (!LODWORD(v19[0]))
               {
-                *a3 = DWORD1(v20[0]);
-                *a4 = BYTE8(v20[0]);
-                *a5 = HIDWORD(v20[0]);
-                goto LABEL_30;
+                *a3 = DWORD1(v19[0]);
+                *a4 = BYTE8(v19[0]);
+                *a5 = HIDWORD(v19[0]);
+                return v14;
               }
 
               goto LABEL_29;
@@ -3781,7 +3734,7 @@ uint64_t _BKSHIDGetHumanPresenceStatus(mach_port_name_t a1, const char *a2, _DWO
 
             else
             {
-              v15 = LODWORD(v20[0]) == 0;
+              v15 = LODWORD(v19[0]) == 0;
             }
 
             if (v15)
@@ -3791,7 +3744,7 @@ uint64_t _BKSHIDGetHumanPresenceStatus(mach_port_name_t a1, const char *a2, _DWO
 
             else
             {
-              v14 = LODWORD(v20[0]);
+              v14 = LODWORD(v19[0]);
             }
 
             goto LABEL_29;
@@ -3808,7 +3761,7 @@ uint64_t _BKSHIDGetHumanPresenceStatus(mach_port_name_t a1, const char *a2, _DWO
 
 LABEL_29:
       mach_msg_destroy(name);
-      goto LABEL_30;
+      return v14;
     }
 
     mig_dealloc_special_reply_port();
@@ -3824,8 +3777,6 @@ LABEL_29:
     goto LABEL_29;
   }
 
-LABEL_30:
-  v16 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -3853,8 +3804,8 @@ void __getCADisplayClass_block_invoke(uint64_t a1)
   else
   {
     v2 = [MEMORY[0x1E696AAA8] currentHandler];
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getCADisplayClass(void)_block_invoke"];
-    [v2 handleFailureInFunction:v3 file:@"BKSDisplayServices.m" lineNumber:42 description:{@"Unable to find class %s", "CADisplay"}];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
+    [v2 handleFailureInFunction:"CADisplay" file:? lineNumber:? description:?];
 
     __break(1u);
   }
@@ -3862,66 +3813,59 @@ void __getCADisplayClass_block_invoke(uint64_t a1)
 
 void QuartzCoreLibrary()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 0;
   if (!QuartzCoreLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = __QuartzCoreLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_1E6F46D30;
-    v6 = 0;
+    v3[1] = MEMORY[0x1E69E9820];
+    v3[2] = 3221225472;
+    v3[3] = __QuartzCoreLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_1E6F46D30;
+    v5 = 0;
     QuartzCoreLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!QuartzCoreLibraryCore_frameworkLibrary)
   {
-    v2 = [MEMORY[0x1E696AAA8] currentHandler];
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *QuartzCoreLibrary(void)"];
-    [v2 handleFailureInFunction:v3 file:@"BKSDisplayServices.m" lineNumber:41 description:{@"%s", v4[0]}];
+    v1 = [MEMORY[0x1E696AAA8] currentHandler];
+    v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
+    [v1 handleFailureInFunction:v3[0] file:? lineNumber:? description:?];
 
     __break(1u);
     goto LABEL_7;
   }
 
-  v0 = v4[0];
-  if (v4[0])
+  v0 = v3[0];
+  if (v3[0])
   {
 LABEL_7:
     free(v0);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 void BKSHIDServicesRequestProximityDetectionMode(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   kdebug_trace();
   v2 = BKLogUISensor();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = NSStringFromBKSHIDServicesProximityDetectionMode(a1);
     *buf = 138543362;
-    v14 = v3;
+    v11 = v3;
     _os_log_impl(&dword_186345000, v2, OS_LOG_TYPE_DEFAULT, "request prox mode: %{public}@", buf, 0xCu);
   }
 
   os_unfair_lock_lock(&BKSHIDServicesRequestProximityDetectionMode_sLock);
   if (a1)
   {
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __BKSHIDServicesRequestProximityDetectionMode_block_invoke;
-    v11[3] = &__block_descriptor_36_e35_v16__0__BKSMutableHIDUISensorMode_8l;
-    v12 = a1;
-    v4 = [BKSHIDUISensorMode buildModeForReason:@"RequestProximityDetectionMode" builder:v11];
+    v4 = [BKSHIDUISensorMode buildModeForReason:"buildModeForReason:builder:" builder:?];
     v5 = +[BKSHIDUISensorService sharedInstance];
-    v6 = [v5 suppressUISensorChangesForReason:@"RequestProximityDetectionMode transaction"];
+    v6 = [v5 suppressUISensorChangesForReason:?];
     v7 = BKSHIDServicesRequestProximityDetectionMode_sModeAssertion;
-    v8 = [v5 requestUISensorMode:v4];
+    v8 = [v5 requestUISensorMode:?];
     v9 = BKSHIDServicesRequestProximityDetectionMode_sModeAssertion;
     BKSHIDServicesRequestProximityDetectionMode_sModeAssertion = v8;
 
@@ -3937,14 +3881,13 @@ void BKSHIDServicesRequestProximityDetectionMode(uint64_t a1)
   }
 
   os_unfair_lock_unlock(&BKSHIDServicesRequestProximityDetectionMode_sLock);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __BKSHIDServicesRequestProximityDetectionMode_block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  [v3 setDigitizerEnabled:1];
-  [v3 setProximityDetectionMode:*(a1 + 32)];
+  v2 = a2;
+  [v2 setDigitizerEnabled:?];
+  [v2 setProximityDetectionMode:?];
 }
 
 __CFString *BKSNSStringFromIOHIDProximityDetectionMask(unsigned int a1)
@@ -3982,66 +3925,67 @@ void _BKAppendStringForBitmaskDescription(void *a1, void *a2, uint64_t a3, uint6
   {
     if (*a5 >= 1)
     {
-      [v10 appendString:@"|"];
+      [v10 appendString:?];
     }
 
-    [v10 appendString:v9];
+    [v10 appendString:?];
     ++*a5;
   }
 }
 
 uint64_t BKSHIDServicesGetObjectWithinProximity()
 {
-  v2 = 0;
+  v4 = 0;
   v0 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
-  _BKSHIDGetObjectWithinProximity(v0, &v2);
-  return v2;
+  _BKSHIDGetObjectWithinProximity(v0, &v4, v1, v2);
+  return v4;
 }
 
-uint64_t _BKSHIDGetObjectWithinProximity(int a1, _BYTE *a2)
+uint64_t _BKSHIDGetObjectWithinProximity(uint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4)
 {
+  v5 = a1;
   memset(&name_12[4], 0, 28);
   name = 0;
   special_reply_port = mig_get_special_reply_port();
-  name_4 = a1;
+  name_4 = v5;
   name_8 = special_reply_port;
-  v10 = 5395;
+  v12 = 5395;
   *name_12 = 0x5B8D9100000000;
   if (MEMORY[0x1EEE9AC50])
   {
-    voucher_mach_msg_set(&v10);
-    v5 = name_8;
+    voucher_mach_msg_set(&v12);
+    v7 = name_8;
   }
 
   else
   {
-    v5 = special_reply_port;
+    v7 = special_reply_port;
   }
 
-  v6 = mach_msg(&v10, 3162115, 0x18u, 0x30u, v5, 0, 0);
-  v7 = v6;
-  if ((v6 - 268435458) > 0xE || ((1 << (v6 - 2)) & 0x4003) == 0)
+  v8 = mach_msg(&v12, 3162115, 0x18u, 0x30u, v7, 0, 0);
+  v9 = v8;
+  if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
   {
-    if (!v6)
+    if (!v8)
     {
       if (*&name_12[4] == 71)
       {
-        v7 = 4294966988;
+        v9 = 4294966988;
       }
 
       else if (*&name_12[4] == 6000117)
       {
-        if ((v10 & 0x80000000) == 0)
+        if ((v12 & 0x80000000) == 0)
         {
           if (name == 40)
           {
             if (!name_4)
             {
-              v7 = *&name_12[16];
+              v9 = *&name_12[16];
               if (!*&name_12[16])
               {
                 *a2 = name_12[20];
-                return v7;
+                return v9;
               }
 
               goto LABEL_26;
@@ -4052,47 +3996,47 @@ uint64_t _BKSHIDGetObjectWithinProximity(int a1, _BYTE *a2)
           {
             if (name_4)
             {
-              v8 = 1;
+              v10 = 1;
             }
 
             else
             {
-              v8 = *&name_12[16] == 0;
+              v10 = *&name_12[16] == 0;
             }
 
-            if (v8)
+            if (v10)
             {
-              v7 = 4294966996;
+              v9 = 4294966996;
             }
 
             else
             {
-              v7 = *&name_12[16];
+              v9 = *&name_12[16];
             }
 
             goto LABEL_26;
           }
         }
 
-        v7 = 4294966996;
+        v9 = 4294966996;
       }
 
       else
       {
-        v7 = 4294966995;
+        v9 = 4294966995;
       }
 
 LABEL_26:
-      mach_msg_destroy(&v10);
-      return v7;
+      mach_msg_destroy(&v12);
+      return v9;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-  if ((v7 - 268435459) <= 1)
+  if ((v9 - 268435459) <= 1)
   {
-    if ((v10 & 0x1F00) == 0x1100)
+    if ((v12 & 0x1F00) == 0x1100)
     {
       mach_port_deallocate(*MEMORY[0x1E69E9A60], name_8);
     }
@@ -4100,49 +4044,47 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t _BKSVerifyIsArrayOfNumbers(void *a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v1 = a1;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v13 = 0u;
-    v14 = 0u;
+    v10 = 0u;
     v11 = 0u;
-    v12 = 0u;
+    v9 = 0u;
     v2 = v1;
-    v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v3 = [v2 countByEnumeratingWithState:0 objects:? count:?];
     if (v3)
     {
       v4 = v3;
-      v5 = *v12;
+      v5 = *v9;
       while (2)
       {
         v6 = 0;
         do
         {
-          if (*v12 != v5)
+          if (*v9 != v5)
           {
             objc_enumerationMutation(v2);
           }
 
-          v7 = *(*(&v11 + 1) + 8 * v6);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            v8 = 0;
+            v7 = 0;
             goto LABEL_13;
           }
 
-          ++v6;
+          v6 = (v6 + 1);
         }
 
         while (v4 != v6);
-        v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v4 = [v2 countByEnumeratingWithState:? objects:? count:?];
         if (v4)
         {
           continue;
@@ -4152,24 +4094,23 @@ uint64_t _BKSVerifyIsArrayOfNumbers(void *a1)
       }
     }
 
-    v8 = 1;
+    v7 = 1;
 LABEL_13:
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-  return v8;
+  return v7;
 }
 
 __CFString *NSStringFromBKSHIDEventBackBoardVendorSubtype(unint64_t a1)
 {
   if (a1 >= 4)
   {
-    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<unknown:%X>", a1];
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:a1];
   }
 
   else
@@ -4180,23 +4121,23 @@ __CFString *NSStringFromBKSHIDEventBackBoardVendorSubtype(unint64_t a1)
   return v2;
 }
 
-uint64_t BKSHIDEventGetBackBoardVendorSubtype()
+uint64_t BKSHIDEventGetBackBoardVendorSubtype(uint64_t a1)
 {
   v8 = *MEMORY[0x1E69E9840];
   if (IOHIDEventGetType() != 1 || IOHIDEventGetIntegerValue() != 65280 || IOHIDEventGetIntegerValue() != 92)
   {
-    goto LABEL_19;
+    return 0;
   }
 
   if (IOHIDEventGetIntegerValue())
   {
-    v0 = BKLogCommon();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+    v1 = BKLogCommon();
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       LOWORD(v7[0]) = 0;
-      v1 = "BKSHIDEventGetBackBoardVendorSubtype: unsupported event version";
+      v2 = "BKSHIDEventGetBackBoardVendorSubtype: unsupported event version";
 LABEL_17:
-      _os_log_error_impl(&dword_186345000, v0, OS_LOG_TYPE_ERROR, v1, v7, 2u);
+      _os_log_error_impl(&dword_186345000, v1, OS_LOG_TYPE_ERROR, v2, v7, 2u);
       goto LABEL_18;
     }
 
@@ -4205,63 +4146,59 @@ LABEL_17:
 
   if (IOHIDEventGetIntegerValue() <= 3)
   {
-    v0 = BKLogCommon();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+    v1 = BKLogCommon();
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       LOWORD(v7[0]) = 0;
-      v1 = "BKSHIDEventGetBackBoardVendorSubtype: data too small";
+      v2 = "BKSHIDEventGetBackBoardVendorSubtype: data too small";
       goto LABEL_17;
     }
 
 LABEL_18:
 
-LABEL_19:
-    v3 = 0;
-    goto LABEL_20;
+    return 0;
   }
 
   DataValue = IOHIDEventGetDataValue();
   if (!DataValue)
   {
-    v0 = BKLogCommon();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+    v1 = BKLogCommon();
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       LOWORD(v7[0]) = 0;
-      v1 = "BKSHIDEventGetBackBoardVendorSubtype: data missing";
+      v2 = "BKSHIDEventGetBackBoardVendorSubtype: data missing";
       goto LABEL_17;
     }
 
     goto LABEL_18;
   }
 
-  v3 = *DataValue;
-  if (v3 > 3)
+  v4 = *DataValue;
+  if (v4 > 3)
   {
-    v4 = BKLogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = BKLogCommon();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       v7[0] = 67109120;
-      v7[1] = v3;
-      _os_log_error_impl(&dword_186345000, v4, OS_LOG_TYPE_ERROR, "BKSHIDEventGetBackBoardVendorSubtype: invalid subtype %X", v7, 8u);
+      v7[1] = v4;
+      _os_log_error_impl(&dword_186345000, v5, OS_LOG_TYPE_ERROR, "BKSHIDEventGetBackBoardVendorSubtype: invalid subtype %X", v7, 8u);
     }
 
-    goto LABEL_19;
+    return 0;
   }
 
-LABEL_20:
-  v5 = *MEMORY[0x1E69E9840];
-  return v3;
+  return v4;
 }
 
-uint64_t BKSHIDEventCreateBackBoardVendorSubtypeEvent(uint64_t a1)
+uint64_t BKSHIDEventCreateBackBoardVendorSubtypeEvent(uint64_t a1, uint64_t a2)
 {
   v13 = *MEMORY[0x1E69E9840];
   if ((a1 - 1) >= 3)
   {
-    v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"invalid subtype"];
+    v3 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"IOHIDEventRef  _Nonnull BKSHIDEventCreateBackBoardVendorSubtypeEvent(BKSHIDEventBackBoardVendorSubtype, uint64_t)"}];
+      v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       v5 = 138544130;
       v6 = v4;
       v7 = 2114;
@@ -4280,9 +4217,7 @@ uint64_t BKSHIDEventCreateBackBoardVendorSubtypeEvent(uint64_t a1)
   }
 
   v5 = a1;
-  result = IOHIDEventCreateVendorDefinedEvent();
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
+  return IOHIDEventCreateVendorDefinedEvent();
 }
 
 void BSDescriptionStreamAppendBKSKeyModifierFlags(void *a1, int a2)
@@ -4377,7 +4312,7 @@ void _BKSKeyModifierStringAppend(void *a1, void *a2, _BYTE *a3)
   v5 = a2;
   if (*a3)
   {
-    [v6 appendString:@"|"];
+    [v6 appendString:?];
   }
 
   else
@@ -4385,7 +4320,7 @@ void _BKSKeyModifierStringAppend(void *a1, void *a2, _BYTE *a3)
     *a3 = 1;
   }
 
-  [v6 appendString:v5];
+  [v6 appendString:?];
 }
 
 __CFString *NSStringFromBKSKeyModifierFlags(uint64_t a1)
@@ -4411,12 +4346,12 @@ __CFString *BKSRestartActionOptionsDescription(char a1)
   v3 = v2;
   if (a1)
   {
-    [v2 addObject:@"HideAppleLogo"];
+    [v2 addObject:?];
   }
 
   if ([v3 count])
   {
-    v4 = [v3 componentsJoinedByString:{@", "}];
+    v4 = [v3 componentsJoinedByString:?];
   }
 
   else
@@ -4472,10 +4407,10 @@ uint64_t _InvalidateWatchdogPort()
 
 float BKSHIDServicesGetBacklightFactor()
 {
-  v2 = -1.0;
+  v4 = -1.0;
   v0 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
-  _BKSHIDGetBacklightFactor(v0, &v2);
-  return v2;
+  _BKSHIDGetBacklightFactor(v0, &v4, v1, v2);
+  return v4;
 }
 
 uint64_t BKSHIDServicesSetBacklightFactorPending(float a1)
@@ -4485,48 +4420,51 @@ uint64_t BKSHIDServicesSetBacklightFactorPending(float a1)
   return _BKSHIDSetBacklightFactorPending(v2, a1);
 }
 
-uint64_t BKSHIDServicesSetBacklightFactorWithFadeDuration(char a1, float a2, float a3)
+uint64_t BKSHIDServicesSetBacklightFactorWithFadeDuration(uint64_t a1, float a2, float a3)
 {
   v6 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
 
-  return _BKSHIDSetBacklightFactorWithFadeDuration(v6, a1, 0, a2, a3);
+  return _BKSHIDSetBacklightFactorWithFadeDuration(v6, a1, 0, v7, a2, a3);
 }
 
-uint64_t BKSHIDServicesSetBacklightFactorWithFadeDurationAsync(char a1, float a2, float a3)
+uint64_t BKSHIDServicesSetBacklightFactorWithFadeDurationAsync(uint64_t a1, float a2, float a3)
 {
+  v3 = a1;
   v6 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
 
-  return _BKSHIDNotifySetBacklightFactorWithFadeDurationAsync(v6, 1, a1, 0, a2, a3);
+  return _BKSHIDNotifySetBacklightFactorWithFadeDurationAsync(v6, 1, v3, 0, a2, a3);
 }
 
-uint64_t BKSHIDServicesNotifyBacklightFactorWithFadeDurationAsync(char a1, float a2, float a3)
+uint64_t BKSHIDServicesNotifyBacklightFactorWithFadeDurationAsync(uint64_t a1, float a2, float a3)
 {
+  v3 = a1;
   v6 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
 
-  return _BKSHIDNotifySetBacklightFactorWithFadeDurationAsync(v6, 0, a1, 0, a2, a3);
+  return _BKSHIDNotifySetBacklightFactorWithFadeDurationAsync(v6, 0, v3, 0, a2, a3);
 }
 
-uint64_t BKSHIDServicesSetBacklightFactorWithFadeDurationSilently(char a1, float a2, float a3)
+uint64_t BKSHIDServicesSetBacklightFactorWithFadeDurationSilently(uint64_t a1, float a2, float a3)
 {
   v6 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
 
-  return _BKSHIDSetBacklightFactorWithFadeDuration(v6, a1, 1, a2, a3);
+  return _BKSHIDSetBacklightFactorWithFadeDuration(v6, a1, 1, v7, a2, a3);
 }
 
-uint64_t BKSHIDServicesSetBacklightFactorWithFadeDurationSilentlyAsync(char a1, float a2, float a3)
+uint64_t BKSHIDServicesSetBacklightFactorWithFadeDurationSilentlyAsync(uint64_t a1, float a2, float a3)
 {
+  v3 = a1;
   v6 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
 
-  return _BKSHIDNotifySetBacklightFactorWithFadeDurationAsync(v6, 1, a1, 1, a2, a3);
+  return _BKSHIDNotifySetBacklightFactorWithFadeDurationAsync(v6, 1, v3, 1, a2, a3);
 }
 
 void BKSHIDServicesSetBacklightFeatures(void *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v1 = a1;
-  v7 = 0;
-  v2 = [MEMORY[0x1E698E750] encodeObject:v1 error:&v7];
-  v3 = v7;
+  v6 = 0;
+  v2 = [MEMORY[0x1E698E750] encodeObject:? error:?];
+  v3 = v6;
   if (v2)
   {
     v4 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
@@ -4539,14 +4477,12 @@ void BKSHIDServicesSetBacklightFeatures(void *a1)
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v9 = v1;
-      v10 = 2114;
-      v11 = v3;
+      v8 = v1;
+      v9 = 2114;
+      v10 = v3;
       _os_log_error_impl(&dword_186345000, v5, OS_LOG_TYPE_ERROR, "BKSHIDServicesSetBacklightFeatures failed to encode %{public}@: %{public}@", buf, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t BKSHIDServicesAmbientLightSensorExists()
@@ -4563,7 +4499,7 @@ uint64_t __BKSHIDServicesAmbientLightSensorExists_block_invoke()
 {
   v0 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
 
-  return _BKSHIDAmbientLightSensorExists(v0, &BKSHIDServicesAmbientLightSensorExists_alsExists);
+  return _BKSHIDAmbientLightSensorExists(v0, &BKSHIDServicesAmbientLightSensorExists_alsExists, v1, v2);
 }
 
 uint64_t BKSHIDServicesAmbientLightSensorDisableAutoBrightness()
@@ -4575,36 +4511,36 @@ uint64_t BKSHIDServicesAmbientLightSensorDisableAutoBrightness()
 
 uint64_t BKSHIDServicesRequestEstimatedProximityEvents(double a1)
 {
-  v5 = 0;
+  v7 = 0;
   v2 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
   v3 = a1;
-  _BKSHIDRequestEstimatedProximityEvents(v2, &v5, v3);
-  return v5;
+  _BKSHIDRequestEstimatedProximityEvents(v2, &v7, v4, v5, v3);
+  return v7;
 }
 
 void BKSHIDServicesRequestProximityStatusEvent(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (![v1 length])
   {
-    v7 = [MEMORY[0x1E696AAA8] currentHandler];
-    v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void BKSHIDServicesRequestProximityStatusEvent(NSString *__strong _Nonnull)"];
-    [v7 handleFailureInFunction:v8 file:@"BKSHIDServices.m" lineNumber:130 description:@"must have a valid reason"];
+    v6 = [MEMORY[0x1E696AAA8] currentHandler];
+    v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
+    [v6 handleFailureInFunction:? file:? lineNumber:? description:?];
   }
 
   v2 = BKLogUISensor();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v9 = 0;
-    _os_log_impl(&dword_186345000, v2, OS_LOG_TYPE_DEFAULT, "request status event", v9, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_186345000, v2, OS_LOG_TYPE_DEFAULT, "request status event", v8, 2u);
   }
 
-  bzero(v9, 0x400uLL);
+  bzero(v8, 0x400uLL);
   v3 = v1;
   if ([(__CFString *)v3 length])
   {
-    CString = CFStringGetCString(v3, v9, 1024, 0x8000100u);
+    CString = CFStringGetCString(v3, v8, 1024, 0x8000100u);
 
     if (!CString)
     {
@@ -4617,10 +4553,8 @@ void BKSHIDServicesRequestProximityStatusEvent(void *a1)
   }
 
   v5 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
-  _BKSHIDRequestProximityStatusEvent(v5, v9);
+  _BKSHIDRequestProximityStatusEvent(v5, v8);
 LABEL_10:
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t BKSHIDServicesProximityDetectionModePriority(int a1)
@@ -4675,7 +4609,7 @@ __CFString *NSStringFromBKSHIDUILockState(uint64_t a1)
     v3 = v2;
     if ((v1 & 0x20) != 0)
     {
-      [v2 addObject:@"disableProximity"];
+      [v2 addObject:?];
       if ((v1 & 0x10) == 0)
       {
 LABEL_4:
@@ -4693,7 +4627,7 @@ LABEL_4:
       goto LABEL_4;
     }
 
-    [v3 addObject:@"disableMultitouch"];
+    [v3 addObject:?];
     if ((v1 & 0x40) == 0)
     {
 LABEL_5:
@@ -4706,7 +4640,7 @@ LABEL_5:
     }
 
 LABEL_16:
-    [v3 addObject:@"disableTapToWake"];
+    [v3 addObject:?];
     if ((v1 & 0x80) == 0)
     {
 LABEL_6:
@@ -4719,25 +4653,25 @@ LABEL_6:
     }
 
 LABEL_17:
-    [v3 addObject:@"pocketTouchMode"];
+    [v3 addObject:?];
     if ((v1 & 0x100) == 0)
     {
 LABEL_7:
       if ((v1 & 0x200) == 0)
       {
 LABEL_9:
-        v4 = [v3 componentsJoinedByString:{@", "}];
+        v4 = [v3 componentsJoinedByString:?];
 
         goto LABEL_11;
       }
 
 LABEL_8:
-      [v3 addObject:@"disableAlwaysOnGestures"];
+      [v3 addObject:?];
       goto LABEL_9;
     }
 
 LABEL_18:
-    [v3 addObject:@"disableCoverGesture"];
+    [v3 addObject:?];
     if ((v1 & 0x200) == 0)
     {
       goto LABEL_9;
@@ -4774,18 +4708,13 @@ void BKSHIDServicesSetHIDUILockedStateWithSource(uint64_t a1, char a2)
   BKSHIDServicesSetHIDUILockedStateWithSource_sPrevailingSensorStateAssertion = 0;
   v5 = v4;
 
-  v10 = MEMORY[0x1E69E9820];
-  v11 = 3221225472;
-  v12 = __BKSHIDServicesSetHIDUILockedStateWithSource_block_invoke;
-  v13 = &__block_descriptor_44_e35_v16__0__BKSMutableHIDUISensorMode_8l;
-  v14 = a1;
-  LOBYTE(v15) = (a2 & 0x10) != 0;
-  BYTE1(v15) = (a2 & 0x40) != 0;
-  BYTE2(v15) = (a2 & 0x90) == 128;
-  BYTE3(v15) = (a2 & 0x20) != 0;
-  v6 = [BKSHIDUISensorMode buildModeForReason:@"BKSHIDServicesSetHIDUILockedState" builder:&v10];
-  v7 = [BKSHIDUISensorService sharedInstance:v10];
-  v8 = [v7 requestUISensorMode:v6];
+  LOBYTE(v10) = (a2 & 0x10) != 0;
+  BYTE1(v10) = (a2 & 0x40) != 0;
+  BYTE2(v10) = (a2 & 0x90) == 128;
+  BYTE3(v10) = (a2 & 0x20) != 0;
+  v6 = [BKSHIDUISensorMode buildModeForReason:MEMORY[0x1E69E9820] builder:3221225472, __BKSHIDServicesSetHIDUILockedStateWithSource_block_invoke, &__block_descriptor_44_e35_v16__0__BKSMutableHIDUISensorMode_8l, a1, v10];
+  v7 = +[BKSHIDUISensorService sharedInstance];
+  v8 = [v7 requestUISensorMode:?];
   v9 = BKSHIDServicesSetHIDUILockedStateWithSource_sPrevailingSensorStateAssertion;
   BKSHIDServicesSetHIDUILockedStateWithSource_sPrevailingSensorStateAssertion = v8;
 
@@ -4796,37 +4725,38 @@ void BKSHIDServicesSetHIDUILockedStateWithSource(uint64_t a1, char a2)
 void __BKSHIDServicesSetHIDUILockedStateWithSource_block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  [v3 setChangeSource:*(a1 + 32)];
-  [v3 setDigitizerEnabled:(*(a1 + 40) & 1) == 0];
+  [v3 setChangeSource:?];
+  [v3 setDigitizerEnabled:?];
   if (*(a1 + 40) == 1)
   {
-    [v3 setTapToWakeEnabled:(*(a1 + 41) & 1) == 0];
+    [v3 setTapToWakeEnabled:?];
   }
 
   else
   {
-    [v3 setPocketTouchesExpected:*(a1 + 42)];
+    [v3 setPocketTouchesExpected:?];
   }
 
   if (*(a1 + 43) == 1)
   {
-    [v3 setProximityDetectionMode:5];
+    [v3 setProximityDetectionMode:?];
   }
 }
 
 BOOL BKSHIDServicesGetObjectInProximityIgnoresTouches()
 {
-  v2 = 0;
+  v4 = 0;
   v0 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
-  _BKSHIDGetObjectInProximityIgnoresTouches(v0, &v2);
-  return v2 != 0;
+  _BKSHIDGetObjectInProximityIgnoresTouches(v0, &v4, v1, v2);
+  return v4 != 0;
 }
 
-uint64_t BKSHIDServicesSetObjectInProximityIgnoresTouches(char a1)
+uint64_t BKSHIDServicesSetObjectInProximityIgnoresTouches(uint64_t a1)
 {
+  v1 = a1;
   v2 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
 
-  return _BKSHIDSetObjectInProximityIgnoresTouches(v2, a1);
+  return _BKSHIDSetObjectInProximityIgnoresTouches(v2, v1);
 }
 
 __CFString *NSStringFromBKSHIDServicesHumanPresenceStatus(uint64_t a1)
@@ -4838,7 +4768,7 @@ __CFString *NSStringFromBKSHIDServicesHumanPresenceStatus(uint64_t a1)
     v3 = v2;
     if (v1)
     {
-      [v2 appendString:@"has-presence "];
+      [v2 appendString:?];
       if ((v1 & 2) == 0)
       {
 LABEL_4:
@@ -4856,7 +4786,7 @@ LABEL_4:
       goto LABEL_4;
     }
 
-    [v3 appendString:@"has-proximity "];
+    [v3 appendString:?];
     if ((v1 & 4) == 0)
     {
 LABEL_5:
@@ -4864,18 +4794,18 @@ LABEL_5:
       {
 LABEL_7:
         v4 = [MEMORY[0x1E696AB08] whitespaceCharacterSet];
-        v5 = [v3 stringByTrimmingCharactersInSet:v4];
+        v5 = [v3 stringByTrimmingCharactersInSet:?];
 
         goto LABEL_9;
       }
 
 LABEL_6:
-      [v3 appendString:@"received-proximity "];
+      [v3 appendString:?];
       goto LABEL_7;
     }
 
 LABEL_14:
-    [v3 appendString:@"received-presence "];
+    [v3 appendString:?];
     if ((v1 & 8) == 0)
     {
       goto LABEL_7;
@@ -4892,18 +4822,18 @@ LABEL_9:
 
 BOOL BKSHIDServicesIsCapsLockLightOn()
 {
-  v2 = 0;
+  v3 = 0;
   v0 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
-  _BKSHIDIsCapsLockLightOn(v0, 0, &v2);
-  return v2 != 0;
+  _BKSHIDIsCapsLockLightOn(v0, 0, &v3, v1);
+  return v3 != 0;
 }
 
 BOOL BKSHIDKeyboardIsCapsLockLightOn(uint64_t a1)
 {
-  v4 = 0;
+  v5 = 0;
   v2 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
-  _BKSHIDIsCapsLockLightOn(v2, a1, &v4);
-  return v4 != 0;
+  _BKSHIDIsCapsLockLightOn(v2, a1, &v5, v3);
+  return v5 != 0;
 }
 
 uint64_t BKSHIDServicesSetCapsLockRomanSwitchMode(int a1)
@@ -4914,11 +4844,12 @@ uint64_t BKSHIDServicesSetCapsLockRomanSwitchMode(int a1)
   return _BKSHIDSetCapsLockRomanSwitchMode(v2, 0, v1);
 }
 
-uint64_t BKSHIDKeyboardSetCapsLockRomanSwitchMode(uint64_t a1, char a2)
+uint64_t BKSHIDKeyboardSetCapsLockRomanSwitchMode(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
 
-  return _BKSHIDSetCapsLockRomanSwitchMode(v4, a1, a2);
+  return _BKSHIDSetCapsLockRomanSwitchMode(v4, a1, v2);
 }
 
 uint64_t BKSHIDServicesSetCapsLockDelayOverride(double a1)
@@ -4937,7 +4868,7 @@ uint64_t BKSHIDKeyboardSetCapsLockDelayOverride(uint64_t a1, double a2)
 
 void BKSHIDKeyboardSetLayout(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = a2;
   bzero(buffer, 0x400uLL);
   if (!v3 || CFStringGetCString(v3, buffer, 1024, 0x8000100u))
@@ -4945,8 +4876,6 @@ void BKSHIDKeyboardSetLayout(uint64_t a1, void *a2)
     v4 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
     _BKSHIDSetHardwareKeyboardLayout(v4, a1, buffer);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 id BKSHIDServicesGetHardwareKeyboardLanguage()
@@ -4959,14 +4888,14 @@ id BKSHIDServicesGetHardwareKeyboardLanguage()
 
 id BKSHIDKeyboardGetDeviceProperties(uint64_t a1)
 {
-  v2 = +[BKSHIDKeyboardService sharedInstance];
-  v3 = [v2 keyboardDeviceForSenderID:a1];
-  v4 = [v3 _properties];
+  v1 = +[BKSHIDKeyboardService sharedInstance];
+  v2 = [v1 keyboardDeviceForSenderID:?];
+  v3 = [v2 _properties];
 
-  return v4;
+  return v3;
 }
 
-uint64_t BKSHIDServicesCapsLockKeyHasLanguageSwitchLabel()
+void *BKSHIDServicesCapsLockKeyHasLanguageSwitchLabel()
 {
   v0 = BKSHIDKeyboardGetDeviceProperties(0);
   v1 = [v0 capsLockKeyHasLanguageSwitchLabel];
@@ -4976,63 +4905,64 @@ uint64_t BKSHIDServicesCapsLockKeyHasLanguageSwitchLabel()
 
 BOOL BKSHIDKeyboardWantsStandardTypeOverride(uint64_t a1)
 {
-  v4 = 0;
+  v5 = 0;
   v2 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
-  _BKSHIDKeyboardWantsStandardTypeOverride(v2, a1, &v4);
-  return v4 != 0;
+  _BKSHIDKeyboardWantsStandardTypeOverride(v2, a1, &v5, v3);
+  return v5 != 0;
 }
 
-uint64_t BKSHIDKeyboardSetCapsLockActive(uint64_t a1, char a2)
+uint64_t BKSHIDKeyboardSetCapsLockActive(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BKSHIDKeyboardSetCapsLockActive requires a specific keyboard service senderID"];
+    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BKSHIDKeyboardSetCapsLockActive(IOHIDEventSenderID, BOOL)"}];
-      v9 = 138544130;
-      v10 = v8;
-      v11 = 2114;
-      v12 = @"BKSHIDServices.m";
-      v13 = 1024;
-      v14 = 454;
-      v15 = 2114;
-      v16 = v7;
-      _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", &v9, 0x26u);
+      v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
+      v8 = 138544130;
+      v9 = v7;
+      v10 = 2114;
+      v11 = @"BKSHIDServices.m";
+      v12 = 1024;
+      v13 = 454;
+      v14 = 2114;
+      v15 = v6;
+      _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", &v8, 0x26u);
     }
 
-    [v7 UTF8String];
+    [v6 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x186361DF8);
   }
 
+  v2 = a2;
   v4 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
-  v5 = *MEMORY[0x1E69E9840];
 
-  return _BKSHIDSetCapsLockActive(v4, a1, a2);
+  return _BKSHIDSetCapsLockActive(v4, a1, v2);
 }
 
-uint64_t BKSHIDServicesSetStandardType(uint64_t a1, int a2)
+uint64_t BKSHIDServicesSetStandardType(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
 
-  return _BKSHIDSetStandardType(v4, a1, a2);
+  return _BKSHIDSetStandardType(v4, a1, v2);
 }
 
 void BKSHIDServicesSetAuthenticatedKeyCommands(void *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v1 = a1;
-  v2 = [MEMORY[0x1E69E58C0] bs_secureDataFromObject:v1];
+  v2 = [MEMORY[0x1E69E58C0] bs_secureDataFromObject:?];
   if (!v2)
   {
     v6 = BKLogBacklight();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138543362;
-      v12 = v1;
+      v10 = 138543362;
+      v11 = v1;
       v7 = "BKSHIDServicesSetBacklightFeatures failed to encode %{public}@";
       v8 = v6;
       v9 = 12;
@@ -5052,13 +4982,13 @@ LABEL_6:
     v6 = BKLogCommon();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v11 = 67109120;
-      LODWORD(v12) = v5;
+      v10 = 67109120;
+      LODWORD(v11) = v5;
       v7 = "Error sending authenticatedKeyCommands: 0x%x";
       v8 = v6;
       v9 = 8;
 LABEL_9:
-      _os_log_error_impl(&dword_186345000, v8, OS_LOG_TYPE_ERROR, v7, &v11, v9);
+      _os_log_error_impl(&dword_186345000, v8, OS_LOG_TYPE_ERROR, v7, &v10, v9);
       goto LABEL_6;
     }
 
@@ -5066,19 +4996,17 @@ LABEL_9:
   }
 
 LABEL_7:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t BKSHIDServicesGetRingerState()
 {
-  v2 = 0;
+  v4 = 0;
   v0 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
-  _BKSHIDGetRingerState(v0, &v2);
-  return v2;
+  _BKSHIDGetRingerState(v0, &v4, v1, v2);
+  return v4;
 }
 
-uint64_t BKSHIDServicesCancelButtonEventsFromSenderID(uint64_t a1, int a2, int a3)
+uint64_t BKSHIDServicesCancelButtonEventsFromSenderID(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
 
@@ -5114,22 +5042,22 @@ uint64_t BKSHIDServicesCancelTouchesOnAllDisplays()
 
 void BKSHIDServicesCancelTouchesWithIdentifiers(void *a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v1 = a1;
-  v2 = [MEMORY[0x1E69E58C0] bs_secureDataFromObject:v1];
+  v2 = [MEMORY[0x1E69E58C0] bs_secureDataFromObject:?];
   v3 = v2;
   if (v1 && !v2)
   {
     v4 = BKLogCommon();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138543362;
-      v13 = v1;
+      v11 = 138543362;
+      v12 = v1;
       v5 = "Error encoding touchIdentifiers: %{public}@";
       v6 = v4;
       v7 = 12;
 LABEL_10:
-      _os_log_error_impl(&dword_186345000, v6, OS_LOG_TYPE_ERROR, v5, &v12, v7);
+      _os_log_error_impl(&dword_186345000, v6, OS_LOG_TYPE_ERROR, v5, &v11, v7);
       goto LABEL_7;
     }
 
@@ -5144,8 +5072,8 @@ LABEL_10:
     v4 = BKLogCommon();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v12 = 67109120;
-      LODWORD(v13) = v10;
+      v11 = 67109120;
+      LODWORD(v12) = v10;
       v5 = "Error sending touchIdentifiers: 0x%x";
       v6 = v4;
       v7 = 8;
@@ -5154,13 +5082,12 @@ LABEL_10:
 
 LABEL_7:
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
-void BKSHIDServicesClaimGenericGestureFocus(void *a1, int a2)
+void BKSHIDServicesClaimGenericGestureFocus(void *a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a1;
   bzero(buffer, 0x400uLL);
   if (v3 && !CFStringGetCString(v3, buffer, 1024, 0x8000100u))
@@ -5168,8 +5095,8 @@ void BKSHIDServicesClaimGenericGestureFocus(void *a1, int a2)
     v7 = BKLogCommon();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138412290;
-      v13 = v3;
+      v11 = 138412290;
+      v12 = v3;
       v8 = "Could not encode displayUUID: '%@'";
       v9 = v7;
       v10 = 12;
@@ -5182,20 +5109,20 @@ LABEL_7:
   }
 
   v4 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
-  v5 = _BKSHIDClaimGenericGestureFocus(v4, buffer, a2);
+  v5 = _BKSHIDClaimGenericGestureFocus(v4, buffer, v2);
   if (v5)
   {
     v6 = v5;
     v7 = BKLogCommon();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v12 = 67109120;
-      LODWORD(v13) = v6;
+      v11 = 67109120;
+      LODWORD(v12) = v6;
       v8 = "Error sending generic gesture destination: 0x%x";
       v9 = v7;
       v10 = 8;
 LABEL_10:
-      _os_log_error_impl(&dword_186345000, v9, OS_LOG_TYPE_ERROR, v8, &v12, v10);
+      _os_log_error_impl(&dword_186345000, v9, OS_LOG_TYPE_ERROR, v8, &v11, v10);
       goto LABEL_7;
     }
 
@@ -5203,24 +5130,22 @@ LABEL_10:
   }
 
 LABEL_8:
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void BKSHIDServicesExcludeCAContextsFromHitTestingForZoomSenders(void *a1)
 {
-  v9[2] = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v1 = a1;
-  v2 = [BKSHIDEventSenderDescriptor build:&__block_literal_global_90];
-  v9[0] = v2;
-  v3 = [BKSHIDEventSenderDescriptor build:&__block_literal_global_92];
-  v9[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
+  v2 = [BKSHIDEventSenderDescriptor build:?];
+  v8 = v2;
+  v3 = [BKSHIDEventSenderDescriptor build:?];
+  v9 = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:? count:?];
 
   if ([v1 count])
   {
     v5 = +[BKSTouchEventService sharedInstance];
-    v6 = [v5 excludeEventsFromSenders:v4 fromHitTestingToContextIDs:v1];
+    v6 = [v5 excludeEventsFromSenders:? fromHitTestingToContextIDs:?];
   }
 
   else
@@ -5231,24 +5156,22 @@ void BKSHIDServicesExcludeCAContextsFromHitTestingForZoomSenders(void *a1)
   [BKSHIDServicesExcludeCAContextsFromHitTestingForZoomSenders_sPreviousAssertion invalidate];
   v7 = BKSHIDServicesExcludeCAContextsFromHitTestingForZoomSenders_sPreviousAssertion;
   BKSHIDServicesExcludeCAContextsFromHitTestingForZoomSenders_sPreviousAssertion = v6;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void _BKSHIDServicesApplyButtonDefinitions(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v1 = a1;
-  v2 = [MEMORY[0x1E69E58C0] bs_secureDataFromObject:v1];
+  v2 = [MEMORY[0x1E69E58C0] bs_secureDataFromObject:?];
   v3 = v2;
   if (v1 && !v2)
   {
     v4 = BKLogCommon();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138543362;
-      v10 = v1;
-      _os_log_impl(&dword_186345000, v4, OS_LOG_TYPE_DEFAULT, "Error encoding button definitions: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v1;
+      _os_log_impl(&dword_186345000, v4, OS_LOG_TYPE_DEFAULT, "Error encoding button definitions: %{public}@", &v8, 0xCu);
     }
 
 LABEL_8:
@@ -5264,45 +5187,43 @@ LABEL_8:
     v4 = BKLogCommon();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v9 = 67109120;
-      LODWORD(v10) = v7;
-      _os_log_error_impl(&dword_186345000, v4, OS_LOG_TYPE_ERROR, "Error sending button definitions: 0x%x", &v9, 8u);
+      v8 = 67109120;
+      LODWORD(v9) = v7;
+      _os_log_error_impl(&dword_186345000, v4, OS_LOG_TYPE_ERROR, "Error sending button definitions: 0x%x", &v8, 8u);
     }
 
     goto LABEL_8;
   }
 
 LABEL_9:
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void BKSHIDServicesRequestHapticFeedback(void *a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (!v1)
   {
-    v9 = MEMORY[0x1E696AEC0];
-    v10 = objc_opt_class();
-    v11 = NSStringFromClass(v10);
-    v12 = [v9 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"request", v11];
+    v8 = MEMORY[0x1E696AEC0];
+    v9 = objc_opt_class();
+    v10 = NSStringFromClass(v9);
+    v11 = [v8 stringWithFormat:@"request", v10];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void BKSHIDServicesRequestHapticFeedback(BKSHIDHapticFeedbackRequest *__strong _Nonnull)"];
+      v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v22 = v13;
-      v23 = 2114;
-      v24 = @"BKSHIDServices.m";
-      v25 = 1024;
-      v26 = 659;
-      v27 = 2114;
-      v28 = v12;
+      v21 = v12;
+      v22 = 2114;
+      v23 = @"BKSHIDServices.m";
+      v24 = 1024;
+      v25 = 659;
+      v26 = 2114;
+      v27 = v11;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v12 UTF8String];
+    [v11 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x186362A18);
@@ -5312,46 +5233,46 @@ void BKSHIDServicesRequestHapticFeedback(void *a1)
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v14 = MEMORY[0x1E696AEC0];
-    v15 = [v2 classForCoder];
-    if (!v15)
+    v13 = MEMORY[0x1E696AEC0];
+    v14 = [v2 classForCoder];
+    if (!v14)
     {
-      v15 = objc_opt_class();
+      v14 = objc_opt_class();
     }
 
-    v16 = NSStringFromClass(v15);
-    v17 = objc_opt_class();
-    v18 = NSStringFromClass(v17);
-    v19 = [v14 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"request", v16, v18];
+    v15 = NSStringFromClass(v14);
+    v16 = objc_opt_class();
+    v17 = NSStringFromClass(v16);
+    v18 = [v13 stringWithFormat:@"request", v15, v17];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void BKSHIDServicesRequestHapticFeedback(BKSHIDHapticFeedbackRequest *__strong _Nonnull)"];
+      v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v22 = v20;
-      v23 = 2114;
-      v24 = @"BKSHIDServices.m";
-      v25 = 1024;
-      v26 = 659;
-      v27 = 2114;
-      v28 = v19;
+      v21 = v19;
+      v22 = 2114;
+      v23 = @"BKSHIDServices.m";
+      v24 = 1024;
+      v25 = 659;
+      v26 = 2114;
+      v27 = v18;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v19 UTF8String];
+    [v18 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x186362B30);
   }
 
-  v3 = [MEMORY[0x1E69E58C0] bs_secureDataFromObject:v2];
+  v3 = [MEMORY[0x1E69E58C0] bs_secureDataFromObject:?];
   if (!v3)
   {
     v7 = BKLogCommon();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v22 = v2;
+      v21 = v2;
       _os_log_impl(&dword_186345000, v7, OS_LOG_TYPE_DEFAULT, "Error encoding haptic feedback request: %{public}@", buf, 0xCu);
     }
 
@@ -5367,30 +5288,28 @@ void BKSHIDServicesRequestHapticFeedback(void *a1)
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      LODWORD(v22) = v6;
+      LODWORD(v21) = v6;
       _os_log_error_impl(&dword_186345000, v7, OS_LOG_TYPE_ERROR, "Error sending haptic feedback request: 0x%x", buf, 8u);
     }
 
 LABEL_9:
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void _BKSHIDServicesPostTouchAnnotations(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v1 = a1;
-  v2 = [MEMORY[0x1E69E58C0] bs_secureDataFromObject:v1];
+  v2 = [MEMORY[0x1E69E58C0] bs_secureDataFromObject:?];
   v3 = v2;
   if (v1 && !v2)
   {
     v4 = BKLogCommon();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138543362;
-      v10 = v1;
-      _os_log_impl(&dword_186345000, v4, OS_LOG_TYPE_DEFAULT, "Error encoding touch annotations: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v1;
+      _os_log_impl(&dword_186345000, v4, OS_LOG_TYPE_DEFAULT, "Error encoding touch annotations: %{public}@", &v8, 0xCu);
     }
 
 LABEL_8:
@@ -5406,17 +5325,15 @@ LABEL_8:
     v4 = BKLogCommon();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v9 = 67109120;
-      LODWORD(v10) = v7;
-      _os_log_error_impl(&dword_186345000, v4, OS_LOG_TYPE_ERROR, "Error sending touch annotations: 0x%x", &v9, 8u);
+      v8 = 67109120;
+      LODWORD(v9) = v7;
+      _os_log_error_impl(&dword_186345000, v4, OS_LOG_TYPE_ERROR, "Error sending touch annotations: 0x%x", &v8, 8u);
     }
 
     goto LABEL_8;
   }
 
 LABEL_9:
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 __CFString *NSStringFromBKSHIDServicesUserEventTimerMode(unsigned int a1)
@@ -5432,9 +5349,10 @@ __CFString *NSStringFromBKSHIDServicesUserEventTimerMode(unsigned int a1)
   }
 }
 
-uint64_t BKSHIDServicesResetUserEventTimer(unsigned int a1, double a2)
+uint64_t BKSHIDServicesResetUserEventTimer(uint64_t a1, double a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v2 = a1;
+  v15 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v3 = a2 < 0.0;
@@ -5458,14 +5376,14 @@ uint64_t BKSHIDServicesResetUserEventTimer(unsigned int a1, double a2)
   v6 = BKLogIdleTimer();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    if (a1 > 3)
+    if (v2 > 3)
     {
       v7 = @"(unknown)";
     }
 
     else
     {
-      v7 = off_1E6F46840[a1];
+      v7 = off_1E6F46840[v2];
     }
 
     v8 = INFINITY;
@@ -5474,17 +5392,15 @@ uint64_t BKSHIDServicesResetUserEventTimer(unsigned int a1, double a2)
       v8 = v5;
     }
 
-    v12 = 138543618;
-    v13 = v7;
-    v14 = 2048;
-    v15 = v8;
-    _os_log_impl(&dword_186345000, v6, OS_LOG_TYPE_INFO, "Resetting user event timer to %{public}@ with duration %gs", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v7;
+    v13 = 2048;
+    v14 = v8;
+    _os_log_impl(&dword_186345000, v6, OS_LOG_TYPE_INFO, "Resetting user event timer to %{public}@ with duration %gs", &v11, 0x16u);
   }
 
   v9 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
-  result = _BKSHIDResetUserEventTimer(v9, a1, v5);
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return _BKSHIDResetUserEventTimer(v9, v2, v5);
 }
 
 uint64_t BKSHIDServicesNotifyOnNextUserEvent()
@@ -5496,25 +5412,26 @@ uint64_t BKSHIDServicesNotifyOnNextUserEvent()
 
 BOOL BKSHIDServicesSafeToResetIdleTimer()
 {
-  v2 = 0;
+  v4 = 0;
   v0 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
-  _BKSHIDSafeToResetIdleTimer(v0, &v2);
-  return v2 != 0;
+  _BKSHIDSafeToResetIdleTimer(v0, &v4, v1, v2);
+  return v4 != 0;
 }
 
 uint64_t BKHIDServicesGetCurrentDeviceOrientation()
 {
-  v2 = 0;
+  v4 = 0;
   v0 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
-  _BKSHIDGetCurrentDeviceOrientation(v0, &v2);
-  return v2;
+  _BKSHIDGetCurrentDeviceOrientation(v0, &v4, v1, v2);
+  return v4;
 }
 
-void BKSHIDServicesSetOrientationClient(void *a1, char a2)
+void BKSHIDServicesSetOrientationClient(void *a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a1;
-  memset(&v7[30], 0, 32);
+  memset(&v6[30], 0, 32);
   if (v3)
   {
     v4 = v3;
@@ -5525,28 +5442,26 @@ void BKSHIDServicesSetOrientationClient(void *a1, char a2)
     v4 = &stru_1EF552F68;
   }
 
-  memset(v7, 0, 480);
-  if (CFStringGetCString(v4, v7, 1024, 0x8000100u))
+  memset(v6, 0, 480);
+  if (CFStringGetCString(v4, v6, 1024, 0x8000100u))
   {
     v5 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
-    _BKSHIDSetOrientationClient(v5, v7, a2);
+    _BKSHIDSetOrientationClient(v5, v6, v2);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t BKSHIDServicesLockOrientation(uint64_t result, char a2)
+uint64_t BKSHIDServicesLockOrientation(uint64_t result, uint64_t a2)
 {
   v3 = result;
   v4 = __BKLockedOrientation;
   if (__BKLockedOrientation == -2)
   {
-    v7 = 0;
+    v9 = 0;
     v5 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
-    result = _BKSHIDIsOrientationLockedWithOrientation(v5, &v7 + 1, &v7);
-    if (HIDWORD(v7))
+    result = _BKSHIDIsOrientationLockedWithOrientation(v5, &v9 + 1, &v9, v6);
+    if (HIDWORD(v9))
     {
-      v4 = v7;
+      v4 = v9;
     }
 
     else
@@ -5560,9 +5475,9 @@ uint64_t BKSHIDServicesLockOrientation(uint64_t result, char a2)
   if (v4 == -1)
   {
     __BKLockedOrientation = v3;
-    v6 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
+    v7 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
 
-    return _BKSHIDLockOrientation(v6, v3, a2);
+    return _BKSHIDLockOrientation(v7, v3, a2, v8);
   }
 
   return result;
@@ -5573,12 +5488,12 @@ void BKSHIDServicesUnlockOrientation()
   v0 = __BKLockedOrientation;
   if (__BKLockedOrientation == -2)
   {
-    v3 = 0;
+    v4 = 0;
     v1 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
-    _BKSHIDIsOrientationLockedWithOrientation(v1, &v3 + 1, &v3);
-    if (HIDWORD(v3))
+    _BKSHIDIsOrientationLockedWithOrientation(v1, &v4 + 1, &v4, v2);
+    if (HIDWORD(v4))
     {
-      v0 = v3;
+      v0 = v4;
     }
 
     else
@@ -5592,9 +5507,9 @@ void BKSHIDServicesUnlockOrientation()
   if (v0 != -1)
   {
     __BKLockedOrientation = -1;
-    v2 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
+    v3 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
 
-    _BKSHIDUnlockOrientation(v2);
+    _BKSHIDUnlockOrientation(v3);
   }
 }
 
@@ -5603,12 +5518,12 @@ BOOL BKSHIDServicesIsOrientationLockedWithOrientation(void *a1)
   v2 = __BKLockedOrientation;
   if (__BKLockedOrientation == -2)
   {
-    v6 = 0;
+    v7 = 0;
     v3 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
-    _BKSHIDIsOrientationLockedWithOrientation(v3, &v6 + 1, &v6);
-    if (HIDWORD(v6))
+    _BKSHIDIsOrientationLockedWithOrientation(v3, &v7 + 1, &v7, v4);
+    if (HIDWORD(v7))
     {
-      v2 = v6;
+      v2 = v7;
     }
 
     else
@@ -5623,15 +5538,15 @@ BOOL BKSHIDServicesIsOrientationLockedWithOrientation(void *a1)
   {
     if (v2 == -1)
     {
-      v4 = 0;
+      v5 = 0;
     }
 
     else
     {
-      v4 = v2;
+      v5 = v2;
     }
 
-    *a1 = v4;
+    *a1 = v5;
   }
 
   return v2 != -1;
@@ -5653,67 +5568,55 @@ uint64_t BKSHIDServicesSetDeviceOrientationForAutomation(char a1)
 
 void BKSHIDServicesSetTouchHand(uint64_t a1)
 {
-  v1 = a1;
-  v10 = *MEMORY[0x1E69E9840];
-  if (a1 == 1)
+  v7 = *MEMORY[0x1E69E9840];
+  if (a1 == 1 || a1 == 2)
   {
-    goto LABEL_4;
-  }
-
-  if (a1 == 2)
-  {
-    v1 = 0;
-LABEL_4:
     v2 = +[BKSHIDEventSenderDescriptor anyBuiltinTouchscreenDigitizer];
-    v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{v1, @"TouchHand"}];
-    v7 = v3;
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v7 forKeys:&v6 count:1];
-    BKSHIDServicesSetPersistentServiceProperties(v2, v4);
-
-    goto LABEL_7;
+    v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:@"TouchHand"];
+    v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+    BKSHIDServicesSetPersistentServiceProperties(v2, v3);
   }
 
-  v2 = BKLogTouchEvents();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  else
   {
-    *buf = 134217984;
-    v9 = v1;
-    _os_log_error_impl(&dword_186345000, v2, OS_LOG_TYPE_ERROR, "BKSHIDServicesSetTouchHand unknown touchHand value %ld", buf, 0xCu);
+    v2 = BKLogTouchEvents();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134217984;
+      v6 = a1;
+      _os_log_error_impl(&dword_186345000, v2, OS_LOG_TYPE_ERROR, "BKSHIDServicesSetTouchHand unknown touchHand value %ld", buf, 0xCu);
+    }
   }
-
-LABEL_7:
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void BKSHIDServicesSetPersistentServiceProperties(void *a1, void *a2)
 {
-  v48[2] = *MEMORY[0x1E69E9840];
+  v47[2] = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   v5 = v3;
   if (!v5)
   {
-    v16 = MEMORY[0x1E696AEC0];
-    v17 = objc_opt_class();
-    v18 = NSStringFromClass(v17);
-    v19 = [v16 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"sender", v18];
+    v15 = MEMORY[0x1E696AEC0];
+    v16 = objc_opt_class();
+    v17 = NSStringFromClass(v16);
+    v18 = [v15 stringWithFormat:@"sender", v17];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BKSHIDServicesSetPersistentServiceProperties(BKSHIDEventSenderDescriptor *__strong, NSDictionary<NSString *, id> *__strong)"}];
+      v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v44 = v20;
-      v45 = 2114;
-      v46 = @"BKSHIDServices.m";
-      v47 = 1024;
-      LODWORD(v48[0]) = 913;
-      WORD2(v48[0]) = 2114;
-      *(v48 + 6) = v19;
+      v43 = v19;
+      v44 = 2114;
+      v45 = @"BKSHIDServices.m";
+      v46 = 1024;
+      LODWORD(v47[0]) = 913;
+      WORD2(v47[0]) = 2114;
+      *(v47 + 6) = v18;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v19 UTF8String];
+    [v18 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x186363850);
@@ -5723,33 +5626,33 @@ void BKSHIDServicesSetPersistentServiceProperties(void *a1, void *a2)
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v21 = MEMORY[0x1E696AEC0];
-    v22 = [v6 classForCoder];
-    if (!v22)
+    v20 = MEMORY[0x1E696AEC0];
+    v21 = [v6 classForCoder];
+    if (!v21)
     {
-      v22 = objc_opt_class();
+      v21 = objc_opt_class();
     }
 
-    v23 = NSStringFromClass(v22);
-    v24 = objc_opt_class();
-    v25 = NSStringFromClass(v24);
-    v26 = [v21 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"sender", v23, v25];
+    v22 = NSStringFromClass(v21);
+    v23 = objc_opt_class();
+    v24 = NSStringFromClass(v23);
+    v25 = [v20 stringWithFormat:@"sender", v22, v24];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v27 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BKSHIDServicesSetPersistentServiceProperties(BKSHIDEventSenderDescriptor *__strong, NSDictionary<NSString *, id> *__strong)"}];
+      v26 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v44 = v27;
-      v45 = 2114;
-      v46 = @"BKSHIDServices.m";
-      v47 = 1024;
-      LODWORD(v48[0]) = 913;
-      WORD2(v48[0]) = 2114;
-      *(v48 + 6) = v26;
+      v43 = v26;
+      v44 = 2114;
+      v45 = @"BKSHIDServices.m";
+      v46 = 1024;
+      LODWORD(v47[0]) = 913;
+      WORD2(v47[0]) = 2114;
+      *(v47 + 6) = v25;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v26 UTF8String];
+    [v25 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x186363968);
@@ -5758,26 +5661,26 @@ void BKSHIDServicesSetPersistentServiceProperties(void *a1, void *a2)
   v7 = v4;
   if (!v7)
   {
-    v28 = MEMORY[0x1E696AEC0];
-    v29 = objc_opt_class();
-    v30 = NSStringFromClass(v29);
-    v31 = [v28 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"properties", v30];
+    v27 = MEMORY[0x1E696AEC0];
+    v28 = objc_opt_class();
+    v29 = NSStringFromClass(v28);
+    v30 = [v27 stringWithFormat:@"properties", v29];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v32 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BKSHIDServicesSetPersistentServiceProperties(BKSHIDEventSenderDescriptor *__strong, NSDictionary<NSString *, id> *__strong)"}];
+      v31 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v44 = v32;
-      v45 = 2114;
-      v46 = @"BKSHIDServices.m";
-      v47 = 1024;
-      LODWORD(v48[0]) = 914;
-      WORD2(v48[0]) = 2114;
-      *(v48 + 6) = v31;
+      v43 = v31;
+      v44 = 2114;
+      v45 = @"BKSHIDServices.m";
+      v46 = 1024;
+      LODWORD(v47[0]) = 914;
+      WORD2(v47[0]) = 2114;
+      *(v47 + 6) = v30;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v31 UTF8String];
+    [v30 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x186363A5CLL);
@@ -5787,33 +5690,33 @@ void BKSHIDServicesSetPersistentServiceProperties(void *a1, void *a2)
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v33 = MEMORY[0x1E696AEC0];
-    v34 = [(__CFString *)v8 classForCoder];
-    if (!v34)
+    v32 = MEMORY[0x1E696AEC0];
+    v33 = [(__CFString *)v8 classForCoder];
+    if (!v33)
     {
-      v34 = objc_opt_class();
+      v33 = objc_opt_class();
     }
 
-    v35 = NSStringFromClass(v34);
-    v36 = objc_opt_class();
-    v37 = NSStringFromClass(v36);
-    v38 = [v33 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"properties", v35, v37];
+    v34 = NSStringFromClass(v33);
+    v35 = objc_opt_class();
+    v36 = NSStringFromClass(v35);
+    v37 = [v32 stringWithFormat:@"properties", v34, v36];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v39 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BKSHIDServicesSetPersistentServiceProperties(BKSHIDEventSenderDescriptor *__strong, NSDictionary<NSString *, id> *__strong)"}];
+      v38 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v44 = v39;
-      v45 = 2114;
-      v46 = @"BKSHIDServices.m";
-      v47 = 1024;
-      LODWORD(v48[0]) = 914;
-      WORD2(v48[0]) = 2114;
-      *(v48 + 6) = v38;
+      v43 = v38;
+      v44 = 2114;
+      v45 = @"BKSHIDServices.m";
+      v46 = 1024;
+      LODWORD(v47[0]) = 914;
+      WORD2(v47[0]) = 2114;
+      *(v47 + 6) = v37;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v38 UTF8String];
+    [v37 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x186363B74);
@@ -5821,30 +5724,30 @@ void BKSHIDServicesSetPersistentServiceProperties(void *a1, void *a2)
 
   if (!CFPropertyListIsValid(v8, kCFPropertyListXMLFormat_v1_0))
   {
-    v40 = [MEMORY[0x1E696AEC0] stringWithFormat:@"non-plistable type in %@", v8];
+    v39 = [MEMORY[0x1E696AEC0] stringWithFormat:v8];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v41 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BKSHIDServicesSetPersistentServiceProperties(BKSHIDEventSenderDescriptor *__strong, NSDictionary<NSString *, id> *__strong)"}];
+      v40 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v44 = v41;
-      v45 = 2114;
-      v46 = @"BKSHIDServices.m";
-      v47 = 1024;
-      LODWORD(v48[0]) = 916;
-      WORD2(v48[0]) = 2114;
-      *(v48 + 6) = v40;
+      v43 = v40;
+      v44 = 2114;
+      v45 = @"BKSHIDServices.m";
+      v46 = 1024;
+      LODWORD(v47[0]) = 916;
+      WORD2(v47[0]) = 2114;
+      *(v47 + 6) = v39;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v40 UTF8String];
+    [v39 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x186363C40);
   }
 
-  v42 = 0;
-  v9 = [MEMORY[0x1E698E750] encodeObject:v6 error:&v42];
-  v10 = v42;
+  v41 = 0;
+  v9 = [MEMORY[0x1E698E750] encodeObject:? error:?];
+  v10 = v41;
   v11 = [(__CFString *)v8 bs_secureEncoded];
   v12 = v11;
   if (v9 && v11)
@@ -5859,28 +5762,26 @@ void BKSHIDServicesSetPersistentServiceProperties(void *a1, void *a2)
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543874;
-      v44 = v6;
-      v45 = 2114;
-      v46 = v8;
-      v47 = 2114;
-      v48[0] = v10;
+      v43 = v6;
+      v44 = 2114;
+      v45 = v8;
+      v46 = 2114;
+      v47[0] = v10;
       _os_log_error_impl(&dword_186345000, v14, OS_LOG_TYPE_ERROR, "BKSHIDServicesSetPersistentServiceProperties failed to encode %{public}@ / %{public}@: %{public}@", buf, 0x20u);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void BKSHIDServicesSetWristState(unint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (a1 >= 3)
   {
     v2 = BKLogTouchEvents();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;
-      v9 = a1;
+      v7 = a1;
       _os_log_error_impl(&dword_186345000, v2, OS_LOG_TYPE_ERROR, "BKSHIDServicesSetWristState unknown wristState value %ld", buf, 0xCu);
     }
   }
@@ -5888,43 +5789,41 @@ void BKSHIDServicesSetWristState(unint64_t a1)
   else
   {
     v2 = +[BKSHIDEventSenderDescriptor anyBuiltinTouchscreenDigitizer];
-    v3 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:{a1, @"WristState"}];
-    v7 = v3;
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v7 forKeys:&v6 count:1];
+    v3 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:@"WristState"];
+    v5 = v3;
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
     BKSHIDServicesSetPersistentServiceProperties(v2, v4);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 id BKSHIDServicesGetPersistentServiceProperties(void *a1, void *a2)
 {
-  v88 = *MEMORY[0x1E69E9840];
+  v84 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   v5 = v3;
   if (!v5)
   {
-    v46 = MEMORY[0x1E696AEC0];
-    v47 = objc_opt_class();
-    v48 = NSStringFromClass(v47);
-    v49 = [v46 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"sender", v48];
+    v45 = MEMORY[0x1E696AEC0];
+    v46 = objc_opt_class();
+    v47 = NSStringFromClass(v46);
+    v48 = [v45 stringWithFormat:@"sender", v47];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v50 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSDictionary<NSString *, id> *BKSHIDServicesGetPersistentServiceProperties(BKSHIDEventSenderDescriptor *__strong, NSSet<NSString *> *__strong)"}];
+      v49 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v83 = v50;
-      v84 = 2114;
-      v85 = @"BKSHIDServices.m";
-      v86 = 1024;
-      *v87 = 876;
-      *&v87[4] = 2114;
-      *&v87[6] = v49;
+      v79 = v49;
+      v80 = 2114;
+      v81 = @"BKSHIDServices.m";
+      v82 = 1024;
+      *v83 = 876;
+      *&v83[4] = 2114;
+      *&v83[6] = v48;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v49 UTF8String];
+    [v48 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863644E8);
@@ -5934,33 +5833,33 @@ id BKSHIDServicesGetPersistentServiceProperties(void *a1, void *a2)
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v51 = MEMORY[0x1E696AEC0];
-    v52 = [v6 classForCoder];
-    if (!v52)
+    v50 = MEMORY[0x1E696AEC0];
+    v51 = [v6 classForCoder];
+    if (!v51)
     {
-      v52 = objc_opt_class();
+      v51 = objc_opt_class();
     }
 
-    v53 = NSStringFromClass(v52);
-    v54 = objc_opt_class();
-    v55 = NSStringFromClass(v54);
-    v56 = [v51 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"sender", v53, v55];
+    v52 = NSStringFromClass(v51);
+    v53 = objc_opt_class();
+    v54 = NSStringFromClass(v53);
+    v55 = [v50 stringWithFormat:@"sender", v52, v54];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v57 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSDictionary<NSString *, id> *BKSHIDServicesGetPersistentServiceProperties(BKSHIDEventSenderDescriptor *__strong, NSSet<NSString *> *__strong)"}];
+      v56 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v83 = v57;
-      v84 = 2114;
-      v85 = @"BKSHIDServices.m";
-      v86 = 1024;
-      *v87 = 876;
-      *&v87[4] = 2114;
-      *&v87[6] = v56;
+      v79 = v56;
+      v80 = 2114;
+      v81 = @"BKSHIDServices.m";
+      v82 = 1024;
+      *v83 = 876;
+      *&v83[4] = 2114;
+      *&v83[6] = v55;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v56 UTF8String];
+    [v55 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x186364600);
@@ -5969,26 +5868,26 @@ id BKSHIDServicesGetPersistentServiceProperties(void *a1, void *a2)
   v7 = v4;
   if (!v7)
   {
-    v58 = MEMORY[0x1E696AEC0];
-    v59 = objc_opt_class();
-    v60 = NSStringFromClass(v59);
-    v61 = [v58 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"propertyKeys", v60];
+    v57 = MEMORY[0x1E696AEC0];
+    v58 = objc_opt_class();
+    v59 = NSStringFromClass(v58);
+    v60 = [v57 stringWithFormat:@"propertyKeys", v59];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v62 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSDictionary<NSString *, id> *BKSHIDServicesGetPersistentServiceProperties(BKSHIDEventSenderDescriptor *__strong, NSSet<NSString *> *__strong)"}];
+      v61 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v83 = v62;
-      v84 = 2114;
-      v85 = @"BKSHIDServices.m";
-      v86 = 1024;
-      *v87 = 877;
-      *&v87[4] = 2114;
-      *&v87[6] = v61;
+      v79 = v61;
+      v80 = 2114;
+      v81 = @"BKSHIDServices.m";
+      v82 = 1024;
+      *v83 = 877;
+      *&v83[4] = 2114;
+      *&v83[6] = v60;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v61 UTF8String];
+    [v60 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863646F0);
@@ -5998,80 +5897,80 @@ id BKSHIDServicesGetPersistentServiceProperties(void *a1, void *a2)
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v63 = MEMORY[0x1E696AEC0];
-    v64 = [v8 classForCoder];
-    if (!v64)
+    v62 = MEMORY[0x1E696AEC0];
+    v63 = [v8 classForCoder];
+    if (!v63)
     {
-      v64 = objc_opt_class();
+      v63 = objc_opt_class();
     }
 
-    v65 = NSStringFromClass(v64);
-    v66 = objc_opt_class();
-    v67 = NSStringFromClass(v66);
-    v68 = [v63 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"propertyKeys", v65, v67];
+    v64 = NSStringFromClass(v63);
+    v65 = objc_opt_class();
+    v66 = NSStringFromClass(v65);
+    v67 = [v62 stringWithFormat:@"propertyKeys", v64, v66];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v69 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSDictionary<NSString *, id> *BKSHIDServicesGetPersistentServiceProperties(BKSHIDEventSenderDescriptor *__strong, NSSet<NSString *> *__strong)"}];
+      v68 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v83 = v69;
-      v84 = 2114;
-      v85 = @"BKSHIDServices.m";
-      v86 = 1024;
-      *v87 = 877;
-      *&v87[4] = 2114;
-      *&v87[6] = v68;
+      v79 = v68;
+      v80 = 2114;
+      v81 = @"BKSHIDServices.m";
+      v82 = 1024;
+      *v83 = 877;
+      *&v83[4] = 2114;
+      *&v83[6] = v67;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v68 UTF8String];
+    [v67 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x186364808);
   }
 
-  v79 = 0u;
-  v80 = 0u;
+  v76 = 0u;
   v77 = 0u;
-  v78 = 0u;
+  v74 = 0u;
+  v75 = 0u;
   v9 = v8;
-  v10 = [(__CFString *)v9 countByEnumeratingWithState:&v77 objects:v81 count:16];
+  v10 = [__CFString countByEnumeratingWithState:v9 objects:"countByEnumeratingWithState:objects:count:" count:?];
   if (v10)
   {
     v11 = v10;
-    v12 = *v78;
+    v12 = *v75;
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v11; i = (i + 1))
       {
-        if (*v78 != v12)
+        if (*v75 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v77 + 1) + 8 * i);
+        v14 = *(*(&v74 + 1) + 8 * i);
         v15 = MEMORY[0x1E696AEC0];
         v16 = objc_opt_class();
         if (!v14)
         {
-          v29 = NSStringFromClass(v16);
-          v30 = [v15 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"key", v29];
+          v28 = NSStringFromClass(v16);
+          v29 = [v15 stringWithFormat:@"key", v28];
 
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            v31 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSDictionary<NSString *, id> *BKSHIDServicesGetPersistentServiceProperties(BKSHIDEventSenderDescriptor *__strong, NSSet<NSString *> *__strong)"}];
+            v30 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
             *buf = 138544130;
-            v83 = v31;
-            v84 = 2114;
-            v85 = @"BKSHIDServices.m";
-            v86 = 1024;
-            *v87 = 879;
-            *&v87[4] = 2114;
-            *&v87[6] = v30;
+            v79 = v30;
+            v80 = 2114;
+            v81 = @"BKSHIDServices.m";
+            v82 = 1024;
+            *v83 = 879;
+            *&v83[4] = 2114;
+            *&v83[6] = v29;
             _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
           }
 
-          [v30 UTF8String];
+          [v29 UTF8String];
           _bs_set_crash_log_message();
           __break(0);
           JUMPOUT(0x186364140);
@@ -6079,63 +5978,63 @@ id BKSHIDServicesGetPersistentServiceProperties(void *a1, void *a2)
 
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v32 = MEMORY[0x1E696AEC0];
-          v33 = [v14 classForCoder];
-          if (!v33)
+          v31 = MEMORY[0x1E696AEC0];
+          v32 = [v14 classForCoder];
+          if (!v32)
           {
-            v33 = objc_opt_class();
+            v32 = objc_opt_class();
           }
 
-          v34 = NSStringFromClass(v33);
-          v35 = objc_opt_class();
-          v36 = NSStringFromClass(v35);
-          v37 = [v32 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"key", v34, v36];
+          v33 = NSStringFromClass(v32);
+          v34 = objc_opt_class();
+          v35 = NSStringFromClass(v34);
+          v36 = [v31 stringWithFormat:@"key", v33, v35];
 
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            v38 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"NSDictionary<NSString *, id> *BKSHIDServicesGetPersistentServiceProperties(BKSHIDEventSenderDescriptor *__strong, NSSet<NSString *> *__strong)"}];
+            v37 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
             *buf = 138544130;
-            v83 = v38;
-            v84 = 2114;
-            v85 = @"BKSHIDServices.m";
-            v86 = 1024;
-            *v87 = 879;
-            *&v87[4] = 2114;
-            *&v87[6] = v37;
+            v79 = v37;
+            v80 = 2114;
+            v81 = @"BKSHIDServices.m";
+            v82 = 1024;
+            *v83 = 879;
+            *&v83[4] = 2114;
+            *&v83[6] = v36;
             _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
           }
 
-          [v37 UTF8String];
+          [v36 UTF8String];
           _bs_set_crash_log_message();
           __break(0);
           JUMPOUT(0x186364254);
         }
       }
 
-      v11 = [(__CFString *)v9 countByEnumeratingWithState:&v77 objects:v81 count:16];
+      v11 = [__CFString countByEnumeratingWithState:v9 objects:"countByEnumeratingWithState:objects:count:" count:?];
     }
 
     while (v11);
   }
 
-  v76 = 0;
-  v17 = [MEMORY[0x1E698E750] encodeObject:v6 error:&v76];
-  v18 = v76;
+  v73[1] = 0;
+  v17 = [MEMORY[0x1E698E750] encodeObject:? error:?];
+  v18 = 0;
   v19 = [(__CFString *)v9 bs_secureEncoded];
   v20 = v19;
-  v75 = 0;
-  v74 = 0;
+  v73[0] = 0;
+  v72 = 0;
   if (!v17 || !v19)
   {
     v22 = BKLogCommon();
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543874;
-      v83 = v6;
-      v84 = 2114;
-      v85 = v9;
-      v86 = 2114;
-      *v87 = v18;
+      v79 = v6;
+      v80 = 2114;
+      v81 = v9;
+      v82 = 2114;
+      *v83 = v18;
       v23 = "BKSHIDServicesGetPersistentServiceProperties failed to encode %{public}@ / %{public}@: %{public}@";
       v24 = v22;
       v25 = 32;
@@ -6148,7 +6047,7 @@ LABEL_20:
   }
 
   v21 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
-  if (_BKSHIDGetPersistentServiceProperties(v21, [v17 bytes], objc_msgSend(v17, "length"), objc_msgSend(v20, "bytes"), objc_msgSend(v20, "length"), &v75, &v74))
+  if (_BKSHIDGetPersistentServiceProperties(v21, [v17 bytes], objc_msgSend(v17, "length"), objc_msgSend(v20, "bytes"), objc_msgSend(v20, "length"), v73, &v72))
   {
     v22 = BKLogCommon();
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -6165,14 +6064,14 @@ LABEL_39:
     goto LABEL_20;
   }
 
-  v22 = [MEMORY[0x1E695DEF0] bs_dataWithVMAllocatedBytes:v75 length:v74];
+  v22 = [MEMORY[0x1E695DEF0] bs_dataWithVMAllocatedBytes:? length:?];
   if (!v22)
   {
-    v44 = BKLogCommon();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    v43 = BKLogCommon();
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v45 = "BKSHIDServicesGetPersistentServiceProperties data access failed";
+      v44 = "BKSHIDServicesGetPersistentServiceProperties data access failed";
       goto LABEL_41;
     }
 
@@ -6181,26 +6080,26 @@ LABEL_37:
     goto LABEL_20;
   }
 
-  v72 = MEMORY[0x1E695DFD8];
-  v73 = MEMORY[0x1E695DF20];
-  v71 = objc_opt_class();
-  v70 = objc_opt_class();
+  v70 = MEMORY[0x1E695DFD8];
+  v71 = MEMORY[0x1E695DF20];
+  objc_opt_class();
+  v69 = objc_opt_class();
+  v38 = objc_opt_class();
   v39 = objc_opt_class();
   v40 = objc_opt_class();
   v41 = objc_opt_class();
-  v42 = objc_opt_class();
-  v43 = [v72 setWithObjects:{v71, v70, v39, v40, v41, v42, objc_opt_class(), 0}];
-  v26 = [v73 bs_secureDecodedFromData:v22 withAdditionalClasses:v43];
+  v42 = [v70 setWithObjects:{v69, v38, v39, v40, v41, objc_opt_class(), 0}];
+  v26 = [v71 bs_secureDecodedFromData:? withAdditionalClasses:?];
 
   if (!v26)
   {
-    v44 = BKLogCommon();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    v43 = BKLogCommon();
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v45 = "BKSHIDServicesGetPersistentServiceProperties property decode failed";
+      v44 = "BKSHIDServicesGetPersistentServiceProperties property decode failed";
 LABEL_41:
-      _os_log_error_impl(&dword_186345000, v44, OS_LOG_TYPE_ERROR, v45, buf, 2u);
+      _os_log_error_impl(&dword_186345000, v43, OS_LOG_TYPE_ERROR, v44, buf, 2u);
       goto LABEL_37;
     }
 
@@ -6208,8 +6107,6 @@ LABEL_41:
   }
 
 LABEL_21:
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return v26;
 }
@@ -6290,12 +6187,12 @@ id BKSHIDServicesProductIdentifierFromServiceProperties(void *a1, void *a2, void
   {
     if (v19)
     {
-      [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-%@", v11, v15, v19];
+      [MEMORY[0x1E696AEC0] stringWithFormat:v11, v15, v19];
     }
 
     else
     {
-      [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@", v11, v15, v22];
+      [MEMORY[0x1E696AEC0] stringWithFormat:v11, v15, v22];
     }
     v20 = ;
   }
@@ -6303,14 +6200,14 @@ id BKSHIDServicesProductIdentifierFromServiceProperties(void *a1, void *a2, void
   return v20;
 }
 
-void BKSHIDServicesGetCALayerTransform(uint64_t a1@<X0>, uint64_t a2@<X1>, _OWORD *a3@<X8>)
+void BKSHIDServicesGetCALayerTransform(_OWORD *a3@<X8>)
 {
-  v6 = +[BKSTouchEventService sharedInstance];
-  if (v6)
+  v4 = +[BKSTouchEventService sharedInstance];
+  if (v4)
   {
-    v7 = v6;
-    [v6 transformForDisplayUUID:0 layerID:a2 contextID:a1];
-    v6 = v7;
+    v5 = v4;
+    [v4 transformForDisplayUUID:? layerID:? contextID:?];
+    v4 = v5;
   }
 
   else
@@ -6337,7 +6234,7 @@ __CFString *NSStringFromBKSHIDTouchSensitiveButtonIdentifier(uint64_t a1)
 
     else
     {
-      v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<invalid:%X>", a1];
+      v2 = [MEMORY[0x1E696AEC0] stringWithFormat:a1];
     }
   }
 
@@ -6360,7 +6257,7 @@ __CFString *NSStringFromBKSHIDTouchSensitiveButtonScanMode(uint64_t a1)
 
     else
     {
-      v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<invalid:%X>", a1];
+      v2 = [MEMORY[0x1E696AEC0] stringWithFormat:a1];
     }
   }
 
@@ -6374,26 +6271,26 @@ __CFString *NSStringFromBKSHIDTouchSensitiveButtonScanMode(uint64_t a1)
 
 id BKSHIDTouchSensitiveButtonRequestScanMode(uint64_t a1, uint64_t a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2 <= 0)
   {
-    v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"scanMode > BKSHIDTouchSensitiveButtonScanModeNone"];
+    v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"scanMode > BKSHIDTouchSensitiveButtonScanModeNone"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"id<BSInvalidatable>  _Nonnull BKSHIDTouchSensitiveButtonRequestScanMode(BKSHIDTouchSensitiveButtonIdentifier, BKSHIDTouchSensitiveButtonScanMode, NSString *__strong _Nonnull)"}];
+      v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v16 = v13;
-      v17 = 2114;
-      v18 = @"BKSHIDServices.m";
-      v19 = 1024;
-      v20 = 974;
-      v21 = 2114;
-      v22 = v12;
+      v15 = v12;
+      v16 = 2114;
+      v17 = @"BKSHIDServices.m";
+      v18 = 1024;
+      v19 = 974;
+      v20 = 2114;
+      v21 = v11;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v12 UTF8String];
+    [v11 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x186364D20);
@@ -6411,57 +6308,55 @@ id BKSHIDTouchSensitiveButtonRequestScanMode(uint64_t a1, uint64_t a2, void *a3)
   }
 
   v7 = BKSHIDTouchSensitiveButtonRequestScanMode_scanningAssertion;
-  v8 = [MEMORY[0x1E696AD98] numberWithInteger:a2];
-  v9 = [v7 acquireForReason:v6 withContext:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v8 = [MEMORY[0x1E696AD98] numberWithInteger:?];
+  v9 = [v7 acquireForReason:? withContext:?];
 
   return v9;
 }
 
 void __BKSHIDTouchSensitiveButtonRequestScanMode_block_invoke(uint64_t a1)
 {
-  v3[0] = MEMORY[0x1E69E9820];
-  v3[1] = 3221225472;
-  v3[2] = __BKSHIDTouchSensitiveButtonRequestScanMode_block_invoke_2;
-  v3[3] = &__block_descriptor_40_e36_v16__0___BSCompoundAssertionState__8l;
-  v3[4] = *(a1 + 32);
-  v1 = [MEMORY[0x1E698E658] assertionWithIdentifier:@"BKSHIDTouchSensitiveButtonStartScanning" stateDidChangeHandler:v3];
+  v3 = MEMORY[0x1E69E9820];
+  v4 = 3221225472;
+  v5 = __BKSHIDTouchSensitiveButtonRequestScanMode_block_invoke_2;
+  v6 = &__block_descriptor_40_e36_v16__0___BSCompoundAssertionState__8l;
+  v7 = *(a1 + 32);
+  v1 = [MEMORY[0x1E698E658] assertionWithIdentifier:? stateDidChangeHandler:?];
   v2 = BKSHIDTouchSensitiveButtonRequestScanMode_scanningAssertion;
   BKSHIDTouchSensitiveButtonRequestScanMode_scanningAssertion = v1;
 }
 
 uint64_t __BKSHIDTouchSensitiveButtonRequestScanMode_block_invoke_2(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v3 = [a2 orderedContext];
-  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [v3 countByEnumeratingWithState:? objects:? count:?];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
-      for (i = 0; i != v5; ++i)
+      for (i = 0; i != v5; i = (i + 1))
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = [*(*(&v13 + 1) + 8 * i) integerValue];
+        v9 = [*(*(&v12 + 1) + 8 * i) integerValue];
         if (v9 > v6)
         {
           v6 = v9;
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [v3 countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v5);
@@ -6473,9 +6368,7 @@ uint64_t __BKSHIDTouchSensitiveButtonRequestScanMode_block_invoke_2(uint64_t a1,
   }
 
   v10 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
-  result = _BKSHIDTouchSensitiveButtonSetScanMode(v10, *(a1 + 32), v6);
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return _BKSHIDTouchSensitiveButtonSetScanMode(v10, *(a1 + 32), v6);
 }
 
 __CFString *BKSOpenApplicationErrorCodeToString(unsigned int a1)
@@ -6502,7 +6395,7 @@ __CFString *NSStringFromBKSTouchHitTestContextCategory(uint64_t a1)
 
     else
     {
-      v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<invalid:%X>", a1];
+      v2 = [MEMORY[0x1E696AEC0] stringWithFormat:a1];
     }
   }
 
@@ -6523,7 +6416,7 @@ __CFString *NSStringFromBKSHIDEventAttributeOptions(int a1)
     v3 = v2;
     if (v1)
     {
-      [v2 addObject:@"cancelled"];
+      [v2 addObject:?];
       if ((v1 & 2) == 0)
       {
 LABEL_4:
@@ -6541,7 +6434,7 @@ LABEL_4:
       goto LABEL_4;
     }
 
-    [v3 addObject:@"touchChanged"];
+    [v3 addObject:?];
     if ((v1 & 4) == 0)
     {
 LABEL_5:
@@ -6554,7 +6447,7 @@ LABEL_5:
     }
 
 LABEL_21:
-    [v3 addObject:@"highResolutionScroll"];
+    [v3 addObject:?];
     if ((v1 & 8) == 0)
     {
 LABEL_6:
@@ -6567,7 +6460,7 @@ LABEL_6:
     }
 
 LABEL_22:
-    [v3 addObject:@"displayLinkSynchronized"];
+    [v3 addObject:?];
     if ((v1 & 0x10) == 0)
     {
 LABEL_7:
@@ -6580,7 +6473,7 @@ LABEL_7:
     }
 
 LABEL_23:
-    [v3 addObject:@"highQualityFrequency"];
+    [v3 addObject:?];
     if ((v1 & 0x20) == 0)
     {
 LABEL_8:
@@ -6593,7 +6486,7 @@ LABEL_8:
     }
 
 LABEL_24:
-    [v3 addObject:@"usesNaturalScrolling"];
+    [v3 addObject:?];
     if ((v1 & 0x40) == 0)
     {
 LABEL_9:
@@ -6606,7 +6499,7 @@ LABEL_9:
     }
 
 LABEL_25:
-    [v3 addObject:@"usesDeviceOrientation"];
+    [v3 addObject:?];
     if ((v1 & 0x80) == 0)
     {
 LABEL_10:
@@ -6619,7 +6512,7 @@ LABEL_10:
     }
 
 LABEL_26:
-    [v3 addObject:@"modifiersOnly"];
+    [v3 addObject:?];
     if ((v1 & 0x100) == 0)
     {
 LABEL_11:
@@ -6632,25 +6525,25 @@ LABEL_11:
     }
 
 LABEL_27:
-    [v3 addObject:@"debugVisualizationEnabled"];
+    [v3 addObject:?];
     if ((v1 & 0x200) == 0)
     {
 LABEL_12:
       if ((v1 & 0x400) == 0)
       {
 LABEL_14:
-        v4 = [v3 componentsJoinedByString:{@", "}];
+        v4 = [v3 componentsJoinedByString:?];
 
         goto LABEL_16;
       }
 
 LABEL_13:
-      [v3 addObject:@"absoluteSource"];
+      [v3 addObject:?];
       goto LABEL_14;
     }
 
 LABEL_28:
-    [v3 addObject:@"multiplexedMore"];
+    [v3 addObject:?];
     if ((v1 & 0x400) == 0)
     {
       goto LABEL_14;
@@ -6669,7 +6562,7 @@ __CFString *NSStringFromBKSHIDEventContextType(unint64_t a1)
 {
   if (a1 >= 3)
   {
-    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<unknown:%X>", a1];
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:a1];
   }
 
   else
@@ -6684,7 +6577,7 @@ __CFString *NSStringFromBKSHIDEventContextMove(unint64_t a1)
 {
   if (a1 >= 3)
   {
-    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<unknown:%X>", a1];
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:a1];
   }
 
   else
@@ -6704,7 +6597,7 @@ __CFString *NSStringFromBKSHIDEventScreenEdgeMask(int a1)
     v3 = v2;
     if (v1)
     {
-      [v2 addObject:@"top"];
+      [v2 addObject:?];
       if ((v1 & 2) == 0)
       {
 LABEL_4:
@@ -6722,25 +6615,25 @@ LABEL_4:
       goto LABEL_4;
     }
 
-    [v3 addObject:@"left"];
+    [v3 addObject:?];
     if ((v1 & 4) == 0)
     {
 LABEL_5:
       if ((v1 & 8) == 0)
       {
 LABEL_7:
-        v4 = [v3 componentsJoinedByString:{@", "}];
+        v4 = [v3 componentsJoinedByString:?];
 
         goto LABEL_9;
       }
 
 LABEL_6:
-      [v3 addObject:@"right"];
+      [v3 addObject:?];
       goto LABEL_7;
     }
 
 LABEL_14:
-    [v3 addObject:@"bottom"];
+    [v3 addObject:?];
     if ((v1 & 8) == 0)
     {
       goto LABEL_7;
@@ -6759,7 +6652,7 @@ __CFString *NSStringFromBKSHIDEventTeleportState(uint64_t a1)
 {
   if (a1 >= 4)
   {
-    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<unknown:%X>", a1];
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:a1];
   }
 
   else
@@ -6774,7 +6667,7 @@ __CFString *NSStringFromBKSHIDEventPointerAttributeState(uint64_t a1)
 {
   if (a1 >= 5)
   {
-    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<unknown:%X>", a1];
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:a1];
   }
 
   else
@@ -6807,7 +6700,7 @@ __CFString *NSStringFromBKSDisplayTags(uint64_t a1)
   {
     if (a1)
     {
-      [v2 addObject:@"hidden"];
+      [v2 addObject:?];
       if ((a1 & 2) == 0)
       {
 LABEL_4:
@@ -6825,7 +6718,7 @@ LABEL_4:
       goto LABEL_4;
     }
 
-    [v3 addObject:@"debounce"];
+    [v3 addObject:?];
     if ((a1 & 4) == 0)
     {
 LABEL_5:
@@ -6838,7 +6731,7 @@ LABEL_5:
     }
 
 LABEL_18:
-    [v3 addObject:@"AirPlay"];
+    [v3 addObject:?];
     if ((a1 & 0x10) == 0)
     {
 LABEL_6:
@@ -6851,7 +6744,7 @@ LABEL_6:
     }
 
 LABEL_19:
-    [v3 addObject:@"musicOnly"];
+    [v3 addObject:?];
     if ((a1 & 0x20) == 0)
     {
 LABEL_7:
@@ -6864,7 +6757,7 @@ LABEL_7:
     }
 
 LABEL_20:
-    [v3 addObject:@"car"];
+    [v3 addObject:?];
     if ((a1 & 0x40) == 0)
     {
 LABEL_8:
@@ -6877,7 +6770,7 @@ LABEL_8:
     }
 
 LABEL_21:
-    [v3 addObject:@"carInstruments"];
+    [v3 addObject:?];
     if ((a1 & 0x80) == 0)
     {
 LABEL_9:
@@ -6885,19 +6778,19 @@ LABEL_9:
       {
 LABEL_11:
         v4 = MEMORY[0x1E696AEC0];
-        v5 = [v3 componentsJoinedByString:@" | "];
-        v6 = [v4 stringWithFormat:@"(%@)", v5];
+        v5 = [v3 componentsJoinedByString:?];
+        v6 = [v4 stringWithFormat:v5];
 
         goto LABEL_13;
       }
 
 LABEL_10:
-      [v3 addObject:@"unknown"];
+      [v3 addObject:?];
       goto LABEL_11;
     }
 
 LABEL_22:
-    [v3 addObject:@"continuity"];
+    [v3 addObject:?];
     if ((a1 & 0x10000) == 0)
     {
       goto LABEL_11;
@@ -6916,7 +6809,7 @@ __CFString *NSStringFromBKSDisplayServicesCloneMirroringMode(unint64_t a1)
 {
   if (a1 >= 4)
   {
-    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<unknown:%X>", a1];
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:a1];
   }
 
   else
@@ -6927,12 +6820,13 @@ __CFString *NSStringFromBKSDisplayServicesCloneMirroringMode(unint64_t a1)
   return v2;
 }
 
-uint64_t _BKSSetDisplayDisabled(void *a1, char a2)
+uint64_t _BKSSetDisplayDisabled(void *a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = v3;
-  if (v3 && (v5 = [(__CFString *)v3 isEqualToString:@"<main>"], v4, !v5))
+  if (v3 && (v5 = [(__CFString *)v3 isEqualToString:?], v4, !v5))
   {
     bzero(buffer, 0x400uLL);
     CFStringGetCString(v4, buffer, 1024, 0x8000100u);
@@ -6945,17 +6839,15 @@ uint64_t _BKSSetDisplayDisabled(void *a1, char a2)
   }
 
   v6 = _BKSServerPortHelper("com.apple.backboard.display.services", BKSDisplayServerPort, &BKSDisplayServerMachPort, _InvalidateDisplayServicesPort);
-  result = _BKSDisplaySetDisabled(v6, buffer, a2, &v9);
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return _BKSDisplaySetDisabled(v6, buffer, v2, &v8);
 }
 
 uint64_t BKSDisplayServicesSetReachabilityBounds(void *a1, double a2, double a3, double a4, double a5)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v9 = a1;
   v10 = v9;
-  if (v9 && (v11 = [(__CFString *)v9 isEqualToString:@"<main>"], v10, !v11))
+  if (v9 && (v11 = [(__CFString *)v9 isEqualToString:?], v10, !v11))
   {
     bzero(buffer, 0x400uLL);
     CFStringGetCString(v10, buffer, 1024, 0x8000100u);
@@ -6972,26 +6864,22 @@ uint64_t BKSDisplayServicesSetReachabilityBounds(void *a1, double a2, double a3,
   v14 = a3;
   v15 = a4;
   v16 = a5;
-  result = _BKSDisplaySetReachabilityBounds(v12, buffer, v13, v14, v15, v16);
-  v18 = *MEMORY[0x1E69E9840];
-  return result;
+  return _BKSDisplaySetReachabilityBounds(v12, buffer, v13, v14, v15, v16);
 }
 
 BOOL BKSDisplayServicesIsScreenDisabled(const __CFString *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   bzero(buffer, 0x400uLL);
   if (a1)
   {
     CFStringGetCString(a1, buffer, 1024, 0x8000100u);
   }
 
-  v5 = 1;
+  v4 = 1;
   v2 = _BKSServerPortHelper("com.apple.backboard.display.services", BKSDisplayServerPort, &BKSDisplayServerMachPort, _InvalidateDisplayServicesPort);
-  _BKSDisplayIsDisabled(v2, buffer, &v5);
-  result = v5 != 0;
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  _BKSDisplayIsDisabled(v2, buffer, &v4);
+  return v4 != 0;
 }
 
 id BKSDisplayServicesAcquireDisplayDisabledAssertion(void *a1, void *a2)
@@ -7014,34 +6902,34 @@ id BKSDisplayServicesAcquireDisplayDisabledAssertion(void *a1, void *a2)
     v6 = @"<main>";
   }
 
-  v7 = [BKSDisplayServicesAcquireDisplayDisabledAssertion_assertion acquireForReason:v4 withContext:v6];
+  v7 = [BKSDisplayServicesAcquireDisplayDisabledAssertion_assertion acquireForReason:? withContext:?];
 
   return v7;
 }
 
 void __BKSDisplayServicesAcquireDisplayDisabledAssertion_block_invoke()
 {
-  v3[0] = 0;
-  v3[1] = v3;
-  v3[2] = 0x3032000000;
-  v3[3] = __Block_byref_object_copy_;
-  v3[4] = __Block_byref_object_dispose_;
-  v4 = [MEMORY[0x1E695DFD8] set];
-  v2[0] = MEMORY[0x1E69E9820];
-  v2[1] = 3221225472;
-  v2[2] = __BKSDisplayServicesAcquireDisplayDisabledAssertion_block_invoke_65;
-  v2[3] = &unk_1E6F46CA0;
-  v2[4] = v3;
-  v0 = [MEMORY[0x1E698E658] assertionWithIdentifier:@"com.apple.backboard.display-disabled" stateDidChangeHandler:v2];
+  v7[0] = 0;
+  v7[1] = v7;
+  v7[2] = 0x3032000000;
+  v7[3] = __Block_byref_object_copy_;
+  v7[4] = __Block_byref_object_dispose_;
+  v8 = [MEMORY[0x1E695DFD8] set];
+  v2 = MEMORY[0x1E69E9820];
+  v3 = 3221225472;
+  v4 = __BKSDisplayServicesAcquireDisplayDisabledAssertion_block_invoke_65;
+  v5 = &unk_1E6F46CA0;
+  v6 = v7;
+  v0 = [MEMORY[0x1E698E658] assertionWithIdentifier:? stateDidChangeHandler:?];
   v1 = BKSDisplayServicesAcquireDisplayDisabledAssertion_assertion;
   BKSDisplayServicesAcquireDisplayDisabledAssertion_assertion = v0;
 
-  _Block_object_dispose(v3, 8);
+  _Block_object_dispose(v7, 8);
 }
 
-void sub_186379E1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_186379E1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7055,89 +6943,87 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
 
 void __BKSDisplayServicesAcquireDisplayDisabledAssertion_block_invoke_65(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = [a2 context];
   v4 = [*(*(*(a1 + 32) + 8) + 40) mutableCopy];
-  [v4 minusSet:v3];
+  [v4 minusSet:?];
   v5 = [v3 mutableCopy];
-  [v5 minusSet:*(*(*(a1 + 32) + 8) + 40)];
+  [v5 minusSet:?];
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), v3);
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v7 = [v6 countByEnumeratingWithState:? objects:? count:?];
   if (v7)
   {
     v8 = v7;
-    v9 = *v22;
+    v9 = *v21;
     do
     {
       v10 = 0;
       do
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        _BKSSetDisplayDisabled(*(*(&v21 + 1) + 8 * v10++), 1);
+        _BKSSetDisplayDisabled(*(*(&v20 + 1) + 8 * v10), 1);
+        v10 = (v10 + 1);
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v8 = [v6 countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v8);
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v11 = v4;
-  v12 = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v12 = [v11 countByEnumeratingWithState:0 objects:? count:?];
   if (v12)
   {
     v13 = v12;
-    v14 = *v18;
+    v14 = *v17;
     do
     {
       v15 = 0;
       do
       {
-        if (*v18 != v14)
+        if (*v17 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        _BKSSetDisplayDisabled(*(*(&v17 + 1) + 8 * v15++), 0);
+        _BKSSetDisplayDisabled(*(*(&v16 + 1) + 8 * v15), 0);
+        v15 = (v15 + 1);
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v13 = [v11 countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v13);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t BKSDisplayServicesSetScreenBlanked(char a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  bzero(v5, 0x400uLL);
+  v5 = *MEMORY[0x1E69E9840];
+  bzero(v4, 0x400uLL);
   v2 = _BKSServerPortHelper("com.apple.backboard.display.services", BKSDisplayServerPort, &BKSDisplayServerMachPort, _InvalidateDisplayServicesPort);
-  result = _BKSDisplayNotifySetDisplayBlanked(v2, v5, a1, 1);
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return _BKSDisplayNotifySetDisplayBlanked(v2, v4, a1, 1);
 }
 
 id BKSDisplayServicesGetSystemIdentifiers(void *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v1 = a1;
   bzero(buffer, 0x400uLL);
   if (v1)
@@ -7145,19 +7031,19 @@ id BKSDisplayServicesGetSystemIdentifiers(void *a1)
     CFStringGetCString(v1, buffer, 1024, 0x8000100u);
   }
 
-  v11 = 0;
-  v10 = 0;
+  v9 = 0;
+  v8 = 0;
   v2 = _BKSServerPortHelper("com.apple.backboard.display.services", BKSDisplayServerPort, &BKSDisplayServerMachPort, _InvalidateDisplayServicesPort);
   v3 = 0;
-  if (!_BKSDisplayGetSystemIdentifiers(v2, buffer, &v11, &v10))
+  if (!_BKSDisplayGetSystemIdentifiers(v2, buffer, &v9, &v8))
   {
-    v4 = [MEMORY[0x1E695DEF0] bs_dataWithVMAllocatedBytes:v11 length:v10];
+    v4 = [MEMORY[0x1E695DEF0] bs_dataWithVMAllocatedBytes:? length:?];
     if (v4)
     {
       v5 = MEMORY[0x1E695DFD8];
-      v6 = objc_opt_class();
-      v7 = [v5 setWithObjects:{v6, objc_opt_class(), 0}];
-      v3 = [v5 bs_secureDecodedFromData:v4 withAdditionalClasses:v7];
+      objc_opt_class();
+      v6 = [v5 setWithObjects:{objc_opt_class(), 0}];
+      v3 = [v5 bs_secureDecodedFromData:? withAdditionalClasses:?];
     }
 
     else
@@ -7166,14 +7052,12 @@ id BKSDisplayServicesGetSystemIdentifiers(void *a1)
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
 void BKSDisplayServicesSetSystemIdentifiers(void *a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   bzero(buffer, 0x400uLL);
@@ -7182,20 +7066,20 @@ void BKSDisplayServicesSetSystemIdentifiers(void *a1, void *a2)
     CFStringGetCString(v3, buffer, 1024, 0x8000100u);
   }
 
-  v5 = [MEMORY[0x1E69E58C0] bs_secureDataFromObject:v4];
+  v5 = [MEMORY[0x1E69E58C0] bs_secureDataFromObject:?];
   v6 = v5;
   if (v4 && !v5)
   {
     v7 = BKLogCommon();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v15 = 138543362;
-      v16 = v4;
+      v14 = 138543362;
+      v15 = v4;
       v8 = "Error encoding system identifiers: %{public}@";
       v9 = v7;
       v10 = 12;
 LABEL_12:
-      _os_log_error_impl(&dword_186345000, v9, OS_LOG_TYPE_ERROR, v8, &v15, v10);
+      _os_log_error_impl(&dword_186345000, v9, OS_LOG_TYPE_ERROR, v8, &v14, v10);
       goto LABEL_9;
     }
 
@@ -7210,8 +7094,8 @@ LABEL_12:
     v7 = BKLogCommon();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v15 = 67109120;
-      LODWORD(v16) = v13;
+      v14 = 67109120;
+      LODWORD(v15) = v13;
       v8 = "Error sending system identifiers: 0x%x";
       v9 = v7;
       v10 = 8;
@@ -7220,12 +7104,26 @@ LABEL_12:
 
 LABEL_9:
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 BOOL BKSDisplayServicesIsFlipBookEnabled(const __CFString *a1)
 {
+  v6 = *MEMORY[0x1E69E9840];
+  bzero(buffer, 0x400uLL);
+  if (a1)
+  {
+    CFStringGetCString(a1, buffer, 1024, 0x8000100u);
+  }
+
+  v4 = 0;
+  v2 = _BKSServerPortHelper("com.apple.backboard.display.services", BKSDisplayServerPort, &BKSDisplayServerMachPort, _InvalidateDisplayServicesPort);
+  _BKSDisplayIsFlipBookEnabled(v2, buffer, &v4);
+  return v4 != 0;
+}
+
+uint64_t BKSDisplayServicesSetFlipBookEnabled(const __CFString *a1, uint64_t a2)
+{
+  v2 = a2;
   v7 = *MEMORY[0x1E69E9840];
   bzero(buffer, 0x400uLL);
   if (a1)
@@ -7233,32 +7131,16 @@ BOOL BKSDisplayServicesIsFlipBookEnabled(const __CFString *a1)
     CFStringGetCString(a1, buffer, 1024, 0x8000100u);
   }
 
-  v5 = 0;
-  v2 = _BKSServerPortHelper("com.apple.backboard.display.services", BKSDisplayServerPort, &BKSDisplayServerMachPort, _InvalidateDisplayServicesPort);
-  _BKSDisplayIsFlipBookEnabled(v2, buffer, &v5);
-  result = v5 != 0;
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t BKSDisplayServicesSetFlipBookEnabled(const __CFString *a1, char a2)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  bzero(buffer, 0x400uLL);
-  if (a1)
-  {
-    CFStringGetCString(a1, buffer, 1024, 0x8000100u);
-  }
-
   v4 = _BKSServerPortHelper("com.apple.backboard.display.services", BKSDisplayServerPort, &BKSDisplayServerMachPort, _InvalidateDisplayServicesPort);
-  result = _BKSDisplaySetFlipBookEnabled(v4, buffer, a2);
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return _BKSDisplaySetFlipBookEnabled(v4, buffer, v2);
 }
 
-uint64_t BKSDisplayServicesSetCalibrationPhaseWithEventType(const __CFString *a1, int a2, int a3, int a4)
+uint64_t BKSDisplayServicesSetCalibrationPhaseWithEventType(const __CFString *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v4 = a4;
+  v5 = a3;
+  v6 = a2;
+  v11 = *MEMORY[0x1E69E9840];
   bzero(buffer, 0x400uLL);
   if (a1)
   {
@@ -7266,13 +7148,27 @@ uint64_t BKSDisplayServicesSetCalibrationPhaseWithEventType(const __CFString *a1
   }
 
   v8 = _BKSServerPortHelper("com.apple.backboard.display.services", BKSDisplayServerPort, &BKSDisplayServerMachPort, _InvalidateDisplayServicesPort);
-  result = _BKSDisplaySetCalibrationPhase(v8, buffer, a2, a3, a4);
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return _BKSDisplaySetCalibrationPhase(v8, buffer, v6, v5, v4);
 }
 
 BOOL BKSDisplayServicesIsFlipBookSuppressed(const __CFString *a1)
 {
+  v6 = *MEMORY[0x1E69E9840];
+  bzero(buffer, 0x400uLL);
+  if (a1)
+  {
+    CFStringGetCString(a1, buffer, 1024, 0x8000100u);
+  }
+
+  v4 = 0;
+  v2 = _BKSServerPortHelper("com.apple.backboard.display.services", BKSDisplayServerPort, &BKSDisplayServerMachPort, _InvalidateDisplayServicesPort);
+  _BKSDisplayIsFlipBookSuppressed(v2, buffer, &v4);
+  return v4 != 0;
+}
+
+uint64_t BKSDisplayServicesSetFlipBookSuppressed(const __CFString *a1, uint64_t a2)
+{
+  v2 = a2;
   v7 = *MEMORY[0x1E69E9840];
   bzero(buffer, 0x400uLL);
   if (a1)
@@ -7280,42 +7176,21 @@ BOOL BKSDisplayServicesIsFlipBookSuppressed(const __CFString *a1)
     CFStringGetCString(a1, buffer, 1024, 0x8000100u);
   }
 
-  v5 = 0;
-  v2 = _BKSServerPortHelper("com.apple.backboard.display.services", BKSDisplayServerPort, &BKSDisplayServerMachPort, _InvalidateDisplayServicesPort);
-  _BKSDisplayIsFlipBookSuppressed(v2, buffer, &v5);
-  result = v5 != 0;
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t BKSDisplayServicesSetFlipBookSuppressed(const __CFString *a1, char a2)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  bzero(buffer, 0x400uLL);
-  if (a1)
-  {
-    CFStringGetCString(a1, buffer, 1024, 0x8000100u);
-  }
-
   v4 = _BKSServerPortHelper("com.apple.backboard.display.services", BKSDisplayServerPort, &BKSDisplayServerMachPort, _InvalidateDisplayServicesPort);
-  result = _BKSDisplaySetFlipBookSuppressed(v4, buffer, a2);
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return _BKSDisplaySetFlipBookSuppressed(v4, buffer, v2);
 }
 
 uint64_t BKSDisplayServicesWillUnblank()
 {
-  v4 = *MEMORY[0x1E69E9840];
-  bzero(v3, 0x400uLL);
+  v3 = *MEMORY[0x1E69E9840];
+  bzero(v2, 0x400uLL);
   v0 = _BKSServerPortHelper("com.apple.backboard.display.services", BKSDisplayServerPort, &BKSDisplayServerMachPort, _InvalidateDisplayServicesPort);
-  result = _BKSDisplayWillUnblank(v0, v3);
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
+  return _BKSDisplayWillUnblank(v0, v2);
 }
 
 uint64_t BKSDisplayServicesWillUnblankDisplay(const __CFString *a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   bzero(buffer, 0x400uLL);
   if (a1)
   {
@@ -7323,43 +7198,38 @@ uint64_t BKSDisplayServicesWillUnblankDisplay(const __CFString *a1)
   }
 
   v2 = _BKSServerPortHelper("com.apple.backboard.display.services", BKSDisplayServerPort, &BKSDisplayServerMachPort, _InvalidateDisplayServicesPort);
-  result = _BKSDisplayWillUnblank(v2, buffer);
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return _BKSDisplayWillUnblank(v2, buffer);
 }
 
 uint64_t __QuartzCoreLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   QuartzCoreLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-id BKSDisplayServicesSetMainDisplayCloneMirroringModeForDestinationDisplay(void *a1, unint64_t a2)
+void *BKSDisplayServicesSetMainDisplayCloneMirroringModeForDestinationDisplay(void *a1, unint64_t a2)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = MEMORY[0x1E696AEC0];
   v5 = objc_opt_class();
   if (!v3)
   {
     v21 = NSStringFromClass(v5);
-    v22 = [v4 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"displayUUID", v21];
+    v22 = [v4 stringWithFormat:@"displayUUID", v21];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"id<BSInvalidatable>  _Nonnull BKSDisplayServicesSetMainDisplayCloneMirroringModeForDestinationDisplay(NSString *__strong _Nonnull, BKSDisplayServicesCloneMirroringMode)"}];
+      v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buffer = 138544130;
-      v35 = v23;
-      v36 = 2114;
-      v37 = @"BKSDisplayServices.m";
-      v38 = 1024;
-      v39 = 425;
-      v40 = 2114;
-      v41 = v22;
+      v32 = v23;
+      v33 = 2114;
+      v34 = @"BKSDisplayServices.m";
+      v35 = 1024;
+      v36 = 425;
+      v37 = 2114;
+      v38 = v22;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buffer, 0x26u);
     }
 
@@ -7381,19 +7251,19 @@ id BKSDisplayServicesSetMainDisplayCloneMirroringModeForDestinationDisplay(void 
     v26 = NSStringFromClass(v25);
     v27 = objc_opt_class();
     v28 = NSStringFromClass(v27);
-    v29 = [v24 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"displayUUID", v26, v28];
+    v29 = [v24 stringWithFormat:@"displayUUID", v26, v28];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v30 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"id<BSInvalidatable>  _Nonnull BKSDisplayServicesSetMainDisplayCloneMirroringModeForDestinationDisplay(NSString *__strong _Nonnull, BKSDisplayServicesCloneMirroringMode)"}];
+      v30 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buffer = 138544130;
-      v35 = v30;
-      v36 = 2114;
-      v37 = @"BKSDisplayServices.m";
-      v38 = 1024;
-      v39 = 425;
-      v40 = 2114;
-      v41 = v29;
+      v32 = v30;
+      v33 = 2114;
+      v34 = @"BKSDisplayServices.m";
+      v35 = 1024;
+      v36 = 425;
+      v37 = 2114;
+      v38 = v29;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buffer, 0x26u);
     }
 
@@ -7411,48 +7281,42 @@ id BKSDisplayServicesSetMainDisplayCloneMirroringModeForDestinationDisplay(void 
   }
 
   v8 = objc_alloc_init(_BKSCloneMirroringModeRequest);
-  [(_BKSCloneMirroringModeRequest *)v8 setDisplayUUID:v3];
-  [(_BKSCloneMirroringModeRequest *)v8 setMode:a2];
+  [(_BKSCloneMirroringModeRequest *)v8 setDisplayUUID:?];
+  [(_BKSCloneMirroringModeRequest *)v8 setMode:?];
   v9 = objc_alloc(MEMORY[0x1E698E778]);
   v10 = MEMORY[0x1E696AEC0];
   v11 = NSStringFromBKSDisplayServicesCloneMirroringMode(a2);
-  v12 = [v10 stringWithFormat:@"%@:%@", v3, v11];
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __BKSDisplayServicesSetMainDisplayCloneMirroringModeForDestinationDisplay_block_invoke;
-  v31[3] = &unk_1E6F474F8;
+  v12 = [v10 stringWithFormat:v3, v11];
   v13 = v3;
-  v32 = v13;
   v14 = v8;
-  v33 = v14;
-  v15 = [v9 initWithIdentifier:v12 forReason:@"CloneMirroring" invalidationBlock:v31];
+  v15 = [v9 initWithIdentifier:? forReason:? invalidationBlock:?];
 
-  v16 = [BKSDisplayServicesSetMainDisplayCloneMirroringModeForDestinationDisplay_displayToModeCache objectForKey:v13];
+  v16 = [BKSDisplayServicesSetMainDisplayCloneMirroringModeForDestinationDisplay_displayToModeCache objectForKey:?];
   v17 = [v16 count];
 
-  [BKSDisplayServicesSetMainDisplayCloneMirroringModeForDestinationDisplay_displayToModeCache bs_addObject:v14 toCollectionClass:objc_opt_class() forKey:v13];
+  v18 = BKSDisplayServicesSetMainDisplayCloneMirroringModeForDestinationDisplay_displayToModeCache;
+  objc_opt_class();
+  [v18 bs_addObject:? toCollectionClass:? forKey:?];
   if (!v17)
   {
     bzero(buffer, 0x400uLL);
     CFStringGetCString(v13, buffer, 1024, 0x8000100u);
-    v18 = _BKSServerPortHelper("com.apple.backboard.display.services", BKSDisplayServerPort, &BKSDisplayServerMachPort, _InvalidateDisplayServicesPort);
-    _BKSDisplaySetCloneMirroringModeForDestinationDisplay(v18, buffer, a2);
+    v19 = _BKSServerPortHelper("com.apple.backboard.display.services", BKSDisplayServerPort, &BKSDisplayServerMachPort, _InvalidateDisplayServicesPort);
+    _BKSDisplaySetCloneMirroringModeForDestinationDisplay(v19, buffer, a2);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
 
 void __BKSDisplayServicesSetMainDisplayCloneMirroringModeForDestinationDisplay_block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v2 = [BKSDisplayServicesSetMainDisplayCloneMirroringModeForDestinationDisplay_displayToModeCache objectForKey:*(a1 + 32)];
+  v11 = *MEMORY[0x1E69E9840];
+  v2 = [BKSDisplayServicesSetMainDisplayCloneMirroringModeForDestinationDisplay_displayToModeCache objectForKey:?];
   v3 = [v2 firstObject];
   v4 = [v3 mode];
 
-  [BKSDisplayServicesSetMainDisplayCloneMirroringModeForDestinationDisplay_displayToModeCache bs_removeObject:*(a1 + 40) fromCollectionForKey:*(a1 + 32)];
-  v5 = [BKSDisplayServicesSetMainDisplayCloneMirroringModeForDestinationDisplay_displayToModeCache objectForKey:*(a1 + 32)];
+  [BKSDisplayServicesSetMainDisplayCloneMirroringModeForDestinationDisplay_displayToModeCache bs_removeObject:? fromCollectionForKey:?];
+  v5 = [BKSDisplayServicesSetMainDisplayCloneMirroringModeForDestinationDisplay_displayToModeCache objectForKey:?];
   v6 = [v5 firstObject];
   v7 = [v6 mode];
 
@@ -7472,30 +7336,29 @@ void __BKSDisplayServicesSetMainDisplayCloneMirroringModeForDestinationDisplay_b
     v9 = _BKSServerPortHelper("com.apple.backboard.display.services", BKSDisplayServerPort, &BKSDisplayServerMachPort, _InvalidateDisplayServicesPort);
     _BKSDisplayRemoveCloneMirroringModeForDestinationDisplay(v9, buffer);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t BKSDisplayServicesSetCloneRotationDisabled(char a1)
+uint64_t BKSDisplayServicesSetCloneRotationDisabled(uint64_t a1)
 {
+  v1 = a1;
   v2 = _BKSServerPortHelper("com.apple.backboard.display.services", BKSDisplayServerPort, &BKSDisplayServerMachPort, _InvalidateDisplayServicesPort);
 
-  return _BKSDisplaySetCloneRotationDisabled(v2, a1);
+  return _BKSDisplaySetCloneRotationDisabled(v2, v1);
 }
 
 BOOL BKSDisplayServicesTetherPrefsNeedImmediateUpdate()
 {
-  v2 = 0;
+  v4 = 0;
   v0 = _BKSServerPortHelper("com.apple.backboard.display.services", BKSDisplayServerPort, &BKSDisplayServerMachPort, _InvalidateDisplayServicesPort);
-  _BKSDisplayTetherPrefsNeedImmediateUpdate(v0, &v2);
-  return v2 != 0;
+  _BKSDisplayTetherPrefsNeedImmediateUpdate(v0, &v4, v1, v2);
+  return v4 != 0;
 }
 
-uint64_t BKSDisplayServicesSetTetheredOrientationNotificationsDisabled(char a1)
+uint64_t BKSDisplayServicesSetTetheredOrientationNotificationsDisabled(uint64_t a1)
 {
   v2 = _BKSServerPortHelper("com.apple.backboard.display.services", BKSDisplayServerPort, &BKSDisplayServerMachPort, _InvalidateDisplayServicesPort);
 
-  return _BKSDisplaySetTetheredOrientationNotificationsDisabled(v2, a1);
+  return _BKSDisplaySetTetheredOrientationNotificationsDisabled(v2, a1, v3, v4);
 }
 
 uint64_t BKSDisplayServicesUpdateTetheredDisplayOrientationIfNecessaryWithInterfaceOrientation(char a1)
@@ -7514,22 +7377,22 @@ uint64_t BKSDisplayServicesUpdateMirroredDisplayOrientationWithInterfaceOrientat
 
 void BKSDisplayServicesSetArrangement(void *a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v1 = a1;
-  v2 = [MEMORY[0x1E69E58C0] bs_secureDataFromObject:v1];
+  v2 = [MEMORY[0x1E69E58C0] bs_secureDataFromObject:?];
   v3 = v2;
   if (v1 && !v2)
   {
     v4 = BKLogCommon();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138543362;
-      v13 = v1;
+      v11 = 138543362;
+      v12 = v1;
       v5 = "Error encoding arrangement: %{public}@";
       v6 = v4;
       v7 = 12;
 LABEL_10:
-      _os_log_error_impl(&dword_186345000, v6, OS_LOG_TYPE_ERROR, v5, &v12, v7);
+      _os_log_error_impl(&dword_186345000, v6, OS_LOG_TYPE_ERROR, v5, &v11, v7);
       goto LABEL_7;
     }
 
@@ -7544,8 +7407,8 @@ LABEL_10:
     v4 = BKLogCommon();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v12 = 67109120;
-      LODWORD(v13) = v10;
+      v11 = 67109120;
+      LODWORD(v12) = v10;
       v5 = "Error sending arrangement: 0x%x";
       v6 = v4;
       v7 = 8;
@@ -7554,54 +7417,52 @@ LABEL_10:
 
 LABEL_7:
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void BKSDisplayServicesDrawPersistentScreenSnapshot()
 {
   v0 = [getCADisplayClass() mainDisplay];
-  v2 = [BKSDisplayRenderOverlayDescriptor descriptorWithName:@"BKSDisplayServicesDrawPersistentScreenSnapshot" display:v0];
+  v2 = [BKSDisplayRenderOverlayDescriptor descriptorWithName:"descriptorWithName:display:" display:?];
 
-  v1 = [[BKSDisplayRenderOverlay alloc] initWithDescriptor:v2];
+  v1 = [[BKSDisplayRenderOverlay alloc] initWithDescriptor:?];
   [(BKSDisplayRenderOverlay *)v1 present];
 }
 
 void BKSDisplayServicesTearDownPersistentScreenSnapshot()
 {
   v0 = [getCADisplayClass() mainDisplay];
-  v1 = [BKSDisplayRenderOverlay existingOverlayForDisplay:v0];
+  v1 = [BKSDisplayRenderOverlay existingOverlayForDisplay:?];
 
   [v1 dismiss];
 }
 
 BKSDisplayRenderOverlay *BKSDisplayServicesGetRenderOverlayForDisplay(void *a1)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (!v1)
   {
-    v11 = MEMORY[0x1E696AEC0];
+    v10 = MEMORY[0x1E696AEC0];
     getCADisplayClass();
-    v12 = objc_opt_class();
-    v13 = NSStringFromClass(v12);
-    v14 = [v11 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"display", v13];
+    v11 = objc_opt_class();
+    v12 = NSStringFromClass(v11);
+    v13 = [v10 stringWithFormat:@"display", v12];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"BKSDisplayRenderOverlay * _Nonnull BKSDisplayServicesGetRenderOverlayForDisplay(CADisplay *__strong _Nonnull)"];
+      v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buffer = 138544130;
-      v26 = v15;
-      v27 = 2114;
-      v28 = @"BKSDisplayServices.m";
-      v29 = 1024;
-      v30 = 533;
-      v31 = 2114;
-      v32 = v14;
+      v25 = v14;
+      v26 = 2114;
+      v27 = @"BKSDisplayServices.m";
+      v28 = 1024;
+      v29 = 533;
+      v30 = 2114;
+      v31 = v13;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buffer, 0x26u);
     }
 
-    [v14 UTF8String];
+    [v13 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x18637B6C8);
@@ -7612,34 +7473,34 @@ BKSDisplayRenderOverlay *BKSDisplayServicesGetRenderOverlayForDisplay(void *a1)
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v16 = MEMORY[0x1E696AEC0];
-    v17 = [v2 classForCoder];
-    if (!v17)
+    v15 = MEMORY[0x1E696AEC0];
+    v16 = [v2 classForCoder];
+    if (!v16)
     {
-      v17 = objc_opt_class();
+      v16 = objc_opt_class();
     }
 
-    v18 = NSStringFromClass(v17);
+    v17 = NSStringFromClass(v16);
     getCADisplayClass();
-    v19 = objc_opt_class();
-    v20 = NSStringFromClass(v19);
-    v21 = [v16 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"display", v18, v20];
+    v18 = objc_opt_class();
+    v19 = NSStringFromClass(v18);
+    v20 = [v15 stringWithFormat:@"display", v17, v19];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"BKSDisplayRenderOverlay * _Nonnull BKSDisplayServicesGetRenderOverlayForDisplay(CADisplay *__strong _Nonnull)"];
+      v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buffer = 138544130;
-      v26 = v22;
-      v27 = 2114;
-      v28 = @"BKSDisplayServices.m";
-      v29 = 1024;
-      v30 = 533;
-      v31 = 2114;
-      v32 = v21;
+      v25 = v21;
+      v26 = 2114;
+      v27 = @"BKSDisplayServices.m";
+      v28 = 1024;
+      v29 = 533;
+      v30 = 2114;
+      v31 = v20;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buffer, 0x26u);
     }
 
-    [v21 UTF8String];
+    [v20 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x18637B7E0);
@@ -7652,21 +7513,21 @@ BKSDisplayRenderOverlay *BKSDisplayServicesGetRenderOverlayForDisplay(void *a1)
     CFStringGetCString(v3, buffer, 1024, 0x8000100u);
   }
 
-  v24 = 0;
   v23 = 0;
+  v22 = 0;
   v4 = _BKSServerPortHelper("com.apple.backboard.display.services", BKSDisplayServerPort, &BKSDisplayServerMachPort, _InvalidateDisplayServicesPort);
   v5 = 0;
-  if (!_BKSDisplayRenderOverlay(v4, buffer, &v24, &v23))
+  if (!_BKSDisplayRenderOverlay(v4, buffer, &v23, &v22))
   {
-    v6 = [MEMORY[0x1E695DEF0] bs_dataWithVMAllocatedBytes:v24 length:v23];
+    v6 = [MEMORY[0x1E695DEF0] bs_dataWithVMAllocatedBytes:? length:?];
     if (v6)
     {
       v7 = +[BKSDisplayRenderOverlayDescriptor _classesRequiredToDecode];
-      v8 = [BKSDisplayRenderOverlayDescriptor bs_secureDecodedFromData:v6 withAdditionalClasses:v7];
+      v8 = [BKSDisplayRenderOverlayDescriptor bs_secureDecodedFromData:"bs_secureDecodedFromData:withAdditionalClasses:" withAdditionalClasses:?];
 
       if (v8)
       {
-        v5 = [[BKSDisplayRenderOverlay alloc] initWithDescriptor:v8];
+        v5 = [[BKSDisplayRenderOverlay alloc] initWithDescriptor:?];
       }
 
       else
@@ -7680,8 +7541,6 @@ BKSDisplayRenderOverlay *BKSDisplayServicesGetRenderOverlayForDisplay(void *a1)
       v5 = 0;
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -7697,11 +7556,11 @@ BOOL BKSDisplayServicesApplyRenderOverlay(void *a1, void *a2)
     v13 = MEMORY[0x1E696AEC0];
     v14 = objc_opt_class();
     v15 = NSStringFromClass(v14);
-    v16 = [v13 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"overlay", v15];
+    v16 = [v13 stringWithFormat:@"overlay", v15];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL BKSDisplayServicesApplyRenderOverlay(BKSDisplayRenderOverlay *__strong _Nonnull, BSAnimationSettings *__strong _Nullable)"}];
+      v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
       v26 = v17;
       v27 = 2114;
@@ -7733,11 +7592,11 @@ BOOL BKSDisplayServicesApplyRenderOverlay(void *a1, void *a2)
     v20 = NSStringFromClass(v19);
     v21 = objc_opt_class();
     v22 = NSStringFromClass(v21);
-    v23 = [v18 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"overlay", v20, v22];
+    v23 = [v18 stringWithFormat:@"overlay", v20, v22];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v24 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL BKSDisplayServicesApplyRenderOverlay(BKSDisplayRenderOverlay *__strong _Nonnull, BSAnimationSettings *__strong _Nullable)"}];
+      v24 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
       v26 = v24;
       v27 = 2114;
@@ -7761,11 +7620,10 @@ BOOL BKSDisplayServicesApplyRenderOverlay(void *a1, void *a2)
   v8 = [v7 bs_secureEncoded];
 
   v9 = [v4 bs_secureEncoded];
-  LODWORD(v7) = _BKSServerPortHelper("com.apple.backboard.display.services", BKSDisplayServerPort, &BKSDisplayServerMachPort, _InvalidateDisplayServicesPort);
-  v10 = _BKSDisplayApplyRenderOverlay(v7, [v8 bs_bytesForMIG], objc_msgSend(v8, "bs_lengthForMIG"), objc_msgSend(v9, "bs_bytesForMIG"), objc_msgSend(v9, "bs_lengthForMIG")) == 0;
+  v10 = _BKSServerPortHelper("com.apple.backboard.display.services", BKSDisplayServerPort, &BKSDisplayServerMachPort, _InvalidateDisplayServicesPort);
+  v11 = _BKSDisplayApplyRenderOverlay(v10, [v8 bs_bytesForMIG], objc_msgSend(v8, "bs_lengthForMIG"), objc_msgSend(v9, "bs_bytesForMIG"), objc_msgSend(v9, "bs_lengthForMIG")) == 0;
 
-  v11 = *MEMORY[0x1E69E9840];
-  return v10;
+  return v11;
 }
 
 id getCATransactionClass()
@@ -7792,9 +7650,9 @@ id getCATransactionClass()
   return v1;
 }
 
-void sub_18637BC34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18637BC34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7811,8 +7669,8 @@ void __getCATransactionClass_block_invoke(uint64_t a1)
   else
   {
     v2 = [MEMORY[0x1E696AAA8] currentHandler];
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getCATransactionClass(void)_block_invoke"];
-    [v2 handleFailureInFunction:v3 file:@"BKSDisplayServices.m" lineNumber:43 description:{@"Unable to find class %s", "CATransaction"}];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
+    [v2 handleFailureInFunction:"CATransaction" file:? lineNumber:? description:?];
 
     __break(1u);
   }
@@ -7826,38 +7684,38 @@ BOOL BKSDisplayServicesRemoveRenderOverlay(void *a1, void *a2)
 
   v6 = [v3 bs_secureEncoded];
 
-  LODWORD(v3) = _BKSServerPortHelper("com.apple.backboard.display.services", BKSDisplayServerPort, &BKSDisplayServerMachPort, _InvalidateDisplayServicesPort);
-  v7 = _BKSDisplayRemoveRenderOverlay(v3, [v5 bs_bytesForMIG], objc_msgSend(v5, "bs_lengthForMIG"), objc_msgSend(v6, "bs_bytesForMIG"), objc_msgSend(v6, "bs_lengthForMIG")) == 0;
+  v7 = _BKSServerPortHelper("com.apple.backboard.display.services", BKSDisplayServerPort, &BKSDisplayServerMachPort, _InvalidateDisplayServicesPort);
+  v8 = _BKSDisplayRemoveRenderOverlay(v7, [v5 bs_bytesForMIG], objc_msgSend(v5, "bs_lengthForMIG"), objc_msgSend(v6, "bs_bytesForMIG"), objc_msgSend(v6, "bs_lengthForMIG")) == 0;
 
-  return v7;
+  return v8;
 }
 
 BOOL BKSDisplayServicesFreezeRenderOverlay(void *a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (!v1)
   {
-    v8 = MEMORY[0x1E696AEC0];
-    v9 = objc_opt_class();
-    v10 = NSStringFromClass(v9);
-    v11 = [v8 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"overlay", v10];
+    v11 = MEMORY[0x1E696AEC0];
+    v12 = objc_opt_class();
+    v13 = NSStringFromClass(v12);
+    v14 = [v11 stringWithFormat:@"overlay", v13];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"BOOL BKSDisplayServicesFreezeRenderOverlay(BKSDisplayRenderOverlay *__strong _Nonnull)"];
+      v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v21 = v12;
-      v22 = 2114;
-      v23 = @"BKSDisplayServices.m";
-      v24 = 1024;
-      v25 = 583;
-      v26 = 2114;
-      v27 = v11;
+      v24 = v15;
+      v25 = 2114;
+      v26 = @"BKSDisplayServices.m";
+      v27 = 1024;
+      v28 = 583;
+      v29 = 2114;
+      v30 = v14;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v11 UTF8String];
+    [v14 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x18637C00CLL);
@@ -7867,33 +7725,33 @@ BOOL BKSDisplayServicesFreezeRenderOverlay(void *a1)
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v13 = MEMORY[0x1E696AEC0];
-    v14 = [v2 classForCoder];
-    if (!v14)
+    v16 = MEMORY[0x1E696AEC0];
+    v17 = [v2 classForCoder];
+    if (!v17)
     {
-      v14 = objc_opt_class();
+      v17 = objc_opt_class();
     }
 
-    v15 = NSStringFromClass(v14);
-    v16 = objc_opt_class();
-    v17 = NSStringFromClass(v16);
-    v18 = [v13 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"overlay", v15, v17];
+    v18 = NSStringFromClass(v17);
+    v19 = objc_opt_class();
+    v20 = NSStringFromClass(v19);
+    v21 = [v16 stringWithFormat:@"overlay", v18, v20];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"BOOL BKSDisplayServicesFreezeRenderOverlay(BKSDisplayRenderOverlay *__strong _Nonnull)"];
+      v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v21 = v19;
-      v22 = 2114;
-      v23 = @"BKSDisplayServices.m";
-      v24 = 1024;
-      v25 = 583;
-      v26 = 2114;
-      v27 = v18;
+      v24 = v22;
+      v25 = 2114;
+      v26 = @"BKSDisplayServices.m";
+      v27 = 1024;
+      v28 = 583;
+      v29 = 2114;
+      v30 = v21;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v18 UTF8String];
+    [v21 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x18637C124);
@@ -7902,58 +7760,56 @@ BOOL BKSDisplayServicesFreezeRenderOverlay(void *a1)
   v3 = [v2 _descriptor];
   v4 = [v3 bs_secureEncoded];
 
-  LODWORD(v3) = _BKSServerPortHelper("com.apple.backboard.display.services", BKSDisplayServerPort, &BKSDisplayServerMachPort, _InvalidateDisplayServicesPort);
-  v5 = _BKSDisplayFreezeRenderOverlay(v3, [v4 bs_bytesForMIG], objc_msgSend(v4, "bs_lengthForMIG")) == 0;
+  v5 = _BKSServerPortHelper("com.apple.backboard.display.services", BKSDisplayServerPort, &BKSDisplayServerMachPort, _InvalidateDisplayServicesPort);
+  v6 = [v4 bs_bytesForMIG];
+  v7 = [v4 bs_lengthForMIG];
+  v9 = _BKSDisplayFreezeRenderOverlay(v5, v6, v7, v8) == 0;
 
-  v6 = *MEMORY[0x1E69E9840];
-  return v5;
+  return v9;
 }
 
 void BKSDisplayServicesDismissInterstitialRenderOverlay(void *a1)
 {
-  v2 = [a1 bs_secureEncoded];
+  v5 = [a1 bs_secureEncoded];
   v1 = _BKSServerPortHelper("com.apple.backboard.display.services", BKSDisplayServerPort, &BKSDisplayServerMachPort, _InvalidateDisplayServicesPort);
-  _BKSDisplayDismissInterstitialRenderOverlay(v1, [v2 bs_bytesForMIG], objc_msgSend(v2, "bs_lengthForMIG"));
+  v2 = [v5 bs_bytesForMIG];
+  v3 = [v5 bs_lengthForMIG];
+  _BKSDisplayDismissInterstitialRenderOverlay(v1, v2, v3, v4);
 }
 
 id BKSDisplayServicesGetRenderOverlayDismissActions()
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v21 = 0;
-  v20 = 0;
+  v16[17] = *MEMORY[0x1E69E9840];
+  v16[0] = 0;
+  v15 = 0;
   v0 = _BKSServerPortHelper("com.apple.backboard.display.services", BKSDisplayServerPort, &BKSDisplayServerMachPort, _InvalidateDisplayServicesPort);
-  v1 = 0;
-  if (!_BKSDisplayGetRenderOverlayDismissActions(v0, &v21, &v20))
+  v2 = 0;
+  if (!_BKSDisplayGetRenderOverlayDismissActions(v0, v16, &v15, v1))
   {
-    v2 = [MEMORY[0x1E695DEF0] bs_dataWithVMAllocatedBytes:v21 length:v20];
-    if (v2)
+    v3 = [MEMORY[0x1E695DEF0] bs_dataWithVMAllocatedBytes:? length:?];
+    if (v3)
     {
-      v3 = MEMORY[0x1E695DFD8];
-      v4 = +[BKSDisplayRenderOverlayDescriptor _classesRequiredToDecode];
-      v5 = [v3 bs_secureDecodedFromData:v2 withAdditionalClasses:v4];
+      v4 = MEMORY[0x1E695DFD8];
+      v5 = +[BKSDisplayRenderOverlayDescriptor _classesRequiredToDecode];
+      v6 = [v4 bs_secureDecodedFromData:? withAdditionalClasses:?];
 
-      v1 = [MEMORY[0x1E695DFA8] set];
-      v16 = 0u;
-      v17 = 0u;
-      v18 = 0u;
-      v19 = 0u;
-      v6 = v5;
-      v7 = [v6 countByEnumeratingWithState:&v16 objects:v22 count:16];
-      if (v7)
+      v2 = [MEMORY[0x1E695DFA8] set];
+      v7 = v6;
+      v8 = [v7 countByEnumeratingWithState:0 objects:? count:?];
+      if (v8)
       {
-        v8 = v7;
-        v9 = *v17;
+        v9 = v8;
+        v10 = MEMORY[0];
         do
         {
-          for (i = 0; i != v8; ++i)
+          for (i = 0; i != v9; i = (i + 1))
           {
-            if (*v17 != v9)
+            if (MEMORY[0] != v10)
             {
-              objc_enumerationMutation(v6);
+              objc_enumerationMutation(v7);
             }
 
-            v11 = *(*(&v16 + 1) + 8 * i);
-            if ([v11 isInterstitial])
+            if ([*(8 * i) isInterstitial])
             {
               v12 = off_1E6F45E00;
             }
@@ -7963,26 +7819,24 @@ id BKSDisplayServicesGetRenderOverlayDismissActions()
               v12 = off_1E6F45E10;
             }
 
-            v13 = [objc_alloc(*v12) initWithDescriptor:v11];
-            [v1 addObject:v13];
+            v13 = [objc_alloc(*v12) initWithDescriptor:?];
+            [v2 addObject:?];
           }
 
-          v8 = [v6 countByEnumeratingWithState:&v16 objects:v22 count:16];
+          v9 = [v7 countByEnumeratingWithState:? objects:? count:?];
         }
 
-        while (v8);
+        while (v9);
       }
     }
 
     else
     {
-      v1 = 0;
+      v2 = 0;
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
-  return v1;
+  return v2;
 }
 
 void BKSDisplayServicesArchiveWithOptionsAndCompletion(char a1, void *a2)
@@ -7994,82 +7848,72 @@ void BKSDisplayServicesArchiveWithOptionsAndCompletion(char a1, void *a2)
     v5 = objc_opt_new();
     v6 = MEMORY[0x1E698F498];
     v7 = [MEMORY[0x1E696AFB0] UUID];
-    v8 = [v6 endpointForServiceName:@"com.apple.backboard.display.archive" oneshot:v7 service:@"DisplayArchive" instance:0];
+    v8 = [v6 endpointForServiceName:? oneshot:? service:? instance:?];
 
     if (v8)
     {
-      v9 = [MEMORY[0x1E698F490] NSXPCConnectionWithEndpoint:v8 configurator:&__block_literal_global_136];
-      v10 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1EF579410];
+      v9 = [MEMORY[0x1E698F490] NSXPCConnectionWithEndpoint:? configurator:?];
+      v10 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:?];
       v11 = MEMORY[0x1E695DFD8];
+      objc_opt_class();
       v12 = objc_opt_class();
-      v13 = objc_opt_class();
-      v14 = [v11 setWithObjects:{v12, v13, objc_opt_class(), 0}];
-      [v10 setClasses:v14 forSelector:sel_nameAndDumpAllWithCompletion_ argumentIndex:0 ofReply:1];
+      v13 = [v11 setWithObjects:{v12, objc_opt_class(), 0}];
+      [v10 setClasses:? forSelector:? argumentIndex:? ofReply:?];
 
-      v15 = MEMORY[0x1E695DFD8];
-      v16 = objc_opt_class();
-      v17 = objc_opt_class();
-      v18 = [v15 setWithObjects:{v16, v17, objc_opt_class(), 0}];
-      [v10 setClasses:v18 forSelector:sel_dumpAllWithCompletion_ argumentIndex:0 ofReply:1];
+      v14 = MEMORY[0x1E695DFD8];
+      objc_opt_class();
+      v15 = objc_opt_class();
+      v16 = [v14 setWithObjects:{v15, objc_opt_class(), 0}];
+      [v10 setClasses:? forSelector:? argumentIndex:? ofReply:?];
 
-      [v9 setRemoteObjectInterface:v10];
+      [v9 setRemoteObjectInterface:?];
       [v9 activate];
-      v37[0] = MEMORY[0x1E69E9820];
-      v37[1] = 3221225472;
-      v37[2] = __BKSDisplayServicesArchiveWithOptionsAndCompletion_block_invoke_2;
-      v37[3] = &unk_1E6F46CE8;
-      v19 = v5;
-      v38 = v19;
-      v20 = v3;
-      v40 = v20;
-      v21 = v9;
-      v39 = v21;
-      v22 = [v21 remoteObjectProxyWithErrorHandler:v37];
+      v31 = MEMORY[0x1E69E9820];
+      v32 = 3221225472;
+      v33 = __BKSDisplayServicesArchiveWithOptionsAndCompletion_block_invoke_2;
+      v34 = &unk_1E6F46CE8;
+      v17 = v5;
+      v35 = v17;
+      v18 = v3;
+      v37 = v18;
+      v19 = v9;
+      v36 = v19;
+      v20 = [v19 remoteObjectProxyWithErrorHandler:?];
 
-      if (v22)
+      if (v20)
       {
-        v23 = BKLogDisplayArchive();
-        v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
+        v21 = BKLogDisplayArchive();
+        v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
         if (a1)
         {
-          if (v24)
+          if (v22)
           {
             *buf = 0;
-            _os_log_impl(&dword_186345000, v23, OS_LOG_TYPE_DEFAULT, "sending name layers and dump all to service", buf, 2u);
+            _os_log_impl(&dword_186345000, v21, OS_LOG_TYPE_DEFAULT, "sending name layers and dump all to service", buf, 2u);
           }
 
-          v32[0] = MEMORY[0x1E69E9820];
-          v32[1] = 3221225472;
-          v32[2] = __BKSDisplayServicesArchiveWithOptionsAndCompletion_block_invoke_148;
-          v32[3] = &unk_1E6F46D10;
-          v33 = v19;
-          v35 = v20;
-          v21 = v21;
-          v34 = v21;
-          [v22 nameAndDumpAllWithCompletion:v32];
+          v28 = v17;
+          v29 = v18;
+          v19 = v19;
+          [v20 nameAndDumpAllWithCompletion:?];
 
-          v25 = v33;
+          v23 = v28;
         }
 
         else
         {
-          if (v24)
+          if (v22)
           {
             *buf = 0;
-            _os_log_impl(&dword_186345000, v23, OS_LOG_TYPE_DEFAULT, "sending dump all to service", buf, 2u);
+            _os_log_impl(&dword_186345000, v21, OS_LOG_TYPE_DEFAULT, "sending dump all to service", buf, 2u);
           }
 
-          v28[0] = MEMORY[0x1E69E9820];
-          v28[1] = 3221225472;
-          v28[2] = __BKSDisplayServicesArchiveWithOptionsAndCompletion_block_invoke_150;
-          v28[3] = &unk_1E6F46D10;
-          v29 = v19;
-          v31 = v20;
-          v21 = v21;
-          v30 = v21;
-          [v22 dumpAllWithCompletion:v28];
+          v26 = v17;
+          v27 = v18;
+          v19 = v19;
+          [v20 dumpAllWithCompletion:?];
 
-          v25 = v29;
+          v23 = v26;
         }
 
 LABEL_17:
@@ -8080,22 +7924,22 @@ LABEL_17:
 
     else
     {
-      v26 = BKLogDisplayArchive();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v24 = BKLogDisplayArchive();
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_186345000, v26, OS_LOG_TYPE_ERROR, "failed to lookup endpoint to service", buf, 2u);
+        _os_log_error_impl(&dword_186345000, v24, OS_LOG_TYPE_ERROR, "failed to lookup endpoint to service", buf, 2u);
       }
 
-      v21 = 0;
+      v19 = 0;
     }
 
     if ([v5 signal])
     {
-      v27 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:4097 userInfo:0];
-      (*(v3 + 2))(v3, MEMORY[0x1E695E0F8], v27);
+      v25 = [MEMORY[0x1E696ABC0] errorWithDomain:? code:? userInfo:?];
+      (*(v3 + 2))(v3, MEMORY[0x1E695E0F8], v25);
 
-      [v21 invalidate];
+      [v19 invalidate];
     }
 
     goto LABEL_17;
@@ -8106,14 +7950,14 @@ LABEL_18:
 
 void __BKSDisplayServicesArchiveWithOptionsAndCompletion_block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = BKLogDisplayArchive();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_error_impl(&dword_186345000, v4, OS_LOG_TYPE_ERROR, "error talking to service : %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_error_impl(&dword_186345000, v4, OS_LOG_TYPE_ERROR, "error talking to service : %@", &v5, 0xCu);
   }
 
   if ([*(a1 + 32) signal])
@@ -8121,8 +7965,6 @@ void __BKSDisplayServicesArchiveWithOptionsAndCompletion_block_invoke_2(uint64_t
     (*(*(a1 + 48) + 16))();
     [*(a1 + 40) invalidate];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __BKSDisplayServicesArchiveWithOptionsAndCompletion_block_invoke_148(uint64_t a1, void *a2, void *a3)
@@ -8186,7 +8028,7 @@ __CFString *NSStringFromBKSTouchAuthenticationInitialSampleEvent(unint64_t a1)
 {
   if (a1 >= 3)
   {
-    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<invalid:%X>", a1];
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:a1];
   }
 
   else
@@ -8197,21 +8039,18 @@ __CFString *NSStringFromBKSTouchAuthenticationInitialSampleEvent(unint64_t a1)
   return v2;
 }
 
-void sub_186385614(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_186385614(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t __FrontBoardServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   FrontBoardServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -8350,12 +8189,9 @@ void _serverWasRestarted(uint64_t a1, void *a2)
 
 uint64_t _BKXXDeliverAccelerometerEvent(double a1, float a2, float a3, float a4, uint64_t a5, uint64_t a6)
 {
-  v11 = pthread_getspecific(__BKMIGServerCalloutContextKey);
-  v12 = [v11 delegate];
-  *&v13 = a2;
-  *&v14 = a3;
-  *&v15 = a4;
-  [v12 accelerometer:v11 didAccelerateWithTimeStamp:a6 x:a1 y:v13 z:v14 eventType:v15];
+  v6 = pthread_getspecific(__BKMIGServerCalloutContextKey);
+  v7 = [v6 delegate];
+  [v7 accelerometer:? didAccelerateWithTimeStamp:? x:? y:? z:? eventType:?];
 
   return 0;
 }
@@ -8388,7 +8224,7 @@ uint64_t __BKSDisplayBrightnessTransactionGetTypeID_block_invoke()
 void BKSDisplayBrightnessTransactionDealloc(os_unfair_lock_s *a1)
 {
   v2 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
-  _BKSHIDFlushDisplayBrightnessUpdates(v2);
+  _BKSHIDFlushDisplayBrightnessUpdates(v2, v3, v4, v5);
   os_unfair_lock_lock(a1 + 4);
   os_unfair_lock_opaque = a1[5]._os_unfair_lock_opaque;
   if (os_unfair_lock_opaque + 1 >= 2)
@@ -8400,7 +8236,7 @@ void BKSDisplayBrightnessTransactionDealloc(os_unfair_lock_s *a1)
   os_unfair_lock_unlock(a1 + 4);
 }
 
-_DWORD *BKSDisplayBrightnessTransactionCreate()
+_DWORD *BKSDisplayBrightnessTransactionCreate(uint64_t a1)
 {
   if (__BKSDisplayBrightnessTransactionRegisterOnce != -1)
   {
@@ -8411,7 +8247,7 @@ _DWORD *BKSDisplayBrightnessTransactionCreate()
   if (Instance)
   {
     name = 0;
-    if (mach_port_allocate(*MEMORY[0x1E69E9A60], 1u, &name) || (v1 = name, Instance[4] = 0, Instance[5] = v1, v2 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort), _BKSHIDBeginDisplayBrightnessTransaction(v2, Instance[5])))
+    if (mach_port_allocate(*MEMORY[0x1E69E9A60], 1u, &name) || (v2 = name, Instance[4] = 0, Instance[5] = v2, v3 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort), _BKSHIDBeginDisplayBrightnessTransaction(v3, Instance[5], v4, v5)))
     {
       CFRelease(Instance);
       return 0;
@@ -8421,18 +8257,19 @@ _DWORD *BKSDisplayBrightnessTransactionCreate()
   return Instance;
 }
 
-uint64_t BKSDisplayBrightnessSet(char a1, float a2)
+uint64_t BKSDisplayBrightnessSet(uint64_t a1, float a2)
 {
+  v2 = a1;
   v4 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
 
-  return _BKSHIDSetDisplayBrightnessValue(v4, a1, a2);
+  return _BKSHIDSetDisplayBrightnessValue(v4, v2, a2);
 }
 
 uint64_t BKSDisplayBrightnessSetWithImplicitTransaction(float a1)
 {
   v2 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
 
-  return _BKSHIDSetDisplayBrightnessWithImplicitTransaction(v2, a1);
+  return _BKSHIDSetDisplayBrightnessWithImplicitTransaction(v2, v3, v4, v5, a1);
 }
 
 uint64_t BKSDisplayBrightnessRestoreSystemBrightness()
@@ -8451,33 +8288,34 @@ uint64_t BKSDisplayBrightnessCurveSet(char a1)
 
 uint64_t BKSDisplayBrightnessCurveGetCurrent()
 {
-  v2 = 0;
+  v4 = 0;
   v0 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
-  _BKSHIDGetCurrentDisplayBrightnessCurve(v0, &v2);
-  return v2;
+  _BKSHIDGetCurrentDisplayBrightnessCurve(v0, &v4, v1, v2);
+  return v4;
 }
 
-uint64_t BKSDisplayBrightnessSetAutoBrightnessEnabled(char a1)
+uint64_t BKSDisplayBrightnessSetAutoBrightnessEnabled(uint64_t a1)
 {
+  v1 = a1;
   v2 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
 
-  return _BKSHIDSetAutoDisplayBrightnessEnabled(v2, a1);
+  return _BKSHIDSetAutoDisplayBrightnessEnabled(v2, v1);
 }
 
 BOOL BKSDisplayBrightnessIsAutoBrightnessAvailable()
 {
-  v2 = 0;
+  v4 = 0;
   v0 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
-  _BKSHIDBrigthnessIsAutoBrightnessAvailable(v0, &v2);
-  return v2 != 0;
+  _BKSHIDBrigthnessIsAutoBrightnessAvailable(v0, &v4, v1, v2);
+  return v4 != 0;
 }
 
 BOOL BKSDisplayBrightnessIsBrightnessLevelControlAvailable()
 {
-  v2 = 0;
+  v4 = 0;
   v0 = _BKSServerPortHelper("com.apple.backboard.hid.services", BKSHIDServerPort, &BKSHIDServerMachPort, _InvalidateHIDServicesPort);
-  _BKSHIDBrigthnessIsBrightnessLevelControlAvailable(v0, &v2);
-  return v2 != 0;
+  _BKSHIDBrigthnessIsBrightnessLevelControlAvailable(v0, &v4, v1, v2);
+  return v4 != 0;
 }
 
 id BKLogCommon()
@@ -8494,16 +8332,20 @@ id BKLogCommon()
 
 uint64_t __BKLogCommon_block_invoke()
 {
-  BKLogCommon___logObj = os_log_create("com.apple.BackBoard", "Common");
+  v0 = os_log_create("com.apple.BackBoard", "Common");
+  v1 = BKLogCommon___logObj;
+  BKLogCommon___logObj = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __BKLogDetailed_block_invoke()
 {
-  BKLogDetailed___logObj = os_log_create("com.apple.BackBoard", "Detailed");
+  v0 = os_log_create("com.apple.BackBoard", "Detailed");
+  v1 = BKLogDetailed___logObj;
+  BKLogDetailed___logObj = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id BKLogEventDeliveryBuffering()
@@ -8520,9 +8362,11 @@ id BKLogEventDeliveryBuffering()
 
 uint64_t __BKLogEventDeliveryBuffering_block_invoke()
 {
-  BKLogEventDeliveryBuffering___logObj = os_log_create("com.apple.BackBoard", "EventDeliveryBuffering");
+  v0 = os_log_create("com.apple.BackBoard", "EventDeliveryBuffering");
+  v1 = BKLogEventDeliveryBuffering___logObj;
+  BKLogEventDeliveryBuffering___logObj = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id BKLogEventDeliveryMatching()
@@ -8539,9 +8383,11 @@ id BKLogEventDeliveryMatching()
 
 uint64_t __BKLogEventDeliveryMatching_block_invoke()
 {
-  BKLogEventDeliveryMatching___logObj = os_log_create("com.apple.BackBoard", "EventDeliveryMatching");
+  v0 = os_log_create("com.apple.BackBoard", "EventDeliveryMatching");
+  v1 = BKLogEventDeliveryMatching___logObj;
+  BKLogEventDeliveryMatching___logObj = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id BKLogAlternateSystemApp()
@@ -8558,9 +8404,11 @@ id BKLogAlternateSystemApp()
 
 uint64_t __BKLogAlternateSystemApp_block_invoke()
 {
-  BKLogAlternateSystemApp___logObj = os_log_create("com.apple.BackBoard", "AlternateSystemApp");
+  v0 = os_log_create("com.apple.BackBoard", "AlternateSystemApp");
+  v1 = BKLogAlternateSystemApp___logObj;
+  BKLogAlternateSystemApp___logObj = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id BKLogIdleTimer()
@@ -8577,16 +8425,20 @@ id BKLogIdleTimer()
 
 uint64_t __BKLogIdleTimer_block_invoke()
 {
-  BKLogIdleTimer___logObj = os_log_create("com.apple.BackBoard", "IdleTimer");
+  v0 = os_log_create("com.apple.BackBoard", "IdleTimer");
+  v1 = BKLogIdleTimer___logObj;
+  BKLogIdleTimer___logObj = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __BKLogBacklight_block_invoke()
 {
-  BKLogBacklight___logObj = os_log_create("com.apple.BackBoard", "Backlight");
+  v0 = os_log_create("com.apple.BackBoard", "Backlight");
+  v1 = BKLogBacklight___logObj;
+  BKLogBacklight___logObj = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id BKLogDisplayArchive()
@@ -8603,23 +8455,29 @@ id BKLogDisplayArchive()
 
 uint64_t __BKLogDisplayArchive_block_invoke()
 {
-  BKLogDisplayArchive___logObj = os_log_create("com.apple.BackBoard", "DisplayArchive");
+  v0 = os_log_create("com.apple.BackBoard", "DisplayArchive");
+  v1 = BKLogDisplayArchive___logObj;
+  BKLogDisplayArchive___logObj = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __BKLogTouchDeliveryObserver_block_invoke()
 {
-  BKLogTouchDeliveryObserver___logObj = os_log_create("com.apple.BackBoard", "TouchDeliveryObserver");
+  v0 = os_log_create("com.apple.BackBoard", "TouchDeliveryObserver");
+  v1 = BKLogTouchDeliveryObserver___logObj;
+  BKLogTouchDeliveryObserver___logObj = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __BKLogUISensor_block_invoke()
 {
-  BKLogUISensor___logObj = os_log_create("com.apple.BackBoard", "UISensor");
+  v0 = os_log_create("com.apple.BackBoard", "UISensor");
+  v1 = BKLogUISensor___logObj;
+  BKLogUISensor___logObj = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id BKLogSystemShell()
@@ -8636,16 +8494,20 @@ id BKLogSystemShell()
 
 uint64_t __BKLogSystemShell_block_invoke()
 {
-  BKLogSystemShell___logObj = os_log_create("com.apple.BackBoard", "SystemShell");
+  v0 = os_log_create("com.apple.BackBoard", "SystemShell");
+  v1 = BKLogSystemShell___logObj;
+  BKLogSystemShell___logObj = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __BKLogTouchEvents_block_invoke()
 {
-  BKLogTouchEvents___logObj = os_log_create("com.apple.BackBoard", "TouchEvents");
+  v0 = os_log_create("com.apple.BackBoard", "TouchEvents");
+  v1 = BKLogTouchEvents___logObj;
+  BKLogTouchEvents___logObj = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id BKLogHapticFeedback()
@@ -8662,24 +8524,23 @@ id BKLogHapticFeedback()
 
 uint64_t __BKLogHapticFeedback_block_invoke()
 {
-  BKLogHapticFeedback___logObj = os_log_create("com.apple.BackBoard", "HapticFeedback");
+  v0 = os_log_create("com.apple.BackBoard", "HapticFeedback");
+  v1 = BKLogHapticFeedback___logObj;
+  BKLogHapticFeedback___logObj = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __QuartzCoreLibraryCore_block_invoke_8153(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   QuartzCoreLibraryCore_frameworkLibrary_8152 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_186391550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_186391550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8688,7 +8549,7 @@ __CFString *NSStringFromBKSMousePointerDeviceClickHapticStrength(unint64_t a1)
 {
   if (a1 >= 3)
   {
-    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<invalid:%X>", a1];
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:a1];
   }
 
   else
@@ -8701,15 +8562,15 @@ __CFString *NSStringFromBKSMousePointerDeviceClickHapticStrength(unint64_t a1)
 
 void BKSTerminateApplicationForReasonAndReportWithDescription(void *a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v9 = a1;
-  v7 = a4;
-  if (!v9)
+  v7 = a1;
+  v5 = a4;
+  if (!v7)
   {
     __assert_rtn("BKSTerminateApplicationForReasonAndReportWithDescription", "BKSApplicationTermination.m", 19, "bundleID");
   }
 
-  v8 = objc_alloc_init(BKSSystemService);
-  [(BKSSystemService *)v8 terminateApplication:v9 forReason:a2 andReport:a3 withDescription:v7];
+  v6 = objc_alloc_init(BKSSystemService);
+  [BKSSystemService terminateApplication:v6 forReason:"terminateApplication:forReason:andReport:withDescription:" andReport:? withDescription:?];
 }
 
 id getCADisplayClass_8958()
@@ -8736,67 +8597,63 @@ id getCADisplayClass_8958()
   return v1;
 }
 
-void sub_186394A40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_186394A40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getCADisplayClass_block_invoke_8960(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v7[0] = 0;
+  v9 = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
   if (!QuartzCoreLibraryCore_frameworkLibrary_8961)
   {
-    v7[1] = MEMORY[0x1E69E9820];
-    v7[2] = 3221225472;
-    v7[3] = __QuartzCoreLibraryCore_block_invoke_8962;
-    v7[4] = &__block_descriptor_40_e5_v8__0l;
-    v7[5] = v7;
-    v8 = xmmword_1E6F47170;
-    v9 = 0;
+    v6[1] = MEMORY[0x1E69E9820];
+    v6[2] = 3221225472;
+    v6[3] = __QuartzCoreLibraryCore_block_invoke_8962;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_1E6F47170;
+    v8 = 0;
     QuartzCoreLibraryCore_frameworkLibrary_8961 = _sl_dlopen();
   }
 
   if (!QuartzCoreLibraryCore_frameworkLibrary_8961)
   {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *QuartzCoreLibrary(void)"];
-    [v4 handleFailureInFunction:v5 file:@"BKSDisplayRenderOverlayDescriptor.m" lineNumber:16 description:{@"%s", v7[0]}];
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
+    [v3 handleFailureInFunction:v6[0] file:? lineNumber:? description:?];
 
     goto LABEL_10;
   }
 
-  if (v7[0])
+  if (v6[0])
   {
-    free(v7[0]);
+    free(v6[0]);
   }
 
   result = objc_getClass("CADisplay");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getCADisplayClass(void)_block_invoke"];
-    [v4 handleFailureInFunction:v6 file:@"BKSDisplayRenderOverlayDescriptor.m" lineNumber:17 description:{@"Unable to find class %s", "CADisplay"}];
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
+    [v3 handleFailureInFunction:"CADisplay" file:? lineNumber:? description:?];
 
 LABEL_10:
     __break(1u);
   }
 
   getCADisplayClass_softClass_8959 = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __QuartzCoreLibraryCore_block_invoke_8962(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   QuartzCoreLibraryCore_frameworkLibrary_8961 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -8804,7 +8661,7 @@ __CFString *NSStringFromBKSHIDEventSecureNameStatus(unint64_t a1)
 {
   if (a1 >= 3)
   {
-    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<status:%d>", a1];
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:a1];
   }
 
   else
@@ -8819,7 +8676,7 @@ __CFString *NSStringFromBKSHIDEventAuthenticationStatus(unint64_t a1)
 {
   if (a1 >= 4)
   {
-    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<status:%d>", a1];
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:a1];
   }
 
   else
@@ -8834,7 +8691,7 @@ __CFString *NSStringFromBKSSystemShellCheckInStatus(unint64_t a1)
 {
   if (a1 >= 4)
   {
-    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<invalid:%X>", a1];
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:a1];
   }
 
   else
@@ -8852,10 +8709,11 @@ void sub_186399400(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_18639A750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43)
+void sub_18639A750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, ...)
 {
+  va_start(va, a42);
   _Block_object_dispose(&a37, 8);
-  _Block_object_dispose(&a43, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -8872,7 +8730,7 @@ id NSStringFromBKSHIDEventHitTestLayerInformationMask(char a1)
   v3 = v2;
   if ((a1 & 2) != 0)
   {
-    [v2 addObject:@"cumulativeOpacity"];
+    [v2 addObject:?];
     if ((a1 & 1) == 0)
     {
 LABEL_3:
@@ -8890,7 +8748,7 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  [v3 addObject:@"cumulativeTransform"];
+  [v3 addObject:?];
   if ((a1 & 0x10) == 0)
   {
 LABEL_4:
@@ -8903,7 +8761,7 @@ LABEL_4:
   }
 
 LABEL_13:
-  [v3 addObject:@"cumulativeLayerTransform"];
+  [v3 addObject:?];
   if ((a1 & 0x20) == 0)
   {
 LABEL_5:
@@ -8916,7 +8774,7 @@ LABEL_5:
   }
 
 LABEL_14:
-  [v3 addObject:@"cumulativeContentsTransform"];
+  [v3 addObject:?];
   if ((a1 & 8) == 0)
   {
 LABEL_6:
@@ -8929,17 +8787,17 @@ LABEL_6:
   }
 
 LABEL_15:
-  [v3 addObject:@"backgroundStatistics"];
+  [v3 addObject:?];
   if ((a1 & 4) != 0)
   {
 LABEL_7:
-    [v3 addObject:@"hasInsecureFilter"];
+    [v3 addObject:?];
   }
 
 LABEL_8:
   v4 = MEMORY[0x1E696AEC0];
-  v5 = [v3 componentsJoinedByString:@" | "];
-  v6 = [v4 stringWithFormat:@"(%@)", v5];
+  v5 = [v3 componentsJoinedByString:?];
+  v6 = [v4 stringWithFormat:v5];
 
   return v6;
 }
@@ -8957,9 +8815,9 @@ __CFString *NSStringFromBKSButtonHapticAssetType(unint64_t a1)
   }
 }
 
-void sub_1863A2D50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1863A2D50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8968,7 +8826,7 @@ __CFString *NSStringFromBKSWindowServerHitTestOcclusionType(unint64_t a1)
 {
   if (a1 >= 4)
   {
-    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<invalid:%X>", a1];
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:a1];
   }
 
   else
@@ -8979,9 +8837,9 @@ __CFString *NSStringFromBKSWindowServerHitTestOcclusionType(unint64_t a1)
   return v2;
 }
 
-void sub_1863ADFD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1863ADFD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8997,17 +8855,17 @@ void *__getkCAWindowServerHitTestSecurityAnalysisOcclusionTypeSymbolLoc_block_in
 
 void *QuartzCoreLibrary_11890()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!QuartzCoreLibraryCore_frameworkLibrary_11905)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __QuartzCoreLibraryCore_block_invoke_11906;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E6F476D0;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __QuartzCoreLibraryCore_block_invoke_11906;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E6F476D0;
+    v6 = 0;
     QuartzCoreLibraryCore_frameworkLibrary_11905 = _sl_dlopen();
   }
 
@@ -9015,21 +8873,20 @@ void *QuartzCoreLibrary_11890()
   if (!QuartzCoreLibraryCore_frameworkLibrary_11905)
   {
     v0 = [MEMORY[0x1E696AAA8] currentHandler];
-    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *QuartzCoreLibrary(void)"];
-    [v0 handleFailureInFunction:v4 file:@"BKSWindowServerHitTestSecurityAnalysis.m" lineNumber:24 description:{@"%s", v5[0]}];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
+    [v0 handleFailureInFunction:v4[0] file:? lineNumber:? description:?];
 
     __break(1u);
     goto LABEL_7;
   }
 
-  v1 = v5[0];
-  if (v5[0])
+  v1 = v4[0];
+  if (v4[0])
   {
 LABEL_7:
     free(v1);
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return v0;
 }
 
@@ -9107,18 +8964,14 @@ void *__getkCAWindowServerHitTestSecurityAnalysisIsInsecureFilteredSymbolLoc_blo
 
 uint64_t __QuartzCoreLibraryCore_block_invoke_11906(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   QuartzCoreLibraryCore_frameworkLibrary_11905 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-BOOL BKSWatchdogGetIsAlive(uint64_t a1)
+uint64_t BKSWatchdogGetIsAlive(uint64_t a1)
 {
-  v6 = 0;
-  v2 = BKSWatchdogGetIsAlive_sServerWrapper;
+  v1 = BKSWatchdogGetIsAlive_sServerWrapper;
   if (!BKSWatchdogGetIsAlive_sServerWrapper)
   {
     if (_BKSGetWatchdogServerWrapper_onceToken != -1)
@@ -9127,11 +8980,12 @@ BOOL BKSWatchdogGetIsAlive(uint64_t a1)
     }
 
     objc_storeStrong(&BKSWatchdogGetIsAlive_sServerWrapper, __service);
-    v2 = BKSWatchdogGetIsAlive_sServerWrapper;
+    v1 = BKSWatchdogGetIsAlive_sServerWrapper;
   }
 
-  v3 = [v2 _BKSWatchdogGetIsAlive:_BKSServerPortHelper("com.apple.backboard.watchdog" isAlive:BKSWatchdogPort timeout:{&BKSWatchdogMachPort, _InvalidateWatchdogPort), &v6, a1}];
-  return v6 && v3 == 0;
+  _BKSServerPortHelper("com.apple.backboard.watchdog", BKSWatchdogPort, &BKSWatchdogMachPort, _InvalidateWatchdogPort);
+  [v1 _BKSWatchdogGetIsAlive:? isAlive:? timeout:?];
+  return 0;
 }
 
 __CFString *NSStringFromBKSHIDHapticFeedbackRequestDeviceType(uint64_t a1)
@@ -9145,7 +8999,7 @@ __CFString *NSStringFromBKSHIDHapticFeedbackRequestDeviceType(uint64_t a1)
 
     else
     {
-      v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<unknown:%X>", a1];
+      v2 = [MEMORY[0x1E696AEC0] stringWithFormat:a1];
     }
   }
 
@@ -9161,7 +9015,7 @@ __CFString *NSStringFromBKSTouchDeliveryUpdateType(unint64_t a1)
 {
   if (a1 >= 3)
   {
-    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<invalid:%X>", a1];
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:a1];
   }
 
   else
@@ -9181,7 +9035,7 @@ __CFString *NSStringFromBKSHIDUISensorChangeSource(unint64_t a1)
 
   else
   {
-    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<unknown:%X>", a1];
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:a1];
   }
 
   return v2;
@@ -9291,11 +9145,11 @@ void __BKSHIDEvent__BUNDLE_IDENTIFIER_FOR_CURRENT_PROCESS_IS_NIL__(void *a1)
   v1 = a1;
   v2 = MEMORY[0x1E696AEC0];
   v3 = [v1 infoDictionary];
-  v4 = [v2 stringWithFormat:@"missing bundleID for main bundle %@: %@", v1, v3];
+  v4 = [v2 stringWithFormat:v1, v3];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void __BKSHIDEvent__BUNDLE_IDENTIFIER_FOR_CURRENT_PROCESS_IS_NIL__(NSBundle *__strong)"];
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
     *buf = 138544130;
     v7 = v5;
     v8 = 2114;
@@ -9321,17 +9175,17 @@ uint64_t BKSHIDEventRegisterEventCallback(uint64_t a1)
 
 void _RedirectEventToClient(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a4;
   v9 = BKLogEventDelivery();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v11[0] = 67109378;
-    v11[1] = a3;
-    v12 = 2114;
-    v13 = v7;
-    _os_log_impl(&dword_186345000, v9, OS_LOG_TYPE_DEFAULT, "REDIRECT: SET pid:%d environment:%{public}@", v11, 0x12u);
+    v10[0] = 67109378;
+    v10[1] = a3;
+    v11 = 2114;
+    v12 = v7;
+    _os_log_impl(&dword_186345000, v9, OS_LOG_TYPE_DEFAULT, "REDIRECT: SET pid:%d environment:%{public}@", v10, 0x12u);
   }
 
   if (a1)
@@ -9349,41 +9203,41 @@ void _RedirectEventToClient(uint64_t a1, void *a2, uint64_t a3, void *a4)
 
     IOHIDEventSystemClientDispatchEvent();
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void _BKSHIDEventSetRedirectInfo(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v7 = a3;
+  v6 = a3;
   if (a1)
   {
-    v13 = v7;
-    v8 = a4;
-    v9 = BKSHIDEventGetBaseAttributes(a1);
-    v10 = objc_opt_new();
-    [v10 setEnvironment:v8];
+    v12 = v6;
+    v7 = a4;
+    v8 = BKSHIDEventGetBaseAttributes(a1);
+    v9 = objc_opt_new();
+    [v9 setEnvironment:?];
 
-    v11 = [v9 display];
-    [v10 setDisplay:v11];
+    v10 = [v8 display];
+    [v9 setDisplay:?];
 
-    if (v13)
+    if (v12)
     {
-      [v10 setToken:?];
+      [v9 setToken:?];
     }
 
     else
     {
-      v12 = [v9 token];
-      [v10 setToken:v12];
+      v11 = [v8 token];
+      [v9 setToken:?];
     }
 
-    [v10 setOptions:{objc_msgSend(v9, "options")}];
-    [v10 setSource:{objc_msgSend(v9, "source")}];
-    [v10 setPid:a2];
-    _BKSHIDEventSetAttributes(a1, v10, 3);
+    [v8 options];
+    [v9 setOptions:?];
+    [v8 source];
+    [v9 setSource:?];
+    [v9 setPid:?];
+    _BKSHIDEventSetAttributes(a1, v9, 3);
 
-    v7 = v13;
+    v6 = v12;
   }
 }
 
@@ -9411,54 +9265,54 @@ void BKSHIDEventSendToFocusedProcess(uint64_t a1)
 
 void BKSHIDEventSendToResolvedProcessForDeferringEnvironment(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (!a1)
   {
-    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"event != ((void *)0)"];
+    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"event != ((void *)0)"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BKSHIDEventSendToResolvedProcessForDeferringEnvironment(IOHIDEventRef, BKSHIDEventDeferringEnvironment *__strong)"}];
+      v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v22 = v7;
-      v23 = 2114;
-      v24 = @"BKSHIDEvent.m";
-      v25 = 1024;
-      v26 = 173;
-      v27 = 2114;
-      v28 = v6;
+      v21 = v6;
+      v22 = 2114;
+      v23 = @"BKSHIDEvent.m";
+      v24 = 1024;
+      v25 = 173;
+      v26 = 2114;
+      v27 = v5;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v6 UTF8String];
+    [v5 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863B8EBCLL);
   }
 
-  v20 = v3;
-  if (!v20)
+  v19 = v3;
+  if (!v19)
   {
-    v8 = MEMORY[0x1E696AEC0];
-    v9 = objc_opt_class();
-    v10 = NSStringFromClass(v9);
-    v11 = [v8 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"environment", v10];
+    v7 = MEMORY[0x1E696AEC0];
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
+    v10 = [v7 stringWithFormat:@"environment", v9];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BKSHIDEventSendToResolvedProcessForDeferringEnvironment(IOHIDEventRef, BKSHIDEventDeferringEnvironment *__strong)"}];
+      v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v22 = v12;
-      v23 = 2114;
-      v24 = @"BKSHIDEvent.m";
-      v25 = 1024;
-      v26 = 174;
-      v27 = 2114;
-      v28 = v11;
+      v21 = v11;
+      v22 = 2114;
+      v23 = @"BKSHIDEvent.m";
+      v24 = 1024;
+      v25 = 174;
+      v26 = 2114;
+      v27 = v10;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v11 UTF8String];
+    [v10 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863B8FB0);
@@ -9467,39 +9321,90 @@ void BKSHIDEventSendToResolvedProcessForDeferringEnvironment(uint64_t a1, void *
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v13 = MEMORY[0x1E696AEC0];
-    v14 = [v20 classForCoder];
-    if (!v14)
+    v12 = MEMORY[0x1E696AEC0];
+    v13 = [v19 classForCoder];
+    if (!v13)
     {
-      v14 = objc_opt_class();
+      v13 = objc_opt_class();
     }
 
-    v15 = NSStringFromClass(v14);
-    v16 = objc_opt_class();
-    v17 = NSStringFromClass(v16);
-    v18 = [v13 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"environment", v15, v17];
+    v14 = NSStringFromClass(v13);
+    v15 = objc_opt_class();
+    v16 = NSStringFromClass(v15);
+    v17 = [v12 stringWithFormat:@"environment", v14, v16];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void BKSHIDEventSendToResolvedProcessForDeferringEnvironment(IOHIDEventRef, BKSHIDEventDeferringEnvironment *__strong)"}];
+      v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
       *buf = 138544130;
-      v22 = v19;
-      v23 = 2114;
-      v24 = @"BKSHIDEvent.m";
-      v25 = 1024;
-      v26 = 174;
-      v27 = 2114;
-      v28 = v18;
+      v21 = v18;
+      v22 = 2114;
+      v23 = @"BKSHIDEvent.m";
+      v24 = 1024;
+      v25 = 174;
+      v26 = 2114;
+      v27 = v17;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
     }
 
-    [v18 UTF8String];
+    [v17 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1863B90C8);
   }
 
   v4 = getpid();
-  _RedirectEventToClient(a1, v20, v4, 0);
-  v5 = *MEMORY[0x1E69E9840];
+  _RedirectEventToClient(a1, v19, v4, 0);
+}
+
+void BKSHIDEventSendToProcess(uint64_t a1, uint64_t a2)
+{
+  v14 = *MEMORY[0x1E69E9840];
+  if (a2 <= 0)
+  {
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"pid > 0"];
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
+      *buf = 138544130;
+      v7 = v3;
+      v8 = 2114;
+      v9 = @"BKSHIDEvent.m";
+      v10 = 1024;
+      v11 = 180;
+      v12 = 2114;
+      v13 = v2;
+      _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
+    }
+
+    [v2 UTF8String];
+    _bs_set_crash_log_message();
+    __break(0);
+    JUMPOUT(0x1863B9214);
+  }
+
+  if (!a1)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"event != ((void *)0)"];
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:?];
+      *buf = 138544130;
+      v7 = v5;
+      v8 = 2114;
+      v9 = @"BKSHIDEvent.m";
+      v10 = 1024;
+      v11 = 181;
+      v12 = 2114;
+      v13 = v4;
+      _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ (%{public}@:%i) : %{public}@", buf, 0x26u);
+    }
+
+    [v4 UTF8String];
+    _bs_set_crash_log_message();
+    __break(0);
+    JUMPOUT(0x1863B92E8);
+  }
+
+  _RedirectEventToClient(a1, 0, a2, 0);
 }

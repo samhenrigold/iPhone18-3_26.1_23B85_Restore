@@ -187,7 +187,7 @@
 
 - (id)outputImage
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   inputFilterName = self->inputFilterName;
   if (inputFilterName)
   {
@@ -197,117 +197,117 @@
       outputImage = [(CIFilter *)v4 outputImage];
       if (outputImage)
       {
-        v33 = outputImage;
+        v35 = outputImage;
         array = [MEMORY[0x1E695DF70] array];
         array2 = [MEMORY[0x1E695DF70] array];
-        v40 = 0u;
-        v41 = 0u;
         v42 = 0u;
         v43 = 0u;
+        v44 = 0u;
+        v45 = 0u;
         allKeys = [(NSMutableDictionary *)self->_dict allKeys];
-        v8 = [allKeys countByEnumeratingWithState:&v40 objects:v47 count:16];
-        if (v8)
+        v9 = [allKeys countByEnumeratingWithState:&v42 objects:v49 count:16];
+        if (v9)
         {
-          v9 = v8;
-          v10 = *v41;
+          v10 = v9;
+          v11 = *v43;
           do
           {
-            for (i = 0; i != v9; ++i)
+            for (i = 0; i != v10; ++i)
             {
-              if (*v41 != v10)
+              if (*v43 != v11)
               {
                 objc_enumerationMutation(allKeys);
               }
 
-              v12 = *(*(&v40 + 1) + 8 * i);
-              v13 = [(NSMutableDictionary *)self->_dict objectForKeyedSubscript:v12];
+              v13 = *(*(&v42 + 1) + 8 * i);
+              v14 = [(NSMutableDictionary *)self->_dict objectForKeyedSubscript:v13];
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                [array addObject:v13];
-                [array2 addObject:v12];
+                [array addObject:v14];
+                [array2 addObject:v13];
               }
             }
 
-            v9 = [allKeys countByEnumeratingWithState:&v40 objects:v47 count:16];
+            v10 = [allKeys countByEnumeratingWithState:&v42 objects:v49 count:16];
           }
 
-          while (v9);
+          while (v10);
         }
 
-        v32 = array;
+        v34 = array;
         dictionary = [MEMORY[0x1E695DF90] dictionary];
-        v36 = 0u;
-        v37 = 0u;
         v38 = 0u;
         v39 = 0u;
+        v40 = 0u;
+        v41 = 0u;
         allKeys2 = [(NSMutableDictionary *)self->_dict allKeys];
-        v16 = [allKeys2 countByEnumeratingWithState:&v36 objects:v46 count:16];
-        if (v16)
+        v17 = [allKeys2 countByEnumeratingWithState:&v38 objects:v48 count:16];
+        if (v17)
         {
-          v17 = v16;
-          v18 = *v37;
+          v18 = v17;
+          v19 = *v39;
           do
           {
-            for (j = 0; j != v17; ++j)
+            for (j = 0; j != v18; ++j)
             {
-              if (*v37 != v18)
+              if (*v39 != v19)
               {
                 objc_enumerationMutation(allKeys2);
               }
 
-              v20 = *(*(&v36 + 1) + 8 * j);
-              v21 = [(NSMutableDictionary *)self->_dict objectForKeyedSubscript:v20];
-              if (v21)
+              v21 = *(*(&v38 + 1) + 8 * j);
+              v22 = [(NSMutableDictionary *)self->_dict objectForKeyedSubscript:v21];
+              if (v22)
               {
-                v22 = v21;
+                v23 = v22;
                 objc_opt_class();
                 if ((objc_opt_isKindOfClass() & 1) == 0)
                 {
-                  [dictionary setObject:v22 forKeyedSubscript:v20];
+                  [dictionary setObject:v23 forKeyedSubscript:v21];
                 }
               }
             }
 
-            v17 = [allKeys2 countByEnumeratingWithState:&v36 objects:v46 count:16];
+            v18 = [allKeys2 countByEnumeratingWithState:&v38 objects:v48 count:16];
           }
 
-          while (v17);
+          while (v18);
         }
 
-        v23 = self->inputFilterName;
-        v44[0] = @"filterName";
-        v44[1] = @"filterParameters";
-        v45[0] = v23;
-        v45[1] = dictionary;
-        v44[2] = @"inputImages";
-        v24 = [(CIMetalWrapper *)self dummyImagesForImages:v32];
-        v44[3] = @"inputImageKeys";
-        v45[2] = v24;
-        v45[3] = array2;
-        v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:v44 count:4];
-        v35 = 0;
-        v26 = v33;
-        [v33 extent];
-        v27 = [(CIImageProcessorKernel *)CIMetalProcessor applyWithExtent:v32 inputs:v25 arguments:&v35 error:?];
-        if (!v27)
+        v24 = self->inputFilterName;
+        v46[0] = @"filterName";
+        v46[1] = @"filterParameters";
+        v47[0] = v24;
+        v47[1] = dictionary;
+        v46[2] = @"inputImages";
+        v25 = [(CIMetalWrapper *)self dummyImagesForImages:v34];
+        v46[3] = @"inputImageKeys";
+        v47[2] = v25;
+        v47[3] = array2;
+        v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:v46 count:4];
+        v37 = 0;
+        v27 = v35;
+        [v35 extent];
+        v28 = [(CIImageProcessorKernel *)CIMetalProcessor applyWithExtent:v34 inputs:v26 arguments:&v37 error:?];
+        if (!v28)
         {
-          v31 = ci_logger_api();
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+          v33 = ci_logger_api(0, v29);
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
           {
             [(CIMetalWrapper *)&self->inputFilterName outputImage];
           }
 
-          return v26;
+          return v27;
         }
 
-        return [CIImage imageForRenderingWithMetal:v33 orNonMetal:v27];
+        return [CIImage imageForRenderingWithMetal:v35 orNonMetal:v28];
       }
 
       else
       {
-        v30 = ci_logger_api();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+        v32 = ci_logger_api(0, v6);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
           [(CIMetalWrapper *)&self->inputFilterName outputImage];
         }

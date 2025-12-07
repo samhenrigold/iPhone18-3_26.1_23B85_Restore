@@ -154,9 +154,17 @@ LABEL_18:
 {
   if (dump)
   {
-    if (self->_doRateControlCounter)
+    doRateControlCounter = self->_doRateControlCounter;
+    if (doRateControlCounter)
     {
-      VRLogfilePrintWithTimestamp(dump, "%8.3f/%04X:\t%.4f\t%.4f\t%.4f\t%.4f %c\tRTT:%-4u\tPLR:%4.2f@%.1f\tRRx:%3u\tMBL:0\t%3u/%3u\t 0:0/0  0:0/0 CS: 0 0 0 BB: %u\t%04X\t%u\t UAT S _\t%d\n", dump, stall, *&bitrate, v7, v8, v9, SLOBYTE(time));
+      v8 = self->_totalActualBitrate / 0x3E8 / doRateControlCounter;
+      v9 = 88;
+      if (stall)
+      {
+        v9 = 79;
+      }
+
+      VRLogfilePrintWithTimestamp(dump, "%8.3f/%04X:\t%.4f\t%.4f\t%.4f\t%.4f %c\tRTT:%-4u\tPLR:%4.2f@%.1f\tRRx:%3u\tMBL:0\t%3u/%3u\t 0:0/0  0:0/0 CS: 0 0 0 BB: %u\t%04X\t%u\t UAT S _\t%d\n", time, 255, self->_owrd, self->_nowrd, self->_nowrdShort, self->_nowrdAcc, v9, (self->_roundTripTime * 1000.0), self->_packetLossRate * 100.0, duration, g_adwTxRateTiers[self->_prevOperatingTierIndex] / 0x3E8u, self->_averageReceivedBitrate / 0x3E8, self->_targetBitrate / 0x3E8, bitrate / 0x3E8, self->_rampDownStatus | self->_rampUpStatus, v8, self->_state);
     }
   }
 }

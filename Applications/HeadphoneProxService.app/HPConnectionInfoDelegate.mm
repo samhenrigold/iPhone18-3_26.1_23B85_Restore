@@ -1,5 +1,6 @@
 @interface HPConnectionInfoDelegate
 + (id)_populateAllFields:(id)fields accessoryInfo:(id)info;
+- (void)accessoryEndpointAttached:(id)attached transportType:(int)type protocol:(int)protocol properties:(id)properties forConnection:(id)connection;
 - (void)accessoryEndpointInfoPropertyChanged:(id)changed properties:(id)properties forConnection:(id)connection;
 - (void)start;
 - (void)stop;
@@ -47,6 +48,34 @@
     v14[4] = self;
     v15 = propertiesCopy;
     [v13 accessoryInfoForConnection:connectionCopy withReply:v14];
+  }
+}
+
+- (void)accessoryEndpointAttached:(id)attached transportType:(int)type protocol:(int)protocol properties:(id)properties forConnection:(id)connection
+{
+  v9 = *&protocol;
+  v10 = *&type;
+  attachedCopy = attached;
+  propertiesCopy = properties;
+  connectionCopy = connection;
+  if ([objc_opt_class() _isAudioProductCertsProtocol:v9] && objc_msgSend(objc_opt_class(), "_isBluetoothClassicTransport:", v10))
+  {
+    if (dword_10011C1F0 <= 30 && (dword_10011C1F0 != -1 || _LogCategory_Initialize()))
+    {
+      sub_1000CF444();
+    }
+
+    allowedEndpointUUIDs = [(HPConnectionInfoDelegate *)self allowedEndpointUUIDs];
+    [allowedEndpointUUIDs addObject:attachedCopy];
+
+    v16 = +[ACCConnectionInfo sharedInstance];
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_100003484;
+    v17[3] = &unk_1001026C8;
+    v17[4] = self;
+    v18 = propertiesCopy;
+    [v16 accessoryInfoForConnection:connectionCopy withReply:v17];
   }
 }
 

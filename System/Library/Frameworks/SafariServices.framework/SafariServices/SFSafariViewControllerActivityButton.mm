@@ -74,51 +74,51 @@
 {
   if (!self->_extensionIdentifier)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXExtensions();
-    v7 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
-    if (!v7)
+    v10 = WBS_LOG_CHANNEL_PREFIXExtensions(self, a2);
+    v9 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
+    if (!v9)
     {
-      return v7;
+      return v9;
     }
 
-    [(SFSafariViewControllerActivityButton *)v8 _fieldsAreValid];
+    [(SFSafariViewControllerActivityButton *)v10 _fieldsAreValid];
 LABEL_12:
-    LOBYTE(v7) = 0;
-    return v7;
+    LOBYTE(v9) = 0;
+    return v9;
   }
 
   templateImage = self->_templateImage;
   if (!templateImage)
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXExtensions();
-    v7 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
-    if (!v7)
+    v11 = WBS_LOG_CHANNEL_PREFIXExtensions(0, a2);
+    v9 = os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
+    if (!v9)
     {
-      return v7;
+      return v9;
     }
 
-    [(SFSafariViewControllerActivityButton *)v9 _fieldsAreValid];
+    [(SFSafariViewControllerActivityButton *)v11 _fieldsAreValid];
     goto LABEL_12;
   }
 
-  [(UIImage *)templateImage size];
-  v4 = v3;
+  v3 = [(UIImage *)templateImage size];
   v6 = v5;
-  if (v5 == 0.0 || v3 == 0.0)
+  v8 = v7;
+  if (v7 == 0.0 || v5 == 0.0)
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXExtensions();
-    v7 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
-    if (!v7)
+    v12 = WBS_LOG_CHANNEL_PREFIXExtensions(v3, v4);
+    v9 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
+    if (!v9)
     {
-      return v7;
+      return v9;
     }
 
-    [(SFSafariViewControllerActivityButton *)v10 _fieldsAreValid];
+    [(SFSafariViewControllerActivityButton *)v12 _fieldsAreValid];
     goto LABEL_12;
   }
 
-  LOBYTE(v7) = 1;
-  return v7;
+  LOBYTE(v9) = 1;
+  return v9;
 }
 
 - (void)_fieldsAreValid

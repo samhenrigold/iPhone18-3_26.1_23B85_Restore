@@ -42,6 +42,7 @@
 - (unsigned)expandedMaxLineCountForTextLayout:(id)layout inPanel:(int)panel withDefault:(unsigned int)default;
 - (void)addAdditionalChildLayersToArray:(id)array;
 - (void)addChildViewsToArray:(id)array;
+- (void)animationControllerDidPresent:(id)present;
 - (void)autoplayPause;
 - (void)autoplayStart;
 - (void)autoplayStop;
@@ -1470,7 +1471,7 @@ LABEL_10:
     v12 = v11;
     if (v11)
     {
-      [v11 currentTransform];
+      objc_msgSend_currentTransform(v11);
     }
 
     else
@@ -1532,7 +1533,7 @@ LABEL_6:
   {
     freeTransformableHandler2 = [(THWWebRep *)self freeTransformableHandler];
     v6 = [freeTransformableHandler2 ftc];
-    [v6 completionTargetRect];
+    objc_msgSend_completionTargetRect(v6);
     x = v7;
     y = v9;
     width = v11;
@@ -1567,6 +1568,13 @@ LABEL_6:
     v5 = [NSArray arrayWithObjects:&stageView count:1];
     [subviewsController addSubviews:v5];
   }
+}
+
+- (void)animationControllerDidPresent:(id)present
+{
+  animationController = self->_animationController;
+  self->_animationController = 0;
+  _objc_release_x1(self, animationController);
 }
 
 - (BOOL)isExpanded

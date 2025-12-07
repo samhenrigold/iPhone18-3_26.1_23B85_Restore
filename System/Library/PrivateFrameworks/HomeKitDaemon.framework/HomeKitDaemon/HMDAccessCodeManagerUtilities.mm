@@ -20,10 +20,9 @@
 
 void __44__HMDAccessCodeManagerUtilities_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v10;
-  logCategory__hmf_once_v10 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v10;
+  logCategory__hmf_once_v10 = v0;
 }
 
 + (BOOL)allModificationRequests:(id)requests areAddingAccessCode:(id)code
@@ -82,7 +81,7 @@ BOOL __55__HMDAccessCodeManagerUtilities_anyModificationFailed___block_invoke(ui
 
 + (id)filteredFetchResponses:(id)responses forUser:(id)user flow:(id)flow
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   responsesCopy = responses;
   userCopy = user;
   flowCopy = flow;
@@ -99,11 +98,11 @@ BOOL __55__HMDAccessCodeManagerUtilities_anyModificationFailed___block_invoke(ui
       uUID = [flowCopy UUID];
       uuid = [userCopy uuid];
       *buf = 138543874;
-      v28 = v16;
-      v29 = 2112;
-      v30 = uUID;
-      v31 = 2112;
-      v32 = uuid;
+      v27 = v16;
+      v28 = 2112;
+      v29 = uUID;
+      v30 = 2112;
+      v31 = uuid;
       _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] User: %@ is an admin, so we can safely send all the fetch responses.", buf, 0x20u);
     }
 
@@ -119,24 +118,22 @@ BOOL __55__HMDAccessCodeManagerUtilities_anyModificationFailed___block_invoke(ui
       uUID2 = [flowCopy UUID];
       uuid2 = [userCopy uuid];
       *buf = 138543874;
-      v28 = v20;
-      v29 = 2112;
-      v30 = uUID2;
-      v31 = 2112;
-      v32 = uuid2;
+      v27 = v20;
+      v28 = 2112;
+      v29 = uUID2;
+      v30 = 2112;
+      v31 = uuid2;
       _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] User: %@ is not an admin, so redact all access codes except the user's own.", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v12);
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __69__HMDAccessCodeManagerUtilities_filteredFetchResponses_forUser_flow___block_invoke;
-    v25[3] = &unk_27866E130;
-    v26 = userCopy;
-    v19 = [responsesCopy na_map:v25];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __69__HMDAccessCodeManagerUtilities_filteredFetchResponses_forUser_flow___block_invoke;
+    v24[3] = &unk_27866E130;
+    v25 = userCopy;
+    v19 = [responsesCopy na_map:v24];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

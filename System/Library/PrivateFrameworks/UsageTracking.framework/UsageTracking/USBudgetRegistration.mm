@@ -215,7 +215,7 @@ LABEL_11:
   v18 = v17;
   if (v17)
   {
-    [v17 auditToken];
+    objc_msgSend_auditToken(v17);
   }
 
   else
@@ -454,7 +454,7 @@ LABEL_11:
   v11 = v10;
   if (v10)
   {
-    [v10 auditToken];
+    objc_msgSend_auditToken(v10);
   }
 
   else
@@ -1375,7 +1375,7 @@ LABEL_6:
   v8 = v7;
   if (v7)
   {
-    [v7 auditToken];
+    objc_msgSend_auditToken(v7);
   }
 
   else
@@ -1534,7 +1534,7 @@ LABEL_31:
   v11 = v10;
   if (v10)
   {
-    [v10 auditToken];
+    objc_msgSend_auditToken(v10);
   }
 
   else
@@ -1694,7 +1694,7 @@ LABEL_31:
   v11 = v10;
   if (v10)
   {
-    [v10 auditToken];
+    objc_msgSend_auditToken(v10);
   }
 
   else

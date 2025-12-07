@@ -116,39 +116,38 @@ void __32__GTTransport__dispatchMessage___block_invoke(void *a1)
   v1 = a1[4];
   if ((*(v1 + 24) & 1) == 0)
   {
-    v3 = a1[5];
-    v4 = (*(*(v1 + 16) + 16))();
-    v5 = a1[4];
-    if (v4)
+    v3 = (*(*(v1 + 16) + 16))();
+    v4 = a1[4];
+    if (v3)
     {
-      v6 = *(v5 + 32);
-      if (v6)
+      v5 = *(v4 + 32);
+      if (v5)
       {
-        v7 = dispatch_time(0, v6);
-        v8 = a1[6];
-        v9 = *(v8 + 24);
-        v12[0] = _NSConcreteStackBlock;
-        v12[1] = 3221225472;
-        v12[2] = __32__GTTransport__dispatchMessage___block_invoke_3;
-        v12[3] = &unk_2F1CA8;
-        v12[4] = v8;
-        v12[5] = a1[7];
-        dispatch_after(v7, v9, v12);
+        v6 = dispatch_time(0, v5);
+        v7 = a1[6];
+        v8 = *(v7 + 24);
+        v11[0] = _NSConcreteStackBlock;
+        v11[1] = 3221225472;
+        v11[2] = __32__GTTransport__dispatchMessage___block_invoke_3;
+        v11[3] = &unk_2F1CA8;
+        v11[4] = v7;
+        v11[5] = a1[7];
+        dispatch_after(v6, v8, v11);
       }
     }
 
     else
     {
-      *(v5 + 24) = 1;
-      v10 = a1[6];
-      v11 = *(v10 + 24);
+      *(v4 + 24) = 1;
+      v9 = a1[6];
+      v10 = *(v9 + 24);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = __32__GTTransport__dispatchMessage___block_invoke_2;
       block[3] = &unk_2F1510;
-      block[4] = v10;
-      v14 = *(a1 + 14);
-      dispatch_async(v11, block);
+      block[4] = v9;
+      v13 = *(a1 + 14);
+      dispatch_async(v10, block);
     }
   }
 }

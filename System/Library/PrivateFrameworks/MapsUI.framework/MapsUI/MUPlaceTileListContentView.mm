@@ -122,21 +122,21 @@ void __47__MUPlaceTileListContentView__updateAppearance__block_invoke_2(uint64_t
 
 - (void)_setupConstraints
 {
-  v17[3] = *MEMORY[0x1E69E9840];
+  v16[3] = *MEMORY[0x1E69E9840];
   v3 = [[MUSizeLayout alloc] initWithItem:self->_stopImageView size:48.0, 48.0];
   v4 = [[MUCompositionalStackLayoutGroup alloc] initWithAxis:1];
   secondaryLabel = self->_secondaryLabel;
-  v17[0] = self->_titleLabel;
-  v17[1] = secondaryLabel;
-  v17[2] = self->_tertiaryLabel;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:3];
+  v16[0] = self->_titleLabel;
+  v16[1] = secondaryLabel;
+  v16[2] = self->_tertiaryLabel;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:3];
   [(MUCompositionalStackLayoutGroup *)v4 setArrangedLayoutItems:v6];
 
   v7 = [[MUCompositionalStackLayoutGroup alloc] initWithAxis:0];
   stopImageView = self->_stopImageView;
-  v16[0] = v4;
-  v16[1] = stopImageView;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+  v15[0] = v4;
+  v15[1] = stopImageView;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
   [(MUCompositionalStackLayoutGroup *)v7 setArrangedLayoutItems:v9];
 
   [(MUCompositionalStackLayoutGroup *)v7 setDistribution:5];
@@ -148,17 +148,15 @@ void __47__MUPlaceTileListContentView__updateAppearance__block_invoke_2(uint64_t
   [(MUCompositionalStackLayoutGroup *)v7 setSpacing:8.0];
   v11 = [[MUCompositionalStackLayout alloc] initWithContainer:self group:v7];
   v12 = MEMORY[0x1E696ACD8];
-  v15[0] = v3;
-  v15[1] = v11;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
+  v14[0] = v3;
+  v14[1] = v11;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
   [v12 _mapsui_activateLayouts:v13];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setupViews
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   v3 = _createTitleLabel();
   titleLabel = self->_titleLabel;
   self->_titleLabel = v3;
@@ -189,11 +187,9 @@ void __47__MUPlaceTileListContentView__updateAppearance__block_invoke_2(uint64_t
   [(MUImageView *)self->_stopImageView setAccessibilityIdentifier:@"PlaceTileListImage"];
   [(MUPlaceTileListContentView *)self addSubview:self->_stopImageView];
   v13 = objc_opt_self();
-  v17[0] = v13;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+  v16[0] = v13;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
   v15 = [(MUPlaceTileListContentView *)self registerForTraitChanges:v14 withAction:sel__updateFonts];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (MUPlaceTileListContentView)initWithFrame:(CGRect)frame

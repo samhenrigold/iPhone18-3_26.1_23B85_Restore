@@ -131,15 +131,14 @@
 
 - (BOOL)isLockScreenWidgetActive
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  queue = self->_queue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = *(v6 + 24);
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v2 = *(v5 + 24);
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 - (BOOL)isLockScreenWidgetVisible
@@ -225,14 +224,12 @@
   if (self->_previousPlayerPath)
   {
     objc_initWeak(&location, self);
-    previousPlayerPath = self->_previousPlayerPath;
-    queue = self->_queue;
-    objc_copyWeak(&v11, &location);
-    v9 = MRMediaRemoteAddPlayerPathInvalidationHandler();
-    v10 = self->_previousPlayerPathInvalidationToken;
-    self->_previousPlayerPathInvalidationToken = v9;
+    objc_copyWeak(&v9, &location);
+    v7 = MRMediaRemoteAddPlayerPathInvalidationHandler();
+    v8 = self->_previousPlayerPathInvalidationToken;
+    self->_previousPlayerPathInvalidationToken = v7;
 
-    objc_destroyWeak(&v11);
+    objc_destroyWeak(&v9);
     objc_destroyWeak(&location);
   }
 }
@@ -247,16 +244,15 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       playerPath = self->_playerPath;
-      changeType = self->_changeType;
-      v10 = MRMediaRemoteActiveEndpointChangeTypeCopyDescription();
+      v9 = MRMediaRemoteActiveEndpointChangeTypeCopyDescription();
       *buf = 138544130;
-      v34 = playerPath;
+      v30 = playerPath;
+      v31 = 2114;
+      v32 = pathCopy;
+      v33 = 2114;
+      v34 = v9;
       v35 = 2114;
-      v36 = pathCopy;
-      v37 = 2114;
-      v38 = v10;
-      v39 = 2114;
-      v40 = @"visible";
+      v36 = @"visible";
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[MRDLockScreenController] Deferring setting playerPath from %{public}@ to %{public}@ because changeType is <%{public}@> and lock screen is <%{public}@>", buf, 0x2Au);
     }
 
@@ -268,14 +264,12 @@
     }
 
     objc_initWeak(buf, self);
-    v12 = self->_playerPath;
-    queue = self->_queue;
-    objc_copyWeak(&v30, buf);
-    v14 = MRMediaRemoteAddPlayerPathInvalidationHandler();
-    v15 = self->_playerPathInvalidationToken;
-    self->_playerPathInvalidationToken = v14;
+    objc_copyWeak(&v26, buf);
+    v11 = MRMediaRemoteAddPlayerPathInvalidationHandler();
+    v12 = self->_playerPathInvalidationToken;
+    self->_playerPathInvalidationToken = v11;
 
-    objc_destroyWeak(&v30);
+    objc_destroyWeak(&v26);
     objc_destroyWeak(buf);
   }
 
@@ -285,19 +279,19 @@
     if (self->_playerPathInvalidationToken)
     {
       MRMediaRemoteRemovePlayerPathInvalidationHandler();
-      v16 = self->_playerPathInvalidationToken;
+      v13 = self->_playerPathInvalidationToken;
       self->_playerPathInvalidationToken = 0;
     }
 
-    v17 = _MRLogForCategory();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v14 = _MRLogForCategory();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = self->_playerPath;
+      v15 = self->_playerPath;
       *buf = 138543618;
-      v34 = v18;
-      v35 = 2114;
-      v36 = pathCopy;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "[MRDLockScreenController] Setting playerPath from %{public}@ to %{public}@", buf, 0x16u);
+      v30 = v15;
+      v31 = 2114;
+      v32 = pathCopy;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "[MRDLockScreenController] Setting playerPath from %{public}@ to %{public}@", buf, 0x16u);
     }
 
     objc_storeStrong(&self->_playerPath, path);
@@ -306,22 +300,21 @@
     block[2] = sub_1000F9830;
     block[3] = &unk_1004B68F0;
     block[4] = self;
-    v19 = pathCopy;
-    v32 = v19;
+    v16 = pathCopy;
+    v28 = v16;
     dispatch_async(&_dispatch_main_q, block);
-    v20 = +[MRDMediaRemoteServer server];
-    nowPlayingServer = [v20 nowPlayingServer];
-    v22 = [nowPlayingServer queryExistingPlayerPath:v19];
+    v17 = +[MRDMediaRemoteServer server];
+    nowPlayingServer = [v17 nowPlayingServer];
+    v19 = [nowPlayingServer queryExistingPlayerPath:v16];
     playerResult = self->_playerResult;
-    self->_playerResult = v22;
+    self->_playerResult = v19;
 
-    v24 = [NSString alloc];
-    v26 = self->_playerPath;
+    v21 = [NSString alloc];
+    v23 = self->_playerPath;
     previousPlayerPath = self->_previousPlayerPath;
-    v27 = self->_changeType;
-    v28 = MRMediaRemoteActiveEndpointChangeTypeCopyDescription();
-    v29 = [v24 initWithFormat:@"PlayerPath changed from %@ to %@ with changeType %@", previousPlayerPath, v26, v28];
-    [(MRDLockScreenController *)self _onQueue_reevaluateShouldShowLockScreenForReason:v29];
+    v24 = MRMediaRemoteActiveEndpointChangeTypeCopyDescription();
+    v25 = [v21 initWithFormat:@"PlayerPath changed from %@ to %@ with changeType %@", previousPlayerPath, v23, v24];
+    [(MRDLockScreenController *)self _onQueue_reevaluateShouldShowLockScreenForReason:v25];
   }
 }
 

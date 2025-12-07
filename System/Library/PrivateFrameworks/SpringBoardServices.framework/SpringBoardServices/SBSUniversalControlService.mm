@@ -30,9 +30,10 @@
 
 uint64_t __44__SBSUniversalControlService_sharedInstance__block_invoke()
 {
-  sharedInstance_service_2 = [[SBSUniversalControlService alloc] _init];
+  v0 = [[SBSUniversalControlService alloc] _init];
+  sharedInstance_service_2 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 - (void)_init
@@ -42,53 +43,53 @@ uint64_t __44__SBSUniversalControlService_sharedInstance__block_invoke()
     return 0;
   }
 
-  v23.receiver = self;
-  v23.super_class = SBSUniversalControlService;
-  v1 = objc_msgSendSuper2(&v23, sel_init);
+  v25.receiver = self;
+  v25.super_class = SBSUniversalControlService;
+  v1 = objc_msgSendSuper2(&v25, sel_init);
   if (v1)
   {
     objc_initWeak(&location, v1);
     v2 = MEMORY[0x1E698E658];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __35__SBSUniversalControlService__init__block_invoke;
-    v20[3] = &unk_1E735F778;
-    objc_copyWeak(&v21, &location);
-    v3 = [v2 assertionWithIdentifier:@"DisableDeviceKeyboardFocus" stateDidChangeHandler:v20];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __35__SBSUniversalControlService__init__block_invoke;
+    v22[3] = &unk_1E735F778;
+    objc_copyWeak(&v23, &location);
+    v3 = [v2 assertionWithIdentifier:@"DisableDeviceKeyboardFocus" stateDidChangeHandler:v22];
     v4 = v1[3];
     v1[3] = v3;
 
     v5 = v1[3];
-    v6 = SBLogKeyboardFocus();
-    [v5 setLog:v6];
+    v7 = SBLogKeyboardFocus(v6);
+    [v5 setLog:v7];
 
-    v7 = MEMORY[0x1E698E658];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __35__SBSUniversalControlService__init__block_invoke_2;
-    v17[3] = &unk_1E7361768;
-    objc_copyWeak(&v19, &location);
+    v8 = MEMORY[0x1E698E658];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __35__SBSUniversalControlService__init__block_invoke_2;
+    v19[3] = &unk_1E7361768;
+    objc_copyWeak(&v21, &location);
     v1 = v1;
-    v18 = v1;
-    v8 = [v7 assertionWithIdentifier:@"ScreenEdgeOwnership" stateDidChangeHandler:v17];
-    v9 = v1[4];
-    v1[4] = v8;
-
+    v20 = v1;
+    v9 = [v8 assertionWithIdentifier:@"ScreenEdgeOwnership" stateDidChangeHandler:v19];
     v10 = v1[4];
-    v11 = SBLogKeyboardFocus();
-    [v10 setLog:v11];
+    v1[4] = v9;
 
-    v12 = dispatch_queue_create("com.apple.springboard.universal-control-client-queue", 0);
-    v13 = v1[2];
-    v1[2] = v12;
+    v11 = v1[4];
+    v13 = SBLogKeyboardFocus(v12);
+    [v11 setLog:v13];
 
-    objc_copyWeak(&v16, &location);
-    v14 = BSLogAddStateCaptureBlockWithTitle();
+    v14 = dispatch_queue_create("com.apple.springboard.universal-control-client-queue", 0);
+    v15 = v1[2];
+    v1[2] = v14;
+
+    objc_copyWeak(&v18, &location);
+    v16 = BSLogAddStateCaptureBlockWithTitle();
     [(SBSUniversalControlService *)v1 _connectToServer];
-    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v18);
 
-    objc_destroyWeak(&v19);
     objc_destroyWeak(&v21);
+    objc_destroyWeak(&v23);
     objc_destroyWeak(&location);
   }
 
@@ -245,7 +246,7 @@ void __46__SBSUniversalControlService__connectToServer__block_invoke_2(uint64_t 
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = SBLogKeyboardFocus();
+  v3 = SBLogKeyboardFocus(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138543362;
@@ -258,7 +259,7 @@ void __46__SBSUniversalControlService__connectToServer__block_invoke_46(uint64_t
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = SBLogKeyboardFocus();
+  v3 = SBLogKeyboardFocus(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138543362;
@@ -303,8 +304,7 @@ void __46__SBSUniversalControlService__connectToServer__block_invoke_46(uint64_t
     v11[2] = __46__SBSUniversalControlService__connectToServer__block_invoke;
     v11[3] = &unk_1E735ED88;
     v11[4] = self;
-    [v8 configureConnection:v11];
-    v9 = SBLogKeyboardFocus();
+    v9 = SBLogKeyboardFocus([v8 configureConnection:v11]);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(self + 40);
@@ -321,7 +321,7 @@ void __46__SBSUniversalControlService__connectToServer__block_invoke_45(uint64_t
 {
   v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = SBLogKeyboardFocus();
+  v4 = SBLogKeyboardFocus(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138543362;

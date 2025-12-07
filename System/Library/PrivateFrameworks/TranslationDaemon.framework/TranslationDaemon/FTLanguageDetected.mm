@@ -36,33 +36,7 @@
   }
 
   v10->_root = root;
-  if (!verifyCopy)
-  {
-    goto LABEL_13;
-  }
-
-  bytes2 = [(NSData *)v10->_data bytes];
-  v13 = [(NSData *)v10->_data length];
-  root = v10->_root;
-  if (root < bytes2 || root > bytes2 + v13)
-  {
-    goto LABEL_14;
-  }
-
-  bytes3 = [(NSData *)v10->_data bytes];
-  v17 = [(NSData *)v10->_data length];
-  v21[0] = bytes3;
-  v21[1] = v17;
-  v22 = xmmword_233005E20;
-  v23 = 0;
-  v24 = 1;
-  v18 = v10->_root;
-  if (!v18)
-  {
-    goto LABEL_13;
-  }
-
-  if (!siri::speech::schema_fb::LanguageDetected::Verify(v18, v21))
+  if (verifyCopy && ((v12 = [(NSData *)v10->_data bytes], v13 = [(NSData *)v10->_data length], root = v10->_root, root >= v12) ? (v15 = root > v12 + v13) : (v15 = 1), v15 || (v16 = [(NSData *)v10->_data bytes], v17 = [(NSData *)v10->_data length], v21[0] = v16, v21[1] = v17, v22 = xmmword_233005E20, v23 = 0, v24 = 1, (v18 = v10->_root) != 0) && !siri::speech::schema_fb::LanguageDetected::Verify(v18, v21)))
   {
 LABEL_14:
     v19 = 0;
@@ -230,7 +204,7 @@ LABEL_8:
 
 - (Offset<siri::speech::schema_fb::LanguageDetected>)addObjectToBuffer:(void *)buffer
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   detected_locale = [(FTLanguageDetected *)self detected_locale];
   v6 = detected_locale;
   if (!detected_locale)
@@ -242,49 +216,49 @@ LABEL_8:
   v8 = strlen(uTF8String);
   String = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateString(buffer, uTF8String, v8);
 
-  memset(&v28, 0, sizeof(v28));
+  memset(&v27, 0, sizeof(v27));
   predictions = [(FTLanguageDetected *)self predictions];
-  std::vector<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v28, [predictions count]);
+  std::vector<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v27, [predictions count]);
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   predictions2 = [(FTLanguageDetected *)self predictions];
-  v12 = [predictions2 countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v12 = [predictions2 countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v12)
   {
-    v13 = *v25;
+    v13 = *v24;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v25 != v13)
+        if (*v24 != v13)
         {
           objc_enumerationMutation(predictions2);
         }
 
-        v23 = [*(*(&v24 + 1) + 8 * i) addObjectToBuffer:buffer];
-        std::vector<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v28.__begin_, &v23);
+        v22 = [*(*(&v23 + 1) + 8 * i) addObjectToBuffer:buffer];
+        std::vector<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v27.__begin_, &v22);
       }
 
-      v12 = [predictions2 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v12 = [predictions2 countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v12);
   }
 
-  if (v28.__end_ == v28.__begin_)
+  if (v27.__end_ == v27.__begin_)
   {
     begin = &apple::aiml::flatbuffers2::data<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::LanguageDetectionPrediction>,std::allocator<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::LanguageDetectionPrediction>>>(std::vector<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::LanguageDetectionPrediction>> const&)::t;
   }
 
   else
   {
-    begin = v28.__begin_;
+    begin = v27.__begin_;
   }
 
-  v16 = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateVector<apple::aiml::flatbuffers2::String>(buffer, begin, v28.__end_ - v28.__begin_);
+  v16 = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateVector<apple::aiml::flatbuffers2::String>(buffer, begin, v27.__end_ - v27.__begin_);
   *(buffer + 70) = 1;
   v17 = *(buffer + 8);
   v18 = *(buffer + 12);
@@ -292,13 +266,12 @@ LABEL_8:
   apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 4, String);
   apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 6, v16);
   v20.var0 = apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable(buffer, v17 - v18 + v19);
-  if (v28.__begin_)
+  if (v27.__begin_)
   {
-    v28.__end_ = v28.__begin_;
-    operator delete(v28.__begin_);
+    v27.__end_ = v27.__begin_;
+    operator delete(v27.__begin_);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 

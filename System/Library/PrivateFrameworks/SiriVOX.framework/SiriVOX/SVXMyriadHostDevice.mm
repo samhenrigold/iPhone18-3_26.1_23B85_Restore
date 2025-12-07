@@ -19,17 +19,16 @@
 
 - (void)scdaCoordinatorDidHandleEmergency:(id)emergency
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v6 = 136315138;
-    v7 = "[SVXMyriadHostDevice scdaCoordinatorDidHandleEmergency:]";
-    _os_log_impl(&dword_2695B9000, v4, OS_LOG_TYPE_INFO, "%s #myriad", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[SVXMyriadHostDevice scdaCoordinatorDidHandleEmergency:]";
+    _os_log_impl(&dword_2695B9000, v4, OS_LOG_TYPE_INFO, "%s #myriad", &v5, 0xCu);
   }
 
   [(SVXMyriadHostDevice *)self _signalEmergencyCallHandledStatus:1];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scdaShouldUnduck:(id)unduck
@@ -99,7 +98,7 @@ void __42__SVXMyriadHostDevice_scdaShouldContinue___block_invoke(uint64_t a1)
 
 void __57__SVXMyriadHostDevice__signalEmergencyCallHandledStatus___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) _disarmMyriadEmergencyTimer];
   v2 = MEMORY[0x26D642680](*(*(a1 + 32) + 32));
   v3 = *(a1 + 32);
@@ -110,11 +109,11 @@ void __57__SVXMyriadHostDevice__signalEmergencyCallHandledStatus___block_invoke(
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     v6 = *(a1 + 40);
-    v9 = 136315394;
-    v10 = "[SVXMyriadHostDevice _signalEmergencyCallHandledStatus:]_block_invoke";
-    v11 = 1024;
-    v12 = v6;
-    _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s #myriad Emergency call handled status: %d", &v9, 0x12u);
+    v8 = 136315394;
+    v9 = "[SVXMyriadHostDevice _signalEmergencyCallHandledStatus:]_block_invoke";
+    v10 = 1024;
+    v11 = v6;
+    _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s #myriad Emergency call handled status: %d", &v8, 0x12u);
   }
 
   if (v2)
@@ -131,19 +130,17 @@ void __57__SVXMyriadHostDevice__signalEmergencyCallHandledStatus___block_invoke(
     v7 = ;
     (v2)[2](v2, v7);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startAdvertisingEmergency:(id)emergency
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   emergencyCopy = emergency;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v11 = "[SVXMyriadHostDevice _startAdvertisingEmergency:]";
+    v10 = "[SVXMyriadHostDevice _startAdvertisingEmergency:]";
     _os_log_impl(&dword_2695B9000, v5, OS_LOG_TYPE_INFO, "%s #myriad Begin Emergency Call", buf, 0xCu);
   }
 
@@ -152,14 +149,12 @@ void __57__SVXMyriadHostDevice__signalEmergencyCallHandledStatus___block_invoke(
   completion = self->_emergencyContext.completion;
   self->_emergencyContext.completion = v6;
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __50__SVXMyriadHostDevice__startAdvertisingEmergency___block_invoke;
-  v9[3] = &unk_279C68FC0;
-  v9[4] = self;
-  [(SVXMyriadHostDevice *)self _armEmergencyDispatchTimerFor:v9 toExecute:2.75];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __50__SVXMyriadHostDevice__startAdvertisingEmergency___block_invoke;
+  v8[3] = &unk_279C68FC0;
+  v8[4] = self;
+  [(SVXMyriadHostDevice *)self _armEmergencyDispatchTimerFor:v8 toExecute:2.75];
 }
 
 - (void)_disarmMyriadEmergencyTimer
@@ -174,21 +169,19 @@ void __57__SVXMyriadHostDevice__signalEmergencyCallHandledStatus___block_invoke(
 
 void __50__SVXMyriadHostDevice__disarmMyriadEmergencyTimer__block_invoke()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v2 = 136315138;
-    v3 = "[SVXMyriadHostDevice _disarmMyriadEmergencyTimer]_block_invoke";
-    _os_log_impl(&dword_2695B9000, v0, OS_LOG_TYPE_INFO, "%s #myriad Myriad emergency timer disarmed", &v2, 0xCu);
+    v1 = 136315138;
+    v2 = "[SVXMyriadHostDevice _disarmMyriadEmergencyTimer]_block_invoke";
+    _os_log_impl(&dword_2695B9000, v0, OS_LOG_TYPE_INFO, "%s #myriad Myriad emergency timer disarmed", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_armEmergencyDispatchTimerFor:(double)for toExecute:(id)execute
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   timer = self->_emergencyContext.timer;
   v6 = (for * 1000000000.0);
   executeCopy = execute;
@@ -199,12 +192,10 @@ void __50__SVXMyriadHostDevice__disarmMyriadEmergencyTimer__block_invoke()
   v9 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v11 = 136315138;
-    v12 = "[SVXMyriadHostDevice _armEmergencyDispatchTimerFor:toExecute:]";
-    _os_log_impl(&dword_2695B9000, v9, OS_LOG_TYPE_INFO, "%s #myriad Myriad emergency timer armed", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = "[SVXMyriadHostDevice _armEmergencyDispatchTimerFor:toExecute:]";
+    _os_log_impl(&dword_2695B9000, v9, OS_LOG_TYPE_INFO, "%s #myriad Myriad emergency timer armed", &v10, 0xCu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_initializeMyriadEmergencyTimer
@@ -242,22 +233,22 @@ void __50__SVXMyriadHostDevice__disarmMyriadEmergencyTimer__block_invoke()
 
 void __101__SVXMyriadHostDevice_startAdvertising_withSCDAGoodnessScoreContext_withSCDAAudioContext_completion___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 64);
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     v4 = *(a1 + 32);
     v5 = *(a1 + 40);
-    v8 = 136315906;
-    v9 = "[SVXMyriadHostDevice startAdvertising:withSCDAGoodnessScoreContext:withSCDAAudioContext:completion:]_block_invoke";
-    v10 = 2048;
-    v11 = v2;
-    v12 = 2112;
-    v13 = v4;
-    v14 = 2112;
-    v15 = v5;
-    _os_log_impl(&dword_2695B9000, v3, OS_LOG_TYPE_INFO, "%s #myriad queueAdvertisementType:%lu, context=%@, goodnessScoreContext=%@", &v8, 0x2Au);
+    v7 = 136315906;
+    v8 = "[SVXMyriadHostDevice startAdvertising:withSCDAGoodnessScoreContext:withSCDAAudioContext:completion:]_block_invoke";
+    v9 = 2048;
+    v10 = v2;
+    v11 = 2112;
+    v12 = v4;
+    v13 = 2112;
+    v14 = v5;
+    _os_log_impl(&dword_2695B9000, v3, OS_LOG_TYPE_INFO, "%s #myriad queueAdvertisementType:%lu, context=%@, goodnessScoreContext=%@", &v7, 0x2Au);
   }
 
   if (v2 <= 1)
@@ -266,54 +257,46 @@ void __101__SVXMyriadHostDevice_startAdvertising_withSCDAGoodnessScoreContext_wi
     {
       if (v2 != 1)
       {
-        goto LABEL_19;
+        return;
       }
 
       [*(*(a1 + 48) + 8) startAdvertisingFromDirectTriggerWithContext:*(a1 + 32)];
       goto LABEL_17;
     }
+
+    goto LABEL_11;
   }
 
-  else
+  switch(v2)
   {
-    if (v2 == 2)
-    {
+    case 2:
       [*(*(a1 + 48) + 8) startAdvertisingFromAlertFiringVoiceTriggerWithContext:*(a1 + 32)];
-      goto LABEL_17;
-    }
-
-    if (v2 == 4)
-    {
-      [*(a1 + 48) _startAdvertisingEmergency:*(a1 + 56)];
-      goto LABEL_19;
-    }
-
-    if (v2 != 3)
-    {
-      goto LABEL_19;
-    }
-  }
-
-  [*(a1 + 48) _acquireWiFiAssertion];
-  if (v2 > 1)
-  {
-    [*(*(a1 + 48) + 8) startAdvertisingFromInTaskVoiceTriggerWithContext:0];
-  }
-
-  else
-  {
-    [*(*(a1 + 48) + 8) startAdvertisingFromVoiceTriggerWithGoodnessScoreContext:*(a1 + 40) withContext:*(a1 + 32)];
-  }
-
 LABEL_17:
-  v6 = *(a1 + 56);
-  if (v6)
-  {
-    (*(v6 + 16))(v6, 0);
-  }
+      v6 = *(a1 + 56);
+      if (v6)
+      {
+        (*(v6 + 16))(v6, 0);
+      }
 
-LABEL_19:
-  v7 = *MEMORY[0x277D85DE8];
+      return;
+    case 4:
+      [*(a1 + 48) _startAdvertisingEmergency:*(a1 + 56)];
+      return;
+    case 3:
+LABEL_11:
+      [*(a1 + 48) _acquireWiFiAssertion];
+      if (v2 > 1)
+      {
+        [*(*(a1 + 48) + 8) startAdvertisingFromInTaskVoiceTriggerWithContext:0];
+      }
+
+      else
+      {
+        [*(*(a1 + 48) + 8) startAdvertisingFromVoiceTriggerWithGoodnessScoreContext:*(a1 + 40) withContext:*(a1 + 32)];
+      }
+
+      goto LABEL_17;
+  }
 }
 
 - (void)setupEnabled:(BOOL)enabled

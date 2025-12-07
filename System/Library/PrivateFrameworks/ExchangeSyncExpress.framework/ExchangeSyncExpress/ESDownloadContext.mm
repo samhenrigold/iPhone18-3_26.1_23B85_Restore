@@ -47,7 +47,7 @@
 
 - (void)updateProgressDownloadedByteCount:(int64_t)count totalByteCount:(int64_t)byteCount
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v7 = DALoggingwithCategory();
   v8 = *(MEMORY[0x277D03988] + 7);
   if (os_log_type_enabled(v7, v8))
@@ -55,12 +55,12 @@
     attachmentUUID = self->_attachmentUUID;
     accountID = self->_accountID;
     *buf = 138413058;
-    v17 = attachmentUUID;
-    v18 = 2112;
-    v19 = accountID;
-    v20 = 2048;
+    v16 = attachmentUUID;
+    v17 = 2112;
+    v18 = accountID;
+    v19 = 2048;
     countCopy = count;
-    v22 = 2048;
+    v21 = 2048;
     byteCountCopy = byteCount;
     _os_log_impl(&dword_24A1B8000, v7, v8, "Download of attachment UUID %@ for accountID %@ progress: %lld bytes of %lld", buf, 0x2Au);
   }
@@ -88,13 +88,11 @@
     block[6] = byteCount;
     dispatch_async(v12, block);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishedWithError:(id)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = DALoggingwithCategory();
   v6 = *(MEMORY[0x277D03988] + 7);
@@ -103,9 +101,9 @@
     attachmentUUID = self->_attachmentUUID;
     accountID = self->_accountID;
     *buf = 138412546;
-    v16 = attachmentUUID;
-    v17 = 2112;
-    v18 = accountID;
+    v15 = attachmentUUID;
+    v16 = 2112;
+    v17 = accountID;
     _os_log_impl(&dword_24A1B8000, v5, v6, "Download of attachment UUID %@ for account %@ completed.", buf, 0x16u);
   }
 
@@ -123,25 +121,14 @@
     }
 
     v11 = v10;
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __39__ESDownloadContext_finishedWithError___block_invoke;
-    v13[3] = &unk_278FCFB18;
-    v13[4] = self;
-    v14 = errorCopy;
-    dispatch_async(v11, v13);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __39__ESDownloadContext_finishedWithError___block_invoke;
+    v12[3] = &unk_278FCFB18;
+    v12[4] = self;
+    v13 = errorCopy;
+    dispatch_async(v11, v12);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t __39__ESDownloadContext_finishedWithError___block_invoke(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
-  v3 = v2[1];
-  v4 = v2[2];
-  return (*(v2[5] + 16))();
 }
 
 @end

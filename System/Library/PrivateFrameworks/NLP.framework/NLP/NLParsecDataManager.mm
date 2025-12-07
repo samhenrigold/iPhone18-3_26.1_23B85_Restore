@@ -85,72 +85,69 @@ uint64_t __35__NLParsecDataManager_insertEntry___block_invoke(uint64_t a1, void 
 
 - (NSData)serializableData
 {
-  v20 = *MEMORY[0x277D85DE8];
-  if (self->m_entries)
+  v21 = *MEMORY[0x277D85DE8];
+  if (!self->m_entries)
   {
-    outputStreamToMemory = [MEMORY[0x277CBEB78] outputStreamToMemory];
-    [outputStreamToMemory open];
-    v4 = [objc_alloc(MEMORY[0x277D43188]) initWithOutputStream:outputStreamToMemory];
-    v15 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    m_entries = self->m_entries;
-    v6 = [(NSMutableArray *)m_entries countByEnumeratingWithState:&v15 objects:v19 count:16];
-    if (v6)
+    return 0;
+  }
+
+  outputStreamToMemory = [MEMORY[0x277CBEB78] outputStreamToMemory];
+  [outputStreamToMemory open];
+  v4 = [objc_alloc(MEMORY[0x277D43188]) initWithOutputStream:outputStreamToMemory];
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  m_entries = self->m_entries;
+  v6 = [(NSMutableArray *)m_entries countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v17;
+    while (2)
     {
-      v7 = v6;
-      v8 = *v16;
-      while (2)
+      for (i = 0; i != v7; ++i)
       {
-        for (i = 0; i != v7; ++i)
+        if (*v17 != v8)
         {
-          if (*v16 != v8)
-          {
-            objc_enumerationMutation(m_entries);
-          }
-
-          v10 = *(*(&v15 + 1) + 8 * i);
-          if (([v4 writeMessage:v10] & 1) == 0)
-          {
-            ParsecLogHandle = getParsecLogHandle();
-            if (os_log_type_enabled(ParsecLogHandle, OS_LOG_TYPE_ERROR))
-            {
-              [(NLParsecDataManager *)v10 serializableData];
-            }
-
-            goto LABEL_13;
-          }
+          objc_enumerationMutation(m_entries);
         }
 
-        v7 = [(NSMutableArray *)m_entries countByEnumeratingWithState:&v15 objects:v19 count:16];
-        if (v7)
+        v10 = *(*(&v16 + 1) + 8 * i);
+        v11 = [v4 writeMessage:v10];
+        if ((v11 & 1) == 0)
         {
-          continue;
-        }
+          ParsecLogHandle = getParsecLogHandle(v11, v12);
+          if (os_log_type_enabled(ParsecLogHandle, OS_LOG_TYPE_ERROR))
+          {
+            [(NLParsecDataManager *)v10 serializableData];
+          }
 
-        break;
+          goto LABEL_13;
+        }
       }
 
-      v11 = [outputStreamToMemory propertyForKey:*MEMORY[0x277CBE740]];
+      v7 = [(NSMutableArray *)m_entries countByEnumeratingWithState:&v16 objects:v20 count:16];
+      if (v7)
+      {
+        continue;
+      }
+
+      break;
     }
 
-    else
-    {
-LABEL_13:
-      v11 = 0;
-    }
-
-    [outputStreamToMemory close];
+    v13 = [outputStreamToMemory propertyForKey:*MEMORY[0x277CBE740]];
   }
 
   else
   {
-    v11 = 0;
+LABEL_13:
+    v13 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-  return v11;
+  [outputStreamToMemory close];
+
+  return v13;
 }
 
 + (void)enumerateEntriesForSerializedData:(id)data withBlock:(id)block
@@ -190,11 +187,10 @@ LABEL_13:
 
 - (void)serializableData
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_22CD0B000, a2, OS_LOG_TYPE_ERROR, "Failed to serialize hints data: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_22CD0B000, a2, OS_LOG_TYPE_ERROR, "Failed to serialize hints data: %@", &v2, 0xCu);
 }
 
 @end

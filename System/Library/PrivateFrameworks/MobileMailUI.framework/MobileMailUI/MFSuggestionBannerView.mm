@@ -6,6 +6,7 @@
 - (void)_configureBannerAppearance;
 - (void)commonInitWithBanner:(id)banner;
 - (void)setBanner:(id)banner;
+- (void)setBottomSeparatorIsHidden:(BOOL)hidden;
 - (void)setSeparatorDrawsFlushWithLeadingEdge:(BOOL)edge;
 - (void)setSeparatorDrawsFlushWithTrailingEdge:(BOOL)edge;
 - (void)updateConstraints;
@@ -264,6 +265,20 @@ LABEL_11:
   v3.receiver = self;
   v3.super_class = MFSuggestionBannerView;
   [(MFMessageHeaderViewBlock *)&v3 setSeparatorDrawsFlushWithTrailingEdge:1];
+}
+
+- (void)setBottomSeparatorIsHidden:(BOOL)hidden
+{
+  hiddenCopy = hidden;
+  if (MUISolariumFeatureEnabled())
+  {
+    [(MFMessageHeaderViewBlock *)&v6 setBottomSeparatorIsHidden:1, v5.receiver, v5.super_class, self, MFSuggestionBannerView];
+  }
+
+  else
+  {
+    [(MFMessageHeaderViewBlock *)&v5 setBottomSeparatorIsHidden:hiddenCopy, self, MFSuggestionBannerView, v6.receiver, v6.super_class];
+  }
 }
 
 + (id)bannerIconViewForSymbol:(id)symbol tintColor:(id)color

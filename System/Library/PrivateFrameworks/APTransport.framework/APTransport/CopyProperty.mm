@@ -5,30 +5,26 @@
 
 void __stream_CopyProperty_block_invoke(void *a1)
 {
-  v2 = a1[5];
-  v4 = a1[6];
-  v3 = a1[7];
-  v5 = a1[8];
-  DerivedStorage = CMBaseObjectGetDerivedStorage();
+  v3 = a1[6];
+  v2 = a1[7];
+  v4 = a1[8];
   cf = 0;
-  if (*(DerivedStorage + 24))
+  if (*(CMBaseObjectGetDerivedStorage() + 24))
   {
     __stream_CopyProperty_block_invoke_cold_1();
-    v16 = -16617;
+    v12 = -16617;
     goto LABEL_16;
   }
 
-  v7 = DerivedStorage;
-  v8 = CFEqual(v4, @"LastDeliveredMessage");
-  v9 = *(v7 + 40);
-  if (!v8)
+  if (!CFEqual(v3, @"LastDeliveredMessage"))
   {
-    CMBaseObject = APTransportConnectionGetCMBaseObject(v9);
-    v18 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-    if (v18)
+    APTransportConnectionGetCMBaseObject();
+    v14 = v13;
+    v15 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+    if (v15)
     {
-      v16 = v18(CMBaseObject, v4, v3, v5);
-      if (!v16)
+      v12 = v15(v14, v3, v2, v4);
+      if (!v12)
       {
         goto LABEL_16;
       }
@@ -36,49 +32,50 @@ void __stream_CopyProperty_block_invoke(void *a1)
 
     else
     {
-      v16 = -12782;
+      v12 = -12782;
     }
 
     goto LABEL_13;
   }
 
-  v10 = APTransportConnectionGetCMBaseObject(v9);
-  v11 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (!v11)
+  APTransportConnectionGetCMBaseObject();
+  v6 = v5;
+  v7 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (!v7)
   {
-    v16 = -12782;
+    v12 = -12782;
 LABEL_13:
     APSLogErrorAt();
     goto LABEL_16;
   }
 
-  v12 = v11(v10, @"LastDeliveredPackage", v3, &cf);
-  if (v12)
+  v8 = v7(v6, @"LastDeliveredPackage", v2, &cf);
+  if (v8)
   {
-    v16 = v12;
+    v12 = v8;
     goto LABEL_13;
   }
 
-  v13 = cf;
-  if (cf && (v14 = *(*(CMBaseObjectGetVTable() + 16) + 8)) != 0)
+  v9 = cf;
+  if (cf && (v10 = *(*(CMBaseObjectGetVTable() + 16) + 8)) != 0)
   {
-    v15 = v14(v13);
+    v11 = v10(v9);
   }
 
   else
   {
-    v15 = 0;
+    v11 = 0;
   }
 
-  v16 = 0;
-  *v5 = v15;
+  v12 = 0;
+  *v4 = v11;
 LABEL_16:
   if (cf)
   {
     CFRelease(cf);
   }
 
-  *(*(a1[4] + 8) + 24) = v16;
+  *(*(a1[4] + 8) + 24) = v12;
 }
 
 @end

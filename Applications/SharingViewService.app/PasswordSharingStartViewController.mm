@@ -29,7 +29,7 @@
   {
     if (dword_1001BE938 <= 30 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BE938, "[PasswordSharingStartViewController viewDidAppear:]", 30, "Automatically granting pw from pref\n");
     }
 
     [(PasswordSharingStartViewController *)self handleAllowButtonPressed:0];
@@ -41,7 +41,7 @@
   disappearCopy = disappear;
   if (dword_1001BE938 <= 30 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE938, "[PasswordSharingStartViewController viewDidDisappear:]", 30, "Main ViewDidDisappear\n");
   }
 
   v7.receiver = self;
@@ -72,7 +72,7 @@
   viewCopy = view;
   if (dword_1001BE938 <= 30 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE938, "[PasswordSharingStartViewController handleTapOutsideView:]", 30, "Dismissing on tap outside view\n");
   }
 
   [self->super._mainController dismiss:1];
@@ -83,7 +83,7 @@
   pressedCopy = pressed;
   if (dword_1001BE938 <= 30 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE938, "[PasswordSharingStartViewController handleDismissButtonPressed:]", 30, "Dismiss button pressed\n");
   }
 
   [self->super._mainController dismiss:5];
@@ -94,7 +94,7 @@
   pressedCopy = pressed;
   if (dword_1001BE938 <= 30 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE938, "[PasswordSharingStartViewController handleAllowButtonPressed:]", 30, "Allow button pressed\n");
   }
 
   containerView = [(SVSBaseViewController *)self containerView];
@@ -138,7 +138,7 @@
 
   if (dword_1001BE938 <= 50 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE938, "[PasswordSharingStartViewController handleAllowButtonPressed:]", 50, "Touch delay is active, ignoring allow button press\n");
   }
 
 LABEL_17:
@@ -192,7 +192,7 @@ LABEL_17:
   v3 = CFDictionaryGetTypedValue();
   if (!v3 && dword_1001BE938 <= 50 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE938, "[PasswordSharingStartViewController configureUIElementsDefault]", 50, "### No network name?");
   }
 
   v4 = SFIsGreenTeaDevice();

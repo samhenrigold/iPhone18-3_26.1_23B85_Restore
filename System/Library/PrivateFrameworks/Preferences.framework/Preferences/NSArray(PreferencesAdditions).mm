@@ -1,7 +1,7 @@
 @interface NSArray(PreferencesAdditions)
 - (id)specifierForID:()PreferencesAdditions;
-- (uint64_t)indexOfNextGroupStartingAtIndex:()PreferencesAdditions;
 - (uint64_t)indexOfSpecifierWithID:()PreferencesAdditions;
+- (unint64_t)indexOfNextGroupStartingAtIndex:()PreferencesAdditions;
 @end
 
 @implementation NSArray(PreferencesAdditions)
@@ -57,7 +57,7 @@ LABEL_7:
   return v6;
 }
 
-- (uint64_t)indexOfNextGroupStartingAtIndex:()PreferencesAdditions
+- (unint64_t)indexOfNextGroupStartingAtIndex:()PreferencesAdditions
 {
   if (a3)
   {

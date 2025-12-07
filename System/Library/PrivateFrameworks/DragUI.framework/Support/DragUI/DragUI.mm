@@ -118,31 +118,30 @@ uint64_t sub_100001FD4(void *a1)
   return v2;
 }
 
-double sub_100002024(void *a1, void *a2, double a3)
+double sub_100002024(void *a1, void *a2, double a3, double a4)
 {
-  v5 = a1;
-  v6 = a2;
-  if (v5 != v6)
+  v6 = a1;
+  v7 = a2;
+  if (v6 != v7)
   {
-    v7 = [v5 displayIdentity];
-    if ([v7 isContinuityDisplay])
+    v8 = [v6 displayIdentity];
+    if ([v8 isContinuityDisplay])
     {
 
 LABEL_5:
       a3 = kSBSCGPointInvalid[0];
-      v10 = kSBSCGPointInvalid[1];
       goto LABEL_15;
     }
 
-    v8 = [v6 displayIdentity];
-    v9 = [v8 isContinuityDisplay];
+    v9 = [v7 displayIdentity];
+    v10 = [v9 isContinuityDisplay];
 
-    if (v9)
+    if (v10)
     {
       goto LABEL_5;
     }
 
-    v11 = v5;
+    v11 = v6;
     v12 = sub_100001FD4(v11);
     v13 = [v11 displayConfiguration];
 
@@ -152,7 +151,7 @@ LABEL_5:
       _UIConvertRectFromOrientationToOrientation();
     }
 
-    v14 = v6;
+    v14 = v7;
     v15 = sub_100001FD4(v14);
     v16 = [v14 displayConfiguration];
 
@@ -193,26 +192,23 @@ id sub_1000022FC(void *a1)
   return v2;
 }
 
-CGFloat sub_100002334(void *a1, void *a2, CGFloat x)
+CGFloat sub_100002334(void *a1, void *a2, CGFloat x, double a4, double a5, double a6)
 {
-  v5 = a1;
-  v6 = a2;
-  if (v5 != v6)
+  v8 = a1;
+  v9 = a2;
+  if (v8 != v9)
   {
-    v7 = [v5 displayIdentity];
-    v8 = [v7 isContinuityDisplay];
+    v10 = [v8 displayIdentity];
+    v11 = [v10 isContinuityDisplay];
 
-    if ((v8 & 1) != 0 || ([v6 displayIdentity], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "isContinuityDisplay"), v9, v10))
+    if ((v11 & 1) != 0 || ([v9 displayIdentity], v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "isContinuityDisplay"), v12, v13))
     {
       x = CGRectNull.origin.x;
-      y = CGRectNull.origin.y;
-      width = CGRectNull.size.width;
-      height = CGRectNull.size.height;
     }
 
     else
     {
-      v14 = v5;
+      v14 = v8;
       v15 = sub_100001FD4(v14);
       v16 = [v14 displayConfiguration];
 
@@ -222,7 +218,7 @@ CGFloat sub_100002334(void *a1, void *a2, CGFloat x)
         _UIConvertRectFromOrientationToOrientation();
       }
 
-      v17 = v6;
+      v17 = v9;
       v18 = sub_100001FD4(v17);
       v19 = [v17 displayConfiguration];
 
@@ -279,11 +275,107 @@ void sub_10000371C(uint64_t a1)
   (*(*(a1 + 32) + 16))();
 }
 
+BOOL sub_100003D50(id a1, NSString *a2, BOOL a3, DRProcessInfo *a4, DRProcessInfo *a5)
+{
+  v7 = a3;
+  v8 = a2;
+  v9 = a4;
+  v10 = a5;
+  memset(v34, 0, sizeof(v34));
+  if (v9)
+  {
+    objc_msgSend_auditToken(v9);
+  }
+
+  v11 = [LSDocumentProxy documentProxyForName:0 type:v8 MIMEType:0 isContentManaged:v7 sourceAuditToken:v34];
+  v33 = 0;
+  v12 = [v11 availableClaimBindingsForMode:2 error:&v33];
+  v13 = v33;
+  v14 = v13;
+  if (v12)
+  {
+    v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    v15 = v12;
+    v16 = [v15 countByEnumeratingWithState:&v29 objects:v37 count:16];
+    if (v16)
+    {
+      v25 = v14;
+      v26 = v11;
+      v27 = v9;
+      v28 = v8;
+      v17 = *v30;
+      while (2)
+      {
+        for (i = 0; i != v16; i = i + 1)
+        {
+          if (*v30 != v17)
+          {
+            objc_enumerationMutation(v15);
+          }
+
+          v19 = *(*(&v29 + 1) + 8 * i);
+          v20 = [(DRProcessInfo *)v10 bundleID:v25];
+          v21 = [v19 bundleRecord];
+          v22 = [v21 bundleIdentifier];
+          v23 = [v20 isEqualToString:v22];
+
+          if (v23)
+          {
+            LOBYTE(v16) = 1;
+            goto LABEL_14;
+          }
+        }
+
+        v16 = [v15 countByEnumeratingWithState:&v29 objects:v37 count:16];
+        if (v16)
+        {
+          continue;
+        }
+
+        break;
+      }
+
+LABEL_14:
+      v9 = v27;
+      v8 = v28;
+      v14 = v25;
+      v11 = v26;
+    }
+  }
+
+  else
+  {
+    if (!v13)
+    {
+      LOBYTE(v16) = 0;
+      goto LABEL_20;
+    }
+
+    v15 = DRLogTarget();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v36 = v14;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "DRDragContinuation encountered an error looking up LS claim bindings while examining types for drop. Error: %@", buf, 0xCu);
+    }
+
+    LOBYTE(v16) = 0;
+  }
+
+LABEL_20:
+  return v16;
+}
+
 void sub_100004438(id a1)
 {
-  qword_1000634A8 = [[DROrientationObserver alloc] _init];
+  v1 = [[DROrientationObserver alloc] _init];
+  v2 = qword_1000634A8;
+  qword_1000634A8 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_100004578(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -373,9 +465,9 @@ BOOL sub_100004A98(void *a1)
   return v2;
 }
 
-void sub_100004B64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100004B64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -404,7 +496,7 @@ void sub_10000515C(uint64_t a1, void *a2)
   v4 = DRLogTarget();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    sub_10002F7F8(a1);
+    sub_10002F7F8();
   }
 
   [*(*(a1 + 32) + 40) invalidate];
@@ -435,13 +527,13 @@ void sub_1000053A0(uint64_t a1, void *a2)
   v4 = DRLogTarget();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    sub_10002F7F8(a1);
+    sub_10002F7F8();
   }
 
   [*(*(a1 + 32) + 40) invalidate];
 }
 
-uint64_t sub_100005678()
+uint64_t sub_100005678(uint64_t a1)
 {
   if (qword_1000634C8 != -1)
   {
@@ -450,15 +542,15 @@ uint64_t sub_100005678()
 
   if ((byte_1000634D0 & 1) == 0)
   {
-    v0 = sub_100024B48();
-    v1 = [v0 objectForKey:@"NotifyPhoneMirroringOutsideContinuityShell"];
-    v2 = v1;
-    if (v1)
+    v1 = sub_100024B48(a1);
+    v2 = [v1 objectForKey:@"NotifyPhoneMirroringOutsideContinuityShell"];
+    v3 = v2;
+    if (v2)
     {
-      LOBYTE(v1) = [v1 BOOLValue];
+      LOBYTE(v2) = [v2 BOOLValue];
     }
 
-    byte_1000634D1 = v1;
+    byte_1000634D1 = v2;
     byte_1000634D0 = 1;
   }
 
@@ -478,11 +570,11 @@ void sub_100005758(id a1)
   CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, sub_1000057A4, @"com.apple.DragUI.NotifyPhoneMirroringOutsideContinuityShell", 0, CFNotificationSuspensionBehaviorCoalesce);
 }
 
-void sub_1000057A4()
+void sub_1000057A4(uint64_t a1)
 {
   byte_1000634D0 = 0;
-  v0 = sub_100024B48();
-  [v0 synchronize];
+  v1 = sub_100024B48(a1);
+  [v1 synchronize];
 }
 
 void sub_100005804(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -564,31 +656,37 @@ void sub_1000083DC(_Unwind_Exception *a1)
 uint64_t sub_100008414(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = WeakRetained[2];
-    if (v2)
+    WeakRetained = WeakRetained[2];
+    if (WeakRetained)
     {
-      (*(v2 + 16))(v2, 0);
+      v4 = v2;
+      WeakRetained = (WeakRetained[2])(WeakRetained, 0);
+      v2 = v4;
     }
   }
 
-  return _objc_release_x1();
+  return _objc_release_x1(WeakRetained, v2);
 }
 
 uint64_t sub_100008470(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = WeakRetained[2];
-    if (v2)
+    WeakRetained = WeakRetained[2];
+    if (WeakRetained)
     {
-      (*(v2 + 16))(v2, 0);
+      v4 = v2;
+      WeakRetained = (WeakRetained[2])(WeakRetained, 0);
+      v2 = v4;
     }
   }
 
-  return _objc_release_x1();
+  return _objc_release_x1(WeakRetained, v2);
 }
 
 uint64_t sub_1000085A0(uint64_t a1)
@@ -659,15 +757,16 @@ void sub_10000AA3C(uint64_t a1)
 void sub_10000AB58(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = [DROnDemandFileProviderPresenter presentedItemOperationQueue]_0();
-    v3[0] = _NSConcreteStackBlock;
-    v3[1] = 3221225472;
-    v3[2] = sub_10000ABF0;
-    v3[3] = &unk_100054B50;
-    v3[4] = WeakRetained;
-    [v2 addOperationWithBlock:v3];
+    v3 = [DROnDemandFileProviderPresenter presentedItemOperationQueue]_0(WeakRetained);
+    v4[0] = _NSConcreteStackBlock;
+    v4[1] = 3221225472;
+    v4[2] = sub_10000ABF0;
+    v4[3] = &unk_100054B50;
+    v4[4] = v2;
+    [v3 addOperationWithBlock:v4];
   }
 }
 
@@ -710,17 +809,17 @@ void sub_10000B2A0(uint64_t a1)
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v7 = v3;
+    v8 = v3;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Reader has relinquished access to URL %@", buf, 0xCu);
   }
 
-  v4 = [DROnDemandFileProviderPresenter presentedItemOperationQueue]_0();
-  v5[0] = _NSConcreteStackBlock;
-  v5[1] = 3221225472;
-  v5[2] = sub_10000B3AC;
-  v5[3] = &unk_100054B50;
-  v5[4] = *(a1 + 40);
-  [v4 addOperationWithBlock:v5];
+  v5 = [DROnDemandFileProviderPresenter presentedItemOperationQueue]_0(v4);
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_10000B3AC;
+  v6[3] = &unk_100054B50;
+  v6[4] = *(a1 + 40);
+  [v5 addOperationWithBlock:v6];
 }
 
 void sub_10000B3B4(uint64_t a1, void *a2)
@@ -749,7 +848,7 @@ void sub_10000B3B4(uint64_t a1, void *a2)
     {
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        sub_10002FD84((a1 + 32), (a1 + 40));
+        sub_10002FD84((a1 + 32));
       }
     }
 
@@ -760,7 +859,6 @@ void sub_10000B3B4(uint64_t a1, void *a2)
     }
   }
 
-  v11 = *(a1 + 48);
   (*(*(a1 + 56) + 16))();
   if (*(a1 + 64) == 1)
   {
@@ -771,7 +869,7 @@ void sub_10000B3B4(uint64_t a1, void *a2)
 
 void sub_10000B58C(uint64_t a1)
 {
-  v2 = [DROnDemandFileProviderPresenter presentedItemOperationQueue]_0();
+  v2 = [DROnDemandFileProviderPresenter presentedItemOperationQueue]_0(a1);
   v3[0] = _NSConcreteStackBlock;
   v3[1] = 3221225472;
   v3[2] = sub_10000B618;
@@ -782,9 +880,11 @@ void sub_10000B58C(uint64_t a1)
 
 void sub_10000B698(id a1)
 {
-  qword_1000634E0 = objc_alloc_init(NSOperationQueue);
+  v1 = objc_alloc_init(NSOperationQueue);
+  v2 = qword_1000634E0;
+  qword_1000634E0 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 int64_t sub_10000C454(id a1, DRItemViewModel *a2, DRItemViewModel *a3)
@@ -856,7 +956,7 @@ void sub_10000DC8C(uint64_t a1, uint64_t a2, void *a3)
   [WeakRetained updateSceneIdentifiersWithLayout:v4];
 }
 
-double sub_10000E34C()
+double sub_10000E34C(uint64_t a1)
 {
   if (qword_100063500 != -1)
   {
@@ -865,20 +965,20 @@ double sub_10000E34C()
 
   if ((byte_100063508 & 1) == 0)
   {
-    v0 = sub_100024B48();
-    v1 = [v0 objectForKey:@"PrecisionModeUpOffset"];
-    v2 = v1;
-    if (v1)
+    v1 = sub_100024B48(a1);
+    v2 = [v1 objectForKey:@"PrecisionModeUpOffset"];
+    v3 = v2;
+    if (v2)
     {
-      [v1 doubleValue];
+      [v2 doubleValue];
     }
 
     else
     {
-      v3 = 25.0;
+      v4 = 25.0;
     }
 
-    qword_100063510 = *&v3;
+    qword_100063510 = *&v4;
     byte_100063508 = 1;
   }
 
@@ -898,14 +998,14 @@ void sub_10000E434(id a1)
   CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, sub_10000E480, @"com.apple.DragUI.PrecisionModeUpOffset", 0, CFNotificationSuspensionBehaviorCoalesce);
 }
 
-void sub_10000E480()
+void sub_10000E480(uint64_t a1)
 {
   byte_100063508 = 0;
-  v0 = sub_100024B48();
-  [v0 synchronize];
+  v1 = sub_100024B48(a1);
+  [v1 synchronize];
 }
 
-double sub_10000E4F0()
+double sub_10000E4F0(uint64_t a1)
 {
   if (qword_100063518 != -1)
   {
@@ -914,20 +1014,20 @@ double sub_10000E4F0()
 
   if ((byte_100063520 & 1) == 0)
   {
-    v0 = sub_100024B48();
-    v1 = [v0 objectForKey:@"PrecisionModeDownOffset"];
-    v2 = v1;
-    if (v1)
+    v1 = sub_100024B48(a1);
+    v2 = [v1 objectForKey:@"PrecisionModeDownOffset"];
+    v3 = v2;
+    if (v2)
     {
-      [v1 doubleValue];
+      [v2 doubleValue];
     }
 
     else
     {
-      v3 = 25.0;
+      v4 = 25.0;
     }
 
-    qword_100063528 = *&v3;
+    qword_100063528 = *&v4;
     byte_100063520 = 1;
   }
 
@@ -947,14 +1047,14 @@ void sub_10000E5D8(id a1)
   CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, sub_10000E624, @"com.apple.DragUI.PrecisionModeDownOffset", 0, CFNotificationSuspensionBehaviorCoalesce);
 }
 
-void sub_10000E624()
+void sub_10000E624(uint64_t a1)
 {
   byte_100063520 = 0;
-  v0 = sub_100024B48();
-  [v0 synchronize];
+  v1 = sub_100024B48(a1);
+  [v1 synchronize];
 }
 
-double sub_10000E694()
+double sub_10000E694(uint64_t a1)
 {
   if (qword_100063530 != -1)
   {
@@ -963,20 +1063,20 @@ double sub_10000E694()
 
   if ((byte_100063538 & 1) == 0)
   {
-    v0 = sub_100024B48();
-    v1 = [v0 objectForKey:@"PrecisionModeUpAnchor"];
-    v2 = v1;
-    if (v1)
+    v1 = sub_100024B48(a1);
+    v2 = [v1 objectForKey:@"PrecisionModeUpAnchor"];
+    v3 = v2;
+    if (v2)
     {
-      [v1 doubleValue];
+      [v2 doubleValue];
     }
 
     else
     {
-      v3 = 0x3FB999999999999ALL;
+      v4 = 0x3FB999999999999ALL;
     }
 
-    qword_100063540 = v3;
+    qword_100063540 = v4;
     byte_100063538 = 1;
   }
 
@@ -996,14 +1096,14 @@ void sub_10000E780(id a1)
   CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, sub_10000E7CC, @"com.apple.DragUI.PrecisionModeUpAnchor", 0, CFNotificationSuspensionBehaviorCoalesce);
 }
 
-void sub_10000E7CC()
+void sub_10000E7CC(uint64_t a1)
 {
   byte_100063538 = 0;
-  v0 = sub_100024B48();
-  [v0 synchronize];
+  v1 = sub_100024B48(a1);
+  [v1 synchronize];
 }
 
-double sub_10000E83C()
+double sub_10000E83C(uint64_t a1)
 {
   if (qword_100063548 != -1)
   {
@@ -1012,20 +1112,20 @@ double sub_10000E83C()
 
   if ((byte_100063550 & 1) == 0)
   {
-    v0 = sub_100024B48();
-    v1 = [v0 objectForKey:@"PrecisionModeDownAnchor"];
-    v2 = v1;
-    if (v1)
+    v1 = sub_100024B48(a1);
+    v2 = [v1 objectForKey:@"PrecisionModeDownAnchor"];
+    v3 = v2;
+    if (v2)
     {
-      [v1 doubleValue];
+      [v2 doubleValue];
     }
 
     else
     {
-      v3 = 0x3FB999999999999ALL;
+      v4 = 0x3FB999999999999ALL;
     }
 
-    qword_100063558 = v3;
+    qword_100063558 = v4;
     byte_100063550 = 1;
   }
 
@@ -1045,14 +1145,14 @@ void sub_10000E928(id a1)
   CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, sub_10000E974, @"com.apple.DragUI.PrecisionModeDownAnchor", 0, CFNotificationSuspensionBehaviorCoalesce);
 }
 
-void sub_10000E974()
+void sub_10000E974(uint64_t a1)
 {
   byte_100063550 = 0;
-  v0 = sub_100024B48();
-  [v0 synchronize];
+  v1 = sub_100024B48(a1);
+  [v1 synchronize];
 }
 
-double sub_10000EFFC()
+double sub_10000EFFC(uint64_t a1)
 {
   if (qword_100063570 != -1)
   {
@@ -1061,20 +1161,20 @@ double sub_10000EFFC()
 
   if ((byte_100063578 & 1) == 0)
   {
-    v0 = sub_100024B48();
-    v1 = [v0 objectForKey:@"RandomStackPadding"];
-    v2 = v1;
-    if (v1)
+    v1 = sub_100024B48(a1);
+    v2 = [v1 objectForKey:@"RandomStackPadding"];
+    v3 = v2;
+    if (v2)
     {
-      [v1 doubleValue];
+      [v2 doubleValue];
     }
 
     else
     {
-      v3 = 6.0;
+      v4 = 6.0;
     }
 
-    qword_100063580 = *&v3;
+    qword_100063580 = *&v4;
     byte_100063578 = 1;
   }
 
@@ -1094,14 +1194,14 @@ void sub_10000F0E4(id a1)
   CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, sub_10000F130, @"com.apple.DragUI.RandomStackPadding", 0, CFNotificationSuspensionBehaviorCoalesce);
 }
 
-void sub_10000F130()
+void sub_10000F130(uint64_t a1)
 {
   byte_100063578 = 0;
-  v0 = sub_100024B48();
-  [v0 synchronize];
+  v1 = sub_100024B48(a1);
+  [v1 synchronize];
 }
 
-double sub_10000F1A0()
+double sub_10000F1A0(uint64_t a1)
 {
   if (qword_100063588 != -1)
   {
@@ -1110,20 +1210,20 @@ double sub_10000F1A0()
 
   if ((byte_100063590 & 1) == 0)
   {
-    v0 = sub_100024B48();
-    v1 = [v0 objectForKey:@"RandomStackRotation"];
-    v2 = v1;
-    if (v1)
+    v1 = sub_100024B48(a1);
+    v2 = [v1 objectForKey:@"RandomStackRotation"];
+    v3 = v2;
+    if (v2)
     {
-      [v1 doubleValue];
+      [v2 doubleValue];
     }
 
     else
     {
-      v3 = 0x3FB1EB851EB851ECLL;
+      v4 = 0x3FB1EB851EB851ECLL;
     }
 
-    qword_100063598 = v3;
+    qword_100063598 = v4;
     byte_100063590 = 1;
   }
 
@@ -1143,11 +1243,11 @@ void sub_10000F28C(id a1)
   CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, sub_10000F2D8, @"com.apple.DragUI.RandomStackRotation", 0, CFNotificationSuspensionBehaviorCoalesce);
 }
 
-void sub_10000F2D8()
+void sub_10000F2D8(uint64_t a1)
 {
   byte_100063590 = 0;
-  v0 = sub_100024B48();
-  [v0 synchronize];
+  v1 = sub_100024B48(a1);
+  [v1 synchronize];
 }
 
 void sub_10000F97C(void *a1, void *a2)
@@ -1267,7 +1367,7 @@ void sub_1000106A8(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
     v22 = *(a1 + 32);
     if (v22)
     {
-      [v22 auditToken];
+      objc_msgSend_auditToken(v22);
     }
 
     else
@@ -1275,45 +1375,8 @@ void sub_1000106A8(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
       memset(buf, 0, sizeof(buf));
     }
 
-    if ([DRDataTransferSession _shouldRestrictOpenInPlaceFor:v20 destinationAuditToken:buf])
+    if (+[DRDataTransferSession _shouldRestrictOpenInPlaceFor:destinationAuditToken:](DRDataTransferSession, "_shouldRestrictOpenInPlaceFor:destinationAuditToken:", v20, buf) || ([v14 isReadonly] & 1) != 0 || objc_msgSend(*(a1 + 40), "preferredRepresentation") != 2 || (v23 = v20, v44 = 0, v45 = &v44, v46 = 0x2020000000, LOBYTE(v47) = 0, v24 = dispatch_semaphore_create(0), +[FPItemManager defaultManager](FPItemManager, "defaultManager"), v25 = objc_claimAutoreleasedReturnValue(), *buf = _NSConcreteStackBlock, *&buf[8] = 3221225472, *&buf[16] = sub_10001213C, *&buf[24] = &unk_100055340, v52 = &v44, v26 = v24, v51 = v26, objc_msgSend(v25, "fetchItemForURL:completionHandler:", v23, buf), v34 = v23, v25, dispatch_semaphore_wait(v26, 0xFFFFFFFFFFFFFFFFLL), LOBYTE(v23) = *(v45 + 24), v51, v26, _Block_object_dispose(&v44, 8), v34, (v23 & 1) == 0))
     {
-      goto LABEL_18;
-    }
-
-    if ([v14 isReadonly])
-    {
-      goto LABEL_18;
-    }
-
-    if ([*(a1 + 40) preferredRepresentation] != 2)
-    {
-      goto LABEL_18;
-    }
-
-    v23 = v20;
-    v44 = 0;
-    v45 = &v44;
-    v46 = 0x2020000000;
-    LOBYTE(v47) = 0;
-    v24 = dispatch_semaphore_create(0);
-    v25 = +[FPItemManager defaultManager];
-    *buf = _NSConcreteStackBlock;
-    *&buf[8] = 3221225472;
-    *&buf[16] = sub_10001213C;
-    *&buf[24] = &unk_100055340;
-    v52 = &v44;
-    v26 = v24;
-    v51 = v26;
-    [v25 fetchItemForURL:v23 completionHandler:buf];
-    v34 = v23;
-
-    dispatch_semaphore_wait(v26, 0xFFFFFFFFFFFFFFFFLL);
-    LOBYTE(v23) = *(v45 + 24);
-
-    _Block_object_dispose(&v44, 8);
-    if ((v23 & 1) == 0)
-    {
-LABEL_18:
       v31 = DRLogTarget();
       if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
@@ -1379,30 +1442,31 @@ LABEL_18:
   }
 }
 
-uint64_t sub_100010C9C(void *a1, uint64_t a2, uint64_t a3)
+void sub_100010C70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_100010C9C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = DRLogTarget();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412546;
-    v11 = a2;
-    v12 = 2112;
-    v13 = a3;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "File provider ACL extension result: %@, error: %@", &v10, 0x16u);
+    v8 = 138412546;
+    v9 = a2;
+    v10 = 2112;
+    v11 = a3;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "File provider ACL extension result: %@, error: %@", &v8, 0x16u);
   }
 
-  if (!a3)
-  {
-    v7 = a1[4];
-    v8 = a1[5];
-  }
-
-  return (*(a1[6] + 16))();
+  return (*(*(a1 + 48) + 16))();
 }
 
-void sub_100010FCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100010FCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1414,16 +1478,16 @@ uint64_t sub_100010FF0(uint64_t result, uint64_t a2)
   return result;
 }
 
-id sub_100011008()
+id sub_100011008(uint64_t a1)
 {
   if (qword_1000635D8 != -1)
   {
     sub_100030050();
   }
 
-  v1 = qword_1000635D0;
+  v2 = qword_1000635D0;
 
-  return v1;
+  return v2;
 }
 
 void sub_10001104C(uint64_t a1)
@@ -1456,26 +1520,26 @@ void sub_100011684(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
     v14 = *(a1 + 32);
     v15 = *(a1 + 40);
     *buf = 138412802;
-    v23 = v14;
-    v24 = 2112;
-    v25 = v15;
-    v26 = 2112;
-    v27 = v9;
+    v24 = v14;
+    v25 = 2112;
+    v26 = v15;
+    v27 = 2112;
+    v28 = v9;
     _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Completed load for type %@ from item UUID %@. Error: %@", buf, 0x20u);
   }
 
   v16 = [*(a1 + 48) completionHandler];
   (v16)[2](v16, v12, v11, v9, v10);
 
-  v17 = sub_100011008();
+  v18 = sub_100011008(v17);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100011840;
   block[3] = &unk_100054C50;
-  v19 = *(a1 + 48);
-  v18 = v19.i64[0];
-  v21 = vextq_s8(v19, v19, 8uLL);
-  dispatch_async(v17, block);
+  v20 = *(a1 + 48);
+  v19 = v20.i64[0];
+  v22 = vextq_s8(v20, v20, 8uLL);
+  dispatch_async(v18, block);
 }
 
 id sub_100011840(uint64_t a1)
@@ -1590,7 +1654,7 @@ void sub_100012198(id a1)
   _objc_release_x1(v1, v2);
 }
 
-uint64_t sub_100012200()
+uint64_t sub_100012200(uint64_t a1)
 {
   if (qword_1000635F0 != -1)
   {
@@ -1599,20 +1663,20 @@ uint64_t sub_100012200()
 
   if ((byte_1000635F8 & 1) == 0)
   {
-    v0 = sub_100024B48();
-    v1 = [v0 objectForKey:@"maxSimultaneousTransfers"];
-    v2 = v1;
-    if (v1)
+    v1 = sub_100024B48(a1);
+    v2 = [v1 objectForKey:@"maxSimultaneousTransfers"];
+    v3 = v2;
+    if (v2)
     {
-      v3 = [v1 integerValue];
+      v4 = [v2 integerValue];
     }
 
     else
     {
-      v3 = 3;
+      v4 = 3;
     }
 
-    qword_100063600 = v3;
+    qword_100063600 = v4;
     byte_1000635F8 = 1;
   }
 
@@ -1632,14 +1696,14 @@ void sub_1000122E8(id a1)
   CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, sub_100012334, @"com.apple.DragUI.maxSimultaneousTransfers", 0, CFNotificationSuspensionBehaviorCoalesce);
 }
 
-void sub_100012334()
+void sub_100012334(uint64_t a1)
 {
   byte_1000635F8 = 0;
-  v0 = sub_100024B48();
-  [v0 synchronize];
+  v1 = sub_100024B48(a1);
+  [v1 synchronize];
 }
 
-double sub_1000123A4()
+double sub_1000123A4(uint64_t a1)
 {
   if (qword_100063608 != -1)
   {
@@ -1648,20 +1712,20 @@ double sub_1000123A4()
 
   if ((byte_100063610 & 1) == 0)
   {
-    v0 = sub_100024B48();
-    v1 = [v0 objectForKey:@"slowDownTransferTime"];
-    v2 = v1;
-    if (v1)
+    v1 = sub_100024B48(a1);
+    v2 = [v1 objectForKey:@"slowDownTransferTime"];
+    v3 = v2;
+    if (v2)
     {
-      [v1 doubleValue];
+      [v2 doubleValue];
     }
 
     else
     {
-      v3 = 0;
+      v4 = 0;
     }
 
-    qword_100063618 = v3;
+    qword_100063618 = v4;
     byte_100063610 = 1;
   }
 
@@ -1681,11 +1745,11 @@ void sub_10001248C(id a1)
   CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, sub_1000124D8, @"com.apple.DragUI.slowDownTransferTime", 0, CFNotificationSuspensionBehaviorCoalesce);
 }
 
-void sub_1000124D8()
+void sub_1000124D8(uint64_t a1)
 {
   byte_100063610 = 0;
-  v0 = sub_100024B48();
-  [v0 synchronize];
+  v1 = sub_100024B48(a1);
+  [v1 synchronize];
 }
 
 id sub_100012520(uint64_t a1)
@@ -1836,7 +1900,7 @@ id sub_100014050(uint64_t a1)
   v8 = v7;
   if (v7)
   {
-    [v7 appliedTransform];
+    objc_msgSend_appliedTransform(v7);
   }
 
   else
@@ -1856,7 +1920,7 @@ id sub_100014050(uint64_t a1)
   v11 = v10;
   if (v10)
   {
-    [v10 elasticTransform];
+    objc_msgSend_elasticTransform(v10);
   }
 
   else
@@ -2100,7 +2164,7 @@ void sub_100017ACC(uint64_t a1)
         v13 = DRLogTarget();
         if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          sub_1000302F8(v8);
+          sub_1000302F8();
         }
 
         [*v8 _cancelDrag];
@@ -2273,7 +2337,7 @@ void sub_10001A170(uint64_t a1, void *a2)
     v5 = DRLogTarget();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_1000307AC(a1);
+      sub_1000307AC();
     }
 
     [WeakRetained _endDragWithOperation:0 destination:*(a1 + 40)];
@@ -2287,15 +2351,15 @@ void sub_10001A1F8(uint64_t a1, void *a2)
   v5 = *(a1 + 40);
   if (v5)
   {
-    [v5 auditToken];
+    objc_msgSend_auditToken(v5);
   }
 
   else
   {
-    memset(v19, 0, sizeof(v19));
+    memset(v20, 0, sizeof(v20));
   }
 
-  [v4 setDestinationAuditToken:v19];
+  [v4 setDestinationAuditToken:v20];
   v6 = [*(a1 + 48) takeProcessAssertionOnPID:*(a1 + 88)];
   v7 = *(a1 + 48);
   v8 = *(v7 + 112);
@@ -2306,11 +2370,11 @@ void sub_10001A1F8(uint64_t a1, void *a2)
   {
     v10 = *(a1 + 48);
     v11 = *(a1 + 56);
-    LODWORD(v19[0]) = 138412546;
-    *(v19 + 4) = v10;
-    WORD6(v19[0]) = 2112;
-    *(v19 + 14) = v11;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Session %@: telling destination %@ to perform drop", v19, 0x16u);
+    LODWORD(v20[0]) = 138412546;
+    *(v20 + 4) = v10;
+    WORD6(v20[0]) = 2112;
+    *(v20 + 14) = v11;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Session %@: telling destination %@ to perform drop", v20, 0x16u);
   }
 
   if ((*(a1 + 92) & 1) == 0)
@@ -2324,25 +2388,26 @@ void sub_10001A1F8(uint64_t a1, void *a2)
   v14 = [v4 destinationDataProviderEndpoint];
   [v12 performDropWithItemCollection:v13 dataProviderEndpoint:v14 visibleDroppedItems:v3 completion:*(a1 + 72)];
 
-  if ((sub_100001D58(*(a1 + 88)) & 1) == 0)
+  v15 = sub_100001D58(*(a1 + 88));
+  if ((v15 & 1) == 0)
   {
     if (qword_100063628 != -1)
     {
       sub_100030814();
     }
 
-    v15 = 10.0;
+    v16 = 10.0;
     if (byte_100063630 == 1)
     {
-      v15 = sub_10001F4A8();
+      v16 = sub_10001F4A8(v15);
     }
 
-    v16 = [[DRDispatchTimer alloc] initWithQueue:*(*(a1 + 48) + 8) eventHandler:*(a1 + 80)];
-    [(DRDispatchTimer *)v16 resetWithTimeout:v15 leeway:v15 * 0.1];
-    [(DRDispatchTimer *)v16 activate];
-    v17 = *(a1 + 48);
-    v18 = *(v17 + 232);
-    *(v17 + 232) = v16;
+    v17 = [[DRDispatchTimer alloc] initWithQueue:*(*(a1 + 48) + 8) eventHandler:*(a1 + 80)];
+    [(DRDispatchTimer *)v17 resetWithTimeout:v16 leeway:v16 * 0.1];
+    [(DRDispatchTimer *)v17 activate];
+    v18 = *(a1 + 48);
+    v19 = *(v18 + 232);
+    *(v18 + 232) = v17;
   }
 }
 
@@ -2355,7 +2420,7 @@ id sub_10001A5E8(uint64_t a1)
     v3 = DRLogTarget();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      sub_10003083C(v1);
+      sub_10003083C();
     }
 
     return [*v1 _endDragByCancelling];
@@ -2476,53 +2541,49 @@ void sub_10001B494(uint64_t a1)
     *(*(a1 + 32) + 64) = 1;
     v6 = [*(a1 + 40) screen];
     v7 = [*(*(a1 + 32) + 392) screen];
-    v8 = *(a1 + 56);
-    v9 = *(a1 + 64);
-    sub_1000022D4(v6, v7, *(a1 + 48));
+    sub_1000022D4(v6, v7, *(a1 + 48), *(a1 + 56));
+    v9 = v8;
     v11 = v10;
     v13 = v12;
-    v15 = v14;
 
-    [*(*(a1 + 32) + 392) liftAtLocation:{v11, v13, v15}];
-    v16 = [*(a1 + 40) screen];
+    [*(*(a1 + 32) + 392) liftAtLocation:{v9, v11, v13}];
+    v14 = [*(a1 + 40) screen];
+    v15 = [v14 displayConfiguration];
+
+    v16 = [*(*(a1 + 32) + 392) screen];
     v17 = [v16 displayConfiguration];
 
-    v18 = [*(*(a1 + 32) + 392) screen];
-    v19 = [v18 displayConfiguration];
-
-    v20 = DRLogTarget();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    v18 = DRLogTarget();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
+      v19 = [v15 hardwareIdentifier];
+      v20 = [NSString stringWithFormat:@"{%.3f, %.3f, %.3f}", *(a1 + 48), *(a1 + 56), *(a1 + 64)];
       v21 = [v17 hardwareIdentifier];
-      v22 = [NSString stringWithFormat:@"{%.3f, %.3f, %.3f}", *(a1 + 48), *(a1 + 56), *(a1 + 64)];
-      v23 = [v19 hardwareIdentifier];
-      v24 = [NSString stringWithFormat:@"{%.3f, %.3f, %.3f}", *&v11, *&v13, *&v15];
+      v22 = [NSString stringWithFormat:@"{%.3f, %.3f, %.3f}", *&v9, *&v11, *&v13];
       *buf = 138413058;
+      v34 = v19;
+      v35 = 2112;
+      v36 = v20;
+      v37 = 2112;
       v38 = v21;
       v39 = 2112;
       v40 = v22;
-      v41 = 2112;
-      v42 = v23;
-      v43 = 2112;
-      v44 = v24;
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "movePointer: display: %@ point: %@ -- previous display: %@ converted point: %@", buf, 0x2Au);
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "movePointer: display: %@ point: %@ -- previous display: %@ converted point: %@", buf, 0x2Au);
     }
 
     objc_storeStrong((*(a1 + 32) + 392), *(a1 + 40));
   }
 
-  v25 = [*(a1 + 40) screen];
-  v26 = [*(a1 + 32) sourceInteractionWindow];
-  v27 = [v26 screen];
-  v28 = *(a1 + 56);
-  v29 = *(a1 + 64);
-  sub_1000022D4(v25, v27, *(a1 + 48));
+  v23 = [*(a1 + 40) screen];
+  v24 = [*(a1 + 32) sourceInteractionWindow];
+  v25 = [v24 screen];
+  sub_1000022D4(v23, v25, *(a1 + 48), *(a1 + 56));
+  v27 = v26;
+  v29 = v28;
   v31 = v30;
-  v33 = v32;
-  v35 = v34;
 
-  v36 = [*(a1 + 32) delegate];
-  [v36 dragSession:*(a1 + 32) moveToLocation:{v31, v33, v35}];
+  v32 = [*(a1 + 32) delegate];
+  [v32 dragSession:*(a1 + 32) moveToLocation:{v27, v29, v31}];
 }
 
 id sub_10001B874(uint64_t a1)
@@ -2581,7 +2642,7 @@ void sub_10001BF9C(uint64_t a1)
       v12 = DRLogTarget();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        sub_100030A40(a1);
+        sub_100030A40();
       }
 
       (*(*(a1 + 48) + 16))();
@@ -2598,7 +2659,7 @@ void sub_10001C164(uint64_t a1, void *a2, void *a3)
     v7 = DRLogTarget();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_100030AC4(a1);
+      sub_100030AC4();
     }
   }
 
@@ -2614,7 +2675,7 @@ void sub_10001C1F0(uint64_t a1, void *a2, int a3, void *a4)
     v9 = DRLogTarget();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_100030B2C(a1);
+      sub_100030B2C();
     }
   }
 
@@ -2630,7 +2691,7 @@ void sub_10001C1F0(uint64_t a1, void *a2, int a3, void *a4)
       v11 = DRLogTarget();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        sub_100030B94(a1);
+        sub_100030B94();
       }
 
       v10 = *(*(a1 + 40) + 16);
@@ -2663,7 +2724,7 @@ void sub_10001C56C(uint64_t a1, void *a2, void *a3)
     v7 = DRLogTarget();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_100030C04(a1);
+      sub_100030C04();
     }
 
     (*(*(a1 + 40) + 16))();
@@ -2694,7 +2755,7 @@ void sub_10001C680(uint64_t a1, uint64_t a2, void *a3)
     v6 = DRLogTarget();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_100030C6C(a1);
+      sub_100030C6C();
     }
 
     v7 = *(*(a1 + 48) + 16);
@@ -2712,18 +2773,8 @@ void sub_10001D29C(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = [*(a1 + 32) interactionWindow];
-  if (!v4)
+  if (!v4 || (v5 = v4, [*(a1 + 32) sourceInteractionWindow], v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "interactionWindow"), v7 = objc_claimAutoreleasedReturnValue(), v7, v6, v5, v6 == v7))
   {
-    goto LABEL_4;
-  }
-
-  v5 = v4;
-  v6 = [*(a1 + 32) sourceInteractionWindow];
-  v7 = [*(a1 + 32) interactionWindow];
-
-  if (v6 == v7)
-  {
-LABEL_4:
     v11 = _NSConcreteStackBlock;
     v12 = 3221225472;
     v13 = sub_10001D3C8;
@@ -2748,7 +2799,6 @@ void sub_10001D3C8(uint64_t a1, int a2, void *a3)
   if (a2)
   {
     v6 = [*(a1 + 32) delegate];
-    v7 = *(*(a1 + 32) + 8);
     [v6 dragSession:? removeVisibleDroppedItemsInSpaceOfLayerContext:? replyingOnQueue:? with:?];
   }
 
@@ -2866,13 +2916,13 @@ uint64_t sub_10001E57C(uint64_t a1)
   v2 = DRLogTarget();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    sub_100030E90(a1);
+    sub_100030E90();
   }
 
   return (*(*(a1 + 40) + 16))();
 }
 
-uint64_t sub_10001F158()
+uint64_t sub_10001F158(uint64_t a1)
 {
   if (qword_100063638 != -1)
   {
@@ -2881,20 +2931,20 @@ uint64_t sub_10001F158()
 
   if ((byte_100063640 & 1) == 0)
   {
-    v0 = sub_100024B48();
-    v1 = [v0 objectForKey:@"EnableWatchdog"];
-    v2 = v1;
-    if (v1)
+    v1 = sub_100024B48(a1);
+    v2 = [v1 objectForKey:@"EnableWatchdog"];
+    v3 = v2;
+    if (v2)
     {
-      v3 = [v1 BOOLValue];
+      v4 = [v2 BOOLValue];
     }
 
     else
     {
-      v3 = 1;
+      v4 = 1;
     }
 
-    byte_100063641 = v3;
+    byte_100063641 = v4;
     byte_100063640 = 1;
   }
 
@@ -2914,14 +2964,14 @@ void sub_10001F248(id a1)
   CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, sub_10001F294, @"com.apple.DragUI.EnableWatchdog", 0, CFNotificationSuspensionBehaviorCoalesce);
 }
 
-void sub_10001F294()
+void sub_10001F294(uint64_t a1)
 {
   byte_100063640 = 0;
-  v0 = sub_100024B48();
-  [v0 synchronize];
+  v1 = sub_100024B48(a1);
+  [v1 synchronize];
 }
 
-double sub_10001F304()
+double sub_10001F304(uint64_t a1)
 {
   if (qword_100063648 != -1)
   {
@@ -2930,20 +2980,20 @@ double sub_10001F304()
 
   if ((byte_100063650 & 1) == 0)
   {
-    v0 = sub_100024B48();
-    v1 = [v0 objectForKey:@"SetDownAnimationTimeout"];
-    v2 = v1;
-    if (v1)
+    v1 = sub_100024B48(a1);
+    v2 = [v1 objectForKey:@"SetDownAnimationTimeout"];
+    v3 = v2;
+    if (v2)
     {
-      [v1 doubleValue];
+      [v2 doubleValue];
     }
 
     else
     {
-      v3 = 5.0;
+      v4 = 5.0;
     }
 
-    qword_100063658 = *&v3;
+    qword_100063658 = *&v4;
     byte_100063650 = 1;
   }
 
@@ -2963,14 +3013,14 @@ void sub_10001F3EC(id a1)
   CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, sub_10001F438, @"com.apple.DragUI.SetDownAnimationTimeout", 0, CFNotificationSuspensionBehaviorCoalesce);
 }
 
-void sub_10001F438()
+void sub_10001F438(uint64_t a1)
 {
   byte_100063650 = 0;
-  v0 = sub_100024B48();
-  [v0 synchronize];
+  v1 = sub_100024B48(a1);
+  [v1 synchronize];
 }
 
-double sub_10001F4A8()
+double sub_10001F4A8(uint64_t a1)
 {
   if (qword_100063660 != -1)
   {
@@ -2979,20 +3029,20 @@ double sub_10001F4A8()
 
   if ((byte_100063668 & 1) == 0)
   {
-    v0 = sub_100024B48();
-    v1 = [v0 objectForKey:@"PerformDropTimeout"];
-    v2 = v1;
-    if (v1)
+    v1 = sub_100024B48(a1);
+    v2 = [v1 objectForKey:@"PerformDropTimeout"];
+    v3 = v2;
+    if (v2)
     {
-      [v1 doubleValue];
+      [v2 doubleValue];
     }
 
     else
     {
-      v3 = 10.0;
+      v4 = 10.0;
     }
 
-    qword_100063670 = *&v3;
+    qword_100063670 = *&v4;
     byte_100063668 = 1;
   }
 
@@ -3012,18 +3062,11 @@ void sub_10001F590(id a1)
   CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, sub_10001F5DC, @"com.apple.DragUI.PerformDropTimeout", 0, CFNotificationSuspensionBehaviorCoalesce);
 }
 
-void sub_10001F5DC()
+void sub_10001F5DC(uint64_t a1)
 {
   byte_100063668 = 0;
-  v0 = sub_100024B48();
-  [v0 synchronize];
-}
-
-uint64_t sub_10001F654@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 32);
-  return result;
+  v1 = sub_100024B48(a1);
+  [v1 synchronize];
 }
 
 void sub_10001FCF4(uint64_t a1, void *a2, uint64_t a3)
@@ -3143,7 +3186,7 @@ void sub_1000208E8(uint64_t a1)
   [UIView _modifyAnimationsWithPreferredFrameRateRange:1048577 updateReason:v8 animations:v5, v6, v7];
 }
 
-double sub_100020AA4()
+double sub_100020AA4(uint64_t a1)
 {
   if (qword_100063688 != -1)
   {
@@ -3152,20 +3195,20 @@ double sub_100020AA4()
 
   if ((byte_100063690 & 1) == 0)
   {
-    v0 = sub_100024B48();
-    v1 = [v0 objectForKey:@"FlockBadgeResponse"];
-    v2 = v1;
-    if (v1)
+    v1 = sub_100024B48(a1);
+    v2 = [v1 objectForKey:@"FlockBadgeResponse"];
+    v3 = v2;
+    if (v2)
     {
-      [v1 doubleValue];
+      [v2 doubleValue];
     }
 
     else
     {
-      v3 = 0x3FD6666666666666;
+      v4 = 0x3FD6666666666666;
     }
 
-    qword_100063698 = v3;
+    qword_100063698 = v4;
     byte_100063690 = 1;
   }
 
@@ -3185,14 +3228,14 @@ void sub_100020B90(id a1)
   CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, sub_100020BDC, @"com.apple.DragUI.FlockBadgeResponse", 0, CFNotificationSuspensionBehaviorCoalesce);
 }
 
-void sub_100020BDC()
+void sub_100020BDC(uint64_t a1)
 {
   byte_100063690 = 0;
-  v0 = sub_100024B48();
-  [v0 synchronize];
+  v1 = sub_100024B48(a1);
+  [v1 synchronize];
 }
 
-double sub_100020C4C()
+double sub_100020C4C(uint64_t a1)
 {
   if (qword_1000636A0 != -1)
   {
@@ -3201,20 +3244,20 @@ double sub_100020C4C()
 
   if ((byte_1000636A8 & 1) == 0)
   {
-    v0 = sub_100024B48();
-    v1 = [v0 objectForKey:@"FlockTopStackResponse"];
-    v2 = v1;
-    if (v1)
+    v1 = sub_100024B48(a1);
+    v2 = [v1 objectForKey:@"FlockTopStackResponse"];
+    v3 = v2;
+    if (v2)
     {
-      [v1 doubleValue];
+      [v2 doubleValue];
     }
 
     else
     {
-      v3 = 0x3F589374BC6A7EFALL;
+      v4 = 0x3F589374BC6A7EFALL;
     }
 
-    qword_1000636B0 = v3;
+    qword_1000636B0 = v4;
     byte_1000636A8 = 1;
   }
 
@@ -3234,14 +3277,14 @@ void sub_100020D38(id a1)
   CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, sub_100020D84, @"com.apple.DragUI.FlockTopStackResponse", 0, CFNotificationSuspensionBehaviorCoalesce);
 }
 
-void sub_100020D84()
+void sub_100020D84(uint64_t a1)
 {
   byte_1000636A8 = 0;
-  v0 = sub_100024B48();
-  [v0 synchronize];
+  v1 = sub_100024B48(a1);
+  [v1 synchronize];
 }
 
-double sub_100020DF4()
+double sub_100020DF4(uint64_t a1)
 {
   if (qword_1000636B8 != -1)
   {
@@ -3250,20 +3293,20 @@ double sub_100020DF4()
 
   if ((byte_1000636C0 & 1) == 0)
   {
-    v0 = sub_100024B48();
-    v1 = [v0 objectForKey:@"FlockTopStackDampingRatio"];
-    v2 = v1;
-    if (v1)
+    v1 = sub_100024B48(a1);
+    v2 = [v1 objectForKey:@"FlockTopStackDampingRatio"];
+    v3 = v2;
+    if (v2)
     {
-      [v1 doubleValue];
+      [v2 doubleValue];
     }
 
     else
     {
-      v3 = 1.0;
+      v4 = 1.0;
     }
 
-    qword_1000636C8 = *&v3;
+    qword_1000636C8 = *&v4;
     byte_1000636C0 = 1;
   }
 
@@ -3283,14 +3326,14 @@ void sub_100020EDC(id a1)
   CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, sub_100020F28, @"com.apple.DragUI.FlockTopStackDampingRatio", 0, CFNotificationSuspensionBehaviorCoalesce);
 }
 
-void sub_100020F28()
+void sub_100020F28(uint64_t a1)
 {
   byte_1000636C0 = 0;
-  v0 = sub_100024B48();
-  [v0 synchronize];
+  v1 = sub_100024B48(a1);
+  [v1 synchronize];
 }
 
-double sub_100020F98()
+double sub_100020F98(uint64_t a1)
 {
   if (qword_1000636D0 != -1)
   {
@@ -3299,20 +3342,20 @@ double sub_100020F98()
 
   if ((byte_1000636D8 & 1) == 0)
   {
-    v0 = sub_100024B48();
-    v1 = [v0 objectForKey:@"FlockInitialTopStackDampingRatio"];
-    v2 = v1;
-    if (v1)
+    v1 = sub_100024B48(a1);
+    v2 = [v1 objectForKey:@"FlockInitialTopStackDampingRatio"];
+    v3 = v2;
+    if (v2)
     {
-      [v1 doubleValue];
+      [v2 doubleValue];
     }
 
     else
     {
-      v3 = 0x3FE6A09E667E556ELL;
+      v4 = 0x3FE6A09E667E556ELL;
     }
 
-    qword_1000636E0 = v3;
+    qword_1000636E0 = v4;
     byte_1000636D8 = 1;
   }
 
@@ -3332,14 +3375,14 @@ void sub_100021084(id a1)
   CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, sub_1000210D0, @"com.apple.DragUI.FlockInitialTopStackDampingRatio", 0, CFNotificationSuspensionBehaviorCoalesce);
 }
 
-void sub_1000210D0()
+void sub_1000210D0(uint64_t a1)
 {
   byte_1000636D8 = 0;
-  v0 = sub_100024B48();
-  [v0 synchronize];
+  v1 = sub_100024B48(a1);
+  [v1 synchronize];
 }
 
-double sub_100021140()
+double sub_100021140(uint64_t a1)
 {
   if (qword_1000636E8 != -1)
   {
@@ -3348,20 +3391,20 @@ double sub_100021140()
 
   if ((byte_1000636F0 & 1) == 0)
   {
-    v0 = sub_100024B48();
-    v1 = [v0 objectForKey:@"FlockInitialTopStackResponse"];
-    v2 = v1;
-    if (v1)
+    v1 = sub_100024B48(a1);
+    v2 = [v1 objectForKey:@"FlockInitialTopStackResponse"];
+    v3 = v2;
+    if (v2)
     {
-      [v1 doubleValue];
+      [v2 doubleValue];
     }
 
     else
     {
-      v3 = 0x3FE4CCCCCCCCCCCDLL;
+      v4 = 0x3FE4CCCCCCCCCCCDLL;
     }
 
-    qword_1000636F8 = v3;
+    qword_1000636F8 = v4;
     byte_1000636F0 = 1;
   }
 
@@ -3381,14 +3424,14 @@ void sub_10002122C(id a1)
   CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, sub_100021278, @"com.apple.DragUI.FlockInitialTopStackResponse", 0, CFNotificationSuspensionBehaviorCoalesce);
 }
 
-void sub_100021278()
+void sub_100021278(uint64_t a1)
 {
   byte_1000636F0 = 0;
-  v0 = sub_100024B48();
-  [v0 synchronize];
+  v1 = sub_100024B48(a1);
+  [v1 synchronize];
 }
 
-double sub_1000212E8()
+double sub_1000212E8(uint64_t a1)
 {
   if (qword_100063700 != -1)
   {
@@ -3397,20 +3440,20 @@ double sub_1000212E8()
 
   if ((byte_100063708 & 1) == 0)
   {
-    v0 = sub_100024B48();
-    v1 = [v0 objectForKey:@"FlockTopStackDampingRatioSmoothing"];
-    v2 = v1;
-    if (v1)
+    v1 = sub_100024B48(a1);
+    v2 = [v1 objectForKey:@"FlockTopStackDampingRatioSmoothing"];
+    v3 = v2;
+    if (v2)
     {
-      [v1 doubleValue];
+      [v2 doubleValue];
     }
 
     else
     {
-      v3 = 1.0;
+      v4 = 1.0;
     }
 
-    qword_100063710 = *&v3;
+    qword_100063710 = *&v4;
     byte_100063708 = 1;
   }
 
@@ -3430,14 +3473,14 @@ void sub_1000213D0(id a1)
   CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, sub_10002141C, @"com.apple.DragUI.FlockTopStackDampingRatioSmoothing", 0, CFNotificationSuspensionBehaviorCoalesce);
 }
 
-void sub_10002141C()
+void sub_10002141C(uint64_t a1)
 {
   byte_100063708 = 0;
-  v0 = sub_100024B48();
-  [v0 synchronize];
+  v1 = sub_100024B48(a1);
+  [v1 synchronize];
 }
 
-double sub_10002148C()
+double sub_10002148C(uint64_t a1)
 {
   if (qword_100063718 != -1)
   {
@@ -3446,20 +3489,20 @@ double sub_10002148C()
 
   if ((byte_100063720 & 1) == 0)
   {
-    v0 = sub_100024B48();
-    v1 = [v0 objectForKey:@"FlockTopStackResponseSmoothing"];
-    v2 = v1;
-    if (v1)
+    v1 = sub_100024B48(a1);
+    v2 = [v1 objectForKey:@"FlockTopStackResponseSmoothing"];
+    v3 = v2;
+    if (v2)
     {
-      [v1 doubleValue];
+      [v2 doubleValue];
     }
 
     else
     {
-      v3 = 1.0;
+      v4 = 1.0;
     }
 
-    qword_100063728 = *&v3;
+    qword_100063728 = *&v4;
     byte_100063720 = 1;
   }
 
@@ -3479,14 +3522,14 @@ void sub_100021574(id a1)
   CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, sub_1000215C0, @"com.apple.DragUI.FlockTopStackResponseSmoothing", 0, CFNotificationSuspensionBehaviorCoalesce);
 }
 
-void sub_1000215C0()
+void sub_1000215C0(uint64_t a1)
 {
   byte_100063720 = 0;
-  v0 = sub_100024B48();
-  [v0 synchronize];
+  v1 = sub_100024B48(a1);
+  [v1 synchronize];
 }
 
-double sub_100021630()
+double sub_100021630(uint64_t a1)
 {
   if (qword_100063730 != -1)
   {
@@ -3495,20 +3538,20 @@ double sub_100021630()
 
   if ((byte_100063738 & 1) == 0)
   {
-    v0 = sub_100024B48();
-    v1 = [v0 objectForKey:@"FlockFirstItemDampingRatio"];
-    v2 = v1;
-    if (v1)
+    v1 = sub_100024B48(a1);
+    v2 = [v1 objectForKey:@"FlockFirstItemDampingRatio"];
+    v3 = v2;
+    if (v2)
     {
-      [v1 doubleValue];
+      [v2 doubleValue];
     }
 
     else
     {
-      v3 = 0x3FE9DE00D1B71759;
+      v4 = 0x3FE9DE00D1B71759;
     }
 
-    qword_100063740 = v3;
+    qword_100063740 = v4;
     byte_100063738 = 1;
   }
 
@@ -3528,14 +3571,14 @@ void sub_10002171C(id a1)
   CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, sub_100021768, @"com.apple.DragUI.FlockFirstItemDampingRatio", 0, CFNotificationSuspensionBehaviorCoalesce);
 }
 
-void sub_100021768()
+void sub_100021768(uint64_t a1)
 {
   byte_100063738 = 0;
-  v0 = sub_100024B48();
-  [v0 synchronize];
+  v1 = sub_100024B48(a1);
+  [v1 synchronize];
 }
 
-double sub_1000217D8()
+double sub_1000217D8(uint64_t a1)
 {
   if (qword_100063748 != -1)
   {
@@ -3544,20 +3587,20 @@ double sub_1000217D8()
 
   if ((byte_100063750 & 1) == 0)
   {
-    v0 = sub_100024B48();
-    v1 = [v0 objectForKey:@"FlockFirstItemResponse"];
-    v2 = v1;
-    if (v1)
+    v1 = sub_100024B48(a1);
+    v2 = [v1 objectForKey:@"FlockFirstItemResponse"];
+    v3 = v2;
+    if (v2)
     {
-      [v1 doubleValue];
+      [v2 doubleValue];
     }
 
     else
     {
-      v3 = 0x3FCAFEC56D5CFAADLL;
+      v4 = 0x3FCAFEC56D5CFAADLL;
     }
 
-    qword_100063758 = v3;
+    qword_100063758 = v4;
     byte_100063750 = 1;
   }
 
@@ -3577,11 +3620,11 @@ void sub_1000218C4(id a1)
   CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, sub_100021910, @"com.apple.DragUI.FlockFirstItemResponse", 0, CFNotificationSuspensionBehaviorCoalesce);
 }
 
-void sub_100021910()
+void sub_100021910(uint64_t a1)
 {
   byte_100063750 = 0;
-  v0 = sub_100024B48();
-  [v0 synchronize];
+  v1 = sub_100024B48(a1);
+  [v1 synchronize];
 }
 
 void sub_1000221E8(void *a1, void *a2, uint64_t a3)
@@ -3656,16 +3699,15 @@ void sub_100022410(uint64_t a1)
 
 void sub_1000224C0(uint64_t a1)
 {
-  v11 = CAFrameRateRangeMake(80.0, 120.0, 120.0);
-  minimum = v11.minimum;
-  maximum = v11.maximum;
-  preferred = v11.preferred;
-  v5 = *(a1 + 32);
-  v9 = [objc_opt_class() systemDropAnimationForView:*(a1 + 40)];
-  *&v6 = minimum;
-  *&v7 = maximum;
-  *&v8 = preferred;
-  [UIView _modifyAnimationsWithPreferredFrameRateRange:1048577 updateReason:v9 animations:v6, v7, v8];
+  v10 = CAFrameRateRangeMake(80.0, 120.0, 120.0);
+  minimum = v10.minimum;
+  maximum = v10.maximum;
+  preferred = v10.preferred;
+  v8 = [objc_opt_class() systemDropAnimationForView:*(a1 + 40)];
+  *&v5 = minimum;
+  *&v6 = maximum;
+  *&v7 = preferred;
+  [UIView _modifyAnimationsWithPreferredFrameRateRange:1048577 updateReason:v8 animations:v5, v6, v7];
 }
 
 void sub_100022570(uint64_t a1)
@@ -3762,14 +3804,8 @@ void sub_100023430(uint64_t a1, void *a2, _BYTE *a3)
     v8 = 0;
   }
 
-  if ([v6 imageDirty] && !v8)
-  {
-    goto LABEL_14;
-  }
-
-  v10 = [v6 imageComponent];
-
-  if (!v10 || (v11 = *(a1 + 32), [v6 imageComponent], v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "hidesImage"), v12, !v11))
+  v9 = [v6 imageDirty] && !v8;
+  if (v9 || ([v6 imageComponent], v10 = objc_claimAutoreleasedReturnValue(), v10, !v10) || (v11 = *(a1 + 32), objc_msgSend(v6, "imageComponent"), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "hidesImage"), v12, !v11))
   {
 LABEL_14:
     v15 = [v20 clientItemViewModelForClient:*(a1 + 48)];
@@ -3853,7 +3889,7 @@ void sub_100023C6C(uint64_t a1)
     v2 = DRLogTarget();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
-      sub_1000312F8(WeakRetained);
+      sub_1000312F8();
     }
 
     [WeakRetained _usePrecisionMode:WeakRetained[7]];
@@ -3898,7 +3934,7 @@ void sub_100024320(uint64_t a1, uint64_t a2)
   [*(a1 + 32) addObject:v4];
 }
 
-double sub_1000244C8()
+double sub_1000244C8(uint64_t a1)
 {
   if (qword_100063770 != -1)
   {
@@ -3907,20 +3943,20 @@ double sub_1000244C8()
 
   if ((byte_100063778 & 1) == 0)
   {
-    v0 = sub_100024B48();
-    v1 = [v0 objectForKey:@"PrecisionModeHeuristicDelay"];
-    v2 = v1;
-    if (v1)
+    v1 = sub_100024B48(a1);
+    v2 = [v1 objectForKey:@"PrecisionModeHeuristicDelay"];
+    v3 = v2;
+    if (v2)
     {
-      [v1 doubleValue];
+      [v2 doubleValue];
     }
 
     else
     {
-      v3 = 0x3FB1111111111111;
+      v4 = 0x3FB1111111111111;
     }
 
-    qword_100063780 = v3;
+    qword_100063780 = v4;
     byte_100063778 = 1;
   }
 
@@ -3940,14 +3976,14 @@ void sub_1000245B4(id a1)
   CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, sub_100024600, @"com.apple.DragUI.PrecisionModeHeuristicDelay", 0, CFNotificationSuspensionBehaviorCoalesce);
 }
 
-void sub_100024600()
+void sub_100024600(uint64_t a1)
 {
   byte_100063778 = 0;
-  v0 = sub_100024B48();
-  [v0 synchronize];
+  v1 = sub_100024B48(a1);
+  [v1 synchronize];
 }
 
-double sub_100024670()
+double sub_100024670(uint64_t a1)
 {
   if (qword_100063788 != -1)
   {
@@ -3956,20 +3992,20 @@ double sub_100024670()
 
   if ((byte_100063790 & 1) == 0)
   {
-    v0 = sub_100024B48();
-    v1 = [v0 objectForKey:@"PrecisionModeHeuristicDistance"];
-    v2 = v1;
-    if (v1)
+    v1 = sub_100024B48(a1);
+    v2 = [v1 objectForKey:@"PrecisionModeHeuristicDistance"];
+    v3 = v2;
+    if (v2)
     {
-      [v1 doubleValue];
+      [v2 doubleValue];
     }
 
     else
     {
-      v3 = 5.0;
+      v4 = 5.0;
     }
 
-    qword_100063798 = *&v3;
+    qword_100063798 = *&v4;
     byte_100063790 = 1;
   }
 
@@ -3989,14 +4025,14 @@ void sub_100024758(id a1)
   CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, sub_1000247A4, @"com.apple.DragUI.PrecisionModeHeuristicDistance", 0, CFNotificationSuspensionBehaviorCoalesce);
 }
 
-void sub_1000247A4()
+void sub_1000247A4(uint64_t a1)
 {
   byte_100063790 = 0;
-  v0 = sub_100024B48();
-  [v0 synchronize];
+  v1 = sub_100024B48(a1);
+  [v1 synchronize];
 }
 
-double sub_100024814()
+double sub_100024814(uint64_t a1)
 {
   if (qword_1000637A0 != -1)
   {
@@ -4005,20 +4041,20 @@ double sub_100024814()
 
   if ((byte_1000637A8 & 1) == 0)
   {
-    v0 = sub_100024B48();
-    v1 = [v0 objectForKey:@"PrecisionModeEnterHysteresis"];
-    v2 = v1;
-    if (v1)
+    v1 = sub_100024B48(a1);
+    v2 = [v1 objectForKey:@"PrecisionModeEnterHysteresis"];
+    v3 = v2;
+    if (v2)
     {
-      [v1 doubleValue];
+      [v2 doubleValue];
     }
 
     else
     {
-      v3 = 0x3FC999999999999ALL;
+      v4 = 0x3FC999999999999ALL;
     }
 
-    qword_1000637B0 = v3;
+    qword_1000637B0 = v4;
     byte_1000637A8 = 1;
   }
 
@@ -4038,14 +4074,14 @@ void sub_100024900(id a1)
   CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, sub_10002494C, @"com.apple.DragUI.PrecisionModeEnterHysteresis", 0, CFNotificationSuspensionBehaviorCoalesce);
 }
 
-void sub_10002494C()
+void sub_10002494C(uint64_t a1)
 {
   byte_1000637A8 = 0;
-  v0 = sub_100024B48();
-  [v0 synchronize];
+  v1 = sub_100024B48(a1);
+  [v1 synchronize];
 }
 
-double sub_1000249BC()
+double sub_1000249BC(uint64_t a1)
 {
   if (qword_1000637B8 != -1)
   {
@@ -4054,20 +4090,20 @@ double sub_1000249BC()
 
   if ((byte_1000637C0 & 1) == 0)
   {
-    v0 = sub_100024B48();
-    v1 = [v0 objectForKey:@"PrecisionModeExitHysteresis"];
-    v2 = v1;
-    if (v1)
+    v1 = sub_100024B48(a1);
+    v2 = [v1 objectForKey:@"PrecisionModeExitHysteresis"];
+    v3 = v2;
+    if (v2)
     {
-      [v1 doubleValue];
+      [v2 doubleValue];
     }
 
     else
     {
-      v3 = 0x3FC999999999999ALL;
+      v4 = 0x3FC999999999999ALL;
     }
 
-    qword_1000637C8 = v3;
+    qword_1000637C8 = v4;
     byte_1000637C0 = 1;
   }
 
@@ -4087,23 +4123,23 @@ void sub_100024AA8(id a1)
   CFNotificationCenterAddObserver(DarwinNotifyCenter, 0, sub_100024AF4, @"com.apple.DragUI.PrecisionModeExitHysteresis", 0, CFNotificationSuspensionBehaviorCoalesce);
 }
 
-void sub_100024AF4()
+void sub_100024AF4(uint64_t a1)
 {
   byte_1000637C0 = 0;
-  v0 = sub_100024B48();
-  [v0 synchronize];
+  v1 = sub_100024B48(a1);
+  [v1 synchronize];
 }
 
-id sub_100024B48()
+id sub_100024B48(uint64_t a1)
 {
   if (qword_1000637D8 != -1)
   {
     sub_100031444();
   }
 
-  v1 = qword_1000637D0;
+  v2 = qword_1000637D0;
 
-  return v1;
+  return v2;
 }
 
 void sub_100024B8C(id a1)
@@ -4442,51 +4478,28 @@ void sub_100028618(uint64_t a1)
 void sub_1000287B0(uint64_t a1, __int128 *a2)
 {
   dispatch_assert_queue_V2(&_dispatch_main_q);
-  v4 = [*(a1 + 32) delegate];
-  v5 = [v4 sourceViewControllerForSession:*(a1 + 40)];
+  v3 = [*(a1 + 32) delegate];
+  v4 = [v3 sourceViewControllerForSession:*(a1 + 40)];
 
-  if (v5)
+  if (v4)
   {
-    v6 = a2[5];
-    v31 = a2[4];
-    v32 = v6;
-    v7 = a2[7];
-    v33 = a2[6];
-    v34 = v7;
-    v8 = a2[1];
-    v27 = *a2;
-    v28 = v8;
-    v9 = a2[3];
-    v29 = a2[2];
-    v30 = v9;
-    [v5 transformToLocalWindowForCoordinateSpaceTransformToDisplay:&v27];
+    objc_msgSend_transformToLocalWindowForCoordinateSpaceTransformToDisplay_(v4);
   }
 
-  v10 = *(a1 + 72);
-  v11 = *(a1 + 80);
-  v12 = *(a1 + 88);
-  v31 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
   CAPointApplyTransform();
-  v15 = v13 / v14;
-  v17 = v16 / v14;
-  v18 = *(a1 + 40);
-  v19 = *(a1 + 48);
-  v20 = *(a1 + 96);
-  v21 = *(a1 + 56);
-  v23 = v22 / v14;
-  v24 = [*(a1 + 64) coordinateSpaceSourceLayerContext];
-  v25 = [v24 contextID];
-  v26 = [*(a1 + 64) preferredPreviewIndexes];
-  [v5 addSession:v18 withSourceClient:v19 touchIDs:v21 itemCount:v20 centroid:v25 sourceContextID:v26 initialCentroidInSourceContext:v15 preferredPreviewIndexes:{v17, v23, *(a1 + 104), *(a1 + 112), *(a1 + 120)}];
+  v7 = v5 / v6;
+  v9 = v8 / v6;
+  v10 = *(a1 + 40);
+  v11 = *(a1 + 48);
+  v12 = *(a1 + 96);
+  v13 = *(a1 + 56);
+  v15 = v14 / v6;
+  v16 = [*(a1 + 64) coordinateSpaceSourceLayerContext];
+  v17 = [v16 contextID];
+  v18 = [*(a1 + 64) preferredPreviewIndexes];
+  [v4 addSession:v10 withSourceClient:v11 touchIDs:v13 itemCount:v12 centroid:v17 sourceContextID:v18 initialCentroidInSourceContext:v7 preferredPreviewIndexes:{v9, v15, *(a1 + 104), *(a1 + 112), *(a1 + 120)}];
 
-  [*(a1 + 32) configurePortalViewsForDragSessionOriginatingFromViewController:v5];
+  [*(a1 + 32) configurePortalViewsForDragSessionOriginatingFromViewController:v4];
 }
 
 void sub_1000293CC(uint64_t a1, int a2)
@@ -4557,42 +4570,12 @@ void sub_1000293CC(uint64_t a1, int a2)
 void sub_100029B48(uint64_t a1, __int128 *a2)
 {
   dispatch_assert_queue_V2(&_dispatch_main_q);
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
-  v20 = 0u;
   v4 = *(a1 + 32);
   if (v4)
   {
-    v5 = a2[5];
-    v15 = a2[4];
-    v16 = v5;
-    v6 = a2[7];
-    v17 = a2[6];
-    v18 = v6;
-    v7 = a2[1];
-    v11 = *a2;
-    v12 = v7;
-    v8 = a2[3];
-    v13 = a2[2];
-    v14 = v8;
-    [v4 transformToLocalWindowForCoordinateSpaceTransformToDisplay:&v11];
+    objc_msgSend_transformToLocalWindowForCoordinateSpaceTransformToDisplay_(v4, *a2, *(a2 + 1), *(a2 + 2), *(a2 + 3), *(a2 + 4), *(a2 + 5), *(a2 + 6), *(a2 + 7), *(a2 + 8), *(a2 + 9), *(a2 + 10), *(a2 + 11), *(a2 + 12), *(a2 + 13), *(a2 + 14), *(a2 + 15));
   }
 
-  v9 = *(a1 + 56);
-  v10 = *(a1 + 64);
-  v15 = v23;
-  v16 = v24;
-  v17 = v25;
-  v18 = v26;
-  v11 = v19;
-  v12 = v20;
-  v13 = v21;
-  v14 = v22;
   CA_CGPointApplyTransform();
   [*(a1 + 40) setOriginalCenter:?];
   dispatch_group_leave(*(a1 + 48));
@@ -4778,7 +4761,7 @@ void sub_10002A650(uint64_t a1, _OWORD *a2)
       v21 = a2[3];
       *&v30.m21 = a2[2];
       *&v30.m23 = v21;
-      [v7 transformToLocalWindowForCoordinateSpaceTransformToDisplay:&v30];
+      objc_msgSend_transformToLocalWindowForCoordinateSpaceTransformToDisplay_(v7);
     }
 
     v30 = v31;
@@ -4840,7 +4823,7 @@ void sub_10002A9C4(uint64_t a1, _OWORD *a2)
     v16 = a2[3];
     *&v29.m21 = a2[2];
     *&v29.m23 = v16;
-    [v9 transformToLocalWindowForCoordinateSpaceTransformToDisplay:&v29];
+    objc_msgSend_transformToLocalWindowForCoordinateSpaceTransformToDisplay_(v9);
     v12 = 0uLL;
   }
 
@@ -4911,41 +4894,41 @@ void sub_10002B118(uint64_t a1)
 
 void sub_10002B494(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = DRLogTarget();
-  v5 = v4;
-  if (v3)
+  v2 = a2;
+  v3 = DRLogTarget();
+  v4 = v3;
+  if (v2)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      sub_100031744(a1);
+      sub_100031744();
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Session successfully set keyboard enabled", v6, 2u);
+    *v5 = 0;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Session successfully set keyboard enabled", v5, 2u);
   }
 }
 
 void sub_10002B538(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = DRLogTarget();
-  v5 = v4;
-  if (v3)
+  v2 = a2;
+  v3 = DRLogTarget();
+  v4 = v3;
+  if (v2)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      sub_1000317B0(a1);
+      sub_1000317B0();
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Session successfully set keyboard disabled", v6, 2u);
+    *v5 = 0;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Session successfully set keyboard disabled", v5, 2u);
   }
 }
 
@@ -5485,7 +5468,7 @@ void sub_10002DE20(uint64_t a1)
   v3 = v2;
   if (v2)
   {
-    [v2 transformForDisplayUUID:*(a1 + 32) layerID:*(a1 + 48) contextID:*(a1 + 56)];
+    objc_msgSend_transformForDisplayUUID_layerID_contextID_(v2);
   }
 
   else
@@ -5656,7 +5639,6 @@ id sub_10002EC40(void *a1)
     {
       [objc_allocWithZone(NSNumber) initWithUnsignedInt:*(v3 + v6)];
       specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-      v7 = _swiftEmptyArrayStorage[2];
       specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
       specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
       specialized ContiguousArray._endMutation()();
@@ -5672,24 +5654,24 @@ id sub_10002EC40(void *a1)
 
   [v4 setContextIDsToAlwaysSendTouches:isa];
 
-  v9 = [v1 contextIDsToExcludeFromHitTesting];
-  if (!v9)
+  v8 = [v1 contextIDsToExcludeFromHitTesting];
+  if (!v8)
   {
     static Array._unconditionallyBridgeFromObjectiveC(_:)();
-    v9 = Array._bridgeToObjectiveC()().super.isa;
+    v8 = Array._bridgeToObjectiveC()().super.isa;
   }
 
-  [v4 setContextIDsToExcludeFromHitTesting:v9];
+  [v4 setContextIDsToExcludeFromHitTesting:v8];
 
   [v4 setAvoidHitTesting:{objc_msgSend(v1, "isHitTestingDisabled")}];
   return v4;
 }
 
-id sub_10002EF84()
+id sub_10002EF84(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for DRTouchDetacher();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for DRTouchDetacher();
+  return objc_msgSendSuper2(&v4, "dealloc");
 }
 
 void sub_10002EFDC(void *a1)
@@ -5778,15 +5760,15 @@ LABEL_12:
                   v24 = v23;
                   v25 = [v23 unsignedIntValue];
 
-                  v27 = *(&_swiftEmptyArrayStorage + 2);
-                  v26 = *(&_swiftEmptyArrayStorage + 3);
+                  v27 = _swiftEmptyArrayStorage[2];
+                  v26 = _swiftEmptyArrayStorage[3];
                   if (v27 >= v26 >> 1)
                   {
                     sub_10002F390((v26 > 1), v27 + 1, 1);
                   }
 
-                  *(&_swiftEmptyArrayStorage + 2) = v27 + 1;
-                  *(&_swiftEmptyArrayStorage + v27 + 8) = v25;
+                  _swiftEmptyArrayStorage[2] = v27 + 1;
+                  *(&_swiftEmptyArrayStorage[4] + v27) = v25;
                 }
 
                 goto LABEL_25;
@@ -5828,7 +5810,6 @@ uint64_t sub_10002F348(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -5836,7 +5817,7 @@ uint64_t sub_10002F348(uint64_t *a1, uint64_t *a2)
   return result;
 }
 
-char *sub_10002F390(char *a1, int64_t a2, char a3)
+char *sub_10002F390(char *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_10002F3B0(a1, a2, a3, *v3);
   *v3 = result;
@@ -5899,7 +5880,7 @@ char *sub_10002F3B0(char *result, int64_t a2, char a3, char *a4)
 
   else
   {
-    v10 = &_swiftEmptyArrayStorage;
+    v10 = _swiftEmptyArrayStorage;
   }
 
   v13 = v10 + 32;
@@ -5924,12 +5905,11 @@ char *sub_10002F3B0(char *result, int64_t a2, char a3, char *a4)
 
 unint64_t sub_10002F4B4(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v6 = Hasher._finalize()();
+  v4 = Hasher._finalize()();
 
-  return sub_10002F530(a1, a2, v6);
+  return sub_10002F530(a1, a2, v4);
 }
 
 unint64_t sub_10002F530(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -5961,36 +5941,35 @@ unint64_t sub_10002F530(uint64_t a1, uint64_t a2, uint64_t a3)
   return v5;
 }
 
-uint64_t sub_10002F5E8(uint64_t a1, void *a2)
+uint64_t sub_10002F5E8(uint64_t a1, void *a2, double a3, double a4)
 {
-  v3 = *(a1 + 16);
-  if (v3)
+  v5 = *(a1 + 16);
+  if (v5)
   {
     specialized ContiguousArray.reserveCapacity(_:)();
-    v5 = (a1 + 32);
+    v7 = (a1 + 32);
     do
     {
-      v6 = *v5++;
-      [objc_allocWithZone(NSNumber) initWithUnsignedInt:v6];
+      v8 = *v7++;
+      [objc_allocWithZone(NSNumber) initWithUnsignedInt:v8];
       specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-      v7 = _swiftEmptyArrayStorage[2];
       specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
       specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
       specialized ContiguousArray._endMutation()();
-      --v3;
+      --v5;
     }
 
-    while (v3);
+    while (v5);
   }
 
   sub_10002F2FC();
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   [a2 identifier];
-  v9 = sub_10002EC40(a2);
-  v10 = BKSHIDEventDigitizerDetachTouches();
+  v10 = sub_10002EC40(a2);
+  v11 = BKSHIDEventDigitizerDetachTouches();
 
-  return v10;
+  return v11;
 }
 
 void sub_10002F768(uint64_t *a1, NSObject *a2)
@@ -5999,13 +5978,6 @@ void sub_10002F768(uint64_t *a1, NSObject *a2)
   v3 = 138543362;
   v4 = v2;
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "WARNING: Using process name %{public}@ as bundle ID.", &v3, 0xCu);
-}
-
-void sub_10002F7F8(uint64_t a1)
-{
-  v1 = *(*(a1 + 32) + 32);
-  sub_1000057EC();
-  sub_100005804(&_mh_execute_header, v2, v3, "DRDragMonitorConnection for %@ got error %@");
 }
 
 void sub_10002F8A4(uint64_t a1, void *a2, void *a3, void *a4)
@@ -6106,14 +6078,13 @@ void sub_10002FCD8(uint64_t a1)
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
-void sub_10002FD84(id *a1, uint64_t *a2)
+void sub_10002FD84(id *a1)
 {
-  v3 = [*a1 url];
-  v4 = *a2;
-  v5 = __error();
-  strerror(*v5);
+  v1 = [*a1 url];
+  v2 = __error();
+  strerror(*v2);
   sub_10000B6D4();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x20u);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
 void sub_10002FF64(void *a1, NSObject *a2)
@@ -6149,12 +6120,11 @@ void sub_100030288()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1000302F8(uint64_t *a1)
+void sub_1000302F8()
 {
-  v1 = *a1;
   sub_10001F648();
   sub_10001F624();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_10003036C()
@@ -6207,12 +6177,11 @@ void sub_1000305F4()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_100030664(void *a1, int *a2)
+void sub_100030664(void *a1)
 {
   [a1 processIdentifier];
-  v8 = *a2;
   sub_10000B6D4();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0xEu);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0xEu);
 }
 
 void sub_100030700()
@@ -6229,19 +6198,18 @@ void sub_10003073C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1000307AC(uint64_t a1)
+void sub_1000307AC()
 {
-  sub_10001F654(a1, __stack_chk_guard);
+  sub_10001F654(__stack_chk_guard);
   sub_1000057EC();
-  sub_100005804(&_mh_execute_header, v1, v2, "Session %@: received error instead of reply from destination when performing drop: %@");
+  sub_100005804(&_mh_execute_header, v0, v1, "Session %@: received error instead of reply from destination when performing drop: %@");
 }
 
-void sub_10003083C(uint64_t *a1)
+void sub_10003083C()
 {
-  v1 = *a1;
   sub_10001F648();
   sub_10001F624();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_1000308B0()
@@ -6265,49 +6233,40 @@ void sub_100030990()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_100030A40(uint64_t a1)
+void sub_100030A40()
 {
-  v1 = *(a1 + 40);
-  v2 = *(a1 + 56);
   sub_10001F648();
   sub_10001F624();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_100030AC4(uint64_t a1)
+void sub_100030AC4()
 {
-  sub_10001F654(a1, __stack_chk_guard);
+  sub_10001F654(__stack_chk_guard);
   sub_1000057EC();
-  sub_100005804(&_mh_execute_header, v1, v2, "System session %@ - Received error attempting to load item %@");
+  sub_100005804(&_mh_execute_header, v0, v1, "System session %@ - Received error attempting to load item %@");
 }
 
-void sub_100030B2C(uint64_t a1)
+void sub_100030B2C()
 {
-  sub_10001F654(a1, __stack_chk_guard);
+  sub_10001F654(__stack_chk_guard);
   sub_1000057EC();
-  sub_100005804(&_mh_execute_header, v1, v2, "System session %@ - Received error attempting to load file representation for item %@");
+  sub_100005804(&_mh_execute_header, v0, v1, "System session %@ - Received error attempting to load file representation for item %@");
 }
 
-void sub_100030B94(uint64_t a1)
+void sub_100030B94()
 {
-  sub_10001F654(a1, __stack_chk_guard);
+  sub_10001F654(__stack_chk_guard);
   sub_10001F648();
   sub_10001F624();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_100030C04(uint64_t a1)
+void sub_100030C04()
 {
-  sub_10001F654(a1, __stack_chk_guard);
+  sub_10001F654(__stack_chk_guard);
   sub_1000057EC();
-  sub_100005804(&_mh_execute_header, v1, v2, "System session %@ - Received error attempting to load user activity %@");
-}
-
-void sub_100030C6C(uint64_t a1)
-{
-  v1 = *(a1 + 40);
-  sub_1000057EC();
-  sub_100005804(&_mh_execute_header, v2, v3, "System session %@ - Received error attempting to serialize user activity %@");
+  sub_100005804(&_mh_execute_header, v0, v1, "System session %@ - Received error attempting to load user activity %@");
 }
 
 void sub_100030CD8()
@@ -6339,13 +6298,11 @@ void sub_100030E54()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_100030E90(uint64_t a1)
+void sub_100030E90()
 {
-  sub_10001F654(a1, __stack_chk_guard);
-  v7 = *(v1 + 208);
-  v8 = *(v1 + 202);
+  sub_10001F654(__stack_chk_guard);
   sub_10001F624();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xEu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
 void sub_100030F18()
@@ -6355,13 +6312,6 @@ void sub_100030F18()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1000311F8(uint64_t a1)
-{
-  v6 = *(a1 + 64);
-  sub_100024B3C();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
 void sub_100031270(uint64_t a1, uint64_t a2, os_log_t log)
 {
   v3 = 138412546;
@@ -6369,20 +6319,6 @@ void sub_100031270(uint64_t a1, uint64_t a2, os_log_t log)
   v5 = 2112;
   v6 = a2;
   _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "_updatePrecisionMode from %@ to %@, no change, removing pending timer", &v3, 0x16u);
-}
-
-void sub_1000312F8(uint64_t a1)
-{
-  v6 = *(a1 + 56);
-  sub_100024B3C();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
-void sub_100031370(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_100024B3C();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
 void sub_10003146C()
@@ -6414,20 +6350,6 @@ void sub_1000315BC(uint64_t a1, int a2, NSObject *a3)
   v7 = 1024;
   v8 = v5;
   _os_log_error_impl(&_mh_execute_header, a3, OS_LOG_TYPE_ERROR, "Destination PID (%d) claims to be policy driven, but is not the system connection PID (%d)", v6, 0xEu);
-}
-
-void sub_100031744(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  sub_1000057EC();
-  sub_100005804(&_mh_execute_header, v2, v3, "Session %@ failed to set keyboard enabled: %@");
-}
-
-void sub_1000317B0(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  sub_1000057EC();
-  sub_100005804(&_mh_execute_header, v2, v3, "Session %@ failed to set keyboard disabled: %@");
 }
 
 void sub_10003181C(void *a1, NSObject *a2)

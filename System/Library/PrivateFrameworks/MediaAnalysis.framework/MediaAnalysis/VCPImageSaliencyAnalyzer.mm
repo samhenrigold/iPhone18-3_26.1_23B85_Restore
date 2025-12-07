@@ -38,7 +38,7 @@ uint64_t __47__VCPImageSaliencyAnalyzer_analyzerWith_prune___block_invoke()
   if (result)
   {
     +[VCPImageSaliencyAnalyzer analyzerWith:prune:]::analyzerClass = objc_opt_class();
-    result = DeviceHasANE();
+    result = DeviceHasANE(+[VCPImageSaliencyAnalyzer analyzerWith:prune:]::analyzerClass, v1);
     if (result)
     {
       result = objc_opt_class();

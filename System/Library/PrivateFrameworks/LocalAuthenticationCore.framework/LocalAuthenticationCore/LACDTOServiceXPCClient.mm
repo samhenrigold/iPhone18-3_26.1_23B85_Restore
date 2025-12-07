@@ -107,7 +107,7 @@
 void __38__LACDTOServiceXPCClient_ratchetState__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = LACLogDTO();
+  v4 = LACLogDTO(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __38__LACDTOServiceXPCClient_ratchetState__block_invoke_cold_1();
@@ -122,24 +122,25 @@ void __38__LACDTOServiceXPCClient_ratchetState__block_invoke_3(uint64_t a1, void
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = LACLogDTO();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = LACLogDTO(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __38__LACDTOServiceXPCClient_ratchetState__block_invoke_3_cold_1();
     }
   }
 
-  v8 = *(*(a1 + 32) + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v5;
+  v9 = *(*(a1 + 32) + 8);
+  v10 = *(v9 + 40);
+  *(v9 + 40) = v5;
 }
 
 void __42__LACDTOServiceXPCClient_isFeatureEnabled__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = LACLogDTO();
+  v4 = LACLogDTO(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __38__LACDTOServiceXPCClient_ratchetState__block_invoke_cold_1();
@@ -151,10 +152,11 @@ void __42__LACDTOServiceXPCClient_isFeatureEnabled__block_invoke(uint64_t a1, vo
 void __42__LACDTOServiceXPCClient_isFeatureEnabled__block_invoke_5(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = LACLogDTO();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = LACLogDTO(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __42__LACDTOServiceXPCClient_isFeatureEnabled__block_invoke_5_cold_1();
     }
@@ -190,7 +192,7 @@ void __42__LACDTOServiceXPCClient_isFeatureEnabled__block_invoke_5(uint64_t a1, 
 void __44__LACDTOServiceXPCClient_isFeatureSupported__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = LACLogDTO();
+  v4 = LACLogDTO(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __38__LACDTOServiceXPCClient_ratchetState__block_invoke_cold_1();
@@ -202,10 +204,11 @@ void __44__LACDTOServiceXPCClient_isFeatureSupported__block_invoke(uint64_t a1, 
 void __44__LACDTOServiceXPCClient_isFeatureSupported__block_invoke_7(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = LACLogDTO();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = LACLogDTO(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __44__LACDTOServiceXPCClient_isFeatureSupported__block_invoke_7_cold_1();
     }
@@ -241,7 +244,7 @@ void __44__LACDTOServiceXPCClient_isFeatureSupported__block_invoke_7(uint64_t a1
 void __44__LACDTOServiceXPCClient_isFeatureAvailable__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = LACLogDTO();
+  v4 = LACLogDTO(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __38__LACDTOServiceXPCClient_ratchetState__block_invoke_cold_1();
@@ -253,10 +256,11 @@ void __44__LACDTOServiceXPCClient_isFeatureAvailable__block_invoke(uint64_t a1, 
 void __44__LACDTOServiceXPCClient_isFeatureAvailable__block_invoke_8(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = LACLogDTO();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = LACLogDTO(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __44__LACDTOServiceXPCClient_isFeatureAvailable__block_invoke_8_cold_1();
     }
@@ -292,7 +296,7 @@ void __44__LACDTOServiceXPCClient_isFeatureAvailable__block_invoke_8(uint64_t a1
 void __52__LACDTOServiceXPCClient_isFeatureStrictModeEnabled__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = LACLogDTO();
+  v4 = LACLogDTO(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __38__LACDTOServiceXPCClient_ratchetState__block_invoke_cold_1();
@@ -304,10 +308,11 @@ void __52__LACDTOServiceXPCClient_isFeatureStrictModeEnabled__block_invoke(uint6
 void __52__LACDTOServiceXPCClient_isFeatureStrictModeEnabled__block_invoke_9(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = LACLogDTO();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = LACLogDTO(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __52__LACDTOServiceXPCClient_isFeatureStrictModeEnabled__block_invoke_9_cold_1();
     }
@@ -343,7 +348,7 @@ void __52__LACDTOServiceXPCClient_isFeatureStrictModeEnabled__block_invoke_9(uin
 void __41__LACDTOServiceXPCClient_isSensorTrusted__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = LACLogDTO();
+  v4 = LACLogDTO(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __38__LACDTOServiceXPCClient_ratchetState__block_invoke_cold_1();
@@ -355,10 +360,11 @@ void __41__LACDTOServiceXPCClient_isSensorTrusted__block_invoke(uint64_t a1, voi
 void __41__LACDTOServiceXPCClient_isSensorTrusted__block_invoke_10(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = LACLogDTO();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = LACLogDTO(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __41__LACDTOServiceXPCClient_isSensorTrusted__block_invoke_10_cold_1();
     }
@@ -632,7 +638,7 @@ void __54__LACDTOServiceXPCClient__connectionWithErrorHandler___block_invoke(uin
 {
   if (self->_connection)
   {
-    v3 = LACLogDTO();
+    v3 = LACLogDTO(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [(LACDTOServiceXPCClient *)v3 _handleConnectionClose];
@@ -642,62 +648,6 @@ void __54__LACDTOServiceXPCClient__connectionWithErrorHandler___block_invoke(uin
     connection = self->_connection;
     self->_connection = 0;
   }
-}
-
-void __38__LACDTOServiceXPCClient_ratchetState__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1(&dword_1B0233000, v0, v1, "Could not get synchronous remote object proxy (%{public}@)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __38__LACDTOServiceXPCClient_ratchetState__block_invoke_3_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1(&dword_1B0233000, v0, v1, "Could not fetch ratchet state (%{public}@)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __42__LACDTOServiceXPCClient_isFeatureEnabled__block_invoke_5_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1(&dword_1B0233000, v0, v1, "Could not fetch feature enabled status (%{public}@)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __44__LACDTOServiceXPCClient_isFeatureSupported__block_invoke_7_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1(&dword_1B0233000, v0, v1, "Could not fetch feature supported status (%{public}@)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __44__LACDTOServiceXPCClient_isFeatureAvailable__block_invoke_8_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1(&dword_1B0233000, v0, v1, "Could not fetch feature available status (%{public}@)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __52__LACDTOServiceXPCClient_isFeatureStrictModeEnabled__block_invoke_9_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1(&dword_1B0233000, v0, v1, "Could not fetch feature strict mode status (%{public}@)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __41__LACDTOServiceXPCClient_isSensorTrusted__block_invoke_10_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1(&dword_1B0233000, v0, v1, "Could not fetch sensor trust status (%{public}@)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

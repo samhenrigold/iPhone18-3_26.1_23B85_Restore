@@ -5,7 +5,7 @@ void sub_25A2C4890(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void mlx::core::distributed::ring::RingGroup::all_gather(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
+void mlx::core::distributed::ring::RingGroup::all_gather(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5)
 {
   command_encoder = mlx::core::cpu::get_command_encoder(a4, a5);
   v9 = *(*a2 + 60) * *(*a2 + 48);
@@ -16,7 +16,7 @@ void mlx::core::distributed::ring::RingGroup::all_gather(uint64_t a1, uint64_t a
   mlx::core::cpu::CommandEncoder::dispatch<mlx::core::distributed::ring::RingGroup::all_gather(mlx::core::array const&,mlx::core::array&,mlx::core::Stream)::{lambda(void)#1}>(command_encoder, &v10);
 }
 
-void mlx::core::distributed::ring::RingGroup::send(uint64_t a1, uint64_t a2, int a3, uint64_t a4, int a5)
+void mlx::core::distributed::ring::RingGroup::send(uint64_t a1, uint64_t a2, int a3, uint64_t a4, unsigned int a5)
 {
   command_encoder = mlx::core::cpu::get_command_encoder(a4, a5);
   v9 = *(*a2 + 60) * *(*a2 + 48);
@@ -27,7 +27,7 @@ void mlx::core::distributed::ring::RingGroup::send(uint64_t a1, uint64_t a2, int
   mlx::core::cpu::CommandEncoder::dispatch<mlx::core::distributed::ring::RingGroup::send(mlx::core::array const&,int,mlx::core::Stream)::{lambda(void)#1}>(command_encoder, &v10);
 }
 
-void mlx::core::distributed::ring::RingGroup::recv(uint64_t a1, uint64_t a2, int a3, uint64_t a4, int a5)
+void mlx::core::distributed::ring::RingGroup::recv(uint64_t a1, uint64_t a2, int a3, uint64_t a4, unsigned int a5)
 {
   command_encoder = mlx::core::cpu::get_command_encoder(a4, a5);
   v9 = *(*a2 + 60) * *(*a2 + 48);
@@ -38,52 +38,48 @@ void mlx::core::distributed::ring::RingGroup::recv(uint64_t a1, uint64_t a2, int
   mlx::core::cpu::CommandEncoder::dispatch<mlx::core::distributed::ring::RingGroup::recv(mlx::core::array &,int,mlx::core::Stream)::{lambda(void)#1}>(command_encoder, &v10);
 }
 
-void mlx::core::distributed::ring::RingGroup::all_max(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, int a5)
+void mlx::core::distributed::ring::RingGroup::all_max(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, unsigned int a5)
 {
-  v5 = *a3;
   switch(*(*a3 + 56))
   {
     case 0:
-      v7 = *(*a2 + 152);
-      v8 = *(v5 + 152);
       command_encoder = mlx::core::cpu::get_command_encoder(a4, a5);
-      v10 = *(*a2 + 48);
-      v11 = (*(command_encoder + 10) + 1) % 10;
-      *(command_encoder + 10) = v11;
-      v12 = mlx::core::scheduler::scheduler(command_encoder);
-      if (v11)
+      v6 = (*(command_encoder + 10) + 1) % 10;
+      *(command_encoder + 10) = v6;
+      v7 = mlx::core::scheduler::scheduler(command_encoder);
+      if (v6)
       {
-        v13 = *(v12[1] + 8 * *command_encoder);
-        std::mutex::lock(v13);
-        if (*(v13 + 160) != 1)
+        v8 = *(v7[1] + 8 * *command_encoder);
+        std::mutex::lock(v8);
+        if (*(v8 + 160) != 1)
         {
-          v14 = *(v13 + 72);
-          v15 = *(v13 + 80);
-          v16 = 16 * (v15 - v14) - 1;
-          if (v15 == v14)
+          v9 = *(v8 + 72);
+          v10 = *(v8 + 80);
+          v11 = 16 * (v10 - v9) - 1;
+          if (v10 == v9)
           {
-            v16 = 0;
+            v11 = 0;
           }
 
-          if (v16 == *(v13 + 104) + *(v13 + 96))
+          if (v11 == *(v8 + 104) + *(v8 + 96))
           {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v13 + 64));
-            v14 = *(v13 + 72);
-            v15 = *(v13 + 80);
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v8 + 64));
+            v9 = *(v8 + 72);
+            v10 = *(v8 + 80);
           }
 
-          if (v15 == v14)
+          if (v10 == v9)
           {
-            v18 = 0;
+            v13 = 0;
           }
 
           else
           {
-            v17 = *(v13 + 104) + *(v13 + 96);
-            v18 = *(v14 + ((v17 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v17 & 0x7F);
+            v12 = *(v8 + 104) + *(v8 + 96);
+            v13 = *(v9 + ((v12 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v12 & 0x7F);
           }
 
-          *(v18 + 24) = 0;
+          *(v13 + 24) = 0;
           operator new();
         }
 
@@ -92,1203 +88,1136 @@ void mlx::core::distributed::ring::RingGroup::all_max(uint64_t a1, uint64_t a2, 
         __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
       }
 
-      mlx::core::scheduler::Scheduler::notify_new_task(v12);
-      v308 = *command_encoder;
-      v322 = *(command_encoder + 2);
-      v225 = *(*(mlx::core::scheduler::scheduler(v224) + 1) + 8 * *command_encoder);
-      std::mutex::lock(v225);
-      if (*(v225 + 160) != 1)
+      mlx::core::scheduler::Scheduler::notify_new_task(v7);
+      v181 = *(mlx::core::scheduler::scheduler(v180)[1] + 8 * *command_encoder);
+      std::mutex::lock(v181);
+      if (*(v181 + 160) != 1)
       {
-        v226 = *(v225 + 72);
-        v227 = *(v225 + 80);
-        v228 = 16 * (v227 - v226) - 1;
-        if (v227 == v226)
+        v182 = *(v181 + 72);
+        v183 = *(v181 + 80);
+        v184 = 16 * (v183 - v182) - 1;
+        if (v183 == v182)
         {
-          v228 = 0;
+          v184 = 0;
         }
 
-        if (v228 == *(v225 + 104) + *(v225 + 96))
+        if (v184 == *(v181 + 104) + *(v181 + 96))
         {
-          std::deque<std::function<void ()(void)>>::__add_back_capacity((v225 + 64));
-          v226 = *(v225 + 72);
-          v227 = *(v225 + 80);
+          std::deque<std::function<void ()(void)>>::__add_back_capacity((v181 + 64));
+          v182 = *(v181 + 72);
+          v183 = *(v181 + 80);
         }
 
-        if (v227 == v226)
-        {
-          v230 = 0;
-        }
-
-        else
-        {
-          v229 = *(v225 + 104) + *(v225 + 96);
-          v230 = *(v226 + ((v229 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v229 & 0x7F);
-        }
-
-        *(v230 + 24) = 0;
-        operator new();
-      }
-
-      v294 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v294, "Cannot enqueue work after stream is stopped.");
-      __cxa_throw(v294, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    case 1:
-      v103 = *(*a2 + 152);
-      v104 = *(v5 + 152);
-      v105 = mlx::core::cpu::get_command_encoder(a4, a5);
-      v106 = *(*a2 + 48);
-      v107 = (*(v105 + 10) + 1) % 10;
-      *(v105 + 10) = v107;
-      v108 = mlx::core::scheduler::scheduler(v105);
-      if (v107)
-      {
-        v109 = *(v108[1] + 8 * *v105);
-        std::mutex::lock(v109);
-        if (*(v109 + 160) != 1)
-        {
-          v110 = *(v109 + 72);
-          v111 = *(v109 + 80);
-          v112 = 16 * (v111 - v110) - 1;
-          if (v111 == v110)
-          {
-            v112 = 0;
-          }
-
-          if (v112 == *(v109 + 104) + *(v109 + 96))
-          {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v109 + 64));
-            v110 = *(v109 + 72);
-            v111 = *(v109 + 80);
-          }
-
-          if (v111 == v110)
-          {
-            v114 = 0;
-          }
-
-          else
-          {
-            v113 = *(v109 + 104) + *(v109 + 96);
-            v114 = *(v110 + ((v113 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v113 & 0x7F);
-          }
-
-          *(v114 + 24) = 0;
-          operator new();
-        }
-
-        v281 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v281, "Cannot enqueue work after stream is stopped.");
-        __cxa_throw(v281, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-      }
-
-      mlx::core::scheduler::Scheduler::notify_new_task(v108);
-      v309 = *v105;
-      v323 = *(v105 + 2);
-      v232 = *(*(mlx::core::scheduler::scheduler(v231) + 1) + 8 * *v105);
-      std::mutex::lock(v232);
-      if (*(v232 + 160) != 1)
-      {
-        v233 = *(v232 + 72);
-        v234 = *(v232 + 80);
-        v235 = 16 * (v234 - v233) - 1;
-        if (v234 == v233)
-        {
-          v235 = 0;
-        }
-
-        if (v235 == *(v232 + 104) + *(v232 + 96))
-        {
-          std::deque<std::function<void ()(void)>>::__add_back_capacity((v232 + 64));
-          v233 = *(v232 + 72);
-          v234 = *(v232 + 80);
-        }
-
-        if (v234 == v233)
-        {
-          v237 = 0;
-        }
-
-        else
-        {
-          v236 = *(v232 + 104) + *(v232 + 96);
-          v237 = *(v233 + ((v236 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v236 & 0x7F);
-        }
-
-        *(v237 + 24) = 0;
-        operator new();
-      }
-
-      v295 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v295, "Cannot enqueue work after stream is stopped.");
-      __cxa_throw(v295, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    case 2:
-      v67 = *(*a2 + 152);
-      v68 = *(v5 + 152);
-      v69 = mlx::core::cpu::get_command_encoder(a4, a5);
-      v70 = *(*a2 + 48);
-      v71 = (*(v69 + 10) + 1) % 10;
-      *(v69 + 10) = v71;
-      v72 = mlx::core::scheduler::scheduler(v69);
-      if (v71)
-      {
-        v73 = *(v72[1] + 8 * *v69);
-        std::mutex::lock(v73);
-        if (*(v73 + 160) != 1)
-        {
-          v74 = *(v73 + 72);
-          v75 = *(v73 + 80);
-          v76 = 16 * (v75 - v74) - 1;
-          if (v75 == v74)
-          {
-            v76 = 0;
-          }
-
-          if (v76 == *(v73 + 104) + *(v73 + 96))
-          {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v73 + 64));
-            v74 = *(v73 + 72);
-            v75 = *(v73 + 80);
-          }
-
-          if (v75 == v74)
-          {
-            v78 = 0;
-          }
-
-          else
-          {
-            v77 = *(v73 + 104) + *(v73 + 96);
-            v78 = *(v74 + ((v77 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v77 & 0x7F);
-          }
-
-          *(v78 + 24) = 0;
-          operator new();
-        }
-
-        v277 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v277, "Cannot enqueue work after stream is stopped.");
-        __cxa_throw(v277, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-      }
-
-      mlx::core::scheduler::Scheduler::notify_new_task(v72);
-      v305 = *v69;
-      v319 = *(v69 + 2);
-      v204 = *(*(mlx::core::scheduler::scheduler(v203) + 1) + 8 * *v69);
-      std::mutex::lock(v204);
-      if (*(v204 + 160) != 1)
-      {
-        v205 = *(v204 + 72);
-        v206 = *(v204 + 80);
-        v207 = 16 * (v206 - v205) - 1;
-        if (v206 == v205)
-        {
-          v207 = 0;
-        }
-
-        if (v207 == *(v204 + 104) + *(v204 + 96))
-        {
-          std::deque<std::function<void ()(void)>>::__add_back_capacity((v204 + 64));
-          v205 = *(v204 + 72);
-          v206 = *(v204 + 80);
-        }
-
-        if (v206 == v205)
-        {
-          v209 = 0;
-        }
-
-        else
-        {
-          v208 = *(v204 + 104) + *(v204 + 96);
-          v209 = *(v205 + ((v208 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v208 & 0x7F);
-        }
-
-        *(v209 + 24) = 0;
-        operator new();
-      }
-
-      v291 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v291, "Cannot enqueue work after stream is stopped.");
-      __cxa_throw(v291, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    case 3:
-      v79 = *(*a2 + 152);
-      v80 = *(v5 + 152);
-      v81 = mlx::core::cpu::get_command_encoder(a4, a5);
-      v82 = *(*a2 + 48);
-      v83 = (*(v81 + 10) + 1) % 10;
-      *(v81 + 10) = v83;
-      v84 = mlx::core::scheduler::scheduler(v81);
-      if (v83)
-      {
-        v85 = *(v84[1] + 8 * *v81);
-        std::mutex::lock(v85);
-        if (*(v85 + 160) != 1)
-        {
-          v86 = *(v85 + 72);
-          v87 = *(v85 + 80);
-          v88 = 16 * (v87 - v86) - 1;
-          if (v87 == v86)
-          {
-            v88 = 0;
-          }
-
-          if (v88 == *(v85 + 104) + *(v85 + 96))
-          {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v85 + 64));
-            v86 = *(v85 + 72);
-            v87 = *(v85 + 80);
-          }
-
-          if (v87 == v86)
-          {
-            v90 = 0;
-          }
-
-          else
-          {
-            v89 = *(v85 + 104) + *(v85 + 96);
-            v90 = *(v86 + ((v89 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v89 & 0x7F);
-          }
-
-          *(v90 + 24) = 0;
-          operator new();
-        }
-
-        v278 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v278, "Cannot enqueue work after stream is stopped.");
-        __cxa_throw(v278, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-      }
-
-      mlx::core::scheduler::Scheduler::notify_new_task(v84);
-      v306 = *v81;
-      v320 = *(v81 + 2);
-      v211 = *(*(mlx::core::scheduler::scheduler(v210) + 1) + 8 * *v81);
-      std::mutex::lock(v211);
-      if (*(v211 + 160) != 1)
-      {
-        v212 = *(v211 + 72);
-        v213 = *(v211 + 80);
-        v214 = 16 * (v213 - v212) - 1;
-        if (v213 == v212)
-        {
-          v214 = 0;
-        }
-
-        if (v214 == *(v211 + 104) + *(v211 + 96))
-        {
-          std::deque<std::function<void ()(void)>>::__add_back_capacity((v211 + 64));
-          v212 = *(v211 + 72);
-          v213 = *(v211 + 80);
-        }
-
-        if (v213 == v212)
-        {
-          v216 = 0;
-        }
-
-        else
-        {
-          v215 = *(v211 + 104) + *(v211 + 96);
-          v216 = *(v212 + ((v215 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v215 & 0x7F);
-        }
-
-        *(v216 + 24) = 0;
-        operator new();
-      }
-
-      v292 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v292, "Cannot enqueue work after stream is stopped.");
-      __cxa_throw(v292, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    case 4:
-      v31 = *(*a2 + 152);
-      v32 = *(v5 + 152);
-      v33 = mlx::core::cpu::get_command_encoder(a4, a5);
-      v34 = *(*a2 + 48);
-      v35 = (*(v33 + 10) + 1) % 10;
-      *(v33 + 10) = v35;
-      v36 = mlx::core::scheduler::scheduler(v33);
-      if (v35)
-      {
-        v37 = *(v36[1] + 8 * *v33);
-        std::mutex::lock(v37);
-        if (*(v37 + 160) != 1)
-        {
-          v38 = *(v37 + 72);
-          v39 = *(v37 + 80);
-          v40 = 16 * (v39 - v38) - 1;
-          if (v39 == v38)
-          {
-            v40 = 0;
-          }
-
-          if (v40 == *(v37 + 104) + *(v37 + 96))
-          {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v37 + 64));
-            v38 = *(v37 + 72);
-            v39 = *(v37 + 80);
-          }
-
-          if (v39 == v38)
-          {
-            v42 = 0;
-          }
-
-          else
-          {
-            v41 = *(v37 + 104) + *(v37 + 96);
-            v42 = *(v38 + ((v41 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v41 & 0x7F);
-          }
-
-          *(v42 + 24) = 0;
-          operator new();
-        }
-
-        v274 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v274, "Cannot enqueue work after stream is stopped.");
-        __cxa_throw(v274, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-      }
-
-      mlx::core::scheduler::Scheduler::notify_new_task(v36);
-      v302 = *v33;
-      v316 = *(v33 + 2);
-      v183 = *(*(mlx::core::scheduler::scheduler(v182) + 1) + 8 * *v33);
-      std::mutex::lock(v183);
-      if (*(v183 + 160) != 1)
-      {
-        v184 = *(v183 + 72);
-        v185 = *(v183 + 80);
-        v186 = 16 * (v185 - v184) - 1;
-        if (v185 == v184)
+        if (v183 == v182)
         {
           v186 = 0;
         }
 
-        if (v186 == *(v183 + 104) + *(v183 + 96))
-        {
-          std::deque<std::function<void ()(void)>>::__add_back_capacity((v183 + 64));
-          v184 = *(v183 + 72);
-          v185 = *(v183 + 80);
-        }
-
-        if (v185 == v184)
-        {
-          v188 = 0;
-        }
-
         else
         {
-          v187 = *(v183 + 104) + *(v183 + 96);
-          v188 = *(v184 + ((v187 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v187 & 0x7F);
+          v185 = *(v181 + 104) + *(v181 + 96);
+          v186 = *(v182 + ((v185 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v185 & 0x7F);
         }
 
-        *(v188 + 24) = 0;
+        *(v186 + 24) = 0;
         operator new();
       }
 
-      v288 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v288, "Cannot enqueue work after stream is stopped.");
-      __cxa_throw(v288, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    case 5:
-      v115 = *(*a2 + 152);
-      v116 = *(v5 + 152);
-      v117 = mlx::core::cpu::get_command_encoder(a4, a5);
-      v118 = *(*a2 + 48);
-      v119 = (*(v117 + 10) + 1) % 10;
-      *(v117 + 10) = v119;
-      v120 = mlx::core::scheduler::scheduler(v117);
-      if (v119)
+      v250 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v250, "Cannot enqueue work after stream is stopped.");
+      __cxa_throw(v250, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    case 1:
+      v77 = mlx::core::cpu::get_command_encoder(a4, a5);
+      v78 = (*(v77 + 10) + 1) % 10;
+      *(v77 + 10) = v78;
+      v79 = mlx::core::scheduler::scheduler(v77);
+      if (v78)
       {
-        v121 = *(v120[1] + 8 * *v117);
-        std::mutex::lock(v121);
-        if (*(v121 + 160) != 1)
+        v80 = *(v79[1] + 8 * *v77);
+        std::mutex::lock(v80);
+        if (*(v80 + 160) != 1)
         {
-          v122 = *(v121 + 72);
-          v123 = *(v121 + 80);
-          v124 = 16 * (v123 - v122) - 1;
-          if (v123 == v122)
+          v81 = *(v80 + 72);
+          v82 = *(v80 + 80);
+          v83 = 16 * (v82 - v81) - 1;
+          if (v82 == v81)
           {
-            v124 = 0;
+            v83 = 0;
           }
 
-          if (v124 == *(v121 + 104) + *(v121 + 96))
+          if (v83 == *(v80 + 104) + *(v80 + 96))
           {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v121 + 64));
-            v122 = *(v121 + 72);
-            v123 = *(v121 + 80);
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v80 + 64));
+            v81 = *(v80 + 72);
+            v82 = *(v80 + 80);
           }
 
-          if (v123 == v122)
+          if (v82 == v81)
           {
-            v126 = 0;
+            v85 = 0;
           }
 
           else
           {
-            v125 = *(v121 + 104) + *(v121 + 96);
-            v126 = *(v122 + ((v125 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v125 & 0x7F);
+            v84 = *(v80 + 104) + *(v80 + 96);
+            v85 = *(v81 + ((v84 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v84 & 0x7F);
           }
 
-          *(v126 + 24) = 0;
+          *(v85 + 24) = 0;
           operator new();
         }
 
-        v282 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v282, "Cannot enqueue work after stream is stopped.");
-        __cxa_throw(v282, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+        v237 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v237, "Cannot enqueue work after stream is stopped.");
+        __cxa_throw(v237, MEMORY[0x277D82760], MEMORY[0x277D82600]);
       }
 
-      mlx::core::scheduler::Scheduler::notify_new_task(v120);
-      v310 = *v117;
-      v324 = *(v117 + 2);
-      v239 = *(*(mlx::core::scheduler::scheduler(v238) + 1) + 8 * *v117);
-      std::mutex::lock(v239);
-      if (*(v239 + 160) != 1)
+      mlx::core::scheduler::Scheduler::notify_new_task(v79);
+      v188 = *(mlx::core::scheduler::scheduler(v187)[1] + 8 * *v77);
+      std::mutex::lock(v188);
+      if (*(v188 + 160) != 1)
       {
-        v240 = *(v239 + 72);
-        v241 = *(v239 + 80);
-        v242 = 16 * (v241 - v240) - 1;
-        if (v241 == v240)
+        v189 = *(v188 + 72);
+        v190 = *(v188 + 80);
+        v191 = 16 * (v190 - v189) - 1;
+        if (v190 == v189)
         {
-          v242 = 0;
+          v191 = 0;
         }
 
-        if (v242 == *(v239 + 104) + *(v239 + 96))
+        if (v191 == *(v188 + 104) + *(v188 + 96))
         {
-          std::deque<std::function<void ()(void)>>::__add_back_capacity((v239 + 64));
-          v240 = *(v239 + 72);
-          v241 = *(v239 + 80);
+          std::deque<std::function<void ()(void)>>::__add_back_capacity((v188 + 64));
+          v189 = *(v188 + 72);
+          v190 = *(v188 + 80);
         }
 
-        if (v241 == v240)
-        {
-          v244 = 0;
-        }
-
-        else
-        {
-          v243 = *(v239 + 104) + *(v239 + 96);
-          v244 = *(v240 + ((v243 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v243 & 0x7F);
-        }
-
-        *(v244 + 24) = 0;
-        operator new();
-      }
-
-      v296 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v296, "Cannot enqueue work after stream is stopped.");
-      __cxa_throw(v296, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    case 6:
-      v139 = *(*a2 + 152);
-      v140 = *(v5 + 152);
-      v141 = mlx::core::cpu::get_command_encoder(a4, a5);
-      v142 = *(*a2 + 48);
-      v143 = (*(v141 + 10) + 1) % 10;
-      *(v141 + 10) = v143;
-      v144 = mlx::core::scheduler::scheduler(v141);
-      if (v143)
-      {
-        v145 = *(v144[1] + 8 * *v141);
-        std::mutex::lock(v145);
-        if (*(v145 + 160) != 1)
-        {
-          v146 = *(v145 + 72);
-          v147 = *(v145 + 80);
-          v148 = 16 * (v147 - v146) - 1;
-          if (v147 == v146)
-          {
-            v148 = 0;
-          }
-
-          if (v148 == *(v145 + 104) + *(v145 + 96))
-          {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v145 + 64));
-            v146 = *(v145 + 72);
-            v147 = *(v145 + 80);
-          }
-
-          if (v147 == v146)
-          {
-            v150 = 0;
-          }
-
-          else
-          {
-            v149 = *(v145 + 104) + *(v145 + 96);
-            v150 = *(v146 + ((v149 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v149 & 0x7F);
-          }
-
-          *(v150 + 24) = 0;
-          operator new();
-        }
-
-        v284 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v284, "Cannot enqueue work after stream is stopped.");
-        __cxa_throw(v284, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-      }
-
-      mlx::core::scheduler::Scheduler::notify_new_task(v144);
-      v312 = *v141;
-      v326 = *(v141 + 2);
-      v253 = *(*(mlx::core::scheduler::scheduler(v252) + 1) + 8 * *v141);
-      std::mutex::lock(v253);
-      if (*(v253 + 160) != 1)
-      {
-        v254 = *(v253 + 72);
-        v255 = *(v253 + 80);
-        v256 = 16 * (v255 - v254) - 1;
-        if (v255 == v254)
-        {
-          v256 = 0;
-        }
-
-        if (v256 == *(v253 + 104) + *(v253 + 96))
-        {
-          std::deque<std::function<void ()(void)>>::__add_back_capacity((v253 + 64));
-          v254 = *(v253 + 72);
-          v255 = *(v253 + 80);
-        }
-
-        if (v255 == v254)
-        {
-          v258 = 0;
-        }
-
-        else
-        {
-          v257 = *(v253 + 104) + *(v253 + 96);
-          v258 = *(v254 + ((v257 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v257 & 0x7F);
-        }
-
-        *(v258 + 24) = 0;
-        operator new();
-      }
-
-      v298 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v298, "Cannot enqueue work after stream is stopped.");
-      __cxa_throw(v298, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    case 7:
-      v91 = *(*a2 + 152);
-      v92 = *(v5 + 152);
-      v93 = mlx::core::cpu::get_command_encoder(a4, a5);
-      v94 = *(*a2 + 48);
-      v95 = (*(v93 + 10) + 1) % 10;
-      *(v93 + 10) = v95;
-      v96 = mlx::core::scheduler::scheduler(v93);
-      if (v95)
-      {
-        v97 = *(v96[1] + 8 * *v93);
-        std::mutex::lock(v97);
-        if (*(v97 + 160) != 1)
-        {
-          v98 = *(v97 + 72);
-          v99 = *(v97 + 80);
-          v100 = 16 * (v99 - v98) - 1;
-          if (v99 == v98)
-          {
-            v100 = 0;
-          }
-
-          if (v100 == *(v97 + 104) + *(v97 + 96))
-          {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v97 + 64));
-            v98 = *(v97 + 72);
-            v99 = *(v97 + 80);
-          }
-
-          if (v99 == v98)
-          {
-            v102 = 0;
-          }
-
-          else
-          {
-            v101 = *(v97 + 104) + *(v97 + 96);
-            v102 = *(v98 + ((v101 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v101 & 0x7F);
-          }
-
-          *(v102 + 24) = 0;
-          operator new();
-        }
-
-        v280 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v280, "Cannot enqueue work after stream is stopped.");
-        __cxa_throw(v280, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-      }
-
-      mlx::core::scheduler::Scheduler::notify_new_task(v96);
-      v307 = *v93;
-      v321 = *(v93 + 2);
-      v218 = *(*(mlx::core::scheduler::scheduler(v217) + 1) + 8 * *v93);
-      std::mutex::lock(v218);
-      if (*(v218 + 160) != 1)
-      {
-        v219 = *(v218 + 72);
-        v220 = *(v218 + 80);
-        v221 = 16 * (v220 - v219) - 1;
-        if (v220 == v219)
-        {
-          v221 = 0;
-        }
-
-        if (v221 == *(v218 + 104) + *(v218 + 96))
-        {
-          std::deque<std::function<void ()(void)>>::__add_back_capacity((v218 + 64));
-          v219 = *(v218 + 72);
-          v220 = *(v218 + 80);
-        }
-
-        if (v220 == v219)
-        {
-          v223 = 0;
-        }
-
-        else
-        {
-          v222 = *(v218 + 104) + *(v218 + 96);
-          v223 = *(v219 + ((v222 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v222 & 0x7F);
-        }
-
-        *(v223 + 24) = 0;
-        operator new();
-      }
-
-      v293 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v293, "Cannot enqueue work after stream is stopped.");
-      __cxa_throw(v293, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    case 8:
-      v163 = *(*a2 + 152);
-      v164 = *(v5 + 152);
-      v165 = mlx::core::cpu::get_command_encoder(a4, a5);
-      v166 = *(*a2 + 48);
-      v167 = (*(v165 + 10) + 1) % 10;
-      *(v165 + 10) = v167;
-      v168 = mlx::core::scheduler::scheduler(v165);
-      if (v167)
-      {
-        v169 = *(v168[1] + 8 * *v165);
-        std::mutex::lock(v169);
-        if (*(v169 + 160) != 1)
-        {
-          v170 = *(v169 + 72);
-          v171 = *(v169 + 80);
-          v172 = 16 * (v171 - v170) - 1;
-          if (v171 == v170)
-          {
-            v172 = 0;
-          }
-
-          if (v172 == *(v169 + 104) + *(v169 + 96))
-          {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v169 + 64));
-            v170 = *(v169 + 72);
-            v171 = *(v169 + 80);
-          }
-
-          if (v171 == v170)
-          {
-            v174 = 0;
-          }
-
-          else
-          {
-            v173 = *(v169 + 104) + *(v169 + 96);
-            v174 = *(v170 + ((v173 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v173 & 0x7F);
-          }
-
-          *(v174 + 24) = 0;
-          operator new();
-        }
-
-        v286 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v286, "Cannot enqueue work after stream is stopped.");
-        __cxa_throw(v286, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-      }
-
-      mlx::core::scheduler::Scheduler::notify_new_task(v168);
-      v314 = *v165;
-      v328 = *(v165 + 2);
-      v267 = *(*(mlx::core::scheduler::scheduler(v266) + 1) + 8 * *v165);
-      std::mutex::lock(v267);
-      if (*(v267 + 160) != 1)
-      {
-        v268 = *(v267 + 72);
-        v269 = *(v267 + 80);
-        v270 = 16 * (v269 - v268) - 1;
-        if (v269 == v268)
-        {
-          v270 = 0;
-        }
-
-        if (v270 == *(v267 + 104) + *(v267 + 96))
-        {
-          std::deque<std::function<void ()(void)>>::__add_back_capacity((v267 + 64));
-          v268 = *(v267 + 72);
-          v269 = *(v267 + 80);
-        }
-
-        if (v269 == v268)
-        {
-          v272 = 0;
-        }
-
-        else
-        {
-          v271 = *(v267 + 104) + *(v267 + 96);
-          v272 = *(v268 + ((v271 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v271 & 0x7F);
-        }
-
-        *(v272 + 24) = 0;
-        operator new();
-      }
-
-      v300 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v300, "Cannot enqueue work after stream is stopped.");
-      __cxa_throw(v300, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    case 9:
-      v55 = *(*a2 + 152);
-      v56 = *(v5 + 152);
-      v57 = mlx::core::cpu::get_command_encoder(a4, a5);
-      v58 = *(*a2 + 48);
-      v59 = (*(v57 + 10) + 1) % 10;
-      *(v57 + 10) = v59;
-      v60 = mlx::core::scheduler::scheduler(v57);
-      if (v59)
-      {
-        v61 = *(v60[1] + 8 * *v57);
-        std::mutex::lock(v61);
-        if (*(v61 + 160) != 1)
-        {
-          v62 = *(v61 + 72);
-          v63 = *(v61 + 80);
-          v64 = 16 * (v63 - v62) - 1;
-          if (v63 == v62)
-          {
-            v64 = 0;
-          }
-
-          if (v64 == *(v61 + 104) + *(v61 + 96))
-          {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v61 + 64));
-            v62 = *(v61 + 72);
-            v63 = *(v61 + 80);
-          }
-
-          if (v63 == v62)
-          {
-            v66 = 0;
-          }
-
-          else
-          {
-            v65 = *(v61 + 104) + *(v61 + 96);
-            v66 = *(v62 + ((v65 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v65 & 0x7F);
-          }
-
-          *(v66 + 24) = 0;
-          operator new();
-        }
-
-        v276 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v276, "Cannot enqueue work after stream is stopped.");
-        __cxa_throw(v276, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-      }
-
-      mlx::core::scheduler::Scheduler::notify_new_task(v60);
-      v304 = *v57;
-      v318 = *(v57 + 2);
-      v197 = *(*(mlx::core::scheduler::scheduler(v196) + 1) + 8 * *v57);
-      std::mutex::lock(v197);
-      if (*(v197 + 160) != 1)
-      {
-        v198 = *(v197 + 72);
-        v199 = *(v197 + 80);
-        v200 = 16 * (v199 - v198) - 1;
-        if (v199 == v198)
-        {
-          v200 = 0;
-        }
-
-        if (v200 == *(v197 + 104) + *(v197 + 96))
-        {
-          std::deque<std::function<void ()(void)>>::__add_back_capacity((v197 + 64));
-          v198 = *(v197 + 72);
-          v199 = *(v197 + 80);
-        }
-
-        if (v199 == v198)
-        {
-          v202 = 0;
-        }
-
-        else
-        {
-          v201 = *(v197 + 104) + *(v197 + 96);
-          v202 = *(v198 + ((v201 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v201 & 0x7F);
-        }
-
-        *(v202 + 24) = 0;
-        operator new();
-      }
-
-      v290 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v290, "Cannot enqueue work after stream is stopped.");
-      __cxa_throw(v290, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    case 0xA:
-      v151 = *(*a2 + 152);
-      v152 = *(v5 + 152);
-      v153 = mlx::core::cpu::get_command_encoder(a4, a5);
-      v154 = *(*a2 + 48);
-      v155 = (*(v153 + 10) + 1) % 10;
-      *(v153 + 10) = v155;
-      v156 = mlx::core::scheduler::scheduler(v153);
-      if (v155)
-      {
-        v157 = *(v156[1] + 8 * *v153);
-        std::mutex::lock(v157);
-        if (*(v157 + 160) != 1)
-        {
-          v158 = *(v157 + 72);
-          v159 = *(v157 + 80);
-          v160 = 16 * (v159 - v158) - 1;
-          if (v159 == v158)
-          {
-            v160 = 0;
-          }
-
-          if (v160 == *(v157 + 104) + *(v157 + 96))
-          {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v157 + 64));
-            v158 = *(v157 + 72);
-            v159 = *(v157 + 80);
-          }
-
-          if (v159 == v158)
-          {
-            v162 = 0;
-          }
-
-          else
-          {
-            v161 = *(v157 + 104) + *(v157 + 96);
-            v162 = *(v158 + ((v161 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v161 & 0x7F);
-          }
-
-          *(v162 + 24) = 0;
-          operator new();
-        }
-
-        v285 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v285, "Cannot enqueue work after stream is stopped.");
-        __cxa_throw(v285, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-      }
-
-      mlx::core::scheduler::Scheduler::notify_new_task(v156);
-      v313 = *v153;
-      v327 = *(v153 + 2);
-      v260 = *(*(mlx::core::scheduler::scheduler(v259) + 1) + 8 * *v153);
-      std::mutex::lock(v260);
-      if (*(v260 + 160) != 1)
-      {
-        v261 = *(v260 + 72);
-        v262 = *(v260 + 80);
-        v263 = 16 * (v262 - v261) - 1;
-        if (v262 == v261)
-        {
-          v263 = 0;
-        }
-
-        if (v263 == *(v260 + 104) + *(v260 + 96))
-        {
-          std::deque<std::function<void ()(void)>>::__add_back_capacity((v260 + 64));
-          v261 = *(v260 + 72);
-          v262 = *(v260 + 80);
-        }
-
-        if (v262 == v261)
-        {
-          v265 = 0;
-        }
-
-        else
-        {
-          v264 = *(v260 + 104) + *(v260 + 96);
-          v265 = *(v261 + ((v264 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v264 & 0x7F);
-        }
-
-        *(v265 + 24) = 0;
-        operator new();
-      }
-
-      v299 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v299, "Cannot enqueue work after stream is stopped.");
-      __cxa_throw(v299, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    case 0xB:
-      v19 = *(*a2 + 152);
-      v20 = *(v5 + 152);
-      v21 = mlx::core::cpu::get_command_encoder(a4, a5);
-      v22 = *(*a2 + 48);
-      v23 = (*(v21 + 10) + 1) % 10;
-      *(v21 + 10) = v23;
-      v24 = mlx::core::scheduler::scheduler(v21);
-      if (v23)
-      {
-        v25 = *(v24[1] + 8 * *v21);
-        std::mutex::lock(v25);
-        if (*(v25 + 160) != 1)
-        {
-          v26 = *(v25 + 72);
-          v27 = *(v25 + 80);
-          v28 = 16 * (v27 - v26) - 1;
-          if (v27 == v26)
-          {
-            v28 = 0;
-          }
-
-          if (v28 == *(v25 + 104) + *(v25 + 96))
-          {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v25 + 64));
-            v26 = *(v25 + 72);
-            v27 = *(v25 + 80);
-          }
-
-          if (v27 == v26)
-          {
-            v30 = 0;
-          }
-
-          else
-          {
-            v29 = *(v25 + 104) + *(v25 + 96);
-            v30 = *(v26 + ((v29 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v29 & 0x7F);
-          }
-
-          *(v30 + 24) = 0;
-          operator new();
-        }
-
-        v273 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v273, "Cannot enqueue work after stream is stopped.");
-        __cxa_throw(v273, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-      }
-
-      mlx::core::scheduler::Scheduler::notify_new_task(v24);
-      v301 = *v21;
-      v315 = *(v21 + 2);
-      v176 = *(*(mlx::core::scheduler::scheduler(v175) + 1) + 8 * *v21);
-      std::mutex::lock(v176);
-      if (*(v176 + 160) != 1)
-      {
-        v177 = *(v176 + 72);
-        v178 = *(v176 + 80);
-        v179 = 16 * (v178 - v177) - 1;
-        if (v178 == v177)
-        {
-          v179 = 0;
-        }
-
-        if (v179 == *(v176 + 104) + *(v176 + 96))
-        {
-          std::deque<std::function<void ()(void)>>::__add_back_capacity((v176 + 64));
-          v177 = *(v176 + 72);
-          v178 = *(v176 + 80);
-        }
-
-        if (v178 == v177)
-        {
-          v181 = 0;
-        }
-
-        else
-        {
-          v180 = *(v176 + 104) + *(v176 + 96);
-          v181 = *(v177 + ((v180 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v180 & 0x7F);
-        }
-
-        *(v181 + 24) = 0;
-        operator new();
-      }
-
-      v287 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v287, "Cannot enqueue work after stream is stopped.");
-      __cxa_throw(v287, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    case 0xC:
-      v43 = *(*a2 + 152);
-      v44 = *(v5 + 152);
-      v45 = mlx::core::cpu::get_command_encoder(a4, a5);
-      v46 = *(*a2 + 48);
-      v47 = (*(v45 + 10) + 1) % 10;
-      *(v45 + 10) = v47;
-      v48 = mlx::core::scheduler::scheduler(v45);
-      if (v47)
-      {
-        v49 = *(v48[1] + 8 * *v45);
-        std::mutex::lock(v49);
-        if (*(v49 + 160) != 1)
-        {
-          v50 = *(v49 + 72);
-          v51 = *(v49 + 80);
-          v52 = 16 * (v51 - v50) - 1;
-          if (v51 == v50)
-          {
-            v52 = 0;
-          }
-
-          if (v52 == *(v49 + 104) + *(v49 + 96))
-          {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v49 + 64));
-            v50 = *(v49 + 72);
-            v51 = *(v49 + 80);
-          }
-
-          if (v51 == v50)
-          {
-            v54 = 0;
-          }
-
-          else
-          {
-            v53 = *(v49 + 104) + *(v49 + 96);
-            v54 = *(v50 + ((v53 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v53 & 0x7F);
-          }
-
-          *(v54 + 24) = 0;
-          operator new();
-        }
-
-        v275 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v275, "Cannot enqueue work after stream is stopped.");
-        __cxa_throw(v275, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-      }
-
-      mlx::core::scheduler::Scheduler::notify_new_task(v48);
-      v303 = *v45;
-      v317 = *(v45 + 2);
-      v190 = *(*(mlx::core::scheduler::scheduler(v189) + 1) + 8 * *v45);
-      std::mutex::lock(v190);
-      if (*(v190 + 160) != 1)
-      {
-        v191 = *(v190 + 72);
-        v192 = *(v190 + 80);
-        v193 = 16 * (v192 - v191) - 1;
-        if (v192 == v191)
+        if (v190 == v189)
         {
           v193 = 0;
         }
 
-        if (v193 == *(v190 + 104) + *(v190 + 96))
-        {
-          std::deque<std::function<void ()(void)>>::__add_back_capacity((v190 + 64));
-          v191 = *(v190 + 72);
-          v192 = *(v190 + 80);
-        }
-
-        if (v192 == v191)
-        {
-          v195 = 0;
-        }
-
         else
         {
-          v194 = *(v190 + 104) + *(v190 + 96);
-          v195 = *(v191 + ((v194 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v194 & 0x7F);
+          v192 = *(v188 + 104) + *(v188 + 96);
+          v193 = *(v189 + ((v192 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v192 & 0x7F);
         }
 
-        *(v195 + 24) = 0;
+        *(v193 + 24) = 0;
         operator new();
       }
 
-      v289 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v289, "Cannot enqueue work after stream is stopped.");
-      __cxa_throw(v289, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    case 0xD:
-      v127 = *(*a2 + 152);
-      v128 = *(v5 + 152);
-      v129 = mlx::core::cpu::get_command_encoder(a4, a5);
-      v130 = *(*a2 + 48);
-      v131 = (*(v129 + 10) + 1) % 10;
-      *(v129 + 10) = v131;
-      v132 = mlx::core::scheduler::scheduler(v129);
-      if (v131)
+      v251 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v251, "Cannot enqueue work after stream is stopped.");
+      __cxa_throw(v251, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    case 2:
+      v50 = mlx::core::cpu::get_command_encoder(a4, a5);
+      v51 = (*(v50 + 10) + 1) % 10;
+      *(v50 + 10) = v51;
+      v52 = mlx::core::scheduler::scheduler(v50);
+      if (v51)
       {
-        v133 = *(v132[1] + 8 * *v129);
-        std::mutex::lock(v133);
-        if (*(v133 + 160) != 1)
+        v53 = *(v52[1] + 8 * *v50);
+        std::mutex::lock(v53);
+        if (*(v53 + 160) != 1)
         {
-          v134 = *(v133 + 72);
-          v135 = *(v133 + 80);
-          v136 = 16 * (v135 - v134) - 1;
-          if (v135 == v134)
+          v54 = *(v53 + 72);
+          v55 = *(v53 + 80);
+          v56 = 16 * (v55 - v54) - 1;
+          if (v55 == v54)
           {
-            v136 = 0;
+            v56 = 0;
           }
 
-          if (v136 == *(v133 + 104) + *(v133 + 96))
+          if (v56 == *(v53 + 104) + *(v53 + 96))
           {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v133 + 64));
-            v134 = *(v133 + 72);
-            v135 = *(v133 + 80);
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v53 + 64));
+            v54 = *(v53 + 72);
+            v55 = *(v53 + 80);
           }
 
-          if (v135 == v134)
+          if (v55 == v54)
           {
-            v138 = 0;
+            v58 = 0;
           }
 
           else
           {
-            v137 = *(v133 + 104) + *(v133 + 96);
-            v138 = *(v134 + ((v137 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v137 & 0x7F);
+            v57 = *(v53 + 104) + *(v53 + 96);
+            v58 = *(v54 + ((v57 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v57 & 0x7F);
           }
 
-          *(v138 + 24) = 0;
+          *(v58 + 24) = 0;
           operator new();
         }
 
-        v283 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v283, "Cannot enqueue work after stream is stopped.");
-        __cxa_throw(v283, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+        v233 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v233, "Cannot enqueue work after stream is stopped.");
+        __cxa_throw(v233, MEMORY[0x277D82760], MEMORY[0x277D82600]);
       }
 
-      mlx::core::scheduler::Scheduler::notify_new_task(v132);
-      v311 = *v129;
-      v325 = *(v129 + 2);
-      v246 = *(*(mlx::core::scheduler::scheduler(v245) + 1) + 8 * *v129);
-      std::mutex::lock(v246);
-      if (*(v246 + 160) != 1)
+      mlx::core::scheduler::Scheduler::notify_new_task(v52);
+      v160 = *(mlx::core::scheduler::scheduler(v159)[1] + 8 * *v50);
+      std::mutex::lock(v160);
+      if (*(v160 + 160) != 1)
       {
-        v247 = *(v246 + 72);
-        v248 = *(v246 + 80);
-        v249 = 16 * (v248 - v247) - 1;
-        if (v248 == v247)
+        v161 = *(v160 + 72);
+        v162 = *(v160 + 80);
+        v163 = 16 * (v162 - v161) - 1;
+        if (v162 == v161)
         {
-          v249 = 0;
+          v163 = 0;
         }
 
-        if (v249 == *(v246 + 104) + *(v246 + 96))
+        if (v163 == *(v160 + 104) + *(v160 + 96))
         {
-          std::deque<std::function<void ()(void)>>::__add_back_capacity((v246 + 64));
-          v247 = *(v246 + 72);
-          v248 = *(v246 + 80);
+          std::deque<std::function<void ()(void)>>::__add_back_capacity((v160 + 64));
+          v161 = *(v160 + 72);
+          v162 = *(v160 + 80);
         }
 
-        if (v248 == v247)
+        if (v162 == v161)
         {
-          v251 = 0;
+          v165 = 0;
         }
 
         else
         {
-          v250 = *(v246 + 104) + *(v246 + 96);
-          v251 = *(v247 + ((v250 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v250 & 0x7F);
+          v164 = *(v160 + 104) + *(v160 + 96);
+          v165 = *(v161 + ((v164 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v164 & 0x7F);
         }
 
-        *(v251 + 24) = 0;
+        *(v165 + 24) = 0;
         operator new();
       }
 
-      v297 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v297, "Cannot enqueue work after stream is stopped.");
-      __cxa_throw(v297, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      v247 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v247, "Cannot enqueue work after stream is stopped.");
+      __cxa_throw(v247, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    case 3:
+      v59 = mlx::core::cpu::get_command_encoder(a4, a5);
+      v60 = (*(v59 + 10) + 1) % 10;
+      *(v59 + 10) = v60;
+      v61 = mlx::core::scheduler::scheduler(v59);
+      if (v60)
+      {
+        v62 = *(v61[1] + 8 * *v59);
+        std::mutex::lock(v62);
+        if (*(v62 + 160) != 1)
+        {
+          v63 = *(v62 + 72);
+          v64 = *(v62 + 80);
+          v65 = 16 * (v64 - v63) - 1;
+          if (v64 == v63)
+          {
+            v65 = 0;
+          }
+
+          if (v65 == *(v62 + 104) + *(v62 + 96))
+          {
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v62 + 64));
+            v63 = *(v62 + 72);
+            v64 = *(v62 + 80);
+          }
+
+          if (v64 == v63)
+          {
+            v67 = 0;
+          }
+
+          else
+          {
+            v66 = *(v62 + 104) + *(v62 + 96);
+            v67 = *(v63 + ((v66 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v66 & 0x7F);
+          }
+
+          *(v67 + 24) = 0;
+          operator new();
+        }
+
+        v234 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v234, "Cannot enqueue work after stream is stopped.");
+        __cxa_throw(v234, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      }
+
+      mlx::core::scheduler::Scheduler::notify_new_task(v61);
+      v167 = *(mlx::core::scheduler::scheduler(v166)[1] + 8 * *v59);
+      std::mutex::lock(v167);
+      if (*(v167 + 160) != 1)
+      {
+        v168 = *(v167 + 72);
+        v169 = *(v167 + 80);
+        v170 = 16 * (v169 - v168) - 1;
+        if (v169 == v168)
+        {
+          v170 = 0;
+        }
+
+        if (v170 == *(v167 + 104) + *(v167 + 96))
+        {
+          std::deque<std::function<void ()(void)>>::__add_back_capacity((v167 + 64));
+          v168 = *(v167 + 72);
+          v169 = *(v167 + 80);
+        }
+
+        if (v169 == v168)
+        {
+          v172 = 0;
+        }
+
+        else
+        {
+          v171 = *(v167 + 104) + *(v167 + 96);
+          v172 = *(v168 + ((v171 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v171 & 0x7F);
+        }
+
+        *(v172 + 24) = 0;
+        operator new();
+      }
+
+      v248 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v248, "Cannot enqueue work after stream is stopped.");
+      __cxa_throw(v248, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    case 4:
+      v23 = mlx::core::cpu::get_command_encoder(a4, a5);
+      v24 = (*(v23 + 10) + 1) % 10;
+      *(v23 + 10) = v24;
+      v25 = mlx::core::scheduler::scheduler(v23);
+      if (v24)
+      {
+        v26 = *(v25[1] + 8 * *v23);
+        std::mutex::lock(v26);
+        if (*(v26 + 160) != 1)
+        {
+          v27 = *(v26 + 72);
+          v28 = *(v26 + 80);
+          v29 = 16 * (v28 - v27) - 1;
+          if (v28 == v27)
+          {
+            v29 = 0;
+          }
+
+          if (v29 == *(v26 + 104) + *(v26 + 96))
+          {
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v26 + 64));
+            v27 = *(v26 + 72);
+            v28 = *(v26 + 80);
+          }
+
+          if (v28 == v27)
+          {
+            v31 = 0;
+          }
+
+          else
+          {
+            v30 = *(v26 + 104) + *(v26 + 96);
+            v31 = *(v27 + ((v30 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v30 & 0x7F);
+          }
+
+          *(v31 + 24) = 0;
+          operator new();
+        }
+
+        v230 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v230, "Cannot enqueue work after stream is stopped.");
+        __cxa_throw(v230, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      }
+
+      mlx::core::scheduler::Scheduler::notify_new_task(v25);
+      v139 = *(mlx::core::scheduler::scheduler(v138)[1] + 8 * *v23);
+      std::mutex::lock(v139);
+      if (*(v139 + 160) != 1)
+      {
+        v140 = *(v139 + 72);
+        v141 = *(v139 + 80);
+        v142 = 16 * (v141 - v140) - 1;
+        if (v141 == v140)
+        {
+          v142 = 0;
+        }
+
+        if (v142 == *(v139 + 104) + *(v139 + 96))
+        {
+          std::deque<std::function<void ()(void)>>::__add_back_capacity((v139 + 64));
+          v140 = *(v139 + 72);
+          v141 = *(v139 + 80);
+        }
+
+        if (v141 == v140)
+        {
+          v144 = 0;
+        }
+
+        else
+        {
+          v143 = *(v139 + 104) + *(v139 + 96);
+          v144 = *(v140 + ((v143 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v143 & 0x7F);
+        }
+
+        *(v144 + 24) = 0;
+        operator new();
+      }
+
+      v244 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v244, "Cannot enqueue work after stream is stopped.");
+      __cxa_throw(v244, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    case 5:
+      v86 = mlx::core::cpu::get_command_encoder(a4, a5);
+      v87 = (*(v86 + 10) + 1) % 10;
+      *(v86 + 10) = v87;
+      v88 = mlx::core::scheduler::scheduler(v86);
+      if (v87)
+      {
+        v89 = *(v88[1] + 8 * *v86);
+        std::mutex::lock(v89);
+        if (*(v89 + 160) != 1)
+        {
+          v90 = *(v89 + 72);
+          v91 = *(v89 + 80);
+          v92 = 16 * (v91 - v90) - 1;
+          if (v91 == v90)
+          {
+            v92 = 0;
+          }
+
+          if (v92 == *(v89 + 104) + *(v89 + 96))
+          {
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v89 + 64));
+            v90 = *(v89 + 72);
+            v91 = *(v89 + 80);
+          }
+
+          if (v91 == v90)
+          {
+            v94 = 0;
+          }
+
+          else
+          {
+            v93 = *(v89 + 104) + *(v89 + 96);
+            v94 = *(v90 + ((v93 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v93 & 0x7F);
+          }
+
+          *(v94 + 24) = 0;
+          operator new();
+        }
+
+        v238 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v238, "Cannot enqueue work after stream is stopped.");
+        __cxa_throw(v238, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      }
+
+      mlx::core::scheduler::Scheduler::notify_new_task(v88);
+      v195 = *(mlx::core::scheduler::scheduler(v194)[1] + 8 * *v86);
+      std::mutex::lock(v195);
+      if (*(v195 + 160) != 1)
+      {
+        v196 = *(v195 + 72);
+        v197 = *(v195 + 80);
+        v198 = 16 * (v197 - v196) - 1;
+        if (v197 == v196)
+        {
+          v198 = 0;
+        }
+
+        if (v198 == *(v195 + 104) + *(v195 + 96))
+        {
+          std::deque<std::function<void ()(void)>>::__add_back_capacity((v195 + 64));
+          v196 = *(v195 + 72);
+          v197 = *(v195 + 80);
+        }
+
+        if (v197 == v196)
+        {
+          v200 = 0;
+        }
+
+        else
+        {
+          v199 = *(v195 + 104) + *(v195 + 96);
+          v200 = *(v196 + ((v199 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v199 & 0x7F);
+        }
+
+        *(v200 + 24) = 0;
+        operator new();
+      }
+
+      v252 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v252, "Cannot enqueue work after stream is stopped.");
+      __cxa_throw(v252, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    case 6:
+      v104 = mlx::core::cpu::get_command_encoder(a4, a5);
+      v105 = (*(v104 + 10) + 1) % 10;
+      *(v104 + 10) = v105;
+      v106 = mlx::core::scheduler::scheduler(v104);
+      if (v105)
+      {
+        v107 = *(v106[1] + 8 * *v104);
+        std::mutex::lock(v107);
+        if (*(v107 + 160) != 1)
+        {
+          v108 = *(v107 + 72);
+          v109 = *(v107 + 80);
+          v110 = 16 * (v109 - v108) - 1;
+          if (v109 == v108)
+          {
+            v110 = 0;
+          }
+
+          if (v110 == *(v107 + 104) + *(v107 + 96))
+          {
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v107 + 64));
+            v108 = *(v107 + 72);
+            v109 = *(v107 + 80);
+          }
+
+          if (v109 == v108)
+          {
+            v112 = 0;
+          }
+
+          else
+          {
+            v111 = *(v107 + 104) + *(v107 + 96);
+            v112 = *(v108 + ((v111 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v111 & 0x7F);
+          }
+
+          *(v112 + 24) = 0;
+          operator new();
+        }
+
+        v240 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v240, "Cannot enqueue work after stream is stopped.");
+        __cxa_throw(v240, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      }
+
+      mlx::core::scheduler::Scheduler::notify_new_task(v106);
+      v209 = *(mlx::core::scheduler::scheduler(v208)[1] + 8 * *v104);
+      std::mutex::lock(v209);
+      if (*(v209 + 160) != 1)
+      {
+        v210 = *(v209 + 72);
+        v211 = *(v209 + 80);
+        v212 = 16 * (v211 - v210) - 1;
+        if (v211 == v210)
+        {
+          v212 = 0;
+        }
+
+        if (v212 == *(v209 + 104) + *(v209 + 96))
+        {
+          std::deque<std::function<void ()(void)>>::__add_back_capacity((v209 + 64));
+          v210 = *(v209 + 72);
+          v211 = *(v209 + 80);
+        }
+
+        if (v211 == v210)
+        {
+          v214 = 0;
+        }
+
+        else
+        {
+          v213 = *(v209 + 104) + *(v209 + 96);
+          v214 = *(v210 + ((v213 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v213 & 0x7F);
+        }
+
+        *(v214 + 24) = 0;
+        operator new();
+      }
+
+      v254 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v254, "Cannot enqueue work after stream is stopped.");
+      __cxa_throw(v254, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    case 7:
+      v68 = mlx::core::cpu::get_command_encoder(a4, a5);
+      v69 = (*(v68 + 10) + 1) % 10;
+      *(v68 + 10) = v69;
+      v70 = mlx::core::scheduler::scheduler(v68);
+      if (v69)
+      {
+        v71 = *(v70[1] + 8 * *v68);
+        std::mutex::lock(v71);
+        if (*(v71 + 160) != 1)
+        {
+          v72 = *(v71 + 72);
+          v73 = *(v71 + 80);
+          v74 = 16 * (v73 - v72) - 1;
+          if (v73 == v72)
+          {
+            v74 = 0;
+          }
+
+          if (v74 == *(v71 + 104) + *(v71 + 96))
+          {
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v71 + 64));
+            v72 = *(v71 + 72);
+            v73 = *(v71 + 80);
+          }
+
+          if (v73 == v72)
+          {
+            v76 = 0;
+          }
+
+          else
+          {
+            v75 = *(v71 + 104) + *(v71 + 96);
+            v76 = *(v72 + ((v75 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v75 & 0x7F);
+          }
+
+          *(v76 + 24) = 0;
+          operator new();
+        }
+
+        v236 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v236, "Cannot enqueue work after stream is stopped.");
+        __cxa_throw(v236, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      }
+
+      mlx::core::scheduler::Scheduler::notify_new_task(v70);
+      v174 = *(mlx::core::scheduler::scheduler(v173)[1] + 8 * *v68);
+      std::mutex::lock(v174);
+      if (*(v174 + 160) != 1)
+      {
+        v175 = *(v174 + 72);
+        v176 = *(v174 + 80);
+        v177 = 16 * (v176 - v175) - 1;
+        if (v176 == v175)
+        {
+          v177 = 0;
+        }
+
+        if (v177 == *(v174 + 104) + *(v174 + 96))
+        {
+          std::deque<std::function<void ()(void)>>::__add_back_capacity((v174 + 64));
+          v175 = *(v174 + 72);
+          v176 = *(v174 + 80);
+        }
+
+        if (v176 == v175)
+        {
+          v179 = 0;
+        }
+
+        else
+        {
+          v178 = *(v174 + 104) + *(v174 + 96);
+          v179 = *(v175 + ((v178 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v178 & 0x7F);
+        }
+
+        *(v179 + 24) = 0;
+        operator new();
+      }
+
+      v249 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v249, "Cannot enqueue work after stream is stopped.");
+      __cxa_throw(v249, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    case 8:
+      v122 = mlx::core::cpu::get_command_encoder(a4, a5);
+      v123 = (*(v122 + 10) + 1) % 10;
+      *(v122 + 10) = v123;
+      v124 = mlx::core::scheduler::scheduler(v122);
+      if (v123)
+      {
+        v125 = *(v124[1] + 8 * *v122);
+        std::mutex::lock(v125);
+        if (*(v125 + 160) != 1)
+        {
+          v126 = *(v125 + 72);
+          v127 = *(v125 + 80);
+          v128 = 16 * (v127 - v126) - 1;
+          if (v127 == v126)
+          {
+            v128 = 0;
+          }
+
+          if (v128 == *(v125 + 104) + *(v125 + 96))
+          {
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v125 + 64));
+            v126 = *(v125 + 72);
+            v127 = *(v125 + 80);
+          }
+
+          if (v127 == v126)
+          {
+            v130 = 0;
+          }
+
+          else
+          {
+            v129 = *(v125 + 104) + *(v125 + 96);
+            v130 = *(v126 + ((v129 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v129 & 0x7F);
+          }
+
+          *(v130 + 24) = 0;
+          operator new();
+        }
+
+        v242 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v242, "Cannot enqueue work after stream is stopped.");
+        __cxa_throw(v242, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      }
+
+      mlx::core::scheduler::Scheduler::notify_new_task(v124);
+      v223 = *(mlx::core::scheduler::scheduler(v222)[1] + 8 * *v122);
+      std::mutex::lock(v223);
+      if (*(v223 + 160) != 1)
+      {
+        v224 = *(v223 + 72);
+        v225 = *(v223 + 80);
+        v226 = 16 * (v225 - v224) - 1;
+        if (v225 == v224)
+        {
+          v226 = 0;
+        }
+
+        if (v226 == *(v223 + 104) + *(v223 + 96))
+        {
+          std::deque<std::function<void ()(void)>>::__add_back_capacity((v223 + 64));
+          v224 = *(v223 + 72);
+          v225 = *(v223 + 80);
+        }
+
+        if (v225 == v224)
+        {
+          v228 = 0;
+        }
+
+        else
+        {
+          v227 = *(v223 + 104) + *(v223 + 96);
+          v228 = *(v224 + ((v227 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v227 & 0x7F);
+        }
+
+        *(v228 + 24) = 0;
+        operator new();
+      }
+
+      v256 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v256, "Cannot enqueue work after stream is stopped.");
+      __cxa_throw(v256, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    case 9:
+      v41 = mlx::core::cpu::get_command_encoder(a4, a5);
+      v42 = (*(v41 + 10) + 1) % 10;
+      *(v41 + 10) = v42;
+      v43 = mlx::core::scheduler::scheduler(v41);
+      if (v42)
+      {
+        v44 = *(v43[1] + 8 * *v41);
+        std::mutex::lock(v44);
+        if (*(v44 + 160) != 1)
+        {
+          v45 = *(v44 + 72);
+          v46 = *(v44 + 80);
+          v47 = 16 * (v46 - v45) - 1;
+          if (v46 == v45)
+          {
+            v47 = 0;
+          }
+
+          if (v47 == *(v44 + 104) + *(v44 + 96))
+          {
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v44 + 64));
+            v45 = *(v44 + 72);
+            v46 = *(v44 + 80);
+          }
+
+          if (v46 == v45)
+          {
+            v49 = 0;
+          }
+
+          else
+          {
+            v48 = *(v44 + 104) + *(v44 + 96);
+            v49 = *(v45 + ((v48 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v48 & 0x7F);
+          }
+
+          *(v49 + 24) = 0;
+          operator new();
+        }
+
+        v232 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v232, "Cannot enqueue work after stream is stopped.");
+        __cxa_throw(v232, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      }
+
+      mlx::core::scheduler::Scheduler::notify_new_task(v43);
+      v153 = *(mlx::core::scheduler::scheduler(v152)[1] + 8 * *v41);
+      std::mutex::lock(v153);
+      if (*(v153 + 160) != 1)
+      {
+        v154 = *(v153 + 72);
+        v155 = *(v153 + 80);
+        v156 = 16 * (v155 - v154) - 1;
+        if (v155 == v154)
+        {
+          v156 = 0;
+        }
+
+        if (v156 == *(v153 + 104) + *(v153 + 96))
+        {
+          std::deque<std::function<void ()(void)>>::__add_back_capacity((v153 + 64));
+          v154 = *(v153 + 72);
+          v155 = *(v153 + 80);
+        }
+
+        if (v155 == v154)
+        {
+          v158 = 0;
+        }
+
+        else
+        {
+          v157 = *(v153 + 104) + *(v153 + 96);
+          v158 = *(v154 + ((v157 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v157 & 0x7F);
+        }
+
+        *(v158 + 24) = 0;
+        operator new();
+      }
+
+      v246 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v246, "Cannot enqueue work after stream is stopped.");
+      __cxa_throw(v246, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    case 0xA:
+      v113 = mlx::core::cpu::get_command_encoder(a4, a5);
+      v114 = (*(v113 + 10) + 1) % 10;
+      *(v113 + 10) = v114;
+      v115 = mlx::core::scheduler::scheduler(v113);
+      if (v114)
+      {
+        v116 = *(v115[1] + 8 * *v113);
+        std::mutex::lock(v116);
+        if (*(v116 + 160) != 1)
+        {
+          v117 = *(v116 + 72);
+          v118 = *(v116 + 80);
+          v119 = 16 * (v118 - v117) - 1;
+          if (v118 == v117)
+          {
+            v119 = 0;
+          }
+
+          if (v119 == *(v116 + 104) + *(v116 + 96))
+          {
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v116 + 64));
+            v117 = *(v116 + 72);
+            v118 = *(v116 + 80);
+          }
+
+          if (v118 == v117)
+          {
+            v121 = 0;
+          }
+
+          else
+          {
+            v120 = *(v116 + 104) + *(v116 + 96);
+            v121 = *(v117 + ((v120 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v120 & 0x7F);
+          }
+
+          *(v121 + 24) = 0;
+          operator new();
+        }
+
+        v241 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v241, "Cannot enqueue work after stream is stopped.");
+        __cxa_throw(v241, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      }
+
+      mlx::core::scheduler::Scheduler::notify_new_task(v115);
+      v216 = *(mlx::core::scheduler::scheduler(v215)[1] + 8 * *v113);
+      std::mutex::lock(v216);
+      if (*(v216 + 160) != 1)
+      {
+        v217 = *(v216 + 72);
+        v218 = *(v216 + 80);
+        v219 = 16 * (v218 - v217) - 1;
+        if (v218 == v217)
+        {
+          v219 = 0;
+        }
+
+        if (v219 == *(v216 + 104) + *(v216 + 96))
+        {
+          std::deque<std::function<void ()(void)>>::__add_back_capacity((v216 + 64));
+          v217 = *(v216 + 72);
+          v218 = *(v216 + 80);
+        }
+
+        if (v218 == v217)
+        {
+          v221 = 0;
+        }
+
+        else
+        {
+          v220 = *(v216 + 104) + *(v216 + 96);
+          v221 = *(v217 + ((v220 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v220 & 0x7F);
+        }
+
+        *(v221 + 24) = 0;
+        operator new();
+      }
+
+      v255 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v255, "Cannot enqueue work after stream is stopped.");
+      __cxa_throw(v255, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    case 0xB:
+      v14 = mlx::core::cpu::get_command_encoder(a4, a5);
+      v15 = (*(v14 + 10) + 1) % 10;
+      *(v14 + 10) = v15;
+      v16 = mlx::core::scheduler::scheduler(v14);
+      if (v15)
+      {
+        v17 = *(v16[1] + 8 * *v14);
+        std::mutex::lock(v17);
+        if (*(v17 + 160) != 1)
+        {
+          v18 = *(v17 + 72);
+          v19 = *(v17 + 80);
+          v20 = 16 * (v19 - v18) - 1;
+          if (v19 == v18)
+          {
+            v20 = 0;
+          }
+
+          if (v20 == *(v17 + 104) + *(v17 + 96))
+          {
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v17 + 64));
+            v18 = *(v17 + 72);
+            v19 = *(v17 + 80);
+          }
+
+          if (v19 == v18)
+          {
+            v22 = 0;
+          }
+
+          else
+          {
+            v21 = *(v17 + 104) + *(v17 + 96);
+            v22 = *(v18 + ((v21 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v21 & 0x7F);
+          }
+
+          *(v22 + 24) = 0;
+          operator new();
+        }
+
+        v229 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v229, "Cannot enqueue work after stream is stopped.");
+        __cxa_throw(v229, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      }
+
+      mlx::core::scheduler::Scheduler::notify_new_task(v16);
+      v132 = *(mlx::core::scheduler::scheduler(v131)[1] + 8 * *v14);
+      std::mutex::lock(v132);
+      if (*(v132 + 160) != 1)
+      {
+        v133 = *(v132 + 72);
+        v134 = *(v132 + 80);
+        v135 = 16 * (v134 - v133) - 1;
+        if (v134 == v133)
+        {
+          v135 = 0;
+        }
+
+        if (v135 == *(v132 + 104) + *(v132 + 96))
+        {
+          std::deque<std::function<void ()(void)>>::__add_back_capacity((v132 + 64));
+          v133 = *(v132 + 72);
+          v134 = *(v132 + 80);
+        }
+
+        if (v134 == v133)
+        {
+          v137 = 0;
+        }
+
+        else
+        {
+          v136 = *(v132 + 104) + *(v132 + 96);
+          v137 = *(v133 + ((v136 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v136 & 0x7F);
+        }
+
+        *(v137 + 24) = 0;
+        operator new();
+      }
+
+      v243 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v243, "Cannot enqueue work after stream is stopped.");
+      __cxa_throw(v243, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    case 0xC:
+      v32 = mlx::core::cpu::get_command_encoder(a4, a5);
+      v33 = (*(v32 + 10) + 1) % 10;
+      *(v32 + 10) = v33;
+      v34 = mlx::core::scheduler::scheduler(v32);
+      if (v33)
+      {
+        v35 = *(v34[1] + 8 * *v32);
+        std::mutex::lock(v35);
+        if (*(v35 + 160) != 1)
+        {
+          v36 = *(v35 + 72);
+          v37 = *(v35 + 80);
+          v38 = 16 * (v37 - v36) - 1;
+          if (v37 == v36)
+          {
+            v38 = 0;
+          }
+
+          if (v38 == *(v35 + 104) + *(v35 + 96))
+          {
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v35 + 64));
+            v36 = *(v35 + 72);
+            v37 = *(v35 + 80);
+          }
+
+          if (v37 == v36)
+          {
+            v40 = 0;
+          }
+
+          else
+          {
+            v39 = *(v35 + 104) + *(v35 + 96);
+            v40 = *(v36 + ((v39 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v39 & 0x7F);
+          }
+
+          *(v40 + 24) = 0;
+          operator new();
+        }
+
+        v231 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v231, "Cannot enqueue work after stream is stopped.");
+        __cxa_throw(v231, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      }
+
+      mlx::core::scheduler::Scheduler::notify_new_task(v34);
+      v146 = *(mlx::core::scheduler::scheduler(v145)[1] + 8 * *v32);
+      std::mutex::lock(v146);
+      if (*(v146 + 160) != 1)
+      {
+        v147 = *(v146 + 72);
+        v148 = *(v146 + 80);
+        v149 = 16 * (v148 - v147) - 1;
+        if (v148 == v147)
+        {
+          v149 = 0;
+        }
+
+        if (v149 == *(v146 + 104) + *(v146 + 96))
+        {
+          std::deque<std::function<void ()(void)>>::__add_back_capacity((v146 + 64));
+          v147 = *(v146 + 72);
+          v148 = *(v146 + 80);
+        }
+
+        if (v148 == v147)
+        {
+          v151 = 0;
+        }
+
+        else
+        {
+          v150 = *(v146 + 104) + *(v146 + 96);
+          v151 = *(v147 + ((v150 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v150 & 0x7F);
+        }
+
+        *(v151 + 24) = 0;
+        operator new();
+      }
+
+      v245 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v245, "Cannot enqueue work after stream is stopped.");
+      __cxa_throw(v245, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    case 0xD:
+      v95 = mlx::core::cpu::get_command_encoder(a4, a5);
+      v96 = (*(v95 + 10) + 1) % 10;
+      *(v95 + 10) = v96;
+      v97 = mlx::core::scheduler::scheduler(v95);
+      if (v96)
+      {
+        v98 = *(v97[1] + 8 * *v95);
+        std::mutex::lock(v98);
+        if (*(v98 + 160) != 1)
+        {
+          v99 = *(v98 + 72);
+          v100 = *(v98 + 80);
+          v101 = 16 * (v100 - v99) - 1;
+          if (v100 == v99)
+          {
+            v101 = 0;
+          }
+
+          if (v101 == *(v98 + 104) + *(v98 + 96))
+          {
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v98 + 64));
+            v99 = *(v98 + 72);
+            v100 = *(v98 + 80);
+          }
+
+          if (v100 == v99)
+          {
+            v103 = 0;
+          }
+
+          else
+          {
+            v102 = *(v98 + 104) + *(v98 + 96);
+            v103 = *(v99 + ((v102 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v102 & 0x7F);
+          }
+
+          *(v103 + 24) = 0;
+          operator new();
+        }
+
+        v239 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v239, "Cannot enqueue work after stream is stopped.");
+        __cxa_throw(v239, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      }
+
+      mlx::core::scheduler::Scheduler::notify_new_task(v97);
+      v202 = *(mlx::core::scheduler::scheduler(v201)[1] + 8 * *v95);
+      std::mutex::lock(v202);
+      if (*(v202 + 160) != 1)
+      {
+        v203 = *(v202 + 72);
+        v204 = *(v202 + 80);
+        v205 = 16 * (v204 - v203) - 1;
+        if (v204 == v203)
+        {
+          v205 = 0;
+        }
+
+        if (v205 == *(v202 + 104) + *(v202 + 96))
+        {
+          std::deque<std::function<void ()(void)>>::__add_back_capacity((v202 + 64));
+          v203 = *(v202 + 72);
+          v204 = *(v202 + 80);
+        }
+
+        if (v204 == v203)
+        {
+          v207 = 0;
+        }
+
+        else
+        {
+          v206 = *(v202 + 104) + *(v202 + 96);
+          v207 = *(v203 + ((v206 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v206 & 0x7F);
+        }
+
+        *(v207 + 24) = 0;
+        operator new();
+      }
+
+      v253 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v253, "Cannot enqueue work after stream is stopped.");
+      __cxa_throw(v253, MEMORY[0x277D82760], MEMORY[0x277D82600]);
     default:
       return;
   }
@@ -1301,52 +1230,48 @@ void sub_25A2C6CC4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void mlx::core::distributed::ring::RingGroup::all_min(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, int a5)
+void mlx::core::distributed::ring::RingGroup::all_min(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, unsigned int a5)
 {
-  v5 = *a3;
   switch(*(*a3 + 56))
   {
     case 0:
-      v7 = *(*a2 + 152);
-      v8 = *(v5 + 152);
       command_encoder = mlx::core::cpu::get_command_encoder(a4, a5);
-      v10 = *(*a2 + 48);
-      v11 = (*(command_encoder + 10) + 1) % 10;
-      *(command_encoder + 10) = v11;
-      v12 = mlx::core::scheduler::scheduler(command_encoder);
-      if (v11)
+      v6 = (*(command_encoder + 10) + 1) % 10;
+      *(command_encoder + 10) = v6;
+      v7 = mlx::core::scheduler::scheduler(command_encoder);
+      if (v6)
       {
-        v13 = *(v12[1] + 8 * *command_encoder);
-        std::mutex::lock(v13);
-        if (*(v13 + 160) != 1)
+        v8 = *(v7[1] + 8 * *command_encoder);
+        std::mutex::lock(v8);
+        if (*(v8 + 160) != 1)
         {
-          v14 = *(v13 + 72);
-          v15 = *(v13 + 80);
-          v16 = 16 * (v15 - v14) - 1;
-          if (v15 == v14)
+          v9 = *(v8 + 72);
+          v10 = *(v8 + 80);
+          v11 = 16 * (v10 - v9) - 1;
+          if (v10 == v9)
           {
-            v16 = 0;
+            v11 = 0;
           }
 
-          if (v16 == *(v13 + 104) + *(v13 + 96))
+          if (v11 == *(v8 + 104) + *(v8 + 96))
           {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v13 + 64));
-            v14 = *(v13 + 72);
-            v15 = *(v13 + 80);
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v8 + 64));
+            v9 = *(v8 + 72);
+            v10 = *(v8 + 80);
           }
 
-          if (v15 == v14)
+          if (v10 == v9)
           {
-            v18 = 0;
+            v13 = 0;
           }
 
           else
           {
-            v17 = *(v13 + 104) + *(v13 + 96);
-            v18 = *(v14 + ((v17 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v17 & 0x7F);
+            v12 = *(v8 + 104) + *(v8 + 96);
+            v13 = *(v9 + ((v12 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v12 & 0x7F);
           }
 
-          *(v18 + 24) = 0;
+          *(v13 + 24) = 0;
           operator new();
         }
 
@@ -1355,1203 +1280,1136 @@ void mlx::core::distributed::ring::RingGroup::all_min(uint64_t a1, uint64_t a2, 
         __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
       }
 
-      mlx::core::scheduler::Scheduler::notify_new_task(v12);
-      v308 = *command_encoder;
-      v322 = *(command_encoder + 2);
-      v225 = *(*(mlx::core::scheduler::scheduler(v224) + 1) + 8 * *command_encoder);
-      std::mutex::lock(v225);
-      if (*(v225 + 160) != 1)
+      mlx::core::scheduler::Scheduler::notify_new_task(v7);
+      v181 = *(mlx::core::scheduler::scheduler(v180)[1] + 8 * *command_encoder);
+      std::mutex::lock(v181);
+      if (*(v181 + 160) != 1)
       {
-        v226 = *(v225 + 72);
-        v227 = *(v225 + 80);
-        v228 = 16 * (v227 - v226) - 1;
-        if (v227 == v226)
+        v182 = *(v181 + 72);
+        v183 = *(v181 + 80);
+        v184 = 16 * (v183 - v182) - 1;
+        if (v183 == v182)
         {
-          v228 = 0;
+          v184 = 0;
         }
 
-        if (v228 == *(v225 + 104) + *(v225 + 96))
+        if (v184 == *(v181 + 104) + *(v181 + 96))
         {
-          std::deque<std::function<void ()(void)>>::__add_back_capacity((v225 + 64));
-          v226 = *(v225 + 72);
-          v227 = *(v225 + 80);
+          std::deque<std::function<void ()(void)>>::__add_back_capacity((v181 + 64));
+          v182 = *(v181 + 72);
+          v183 = *(v181 + 80);
         }
 
-        if (v227 == v226)
-        {
-          v230 = 0;
-        }
-
-        else
-        {
-          v229 = *(v225 + 104) + *(v225 + 96);
-          v230 = *(v226 + ((v229 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v229 & 0x7F);
-        }
-
-        *(v230 + 24) = 0;
-        operator new();
-      }
-
-      v294 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v294, "Cannot enqueue work after stream is stopped.");
-      __cxa_throw(v294, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    case 1:
-      v103 = *(*a2 + 152);
-      v104 = *(v5 + 152);
-      v105 = mlx::core::cpu::get_command_encoder(a4, a5);
-      v106 = *(*a2 + 48);
-      v107 = (*(v105 + 10) + 1) % 10;
-      *(v105 + 10) = v107;
-      v108 = mlx::core::scheduler::scheduler(v105);
-      if (v107)
-      {
-        v109 = *(v108[1] + 8 * *v105);
-        std::mutex::lock(v109);
-        if (*(v109 + 160) != 1)
-        {
-          v110 = *(v109 + 72);
-          v111 = *(v109 + 80);
-          v112 = 16 * (v111 - v110) - 1;
-          if (v111 == v110)
-          {
-            v112 = 0;
-          }
-
-          if (v112 == *(v109 + 104) + *(v109 + 96))
-          {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v109 + 64));
-            v110 = *(v109 + 72);
-            v111 = *(v109 + 80);
-          }
-
-          if (v111 == v110)
-          {
-            v114 = 0;
-          }
-
-          else
-          {
-            v113 = *(v109 + 104) + *(v109 + 96);
-            v114 = *(v110 + ((v113 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v113 & 0x7F);
-          }
-
-          *(v114 + 24) = 0;
-          operator new();
-        }
-
-        v281 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v281, "Cannot enqueue work after stream is stopped.");
-        __cxa_throw(v281, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-      }
-
-      mlx::core::scheduler::Scheduler::notify_new_task(v108);
-      v309 = *v105;
-      v323 = *(v105 + 2);
-      v232 = *(*(mlx::core::scheduler::scheduler(v231) + 1) + 8 * *v105);
-      std::mutex::lock(v232);
-      if (*(v232 + 160) != 1)
-      {
-        v233 = *(v232 + 72);
-        v234 = *(v232 + 80);
-        v235 = 16 * (v234 - v233) - 1;
-        if (v234 == v233)
-        {
-          v235 = 0;
-        }
-
-        if (v235 == *(v232 + 104) + *(v232 + 96))
-        {
-          std::deque<std::function<void ()(void)>>::__add_back_capacity((v232 + 64));
-          v233 = *(v232 + 72);
-          v234 = *(v232 + 80);
-        }
-
-        if (v234 == v233)
-        {
-          v237 = 0;
-        }
-
-        else
-        {
-          v236 = *(v232 + 104) + *(v232 + 96);
-          v237 = *(v233 + ((v236 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v236 & 0x7F);
-        }
-
-        *(v237 + 24) = 0;
-        operator new();
-      }
-
-      v295 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v295, "Cannot enqueue work after stream is stopped.");
-      __cxa_throw(v295, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    case 2:
-      v67 = *(*a2 + 152);
-      v68 = *(v5 + 152);
-      v69 = mlx::core::cpu::get_command_encoder(a4, a5);
-      v70 = *(*a2 + 48);
-      v71 = (*(v69 + 10) + 1) % 10;
-      *(v69 + 10) = v71;
-      v72 = mlx::core::scheduler::scheduler(v69);
-      if (v71)
-      {
-        v73 = *(v72[1] + 8 * *v69);
-        std::mutex::lock(v73);
-        if (*(v73 + 160) != 1)
-        {
-          v74 = *(v73 + 72);
-          v75 = *(v73 + 80);
-          v76 = 16 * (v75 - v74) - 1;
-          if (v75 == v74)
-          {
-            v76 = 0;
-          }
-
-          if (v76 == *(v73 + 104) + *(v73 + 96))
-          {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v73 + 64));
-            v74 = *(v73 + 72);
-            v75 = *(v73 + 80);
-          }
-
-          if (v75 == v74)
-          {
-            v78 = 0;
-          }
-
-          else
-          {
-            v77 = *(v73 + 104) + *(v73 + 96);
-            v78 = *(v74 + ((v77 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v77 & 0x7F);
-          }
-
-          *(v78 + 24) = 0;
-          operator new();
-        }
-
-        v277 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v277, "Cannot enqueue work after stream is stopped.");
-        __cxa_throw(v277, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-      }
-
-      mlx::core::scheduler::Scheduler::notify_new_task(v72);
-      v305 = *v69;
-      v319 = *(v69 + 2);
-      v204 = *(*(mlx::core::scheduler::scheduler(v203) + 1) + 8 * *v69);
-      std::mutex::lock(v204);
-      if (*(v204 + 160) != 1)
-      {
-        v205 = *(v204 + 72);
-        v206 = *(v204 + 80);
-        v207 = 16 * (v206 - v205) - 1;
-        if (v206 == v205)
-        {
-          v207 = 0;
-        }
-
-        if (v207 == *(v204 + 104) + *(v204 + 96))
-        {
-          std::deque<std::function<void ()(void)>>::__add_back_capacity((v204 + 64));
-          v205 = *(v204 + 72);
-          v206 = *(v204 + 80);
-        }
-
-        if (v206 == v205)
-        {
-          v209 = 0;
-        }
-
-        else
-        {
-          v208 = *(v204 + 104) + *(v204 + 96);
-          v209 = *(v205 + ((v208 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v208 & 0x7F);
-        }
-
-        *(v209 + 24) = 0;
-        operator new();
-      }
-
-      v291 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v291, "Cannot enqueue work after stream is stopped.");
-      __cxa_throw(v291, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    case 3:
-      v79 = *(*a2 + 152);
-      v80 = *(v5 + 152);
-      v81 = mlx::core::cpu::get_command_encoder(a4, a5);
-      v82 = *(*a2 + 48);
-      v83 = (*(v81 + 10) + 1) % 10;
-      *(v81 + 10) = v83;
-      v84 = mlx::core::scheduler::scheduler(v81);
-      if (v83)
-      {
-        v85 = *(v84[1] + 8 * *v81);
-        std::mutex::lock(v85);
-        if (*(v85 + 160) != 1)
-        {
-          v86 = *(v85 + 72);
-          v87 = *(v85 + 80);
-          v88 = 16 * (v87 - v86) - 1;
-          if (v87 == v86)
-          {
-            v88 = 0;
-          }
-
-          if (v88 == *(v85 + 104) + *(v85 + 96))
-          {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v85 + 64));
-            v86 = *(v85 + 72);
-            v87 = *(v85 + 80);
-          }
-
-          if (v87 == v86)
-          {
-            v90 = 0;
-          }
-
-          else
-          {
-            v89 = *(v85 + 104) + *(v85 + 96);
-            v90 = *(v86 + ((v89 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v89 & 0x7F);
-          }
-
-          *(v90 + 24) = 0;
-          operator new();
-        }
-
-        v278 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v278, "Cannot enqueue work after stream is stopped.");
-        __cxa_throw(v278, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-      }
-
-      mlx::core::scheduler::Scheduler::notify_new_task(v84);
-      v306 = *v81;
-      v320 = *(v81 + 2);
-      v211 = *(*(mlx::core::scheduler::scheduler(v210) + 1) + 8 * *v81);
-      std::mutex::lock(v211);
-      if (*(v211 + 160) != 1)
-      {
-        v212 = *(v211 + 72);
-        v213 = *(v211 + 80);
-        v214 = 16 * (v213 - v212) - 1;
-        if (v213 == v212)
-        {
-          v214 = 0;
-        }
-
-        if (v214 == *(v211 + 104) + *(v211 + 96))
-        {
-          std::deque<std::function<void ()(void)>>::__add_back_capacity((v211 + 64));
-          v212 = *(v211 + 72);
-          v213 = *(v211 + 80);
-        }
-
-        if (v213 == v212)
-        {
-          v216 = 0;
-        }
-
-        else
-        {
-          v215 = *(v211 + 104) + *(v211 + 96);
-          v216 = *(v212 + ((v215 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v215 & 0x7F);
-        }
-
-        *(v216 + 24) = 0;
-        operator new();
-      }
-
-      v292 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v292, "Cannot enqueue work after stream is stopped.");
-      __cxa_throw(v292, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    case 4:
-      v31 = *(*a2 + 152);
-      v32 = *(v5 + 152);
-      v33 = mlx::core::cpu::get_command_encoder(a4, a5);
-      v34 = *(*a2 + 48);
-      v35 = (*(v33 + 10) + 1) % 10;
-      *(v33 + 10) = v35;
-      v36 = mlx::core::scheduler::scheduler(v33);
-      if (v35)
-      {
-        v37 = *(v36[1] + 8 * *v33);
-        std::mutex::lock(v37);
-        if (*(v37 + 160) != 1)
-        {
-          v38 = *(v37 + 72);
-          v39 = *(v37 + 80);
-          v40 = 16 * (v39 - v38) - 1;
-          if (v39 == v38)
-          {
-            v40 = 0;
-          }
-
-          if (v40 == *(v37 + 104) + *(v37 + 96))
-          {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v37 + 64));
-            v38 = *(v37 + 72);
-            v39 = *(v37 + 80);
-          }
-
-          if (v39 == v38)
-          {
-            v42 = 0;
-          }
-
-          else
-          {
-            v41 = *(v37 + 104) + *(v37 + 96);
-            v42 = *(v38 + ((v41 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v41 & 0x7F);
-          }
-
-          *(v42 + 24) = 0;
-          operator new();
-        }
-
-        v274 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v274, "Cannot enqueue work after stream is stopped.");
-        __cxa_throw(v274, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-      }
-
-      mlx::core::scheduler::Scheduler::notify_new_task(v36);
-      v302 = *v33;
-      v316 = *(v33 + 2);
-      v183 = *(*(mlx::core::scheduler::scheduler(v182) + 1) + 8 * *v33);
-      std::mutex::lock(v183);
-      if (*(v183 + 160) != 1)
-      {
-        v184 = *(v183 + 72);
-        v185 = *(v183 + 80);
-        v186 = 16 * (v185 - v184) - 1;
-        if (v185 == v184)
+        if (v183 == v182)
         {
           v186 = 0;
         }
 
-        if (v186 == *(v183 + 104) + *(v183 + 96))
-        {
-          std::deque<std::function<void ()(void)>>::__add_back_capacity((v183 + 64));
-          v184 = *(v183 + 72);
-          v185 = *(v183 + 80);
-        }
-
-        if (v185 == v184)
-        {
-          v188 = 0;
-        }
-
         else
         {
-          v187 = *(v183 + 104) + *(v183 + 96);
-          v188 = *(v184 + ((v187 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v187 & 0x7F);
+          v185 = *(v181 + 104) + *(v181 + 96);
+          v186 = *(v182 + ((v185 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v185 & 0x7F);
         }
 
-        *(v188 + 24) = 0;
+        *(v186 + 24) = 0;
         operator new();
       }
 
-      v288 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v288, "Cannot enqueue work after stream is stopped.");
-      __cxa_throw(v288, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    case 5:
-      v115 = *(*a2 + 152);
-      v116 = *(v5 + 152);
-      v117 = mlx::core::cpu::get_command_encoder(a4, a5);
-      v118 = *(*a2 + 48);
-      v119 = (*(v117 + 10) + 1) % 10;
-      *(v117 + 10) = v119;
-      v120 = mlx::core::scheduler::scheduler(v117);
-      if (v119)
+      v250 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v250, "Cannot enqueue work after stream is stopped.");
+      __cxa_throw(v250, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    case 1:
+      v77 = mlx::core::cpu::get_command_encoder(a4, a5);
+      v78 = (*(v77 + 10) + 1) % 10;
+      *(v77 + 10) = v78;
+      v79 = mlx::core::scheduler::scheduler(v77);
+      if (v78)
       {
-        v121 = *(v120[1] + 8 * *v117);
-        std::mutex::lock(v121);
-        if (*(v121 + 160) != 1)
+        v80 = *(v79[1] + 8 * *v77);
+        std::mutex::lock(v80);
+        if (*(v80 + 160) != 1)
         {
-          v122 = *(v121 + 72);
-          v123 = *(v121 + 80);
-          v124 = 16 * (v123 - v122) - 1;
-          if (v123 == v122)
+          v81 = *(v80 + 72);
+          v82 = *(v80 + 80);
+          v83 = 16 * (v82 - v81) - 1;
+          if (v82 == v81)
           {
-            v124 = 0;
+            v83 = 0;
           }
 
-          if (v124 == *(v121 + 104) + *(v121 + 96))
+          if (v83 == *(v80 + 104) + *(v80 + 96))
           {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v121 + 64));
-            v122 = *(v121 + 72);
-            v123 = *(v121 + 80);
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v80 + 64));
+            v81 = *(v80 + 72);
+            v82 = *(v80 + 80);
           }
 
-          if (v123 == v122)
+          if (v82 == v81)
           {
-            v126 = 0;
+            v85 = 0;
           }
 
           else
           {
-            v125 = *(v121 + 104) + *(v121 + 96);
-            v126 = *(v122 + ((v125 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v125 & 0x7F);
+            v84 = *(v80 + 104) + *(v80 + 96);
+            v85 = *(v81 + ((v84 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v84 & 0x7F);
           }
 
-          *(v126 + 24) = 0;
+          *(v85 + 24) = 0;
           operator new();
         }
 
-        v282 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v282, "Cannot enqueue work after stream is stopped.");
-        __cxa_throw(v282, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+        v237 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v237, "Cannot enqueue work after stream is stopped.");
+        __cxa_throw(v237, MEMORY[0x277D82760], MEMORY[0x277D82600]);
       }
 
-      mlx::core::scheduler::Scheduler::notify_new_task(v120);
-      v310 = *v117;
-      v324 = *(v117 + 2);
-      v239 = *(*(mlx::core::scheduler::scheduler(v238) + 1) + 8 * *v117);
-      std::mutex::lock(v239);
-      if (*(v239 + 160) != 1)
+      mlx::core::scheduler::Scheduler::notify_new_task(v79);
+      v188 = *(mlx::core::scheduler::scheduler(v187)[1] + 8 * *v77);
+      std::mutex::lock(v188);
+      if (*(v188 + 160) != 1)
       {
-        v240 = *(v239 + 72);
-        v241 = *(v239 + 80);
-        v242 = 16 * (v241 - v240) - 1;
-        if (v241 == v240)
+        v189 = *(v188 + 72);
+        v190 = *(v188 + 80);
+        v191 = 16 * (v190 - v189) - 1;
+        if (v190 == v189)
         {
-          v242 = 0;
+          v191 = 0;
         }
 
-        if (v242 == *(v239 + 104) + *(v239 + 96))
+        if (v191 == *(v188 + 104) + *(v188 + 96))
         {
-          std::deque<std::function<void ()(void)>>::__add_back_capacity((v239 + 64));
-          v240 = *(v239 + 72);
-          v241 = *(v239 + 80);
+          std::deque<std::function<void ()(void)>>::__add_back_capacity((v188 + 64));
+          v189 = *(v188 + 72);
+          v190 = *(v188 + 80);
         }
 
-        if (v241 == v240)
-        {
-          v244 = 0;
-        }
-
-        else
-        {
-          v243 = *(v239 + 104) + *(v239 + 96);
-          v244 = *(v240 + ((v243 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v243 & 0x7F);
-        }
-
-        *(v244 + 24) = 0;
-        operator new();
-      }
-
-      v296 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v296, "Cannot enqueue work after stream is stopped.");
-      __cxa_throw(v296, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    case 6:
-      v139 = *(*a2 + 152);
-      v140 = *(v5 + 152);
-      v141 = mlx::core::cpu::get_command_encoder(a4, a5);
-      v142 = *(*a2 + 48);
-      v143 = (*(v141 + 10) + 1) % 10;
-      *(v141 + 10) = v143;
-      v144 = mlx::core::scheduler::scheduler(v141);
-      if (v143)
-      {
-        v145 = *(v144[1] + 8 * *v141);
-        std::mutex::lock(v145);
-        if (*(v145 + 160) != 1)
-        {
-          v146 = *(v145 + 72);
-          v147 = *(v145 + 80);
-          v148 = 16 * (v147 - v146) - 1;
-          if (v147 == v146)
-          {
-            v148 = 0;
-          }
-
-          if (v148 == *(v145 + 104) + *(v145 + 96))
-          {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v145 + 64));
-            v146 = *(v145 + 72);
-            v147 = *(v145 + 80);
-          }
-
-          if (v147 == v146)
-          {
-            v150 = 0;
-          }
-
-          else
-          {
-            v149 = *(v145 + 104) + *(v145 + 96);
-            v150 = *(v146 + ((v149 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v149 & 0x7F);
-          }
-
-          *(v150 + 24) = 0;
-          operator new();
-        }
-
-        v284 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v284, "Cannot enqueue work after stream is stopped.");
-        __cxa_throw(v284, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-      }
-
-      mlx::core::scheduler::Scheduler::notify_new_task(v144);
-      v312 = *v141;
-      v326 = *(v141 + 2);
-      v253 = *(*(mlx::core::scheduler::scheduler(v252) + 1) + 8 * *v141);
-      std::mutex::lock(v253);
-      if (*(v253 + 160) != 1)
-      {
-        v254 = *(v253 + 72);
-        v255 = *(v253 + 80);
-        v256 = 16 * (v255 - v254) - 1;
-        if (v255 == v254)
-        {
-          v256 = 0;
-        }
-
-        if (v256 == *(v253 + 104) + *(v253 + 96))
-        {
-          std::deque<std::function<void ()(void)>>::__add_back_capacity((v253 + 64));
-          v254 = *(v253 + 72);
-          v255 = *(v253 + 80);
-        }
-
-        if (v255 == v254)
-        {
-          v258 = 0;
-        }
-
-        else
-        {
-          v257 = *(v253 + 104) + *(v253 + 96);
-          v258 = *(v254 + ((v257 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v257 & 0x7F);
-        }
-
-        *(v258 + 24) = 0;
-        operator new();
-      }
-
-      v298 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v298, "Cannot enqueue work after stream is stopped.");
-      __cxa_throw(v298, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    case 7:
-      v91 = *(*a2 + 152);
-      v92 = *(v5 + 152);
-      v93 = mlx::core::cpu::get_command_encoder(a4, a5);
-      v94 = *(*a2 + 48);
-      v95 = (*(v93 + 10) + 1) % 10;
-      *(v93 + 10) = v95;
-      v96 = mlx::core::scheduler::scheduler(v93);
-      if (v95)
-      {
-        v97 = *(v96[1] + 8 * *v93);
-        std::mutex::lock(v97);
-        if (*(v97 + 160) != 1)
-        {
-          v98 = *(v97 + 72);
-          v99 = *(v97 + 80);
-          v100 = 16 * (v99 - v98) - 1;
-          if (v99 == v98)
-          {
-            v100 = 0;
-          }
-
-          if (v100 == *(v97 + 104) + *(v97 + 96))
-          {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v97 + 64));
-            v98 = *(v97 + 72);
-            v99 = *(v97 + 80);
-          }
-
-          if (v99 == v98)
-          {
-            v102 = 0;
-          }
-
-          else
-          {
-            v101 = *(v97 + 104) + *(v97 + 96);
-            v102 = *(v98 + ((v101 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v101 & 0x7F);
-          }
-
-          *(v102 + 24) = 0;
-          operator new();
-        }
-
-        v280 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v280, "Cannot enqueue work after stream is stopped.");
-        __cxa_throw(v280, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-      }
-
-      mlx::core::scheduler::Scheduler::notify_new_task(v96);
-      v307 = *v93;
-      v321 = *(v93 + 2);
-      v218 = *(*(mlx::core::scheduler::scheduler(v217) + 1) + 8 * *v93);
-      std::mutex::lock(v218);
-      if (*(v218 + 160) != 1)
-      {
-        v219 = *(v218 + 72);
-        v220 = *(v218 + 80);
-        v221 = 16 * (v220 - v219) - 1;
-        if (v220 == v219)
-        {
-          v221 = 0;
-        }
-
-        if (v221 == *(v218 + 104) + *(v218 + 96))
-        {
-          std::deque<std::function<void ()(void)>>::__add_back_capacity((v218 + 64));
-          v219 = *(v218 + 72);
-          v220 = *(v218 + 80);
-        }
-
-        if (v220 == v219)
-        {
-          v223 = 0;
-        }
-
-        else
-        {
-          v222 = *(v218 + 104) + *(v218 + 96);
-          v223 = *(v219 + ((v222 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v222 & 0x7F);
-        }
-
-        *(v223 + 24) = 0;
-        operator new();
-      }
-
-      v293 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v293, "Cannot enqueue work after stream is stopped.");
-      __cxa_throw(v293, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    case 8:
-      v163 = *(*a2 + 152);
-      v164 = *(v5 + 152);
-      v165 = mlx::core::cpu::get_command_encoder(a4, a5);
-      v166 = *(*a2 + 48);
-      v167 = (*(v165 + 10) + 1) % 10;
-      *(v165 + 10) = v167;
-      v168 = mlx::core::scheduler::scheduler(v165);
-      if (v167)
-      {
-        v169 = *(v168[1] + 8 * *v165);
-        std::mutex::lock(v169);
-        if (*(v169 + 160) != 1)
-        {
-          v170 = *(v169 + 72);
-          v171 = *(v169 + 80);
-          v172 = 16 * (v171 - v170) - 1;
-          if (v171 == v170)
-          {
-            v172 = 0;
-          }
-
-          if (v172 == *(v169 + 104) + *(v169 + 96))
-          {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v169 + 64));
-            v170 = *(v169 + 72);
-            v171 = *(v169 + 80);
-          }
-
-          if (v171 == v170)
-          {
-            v174 = 0;
-          }
-
-          else
-          {
-            v173 = *(v169 + 104) + *(v169 + 96);
-            v174 = *(v170 + ((v173 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v173 & 0x7F);
-          }
-
-          *(v174 + 24) = 0;
-          operator new();
-        }
-
-        v286 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v286, "Cannot enqueue work after stream is stopped.");
-        __cxa_throw(v286, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-      }
-
-      mlx::core::scheduler::Scheduler::notify_new_task(v168);
-      v314 = *v165;
-      v328 = *(v165 + 2);
-      v267 = *(*(mlx::core::scheduler::scheduler(v266) + 1) + 8 * *v165);
-      std::mutex::lock(v267);
-      if (*(v267 + 160) != 1)
-      {
-        v268 = *(v267 + 72);
-        v269 = *(v267 + 80);
-        v270 = 16 * (v269 - v268) - 1;
-        if (v269 == v268)
-        {
-          v270 = 0;
-        }
-
-        if (v270 == *(v267 + 104) + *(v267 + 96))
-        {
-          std::deque<std::function<void ()(void)>>::__add_back_capacity((v267 + 64));
-          v268 = *(v267 + 72);
-          v269 = *(v267 + 80);
-        }
-
-        if (v269 == v268)
-        {
-          v272 = 0;
-        }
-
-        else
-        {
-          v271 = *(v267 + 104) + *(v267 + 96);
-          v272 = *(v268 + ((v271 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v271 & 0x7F);
-        }
-
-        *(v272 + 24) = 0;
-        operator new();
-      }
-
-      v300 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v300, "Cannot enqueue work after stream is stopped.");
-      __cxa_throw(v300, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    case 9:
-      v55 = *(*a2 + 152);
-      v56 = *(v5 + 152);
-      v57 = mlx::core::cpu::get_command_encoder(a4, a5);
-      v58 = *(*a2 + 48);
-      v59 = (*(v57 + 10) + 1) % 10;
-      *(v57 + 10) = v59;
-      v60 = mlx::core::scheduler::scheduler(v57);
-      if (v59)
-      {
-        v61 = *(v60[1] + 8 * *v57);
-        std::mutex::lock(v61);
-        if (*(v61 + 160) != 1)
-        {
-          v62 = *(v61 + 72);
-          v63 = *(v61 + 80);
-          v64 = 16 * (v63 - v62) - 1;
-          if (v63 == v62)
-          {
-            v64 = 0;
-          }
-
-          if (v64 == *(v61 + 104) + *(v61 + 96))
-          {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v61 + 64));
-            v62 = *(v61 + 72);
-            v63 = *(v61 + 80);
-          }
-
-          if (v63 == v62)
-          {
-            v66 = 0;
-          }
-
-          else
-          {
-            v65 = *(v61 + 104) + *(v61 + 96);
-            v66 = *(v62 + ((v65 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v65 & 0x7F);
-          }
-
-          *(v66 + 24) = 0;
-          operator new();
-        }
-
-        v276 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v276, "Cannot enqueue work after stream is stopped.");
-        __cxa_throw(v276, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-      }
-
-      mlx::core::scheduler::Scheduler::notify_new_task(v60);
-      v304 = *v57;
-      v318 = *(v57 + 2);
-      v197 = *(*(mlx::core::scheduler::scheduler(v196) + 1) + 8 * *v57);
-      std::mutex::lock(v197);
-      if (*(v197 + 160) != 1)
-      {
-        v198 = *(v197 + 72);
-        v199 = *(v197 + 80);
-        v200 = 16 * (v199 - v198) - 1;
-        if (v199 == v198)
-        {
-          v200 = 0;
-        }
-
-        if (v200 == *(v197 + 104) + *(v197 + 96))
-        {
-          std::deque<std::function<void ()(void)>>::__add_back_capacity((v197 + 64));
-          v198 = *(v197 + 72);
-          v199 = *(v197 + 80);
-        }
-
-        if (v199 == v198)
-        {
-          v202 = 0;
-        }
-
-        else
-        {
-          v201 = *(v197 + 104) + *(v197 + 96);
-          v202 = *(v198 + ((v201 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v201 & 0x7F);
-        }
-
-        *(v202 + 24) = 0;
-        operator new();
-      }
-
-      v290 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v290, "Cannot enqueue work after stream is stopped.");
-      __cxa_throw(v290, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    case 0xA:
-      v151 = *(*a2 + 152);
-      v152 = *(v5 + 152);
-      v153 = mlx::core::cpu::get_command_encoder(a4, a5);
-      v154 = *(*a2 + 48);
-      v155 = (*(v153 + 10) + 1) % 10;
-      *(v153 + 10) = v155;
-      v156 = mlx::core::scheduler::scheduler(v153);
-      if (v155)
-      {
-        v157 = *(v156[1] + 8 * *v153);
-        std::mutex::lock(v157);
-        if (*(v157 + 160) != 1)
-        {
-          v158 = *(v157 + 72);
-          v159 = *(v157 + 80);
-          v160 = 16 * (v159 - v158) - 1;
-          if (v159 == v158)
-          {
-            v160 = 0;
-          }
-
-          if (v160 == *(v157 + 104) + *(v157 + 96))
-          {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v157 + 64));
-            v158 = *(v157 + 72);
-            v159 = *(v157 + 80);
-          }
-
-          if (v159 == v158)
-          {
-            v162 = 0;
-          }
-
-          else
-          {
-            v161 = *(v157 + 104) + *(v157 + 96);
-            v162 = *(v158 + ((v161 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v161 & 0x7F);
-          }
-
-          *(v162 + 24) = 0;
-          operator new();
-        }
-
-        v285 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v285, "Cannot enqueue work after stream is stopped.");
-        __cxa_throw(v285, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-      }
-
-      mlx::core::scheduler::Scheduler::notify_new_task(v156);
-      v313 = *v153;
-      v327 = *(v153 + 2);
-      v260 = *(*(mlx::core::scheduler::scheduler(v259) + 1) + 8 * *v153);
-      std::mutex::lock(v260);
-      if (*(v260 + 160) != 1)
-      {
-        v261 = *(v260 + 72);
-        v262 = *(v260 + 80);
-        v263 = 16 * (v262 - v261) - 1;
-        if (v262 == v261)
-        {
-          v263 = 0;
-        }
-
-        if (v263 == *(v260 + 104) + *(v260 + 96))
-        {
-          std::deque<std::function<void ()(void)>>::__add_back_capacity((v260 + 64));
-          v261 = *(v260 + 72);
-          v262 = *(v260 + 80);
-        }
-
-        if (v262 == v261)
-        {
-          v265 = 0;
-        }
-
-        else
-        {
-          v264 = *(v260 + 104) + *(v260 + 96);
-          v265 = *(v261 + ((v264 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v264 & 0x7F);
-        }
-
-        *(v265 + 24) = 0;
-        operator new();
-      }
-
-      v299 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v299, "Cannot enqueue work after stream is stopped.");
-      __cxa_throw(v299, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    case 0xB:
-      v19 = *(*a2 + 152);
-      v20 = *(v5 + 152);
-      v21 = mlx::core::cpu::get_command_encoder(a4, a5);
-      v22 = *(*a2 + 48);
-      v23 = (*(v21 + 10) + 1) % 10;
-      *(v21 + 10) = v23;
-      v24 = mlx::core::scheduler::scheduler(v21);
-      if (v23)
-      {
-        v25 = *(v24[1] + 8 * *v21);
-        std::mutex::lock(v25);
-        if (*(v25 + 160) != 1)
-        {
-          v26 = *(v25 + 72);
-          v27 = *(v25 + 80);
-          v28 = 16 * (v27 - v26) - 1;
-          if (v27 == v26)
-          {
-            v28 = 0;
-          }
-
-          if (v28 == *(v25 + 104) + *(v25 + 96))
-          {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v25 + 64));
-            v26 = *(v25 + 72);
-            v27 = *(v25 + 80);
-          }
-
-          if (v27 == v26)
-          {
-            v30 = 0;
-          }
-
-          else
-          {
-            v29 = *(v25 + 104) + *(v25 + 96);
-            v30 = *(v26 + ((v29 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v29 & 0x7F);
-          }
-
-          *(v30 + 24) = 0;
-          operator new();
-        }
-
-        v273 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v273, "Cannot enqueue work after stream is stopped.");
-        __cxa_throw(v273, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-      }
-
-      mlx::core::scheduler::Scheduler::notify_new_task(v24);
-      v301 = *v21;
-      v315 = *(v21 + 2);
-      v176 = *(*(mlx::core::scheduler::scheduler(v175) + 1) + 8 * *v21);
-      std::mutex::lock(v176);
-      if (*(v176 + 160) != 1)
-      {
-        v177 = *(v176 + 72);
-        v178 = *(v176 + 80);
-        v179 = 16 * (v178 - v177) - 1;
-        if (v178 == v177)
-        {
-          v179 = 0;
-        }
-
-        if (v179 == *(v176 + 104) + *(v176 + 96))
-        {
-          std::deque<std::function<void ()(void)>>::__add_back_capacity((v176 + 64));
-          v177 = *(v176 + 72);
-          v178 = *(v176 + 80);
-        }
-
-        if (v178 == v177)
-        {
-          v181 = 0;
-        }
-
-        else
-        {
-          v180 = *(v176 + 104) + *(v176 + 96);
-          v181 = *(v177 + ((v180 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v180 & 0x7F);
-        }
-
-        *(v181 + 24) = 0;
-        operator new();
-      }
-
-      v287 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v287, "Cannot enqueue work after stream is stopped.");
-      __cxa_throw(v287, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    case 0xC:
-      v43 = *(*a2 + 152);
-      v44 = *(v5 + 152);
-      v45 = mlx::core::cpu::get_command_encoder(a4, a5);
-      v46 = *(*a2 + 48);
-      v47 = (*(v45 + 10) + 1) % 10;
-      *(v45 + 10) = v47;
-      v48 = mlx::core::scheduler::scheduler(v45);
-      if (v47)
-      {
-        v49 = *(v48[1] + 8 * *v45);
-        std::mutex::lock(v49);
-        if (*(v49 + 160) != 1)
-        {
-          v50 = *(v49 + 72);
-          v51 = *(v49 + 80);
-          v52 = 16 * (v51 - v50) - 1;
-          if (v51 == v50)
-          {
-            v52 = 0;
-          }
-
-          if (v52 == *(v49 + 104) + *(v49 + 96))
-          {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v49 + 64));
-            v50 = *(v49 + 72);
-            v51 = *(v49 + 80);
-          }
-
-          if (v51 == v50)
-          {
-            v54 = 0;
-          }
-
-          else
-          {
-            v53 = *(v49 + 104) + *(v49 + 96);
-            v54 = *(v50 + ((v53 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v53 & 0x7F);
-          }
-
-          *(v54 + 24) = 0;
-          operator new();
-        }
-
-        v275 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v275, "Cannot enqueue work after stream is stopped.");
-        __cxa_throw(v275, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-      }
-
-      mlx::core::scheduler::Scheduler::notify_new_task(v48);
-      v303 = *v45;
-      v317 = *(v45 + 2);
-      v190 = *(*(mlx::core::scheduler::scheduler(v189) + 1) + 8 * *v45);
-      std::mutex::lock(v190);
-      if (*(v190 + 160) != 1)
-      {
-        v191 = *(v190 + 72);
-        v192 = *(v190 + 80);
-        v193 = 16 * (v192 - v191) - 1;
-        if (v192 == v191)
+        if (v190 == v189)
         {
           v193 = 0;
         }
 
-        if (v193 == *(v190 + 104) + *(v190 + 96))
-        {
-          std::deque<std::function<void ()(void)>>::__add_back_capacity((v190 + 64));
-          v191 = *(v190 + 72);
-          v192 = *(v190 + 80);
-        }
-
-        if (v192 == v191)
-        {
-          v195 = 0;
-        }
-
         else
         {
-          v194 = *(v190 + 104) + *(v190 + 96);
-          v195 = *(v191 + ((v194 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v194 & 0x7F);
+          v192 = *(v188 + 104) + *(v188 + 96);
+          v193 = *(v189 + ((v192 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v192 & 0x7F);
         }
 
-        *(v195 + 24) = 0;
+        *(v193 + 24) = 0;
         operator new();
       }
 
-      v289 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v289, "Cannot enqueue work after stream is stopped.");
-      __cxa_throw(v289, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    case 0xD:
-      v127 = *(*a2 + 152);
-      v128 = *(v5 + 152);
-      v129 = mlx::core::cpu::get_command_encoder(a4, a5);
-      v130 = *(*a2 + 48);
-      v131 = (*(v129 + 10) + 1) % 10;
-      *(v129 + 10) = v131;
-      v132 = mlx::core::scheduler::scheduler(v129);
-      if (v131)
+      v251 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v251, "Cannot enqueue work after stream is stopped.");
+      __cxa_throw(v251, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    case 2:
+      v50 = mlx::core::cpu::get_command_encoder(a4, a5);
+      v51 = (*(v50 + 10) + 1) % 10;
+      *(v50 + 10) = v51;
+      v52 = mlx::core::scheduler::scheduler(v50);
+      if (v51)
       {
-        v133 = *(v132[1] + 8 * *v129);
-        std::mutex::lock(v133);
-        if (*(v133 + 160) != 1)
+        v53 = *(v52[1] + 8 * *v50);
+        std::mutex::lock(v53);
+        if (*(v53 + 160) != 1)
         {
-          v134 = *(v133 + 72);
-          v135 = *(v133 + 80);
-          v136 = 16 * (v135 - v134) - 1;
-          if (v135 == v134)
+          v54 = *(v53 + 72);
+          v55 = *(v53 + 80);
+          v56 = 16 * (v55 - v54) - 1;
+          if (v55 == v54)
           {
-            v136 = 0;
+            v56 = 0;
           }
 
-          if (v136 == *(v133 + 104) + *(v133 + 96))
+          if (v56 == *(v53 + 104) + *(v53 + 96))
           {
-            std::deque<std::function<void ()(void)>>::__add_back_capacity((v133 + 64));
-            v134 = *(v133 + 72);
-            v135 = *(v133 + 80);
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v53 + 64));
+            v54 = *(v53 + 72);
+            v55 = *(v53 + 80);
           }
 
-          if (v135 == v134)
+          if (v55 == v54)
           {
-            v138 = 0;
+            v58 = 0;
           }
 
           else
           {
-            v137 = *(v133 + 104) + *(v133 + 96);
-            v138 = *(v134 + ((v137 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v137 & 0x7F);
+            v57 = *(v53 + 104) + *(v53 + 96);
+            v58 = *(v54 + ((v57 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v57 & 0x7F);
           }
 
-          *(v138 + 24) = 0;
+          *(v58 + 24) = 0;
           operator new();
         }
 
-        v283 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v283, "Cannot enqueue work after stream is stopped.");
-        __cxa_throw(v283, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+        v233 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v233, "Cannot enqueue work after stream is stopped.");
+        __cxa_throw(v233, MEMORY[0x277D82760], MEMORY[0x277D82600]);
       }
 
-      mlx::core::scheduler::Scheduler::notify_new_task(v132);
-      v311 = *v129;
-      v325 = *(v129 + 2);
-      v246 = *(*(mlx::core::scheduler::scheduler(v245) + 1) + 8 * *v129);
-      std::mutex::lock(v246);
-      if (*(v246 + 160) != 1)
+      mlx::core::scheduler::Scheduler::notify_new_task(v52);
+      v160 = *(mlx::core::scheduler::scheduler(v159)[1] + 8 * *v50);
+      std::mutex::lock(v160);
+      if (*(v160 + 160) != 1)
       {
-        v247 = *(v246 + 72);
-        v248 = *(v246 + 80);
-        v249 = 16 * (v248 - v247) - 1;
-        if (v248 == v247)
+        v161 = *(v160 + 72);
+        v162 = *(v160 + 80);
+        v163 = 16 * (v162 - v161) - 1;
+        if (v162 == v161)
         {
-          v249 = 0;
+          v163 = 0;
         }
 
-        if (v249 == *(v246 + 104) + *(v246 + 96))
+        if (v163 == *(v160 + 104) + *(v160 + 96))
         {
-          std::deque<std::function<void ()(void)>>::__add_back_capacity((v246 + 64));
-          v247 = *(v246 + 72);
-          v248 = *(v246 + 80);
+          std::deque<std::function<void ()(void)>>::__add_back_capacity((v160 + 64));
+          v161 = *(v160 + 72);
+          v162 = *(v160 + 80);
         }
 
-        if (v248 == v247)
+        if (v162 == v161)
         {
-          v251 = 0;
+          v165 = 0;
         }
 
         else
         {
-          v250 = *(v246 + 104) + *(v246 + 96);
-          v251 = *(v247 + ((v250 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v250 & 0x7F);
+          v164 = *(v160 + 104) + *(v160 + 96);
+          v165 = *(v161 + ((v164 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v164 & 0x7F);
         }
 
-        *(v251 + 24) = 0;
+        *(v165 + 24) = 0;
         operator new();
       }
 
-      v297 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v297, "Cannot enqueue work after stream is stopped.");
-      __cxa_throw(v297, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      v247 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v247, "Cannot enqueue work after stream is stopped.");
+      __cxa_throw(v247, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    case 3:
+      v59 = mlx::core::cpu::get_command_encoder(a4, a5);
+      v60 = (*(v59 + 10) + 1) % 10;
+      *(v59 + 10) = v60;
+      v61 = mlx::core::scheduler::scheduler(v59);
+      if (v60)
+      {
+        v62 = *(v61[1] + 8 * *v59);
+        std::mutex::lock(v62);
+        if (*(v62 + 160) != 1)
+        {
+          v63 = *(v62 + 72);
+          v64 = *(v62 + 80);
+          v65 = 16 * (v64 - v63) - 1;
+          if (v64 == v63)
+          {
+            v65 = 0;
+          }
+
+          if (v65 == *(v62 + 104) + *(v62 + 96))
+          {
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v62 + 64));
+            v63 = *(v62 + 72);
+            v64 = *(v62 + 80);
+          }
+
+          if (v64 == v63)
+          {
+            v67 = 0;
+          }
+
+          else
+          {
+            v66 = *(v62 + 104) + *(v62 + 96);
+            v67 = *(v63 + ((v66 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v66 & 0x7F);
+          }
+
+          *(v67 + 24) = 0;
+          operator new();
+        }
+
+        v234 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v234, "Cannot enqueue work after stream is stopped.");
+        __cxa_throw(v234, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      }
+
+      mlx::core::scheduler::Scheduler::notify_new_task(v61);
+      v167 = *(mlx::core::scheduler::scheduler(v166)[1] + 8 * *v59);
+      std::mutex::lock(v167);
+      if (*(v167 + 160) != 1)
+      {
+        v168 = *(v167 + 72);
+        v169 = *(v167 + 80);
+        v170 = 16 * (v169 - v168) - 1;
+        if (v169 == v168)
+        {
+          v170 = 0;
+        }
+
+        if (v170 == *(v167 + 104) + *(v167 + 96))
+        {
+          std::deque<std::function<void ()(void)>>::__add_back_capacity((v167 + 64));
+          v168 = *(v167 + 72);
+          v169 = *(v167 + 80);
+        }
+
+        if (v169 == v168)
+        {
+          v172 = 0;
+        }
+
+        else
+        {
+          v171 = *(v167 + 104) + *(v167 + 96);
+          v172 = *(v168 + ((v171 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v171 & 0x7F);
+        }
+
+        *(v172 + 24) = 0;
+        operator new();
+      }
+
+      v248 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v248, "Cannot enqueue work after stream is stopped.");
+      __cxa_throw(v248, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    case 4:
+      v23 = mlx::core::cpu::get_command_encoder(a4, a5);
+      v24 = (*(v23 + 10) + 1) % 10;
+      *(v23 + 10) = v24;
+      v25 = mlx::core::scheduler::scheduler(v23);
+      if (v24)
+      {
+        v26 = *(v25[1] + 8 * *v23);
+        std::mutex::lock(v26);
+        if (*(v26 + 160) != 1)
+        {
+          v27 = *(v26 + 72);
+          v28 = *(v26 + 80);
+          v29 = 16 * (v28 - v27) - 1;
+          if (v28 == v27)
+          {
+            v29 = 0;
+          }
+
+          if (v29 == *(v26 + 104) + *(v26 + 96))
+          {
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v26 + 64));
+            v27 = *(v26 + 72);
+            v28 = *(v26 + 80);
+          }
+
+          if (v28 == v27)
+          {
+            v31 = 0;
+          }
+
+          else
+          {
+            v30 = *(v26 + 104) + *(v26 + 96);
+            v31 = *(v27 + ((v30 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v30 & 0x7F);
+          }
+
+          *(v31 + 24) = 0;
+          operator new();
+        }
+
+        v230 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v230, "Cannot enqueue work after stream is stopped.");
+        __cxa_throw(v230, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      }
+
+      mlx::core::scheduler::Scheduler::notify_new_task(v25);
+      v139 = *(mlx::core::scheduler::scheduler(v138)[1] + 8 * *v23);
+      std::mutex::lock(v139);
+      if (*(v139 + 160) != 1)
+      {
+        v140 = *(v139 + 72);
+        v141 = *(v139 + 80);
+        v142 = 16 * (v141 - v140) - 1;
+        if (v141 == v140)
+        {
+          v142 = 0;
+        }
+
+        if (v142 == *(v139 + 104) + *(v139 + 96))
+        {
+          std::deque<std::function<void ()(void)>>::__add_back_capacity((v139 + 64));
+          v140 = *(v139 + 72);
+          v141 = *(v139 + 80);
+        }
+
+        if (v141 == v140)
+        {
+          v144 = 0;
+        }
+
+        else
+        {
+          v143 = *(v139 + 104) + *(v139 + 96);
+          v144 = *(v140 + ((v143 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v143 & 0x7F);
+        }
+
+        *(v144 + 24) = 0;
+        operator new();
+      }
+
+      v244 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v244, "Cannot enqueue work after stream is stopped.");
+      __cxa_throw(v244, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    case 5:
+      v86 = mlx::core::cpu::get_command_encoder(a4, a5);
+      v87 = (*(v86 + 10) + 1) % 10;
+      *(v86 + 10) = v87;
+      v88 = mlx::core::scheduler::scheduler(v86);
+      if (v87)
+      {
+        v89 = *(v88[1] + 8 * *v86);
+        std::mutex::lock(v89);
+        if (*(v89 + 160) != 1)
+        {
+          v90 = *(v89 + 72);
+          v91 = *(v89 + 80);
+          v92 = 16 * (v91 - v90) - 1;
+          if (v91 == v90)
+          {
+            v92 = 0;
+          }
+
+          if (v92 == *(v89 + 104) + *(v89 + 96))
+          {
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v89 + 64));
+            v90 = *(v89 + 72);
+            v91 = *(v89 + 80);
+          }
+
+          if (v91 == v90)
+          {
+            v94 = 0;
+          }
+
+          else
+          {
+            v93 = *(v89 + 104) + *(v89 + 96);
+            v94 = *(v90 + ((v93 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v93 & 0x7F);
+          }
+
+          *(v94 + 24) = 0;
+          operator new();
+        }
+
+        v238 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v238, "Cannot enqueue work after stream is stopped.");
+        __cxa_throw(v238, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      }
+
+      mlx::core::scheduler::Scheduler::notify_new_task(v88);
+      v195 = *(mlx::core::scheduler::scheduler(v194)[1] + 8 * *v86);
+      std::mutex::lock(v195);
+      if (*(v195 + 160) != 1)
+      {
+        v196 = *(v195 + 72);
+        v197 = *(v195 + 80);
+        v198 = 16 * (v197 - v196) - 1;
+        if (v197 == v196)
+        {
+          v198 = 0;
+        }
+
+        if (v198 == *(v195 + 104) + *(v195 + 96))
+        {
+          std::deque<std::function<void ()(void)>>::__add_back_capacity((v195 + 64));
+          v196 = *(v195 + 72);
+          v197 = *(v195 + 80);
+        }
+
+        if (v197 == v196)
+        {
+          v200 = 0;
+        }
+
+        else
+        {
+          v199 = *(v195 + 104) + *(v195 + 96);
+          v200 = *(v196 + ((v199 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v199 & 0x7F);
+        }
+
+        *(v200 + 24) = 0;
+        operator new();
+      }
+
+      v252 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v252, "Cannot enqueue work after stream is stopped.");
+      __cxa_throw(v252, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    case 6:
+      v104 = mlx::core::cpu::get_command_encoder(a4, a5);
+      v105 = (*(v104 + 10) + 1) % 10;
+      *(v104 + 10) = v105;
+      v106 = mlx::core::scheduler::scheduler(v104);
+      if (v105)
+      {
+        v107 = *(v106[1] + 8 * *v104);
+        std::mutex::lock(v107);
+        if (*(v107 + 160) != 1)
+        {
+          v108 = *(v107 + 72);
+          v109 = *(v107 + 80);
+          v110 = 16 * (v109 - v108) - 1;
+          if (v109 == v108)
+          {
+            v110 = 0;
+          }
+
+          if (v110 == *(v107 + 104) + *(v107 + 96))
+          {
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v107 + 64));
+            v108 = *(v107 + 72);
+            v109 = *(v107 + 80);
+          }
+
+          if (v109 == v108)
+          {
+            v112 = 0;
+          }
+
+          else
+          {
+            v111 = *(v107 + 104) + *(v107 + 96);
+            v112 = *(v108 + ((v111 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v111 & 0x7F);
+          }
+
+          *(v112 + 24) = 0;
+          operator new();
+        }
+
+        v240 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v240, "Cannot enqueue work after stream is stopped.");
+        __cxa_throw(v240, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      }
+
+      mlx::core::scheduler::Scheduler::notify_new_task(v106);
+      v209 = *(mlx::core::scheduler::scheduler(v208)[1] + 8 * *v104);
+      std::mutex::lock(v209);
+      if (*(v209 + 160) != 1)
+      {
+        v210 = *(v209 + 72);
+        v211 = *(v209 + 80);
+        v212 = 16 * (v211 - v210) - 1;
+        if (v211 == v210)
+        {
+          v212 = 0;
+        }
+
+        if (v212 == *(v209 + 104) + *(v209 + 96))
+        {
+          std::deque<std::function<void ()(void)>>::__add_back_capacity((v209 + 64));
+          v210 = *(v209 + 72);
+          v211 = *(v209 + 80);
+        }
+
+        if (v211 == v210)
+        {
+          v214 = 0;
+        }
+
+        else
+        {
+          v213 = *(v209 + 104) + *(v209 + 96);
+          v214 = *(v210 + ((v213 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v213 & 0x7F);
+        }
+
+        *(v214 + 24) = 0;
+        operator new();
+      }
+
+      v254 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v254, "Cannot enqueue work after stream is stopped.");
+      __cxa_throw(v254, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    case 7:
+      v68 = mlx::core::cpu::get_command_encoder(a4, a5);
+      v69 = (*(v68 + 10) + 1) % 10;
+      *(v68 + 10) = v69;
+      v70 = mlx::core::scheduler::scheduler(v68);
+      if (v69)
+      {
+        v71 = *(v70[1] + 8 * *v68);
+        std::mutex::lock(v71);
+        if (*(v71 + 160) != 1)
+        {
+          v72 = *(v71 + 72);
+          v73 = *(v71 + 80);
+          v74 = 16 * (v73 - v72) - 1;
+          if (v73 == v72)
+          {
+            v74 = 0;
+          }
+
+          if (v74 == *(v71 + 104) + *(v71 + 96))
+          {
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v71 + 64));
+            v72 = *(v71 + 72);
+            v73 = *(v71 + 80);
+          }
+
+          if (v73 == v72)
+          {
+            v76 = 0;
+          }
+
+          else
+          {
+            v75 = *(v71 + 104) + *(v71 + 96);
+            v76 = *(v72 + ((v75 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v75 & 0x7F);
+          }
+
+          *(v76 + 24) = 0;
+          operator new();
+        }
+
+        v236 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v236, "Cannot enqueue work after stream is stopped.");
+        __cxa_throw(v236, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      }
+
+      mlx::core::scheduler::Scheduler::notify_new_task(v70);
+      v174 = *(mlx::core::scheduler::scheduler(v173)[1] + 8 * *v68);
+      std::mutex::lock(v174);
+      if (*(v174 + 160) != 1)
+      {
+        v175 = *(v174 + 72);
+        v176 = *(v174 + 80);
+        v177 = 16 * (v176 - v175) - 1;
+        if (v176 == v175)
+        {
+          v177 = 0;
+        }
+
+        if (v177 == *(v174 + 104) + *(v174 + 96))
+        {
+          std::deque<std::function<void ()(void)>>::__add_back_capacity((v174 + 64));
+          v175 = *(v174 + 72);
+          v176 = *(v174 + 80);
+        }
+
+        if (v176 == v175)
+        {
+          v179 = 0;
+        }
+
+        else
+        {
+          v178 = *(v174 + 104) + *(v174 + 96);
+          v179 = *(v175 + ((v178 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v178 & 0x7F);
+        }
+
+        *(v179 + 24) = 0;
+        operator new();
+      }
+
+      v249 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v249, "Cannot enqueue work after stream is stopped.");
+      __cxa_throw(v249, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    case 8:
+      v122 = mlx::core::cpu::get_command_encoder(a4, a5);
+      v123 = (*(v122 + 10) + 1) % 10;
+      *(v122 + 10) = v123;
+      v124 = mlx::core::scheduler::scheduler(v122);
+      if (v123)
+      {
+        v125 = *(v124[1] + 8 * *v122);
+        std::mutex::lock(v125);
+        if (*(v125 + 160) != 1)
+        {
+          v126 = *(v125 + 72);
+          v127 = *(v125 + 80);
+          v128 = 16 * (v127 - v126) - 1;
+          if (v127 == v126)
+          {
+            v128 = 0;
+          }
+
+          if (v128 == *(v125 + 104) + *(v125 + 96))
+          {
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v125 + 64));
+            v126 = *(v125 + 72);
+            v127 = *(v125 + 80);
+          }
+
+          if (v127 == v126)
+          {
+            v130 = 0;
+          }
+
+          else
+          {
+            v129 = *(v125 + 104) + *(v125 + 96);
+            v130 = *(v126 + ((v129 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v129 & 0x7F);
+          }
+
+          *(v130 + 24) = 0;
+          operator new();
+        }
+
+        v242 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v242, "Cannot enqueue work after stream is stopped.");
+        __cxa_throw(v242, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      }
+
+      mlx::core::scheduler::Scheduler::notify_new_task(v124);
+      v223 = *(mlx::core::scheduler::scheduler(v222)[1] + 8 * *v122);
+      std::mutex::lock(v223);
+      if (*(v223 + 160) != 1)
+      {
+        v224 = *(v223 + 72);
+        v225 = *(v223 + 80);
+        v226 = 16 * (v225 - v224) - 1;
+        if (v225 == v224)
+        {
+          v226 = 0;
+        }
+
+        if (v226 == *(v223 + 104) + *(v223 + 96))
+        {
+          std::deque<std::function<void ()(void)>>::__add_back_capacity((v223 + 64));
+          v224 = *(v223 + 72);
+          v225 = *(v223 + 80);
+        }
+
+        if (v225 == v224)
+        {
+          v228 = 0;
+        }
+
+        else
+        {
+          v227 = *(v223 + 104) + *(v223 + 96);
+          v228 = *(v224 + ((v227 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v227 & 0x7F);
+        }
+
+        *(v228 + 24) = 0;
+        operator new();
+      }
+
+      v256 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v256, "Cannot enqueue work after stream is stopped.");
+      __cxa_throw(v256, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    case 9:
+      v41 = mlx::core::cpu::get_command_encoder(a4, a5);
+      v42 = (*(v41 + 10) + 1) % 10;
+      *(v41 + 10) = v42;
+      v43 = mlx::core::scheduler::scheduler(v41);
+      if (v42)
+      {
+        v44 = *(v43[1] + 8 * *v41);
+        std::mutex::lock(v44);
+        if (*(v44 + 160) != 1)
+        {
+          v45 = *(v44 + 72);
+          v46 = *(v44 + 80);
+          v47 = 16 * (v46 - v45) - 1;
+          if (v46 == v45)
+          {
+            v47 = 0;
+          }
+
+          if (v47 == *(v44 + 104) + *(v44 + 96))
+          {
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v44 + 64));
+            v45 = *(v44 + 72);
+            v46 = *(v44 + 80);
+          }
+
+          if (v46 == v45)
+          {
+            v49 = 0;
+          }
+
+          else
+          {
+            v48 = *(v44 + 104) + *(v44 + 96);
+            v49 = *(v45 + ((v48 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v48 & 0x7F);
+          }
+
+          *(v49 + 24) = 0;
+          operator new();
+        }
+
+        v232 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v232, "Cannot enqueue work after stream is stopped.");
+        __cxa_throw(v232, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      }
+
+      mlx::core::scheduler::Scheduler::notify_new_task(v43);
+      v153 = *(mlx::core::scheduler::scheduler(v152)[1] + 8 * *v41);
+      std::mutex::lock(v153);
+      if (*(v153 + 160) != 1)
+      {
+        v154 = *(v153 + 72);
+        v155 = *(v153 + 80);
+        v156 = 16 * (v155 - v154) - 1;
+        if (v155 == v154)
+        {
+          v156 = 0;
+        }
+
+        if (v156 == *(v153 + 104) + *(v153 + 96))
+        {
+          std::deque<std::function<void ()(void)>>::__add_back_capacity((v153 + 64));
+          v154 = *(v153 + 72);
+          v155 = *(v153 + 80);
+        }
+
+        if (v155 == v154)
+        {
+          v158 = 0;
+        }
+
+        else
+        {
+          v157 = *(v153 + 104) + *(v153 + 96);
+          v158 = *(v154 + ((v157 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v157 & 0x7F);
+        }
+
+        *(v158 + 24) = 0;
+        operator new();
+      }
+
+      v246 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v246, "Cannot enqueue work after stream is stopped.");
+      __cxa_throw(v246, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    case 0xA:
+      v113 = mlx::core::cpu::get_command_encoder(a4, a5);
+      v114 = (*(v113 + 10) + 1) % 10;
+      *(v113 + 10) = v114;
+      v115 = mlx::core::scheduler::scheduler(v113);
+      if (v114)
+      {
+        v116 = *(v115[1] + 8 * *v113);
+        std::mutex::lock(v116);
+        if (*(v116 + 160) != 1)
+        {
+          v117 = *(v116 + 72);
+          v118 = *(v116 + 80);
+          v119 = 16 * (v118 - v117) - 1;
+          if (v118 == v117)
+          {
+            v119 = 0;
+          }
+
+          if (v119 == *(v116 + 104) + *(v116 + 96))
+          {
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v116 + 64));
+            v117 = *(v116 + 72);
+            v118 = *(v116 + 80);
+          }
+
+          if (v118 == v117)
+          {
+            v121 = 0;
+          }
+
+          else
+          {
+            v120 = *(v116 + 104) + *(v116 + 96);
+            v121 = *(v117 + ((v120 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v120 & 0x7F);
+          }
+
+          *(v121 + 24) = 0;
+          operator new();
+        }
+
+        v241 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v241, "Cannot enqueue work after stream is stopped.");
+        __cxa_throw(v241, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      }
+
+      mlx::core::scheduler::Scheduler::notify_new_task(v115);
+      v216 = *(mlx::core::scheduler::scheduler(v215)[1] + 8 * *v113);
+      std::mutex::lock(v216);
+      if (*(v216 + 160) != 1)
+      {
+        v217 = *(v216 + 72);
+        v218 = *(v216 + 80);
+        v219 = 16 * (v218 - v217) - 1;
+        if (v218 == v217)
+        {
+          v219 = 0;
+        }
+
+        if (v219 == *(v216 + 104) + *(v216 + 96))
+        {
+          std::deque<std::function<void ()(void)>>::__add_back_capacity((v216 + 64));
+          v217 = *(v216 + 72);
+          v218 = *(v216 + 80);
+        }
+
+        if (v218 == v217)
+        {
+          v221 = 0;
+        }
+
+        else
+        {
+          v220 = *(v216 + 104) + *(v216 + 96);
+          v221 = *(v217 + ((v220 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v220 & 0x7F);
+        }
+
+        *(v221 + 24) = 0;
+        operator new();
+      }
+
+      v255 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v255, "Cannot enqueue work after stream is stopped.");
+      __cxa_throw(v255, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    case 0xB:
+      v14 = mlx::core::cpu::get_command_encoder(a4, a5);
+      v15 = (*(v14 + 10) + 1) % 10;
+      *(v14 + 10) = v15;
+      v16 = mlx::core::scheduler::scheduler(v14);
+      if (v15)
+      {
+        v17 = *(v16[1] + 8 * *v14);
+        std::mutex::lock(v17);
+        if (*(v17 + 160) != 1)
+        {
+          v18 = *(v17 + 72);
+          v19 = *(v17 + 80);
+          v20 = 16 * (v19 - v18) - 1;
+          if (v19 == v18)
+          {
+            v20 = 0;
+          }
+
+          if (v20 == *(v17 + 104) + *(v17 + 96))
+          {
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v17 + 64));
+            v18 = *(v17 + 72);
+            v19 = *(v17 + 80);
+          }
+
+          if (v19 == v18)
+          {
+            v22 = 0;
+          }
+
+          else
+          {
+            v21 = *(v17 + 104) + *(v17 + 96);
+            v22 = *(v18 + ((v21 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v21 & 0x7F);
+          }
+
+          *(v22 + 24) = 0;
+          operator new();
+        }
+
+        v229 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v229, "Cannot enqueue work after stream is stopped.");
+        __cxa_throw(v229, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      }
+
+      mlx::core::scheduler::Scheduler::notify_new_task(v16);
+      v132 = *(mlx::core::scheduler::scheduler(v131)[1] + 8 * *v14);
+      std::mutex::lock(v132);
+      if (*(v132 + 160) != 1)
+      {
+        v133 = *(v132 + 72);
+        v134 = *(v132 + 80);
+        v135 = 16 * (v134 - v133) - 1;
+        if (v134 == v133)
+        {
+          v135 = 0;
+        }
+
+        if (v135 == *(v132 + 104) + *(v132 + 96))
+        {
+          std::deque<std::function<void ()(void)>>::__add_back_capacity((v132 + 64));
+          v133 = *(v132 + 72);
+          v134 = *(v132 + 80);
+        }
+
+        if (v134 == v133)
+        {
+          v137 = 0;
+        }
+
+        else
+        {
+          v136 = *(v132 + 104) + *(v132 + 96);
+          v137 = *(v133 + ((v136 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v136 & 0x7F);
+        }
+
+        *(v137 + 24) = 0;
+        operator new();
+      }
+
+      v243 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v243, "Cannot enqueue work after stream is stopped.");
+      __cxa_throw(v243, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    case 0xC:
+      v32 = mlx::core::cpu::get_command_encoder(a4, a5);
+      v33 = (*(v32 + 10) + 1) % 10;
+      *(v32 + 10) = v33;
+      v34 = mlx::core::scheduler::scheduler(v32);
+      if (v33)
+      {
+        v35 = *(v34[1] + 8 * *v32);
+        std::mutex::lock(v35);
+        if (*(v35 + 160) != 1)
+        {
+          v36 = *(v35 + 72);
+          v37 = *(v35 + 80);
+          v38 = 16 * (v37 - v36) - 1;
+          if (v37 == v36)
+          {
+            v38 = 0;
+          }
+
+          if (v38 == *(v35 + 104) + *(v35 + 96))
+          {
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v35 + 64));
+            v36 = *(v35 + 72);
+            v37 = *(v35 + 80);
+          }
+
+          if (v37 == v36)
+          {
+            v40 = 0;
+          }
+
+          else
+          {
+            v39 = *(v35 + 104) + *(v35 + 96);
+            v40 = *(v36 + ((v39 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v39 & 0x7F);
+          }
+
+          *(v40 + 24) = 0;
+          operator new();
+        }
+
+        v231 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v231, "Cannot enqueue work after stream is stopped.");
+        __cxa_throw(v231, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      }
+
+      mlx::core::scheduler::Scheduler::notify_new_task(v34);
+      v146 = *(mlx::core::scheduler::scheduler(v145)[1] + 8 * *v32);
+      std::mutex::lock(v146);
+      if (*(v146 + 160) != 1)
+      {
+        v147 = *(v146 + 72);
+        v148 = *(v146 + 80);
+        v149 = 16 * (v148 - v147) - 1;
+        if (v148 == v147)
+        {
+          v149 = 0;
+        }
+
+        if (v149 == *(v146 + 104) + *(v146 + 96))
+        {
+          std::deque<std::function<void ()(void)>>::__add_back_capacity((v146 + 64));
+          v147 = *(v146 + 72);
+          v148 = *(v146 + 80);
+        }
+
+        if (v148 == v147)
+        {
+          v151 = 0;
+        }
+
+        else
+        {
+          v150 = *(v146 + 104) + *(v146 + 96);
+          v151 = *(v147 + ((v150 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v150 & 0x7F);
+        }
+
+        *(v151 + 24) = 0;
+        operator new();
+      }
+
+      v245 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v245, "Cannot enqueue work after stream is stopped.");
+      __cxa_throw(v245, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    case 0xD:
+      v95 = mlx::core::cpu::get_command_encoder(a4, a5);
+      v96 = (*(v95 + 10) + 1) % 10;
+      *(v95 + 10) = v96;
+      v97 = mlx::core::scheduler::scheduler(v95);
+      if (v96)
+      {
+        v98 = *(v97[1] + 8 * *v95);
+        std::mutex::lock(v98);
+        if (*(v98 + 160) != 1)
+        {
+          v99 = *(v98 + 72);
+          v100 = *(v98 + 80);
+          v101 = 16 * (v100 - v99) - 1;
+          if (v100 == v99)
+          {
+            v101 = 0;
+          }
+
+          if (v101 == *(v98 + 104) + *(v98 + 96))
+          {
+            std::deque<std::function<void ()(void)>>::__add_back_capacity((v98 + 64));
+            v99 = *(v98 + 72);
+            v100 = *(v98 + 80);
+          }
+
+          if (v100 == v99)
+          {
+            v103 = 0;
+          }
+
+          else
+          {
+            v102 = *(v98 + 104) + *(v98 + 96);
+            v103 = *(v99 + ((v102 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v102 & 0x7F);
+          }
+
+          *(v103 + 24) = 0;
+          operator new();
+        }
+
+        v239 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v239, "Cannot enqueue work after stream is stopped.");
+        __cxa_throw(v239, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      }
+
+      mlx::core::scheduler::Scheduler::notify_new_task(v97);
+      v202 = *(mlx::core::scheduler::scheduler(v201)[1] + 8 * *v95);
+      std::mutex::lock(v202);
+      if (*(v202 + 160) != 1)
+      {
+        v203 = *(v202 + 72);
+        v204 = *(v202 + 80);
+        v205 = 16 * (v204 - v203) - 1;
+        if (v204 == v203)
+        {
+          v205 = 0;
+        }
+
+        if (v205 == *(v202 + 104) + *(v202 + 96))
+        {
+          std::deque<std::function<void ()(void)>>::__add_back_capacity((v202 + 64));
+          v203 = *(v202 + 72);
+          v204 = *(v202 + 80);
+        }
+
+        if (v204 == v203)
+        {
+          v207 = 0;
+        }
+
+        else
+        {
+          v206 = *(v202 + 104) + *(v202 + 96);
+          v207 = *(v203 + ((v206 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v206 & 0x7F);
+        }
+
+        *(v207 + 24) = 0;
+        operator new();
+      }
+
+      v253 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v253, "Cannot enqueue work after stream is stopped.");
+      __cxa_throw(v253, MEMORY[0x277D82760], MEMORY[0x277D82600]);
     default:
       return;
   }
@@ -2564,21 +2422,22 @@ void sub_25A2C8FB0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *ThreadPool::start_threads(void *this, uint64_t a2)
+std::__thread_struct *ThreadPool::start_threads(std::__thread_struct *this, uint64_t a2)
 {
   if (a2)
   {
-    v2 = this[1];
-    v3 = this[2];
-    if (v2 < v3)
+    p = this[1].__p_;
+    v8[0] = this;
+    v3 = this[2].__p_;
+    if (p < v3)
     {
-      _ZNSt3__16threadC2IZN10ThreadPool13start_threadsEmEUlvE_JELi0EEEOT_DpOT0_();
+      _ZNSt3__16threadC2IZN10ThreadPool13start_threadsEmEUlvE_JELi0EEEOT_DpOT0_(p, v8);
     }
 
-    v4 = (v2 - *this) >> 3;
+    v4 = (p - this->__p_) >> 3;
     if (!((v4 + 1) >> 61))
     {
-      v5 = v3 - *this;
+      v5 = v3 - this->__p_;
       v6 = v5 >> 2;
       if (v5 >> 2 <= (v4 + 1))
       {
@@ -2595,12 +2454,17 @@ void *ThreadPool::start_threads(void *this, uint64_t a2)
         v7 = v6;
       }
 
+      v8[5] = this;
       if (v7)
       {
         std::__allocate_at_least[abi:ne200100]<std::allocator<std::function<void ()(void)> *>>(this, v7);
       }
 
-      _ZNSt3__16threadC2IZN10ThreadPool13start_threadsEmEUlvE_JELi0EEEOT_DpOT0_();
+      v8[1] = 0;
+      v8[2] = (8 * v4);
+      v8[3] = (8 * v4);
+      v8[4] = 0;
+      _ZNSt3__16threadC2IZN10ThreadPool13start_threadsEmEUlvE_JELi0EEEOT_DpOT0_((8 * v4), v8);
     }
 
     std::vector<int>::__throw_length_error[abi:ne200100]();
@@ -2609,14 +2473,14 @@ void *ThreadPool::start_threads(void *this, uint64_t a2)
   return this;
 }
 
-void sub_25A2C92DC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25A2C92DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__thread_struct>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thread_struct>,ThreadPool::start_threads(unsigned long)::{lambda(void)#1}>>(uint64_t *a1)
+uint64_t std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thread_struct>,ThreadPool::start_threads(unsigned long)::{lambda(void)#1}>>(const void **a1)
 {
   v5 = a1;
   v2 = std::__thread_local_data();
@@ -2628,9 +2492,9 @@ uint64_t std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thr
   return 0;
 }
 
-void sub_25A2C936C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25A2C936C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::tuple<std::unique_ptr<std::__thread_struct>,ThreadPool::start_threads(unsigned long)::{lambda(void)#1}>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2663,12 +2527,12 @@ uint64_t *std::unique_ptr<std::__thread_struct>::~unique_ptr[abi:ne200100](uint6
 
 uint64_t ThreadPool::start_threads(unsigned long)::{lambda(void)#1}::operator()(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v1 = *a1;
   v2 = (*a1 + 72);
   while (1)
   {
-    v9 = 0;
+    v8 = 0;
     __lk.__m_ = v2;
     __lk.__owns_ = 1;
     std::mutex::lock(v2);
@@ -2712,7 +2576,7 @@ LABEL_3:
     }
 
 LABEL_7:
-    std::__function::__value_func<void ()(void)>::operator=[abi:ne200100](v8, *(*(v1 + 32) + ((*(v1 + 56) >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (*(v1 + 56) & 0x7FLL));
+    std::__function::__value_func<void ()(void)>::operator=[abi:ne200100](v7, *(*(v1 + 32) + ((*(v1 + 56) >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (*(v1 + 56) & 0x7FLL));
     std::deque<std::function<void ()(void)>>::pop_front((v1 + 24));
     v4 = 1;
 LABEL_8:
@@ -2723,21 +2587,17 @@ LABEL_8:
 
     if (!v4)
     {
-      break;
+      return std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v7);
     }
 
-    if (!v9)
+    if (!v8)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    (*(*v9 + 48))(v9);
-    std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v8);
+    (*(*v8 + 48))(v8);
+    std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v7);
   }
-
-  result = std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v8);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 void sub_25A2C955C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::mutex *a10, char a11, int a12, __int16 a13, char a14, char a15)
@@ -3069,7 +2929,7 @@ void ThreadPool::stop_and_wait(ThreadPool *this)
   *(this + 1) = v2;
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<int,mlx::core::distributed::ring::anonymous namespace::SocketThread>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<int,mlx::core::distributed::ring::anonymous namespace::SocketThread>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<int,mlx::core::distributed::ring::anonymous namespace::SocketThread>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<int,mlx::core::distributed::ring::anonymous namespace::SocketThread>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -3261,7 +3121,7 @@ void std::list<mlx::core::distributed::ring::anonymous namespace::SocketThread::
   operator delete(v2);
 }
 
-uint64_t std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thread_struct>,void (mlx::core::distributed::ring::anonymous namespace::SocketThread::*)(void),mlx::core::distributed::ring::anonymous namespace::SocketThread*>>(uint64_t *a1)
+uint64_t std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thread_struct>,void (mlx::core::distributed::ring::anonymous namespace::SocketThread::*)(void),mlx::core::distributed::ring::anonymous namespace::SocketThread*>>(const void **a1)
 {
   v8 = a1;
   v2 = std::__thread_local_data();
@@ -3280,9 +3140,9 @@ uint64_t std::__thread_proxy[abi:ne200100]<std::tuple<std::unique_ptr<std::__thr
   return 0;
 }
 
-void sub_25A2CA140(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25A2CA140(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   _Unwind_Resume(a1);
 }
 
@@ -3501,61 +3361,31 @@ void *std::__bind<void mlx::core::distributed::ring::RingGroup::all_reduce<BOOL,
   {
     v7 = *a1;
     v6 = *(a1 + 8);
-    if (*a1 == v6)
-    {
-      v8 = v2;
-    }
-
-    else
+    if (*a1 != v6)
     {
       memcpy(v6, v7, v2);
-      v4 = *(v3 + 12);
-      v8 = *(a1 + 16);
     }
 
-    v9 = ((*(v3 + 288) - *(v3 + 280)) >> 2) + ((*(v3 + 264) - *(v3 + 256)) >> 2);
-    if (v2 / (v4 << 18) < v9)
-    {
-      v9 = v2 / (v4 << 18);
-    }
-
-    if (v9 <= 1)
-    {
-      v9 = 1;
-    }
-
-    memset(v21, 0, sizeof(v21));
-    v10 = *(v3 + 304);
-    v11 = v3;
-    v12 = *(a1 + 8);
-    if ((v8 + v9 - 1) / v9 >= *(a1 + 16))
-    {
-      v13 = *(a1 + 16);
-    }
-
-    v14 = **(v11 + 256);
-    v15 = **(v11 + 280);
+    memset(v12, 0, sizeof(v12));
     operator new();
   }
 
   if (v4 >= 0x401)
   {
     std::ostringstream::basic_ostringstream[abi:ne200100](__dst);
-    v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__dst, "Can't perform the ring all reduce of ", 37);
-    v18 = MEMORY[0x25F851380](v17, *(a1 + 16));
-    v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, " elements with a ring of size ", 30);
-    MEMORY[0x25F851360](v19, *(v3 + 12));
+    v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__dst, "Can't perform the ring all reduce of ", 37);
+    v9 = MEMORY[0x25F851380](v8, *(a1 + 16));
+    v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, " elements with a ring of size ", 30);
+    MEMORY[0x25F851360](v10, *(v3 + 12));
     exception = __cxa_allocate_exception(0x10uLL);
-    std::ostringstream::str[abi:ne200100](__dst, v21);
-    MEMORY[0x25F851100](exception, v21);
+    std::ostringstream::str[abi:ne200100](__dst, v12);
+    MEMORY[0x25F851100](exception, v12);
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
   bzero(__dst, *(v3 + 12));
   memcpy(__dst, *a1, v2);
-  result = memcpy(*(a1 + 8), __dst, v2);
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  return memcpy(*(a1 + 8), __dst, v2);
 }
 
 void sub_25A2CAC74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, std::future<void> a21, char a22)
@@ -3582,7 +3412,7 @@ LABEL_6:
 
 void mlx::core::distributed::ring::RingGroup::all_reduce_impl<BOOL,mlx::core::distributed::ring::anonymous namespace::SumOp<BOOL>>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, int a5, int a6, int a7)
 {
-  v118[2] = *MEMORY[0x277D85DE8];
+  v117[2] = *MEMORY[0x277D85DE8];
   if (a7 >= 0)
   {
     v7 = a6;
@@ -3603,8 +3433,8 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<BOOL,mlx::core::di
     v8 = a6;
   }
 
-  v93 = v8;
-  v94 = v7;
+  v92 = v8;
+  v93 = v7;
   v9 = *(a1 + 8);
   v10 = *(a1 + 12);
   v11 = (a4 + v10 - 1) / v10;
@@ -3627,21 +3457,21 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<BOOL,mlx::core::di
   v14 = v11 + v13 - 1;
   v15 = (v10 + a7 + v9) % v10;
   __src = 0;
+  v112 = 0;
   v113 = 0;
-  v114 = 0;
   __p = 0;
+  v109 = 0;
   v110 = 0;
-  v111 = 0;
   v16 = 1;
-  v107 = v13;
-  v105 = v14 / v13;
-  v100 = a7;
-  v98 = (a4 + v10 - 1) / v10;
-  v99 = a4;
-  v97 = v14;
+  v106 = v13;
+  v104 = v14 / v13;
+  v99 = a7;
+  v97 = (a4 + v10 - 1) / v10;
+  v98 = a4;
+  v96 = v14;
   do
   {
-    v96 = v16;
+    v95 = v16;
     if (v10 >= 2)
     {
       v17 = 0;
@@ -3667,34 +3497,34 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<BOOL,mlx::core::di
           v19 = v11 * (v15 + 1);
         }
 
-        if (v107 <= v14)
+        if (v106 <= v14)
         {
-          v102 = v17;
+          v101 = v17;
           v20 = 0;
-          v103 = v15;
-          v104 = v9;
-          v106 = v11 * v9;
+          v102 = v15;
+          v103 = v9;
+          v105 = v11 * v9;
           v21 = v11 * v15;
           do
           {
-            v22 = v20 * v107;
-            v23 = v20 * v107 + v106;
-            v24 = ++v20 * v107;
-            v25 = v20 * v107 + v106;
-            v26 = v113;
-            if (v113 >= v114)
+            v22 = v20 * v106;
+            v23 = v20 * v106 + v105;
+            v24 = ++v20 * v106;
+            v25 = v20 * v106 + v105;
+            v26 = v112;
+            if (v112 >= v113)
             {
               v30 = __src;
-              v31 = v113 - __src;
-              v32 = (v113 - __src) >> 4;
+              v31 = v112 - __src;
+              v32 = (v112 - __src) >> 4;
               v33 = v32 + 1;
               if ((v32 + 1) >> 60)
               {
                 std::vector<int>::__throw_length_error[abi:ne200100]();
               }
 
-              v34 = v114 - __src;
-              if ((v114 - __src) >> 3 > v33)
+              v34 = v113 - __src;
+              if ((v113 - __src) >> 3 > v33)
               {
                 v33 = v34 >> 3;
               }
@@ -3709,7 +3539,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<BOOL,mlx::core::di
                 std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<unsigned long,unsigned long>>>(&__src, v33);
               }
 
-              v35 = (v113 - __src) >> 4;
+              v35 = (v112 - __src) >> 4;
               v36 = (16 * v32);
               if (v18 >= v23)
               {
@@ -3723,7 +3553,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<BOOL,mlx::core::di
 
               if (v18 >= v25)
               {
-                v38 = v20 * v107 + v106;
+                v38 = v20 * v106 + v105;
               }
 
               else
@@ -3738,8 +3568,8 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<BOOL,mlx::core::di
               memcpy(v39, v30, v31);
               v40 = __src;
               __src = v39;
-              v113 = v29;
-              v114 = 0;
+              v112 = v29;
+              v113 = 0;
               if (v40)
               {
                 operator delete(v40);
@@ -3760,7 +3590,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<BOOL,mlx::core::di
 
               if (v18 >= v25)
               {
-                v28 = v20 * v107 + v106;
+                v28 = v20 * v106 + v105;
               }
 
               else
@@ -3768,28 +3598,28 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<BOOL,mlx::core::di
                 v28 = v18;
               }
 
-              *v113 = v27;
+              *v112 = v27;
               *(v26 + 1) = v28;
               v29 = v26 + 16;
             }
 
-            v113 = v29;
+            v112 = v29;
             v41 = v22 + v21;
             v42 = v24 + v21;
-            v43 = v110;
-            if (v110 >= v111)
+            v43 = v109;
+            if (v109 >= v110)
             {
               v47 = __p;
-              v48 = v110 - __p;
-              v49 = (v110 - __p) >> 4;
+              v48 = v109 - __p;
+              v49 = (v109 - __p) >> 4;
               v50 = v49 + 1;
               if ((v49 + 1) >> 60)
               {
                 std::vector<int>::__throw_length_error[abi:ne200100]();
               }
 
-              v51 = v111 - __p;
-              if ((v111 - __p) >> 3 > v50)
+              v51 = v110 - __p;
+              if ((v110 - __p) >> 3 > v50)
               {
                 v50 = v51 >> 3;
               }
@@ -3804,7 +3634,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<BOOL,mlx::core::di
                 std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<unsigned long,unsigned long>>>(&__p, v50);
               }
 
-              v52 = (v110 - __p) >> 4;
+              v52 = (v109 - __p) >> 4;
               v53 = (16 * v49);
               if (v19 >= v41)
               {
@@ -3833,8 +3663,8 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<BOOL,mlx::core::di
               memcpy(v56, v47, v48);
               v57 = __p;
               __p = v56;
-              v110 = v46;
-              v111 = 0;
+              v109 = v46;
+              v110 = 0;
               if (v57)
               {
                 operator delete(v57);
@@ -3863,23 +3693,23 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<BOOL,mlx::core::di
                 v45 = v19;
               }
 
-              *v110 = v44;
+              *v109 = v44;
               *(v43 + 1) = v45;
               v46 = v43 + 16;
             }
 
-            v110 = v46;
+            v109 = v46;
           }
 
-          while (v20 < v105);
+          while (v20 < v104);
           LODWORD(v10) = *(a1 + 12);
-          a7 = v100;
-          v11 = v98;
-          a4 = v99;
-          v15 = v103;
-          v9 = v104;
-          v14 = v97;
-          v17 = v102;
+          a7 = v99;
+          v11 = v97;
+          a4 = v98;
+          v15 = v102;
+          v9 = v103;
+          v14 = v96;
+          v17 = v101;
         }
 
         v9 = (v9 + a7 + v10) % v10;
@@ -3893,25 +3723,25 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<BOOL,mlx::core::di
     v16 = 0;
   }
 
-  while ((v96 & 1) != 0);
-  v118[0] = a2;
-  v118[1] = a2 + v107;
-  v117[0] = 0;
-  v117[1] = 0;
+  while ((v95 & 1) != 0);
+  v117[0] = a2;
+  v117[1] = a2 + v106;
   v116[0] = 0;
   v116[1] = 0;
+  v115[0] = 0;
+  v115[1] = 0;
   v58 = __src;
-  if (v113 == __src)
+  if (v112 == __src)
   {
-    v69 = v105 > 1;
+    v69 = v104 > 1;
   }
 
   else
   {
     v59 = 0;
     v60 = 0;
-    v61 = v105 > 1;
-    if (v105 <= 1)
+    v61 = v104 > 1;
+    if (v104 <= 1)
     {
       v62 = 0;
     }
@@ -3928,49 +3758,49 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<BOOL,mlx::core::di
       v64 = &v58[16 * v59];
       v65 = *v64;
       v66 = *(v64 + 1);
-      LODWORD(v115.__state_) = v94;
-      state = v108.__state_;
-      v108.__state_ = 0;
+      LODWORD(v114.__state_) = v93;
+      state = v107.__state_;
+      v107.__state_ = 0;
       v69 = v63;
-      v115.__state_ = v117[v63];
-      v117[v63] = state;
-      std::future<void>::~future(&v115);
-      std::future<void>::~future(&v108);
-      if ((v113 - __src) >> 4 <= 2 * v59)
+      v114.__state_ = v116[v63];
+      v116[v63] = state;
+      std::future<void>::~future(&v114);
+      std::future<void>::~future(&v107);
+      if ((v112 - __src) >> 4 <= 2 * v59)
       {
         v75 = (__p + 16 * v59);
         v76 = *v75;
         v77 = v75[1];
-        LODWORD(v115.__state_) = v93;
+        LODWORD(v114.__state_) = v92;
       }
 
       else
       {
-        v70 = v118[v59 & 1];
+        v70 = v117[v59 & 1];
         v71 = (__p + 16 * v59);
         v72 = *v71;
         v73 = v71[1];
-        LODWORD(v115.__state_) = v93;
+        LODWORD(v114.__state_) = v92;
       }
 
-      v79 = v108.__state_;
-      v108.__state_ = 0;
-      v115.__state_ = v116[v63];
-      v116[v63] = v79;
-      std::future<void>::~future(&v115);
-      std::future<void>::~future(&v108);
+      v79 = v107.__state_;
+      v107.__state_ = 0;
+      v114.__state_ = v115[v63];
+      v115[v63] = v79;
+      std::future<void>::~future(&v114);
+      std::future<void>::~future(&v107);
       if ((v62 & 0x80000000) != 0)
       {
         v58 = __src;
-        v80 = (v113 - __src) >> 4;
+        v80 = (v112 - __src) >> 4;
       }
 
       else
       {
-        std::__assoc_sub_state::wait(v117[v60]);
         std::__assoc_sub_state::wait(v116[v60]);
+        std::__assoc_sub_state::wait(v115[v60]);
         v58 = __src;
-        v80 = (v113 - __src) >> 4;
+        v80 = (v112 - __src) >> 4;
         if (v80 > 2 * v62)
         {
           v81 = (__p + 16 * v62);
@@ -3979,7 +3809,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<BOOL,mlx::core::di
           if (v83 != *v81)
           {
             v84 = (a3 + v82);
-            v85 = v118[v62 & 1];
+            v85 = v117[v62 & 1];
             v86 = v82 - v83;
             do
             {
@@ -4000,31 +3830,29 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<BOOL,mlx::core::di
     while (v80 > v59);
   }
 
-  std::__assoc_sub_state::wait(v117[v69]);
   std::__assoc_sub_state::wait(v116[v69]);
+  std::__assoc_sub_state::wait(v115[v69]);
   for (i = 1; i != -1; --i)
   {
-    std::future<void>::~future(&v116[i]);
+    std::future<void>::~future(&v115[i]);
   }
 
   for (j = 1; j != -1; --j)
   {
-    std::future<void>::~future(&v117[j]);
+    std::future<void>::~future(&v116[j]);
   }
 
   if (__p)
   {
-    v110 = __p;
+    v109 = __p;
     operator delete(__p);
   }
 
   if (__src)
   {
-    v113 = __src;
+    v112 = __src;
     operator delete(__src);
   }
-
-  v91 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A2CB388(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, uint64_t a28, void *a29, uint64_t a30)
@@ -4136,7 +3964,7 @@ LABEL_16:
   return v7 + 3;
 }
 
-uint64_t mlx::core::distributed::ring::anonymous namespace::SocketThread::send_impl(mlx::core::distributed::ring::_anonymous_namespace_::SocketThread *this, const char *a2, uint64_t a3)
+uint64_t *mlx::core::distributed::ring::anonymous namespace::SocketThread::send_impl(mlx::core::distributed::ring::_anonymous_namespace_::SocketThread *this, const char *a2, uint64_t a3)
 {
   std::promise<void>::promise(&v6);
   std::promise<void>::get_future(&v6);
@@ -4151,14 +3979,15 @@ uint64_t mlx::core::distributed::ring::anonymous namespace::SocketThread::send_i
   return MEMORY[0x25F851680](&v6);
 }
 
-void sub_25A2CB608(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
+void sub_25A2CB608(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  std::future<void>::~future(v12);
-  MEMORY[0x25F851680](&a12);
+  va_start(va, a11);
+  std::future<void>::~future(v11);
+  MEMORY[0x25F851680](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t mlx::core::distributed::ring::anonymous namespace::SocketThread::recv_impl(mlx::core::distributed::ring::_anonymous_namespace_::SocketThread *this, char *a2, uint64_t a3)
+uint64_t *mlx::core::distributed::ring::anonymous namespace::SocketThread::recv_impl(mlx::core::distributed::ring::_anonymous_namespace_::SocketThread *this, char *a2, uint64_t a3)
 {
   std::promise<void>::promise(&v6);
   std::promise<void>::get_future(&v6);
@@ -4173,10 +4002,11 @@ uint64_t mlx::core::distributed::ring::anonymous namespace::SocketThread::recv_i
   return MEMORY[0x25F851680](&v6);
 }
 
-void sub_25A2CB72C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
+void sub_25A2CB72C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  std::future<void>::~future(v12);
-  MEMORY[0x25F851680](&a12);
+  va_start(va, a11);
+  std::future<void>::~future(v11);
+  MEMORY[0x25F851680](va);
   _Unwind_Resume(a1);
 }
 
@@ -4499,7 +4329,7 @@ uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchI
   }
 }
 
-void *std::__bind<void mlx::core::distributed::ring::RingGroup::all_reduce<signed char,mlx::core::distributed::ring::anonymous namespace::SumOp<signed char>>(mlx::core::array const&,mlx::core::array&,mlx::core::Stream,mlx::core::distributed::ring::anonymous namespace::SumOp<signed char>)::{lambda(void)#1}>::operator()[abi:ne200100]<>(uint64_t a1)
+void std::__bind<void mlx::core::distributed::ring::RingGroup::all_reduce<signed char,mlx::core::distributed::ring::anonymous namespace::SumOp<signed char>>(mlx::core::array const&,mlx::core::array&,mlx::core::Stream,mlx::core::distributed::ring::anonymous namespace::SumOp<signed char>)::{lambda(void)#1}>::operator()[abi:ne200100]<>(uint64_t a1)
 {
   __dst[128] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 16);
@@ -4507,63 +4337,33 @@ void *std::__bind<void mlx::core::distributed::ring::RingGroup::all_reduce<signe
   v4 = *(v3 + 12);
   if (v2 >= v4)
   {
-    v7 = *a1;
-    v6 = *(a1 + 8);
-    if (*a1 == v6)
+    v6 = *a1;
+    v5 = *(a1 + 8);
+    if (*a1 != v5)
     {
-      v8 = v2;
+      memcpy(v5, v6, v2);
     }
 
-    else
-    {
-      memcpy(v6, v7, v2);
-      v4 = *(v3 + 12);
-      v8 = *(a1 + 16);
-    }
-
-    v9 = ((*(v3 + 288) - *(v3 + 280)) >> 2) + ((*(v3 + 264) - *(v3 + 256)) >> 2);
-    if (v2 / (v4 << 18) < v9)
-    {
-      v9 = v2 / (v4 << 18);
-    }
-
-    if (v9 <= 1)
-    {
-      v9 = 1;
-    }
-
-    memset(v21, 0, sizeof(v21));
-    v10 = *(v3 + 304);
-    v11 = v3;
-    v12 = *(a1 + 8);
-    if ((v8 + v9 - 1) / v9 >= *(a1 + 16))
-    {
-      v13 = *(a1 + 16);
-    }
-
-    v14 = **(v11 + 256);
-    v15 = **(v11 + 280);
+    memset(v11, 0, sizeof(v11));
     operator new();
   }
 
   if (v4 >= 0x401)
   {
     std::ostringstream::basic_ostringstream[abi:ne200100](__dst);
-    v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__dst, "Can't perform the ring all reduce of ", 37);
-    v18 = MEMORY[0x25F851380](v17, *(a1 + 16));
-    v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, " elements with a ring of size ", 30);
-    MEMORY[0x25F851360](v19, *(v3 + 12));
+    v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__dst, "Can't perform the ring all reduce of ", 37);
+    v8 = MEMORY[0x25F851380](v7, *(a1 + 16));
+    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, " elements with a ring of size ", 30);
+    MEMORY[0x25F851360](v9, *(v3 + 12));
     exception = __cxa_allocate_exception(0x10uLL);
-    std::ostringstream::str[abi:ne200100](__dst, v21);
-    MEMORY[0x25F851100](exception, v21);
+    std::ostringstream::str[abi:ne200100](__dst, v11);
+    MEMORY[0x25F851100](exception, v11);
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
   bzero(__dst, *(v3 + 12));
   memcpy(__dst, *a1, v2);
-  result = memcpy(*(a1 + 8), __dst, v2);
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  memcpy(*(a1 + 8), __dst, v2);
 }
 
 void sub_25A2CC5E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, std::future<void> a21, char a22)
@@ -4590,7 +4390,7 @@ LABEL_6:
 
 void mlx::core::distributed::ring::RingGroup::all_reduce_impl<signed char,mlx::core::distributed::ring::anonymous namespace::SumOp<signed char>>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, int a5, int a6, int a7)
 {
-  v118[2] = *MEMORY[0x277D85DE8];
+  v117[2] = *MEMORY[0x277D85DE8];
   if (a7 >= 0)
   {
     v7 = a6;
@@ -4611,8 +4411,8 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<signed char,mlx::c
     v8 = a6;
   }
 
-  v93 = v8;
-  v94 = v7;
+  v92 = v8;
+  v93 = v7;
   v9 = *(a1 + 8);
   v10 = *(a1 + 12);
   v11 = (a4 + v10 - 1) / v10;
@@ -4635,21 +4435,21 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<signed char,mlx::c
   v14 = v11 + v13 - 1;
   v15 = (v10 + a7 + v9) % v10;
   __src = 0;
+  v112 = 0;
   v113 = 0;
-  v114 = 0;
   __p = 0;
+  v109 = 0;
   v110 = 0;
-  v111 = 0;
   v16 = 1;
-  v107 = v13;
-  v105 = v14 / v13;
-  v100 = a7;
-  v98 = (a4 + v10 - 1) / v10;
-  v99 = a4;
-  v97 = v14;
+  v106 = v13;
+  v104 = v14 / v13;
+  v99 = a7;
+  v97 = (a4 + v10 - 1) / v10;
+  v98 = a4;
+  v96 = v14;
   do
   {
-    v96 = v16;
+    v95 = v16;
     if (v10 >= 2)
     {
       v17 = 0;
@@ -4675,34 +4475,34 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<signed char,mlx::c
           v19 = v11 * (v15 + 1);
         }
 
-        if (v107 <= v14)
+        if (v106 <= v14)
         {
-          v102 = v17;
+          v101 = v17;
           v20 = 0;
-          v103 = v15;
-          v104 = v9;
-          v106 = v11 * v9;
+          v102 = v15;
+          v103 = v9;
+          v105 = v11 * v9;
           v21 = v11 * v15;
           do
           {
-            v22 = v20 * v107;
-            v23 = v20 * v107 + v106;
-            v24 = ++v20 * v107;
-            v25 = v20 * v107 + v106;
-            v26 = v113;
-            if (v113 >= v114)
+            v22 = v20 * v106;
+            v23 = v20 * v106 + v105;
+            v24 = ++v20 * v106;
+            v25 = v20 * v106 + v105;
+            v26 = v112;
+            if (v112 >= v113)
             {
               v30 = __src;
-              v31 = v113 - __src;
-              v32 = (v113 - __src) >> 4;
+              v31 = v112 - __src;
+              v32 = (v112 - __src) >> 4;
               v33 = v32 + 1;
               if ((v32 + 1) >> 60)
               {
                 std::vector<int>::__throw_length_error[abi:ne200100]();
               }
 
-              v34 = v114 - __src;
-              if ((v114 - __src) >> 3 > v33)
+              v34 = v113 - __src;
+              if ((v113 - __src) >> 3 > v33)
               {
                 v33 = v34 >> 3;
               }
@@ -4717,7 +4517,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<signed char,mlx::c
                 std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<unsigned long,unsigned long>>>(&__src, v33);
               }
 
-              v35 = (v113 - __src) >> 4;
+              v35 = (v112 - __src) >> 4;
               v36 = (16 * v32);
               if (v18 >= v23)
               {
@@ -4731,7 +4531,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<signed char,mlx::c
 
               if (v18 >= v25)
               {
-                v38 = v20 * v107 + v106;
+                v38 = v20 * v106 + v105;
               }
 
               else
@@ -4746,8 +4546,8 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<signed char,mlx::c
               memcpy(v39, v30, v31);
               v40 = __src;
               __src = v39;
-              v113 = v29;
-              v114 = 0;
+              v112 = v29;
+              v113 = 0;
               if (v40)
               {
                 operator delete(v40);
@@ -4768,7 +4568,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<signed char,mlx::c
 
               if (v18 >= v25)
               {
-                v28 = v20 * v107 + v106;
+                v28 = v20 * v106 + v105;
               }
 
               else
@@ -4776,28 +4576,28 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<signed char,mlx::c
                 v28 = v18;
               }
 
-              *v113 = v27;
+              *v112 = v27;
               *(v26 + 1) = v28;
               v29 = v26 + 16;
             }
 
-            v113 = v29;
+            v112 = v29;
             v41 = v22 + v21;
             v42 = v24 + v21;
-            v43 = v110;
-            if (v110 >= v111)
+            v43 = v109;
+            if (v109 >= v110)
             {
               v47 = __p;
-              v48 = v110 - __p;
-              v49 = (v110 - __p) >> 4;
+              v48 = v109 - __p;
+              v49 = (v109 - __p) >> 4;
               v50 = v49 + 1;
               if ((v49 + 1) >> 60)
               {
                 std::vector<int>::__throw_length_error[abi:ne200100]();
               }
 
-              v51 = v111 - __p;
-              if ((v111 - __p) >> 3 > v50)
+              v51 = v110 - __p;
+              if ((v110 - __p) >> 3 > v50)
               {
                 v50 = v51 >> 3;
               }
@@ -4812,7 +4612,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<signed char,mlx::c
                 std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<unsigned long,unsigned long>>>(&__p, v50);
               }
 
-              v52 = (v110 - __p) >> 4;
+              v52 = (v109 - __p) >> 4;
               v53 = (16 * v49);
               if (v19 >= v41)
               {
@@ -4841,8 +4641,8 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<signed char,mlx::c
               memcpy(v56, v47, v48);
               v57 = __p;
               __p = v56;
-              v110 = v46;
-              v111 = 0;
+              v109 = v46;
+              v110 = 0;
               if (v57)
               {
                 operator delete(v57);
@@ -4871,23 +4671,23 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<signed char,mlx::c
                 v45 = v19;
               }
 
-              *v110 = v44;
+              *v109 = v44;
               *(v43 + 1) = v45;
               v46 = v43 + 16;
             }
 
-            v110 = v46;
+            v109 = v46;
           }
 
-          while (v20 < v105);
+          while (v20 < v104);
           LODWORD(v10) = *(a1 + 12);
-          a7 = v100;
-          v11 = v98;
-          a4 = v99;
-          v15 = v103;
-          v9 = v104;
-          v14 = v97;
-          v17 = v102;
+          a7 = v99;
+          v11 = v97;
+          a4 = v98;
+          v15 = v102;
+          v9 = v103;
+          v14 = v96;
+          v17 = v101;
         }
 
         v9 = (v9 + a7 + v10) % v10;
@@ -4901,25 +4701,25 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<signed char,mlx::c
     v16 = 0;
   }
 
-  while ((v96 & 1) != 0);
-  v118[0] = a2;
-  v118[1] = a2 + v107;
-  v117[0] = 0;
-  v117[1] = 0;
+  while ((v95 & 1) != 0);
+  v117[0] = a2;
+  v117[1] = a2 + v106;
   v116[0] = 0;
   v116[1] = 0;
+  v115[0] = 0;
+  v115[1] = 0;
   v58 = __src;
-  if (v113 == __src)
+  if (v112 == __src)
   {
-    v69 = v105 > 1;
+    v69 = v104 > 1;
   }
 
   else
   {
     v59 = 0;
     v60 = 0;
-    v61 = v105 > 1;
-    if (v105 <= 1)
+    v61 = v104 > 1;
+    if (v104 <= 1)
     {
       v62 = 0;
     }
@@ -4936,49 +4736,49 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<signed char,mlx::c
       v64 = &v58[16 * v59];
       v65 = *v64;
       v66 = *(v64 + 1);
-      LODWORD(v115.__state_) = v94;
-      state = v108.__state_;
-      v108.__state_ = 0;
+      LODWORD(v114.__state_) = v93;
+      state = v107.__state_;
+      v107.__state_ = 0;
       v69 = v63;
-      v115.__state_ = v117[v63];
-      v117[v63] = state;
-      std::future<void>::~future(&v115);
-      std::future<void>::~future(&v108);
-      if ((v113 - __src) >> 4 <= 2 * v59)
+      v114.__state_ = v116[v63];
+      v116[v63] = state;
+      std::future<void>::~future(&v114);
+      std::future<void>::~future(&v107);
+      if ((v112 - __src) >> 4 <= 2 * v59)
       {
         v75 = (__p + 16 * v59);
         v76 = *v75;
         v77 = v75[1];
-        LODWORD(v115.__state_) = v93;
+        LODWORD(v114.__state_) = v92;
       }
 
       else
       {
-        v70 = v118[v59 & 1];
+        v70 = v117[v59 & 1];
         v71 = (__p + 16 * v59);
         v72 = *v71;
         v73 = v71[1];
-        LODWORD(v115.__state_) = v93;
+        LODWORD(v114.__state_) = v92;
       }
 
-      v79 = v108.__state_;
-      v108.__state_ = 0;
-      v115.__state_ = v116[v63];
-      v116[v63] = v79;
-      std::future<void>::~future(&v115);
-      std::future<void>::~future(&v108);
+      v79 = v107.__state_;
+      v107.__state_ = 0;
+      v114.__state_ = v115[v63];
+      v115[v63] = v79;
+      std::future<void>::~future(&v114);
+      std::future<void>::~future(&v107);
       if ((v62 & 0x80000000) != 0)
       {
         v58 = __src;
-        v80 = (v113 - __src) >> 4;
+        v80 = (v112 - __src) >> 4;
       }
 
       else
       {
-        std::__assoc_sub_state::wait(v117[v60]);
         std::__assoc_sub_state::wait(v116[v60]);
+        std::__assoc_sub_state::wait(v115[v60]);
         v58 = __src;
-        v80 = (v113 - __src) >> 4;
+        v80 = (v112 - __src) >> 4;
         if (v80 > 2 * v62)
         {
           v81 = (__p + 16 * v62);
@@ -4987,7 +4787,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<signed char,mlx::c
           if (v83 != *v81)
           {
             v84 = (a3 + v82);
-            v85 = v118[v62 & 1];
+            v85 = v117[v62 & 1];
             v86 = v82 - v83;
             do
             {
@@ -5008,31 +4808,29 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<signed char,mlx::c
     while (v80 > v59);
   }
 
-  std::__assoc_sub_state::wait(v117[v69]);
   std::__assoc_sub_state::wait(v116[v69]);
+  std::__assoc_sub_state::wait(v115[v69]);
   for (i = 1; i != -1; --i)
   {
-    std::future<void>::~future(&v116[i]);
+    std::future<void>::~future(&v115[i]);
   }
 
   for (j = 1; j != -1; --j)
   {
-    std::future<void>::~future(&v117[j]);
+    std::future<void>::~future(&v116[j]);
   }
 
   if (__p)
   {
-    v110 = __p;
+    v109 = __p;
     operator delete(__p);
   }
 
   if (__src)
   {
-    v113 = __src;
+    v112 = __src;
     operator delete(__src);
   }
-
-  v91 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A2CCCFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, uint64_t a28, void *a29, uint64_t a30)
@@ -5218,7 +5016,7 @@ uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchI
   }
 }
 
-void *std::__bind<void mlx::core::distributed::ring::RingGroup::all_reduce<short,mlx::core::distributed::ring::anonymous namespace::SumOp<short>>(mlx::core::array const&,mlx::core::array&,mlx::core::Stream,mlx::core::distributed::ring::anonymous namespace::SumOp<short>)::{lambda(void)#1}>::operator()[abi:ne200100]<>(uint64_t a1)
+void std::__bind<void mlx::core::distributed::ring::RingGroup::all_reduce<short,mlx::core::distributed::ring::anonymous namespace::SumOp<short>>(mlx::core::array const&,mlx::core::array&,mlx::core::Stream,mlx::core::distributed::ring::anonymous namespace::SumOp<short>)::{lambda(void)#1}>::operator()[abi:ne200100]<>(uint64_t a1)
 {
   __dst[128] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 16);
@@ -5227,58 +5025,33 @@ void *std::__bind<void mlx::core::distributed::ring::RingGroup::all_reduce<short
   v5 = *(v3 + 12);
   if (v2 >= v5)
   {
-    v8 = *a1;
-    v7 = *(a1 + 8);
-    if (*a1 != v7)
+    v7 = *a1;
+    v6 = *(a1 + 8);
+    if (*a1 != v6)
     {
-      memcpy(v7, v8, 2 * v2);
-      v5 = *(v3 + 12);
-      v2 = *(a1 + 16);
+      memcpy(v6, v7, 2 * v2);
     }
 
-    v9 = ((*(v3 + 288) - *(v3 + 280)) >> 2) + ((*(v3 + 264) - *(v3 + 256)) >> 2);
-    if (v4 / (v5 << 18) < v9)
-    {
-      v9 = v4 / (v5 << 18);
-    }
-
-    if (v9 <= 1)
-    {
-      v9 = 1;
-    }
-
-    memset(v21, 0, sizeof(v21));
-    v10 = *(v3 + 304);
-    v11 = v3;
-    v12 = *(a1 + 8);
-    if ((v2 + v9 - 1) / v9 >= *(a1 + 16))
-    {
-      v13 = *(a1 + 16);
-    }
-
-    v14 = **(v11 + 256);
-    v15 = **(v11 + 280);
+    memset(v12, 0, sizeof(v12));
     operator new();
   }
 
   if (2 * v5 >= 0x401)
   {
     std::ostringstream::basic_ostringstream[abi:ne200100](__dst);
-    v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__dst, "Can't perform the ring all reduce of ", 37);
-    v18 = MEMORY[0x25F851380](v17, *(a1 + 16));
-    v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, " elements with a ring of size ", 30);
-    MEMORY[0x25F851360](v19, *(v3 + 12));
+    v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__dst, "Can't perform the ring all reduce of ", 37);
+    v9 = MEMORY[0x25F851380](v8, *(a1 + 16));
+    v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, " elements with a ring of size ", 30);
+    MEMORY[0x25F851360](v10, *(v3 + 12));
     exception = __cxa_allocate_exception(0x10uLL);
-    std::ostringstream::str[abi:ne200100](__dst, v21);
-    MEMORY[0x25F851100](exception, v21);
+    std::ostringstream::str[abi:ne200100](__dst, v12);
+    MEMORY[0x25F851100](exception, v12);
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
   bzero(__dst, 2 * v5);
   memcpy(__dst, *a1, v4);
-  result = memcpy(*(a1 + 8), __dst, v4);
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  memcpy(*(a1 + 8), __dst, v4);
 }
 
 void sub_25A2CD7E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, std::future<void> a21, char a22)
@@ -5305,7 +5078,7 @@ LABEL_6:
 
 void mlx::core::distributed::ring::RingGroup::all_reduce_impl<short,mlx::core::distributed::ring::anonymous namespace::SumOp<short>>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, int a5, int a6, int a7)
 {
-  v118[2] = *MEMORY[0x277D85DE8];
+  v117[2] = *MEMORY[0x277D85DE8];
   if (a7 >= 0)
   {
     v7 = a6;
@@ -5326,8 +5099,8 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<short,mlx::core::d
     v8 = a6;
   }
 
-  v93 = v8;
-  v94 = v7;
+  v92 = v8;
+  v93 = v7;
   v9 = *(a1 + 8);
   v10 = *(a1 + 12);
   v11 = (a4 + v10 - 1) / v10;
@@ -5350,21 +5123,21 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<short,mlx::core::d
   v14 = v11 + v13 - 1;
   v15 = (v10 + a7 + v9) % v10;
   __src = 0;
+  v112 = 0;
   v113 = 0;
-  v114 = 0;
   __p = 0;
+  v109 = 0;
   v110 = 0;
-  v111 = 0;
   v16 = 1;
-  v107 = v13;
-  v105 = v14 / v13;
-  v100 = a7;
-  v98 = (a4 + v10 - 1) / v10;
-  v99 = a4;
-  v97 = v14;
+  v106 = v13;
+  v104 = v14 / v13;
+  v99 = a7;
+  v97 = (a4 + v10 - 1) / v10;
+  v98 = a4;
+  v96 = v14;
   do
   {
-    v96 = v16;
+    v95 = v16;
     if (v10 >= 2)
     {
       v17 = 0;
@@ -5390,34 +5163,34 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<short,mlx::core::d
           v19 = v11 * (v15 + 1);
         }
 
-        if (v107 <= v14)
+        if (v106 <= v14)
         {
-          v102 = v17;
+          v101 = v17;
           v20 = 0;
-          v103 = v15;
-          v104 = v9;
-          v106 = v11 * v9;
+          v102 = v15;
+          v103 = v9;
+          v105 = v11 * v9;
           v21 = v11 * v15;
           do
           {
-            v22 = v20 * v107;
-            v23 = v20 * v107 + v106;
-            v24 = ++v20 * v107;
-            v25 = v20 * v107 + v106;
-            v26 = v113;
-            if (v113 >= v114)
+            v22 = v20 * v106;
+            v23 = v20 * v106 + v105;
+            v24 = ++v20 * v106;
+            v25 = v20 * v106 + v105;
+            v26 = v112;
+            if (v112 >= v113)
             {
               v30 = __src;
-              v31 = v113 - __src;
-              v32 = (v113 - __src) >> 4;
+              v31 = v112 - __src;
+              v32 = (v112 - __src) >> 4;
               v33 = v32 + 1;
               if ((v32 + 1) >> 60)
               {
                 std::vector<int>::__throw_length_error[abi:ne200100]();
               }
 
-              v34 = v114 - __src;
-              if ((v114 - __src) >> 3 > v33)
+              v34 = v113 - __src;
+              if ((v113 - __src) >> 3 > v33)
               {
                 v33 = v34 >> 3;
               }
@@ -5432,7 +5205,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<short,mlx::core::d
                 std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<unsigned long,unsigned long>>>(&__src, v33);
               }
 
-              v35 = (v113 - __src) >> 4;
+              v35 = (v112 - __src) >> 4;
               v36 = (16 * v32);
               if (v18 >= v23)
               {
@@ -5446,7 +5219,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<short,mlx::core::d
 
               if (v18 >= v25)
               {
-                v38 = v20 * v107 + v106;
+                v38 = v20 * v106 + v105;
               }
 
               else
@@ -5461,8 +5234,8 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<short,mlx::core::d
               memcpy(v39, v30, v31);
               v40 = __src;
               __src = v39;
-              v113 = v29;
-              v114 = 0;
+              v112 = v29;
+              v113 = 0;
               if (v40)
               {
                 operator delete(v40);
@@ -5483,7 +5256,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<short,mlx::core::d
 
               if (v18 >= v25)
               {
-                v28 = v20 * v107 + v106;
+                v28 = v20 * v106 + v105;
               }
 
               else
@@ -5491,28 +5264,28 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<short,mlx::core::d
                 v28 = v18;
               }
 
-              *v113 = v27;
+              *v112 = v27;
               *(v26 + 1) = v28;
               v29 = v26 + 16;
             }
 
-            v113 = v29;
+            v112 = v29;
             v41 = v22 + v21;
             v42 = v24 + v21;
-            v43 = v110;
-            if (v110 >= v111)
+            v43 = v109;
+            if (v109 >= v110)
             {
               v47 = __p;
-              v48 = v110 - __p;
-              v49 = (v110 - __p) >> 4;
+              v48 = v109 - __p;
+              v49 = (v109 - __p) >> 4;
               v50 = v49 + 1;
               if ((v49 + 1) >> 60)
               {
                 std::vector<int>::__throw_length_error[abi:ne200100]();
               }
 
-              v51 = v111 - __p;
-              if ((v111 - __p) >> 3 > v50)
+              v51 = v110 - __p;
+              if ((v110 - __p) >> 3 > v50)
               {
                 v50 = v51 >> 3;
               }
@@ -5527,7 +5300,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<short,mlx::core::d
                 std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<unsigned long,unsigned long>>>(&__p, v50);
               }
 
-              v52 = (v110 - __p) >> 4;
+              v52 = (v109 - __p) >> 4;
               v53 = (16 * v49);
               if (v19 >= v41)
               {
@@ -5556,8 +5329,8 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<short,mlx::core::d
               memcpy(v56, v47, v48);
               v57 = __p;
               __p = v56;
-              v110 = v46;
-              v111 = 0;
+              v109 = v46;
+              v110 = 0;
               if (v57)
               {
                 operator delete(v57);
@@ -5586,23 +5359,23 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<short,mlx::core::d
                 v45 = v19;
               }
 
-              *v110 = v44;
+              *v109 = v44;
               *(v43 + 1) = v45;
               v46 = v43 + 16;
             }
 
-            v110 = v46;
+            v109 = v46;
           }
 
-          while (v20 < v105);
+          while (v20 < v104);
           LODWORD(v10) = *(a1 + 12);
-          a7 = v100;
-          v11 = v98;
-          a4 = v99;
-          v15 = v103;
-          v9 = v104;
-          v14 = v97;
-          v17 = v102;
+          a7 = v99;
+          v11 = v97;
+          a4 = v98;
+          v15 = v102;
+          v9 = v103;
+          v14 = v96;
+          v17 = v101;
         }
 
         v9 = (v9 + a7 + v10) % v10;
@@ -5616,25 +5389,25 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<short,mlx::core::d
     v16 = 0;
   }
 
-  while ((v96 & 1) != 0);
-  v118[0] = a2;
-  v118[1] = a2 + 2 * v107;
-  v117[0] = 0;
-  v117[1] = 0;
+  while ((v95 & 1) != 0);
+  v117[0] = a2;
+  v117[1] = a2 + 2 * v106;
   v116[0] = 0;
   v116[1] = 0;
+  v115[0] = 0;
+  v115[1] = 0;
   v58 = __src;
-  if (v113 == __src)
+  if (v112 == __src)
   {
-    v69 = v105 > 1;
+    v69 = v104 > 1;
   }
 
   else
   {
     v59 = 0;
     v60 = 0;
-    v61 = v105 > 1;
-    if (v105 <= 1)
+    v61 = v104 > 1;
+    if (v104 <= 1)
     {
       v62 = 0;
     }
@@ -5651,49 +5424,49 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<short,mlx::core::d
       v64 = &v58[16 * v59];
       v65 = *v64;
       v66 = *(v64 + 1);
-      LODWORD(v115.__state_) = v94;
-      state = v108.__state_;
-      v108.__state_ = 0;
+      LODWORD(v114.__state_) = v93;
+      state = v107.__state_;
+      v107.__state_ = 0;
       v69 = v63;
-      v115.__state_ = v117[v63];
-      v117[v63] = state;
-      std::future<void>::~future(&v115);
-      std::future<void>::~future(&v108);
-      if ((v113 - __src) >> 4 <= 2 * v59)
+      v114.__state_ = v116[v63];
+      v116[v63] = state;
+      std::future<void>::~future(&v114);
+      std::future<void>::~future(&v107);
+      if ((v112 - __src) >> 4 <= 2 * v59)
       {
         v75 = (__p + 16 * v59);
         v76 = *v75;
         v77 = v75[1];
-        LODWORD(v115.__state_) = v93;
+        LODWORD(v114.__state_) = v92;
       }
 
       else
       {
-        v70 = v118[v59 & 1];
+        v70 = v117[v59 & 1];
         v71 = (__p + 16 * v59);
         v72 = *v71;
         v73 = v71[1];
-        LODWORD(v115.__state_) = v93;
+        LODWORD(v114.__state_) = v92;
       }
 
-      v79 = v108.__state_;
-      v108.__state_ = 0;
-      v115.__state_ = v116[v63];
-      v116[v63] = v79;
-      std::future<void>::~future(&v115);
-      std::future<void>::~future(&v108);
+      v79 = v107.__state_;
+      v107.__state_ = 0;
+      v114.__state_ = v115[v63];
+      v115[v63] = v79;
+      std::future<void>::~future(&v114);
+      std::future<void>::~future(&v107);
       if ((v62 & 0x80000000) != 0)
       {
         v58 = __src;
-        v80 = (v113 - __src) >> 4;
+        v80 = (v112 - __src) >> 4;
       }
 
       else
       {
-        std::__assoc_sub_state::wait(v117[v60]);
         std::__assoc_sub_state::wait(v116[v60]);
+        std::__assoc_sub_state::wait(v115[v60]);
         v58 = __src;
-        v80 = (v113 - __src) >> 4;
+        v80 = (v112 - __src) >> 4;
         if (v80 > 2 * v62)
         {
           v81 = (__p + 16 * v62);
@@ -5702,7 +5475,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<short,mlx::core::d
           if (v83 != *v81)
           {
             v84 = (a3 + 2 * v82);
-            v85 = v118[v62 & 1];
+            v85 = v117[v62 & 1];
             v86 = v82 - v83;
             do
             {
@@ -5723,31 +5496,29 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<short,mlx::core::d
     while (v80 > v59);
   }
 
-  std::__assoc_sub_state::wait(v117[v69]);
   std::__assoc_sub_state::wait(v116[v69]);
+  std::__assoc_sub_state::wait(v115[v69]);
   for (i = 1; i != -1; --i)
   {
-    std::future<void>::~future(&v116[i]);
+    std::future<void>::~future(&v115[i]);
   }
 
   for (j = 1; j != -1; --j)
   {
-    std::future<void>::~future(&v117[j]);
+    std::future<void>::~future(&v116[j]);
   }
 
   if (__p)
   {
-    v110 = __p;
+    v109 = __p;
     operator delete(__p);
   }
 
   if (__src)
   {
-    v113 = __src;
+    v112 = __src;
     operator delete(__src);
   }
-
-  v91 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A2CDF00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, uint64_t a28, void *a29, uint64_t a30)
@@ -5933,7 +5704,7 @@ uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchI
   }
 }
 
-void *std::__bind<void mlx::core::distributed::ring::RingGroup::all_reduce<int,mlx::core::distributed::ring::anonymous namespace::SumOp<int>>(mlx::core::array const&,mlx::core::array&,mlx::core::Stream,mlx::core::distributed::ring::anonymous namespace::SumOp<int>)::{lambda(void)#1}>::operator()[abi:ne200100]<>(uint64_t a1)
+void std::__bind<void mlx::core::distributed::ring::RingGroup::all_reduce<int,mlx::core::distributed::ring::anonymous namespace::SumOp<int>>(mlx::core::array const&,mlx::core::array&,mlx::core::Stream,mlx::core::distributed::ring::anonymous namespace::SumOp<int>)::{lambda(void)#1}>::operator()[abi:ne200100]<>(uint64_t a1)
 {
   __dst[128] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 16);
@@ -5942,58 +5713,33 @@ void *std::__bind<void mlx::core::distributed::ring::RingGroup::all_reduce<int,m
   v5 = *(v3 + 12);
   if (v2 >= v5)
   {
-    v8 = *a1;
-    v7 = *(a1 + 8);
-    if (*a1 != v7)
+    v7 = *a1;
+    v6 = *(a1 + 8);
+    if (*a1 != v6)
     {
-      memcpy(v7, v8, 4 * v2);
-      v5 = *(v3 + 12);
-      v2 = *(a1 + 16);
+      memcpy(v6, v7, 4 * v2);
     }
 
-    v9 = ((*(v3 + 288) - *(v3 + 280)) >> 2) + ((*(v3 + 264) - *(v3 + 256)) >> 2);
-    if (v4 / (v5 << 18) < v9)
-    {
-      v9 = v4 / (v5 << 18);
-    }
-
-    if (v9 <= 1)
-    {
-      v9 = 1;
-    }
-
-    memset(v21, 0, sizeof(v21));
-    v10 = *(v3 + 304);
-    v11 = v3;
-    v12 = *(a1 + 8);
-    if ((v2 + v9 - 1) / v9 >= *(a1 + 16))
-    {
-      v13 = *(a1 + 16);
-    }
-
-    v14 = **(v11 + 256);
-    v15 = **(v11 + 280);
+    memset(v12, 0, sizeof(v12));
     operator new();
   }
 
   if (4 * v5 >= 0x401)
   {
     std::ostringstream::basic_ostringstream[abi:ne200100](__dst);
-    v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__dst, "Can't perform the ring all reduce of ", 37);
-    v18 = MEMORY[0x25F851380](v17, *(a1 + 16));
-    v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, " elements with a ring of size ", 30);
-    MEMORY[0x25F851360](v19, *(v3 + 12));
+    v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__dst, "Can't perform the ring all reduce of ", 37);
+    v9 = MEMORY[0x25F851380](v8, *(a1 + 16));
+    v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, " elements with a ring of size ", 30);
+    MEMORY[0x25F851360](v10, *(v3 + 12));
     exception = __cxa_allocate_exception(0x10uLL);
-    std::ostringstream::str[abi:ne200100](__dst, v21);
-    MEMORY[0x25F851100](exception, v21);
+    std::ostringstream::str[abi:ne200100](__dst, v12);
+    MEMORY[0x25F851100](exception, v12);
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
   bzero(__dst, 4 * v5);
   memcpy(__dst, *a1, v4);
-  result = memcpy(*(a1 + 8), __dst, v4);
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  memcpy(*(a1 + 8), __dst, v4);
 }
 
 void sub_25A2CE9E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, std::future<void> a21, char a22)
@@ -6020,7 +5766,7 @@ LABEL_6:
 
 void mlx::core::distributed::ring::RingGroup::all_reduce_impl<int,mlx::core::distributed::ring::anonymous namespace::SumOp<int>>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, int a5, int a6, int a7)
 {
-  v118[2] = *MEMORY[0x277D85DE8];
+  v117[2] = *MEMORY[0x277D85DE8];
   if (a7 >= 0)
   {
     v7 = a6;
@@ -6041,8 +5787,8 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<int,mlx::core::dis
     v8 = a6;
   }
 
-  v93 = v8;
-  v94 = v7;
+  v92 = v8;
+  v93 = v7;
   v9 = *(a1 + 8);
   v10 = *(a1 + 12);
   v11 = (a4 + v10 - 1) / v10;
@@ -6065,21 +5811,21 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<int,mlx::core::dis
   v14 = v11 + v13 - 1;
   v15 = (v10 + a7 + v9) % v10;
   __src = 0;
+  v112 = 0;
   v113 = 0;
-  v114 = 0;
   __p = 0;
+  v109 = 0;
   v110 = 0;
-  v111 = 0;
   v16 = 1;
-  v107 = v13;
-  v105 = v14 / v13;
-  v100 = a7;
-  v98 = (a4 + v10 - 1) / v10;
-  v99 = a4;
-  v97 = v14;
+  v106 = v13;
+  v104 = v14 / v13;
+  v99 = a7;
+  v97 = (a4 + v10 - 1) / v10;
+  v98 = a4;
+  v96 = v14;
   do
   {
-    v96 = v16;
+    v95 = v16;
     if (v10 >= 2)
     {
       v17 = 0;
@@ -6105,34 +5851,34 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<int,mlx::core::dis
           v19 = v11 * (v15 + 1);
         }
 
-        if (v107 <= v14)
+        if (v106 <= v14)
         {
-          v102 = v17;
+          v101 = v17;
           v20 = 0;
-          v103 = v15;
-          v104 = v9;
-          v106 = v11 * v9;
+          v102 = v15;
+          v103 = v9;
+          v105 = v11 * v9;
           v21 = v11 * v15;
           do
           {
-            v22 = v20 * v107;
-            v23 = v20 * v107 + v106;
-            v24 = ++v20 * v107;
-            v25 = v20 * v107 + v106;
-            v26 = v113;
-            if (v113 >= v114)
+            v22 = v20 * v106;
+            v23 = v20 * v106 + v105;
+            v24 = ++v20 * v106;
+            v25 = v20 * v106 + v105;
+            v26 = v112;
+            if (v112 >= v113)
             {
               v30 = __src;
-              v31 = v113 - __src;
-              v32 = (v113 - __src) >> 4;
+              v31 = v112 - __src;
+              v32 = (v112 - __src) >> 4;
               v33 = v32 + 1;
               if ((v32 + 1) >> 60)
               {
                 std::vector<int>::__throw_length_error[abi:ne200100]();
               }
 
-              v34 = v114 - __src;
-              if ((v114 - __src) >> 3 > v33)
+              v34 = v113 - __src;
+              if ((v113 - __src) >> 3 > v33)
               {
                 v33 = v34 >> 3;
               }
@@ -6147,7 +5893,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<int,mlx::core::dis
                 std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<unsigned long,unsigned long>>>(&__src, v33);
               }
 
-              v35 = (v113 - __src) >> 4;
+              v35 = (v112 - __src) >> 4;
               v36 = (16 * v32);
               if (v18 >= v23)
               {
@@ -6161,7 +5907,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<int,mlx::core::dis
 
               if (v18 >= v25)
               {
-                v38 = v20 * v107 + v106;
+                v38 = v20 * v106 + v105;
               }
 
               else
@@ -6176,8 +5922,8 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<int,mlx::core::dis
               memcpy(v39, v30, v31);
               v40 = __src;
               __src = v39;
-              v113 = v29;
-              v114 = 0;
+              v112 = v29;
+              v113 = 0;
               if (v40)
               {
                 operator delete(v40);
@@ -6198,7 +5944,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<int,mlx::core::dis
 
               if (v18 >= v25)
               {
-                v28 = v20 * v107 + v106;
+                v28 = v20 * v106 + v105;
               }
 
               else
@@ -6206,28 +5952,28 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<int,mlx::core::dis
                 v28 = v18;
               }
 
-              *v113 = v27;
+              *v112 = v27;
               *(v26 + 1) = v28;
               v29 = v26 + 16;
             }
 
-            v113 = v29;
+            v112 = v29;
             v41 = v22 + v21;
             v42 = v24 + v21;
-            v43 = v110;
-            if (v110 >= v111)
+            v43 = v109;
+            if (v109 >= v110)
             {
               v47 = __p;
-              v48 = v110 - __p;
-              v49 = (v110 - __p) >> 4;
+              v48 = v109 - __p;
+              v49 = (v109 - __p) >> 4;
               v50 = v49 + 1;
               if ((v49 + 1) >> 60)
               {
                 std::vector<int>::__throw_length_error[abi:ne200100]();
               }
 
-              v51 = v111 - __p;
-              if ((v111 - __p) >> 3 > v50)
+              v51 = v110 - __p;
+              if ((v110 - __p) >> 3 > v50)
               {
                 v50 = v51 >> 3;
               }
@@ -6242,7 +5988,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<int,mlx::core::dis
                 std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<unsigned long,unsigned long>>>(&__p, v50);
               }
 
-              v52 = (v110 - __p) >> 4;
+              v52 = (v109 - __p) >> 4;
               v53 = (16 * v49);
               if (v19 >= v41)
               {
@@ -6271,8 +6017,8 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<int,mlx::core::dis
               memcpy(v56, v47, v48);
               v57 = __p;
               __p = v56;
-              v110 = v46;
-              v111 = 0;
+              v109 = v46;
+              v110 = 0;
               if (v57)
               {
                 operator delete(v57);
@@ -6301,23 +6047,23 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<int,mlx::core::dis
                 v45 = v19;
               }
 
-              *v110 = v44;
+              *v109 = v44;
               *(v43 + 1) = v45;
               v46 = v43 + 16;
             }
 
-            v110 = v46;
+            v109 = v46;
           }
 
-          while (v20 < v105);
+          while (v20 < v104);
           LODWORD(v10) = *(a1 + 12);
-          a7 = v100;
-          v11 = v98;
-          a4 = v99;
-          v15 = v103;
-          v9 = v104;
-          v14 = v97;
-          v17 = v102;
+          a7 = v99;
+          v11 = v97;
+          a4 = v98;
+          v15 = v102;
+          v9 = v103;
+          v14 = v96;
+          v17 = v101;
         }
 
         v9 = (v9 + a7 + v10) % v10;
@@ -6331,25 +6077,25 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<int,mlx::core::dis
     v16 = 0;
   }
 
-  while ((v96 & 1) != 0);
-  v118[0] = a2;
-  v118[1] = a2 + 4 * v107;
-  v117[0] = 0;
-  v117[1] = 0;
+  while ((v95 & 1) != 0);
+  v117[0] = a2;
+  v117[1] = a2 + 4 * v106;
   v116[0] = 0;
   v116[1] = 0;
+  v115[0] = 0;
+  v115[1] = 0;
   v58 = __src;
-  if (v113 == __src)
+  if (v112 == __src)
   {
-    v69 = v105 > 1;
+    v69 = v104 > 1;
   }
 
   else
   {
     v59 = 0;
     v60 = 0;
-    v61 = v105 > 1;
-    if (v105 <= 1)
+    v61 = v104 > 1;
+    if (v104 <= 1)
     {
       v62 = 0;
     }
@@ -6366,49 +6112,49 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<int,mlx::core::dis
       v64 = &v58[16 * v59];
       v65 = *v64;
       v66 = *(v64 + 1);
-      LODWORD(v115.__state_) = v94;
-      state = v108.__state_;
-      v108.__state_ = 0;
+      LODWORD(v114.__state_) = v93;
+      state = v107.__state_;
+      v107.__state_ = 0;
       v69 = v63;
-      v115.__state_ = v117[v63];
-      v117[v63] = state;
-      std::future<void>::~future(&v115);
-      std::future<void>::~future(&v108);
-      if ((v113 - __src) >> 4 <= 2 * v59)
+      v114.__state_ = v116[v63];
+      v116[v63] = state;
+      std::future<void>::~future(&v114);
+      std::future<void>::~future(&v107);
+      if ((v112 - __src) >> 4 <= 2 * v59)
       {
         v75 = (__p + 16 * v59);
         v76 = *v75;
         v77 = v75[1];
-        LODWORD(v115.__state_) = v93;
+        LODWORD(v114.__state_) = v92;
       }
 
       else
       {
-        v70 = v118[v59 & 1];
+        v70 = v117[v59 & 1];
         v71 = (__p + 16 * v59);
         v72 = *v71;
         v73 = v71[1];
-        LODWORD(v115.__state_) = v93;
+        LODWORD(v114.__state_) = v92;
       }
 
-      v79 = v108.__state_;
-      v108.__state_ = 0;
-      v115.__state_ = v116[v63];
-      v116[v63] = v79;
-      std::future<void>::~future(&v115);
-      std::future<void>::~future(&v108);
+      v79 = v107.__state_;
+      v107.__state_ = 0;
+      v114.__state_ = v115[v63];
+      v115[v63] = v79;
+      std::future<void>::~future(&v114);
+      std::future<void>::~future(&v107);
       if ((v62 & 0x80000000) != 0)
       {
         v58 = __src;
-        v80 = (v113 - __src) >> 4;
+        v80 = (v112 - __src) >> 4;
       }
 
       else
       {
-        std::__assoc_sub_state::wait(v117[v60]);
         std::__assoc_sub_state::wait(v116[v60]);
+        std::__assoc_sub_state::wait(v115[v60]);
         v58 = __src;
-        v80 = (v113 - __src) >> 4;
+        v80 = (v112 - __src) >> 4;
         if (v80 > 2 * v62)
         {
           v81 = (__p + 16 * v62);
@@ -6417,7 +6163,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<int,mlx::core::dis
           if (v83 != *v81)
           {
             v84 = (a3 + 4 * v82);
-            v85 = v118[v62 & 1];
+            v85 = v117[v62 & 1];
             v86 = v82 - v83;
             do
             {
@@ -6438,31 +6184,29 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<int,mlx::core::dis
     while (v80 > v59);
   }
 
-  std::__assoc_sub_state::wait(v117[v69]);
   std::__assoc_sub_state::wait(v116[v69]);
+  std::__assoc_sub_state::wait(v115[v69]);
   for (i = 1; i != -1; --i)
   {
-    std::future<void>::~future(&v116[i]);
+    std::future<void>::~future(&v115[i]);
   }
 
   for (j = 1; j != -1; --j)
   {
-    std::future<void>::~future(&v117[j]);
+    std::future<void>::~future(&v116[j]);
   }
 
   if (__p)
   {
-    v110 = __p;
+    v109 = __p;
     operator delete(__p);
   }
 
   if (__src)
   {
-    v113 = __src;
+    v112 = __src;
     operator delete(__src);
   }
-
-  v91 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A2CF104(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, uint64_t a28, void *a29, uint64_t a30)
@@ -6648,7 +6392,7 @@ uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchI
   }
 }
 
-void *std::__bind<void mlx::core::distributed::ring::RingGroup::all_reduce<long long,mlx::core::distributed::ring::anonymous namespace::SumOp<long long>>(mlx::core::array const&,mlx::core::array&,mlx::core::Stream,mlx::core::distributed::ring::anonymous namespace::SumOp<long long>)::{lambda(void)#1}>::operator()[abi:ne200100]<>(uint64_t a1)
+void std::__bind<void mlx::core::distributed::ring::RingGroup::all_reduce<long long,mlx::core::distributed::ring::anonymous namespace::SumOp<long long>>(mlx::core::array const&,mlx::core::array&,mlx::core::Stream,mlx::core::distributed::ring::anonymous namespace::SumOp<long long>)::{lambda(void)#1}>::operator()[abi:ne200100]<>(uint64_t a1)
 {
   __dst[128] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 16);
@@ -6657,58 +6401,33 @@ void *std::__bind<void mlx::core::distributed::ring::RingGroup::all_reduce<long 
   v5 = *(v3 + 12);
   if (v2 >= v5)
   {
-    v8 = *a1;
-    v7 = *(a1 + 8);
-    if (*a1 != v7)
+    v7 = *a1;
+    v6 = *(a1 + 8);
+    if (*a1 != v6)
     {
-      memcpy(v7, v8, 8 * v2);
-      v5 = *(v3 + 12);
-      v2 = *(a1 + 16);
+      memcpy(v6, v7, 8 * v2);
     }
 
-    v9 = ((*(v3 + 288) - *(v3 + 280)) >> 2) + ((*(v3 + 264) - *(v3 + 256)) >> 2);
-    if (v4 / (v5 << 18) < v9)
-    {
-      v9 = v4 / (v5 << 18);
-    }
-
-    if (v9 <= 1)
-    {
-      v9 = 1;
-    }
-
-    memset(v21, 0, sizeof(v21));
-    v10 = *(v3 + 304);
-    v11 = v3;
-    v12 = *(a1 + 8);
-    if ((v2 + v9 - 1) / v9 >= *(a1 + 16))
-    {
-      v13 = *(a1 + 16);
-    }
-
-    v14 = **(v11 + 256);
-    v15 = **(v11 + 280);
+    memset(v12, 0, sizeof(v12));
     operator new();
   }
 
   if (8 * v5 >= 0x401)
   {
     std::ostringstream::basic_ostringstream[abi:ne200100](__dst);
-    v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__dst, "Can't perform the ring all reduce of ", 37);
-    v18 = MEMORY[0x25F851380](v17, *(a1 + 16));
-    v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, " elements with a ring of size ", 30);
-    MEMORY[0x25F851360](v19, *(v3 + 12));
+    v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__dst, "Can't perform the ring all reduce of ", 37);
+    v9 = MEMORY[0x25F851380](v8, *(a1 + 16));
+    v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, " elements with a ring of size ", 30);
+    MEMORY[0x25F851360](v10, *(v3 + 12));
     exception = __cxa_allocate_exception(0x10uLL);
-    std::ostringstream::str[abi:ne200100](__dst, v21);
-    MEMORY[0x25F851100](exception, v21);
+    std::ostringstream::str[abi:ne200100](__dst, v12);
+    MEMORY[0x25F851100](exception, v12);
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
   bzero(__dst, 8 * v5);
   memcpy(__dst, *a1, v4);
-  result = memcpy(*(a1 + 8), __dst, v4);
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  memcpy(*(a1 + 8), __dst, v4);
 }
 
 void sub_25A2CFBEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, std::future<void> a21, char a22)
@@ -6735,7 +6454,7 @@ LABEL_6:
 
 void mlx::core::distributed::ring::RingGroup::all_reduce_impl<long long,mlx::core::distributed::ring::anonymous namespace::SumOp<long long>>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, int a5, int a6, int a7)
 {
-  v118[2] = *MEMORY[0x277D85DE8];
+  v117[2] = *MEMORY[0x277D85DE8];
   if (a7 >= 0)
   {
     v7 = a6;
@@ -6756,8 +6475,8 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<long long,mlx::cor
     v8 = a6;
   }
 
-  v93 = v8;
-  v94 = v7;
+  v92 = v8;
+  v93 = v7;
   v9 = *(a1 + 8);
   v10 = *(a1 + 12);
   v11 = (a4 + v10 - 1) / v10;
@@ -6780,21 +6499,21 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<long long,mlx::cor
   v14 = v11 + v13 - 1;
   v15 = (v10 + a7 + v9) % v10;
   __src = 0;
+  v112 = 0;
   v113 = 0;
-  v114 = 0;
   __p = 0;
+  v109 = 0;
   v110 = 0;
-  v111 = 0;
   v16 = 1;
-  v107 = v13;
-  v105 = v14 / v13;
-  v100 = a7;
-  v98 = (a4 + v10 - 1) / v10;
-  v99 = a4;
-  v97 = v14;
+  v106 = v13;
+  v104 = v14 / v13;
+  v99 = a7;
+  v97 = (a4 + v10 - 1) / v10;
+  v98 = a4;
+  v96 = v14;
   do
   {
-    v96 = v16;
+    v95 = v16;
     if (v10 >= 2)
     {
       v17 = 0;
@@ -6820,34 +6539,34 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<long long,mlx::cor
           v19 = v11 * (v15 + 1);
         }
 
-        if (v107 <= v14)
+        if (v106 <= v14)
         {
-          v102 = v17;
+          v101 = v17;
           v20 = 0;
-          v103 = v15;
-          v104 = v9;
-          v106 = v11 * v9;
+          v102 = v15;
+          v103 = v9;
+          v105 = v11 * v9;
           v21 = v11 * v15;
           do
           {
-            v22 = v20 * v107;
-            v23 = v20 * v107 + v106;
-            v24 = ++v20 * v107;
-            v25 = v20 * v107 + v106;
-            v26 = v113;
-            if (v113 >= v114)
+            v22 = v20 * v106;
+            v23 = v20 * v106 + v105;
+            v24 = ++v20 * v106;
+            v25 = v20 * v106 + v105;
+            v26 = v112;
+            if (v112 >= v113)
             {
               v30 = __src;
-              v31 = v113 - __src;
-              v32 = (v113 - __src) >> 4;
+              v31 = v112 - __src;
+              v32 = (v112 - __src) >> 4;
               v33 = v32 + 1;
               if ((v32 + 1) >> 60)
               {
                 std::vector<int>::__throw_length_error[abi:ne200100]();
               }
 
-              v34 = v114 - __src;
-              if ((v114 - __src) >> 3 > v33)
+              v34 = v113 - __src;
+              if ((v113 - __src) >> 3 > v33)
               {
                 v33 = v34 >> 3;
               }
@@ -6862,7 +6581,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<long long,mlx::cor
                 std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<unsigned long,unsigned long>>>(&__src, v33);
               }
 
-              v35 = (v113 - __src) >> 4;
+              v35 = (v112 - __src) >> 4;
               v36 = (16 * v32);
               if (v18 >= v23)
               {
@@ -6876,7 +6595,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<long long,mlx::cor
 
               if (v18 >= v25)
               {
-                v38 = v20 * v107 + v106;
+                v38 = v20 * v106 + v105;
               }
 
               else
@@ -6891,8 +6610,8 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<long long,mlx::cor
               memcpy(v39, v30, v31);
               v40 = __src;
               __src = v39;
-              v113 = v29;
-              v114 = 0;
+              v112 = v29;
+              v113 = 0;
               if (v40)
               {
                 operator delete(v40);
@@ -6913,7 +6632,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<long long,mlx::cor
 
               if (v18 >= v25)
               {
-                v28 = v20 * v107 + v106;
+                v28 = v20 * v106 + v105;
               }
 
               else
@@ -6921,28 +6640,28 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<long long,mlx::cor
                 v28 = v18;
               }
 
-              *v113 = v27;
+              *v112 = v27;
               *(v26 + 1) = v28;
               v29 = v26 + 16;
             }
 
-            v113 = v29;
+            v112 = v29;
             v41 = v22 + v21;
             v42 = v24 + v21;
-            v43 = v110;
-            if (v110 >= v111)
+            v43 = v109;
+            if (v109 >= v110)
             {
               v47 = __p;
-              v48 = v110 - __p;
-              v49 = (v110 - __p) >> 4;
+              v48 = v109 - __p;
+              v49 = (v109 - __p) >> 4;
               v50 = v49 + 1;
               if ((v49 + 1) >> 60)
               {
                 std::vector<int>::__throw_length_error[abi:ne200100]();
               }
 
-              v51 = v111 - __p;
-              if ((v111 - __p) >> 3 > v50)
+              v51 = v110 - __p;
+              if ((v110 - __p) >> 3 > v50)
               {
                 v50 = v51 >> 3;
               }
@@ -6957,7 +6676,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<long long,mlx::cor
                 std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<unsigned long,unsigned long>>>(&__p, v50);
               }
 
-              v52 = (v110 - __p) >> 4;
+              v52 = (v109 - __p) >> 4;
               v53 = (16 * v49);
               if (v19 >= v41)
               {
@@ -6986,8 +6705,8 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<long long,mlx::cor
               memcpy(v56, v47, v48);
               v57 = __p;
               __p = v56;
-              v110 = v46;
-              v111 = 0;
+              v109 = v46;
+              v110 = 0;
               if (v57)
               {
                 operator delete(v57);
@@ -7016,23 +6735,23 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<long long,mlx::cor
                 v45 = v19;
               }
 
-              *v110 = v44;
+              *v109 = v44;
               *(v43 + 1) = v45;
               v46 = v43 + 16;
             }
 
-            v110 = v46;
+            v109 = v46;
           }
 
-          while (v20 < v105);
+          while (v20 < v104);
           LODWORD(v10) = *(a1 + 12);
-          a7 = v100;
-          v11 = v98;
-          a4 = v99;
-          v15 = v103;
-          v9 = v104;
-          v14 = v97;
-          v17 = v102;
+          a7 = v99;
+          v11 = v97;
+          a4 = v98;
+          v15 = v102;
+          v9 = v103;
+          v14 = v96;
+          v17 = v101;
         }
 
         v9 = (v9 + a7 + v10) % v10;
@@ -7046,25 +6765,25 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<long long,mlx::cor
     v16 = 0;
   }
 
-  while ((v96 & 1) != 0);
-  v118[0] = a2;
-  v118[1] = a2 + 8 * v107;
-  v117[0] = 0;
-  v117[1] = 0;
+  while ((v95 & 1) != 0);
+  v117[0] = a2;
+  v117[1] = a2 + 8 * v106;
   v116[0] = 0;
   v116[1] = 0;
+  v115[0] = 0;
+  v115[1] = 0;
   v58 = __src;
-  if (v113 == __src)
+  if (v112 == __src)
   {
-    v69 = v105 > 1;
+    v69 = v104 > 1;
   }
 
   else
   {
     v59 = 0;
     v60 = 0;
-    v61 = v105 > 1;
-    if (v105 <= 1)
+    v61 = v104 > 1;
+    if (v104 <= 1)
     {
       v62 = 0;
     }
@@ -7081,49 +6800,49 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<long long,mlx::cor
       v64 = &v58[16 * v59];
       v65 = *v64;
       v66 = *(v64 + 1);
-      LODWORD(v115.__state_) = v94;
-      state = v108.__state_;
-      v108.__state_ = 0;
+      LODWORD(v114.__state_) = v93;
+      state = v107.__state_;
+      v107.__state_ = 0;
       v69 = v63;
-      v115.__state_ = v117[v63];
-      v117[v63] = state;
-      std::future<void>::~future(&v115);
-      std::future<void>::~future(&v108);
-      if ((v113 - __src) >> 4 <= 2 * v59)
+      v114.__state_ = v116[v63];
+      v116[v63] = state;
+      std::future<void>::~future(&v114);
+      std::future<void>::~future(&v107);
+      if ((v112 - __src) >> 4 <= 2 * v59)
       {
         v75 = (__p + 16 * v59);
         v76 = *v75;
         v77 = v75[1];
-        LODWORD(v115.__state_) = v93;
+        LODWORD(v114.__state_) = v92;
       }
 
       else
       {
-        v70 = v118[v59 & 1];
+        v70 = v117[v59 & 1];
         v71 = (__p + 16 * v59);
         v72 = *v71;
         v73 = v71[1];
-        LODWORD(v115.__state_) = v93;
+        LODWORD(v114.__state_) = v92;
       }
 
-      v79 = v108.__state_;
-      v108.__state_ = 0;
-      v115.__state_ = v116[v63];
-      v116[v63] = v79;
-      std::future<void>::~future(&v115);
-      std::future<void>::~future(&v108);
+      v79 = v107.__state_;
+      v107.__state_ = 0;
+      v114.__state_ = v115[v63];
+      v115[v63] = v79;
+      std::future<void>::~future(&v114);
+      std::future<void>::~future(&v107);
       if ((v62 & 0x80000000) != 0)
       {
         v58 = __src;
-        v80 = (v113 - __src) >> 4;
+        v80 = (v112 - __src) >> 4;
       }
 
       else
       {
-        std::__assoc_sub_state::wait(v117[v60]);
         std::__assoc_sub_state::wait(v116[v60]);
+        std::__assoc_sub_state::wait(v115[v60]);
         v58 = __src;
-        v80 = (v113 - __src) >> 4;
+        v80 = (v112 - __src) >> 4;
         if (v80 > 2 * v62)
         {
           v81 = (__p + 16 * v62);
@@ -7132,7 +6851,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<long long,mlx::cor
           if (v83 != *v81)
           {
             v84 = (a3 + 8 * v82);
-            v85 = v118[v62 & 1];
+            v85 = v117[v62 & 1];
             v86 = v82 - v83;
             do
             {
@@ -7153,31 +6872,29 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<long long,mlx::cor
     while (v80 > v59);
   }
 
-  std::__assoc_sub_state::wait(v117[v69]);
   std::__assoc_sub_state::wait(v116[v69]);
+  std::__assoc_sub_state::wait(v115[v69]);
   for (i = 1; i != -1; --i)
   {
-    std::future<void>::~future(&v116[i]);
+    std::future<void>::~future(&v115[i]);
   }
 
   for (j = 1; j != -1; --j)
   {
-    std::future<void>::~future(&v117[j]);
+    std::future<void>::~future(&v116[j]);
   }
 
   if (__p)
   {
-    v110 = __p;
+    v109 = __p;
     operator delete(__p);
   }
 
   if (__src)
   {
-    v113 = __src;
+    v112 = __src;
     operator delete(__src);
   }
-
-  v91 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A2D0308(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, uint64_t a28, void *a29, uint64_t a30)
@@ -7363,7 +7080,7 @@ uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchI
   }
 }
 
-void *std::__bind<void mlx::core::distributed::ring::RingGroup::all_reduce<unsigned char,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned char>>(mlx::core::array const&,mlx::core::array&,mlx::core::Stream,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned char>)::{lambda(void)#1}>::operator()[abi:ne200100]<>(uint64_t a1)
+void std::__bind<void mlx::core::distributed::ring::RingGroup::all_reduce<unsigned char,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned char>>(mlx::core::array const&,mlx::core::array&,mlx::core::Stream,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned char>)::{lambda(void)#1}>::operator()[abi:ne200100]<>(uint64_t a1)
 {
   __dst[128] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 16);
@@ -7371,63 +7088,33 @@ void *std::__bind<void mlx::core::distributed::ring::RingGroup::all_reduce<unsig
   v4 = *(v3 + 12);
   if (v2 >= v4)
   {
-    v7 = *a1;
-    v6 = *(a1 + 8);
-    if (*a1 == v6)
+    v6 = *a1;
+    v5 = *(a1 + 8);
+    if (*a1 != v5)
     {
-      v8 = v2;
+      memcpy(v5, v6, v2);
     }
 
-    else
-    {
-      memcpy(v6, v7, v2);
-      v4 = *(v3 + 12);
-      v8 = *(a1 + 16);
-    }
-
-    v9 = ((*(v3 + 288) - *(v3 + 280)) >> 2) + ((*(v3 + 264) - *(v3 + 256)) >> 2);
-    if (v2 / (v4 << 18) < v9)
-    {
-      v9 = v2 / (v4 << 18);
-    }
-
-    if (v9 <= 1)
-    {
-      v9 = 1;
-    }
-
-    memset(v21, 0, sizeof(v21));
-    v10 = *(v3 + 304);
-    v11 = v3;
-    v12 = *(a1 + 8);
-    if ((v8 + v9 - 1) / v9 >= *(a1 + 16))
-    {
-      v13 = *(a1 + 16);
-    }
-
-    v14 = **(v11 + 256);
-    v15 = **(v11 + 280);
+    memset(v11, 0, sizeof(v11));
     operator new();
   }
 
   if (v4 >= 0x401)
   {
     std::ostringstream::basic_ostringstream[abi:ne200100](__dst);
-    v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__dst, "Can't perform the ring all reduce of ", 37);
-    v18 = MEMORY[0x25F851380](v17, *(a1 + 16));
-    v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, " elements with a ring of size ", 30);
-    MEMORY[0x25F851360](v19, *(v3 + 12));
+    v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__dst, "Can't perform the ring all reduce of ", 37);
+    v8 = MEMORY[0x25F851380](v7, *(a1 + 16));
+    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, " elements with a ring of size ", 30);
+    MEMORY[0x25F851360](v9, *(v3 + 12));
     exception = __cxa_allocate_exception(0x10uLL);
-    std::ostringstream::str[abi:ne200100](__dst, v21);
-    MEMORY[0x25F851100](exception, v21);
+    std::ostringstream::str[abi:ne200100](__dst, v11);
+    MEMORY[0x25F851100](exception, v11);
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
   bzero(__dst, *(v3 + 12));
   memcpy(__dst, *a1, v2);
-  result = memcpy(*(a1 + 8), __dst, v2);
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  memcpy(*(a1 + 8), __dst, v2);
 }
 
 void sub_25A2D0DF4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, std::future<void> a21, char a22)
@@ -7454,7 +7141,7 @@ LABEL_6:
 
 void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned char,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned char>>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, int a5, int a6, int a7)
 {
-  v118[2] = *MEMORY[0x277D85DE8];
+  v117[2] = *MEMORY[0x277D85DE8];
   if (a7 >= 0)
   {
     v7 = a6;
@@ -7475,8 +7162,8 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned char,mlx:
     v8 = a6;
   }
 
-  v93 = v8;
-  v94 = v7;
+  v92 = v8;
+  v93 = v7;
   v9 = *(a1 + 8);
   v10 = *(a1 + 12);
   v11 = (a4 + v10 - 1) / v10;
@@ -7499,21 +7186,21 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned char,mlx:
   v14 = v11 + v13 - 1;
   v15 = (v10 + a7 + v9) % v10;
   __src = 0;
+  v112 = 0;
   v113 = 0;
-  v114 = 0;
   __p = 0;
+  v109 = 0;
   v110 = 0;
-  v111 = 0;
   v16 = 1;
-  v107 = v13;
-  v105 = v14 / v13;
-  v100 = a7;
-  v98 = (a4 + v10 - 1) / v10;
-  v99 = a4;
-  v97 = v14;
+  v106 = v13;
+  v104 = v14 / v13;
+  v99 = a7;
+  v97 = (a4 + v10 - 1) / v10;
+  v98 = a4;
+  v96 = v14;
   do
   {
-    v96 = v16;
+    v95 = v16;
     if (v10 >= 2)
     {
       v17 = 0;
@@ -7539,34 +7226,34 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned char,mlx:
           v19 = v11 * (v15 + 1);
         }
 
-        if (v107 <= v14)
+        if (v106 <= v14)
         {
-          v102 = v17;
+          v101 = v17;
           v20 = 0;
-          v103 = v15;
-          v104 = v9;
-          v106 = v11 * v9;
+          v102 = v15;
+          v103 = v9;
+          v105 = v11 * v9;
           v21 = v11 * v15;
           do
           {
-            v22 = v20 * v107;
-            v23 = v20 * v107 + v106;
-            v24 = ++v20 * v107;
-            v25 = v20 * v107 + v106;
-            v26 = v113;
-            if (v113 >= v114)
+            v22 = v20 * v106;
+            v23 = v20 * v106 + v105;
+            v24 = ++v20 * v106;
+            v25 = v20 * v106 + v105;
+            v26 = v112;
+            if (v112 >= v113)
             {
               v30 = __src;
-              v31 = v113 - __src;
-              v32 = (v113 - __src) >> 4;
+              v31 = v112 - __src;
+              v32 = (v112 - __src) >> 4;
               v33 = v32 + 1;
               if ((v32 + 1) >> 60)
               {
                 std::vector<int>::__throw_length_error[abi:ne200100]();
               }
 
-              v34 = v114 - __src;
-              if ((v114 - __src) >> 3 > v33)
+              v34 = v113 - __src;
+              if ((v113 - __src) >> 3 > v33)
               {
                 v33 = v34 >> 3;
               }
@@ -7581,7 +7268,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned char,mlx:
                 std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<unsigned long,unsigned long>>>(&__src, v33);
               }
 
-              v35 = (v113 - __src) >> 4;
+              v35 = (v112 - __src) >> 4;
               v36 = (16 * v32);
               if (v18 >= v23)
               {
@@ -7595,7 +7282,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned char,mlx:
 
               if (v18 >= v25)
               {
-                v38 = v20 * v107 + v106;
+                v38 = v20 * v106 + v105;
               }
 
               else
@@ -7610,8 +7297,8 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned char,mlx:
               memcpy(v39, v30, v31);
               v40 = __src;
               __src = v39;
-              v113 = v29;
-              v114 = 0;
+              v112 = v29;
+              v113 = 0;
               if (v40)
               {
                 operator delete(v40);
@@ -7632,7 +7319,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned char,mlx:
 
               if (v18 >= v25)
               {
-                v28 = v20 * v107 + v106;
+                v28 = v20 * v106 + v105;
               }
 
               else
@@ -7640,28 +7327,28 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned char,mlx:
                 v28 = v18;
               }
 
-              *v113 = v27;
+              *v112 = v27;
               *(v26 + 1) = v28;
               v29 = v26 + 16;
             }
 
-            v113 = v29;
+            v112 = v29;
             v41 = v22 + v21;
             v42 = v24 + v21;
-            v43 = v110;
-            if (v110 >= v111)
+            v43 = v109;
+            if (v109 >= v110)
             {
               v47 = __p;
-              v48 = v110 - __p;
-              v49 = (v110 - __p) >> 4;
+              v48 = v109 - __p;
+              v49 = (v109 - __p) >> 4;
               v50 = v49 + 1;
               if ((v49 + 1) >> 60)
               {
                 std::vector<int>::__throw_length_error[abi:ne200100]();
               }
 
-              v51 = v111 - __p;
-              if ((v111 - __p) >> 3 > v50)
+              v51 = v110 - __p;
+              if ((v110 - __p) >> 3 > v50)
               {
                 v50 = v51 >> 3;
               }
@@ -7676,7 +7363,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned char,mlx:
                 std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<unsigned long,unsigned long>>>(&__p, v50);
               }
 
-              v52 = (v110 - __p) >> 4;
+              v52 = (v109 - __p) >> 4;
               v53 = (16 * v49);
               if (v19 >= v41)
               {
@@ -7705,8 +7392,8 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned char,mlx:
               memcpy(v56, v47, v48);
               v57 = __p;
               __p = v56;
-              v110 = v46;
-              v111 = 0;
+              v109 = v46;
+              v110 = 0;
               if (v57)
               {
                 operator delete(v57);
@@ -7735,23 +7422,23 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned char,mlx:
                 v45 = v19;
               }
 
-              *v110 = v44;
+              *v109 = v44;
               *(v43 + 1) = v45;
               v46 = v43 + 16;
             }
 
-            v110 = v46;
+            v109 = v46;
           }
 
-          while (v20 < v105);
+          while (v20 < v104);
           LODWORD(v10) = *(a1 + 12);
-          a7 = v100;
-          v11 = v98;
-          a4 = v99;
-          v15 = v103;
-          v9 = v104;
-          v14 = v97;
-          v17 = v102;
+          a7 = v99;
+          v11 = v97;
+          a4 = v98;
+          v15 = v102;
+          v9 = v103;
+          v14 = v96;
+          v17 = v101;
         }
 
         v9 = (v9 + a7 + v10) % v10;
@@ -7765,25 +7452,25 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned char,mlx:
     v16 = 0;
   }
 
-  while ((v96 & 1) != 0);
-  v118[0] = a2;
-  v118[1] = a2 + v107;
-  v117[0] = 0;
-  v117[1] = 0;
+  while ((v95 & 1) != 0);
+  v117[0] = a2;
+  v117[1] = a2 + v106;
   v116[0] = 0;
   v116[1] = 0;
+  v115[0] = 0;
+  v115[1] = 0;
   v58 = __src;
-  if (v113 == __src)
+  if (v112 == __src)
   {
-    v69 = v105 > 1;
+    v69 = v104 > 1;
   }
 
   else
   {
     v59 = 0;
     v60 = 0;
-    v61 = v105 > 1;
-    if (v105 <= 1)
+    v61 = v104 > 1;
+    if (v104 <= 1)
     {
       v62 = 0;
     }
@@ -7800,49 +7487,49 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned char,mlx:
       v64 = &v58[16 * v59];
       v65 = *v64;
       v66 = *(v64 + 1);
-      LODWORD(v115.__state_) = v94;
-      state = v108.__state_;
-      v108.__state_ = 0;
+      LODWORD(v114.__state_) = v93;
+      state = v107.__state_;
+      v107.__state_ = 0;
       v69 = v63;
-      v115.__state_ = v117[v63];
-      v117[v63] = state;
-      std::future<void>::~future(&v115);
-      std::future<void>::~future(&v108);
-      if ((v113 - __src) >> 4 <= 2 * v59)
+      v114.__state_ = v116[v63];
+      v116[v63] = state;
+      std::future<void>::~future(&v114);
+      std::future<void>::~future(&v107);
+      if ((v112 - __src) >> 4 <= 2 * v59)
       {
         v75 = (__p + 16 * v59);
         v76 = *v75;
         v77 = v75[1];
-        LODWORD(v115.__state_) = v93;
+        LODWORD(v114.__state_) = v92;
       }
 
       else
       {
-        v70 = v118[v59 & 1];
+        v70 = v117[v59 & 1];
         v71 = (__p + 16 * v59);
         v72 = *v71;
         v73 = v71[1];
-        LODWORD(v115.__state_) = v93;
+        LODWORD(v114.__state_) = v92;
       }
 
-      v79 = v108.__state_;
-      v108.__state_ = 0;
-      v115.__state_ = v116[v63];
-      v116[v63] = v79;
-      std::future<void>::~future(&v115);
-      std::future<void>::~future(&v108);
+      v79 = v107.__state_;
+      v107.__state_ = 0;
+      v114.__state_ = v115[v63];
+      v115[v63] = v79;
+      std::future<void>::~future(&v114);
+      std::future<void>::~future(&v107);
       if ((v62 & 0x80000000) != 0)
       {
         v58 = __src;
-        v80 = (v113 - __src) >> 4;
+        v80 = (v112 - __src) >> 4;
       }
 
       else
       {
-        std::__assoc_sub_state::wait(v117[v60]);
         std::__assoc_sub_state::wait(v116[v60]);
+        std::__assoc_sub_state::wait(v115[v60]);
         v58 = __src;
-        v80 = (v113 - __src) >> 4;
+        v80 = (v112 - __src) >> 4;
         if (v80 > 2 * v62)
         {
           v81 = (__p + 16 * v62);
@@ -7851,7 +7538,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned char,mlx:
           if (v83 != *v81)
           {
             v84 = (a3 + v82);
-            v85 = v118[v62 & 1];
+            v85 = v117[v62 & 1];
             v86 = v82 - v83;
             do
             {
@@ -7872,31 +7559,29 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned char,mlx:
     while (v80 > v59);
   }
 
-  std::__assoc_sub_state::wait(v117[v69]);
   std::__assoc_sub_state::wait(v116[v69]);
+  std::__assoc_sub_state::wait(v115[v69]);
   for (i = 1; i != -1; --i)
   {
-    std::future<void>::~future(&v116[i]);
+    std::future<void>::~future(&v115[i]);
   }
 
   for (j = 1; j != -1; --j)
   {
-    std::future<void>::~future(&v117[j]);
+    std::future<void>::~future(&v116[j]);
   }
 
   if (__p)
   {
-    v110 = __p;
+    v109 = __p;
     operator delete(__p);
   }
 
   if (__src)
   {
-    v113 = __src;
+    v112 = __src;
     operator delete(__src);
   }
-
-  v91 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A2D1508(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, uint64_t a28, void *a29, uint64_t a30)
@@ -8082,7 +7767,7 @@ uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchI
   }
 }
 
-void *std::__bind<void mlx::core::distributed::ring::RingGroup::all_reduce<unsigned short,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned short>>(mlx::core::array const&,mlx::core::array&,mlx::core::Stream,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned short>)::{lambda(void)#1}>::operator()[abi:ne200100]<>(uint64_t a1)
+void std::__bind<void mlx::core::distributed::ring::RingGroup::all_reduce<unsigned short,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned short>>(mlx::core::array const&,mlx::core::array&,mlx::core::Stream,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned short>)::{lambda(void)#1}>::operator()[abi:ne200100]<>(uint64_t a1)
 {
   __dst[128] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 16);
@@ -8091,58 +7776,33 @@ void *std::__bind<void mlx::core::distributed::ring::RingGroup::all_reduce<unsig
   v5 = *(v3 + 12);
   if (v2 >= v5)
   {
-    v8 = *a1;
-    v7 = *(a1 + 8);
-    if (*a1 != v7)
+    v7 = *a1;
+    v6 = *(a1 + 8);
+    if (*a1 != v6)
     {
-      memcpy(v7, v8, 2 * v2);
-      v5 = *(v3 + 12);
-      v2 = *(a1 + 16);
+      memcpy(v6, v7, 2 * v2);
     }
 
-    v9 = ((*(v3 + 288) - *(v3 + 280)) >> 2) + ((*(v3 + 264) - *(v3 + 256)) >> 2);
-    if (v4 / (v5 << 18) < v9)
-    {
-      v9 = v4 / (v5 << 18);
-    }
-
-    if (v9 <= 1)
-    {
-      v9 = 1;
-    }
-
-    memset(v21, 0, sizeof(v21));
-    v10 = *(v3 + 304);
-    v11 = v3;
-    v12 = *(a1 + 8);
-    if ((v2 + v9 - 1) / v9 >= *(a1 + 16))
-    {
-      v13 = *(a1 + 16);
-    }
-
-    v14 = **(v11 + 256);
-    v15 = **(v11 + 280);
+    memset(v12, 0, sizeof(v12));
     operator new();
   }
 
   if (2 * v5 >= 0x401)
   {
     std::ostringstream::basic_ostringstream[abi:ne200100](__dst);
-    v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__dst, "Can't perform the ring all reduce of ", 37);
-    v18 = MEMORY[0x25F851380](v17, *(a1 + 16));
-    v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, " elements with a ring of size ", 30);
-    MEMORY[0x25F851360](v19, *(v3 + 12));
+    v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__dst, "Can't perform the ring all reduce of ", 37);
+    v9 = MEMORY[0x25F851380](v8, *(a1 + 16));
+    v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, " elements with a ring of size ", 30);
+    MEMORY[0x25F851360](v10, *(v3 + 12));
     exception = __cxa_allocate_exception(0x10uLL);
-    std::ostringstream::str[abi:ne200100](__dst, v21);
-    MEMORY[0x25F851100](exception, v21);
+    std::ostringstream::str[abi:ne200100](__dst, v12);
+    MEMORY[0x25F851100](exception, v12);
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
   bzero(__dst, 2 * v5);
   memcpy(__dst, *a1, v4);
-  result = memcpy(*(a1 + 8), __dst, v4);
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  memcpy(*(a1 + 8), __dst, v4);
 }
 
 void sub_25A2D1FF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, std::future<void> a21, char a22)
@@ -8169,7 +7829,7 @@ LABEL_6:
 
 void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned short,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned short>>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, int a5, int a6, int a7)
 {
-  v118[2] = *MEMORY[0x277D85DE8];
+  v117[2] = *MEMORY[0x277D85DE8];
   if (a7 >= 0)
   {
     v7 = a6;
@@ -8190,8 +7850,8 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned short,mlx
     v8 = a6;
   }
 
-  v93 = v8;
-  v94 = v7;
+  v92 = v8;
+  v93 = v7;
   v9 = *(a1 + 8);
   v10 = *(a1 + 12);
   v11 = (a4 + v10 - 1) / v10;
@@ -8214,21 +7874,21 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned short,mlx
   v14 = v11 + v13 - 1;
   v15 = (v10 + a7 + v9) % v10;
   __src = 0;
+  v112 = 0;
   v113 = 0;
-  v114 = 0;
   __p = 0;
+  v109 = 0;
   v110 = 0;
-  v111 = 0;
   v16 = 1;
-  v107 = v13;
-  v105 = v14 / v13;
-  v100 = a7;
-  v98 = (a4 + v10 - 1) / v10;
-  v99 = a4;
-  v97 = v14;
+  v106 = v13;
+  v104 = v14 / v13;
+  v99 = a7;
+  v97 = (a4 + v10 - 1) / v10;
+  v98 = a4;
+  v96 = v14;
   do
   {
-    v96 = v16;
+    v95 = v16;
     if (v10 >= 2)
     {
       v17 = 0;
@@ -8254,34 +7914,34 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned short,mlx
           v19 = v11 * (v15 + 1);
         }
 
-        if (v107 <= v14)
+        if (v106 <= v14)
         {
-          v102 = v17;
+          v101 = v17;
           v20 = 0;
-          v103 = v15;
-          v104 = v9;
-          v106 = v11 * v9;
+          v102 = v15;
+          v103 = v9;
+          v105 = v11 * v9;
           v21 = v11 * v15;
           do
           {
-            v22 = v20 * v107;
-            v23 = v20 * v107 + v106;
-            v24 = ++v20 * v107;
-            v25 = v20 * v107 + v106;
-            v26 = v113;
-            if (v113 >= v114)
+            v22 = v20 * v106;
+            v23 = v20 * v106 + v105;
+            v24 = ++v20 * v106;
+            v25 = v20 * v106 + v105;
+            v26 = v112;
+            if (v112 >= v113)
             {
               v30 = __src;
-              v31 = v113 - __src;
-              v32 = (v113 - __src) >> 4;
+              v31 = v112 - __src;
+              v32 = (v112 - __src) >> 4;
               v33 = v32 + 1;
               if ((v32 + 1) >> 60)
               {
                 std::vector<int>::__throw_length_error[abi:ne200100]();
               }
 
-              v34 = v114 - __src;
-              if ((v114 - __src) >> 3 > v33)
+              v34 = v113 - __src;
+              if ((v113 - __src) >> 3 > v33)
               {
                 v33 = v34 >> 3;
               }
@@ -8296,7 +7956,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned short,mlx
                 std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<unsigned long,unsigned long>>>(&__src, v33);
               }
 
-              v35 = (v113 - __src) >> 4;
+              v35 = (v112 - __src) >> 4;
               v36 = (16 * v32);
               if (v18 >= v23)
               {
@@ -8310,7 +7970,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned short,mlx
 
               if (v18 >= v25)
               {
-                v38 = v20 * v107 + v106;
+                v38 = v20 * v106 + v105;
               }
 
               else
@@ -8325,8 +7985,8 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned short,mlx
               memcpy(v39, v30, v31);
               v40 = __src;
               __src = v39;
-              v113 = v29;
-              v114 = 0;
+              v112 = v29;
+              v113 = 0;
               if (v40)
               {
                 operator delete(v40);
@@ -8347,7 +8007,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned short,mlx
 
               if (v18 >= v25)
               {
-                v28 = v20 * v107 + v106;
+                v28 = v20 * v106 + v105;
               }
 
               else
@@ -8355,28 +8015,28 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned short,mlx
                 v28 = v18;
               }
 
-              *v113 = v27;
+              *v112 = v27;
               *(v26 + 1) = v28;
               v29 = v26 + 16;
             }
 
-            v113 = v29;
+            v112 = v29;
             v41 = v22 + v21;
             v42 = v24 + v21;
-            v43 = v110;
-            if (v110 >= v111)
+            v43 = v109;
+            if (v109 >= v110)
             {
               v47 = __p;
-              v48 = v110 - __p;
-              v49 = (v110 - __p) >> 4;
+              v48 = v109 - __p;
+              v49 = (v109 - __p) >> 4;
               v50 = v49 + 1;
               if ((v49 + 1) >> 60)
               {
                 std::vector<int>::__throw_length_error[abi:ne200100]();
               }
 
-              v51 = v111 - __p;
-              if ((v111 - __p) >> 3 > v50)
+              v51 = v110 - __p;
+              if ((v110 - __p) >> 3 > v50)
               {
                 v50 = v51 >> 3;
               }
@@ -8391,7 +8051,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned short,mlx
                 std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<unsigned long,unsigned long>>>(&__p, v50);
               }
 
-              v52 = (v110 - __p) >> 4;
+              v52 = (v109 - __p) >> 4;
               v53 = (16 * v49);
               if (v19 >= v41)
               {
@@ -8420,8 +8080,8 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned short,mlx
               memcpy(v56, v47, v48);
               v57 = __p;
               __p = v56;
-              v110 = v46;
-              v111 = 0;
+              v109 = v46;
+              v110 = 0;
               if (v57)
               {
                 operator delete(v57);
@@ -8450,23 +8110,23 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned short,mlx
                 v45 = v19;
               }
 
-              *v110 = v44;
+              *v109 = v44;
               *(v43 + 1) = v45;
               v46 = v43 + 16;
             }
 
-            v110 = v46;
+            v109 = v46;
           }
 
-          while (v20 < v105);
+          while (v20 < v104);
           LODWORD(v10) = *(a1 + 12);
-          a7 = v100;
-          v11 = v98;
-          a4 = v99;
-          v15 = v103;
-          v9 = v104;
-          v14 = v97;
-          v17 = v102;
+          a7 = v99;
+          v11 = v97;
+          a4 = v98;
+          v15 = v102;
+          v9 = v103;
+          v14 = v96;
+          v17 = v101;
         }
 
         v9 = (v9 + a7 + v10) % v10;
@@ -8480,25 +8140,25 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned short,mlx
     v16 = 0;
   }
 
-  while ((v96 & 1) != 0);
-  v118[0] = a2;
-  v118[1] = a2 + 2 * v107;
-  v117[0] = 0;
-  v117[1] = 0;
+  while ((v95 & 1) != 0);
+  v117[0] = a2;
+  v117[1] = a2 + 2 * v106;
   v116[0] = 0;
   v116[1] = 0;
+  v115[0] = 0;
+  v115[1] = 0;
   v58 = __src;
-  if (v113 == __src)
+  if (v112 == __src)
   {
-    v69 = v105 > 1;
+    v69 = v104 > 1;
   }
 
   else
   {
     v59 = 0;
     v60 = 0;
-    v61 = v105 > 1;
-    if (v105 <= 1)
+    v61 = v104 > 1;
+    if (v104 <= 1)
     {
       v62 = 0;
     }
@@ -8515,49 +8175,49 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned short,mlx
       v64 = &v58[16 * v59];
       v65 = *v64;
       v66 = *(v64 + 1);
-      LODWORD(v115.__state_) = v94;
-      state = v108.__state_;
-      v108.__state_ = 0;
+      LODWORD(v114.__state_) = v93;
+      state = v107.__state_;
+      v107.__state_ = 0;
       v69 = v63;
-      v115.__state_ = v117[v63];
-      v117[v63] = state;
-      std::future<void>::~future(&v115);
-      std::future<void>::~future(&v108);
-      if ((v113 - __src) >> 4 <= 2 * v59)
+      v114.__state_ = v116[v63];
+      v116[v63] = state;
+      std::future<void>::~future(&v114);
+      std::future<void>::~future(&v107);
+      if ((v112 - __src) >> 4 <= 2 * v59)
       {
         v75 = (__p + 16 * v59);
         v76 = *v75;
         v77 = v75[1];
-        LODWORD(v115.__state_) = v93;
+        LODWORD(v114.__state_) = v92;
       }
 
       else
       {
-        v70 = v118[v59 & 1];
+        v70 = v117[v59 & 1];
         v71 = (__p + 16 * v59);
         v72 = *v71;
         v73 = v71[1];
-        LODWORD(v115.__state_) = v93;
+        LODWORD(v114.__state_) = v92;
       }
 
-      v79 = v108.__state_;
-      v108.__state_ = 0;
-      v115.__state_ = v116[v63];
-      v116[v63] = v79;
-      std::future<void>::~future(&v115);
-      std::future<void>::~future(&v108);
+      v79 = v107.__state_;
+      v107.__state_ = 0;
+      v114.__state_ = v115[v63];
+      v115[v63] = v79;
+      std::future<void>::~future(&v114);
+      std::future<void>::~future(&v107);
       if ((v62 & 0x80000000) != 0)
       {
         v58 = __src;
-        v80 = (v113 - __src) >> 4;
+        v80 = (v112 - __src) >> 4;
       }
 
       else
       {
-        std::__assoc_sub_state::wait(v117[v60]);
         std::__assoc_sub_state::wait(v116[v60]);
+        std::__assoc_sub_state::wait(v115[v60]);
         v58 = __src;
-        v80 = (v113 - __src) >> 4;
+        v80 = (v112 - __src) >> 4;
         if (v80 > 2 * v62)
         {
           v81 = (__p + 16 * v62);
@@ -8566,7 +8226,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned short,mlx
           if (v83 != *v81)
           {
             v84 = (a3 + 2 * v82);
-            v85 = v118[v62 & 1];
+            v85 = v117[v62 & 1];
             v86 = v82 - v83;
             do
             {
@@ -8587,31 +8247,29 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned short,mlx
     while (v80 > v59);
   }
 
-  std::__assoc_sub_state::wait(v117[v69]);
   std::__assoc_sub_state::wait(v116[v69]);
+  std::__assoc_sub_state::wait(v115[v69]);
   for (i = 1; i != -1; --i)
   {
-    std::future<void>::~future(&v116[i]);
+    std::future<void>::~future(&v115[i]);
   }
 
   for (j = 1; j != -1; --j)
   {
-    std::future<void>::~future(&v117[j]);
+    std::future<void>::~future(&v116[j]);
   }
 
   if (__p)
   {
-    v110 = __p;
+    v109 = __p;
     operator delete(__p);
   }
 
   if (__src)
   {
-    v113 = __src;
+    v112 = __src;
     operator delete(__src);
   }
-
-  v91 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A2D270C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, uint64_t a28, void *a29, uint64_t a30)
@@ -8797,7 +8455,7 @@ uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchI
   }
 }
 
-void *std::__bind<void mlx::core::distributed::ring::RingGroup::all_reduce<unsigned int,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned int>>(mlx::core::array const&,mlx::core::array&,mlx::core::Stream,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned int>)::{lambda(void)#1}>::operator()[abi:ne200100]<>(uint64_t a1)
+void std::__bind<void mlx::core::distributed::ring::RingGroup::all_reduce<unsigned int,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned int>>(mlx::core::array const&,mlx::core::array&,mlx::core::Stream,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned int>)::{lambda(void)#1}>::operator()[abi:ne200100]<>(uint64_t a1)
 {
   __dst[128] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 16);
@@ -8806,58 +8464,33 @@ void *std::__bind<void mlx::core::distributed::ring::RingGroup::all_reduce<unsig
   v5 = *(v3 + 12);
   if (v2 >= v5)
   {
-    v8 = *a1;
-    v7 = *(a1 + 8);
-    if (*a1 != v7)
+    v7 = *a1;
+    v6 = *(a1 + 8);
+    if (*a1 != v6)
     {
-      memcpy(v7, v8, 4 * v2);
-      v5 = *(v3 + 12);
-      v2 = *(a1 + 16);
+      memcpy(v6, v7, 4 * v2);
     }
 
-    v9 = ((*(v3 + 288) - *(v3 + 280)) >> 2) + ((*(v3 + 264) - *(v3 + 256)) >> 2);
-    if (v4 / (v5 << 18) < v9)
-    {
-      v9 = v4 / (v5 << 18);
-    }
-
-    if (v9 <= 1)
-    {
-      v9 = 1;
-    }
-
-    memset(v21, 0, sizeof(v21));
-    v10 = *(v3 + 304);
-    v11 = v3;
-    v12 = *(a1 + 8);
-    if ((v2 + v9 - 1) / v9 >= *(a1 + 16))
-    {
-      v13 = *(a1 + 16);
-    }
-
-    v14 = **(v11 + 256);
-    v15 = **(v11 + 280);
+    memset(v12, 0, sizeof(v12));
     operator new();
   }
 
   if (4 * v5 >= 0x401)
   {
     std::ostringstream::basic_ostringstream[abi:ne200100](__dst);
-    v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__dst, "Can't perform the ring all reduce of ", 37);
-    v18 = MEMORY[0x25F851380](v17, *(a1 + 16));
-    v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, " elements with a ring of size ", 30);
-    MEMORY[0x25F851360](v19, *(v3 + 12));
+    v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__dst, "Can't perform the ring all reduce of ", 37);
+    v9 = MEMORY[0x25F851380](v8, *(a1 + 16));
+    v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, " elements with a ring of size ", 30);
+    MEMORY[0x25F851360](v10, *(v3 + 12));
     exception = __cxa_allocate_exception(0x10uLL);
-    std::ostringstream::str[abi:ne200100](__dst, v21);
-    MEMORY[0x25F851100](exception, v21);
+    std::ostringstream::str[abi:ne200100](__dst, v12);
+    MEMORY[0x25F851100](exception, v12);
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
   bzero(__dst, 4 * v5);
   memcpy(__dst, *a1, v4);
-  result = memcpy(*(a1 + 8), __dst, v4);
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  memcpy(*(a1 + 8), __dst, v4);
 }
 
 void sub_25A2D31F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, std::future<void> a21, char a22)
@@ -8884,7 +8517,7 @@ LABEL_6:
 
 void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned int,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned int>>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, int a5, int a6, int a7)
 {
-  v118[2] = *MEMORY[0x277D85DE8];
+  v117[2] = *MEMORY[0x277D85DE8];
   if (a7 >= 0)
   {
     v7 = a6;
@@ -8905,8 +8538,8 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned int,mlx::
     v8 = a6;
   }
 
-  v93 = v8;
-  v94 = v7;
+  v92 = v8;
+  v93 = v7;
   v9 = *(a1 + 8);
   v10 = *(a1 + 12);
   v11 = (a4 + v10 - 1) / v10;
@@ -8929,21 +8562,21 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned int,mlx::
   v14 = v11 + v13 - 1;
   v15 = (v10 + a7 + v9) % v10;
   __src = 0;
+  v112 = 0;
   v113 = 0;
-  v114 = 0;
   __p = 0;
+  v109 = 0;
   v110 = 0;
-  v111 = 0;
   v16 = 1;
-  v107 = v13;
-  v105 = v14 / v13;
-  v100 = a7;
-  v98 = (a4 + v10 - 1) / v10;
-  v99 = a4;
-  v97 = v14;
+  v106 = v13;
+  v104 = v14 / v13;
+  v99 = a7;
+  v97 = (a4 + v10 - 1) / v10;
+  v98 = a4;
+  v96 = v14;
   do
   {
-    v96 = v16;
+    v95 = v16;
     if (v10 >= 2)
     {
       v17 = 0;
@@ -8969,34 +8602,34 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned int,mlx::
           v19 = v11 * (v15 + 1);
         }
 
-        if (v107 <= v14)
+        if (v106 <= v14)
         {
-          v102 = v17;
+          v101 = v17;
           v20 = 0;
-          v103 = v15;
-          v104 = v9;
-          v106 = v11 * v9;
+          v102 = v15;
+          v103 = v9;
+          v105 = v11 * v9;
           v21 = v11 * v15;
           do
           {
-            v22 = v20 * v107;
-            v23 = v20 * v107 + v106;
-            v24 = ++v20 * v107;
-            v25 = v20 * v107 + v106;
-            v26 = v113;
-            if (v113 >= v114)
+            v22 = v20 * v106;
+            v23 = v20 * v106 + v105;
+            v24 = ++v20 * v106;
+            v25 = v20 * v106 + v105;
+            v26 = v112;
+            if (v112 >= v113)
             {
               v30 = __src;
-              v31 = v113 - __src;
-              v32 = (v113 - __src) >> 4;
+              v31 = v112 - __src;
+              v32 = (v112 - __src) >> 4;
               v33 = v32 + 1;
               if ((v32 + 1) >> 60)
               {
                 std::vector<int>::__throw_length_error[abi:ne200100]();
               }
 
-              v34 = v114 - __src;
-              if ((v114 - __src) >> 3 > v33)
+              v34 = v113 - __src;
+              if ((v113 - __src) >> 3 > v33)
               {
                 v33 = v34 >> 3;
               }
@@ -9011,7 +8644,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned int,mlx::
                 std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<unsigned long,unsigned long>>>(&__src, v33);
               }
 
-              v35 = (v113 - __src) >> 4;
+              v35 = (v112 - __src) >> 4;
               v36 = (16 * v32);
               if (v18 >= v23)
               {
@@ -9025,7 +8658,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned int,mlx::
 
               if (v18 >= v25)
               {
-                v38 = v20 * v107 + v106;
+                v38 = v20 * v106 + v105;
               }
 
               else
@@ -9040,8 +8673,8 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned int,mlx::
               memcpy(v39, v30, v31);
               v40 = __src;
               __src = v39;
-              v113 = v29;
-              v114 = 0;
+              v112 = v29;
+              v113 = 0;
               if (v40)
               {
                 operator delete(v40);
@@ -9062,7 +8695,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned int,mlx::
 
               if (v18 >= v25)
               {
-                v28 = v20 * v107 + v106;
+                v28 = v20 * v106 + v105;
               }
 
               else
@@ -9070,28 +8703,28 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned int,mlx::
                 v28 = v18;
               }
 
-              *v113 = v27;
+              *v112 = v27;
               *(v26 + 1) = v28;
               v29 = v26 + 16;
             }
 
-            v113 = v29;
+            v112 = v29;
             v41 = v22 + v21;
             v42 = v24 + v21;
-            v43 = v110;
-            if (v110 >= v111)
+            v43 = v109;
+            if (v109 >= v110)
             {
               v47 = __p;
-              v48 = v110 - __p;
-              v49 = (v110 - __p) >> 4;
+              v48 = v109 - __p;
+              v49 = (v109 - __p) >> 4;
               v50 = v49 + 1;
               if ((v49 + 1) >> 60)
               {
                 std::vector<int>::__throw_length_error[abi:ne200100]();
               }
 
-              v51 = v111 - __p;
-              if ((v111 - __p) >> 3 > v50)
+              v51 = v110 - __p;
+              if ((v110 - __p) >> 3 > v50)
               {
                 v50 = v51 >> 3;
               }
@@ -9106,7 +8739,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned int,mlx::
                 std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<unsigned long,unsigned long>>>(&__p, v50);
               }
 
-              v52 = (v110 - __p) >> 4;
+              v52 = (v109 - __p) >> 4;
               v53 = (16 * v49);
               if (v19 >= v41)
               {
@@ -9135,8 +8768,8 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned int,mlx::
               memcpy(v56, v47, v48);
               v57 = __p;
               __p = v56;
-              v110 = v46;
-              v111 = 0;
+              v109 = v46;
+              v110 = 0;
               if (v57)
               {
                 operator delete(v57);
@@ -9165,23 +8798,23 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned int,mlx::
                 v45 = v19;
               }
 
-              *v110 = v44;
+              *v109 = v44;
               *(v43 + 1) = v45;
               v46 = v43 + 16;
             }
 
-            v110 = v46;
+            v109 = v46;
           }
 
-          while (v20 < v105);
+          while (v20 < v104);
           LODWORD(v10) = *(a1 + 12);
-          a7 = v100;
-          v11 = v98;
-          a4 = v99;
-          v15 = v103;
-          v9 = v104;
-          v14 = v97;
-          v17 = v102;
+          a7 = v99;
+          v11 = v97;
+          a4 = v98;
+          v15 = v102;
+          v9 = v103;
+          v14 = v96;
+          v17 = v101;
         }
 
         v9 = (v9 + a7 + v10) % v10;
@@ -9195,25 +8828,25 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned int,mlx::
     v16 = 0;
   }
 
-  while ((v96 & 1) != 0);
-  v118[0] = a2;
-  v118[1] = a2 + 4 * v107;
-  v117[0] = 0;
-  v117[1] = 0;
+  while ((v95 & 1) != 0);
+  v117[0] = a2;
+  v117[1] = a2 + 4 * v106;
   v116[0] = 0;
   v116[1] = 0;
+  v115[0] = 0;
+  v115[1] = 0;
   v58 = __src;
-  if (v113 == __src)
+  if (v112 == __src)
   {
-    v69 = v105 > 1;
+    v69 = v104 > 1;
   }
 
   else
   {
     v59 = 0;
     v60 = 0;
-    v61 = v105 > 1;
-    if (v105 <= 1)
+    v61 = v104 > 1;
+    if (v104 <= 1)
     {
       v62 = 0;
     }
@@ -9230,49 +8863,49 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned int,mlx::
       v64 = &v58[16 * v59];
       v65 = *v64;
       v66 = *(v64 + 1);
-      LODWORD(v115.__state_) = v94;
-      state = v108.__state_;
-      v108.__state_ = 0;
+      LODWORD(v114.__state_) = v93;
+      state = v107.__state_;
+      v107.__state_ = 0;
       v69 = v63;
-      v115.__state_ = v117[v63];
-      v117[v63] = state;
-      std::future<void>::~future(&v115);
-      std::future<void>::~future(&v108);
-      if ((v113 - __src) >> 4 <= 2 * v59)
+      v114.__state_ = v116[v63];
+      v116[v63] = state;
+      std::future<void>::~future(&v114);
+      std::future<void>::~future(&v107);
+      if ((v112 - __src) >> 4 <= 2 * v59)
       {
         v75 = (__p + 16 * v59);
         v76 = *v75;
         v77 = v75[1];
-        LODWORD(v115.__state_) = v93;
+        LODWORD(v114.__state_) = v92;
       }
 
       else
       {
-        v70 = v118[v59 & 1];
+        v70 = v117[v59 & 1];
         v71 = (__p + 16 * v59);
         v72 = *v71;
         v73 = v71[1];
-        LODWORD(v115.__state_) = v93;
+        LODWORD(v114.__state_) = v92;
       }
 
-      v79 = v108.__state_;
-      v108.__state_ = 0;
-      v115.__state_ = v116[v63];
-      v116[v63] = v79;
-      std::future<void>::~future(&v115);
-      std::future<void>::~future(&v108);
+      v79 = v107.__state_;
+      v107.__state_ = 0;
+      v114.__state_ = v115[v63];
+      v115[v63] = v79;
+      std::future<void>::~future(&v114);
+      std::future<void>::~future(&v107);
       if ((v62 & 0x80000000) != 0)
       {
         v58 = __src;
-        v80 = (v113 - __src) >> 4;
+        v80 = (v112 - __src) >> 4;
       }
 
       else
       {
-        std::__assoc_sub_state::wait(v117[v60]);
         std::__assoc_sub_state::wait(v116[v60]);
+        std::__assoc_sub_state::wait(v115[v60]);
         v58 = __src;
-        v80 = (v113 - __src) >> 4;
+        v80 = (v112 - __src) >> 4;
         if (v80 > 2 * v62)
         {
           v81 = (__p + 16 * v62);
@@ -9281,7 +8914,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned int,mlx::
           if (v83 != *v81)
           {
             v84 = (a3 + 4 * v82);
-            v85 = v118[v62 & 1];
+            v85 = v117[v62 & 1];
             v86 = v82 - v83;
             do
             {
@@ -9302,31 +8935,29 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned int,mlx::
     while (v80 > v59);
   }
 
-  std::__assoc_sub_state::wait(v117[v69]);
   std::__assoc_sub_state::wait(v116[v69]);
+  std::__assoc_sub_state::wait(v115[v69]);
   for (i = 1; i != -1; --i)
   {
-    std::future<void>::~future(&v116[i]);
+    std::future<void>::~future(&v115[i]);
   }
 
   for (j = 1; j != -1; --j)
   {
-    std::future<void>::~future(&v117[j]);
+    std::future<void>::~future(&v116[j]);
   }
 
   if (__p)
   {
-    v110 = __p;
+    v109 = __p;
     operator delete(__p);
   }
 
   if (__src)
   {
-    v113 = __src;
+    v112 = __src;
     operator delete(__src);
   }
-
-  v91 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25A2D3910(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, uint64_t a28, void *a29, uint64_t a30)
@@ -9512,7 +9143,7 @@ uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchI
   }
 }
 
-void *std::__bind<void mlx::core::distributed::ring::RingGroup::all_reduce<unsigned long long,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned long long>>(mlx::core::array const&,mlx::core::array&,mlx::core::Stream,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned long long>)::{lambda(void)#1}>::operator()[abi:ne200100]<>(uint64_t a1)
+void std::__bind<void mlx::core::distributed::ring::RingGroup::all_reduce<unsigned long long,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned long long>>(mlx::core::array const&,mlx::core::array&,mlx::core::Stream,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned long long>)::{lambda(void)#1}>::operator()[abi:ne200100]<>(uint64_t a1)
 {
   __dst[128] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 16);
@@ -9521,58 +9152,33 @@ void *std::__bind<void mlx::core::distributed::ring::RingGroup::all_reduce<unsig
   v5 = *(v3 + 12);
   if (v2 >= v5)
   {
-    v8 = *a1;
-    v7 = *(a1 + 8);
-    if (*a1 != v7)
+    v7 = *a1;
+    v6 = *(a1 + 8);
+    if (*a1 != v6)
     {
-      memcpy(v7, v8, 8 * v2);
-      v5 = *(v3 + 12);
-      v2 = *(a1 + 16);
+      memcpy(v6, v7, 8 * v2);
     }
 
-    v9 = ((*(v3 + 288) - *(v3 + 280)) >> 2) + ((*(v3 + 264) - *(v3 + 256)) >> 2);
-    if (v4 / (v5 << 18) < v9)
-    {
-      v9 = v4 / (v5 << 18);
-    }
-
-    if (v9 <= 1)
-    {
-      v9 = 1;
-    }
-
-    memset(v21, 0, sizeof(v21));
-    v10 = *(v3 + 304);
-    v11 = v3;
-    v12 = *(a1 + 8);
-    if ((v2 + v9 - 1) / v9 >= *(a1 + 16))
-    {
-      v13 = *(a1 + 16);
-    }
-
-    v14 = **(v11 + 256);
-    v15 = **(v11 + 280);
+    memset(v12, 0, sizeof(v12));
     operator new();
   }
 
   if (8 * v5 >= 0x401)
   {
     std::ostringstream::basic_ostringstream[abi:ne200100](__dst);
-    v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__dst, "Can't perform the ring all reduce of ", 37);
-    v18 = MEMORY[0x25F851380](v17, *(a1 + 16));
-    v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, " elements with a ring of size ", 30);
-    MEMORY[0x25F851360](v19, *(v3 + 12));
+    v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__dst, "Can't perform the ring all reduce of ", 37);
+    v9 = MEMORY[0x25F851380](v8, *(a1 + 16));
+    v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, " elements with a ring of size ", 30);
+    MEMORY[0x25F851360](v10, *(v3 + 12));
     exception = __cxa_allocate_exception(0x10uLL);
-    std::ostringstream::str[abi:ne200100](__dst, v21);
-    MEMORY[0x25F851100](exception, v21);
+    std::ostringstream::str[abi:ne200100](__dst, v12);
+    MEMORY[0x25F851100](exception, v12);
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
   bzero(__dst, 8 * v5);
   memcpy(__dst, *a1, v4);
-  result = memcpy(*(a1 + 8), __dst, v4);
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  memcpy(*(a1 + 8), __dst, v4);
 }
 
 void sub_25A2D43F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, std::future<void> a21, char a22)
@@ -9599,7 +9205,7 @@ LABEL_6:
 
 void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned long long,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned long long>>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, int a5, int a6, int a7)
 {
-  v118[2] = *MEMORY[0x277D85DE8];
+  v117[2] = *MEMORY[0x277D85DE8];
   if (a7 >= 0)
   {
     v7 = a6;
@@ -9620,8 +9226,8 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned long long
     v8 = a6;
   }
 
-  v93 = v8;
-  v94 = v7;
+  v92 = v8;
+  v93 = v7;
   v9 = *(a1 + 8);
   v10 = *(a1 + 12);
   v11 = (a4 + v10 - 1) / v10;
@@ -9644,21 +9250,21 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned long long
   v14 = v11 + v13 - 1;
   v15 = (v10 + a7 + v9) % v10;
   __src = 0;
+  v112 = 0;
   v113 = 0;
-  v114 = 0;
   __p = 0;
+  v109 = 0;
   v110 = 0;
-  v111 = 0;
   v16 = 1;
-  v107 = v13;
-  v105 = v14 / v13;
-  v100 = a7;
-  v98 = (a4 + v10 - 1) / v10;
-  v99 = a4;
-  v97 = v14;
+  v106 = v13;
+  v104 = v14 / v13;
+  v99 = a7;
+  v97 = (a4 + v10 - 1) / v10;
+  v98 = a4;
+  v96 = v14;
   do
   {
-    v96 = v16;
+    v95 = v16;
     if (v10 >= 2)
     {
       v17 = 0;
@@ -9684,34 +9290,34 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned long long
           v19 = v11 * (v15 + 1);
         }
 
-        if (v107 <= v14)
+        if (v106 <= v14)
         {
-          v102 = v17;
+          v101 = v17;
           v20 = 0;
-          v103 = v15;
-          v104 = v9;
-          v106 = v11 * v9;
+          v102 = v15;
+          v103 = v9;
+          v105 = v11 * v9;
           v21 = v11 * v15;
           do
           {
-            v22 = v20 * v107;
-            v23 = v20 * v107 + v106;
-            v24 = ++v20 * v107;
-            v25 = v20 * v107 + v106;
-            v26 = v113;
-            if (v113 >= v114)
+            v22 = v20 * v106;
+            v23 = v20 * v106 + v105;
+            v24 = ++v20 * v106;
+            v25 = v20 * v106 + v105;
+            v26 = v112;
+            if (v112 >= v113)
             {
               v30 = __src;
-              v31 = v113 - __src;
-              v32 = (v113 - __src) >> 4;
+              v31 = v112 - __src;
+              v32 = (v112 - __src) >> 4;
               v33 = v32 + 1;
               if ((v32 + 1) >> 60)
               {
                 std::vector<int>::__throw_length_error[abi:ne200100]();
               }
 
-              v34 = v114 - __src;
-              if ((v114 - __src) >> 3 > v33)
+              v34 = v113 - __src;
+              if ((v113 - __src) >> 3 > v33)
               {
                 v33 = v34 >> 3;
               }
@@ -9726,7 +9332,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned long long
                 std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<unsigned long,unsigned long>>>(&__src, v33);
               }
 
-              v35 = (v113 - __src) >> 4;
+              v35 = (v112 - __src) >> 4;
               v36 = (16 * v32);
               if (v18 >= v23)
               {
@@ -9740,7 +9346,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned long long
 
               if (v18 >= v25)
               {
-                v38 = v20 * v107 + v106;
+                v38 = v20 * v106 + v105;
               }
 
               else
@@ -9755,8 +9361,8 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned long long
               memcpy(v39, v30, v31);
               v40 = __src;
               __src = v39;
-              v113 = v29;
-              v114 = 0;
+              v112 = v29;
+              v113 = 0;
               if (v40)
               {
                 operator delete(v40);
@@ -9777,7 +9383,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned long long
 
               if (v18 >= v25)
               {
-                v28 = v20 * v107 + v106;
+                v28 = v20 * v106 + v105;
               }
 
               else
@@ -9785,28 +9391,28 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned long long
                 v28 = v18;
               }
 
-              *v113 = v27;
+              *v112 = v27;
               *(v26 + 1) = v28;
               v29 = v26 + 16;
             }
 
-            v113 = v29;
+            v112 = v29;
             v41 = v22 + v21;
             v42 = v24 + v21;
-            v43 = v110;
-            if (v110 >= v111)
+            v43 = v109;
+            if (v109 >= v110)
             {
               v47 = __p;
-              v48 = v110 - __p;
-              v49 = (v110 - __p) >> 4;
+              v48 = v109 - __p;
+              v49 = (v109 - __p) >> 4;
               v50 = v49 + 1;
               if ((v49 + 1) >> 60)
               {
                 std::vector<int>::__throw_length_error[abi:ne200100]();
               }
 
-              v51 = v111 - __p;
-              if ((v111 - __p) >> 3 > v50)
+              v51 = v110 - __p;
+              if ((v110 - __p) >> 3 > v50)
               {
                 v50 = v51 >> 3;
               }
@@ -9821,7 +9427,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned long long
                 std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<unsigned long,unsigned long>>>(&__p, v50);
               }
 
-              v52 = (v110 - __p) >> 4;
+              v52 = (v109 - __p) >> 4;
               v53 = (16 * v49);
               if (v19 >= v41)
               {
@@ -9850,8 +9456,8 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned long long
               memcpy(v56, v47, v48);
               v57 = __p;
               __p = v56;
-              v110 = v46;
-              v111 = 0;
+              v109 = v46;
+              v110 = 0;
               if (v57)
               {
                 operator delete(v57);
@@ -9880,23 +9486,23 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned long long
                 v45 = v19;
               }
 
-              *v110 = v44;
+              *v109 = v44;
               *(v43 + 1) = v45;
               v46 = v43 + 16;
             }
 
-            v110 = v46;
+            v109 = v46;
           }
 
-          while (v20 < v105);
+          while (v20 < v104);
           LODWORD(v10) = *(a1 + 12);
-          a7 = v100;
-          v11 = v98;
-          a4 = v99;
-          v15 = v103;
-          v9 = v104;
-          v14 = v97;
-          v17 = v102;
+          a7 = v99;
+          v11 = v97;
+          a4 = v98;
+          v15 = v102;
+          v9 = v103;
+          v14 = v96;
+          v17 = v101;
         }
 
         v9 = (v9 + a7 + v10) % v10;
@@ -9910,25 +9516,25 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned long long
     v16 = 0;
   }
 
-  while ((v96 & 1) != 0);
-  v118[0] = a2;
-  v118[1] = a2 + 8 * v107;
-  v117[0] = 0;
-  v117[1] = 0;
+  while ((v95 & 1) != 0);
+  v117[0] = a2;
+  v117[1] = a2 + 8 * v106;
   v116[0] = 0;
   v116[1] = 0;
+  v115[0] = 0;
+  v115[1] = 0;
   v58 = __src;
-  if (v113 == __src)
+  if (v112 == __src)
   {
-    v69 = v105 > 1;
+    v69 = v104 > 1;
   }
 
   else
   {
     v59 = 0;
     v60 = 0;
-    v61 = v105 > 1;
-    if (v105 <= 1)
+    v61 = v104 > 1;
+    if (v104 <= 1)
     {
       v62 = 0;
     }
@@ -9945,49 +9551,49 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned long long
       v64 = &v58[16 * v59];
       v65 = *v64;
       v66 = *(v64 + 1);
-      LODWORD(v115.__state_) = v94;
-      state = v108.__state_;
-      v108.__state_ = 0;
+      LODWORD(v114.__state_) = v93;
+      state = v107.__state_;
+      v107.__state_ = 0;
       v69 = v63;
-      v115.__state_ = v117[v63];
-      v117[v63] = state;
-      std::future<void>::~future(&v115);
-      std::future<void>::~future(&v108);
-      if ((v113 - __src) >> 4 <= 2 * v59)
+      v114.__state_ = v116[v63];
+      v116[v63] = state;
+      std::future<void>::~future(&v114);
+      std::future<void>::~future(&v107);
+      if ((v112 - __src) >> 4 <= 2 * v59)
       {
         v75 = (__p + 16 * v59);
         v76 = *v75;
         v77 = v75[1];
-        LODWORD(v115.__state_) = v93;
+        LODWORD(v114.__state_) = v92;
       }
 
       else
       {
-        v70 = v118[v59 & 1];
+        v70 = v117[v59 & 1];
         v71 = (__p + 16 * v59);
         v72 = *v71;
         v73 = v71[1];
-        LODWORD(v115.__state_) = v93;
+        LODWORD(v114.__state_) = v92;
       }
 
-      v79 = v108.__state_;
-      v108.__state_ = 0;
-      v115.__state_ = v116[v63];
-      v116[v63] = v79;
-      std::future<void>::~future(&v115);
-      std::future<void>::~future(&v108);
+      v79 = v107.__state_;
+      v107.__state_ = 0;
+      v114.__state_ = v115[v63];
+      v115[v63] = v79;
+      std::future<void>::~future(&v114);
+      std::future<void>::~future(&v107);
       if ((v62 & 0x80000000) != 0)
       {
         v58 = __src;
-        v80 = (v113 - __src) >> 4;
+        v80 = (v112 - __src) >> 4;
       }
 
       else
       {
-        std::__assoc_sub_state::wait(v117[v60]);
         std::__assoc_sub_state::wait(v116[v60]);
+        std::__assoc_sub_state::wait(v115[v60]);
         v58 = __src;
-        v80 = (v113 - __src) >> 4;
+        v80 = (v112 - __src) >> 4;
         if (v80 > 2 * v62)
         {
           v81 = (__p + 16 * v62);
@@ -9996,7 +9602,7 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned long long
           if (v83 != *v81)
           {
             v84 = (a3 + 8 * v82);
-            v85 = v118[v62 & 1];
+            v85 = v117[v62 & 1];
             v86 = v82 - v83;
             do
             {
@@ -10017,29 +9623,270 @@ void mlx::core::distributed::ring::RingGroup::all_reduce_impl<unsigned long long
     while (v80 > v59);
   }
 
-  std::__assoc_sub_state::wait(v117[v69]);
   std::__assoc_sub_state::wait(v116[v69]);
+  std::__assoc_sub_state::wait(v115[v69]);
   for (i = 1; i != -1; --i)
   {
-    std::future<void>::~future(&v116[i]);
+    std::future<void>::~future(&v115[i]);
   }
 
   for (j = 1; j != -1; --j)
   {
-    std::future<void>::~future(&v117[j]);
+    std::future<void>::~future(&v116[j]);
   }
 
   if (__p)
   {
-    v110 = __p;
+    v109 = __p;
     operator delete(__p);
   }
 
   if (__src)
   {
-    v113 = __src;
+    v112 = __src;
     operator delete(__src);
   }
+}
 
-  v91 = *MEMORY[0x277D85DE8];
+void sub_25A2D4B14(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, uint64_t a28, void *a29, uint64_t a30)
+{
+  for (i = 8; i != -8; i -= 8)
+  {
+    std::future<void>::~future((v30 - 144 + i));
+  }
+
+  for (j = 8; j != -8; j -= 8)
+  {
+    std::future<void>::~future((v30 - 128 + j));
+  }
+
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  if (a29)
+  {
+    operator delete(a29);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+__n128 std::__packaged_task_func<std::__bind<std::__bind<void (mlx::core::distributed::ring::RingGroup::*)(unsigned long long *,unsigned long long *,unsigned long,int,int,int,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned long long>),mlx::core::distributed::ring::RingGroup*,unsigned long long *,unsigned long long *,unsigned long,int &,int &,int,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned long long> const&>>,std::allocator<std::__bind<std::__bind<void (mlx::core::distributed::ring::RingGroup::*)(unsigned long long *,unsigned long long *,unsigned long,int,int,int,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned long long>),mlx::core::distributed::ring::RingGroup*,unsigned long long *,unsigned long long *,unsigned long,int &,int &,int,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned long long> const&>>>,void ()(void)>::__move_to(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_286BEC0E8;
+  result = *(a1 + 24);
+  v3 = *(a1 + 40);
+  v4 = *(a1 + 56);
+  *(a2 + 72) = *(a1 + 72);
+  *(a2 + 8) = *(a1 + 8);
+  *(a2 + 56) = v4;
+  *(a2 + 40) = v3;
+  *(a2 + 24) = result;
+  *(a2 + 73) = 0;
+  *(a2 + 76) = 0;
+  return result;
+}
+
+uint64_t std::__packaged_task_func<std::__bind<std::__bind<void (mlx::core::distributed::ring::RingGroup::*)(unsigned long long *,unsigned long long *,unsigned long,int,int,int,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned long long>),mlx::core::distributed::ring::RingGroup*,unsigned long long *,unsigned long long *,unsigned long,int &,int &,int,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned long long> const&>>,std::allocator<std::__bind<std::__bind<void (mlx::core::distributed::ring::RingGroup::*)(unsigned long long *,unsigned long long *,unsigned long,int,int,int,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned long long>),mlx::core::distributed::ring::RingGroup*,unsigned long long *,unsigned long long *,unsigned long,int &,int &,int,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned long long> const&>>>,void ()(void)>::operator()(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  v2 = *(a1 + 8);
+  v3 = (*(a1 + 24) + (v1 >> 1));
+  if (v1)
+  {
+    v2 = *(*v3 + v2);
+  }
+
+  return v2(v3, *(a1 + 32), *(a1 + 40), *(a1 + 48), *(a1 + 56), *(a1 + 60), *(a1 + 64));
+}
+
+void *_ZNSt3__110__function6__funcIZN10ThreadPool7enqueueINS_6__bindIMN3mlx4core11distributed4ring9RingGroupEFvPySA_miiiNS8_12_GLOBAL__N_15SumOpIyEEEJPS9_SA_SA_mRiSH_iRKSD_EEEJEEENS_6futureINS_13invoke_resultIT_JDpT0_EE4typeEEEOSN_DpOSO_EUlvE_NS_9allocatorISW_EEFvvEED1Ev(void *a1)
+{
+  *a1 = &unk_286BEC140;
+  v2 = a1[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  return a1;
+}
+
+void _ZNSt3__110__function6__funcIZN10ThreadPool7enqueueINS_6__bindIMN3mlx4core11distributed4ring9RingGroupEFvPySA_miiiNS8_12_GLOBAL__N_15SumOpIyEEEJPS9_SA_SA_mRiSH_iRKSD_EEEJEEENS_6futureINS_13invoke_resultIT_JDpT0_EE4typeEEEOSN_DpOSO_EUlvE_NS_9allocatorISW_EEFvvEED0Ev(void *a1)
+{
+  *a1 = &unk_286BEC140;
+  v1 = a1[2];
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  JUMPOUT(0x25F851760);
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN10ThreadPool7enqueueINS_6__bindIMN3mlx4core11distributed4ring9RingGroupEFvPySA_miiiNS8_12_GLOBAL__N_15SumOpIyEEEJPS9_SA_SA_mRiSH_iRKSD_EEEJEEENS_6futureINS_13invoke_resultIT_JDpT0_EE4typeEEEOSN_DpOSO_EUlvE_NS_9allocatorISW_EEFvvEE7__cloneEPNS0_6__baseISZ_EE(uint64_t result, void *a2)
+{
+  v3 = *(result + 8);
+  v2 = *(result + 16);
+  *a2 = &unk_286BEC140;
+  a2[1] = v3;
+  a2[2] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZN10ThreadPool7enqueueINS_6__bindIMN3mlx4core11distributed4ring9RingGroupEFvPySA_miiiNS8_12_GLOBAL__N_15SumOpIyEEEJPS9_SA_SA_mRiSH_iRKSD_EEEJEEENS_6futureINS_13invoke_resultIT_JDpT0_EE4typeEEEOSN_DpOSO_EUlvE_NS_9allocatorISW_EEFvvEE7destroyEv(uint64_t a1)
+{
+  v1 = *(a1 + 16);
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+}
+
+void _ZNSt3__110__function6__funcIZN10ThreadPool7enqueueINS_6__bindIMN3mlx4core11distributed4ring9RingGroupEFvPySA_miiiNS8_12_GLOBAL__N_15SumOpIyEEEJPS9_SA_SA_mRiSH_iRKSD_EEEJEEENS_6futureINS_13invoke_resultIT_JDpT0_EE4typeEEEOSN_DpOSO_EUlvE_NS_9allocatorISW_EEFvvEE18destroy_deallocateEv(void *__p)
+{
+  v2 = __p[2];
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  operator delete(__p);
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN10ThreadPool7enqueueINS_6__bindIMN3mlx4core11distributed4ring9RingGroupEFvPySA_miiiNS8_12_GLOBAL__N_15SumOpIyEEEJPS9_SA_SA_mRiSH_iRKSD_EEEJEEENS_6futureINS_13invoke_resultIT_JDpT0_EE4typeEEEOSN_DpOSO_EUlvE_NS_9allocatorISW_EEFvvEE6targetERKSt9type_info(uint64_t a1, uint64_t a2)
+{
+  if (std::type_info::operator==[abi:ne200100](a2, &_ZTIZN10ThreadPool7enqueueINSt3__16__bindIMN3mlx4core11distributed4ring9RingGroupEFvPyS8_miiiNS6_12_GLOBAL__N_15SumOpIyEEEJPS7_S8_S8_mRiSF_iRKSB_EEEJEEENS1_6futureINS1_13invoke_resultIT_JDpT0_EE4typeEEEOSL_DpOSM_EUlvE_))
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+__n128 std::__function::__func<std::__bind<void mlx::core::distributed::ring::RingGroup::all_reduce<unsigned long long,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned long long>>(mlx::core::array const&,mlx::core::array&,mlx::core::Stream,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned long long>)::{lambda(void)#1}>,std::allocator<std::__bind<void mlx::core::distributed::ring::RingGroup::all_reduce<unsigned long long,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned long long>>(mlx::core::array const&,mlx::core::array&,mlx::core::Stream,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned long long>)::{lambda(void)#1}>>,void ()(void)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_286BEC1D0;
+  result = *(a1 + 8);
+  v3 = *(a1 + 24);
+  *(a2 + 40) = *(a1 + 40);
+  *(a2 + 24) = v3;
+  *(a2 + 8) = result;
+  *(a2 + 49) = 0;
+  *(a2 + 52) = 0;
+  return result;
+}
+
+uint64_t std::__function::__func<std::__bind<void mlx::core::distributed::ring::RingGroup::all_reduce<unsigned long long,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned long long>>(mlx::core::array const&,mlx::core::array&,mlx::core::Stream,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned long long>)::{lambda(void)#1}>,std::allocator<std::__bind<void mlx::core::distributed::ring::RingGroup::all_reduce<unsigned long long,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned long long>>(mlx::core::array const&,mlx::core::array&,mlx::core::Stream,mlx::core::distributed::ring::anonymous namespace::SumOp<unsigned long long>)::{lambda(void)#1}>>,void ()(void)>::target(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+__n128 _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_11distributed4ring9RingGroup10all_reduceINS3_13_MLX_BFloat16ENS8_12_GLOBAL__N_15SumOpISB_EEEEvRKNS3_5arrayERSF_NS3_6StreamET0_EUlvE_JEEEvOT_DpOT0_EUlvE_NS_9allocatorISR_EEFvvEE7__cloneEPNS0_6__baseISU_EE(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_286BEC2C8;
+  result = *(a1 + 8);
+  v3 = *(a1 + 24);
+  v4 = *(a1 + 40);
+  *(a2 + 56) = *(a1 + 56);
+  *(a2 + 40) = v4;
+  *(a2 + 24) = v3;
+  *(a2 + 8) = result;
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_11distributed4ring9RingGroup10all_reduceINS3_13_MLX_BFloat16ENS8_12_GLOBAL__N_15SumOpISB_EEEEvRKNS3_5arrayERSF_NS3_6StreamET0_EUlvE_JEEEvOT_DpOT0_EUlvE_NS_9allocatorISR_EEFvvEEclEv(uint64_t a1)
+{
+  v2 = mlx::core::scheduler::scheduler(v1);
+
+  mlx::core::scheduler::Scheduler::notify_task_completion(v2);
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_11distributed4ring9RingGroup10all_reduceINS3_13_MLX_BFloat16ENS8_12_GLOBAL__N_15SumOpISB_EEEEvRKNS3_5arrayERSF_NS3_6StreamET0_EUlvE_JEEEvOT_DpOT0_EUlvE_NS_9allocatorISR_EEFvvEE6targetERKSt9type_info(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+void std::__bind<void mlx::core::distributed::ring::RingGroup::all_reduce<mlx::core::_MLX_BFloat16,mlx::core::distributed::ring::anonymous namespace::SumOp<mlx::core::_MLX_BFloat16>>(mlx::core::array const&,mlx::core::array&,mlx::core::Stream,mlx::core::distributed::ring::anonymous namespace::SumOp<mlx::core::_MLX_BFloat16>)::{lambda(void)#1}>::operator()[abi:ne200100]<>(uint64_t a1)
+{
+  __dst[128] = *MEMORY[0x277D85DE8];
+  v2 = *(a1 + 16);
+  v3 = *(a1 + 24);
+  v4 = 2 * v2;
+  v5 = *(v3 + 12);
+  if (v2 >= v5)
+  {
+    v7 = *a1;
+    v6 = *(a1 + 8);
+    if (*a1 != v6)
+    {
+      memcpy(v6, v7, 2 * v2);
+    }
+
+    memset(v12, 0, sizeof(v12));
+    operator new();
+  }
+
+  if (2 * v5 >= 0x401)
+  {
+    std::ostringstream::basic_ostringstream[abi:ne200100](__dst);
+    v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__dst, "Can't perform the ring all reduce of ", 37);
+    v9 = MEMORY[0x25F851380](v8, *(a1 + 16));
+    v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, " elements with a ring of size ", 30);
+    MEMORY[0x25F851360](v10, *(v3 + 12));
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::ostringstream::str[abi:ne200100](__dst, v12);
+    MEMORY[0x25F851100](exception, v12);
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  bzero(__dst, 2 * v5);
+  memcpy(__dst, *a1, v4);
+  memcpy(*(a1 + 8), __dst, v4);
+}
+
+void sub_25A2D55FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, std::future<void> a21, char a22)
+{
+  if (a20 < 0)
+  {
+    operator delete(__p);
+    if ((v23 & 1) == 0)
+    {
+LABEL_6:
+      std::ostringstream::~ostringstream(&a22);
+      _Unwind_Resume(a1);
+    }
+  }
+
+  else if (!v23)
+  {
+    goto LABEL_6;
+  }
+
+  __cxa_free_exception(v22);
+  goto LABEL_6;
 }

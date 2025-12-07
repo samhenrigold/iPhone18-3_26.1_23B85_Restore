@@ -1,8 +1,24 @@
 @interface UBCrackShotReport
+- (UBCrackShotReport)initWithPid:(int)pid procName:(id)name bundleID:(id)d exitSnapshot:(exit_reason_snapshot *)snapshot reason:(id)reason issueType:(int64_t)type;
 - (id)reportNamePrefix;
 @end
 
 @implementation UBCrackShotReport
+
+- (UBCrackShotReport)initWithPid:(int)pid procName:(id)name bundleID:(id)d exitSnapshot:(exit_reason_snapshot *)snapshot reason:(id)reason issueType:(int64_t)type
+{
+  v13.receiver = self;
+  v13.super_class = UBCrackShotReport;
+  v9 = [(OSACrackShotReport *)&v13 initWithPid:*&pid procName:name bundleID:d exitSnapshot:snapshot reason:reason];
+  v10 = v9;
+  if (v9)
+  {
+    v9->_issueType = type;
+    v11 = v9;
+  }
+
+  return v10;
+}
 
 - (id)reportNamePrefix
 {

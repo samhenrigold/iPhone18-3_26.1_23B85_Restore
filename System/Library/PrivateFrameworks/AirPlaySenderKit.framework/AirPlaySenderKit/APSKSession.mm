@@ -36,9 +36,9 @@
 {
   delegateCopy = delegate;
   queueCopy = queue;
-  v17.receiver = self;
-  v17.super_class = APSKSession;
-  v8 = [(APSKSession *)&v17 init];
+  v19.receiver = self;
+  v19.super_class = APSKSession;
+  v8 = [(APSKSession *)&v19 init];
   v9 = v8;
   if (v8)
   {
@@ -57,15 +57,15 @@
 
       if (!delegateQueue)
       {
-        v14 = dispatch_queue_create("com.apple.apsksession.delegateq", 0);
-        v15 = v9->_delegateQueue;
-        v9->_delegateQueue = v14;
+        v16 = dispatch_queue_create("com.apple.apsksession.delegateq", 0);
+        v17 = v9->_delegateQueue;
+        v9->_delegateQueue = v16;
       }
     }
 
     if (gLogCategory_AirPlaySenderKit <= 50 && (gLogCategory_AirPlaySenderKit != -1 || _LogCategory_Initialize()))
     {
-      [APSKSession initWithDelegate:delegateQueue:];
+      [(APSKSession *)v9 initWithDelegate:v13 delegateQueue:v14];
     }
   }
 
@@ -76,13 +76,13 @@
 {
   if (gLogCategory_AirPlaySenderKit <= 50 && (gLogCategory_AirPlaySenderKit != -1 || _LogCategory_Initialize()))
   {
-    [APSKSession dealloc];
+    [(APSKSession *)self dealloc];
   }
 
   [(APSKSession *)self stop];
-  v3.receiver = self;
-  v3.super_class = APSKSession;
-  [(APSKSession *)&v3 dealloc];
+  v4.receiver = self;
+  v4.super_class = APSKSession;
+  [(APSKSession *)&v4 dealloc];
 }
 
 - (BOOL)active
@@ -129,7 +129,7 @@
 
 void __30__APSKSession_addVideoStream___block_invoke(uint64_t a1)
 {
-  v3 = (a1 + 32);
+  v3 = a1 + 32;
   v2 = *(a1 + 32);
   if (*(v2 + 56))
   {
@@ -148,11 +148,11 @@ void __30__APSKSession_addVideoStream___block_invoke(uint64_t a1)
     else
     {
       v7 = *(a1 + 40);
-      v6 = (a1 + 40);
+      v6 = a1 + 40;
       objc_storeStrong(v4, v7);
       if (gLogCategory_AirPlaySenderKit <= 50 && (gLogCategory_AirPlaySenderKit != -1 || _LogCategory_Initialize()))
       {
-        __30__APSKSession_addVideoStream___block_invoke_cold_3(v3, v6);
+        __30__APSKSession_addVideoStream___block_invoke_cold_3(v3, v6, v8);
       }
     }
   }
@@ -183,7 +183,7 @@ void __30__APSKSession_addVideoStream___block_invoke(uint64_t a1)
 
 void __30__APSKSession_addAudioStream___block_invoke(uint64_t a1)
 {
-  v3 = (a1 + 32);
+  v3 = a1 + 32;
   v2 = *(a1 + 32);
   if (*(v2 + 56))
   {
@@ -202,11 +202,11 @@ void __30__APSKSession_addAudioStream___block_invoke(uint64_t a1)
     else
     {
       v7 = *(a1 + 40);
-      v6 = (a1 + 40);
+      v6 = a1 + 40;
       objc_storeStrong(v4, v7);
       if (gLogCategory_AirPlaySenderKit <= 50 && (gLogCategory_AirPlaySenderKit != -1 || _LogCategory_Initialize()))
       {
-        __30__APSKSession_addAudioStream___block_invoke_cold_3(v3, v6);
+        __30__APSKSession_addAudioStream___block_invoke_cold_3(v3, v6, v8);
       }
     }
   }
@@ -221,7 +221,7 @@ void __30__APSKSession_addAudioStream___block_invoke(uint64_t a1)
   v15 = 0;
   if (gLogCategory_AirPlaySenderKit <= 30 && (gLogCategory_AirPlaySenderKit != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlaySenderKit, "[APSKSession setAuthString:]", 33554462, "[%{ptr}] session: setting auth string '%@'", self, stringCopy);
   }
 
   queue = self->_queue;
@@ -293,21 +293,22 @@ void __29__APSKSession_setAuthString___block_invoke(void *a1)
 
 void __46__APSKSession_startToDestination_withOptions___block_invoke(uint64_t a1)
 {
-  v1 = (a1 + 32);
-  if (*(*(a1 + 32) + 56))
+  v2 = a1 + 32;
+  v1 = *(a1 + 32);
+  if (*(v1 + 56))
   {
     if (gLogCategory_AirPlaySenderKit <= 90)
     {
       if (gLogCategory_AirPlaySenderKit != -1)
       {
 LABEL_4:
-        LogPrintF();
+        LogPrintF(&gLogCategory_AirPlaySenderKit, "[APSKSession startToDestination:withOptions:]_block_invoke", 33554522, "[%{ptr}] session has already been started", v1);
         return;
       }
 
       if (_LogCategory_Initialize())
       {
-        v15 = *v1;
+        v1 = *v2;
         goto LABEL_4;
       }
     }
@@ -315,54 +316,54 @@ LABEL_4:
 
   else
   {
-    v3 = [*(a1 + 40) objectForKeyedSubscript:@"_UseLocal"];
-    *(*(a1 + 32) + 60) = [v3 BOOLValue] ^ 1;
+    v4 = [*(a1 + 40) objectForKeyedSubscript:@"_UseLocal"];
+    *(*(a1 + 32) + 60) = [v4 BOOLValue] ^ 1;
 
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    v8 = *(a1 + 48);
-    v7 = (a1 + 48);
-    v6 = v8;
-    if (v4[60] == 1)
+    v5 = *(a1 + 32);
+    v6 = *(a1 + 40);
+    v9 = *(a1 + 48);
+    v8 = (a1 + 48);
+    v7 = v9;
+    if (v5[60] == 1)
     {
-      v9 = [v4 remoteStartToDestination:v6 withOptions:v5];
+      v10 = [v5 remoteStartToDestination:v7 withOptions:v6];
     }
 
     else
     {
-      v9 = [v4 localStartToDestination:v6 withOptions:v5];
+      v10 = [v5 localStartToDestination:v7 withOptions:v6];
     }
 
-    v10 = v9;
-    *(*v1 + 56) = 1;
+    v11 = v10;
+    *(*v2 + 56) = 1;
     if (gLogCategory_AirPlaySenderKit <= 50 && (gLogCategory_AirPlaySenderKit != -1 || _LogCategory_Initialize()))
     {
-      __46__APSKSession_startToDestination_withOptions___block_invoke_cold_1(v1, v7);
-      if (!v10)
+      __46__APSKSession_startToDestination_withOptions___block_invoke_cold_1(v2, v8);
+      if (!v11)
       {
         return;
       }
     }
 
-    else if (!v10)
+    else if (!v11)
     {
       return;
     }
 
-    WeakRetained = objc_loadWeakRetained((*v1 + 8));
-    v12 = objc_opt_respondsToSelector();
+    WeakRetained = objc_loadWeakRetained((*v2 + 8));
+    v13 = objc_opt_respondsToSelector();
 
-    if (v12)
+    if (v13)
     {
-      v13 = *v1;
-      v14 = *(*v1 + 16);
+      v14 = *v2;
+      v15 = *(*v2 + 16);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __46__APSKSession_startToDestination_withOptions___block_invoke_2;
       block[3] = &unk_278C659B8;
-      block[4] = v13;
-      v17 = v10;
-      dispatch_async(v14, block);
+      block[4] = v14;
+      v17 = v11;
+      dispatch_async(v15, block);
     }
   }
 }
@@ -384,7 +385,7 @@ void __46__APSKSession_startToDestination_withOptions___block_invoke_2(uint64_t 
   dispatch_sync(queue, block);
 }
 
-uint64_t __19__APSKSession_stop__block_invoke(uint64_t a1)
+void *__19__APSKSession_stop__block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 32) setFrameSender:0];
   [*(*(a1 + 32) + 40) setAudioSender:0];
@@ -406,7 +407,7 @@ uint64_t __19__APSKSession_stop__block_invoke(uint64_t a1)
     {
       if (gLogCategory_AirPlaySenderKit != -1 || (result = _LogCategory_Initialize(), v4 = *(a1 + 32), result))
       {
-        result = LogPrintF();
+        result = LogPrintF(&gLogCategory_AirPlaySenderKit, "[APSKSession stop]_block_invoke", 33554482, "[%{ptr}] session stopped", v4);
         v4 = *(a1 + 32);
       }
     }
@@ -489,7 +490,7 @@ uint64_t __33__APSKSession_sendFrame_forTime___block_invoke(void *a1)
   return queue;
 }
 
-uint64_t __29__APSKSession_sendAudioData___block_invoke(void *a1)
+void *__29__APSKSession_sendAudioData___block_invoke(void *a1)
 {
   v2 = a1[4];
   if (!*(v2 + 40))
@@ -543,7 +544,7 @@ uint64_t __29__APSKSession_sendAudioData___block_invoke(void *a1)
   return sampleTime;
 }
 
-uint64_t __86__APSKSession_sendAudioDataWithTimestamps_forHostTime_forSampleTime_forDiscontinuity___block_invoke(uint64_t a1)
+void *__86__APSKSession_sendAudioDataWithTimestamps_forHostTime_forSampleTime_forDiscontinuity___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   if (!*(v2 + 40))
@@ -613,7 +614,7 @@ uint64_t __86__APSKSession_sendAudioDataWithTimestamps_forHostTime_forSampleTime
     v7 = required == 1;
     if (gLogCategory_AirPlaySenderKit <= 50 && (gLogCategory_AirPlaySenderKit != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_AirPlaySenderKit, "[APSKSession handleAuthRequired:]", 33554482, "[%{ptr}] session: calling auth delegate for auth type %d", self, v7);
     }
 
     delegateQueue = self->_delegateQueue;
@@ -648,7 +649,8 @@ void __34__APSKSession_handleAuthRequired___block_invoke(uint64_t a1)
 void __37__APSKSession_handleStartCompletion___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  if (*(v2 + 56) != 1)
+  v3 = *(v2 + 56);
+  if (v3 != 1)
   {
     if (gLogCategory_AirPlaySenderKit > 50)
     {
@@ -662,15 +664,16 @@ void __37__APSKSession_handleStartCompletion___block_invoke(uint64_t a1)
         return;
       }
 
-      v3 = *(*(a1 + 32) + 56);
+      v2 = *(a1 + 32);
+      v3 = *(v2 + 56);
     }
 
-    v13 = *(a1 + 40);
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlaySenderKit, "[APSKSession handleStartCompletion:]_block_invoke", 33554482, "[%{ptr}] session: got start completion status (%d) in unexpected state (%d), ignoring", v2, *(a1 + 40), v3);
     return;
   }
 
-  if (*(a1 + 40))
+  v4 = *(a1 + 40);
+  if (v4)
   {
     if (gLogCategory_AirPlaySenderKit > 100)
     {
@@ -679,53 +682,52 @@ void __37__APSKSession_handleStartCompletion___block_invoke(uint64_t a1)
 
     if (gLogCategory_AirPlaySenderKit == -1)
     {
-      v4 = _LogCategory_Initialize();
+      v5 = _LogCategory_Initialize();
       v2 = *(a1 + 32);
-      if (!v4)
+      if (!v5)
       {
 LABEL_15:
         WeakRetained = objc_loadWeakRetained((v2 + 8));
-        v6 = objc_opt_respondsToSelector();
+        v7 = objc_opt_respondsToSelector();
 
-        if (v6)
+        if (v7)
         {
-          v7 = *(a1 + 32);
-          v8 = *(v7 + 16);
+          v8 = *(a1 + 32);
+          v9 = *(v8 + 16);
           block[0] = MEMORY[0x277D85DD0];
           block[1] = 3221225472;
           block[2] = __37__APSKSession_handleStartCompletion___block_invoke_2;
           block[3] = &unk_278C659B8;
-          block[4] = v7;
-          v15 = *(a1 + 40);
-          dispatch_async(v8, block);
+          block[4] = v8;
+          v13 = *(a1 + 40);
+          dispatch_async(v9, block);
         }
 
         return;
       }
 
-      v11 = *(a1 + 40);
+      v4 = *(a1 + 40);
     }
 
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlaySenderKit, "[APSKSession handleStartCompletion:]_block_invoke", 33554532, "[%{ptr}] session start failed, error: %#m", v2, v4);
     v2 = *(a1 + 32);
     goto LABEL_15;
   }
 
   if (gLogCategory_AirPlaySenderKit <= 50)
   {
-    if (gLogCategory_AirPlaySenderKit != -1 || (v9 = _LogCategory_Initialize(), v2 = *(a1 + 32), v9))
+    if (gLogCategory_AirPlaySenderKit != -1 || (v10 = _LogCategory_Initialize(), v2 = *(a1 + 32), v10))
     {
-      v12 = v2;
-      LogPrintF();
+      LogPrintF(&gLogCategory_AirPlaySenderKit, "[APSKSession handleStartCompletion:]_block_invoke", 33554482, "[%{ptr}] session started", v2);
       v2 = *(a1 + 32);
     }
   }
 
   *(v2 + 56) = 2;
-  [*(*(a1 + 32) + 40) setAudioSender:v12];
-  v10 = *(*(a1 + 32) + 32);
+  [*(*(a1 + 32) + 40) setAudioSender:?];
+  v11 = *(*(a1 + 32) + 32);
 
-  [v10 setFrameSender:?];
+  [v11 setFrameSender:?];
 }
 
 void __37__APSKSession_handleStartCompletion___block_invoke_2(uint64_t a1)
@@ -763,38 +765,42 @@ void __29__APSKSession_handleFailure___block_invoke(uint64_t a1)
         return;
       }
 
-      v8 = *(*(a1 + 32) + 56);
+      v2 = *(a1 + 32);
+      v3 = *(v2 + 56);
     }
 
-    v10 = *(a1 + 40);
-    LogPrintF();
+    else
+    {
+      v3 = 0;
+    }
+
+    LogPrintF(&gLogCategory_AirPlaySenderKit, "[APSKSession handleFailure:]_block_invoke", 33554482, "[%{ptr}] session: got failure notification (%d) in unexpected state (%d), ignoring", v2, *(a1 + 40), v3);
     return;
   }
 
   if (gLogCategory_AirPlaySenderKit <= 100)
   {
-    if (gLogCategory_AirPlaySenderKit != -1 || (v3 = _LogCategory_Initialize(), v2 = *(a1 + 32), v3))
+    if (gLogCategory_AirPlaySenderKit != -1 || (v4 = _LogCategory_Initialize(), v2 = *(a1 + 32), v4))
     {
-      v9 = *(a1 + 40);
-      LogPrintF();
+      LogPrintF(&gLogCategory_AirPlaySenderKit, "[APSKSession handleFailure:]_block_invoke", 33554532, "[%{ptr}] session failed, error: %#m", v2, *(a1 + 40));
       v2 = *(a1 + 32);
     }
   }
 
   WeakRetained = objc_loadWeakRetained((v2 + 8));
-  v5 = objc_opt_respondsToSelector();
+  v6 = objc_opt_respondsToSelector();
 
-  if (v5)
+  if (v6)
   {
-    v6 = *(a1 + 32);
-    v7 = *(v6 + 16);
+    v7 = *(a1 + 32);
+    v8 = *(v7 + 16);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __29__APSKSession_handleFailure___block_invoke_2;
     block[3] = &unk_278C659B8;
-    block[4] = v6;
-    v12 = *(a1 + 40);
-    dispatch_async(v7, block);
+    block[4] = v7;
+    v10 = *(a1 + 40);
+    dispatch_async(v8, block);
   }
 }
 
@@ -820,9 +826,10 @@ void __29__APSKSession_handleFailure___block_invoke_2(uint64_t a1)
 
 - (void)handleVideoStreamErrorNotification:(int)notification
 {
+  v3 = *&notification;
   if (gLogCategory_AirPlaySenderKit <= 90 && (gLogCategory_AirPlaySenderKit != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlaySenderKit, "[APSKSession handleVideoStreamErrorNotification:]", 33554522, "[%{ptr}] session got video stream failure notification, error: %#m", self, v3);
   }
 
   queue = self->_queue;
@@ -831,7 +838,7 @@ void __29__APSKSession_handleFailure___block_invoke_2(uint64_t a1)
   block[2] = __50__APSKSession_handleVideoStreamErrorNotification___block_invoke;
   block[3] = &unk_278C659B8;
   block[4] = self;
-  notificationCopy = notification;
+  v7 = v3;
   dispatch_sync(queue, block);
 }
 
@@ -842,19 +849,20 @@ void __29__APSKSession_handleFailure___block_invoke_2(uint64_t a1)
   if (sender)
   {
     v6 = APMediaSenderSetAuthString(sender, stringCopy);
+    v7 = v6;
     if (v6)
     {
-      [APSKSession localSetAuthString:];
+      [APSKSession localSetAuthString:v6];
     }
   }
 
   else
   {
     [APSKSession localSetAuthString:];
-    v6 = -6709;
+    v7 = -6709;
   }
 
-  return v6;
+  return v7;
 }
 
 - (int)localStartToDestination:(id)destination withOptions:(id)options
@@ -896,36 +904,35 @@ void __29__APSKSession_handleFailure___block_invoke_2(uint64_t a1)
   v32[3] = &unk_278C65B50;
   objc_copyWeak(&v33, location);
   v13 = _Block_copy(v32);
+  v15 = v13;
   if (!usageModes)
   {
-    updated = -6705;
+    updated = 4294960591;
     APSLogErrorAt();
     goto LABEL_27;
   }
 
   if (self->_sender)
   {
-    updated = -6709;
+    updated = 4294960587;
     APSLogErrorAt();
     goto LABEL_27;
   }
 
-  sender = APMediaSenderCreate();
+  sender = APMediaSenderCreate(v13, v14);
   self->_sender = sender;
   if (!sender)
   {
-    updated = -6762;
+    updated = 4294960534;
     APSLogErrorAt();
     goto LABEL_27;
   }
 
   if (gLogCategory_AirPlaySenderKit <= 50)
   {
-    if (gLogCategory_AirPlaySenderKit != -1 || (v15 = _LogCategory_Initialize(), sender = self->_sender, v15))
+    if (gLogCategory_AirPlaySenderKit != -1 || (v17 = _LogCategory_Initialize(), sender = self->_sender, v17))
     {
-      selfCopy = self;
-      v29 = sender;
-      LogPrintF();
+      LogPrintF(&gLogCategory_AirPlaySenderKit, "[APSKSession localStartToDestination:withOptions:]", 33554482, "[%{ptr}] session: using media sender %{ptr}", self, sender);
       sender = self->_sender;
     }
   }
@@ -948,34 +955,34 @@ LABEL_11:
       if (!updated)
       {
         audioStream = self->_audioStream;
-        if (!audioStream || (updated = APMediaSenderSetAudioDescription(self->_sender, [(APSKStreamAudio *)audioStream asbd], [(APSKStreamAudio *)self->_audioStream useVideoLatency])) == 0)
+        if (!audioStream || (updated = APMediaSenderSetAudioDescription(self->_sender, [(APSKStreamAudio *)audioStream asbd], [(APSKStreamAudio *)self->_audioStream useVideoLatency]), !updated))
         {
           if (!self->_videoStream)
           {
 LABEL_21:
             APMediaSenderStart(self->_sender, [destinationCopy value], objc_msgSend(destinationCopy, "destinationType"), usageModes, intValue, v11);
-            updated = 0;
+            LODWORD(updated) = 0;
             goto LABEL_22;
           }
 
           updated = APMediaSenderSetDisplayInfoUpdateBlock(self->_sender, v30);
           if (!updated)
           {
-            v19 = self->_sender;
-            v20 = [optionsCopy objectForKeyedSubscript:@"_VideoOverrides"];
-            updated = APMediaSenderSetVideoOverrides(v19, v20);
+            v21 = self->_sender;
+            v22 = [optionsCopy objectForKeyedSubscript:@"_VideoOverrides"];
+            updated = APMediaSenderSetVideoOverrides(v21, v22);
 
             if (!updated)
             {
-              v21 = [optionsCopy objectForKeyedSubscript:@"_UseVideoPassthrough"];
-              bOOLValue = [v21 BOOLValue];
+              v23 = [optionsCopy objectForKeyedSubscript:@"_UseVideoPassthrough"];
+              bOOLValue = [v23 BOOLValue];
 
-              if (!bOOLValue || (updated = APMediaSenderSetVideoPassthroughMode(self->_sender)) == 0)
+              if (!bOOLValue || (updated = APMediaSenderSetVideoPassthroughMode(self->_sender), !updated))
               {
                 defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-                v24 = [defaultCenter addObserverForName:0x285143258 object:self->_sender queue:0 usingBlock:v13];
+                v26 = [defaultCenter addObserverForName:0x285143258 object:self->_sender queue:0 usingBlock:v15];
                 senderNotifObserver = self->_senderNotifObserver;
-                self->_senderNotifObserver = v24;
+                self->_senderNotifObserver = v26;
 
                 goto LABEL_21;
               }
@@ -990,13 +997,13 @@ LABEL_21:
 LABEL_27:
   if (gLogCategory_AirPlaySenderKit <= 90 && (gLogCategory_AirPlaySenderKit != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlaySenderKit, "[APSKSession localStartToDestination:withOptions:]", 33554522, "[%{ptr}] session local start failed, error: %#m", self, updated);
   }
 
-  v27 = self->_sender;
-  if (v27)
+  v29 = self->_sender;
+  if (v29)
   {
-    CFRelease(v27);
+    CFRelease(v29);
     self->_sender = 0;
   }
 
@@ -1064,11 +1071,11 @@ void __51__APSKSession_localStartToDestination_withOptions___block_invoke_5(uint
   sender = self->_sender;
   if (sender)
   {
-    APMediaSenderStop(sender);
-    v6 = self->_sender;
-    if (v6)
+    APMediaSenderStop(sender, a2, v2);
+    v7 = self->_sender;
+    if (v7)
     {
-      CFRelease(v6);
+      CFRelease(v7);
       self->_sender = 0;
     }
   }
@@ -1080,9 +1087,10 @@ void __51__APSKSession_localStartToDestination_withOptions___block_invoke_5(uint
   if (sender)
   {
     v5 = APMediaSenderSubmitPixelBuffer(sender, frame, time);
+    v6 = v5;
     if (v5)
     {
-      [APSKSession localSendFrame:forTime:];
+      [APSKSession localSendFrame:v5 forTime:?];
     }
   }
 
@@ -1092,7 +1100,7 @@ void __51__APSKSession_localStartToDestination_withOptions___block_invoke_5(uint
     return -6709;
   }
 
-  return v5;
+  return v6;
 }
 
 - (int)localSendAudioData:(id)data
@@ -1102,19 +1110,20 @@ void __51__APSKSession_localStartToDestination_withOptions___block_invoke_5(uint
   if (sender)
   {
     v6 = APMediaSenderEnqueueAudioData(sender, dataCopy);
+    v7 = v6;
     if (v6)
     {
-      [APSKSession localSendAudioData:];
+      [APSKSession localSendAudioData:v6];
     }
   }
 
   else
   {
     [APSKSession localSendAudioData:];
-    v6 = -6709;
+    v7 = -6709;
   }
 
-  return v6;
+  return v7;
 }
 
 - (int)localSendAudioDataWithTimestamps:(id)timestamps forHostTime:(id *)time forSampleTime:(unint64_t)sampleTime forDiscontinuity:(BOOL)discontinuity
@@ -1123,22 +1132,23 @@ void __51__APSKSession_localStartToDestination_withOptions___block_invoke_5(uint
   sender = self->_sender;
   if (sender)
   {
-    v14 = *&time->var0;
+    v15 = *&time->var0;
     var3 = time->var3;
-    v12 = APMediaSenderEnqueueAudioDataWithTimestamps(sender, timestampsCopy, &v14, sampleTime, discontinuity);
+    v12 = APMediaSenderEnqueueAudioDataWithTimestamps(sender, timestampsCopy, &v15, sampleTime, discontinuity);
+    v13 = v12;
     if (v12)
     {
-      [APSKSession localSendAudioDataWithTimestamps:forHostTime:forSampleTime:forDiscontinuity:];
+      [APSKSession localSendAudioDataWithTimestamps:v12 forHostTime:? forSampleTime:? forDiscontinuity:?];
     }
   }
 
   else
   {
     [APSKSession localSendAudioDataWithTimestamps:forHostTime:forSampleTime:forDiscontinuity:];
-    v12 = -6709;
+    v13 = -6709;
   }
 
-  return v12;
+  return v13;
 }
 
 - (int)remoteSetAuthString:(id)string
@@ -1150,7 +1160,7 @@ void __51__APSKSession_localStartToDestination_withOptions___block_invoke_5(uint
     v6 = 0;
     if (v5)
     {
-      [APSKSession remoteSetAuthString:];
+      [APSKSession remoteSetAuthString:v5];
     }
 
     else
@@ -1160,11 +1170,11 @@ void __51__APSKSession_localStartToDestination_withOptions___block_invoke_5(uint
         xpc_dictionary_set_string(v6, kAPSKServiceMsgParamC2S_AuthString, [stringCopy UTF8String]);
       }
 
-      client = self->_client;
-      v5 = FigXPCRemoteClientSendSyncMessageCreatingReply();
-      if (v5)
+      v7 = FigXPCRemoteClientSendSyncMessageCreatingReply();
+      LODWORD(v5) = v7;
+      if (v7)
       {
-        [APSKSession remoteSetAuthString:];
+        [APSKSession remoteSetAuthString:v7];
       }
     }
   }
@@ -1173,7 +1183,7 @@ void __51__APSKSession_localStartToDestination_withOptions___block_invoke_5(uint
   {
     [APSKSession remoteSetAuthString:];
     v6 = 0;
-    v5 = -6709;
+    LODWORD(v5) = -6709;
   }
 
   FigXPCRelease();
@@ -1192,35 +1202,43 @@ void __51__APSKSession_localStartToDestination_withOptions___block_invoke_5(uint
   if (!usageModes)
   {
     [APSKSession remoteStartToDestination:withOptions:];
-    v16 = 0;
+    v15 = 0;
     v13 = 0;
-    v12 = -6705;
+    v12 = 4294960591;
     goto LABEL_48;
   }
 
   if (self->_objectID)
   {
     [APSKSession remoteStartToDestination:withOptions:];
-    v16 = 0;
+    v15 = 0;
     v13 = 0;
-    v12 = -6709;
+    v12 = 4294960587;
     goto LABEL_48;
   }
 
   os_unfair_lock_lock(&sRemoteClientLock);
   if (!sRemoteClient)
   {
-    if (FigXPCRemoteClientCreateWithXPCService())
+    v27 = FigXPCRemoteClientCreateWithXPCService();
+    if (v27)
     {
-      if (gLogCategory_AirPlaySenderKit <= 100 && (gLogCategory_AirPlaySenderKit != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_AirPlaySenderKit <= 100)
       {
-        [APSKSession remoteStartToDestination:withOptions:];
+        v30 = v27;
+        if (gLogCategory_AirPlaySenderKit != -1 || _LogCategory_Initialize())
+        {
+          [APSKSession remoteStartToDestination:v30 withOptions:?];
+        }
       }
     }
 
-    else if (gLogCategory_AirPlaySenderKit <= 50 && (gLogCategory_AirPlaySenderKit != -1 || _LogCategory_Initialize()))
+    else if (gLogCategory_AirPlaySenderKit <= 50)
     {
-      [APSKSession remoteStartToDestination:withOptions:];
+      if (gLogCategory_AirPlaySenderKit != -1 || (v27 = _LogCategory_Initialize(), v27))
+      {
+        [(APSKSession *)v27 remoteStartToDestination:v28 withOptions:v29];
+      }
     }
   }
 
@@ -1230,10 +1248,10 @@ void __51__APSKSession_localStartToDestination_withOptions___block_invoke_5(uint
   if (!v11)
   {
     [APSKSession remoteStartToDestination:withOptions:];
-    v16 = 0;
+    v15 = 0;
     v13 = 0;
 LABEL_42:
-    v12 = -6762;
+    v12 = 4294960534;
     goto LABEL_48;
   }
 
@@ -1241,58 +1259,55 @@ LABEL_42:
   v13 = 0;
   if (v12)
   {
-    [APSKSession remoteStartToDestination:withOptions:];
-    v16 = 0;
+    [APSKSession remoteStartToDestination:v12 withOptions:?];
+    v15 = 0;
     goto LABEL_48;
   }
 
-  client = self->_client;
   v12 = FigXPCRemoteClientSendSyncMessageCreatingReply();
-  v15 = 0;
-  v16 = v15;
+  v14 = 0;
+  v15 = v14;
   if (v12)
   {
-    [APSKSession remoteStartToDestination:withOptions:];
+    [APSKSession remoteStartToDestination:v12 withOptions:?];
     goto LABEL_48;
   }
 
-  uint64 = xpc_dictionary_get_uint64(v15, *MEMORY[0x277CC0990]);
+  uint64 = xpc_dictionary_get_uint64(v14, *MEMORY[0x277CC0990]);
   if (!uint64)
   {
     [APSKSession remoteStartToDestination:withOptions:];
     goto LABEL_42;
   }
 
-  v18 = uint64;
-  v19 = self->_client;
-  v20 = FigXPCRemoteClientAssociateObject();
-  if (v20)
+  v17 = uint64;
+  v18 = FigXPCRemoteClientAssociateObject();
+  if (v18)
   {
-    v12 = v20;
-    [APSKSession remoteStartToDestination:withOptions:];
+    v12 = v18;
+    [APSKSession remoteStartToDestination:v18 withOptions:?];
   }
 
   else
   {
-    self->_objectID = v18;
+    self->_objectID = v17;
     FigXPCRelease();
 
-    objectID = self->_objectID;
     v12 = FigXPCCreateBasicMessage();
     v13 = 0;
     if (v12)
     {
-      [APSKSession remoteStartToDestination:withOptions:];
+      [APSKSession remoteStartToDestination:v12 withOptions:?];
     }
 
     else
     {
       [destinationCopy value];
-      v22 = FigXPCMessageSetCFObject();
-      if (v22)
+      v19 = FigXPCMessageSetCFObject();
+      if (v19)
       {
-        v12 = v22;
-        [APSKSession remoteStartToDestination:withOptions:];
+        v12 = v19;
+        [APSKSession remoteStartToDestination:v19 withOptions:?];
       }
 
       else
@@ -1315,21 +1330,21 @@ LABEL_42:
 
         if (self->_videoStream)
         {
-          v25 = [optionsCopy objectForKeyedSubscript:@"_VideoOverrides"];
+          v22 = [optionsCopy objectForKeyedSubscript:@"_VideoOverrides"];
 
-          if (v25)
+          if (v22)
           {
-            v26 = FigXPCMessageSetCFDictionary();
-            if (v26)
+            v23 = FigXPCMessageSetCFDictionary();
+            if (v23)
             {
-              v12 = v26;
-              [APSKSession remoteStartToDestination:withOptions:];
+              v12 = v23;
+              [APSKSession remoteStartToDestination:v23 withOptions:?];
               goto LABEL_48;
             }
           }
 
-          v27 = [optionsCopy objectForKeyedSubscript:@"_UseVideoPassthrough"];
-          bOOLValue = [v27 BOOLValue];
+          v24 = [optionsCopy objectForKeyedSubscript:@"_UseVideoPassthrough"];
+          bOOLValue = [v24 BOOLValue];
 
           if (bOOLValue)
           {
@@ -1337,22 +1352,20 @@ LABEL_42:
           }
         }
 
-        v29 = self->_client;
-        v30 = FigXPCRemoteClientSendSyncMessageCreatingReply();
-        if (!v30)
+        v26 = FigXPCRemoteClientSendSyncMessageCreatingReply();
+        if (!v26)
         {
           if (gLogCategory_AirPlaySenderKit <= 50 && (gLogCategory_AirPlaySenderKit != -1 || _LogCategory_Initialize()))
           {
-            v32 = self->_objectID;
-            LogPrintF();
+            LogPrintF(&gLogCategory_AirPlaySenderKit, "[APSKSession remoteStartToDestination:withOptions:]", 33554482, "[%{ptr}] session: using object ID %{ptr}", self, self->_objectID);
           }
 
-          v12 = 0;
+          LODWORD(v12) = 0;
           goto LABEL_31;
         }
 
-        v12 = v30;
-        [APSKSession remoteStartToDestination:withOptions:];
+        v12 = v26;
+        [APSKSession remoteStartToDestination:v26 withOptions:?];
       }
     }
   }
@@ -1360,7 +1373,7 @@ LABEL_42:
 LABEL_48:
   if (gLogCategory_AirPlaySenderKit <= 90 && (gLogCategory_AirPlaySenderKit != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlaySenderKit, "[APSKSession remoteStartToDestination:withOptions:]", 33554522, "[%{ptr}] session remote start failed, error: %#m", self, v12);
   }
 
 LABEL_31:
@@ -1374,33 +1387,33 @@ LABEL_31:
 {
   if (self->_objectID && self->_client)
   {
-    v12[1] = 0;
-    v7 = FigXPCCreateBasicMessage();
-    v8 = 0;
-    if (v7)
+    v11[1] = 0;
+    v6 = FigXPCCreateBasicMessage();
+    v7 = 0;
+    if (v6)
     {
-      [APSKSession remoteSendFrame:forTime:];
-      v9 = 0;
+      [APSKSession remoteSendFrame:v6 forTime:?];
+      v8 = 0;
     }
 
     else
     {
-      v12[0] = 0;
-      v7 = APSKServiceSerializeFrame(frame, time, v12);
-      v9 = v12[0];
-      if (v7)
+      v11[0] = 0;
+      v6 = APSKServiceSerializeFrame(frame, time, v11);
+      v8 = v11[0];
+      if (v6)
       {
-        [APSKSession remoteSendFrame:forTime:];
+        [APSKSession remoteSendFrame:v6 forTime:?];
       }
 
       else
       {
-        xpc_dictionary_set_value(v8, kAPSKServiceMsgParamC2S_Frame, v9);
-        client = self->_client;
-        v7 = FigXPCRemoteClientSendSyncMessageCreatingReply();
-        if (v7)
+        xpc_dictionary_set_value(v7, kAPSKServiceMsgParamC2S_Frame, v8);
+        v9 = FigXPCRemoteClientSendSyncMessageCreatingReply();
+        LODWORD(v6) = v9;
+        if (v9)
         {
-          [APSKSession remoteSendFrame:forTime:];
+          [APSKSession remoteSendFrame:v9 forTime:?];
         }
       }
     }
@@ -1409,15 +1422,15 @@ LABEL_31:
   else
   {
     [APSKSession remoteSendFrame:forTime:];
+    v7 = 0;
     v8 = 0;
-    v9 = 0;
-    v7 = -6709;
+    LODWORD(v6) = -6709;
   }
 
   FigXPCRelease();
   FigXPCRelease();
 
-  return v7;
+  return v6;
 }
 
 - (int)remoteSendAudioData:(id)data
@@ -1429,7 +1442,7 @@ LABEL_31:
     v6 = 0;
     if (v5)
     {
-      [APSKSession remoteSendAudioData:];
+      [APSKSession remoteSendAudioData:v5];
     }
 
     else
@@ -1439,11 +1452,11 @@ LABEL_31:
         xpc_dictionary_set_data(v6, kAPSKServiceMsgParamC2S_AudioData, [dataCopy bytes], objc_msgSend(dataCopy, "length"));
       }
 
-      client = self->_client;
-      v5 = FigXPCRemoteClientSendSyncMessageCreatingReply();
-      if (v5)
+      v7 = FigXPCRemoteClientSendSyncMessageCreatingReply();
+      LODWORD(v5) = v7;
+      if (v7)
       {
-        [APSKSession remoteSendAudioData:];
+        [APSKSession remoteSendAudioData:v7];
       }
     }
   }
@@ -1452,7 +1465,7 @@ LABEL_31:
   {
     [APSKSession remoteSendAudioData:];
     v6 = 0;
-    v5 = -6709;
+    LODWORD(v5) = -6709;
   }
 
   FigXPCRelease();
@@ -1465,37 +1478,35 @@ LABEL_31:
   timestampsCopy = timestamps;
   if (self->_objectID && self->_client)
   {
-    v11 = FigXPCCreateBasicMessage();
-    v12 = 0;
-    if (v11)
+    v10 = FigXPCCreateBasicMessage();
+    v11 = 0;
+    if (v10)
     {
-      [APSKSession remoteSendAudioDataWithTimestamps:forHostTime:forSampleTime:forDiscontinuity:];
+      [APSKSession remoteSendAudioDataWithTimestamps:v10 forHostTime:? forSampleTime:? forDiscontinuity:?];
     }
 
     else
     {
       if (timestampsCopy)
       {
-        xpc_dictionary_set_data(v12, kAPSKServiceMsgParamC2S_AudioData, [timestampsCopy bytes], objc_msgSend(timestampsCopy, "length"));
-        v16 = *&time->var0;
-        var3 = time->var3;
-        v13 = FigXPCMessageSetCMTime();
-        if (v13)
+        xpc_dictionary_set_data(v11, kAPSKServiceMsgParamC2S_AudioData, [timestampsCopy bytes], objc_msgSend(timestampsCopy, "length"));
+        v12 = FigXPCMessageSetCMTime();
+        if (v12)
         {
-          v11 = v13;
-          [APSKSession remoteSendAudioDataWithTimestamps:forHostTime:forSampleTime:forDiscontinuity:];
+          LODWORD(v10) = v12;
+          [APSKSession remoteSendAudioDataWithTimestamps:v12 forHostTime:? forSampleTime:? forDiscontinuity:?];
           goto LABEL_9;
         }
 
-        xpc_dictionary_set_uint64(v12, kAPSKServiceMsgParamC2S_AudioSampleTime, sampleTime);
-        xpc_dictionary_set_BOOL(v12, kAPSKServiceMsgParamC2S_AudioDiscontinuity, discontinuity);
+        xpc_dictionary_set_uint64(v11, kAPSKServiceMsgParamC2S_AudioSampleTime, sampleTime);
+        xpc_dictionary_set_BOOL(v11, kAPSKServiceMsgParamC2S_AudioDiscontinuity, discontinuity);
       }
 
-      client = self->_client;
-      v11 = FigXPCRemoteClientSendSyncMessageCreatingReply();
-      if (v11)
+      v13 = FigXPCRemoteClientSendSyncMessageCreatingReply();
+      LODWORD(v10) = v13;
+      if (v13)
       {
-        [APSKSession remoteSendAudioDataWithTimestamps:forHostTime:forSampleTime:forDiscontinuity:];
+        [APSKSession remoteSendAudioDataWithTimestamps:v13 forHostTime:? forSampleTime:? forDiscontinuity:?];
       }
     }
   }
@@ -1503,14 +1514,14 @@ LABEL_31:
   else
   {
     [APSKSession remoteSendAudioDataWithTimestamps:forHostTime:forSampleTime:forDiscontinuity:];
-    v12 = 0;
-    v11 = -6709;
+    v11 = 0;
+    LODWORD(v10) = -6709;
   }
 
 LABEL_9:
   FigXPCRelease();
 
-  return v11;
+  return v10;
 }
 
 - (void)remoteStop
@@ -1521,7 +1532,7 @@ LABEL_9:
     {
       v3 = FigXPCCreateBasicMessage();
       v4 = 0;
-      if (v3 || (client = self->_client, FigXPCRemoteClientSendSyncMessageCreatingReply()))
+      if (v3 || FigXPCRemoteClientSendSyncMessageCreatingReply())
       {
         APSLogErrorAt();
       }
@@ -1547,69 +1558,6 @@ LABEL_9:
   self->_client = 0;
   self->_objectID = 0;
   FigXPCRelease();
-}
-
-uint64_t __30__APSKSession_addVideoStream___block_invoke_cold_2(uint64_t a1)
-{
-  *(*(*(a1 + 48) + 8) + 24) = -6719;
-  v1 = *(*(*(a1 + 48) + 8) + 24);
-  return OUTLINED_FUNCTION_1();
-}
-
-uint64_t __30__APSKSession_addVideoStream___block_invoke_cold_3(uint64_t *a1, uint64_t *a2)
-{
-  v3 = *a1;
-  v4 = *a2;
-  return OUTLINED_FUNCTION_4();
-}
-
-uint64_t __30__APSKSession_addAudioStream___block_invoke_cold_2(uint64_t a1)
-{
-  *(*(*(a1 + 48) + 8) + 24) = -6719;
-  v1 = *(*(*(a1 + 48) + 8) + 24);
-  return OUTLINED_FUNCTION_1();
-}
-
-uint64_t __30__APSKSession_addAudioStream___block_invoke_cold_3(uint64_t *a1, uint64_t *a2)
-{
-  v3 = *a1;
-  v4 = *a2;
-  return OUTLINED_FUNCTION_4();
-}
-
-uint64_t __46__APSKSession_startToDestination_withOptions___block_invoke_cold_1(uint64_t *a1, id *a2)
-{
-  v3 = *a1;
-  [*a2 value];
-  return OUTLINED_FUNCTION_4();
-}
-
-uint64_t __33__APSKSession_sendFrame_forTime___block_invoke_cold_1(uint64_t a1)
-{
-  *(*(*(a1 + 40) + 8) + 24) = -6709;
-  v1 = *(*(*(a1 + 40) + 8) + 24);
-  return OUTLINED_FUNCTION_1();
-}
-
-uint64_t __33__APSKSession_sendFrame_forTime___block_invoke_cold_2(uint64_t a1)
-{
-  *(*(*(a1 + 40) + 8) + 24) = -6705;
-  v1 = *(*(*(a1 + 40) + 8) + 24);
-  return OUTLINED_FUNCTION_1();
-}
-
-uint64_t __29__APSKSession_sendAudioData___block_invoke_cold_2(uint64_t a1)
-{
-  *(*(*(a1 + 48) + 8) + 24) = -6705;
-  v1 = *(*(*(a1 + 48) + 8) + 24);
-  return OUTLINED_FUNCTION_1();
-}
-
-uint64_t __86__APSKSession_sendAudioDataWithTimestamps_forHostTime_forSampleTime_forDiscontinuity___block_invoke_cold_2(uint64_t a1)
-{
-  *(*(*(a1 + 48) + 8) + 24) = -6705;
-  v1 = *(*(*(a1 + 48) + 8) + 24);
-  return OUTLINED_FUNCTION_1();
 }
 
 @end

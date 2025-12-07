@@ -4,6 +4,7 @@
 - (void)_accessibilitySetupDateCellForKey:(id)key;
 - (void)_axUpdateEndDateCellLabel;
 - (void)_datePickerChanged:(id)changed;
+- (void)_showInlineControls:(int64_t)controls forSubitem:(int64_t)subitem includingInlineDatePicker:(BOOL)picker;
 - (void)editor:(id)editor didSelectSubitem:(unint64_t)subitem;
 @end
 
@@ -51,7 +52,7 @@
   [(EKEventDateEditItemAccessibility *)self _accessibilitySetupDateCellForKey:@"_end"];
 }
 
-void __60__EKEventDateEditItemAccessibility_editor_didSelectSubitem___block_invoke(uint64_t a1)
+void __60__EKEventDateEditItemAccessibility_editor_didSelectSubitem___block_invoke(uint64_t a1, uint64_t a2)
 {
   v24 = 0;
   v25 = &v24;
@@ -61,45 +62,44 @@ void __60__EKEventDateEditItemAccessibility_editor_didSelectSubitem___block_invo
   v18 = 3221225472;
   v19 = __60__EKEventDateEditItemAccessibility_editor_didSelectSubitem___block_invoke_2;
   v20 = &unk_29F2BCAC0;
-  v2 = *(a1 + 40);
+  v3 = *(a1 + 40);
   v21 = *(a1 + 32);
   v22 = &v24;
-  v23 = v2;
+  v23 = v3;
   AXPerformSafeBlock();
   LOBYTE(v13) = 0;
-  v3 = [*(a1 + 32) safeValueForKey:@"delegate"];
-  v4 = __UIAccessibilitySafeClass();
+  v4 = [*(a1 + 32) safeValueForKey:@"delegate"];
+  v5 = __UIAccessibilitySafeClass();
 
   v13 = 0;
   v14 = &v13;
   v15 = 0x2020000000;
   v16 = 0;
-  v10 = MEMORY[0x29EDCA5F8];
-  v11 = v4;
-  v12 = *(a1 + 32);
+  v11 = MEMORY[0x29EDCA5F8];
+  v12 = v5;
   AXPerformSafeBlock();
-  v5 = v14[3];
+  v6 = v14[3];
 
   _Block_object_dispose(&v13, 8);
-  v6 = [MEMORY[0x29EDB9FE0] indexPathForRow:v25[3] inSection:{v5, v10, 3221225472, __60__EKEventDateEditItemAccessibility_editor_didSelectSubitem___block_invoke_3, &unk_29F2BCAE8}];
+  v7 = [MEMORY[0x29EDB9FE0] indexPathForRow:v25[3] inSection:{v6, v11, 3221225472, __60__EKEventDateEditItemAccessibility_editor_didSelectSubitem___block_invoke_3, &unk_29F2BCAE8}];
   objc_opt_class();
-  v7 = [v11 safeValueForKey:@"tableView"];
-  v8 = __UIAccessibilityCastAsClass();
+  v8 = [v12 safeValueForKey:@"tableView"];
+  v9 = __UIAccessibilityCastAsClass();
 
-  v9 = [v8 cellForRowAtIndexPath:v6];
-  UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], v9);
+  v10 = [v9 cellForRowAtIndexPath:v7];
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], v10);
 
   _Block_object_dispose(&v24, 8);
 }
 
-uint64_t __60__EKEventDateEditItemAccessibility_editor_didSelectSubitem___block_invoke_2(uint64_t a1)
+void *__60__EKEventDateEditItemAccessibility_editor_didSelectSubitem___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) _rowForSubitem:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-uint64_t __60__EKEventDateEditItemAccessibility_editor_didSelectSubitem___block_invoke_3(uint64_t a1)
+void *__60__EKEventDateEditItemAccessibility_editor_didSelectSubitem___block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) tableSectionForEditItem:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -112,6 +112,38 @@ uint64_t __60__EKEventDateEditItemAccessibility_editor_didSelectSubitem___block_
   v4.super_class = EKEventDateEditItemAccessibility;
   [(EKEventDateEditItemAccessibility *)&v4 _datePickerChanged:changed];
   [(EKEventDateEditItemAccessibility *)self _axUpdateEndDateCellLabel];
+}
+
+- (void)_showInlineControls:(int64_t)controls forSubitem:(int64_t)subitem includingInlineDatePicker:(BOOL)picker
+{
+  pickerCopy = picker;
+  v9 = [(EKEventDateEditItemAccessibility *)self safeIntegerForKey:@"_selectedSubitem"];
+  v10 = [(EKEventDateEditItemAccessibility *)self safeIntegerForKey:@"_currentPickerMode"];
+  v13.receiver = self;
+  v13.super_class = EKEventDateEditItemAccessibility;
+  [(EKEventDateEditItemAccessibility *)&v13 _showInlineControls:controls forSubitem:subitem includingInlineDatePicker:pickerCopy];
+  if (v9 != subitem || v10 != controls)
+  {
+    if (subitem == 1)
+    {
+      v12 = @"_start";
+    }
+
+    else
+    {
+      if (subitem != 2)
+      {
+LABEL_10:
+        UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], 0);
+        return;
+      }
+
+      v12 = @"_end";
+    }
+
+    [(EKEventDateEditItemAccessibility *)self _accessibilitySetupDateCellForKey:v12];
+    goto LABEL_10;
+  }
 }
 
 - (void)_axUpdateEndDateCellLabel

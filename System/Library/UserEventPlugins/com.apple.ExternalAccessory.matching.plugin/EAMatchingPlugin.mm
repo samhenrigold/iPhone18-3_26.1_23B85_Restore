@@ -30,17 +30,16 @@
   {
     if (xpc_copy_description(dict))
     {
-      eventModule = self->_eventModule;
       xpc_event_module_get_aslclient();
     }
 
     string = xpc_dictionary_get_string(dict, "EAMatchingProtocol");
     if (string)
     {
-      v9 = [NSString stringWithCString:string encoding:1];
-      if (v9)
+      v8 = [NSString stringWithCString:string encoding:1];
+      if (v8)
       {
-        v10 = v9;
+        v9 = v8;
         xdict = dict;
         if (xpc_dictionary_get_BOOL(dict, "EAMatchConnection"))
         {
@@ -55,70 +54,70 @@
             }
           }
 
-          [(EAMatchingPlugin *)self addClient:client protocol:v10 clientDict:accessoryConnectClients, v20, v21, v22];
-          v33 = 0u;
-          v34 = 0u;
-          v31 = 0u;
+          [(EAMatchingPlugin *)self addClient:client protocol:v9 clientDict:accessoryConnectClients, v19, v20, v21];
           v32 = 0u;
+          v33 = 0u;
+          v30 = 0u;
+          v31 = 0u;
           obj = [+[EAAccessoryManager sharedAccessoryManager](EAAccessoryManager connectedAccessories];
-          v26 = [(NSArray *)obj countByEnumeratingWithState:&v31 objects:v36 count:16];
-          if (v26)
+          v25 = [(NSArray *)obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+          if (v25)
           {
-            v25 = *v32;
+            v24 = *v31;
             do
             {
-              v12 = 0;
+              v11 = 0;
               do
               {
-                if (*v32 != v25)
+                if (*v31 != v24)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v13 = *(*(&v31 + 1) + 8 * v12);
+                v12 = *(*(&v30 + 1) + 8 * v11);
+                v26 = 0u;
                 v27 = 0u;
                 v28 = 0u;
                 v29 = 0u;
-                v30 = 0u;
-                protocolStrings = [v13 protocolStrings];
-                v15 = [protocolStrings countByEnumeratingWithState:&v27 objects:v35 count:16];
-                if (v15)
+                protocolStrings = [v12 protocolStrings];
+                v14 = [protocolStrings countByEnumeratingWithState:&v26 objects:v34 count:16];
+                if (v14)
                 {
-                  v16 = v15;
-                  v17 = *v28;
+                  v15 = v14;
+                  v16 = *v27;
                   do
                   {
-                    v18 = 0;
+                    v17 = 0;
                     do
                     {
-                      if (*v28 != v17)
+                      if (*v27 != v16)
                       {
                         objc_enumerationMutation(protocolStrings);
                       }
 
-                      if ([(NSString *)v10 isEqualToString:*(*(&v27 + 1) + 8 * v18)])
+                      if ([(NSString *)v9 isEqualToString:*(*(&v26 + 1) + 8 * v17)])
                       {
-                        -[EAMatchingPlugin sendAccessoryNotification:client:notificationTypeKey:serialNum:](self, "sendAccessoryNotification:client:notificationTypeKey:serialNum:", v10, client, "EAMatchConnection", [v13 serialNumber]);
+                        -[EAMatchingPlugin sendAccessoryNotification:client:notificationTypeKey:serialNum:](self, "sendAccessoryNotification:client:notificationTypeKey:serialNum:", v9, client, "EAMatchConnection", [v12 serialNumber]);
                       }
 
-                      v18 = v18 + 1;
+                      v17 = v17 + 1;
                     }
 
-                    while (v16 != v18);
-                    v16 = [protocolStrings countByEnumeratingWithState:&v27 objects:v35 count:16];
+                    while (v15 != v17);
+                    v15 = [protocolStrings countByEnumeratingWithState:&v26 objects:v34 count:16];
                   }
 
-                  while (v16);
+                  while (v15);
                 }
 
-                v12 = v12 + 1;
+                v11 = v11 + 1;
               }
 
-              while (v12 != v26);
-              v26 = [(NSArray *)obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+              while (v11 != v25);
+              v25 = [(NSArray *)obj countByEnumeratingWithState:&v30 objects:v35 count:16];
             }
 
-            while (v26);
+            while (v25);
           }
         }
 
@@ -127,7 +126,7 @@
           accessoryDisconnectClients = self->_accessoryDisconnectClients;
           if (accessoryDisconnectClients || (accessoryDisconnectClients = [[NSMutableDictionary alloc] initWithCapacity:1], (self->_accessoryDisconnectClients = accessoryDisconnectClients) != 0))
           {
-            [(EAMatchingPlugin *)self addClient:client protocol:v10 clientDict:accessoryDisconnectClients, v20, v21, v22];
+            [(EAMatchingPlugin *)self addClient:client protocol:v9 clientDict:accessoryDisconnectClients, v19, v20, v21];
           }
         }
       }
@@ -141,8 +140,7 @@
   {
     if (key)
     {
-      v7 = 0;
-      eventModule = self->_eventModule;
+      v6 = 0;
       xpc_event_module_get_aslclient();
     }
   }
@@ -152,7 +150,7 @@
 {
   if (type == 1)
   {
-    v5 = 32;
+    v4 = 32;
     if (!change)
     {
       return;
@@ -166,24 +164,23 @@
       return;
     }
 
-    v5 = 40;
+    v4 = 40;
     if (!change)
     {
       return;
     }
   }
 
-  if (*(&self->super.isa + v5))
+  if (*(&self->super.isa + v4))
   {
-    v6 = [objc_msgSend(change "userInfo")];
-    if (v6)
+    v5 = [objc_msgSend(change "userInfo")];
+    if (v5)
     {
-      v7 = v6;
-      v8 = v6;
-      if ([v7 protocolStrings])
+      v6 = v5;
+      v7 = v5;
+      if ([v6 protocolStrings])
       {
-        [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(objc_msgSend(v7, "protocolStrings"), "count")}];
-        eventModule = self->_eventModule;
+        [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(objc_msgSend(v6, "protocolStrings"), "count")}];
         xpc_event_module_get_aslclient();
       }
     }

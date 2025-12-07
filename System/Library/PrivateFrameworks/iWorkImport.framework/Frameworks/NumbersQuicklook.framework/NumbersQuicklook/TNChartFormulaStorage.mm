@@ -1701,7 +1701,7 @@ LABEL_66:
                 {
                   *v64 = v65._tableUID;
                   *&v64[16] = v65.range;
-                  sub_275F2031C(&v74, v64);
+                  sub_275F2031C(&v74, v64, v64);
                   sub_275F20260(&v74, &v65._tableUID._lower);
                   continue;
                 }

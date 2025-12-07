@@ -473,44 +473,47 @@ LABEL_14:
     return 0;
   }
 
-  WebCore::Node::textContent(_linkElement);
-  if (v9)
+  WebCore::Node::textContent(&v11, _linkElement);
+  v3 = v11;
+  if (v11)
   {
-    atomic_fetch_add_explicit(v9, 2u, memory_order_relaxed);
-    MEMORY[0x1CCA63450](&v10);
-    if (atomic_fetch_add_explicit(v9, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    atomic_fetch_add_explicit(v11, 2u, memory_order_relaxed);
+    MEMORY[0x1CCA63450](&v12, v3);
+    if (atomic_fetch_add_explicit(v3, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v9, v3);
+      WTF::StringImpl::destroy(v3, v4);
     }
   }
 
   else
   {
+    v12 = &stru_1F472E7E8;
     v10 = &stru_1F472E7E8;
-    v8 = &stru_1F472E7E8;
   }
 
-  v4 = v10;
-  v10 = 0;
-  if (v4)
+  v5 = v12;
+  v12 = 0;
+  if (v5)
   {
-    v5 = v4;
-    v6 = v10;
-    v10 = 0;
-    if (v6)
+    v6 = v5;
+    v7 = v12;
+    v12 = 0;
+    if (v7)
     {
     }
   }
 
-  if (v9)
+  v8 = v11;
+  v11 = 0;
+  if (v8)
   {
-    if (atomic_fetch_add_explicit(v9, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    if (atomic_fetch_add_explicit(v8, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v9, v3);
+      WTF::StringImpl::destroy(v8, v4);
     }
   }
 
-  return v4;
+  return v5;
 }
 
 - (id)hrefTitle
@@ -1526,43 +1529,46 @@ LABEL_43:
 
 - (NSString)textContent
 {
-  WebCore::JSMainThreadNullState::JSMainThreadNullState(v11);
-  WebCore::Node::textContent(self->super._internal);
-  if (v9)
+  WebCore::JSMainThreadNullState::JSMainThreadNullState(v13);
+  WebCore::Node::textContent(&v11, self->super._internal);
+  v3 = v11;
+  if (v11)
   {
-    atomic_fetch_add_explicit(v9, 2u, memory_order_relaxed);
-    MEMORY[0x1CCA63450](&v10);
-    if (atomic_fetch_add_explicit(v9, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    atomic_fetch_add_explicit(v11, 2u, memory_order_relaxed);
+    MEMORY[0x1CCA63450](&v12, v3);
+    if (atomic_fetch_add_explicit(v3, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v9, v3);
+      WTF::StringImpl::destroy(v3, v4);
     }
   }
 
   else
   {
+    v12 = &stru_1F472E7E8;
     v10 = &stru_1F472E7E8;
-    v8 = &stru_1F472E7E8;
   }
 
-  v4 = v10;
-  v10 = 0;
-  if (v4)
+  v5 = v12;
+  v12 = 0;
+  if (v5)
   {
-    v5 = v4;
-    v6 = v10;
-    v10 = 0;
-    if (v6)
+    v6 = v5;
+    v7 = v12;
+    v12 = 0;
+    if (v7)
     {
     }
   }
 
-  if (v9 && atomic_fetch_add_explicit(v9, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  v8 = v11;
+  v11 = 0;
+  if (v8 && atomic_fetch_add_explicit(v8, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v9, v3);
+    WTF::StringImpl::destroy(v8, v4);
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v11, v3);
-  return v4;
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v13, v4);
+  return v5;
 }
 
 - (void)setTextContent:(NSString *)textContent
@@ -1771,36 +1777,82 @@ LABEL_43:
 
 - (DOMNode)cloneNode:(BOOL)deep
 {
-  WebCore::JSMainThreadNullState::JSMainThreadNullState(v11);
-  v4 = WebCore::Node::cloneNodeForBindings(self->super._internal);
-  if (v10)
+  WebCore::JSMainThreadNullState::JSMainThreadNullState(v16);
+  v4 = WebCore::Node::cloneNodeForBindings(&v13, self->super._internal);
+  if (v15)
   {
-    if (v10 == 1)
+    if (v15 == 1)
     {
-      v11[80] = v8;
-      v12 = v9;
+      v16[80] = v13;
+      v12 = v14;
+      v14 = 0;
+      v17 = v12;
       raiseDOMErrorException();
     }
 
     mpark::throw_bad_variant_access(v4);
   }
 
-  v6 = kit(v8);
-  if (v8)
+  v5 = v13;
+  v13 = 0;
+  v7 = kit(v5);
+  if (!v5)
   {
-    if (*(v8 + 7) == 2)
+LABEL_5:
+    v8 = v15;
+    if (v15 == 255)
     {
-      WebCore::Node::removedLastRef(v8);
+      goto LABEL_16;
     }
 
-    else
+    goto LABEL_6;
+  }
+
+  if (*(v5 + 7) != 2)
+  {
+    *(v5 + 7) -= 2;
+    goto LABEL_5;
+  }
+
+  WebCore::Node::removedLastRef(v5);
+  v8 = v15;
+  if (v15 == 255)
+  {
+    goto LABEL_16;
+  }
+
+LABEL_6:
+  if (v8)
+  {
+    v10 = v14;
+    v14 = 0;
+    if (v10 && atomic_fetch_add_explicit(v10, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      *(v8 + 7) -= 2;
+      WTF::StringImpl::destroy(v10, v6);
     }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v11, v5);
-  return v6;
+  else
+  {
+    v9 = v13;
+    v13 = 0;
+    if (v9)
+    {
+      if (*(v9 + 7) == 2)
+      {
+        WebCore::Node::removedLastRef(v9);
+      }
+
+      else
+      {
+        *(v9 + 7) -= 2;
+      }
+    }
+  }
+
+LABEL_16:
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v16, v6);
+  return v7;
 }
 
 - (void)normalize
@@ -2442,7 +2494,7 @@ LABEL_9:
   v4 = [WKQuadObject alloc];
   if (self)
   {
-    [(DOMNode *)self absoluteQuad];
+    objc_msgSend_absoluteQuad(self);
   }
 
   else

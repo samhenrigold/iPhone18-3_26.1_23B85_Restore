@@ -29,7 +29,7 @@ const char *llvm::getTypeName<mlir::OpTrait::OneTypedResult<mlir::ShapedType>::I
 
 uint64_t mlir::Op<mlir::anec::UnrealizedConversionCast,mlir::OpTrait::ZeroRegions,mlir::OpTrait::OneResult,mlir::OpTrait::OneTypedResult<mlir::ShapedType>::Impl,mlir::OpTrait::ZeroSuccessors,mlir::OpTrait::OneOperand,mlir::OpTrait::OpInvariants,mlir::OpTrait::anec::MinimumFamily<(mlir::anec::Family)0>::Impl,mlir::ExecutionCostOpInterface::Trait>::verifyInvariants(mlir::Operation *a1, mlir::Operation *a2)
 {
-  if (mlir::OpTrait::impl::verifyZeroRegions(a1, a2) && mlir::OpTrait::impl::verifyOneResult(a1, v3) && mlir::OpTrait::impl::verifyZeroSuccessors(a1, v4) && mlir::OpTrait::impl::verifyOneOperand(a1, v5))
+  if (mlir::OpTrait::impl::verifyZeroRegions(a1, a2) & 1) != 0 && (mlir::OpTrait::impl::verifyOneResult(a1, v3) & 1) != 0 && (mlir::OpTrait::impl::verifyZeroSuccessors(a1, v4) & 1) != 0 && (mlir::OpTrait::impl::verifyOneOperand(a1, v5))
   {
     v7 = a1;
     if (mlir::anec::UnrealizedConversionCast::verifyInvariantsImpl(&v7))
@@ -159,33 +159,33 @@ void ZinIrBroadcastUnitInfo::~ZinIrBroadcastUnitInfo(ZinIrBroadcastUnitInfo *thi
   JUMPOUT(0x259C63180);
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<ZinIrDimension,unsigned long>,std::__unordered_map_hasher<ZinIrDimension,std::__hash_value_type<ZinIrDimension,unsigned long>,std::hash<ZinIrDimension>,std::equal_to<ZinIrDimension>,true>,std::__unordered_map_equal<ZinIrDimension,std::__hash_value_type<ZinIrDimension,unsigned long>,std::equal_to<ZinIrDimension>,std::hash<ZinIrDimension>,true>,std::allocator<std::__hash_value_type<ZinIrDimension,unsigned long>>>::__emplace_unique_key_args<ZinIrDimension,std::piecewise_construct_t const&,std::tuple<ZinIrDimension&&>,std::tuple<>>(void *a1, int *a2)
+uint64_t std::__hash_table<std::__hash_value_type<ZinIrDimension,unsigned long>,std::__unordered_map_hasher<ZinIrDimension,std::__hash_value_type<ZinIrDimension,unsigned long>,std::hash<ZinIrDimension>,std::equal_to<ZinIrDimension>,true>,std::__unordered_map_equal<ZinIrDimension,std::__hash_value_type<ZinIrDimension,unsigned long>,std::equal_to<ZinIrDimension>,std::hash<ZinIrDimension>,true>,std::allocator<std::__hash_value_type<ZinIrDimension,unsigned long>>>::__emplace_unique_key_args<ZinIrDimension,std::piecewise_construct_t const&,std::tuple<ZinIrDimension&&>,std::tuple<>>(void *a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (result = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (result = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -193,26 +193,26 @@ LABEL_18:
 
   while (1)
   {
-    v8 = result[1];
-    if (v8 == v2)
+    v10 = *(result + 8);
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
@@ -225,7 +225,7 @@ LABEL_11:
     }
   }
 
-  if (*(result + 4) != v2)
+  if (*(result + 16) != v4)
   {
     goto LABEL_11;
   }
@@ -345,7 +345,7 @@ uint64_t llvm::SmallVectorTemplateBase<int,true>::push_back(uint64_t result, int
   return result;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::ClampedRelu,mlir::Value &,llvm::APFloat &,llvm::APFloat>(mlir::Float16Type **a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5)
+char *mlir::OpBuilder::create<mlir::anec::ClampedRelu,mlir::Value &,llvm::APFloat &,llvm::APFloat>(mlir::Float16Type **a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5)
 {
   v29[38] = *MEMORY[0x277D85DE8];
   v22 = a2;
@@ -404,7 +404,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::ClampedRelu,mlir::Value &,llvm::APF
   }
 
   v19 = mlir::OpBuilder::create(a1, v29);
-  if (*(*(v19 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ClampedRelu,void>::id)
+  if (*(*(v19 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ClampedRelu,void>::id)
   {
     v20 = v19;
   }
@@ -418,7 +418,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::ClampedRelu,mlir::Value &,llvm::APF
   return v20;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::ClampedRelu,mlir::Value &,llvm::APFloat,llvm::APFloat&>(mlir::Float16Type **a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5)
+char *mlir::OpBuilder::create<mlir::anec::ClampedRelu,mlir::Value &,llvm::APFloat,llvm::APFloat&>(mlir::Float16Type **a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5)
 {
   v29[38] = *MEMORY[0x277D85DE8];
   v22 = a2;
@@ -477,7 +477,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::ClampedRelu,mlir::Value &,llvm::APF
   }
 
   v19 = mlir::OpBuilder::create(a1, v29);
-  if (*(*(v19 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ClampedRelu,void>::id)
+  if (*(*(v19 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ClampedRelu,void>::id)
   {
     v20 = v19;
   }
@@ -732,33 +732,33 @@ void ZinIrSoftmaxUnitInfo::~ZinIrSoftmaxUnitInfo(ZinIrSoftmaxUnitInfo *this)
   JUMPOUT(0x259C63180);
 }
 
-uint64_t *std::__hash_table<ZinIrDimension,std::hash<ZinIrDimension>,std::equal_to<ZinIrDimension>,std::allocator<ZinIrDimension>>::__emplace_unique_key_args<ZinIrDimension,ZinIrDimension>(void *a1, int *a2)
+uint64_t std::__hash_table<ZinIrDimension,std::hash<ZinIrDimension>,std::equal_to<ZinIrDimension>,std::allocator<ZinIrDimension>>::__emplace_unique_key_args<ZinIrDimension,ZinIrDimension>(void *a1, int *a2, _DWORD *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (result = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (result = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -766,26 +766,26 @@ LABEL_18:
 
   while (1)
   {
-    v8 = result[1];
-    if (v8 == v2)
+    v9 = *(result + 8);
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
@@ -798,7 +798,7 @@ LABEL_11:
     }
   }
 
-  if (*(result + 4) != v2)
+  if (*(result + 16) != v3)
   {
     goto LABEL_11;
   }
@@ -1508,7 +1508,7 @@ void ZinIrTransposeUnitInfo::~ZinIrTransposeUnitInfo(ZinIrTransposeUnitInfo *thi
   JUMPOUT(0x259C63180);
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::Reshape,mlir::MemRefType,mlir::detail::TypedValue<mlir::MemRefType>>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, void *a4)
+char *mlir::OpBuilder::create<mlir::anec::Reshape,mlir::MemRefType,mlir::detail::TypedValue<mlir::MemRefType>>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, void *a4)
 {
   v21 = *MEMORY[0x277D85DE8];
   v15 = a2;
@@ -1530,7 +1530,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::Reshape,mlir::MemRefType,mlir::deta
 
   *(v18[8] + 8 * v19++) = v11;
   v12 = mlir::OpBuilder::create(a1, v18);
-  if (*(*(v12 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Reshape,void>::id)
+  if (*(*(v12 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Reshape,void>::id)
   {
     v13 = v12;
   }
@@ -2766,33 +2766,33 @@ void ZinIrTileUnitInfo::~ZinIrTileUnitInfo(ZinIrTileUnitInfo *this)
   JUMPOUT(0x259C63180);
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<ZinIrDimension,int>,std::__unordered_map_hasher<ZinIrDimension,std::__hash_value_type<ZinIrDimension,int>,std::hash<ZinIrDimension>,std::equal_to<ZinIrDimension>,true>,std::__unordered_map_equal<ZinIrDimension,std::__hash_value_type<ZinIrDimension,int>,std::equal_to<ZinIrDimension>,std::hash<ZinIrDimension>,true>,std::allocator<std::__hash_value_type<ZinIrDimension,int>>>::__emplace_unique_key_args<ZinIrDimension,std::piecewise_construct_t const&,std::tuple<ZinIrDimension&&>,std::tuple<>>(void *a1, int *a2)
+uint64_t std::__hash_table<std::__hash_value_type<ZinIrDimension,int>,std::__unordered_map_hasher<ZinIrDimension,std::__hash_value_type<ZinIrDimension,int>,std::hash<ZinIrDimension>,std::equal_to<ZinIrDimension>,true>,std::__unordered_map_equal<ZinIrDimension,std::__hash_value_type<ZinIrDimension,int>,std::equal_to<ZinIrDimension>,std::hash<ZinIrDimension>,true>,std::allocator<std::__hash_value_type<ZinIrDimension,int>>>::__emplace_unique_key_args<ZinIrDimension,std::piecewise_construct_t const&,std::tuple<ZinIrDimension&&>,std::tuple<>>(void *a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (result = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (result = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -2800,26 +2800,26 @@ LABEL_18:
 
   while (1)
   {
-    v8 = result[1];
-    if (v8 == v2)
+    v10 = *(result + 8);
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
@@ -2832,7 +2832,7 @@ LABEL_11:
     }
   }
 
-  if (*(result + 4) != v2)
+  if (*(result + 16) != v4)
   {
     goto LABEL_11;
   }
@@ -3094,12 +3094,12 @@ void ZinIrRingBufferUnitInfo::~ZinIrRingBufferUnitInfo(ZinIrRingBufferUnitInfo *
   }
 }
 
-void *mlir::getValues<unsigned char>(uint64_t a1, void *a2)
+unsigned __int8 *mlir::getValues<unsigned char>(uint64_t a1, void *a2)
 {
   v15 = a1;
   mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(v13, a1, 0);
   NumElements = mlir::DenseElementsAttr::getNumElements(&v15);
-  for (result = mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v11, a1, NumElements); v14 != v12; ++v14)
+  for (result = mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(v11, a1, NumElements); v14 != v12; ++v14)
   {
     result = mlir::DenseElementsAttr::IntElementIterator::operator*(v13, &v9);
     if (v10 >= 0x41)
@@ -3151,33 +3151,33 @@ void *llvm::SmallVectorTemplateBase<unsigned char,true>::push_back(void *result,
   return result;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<ZinIrDimension,ZinIrStaticOffsetPerAxisInfo>,std::__unordered_map_hasher<ZinIrDimension,std::__hash_value_type<ZinIrDimension,ZinIrStaticOffsetPerAxisInfo>,std::hash<ZinIrDimension>,std::equal_to<ZinIrDimension>,true>,std::__unordered_map_equal<ZinIrDimension,std::__hash_value_type<ZinIrDimension,ZinIrStaticOffsetPerAxisInfo>,std::equal_to<ZinIrDimension>,std::hash<ZinIrDimension>,true>,std::allocator<std::__hash_value_type<ZinIrDimension,ZinIrStaticOffsetPerAxisInfo>>>::__emplace_unique_key_args<ZinIrDimension,std::pair<ZinIrDimension,unsigned long>>(void *a1, int *a2)
+uint64_t std::__hash_table<std::__hash_value_type<ZinIrDimension,ZinIrStaticOffsetPerAxisInfo>,std::__unordered_map_hasher<ZinIrDimension,std::__hash_value_type<ZinIrDimension,ZinIrStaticOffsetPerAxisInfo>,std::hash<ZinIrDimension>,std::equal_to<ZinIrDimension>,true>,std::__unordered_map_equal<ZinIrDimension,std::__hash_value_type<ZinIrDimension,ZinIrStaticOffsetPerAxisInfo>,std::equal_to<ZinIrDimension>,std::hash<ZinIrDimension>,true>,std::allocator<std::__hash_value_type<ZinIrDimension,ZinIrStaticOffsetPerAxisInfo>>>::__emplace_unique_key_args<ZinIrDimension,std::pair<ZinIrDimension,unsigned long>>(void *a1, int *a2, uint64_t a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (result = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (result = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -3185,26 +3185,26 @@ LABEL_18:
 
   while (1)
   {
-    v8 = result[1];
-    if (v8 == v2)
+    v9 = *(result + 8);
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
@@ -3217,7 +3217,7 @@ LABEL_11:
     }
   }
 
-  if (*(result + 4) != v2)
+  if (*(result + 16) != v3)
   {
     goto LABEL_11;
   }
@@ -3225,33 +3225,33 @@ LABEL_11:
   return result;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<ZinIrDimension,ZinIrDynamicOffsetPerAxisInfo>,std::__unordered_map_hasher<ZinIrDimension,std::__hash_value_type<ZinIrDimension,ZinIrDynamicOffsetPerAxisInfo>,std::hash<ZinIrDimension>,std::equal_to<ZinIrDimension>,true>,std::__unordered_map_equal<ZinIrDimension,std::__hash_value_type<ZinIrDimension,ZinIrDynamicOffsetPerAxisInfo>,std::equal_to<ZinIrDimension>,std::hash<ZinIrDimension>,true>,std::allocator<std::__hash_value_type<ZinIrDimension,ZinIrDynamicOffsetPerAxisInfo>>>::__emplace_unique_key_args<ZinIrDimension,std::pair<ZinIrDimension,std::string>>(void *a1, int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<ZinIrDimension,ZinIrDynamicOffsetPerAxisInfo>,std::__unordered_map_hasher<ZinIrDimension,std::__hash_value_type<ZinIrDimension,ZinIrDynamicOffsetPerAxisInfo>,std::hash<ZinIrDimension>,std::equal_to<ZinIrDimension>,true>,std::__unordered_map_equal<ZinIrDimension,std::__hash_value_type<ZinIrDimension,ZinIrDynamicOffsetPerAxisInfo>,std::equal_to<ZinIrDimension>,std::hash<ZinIrDimension>,true>,std::allocator<std::__hash_value_type<ZinIrDimension,ZinIrDynamicOffsetPerAxisInfo>>>::__emplace_unique_key_args<ZinIrDimension,std::pair<ZinIrDimension,std::string>>(void *a1, int *a2, uint64_t a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -3259,44 +3259,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_11:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v8 + 4) != v3)
   {
     goto LABEL_11;
   }
 
-  return v7;
+  return v8;
 }
 
 void ZinIrRingBufferReaderUnitInfo::~ZinIrRingBufferReaderUnitInfo(ZinIrRingBufferReaderUnitInfo *this)
@@ -3352,33 +3352,33 @@ void ZinIrRingBufferReaderUnitInfo::~ZinIrRingBufferReaderUnitInfo(ZinIrRingBuff
   JUMPOUT(0x259C63180);
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<ZinIrDimension,long>,std::__unordered_map_hasher<ZinIrDimension,std::__hash_value_type<ZinIrDimension,long>,std::hash<ZinIrDimension>,std::equal_to<ZinIrDimension>,true>,std::__unordered_map_equal<ZinIrDimension,std::__hash_value_type<ZinIrDimension,long>,std::equal_to<ZinIrDimension>,std::hash<ZinIrDimension>,true>,std::allocator<std::__hash_value_type<ZinIrDimension,long>>>::__emplace_unique_key_args<ZinIrDimension,std::pair<ZinIrDimension,unsigned char>>(void *a1, int *a2)
+uint64_t std::__hash_table<std::__hash_value_type<ZinIrDimension,long>,std::__unordered_map_hasher<ZinIrDimension,std::__hash_value_type<ZinIrDimension,long>,std::hash<ZinIrDimension>,std::equal_to<ZinIrDimension>,true>,std::__unordered_map_equal<ZinIrDimension,std::__hash_value_type<ZinIrDimension,long>,std::equal_to<ZinIrDimension>,std::hash<ZinIrDimension>,true>,std::allocator<std::__hash_value_type<ZinIrDimension,long>>>::__emplace_unique_key_args<ZinIrDimension,std::pair<ZinIrDimension,unsigned char>>(void *a1, int *a2, uint64_t a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (result = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (result = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -3386,26 +3386,26 @@ LABEL_18:
 
   while (1)
   {
-    v8 = result[1];
-    if (v8 == v2)
+    v9 = *(result + 8);
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
@@ -3418,7 +3418,7 @@ LABEL_11:
     }
   }
 
-  if (*(result + 4) != v2)
+  if (*(result + 16) != v3)
   {
     goto LABEL_11;
   }
@@ -3559,7 +3559,7 @@ uint64_t llvm::function_ref<mlir::Type ()(mlir::Builder &,llvm::ArrayRef<mlir::T
   return mlir::Builder::getFunctionType(a2, v11[0], v11[1], v10[0], v10[1]);
 }
 
-uint64_t llvm::CastInfo<mlir::anec::ArgMinMaxModeAttr,mlir::Attribute const,void>::isPossible(uint64_t a1)
+BOOL llvm::CastInfo<mlir::anec::ArgMinMaxModeAttr,mlir::Attribute const,void>::isPossible(uint64_t a1)
 {
   if (*(*a1 + 136) != &mlir::detail::TypeIDResolver<mlir::IntegerAttr,void>::id)
   {
@@ -3952,7 +3952,7 @@ const char *llvm::getTypeName<mlir::SideEffects::DefaultResource>()
   return &v2[v3];
 }
 
-uint64_t llvm::SmallVectorTemplateBase<mlir::SideEffects::EffectInstance<mlir::MemoryEffects::Effect>,true>::growAndEmplaceBack<mlir::MemoryEffects::Read *,int,BOOL,mlir::SideEffects::DefaultResource *>(uint64_t a1, void *a2, int *a3, char *a4, uint64_t *a5)
+unint64_t llvm::SmallVectorTemplateBase<mlir::SideEffects::EffectInstance<mlir::MemoryEffects::Effect>,true>::growAndEmplaceBack<mlir::MemoryEffects::Read *,int,BOOL,mlir::SideEffects::DefaultResource *>(unint64_t *a1, void *a2, int *a3, char *a4, uint64_t *a5)
 {
   v17 = *MEMORY[0x277D85DE8];
   v5 = *a3;
@@ -3963,9 +3963,9 @@ uint64_t llvm::SmallVectorTemplateBase<mlir::SideEffects::EffectInstance<mlir::M
   v15 = 0uLL;
   LODWORD(v16) = v5;
   BYTE4(v16) = v6;
-  v8 = *(a1 + 8);
+  v8 = *(a1 + 2);
   v9 = *a1;
-  if (v8 >= *(a1 + 12))
+  if (v8 >= *(a1 + 3))
   {
     if (v9 > &v14 || v9 + 40 * v8 <= &v14)
     {
@@ -3975,14 +3975,14 @@ uint64_t llvm::SmallVectorTemplateBase<mlir::SideEffects::EffectInstance<mlir::M
     llvm::SmallVectorBase<unsigned int>::grow_pod();
   }
 
-  v10 = v9 + 40 * *(a1 + 8);
+  v10 = v9 + 40 * *(a1 + 2);
   v11 = v14;
   v12 = v15;
   *(v10 + 32) = v16;
   *v10 = v11;
   *(v10 + 16) = v12;
-  LODWORD(v10) = *(a1 + 8) + 1;
-  *(a1 + 8) = v10;
+  LODWORD(v10) = *(a1 + 2) + 1;
+  *(a1 + 2) = v10;
   return *a1 + 40 * v10 - 40;
 }
 
@@ -4020,12 +4020,16 @@ void mlir::RewritePatternSet::add<mlir::anec::Transpose>(llvm::LogicalResult (*)
   JUMPOUT(0x259C63180);
 }
 
-BOOL OUTLINED_FUNCTION_7_3(void *a1)
+float OUTLINED_FUNCTION_7_3(void *a1)
 {
+
+  return result;
 }
 
-BOOL OUTLINED_FUNCTION_9_5(void *a1)
+float OUTLINED_FUNCTION_9_5(void *a1)
 {
+
+  return result;
 }
 
 uint64_t OUTLINED_FUNCTION_10_5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -4113,7 +4117,7 @@ BOOL OUTLINED_FUNCTION_95_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, 
   return mlir::Type::isF16(&a11);
 }
 
-void OUTLINED_FUNCTION_96_2()
+void OUTLINED_FUNCTION_96_2(uint64_t a1)
 {
 
   llvm::SmallVectorBase<unsigned int>::grow_pod();
@@ -4316,19 +4320,19 @@ uint64_t *std::vector<std::function<mlir::WalkResult ()(mlir::Attribute)>>::__sw
     v8 = a2[1] + *result - v4;
     do
     {
-      v9 = v7[3];
+      v9 = *(v7 + 24);
       if (v9)
       {
         if (v7 == v9)
         {
           *(v8 + 24) = v8;
-          (*(*v7[3] + 24))(v7[3], v8);
+          (*(**(v7 + 24) + 24))(*(v7 + 24), v8);
         }
 
         else
         {
           *(v8 + 24) = v9;
-          v7[3] = 0;
+          *(v7 + 24) = 0;
         }
       }
 
@@ -4337,7 +4341,7 @@ uint64_t *std::vector<std::function<mlir::WalkResult ()(mlir::Attribute)>>::__sw
         *(v8 + 24) = 0;
       }
 
-      v7 += 4;
+      v7 += 32;
       v8 += 32;
     }
 
@@ -4407,76 +4411,76 @@ const char *llvm::getTypeName<mlir::silc::PlistGeneratorInterface>()
   return &v2[v3];
 }
 
-void mlir::anec::computeOpKeyString(mlir::anec *this@<X0>, void *a2@<X8>)
+void mlir::anec::computeOpKeyString(uint64_t *__return_ptr a1@<X8>, mlir::anec *this@<X0>)
 {
-  if (!*(this + 47) || (InherentAttr = mlir::Operation::getInherentAttr(this, "name", 4), (v6 & 1) == 0))
+  if (!*(this + 47) || (InherentAttr = mlir::Operation::getInherentAttr(this, "name", 4), (v5 & 1) == 0))
   {
     InherentAttr = mlir::DictionaryAttr::get(this + 56, "name", 4uLL);
   }
 
   if (InherentAttr)
   {
-    v25[0] = InherentAttr;
-    Value = mlir::StringAttr::getValue(v25);
-    if (v8 >= 0x7FFFFFFFFFFFFFF8)
+    v24[0] = InherentAttr;
+    Value = mlir::StringAttr::getValue(v24);
+    if (v7 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:nn200100]();
     }
 
-    v9 = v8;
-    if (v8 >= 0x17)
+    v8 = v7;
+    if (v7 >= 0x17)
     {
       operator new();
     }
 
-    *(a2 + 23) = v8;
-    if (v8)
+    *(a1 + 23) = v7;
+    if (v7)
     {
-      memmove(a2, Value, v8);
+      memmove(a1, Value, v7);
     }
 
-    *(a2 + v9) = 0;
+    *(a1 + v8) = 0;
   }
 
   else
   {
-    v25[0] = *(*(this + 6) + 8);
-    v22 = 1283;
-    v21[2] = mlir::StringAttr::getValue(v25);
-    v21[3] = v10;
-    v23[0] = v21;
-    v23[2] = "_";
-    v24 = 770;
-    v11 = mlir::anec::ANECIRNetwork::name_counter_++;
-    v20 = v11;
-    v21[0] = "__";
-    v25[0] = v23;
-    v25[2] = &v20;
-    v26 = 2818;
-    llvm::Twine::str(v25, a2);
+    v24[0] = *(*(this + 6) + 8);
+    v21 = 1283;
+    v20[2] = mlir::StringAttr::getValue(v24);
+    v20[3] = v9;
+    v22[0] = v20;
+    v22[2] = "_";
+    v23 = 770;
+    v10 = mlir::anec::ANECIRNetwork::name_counter_++;
+    v19 = v10;
+    v20[0] = "__";
+    v24[0] = v22;
+    v24[2] = &v19;
+    v25 = 2818;
+    llvm::Twine::str(v24, a1);
     Context = mlir::Attribute::getContext((this + 24));
-    v14 = *(a2 + 23);
-    v15 = *a2;
-    if (v14 >= 0)
+    v13 = *(a1 + 23);
+    v14 = *a1;
+    if (v13 >= 0)
     {
-      v15 = a2;
+      v14 = a1;
     }
 
-    if (v14 < 0)
+    if (v13 < 0)
     {
-      v14 = a2[1];
+      v13 = a1[1];
     }
 
-    v24 = 261;
-    v23[0] = v15;
-    v23[1] = v14;
-    v16 = mlir::StringAttr::get(Context, v23, v13);
-    v17 = mlir::Attribute::getContext((this + 24));
-    v26 = 261;
-    v25[0] = "name";
-    v25[1] = 4;
-    v19 = mlir::StringAttr::get(v17, v25, v18);
-    mlir::Operation::setAttr(this, v19, v16);
+    v23 = 261;
+    v22[0] = v14;
+    v22[1] = v13;
+    v15 = mlir::StringAttr::get(Context, v22, v12);
+    v16 = mlir::Attribute::getContext((this + 24));
+    v25 = 261;
+    v24[0] = "name";
+    v24[1] = 4;
+    v18 = mlir::StringAttr::get(v16, v24, v17);
+    mlir::Operation::setAttr(this, v18, v15);
   }
 }
 
@@ -4583,7 +4587,7 @@ uint64_t mlir::anec::getANECIRDataType(uint64_t a1)
   return mlir::anec::getANECIRDataType(ElementType) & 0xFFFFFFFFFFLL;
 }
 
-size_t anonymous namespace::stringify_to_cfstr@<X0>(int a1@<W0>, _BYTE *a2@<X8>)
+size_t anonymous namespace::stringify_to_cfstr@<X0>(int a1@<W0>, void *a2@<X8>)
 {
   if (a1 <= 4)
   {
@@ -4662,29 +4666,30 @@ size_t anonymous namespace::stringify_to_cfstr@<X0>(int a1@<W0>, _BYTE *a2@<X8>)
     operator new();
   }
 
-  a2[23] = result;
+  *(a2 + 23) = result;
   if (result)
   {
     result = memmove(a2, CStringPtr, result);
   }
 
-  a2[v6] = 0;
+  *(a2 + v6) = 0;
   return result;
 }
 
-void mlir::anec::ANECIRUnit::Serialize(mlir::anec::ANECIRUnit *this, const ZinIrUnitInfo *a2)
+void mlir::anec::ANECIRUnit::Serialize(mlir::anec::ANECIRUnit *this)
 {
-  v2 = *(this + 5);
-  if (!v2)
+  v3 = *(this + 5);
+  if (!v3)
   {
-    mlir::anec::ANECDictionary::Create(0);
+    mlir::anec::ANECDictionary::Create();
   }
 
-  mlir::anec::ANECDictionary::Create(v2, a2);
+  mlir::anec::ANECDictionary::Create(v3);
 }
 
-void mlir::anec::ANECDictionary::Add<std::pair<std::string,mlir::anec::ANECIRDataType>,std::string (*)(std::pair<std::string,mlir::anec::ANECIRDataType> const&)>(plist::PListArray *a1, CFStringRef theString, uint64_t a3, uint64_t a4, void (*a5)(void **__return_ptr, uint64_t), char a6)
+void mlir::anec::ANECDictionary::Add<std::pair<std::string,mlir::anec::ANECIRDataType>,std::string (*)(std::pair<std::string,mlir::anec::ANECIRDataType> const&)>(plist::PListArray *a1, CFStringRef theString, uint64_t a3, uint64_t a4, void (*a5)(void **__return_ptr, uint64_t, uint64_t, uint64_t), uint64_t a6)
 {
+  v6 = a6;
   CStringPtr = CFStringGetCStringPtr(theString, 0x8000100u);
   v12 = strlen(CStringPtr);
   if (v12 >= 0x7FFFFFFFFFFFFFF8)
@@ -4705,7 +4710,7 @@ void mlir::anec::ANECDictionary::Add<std::pair<std::string,mlir::anec::ANECIRDat
   }
 
   *(&__dst + v13) = 0;
-  mlir::anec::ANECDictionary::Add<std::pair<std::string,mlir::anec::ANECIRDataType>,std::string (*)(std::pair<std::string,mlir::anec::ANECIRDataType> const&)>(a1, &__dst, a3, a4, a5, a6);
+  mlir::anec::ANECDictionary::Add<std::pair<std::string,mlir::anec::ANECIRDataType>,std::string (*)(std::pair<std::string,mlir::anec::ANECIRDataType> const&)>(a1, &__dst, a3, a4, a5, v6);
   if (v15 < 0)
   {
     operator delete(__dst);
@@ -4721,13 +4726,13 @@ void anonymous namespace::get_elem<std::pair<std::string,mlir::anec::ANECIRDataT
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *a1;
-    a2->__r_.__value_.__r.__words[2] = *(a1 + 16);
+    *a2 = *a1;
   }
 }
 
-void mlir::anec::ANECDictionary::Add<std::pair<mlir::anec::ANECIRDataType,unsigned long>,std::string (*)(std::pair<mlir::anec::ANECIRDataType,unsigned long> const&)>(plist::PListArray *a1, CFStringRef theString, uint64_t a3, uint64_t a4, void (*a5)(void **__return_ptr, uint64_t), char a6)
+void mlir::anec::ANECDictionary::Add<std::pair<mlir::anec::ANECIRDataType,unsigned long>,std::string (*)(std::pair<mlir::anec::ANECIRDataType,unsigned long> const&)>(plist::PListArray *a1, CFStringRef theString, uint64_t a3, uint64_t a4, void (*a5)(void **__return_ptr, uint64_t, uint64_t, uint64_t), uint64_t a6)
 {
+  v6 = a6;
   CStringPtr = CFStringGetCStringPtr(theString, 0x8000100u);
   v12 = strlen(CStringPtr);
   if (v12 >= 0x7FFFFFFFFFFFFFF8)
@@ -4748,15 +4753,16 @@ void mlir::anec::ANECDictionary::Add<std::pair<mlir::anec::ANECIRDataType,unsign
   }
 
   *(&__dst + v13) = 0;
-  mlir::anec::ANECDictionary::Add<std::pair<mlir::anec::ANECIRDataType,unsigned long>,std::string (*)(std::pair<mlir::anec::ANECIRDataType,unsigned long> const&)>(a1, &__dst, a3, a4, a5, a6);
+  mlir::anec::ANECDictionary::Add<std::pair<mlir::anec::ANECIRDataType,unsigned long>,std::string (*)(std::pair<mlir::anec::ANECIRDataType,unsigned long> const&)>(a1, &__dst, a3, a4, a5, v6);
   if (v15 < 0)
   {
     operator delete(__dst);
   }
 }
 
-void mlir::anec::ANECDictionary::Add<std::pair<mlir::anec::ANECIRDataType,unsigned long>,unsigned long (*)(std::pair<mlir::anec::ANECIRDataType,unsigned long> const&)>(plist::PListArray *a1, CFStringRef theString, uint64_t a3, uint64_t a4, void (*a5)(uint64_t), char a6)
+void mlir::anec::ANECDictionary::Add<std::pair<mlir::anec::ANECIRDataType,unsigned long>,unsigned long (*)(std::pair<mlir::anec::ANECIRDataType,unsigned long> const&)>(mlir::anec::ANECDictionary *a1, CFStringRef theString, uint64_t a3, uint64_t a4, void (*a5)(uint64_t, uint64_t, uint64_t), uint64_t a6)
 {
+  v6 = a6;
   CStringPtr = CFStringGetCStringPtr(theString, 0x8000100u);
   v12 = strlen(CStringPtr);
   if (v12 >= 0x7FFFFFFFFFFFFFF8)
@@ -4777,25 +4783,26 @@ void mlir::anec::ANECDictionary::Add<std::pair<mlir::anec::ANECIRDataType,unsign
   }
 
   *(&__dst + v13) = 0;
-  mlir::anec::ANECDictionary::Add<std::pair<mlir::anec::ANECIRDataType,unsigned long>,unsigned long (*)(std::pair<mlir::anec::ANECIRDataType,unsigned long> const&)>(a1, &__dst, a3, a4, a5, a6);
+  mlir::anec::ANECDictionary::Add<std::pair<mlir::anec::ANECIRDataType,unsigned long>,unsigned long (*)(std::pair<mlir::anec::ANECIRDataType,unsigned long> const&)>(a1, &__dst, a3, a4, a5, v6);
   if (v15 < 0)
   {
     operator delete(__dst);
   }
 }
 
-void mlir::anec::ANECIRConvPoolBase::addParams(int a1, mlir::anec::ANECDictionary **a2, unint64_t a3, int a4, uint64_t a5)
+void mlir::anec::ANECIRConvPoolBase::addParams(uint64_t a1, mlir::anec::ANECDictionary **a2, unint64_t a3, unint64_t a4, unint64_t a5)
 {
   if (a5)
   {
-    mlir::anec::ANECDictionary::PListEntry(*a2);
+    mlir::anec::ANECDictionary::PListEntry();
   }
 
-  mlir::anec::ANECDictionary::PListEntry(*a2);
+  mlir::anec::ANECDictionary::PListEntry();
 }
 
-void mlir::anec::ANECDictionary::Add<unsigned long,unsigned long const& (*)(unsigned long const&)>(plist::PListArray *a1, CFStringRef theString, uint64_t a3, uint64_t a4, void (*a5)(uint64_t), char a6)
+void mlir::anec::ANECDictionary::Add<unsigned long,unsigned long const& (*)(unsigned long const&)>(mlir::anec::ANECDictionary *a1, CFStringRef theString, uint64_t a3, uint64_t a4, void (*a5)(uint64_t, uint64_t, uint64_t), uint64_t a6)
 {
+  v6 = a6;
   CStringPtr = CFStringGetCStringPtr(theString, 0x8000100u);
   v12 = strlen(CStringPtr);
   if (v12 >= 0x7FFFFFFFFFFFFFF8)
@@ -4816,14 +4823,14 @@ void mlir::anec::ANECDictionary::Add<unsigned long,unsigned long const& (*)(unsi
   }
 
   *(&__dst + v13) = 0;
-  mlir::anec::ANECDictionary::Add<unsigned long,unsigned long const& (*)(unsigned long const&)>(a1, &__dst, a3, a4, a5, a6);
+  mlir::anec::ANECDictionary::Add<unsigned long,unsigned long const& (*)(unsigned long const&)>(a1, &__dst, a3, a4, a5, v6);
   if (v15 < 0)
   {
     operator delete(__dst);
   }
 }
 
-size_t mlir::anec::ANECIRNeuron::ActivationToAneIRType@<X0>(int a1@<W0>, _BYTE *a2@<X8>)
+size_t mlir::anec::ANECIRNeuron::ActivationToAneIRType@<X0>(int a1@<W0>, void *a2@<X8>)
 {
   switch(a1)
   {
@@ -4920,17 +4927,17 @@ size_t mlir::anec::ANECIRNeuron::ActivationToAneIRType@<X0>(int a1@<W0>, _BYTE *
     operator new();
   }
 
-  a2[23] = result;
+  *(a2 + 23) = result;
   if (result)
   {
     result = memmove(a2, CStringPtr, result);
   }
 
-  a2[v6] = 0;
+  *(a2 + v6) = 0;
   return result;
 }
 
-size_t mlir::anec::ANECIRPoolUnit::PoolTypeToAneIRType@<X0>(int a1@<W0>, _BYTE *a2@<X8>)
+size_t mlir::anec::ANECIRPoolUnit::PoolTypeToAneIRType@<X0>(int a1@<W0>, void *a2@<X8>)
 {
   if (a1)
   {
@@ -4963,13 +4970,13 @@ size_t mlir::anec::ANECIRPoolUnit::PoolTypeToAneIRType@<X0>(int a1@<W0>, _BYTE *
     operator new();
   }
 
-  a2[23] = result;
+  *(a2 + 23) = result;
   if (result)
   {
     result = memmove(a2, CStringPtr, result);
   }
 
-  a2[v6] = 0;
+  *(a2 + v6) = 0;
   return result;
 }
 
@@ -5159,7 +5166,7 @@ void plist::PListArray::push_back(void *a1, __int128 *a2)
   a1[2] = v6;
 }
 
-void mlir::anec::ANECIRUnit::UpdateNamesWithProcName(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void mlir::anec::ANECIRUnit::UpdateNamesWithProcName(uint64_t a1, uint64_t a2, uint64_t **a3, void *a4)
 {
   v8 = (a1 + 8);
   if (*(a1 + 31) < 0)
@@ -5218,7 +5225,7 @@ void mlir::anec::ANECIRUnit::UpdateNamesWithProcName(uint64_t a1, uint64_t a2, u
   }
 
   v19 = v8;
-  v17 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a3, &v8->__r_.__value_.__l.__data_);
+  v17 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a3, &v8->__r_.__value_.__l.__data_, &std::piecewise_construct, &v19);
   std::string::operator=((v17 + 7), &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -5247,122 +5254,122 @@ void mlir::anec::ANECIRPoolUnit::~ANECIRPoolUnit(mlir::anec::ANECIRPoolUnit *thi
   JUMPOUT(0x259C63180);
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t a2)
+uint64_t **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, __int128 **a4)
 {
-  v2 = a2;
-  v4 = *(a2 + 8);
+  v4 = a2;
+  v6 = a2[1];
   if (*(a2 + 23) >= 0)
   {
-    v5 = *(a2 + 23);
+    v7 = *(a2 + 23);
   }
 
   else
   {
     a2 = *a2;
-    v5 = v4;
+    v7 = v6;
   }
 
-  v6 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](&v21, a2, v5);
-  v7 = v6;
-  v8 = a1[1];
-  if (!*&v8)
+  v8 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](&v23, a2, v7);
+  v9 = v8;
+  v10 = a1[1];
+  if (!*&v10)
   {
     goto LABEL_33;
   }
 
-  v9 = vcnt_s8(v8);
-  v9.i16[0] = vaddlv_u8(v9);
-  v10 = v9.u32[0];
-  if (v9.u32[0] > 1uLL)
+  v11 = vcnt_s8(v10);
+  v11.i16[0] = vaddlv_u8(v11);
+  v12 = v11.u32[0];
+  if (v11.u32[0] > 1uLL)
   {
-    v11 = v6;
-    if (v6 >= *&v8)
+    v13 = v8;
+    if (v8 >= *&v10)
     {
-      v11 = v6 % *&v8;
+      v13 = v8 % *&v10;
     }
   }
 
   else
   {
-    v11 = (*&v8 - 1) & v6;
+    v13 = (*&v10 - 1) & v8;
   }
 
-  v12 = *(*a1 + 8 * v11);
-  if (!v12 || (v13 = *v12) == 0)
+  v14 = *(*a1 + 8 * v13);
+  if (!v14 || (v15 = *v14) == 0)
   {
 LABEL_33:
     operator new();
   }
 
-  v14 = v2[23];
-  if (v14 >= 0)
+  v16 = *(v4 + 23);
+  if (v16 >= 0)
   {
-    v15 = v2[23];
+    v17 = *(v4 + 23);
   }
 
   else
   {
-    v15 = *(v2 + 1);
+    v17 = v4[1];
   }
 
-  if (v14 < 0)
+  if (v16 < 0)
   {
-    v2 = *v2;
+    v4 = *v4;
   }
 
   while (1)
   {
-    v16 = v13[1];
-    if (v16 == v7)
+    v18 = v15[1];
+    if (v18 == v9)
     {
       break;
     }
 
-    if (v10 <= 1)
+    if (v12 <= 1)
     {
-      v16 &= *&v8 - 1;
+      v18 &= *&v10 - 1;
     }
 
-    else if (v16 >= *&v8)
+    else if (v18 >= *&v10)
     {
-      v16 %= *&v8;
+      v18 %= *&v10;
     }
 
-    if (v16 != v11)
+    if (v18 != v13)
     {
       goto LABEL_33;
     }
 
 LABEL_20:
-    v13 = *v13;
-    if (!v13)
+    v15 = *v15;
+    if (!v15)
     {
       goto LABEL_33;
     }
   }
 
-  v17 = *(v13 + 39);
-  v18 = v17;
-  if (v17 < 0)
+  v19 = *(v15 + 39);
+  v20 = v19;
+  if (v19 < 0)
   {
-    v17 = v13[3];
+    v19 = v15[3];
   }
 
-  if (v17 != v15)
-  {
-    goto LABEL_20;
-  }
-
-  v19 = v18 >= 0 ? (v13 + 2) : v13[2];
-  if (memcmp(v19, v2, v15))
+  if (v19 != v17)
   {
     goto LABEL_20;
   }
 
-  return v13;
+  v21 = v20 >= 0 ? (v15 + 2) : v15[2];
+  if (memcmp(v21, v4, v17))
+  {
+    goto LABEL_20;
+  }
+
+  return v15;
 }
 
-void mlir::anec::ANECDictionary::Add(uint64_t *a1, CFStringRef theString, uint64_t a3)
+void mlir::anec::ANECDictionary::Add(uint64_t *a1, CFStringRef theString, uint64_t **a3)
 {
   CStringPtr = CFStringGetCStringPtr(theString, 0x8000100u);
   v6 = strlen(CStringPtr);
@@ -5384,12 +5391,12 @@ void mlir::anec::ANECDictionary::Add(uint64_t *a1, CFStringRef theString, uint64
   }
 
   *(&__dst + v7) = 0;
-  v8 = *(a3 + 8);
+  v8 = a3[1];
   v10 = *a3;
   v11 = v8;
   if (v8)
   {
-    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
   }
 
   mlir::anec::ANECDictionary::Add(a1, &__dst, &v10);
@@ -5416,19 +5423,19 @@ LABEL_12:
 void mlir::anec::ANECDictionary::PListEntry(mlir::anec::ANECDictionary *this, CFStringRef theString)
 {
   CStringPtr = CFStringGetCStringPtr(theString, 0x8000100u);
-  v3 = strlen(CStringPtr);
-  if (v3 < 0x7FFFFFFFFFFFFFF8)
+  v4 = strlen(CStringPtr);
+  if (v4 < 0x7FFFFFFFFFFFFFF8)
   {
-    v4 = v3;
-    if (v3 < 0x17)
+    v5 = v4;
+    if (v4 < 0x17)
     {
-      v6 = v3;
-      if (v3)
+      v7 = v4;
+      if (v4)
       {
-        memmove(&__dst, CStringPtr, v3);
+        memmove(&__dst, CStringPtr, v4);
       }
 
-      *(&__dst + v4) = 0;
+      *(&__dst + v5) = 0;
       mlir::anec::ANECDictionary::PListEntry();
     }
 
@@ -5438,70 +5445,60 @@ void mlir::anec::ANECDictionary::PListEntry(mlir::anec::ANECDictionary *this, CF
   std::string::__throw_length_error[abi:nn200100]();
 }
 
-plist::PListArray *mlir::anec::ANECDictionary::Add<std::pair<std::string,mlir::anec::ANECIRDataType>,std::string (*)(std::pair<std::string,mlir::anec::ANECIRDataType> const&)>(plist::PListArray *result, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void **__return_ptr, uint64_t), char a6)
+void mlir::anec::ANECDictionary::Add<std::pair<std::string,mlir::anec::ANECIRDataType>,std::string (*)(std::pair<std::string,mlir::anec::ANECIRDataType> const&)>(plist::PListArray *a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void **__return_ptr, uint64_t, uint64_t, uint64_t), char a6)
 {
   if (a4)
   {
     if (a4 == 1 && (a6 & 1) == 0)
     {
-      a5(&__p, a3);
+      a5(&__p, a3, a2, a3);
       mlir::anec::ANECDictionary::PListEntry();
     }
 
-    plist::PListArray::Create(result);
+    plist::PListArray::Create();
   }
-
-  return result;
 }
 
-plist::PListArray *mlir::anec::ANECDictionary::Add<std::pair<mlir::anec::ANECIRDataType,unsigned long>,std::string (*)(std::pair<mlir::anec::ANECIRDataType,unsigned long> const&)>(plist::PListArray *result, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void **__return_ptr, uint64_t), char a6)
+void mlir::anec::ANECDictionary::Add<std::pair<mlir::anec::ANECIRDataType,unsigned long>,std::string (*)(std::pair<mlir::anec::ANECIRDataType,unsigned long> const&)>(plist::PListArray *a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void **__return_ptr, uint64_t, uint64_t, uint64_t), char a6)
 {
   if (a4)
   {
     if (a4 == 1 && (a6 & 1) == 0)
     {
-      a5(&__p, a3);
+      a5(&__p, a3, a2, a3);
       mlir::anec::ANECDictionary::PListEntry();
     }
 
-    plist::PListArray::Create(result);
+    plist::PListArray::Create();
   }
-
-  return result;
 }
 
-plist::PListArray *mlir::anec::ANECDictionary::Add<std::pair<mlir::anec::ANECIRDataType,unsigned long>,unsigned long (*)(std::pair<mlir::anec::ANECIRDataType,unsigned long> const&)>(plist::PListArray *result, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(uint64_t), char a6)
+void mlir::anec::ANECDictionary::Add<std::pair<mlir::anec::ANECIRDataType,unsigned long>,unsigned long (*)(std::pair<mlir::anec::ANECIRDataType,unsigned long> const&)>(mlir::anec::ANECDictionary *a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(uint64_t, uint64_t, uint64_t), char a6)
 {
   if (a4)
   {
-    v6 = result;
     if (a4 == 1 && (a6 & 1) == 0)
     {
-      a5(a3);
-      mlir::anec::ANECDictionary::PListEntry(v6);
+      a5(a3, a2, a3);
+      mlir::anec::ANECDictionary::PListEntry();
     }
 
-    plist::PListArray::Create(result);
+    plist::PListArray::Create();
   }
-
-  return result;
 }
 
-plist::PListArray *mlir::anec::ANECDictionary::Add<unsigned long,unsigned long const& (*)(unsigned long const&)>(plist::PListArray *result, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(uint64_t), char a6)
+void mlir::anec::ANECDictionary::Add<unsigned long,unsigned long const& (*)(unsigned long const&)>(mlir::anec::ANECDictionary *a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(uint64_t, uint64_t, uint64_t), char a6)
 {
   if (a4)
   {
-    v6 = result;
     if (a4 == 1 && (a6 & 1) == 0)
     {
-      a5(a3);
-      mlir::anec::ANECDictionary::PListEntry(v6);
+      a5(a3, a2, a3);
+      mlir::anec::ANECDictionary::PListEntry();
     }
 
-    plist::PListArray::Create(result);
+    plist::PListArray::Create();
   }
-
-  return result;
 }
 
 uint64_t std::__tree<std::__value_type<std::string,std::tuple<std::string,std::string,unsigned int>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::tuple<std::string,std::string,unsigned int>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::tuple<std::string,std::string,unsigned int>>>>::find<std::string>(uint64_t a1, uint64_t a2)
@@ -5609,12 +5606,12 @@ void std::__shared_ptr_emplace<plist::PListString>::~__shared_ptr_emplace(std::_
   JUMPOUT(0x259C63180);
 }
 
-unint64_t mlir::anec::ANECIRWeightSerializer::addConstant(uint64_t a1, void *a2, uint64_t a3)
+unint64_t mlir::anec::ANECIRWeightSerializer::addConstant(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   v31 = a2;
   v32 = a3;
   ElementType = a2;
-  llvm::DenseMapBase<llvm::DenseMap<mlir::Operation *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<mlir::Operation *,void>,llvm::detail::DenseSetPair<mlir::Operation *>>,mlir::Operation *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<mlir::Operation *,void>,llvm::detail::DenseSetPair<mlir::Operation *>>::try_emplace<llvm::detail::DenseSetEmpty&>(a1 + 48, &ElementType, &ShapedType);
+  llvm::DenseMapBase<llvm::DenseMap<mlir::Operation *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<mlir::Operation *,void>,llvm::detail::DenseSetPair<mlir::Operation *>>,mlir::Operation *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<mlir::Operation *,void>,llvm::detail::DenseSetPair<mlir::Operation *>>::try_emplace<llvm::detail::DenseSetEmpty&>((a1 + 48), &ElementType, &ShapedType);
   v5 = *(a1 + 8);
   v6 = *(a1 + 24);
   if (!v6)
@@ -5703,7 +5700,7 @@ LABEL_4:
     v29 = v15;
     ElementType = v31;
     v35 = 0;
-    llvm::DenseMapBase<llvm::DenseMap<mlir::TypeID,unsigned int,llvm::DenseMapInfo<mlir::TypeID,void>,llvm::detail::DenseMapPair<mlir::TypeID,unsigned int>>,mlir::TypeID,unsigned int,llvm::DenseMapInfo<mlir::TypeID,void>,llvm::detail::DenseMapPair<mlir::TypeID,unsigned int>>::try_emplace<unsigned int>(a1 + 8, &ElementType, &v35, &ShapedType);
+    llvm::DenseMapBase<llvm::DenseMap<mlir::TypeID,unsigned int,llvm::DenseMapInfo<mlir::TypeID,void>,llvm::detail::DenseMapPair<mlir::TypeID,unsigned int>>,mlir::TypeID,unsigned int,llvm::DenseMapInfo<mlir::TypeID,void>,llvm::detail::DenseMapPair<mlir::TypeID,unsigned int>>::try_emplace<unsigned int>((a1 + 8), &ElementType, &v35, &ShapedType);
     if (v38 == 1)
     {
       v17 = *(a1 + 40);
@@ -5791,7 +5788,7 @@ LABEL_3:
   return *(*(this + 4) + 16 * *v7 + 8);
 }
 
-void mlir::anec::ANECDictionary::Create(mlir::anec::ANECDictionary *this, const ZinIrUnitInfo *a2)
+void mlir::anec::ANECDictionary::Create(mlir::anec::ANECDictionary *this)
 {
   switch(*(this + 8))
   {
@@ -5956,7 +5953,7 @@ void mlir::anec::ANECDictionary::Create(mlir::anec::ANECDictionary *this, const 
   operator new();
 }
 
-void mlir::anec::ANECDictionary::Add(uint64_t *a1, uint64_t a2, uint64_t **a3)
+void mlir::anec::ANECDictionary::Add(uint64_t *a1, __int128 *a2, uint64_t **a3)
 {
   plist::PListDict::GetValueForKey(*a1, a2, &v13);
   v7 = v13;
@@ -5980,12 +5977,12 @@ void mlir::anec::ANECDictionary::Add(uint64_t *a1, uint64_t a2, uint64_t **a3)
   if (!std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>((v8 + 8), a2))
   {
     v13 = a2;
-    v9 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v8 + 8), a2);
+    v9 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v8 + 8), a2, &std::piecewise_construct, &v13);
     v11 = *a3;
     v10 = a3[1];
     if (v10)
     {
-      atomic_fetch_add_explicit(v10 + 1, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v10 + 8), 1uLL, memory_order_relaxed);
     }
 
     v12 = v9[6];
@@ -6002,7 +5999,11 @@ void mlir::anec::ANECDictionary::Add(uint64_t *a1, uint64_t a2, uint64_t **a3)
   }
 }
 
-void mlir::anec::ANECDictionary::PListEntry(mlir::anec::ANECDictionary *this)
+void mlir::anec::ANECDictionary::PListEntry()
+{
+  operator new();
+}
+
 {
   operator new();
 }
@@ -6037,14 +6038,13 @@ void mlir::anec::ANECDictionary::PListEntry(void *a1@<X1>, void *a2@<X8>)
   }
 }
 
-void mlir::anec::ANECDictionary::Create(ZinIrUnitInfo const&)::$_0::__invoke(const __CFString *a1, uint64_t *a2, uint64_t *a3)
+void mlir::anec::ANECDictionary::Create(ZinIrUnitInfo const&)::$_0::__invoke(const __CFString *a1, const __CFString *a2, uint64_t *a3)
 {
-  __p[0] = 0;
-  __p[1] = 0;
+  __p = 0uLL;
   v9 = 0;
-  ZinGetString(a1, __p);
+  ZinGetString(a1, &__p);
   plist::PListType::PListFromCF(&v6, a2);
-  mlir::anec::ANECDictionary::Add(a3, __p, &v6);
+  mlir::anec::ANECDictionary::Add(a3, &__p, &v6);
   v5 = v7;
   if (!v7 || atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -6061,7 +6061,7 @@ void mlir::anec::ANECDictionary::Create(ZinIrUnitInfo const&)::$_0::__invoke(con
   if (SHIBYTE(v9) < 0)
   {
 LABEL_4:
-    operator delete(__p[0]);
+    operator delete(__p);
   }
 }
 
@@ -6277,36 +6277,35 @@ uint64_t std::__shared_ptr_pointer<plist::PListString *,std::shared_ptr<plist::P
   return result;
 }
 
-uint64_t *plist::PListType::PListFromCF@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
+void plist::PListType::PListFromCF(uint64_t *__return_ptr a1@<X8>, const __CFString *this@<X0>)
 {
   if (this)
   {
-    v4 = this;
-    v5 = CFGetTypeID(this);
-    if (v5 == CFStringGetTypeID())
+    v4 = CFGetTypeID(this);
+    if (v4 == CFStringGetTypeID())
     {
       __p[0] = 0;
       __p[1] = 0;
-      v15 = 0;
-      ZinGetString(v4, __p);
+      v14 = 0;
+      ZinGetString(this, __p);
       operator new();
     }
 
-    v6 = CFGetTypeID(v4);
-    if (v6 == CFBooleanGetTypeID())
+    v5 = CFGetTypeID(this);
+    if (v5 == CFBooleanGetTypeID())
     {
-      CFBooleanGetValue(v4);
+      CFBooleanGetValue(this);
       operator new();
     }
 
-    v7 = CFGetTypeID(v4);
-    if (v7 == CFNumberGetTypeID())
+    v6 = CFGetTypeID(this);
+    if (v6 == CFNumberGetTypeID())
     {
-      Type = CFNumberGetType(v4);
-      v13 = 0.0;
-      CFNumberGetValue(v4, Type, &v13);
-      IsFloatType = CFNumberIsFloatType(v4);
-      ByteSize = CFNumberGetByteSize(v4);
+      Type = CFNumberGetType(this);
+      v12 = 0.0;
+      CFNumberGetValue(this, Type, &v12);
+      IsFloatType = CFNumberIsFloatType(this);
+      ByteSize = CFNumberGetByteSize(this);
       if (IsFloatType)
       {
         if (ByteSize == 4)
@@ -6314,7 +6313,7 @@ uint64_t *plist::PListType::PListFromCF@<X0>(uint64_t *__return_ptr a1@<X8>, uin
           operator new();
         }
 
-        CFNumberGetByteSize(v4);
+        CFNumberGetByteSize(this);
         operator new();
       }
 
@@ -6323,29 +6322,28 @@ uint64_t *plist::PListType::PListFromCF@<X0>(uint64_t *__return_ptr a1@<X8>, uin
         operator new();
       }
 
-      if (CFNumberGetByteSize(v4) == 2)
+      if (CFNumberGetByteSize(this) == 2)
       {
         operator new();
       }
 
-      if (CFNumberGetByteSize(v4) == 4)
+      if (CFNumberGetByteSize(this) == 4)
       {
         operator new();
       }
 
-      CFNumberGetByteSize(v4);
+      CFNumberGetByteSize(this);
       operator new();
     }
 
-    v11 = CFGetTypeID(v4);
-    if (v11 == CFDictionaryGetTypeID())
+    v10 = CFGetTypeID(this);
+    if (v10 == CFDictionaryGetTypeID())
     {
       operator new();
     }
 
-    v12 = CFGetTypeID(v4);
-    this = CFArrayGetTypeID();
-    if (v12 == this)
+    v11 = CFGetTypeID(this);
+    if (v11 == CFArrayGetTypeID())
     {
       operator new();
     }
@@ -6353,7 +6351,6 @@ uint64_t *plist::PListType::PListFromCF@<X0>(uint64_t *__return_ptr a1@<X8>, uin
 
   *a1 = 0;
   a1[1] = 0;
-  return this;
 }
 
 void *plist::PListString::DoPrint(uint64_t a1, void *a2, size_t __len)
@@ -7022,7 +7019,7 @@ LABEL_61:
   return v24;
 }
 
-uint64_t **plist::PListDict::GetValueForKey@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+uint64_t **plist::PListDict::GetValueForKey@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
 {
   result = std::__hash_table<std::__hash_value_type<std::string,MPSMLIRViewerSPIOps>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MPSMLIRViewerSPIOps>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MPSMLIRViewerSPIOps>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MPSMLIRViewerSPIOps>>>::find<std::string>((a1 + 8), a2);
   if (result)
@@ -7289,38 +7286,38 @@ void plist::PListReal::~PListReal(void **this)
   JUMPOUT(0x259C63180);
 }
 
-void plist::PListType::PListFromCF(void const*)::$_0::__invoke(const __CFString *a1, plist::PListType *a2, uint64_t a3)
+void plist::PListType::PListFromCF(void const*)::$_0::__invoke(const __CFString *a1, const __CFString *a2, uint64_t a3)
 {
   __p[0] = 0;
   __p[1] = 0;
-  v14 = 0;
+  v13 = 0;
   ZinGetString(a1, __p);
-  plist::PListType::PListFromCF(&v11, a2, v5);
+  plist::PListType::PListFromCF(&v10, a2);
   if (!std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>((a3 + 8), __p))
   {
-    v15 = __p;
-    v7 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a3 + 8), __p);
-    v9 = v11;
-    v8 = v12;
-    if (v12)
+    v14 = __p;
+    v6 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<plist::PListType>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a3 + 8), __p, &std::piecewise_construct, &v14);
+    v8 = v10;
+    v7 = v11;
+    if (v11)
     {
-      atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v10 = v7[6];
-    v7[5] = v9;
-    v7[6] = v8;
-    if (v10 && !atomic_fetch_add(&v10->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    v9 = v6[6];
+    v6[5] = v8;
+    v6[6] = v7;
+    if (v9 && !atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v10->__on_zero_shared)(v10);
-      std::__shared_weak_count::__release_weak(v10);
+      (v9->__on_zero_shared)(v9);
+      std::__shared_weak_count::__release_weak(v9);
     }
   }
 
-  v6 = v12;
-  if (!v12 || atomic_fetch_add(&v12->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v5 = v11;
+  if (!v11 || atomic_fetch_add(&v11->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    if ((SHIBYTE(v14) & 0x80000000) == 0)
+    if ((SHIBYTE(v13) & 0x80000000) == 0)
     {
       return;
     }
@@ -7328,18 +7325,18 @@ void plist::PListType::PListFromCF(void const*)::$_0::__invoke(const __CFString 
     goto LABEL_5;
   }
 
-  (v6->__on_zero_shared)(v6);
-  std::__shared_weak_count::__release_weak(v6);
-  if (SHIBYTE(v14) < 0)
+  (v5->__on_zero_shared)(v5);
+  std::__shared_weak_count::__release_weak(v5);
+  if (SHIBYTE(v13) < 0)
   {
 LABEL_5:
     operator delete(__p[0]);
   }
 }
 
-void plist::PListType::PListFromCF(void const*)::$_1::__invoke(plist::PListType *a1, void *a2)
+void plist::PListType::PListFromCF(void const*)::$_1::__invoke(const __CFString *a1, void *a2)
 {
-  plist::PListType::PListFromCF(&v17, a1, a2);
+  plist::PListType::PListFromCF(&v17, a1);
   v3 = a2[2];
   v4 = a2[3];
   if (v3 >= v4)
@@ -8045,7 +8042,7 @@ uint64_t ToCharDimension(int a1, _BYTE *a2)
   v10 = v11;
   do
   {
-    if (!*std::__tree<std::__value_type<ZinIrDimension,char>,std::__map_value_compare<ZinIrDimension,std::__value_type<ZinIrDimension,char>,std::less<ZinIrDimension>,true>,std::allocator<std::__value_type<ZinIrDimension,char>>>::__find_equal<ZinIrDimension>(&v10, v11, &v13, &v12, (v14 + v4)))
+    if (!*std::__tree<std::__value_type<ZinIrDimension,char>,std::__map_value_compare<ZinIrDimension,std::__value_type<ZinIrDimension,char>,std::less<ZinIrDimension>,true>,std::allocator<std::__value_type<ZinIrDimension,char>>>::__find_equal<ZinIrDimension>(&v10, v11, &v13, v12, (v14 + v4)))
     {
       operator new();
     }
@@ -8088,9 +8085,9 @@ LABEL_12:
   return v8;
 }
 
-uint64_t *std::__tree<std::__value_type<ZinIrDimension,char>,std::__map_value_compare<ZinIrDimension,std::__value_type<ZinIrDimension,char>,std::less<ZinIrDimension>,true>,std::allocator<std::__value_type<ZinIrDimension,char>>>::__find_equal<ZinIrDimension>(void *a1, uint64_t *a2, uint64_t **a3, uint64_t **a4, int *a5)
+uint64_t *std::__tree<std::__value_type<ZinIrDimension,char>,std::__map_value_compare<ZinIrDimension,std::__value_type<ZinIrDimension,char>,std::less<ZinIrDimension>,true>,std::allocator<std::__value_type<ZinIrDimension,char>>>::__find_equal<ZinIrDimension>(uint64_t **a1, uint64_t *a2, uint64_t **a3, uint64_t **a4, int *a5)
 {
-  v5 = a1 + 1;
+  v5 = (a1 + 1);
   if (a1 + 1 == a2 || (v6 = *a5, v7 = *(a2 + 7), *a5 < v7))
   {
     v8 = *a2;
@@ -8117,7 +8114,7 @@ LABEL_17:
       do
       {
         v10 = v9;
-        v9 = v9[1];
+        v9 = *(v9 + 8);
       }
 
       while (v9);
@@ -8178,7 +8175,7 @@ LABEL_17:
 
     else
     {
-      v19 = a1 + 1;
+      v19 = (a1 + 1);
     }
 
 LABEL_25:
@@ -8274,7 +8271,7 @@ LABEL_25:
 
       else
       {
-        v23 = a1 + 1;
+        v23 = (a1 + 1);
       }
 
 LABEL_41:
@@ -8288,18 +8285,18 @@ __CFDictionary *ZinCreateAllGatherUnit(const ZinIrUnitInfo *a1)
 {
   Unit = ZinCreateUnit(a1);
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  ZinCreateShardingMap(Mutable, a1 + 10);
+  ZinCreateShardingMap(Mutable, a1 + 80);
   CFDictionaryAddValue(Unit, @"Params", Mutable);
   CFRelease(Mutable);
   return Unit;
 }
 
-__CFDictionary *ZinCreateAllReduceUnit(uint64_t a1)
+__CFDictionary *ZinCreateAllReduceUnit(const ZinIrUnitInfo *a1)
 {
   Unit = ZinCreateUnit(a1);
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-  ZinCreateShardingMap(Mutable, (a1 + 80));
-  v4 = ZinIrReductionTypeToCFString(*(a1 + 152));
+  ZinCreateShardingMap(Mutable, a1 + 80);
+  v4 = ZinIrReductionTypeToCFString(*(a1 + 38));
   CFDictionaryAddValue(Mutable, @"Type", v4);
   CFDictionaryAddValue(Unit, @"Params", Mutable);
   CFRelease(Mutable);
@@ -8572,7 +8569,7 @@ LABEL_31:
   return Unit;
 }
 
-void ZinDictionaryAddVector<long long>(__CFDictionary *a1, const void *a2, void *a3)
+void ZinDictionaryAddVector<long long>(__CFDictionary *a1, const void *a2, char **a3)
 {
   v5 = a3[1];
   if (v5 != *a3)
@@ -8600,7 +8597,7 @@ void sub_256805794(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void ZinDictionaryAddVector<int>(__CFDictionary *a1, const void *a2, void *a3)
+void ZinDictionaryAddVector<int>(__CFDictionary *a1, const void *a2, char **a3)
 {
   v5 = a3[1];
   if (v5 != *a3)
@@ -8916,7 +8913,7 @@ __CFDictionary *ZinCreateLinearUnit(const ZinIrLinearUnitInfo *a1)
       ZinAssertImpl("Input channels must be specified for sharded kernels");
     }
 
-    ZinCreateShardingMap(Mutable, a1 + 31);
+    ZinCreateShardingMap(Mutable, a1 + 248);
   }
 
   if (*(a1 + 184) == 1)
@@ -9454,13 +9451,13 @@ __CFDictionary *ZinCreateScaledEWUnit(const ZinIrScaledEWUnitInfo *a1)
   return Unit;
 }
 
-void ZinCreateShardingMap(__CFDictionary *a1, void *a2)
+void ZinCreateShardingMap(__CFDictionary *a1, uint64_t a2)
 {
   ZinDictionaryAddVector<unsigned short>(a1, @"Mesh", a2);
-  ZinDictionaryAddVector<unsigned short>(a1, @"MeshAxes", a2 + 3);
-  v4 = a2[6];
-  v5 = a2[7];
-  v6 = a2 + 6;
+  ZinDictionaryAddVector<unsigned short>(a1, @"MeshAxes", (a2 + 24));
+  v4 = *(a2 + 48);
+  v5 = *(a2 + 56);
+  v6 = (a2 + 48);
   if (v4 != v5)
   {
 
@@ -9468,7 +9465,7 @@ void ZinCreateShardingMap(__CFDictionary *a1, void *a2)
   }
 }
 
-void ZinDictionaryAddVector<unsigned short>(__CFDictionary *a1, const void *a2, void *a3)
+void ZinDictionaryAddVector<unsigned short>(__CFDictionary *a1, const void *a2, char **a3)
 {
   v5 = a3[1];
   if (v5 != *a3)

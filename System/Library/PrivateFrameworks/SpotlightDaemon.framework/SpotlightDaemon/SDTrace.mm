@@ -82,38 +82,38 @@
   return v19;
 }
 
-void __52__SDTrace_addLabel_identifier_duration_string_data___block_invoke(uint64_t a1)
+void __52__SDTrace_addLabel_identifier_duration_string_data___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  v3 = *(v2 + 264) + 1;
-  *(v2 + 264) = v3;
-  v4 = v3 & 0x1F;
-  v5 = *(*(a1 + 32) + 8 * v4 + 8);
-  if (!v5)
+  v3 = *(a1 + 32);
+  v4 = *(v3 + 264) + 1;
+  *(v3 + 264) = v4;
+  v5 = v4 & 0x1F;
+  v6 = *(*(a1 + 32) + 8 * v5 + 8);
+  if (!v6)
   {
-    v6 = objc_opt_new();
-    v7 = *(a1 + 32) + 8 * v4;
-    v8 = *(v7 + 8);
-    *(v7 + 8) = v6;
+    v7 = objc_opt_new();
+    v8 = *(a1 + 32) + 8 * v5;
+    v9 = *(v8 + 8);
+    *(v8 + 8) = v7;
 
-    v5 = *(*(a1 + 32) + 8 * v4 + 8);
+    v6 = *(*(a1 + 32) + 8 * v5 + 8);
   }
 
-  v10 = v5;
+  v11 = v6;
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-  [v10 setStartTime:?];
-  v9 = *(a1 + 72);
-  if (v9 == -1)
+  [v11 setStartTime:?];
+  v10 = *(a1 + 72);
+  if (v10 == -1)
   {
-    v9 = *(*(a1 + 32) + 264) + 1;
+    v10 = *(*(a1 + 32) + 264) + 1;
   }
 
-  [v10 setIdentifier:v9];
-  *(*(*(a1 + 64) + 8) + 24) = [v10 identifier];
-  [v10 setLabel:*(a1 + 40)];
-  [v10 setDuration:*(a1 + 80)];
-  [v10 setString:*(a1 + 48)];
-  [v10 setData:*(a1 + 56)];
+  [v11 setIdentifier:v10];
+  *(*(*(a1 + 64) + 8) + 24) = [v11 identifier];
+  [v11 setLabel:*(a1 + 40)];
+  [v11 setDuration:*(a1 + 80)];
+  [v11 setString:*(a1 + 48)];
+  [v11 setData:*(a1 + 56)];
 }
 
 - (id)items
@@ -170,41 +170,39 @@ void __16__SDTrace_items__block_invoke(uint64_t a1)
 
 - (id)description
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAB68];
   title = [(SDTrace *)self title];
   v5 = [v3 stringWithFormat:@"Trace %@ (%d)\n", title, -[SDTrace current](self, "current") + 1];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   items = [(SDTrace *)self items];
-  v7 = [items countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [items countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(items);
         }
 
-        v11 = [*(*(&v14 + 1) + 8 * i) description];
+        v11 = [*(*(&v13 + 1) + 8 * i) description];
         [v5 appendFormat:@"%@\n", v11];
       }
 
-      v8 = [items countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [items countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

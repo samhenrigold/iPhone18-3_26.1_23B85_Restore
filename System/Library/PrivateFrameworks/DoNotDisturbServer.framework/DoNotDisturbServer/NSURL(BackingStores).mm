@@ -27,9 +27,9 @@
     +[NSURL(BackingStores) dnds_rootDirectoryURL];
   }
 
-  v1 = dnds_rootDirectoryURL_directoryURL;
+  v2 = dnds_rootDirectoryURL_directoryURL;
 
-  return v1;
+  return v2;
 }
 
 + (id)dnds_backingStoreRootDirectoryURL
@@ -56,9 +56,9 @@
     +[NSURL(BackingStores) dnds_localAssertionBackingStoreFileURL];
   }
 
-  v1 = dnds_localAssertionBackingStoreFileURL_fileURL;
+  v2 = dnds_localAssertionBackingStoreFileURL_fileURL;
 
-  return v1;
+  return v2;
 }
 
 + (id)dnds_settingsBackingStoreFileURL
@@ -68,9 +68,9 @@
     +[NSURL(BackingStores) dnds_settingsBackingStoreFileURL];
   }
 
-  v1 = dnds_settingsBackingStoreFileURL_fileURL;
+  v2 = dnds_settingsBackingStoreFileURL_fileURL;
 
-  return v1;
+  return v2;
 }
 
 + (id)dnds_metricsBackingStoreFileURL
@@ -80,9 +80,9 @@
     +[NSURL(BackingStores) dnds_metricsBackingStoreFileURL];
   }
 
-  v1 = dnds_metricsBackingStoreFileURL_fileURL;
+  v2 = dnds_metricsBackingStoreFileURL_fileURL;
 
-  return v1;
+  return v2;
 }
 
 + (id)dnds_legacySettingsFileURL
@@ -92,9 +92,9 @@
     +[NSURL(BackingStores) dnds_legacySettingsFileURL];
   }
 
-  v1 = dnds_legacySettingsFileURL_fileURL;
+  v2 = dnds_legacySettingsFileURL_fileURL;
 
-  return v1;
+  return v2;
 }
 
 + (id)dnds_locationAssertionUntilExitRegionFileURL
@@ -104,9 +104,9 @@
     +[NSURL(BackingStores) dnds_locationAssertionUntilExitRegionFileURL];
   }
 
-  v1 = dnds_locationAssertionUntilExitRegionFileURL_fileURL;
+  v2 = dnds_locationAssertionUntilExitRegionFileURL_fileURL;
 
-  return v1;
+  return v2;
 }
 
 + (id)dnds_locationAssertionExplicitRegionFileURL
@@ -116,9 +116,9 @@
     +[NSURL(BackingStores) dnds_locationAssertionExplicitRegionFileURL];
   }
 
-  v1 = dnds_locationAssertionExplicitRegionFileURL_fileURL;
+  v2 = dnds_locationAssertionExplicitRegionFileURL_fileURL;
 
-  return v1;
+  return v2;
 }
 
 + (id)dnds_modeConfigurationsBackingStoreFileURL
@@ -128,9 +128,9 @@
     +[NSURL(BackingStores) dnds_modeConfigurationsBackingStoreFileURL];
   }
 
-  v1 = dnds_modeConfigurationsBackingStoreFileURL_fileURL;
+  v2 = dnds_modeConfigurationsBackingStoreFileURL_fileURL;
 
-  return v1;
+  return v2;
 }
 
 + (id)dnds_modeConfigurationsSecureBackingStoreFileURL
@@ -140,9 +140,9 @@
     +[NSURL(BackingStores) dnds_modeConfigurationsSecureBackingStoreFileURL];
   }
 
-  v1 = dnds_modeConfigurationsSecureBackingStoreFileURL_fileURL;
+  v2 = dnds_modeConfigurationsSecureBackingStoreFileURL_fileURL;
 
-  return v1;
+  return v2;
 }
 
 + (id)dnds_globalConfigurationBackingStoreFileURL
@@ -152,9 +152,9 @@
     +[NSURL(BackingStores) dnds_globalConfigurationBackingStoreFileURL];
   }
 
-  v1 = dnds_globalConfigurationBackingStoreFileURL_fileURL;
+  v2 = dnds_globalConfigurationBackingStoreFileURL_fileURL;
 
-  return v1;
+  return v2;
 }
 
 + (id)dnds_placeholderModesLocalBackingStoreFileURL
@@ -164,9 +164,9 @@
     +[NSURL(BackingStores) dnds_placeholderModesLocalBackingStoreFileURL];
   }
 
-  v1 = dnds_placeholderModesLocalBackingStoreFileURL_fileURL;
+  v2 = dnds_placeholderModesLocalBackingStoreFileURL_fileURL;
 
-  return v1;
+  return v2;
 }
 
 + (id)dnds_syncEngineMetadataFileURL
@@ -176,9 +176,9 @@
     +[NSURL(BackingStores) dnds_syncEngineMetadataFileURL];
   }
 
-  v1 = dnds_syncEngineMetadataFileURL_fileURL;
+  v2 = dnds_syncEngineMetadataFileURL_fileURL;
 
-  return v1;
+  return v2;
 }
 
 + (id)dnds_syncEngineLastChanceFileURL
@@ -188,9 +188,9 @@
     +[NSURL(BackingStores) dnds_syncEngineLastChanceFileURL];
   }
 
-  v1 = dnds_syncEngineLastChanceFileURL_fileURL;
+  v2 = dnds_syncEngineLastChanceFileURL_fileURL;
 
-  return v1;
+  return v2;
 }
 
 + (id)dnds_idsSyncEngineMetadataFileURL
@@ -200,45 +200,41 @@
     +[NSURL(BackingStores) dnds_idsSyncEngineMetadataFileURL];
   }
 
-  v1 = dnds_idsSyncEngineMetadataFileURL_fileURL;
+  v2 = dnds_idsSyncEngineMetadataFileURL_fileURL;
 
-  return v1;
+  return v2;
 }
 
 + (id)dnds_assertionSyncMetadataFileURL
 {
-  v7[4] = *MEMORY[0x277D85DE8];
+  v6[4] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEBC0];
   v1 = BSCurrentUserDirectory();
-  v7[0] = v1;
-  v7[1] = @"Library";
-  v7[2] = @"DoNotDisturb";
-  v7[3] = @"DB";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:4];
+  v6[0] = v1;
+  v6[1] = @"Library";
+  v6[2] = @"DoNotDisturb";
+  v6[3] = @"DB";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:4];
   v3 = [v0 fileURLWithPathComponents:v2];
 
   v4 = [v3 URLByAppendingPathComponent:@"AssertionSyncMetadata.plist"];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (id)dnds_meDeviceStoreFileURL
 {
-  v7[4] = *MEMORY[0x277D85DE8];
+  v6[4] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEBC0];
   v1 = BSCurrentUserDirectory();
-  v7[0] = v1;
-  v7[1] = @"Library";
-  v7[2] = @"DoNotDisturb";
-  v7[3] = @"DB";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:4];
+  v6[0] = v1;
+  v6[1] = @"Library";
+  v6[2] = @"DoNotDisturb";
+  v6[3] = @"DB";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:4];
   v3 = [v0 fileURLWithPathComponents:v2];
 
   v4 = [v3 URLByAppendingPathComponent:@"MeDeviceStatus.json"];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

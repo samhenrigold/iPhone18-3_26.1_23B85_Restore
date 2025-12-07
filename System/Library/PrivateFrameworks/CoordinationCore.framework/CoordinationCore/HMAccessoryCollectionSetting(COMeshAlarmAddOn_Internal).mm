@@ -35,7 +35,7 @@
 
 - (void)co_flushQueue
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = COCoreLogForCategory(2);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -46,37 +46,36 @@
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v13 = 0x3032000000;
-  v14 = __Block_byref_object_copy__6;
-  v15 = __Block_byref_object_dispose__6;
-  v16 = 0;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __72__HMAccessoryCollectionSetting_COMeshAlarmAddOn_Internal__co_flushQueue__block_invoke;
-  v11[3] = &unk_278E15638;
-  v11[4] = self;
-  v11[5] = &buf;
-  [self co_withLock:v11];
+  v12 = 0x3032000000;
+  v13 = __Block_byref_object_copy__6;
+  v14 = __Block_byref_object_dispose__6;
+  v15 = 0;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __72__HMAccessoryCollectionSetting_COMeshAlarmAddOn_Internal__co_flushQueue__block_invoke;
+  v10[3] = &unk_278E15638;
+  v10[4] = self;
+  v10[5] = &buf;
+  [self co_withLock:v10];
   co_mappedAlarms = [self co_mappedAlarms];
   v4 = *(*(&buf + 1) + 40);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __72__HMAccessoryCollectionSetting_COMeshAlarmAddOn_Internal__co_flushQueue__block_invoke_2;
-  v9[3] = &unk_278E16130;
-  v5 = co_mappedAlarms;
-  v10 = v5;
-  v6 = [v4 indexesOfObjectsPassingTest:v9];
-  [*(*(&buf + 1) + 40) removeObjectsAtIndexes:v6];
   v8[0] = MEMORY[0x277D85DD0];
   v8[1] = 3221225472;
-  v8[2] = __72__HMAccessoryCollectionSetting_COMeshAlarmAddOn_Internal__co_flushQueue__block_invoke_3;
-  v8[3] = &unk_278E16158;
-  v8[4] = self;
-  v8[5] = &buf;
-  [self co_setMappedAlarms:v5 completionHandler:v8];
+  v8[2] = __72__HMAccessoryCollectionSetting_COMeshAlarmAddOn_Internal__co_flushQueue__block_invoke_2;
+  v8[3] = &unk_278E16130;
+  v5 = co_mappedAlarms;
+  v9 = v5;
+  v6 = [v4 indexesOfObjectsPassingTest:v8];
+  [*(*(&buf + 1) + 40) removeObjectsAtIndexes:v6];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __72__HMAccessoryCollectionSetting_COMeshAlarmAddOn_Internal__co_flushQueue__block_invoke_3;
+  v7[3] = &unk_278E16158;
+  v7[4] = self;
+  v7[5] = &buf;
+  [self co_setMappedAlarms:v5 completionHandler:v7];
 
   _Block_object_dispose(&buf, 8);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)co_cachedWrite
@@ -115,7 +114,7 @@
 
 - (id)co_mappedAlarms
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB38]);
   co_cachedWrite = [self co_cachedWrite];
   if (co_cachedWrite)
@@ -133,26 +132,26 @@
     value = [self value];
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v12 = value;
-  v13 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v25;
+    v15 = *v24;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v25 != v15)
+        if (*v24 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        co_alarm = [*(*(&v24 + 1) + 8 * i) co_alarm];
+        co_alarm = [*(*(&v23 + 1) + 8 * i) co_alarm];
         v18 = co_alarm;
         if (co_alarm)
         {
@@ -163,52 +162,50 @@
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v14);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
 
 - (void)co_setMappedAlarms:()COMeshAlarmAddOn_Internal completionHandler:
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   v8 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v6, "count")}];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   allValues = [v6 allValues];
   v10 = [allValues sortedArrayUsingComparator:&__block_literal_global_0];
 
-  v11 = [v10 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v11)
   {
-    v12 = *v31;
+    v12 = *v30;
     do
     {
       v13 = 0;
       do
       {
-        if (*v31 != v12)
+        if (*v30 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = [MEMORY[0x277CD1690] co_accessoryCollectionSettingItemWithAlarm:*(*(&v30 + 1) + 8 * v13)];
+        v14 = [MEMORY[0x277CD1690] co_accessoryCollectionSettingItemWithAlarm:*(*(&v29 + 1) + 8 * v13)];
         [v8 addObject:v14];
 
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [v10 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v11);
@@ -226,31 +223,29 @@
 
   objc_initWeak(&location, self);
   v19 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __96__HMAccessoryCollectionSetting_COMeshAlarmAddOn_Internal__co_setMappedAlarms_completionHandler___block_invoke;
-  v24[3] = &unk_278E161F8;
-  v28[1] = v19;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __96__HMAccessoryCollectionSetting_COMeshAlarmAddOn_Internal__co_setMappedAlarms_completionHandler___block_invoke;
+  v23[3] = &unk_278E161F8;
+  v27[1] = v19;
   v20 = v18;
-  v25 = v20;
+  v24 = v20;
   v21 = v8;
-  v26 = v21;
-  objc_copyWeak(v28, &location);
+  v25 = v21;
+  objc_copyWeak(v27, &location);
   v22 = v7;
-  v27 = v22;
-  [self replaceItems:v20 withItems:v21 completionHandler:v24];
+  v26 = v22;
+  [self replaceItems:v20 withItems:v21 completionHandler:v23];
 
-  objc_destroyWeak(v28);
+  objc_destroyWeak(v27);
   objc_destroyWeak(&location);
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)co_mappedAlarms
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2(&dword_244378000, a2, a3, "using cached write for %p", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_2(&dword_244378000, a2, a3, "using cached write for %p", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

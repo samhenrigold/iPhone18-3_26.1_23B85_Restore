@@ -631,23 +631,23 @@ void __38__NetPreferences_serviceDebuggingPath__block_invoke()
   uUID = [(NetPreferences *)self UUID];
   [v13 setValue:uUID forHTTPHeaderField:@"X-Client-UUID"];
 
-  v15 = ClientInfo();
-  v16 = DeviceInfo();
-  if ((![v15 length] || !objc_msgSend(v16, "length")) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  v16 = ClientInfo(v15);
+  v17 = DeviceInfo(v16);
+  if ((![v16 length] || !objc_msgSend(v17, "length")) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     [NetPreferences signedRequestForURL:parameters:];
   }
 
-  [v13 setValue:v15 forHTTPHeaderField:@"X-Client-Info"];
-  [v13 setValue:v16 forHTTPHeaderField:@"X-Device-Info"];
+  [v13 setValue:v16 forHTTPHeaderField:@"X-Client-Info"];
+  [v13 setValue:v17 forHTTPHeaderField:@"X-Device-Info"];
   _stocksUserAgent = [(NetPreferences *)self _stocksUserAgent];
   [v13 setValue:_stocksUserAgent forHTTPHeaderField:@"User-Agent"];
 
-  v18 = CreateCredential();
-  v19 = [objc_alloc(MEMORY[0x277D36A38]) initWithCredential:v18];
-  v20 = [v19 signedURLRequestWithRequest:v13];
+  v19 = CreateCredential();
+  v20 = [objc_alloc(MEMORY[0x277D36A38]) initWithCredential:v19];
+  v21 = [v20 signedURLRequestWithRequest:v13];
 
-  return v20;
+  return v21;
 }
 
 @end

@@ -12,25 +12,26 @@
 
 - (NSString)text
 {
-  v7.receiver = self;
-  v7.super_class = type metadata accessor for _UITabButton.Label();
-  v2 = v7.receiver;
-  text = [(UILabel *)&v7 text];
+  type metadata accessor for _UITabButton.Label();
+  v9.receiver = self;
+  v9.super_class = v3;
+  selfCopy = self;
+  text = [(UILabel *)&v9 text];
   if (text)
   {
-    v4 = text;
+    v6 = text;
     sub_18A4A7288();
 
-    v5 = sub_18A4A7258();
+    v7 = sub_18A4A7258();
   }
 
   else
   {
 
-    v5 = 0;
+    v7 = 0;
   }
 
-  return v5;
+  return v7;
 }
 
 - (void)setText:(id)text
@@ -53,24 +54,26 @@
 
 - (NSAttributedString)attributedText
 {
-  v4.receiver = self;
-  v4.super_class = type metadata accessor for _UITabButton.Label();
-  attributedText = [(UILabel *)&v4 attributedText];
+  v3 = type metadata accessor for _UITabButton.Label();
+  v7.receiver = self;
+  v7.super_class = v4;
+  attributedText = [(UILabel *)&v7 attributedText];
 
   return attributedText;
 }
 
 - (void)setAttributedText:(id)text
 {
-  v5 = type metadata accessor for _UITabButton.Label();
-  v10.receiver = self;
-  v10.super_class = v5;
+  type metadata accessor for _UITabButton.Label();
+  v6 = v5;
+  v11.receiver = self;
+  v11.super_class = v5;
   textCopy = text;
   selfCopy = self;
-  attributedText = [(UILabel *)&v10 attributedText];
-  v9.receiver = selfCopy;
-  v9.super_class = v5;
-  [(UILabel *)&v9 setAttributedText:textCopy];
+  attributedText = [(UILabel *)&v11 attributedText];
+  v10.receiver = selfCopy;
+  v10.super_class = v6;
+  [(UILabel *)&v10 setAttributedText:textCopy];
   sub_189207364(attributedText);
 }
 
@@ -104,31 +107,33 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v7 = self + OBJC_IVAR____TtCC5UIKit12_UITabButtonP33_4EA307C86E0356016F55ED2F1518661D5Label_appliedKerningAdjustment;
-  *v7 = 0;
-  v7[8] = 1;
+  v8 = self + OBJC_IVAR____TtCC5UIKit12_UITabButtonP33_4EA307C86E0356016F55ED2F1518661D5Label_appliedKerningAdjustment;
+  *v8 = 0;
+  v8[8] = 1;
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtCC5UIKit12_UITabButtonP33_4EA307C86E0356016F55ED2F1518661D5Label_widthForKerningAdjustment) = 0;
-  v9.receiver = self;
-  v9.super_class = type metadata accessor for _UITabButton.Label();
-  return [(UILabel *)&v9 initWithFrame:x, y, width, height];
+  type metadata accessor for _UITabButton.Label();
+  v11.receiver = self;
+  v11.super_class = v9;
+  return [(UILabel *)&v11 initWithFrame:x, y, width, height];
 }
 
 - (_TtCC5UIKit12_UITabButtonP33_4EA307C86E0356016F55ED2F1518661D5Label)initWithCoder:(id)coder
 {
-  v4 = self + OBJC_IVAR____TtCC5UIKit12_UITabButtonP33_4EA307C86E0356016F55ED2F1518661D5Label_appliedKerningAdjustment;
-  *v4 = 0;
-  v4[8] = 1;
+  v5 = self + OBJC_IVAR____TtCC5UIKit12_UITabButtonP33_4EA307C86E0356016F55ED2F1518661D5Label_appliedKerningAdjustment;
+  *v5 = 0;
+  v5[8] = 1;
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtCC5UIKit12_UITabButtonP33_4EA307C86E0356016F55ED2F1518661D5Label_widthForKerningAdjustment) = 0;
-  v8.receiver = self;
-  v8.super_class = type metadata accessor for _UITabButton.Label();
+  type metadata accessor for _UITabButton.Label();
+  v10.receiver = self;
+  v10.super_class = v6;
   coderCopy = coder;
-  v6 = [(UILabel *)&v8 initWithCoder:coderCopy];
+  v8 = [(UILabel *)&v10 initWithCoder:coderCopy];
 
-  if (v6)
+  if (v8)
   {
   }
 
-  return v6;
+  return v8;
 }
 
 @end

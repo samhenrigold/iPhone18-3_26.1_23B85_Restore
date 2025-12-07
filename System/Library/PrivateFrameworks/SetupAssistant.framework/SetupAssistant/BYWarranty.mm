@@ -15,47 +15,46 @@
 
 + (void)acknowledge
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v10 = 0;
-  domain = [defaultManager removeItemAtPath:@"/var/mobile/Media/iTunes_Control/iTunes/ShowWarranty" error:&v10];
-  v4 = v10;
+  v12 = 0;
+  domain = [defaultManager removeItemAtPath:@"/var/mobile/Media/iTunes_Control/iTunes/ShowWarranty" error:&v12];
+  v4 = v12;
 
   if ((domain & 1) == 0)
   {
-    v5 = _BYLoggingFacility();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _BYLoggingFacility(v5);
+    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
+    if (v7)
     {
-      if (_BYIsInternalInstall())
+      if (_BYIsInternalInstall(v7, v8))
       {
-        v7 = 0;
-        v8 = v4;
+        v9 = 0;
+        v10 = v4;
       }
 
       else if (v4)
       {
-        v9 = MEMORY[0x1E696AEC0];
+        v11 = MEMORY[0x1E696AEC0];
         domain = [v4 domain];
-        v8 = [v9 stringWithFormat:@"<Error domain: %@, code %ld>", domain, objc_msgSend(v4, "code")];
-        v7 = 1;
+        v10 = [v11 stringWithFormat:@"<Error domain: %@, code %ld>", domain, objc_msgSend(v4, "code")];
+        v9 = 1;
       }
 
       else
       {
-        v7 = 0;
-        v8 = 0;
+        v9 = 0;
+        v10 = 0;
       }
 
       *buf = 138543362;
-      v12 = v8;
-      _os_log_error_impl(&dword_1B862F000, v5, OS_LOG_TYPE_ERROR, "Failed to remove warranty sentinel: %{public}@", buf, 0xCu);
-      if (v7)
+      v14 = v10;
+      _os_log_error_impl(&dword_1B862F000, v6, OS_LOG_TYPE_ERROR, "Failed to remove warranty sentinel: %{public}@", buf, 0xCu);
+      if (v9)
       {
       }
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

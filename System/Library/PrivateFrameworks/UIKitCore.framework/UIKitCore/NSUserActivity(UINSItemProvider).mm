@@ -81,7 +81,7 @@ LABEL_5:
   v7 = a4;
   if (v7)
   {
-    if (([v6 isEqualToString:@"com.apple.uikit.useractivity"] & 1) != 0 || objc_msgSend(v6, "isEqualToString:", @"com.apple.uikit.scene"))
+    if ((objc_msgSend_isEqualToString_(v6) & 1) != 0 || objc_msgSend_isEqualToString_(v6))
     {
       selfCopy = self;
       v9 = v7;

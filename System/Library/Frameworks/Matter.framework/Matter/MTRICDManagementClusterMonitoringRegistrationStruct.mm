@@ -42,8 +42,8 @@
   clientType = [(MTRICDManagementClusterMonitoringRegistrationStruct *)self clientType];
   [(MTRICDManagementClusterMonitoringRegistrationStruct *)v4 setClientType:clientType];
 
-  fabricIndex = [(MTRICDManagementClusterMonitoringRegistrationStruct *)self fabricIndex];
-  [(MTRICDManagementClusterMonitoringRegistrationStruct *)v4 setFabricIndex:fabricIndex];
+  v8 = objc_msgSend_fabricIndex(self);
+  [(MTRICDManagementClusterMonitoringRegistrationStruct *)v4 setFabricIndex:v8];
 
   return v4;
 }

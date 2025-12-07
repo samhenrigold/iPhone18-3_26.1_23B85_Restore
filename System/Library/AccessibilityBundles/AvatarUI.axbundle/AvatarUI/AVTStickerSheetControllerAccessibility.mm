@@ -20,11 +20,11 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v21 = *MEMORY[0x29EDCA608];
-  v19.receiver = self;
-  v19.super_class = AVTStickerSheetControllerAccessibility;
-  [(AVTStickerSheetControllerAccessibility *)&v19 _accessibilityLoadAccessibilityInformation];
-  v18 = 0;
+  v20 = *MEMORY[0x29EDCA608];
+  v18.receiver = self;
+  v18.super_class = AVTStickerSheetControllerAccessibility;
+  [(AVTStickerSheetControllerAccessibility *)&v18 _accessibilityLoadAccessibilityInformation];
+  v17 = 0;
   objc_opt_class();
   v3 = [(AVTStickerSheetControllerAccessibility *)self safeValueForKey:@"collectionView"];
   v4 = __UIAccessibilityCastAsClass();
@@ -32,37 +32,35 @@
   v5 = accessibilityLocalizedString(@"collection.stickers.label");
   [v4 setAccessibilityLabel:v5];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   visibleCells = [v4 visibleCells];
-  v7 = [visibleCells countByEnumeratingWithState:&v14 objects:v20 count:16];
+  v7 = [visibleCells countByEnumeratingWithState:&v13 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(visibleCells);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
+        v11 = *(*(&v13 + 1) + 8 * i);
         v12 = [v4 indexPathForCell:v11];
         [(AVTStickerSheetControllerAccessibility *)self _axMarkupCell:v11 indexPath:v12];
       }
 
-      v8 = [visibleCells countByEnumeratingWithState:&v14 objects:v20 count:16];
+      v8 = [visibleCells countByEnumeratingWithState:&v13 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x29EDCA608];
 }
 
 - (id)collectionView:(id)view cellForItemAtIndexPath:(id)path

@@ -6,7 +6,7 @@
 
 + (id)hk_HTTPErrorRepresentingResponse:()HKHTTP request:
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   if ([v7 statusCode] < 100 || objc_msgSend(v7, "statusCode") >= 400)
@@ -29,10 +29,10 @@
       capitalizedString = @"Invalid Status Code";
     }
 
-    v21 = *MEMORY[0x1E696A578];
+    v20 = *MEMORY[0x1E696A578];
     v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%ld %@", objc_msgSend(v7, "statusCode"), capitalizedString];
-    v22[0] = v12;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v21[0] = v12;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
     v14 = [v13 mutableCopy];
 
     if (v8)
@@ -56,8 +56,6 @@
   {
     v9 = 0;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

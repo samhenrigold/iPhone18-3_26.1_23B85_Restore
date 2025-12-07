@@ -41,10 +41,11 @@
 - (_TtC21HearingModeSettingsUI20HMHearingTestService)init
 {
   v3 = OBJC_IVAR____TtC21HearingModeSettingsUI20HMHearingTestService_enrollmentViewController;
-  *(&self->super.isa + v3) = [objc_allocWithZone(MEMORY[0x277D75D28]) init];
-  v5.receiver = self;
-  v5.super_class = type metadata accessor for HMHearingTestService();
-  return [(HMHearingTestService *)&v5 init];
+  v4 = [objc_allocWithZone(MEMORY[0x277D75D28]) init];
+  *(&self->super.isa + v3) = v4;
+  v7.receiver = self;
+  v7.super_class = type metadata accessor for HMHearingTestService(v4, v5);
+  return [(HMHearingTestService *)&v7 init];
 }
 
 @end

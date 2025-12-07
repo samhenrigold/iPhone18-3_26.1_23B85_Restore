@@ -12,18 +12,18 @@
 
 - (GKSimpleTimer)init
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v8.receiver = self;
-  v8.super_class = GKSimpleTimer;
-  v2 = [(GKSimpleTimer *)&v8 init];
+  v17 = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = GKSimpleTimer;
+  v2 = [(GKSimpleTimer *)&v7 init];
   if (v2)
   {
-    v17.__sig = 0xAAAAAAAAAAAAAAAALL;
-    *v17.__opaque = 0xAAAAAAAAAAAAAAAALL;
-    pthread_mutexattr_init(&v17);
-    pthread_mutexattr_settype(&v17, 2);
-    pthread_mutex_init(&v2->_lock, &v17);
-    pthread_mutexattr_destroy(&v17);
+    v16.__sig = 0xAAAAAAAAAAAAAAAALL;
+    *v16.__opaque = 0xAAAAAAAAAAAAAAAALL;
+    pthread_mutexattr_init(&v16);
+    pthread_mutexattr_settype(&v16, 2);
+    pthread_mutex_init(&v2->_lock, &v16);
+    pthread_mutexattr_destroy(&v16);
     if (VRTraceGetErrorLogLevelForModule() >= 8)
     {
       v3 = VRTraceErrorLogLevelToCSTR();
@@ -34,13 +34,13 @@
         if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315906;
-          v10 = v3;
-          v11 = 2080;
-          v12 = "[GKSimpleTimer init]";
-          v13 = 1024;
-          v14 = 34;
-          v15 = 2048;
-          v16 = v2;
+          v9 = v3;
+          v10 = 2080;
+          v11 = "[GKSimpleTimer init]";
+          v12 = 1024;
+          v13 = 34;
+          v14 = 2048;
+          v15 = v2;
           _os_log_impl(&dword_24E50C000, v4, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d [%p] simpletimer set up", buf, 0x26u);
         }
       }
@@ -52,7 +52,6 @@
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -72,7 +71,7 @@
 
 - (void)setDelegate:(id)delegate
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   pthread_mutex_lock(&self->_lock);
   self->_delegate = delegate;
   if (VRTraceGetErrorLogLevelForModule() >= 7)
@@ -81,27 +80,26 @@
     v6 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136316162;
-      v9 = v5;
-      v10 = 2080;
-      v11 = "[GKSimpleTimer setDelegate:]";
-      v12 = 1024;
-      v13 = 48;
-      v14 = 2048;
+      v7 = 136316162;
+      v8 = v5;
+      v9 = 2080;
+      v10 = "[GKSimpleTimer setDelegate:]";
+      v11 = 1024;
+      v12 = 48;
+      v13 = 2048;
       selfCopy = self;
-      v16 = 2048;
+      v15 = 2048;
       delegateCopy = delegate;
-      _os_log_impl(&dword_24E50C000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d [%p] simpletimer setDelegate: [%p]", &v8, 0x30u);
+      _os_log_impl(&dword_24E50C000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d [%p] simpletimer setDelegate: [%p]", &v7, 0x30u);
     }
   }
 
   pthread_mutex_unlock(&self->_lock);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setTimer:(double)timer
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v4 = self->_interval - (timer - self->_startTime);
   if (VRTraceGetErrorLogLevelForModule() >= 8)
   {
@@ -112,33 +110,33 @@
     {
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 136316162;
-        v15 = v5;
-        v16 = 2080;
-        v17 = "[GKSimpleTimer setTimer:]";
-        v18 = 1024;
-        v19 = 53;
-        v20 = 2048;
+        v13 = 136316162;
+        v14 = v5;
+        v15 = 2080;
+        v16 = "[GKSimpleTimer setTimer:]";
+        v17 = 1024;
+        v18 = 53;
+        v19 = 2048;
         selfCopy2 = self;
-        v22 = 2048;
-        v23 = v4;
-        _os_log_impl(&dword_24E50C000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d [%p] simpletimer set timer: [%.3lf]", &v14, 0x30u);
+        v21 = 2048;
+        v22 = v4;
+        _os_log_impl(&dword_24E50C000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d [%p] simpletimer set timer: [%.3lf]", &v13, 0x30u);
       }
     }
 
     else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v14 = 136316162;
-      v15 = v5;
-      v16 = 2080;
-      v17 = "[GKSimpleTimer setTimer:]";
-      v18 = 1024;
-      v19 = 53;
-      v20 = 2048;
+      v13 = 136316162;
+      v14 = v5;
+      v15 = 2080;
+      v16 = "[GKSimpleTimer setTimer:]";
+      v17 = 1024;
+      v18 = 53;
+      v19 = 2048;
       selfCopy2 = self;
-      v22 = 2048;
-      v23 = v4;
-      _os_log_debug_impl(&dword_24E50C000, v6, OS_LOG_TYPE_DEBUG, " [%s] %s:%d [%p] simpletimer set timer: [%.3lf]", &v14, 0x30u);
+      v21 = 2048;
+      v22 = v4;
+      _os_log_debug_impl(&dword_24E50C000, v6, OS_LOG_TYPE_DEBUG, " [%s] %s:%d [%p] simpletimer set timer: [%.3lf]", &v13, 0x30u);
     }
   }
 
@@ -163,7 +161,6 @@
   v12 = dispatch_time(0, (v9 * 1000000000.0));
   dispatch_source_set_timer(timerSource, v12, 0xFFFFFFFFFFFFFFFFLL, (v10 * 1000000000.0));
   self->_timerSourceSet = 1;
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fireIn:(double)in fromNow:(double)now
@@ -210,61 +207,59 @@ LABEL_8:
 
 uint64_t __32__GKSimpleTimer_fireIn_fromNow___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
-  pthread_mutex_lock((*(a1 + 32) + 8));
+  v30 = *MEMORY[0x277D85DE8];
+  v2 = pthread_mutex_lock((*(a1 + 32) + 8));
   *(*(a1 + 32) + 104) = 0;
-  v2 = micro();
-  v3 = v2 - *(*(a1 + 32) + 88);
+  v4 = micro(v2, v3);
+  v5 = v4 - *(*(a1 + 32) + 88);
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    v4 = VRTraceErrorLogLevelToCSTR();
-    v5 = *MEMORY[0x277CE5818];
+    v6 = VRTraceErrorLogLevelToCSTR();
+    v7 = *MEMORY[0x277CE5818];
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 32);
-      v8 = v6[11];
-      v7 = v6[12];
-      v9 = v6[10];
-      v13 = 136316930;
-      v14 = v4;
-      v15 = 2080;
-      v16 = "[GKSimpleTimer fireIn:fromNow:]_block_invoke";
-      v17 = 1024;
-      v18 = 81;
-      v19 = 2048;
-      v20 = v6;
-      v21 = 2048;
-      v22 = v8;
-      v23 = 2048;
-      v24 = v3;
-      v25 = 2048;
-      v26 = v7;
-      v27 = 2048;
-      v28 = v9;
-      _os_log_impl(&dword_24E50C000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d [%p] simpletimer fires? start[%.3lf] elapsed[%.3lf] fireIn[%.3lf] delegate=%p", &v13, 0x4Eu);
+      v8 = *(a1 + 32);
+      v10 = v8[11];
+      v9 = v8[12];
+      v11 = v8[10];
+      v14 = 136316930;
+      v15 = v6;
+      v16 = 2080;
+      v17 = "[GKSimpleTimer fireIn:fromNow:]_block_invoke";
+      v18 = 1024;
+      v19 = 81;
+      v20 = 2048;
+      v21 = v8;
+      v22 = 2048;
+      v23 = v10;
+      v24 = 2048;
+      v25 = v5;
+      v26 = 2048;
+      v27 = v9;
+      v28 = 2048;
+      v29 = v11;
+      _os_log_impl(&dword_24E50C000, v7, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d [%p] simpletimer fires? start[%.3lf] elapsed[%.3lf] fireIn[%.3lf] delegate=%p", &v14, 0x4Eu);
     }
   }
 
-  v10 = *(a1 + 32);
-  if (v3 <= *(v10 + 96))
+  v12 = *(a1 + 32);
+  if (v5 <= *(v12 + 96))
   {
-    [v10 setTimer:v2];
+    [v12 setTimer:v4];
   }
 
-  else if (*(v10 + 88) != 0.0 && *(v10 + 80))
+  else if (*(v12 + 88) != 0.0 && *(v12 + 80))
   {
-    *(v10 + 88) = 0;
+    *(v12 + 88) = 0;
     [*(*(a1 + 32) + 80) timeout:*(a1 + 32)];
   }
 
-  result = pthread_mutex_unlock((*(a1 + 32) + 8));
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return pthread_mutex_unlock((*(a1 + 32) + 8));
 }
 
 - (void)invalidate
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   pthread_mutex_lock(&self->_lock);
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
@@ -273,17 +268,17 @@ uint64_t __32__GKSimpleTimer_fireIn_fromNow___block_invoke(uint64_t a1)
     if (os_log_type_enabled(*MEMORY[0x277CE5818], OS_LOG_TYPE_DEFAULT))
     {
       timerSource = self->_timerSource;
-      v8 = 136316162;
-      v9 = v3;
-      v10 = 2080;
-      v11 = "[GKSimpleTimer invalidate]";
-      v12 = 1024;
-      v13 = 107;
-      v14 = 2048;
+      v7 = 136316162;
+      v8 = v3;
+      v9 = 2080;
+      v10 = "[GKSimpleTimer invalidate]";
+      v11 = 1024;
+      v12 = 107;
+      v13 = 2048;
       selfCopy = self;
-      v16 = 2048;
-      v17 = timerSource;
-      _os_log_impl(&dword_24E50C000, v4, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d [%p] simpletimer invalidate (source=%p)", &v8, 0x30u);
+      v15 = 2048;
+      v16 = timerSource;
+      _os_log_impl(&dword_24E50C000, v4, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d [%p] simpletimer invalidate (source=%p)", &v7, 0x30u);
     }
   }
 
@@ -297,22 +292,20 @@ uint64_t __32__GKSimpleTimer_fireIn_fromNow___block_invoke(uint64_t a1)
   self->_delegate = 0;
   self->_startTime = 0.0;
   pthread_mutex_unlock(&self->_lock);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)init
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v4 = 136315906;
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = 136315906;
   selfCopy = self;
-  v6 = 2080;
-  v7 = "[GKSimpleTimer init]";
-  v8 = 1024;
-  v9 = 34;
-  v10 = 2048;
-  v11 = a2;
-  _os_log_debug_impl(&dword_24E50C000, log, OS_LOG_TYPE_DEBUG, " [%s] %s:%d [%p] simpletimer set up", &v4, 0x26u);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = 2080;
+  v6 = "[GKSimpleTimer init]";
+  v7 = 1024;
+  v8 = 34;
+  v9 = 2048;
+  v10 = a2;
+  _os_log_debug_impl(&dword_24E50C000, log, OS_LOG_TYPE_DEBUG, " [%s] %s:%d [%p] simpletimer set up", &v3, 0x26u);
 }
 
 @end

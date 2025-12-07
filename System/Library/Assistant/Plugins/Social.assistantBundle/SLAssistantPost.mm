@@ -478,13 +478,12 @@ LABEL_24:
 
 - (void)_processResponseFromServiceWithHandler:(id)handler
 {
-  delegate = self->_delegate;
-  v6 = objc_opt_class();
+  v5 = objc_opt_class();
   accountCredentialsVerified = self->_accountCredentialsVerified;
   locationSettingAllowed = self->_locationSettingAllowed;
   awaitingAccountCredentialVerification = self->_awaitingAccountCredentialVerification;
   awaitingLocationSettingStatus = self->_awaitingLocationSettingStatus;
-  v10 = v6;
+  v9 = v5;
   _SLLog();
   if (self->_awaitingLocationSettingStatus || self->_awaitingAccountCredentialVerification)
   {
@@ -493,23 +492,23 @@ LABEL_24:
 
   if (!self->_accountCredentialsVerified)
   {
-    v8 = &SAMicroblogMicroblogLoginFailedErrorCode;
+    v7 = &SAMicroblogMicroblogLoginFailedErrorCode;
 LABEL_9:
-    locationSettingAllowed = [SACommandFailed commandFailedWithErrorCode:*v8, v10, awaitingAccountCredentialVerification, awaitingLocationSettingStatus, accountCredentialsVerified, locationSettingAllowed];
+    locationSettingAllowed = [SACommandFailed commandFailedWithErrorCode:*v7, v9, awaitingAccountCredentialVerification, awaitingLocationSettingStatus, accountCredentialsVerified, locationSettingAllowed];
     goto LABEL_10;
   }
 
   if (self->_assistantWantsLocation && !self->_locationSettingAllowed)
   {
-    v8 = &SAMicroblogMicroblogLocationDisabledFromProviderErrorCode;
+    v7 = &SAMicroblogMicroblogLocationDisabledFromProviderErrorCode;
     goto LABEL_9;
   }
 
   locationSettingAllowed = 0;
 LABEL_10:
-  v9 = *(handler + 2);
+  v8 = *(handler + 2);
 
-  v9(handler, locationSettingAllowed);
+  v8(handler, locationSettingAllowed);
 }
 
 - (void)_makeLocationSwitchVisible

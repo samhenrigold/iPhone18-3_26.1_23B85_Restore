@@ -1,6 +1,7 @@
 @interface PCSupportRequester
 - (PCSupportRequester)init;
 - (id)fetchGenderAndAgeGroupData;
+- (void)addClientToSegments:(id)segments replaceExisting:(BOOL)existing privateSegment:(BOOL)segment;
 - (void)connectionInterrupted;
 - (void)connectionInvalidated;
 - (void)fetchConfigurationForClass:(id)class completion:(id)completion;
@@ -49,6 +50,18 @@
   {
     *v3 = 0;
     _os_log_impl(&dword_260F1D000, v2, OS_LOG_TYPE_INFO, "Connection to PCSupport in Daemon was invalidated.", v3, 2u);
+  }
+}
+
+- (void)addClientToSegments:(id)segments replaceExisting:(BOOL)existing privateSegment:(BOOL)segment
+{
+  segmentCopy = segment;
+  existingCopy = existing;
+  segmentsCopy = segments;
+  if ([segmentsCopy count] || existingCopy)
+  {
+    remoteObjectProxy = [(APXPCActionRequester *)self remoteObjectProxy];
+    [remoteObjectProxy addClientToSegments:segmentsCopy replaceExisting:existingCopy privateSegment:segmentCopy];
   }
 }
 

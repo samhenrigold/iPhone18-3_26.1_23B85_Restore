@@ -98,29 +98,29 @@
 
 - (void)evaluateWithGroundTruthResults:(id)results andInferenceResults:(id)inferenceResults
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   inferenceResultsCopy = inferenceResults;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   allKeys = [resultsCopy allKeys];
-  v9 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
+        v13 = *(*(&v17 + 1) + 8 * i);
         v14 = [inferenceResultsCopy objectForKeyedSubscript:v13];
         if (v14)
         {
@@ -131,13 +131,11 @@
         }
       }
 
-      v10 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [allKeys countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (PGPrecisionRecallEvaluation)initWithIdentifier:(id)identifier category:(id)category truePositives:(unint64_t)positives falsePositives:(unint64_t)falsePositives falseNegatives:(unint64_t)negatives trueNegatives:(unint64_t)trueNegatives

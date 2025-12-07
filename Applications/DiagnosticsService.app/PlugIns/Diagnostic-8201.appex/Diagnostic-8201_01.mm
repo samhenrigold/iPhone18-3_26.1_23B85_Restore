@@ -2934,7 +2934,7 @@ LABEL_35:
   return v12;
 }
 
-uint64_t getDummy0PSDData(void *a1, void *a2)
+uint64_t getDummy0PSDData(void *a1, uint64_t *a2)
 {
   if (qword_10003CBC8 != -1)
   {
@@ -3177,10 +3177,11 @@ void sub_10001D37C(id a1)
   objc_storeStrong(&__osLogPearlLibTrace, v3);
 }
 
-void sub_10001D538(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint8_t buf)
+void sub_10001D538(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
 
-  _os_log_impl(a1, v15, OS_LOG_TYPE_DEFAULT, a4, &buf, 0x30u);
+  _os_log_impl(a1, v14, OS_LOG_TYPE_DEFAULT, a4, va, 0x30u);
 }
 
 BOOL sub_10001D558@<W0>(NSObject *a1@<X8>)
@@ -3198,10 +3199,11 @@ BOOL sub_10001D558@<W0>(NSObject *a1@<X8>)
   return os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 }
 
-void sub_10001D578(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint8_t buf)
+void sub_10001D578(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
 
-  _os_log_impl(a1, v15, OS_LOG_TYPE_DEFAULT, a4, &buf, 0x30u);
+  _os_log_impl(a1, v14, OS_LOG_TYPE_DEFAULT, a4, va, 0x30u);
 }
 
 BOOL sub_10001D598@<W0>(NSObject *a1@<X8>)
@@ -3219,10 +3221,11 @@ BOOL sub_10001D598@<W0>(NSObject *a1@<X8>)
   return os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 }
 
-void sub_10001D60C(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint8_t buf)
+void sub_10001D60C(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
 
-  _os_log_impl(a1, v15, OS_LOG_TYPE_DEFAULT, a4, &buf, 0x30u);
+  _os_log_impl(a1, v14, OS_LOG_TYPE_DEFAULT, a4, va, 0x30u);
 }
 
 BOOL sub_10001D62C@<W0>(NSObject *a1@<X8>)
@@ -3261,10 +3264,11 @@ BOOL sub_10001D6FC@<W0>(NSObject *a1@<X8>)
   return os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 }
 
-void sub_10001D7C8(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint8_t buf)
+void sub_10001D7C8(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
 
-  _os_log_impl(a1, v15, OS_LOG_TYPE_ERROR, a4, &buf, 8u);
+  _os_log_impl(a1, v14, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
 BOOL sub_10001D7E8@<W0>(NSObject *a1@<X8>)

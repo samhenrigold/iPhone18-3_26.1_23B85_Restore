@@ -68,21 +68,21 @@
   {
     self->_state.prevTouchMode = touchMode;
     self->_state.touchMode = touchMode;
-    v7 = MTLoggingPlugin();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = MTLoggingPlugin(touchMode, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = self->_state.touchMode;
+      v9 = self->_state.touchMode;
       *buf = 67109120;
-      v11 = v8;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Setting touch mode: 0x%x", buf, 8u);
+      v12 = v9;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Setting touch mode: 0x%x", buf, 8u);
     }
 
     [(HSTFirmwareManager *)self _setEnabledInputsReport];
   }
 
-  v9.receiver = self;
-  v9.super_class = HSTFirmwareManager;
-  [(HSStage *)&v9 handleConsume:eventCopy];
+  v10.receiver = self;
+  v10.super_class = HSTFirmwareManager;
+  [(HSStage *)&v10 handleConsume:eventCopy];
 }
 
 - (void)_handleScreenOrientationEvent:(id)event
@@ -93,10 +93,10 @@
   {
     self->_state.screenOrientation = screenOrientation;
     deviceObj = self->_deviceObj;
-    v8 = -99;
-    v9 = screenOrientation;
-    memset(v10, 0, sizeof(v10));
-    setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostNotificationControl>(deviceObj);
+    v8[0] = -99;
+    v8[1] = screenOrientation;
+    memset(&v8[2], 0, 7);
+    setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostNotificationControl>(deviceObj, v8);
     [(HSTFirmwareManager *)self _setEnabledInputsReport];
   }
 
@@ -112,59 +112,59 @@
   if (self->_state.stockholmState != stockholmState)
   {
     self->_state.stockholmState = stockholmState;
-    v6 = MTLoggingPlugin();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = MTLoggingPlugin(stockholmState, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = "Inactive";
+      v8 = "Inactive";
       if (self->_state.stockholmState == 1)
       {
-        v7 = "Active";
+        v8 = "Active";
       }
 
       if (self->_state.stockholmState)
       {
-        v8 = v7;
+        v9 = v8;
       }
 
       else
       {
-        v8 = "Unknown";
+        v9 = "Unknown";
       }
 
       *buf = 136446210;
-      v15 = v8;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Setting stockholm state: %{public}s", buf, 0xCu);
+      v16 = v9;
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Setting stockholm state: %{public}s", buf, 0xCu);
     }
 
     deviceObj = self->_deviceObj;
     stockholmState = self->_state.stockholmState;
     if (stockholmState == 1)
     {
-      v11 = 5;
+      v12 = 5;
     }
 
     else
     {
-      v11 = 7;
+      v12 = 7;
     }
 
     if (stockholmState == 2)
     {
-      v12 = 6;
+      v13 = 6;
     }
 
     else
     {
-      v12 = v11;
+      v13 = v12;
     }
 
-    *buf = (v12 << 8) | 0x70;
-    setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostEvent>(deviceObj);
+    *buf = (v13 << 8) | 0x70;
+    setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostEvent>(deviceObj, buf);
   }
 
-  v13.receiver = self;
-  v13.super_class = HSTFirmwareManager;
-  [(HSStage *)&v13 handleConsume:eventCopy];
+  v14.receiver = self;
+  v14.super_class = HSTFirmwareManager;
+  [(HSStage *)&v14 handleConsume:eventCopy];
 }
 
 - (void)_handleWirelessChargingStateEvent:(id)event
@@ -174,74 +174,75 @@
   if (self->_state.wirelessChargingState != wirelessChargingState)
   {
     self->_state.wirelessChargingState = wirelessChargingState;
-    v6 = MTLoggingPlugin();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = MTLoggingPlugin(wirelessChargingState, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       if (self->_state.wirelessChargingState == 1)
       {
-        v7 = "Detected";
+        v8 = "Detected";
       }
 
       else
       {
-        v7 = "NotDetected";
+        v8 = "NotDetected";
       }
 
       *buf = 136446210;
-      v12 = v7;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Setting wireless charging state: %{public}s", buf, 0xCu);
+      v13 = v8;
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Setting wireless charging state: %{public}s", buf, 0xCu);
     }
 
     deviceObj = self->_deviceObj;
     if (self->_state.wirelessChargingState == 1)
     {
-      v9 = 5232;
+      v10 = 5232;
     }
 
     else
     {
-      v9 = 5488;
+      v10 = 5488;
     }
 
-    *buf = v9;
-    setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostEvent>(deviceObj);
+    *buf = v10;
+    setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostEvent>(deviceObj, buf);
   }
 
-  v10.receiver = self;
-  v10.super_class = HSTFirmwareManager;
-  [(HSStage *)&v10 handleConsume:eventCopy];
+  v11.receiver = self;
+  v11.super_class = HSTFirmwareManager;
+  [(HSStage *)&v11 handleConsume:eventCopy];
 }
 
 - (void)_handleProxClearedAfterOccludedWakeEvent:(id)event
 {
   eventCopy = event;
-  if ([(HSTFirmwareManager *)self _isSleeping])
+  _isSleeping = [(HSTFirmwareManager *)self _isSleeping];
+  if (_isSleeping)
   {
-    v5 = MTLoggingPlugin();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = MTLoggingPlugin(_isSleeping, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Ignoring prox clear while sleeping", buf, 2u);
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Ignoring prox clear while sleeping", buf, 2u);
     }
   }
 
   else
   {
-    v6 = MTLoggingPlugin();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = MTLoggingPlugin(_isSleeping, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Prox cleared after occluded wake", buf, 2u);
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Prox cleared after occluded wake", buf, 2u);
     }
 
     deviceObj = self->_deviceObj;
     *buf = 6768;
-    setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostEvent>(deviceObj);
+    setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostEvent>(deviceObj, buf);
   }
 
-  v8.receiver = self;
-  v8.super_class = HSTFirmwareManager;
-  [(HSStage *)&v8 handleConsume:eventCopy];
+  v10.receiver = self;
+  v10.super_class = HSTFirmwareManager;
+  [(HSStage *)&v10 handleConsume:eventCopy];
 }
 
 - (void)_handleUSBChargingStateEvent:(id)event
@@ -260,42 +261,42 @@
   if (self->_state.stuckTouchDetectorState != stuckTouchDetectorState)
   {
     self->_state.stuckTouchDetectorState = stuckTouchDetectorState;
-    v6 = MTLoggingPlugin();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = MTLoggingPlugin(stuckTouchDetectorState, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       if (self->_state.stuckTouchDetectorState == 1)
       {
-        v7 = "Disabled";
+        v8 = "Disabled";
       }
 
       else
       {
-        v7 = "Enabled";
+        v8 = "Enabled";
       }
 
       *buf = 136446210;
-      v12 = v7;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Setting stuck touch detector state: %{public}s", buf, 0xCu);
+      v13 = v8;
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Setting stuck touch detector state: %{public}s", buf, 0xCu);
     }
 
     deviceObj = self->_deviceObj;
     if (self->_state.stuckTouchDetectorState)
     {
-      v9 = -24208;
+      v10 = -24208;
     }
 
     else
     {
-      v9 = -24464;
+      v10 = -24464;
     }
 
-    *buf = v9;
-    setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostEvent>(deviceObj);
+    *buf = v10;
+    setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostEvent>(deviceObj, buf);
   }
 
-  v10.receiver = self;
-  v10.super_class = HSTFirmwareManager;
-  [(HSStage *)&v10 handleConsume:eventCopy];
+  v11.receiver = self;
+  v11.super_class = HSTFirmwareManager;
+  [(HSStage *)&v11 handleConsume:eventCopy];
 }
 
 - (void)_setEnabledInputsReport
@@ -303,34 +304,35 @@
   p_state = &self->_state;
   EnabledInputsReport = createEnabledInputsReport(self->_state.touchMode, self->_state.screenOrientation);
   v5 = HIDWORD(EnabledInputsReport);
-  LOBYTE(v18) = HIBYTE(EnabledInputsReport);
-  HIBYTE(v18) = v6;
-  LOBYTE(v17) = BYTE3(EnabledInputsReport);
-  HIBYTE(v17) = BYTE4(EnabledInputsReport);
-  v7 = [NSString stringWithFormat:@"Setting enabled input report: Awake 0x%04X 0x%04X", (EnabledInputsReport >> 8), v17];
+  *v20 = EnabledInputsReport;
+  v20[8] = v6;
+  *v19 = EnabledInputsReport;
+  v19[4] = BYTE4(EnabledInputsReport);
+  v7 = [NSString stringWithFormat:@"Setting enabled input report: Awake 0x%04X 0x%04X", (EnabledInputsReport >> 8), *&v19[3]];
   v8 = v7;
   if (p_state->poweredWhenScreenOff)
   {
-    v9 = [v7 stringByAppendingFormat:@", Alseep 0x%04X 0x%04X", (v5 >> 8), v18];
+    v9 = [v7 stringByAppendingFormat:@", Alseep 0x%04X 0x%04X", (v5 >> 8), *&v20[7]];
 
     if (!self->_deviceObj)
     {
-      v13 = +[NSAssertionHandler currentHandler];
-      v14 = [NSString stringWithUTF8String:"void setReport(MTDeviceRef, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::EnabledInputs::AwakeAsleep]"];
-      [v13 handleFailureInFunction:v14 file:@"HSTFirmwareManager.mm" lineNumber:200 description:{@"Invalid parameter not satisfying: %@", @"device"}];
-
       v15 = +[NSAssertionHandler currentHandler];
-      v16 = [NSString stringWithUTF8String:"IOReturn HSTPipeline::FirmwareUtil::SetReport(MTDeviceRef _Nonnull, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::EnabledInputs::AwakeAsleep]"];
-      [v15 handleFailureInFunction:v16 file:@"FirmwareUtil.h" lineNumber:9 description:{@"Invalid parameter not satisfying: %@", @"device"}];
+      v16 = [NSString stringWithUTF8String:"void setReport(MTDeviceRef, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::EnabledInputs::AwakeAsleep]"];
+      [v15 handleFailureInFunction:v16 file:@"HSTFirmwareManager.mm" lineNumber:200 description:{@"Invalid parameter not satisfying: %@", @"device"}];
+
+      v17 = +[NSAssertionHandler currentHandler];
+      v18 = [NSString stringWithUTF8String:"IOReturn HSTPipeline::FirmwareUtil::SetReport(MTDeviceRef _Nonnull, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::EnabledInputs::AwakeAsleep]"];
+      [v17 handleFailureInFunction:v18 file:@"FirmwareUtil.h" lineNumber:9 description:{@"Invalid parameter not satisfying: %@", @"device"}];
     }
 
     v10 = MTDeviceSetReport();
+    v12 = v10;
     if (v10)
     {
-      v11 = MTLoggingPlugin();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = MTLoggingPlugin(v10, v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        mach_error_string(v10);
+        mach_error_string(v12);
         setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostNotificationControl>();
       }
     }
@@ -340,34 +342,102 @@
 
   else
   {
-    setReport<HSTPipeline::FirmwareInterface::FeatureReport::EnabledInputs::Awake>(self->_deviceObj);
+    setReport<HSTPipeline::FirmwareInterface::FeatureReport::EnabledInputs::Awake>(self->_deviceObj, v19);
   }
 
-  v12 = MTLoggingPlugin();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v14 = MTLoggingPlugin(v10, v11);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v20 = v8;
-    _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
+    v22 = v8;
+    _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
   }
 }
 
 - (void)_restoreFirmwareState
 {
   [(HSTFirmwareManager *)self _setEnabledInputsReport];
-  setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostNotificationControl>(self->_deviceObj);
-  setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostEvent>(self->_deviceObj);
-  setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostEvent>(self->_deviceObj);
-  setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostEvent>(self->_deviceObj);
-  setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostEvent>(self->_deviceObj);
+  deviceObj = self->_deviceObj;
+  LOBYTE(v16) = -99;
+  HIBYTE(v16) = self->_state.screenOrientation;
+  v17[0] = 0;
+  *(v17 + 3) = 0;
+  setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostNotificationControl>(deviceObj, &v16);
+  v4 = self->_deviceObj;
+  stockholmState = self->_state.stockholmState;
+  if (stockholmState == 1)
+  {
+    v6 = 5;
+  }
+
+  else
+  {
+    v6 = 7;
+  }
+
+  if (stockholmState == 2)
+  {
+    v7 = 6;
+  }
+
+  else
+  {
+    v7 = v6;
+  }
+
+  v16 = (v7 << 8) | 0x70;
+  setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostEvent>(v4, &v16);
+  v8 = self->_deviceObj;
+  if (self->_state.wirelessChargingState == 1)
+  {
+    v9 = 5232;
+  }
+
+  else
+  {
+    v9 = 5488;
+  }
+
+  v16 = v9;
+  setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostEvent>(v8, &v16);
+  v10 = self->_deviceObj;
+  if (self->_state.usbChargingState == 1)
+  {
+    v11 = 6256;
+  }
+
+  else
+  {
+    v11 = 6512;
+  }
+
+  v16 = v11;
+  setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostEvent>(v10, &v16);
+  v12 = self->_deviceObj;
+  if (self->_state.stuckTouchDetectorState)
+  {
+    v13 = -24208;
+  }
+
+  else
+  {
+    v13 = -24464;
+  }
+
+  v16 = v13;
+  setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostEvent>(v12, &v16);
   if (self->_state.imagesEnabled)
   {
-    setReport<HSTPipeline::FirmwareInterface::FeatureReport::DataMode>(self->_deviceObj);
+    v14 = self->_deviceObj;
+    v16 = 940;
+    setReport<HSTPipeline::FirmwareInterface::FeatureReport::DataMode>(v14, &v16);
   }
 
   if (self->_state.reportAlwaysEnabled)
   {
-    setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostInterruptMode>(self->_deviceObj);
+    v15 = self->_deviceObj;
+    v16 = 7880;
+    setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostInterruptMode>(v15, &v16);
   }
 }
 
@@ -388,38 +458,39 @@
   v7 = NSStringFromClass(v6);
   [v5 setObject:v7 forKeyedSubscript:@"Stage"];
 
-  v16 = -1431655766;
-  v15 = 127;
+  v18 = -1431655766;
+  v17 = 127;
   if (!self->_deviceObj)
   {
-    v10 = +[NSAssertionHandler currentHandler];
-    v11 = [NSString stringWithUTF8String:"IOReturn getReport(MTDeviceRef, T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::CriticalError]"];
-    [v10 handleFailureInFunction:v11 file:@"HSTFirmwareManager.mm" lineNumber:212 description:{@"Invalid parameter not satisfying: %@", @"device"}];
-
     v12 = +[NSAssertionHandler currentHandler];
-    v13 = [NSString stringWithUTF8String:"IOReturn HSTPipeline::FirmwareUtil::GetReport(MTDeviceRef _Nonnull, T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::CriticalError]"];
-    [v12 handleFailureInFunction:v13 file:@"FirmwareUtil.h" lineNumber:17 description:{@"Invalid parameter not satisfying: %@", @"device"}];
+    v13 = [NSString stringWithUTF8String:"IOReturn getReport(MTDeviceRef, T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::CriticalError]"];
+    [v12 handleFailureInFunction:v13 file:@"HSTFirmwareManager.mm" lineNumber:212 description:{@"Invalid parameter not satisfying: %@", @"device"}];
+
+    v14 = +[NSAssertionHandler currentHandler];
+    v15 = [NSString stringWithUTF8String:"IOReturn HSTPipeline::FirmwareUtil::GetReport(MTDeviceRef _Nonnull, T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::CriticalError]"];
+    [v14 handleFailureInFunction:v15 file:@"FirmwareUtil.h" lineNumber:17 description:{@"Invalid parameter not satisfying: %@", @"device"}];
   }
 
-  v17 = 0;
+  v19 = 0;
   Report = MTDeviceGetReport();
+  v10 = Report;
   if (!Report)
   {
-    Report = -536870169;
+    v10 = -536870169;
   }
 
-  v9 = MTLoggingPlugin();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v11 = MTLoggingPlugin(Report, v9);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    mach_error_string(Report);
+    mach_error_string(v10);
     [HSTFirmwareManager _handleGetDebugEvent:];
   }
 
   *(eventCopy + 16) = 1;
   [*(eventCopy + 3) addObject:v5];
-  v14.receiver = self;
-  v14.super_class = HSTFirmwareManager;
-  [(HSStage *)&v14 handleConsume:eventCopy];
+  v16.receiver = self;
+  v16.super_class = HSTFirmwareManager;
+  [(HSStage *)&v16 handleConsume:eventCopy];
 }
 
 - (void)_handleSetReportEvent:(id)event
@@ -432,32 +503,34 @@
 - (void)_handleDriverEvent:(id)event
 {
   eventCopy = event;
-  if ([eventCopy notification] == 5)
+  notification = [eventCopy notification];
+  if (notification == 5)
   {
-    v5 = MTLoggingPlugin();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = MTLoggingPlugin(notification, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Client connected, re-injecting output frames", buf, 2u);
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Client connected, re-injecting output frames", buf, 2u);
     }
 
-    v6 = 1;
+    v8 = 1;
 LABEL_9:
 
-    self->_state.filteredClients = v6;
+    self->_state.filteredClients = v8;
     goto LABEL_10;
   }
 
-  if ([eventCopy notification] == 6)
+  notification2 = [eventCopy notification];
+  if (notification2 == 6)
   {
-    v5 = MTLoggingPlugin();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = MTLoggingPlugin(notification2, v10);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Client disconnected, stop re-injection", v7, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Client disconnected, stop re-injection", v11, 2u);
     }
 
-    v6 = 0;
+    v8 = 0;
     goto LABEL_9;
   }
 
@@ -467,16 +540,17 @@ LABEL_10:
 - (void)_handleHSTFrame:(id)frame
 {
   frameCopy = frame;
+  v5 = frameCopy;
   if (frameCopy)
   {
-    v4 = MTLoggingPlugin();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v6 = MTLoggingPlugin(frameCopy, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      -[HSTFirmwareManager _handleHSTFrame:].cold.1([frameCopy[1] bytes], v5, v4);
+      -[HSTFirmwareManager _handleHSTFrame:].cold.1([v5[1] bytes], v7, v6);
     }
 
-    [frameCopy[1] bytes];
-    [frameCopy[1] length];
+    [v5[1] bytes];
+    [v5[1] length];
     MTDeviceInjectFrame();
   }
 }
@@ -492,10 +566,10 @@ LABEL_10:
 
   if (v6 <= 1)
   {
-    v7 = MTLoggingPlugin();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = MTLoggingPlugin(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(HSTFirmwareManager *)v6 _handleExternalMessageEvent:v7];
+      [(HSTFirmwareManager *)v6 _handleExternalMessageEvent:v9];
     }
 
 LABEL_7:
@@ -503,13 +577,14 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v8 = MTDeviceSendExternalMessage();
-  if (v8)
+  v10 = MTDeviceSendExternalMessage();
+  v12 = v10;
+  if (v10)
   {
-    v7 = MTLoggingPlugin();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = MTLoggingPlugin(v10, v11);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(HSTFirmwareManager *)v8 _handleExternalMessageEvent:v7];
+      [(HSTFirmwareManager *)v12 _handleExternalMessageEvent:v9];
     }
 
     goto LABEL_7;
@@ -904,7 +979,7 @@ LABEL_8:
   v10 = v5;
   v11 = v5;
   v9 = v5;
-  HSUtil::Decoder::decodeMap(decode, &v9);
+  HSUtil::Decoder::decodeMap(&v9, decode);
   if (*decode)
   {
     memset(__b, 170, sizeof(__b));
@@ -984,14 +1059,14 @@ LABEL_7:
 {
   valueCopy = value;
   keyCopy = key;
-  v10 = 0xAAAAAAAAAAAAAAAALL;
-  v11 = 0xAAAAAAAAAAAAAAAALL;
-  HSUtil::ObjectLock::ObjectLock(&v10, self);
+  v17 = 0xAAAAAAAAAAAAAAAALL;
+  v18 = 0xAAAAAAAAAAAAAAAALL;
+  HSUtil::ObjectLock::ObjectLock(&v17, self);
   if (![keyCopy isEqualToString:@"imagesEnabled"])
   {
     if (![keyCopy isEqualToString:@"reportAlwaysEnabled"])
     {
-      goto LABEL_10;
+      goto LABEL_16;
     }
 
     v8 = valueCopy;
@@ -1000,48 +1075,74 @@ LABEL_7:
     {
       if (v8)
       {
-        self->_state.reportAlwaysEnabled = [v8 BOOLValue];
-        setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostInterruptMode>(self->_deviceObj);
-        goto LABEL_9;
+        bOOLValue = [v8 BOOLValue];
+        self->_state.reportAlwaysEnabled = bOOLValue;
+        deviceObj = self->_deviceObj;
+        if (bOOLValue)
+        {
+          v14 = 7880;
+        }
+
+        else
+        {
+          v14 = 2248;
+        }
+
+        v16 = v14;
+        setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostInterruptMode>(deviceObj, &v16);
+        goto LABEL_15;
       }
 
-LABEL_10:
-      v9 = 0;
-      goto LABEL_13;
+LABEL_16:
+      v15 = 0;
+      goto LABEL_19;
     }
 
-LABEL_11:
-    v9 = 0;
-    goto LABEL_12;
+LABEL_17:
+    v15 = 0;
+    goto LABEL_18;
   }
 
   v8 = valueCopy;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    goto LABEL_11;
+    goto LABEL_17;
   }
 
   if (!v8)
   {
-    goto LABEL_10;
+    goto LABEL_16;
   }
 
-  self->_state.imagesEnabled = [v8 BOOLValue];
-  setReport<HSTPipeline::FirmwareInterface::FeatureReport::DataMode>(self->_deviceObj);
-LABEL_9:
-  v9 = 1;
-LABEL_12:
+  bOOLValue2 = [v8 BOOLValue];
+  self->_state.imagesEnabled = bOOLValue2;
+  v10 = self->_deviceObj;
+  if (bOOLValue2)
+  {
+    v11 = 940;
+  }
 
-LABEL_13:
-  [v11 unlock];
-  LOBYTE(v10) = 0;
-  if (v9)
+  else
+  {
+    v11 = 684;
+  }
+
+  v16 = v11;
+  setReport<HSTPipeline::FirmwareInterface::FeatureReport::DataMode>(v10, &v16);
+LABEL_15:
+  v15 = 1;
+LABEL_18:
+
+LABEL_19:
+  [v18 unlock];
+  LOBYTE(v17) = 0;
+  if (v15)
   {
     [(HSStage *)self postNotification:HSPreferenceChangedNotification];
   }
 
-  HSUtil::ObjectLock::~ObjectLock(&v10);
+  HSUtil::ObjectLock::~ObjectLock(&v17);
 }
 
 - (id).cxx_construct
@@ -1085,79 +1186,90 @@ LABEL_13:
 
 - (void)decodeFromMap:.cold.1()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)decodeFromMap:.cold.2()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)decodeFromMap:.cold.3()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)decodeFromMap:.cold.4()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)decodeFromMap:.cold.5()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)decodeFromMap:.cold.6()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)decodeFromMap:.cold.7()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)decodeFromMap:.cold.8()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)decodeFromMap:.cold.9()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)decodeFromMap:.cold.10()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)handleHSDecode:.cold.1()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 @end

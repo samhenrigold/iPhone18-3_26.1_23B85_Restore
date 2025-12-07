@@ -120,15 +120,7 @@
 {
   v5 = objc_opt_class();
   v7 = objc_msgSend_allocWithZone_(v5, v6, zone);
-  fSourceId = self->fSourceId;
   fSessionId = self->fSessionId;
-  fStartDate = self->fStartDate;
-  fEndDate = self->fEndDate;
-  fSWOLF = self->fSWOLF;
-  fFreestyleSWOLF = self->fFreestyleSWOLF;
-  fBackstrokeSWOLF = self->fBackstrokeSWOLF;
-  fBreaststrokeSWOLF = self->fBreaststrokeSWOLF;
-  fButterflySWOLF = self->fButterflySWOLF;
 
   return MEMORY[0x1EEE66B58](v7, sel_initWithSessionId_sourceId_startDate_endDate_SWOLF_freestyleSWOLF_backstrokeSWOLF_breaststrokeSWOLF_butterflySWOLF_, fSessionId);
 }

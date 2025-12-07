@@ -11,34 +11,34 @@
 - (VGFaceCapture)initWithOptions:(id)options
 {
   optionsCopy = options;
-  v19.receiver = self;
-  v19.super_class = VGFaceCapture;
-  v6 = [(VGFaceCapture *)&v19 init];
+  v20.receiver = self;
+  v20.super_class = VGFaceCapture;
+  v6 = [(VGFaceCapture *)&v20 init];
   v7 = v6;
   if (!v6)
   {
 LABEL_8:
-    v14 = v7;
+    v15 = v7;
     goto LABEL_12;
   }
 
   objc_storeStrong(&v6->_options, options);
-  v18[0] = [(VGFaceCaptureOptions *)v7->_options useFKInternalFaceDetector];
-  v18[1] = [(VGFaceCaptureOptions *)v7->_options useFKForceCPU];
-  v8 = [[VGFaceKitTracker alloc] initWithOptions:v18];
+  v19[0] = [(VGFaceCaptureOptions *)v7->_options useFKInternalFaceDetector];
+  v19[1] = [(VGFaceCaptureOptions *)v7->_options useFKForceCPU];
+  v8 = [[VGFaceKitTracker alloc] initWithOptions:v19];
   faceTracker = v7->_faceTracker;
   v7->_faceTracker = v8;
 
   if (v7->_faceTracker)
   {
-    v10 = [[VGFaceFittingFrameSelector alloc] initWithOptions:v7->_options faceKitSemantics:[(VGFaceKitTracker *)v7->_faceTracker semantics]];
+    v11 = [[VGFaceFittingFrameSelector alloc] initWithOptions:v7->_options faceKitSemantics:[(VGFaceKitTracker *)v7->_faceTracker semantics]];
     faceFrameSelector = v7->_faceFrameSelector;
-    v7->_faceFrameSelector = v10;
+    v7->_faceFrameSelector = v11;
 
     useFaceTrackingDictionary = [(VGFaceCaptureOptions *)v7->_options useFaceTrackingDictionary];
     if (useFaceTrackingDictionary)
     {
-      v13 = v7->_faceTracker;
+      v14 = v7->_faceTracker;
       v7->_faceTracker = 0;
     }
 
@@ -50,17 +50,17 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v15 = __VGLogSharedInstance();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v16 = __VGLogSharedInstance(v10);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    LOWORD(v17) = 0;
-    _os_log_impl(&dword_270F06000, v15, OS_LOG_TYPE_ERROR, " Failed to initialize FaceKit Tracker ", &v17, 2u);
+    LOWORD(v18) = 0;
+    _os_log_impl(&dword_270F06000, v16, OS_LOG_TYPE_ERROR, " Failed to initialize FaceKit Tracker ", &v18, 2u);
   }
 
-  v14 = 0;
+  v15 = 0;
 LABEL_12:
 
-  return v14;
+  return v15;
 }
 
 - (void)dealloc
@@ -118,16 +118,16 @@ LABEL_12:
   {
     objc_initWeak(&location, self);
     getFaceCaptureData = [dataCopy getFaceCaptureData];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __49__VGFaceCapture_processWithCaptureData_callback___block_invoke;
-    v27[3] = &unk_279E28E08;
-    objc_copyWeak(v30, &location);
-    v30[1] = v9;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __49__VGFaceCapture_processWithCaptureData_callback___block_invoke;
+    v28[3] = &unk_279E28E08;
+    objc_copyWeak(v31, &location);
+    v31[1] = v9;
     v15 = dataCopy;
-    v28 = v15;
-    v29 = callbackCopy;
-    v16 = MEMORY[0x2743B9AA0](v27);
+    v29 = v15;
+    v30 = callbackCopy;
+    v16 = MEMORY[0x2743B9AA0](v28);
     if ([(VGFaceCaptureOptions *)self->_options useFaceTrackingDictionary])
     {
       faceTrackingResult = [v15 faceTrackingResult];
@@ -137,45 +137,45 @@ LABEL_12:
         faceTrackingResult2 = [v15 faceTrackingResult];
         (v16)[2](v16, faceTrackingResult2, [(VGFaceCaptureOptions *)self->_options useFaceTrackingDictionary]);
 
-        v19 = 1;
+        v20 = 1;
       }
 
       else
       {
-        v21 = __VGLogSharedInstance();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v22 = __VGLogSharedInstance(v18);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_270F06000, v21, OS_LOG_TYPE_ERROR, " useFaceTrackingDictionary is set to TRUE, but faceTrackingResult is empty in capture data. ", buf, 2u);
+          _os_log_impl(&dword_270F06000, v22, OS_LOG_TYPE_ERROR, " useFaceTrackingDictionary is set to TRUE, but faceTrackingResult is empty in capture data. ", buf, 2u);
         }
 
-        v19 = 0;
+        v20 = 0;
       }
     }
 
     else
     {
       faceTracker = self->_faceTracker;
-      v23[0] = MEMORY[0x277D85DD0];
-      v23[1] = 3221225472;
-      v23[2] = __49__VGFaceCapture_processWithCaptureData_callback___block_invoke_4;
-      v23[3] = &unk_279E28E30;
-      v23[4] = self;
-      v24 = v15;
-      v25 = v16;
-      v19 = [(VGFaceKitTracker *)faceTracker processWithCaptureData:getFaceCaptureData callback:v23];
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __49__VGFaceCapture_processWithCaptureData_callback___block_invoke_4;
+      v24[3] = &unk_279E28E30;
+      v24[4] = self;
+      v25 = v15;
+      v26 = v16;
+      v20 = [(VGFaceKitTracker *)faceTracker processWithCaptureData:getFaceCaptureData callback:v24];
     }
 
-    objc_destroyWeak(v30);
+    objc_destroyWeak(v31);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v19 = 0;
+    v20 = 0;
   }
 
-  return v19;
+  return v20;
 }
 
 void __49__VGFaceCapture_processWithCaptureData_callback___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -208,22 +208,23 @@ void __49__VGFaceCapture_processWithCaptureData_callback___block_invoke(uint64_t
 
     if ([(vg::shared *)v12 updated])
     {
-      if ([(vg::shared *)v12 completed])
+      v16 = [(vg::shared *)v12 completed];
+      if (v16)
       {
-        v16 = *(v7 + 4);
-        if (v16)
+        v17 = *(v7 + 4);
+        if (v17)
         {
-          *v16 = 1;
+          *v17 = 1;
         }
 
-        v17 = __VGLogSharedInstance();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v18 = __VGLogSharedInstance(v16);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
           *buf = 0;
-          _os_log_impl(&dword_270F06000, v17, OS_LOG_TYPE_DEBUG, " Pose capture fully complete and updated. ", buf, 2u);
+          _os_log_impl(&dword_270F06000, v18, OS_LOG_TYPE_DEBUG, " Pose capture fully complete and updated. ", buf, 2u);
         }
 
-        v18 = [*(v7 + 1) finish];
+        v19 = [*(v7 + 1) finish];
         (*(*(a1 + 40) + 16))();
 LABEL_17:
 
@@ -231,17 +232,17 @@ LABEL_19:
         goto LABEL_20;
       }
 
-      [(vg::shared *)v12 completionScore];
-      if (v19 > 0.0)
+      v20 = [(vg::shared *)v12 completionScore];
+      if (v21 > 0.0)
       {
-        v20 = __VGLogSharedInstance();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+        v22 = __VGLogSharedInstance(v20);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
-          *v21 = 0;
-          _os_log_impl(&dword_270F06000, v20, OS_LOG_TYPE_DEBUG, " Pose capture partially complete and updated. ", v21, 2u);
+          *v23 = 0;
+          _os_log_impl(&dword_270F06000, v22, OS_LOG_TYPE_DEBUG, " Pose capture partially complete and updated. ", v23, 2u);
         }
 
-        v18 = [*(v7 + 1) enrolledPoses];
+        v19 = [*(v7 + 1) enrolledPoses];
         (*(*(a1 + 40) + 16))();
         goto LABEL_17;
       }
@@ -288,22 +289,22 @@ void __49__VGFaceCapture_processWithCaptureData_callback___block_invoke_4(uint64
   v4 = metadataCopy;
   if (!metadataCopy)
   {
-    v12 = 0;
+    v13 = 0;
     goto LABEL_23;
   }
 
   v5 = [metadataCopy objectForKeyedSubscript:*MEMORY[0x277CECED8]];
   v6 = v5;
-  if (!v5 || ![v5 count])
+  if (!v5 || (v5 = [v5 count]) == 0)
   {
-    v7 = __VGLogSharedInstance();
+    v7 = __VGLogSharedInstance(v5);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       LOWORD(rect.origin.x) = 0;
       _os_log_impl(&dword_270F06000, v7, OS_LOG_TYPE_ERROR, " No tracked faces found in tracking dictionary ", &rect, 2u);
     }
 
-    v12 = 0;
+    v13 = 0;
     goto LABEL_22;
   }
 
@@ -311,7 +312,7 @@ void __49__VGFaceCapture_processWithCaptureData_callback___block_invoke_4(uint64
   v8 = [v7 objectForKeyedSubscript:*MEMORY[0x277CECEB8]];
   if (!v8)
   {
-    v10 = __VGLogSharedInstance();
+    v10 = __VGLogSharedInstance(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       LOWORD(rect.origin.x) = 0;
@@ -325,45 +326,46 @@ void __49__VGFaceCapture_processWithCaptureData_callback___block_invoke_4(uint64
   v10 = v9;
   if (!v9)
   {
-    v13 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = __VGLogSharedInstance(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       LOWORD(rect.origin.x) = 0;
-      v14 = " No face rect found in tracking dictionary ";
+      v15 = " No face rect found in tracking dictionary ";
       p_rect = &rect;
 LABEL_18:
-      _os_log_impl(&dword_270F06000, v13, OS_LOG_TYPE_ERROR, v14, p_rect, 2u);
+      _os_log_impl(&dword_270F06000, v14, OS_LOG_TYPE_ERROR, v15, p_rect, 2u);
     }
 
 LABEL_19:
 
 LABEL_20:
-    v12 = 0;
+    v13 = 0;
     goto LABEL_21;
   }
 
-  if (!CGRectMakeWithDictionaryRepresentation(v9, &rect))
+  v11 = CGRectMakeWithDictionaryRepresentation(v9, &rect);
+  if (!v11)
   {
-    v13 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = __VGLogSharedInstance(v11);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v17 = 0;
-      v14 = " Unable to construct bbox rect from tracking dictionary ";
-      p_rect = &v17;
+      v18 = 0;
+      v15 = " Unable to construct bbox rect from tracking dictionary ";
+      p_rect = &v18;
       goto LABEL_18;
     }
 
     goto LABEL_19;
   }
 
-  v11 = [VGFaceMetadata alloc];
-  v12 = [(VGFaceMetadata *)v11 initWithFaceId:0 bounds:rect.origin.x yawAngle:rect.origin.y rollAngle:rect.size.width, rect.size.height, 0.0, 0.0];
+  v12 = [VGFaceMetadata alloc];
+  v13 = [(VGFaceMetadata *)v12 initWithFaceId:0 bounds:rect.origin.x yawAngle:rect.origin.y rollAngle:rect.size.width, rect.size.height, 0.0, 0.0];
 LABEL_21:
 
 LABEL_22:
 LABEL_23:
 
-  return v12;
+  return v13;
 }
 
 @end

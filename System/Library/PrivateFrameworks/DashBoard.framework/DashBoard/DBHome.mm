@@ -924,4 +924,81 @@ void __21__DBHome_description__block_invoke(uint64_t a1, void *a2, void *a3)
   }
 }
 
+- (void)locationManager:didEnterRegionIdentifier:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_7();
+  OUTLINED_FUNCTION_1_5(&dword_248146000, v0, v1, "%s %{public}@", v2, v3, v4, v5, v6);
+}
+
+- (void)locationManager:didExitRegionIdentifier:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_7();
+  OUTLINED_FUNCTION_1_5(&dword_248146000, v0, v1, "%s %{public}@", v2, v3, v4, v5, v6);
+}
+
+- (void)networkPathMonitor:didChangeNetworkReachable:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_7();
+  OUTLINED_FUNCTION_1_5(&dword_248146000, v0, v1, "%s %{public}@", v2, v3, v4, v5, v6);
+}
+
+- (void)networkPathMonitorDidChangeNetworkPath:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_7();
+  OUTLINED_FUNCTION_1_5(&dword_248146000, v0, v1, "%s %{public}@", v2, v3, v4, v5, v6);
+}
+
+- (void)home:didAddAccessory:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_7();
+  OUTLINED_FUNCTION_1_5(&dword_248146000, v0, v1, "%s %{public}@", v2, v3, v4, v5, v6);
+}
+
+- (void)home:didRemoveAccessory:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_7();
+  OUTLINED_FUNCTION_1_5(&dword_248146000, v0, v1, "%s %{public}@", v2, v3, v4, v5, v6);
+}
+
+- (void)home:didUpdateLocation:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_7();
+  OUTLINED_FUNCTION_1_5(&dword_248146000, v0, v1, "%s %{public}@", v2, v3, v4, v5, v6);
+}
+
+- (void)home:didUpdateAccessControlForUser:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_7();
+  OUTLINED_FUNCTION_1_5(&dword_248146000, v0, v1, "%s %{public}@", v2, v3, v4, v5, v6);
+}
+
+- (void)homeDidUpdateHomeLocationStatus:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_7();
+  OUTLINED_FUNCTION_1_5(&dword_248146000, v0, v1, "%s %{public}@", v2, v3, v4, v5, v6);
+}
+
+- (void)restrictedGuestAllowedPeriodStarted:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_7();
+  OUTLINED_FUNCTION_1_5(&dword_248146000, v0, v1, "%s %{public}@", v2, v3, v4, v5, v6);
+}
+
+- (void)restrictedGuestAllowedPeriodEnded:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_7();
+  OUTLINED_FUNCTION_1_5(&dword_248146000, v0, v1, "%s %{public}@", v2, v3, v4, v5, v6);
+}
+
 @end

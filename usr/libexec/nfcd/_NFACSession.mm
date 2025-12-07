@@ -39,7 +39,7 @@
 {
   remoteObject = self->_remoteObject;
   self->_remoteObject = 0;
-  _objc_release_x1();
+  _objc_release_x1(self, remoteObject);
 }
 
 - (BOOL)isEnding

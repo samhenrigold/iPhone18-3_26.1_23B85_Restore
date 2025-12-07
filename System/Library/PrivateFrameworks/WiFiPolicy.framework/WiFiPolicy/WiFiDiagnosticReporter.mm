@@ -31,71 +31,65 @@ uint64_t __54__WiFiDiagnosticReporter_sharedWiFiDiagnosticReporter__block_invoke
 
 - (void)submitWiFiWatchdogReason:(id)reason subtypeContext:(id)context
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   contextCopy = context;
   ABCReporter = self->_ABCReporter;
   if (ABCReporter || ([(WiFiDiagnosticReporter *)self initABCReporter], (ABCReporter = self->_ABCReporter) != 0))
   {
     v9 = [(SDRDiagnosticReporter *)ABCReporter signatureWithDomain:@"WiFi" type:@"WiFi Watchdog" subType:reasonCopy subtypeContext:contextCopy detectedProcess:@"wifid" triggerThresholdValues:0];
-    v19 = *MEMORY[0x277D6B138];
-    v20[0] = &unk_2848BB088;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v18 = *MEMORY[0x277D6B138];
+    v19[0] = &unk_2848BB088;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v16 = "[WiFiDiagnosticReporter submitWiFiWatchdogReason:subtypeContext:]";
-      v17 = 2112;
-      v18 = v9;
+      v15 = "[WiFiDiagnosticReporter submitWiFiWatchdogReason:subtypeContext:]";
+      v16 = 2112;
+      v17 = v9;
       _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: ABC snapshotWithSignature signature: %@", buf, 0x16u);
     }
 
     v11 = self->_ABCReporter;
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __66__WiFiDiagnosticReporter_submitWiFiWatchdogReason_subtypeContext___block_invoke;
-    v13[3] = &unk_2789C6998;
-    v14 = reasonCopy;
-    [(SDRDiagnosticReporter *)v11 snapshotWithSignature:v9 delay:0 events:v10 payload:0 actions:v13 reply:60.0];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __66__WiFiDiagnosticReporter_submitWiFiWatchdogReason_subtypeContext___block_invoke;
+    v12[3] = &unk_2789C6998;
+    v13 = reasonCopy;
+    [(SDRDiagnosticReporter *)v11 snapshotWithSignature:v9 delay:0 events:v10 payload:0 actions:v12 reply:60.0];
   }
 
   else
   {
     [WiFiDiagnosticReporter submitWiFiWatchdogReason:reasonCopy subtypeContext:?];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __66__WiFiDiagnosticReporter_submitWiFiWatchdogReason_subtypeContext___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
-    v6 = 136315650;
-    v7 = "[WiFiDiagnosticReporter submitWiFiWatchdogReason:subtypeContext:]_block_invoke";
-    v8 = 2112;
-    v9 = v4;
-    v10 = 2112;
-    v11 = a2;
-    _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: reasonString: %@ ABC snapshot response: %@", &v6, 0x20u);
+    v5 = 136315650;
+    v6 = "[WiFiDiagnosticReporter submitWiFiWatchdogReason:subtypeContext:]_block_invoke";
+    v7 = 2112;
+    v8 = v4;
+    v9 = 2112;
+    v10 = a2;
+    _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: reasonString: %@ ABC snapshot response: %@", &v5, 0x20u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initABCReporter
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v1 = 136315138;
-    v2 = "[WiFiDiagnosticReporter initABCReporter]";
-    _os_log_error_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: initABCReporter already exists \n", &v1, 0xCu);
+    v0 = 136315138;
+    v1 = "[WiFiDiagnosticReporter initABCReporter]";
+    _os_log_error_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: initABCReporter already exists \n", &v0, 0xCu);
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (WiFiDiagnosticReporter)init
@@ -114,19 +108,19 @@ void __66__WiFiDiagnosticReporter_submitWiFiWatchdogReason_subtypeContext___bloc
 
 - (BOOL)isWiFiABCSignatureUnblocked:(id)unblocked
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   unblockedCopy = unblocked;
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   v5 = [standardUserDefaults persistentDomainForName:@"com.apple.wifi.abc"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     OUTLINED_FUNCTION_0_0();
-    v18 = unblockedCopy;
-    v19 = v16;
-    v20 = standardUserDefaults;
-    v21 = v16;
-    v22 = v5;
-    _os_log_debug_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s: testing for key %@ have %@ and %@", v17, 0x2Au);
+    v17 = unblockedCopy;
+    v18 = v15;
+    v19 = standardUserDefaults;
+    v20 = v15;
+    v21 = v5;
+    _os_log_debug_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s: testing for key %@ have %@ and %@", v16, 0x2Au);
     if (v5)
     {
       goto LABEL_3;
@@ -168,7 +162,7 @@ LABEL_3:
     if (v9)
     {
       OUTLINED_FUNCTION_0_0();
-      v18 = v6;
+      v17 = v6;
       v12 = MEMORY[0x277D86220];
       v13 = "%s: ABC signature is currently blocked by request until %@";
       goto LABEL_10;
@@ -178,31 +172,28 @@ LABEL_3:
   else if (v9)
   {
     OUTLINED_FUNCTION_0_0();
-    v18 = unblockedCopy;
+    v17 = unblockedCopy;
     v12 = MEMORY[0x277D86220];
     v13 = "%s: ABC signature is unblocked: %@";
 LABEL_10:
-    _os_log_impl(&dword_2332D7000, v12, OS_LOG_TYPE_DEFAULT, v13, v17, 0x16u);
+    _os_log_impl(&dword_2332D7000, v12, OS_LOG_TYPE_DEFAULT, v13, v16, 0x16u);
   }
 
 LABEL_12:
-  v14 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (void)submitWiFiWatchdogReason:(uint64_t)a1 subtypeContext:.cold.1(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = 136315394;
-    v4 = "[WiFiDiagnosticReporter submitWiFiWatchdogReason:subtypeContext:]";
-    v5 = 2112;
-    v6 = a1;
-    _os_log_error_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: _ABCReporter failing to init, skipping submitting reasonString: %@ \n", &v3, 0x16u);
+    v2 = 136315394;
+    v3 = "[WiFiDiagnosticReporter submitWiFiWatchdogReason:subtypeContext:]";
+    v4 = 2112;
+    v5 = a1;
+    _os_log_error_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: _ABCReporter failing to init, skipping submitting reasonString: %@ \n", &v2, 0x16u);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

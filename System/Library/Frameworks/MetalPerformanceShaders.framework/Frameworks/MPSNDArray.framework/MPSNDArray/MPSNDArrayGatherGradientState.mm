@@ -6,7 +6,7 @@
 
 - (id)destinationArrayDescriptorForSourceArrays:(id)arrays sourceGradientIndex:(unint64_t)index
 {
-  v18[16] = *MEMORY[0x277D85DE8];
+  v17[16] = *MEMORY[0x277D85DE8];
   v4 = [arrays objectAtIndexedSubscript:index];
   v5 = *(v4 + *MEMORY[0x277CD73F0]);
   if (v5)
@@ -19,20 +19,18 @@
     v10 = v7[1];
     do
     {
-      v14 = v11;
-      v15 = v10;
-      v16 = v9;
-      v17 = v8;
-      v18[v6] = *(&v14 + (v6 & 0xF));
+      v13 = v11;
+      v14 = v10;
+      v15 = v9;
+      v16 = v8;
+      v17[v6] = *(&v13 + (v6 & 0xF));
       ++v6;
     }
 
     while (v5 != v6);
   }
 
-  result = [MEMORY[0x277CD7268] descriptorWithDataType:*(v4 + *MEMORY[0x277CD73C8]) dimensionCount:v14 dimensionSizes:{v15, v16, v17}];
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return [MEMORY[0x277CD7268] descriptorWithDataType:*(v4 + *MEMORY[0x277CD73C8]) dimensionCount:v13 dimensionSizes:{v14, v15, v16}];
 }
 
 @end

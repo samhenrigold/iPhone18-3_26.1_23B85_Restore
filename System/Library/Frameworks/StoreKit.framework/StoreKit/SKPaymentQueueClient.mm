@@ -13,7 +13,7 @@
 
 - (SKPaymentQueueClientDelegate)delegate
 {
-  v2 = SKPaymentQueueClient.delegate.getter();
+  v2 = SKPaymentQueueClient.delegate.getter(self);
 
   return v2;
 }
@@ -22,12 +22,12 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  SKPaymentQueueClient.delegate.setter();
+  SKPaymentQueueClient.delegate.setter(delegate);
 }
 
 - (NSNumber)storeExternalVersion
 {
-  v2 = SKPaymentQueueClient.storeExternalVersion.getter();
+  v2 = SKPaymentQueueClient.storeExternalVersion.getter(self);
 
   return v2;
 }
@@ -41,7 +41,7 @@
 
 - (NSNumber)storeItemIdentifier
 {
-  v2 = SKPaymentQueueClient.storeItemIdentifier.getter();
+  v2 = SKPaymentQueueClient.storeItemIdentifier.getter(self);
 
   return v2;
 }

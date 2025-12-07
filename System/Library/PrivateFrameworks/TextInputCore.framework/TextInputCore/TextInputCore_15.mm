@@ -1,459 +1,3 @@
-void std::vector<std::vector<WTF::RefPtr<TI::Favonius::LayoutKey>>>::resize(void **a1, unint64_t a2)
-{
-  v3 = *a1;
-  v4 = a1[1];
-  v5 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *a1) >> 3);
-  v6 = a2 - v5;
-  if (a2 <= v5)
-  {
-    if (a2 < v5)
-    {
-      v11 = &v3[24 * a2];
-      while (v4 != v11)
-      {
-        v4 -= 3;
-        v13[0] = v4;
-        std::vector<WTF::RefPtr<TI::Favonius::LayoutKey>>::__destroy_vector::operator()[abi:nn200100](v13);
-      }
-
-      a1[1] = v11;
-    }
-  }
-
-  else
-  {
-    v7 = a1[2];
-    if (0xAAAAAAAAAAAAAAABLL * ((v7 - v4) >> 3) < v6)
-    {
-      if (a2 <= 0xAAAAAAAAAAAAAAALL)
-      {
-        v13[4] = a1;
-        v8 = 0xAAAAAAAAAAAAAAABLL * ((v7 - v3) >> 3);
-        v9 = 2 * v8;
-        if (2 * v8 <= a2)
-        {
-          v9 = a2;
-        }
-
-        if (v8 >= 0x555555555555555)
-        {
-          v10 = 0xAAAAAAAAAAAAAAALL;
-        }
-
-        else
-        {
-          v10 = v9;
-        }
-
-        std::__allocate_at_least[abi:nn200100]<std::allocator<std::vector<language_modeling::v1::TokenMetadata>>>(v10);
-      }
-
-      std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
-    }
-
-    v12 = 24 * ((24 * v6 - 24) / 0x18) + 24;
-    bzero(a1[1], v12);
-    a1[1] = v4 + v12;
-  }
-}
-
-uint64_t std::__split_buffer<std::vector<std::shared_ptr<TI::CP::SearchNode const>>>::~__split_buffer(uint64_t a1)
-{
-  v3 = *(a1 + 8);
-  for (i = *(a1 + 16); i != v3; i = *(a1 + 16))
-  {
-    v4 = (i - 24);
-    *(a1 + 16) = v4;
-    v6 = v4;
-    std::vector<std::shared_ptr<TI::CP::SearchNode const>>::__destroy_vector::operator()[abi:nn200100](&v6);
-  }
-
-  if (*a1)
-  {
-    operator delete(*a1);
-  }
-
-  return a1;
-}
-
-void TI::CP::Search::step_search(void *a1, unsigned int a2, int a3, void *a4)
-{
-  v67 = *MEMORY[0x277D85DE8];
-  v64 = 0;
-  v65 = 0;
-  v66 = 0;
-  *v59 = 0u;
-  *__p = 0u;
-  v61 = 1065353216;
-  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__rehash<true>(v59, 0x28uLL);
-  TI::CP::Search::compute_keys_near_sample(a1, a2);
-  v48 = a3;
-  if (a3)
-  {
-    TI::Favonius::KeyboardLayout::key_for_char(a1[1], 0x20u, &v63);
-    v46 = v63;
-    v7 = a2;
-    TI::Favonius::KeyboardLayout::find_nearest_key(a1[1], *(a1[7] + 48 * a2), &v63);
-    v8 = v63;
-    if (v63)
-    {
-      if (memchr(".,?!", *(v63 + 56), 5uLL))
-      {
-        atomic_fetch_add(v8, 1u);
-        v9 = v8;
-      }
-
-      else
-      {
-        v9 = 0;
-      }
-
-      WTF::RefCounted<TI::Favonius::Key>::deref(v8);
-    }
-
-    else
-    {
-      v9 = 0;
-    }
-  }
-
-  else
-  {
-    v9 = 0;
-    v46 = 0;
-    v7 = a2;
-  }
-
-  v10 = a1[41] + 24 * v7;
-  v12 = *v10;
-  v11 = *(v10 + 8);
-  v51 = v9;
-  if (*v10 != v11)
-  {
-    if (a2)
-    {
-      v13 = v48;
-    }
-
-    else
-    {
-      v13 = 1;
-    }
-
-    v52 = v13;
-    v14 = v48 ^ 1;
-    if (!a2)
-    {
-      v14 = 1;
-    }
-
-    v49 = v14;
-    do
-    {
-      v15 = *v12;
-      if (v9)
-      {
-        if ((*(**(v15 + 8) + 64))(*(v15 + 8)))
-        {
-          v16 = v12[1];
-          v57 = *v12;
-          v58 = v16;
-          if (v16)
-          {
-            atomic_fetch_add_explicit((v16 + 8), 1uLL, memory_order_relaxed);
-          }
-
-          v56 = v9;
-          atomic_fetch_add(v9, 1u);
-          v55 = 0;
-          *&v54 = a1;
-          LODWORD(v62) = a2;
-          std::allocate_shared[abi:nn200100]<TI::CP::SearchNodeKeyMatch,std::allocator<TI::CP::SearchNodeKeyMatch>,TI::CP::Search const*&,std::shared_ptr<TI::CP::SearchNode const>,unsigned int &,WTF::PassRefPtr<TI::Favonius::LayoutKey> &,WTF::PassRefPtr<TI::Favonius::TypingHypothesis> &,0>();
-        }
-      }
-
-      else
-      {
-        if (TI::CP::SearchNode::has_extensions(v15))
-        {
-          if (v12[1])
-          {
-            atomic_fetch_add_explicit(((*(v12 + 1) >> 64) + 8), 1uLL, memory_order_relaxed);
-          }
-
-          operator new();
-        }
-
-        if ((v52 & 1) == 0)
-        {
-          v18 = *v12;
-          v17 = v12[1];
-          if (v17)
-          {
-            atomic_fetch_add_explicit((v17 + 8), 1uLL, memory_order_relaxed);
-          }
-
-          operator new();
-        }
-
-        if ((v49 & 1) == 0)
-        {
-          if (((*(**v12 + 72))() & 1) == 0 && *(*v12 + 48))
-          {
-            v19 = v12[1];
-            if (v19)
-            {
-              atomic_fetch_add_explicit((v19 + 8), 1uLL, memory_order_relaxed);
-            }
-
-            operator new();
-          }
-
-          v9 = v51;
-        }
-      }
-
-      v12 += 2;
-    }
-
-    while (v12 != v11);
-  }
-
-  v20 = ((v65 - v64) >> 5) & 0x7FFFFFFF;
-  v21 = a4;
-  if (v20)
-  {
-    v22 = v20 - 1;
-    do
-    {
-      TI::CP::Heap<std::shared_ptr<TI::CP::SearchNodeSource>,TI::CP::Search::step_search(unsigned int,BOOL,std::vector<std::shared_ptr<TI::CP::SearchNode const>> &)::SearchNodeCompare>::_downheapify(&v64, v22--);
-    }
-
-    while (v22 != -1);
-  }
-
-  do
-  {
-    v24 = v64;
-    v23 = v65;
-    if (v64 == v65 || v21[1] - *v21 > 0x27FuLL)
-    {
-      break;
-    }
-
-    v53 = 0u;
-    v54 = 0u;
-    v25 = *v64;
-    if ((COERCE_UNSIGNED_INT64((*(**v64 + 56))(*v64)) & 0x7FFFFFFFFFFFFFFFLL) > 0x7FEFFFFFFFFFFFFFLL || (*(*v25 + 56))(v25) < -INFINITY)
-    {
-      v26 = 1;
-      goto LABEL_83;
-    }
-
-    (*(*v25 + 40))(&v63, v25);
-    v54 = v63;
-    v50 = v63;
-    v53 = 0u;
-    if (!v63)
-    {
-      (*(*v25 + 32))(&v63, v25);
-      v53 = v63;
-      if (!v63)
-      {
-        (*(*v25 + 48))(v25);
-      }
-    }
-
-    if ((COERCE_UNSIGNED_INT64((*(*v25 + 56))(v25)) & 0x7FFFFFFFFFFFFFFFLL) < 0x7FF0000000000000)
-    {
-      TI::CP::Heap<std::shared_ptr<TI::CP::SearchNodeSource>,TI::CP::Search::step_search(unsigned int,BOOL,std::vector<std::shared_ptr<TI::CP::SearchNode const>> &)::SearchNodeCompare>::_downheapify(&v64, 0);
-      if (v50)
-      {
-        std::vector<std::shared_ptr<TI::CP::SearchNodeSource>>::push_back[abi:nn200100](&v64, &v54);
-        TI::CP::Heap<std::shared_ptr<TI::CP::SearchNodeSource>,TI::CP::Search::step_search(unsigned int,BOOL,std::vector<std::shared_ptr<TI::CP::SearchNode const>> &)::SearchNodeCompare>::_upheapify(&v64, (v23 - v24) >> 4);
-      }
-
-      goto LABEL_59;
-    }
-
-    if (v50)
-    {
-      v54 = 0uLL;
-      v27 = v24[1];
-      *v24 = v50;
-      if (v27)
-      {
-        std::__shared_weak_count::__release_shared[abi:nn200100](v27);
-      }
-    }
-
-    else
-    {
-      if (((v23 - v24) & 0xFFFFFFFE0) == 0)
-      {
-        v38 = *(v23 - 1);
-        if (v38)
-        {
-          std::__shared_weak_count::__release_shared[abi:nn200100](v38);
-        }
-
-        v65 = v23 - 16;
-        goto LABEL_59;
-      }
-
-      v29 = *(v23 - 2);
-      v28 = v23 - 16;
-      v30 = *v24;
-      *v24 = v29;
-      *v28 = v30;
-      v31 = v24[1];
-      v24[1] = v28[1];
-      v28[1] = v31;
-      if (v31)
-      {
-        std::__shared_weak_count::__release_shared[abi:nn200100](v31);
-      }
-
-      v65 = v28;
-    }
-
-    TI::CP::Heap<std::shared_ptr<TI::CP::SearchNodeSource>,TI::CP::Search::step_search(unsigned int,BOOL,std::vector<std::shared_ptr<TI::CP::SearchNode const>> &)::SearchNodeCompare>::_downheapify(&v64, 0);
-LABEL_59:
-    if (v53 && (!v48 || *(v53 + 48) >= a2))
-    {
-      v32 = (*(**(v53 + 64) + 192))(*(v53 + 64));
-      if (!v59[1])
-      {
-        goto LABEL_78;
-      }
-
-      v33 = vcnt_s8(v59[1]);
-      v33.i16[0] = vaddlv_u8(v33);
-      if (v33.u32[0] > 1uLL)
-      {
-        v34 = v32;
-        if (v32 >= v59[1])
-        {
-          v34 = v32 % v59[1];
-        }
-      }
-
-      else
-      {
-        v34 = (v59[1] - 1) & v32;
-      }
-
-      v35 = *(v59[0] + v34);
-      if (!v35 || (v36 = *v35) == 0)
-      {
-LABEL_78:
-        operator new();
-      }
-
-      while (1)
-      {
-        v37 = v36[1];
-        if (v37 == v32)
-        {
-          if (v36[2] == v32)
-          {
-            v26 = 0;
-            v21 = a4;
-            goto LABEL_83;
-          }
-        }
-
-        else
-        {
-          if (v33.u32[0] > 1uLL)
-          {
-            if (v37 >= v59[1])
-            {
-              v37 %= v59[1];
-            }
-          }
-
-          else
-          {
-            v37 &= v59[1] - 1;
-          }
-
-          if (v37 != v34)
-          {
-            goto LABEL_78;
-          }
-        }
-
-        v36 = *v36;
-        if (!v36)
-        {
-          goto LABEL_78;
-        }
-      }
-    }
-
-    v26 = 0;
-LABEL_83:
-    if (*(&v53 + 1))
-    {
-      std::__shared_weak_count::__release_shared[abi:nn200100](*(&v53 + 1));
-    }
-
-    if (*(&v54 + 1))
-    {
-      std::__shared_weak_count::__release_shared[abi:nn200100](*(&v54 + 1));
-    }
-  }
-
-  while (!v26);
-  if (v9)
-  {
-    WTF::RefCounted<TI::Favonius::Key>::deref(v9);
-  }
-
-  if (v46)
-  {
-    WTF::RefCounted<TI::Favonius::Key>::deref(v46);
-  }
-
-  v39 = __p[0];
-  if (__p[0])
-  {
-    do
-    {
-      v40 = *v39;
-      operator delete(v39);
-      v39 = v40;
-    }
-
-    while (v40);
-  }
-
-  v41 = v59[0];
-  v59[0] = 0;
-  if (v41)
-  {
-    operator delete(v41);
-  }
-
-  v42 = v64;
-  if (v64)
-  {
-    for (i = v65; i != v42; i -= 16)
-    {
-      v44 = *(i - 1);
-      if (v44)
-      {
-        std::__shared_weak_count::__release_shared[abi:nn200100](v44);
-      }
-    }
-
-    operator delete(v42);
-  }
-
-  v45 = *MEMORY[0x277D85DE8];
-}
-
 void std::vector<std::shared_ptr<TI::CP::SearchNode const>>::clear[abi:nn200100](uint64_t *a1)
 {
   v2 = *a1;
@@ -641,13 +185,12 @@ LABEL_13:
   }
 }
 
-void TI::CP::Heap<std::shared_ptr<TI::CP::SearchNodeSource>,TI::CP::Search::step_search(unsigned int,BOOL,std::vector<std::shared_ptr<TI::CP::SearchNode const>> &)::SearchNodeCompare>::push<std::shared_ptr<TI::CP::SearchNodeKeyMatch>>(uint64_t a1, uint64_t a2, int a3)
+void TI::CP::Heap<std::shared_ptr<TI::CP::SearchNodeSource>,TI::CP::Search::step_search(unsigned int,BOOL,std::vector<std::shared_ptr<TI::CP::SearchNode const>> &)::SearchNodeCompare>::push<std::shared_ptr<TI::CP::SearchNodeKeyMatch>>(void **a1, __int128 *a2, int a3)
 {
   v6 = *a1;
-  v5 = *(a1 + 8);
+  v5 = a1[1];
   v7 = *a2;
-  *a2 = 0;
-  *(a2 + 8) = 0;
+  *a2 = 0uLL;
   std::vector<std::shared_ptr<TI::CP::SearchNodeSource>>::push_back[abi:nn200100](a1, &v7);
   if (*(&v7 + 1))
   {
@@ -727,11 +270,10 @@ void std::vector<std::shared_ptr<TI::CP::SearchNodeSource>>::push_back[abi:nn200
 
     v10 = (16 * v6);
     v11 = *a2;
-    *a2 = 0;
-    *(a2 + 1) = 0;
+    *a2 = 0uLL;
     v12 = *a1;
     v13 = a1[1] - *a1;
-    v14 = 16 * v6 - v13;
+    v14 = (16 * v6 - v13);
     *v10 = v11;
     v5 = v10 + 1;
     memcpy(v10 - v13, v12, v13);
@@ -747,9 +289,8 @@ void std::vector<std::shared_ptr<TI::CP::SearchNodeSource>>::push_back[abi:nn200
   else
   {
     *v4 = *a2;
-    v5 = v4 + 1;
-    *a2 = 0;
-    *(a2 + 1) = 0;
+    v5 = v4 + 16;
+    *a2 = 0uLL;
   }
 
   a1[1] = v5;
@@ -895,7 +436,7 @@ uint64_t std::__split_buffer<std::vector<WTF::RefPtr<TI::Favonius::LayoutKey>>>:
 
 void ___ZN2TI2CP6Search24compute_keys_near_sampleEj_block_invoke(uint64_t a1, atomic_uint **a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = *(*a2 + 30);
   if ((v2 & 0x20) == 0 && (v2 & 0x18) != 0x10)
   {
@@ -905,72 +446,62 @@ void ___ZN2TI2CP6Search24compute_keys_near_sampleEj_block_invoke(uint64_t a1, at
       std::vector<WTF::RefPtr<TI::Favonius::LayoutKey>>::push_back[abi:nn200100](*(a1 + 56), a2);
       if (TI::Favonius::KeyboardLayout::is_indic_alphabetic(*(v5 + 8)))
       {
-        KB::String::String(v22, (*a2 + 2));
-        KB::String::String(v20, v22);
-        TI::IndicUtils::convertVowel(v19, v20);
-        if (v21 && v20[6] == 1)
+        KB::String::String(v15, (*a2 + 2));
+        KB::String::String(v13, v15);
+        TI::IndicUtils::convertVowel(v12, v13);
+        if (v14 && v13[6] == 1)
         {
-          free(v21);
+          free(v14);
         }
 
         for (i = 0; i != 96; i += 32)
         {
-          if (!*&v19[i + 4])
+          if (!*&v12[i + 4])
           {
-            KB::String::compute_length(&v19[i]);
-            if (!*&v19[i + 4])
+            KB::String::compute_length(&v12[i]);
+            if (!*&v12[i + 4])
             {
               continue;
             }
           }
 
-          if (!KB::String::equal(&v19[i], v22, 1))
+          if (!KB::String::equal(&v12[i], v15, 1, v6, v7))
           {
-            v7 = *a2;
             if (*(*a2 + 20) >= 0xFuLL)
             {
-              v17 = *(*a2 + 20);
               operator new[]();
             }
 
-            v18 = *(*a2 + 10);
-            v8 = *(v7 + 8);
-            v9 = *(v7 + 9);
-            v10 = *(v7 + 10);
-            v11 = *(v7 + 11);
-            v12 = *(v7 + 31);
             operator new();
           }
         }
 
         for (j = 0; j != -96; j -= 32)
         {
-          v14 = *&v19[j + 72];
-          if (v14 && v19[j + 70] == 1)
+          v10 = *&v12[j + 72];
+          if (v10 && v12[j + 70] == 1)
           {
-            free(v14);
+            free(v10);
           }
         }
 
-        if (v23)
+        if (v16)
         {
-          v15 = v22[6] == 1;
+          v11 = v15[6] == 1;
         }
 
         else
         {
-          v15 = 0;
+          v11 = 0;
         }
 
-        if (v15)
+        if (v11)
         {
-          free(v23);
+          free(v16);
         }
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 BOOL ___ZN2TI2CP6Search24compute_keys_near_sampleEj_block_invoke_2(uint64_t a1, CGRect **a2, CGRect **a3)
@@ -993,7 +524,7 @@ LABEL_2:
   {
     v7 = v10;
     v11 = v121;
-    v12 = v121 - v7;
+    v12 = (v121 - v7) >> 3;
     v13 = v12 - 2;
     if (v12 <= 2)
     {
@@ -1016,16 +547,16 @@ LABEL_116:
 
           else
           {
-            *v7 = v7[1];
-            v7[1] = v67;
+            *v7 = *(v7 + 8);
+            *(v7 + 8) = v67;
             result = (*(*a3 + 16))();
             if (!result)
             {
               return result;
             }
 
-            v67 = v7[1];
-            v7[1] = *v8;
+            v67 = *(v7 + 8);
+            *(v7 + 8) = *v8;
           }
 
           *v8 = v67;
@@ -1037,8 +568,8 @@ LABEL_116:
           return result;
         }
 
-        v114 = v7[1];
-        v7[1] = *v8;
+        v114 = *(v7 + 8);
+        *(v7 + 8) = *v8;
         *v8 = v114;
 LABEL_189:
         result = (*(*a3 + 16))();
@@ -1050,17 +581,17 @@ LABEL_189:
         return result;
       case 4:
 
-        return std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,BOOL({block_pointer}&)(WTF::RefPtr<TI::Favonius::TypingHypothesis> const&,WTF::RefPtr<TI::Favonius::TypingHypothesis> const&),WTF::RefPtr<TI::Favonius::TypingHypothesis>*,0>(v7, v7 + 1, v7 + 2, v8, a3);
+        return std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,BOOL({block_pointer}&)(WTF::RefPtr<TI::Favonius::TypingHypothesis> const&,WTF::RefPtr<TI::Favonius::TypingHypothesis> const&),WTF::RefPtr<TI::Favonius::TypingHypothesis>*,0>(v7, (v7 + 8), (v7 + 16), v8, a3);
       case 5:
-        std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,BOOL({block_pointer}&)(WTF::RefPtr<TI::Favonius::TypingHypothesis> const&,WTF::RefPtr<TI::Favonius::TypingHypothesis> const&),WTF::RefPtr<TI::Favonius::TypingHypothesis>*,0>(v7, v7 + 1, v7 + 2, v7 + 3, a3);
+        std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,BOOL({block_pointer}&)(WTF::RefPtr<TI::Favonius::TypingHypothesis> const&,WTF::RefPtr<TI::Favonius::TypingHypothesis> const&),WTF::RefPtr<TI::Favonius::TypingHypothesis>*,0>(v7, (v7 + 8), (v7 + 16), (v7 + 24), a3);
         result = (*(*a3 + 16))();
         if (!result)
         {
           return result;
         }
 
-        v66 = v7[3];
-        v7[3] = *v8;
+        v66 = *(v7 + 24);
+        *(v7 + 24) = *v8;
         *v8 = v66;
         result = (*(*a3 + 16))();
         if (!result)
@@ -1068,21 +599,21 @@ LABEL_189:
           return result;
         }
 
-        *(v7 + 1) = vextq_s8(*(v7 + 1), *(v7 + 1), 8uLL);
+        *(v7 + 16) = vextq_s8(*(v7 + 16), *(v7 + 16), 8uLL);
         result = (*(*a3 + 16))();
         if (!result)
         {
           return result;
         }
 
-        *(v7 + 1) = vextq_s8(*(v7 + 1), *(v7 + 1), 8uLL);
+        *(v7 + 8) = vextq_s8(*(v7 + 8), *(v7 + 8), 8uLL);
         goto LABEL_189;
     }
 
 LABEL_10:
     if (v12 <= 23)
     {
-      v69 = v7 + 1;
+      v69 = (v7 + 8);
       v71 = v7 == v121 || v69 == v121;
       if (a5)
       {
@@ -1159,7 +690,7 @@ LABEL_138:
             {
               v118 = *v7;
               *v7 = 0;
-              v7[1] = v118;
+              *(v7 + 8) = v118;
               if (v116)
               {
                 WTF::RefCounted<TI::Favonius::Key>::deref(v116);
@@ -1170,7 +701,8 @@ LABEL_138:
                 break;
               }
 
-              v116 = *v7--;
+              v116 = *v7;
+              v7 -= 8;
             }
 
             result = *v7;
@@ -1204,14 +736,14 @@ LABEL_138:
           if (v80 >= v81)
           {
             v83 = (2 * v81) | 1;
-            v84 = &v7[v83];
+            v84 = (v7 + 8 * v83);
             if (2 * v81 + 2 < v12 && (*(*a3 + 16))())
             {
               ++v84;
               v83 = 2 * v82 + 2;
             }
 
-            v85 = &v7[v82];
+            v85 = (v7 + 8 * v82);
             if (((*(*a3 + 16))() & 1) == 0)
             {
               v86 = *v85;
@@ -1235,7 +767,7 @@ LABEL_138:
                 }
 
                 v90 = (2 * v83) | 1;
-                v84 = &v7[v90];
+                v84 = (v7 + 8 * v90);
                 v91 = 2 * v83 + 2;
                 if (v91 < v12 && (*(*a3 + 16))())
                 {
@@ -1329,13 +861,13 @@ LABEL_138:
               result = WTF::RefCounted<TI::Favonius::Key>::deref(result);
             }
 
-            v105 = v97 + 1 - v7;
+            v105 = (v97 - v7 + 8) >> 3;
             v106 = v105 < 2;
             v107 = v105 - 2;
             if (!v106)
             {
               v108 = v107 >> 1;
-              v109 = &v7[v107 >> 1];
+              v109 = (v7 + 8 * (v107 >> 1));
               result = (*(*a3 + 16))();
               if (result)
               {
@@ -1360,7 +892,7 @@ LABEL_138:
                   }
 
                   v108 = (v108 - 1) >> 1;
-                  v109 = &v7[v108];
+                  v109 = (v7 + 8 * v108);
                   v97 = v111;
                 }
 
@@ -1385,7 +917,7 @@ LABEL_138:
       return result;
     }
 
-    v14 = &v7[v12 >> 1];
+    v14 = (v7 + 8 * (v12 >> 1));
     v15 = *(*a3 + 16);
     if (v12 >= 0x81)
     {
@@ -1429,14 +961,14 @@ LABEL_27:
       v28 = (*(*a3 + 16))();
       if (v27)
       {
-        v29 = v7[1];
+        v29 = *(v7 + 8);
         if (v28)
         {
-          v7[1] = *v9;
+          *(v7 + 8) = *v9;
           goto LABEL_39;
         }
 
-        v7[1] = *v26;
+        *(v7 + 8) = *v26;
         *v26 = v29;
         if ((*(*a3 + 16))())
         {
@@ -1454,8 +986,8 @@ LABEL_39:
         *v9 = v30;
         if ((*(*a3 + 16))())
         {
-          v31 = v7[1];
-          v7[1] = *v26;
+          v31 = *(v7 + 8);
+          *(v7 + 8) = *v26;
           *v26 = v31;
         }
       }
@@ -1464,15 +996,15 @@ LABEL_39:
       v33 = (*(*a3 + 16))();
       if (v32)
       {
-        v34 = v7[2];
+        v34 = *(v7 + 16);
         if (v33)
         {
           v35 = v119;
-          v7[2] = *v119;
+          *(v7 + 16) = *v119;
           goto LABEL_48;
         }
 
-        v7[2] = v14[1];
+        *(v7 + 16) = v14[1];
         v14[1] = v34;
         if ((*(*a3 + 16))())
         {
@@ -1491,8 +1023,8 @@ LABEL_48:
         *v119 = v36;
         if ((*(*a3 + 16))())
         {
-          v37 = v7[2];
-          v7[2] = v14[1];
+          v37 = *(v7 + 16);
+          *(v7 + 16) = v14[1];
           v14[1] = v37;
         }
       }
@@ -1732,7 +1264,7 @@ LABEL_84:
 
       else
       {
-        v58 = v7 + 1;
+        v58 = (v7 + 8);
         do
         {
           v10 = v58;
@@ -1978,8 +1510,8 @@ LABEL_16:
       {
         v25 = a1 + i;
         v26 = *(a1 + i + 16);
-        *(v25 + 16) = 0;
-        *(v25 + 24) = v26;
+        *(v25 + 2) = 0;
+        *(v25 + 3) = v26;
         if (v22)
         {
           WTF::RefCounted<TI::Favonius::Key>::deref(v22);
@@ -1996,7 +1528,7 @@ LABEL_16:
           break;
         }
 
-        v22 = *(v25 + 16);
+        v22 = *(v25 + 2);
       }
 
       v27 = (a1 + i + 16);
@@ -2164,28 +1696,18 @@ void TI::CP::Search::reset_path(TI::CP::Search *this)
 
 double TI::CP::Search::last_touch(TI::CP::Search *this)
 {
-  v1 = *(this + 13);
-  v2 = *(this + 14);
-  v3 = (v2 - 40);
-  v4 = v1 == v2;
-  if (v1 == v2)
+  v1 = *(this + 14);
+  if (*(this + 13) == v1)
   {
-    v5 = MEMORY[0x277CBF348];
+    v2 = MEMORY[0x277CBF348];
   }
 
   else
   {
-    v5 = v2 - 48;
+    v2 = v1 - 48;
   }
 
-  v6 = (MEMORY[0x277CBF348] + 8);
-  if (!v4)
-  {
-    v6 = v3;
-  }
-
-  v7 = *v6;
-  return *v5;
+  return *v2;
 }
 
 void TI::CP::Search::add_touch(TI::CP::Search *this, int a2, CGFloat a3, CGFloat a4, double a5, double a6)
@@ -2327,7 +1849,7 @@ void (***TI::CP::Search::initialize_search(TI::CP::Search *this))(void, uint64_t
       v9 = v7;
     }
 
-    v21[4] = this + 328;
+    v20[4] = this + 328;
     if (v9)
     {
       std::__allocate_at_least[abi:nn200100]<std::allocator<std::vector<language_modeling::v1::TokenMetadata>>>(v9);
@@ -2347,11 +1869,11 @@ void (***TI::CP::Search::initialize_search(TI::CP::Search *this))(void, uint64_t
     *(this + 42) = v4;
     v15 = *(this + 43);
     *(this + 43) = 0;
-    v21[2] = v14;
-    v21[3] = v15;
-    v21[0] = v14;
-    v21[1] = v14;
-    std::__split_buffer<std::vector<std::shared_ptr<TI::CP::SearchNode const>>>::~__split_buffer(v21);
+    v20[2] = v14;
+    v20[3] = v15;
+    v20[0] = v14;
+    v20[1] = v14;
+    std::__split_buffer<std::vector<std::shared_ptr<TI::CP::SearchNode const>>>::~__split_buffer(v20);
   }
 
   else
@@ -2366,22 +1888,21 @@ void (***TI::CP::Search::initialize_search(TI::CP::Search *this))(void, uint64_t
   result = *(this + 22);
   if (result)
   {
+    v17 = 0;
     v18 = 0;
     v19 = 0;
-    v20 = 0;
-    (**result)(result, &v18, this + 400);
-    if (v18)
+    (**result)(result, &v17, this + 400);
+    if (v17)
     {
-      v17 = *(this + 42);
-      if (*v19)
+      if (*v18)
       {
-        atomic_fetch_add((*v19 + 8), 1u);
+        atomic_fetch_add((*v18 + 8), 1u);
       }
 
       operator new();
     }
 
-    return WTF::Vector<WTF::RefPtr<TI::Favonius::TypingHypothesis>,0ul>::~Vector(&v18);
+    return WTF::Vector<WTF::RefPtr<TI::Favonius::TypingHypothesis>,0ul>::~Vector(&v17);
   }
 
   return result;
@@ -2603,25 +2124,26 @@ uint64_t TI::CP::Search::Search(uint64_t a1, uint64_t *a2, uint64_t *a3, __int12
   return a1;
 }
 
-uint64_t TI::CP::Search::extend_typing@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, unsigned int a4@<W3>, unsigned int **a5@<X8>)
+uint64_t TI::CP::Search::extend_typing@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, atomic_uint **a3@<X2>, uint64_t a4@<X3>, unsigned int **a5@<X8>)
 {
+  v5 = a4;
   v8 = result;
   if (*(a2 + 82) == 1)
   {
     v10 = *(a2 + 88);
     v11 = *(a2 + 96);
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 0x40000000;
-    v34 = ___ZNK2TI2CP6Search13extend_typingEPKNS0_10SearchNodeERKN3WTF6RefPtrINS_8Favonius9LayoutKeyEEEj_block_invoke;
-    v35 = &__block_descriptor_tmp_5_18847;
-    v36 = a3;
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 0x40000000;
+    v36 = ___ZNK2TI2CP6Search13extend_typingEPKNS0_10SearchNodeERKN3WTF6RefPtrINS_8Favonius9LayoutKeyEEEj_block_invoke;
+    v37 = &__block_descriptor_tmp_5_18847;
+    v38 = a3;
     if (v10)
     {
       v12 = 8 * v10;
       v13 = &v11[v10];
       while (1)
       {
-        result = (v34)(v33, v11);
+        result = (v36)(v35, v11);
         if (result)
         {
           break;
@@ -2647,7 +2169,7 @@ uint64_t TI::CP::Search::extend_typing@<X0>(uint64_t result@<X0>, uint64_t a2@<X
 
     if (v14 == &v11[*(a2 + 88)])
     {
-      if (*(*a3 + 40))
+      if (*(*a3 + 20))
       {
         *a5 = 0;
         return result;
@@ -2669,60 +2191,60 @@ uint64_t TI::CP::Search::extend_typing@<X0>(uint64_t result@<X0>, uint64_t a2@<X
         v16 = 0;
       }
 
-      v17 = *(*a3 + 40);
+      v17 = *(*a3 + 20);
       if (v17 == *(*(*(*v16 + 16))(v16) + 40))
       {
         result = (*(*v16 + 16))(v16);
         if (*result != *a3)
         {
-          result = KB::String::equal((*result + 8), (*a3 + 8), 1);
+          result = KB::String::equal((*result + 8), (*a3 + 2), 1, v18, v19);
           if ((result & 1) == 0)
           {
-            v18 = *a3;
-            v32 = v18;
-            v19 = v16;
-            if (v18)
+            v20 = *a3;
+            v34 = v20;
+            v21 = v16;
+            if (v20)
             {
-              atomic_fetch_add(v18, 1u);
-              v19 = *a5;
+              atomic_fetch_add(v20, 1u);
+              v21 = *a5;
             }
 
-            (*(*v16 + 216))(&v29, v16, &v32);
-            v20 = v29;
-            v29 = 0;
-            *a5 = v20;
-            if (v19)
+            (*(*v16 + 216))(&v31, v16, &v34);
+            v22 = v31;
+            v31 = 0;
+            *a5 = v22;
+            if (v21)
             {
-              v21 = atomic_load(v19 + 2);
-              if (v21 == 1)
+              v23 = atomic_load(v21 + 2);
+              if (v23 == 1)
               {
-                (*(*v19 + 248))(v19);
+                (*(*v21 + 248))(v21);
               }
 
               else
               {
-                atomic_fetch_add(v19 + 2, 0xFFFFFFFF);
+                atomic_fetch_add(v21 + 2, 0xFFFFFFFF);
               }
 
-              if (v29)
+              if (v31)
               {
-                v27 = atomic_load(v29 + 2);
-                if (v27 == 1)
+                v29 = atomic_load(v31 + 2);
+                if (v29 == 1)
                 {
-                  (*(*v29 + 248))();
+                  (*(*v31 + 248))();
                 }
 
                 else
                 {
-                  atomic_fetch_add(v29 + 2, 0xFFFFFFFF);
+                  atomic_fetch_add(v31 + 2, 0xFFFFFFFF);
                 }
               }
             }
 
-            result = v32;
-            if (v32)
+            result = v34;
+            if (v34)
             {
-              return WTF::RefCounted<TI::Favonius::Key>::deref(v32);
+              return WTF::RefCounted<TI::Favonius::Key>::deref(v34);
             }
           }
         }
@@ -2730,8 +2252,8 @@ uint64_t TI::CP::Search::extend_typing@<X0>(uint64_t result@<X0>, uint64_t a2@<X
         return result;
       }
 
-      v22 = atomic_load(v16 + 2);
-      if (v22 == 1)
+      v24 = atomic_load(v16 + 2);
+      if (v24 == 1)
       {
         (*(*v16 + 248))(v16);
       }
@@ -2743,43 +2265,43 @@ uint64_t TI::CP::Search::extend_typing@<X0>(uint64_t result@<X0>, uint64_t a2@<X
     }
   }
 
-  result = TI::CP::Search::find_clone_in_prev_beam(v8, *(a2 + 64), *a3, a4);
+  result = TI::CP::Search::find_clone_in_prev_beam(v8, *(a2 + 64), *a3, v5);
   if (result)
   {
-    v23 = *(result + 64);
-    *a5 = v23;
-    if (v23)
+    v25 = *(result + 64);
+    *a5 = v25;
+    if (v25)
     {
-      atomic_fetch_add((v23 + 8), 1u);
+      atomic_fetch_add((v25 + 8), 1u);
     }
   }
 
   else
   {
-    v29 = 0;
-    v30 = 0;
     v31 = 0;
-    v24 = *(a2 + 64);
-    v25 = *a3;
-    v28 = v25;
-    if (v25)
+    v32 = 0;
+    v33 = 0;
+    v26 = *(a2 + 64);
+    v27 = *a3;
+    v30 = v27;
+    if (v27)
     {
-      atomic_fetch_add(v25, 1u);
+      atomic_fetch_add(v27, 1u);
     }
 
-    (*(*v24 + 40))(v24, &v29, &v28);
-    if (v28)
+    (*(*v26 + 40))(v26, &v31, &v30);
+    if (v30)
     {
-      WTF::RefCounted<TI::Favonius::Key>::deref(v28);
+      WTF::RefCounted<TI::Favonius::Key>::deref(v30);
     }
 
-    if ((*(**v30 + 160))())
+    if ((*(**v32 + 160))())
     {
-      v26 = *v30;
-      *a5 = *v30;
-      if (v26)
+      v28 = *v32;
+      *a5 = *v32;
+      if (v28)
       {
-        atomic_fetch_add(v26 + 2, 1u);
+        atomic_fetch_add(v28 + 2, 1u);
       }
     }
 
@@ -2788,7 +2310,7 @@ uint64_t TI::CP::Search::extend_typing@<X0>(uint64_t result@<X0>, uint64_t a2@<X
       *a5 = 0;
     }
 
-    return WTF::Vector<WTF::RefPtr<TI::Favonius::TypingHypothesis>,0ul>::~Vector(&v29);
+    return WTF::Vector<WTF::RefPtr<TI::Favonius::TypingHypothesis>,0ul>::~Vector(&v31);
   }
 
   return result;
@@ -2859,7 +2381,7 @@ double TI::CP::Search::top_score(TI::CP::Search *this)
   }
 }
 
-double TI::CP::Search::path_deviation_cost(TI::CP::Search *this, unsigned int a2, unsigned int a3, int a4)
+double TI::CP::Search::path_deviation_cost(TI::CP::Search *this, int a2, unsigned int a3, int a4)
 {
   v8 = *(this + 7);
   v9 = (v8 + 48 * a2);
@@ -2893,7 +2415,7 @@ unint64_t TI::CP::Search::skipped_inflection_point_count(TI::CP::Search *this, i
   return v7;
 }
 
-double TI::CP::Search::extended_path_deviation_cost(TI::CP::Search *this, unsigned int a2, unsigned int a3, CGPoint a4)
+double TI::CP::Search::extended_path_deviation_cost(TI::CP::Search *this, int a2, unsigned int a3, CGPoint a4)
 {
   y = a4.y;
   x = a4.x;
@@ -2949,7 +2471,7 @@ double TI::CP::Search::skipped_key_cost(TI::CP::Search *this, unsigned int a2)
   return -(v3 * *(this + v5)) * *(this + 54);
 }
 
-double TI::CP::Search::overshoot_cost(TI::CP::Search *this, unsigned int a2, unsigned int a3)
+double TI::CP::Search::overshoot_cost(TI::CP::Search *this, int a2, unsigned int a3)
 {
   v6 = pow((*(*(this + 7) + 48 * a3 + 32) - *(*(this + 7) + 48 * a2 + 32)) * *(this + 40), *(this + 64));
   v7 = *(this + 65);
@@ -2966,7 +2488,6 @@ void TI::CP::Search::loop_cost(TI::CP::Search *this, unsigned int a2, unsigned i
   if (v6 >= v4 && v6 <= v7)
   {
     hypot(*(v5 + 48 * a3) - *(v5 + 48 * a2), *(v5 + 48 * a3 + 8) - *(v5 + 48 * a2 + 8));
-    *(v9 + 552);
   }
 }
 
@@ -2983,16 +2504,16 @@ double TI::CP::Search::key_prediction_cost(TI::CP::Search *this, int a2)
 
 void TI::CP::Search::append_debug_data_for_sample(uint64_t a1, __CFString *a2, uint64_t a3, TI::CP::SearchNode ***a4, int a5)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v10 = (a1 + 56);
   v9 = *(a1 + 56);
   v11 = (v9 + 48 * a3);
   v12 = *v11;
   v13 = v11[1];
   v14 = v11[2] - *(v9 + 16);
-  v35.x = *v11;
-  v35.y = v13;
-  TI::Favonius::KeyboardLayout::find_nearest_key(*(a1 + 8), v35, &__p);
+  v34.x = *v11;
+  v34.y = v13;
+  TI::Favonius::KeyboardLayout::find_nearest_key(*(a1 + 8), v34, &__p);
   v15 = __p;
   v16 = TI::CP::Path::inflection_point_count(v10, a3, a3);
   v17 = v12 - v15[12];
@@ -3000,13 +2521,13 @@ void TI::CP::Search::append_debug_data_for_sample(uint64_t a1, __CFString *a2, u
   LODWORD(__p) = 0x100000;
   WORD2(__p) = 0;
   BYTE6(__p) = 0;
+  v30 = 0;
   v31 = 0;
-  v32 = 0;
   TI::Favonius::Key::append_debug_data(v15, &__p);
-  v20 = v31;
-  if (!v31)
+  v20 = v30;
+  if (!v30)
   {
-    v20 = &v32;
+    v20 = &v31;
   }
 
   if (__p)
@@ -3036,9 +2557,9 @@ void TI::CP::Search::append_debug_data_for_sample(uint64_t a1, __CFString *a2, u
   }
 
   KB::append_format(a2, "search %u @ (%.2f, %.2f) = '%s' + (%.2f, %.2f), t = %.2f, inflection_point = %s, final = %s:\n", v19, a3, *&v12, *&v13, v21, *&v17, *&v18, *&v14, v23, v22);
-  if (v31 && BYTE6(__p) == 1)
+  if (v30 && BYTE6(__p) == 1)
   {
-    free(v31);
+    free(v30);
   }
 
   v24 = *a4;
@@ -3051,7 +2572,7 @@ void TI::CP::Search::append_debug_data_for_sample(uint64_t a1, __CFString *a2, u
   do
   {
     (*(**v24 + 64))(&__p);
-    if (v33 >= 0)
+    if (v32 >= 0)
     {
       p_p = &__p;
     }
@@ -3063,7 +2584,7 @@ void TI::CP::Search::append_debug_data_for_sample(uint64_t a1, __CFString *a2, u
 
     v27 = TI::CP::SearchNode::score_at_sample_index(*v24, a3);
     KB::append_format(a2, "    %s (s=%g here)\n", v28, p_p, *&v27);
-    if (v33 < 0)
+    if (v32 < 0)
     {
       operator delete(__p);
     }
@@ -3077,8 +2598,6 @@ void TI::CP::Search::append_debug_data_for_sample(uint64_t a1, __CFString *a2, u
 LABEL_22:
     WTF::RefCounted<TI::Favonius::Key>::deref(v15);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void TI::CP::Search::append_debug_data(TI::CP::Search *this, __CFString *a2, const char *a3)
@@ -3113,12 +2632,12 @@ void TI::CP::Search::append_debug_data(TI::CP::Search *this, __CFString *a2, con
 
 void KB::TypologyLogger::log_candidates(CFMutableStringRef *a1, uint64_t a2, unsigned int a3, uint64_t a4, KB::Candidate **a5, const __CFString *a6, KB::Candidate **a7, CFStringRef *a8)
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v29 = 0x100000;
+  v33 = *MEMORY[0x277D85DE8];
+  v28 = 0x100000;
+  v29 = 0;
   v30 = 0;
   v31 = 0;
   v32 = 0;
-  v33 = 0;
   v13 = *(a2 + 8);
   if (!v13)
   {
@@ -3161,14 +2680,14 @@ void KB::TypologyLogger::log_candidates(CFMutableStringRef *a1, uint64_t a2, uns
     v17 = "";
   }
 
-  KB::String::append_format(&v29, "Typed String: %s  Lookup Type: %s  State Description: %s\n", v14, v15, v17);
-  v18 = v32;
-  if (!v32)
+  KB::String::append_format(&v28, "Typed String: %s  Lookup Type: %s  State Description: %s\n", v14, v15, v17);
+  v18 = v31;
+  if (!v31)
   {
-    v18 = &v33;
+    v18 = &v32;
   }
 
-  if (v29)
+  if (v28)
   {
     v19 = v18;
   }
@@ -3201,19 +2720,19 @@ void KB::TypologyLogger::log_candidates(CFMutableStringRef *a1, uint64_t a2, uns
     {
       if (*(v20 + 943) < 0)
       {
-        std::string::__init_copy_ctor_external(&v28, *(v20 + 115), *(v20 + 116));
+        std::string::__init_copy_ctor_external(&v27, *(v20 + 115), *(v20 + 116));
       }
 
       else
       {
-        v28 = *(v20 + 920);
+        v27 = *(v20 + 920);
       }
 
-      size = HIBYTE(v28.__r_.__value_.__r.__words[2]);
-      v23 = HIBYTE(v28.__r_.__value_.__r.__words[2]);
-      if ((v28.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      size = HIBYTE(v27.__r_.__value_.__r.__words[2]);
+      v23 = HIBYTE(v27.__r_.__value_.__r.__words[2]);
+      if ((v27.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        size = v28.__r_.__value_.__l.__size_;
+        size = v27.__r_.__value_.__l.__size_;
       }
 
       if (size)
@@ -3222,26 +2741,26 @@ void KB::TypologyLogger::log_candidates(CFMutableStringRef *a1, uint64_t a2, uns
         CFStringAppend(a1[1], @"Raw candidate tracelogs from LM\n");
         CFStringAppend(a1[1], @"\n");
         v24 = a1[1];
-        if ((v28.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v27.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v25 = &v28;
+          v25 = &v27;
         }
 
         else
         {
-          v25 = v28.__r_.__value_.__r.__words[0];
+          v25 = v27.__r_.__value_.__r.__words[0];
         }
 
         v26 = CFStringCreateWithCString(0, v25, 0x8000100u);
         CFStringAppend(v24, v26);
         CFStringAppend(a1[1], @"\n");
         CFStringAppend(a1[1], @"-------------------------------\n");
-        v23 = HIBYTE(v28.__r_.__value_.__r.__words[2]);
+        v23 = HIBYTE(v27.__r_.__value_.__r.__words[2]);
       }
 
       if (v23 < 0)
       {
-        operator delete(v28.__r_.__value_.__l.__data_);
+        operator delete(v27.__r_.__value_.__l.__data_);
       }
 
       v20 = (v20 + 1000);
@@ -3250,17 +2769,18 @@ void KB::TypologyLogger::log_candidates(CFMutableStringRef *a1, uint64_t a2, uns
     while (v20 != v21);
   }
 
-  if (v32 && v31 == 1)
+  if (v31)
   {
-    free(v32);
+    if (v30 == 1)
+    {
+      free(v31);
+    }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void KB::TypologyLogger::build_debug_candidate(CFMutableStringRef *this, KB::Candidate **a2, const char *a3, int a4)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (*a2 != a2[1])
   {
     CFStringAppendFormat(this[1], 0, @"\n%s\n", a3);
@@ -3268,15 +2788,15 @@ void KB::TypologyLogger::build_debug_candidate(CFMutableStringRef *this, KB::Can
     for (i = a2[1]; v7 != i; v7 = (v7 + 1000))
     {
       v9 = this[1];
-      v12 = 0x100000;
+      v11 = 0x100000;
+      v12 = 0;
       v13 = 0;
       v14 = 0;
       v15 = 0;
-      v16 = 0;
-      KB::Candidate::append_debug_data(v7, v9, a4, &v12);
-      if (v15)
+      KB::Candidate::append_debug_data(v7, v9, a4, &v11);
+      if (v14)
       {
-        v10 = v14 == 1;
+        v10 = v13 == 1;
       }
 
       else
@@ -3286,12 +2806,10 @@ void KB::TypologyLogger::build_debug_candidate(CFMutableStringRef *this, KB::Can
 
       if (v10)
       {
-        free(v15);
+        free(v14);
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void KB::TypologyLogger::log_autocorrection_engine_state(uint64_t a1, uint64_t a2)
@@ -3329,23 +2847,23 @@ void KB::TypologyLogger::~TypologyLogger(KB::TypologyLogger *this)
 
 void *__getSBSSetTypingActiveSymbolLoc_block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v6[0] = 0;
+  v8 = *MEMORY[0x277D85DE8];
+  v5[0] = 0;
   if (!SpringBoardServicesLibraryCore_frameworkLibrary_19045)
   {
-    v6[1] = MEMORY[0x277D85DD0];
-    v6[2] = 3221225472;
-    v6[3] = __SpringBoardServicesLibraryCore_block_invoke_19046;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_278732D80;
-    v8 = 0;
+    v5[1] = MEMORY[0x277D85DD0];
+    v5[2] = 3221225472;
+    v5[3] = __SpringBoardServicesLibraryCore_block_invoke_19046;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_278732D80;
+    v7 = 0;
     SpringBoardServicesLibraryCore_frameworkLibrary_19045 = _sl_dlopen();
-    v3 = v6[0];
+    v3 = v5[0];
     v2 = SpringBoardServicesLibraryCore_frameworkLibrary_19045;
     if (SpringBoardServicesLibraryCore_frameworkLibrary_19045)
     {
-      if (!v6[0])
+      if (!v5[0])
       {
         goto LABEL_5;
       }
@@ -3353,7 +2871,7 @@ void *__getSBSSetTypingActiveSymbolLoc_block_invoke(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -3365,38 +2883,34 @@ LABEL_5:
   result = dlsym(v2, "SBSSetTypingActive");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getSBSSetTypingActiveSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __SpringBoardServicesLibraryCore_block_invoke_19046(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SpringBoardServicesLibraryCore_frameworkLibrary_19045 = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 Class __getPSPointerClientControllerClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   if (!PointerUIServicesLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = __PointerUIServicesLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_278732D68;
-    v7 = 0;
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = __PointerUIServicesLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_278732D68;
+    v6 = 0;
     PointerUIServicesLibraryCore_frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (PointerUIServicesLibraryCore_frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -3404,7 +2918,7 @@ Class __getPSPointerClientControllerClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -3415,21 +2929,17 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "PSPointerClientController");
   }
 
   getPSPointerClientControllerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __PointerUIServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   PointerUIServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3528,8 +3038,7 @@ __n128 KB::CompositeCandidateFilter::CompositeCandidateFilter(void *a1, __n128 *
   result = *a2;
   *(a1 + 1) = *a2;
   a1[3] = a2[1].n128_u64[0];
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   a2[1].n128_u64[0] = 0;
   return result;
 }
@@ -3542,8 +3051,7 @@ __n128 KB::CompositeCandidateFilter::CompositeCandidateFilter(void *a1, __n128 *
   result = *a2;
   *(a1 + 1) = *a2;
   a1[3] = a2[1].n128_u64[0];
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   a2[1].n128_u64[0] = 0;
   return result;
 }
@@ -3584,7 +3092,7 @@ Class __getSRKeyboardProbabilityMetricClass_block_invoke(uint64_t a1)
 
   else
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "SRKeyboardProbabilityMetric");
     return SensorKitLibrary_19737();
   }
 
@@ -3593,50 +3101,44 @@ Class __getSRKeyboardProbabilityMetricClass_block_invoke(uint64_t a1)
 
 uint64_t SensorKitLibrary_19737()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
   if (!SensorKitLibraryCore_frameworkLibrary_19740)
   {
-    v4[1] = MEMORY[0x277D85DD0];
-    v4[2] = 3221225472;
-    v4[3] = __SensorKitLibraryCore_block_invoke_19741;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_278732F20;
-    v6 = 0;
+    v3[1] = MEMORY[0x277D85DD0];
+    v3[2] = 3221225472;
+    v3[3] = __SensorKitLibraryCore_block_invoke_19741;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_278732F20;
+    v5 = 0;
     SensorKitLibraryCore_frameworkLibrary_19740 = _sl_dlopen();
-    v1 = v4[0];
+    v1 = v3[0];
     v0 = SensorKitLibraryCore_frameworkLibrary_19740;
     if (SensorKitLibraryCore_frameworkLibrary_19740)
     {
-      if (!v4[0])
+      if (!v3[0])
       {
-        goto LABEL_5;
+        return v0;
       }
     }
 
     else
     {
-      v1 = abort_report_np();
+      v1 = abort_report_np("%s", v3[0]);
     }
 
     free(v1);
-    goto LABEL_5;
+    return v0;
   }
 
-  v0 = SensorKitLibraryCore_frameworkLibrary_19740;
-LABEL_5:
-  v2 = *MEMORY[0x277D85DE8];
-  return v0;
+  return SensorKitLibraryCore_frameworkLibrary_19740;
 }
 
 uint64_t __SensorKitLibraryCore_block_invoke_19741(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SensorKitLibraryCore_frameworkLibrary_19740 = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3706,7 +3208,7 @@ Class __getSRKeyboardMetricsClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
+    v3 = abort_report_np("Unable to find class %s", "SRKeyboardMetrics");
     return [(TISKSessionStats *)v3 _roundedSessionInterval];
   }
 
@@ -3726,12 +3228,11 @@ KB::StaticDictionaryCursor *KB::StaticDictionaryCursor::StaticDictionaryCursor(K
     v5 = 0;
     do
     {
-      v6 = *(*a2 + 8 * v5);
       RootCursor = LXLexiconCreateRootCursor();
-      v8 = *(this + v5);
-      if (v8)
+      v7 = *(this + v5);
+      if (v7)
       {
-        CFRelease(v8);
+        CFRelease(v7);
       }
 
       *(this + v5) = RootCursor;
@@ -3803,103 +3304,96 @@ float KB::StaticDictionaryCursor::termination_probability(KB::StaticDictionaryCu
 
 float KB::StaticDictionaryCursor::probability_of_lexicon(KB::StaticDictionaryCursor *this, uint64_t a2)
 {
-  v5 = this + 24;
-  v4 = *this;
-  v6 = *&v5[4 * a2];
+  v4 = this + 24;
+  v5 = *(this + a2 + 6);
   if (!LXCursorIsRoot())
   {
-    v7 = KB::StaticDictionaryCursor::conditional_probability(this);
-    if (v7 > 0.0)
+    v6 = KB::StaticDictionaryCursor::conditional_probability(this);
+    if (v6 > 0.0)
     {
-      v8 = v7;
-      v9 = *(this + a2);
+      v7 = v6;
       LXCursorConditionalProbability();
-      *&v10 = v10;
-      return (*&v5[4 * a2] * __exp10f(*&v10)) / v8;
+      *&v8 = v8;
+      return (*&v4[4 * a2] * __exp10f(*&v8)) / v7;
     }
   }
 
-  return v6;
+  return v5;
 }
 
-float KB::StaticDictionaryCursor::advance(KB::StaticDictionaryCursor *this, const KB::String *a2)
+float KB::StaticDictionaryCursor::advance(KB::StaticDictionaryCursor *this, const KB::String *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
-  v4 = *(this + 5);
-  MEMORY[0x28223BE20]();
-  v6 = v15 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (v7)
+  v16[1] = *MEMORY[0x277D85DE8];
+  MEMORY[0x28223BE20](this, a2, a3, a4, a5);
+  v8 = v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  if (v9)
   {
-    v8 = 0;
+    v10 = 0;
     do
     {
-      *&v6[4 * v8] = KB::StaticDictionaryCursor::probability_of_lexicon(this, v8);
-      ++v8;
-      v9 = *(this + 5);
+      *&v8[4 * v10] = KB::StaticDictionaryCursor::probability_of_lexicon(this, v10);
+      ++v10;
+      v11 = *(this + 5);
     }
 
-    while (v8 < v9);
-    if (v9)
+    while (v10 < v11);
+    if (v11)
     {
-      memcpy(this + 24, v6, 4 * v9);
+      memcpy(this + 24, v8, 4 * v11);
       if (*(this + 5))
       {
-        v10 = 0;
+        v12 = 0;
         do
         {
-          if (*(this + v10))
+          if (*(this + v12))
           {
-            *(a2 + 1);
-            *a2;
-            v11 = LXCursorCreateByAdvancingWithUTF8();
-            v12 = *(this + v10);
-            if (v12)
+            v13 = LXCursorCreateByAdvancingWithUTF8();
+            v14 = *(this + v12);
+            if (v14)
             {
-              CFRelease(v12);
+              CFRelease(v14);
             }
           }
 
           else
           {
-            v11 = 0;
+            v13 = 0;
           }
 
-          *(this + v10++) = v11;
+          *(this + v12++) = v13;
         }
 
-        while (v10 < *(this + 5));
+        while (v12 < *(this + 5));
       }
     }
   }
 
   *(this + 12) = KB::String::last(a2);
-  v13 = *MEMORY[0x277D85DE8];
 
   return KB::StaticDictionaryCursor::conditional_probability(this);
 }
 
 float KB::StaticDictionaryCursor::advance(KB::StaticDictionaryCursor *this, unsigned int a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  KB::String::String(v7, a2);
-  v3 = KB::StaticDictionaryCursor::advance(this, v7);
-  if (v8)
+  v11 = *MEMORY[0x277D85DE8];
+  KB::String::String(v9, a2);
+  v6 = KB::StaticDictionaryCursor::advance(this, v9, v3, v4, v5);
+  if (v10)
   {
-    v4 = v7[6] == 1;
+    v7 = v9[6] == 1;
   }
 
   else
   {
-    v4 = 0;
+    v7 = 0;
   }
 
-  if (v4)
+  if (v7)
   {
-    free(v8);
+    free(v10);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-  return v3;
+  return v6;
 }
 
 __n128 __Block_byref_object_copy__20014(void *a1, uint64_t a2)
@@ -4259,43 +3753,35 @@ void std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<KB::St
 
 void KB::StaticDictionaryCursor::derive_words(KB::StaticDictionaryCursor *this, uint64_t a2, uint64_t a3)
 {
-  if (*a3 != *(a3 + 8))
-  {
-    v5 = **(a3 + 48);
-  }
-
   if (*(this + 5))
   {
-    v6 = 0;
+    v4 = 0;
     do
     {
-      v13 = 0;
-      v14 = &v13;
-      v15 = 0x4002000000;
-      v16 = __Block_byref_object_copy__5;
-      v17 = __Block_byref_object_dispose__6;
-      memset(v18, 0, sizeof(v18));
-      v7 = *(*(a3 + 48) + 4 * v6);
-      v8 = KB::StaticDictionaryCursor::termination_probability(this);
-      KB::StaticDictionaryCursor::probability_of_lexicon(this, v6);
-      if (v8 > 0.0)
+      v8 = 0;
+      v9 = &v8;
+      v10 = 0x4002000000;
+      v11 = __Block_byref_object_copy__5;
+      v12 = __Block_byref_object_dispose__6;
+      memset(v13, 0, sizeof(v13));
+      v5 = KB::StaticDictionaryCursor::termination_probability(this);
+      KB::StaticDictionaryCursor::probability_of_lexicon(this, v4);
+      if (v5 > 0.0)
       {
-        v9 = *(this + v6);
         LXCursorTerminationProbability();
-        *&v10 = v10;
-        __exp10f(*&v10);
+        *&v6 = v6;
+        __exp10f(*&v6);
       }
 
-      v11 = *(this + v6);
       LXCursorEnumerateEntries();
-      KB::StaticDictionary::merge_words(a2, v14 + 5);
-      _Block_object_dispose(&v13, 8);
-      v19 = v18;
-      std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](&v19);
-      ++v6;
+      KB::StaticDictionary::merge_words(a2, v9 + 5);
+      _Block_object_dispose(&v8, 8);
+      v14 = v13;
+      std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](&v14);
+      ++v4;
     }
 
-    while (v6 < *(this + 5));
+    while (v4 < *(this + 5));
   }
 }
 
@@ -4500,19 +3986,18 @@ uint64_t KB::StaticDictionaryCursor::valid(KB::StaticDictionaryCursor *this)
   return 1;
 }
 
-uint64_t TI::Favonius::SearchNodeTranspositionGeometryExtensions::branch_at_current_bound@<X0>(uint64_t this@<X0>, void *a2@<X8>)
+void TI::Favonius::SearchNodeTranspositionGeometryExtensions::branch_at_current_bound(TI::Favonius::SearchNodeTranspositionGeometryExtensions *this@<X0>, uint64_t *a2@<X8>)
 {
-  v3 = *(this + 40);
+  v3 = *(this + 5);
   if (v3)
   {
-    v4 = this;
-    v5 = *(this + 48);
+    v5 = *(this + 6);
     v6 = *(v5 + 8 * v3 - 8);
     if (v6)
     {
       atomic_fetch_add(v6, 1u);
-      v3 = *(this + 40);
-      v5 = *(this + 48);
+      v3 = *(this + 5);
+      v5 = *(this + 6);
     }
 
     v7 = v3 - 1;
@@ -4522,12 +4007,12 @@ uint64_t TI::Favonius::SearchNodeTranspositionGeometryExtensions::branch_at_curr
       WTF::RefCounted<TI::Favonius::KeyMatch>::deref(v8);
     }
 
-    *(v4 + 40) = v7;
-    TI::Favonius::SearchNodeTranspositionGeometryExtensions::pop_nonletter_keys(v4);
-    v9 = *(v4 + 40);
+    *(this + 5) = v7;
+    TI::Favonius::SearchNodeTranspositionGeometryExtensions::pop_nonletter_keys(this);
+    v9 = *(this + 5);
     if (v9)
     {
-      v10 = *(v4 + 72) + *(*(*(v4 + 48) + 8 * v9 - 8) + 32);
+      v10 = *(this + 18) + *(*(*(this + 6) + 8 * v9 - 8) + 32);
     }
 
     else
@@ -4535,18 +4020,18 @@ uint64_t TI::Favonius::SearchNodeTranspositionGeometryExtensions::branch_at_curr
       v10 = -INFINITY;
     }
 
-    *(v4 + 24) = v10;
-    v11 = *(v4 + 32);
-    v12 = *(v4 + 88);
+    *(this + 6) = v10;
+    v11 = *(this + 4);
+    v12 = *(this + 11);
     if (v12)
     {
-      v13 = *(v4 + 80);
-      if (!v13 || (atomic_fetch_add((v13 + 8), 1u), (v12 = *(v4 + 88)) != 0))
+      v13 = *(this + 10);
+      if (!v13 || (atomic_fetch_add((v13 + 8), 1u), (v12 = *(this + 11)) != 0))
       {
         atomic_fetch_add(v12, 1u);
       }
 
-      v14 = *(v4 + 16);
+      v14 = *(this + 2);
       if (v14)
       {
         atomic_fetch_add((v14 + 8), 1u);
@@ -4555,18 +4040,16 @@ uint64_t TI::Favonius::SearchNodeTranspositionGeometryExtensions::branch_at_curr
       if (v6)
       {
         atomic_fetch_add(v6, 1u);
-        v15 = *(v4 + 64);
-        TI::Favonius::SearchNodeTransposition::create();
+        TI::Favonius::SearchNodeTransposition::create(&v17, v11, v13, v12, v14, v6, *(this + 16));
       }
 
-      v19 = *(v4 + 64);
-      TI::Favonius::SearchNodeTransposition::create();
+      TI::Favonius::SearchNodeTransposition::create(&v17, v11, v13, v12, v14, 0, *(this + 16));
     }
 
-    v16 = *(v4 + 80);
-    if (v16)
+    v15 = *(this + 10);
+    if (v15)
     {
-      atomic_fetch_add((v16 + 8), 1u);
+      atomic_fetch_add((v15 + 8), 1u);
     }
 
     if (v6)
@@ -4574,18 +4057,16 @@ uint64_t TI::Favonius::SearchNodeTranspositionGeometryExtensions::branch_at_curr
       atomic_fetch_add(v6, 1u);
     }
 
-    v17 = *(v4 + 16);
-    if (v17)
+    v16 = *(this + 2);
+    if (v16)
     {
-      atomic_fetch_add((v17 + 8), 1u);
+      atomic_fetch_add((v16 + 8), 1u);
     }
 
-    v18 = *(v4 + 64);
     operator new();
   }
 
   *a2 = 0;
-  return this;
 }
 
 uint64_t TI::Favonius::SearchNodeTranspositionGeometryExtensions::pop_nonletter_keys(uint64_t this)
@@ -4677,8 +4158,7 @@ __n128 __Block_byref_object_copy__20073(__n128 *a1, __n128 *a2)
 {
   result = a2[3];
   a1[3] = result;
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   return result;
 }
 
@@ -4717,13 +4197,13 @@ void __destroy_helper_block_a8_48c17_ZTSKN2KB6StringE(uint64_t a1)
 
 void ___ZN2KB20UserDictionaryLoader15create_and_loadERKNS_6StringE_block_invoke_14(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = TIUserDictionaryOSLogFacility();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Done loading UserDictionary trie installing on main thread.", "create_and_load_block_invoke"];;
     *buf = 138412290;
-    v14 = v3;
+    v13 = v3;
     _os_log_impl(&dword_22CA55000, v2, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
   }
 
@@ -4757,8 +4237,6 @@ void ___ZN2KB20UserDictionaryLoader15create_and_loadERKNS_6StringE_block_invoke_
       std::__shared_weak_count::__release_shared[abi:nn200100](v7);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __destroy_helper_block_a8_40c47_ZTSNSt3__110shared_ptrIN2KB14UserDictionaryEEE(uint64_t a1)
@@ -4788,7 +4266,7 @@ uint64_t std::__shared_ptr_pointer<KB::UserDictionary *,std::shared_ptr<KB::User
   v1 = *(result + 24);
   if (v1)
   {
-    std::__hash_table<std::__hash_value_type<KB::String,KB::String>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::String>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::String>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::String>>>::~__hash_table(v1 + 48);
+    std::__hash_table<std::__hash_value_type<KB::String,KB::String>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::String>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::String>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::String>>>::~__hash_table((v1 + 48));
     v2 = *(v1 + 24);
     while (v2)
     {
@@ -4834,7 +4312,7 @@ void std::__shared_ptr_pointer<KB::UserDictionary *,std::shared_ptr<KB::UserDict
 
 uint64_t std::__shared_ptr_pointer<KB::UserDictionaryLoader *,std::shared_ptr<KB::UserDictionaryLoader>::__shared_ptr_default_delete<KB::UserDictionaryLoader,KB::UserDictionaryLoader>,std::allocator<KB::UserDictionaryLoader>>::__on_zero_shared(uint64_t result)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v1 = *(result + 24);
   if (v1)
   {
@@ -4843,7 +4321,7 @@ uint64_t std::__shared_ptr_pointer<KB::UserDictionaryLoader *,std::shared_ptr<KB
     {
       v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Destructing UserDictionaryLoader", "~UserDictionaryLoader"];
       *buf = 138412290;
-      v12 = v3;
+      v10 = v3;
       _os_log_impl(&dword_22CA55000, v2, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
     }
 
@@ -4873,12 +4351,9 @@ uint64_t std::__shared_ptr_pointer<KB::UserDictionaryLoader *,std::shared_ptr<KB
       std::__shared_weak_count::__release_shared[abi:nn200100](v8);
     }
 
-    v9 = *MEMORY[0x277D85DE8];
-
     JUMPOUT(0x2318BE270);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4968,7 +4443,7 @@ void KB::MutableLexiconWrapper::~MutableLexiconWrapper(KB::MutableLexiconWrapper
 
 KB::MutableLexiconWrapper *KB::MutableLexiconWrapper::MutableLexiconWrapper(KB::MutableLexiconWrapper *this, const KB::String *a2, const KB::String *a3)
 {
-  v15[4] = *MEMORY[0x277D85DE8];
+  v14[4] = *MEMORY[0x277D85DE8];
   *this = &unk_283FDF030;
   KB::String::String((this + 8), a2);
   *(this + 5) = 0;
@@ -4992,14 +4467,14 @@ KB::MutableLexiconWrapper *KB::MutableLexiconWrapper::MutableLexiconWrapper(KB::
   v8 = cf;
   cf = 0;
   *(this + 5) = v8;
-  KB::String::operator=(this + 48, v12);
-  std::__function::__value_func<KB::ByteString ()(KB::String const&)>::operator=[abi:nn200100](this + 80, v14);
-  std::__function::__value_func<int ()(KB::String const&,KB::String const&)>::operator=[abi:nn200100](this + 112, v15);
-  std::__function::__value_func<int ()(KB::String const&,KB::String const&)>::~__value_func[abi:nn200100](v15);
-  std::__function::__value_func<KB::ByteString ()(KB::String const&)>::~__value_func[abi:nn200100](v14);
-  if (v13 && v12[6] == 1)
+  KB::String::operator=(this + 48, v11);
+  std::__function::__value_func<KB::ByteString ()(KB::String const&)>::operator=[abi:nn200100](this + 80, v13);
+  std::__function::__value_func<int ()(KB::String const&,KB::String const&)>::operator=[abi:nn200100](this + 112, v14);
+  std::__function::__value_func<int ()(KB::String const&,KB::String const&)>::~__value_func[abi:nn200100](v14);
+  std::__function::__value_func<KB::ByteString ()(KB::String const&)>::~__value_func[abi:nn200100](v13);
+  if (v12 && v11[6] == 1)
   {
-    free(v13);
+    free(v12);
   }
 
   if (cf)
@@ -5007,13 +4482,12 @@ KB::MutableLexiconWrapper *KB::MutableLexiconWrapper::MutableLexiconWrapper(KB::
     CFRelease(cf);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return this;
 }
 
 uint64_t KB::MutableLexiconWrapper::create_mutable_lexicon(KB::MutableLexiconWrapper *this, const KB::String *a2, const KB::String *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (*this)
   {
@@ -5042,9 +4516,9 @@ uint64_t KB::MutableLexiconWrapper::create_mutable_lexicon(KB::MutableLexiconWra
   KB::String::String(&value, "TextInput-Dynamic.");
   KB::String::append(&value, this);
   v10 = *MEMORY[0x277D23178];
-  KB::cf_string_impl<KB::String>(&v21, &value);
-  v11 = v21;
-  CFDictionarySetValue(Mutable, v10, v21);
+  KB::cf_string_impl<KB::String>(&v20, &value);
+  v11 = v20;
+  CFDictionarySetValue(Mutable, v10, v20);
   if (v11)
   {
     CFRelease(v11);
@@ -5053,11 +4527,11 @@ uint64_t KB::MutableLexiconWrapper::create_mutable_lexicon(KB::MutableLexiconWra
   v12 = LXLexiconCreateMutable();
   if (!v12)
   {
-    LODWORD(v21) = 0x100000;
-    WORD2(v21) = 0;
-    BYTE6(v21) = 0;
+    LODWORD(v20) = 0x100000;
+    WORD2(v20) = 0;
+    BYTE6(v20) = 0;
+    v21 = 0;
     v22 = 0;
-    v23 = 0;
     if (TICanLogMessageAtLevel_onceToken != -1)
     {
       dispatch_once(&TICanLogMessageAtLevel_onceToken, &__block_literal_global_24093);
@@ -5066,34 +4540,34 @@ uint64_t KB::MutableLexiconWrapper::create_mutable_lexicon(KB::MutableLexiconWra
     v13 = TIOSLogFacility();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v16 = &v23;
-      if (v22)
+      v15 = &v22;
+      if (v21)
       {
-        v16 = v22;
+        v15 = v21;
       }
 
-      if (!v21)
+      if (!v20)
       {
-        v16 = "";
+        v15 = "";
       }
 
       *buf = 136315394;
-      v18 = "create_mutable_lexicon";
-      v19 = 2080;
-      v20 = v16;
+      v17 = "create_mutable_lexicon";
+      v18 = 2080;
+      v19 = v15;
       _os_log_debug_impl(&dword_22CA55000, v13, OS_LOG_TYPE_DEBUG, "%s Unable to create LXMutableLexicon: %s", buf, 0x16u);
     }
 
-    if (v22 && BYTE6(v21) == 1)
+    if (v21 && BYTE6(v20) == 1)
     {
-      free(v22);
+      free(v21);
     }
   }
 
   LXLexiconRepositoryAddOrUpdate();
-  if (v25 && BYTE6(value) == 1)
+  if (v24 && BYTE6(value) == 1)
   {
-    free(v25);
+    free(v24);
   }
 
   if (Mutable)
@@ -5101,22 +4575,20 @@ uint64_t KB::MutableLexiconWrapper::create_mutable_lexicon(KB::MutableLexiconWra
     CFRelease(Mutable);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
-unsigned __int16 *KB::MutableLexiconWrapper::default_lexicon_name@<X0>(KB::MutableLexiconWrapper *this@<X0>, KB::String *a2@<X8>)
+KB::String *KB::MutableLexiconWrapper::default_lexicon_name@<X0>(KB::MutableLexiconWrapper *this@<X0>, KB::String *a2@<X8>)
 {
-  v4 = KB::String::String(a2, "TextInput-Dynamic.");
+  v3 = KB::String::String(a2, "TextInput-Dynamic.");
 
-  return KB::String::append(v4, this);
+  return KB::String::append(v3, this);
 }
 
 uint64_t KB::MutableLexiconWrapper::store(KB::MutableLexiconWrapper *this)
 {
   if ((*(*this + 16))(this))
   {
-    v2 = *(this + 18);
     LXLexiconWrite();
   }
 
@@ -5136,41 +4608,39 @@ uint64_t KB::MutableLexiconWrapper::clear(KB::MutableLexiconWrapper *this)
   return result;
 }
 
-void KB::MutableLexiconWrapper::increment_usage_count(KB::MutableLexiconWrapper *this, const KB::String *a2)
+void KB::MutableLexiconWrapper::increment_usage_count(KB::MutableLexiconWrapper *this, const KB::String *a2, uint64_t a3)
 {
   if ((*(*this + 16))(this))
   {
-    v4 = *(this + 18);
-    KB::cf_string_impl<KB::String>(&v6, a2);
-    v5 = v6;
+    KB::cf_string_impl<KB::String>(&v5, a2);
+    v4 = v5;
     LXLexiconIncrementUsageCount();
-    if (v5)
+    if (v4)
     {
-      CFRelease(v5);
+      CFRelease(v4);
     }
   }
 }
 
-uint64_t KB::MutableLexiconWrapper::add_entry(KB::MutableLexiconWrapper *this, const KB::String *a2)
+uint64_t KB::MutableLexiconWrapper::add_entry(KB::MutableLexiconWrapper *this, const KB::String *a2, uint64_t a3)
 {
   if (!(*(*this + 16))(this))
   {
     return 0;
   }
 
-  v4 = *(this + 18);
-  KB::cf_string_impl<KB::String>(&v8, a2);
-  v5 = v8;
-  v6 = LXLexiconAdd();
-  if (v5)
+  KB::cf_string_impl<KB::String>(&v7, a2);
+  v4 = v7;
+  v5 = LXLexiconAdd();
+  if (v4)
   {
-    CFRelease(v5);
+    CFRelease(v4);
   }
 
-  return v6;
+  return v5;
 }
 
-uint64_t KB::MutableLexiconWrapper::add_entry_with_token_id(KB::MutableLexiconWrapper *this, const KB::String *a2, double a3)
+uint64_t KB::MutableLexiconWrapper::add_entry_with_token_id(KB::MutableLexiconWrapper *this, const KB::String *a2, uint64_t a3, double a4, uint64_t a5)
 {
   if (!(*(*this + 16))(this))
   {
@@ -5178,14 +4648,13 @@ uint64_t KB::MutableLexiconWrapper::add_entry_with_token_id(KB::MutableLexiconWr
   }
 
   KB::cf_string_impl<KB::String>(&v10, a2);
-  v5 = v10;
+  v6 = v10;
   Mutable = LXEntryCreateMutable();
-  if (v5)
+  if (v6)
   {
-    CFRelease(v5);
+    CFRelease(v6);
   }
 
-  v7 = *(this + 18);
   v8 = LXLexiconAddEntryWithTokenID();
   if (Mutable)
   {
@@ -5200,69 +4669,66 @@ void KB::MutableLexiconWrapper::write_debug_dump(KB::MutableLexiconWrapper *this
   if ((*(*this + 16))(this))
   {
     KB::cf_string_impl<KB::String>(&filePath, a2);
-    v4 = filePath;
-    v5 = CFURLCreateWithFileSystemPath(*MEMORY[0x277CBECE8], filePath, kCFURLPOSIXPathStyle, 0);
-    if (v5)
-    {
-      v6 = v5;
-      v7 = *(this + 18);
-      LXLexiconWriteDebugDump();
-      CFRelease(v6);
-    }
-
+    v3 = filePath;
+    v4 = CFURLCreateWithFileSystemPath(*MEMORY[0x277CBECE8], filePath, kCFURLPOSIXPathStyle, 0);
     if (v4)
     {
-      CFRelease(v4);
+      v5 = v4;
+      LXLexiconWriteDebugDump();
+      CFRelease(v5);
+    }
+
+    if (v3)
+    {
+      CFRelease(v3);
     }
   }
 }
 
-void AddressBookTrieLoaderImpl::~AddressBookTrieLoaderImpl(AddressBookTrieLoaderImpl *this)
+void AddressBookTrieLoaderImpl::~AddressBookTrieLoaderImpl(AddressBookTrieLoaderImpl *this, uint64_t a2)
 {
-  AddressBookTrieLoaderImpl::~AddressBookTrieLoaderImpl(this);
+  AddressBookTrieLoaderImpl::~AddressBookTrieLoaderImpl(this, a2);
 
   JUMPOUT(0x2318BE270);
 }
 
 {
   v11 = *MEMORY[0x277D85DE8];
-  v2 = TIPersonalizationContactOSLogFacility();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = TIPersonalizationContactOSLogFacility();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Removing contact observer", "~AddressBookTrieLoaderImpl"];
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Removing contact observer", "~AddressBookTrieLoaderImpl"];
     *buf = 138412290;
-    v10 = v3;
-    _os_log_impl(&dword_22CA55000, v2, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
+    v10 = v4;
+    _os_log_impl(&dword_22CA55000, v3, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
   }
 
-  v4 = +[TITransientLexiconManager sharedInstance];
-  [v4 removeContactObserver:*(this + 6)];
+  v5 = +[TITransientLexiconManager sharedInstance];
+  [v5 removeContactObserver:*(this + 6)];
 
-  v5 = *(this + 5);
-  if (v5)
+  v6 = *(this + 5);
+  if (v6)
   {
-    CFRelease(v5);
+    CFRelease(v6);
   }
 
   *(this + 5) = 0;
-  v6 = *(this + 4);
-  if (v6)
-  {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v6);
-  }
-
-  v7 = *(this + 2);
+  v7 = *(this + 4);
   if (v7)
   {
-    std::__shared_weak_count::__release_weak(v7);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v7);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = *(this + 2);
+  if (v8)
+  {
+    std::__shared_weak_count::__release_weak(v8);
+  }
 }
 
 void ___ZN25AddressBookTrieLoaderImpl28register_as_contact_observerEN2KB6StringES1_S1__block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 40);
   if (v4)
@@ -5301,15 +4767,13 @@ void ___ZN25AddressBookTrieLoaderImpl28register_as_contact_observerEN2KB6StringE
             _os_log_impl(&dword_22CA55000, v10, OS_LOG_TYPE_INFO, "%@", value, 0xCu);
           }
 
-          KB::StaticDictionary::create(v12);
+          KB::StaticDictionary::create();
         }
       }
 
       std::__shared_weak_count::__release_shared[abi:nn200100](v6);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __destroy_helper_block_a8_32c50_ZTSNSt3__18weak_ptrI25AddressBookTrieLoaderImplEE48c17_ZTSKN2KB6StringE80c17_ZTSKN2KB6StringE112c17_ZTSKN2KB6StringE(uint64_t a1)
@@ -5372,29 +4836,29 @@ void ___ZL28background_load_address_bookN2KB10retain_ptrIP10_LXLexiconEERKNS_16S
   *(v3 + 40) = v2;
 }
 
-void addName(void *a1, long double a2, uint64_t a3, uint64_t a4, uint64_t a5, KB::StaticDictionary *a6, int a7, uint64_t a8)
+void addName(void *a1, uint64_t a2, uint64_t a3, unsigned int a4, KB::StaticDictionary *a5, int a6, uint64_t a7, long double a8)
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v12 = a1;
   v13 = v12;
   if (v12 && [(__CFString *)v12 length]<= 0x100)
   {
-    v40 = a7;
+    v39 = a6;
+    v54 = 0;
     v55 = 0;
-    v56 = 0;
-    v57 = " ,:;";
-    v54 = 1048580;
-    v58 = 0;
-    KB::utf8_string(v13, &v52);
-    KB::sbs_string_tokenize(&v52, &v54, &v43);
-    v15 = v43;
-    v14 = v44;
-    if (v43 != v44)
+    v56 = " ,:;";
+    v53 = 1048580;
+    v57 = 0;
+    KB::utf8_string(&v51, v13);
+    KB::sbs_string_tokenize(&v42, &v51, &v53);
+    v15 = v42;
+    v14 = v43;
+    if (v42 != v43)
     {
-      v16 = (a8 + 8);
-      if (a4)
+      v16 = (a7 + 8);
+      if (a3)
       {
-        v17 = (v44 - v43) > 0x20;
+        v17 = (v43 - v42) > 0x20;
       }
 
       else
@@ -5403,22 +4867,22 @@ void addName(void *a1, long double a2, uint64_t a3, uint64_t a4, uint64_t a5, KB
       }
 
       v18 = v17;
-      v41 = v18;
-      log10(a2);
+      v40 = v18;
+      log10(a8);
       do
       {
-        KB::String::String(&v50, v15);
-        v47 = 0.0;
-        KB::StaticDictionary::candidates_for_string(a6, &v50, &v47, &v45);
-        v19 = v47;
-        if ((KB::StaticDictionary::contains_surfaceform_insertion_with_candidates(&v45, 0, v47) & 1) == 0)
+        KB::String::String(&v49, v15);
+        v46 = 0.0;
+        KB::StaticDictionary::candidates_for_string(&v44, a5, &v49, &v46);
+        v19 = v46;
+        if ((KB::StaticDictionary::contains_surfaceform_insertion_with_candidates(&v44, 0, v46) & 1) == 0)
         {
-          v21 = KB::count_letters_if_word(&v50, v20);
+          v21 = KB::count_letters_if_word(&v49, v20);
           if (v21 == 2)
           {
-            v23 = v45;
-            v24 = v46;
-            if (v19 > 0.002 && v46 != v45)
+            v23 = v44;
+            v24 = v45;
+            if (v19 > 0.002 && v45 != v44)
             {
               goto LABEL_12;
             }
@@ -5431,14 +4895,14 @@ void addName(void *a1, long double a2, uint64_t a3, uint64_t a4, uint64_t a5, KB
               goto LABEL_12;
             }
 
-            v23 = v45;
-            v24 = v46;
+            v23 = v44;
+            v24 = v45;
           }
 
-          v26 = v47;
+          v26 = v46;
           if (v24 == v23)
           {
-            v33 = v47 > 0.0;
+            v33 = v46 > 0.0;
           }
 
           else
@@ -5477,24 +4941,24 @@ void addName(void *a1, long double a2, uint64_t a3, uint64_t a4, uint64_t a5, KB
               }
             }
 
-            if (v49 < 0)
+            if (v48 < 0)
             {
               operator delete(__p[0]);
             }
 
-            if (v26 > v29 && v46 != v45)
+            if (v26 > v29 && v45 != v44)
             {
               goto LABEL_12;
             }
 
             v33 = v26 > 0.0;
-            if (v26 > 0.0 && v46 != v45)
+            if (v26 > 0.0 && v45 != v44)
             {
-              v34 = WORD2(v50);
-              if (!WORD2(v50))
+              v34 = WORD2(v49);
+              if (!WORD2(v49))
               {
-                KB::String::compute_length(&v50);
-                v34 = WORD2(v50);
+                KB::String::compute_length(&v49);
+                v34 = WORD2(v49);
               }
 
               if (v34 < 3)
@@ -5509,13 +4973,13 @@ void addName(void *a1, long double a2, uint64_t a3, uint64_t a4, uint64_t a5, KB
             dispatch_once(&_unacceptable_confusable_characters(void)::once_token, &__block_literal_global_20793);
           }
 
-          if (!KB::any_of_string_characters_in_set(&v50, _unacceptable_confusable_characters(void)::excluded_set, v22))
+          if (!KB::any_of_string_characters_in_set(&v49, _unacceptable_confusable_characters(void)::excluded_set, v22))
           {
             goto LABEL_57;
           }
 
           v35 = !v33;
-          if (v46 == v45)
+          if (v45 == v44)
           {
             v35 = 1;
           }
@@ -5523,26 +4987,26 @@ void addName(void *a1, long double a2, uint64_t a3, uint64_t a4, uint64_t a5, KB
           if (v35)
           {
 LABEL_57:
-            __p[0] = &v45;
+            __p[0] = &v44;
             std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](__p);
-            KB::cf_string_impl<KB::String>(__p, &v50);
+            KB::cf_string_impl<KB::String>(__p, &v49);
             v36 = __p[0];
             if (LXLexiconAdd())
             {
               LXLexiconIncrementUsageCount();
             }
 
-            if ((v41 & 1) == 0)
+            if ((v40 & 1) == 0)
             {
-              KB::cf_string_impl<KB::String>(&v45, &v50);
-              v37 = v45;
+              KB::cf_string_impl<KB::String>(&v44, &v49);
+              v37 = v44;
               v38 = LMVocabularyAddLemma();
               if (v37)
               {
                 CFRelease(v37);
               }
 
-              if (v38 && v40)
+              if (v38 && v39)
               {
                 LMVocabularyEnumerateInflectionsOfLemma();
               }
@@ -5558,12 +5022,12 @@ LABEL_57:
         }
 
 LABEL_12:
-        __p[0] = &v45;
+        __p[0] = &v44;
         std::vector<KB::Word>::__destroy_vector::operator()[abi:nn200100](__p);
 LABEL_13:
-        if (v51 && BYTE6(v50) == 1)
+        if (v50 && BYTE6(v49) == 1)
         {
-          free(v51);
+          free(v50);
         }
 
         v15 = (v15 + 32);
@@ -5572,20 +5036,18 @@ LABEL_13:
       while (v15 != v14);
     }
 
-    v50 = &v43;
-    std::vector<KB::String>::__destroy_vector::operator()[abi:nn200100](&v50);
-    if (v53 && BYTE6(v52) == 1)
+    v49 = &v42;
+    std::vector<KB::String>::__destroy_vector::operator()[abi:nn200100](&v49);
+    if (v52 && BYTE6(v51) == 1)
     {
-      free(v53);
+      free(v52);
     }
 
-    if (v57 && v56 == 1)
+    if (v56 && v55 == 1)
     {
-      free(v57);
+      free(v56);
     }
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 void ___ZL28background_load_address_bookN2KB10retain_ptrIP10_LXLexiconEERKNS_16StaticDictionaryEP12NSDictionaryIP8NSStringP10_ICContactE_block_invoke_2(uint64_t a1, void *a2)
@@ -5595,7 +5057,7 @@ void ___ZL28background_load_address_bookN2KB10retain_ptrIP10_LXLexiconEERKNS_16S
   v5 = *(a1 + 32);
   v7 = a2;
   [v5 score];
-  addName(v7, v6, v4, 0, 0, v3, *(a1 + 80), a1 + 56);
+  addName(v7, v4, 0, 0, v3, *(a1 + 80), a1 + 56, v6);
 }
 
 uint64_t std::map<std::string,float>::insert[abi:nn200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,float>,std::__tree_node<std::__value_type<std::string,float>,void *> *,long>>>(uint64_t result, void *a2, void *a3)
@@ -5707,7 +5169,7 @@ void ___ZL28background_load_address_bookN2KB10retain_ptrIP10_LXLexiconEERKNS_16S
   v5 = *(a1 + 32);
   v7 = a2;
   [v5 score];
-  addName(v7, v6, v4, 0, 0, v3, *(a1 + 80), a1 + 56);
+  addName(v7, v4, 0, 0, v3, *(a1 + 80), a1 + 56, v6);
 }
 
 void ___ZN25AddressBookTrieLoaderImpl28register_as_contact_observerEN2KB6StringES1_S1__block_invoke_20(void *a1)
@@ -5811,8 +5273,8 @@ uint64_t __copy_helper_block_a8_40c36_ZTSN2KB10retain_ptrIP10_LXLexiconEE56c114_
 
   a1[8] = 0;
   a1[7] = a1 + 8;
-  v5 = (a1 + 7);
-  *(v5 + 16) = 0;
+  v5 = a1 + 7;
+  v5[2] = 0;
   v6 = a2[7];
 
   return std::map<std::string,float>::insert[abi:nn200100]<std::__map_const_iterator<std::__tree_const_iterator<std::__value_type<std::string,float>,std::__tree_node<std::__value_type<std::string,float>,void *> *,long>>>(v5, v6, a2 + 8);
@@ -5820,32 +5282,31 @@ uint64_t __copy_helper_block_a8_40c36_ZTSN2KB10retain_ptrIP10_LXLexiconEE56c114_
 
 void ___ZL7addNameP8NSStringP10_LXLexiconPvjRKN2KB16StaticDictionaryEdbRKNSt3__13mapINS8_12basic_stringIcNS8_11char_traitsIcEENS8_9allocatorIcEEEEfNS8_4lessISF_EENSD_INS8_4pairIKSF_fEEEEEE_block_invoke(uint64_t a1, id a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v4 = a2;
-  KB::String::String(v10, [a2 UTF8String]);
-  KB::cf_string_impl<KB::String>(&v9, v10);
-  v5 = *(a1 + 32);
-  v6 = v9;
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  KB::String::String(v6, [a2 UTF8String]);
+  KB::cf_string_impl<KB::String>(&v5, v6);
+  v4 = v5;
   if (LXLexiconAdd())
   {
-    v7 = *(a1 + 32);
     LXLexiconIncrementUsageCount();
   }
 
-  if (v6)
+  if (v4)
   {
-    CFRelease(v6);
+    CFRelease(v4);
   }
 
-  if (v12 && v11 == 1)
+  if (v8)
   {
-    free(v12);
+    if (v7 == 1)
+    {
+      free(v8);
+    }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t ___ZL35_unacceptable_confusable_charactersv_block_invoke()
+uint64_t ___ZL35_unacceptable_confusable_charactersv_block_invoke(uint64_t a1, uint64_t a2)
 {
   result = uset_openEmpty();
   _unacceptable_confusable_characters(void)::excluded_set = result;
@@ -5865,6 +5326,16 @@ uint64_t ___ZL35_unacceptable_confusable_charactersv_block_invoke()
   }
 
   return result;
+}
+
+void KB::AddressBookTrieLoader::create()
+{
+  operator new();
+}
+
+{
+  v4 = *MEMORY[0x277D85DE8];
+  operator new();
 }
 
 uint64_t std::__shared_ptr_pointer<AddressBookTrieLoaderStub *,std::shared_ptr<AddressBookTrieLoaderStub>::__shared_ptr_default_delete<AddressBookTrieLoaderStub,AddressBookTrieLoaderStub>,std::allocator<AddressBookTrieLoaderStub>>::__on_zero_shared(uint64_t result)
@@ -5923,12 +5394,12 @@ void AddressBookTrieLoaderStub::~AddressBookTrieLoaderStub(AddressBookTrieLoader
   }
 }
 
-AddressBookTrieLoaderImpl *std::__shared_ptr_pointer<AddressBookTrieLoaderImpl *,std::shared_ptr<AddressBookTrieLoaderImpl>::__shared_ptr_default_delete<AddressBookTrieLoaderImpl,AddressBookTrieLoaderImpl>,std::allocator<AddressBookTrieLoaderImpl>>::__on_zero_shared(uint64_t a1)
+AddressBookTrieLoaderImpl *std::__shared_ptr_pointer<AddressBookTrieLoaderImpl *,std::shared_ptr<AddressBookTrieLoaderImpl>::__shared_ptr_default_delete<AddressBookTrieLoaderImpl,AddressBookTrieLoaderImpl>,std::allocator<AddressBookTrieLoaderImpl>>::__on_zero_shared(uint64_t a1, uint64_t a2)
 {
   result = *(a1 + 24);
   if (result)
   {
-    AddressBookTrieLoaderImpl::~AddressBookTrieLoaderImpl(result);
+    AddressBookTrieLoaderImpl::~AddressBookTrieLoaderImpl(result, a2);
 
     JUMPOUT(0x2318BE270);
   }
@@ -6619,8 +6090,8 @@ void UnicodeCharset::UnicodeCharset(UnicodeCharset *this, const unsigned __int16
 {
   v2 = 0;
   *this = &unk_283FDE580;
-  v3 = &UnicodeTable;
-  *(this + 108) = &UnicodeTable;
+  v3 = UnicodeTable;
+  *(this + 108) = UnicodeTable;
   for (i = 8; i != 860; i += 4)
   {
     v5 = *v3++;
@@ -6735,7 +6206,7 @@ LABEL_17:
 
 id createAutoshiftRegularExpression(NSString *a1, NSString *a2, NSString *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a2;
   v7 = a1;
@@ -6752,9 +6223,9 @@ id createAutoshiftRegularExpression(NSString *a1, NSString *a2, NSString *a3)
 
   v15 = [v13 stringWithFormat:@"(?:%@)(?:%@)*(?:%@)*\\Z", v12, v8, v14];
 
-  v22 = 0;
-  v16 = [objc_alloc(MEMORY[0x277CCAC68]) initWithPattern:v15 options:16 error:&v22];
-  v17 = v22;
+  v21 = 0;
+  v16 = [objc_alloc(MEMORY[0x277CCAC68]) initWithPattern:v15 options:16 error:&v21];
+  v17 = v21;
   if (!v16)
   {
     if (TICanLogMessageAtLevel_onceToken != -1)
@@ -6765,14 +6236,12 @@ id createAutoshiftRegularExpression(NSString *a1, NSString *a2, NSString *a3)
     v18 = TIOSLogFacility();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s failed: %@", "createAutoshiftRegularExpression", v17];
+      v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s failed: %@", "createAutoshiftRegularExpression", v17];
       *buf = 138412290;
-      v24 = v21;
+      v23 = v20;
       _os_log_debug_impl(&dword_22CA55000, v18, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -6848,27 +6317,26 @@ uint64_t KB::NgramCandidateRefinery::get_num_candidates@<X0>(uint64_t result@<X0
   return result;
 }
 
-void KB::NgramCandidateRefinery::inline_predictions_for_completion_stems(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void KB::NgramCandidateRefinery::inline_predictions_for_completion_stems(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v16[4] = *MEMORY[0x277D85DE8];
-  v6 = a1[2];
-  if (v6)
+  v7 = a1[2];
+  if (v7)
   {
-    v8 = a1[1];
-    v9 = std::__shared_weak_count::lock(v6);
-    if (v9)
+    v9 = a1[1];
+    v10 = std::__shared_weak_count::lock(v7);
+    if (v10)
     {
-      v10 = v9;
-      v14[4] = v8;
-      v15 = v9;
-      atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+      v11 = v10;
+      v14[4] = v9;
+      v15 = v10;
+      atomic_fetch_add_explicit(&v10->__shared_weak_owners_, 1uLL, memory_order_relaxed);
       std::__function::__value_func<void ()(KB::CandidateCollection &,KB::Candidate const&,KB::LanguageModelContext const&,BOOL)>::__value_func[abi:nn200100](v16, a5);
-      std::__shared_weak_count::__release_shared[abi:nn200100](v10);
-      v12[9] = v8;
+      std::__shared_weak_count::__release_shared[abi:nn200100](v11);
+      v12[9] = v9;
       v13 = v15;
       atomic_fetch_add_explicit(&v15->__shared_weak_owners_, 1uLL, memory_order_relaxed);
       std::__function::__value_func<void ()(KB::CandidateCollection &,KB::Candidate const&,KB::LanguageModelContext const&,BOOL)>::__value_func[abi:nn200100](v14, v16);
-      v11 = a1[4];
       atomic_fetch_add_explicit(&v13->__shared_weak_owners_, 1uLL, memory_order_relaxed);
       std::__function::__value_func<void ()(KB::CandidateCollection &,KB::Candidate const&,KB::LanguageModelContext const&,BOOL)>::__value_func[abi:nn200100](v12, v14);
       operator new();
@@ -6880,7 +6348,7 @@ void KB::NgramCandidateRefinery::inline_predictions_for_completion_stems(void *a
 
 void KB::NgramCandidateRefinery::inline_predictions_for_completion_stems(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,BOOL,std::function<void ()(KB::CandidateCollection &,KB::Candidate const&,KB::LanguageModelContext const&,BOOL)>)::$_1::operator()(uint64_t a1, const KB::LanguageModel::PredictionInfo **a2, const KB::Candidate *a3, const KB::LanguageModelContext *a4, KB::CandidateCollection *a5, char a6)
 {
-  v24[125] = *MEMORY[0x277D85DE8];
+  v22[125] = *MEMORY[0x277D85DE8];
   v11 = *(a1 + 8);
   if (v11 && (v13 = std::__shared_weak_count::lock(v11)) != 0)
   {
@@ -6891,10 +6359,10 @@ void KB::NgramCandidateRefinery::inline_predictions_for_completion_stems(std::ve
       v16 = *a2;
       for (i = a2[1]; v16 != i; v16 = (v16 + 160))
       {
-        KB::Candidate::Candidate(v24, a3);
-        while (v24[0])
+        KB::Candidate::Candidate(v22, a3);
+        while (v22[0])
         {
-          v18 = v24[1] + 240 * v24[0];
+          v18 = v22[1] + 240 * v22[0];
           if ((*(v18 - 105) & 4) != 0)
           {
             break;
@@ -6920,36 +6388,34 @@ void KB::NgramCandidateRefinery::inline_predictions_for_completion_stems(std::ve
             break;
           }
 
-          KB::Candidate::pop_last_word(v24);
+          KB::Candidate::pop_last_word(v22);
         }
 
-        KB::NgramCandidateRefinery::post_processing_predictions(v15, v16, v24, a4, a5);
-        KB::Candidate::~Candidate(v24);
+        KB::NgramCandidateRefinery::post_processing_predictions(v15, v16, v22, a4, a5);
+        KB::Candidate::~Candidate(v22);
       }
     }
 
     std::function<void ()(KB::CandidateCollection &,KB::Candidate const&,KB::LanguageModelContext const&,BOOL)>::operator()(*(a1 + 40), a5, a3, a4, a6);
     std::__shared_weak_count::__release_shared[abi:nn200100](v14);
-    v21 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v22 = *(a1 + 40);
-    v23 = *MEMORY[0x277D85DE8];
+    v21 = *(a1 + 40);
 
-    std::function<void ()(KB::CandidateCollection &,KB::Candidate const&,KB::LanguageModelContext const&,BOOL)>::operator()(v22, a5, a3, a4, a6);
+    std::function<void ()(KB::CandidateCollection &,KB::Candidate const&,KB::LanguageModelContext const&,BOOL)>::operator()(v21, a5, a3, a4, a6);
   }
 }
 
 uint64_t KB::NgramCandidateRefinery::post_processing_predictions(KB::NgramCandidateRefinery *this, const KB::LanguageModel::PredictionInfo *a2, const KB::Candidate *a3, const KB::LanguageModelContext *a4, KB::CandidateCollection *a5)
 {
-  v65 = *MEMORY[0x277D85DE8];
-  KB::Candidate::Candidate(&v62, a3);
-  KB::LanguageModelContext::LanguageModelContext(v42, a4);
+  v64 = *MEMORY[0x277D85DE8];
+  KB::Candidate::Candidate(&v61, a3);
+  KB::LanguageModelContext::LanguageModelContext(v41, a4);
   if (*(a2 + 148) == 1)
   {
-    v64 = 1;
+    v63 = 1;
   }
 
   if (*(a2 + 13) != *(a2 + 12))
@@ -6964,7 +6430,7 @@ uint64_t KB::NgramCandidateRefinery::post_processing_predictions(KB::NgramCandid
         v11 = *v11;
       }
 
-      KB::String::String(&v52, v11);
+      KB::String::String(&v51, v11);
       if (*(a2 + 148))
       {
         v12 = 0;
@@ -6975,10 +6441,10 @@ uint64_t KB::NgramCandidateRefinery::post_processing_predictions(KB::NgramCandid
         v12 = *(a2 + 36);
       }
 
-      KB::DictionaryContainer::word_with_string_exhaustive(v10, &v52, v12, v56);
-      if (v53)
+      KB::DictionaryContainer::word_with_string_exhaustive(v10, &v51, v12, v55);
+      if (v52)
       {
-        v13 = BYTE6(v52) == 1;
+        v13 = BYTE6(v51) == 1;
       }
 
       else
@@ -6988,17 +6454,17 @@ uint64_t KB::NgramCandidateRefinery::post_processing_predictions(KB::NgramCandid
 
       if (v13)
       {
-        free(v53);
+        free(v52);
       }
 
-      if (v61.lexicon_id == -2)
+      if (v60.lexicon_id == -2)
       {
-        v61.lexicon_id = *(a2 + 36);
+        v60.lexicon_id = *(a2 + 36);
       }
 
-      if (!LOWORD(v56[0]) && *(a2 + 150) != 1)
+      if (!LOWORD(v55[0]) && *(a2 + 150) != 1)
       {
-        KB::Word::~Word(v56);
+        KB::Word::~Word(v55);
 LABEL_69:
         v33 = 0;
         goto LABEL_72;
@@ -7006,12 +6472,12 @@ LABEL_69:
 
       if (*(a2 + 149) == 1)
       {
-        v59 = v59 & 0xFFFBFE7B | 0x100;
+        v58 = v58 & 0xFFFBFE7B | 0x100;
       }
 
       if (*(a2 + 150) == 1)
       {
-        v59 |= 0x200u;
+        v58 |= 0x200u;
       }
 
       v14 = (*(a2 + 15) + v8);
@@ -7020,14 +6486,14 @@ LABEL_69:
         v14 = *v14;
       }
 
-      KB::String::String(&v52, v14);
-      KB::String::operator=(v56, &v52);
-      if (v53 && BYTE6(v52) == 1)
+      KB::String::String(&v51, v14);
+      KB::String::operator=(v55, &v51);
+      if (v52 && BYTE6(v51) == 1)
       {
-        free(v53);
+        free(v52);
       }
 
-      v59 = v59 & 0xFAFFFFFF | ((*(a2 + 10) & 1) << 24) & 0xFBFFFFFF | (((*(a2 + 10) >> 1) & 1) << 26);
+      v58 = v58 & 0xFAFFFFFF | ((*(a2 + 10) & 1) << 24) & 0xFBFFFFFF | (((*(a2 + 10) >> 1) & 1) << 26);
       if (*(a2 + 95) >= 0)
       {
         v15 = a2 + 72;
@@ -7038,39 +6504,39 @@ LABEL_69:
         v15 = *(a2 + 9);
       }
 
-      KB::String::String(&v52, v15);
-      KB::String::operator=(v58, &v52);
-      if (v53 && BYTE6(v52) == 1)
+      KB::String::String(&v51, v15);
+      KB::String::operator=(v57, &v51);
+      if (v52 && BYTE6(v51) == 1)
       {
-        free(v53);
+        free(v52);
       }
 
-      v58[8] = (*(**(this + 4) + 456))(*(this + 4), v61.lexicon_id, v42);
+      v57[8] = (*(**(this + 4) + 456))(*(this + 4), v60.lexicon_id, v41);
       v16 = *(this + 4);
-      KB::Word::capitalized_string(v56, &v52);
-      v17 = (*(*v16 + 496))(v16, &v52, 0xFFFFFFFFLL, v42, this + 24, 1);
-      if (v53 && BYTE6(v52) == 1)
+      KB::Word::capitalized_string(&v51, v55);
+      v17 = (*(*v16 + 496))(v16, &v51, 0xFFFFFFFFLL, v41, this + 24, 1);
+      if (v52 && BYTE6(v51) == 1)
       {
-        free(v53);
+        free(v52);
       }
 
       if (v17)
       {
-        v59 |= 0x40000000u;
+        v58 |= 0x40000000u;
       }
 
       v18 = (*(*this + 120))(this);
-      WORD2(v52) = 0;
-      BYTE6(v52) = 0;
-      v53 = ".,;:!?";
-      LODWORD(v52) = 1048582;
-      v54 = 0;
-      if (v62)
+      WORD2(v51) = 0;
+      BYTE6(v51) = 0;
+      v52 = ".,;:!?";
+      LODWORD(v51) = 1048582;
+      v53 = 0;
+      if (v61)
       {
-        v19 = v63 + 240 * v62;
+        v19 = v62 + 240 * v61;
         if ((*(v19 - 105) & 4) != 0)
         {
-          if ((v60 & 0x4000000) != 0)
+          if ((v59 & 0x4000000) != 0)
           {
             goto LABEL_53;
           }
@@ -7081,64 +6547,64 @@ LABEL_69:
             v20 = v19 - 224;
           }
 
-          v49 = v20;
+          v48 = v20;
           v21 = *(v19 - 240);
-          LODWORD(v50) = 0;
-          HIDWORD(v50) = v21;
-          v51 = 0;
-          KB::String::iterator::initialize(&v49);
-          if (!KB::String::contains(&v52, v51))
+          LODWORD(v49) = 0;
+          HIDWORD(v49) = v21;
+          v50 = 0;
+          KB::String::iterator::initialize(&v48);
+          if (!KB::String::contains(&v51, v50))
           {
             goto LABEL_53;
           }
 
 LABEL_49:
-          WORD2(v49) = 0;
-          BYTE6(v49) = 0;
-          v50 = " ";
-          LODWORD(v49) = 1048577;
-          BYTE1(v51) = 0;
-          KB::Word::Word(&v52, &v49, &kTITokenIDUNK, 0);
-          if (v50 && BYTE6(v49) == 1)
+          WORD2(v48) = 0;
+          BYTE6(v48) = 0;
+          v49 = " ";
+          LODWORD(v48) = 1048577;
+          BYTE1(v50) = 0;
+          KB::Word::Word(&v51, &v48, &kTITokenIDUNK, 0);
+          if (v49 && BYTE6(v48) == 1)
           {
-            free(v50);
+            free(v49);
           }
 
-          v55 |= 0x4000000u;
-          KB::Candidate::append(&v62, &v52);
-          KB::Word::~Word(&v52);
+          v54 |= 0x4000000u;
+          KB::Candidate::append(&v61, &v51);
+          KB::Word::~Word(&v51);
           goto LABEL_53;
         }
 
-        if ((v60 & 0x4000000) == 0 && (*(v18 + 64) & 1) == 0)
+        if ((v59 & 0x4000000) == 0 && (*(v18 + 64) & 1) == 0)
         {
           goto LABEL_49;
         }
       }
 
 LABEL_53:
-      v57 = 1065353216;
-      KB::Candidate::append(&v62, v56);
-      v22 = v61;
-      KB::Word::capitalized_string(v56, &v52);
+      v56 = 1065353216;
+      KB::Candidate::append(&v61, v55);
+      v22 = v60;
+      KB::Word::capitalized_string(&v51, v55);
       v23 = v22;
-      KB::LanguageModelContext::append(v42, v23, &v52, (v59 >> 1) & 1);
-      if (v53 && BYTE6(v52) == 1)
+      KB::LanguageModelContext::append(v41, v23, &v51, (v58 >> 1) & 1);
+      if (v52 && BYTE6(v51) == 1)
       {
-        free(v53);
+        free(v52);
       }
 
-      KB::Word::~Word(v56);
+      KB::Word::~Word(v55);
       v8 += 24;
     }
   }
 
-  if (!v62)
+  if (!v61)
   {
     goto LABEL_69;
   }
 
-  v24 = v63 + 240 * v62;
+  v24 = v62 + 240 * v61;
   v25 = *(a2 + 6);
   *(v24 - 188) = v25;
   *(v24 - 184) = v25;
@@ -7169,14 +6635,14 @@ LABEL_53:
       v32 = v31;
     }
 
-    v56[4] = a5;
+    v55[4] = a5;
     if (v32)
     {
       std::__allocate_at_least[abi:nn200100]<std::allocator<KB::Candidate>>(v32);
     }
 
     v34 = 1000 * v29;
-    KB::Candidate::Candidate(1000 * v29, &v62);
+    KB::Candidate::Candidate(1000 * v29, &v61);
     v28 = 1000 * v29 + 1000;
     v35 = *(a5 + 1);
     v36 = v34 + *a5 - v35;
@@ -7186,38 +6652,37 @@ LABEL_53:
     *(a5 + 1) = v28;
     v38 = *(a5 + 2);
     *(a5 + 2) = 0;
-    v56[2] = v37;
-    v56[3] = v38;
-    v56[0] = v37;
-    v56[1] = v37;
-    std::__split_buffer<KB::Candidate>::~__split_buffer(v56);
+    v55[2] = v37;
+    v55[3] = v38;
+    v55[0] = v37;
+    v55[1] = v37;
+    std::__split_buffer<KB::Candidate>::~__split_buffer(v55);
   }
 
   else
   {
-    v28 = KB::Candidate::Candidate(v26, &v62) + 1000;
+    v28 = KB::Candidate::Candidate(v26, &v61) + 1000;
   }
 
   *(a5 + 1) = v28;
   v33 = 1;
 LABEL_72:
-  v56[0] = &v48;
-  std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](v56);
-  language_modeling::v1::LinguisticContext::~LinguisticContext(&v47);
+  v55[0] = &v47;
+  std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](v55);
   language_modeling::v1::LinguisticContext::~LinguisticContext(&v46);
+  language_modeling::v1::LinguisticContext::~LinguisticContext(&v45);
   if (__p)
   {
-    v45 = __p;
+    v44 = __p;
     operator delete(__p);
   }
 
-  if (v43)
+  if (v42)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v43);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v42);
   }
 
-  KB::Candidate::~Candidate(&v62);
-  v39 = *MEMORY[0x277D85DE8];
+  KB::Candidate::~Candidate(&v61);
   return v33;
 }
 
@@ -7237,9 +6702,9 @@ void std::__function::__func<KB::NgramCandidateRefinery::inline_predictions_for_
   std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v7);
 }
 
-void std::__function::__func<KB::NgramCandidateRefinery::inline_predictions_for_completion_stems(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,BOOL,std::function<void ()(KB::CandidateCollection &,KB::Candidate const&,KB::LanguageModelContext const&,BOOL)>)::$_0,std::allocator<KB::NgramCandidateRefinery::inline_predictions_for_completion_stems(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,BOOL,std::function<void ()(KB::CandidateCollection &,KB::Candidate const&,KB::LanguageModelContext const&,BOOL)>)::$_0>,void ()(std::vector<KB::LanguageModel::PredictionInfo> const&,KB::Candidate const&,KB::LanguageModelContext const&)>::destroy_deallocate(void *a1)
+void std::__function::__func<KB::NgramCandidateRefinery::inline_predictions_for_completion_stems(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,BOOL,std::function<void ()(KB::CandidateCollection &,KB::Candidate const&,KB::LanguageModelContext const&,BOOL)>)::$_0,std::allocator<KB::NgramCandidateRefinery::inline_predictions_for_completion_stems(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,BOOL,std::function<void ()(KB::CandidateCollection &,KB::Candidate const&,KB::LanguageModelContext const&,BOOL)>)::$_0>,void ()(std::vector<KB::LanguageModel::PredictionInfo> const&,KB::Candidate const&,KB::LanguageModelContext const&)>::destroy_deallocate(char *a1)
 {
-  std::__function::__alloc_func<KB::NgramCandidateRefinery::inline_predictions_for_completion_stems(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,BOOL,std::function<void ()(KB::CandidateCollection &,KB::Candidate const&,KB::LanguageModelContext const&,BOOL)>)::$_0,std::allocator<KB::NgramCandidateRefinery::inline_predictions_for_completion_stems(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,BOOL,std::function<void ()(KB::CandidateCollection &,KB::Candidate const&,KB::LanguageModelContext const&,BOOL)>)::$_0>,void ()(std::vector<KB::LanguageModel::PredictionInfo> const&,KB::Candidate const&,KB::LanguageModelContext const&)>::destroy[abi:nn200100](a1 + 8);
+  std::__function::__alloc_func<KB::NgramCandidateRefinery::inline_predictions_for_completion_stems(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,BOOL,std::function<void ()(KB::CandidateCollection &,KB::Candidate const&,KB::LanguageModelContext const&,BOOL)>)::$_0,std::allocator<KB::NgramCandidateRefinery::inline_predictions_for_completion_stems(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,BOOL,std::function<void ()(KB::CandidateCollection &,KB::Candidate const&,KB::LanguageModelContext const&,BOOL)>)::$_0>,void ()(std::vector<KB::LanguageModel::PredictionInfo> const&,KB::Candidate const&,KB::LanguageModelContext const&)>::destroy[abi:nn200100]((a1 + 8));
 
   operator delete(a1);
 }
@@ -7296,7 +6761,7 @@ void *std::__function::__func<KB::NgramCandidateRefinery::inline_predictions_for
   return a1;
 }
 
-void KB::NgramCandidateRefinery::predictions_for_prediction_stems(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void KB::NgramCandidateRefinery::predictions_for_prediction_stems(uint64_t a1, void *a2, uint64_t a3, uint64_t **a4, uint64_t a5)
 {
   if ((*(*a1 + 16))(a1))
   {
@@ -7306,7 +6771,7 @@ void KB::NgramCandidateRefinery::predictions_for_prediction_stems(uint64_t a1, v
     }
 
     v10 = *a4;
-    v11 = *(a4 + 8);
+    v11 = a4[1];
     if (*a4 != v11)
     {
       do
@@ -7338,7 +6803,7 @@ void KB::NgramCandidateRefinery::predictions_for_prediction_stems(uint64_t a1, v
 
       while (v10 != v11);
       v10 = *a4;
-      v11 = *(a4 + 8);
+      v11 = a4[1];
     }
 
     v16 = 126 - 2 * __clz(0x1CAC083126E978D5 * ((v11 - v10) >> 3));
@@ -7358,28 +6823,26 @@ void KB::NgramCandidateRefinery::predictions_for_prediction_stems(uint64_t a1, v
 
 uint64_t KB::NgramCandidateRefinery::predictions_from_candidate_string_based_lm(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v7[4] = *MEMORY[0x277D85DE8];
+  v6[4] = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
-  v7[0] = &unk_283FDE958;
-  v7[1] = a1;
-  v7[2] = a4;
-  v7[3] = v7;
-  (*(*v4 + 512))(v4, a2, a3, v7, 1);
-  result = std::__function::__value_func<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>::~__value_func[abi:nn200100](v7);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  v6[0] = &unk_283FDE958;
+  v6[1] = a1;
+  v6[2] = a4;
+  v6[3] = v6;
+  (*(*v4 + 512))(v4, a2, a3, v6, 1);
+  return std::__function::__value_func<BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>::~__value_func[abi:nn200100](v6);
 }
 
 uint64_t std::function<void ()(KB::Candidate &,float)>::operator()(uint64_t a1, uint64_t a2, float a3)
 {
-  v5 = a3;
+  v8 = a3;
   if (a1)
   {
-    return (*(*a1 + 48))(a1, a2, &v5);
+    return (*(*a1 + 48))(a1, a2, &v8);
   }
 
   v4 = std::__throw_bad_function_call[abi:nn200100]();
-  return std::__function::__func<KB::NgramCandidateRefinery::predictions_from_candidate_string_based_lm(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,KB::CandidateCollection &)::$_0,std::allocator<KB::NgramCandidateRefinery::predictions_from_candidate_string_based_lm(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,KB::CandidateCollection &)::$_0>,BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>::operator()(v4);
+  return std::__function::__func<KB::NgramCandidateRefinery::predictions_from_candidate_string_based_lm(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,KB::CandidateCollection &)::$_0,std::allocator<KB::NgramCandidateRefinery::predictions_from_candidate_string_based_lm(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,KB::CandidateCollection &)::$_0>,BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>::operator()(v4, v5, v6, v7);
 }
 
 __n128 std::__function::__func<KB::NgramCandidateRefinery::predictions_from_candidate_string_based_lm(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,KB::CandidateCollection &)::$_0,std::allocator<KB::NgramCandidateRefinery::predictions_from_candidate_string_based_lm(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,KB::CandidateCollection &)::$_0>,BOOL ()(KB::LanguageModel::PredictionInfo const&,KB::Candidate const&,KB::LanguageModelContext const&)>::__clone(uint64_t a1, uint64_t a2)
@@ -7390,85 +6853,84 @@ __n128 std::__function::__func<KB::NgramCandidateRefinery::predictions_from_cand
   return result;
 }
 
-void KB::NgramCandidateRefinery::completions_for_completion_stems(KB::NgramCandidateRefinery *a1, uint64_t *a2, uint64_t a3, uint64_t *a4, float a5)
+void KB::NgramCandidateRefinery::completions_for_completion_stems(KB::NgramCandidateRefinery *a1, const KB::Candidate **a2, uint64_t a3, uint64_t *a4, uint64_t a5, float a6)
 {
-  v19 = 0;
-  v20 = 0;
   v21 = 0;
-  std::vector<KB::Candidate>::__init_with_size[abi:nn200100]<KB::Candidate*,KB::Candidate*>(&v19, *a2, a2[1], 0x1CAC083126E978D5 * ((a2[1] - *a2) >> 3));
+  v22 = 0;
+  v23 = 0;
+  std::vector<KB::Candidate>::__init_with_size[abi:nn200100]<KB::Candidate*,KB::Candidate*>(&v21, *a2, a2[1], 0x1CAC083126E978D5 * ((a2[1] - *a2) >> 3));
   if (((*(*a1 + 48))(a1) & 1) == 0)
   {
-    KB::NgramCandidateRefinery::add_context_weights_batched(a1, &v19);
+    KB::NgramCandidateRefinery::add_context_weights_batched(a1, &v21);
   }
 
-  v9 = *a4;
-  v10 = a4[1];
-  v11 = &v10[-*a4];
-  if (v20 != v19)
+  v11 = *a4;
+  v12 = a4[1];
+  v13 = v12 - *a4;
+  if (v22 != v21)
   {
-    KB::NgramCandidateRefinery::completions_from_candidate_string_based_lm(a1, a5, &v19, a3, a4);
-    v9 = *a4;
-    v10 = a4[1];
+    KB::NgramCandidateRefinery::completions_from_candidate_string_based_lm(a1, &v21, a3, a4, a5, a6);
+    v11 = *a4;
+    v12 = a4[1];
   }
 
-  v12 = &v11[v9];
-  v13 = v10 - v12;
-  if (v10 != v12)
+  v14 = (v13 + v11);
+  v15 = v12 - v14;
+  if (v12 != v14)
   {
-    v14 = 0;
-    v15 = vdupq_n_s64((v13 - 1000) / 0x3E8uLL);
-    v16 = ((v13 - 1000) / 0x3E8uLL + 4) & 0xFFFFFFFFFFFFFCLL;
+    v16 = 0;
+    v17 = vdupq_n_s64((v15 - 1000) / 0x3E8uLL);
+    v18 = ((v15 - 1000) / 0x3E8uLL + 4) & 0xFFFFFFFFFFFFFCLL;
     do
     {
-      v17 = vdupq_n_s64(v14);
-      v18 = vmovn_s64(vcgeq_u64(v15, vorrq_s8(v17, xmmword_22CC88AA0)));
-      if (vuzp1_s16(v18, *v15.i8).u8[0])
+      v19 = vdupq_n_s64(v16);
+      v20 = vmovn_s64(vcgeq_u64(v17, vorrq_s8(v19, xmmword_22CC88AA0)));
+      if (vuzp1_s16(v20, *v17.i8).u8[0])
       {
-        *(v12 + 248) = 7;
+        v14[248] = 7;
       }
 
-      if (vuzp1_s16(v18, *&v15).i8[2])
+      if (vuzp1_s16(v20, *&v17).i8[2])
       {
-        *(v12 + 498) = 7;
+        v14[498] = 7;
       }
 
-      if (vuzp1_s16(*&v15, vmovn_s64(vcgeq_u64(v15, vorrq_s8(v17, xmmword_22CC88A90)))).i32[1])
+      if (vuzp1_s16(*&v17, vmovn_s64(vcgeq_u64(v17, vorrq_s8(v19, xmmword_22CC88A90)))).i32[1])
       {
-        *(v12 + 748) = 7;
-        *(v12 + 998) = 7;
+        v14[748] = 7;
+        v14[998] = 7;
       }
 
-      v14 += 4;
-      v12 += 4000;
+      v16 += 4;
+      v14 += 1000;
     }
 
-    while (v16 != v14);
+    while (v18 != v16);
   }
 
-  v22 = &v19;
-  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v22);
+  v24 = &v21;
+  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](&v24);
 }
 
 void KB::NgramCandidateRefinery::add_context_weights_batched(KB::NgramCandidateRefinery *a1, unsigned int **a2)
 {
-  v45[3] = *MEMORY[0x277D85DE8];
+  v41[3] = *MEMORY[0x277D85DE8];
   v2 = *a2;
-  v31 = a2[1];
-  if (*a2 == v31)
+  v27 = a2[1];
+  if (*a2 == v27)
   {
-    goto LABEL_63;
+    return;
   }
 
   v3 = a1;
-  v34 = 0;
-  v35 = 0;
-  v36 = 0;
+  v30 = 0;
+  v31 = 0;
+  v32 = 0;
   do
   {
     if (*v2)
     {
       v4 = *(v2 + 1);
-      v5 = 240 * *v2;
       if (v2[248] == 7)
       {
         v2[248] = 1;
@@ -7476,80 +6938,65 @@ void KB::NgramCandidateRefinery::add_context_weights_batched(KB::NgramCandidateR
 
       else if ((KB::NgramCandidateRefinery::should_not_score_token(v3, v4) & 1) == 0)
       {
-        v6 = *(v3 + 4);
-        KB::Word::capitalized_string(v4, &v39);
-        v37 = *(v4 + 136);
-        (*(*v6 + 408))(v6, &v39, &v37);
-        if (v40)
+        v5 = *(v3 + 4);
+        KB::Word::capitalized_string(&v35, v4);
+        v33 = *(v4 + 17);
+        (*(*v5 + 408))(v5, &v35, &v33);
+        if (v36)
         {
-          if (BYTE6(v39) == 1)
+          if (BYTE6(v35) == 1)
           {
-            free(v40);
+            free(v36);
           }
-        }
-      }
-
-      if ((*(v4 + 135) & 4) == 0)
-      {
-        v7 = (v4 + 16);
-        if (*(v4 + 8))
-        {
-          v7 = *(v4 + 8);
-        }
-
-        v8 = *v7;
-        if (v8 == 32)
-        {
-          v7[1];
         }
       }
 
       std::__allocate_at_least[abi:nn200100]<std::allocator<language_modeling::v1::TokenMetadata>>(1);
     }
 
-    v9 = v35;
-    if (v35 >= v36)
+    v6 = v31;
+    if (v31 >= v32)
     {
-      v11 = v34;
-      v12 = v35 - v34;
-      v13 = 0xAAAAAAAAAAAAAAABLL * ((v35 - v34) >> 3) + 1;
-      if (v13 > 0xAAAAAAAAAAAAAAALL)
+      v8 = v30;
+      v9 = v31 - v30;
+      v10 = 0xAAAAAAAAAAAAAAABLL * ((v31 - v30) >> 3) + 1;
+      if (v10 > 0xAAAAAAAAAAAAAAALL)
       {
         std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
       }
 
-      if (0x5555555555555556 * ((v36 - v34) >> 3) > v13)
+      if (0x5555555555555556 * ((v32 - v30) >> 3) > v10)
       {
-        v13 = 0x5555555555555556 * ((v36 - v34) >> 3);
+        v10 = 0x5555555555555556 * ((v32 - v30) >> 3);
       }
 
-      if (0xAAAAAAAAAAAAAAABLL * ((v36 - v34) >> 3) >= 0x555555555555555)
+      if (0xAAAAAAAAAAAAAAABLL * ((v32 - v30) >> 3) >= 0x555555555555555)
       {
-        v14 = 0xAAAAAAAAAAAAAAALL;
+        v11 = 0xAAAAAAAAAAAAAAALL;
       }
 
       else
       {
-        v14 = v13;
+        v11 = v10;
       }
 
-      if (v14)
-      {
-        std::__allocate_at_least[abi:nn200100]<std::allocator<std::vector<language_modeling::v1::TokenMetadata>>>(v14);
-      }
-
-      v15 = (8 * (v12 >> 3));
-      *v15 = 0;
-      v15[1] = 0;
-      v15[2] = 0;
-      v10 = v15 + 3;
-      memcpy(v15 - v12, v11, v12);
-      v34 = v15 - v12;
-      v35 = v15 + 3;
-      v36 = 0;
       if (v11)
       {
-        operator delete(v11);
+        std::__allocate_at_least[abi:nn200100]<std::allocator<std::vector<language_modeling::v1::TokenMetadata>>>(v11);
+      }
+
+      v12 = (8 * (v9 >> 3));
+      *v12 = 0;
+      v12[1] = 0;
+      v12[2] = 0;
+      v7 = v12 + 3;
+      memcpy(v12 - v9, v8, v9);
+      v30 = v12 - v9;
+      v31 = v12 + 3;
+      v32 = 0;
+      if (v8)
+      {
+        operator delete(v8);
       }
 
       v3 = a1;
@@ -7557,23 +7004,23 @@ void KB::NgramCandidateRefinery::add_context_weights_batched(KB::NgramCandidateR
 
     else
     {
-      *v35 = 0;
-      v9[1] = 0;
-      v9[2] = 0;
-      v10 = v9 + 3;
+      *v31 = 0;
+      v6[1] = 0;
+      v6[2] = 0;
+      v7 = v6 + 3;
     }
 
-    v35 = v10;
+    v31 = v7;
     v2 += 250;
   }
 
-  while (v2 != v31);
+  while (v2 != v27);
   if (a2[1] == *a2)
   {
     std::vector<unsigned long>::__throw_length_error[abi:nn200100]();
   }
 
-  KB::LanguageModelContext::LanguageModelContext(&v39, (*a2 + 196));
+  KB::LanguageModelContext::LanguageModelContext(&v35, (*a2 + 196));
   if (s_trace_logging_enabled)
   {
     Mutable = CFStringCreateMutable(0, 0);
@@ -7584,153 +7031,149 @@ void KB::NgramCandidateRefinery::add_context_weights_batched(KB::NgramCandidateR
     Mutable = 0;
   }
 
-  KB::NgramCandidateRefinery::context_probability_of_batched_word(v3, a2, v33);
-  v18 = *a2;
-  v17 = a2[1];
-  if (v17 == *a2)
+  KB::NgramCandidateRefinery::context_probability_of_batched_word(v3, a2, v29);
+  v15 = *a2;
+  v14 = a2[1];
+  if (v14 == *a2)
   {
-    goto LABEL_56;
+    goto LABEL_51;
   }
 
-  v19 = 0;
+  v16 = 0;
   do
   {
-    v20 = &v18[250 * v19];
-    if (!*v20)
+    v17 = &v15[250 * v16];
+    if (!*v17)
     {
-      goto LABEL_55;
+      goto LABEL_50;
     }
 
+    v18 = 0;
+    v19 = 0;
+    v20 = 0;
     v21 = 0;
-    v22 = 0;
-    v23 = 0;
-    v24 = 0;
     do
     {
-      if (*(*&v34[24 * v19] + v22) != 1)
+      if (*(*&v30[24 * v16] + v19) != 1)
       {
-        goto LABEL_53;
+        goto LABEL_48;
       }
 
-      v25 = *(v20 + 1);
-      v26 = *(v33[0] + 24 * v19) + v23;
-      *(v25 + v21 + 52) = *v26;
-      v27 = (v26 + 16);
-      if (*(v26 + 39) < 0)
+      v22 = *(v17 + 1);
+      v23 = *(v29[0] + 24 * v16) + v20;
+      *(v22 + v18 + 52) = *v23;
+      v24 = (v23 + 16);
+      if (*(v23 + 39) < 0)
       {
-        v27 = *v27;
+        v24 = *v24;
       }
 
-      KB::String::String(&v37, v27);
-      KB::String::operator=((v25 + v21 + 64), &v37);
-      if (v38 && BYTE6(v37) == 1)
+      KB::String::String(&v33, v24);
+      KB::String::operator=((v22 + v18 + 64), &v33);
+      if (v34 && BYTE6(v33) == 1)
       {
-        free(v38);
+        free(v34);
       }
 
-      v28 = *(*(v33[0] + 24 * v19) + v23 + 8);
-      if (v28)
+      v25 = *(*(v29[0] + 24 * v16) + v20 + 8);
+      if (v25)
       {
-        *(v25 + v21 + 104) |= 0x1000000u;
-        if ((v28 & 2) == 0)
+        *(v22 + v18 + 104) |= 0x1000000u;
+        if ((v25 & 2) == 0)
         {
-LABEL_46:
+LABEL_41:
           if (!Mutable)
           {
-            goto LABEL_53;
+            goto LABEL_48;
           }
 
-          goto LABEL_50;
+          goto LABEL_45;
         }
       }
 
-      else if ((v28 & 2) == 0)
+      else if ((v25 & 2) == 0)
       {
-        goto LABEL_46;
+        goto LABEL_41;
       }
 
-      *(v25 + v21 + 104) |= 0x4000000u;
+      *(v22 + v18 + 104) |= 0x4000000u;
       if (!Mutable)
       {
-        goto LABEL_53;
+        goto LABEL_48;
       }
 
-LABEL_50:
-      KB::utf8_string(Mutable, &v37);
-      KB::String::operator=((v25 + v21 + 160), &v37);
-      if (v38 && BYTE6(v37) == 1)
+LABEL_45:
+      KB::utf8_string(&v33, Mutable);
+      KB::String::operator=((v22 + v18 + 160), &v33);
+      if (v34 && BYTE6(v33) == 1)
       {
-        free(v38);
+        free(v34);
       }
 
-LABEL_53:
-      ++v24;
-      v23 += 40;
-      v21 += 240;
-      v22 += 2;
+LABEL_48:
+      ++v21;
+      v20 += 40;
+      v18 += 240;
+      v19 += 2;
     }
 
-    while (v24 < *v20);
-    v18 = *a2;
-    v17 = a2[1];
-LABEL_55:
-    ++v19;
+    while (v21 < *v17);
+    v15 = *a2;
+    v14 = a2[1];
+LABEL_50:
+    ++v16;
   }
 
-  while (v19 < 0x1CAC083126E978D5 * ((v17 - v18) >> 3));
-LABEL_56:
-  v37 = v33;
-  std::vector<std::vector<KB::LikelihoodInfo>>::__destroy_vector::operator()[abi:nn200100](&v37);
+  while (v16 < 0x1CAC083126E978D5 * ((v14 - v15) >> 3));
+LABEL_51:
+  v33 = v29;
+  std::vector<std::vector<KB::LikelihoodInfo>>::__destroy_vector::operator()[abi:nn200100](&v33);
   if (Mutable)
   {
     CFRelease(Mutable);
   }
 
-  v37 = v45;
-  std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v37);
-  language_modeling::v1::LinguisticContext::~LinguisticContext(&v44);
-  language_modeling::v1::LinguisticContext::~LinguisticContext(&v43);
+  v33 = v41;
+  std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v33);
+  language_modeling::v1::LinguisticContext::~LinguisticContext(&v40);
+  language_modeling::v1::LinguisticContext::~LinguisticContext(&v39);
   if (__p)
   {
-    v42 = __p;
+    v38 = __p;
     operator delete(__p);
   }
 
-  if (v40)
+  if (v36)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v40);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v36);
   }
 
-  v39 = &v34;
-  std::vector<std::vector<language_modeling::v1::TokenMetadata>>::__destroy_vector::operator()[abi:nn200100](&v39);
-LABEL_63:
-  v29 = *MEMORY[0x277D85DE8];
+  v35 = &v30;
+  std::vector<std::vector<language_modeling::v1::TokenMetadata>>::__destroy_vector::operator()[abi:nn200100](&v35);
 }
 
-uint64_t KB::NgramCandidateRefinery::completions_from_candidate_string_based_lm(void *a1, float a2, uint64_t a3, uint64_t a4, void *a5)
+uint64_t KB::NgramCandidateRefinery::completions_from_candidate_string_based_lm(void *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, float a6)
 {
-  v13[4] = *MEMORY[0x277D85DE8];
-  v12 = a2;
+  v11[4] = *MEMORY[0x277D85DE8];
+  v10 = a6;
   result = (*(*a1 + 16))(a1);
   if (result)
   {
-    v11 = 0x1CAC083126E978D5 * ((a5[1] - *a5) >> 3);
-    v8 = *((*(*a1 + 120))(a1) + 8) + 112;
-    v9 = a1[4];
-    v13[0] = &unk_283FDE9A0;
-    v13[1] = a1;
-    v13[2] = a5;
-    v13[3] = v13;
+    v9 = 0x1CAC083126E978D5 * ((a4[1] - *a4) >> 3);
+    (*(*a1 + 120))(a1);
+    v11[0] = &unk_283FDE9A0;
+    v11[1] = a1;
+    v11[2] = a4;
+    v11[3] = v11;
     operator new();
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t std::__function::__func<KB::NgramCandidateRefinery::completions_from_candidate_string_based_lm(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,KB::CandidateCollection &,float,KB::LookupType)::$_0,std::allocator<KB::NgramCandidateRefinery::completions_from_candidate_string_based_lm(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,KB::CandidateCollection &,float,KB::LookupType)::$_0>,BOOL ()(KB::Candidate const&)>::operator()(uint64_t a1, uint64_t a2)
+float std::__function::__func<KB::NgramCandidateRefinery::completions_from_candidate_string_based_lm(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,KB::CandidateCollection &,float,KB::LookupType)::$_0,std::allocator<KB::NgramCandidateRefinery::completions_from_candidate_string_based_lm(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,KB::CandidateCollection &,float,KB::LookupType)::$_0>,BOOL ()(KB::Candidate const&)>::operator()(uint64_t a1, uint64_t a2)
 {
-  v43 = *a2;
+  v44 = *a2;
   v4 = *(a1 + 8);
   if (!*(a2 + 888))
   {
@@ -7740,15 +7183,15 @@ uint64_t std::__function::__func<KB::NgramCandidateRefinery::completions_from_ca
   v5 = *(v4 + 24);
   if (v5)
   {
-    (*(*v5 + 48))(&v41);
+    (*(*v5 + 48))(&v42);
     v6 = *(a1 + 16);
     v7 = *(a1 + 8);
     v8 = v6[1];
     v9 = (*v6 + 1000 * **(a1 + 24));
-    v37 = a2;
-    v38 = v7;
-    v39 = &v41;
-    v40 = &v43;
+    v38 = a2;
+    v39 = v7;
+    v40 = &v42;
+    v41 = &v44;
     while (1)
     {
       if (v9 == v8)
@@ -7757,7 +7200,8 @@ uint64_t std::__function::__func<KB::NgramCandidateRefinery::completions_from_ca
         goto LABEL_9;
       }
 
-      if (KB::NgramCandidateRefinery::completions_from_candidate_string_based_lm(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,KB::CandidateCollection &,float,KB::LookupType)::$_0::operator() const(KB::Candidate const&)::{lambda(KB::Candidate const&)#1}::operator()(&v37, v9))
+      KB::NgramCandidateRefinery::completions_from_candidate_string_based_lm(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,KB::CandidateCollection &,float,KB::LookupType)::$_0::operator() const(KB::Candidate const&)::{lambda(KB::Candidate const&)#1}::operator()(&v38, v9);
+      if (v10)
       {
         break;
       }
@@ -7767,9 +7211,10 @@ uint64_t std::__function::__func<KB::NgramCandidateRefinery::completions_from_ca
 
     if (v9 != v8)
     {
-      for (i = (v9 + 1000); i != v8; i += 125)
+      for (i = (v9 + 1000); i != v8; i = (i + 1000))
       {
-        if ((KB::NgramCandidateRefinery::completions_from_candidate_string_based_lm(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,KB::CandidateCollection &,float,KB::LookupType)::$_0::operator() const(KB::Candidate const&)::{lambda(KB::Candidate const&)#1}::operator()(&v37, i) & 1) == 0)
+        KB::NgramCandidateRefinery::completions_from_candidate_string_based_lm(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,KB::CandidateCollection &,float,KB::LookupType)::$_0::operator() const(KB::Candidate const&)::{lambda(KB::Candidate const&)#1}::operator()(&v38, i);
+        if ((v35 & 1) == 0)
         {
           KB::Candidate::operator=(v9, i);
           v9 = (v9 + 1000);
@@ -7779,37 +7224,37 @@ uint64_t std::__function::__func<KB::NgramCandidateRefinery::completions_from_ca
 
 LABEL_9:
     std::vector<KB::Candidate>::erase(v6, v9, *(*(a1 + 16) + 8));
-    v10 = *(a1 + 16);
-    v11 = *(a1 + 24);
-    v12 = *v10;
-    v13 = v10[1];
-    v14 = *v11;
-    v15 = *v11 + 10;
-    if (0x1CAC083126E978D5 * ((v13 - *v10) >> 3) > v15)
+    v12 = *(a1 + 16);
+    v13 = *(a1 + 24);
+    v14 = *v12;
+    v15 = v12[1];
+    v16 = *v13;
+    v17 = *v13 + 10;
+    if (0x1CAC083126E978D5 * ((v15 - *v12) >> 3) > v17)
     {
-      std::vector<KB::Candidate>::resize(v10, v15);
-      v16 = *(a1 + 16);
-      v11 = *(a1 + 24);
-      v14 = *v11;
-      v12 = *v16;
-      v13 = v16[1];
+      std::vector<KB::Candidate>::resize(v12, v17);
+      v18 = *(a1 + 16);
+      v13 = *(a1 + 24);
+      v16 = *v13;
+      v14 = *v18;
+      v15 = v18[1];
     }
 
-    if (v13 != v12 + 1000 * v14)
+    if (v15 != v14 + 1000 * v16)
     {
-      v13 = v12 + 1000 * v14;
+      v15 = v14 + 1000 * v16;
       while (1)
       {
-        if (!*(v13 + 888))
+        if (!*(v15 + 888))
         {
-          KB::Candidate::compute_string(v13);
+          KB::Candidate::compute_string(v15);
         }
 
-        v17 = *(v13 + 892);
-        if (!*(v13 + 892))
+        v19 = *(v15 + 892);
+        if (!*(v15 + 892))
         {
-          KB::String::compute_length((v13 + 888));
-          v17 = *(v13 + 892);
+          KB::String::compute_length((v15 + 888));
+          v19 = *(v15 + 892);
         }
 
         if (!*(a2 + 888))
@@ -7817,24 +7262,24 @@ LABEL_9:
           KB::Candidate::compute_string(a2);
         }
 
-        v18 = *(a2 + 892);
+        v20 = *(a2 + 892);
         if (!*(a2 + 892))
         {
           KB::String::compute_length((a2 + 888));
-          v18 = *(a2 + 892);
+          v20 = *(a2 + 892);
         }
 
-        v19 = v17 - v18;
-        *(*(v13 + 8) + 240 * *v13 - 96) = v19;
-        *(v13 + 960) = 1;
-        v20 = *(a2 + 748);
-        v21 = *(a2 + 756);
-        v22 = *(a2 + 760);
-        v37 = *(a2 + 764);
-        LODWORD(v38) = *(a2 + 772);
+        v21 = v19 - v20;
+        *(*(v15 + 8) + 240 * *v15 - 96) = v21;
+        *(v15 + 960) = 1;
+        v22 = *(a2 + 748);
+        v23 = *(a2 + 756);
+        v24 = *(a2 + 760);
+        v38 = *(a2 + 764);
+        LODWORD(v39) = *(a2 + 772);
         if (*(a2 + 888))
         {
-          if (!v18)
+          if (!v20)
           {
             goto LABEL_29;
           }
@@ -7843,151 +7288,139 @@ LABEL_9:
         else
         {
           KB::Candidate::compute_string(a2);
-          v18 = *(a2 + 892);
+          v20 = *(a2 + 892);
           if (!*(a2 + 892))
           {
 LABEL_29:
             KB::String::compute_length((a2 + 888));
-            v18 = *(a2 + 892);
+            v20 = *(a2 + 892);
           }
         }
 
-        v23 = **(a1 + 40);
-        if (v19 < 1)
+        v25 = **(a1 + 40);
+        if (v21 < 1)
         {
-          v24 = 0.0;
+          v26 = 0.0;
         }
 
         else
         {
-          if (v18 >= 5)
+          if (v20 >= 5)
           {
-            v18 = 5;
+            v20 = 5;
           }
 
-          v24 = logf(TI::Favonius::SearchParameters::k_prediction_costs[v18]) + 0.0;
-          if (v19 != 1)
+          v26 = logf(TI::Favonius::SearchParameters::k_prediction_costs[v20]) + 0.0;
+          if (v21 != 1)
           {
-            v24 = v24 + ((v19 - 1) * -0.22314);
+            v26 = v26 + ((v21 - 1) * -0.22314);
           }
         }
 
-        v25 = 1.0;
-        if (*v13)
+        v27 = 1.0;
+        if (*v15)
         {
-          v26 = 240 * *v13;
-          v27 = (*(v13 + 8) + 52);
+          v28 = 240 * *v15;
+          v29 = (*(v15 + 8) + 52);
           do
           {
-            v28 = *v27;
-            v27 += 60;
-            v25 = v25 * v28;
-            v26 -= 240;
+            v30 = *v29;
+            v29 += 60;
+            v27 = v27 * v30;
+            v28 -= 240;
           }
 
-          while (v26);
+          while (v28);
         }
 
-        v29 = v20 + ((1.0 - v23) * (v24 * v22));
-        v30 = logf(v25);
-        *(v13 + 748) = v29;
-        *(v13 + 752) = v30;
-        *(v13 + 756) = v21;
-        *(v13 + 760) = v22;
-        *(v13 + 772) = v38;
-        *(v13 + 764) = v37;
-        *(v13 + 744) = v29 + (v22 * (v21 + v30));
-        v13 += 1000;
-        v31 = *(a1 + 16);
-        if (v13 == v31[1])
+        v31 = v22 + ((1.0 - v25) * (v26 * v24));
+        v32 = logf(v27);
+        *(v15 + 748) = v31;
+        *(v15 + 752) = v32;
+        *(v15 + 756) = v23;
+        *(v15 + 760) = v24;
+        *(v15 + 772) = v39;
+        *(v15 + 764) = v38;
+        result = v31 + (v24 * (v23 + v32));
+        *(v15 + 744) = result;
+        v15 += 1000;
+        v33 = *(a1 + 16);
+        if (v15 == v33[1])
         {
-          v11 = *(a1 + 24);
-          v14 = *v11;
-          v12 = *v31;
+          v13 = *(a1 + 24);
+          v14 = *v33;
           break;
         }
       }
     }
 
-    v32 = 0x1CAC083126E978D5 * ((v13 - v12) >> 3);
-    *v11 = v32;
-    if (v41 >= 0xFu && v42)
+    *v13 = 0x1CAC083126E978D5 * ((v15 - v14) >> 3);
+    if (v42 >= 0xFu && v43)
     {
-      MEMORY[0x2318BE250](v42, 0x1000C8077774924);
+      MEMORY[0x2318BE250](v43, 0x1000C8077774924);
     }
-
-    return v14 < v32;
   }
 
   else
   {
-    v35 = std::__throw_bad_function_call[abi:nn200100]();
-    return KB::NgramCandidateRefinery::completions_from_candidate_string_based_lm(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,KB::CandidateCollection &,float,KB::LookupType)::$_0::operator() const(KB::Candidate const&)::{lambda(KB::Candidate const&)#1}::operator()(v35, v36);
+    v36 = std::__throw_bad_function_call[abi:nn200100]();
+    return KB::NgramCandidateRefinery::completions_from_candidate_string_based_lm(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,KB::CandidateCollection &,float,KB::LookupType)::$_0::operator() const(KB::Candidate const&)::{lambda(KB::Candidate const&)#1}::operator()(v36, v37);
   }
+
+  return result;
 }
 
-uint64_t KB::NgramCandidateRefinery::completions_from_candidate_string_based_lm(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,KB::CandidateCollection &,float,KB::LookupType)::$_0::operator() const(KB::Candidate const&)::{lambda(KB::Candidate const&)#1}::operator()(uint64_t a1, KB::Candidate *a2)
+float KB::NgramCandidateRefinery::completions_from_candidate_string_based_lm(std::vector<KB::Candidate> const&,KB::LanguageModelContext const&,KB::CandidateCollection &,float,KB::LookupType)::$_0::operator() const(KB::Candidate const&)::{lambda(KB::Candidate const&)#1}::operator()(uint64_t a1, KB::Candidate *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = *a1;
   v3 = *(a1 + 8);
   v5 = *(a1 + 16);
-  v6 = **(a1 + 24);
-  if (!*(a2 + 444))
+  if (*(a2 + 444) || (KB::Candidate::compute_string(a2), *(a2 + 444)))
   {
-    KB::Candidate::compute_string(a2);
-    if (!*(a2 + 444))
+    KB::Candidate::capitalized_string(&v16, a2);
+    KB::Candidate::capitalized_string(&v14, v4);
+    v7 = KB::string_preserves_surface_form_features_of_prefix(&v16, &v14, v5, v3);
+    if (v15 && BYTE6(v14) == 1)
     {
-      goto LABEL_23;
-    }
-  }
-
-  KB::Candidate::capitalized_string(a2, v20);
-  KB::Candidate::capitalized_string(v4, &v18);
-  v7 = KB::string_preserves_surface_form_features_of_prefix(v20, &v18, v5, v3);
-  if (v19 && BYTE6(v18) == 1)
-  {
-    free(v19);
-  }
-
-  if (v22 && v21 == 1)
-  {
-    free(v22);
-  }
-
-  if (!v7)
-  {
-LABEL_23:
-    v10 = 1;
-LABEL_24:
-    v11 = *MEMORY[0x277D85DE8];
-    return v10;
-  }
-
-  KB::Candidate::capitalized_string(a2, v20);
-  v8 = *(v3 + 24);
-  if (v8)
-  {
-    (*(*v8 + 48))(&v18);
-    if (v22 && v21 == 1)
-    {
-      free(v22);
+      free(v15);
     }
 
-    v10 = v18 <= v5->var0.var0.var0 && (v6 + 1) >= *a2;
-    if (v18 >= 0xFu)
+    if (v17 && BYTE6(v16) == 1)
     {
-      if (v19)
+      free(v17);
+    }
+
+    if (v7)
+    {
+      KB::Candidate::capitalized_string(&v16, a2);
+      v8 = *(v3 + 24);
+      if (v8)
       {
-        MEMORY[0x2318BE250](v19, 0x1000C8077774924);
+        (*(*v8 + 48))(&v14);
+        if (v17 && BYTE6(v16) == 1)
+        {
+          free(v17);
+        }
+
+        if (v14 >= 0xFu)
+        {
+          if (v15)
+          {
+            MEMORY[0x2318BE250](v15, 0x1000C8077774924);
+          }
+        }
+      }
+
+      else
+      {
+        v9 = std::__throw_bad_function_call[abi:nn200100]();
+        return KB::NgramCandidateRefinery::long_prediction_geometric_log_likelihood(v9, v10, v11, v12, v13);
       }
     }
-
-    goto LABEL_24;
   }
 
-  v13 = std::__throw_bad_function_call[abi:nn200100]();
-  return KB::NgramCandidateRefinery::long_prediction_geometric_log_likelihood(v13, v14, v15, v16, v17);
+  return result;
 }
 
 float KB::NgramCandidateRefinery::long_prediction_geometric_log_likelihood(KB::NgramCandidateRefinery *this, unsigned int a2, int a3, float a4, float a5)
@@ -8040,17 +7473,17 @@ __n128 std::__function::__func<KB::NgramCandidateRefinery::completions_from_cand
 
 uint64_t KB::NgramCandidateRefinery::should_not_score_token(KB::NgramCandidateRefinery *this, const KB::Word *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   result = (*(*this + 16))(this);
   if (result)
   {
     v5 = *(this + 4);
-    KB::Word::capitalized_string(a2, v12);
-    v11 = *(a2 + 17);
-    v6 = (*(*v5 + 408))(v5, v12, &v11);
-    if (v13 && v12[6] == 1)
+    KB::Word::capitalized_string(&v11, a2);
+    v10 = *(a2 + 17);
+    v6 = (*(*v5 + 408))(v5, &v11, &v10);
+    if (v12 && BYTE6(v11) == 1)
     {
-      free(v13);
+      free(v12);
     }
 
     v7 = *(a2 + 26);
@@ -8058,23 +7491,18 @@ uint64_t KB::NgramCandidateRefinery::should_not_score_token(KB::NgramCandidateRe
     {
       if ((v7 & 0x80022100) != 0x2000 || *(a2 + 28) != 0)
       {
-        result = 0;
-        goto LABEL_16;
+        return 0;
       }
 
-      v9 = *(a2 + 31) == 0;
+      return *(a2 + 31) == 0;
     }
 
     else
     {
-      v9 = (v7 & 0x2040000) == 0x2000000;
+      return (v7 & 0x2040000) == 0x2000000;
     }
-
-    result = v9;
   }
 
-LABEL_16:
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8126,7 +7554,7 @@ void KB::NgramCandidateRefinery::context_probability_of_batched_word(uint64_t a1
     {
       do
       {
-        std::vector<KB::LikelihoodInfo>::vector[abi:nn200100](&v26, *v12);
+        std::vector<KB::LikelihoodInfo>::vector[abi:nn200100](&v26, *v12, &KB::k_invalid_likelihood_value);
         v14 = *(a3 + 8);
         v15 = *(a3 + 16);
         if (v14 >= v15)
@@ -8209,7 +7637,7 @@ void KB::NgramCandidateRefinery::context_probability_of_batched_word(uint64_t a1
 
 void KB::NgramCandidateRefinery::set_text_blocklisted_flag(void *a1, uint64_t a2, uint64_t a3)
 {
-  v39[3] = *MEMORY[0x277D85DE8];
+  v38[3] = *MEMORY[0x277D85DE8];
   if ((*(*a1 + 16))(a1))
   {
     v6 = *a2;
@@ -8250,11 +7678,11 @@ void KB::NgramCandidateRefinery::set_text_blocklisted_flag(void *a1, uint64_t a2
             if (*v11 != 32 || v11[1])
             {
               v12 = a1[4];
-              v33 = v11;
-              LODWORD(v34) = 0;
-              HIDWORD(v34) = *v8;
+              v32 = v11;
+              LODWORD(v33) = 0;
+              HIDWORD(v33) = *v8;
               LODWORD(__p) = 0;
-              KB::String::iterator::initialize(&v33);
+              KB::String::iterator::initialize(&v32);
               *(v8 + 17) = (*(*v12 + 304))(v12, __p);
             }
 
@@ -8265,11 +7693,11 @@ LABEL_14:
               if ((v13 & 0x40000) == 0 && (*(v8 + 135) & 4) == 0 && (v13 & 0x800000) == 0 && *v8 && ((*(*a1[4] + 24))(a1[4]) & 1) == 0)
               {
                 v14 = a1[4];
-                KB::Word::capitalized_string(v8, &v33);
-                v15 = KB::LanguageModel::id_for_dynamic_engine_word(v14, &v33, (a1 + 3));
-                if (v34 && BYTE6(v33) == 1)
+                KB::Word::capitalized_string(&v32, v8);
+                v15 = KB::LanguageModel::id_for_dynamic_engine_word(v14, &v32, (a1 + 3));
+                if (v33 && BYTE6(v32) == 1)
                 {
-                  free(v34);
+                  free(v33);
                 }
 
                 *(v8 + 17) = v15;
@@ -8291,7 +7719,7 @@ LABEL_14:
           while (v9);
         }
 
-        KB::LanguageModelContext::LanguageModelContext(&v33, (v6 + 98));
+        KB::LanguageModelContext::LanguageModelContext(&v32, (v6 + 98));
         if (*v6)
         {
           v17 = 0;
@@ -8317,14 +7745,14 @@ LABEL_14:
                   {
                     v23 = v19 + v18;
                     v24 = *(v19 + v18 + 136);
-                    KB::Word::capitalized_string(v20, &v31);
+                    KB::Word::capitalized_string(&v30, v20);
                     v25 = v24;
-                    KB::LanguageModelContext::append(&v33, v25, &v31, (*(v23 + 104) >> 1) & 1);
-                    if (v32)
+                    KB::LanguageModelContext::append(&v32, v25, &v30, (*(v23 + 104) >> 1) & 1);
+                    if (v31)
                     {
-                      if (BYTE6(v31) == 1)
+                      if (BYTE6(v30) == 1)
                       {
-                        free(v32);
+                        free(v31);
                       }
                     }
                   }
@@ -8333,17 +7761,17 @@ LABEL_14:
 
               else
               {
-                KB::NgramCandidateRefinery::update_context(v21, &v33, (v19 + v18));
+                KB::NgramCandidateRefinery::update_context(v21, &v32, (v19 + v18));
               }
             }
 
             v26 = v6[1];
             v27 = a1[4];
-            KB::Word::capitalized_string((v26 + v18 + 240), &v31);
-            v28 = (*(*v27 + 488))(v27, &v31, *(v26 + v18 + 376), &v33, a3);
-            if (v32)
+            KB::Word::capitalized_string(&v30, (v26 + v18 + 240));
+            v28 = (*(*v27 + 488))(v27, &v30, *(v26 + v18 + 376), &v32, a3);
+            if (v31)
             {
-              v29 = BYTE6(v31) == 1;
+              v29 = BYTE6(v30) == 1;
             }
 
             else
@@ -8353,7 +7781,7 @@ LABEL_14:
 
             if (v29)
             {
-              free(v32);
+              free(v31);
             }
 
             if (v28)
@@ -8368,19 +7796,19 @@ LABEL_14:
           while (v17 < *v6);
         }
 
-        v31 = v39;
-        std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v31);
-        language_modeling::v1::LinguisticContext::~LinguisticContext(&v38);
+        v30 = v38;
+        std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v30);
         language_modeling::v1::LinguisticContext::~LinguisticContext(&v37);
+        language_modeling::v1::LinguisticContext::~LinguisticContext(&v36);
         if (__p)
         {
-          v36 = __p;
+          v35 = __p;
           operator delete(__p);
         }
 
-        if (v34)
+        if (v33)
         {
-          std::__shared_weak_count::__release_shared[abi:nn200100](v34);
+          std::__shared_weak_count::__release_shared[abi:nn200100](v33);
         }
 
         v6 += 125;
@@ -8389,13 +7817,11 @@ LABEL_14:
       while (v6 != v7);
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void KB::NgramCandidateRefinery::update_context(KB::NgramCandidateRefinery *this, KB::LanguageModelContext *a2, const KB::Word *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if ((*(a3 + 135) & 4) == 0)
   {
     v4 = *(a3 + 1);
@@ -8407,24 +7833,25 @@ void KB::NgramCandidateRefinery::update_context(KB::NgramCandidateRefinery *this
     if (*v4 && (*v4 != 32 || v4[1]))
     {
       v6 = *(a3 + 17);
-      KB::Word::capitalized_string(a3, v9);
+      KB::Word::capitalized_string(&v8, a3);
       v7 = v6;
-      KB::LanguageModelContext::append(a2, v7, v9, (*(a3 + 26) >> 1) & 1);
-      if (v10 && v9[6] == 1)
+      KB::LanguageModelContext::append(a2, v7, &v8, (*(a3 + 26) >> 1) & 1);
+      if (v9)
       {
-        free(v10);
+        if (BYTE6(v8) == 1)
+        {
+          free(v9);
+        }
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void KB::NgramCandidateRefinery::refine_candidates(KB::NgramCandidateRefinery *a1, uint64_t a2, uint64_t a3)
+void KB::NgramCandidateRefinery::refine_candidates(KB::NgramCandidateRefinery *a1, unsigned int **a2, uint64_t a3)
 {
   KB::NgramCandidateRefinery::add_context_weights_batched(a1, a2);
   v5 = *a2;
-  v6 = *(a2 + 8);
+  v6 = a2[1];
   if (*a2 != v6)
   {
     do
@@ -8456,7 +7883,7 @@ void KB::NgramCandidateRefinery::refine_candidates(KB::NgramCandidateRefinery *a
 
     while (v5 != v6);
     v5 = *a2;
-    v6 = *(a2 + 8);
+    v6 = a2[1];
   }
 
   v11 = 126 - 2 * __clz(0x1CAC083126E978D5 * ((v6 - v5) >> 3));
@@ -8560,9 +7987,9 @@ void KB::UnigramCandidateRefinery::lexicon_id_vector(void *a1@<X8>)
   a1[2] = 0;
 }
 
-void KB::UnigramCandidateRefinery::predictions_for_prediction_stems(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void KB::UnigramCandidateRefinery::predictions_for_prediction_stems(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t **a4)
 {
-  v4 = *(a4 + 8);
+  v4 = a4[1];
   v5 = 126 - 2 * __clz(0x1CAC083126E978D5 * ((v4 - *a4) >> 3));
   if (v4 == *a4)
   {
@@ -8577,9 +8004,9 @@ void KB::UnigramCandidateRefinery::predictions_for_prediction_stems(uint64_t a1,
   std::__introsort<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *,false>(*a4, v4, v6, 1);
 }
 
-void KB::UnigramCandidateRefinery::completions_for_completion_stems(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void KB::UnigramCandidateRefinery::completions_for_completion_stems(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t **a4)
 {
-  v4 = *(a4 + 8);
+  v4 = a4[1];
   v5 = 126 - 2 * __clz(0x1CAC083126E978D5 * ((v4 - *a4) >> 3));
   if (v4 == *a4)
   {
@@ -8594,10 +8021,10 @@ void KB::UnigramCandidateRefinery::completions_for_completion_stems(uint64_t a1,
   std::__introsort<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *,false>(*a4, v4, v6, 1);
 }
 
-void KB::UnigramCandidateRefinery::refine_candidates(uint64_t a1, uint64_t a2)
+void KB::UnigramCandidateRefinery::refine_candidates(uint64_t a1, uint64_t **a2)
 {
   v2 = *a2;
-  v3 = *(a2 + 8);
+  v3 = a2[1];
   v4 = 126 - 2 * __clz(0x1CAC083126E978D5 * ((v3 - v2) >> 3));
   if (v3 == v2)
   {
@@ -8675,10 +8102,10 @@ void KB::NgramCandidateRefinery::context_probability_of_word(KB::NgramCandidateR
   (*(**(this + 4) + 24))(*(this + 4));
   if ((*(**(this + 4) + 16))(*(this + 4)))
   {
-    v11 = *(**(this + 4) + 424);
-    v10.n128_f32[0] = a2;
+    v7 = *(**(this + 4) + 424);
+    v6.n128_f32[0] = a2;
 
-    v11(v10);
+    v7(v6);
   }
 
   else
@@ -8687,10 +8114,10 @@ void KB::NgramCandidateRefinery::context_probability_of_word(KB::NgramCandidateR
     *(a3 + 8) = dword_27D9EBB28;
     if (byte_27D9EBB47 < 0)
     {
-      v12 = *aInvalidLikelih_2;
-      v13 = *&aInvalidLikelih_2[8];
+      v8 = *aInvalidLikelih_2;
+      v9 = *&aInvalidLikelih_2[8];
 
-      std::string::__init_copy_ctor_external((a3 + 16), v12, v13);
+      std::string::__init_copy_ctor_external((a3 + 16), v8, v9);
     }
 
     else
@@ -8703,20 +8130,20 @@ void KB::NgramCandidateRefinery::context_probability_of_word(KB::NgramCandidateR
 
 void KB::NgramCandidateRefinery::add_context_weight(KB::NgramCandidateRefinery *this, KB::Word *a2, const KB::LanguageModelContext *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (KB::NgramCandidateRefinery::should_not_score_token(this, a2))
   {
     *(a2 + 12) = 0;
-    goto LABEL_37;
+    return;
   }
 
   v6 = *(this + 4);
-  KB::Word::capitalized_string(a2, &v18);
-  v16 = *(a2 + 17);
-  v7 = (*(*v6 + 408))(v6, &v18, &v16);
-  if (v19)
+  KB::Word::capitalized_string(&v16, a2);
+  v14 = *(a2 + 17);
+  v7 = (*(*v6 + 408))(v6, &v16, &v14);
+  if (v17)
   {
-    v8 = BYTE6(v18) == 1;
+    v8 = BYTE6(v16) == 1;
   }
 
   else
@@ -8726,7 +8153,7 @@ void KB::NgramCandidateRefinery::add_context_weight(KB::NgramCandidateRefinery *
 
   if (v8)
   {
-    free(v19);
+    free(v17);
   }
 
   if (v7)
@@ -8741,15 +8168,14 @@ void KB::NgramCandidateRefinery::add_context_weight(KB::NgramCandidateRefinery *
       Mutable = 0;
     }
 
-    KB::Word::capitalized_string(a2, &v16);
-    v15 = *(a2 + 17);
-    KB::NgramCandidateRefinery::context_probability_of_word(this, *(a2 + 13), &v18);
-    if (v17 && BYTE6(v16) == 1)
+    KB::Word::capitalized_string(&v14, a2);
+    KB::NgramCandidateRefinery::context_probability_of_word(this, *(a2 + 13), &v16);
+    if (v15 && BYTE6(v14) == 1)
     {
-      free(v17);
+      free(v15);
     }
 
-    *(a2 + 52) = v18;
+    *(a2 + 52) = v16;
     v10 = (*(**(this + 4) + 16))(*(this + 4));
     v11 = 1.0;
     if (v10)
@@ -8758,7 +8184,7 @@ void KB::NgramCandidateRefinery::add_context_weight(KB::NgramCandidateRefinery *
     }
 
     *(a2 + 24) = v11;
-    if (v21 >= 0)
+    if (v19 >= 0)
     {
       p_p = &__p;
     }
@@ -8768,15 +8194,15 @@ void KB::NgramCandidateRefinery::add_context_weight(KB::NgramCandidateRefinery *
       p_p = __p;
     }
 
-    KB::String::String(&v16, p_p);
-    KB::String::operator=((a2 + 64), &v16);
-    if (v17 && BYTE6(v16) == 1)
+    KB::String::String(&v14, p_p);
+    KB::String::operator=((a2 + 64), &v14);
+    if (v15 && BYTE6(v14) == 1)
     {
-      free(v17);
+      free(v15);
     }
 
-    v13 = v19;
-    if (v19)
+    v13 = v17;
+    if (v17)
     {
       *(a2 + 26) |= 0x1000000u;
       if ((v13 & 2) == 0)
@@ -8791,7 +8217,7 @@ LABEL_26:
       }
     }
 
-    else if ((v19 & 2) == 0)
+    else if ((v17 & 2) == 0)
     {
       goto LABEL_26;
     }
@@ -8800,7 +8226,7 @@ LABEL_26:
     if (!Mutable)
     {
 LABEL_33:
-      if (v21 < 0)
+      if (v19 < 0)
       {
         operator delete(__p);
       }
@@ -8810,36 +8236,33 @@ LABEL_33:
         CFRelease(Mutable);
       }
 
-      goto LABEL_37;
+      return;
     }
 
 LABEL_30:
-    KB::utf8_string(Mutable, &v16);
-    KB::String::operator=((a2 + 160), &v16);
-    if (v17 && BYTE6(v16) == 1)
+    KB::utf8_string(&v14, Mutable);
+    KB::String::operator=((a2 + 160), &v14);
+    if (v15 && BYTE6(v14) == 1)
     {
-      free(v17);
+      free(v15);
     }
 
     goto LABEL_33;
   }
-
-LABEL_37:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
-void KB::ChooseTopQualityAutocorrection::filter_candidates(KB::ChooseTopQualityAutocorrection *this, KB::CandidateCollection *a2, const KB::CandidateFilterLookupContext *a3, const KB::CandidateFilterResources *a4)
+void KB::ChooseTopQualityAutocorrection::filter_candidates(KB::ChooseTopQualityAutocorrection *this, const KB::Candidate **a2, const KB::CandidateFilterLookupContext *a3, const KB::CandidateFilterResources *a4)
 {
-  if (*a2 != *(a2 + 1))
+  if (*a2 != a2[1])
   {
     v25[2] = v7;
     v25[3] = v6;
     v25[14] = v4;
     v25[15] = v5;
     KB::CandidateCollection::CandidateCollection(v21, a2);
-    v12 = expf(*(*a2 + 744));
+    v12 = expf(*(*a2 + 186));
     KB::ChooseTopQualityAutocorrection::filter_candidates_subset(this, a2, a3, a4, v12);
-    if (*a2 != *(a2 + 1))
+    if (*a2 != a2[1])
     {
       v13 = 0;
       v14 = 125;
@@ -8859,7 +8282,7 @@ void KB::ChooseTopQualityAutocorrection::filter_candidates(KB::ChooseTopQualityA
           break;
         }
 
-        std::vector<KB::Candidate>::push_back[abi:nn200100](a2 + 24, v16);
+        std::vector<KB::Candidate>::push_back[abi:nn200100](a2 + 3, v16);
         v25[0] = v20;
         std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v25);
         v25[0] = v19;
@@ -8898,912 +8321,1052 @@ LABEL_9:
   }
 }
 
-void KB::ChooseTopQualityAutocorrection::filter_candidates_subset(KB::ChooseTopQualityAutocorrection *this, KB::Candidate **a2, const KB::CandidateFilterLookupContext *a3, const KB::CandidateFilterResources *a4, float a5)
+void KB::ChooseTopQualityAutocorrection::filter_candidates_subset(KB::ChooseTopQualityAutocorrection *this, KB::CandidateCollection *a2, const KB::CandidateFilterLookupContext *a3, const KB::CandidateFilterResources *a4, float a5)
 {
-  v196[2] = *MEMORY[0x277D85DE8];
-  if (*a2 != a2[1])
+  v202[2] = *MEMORY[0x277D85DE8];
+  if (*a2 == *(a2 + 1))
   {
-    KB::Candidate::capitalized_string(*a2, v180);
-    KB::Candidate::capitalized_string(a3, v178);
-    v10 = KB::String::equal(v178, v180, 1);
-    if (v178[1] && BYTE6(v178[0]) == 1)
-    {
-      free(v178[1]);
-    }
+    return;
+  }
 
-    KB::Candidate::capitalized_string((a3 + 2168), v178);
-    v11 = KB::String::equal(v178, v180, 1);
-    if (v178[1] && BYTE6(v178[0]) == 1)
-    {
-      free(v178[1]);
-    }
+  KB::Candidate::capitalized_string(&v191, *a2);
+  KB::Candidate::capitalized_string(v189, a3);
+  v12 = KB::String::equal(v189, &v191, 1, v10, v11);
+  if (v189[1] && BYTE6(v189[0]) == 1)
+  {
+    free(v189[1]);
+  }
 
-    v167 = 0;
-    memset(v165, 0, sizeof(v165));
-    memset(v166, 0, sizeof(v166));
-    std::vector<KB::Candidate>::__insert_with_size[abi:nn200100]<std::__wrap_iter<KB::Candidate const*>,std::__wrap_iter<KB::Candidate const*>>(v166, 0, a2[6], a2[7], 0x1CAC083126E978D5 * ((a2[7] - a2[6]) >> 3));
-    std::vector<KB::Candidate>::__insert_with_size[abi:nn200100]<std::__wrap_iter<KB::Candidate const*>,std::__wrap_iter<KB::Candidate const*>>(&v165[1] + 1, 0, a2[3], a2[4], 0x1CAC083126E978D5 * ((a2[4] - a2[3]) >> 3));
-    KB::Candidate::capitalized_string(a3, v178);
-    v13 = KB::String::equal(v178, v180, 0);
-    if (v178[1] && BYTE6(v178[0]) == 1)
-    {
-      free(v178[1]);
-    }
+  KB::Candidate::capitalized_string(v189, (a3 + 2168));
+  v15 = KB::String::equal(v189, &v191, 1, v13, v14);
+  if (v189[1] && BYTE6(v189[0]) == 1)
+  {
+    free(v189[1]);
+  }
 
-    if ((*(a2 + 100) & 1) == 0 || v13)
-    {
-      if (!v13)
-      {
-        goto LABEL_13;
-      }
-    }
+  v178 = 0;
+  memset(v176, 0, sizeof(v176));
+  memset(v177, 0, sizeof(v177));
+  std::vector<KB::Candidate>::__insert_with_size[abi:nn200100]<std::__wrap_iter<KB::Candidate const*>,std::__wrap_iter<KB::Candidate const*>>(v177, 0, *(a2 + 6), *(a2 + 7), 0x1CAC083126E978D5 * ((*(a2 + 7) - *(a2 + 6)) >> 3));
+  std::vector<KB::Candidate>::__insert_with_size[abi:nn200100]<std::__wrap_iter<KB::Candidate const*>,std::__wrap_iter<KB::Candidate const*>>(&v176[1] + 1, 0, *(a2 + 3), *(a2 + 4), 0x1CAC083126E978D5 * ((*(a2 + 4) - *(a2 + 3)) >> 3));
+  KB::Candidate::capitalized_string(v189, a3);
+  v19 = KB::String::equal(v189, &v191, 0, v16, v17);
+  if (v189[1] && BYTE6(v189[0]) == 1)
+  {
+    free(v189[1]);
+  }
 
-    else
+  if ((*(a2 + 100) & 1) == 0 || v19)
+  {
+    if (!v19)
     {
-      v167 |= 1u;
-      if (!v13)
-      {
+      goto LABEL_13;
+    }
+  }
+
+  else
+  {
+    v178 |= 1u;
+    if (!v19)
+    {
 LABEL_13:
-        if (v10)
-        {
-          goto LABEL_14;
-        }
-
-        goto LABEL_23;
-      }
-    }
-
-    std::vector<KB::Candidate>::push_back[abi:nn200100](&v166[1] + 8, *a2);
-    if (v10)
-    {
-LABEL_14:
-      v14 = *(a4 + 7);
-      if (v14)
+      if (v12)
       {
-        v15 = v182;
-        if (!v182)
-        {
-          v15 = v183;
-        }
-
-        if (v180[0])
-        {
-          v16 = v15;
-        }
-
-        else
-        {
-          v16 = "";
-        }
-
-        KB::append_format(v14, "[%s] matches the input string - ignoring\n", v12, v16);
+        goto LABEL_14;
       }
-
-LABEL_248:
-      KB::CandidateCollection::operator=(a2, v165);
-      v178[0] = &v166[1] + 8;
-      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v178);
-      v178[0] = v166;
-      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v178);
-      v178[0] = &v165[1] + 8;
-      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v178);
-      v178[0] = v165;
-      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v178);
-      if (v182)
-      {
-        if (v181 == 1)
-        {
-          free(v182);
-        }
-      }
-
-      goto LABEL_251;
-    }
 
 LABEL_23:
-    v158 = v11;
-    v161 = this;
-    v17 = *a2;
-    KB::Candidate::capitalized_string(a3, v192);
-    KB::Candidate::capitalized_string(v17, v187);
-    v18 = v193;
-    if (!v193)
-    {
-      KB::String::compute_length(v192);
-      v18 = v193;
-    }
-
-    v19 = v188;
-    if (!v188)
-    {
-      KB::String::compute_length(v187);
-      v19 = v188;
-    }
-
-    if (v19 >= v18)
-    {
-      v20 = v18;
-    }
-
-    else
-    {
-      v20 = v19;
-    }
-
-    v21 = v195;
-    if (!v195)
-    {
-      v21 = v196;
-    }
-
-    v178[0] = v21;
-    LODWORD(v178[1]) = 0;
-    HIDWORD(v178[1]) = v192[0];
-    LODWORD(v179[0]) = 0;
-    KB::String::iterator::initialize(v178);
-    v170 = *v178;
-    v171 = v179[0];
-    v22 = v190;
-    if (!v190)
-    {
-      v22 = v191;
-    }
-
-    *&v172 = v22;
-    DWORD2(v172) = 0;
-    HIDWORD(v172) = v187[0];
-    LODWORD(v173) = 0;
-    KB::String::iterator::initialize(&v172);
-    v178[0] = 0;
-    v178[1] = v178;
-    v179[0] = 0x3002000000;
-    v179[1] = __Block_byref_object_copy__21274;
-    v23 = *(a3 + 251);
-    v179[2] = __Block_byref_object_dispose__21275;
-    v179[3] = v23;
-    *&v176[0].lexicon_id = v170;
-    v177[0] = v171;
-    std::__advance[abi:nn200100]<KB::String::iterator>(v176, v20);
-    v24 = 0;
-    lexicon_id = v176[1].lexicon_id;
-    v184 = v170;
-    v185 = v171;
-    v186 = 0;
-    v174 = v172;
-    v175 = v173;
-    v176[0] = MEMORY[0x277D85DD0];
-    v176[1] = 0x40000000;
-    v177[0] = ___ZN2KB30ChooseTopQualityAutocorrection38case_sens_position_of_first_differenceERKNS_6StringERKNSt3__16vectorIjNS4_9allocatorIjEEEES3__block_invoke;
-    v177[1] = &unk_278733168;
-    v177[2] = v178;
-    v177[3] = a3 + 2008;
-    if (DWORD2(v170) != lexicon_id)
-    {
-      do
+      v169 = v15;
+      v172 = this;
+      v23 = *a2;
+      KB::Candidate::capitalized_string(&v200, a3);
+      KB::Candidate::capitalized_string(&v197, v23);
+      v24 = WORD2(v200);
+      if (!WORD2(v200))
       {
-        v168 = v175;
-        v169 = v185;
-        if (!(v177[0])(v176, &v169, &v168))
-        {
-          break;
-        }
-
-        ++v186;
-        KB::String::iterator::operator++(&v184);
-        KB::String::iterator::operator++(&v174);
+        KB::String::compute_length(&v200);
+        v24 = WORD2(v200);
       }
 
-      while (DWORD2(v184) != lexicon_id);
-      v24 = v186;
-    }
-
-    _Block_object_dispose(v178, 8);
-    v26 = KB::Candidate::length(a3);
-    v27 = KB::Candidate::index_of_word_containing_position(a3, v24);
-    if (KB::Candidate::does_word_begin_at_position(a3, v24))
-    {
-      v27 -= !KB::Candidate::does_word_begin_at_position(v17, v24);
-    }
-
-    v156 = KB::Candidate::length_to_word(a3, v27);
-    v160 = KB::Candidate::length(v17);
-    v159 = KB::Candidate::length(a3);
-    if (v190)
-    {
-      v28 = v190;
-    }
-
-    else
-    {
-      v28 = v191;
-    }
-
-    v176[0] = v28;
-    v29 = v187[0];
-    v176[1].lexicon_id = 0;
-    v176[1].word_id = v187[0];
-    LODWORD(v177[0]) = 0;
-    KB::String::iterator::initialize(v176);
-    *v178 = *&v176[0].lexicon_id;
-    v179[0] = v177[0];
-    std::__advance[abi:nn200100]<KB::String::iterator>(v178, v24);
-    *&v174 = v28;
-    DWORD2(v174) = v29;
-    HIDWORD(v174) = v29;
-    LODWORD(v175) = 0;
-    KB::String::iterator::initialize(&v174);
-    v30 = KB::String::String(&v184, v178, &v174);
-    v164 = v24;
-    v157 = v26;
-    if (KB::string_has_precomposed_diacritic_letters(v30, v31) || KB::string_has_separated_diacritics(&v184, v32))
-    {
-      v33 = 1;
-    }
-
-    else
-    {
-      v34 = *(a4 + 5);
-      v35 = &v185;
-      if (v34)
+      v25 = WORD2(v197);
+      if (!WORD2(v197))
       {
-        if (*(&v184 + 1))
-        {
-          v36 = *(&v184 + 1);
-        }
+        KB::String::compute_length(&v197);
+        v25 = WORD2(v197);
+      }
 
-        else
-        {
-          v36 = &v185;
-        }
-
-        v178[0] = v36;
-        v37 = v184;
-        LODWORD(v178[1]) = 0;
-        HIDWORD(v178[1]) = v184;
-        LODWORD(v179[0]) = 0;
-        KB::String::iterator::initialize(v178);
-        v176[0] = v36;
-        v176[1].lexicon_id = v37;
-        v176[1].word_id = v37;
-        LODWORD(v177[0]) = 0;
-        KB::String::iterator::initialize(v176);
-        v38 = v178[1];
-        v39 = v176[1].lexicon_id;
-        if (LODWORD(v178[1]) != v176[1].lexicon_id)
-        {
-          while (!(*(v34 + 16))(v34, LODWORD(v179[0])))
-          {
-            KB::String::iterator::operator++(v178);
-            if (LODWORD(v178[1]) == v39)
-            {
-              v38 = v39;
-              goto LABEL_66;
-            }
-          }
-
-          v38 = v178[1];
-        }
-
-LABEL_66:
-        v43 = *(&v184 + 1);
-        if (!*(&v184 + 1))
-        {
-          v43 = &v185;
-        }
-
-        v178[0] = v43;
-        LODWORD(v178[1]) = v184;
-        HIDWORD(v178[1]) = v184;
+      if (v25 >= v24)
+      {
+        v26 = v24;
       }
 
       else
       {
-        if (*(&v184 + 1))
+        v26 = v25;
+      }
+
+      v27 = v201;
+      if (!v201)
+      {
+        v27 = v202;
+      }
+
+      v189[0] = v27;
+      LODWORD(v189[1]) = 0;
+      HIDWORD(v189[1]) = v200;
+      LODWORD(v190[0]) = 0;
+      KB::String::iterator::initialize(v189);
+      v181 = *v189;
+      v182 = v190[0];
+      v28 = v198;
+      if (!v198)
+      {
+        v28 = v199;
+      }
+
+      *&v183 = v28;
+      DWORD2(v183) = 0;
+      HIDWORD(v183) = v197;
+      LODWORD(v184) = 0;
+      KB::String::iterator::initialize(&v183);
+      v189[0] = 0;
+      v189[1] = v189;
+      v190[0] = 0x3002000000;
+      v190[1] = __Block_byref_object_copy__21274;
+      v29 = *(a3 + 251);
+      v190[2] = __Block_byref_object_dispose__21275;
+      v190[3] = v29;
+      *&v187[0].lexicon_id = v181;
+      v188[0] = v182;
+      std::__advance[abi:nn200100]<KB::String::iterator>(v187, v26);
+      v30 = 0;
+      lexicon_id = v187[1].lexicon_id;
+      v194 = v181;
+      v195 = v182;
+      v196 = 0;
+      v185 = v183;
+      v186 = v184;
+      v187[0] = MEMORY[0x277D85DD0];
+      v187[1] = 0x40000000;
+      v188[0] = ___ZN2KB30ChooseTopQualityAutocorrection38case_sens_position_of_first_differenceERKNS_6StringERKNSt3__16vectorIjNS4_9allocatorIjEEEES3__block_invoke;
+      v188[1] = &unk_278733168;
+      v188[2] = v189;
+      v188[3] = a3 + 2008;
+      if (DWORD2(v181) != lexicon_id)
+      {
+        do
         {
-          v35 = *(&v184 + 1);
+          v179 = v186;
+          v180 = v195;
+          if (!(v188[0])(v187, &v180, &v179))
+          {
+            break;
+          }
+
+          ++v196;
+          KB::String::iterator::operator++(&v194);
+          KB::String::iterator::operator++(&v185);
         }
 
-        v178[0] = v35;
-        v40 = v184;
-        LODWORD(v178[1]) = 0;
-        HIDWORD(v178[1]) = v184;
-        LODWORD(v179[0]) = 0;
-        KB::String::iterator::initialize(v178);
-        v176[0] = v35;
-        v176[1].lexicon_id = v40;
-        v176[1].word_id = v40;
-        LODWORD(v177[0]) = 0;
-        KB::String::iterator::initialize(v176);
-        v38 = v178[1];
-        v41 = v176[1].lexicon_id;
-        if (LODWORD(v178[1]) != v176[1].lexicon_id)
+        while (DWORD2(v194) != lexicon_id);
+        v30 = v196;
+      }
+
+      _Block_object_dispose(v189, 8);
+      v32 = KB::Candidate::length(a3);
+      v33 = KB::Candidate::index_of_word_containing_position(a3, v30);
+      if (KB::Candidate::does_word_begin_at_position(a3, v30))
+      {
+        v33 -= !KB::Candidate::does_word_begin_at_position(v23, v30);
+      }
+
+      v167 = KB::Candidate::length_to_word(a3, v33);
+      v171 = KB::Candidate::length(v23);
+      v170 = KB::Candidate::length(a3);
+      if (v198)
+      {
+        v34 = v198;
+      }
+
+      else
+      {
+        v34 = v199;
+      }
+
+      v187[0] = v34;
+      v35 = v197;
+      v187[1].lexicon_id = 0;
+      v187[1].word_id = v197;
+      LODWORD(v188[0]) = 0;
+      KB::String::iterator::initialize(v187);
+      *v189 = *&v187[0].lexicon_id;
+      v190[0] = v188[0];
+      std::__advance[abi:nn200100]<KB::String::iterator>(v189, v30);
+      *&v185 = v34;
+      DWORD2(v185) = v35;
+      HIDWORD(v185) = v35;
+      LODWORD(v186) = 0;
+      KB::String::iterator::initialize(&v185);
+      v36 = KB::String::String(&v194, v189, &v185);
+      v175 = v30;
+      v168 = v32;
+      if (KB::string_has_precomposed_diacritic_letters(v36, v37) || KB::string_has_separated_diacritics(&v194, v38))
+      {
+        v39 = 1;
+      }
+
+      else
+      {
+        v40 = *(a4 + 5);
+        v41 = &v195;
+        if (v40)
         {
-          while ((LODWORD(v179[0]) - 38) >= 2)
+          if (*(&v194 + 1))
           {
-            if ((LODWORD(v179[0]) - 1523) < 2 || LODWORD(v179[0]) == 8217)
+            v42 = *(&v194 + 1);
+          }
+
+          else
+          {
+            v42 = &v195;
+          }
+
+          v189[0] = v42;
+          v43 = v194;
+          LODWORD(v189[1]) = 0;
+          HIDWORD(v189[1]) = v194;
+          LODWORD(v190[0]) = 0;
+          KB::String::iterator::initialize(v189);
+          v187[0] = v42;
+          v187[1].lexicon_id = v43;
+          v187[1].word_id = v43;
+          LODWORD(v188[0]) = 0;
+          KB::String::iterator::initialize(v187);
+          v44 = v189[1];
+          v45 = v187[1].lexicon_id;
+          if (LODWORD(v189[1]) != v187[1].lexicon_id)
+          {
+            while (!(*(v40 + 16))(v40, LODWORD(v190[0])))
             {
-              break;
+              KB::String::iterator::operator++(v189);
+              if (LODWORD(v189[1]) == v45)
+              {
+                v44 = v45;
+                goto LABEL_66;
+              }
             }
 
-            KB::String::iterator::operator++(v178);
-            v38 = v178[1];
-            if (LODWORD(v178[1]) == v41)
-            {
-              v38 = v41;
-              break;
-            }
+            v44 = v189[1];
           }
-        }
 
-        v178[0] = v35;
-        LODWORD(v178[1]) = v40;
-        HIDWORD(v178[1]) = v40;
-      }
-
-      LODWORD(v179[0]) = 0;
-      KB::String::iterator::initialize(v178);
-      v33 = v38 != LODWORD(v178[1]);
-    }
-
-    v162 = v33;
-    v44 = KB::Candidate::length(v17);
-    v46 = KB::Candidate::length(a3);
-    if (*v17)
-    {
-      v47 = 0;
-      v48 = *(v17 + 1);
-      v49 = 240 * *v17;
-      do
-      {
-        if ((*(v48 + 135) & 4) == 0)
-        {
-          v50 = *(v48 + 4);
-          if (!*(v48 + 4))
+LABEL_66:
+          v49 = *(&v194 + 1);
+          if (!*(&v194 + 1))
           {
-            KB::String::compute_length(v48);
-            v50 = *(v48 + 4);
+            v49 = &v195;
           }
 
-          if (v50 == 1)
-          {
-            ++v47;
-          }
-        }
-
-        v48 += 240;
-        v49 -= 240;
-      }
-
-      while (v49);
-    }
-
-    else
-    {
-      v47 = 0;
-    }
-
-    if (*a3)
-    {
-      v51 = *(a3 + 1);
-      v52 = 240 * *a3;
-      do
-      {
-        if ((*(v51 + 135) & 4) == 0)
-        {
-          v53 = *(v51 + 4);
-          if (!*(v51 + 4))
-          {
-            KB::String::compute_length(v51);
-            v53 = *(v51 + 4);
-          }
-
-          v47 -= v53 == 1;
-        }
-
-        v51 += 240;
-        v52 -= 240;
-      }
-
-      while (v52);
-    }
-
-    if (v44 > v46 && v47 < 0 && (*(a3 + 3175) & 1) == 0)
-    {
-      v75 = *(a4 + 7);
-      if (v75)
-      {
-        KB::Candidate::capitalized_string(*a2, v178);
-        v77 = v178[1];
-        if (!v178[1])
-        {
-          v77 = v179;
-        }
-
-        if (LOWORD(v178[0]))
-        {
-          v78 = v77;
+          v189[0] = v49;
+          LODWORD(v189[1]) = v194;
+          HIDWORD(v189[1]) = v194;
         }
 
         else
         {
-          v78 = "";
-        }
-
-        KB::append_format(v75, "[%s] prediction skipped for single-character input\n", v76, v78);
-        goto LABEL_226;
-      }
-
-      goto LABEL_229;
-    }
-
-    v54 = *(v161 + 2);
-    KB::Candidate::capitalized_string(a3, v178);
-    LOWORD(v176[0].word_id) = 0;
-    BYTE2(v176[0].word_id) = 0;
-    v176[1] = " \t\n";
-    v176[0].lexicon_id = 1048579;
-    BYTE1(v177[0]) = 0;
-    KB::string_split_after(v178, v176, &v174);
-    if (*&v176[1] && BYTE2(v176[0].word_id) == 1)
-    {
-      free(*&v176[1]);
-    }
-
-    if (v178[1] && BYTE6(v178[0]) == 1)
-    {
-      free(v178[1]);
-    }
-
-    KB::Candidate::capitalized_string(v17, v178);
-    LOWORD(v176[0].word_id) = 0;
-    BYTE2(v176[0].word_id) = 0;
-    v176[1] = " \t\n";
-    v176[0].lexicon_id = 1048579;
-    BYTE1(v177[0]) = 0;
-    KB::string_split_after(v178, v176, &v172);
-    if (*&v176[1] && BYTE2(v176[0].word_id) == 1)
-    {
-      free(*&v176[1]);
-    }
-
-    if (v178[1] && BYTE6(v178[0]) == 1)
-    {
-      free(v178[1]);
-    }
-
-    v55 = *(a4 + 2);
-    if (v55)
-    {
-      atomic_fetch_add(v55, 1u);
-    }
-
-    v163 = a4;
-    v56 = *(v55 + 8);
-    WTF::RefCounted<KB::DictionaryContainer>::deref(v55);
-    LOBYTE(v178[0]) = 0;
-    std::vector<BOOL>::vector(&v170, (*(&v174 + 1) - v174) >> 5);
-    v57 = *(&v174 + 1);
-    v58 = v174;
-    if (*(&v174 + 1) == v174)
-    {
-      v58 = *(&v174 + 1);
-    }
-
-    else
-    {
-      v59 = 0;
-      v60 = 0;
-      do
-      {
-        v61 = v172;
-        if (v60 >= (*(&v172 + 1) - v172) >> 5)
-        {
-          break;
-        }
-
-        if (v58 == v172 || KB::String::equal((v58 + v59), (v172 + v59), 1))
-        {
-          goto LABEL_112;
-        }
-
-        v62 = *(v56 + 168);
-        if (!v62)
-        {
-          v154 = std::__throw_bad_function_call[abi:nn200100]();
-          __Block_byref_object_copy__21274(v154, v155);
-          return;
-        }
-
-        if ((*(*v62 + 48))(v62, v61 + v59, v58 + v59))
-        {
-          v178[0] = &unk_283FDCF10;
-          v178[1] = 1;
-          if (KB::InputSegmentFilter::string_preserves_surface_form_features(v178, (v61 + v59), (v58 + v59), 0, 0))
+          if (*(&v194 + 1))
           {
-LABEL_112:
-            *(v170 + ((v60 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v60;
+            v41 = *(&v194 + 1);
           }
+
+          v189[0] = v41;
+          v46 = v194;
+          LODWORD(v189[1]) = 0;
+          HIDWORD(v189[1]) = v194;
+          LODWORD(v190[0]) = 0;
+          KB::String::iterator::initialize(v189);
+          v187[0] = v41;
+          v187[1].lexicon_id = v46;
+          v187[1].word_id = v46;
+          LODWORD(v188[0]) = 0;
+          KB::String::iterator::initialize(v187);
+          v44 = v189[1];
+          v47 = v187[1].lexicon_id;
+          if (LODWORD(v189[1]) != v187[1].lexicon_id)
+          {
+            while ((LODWORD(v190[0]) - 38) >= 2)
+            {
+              if ((LODWORD(v190[0]) - 1523) < 2 || LODWORD(v190[0]) == 8217)
+              {
+                break;
+              }
+
+              KB::String::iterator::operator++(v189);
+              v44 = v189[1];
+              if (LODWORD(v189[1]) == v47)
+              {
+                v44 = v47;
+                break;
+              }
+            }
+          }
+
+          v189[0] = v41;
+          LODWORD(v189[1]) = v46;
+          HIDWORD(v189[1]) = v46;
         }
 
-        ++v60;
-        v57 = *(&v174 + 1);
-        v58 = v174;
-        v59 += 32;
+        LODWORD(v190[0]) = 0;
+        KB::String::iterator::initialize(v189);
+        v39 = v44 != LODWORD(v189[1]);
       }
 
-      while (v60 < (*(&v174 + 1) - v174) >> 5);
-    }
-
-    v64 = *(&v170 + 1);
-    v63 = v170;
-    if (*(&v170 + 1) < 0x40uLL)
-    {
-      v65 = 0;
-      v66 = v170;
-      v67 = v164;
-      if (*(&v170 + 1))
+      v173 = v39;
+      v50 = KB::Candidate::length(v23);
+      v52 = KB::Candidate::length(a3);
+      if (*v23)
       {
+        v53 = 0;
+        v54 = *(v23 + 1);
+        v55 = 240 * *v23;
+        do
+        {
+          if ((*(v54 + 135) & 4) == 0)
+          {
+            v56 = *(v54 + 4);
+            if (!*(v54 + 4))
+            {
+              KB::String::compute_length(v54);
+              v56 = *(v54 + 4);
+            }
+
+            if (v56 == 1)
+            {
+              ++v53;
+            }
+          }
+
+          v54 += 240;
+          v55 -= 240;
+        }
+
+        while (v55);
+      }
+
+      else
+      {
+        v53 = 0;
+      }
+
+      if (*a3)
+      {
+        v57 = *(a3 + 1);
+        v58 = 240 * *a3;
+        do
+        {
+          if ((*(v57 + 135) & 4) == 0)
+          {
+            v59 = *(v57 + 4);
+            if (!*(v57 + 4))
+            {
+              KB::String::compute_length(v57);
+              v59 = *(v57 + 4);
+            }
+
+            v53 -= v59 == 1;
+          }
+
+          v57 += 240;
+          v58 -= 240;
+        }
+
+        while (v58);
+      }
+
+      if (v50 > v52 && v53 < 0 && (*(a3 + 3175) & 1) == 0)
+      {
+        v83 = *(a4 + 7);
+        if (v83)
+        {
+          KB::Candidate::capitalized_string(v189, *a2);
+          v85 = v189[1];
+          if (!v189[1])
+          {
+            v85 = v190;
+          }
+
+          if (LOWORD(v189[0]))
+          {
+            v86 = v85;
+          }
+
+          else
+          {
+            v86 = "";
+          }
+
+          KB::append_format(v83, "[%s] prediction skipped for single-character input\n", v84, v86);
+          goto LABEL_226;
+        }
+
+        goto LABEL_229;
+      }
+
+      v60 = *(v172 + 2);
+      KB::Candidate::capitalized_string(v189, a3);
+      LOWORD(v187[0].word_id) = 0;
+      BYTE2(v187[0].word_id) = 0;
+      v187[1] = " \t\n";
+      v187[0].lexicon_id = 1048579;
+      BYTE1(v188[0]) = 0;
+      KB::string_split_after(v189, v187, &v185);
+      if (*&v187[1] && BYTE2(v187[0].word_id) == 1)
+      {
+        free(*&v187[1]);
+      }
+
+      if (v189[1] && BYTE6(v189[0]) == 1)
+      {
+        free(v189[1]);
+      }
+
+      KB::Candidate::capitalized_string(v189, v23);
+      LOWORD(v187[0].word_id) = 0;
+      BYTE2(v187[0].word_id) = 0;
+      v187[1] = " \t\n";
+      v187[0].lexicon_id = 1048579;
+      BYTE1(v188[0]) = 0;
+      KB::string_split_after(v189, v187, &v183);
+      if (*&v187[1] && BYTE2(v187[0].word_id) == 1)
+      {
+        free(*&v187[1]);
+      }
+
+      if (v189[1] && BYTE6(v189[0]) == 1)
+      {
+        free(v189[1]);
+      }
+
+      v61 = *(a4 + 2);
+      if (v61)
+      {
+        atomic_fetch_add(v61, 1u);
+      }
+
+      v174 = a4;
+      v62 = *(v61 + 8);
+      WTF::RefCounted<KB::DictionaryContainer>::deref(v61);
+      LOBYTE(v189[0]) = 0;
+      std::vector<BOOL>::vector(&v181, (*(&v185 + 1) - v185) >> 5, v189);
+      v65 = *(&v185 + 1);
+      v66 = v185;
+      if (*(&v185 + 1) == v185)
+      {
+        v66 = *(&v185 + 1);
+      }
+
+      else
+      {
+        v67 = 0;
+        v68 = 0;
+        do
+        {
+          v69 = v183;
+          if (v68 >= (*(&v183 + 1) - v183) >> 5)
+          {
+            break;
+          }
+
+          if (v66 == v183 || KB::String::equal((v66 + v67), (v183 + v67), 1, v63, v64))
+          {
+            goto LABEL_112;
+          }
+
+          v70 = *(v62 + 168);
+          if (!v70)
+          {
+            v165 = std::__throw_bad_function_call[abi:nn200100]();
+            __Block_byref_object_copy__21274(v165, v166);
+            return;
+          }
+
+          if ((*(*v70 + 48))(v70, v69 + v67, v66 + v67))
+          {
+            v189[0] = &unk_283FDCF10;
+            v189[1] = 1;
+            if (KB::InputSegmentFilter::string_preserves_surface_form_features(v189, (v69 + v67), (v66 + v67), 0, 0))
+            {
+LABEL_112:
+              *(v181 + ((v68 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v68;
+            }
+          }
+
+          ++v68;
+          v65 = *(&v185 + 1);
+          v66 = v185;
+          v67 += 32;
+        }
+
+        while (v68 < (*(&v185 + 1) - v185) >> 5);
+      }
+
+      v72 = *(&v181 + 1);
+      v71 = v181;
+      if (*(&v181 + 1) < 0x40uLL)
+      {
+        v73 = 0;
+        v74 = v181;
+        v75 = v175;
+        if (*(&v181 + 1))
+        {
 LABEL_120:
-        v70 = vcnt_s8((*v66 & (0xFFFFFFFFFFFFFFFFLL >> -v64)));
-        v70.i16[0] = vaddlv_u8(v70);
-        v65 += v70.u32[0];
+          v78 = vcnt_s8((*v74 & (0xFFFFFFFFFFFFFFFFLL >> -v72)));
+          v78.i16[0] = vaddlv_u8(v78);
+          v73 += v78.u32[0];
+        }
       }
-    }
 
-    else
-    {
-      v65 = 0;
-      v66 = v170;
-      v67 = v164;
-      do
+      else
       {
-        v68 = *v66++;
-        v69 = vcnt_s8(v68);
-        v69.i16[0] = vaddlv_u8(v69);
-        v65 += v69.u32[0];
-        v64 -= 64;
+        v73 = 0;
+        v74 = v181;
+        v75 = v175;
+        do
+        {
+          v76 = *v74++;
+          v77 = vcnt_s8(v76);
+          v77.i16[0] = vaddlv_u8(v77);
+          v73 += v77.u32[0];
+          v72 -= 64;
+        }
+
+        while (v72 > 0x3F);
+        if (v72)
+        {
+          goto LABEL_120;
+        }
       }
 
-      while (v64 > 0x3F);
-      if (v64)
+      a4 = v174;
+      v79 = v65 - v66;
+      if (v73 == v79 >> 5)
       {
-        goto LABEL_120;
-      }
-    }
-
-    a4 = v163;
-    v71 = v57 - v58;
-    if (v65 == v71 >> 5)
-    {
 LABEL_122:
-      v72 = 0;
-      goto LABEL_144;
-    }
-
-    if (v65 + 1 == v71 >> 5)
-    {
-      if (v71 >= *(&v172 + 1) - v172)
-      {
-        goto LABEL_122;
+        v80 = 0;
+        goto LABEL_144;
       }
 
-      v73 = KB::Candidate::length(a3);
-      v176[0].lexicon_id = 0x100000;
-      LOWORD(v176[0].word_id) = 0;
-      BYTE2(v176[0].word_id) = 0;
-      v176[1] = 0;
-      LOBYTE(v177[0]) = 0;
-      KB::string_join(v172, (*(&v174 + 1) + v172 - v174), v176, v178);
-      if (*&v176[1] && BYTE2(v176[0].word_id) == 1)
+      if (v73 + 1 == v79 >> 5)
       {
-        free(*&v176[1]);
+        if (v79 >= *(&v183 + 1) - v183)
+        {
+          goto LABEL_122;
+        }
+
+        v81 = KB::Candidate::length(a3);
+        v187[0].lexicon_id = 0x100000;
+        LOWORD(v187[0].word_id) = 0;
+        BYTE2(v187[0].word_id) = 0;
+        v187[1] = 0;
+        LOBYTE(v188[0]) = 0;
+        KB::string_join(v189, v183, (*(&v185 + 1) + v183 - v185), v187);
+        if (*&v187[1] && BYTE2(v187[0].word_id) == 1)
+        {
+          free(*&v187[1]);
+        }
+
+        v82 = WORD2(v189[0]);
+        if (!WORD2(v189[0]))
+        {
+          KB::String::compute_length(v189);
+          v82 = WORD2(v189[0]);
+        }
+
+        v80 = v81 >= v82;
+        if (v189[1] && BYTE6(v189[0]) == 1)
+        {
+          free(v189[1]);
+        }
+
+        v71 = v181;
+        v75 = v175;
       }
 
-      v74 = WORD2(v178[0]);
-      if (!WORD2(v178[0]))
+      else
       {
-        KB::String::compute_length(v178);
-        v74 = WORD2(v178[0]);
+        v80 = 1;
       }
-
-      v72 = v73 >= v74;
-      if (v178[1] && BYTE6(v178[0]) == 1)
-      {
-        free(v178[1]);
-      }
-
-      v63 = v170;
-      v67 = v164;
-    }
-
-    else
-    {
-      v72 = 1;
-    }
 
 LABEL_144:
-    if (v63)
-    {
-      operator delete(v63);
-    }
-
-    v178[0] = &v172;
-    std::vector<KB::String>::__destroy_vector::operator()[abi:nn200100](v178);
-    v178[0] = &v174;
-    std::vector<KB::String>::__destroy_vector::operator()[abi:nn200100](v178);
-    if (!v72)
-    {
-      goto LABEL_161;
-    }
-
-    v79 = *(v163 + 2);
-    if (!v79)
-    {
-      goto LABEL_161;
-    }
-
-    atomic_fetch_add(v79, 1u);
-    WTF::RefCounted<KB::DictionaryContainer>::deref(v79);
-    if (*v17 < 2uLL)
-    {
-      goto LABEL_161;
-    }
-
-    v80 = *(v163 + 2);
-    if (v80)
-    {
-      atomic_fetch_add(v80, 1u);
-    }
-
-    v81 = *(v80 + 8);
-    WTF::RefCounted<KB::DictionaryContainer>::deref(v80);
-    v82 = KB::Candidate::num_words_preserving_input(v17, a3, v81 + 144);
-    if (*v17 > v82)
-    {
-      v83 = v82;
-      v84 = 240 * v82;
-      do
+      if (v71)
       {
-        v85 = *(v17 + 1);
-        v86 = (v85 + v84);
-        if ((*(v85 + v84 + 135) & 4) == 0 && (*(v86 + 106) & 4) != 0)
-        {
-          v87 = *(v163 + 2);
-          if (v87)
-          {
-            atomic_fetch_add(v87, 1u);
-          }
-
-          KB::Word::capitalized_string(v86, v178);
-          v176[0] = *(v85 + v84 + 136);
-          KB::DictionaryContainer::_probability_of_word_with_string_and_id(v87, v178, v176);
-        }
-
-        ++v83;
-        v84 += 240;
+        operator delete(v71);
       }
 
-      while (v83 < *v17);
-      v67 = v164;
-      if (1.0 <= 0.0)
+      v189[0] = &v183;
+      std::vector<KB::String>::__destroy_vector::operator()[abi:nn200100](v189);
+      v189[0] = &v185;
+      std::vector<KB::String>::__destroy_vector::operator()[abi:nn200100](v189);
+      if (!v80)
       {
         goto LABEL_161;
       }
-    }
 
-    if ((1.0 / 1.0) < v54)
-    {
-      v116 = *(v163 + 7);
-      if (v116)
+      v89 = *(v174 + 2);
+      if (!v89)
       {
-        KB::Candidate::capitalized_string(v17, v178);
-        v118 = v178[1];
-        if (!v178[1])
-        {
-          v118 = v179;
-        }
-
-        if (LOWORD(v178[0]))
-        {
-          v119 = v118;
-        }
-
-        else
-        {
-          v119 = "";
-        }
-
-        KB::append_format(v116, "[%s] skipped complex candidate with insufficient linguistic support\n", v117, v119);
-        goto LABEL_226;
-      }
-    }
-
-    else
-    {
-LABEL_161:
-      v45 = v192[0];
-      if (v192[0] <= v187[0])
-      {
-        if (v190)
-        {
-          v89 = v190;
-        }
-
-        else
-        {
-          v89 = v191;
-        }
-
-        if (v195)
-        {
-          v90 = v195;
-        }
-
-        else
-        {
-          v90 = v196;
-        }
-
-        v88 = strncasecmp(v89, v90, v192[0]) == 0;
+        goto LABEL_161;
       }
 
-      else
+      atomic_fetch_add(v89, 1u);
+      WTF::RefCounted<KB::DictionaryContainer>::deref(v89);
+      if (*v23 < 2uLL)
       {
-        v88 = 0;
+        goto LABEL_161;
       }
 
-      v91 = v193;
-      if (!v193)
+      v90 = *(v174 + 2);
+      if (v90)
       {
-        KB::String::compute_length(v192);
-        v91 = v193;
+        atomic_fetch_add(v90, 1u);
       }
 
-      v92 = v160 - v159;
-      v93 = v67 != v91;
-      if (v162)
+      v91 = *(v90 + 8);
+      WTF::RefCounted<KB::DictionaryContainer>::deref(v90);
+      v94 = KB::Candidate::num_words_preserving_input(v23, a3, v91 + 144, v92, v93);
+      if (*v23 > v94)
       {
-        goto LABEL_187;
-      }
-
-      if (*v17)
-      {
-        v94 = 240 * *v17 - 240;
-        v95 = (*(v17 + 1) + 224);
+        v95 = v94;
+        v96 = 240 * v94;
         do
         {
-          v97 = *v95;
-          v95 += 30;
-          v96 = v97;
-          if (v97)
+          v97 = *(v23 + 1);
+          v98 = (v97 + v96);
+          if ((*(v97 + v96 + 135) & 4) == 0 && (*(v98 + 106) & 4) != 0)
           {
-            v98 = 1;
+            v99 = *(v174 + 2);
+            if (v99)
+            {
+              atomic_fetch_add(v99, 1u);
+            }
+
+            KB::Word::capitalized_string(v189, v98);
+            v187[0] = *(v97 + v96 + 136);
+            KB::DictionaryContainer::_probability_of_word_with_string_and_id(v99, v189, v187, 0);
+          }
+
+          ++v95;
+          v96 += 240;
+        }
+
+        while (v95 < *v23);
+        v75 = v175;
+        if (1.0 <= 0.0)
+        {
+          goto LABEL_161;
+        }
+      }
+
+      if ((1.0 / 1.0) < v60)
+      {
+        v128 = *(v174 + 7);
+        if (v128)
+        {
+          KB::Candidate::capitalized_string(v189, v23);
+          v130 = v189[1];
+          if (!v189[1])
+          {
+            v130 = v190;
+          }
+
+          if (LOWORD(v189[0]))
+          {
+            v131 = v130;
           }
 
           else
           {
-            v98 = v94 == 0;
+            v131 = "";
           }
 
-          v94 -= 240;
+          KB::append_format(v128, "[%s] skipped complex candidate with insufficient linguistic support\n", v129, v131);
+          goto LABEL_226;
         }
-
-        while (!v98);
-        if (v96)
-        {
-          v99 = 0;
-        }
-
-        else
-        {
-          v99 = v67 == v91;
-        }
-
-        v93 = !v99;
-      }
-
-      if (v93 || v158)
-      {
-LABEL_187:
-        v100 = 0;
       }
 
       else
       {
-        v101 = 24;
-        if (v92 == 2)
+LABEL_161:
+        v51 = v200;
+        if (v200 <= v197)
         {
-          v101 = 20;
-        }
-
-        if (v92 < 2)
-        {
-          v101 = 16;
-        }
-
-        v100 = (v157 - v156) < *(v161 + v101);
-      }
-
-      v102 = *a2;
-      v103 = a2[1] - *a2;
-      v104 = 0x1CAC083126E978D5 * (v103 >> 3);
-      v105 = 0.0;
-      if (v104 >= 2)
-      {
-        v105 = expf(v102[436]);
-      }
-
-      if (v103 == 1000 && !v100 || !v88 || v164 != v91 && (v92 < 1 || v162))
-      {
-        a4 = v163;
-        v106 = *(v163 + 7);
-        if (v106)
-        {
-          KB::Candidate::capitalized_string(v102, v178);
-          v108 = v178[1];
-          if (!v178[1])
+          if (v198)
           {
-            v108 = v179;
-          }
-
-          if (LOWORD(v178[0]))
-          {
-            v109 = v108;
+            v101 = v198;
           }
 
           else
           {
-            v109 = "";
+            v101 = v199;
           }
 
-          KB::append_format(v106, "[%s] dominant due to mismatch with typed string\n", v107, v109);
-LABEL_205:
-          if (v178[1] && BYTE6(v178[0]) == 1)
+          if (v201)
           {
-            free(v178[1]);
+            v102 = v201;
           }
-        }
 
-LABEL_208:
-        v110 = 1;
-        goto LABEL_230;
-      }
+          else
+          {
+            v102 = v202;
+          }
 
-      a4 = v163;
-      if (v104 >= 2 && !v100)
-      {
-        if (*(v102 + 444))
-        {
-          v115 = v102;
+          v100 = strncasecmp(v101, v102, v200) == 0;
         }
 
         else
         {
-          KB::Candidate::compute_string(v102);
-          v115 = *a2;
+          v100 = 0;
         }
 
-        if (!*(v115 + 944))
+        v103 = WORD2(v200);
+        if (!WORD2(v200))
         {
-          KB::Candidate::compute_string((v115 + 1000));
+          KB::String::compute_length(&v200);
+          v103 = WORD2(v200);
         }
 
-        if (KB::String::equal((v102 + 222), (v115 + 1888), 0))
+        v104 = v171 - v170;
+        v105 = v75 != v103;
+        if (v173)
         {
-          v124 = *(v163 + 7);
-          if (!v124)
+          goto LABEL_187;
+        }
+
+        if (*v23)
+        {
+          v106 = 240 * *v23 - 240;
+          v107 = (*(v23 + 1) + 224);
+          do
           {
-            goto LABEL_208;
+            v109 = *v107;
+            v107 += 30;
+            v108 = v109;
+            if (v109)
+            {
+              v110 = 1;
+            }
+
+            else
+            {
+              v110 = v106 == 0;
+            }
+
+            v106 -= 240;
           }
 
-          KB::Candidate::capitalized_string(*a2, v178);
-          v125 = v178[1];
-          if (!v178[1])
+          while (!v110);
+          if (v108)
           {
-            v125 = v179;
+            v111 = 0;
           }
 
-          if (LOWORD(v178[0]))
+          else
+          {
+            v111 = v75 == v103;
+          }
+
+          v105 = !v111;
+        }
+
+        if (v105 || v169)
+        {
+LABEL_187:
+          v112 = 0;
+        }
+
+        else
+        {
+          v113 = 24;
+          if (v104 == 2)
+          {
+            v113 = 20;
+          }
+
+          if (v104 < 2)
+          {
+            v113 = 16;
+          }
+
+          v112 = (v168 - v167) < *(v172 + v113);
+        }
+
+        v114 = *a2;
+        v115 = *(a2 + 1) - *a2;
+        v116 = 0x1CAC083126E978D5 * (v115 >> 3);
+        v117 = 0.0;
+        if (v116 >= 2)
+        {
+          v117 = expf(v114[436]);
+        }
+
+        if (v115 == 1000 && !v112 || !v100 || v175 != v103 && (v104 < 1 || v173))
+        {
+          a4 = v174;
+          v118 = *(v174 + 7);
+          if (v118)
+          {
+            KB::Candidate::capitalized_string(v189, v114);
+            v120 = v189[1];
+            if (!v189[1])
+            {
+              v120 = v190;
+            }
+
+            if (LOWORD(v189[0]))
+            {
+              v121 = v120;
+            }
+
+            else
+            {
+              v121 = "";
+            }
+
+            KB::append_format(v118, "[%s] dominant due to mismatch with typed string\n", v119, v121);
+LABEL_205:
+            if (v189[1] && BYTE6(v189[0]) == 1)
+            {
+              free(v189[1]);
+            }
+          }
+
+LABEL_208:
+          v122 = 1;
+          goto LABEL_230;
+        }
+
+        a4 = v174;
+        if (v116 >= 2 && !v112)
+        {
+          if (*(v114 + 444))
+          {
+            v127 = v114;
+          }
+
+          else
+          {
+            KB::Candidate::compute_string(v114);
+            v127 = *a2;
+          }
+
+          if (!*(v127 + 944))
+          {
+            KB::Candidate::compute_string((v127 + 250));
+          }
+
+          if (KB::String::equal((v114 + 222), (v127 + 472), 0, v87, v88))
+          {
+            v135 = *(v174 + 7);
+            if (!v135)
+            {
+              goto LABEL_208;
+            }
+
+            KB::Candidate::capitalized_string(v189, *a2);
+            v136 = v189[1];
+            if (!v189[1])
+            {
+              v136 = v190;
+            }
+
+            if (LOWORD(v189[0]))
+            {
+              v137 = v136;
+            }
+
+            else
+            {
+              v137 = "";
+            }
+
+            KB::Candidate::capitalized_string(v187, (*a2 + 1000));
+            v139 = v187[1];
+            if (!*&v187[1])
+            {
+              v139 = v188;
+            }
+
+            if (LOWORD(v187[0].lexicon_id))
+            {
+              v140 = v139;
+            }
+
+            else
+            {
+              v140 = "";
+            }
+
+            KB::append_format(v135, "[%s] candidate is dominant as second candidate [%s] is a duplicate as well\n", v138, v137, v140);
+          }
+
+          else
+          {
+            v141 = *a2;
+            v142 = *a2;
+            if (!*(*a2 + 1888))
+            {
+              KB::Candidate::compute_string((v141 + 1000));
+              v142 = *a2;
+            }
+
+            v143 = *(v142 + 888);
+            if (!*(v142 + 888))
+            {
+              KB::Candidate::compute_string(v142);
+              v143 = *(v142 + 888);
+            }
+
+            if (v143 > *(v141 + 1888) || (*(v141 + 1896) ? (v144 = *(v141 + 1896)) : (v144 = (v141 + 1904)), *(v142 + 896) ? (v145 = *(v142 + 896)) : (v145 = (v142 + 904)), strncasecmp(v144, v145, v143)))
+            {
+              if (v173 && *(a3 + 3172) == 1 && (v146 = *(*a2 + 1000)) != 0)
+              {
+                v147 = 240 * v146 - 240;
+                v148 = (*(*a2 + 1008) + 120);
+                do
+                {
+                  v149 = *v148;
+                  v148 += 60;
+                  v150 = v149 != 0;
+                  if (v149)
+                  {
+                    v151 = 1;
+                  }
+
+                  else
+                  {
+                    v151 = v147 == 0;
+                  }
+
+                  v147 -= 240;
+                }
+
+                while (!v151);
+              }
+
+              else
+              {
+                v150 = 0;
+              }
+
+              v152 = v117 * *(v172 + 3);
+              v153 = *(v174 + 7);
+              if (v153)
+              {
+                KB::Candidate::capitalized_string(v189, *a2);
+                v155 = v189[1];
+                if (!v189[1])
+                {
+                  v155 = v190;
+                }
+
+                if (LOWORD(v189[0]))
+                {
+                  v156 = v155;
+                }
+
+                else
+                {
+                  v156 = "";
+                }
+
+                v157 = "false";
+                if (v152 >= a5)
+                {
+                  v158 = "false";
+                }
+
+                else
+                {
+                  v158 = "true";
+                }
+
+                if (v150)
+                {
+                  v157 = "true";
+                }
+
+                KB::append_format(v153, "[%s] dominant=%s (p0=%g,p1=%g) (competing_variants=%s)\n", v154, v156, v158, a5, v117, v157);
+                if (v189[1] && BYTE6(v189[0]) == 1)
+                {
+                  free(v189[1]);
+                }
+              }
+
+              v122 = v152 < a5 && !v150;
+              goto LABEL_230;
+            }
+
+            v159 = *(v174 + 7);
+            if (!v159)
+            {
+              goto LABEL_208;
+            }
+
+            KB::Candidate::capitalized_string(v189, *a2);
+            v160 = v189[1];
+            if (!v189[1])
+            {
+              v160 = v190;
+            }
+
+            if (LOWORD(v189[0]))
+            {
+              v161 = v160;
+            }
+
+            else
+            {
+              v161 = "";
+            }
+
+            KB::Candidate::capitalized_string(v187, (*a2 + 1000));
+            v163 = v187[1];
+            if (!*&v187[1])
+            {
+              v163 = v188;
+            }
+
+            if (LOWORD(v187[0].lexicon_id))
+            {
+              v164 = v163;
+            }
+
+            else
+            {
+              v164 = "";
+            }
+
+            KB::append_format(v159, "[%s] candidate is dominant as it is a subset (prefix) of the second candidate [%s]\n", v162, v161, v164);
+          }
+
+          if (*&v187[1] && BYTE2(v187[0].word_id) == 1)
+          {
+            free(*&v187[1]);
+          }
+
+          goto LABEL_205;
+        }
+
+        v123 = *(v174 + 7);
+        if (v123)
+        {
+          KB::Candidate::capitalized_string(v189, v114);
+          v125 = v189[1];
+          if (!v189[1])
+          {
+            v125 = v190;
+          }
+
+          if (LOWORD(v189[0]))
           {
             v126 = v125;
           }
@@ -9813,252 +9376,337 @@ LABEL_208:
             v126 = "";
           }
 
-          KB::Candidate::capitalized_string((*a2 + 1000), v176);
-          v128 = v176[1];
-          if (!*&v176[1])
-          {
-            v128 = v177;
-          }
-
-          if (LOWORD(v176[0].lexicon_id))
-          {
-            v129 = v128;
-          }
-
-          else
-          {
-            v129 = "";
-          }
-
-          KB::append_format(v124, "[%s] candidate is dominant as second candidate [%s] is a duplicate as well\n", v127, v126, v129);
-        }
-
-        else
-        {
-          v130 = *a2;
-          v131 = *a2;
-          if (!*(*a2 + 944))
-          {
-            KB::Candidate::compute_string((v130 + 1000));
-            v131 = *a2;
-          }
-
-          v132 = *(v131 + 444);
-          if (!*(v131 + 444))
-          {
-            KB::Candidate::compute_string(v131);
-            v132 = *(v131 + 444);
-          }
-
-          if (v132 > *(v130 + 944) || (*(v130 + 237) ? (v133 = *(v130 + 237)) : (v133 = v130 + 1904), *(v131 + 112) ? (v134 = *(v131 + 112)) : (v134 = v131 + 904), strncasecmp(v133, v134, v132)))
-          {
-            if (v162 && *(a3 + 3172) == 1 && (v135 = *(*a2 + 125)) != 0)
-            {
-              v136 = 240 * v135 - 240;
-              v137 = (*(*a2 + 126) + 120);
-              do
-              {
-                v138 = *v137;
-                v137 += 60;
-                v139 = v138 != 0;
-                if (v138)
-                {
-                  v140 = 1;
-                }
-
-                else
-                {
-                  v140 = v136 == 0;
-                }
-
-                v136 -= 240;
-              }
-
-              while (!v140);
-            }
-
-            else
-            {
-              v139 = 0;
-            }
-
-            v141 = v105 * *(v161 + 3);
-            v142 = *(v163 + 7);
-            if (v142)
-            {
-              KB::Candidate::capitalized_string(*a2, v178);
-              v144 = v178[1];
-              if (!v178[1])
-              {
-                v144 = v179;
-              }
-
-              if (LOWORD(v178[0]))
-              {
-                v145 = v144;
-              }
-
-              else
-              {
-                v145 = "";
-              }
-
-              v146 = "false";
-              if (v141 >= a5)
-              {
-                v147 = "false";
-              }
-
-              else
-              {
-                v147 = "true";
-              }
-
-              if (v139)
-              {
-                v146 = "true";
-              }
-
-              KB::append_format(v142, "[%s] dominant=%s (p0=%g,p1=%g) (competing_variants=%s)\n", v143, v145, v147, a5, v105, v146);
-              if (v178[1] && BYTE6(v178[0]) == 1)
-              {
-                free(v178[1]);
-              }
-            }
-
-            v110 = v141 < a5 && !v139;
-            goto LABEL_230;
-          }
-
-          v148 = *(v163 + 7);
-          if (!v148)
-          {
-            goto LABEL_208;
-          }
-
-          KB::Candidate::capitalized_string(*a2, v178);
-          v149 = v178[1];
-          if (!v178[1])
-          {
-            v149 = v179;
-          }
-
-          if (LOWORD(v178[0]))
-          {
-            v150 = v149;
-          }
-
-          else
-          {
-            v150 = "";
-          }
-
-          KB::Candidate::capitalized_string((*a2 + 1000), v176);
-          v152 = v176[1];
-          if (!*&v176[1])
-          {
-            v152 = v177;
-          }
-
-          if (LOWORD(v176[0].lexicon_id))
-          {
-            v153 = v152;
-          }
-
-          else
-          {
-            v153 = "";
-          }
-
-          KB::append_format(v148, "[%s] candidate is dominant as it is a subset (prefix) of the second candidate [%s]\n", v151, v150, v153);
-        }
-
-        if (*&v176[1] && BYTE2(v176[0].word_id) == 1)
-        {
-          free(*&v176[1]);
-        }
-
-        goto LABEL_205;
-      }
-
-      v111 = *(v163 + 7);
-      if (v111)
-      {
-        KB::Candidate::capitalized_string(v102, v178);
-        v113 = v178[1];
-        if (!v178[1])
-        {
-          v113 = v179;
-        }
-
-        if (LOWORD(v178[0]))
-        {
-          v114 = v113;
-        }
-
-        else
-        {
-          v114 = "";
-        }
-
-        KB::append_format(v111, "[%s] skipped as length gain from autocorrection does not produce a viable candidate\n", v112, v114);
+          KB::append_format(v123, "[%s] skipped as length gain from autocorrection does not produce a viable candidate\n", v124, v126);
 LABEL_226:
-        if (v178[1] && BYTE6(v178[0]) == 1)
-        {
-          free(v178[1]);
+          if (v189[1] && BYTE6(v189[0]) == 1)
+          {
+            free(v189[1]);
+          }
         }
       }
-    }
 
 LABEL_229:
-    v110 = 0;
+      v122 = 0;
 LABEL_230:
-    if (*(&v184 + 1) && BYTE6(v184) == 1)
-    {
-      free(*(&v184 + 1));
-    }
-
-    if (v190 && v189 == 1)
-    {
-      free(v190);
-    }
-
-    if (v195 && v194 == 1)
-    {
-      free(v195);
-    }
-
-    if (v110)
-    {
-      KB::Candidate::Candidate(v178, *a2);
-      operator new();
-    }
-
-    v120 = *(a4 + 7);
-    if (v120)
-    {
-      v121 = v182;
-      if (!v182)
+      if (*(&v194 + 1) && BYTE6(v194) == 1)
       {
-        v121 = v183;
+        free(*(&v194 + 1));
       }
 
-      if (v180[0])
+      if (v198 && BYTE6(v197) == 1)
       {
-        v122 = v121;
+        free(v198);
+      }
+
+      if (v201 && BYTE6(v200) == 1)
+      {
+        free(v201);
+      }
+
+      if (v122)
+      {
+        KB::Candidate::Candidate(v189, *a2);
+        operator new();
+      }
+
+      v132 = *(a4 + 7);
+      if (v132)
+      {
+        v133 = v192;
+        if (!v192)
+        {
+          v133 = v193;
+        }
+
+        if (v191)
+        {
+          v134 = v133;
+        }
+
+        else
+        {
+          v134 = "";
+        }
+
+        KB::append_format(v132, "[%s] not significantly better than input - rejecting\n", v51, v134);
+      }
+
+      goto LABEL_248;
+    }
+  }
+
+  std::vector<KB::Candidate>::push_back[abi:nn200100](&v177[1] + 1, *a2);
+  if (!v12)
+  {
+    goto LABEL_23;
+  }
+
+LABEL_14:
+  v20 = *(a4 + 7);
+  if (v20)
+  {
+    v21 = v192;
+    if (!v192)
+    {
+      v21 = v193;
+    }
+
+    if (v191)
+    {
+      v22 = v21;
+    }
+
+    else
+    {
+      v22 = "";
+    }
+
+    KB::append_format(v20, "[%s] matches the input string - ignoring\n", v18, v22);
+  }
+
+LABEL_248:
+  KB::CandidateCollection::operator=(a2, v176);
+  v189[0] = &v177[1] + 8;
+  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v189);
+  v189[0] = v177;
+  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v189);
+  v189[0] = &v176[1] + 8;
+  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v189);
+  v189[0] = v176;
+  std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v189);
+  if (v192)
+  {
+    if (BYTE6(v191) == 1)
+    {
+      free(v192);
+    }
+  }
+}
+
+BOOL ___ZN2KB30ChooseTopQualityAutocorrection38case_sens_position_of_first_differenceERKNS_6StringERKNSt3__16vectorIjNS4_9allocatorIjEEEES3__block_invoke(uint64_t a1, UChar32 *a2, UChar32 *a3)
+{
+  if (*a2 != *a3)
+  {
+    v7 = MEMORY[0x2318BF180]();
+    if (v7 != MEMORY[0x2318BF180](*a2) || u_isupper(*a3) && u_islower(*a2))
+    {
+      result = 0;
+      goto LABEL_7;
+    }
+
+    if (u_islower(*a3))
+    {
+      if (u_isupper(*a2))
+      {
+        v8 = *(*(*(a1 + 32) + 8) + 40);
+        if (v8 < *(*(a1 + 40) + 8))
+        {
+          result = (*v8 & 0x10) == 0;
+          goto LABEL_7;
+        }
+      }
+    }
+  }
+
+  result = 1;
+LABEL_7:
+  *(*(*(a1 + 32) + 8) + 40) += 4;
+  return result;
+}
+
+void __alignmentConfidence_block_invoke()
+{
+  v3[4] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_28400C198;
+  v2[1] = &unk_28400C1B0;
+  v3[0] = @"none";
+  v3[1] = @"low";
+  v2[2] = &unk_28400C1C8;
+  v2[3] = &unk_28400C1E0;
+  v3[2] = @"mid";
+  v3[3] = @"high";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:4];
+  v1 = alignmentConfidence_map;
+  alignmentConfidence_map = v0;
+}
+
+id payloadForText(void *a1, void *a2, void *a3)
+{
+  v51[5] = *MEMORY[0x277D85DE8];
+  v5 = a1;
+  v6 = a3;
+  v7 = a2;
+  v49 = [@"length" stringByAppendingString:v7];
+  v50[0] = v49;
+  v8 = MEMORY[0x277CCABB0];
+  v9 = [v5 length];
+  if (v9 >= 9)
+  {
+    v10 = 9;
+  }
+
+  else
+  {
+    v10 = 7;
+  }
+
+  if (v9 >= 7)
+  {
+    v11 = v10;
+  }
+
+  else
+  {
+    v11 = 5;
+  }
+
+  if (v9 < 5)
+  {
+    v11 = v9;
+  }
+
+  if (v9 >= 3)
+  {
+    v12 = v11;
+  }
+
+  else
+  {
+    v12 = 1;
+  }
+
+  if (v9 >= 1)
+  {
+    v13 = v12;
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  v48 = [v8 numberWithInt:v13];
+  v51[0] = v48;
+  v47 = [@"capitalization" stringByAppendingString:v7];
+  v50[1] = v47;
+  v14 = v5;
+  v15 = v6;
+  v16 = [v14 capitalizedStringWithLocale:v15];
+  isEqualToString = objc_msgSend_isEqualToString_(v16);
+
+  if (isEqualToString)
+  {
+    v18 = @"initial";
+  }
+
+  else
+  {
+    v19 = [v14 uppercaseStringWithLocale:v15];
+    v20 = objc_msgSend_isEqualToString_(v19);
+
+    if (v20)
+    {
+      v18 = @"upper";
+    }
+
+    else
+    {
+      v21 = [v14 lowercaseStringWithLocale:v15];
+      v22 = objc_msgSend_isEqualToString_(v21);
+
+      if (v22)
+      {
+        v18 = @"lower";
       }
 
       else
       {
-        v122 = "";
+        v18 = @"other";
       }
-
-      KB::append_format(v120, "[%s] not significantly better than input - rejecting\n", v45, v122);
     }
-
-    goto LABEL_248;
   }
 
-LABEL_251:
-  v123 = *MEMORY[0x277D85DE8];
+  v46 = v18;
+  v51[1] = v46;
+  v23 = [@"diacritics" stringByAppendingString:v7];
+  v50[2] = v23;
+  v24 = MEMORY[0x277CCABB0];
+  v25 = v14;
+  v26 = [v25 stringByFoldingWithOptions:128 locale:v15];
+  v27 = objc_msgSend_isEqualToString_(v26);
+
+  v28 = [v24 numberWithBool:v27 ^ 1u];
+  v51[2] = v28;
+  v29 = [@"punctuation" stringByAppendingString:v7];
+  v50[3] = v29;
+  v30 = MEMORY[0x277CCABB0];
+  v31 = v25;
+  if ([v31 length] >= 3)
+  {
+    v33 = [v31 substringWithRange:{1, objc_msgSend(v31, "length") - 2}];
+    v34 = [MEMORY[0x277CCA900] punctuationCharacterSet];
+    v35 = [v33 rangeOfCharacterFromSet:v34];
+
+    v32 = v35 != 0x7FFFFFFFFFFFFFFFLL;
+  }
+
+  else
+  {
+    v32 = 0;
+  }
+
+  v36 = [v30 numberWithBool:v32];
+  v51[3] = v36;
+  v37 = [@"multiword" stringByAppendingString:v7];
+
+  v50[4] = v37;
+  v38 = MEMORY[0x277CCABB0];
+  v39 = MEMORY[0x277CCA900];
+  v40 = v31;
+  v41 = [v39 whitespaceCharacterSet];
+  v42 = [v40 rangeOfCharacterFromSet:v41];
+
+  v43 = [v38 numberWithBool:v42 != 0x7FFFFFFFFFFFFFFFLL];
+  v51[4] = v43;
+  v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:5];
+
+  return v44;
+}
+
+id mergeDicts(void *a1)
+{
+  v15 = *MEMORY[0x277D85DE8];
+  v1 = a1;
+  v2 = [MEMORY[0x277CBEB38] dictionary];
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v3 = v1;
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v11;
+    do
+    {
+      for (i = 0; i != v5; ++i)
+      {
+        if (*v11 != v6)
+        {
+          objc_enumerationMutation(v3);
+        }
+
+        [v2 addEntriesFromDictionary:{*(*(&v10 + 1) + 8 * i), v10}];
+      }
+
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    }
+
+    while (v5);
+  }
+
+  v8 = [v2 copy];
+
+  return v8;
 }

@@ -1,5 +1,6 @@
 @interface LNXPCListenerEndpointConnection
 - (BOOL)refreshWithOptions:(id)options;
+- (LNXPCListenerEndpointConnection)initWithEffectiveBundleIdentifier:(id)identifier appBundleIdentifier:(id)bundleIdentifier processInstanceIdentifier:(id)instanceIdentifier appIntentsEnabledOnly:(BOOL)only userIdentity:(id)identity listenerEndpoint:(id)endpoint auditToken:(id *)token error:(id *)self0;
 - (void)acquireAssertionsForConnectionOperation:(id)operation;
 - (void)connectWithOptions:(id)options;
 @end
@@ -8,7 +9,7 @@
 
 - (void)acquireAssertionsForConnectionOperation:(id)operation
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   queue = [(LNConnection *)self queue];
   dispatch_assert_queue_V2(queue);
 
@@ -16,12 +17,10 @@
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     logPrefix = [(LNConnection *)self logPrefix];
-    v8 = 138543362;
-    v9 = logPrefix;
-    _os_log_impl(&dword_19763D000, v5, OS_LOG_TYPE_INFO, "%{public}@ Assertion is not required for XPC listener endpoint connection", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = logPrefix;
+    _os_log_impl(&dword_19763D000, v5, OS_LOG_TYPE_INFO, "%{public}@ Assertion is not required for XPC listener endpoint connection", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)refreshWithOptions:(id)options
@@ -41,10 +40,10 @@
 {
   location[5] = *MEMORY[0x1E69E9840];
   optionsCopy = options;
-  v17.receiver = self;
-  v17.super_class = LNXPCListenerEndpointConnection;
-  [(LNConnection *)&v17 connectWithOptions:optionsCopy];
-  [(LNConnection *)self auditToken];
+  v16.receiver = self;
+  v16.super_class = LNXPCListenerEndpointConnection;
+  [(LNConnection *)&v16 connectWithOptions:optionsCopy];
+  objc_msgSend_auditToken(self);
   if ([LNEntitlementsValidator validateEntitlement:@"com.apple.private.appintents.xpc-host" auditToken:location validator:&__block_literal_global_14785])
   {
     v5 = objc_alloc(MEMORY[0x1E696B0B8]);
@@ -61,13 +60,13 @@
     [xpcConnection2 resume];
 
     objc_initWeak(location, self);
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __54__LNXPCListenerEndpointConnection_connectWithOptions___block_invoke_15;
-    v15[3] = &unk_1E74B2778;
-    objc_copyWeak(&v16, location);
-    [(LNConnection *)self setUpConnectionContextWithCompletionHandler:v15];
-    objc_destroyWeak(&v16);
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __54__LNXPCListenerEndpointConnection_connectWithOptions___block_invoke_15;
+    v14[3] = &unk_1E74B2778;
+    objc_copyWeak(&v15, location);
+    [(LNConnection *)self setUpConnectionContextWithCompletionHandler:v14];
+    objc_destroyWeak(&v15);
     objc_destroyWeak(location);
   }
 
@@ -84,13 +83,11 @@
 
     [(LNConnection *)self setDisconnectedWithError:v12];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __54__LNXPCListenerEndpointConnection_connectWithOptions___block_invoke_15(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = WeakRetained;
@@ -113,34 +110,34 @@ void __54__LNXPCListenerEndpointConnection_connectWithOptions___block_invoke_15(
   else
   {
     *buf = 0u;
-    v22 = 0u;
+    v21 = 0u;
     v8 = [WeakRetained xpcConnection];
     v9 = v8;
     if (v8)
     {
-      [v8 auditToken];
+      objc_msgSend_auditToken(v8);
     }
 
     else
     {
       *buf = 0u;
-      v22 = 0u;
+      v21 = 0u;
     }
 
     if (v5)
     {
-      [v5 auditToken];
+      objc_msgSend_auditToken(v5);
     }
 
     else
     {
-      *v19 = 0u;
-      v20 = 0u;
+      *v18 = 0u;
+      v19 = 0u;
     }
 
-    v17 = *buf;
-    v18 = v22;
-    if (*buf == *v19 && *&buf[8] == *&v19[8] && v22 == v20 && *(&v22 + 1) == *(&v20 + 1))
+    v16 = *buf;
+    v17 = v21;
+    if (*buf == *v18 && *&buf[8] == *&v18[8] && v21 == v19 && *(&v21 + 1) == *(&v19 + 1))
     {
       [v5 setConnected];
     }
@@ -151,9 +148,9 @@ void __54__LNXPCListenerEndpointConnection_connectWithOptions___block_invoke_15(
       v14 = getLNLogCategoryConnection();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        *v19 = 138543362;
-        *&v19[4] = v13;
-        _os_log_impl(&dword_19763D000, v14, OS_LOG_TYPE_ERROR, "Unable to connect using an XPC listener endpoint: %{public}@", v19, 0xCu);
+        *v18 = 138543362;
+        *&v18[4] = v13;
+        _os_log_impl(&dword_19763D000, v14, OS_LOG_TYPE_ERROR, "Unable to connect using an XPC listener endpoint: %{public}@", v18, 0xCu);
       }
 
       v15 = [v5 xpcConnection];
@@ -162,8 +159,6 @@ void __54__LNXPCListenerEndpointConnection_connectWithOptions___block_invoke_15(
       [v5 setDisconnectedWithError:v13];
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __54__LNXPCListenerEndpointConnection_connectWithOptions___block_invoke(uint64_t a1, void *a2)
@@ -192,6 +187,27 @@ uint64_t __54__LNXPCListenerEndpointConnection_connectWithOptions___block_invoke
   v5 = [v4 BOOLValue];
 
   return v5;
+}
+
+- (LNXPCListenerEndpointConnection)initWithEffectiveBundleIdentifier:(id)identifier appBundleIdentifier:(id)bundleIdentifier processInstanceIdentifier:(id)instanceIdentifier appIntentsEnabledOnly:(BOOL)only userIdentity:(id)identity listenerEndpoint:(id)endpoint auditToken:(id *)token error:(id *)self0
+{
+  onlyCopy = only;
+  endpointCopy = endpoint;
+  v24.receiver = self;
+  v24.super_class = LNXPCListenerEndpointConnection;
+  v18 = [(LNConnection *)&v24 initWithEffectiveBundleIdentifier:identifier appBundleIdentifier:bundleIdentifier processInstanceIdentifier:instanceIdentifier appIntentsEnabledOnly:onlyCopy userIdentity:identity error:error];
+  v19 = v18;
+  if (v18)
+  {
+    objc_storeStrong(&v18->_listenerEndpoint, endpoint);
+    v20 = *&token->var0[4];
+    v23[0] = *token->var0;
+    v23[1] = v20;
+    [(LNConnection *)v19 setAuditToken:v23];
+    v21 = v19;
+  }
+
+  return v19;
 }
 
 @end

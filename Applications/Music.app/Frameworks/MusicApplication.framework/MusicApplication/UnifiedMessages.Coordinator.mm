@@ -6,25 +6,25 @@
 
 - (void)engagement:(id)engagement didUpdateRequest:(id)request placement:(id)placement serviceType:(id)type
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_DE9D30);
-  __chkstk_darwin(v9 - 8);
-  v11 = &v21 - v10;
-  v12 = sub_AB92A0();
-  v14 = v13;
-  v15 = sub_AB9990();
-  (*(*(v15 - 8) + 56))(v11, 1, 1, v15);
-  v16 = swift_allocObject();
-  v16[2] = 0;
-  v16[3] = 0;
-  v16[4] = self;
-  v16[5] = v12;
-  v16[6] = v14;
-  v16[7] = request;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_DE9D30, &unk_AF79A0);
+  __chkstk_darwin();
+  v10 = &v20 - v9;
+  v11 = sub_AB92A0();
+  v13 = v12;
+  v14 = sub_AB9990();
+  (*(*(v14 - 8) + 56))(v10, 1, 1, v14);
+  v15 = swift_allocObject();
+  v15[2] = 0;
+  v15[3] = 0;
+  v15[4] = self;
+  v15[5] = v11;
+  v15[6] = v13;
+  v15[7] = request;
   requestCopy = request;
   selfCopy = self;
-  v19 = requestCopy;
+  v18 = requestCopy;
   placementCopy = placement;
-  sub_DBDC8(0, 0, v11, &unk_AFCBE0, v16);
+  sub_DBDC8(0, 0, v10, &unk_AFCBE0, v15);
 }
 
 @end

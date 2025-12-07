@@ -155,7 +155,6 @@ LABEL_21:
 
         v24 = objc_opt_class();
         v23 = NSStringFromClass(v24);
-        v25 = *&v5[*v10];
         v8 = CCSkipFieldErrorForMessage();
 LABEL_29:
 
@@ -200,50 +199,48 @@ LABEL_25:
 LABEL_35:
   v8 = 0;
 LABEL_36:
-  v26 = [v9 copy];
+  v25 = [v9 copy];
   vocabularyStrings = self->_vocabularyStrings;
-  self->_vocabularyStrings = v26;
+  self->_vocabularyStrings = v25;
 
   if (v8)
   {
     CCSetError();
-    v28 = 0;
-    v29 = dataCopy;
+    v27 = 0;
+    v28 = dataCopy;
   }
 
   else
   {
-    v30 = MEMORY[0x1E6993AA8];
-    v29 = dataCopy;
+    v28 = dataCopy;
     if (*&v5[*MEMORY[0x1E6993AA8]])
     {
-      v31 = objc_opt_class();
-      v32 = NSStringFromClass(v31);
-      v33 = *&v5[*v30];
-      v34 = CCInvalidBufferErrorForMessage();
+      v29 = objc_opt_class();
+      v30 = NSStringFromClass(v29);
+      v31 = CCInvalidBufferErrorForMessage();
       CCSetError();
 
-      v28 = 0;
+      v27 = 0;
     }
 
     else
     {
-      v28 = 1;
+      v27 = 1;
     }
   }
 
-  return v28;
+  return v27;
 }
 
 - (CCAppGlobalMediaAudiobookTitleContent)initWithVocabularyStrings:(id)strings error:(id *)error
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   stringsCopy = strings;
   v7 = objc_opt_new();
   if (stringsCopy)
   {
     objc_opt_class();
-    v24 = 0;
+    v22 = 0;
     v8 = CCValidateArrayValues();
     v9 = 0;
     if (!v8)
@@ -253,33 +250,32 @@ LABEL_36:
       goto LABEL_14;
     }
 
-    v22 = 0u;
-    v23 = 0u;
     v20 = 0u;
     v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v10 = stringsCopy;
-    v11 = [v10 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v18 objects:v23 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v21;
+      v13 = *v19;
       do
       {
         v14 = 0;
         do
         {
-          if (*v21 != v13)
+          if (*v19 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v20 + 1) + 8 * v14);
           CCPBDataWriterWriteStringField();
           ++v14;
         }
 
         while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v18 objects:v23 count:16];
       }
 
       while (v12);
@@ -297,7 +293,6 @@ LABEL_36:
   selfCopy = self;
 LABEL_14:
 
-  v18 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

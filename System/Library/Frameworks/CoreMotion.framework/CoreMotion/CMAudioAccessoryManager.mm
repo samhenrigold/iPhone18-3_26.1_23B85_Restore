@@ -1585,7 +1585,7 @@
 
 - (void)onAudioAccessoryAccelerometer:(const Sample *)accelerometer
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   internal = self->_internal;
   os_unfair_lock_lock(internal + 2);
   v5 = *&accelerometer->timestamp;
@@ -1613,9 +1613,9 @@
     {
       v17 = mach_absolute_time();
       *buf = 138412546;
-      v30 = v14;
-      v31 = 2048;
-      v32 = sub_19B41E070(v17);
+      v31 = v14;
+      v32 = 2048;
+      v33 = sub_19B41E070(v17);
       _os_log_impl(&dword_19B41C000, v16, OS_LOG_TYPE_DEBUG, "Audio Accessory CMAccelerometerData: %@,now,%f", buf, 0x16u);
     }
 
@@ -1628,37 +1628,37 @@
         dispatch_once(&qword_1ED71C800, &unk_1F0E29820);
       }
 
-      v20 = mach_absolute_time();
-      v25 = 138412546;
-      v26 = v14;
-      v27 = 2048;
-      v28 = sub_19B41E070(v20);
-      v21 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMAudioAccessoryManager onAudioAccessoryAccelerometer:]", "CoreLocation: %s\n", v21);
-      if (v21 != buf)
+      v20 = off_1ED71C808;
+      v21 = mach_absolute_time();
+      v26 = 138412546;
+      v27 = v14;
+      v28 = 2048;
+      v29 = sub_19B41E070(v21);
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v20, 2, "Audio Accessory CMAccelerometerData: %@,now,%f", &v26, 22);
+      v23 = v22;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMAudioAccessoryManager onAudioAccessoryAccelerometer:]", "CoreLocation: %s\n", v22);
+      if (v23 != buf)
       {
-        free(v21);
+        free(v23);
       }
     }
 
-    v22 = *&internal[10]._os_unfair_lock_opaque;
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = sub_19B6A60C4;
-    v24[3] = &unk_1E7532B90;
-    v24[4] = v14;
-    v24[5] = v15;
-    objc_msgSend_addOperationWithBlock_(v22, v19, v24);
+    v24 = *&internal[10]._os_unfair_lock_opaque;
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = sub_19B6A60C4;
+    v25[3] = &unk_1E7532B90;
+    v25[4] = v14;
+    v25[5] = v15;
+    objc_msgSend_addOperationWithBlock_(v24, v19, v25);
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)onAudioAccessoryGyro:(const Sample *)gyro
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   internal = self->_internal;
   os_unfair_lock_lock(internal + 2);
   v5 = *&gyro->timestamp;
@@ -1686,9 +1686,9 @@
     {
       v17 = mach_absolute_time();
       *buf = 138412546;
-      v30 = v14;
-      v31 = 2048;
-      v32 = sub_19B41E070(v17);
+      v31 = v14;
+      v32 = 2048;
+      v33 = sub_19B41E070(v17);
       _os_log_impl(&dword_19B41C000, v16, OS_LOG_TYPE_DEBUG, "Audio Accessory CMGyroData: %@,now,%f", buf, 0x16u);
     }
 
@@ -1701,37 +1701,37 @@
         dispatch_once(&qword_1ED71C800, &unk_1F0E29820);
       }
 
-      v20 = mach_absolute_time();
-      v25 = 138412546;
-      v26 = v14;
-      v27 = 2048;
-      v28 = sub_19B41E070(v20);
-      v21 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMAudioAccessoryManager onAudioAccessoryGyro:]", "CoreLocation: %s\n", v21);
-      if (v21 != buf)
+      v20 = off_1ED71C808;
+      v21 = mach_absolute_time();
+      v26 = 138412546;
+      v27 = v14;
+      v28 = 2048;
+      v29 = sub_19B41E070(v21);
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v20, 2, "Audio Accessory CMGyroData: %@,now,%f", &v26, 22);
+      v23 = v22;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMAudioAccessoryManager onAudioAccessoryGyro:]", "CoreLocation: %s\n", v22);
+      if (v23 != buf)
       {
-        free(v21);
+        free(v23);
       }
     }
 
-    v22 = *(internal + 14);
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = sub_19B6A63A0;
-    v24[3] = &unk_1E7532B90;
-    v24[4] = v14;
-    v24[5] = v15;
-    objc_msgSend_addOperationWithBlock_(v22, v19, v24);
+    v24 = *(internal + 14);
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = sub_19B6A63A0;
+    v25[3] = &unk_1E7532B90;
+    v25[4] = v14;
+    v25[5] = v15;
+    objc_msgSend_addOperationWithBlock_(v24, v19, v25);
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)onAudioAccessoryMagnetometer:(const Sample *)magnetometer
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   internal = self->_internal;
   os_unfair_lock_lock(internal + 2);
   v5 = *&magnetometer->timestamp;
@@ -1759,9 +1759,9 @@
     {
       v17 = mach_absolute_time();
       *buf = 138412546;
-      v30 = v14;
-      v31 = 2048;
-      v32 = sub_19B41E070(v17);
+      v31 = v14;
+      v32 = 2048;
+      v33 = sub_19B41E070(v17);
       _os_log_impl(&dword_19B41C000, v16, OS_LOG_TYPE_DEBUG, "Audio Accessory CMMagnetometerData: %@,now,%f", buf, 0x16u);
     }
 
@@ -1774,77 +1774,77 @@
         dispatch_once(&qword_1ED71C800, &unk_1F0E29820);
       }
 
-      v20 = mach_absolute_time();
-      v25 = 138412546;
-      v26 = v14;
-      v27 = 2048;
-      v28 = sub_19B41E070(v20);
-      v21 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMAudioAccessoryManager onAudioAccessoryMagnetometer:]", "CoreLocation: %s\n", v21);
-      if (v21 != buf)
+      v20 = off_1ED71C808;
+      v21 = mach_absolute_time();
+      v26 = 138412546;
+      v27 = v14;
+      v28 = 2048;
+      v29 = sub_19B41E070(v21);
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v20, 2, "Audio Accessory CMMagnetometerData: %@,now,%f", &v26, 22);
+      v23 = v22;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMAudioAccessoryManager onAudioAccessoryMagnetometer:]", "CoreLocation: %s\n", v22);
+      if (v23 != buf)
       {
-        free(v21);
+        free(v23);
       }
     }
 
-    v22 = *&internal[46]._os_unfair_lock_opaque;
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = sub_19B6A6678;
-    v24[3] = &unk_1E7532B90;
-    v24[4] = v14;
-    v24[5] = v15;
-    objc_msgSend_addOperationWithBlock_(v22, v19, v24);
+    v24 = *&internal[46]._os_unfair_lock_opaque;
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = sub_19B6A6678;
+    v25[3] = &unk_1E7532B90;
+    v25[4] = v14;
+    v25[5] = v15;
+    objc_msgSend_addOperationWithBlock_(v24, v19, v25);
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)onAudioAccessoryDeviceMotion:(const void *)motion
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v83 = *MEMORY[0x1E69E9840];
   internal = self->_internal;
   v4 = *(motion + 9);
-  v64 = *(motion + 8);
-  v65 = v4;
-  v66 = *(motion + 20);
+  v66 = *(motion + 8);
+  v67 = v4;
+  v68 = *(motion + 20);
   v5 = *(motion + 5);
-  v60 = *(motion + 4);
-  v61 = v5;
+  v62 = *(motion + 4);
+  v63 = v5;
   v6 = *(motion + 7);
-  v62 = *(motion + 6);
-  v63 = v6;
+  v64 = *(motion + 6);
+  v65 = v6;
   v7 = *(motion + 1);
-  v56 = *motion;
-  v57 = v7;
+  v58 = *motion;
+  v59 = v7;
   v8 = *(motion + 3);
-  v58 = *(motion + 2);
-  v59 = v8;
+  v60 = *(motion + 2);
+  v61 = v8;
   if (*(internal + 33))
   {
     if (*(internal + 32))
     {
-      v51[0] = sub_19B66BF70((internal + 68), &v56, v8);
-      v51[1] = v10;
-      v51[2] = v11;
-      v51[3] = v12;
-      v51[4] = sub_19B66C1A4(internal + 68, *(&v58 + 2), *(&v58 + 3), v59.f32[0]);
-      v51[5] = v13;
-      v51[6] = v14;
-      v51[7] = sub_19B66C1A4(internal + 68, *&v57, *(&v57 + 1), *(&v57 + 2));
-      v51[8] = v15;
-      v51[9] = v16;
-      v52 = v59.i8[5] & 1;
-      v53 = DWORD2(v62);
-      v17.i64[0] = v60;
-      v54 = v60;
-      v55 = 0;
+      v53[0] = sub_19B66BF70((internal + 68), &v58, v8);
+      v53[1] = v10;
+      v53[2] = v11;
+      v53[3] = v12;
+      v53[4] = sub_19B66C1A4(internal + 68, *(&v60 + 2), *(&v60 + 3), v61.f32[0]);
+      v53[5] = v13;
+      v53[6] = v14;
+      v53[7] = sub_19B66C1A4(internal + 68, *&v59, *(&v59 + 1), *(&v59 + 2));
+      v53[8] = v15;
+      v53[9] = v16;
+      v54 = v61.i8[5] & 1;
+      v55 = DWORD2(v64);
+      v17.i64[0] = v62;
+      v56 = v62;
+      v57 = 0;
       ptr = self->_resampleAccessoryDeviceMotion.__ptr_;
       if (ptr)
       {
-        if (sub_19B629DA8(ptr, v51, v17))
+        if (sub_19B629DA8(ptr, v53, v17))
         {
           v19 = self->_resampleAccessoryDeviceMotion.__ptr_;
           if (*(v19 + 5))
@@ -1855,26 +1855,26 @@
             {
               v21 = sub_19B6A6B1C(v19 + 4, v20);
               v22 = *(v21 + 40);
-              v23 = *(v21 + 44);
-              v24 = *(v21 + 32);
-              v49 = *(v21 + 16);
-              v47 = vcvtq_f64_f32(*v21);
-              v48 = vcvt_hight_f64_f32(*v21);
-              v25 = *(sub_19B6A6B1C(v19 + 4, v20) + 48);
+              v23 = *(v21 + 11);
+              v24 = *(v21 + 4);
+              v51 = *(v21 + 1);
+              v49 = vcvtq_f64_f32(*v21);
+              v50 = vcvt_hight_f64_f32(*v21);
+              v25 = *(sub_19B6A6B1C(v19 + 4, v20) + 6);
               v26 = objc_autoreleasePoolPush();
               v27 = [CMDeviceMotion alloc];
-              *buf = vextq_s8(v48, v47, 8uLL);
-              *&buf[16] = vextq_s8(v47, v48, 8uLL);
-              v72 = v49;
-              v73 = v24;
-              v74 = 0;
-              v75 = 0xFFFFFFFF00000000;
+              *buf = vextq_s8(v50, v49, 8uLL);
+              *&buf[16] = vextq_s8(v49, v50, 8uLL);
+              v74 = v51;
+              v75 = v24;
               v76 = 0;
-              v77 = v22;
+              v77 = 0xFFFFFFFF00000000;
               v78 = 0;
-              v79 = 0;
-              v80 = v23;
-              v29 = objc_msgSend_initWithDeviceMotion_internal_timestamp_(v27, v28, buf, COERCE_DOUBLE(__PAIR64__(DWORD1(v49), -1.0)), 0.0, 0.0, 0.0, v25);
+              v79 = v22;
+              v80 = 0;
+              v81 = 0;
+              v82 = v23;
+              v29 = objc_msgSend_initWithDeviceMotion_internal_timestamp_(v27, v28, buf, COERCE_DOUBLE(__PAIR64__(DWORD1(v51), -1.0)), 0.0, 0.0, 0.0, v25);
               v30 = *(internal + 32);
               if (qword_1ED71C800 != -1)
               {
@@ -1902,67 +1902,68 @@
                   dispatch_once(&qword_1ED71C800, &unk_1F0E29820);
                 }
 
-                v36 = mach_absolute_time();
-                v37 = sub_19B41E070(v36);
-                v67 = 138543618;
-                v68 = v29;
-                v69 = 2050;
-                v70 = v37;
-                v38 = _os_log_send_and_compose_impl();
-                sub_19B6BB7CC("Generic", 1, 0, 2, "[CMAudioAccessoryManager onAudioAccessoryDeviceMotion:]", "CoreLocation: %s\n", v38);
-                if (v38 != buf)
+                v36 = off_1ED71C808;
+                v37 = mach_absolute_time();
+                v38 = sub_19B41E070(v37);
+                v69 = 138543618;
+                v70 = v29;
+                v71 = 2050;
+                v72 = v38;
+                LODWORD(v47) = 22;
+                _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v36, 2, "Audio Accessory CMDeviceMotion: %{public}@,now,%{public}f", &v69, v47);
+                v40 = v39;
+                sub_19B6BB7CC("Generic", 1, 0, 2, "[CMAudioAccessoryManager onAudioAccessoryDeviceMotion:]", "CoreLocation: %s\n", v39);
+                if (v40 != buf)
                 {
-                  free(v38);
+                  free(v40);
                 }
               }
 
-              v39 = *(internal + 33);
-              v50[0] = MEMORY[0x1E69E9820];
-              v50[1] = 3221225472;
-              v50[2] = sub_19B6A6D34;
-              v50[3] = &unk_1E7532B90;
-              v50[4] = v29;
-              v50[5] = v30;
-              objc_msgSend_addOperationWithBlock_(v39, v35, v50);
+              v41 = *(internal + 33);
+              v52[0] = MEMORY[0x1E69E9820];
+              v52[1] = 3221225472;
+              v52[2] = sub_19B6A6D34;
+              v52[3] = &unk_1E7532B90;
+              v52[4] = v29;
+              v52[5] = v30;
+              objc_msgSend_addOperationWithBlock_(v41, v35, v52);
 
               objc_autoreleasePoolPop(v26);
               ++v20;
             }
 
             while (v20 < *(v19 + 5));
-            v40 = selfCopy->_resampleAccessoryDeviceMotion.__ptr_;
-            v41 = *(v40 + 5);
-            if (v41 >= 2)
+            v42 = selfCopy->_resampleAccessoryDeviceMotion.__ptr_;
+            v43 = *(v42 + 5);
+            if (v43 >= 2)
             {
-              v42 = *(v40 + 4);
+              v44 = *(v42 + 4);
               do
               {
-                v43 = v42 + 1;
-                if (v43 >= *(v40 + 3))
+                v45 = v44 + 1;
+                if (v45 >= *(v42 + 3))
                 {
-                  v44 = *(v40 + 3);
+                  v46 = *(v42 + 3);
                 }
 
                 else
                 {
-                  v44 = 0;
+                  v46 = 0;
                 }
 
-                v42 = (v43 - v44);
-                --v41;
+                v44 = (v45 - v46);
+                --v43;
               }
 
-              while (v41 > 1u);
-              *(v40 + 4) = v42;
-              *(v40 + 5) = 1;
+              while (v43 > 1u);
+              *(v42 + 4) = v44;
+              *(v42 + 5) = 1;
             }
           }
         }
       }
     }
   }
-
-  v45 = *MEMORY[0x1E69E9840];
 }
 
 - (void)onAudioAccessoryDeviceMotionConfig:(const Config *)config
@@ -2030,45 +2031,44 @@
 
         v21 = 134349056;
         v22 = var0;
-        v11 = _os_log_send_and_compose_impl();
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C7C8, 1, "[CMAudioAccessoryManager] notifying client of activity: %{public}lu", &v21, 12);
+        v12 = v11;
         sub_19B6BB7CC("Generic", 1, 0, 2, "[CMAudioAccessoryManager onAudioAccessoryActivity:]", "CoreLocation: %s\n", v11);
-        if (v11 != buf)
+        if (v12 != buf)
         {
-          free(v11);
+          free(v12);
         }
       }
 
-      v12 = objc_msgSend_motionActivityForHeadphoneActivity_(CMHeadphoneActivityUtils, v10, var0);
-      v13 = *(&activity->var2 + 3);
-      v14 = [CMMotionActivity alloc];
-      *buf = v12;
+      v13 = objc_msgSend_motionActivityForHeadphoneActivity_(CMHeadphoneActivityUtils, v10, var0);
+      v14 = *(&activity->var2 + 3);
+      v15 = [CMMotionActivity alloc];
+      *buf = v13;
       v24 = 0x100000001;
       v25 = 0;
       v27 = 0;
       v26 = 0;
       v28 = 0;
-      v29 = v13;
+      v29 = v14;
       v30 = 0u;
       v31 = 0u;
       v32 = 0u;
       v33 = 0u;
       v34 = 0u;
       v35 = 0;
-      v16 = objc_msgSend_initWithMotionActivity_(v14, v15, buf);
-      v17 = internal[42];
+      v17 = objc_msgSend_initWithMotionActivity_(v15, v16, buf);
+      v18 = internal[42];
       v20[0] = MEMORY[0x1E69E9820];
       v20[1] = 3221225472;
       v20[2] = sub_19B6A70E4;
       v20[3] = &unk_1E7532B90;
-      v20[4] = v16;
+      v20[4] = v17;
       v20[5] = v4;
-      objc_msgSend_addOperationWithBlock_(v17, v18, v20);
+      objc_msgSend_addOperationWithBlock_(v18, v19, v20);
 
       objc_autoreleasePoolPop(v6);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)onAudioAccessoryActivityStatus:(const int *)status
@@ -2149,76 +2149,90 @@
 
 - (void)onAudioAccessoryInertialOdometry:(const InertialOdometryReport *)odometry
 {
-  v79[1] = *MEMORY[0x1E69E9840];
+  v81[1] = *MEMORY[0x1E69E9840];
   internal = self->_internal;
-  if (!*(internal + 61) || !*(internal + 60))
+  if (*(internal + 61) && *(internal + 60))
   {
-LABEL_45:
-    os_unfair_lock_lock(internal + 2);
-    v63 = *&odometry->timestamp;
-    v64 = *&odometry->timestampPositionRollOver;
-    *(internal + 32) = *&odometry->position[2];
-    *(internal + 33) = v64;
-    *(internal + 31) = v63;
-    v65 = *odometry->timestampDeltaPositionUnavailable;
-    v66 = *&odometry->timestampDeltaPositionUnavailable[2];
-    v67 = *odometry->attitude;
-    *(internal + 589) = *(&odometry->attitude[3] + 1);
-    *(internal + 35) = v66;
-    *(internal + 36) = v67;
-    *(internal + 34) = v65;
-    os_unfair_lock_unlock(internal + 2);
-    goto LABEL_46;
-  }
+    v5 = objc_autoreleasePoolPush();
+    v9 = *(&odometry->displacingState + 1);
+    if (v9 == 0.0)
+    {
+      __assert_rtn("[CMAudioAccessoryManager onAudioAccessoryInertialOdometry:]", "CMAudioAccessoryManager.mm", 2034, "timestampSecs != 0.");
+    }
 
-  v5 = objc_autoreleasePoolPush();
-  v9 = *(&odometry->displacingState + 1);
-  if (v9 == 0.0)
-  {
-    __assert_rtn("[CMAudioAccessoryManager onAudioAccessoryInertialOdometry:]", "CMAudioAccessoryManager.mm", 2034, "timestampSecs != 0.");
-  }
+    v10 = v5;
+    v11 = *(internal + 60);
+    v12 = internal + 496;
+    v13 = *(internal + 62);
+    if (v13 < odometry->timestampUninitialized)
+    {
+      v14 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v80 = *MEMORY[0x1E696A578];
+      v81[0] = @"Reference frame has changed for the incoming delta position updates due to unexpected DeviceMotion reinitialization.";
+      v16 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v15, v81, &v80, 1);
+      v18 = objc_msgSend_initWithDomain_code_userInfo_(v14, v17, @"CMErrorDomainPrivate", 103, v16);
+      v19 = *(internal + 61);
+      v78[0] = MEMORY[0x1E69E9820];
+      v78[1] = 3221225472;
+      v78[2] = sub_19B6A7A54;
+      v78[3] = &unk_1E7532B90;
+      v78[4] = v18;
+      v78[5] = v11;
+      objc_msgSend_addOperationWithBlock_(v19, v20, v78);
 
-  v10 = v5;
-  v11 = *(internal + 60);
-  v12 = (internal + 496);
-  v13 = *(internal + 62);
-  if (v13 >= odometry->timestampUninitialized)
-  {
+      os_unfair_lock_lock(internal + 2);
+      v21 = *&odometry->timestamp;
+      v22 = *&odometry->timestampPositionRollOver;
+      *(internal + 32) = *&odometry->position[2];
+      *(internal + 33) = v22;
+      *v12 = v21;
+      v23 = *odometry->timestampDeltaPositionUnavailable;
+      v24 = *&odometry->timestampDeltaPositionUnavailable[2];
+      v25 = *odometry->attitude;
+      *(internal + 589) = *(&odometry->attitude[3] + 1);
+      *(internal + 35) = v24;
+      *(internal + 36) = v25;
+      *(internal + 34) = v23;
+      os_unfair_lock_unlock(internal + 2);
+      objc_autoreleasePoolPop(v10);
+      return;
+    }
+
     if (v13 >= odometry->timestampPositionRollOver)
     {
       if (odometry->timestampDeltaPositionUnavailable[0] <= v13)
       {
         *&v8 = odometry->position[0] - *(internal + 126);
-        v71 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v6, v7, v8);
+        v73 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v6, v7, v8);
         v13 = *(internal + 62);
       }
 
       else
       {
-        v71 = 0;
+        v73 = 0;
       }
 
       if (odometry->timestampDeltaPositionUnavailable[1] <= v13)
       {
         *&v8 = odometry->position[1] - *(internal + 127);
-        v70 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v6, v7, v8);
+        v72 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v6, v7, v8);
         v13 = *(internal + 62);
       }
 
       else
       {
-        v70 = 0;
+        v72 = 0;
       }
 
       if (odometry->timestampDeltaPositionUnavailable[2] <= v13)
       {
         *&v8 = odometry->position[2] - *(internal + 128);
-        v69 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v6, v7, v8);
+        v71 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v6, v7, v8);
       }
 
       else
       {
-        v69 = 0;
+        v71 = 0;
       }
     }
 
@@ -2245,30 +2259,31 @@ LABEL_45:
           dispatch_once(&qword_1EAFE2A88, &unk_1F0E3AC50);
         }
 
-        v75 = 0;
-        v28 = _os_log_send_and_compose_impl();
+        v77[0] = 0;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2A90, 1, "Position rollover", v77, 2);
+        v29 = v28;
         sub_19B6BB7CC("Generic", 1, 0, 2, "[CMAudioAccessoryManager onAudioAccessoryInertialOdometry:]", "CoreLocation: %s\n", v28);
-        if (v28 != buf)
+        if (v29 != buf)
         {
-          free(v28);
+          free(v29);
         }
       }
 
-      v69 = 0;
-      v70 = 0;
       v71 = 0;
+      v72 = 0;
+      v73 = 0;
     }
 
-    v72 = v11;
+    v74 = v11;
     context = v10;
     if (*v12 >= odometry->timestampVelocityRollOver)
     {
       *&v8 = odometry->deltaVelocityCumSum[0] - *(internal + 129);
-      v34 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v6, v7, v8);
-      *&v35 = odometry->deltaVelocityCumSum[1] - *(internal + 130);
-      v33 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v36, v37, v35);
-      *&v38 = odometry->deltaVelocityCumSum[2] - *(internal + 131);
-      v32 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v39, v40, v38);
+      v36 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v6, v7, v8);
+      *&v37 = odometry->deltaVelocityCumSum[1] - *(internal + 130);
+      v35 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v38, v39, v37);
+      *&v40 = odometry->deltaVelocityCumSum[2] - *(internal + 131);
+      v34 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v41, v42, v40);
     }
 
     else
@@ -2278,15 +2293,15 @@ LABEL_45:
         dispatch_once(&qword_1EAFE2A88, &unk_1F0E3AC50);
       }
 
-      v29 = qword_1EAFE2A90;
+      v30 = qword_1EAFE2A90;
       if (os_log_type_enabled(qword_1EAFE2A90, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_19B41C000, v29, OS_LOG_TYPE_INFO, "Velocity rollover", buf, 2u);
+        _os_log_impl(&dword_19B41C000, v30, OS_LOG_TYPE_INFO, "Velocity rollover", buf, 2u);
       }
 
-      v30 = sub_19B420058();
-      if (*(v30 + 160) > 1 || *(v30 + 164) > 1 || *(v30 + 168) > 1 || *(v30 + 152))
+      v31 = sub_19B420058();
+      if (*(v31 + 160) > 1 || *(v31 + 164) > 1 || *(v31 + 168) > 1 || *(v31 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE2A88 != -1)
@@ -2294,75 +2309,59 @@ LABEL_45:
           dispatch_once(&qword_1EAFE2A88, &unk_1F0E3AC50);
         }
 
-        v75 = 0;
-        v31 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMAudioAccessoryManager onAudioAccessoryInertialOdometry:]", "CoreLocation: %s\n", v31);
-        if (v31 != buf)
+        v77[0] = 0;
+        LODWORD(v70) = 2;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2A90, 1, "Velocity rollover", v77, v70);
+        v33 = v32;
+        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMAudioAccessoryManager onAudioAccessoryInertialOdometry:]", "CoreLocation: %s\n", v32);
+        if (v33 != buf)
         {
-          free(v31);
+          free(v33);
         }
       }
 
-      v32 = 0;
-      v33 = 0;
       v34 = 0;
+      v35 = 0;
+      v36 = 0;
     }
 
-    v41 = [CMOdometry alloc];
-    *&v42 = odometry->attitude[0];
-    v45 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v43, v44, v42);
-    *&v46 = odometry->attitude[1];
-    v49 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v47, v48, v46);
-    *&v50 = odometry->attitude[2];
-    v53 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v51, v52, v50);
-    *&v54 = odometry->attitude[3];
-    v57 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v55, v56, v54);
-    *&v58 = odometry->rotationArbitraryToMagneticNorth;
-    v60 = objc_msgSend_initWithDeltaPositionX_deltaPositionY_deltaPositionZ_deltaVelocityX_deltaVelocityY_deltaVelocityZ_quaternionX_quaternionY_quaternionZ_quaternionW_rotationArbitraryToTrueNorth_staticFlag_timestamp_(v41, v59, v71, v70, v69, v34, v33, v32, v58, v9, v45, v49, v53, v57, 0);
-    v61 = *(internal + 61);
-    v74[0] = MEMORY[0x1E69E9820];
-    v74[1] = 3221225472;
-    v74[2] = sub_19B6A7A6C;
-    v74[3] = &unk_1E7532B90;
-    v74[4] = v60;
-    v74[5] = v72;
-    objc_msgSend_addOperationWithBlock_(v61, v62, v74);
+    v43 = [CMOdometry alloc];
+    *&v44 = odometry->attitude[0];
+    v47 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v45, v46, v44);
+    *&v48 = odometry->attitude[1];
+    v51 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v49, v50, v48);
+    *&v52 = odometry->attitude[2];
+    v55 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v53, v54, v52);
+    *&v56 = odometry->attitude[3];
+    v59 = objc_msgSend_numberWithFloat_(MEMORY[0x1E696AD98], v57, v58, v56);
+    *&v60 = odometry->rotationArbitraryToMagneticNorth;
+    v62 = objc_msgSend_initWithDeltaPositionX_deltaPositionY_deltaPositionZ_deltaVelocityX_deltaVelocityY_deltaVelocityZ_quaternionX_quaternionY_quaternionZ_quaternionW_rotationArbitraryToTrueNorth_staticFlag_timestamp_(v43, v61, v73, v72, v71, v36, v35, v34, v60, v9, v47, v51, v55, v59, 0);
+    v63 = *(internal + 61);
+    v76[0] = MEMORY[0x1E69E9820];
+    v76[1] = 3221225472;
+    v76[2] = sub_19B6A7A6C;
+    v76[3] = &unk_1E7532B90;
+    v76[4] = v62;
+    v76[5] = v74;
+    objc_msgSend_addOperationWithBlock_(v63, v64, v76);
 
     objc_autoreleasePoolPop(context);
-    goto LABEL_45;
   }
 
-  v14 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v78 = *MEMORY[0x1E696A578];
-  v79[0] = @"Reference frame has changed for the incoming delta position updates due to unexpected DeviceMotion reinitialization.";
-  v16 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v15, v79, &v78, 1);
-  v18 = objc_msgSend_initWithDomain_code_userInfo_(v14, v17, @"CMErrorDomainPrivate", 103, v16);
-  v19 = *(internal + 61);
-  v76[0] = MEMORY[0x1E69E9820];
-  v76[1] = 3221225472;
-  v76[2] = sub_19B6A7A54;
-  v76[3] = &unk_1E7532B90;
-  v76[4] = v18;
-  v76[5] = v11;
-  objc_msgSend_addOperationWithBlock_(v19, v20, v76);
-
   os_unfair_lock_lock(internal + 2);
-  v21 = *&odometry->timestamp;
-  v22 = *&odometry->timestampPositionRollOver;
+  v65 = *&odometry->timestamp;
+  v66 = *&odometry->timestampPositionRollOver;
   *(internal + 32) = *&odometry->position[2];
-  *(internal + 33) = v22;
-  *v12 = v21;
-  v23 = *odometry->timestampDeltaPositionUnavailable;
-  v24 = *&odometry->timestampDeltaPositionUnavailable[2];
-  v25 = *odometry->attitude;
+  *(internal + 33) = v66;
+  *(internal + 31) = v65;
+  v67 = *odometry->timestampDeltaPositionUnavailable;
+  v68 = *&odometry->timestampDeltaPositionUnavailable[2];
+  v69 = *odometry->attitude;
   *(internal + 589) = *(&odometry->attitude[3] + 1);
-  *(internal + 35) = v24;
-  *(internal + 36) = v25;
-  *(internal + 34) = v23;
+  *(internal + 35) = v68;
+  *(internal + 36) = v69;
+  *(internal + 34) = v67;
   os_unfair_lock_unlock(internal + 2);
-  objc_autoreleasePoolPop(v10);
-LABEL_46:
-  v68 = *MEMORY[0x1E69E9840];
 }
 
 - (void)onAudioAccessoryPPG:(const Sample *)g

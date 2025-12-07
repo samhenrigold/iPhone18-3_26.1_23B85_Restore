@@ -42,18 +42,8 @@
     if ([(REMCDAlarmDateTrigger *)self markedForDeletion])
     {
       alarm = [(REMCDAlarmDateTrigger *)self alarm];
-      if (!alarm)
+      if (!alarm || (v4 = alarm, -[REMCDAlarmDateTrigger alarm](self, "alarm"), v5 = objc_claimAutoreleasedReturnValue(), [v5 reminder], v6 = objc_claimAutoreleasedReturnValue(), v6, v5, v4, !v6))
       {
-        goto LABEL_5;
-      }
-
-      v4 = alarm;
-      alarm2 = [(REMCDAlarmDateTrigger *)self alarm];
-      reminder = [alarm2 reminder];
-
-      if (!reminder)
-      {
-LABEL_5:
         [(REMCDAlarmDateTrigger *)self setIsExtraneous:1];
       }
     }

@@ -125,9 +125,9 @@
 
       else
       {
-        v12 = [(UIMenu *)v7 isEqual:v8];
+        isEqual = objc_msgSend_isEqual_(v7);
 
-        if (v12)
+        if (isEqual)
         {
           goto LABEL_12;
         }

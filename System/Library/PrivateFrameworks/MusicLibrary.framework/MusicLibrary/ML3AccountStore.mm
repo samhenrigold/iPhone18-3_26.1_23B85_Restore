@@ -254,9 +254,11 @@ void __32__ML3AccountStore_activeAccount__block_invoke(uint64_t a1, void *a2, ui
 
 uint64_t __31__ML3AccountStore_defaultStore__block_invoke()
 {
-  defaultStore___defaultStore = [[ML3AccountStore alloc] _init];
+  v0 = [[ML3AccountStore alloc] _init];
+  v1 = defaultStore___defaultStore;
+  defaultStore___defaultStore = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

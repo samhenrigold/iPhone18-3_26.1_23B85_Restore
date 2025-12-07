@@ -10,6 +10,7 @@
 - (NSString)description;
 - (id)_initWithIdentityServicesDevice:(void *)device nanoRegistryDevice:(void *)registryDevice pairingEntity:(void *)entity obliteratedDatabaseUUIDs:(int)ds protocolVersion:(void *)version delegate:(void *)delegate profile:(char)profile tinkerPairing:;
 - (id)beginRestoreSessionWithUUID:(id)d timeout:(double)timeout timeoutHandler:(id)handler;
+- (id)createRequestWithMessageID:(unsigned __int16)d;
 - (id)diagnosticDescription;
 - (id)nanoSyncStoreForProtocolVersion:(int)version;
 - (id)orderedSyncEntities;
@@ -130,13 +131,12 @@
 
 + (id)_observedDeviceProperties
 {
-  v4[2] = *MEMORY[0x277D85DE8];
+  v3[2] = *MEMORY[0x277D85DE8];
   objc_opt_self();
   v0 = *MEMORY[0x277D2BBA8];
-  v4[0] = *MEMORY[0x277D2BC08];
-  v4[1] = v0;
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
-  v2 = *MEMORY[0x277D85DE8];
+  v3[0] = *MEMORY[0x277D2BC08];
+  v3[1] = v0;
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:2];
 
   return v1;
 }
@@ -213,7 +213,7 @@ LABEL_5:
     v27 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:@"2D6D2220-64DB-408A-89ED-ED05391073E8"];
     *(self + 113) = [deviceCopy supportsCapability:v27];
 
-    v28 = [entityCopy copy];
+    v28 = objc_msgSend_copy(entityCopy);
     v29 = self[20];
     self[20] = v28;
 
@@ -263,7 +263,7 @@ LABEL_11:
 
 + (HDNanoSyncStore)nanoSyncStoreWithProfile:(id)profile device:(id)device delegate:(id)delegate tinkerPaired:(BOOL)paired
 {
-  v133 = *MEMORY[0x277D85DE8];
+  v132 = *MEMORY[0x277D85DE8];
   if (!paired)
   {
     profileCopy2 = profile;
@@ -306,7 +306,7 @@ LABEL_10:
         v38 = v41;
         hd_shortDescription = [deviceCopy2 hd_shortDescription];
         *buf = 138543362;
-        v130 = hd_shortDescription;
+        v129 = hd_shortDescription;
         v40 = "unable to find NanoRegistry device for IDS device %{public}@";
         goto LABEL_26;
       }
@@ -328,7 +328,7 @@ LABEL_30:
         v38 = v42;
         hd_shortDescription = [deviceCopy2 hd_shortDescription];
         *buf = 138543362;
-        v130 = hd_shortDescription;
+        v129 = hd_shortDescription;
         _os_log_impl(&dword_228986000, v38, OS_LOG_TYPE_DEFAULT, "NanoRegistry device for IDS device %{public}@ is not paired", buf, 0xCu);
         goto LABEL_29;
       }
@@ -343,11 +343,11 @@ LABEL_30:
       v44 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
-        v96 = v44;
+        v95 = v44;
         hd_shortDescription2 = [v14 hd_shortDescription];
         *buf = 138543362;
-        v130 = hd_shortDescription2;
-        _os_log_error_impl(&dword_228986000, v96, OS_LOG_TYPE_ERROR, "missing pairing ID for NanoRegistry device %{public}@", buf, 0xCu);
+        v129 = hd_shortDescription2;
+        _os_log_error_impl(&dword_228986000, v95, OS_LOG_TYPE_ERROR, "missing pairing ID for NanoRegistry device %{public}@", buf, 0xCu);
       }
 
       v18 = 0;
@@ -361,17 +361,17 @@ LABEL_30:
       v29 = [MEMORY[0x277CCDD30] nanoSyncProtocolVersionForWatchSystemBuildVersion:hd_systemBuildVersion];
       if (v29 >= 6)
       {
-        v113 = v29;
-        v115 = hd_systemBuildVersion;
+        v112 = v29;
+        v114 = hd_systemBuildVersion;
         v30 = [daemon healthDomainAccessorWithPairedDevice:v14];
         v31 = [v30 stringForKey:@"LastRegistryUUID"];
-        v117 = hd_pairingID;
+        v116 = hd_pairingID;
         uUIDString = [hd_pairingID UUIDString];
-        v123 = uUIDString;
-        v119 = v31;
+        v122 = uUIDString;
+        v118 = v31;
         if (v31 && (v33 = uUIDString, ![uUIDString isEqualToString:v31]))
         {
-          v125 = 0;
+          v124 = 0;
           v35 = 0;
           if (v33 == v31)
           {
@@ -392,12 +392,12 @@ LABEL_30:
               if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543362;
-                v130 = v34;
+                v129 = v34;
                 _os_log_error_impl(&dword_228986000, v36, OS_LOG_TYPE_ERROR, "invalid persistent pairing UUID string %{public}@ in NPS", buf, 0xCu);
               }
 
               v35 = 0;
-              v31 = v119;
+              v31 = v118;
             }
           }
 
@@ -406,27 +406,27 @@ LABEL_30:
             v35 = 0;
           }
 
-          v125 = [v30 stringForKey:@"DeviceSourceIdentifier"];
+          v124 = [v30 stringForKey:@"DeviceSourceIdentifier"];
 
-          v33 = v123;
-          if (v123 == v31)
+          v33 = v122;
+          if (v122 == v31)
           {
 LABEL_49:
             if (v35)
             {
 LABEL_58:
-              v114 = daemon;
+              v113 = daemon;
               [v30 stringArrayForKey:@"ObliteratedDatabaseUUIDs"];
               v53 = v52 = v31;
-              v121 = [v53 hk_map:&__block_literal_global_229];
+              v120 = [v53 hk_map:&__block_literal_global_229];
 
-              hd_pairingID = v117;
+              hd_pairingID = v116;
 LABEL_59:
               database = [profileCopy2 database];
-              v128 = 0;
-              v54 = [HDNanoPairingEntity nanoPairingEntityWithRegistryUUID:hd_pairingID profile:profileCopy2 error:&v128];
-              v55 = v128;
-              v124 = v54;
+              v127 = 0;
+              v54 = [HDNanoPairingEntity nanoPairingEntityWithRegistryUUID:hd_pairingID profile:profileCopy2 error:&v127];
+              v55 = v127;
+              v123 = v54;
               if (v54)
               {
                 v56 = isMaster;
@@ -440,19 +440,19 @@ LABEL_59:
               v57 = v35;
               if (!v35)
               {
-                v116 = v55;
+                v115 = v55;
 LABEL_100:
-                v58 = v121;
+                v58 = v120;
                 goto LABEL_101;
               }
 
-              v58 = v121;
+              v58 = v120;
               if (!v56)
               {
-                v116 = v55;
+                v115 = v55;
 LABEL_101:
-                v88 = v124;
-                if (v124)
+                v88 = v123;
+                if (v123)
                 {
                   v89 = [HDNanoSyncStore alloc];
                   if (v58)
@@ -466,7 +466,7 @@ LABEL_101:
                   }
 
                   v91 = [MEMORY[0x277CBEB98] setWithArray:v90];
-                  v92 = [(HDNanoSyncStore *)&v89->super.isa _initWithIdentityServicesDevice:deviceCopy2 nanoRegistryDevice:v14 pairingEntity:v124 obliteratedDatabaseUUIDs:v91 protocolVersion:v113 delegate:delegateCopy2 profile:profileCopy2 tinkerPairing:0];
+                  v92 = [(HDNanoSyncStore *)&v89->super.isa _initWithIdentityServicesDevice:deviceCopy2 nanoRegistryDevice:v14 pairingEntity:v123 obliteratedDatabaseUUIDs:v91 protocolVersion:v112 delegate:delegateCopy2 profile:profileCopy2 tinkerPairing:0];
                 }
 
                 else
@@ -475,35 +475,35 @@ LABEL_101:
                   v93 = *MEMORY[0x277CCC328];
                   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
                   {
-                    v100 = v93;
+                    v99 = v93;
                     hd_shortDescription3 = [deviceCopy2 hd_shortDescription];
                     *buf = 138543618;
-                    v130 = hd_shortDescription3;
-                    v131 = 2114;
-                    v132 = v116;
-                    _os_log_error_impl(&dword_228986000, v100, OS_LOG_TYPE_ERROR, "failed to create sync store for IDS device %{public}@: %{public}@", buf, 0x16u);
+                    v129 = hd_shortDescription3;
+                    v130 = 2114;
+                    v131 = v115;
+                    _os_log_error_impl(&dword_228986000, v99, OS_LOG_TYPE_ERROR, "failed to create sync store for IDS device %{public}@: %{public}@", buf, 0x16u);
                   }
 
                   v92 = 0;
-                  v58 = v121;
+                  v58 = v120;
                   v88 = 0;
                 }
 
                 v18 = v92;
 
-                daemon = v114;
-                hd_systemBuildVersion = v115;
+                daemon = v113;
+                hd_systemBuildVersion = v114;
 LABEL_110:
 
 LABEL_111:
                 goto LABEL_112;
               }
 
-              v110 = v55;
+              v109 = v55;
               v59 = v54;
               persistentUUID = [v54 persistentUUID];
               v61 = persistentUUID;
-              v118 = hd_pairingID;
+              v117 = hd_pairingID;
               if (persistentUUID == v35)
               {
 
@@ -530,29 +530,29 @@ LABEL_111:
                 v57 = v35;
               }
 
-              defaultSourceBundleIdentifier = [v124 defaultSourceBundleIdentifier];
+              defaultSourceBundleIdentifier = [v123 defaultSourceBundleIdentifier];
               v66 = defaultSourceBundleIdentifier;
-              v67 = v125;
-              v112 = v57;
-              if (defaultSourceBundleIdentifier == v125)
+              v67 = v124;
+              v111 = v57;
+              if (defaultSourceBundleIdentifier == v124)
               {
 
                 goto LABEL_79;
               }
 
-              if (v125)
+              if (v124)
               {
-                defaultSourceBundleIdentifier2 = [v124 defaultSourceBundleIdentifier];
-                v69 = [defaultSourceBundleIdentifier2 isEqualToString:v125];
+                defaultSourceBundleIdentifier2 = [v123 defaultSourceBundleIdentifier];
+                v69 = [defaultSourceBundleIdentifier2 isEqualToString:v124];
 
-                v67 = v125;
+                v67 = v124;
                 if (v69)
                 {
 LABEL_79:
-                  v125 = v67;
+                  v124 = v67;
                   v70 = v64;
                   hd_deviceIdentifier = [deviceCopy2 hd_deviceIdentifier];
-                  deviceIdentifier = [v124 deviceIdentifier];
+                  deviceIdentifier = [v123 deviceIdentifier];
                   v73 = deviceIdentifier;
                   if (deviceIdentifier == hd_deviceIdentifier)
                   {
@@ -562,20 +562,20 @@ LABEL_79:
 
                   if (hd_deviceIdentifier)
                   {
-                    deviceIdentifier2 = [v124 deviceIdentifier];
+                    deviceIdentifier2 = [v123 deviceIdentifier];
                     v75 = [deviceIdentifier2 isEqualToString:hd_deviceIdentifier];
 
                     if (v75)
                     {
 LABEL_86:
-                      healthDatabaseUUID = [v124 healthDatabaseUUID];
+                      healthDatabaseUUID = [v123 healthDatabaseUUID];
 
-                      v109 = hd_deviceIdentifier;
+                      v108 = hd_deviceIdentifier;
                       if (healthDatabaseUUID)
                       {
                         if (!v70)
                         {
-                          v116 = v110;
+                          v115 = v109;
 LABEL_92:
                           sourceManager = [profileCopy2 sourceManager];
                           hd_name = [v14 hd_name];
@@ -588,36 +588,36 @@ LABEL_92:
                             if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
                             {
                               *buf = 138543618;
-                              v130 = hd_name;
-                              v131 = 2114;
-                              v132 = v82;
+                              v129 = hd_name;
+                              v130 = 2114;
+                              v131 = v82;
                               _os_log_error_impl(&dword_228986000, v83, OS_LOG_TYPE_ERROR, "unexpectedly nil NRDevice properties: name=%{public}@, productType=%{public}@", buf, 0x16u);
                             }
                           }
 
-                          v124 = v59;
-                          v126 = 0;
+                          v123 = v59;
+                          v125 = 0;
                           v84 = sourceManager;
-                          v85 = [sourceManager sourceForAppleDeviceWithUUID:v112 identifier:v125 name:hd_name productType:v82 createIfNecessary:1 error:&v126];
-                          v86 = v126;
+                          v85 = [sourceManager sourceForAppleDeviceWithUUID:v111 identifier:v124 name:hd_name productType:v82 createIfNecessary:1 error:&v125];
+                          v86 = v125;
                           if (!v85)
                           {
                             _HKInitializeLogging();
                             v87 = *MEMORY[0x277CCC328];
                             if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
                             {
-                              v104 = v87;
+                              v103 = v87;
                               hd_shortDescription4 = [v14 hd_shortDescription];
                               *buf = 138543618;
-                              v130 = hd_shortDescription4;
-                              v131 = 2114;
-                              v132 = v86;
-                              _os_log_error_impl(&dword_228986000, v104, OS_LOG_TYPE_ERROR, "failed to get source for paired device %{public}@: %{public}@", buf, 0x16u);
+                              v129 = hd_shortDescription4;
+                              v130 = 2114;
+                              v131 = v86;
+                              _os_log_error_impl(&dword_228986000, v103, OS_LOG_TYPE_ERROR, "failed to get source for paired device %{public}@: %{public}@", buf, 0x16u);
                             }
                           }
 
-                          hd_pairingID = v118;
-                          v57 = v112;
+                          hd_pairingID = v117;
+                          v57 = v111;
                           goto LABEL_100;
                         }
                       }
@@ -625,12 +625,12 @@ LABEL_92:
                       else
                       {
                         uUID = [MEMORY[0x277CCAD78] UUID];
-                        [v124 setHealthDatabaseUUID:uUID];
+                        [v123 setHealthDatabaseUUID:uUID];
                       }
 
-                      v127 = v110;
-                      v78 = [v124 saveWithHealthDatabase:database error:&v127];
-                      v116 = v127;
+                      v126 = v109;
+                      v78 = [v123 saveWithHealthDatabase:database error:&v126];
+                      v115 = v126;
 
                       if ((v78 & 1) == 0)
                       {
@@ -646,7 +646,7 @@ LABEL_92:
                   {
                   }
 
-                  [v124 setDeviceIdentifier:hd_deviceIdentifier];
+                  [v123 setDeviceIdentifier:hd_deviceIdentifier];
                   v70 = 1;
                   goto LABEL_86;
                 }
@@ -656,7 +656,7 @@ LABEL_92:
               {
               }
 
-              [v124 setDefaultSourceBundleIdentifier:v67];
+              [v123 setDefaultSourceBundleIdentifier:v67];
               v64 = 1;
               goto LABEL_79;
             }
@@ -687,27 +687,27 @@ LABEL_53:
             v51 = *MEMORY[0x277CCC328];
             if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
             {
-              v102 = v51;
-              v103 = objc_opt_class();
+              v101 = v51;
+              v102 = objc_opt_class();
               *buf = 138543618;
-              v130 = v103;
-              v131 = 2114;
-              v132 = synchronize;
-              v122 = v103;
-              _os_log_error_impl(&dword_228986000, v102, OS_LOG_TYPE_ERROR, "failed to synchronize %{public}@: %{public}@", buf, 0x16u);
+              v129 = v102;
+              v130 = 2114;
+              v131 = synchronize;
+              v121 = v102;
+              _os_log_error_impl(&dword_228986000, v101, OS_LOG_TYPE_ERROR, "failed to synchronize %{public}@: %{public}@", buf, 0x16u);
             }
 
-            v125 = 0;
+            v124 = 0;
             v35 = 0;
-            v31 = v119;
+            v31 = v118;
           }
 
-          v33 = v123;
+          v33 = v122;
           goto LABEL_58;
         }
 
 LABEL_52:
-        v47 = v117;
+        v47 = v116;
         v48 = [MEMORY[0x277CCDA00] _generateIdentifierForAppleDeviceWithUUID:v47];
 
         v35 = v47;
@@ -715,8 +715,8 @@ LABEL_52:
         [v30 setObject:uUIDString2 forKey:@"PersistentPairingUUID"];
 
         [v30 setObject:v48 forKey:@"DeviceSourceIdentifier"];
-        v125 = v48;
-        v31 = v119;
+        v124 = v48;
+        v31 = v118;
         goto LABEL_53;
       }
     }
@@ -726,11 +726,11 @@ LABEL_52:
       v45 = [MEMORY[0x277CCDD30] nanoSyncProtocolVersionForCompanionSystemBuildVersion:hd_systemBuildVersion];
       if (v45 > 7)
       {
-        v114 = daemon;
-        v115 = hd_systemBuildVersion;
-        v113 = v45;
-        v121 = 0;
-        v125 = 0;
+        v113 = daemon;
+        v114 = hd_systemBuildVersion;
+        v112 = v45;
+        v120 = 0;
+        v124 = 0;
         v35 = 0;
         goto LABEL_59;
       }
@@ -740,13 +740,13 @@ LABEL_52:
     v46 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v98 = v46;
+      v97 = v46;
       hd_shortDescription5 = [deviceCopy2 hd_shortDescription];
       *buf = 138543618;
-      v130 = hd_shortDescription5;
-      v131 = 2114;
-      v132 = hd_systemBuildVersion;
-      _os_log_error_impl(&dword_228986000, v98, OS_LOG_TYPE_ERROR, "IDS device %{public}@ has unsupported system build version %{public}@", buf, 0x16u);
+      v129 = hd_shortDescription5;
+      v130 = 2114;
+      v131 = hd_systemBuildVersion;
+      _os_log_error_impl(&dword_228986000, v97, OS_LOG_TYPE_ERROR, "IDS device %{public}@ has unsupported system build version %{public}@", buf, 0x16u);
     }
 
     v18 = 0;
@@ -793,7 +793,7 @@ LABEL_4:
       v38 = v37;
       hd_shortDescription = [deviceCopy2 hd_shortDescription];
       *buf = 138543362;
-      v130 = hd_shortDescription;
+      v129 = hd_shortDescription;
       v40 = "Unable to find NanoRegistry device for IDS device %{public}@ (#t0)";
 LABEL_26:
       _os_log_error_impl(&dword_228986000, v38, OS_LOG_TYPE_ERROR, v40, buf, 0xCu);
@@ -806,9 +806,9 @@ LABEL_29:
   }
 
   hd_pairingID2 = [v14 hd_pairingID];
-  v128 = 0;
-  v16 = [HDNanoPairingEntity nanoPairingEntityWithRegistryUUID:hd_pairingID2 profile:profileCopy2 error:&v128];
-  v17 = v128;
+  v127 = 0;
+  v16 = [HDNanoPairingEntity nanoPairingEntityWithRegistryUUID:hd_pairingID2 profile:profileCopy2 error:&v127];
+  v17 = v127;
 
   if (v16)
   {
@@ -820,9 +820,9 @@ LABEL_29:
       v20 = v19;
       hd_shortDescription6 = [deviceCopy2 hd_shortDescription];
       *buf = 138543618;
-      v130 = v18;
-      v131 = 2114;
-      v132 = hd_shortDescription6;
+      v129 = v18;
+      v130 = 2114;
+      v131 = hd_shortDescription6;
       _os_log_impl(&dword_228986000, v20, OS_LOG_TYPE_DEFAULT, "Created sync store %{public}@ for IDS device %{public}@ (#t0)", buf, 0x16u);
     }
   }
@@ -834,7 +834,7 @@ LABEL_29:
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v130 = v17;
+      v129 = v17;
       _os_log_error_impl(&dword_228986000, v43, OS_LOG_TYPE_ERROR, "Unable to create entity for pairing %{public}@ (#t0)", buf, 0xCu);
     }
 
@@ -842,7 +842,6 @@ LABEL_29:
   }
 
 LABEL_112:
-  v94 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -872,7 +871,7 @@ id __61__HDNanoSyncStore__nanoSyncStoreWithProfile_device_delegate___block_invok
 
 - (void)invalidate
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (!self->_invalidated)
   {
     self->_invalidated = 1;
@@ -897,31 +896,31 @@ id __61__HDNanoSyncStore__nanoSyncStoreWithProfile_device_delegate___block_invok
       nanoRegistryUUID = [(HDNanoSyncStore *)self nanoRegistryUUID];
       v11 = [v8 hk_errorForInvalidArgument:@"@" class:v9 selector:a2 format:{@"Sync store for device with pairingID %@ was invalidated", nanoRegistryUUID}];
 
-      v21 = 0u;
-      v22 = 0u;
-      v19 = 0u;
       v20 = 0u;
+      v21 = 0u;
+      v18 = 0u;
+      v19 = 0u;
       v12 = self->_incomingSyncObserverTimers;
-      v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v20;
+        v15 = *v19;
         do
         {
           v16 = 0;
           do
           {
-            if (*v20 != v15)
+            if (*v19 != v15)
             {
               objc_enumerationMutation(v12);
             }
 
-            [*(*(&v19 + 1) + 8 * v16++) invalidateAndInvokeCompletionWithError:v11];
+            [*(*(&v18 + 1) + 8 * v16++) invalidateAndInvokeCompletionWithError:v11];
           }
 
           while (v14 != v16);
-          v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
         }
 
         while (v14);
@@ -931,8 +930,6 @@ id __61__HDNanoSyncStore__nanoSyncStoreWithProfile_device_delegate___block_invok
       self->_incomingSyncObserverTimers = 0;
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prepareForObliteration
@@ -1009,15 +1006,15 @@ LABEL_8:
 
 - (void)_savePairingEntity
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v2 = *(self + 32);
     WeakRetained = objc_loadWeakRetained((self + 8));
     database = [WeakRetained database];
-    v10 = 0;
-    v5 = [v2 saveWithHealthDatabase:database error:&v10];
-    v6 = v10;
+    v9 = 0;
+    v5 = [v2 saveWithHealthDatabase:database error:&v9];
+    v6 = v9;
 
     if ((v5 & 1) == 0)
     {
@@ -1025,17 +1022,15 @@ LABEL_8:
       v7 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
-        v9 = *(self + 32);
+        v8 = *(self + 32);
         *buf = 138543618;
-        v12 = v9;
-        v13 = 2114;
-        v14 = v6;
+        v11 = v8;
+        v12 = 2114;
+        v13 = v6;
         _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "failed to save pairing entity %{public}@: %{public}@", buf, 0x16u);
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPersistentUUID:(id)d
@@ -1099,7 +1094,7 @@ LABEL_8:
 
 - (void)_setRestoreState:(uint64_t)state
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (state && *(state + 144) != a2)
   {
     _HKInitializeLogging();
@@ -1144,14 +1139,14 @@ LABEL_8:
       }
 
       v10 = v9;
-      *v14 = 138543874;
-      *&v14[4] = state;
-      *&v14[12] = 2112;
-      *&v14[14] = v8;
-      *&v14[22] = 2112;
-      v15 = v10;
+      *v13 = 138543874;
+      *&v13[4] = state;
+      *&v13[12] = 2112;
+      *&v13[14] = v8;
+      *&v13[22] = 2112;
+      v14 = v10;
       v11 = v4;
-      _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, "store %{public}@ transitioning from %@ to %@", v14, 0x20u);
+      _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, "store %{public}@ transitioning from %@ to %@", v13, 0x20u);
     }
 
     *(state + 144) = a2;
@@ -1164,8 +1159,6 @@ LABEL_8:
     delegate = [state delegate];
     [delegate nanoSyncStore:state restoreStateDidChange:a2];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishRestoreSessionWithError:(id)error
@@ -1206,6 +1199,66 @@ LABEL_8:
   return v7 != 0;
 }
 
+- (id)createRequestWithMessageID:(unsigned __int16)d
+{
+  dCopy = d;
+  v5 = [[HDIDSParticipant alloc] initWithDevice:self->_identityServicesDevice];
+  v6 = [HDIDSOutgoingRequest requestWithMessageID:dCopy participant:v5];
+  if ([(HDNanoSyncStore *)self isMaster])
+  {
+    v7 = ![(HDNanoSyncStore *)self isActive];
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  messageID = [v6 messageID];
+  v9 = 300.0;
+  switch(messageID)
+  {
+    case 13:
+      v10 = 0.0;
+      break;
+    case 7:
+      v10 = 0.0;
+      v9 = 172800.0;
+      break;
+    case 2:
+      if (v7)
+      {
+        v9 = 172800.0;
+      }
+
+      else
+      {
+        v9 = 3600.0;
+      }
+
+      if (v7)
+      {
+        v10 = 172800.0;
+      }
+
+      else
+      {
+        v10 = 7200.0;
+      }
+
+      break;
+    default:
+      v10 = 600.0;
+      break;
+  }
+
+  [v6 setForceLocalDelivery:1];
+  [v6 setSendTimeout:v9];
+  [v6 setResponseTimeout:v10];
+
+  return v6;
+}
+
 - (void)configureOutgoingResponse:(id)response
 {
   responseCopy = response;
@@ -1215,7 +1268,7 @@ LABEL_8:
 
 - (void)didReceiveRequestWithChangeSet:(id)set
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   setCopy = set;
   statusCode = [setCopy statusCode];
   decodedSessionUUID = [setCopy decodedSessionUUID];
@@ -1225,13 +1278,13 @@ LABEL_8:
   v9 = MEMORY[0x277CCC328];
   if (decodedSessionError && (_HKInitializeLogging(), v10 = *v9, os_log_type_enabled(*v9, OS_LOG_TYPE_ERROR)))
   {
-    v20 = v10;
+    v19 = v10;
     uUIDString = [decodedSessionUUID UUIDString];
-    v22 = 138543618;
-    v23 = uUIDString;
-    v24 = 2114;
-    v25 = decodedSessionError;
-    _os_log_error_impl(&dword_228986000, v20, OS_LOG_TYPE_ERROR, "incoming sync session %{public}@ error: %{public}@", &v22, 0x16u);
+    v21 = 138543618;
+    v22 = uUIDString;
+    v23 = 2114;
+    v24 = decodedSessionError;
+    _os_log_error_impl(&dword_228986000, v19, OS_LOG_TYPE_ERROR, "incoming sync session %{public}@ error: %{public}@", &v21, 0x16u);
 
     if (!decodedSessionUUID)
     {
@@ -1251,13 +1304,13 @@ LABEL_6:
     v12 = *v9;
     if (os_log_type_enabled(*v9, OS_LOG_TYPE_ERROR))
     {
-      v18 = v12;
+      v17 = v12;
       uUIDString2 = [decodedSessionUUID UUIDString];
-      v22 = 138543618;
-      v23 = uUIDString2;
-      v24 = 2114;
-      v25 = decodedSessionStartDate;
-      _os_log_error_impl(&dword_228986000, v18, OS_LOG_TYPE_ERROR, "unexpected session UUID (%{public}@) or date (%{public}@) in change set", &v22, 0x16u);
+      v21 = 138543618;
+      v22 = uUIDString2;
+      v23 = 2114;
+      v24 = decodedSessionStartDate;
+      _os_log_error_impl(&dword_228986000, v17, OS_LOG_TYPE_ERROR, "unexpected session UUID (%{public}@) or date (%{public}@) in change set", &v21, 0x16u);
     }
 
     goto LABEL_8;
@@ -1277,12 +1330,12 @@ LABEL_6:
       else
       {
         _HKInitializeLogging();
-        v17 = *v9;
+        v16 = *v9;
         if (os_log_type_enabled(*v9, OS_LOG_TYPE_ERROR))
         {
-          v22 = 67109120;
-          LODWORD(v23) = statusCode;
-          _os_log_error_impl(&dword_228986000, v17, OS_LOG_TYPE_ERROR, "unexpected change set status code %d", &v22, 8u);
+          v21 = 67109120;
+          LODWORD(v22) = statusCode;
+          _os_log_error_impl(&dword_228986000, v16, OS_LOG_TYPE_ERROR, "unexpected change set status code %d", &v21, 8u);
         }
       }
     }
@@ -1291,7 +1344,7 @@ LABEL_6:
     {
       objc_storeStrong(&self->_lastCompleteIncomingSyncDate, decodedSessionStartDate);
       objc_storeStrong(&self->_lastCompleteIncomingSyncError, decodedSessionError);
-      v15 = self->_lastIncompleteIncomingSyncUUID;
+      v14 = self->_lastIncompleteIncomingSyncUUID;
       self->_lastIncompleteIncomingSyncUUID = 0;
 
       lastIncompleteIncomingSyncDate = self->_lastIncompleteIncomingSyncDate;
@@ -1302,13 +1355,11 @@ LABEL_6:
   }
 
 LABEL_8:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addIncomingSyncObserverWithTimeout:(double)timeout timeoutHandler:(id)handler completion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   completionCopy = completion;
   if (!self->_incomingSyncObserverTimers)
@@ -1325,25 +1376,23 @@ LABEL_8:
   v13 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEBUG))
   {
-    v15 = v13;
+    v14 = v13;
     startDate = [v12 startDate];
-    v17 = 134218498;
-    v18 = v12;
-    v19 = 2048;
+    v16 = 134218498;
+    v17 = v12;
+    v18 = 2048;
     timeoutCopy = timeout;
-    v21 = 2112;
-    v22 = startDate;
-    _os_log_debug_impl(&dword_228986000, v15, OS_LOG_TYPE_DEBUG, "added incoming sync observer %p with %.2f timeout at %@", &v17, 0x20u);
+    v20 = 2112;
+    v21 = startDate;
+    _os_log_debug_impl(&dword_228986000, v14, OS_LOG_TYPE_DEBUG, "added incoming sync observer %p with %.2f timeout at %@", &v16, 0x20u);
   }
 
   [(HDNanoSyncStore *)self _notifyIncomingSyncObservers];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __47__HDNanoSyncStore__notifyIncomingSyncObservers__block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 startDate];
   v5 = [v4 hk_isBeforeDate:*(a1 + 32)];
@@ -1355,19 +1404,18 @@ uint64_t __47__HDNanoSyncStore__notifyIncomingSyncObservers__block_invoke(uint64
     v6 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEBUG))
     {
-      v9 = *(a1 + 40);
-      v10 = v6;
-      v11 = [v3 startDate];
-      [v9 timeIntervalSinceDate:v11];
-      v13 = 134218240;
-      v14 = v3;
-      v15 = 2048;
-      v16 = v12;
-      _os_log_debug_impl(&dword_228986000, v10, OS_LOG_TYPE_DEBUG, "notified sync observer %p after %.3f seconds", &v13, 0x16u);
+      v8 = *(a1 + 40);
+      v9 = v6;
+      v10 = [v3 startDate];
+      [v8 timeIntervalSinceDate:v10];
+      v12 = 134218240;
+      v13 = v3;
+      v14 = 2048;
+      v15 = v11;
+      _os_log_debug_impl(&dword_228986000, v9, OS_LOG_TYPE_DEBUG, "notified sync observer %p after %.3f seconds", &v12, 0x16u);
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -1392,7 +1440,7 @@ uint64_t __47__HDNanoSyncStore__notifyIncomingSyncObservers__block_invoke(uint64
 
 uint64_t __53__HDNanoSyncStore_removeExpiredIncomingSyncObservers__block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 isExpired];
   if (v4)
@@ -1402,19 +1450,18 @@ uint64_t __53__HDNanoSyncStore_removeExpiredIncomingSyncObservers__block_invoke(
     v5 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEBUG))
     {
-      v8 = *(a1 + 40);
-      v9 = v5;
-      v10 = [v3 startDate];
-      [v8 timeIntervalSinceDate:v10];
-      v12 = 134218240;
-      v13 = v3;
-      v14 = 2048;
-      v15 = v11;
-      _os_log_debug_impl(&dword_228986000, v9, OS_LOG_TYPE_DEBUG, "removed expired sync observer %p after %.3f seconds", &v12, 0x16u);
+      v7 = *(a1 + 40);
+      v8 = v5;
+      v9 = [v3 startDate];
+      [v7 timeIntervalSinceDate:v9];
+      v11 = 134218240;
+      v12 = v3;
+      v13 = 2048;
+      v14 = v10;
+      _os_log_debug_impl(&dword_228986000, v8, OS_LOG_TYPE_DEBUG, "removed expired sync observer %p after %.3f seconds", &v11, 0x16u);
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -1494,7 +1541,7 @@ uint64_t __38__HDNanoSyncStore_orderedSyncEntities__block_invoke(uint64_t a1, vo
 
 + (id)orderedSyncEntitiesForProfile:(id)profile protocolVersion:(int)version companion:(BOOL)companion
 {
-  v17[6] = *MEMORY[0x277D85DE8];
+  v16[6] = *MEMORY[0x277D85DE8];
   if (companion)
   {
     v5 = 6;
@@ -1520,30 +1567,28 @@ uint64_t __38__HDNanoSyncStore_orderedSyncEntities__block_invoke(uint64_t a1, vo
     syncEngine = [profile syncEngine];
     allOrderedSyncEntities = [syncEngine allOrderedSyncEntities];
 
-    v17[0] = objc_opt_class();
-    v17[1] = objc_opt_class();
-    v17[2] = objc_opt_class();
-    v17[3] = objc_opt_class();
-    v17[4] = objc_opt_class();
-    v17[5] = objc_opt_class();
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:6];
+    v16[0] = objc_opt_class();
+    v16[1] = objc_opt_class();
+    v16[2] = objc_opt_class();
+    v16[3] = objc_opt_class();
+    v16[4] = objc_opt_class();
+    v16[5] = objc_opt_class();
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:6];
     v12 = [allOrderedSyncEntities arrayByExcludingObjectsInArray:v11];
 
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __75__HDNanoSyncStore_orderedSyncEntitiesForProfile_protocolVersion_companion___block_invoke;
-    v15[3] = &__block_descriptor_44_e8_B16__0_8l;
-    v15[4] = v8;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __75__HDNanoSyncStore_orderedSyncEntitiesForProfile_protocolVersion_companion___block_invoke;
+    v14[3] = &__block_descriptor_44_e8_B16__0_8l;
+    v14[4] = v8;
     versionCopy = version;
-    v6 = [v12 hk_filter:v15];
+    v6 = [v12 hk_filter:v14];
   }
 
   else
   {
     v6 = MEMORY[0x277CBEBF8];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -1759,7 +1804,6 @@ LABEL_6:
     if (self->_lastCompleteIncomingSyncError)
     {
       v35 = [MEMORY[0x277CCACA8] stringWithFormat:@" (error: %@)", self->_lastCompleteIncomingSyncError];
-      lastCompleteIncomingSyncDate = self->_lastCompleteIncomingSyncDate;
     }
 
     else
@@ -1767,14 +1811,14 @@ LABEL_6:
       v35 = &stru_283BF39C8;
     }
 
-    v37 = HKDiagnosticStringFromDate();
-    [string appendFormat:@"\n\tLast complete sync began %@%@", v37, v35];
+    v36 = HKDiagnosticStringFromDate();
+    [string appendFormat:@"\n\tLast complete sync began %@%@", v36, v35];
   }
 
   if (self->_lastIncompleteIncomingSyncDate)
   {
-    v38 = HKDiagnosticStringFromDate();
-    [string appendFormat:@"\n\tLast incomplete sync began %@", v38];
+    v37 = HKDiagnosticStringFromDate();
+    [string appendFormat:@"\n\tLast incomplete sync began %@", v37];
   }
 
   if ([(HDNanoSyncStore *)self needsSyncOnUnlock])

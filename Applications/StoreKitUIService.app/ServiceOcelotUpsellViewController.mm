@@ -151,48 +151,51 @@
     shouldLog = [v5 shouldLog];
     if ([v5 shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      LODWORD(v7) = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      LODWORD(v7) = shouldLog;
     }
 
     oSLogObject = [v5 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v7 = v7;
+    }
+
+    else
     {
       v7 &= 2u;
     }
 
     if (v7)
     {
-      *v13 = 138543618;
-      *&v13[4] = objc_opt_class();
-      *&v13[12] = 2114;
-      *&v13[14] = errorCopy;
-      v9 = *&v13[4];
-      LODWORD(v12) = 22;
-      v11 = v13;
-      v10 = _os_log_send_and_compose_impl();
+      v12 = 138543618;
+      v13 = objc_opt_class();
+      v14 = 2114;
+      v15 = errorCopy;
+      v9 = v13;
+      v10 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "%{public}@: Finished with error: %{public}@", &v12, 22);
 
       if (!v10)
       {
-LABEL_11:
+LABEL_12:
 
-        goto LABEL_12;
+        goto LABEL_13;
       }
 
-      oSLogObject = [NSString stringWithCString:v10 encoding:4, v13, v12, *v13, *&v13[16]];
+      oSLogObject = [NSString stringWithCString:v10 encoding:4];
       free(v10);
       v11 = oSLogObject;
       SSFileLog();
     }
 
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-LABEL_12:
+LABEL_13:
   [(ServiceOcelotUpsellViewController *)self _dismissViewService];
 }
 

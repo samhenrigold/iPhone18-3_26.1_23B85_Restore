@@ -8,106 +8,109 @@
 
 + (BOOL)wantsEnablement
 {
-  if (_os_feature_enabled_impl())
+  v2 = _os_feature_enabled_impl();
+  if (v2)
   {
-    v2 = +[HTPrefs sharedPrefs];
-    badDayEnablementForPreviousDays = [v2 badDayEnablementForPreviousDays];
+    v3 = +[HTPrefs sharedPrefs];
+    badDayEnablementForPreviousDays = [v3 badDayEnablementForPreviousDays];
 
-    v4 = +[HTPrefs sharedPrefs];
-    badDayEnablementForHangDurationMSec = [v4 badDayEnablementForHangDurationMSec];
+    v5 = +[HTPrefs sharedPrefs];
+    badDayEnablementForHangDurationMSec = [v5 badDayEnablementForHangDurationMSec];
 
-    v6 = +[HTPrefs sharedPrefs];
-    badDayEnablementForLogCount = [v6 badDayEnablementForLogCount];
+    v7 = +[HTPrefs sharedPrefs];
+    badDayEnablementForLogCount = [v7 badDayEnablementForLogCount];
 
-    v8 = +[HTPrefs sharedPrefs];
-    badDayEnablementMinimumBreakDurationDays = [v8 badDayEnablementMinimumBreakDurationDays];
+    v9 = +[HTPrefs sharedPrefs];
+    badDayEnablementMinimumBreakDurationDays = [v9 badDayEnablementMinimumBreakDurationDays];
 
-    v10 = +[HTPrefs sharedPrefs];
-    [v10 badDaySecondsBetweenLastEnablementAndReferenceDate];
-    v12 = v11;
+    v11 = +[HTPrefs sharedPrefs];
+    [v11 badDaySecondsBetweenLastEnablementAndReferenceDate];
+    v13 = v12;
 
-    v46[0] = _NSConcreteStackBlock;
-    v46[1] = 3221225472;
-    v46[2] = sub_100001C90;
-    v46[3] = &unk_100018440;
-    *&v46[4] = v12;
-    v46[5] = badDayEnablementForHangDurationMSec;
-    v47 = badDayEnablementForLogCount;
-    v48 = badDayEnablementMinimumBreakDurationDays;
-    v13 = objc_retainBlock(v46);
+    v49[0] = _NSConcreteStackBlock;
+    v49[1] = 3221225472;
+    v49[2] = sub_100001C90;
+    v49[3] = &unk_100018440;
+    *&v49[4] = v13;
+    v49[5] = badDayEnablementForHangDurationMSec;
+    v50 = badDayEnablementForLogCount;
+    v51 = badDayEnablementMinimumBreakDurationDays;
+    v14 = objc_retainBlock(v49);
     +[NSDate timeIntervalSinceReferenceDate];
-    v15 = v14;
-    v16 = v14 - v12;
-    [objc_opt_class() timeoutDurationSec];
-    if (v16 < v17 || v16 >= v17 + badDayEnablementMinimumBreakDurationDays * 86400.0)
+    v16 = v15;
+    v17 = v15 - v13;
+    timeoutDurationSec = [objc_opt_class() timeoutDurationSec];
+    if (v17 < v19 || v17 >= v19 + badDayEnablementMinimumBreakDurationDays * 86400.0)
     {
-      if (v16 >= v17)
+      if (v17 >= v19)
       {
-        v18 = CFPreferencesCopyValue(@"BadDaySecondsBetweenLastEvaluationAndReferenceDate", @"com.apple.da", @"mobile", kCFPreferencesAnyHost);
-        [v18 doubleValue];
-        if (v15 - v21 >= 43200.0)
+        v20 = CFPreferencesCopyValue(@"BadDaySecondsBetweenLastEvaluationAndReferenceDate", @"com.apple.da", @"mobile", kCFPreferencesAnyHost);
+        [v20 doubleValue];
+        if (v16 - v23 >= 43200.0)
         {
-          CFPreferencesSetValue(@"BadDaySecondsBetweenLastEvaluationAndReferenceDate", [NSNumber numberWithDouble:v15], @"com.apple.da", @"mobile", kCFPreferencesAnyHost);
+          CFPreferencesSetValue(@"BadDaySecondsBetweenLastEvaluationAndReferenceDate", [NSNumber numberWithDouble:v16], @"com.apple.da", @"mobile", kCFPreferencesAnyHost);
           CFPreferencesSynchronize(@"com.apple.da", @"mobile", kCFPreferencesAnyHost);
-          v24 = badDayEnablementForPreviousDays;
-          v25 = badDayEnablementForHangDurationMSec / 1000.0;
-          v26 = [[NSCountedSet alloc] initWithCapacity:0];
-          v27 = [NSDate dateWithTimeIntervalSinceNow:v24 * -86400.0];
-          v28 = +[NSDate date];
-          v43[0] = _NSConcreteStackBlock;
-          v43[1] = 3221225472;
-          v43[2] = sub_100001E80;
-          v43[3] = &unk_100018468;
-          v45 = v25;
-          v22 = v26;
-          v44 = v22;
-          v38 = v27;
-          sub_100004280(v27, v28, 0, v43);
+          v26 = badDayEnablementForPreviousDays;
+          v27 = badDayEnablementForHangDurationMSec / 1000.0;
+          v28 = [[NSCountedSet alloc] initWithCapacity:0];
+          v29 = [NSDate dateWithTimeIntervalSinceNow:v26 * -86400.0];
+          v30 = +[NSDate date];
+          v46[0] = _NSConcreteStackBlock;
+          v46[1] = 3221225472;
+          v46[2] = sub_100001E80;
+          v46[3] = &unk_100018468;
+          v48 = v27;
+          v24 = v28;
+          v47 = v24;
+          v41 = v29;
+          sub_100004280(v29, v30, 0, v46);
 
-          v41 = 0u;
+          v44 = 0u;
+          v45 = 0u;
           v42 = 0u;
-          v39 = 0u;
-          v40 = 0u;
-          objectEnumerator = [v22 objectEnumerator];
-          v30 = [objectEnumerator countByEnumeratingWithState:&v39 objects:v49 count:16];
-          if (v30)
+          v43 = 0u;
+          objectEnumerator = [v24 objectEnumerator];
+          v32 = [objectEnumerator countByEnumeratingWithState:&v42 objects:v52 count:16];
+          if (v32)
           {
-            v31 = v30;
-            v32 = 0;
-            v33 = *v40;
+            v33 = v32;
+            v34 = 0;
+            v35 = *v43;
             while (2)
             {
-              for (i = 0; i != v31; i = i + 1)
+              for (i = 0; i != v33; i = i + 1)
               {
-                if (*v40 != v33)
+                if (*v43 != v35)
                 {
                   objc_enumerationMutation(objectEnumerator);
                 }
 
-                v35 = *(*(&v39 + 1) + 8 * i);
-                if ((sub_10000AFB4(v35) & 1) == 0)
+                v37 = *(*(&v42 + 1) + 8 * i);
+                v38 = sub_10000AFB4(v37);
+                if ((v38 & 1) == 0)
                 {
-                  v32 += [v22 countForObject:v35];
+                  v38 = [v24 countForObject:v37];
+                  v34 += v38;
                 }
 
-                if (v32 >= badDayEnablementForLogCount)
+                if (v34 >= badDayEnablementForLogCount)
                 {
-                  v36 = sub_10000B598();
-                  if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+                  v39 = sub_10000B598(v38);
+                  if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
                   {
                     *buf = 0;
-                    _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_INFO, "PDSE: enabling bad day log collection", buf, 2u);
+                    _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_INFO, "PDSE: enabling bad day log collection", buf, 2u);
                   }
 
-                  v20 = 1;
-                  (*(v13 + 16))(v13, 1);
+                  v22 = 1;
+                  (*(v14 + 16))(v14, 1);
 
                   goto LABEL_32;
                 }
               }
 
-              v31 = [objectEnumerator countByEnumeratingWithState:&v39 objects:v49 count:16];
-              if (v31)
+              v33 = [objectEnumerator countByEnumeratingWithState:&v42 objects:v52 count:16];
+              if (v33)
               {
                 continue;
               }
@@ -116,69 +119,69 @@
             }
           }
 
-          (*(v13 + 16))(v13, 0);
-          v20 = 0;
+          (*(v14 + 16))(v14, 0);
+          v22 = 0;
 LABEL_32:
         }
 
         else
         {
-          [v18 doubleValue];
-          v22 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
-          v23 = sub_10000B598();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+          [v20 doubleValue];
+          v24 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
+          v25 = sub_10000B598(v24);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v51 = v22;
-            _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "PDSE: bad day log not evaluated since last evaluation (%@) is too close", buf, 0xCu);
+            v54 = v24;
+            _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "PDSE: bad day log not evaluated since last evaluation (%@) is too close", buf, 0xCu);
           }
 
-          (*(v13 + 16))(v13, 0);
-          v20 = 0;
+          (*(v14 + 16))(v14, 0);
+          v22 = 0;
         }
       }
 
       else
       {
-        v18 = sub_10000B598();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+        v20 = sub_10000B598(timeoutDurationSec);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
         {
-          sub_10000C164(v18);
+          sub_10000C164(v20);
         }
 
-        v20 = 1;
+        v22 = 1;
       }
     }
 
     else
     {
-      v18 = [NSDate dateWithTimeIntervalSinceReferenceDate:v12];
-      v19 = sub_10000B598();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v20 = [NSDate dateWithTimeIntervalSinceReferenceDate:v13];
+      v21 = sub_10000B598(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v51 = v18;
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "PDSE: bad day log not enabled since last enablement (%@) is too close", buf, 0xCu);
+        v54 = v20;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "PDSE: bad day log not enabled since last enablement (%@) is too close", buf, 0xCu);
       }
 
-      (*(v13 + 16))(v13, 0);
-      v20 = 0;
+      (*(v14 + 16))(v14, 0);
+      v22 = 0;
     }
   }
 
   else
   {
-    v13 = sub_10000B598();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_10000B598(v2);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "PDSE: bad day log collection feature is turned off", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "PDSE: bad day log collection feature is turned off", buf, 2u);
     }
 
-    v20 = 0;
+    v22 = 0;
   }
 
-  return v20;
+  return v22;
 }
 
 + (void)writeEnablementSettings
@@ -194,10 +197,10 @@ LABEL_32:
     v6 = sub_100000F10(@"HangTracerEnabled", prefixForDefaults);
     CFPreferencesSetValue(v6, kCFBooleanTrue, @"com.apple.da", @"mobile", kCFPreferencesAnyHost);
 
-    v7 = sub_10000B598();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = sub_10000B598(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      sub_10000C1A8(self, @"HangTracerEnabled", v7);
+      sub_10000C1A8(self, @"HangTracerEnabled", v8);
     }
 
     CFPreferencesSynchronize(@"com.apple.da", @"mobile", kCFPreferencesAnyHost);
@@ -205,59 +208,59 @@ LABEL_32:
 
   else
   {
-    v29[0] = @"HangTracerDailyLogLimit";
-    v29[1] = @"HangTracerDailyMicroHangLogLimit";
-    v29[2] = @"HangTracerFenceHangLogLimit";
-    [NSArray arrayWithObjects:v29 count:3];
-    v22 = 0u;
-    v23 = 0u;
+    v31[0] = @"HangTracerDailyLogLimit";
+    v31[1] = @"HangTracerDailyMicroHangLogLimit";
+    v31[2] = @"HangTracerFenceHangLogLimit";
+    [NSArray arrayWithObjects:v31 count:3];
     v24 = 0u;
-    obj = v25 = 0u;
-    v8 = [obj countByEnumeratingWithState:&v22 objects:v28 count:16];
-    if (v8)
+    v25 = 0u;
+    v26 = 0u;
+    obj = v27 = 0u;
+    v9 = [obj countByEnumeratingWithState:&v24 objects:v30 count:16];
+    if (v9)
     {
-      v10 = v8;
-      v11 = *v23;
-      *&v9 = 138412290;
-      v19 = v9;
+      v11 = v9;
+      v12 = *v25;
+      *&v10 = 138412290;
+      v21 = v10;
       do
       {
-        v12 = 0;
+        v13 = 0;
         do
         {
-          if (*v23 != v11)
+          if (*v25 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v22 + 1) + 8 * v12);
+          v14 = *(*(&v24 + 1) + 8 * v13);
           prefixForDefaults2 = [self prefixForDefaults];
-          v15 = sub_100000F10(v13, prefixForDefaults2);
-          CFPreferencesSetValue(v15, [NSNumber numberWithInt:0], @"com.apple.da", @"mobile", kCFPreferencesAnyHost);
+          v16 = sub_100000F10(v14, prefixForDefaults2);
+          CFPreferencesSetValue(v16, [NSNumber numberWithInt:0], @"com.apple.da", @"mobile", kCFPreferencesAnyHost);
 
-          v16 = sub_10000B598();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+          v18 = sub_10000B598(v17);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
           {
             prefixForDefaults3 = [self prefixForDefaults];
-            v18 = sub_100000F10(v13, prefixForDefaults3);
-            *buf = v19;
-            v27 = v18;
-            _os_log_debug_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "PDSE: set setting %@ to 0 for bad day log collection", buf, 0xCu);
+            v20 = sub_100000F10(v14, prefixForDefaults3);
+            *buf = v21;
+            v29 = v20;
+            _os_log_debug_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "PDSE: set setting %@ to 0 for bad day log collection", buf, 0xCu);
           }
 
-          v12 = v12 + 1;
+          v13 = v13 + 1;
         }
 
-        while (v10 != v12);
-        v10 = [obj countByEnumeratingWithState:&v22 objects:v28 count:16];
+        while (v11 != v13);
+        v11 = [obj countByEnumeratingWithState:&v24 objects:v30 count:16];
       }
 
-      while (v10);
+      while (v11);
     }
 
-    v21.receiver = self;
-    v21.super_class = &OBJC_METACLASS___PDSEHangTracerBadDay;
-    objc_msgSendSuper2(&v21, "writeEnablementSettings");
+    v23.receiver = self;
+    v23.super_class = &OBJC_METACLASS___PDSEHangTracerBadDay;
+    objc_msgSendSuper2(&v23, "writeEnablementSettings");
   }
 }
 

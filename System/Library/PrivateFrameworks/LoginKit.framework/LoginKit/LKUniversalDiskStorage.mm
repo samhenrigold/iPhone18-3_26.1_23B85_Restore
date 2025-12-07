@@ -29,7 +29,7 @@
   return v3;
 }
 
-uint64_t __39__LKUniversalDiskStorage_sharedStorage__block_invoke()
+uint64_t __39__LKUniversalDiskStorage_sharedStorage__block_invoke(uint64_t a1, uint64_t a2)
 {
   sharedStorage__sharedInstance = objc_opt_new();
 
@@ -64,21 +64,19 @@ uint64_t __39__LKUniversalDiskStorage_sharedStorage__block_invoke()
 
 uint64_t __30__LKUniversalDiskStorage_init__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 138412546;
-    v5 = @"LKUStorageDictionaryModified";
-    v6 = 1024;
-    v7 = init_notifyToken;
-    _os_log_impl(&dword_25618F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Notified with %@, token: %d", &v4, 0x12u);
+    v3 = 138412546;
+    v4 = @"LKUStorageDictionaryModified";
+    v5 = 1024;
+    v6 = init_notifyToken;
+    _os_log_impl(&dword_25618F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Notified with %@, token: %d", &v3, 0x12u);
   }
 
   pthread_rwlock_wrlock((*(a1 + 32) + 32));
   *(*(a1 + 32) + 8) = 1;
-  result = pthread_rwlock_unlock((*(a1 + 32) + 32));
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  return pthread_rwlock_unlock((*(a1 + 32) + 32));
 }
 
 - (BOOL)saveKeyValuePairs:(id)pairs error:(id *)error
@@ -230,7 +228,7 @@ void __62__LKUniversalDiskStorage_saveKeyValuePairs_completionHandler___block_in
 
 - (BOOL)clearKeys:(id)keys
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   pthread_rwlock_wrlock(&self->_lock);
   [(LKUniversalDiskStorage *)self _refreshStorageCacheIfNeeded];
@@ -241,29 +239,29 @@ void __62__LKUniversalDiskStorage_saveKeyValuePairs_completionHandler___block_in
     storageDictionary2 = [(LKUniversalDiskStorage *)self storageDictionary];
     v7 = [storageDictionary2 mutableCopy];
 
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v8 = keysCopy;
-    v9 = [v8 countByEnumeratingWithState:&v24 objects:v30 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v23 objects:v29 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v25;
+      v11 = *v24;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v25 != v11)
+          if (*v24 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          [v7 setObject:0 forKeyedSubscript:*(*(&v24 + 1) + 8 * i)];
+          [v7 setObject:0 forKeyedSubscript:*(*(&v23 + 1) + 8 * i)];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v24 objects:v30 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v23 objects:v29 count:16];
       }
 
       while (v10);
@@ -276,7 +274,7 @@ void __62__LKUniversalDiskStorage_saveKeyValuePairs_completionHandler___block_in
     {
       storageDictionary3 = [(LKUniversalDiskStorage *)self storageDictionary];
       *buf = 138543362;
-      v29 = storageDictionary3;
+      v28 = storageDictionary3;
       _os_log_impl(&dword_25618F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Storing storage dictionary to disk... %{public}@", buf, 0xCu);
     }
 
@@ -284,9 +282,9 @@ void __62__LKUniversalDiskStorage_saveKeyValuePairs_completionHandler___block_in
     v16 = MEMORY[0x277CBEBC0];
     v17 = +[LKUniversalDiskStorage localDictionaryPath];
     v18 = [v16 fileURLWithPath:v17 isDirectory:0];
-    v23 = 0;
-    v19 = [storageDictionary4 writeToURL:v18 error:&v23];
-    v20 = v23;
+    v22 = 0;
+    v19 = [storageDictionary4 writeToURL:v18 error:&v22];
+    v20 = v22;
 
     if ((v19 & 1) == 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
@@ -303,7 +301,6 @@ void __62__LKUniversalDiskStorage_saveKeyValuePairs_completionHandler___block_in
     v19 = 1;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -378,7 +375,7 @@ void __50__LKUniversalDiskStorage_clearAllKeyValueStorage___block_invoke(uint64_
 
 - (void)setStorageDictionaryModified:(BOOL)modified
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   self->_storageDictionaryModified = modified;
   if (modified)
   {
@@ -387,33 +384,31 @@ void __50__LKUniversalDiskStorage_clearAllKeyValueStorage___block_invoke(uint64_
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v4 = 138412546;
-        v5 = @"StorageDictionaryModified";
-        v6 = 1024;
-        v7 = setStorageDictionaryModified__token;
-        _os_log_impl(&dword_25618F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Post %@ notification with token: %d", &v4, 0x12u);
+        v3 = 138412546;
+        v4 = @"StorageDictionaryModified";
+        v5 = 1024;
+        v6 = setStorageDictionaryModified__token;
+        _os_log_impl(&dword_25618F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Post %@ notification with token: %d", &v3, 0x12u);
       }
 
       notify_set_state(setStorageDictionaryModified__token, 1uLL);
       notify_post([@"LKUStorageDictionaryModified" UTF8String]);
     }
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_refreshStorageCacheIfNeeded
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if ([(LKUniversalDiskStorage *)self isStorageDictionaryModified])
   {
     v3 = MEMORY[0x277CBEAC0];
     v4 = MEMORY[0x277CBEBC0];
     v5 = +[LKUniversalDiskStorage localDictionaryPath];
     v6 = [v4 fileURLWithPath:v5 isDirectory:0];
-    v16 = 0;
-    v7 = [v3 dictionaryWithContentsOfURL:v6 error:&v16];
-    v8 = v16;
+    v15 = 0;
+    v7 = [v3 dictionaryWithContentsOfURL:v6 error:&v15];
+    v8 = v15;
 
     if (!v8)
     {
@@ -423,7 +418,7 @@ void __50__LKUniversalDiskStorage_clearAllKeyValueStorage___block_invoke(uint64_
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v18 = v8;
+      v17 = v8;
       _os_log_impl(&dword_25618F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Failed to read storage dictionary. Error: %{public}@", buf, 0xCu);
     }
 
@@ -443,17 +438,15 @@ LABEL_6:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v18 = "[LKUniversalDiskStorage _refreshStorageCacheIfNeeded]";
-        v19 = 2112;
-        v20 = v7;
+        v17 = "[LKUniversalDiskStorage _refreshStorageCacheIfNeeded]";
+        v18 = 2112;
+        v19 = v7;
         _os_log_impl(&dword_25618F000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: %@", buf, 0x16u);
       }
 
       [(LKUniversalDiskStorage *)self setStorageDictionaryModified:0];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (id)localDirectoryPath
@@ -557,44 +550,11 @@ void __45__LKUniversalDiskStorage_localDictionaryPath__block_invoke()
   *&self->_lock.__opaque[136] = v9;
 }
 
-- (void)saveKeyValuePairs:error:.cold.1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_1(&dword_25618F000, MEMORY[0x277D86220], v0, "Can not create storage folder, error: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)saveKeyValuePairs:error:.cold.2()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_1(&dword_25618F000, MEMORY[0x277D86220], v0, "Failed to save storage file with error: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)clearKeys:.cold.1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_1(&dword_25618F000, MEMORY[0x277D86220], v0, "Failed to save storage file, error: %{public}@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __50__LKUniversalDiskStorage_clearAllKeyValueStorage___block_invoke_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_1(&dword_25618F000, MEMORY[0x277D86220], v0, "Failed to remove the stored file, error: %@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 void __44__LKUniversalDiskStorage_localDirectoryPath__block_invoke_cold_1(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_1(&dword_25618F000, MEMORY[0x277D86220], a3, "container_create_or_lookup_system_group_paths failed with error: %llu", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_1(&dword_25618F000, MEMORY[0x277D86220], a3, "container_create_or_lookup_system_group_paths failed with error: %llu", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

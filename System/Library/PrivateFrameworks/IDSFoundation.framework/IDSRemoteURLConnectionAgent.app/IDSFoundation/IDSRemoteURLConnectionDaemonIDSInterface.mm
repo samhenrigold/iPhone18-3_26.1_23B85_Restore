@@ -160,7 +160,7 @@ LABEL_11:
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v41 = messageCopy;
+    v40 = messageCopy;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Received load request message: %@", buf, 0xCu);
   }
 
@@ -170,7 +170,7 @@ LABEL_11:
     _IDSLogV();
   }
 
-  v33 = [messageCopy objectForKey:{IDSRemoteURLConnectionKeyRequest, v31}];
+  v32 = [messageCopy objectForKey:{IDSRemoteURLConnectionKeyRequest, v31}];
   v6 = [messageCopy objectForKey:IDSRemoteURLConnectionKeyTryForceCellular];
   [v6 BOOLValue];
 
@@ -232,32 +232,31 @@ LABEL_11:
     {
       v23 = self->_pendingResponseUniqueIDs;
       *buf = 138412546;
-      v41 = v18;
-      v42 = 2112;
-      v43 = v23;
+      v40 = v18;
+      v41 = 2112;
+      v42 = v23;
       _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Added uniqueID %@ to _pendingResponseUniqueIDs. New map: %@", buf, 0x16u);
     }
 
     if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
     {
-      v32 = self->_pendingResponseUniqueIDs;
       _IDSLogV();
     }
 
-    v36[0] = _NSConcreteStackBlock;
-    v36[1] = 3221225472;
-    v36[2] = sub_100005440;
-    v36[3] = &unk_100010790;
-    v36[4] = self;
-    v37 = v18;
+    v35[0] = _NSConcreteStackBlock;
+    v35[1] = 3221225472;
+    v35[2] = sub_100005440;
+    v35[3] = &unk_100010790;
+    v35[4] = self;
+    v36 = v18;
     v24 = v16;
-    v38 = v24;
+    v37 = v24;
     v25 = v17;
-    v39 = v25;
+    v38 = v25;
     v26 = v18;
-    v27 = [v36 copy];
-    v35 = v25;
-    v34 = v24;
+    v27 = [v35 copy];
+    v34 = v25;
+    v33 = v24;
     v28 = v25;
     v29 = v27;
     im_dispatch_after_primary_queue();
@@ -269,7 +268,7 @@ LABEL_11:
     if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v41 = messageCopy;
+      v40 = messageCopy;
       _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Unable to decode request -- ignoring! {message: %@}", buf, 0xCu);
     }
 

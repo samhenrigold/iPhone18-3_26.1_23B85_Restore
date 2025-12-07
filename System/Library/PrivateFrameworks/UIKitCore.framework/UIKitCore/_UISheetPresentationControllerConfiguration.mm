@@ -78,7 +78,7 @@
     {
       _detents = [(_UISheetPresentationControllerConfiguration *)self _detents];
       _detents2 = [v7 _detents];
-      if ([_detents isEqual:_detents2])
+      if (objc_msgSend_isEqual_(_detents))
       {
         _selectedDetentIdentifier = [(_UISheetPresentationControllerConfiguration *)self _selectedDetentIdentifier];
         _selectedDetentIdentifier2 = [v7 _selectedDetentIdentifier];

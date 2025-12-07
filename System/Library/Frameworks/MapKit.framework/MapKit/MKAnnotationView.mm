@@ -1289,7 +1289,7 @@ void __70__MKAnnotationView__mkObserveValueForKeyPath_ofObject_change_context___
   defaultCenter = _contentLayer;
   if (_contentLayer)
   {
-    [_contentLayer affineTransform];
+    objc_msgSend_affineTransform(_contentLayer);
   }
 
   else
@@ -2718,19 +2718,20 @@ LABEL_8:
 {
   animatedCopy = animated;
   accessoryCopy = accessory;
-  if ([(MKAnnotationView *)self _canShowSelectionAccessory:accessoryCopy])
+  v7 = [(MKAnnotationView *)self _canShowSelectionAccessory:accessoryCopy];
+  if (v7)
   {
-    v7 = [(MKAnnotationView *)self _resolvedAccessoryFor:accessoryCopy];
-    _mapItemDetailPresentationStyle = [(MKSelectionAccessory *)v7 _mapItemDetailPresentationStyle];
-    v9 = [(MKAnnotationView *)self _reasonToDeferSelectionAccessoryPresentationStyle:_mapItemDetailPresentationStyle];
-    if (v9)
+    v8 = [(MKAnnotationView *)self _resolvedAccessoryFor:accessoryCopy];
+    _mapItemDetailPresentationStyle = [(MKSelectionAccessory *)v8 _mapItemDetailPresentationStyle];
+    v10 = [(MKAnnotationView *)self _reasonToDeferSelectionAccessoryPresentationStyle:_mapItemDetailPresentationStyle];
+    if (v10)
     {
-      v10 = v9;
-      v11 = [[_MKDeferredSelectionAccessoryPresentation alloc] initWithReason:v9 animated:animatedCopy];
+      v11 = v10;
+      v12 = [[_MKDeferredSelectionAccessoryPresentation alloc] initWithReason:v10 animated:animatedCopy];
       deferredSelectionAccessory = self->_deferredSelectionAccessory;
-      self->_deferredSelectionAccessory = v11;
+      self->_deferredSelectionAccessory = v12;
 
-      [(_MKDeferredSelectionAccessoryPresentation *)self->_deferredSelectionAccessory setReady:v10 == 1];
+      [(_MKDeferredSelectionAccessoryPresentation *)self->_deferredSelectionAccessory setReady:v11 == 1];
     }
 
     else
@@ -2740,10 +2741,10 @@ LABEL_8:
 
     objc_storeStrong(&self->_activeSelectionAccessory, accessory);
     resolvedSelectionAccessory = self->_resolvedSelectionAccessory;
-    self->_resolvedSelectionAccessory = v7;
+    self->_resolvedSelectionAccessory = v8;
   }
 
-  MEMORY[0x1EEE66BE0]();
+  MEMORY[0x1EEE66BE0](v7);
 }
 
 - (BOOL)_canShowSelectionAccessory:(id)accessory

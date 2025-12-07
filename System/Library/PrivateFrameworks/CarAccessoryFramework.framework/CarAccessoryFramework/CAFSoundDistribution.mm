@@ -9,7 +9,10 @@
 - (CAFInt8Range)fadeRange;
 - (char)balance;
 - (char)fade;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
+- (void)setBalance:(char)balance;
+- (void)setFade:(char)fade;
 - (void)unregisterObserver:(id)observer;
 @end
 
@@ -92,6 +95,13 @@
   return int8Value;
 }
 
+- (void)setBalance:(char)balance
+{
+  balanceCopy = balance;
+  balanceCharacteristic = [(CAFSoundDistribution *)self balanceCharacteristic];
+  [balanceCharacteristic setInt8Value:balanceCopy];
+}
+
 - (CAFInt8Range)balanceRange
 {
   balanceCharacteristic = [(CAFSoundDistribution *)self balanceCharacteristic];
@@ -134,6 +144,13 @@
   return int8Value;
 }
 
+- (void)setFade:(char)fade
+{
+  fadeCopy = fade;
+  fadeCharacteristic = [(CAFSoundDistribution *)self fadeCharacteristic];
+  [fadeCharacteristic setInt8Value:fadeCopy];
+}
+
 - (CAFInt8Range)fadeRange
 {
   fadeCharacteristic = [(CAFSoundDistribution *)self fadeCharacteristic];
@@ -148,6 +165,56 @@
   v3 = fadeCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000033000002"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    balanceCharacteristic = [(CAFSoundDistribution *)self balanceCharacteristic];
+    uniqueIdentifier2 = [balanceCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers soundDistributionService:self didUpdateBalance:{-[CAFSoundDistribution balance](self, "balance")}];
+LABEL_8:
+
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000033000003"])
+  {
+    goto LABEL_8;
+  }
+
+  uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+  fadeCharacteristic = [(CAFSoundDistribution *)self fadeCharacteristic];
+  uniqueIdentifier4 = [fadeCharacteristic uniqueIdentifier];
+  v16 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+  if (v16)
+  {
+    observers = [(CAFService *)self observers];
+    [observers soundDistributionService:self didUpdateFade:{-[CAFSoundDistribution fade](self, "fade")}];
+    goto LABEL_8;
+  }
+
+LABEL_9:
+  v17.receiver = self;
+  v17.super_class = CAFSoundDistribution;
+  [(CAFService *)&v17 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForBalance

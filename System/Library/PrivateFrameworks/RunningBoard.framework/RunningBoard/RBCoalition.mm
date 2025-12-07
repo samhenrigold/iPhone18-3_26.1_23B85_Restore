@@ -107,10 +107,9 @@ void __44__RBCoalition_enumerateProcessesUsingBlock___block_invoke(uint64_t a1, 
 {
   v3 = objc_alloc(MEMORY[0x277CCACA8]);
   v4 = [objc_opt_class() description];
-  level = self->_level;
-  v6 = [v3 initWithFormat:@"<%@| coalitionID:%llu coalitionLevel:%llu previousCoalitionLevel:%llu creationTime:%f lastModificationTime:%f>", v4, self->_coalitionID, level, self->_previousCoalitionLevel, *&self->_creationTime, *&self->_lastModificationTime];
+  v5 = [v3 initWithFormat:@"<%@| coalitionID:%llu coalitionLevel:%llu previousCoalitionLevel:%llu creationTime:%f lastModificationTime:%f>", v4, self->_coalitionID, self->_level, self->_previousCoalitionLevel, *&self->_creationTime, *&self->_lastModificationTime];
 
-  return v6;
+  return v5;
 }
 
 @end

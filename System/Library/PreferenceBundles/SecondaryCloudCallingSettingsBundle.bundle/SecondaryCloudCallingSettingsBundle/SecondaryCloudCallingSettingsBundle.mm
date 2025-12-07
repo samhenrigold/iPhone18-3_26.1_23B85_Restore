@@ -1,13 +1,13 @@
-id PHDefaultLog()
+id PHDefaultLog(uint64_t a1)
 {
   if (qword_11488 != -1)
   {
     sub_63EC();
   }
 
-  v1 = qword_11480;
+  v2 = qword_11480;
 
-  return v1;
+  return v2;
 }
 
 void sub_1B34(id a1)
@@ -17,16 +17,16 @@ void sub_1B34(id a1)
   _objc_release_x1();
 }
 
-id PHOversizedLog()
+id PHOversizedLog(uint64_t a1)
 {
   if (qword_11498 != -1)
   {
     sub_6400();
   }
 
-  v1 = qword_11490;
+  v2 = qword_11490;
 
-  return v1;
+  return v2;
 }
 
 void sub_1BBC(id a1)
@@ -36,16 +36,16 @@ void sub_1BBC(id a1)
   _objc_release_x1();
 }
 
-id PHOversizedLogQueue()
+id PHOversizedLogQueue(uint64_t a1)
 {
   if (qword_114A8 != -1)
   {
     sub_6414();
   }
 
-  v1 = qword_114A0;
+  v2 = qword_114A0;
 
-  return v1;
+  return v2;
 }
 
 void sub_1C44(id a1)
@@ -74,18 +74,17 @@ void sub_1E74(uint64_t a1)
 
 uint64_t sub_1F18(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   objc_opt_class();
   result = objc_opt_isKindOfClass();
   if (result)
   {
-    v4 = PHDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v3 = PHDefaultLog(result);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
-      v6 = 138412290;
-      v7 = v5;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Reloading specifiers because the presented view controller was a UIAlertController: %@", &v6, 0xCu);
+      v4 = *(a1 + 32);
+      v5 = 138412290;
+      v6 = v4;
+      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Reloading specifiers because the presented view controller was a UIAlertController: %@", &v5, 0xCu);
     }
 
     return [*(a1 + 40) reloadSpecifiers];
@@ -98,7 +97,7 @@ void sub_285C(uint64_t a1, uint64_t a2)
 {
   if ((a2 & 0xFFFFFFFFFFFFFFFELL) == 2)
   {
-    v3 = PHDefaultLog();
+    v3 = PHDefaultLog(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_645C();
@@ -116,7 +115,7 @@ void sub_28E8(uint64_t a1, uint64_t a2)
   {
     if (!a2)
     {
-      v6 = PHDefaultLog();
+      v6 = PHDefaultLog(a1);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *v7 = 0;
@@ -129,7 +128,7 @@ void sub_28E8(uint64_t a1, uint64_t a2)
 
   else
   {
-    v3 = PHDefaultLog();
+    v3 = PHDefaultLog(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_645C();
@@ -141,10 +140,11 @@ void sub_28E8(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_2C98(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_2C98(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void *sub_48E0(void *result)
@@ -153,7 +153,7 @@ void *sub_48E0(void *result)
   v2 = result[4];
   if (!*(v2 + 40) || !*(v2 + 48))
   {
-    v3 = PHDefaultLog();
+    v3 = PHDefaultLog(result);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v4 = 0;
@@ -288,7 +288,7 @@ unint64_t sub_595C()
 
 uint64_t sub_59CC()
 {
-  v0 = *(*(sub_6634() - 8) + 64);
+  sub_6634();
   __chkstk_darwin();
   sub_66C4();
   sub_66B4();
@@ -355,7 +355,6 @@ uint64_t sub_5C44(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -367,14 +366,13 @@ uint64_t PHSettingsSecondaryCloudCallingBundleController.isStateDrivenNavigation
 {
   v2 = sub_6684();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   __chkstk_darwin();
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = [a1 traitCollection];
+  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = [a1 traitCollection];
   sub_66D4();
 
   LOBYTE(a1) = sub_6664();
-  (*(v3 + 8))(v6, v2);
+  (*(v3 + 8))(v5, v2);
   return a1 & 1;
 }
 
@@ -382,25 +380,23 @@ uint64_t PHSettingsSecondaryCloudCallingBundleController.handleUserDidTapOnMainS
 {
   v3 = sub_6684();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   __chkstk_darwin();
-  v7 = &v16 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = *(*(sub_66F4() - 8) + 64);
+  v6 = &v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_66F4();
   __chkstk_darwin();
-  v9 = sub_6654();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
+  v7 = sub_6654();
+  v8 = *(v7 - 8);
   __chkstk_darwin();
-  v13 = &v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_66E4();
   sub_6644();
-  v14 = [a2 traitCollection];
+  v11 = [a2 traitCollection];
   sub_66D4();
 
   sub_610C();
   sub_6674();
-  (*(v4 + 8))(v7, v3);
-  return (*(v10 + 8))(v13, v9);
+  (*(v4 + 8))(v6, v3);
+  return (*(v8 + 8))(v10, v7);
 }
 
 unint64_t sub_610C()

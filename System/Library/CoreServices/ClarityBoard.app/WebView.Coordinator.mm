@@ -13,7 +13,7 @@
   navigationCopy = navigation;
   errorCopy = error;
   selfCopy = self;
-  sub_1000384B0(errorCopy, "Inline website did fail navigation with error: %s");
+  sub_1000384B0(errorCopy, "Inline website did fail navigation with error: %s", v11);
 }
 
 - (void)webView:(id)view didFailProvisionalNavigation:(id)navigation withError:(id)error
@@ -22,7 +22,7 @@
   navigationCopy = navigation;
   errorCopy = error;
   selfCopy = self;
-  sub_1000384B0(errorCopy, "Inline website did fail provisional navigation with error: %s");
+  sub_1000384B0(errorCopy, "Inline website did fail provisional navigation with error: %s", v11);
 }
 
 - (void)webViewWebContentProcessDidTerminate:(id)terminate

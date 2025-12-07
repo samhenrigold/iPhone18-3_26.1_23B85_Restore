@@ -280,7 +280,7 @@ void __54__SUScriptObject_dispatchEvent_forName_synchronously___block_invoke(uin
 
 - (void)loadImageWithURL:(id)l completionBlock:(id)block
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   lCopy = l;
   blockCopy = block;
   v7 = objc_alloc_init(MEMORY[0x1E69E47E0]);
@@ -293,53 +293,57 @@ void __54__SUScriptObject_dispatchEvent_forName_synchronously___block_invoke(uin
   [v9 setTimeoutInterval:10.0];
   [v7 setRequestProperties:v9];
   v10 = [MEMORY[0x1E69D4A30] weakReferenceWithObject:v7];
-  v22 = MEMORY[0x1E69E9820];
-  v23 = 3221225472;
-  v24 = __51__SUScriptObject_loadImageWithURL_completionBlock___block_invoke;
-  v25 = &unk_1E8164638;
+  v21 = MEMORY[0x1E69E9820];
+  v22 = 3221225472;
+  v23 = __51__SUScriptObject_loadImageWithURL_completionBlock___block_invoke;
+  v24 = &unk_1E8164638;
   v11 = v10;
-  v26 = v11;
+  v25 = v11;
   v12 = blockCopy;
-  v27 = v12;
-  [v7 setCompletionBlock:&v22];
+  v26 = v12;
+  [v7 setCompletionBlock:&v21];
   mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v15 = shouldLog | 2;
+    LODWORD(v15) = shouldLog | 2;
   }
 
   else
   {
-    v15 = shouldLog;
+    LODWORD(v15) = shouldLog;
   }
 
   oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  {
+    v15 = v15;
+  }
+
+  else
   {
     v15 &= 2u;
   }
 
   if (!v15)
   {
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
   v17 = objc_opt_class();
-  v28 = 138412546;
-  v29 = v17;
-  v30 = 2112;
-  v31 = lCopy;
+  v27 = 138412546;
+  v28 = v17;
+  v29 = 2112;
+  v30 = lCopy;
   v18 = v17;
-  LODWORD(v21) = 22;
-  v19 = _os_log_send_and_compose_impl();
+  v19 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "%@: Loading image with URL: %@", &v27, 22, v21, v22, v23, v24, v25);
 
   if (v19)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v19 encoding:{4, &v28, v21, v22, v23, v24, v25, v26}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v19 encoding:4];
     free(v19);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 
   mainQueue = [MEMORY[0x1E69E4798] mainQueue];

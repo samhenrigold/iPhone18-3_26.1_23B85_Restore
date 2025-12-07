@@ -15,17 +15,15 @@ uint64_t __56___ATXInspectionServerPredictionScoreLogger_stageScores__block_invo
 
 void __77___ATXInspectionServerPredictionScoreLogger_logInputs_subscores_forBundleId___block_invoke(void *a1)
 {
-  v7[2] = *MEMORY[0x277D85DE8];
-  v6[0] = @"inputs";
+  v6[2] = *MEMORY[0x277D85DE8];
+  v5[0] = @"inputs";
   v2 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:a1[6]];
-  v6[1] = @"subscores";
-  v7[0] = v2;
+  v5[1] = @"subscores";
+  v6[0] = v2;
   v3 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:a1[7]];
-  v7[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
+  v6[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
   [*(a1[4] + 16) setObject:v4 forKeyedSubscript:a1[5]];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void *__73___ATXInspectionServerPredictionScoreLogger_logStageScores_forStageType___block_invoke(void *result)

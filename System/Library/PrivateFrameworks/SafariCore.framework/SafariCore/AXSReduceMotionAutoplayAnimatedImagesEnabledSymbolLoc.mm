@@ -5,14 +5,20 @@
 
 void *__get_AXSReduceMotionAutoplayAnimatedImagesEnabledSymbolLoc_block_invoke(uint64_t a1)
 {
-  v4 = 0;
-  v2 = libAccessibilityLibraryCore();
+  v5 = 0;
+  v2 = libAccessibilityLibraryCore(&v5);
   if (!v2)
   {
-    __get_AXSReduceMotionAutoplayAnimatedImagesEnabledSymbolLoc_block_invoke_cold_1(&v4);
+    __get_AXSReduceMotionAutoplayAnimatedImagesEnabledSymbolLoc_block_invoke_cold_1(&v5);
   }
 
-  result = dlsym(v2, "_AXSReduceMotionAutoplayAnimatedImagesEnabled");
+  v3 = v2;
+  if (v5)
+  {
+    free(v5);
+  }
+
+  result = dlsym(v3, "_AXSReduceMotionAutoplayAnimatedImagesEnabled");
   *(*(*(a1 + 32) + 8) + 24) = result;
   get_AXSReduceMotionAutoplayAnimatedImagesEnabledSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
   return result;

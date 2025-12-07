@@ -30,6 +30,7 @@
   textField = self->_textField;
   if (textField != fieldCopy)
   {
+    v10 = fieldCopy;
     superview = [(UITextField *)textField superview];
     contentView = [(CNMeCardSharingTextFieldTableViewCell *)self contentView];
 
@@ -41,9 +42,11 @@
     objc_storeStrong(&self->_textField, field);
     contentView2 = [(CNMeCardSharingTextFieldTableViewCell *)self contentView];
     [contentView2 addSubview:self->_textField];
+
+    fieldCopy = v10;
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](textField, fieldCopy);
 }
 
 @end

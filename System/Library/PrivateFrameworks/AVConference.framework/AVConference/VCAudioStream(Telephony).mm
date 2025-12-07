@@ -17,14 +17,14 @@
   }
 }
 
-- (void)handleCodecModeChangeEvent:()Telephony .cold.1(uint64_t a1, id *a2)
+- (void)handleCodecModeChangeEvent:()Telephony .cold.1(uint64_t a1, void **a2)
 {
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
     VRTraceErrorLogLevelToCSTR();
     if (OUTLINED_FUNCTION_34())
     {
-      [objc_msgSend(*a2 "config")];
+      [objc_msgSend_config(*a2) supportedBitrates];
       OUTLINED_FUNCTION_7_1();
       OUTLINED_FUNCTION_9_0();
       _os_log_error_impl(v3, v4, v5, v6, v7, 0x32u);

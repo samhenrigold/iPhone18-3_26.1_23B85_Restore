@@ -106,48 +106,45 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v11 = toCopy;
+  v8 = toCopy;
   if (self->_identifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v8;
   }
 
   has = self->_has;
   if (has)
   {
-    minimumAheadPercentage = self->_minimumAheadPercentage;
     PBDataWriterWriteDoubleField();
-    toCopy = v11;
+    toCopy = v8;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    minimumBehindPercentage = self->_minimumBehindPercentage;
     PBDataWriterWriteDoubleField();
-    toCopy = v11;
+    toCopy = v8;
   }
 
   if (self->_percentageOfDayRule)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v11;
+    toCopy = v8;
   }
 
   p_allowedGoalTypes = &self->_allowedGoalTypes;
   if (p_allowedGoalTypes->count)
   {
-    v9 = 0;
+    v7 = 0;
     do
     {
-      v10 = p_allowedGoalTypes->list[v9];
       PBDataWriterWriteInt32Field();
-      toCopy = v11;
-      ++v9;
+      toCopy = v8;
+      ++v7;
     }
 
-    while (v9 < p_allowedGoalTypes->count);
+    while (v7 < p_allowedGoalTypes->count);
   }
 }
 
@@ -241,7 +238,6 @@
     }
   }
 
-  v6 = *(equalCopy + 64);
   if (*&self->_has)
   {
     if ((*(equalCopy + 64) & 1) == 0 || self->_minimumAheadPercentage != *(equalCopy + 4))

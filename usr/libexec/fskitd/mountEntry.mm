@@ -27,7 +27,6 @@
 - (void)refreshPath:(id)path displayName:(id)name storageName:(id)storageName;
 - (void)removeMountTask;
 - (void)renameToName:(id)name reply:(id)reply;
-- (void)resetConnectError;
 - (void)setCurrentState:(unint64_t)state;
 @end
 
@@ -58,68 +57,68 @@
       objc_storeWeak(&v19->_mntTable, tableCopy);
       if (d == -1)
       {
-        WeakRetained = objc_loadWeakRetained((v20 + 112));
-        *(v20 + 48) = [WeakRetained nextIndex];
+        WeakRetained = objc_loadWeakRetained(&v20->_mntTable);
+        v20->_midx = [WeakRetained nextIndex];
       }
 
       else
       {
-        *(v20 + 48) = d;
+        v20->_midx = d;
       }
 
-      objc_storeStrong((v20 + 64), name);
-      objc_storeStrong((v20 + 72), displayName);
-      objc_storeStrong((v20 + 80), system);
-      objc_storeStrong((v20 + 88), storageName);
-      objc_storeStrong((v20 + 96), provider);
+      objc_storeStrong(&v20->_volumeName, name);
+      objc_storeStrong(&v20->_displayName, displayName);
+      objc_storeStrong(&v20->_fileSystem, system);
+      objc_storeStrong(&v20->_storageName, storageName);
+      objc_storeStrong(&v20->_providerName, provider);
       v24 = objc_opt_new();
-      v25 = *(v20 + 160);
-      *(v20 + 160) = v24;
+      theLock = v20->_theLock;
+      v20->_theLock = v24;
 
-      objc_storeStrong((v20 + 104), path);
-      objc_storeStrong((v20 + 136), token);
-      v26 = objc_loadWeakRetained((v20 + 112));
+      objc_storeStrong(&v20->_mntOn, path);
+      objc_storeStrong(&v20->_auditToken, token);
+      v26 = objc_loadWeakRetained(&v20->_mntTable);
       [v26 add:v20];
 
-      *(v20 + 24) = 0;
-      *(v20 + 52) = 2;
-      v27 = *(v20 + 176);
-      *(v20 + 176) = 0;
+      v20->_currentState = 0;
+      v20->_fileno = 2;
+      mountTaskUUID = v20->_mountTaskUUID;
+      v20->_mountTaskUUID = 0;
 
-      v28 = *(v20 + 184);
-      *(v20 + 184) = 0;
+      resource = v20->_resource;
+      v20->_resource = 0;
 
       if (!systemCopy || ([systemCopy isEqualToString:@"exfat"] & 1) != 0 || (objc_msgSend(systemCopy, "isEqualToString:", @"ntfs") & 1) != 0 || (objc_msgSend(systemCopy, "isEqualToString:", @"apfs") & 1) != 0 || objc_msgSend(systemCopy, "isEqualToString:", @"hfs"))
       {
-        *(v20 + 45) = 0;
+        v20->_isFSKitModule = 0;
       }
 
       else if ([systemCopy containsString:@"msdos"])
       {
-        *(v20 + 45) = _os_feature_enabled_impl();
+        v20->_isFSKitModule = _os_feature_enabled_impl();
       }
 
       else
       {
-        *(v20 + 45) = 1;
+        v20->_isFSKitModule = 1;
       }
 
-      v29 = *(v20 + 192);
-      *(v20 + 192) = 0;
+      instance = v20->_instance;
+      v20->_instance = 0;
 
-      v30 = *(v20 + 200);
-      *(v20 + 200) = 0;
+      volumeID = v20->_volumeID;
+      v20->_volumeID = 0;
 
       v31 = fskit_std_log();
       if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
       {
-        sub_10004138C(v20);
+        sub_10004138C();
       }
 
-      v32 = *(v20 + 64);
-      if (v32)
+      volumeName = v20->_volumeName;
+      if (volumeName)
       {
-        nameCopy = [NSString stringWithFormat:@"mountEntryTransaction:%@:%@:%@", v32, *(v20 + 72), *(v20 + 80), tokenCopy, pathCopy, providerCopy, storageNameCopy, displayNameCopy, nameCopy];
+        nameCopy = [NSString stringWithFormat:@"mountEntryTransaction:%@:%@:%@", volumeName, v20->_displayName, v20->_fileSystem, tokenCopy, pathCopy, providerCopy, storageNameCopy, displayNameCopy, nameCopy];
         v34 = fskit_std_log();
         if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
         {
@@ -128,8 +127,8 @@
 
         [nameCopy UTF8String];
         v35 = os_transaction_create();
-        v36 = *(v20 + 32);
-        *(v20 + 32) = v35;
+        mountTransaction = v20->_mountTransaction;
+        v20->_mountTransaction = v35;
       }
     }
 
@@ -205,18 +204,18 @@ LABEL_10:
     goto LABEL_15;
   }
 
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = sub_10003A7E8;
-  v28 = sub_10003A7F8;
-  v29 = 0;
-  v21 = 0;
-  v22[0] = &v21;
-  v22[1] = 0x3032000000;
-  v22[2] = sub_10003A7E8;
-  v22[3] = sub_10003A7F8;
   v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = sub_10003A7E8;
+  v27 = sub_10003A7F8;
+  v28 = 0;
+  v21[0] = 0;
+  v21[1] = v21;
+  v21[2] = 0x3032000000;
+  v21[3] = sub_10003A7E8;
+  v21[4] = sub_10003A7F8;
+  v22 = 0;
   self->_is_connected = 1;
   self->_midx = 0;
   objc_storeStrong(&self->_fsObj, object);
@@ -224,10 +223,10 @@ LABEL_10:
   v20[1] = 3221225472;
   v20[2] = sub_10003B1DC;
   v20[3] = &unk_100061EE0;
-  v20[4] = &v21;
-  v20[5] = &v24;
+  v20[4] = v21;
+  v20[5] = &v23;
   [objectCopy getRootFileHandleWithError:v20];
-  v13 = v25[5];
+  v13 = v24[5];
   if (v13)
   {
     v14 = v13;
@@ -240,12 +239,12 @@ LABEL_10:
     rootLIFileHandle = livefs_std_log();
     if (os_log_type_enabled(rootLIFileHandle, OS_LOG_TYPE_ERROR))
     {
-      sub_100041550(v22);
+      sub_100041550();
     }
   }
 
-  _Block_object_dispose(&v21, 8);
-  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(v21, 8);
+  _Block_object_dispose(&v23, 8);
 
   if (v13)
   {
@@ -570,7 +569,7 @@ LABEL_15:
           v32 = fskit_std_log();
           if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
           {
-            sub_10004170C(p_volumeID);
+            sub_10004170C();
           }
 
           v33 = *p_volumeID;
@@ -1273,7 +1272,7 @@ LABEL_18:
         v9 = livefs_std_log();
         if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
-          sub_100041BE4(connect, self);
+          sub_100041BE4();
         }
 
         v10 = connect;
@@ -1385,7 +1384,7 @@ LABEL_10:
     v22 = livefs_std_log();
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      sub_100041C5C(p_realMountPath);
+      sub_100041C5C();
     }
 
     goto LABEL_100;
@@ -1705,7 +1704,8 @@ LABEL_94:
   v67 = fskit_std_log();
   if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
   {
-    *__stringp = 0x1604000100;
+    *__stringp = 67109120;
+    *&__stringp[4] = 22;
     _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_DEFAULT, "Failed to parse options %{darwin.errno}d", __stringp, 8u);
   }
 
@@ -1840,7 +1840,7 @@ LABEL_14:
     v5 = livefs_std_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      sub_100042298(p_mountTaskUUID);
+      sub_100042298();
     }
 
     [gSettings removeReferencesToTask:*p_mountTaskUUID];
@@ -1912,7 +1912,7 @@ LABEL_14:
   v6 = v5;
   if ((unmountCopy & 2) == 0 || ([(NSString *)v5 isEqual:@"/private/var/mobile/Library/LiveFiles"]& 1) != 0 || ![(NSString *)v6 hasPrefix:@"/private/var/mobile/Library/LiveFiles"]|| !fsctl([(NSString *)v6 fileSystemRepresentation], 0x20006E04uLL, 0, 0))
   {
-    v8 = 0;
+    v7 = 0;
     if ((unmountCopy & 4) == 0)
     {
       goto LABEL_11;
@@ -1921,10 +1921,10 @@ LABEL_14:
     goto LABEL_10;
   }
 
-  v7 = *__error();
-  v8 = getNSErrorFromLiveFSErrno();
-  v9 = livefs_std_log();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  __error();
+  v7 = getNSErrorFromLiveFSErrno();
+  v8 = livefs_std_log();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     sub_10004241C();
   }
@@ -1939,14 +1939,14 @@ LABEL_10:
   }
 
 LABEL_11:
-  v35 = v8;
-  v11 = [(mountEntry *)self isMountAtPath:v6 err:&v35];
-  v12 = v35;
+  v34 = v7;
+  v10 = [(mountEntry *)self isMountAtPath:v6 err:&v34];
+  v11 = v34;
 
-  if ((v11 & 0x80000000) != 0)
+  if ((v10 & 0x80000000) != 0)
   {
-    v27 = livefs_std_log();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v26 = livefs_std_log();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       sub_100042518();
     }
@@ -1954,59 +1954,59 @@ LABEL_11:
     goto LABEL_34;
   }
 
-  if (v11 != 1)
+  if (v10 != 1)
   {
 LABEL_34:
-    v28 = 0;
+    v27 = 0;
     goto LABEL_44;
   }
 
-  v34 = v12;
-  v13 = (unmountCopy & 1) << 19;
-  if (!unmount([(NSString *)v6 fileSystemRepresentation], v13))
+  v33 = v11;
+  v12 = (unmountCopy & 1) << 19;
+  if (!unmount([(NSString *)v6 fileSystemRepresentation], v12))
   {
     goto LABEL_29;
   }
 
-  v14 = 0;
+  v13 = 0;
   while (1)
   {
-    v15 = *__error();
-    v16 = v15 == 35 && unmountCopy & 1;
-    if (!v16 || v14 > 3)
+    v14 = *__error();
+    v15 = v14 == 35 && unmountCopy & 1;
+    if (!v15 || v13 > 3)
     {
       break;
     }
 
     [NSThread sleepForTimeInterval:0.002];
     storageName = self->_storageName;
-    v19 = livefs_std_log();
-    v20 = os_log_type_enabled(v19, OS_LOG_TYPE_INFO);
+    v18 = livefs_std_log();
+    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_INFO);
     if (storageName)
     {
-      if (v20)
+      if (v19)
       {
-        v21 = self->_storageName;
+        v20 = self->_storageName;
         *buf = 138412290;
-        v37 = v21;
-        v22 = v19;
-        v23 = "unmount for %@ slept while looping";
-        v24 = 12;
+        v36 = v20;
+        v21 = v18;
+        v22 = "unmount for %@ slept while looping";
+        v23 = 12;
 LABEL_27:
-        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, v23, buf, v24);
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, v22, buf, v23);
       }
     }
 
-    else if (v20)
+    else if (v19)
     {
       *buf = 0;
-      v22 = v19;
-      v23 = "unmount for <unknown> slept while looping";
-      v24 = 2;
+      v21 = v18;
+      v22 = "unmount for <unknown> slept while looping";
+      v23 = 2;
       goto LABEL_27;
     }
 
-    v14 += v16;
+    v13 += v15;
 
     if (!unmount([(NSString *)v6 fileSystemRepresentation], (unmountCopy & 1) << 19))
     {
@@ -2014,65 +2014,65 @@ LABEL_27:
     }
   }
 
-  if ((unmountCopy & 5) != 0 || !v15)
+  if ((unmountCopy & 5) != 0 || !v14)
   {
-    if (v15)
+    if (v14)
     {
-      v25 = livefs_std_log();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v24 = livefs_std_log();
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         realMountPath = self->realMountPath;
         *buf = 138412802;
-        v37 = realMountPath;
-        v38 = 1024;
-        v39 = v13;
-        v40 = 1024;
-        v41 = v15;
-        _os_log_error_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "unmount for %@ with %#x returned %{darwin.errno}d", buf, 0x18u);
+        v36 = realMountPath;
+        v37 = 1024;
+        v38 = v12;
+        v39 = 1024;
+        v40 = v14;
+        _os_log_error_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "unmount for %@ with %#x returned %{darwin.errno}d", buf, 0x18u);
       }
 
       goto LABEL_43;
     }
 
 LABEL_29:
-    v25 = livefs_std_log();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+    v24 = livefs_std_log();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
-      v26 = self->realMountPath;
+      v25 = self->realMountPath;
       *buf = 138412802;
-      v37 = v26;
-      v38 = 1024;
-      v39 = v13;
-      v40 = 1024;
-      v41 = 0;
-      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "unmount for %@ with %#x returned %d", buf, 0x18u);
+      v36 = v25;
+      v37 = 1024;
+      v38 = v12;
+      v39 = 1024;
+      v40 = 0;
+      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "unmount for %@ with %#x returned %d", buf, 0x18u);
     }
 
 LABEL_43:
 
-    v28 = 0;
-    v12 = v34;
+    v27 = 0;
+    v11 = v33;
     goto LABEL_44;
   }
 
-  v29 = livefs_std_log();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+  v28 = livefs_std_log();
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
   {
     sub_100042494();
   }
 
-  v30 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v15 userInfo:0];
+  v29 = [NSError errorWithDomain:NSPOSIXErrorDomain code:v14 userInfo:0];
 
   selfCopy2 = self;
   objc_sync_enter(selfCopy2);
   selfCopy2->_is_in_unmount_method = 0;
   objc_sync_exit(selfCopy2);
 
-  v12 = v30;
-  v28 = v12;
+  v11 = v29;
+  v27 = v11;
 LABEL_44:
 
-  return v28;
+  return v27;
 }
 
 - (void)forgetModuleVolumeWithFlags:(unsigned int)flags reply:(id)reply
@@ -2083,7 +2083,7 @@ LABEL_44:
     v10 = fskit_std_log();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_100042588(self);
+      sub_100042588();
     }
 
     goto LABEL_9;
@@ -2095,7 +2095,7 @@ LABEL_44:
     v10 = fskit_std_log();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_100042684(self);
+      sub_100042684();
     }
 
 LABEL_9:
@@ -2107,23 +2107,23 @@ LABEL_9:
   }
 
   v23 = 0;
-  v24[0] = &v23;
-  v24[1] = 0x3032000000;
-  v24[2] = sub_10003A7E8;
-  v24[3] = sub_10003A7F8;
-  v25 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = sub_10003A7E8;
+  v27 = sub_10003A7F8;
+  v28 = 0;
   obj = 0;
   v8 = [(fskitdExtensionInstance *)instance newXPCConnectionWithError:&obj];
-  objc_storeStrong(&v25, obj);
-  if (*(v24[0] + 40))
+  objc_storeStrong(&v28, obj);
+  if (v24[5])
   {
     v9 = fskit_std_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_100042608(v24);
+      sub_100042608();
     }
 
-    replyCopy[2](replyCopy, *(v24[0] + 40));
+    replyCopy[2](replyCopy, v24[5]);
   }
 
   else
@@ -2132,7 +2132,7 @@ LABEL_9:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v27 = "[mountEntry forgetModuleVolumeWithFlags:reply:]";
+      v30 = "[mountEntry forgetModuleVolumeWithFlags:reply:]";
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%s: Creating FSModuleXPC sync proxy", buf, 0xCu);
     }
 
@@ -2163,18 +2163,11 @@ LABEL_9:
     objc_sync_exit(resourceManager);
     [(FSResource *)self->_resource revoke];
     [(fskitdExtensionInstance *)self->_instance terminate];
-    replyCopy[2](replyCopy, *(v24[0] + 40));
+    replyCopy[2](replyCopy, v24[5]);
   }
 
   _Block_object_dispose(&v23, 8);
 LABEL_17:
-}
-
-- (void)resetConnectError
-{
-  lastConnectError = self->_lastConnectError;
-  self->_lastConnectError = 0;
-  _objc_release_x1();
 }
 
 - (mountTable)mntTable

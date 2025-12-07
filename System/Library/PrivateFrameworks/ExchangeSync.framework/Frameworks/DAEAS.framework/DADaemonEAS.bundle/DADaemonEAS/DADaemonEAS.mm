@@ -179,25 +179,24 @@ void sub_19024(uint64_t a1, uint64_t a2, int a3)
       v4 = [*(a1 + 32) localFileHandle];
       v5 = 0;
       v6 = 0;
-      v7 = _CPLog_to_os_log_type[3];
       while (1)
       {
         [v4 seekToFileOffset:v6];
-        v8 = [v4 readDataOfLength:0x4000];
-        v9 = [v8 length];
-        if (!v9)
+        v7 = [v4 readDataOfLength:0x4000];
+        v8 = [v7 length];
+        if (!v8)
         {
           break;
         }
 
-        v10 = v9;
-        v11 = [[NSData alloc] initWithBase64EncodedData:v8 options:1];
+        v9 = v8;
+        v10 = [[NSData alloc] initWithBase64EncodedData:v7 options:1];
         [v4 seekToFileOffset:v5];
-        [v4 writeData:v11];
-        v6 += v10;
-        v5 += [v11 length];
+        [v4 writeData:v10];
+        v6 += v9;
+        v5 += [v10 length];
 
-        if (!(v10 >> 14))
+        if (!(v9 >> 14))
         {
           goto LABEL_11;
         }
@@ -209,30 +208,30 @@ LABEL_11:
     }
 
     [*(a1 + 40) _saveAttachmentDataToDatabaseForTask:*(a1 + 32)];
-    v15 = 0;
-    v16 = +[DALocalDBGateKeeper sharedGateKeeper];
-    [v16 relinquishLocksForWaiter:*(a1 + 40) dataclasses:20 moreComing:0];
+    v14 = 0;
+    v15 = +[DALocalDBGateKeeper sharedGateKeeper];
+    [v15 relinquishLocksForWaiter:*(a1 + 40) dataclasses:20 moreComing:0];
   }
 
   else
   {
-    v12 = DALoggingwithCategory();
-    v13 = _CPLog_to_os_log_type[6];
-    if (os_log_type_enabled(v12, v13))
+    v11 = DALoggingwithCategory();
+    v12 = _CPLog_to_os_log_type[6];
+    if (os_log_type_enabled(v11, v12))
     {
-      v14 = [*(a1 + 32) attachmentUUID];
-      v19 = 138412290;
-      v20 = v14;
-      _os_log_impl(&dword_0, v12, v13, "Cannot acquire the gatekeeper lock. The attachment %@ is not saved.", &v19, 0xCu);
+      v13 = [*(a1 + 32) attachmentUUID];
+      v18 = 138412290;
+      v19 = v13;
+      _os_log_impl(&dword_0, v11, v12, "Cannot acquire the gatekeeper lock. The attachment %@ is not saved.", &v18, 0xCu);
     }
 
-    v15 = [NSError errorWithDomain:DAErrorDomain code:10 userInfo:0];
+    v14 = [NSError errorWithDomain:DAErrorDomain code:10 userInfo:0];
   }
 
-  v17 = [*(a1 + 40) account];
-  v18 = [v17 consumerForTask:*(a1 + 32)];
+  v16 = [*(a1 + 40) account];
+  v17 = [v16 consumerForTask:*(a1 + 32)];
 
-  [v18 downloadFinishedError:v15];
+  [v17 downloadFinishedError:v14];
 }
 
 void sub_1989C(uint64_t a1, uint64_t a2, int a3)
@@ -258,7 +257,7 @@ void sub_1989C(uint64_t a1, uint64_t a2, int a3)
   }
 }
 
-BOOL sub_19BD0(uint64_t a1, const void *a2, signed int a3, int a4, uint64_t a5, void *a6)
+BOOL sub_19BD0(uint64_t a1, const void *a2, signed int a3, unsigned int a4, uint64_t a5, void *a6)
 {
   v10 = a6;
   v11 = DALoggingwithCategory();
@@ -346,44 +345,39 @@ LABEL_25:
 
 const void *sub_19E5C(void *a1)
 {
-  v8[0] = kABChangeHistoryChangeTableRowIDsKey;
-  v8[1] = kABChangeHistorySequenceNumbersKey;
-  v8[2] = kABChangeHistoryRecordGUIDsKey;
-  [NSArray arrayWithObjects:v8 count:3];
-  v2 = a1[4];
-  v3 = a1[5];
-  v4 = a1[6];
+  v4[0] = kABChangeHistoryChangeTableRowIDsKey;
+  v4[1] = kABChangeHistorySequenceNumbersKey;
+  v4[2] = kABChangeHistoryRecordGUIDsKey;
+  [NSArray arrayWithObjects:v4 count:3];
   EntityChangesSinceSequenceNumberForClient = ABChangeHistoryGetEntityChangesSinceSequenceNumberForClient();
-  v6 = EntityChangesSinceSequenceNumberForClient;
+  v2 = EntityChangesSinceSequenceNumberForClient;
   if (EntityChangesSinceSequenceNumberForClient)
   {
     CFRetain(EntityChangesSinceSequenceNumberForClient);
   }
 
-  return v6;
+  return v2;
 }
 
 const void *sub_19F24(void *a1)
 {
-  v8[0] = kABChangeHistoryChangeTableRowIDsKey;
-  v8[1] = kABChangeHistorySequenceNumbersKey;
-  v8[2] = kABChangeHistoryRecordGUIDsKey;
-  [NSArray arrayWithObjects:v8 count:3];
-  v2 = a1[4];
-  v3 = a1[5];
-  v4 = a1[6];
+  v4[0] = kABChangeHistoryChangeTableRowIDsKey;
+  v4[1] = kABChangeHistorySequenceNumbersKey;
+  v4[2] = kABChangeHistoryRecordGUIDsKey;
+  [NSArray arrayWithObjects:v4 count:3];
   EntityChangesSinceSequenceNumberForClient = ABChangeHistoryGetEntityChangesSinceSequenceNumberForClient();
-  v6 = EntityChangesSinceSequenceNumberForClient;
+  v2 = EntityChangesSinceSequenceNumberForClient;
   if (EntityChangesSinceSequenceNumberForClient)
   {
     CFRetain(EntityChangesSinceSequenceNumberForClient);
   }
 
-  return v6;
+  return v2;
 }
 
-BOOL sub_19FEC(uint64_t a1, uint64_t a2, signed int a3, int a4, uint64_t a5, void *a6)
+BOOL sub_19FEC(uint64_t a1, uint64_t a2, signed int a3, uint64_t a4, uint64_t a5, void *a6)
 {
+  v6 = a4;
   v10 = a6;
   v11 = DALoggingwithCategory();
   v12 = v11;
@@ -402,7 +396,7 @@ BOOL sub_19FEC(uint64_t a1, uint64_t a2, signed int a3, int a4, uint64_t a5, voi
   v13 = _CPLog_to_os_log_type[6];
   if (os_log_type_enabled(v11, v13))
   {
-    if (a4 == 2)
+    if (v6 == 2)
     {
       v14 = @"Event";
     }
@@ -1222,38 +1216,36 @@ void sub_3AC68(_Unwind_Exception *a1)
 const void *sub_3ACB4(uint64_t a1, CFIndex a2, CFArrayRef theArray, const __CFArray *a4, uint64_t a5)
 {
   CFArrayGetValueAtIndex(theArray, a2);
-  v9 = *(a1 + 120);
-  v10 = CalDatabaseCopyCalendarItemWithRowID();
-  if (v10)
+  v9 = CalDatabaseCopyCalendarItemWithRowID();
+  if (v9)
   {
-    v11 = v10;
+    v10 = v9;
     if (CalEntityIsOfType())
     {
       RowID = CalCalendarItemGetRowID();
-      v13 = CalCalendarItemCopyExternalID();
-      if (v13)
+      v12 = CalCalendarItemCopyExternalID();
+      if (v12)
       {
-        v14 = *(a1 + 32);
-        v15 = [NSNumber numberWithInt:RowID];
-        [v14 setObject:v13 forKeyedSubscript:v15];
+        v13 = *(a1 + 32);
+        v14 = [NSNumber numberWithInt:RowID];
+        [v13 setObject:v12 forKeyedSubscript:v14];
       }
 
-      v16 = *(a1 + 64);
-      [*(a1 + 40) _handleChangeOnEventWithExchangeId:v13 localId:RowID changeType:1 eventChangeId:0 hasSignificantAttributeChanges:a5 container:*(a1 + 128) dataHandler:*(a1 + 48) addedIdsToEventChangeId:*(a1 + 56) modifiedIdsToEventChangeId:*(a1 + 64) deletedIdsToEventChangeId:*(a1 + 72) pseudoDeletedIdsToEventChangeId:*(a1 + 80) eventChangeIdsToClear:*(a1 + 88) allAddedDetachmentIds:*(a1 + 96) localToExchangeIdMap:*(a1 + 32) outShouldSaveDB:*(*(a1 + 104) + 8) + 24];
+      [*(a1 + 40) _handleChangeOnEventWithExchangeId:v12 localId:RowID changeType:1 eventChangeId:0 hasSignificantAttributeChanges:a5 container:*(a1 + 128) dataHandler:*(a1 + 48) addedIdsToEventChangeId:*(a1 + 56) modifiedIdsToEventChangeId:*(a1 + 64) deletedIdsToEventChangeId:*(a1 + 72) pseudoDeletedIdsToEventChangeId:*(a1 + 80) eventChangeIdsToClear:*(a1 + 88) allAddedDetachmentIds:*(a1 + 96) localToExchangeIdMap:*(a1 + 32) outShouldSaveDB:*(*(a1 + 104) + 8) + 24];
     }
 
-    CFRelease(v11);
+    CFRelease(v10);
   }
 
   result = CFArrayGetValueAtIndex(a4, a2);
-  v18 = *(*(a1 + 112) + 8);
-  v19 = *(v18 + 24);
-  if (v19 <= result)
+  v16 = *(*(a1 + 112) + 8);
+  v17 = *(v16 + 24);
+  if (v17 <= result)
   {
-    v19 = result;
+    v17 = result;
   }
 
-  *(v18 + 24) = v19;
+  *(v16 + 24) = v17;
   return result;
 }
 

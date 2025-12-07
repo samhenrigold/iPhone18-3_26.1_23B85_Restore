@@ -65,14 +65,14 @@ LABEL_6:
     JreStrongAssignAndConsume(&qword_100554018, [IOSFloatArray newArrayWithLength:256]);
     for (i = 0; i != 256; ++i)
     {
-      v3 = OrgApacheLuceneUtilSmallFloat_byte315ToFloatWithByte_(i);
-      v4 = *(qword_100554018 + 8);
-      if (i >= v4)
+      v4 = OrgApacheLuceneUtilSmallFloat_byte315ToFloatWithByte_(i, v2);
+      v5 = *(qword_100554018 + 8);
+      if (i >= v5)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v4, i);
+        IOSArray_throwOutOfBoundsWithMsg(v5, i);
       }
 
-      *(qword_100554018 + 12 + 4 * i) = LODWORD(v3);
+      *(qword_100554018 + 12 + 4 * i) = LODWORD(v4);
     }
 
     atomic_store(1u, OrgApacheLuceneSearchSimilaritiesDefaultSimilarity__initialized);

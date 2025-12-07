@@ -292,9 +292,9 @@ LABEL_21:
           case 5:
             v24 = [CCWalletExtractedOrderContentExtractedEmailOrderDetails alloc];
             v25 = CCPBReaderReadDataNoCopy();
-            v48 = 0;
-            v26 = [(CCItemMessage *)v24 initWithData:v25 error:&v48];
-            v10 = v48;
+            v46 = 0;
+            v26 = [(CCItemMessage *)v24 initWithData:v25 error:&v46];
+            v10 = v46;
             v27 = 48;
 LABEL_40:
             v39 = *(&self->super.super.isa + v27);
@@ -308,7 +308,6 @@ LABEL_42:
             {
               v40 = objc_opt_class();
               v25 = NSStringFromClass(v40);
-              v41 = *&v6[*v9];
               v10 = CCSkipFieldErrorForMessage();
               goto LABEL_41;
             }
@@ -328,9 +327,9 @@ LABEL_38:
       {
         v38 = [CCWalletPaymentsCommerceOrderEmailEmailMetadata alloc];
         v25 = CCPBReaderReadDataNoCopy();
-        v49 = 0;
-        v26 = [(CCItemMessage *)v38 initWithData:v25 error:&v49];
-        v10 = v49;
+        v47 = 0;
+        v26 = [(CCItemMessage *)v38 initWithData:v25 error:&v47];
+        v10 = v47;
         v27 = 24;
         goto LABEL_40;
       }
@@ -402,23 +401,22 @@ LABEL_51:
   if (!*&v6[*v9])
   {
     v10 = 0;
-    v46 = 1;
+    v44 = 1;
     goto LABEL_55;
   }
 
 LABEL_52:
-  v42 = objc_opt_class();
-  v43 = NSStringFromClass(v42);
-  v44 = *&v6[*v9];
-  v45 = CCInvalidBufferErrorForMessage();
+  v41 = objc_opt_class();
+  v42 = NSStringFromClass(v41);
+  v43 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v10 = 0;
 LABEL_53:
-  v46 = 0;
+  v44 = 0;
 LABEL_55:
 
-  return v46;
+  return v44;
 }
 
 - (CCWalletExtractedOrderContentExtractedEmail)initWithEmailMetadata:(id)metadata emailType:(unsigned int)type spotlightUniqueIdentifier:(id)identifier spotlightDomainIdentifier:(id)domainIdentifier orderDetails:(id)details error:(id *)error

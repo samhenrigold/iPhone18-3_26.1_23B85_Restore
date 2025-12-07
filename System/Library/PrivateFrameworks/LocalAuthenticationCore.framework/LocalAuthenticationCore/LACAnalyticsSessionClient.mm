@@ -4,6 +4,7 @@
 - (id)_callBlockOnSynchronousRemoteObjectProxy:(id)proxy;
 - (id)_connectionWithError:(id *)error;
 - (void)_connectionDidClose:(BOOL)close;
+- (void)authenticationAction:(int64_t)action failing:(BOOL)failing;
 - (void)authenticationAttemptFailedForEvent:(int64_t)event;
 - (void)authenticationStartedForEvent:(int64_t)event;
 - (void)authenticationSuccessfulForEvent:(int64_t)event;
@@ -82,10 +83,10 @@ void __62__LACAnalyticsSessionClient_startSessionForDialogID_bundleID___block_in
 
 void __62__LACAnalyticsSessionClient_startSessionForDialogID_bundleID___block_invoke_2(void *a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = LACLogAnalytics();
+  v7 = LACLogAnalytics(v6);
   v8 = 16 * (v5 == 0);
   if (os_log_type_enabled(v7, v8))
   {
@@ -98,24 +99,22 @@ void __62__LACAnalyticsSessionClient_startSessionForDialogID_bundleID___block_in
       v12 = v6;
     }
 
-    v16 = 138544387;
-    v17 = v9;
-    v18 = 2114;
-    v19 = v10;
-    v20 = 2113;
-    v21 = v11;
-    v22 = 2114;
-    v23 = v9;
-    v24 = 2114;
-    v25 = v12;
-    _os_log_impl(&dword_1B0233000, v7, v8, "startSessionForContext:%{public}@ dialogID:%{public}@ bundleID:%{private}@ on %{public}@: %{public}@", &v16, 0x34u);
+    v15 = 138544387;
+    v16 = v9;
+    v17 = 2114;
+    v18 = v10;
+    v19 = 2113;
+    v20 = v11;
+    v21 = 2114;
+    v22 = v9;
+    v23 = 2114;
+    v24 = v12;
+    _os_log_impl(&dword_1B0233000, v7, v8, "startSessionForContext:%{public}@ dialogID:%{public}@ bundleID:%{private}@ on %{public}@: %{public}@", &v15, 0x34u);
   }
 
   v13 = *(a1[7] + 8);
   v14 = *(v13 + 40);
   *(v13 + 40) = v5;
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connectToExistingSession
@@ -158,10 +157,10 @@ void __53__LACAnalyticsSessionClient_connectToExistingSession__block_invoke(uint
 
 void __53__LACAnalyticsSessionClient_connectToExistingSession__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = LACLogAnalytics();
+  v7 = LACLogAnalytics(v6);
   v8 = 16 * (v5 == 0);
   if (os_log_type_enabled(v7, v8))
   {
@@ -172,35 +171,52 @@ void __53__LACAnalyticsSessionClient_connectToExistingSession__block_invoke_2(ui
       v9 = v6;
     }
 
-    v14 = 138543874;
-    v15 = v10;
-    v16 = 2114;
-    v17 = v10;
-    v18 = 2114;
-    v19 = v9;
-    _os_log_impl(&dword_1B0233000, v7, v8, "connectSessionForContext:%{public}@ on %{public}@: %{public}@", &v14, 0x20u);
+    v13 = 138543874;
+    v14 = v10;
+    v15 = 2114;
+    v16 = v10;
+    v17 = 2114;
+    v18 = v9;
+    _os_log_impl(&dword_1B0233000, v7, v8, "connectSessionForContext:%{public}@ on %{public}@: %{public}@", &v13, 0x20u);
   }
 
   v11 = *(*(a1 + 40) + 8);
   v12 = *(v11 + 40);
   *(v11 + 40) = v5;
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)finishSession
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1(&dword_1B0233000, v0, v1, "%{public}@: no session to finish", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  if (self->_session)
+  {
+    v3 = self->_context;
+    session = self->_session;
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __42__LACAnalyticsSessionClient_finishSession__block_invoke;
+    v7[3] = &unk_1E7A97DC0;
+    v8 = v3;
+    v5 = v3;
+    [(LACAnalyticsSessionXPC *)session finishWithReply:v7];
+    v6 = self->_session;
+    self->_session = 0;
+  }
+
+  else
+  {
+    v5 = LACLogAnalytics(self);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      [LACAnalyticsSessionClient finishSession];
+    }
+  }
 }
 
 void __42__LACAnalyticsSessionClient_finishSession__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = LACLogAnalytics();
+  v6 = LACLogAnalytics(v5);
   v7 = v6;
   if (a2)
   {
@@ -221,14 +237,12 @@ void __42__LACAnalyticsSessionClient_finishSession__block_invoke(uint64_t a1, in
       v10 = v5;
     }
 
-    v12 = 138543618;
-    v13 = v9;
-    v14 = 2114;
-    v15 = v10;
-    _os_log_impl(&dword_1B0233000, v7, v8, "finishSession for %{public}@: %{public}@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v9;
+    v13 = 2114;
+    v14 = v10;
+    _os_log_impl(&dword_1B0233000, v7, v8, "finishSession for %{public}@: %{public}@", &v11, 0x16u);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)authenticationStartedForEvent:(int64_t)event
@@ -249,7 +263,7 @@ void __42__LACAnalyticsSessionClient_finishSession__block_invoke(uint64_t a1, in
 
   else
   {
-    v7 = LACLogAnalytics();
+    v7 = LACLogAnalytics(self);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [LACAnalyticsSessionClient authenticationStartedForEvent:];
@@ -259,9 +273,9 @@ void __42__LACAnalyticsSessionClient_finishSession__block_invoke(uint64_t a1, in
 
 void __59__LACAnalyticsSessionClient_authenticationStartedForEvent___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = LACLogAnalytics();
+  v6 = LACLogAnalytics(v5);
   v7 = v6;
   if (a2)
   {
@@ -279,21 +293,19 @@ void __59__LACAnalyticsSessionClient_authenticationStartedForEvent___block_invok
     v10 = v9;
     v11 = *(a1 + 32);
     v12 = @"success";
-    v14 = 138543874;
+    v13 = 138543874;
     if (!a2)
     {
       v12 = v5;
     }
 
-    v15 = v9;
-    v16 = 2114;
-    v17 = v11;
-    v18 = 2114;
-    v19 = v12;
-    _os_log_impl(&dword_1B0233000, v7, v8, "authenticationStartedForEvent:%{public}@ for %{public}@: %{public}@", &v14, 0x20u);
+    v14 = v9;
+    v15 = 2114;
+    v16 = v11;
+    v17 = 2114;
+    v18 = v12;
+    _os_log_impl(&dword_1B0233000, v7, v8, "authenticationStartedForEvent:%{public}@ for %{public}@: %{public}@", &v13, 0x20u);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)authenticationAttemptFailedForEvent:(int64_t)event
@@ -314,7 +326,7 @@ void __59__LACAnalyticsSessionClient_authenticationStartedForEvent___block_invok
 
   else
   {
-    v7 = LACLogAnalytics();
+    v7 = LACLogAnalytics(self);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [LACAnalyticsSessionClient authenticationAttemptFailedForEvent:];
@@ -324,9 +336,9 @@ void __59__LACAnalyticsSessionClient_authenticationStartedForEvent___block_invok
 
 void __65__LACAnalyticsSessionClient_authenticationAttemptFailedForEvent___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = LACLogAnalytics();
+  v6 = LACLogAnalytics(v5);
   v7 = v6;
   if (a2)
   {
@@ -344,21 +356,19 @@ void __65__LACAnalyticsSessionClient_authenticationAttemptFailedForEvent___block
     v10 = v9;
     v11 = *(a1 + 32);
     v12 = @"success";
-    v14 = 138543874;
+    v13 = 138543874;
     if (!a2)
     {
       v12 = v5;
     }
 
-    v15 = v9;
-    v16 = 2114;
-    v17 = v11;
-    v18 = 2114;
-    v19 = v12;
-    _os_log_impl(&dword_1B0233000, v7, v8, "authenticationAttemptFailedForEvent:%{public}@ for %{public}@: %{public}@", &v14, 0x20u);
+    v14 = v9;
+    v15 = 2114;
+    v16 = v11;
+    v17 = 2114;
+    v18 = v12;
+    _os_log_impl(&dword_1B0233000, v7, v8, "authenticationAttemptFailedForEvent:%{public}@ for %{public}@: %{public}@", &v13, 0x20u);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)authenticationSuccessfulForEvent:(int64_t)event
@@ -379,7 +389,7 @@ void __65__LACAnalyticsSessionClient_authenticationAttemptFailedForEvent___block
 
   else
   {
-    v7 = LACLogAnalytics();
+    v7 = LACLogAnalytics(self);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [LACAnalyticsSessionClient authenticationSuccessfulForEvent:];
@@ -389,9 +399,9 @@ void __65__LACAnalyticsSessionClient_authenticationAttemptFailedForEvent___block
 
 void __62__LACAnalyticsSessionClient_authenticationSuccessfulForEvent___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = LACLogAnalytics();
+  v6 = LACLogAnalytics(v5);
   v7 = v6;
   if (a2)
   {
@@ -409,28 +419,54 @@ void __62__LACAnalyticsSessionClient_authenticationSuccessfulForEvent___block_in
     v10 = v9;
     v11 = *(a1 + 32);
     v12 = @"success";
-    v14 = 138543874;
+    v13 = 138543874;
     if (!a2)
     {
       v12 = v5;
     }
 
-    v15 = v9;
-    v16 = 2114;
-    v17 = v11;
-    v18 = 2114;
-    v19 = v12;
-    _os_log_impl(&dword_1B0233000, v7, v8, "authenticationSuccessfulForEvent:%{public}@ for %{public}@: %{public}@", &v14, 0x20u);
+    v14 = v9;
+    v15 = 2114;
+    v16 = v11;
+    v17 = 2114;
+    v18 = v12;
+    _os_log_impl(&dword_1B0233000, v7, v8, "authenticationSuccessfulForEvent:%{public}@ for %{public}@: %{public}@", &v13, 0x20u);
+  }
+}
+
+- (void)authenticationAction:(int64_t)action failing:(BOOL)failing
+{
+  if (self->_session)
+  {
+    failingCopy = failing;
+    v7 = self->_context;
+    session = self->_session;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __58__LACAnalyticsSessionClient_authenticationAction_failing___block_invoke;
+    v10[3] = &unk_1E7A97E10;
+    v13 = failingCopy;
+    v11 = v7;
+    actionCopy = action;
+    v9 = v7;
+    [(LACAnalyticsSessionXPC *)session authenticationAction:action failing:failingCopy reply:v10];
   }
 
-  v13 = *MEMORY[0x1E69E9840];
+  else
+  {
+    v9 = LACLogAnalytics(self);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      [LACAnalyticsSessionClient authenticationAction:failing:];
+    }
+  }
 }
 
 void __58__LACAnalyticsSessionClient_authenticationAction_failing___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = LACLogAnalytics();
+  v6 = LACLogAnalytics(v5);
   v7 = v6;
   if (a2)
   {
@@ -454,18 +490,16 @@ void __58__LACAnalyticsSessionClient_authenticationAction_failing___block_invoke
       v13 = v5;
     }
 
-    v15 = 138544130;
-    v16 = v9;
-    v17 = 1024;
-    v18 = v11;
-    v19 = 2114;
-    v20 = v12;
-    v21 = 2114;
-    v22 = v13;
-    _os_log_impl(&dword_1B0233000, v7, v8, "authenticationAction:%{public}@ failing:%d for %{public}@: %{public}@", &v15, 0x26u);
+    v14 = 138544130;
+    v15 = v9;
+    v16 = 1024;
+    v17 = v11;
+    v18 = 2114;
+    v19 = v12;
+    v20 = 2114;
+    v21 = v13;
+    _os_log_impl(&dword_1B0233000, v7, v8, "authenticationAction:%{public}@ failing:%d for %{public}@: %{public}@", &v14, 0x26u);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setContext:(id)context
@@ -491,7 +525,7 @@ void __58__LACAnalyticsSessionClient_authenticationAction_failing___block_invoke
 
     else
     {
-      v9 = LACLogAnalytics();
+      v9 = LACLogAnalytics(0);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [LACAnalyticsSessionClient setContext:];
@@ -501,7 +535,7 @@ void __58__LACAnalyticsSessionClient_authenticationAction_failing___block_invoke
 
   else
   {
-    v9 = LACLogAnalytics();
+    v9 = LACLogAnalytics(contextCopy);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [LACAnalyticsSessionClient setContext:];
@@ -511,9 +545,9 @@ void __58__LACAnalyticsSessionClient_authenticationAction_failing___block_invoke
 
 void __40__LACAnalyticsSessionClient_setContext___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = LACLogAnalytics();
+  v6 = LACLogAnalytics(v5);
   v7 = v6;
   if (a2)
   {
@@ -534,14 +568,12 @@ void __40__LACAnalyticsSessionClient_setContext___block_invoke(uint64_t a1, int 
       v10 = v5;
     }
 
-    v12 = 138543618;
-    v13 = v9;
-    v14 = 2114;
-    v15 = v10;
-    _os_log_impl(&dword_1B0233000, v7, v8, "updateContext:%{public}@: %{public}@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v9;
+    v13 = 2114;
+    v14 = v10;
+    _os_log_impl(&dword_1B0233000, v7, v8, "updateContext:%{public}@: %{public}@", &v11, 0x16u);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_callBlockOnSynchronousRemoteObjectProxy:(id)proxy
@@ -554,21 +586,8 @@ void __40__LACAnalyticsSessionClient_setContext___block_invoke(uint64_t a1, int 
   v17 = __Block_byref_object_dispose__10;
   v18 = 0;
   connection = self->_connection;
-  if (connection)
+  if (connection || (obj = 0, [(LACAnalyticsSessionClient *)self _connectionWithError:&obj], v6 = objc_claimAutoreleasedReturnValue(), objc_storeStrong(&v18, obj), v7 = self->_connection, self->_connection = v6, v7, (connection = self->_connection) != 0))
   {
-    goto LABEL_3;
-  }
-
-  obj = 0;
-  v6 = [(LACAnalyticsSessionClient *)self _connectionWithError:&obj];
-  objc_storeStrong(&v18, obj);
-  v7 = self->_connection;
-  self->_connection = v6;
-
-  connection = self->_connection;
-  if (connection)
-  {
-LABEL_3:
     v11[0] = MEMORY[0x1E69E9820];
     v11[1] = 3221225472;
     v11[2] = __70__LACAnalyticsSessionClient__callBlockOnSynchronousRemoteObjectProxy___block_invoke;
@@ -599,18 +618,19 @@ LABEL_3:
   v18 = 0;
   v4 = [(LACAnalyticsSessionClient *)self _bootstrapServiceWithError:&v18];
   v5 = v18;
+  v6 = v5;
   if (v4)
   {
-    v6 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithListenerEndpoint:v4];
-    v7 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F26A22E0];
-    [v6 setRemoteObjectInterface:v7];
+    v7 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithListenerEndpoint:v4];
+    v8 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F26A22E0];
+    [v7 setRemoteObjectInterface:v8];
 
-    v8 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F269D4F0];
-    remoteObjectInterface = [v6 remoteObjectInterface];
-    [remoteObjectInterface setInterface:v8 forSelector:sel_startSessionForContext_dialogID_bundleID_reply_ argumentIndex:0 ofReply:1];
+    v9 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F269D4F0];
+    remoteObjectInterface = [v7 remoteObjectInterface];
+    [remoteObjectInterface setInterface:v9 forSelector:sel_startSessionForContext_dialogID_bundleID_reply_ argumentIndex:0 ofReply:1];
 
-    remoteObjectInterface2 = [v6 remoteObjectInterface];
-    [remoteObjectInterface2 setInterface:v8 forSelector:sel_connectSessionForContext_reply_ argumentIndex:0 ofReply:1];
+    remoteObjectInterface2 = [v7 remoteObjectInterface];
+    [remoteObjectInterface2 setInterface:v9 forSelector:sel_connectSessionForContext_reply_ argumentIndex:0 ofReply:1];
 
     objc_initWeak(location, self);
     v16[0] = MEMORY[0x1E69E9820];
@@ -618,14 +638,14 @@ LABEL_3:
     v16[2] = __50__LACAnalyticsSessionClient__connectionWithError___block_invoke;
     v16[3] = &unk_1E7A95380;
     objc_copyWeak(&v17, location);
-    [v6 setInvalidationHandler:v16];
+    [v7 setInvalidationHandler:v16];
     v14[0] = MEMORY[0x1E69E9820];
     v14[1] = 3221225472;
     v14[2] = __50__LACAnalyticsSessionClient__connectionWithError___block_invoke_2;
     v14[3] = &unk_1E7A95380;
     objc_copyWeak(&v15, location);
-    [v6 setInterruptionHandler:v14];
-    [v6 resume];
+    [v7 setInterruptionHandler:v14];
+    [v7 resume];
     objc_destroyWeak(&v15);
     objc_destroyWeak(&v17);
     objc_destroyWeak(location);
@@ -633,22 +653,20 @@ LABEL_3:
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  v11 = LACLogAnalytics();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = LACLogAnalytics(v5);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *location = 138543618;
     *&location[4] = self;
     v20 = 2114;
-    v21 = v6;
-    _os_log_impl(&dword_1B0233000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ created: %{public}@", location, 0x16u);
+    v21 = v7;
+    _os_log_impl(&dword_1B0233000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ created: %{public}@", location, 0x16u);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
-  return v6;
+  return v7;
 }
 
 void __50__LACAnalyticsSessionClient__connectionWithError___block_invoke(uint64_t a1)
@@ -665,35 +683,33 @@ void __50__LACAnalyticsSessionClient__connectionWithError___block_invoke_2(uint6
 
 - (void)_connectionDidClose:(BOOL)close
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (self->_connection)
   {
     closeCopy = close;
-    v5 = LACLogAnalytics();
+    v5 = LACLogAnalytics(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       connection = self->_connection;
-      v9 = "interrupted";
-      v10 = 138543874;
+      v8 = "interrupted";
+      v9 = 138543874;
       if (closeCopy)
       {
-        v9 = "invalidated";
+        v8 = "invalidated";
       }
 
       selfCopy = self;
-      v12 = 2114;
-      v13 = connection;
-      v14 = 2082;
-      v15 = v9;
-      _os_log_error_impl(&dword_1B0233000, v5, OS_LOG_TYPE_ERROR, "%{public}@ found %{public}@ %{public}s", &v10, 0x20u);
+      v11 = 2114;
+      v12 = connection;
+      v13 = 2082;
+      v14 = v8;
+      _os_log_error_impl(&dword_1B0233000, v5, OS_LOG_TYPE_ERROR, "%{public}@ found %{public}@ %{public}s", &v9, 0x20u);
     }
 
     [(NSXPCConnection *)self->_connection invalidate];
     v6 = self->_connection;
     self->_connection = 0;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_bootstrapServiceWithError:(id *)error
@@ -743,54 +759,6 @@ void __56__LACAnalyticsSessionClient__bootstrapServiceWithError___block_invoke(u
   v9 = *(*(a1 + 40) + 8);
   v10 = *(v9 + 40);
   *(v9 + 40) = v6;
-}
-
-- (void)authenticationStartedForEvent:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1(&dword_1B0233000, v0, v1, "%{public}@: no session for starting authentication", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)authenticationAttemptFailedForEvent:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1(&dword_1B0233000, v0, v1, "%{public}@: no session for failed authentication attempt", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)authenticationSuccessfulForEvent:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1(&dword_1B0233000, v0, v1, "%{public}@: no session for successful authentication", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)authenticationAction:failing:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1(&dword_1B0233000, v0, v1, "%{public}@: no session for authentication action", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)setContext:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1(&dword_1B0233000, v0, v1, "%{public}@: no context for session update", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)setContext:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1(&dword_1B0233000, v0, v1, "%{public}@: no session for updated context", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

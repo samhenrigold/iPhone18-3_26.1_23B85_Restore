@@ -36,23 +36,22 @@
 {
   v5 = sub_251702EE4();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   result = sub_251702EC4();
-  v11 = *(&self->super.super.super.super.super.super.isa + OBJC_IVAR____TtC28HealthExposureNotificationUI33VaccinationQuestionViewController_dataSource);
-  if (v11)
+  v10 = *(&self->super.super.super.super.super.super.isa + OBJC_IVAR____TtC28HealthExposureNotificationUI33VaccinationQuestionViewController_dataSource);
+  if (v10)
   {
     selfCopy = self;
-    v13 = v11;
+    v12 = v10;
     sub_251702FF4();
 
-    v14 = v16;
-    if (v16 != 3)
+    v13 = v15;
+    if (v15 != 3)
     {
 
-      (*(v6 + 8))(v9, v5);
-      return (v14 - 1) < 2;
+      (*(v6 + 8))(v8, v5);
+      return (v13 - 1) < 2;
     }
   }
 
@@ -69,15 +68,14 @@
 {
   v6 = sub_251702EE4();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_251702EC4();
   viewCopy = view;
   selfCopy = self;
-  VaccinationQuestionViewController.tableView(_:didSelectRowAt:)(viewCopy);
+  VaccinationQuestionViewController.tableView(_:didSelectRowAt:)(viewCopy, v9);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (double)tableView:(id)view heightForHeaderInSection:(int64_t)section
@@ -104,17 +102,16 @@
 {
   v6 = sub_251702EE4();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_251702EC4();
   viewCopy = view;
   selfCopy = self;
-  VaccinationQuestionViewController.tableView(_:heightForRowAt:)(viewCopy);
-  v14 = v13;
+  VaccinationQuestionViewController.tableView(_:heightForRowAt:)(viewCopy, v9);
+  v13 = v12;
 
-  (*(v7 + 8))(v10, v6);
-  return v14;
+  (*(v7 + 8))(v9, v6);
+  return v13;
 }
 
 - (void)didTapPrimaryButton
@@ -125,22 +122,20 @@
 
 - (void)didTapSecondaryButton
 {
-  v3 = *(&self->super.super.super.super.super.super.isa + OBJC_IVAR____TtC28HealthExposureNotificationUI33VaccinationQuestionViewController_flow);
-  v4 = *(&self->super.super.super.super.super._responderFlags + OBJC_IVAR____TtC28HealthExposureNotificationUI33VaccinationQuestionViewController_flow);
+  v3 = *(&self->super.super.super.super.super._responderFlags + OBJC_IVAR____TtC28HealthExposureNotificationUI33VaccinationQuestionViewController_flow);
   swift_getObjectType();
-  v5 = *(v4 + 120);
+  v4 = *(v3 + 120);
   selfCopy = self;
-  v5();
+  v4();
 }
 
 - (void)didTapCancel
 {
-  v3 = *(&self->super.super.super.super.super.super.isa + OBJC_IVAR____TtC28HealthExposureNotificationUI33VaccinationQuestionViewController_flow);
-  v4 = *(&self->super.super.super.super.super._responderFlags + OBJC_IVAR____TtC28HealthExposureNotificationUI33VaccinationQuestionViewController_flow);
+  v3 = *(&self->super.super.super.super.super._responderFlags + OBJC_IVAR____TtC28HealthExposureNotificationUI33VaccinationQuestionViewController_flow);
   swift_getObjectType();
-  v5 = *(v4 + 128);
+  v4 = *(v3 + 128);
   selfCopy = self;
-  v5();
+  v4();
 }
 
 - (_TtC28HealthExposureNotificationUI33VaccinationQuestionViewController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name

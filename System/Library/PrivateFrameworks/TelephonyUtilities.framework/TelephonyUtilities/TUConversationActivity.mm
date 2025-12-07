@@ -921,15 +921,16 @@ LABEL_41:
     goto LABEL_11;
   }
 
-  v10 = 0;
-  v5 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:identifierCopy allowPlaceholder:1 error:&v10];
-  v6 = v10;
+  v11 = 0;
+  v5 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:identifierCopy allowPlaceholder:1 error:&v11];
+  v6 = v11;
+  v7 = v6;
   if (v6)
   {
-    v7 = TUDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = TUDefaultLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(TUConversationActivity *)identifierCopy lookupApplicationNameForBundleIdentifier:v6, v7];
+      [(TUConversationActivity *)identifierCopy lookupApplicationNameForBundleIdentifier:v7, v8];
     }
   }
 
@@ -1052,28 +1053,25 @@ LABEL_11:
 
 - (void)setActivityContext:(id)context
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   contextCopy = context;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(contextCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = contextCopy;
-    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "[WARN] Not setting activity context: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = contextCopy;
+    _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "[WARN] Not setting activity context: %@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)lookupApplicationNameForBundleIdentifier:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_1956FD000, log, OS_LOG_TYPE_ERROR, "Lookup failed when trying to retrieve a name for bundle ID %@ with error %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_1956FD000, log, OS_LOG_TYPE_ERROR, "Lookup failed when trying to retrieve a name for bundle ID %@ with error %@", &v3, 0x16u);
 }
 
 @end

@@ -53,13 +53,13 @@
 
 - (MPSImageScale)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v47.receiver = self;
-  v47.super_class = MPSImageScale;
-  v5 = [(MPSUnaryImageKernel *)&v47 initWithCoder:aDecoder device:device];
-  v10 = v5;
+  v23.receiver = self;
+  v23.super_class = MPSImageScale;
+  v5 = [(MPSUnaryImageKernel *)&v23 initWithCoder:aDecoder device:device];
+  v7 = v5;
   if (!v5)
   {
-    return v10;
+    return v7;
   }
 
   if (*(&v5->super.super.super.isa + *MEMORY[0x277CD7358] + 2) << 16 == 0x10000)
@@ -67,18 +67,18 @@
     v5->_scaleTransform = 0;
     v5->super._checkFlags |= 0x4000u;
     p_transformStorage = &v5->_transformStorage;
-    v12 = vdupq_n_s64(0x7FF8000000000000uLL);
-    *&v5->_transformStorage.scaleX = v12;
-    *&v5->_transformStorage.translateX = v12;
-    if (objc_msgSend_containsValueForKey_(aDecoder, v6, @"MPSImageScaleScaleX", v7, v8, v9))
+    v9 = vdupq_n_s64(0x7FF8000000000000uLL);
+    *&v5->_transformStorage.scaleX = v9;
+    *&v5->_transformStorage.translateX = v9;
+    if (objc_msgSend_containsValueForKey_(aDecoder, v6, @"MPSImageScaleScaleX"))
     {
-      objc_msgSend_decodeDoubleForKey_(aDecoder, v13, @"MPSImageScaleScaleX", v14, v15, v16);
-      p_transformStorage->scaleX = v31;
-      v10->_scaleTransform = p_transformStorage;
-      if (!objc_msgSend_containsValueForKey_(aDecoder, v32, @"MPSImageScaleScaleY", v33, v34, v35))
+      objc_msgSend_decodeDoubleForKey_(aDecoder, v10, @"MPSImageScaleScaleX");
+      p_transformStorage->scaleX = v16;
+      v7->_scaleTransform = p_transformStorage;
+      if (!objc_msgSend_containsValueForKey_(aDecoder, v17, @"MPSImageScaleScaleY"))
       {
 LABEL_5:
-        if (!objc_msgSend_containsValueForKey_(aDecoder, v17, @"MPSImageScaleTranslateX", v18, v19, v20))
+        if (!objc_msgSend_containsValueForKey_(aDecoder, v11, @"MPSImageScaleTranslateX"))
         {
           goto LABEL_6;
         }
@@ -87,45 +87,45 @@ LABEL_5:
       }
     }
 
-    else if (!objc_msgSend_containsValueForKey_(aDecoder, v13, @"MPSImageScaleScaleY", v14, v15, v16))
+    else if (!objc_msgSend_containsValueForKey_(aDecoder, v10, @"MPSImageScaleScaleY"))
     {
       goto LABEL_5;
     }
 
-    objc_msgSend_decodeDoubleForKey_(aDecoder, v17, @"MPSImageScaleScaleY", v18, v19, v20);
-    v10->_transformStorage.scaleY = v36;
-    v10->_scaleTransform = p_transformStorage;
-    if (!objc_msgSend_containsValueForKey_(aDecoder, v37, @"MPSImageScaleTranslateX", v38, v39, v40))
+    objc_msgSend_decodeDoubleForKey_(aDecoder, v11, @"MPSImageScaleScaleY");
+    v7->_transformStorage.scaleY = v18;
+    v7->_scaleTransform = p_transformStorage;
+    if (!objc_msgSend_containsValueForKey_(aDecoder, v19, @"MPSImageScaleTranslateX"))
     {
 LABEL_6:
-      if (!objc_msgSend_containsValueForKey_(aDecoder, v21, @"MPSImageScaleTranslateY", v22, v23, v24))
+      if (!objc_msgSend_containsValueForKey_(aDecoder, v12, @"MPSImageScaleTranslateY"))
       {
-        return v10;
+        return v7;
       }
 
       goto LABEL_14;
     }
 
 LABEL_13:
-    objc_msgSend_decodeDoubleForKey_(aDecoder, v21, @"MPSImageScaleTranslateX", v22, v23, v24);
-    v10->_transformStorage.translateX = v41;
-    v10->_scaleTransform = p_transformStorage;
-    if (!objc_msgSend_containsValueForKey_(aDecoder, v42, @"MPSImageScaleTranslateY", v43, v44, v45))
+    objc_msgSend_decodeDoubleForKey_(aDecoder, v12, @"MPSImageScaleTranslateX");
+    v7->_transformStorage.translateX = v20;
+    v7->_scaleTransform = p_transformStorage;
+    if (!objc_msgSend_containsValueForKey_(aDecoder, v21, @"MPSImageScaleTranslateY"))
     {
-      return v10;
+      return v7;
     }
 
 LABEL_14:
-    objc_msgSend_decodeDoubleForKey_(aDecoder, v25, @"MPSImageScaleTranslateY", v26, v27, v28);
-    v10->_transformStorage.translateY = v46;
-    v10->_scaleTransform = p_transformStorage;
-    return v10;
+    objc_msgSend_decodeDoubleForKey_(aDecoder, v13, @"MPSImageScaleTranslateY");
+    v7->_transformStorage.translateY = v22;
+    v7->_scaleTransform = p_transformStorage;
+    return v7;
   }
 
   if (MTLReportFailureTypeEnabled())
   {
-    v30 = objc_opt_class();
-    NSStringFromClass(v30);
+    v15 = objc_opt_class();
+    NSStringFromClass(v15);
     MTLReportFailure();
   }
 
@@ -135,16 +135,16 @@ LABEL_14:
 - (void)encodeWithCoder:(id)coder
 {
   *(&self->super.super.super.isa + *MEMORY[0x277CD7358] + 2) = 1;
-  v22.receiver = self;
-  v22.super_class = MPSImageScale;
-  [(MPSUnaryImageKernel *)&v22 encodeWithCoder:?];
+  v10.receiver = self;
+  v10.super_class = MPSImageScale;
+  [(MPSUnaryImageKernel *)&v10 encodeWithCoder:?];
   scaleTransform = self->_scaleTransform;
   if (scaleTransform)
   {
-    objc_msgSend_encodeDouble_forKey_(coder, v5, @"MPSImageScaleScaleX", v6, v7, v8, scaleTransform->scaleX);
-    objc_msgSend_encodeDouble_forKey_(coder, v10, @"MPSImageScaleScaleY", v11, v12, v13, self->_scaleTransform->scaleY);
-    objc_msgSend_encodeDouble_forKey_(coder, v14, @"MPSImageScaleTranslateX", v15, v16, v17, self->_scaleTransform->translateX);
-    objc_msgSend_encodeDouble_forKey_(coder, v18, @"MPSImageScaleTranslateY", v19, v20, v21, self->_scaleTransform->translateY);
+    objc_msgSend_encodeDouble_forKey_(coder, v5, @"MPSImageScaleScaleX", scaleTransform->scaleX);
+    objc_msgSend_encodeDouble_forKey_(coder, v7, @"MPSImageScaleScaleY", self->_scaleTransform->scaleY);
+    objc_msgSend_encodeDouble_forKey_(coder, v8, @"MPSImageScaleTranslateX", self->_scaleTransform->translateX);
+    objc_msgSend_encodeDouble_forKey_(coder, v9, @"MPSImageScaleTranslateY", self->_scaleTransform->translateY);
   }
 }
 

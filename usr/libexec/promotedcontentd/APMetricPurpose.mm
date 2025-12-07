@@ -336,7 +336,7 @@ LABEL_29:
   }
 
 LABEL_32:
-  v21 = [definitionCopy objectForKeyedSubscript:{@"metrics", *v23, *&v23[16]}];
+  v21 = [definitionCopy objectForKeyedSubscript:{@"metrics", *v23, *&v23[8]}];
   v18 = isKindOfClass & [(APMetricPurpose *)self _validateMetric:v5 withMetrics:v21];
   if ((v18 & 1) == 0)
   {

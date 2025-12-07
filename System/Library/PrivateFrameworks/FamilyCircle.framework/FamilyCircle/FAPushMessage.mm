@@ -129,23 +129,23 @@ LABEL_13:
 {
   if (!self->_topic || !self->_payload || !self->_event || !self->_dsid && !self->_altDSID)
   {
-    v4 = _FALogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v3 = _FALogSystem();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      sub_100078894(v4);
+      sub_100078894(v3);
     }
 
     goto LABEL_11;
   }
 
   appleAccount = [(FAPushMessage *)self appleAccount];
-  v4 = appleAccount;
+  v3 = appleAccount;
   if (!appleAccount)
   {
-    v7 = _FALogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = _FALogSystem();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_100078824(&self->_dsid, self);
+      sub_100078824();
     }
 
     goto LABEL_17;
@@ -153,23 +153,23 @@ LABEL_13:
 
   if (([appleAccount aa_isAccountClass:AAAccountClassPrimary]& 1) == 0)
   {
-    v7 = _FALogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = _FALogSystem();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_1000787B4(&self->_dsid, self);
+      sub_1000787B4();
     }
 
 LABEL_17:
 
 LABEL_11:
-    v5 = 0;
+    v4 = 0;
     goto LABEL_12;
   }
 
-  v5 = 1;
+  v4 = 1;
 LABEL_12:
 
-  return v5;
+  return v4;
 }
 
 @end

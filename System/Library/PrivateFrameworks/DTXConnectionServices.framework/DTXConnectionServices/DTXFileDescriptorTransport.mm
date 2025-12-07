@@ -1,13 +1,16 @@
 @interface DTXFileDescriptorTransport
 - (DTXFileDescriptorTransport)init;
+- (DTXFileDescriptorTransport)initWithIncomingFileDescriptor:(int)descriptor outgoingFileDescriptor:(int)fileDescriptor disconnectBlock:(id)block;
 - (DTXFileDescriptorTransport)initWithIncomingFilePath:(id)path outgoingFilePath:(id)filePath error:(id *)error;
 - (DTXFileDescriptorTransport)initWithXPCRepresentation:(id)representation;
 - (id)serializedXPCRepresentation;
+- (int)_createWriteKQueue:(int)queue;
 - (unint64_t)transmit:(const void *)transmit ofLength:(unint64_t)length;
 - (unsigned)supportedDirections;
 - (void)_setupReadSource:(int)source;
 - (void)dealloc;
 - (void)disconnect;
+- (void)setupWithIncomingDescriptor:(int)descriptor outgoingDescriptor:(int)outgoingDescriptor disconnectBlock:(id)block;
 @end
 
 @implementation DTXFileDescriptorTransport
@@ -92,6 +95,33 @@ LABEL_17:
   return v11;
 }
 
+- (DTXFileDescriptorTransport)initWithIncomingFileDescriptor:(int)descriptor outgoingFileDescriptor:(int)fileDescriptor disconnectBlock:(id)block
+{
+  v5 = *&fileDescriptor;
+  v6 = *&descriptor;
+  blockCopy = block;
+  v14.receiver = self;
+  v14.super_class = DTXFileDescriptorTransport;
+  v9 = [(DTXTransport *)&v14 init];
+  v10 = v9;
+  if (v9)
+  {
+    sub_247F58778(v9);
+    if ((v5 & v6) < 0 != v12)
+    {
+
+      v10 = 0;
+    }
+
+    else
+    {
+      objc_msgSend_setupWithIncomingDescriptor_outgoingDescriptor_disconnectBlock_(v10, v11, v6, v5, blockCopy);
+    }
+  }
+
+  return v10;
+}
+
 - (void)_setupReadSource:(int)source
 {
   v5 = dispatch_source_create(MEMORY[0x277D85D28], source, 0, self->_inputQueue);
@@ -121,6 +151,92 @@ LABEL_17:
   v11 = v5;
 
   dispatch_resume(v11);
+}
+
+- (int)_createWriteKQueue:(int)queue
+{
+  v3 = *&queue;
+  if (queue < 0 || fcntl(queue, 73, 1) == -1)
+  {
+    v6 = __error();
+    NSLog(&cfstr_UnableToDisabl.isa, v3, *v6);
+    return -1;
+  }
+
+  else
+  {
+    v4 = kqueue();
+    v5 = v4;
+    if (v4 < 0)
+    {
+      v9 = *__error();
+      NSLog(&cfstr_FailedToCreate.isa, v9);
+    }
+
+    else
+    {
+      changelist.ident = v3;
+      *&changelist.filter = 2490366;
+      memset(&changelist.fflags, 0, 20);
+      if (kevent(v4, &changelist, 1, 0, 0, 0) == -1)
+      {
+        v8 = *__error();
+        NSLog(&cfstr_FailedToHandle.isa, v8);
+      }
+    }
+  }
+
+  return v5;
+}
+
+- (void)setupWithIncomingDescriptor:(int)descriptor outgoingDescriptor:(int)outgoingDescriptor disconnectBlock:(id)block
+{
+  v5 = *&outgoingDescriptor;
+  v6 = *&descriptor;
+  self->_inFD = descriptor;
+  self->_outFD = outgoingDescriptor;
+  v8 = MEMORY[0x24C1C0D80](block, a2);
+  disconnectBlock = self->_disconnectBlock;
+  self->_disconnectBlock = v8;
+
+  if (objc_msgSend_status(self, v10, v11) == 3)
+  {
+LABEL_2:
+
+    objc_msgSend_disconnect(self, v12, v13);
+    return;
+  }
+
+  if ((v6 & 0x80000000) != 0)
+  {
+    if ((v5 & 0x80000000) != 0)
+    {
+      goto LABEL_2;
+    }
+  }
+
+  else if ((v5 & 0x80000000) != 0)
+  {
+LABEL_11:
+    objc_msgSend__setupReadSource_(self, v12, v6);
+    goto LABEL_12;
+  }
+
+  v14 = objc_msgSend__createWriteKQueue_(self, v12, v5);
+  if (v14 < 0)
+  {
+    goto LABEL_2;
+  }
+
+  self->_outputWaitKQ = v14;
+  if ((v6 & 0x80000000) == 0)
+  {
+    goto LABEL_11;
+  }
+
+LABEL_12:
+
+  objc_msgSend_setStatus_(self, v12, 1);
 }
 
 - (DTXFileDescriptorTransport)initWithXPCRepresentation:(id)representation

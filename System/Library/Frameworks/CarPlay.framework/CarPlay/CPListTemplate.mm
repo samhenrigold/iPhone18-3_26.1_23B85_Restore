@@ -35,20 +35,19 @@
 {
   height = size.height;
   width = size.width;
-  v11 = *MEMORY[0x277D85DE8];
-  v5 = CarPlayFrameworkGeneralLogging();
+  v10 = *MEMORY[0x277D85DE8];
+  v5 = CarPlayFrameworkGeneralLogging(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v7 = 134349312;
-    v8 = width;
-    v9 = 2050;
-    v10 = height;
-    _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_INFO, "CPListTemplate setting maxImageSize (%{public}f,%{public}f)", &v7, 0x16u);
+    v6 = 134349312;
+    v7 = width;
+    v8 = 2050;
+    v9 = height;
+    _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_INFO, "CPListTemplate setting maxImageSize (%{public}f,%{public}f)", &v6, 0x16u);
   }
 
   _maximumGridButtonImageSize_0_0 = *&width;
   _maximumGridButtonImageSize_1_0 = *&height;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (NSUInteger)maximumItemCount
@@ -261,7 +260,7 @@ void __53__CPListTemplate__gridButtonsByFilteringAndTrimming___block_invoke(uint
 
     else
     {
-      v12 = CarPlayFrameworkGeneralLogging();
+      v12 = CarPlayFrameworkGeneralLogging(v10);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         *v14 = 0;
@@ -373,41 +372,39 @@ void __53__CPListTemplate__gridButtonsByFilteringAndTrimming___block_invoke(uint
 
 - (void)updateSections:(NSArray *)sections
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = sections;
   v5 = [(CPListTemplate *)self _sectionsByTrimmingAndLinkingSections:v4];
-  v6 = CarPlayFrameworkGeneralLogging();
+  v6 = CarPlayFrameworkGeneralLogging(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     selfCopy = self;
-    v14 = 2112;
-    v15 = v5;
+    v13 = 2112;
+    v14 = v5;
     _os_log_impl(&dword_236ED4000, v6, OS_LOG_TYPE_DEFAULT, "%@ enqueuing list update with %@", buf, 0x16u);
   }
 
   objc_storeStrong(&self->_sections, v5);
   objc_initWeak(buf, self);
   templateProviderFuture = [(CPTemplate *)self templateProviderFuture];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __33__CPListTemplate_updateSections___block_invoke;
-  v10[3] = &unk_278A11208;
-  objc_copyWeak(&v11, buf);
-  v8 = [templateProviderFuture addSuccessBlock:v10];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __33__CPListTemplate_updateSections___block_invoke;
+  v9[3] = &unk_278A11208;
+  objc_copyWeak(&v10, buf);
+  v8 = [templateProviderFuture addSuccessBlock:v9];
 
-  objc_destroyWeak(&v11);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(buf);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __33__CPListTemplate_updateSections___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = CarPlayFrameworkGeneralLogging();
+  v5 = CarPlayFrameworkGeneralLogging(WeakRetained);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_loadWeakRetained((a1 + 32));
@@ -418,47 +415,46 @@ void __33__CPListTemplate_updateSections___block_invoke(uint64_t a1, void *a2)
     v11 = objc_loadWeakRetained((a1 + 32));
     v12 = [v10 numberWithUnsignedInteger:{objc_msgSend(v11, "itemCount")}];
 
-    v14 = 138412802;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v9;
-    v18 = 2112;
-    v19 = v12;
-    _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_DEFAULT, "%@ sending section update with %@ sections, %@ items", &v14, 0x20u);
+    v13 = 138412802;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v9;
+    v17 = 2112;
+    v18 = v12;
+    _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_DEFAULT, "%@ sending section update with %@ sections, %@ items", &v13, 0x20u);
   }
 
   [v3 reloadTemplate:WeakRetained];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (NSUInteger)itemCount
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = self->_sections;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        items = [*(*(&v11 + 1) + 8 * i) items];
+        items = [*(*(&v10 + 1) + 8 * i) items];
         v5 += [items count];
       }
 
-      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
@@ -469,7 +465,6 @@ void __33__CPListTemplate_updateSections___block_invoke(uint64_t a1, void *a2)
     v5 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -580,21 +575,21 @@ void __38__CPListTemplate__linkItemsInSection___block_invoke(uint64_t a1, void *
 
 - (void)performUpdate
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   itemsToReload = [(CPListTemplate *)self itemsToReload];
   v4 = [itemsToReload count];
 
   if (v4)
   {
-    v5 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = CarPlayFrameworkGeneralLogging(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       itemsToReload2 = [(CPListTemplate *)self itemsToReload];
       *buf = 138412546;
       selfCopy2 = self;
-      v28 = 2112;
-      v29 = itemsToReload2;
-      _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_DEFAULT, "Sending List Template update for %@ with %@", buf, 0x16u);
+      v29 = 2112;
+      v30 = itemsToReload2;
+      _os_log_impl(&dword_236ED4000, v6, OS_LOG_TYPE_DEFAULT, "Sending List Template update for %@ with %@", buf, 0x16u);
     }
 
     itemsToReload3 = [(CPListTemplate *)self itemsToReload];
@@ -604,46 +599,45 @@ void __38__CPListTemplate__linkItemsInSection___block_invoke(uint64_t a1, void *
     [itemsToReload4 removeAllObjects];
 
     templateProviderFuture = [(CPTemplate *)self templateProviderFuture];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __31__CPListTemplate_performUpdate__block_invoke;
-    v24[3] = &unk_278A11280;
-    v25 = allObjects;
-    v11 = allObjects;
-    v12 = [templateProviderFuture addSuccessBlock:v24];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __31__CPListTemplate_performUpdate__block_invoke;
+    v25[3] = &unk_278A11280;
+    v26 = allObjects;
+    v12 = allObjects;
+    v13 = [templateProviderFuture addSuccessBlock:v25];
 
     itemsToReload5 = [(CPListTemplate *)self itemsToReload];
     [itemsToReload5 removeAllObjects];
   }
 
-  if ([(CPListTemplate *)self reloadHeaderButtons])
+  reloadHeaderButtons = [(CPListTemplate *)self reloadHeaderButtons];
+  if (reloadHeaderButtons)
   {
-    v14 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = CarPlayFrameworkGeneralLogging(reloadHeaderButtons);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       headerGridButtons = [(CPListTemplate *)self headerGridButtons];
       *buf = 138412546;
       selfCopy2 = self;
-      v28 = 2114;
-      v29 = headerGridButtons;
-      _os_log_impl(&dword_236ED4000, v14, OS_LOG_TYPE_DEFAULT, "Sending List Template header update for %@ with %{public}@", buf, 0x16u);
+      v29 = 2114;
+      v30 = headerGridButtons;
+      _os_log_impl(&dword_236ED4000, v16, OS_LOG_TYPE_DEFAULT, "Sending List Template header update for %@ with %{public}@", buf, 0x16u);
     }
 
     [(CPListTemplate *)self setReloadHeaderButtons:0];
     headerGridButtons2 = [(CPListTemplate *)self headerGridButtons];
-    v17 = [headerGridButtons2 copy];
+    v19 = [headerGridButtons2 copy];
 
     templateProviderFuture2 = [(CPTemplate *)self templateProviderFuture];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __31__CPListTemplate_performUpdate__block_invoke_126;
-    v22[3] = &unk_278A11280;
-    v23 = v17;
-    v19 = v17;
-    v20 = [templateProviderFuture2 addSuccessBlock:v22];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __31__CPListTemplate_performUpdate__block_invoke_126;
+    v23[3] = &unk_278A11280;
+    v24 = v19;
+    v21 = v19;
+    v22 = [templateProviderFuture2 addSuccessBlock:v23];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_itemForHostItemWithIdentifier:(id)identifier
@@ -666,26 +660,25 @@ void __38__CPListTemplate__linkItemsInSection___block_invoke(uint64_t a1, void *
   v14 = &v15;
   [sections enumerateObjectsUsingBlock:v12];
 
-  v7 = v16[5];
-  if (!v7)
+  v8 = v16[5];
+  if (!v8)
   {
-    v8 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = CarPlayFrameworkGeneralLogging(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
       v22 = v6;
-      _os_log_impl(&dword_236ED4000, v8, OS_LOG_TYPE_INFO, "Failed to identify a local item for %@", buf, 0xCu);
+      _os_log_impl(&dword_236ED4000, v9, OS_LOG_TYPE_INFO, "Failed to identify a local item for %@", buf, 0xCu);
     }
 
-    v7 = v16[5];
+    v8 = v16[5];
   }
 
-  v9 = v7;
+  v10 = v8;
 
   _Block_object_dispose(&v15, 8);
-  v10 = *MEMORY[0x277D85DE8];
 
-  return v9;
+  return v10;
 }
 
 void __49__CPListTemplate__itemForHostItemWithIdentifier___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
@@ -746,17 +739,17 @@ void __49__CPListTemplate__itemForHostItemWithIdentifier___block_invoke_2(uint64
 
 void __95__CPListTemplate_listTemplateWithIdentifier_didSelectListItemWithIdentifier_completionHandler___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v2 = CarPlayFrameworkGeneralLogging();
+  v15 = *MEMORY[0x277D85DE8];
+  v2 = CarPlayFrameworkGeneralLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v12 = 138412546;
-    v13 = v3;
-    v14 = 2114;
-    v15 = v4;
-    _os_log_impl(&dword_236ED4000, v2, OS_LOG_TYPE_DEFAULT, "%@ selected list item %{public}@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = v3;
+    v13 = 2114;
+    v14 = v4;
+    _os_log_impl(&dword_236ED4000, v2, OS_LOG_TYPE_DEFAULT, "%@ selected list item %{public}@", &v11, 0x16u);
   }
 
   v5 = [*(a1 + 32) _itemForHostItemWithIdentifier:*(a1 + 40)];
@@ -786,8 +779,6 @@ LABEL_9:
   }
 
 LABEL_10:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (CPListTemplate)listTemplateWithIdentifier:(id)identifier didSelectImageAtIndex:(unint64_t)index inImageRowItemWithIdentifier:(id)withIdentifier
@@ -808,20 +799,20 @@ LABEL_10:
 
 void __96__CPListTemplate_listTemplateWithIdentifier_didSelectImageAtIndex_inImageRowItemWithIdentifier___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v2 = CarPlayFrameworkGeneralLogging();
+  v16 = *MEMORY[0x277D85DE8];
+  v2 = CarPlayFrameworkGeneralLogging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 48)];
-    v11 = 138412802;
-    v12 = v3;
-    v13 = 2114;
-    v14 = v4;
-    v15 = 2114;
-    v16 = v5;
-    _os_log_impl(&dword_236ED4000, v2, OS_LOG_TYPE_DEFAULT, "%@ selected image row item %{public}@ image index %{public}@", &v11, 0x20u);
+    v10 = 138412802;
+    v11 = v3;
+    v12 = 2114;
+    v13 = v4;
+    v14 = 2114;
+    v15 = v5;
+    _os_log_impl(&dword_236ED4000, v2, OS_LOG_TYPE_DEFAULT, "%@ selected image row item %{public}@ image index %{public}@", &v10, 0x20u);
   }
 
   v6 = [*(a1 + 32) _itemForHostItemWithIdentifier:*(a1 + 40)];
@@ -837,8 +828,6 @@ void __96__CPListTemplate_listTemplateWithIdentifier_didSelectImageAtIndex_inIma
       (v9)[2](v9, v7, *(a1 + 48), &__block_literal_global_11);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAssistantCellConfiguration:(CPAssistantCellConfiguration *)assistantCellConfiguration
@@ -979,22 +968,22 @@ void __51__CPListTemplate_handleActionForControlIdentifier___block_invoke(uint64
   v21[3] = &unk_278A11320;
   v22 = *(a1 + 40);
   v23 = &v32;
-  [v2 enumerateObjectsUsingBlock:v21];
+  v14 = [v2 enumerateObjectsUsingBlock:v21];
   if (v33[5])
   {
-    v14 = CarPlayFrameworkGeneralLogging();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v15 = CarPlayFrameworkGeneralLogging(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      v15 = v33[5];
-      v16 = *(a1 + 32);
-      v17 = *(a1 + 40);
+      v16 = v33[5];
+      v17 = *(a1 + 32);
+      v18 = *(a1 + 40);
       *buf = 138412802;
-      v39 = v16;
+      v39 = v17;
       v40 = 2112;
-      v41 = v15;
+      v41 = v16;
       v42 = 2112;
-      v43 = v17;
-      _os_log_impl(&dword_236ED4000, v14, OS_LOG_TYPE_INFO, "%@: Activated button: %@ for control identifier: %@", buf, 0x20u);
+      v43 = v18;
+      _os_log_impl(&dword_236ED4000, v15, OS_LOG_TYPE_INFO, "%@: Activated button: %@ for control identifier: %@", buf, 0x20u);
     }
 
     [v33[5] handlePrimaryAction];
@@ -1002,14 +991,13 @@ void __51__CPListTemplate_handleActionForControlIdentifier___block_invoke(uint64
 
   else
   {
-    v18 = *(a1 + 40);
+    v19 = *(a1 + 40);
     v20.receiver = *(a1 + 32);
     v20.super_class = CPListTemplate;
-    objc_msgSendSuper2(&v20, sel_handleActionForControlIdentifier_, v18);
+    objc_msgSendSuper2(&v20, sel_handleActionForControlIdentifier_, v19);
   }
 
   _Block_object_dispose(&v32, 8);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __51__CPListTemplate_handleActionForControlIdentifier___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)

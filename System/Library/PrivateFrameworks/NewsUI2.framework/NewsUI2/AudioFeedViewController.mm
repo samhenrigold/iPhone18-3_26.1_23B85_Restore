@@ -80,7 +80,7 @@
 - (void)offlineStatusBannerRequestedForceReload
 {
   selfCopy = self;
-  sub_2196D8AE4();
+  sub_2196D8AE4(selfCopy);
 }
 
 - (void)scrollToTopAnimated:(BOOL)animated

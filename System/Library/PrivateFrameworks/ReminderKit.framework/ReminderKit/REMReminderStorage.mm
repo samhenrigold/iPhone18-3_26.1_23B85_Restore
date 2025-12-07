@@ -227,7 +227,7 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v278 = *MEMORY[0x1E69E9840];
+  v277 = *MEMORY[0x1E69E9840];
   equalCopy = equal;
   v5 = equalCopy;
   if (equalCopy != self)
@@ -1044,8 +1044,8 @@
 
                   if (!self->_hasDeserializedNotesDocument)
                   {
-                    v249 = +[REMLogStore read];
-                    if (os_log_type_enabled(v249, OS_LOG_TYPE_FAULT))
+                    v248 = +[REMLogStore read];
+                    if (os_log_type_enabled(v248, OS_LOG_TYPE_FAULT))
                     {
                       [REMReminderStorage isEqual:];
                     }
@@ -1053,7 +1053,7 @@
 
                   notesDocument = [(REMReminderStorage *)self notesDocument];
                   notesDocument2 = [(REMReminderStorage *)v6 notesDocument];
-                  v252 = notesDocument2;
+                  v251 = notesDocument2;
                   if (notesDocument == notesDocument2)
                   {
                   }
@@ -1062,9 +1062,9 @@
                   {
                     notesDocument3 = [(REMReminderStorage *)self notesDocument];
                     notesDocument4 = [(REMReminderStorage *)v6 notesDocument];
-                    v255 = [notesDocument3 isEqual:notesDocument4];
+                    v254 = [notesDocument3 isEqual:notesDocument4];
 
-                    if (!v255)
+                    if (!v254)
                     {
                       goto LABEL_183;
                     }
@@ -1072,7 +1072,7 @@
 
                   notesAsString = [(REMReminderStorage *)self notesAsString];
                   notesAsString2 = [(REMReminderStorage *)v6 notesAsString];
-                  v258 = notesAsString2;
+                  v257 = notesAsString2;
                   if (notesAsString == notesAsString2)
                   {
                   }
@@ -1081,9 +1081,9 @@
                   {
                     notesAsString3 = [(REMReminderStorage *)self notesAsString];
                     notesAsString4 = [(REMReminderStorage *)v6 notesAsString];
-                    v261 = [notesAsString3 isEqual:notesAsString4];
+                    v260 = [notesAsString3 isEqual:notesAsString4];
 
-                    if (!v261)
+                    if (!v260)
                     {
                       goto LABEL_183;
                     }
@@ -1091,26 +1091,26 @@
 
                   if (!self->_resolutionTokenMap || v6->_resolutionTokenMap)
                   {
-                    v262 = +[REMLogStore read];
-                    if (os_log_type_enabled(v262, OS_LOG_TYPE_ERROR))
+                    v261 = +[REMLogStore read];
+                    if (os_log_type_enabled(v261, OS_LOG_TYPE_ERROR))
                     {
-                      v268 = objc_opt_class();
-                      v269 = NSStringFromClass(v268);
+                      v267 = objc_opt_class();
+                      v268 = NSStringFromClass(v267);
                       resolutionTokenMap = self->_resolutionTokenMap;
-                      v271 = v6->_resolutionTokenMap;
-                      v272 = 138543874;
-                      v273 = v269;
-                      v274 = 2112;
-                      v275 = resolutionTokenMap;
-                      v276 = 2112;
-                      v277 = v271;
-                      _os_log_error_impl(&dword_19A0DB000, v262, OS_LOG_TYPE_ERROR, "You are about to trigger decoding the resolution token map from JSON data. This is probably not what you want for performance to trigger it from -isEqual:, unless you are running Tests then it's fine {class: %{public}@, self-map: %@, other-map: %@}", &v272, 0x20u);
+                      v270 = v6->_resolutionTokenMap;
+                      v271 = 138543874;
+                      v272 = v268;
+                      v273 = 2112;
+                      v274 = resolutionTokenMap;
+                      v275 = 2112;
+                      v276 = v270;
+                      _os_log_error_impl(&dword_19A0DB000, v261, OS_LOG_TYPE_ERROR, "You are about to trigger decoding the resolution token map from JSON data. This is probably not what you want for performance to trigger it from -isEqual:, unless you are running Tests then it's fine {class: %{public}@, self-map: %@, other-map: %@}", &v271, 0x20u);
                     }
                   }
 
                   resolutionTokenMap = [(REMReminderStorage *)self resolutionTokenMap];
                   resolutionTokenMap2 = [(REMReminderStorage *)v6 resolutionTokenMap];
-                  v265 = resolutionTokenMap2;
+                  v264 = resolutionTokenMap2;
                   if (resolutionTokenMap == resolutionTokenMap2)
                   {
 
@@ -1143,7 +1143,6 @@ LABEL_184:
   v13 = 1;
 LABEL_185:
 
-  v247 = *MEMORY[0x1E69E9840];
   return v13 & 1;
 }
 
@@ -1383,7 +1382,7 @@ LABEL_185:
 {
   zoneCopy = zone;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v57 = zoneCopy;
+  v56 = zoneCopy;
   v6 = [MEMORY[0x1E696AC80] rem_formatterWithTimeZone:zoneCopy];
   startDateComponents = [(REMReminderStorage *)self startDateComponents];
 
@@ -1429,7 +1428,7 @@ LABEL_185:
     [v5 addObject:v29];
   }
 
-  v58 = v6;
+  v57 = v6;
   alarms = [(REMReminderStorage *)self alarms];
   v31 = [alarms count];
 
@@ -1438,57 +1437,56 @@ LABEL_185:
     v32 = 0;
     v33 = 0x1E7506000uLL;
     v34 = @"alarm[%ld]: %@";
-    v59 = v5;
+    v58 = v5;
     do
     {
       alarms2 = [(REMReminderStorage *)self alarms];
       v36 = [alarms2 objectAtIndexedSubscript:v32];
 
       trigger = [v36 trigger];
-      v38 = *(v33 + 2352);
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
 
       trigger2 = [v36 trigger];
-      v41 = trigger2;
+      v40 = trigger2;
       if (isKindOfClass)
       {
         dateComponents = [trigger2 dateComponents];
-        v43 = [v58 rem_stringFromDateComponents:dateComponents];
+        v42 = [v57 rem_stringFromDateComponents:dateComponents];
 
-        v44 = *(v8 + 3776);
-        [v41 dateComponents];
+        v43 = *(v8 + 3776);
+        [v40 dateComponents];
         selfCopy = self;
-        v46 = v34;
-        v48 = v47 = v33;
-        timeZone4 = [v48 timeZone];
-        v50 = [v44 stringWithFormat:@"%@ tz: %@", v43, timeZone4];
+        v45 = v34;
+        v47 = v46 = v33;
+        timeZone4 = [v47 timeZone];
+        v49 = [v43 stringWithFormat:@"%@ tz: %@", v42, timeZone4];
 
         v8 = 0x1E696A000;
-        v33 = v47;
-        v34 = v46;
+        v33 = v46;
+        v34 = v45;
         self = selfCopy;
       }
 
       else
       {
-        v51 = objc_opt_class();
-        v50 = NSStringFromClass(v51);
+        v50 = objc_opt_class();
+        v49 = NSStringFromClass(v50);
       }
 
-      v52 = [*(v8 + 3776) stringWithFormat:v34, v32, v50];
-      v5 = v59;
-      [v59 addObject:v52];
+      v51 = [*(v8 + 3776) stringWithFormat:v34, v32, v49];
+      v5 = v58;
+      [v58 addObject:v51];
 
       ++v32;
       alarms3 = [(REMReminderStorage *)self alarms];
-      v54 = [alarms3 count];
+      v53 = [alarms3 count];
 
-      v55 = v32 >= v54;
+      v54 = v32 >= v53;
       v8 = 0x1E696A000;
     }
 
-    while (!v55);
+    while (!v54);
   }
 
   return v5;
@@ -2119,9 +2117,7 @@ LABEL_7:
 
 - (void)setFetchedDueDateDeltaAlerts:(id)alerts
 {
-  v4 = [alerts copy];
-  fetchedDueDateDeltaAlerts = self->_fetchedDueDateDeltaAlerts;
-  self->_fetchedDueDateDeltaAlerts = v4;
+  self->_fetchedDueDateDeltaAlerts = [alerts copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -2189,41 +2185,22 @@ LABEL_7:
   [(REMReminderStorage *)self setAlternativeDisplayDateDate_forCalendar:v5];
 }
 
-- (void)isEqual:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_1_4(&dword_19A0DB000, v0, v1, "Tried to compare two REMReminderStorage instances without first deserializing their CRDT titleDocument {self: %@, other: %@}");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)isEqual:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_1_4(&dword_19A0DB000, v0, v1, "Tried to compare two REMReminderStorage instances without first deserializing their CRDT notesDocument {self: %@, other: %@}");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
 - (void)initWithCoder:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "Unknown REMSiriFoundInAppsUserConfirmation %ld", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "Unknown REMSiriFoundInAppsUserConfirmation %ld", &v2, 0xCu);
 }
 
 - (void)resolutionTokenMap
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   OUTLINED_FUNCTION_0_6();
   selfCopy = self;
-  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "Nil resolutionTokenMapData when reading resolutionTokenMap from reminder storage. Initialize an empty map {class: %{public}@, reminder: %@}", v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "Nil resolutionTokenMapData when reading resolutionTokenMap from reminder storage. Initialize an empty map {class: %{public}@, reminder: %@}", v6, 0x16u);
 }
 
 @end

@@ -248,34 +248,35 @@ uint64_t __49__CRVehicleAccessoryManager_managerInfoDataCache__block_invoke()
       certData = [certData length];
       if (certData)
       {
-        v13 = 0;
-        v14 = &v13;
-        v15 = 0x2020000000;
+        v14 = 0;
+        v15 = &v14;
+        v16 = 0x2020000000;
         v7 = getMFAACreateCertificateSerialNumberSymbolLoc_ptr;
-        v16 = getMFAACreateCertificateSerialNumberSymbolLoc_ptr;
+        v17 = getMFAACreateCertificateSerialNumberSymbolLoc_ptr;
         if (!getMFAACreateCertificateSerialNumberSymbolLoc_ptr)
         {
-          v12[0] = MEMORY[0x1E69E9820];
-          v12[1] = 3221225472;
-          v12[2] = __getMFAACreateCertificateSerialNumberSymbolLoc_block_invoke;
-          v12[3] = &unk_1E82FC8F8;
-          v12[4] = &v13;
-          __getMFAACreateCertificateSerialNumberSymbolLoc_block_invoke(v12);
-          v7 = v14[3];
+          v13[0] = MEMORY[0x1E69E9820];
+          v13[1] = 3221225472;
+          v13[2] = __getMFAACreateCertificateSerialNumberSymbolLoc_block_invoke;
+          v13[3] = &unk_1E82FC8F8;
+          v13[4] = &v14;
+          __getMFAACreateCertificateSerialNumberSymbolLoc_block_invoke(v13);
+          v7 = v15[3];
         }
 
-        _Block_object_dispose(&v13, 8);
+        _Block_object_dispose(&v14, 8);
         if (!v7)
         {
-          v11 = [CRCarPlayAppPolicyEvaluator effectivePolicyForAppDeclaration:inVehicleWithCertificateSerial:];
-          _Block_object_dispose(&v13, 8);
-          _Unwind_Resume(v11);
+          [CRCarPlayAppPolicyEvaluator effectivePolicyForAppDeclaration:inVehicleWithCertificateSerial:];
+          v12 = v11;
+          _Block_object_dispose(&v14, 8);
+          _Unwind_Resume(v12);
         }
 
         certData = v7(v6);
         if (!certData)
         {
-          v8 = CarGeneralLogging();
+          v8 = CarGeneralLogging(0);
           if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
           {
             [CRVehicleAccessoryManager _certificateSerialNumberForAccessory:v8];
@@ -352,59 +353,60 @@ uint64_t __49__CRVehicleAccessoryManager_managerInfoDataCache__block_invoke()
 
 - (id)_vehicleForAccessory:(id)accessory
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   accessoryCopy = accessory;
-  if ([objc_opt_class() _isVehicleAccessory:accessoryCopy])
+  v5 = [objc_opt_class() _isVehicleAccessory:accessoryCopy];
+  if (v5)
   {
-    v5 = [objc_opt_class() _certificateSerialNumberForAccessory:accessoryCopy];
-    if (v5)
+    v6 = [objc_opt_class() _certificateSerialNumberForAccessory:accessoryCopy];
+    if (v6)
     {
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v15 = 0x3032000000;
-      v16 = __Block_byref_object_copy__4;
-      v17 = __Block_byref_object_dispose__4;
-      v18 = 0;
+      v16 = 0x3032000000;
+      v17 = __Block_byref_object_copy__4;
+      v18 = __Block_byref_object_dispose__4;
+      v19 = 0;
       vehicleAccessQueue = [objc_opt_class() vehicleAccessQueue];
-      v10[0] = MEMORY[0x1E69E9820];
-      v10[1] = 3221225472;
-      v10[2] = __50__CRVehicleAccessoryManager__vehicleForAccessory___block_invoke;
-      v10[3] = &unk_1E82FD2A0;
+      v11[0] = MEMORY[0x1E69E9820];
+      v11[1] = 3221225472;
+      v11[2] = __50__CRVehicleAccessoryManager__vehicleForAccessory___block_invoke;
+      v11[3] = &unk_1E82FD2A0;
       p_buf = &buf;
-      v10[4] = self;
-      v5 = v5;
-      v11 = v5;
-      v12 = accessoryCopy;
-      dispatch_sync(vehicleAccessQueue, v10);
+      v11[4] = self;
+      v6 = v6;
+      v12 = v6;
+      v13 = accessoryCopy;
+      dispatch_sync(vehicleAccessQueue, v11);
 
-      v7 = *(*(&buf + 1) + 40);
+      v8 = *(*(&buf + 1) + 40);
       _Block_object_dispose(&buf, 8);
 
       goto LABEL_10;
     }
 
-    v8 = CarGeneralLogging();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = CarGeneralLogging(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(CRVehicleAccessoryManager *)accessoryCopy _vehicleForAccessory:v8];
+      [(CRVehicleAccessoryManager *)accessoryCopy _vehicleForAccessory:v9];
     }
   }
 
   else
   {
-    v5 = CarGeneralLogging();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = CarGeneralLogging(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf) = 138412290;
       *(&buf + 4) = accessoryCopy;
-      _os_log_impl(&dword_1C81FC000, v5, OS_LOG_TYPE_DEFAULT, "Accessory %@ does not support CarPlay", &buf, 0xCu);
+      _os_log_impl(&dword_1C81FC000, v6, OS_LOG_TYPE_DEFAULT, "Accessory %@ does not support CarPlay", &buf, 0xCu);
     }
   }
 
-  v7 = 0;
+  v8 = 0;
 LABEL_10:
 
-  return v7;
+  return v8;
 }
 
 void __50__CRVehicleAccessoryManager__vehicleForAccessory___block_invoke(uint64_t a1)
@@ -445,17 +447,17 @@ void __50__CRVehicleAccessoryManager__vehicleForAccessory___block_invoke(uint64_
     v17 = [*(a1 + 32) vehiclesBySerialNumber];
     [v17 setObject:*(*(*(a1 + 56) + 8) + 40) forKey:*(a1 + 40)];
 
-    v18 = CarGeneralLogging();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v19 = CarGeneralLogging(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
-      __50__CRVehicleAccessoryManager__vehicleForAccessory___block_invoke_cold_1(v16, v18);
+      __50__CRVehicleAccessoryManager__vehicleForAccessory___block_invoke_cold_1(v16, v19);
     }
   }
 }
 
 - (void)_updateVehicle:(id)vehicle usingAccessory:(id)accessory
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   vehicleCopy = vehicle;
   accessoryCopy = accessory;
   [vehicleCopy setAccessory:accessoryCopy];
@@ -484,8 +486,8 @@ void __50__CRVehicleAccessoryManager__vehicleForAccessory___block_invoke(uint64_
     [vehicleCopy setBluetoothAddress:0];
   }
 
-  [vehicleCopy setTransportType:{+[CRVehicleAccessory _transportTypeForExternalAccessoryTransportType:](CRVehicleAccessory, "_transportTypeForExternalAccessoryTransportType:", objc_msgSend(accessoryCopy, "transportType"))}];
-  if (CRIsInternalInstall())
+  v13 = [vehicleCopy setTransportType:{+[CRVehicleAccessory _transportTypeForExternalAccessoryTransportType:](CRVehicleAccessory, "_transportTypeForExternalAccessoryTransportType:", objc_msgSend(accessoryCopy, "transportType"))}];
+  if (CRIsInternalInstall(v13, v14))
   {
     modelNumber = [accessoryCopy modelNumber];
     if (modelNumber)
@@ -510,21 +512,22 @@ void __50__CRVehicleAccessoryManager__vehicleForAccessory___block_invoke(uint64_
   [vehicleCopy setSupportsCarPlayConnectionRequest:{objc_msgSend(accessoryCopy, "supportsCarPlayConnectionRequest")}];
   [vehicleCopy setSupportsBluetoothLE:0];
   accessoryCapabilities = [accessoryCopy accessoryCapabilities];
-  v16 = CarGeneralLogging();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v18 = accessoryCapabilities;
+  v19 = CarGeneralLogging(accessoryCapabilities);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = @"NO";
-    if ((accessoryCapabilities & 0x200000) != 0)
+    v20 = @"NO";
+    if ((v18 & 0x200000) != 0)
     {
-      v17 = @"YES";
+      v20 = @"YES";
     }
 
-    v19 = 138543362;
-    v20 = v17;
-    _os_log_impl(&dword_1C81FC000, v16, OS_LOG_TYPE_DEFAULT, "vehicle supports theme assets: %{public}@", &v19, 0xCu);
+    v22 = 138543362;
+    v23 = v20;
+    _os_log_impl(&dword_1C81FC000, v19, OS_LOG_TYPE_DEFAULT, "vehicle supports theme assets: %{public}@", &v22, 0xCu);
   }
 
-  [vehicleCopy setSupportsThemeAssets:(accessoryCapabilities >> 21) & 1];
+  [vehicleCopy setSupportsThemeAssets:(v18 >> 21) & 1];
   [vehicleCopy setSupportsEnhancedIntegration:{objc_msgSend(accessoryCopy, "supportsCarPlayAppLinks")}];
   ppid = [accessoryCopy ppid];
   [vehicleCopy setPPID:ppid];
@@ -532,7 +535,7 @@ void __50__CRVehicleAccessoryManager__vehicleForAccessory___block_invoke(uint64_
 
 - (id)_vehicleInfoDataForAccessory:(id)accessory
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   accessoryCopy = accessory;
   certificateSerialNumber = [accessoryCopy certificateSerialNumber];
   if (certificateSerialNumber)
@@ -540,27 +543,27 @@ void __50__CRVehicleAccessoryManager__vehicleForAccessory___block_invoke(uint64_
     managerInfoDataCache = [objc_opt_class() managerInfoDataCache];
     v6 = [managerInfoDataCache objectForKey:certificateSerialNumber];
 
-    v7 = CarGeneralLogging();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    v8 = CarGeneralLogging(v7);
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
     if (v6)
     {
-      if (v8)
+      if (v9)
       {
-        v16 = 138412290;
-        v17 = certificateSerialNumber;
-        _os_log_impl(&dword_1C81FC000, v7, OS_LOG_TYPE_DEFAULT, "Fetched Vehicle Info data from cache for %@", &v16, 0xCu);
+        v17 = 138412290;
+        v18 = certificateSerialNumber;
+        _os_log_impl(&dword_1C81FC000, v8, OS_LOG_TYPE_DEFAULT, "Fetched Vehicle Info data from cache for %@", &v17, 0xCu);
       }
 
-      v9 = v6;
+      v10 = v6;
     }
 
     else
     {
-      if (v8)
+      if (v9)
       {
-        v16 = 138412290;
-        v17 = certificateSerialNumber;
-        _os_log_impl(&dword_1C81FC000, v7, OS_LOG_TYPE_DEFAULT, "Fetching Vehicle Info data from accessory for %@", &v16, 0xCu);
+        v17 = 138412290;
+        v18 = certificateSerialNumber;
+        _os_log_impl(&dword_1C81FC000, v8, OS_LOG_TYPE_DEFAULT, "Fetching Vehicle Info data from accessory for %@", &v17, 0xCu);
       }
 
       accessory = [accessoryCopy accessory];
@@ -572,27 +575,27 @@ void __50__CRVehicleAccessoryManager__vehicleForAccessory___block_invoke(uint64_
         [managerInfoDataCache2 setObject:getVehicleInfoData forKey:certificateSerialNumber];
       }
 
-      v9 = getVehicleInfoData;
+      v10 = getVehicleInfoData;
     }
 
-    v10 = v9;
-    v11 = v9;
+    v11 = v10;
+    v12 = v10;
   }
 
   else
   {
-    v10 = CarGeneralLogging();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = CarGeneralLogging(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = accessoryCopy;
-      _os_log_impl(&dword_1C81FC000, v10, OS_LOG_TYPE_DEFAULT, "No available serial for Vehicle Info data request for %@", &v16, 0xCu);
+      v17 = 138412290;
+      v18 = accessoryCopy;
+      _os_log_impl(&dword_1C81FC000, v11, OS_LOG_TYPE_DEFAULT, "No available serial for Vehicle Info data request for %@", &v17, 0xCu);
     }
 
-    v11 = 0;
+    v12 = 0;
   }
 
-  return v11;
+  return v12;
 }
 
 - (void)handleAccessoryConnect:(id)connect

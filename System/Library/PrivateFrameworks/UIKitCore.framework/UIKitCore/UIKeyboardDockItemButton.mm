@@ -21,9 +21,9 @@
   v28.super_class = UIKeyboardDockItemButton;
   [(UIButton *)&v28 layoutSubviews];
   identifier = [(UIKeyboardDockItemButton *)self identifier];
-  v4 = [identifier isEqualToString:@"dictationRunning"];
+  isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-  if (v4)
+  if (isEqualToString)
   {
     imageView = [(UIButton *)self imageView];
     layer = [imageView layer];
@@ -123,7 +123,7 @@
 - (void)setupDictationAnimationButtonIfNeeded
 {
   identifier = [(UIKeyboardDockItemButton *)self identifier];
-  if (![identifier isEqualToString:@"dictationRunning"] || ((-[UIView frame](self, "frame"), v4 = *MEMORY[0x1E695F060], v5 = *(MEMORY[0x1E695F060] + 8), v6 == *MEMORY[0x1E695F060]) ? (v7 = v3 == v5) : (v7 = 0), v7))
+  if (!objc_msgSend_isEqualToString_(identifier) || (([(UIView *)self frame], v4 = *MEMORY[0x1E695F060], v5 = *(MEMORY[0x1E695F060] + 8), v6 == *MEMORY[0x1E695F060]) ? (v7 = v3 == v5) : (v7 = 0), v7))
   {
   }
 

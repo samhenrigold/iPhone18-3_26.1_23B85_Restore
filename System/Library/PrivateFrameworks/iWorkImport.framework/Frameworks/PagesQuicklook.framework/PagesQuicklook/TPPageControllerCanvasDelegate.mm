@@ -13,34 +13,34 @@
   canvasCopy = canvas;
   if (!rootCopy)
   {
-    v13 = MEMORY[0x277D81150];
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, v9, v10, v11, v12, "[TPPageControllerCanvasDelegate initWithDocumentRoot:canvas:]");
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, v16, v17, v18, v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageControllerCanvasDelegate.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v13, v21, v22, v23, v24, v25, v14, v20, 40, 0, "invalid nil value for '%{public}s'", "documentRoot");
+    v16 = MEMORY[0x277D81150];
+    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, v12, v13, v14, v15, "[TPPageControllerCanvasDelegate initWithDocumentRoot:canvas:]", v8, v9, v10);
+    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, v22, v23, v24, v25, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/pages/Classes/TPPageControllerCanvasDelegate.m", v19, v20, v21);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v16, v27, v28, v29, v30, v31, v17, v26, 40, 0, "invalid nil value for '%{public}s'", "documentRoot");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v27, v28, v29, v30);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v32, v37, v38, v39, v40, v33, v34, v35, v36);
   }
 
-  v34.receiver = self;
-  v34.super_class = TPPageControllerCanvasDelegate;
-  v31 = [(TPPageControllerCanvasDelegate *)&v34 init];
-  v32 = v31;
-  if (v31)
+  v44.receiver = self;
+  v44.super_class = TPPageControllerCanvasDelegate;
+  v41 = [(TPPageControllerCanvasDelegate *)&v44 init];
+  v42 = v41;
+  if (v41)
   {
-    objc_storeWeak(&v31->_documentRoot, rootCopy);
-    objc_storeStrong(&v32->_canvas, canvas);
-    v32->_textLayoutMustIncludeAdornmentsCounter = 0;
+    objc_storeWeak(&v41->_documentRoot, rootCopy);
+    objc_storeStrong(&v42->_canvas, canvas);
+    v42->_textLayoutMustIncludeAdornmentsCounter = 0;
   }
 
-  return v32;
+  return v42;
 }
 
 - (void)dealloc
 {
-  objc_msgSend_teardown(self->_canvas, a2, v2, v3, v4, v5);
-  v7.receiver = self;
-  v7.super_class = TPPageControllerCanvasDelegate;
-  [(TPPageControllerCanvasDelegate *)&v7 dealloc];
+  objc_msgSend_teardown(self->_canvas, a2, v6, v7, v8, v9, v2, v3, v4, v5);
+  v11.receiver = self;
+  v11.super_class = TPPageControllerCanvasDelegate;
+  [(TPPageControllerCanvasDelegate *)&v11 dealloc];
 }
 
 - (id)documentRoot

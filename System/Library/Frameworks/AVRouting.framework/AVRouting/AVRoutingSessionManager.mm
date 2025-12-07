@@ -52,25 +52,21 @@
     if (ivars->figRoutingSessionManager)
     {
       CMNotificationCenterGetDefaultLocalCenter();
-      v4 = *MEMORY[0x1E69AF578];
-      figRoutingSessionManager = self->_ivars->figRoutingSessionManager;
       FigNotificationCenterRemoveWeakListener();
-      v6 = *MEMORY[0x1E69AF580];
-      v7 = self->_ivars->figRoutingSessionManager;
       FigNotificationCenterRemoveWeakListener();
       ivars = self->_ivars;
-      v8 = ivars->figRoutingSessionManager;
-      if (v8)
+      figRoutingSessionManager = ivars->figRoutingSessionManager;
+      if (figRoutingSessionManager)
       {
-        CFRelease(v8);
+        CFRelease(figRoutingSessionManager);
         ivars = self->_ivars;
       }
     }
   }
 
-  v9.receiver = self;
-  v9.super_class = AVRoutingSessionManager;
-  [(AVRoutingSessionManager *)&v9 dealloc];
+  v5.receiver = self;
+  v5.super_class = AVRoutingSessionManager;
+  [(AVRoutingSessionManager *)&v5 dealloc];
 }
 
 - (id)description
@@ -84,80 +80,78 @@
 {
   cf = 0;
   figRoutingSessionManager = self->_ivars->figRoutingSessionManager;
-  VTable = CMBaseObjectGetVTable();
-  v4 = *(*(VTable + 16) + 8);
-  if (!v4)
+  v3 = *(*(CMBaseObjectGetVTable() + 16) + 8);
+  if (!v3)
   {
-    v10 = 0;
-    return v10;
+    v8 = 0;
+    return v8;
   }
 
-  v5 = *(VTable + 16) + 8;
-  v6 = v4(figRoutingSessionManager, &cf);
-  v7 = cf;
-  if (v6)
+  v4 = v3(figRoutingSessionManager, &cf);
+  v5 = cf;
+  if (v4)
   {
-    v8 = 1;
+    v6 = 1;
   }
 
   else
   {
-    v8 = cf == 0;
+    v6 = cf == 0;
   }
 
-  if (v8)
+  if (v6)
   {
-    v10 = 0;
+    v8 = 0;
     if (!cf)
     {
-      return v10;
+      return v8;
     }
 
     goto LABEL_7;
   }
 
-  v9 = [AVRoutingSession alloc];
-  v10 = [(AVRoutingSession *)v9 initWithFigRoutingSession:cf];
-  v7 = cf;
+  v7 = [AVRoutingSession alloc];
+  v8 = [(AVRoutingSession *)v7 initWithFigRoutingSession:cf];
+  v5 = cf;
   if (cf)
   {
 LABEL_7:
-    CFRelease(v7);
+    CFRelease(v5);
   }
 
-  return v10;
+  return v8;
 }
 
 - (NSArray)likelyExternalDestinations
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v16 = 0.0;
+  v17 = *MEMORY[0x1E69E9840];
+  v15 = 0.0;
   FigRoutingSessionManagerGetConfidenceThresholds();
   LikelyDestinationsFromFig = AVRoutingSessionManagerGetLikelyDestinationsFromFig(self->_ivars->figRoutingSessionManager, &__block_literal_global_4);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v4 = [(NSArray *)LikelyDestinationsFromFig countByEnumeratingWithState:&v12 objects:v17 count:16];
+  v4 = [(NSArray *)LikelyDestinationsFromFig countByEnumeratingWithState:&v11 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     v7 = 0.0;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(LikelyDestinationsFromFig);
         }
 
-        [*(*(&v12 + 1) + 8 * i) probability];
+        [*(*(&v11 + 1) + 8 * i) probability];
         v7 = v7 + v9;
       }
 
-      v5 = [(NSArray *)LikelyDestinationsFromFig countByEnumeratingWithState:&v12 objects:v17 count:16];
+      v5 = [(NSArray *)LikelyDestinationsFromFig countByEnumeratingWithState:&v11 objects:v16 count:16];
     }
 
     while (v5);
@@ -168,39 +162,34 @@ LABEL_7:
     v7 = 0.0;
   }
 
-  if (v7 >= v16)
+  if (v7 >= v15)
   {
-    result = LikelyDestinationsFromFig;
+    return LikelyDestinationsFromFig;
   }
 
   else
   {
-    result = MEMORY[0x1E695E0F0];
+    return MEMORY[0x1E695E0F0];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (BOOL)prefersLikelyDestinationsOverCurrentRoutingSession
 {
-  v9 = 0;
+  v7 = 0;
   figRoutingSessionManager = self->_ivars->figRoutingSessionManager;
-  VTable = CMBaseObjectGetVTable();
-  v4 = *(*(VTable + 16) + 64);
-  if (!v4)
+  v3 = *(*(CMBaseObjectGetVTable() + 16) + 64);
+  if (!v3)
   {
     return 0;
   }
 
-  v5 = *(VTable + 16) + 64;
-  v6 = v4(figRoutingSessionManager, &v9);
-  return v9 && v6 == 0;
+  v4 = v3(figRoutingSessionManager, &v7);
+  return v7 && v4 == 0;
 }
 
 - (void)updateCurrentRoutingSessionFromLikelyDestinationsWithCompletionHandler:(id)handler
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = [handler copy];
   if (dword_1EB46D588)
   {
@@ -211,36 +200,34 @@ LABEL_7:
 
   figRoutingSessionManager = self->_ivars->figRoutingSessionManager;
   v8 = *(*(CMBaseObjectGetVTable() + 16) + 56);
-  if (!v8)
+  if (v8)
   {
-    v10 = -12782;
-LABEL_8:
-    AVRoutingSessionManagerInvokeStartHighConfidenceCompletionHandler(v5, v10);
+    v9 = v8(figRoutingSessionManager, AVRoutingSessionManagerStartHighConfidenceDestinationComplete, v5);
+    if (!v9)
+    {
+      return;
+    }
 
-    goto LABEL_9;
-  }
-
-  v9 = v8(figRoutingSessionManager, AVRoutingSessionManagerStartHighConfidenceDestinationComplete, v5);
-  if (v9)
-  {
     v10 = v9;
     if (v9 == -15395)
     {
 
-      v16 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:AVMethodExceptionReasonWithObjectAndSelector(self userInfo:{a2, @"Missing required entitlement com.apple.avfoundation.allows-set-output-device", v11, v12, v13, v14, v15, v18), 0}];
+      v16 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:AVMethodExceptionReasonWithObjectAndSelector(self userInfo:{a2, @"Missing required entitlement com.apple.avfoundation.allows-set-output-device", v11, v12, v13, v14, v15, v17), 0}];
       objc_exception_throw(v16);
     }
-
-    goto LABEL_8;
   }
 
-LABEL_9:
-  v17 = *MEMORY[0x1E69E9840];
+  else
+  {
+    v10 = 4294954514;
+  }
+
+  AVRoutingSessionManagerInvokeStartHighConfidenceCompletionHandler(v5, v10);
 }
 
 - (void)startRoutingSessionForHighConfidenceExternalDestinationIfPresentWithCompletionHandler:(id)handler
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = [handler copy];
   if (dword_1EB46D588)
   {
@@ -251,65 +238,63 @@ LABEL_9:
 
   figRoutingSessionManager = self->_ivars->figRoutingSessionManager;
   v8 = *(*(CMBaseObjectGetVTable() + 16) + 16);
-  if (!v8)
+  if (v8)
   {
-    v10 = -12782;
-LABEL_8:
-    AVRoutingSessionManagerInvokeStartHighConfidenceCompletionHandler(v5, v10);
+    v9 = v8(figRoutingSessionManager, AVRoutingSessionManagerStartHighConfidenceDestinationComplete, v5);
+    if (!v9)
+    {
+      return;
+    }
 
-    goto LABEL_9;
-  }
-
-  v9 = v8(figRoutingSessionManager, AVRoutingSessionManagerStartHighConfidenceDestinationComplete, v5);
-  if (v9)
-  {
     v10 = v9;
     if (v9 == -15395)
     {
 
-      v16 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:AVMethodExceptionReasonWithObjectAndSelector(self userInfo:{a2, @"Missing required entitlement com.apple.avfoundation.allows-set-output-device", v11, v12, v13, v14, v15, v18), 0}];
+      v16 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:AVMethodExceptionReasonWithObjectAndSelector(self userInfo:{a2, @"Missing required entitlement com.apple.avfoundation.allows-set-output-device", v11, v12, v13, v14, v15, v17), 0}];
       objc_exception_throw(v16);
     }
-
-    goto LABEL_8;
   }
 
-LABEL_9:
-  v17 = *MEMORY[0x1E69E9840];
+  else
+  {
+    v10 = 4294954514;
+  }
+
+  AVRoutingSessionManagerInvokeStartHighConfidenceCompletionHandler(v5, v10);
 }
 
 - (BOOL)startRoutingSessionWithOutputDeviceDescriptions:(id)descriptions error:(id *)error
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
   if (dword_1EB46D588)
   {
-    v38 = 0;
+    v36 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v35 = 0u;
-  v36 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v9 = [descriptions countByEnumeratingWithState:&v33 objects:v39 count:{16, v29, v31}];
+  v31 = 0u;
+  v32 = 0u;
+  v9 = [descriptions countByEnumeratingWithState:&v31 objects:v37 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v34;
+    v11 = *v32;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v34 != v11)
+        if (*v32 != v11)
         {
           objc_enumerationMutation(descriptions);
         }
 
-        v13 = AVCreateFigRouteDescriptorFromOutputDeviceDescription(*(*(&v33 + 1) + 8 * i));
+        v13 = AVCreateFigRouteDescriptorFromOutputDeviceDescription(*(*(&v31 + 1) + 8 * i));
         CFArrayAppendValue(Mutable, v13);
         if (v13)
         {
@@ -317,7 +302,7 @@ LABEL_9:
         }
       }
 
-      v10 = [descriptions countByEnumeratingWithState:&v33 objects:v39 count:16];
+      v10 = [descriptions countByEnumeratingWithState:&v31 objects:v37 count:16];
     }
 
     while (v10);
@@ -325,59 +310,59 @@ LABEL_9:
 
   if (dword_1EB46D588)
   {
-    v38 = 0;
+    v36 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     v14 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v15 = v38;
+    v15 = v36;
+    v16 = type;
     if (os_log_type_enabled(v14, type))
     {
-      v16 = v15;
+      v17 = v15;
     }
 
     else
     {
-      v16 = v15 & 0xFFFFFFFE;
+      v17 = v15 & 0xFFFFFFFE;
     }
 
-    if (v16)
+    if (v17)
     {
-      v17 = AVSuccinctRouteDescriptorsDescription(Mutable);
-      v40 = 136315395;
-      v41 = "[AVRoutingSessionManager startRoutingSessionWithOutputDeviceDescriptions:error:]";
-      v42 = 2113;
-      v43 = v17;
-      v30 = &v40;
-      _os_log_send_and_compose_impl();
+      v18 = AVSuccinctRouteDescriptorsDescription(Mutable);
+      v38 = 136315395;
+      v39 = "[AVRoutingSessionManager startRoutingSessionWithOutputDeviceDescriptions:error:]";
+      v40 = 2113;
+      v41 = v18;
+      v29 = &v38;
+      _os_log_send_and_compose_impl(v17, 0, v42, 128, &dword_1AB586000, v14, v16, "<<<< AVRoutingSessionManager >>>> %s: Calling FigRoutingSessionManagerStartSessionWithRouteDescriptors (routeDescriptors: %{private}@)");
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
   figRoutingSessionManager = self->_ivars->figRoutingSessionManager;
-  v24 = *(*(CMBaseObjectGetVTable() + 16) + 72);
-  if (v24)
+  v25 = *(*(CMBaseObjectGetVTable() + 16) + 72);
+  if (v25)
   {
-    v25 = v24(figRoutingSessionManager, Mutable);
-    if (!v25)
+    v26 = v25(figRoutingSessionManager, Mutable);
+    if (!v26)
     {
       if (Mutable)
       {
         CFRelease(Mutable);
       }
 
-      result = 1;
-      goto LABEL_32;
+      return 1;
     }
   }
 
   else
   {
-    v25 = -12782;
+    v26 = 4294954514;
   }
 
-  if (error && v25 != -15395)
+  if (error && v26 != -15395)
   {
-    *error = AVLocalizedErrorWithUnderlyingOSStatus(v25, 0);
+    *error = AVLocalizedErrorWithUnderlyingOSStatus(v26, 0);
   }
 
   if (Mutable)
@@ -385,21 +370,18 @@ LABEL_9:
     CFRelease(Mutable);
   }
 
-  if (v25 == -15395)
+  if (v26 == -15395)
   {
-    v28 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:AVMethodExceptionReasonWithObjectAndSelector(self userInfo:{a2, @"Missing required entitlement com.apple.avfoundation.allows-set-output-device", v19, v20, v21, v22, v23, v30), 0}];
+    v28 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:AVMethodExceptionReasonWithObjectAndSelector(self userInfo:{a2, @"Missing required entitlement com.apple.avfoundation.allows-set-output-device", v20, v21, v22, v23, v24, v29), 0}];
     objc_exception_throw(v28);
   }
 
-  result = 0;
-LABEL_32:
-  v27 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 - (BOOL)startSuppressingLikelyDestinationsUntilNextPlayEventAndReturnError:(id *)error
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (dword_1EB46D588)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -414,14 +396,13 @@ LABEL_32:
     v14 = v13(figRoutingSessionManager);
     if (!v14)
     {
-      result = 1;
-      goto LABEL_12;
+      return 1;
     }
   }
 
   else
   {
-    v14 = -12782;
+    v14 = 4294954514;
   }
 
   if (error && v14 != -15395)
@@ -431,19 +412,16 @@ LABEL_32:
 
   if (v14 == -15395)
   {
-    v17 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:AVMethodExceptionReasonWithObjectAndSelector(self userInfo:{a2, @"Missing required entitlement com.apple.avfoundation.allows-set-output-device", v8, v9, v10, v11, v12, v18), 0}];
-    objc_exception_throw(v17);
+    v16 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:AVMethodExceptionReasonWithObjectAndSelector(self userInfo:{a2, @"Missing required entitlement com.apple.avfoundation.allows-set-output-device", v8, v9, v10, v11, v12, v17), 0}];
+    objc_exception_throw(v16);
   }
 
-  result = 0;
-LABEL_12:
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 - (BOOL)stopSuppressingLikelyDestinationsAndReturnError:(id *)error
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (dword_1EB46D588)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -458,14 +436,13 @@ LABEL_12:
     v14 = v13(figRoutingSessionManager);
     if (!v14)
     {
-      result = 1;
-      goto LABEL_12;
+      return 1;
     }
   }
 
   else
   {
-    v14 = -12782;
+    v14 = 4294954514;
   }
 
   if (error && v14 != -15395)
@@ -475,74 +452,45 @@ LABEL_12:
 
   if (v14 == -15395)
   {
-    v17 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:AVMethodExceptionReasonWithObjectAndSelector(self userInfo:{a2, @"Missing required entitlement com.apple.avfoundation.allows-set-output-device", v8, v9, v10, v11, v12, v18), 0}];
-    objc_exception_throw(v17);
+    v16 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:AVMethodExceptionReasonWithObjectAndSelector(self userInfo:{a2, @"Missing required entitlement com.apple.avfoundation.allows-set-output-device", v8, v9, v10, v11, v12, v17), 0}];
+    objc_exception_throw(v16);
   }
 
-  result = 0;
-LABEL_12:
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 + (id)longFormVideoRoutingSessionManager
 {
-  v3 = *MEMORY[0x1E695E480];
   if (FigRoutingSessionManagerResilientRemoteCopyLongFormVideoManager())
   {
-    v4 = 0;
+    v3 = 0;
   }
 
   else
   {
-    v4 = [[self alloc] initWithFigRoutingSessionManager:0];
+    v3 = [[self alloc] initWithFigRoutingSessionManager:0];
   }
 
-  return v4;
+  return v3;
 }
 
 - (AVRoutingSessionManager)initWithFigRoutingSessionManager:(OpaqueFigRoutingSessionManager *)manager
 {
   CMNotificationCenterGetDefaultLocalCenter();
-  v13.receiver = self;
-  v13.super_class = AVRoutingSessionManager;
-  v5 = [(AVRoutingSessionManager *)&v13 init];
-  if (!v5)
+  v16.receiver = self;
+  v16.super_class = AVRoutingSessionManager;
+  v5 = [(AVRoutingSessionManager *)&v16 init];
+  if (v5 && (ivars = objc_alloc_init(AVRoutingSessionManagerInternal), (v5->_ivars = ivars) != 0) && (!manager ? (v9 = 0) : (v9 = CFRetain(manager), ivars = v5->_ivars), (ivars->figRoutingSessionManager = v9, (figRoutingSessionManager = v5->_ivars->figRoutingSessionManager) != 0) && (v11 = OUTLINED_FUNCTION_0_2(ivars, v7, v8, *MEMORY[0x1E69AF578], figRoutingSessionManager), !v11) && !OUTLINED_FUNCTION_0_2(v11, v12, v13, *MEMORY[0x1E69AF580], v5->_ivars->figRoutingSessionManager)))
   {
-    goto LABEL_11;
-  }
-
-  ivars = objc_alloc_init(AVRoutingSessionManagerInternal);
-  v5->_ivars = ivars;
-  if (!ivars)
-  {
-    goto LABEL_11;
-  }
-
-  if (manager)
-  {
-    v7 = CFRetain(manager);
-    ivars = v5->_ivars;
+    v14 = v5;
   }
 
   else
   {
-    v7 = 0;
+    v14 = 0;
   }
 
-  ivars->figRoutingSessionManager = v7;
-  if (v5->_ivars->figRoutingSessionManager && (v8 = *MEMORY[0x1E69AF578], !OUTLINED_FUNCTION_0_2()) && (v9 = *MEMORY[0x1E69AF580], figRoutingSessionManager = v5->_ivars->figRoutingSessionManager, !OUTLINED_FUNCTION_0_2()))
-  {
-    v11 = v5;
-  }
-
-  else
-  {
-LABEL_11:
-    v11 = 0;
-  }
-
-  return v11;
+  return v14;
 }
 
 @end

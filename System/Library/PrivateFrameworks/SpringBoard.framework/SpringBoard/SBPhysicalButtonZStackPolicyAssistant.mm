@@ -226,7 +226,7 @@ void __84__SBPhysicalButtonZStackPolicyAssistant_resolveProposedPoliciesForForeg
   v4 = 0;
   if (processHandle)
   {
-    [processHandle auditToken];
+    objc_msgSend_auditToken(processHandle, 0, 0, 0, 0);
     if ((BSAuditTokenTaskHasEntitlement() & 1) != 0 || BSAuditTokenTaskHasEntitlement())
     {
       v4 = 1;

@@ -31,11 +31,11 @@
   [layer setMasksToBounds:1];
 
   self->_enableDebugDrawing = JFXImageAVSampleBufferView_commonInit_s_enableDebugDrawing;
-  [(JFXImageAVSampleBufferView *)self setRenderingType:-1];
-  if (JFX_isShowHDRBadgeInPreviewEnabled())
+  v6 = [(JFXImageAVSampleBufferView *)self setRenderingType:-1];
+  if (JFX_isShowHDRBadgeInPreviewEnabled(v6, v7))
   {
-    v6 = objc_opt_new();
-    [(JFXImageAVSampleBufferView *)self setHdrBadgeDebug:v6];
+    v8 = objc_opt_new();
+    [(JFXImageAVSampleBufferView *)self setHdrBadgeDebug:v8];
 
     hdrBadgeDebug = [(JFXImageAVSampleBufferView *)self hdrBadgeDebug];
     [hdrBadgeDebug setText:@"HDR"];
@@ -44,9 +44,9 @@
     hdrBadgeDebug2 = [(JFXImageAVSampleBufferView *)self hdrBadgeDebug];
     [hdrBadgeDebug2 setTextColor:whiteColor];
 
-    v10 = [MEMORY[0x277D74300] systemFontOfSize:24.0];
+    v12 = [MEMORY[0x277D74300] systemFontOfSize:24.0];
     hdrBadgeDebug3 = [(JFXImageAVSampleBufferView *)self hdrBadgeDebug];
-    [hdrBadgeDebug3 setFont:v10];
+    [hdrBadgeDebug3 setFont:v12];
 
     clearColor = [MEMORY[0x277D75348] clearColor];
     hdrBadgeDebug4 = [(JFXImageAVSampleBufferView *)self hdrBadgeDebug];
@@ -64,8 +64,8 @@
 
     hdrBadgeDebug7 = [(JFXImageAVSampleBufferView *)self hdrBadgeDebug];
     layer4 = [hdrBadgeDebug7 layer];
-    LODWORD(v22) = 1.0;
-    [layer4 setShadowOpacity:v22];
+    LODWORD(v24) = 1.0;
+    [layer4 setShadowOpacity:v24];
 
     hdrBadgeDebug8 = [(JFXImageAVSampleBufferView *)self hdrBadgeDebug];
     layer5 = [hdrBadgeDebug8 layer];
@@ -79,11 +79,11 @@
 
     hdrBadgeDebug11 = [(JFXImageAVSampleBufferView *)self hdrBadgeDebug];
     [hdrBadgeDebug11 frame];
-    v29 = v28;
     v31 = v30;
+    v33 = v32;
 
     hdrBadgeDebug12 = [(JFXImageAVSampleBufferView *)self hdrBadgeDebug];
-    [hdrBadgeDebug12 setFrame:{20.0, 20.0, v29, v31}];
+    [hdrBadgeDebug12 setFrame:{20.0, 20.0, v31, v33}];
   }
 }
 

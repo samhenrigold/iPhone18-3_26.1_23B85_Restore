@@ -85,10 +85,10 @@
 
       if (action2 && v6)
       {
-        v8 = [action2 isEqual:v6];
+        isEqual = objc_msgSend_isEqual_(action2);
 
         v3 = v15;
-        if (v8)
+        if (isEqual)
         {
           goto LABEL_16;
         }

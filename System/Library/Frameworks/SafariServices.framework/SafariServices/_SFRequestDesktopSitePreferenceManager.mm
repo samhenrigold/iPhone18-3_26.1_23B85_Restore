@@ -203,10 +203,10 @@
   if (self->_clientPrefersMobileUserAgentByDefault)
   {
     handlerCopy = handler;
-    v6 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(handlerCopy, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      [_SFRequestDesktopSitePreferenceManager getDefaultPreferenceValueForPreference:v6 completionHandler:?];
+      [_SFRequestDesktopSitePreferenceManager getDefaultPreferenceValueForPreference:v7 completionHandler:?];
     }
 
     handlerCopy2 = [MEMORY[0x1E696AD98] numberWithInteger:{-[_SFRequestDesktopSitePreferenceManager _defaultPreferenceValue](self, "_defaultPreferenceValue")}];
@@ -215,10 +215,10 @@
 
   else
   {
-    v9.receiver = self;
-    v9.super_class = _SFRequestDesktopSitePreferenceManager;
+    v10.receiver = self;
+    v10.super_class = _SFRequestDesktopSitePreferenceManager;
     handlerCopy2 = handler;
-    [(WBSPerSitePreferenceManager *)&v9 getDefaultPreferenceValueForPreference:preference completionHandler:handlerCopy2];
+    [(WBSPerSitePreferenceManager *)&v10 getDefaultPreferenceValueForPreference:preference completionHandler:handlerCopy2];
   }
 }
 
@@ -270,7 +270,7 @@
 {
   if (self->_clientPrefersMobileUserAgentByDefault != default)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences();
+    v5 = WBS_LOG_CHANNEL_PREFIXPerSitePreferences(self, a2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       [(_SFRequestDesktopSitePreferenceManager *)default setClientPrefersMobileUserAgentByDefault:v5];

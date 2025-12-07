@@ -11,10 +11,10 @@
 
 - (id)richTextStorage
 {
-  v5 = objc_msgSend_richTextPayload(self, a2, v2, v3, v4);
-  v10 = objc_msgSend_storage(v5, v6, v7, v8, v9);
+  v4 = objc_msgSend_richTextPayload(self, a2, v2, v3);
+  v8 = objc_msgSend_storage(v4, v5, v6, v7);
 
-  return v10;
+  return v8;
 }
 
 + (id)objectWithRichTextPayload:(id)payload refCount:(unsigned int)count
@@ -22,7 +22,7 @@
   v4 = *&count;
   payloadCopy = payload;
   v7 = [self alloc];
-  inited = objc_msgSend_initObjectWithRichTextPayload_refCount_(v7, v8, payloadCopy, v4, v9);
+  inited = objc_msgSend_initObjectWithRichTextPayload_refCount_(v7, v8, payloadCopy, v4);
 
   return inited;
 }
@@ -47,60 +47,60 @@
 {
   unarchiverCopy = unarchiver;
   completionCopy = completion;
-  objc_msgSend_sharedLoadFromArchive_(self, v10, archive, v11, v12);
-  v13 = *(archive + 8);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = sub_2215C09C8;
-  v18[3] = &unk_2784674F0;
-  v18[4] = self;
-  v14 = completionCopy;
-  v19 = v14;
-  v15 = unarchiverCopy;
-  v17 = objc_opt_class();
-  if (v13)
+  objc_msgSend_sharedLoadFromArchive_(self, v10, archive, v11);
+  v12 = *(archive + 8);
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = sub_2215C09C8;
+  v17[3] = &unk_2784674F0;
+  v17[4] = self;
+  v13 = completionCopy;
+  v18 = v13;
+  v14 = unarchiverCopy;
+  v16 = objc_opt_class();
+  if (v12)
   {
-    objc_msgSend_readReferenceMessage_class_protocol_completion_(v15, v16, v13, v17, 0, v18);
+    objc_msgSend_readReferenceMessage_class_protocol_completion_(v14, v15, v12, v16, 0, v17);
   }
 
   else
   {
-    objc_msgSend_readReferenceMessage_class_protocol_completion_(v15, v16, MEMORY[0x277D80A18], v17, 0, v18);
+    objc_msgSend_readReferenceMessage_class_protocol_completion_(v14, v15, MEMORY[0x277D80A18], v16, 0, v17);
   }
 }
 
 - (void)encodeToArchive:(void *)archive archiver:(id)archiver
 {
   archiverCopy = archiver;
-  v16.receiver = self;
-  v16.super_class = TSTTableDataRichText;
-  [(TSTTableDataObject *)&v16 encodeToArchive:archive archiver:archiverCopy];
-  v13 = objc_msgSend_richTextPayload(self, v7, v8, v9, v10);
+  v14.receiver = self;
+  v14.super_class = TSTTableDataRichText;
+  [(TSTTableDataObject *)&v14 encodeToArchive:archive archiver:archiverCopy];
+  v11 = objc_msgSend_richTextPayload(self, v7, v8, v9);
   *(archive + 4) |= 0x20u;
-  v14 = *(archive + 8);
-  if (!v14)
+  v12 = *(archive + 8);
+  if (!v12)
   {
-    v15 = *(archive + 1);
-    if (v15)
+    v13 = *(archive + 1);
+    if (v13)
     {
-      v15 = *(v15 & 0xFFFFFFFFFFFFFFFELL);
+      v13 = *(v13 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v14 = MEMORY[0x223DA0390](v15);
-    *(archive + 8) = v14;
+    v12 = MEMORY[0x223DA0390](v13);
+    *(archive + 8) = v12;
   }
 
-  objc_msgSend_setStrongReference_message_(archiverCopy, v11, v13, v14, v12);
+  objc_msgSend_setStrongReference_message_(archiverCopy, v10, v11, v12);
 }
 
 - (id)description
 {
-  v6 = MEMORY[0x277CCACA8];
-  v7 = objc_msgSend_refCount(self, a2, v2, v3, v4);
-  v12 = objc_msgSend_richTextStorage(self, v8, v9, v10, v11);
-  v16 = objc_msgSend_stringWithFormat_(v6, v13, @"refCount: %d   storage: %@", v14, v15, v7, v12);
+  v5 = MEMORY[0x277CCACA8];
+  v6 = objc_msgSend_refCount(self, a2, v2, v3);
+  v10 = objc_msgSend_richTextStorage(self, v7, v8, v9);
+  v13 = objc_msgSend_stringWithFormat_(v5, v11, @"refCount: %d   storage: %@", v12, v6, v10);
 
-  return v16;
+  return v13;
 }
 
 @end

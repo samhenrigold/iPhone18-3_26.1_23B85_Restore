@@ -26,7 +26,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_10001A06C();
+  sub_10001A06C(selfCopy);
 }
 
 - (void)setUpForMyselfTapped
@@ -137,10 +137,11 @@
 
   v7 = (self + OBJC_IVAR____TtC5Setup21BuddyIntentController_showModalWiFiSettingsBlock);
   v8 = *(self + OBJC_IVAR____TtC5Setup21BuddyIntentController_showModalWiFiSettingsBlock);
+  v9 = *(self + OBJC_IVAR____TtC5Setup21BuddyIntentController_showModalWiFiSettingsBlock + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_10001C91C(v8);
+  sub_10001C91C(v8, v9);
 }
 
 + (id)cloudConfigSkipKey
@@ -154,9 +155,9 @@
 - (BOOL)controllerNeedsToRun
 {
   selfCopy = self;
-  v3 = sub_10001B588();
+  v4 = sub_10001B588(selfCopy, v3);
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 + (void)skippedByCloudConfigWithEnvironment:(id)environment

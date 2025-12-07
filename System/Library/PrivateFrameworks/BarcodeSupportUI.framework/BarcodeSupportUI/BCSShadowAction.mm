@@ -55,19 +55,17 @@ LABEL_7:
 
 - (NSArray)actionPickerItems
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CF0AF8];
   localizedShortName = [(LSApplicationProxy *)self->_applicationProxy localizedShortName];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __36__BCSShadowAction_actionPickerItems__block_invoke;
-  v9[3] = &unk_278D01AE0;
-  v9[4] = self;
-  v5 = [v3 actionPickerItemWithLabel:localizedShortName actionHandler:v9];
-  v10[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __36__BCSShadowAction_actionPickerItems__block_invoke;
+  v8[3] = &unk_278D01AE0;
+  v8[4] = self;
+  v5 = [v3 actionPickerItemWithLabel:localizedShortName actionHandler:v8];
+  v9[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
 
   return v6;
 }

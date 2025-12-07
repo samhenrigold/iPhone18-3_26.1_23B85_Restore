@@ -10,7 +10,7 @@
 
 - (id)serializedRepresentation
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   inImage = [self inImage];
   if (inImage)
   {
@@ -27,9 +27,9 @@
       v6 = getWFAppIntentsLogObject();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v9 = 136315138;
-        v10 = "[LNImage(Workflow) serializedRepresentation]";
-        _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_ERROR, "%s Failed to encode INImage into serialized representation.", &v9, 0xCu);
+        v8 = 136315138;
+        v9 = "[LNImage(Workflow) serializedRepresentation]";
+        _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_ERROR, "%s Failed to encode INImage into serialized representation.", &v8, 0xCu);
       }
     }
   }
@@ -39,14 +39,12 @@
     v4 = 0;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (id)initWithSerializedRepresentation:()Workflow variableProvider:parameter:
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = objc_opt_class();
   v6 = WFEnforceClass_1501(v4, v5);
@@ -65,9 +63,9 @@
       v10 = getWFAppIntentsLogObject();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v13 = 136315138;
-        v14 = "[LNImage(Workflow) initWithSerializedRepresentation:variableProvider:parameter:]";
-        _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_ERROR, "%s Failed to decode INImage from serialized representation.", &v13, 0xCu);
+        v12 = 136315138;
+        v13 = "[LNImage(Workflow) initWithSerializedRepresentation:variableProvider:parameter:]";
+        _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_ERROR, "%s Failed to decode INImage from serialized representation.", &v12, 0xCu);
       }
 
       selfCopy = 0;
@@ -79,15 +77,14 @@
     v7 = getWFAppIntentsLogObject();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136315138;
-      v14 = "[LNImage(Workflow) initWithSerializedRepresentation:variableProvider:parameter:]";
-      _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_ERROR, "%s Failed to decode INImage: no dictionaryRepresentation was provided.", &v13, 0xCu);
+      v12 = 136315138;
+      v13 = "[LNImage(Workflow) initWithSerializedRepresentation:variableProvider:parameter:]";
+      _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_ERROR, "%s Failed to decode INImage: no dictionaryRepresentation was provided.", &v12, 0xCu);
     }
 
     selfCopy = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

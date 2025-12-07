@@ -169,16 +169,18 @@ void __37__ATXInformationStore_sharedInstance__block_invoke()
 
     if (self->_db)
     {
-      if ([(ATXInformationStore *)self _configureDatabase])
+      _configureDatabase = [(ATXInformationStore *)self _configureDatabase];
+      if (_configureDatabase)
       {
-        if ([(ATXInformationStore *)self _migrateDatabaseIfNeeded])
+        _migrateDatabaseIfNeeded = [(ATXInformationStore *)self _migrateDatabaseIfNeeded];
+        if (_migrateDatabaseIfNeeded)
         {
           LOBYTE(_handleCorruptionIfNeeded) = 1;
           return _handleCorruptionIfNeeded;
         }
 
-        v7 = __atxlog_handle_gi();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v10 = __atxlog_handle_gi(_migrateDatabaseIfNeeded);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           [ATXInformationStore _openDatabase];
         }
@@ -186,8 +188,8 @@ void __37__ATXInformationStore_sharedInstance__block_invoke()
 
       else
       {
-        v7 = __atxlog_handle_gi();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v10 = __atxlog_handle_gi(_configureDatabase);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           [ATXInformationStore _openDatabase];
         }
@@ -196,10 +198,10 @@ void __37__ATXInformationStore_sharedInstance__block_invoke()
 
     else
     {
-      v7 = __atxlog_handle_gi();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v10 = __atxlog_handle_gi(v7);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        [(ATXInformationStore *)p_databasePath _openDatabase:v7];
+        [(ATXInformationStore *)p_databasePath _openDatabase:v10];
       }
     }
 
@@ -224,11 +226,11 @@ void __37__ATXInformationStore_sharedInstance__block_invoke()
 
   if (v5)
   {
-    v6 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = __atxlog_handle_gi(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1BF549000, v6, OS_LOG_TYPE_DEFAULT, "ATXInformationStore was corrupted. Truncate and restart", buf, 2u);
+      _os_log_impl(&dword_1BF549000, v7, OS_LOG_TYPE_DEFAULT, "ATXInformationStore was corrupted. Truncate and restart", buf, 2u);
     }
 
     db = self->_db;
@@ -239,14 +241,14 @@ void __37__ATXInformationStore_sharedInstance__block_invoke()
 
     [MEMORY[0x1E69C5D88] truncateDatabaseAtPath:self->_databasePath];
     defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-    v13 = 0;
-    v9 = [defaultManager2 removeItemAtPath:v3 error:&v13];
-    v10 = v13;
+    v15 = 0;
+    v10 = [defaultManager2 removeItemAtPath:v3 error:&v15];
+    v11 = v15;
 
-    if ((v9 & 1) == 0)
+    if ((v10 & 1) == 0)
     {
-      v11 = __atxlog_handle_gi();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = __atxlog_handle_gi(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [ATXInformationStore _handleCorruptionIfNeeded];
       }
@@ -255,27 +257,28 @@ void __37__ATXInformationStore_sharedInstance__block_invoke()
 
   else
   {
-    v9 = 1;
+    v10 = 1;
   }
 
-  return v9;
+  return v10;
 }
 
 - (id)_openSqliteDatabaseAtPath:(id)path
 {
   pathCopy = path;
-  v9 = 0;
-  v4 = [MEMORY[0x1E69C5D88] sqliteDatabaseWithFilename:pathCopy contentProtection:3 errorHandler:0 error:&v9];
-  v5 = v9;
+  v10 = 0;
+  v4 = [MEMORY[0x1E69C5D88] sqliteDatabaseWithFilename:pathCopy contentProtection:3 errorHandler:0 error:&v10];
+  v5 = v10;
+  v6 = v5;
   if (v4)
   {
-    v6 = v4;
+    v7 = v4;
   }
 
   else
   {
-    v7 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_gi(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [ATXInformationStore _openSqliteDatabaseAtPath:];
     }
@@ -336,7 +339,7 @@ LABEL_9:
 uint64_t __41__ATXInformationStore__configureDatabase__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_gi();
+  v3 = __atxlog_handle_gi(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __41__ATXInformationStore__configureDatabase__block_invoke_cold_1();
@@ -362,7 +365,7 @@ uint64_t __41__ATXInformationStore__configureDatabase__block_invoke(uint64_t a1,
     {
       if (migrateDatabases != 3)
       {
-        v8 = __atxlog_handle_gi();
+        v8 = __atxlog_handle_gi(migrateDatabases);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
         {
           [ATXInformationStore _migrateDatabaseIfNeeded];
@@ -373,7 +376,7 @@ LABEL_22:
         goto LABEL_23;
       }
 
-      v9 = __atxlog_handle_gi();
+      v9 = __atxlog_handle_gi(migrateDatabases);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [ATXInformationStore _migrateDatabaseIfNeeded];
@@ -388,7 +391,7 @@ LABEL_24:
 
     if (migrateDatabases == 5)
     {
-      v8 = __atxlog_handle_gi();
+      v8 = __atxlog_handle_gi(migrateDatabases);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
         [ATXInformationStore _migrateDatabaseIfNeeded];
@@ -399,7 +402,7 @@ LABEL_24:
 
     if (migrateDatabases == 6)
     {
-      v8 = __atxlog_handle_gi();
+      v8 = __atxlog_handle_gi(migrateDatabases);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
         [ATXInformationStore _migrateDatabaseIfNeeded];
@@ -415,7 +418,7 @@ LABEL_23:
 
   if (!migrateDatabases)
   {
-    v9 = __atxlog_handle_gi();
+    v9 = __atxlog_handle_gi(migrateDatabases);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       [ATXInformationStore _migrateDatabaseIfNeeded];
@@ -428,7 +431,7 @@ LABEL_23:
   {
     if (migrateDatabases == 2)
     {
-      v8 = __atxlog_handle_gi();
+      v8 = __atxlog_handle_gi(migrateDatabases);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
         [ATXInformationStore _migrateDatabaseIfNeeded];
@@ -521,62 +524,63 @@ LABEL_25:
 
 - (id)readCachedSuggestions
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   cachedSuggestionsPath = self->_cachedSuggestionsPath;
   p_cachedSuggestionsPath = &self->_cachedSuggestionsPath;
   v6 = open([(NSString *)cachedSuggestionsPath UTF8String], 0);
   if (v6 == -1)
   {
-    v8 = *__error() == 2;
-    v9 = __atxlog_handle_gi();
-    v10 = v9;
-    if (v8)
+    v9 = __error();
+    v10 = *v9 == 2;
+    v11 = __atxlog_handle_gi(v9);
+    v12 = v11;
+    if (v10)
     {
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = *p_cachedSuggestionsPath;
+        v13 = *p_cachedSuggestionsPath;
         buf = 138412290;
-        *buf_4 = v11;
-        _os_log_impl(&dword_1BF549000, v10, OS_LOG_TYPE_DEFAULT, "ATXInformationStore: No info engine cache file found at path %@.", &buf, 0xCu);
+        *buf_4 = v13;
+        _os_log_impl(&dword_1BF549000, v12, OS_LOG_TYPE_DEFAULT, "ATXInformationStore: No info engine cache file found at path %@.", &buf, 0xCu);
       }
 
-      v12 = MEMORY[0x1E695E0F0];
+      v14 = MEMORY[0x1E695E0F0];
     }
 
     else
     {
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [ATXInformationStore readCachedSuggestions];
       }
 
-      v12 = 0;
+      v14 = 0;
     }
   }
 
   else
   {
     v7 = v6;
-    v21 = 0;
-    ATXCacheFileRead();
+    v23 = 0;
+    v8 = ATXCacheFileRead();
     if ((v7 & 0x80000000) == 0)
     {
-      close(v7);
+      v8 = close(v7);
     }
 
-    v13 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = __atxlog_handle_gi(v8);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [(ATXInformationStore *)p_cachedSuggestionsPath readCachedSuggestions:v13];
+      [(ATXInformationStore *)p_cachedSuggestionsPath readCachedSuggestions:v15];
     }
 
-    v12 = 0;
+    v14 = 0;
   }
 
   objc_autoreleasePoolPop(v3);
 
-  return v12;
+  return v14;
 }
 
 void __44__ATXInformationStore_readCachedSuggestions__block_invoke(uint64_t a1, void *a2)
@@ -601,7 +605,7 @@ uint64_t __44__ATXInformationStore_readCachedSuggestions__block_invoke_2(uint64_
 
   else
   {
-    v5 = __atxlog_handle_gi();
+    v5 = __atxlog_handle_gi(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       __44__ATXInformationStore_readCachedSuggestions__block_invoke_2_cold_1();
@@ -616,7 +620,7 @@ uint64_t __44__ATXInformationStore_readCachedSuggestions__block_invoke_2(uint64_
 uint64_t __44__ATXInformationStore_readCachedSuggestions__block_invoke_364(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_gi();
+  v4 = __atxlog_handle_gi(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __44__ATXInformationStore_readCachedSuggestions__block_invoke_364_cold_1();
@@ -677,7 +681,7 @@ uint64_t __44__ATXInformationStore_readCachedSuggestions__block_invoke_364(uint6
   encodeAsProto = [v15 encodeAsProto];
   if (!encodeAsProto)
   {
-    v21 = __atxlog_handle_gi();
+    v21 = __atxlog_handle_gi(0);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       [ATXInformationStore writeCacheWithNewSuggestions:];
@@ -690,7 +694,7 @@ uint64_t __44__ATXInformationStore_readCachedSuggestions__block_invoke_364(uint6
   v18 = open(uTF8String, 514, 384, context, v25);
   if (v18 == -1)
   {
-    v22 = __atxlog_handle_default();
+    v22 = __atxlog_handle_default(v18);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       [ATXInformationStore writeCacheWithNewSuggestions:];
@@ -754,22 +758,22 @@ uint64_t __45__ATXInformationStore_readAllInfoSuggestions__block_invoke(uint64_t
 
   else
   {
-    v7 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v8 = __atxlog_handle_gi(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       __45__ATXInformationStore_readAllInfoSuggestions__block_invoke_cold_1();
     }
   }
 
-  v8 = MEMORY[0x1E69C5DD0];
+  v9 = MEMORY[0x1E69C5DD0];
 
-  return *v8;
+  return *v9;
 }
 
 uint64_t __45__ATXInformationStore_readAllInfoSuggestions__block_invoke_369(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_gi();
+  v4 = __atxlog_handle_gi(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __45__ATXInformationStore_readAllInfoSuggestions__block_invoke_369_cold_1();
@@ -831,22 +835,22 @@ uint64_t __55__ATXInformationStore_readCurrentlyRelevantSuggestions__block_invok
 
   else
   {
-    v7 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_gi(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __55__ATXInformationStore_readCurrentlyRelevantSuggestions__block_invoke_2_cold_1();
     }
   }
 
-  v8 = MEMORY[0x1E69C5DD0];
+  v9 = MEMORY[0x1E69C5DD0];
 
-  return *v8;
+  return *v9;
 }
 
 uint64_t __55__ATXInformationStore_readCurrentlyRelevantSuggestions__block_invoke_377(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_gi();
+  v4 = __atxlog_handle_gi(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __45__ATXInformationStore_readAllInfoSuggestions__block_invoke_369_cold_1();
@@ -908,22 +912,22 @@ uint64_t __66__ATXInformationStore_readAllInfoSuggestionsWithSourceIdentifier___
 
   else
   {
-    v7 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_gi(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __55__ATXInformationStore_readCurrentlyRelevantSuggestions__block_invoke_2_cold_1();
     }
   }
 
-  v8 = MEMORY[0x1E69C5DD0];
+  v9 = MEMORY[0x1E69C5DD0];
 
-  return *v8;
+  return *v9;
 }
 
 uint64_t __66__ATXInformationStore_readAllInfoSuggestionsWithSourceIdentifier___block_invoke_381(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_gi();
+  v4 = __atxlog_handle_gi(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __45__ATXInformationStore_readAllInfoSuggestions__block_invoke_369_cold_1();
@@ -995,22 +999,22 @@ uint64_t __66__ATXInformationStore_latestInfoSuggestionRelevantNowForSourceId___
 
   else
   {
-    v7 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_gi(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __55__ATXInformationStore_readCurrentlyRelevantSuggestions__block_invoke_2_cold_1();
     }
   }
 
-  v8 = MEMORY[0x1E69C5DD8];
+  v9 = MEMORY[0x1E69C5DD8];
 
-  return *v8;
+  return *v9;
 }
 
 uint64_t __66__ATXInformationStore_latestInfoSuggestionRelevantNowForSourceId___block_invoke_386(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_gi();
+  v3 = __atxlog_handle_gi(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __66__ATXInformationStore_latestInfoSuggestionRelevantNowForSourceId___block_invoke_386_cold_1();
@@ -1062,7 +1066,7 @@ uint64_t __63__ATXInformationStore_criterionOfInfoSuggestionWithIdentifier___blo
 uint64_t __63__ATXInformationStore_criterionOfInfoSuggestionWithIdentifier___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_gi();
+  v3 = __atxlog_handle_gi(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __63__ATXInformationStore_criterionOfInfoSuggestionWithIdentifier___block_invoke_3_cold_1();
@@ -1138,7 +1142,7 @@ uint64_t __63__ATXInformationStore_criterionOfInfoSuggestionWithIdentifier___blo
 uint64_t __57__ATXInformationStore_earliestFutureSuggestionChangeDate__block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_gi();
+  v3 = __atxlog_handle_gi(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __57__ATXInformationStore_earliestFutureSuggestionChangeDate__block_invoke_3_cold_1();
@@ -1151,7 +1155,7 @@ uint64_t __57__ATXInformationStore_earliestFutureSuggestionChangeDate__block_inv
 uint64_t __57__ATXInformationStore_earliestFutureSuggestionChangeDate__block_invoke_3_402(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_gi();
+  v3 = __atxlog_handle_gi(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __57__ATXInformationStore_earliestFutureSuggestionChangeDate__block_invoke_3_402_cold_1();
@@ -1214,7 +1218,7 @@ uint64_t __51__ATXInformationStore_latestUpdateDateForSourceId___block_invoke_2(
 uint64_t __51__ATXInformationStore_latestUpdateDateForSourceId___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_gi();
+  v3 = __atxlog_handle_gi(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __51__ATXInformationStore_latestUpdateDateForSourceId___block_invoke_3_cold_1();
@@ -1258,7 +1262,7 @@ uint64_t __51__ATXInformationStore_latestUpdateDateForSourceId___block_invoke_3(
 uint64_t __58__ATXInformationStore_numberOfInfoSuggestionsForSourceId___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_gi();
+  v3 = __atxlog_handle_gi(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __58__ATXInformationStore_numberOfInfoSuggestionsForSourceId___block_invoke_3_cold_1();
@@ -1302,7 +1306,7 @@ uint64_t __58__ATXInformationStore_numberOfInfoSuggestionsForSourceId___block_in
 uint64_t __69__ATXInformationStore_numberOfInfoSuggestionsForAppBundleIdentifier___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_gi();
+  v3 = __atxlog_handle_gi(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __69__ATXInformationStore_numberOfInfoSuggestionsForAppBundleIdentifier___block_invoke_3_cold_1();
@@ -1468,7 +1472,7 @@ void __44__ATXInformationStore_writeInfoSuggestions___block_invoke_2(uint64_t a1
 uint64_t __44__ATXInformationStore_writeInfoSuggestions___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_gi();
+  v4 = __atxlog_handle_gi(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __44__ATXInformationStore_writeInfoSuggestions___block_invoke_3_cold_1();
@@ -1596,7 +1600,7 @@ void __55__ATXInformationStore_updateEndDateForInfoSuggestions___block_invoke_2(
 uint64_t __55__ATXInformationStore_updateEndDateForInfoSuggestions___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_gi();
+  v4 = __atxlog_handle_gi(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __55__ATXInformationStore_updateEndDateForInfoSuggestions___block_invoke_3_cold_1();
@@ -1774,7 +1778,7 @@ void __77__ATXInformationStore_atomicallyDeleteInfoSuggestions_insertInfoSuggest
 uint64_t __77__ATXInformationStore_atomicallyDeleteInfoSuggestions_insertInfoSuggestions___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_gi();
+  v4 = __atxlog_handle_gi(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __77__ATXInformationStore_atomicallyDeleteInfoSuggestions_insertInfoSuggestions___block_invoke_3_cold_1();
@@ -1847,7 +1851,7 @@ void __77__ATXInformationStore_atomicallyDeleteInfoSuggestions_insertInfoSuggest
 uint64_t __77__ATXInformationStore_atomicallyDeleteInfoSuggestions_insertInfoSuggestions___block_invoke_2_442(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_gi();
+  v4 = __atxlog_handle_gi(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __77__ATXInformationStore_atomicallyDeleteInfoSuggestions_insertInfoSuggestions___block_invoke_2_442_cold_1();
@@ -1909,7 +1913,7 @@ void __44__ATXInformationStore_deleteInfoSuggestion___block_invoke(uint64_t a1, 
 uint64_t __44__ATXInformationStore_deleteInfoSuggestion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_gi();
+  v4 = __atxlog_handle_gi(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __44__ATXInformationStore_deleteInfoSuggestion___block_invoke_2_cold_1();
@@ -1973,7 +1977,7 @@ uint64_t __44__ATXInformationStore_deleteInfoSuggestion___block_invoke_2(uint64_
 uint64_t __74__ATXInformationStore_deleteAllInfoSuggestionsWithSourceIdentifier_error___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_gi();
+  v4 = __atxlog_handle_gi(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __74__ATXInformationStore_deleteAllInfoSuggestionsWithSourceIdentifier_error___block_invoke_2_cold_1();
@@ -2071,7 +2075,7 @@ uint64_t __47__ATXInformationStore_deleteExpiredSuggestions__block_invoke_3(uint
 uint64_t __47__ATXInformationStore_deleteExpiredSuggestions__block_invoke_4(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_timeline();
+  v3 = __atxlog_handle_timeline(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __47__ATXInformationStore_deleteExpiredSuggestions__block_invoke_4_cold_1();
@@ -2092,7 +2096,7 @@ void __47__ATXInformationStore_deleteExpiredSuggestions__block_invoke_457(uint64
 uint64_t __47__ATXInformationStore_deleteExpiredSuggestions__block_invoke_2_458(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_gi();
+  v3 = __atxlog_handle_gi(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __47__ATXInformationStore_deleteExpiredSuggestions__block_invoke_2_458_cold_1();
@@ -2152,7 +2156,7 @@ void __77__ATXInformationStore_deleteAllSuggestionsForSourceId_excludingSuggesti
 uint64_t __77__ATXInformationStore_deleteAllSuggestionsForSourceId_excludingSuggestionId___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_gi();
+  v4 = __atxlog_handle_gi(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __77__ATXInformationStore_deleteAllSuggestionsForSourceId_excludingSuggestionId___block_invoke_2_cold_1();
@@ -2207,7 +2211,7 @@ void __76__ATXInformationStore_recordSuggestionPassedTimelineFiltersForTheFirstT
 uint64_t __76__ATXInformationStore_recordSuggestionPassedTimelineFiltersForTheFirstTime___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_gi();
+  v4 = __atxlog_handle_gi(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __76__ATXInformationStore_recordSuggestionPassedTimelineFiltersForTheFirstTime___block_invoke_2_cold_1();
@@ -2284,7 +2288,7 @@ uint64_t __71__ATXInformationStore_firstTimeAtWhichSuggestionPassedTimelineFilte
 uint64_t __71__ATXInformationStore_firstTimeAtWhichSuggestionPassedTimelineFilters___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_gi();
+  v3 = __atxlog_handle_gi(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __71__ATXInformationStore_firstTimeAtWhichSuggestionPassedTimelineFilters___block_invoke_3_cold_1();
@@ -2300,45 +2304,45 @@ uint64_t __71__ATXInformationStore_firstTimeAtWhichSuggestionPassedTimelineFilte
   v5 = os_transaction_create();
   intent = [recordCopy intent];
 
-  if (intent && (v7 = objc_autoreleasePoolPush(), v8 = MEMORY[0x1E696ACC8], [recordCopy intent], v9 = objc_claimAutoreleasedReturnValue(), v26 = 0, objc_msgSend(v8, "archivedDataWithRootObject:requiringSecureCoding:error:", v9, 1, &v26), intent = objc_claimAutoreleasedReturnValue(), v10 = v26, v9, objc_autoreleasePoolPop(v7), v10))
+  if (intent && (v7 = objc_autoreleasePoolPush(), v8 = MEMORY[0x1E696ACC8], [recordCopy intent], v9 = objc_claimAutoreleasedReturnValue(), v27 = 0, objc_msgSend(v8, "archivedDataWithRootObject:requiringSecureCoding:error:", v9, 1, &v27), intent = objc_claimAutoreleasedReturnValue(), v10 = v27, v9, objc_autoreleasePoolPop(v7), v10))
   {
-    v11 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = __atxlog_handle_gi(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [ATXInformationStore insertOrIgnoreProactiveStackRotationRecord:recordCopy];
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x2020000000;
-    v25 = 1;
+    v23 = 0;
+    v24 = &v23;
+    v25 = 0x2020000000;
+    v26 = 1;
     db = self->_db;
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __66__ATXInformationStore_insertOrIgnoreProactiveStackRotationRecord___block_invoke;
-    v19[3] = &unk_1E80C4EC0;
-    v20 = recordCopy;
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __66__ATXInformationStore_insertOrIgnoreProactiveStackRotationRecord___block_invoke;
+    v20[3] = &unk_1E80C4EC0;
+    v21 = recordCopy;
     intent = intent;
-    v21 = intent;
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __66__ATXInformationStore_insertOrIgnoreProactiveStackRotationRecord___block_invoke_2;
-    v16[3] = &unk_1E80C4DD0;
-    v17 = v20;
-    v18 = &v22;
-    [(_PASSqliteDatabase *)db prepAndRunQuery:@"INSERT OR IGNORE INTO proactiveStackRotations (suggestionId onPrep:criterion onRow:widgetBundleId onError:widgetKind, intentHash, intent, isStalenessRotation, rotationTimestamp, relevancyDurationLimit, coolDownTimeInterval, clientModelId) VALUES (:suggestionId, :criterion, :widgetBundleId, :widgetKind, :intentHash, :intent, :isStalenessRotation, :rotationTimestamp, :relevancyDurationLimit, :coolDownTimeInterval, :clientModelId)", v19, 0, v16];
-    v14 = objc_opt_self();
-    v12 = *(v23 + 24);
+    v22 = intent;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __66__ATXInformationStore_insertOrIgnoreProactiveStackRotationRecord___block_invoke_2;
+    v17[3] = &unk_1E80C4DD0;
+    v18 = v21;
+    v19 = &v23;
+    [(_PASSqliteDatabase *)db prepAndRunQuery:@"INSERT OR IGNORE INTO proactiveStackRotations (suggestionId onPrep:criterion onRow:widgetBundleId onError:widgetKind, intentHash, intent, isStalenessRotation, rotationTimestamp, relevancyDurationLimit, coolDownTimeInterval, clientModelId) VALUES (:suggestionId, :criterion, :widgetBundleId, :widgetKind, :intentHash, :intent, :isStalenessRotation, :rotationTimestamp, :relevancyDurationLimit, :coolDownTimeInterval, :clientModelId)", v20, 0, v17];
+    v15 = objc_opt_self();
+    v13 = *(v24 + 24);
 
-    _Block_object_dispose(&v22, 8);
+    _Block_object_dispose(&v23, 8);
   }
 
-  return v12 & 1;
+  return v13 & 1;
 }
 
 void __66__ATXInformationStore_insertOrIgnoreProactiveStackRotationRecord___block_invoke(uint64_t a1, void *a2)
@@ -2377,7 +2381,7 @@ void __66__ATXInformationStore_insertOrIgnoreProactiveStackRotationRecord___bloc
 uint64_t __66__ATXInformationStore_insertOrIgnoreProactiveStackRotationRecord___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_gi();
+  v4 = __atxlog_handle_gi(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __66__ATXInformationStore_insertOrIgnoreProactiveStackRotationRecord___block_invoke_2_cold_1();
@@ -2483,7 +2487,7 @@ uint64_t __117__ATXInformationStore_mostRecentRotationRecordForWidget_kind_inten
 uint64_t __117__ATXInformationStore_mostRecentRotationRecordForWidget_kind_intent_considerStalenessRotation_filterByClientModelId___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_gi();
+  v3 = __atxlog_handle_gi(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __117__ATXInformationStore_mostRecentRotationRecordForWidget_kind_intent_considerStalenessRotation_filterByClientModelId___block_invoke_3_cold_1();
@@ -2555,7 +2559,7 @@ uint64_t __71__ATXInformationStore_mostRecentRotationRecordForSuggestionIdentifi
 uint64_t __71__ATXInformationStore_mostRecentRotationRecordForSuggestionIdentifier___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_gi();
+  v3 = __atxlog_handle_gi(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __71__ATXInformationStore_mostRecentRotationRecordForSuggestionIdentifier___block_invoke_3_cold_1();
@@ -2633,7 +2637,7 @@ uint64_t __89__ATXInformationStore_nextImportantDateAmongTimelineInducedProactiv
 uint64_t __89__ATXInformationStore_nextImportantDateAmongTimelineInducedProactiveStackRotationRecords__block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_gi();
+  v3 = __atxlog_handle_gi(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __89__ATXInformationStore_nextImportantDateAmongTimelineInducedProactiveStackRotationRecords__block_invoke_3_cold_1();
@@ -2683,7 +2687,7 @@ uint64_t __89__ATXInformationStore_nextImportantDateAmongTimelineInducedProactiv
 uint64_t __83__ATXInformationStore_rotationExistsForSuggestionWithId_considerStalenessRotation___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_gi();
+  v3 = __atxlog_handle_gi(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __89__ATXInformationStore_nextImportantDateAmongTimelineInducedProactiveStackRotationRecords__block_invoke_3_cold_1();
@@ -2740,7 +2744,7 @@ uint64_t __55__ATXInformationStore_didSuggestionReachDurationLimit___block_invok
 uint64_t __55__ATXInformationStore_didSuggestionReachDurationLimit___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_gi();
+  v3 = __atxlog_handle_gi(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __89__ATXInformationStore_nextImportantDateAmongTimelineInducedProactiveStackRotationRecords__block_invoke_3_cold_1();
@@ -2833,7 +2837,7 @@ uint64_t __97__ATXInformationStore_proactiveRotationsForWidgetInThePastDay_kind_
 uint64_t __97__ATXInformationStore_proactiveRotationsForWidgetInThePastDay_kind_intent_filterByClientModelId___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_gi();
+  v3 = __atxlog_handle_gi(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __97__ATXInformationStore_proactiveRotationsForWidgetInThePastDay_kind_intent_filterByClientModelId___block_invoke_3_cold_1();
@@ -2873,7 +2877,7 @@ void __59__ATXInformationStore_deleteExpiredProactiveStackRotations__block_invok
 uint64_t __59__ATXInformationStore_deleteExpiredProactiveStackRotations__block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_gi();
+  v4 = __atxlog_handle_gi(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __47__ATXInformationStore_deleteExpiredSuggestions__block_invoke_2_458_cold_1();
@@ -2887,81 +2891,80 @@ uint64_t __59__ATXInformationStore_deleteExpiredProactiveStackRotations__block_i
 
 - (BOOL)recordUserRemovalOfSuggestedWidget:(id)widget kind:(id)kind intent:(id)intent atDate:(id)date duration:(double)duration
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   widgetCopy = widget;
   kindCopy = kind;
   intentCopy = intent;
   dateCopy = date;
-  [dateCopy timeIntervalSinceNow];
-  if (v16 <= 0.0)
+  timeIntervalSinceNow = [dateCopy timeIntervalSinceNow];
+  if (v17 <= 0.0)
   {
-    v37 = 0;
-    v38 = &v37;
-    v39 = 0x2020000000;
-    v40 = 1;
+    v38 = 0;
+    v39 = &v38;
+    v40 = 0x2020000000;
+    v41 = 1;
     db = self->_db;
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __86__ATXInformationStore_recordUserRemovalOfSuggestedWidget_kind_intent_atDate_duration___block_invoke;
-    v31[3] = &unk_1E80C5000;
-    v32 = widgetCopy;
-    v33 = kindCopy;
-    v34 = intentCopy;
-    v35 = dateCopy;
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __86__ATXInformationStore_recordUserRemovalOfSuggestedWidget_kind_intent_atDate_duration___block_invoke;
+    v32[3] = &unk_1E80C5000;
+    v33 = widgetCopy;
+    v34 = kindCopy;
+    v35 = intentCopy;
+    v36 = dateCopy;
     durationCopy = duration;
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __86__ATXInformationStore_recordUserRemovalOfSuggestedWidget_kind_intent_atDate_duration___block_invoke_2;
-    v26[3] = &unk_1E80C5028;
-    v20 = v32;
-    v27 = v20;
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __86__ATXInformationStore_recordUserRemovalOfSuggestedWidget_kind_intent_atDate_duration___block_invoke_2;
+    v27[3] = &unk_1E80C5028;
     v21 = v33;
     v28 = v21;
     v22 = v34;
     v29 = v22;
-    v30 = &v37;
-    [(_PASSqliteDatabase *)db prepAndRunQuery:@"INSERT INTO widgetSuggestionDismiss (extensionBundleId onPrep:kind onRow:intentHash onError:date, duration) VALUES (:extensionBundleId, :kind, :intentHash, :date, :duration)", v31, 0, v26];
-    v23 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v23 = v35;
+    v30 = v23;
+    v31 = &v38;
+    v24 = __atxlog_handle_home_screen([(_PASSqliteDatabase *)db prepAndRunQuery:@"INSERT INTO widgetSuggestionDismiss (extensionBundleId onPrep:kind onRow:intentHash onError:date, duration) VALUES (:extensionBundleId, :kind, :intentHash, :date, :duration)", v32, 0, v27]);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = *(v38 + 24);
+      v25 = *(v39 + 24);
       *buf = 138413058;
-      v42 = v20;
-      v43 = 2112;
-      v44 = v21;
-      v45 = 2112;
-      v46 = v22;
-      v47 = 1024;
-      LODWORD(v48) = v24;
-      _os_log_impl(&dword_1BF549000, v23, OS_LOG_TYPE_DEFAULT, "ATXInformationStore: Writing user removal of suggested widget (extBundleId %@, kind %@, intent %@) - is successful: %{BOOL}d", buf, 0x26u);
+      v43 = v21;
+      v44 = 2112;
+      v45 = v22;
+      v46 = 2112;
+      v47 = v23;
+      v48 = 1024;
+      LODWORD(v49) = v25;
+      _os_log_impl(&dword_1BF549000, v24, OS_LOG_TYPE_DEFAULT, "ATXInformationStore: Writing user removal of suggested widget (extBundleId %@, kind %@, intent %@) - is successful: %{BOOL}d", buf, 0x26u);
     }
 
-    v18 = *(v38 + 24);
-    _Block_object_dispose(&v37, 8);
+    v19 = *(v39 + 24);
+    _Block_object_dispose(&v38, 8);
   }
 
   else
   {
-    v17 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = __atxlog_handle_home_screen(timeIntervalSinceNow);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 138413314;
-      v42 = widgetCopy;
-      v43 = 2112;
-      v44 = kindCopy;
-      v45 = 2112;
-      v46 = intentCopy;
-      v47 = 2112;
-      v48 = dateCopy;
-      v49 = 2048;
+      v43 = widgetCopy;
+      v44 = 2112;
+      v45 = kindCopy;
+      v46 = 2112;
+      v47 = intentCopy;
+      v48 = 2112;
+      v49 = dateCopy;
+      v50 = 2048;
       durationCopy2 = duration;
-      _os_log_error_impl(&dword_1BF549000, v17, OS_LOG_TYPE_ERROR, "ATXInformationStore: Received call to write user removal of suggested widget with a date in the future! (extBundleId %@, kind %@, intent %@, date %@, duration %f)", buf, 0x34u);
+      _os_log_error_impl(&dword_1BF549000, v18, OS_LOG_TYPE_ERROR, "ATXInformationStore: Received call to write user removal of suggested widget with a date in the future! (extBundleId %@, kind %@, intent %@, date %@, duration %f)", buf, 0x34u);
     }
 
-    v18 = 0;
+    v19 = 0;
   }
 
-  return v18 & 1;
+  return v19 & 1;
 }
 
 void __86__ATXInformationStore_recordUserRemovalOfSuggestedWidget_kind_intent_atDate_duration___block_invoke(uint64_t a1, void *a2)
@@ -2987,7 +2990,7 @@ void __86__ATXInformationStore_recordUserRemovalOfSuggestedWidget_kind_intent_at
 uint64_t __86__ATXInformationStore_recordUserRemovalOfSuggestedWidget_kind_intent_atDate_duration___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_home_screen();
+  v4 = __atxlog_handle_home_screen(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __86__ATXInformationStore_recordUserRemovalOfSuggestedWidget_kind_intent_atDate_duration___block_invoke_2_cold_1();
@@ -3084,7 +3087,7 @@ uint64_t __79__ATXInformationStore_dateIntervalsOfUserRemovalOfSuggestedWidget_k
 uint64_t __79__ATXInformationStore_dateIntervalsOfUserRemovalOfSuggestedWidget_kind_intent___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_home_screen();
+  v4 = __atxlog_handle_home_screen(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __79__ATXInformationStore_dateIntervalsOfUserRemovalOfSuggestedWidget_kind_intent___block_invoke_3_cold_1();
@@ -3146,7 +3149,7 @@ uint64_t __88__ATXInformationStore_dateIntervalsOfUserRemovalOfSuggestedWidgetWi
 uint64_t __88__ATXInformationStore_dateIntervalsOfUserRemovalOfSuggestedWidgetWithExtensionBundleId___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_home_screen();
+  v4 = __atxlog_handle_home_screen(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __88__ATXInformationStore_dateIntervalsOfUserRemovalOfSuggestedWidgetWithExtensionBundleId___block_invoke_3_cold_1();
@@ -3215,7 +3218,7 @@ uint64_t __77__ATXInformationStore_dateIntervalsOfUserRemovalOfSuggestedWidgetWi
 uint64_t __77__ATXInformationStore_dateIntervalsOfUserRemovalOfSuggestedWidgetWithIntent___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_home_screen();
+  v4 = __atxlog_handle_home_screen(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __77__ATXInformationStore_dateIntervalsOfUserRemovalOfSuggestedWidgetWithIntent___block_invoke_3_cold_1();
@@ -3266,7 +3269,7 @@ void __58__ATXInformationStore_clearWidgetRemovalHistoryOlderThan___block_invoke
 uint64_t __58__ATXInformationStore_clearWidgetRemovalHistoryOlderThan___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_gi();
+  v4 = __atxlog_handle_gi(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __58__ATXInformationStore_clearWidgetRemovalHistoryOlderThan___block_invoke_2_cold_1();
@@ -3384,7 +3387,7 @@ void __44__ATXInformationStore_readAllDismissRecords__block_invoke(uint64_t a1, 
 uint64_t __44__ATXInformationStore_readAllDismissRecords__block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_gi();
+  v3 = __atxlog_handle_gi(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __44__ATXInformationStore_readAllDismissRecords__block_invoke_2_cold_1();
@@ -3415,7 +3418,7 @@ uint64_t __44__ATXInformationStore_readAllDismissRecords__block_invoke_589(uint6
 uint64_t __44__ATXInformationStore_readAllDismissRecords__block_invoke_2_591(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_gi();
+  v4 = __atxlog_handle_gi(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __44__ATXInformationStore_readAllDismissRecords__block_invoke_2_591_cold_1();
@@ -3488,7 +3491,7 @@ void __43__ATXInformationStore_appendDismissRecord___block_invoke(uint64_t a1, v
 uint64_t __43__ATXInformationStore_appendDismissRecord___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_gi();
+  v4 = __atxlog_handle_gi(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __43__ATXInformationStore_appendDismissRecord___block_invoke_2_cold_1();
@@ -3575,7 +3578,7 @@ uint64_t __96__ATXInformationStore_mostRecentTimelineEntryWithScoreForWidget_kin
 uint64_t __96__ATXInformationStore_mostRecentTimelineEntryWithScoreForWidget_kind_family_intentIndexingHash___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_timeline();
+  v3 = __atxlog_handle_timeline(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __96__ATXInformationStore_mostRecentTimelineEntryWithScoreForWidget_kind_family_intentIndexingHash___block_invoke_3_cold_1();
@@ -3680,7 +3683,7 @@ uint64_t __104__ATXInformationStore_upcomingDateThatTimelineScoreChangesToOrFrom
 {
   v3 = a2;
   *(*(*(a1 + 48) + 8) + 24) = 0;
-  v4 = __atxlog_handle_timeline();
+  v4 = __atxlog_handle_timeline(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __104__ATXInformationStore_upcomingDateThatTimelineScoreChangesToOrFromZeroForWidget_kind_familyMask_intent___block_invoke_3_cold_1();
@@ -3768,7 +3771,7 @@ uint64_t __105__ATXInformationStore_recentRelevantTimelineEntriesOrderedByDescen
 uint64_t __105__ATXInformationStore_recentRelevantTimelineEntriesOrderedByDescendingScoreForWidget_kind_family_intent___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_timeline();
+  v4 = __atxlog_handle_timeline(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __105__ATXInformationStore_recentRelevantTimelineEntriesOrderedByDescendingScoreForWidget_kind_family_intent___block_invoke_3_cold_1();
@@ -3842,7 +3845,7 @@ uint64_t __65__ATXInformationStore_mostRecentTimelineUpdateDateOfWidget_kind___b
 uint64_t __65__ATXInformationStore_mostRecentTimelineUpdateDateOfWidget_kind___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_gi();
+  v3 = __atxlog_handle_gi(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __65__ATXInformationStore_mostRecentTimelineUpdateDateOfWidget_kind___block_invoke_3_cold_1();
@@ -3987,7 +3990,7 @@ void __69__ATXInformationStore__insertTimelineEntries_forWidget_storageLimit___b
 uint64_t __69__ATXInformationStore__insertTimelineEntries_forWidget_storageLimit___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_timeline();
+  v3 = __atxlog_handle_timeline(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __69__ATXInformationStore__insertTimelineEntries_forWidget_storageLimit___block_invoke_3_cold_1();
@@ -4051,7 +4054,7 @@ void __69__ATXInformationStore__insertTimelineEntries_forWidget_storageLimit___b
 uint64_t __69__ATXInformationStore__insertTimelineEntries_forWidget_storageLimit___block_invoke_2_632(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_timeline();
+  v4 = __atxlog_handle_timeline(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __69__ATXInformationStore__insertTimelineEntries_forWidget_storageLimit___block_invoke_2_632_cold_1();
@@ -4085,7 +4088,7 @@ void __69__ATXInformationStore__insertTimelineEntries_forWidget_storageLimit___b
 uint64_t __69__ATXInformationStore__insertTimelineEntries_forWidget_storageLimit___block_invoke_2_638(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_timeline();
+  v3 = __atxlog_handle_timeline(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __69__ATXInformationStore__insertTimelineEntries_forWidget_storageLimit___block_invoke_2_638_cold_1();
@@ -4119,7 +4122,7 @@ void __43__ATXInformationStore_pruneTimelineEntries__block_invoke(uint64_t a1, v
   v2 = MEMORY[0x1E695DF00];
   v3 = a2;
   v4 = [v2 dateWithTimeIntervalSinceNow:-7776000.0];
-  v5 = __atxlog_handle_timeline();
+  v5 = __atxlog_handle_timeline(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
@@ -4134,7 +4137,7 @@ void __43__ATXInformationStore_pruneTimelineEntries__block_invoke(uint64_t a1, v
 uint64_t __43__ATXInformationStore_pruneTimelineEntries__block_invoke_647(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_gi();
+  v4 = __atxlog_handle_gi(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __43__ATXInformationStore_pruneTimelineEntries__block_invoke_647_cold_1();
@@ -4158,7 +4161,7 @@ void __46__ATXInformationStore_pruneInvalidSuggestions__block_invoke(uint64_t a1
 uint64_t __46__ATXInformationStore_pruneInvalidSuggestions__block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_gi();
+  v3 = __atxlog_handle_gi(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __46__ATXInformationStore_pruneInvalidSuggestions__block_invoke_2_cold_1();
@@ -4228,7 +4231,7 @@ uint64_t __52__ATXInformationStore_distinctScoresForWidget_kind___block_invoke_2
 uint64_t __52__ATXInformationStore_distinctScoresForWidget_kind___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_timeline();
+  v3 = __atxlog_handle_timeline(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __52__ATXInformationStore_distinctScoresForWidget_kind___block_invoke_3_cold_1();
@@ -4268,7 +4271,7 @@ void __53__ATXInformationStore_clearOutdatedWidgetEngagements__block_invoke(uint
 uint64_t __53__ATXInformationStore_clearOutdatedWidgetEngagements__block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_gi();
+  v4 = __atxlog_handle_gi(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __53__ATXInformationStore_clearOutdatedWidgetEngagements__block_invoke_2_cold_1();
@@ -4338,7 +4341,7 @@ void __72__ATXInformationStore_addEngagementRecordForWidget_date_engagementType_
 uint64_t __72__ATXInformationStore_addEngagementRecordForWidget_date_engagementType___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_gi();
+  v4 = __atxlog_handle_gi(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __72__ATXInformationStore_addEngagementRecordForWidget_date_engagementType___block_invoke_2_cold_1();
@@ -4406,7 +4409,7 @@ uint64_t __52__ATXInformationStore_mostRecentEngagementOfWidget___block_invoke_2
 uint64_t __52__ATXInformationStore_mostRecentEngagementOfWidget___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_gi();
+  v3 = __atxlog_handle_gi(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __52__ATXInformationStore_mostRecentEngagementOfWidget___block_invoke_3_cold_1();
@@ -4477,7 +4480,7 @@ uint64_t __59__ATXInformationStore_mostRecentEngagementOfWidget_ofType___block_i
 uint64_t __59__ATXInformationStore_mostRecentEngagementOfWidget_ofType___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_gi();
+  v3 = __atxlog_handle_gi(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __52__ATXInformationStore_mostRecentEngagementOfWidget___block_invoke_3_cold_1();
@@ -4550,7 +4553,7 @@ uint64_t __64__ATXInformationStore_mostRecentEngagementOfWidget_kind_ofType___bl
 uint64_t __64__ATXInformationStore_mostRecentEngagementOfWidget_kind_ofType___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_gi();
+  v3 = __atxlog_handle_gi(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __52__ATXInformationStore_mostRecentEngagementOfWidget___block_invoke_3_cold_1();
@@ -4628,7 +4631,7 @@ uint64_t __74__ATXInformationStore_firstEngagementOfWidget_kind_intent_sinceTime
 uint64_t __74__ATXInformationStore_firstEngagementOfWidget_kind_intent_sinceTimestamp___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_gi();
+  v3 = __atxlog_handle_gi(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __52__ATXInformationStore_mostRecentEngagementOfWidget___block_invoke_3_cold_1();
@@ -4704,7 +4707,7 @@ uint64_t __91__ATXInformationStore_engagementTimestampsForExtensionBundleId_kind
 uint64_t __91__ATXInformationStore_engagementTimestampsForExtensionBundleId_kind_intent_engagementType___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_gi();
+  v3 = __atxlog_handle_gi(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __91__ATXInformationStore_engagementTimestampsForExtensionBundleId_kind_intent_engagementType___block_invoke_3_cold_1();
@@ -4761,7 +4764,7 @@ uint64_t __51__ATXInformationStore_fetchWidgetEngagementRecords__block_invoke(ui
 uint64_t __51__ATXInformationStore_fetchWidgetEngagementRecords__block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_timeline();
+  v4 = __atxlog_handle_timeline(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __51__ATXInformationStore_fetchWidgetEngagementRecords__block_invoke_2_cold_1();
@@ -4839,7 +4842,7 @@ uint64_t __73__ATXInformationStore_fetchWidgetTapEngagementsBetweenStartDate_end
 uint64_t __73__ATXInformationStore_fetchWidgetTapEngagementsBetweenStartDate_endDate___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_timeline();
+  v3 = __atxlog_handle_timeline(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __73__ATXInformationStore_fetchWidgetTapEngagementsBetweenStartDate_endDate___block_invoke_3_cold_1();
@@ -4912,7 +4915,7 @@ uint64_t __67__ATXInformationStore_fetchWidgetTapEngagementCountSinceStartDate__
 uint64_t __67__ATXInformationStore_fetchWidgetTapEngagementCountSinceStartDate___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_timeline();
+  v3 = __atxlog_handle_timeline(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __67__ATXInformationStore_fetchWidgetTapEngagementCountSinceStartDate___block_invoke_3_cold_1();
@@ -4968,7 +4971,7 @@ uint64_t __56__ATXInformationStore_fetchDistinctScoreCountForWidgets__block_invo
 uint64_t __56__ATXInformationStore_fetchDistinctScoreCountForWidgets__block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_timeline();
+  v4 = __atxlog_handle_timeline(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __56__ATXInformationStore_fetchDistinctScoreCountForWidgets__block_invoke_2_cold_1();
@@ -5059,7 +5062,7 @@ uint64_t __67__ATXInformationStore_fetchDistinctWidgetsIgnoringIntentSinceDate__
 uint64_t __67__ATXInformationStore_fetchDistinctWidgetsIgnoringIntentSinceDate___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_timeline();
+  v4 = __atxlog_handle_timeline(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __67__ATXInformationStore_fetchDistinctWidgetsIgnoringIntentSinceDate___block_invoke_3_cold_1();
@@ -5158,7 +5161,7 @@ uint64_t __56__ATXInformationStore_fetchAllTimelineEntriesForWidget___block_invo
 uint64_t __56__ATXInformationStore_fetchAllTimelineEntriesForWidget___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_timeline();
+  v4 = __atxlog_handle_timeline(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __56__ATXInformationStore_fetchAllTimelineEntriesForWidget___block_invoke_3_cold_1();
@@ -5277,7 +5280,7 @@ uint64_t __63__ATXInformationStore_fetchTimelineEntriesForWidget_sinceDate___blo
 uint64_t __63__ATXInformationStore_fetchTimelineEntriesForWidget_sinceDate___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_timeline();
+  v4 = __atxlog_handle_timeline(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __56__ATXInformationStore_fetchAllTimelineEntriesForWidget___block_invoke_3_cold_1();
@@ -5325,7 +5328,7 @@ uint64_t __63__ATXInformationStore_fetchTimelineEntriesForWidget_sinceDate___blo
 uint64_t __68__ATXInformationStore_mostRecentAbuseControlOutcomeForSuggestionId___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_timeline();
+  v3 = __atxlog_handle_timeline(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __68__ATXInformationStore_mostRecentAbuseControlOutcomeForSuggestionId___block_invoke_3_cold_1();
@@ -5376,7 +5379,7 @@ void __80__ATXInformationStore_addAbuseControlOutcomeForSuggestion_forTimestamp_
 uint64_t __80__ATXInformationStore_addAbuseControlOutcomeForSuggestion_forTimestamp_outcome___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_timeline();
+  v4 = __atxlog_handle_timeline(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __80__ATXInformationStore_addAbuseControlOutcomeForSuggestion_forTimestamp_outcome___block_invoke_2_cold_1();
@@ -5492,7 +5495,7 @@ void __47__ATXInformationStore_addAbuseControlOutcomes___block_invoke_2(uint64_t
 uint64_t __47__ATXInformationStore_addAbuseControlOutcomes___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_timeline();
+  v4 = __atxlog_handle_timeline(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __47__ATXInformationStore_addAbuseControlOutcomes___block_invoke_3_cold_1();
@@ -5533,7 +5536,7 @@ void __54__ATXInformationStore_clearOldAbuseControlOutcomeData__block_invoke(uin
 uint64_t __54__ATXInformationStore_clearOldAbuseControlOutcomeData__block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_timeline();
+  v4 = __atxlog_handle_timeline(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __54__ATXInformationStore_clearOldAbuseControlOutcomeData__block_invoke_2_cold_1();
@@ -5622,7 +5625,7 @@ uint64_t __72__ATXInformationStore_fetchAbuseControlOutcomesForSuggestion_sinceD
 uint64_t __72__ATXInformationStore_fetchAbuseControlOutcomesForSuggestion_sinceDate___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_timeline();
+  v4 = __atxlog_handle_timeline(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __72__ATXInformationStore_fetchAbuseControlOutcomesForSuggestion_sinceDate___block_invoke_3_cold_1();
@@ -5743,7 +5746,7 @@ void __48__ATXInformationStore_addStackConfigStatistics___block_invoke_2(uint64_
 uint64_t __48__ATXInformationStore_addStackConfigStatistics___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_timeline();
+  v3 = __atxlog_handle_timeline(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __48__ATXInformationStore_addStackConfigStatistics___block_invoke_3_cold_1();
@@ -5788,7 +5791,7 @@ uint64_t __48__ATXInformationStore_addStackConfigStatistics___block_invoke_2_767
 uint64_t __48__ATXInformationStore_addStackConfigStatistics___block_invoke_3_772(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_timeline();
+  v4 = __atxlog_handle_timeline(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __48__ATXInformationStore_addStackConfigStatistics___block_invoke_3_772_cold_1(a1);
@@ -5827,7 +5830,7 @@ void __48__ATXInformationStore_addStackConfigStatistics___block_invoke_776(uint6
 uint64_t __48__ATXInformationStore_addStackConfigStatistics___block_invoke_2_781(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_timeline();
+  v4 = __atxlog_handle_timeline(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __48__ATXInformationStore_addStackConfigStatistics___block_invoke_2_781_cold_1(a1);
@@ -5937,7 +5940,7 @@ void __117__ATXInformationStore_fetchStackConfigStatisticsForWidgetBundleId_widg
 uint64_t __117__ATXInformationStore_fetchStackConfigStatisticsForWidgetBundleId_widgetKind_containerBundleIdentifier_widgetFamily___block_invoke_4(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_timeline();
+  v4 = __atxlog_handle_timeline(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __117__ATXInformationStore_fetchStackConfigStatisticsForWidgetBundleId_widgetKind_containerBundleIdentifier_widgetFamily___block_invoke_4_cold_1();
@@ -5978,7 +5981,7 @@ uint64_t __117__ATXInformationStore_fetchStackConfigStatisticsForWidgetBundleId_
 uint64_t __65__ATXInformationStore_numberOfWidgetReloadForSuggestionInPastDay__block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_blending();
+  v3 = __atxlog_handle_blending(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __65__ATXInformationStore_numberOfWidgetReloadForSuggestionInPastDay__block_invoke_3_cold_1();
@@ -6037,7 +6040,7 @@ void __82__ATXInformationStore_didMostRecentReloadFailForExtension_kind_intent_c
 uint64_t __82__ATXInformationStore_didMostRecentReloadFailForExtension_kind_intent_cutoffDate___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_blending();
+  v3 = __atxlog_handle_blending(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __82__ATXInformationStore_didMostRecentReloadFailForExtension_kind_intent_cutoffDate___block_invoke_3_cold_1();
@@ -6100,7 +6103,7 @@ void __76__ATXInformationStore_recordWidgetReloadForSuggestion_date_readyForDisp
 uint64_t __76__ATXInformationStore_recordWidgetReloadForSuggestion_date_readyForDisplay___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_home_screen();
+  v4 = __atxlog_handle_home_screen(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __76__ATXInformationStore_recordWidgetReloadForSuggestion_date_readyForDisplay___block_invoke_2_cold_1();
@@ -6139,7 +6142,7 @@ uint64_t __76__ATXInformationStore_recordWidgetReloadForSuggestion_date_readyFor
 uint64_t __55__ATXInformationStore_clearOutdatedWidgetReloadEntries__block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_default();
+  v4 = __atxlog_handle_default(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __55__ATXInformationStore_clearOutdatedWidgetReloadEntries__block_invoke_2_cold_1();
@@ -6178,7 +6181,7 @@ uint64_t __55__ATXInformationStore_clearOutdatedWidgetReloadEntries__block_invok
 uint64_t __56__ATXInformationStore_numberOfSuggestedWidgetsInPastDay__block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_blending();
+  v3 = __atxlog_handle_blending(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __56__ATXInformationStore_numberOfSuggestedWidgetsInPastDay__block_invoke_3_cold_1();
@@ -6231,7 +6234,7 @@ uint64_t __68__ATXInformationStore_firstAppearDateOfSuggestedWidgetWithUniqueId_
 uint64_t __68__ATXInformationStore_firstAppearDateOfSuggestedWidgetWithUniqueId___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_blending();
+  v3 = __atxlog_handle_blending(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __68__ATXInformationStore_firstAppearDateOfSuggestedWidgetWithUniqueId___block_invoke_3_cold_1();
@@ -6281,7 +6284,7 @@ void __63__ATXInformationStore_recordSuggestedWidgetUniqueIdIfNotExist___block_i
 uint64_t __63__ATXInformationStore_recordSuggestedWidgetUniqueIdIfNotExist___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_home_screen();
+  v4 = __atxlog_handle_home_screen(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __63__ATXInformationStore_recordSuggestedWidgetUniqueIdIfNotExist___block_invoke_2_cold_1();
@@ -6320,7 +6323,7 @@ uint64_t __63__ATXInformationStore_recordSuggestedWidgetUniqueIdIfNotExist___blo
 uint64_t __58__ATXInformationStore_clearOutdatedSuggestedWidgetEntries__block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_default();
+  v4 = __atxlog_handle_default(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __58__ATXInformationStore_clearOutdatedSuggestedWidgetEntries__block_invoke_2_cold_1();
@@ -6334,9 +6337,9 @@ uint64_t __58__ATXInformationStore_clearOutdatedSuggestedWidgetEntries__block_in
 
 - (void)_openDatabase
 {
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *self;
+  OUTLINED_FUNCTION_0_0(&dword_1BF549000, a2, a3, "ATXInformationStore: Could not open Sqlite database at path: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_migrateDatabaseIfNeeded
@@ -6725,9 +6728,11 @@ void __48__ATXInformationStore_addStackConfigStatistics___block_invoke_3_772_col
   v3 = [*(a1 + 32) widgetKind];
   v4 = [*(a1 + 32) containerBundleIdentifier];
   [*(a1 + 32) widgetFamily];
+  LODWORD(v11) = 138413314;
+  *(&v11 + 4) = v2;
   OUTLINED_FUNCTION_11_1();
   OUTLINED_FUNCTION_17();
-  OUTLINED_FUNCTION_30(&dword_1BF549000, v5, v6, "ATXInformationStore: error reading stackConfigurationHistory for widgetBundleId (%@) widgetKind (%@), containerBundleIdentifier (%@) widgetFamily(%ld) - %{public}@", v7, v8, v9, v10, 2u);
+  OUTLINED_FUNCTION_30(&dword_1BF549000, v5, v6, "ATXInformationStore: error reading stackConfigurationHistory for widgetBundleId (%@) widgetKind (%@), containerBundleIdentifier (%@) widgetFamily(%ld) - %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void __48__ATXInformationStore_addStackConfigStatistics___block_invoke_2_781_cold_1(uint64_t a1)
@@ -6736,9 +6741,11 @@ void __48__ATXInformationStore_addStackConfigStatistics___block_invoke_2_781_col
   v3 = [*(a1 + 32) widgetKind];
   v4 = [*(a1 + 32) containerBundleIdentifier];
   [*(a1 + 32) widgetFamily];
+  LODWORD(v11) = 138413314;
+  *(&v11 + 4) = v2;
   OUTLINED_FUNCTION_11_1();
   OUTLINED_FUNCTION_17();
-  OUTLINED_FUNCTION_30(&dword_1BF549000, v5, v6, "ATXInformationStore: error inserting new stack configuration statistics for widgetBundleId (%@) widgetKind (%@), containerBundleIdentifier (%@) widgetFamily(%ld). Error: %{public}@", v7, v8, v9, v10, 2u);
+  OUTLINED_FUNCTION_30(&dword_1BF549000, v5, v6, "ATXInformationStore: error inserting new stack configuration statistics for widgetBundleId (%@) widgetKind (%@), containerBundleIdentifier (%@) widgetFamily(%ld). Error: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void __117__ATXInformationStore_fetchStackConfigStatisticsForWidgetBundleId_widgetKind_containerBundleIdentifier_widgetFamily___block_invoke_4_cold_1()

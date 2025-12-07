@@ -76,7 +76,7 @@
   return v13;
 }
 
-uint64_t __60__SBActivationSettings_copyActivationSettingsPassingFilter___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__60__SBActivationSettings_copyActivationSettingsPassingFilter___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = *(a1 + 40);
   if (!v6 || (result = (*(v6 + 16))(v6, a2), result))

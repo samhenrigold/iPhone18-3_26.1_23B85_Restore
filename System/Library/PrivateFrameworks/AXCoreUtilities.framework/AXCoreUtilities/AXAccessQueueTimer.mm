@@ -135,7 +135,7 @@ void __73__AXAccessQueueTimer__afterDelay_processBlock_shouldTreatAsWritingBlock
     v3 = AXLogCommon();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      __73__AXAccessQueueTimer__afterDelay_processBlock_shouldTreatAsWritingBlock___block_invoke_cold_1(v2, a1);
+      __73__AXAccessQueueTimer__afterDelay_processBlock_shouldTreatAsWritingBlock___block_invoke_cold_1(v2);
     }
   }
 
@@ -273,26 +273,20 @@ void __73__AXAccessQueueTimer__afterDelay_processBlock_shouldTreatAsWritingBlock
 
 - (void)_didFinishProcessingBlock
 {
-  v8 = *MEMORY[0x1E69E9840];
   accessQueue = [self accessQueue];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_warnAboutAsynchronousScheduling
 {
-  v15 = *MEMORY[0x1E69E9840];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   sel_getName(a2);
   accessQueue = [self accessQueue];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_19159B000, v7, v8, "Can't schedule timer %@ synchronously; scheduling it asynchronously instead. To avoid this, break on [%@ %s], find the call site initiating a reading block onto %@, and change that to a writing block.", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_19159B000, v7, v8, "Can't schedule timer %@ synchronously; scheduling it asynchronously instead. To avoid this, break on [%@ %s], find the call site initiating a reading block onto %@, and change that to a writing block.", v9, v10, v11, v12);
 }
 
 - (void)cancel
@@ -307,26 +301,20 @@ void __73__AXAccessQueueTimer__afterDelay_processBlock_shouldTreatAsWritingBlock
 
 - (void)_reallyCancel
 {
-  v8 = *MEMORY[0x1E69E9840];
   accessQueue = [self accessQueue];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_warnAboutAsynchronousCancelling
 {
-  v15 = *MEMORY[0x1E69E9840];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   sel_getName(a2);
   accessQueue = [self accessQueue];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_19159B000, v7, v8, "Can't cancel timer %@ synchronously; cancelling it asynchronously instead. To avoid this, break on [%@ %s], find the call site initiating a reading block onto %@, and change that to a writing block.", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_19159B000, v7, v8, "Can't cancel timer %@ synchronously; cancelling it asynchronously instead. To avoid this, break on [%@ %s], find the call site initiating a reading block onto %@, and change that to a writing block.", v9, v10, v11, v12);
 }
 
 - (NSString)description
@@ -398,25 +386,21 @@ void __73__AXAccessQueueTimer__afterDelay_processBlock_shouldTreatAsWritingBlock
   return v15;
 }
 
-void __73__AXAccessQueueTimer__afterDelay_processBlock_shouldTreatAsWritingBlock___block_invoke_cold_1(uint64_t a1, uint64_t a2)
+void __73__AXAccessQueueTimer__afterDelay_processBlock_shouldTreatAsWritingBlock___block_invoke_cold_1(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = *(a2 + 48);
-  v4 = &stru_1F0579798;
+  v2 = &stru_1F0579798;
   [*(*(*a1 + 8) + 40) accessQueueIsExternal];
-  v5 = [*(*(*a1 + 8) + 40) accessQueueIsExternal];
-  if (v5)
+  v3 = [*(*(*a1 + 8) + 40) accessQueueIsExternal];
+  if (v3)
   {
-    v4 = [*(*(*a1 + 8) + 40) accessQueue];
+    v2 = [*(*(*a1 + 8) + 40) accessQueue];
   }
 
   OUTLINED_FUNCTION_1();
-  _os_log_fault_impl(v6, v7, v8, v9, v10, 0x2Au);
-  if (v5)
+  _os_log_fault_impl(v4, v5, v6, v7, v8, 0x2Au);
+  if (v3)
   {
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

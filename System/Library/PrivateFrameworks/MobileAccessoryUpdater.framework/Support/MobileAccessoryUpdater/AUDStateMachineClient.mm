@@ -3,6 +3,7 @@
 - (AUDStateMachineDelegate)delegate;
 - (BOOL)areAllUpdatesRequired;
 - (id)copyNotificationOptions;
+- (void)cleanupInstallUpdateForAccessory:(BOOL)accessory handler:(id)handler;
 - (void)dealloc;
 - (void)deviceClassAttached:(id)attached;
 - (void)deviceClassDetached:(id)detached error:(id)error;
@@ -109,6 +110,71 @@
 
   v16 = [infoCopy objectForKey:@"SilentUpdateNoUI"];
   [v16 BOOLValue];
+}
+
+- (void)cleanupInstallUpdateForAccessory:(BOOL)accessory handler:(id)handler
+{
+  accessoryCopy = accessory;
+  (*(handler + 2))(handler, accessory);
+  log = self->_log;
+  v7 = os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT);
+  if (accessoryCopy)
+  {
+    if (v7)
+    {
+      LOWORD(v19) = 0;
+      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEFAULT, "Advancing state machine", &v19, 2u);
+    }
+
+    WeakRetained = objc_loadWeakRetained(&self->_delegate);
+    [WeakRetained performNextStepWithOptions:0 filter:self->_activeDeviceClass];
+  }
+
+  else
+  {
+    if (v7)
+    {
+      queuedAccessories = self->_queuedAccessories;
+      v19 = 138412290;
+      v20 = queuedAccessories;
+      _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEFAULT, "Not advancing state machine - queue=%@", &v19, 0xCu);
+    }
+
+    self->_updateInProgress = 0;
+    self->_forceRestart = 0;
+    v10 = objc_loadWeakRetained(&self->_delegate);
+    [v10 doneWithOptions:0 filter:self->_activeDeviceClass skipToEnd:0];
+
+    if ([(NSMutableArray *)self->_queuedAccessories count])
+    {
+      v11 = self->_log;
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      {
+        v12 = self->_queuedAccessories;
+        v13 = v11;
+        firstObject = [(NSMutableArray *)v12 firstObject];
+        v15 = self->_queuedAccessories;
+        v19 = 138412546;
+        v20 = firstObject;
+        v21 = 2112;
+        v22 = v15;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Kicking off queued=%@ queue=%@", &v19, 0x16u);
+      }
+
+      firstObject2 = [(NSMutableArray *)self->_queuedAccessories firstObject];
+      [(AUDStateMachineClient *)self deviceClassAttached:firstObject2];
+
+      [(NSMutableArray *)self->_queuedAccessories removeObjectAtIndex:0];
+      v17 = self->_log;
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      {
+        v18 = self->_queuedAccessories;
+        v19 = 138412290;
+        v20 = v18;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Updated queue=%@", &v19, 0xCu);
+      }
+    }
+  }
 }
 
 - (void)shouldInstallUpdateForAccessory:(id)accessory deviceClass:(id)class nextStep:(id)step withOptions:(id)options handler:(id)handler

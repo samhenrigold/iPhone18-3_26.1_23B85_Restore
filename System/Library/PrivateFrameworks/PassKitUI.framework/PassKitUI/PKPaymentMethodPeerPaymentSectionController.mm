@@ -238,13 +238,13 @@ void __112__PKPaymentMethodPeerPaymentSectionController_configureSupplementaryRe
   }
 }
 
-void __112__PKPaymentMethodPeerPaymentSectionController_configureSupplementaryRegistration_elementKind_sectionIdentifier___block_invoke_215()
+void __112__PKPaymentMethodPeerPaymentSectionController_configureSupplementaryRegistration_elementKind_sectionIdentifier___block_invoke_215(uint64_t a1, uint64_t a2)
 {
-  v0 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1BD026000, v0, OS_LOG_TYPE_DEFAULT, "Presented Terms & Conditions acceptance flow", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Presented Terms & Conditions acceptance flow", v3, 2u);
   }
 }
 

@@ -404,7 +404,7 @@ LABEL_19:
             v67 = self->mMaskLayer;
             if (v67)
             {
-              [(CALayer *)v67 affineTransform];
+              objc_msgSend_affineTransform(v67);
             }
 
             else
@@ -846,101 +846,117 @@ LABEL_20:
 - (void)p_drawFrameIntoRect:(CGRect)rect inContext:(CGContext *)context withImages:(id)images atViewScale:(double)scale isMask:(BOOL)mask
 {
   maskCopy = mask;
-  v57.origin.x = TSDRoundedRect(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
-  x = v57.origin.x;
-  y = v57.origin.y;
-  width = v57.size.width;
-  height = v57.size.height;
-  MinX = CGRectGetMinX(v57);
-  v58.origin.x = x;
-  v58.origin.y = y;
-  v58.size.width = width;
-  v58.size.height = height;
-  CGRectGetMaxX(v58);
-  v59.origin.x = x;
-  v59.origin.y = y;
-  v59.size.width = width;
-  v59.size.height = height;
-  MinY = CGRectGetMinY(v59);
-  v60.origin.x = x;
-  v60.origin.y = y;
-  v60.size.width = width;
-  v60.size.height = height;
-  CGRectGetMaxY(v60);
+  v68.origin.x = TSDRoundedRect(self, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
+  x = v68.origin.x;
+  y = v68.origin.y;
+  width = v68.size.width;
+  height = v68.size.height;
+  MinX = CGRectGetMinX(v68);
+  v69.origin.x = x;
+  v69.origin.y = y;
+  v69.size.width = width;
+  v69.size.height = height;
+  CGRectGetMaxX(v69);
+  v70.origin.x = x;
+  v70.origin.y = y;
+  v70.size.width = width;
+  v70.size.height = height;
+  MinY = CGRectGetMinY(v70);
+  v71.origin.x = x;
+  v71.origin.y = y;
+  v71.size.width = width;
+  v71.size.height = height;
+  CGRectGetMaxY(v71);
   [(TSDFrame *)self->mFrame i_leftWidth];
   TSURound();
-  v54 = v17;
+  v63 = v18;
   [(TSDFrame *)self->mFrame i_topHeight];
   TSURound();
-  v55 = v18;
+  v65 = v19;
   [(TSDFrame *)self->mFrame i_rightWidth];
   TSURound();
+  v64 = v20;
   [(TSDFrame *)self->mFrame i_bottomHeight];
   TSURound();
+  v66 = v21;
   [(TSDFrame *)self->mFrame i_leftWidth];
   [(TSDFrame *)self->mFrame i_rightWidth];
   [(TSDFrame *)self->mFrame i_topHeight];
-  v19 = MinY;
+  v22 = MinY;
   [(TSDFrame *)self->mFrame i_bottomHeight];
   TSURound();
-  v21 = v20;
+  v24 = v23;
   TSURound();
-  v23 = v22;
+  v26 = v25;
   TSURound();
-  v25 = v24;
+  v28 = v27;
   TSURound();
-  v27 = v21 + 1.0;
-  if (v21 != v23)
+  v30 = v24 + 1.0;
+  if (v24 != v26)
   {
-    v27 = v23;
+    v30 = v26;
   }
 
-  v51 = v27;
-  v52 = v21;
-  if (v25 == v26)
+  v61 = v30;
+  if (v28 == v29)
   {
-    v28 = v25 + 1.0;
+    v31 = v28 + 1.0;
   }
 
   else
   {
-    v28 = v26;
+    v31 = v29;
   }
 
   [(TSDFrame *)self->mFrame assetScale];
-  v53 = v19;
-  [objc_msgSend(images objectAtIndex:{0), "drawImageInContext:rect:", context, MinX, v19, v54, v55}];
-  v29 = TSDRoundedSize();
-  [objc_msgSend(images objectAtIndex:{6), "drawImageInContext:rect:", context, MinX, v28, v29, v30}];
-  v31 = TSDRoundedSize();
-  v33 = v32;
-  v34 = [images objectAtIndex:2];
-  v35 = v19;
-  v36 = v52;
-  [v34 drawImageInContext:context rect:{v51, v35, v31, v33}];
-  v37 = TSDRoundedSize();
-  [objc_msgSend(images objectAtIndex:{4), "drawImageInContext:rect:", context, v51, v28, v37, v38}];
-  [objc_msgSend(images objectAtIndex:{7), "dpiAdjustedFillSize"}];
-  v39 = TSDRoundedSize();
-  -[TSDFrameRep p_drawTiles:inContext:rect:start:end:vertical:](self, "p_drawTiles:inContext:rect:start:end:vertical:", [images objectAtIndex:7], context, 1, MinX, v25, v39, v40, v25, v28);
-  [objc_msgSend(images objectAtIndex:{3), "dpiAdjustedFillSize"}];
-  v41 = TSDRoundedSize();
-  -[TSDFrameRep p_drawTiles:inContext:rect:start:end:vertical:](self, "p_drawTiles:inContext:rect:start:end:vertical:", [images objectAtIndex:3], context, 1, v51, v25, v41, v42, v25, v28);
-  [objc_msgSend(images objectAtIndex:{1), "dpiAdjustedFillSize"}];
-  v43 = TSDRoundedSize();
-  -[TSDFrameRep p_drawTiles:inContext:rect:start:end:vertical:](self, "p_drawTiles:inContext:rect:start:end:vertical:", [images objectAtIndex:1], context, 0, v36, v53, v43, v44, v36, v51);
-  [objc_msgSend(images objectAtIndex:{5), "dpiAdjustedFillSize"}];
-  v45 = TSDRoundedSize();
-  -[TSDFrameRep p_drawTiles:inContext:rect:start:end:vertical:](self, "p_drawTiles:inContext:rect:start:end:vertical:", [images objectAtIndex:5], context, 0, v36, v28, v45, v46, v36, v51);
+  v62 = v32 * scale;
+  v33 = TSDRoundedSize([objc_msgSend(images objectAtIndex:{0), "drawImageInContext:rect:", context, MinX, v22, v63, v65}], v63, v66);
+  v35 = TSDRoundedSize([objc_msgSend(images objectAtIndex:{6), "drawImageInContext:rect:", context, MinX, v31, v33, v34}], v64, v65);
+  v37 = TSDRoundedSize([objc_msgSend(images objectAtIndex:{2), "drawImageInContext:rect:", context, v61, v22, v35, v36}], v64, v66);
+  [objc_msgSend(images objectAtIndex:{4), "drawImageInContext:rect:", context, v61, v31, v37, v38}];
+  v39 = [objc_msgSend(images objectAtIndex:{7), "dpiAdjustedFillSize"}];
+  v41 = v62 * v40;
+  if (v40 <= 1.0)
+  {
+    v41 = v40;
+  }
+
+  v42 = TSDRoundedSize(v39, v63, fmax(v41, 1.0));
+  -[TSDFrameRep p_drawTiles:inContext:rect:start:end:vertical:](self, "p_drawTiles:inContext:rect:start:end:vertical:", [images objectAtIndex:7], context, 1, MinX, v28, v42, v43, v28, v31);
+  v44 = [objc_msgSend(images objectAtIndex:{3), "dpiAdjustedFillSize"}];
+  v46 = v62 * v45;
+  if (v45 <= 1.0)
+  {
+    v46 = v45;
+  }
+
+  v47 = TSDRoundedSize(v44, v64, fmax(v46, 1.0));
+  -[TSDFrameRep p_drawTiles:inContext:rect:start:end:vertical:](self, "p_drawTiles:inContext:rect:start:end:vertical:", [images objectAtIndex:3], context, 1, v61, v28, v47, v48, v28, v31);
+  v49 = [objc_msgSend(images objectAtIndex:{1), "dpiAdjustedFillSize"}];
+  if (v50 > 1.0)
+  {
+    v50 = v62 * v50;
+  }
+
+  v51 = TSDRoundedSize(v49, fmax(v50, 1.0), v65);
+  -[TSDFrameRep p_drawTiles:inContext:rect:start:end:vertical:](self, "p_drawTiles:inContext:rect:start:end:vertical:", [images objectAtIndex:1], context, 0, v24, v22, v51, v52, v24, v61);
+  v53 = [objc_msgSend(images objectAtIndex:{5), "dpiAdjustedFillSize"}];
+  if (v54 > 1.0)
+  {
+    v54 = v62 * v54;
+  }
+
+  v55 = TSDRoundedSize(v53, fmax(v54, 1.0), v66);
+  -[TSDFrameRep p_drawTiles:inContext:rect:start:end:vertical:](self, "p_drawTiles:inContext:rect:start:end:vertical:", [images objectAtIndex:5], context, 0, v24, v31, v55, v56, v24, v61);
   if (maskCopy)
   {
     CGContextSetGrayFillColor(context, 0.0, 1.0);
-    v49 = v52;
-    v50 = v25;
+    v59 = v24;
+    v60 = v28;
 
-    v47 = v51 - v52;
-    v48 = v28 - v25;
-    CGContextFillRect(context, *&v49);
+    v57 = v61 - v24;
+    v58 = v31 - v28;
+    CGContextFillRect(context, *&v59);
   }
 }
 

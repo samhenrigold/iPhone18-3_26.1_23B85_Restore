@@ -7,15 +7,14 @@
 - (id)description
 {
   v3 = objc_alloc_init(NSMutableArray);
-  client = self->_client;
-  v5 = nw_agent_client_copy_endpoint();
-  [v3 addObject:v5];
-  v6 = sub_10011903C(self);
+  v4 = nw_agent_client_copy_endpoint();
+  [v3 addObject:v4];
+  v5 = sub_10011903C(self);
 
-  if (v6)
+  if (v5)
   {
-    v7 = sub_10011903C(self);
-    [v3 addObject:v7];
+    v6 = sub_10011903C(self);
+    [v3 addObject:v6];
   }
 
   if (self->_incoming)
@@ -28,11 +27,11 @@
     [v3 addObject:@"teardown"];
   }
 
-  v8 = [NSString alloc];
-  v9 = [v3 componentsJoinedByString:{@", "}];
-  v10 = [v8 initWithFormat:@"[%@]", v9];
+  v7 = [NSString alloc];
+  v8 = [v3 componentsJoinedByString:{@", "}];
+  v9 = [v7 initWithFormat:@"[%@]", v8];
 
-  return v10;
+  return v9;
 }
 
 @end

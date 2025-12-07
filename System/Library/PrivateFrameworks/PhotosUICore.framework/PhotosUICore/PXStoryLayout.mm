@@ -178,7 +178,7 @@ void __53__PXStoryLayout_placementInContext_forItemReference___block_invoke(uint
   [v8 getDetailedPresentedPlacement:v12 forItemReference:*(a1 + 40)];
 
   v9 = [*(a1 + 32) model];
-  v10 = [v9 options];
+  v10 = objc_msgSend_options(v9);
   v11 = 0.0;
   if ((v10 & 2) == 0)
   {
@@ -529,16 +529,16 @@ LABEL_9:
   PXRectWithOriginAndSize();
 }
 
-void __31__PXStoryLayout__updateContent__block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void __31__PXStoryLayout__updateContent__block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v6 = [*(a1 + 32) shadowSpriteIndex];
+  v7 = [*(a1 + 32) shadowSpriteIndex];
   [*(a1 + 32) shadow];
   if (objc_claimAutoreleasedReturnValue())
   {
     PXGConfigureShadowSprite();
   }
 
-  *(a4 + 160 * v6) = 0;
+  *(a4 + 160 * v7) = 0;
 }
 
 - (void)_invalidateContent
@@ -1050,13 +1050,13 @@ void __53__PXStoryLayout_setFullsizeContentPlacementOverride___block_invoke(uint
   {
     objc_storeStrong(&v6->_model, model);
     [(PXStoryModel *)v7->_model registerChangeObserver:v7 context:ModelObservationContext_180468];
-    options = [modelCopy options];
+    v8 = objc_msgSend_options(modelCopy);
     configuration = [modelCopy configuration];
     isExportPreview = [configuration isExportPreview];
     isPresentedForAirPlay = [configuration isPresentedForAirPlay];
     viewMode = [modelCopy viewMode];
     v37 = viewMode;
-    if ([configuration options] & 0x400 | options & 1)
+    if (objc_msgSend_options(configuration) & 0x400 | v8 & 1)
     {
       v12 = 1;
     }
@@ -1067,7 +1067,7 @@ void __53__PXStoryLayout_setFullsizeContentPlacementOverride___block_invoke(uint
     }
 
     v13 = !v12;
-    if (options & 1) != 0 || ([modelCopy isAsync])
+    if (v8 & 1) != 0 || ([modelCopy isAsync])
     {
       v14 = isExportPreview;
       LODWORD(v15) = 0;
@@ -1076,7 +1076,7 @@ void __53__PXStoryLayout_setFullsizeContentPlacementOverride___block_invoke(uint
     else
     {
       v14 = isExportPreview;
-      v15 = (options >> 1) & 1;
+      v15 = (v8 >> 1) & 1;
     }
 
     shouldFadeToBlackAtEnd = [configuration shouldFadeToBlackAtEnd];
@@ -1094,7 +1094,7 @@ void __53__PXStoryLayout_setFullsizeContentPlacementOverride___block_invoke(uint
       v19 = 0x7FFFFFFFFFFFFFFFLL;
     }
 
-    v20 = shouldFadeToBlackAtEnd | options;
+    v20 = shouldFadeToBlackAtEnd | v8;
     v7->_scrollLayoutIndex = v19;
     if (v15)
     {

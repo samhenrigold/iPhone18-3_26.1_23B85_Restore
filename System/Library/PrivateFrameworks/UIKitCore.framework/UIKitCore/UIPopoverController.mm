@@ -94,7 +94,7 @@
 + (BOOL)_popoversDisabled
 {
   v2 = _UIMainBundleIdentifier();
-  v3 = ([v2 isEqualToString:@"com.apple.mobilesafari"] & 1) == 0 && (objc_msgSend(v2, "isEqualToString:", @"com.apple.iBooks") & 1) == 0 && (objc_msgSend(v2, "isEqualToString:", @"com.apple.itunesu") & 1) == 0 && (objc_msgSend(v2, "isEqualToString:", @"com.apple.Maps") & 1) == 0 && !objc_msgSend(v2, "isEqualToString:", @"com.apple.accessibility.AccessibilityUIServer");
+  v3 = (objc_msgSend_isEqualToString_(v2) & 1) == 0 && (objc_msgSend_isEqualToString_(v2) & 1) == 0 && (objc_msgSend_isEqualToString_(v2) & 1) == 0 && (objc_msgSend_isEqualToString_(v2) & 1) == 0 && !objc_msgSend_isEqualToString_(v2);
 
   return v3;
 }
@@ -1940,10 +1940,10 @@ LABEL_10:
 LABEL_34:
 }
 
-void __94__UIPopoverController__commonPresentPopoverFromRect_inView_permittedArrowDirections_animated___block_invoke()
+void __94__UIPopoverController__commonPresentPopoverFromRect_inView_permittedArrowDirections_animated___block_invoke(uint64_t a1)
 {
-  v0 = _NSFullMethodName();
-  NSLog(&cfstr_TheRectPassedI.isa, v0);
+  v1 = _NSFullMethodName();
+  NSLog(&cfstr_TheRectPassedI.isa, v1);
 }
 
 uint64_t __94__UIPopoverController__commonPresentPopoverFromRect_inView_permittedArrowDirections_animated___block_invoke_2(uint64_t a1)
@@ -3796,7 +3796,7 @@ void __52__UIPopoverController__forceAttemptsToAvoidKeyboard__block_invoke()
     dimmingView = self->_dimmingView;
     if (dimmingView)
     {
-      [(UIView *)dimmingView transform];
+      objc_msgSend_transform(dimmingView);
     }
 
     [(UIPopoverController *)self _updateDimmingViewTransformForInterfaceOrientationOfHostingWindow:windowCopy];
@@ -4516,11 +4516,11 @@ void __93__UIPopoverController__modalTransition_fromViewController_toViewControl
   }
 }
 
-uint64_t __93__UIPopoverController__modalTransition_fromViewController_toViewController_target_didFinish___block_invoke_3(uint64_t result)
+id *__93__UIPopoverController__modalTransition_fromViewController_toViewController_target_didFinish___block_invoke_3(id *result)
 {
   if (*(result + 40) == 1)
   {
-    return [*(result + 32) _modalAnimationFinishedEndIgnoringInteractiveEvents:1];
+    return [result[4] _modalAnimationFinishedEndIgnoringInteractiveEvents:1];
   }
 
   return result;

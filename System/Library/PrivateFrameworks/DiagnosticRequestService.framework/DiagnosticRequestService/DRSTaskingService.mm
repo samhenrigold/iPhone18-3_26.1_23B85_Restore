@@ -44,11 +44,11 @@ void __37__DRSTaskingService_serviceIsEnabled__block_invoke()
   if (v1)
   {
     serviceIsEnabled_isEnabled = 0;
-    v2 = DPLogHandle_ServiceTasking();
-    if (os_signpost_enabled(v2))
+    v3 = DPLogHandle_ServiceTasking(v2);
+    if (os_signpost_enabled(v3))
     {
-      *v3 = 0;
-      _os_signpost_emit_with_name_impl(&dword_232906000, v2, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TaskingServiceDisabled", "Tasking Service is disabled due to being Carrier", v3, 2u);
+      *v4 = 0;
+      _os_signpost_emit_with_name_impl(&dword_232906000, v3, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TaskingServiceDisabled", "Tasking Service is disabled due to being Carrier", v4, 2u);
     }
   }
 
@@ -70,12 +70,12 @@ void __37__DRSTaskingService_serviceIsEnabled__block_invoke()
   return v3;
 }
 
-void __35__DRSTaskingService_sharedInstance__block_invoke()
+void __35__DRSTaskingService_sharedInstance__block_invoke(uint64_t a1, uint64_t a2)
 {
-  DRSRegisterForDeviceUnlockNotification();
-  v0 = objc_alloc_init(DRSTaskingService);
-  v1 = sharedInstance_sharedInstance;
-  sharedInstance_sharedInstance = v0;
+  DRSRegisterForDeviceUnlockNotification(a1, a2);
+  v2 = objc_alloc_init(DRSTaskingService);
+  v3 = sharedInstance_sharedInstance;
+  sharedInstance_sharedInstance = v2;
 }
 
 - (void)dealloc
@@ -88,17 +88,18 @@ void __35__DRSTaskingService_sharedInstance__block_invoke()
 
 - (void)deactivateService
 {
-  if ([(DRSTaskingService *)self state]== 2)
+  state = [(DRSTaskingService *)self state];
+  if (state == 2)
   {
-    v3 = DPLogHandle_ServiceLifecycle();
-    if (os_signpost_enabled(v3))
+    v4 = DPLogHandle_ServiceLifecycle(state);
+    if (os_signpost_enabled(v4))
     {
-      v9 = 0;
-      v4 = "RedundantTaskingServiceDeactivation";
-      v5 = "Tried to deactivate already deactivated service";
-      v6 = &v9;
+      v11 = 0;
+      v5 = "RedundantTaskingServiceDeactivation";
+      v6 = "Tried to deactivate already deactivated service";
+      v7 = &v11;
 LABEL_6:
-      _os_signpost_emit_with_name_impl(&dword_232906000, v3, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v4, v5, v6, 2u);
+      _os_signpost_emit_with_name_impl(&dword_232906000, v4, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v5, v6, v7, 2u);
     }
   }
 
@@ -108,13 +109,13 @@ LABEL_6:
     serviceConnection = [(DRSTaskingService *)self serviceConnection];
     xpc_connection_cancel(serviceConnection);
 
-    v3 = DPLogHandle_ServiceLifecycle();
-    if (os_signpost_enabled(v3))
+    v4 = DPLogHandle_ServiceLifecycle(v9);
+    if (os_signpost_enabled(v4))
     {
-      v8 = 0;
-      v4 = "TaskingServiceDeactivated";
-      v5 = &unk_232980861;
-      v6 = &v8;
+      v10 = 0;
+      v5 = "TaskingServiceDeactivated";
+      v6 = &unk_232980861;
+      v7 = &v10;
       goto LABEL_6;
     }
   }
@@ -122,7 +123,7 @@ LABEL_6:
 
 - (void)_configureInvalidationXPCActivity
 {
-  v3 = DPLogHandle_ServiceTasking();
+  v3 = DPLogHandle_ServiceTasking(self);
   if (os_signpost_enabled(v3))
   {
     *buf = 0;
@@ -140,11 +141,11 @@ LABEL_6:
 
 void __54__DRSTaskingService__configureInvalidationXPCActivity__block_invoke(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = os_transaction_create();
   state = xpc_activity_get_state(v3);
-  v6 = DPLogHandle_ServiceTasking();
+  v6 = DPLogHandle_ServiceTasking(state);
   v7 = os_signpost_enabled(v6);
   if (state == 2)
   {
@@ -154,64 +155,66 @@ void __54__DRSTaskingService__configureInvalidationXPCActivity__block_invoke(uin
       _os_signpost_emit_with_name_impl(&dword_232906000, v6, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "TaskingInvalidationActivity", &unk_232980861, buf, 2u);
     }
 
-    if (!DRSDeviceIsUnlocked())
+    IsUnlocked = DRSDeviceIsUnlocked(v12);
+    if (!IsUnlocked)
     {
-      v15 = DPLogHandle_ServiceTasking();
-      if (os_signpost_enabled(v15))
+      v18 = DPLogHandle_ServiceTasking(IsUnlocked);
+      if (os_signpost_enabled(v18))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_232906000, v15, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "TaskingInvalidationActivityBailing to avoid waiting for device unlock", &unk_232980861, buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_232906000, v18, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "TaskingInvalidationActivityBailing to avoid waiting for device unlock", &unk_232980861, buf, 2u);
       }
 
-      v13 = v3;
-      v14 = 5;
+      v16 = v3;
+      v17 = 5;
       goto LABEL_19;
     }
 
     [*(a1 + 32) _waitForDeviceUnlockAndInitializeServiceState];
-    if (xpc_activity_should_defer(v3))
+    should_defer = xpc_activity_should_defer(v3);
+    if (should_defer)
     {
-      v12 = DPLogHandle_ServiceTasking();
-      if (os_signpost_enabled(v12))
+      v15 = DPLogHandle_ServiceTasking(should_defer);
+      if (os_signpost_enabled(v15))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_232906000, v12, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "TaskingInvalidationActivityImmediate deferral", &unk_232980861, buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_232906000, v15, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "TaskingInvalidationActivityImmediate deferral", &unk_232980861, buf, 2u);
       }
 
-      v13 = v3;
-      v14 = 3;
+      v16 = v3;
+      v17 = 3;
 LABEL_19:
-      xpc_activity_set_state(v13, v14);
+      xpc_activity_set_state(v16, v17);
       goto LABEL_20;
     }
 
-    v17 = [*(a1 + 32) taskingManager];
-    v24 = 0;
-    v18 = [v17 checkConfigsForInvalidation:&v24];
-    v6 = v24;
+    v19 = [*(a1 + 32) taskingManager];
+    v27 = 0;
+    v20 = [v19 checkConfigsForInvalidation:&v27];
+    v6 = v27;
 
-    v19 = DPLogHandle_ServiceTasking();
-    v20 = os_signpost_enabled(v19);
-    if (v18)
+    v22 = DPLogHandle_ServiceTasking(v21);
+    v23 = os_signpost_enabled(v22);
+    if (v20)
     {
-      if (v20)
+      if (v23)
       {
         *buf = 0;
-        v21 = "Success!";
-        v22 = v19;
-        v23 = 2;
+        v24 = "Success!";
+        v25 = v22;
+        v26 = 2;
 LABEL_26:
-        _os_signpost_emit_with_name_impl(&dword_232906000, v22, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "TaskingInvalidationActivity", v21, buf, v23);
+        _os_signpost_emit_with_name_impl(&dword_232906000, v25, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "TaskingInvalidationActivity", v24, buf, v26);
       }
     }
 
-    else if (v20)
+    else if (v23)
     {
       *buf = 138543362;
-      v26 = v6;
-      v21 = "Invalidation check failed due to error: %{public}@";
-      v22 = v19;
-      v23 = 12;
+      v29 = v6;
+      v24 = "Invalidation check failed due to error: %{public}@";
+      v25 = v22;
+      v26 = 12;
       goto LABEL_26;
     }
 
@@ -224,7 +227,7 @@ LABEL_26:
     if (v7)
     {
       *buf = 134217984;
-      v26 = state;
+      v29 = state;
       v8 = "TaskingInvalidationXPCActivityUnknownState";
       v9 = "Unknown XPC activity state %ld";
       v10 = v6;
@@ -247,7 +250,6 @@ LABEL_14:
 LABEL_15:
 
 LABEL_20:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)activateService
@@ -267,32 +269,31 @@ LABEL_20:
 void __36__DRSTaskingService_activateService__block_invoke(uint64_t a1)
 {
   v8 = *MEMORY[0x277D85DE8];
-  if ([*(a1 + 32) state])
+  v2 = [*(a1 + 32) state];
+  if (v2)
   {
-    v2 = DPLogHandle_ServiceTaskingError();
-    if (os_signpost_enabled(v2))
+    v3 = DPLogHandle_ServiceTaskingError(v2);
+    if (os_signpost_enabled(v3))
     {
-      v3 = DRSStringForServiceState([*(a1 + 32) state]);
+      v4 = DRSStringForServiceState([*(a1 + 32) state]);
       v6 = 138543362;
-      v7 = v3;
-      _os_signpost_emit_with_name_impl(&dword_232906000, v2, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "RedundantServiceActivation", "Tried to activate while in state: %{public}@", &v6, 0xCu);
+      v7 = v4;
+      _os_signpost_emit_with_name_impl(&dword_232906000, v3, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "RedundantServiceActivation", "Tried to activate while in state: %{public}@", &v6, 0xCu);
     }
   }
 
   else
   {
-    v4 = DPLogHandle_ServiceTasking();
-    if (os_signpost_enabled(v4))
+    v5 = DPLogHandle_ServiceTasking(v2);
+    if (os_signpost_enabled(v5))
     {
       LOWORD(v6) = 0;
-      _os_signpost_emit_with_name_impl(&dword_232906000, v4, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TaskingServiceActivation", &unk_232980861, &v6, 2u);
+      _os_signpost_emit_with_name_impl(&dword_232906000, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TaskingServiceActivation", &unk_232980861, &v6, 2u);
     }
 
-    v2 = [*(a1 + 32) serviceConnection];
-    xpc_connection_activate(v2);
+    v3 = [*(a1 + 32) serviceConnection];
+    xpc_connection_activate(v3);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendReplyForMessage:(id)message replyType:(unint64_t)type rejectionReason:(const char *)reason
@@ -311,7 +312,7 @@ void __36__DRSTaskingService_activateService__block_invoke(uint64_t a1)
 
 - (void)_handleJSONTaskingSystemMessage:(id)message state:(id)state transaction:(id)transaction
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   stateCopy = state;
   transactionCopy = transaction;
@@ -340,13 +341,12 @@ void __36__DRSTaskingService_activateService__block_invoke(uint64_t a1)
 
       if (v21)
       {
-        [(DRSTaskingService *)self _sendReplyForMessage:messageCopy replyType:1 rejectionReason:0];
-        stateDescription2 = DPLogHandle_ServiceTaskingXPC();
+        stateDescription2 = DPLogHandle_ServiceTaskingXPC([(DRSTaskingService *)self _sendReplyForMessage:messageCopy replyType:1 rejectionReason:0]);
         if (os_signpost_enabled(stateDescription2))
         {
           stateDescription = [stateCopy stateDescription];
           *buf = 138543362;
-          v28 = stateDescription;
+          v27 = stateDescription;
           v23 = "TaskingSystemMessage_AcceptedJSON";
           v24 = "Accepted tasking system JSON message from %{public}@";
 LABEL_17:
@@ -356,13 +356,12 @@ LABEL_17:
 
       else
       {
-        [(DRSTaskingService *)self _sendReplyForMessage:messageCopy replyType:1 rejectionReason:"Invalid JSON in message"];
-        stateDescription2 = DPLogHandle_ServiceTaskingXPCError();
+        stateDescription2 = DPLogHandle_ServiceTaskingXPCError([(DRSTaskingService *)self _sendReplyForMessage:messageCopy replyType:1 rejectionReason:"Invalid JSON in message"]);
         if (os_signpost_enabled(stateDescription2))
         {
           stateDescription = [stateCopy stateDescription];
           *buf = 138543362;
-          v28 = stateDescription;
+          v27 = stateDescription;
           v23 = "TaskingSystemMessage_BadJSON";
           v24 = "Rejecting tasking system message from %{public}@ due to incorrect JSON format";
           goto LABEL_17;
@@ -374,13 +373,12 @@ LABEL_18:
       goto LABEL_19;
     }
 
-    [(DRSTaskingService *)self _sendReplyForMessage:messageCopy replyType:1 rejectionReason:"Invalid data buffer in message"];
-    v19 = DPLogHandle_ServiceTaskingXPCError();
+    v19 = DPLogHandle_ServiceTaskingXPCError([(DRSTaskingService *)self _sendReplyForMessage:messageCopy replyType:1 rejectionReason:"Invalid data buffer in message"]);
     if (os_signpost_enabled(v19))
     {
       stateDescription2 = [stateCopy stateDescription];
       *buf = 138543362;
-      v28 = stateDescription2;
+      v27 = stateDescription2;
       v15 = "TaskingSystemMessage_BadData";
       v16 = "Rejecting tasking system message from %{public}@ due to bad or missing JSON data field";
 LABEL_11:
@@ -391,13 +389,12 @@ LABEL_11:
 
   else
   {
-    [(DRSTaskingService *)self _sendReplyForMessage:messageCopy replyType:1 rejectionReason:"Missing required entitlement"];
-    v19 = DPLogHandle_ServiceTaskingXPCError();
+    v19 = DPLogHandle_ServiceTaskingXPCError([(DRSTaskingService *)self _sendReplyForMessage:messageCopy replyType:1 rejectionReason:"Missing required entitlement"]);
     if (os_signpost_enabled(v19))
     {
       stateDescription2 = [stateCopy stateDescription];
       *buf = 138543362;
-      v28 = stateDescription2;
+      v27 = stateDescription2;
       v15 = "TaskingSystemMessage_Rejected";
       v16 = "Rejecting tasking system message from %{public}@ due to missing entitlement";
       goto LABEL_11;
@@ -405,16 +402,14 @@ LABEL_11:
   }
 
 LABEL_19:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendConfigStateReplyForMessage:(id)message rejectionReason:(const char *)reason state:(unsigned __int8)state completionType:(unint64_t)type
 {
   stateCopy = state;
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   messageCopy = message;
-  v10 = DPLogHandle_ServiceTaskingXPCError();
+  v10 = DPLogHandle_ServiceTaskingXPCError(messageCopy);
   if (os_signpost_enabled(v10))
   {
     v11 = DRConfigStringForState();
@@ -425,11 +420,11 @@ LABEL_19:
       reasonCopy = reason;
     }
 
-    v17 = 138543618;
-    v18 = v11;
-    v19 = 2082;
-    v20 = reasonCopy;
-    _os_signpost_emit_with_name_impl(&dword_232906000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ConfigStateReply", "Replying with %{public}@ %{public}s", &v17, 0x16u);
+    v16 = 138543618;
+    v17 = v11;
+    v18 = 2082;
+    v19 = reasonCopy;
+    _os_signpost_emit_with_name_impl(&dword_232906000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ConfigStateReply", "Replying with %{public}@ %{public}s", &v16, 0x16u);
   }
 
   reply = xpc_dictionary_create_reply(messageCopy);
@@ -447,13 +442,11 @@ LABEL_19:
 
   v15 = xpc_dictionary_get_remote_connection(messageCopy);
   xpc_connection_send_message(v15, reply);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleConfigStateMessage:(id)message state:(id)state
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   stateCopy = state;
   string = xpc_dictionary_get_string(messageCopy, "teamID");
@@ -462,97 +455,97 @@ LABEL_19:
     v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:string];
     if ([stateCopy hasAdminEntitlement] & 1) != 0 || (xpc_dictionary_get_remote_connection(messageCopy), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(stateCopy, "hasTeamIDEntitlement:connection:", v9, v10), v10, (v11))
     {
-      v12 = xpc_dictionary_get_string(messageCopy, "configUUID");
-      if (v12)
+      v13 = xpc_dictionary_get_string(messageCopy, "configUUID");
+      if (v13)
       {
-        v13 = v12;
-        v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:v12];
-        v15 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v14];
-        if (v15)
+        v14 = v13;
+        v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:v13];
+        v16 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v15];
+        if (v16)
         {
           taskingManager = [(DRSTaskingService *)self taskingManager];
-          v40 = 0;
-          v17 = [taskingManager metadataForConfigUUID:v15 teamID:v9 errorOut:&v40];
-          v18 = v40;
+          v41 = 0;
+          v18 = [taskingManager metadataForConfigUUID:v16 teamID:v9 errorOut:&v41];
+          v19 = v41;
 
-          if (v18)
+          if (v19)
           {
-            v39 = v17;
-            v19 = DPLogHandle_ServiceTaskingXPCError();
-            if (os_signpost_enabled(v19))
+            v40 = v18;
+            v21 = DPLogHandle_ServiceTaskingXPCError(v20);
+            if (os_signpost_enabled(v21))
             {
-              localizedDescription = [v18 localizedDescription];
+              localizedDescription = [v19 localizedDescription];
               *buf = 138543362;
-              v42 = localizedDescription;
-              _os_signpost_emit_with_name_impl(&dword_232906000, v19, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "GetConfigStateError", "Lookup error %{public}@", buf, 0xCu);
+              v43 = localizedDescription;
+              _os_signpost_emit_with_name_impl(&dword_232906000, v21, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "GetConfigStateError", "Lookup error %{public}@", buf, 0xCu);
             }
 
-            v21 = MEMORY[0x277CCACA8];
-            localizedDescription2 = [v18 localizedDescription];
-            v23 = [v21 stringWithFormat:@"DB lookup error: %@", localizedDescription2];
+            v23 = MEMORY[0x277CCACA8];
+            localizedDescription2 = [v19 localizedDescription];
+            v25 = [v23 stringWithFormat:@"DB lookup error: %@", localizedDescription2];
 
-            -[DRSTaskingService _sendConfigStateReplyForMessage:rejectionReason:state:completionType:](self, "_sendConfigStateReplyForMessage:rejectionReason:state:completionType:", messageCopy, [v23 UTF8String], 0, 0);
-            v17 = v39;
+            -[DRSTaskingService _sendConfigStateReplyForMessage:rejectionReason:state:completionType:](self, "_sendConfigStateReplyForMessage:rejectionReason:state:completionType:", messageCopy, [v25 UTF8String], 0, 0);
+            v18 = v40;
           }
 
           else
           {
-            v29 = DPLogHandle_ServiceTaskingXPC();
-            v30 = os_signpost_enabled(v29);
-            if (v17)
+            v31 = DPLogHandle_ServiceTaskingXPC(v20);
+            v32 = os_signpost_enabled(v31);
+            if (v18)
             {
-              if (v30)
+              if (v32)
               {
-                [v17 state];
+                [v18 state];
                 DRConfigStringForState();
-                v32 = v31 = v17;
+                v34 = v33 = v18;
                 *buf = 138543874;
-                v42 = v32;
-                v43 = 2114;
-                v44 = v9;
-                v45 = 2114;
-                v46 = v15;
-                _os_signpost_emit_with_name_impl(&dword_232906000, v29, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "GetConfigStateMessageSuccess", "Got state '%{public}@' for team ID %{public}@, config UUID %{public}@", buf, 0x20u);
+                v43 = v34;
+                v44 = 2114;
+                v45 = v9;
+                v46 = 2114;
+                v47 = v16;
+                _os_signpost_emit_with_name_impl(&dword_232906000, v31, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "GetConfigStateMessageSuccess", "Got state '%{public}@' for team ID %{public}@, config UUID %{public}@", buf, 0x20u);
 
-                v17 = v31;
+                v18 = v33;
               }
 
-              state = [v17 state];
-              completionType = [v17 completionType];
+              state = [v18 state];
+              completionType = [v18 completionType];
               selfCopy2 = self;
-              v36 = messageCopy;
-              v37 = state;
+              v38 = messageCopy;
+              v39 = state;
             }
 
             else
             {
-              if (v30)
+              if (v32)
               {
                 *buf = 138543618;
-                v42 = v9;
-                v43 = 2114;
-                v44 = v15;
-                _os_signpost_emit_with_name_impl(&dword_232906000, v29, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "GetConfigStateMessageSuccess", "Unknown state for team ID %{public}@, config UUID %{public}@", buf, 0x16u);
+                v43 = v9;
+                v44 = 2114;
+                v45 = v16;
+                _os_signpost_emit_with_name_impl(&dword_232906000, v31, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "GetConfigStateMessageSuccess", "Unknown state for team ID %{public}@, config UUID %{public}@", buf, 0x16u);
               }
 
               selfCopy2 = self;
-              v36 = messageCopy;
-              v37 = 0;
+              v38 = messageCopy;
+              v39 = 0;
               completionType = 0;
             }
 
-            [(DRSTaskingService *)selfCopy2 _sendConfigStateReplyForMessage:v36 rejectionReason:0 state:v37 completionType:completionType];
+            [(DRSTaskingService *)selfCopy2 _sendConfigStateReplyForMessage:v38 rejectionReason:0 state:v39 completionType:completionType];
           }
         }
 
         else
         {
-          v28 = DPLogHandle_ServiceTaskingXPCError();
-          if (os_signpost_enabled(v28))
+          v30 = DPLogHandle_ServiceTaskingXPCError(0);
+          if (os_signpost_enabled(v30))
           {
             *buf = 136446210;
-            v42 = v13;
-            _os_signpost_emit_with_name_impl(&dword_232906000, v28, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "GetConfigStateError", "Invalid UUID string %{public}s", buf, 0xCu);
+            v43 = v14;
+            _os_signpost_emit_with_name_impl(&dword_232906000, v30, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "GetConfigStateError", "Invalid UUID string %{public}s", buf, 0xCu);
           }
 
           [(DRSTaskingService *)self _sendConfigStateReplyForMessage:messageCopy rejectionReason:"Invalid config UUID string" state:0 completionType:0];
@@ -561,45 +554,43 @@ LABEL_19:
         goto LABEL_33;
       }
 
-      v25 = DPLogHandle_ServiceTaskingXPCError();
-      if (os_signpost_enabled(v25))
+      v27 = DPLogHandle_ServiceTaskingXPCError(0);
+      if (os_signpost_enabled(v27))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_232906000, v25, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "GetConfigStateError", "Missing UUID field", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_232906000, v27, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "GetConfigStateError", "Missing UUID field", buf, 2u);
       }
 
-      v26 = "No Config UUID";
+      v28 = "No Config UUID";
     }
 
     else
     {
-      v27 = DPLogHandle_ServiceTaskingXPCError();
-      if (os_signpost_enabled(v27))
+      v29 = DPLogHandle_ServiceTaskingXPCError(v12);
+      if (os_signpost_enabled(v29))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_232906000, v27, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "GetConfigStateError", "Not properly entitled", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_232906000, v29, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "GetConfigStateError", "Not properly entitled", buf, 2u);
       }
 
-      v26 = "Not properly entitled";
+      v28 = "Not properly entitled";
     }
 
-    [(DRSTaskingService *)self _sendConfigStateReplyForMessage:messageCopy rejectionReason:v26 state:0 completionType:0];
+    [(DRSTaskingService *)self _sendConfigStateReplyForMessage:messageCopy rejectionReason:v28 state:0 completionType:0];
 LABEL_33:
 
     goto LABEL_34;
   }
 
-  v24 = DPLogHandle_ServiceTaskingXPCError();
-  if (os_signpost_enabled(v24))
+  v26 = DPLogHandle_ServiceTaskingXPCError(0);
+  if (os_signpost_enabled(v26))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_232906000, v24, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "GetConfigStateError", "Missing teamID field", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_232906000, v26, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "GetConfigStateError", "Missing teamID field", buf, 2u);
   }
 
   [(DRSTaskingService *)self _sendConfigStateReplyForMessage:messageCopy rejectionReason:"No teamID" state:0 completionType:0];
 LABEL_34:
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendClearStateReplyForMessage:(id)message rejectionReason:(const char *)reason
@@ -647,7 +638,7 @@ LABEL_7:
 
 - (void)_handleConfigCompletionMessage:(id)message state:(id)state
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   stateCopy = state;
   string = xpc_dictionary_get_string(messageCopy, "teamID");
@@ -684,28 +675,26 @@ LABEL_7:
         }
       }
 
-      [(DRSTaskingService *)self _sendReplyForMessage:messageCopy replyType:4 rejectionReason:"Invalid UUID"];
-      v14 = DPLogHandle_ServiceTaskingXPCError();
+      v14 = DPLogHandle_ServiceTaskingXPCError([(DRSTaskingService *)self _sendReplyForMessage:messageCopy replyType:4 rejectionReason:"Invalid UUID"]);
       if (os_signpost_enabled(v14))
       {
         stateDescription = [stateCopy stateDescription];
-        v21 = 138543362;
-        v22 = stateDescription;
+        v20 = 138543362;
+        v21 = stateDescription;
         v19 = "Invalid UUID from client %{public}@";
 LABEL_14:
-        _os_signpost_emit_with_name_impl(&dword_232906000, v14, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ConfigCompletionMessageMissingEntitlement", v19, &v21, 0xCu);
+        _os_signpost_emit_with_name_impl(&dword_232906000, v14, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ConfigCompletionMessageMissingEntitlement", v19, &v20, 0xCu);
       }
     }
 
     else
     {
-      [(DRSTaskingService *)self _sendReplyForMessage:messageCopy replyType:4 rejectionReason:"Not entitled"];
-      v14 = DPLogHandle_ServiceTaskingXPCError();
+      v14 = DPLogHandle_ServiceTaskingXPCError([(DRSTaskingService *)self _sendReplyForMessage:messageCopy replyType:4 rejectionReason:"Not entitled"]);
       if (os_signpost_enabled(v14))
       {
         stateDescription = [stateCopy stateDescription];
-        v21 = 138543362;
-        v22 = stateDescription;
+        v20 = 138543362;
+        v21 = stateDescription;
         v19 = "Insufficient entitlements for client %{public}@";
         goto LABEL_14;
       }
@@ -716,22 +705,19 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  [(DRSTaskingService *)self _sendReplyForMessage:messageCopy replyType:4 rejectionReason:"No teamID provided"];
-  v10 = DPLogHandle_ServiceTaskingXPCError();
+  v10 = DPLogHandle_ServiceTaskingXPCError([(DRSTaskingService *)self _sendReplyForMessage:messageCopy replyType:4 rejectionReason:"No teamID provided"]);
   if (os_signpost_enabled(v10))
   {
-    LOWORD(v21) = 0;
-    _os_signpost_emit_with_name_impl(&dword_232906000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ConfigCompletionMessageMissingTeamID", "No team ID provided in message", &v21, 2u);
+    LOWORD(v20) = 0;
+    _os_signpost_emit_with_name_impl(&dword_232906000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ConfigCompletionMessageMissingTeamID", "No team ID provided in message", &v20, 2u);
   }
 
 LABEL_18:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleBroadcastRequestMessaage:(id)messaage state:(id)state
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   messaageCopy = messaage;
   stateCopy = state;
   string = xpc_dictionary_get_string(messaageCopy, "teamID");
@@ -745,46 +731,41 @@ LABEL_18:
       eventPublisher = [(DRSTaskingService *)self eventPublisher];
       [eventPublisher publishCurrentConfigForTeamID:v11];
 
-      [(DRSTaskingService *)self _sendReplyForMessage:messaageCopy replyType:5 rejectionReason:0];
-      v13 = DPLogHandle_ServiceTaskingXPC();
+      v13 = DPLogHandle_ServiceTaskingXPC([(DRSTaskingService *)self _sendReplyForMessage:messaageCopy replyType:5 rejectionReason:0]);
       if (os_signpost_enabled(v13))
       {
-        LOWORD(v16) = 0;
-        _os_signpost_emit_with_name_impl(&dword_232906000, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "BroadcastRequestMessageSuccess", &unk_232980861, &v16, 2u);
+        LOWORD(v15) = 0;
+        _os_signpost_emit_with_name_impl(&dword_232906000, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "BroadcastRequestMessageSuccess", &unk_232980861, &v15, 2u);
       }
     }
 
     else
     {
-      [(DRSTaskingService *)self _sendReplyForMessage:messaageCopy replyType:5 rejectionReason:"Not entitled"];
-      v13 = DPLogHandle_ServiceTaskingXPCError();
+      v13 = DPLogHandle_ServiceTaskingXPCError([(DRSTaskingService *)self _sendReplyForMessage:messaageCopy replyType:5 rejectionReason:"Not entitled"]);
       if (os_signpost_enabled(v13))
       {
         stateDescription = [stateCopy stateDescription];
-        v16 = 138543362;
-        v17 = stateDescription;
-        _os_signpost_emit_with_name_impl(&dword_232906000, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "BroadcastRequestMessageMissingEntitlement", "Insufficient entitlements for client %{public}@", &v16, 0xCu);
+        v15 = 138543362;
+        v16 = stateDescription;
+        _os_signpost_emit_with_name_impl(&dword_232906000, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "BroadcastRequestMessageMissingEntitlement", "Insufficient entitlements for client %{public}@", &v15, 0xCu);
       }
     }
   }
 
   else
   {
-    [(DRSTaskingService *)self _sendReplyForMessage:messaageCopy replyType:5 rejectionReason:"No teamID provided"];
-    v10 = DPLogHandle_ServiceTaskingXPCError();
+    v10 = DPLogHandle_ServiceTaskingXPCError([(DRSTaskingService *)self _sendReplyForMessage:messaageCopy replyType:5 rejectionReason:"No teamID provided"]);
     if (os_signpost_enabled(v10))
     {
-      LOWORD(v16) = 0;
-      _os_signpost_emit_with_name_impl(&dword_232906000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "BroadcastRequestMessageMissingTeamID", "No team ID provided in message", &v16, 2u);
+      LOWORD(v15) = 0;
+      _os_signpost_emit_with_name_impl(&dword_232906000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "BroadcastRequestMessageMissingTeamID", "No team ID provided in message", &v15, 2u);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCloudChannelConfigGet:(id)get state:(id)state
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   getCopy = get;
   stateCopy = state;
   if ([stateCopy hasAdminEntitlement])
@@ -830,30 +811,27 @@ LABEL_18:
     goto LABEL_11;
   }
 
-  [(DRSTaskingService *)self _sendReplyForMessage:getCopy replyType:6 rejectionReason:"Not entitled"];
-  persistedCloudChannelConfig = DPLogHandle_ServiceTaskingXPCError();
+  persistedCloudChannelConfig = DPLogHandle_ServiceTaskingXPCError([(DRSTaskingService *)self _sendReplyForMessage:getCopy replyType:6 rejectionReason:"Not entitled"]);
   if (os_signpost_enabled(persistedCloudChannelConfig))
   {
     stateDescription = [stateCopy stateDescription];
-    v17 = 138543362;
-    v18 = stateDescription;
-    _os_signpost_emit_with_name_impl(&dword_232906000, persistedCloudChannelConfig, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CloudChannelConfigGetMissingEntitlement", "Insufficient entitlements for client %{public}@", &v17, 0xCu);
+    v16 = 138543362;
+    v17 = stateDescription;
+    _os_signpost_emit_with_name_impl(&dword_232906000, persistedCloudChannelConfig, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CloudChannelConfigGetMissingEntitlement", "Insufficient entitlements for client %{public}@", &v16, 0xCu);
 LABEL_11:
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_applyCloudChannelConfig:(id)config dueToMessage:(id)message state:(id)state messageType:(unint64_t)type
 {
-  v93 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   configCopy = config;
   messageCopy = message;
   stateCopy = state;
   taskingManager = [(DRSTaskingService *)self taskingManager];
   taskingMessageChannel = [taskingManager taskingMessageChannel];
   v15 = taskingMessageChannel;
-  v85 = configCopy;
+  v87 = configCopy;
   if (configCopy)
   {
     config = [taskingMessageChannel config];
@@ -861,35 +839,35 @@ LABEL_11:
     {
       v17 = config;
       [(DRSTaskingService *)self taskingManager];
-      v18 = v83 = messageCopy;
+      v18 = v85 = messageCopy;
       [v18 taskingMessageChannel];
       v19 = stateCopy;
       selfCopy = self;
       v22 = v21 = type;
       config2 = [v22 config];
-      v24 = [config2 isEqual:v85];
+      v24 = [config2 isEqual:v87];
 
       type = v21;
       self = selfCopy;
       stateCopy = v19;
 
-      messageCopy = v83;
+      messageCopy = v85;
       if (v24)
       {
-        v25 = DPLogHandle_ServiceTaskingXPC();
-        v26 = v85;
-        if (os_signpost_enabled(v25))
+        v26 = DPLogHandle_ServiceTaskingXPC(v25);
+        v27 = v87;
+        if (os_signpost_enabled(v26))
         {
           stateDescription = [stateCopy stateDescription];
-          v28 = [v85 debugDescription];
+          v29 = [v87 debugDescription];
           *buf = 138543618;
-          v90 = stateDescription;
-          v91 = 2114;
-          v92 = v28;
-          _os_signpost_emit_with_name_impl(&dword_232906000, v25, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "AlreadySubscribed", "Client %{public}@ requested subscription to %{public}@, but we are already subscribed to that channel", buf, 0x16u);
+          v92 = stateDescription;
+          v93 = 2114;
+          v94 = v29;
+          _os_signpost_emit_with_name_impl(&dword_232906000, v26, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "AlreadySubscribed", "Client %{public}@ requested subscription to %{public}@, but we are already subscribed to that channel", buf, 0x16u);
         }
 
-        [(DRSTaskingService *)self _sendReplyForMessage:v83 replyType:type rejectionReason:0];
+        [(DRSTaskingService *)self _sendReplyForMessage:v85 replyType:type rejectionReason:0];
         goto LABEL_48;
       }
     }
@@ -904,40 +882,40 @@ LABEL_11:
   if (v15)
   {
 LABEL_12:
-    v84 = stateCopy;
+    v86 = stateCopy;
     taskingManager2 = [(DRSTaskingService *)self taskingManager];
-    v88 = 0;
-    v32 = [taskingManager2 unsubscribeFromSubscribedChannelWithErrorOut:&v88];
-    v33 = v88;
+    v90 = 0;
+    v34 = [taskingManager2 unsubscribeFromSubscribedChannelWithErrorOut:&v90];
+    v35 = v90;
 
-    if (v32)
+    if (v34)
     {
 
       taskingManager3 = [(DRSTaskingService *)self taskingManager];
-      v87 = 0;
-      v26 = v85;
-      v35 = [taskingManager3 updatePersistedChannelConfig:v85 errorOut:&v87];
-      v36 = v87;
+      v89 = 0;
+      v27 = v87;
+      v37 = [taskingManager3 updatePersistedChannelConfig:v87 errorOut:&v89];
+      v38 = v89;
 
-      if (v35)
+      if (v37)
       {
 
         taskingManager4 = [(DRSTaskingService *)self taskingManager];
-        v86 = 0;
-        v38 = [taskingManager4 subscribeToChannelWithConfig:v85 errorOut:&v86];
-        v39 = v86;
+        v88 = 0;
+        v40 = [taskingManager4 subscribeToChannelWithConfig:v87 errorOut:&v88];
+        v41 = v88;
 
-        if (v38)
+        if (v40)
         {
-          v40 = DPLogHandle_ServiceTaskingXPC();
-          if (os_signpost_enabled(v40))
+          v43 = DPLogHandle_ServiceTaskingXPC(v42);
+          if (os_signpost_enabled(v43))
           {
             taskingManager5 = [(DRSTaskingService *)self taskingManager];
             taskingMessageChannel2 = [taskingManager5 taskingMessageChannel];
-            v43 = [taskingMessageChannel2 debugDescription];
+            v46 = [taskingMessageChannel2 debugDescription];
             *buf = 138543362;
-            v90 = v43;
-            _os_signpost_emit_with_name_impl(&dword_232906000, v40, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CloudChannelSubscriptionUpdateSucceeded", "Subscribe to cloud channel: %{public}@", buf, 0xCu);
+            v92 = v46;
+            _os_signpost_emit_with_name_impl(&dword_232906000, v43, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CloudChannelSubscriptionUpdateSucceeded", "Subscribe to cloud channel: %{public}@", buf, 0xCu);
           }
 
           [(DRSTaskingService *)self _sendReplyForMessage:messageCopy replyType:type rejectionReason:0];
@@ -945,172 +923,167 @@ LABEL_12:
 
         else
         {
-          v71 = MEMORY[0x277CCACA8];
-          localizedDescription = [(__CFString *)v39 localizedDescription];
-          v73 = localizedDescription;
+          v74 = MEMORY[0x277CCACA8];
+          localizedDescription = [(__CFString *)v41 localizedDescription];
+          v76 = localizedDescription;
           if (localizedDescription)
           {
-            v74 = localizedDescription;
+            v77 = localizedDescription;
           }
 
           else
           {
-            v74 = @"Unknown";
+            v77 = @"Unknown";
           }
 
-          v75 = [v71 stringWithFormat:@"Subscription failed due to error %@", v74];
+          v78 = [v74 stringWithFormat:@"Subscription failed due to error %@", v77];
 
-          -[DRSTaskingService _sendReplyForMessage:replyType:rejectionReason:](self, "_sendReplyForMessage:replyType:rejectionReason:", messageCopy, type, [v75 UTF8String]);
-          v76 = DPLogHandle_ServiceTaskingXPCError();
-          if (os_signpost_enabled(v76))
+          v79 = DPLogHandle_ServiceTaskingXPCError(-[DRSTaskingService _sendReplyForMessage:replyType:rejectionReason:](self, "_sendReplyForMessage:replyType:rejectionReason:", messageCopy, type, [v78 UTF8String]));
+          if (os_signpost_enabled(v79))
           {
-            v77 = [v85 debugDescription];
-            v78 = v77;
-            v79 = @"(Default)";
-            if (v77)
+            v80 = [v87 debugDescription];
+            v81 = v80;
+            v82 = @"(Default)";
+            if (v80)
             {
-              v79 = v77;
+              v82 = v80;
             }
 
-            if (v39)
+            if (v41)
             {
-              v80 = v39;
+              v83 = v41;
             }
 
             else
             {
-              v80 = @"Unknown";
+              v83 = @"Unknown";
             }
 
             *buf = 138543618;
-            v90 = v79;
-            v91 = 2114;
-            v92 = v80;
-            _os_signpost_emit_with_name_impl(&dword_232906000, v76, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CloudChannelSubscriptionFailed", "Failed to subscribe to cloud channel configuration: %{public}@ due to error %{public}@", buf, 0x16u);
+            v92 = v82;
+            v93 = 2114;
+            v94 = v83;
+            _os_signpost_emit_with_name_impl(&dword_232906000, v79, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CloudChannelSubscriptionFailed", "Failed to subscribe to cloud channel configuration: %{public}@ due to error %{public}@", buf, 0x16u);
           }
         }
 
-        stateCopy = v84;
+        stateCopy = v86;
       }
 
       else
       {
-        v61 = MEMORY[0x277CCACA8];
-        localizedDescription2 = [(__CFString *)v36 localizedDescription];
-        v63 = localizedDescription2;
+        v64 = MEMORY[0x277CCACA8];
+        localizedDescription2 = [(__CFString *)v38 localizedDescription];
+        v66 = localizedDescription2;
         if (localizedDescription2)
         {
-          v64 = localizedDescription2;
+          v67 = localizedDescription2;
         }
 
         else
         {
-          v64 = @"Unknown";
+          v67 = @"Unknown";
         }
 
-        v65 = [v61 stringWithFormat:@"Failed to update persisted cloud channel config due to error %@", v64];
+        v68 = [v64 stringWithFormat:@"Failed to update persisted cloud channel config due to error %@", v67];
 
-        -[DRSTaskingService _sendReplyForMessage:replyType:rejectionReason:](self, "_sendReplyForMessage:replyType:rejectionReason:", messageCopy, type, [v65 UTF8String]);
-        v66 = DPLogHandle_ServiceTaskingXPCError();
-        if (os_signpost_enabled(v66))
+        v69 = DPLogHandle_ServiceTaskingXPCError(-[DRSTaskingService _sendReplyForMessage:replyType:rejectionReason:](self, "_sendReplyForMessage:replyType:rejectionReason:", messageCopy, type, [v68 UTF8String]));
+        if (os_signpost_enabled(v69))
         {
-          v67 = [v85 debugDescription];
-          v68 = v67;
-          v69 = @"(None)";
-          if (v67)
+          v70 = [v87 debugDescription];
+          v71 = v70;
+          v72 = @"(None)";
+          if (v70)
           {
-            v69 = v67;
+            v72 = v70;
           }
 
-          if (v36)
+          if (v38)
           {
-            v70 = v36;
+            v73 = v38;
           }
 
           else
           {
-            v70 = @"Unknown";
+            v73 = @"Unknown";
           }
 
           *buf = 138543618;
-          v90 = v69;
-          v91 = 2114;
-          v92 = v70;
-          _os_signpost_emit_with_name_impl(&dword_232906000, v66, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "PersistCloudChannelConfigurationFailed", "Failed to persist cloud channel configuration: %{public}@ due to error %{public}@", buf, 0x16u);
+          v92 = v72;
+          v93 = 2114;
+          v94 = v73;
+          _os_signpost_emit_with_name_impl(&dword_232906000, v69, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "PersistCloudChannelConfigurationFailed", "Failed to persist cloud channel configuration: %{public}@ due to error %{public}@", buf, 0x16u);
         }
 
-        stateCopy = v84;
+        stateCopy = v86;
       }
     }
 
     else
     {
-      v44 = MEMORY[0x277CCACA8];
+      v47 = MEMORY[0x277CCACA8];
       taskingManager6 = [(DRSTaskingService *)self taskingManager];
       taskingMessageChannel3 = [taskingManager6 taskingMessageChannel];
       [taskingMessageChannel3 config];
-      v48 = v47 = messageCopy;
-      [v48 debugDescription];
-      v49 = v82 = type;
-      localizedDescription3 = [(__CFString *)v33 localizedDescription];
-      v51 = localizedDescription3;
-      v52 = @"Unknown";
+      v51 = v50 = messageCopy;
+      [v51 debugDescription];
+      v52 = v84 = type;
+      localizedDescription3 = [(__CFString *)v35 localizedDescription];
+      v54 = localizedDescription3;
+      v55 = @"Unknown";
       if (localizedDescription3)
       {
-        v52 = localizedDescription3;
+        v55 = localizedDescription3;
       }
 
-      v53 = [v44 stringWithFormat:@"Failed to unsubscribe from cloud channel %@ due to error %@", v49, v52];
+      v56 = [v47 stringWithFormat:@"Failed to unsubscribe from cloud channel %@ due to error %@", v52, v55];
 
-      messageCopy = v47;
-      -[DRSTaskingService _sendReplyForMessage:replyType:rejectionReason:](self, "_sendReplyForMessage:replyType:rejectionReason:", v47, v82, [v53 UTF8String]);
-      v54 = DPLogHandle_ServiceTaskingXPCError();
-      if (os_signpost_enabled(v54))
+      messageCopy = v50;
+      v57 = DPLogHandle_ServiceTaskingXPCError(-[DRSTaskingService _sendReplyForMessage:replyType:rejectionReason:](self, "_sendReplyForMessage:replyType:rejectionReason:", v50, v84, [v56 UTF8String]));
+      if (os_signpost_enabled(v57))
       {
         taskingManager7 = [(DRSTaskingService *)self taskingManager];
         taskingMessageChannel4 = [taskingManager7 taskingMessageChannel];
         config3 = [taskingMessageChannel4 config];
-        v58 = [config3 debugDescription];
-        v59 = v58;
-        v60 = @"Unknown";
-        if (v33)
+        v61 = [config3 debugDescription];
+        v62 = v61;
+        v63 = @"Unknown";
+        if (v35)
         {
-          v60 = v33;
+          v63 = v35;
         }
 
         *buf = 138543618;
-        v90 = v58;
-        v91 = 2114;
-        v92 = v60;
-        _os_signpost_emit_with_name_impl(&dword_232906000, v54, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UnsubscribeFailed", "Failed to unsubscribe from configuration: %{public}@ due to error %{public}@", buf, 0x16u);
+        v92 = v61;
+        v93 = 2114;
+        v94 = v63;
+        _os_signpost_emit_with_name_impl(&dword_232906000, v57, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UnsubscribeFailed", "Failed to unsubscribe from configuration: %{public}@ due to error %{public}@", buf, 0x16u);
       }
 
-      stateCopy = v84;
-      v26 = v85;
+      stateCopy = v86;
+      v27 = v87;
     }
 
     goto LABEL_48;
   }
 
-  v29 = DPLogHandle_ServiceTaskingXPC();
-  if (os_signpost_enabled(v29))
+  v31 = DPLogHandle_ServiceTaskingXPC(v30);
+  if (os_signpost_enabled(v31))
   {
     stateDescription2 = [stateCopy stateDescription];
     *buf = 138543362;
-    v90 = stateDescription2;
-    _os_signpost_emit_with_name_impl(&dword_232906000, v29, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "AlreadyNotSubscribed", "Client %{public}@ requested unsubscription, but we are already not subscribed to any channel", buf, 0xCu);
+    v92 = stateDescription2;
+    _os_signpost_emit_with_name_impl(&dword_232906000, v31, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "AlreadyNotSubscribed", "Client %{public}@ requested unsubscription, but we are already not subscribed to any channel", buf, 0xCu);
   }
 
   [(DRSTaskingService *)self _sendReplyForMessage:messageCopy replyType:type rejectionReason:0];
-  v26 = 0;
+  v27 = 0;
 LABEL_48:
-
-  v81 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCloudChannelConfigSet:(id)set state:(id)state
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   setCopy = set;
   stateCopy = state;
   if ([stateCopy hasAdminEntitlement])
@@ -1157,53 +1130,49 @@ LABEL_15:
       goto LABEL_15;
     }
 
-    [(DRSTaskingService *)self _sendReplyForMessage:setCopy replyType:7 rejectionReason:"Invalid or unsupported channel configuration"];
-    stateDescription = DPLogHandle_ServiceTaskingXPCError();
+    stateDescription = DPLogHandle_ServiceTaskingXPCError([(DRSTaskingService *)self _sendReplyForMessage:setCopy replyType:7 rejectionReason:"Invalid or unsupported channel configuration"]);
     if (os_signpost_enabled(stateDescription))
     {
-      v19 = DRSSystemProfilePlatformStringForPlatform(uint64);
-      v20 = [DRSCloudChannelConfig stringForEnvironment:v12];
-      v21 = [DRSCloudChannelConfig stringForChannelType:v11];
-      v22 = v21;
-      v24 = 138544130;
-      v23 = @"None";
-      v25 = v19;
+      v18 = DRSSystemProfilePlatformStringForPlatform(uint64);
+      v19 = [DRSCloudChannelConfig stringForEnvironment:v12];
+      v20 = [DRSCloudChannelConfig stringForChannelType:v11];
+      v21 = v20;
+      v23 = 138544130;
+      v22 = @"None";
+      v24 = v18;
       if (p_super)
       {
-        v23 = p_super;
+        v22 = p_super;
       }
 
-      v26 = 2114;
-      v27 = v20;
-      v28 = 2114;
-      v29 = v21;
-      v30 = 2114;
-      v31 = v23;
-      _os_signpost_emit_with_name_impl(&dword_232906000, stateDescription, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SetCloudChannelConfigurationInvalid", "Invalid cloud channel configuration: %{public}@ %{public}@ %{public}@ %{public}@", &v24, 0x2Au);
+      v25 = 2114;
+      v26 = v19;
+      v27 = 2114;
+      v28 = v20;
+      v29 = 2114;
+      v30 = v22;
+      _os_signpost_emit_with_name_impl(&dword_232906000, stateDescription, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SetCloudChannelConfigurationInvalid", "Invalid cloud channel configuration: %{public}@ %{public}@ %{public}@ %{public}@", &v23, 0x2Au);
     }
 
     goto LABEL_6;
   }
 
-  [(DRSTaskingService *)self _sendReplyForMessage:setCopy replyType:7 rejectionReason:"Not entitled"];
-  p_super = DPLogHandle_ServiceTaskingXPCError();
+  p_super = DPLogHandle_ServiceTaskingXPCError([(DRSTaskingService *)self _sendReplyForMessage:setCopy replyType:7 rejectionReason:"Not entitled"]);
   if (os_signpost_enabled(p_super))
   {
     stateDescription = [stateCopy stateDescription];
-    v24 = 138543362;
-    v25 = stateDescription;
-    _os_signpost_emit_with_name_impl(&dword_232906000, p_super, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CloudChannelConfigSetMissingEntitlement", "Insufficient entitlements for client %{public}@", &v24, 0xCu);
+    v23 = 138543362;
+    v24 = stateDescription;
+    _os_signpost_emit_with_name_impl(&dword_232906000, p_super, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CloudChannelConfigSetMissingEntitlement", "Insufficient entitlements for client %{public}@", &v23, 0xCu);
 LABEL_6:
   }
 
 LABEL_16:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCloudChannelConfigReset:(id)reset state:(id)state
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   resetCopy = reset;
   stateCopy = state;
   if ([stateCopy hasAdminEntitlement])
@@ -1214,32 +1183,29 @@ LABEL_16:
 
   else
   {
-    [(DRSTaskingService *)self _sendReplyForMessage:resetCopy replyType:8 rejectionReason:"Not entitled"];
-    v9 = DPLogHandle_ServiceTaskingXPCError();
+    v9 = DPLogHandle_ServiceTaskingXPCError([(DRSTaskingService *)self _sendReplyForMessage:resetCopy replyType:8 rejectionReason:"Not entitled"]);
     if (os_signpost_enabled(v9))
     {
       stateDescription = [stateCopy stateDescription];
-      v12 = 138543362;
-      v13 = stateDescription;
-      _os_signpost_emit_with_name_impl(&dword_232906000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CloudChannelConfigResetMissingEntitlement", "Insufficient entitlements for client %{public}@", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = stateDescription;
+      _os_signpost_emit_with_name_impl(&dword_232906000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CloudChannelConfigResetMissingEntitlement", "Insufficient entitlements for client %{public}@", &v11, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleInvalidMessage:(id)message state:(id)state
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   messageCopy = message;
-  v7 = DPLogHandle_ServiceTaskingXPCError();
+  v7 = DPLogHandle_ServiceTaskingXPCError(messageCopy);
   if (os_signpost_enabled(v7))
   {
     stateDescription = [stateCopy stateDescription];
-    v12 = 138543362;
-    v13 = stateDescription;
-    _os_signpost_emit_with_name_impl(&dword_232906000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "InvalidRequest", "Received invalid message from client %{public}@", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = stateDescription;
+    _os_signpost_emit_with_name_impl(&dword_232906000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "InvalidRequest", "Received invalid message from client %{public}@", &v11, 0xCu);
   }
 
   reply = xpc_dictionary_create_reply(messageCopy);
@@ -1248,7 +1214,6 @@ LABEL_16:
   v10 = xpc_dictionary_get_remote_connection(messageCopy);
 
   xpc_connection_send_message(v10, reply);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleRequest:(id)request state:(id)state
@@ -1321,10 +1286,12 @@ LABEL_16:
 
 - (void)_checkForDefaultSubscriptionUpdate
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v4 = [self debugDescription];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_232906000, v0, v1, "ERROR: Failed to subscribe to channel due to error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = 2114;
+  v8 = v5;
+  _os_log_fault_impl(&dword_232906000, a3, OS_LOG_TYPE_FAULT, "ERROR: Failed to persist new default %{public}@ to channel due to error %{public}@", v6, 0x16u);
 }
 
 - (void)_waitForDeviceUnlockAndInitializeServiceState
@@ -1340,14 +1307,13 @@ LABEL_16:
   }
 }
 
-void __66__DRSTaskingService__waitForDeviceUnlockAndInitializeServiceState__block_invoke(uint64_t a1)
+void __66__DRSTaskingService__waitForDeviceUnlockAndInitializeServiceState__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v51 = *MEMORY[0x277D85DE8];
-  DRSWaitForDeviceUnlock();
-  v2 = *(a1 + 32);
+  v56 = *MEMORY[0x277D85DE8];
+  DRSWaitForDeviceUnlock(a1, a2);
   v3 = [objc_opt_class() databaseDirectory];
-  v4 = DPLogHandle_ServiceTasking();
-  v5 = DPLogHandle_ServiceTaskingError();
+  v4 = DPLogHandle_ServiceTasking(v3);
+  v5 = DPLogHandle_ServiceTaskingError(v4);
   DRSConfirmDirectoryIsInitialized(v3, v4, v5);
 
   v6 = +[DRSSystemProfile sharedInstance];
@@ -1364,35 +1330,34 @@ void __66__DRSTaskingService__waitForDeviceUnlockAndInitializeServiceState__bloc
   }
 
   v8 = [DRSTaskingDecisionMaker alloc];
-  v9 = *(a1 + 32);
-  v10 = [objc_opt_class() databaseDirectory];
-  v48 = 0;
-  LODWORD(v43) = 16842753;
-  v11 = [DRSTaskingDecisionMaker initWithTimezone:v8 limitingParameters:"initWithTimezone:limitingParameters:dbWorkingDirectoryPath:cloudKitHelper:enforceDate:enforceBuild:enforceSampling:enforceTeamHysteresis:enforceGlobalHysteresisAndCap:allowRefereshLimitingParameters:errorOut:" dbWorkingDirectoryPath:0 cloudKitHelper:0 enforceDate:v10 enforceBuild:v7 enforceSampling:1 enforceTeamHysteresis:1 enforceGlobalHysteresisAndCap:v43 allowRefereshLimitingParameters:&v48 errorOut:?];
-  v12 = v48;
+  v9 = [objc_opt_class() databaseDirectory];
+  v53 = 0;
+  LODWORD(v48) = 16842753;
+  v10 = [DRSTaskingDecisionMaker initWithTimezone:v8 limitingParameters:"initWithTimezone:limitingParameters:dbWorkingDirectoryPath:cloudKitHelper:enforceDate:enforceBuild:enforceSampling:enforceTeamHysteresis:enforceGlobalHysteresisAndCap:allowRefereshLimitingParameters:errorOut:" dbWorkingDirectoryPath:0 cloudKitHelper:0 enforceDate:v9 enforceBuild:v7 enforceSampling:1 enforceTeamHysteresis:1 enforceGlobalHysteresisAndCap:v48 allowRefereshLimitingParameters:&v53 errorOut:?];
+  v11 = v53;
 
-  if (!v11)
+  if (!v10)
   {
-    v36 = DPLogHandle_ServiceTaskingError();
-    if (os_signpost_enabled(v36))
+    v39 = DPLogHandle_ServiceTaskingError(v12);
+    if (os_signpost_enabled(v39))
     {
-      v37 = [v12 localizedDescription];
-      v38 = v37;
-      v39 = @"Unknown";
-      if (v37)
+      v40 = [v11 localizedDescription];
+      v41 = v40;
+      v42 = @"Unknown";
+      if (v40)
       {
-        v39 = v37;
+        v42 = v40;
       }
 
       *buf = 138543362;
-      v50 = v39;
-      _os_signpost_emit_with_name_impl(&dword_232906000, v36, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TaskingDecisionMakerCreationFailure", "FATAL ERROR: Failed to create tasking decision maker due to error: %{public}@", buf, 0xCu);
+      v55 = v42;
+      _os_signpost_emit_with_name_impl(&dword_232906000, v39, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TaskingDecisionMakerCreationFailure", "FATAL ERROR: Failed to create tasking decision maker due to error: %{public}@", buf, 0xCu);
     }
 
-    v40 = DPLogHandle_ServiceTaskingError();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_FAULT))
+    v44 = DPLogHandle_ServiceTaskingError(v43);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_FAULT))
     {
-      __66__DRSTaskingService__waitForDeviceUnlockAndInitializeServiceState__block_invoke_cold_3(v12, v40);
+      __66__DRSTaskingService__waitForDeviceUnlockAndInitializeServiceState__block_invoke_cold_3(v11, v44);
     }
 
     exit(1);
@@ -1403,15 +1368,15 @@ void __66__DRSTaskingService__waitForDeviceUnlockAndInitializeServiceState__bloc
   aBlock[1] = 3221225472;
   aBlock[2] = __66__DRSTaskingService__waitForDeviceUnlockAndInitializeServiceState__block_invoke_107;
   aBlock[3] = &unk_27899EFC0;
-  objc_copyWeak(&v46, &location);
+  objc_copyWeak(&v51, &location);
   v13 = _Block_copy(aBlock);
-  v14 = [[DRSTaskingManager alloc] initWithDecisionMaker:v11 cloudKitHelper:v7 configStateChangeBlock:v13];
+  v14 = [[DRSTaskingManager alloc] initWithDecisionMaker:v10 cloudKitHelper:v7 configStateChangeBlock:v13];
   v15 = *(a1 + 32);
   v16 = *(v15 + 32);
   *(v15 + 32) = v14;
 
   v17 = [DRSTaskingEventPublisher alloc];
-  v18 = [(DRSTaskingDecisionMaker *)v11 configStore];
+  v18 = [(DRSTaskingDecisionMaker *)v10 configStore];
   v19 = [(DRSTaskingEventPublisher *)v17 initWithConfigStore:v18];
   v20 = *(a1 + 32);
   v21 = *(v20 + 48);
@@ -1422,47 +1387,47 @@ void __66__DRSTaskingService__waitForDeviceUnlockAndInitializeServiceState__bloc
 
   if (v18)
   {
-    v41 = DPLogHandle_ServiceTaskingError();
-    if (os_signpost_enabled(v41))
+    v45 = DPLogHandle_ServiceTaskingError(v23);
+    if (os_signpost_enabled(v45))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_232906000, v41, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "EventPublisherInitFailure", "FATAL ERROR: Failed to create event publisher", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_232906000, v45, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "EventPublisherInitFailure", "FATAL ERROR: Failed to create event publisher", buf, 2u);
     }
 
-    v42 = DPLogHandle_ServiceTaskingError();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
+    v47 = DPLogHandle_ServiceTaskingError(v46);
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_FAULT))
     {
-      __66__DRSTaskingService__waitForDeviceUnlockAndInitializeServiceState__block_invoke_cold_2(v42);
+      __66__DRSTaskingService__waitForDeviceUnlockAndInitializeServiceState__block_invoke_cold_2(v47);
     }
 
     exit(1);
   }
 
-  v23 = [*(a1 + 32) taskingManager];
-  v24 = [v23 persistedCloudChannelConfig];
+  v24 = [*(a1 + 32) taskingManager];
+  v25 = [v24 persistedCloudChannelConfig];
 
-  v25 = DPLogHandle_ServiceTasking();
-  if (os_signpost_enabled(v25))
+  v27 = DPLogHandle_ServiceTasking(v26);
+  if (os_signpost_enabled(v27))
   {
-    v26 = [v24 debugDescription];
-    v27 = v26;
-    v28 = @"MISSING";
-    if (v26)
+    v28 = [v25 debugDescription];
+    v29 = v28;
+    v30 = @"MISSING";
+    if (v28)
     {
-      v28 = v26;
+      v30 = v28;
     }
 
     *buf = 138543362;
-    v50 = v28;
-    _os_signpost_emit_with_name_impl(&dword_232906000, v25, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "PersistedCloudChannelConfig", "Existing persisted cloud channel config %{public}@", buf, 0xCu);
+    v55 = v30;
+    _os_signpost_emit_with_name_impl(&dword_232906000, v27, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "PersistedCloudChannelConfig", "Existing persisted cloud channel config %{public}@", buf, 0xCu);
   }
 
-  v29 = [*(a1 + 32) taskingManager];
-  v44 = 0;
-  v30 = [v29 subscribeToChannelWithConfig:v24 errorOut:&v44];
-  v31 = v44;
+  v31 = [*(a1 + 32) taskingManager];
+  v49 = 0;
+  v32 = [v31 subscribeToChannelWithConfig:v25 errorOut:&v49];
+  v33 = v49;
 
-  if (v30)
+  if (v32)
   {
 
     [*(a1 + 32) _checkForDefaultSubscriptionUpdate];
@@ -1470,63 +1435,61 @@ void __66__DRSTaskingService__waitForDeviceUnlockAndInitializeServiceState__bloc
 
   else
   {
-    v32 = DPLogHandle_ServiceTaskingError();
-    if (os_signpost_enabled(v32))
+    v35 = DPLogHandle_ServiceTaskingError(v34);
+    if (os_signpost_enabled(v35))
     {
-      v33 = @"Unknown";
-      if (v31)
+      v36 = @"Unknown";
+      if (v33)
       {
-        v33 = v31;
+        v36 = v33;
       }
 
       *buf = 138543362;
-      v50 = v33;
-      _os_signpost_emit_with_name_impl(&dword_232906000, v32, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CloudChannelSubscriptionError", "ERROR: Failed to subscribe to channel due to error %{public}@", buf, 0xCu);
+      v55 = v36;
+      _os_signpost_emit_with_name_impl(&dword_232906000, v35, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CloudChannelSubscriptionError", "ERROR: Failed to subscribe to channel due to error %{public}@", buf, 0xCu);
     }
 
-    v34 = DPLogHandle_ServiceTaskingError();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
+    v38 = DPLogHandle_ServiceTaskingError(v37);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
     {
       [DRSTaskingService _checkForDefaultSubscriptionUpdate];
     }
   }
 
-  objc_destroyWeak(&v46);
+  objc_destroyWeak(&v51);
   objc_destroyWeak(&location);
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void __66__DRSTaskingService__waitForDeviceUnlockAndInitializeServiceState__block_invoke_107(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5, unint64_t a6, int a7)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v13 = a2;
   v14 = a3;
   v15 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v17 = DPLogHandle_ServiceTasking();
+  v17 = DPLogHandle_ServiceTasking(WeakRetained);
   if (os_signpost_enabled(v17))
   {
     v18 = DRConfigStringForState();
     v19 = DRSTaskingStringForTaskingStateChangeReason(a6);
     v20 = v19;
-    v24 = 138544386;
+    v23 = 138544386;
     v21 = &stru_2847F1D58;
-    v25 = v13;
+    v24 = v13;
     if (a7)
     {
       v21 = @" (Notified clients)";
     }
 
-    v26 = 2114;
-    v27 = v14;
-    v28 = 2114;
-    v29 = v18;
-    v30 = 2114;
-    v31 = v19;
-    v32 = 2112;
-    v33 = v21;
-    _os_signpost_emit_with_name_impl(&dword_232906000, v17, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ConfigStateChange", "%{public}@: Config %{public}@ moved to %{public}@ for reason %{public}@%@", &v24, 0x34u);
+    v25 = 2114;
+    v26 = v14;
+    v27 = 2114;
+    v28 = v18;
+    v29 = 2114;
+    v30 = v19;
+    v31 = 2112;
+    v32 = v21;
+    _os_signpost_emit_with_name_impl(&dword_232906000, v17, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ConfigStateChange", "%{public}@: Config %{public}@ moved to %{public}@ for reason %{public}@%@", &v23, 0x34u);
   }
 
   if (a7)
@@ -1534,15 +1497,13 @@ void __66__DRSTaskingService__waitForDeviceUnlockAndInitializeServiceState__bloc
     v22 = [WeakRetained eventPublisher];
     [v22 publishConfigUpdateForTeamID:v13 state:a5 config:v15];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (DRSTaskingService)init
 {
-  v22.receiver = self;
-  v22.super_class = DRSTaskingService;
-  v2 = [(DRSTaskingService *)&v22 init];
+  v23.receiver = self;
+  v23.super_class = DRSTaskingService;
+  v2 = [(DRSTaskingService *)&v23 init];
   if (!v2)
   {
     goto LABEL_4;
@@ -1565,42 +1526,42 @@ void __66__DRSTaskingService__waitForDeviceUnlockAndInitializeServiceState__bloc
 
   if (serviceConnection)
   {
-    v11 = dispatch_queue_create("DRSTaskingService Initializing Queue", 0);
+    v12 = dispatch_queue_create("DRSTaskingService Initializing Queue", 0);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __25__DRSTaskingService_init__block_invoke;
     block[3] = &unk_27899EF98;
-    v12 = v2;
-    v21 = v12;
-    dispatch_async(v11, block);
-    objc_initWeak(&location, v12);
-    serviceConnection2 = [(DRSTaskingService *)v12 serviceConnection];
+    v13 = v2;
+    v22 = v13;
+    dispatch_async(v12, block);
+    objc_initWeak(&location, v13);
+    serviceConnection2 = [(DRSTaskingService *)v13 serviceConnection];
     handler[0] = MEMORY[0x277D85DD0];
     handler[1] = 3221225472;
     handler[2] = __25__DRSTaskingService_init__block_invoke_2;
     handler[3] = &unk_27899EFE8;
-    objc_copyWeak(&v18, &location);
+    objc_copyWeak(&v19, &location);
     xpc_connection_set_event_handler(serviceConnection2, handler);
 
-    objc_destroyWeak(&v18);
+    objc_destroyWeak(&v19);
     objc_destroyWeak(&location);
 
 LABEL_4:
-    v14 = v2;
+    v15 = v2;
     goto LABEL_8;
   }
 
-  v15 = DPLogHandle_ServiceTaskingError();
-  if (os_signpost_enabled(v15))
+  v16 = DPLogHandle_ServiceTaskingError(v11);
+  if (os_signpost_enabled(v16))
   {
     LOWORD(location) = 0;
-    _os_signpost_emit_with_name_impl(&dword_232906000, v15, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FailedTaskingServiceLaunch", "Could not create connection for mach service", &location, 2u);
+    _os_signpost_emit_with_name_impl(&dword_232906000, v16, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FailedTaskingServiceLaunch", "Could not create connection for mach service", &location, 2u);
   }
 
-  v14 = 0;
+  v15 = 0;
 LABEL_8:
 
-  return v14;
+  return v15;
 }
 
 void __25__DRSTaskingService_init__block_invoke_2(uint64_t a1, void *a2)
@@ -1608,16 +1569,17 @@ void __25__DRSTaskingService_init__block_invoke_2(uint64_t a1, void *a2)
   v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  if (MEMORY[0x23838A140](v3) == MEMORY[0x277D86450])
+  v5 = MEMORY[0x23838A140](v3);
+  if (v5 == MEMORY[0x277D86450])
   {
-    v7 = [[DRSTaskingClientConnectionState alloc] initWithConnection:v3 service:WeakRetained];
-    v8 = DPLogHandle_ServiceTasking();
-    if (os_signpost_enabled(v8))
+    v8 = [[DRSTaskingClientConnectionState alloc] initWithConnection:v3 service:WeakRetained];
+    v9 = DPLogHandle_ServiceTasking(v8);
+    if (os_signpost_enabled(v9))
     {
-      v9 = [(DRSTaskingClientConnectionState *)v7 stateDescription];
+      v10 = [(DRSTaskingClientConnectionState *)v8 stateDescription];
       v13 = 138543362;
-      v14 = v9;
-      _os_signpost_emit_with_name_impl(&dword_232906000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "NewTaskingClientConnection", "New connection from client %{public}@", &v13, 0xCu);
+      v14 = v10;
+      _os_signpost_emit_with_name_impl(&dword_232906000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "NewTaskingClientConnection", "New connection from client %{public}@", &v13, 0xCu);
     }
 
     [WeakRetained _waitForDeviceUnlockAndInitializeServiceState];
@@ -1626,28 +1588,28 @@ void __25__DRSTaskingService_init__block_invoke_2(uint64_t a1, void *a2)
 
   if (v3 == MEMORY[0x277D863F8])
   {
-    v10 = DPLogHandle_ServiceTasking();
-    if (os_signpost_enabled(v10))
+    v11 = DPLogHandle_ServiceTasking(v5);
+    if (os_signpost_enabled(v11))
     {
       LOWORD(v13) = 0;
-      _os_signpost_emit_with_name_impl(&dword_232906000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TaskingServiceConnectionInvalidated", &unk_232980861, &v13, 2u);
+      _os_signpost_emit_with_name_impl(&dword_232906000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TaskingServiceConnectionInvalidated", &unk_232980861, &v13, 2u);
     }
 
-    v7 = objc_loadWeakRetained((a1 + 32));
-    v7->_hasAdminEntitlement = 2;
-    v11 = [(DRSTaskingClientConnectionState *)v7 serviceDeactivatedSem];
-    dispatch_semaphore_signal(v11);
+    v8 = objc_loadWeakRetained((a1 + 32));
+    v8->_hasAdminEntitlement = 2;
+    v12 = [(DRSTaskingClientConnectionState *)v8 serviceDeactivatedSem];
+    dispatch_semaphore_signal(v12);
 
     goto LABEL_17;
   }
 
   if (v3 == MEMORY[0x277D863F0])
   {
-    v7 = DPLogHandle_ServiceTasking();
-    if (os_signpost_enabled(&v7->super))
+    v8 = DPLogHandle_ServiceTasking(v5);
+    if (os_signpost_enabled(&v8->super))
     {
       LOWORD(v13) = 0;
-      _os_signpost_emit_with_name_impl(&dword_232906000, &v7->super, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TaskingServiceConnectionInterrupted", &unk_232980861, &v13, 2u);
+      _os_signpost_emit_with_name_impl(&dword_232906000, &v8->super, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TaskingServiceConnectionInterrupted", &unk_232980861, &v13, 2u);
     }
 
 LABEL_17:
@@ -1657,34 +1619,30 @@ LABEL_17:
 
   if (MEMORY[0x23838A140](v3) != MEMORY[0x277D86468])
   {
-    v5 = MEMORY[0x238389FD0](v3);
-    v6 = DPLogHandle_ServiceLifecycle();
-    if (os_signpost_enabled(v6))
+    v6 = MEMORY[0x238389FD0](v3);
+    v7 = DPLogHandle_ServiceLifecycle(v6);
+    if (os_signpost_enabled(v7))
     {
       v13 = 136446210;
-      v14 = v5;
-      _os_signpost_emit_with_name_impl(&dword_232906000, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "InvalidMessageType", "Invalid message type unexpected: %{public}s", &v13, 0xCu);
+      v14 = v6;
+      _os_signpost_emit_with_name_impl(&dword_232906000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "InvalidMessageType", "Invalid message type unexpected: %{public}s", &v13, 0xCu);
     }
 
-    if (v5)
+    if (v6)
     {
-      free(v5);
+      free(v6);
     }
   }
 
 LABEL_18:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __66__DRSTaskingService__waitForDeviceUnlockAndInitializeServiceState__block_invoke_cold_3(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [a1 localizedDescription];
   OUTLINED_FUNCTION_0();
-  _os_log_fault_impl(&dword_232906000, a2, OS_LOG_TYPE_FAULT, "FATAL ERROR: Could not instantiate the tasking decision maker for the service due to error %{public}@", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_232906000, a2, OS_LOG_TYPE_FAULT, "FATAL ERROR: Could not instantiate the tasking decision maker for the service due to error %{public}@", v4, 0xCu);
 }
 
 @end

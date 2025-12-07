@@ -1,9 +1,14 @@
 @interface ASDStereoPanControl
+- (ASDStereoPanControl)initWithElement:(unsigned int)element inScope:(unsigned int)scope withPlugin:(id)plugin;
+- (ASDStereoPanControl)initWithElement:(unsigned int)element inScope:(unsigned int)scope withPlugin:(id)plugin andObjectClassID:(unsigned int)d;
 - (ASDStereoPanControl)initWithPlugin:(id)plugin;
+- (ASDStereoPanControl)initWithValue:(float)value leftPanChannel:(unsigned int)channel rightPanChannel:(unsigned int)panChannel isSettable:(BOOL)settable forElement:(unsigned int)element inScope:(unsigned int)scope withPlugin:(id)plugin andObjectClassID:(unsigned int)self0;
 - (BOOL)getProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int *)dataSize andData:(void *)andData forClient:(int)client;
 - (BOOL)hasProperty:(const AudioObjectPropertyAddress *)property;
 - (BOOL)isPropertySettable:(const AudioObjectPropertyAddress *)settable;
+- (BOOL)setProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int)dataSize andData:(const void *)andData forClient:(int)client;
 - (float)value;
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree;
 - (unsigned)dataSizeForProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size andQualifierData:(const void *)data;
 - (unsigned)leftPanChannel;
 - (unsigned)rightPanChannel;
@@ -18,6 +23,46 @@
   LODWORD(v5) = 1936744814;
   LODWORD(v3) = 0.5;
   return [(ASDStereoPanControl *)self initWithValue:1 leftPanChannel:2 rightPanChannel:0 isSettable:0 forElement:1735159650 inScope:plugin withPlugin:v3 andObjectClassID:v5];
+}
+
+- (ASDStereoPanControl)initWithElement:(unsigned int)element inScope:(unsigned int)scope withPlugin:(id)plugin
+{
+  LODWORD(v7) = 1936744814;
+  LODWORD(v5) = 0.5;
+  return [(ASDStereoPanControl *)self initWithValue:1 leftPanChannel:2 rightPanChannel:0 isSettable:*&element forElement:*&scope inScope:plugin withPlugin:v5 andObjectClassID:v7];
+}
+
+- (ASDStereoPanControl)initWithElement:(unsigned int)element inScope:(unsigned int)scope withPlugin:(id)plugin andObjectClassID:(unsigned int)d
+{
+  LODWORD(v8) = d;
+  LODWORD(v6) = 0.5;
+  return [(ASDStereoPanControl *)self initWithValue:1 leftPanChannel:2 rightPanChannel:0 isSettable:*&element forElement:*&scope inScope:plugin withPlugin:v6 andObjectClassID:v8];
+}
+
+- (ASDStereoPanControl)initWithValue:(float)value leftPanChannel:(unsigned int)channel rightPanChannel:(unsigned int)panChannel isSettable:(BOOL)settable forElement:(unsigned int)element inScope:(unsigned int)scope withPlugin:(id)plugin andObjectClassID:(unsigned int)self0
+{
+  v25.receiver = self;
+  v25.super_class = ASDStereoPanControl;
+  v14 = [(ASDControl *)&v25 initWithElement:*&element inScope:*&scope withPlugin:plugin andObjectClassID:d];
+  v15 = v14;
+  if (v14)
+  {
+    v14->_value = value;
+    v14->_settable = settable;
+    v14->_leftPanChannel = channel;
+    v14->_rightPanChannel = panChannel;
+    v16 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    bundleIdentifier = [v16 bundleIdentifier];
+    v18 = MEMORY[0x277CCACA8];
+    v19 = objc_opt_class();
+    v20 = NSStringFromClass(v19);
+    v21 = [v18 stringWithFormat:@"%@.%@.%p", bundleIdentifier, v20, v15];
+    v22 = dispatch_queue_create([v21 UTF8String], 0);
+    valueQueue = v15->_valueQueue;
+    v15->_valueQueue = v22;
+  }
+
+  return v15;
 }
 
 - (BOOL)hasProperty:(const AudioObjectPropertyAddress *)property
@@ -125,6 +170,49 @@ LABEL_10:
     v6.super_class = ASDStereoPanControl;
     return [(ASDObject *)&v6 isPropertySettable:?];
   }
+}
+
+- (BOOL)setProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int)dataSize andData:(const void *)andData forClient:(int)client
+{
+  if (!property)
+  {
+    goto LABEL_9;
+  }
+
+  v8 = *&client;
+  v10 = *&dataSize;
+  v12 = *&size;
+  v15 = [(ASDStereoPanControl *)self hasProperty:?];
+  if (!v15)
+  {
+    return v15;
+  }
+
+  v15 = [(ASDStereoPanControl *)self isPropertySettable:property];
+  if (!v15)
+  {
+    return v15;
+  }
+
+  if (property->mSelector != 1936745334)
+  {
+    v18.receiver = self;
+    v18.super_class = ASDStereoPanControl;
+    LOBYTE(v15) = [(ASDObject *)&v18 setProperty:property withQualifierSize:v12 qualifierData:data dataSize:v10 andData:andData forClient:v8];
+    return v15;
+  }
+
+  if (v10 != 4)
+  {
+LABEL_9:
+    LOBYTE(v15) = 0;
+    return v15;
+  }
+
+  LODWORD(v16) = *andData;
+
+  LOBYTE(v15) = [(ASDStereoPanControl *)self changeValue:v16];
+  return v15;
 }
 
 - (void)setValue:(float)value
@@ -296,6 +384,20 @@ uint64_t __44__ASDStereoPanControl_setPanChannel_isLeft___block_invoke(uint64_t 
   }
 
   return result;
+}
+
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree
+{
+  treeCopy = tree;
+  v10.receiver = self;
+  v10.super_class = ASDStereoPanControl;
+  indentCopy = indent;
+  v7 = [(ASDControl *)&v10 diagnosticDescriptionWithIndent:indentCopy walkTree:treeCopy];
+  [(ASDStereoPanControl *)self value];
+  [v7 appendFormat:@"%@|    Current Value: %f\n", indentCopy, v8];
+  [v7 appendFormat:@"%@|    Panning Channels: %u, %u\n", indentCopy, -[ASDStereoPanControl leftPanChannel](self, "leftPanChannel"), -[ASDStereoPanControl rightPanChannel](self, "rightPanChannel")];
+
+  return v7;
 }
 
 @end

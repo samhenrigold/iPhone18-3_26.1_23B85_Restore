@@ -11,9 +11,7 @@
 {
   sub_1E4996F3C();
   v4 = OBJC_IVAR____TtC11ClockPoster16RollingClockView_model;
-  v5 = type metadata accessor for RollingClockViewModel();
-  v6 = *(v5 + 48);
-  v7 = *(v5 + 52);
+  type metadata accessor for RollingClockViewModel(0);
   swift_allocObject();
   *(&self->super.super.super.isa + v4) = sub_1E48B81A4();
   result = sub_1E49986DC();
@@ -24,7 +22,7 @@
 - (void)layoutSubviews
 {
   v2.receiver = self;
-  v2.super_class = type metadata accessor for RollingClockView();
+  v2.super_class = type metadata accessor for RollingClockView(0);
   [(RollingClockView *)&v2 layoutSubviews];
 }
 

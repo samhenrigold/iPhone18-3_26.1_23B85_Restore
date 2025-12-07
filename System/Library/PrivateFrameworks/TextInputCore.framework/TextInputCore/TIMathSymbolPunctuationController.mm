@@ -9,7 +9,7 @@
 
 - (id)mathSymbolPunctuationedStringForInputString:(id)string
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v5 = [stringCopy length];
   if (!v5)
@@ -20,7 +20,7 @@
 
   v10 = v5;
   MEMORY[0x28223BE20](v5, v6, v7, v8, v9);
-  v12 = v25 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = v24 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   [stringCopy getCharacters:v12];
   v13 = [(TIMathSymbolPunctuationController *)self updateInputString:stringCopy];
   if (v13 != [(TIMathSymbolPunctuationController *)self replaceAfterNumerals]|| !self->_state || !self->_enabled)
@@ -100,20 +100,18 @@ LABEL_31:
   self->_converted = v16;
 LABEL_32:
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 - (BOOL)updateInputString:(id)string
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v5 = [stringCopy length];
   if (v5)
   {
     v6 = v5;
-    v7 = v15 - ((2 * v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v7 = v14 - ((2 * v5 + 15) & 0xFFFFFFFFFFFFFFF0);
     [stringCopy getCharacters:v7];
     v8 = 0;
     v9 = v6 - 1;
@@ -135,7 +133,7 @@ LABEL_32:
         }
 
 LABEL_21:
-        if (v9 && [(NSString *)self->_decimalSeparator isEqualToString:@"."])
+        if (v9 && (objc_msgSend_isEqualToString_(self->_decimalSeparator) & 1) != 0)
         {
           v11 = 46;
           goto LABEL_27;
@@ -192,7 +190,7 @@ LABEL_28:
 
       if (v10 == 65292)
       {
-        if (v9 && [(NSString *)self->_decimalSeparator isEqualToString:@", "])
+        if (v9 && (objc_msgSend_isEqualToString_(self->_decimalSeparator) & 1) != 0)
         {
           v11 = 44;
           goto LABEL_27;
@@ -225,7 +223,6 @@ LABEL_29:
 
 LABEL_30:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

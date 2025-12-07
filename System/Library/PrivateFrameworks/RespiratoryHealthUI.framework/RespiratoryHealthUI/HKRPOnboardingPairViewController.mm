@@ -49,13 +49,11 @@
 
 - (void)_makeHeroView
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v5 = 138543362;
-  v6 = objc_opt_class();
-  v3 = v6;
-  _os_log_error_impl(&dword_262098000, a2, OS_LOG_TYPE_ERROR, "[%{public}@] illustratedWatchView is nil", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v4 = 138543362;
+  v5 = objc_opt_class();
+  v3 = v5;
+  _os_log_error_impl(&dword_262098000, a2, OS_LOG_TYPE_ERROR, "[%{public}@] illustratedWatchView is nil", &v4, 0xCu);
 }
 
 - (id)_localizedStringForKey:(id)key

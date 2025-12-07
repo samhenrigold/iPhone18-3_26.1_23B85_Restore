@@ -265,8 +265,8 @@
   v119.super_class = UIKBRenderFactory_CarLinear;
   keyplaneCopy = keyplane;
   v8 = [(UIKBRenderFactory_Car *)&v119 _traitsForKey:keyCopy onKeyplane:keyplaneCopy];
-  geometry = [v8 geometry];
-  [geometry setRoundRectCorners:-1];
+  v9 = objc_msgSend_geometry(v8, v119.receiver, v119.super_class);
+  [v9 setRoundRectCorners:-1];
 
   v10 = [keyCopy state] & 0xC;
   if (v10)
@@ -289,31 +289,31 @@
   {
     [(UIKBRenderFactory_CarLinear *)self internationalKeyRadius];
     v16 = v15;
-    geometry2 = [v8 geometry];
-    [geometry2 setRoundRectRadius:v16];
+    v17 = objc_msgSend_geometry(v8);
+    [v17 setRoundRectRadius:v16];
 
-    geometry3 = [v8 geometry];
-    [geometry3 paddedFrame];
+    v18 = objc_msgSend_geometry(v8);
+    [v18 paddedFrame];
     v20 = v19 + 6.0;
     v22 = v21 + -12.0;
     v24 = v23 + 6.0;
     v26 = v25 + -12.0;
-    geometry4 = [v8 geometry];
-    v28 = geometry4;
+    v27 = objc_msgSend_geometry(v8);
+    v28 = v27;
     v29 = v20;
     v30 = v24;
     v31 = v22;
 LABEL_12:
-    [geometry4 setSymbolFrame:{v29, v30, v31, v26}];
+    [v27 setSymbolFrame:{v29, v30, v31, v26}];
 
-    geometry5 = [v8 geometry];
-    [geometry5 paddedFrame];
+    v48 = objc_msgSend_geometry(v8);
+    [v48 paddedFrame];
     v50 = v49;
     v52 = v51;
     v54 = v53;
     v56 = v55;
-    geometry6 = [v8 geometry];
-    [geometry6 setDisplayFrame:{v50, v52, v54, v56}];
+    v57 = objc_msgSend_geometry(v8);
+    [v57 setDisplayFrame:{v50, v52, v54, v56}];
     goto LABEL_13;
   }
 
@@ -321,8 +321,8 @@ LABEL_12:
   {
     [(UIKBRenderFactory_CarLinear *)self carKeyRadius];
     v33 = v32;
-    geometry7 = [v8 geometry];
-    [geometry7 setRoundRectRadius:v33];
+    v34 = objc_msgSend_geometry(v8);
+    [v34 setRoundRectRadius:v33];
 
     [(UIKBRenderFactory_CarLinear *)self defaultKeyFontSize];
 LABEL_11:
@@ -330,14 +330,14 @@ LABEL_11:
     symbolStyle2 = [v8 symbolStyle];
     [symbolStyle2 setFontSize:v39];
 
-    geometry3 = [v8 geometry];
-    [geometry3 paddedFrame];
+    v18 = objc_msgSend_geometry(v8);
+    [v18 paddedFrame];
     v42 = v41;
     v44 = v43;
     v46 = v45;
     v26 = v47;
-    geometry4 = [v8 geometry];
-    v28 = geometry4;
+    v27 = objc_msgSend_geometry(v8);
+    v28 = v27;
     v29 = v42;
     v30 = v44;
     v31 = v46;
@@ -348,8 +348,8 @@ LABEL_11:
   {
     [(UIKBRenderFactory_CarLinear *)self controlKeyRadius];
     v37 = v36;
-    geometry8 = [v8 geometry];
-    [geometry8 setRoundRectRadius:v37];
+    v38 = objc_msgSend_geometry(v8);
+    [v38 setRoundRectRadius:v37];
 
     [(UIKBRenderFactory_CarLinear *)self controlKeyFontSize];
     goto LABEL_11;
@@ -361,31 +361,31 @@ LABEL_11:
   }
 
   v73 = v14 + -60.0;
-  geometry9 = [v8 geometry];
-  [geometry9 paddedFrame];
+  v74 = objc_msgSend_geometry(v8);
+  [v74 paddedFrame];
   v76 = v75 + -12.0;
   v78 = v77 + 12.0 + 12.0;
   v80 = v79 + -12.0;
   v82 = v81 + 12.0 + 12.0;
-  geometry10 = [v8 geometry];
-  [geometry10 setSymbolFrame:{v76, v80, v78, v82}];
+  v83 = objc_msgSend_geometry(v8);
+  [v83 setSymbolFrame:{v76, v80, v78, v82}];
 
-  geometry11 = [v8 geometry];
-  [geometry11 paddedFrame];
+  v84 = objc_msgSend_geometry(v8);
+  [v84 paddedFrame];
   v86 = v85 + -12.0;
   v88 = v87 + 12.0 + 12.0;
   v90 = v89 + -12.0;
   v92 = v91 + 12.0 + 12.0;
-  geometry12 = [v8 geometry];
-  [geometry12 setDisplayFrame:{v86, v90, v88, v92}];
+  v93 = objc_msgSend_geometry(v8);
+  [v93 setDisplayFrame:{v86, v90, v88, v92}];
 
   subtrees = [keyCopy subtrees];
   v95 = [subtrees count];
 
   v96 = (v73 + -24.0) / v95;
   v97 = fmin(v96, 24.0);
-  geometry13 = [v8 geometry];
-  v99 = [(UIKBRenderFactory_CarLinear *)self variantGeometriesForGeometry:geometry13 key:keyCopy maxWidthForVariant:v96 letterWidth:v97 highlightedWidth:24.0];
+  v98 = objc_msgSend_geometry(v8);
+  v99 = [(UIKBRenderFactory_CarLinear *)self variantGeometriesForGeometry:v98 key:keyCopy maxWidthForVariant:v96 letterWidth:v97 highlightedWidth:24.0];
   [v8 setVariantGeometries:v99];
 
   [(UIKBRenderFactory_CarLinear *)self letterLineFontSize];
@@ -400,37 +400,37 @@ LABEL_11:
   }
 
   lightTextFontName = [(UIKBRenderFactory_CarLinear *)self lightTextFontName];
-  geometry5 = [UIKBTextStyle styleWithFontName:lightTextFontName withFontSize:v101];
+  v48 = [UIKBTextStyle styleWithFontName:lightTextFontName withFontSize:v101];
 
   activeKeyColor = [(UIKBRenderFactory_CarLinear *)self activeKeyColor];
-  [geometry5 setTextColor:activeKeyColor];
+  [v48 setTextColor:activeKeyColor];
 
-  [geometry5 fontSize];
+  [v48 fontSize];
   if (v104 <= v96)
   {
-    [geometry5 fontSize];
+    [v48 fontSize];
     v96 = v105;
   }
 
-  [geometry5 setFontSize:v96];
-  v106 = [UIKBRenderTraits traitsWithSymbolStyle:geometry5];
+  [v48 setFontSize:v96];
+  v106 = [UIKBRenderTraits traitsWithSymbolStyle:v48];
   [v8 setVariantTraits:v106];
 
   [(UIKBRenderFactory_CarLinear *)self carKeyRadius];
   v108 = v107;
-  geometry14 = [v8 geometry];
-  [geometry14 setRoundRectRadius:v108];
+  v109 = objc_msgSend_geometry(v8);
+  [v109 setRoundRectRadius:v108];
 
   enabledKeyColor = [(UIKBRenderFactory_CarLinear *)self enabledKeyColor];
   v111 = [UIKBGradient gradientWithFlatColor:enabledKeyColor];
   [v8 setBackgroundGradient:v111];
 
   [(UIKBRenderFactory_CarLinear *)self activeLetterFontSize];
-  geometry6 = [UIKBTextStyle styleWithFontName:0 withFontSize:?];
+  v57 = [UIKBTextStyle styleWithFontName:0 withFontSize:?];
   highlightedKeyColor = [(UIKBRenderFactory_CarLinear *)self highlightedKeyColor];
-  [geometry6 setTextColor:highlightedKeyColor];
+  [v57 setTextColor:highlightedKeyColor];
 
-  v113 = [UIKBRenderTraits traitsWithSymbolStyle:geometry6];
+  v113 = [UIKBRenderTraits traitsWithSymbolStyle:v57];
   renderConfig = [(UIKBRenderFactory *)self renderConfig];
   lightKeyboard = [renderConfig lightKeyboard];
   v116 = UIKBColorBlack_Alpha50;
@@ -523,13 +523,13 @@ LABEL_14:
   v80.receiver = self;
   v80.super_class = UIKBRenderFactory_CarLinear;
   v10 = [(UIKBRenderFactory_Car *)&v80 _traitsForKey:keyCopy onKeyplane:keyplaneCopy];
-  geometry = [v10 geometry];
-  [geometry setRoundRectCorners:-1];
+  v11 = objc_msgSend_geometry(v10);
+  [v11 setRoundRectCorners:-1];
 
   [(UIKBRenderFactory_CarLinear *)self carKeyRadius];
   v13 = v12;
-  geometry2 = [v10 geometry];
-  [geometry2 setRoundRectRadius:v13];
+  v14 = objc_msgSend_geometry(v10);
+  [v14 setRoundRectRadius:v13];
 
   if (([keyCopy state] & 0xC) != 0)
   {
@@ -548,8 +548,8 @@ LABEL_14:
   {
     v17 = 5;
 LABEL_8:
-    geometry3 = [v10 geometry];
-    [geometry3 setRoundRectCorners:v17];
+    v18 = objc_msgSend_geometry(v10);
+    [v18 setRoundRectCorners:v17];
 
     goto LABEL_12;
   }
@@ -576,8 +576,8 @@ LABEL_12:
   v22 = [UIKBGradient gradientWithFlatColor:enabledKeyColor];
   [v10 setBackgroundGradient:v22];
 
-  geometry4 = [v10 geometry];
-  [geometry4 paddedFrame];
+  v23 = objc_msgSend_geometry(v10);
+  [v23 paddedFrame];
   v25 = v24;
   v27 = v26;
   v29 = v28;
@@ -586,8 +586,8 @@ LABEL_12:
   [(UIKBRenderFactory_CarLinear *)self carKeyRadius];
   v33 = v29 - v32;
   v34 = floor(v33 * 0.095);
-  geometry5 = [v10 geometry];
-  [geometry5 paddedFrame];
+  v35 = objc_msgSend_geometry(v10);
+  [v35 paddedFrame];
   MidX = CGRectGetMidX(v82);
   [keyplaneCopy frame];
   v37 = CGRectGetMidX(v83);

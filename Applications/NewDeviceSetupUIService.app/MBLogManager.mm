@@ -3,6 +3,7 @@
 - (MBLogManager)init;
 - (id)safeErrorFromError:(id)error;
 - (void)logFaultInFunction:(const char *)function atLine:(int)line withString:(id)string;
+- (void)logType:(int)type inFunction:(const char *)function atLine:(int)line withFormat:(id)format;
 - (void)logType:(int)type inFunction:(const char *)function atLine:(int)line withString:(id)string;
 @end
 
@@ -94,6 +95,16 @@ LABEL_7:
     uTF8String = [stringCopy UTF8String];
     _os_log_impl(&_mh_execute_header, connObj, OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
   }
+}
+
+- (void)logType:(int)type inFunction:(const char *)function atLine:(int)line withFormat:(id)format
+{
+  v6 = *&line;
+  v8 = *&type;
+  formatCopy = format;
+  v11 = [[NSString alloc] initWithFormat:formatCopy locale:0 arguments:&v12];
+
+  [(MBLogManager *)self logType:v8 inFunction:function atLine:v6 withString:v11];
 }
 
 - (id)safeErrorFromError:(id)error

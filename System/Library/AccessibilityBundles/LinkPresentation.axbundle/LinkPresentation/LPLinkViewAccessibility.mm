@@ -296,7 +296,7 @@ uint64_t __53__LPLinkViewAccessibility_accessibilityCustomActions__block_invoke_
 
 - (id)accessibilityLabel
 {
-  v87 = *MEMORY[0x29EDCA608];
+  v86 = *MEMORY[0x29EDCA608];
   v3 = [(LPLinkViewAccessibility *)self safeValueForKey:@"metadata"];
   v4 = [v3 safeValueForKey:@"video"];
   v5 = [(LPLinkViewAccessibility *)self safeValueForKeyPath:@"_properties.captionBar"];
@@ -310,27 +310,27 @@ uint64_t __53__LPLinkViewAccessibility_accessibilityCustomActions__block_invoke_
   }
 
   selfCopy = self;
-  v74 = v3;
-  v80 = [v5 safeValueForKey:@"top"];
-  v76 = [v80 safeValueForKey:@"leading"];
-  v7 = [v76 safeStringForKey:@"text"];
-  v75 = [v6 safeValueForKey:@"top"];
-  v8 = [v75 safeValueForKey:@"trailing"];
+  v73 = v3;
+  v79 = [v5 safeValueForKey:@"top"];
+  v75 = [v79 safeValueForKey:@"leading"];
+  v7 = [v75 safeStringForKey:@"text"];
+  v74 = [v6 safeValueForKey:@"top"];
+  v8 = [v74 safeValueForKey:@"trailing"];
   v9 = [v8 safeStringForKey:@"text"];
   [v6 safeValueForKey:@"bottom"];
-  v10 = v79 = v4;
+  v10 = v78 = v4;
   v11 = [v10 safeValueForKey:@"leading"];
   v12 = [v11 safeStringForKey:@"text"];
   v13 = v6;
   v14 = v12;
-  v73 = v13;
+  v72 = v13;
   v15 = [v13 safeValueForKey:@"bottom"];
   v16 = [v15 safeValueForKey:@"trailing"];
-  v72 = [v16 safeStringForKey:@"text"];
+  v71 = [v16 safeStringForKey:@"text"];
   v17 = __UIAXStringForVariables();
 
-  v4 = v79;
-  if (v79)
+  v4 = v78;
+  if (v78)
   {
     v18 = accessibilityLocalizedString(@"VideoStr");
   }
@@ -343,31 +343,31 @@ uint64_t __53__LPLinkViewAccessibility_accessibilityCustomActions__block_invoke_
   v21 = __AXStringForVariables();
 
   v22 = selfCopy;
-  if (v79)
+  if (v78)
   {
   }
 
-  v23 = [(LPLinkViewAccessibility *)selfCopy safeValueForKey:@"_properties", v17, @"__AXStringForVariablesSentinel", v72, @"__AXStringForVariablesSentinel"];
+  v23 = [(LPLinkViewAccessibility *)selfCopy safeValueForKey:@"_properties", v17, @"__AXStringForVariablesSentinel", v71, @"__AXStringForVariablesSentinel"];
   v24 = [v23 safeStringForKey:@"quotedText"];
 
   if ([v24 length])
   {
     v25 = MEMORY[0x29EDBA0F8];
     v26 = accessibilityLocalizedString(@"quoted.text");
-    v68 = [v25 stringWithFormat:v26, v24];
-    v70 = @"__AXStringForVariablesSentinel";
+    v67 = [v25 stringWithFormat:v26, v24];
+    v69 = @"__AXStringForVariablesSentinel";
     v27 = __UIAXStringForVariables();
 
     v21 = v27;
   }
 
-  [(LPLinkViewAccessibility *)selfCopy _axMediaViews:v68];
+  [(LPLinkViewAccessibility *)selfCopy _axMediaViews:v67];
+  v81 = 0u;
   v82 = 0u;
   v83 = 0u;
-  v84 = 0u;
-  v28 = v85 = 0u;
-  v29 = [v28 countByEnumeratingWithState:&v82 objects:v86 count:16];
-  v81 = v28;
+  v28 = v84 = 0u;
+  v29 = [v28 countByEnumeratingWithState:&v81 objects:v85 count:16];
+  v80 = v28;
   if (!v29)
   {
 LABEL_32:
@@ -377,20 +377,20 @@ LABEL_32:
   }
 
   v30 = v29;
-  v77 = v24;
+  v76 = v24;
   v31 = 0;
   v32 = 0;
-  v33 = *v83;
+  v33 = *v82;
   do
   {
     for (i = 0; i != v30; ++i)
     {
-      if (*v83 != v33)
+      if (*v82 != v33)
       {
         objc_enumerationMutation(v28);
       }
 
-      v35 = *(*(&v82 + 1) + 8 * i);
+      v35 = *(*(&v81 + 1) + 8 * i);
       NSClassFromString(&cfstr_Lpimageview.isa);
       if (objc_opt_isKindOfClass())
       {
@@ -401,14 +401,14 @@ LABEL_32:
           v38 = v31;
           v39 = MEMORY[0x29EDBA0F8];
           v40 = accessibilityLocalizedString(@"caption.image");
-          v69 = [v39 stringWithFormat:v40, accessibilityLabel];
-          v71 = @"__AXStringForVariablesSentinel";
+          v68 = [v39 stringWithFormat:v40, accessibilityLabel];
+          v70 = @"__AXStringForVariablesSentinel";
           v41 = __UIAXStringForVariables();
           v42 = v21;
           v21 = v41;
 
           v31 = v38;
-          v28 = v81;
+          v28 = v80;
         }
 
         ++v32;
@@ -428,11 +428,11 @@ LABEL_32:
           v43 = MEMORY[0x29EDBA0F8];
           accessibilityLocalizedString(@"caption.video");
           v45 = v44 = v31;
-          v69 = [v43 stringWithFormat:v45, accessibilityLabel2];
-          v71 = @"__AXStringForVariablesSentinel";
+          v68 = [v43 stringWithFormat:v45, accessibilityLabel2];
+          v70 = @"__AXStringForVariablesSentinel";
           v46 = __UIAXStringForVariables();
 
-          v28 = v81;
+          v28 = v80;
           v31 = v44;
           v21 = v46;
         }
@@ -441,7 +441,7 @@ LABEL_32:
       }
     }
 
-    v30 = [v28 countByEnumeratingWithState:&v82 objects:v86 count:16];
+    v30 = [v28 countByEnumeratingWithState:&v81 objects:v85 count:16];
   }
 
   while (v30);
@@ -451,24 +451,24 @@ LABEL_32:
     v47 = MEMORY[0x29EDBA0F8];
     accessibilityLocalizedString(@"images.count.description");
     v49 = v48 = v31;
-    v69 = [v47 localizedStringWithFormat:v49, v32];
-    v71 = @"__AXStringForVariablesSentinel";
+    v68 = [v47 localizedStringWithFormat:v49, v32];
+    v70 = @"__AXStringForVariablesSentinel";
     v50 = __UIAXStringForVariables();
 
     v31 = v48;
     v21 = v50;
   }
 
-  v4 = v79;
-  v24 = v77;
+  v4 = v78;
+  v24 = v76;
   v22 = selfCopy;
   if (v31 >= 1)
   {
     v51 = v31;
     v52 = MEMORY[0x29EDBA0F8];
     v28 = accessibilityLocalizedString(@"videos.count.description");
-    v69 = [v52 localizedStringWithFormat:v28, v51];
-    v71 = @"__AXStringForVariablesSentinel";
+    v68 = [v52 localizedStringWithFormat:v28, v51];
+    v70 = @"__AXStringForVariablesSentinel";
     v53 = __UIAXStringForVariables();
 
     v21 = v53;
@@ -477,7 +477,7 @@ LABEL_32:
 
   v54 = v21;
 LABEL_34:
-  v55 = [(LPLinkViewAccessibility *)v22 safeValueForKey:@"_components", v69, v71];
+  v55 = [(LPLinkViewAccessibility *)v22 safeValueForKey:@"_components", v68, v70];
   v56 = [v55 safeValueForKey:@"captionBar"];
   v57 = [v56 safeValueForKey:@"collaborationFooterView"];
 
@@ -497,11 +497,9 @@ LABEL_34:
 
   v20 = __UIAXStringForVariables();
 
-  v6 = v73;
-  v3 = v74;
+  v6 = v72;
+  v3 = v73;
 LABEL_35:
-
-  v66 = *MEMORY[0x29EDCA608];
 
   return v20;
 }

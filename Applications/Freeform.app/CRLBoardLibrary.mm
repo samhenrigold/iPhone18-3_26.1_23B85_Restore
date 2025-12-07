@@ -27,7 +27,7 @@
 
 - (void)highlightControllerHighlightsDidChange:(id)change highlights:(id)highlights
 {
-  type metadata accessor for CRLSharedHighlight();
+  type metadata accessor for CRLSharedHighlight(0);
   v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   changeCopy = change;
   selfCopy = self;
@@ -49,7 +49,7 @@
 
 - (void)updateStoreSnapshotForHierarchyNotification:(id)notification
 {
-  v4 = sub_1005B981C(&qword_1019FB750);
+  v4 = sub_1005B981C(&qword_1019FB750, &qword_10146F1B0);
   __chkstk_darwin(v4 - 8);
   v6 = &v19 - v5;
   v7 = type metadata accessor for Notification();

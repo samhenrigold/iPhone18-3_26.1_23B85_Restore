@@ -99,24 +99,30 @@ void __54__APEndpointManagerCarPlayDelegate_setCarPlayEnabled___block_invoke(uin
     __54__APEndpointManagerCarPlayDelegate_setCarPlayEnabled___block_invoke_cold_1();
   }
 
-  else if (*(a1 + 56) == 1)
+  else
   {
-    *(*(*(a1 + 32) + 8) + 24) = carManager_startDiscovery();
-    if (*(*(*(a1 + 32) + 8) + 24))
+    v2 = *(a1 + 56);
+    v3 = *(a1 + 48);
+    if (v2 == 1)
     {
-      __54__APEndpointManagerCarPlayDelegate_setCarPlayEnabled___block_invoke_cold_2();
+      *(*(*(a1 + 32) + 8) + 24) = carManager_startDiscovery(v3);
+      v4 = *(*(*(a1 + 32) + 8) + 24);
+      if (v4)
+      {
+        __54__APEndpointManagerCarPlayDelegate_setCarPlayEnabled___block_invoke_cold_2(v4);
+      }
+    }
+
+    else
+    {
+      carManager_stopDiscovery(v3);
     }
   }
 
-  else
-  {
-    carManager_stopDiscovery();
-  }
-
   APSPowerAssertionRelease();
-  v2 = *(a1 + 48);
+  v5 = *(a1 + 48);
 
-  CFRelease(v2);
+  CFRelease(v5);
 }
 
 @end

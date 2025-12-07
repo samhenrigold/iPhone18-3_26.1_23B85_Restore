@@ -1,10 +1,10 @@
 @interface WorkoutVoiceMuteAnalyticsEvent.AnalyticsKey:
-- (uint64_t)NSObject;
+- (double)NSObject;
 @end
 
 @implementation WorkoutVoiceMuteAnalyticsEvent.AnalyticsKey:
 
-- (uint64_t)NSObject
+- (double)NSObject
 {
   if (a3)
   {

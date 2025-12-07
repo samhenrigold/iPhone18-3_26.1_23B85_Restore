@@ -1,8 +1,10 @@
 @interface RERemoteTrainingContext
 - (RERemoteTrainingContext)initWithProcessName:(id)name;
+- (void)_queue_enqueueRemoteTrainingForElement:(id)element isPositiveEvent:(BOOL)event interaction:(id)interaction;
 - (void)_queue_performRemoteTraining;
 - (void)_queue_setRemoteAttribute:(id)attribute forKey:(id)key;
 - (void)setAttribute:(id)attribute forKey:(id)key;
+- (void)trainWithPredictionElement:(id)element isPositiveEvent:(BOOL)event interaction:(id)interaction;
 @end
 
 @implementation RERemoteTrainingContext
@@ -60,6 +62,19 @@
       [(RERemoteTrainingContext *)self _queue_setRemoteAttribute:attributeCopy forKey:keyCopy];
     }
   }
+}
+
+- (void)_queue_enqueueRemoteTrainingForElement:(id)element isPositiveEvent:(BOOL)event interaction:(id)interaction
+{
+  eventCopy = event;
+  trainingElements = self->_trainingElements;
+  interactionCopy = interaction;
+  [(NSMutableArray *)trainingElements addObject:element];
+  trainingEvents = self->_trainingEvents;
+  v10 = [MEMORY[0x277CCABB0] numberWithBool:eventCopy];
+  [(NSMutableArray *)trainingEvents addObject:v10];
+
+  [(NSMutableArray *)self->_trainingInteractions addObject:interactionCopy];
 }
 
 - (void)_queue_performRemoteTraining
@@ -127,6 +142,20 @@ void __60__RERemoteTrainingContext__queue_setRemoteAttribute_forKey___block_invo
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _didSetAttributeForRemoteTraining];
+}
+
+- (void)trainWithPredictionElement:(id)element isPositiveEvent:(BOOL)event interaction:(id)interaction
+{
+  eventCopy = event;
+  elementCopy = element;
+  interactionCopy = interaction;
+  if (elementCopy)
+  {
+    v9 = objc_autoreleasePoolPush();
+    [(RERemoteTrainingContext *)self _queue_enqueueRemoteTrainingForElement:elementCopy isPositiveEvent:eventCopy interaction:interactionCopy];
+    [(RERemoteTrainingContext *)self _queue_performRemoteTraining];
+    objc_autoreleasePoolPop(v9);
+  }
 }
 
 @end

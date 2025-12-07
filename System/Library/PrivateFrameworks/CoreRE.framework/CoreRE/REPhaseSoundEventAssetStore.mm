@@ -84,7 +84,7 @@ LABEL_19:
 
 - (void)removeEntriesForAssetID:(unint64_t)d fromEngine:(id)engine
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   engineCopy = engine;
   p_assetRefMaps = &self->_assetRefMaps;
   v8 = std::__hash_table<std::__hash_value_type<unsigned long long,PhaseShapeAndMesh>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,PhaseShapeAndMesh>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,PhaseShapeAndMesh>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,PhaseShapeAndMesh>>>::find<unsigned long long>(&self->_assetRefMaps.__table_.__bucket_list_.__ptr_, d);
@@ -100,16 +100,16 @@ LABEL_19:
     v12 = *re::audioLogObjects(v8);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(v22) = 134217984;
-      *(&v22 + 4) = d;
-      _os_log_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_DEFAULT, "[CoreRE] [REPhaseSoundEventAssetStore] Removing entries for assetID: %llu", &v22, 0xCu);
+      LODWORD(v23) = 134217984;
+      *(&v23 + 4) = d;
+      _os_log_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_DEFAULT, "[CoreRE] [REPhaseSoundEventAssetStore] Removing entries for assetID: %llu", &v23, 0xCu);
     }
 
     size = self->_assetRefMaps.__table_.__bucket_list_.__deleter_.__size_;
     ptr = v9->_assetRefMaps.__table_.__bucket_list_.__ptr_;
-    v15 = vcnt_s8(size);
-    v15.i16[0] = vaddlv_u8(v15);
-    if (v15.u32[0] > 1uLL)
+    v16 = vcnt_s8(size);
+    v16.i16[0] = vaddlv_u8(v16);
+    if (v16.u32[0] > 1uLL)
     {
       if (ptr >= size)
       {
@@ -125,31 +125,31 @@ LABEL_19:
     isa = p_assetRefMaps->__table_.__bucket_list_.__ptr_[ptr];
     do
     {
-      v17 = isa;
+      v18 = isa;
       isa = isa->super.isa;
     }
 
     while (isa != v9);
-    if (v17 == &self->_assetRefMaps.__table_.__first_node_)
+    if (v18 == &self->_assetRefMaps.__table_.__first_node_)
     {
       goto LABEL_23;
     }
 
-    v18 = v17->_assetRefMaps.__table_.__bucket_list_.__ptr_;
-    if (v15.u32[0] > 1uLL)
+    v19 = v18->_assetRefMaps.__table_.__bucket_list_.__ptr_;
+    if (v16.u32[0] > 1uLL)
     {
-      if (v18 >= size)
+      if (v19 >= size)
       {
-        v18 %= size;
+        v19 %= size;
       }
     }
 
     else
     {
-      v18 &= size - 1;
+      v19 &= size - 1;
     }
 
-    if (v18 != ptr)
+    if (v19 != ptr)
     {
 LABEL_23:
       if (!v9->super.isa)
@@ -157,59 +157,59 @@ LABEL_23:
         goto LABEL_24;
       }
 
-      v19 = *(v9->super.isa + 1);
-      if (v15.u32[0] > 1uLL)
+      v20 = *(v9->super.isa + 1);
+      if (v16.u32[0] > 1uLL)
       {
-        if (v19 >= size)
+        if (v20 >= size)
         {
-          v19 %= size;
+          v20 %= size;
         }
       }
 
       else
       {
-        v19 &= size - 1;
+        v20 &= size - 1;
       }
 
-      if (v19 != ptr)
+      if (v20 != ptr)
       {
 LABEL_24:
         p_assetRefMaps->__table_.__bucket_list_.__ptr_[ptr] = 0;
       }
     }
 
-    v20 = v9->super.isa;
+    v21 = v9->super.isa;
     if (v9->super.isa)
     {
-      v21 = *(v20 + 1);
-      if (v15.u32[0] > 1uLL)
+      v22 = *(v21 + 1);
+      if (v16.u32[0] > 1uLL)
       {
-        if (v21 >= size)
+        if (v22 >= size)
         {
-          v21 %= size;
+          v22 %= size;
         }
       }
 
       else
       {
-        v21 &= size - 1;
+        v22 &= size - 1;
       }
 
-      if (v21 != ptr)
+      if (v22 != ptr)
       {
-        p_assetRefMaps->__table_.__bucket_list_.__ptr_[v21] = v17;
-        v20 = v9->super.isa;
+        p_assetRefMaps->__table_.__bucket_list_.__ptr_[v22] = v18;
+        v21 = v9->super.isa;
       }
     }
 
-    v17->super.isa = v20;
+    v18->super.isa = v21;
     v9->super.isa = 0;
     --self->_assetRefMaps.__table_.__size_;
-    *&v22 = v9;
-    *(&v22 + 1) = &self->_assetRefMaps;
-    v23 = 1;
-    memset(v24, 0, sizeof(v24));
-    std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,std::unordered_map<NSString * {__strong},REPHASESoundEventAssetRef * {__strong},NSStringHash,NSStringEqual,std::allocator<std::pair<NSString * const {__strong},REPHASESoundEventAssetRef * {__strong}>>>>,void *>,std::__hash_node_destructor<std::allocator<void *>>>::~unique_ptr[abi:ne200100](&v22);
+    *&v23 = v9;
+    *(&v23 + 1) = &self->_assetRefMaps;
+    v24 = 1;
+    memset(v25, 0, sizeof(v25));
+    std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,std::unordered_map<NSString * {__strong},REPHASESoundEventAssetRef * {__strong},NSStringHash,NSStringEqual,std::allocator<std::pair<NSString * const {__strong},REPHASESoundEventAssetRef * {__strong}>>>>,void *>,std::__hash_node_destructor<std::allocator<void *>>>::~unique_ptr[abi:ne200100](&v23, v13);
   }
 }
 
@@ -269,13 +269,13 @@ LABEL_22:
 
     while (1)
     {
-      v22 = v21[1];
+      v22 = *(v21 + 1);
       if (v22 == d)
       {
-        if (v21[2] == d)
+        if (*(v21 + 2) == d)
         {
           *buf = &v24;
-          v16 = std::__hash_table<std::__hash_value_type<NSString * {__strong},REPHASESoundEventAssetRef * {__strong}>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},REPHASESoundEventAssetRef * {__strong}>,NSStringHash,NSStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},REPHASESoundEventAssetRef * {__strong}>,NSStringEqual,NSStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},REPHASESoundEventAssetRef * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>(v21 + 3, &v24);
+          v16 = std::__hash_table<std::__hash_value_type<NSString * {__strong},REPHASESoundEventAssetRef * {__strong}>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},REPHASESoundEventAssetRef * {__strong}>,NSStringHash,NSStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},REPHASESoundEventAssetRef * {__strong}>,NSStringEqual,NSStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},REPHASESoundEventAssetRef * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>(v21 + 6, &v24, buf);
           goto LABEL_23;
         }
       }
@@ -310,7 +310,7 @@ LABEL_22:
   }
 
   *buf = &v24;
-  v16 = std::__hash_table<std::__hash_value_type<NSString * {__strong},REPHASESoundEventAssetRef * {__strong}>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},REPHASESoundEventAssetRef * {__strong}>,NSStringHash,NSStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},REPHASESoundEventAssetRef * {__strong}>,NSStringEqual,NSStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},REPHASESoundEventAssetRef * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>(v14 + 3, &v24);
+  v16 = std::__hash_table<std::__hash_value_type<NSString * {__strong},REPHASESoundEventAssetRef * {__strong}>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},REPHASESoundEventAssetRef * {__strong}>,NSStringHash,NSStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},REPHASESoundEventAssetRef * {__strong}>,NSStringEqual,NSStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},REPHASESoundEventAssetRef * {__strong}>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>(v14 + 6, &v24, buf);
 LABEL_23:
   v23 = v16[3];
   v16[3] = v13;

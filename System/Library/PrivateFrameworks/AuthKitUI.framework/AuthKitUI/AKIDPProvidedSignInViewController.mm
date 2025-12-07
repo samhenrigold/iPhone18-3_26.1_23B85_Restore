@@ -115,23 +115,23 @@
 
 - (void)setupTitleView
 {
-  v37[2] = *MEMORY[0x277D85DE8];
+  v38[2] = *MEMORY[0x277D85DE8];
   currentDevice = [MEMORY[0x277D75418] currentDevice];
   userInterfaceIdiom = [currentDevice userInterfaceIdiom];
-  MEMORY[0x277D82BD8](currentDevice);
-  v35 = 1;
+  v2 = MEMORY[0x277D82BD8](currentDevice).n128_u64[0];
+  v36 = 1;
   if (userInterfaceIdiom != 1)
   {
-    v35 = userInterfaceIdiom == 5;
+    v36 = userInterfaceIdiom == 5;
   }
 
-  if (v35)
+  if (v36)
   {
     navigationController = [(AKIDPProvidedSignInViewController *)self navigationController];
     navigationBar = [navigationController navigationBar];
     [navigationBar setBackgroundImage:0 forBarMetrics:0];
     MEMORY[0x277D82BD8](navigationBar);
-    MEMORY[0x277D82BD8](navigationController);
+    v2 = MEMORY[0x277D82BD8](navigationController).n128_u64[0];
   }
 
   navigationController2 = [(AKIDPProvidedSignInViewController *)self navigationController];
@@ -139,71 +139,62 @@
   [navigationBar2 _setHidesShadow:0];
   MEMORY[0x277D82BD8](navigationBar2);
   MEMORY[0x277D82BD8](navigationController2);
-  v6 = objc_alloc(MEMORY[0x277D755E8]);
-  v5 = MEMORY[0x277D755B8];
-  v9 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.AuthKitUI"];
-  v8 = [v5 imageNamed:@"LockIcon" inBundle:?];
-  v7 = [v6 initWithImage:?];
+  v7 = objc_alloc(MEMORY[0x277D755E8]);
+  v6 = MEMORY[0x277D755B8];
+  v10 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.AuthKitUI"];
+  v9 = [v6 imageNamed:@"LockIcon" inBundle:?];
+  v8 = [v7 initWithImage:?];
   [(AKIDPProvidedSignInViewController *)self setSecureIconView:?];
-  MEMORY[0x277D82BD8](v7);
   MEMORY[0x277D82BD8](v8);
   MEMORY[0x277D82BD8](v9);
   secureIconView = [(AKIDPProvidedSignInViewController *)self secureIconView];
   [(UIImageView *)secureIconView setContentMode:4];
-  MEMORY[0x277D82BD8](secureIconView);
   systemGreenColor = [MEMORY[0x277D75348] systemGreenColor];
   secureIconView2 = [(AKIDPProvidedSignInViewController *)self secureIconView];
   [(UIImageView *)secureIconView2 setTintColor:systemGreenColor];
   MEMORY[0x277D82BD8](secureIconView2);
-  MEMORY[0x277D82BD8](systemGreenColor);
   secureIconView3 = [(AKIDPProvidedSignInViewController *)self secureIconView];
   [(UIImageView *)secureIconView3 setHidden:1];
-  MEMORY[0x277D82BD8](secureIconView3);
   secureIconView4 = [(AKIDPProvidedSignInViewController *)self secureIconView];
   [(UIImageView *)secureIconView4 setAlpha:0.0];
   MEMORY[0x277D82BD8](secureIconView4);
-  v2 = objc_alloc(MEMORY[0x277D756B8]);
-  v15 = [v2 initWithFrame:{*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)}];
+  v3 = objc_alloc(MEMORY[0x277D756B8]);
+  v16 = [v3 initWithFrame:{*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)}];
   [(AKIDPProvidedSignInViewController *)self setTitleLabel:?];
-  MEMORY[0x277D82BD8](v15);
   webView = [(AKIDPProvidedSignInViewController *)self webView];
   title = [(WKWebView *)webView title];
   titleLabel = [(AKIDPProvidedSignInViewController *)self titleLabel];
   [(UILabel *)titleLabel setText:title];
   MEMORY[0x277D82BD8](titleLabel);
   MEMORY[0x277D82BD8](title);
-  MEMORY[0x277D82BD8](webView);
-  v20 = [MEMORY[0x277D74300] _preferredFontForTextStyle:*MEMORY[0x277D76998] maximumContentSizeCategory:*MEMORY[0x277D76838]];
+  v21 = [MEMORY[0x277D74300] _preferredFontForTextStyle:*MEMORY[0x277D76998] maximumContentSizeCategory:{*MEMORY[0x277D76838], MEMORY[0x277D82BD8](webView).n128_f64[0]}];
   titleLabel2 = [(AKIDPProvidedSignInViewController *)self titleLabel];
-  [(UILabel *)titleLabel2 setFont:v20];
+  [(UILabel *)titleLabel2 setFont:v21];
   MEMORY[0x277D82BD8](titleLabel2);
-  MEMORY[0x277D82BD8](v20);
-  v21 = objc_alloc(MEMORY[0x277D75A68]);
+  MEMORY[0x277D82BD8](v21);
+  v22 = objc_alloc(MEMORY[0x277D75A68]);
   secureIconView5 = [(AKIDPProvidedSignInViewController *)self secureIconView];
-  v37[0] = secureIconView5;
+  v38[0] = secureIconView5;
   titleLabel3 = [(AKIDPProvidedSignInViewController *)self titleLabel];
-  v37[1] = titleLabel3;
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
-  v22 = [v21 initWithArrangedSubviews:?];
+  v38[1] = titleLabel3;
+  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
+  v23 = [v22 initWithArrangedSubviews:?];
   [(AKIDPProvidedSignInViewController *)self setTitleStackView:?];
-  MEMORY[0x277D82BD8](v22);
   MEMORY[0x277D82BD8](v23);
+  MEMORY[0x277D82BD8](v24);
   MEMORY[0x277D82BD8](titleLabel3);
-  MEMORY[0x277D82BD8](secureIconView5);
   titleStackView = [(AKIDPProvidedSignInViewController *)self titleStackView];
   [(UIStackView *)titleStackView setSpacing:6.0];
-  MEMORY[0x277D82BD8](titleStackView);
   titleStackView2 = [(AKIDPProvidedSignInViewController *)self titleStackView];
   navigationItem = [(AKIDPProvidedSignInViewController *)self navigationItem];
   [navigationItem setTitleView:titleStackView2];
   MEMORY[0x277D82BD8](navigationItem);
   MEMORY[0x277D82BD8](titleStackView2);
-  v30 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:1 target:self action:sel__cancelBarButtonPressed_];
+  v31 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:1 target:self action:sel__cancelBarButtonPressed_];
   navigationItem2 = [(AKIDPProvidedSignInViewController *)self navigationItem];
-  [navigationItem2 setLeftBarButtonItem:v30];
+  [navigationItem2 setLeftBarButtonItem:v31];
   MEMORY[0x277D82BD8](navigationItem2);
-  MEMORY[0x277D82BD8](v30);
-  *MEMORY[0x277D85DE8];
+  MEMORY[0x277D82BD8](v31);
 }
 
 - (void)_setNavigationTitle:(id)title
@@ -214,27 +205,27 @@
   objc_storeStrong(location, title);
   currentDevice = [MEMORY[0x277D75418] currentDevice];
   userInterfaceIdiom = [currentDevice userInterfaceIdiom];
-  MEMORY[0x277D82BD8](currentDevice);
-  v12 = userInterfaceIdiom;
-  v9 = 1;
+  *&v3 = MEMORY[0x277D82BD8](currentDevice).n128_u64[0];
+  v13 = userInterfaceIdiom;
+  v10 = 1;
   if (userInterfaceIdiom != 1)
   {
-    v9 = v12 == 5;
+    v10 = v13 == 5;
   }
 
-  if (v9)
+  if (v10)
   {
-    v5 = location[0];
+    v6 = location[0];
     titleLabel = [(AKIDPProvidedSignInViewController *)selfCopy titleLabel];
-    [(UILabel *)titleLabel setText:v5];
+    [(UILabel *)titleLabel setText:v6];
     MEMORY[0x277D82BD8](titleLabel);
   }
 
   else
   {
-    v3 = location[0];
+    v4 = location[0];
     navigationItem = [(AKIDPProvidedSignInViewController *)selfCopy navigationItem];
-    [navigationItem setPrompt:v3];
+    [navigationItem setPrompt:v4];
     MEMORY[0x277D82BD8](navigationItem);
   }
 
@@ -247,31 +238,31 @@
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, handler);
-  v16 = 0;
-  objc_storeStrong(&v16, view);
-  title = [v16 title];
+  v17 = 0;
+  objc_storeStrong(&v17, view);
+  title = [v17 title];
   titleLabel = [(AKIDPProvidedSignInViewController *)selfCopy titleLabel];
   [(UILabel *)titleLabel setText:title];
   MEMORY[0x277D82BD8](titleLabel);
-  MEMORY[0x277D82BD8](title);
-  v15 = [v16 hasOnlySecureContent] == 0;
+  *&v4 = MEMORY[0x277D82BD8](title).n128_u64[0];
+  v16 = [v17 hasOnlySecureContent] == 0;
   secureIconView = [(AKIDPProvidedSignInViewController *)selfCopy secureIconView];
-  [(UIImageView *)secureIconView setHidden:v15];
+  [(UIImageView *)secureIconView setHidden:v16];
   MEMORY[0x277D82BD8](secureIconView);
-  v8 = MEMORY[0x277D75D18];
-  v9 = MEMORY[0x277D85DD0];
-  v10 = 3221225472;
-  v11 = __78__AKIDPProvidedSignInViewController_IDPHandler_didFinishLoadingPageInWebView___block_invoke;
-  v12 = &unk_2784A5EC8;
-  v13 = MEMORY[0x277D82BE0](selfCopy);
-  v14 = v15;
-  [v8 animateWithDuration:0.3 animations:?];
-  objc_storeStrong(&v13, 0);
-  objc_storeStrong(&v16, 0);
+  v9 = MEMORY[0x277D75D18];
+  v10 = MEMORY[0x277D85DD0];
+  v11 = 3221225472;
+  v12 = __78__AKIDPProvidedSignInViewController_IDPHandler_didFinishLoadingPageInWebView___block_invoke;
+  v13 = &unk_2784A5EC8;
+  v14 = MEMORY[0x277D82BE0](selfCopy);
+  v15 = v16;
+  [v9 animateWithDuration:0.3 animations:?];
+  objc_storeStrong(&v14, 0);
+  objc_storeStrong(&v17, 0);
   objc_storeStrong(location, 0);
 }
 
-uint64_t __78__AKIDPProvidedSignInViewController_IDPHandler_didFinishLoadingPageInWebView___block_invoke(uint64_t a1)
+double __78__AKIDPProvidedSignInViewController_IDPHandler_didFinishLoadingPageInWebView___block_invoke(uint64_t a1)
 {
   v1 = 0.0;
   if ((*(a1 + 40) & 1) == 0)
@@ -282,7 +273,8 @@ uint64_t __78__AKIDPProvidedSignInViewController_IDPHandler_didFinishLoadingPage
   v3 = v1;
   v4 = [*(a1 + 32) secureIconView];
   [v4 setAlpha:v3];
-  return MEMORY[0x277D82BD8](v4);
+  *&result = MEMORY[0x277D82BD8](v4).n128_u64[0];
+  return result;
 }
 
 - (void)IDPHandler:(id)handler didStartLoadingPageInWebView:(id)view

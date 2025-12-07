@@ -37,11 +37,11 @@
 
 - (SRUIFPreferences)initWithDefaultsAtURL:(id)l
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   lCopy = l;
-  v18.receiver = self;
-  v18.super_class = SRUIFPreferences;
-  v5 = [(SRUIFPreferences *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = SRUIFPreferences;
+  v5 = [(SRUIFPreferences *)&v17 init];
   if (v5)
   {
     v6 = objc_alloc_init(MEMORY[0x277CBEBD0]);
@@ -50,14 +50,14 @@
 
     if (lCopy)
     {
-      v17 = 0;
-      v8 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:lCopy options:0 error:&v17];
-      v9 = v17;
+      v16 = 0;
+      v8 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:lCopy options:0 error:&v16];
+      v9 = v16;
       if (v8)
       {
-        v16 = 0;
-        v10 = [MEMORY[0x277CCAC58] propertyListWithData:v8 options:0 format:0 error:&v16];
-        v11 = v16;
+        v15 = 0;
+        v10 = [MEMORY[0x277CCAC58] propertyListWithData:v8 options:0 format:0 error:&v15];
+        v11 = v15;
 
         if (v10)
         {
@@ -70,13 +70,13 @@
           if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
           {
             *buf = 136315906;
-            v20 = "[SRUIFPreferences initWithDefaultsAtURL:]";
-            v21 = 2114;
-            v22 = v5;
-            v23 = 2114;
-            v24 = lCopy;
-            v25 = 2114;
-            v26 = v11;
+            v19 = "[SRUIFPreferences initWithDefaultsAtURL:]";
+            v20 = 2114;
+            v21 = v5;
+            v22 = 2114;
+            v23 = lCopy;
+            v24 = 2114;
+            v25 = v11;
             _os_log_error_impl(&dword_26951F000, v13, OS_LOG_TYPE_ERROR, "%s %{public}@ unable to parse defaults property list at %{public}@: %{public}@", buf, 0x2Au);
           }
         }
@@ -90,20 +90,19 @@
         if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
         {
           *buf = 136315906;
-          v20 = "[SRUIFPreferences initWithDefaultsAtURL:]";
-          v21 = 2114;
-          v22 = v5;
-          v23 = 2114;
-          v24 = lCopy;
-          v25 = 2114;
-          v26 = v9;
+          v19 = "[SRUIFPreferences initWithDefaultsAtURL:]";
+          v20 = 2114;
+          v21 = v5;
+          v22 = 2114;
+          v23 = lCopy;
+          v24 = 2114;
+          v25 = v9;
           _os_log_error_impl(&dword_26951F000, v12, OS_LOG_TYPE_ERROR, "%s %{public}@ unable to read defaults from %{public}@: %{public}@", buf, 0x2Au);
         }
       }
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

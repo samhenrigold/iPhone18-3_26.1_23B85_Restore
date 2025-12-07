@@ -1,14 +1,53 @@
 @interface RWIProtocolRuntimeExecutionContextDescription
 - (NSString)frameId;
 - (NSString)name;
+- (RWIProtocolRuntimeExecutionContextDescription)initWithIdentifier:(int)identifier type:(int64_t)type name:(id)name frameId:(id)id;
 - (int)identifier;
 - (int64_t)type;
 - (void)setFrameId:(id)id;
+- (void)setIdentifier:(int)identifier;
 - (void)setName:(id)name;
 - (void)setType:(int64_t)type;
 @end
 
 @implementation RWIProtocolRuntimeExecutionContextDescription
+
+- (RWIProtocolRuntimeExecutionContextDescription)initWithIdentifier:(int)identifier type:(int64_t)type name:(id)name frameId:(id)id
+{
+  v8 = *&identifier;
+  nameCopy = name;
+  idCopy = id;
+  v15.receiver = self;
+  v15.super_class = RWIProtocolRuntimeExecutionContextDescription;
+  v12 = [(RWIProtocolJSONObject *)&v15 init];
+  if (v12)
+  {
+    if (!nameCopy)
+    {
+      [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:{@"required property '%@' cannot be nil", @"name"}];
+    }
+
+    if (!idCopy)
+    {
+      [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:{@"required property '%@' cannot be nil", @"frameId"}];
+    }
+
+    [(RWIProtocolRuntimeExecutionContextDescription *)v12 setIdentifier:v8];
+    [(RWIProtocolRuntimeExecutionContextDescription *)v12 setType:type];
+    [(RWIProtocolRuntimeExecutionContextDescription *)v12 setName:nameCopy];
+    [(RWIProtocolRuntimeExecutionContextDescription *)v12 setFrameId:idCopy];
+    v13 = v12;
+  }
+
+  return v12;
+}
+
+- (void)setIdentifier:(int)identifier
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolRuntimeExecutionContextDescription;
+  [(RWIProtocolJSONObject *)&v3 setInteger:*&identifier forKey:@"id"];
+}
 
 - (int)identifier
 {

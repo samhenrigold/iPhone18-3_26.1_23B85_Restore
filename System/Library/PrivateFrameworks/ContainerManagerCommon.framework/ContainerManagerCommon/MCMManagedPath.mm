@@ -1,18 +1,11 @@
 @interface MCMManagedPath
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToManagedPath:(id)path;
-- (MCMFSNode)fsNode;
 - (MCMManagedPath)initWithURL:(id)l flags:(unint64_t)flags ACLConfig:(unint64_t)config mode:(unsigned __int16)mode dpClass:(int)class owner:(id)owner parent:(id)parent;
-- (MCMManagedPath)parent;
-- (MCMPOSIXUser)owner;
 - (NSString)description;
-- (NSURL)url;
 - (id)copyWithZone:(_NSZone *)zone;
-- (int)dpClass;
-- (unint64_t)ACLConfig;
-- (unint64_t)flags;
+- (id)managedPathByAppendingPathComponent:(id)component flags:(unint64_t)flags ACLConfig:(unint64_t)config mode:(unsigned __int16)mode dpClass:(int)class owner:(id)owner;
 - (unint64_t)hash;
-- (unsigned)mode;
 - (void)setFsNode:(id)node;
 @end
 
@@ -20,154 +13,83 @@
 
 - (void)setFsNode:(id)node
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = *MEMORY[0x1E69E9840];
   p_fsNode = &self->_fsNode;
 
   objc_storeStrong(p_fsNode, node);
 }
 
-- (MCMFSNode)fsNode
-{
-  result = self->_fsNode;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (MCMManagedPath)parent
-{
-  result = self->_parent;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (MCMPOSIXUser)owner
-{
-  result = self->_owner;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (int)dpClass
-{
-  result = self->_dpClass;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (unsigned)mode
-{
-  result = self->_mode;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (unint64_t)ACLConfig
-{
-  result = self->_ACLConfig;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (unint64_t)flags
-{
-  result = self->_flags;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (NSURL)url
-{
-  result = self->_url;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (NSString)description
 {
-  v7[5] = *MEMORY[0x1E69E9840];
+  v6[5] = *MEMORY[0x1E69E9840];
   v3 = [MCMLazyDescription alloc];
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __29__MCMManagedPath_description__block_invoke;
-  v7[3] = &unk_1E86B1128;
-  v7[4] = self;
-  v4 = [(MCMLazyDescription *)v3 initWithDescriber:v7];
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __29__MCMManagedPath_description__block_invoke;
+  v6[3] = &unk_1E86B1128;
+  v6[4] = self;
+  v4 = [(MCMLazyDescription *)v3 initWithDescriber:v6];
 
   return v4;
 }
 
-id __29__MCMManagedPath_description__block_invoke(uint64_t a1, int a2)
+id __29__MCMManagedPath_description__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v2 = a2;
   v4 = MEMORY[0x1E696AEC0];
-  v5 = *(a1 + 32);
-  v6 = objc_opt_class();
-  v35 = NSStringFromClass(v6);
-  v7 = *(a1 + 32);
-  v8 = [v7 flags];
-  v34 = [*(a1 + 32) ACLConfig];
-  v33 = [*(a1 + 32) mode];
-  v9 = [*(a1 + 32) dpClass];
-  v10 = [*(a1 + 32) owner];
-  v11 = v10;
-  v12 = v10;
-  if (a2)
+  v5 = objc_opt_class();
+  v33 = NSStringFromClass(v5);
+  v6 = *(a1 + 32);
+  v7 = [v6 flags];
+  v32 = [*(a1 + 32) ACLConfig];
+  v31 = [*(a1 + 32) mode];
+  v8 = [*(a1 + 32) dpClass];
+  v9 = [*(a1 + 32) owner];
+  v10 = v9;
+  v11 = v9;
+  if (v2)
   {
-    v12 = [v10 redactedDescription];
+    v11 = [v9 redactedDescription];
   }
 
-  v13 = [*(a1 + 32) parent];
-  v14 = [*(a1 + 32) fsNode];
-  v15 = v14;
-  if (a2)
+  v12 = [*(a1 + 32) parent];
+  v13 = [*(a1 + 32) fsNode];
+  v14 = v13;
+  if (v2)
   {
-    v16 = [v14 redactedDescription];
-    v17 = [*(a1 + 32) url];
-    [v17 path];
-    v32 = v11;
-    v19 = v18 = v4;
-    v20 = [v19 redactedDescription];
-    v21 = v8;
-    v22 = v20;
-    v31 = v20;
-    v29 = v7;
-    v23 = v35;
-    v24 = v18;
-    v11 = v32;
-    v25 = [v24 stringWithFormat:@"<%@: %p flags = 0x%lx, ACLConfig = 0x%lx, mode = 0%o, dpClass = %d, owner = %@, parent = %p, fsNode = %@, url = [%@]>", v35, v29, v21, v34, v33, v9, v12, v13, v16, v31];;
+    v15 = [v13 redactedDescription];
+    v16 = [*(a1 + 32) url];
+    [v16 path];
+    v30 = v10;
+    v18 = v17 = v4;
+    v19 = [v18 redactedDescription];
+    v20 = v7;
+    v21 = v19;
+    v29 = v19;
+    v27 = v6;
+    v22 = v33;
+    v23 = v17;
+    v10 = v30;
+    v24 = [v23 stringWithFormat:@"<%@: %p flags = 0x%lx, ACLConfig = 0x%lx, mode = 0%o, dpClass = %d, owner = %@, parent = %p, fsNode = %@, url = [%@]>", v33, v27, v20, v32, v31, v8, v11, v12, v15, v29];;
 
-    v26 = v15;
-    v15 = v13;
-    v13 = v12;
+    v25 = v14;
+    v14 = v12;
+    v12 = v11;
   }
 
   else
   {
-    v26 = [*(a1 + 32) url];
-    v16 = [v26 path];
-    v30 = v7;
-    v23 = v35;
-    v25 = [v4 stringWithFormat:@"<%@: %p flags = 0x%lx, ACLConfig = 0x%lx, mode = 0%o, dpClass = %d, owner = %@, parent = %p, fsNode = %@, url = [%@]>", v35, v30, v8, v34, v33, v9, v12, v13, v15, v16];;
+    v25 = [*(a1 + 32) url];
+    v15 = [v25 path];
+    v28 = v6;
+    v22 = v33;
+    v24 = [v4 stringWithFormat:@"<%@: %p flags = 0x%lx, ACLConfig = 0x%lx, mode = 0%o, dpClass = %d, owner = %@, parent = %p, fsNode = %@, url = [%@]>", v33, v28, v7, v32, v31, v8, v11, v12, v14, v15];;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
-
-  return v25;
+  return v24;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v14 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   if (v5)
   {
@@ -189,13 +111,11 @@ id __29__MCMManagedPath_description__block_invoke(uint64_t a1, int a2)
     *(v5 + 56) = v10;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (BOOL)isEqual:(id)equal
 {
-  v8 = *MEMORY[0x1E69E9840];
   equalCopy = equal;
   v5 = self == equalCopy;
   if (equalCopy)
@@ -207,38 +127,47 @@ id __29__MCMManagedPath_description__block_invoke(uint64_t a1, int a2)
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (BOOL)isEqualToManagedPath:(id)path
 {
-  v7 = *MEMORY[0x1E69E9840];
   url = self->_url;
   v4 = *(path + 2);
-  v5 = *MEMORY[0x1E69E9840];
 
   return [(NSURL *)url isEqual:v4];
 }
 
 - (unint64_t)hash
 {
-  v5 = *MEMORY[0x1E69E9840];
   url = self->_url;
-  v3 = *MEMORY[0x1E69E9840];
 
   return [(NSURL *)url hash];
 }
 
+- (id)managedPathByAppendingPathComponent:(id)component flags:(unint64_t)flags ACLConfig:(unint64_t)config mode:(unsigned __int16)mode dpClass:(int)class owner:(id)owner
+{
+  v8 = *&class;
+  modeCopy = mode;
+  ownerCopy = owner;
+  componentCopy = component;
+  v16 = [(MCMManagedPath *)self url];
+  v17 = [v16 URLByAppendingPathComponent:componentCopy isDirectory:1];
+
+  v18 = [objc_alloc(objc_opt_class()) initWithURL:v17 flags:flags ACLConfig:config mode:modeCopy dpClass:v8 owner:ownerCopy parent:self];
+
+  return v18;
+}
+
 - (MCMManagedPath)initWithURL:(id)l flags:(unint64_t)flags ACLConfig:(unint64_t)config mode:(unsigned __int16)mode dpClass:(int)class owner:(id)owner parent:(id)parent
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   lCopy = l;
   ownerCopy = owner;
   parentCopy = parent;
-  v24.receiver = self;
-  v24.super_class = MCMManagedPath;
-  v18 = [(MCMManagedPath *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = MCMManagedPath;
+  v18 = [(MCMManagedPath *)&v23 init];
   v19 = v18;
   if (v18)
   {
@@ -253,7 +182,6 @@ id __29__MCMManagedPath_description__block_invoke(uint64_t a1, int a2)
     v19->_fsNode = 0;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v19;
 }
 

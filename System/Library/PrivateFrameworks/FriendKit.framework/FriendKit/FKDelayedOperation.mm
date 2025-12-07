@@ -40,13 +40,13 @@
   return v11;
 }
 
-uint64_t __48__FKDelayedOperation_initWithQueue_delay_block___block_invoke(uint64_t result)
+void *__48__FKDelayedOperation_initWithQueue_delay_block___block_invoke(void *result)
 {
   v1 = 1;
-  atomic_compare_exchange_strong_explicit((*(result + 32) + 24), &v1, 0, memory_order_relaxed, memory_order_relaxed);
+  atomic_compare_exchange_strong_explicit((*(result + 4) + 24), &v1, 0, memory_order_relaxed, memory_order_relaxed);
   if (v1 == 1)
   {
-    return [*(result + 32) _queue_executeBlock];
+    return [*(result + 4) _queue_executeBlock];
   }
 
   return result;

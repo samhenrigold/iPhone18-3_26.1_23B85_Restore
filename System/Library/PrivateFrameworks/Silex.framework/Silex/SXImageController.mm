@@ -98,13 +98,13 @@
     _os_log_impl(&dword_1D825C000, v9, OS_LOG_TYPE_DEFAULT, "Will determine optimal image resources, viewportSize=(%.0f, %.0f), screenScale=%0.1f, extendedColor=%{public}@", v22, 0x2Au);
   }
 
-  documentController = [(SXImageController *)self documentController];
-  document = [documentController document];
+  v15 = [(SXImageController *)self documentController:*v22];
+  document = [v15 document];
   components = [document components];
   [(SXImageController *)self determineOptimalImagesForComponents:components];
 
-  documentController2 = [(SXImageController *)self documentController];
-  document2 = [documentController2 document];
+  documentController = [(SXImageController *)self documentController];
+  document2 = [documentController document];
   componentStyles = [document2 componentStyles];
   allObjects = [componentStyles allObjects];
   [(SXImageController *)self determineOptimalImagesForComponentStyles:allObjects];

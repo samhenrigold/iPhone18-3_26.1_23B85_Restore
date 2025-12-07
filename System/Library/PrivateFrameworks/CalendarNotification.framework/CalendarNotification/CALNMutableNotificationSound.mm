@@ -7,9 +7,7 @@
 
 - (void)setAlertTopic:(id)topic
 {
-  v4 = [topic copy];
-  alertTopic = self->super._alertTopic;
-  self->super._alertTopic = v4;
+  self->super._alertTopic = [topic copy];
 
   MEMORY[0x2821F96F8]();
 }

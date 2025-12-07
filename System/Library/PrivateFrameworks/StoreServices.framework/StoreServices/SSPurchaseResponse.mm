@@ -339,42 +339,42 @@ void __39__SSPurchaseResponse_downloadsMetadata__block_invoke(uint64_t a1, void 
   v5 = encodingCopy;
   if (encodingCopy && MEMORY[0x1DA6E0380](encodingCopy) == MEMORY[0x1E69E9E80])
   {
-    v24.receiver = self;
-    v24.super_class = SSPurchaseResponse;
-    v6 = [(SSPurchaseResponse *)&v24 init];
+    v26.receiver = self;
+    v26.super_class = SSPurchaseResponse;
+    v6 = [(SSPurchaseResponse *)&v26 init];
     if (v6)
     {
       v6->_cancelsPurchaseBatch = xpc_dictionary_get_BOOL(v5, "0");
-      objc_opt_class();
-      v8 = SSXPCDictionaryCopyCFObjectWithClass(v5, "4");
+      v8 = objc_opt_class();
+      v9 = SSXPCDictionaryCopyCFObjectWithClass(v5, "4", v8);
       downloadIdentifiers = v6->_downloadIdentifiers;
-      v6->_downloadIdentifiers = v8;
+      v6->_downloadIdentifiers = v9;
 
-      v10 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v11 = xpc_dictionary_get_value(v5, "1");
-      v12 = [v10 initWithXPCEncoding:v11];
+      v11 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v12 = xpc_dictionary_get_value(v5, "1");
+      v13 = [v11 initWithXPCEncoding:v12];
       error = v6->_error;
-      v6->_error = v12;
+      v6->_error = v13;
 
-      v14 = [SSPurchase alloc];
-      v15 = xpc_dictionary_get_value(v5, "2");
-      v16 = [(SSPurchase *)v14 initWithXPCEncoding:v15];
+      v15 = [SSPurchase alloc];
+      v16 = xpc_dictionary_get_value(v5, "2");
+      v17 = [(SSPurchase *)v15 initWithXPCEncoding:v16];
       purchase = v6->_purchase;
-      v6->_purchase = v16;
+      v6->_purchase = v17;
 
       v6->_requestStartTime = xpc_dictionary_get_double(v5, "5");
-      v18 = [SSURLConnectionResponse alloc];
-      v19 = xpc_dictionary_get_value(v5, "3");
-      v20 = [(SSURLConnectionResponse *)v18 initWithXPCEncoding:v19];
+      v19 = [SSURLConnectionResponse alloc];
+      v20 = xpc_dictionary_get_value(v5, "3");
+      v21 = [(SSURLConnectionResponse *)v19 initWithXPCEncoding:v20];
       response = v6->_response;
-      v6->_response = v20;
+      v6->_response = v21;
 
       v6->_responseEndTime = xpc_dictionary_get_double(v5, "6");
       v6->_responseStartTime = xpc_dictionary_get_double(v5, "7");
-      objc_opt_class();
-      v22 = SSXPCDictionaryCopyCFObjectWithClass(v5, "8");
+      v23 = objc_opt_class();
+      v24 = SSXPCDictionaryCopyCFObjectWithClass(v5, "8", v23);
       tidHeaders = v6->_tidHeaders;
-      v6->_tidHeaders = v22;
+      v6->_tidHeaders = v24;
     }
   }
 

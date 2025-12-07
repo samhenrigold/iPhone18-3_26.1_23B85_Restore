@@ -1,9 +1,11 @@
 @interface PBControllerAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
+- (id)_addTilesForPhotos:(id)photos animated:(BOOL)animated;
 - (id)_reviewModeFooter;
 - (void)_accessibilityApplyLabels:(id)labels;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_reloadTiles;
+- (void)setCurrentMode:(int)mode animated:(BOOL)animated;
 - (void)toggleCamera:(id)camera;
 @end
 
@@ -34,6 +36,16 @@
   [v3 setAccessibilityHint:v5];
 }
 
+- (id)_addTilesForPhotos:(id)photos animated:(BOOL)animated
+{
+  v6.receiver = self;
+  v6.super_class = PBControllerAccessibility;
+  v4 = [(PBControllerAccessibility *)&v6 _addTilesForPhotos:photos animated:animated];
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], 0);
+
+  return v4;
+}
+
 - (void)_reloadTiles
 {
   v2.receiver = self;
@@ -44,27 +56,27 @@
 
 - (void)_accessibilityApplyLabels:(id)labels
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   items = [labels items];
-  v4 = [items countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [items countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(items);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         v9 = [v8 tag] - 1;
         if (v9 <= 5 && ((0x2Fu >> v9) & 1) != 0)
         {
@@ -73,13 +85,11 @@
         }
       }
 
-      v5 = [items countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [items countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 - (id)_reviewModeFooter
@@ -99,6 +109,14 @@
   }
 
   return _reviewModeFooter;
+}
+
+- (void)setCurrentMode:(int)mode animated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = PBControllerAccessibility;
+  [(PBControllerAccessibility *)&v4 setCurrentMode:*&mode animated:animated];
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], 0);
 }
 
 - (void)toggleCamera:(id)camera

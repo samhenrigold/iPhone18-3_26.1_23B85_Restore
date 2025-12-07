@@ -81,7 +81,7 @@
               v29 = [layoutState elementWithRole:?];
               v30 = [v8 bs_map:&__block_literal_global_10_1];
               uniqueIdentifier2 = [v28 uniqueIdentifier];
-              v32 = [v30 containsObject:uniqueIdentifier2];
+              v32 = objc_msgSend_containsObject_(v30);
 
               if (v32)
               {
@@ -95,11 +95,11 @@
               v41 = ;
               [v15 setEntity:v41 forLayoutRole:1];
 
-              if (v29 && ([v29 uniqueIdentifier], v42 = objc_claimAutoreleasedReturnValue(), v43 = objc_msgSend(v30, "containsObject:", v42), v42, (v43 & 1) == 0))
+              if (v29 && ([v29 uniqueIdentifier], v42 = objc_claimAutoreleasedReturnValue(), v43 = objc_msgSend_containsObject_(v30), v42, (v43 & 1) == 0))
               {
                 workspaceEntity = [v29 workspaceEntity];
                 uniqueIdentifier3 = [v28 uniqueIdentifier];
-                v46 = [v30 containsObject:uniqueIdentifier3];
+                v46 = objc_msgSend_containsObject_(v30);
 
                 if (v46)
                 {
@@ -301,7 +301,7 @@ void __94__SBMainWorkspaceLayoutStateContingencyPlan_transitionContextForLayoutC
       v5 = *(a1 + 40);
       v9 = v4;
       v6 = [v4 uniqueIdentifier];
-      LOBYTE(v5) = [v5 containsObject:v6];
+      LOBYTE(v5) = objc_msgSend_containsObject_(v5);
 
       v4 = v9;
       if ((v5 & 1) == 0)

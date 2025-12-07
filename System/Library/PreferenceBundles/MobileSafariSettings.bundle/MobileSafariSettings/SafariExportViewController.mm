@@ -93,32 +93,33 @@ void __53__SafariExportViewController_initWithExportLocation___block_invoke(uint
 void __49__SafariExportViewController__exportButtonTapped__block_invoke(uint64_t a1, char a2, uint64_t a3, void *a4)
 {
   v6 = a4;
+  v8 = v6;
   if (a2)
   {
-    v7 = [*(a1 + 32) view];
-    [v7 setUserInteractionEnabled:0];
+    v9 = [*(a1 + 32) view];
+    [v9 setUserInteractionEnabled:0];
 
-    v8 = [*(a1 + 32) button];
-    v9 = _WBSLocalizedString();
-    [v8 showInProgressWithText:v9];
+    v10 = [*(a1 + 32) button];
+    v11 = _WBSLocalizedString();
+    [v10 showInProgressWithText:v11];
 
-    v10 = *(a1 + 32);
-    v11 = v10[23];
-    v12 = [v10 temporaryExportZipArchiveURL];
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = __49__SafariExportViewController__exportButtonTapped__block_invoke_27;
-    v14[3] = &unk_898E8;
-    v14[4] = *(a1 + 32);
-    [v11 exportToZipArchiveAtURL:v12 completionHandler:v14];
+    v12 = *(a1 + 32);
+    v13 = v12[23];
+    v14 = [v12 temporaryExportZipArchiveURL];
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = __49__SafariExportViewController__exportButtonTapped__block_invoke_27;
+    v16[3] = &unk_898E8;
+    v16[4] = *(a1 + 32);
+    [v13 exportToZipArchiveAtURL:v14 completionHandler:v16];
   }
 
   else
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXExport();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = WBS_LOG_CHANNEL_PREFIXExport(v6, v7);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      __49__SafariExportViewController__exportButtonTapped__block_invoke_cold_1(v13, v6);
+      __49__SafariExportViewController__exportButtonTapped__block_invoke_cold_1(v15, v8);
     }
   }
 }
@@ -126,37 +127,38 @@ void __49__SafariExportViewController__exportButtonTapped__block_invoke(uint64_t
 void __49__SafariExportViewController__exportButtonTapped__block_invoke_27(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXExport();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXExport(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __49__SafariExportViewController__exportButtonTapped__block_invoke_27_cold_1(v4, v3);
+      __49__SafariExportViewController__exportButtonTapped__block_invoke_27_cold_1(v6, v5);
     }
 
-    v5 = [*(a1 + 32) navigationController];
-    v6 = [v5 presentingViewController];
+    v7 = [*(a1 + 32) navigationController];
+    v8 = [v7 presentingViewController];
 
-    v7 = *(a1 + 32);
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = __49__SafariExportViewController__exportButtonTapped__block_invoke_28;
-    v11[3] = &unk_896A0;
-    v11[4] = v7;
-    v12 = v6;
-    v8 = v6;
-    [v7 dismissViewControllerAnimated:1 completion:v11];
+    v9 = *(a1 + 32);
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = __49__SafariExportViewController__exportButtonTapped__block_invoke_28;
+    v13[3] = &unk_896A0;
+    v13[4] = v9;
+    v14 = v8;
+    v10 = v8;
+    [v9 dismissViewControllerAnimated:1 completion:v13];
   }
 
   else
   {
-    v9 = *(a1 + 32);
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = __49__SafariExportViewController__exportButtonTapped__block_invoke_2;
-    v10[3] = &unk_898C0;
-    v10[4] = v9;
-    [v9 _moveTemporaryExportZipArchiveToDownloadsWithCompletionHandler:v10];
+    v11 = *(a1 + 32);
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = __49__SafariExportViewController__exportButtonTapped__block_invoke_2;
+    v12[3] = &unk_898C0;
+    v12[4] = v11;
+    [v11 _moveTemporaryExportZipArchiveToDownloadsWithCompletionHandler:v12];
   }
 }
 
@@ -164,30 +166,30 @@ void __49__SafariExportViewController__exportButtonTapped__block_invoke_2(uint64
 {
   v5 = a2;
   v6 = a3;
-  v7 = v6;
+  v8 = v6;
   if (!v5 || v6)
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXExport();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = WBS_LOG_CHANNEL_PREFIXExport(v6, v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      __49__SafariExportViewController__exportButtonTapped__block_invoke_2_cold_1(v10, v7);
+      __49__SafariExportViewController__exportButtonTapped__block_invoke_2_cold_1(v11, v8);
     }
 
-    v11 = [UIDocumentPickerViewController alloc];
-    v12 = [*(a1 + 32) temporaryExportZipArchiveURL];
-    v14 = v12;
-    v13 = [NSArray arrayWithObjects:&v14 count:1];
-    v8 = [v11 initForExportingURLs:v13 asCopy:1];
+    v12 = [UIDocumentPickerViewController alloc];
+    v13 = [*(a1 + 32) temporaryExportZipArchiveURL];
+    v15 = v13;
+    v14 = [NSArray arrayWithObjects:&v15 count:1];
+    v9 = [v12 initForExportingURLs:v14 asCopy:1];
 
-    [(SafariExportSuccessViewController *)v8 setDelegate:*(a1 + 32)];
-    [*(a1 + 32) presentViewController:v8 animated:1 completion:0];
+    [(SafariExportSuccessViewController *)v9 setDelegate:*(a1 + 32)];
+    [*(a1 + 32) presentViewController:v9 animated:1 completion:0];
   }
 
   else
   {
-    v8 = [[SafariExportSuccessViewController alloc] initWithExportURL:v5 exportLocation:*(*(a1 + 32) + 216)];
-    v9 = [*(a1 + 32) navigationController];
-    [v9 pushViewController:v8 animated:1];
+    v9 = [[SafariExportSuccessViewController alloc] initWithExportURL:v5 exportLocation:*(*(a1 + 32) + 216)];
+    v10 = [*(a1 + 32) navigationController];
+    [v10 pushViewController:v9 animated:1];
   }
 }
 
@@ -572,21 +574,27 @@ void __49__SafariExportViewController__exportButtonTapped__block_invoke_cold_1(v
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0(&dword_0, v5, v6, "Failed to authenticate to export browsing data: %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0(&dword_0, v5, v6, "Failed to authenticate to export browsing data: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void __49__SafariExportViewController__exportButtonTapped__block_invoke_27_cold_1(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0(&dword_0, v5, v6, "Export failed: %{public}@.", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0(&dword_0, v5, v6, "Export failed: %{public}@.", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void __49__SafariExportViewController__exportButtonTapped__block_invoke_2_cold_1(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0(&dword_0, v5, v6, "Failed to move the export to the Downloads folder: %{public}@. Showing a file picker instead.", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0(&dword_0, v5, v6, "Failed to move the export to the Downloads folder: %{public}@. Showing a file picker instead.", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

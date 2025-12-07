@@ -7,10 +7,12 @@
 + (unint64_t)_domainForMarketplaceEligibilityForApp:(id)app withSigningInfo:(id)info isWebDistribution:(BOOL)distribution distributorInfo:(id)distributorInfo operationType:(unint64_t)type;
 - (BOOL)_captureDataFromStagingRootOrBundle:(id)bundle toContainer:(id)container withError:(id *)error;
 - (BOOL)_checkCanInstallWithError:(id *)error;
+- (BOOL)_checkEligibilityForAppWithSigningInfo:(id)info distributorInfo:(id)distributorInfo isWebDistribution:(BOOL)distribution withError:(id *)error;
 - (BOOL)_getLinkedParentBundleID:(id *)d withError:(id *)error;
 - (BOOL)_handleStashMode:(unint64_t)mode withError:(id *)error;
 - (BOOL)_handleStashOptionWithError:(id *)error;
 - (BOOL)_installEmbeddedProfilesWithError:(id *)error;
+- (BOOL)_isValidWatchKitApp:(id)app withVersion:(unsigned __int8)version installableSigningInfo:(id)info isSystemAppInstall:(BOOL)install error:(id *)error;
 - (BOOL)_linkToParentApplication:(id *)application;
 - (BOOL)_performAppClipSpecificValidationForEntitlements:(id)entitlements isAppClip:(BOOL *)clip withError:(id *)error;
 - (BOOL)_performBrowserAppEntitlementAndArchitectureValidationForSigningInfo:(id)info error:(id *)error;
@@ -45,6 +47,7 @@
 - (id)_builtInAppUpgradeFailureError;
 - (id)_createJournalEntry;
 - (id)_noLongerPresentAppExtensionDataContainers;
+- (id)_validateBundle:(id)bundle validatingResources:(BOOL)resources performingOnlineAuthorization:(BOOL)authorization checkingTrustCacheIfApplicable:(BOOL)applicable allowingFreeProfileValidation:(BOOL)validation skippingProfileIDValidation:(BOOL)dValidation error:(id *)error;
 - (id)launchServicesBundleRecordsWithError:(id *)error;
 - (id)recordPromise;
 - (id)stageBackgroundUpdateWithError:(id *)error;
@@ -1561,6 +1564,206 @@ LABEL_10:
   return v20;
 }
 
+- (BOOL)_isValidWatchKitApp:(id)app withVersion:(unsigned __int8)version installableSigningInfo:(id)info isSystemAppInstall:(BOOL)install error:(id *)error
+{
+  installCopy = install;
+  versionCopy = version;
+  appCopy = app;
+  infoCopy = info;
+  if ([appCopy isExtensionBasedWatchKitApp] && objc_msgSend(infoCopy, "codeSignerType") == 3)
+  {
+    entitlements = [infoCopy entitlements];
+    if (sub_10004C498(entitlements) & 1) != 0 || ([appCopy isPlaceholder])
+    {
+      v15 = 0;
+    }
+
+    else
+    {
+      v15 = [appCopy isApplicableToOSVersionEarlierThan:@"9.0"] & !installCopy;
+    }
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  if ([appCopy minimumWatchOSVersionIsPreV6])
+  {
+    v54 = 0;
+    v16 = [appCopy hasOnlyAllowedWatchKitAppInfoPlistKeysForWatchKitVersion:versionCopy error:&v54];
+    v17 = v54;
+    if (!v16)
+    {
+      goto LABEL_19;
+    }
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  v18 = v17;
+  v53 = v17;
+  v19 = [(MIInstallableBundle *)self _validateCompanionAppStateInWatchKitApp:appCopy withVersion:versionCopy isSystemAppInstall:installCopy error:&v53];
+  v17 = v53;
+
+  if (!v19)
+  {
+LABEL_19:
+    v20 = 0;
+    v27 = 0;
+    v28 = 0;
+    goto LABEL_30;
+  }
+
+  v46 = infoCopy;
+  v52 = v17;
+  v20 = [appCopy frameworkBundlesWithError:&v52];
+  v21 = v52;
+
+  if (!v20)
+  {
+    v27 = 0;
+    v28 = 0;
+LABEL_27:
+    v17 = v21;
+    goto LABEL_29;
+  }
+
+  if ([v20 count] && objc_msgSend(appCopy, "isApplicableToOSVersion:error:", @"2.9.9", 0))
+  {
+    v22 = MIInstallerErrorDomain;
+    identifier = [v20 objectAtIndexedSubscript:0];
+    bundleURL = [identifier bundleURL];
+    path = [bundleURL path];
+    v17 = sub_100010734("[MIInstallableBundle _isValidWatchKitApp:withVersion:installableSigningInfo:isSystemAppInstall:error:]", 927, v22, 119, 0, &off_10009C5D8, @"WatchKit 2 app contains a framework at %@. Frameworks are only allowed at that location in WatchKit apps compatible with watchOS 3.0 or later.", v26, path);
+
+    v27 = 0;
+    v28 = 0;
+    infoCopy = v46;
+LABEL_18:
+
+    goto LABEL_30;
+  }
+
+  v51 = v21;
+  v27 = [appCopy pluginKitBundlesWithError:&v51];
+  v17 = v51;
+
+  if (!v27)
+  {
+    v28 = 0;
+    goto LABEL_29;
+  }
+
+  v50 = v17;
+  v28 = [appCopy extensionKitBundlesWithError:&v50];
+  v21 = v50;
+
+  if (!v28)
+  {
+    goto LABEL_27;
+  }
+
+  v49 = v21;
+  v44 = [(MIInstallableBundle *)self _performCompanionWatchAppValidationForWatchApp:appCopy withVersion:versionCopy companionAppSigningInfo:v46 frameworks:v20 error:&v49];
+  v17 = v49;
+
+  if (v44)
+  {
+    v45 = v17;
+    if (versionCopy == 3)
+    {
+      infoCopy = v46;
+      if (v15)
+      {
+        v33 = +[MIDaemonConfiguration sharedInstance];
+        codeSigningEnforcementIsDisabled = [v33 codeSigningEnforcementIsDisabled];
+
+        if (codeSigningEnforcementIsDisabled)
+        {
+          v35 = v45;
+          if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 5)
+          {
+            MOLogWrite();
+          }
+        }
+
+        else
+        {
+          v48 = v45;
+          v40 = [MICodeSigningVerifier validateWatchKitV2StubExecutableBundle:appCopy error:&v48];
+          v41 = v48;
+
+          if ((v40 & 1) == 0)
+          {
+            identifier = v41;
+            v17 = sub_100010734("[MIInstallableBundle _isValidWatchKitApp:withVersion:installableSigningInfo:isSystemAppInstall:error:]", 972, MIInstallerErrorDomain, 72, v41, &off_10009C600, @"The WatchKit 2.0 app being installed contains an invalid application executable.", v42, v43);
+            goto LABEL_18;
+          }
+
+          v35 = v41;
+        }
+      }
+
+      else
+      {
+        v35 = v17;
+      }
+
+      v38 = ([appCopy isPlaceholder] & 1) == 0 && objc_msgSend(v46, "codeSignerType") == 2;
+      v47 = v35;
+      v39 = [(MIInstallableBundle *)self _verifyPluginKitPlugins:v27 extensionKitExtensions:v28 inWatchKit2App:appCopy checkAppexSignatures:v38 checkFrameworkSignature:v38 error:&v47];
+      v17 = v47;
+
+      if ((v39 & 1) == 0)
+      {
+        goto LABEL_30;
+      }
+    }
+
+    else
+    {
+      infoCopy = v46;
+      if (versionCopy != 2)
+      {
+        v36 = MIInstallerErrorDomain;
+        identifier = [appCopy identifier];
+        v17 = sub_100010734("[MIInstallableBundle _isValidWatchKitApp:withVersion:installableSigningInfo:isSystemAppInstall:error:]", 1006, v36, 4, 0, 0, @"Unknown WatchKit app version while validating %@: %hhu", v37, identifier);
+
+        goto LABEL_18;
+      }
+
+      v17 = sub_100010734("[MIInstallableBundle _isValidWatchKitApp:withVersion:installableSigningInfo:isSystemAppInstall:error:]", 956, MIInstallerErrorDomain, 133, 0, 0, @"WatchKit version %hhu is no longer supported", v29, 2);
+    }
+
+    v31 = 1;
+    goto LABEL_33;
+  }
+
+LABEL_29:
+  infoCopy = v46;
+LABEL_30:
+  if (error)
+  {
+    v30 = v17;
+    v31 = 0;
+    *error = v17;
+  }
+
+  else
+  {
+    v31 = 0;
+  }
+
+LABEL_33:
+
+  return v31;
+}
+
 - (BOOL)_verifyPluginKitPlugins:(id)plugins extensionKitExtensions:(id)extensions inWatchKit2App:(id)app checkAppexSignatures:(BOOL)signatures checkFrameworkSignature:(BOOL)signature error:(id *)error
 {
   signatureCopy = signature;
@@ -1819,6 +2022,77 @@ LABEL_47:
   return v42;
 }
 
+- (id)_validateBundle:(id)bundle validatingResources:(BOOL)resources performingOnlineAuthorization:(BOOL)authorization checkingTrustCacheIfApplicable:(BOOL)applicable allowingFreeProfileValidation:(BOOL)validation skippingProfileIDValidation:(BOOL)dValidation error:(id *)error
+{
+  dValidationCopy = dValidation;
+  applicableCopy = applicable;
+  authorizationCopy = authorization;
+  resourcesCopy = resources;
+  bundleCopy = bundle;
+  v33 = 0;
+  v16 = [bundleCopy codeSigningInfoByValidatingResources:resourcesCopy performingOnlineAuthorization:authorizationCopy ignoringCachedSigningInfo:1 checkingTrustCacheIfApplicable:applicableCopy skippingProfileIDValidation:dValidationCopy error:&v33];
+  v17 = v33;
+  identifier = v17;
+  if (!v16)
+  {
+    v22 = v17;
+    goto LABEL_12;
+  }
+
+  if (!-[MIInstallableBundle isPlaceholderInstall](self, "isPlaceholderInstall") && [bundleCopy codeSignatureVerificationState] != 2 || -[MIInstallableBundle isPlaceholderInstall](self, "isPlaceholderInstall") && objc_msgSend(bundleCopy, "codeSignatureVerificationState") != 1)
+  {
+    v28 = MIInstallerErrorDomain;
+    codeSignatureVerificationState = [bundleCopy codeSignatureVerificationState];
+    v22 = sub_100010734("[MIInstallableBundle _validateBundle:validatingResources:performingOnlineAuthorization:checkingTrustCacheIfApplicable:allowingFreeProfileValidation:skippingProfileIDValidation:error:]", 1121, v28, 4, 0, 0, @"Unexpectedly failed to validate code signing (status %lu) for %@", v30, codeSignatureVerificationState);
+LABEL_15:
+
+    if (!error)
+    {
+      goto LABEL_16;
+    }
+
+    goto LABEL_13;
+  }
+
+  identity = [(MIInstallable *)self identity];
+  personaUniqueString = [identity personaUniqueString];
+  v32 = identifier;
+  v21 = [bundleCopy hasNoConflictsWithOtherInstalledEntitiesForSigningInfo:v16 forPersona:personaUniqueString error:&v32];
+  v22 = v32;
+
+  if (!v21)
+  {
+LABEL_12:
+    if (!error)
+    {
+LABEL_16:
+      v27 = 0;
+      goto LABEL_18;
+    }
+
+LABEL_13:
+    v26 = v22;
+    v27 = 0;
+    *error = v22;
+    goto LABEL_18;
+  }
+
+  if ([bundleCopy codeSignatureVerificationState] == 2 && objc_msgSend(v16, "profileValidationType") == 3 && !validation)
+  {
+    v23 = MIInstallerErrorDomain;
+    identifier = [bundleCopy identifier];
+    v25 = sub_100010734("[MIInstallableBundle _validateBundle:validatingResources:performingOnlineAuthorization:checkingTrustCacheIfApplicable:allowingFreeProfileValidation:skippingProfileIDValidation:error:]", 1130, v23, 111, 0, &off_10009C6A0, @"The bundle being installed with bundle ID %@ is authorized by a free provisioning profile, but apps validated by those are not allowed to be installed from this source.", v24, identifier);
+
+    v22 = v25;
+    goto LABEL_15;
+  }
+
+  v27 = v16;
+LABEL_18:
+
+  return v27;
+}
+
 - (BOOL)_validateApplicationIdentifierForNewBundleSigningInfo:(id)info error:(id *)error
 {
   infoCopy = info;
@@ -1845,31 +2119,21 @@ LABEL_47:
 
 LABEL_2:
       existingBundleContainer = [(MIInstallable *)self existingBundleContainer];
-      if (!existingBundleContainer)
+      if (!existingBundleContainer || (v10 = existingBundleContainer, -[MIInstallable existingBundleContainer](self, "existingBundleContainer"), v11 = objc_claimAutoreleasedReturnValue(), [v11 bundle], v12 = objc_claimAutoreleasedReturnValue(), v12, v11, v10, !v8) || !v12)
       {
-        goto LABEL_16;
-      }
-
-      v10 = existingBundleContainer;
-      existingBundleContainer2 = [(MIInstallable *)self existingBundleContainer];
-      bundle2 = [existingBundleContainer2 bundle];
-
-      if (!v8 || !bundle2)
-      {
-LABEL_16:
         if (qword_1000A9720 && *(qword_1000A9720 + 44) >= 7)
         {
-          bundle3 = [(MIInstallable *)self bundle];
-          identifier2 = [bundle3 identifier];
+          bundle2 = [(MIInstallable *)self bundle];
+          identifier2 = [bundle2 identifier];
           MOLogWrite();
         }
 
         goto LABEL_72;
       }
 
-      existingBundleContainer3 = [(MIInstallable *)self existingBundleContainer];
-      bundle4 = [existingBundleContainer3 bundle];
-      v15 = [bundle4 codeSigningInfoByValidatingResources:0 performingOnlineAuthorization:0 ignoringCachedSigningInfo:0 checkingTrustCacheIfApplicable:0 skippingProfileIDValidation:0 error:0];
+      existingBundleContainer2 = [(MIInstallable *)self existingBundleContainer];
+      bundle3 = [existingBundleContainer2 bundle];
+      v15 = [bundle3 codeSigningInfoByValidatingResources:0 performingOnlineAuthorization:0 ignoringCachedSigningInfo:0 checkingTrustCacheIfApplicable:0 skippingProfileIDValidation:0 error:0];
 
       entitlements2 = [v15 entitlements];
       v17 = sub_10004C3B0(entitlements2);
@@ -1883,9 +2147,9 @@ LABEL_16:
           goto LABEL_8;
         }
 
-        existingBundleContainer4 = [(MIInstallable *)self existingBundleContainer];
-        bundle5 = [existingBundleContainer4 bundle];
-        if ([bundle5 isPlaceholder])
+        existingBundleContainer3 = [(MIInstallable *)self existingBundleContainer];
+        bundle4 = [existingBundleContainer3 bundle];
+        if ([bundle4 isPlaceholder])
         {
           if (codeSignerType2 == 2)
           {
@@ -2001,20 +2265,20 @@ LABEL_70:
       {
         if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 5)
         {
-          bundle6 = [(MIInstallable *)self bundle];
-          identifier3 = [bundle6 identifier];
+          bundle5 = [(MIInstallable *)self bundle];
+          identifier3 = [bundle5 identifier];
           MOLogWrite();
         }
 
         goto LABEL_71;
       }
 
-      bundle7 = [(MIInstallable *)self bundle];
-      identifier4 = [bundle7 identifier];
+      bundle6 = [(MIInstallable *)self bundle];
+      identifier4 = [bundle6 identifier];
 
-      existingBundleContainer5 = [(MIInstallable *)self existingBundleContainer];
-      bundle8 = [existingBundleContainer5 bundle];
-      isPlaceholder = [bundle8 isPlaceholder];
+      existingBundleContainer4 = [(MIInstallable *)self existingBundleContainer];
+      bundle7 = [existingBundleContainer4 bundle];
+      isPlaceholder = [bundle7 isPlaceholder];
 
       if (isPlaceholder)
       {
@@ -3072,9 +3336,9 @@ LABEL_7:
 {
   installOptions = [(MIInstallable *)self installOptions];
   isPlaceholderInstall = [(MIInstallableBundle *)self isPlaceholderInstall];
-  v372.receiver = self;
-  v372.super_class = MIInstallableBundle;
-  if (![(MIInstallable *)&v372 performVerificationWithError:error])
+  v374.receiver = self;
+  v374.super_class = MIInstallableBundle;
+  if (![(MIInstallable *)&v374 performVerificationWithError:error])
   {
     v16 = 0;
     path = 0;
@@ -3134,28 +3398,28 @@ LABEL_7:
 
     if (isRemovableSystemApp)
     {
-      path = sub_100010734("[MIInstallableBundle performVerificationWithError:]", 1971, MIInstallerErrorDomain, 25, 0, &off_10009C9E8, @"Attempted to install a deletable system app with incorrect install type.", v21, v260);
+      path = sub_100010734("[MIInstallableBundle performVerificationWithError:]", 1971, MIInstallerErrorDomain, 25, 0, &off_10009C9E8, @"Attempted to install a deletable system app with incorrect install type.", v21, v262);
 LABEL_22:
       v16 = 0;
       goto LABEL_96;
     }
   }
 
-  v284 = isPlaceholderInstall;
+  v286 = isPlaceholderInstall;
   allowLocalProvisioned = [installOptions allowLocalProvisioned];
   bundle5 = [(MIInstallable *)self bundle];
-  v371 = 0;
-  identifier = &v371;
-  v288 = allowLocalProvisioned;
+  v373 = 0;
+  identifier = &v373;
+  v290 = allowLocalProvisioned;
   v16 = [(MIInstallableBundle *)self _validateBundle:bundle5 validatingResources:isDeveloperInstall ^ 1 performingOnlineAuthorization:1 checkingTrustCacheIfApplicable:1 allowingFreeProfileValidation:allowLocalProvisioned skippingProfileIDValidation:0 error:?];
-  path = v371;
+  path = v373;
 
   if (!v16)
   {
     goto LABEL_96;
   }
 
-  v283 = isSystemAppInstall;
+  v285 = isSystemAppInstall;
   codeSignerType = [v16 codeSignerType];
   if (isDeveloperInstall)
   {
@@ -3207,10 +3471,10 @@ LABEL_26:
 
 LABEL_37:
       bundle7 = [(MIInstallable *)self bundle];
-      v370 = path;
-      identifier = &v370;
-      v35 = [(MIInstallableBundle *)self _validateBundle:bundle7 validatingResources:1 performingOnlineAuthorization:1 checkingTrustCacheIfApplicable:1 allowingFreeProfileValidation:v288 skippingProfileIDValidation:0 error:?];
-      v36 = v370;
+      v372 = path;
+      identifier = &v372;
+      v35 = [(MIInstallableBundle *)self _validateBundle:bundle7 validatingResources:1 performingOnlineAuthorization:1 checkingTrustCacheIfApplicable:1 allowingFreeProfileValidation:v290 skippingProfileIDValidation:0 error:?];
+      v36 = v372;
 
       if (!v35)
       {
@@ -3228,9 +3492,9 @@ LABEL_37:
   [(MIInstallableBundle *)self setBundleSigningInfo:v16];
   bundle8 = [(MIInstallable *)self bundle];
   entitlements2 = [v16 entitlements];
-  v369 = path;
-  v40 = sub_100045420(bundle8, entitlements2, &v369);
-  path = v369;
+  v371 = path;
+  v40 = sub_100045420(bundle8, entitlements2, &v371);
+  path = v371;
 
   if (!v40)
   {
@@ -3238,33 +3502,33 @@ LABEL_37:
   }
 
   errorCopy = error;
-  v287 = v16;
-  v272 = installOptions;
+  v289 = v16;
+  v274 = installOptions;
+  v370 = 0u;
+  v369 = 0u;
   v368 = 0u;
   v367 = 0u;
-  v366 = 0u;
-  v365 = 0u;
   frameworkBundles = [(MIInstallableBundle *)self frameworkBundles];
-  v42 = [frameworkBundles countByEnumeratingWithState:&v365 objects:v384 count:16];
+  v42 = [frameworkBundles countByEnumeratingWithState:&v367 objects:v386 count:16];
   if (v42)
   {
     v43 = v42;
-    v44 = *v366;
+    v44 = *v368;
     do
     {
       v45 = 0;
       v46 = path;
       do
       {
-        if (*v366 != v44)
+        if (*v368 != v44)
         {
           objc_enumerationMutation(frameworkBundles);
         }
 
-        v47 = *(*(&v365 + 1) + 8 * v45);
-        v364 = v46;
-        v48 = [(MIInstallableBundle *)self _validateBundle:v47 validatingResources:isDeveloperInstall ^ 1 performingOnlineAuthorization:0 checkingTrustCacheIfApplicable:1 allowingFreeProfileValidation:v288 skippingProfileIDValidation:1 error:&v364];
-        path = v364;
+        v47 = *(*(&v367 + 1) + 8 * v45);
+        v366 = v46;
+        v48 = [(MIInstallableBundle *)self _validateBundle:v47 validatingResources:isDeveloperInstall ^ 1 performingOnlineAuthorization:0 checkingTrustCacheIfApplicable:1 allowingFreeProfileValidation:v290 skippingProfileIDValidation:1 error:&v366];
+        path = v366;
 
         if (!v48)
         {
@@ -3277,59 +3541,59 @@ LABEL_37:
       }
 
       while (v43 != v45);
-      v43 = [frameworkBundles countByEnumeratingWithState:&v365 objects:v384 count:16];
+      v43 = [frameworkBundles countByEnumeratingWithState:&v367 objects:v386 count:16];
     }
 
     while (v43);
   }
 
+  v365 = 0u;
+  v364 = 0u;
   v363 = 0u;
   v362 = 0u;
-  v361 = 0u;
-  v360 = 0u;
   obj = [(MIInstallableBundle *)self appExtensionBundles];
-  v273 = [obj countByEnumeratingWithState:&v360 objects:v383 count:16];
-  if (!v273)
+  v275 = [obj countByEnumeratingWithState:&v362 objects:v385 count:16];
+  if (!v275)
   {
     error = errorCopy;
     goto LABEL_65;
   }
 
-  v277 = *v361;
+  v279 = *v363;
   do
   {
-    for (i = 0; i != v273; i = i + 1)
+    for (i = 0; i != v275; i = i + 1)
     {
-      if (*v361 != v277)
+      if (*v363 != v279)
       {
         objc_enumerationMutation(obj);
       }
 
-      v50 = *(*(&v360 + 1) + 8 * i);
-      v359 = path;
-      v51 = [(MIInstallableBundle *)self _validateBundle:v50 validatingResources:isDeveloperInstall ^ 1 performingOnlineAuthorization:0 checkingTrustCacheIfApplicable:1 allowingFreeProfileValidation:v288 skippingProfileIDValidation:0 error:&v359];
-      v52 = v359;
+      v50 = *(*(&v362 + 1) + 8 * i);
+      v361 = path;
+      v51 = [(MIInstallableBundle *)self _validateBundle:v50 validatingResources:isDeveloperInstall ^ 1 performingOnlineAuthorization:0 checkingTrustCacheIfApplicable:1 allowingFreeProfileValidation:v290 skippingProfileIDValidation:0 error:&v361];
+      v52 = v361;
 
       if (!v51)
       {
-        installOptions = v272;
+        installOptions = v274;
         error = errorCopy;
         goto LABEL_94;
       }
 
       entitlements3 = [v51 entitlements];
-      v358 = v52;
-      v54 = [v50 validateHasCorrespondingEntitlements:entitlements3 error:&v358];
-      v55 = v358;
+      v360 = v52;
+      v54 = [v50 validateHasCorrespondingEntitlements:entitlements3 error:&v360];
+      v55 = v360;
 
       if (!v54)
       {
         goto LABEL_91;
       }
 
-      v357 = v55;
-      v56 = sub_100045600(v50, entitlements3, &v357);
-      path = v357;
+      v359 = v55;
+      v56 = sub_100045600(v50, entitlements3, &v359);
+      path = v359;
 
       if (!v56)
       {
@@ -3339,7 +3603,7 @@ LABEL_91:
 LABEL_93:
 
         v52 = v55;
-        installOptions = v272;
+        installOptions = v274;
 LABEL_94:
 
         path = v52;
@@ -3356,45 +3620,45 @@ LABEL_94:
         goto LABEL_93;
       }
 
-      v16 = v287;
+      v16 = v289;
     }
 
-    v273 = [obj countByEnumeratingWithState:&v360 objects:v383 count:16];
+    v275 = [obj countByEnumeratingWithState:&v362 objects:v385 count:16];
   }
 
-  while (v273);
+  while (v275);
 LABEL_65:
 
+  v357 = 0u;
+  v358 = 0u;
   v355 = 0u;
   v356 = 0u;
-  v353 = 0u;
-  v354 = 0u;
   driverKitExtensionBundles = [(MIInstallableBundle *)self driverKitExtensionBundles];
-  obja = [driverKitExtensionBundles countByEnumeratingWithState:&v353 objects:v382 count:16];
+  obja = [driverKitExtensionBundles countByEnumeratingWithState:&v355 objects:v384 count:16];
   if (obja)
   {
-    v274 = *v354;
+    v276 = *v356;
     do
     {
       for (j = 0; j != obja; j = j + 1)
       {
-        if (*v354 != v274)
+        if (*v356 != v276)
         {
           objc_enumerationMutation(driverKitExtensionBundles);
         }
 
-        v58 = *(*(&v353 + 1) + 8 * j);
-        v352 = path;
-        v59 = [(MIInstallableBundle *)self _validateBundle:v58 validatingResources:isDeveloperInstall ^ 1 performingOnlineAuthorization:0 checkingTrustCacheIfApplicable:1 allowingFreeProfileValidation:v288 skippingProfileIDValidation:0 error:&v352];
-        v60 = v352;
+        v58 = *(*(&v355 + 1) + 8 * j);
+        v354 = path;
+        v59 = [(MIInstallableBundle *)self _validateBundle:v58 validatingResources:isDeveloperInstall ^ 1 performingOnlineAuthorization:0 checkingTrustCacheIfApplicable:1 allowingFreeProfileValidation:v290 skippingProfileIDValidation:0 error:&v354];
+        v60 = v354;
 
         if (!v59)
         {
-          installOptions = v272;
+          installOptions = v274;
           goto LABEL_107;
         }
 
-        v278 = v59;
+        v280 = v59;
         entitlements4 = [v59 entitlements];
         if ((sub_10004C814(entitlements4) & 1) == 0)
         {
@@ -3404,30 +3668,30 @@ LABEL_65:
           v63 = sub_100010734("[MIInstallableBundle performVerificationWithError:]", 2102, v87, 178, 0, &off_10009CA10, @"Found DriverKit bundle %@ with missing entitlement %@", v89, path);
 
 LABEL_105:
-          installOptions = v272;
+          installOptions = v274;
 
           goto LABEL_106;
         }
 
-        v351 = v60;
-        v62 = sub_100045600(v58, entitlements4, &v351);
-        v63 = v351;
+        v353 = v60;
+        v62 = sub_100045600(v58, entitlements4, &v353);
+        v63 = v353;
 
         if (!v62)
         {
           goto LABEL_103;
         }
 
-        v350 = v63;
-        v64 = sub_100045420(v58, entitlements4, &v350);
-        path = v350;
+        v352 = v63;
+        v64 = sub_100045420(v58, entitlements4, &v352);
+        path = v352;
 
         if (!v64)
         {
           v63 = path;
 LABEL_103:
-          installOptions = v272;
-          v16 = v287;
+          installOptions = v274;
+          v16 = v289;
 LABEL_106:
 
           v60 = v63;
@@ -3438,7 +3702,7 @@ LABEL_108:
           goto LABEL_96;
         }
 
-        v16 = v287;
+        v16 = v289;
         if (sub_10004BF34(entitlements4))
         {
           v90 = MIInstallerErrorDomain;
@@ -3448,7 +3712,7 @@ LABEL_108:
         }
       }
 
-      obja = [driverKitExtensionBundles countByEnumeratingWithState:&v353 objects:v382 count:16];
+      obja = [driverKitExtensionBundles countByEnumeratingWithState:&v355 objects:v384 count:16];
     }
 
     while (obja);
@@ -3460,29 +3724,29 @@ LABEL_108:
   if (v66)
   {
     bundle9 = [(MIInstallable *)self bundle];
-    v349 = path;
-    v68 = [bundle9 xpcServiceBundlesWithError:&v349];
-    v60 = v349;
+    v351 = path;
+    v68 = [bundle9 xpcServiceBundlesWithError:&v351];
+    v60 = v351;
 
     [(MIInstallableBundle *)self setXpcServiceBundles:v68];
     xpcServiceBundles = [(MIInstallableBundle *)self xpcServiceBundles];
 
-    installOptions = v272;
+    installOptions = v274;
     if (!xpcServiceBundles)
     {
       goto LABEL_108;
     }
 
+    v349 = 0u;
+    v350 = 0u;
     v347 = 0u;
     v348 = 0u;
-    v345 = 0u;
-    v346 = 0u;
     xpcServiceBundles2 = [(MIInstallableBundle *)self xpcServiceBundles];
-    v70 = [xpcServiceBundles2 countByEnumeratingWithState:&v345 objects:v381 count:16];
+    v70 = [xpcServiceBundles2 countByEnumeratingWithState:&v347 objects:v383 count:16];
     if (v70)
     {
       v71 = v70;
-      v279 = *v346;
+      v281 = *v348;
       path = v60;
       do
       {
@@ -3490,15 +3754,15 @@ LABEL_108:
         v73 = path;
         do
         {
-          if (*v346 != v279)
+          if (*v348 != v281)
           {
             objc_enumerationMutation(xpcServiceBundles2);
           }
 
-          v74 = *(*(&v345 + 1) + 8 * v72);
-          v344 = v73;
-          v75 = [v74 checkExecutableExistsIfRequiredWithError:&v344];
-          path = v344;
+          v74 = *(*(&v347 + 1) + 8 * v72);
+          v346 = v73;
+          v75 = [v74 checkExecutableExistsIfRequiredWithError:&v346];
+          path = v346;
 
           if (!v75)
           {
@@ -3511,15 +3775,15 @@ LABEL_108:
 
           if (v78)
           {
-            v162 = MIInstallerErrorDomain;
+            v164 = MIInstallerErrorDomain;
             bundleURL2 = [v74 bundleURL];
             path2 = [bundleURL2 path];
             identifiersMap2 = [(MIInstallableBundle *)self identifiersMap];
-            v166 = [identifiersMap2 objectForKeyedSubscript:identifier2];
-            path3 = [v166 path];
-            v168 = sub_100010734("[MIInstallableBundle performVerificationWithError:]", 2139, v162, 57, 0, &off_10009CA38, @"Found bundle at %@ with the same identifier (%@) as bundle at %@", v167, path2);
+            v168 = [identifiersMap2 objectForKeyedSubscript:identifier2];
+            path3 = [v168 path];
+            v170 = sub_100010734("[MIInstallableBundle performVerificationWithError:]", 2139, v164, 57, 0, &off_10009CA38, @"Found bundle at %@ with the same identifier (%@) as bundle at %@", v169, path2);
 
-            path = v168;
+            path = v170;
             error = errorCopy;
 LABEL_188:
 
@@ -3536,7 +3800,7 @@ LABEL_188:
         }
 
         while (v71 != v72);
-        v71 = [xpcServiceBundles2 countByEnumeratingWithState:&v345 objects:v381 count:16];
+        v71 = [xpcServiceBundles2 countByEnumeratingWithState:&v347 objects:v383 count:16];
       }
 
       while (v71);
@@ -3547,33 +3811,33 @@ LABEL_188:
       path = v60;
     }
 
-    if (v284)
+    if (v286)
     {
+      v344 = 0u;
+      v345 = 0u;
       v342 = 0u;
       v343 = 0u;
-      v340 = 0u;
-      v341 = 0u;
       xpcServiceBundles3 = [(MIInstallableBundle *)self xpcServiceBundles];
-      v93 = [xpcServiceBundles3 countByEnumeratingWithState:&v340 objects:v380 count:16];
+      v93 = [xpcServiceBundles3 countByEnumeratingWithState:&v342 objects:v382 count:16];
       if (v93)
       {
         v94 = v93;
-        v95 = *v341;
+        v95 = *v343;
         do
         {
           v96 = 0;
           v97 = path;
           do
           {
-            if (*v341 != v95)
+            if (*v343 != v95)
             {
               objc_enumerationMutation(xpcServiceBundles3);
             }
 
-            v98 = *(*(&v340 + 1) + 8 * v96);
-            v339 = v97;
-            v99 = [v98 setIsPlaceholderWithError:&v339];
-            path = v339;
+            v98 = *(*(&v342 + 1) + 8 * v96);
+            v341 = v97;
+            v99 = [v98 setIsPlaceholderWithError:&v341];
+            path = v341;
 
             if (!v99)
             {
@@ -3586,189 +3850,189 @@ LABEL_188:
           }
 
           while (v94 != v96);
-          v94 = [xpcServiceBundles3 countByEnumeratingWithState:&v340 objects:v380 count:16];
+          v94 = [xpcServiceBundles3 countByEnumeratingWithState:&v342 objects:v382 count:16];
         }
 
         while (v94);
       }
     }
 
+    v339 = 0u;
+    v340 = 0u;
     v337 = 0u;
     v338 = 0u;
-    v335 = 0u;
-    v336 = 0u;
     xpcServiceBundles4 = [(MIInstallableBundle *)self xpcServiceBundles];
-    v101 = [xpcServiceBundles4 countByEnumeratingWithState:&v335 objects:v379 count:16];
+    v101 = [xpcServiceBundles4 countByEnumeratingWithState:&v337 objects:v381 count:16];
     if (v101)
     {
       v102 = v101;
-      v103 = *v336;
+      v103 = *v338;
       do
       {
         for (k = 0; k != v102; k = k + 1)
         {
-          if (*v336 != v103)
+          if (*v338 != v103)
           {
             objc_enumerationMutation(xpcServiceBundles4);
           }
 
-          v105 = *(*(&v335 + 1) + 8 * k);
+          v105 = *(*(&v337 + 1) + 8 * k);
           progressBlock3 = [(MIInstallable *)self progressBlock];
           [v105 installEmbeddedProvisioningProfileWithProgress:progressBlock3];
         }
 
-        v102 = [xpcServiceBundles4 countByEnumeratingWithState:&v335 objects:v379 count:16];
+        v102 = [xpcServiceBundles4 countByEnumeratingWithState:&v337 objects:v381 count:16];
       }
 
       while (v102);
     }
 
+    v335 = 0u;
+    v336 = 0u;
     v333 = 0u;
     v334 = 0u;
-    v331 = 0u;
-    v332 = 0u;
     objb = [(MIInstallableBundle *)self xpcServiceBundles];
-    v107 = [objb countByEnumeratingWithState:&v331 objects:v378 count:16];
+    v107 = [objb countByEnumeratingWithState:&v333 objects:v380 count:16];
     if (v107)
     {
       v108 = v107;
-      v276 = *v332;
+      v278 = *v334;
       do
       {
         for (m = 0; m != v108; m = m + 1)
         {
-          if (*v332 != v276)
+          if (*v334 != v278)
           {
             objc_enumerationMutation(objb);
           }
 
-          v110 = *(*(&v331 + 1) + 8 * m);
-          v330 = path;
-          v111 = [(MIInstallableBundle *)self _validateBundle:v110 validatingResources:isDeveloperInstall ^ 1 performingOnlineAuthorization:0 checkingTrustCacheIfApplicable:1 allowingFreeProfileValidation:v288 skippingProfileIDValidation:0 error:&v330];
-          v112 = v330;
+          v110 = *(*(&v333 + 1) + 8 * m);
+          v332 = path;
+          v111 = [(MIInstallableBundle *)self _validateBundle:v110 validatingResources:isDeveloperInstall ^ 1 performingOnlineAuthorization:0 checkingTrustCacheIfApplicable:1 allowingFreeProfileValidation:v290 skippingProfileIDValidation:0 error:&v332];
+          v112 = v332;
           v113 = path;
           path = v112;
 
           if (!v111)
           {
-            v190 = objb;
+            v192 = objb;
             error = errorCopy;
-            v16 = v287;
+            v16 = v289;
 LABEL_214:
 
             goto LABEL_96;
           }
 
-          v280 = v111;
+          v282 = v111;
           entitlements6 = [v111 entitlements];
-          v329 = path;
-          v115 = sub_100045600(v110, entitlements6, &v329);
-          v116 = v329;
+          v331 = path;
+          v115 = sub_100045600(v110, entitlements6, &v331);
+          v116 = v331;
 
           if (!v115)
           {
-            v190 = objb;
+            v192 = objb;
 LABEL_213:
             error = errorCopy;
-            v16 = v287;
+            v16 = v289;
 
             path = v116;
             goto LABEL_214;
           }
 
-          v328 = v116;
-          v117 = sub_100045420(v110, entitlements6, &v328);
-          path = v328;
+          v330 = v116;
+          v117 = sub_100045420(v110, entitlements6, &v330);
+          path = v330;
 
           if (!v117)
           {
-            v190 = objb;
+            v192 = objb;
             v116 = path;
             goto LABEL_213;
           }
 
           if (sub_10004BF34(entitlements6))
           {
-            v190 = objb;
-            v191 = MIInstallerErrorDomain;
+            v192 = objb;
+            v193 = MIInstallerErrorDomain;
             relativePath2 = [v110 relativePath];
-            v116 = sub_100010734("[MIInstallableBundle performVerificationWithError:]", 2185, v191, 210, 0, 0, @"The XPCService extension at %@ has the %@ entitlement, which is not allowed on an XPCService.", v193, relativePath2);
+            v116 = sub_100010734("[MIInstallableBundle performVerificationWithError:]", 2185, v193, 210, 0, 0, @"The XPCService extension at %@ has the %@ entitlement, which is not allowed on an XPCService.", v195, relativePath2);
 
             goto LABEL_213;
           }
         }
 
-        v108 = [objb countByEnumeratingWithState:&v331 objects:v378 count:16];
+        v108 = [objb countByEnumeratingWithState:&v333 objects:v380 count:16];
       }
 
       while (v108);
     }
 
-    v281 = path;
+    v283 = path;
 
+    v328 = 0u;
+    v329 = 0u;
     v326 = 0u;
     v327 = 0u;
-    v324 = 0u;
-    v325 = 0u;
     xpcServiceBundles5 = [(MIInstallableBundle *)self xpcServiceBundles];
-    v118 = [xpcServiceBundles5 countByEnumeratingWithState:&v324 objects:v377 count:16];
+    v118 = [xpcServiceBundles5 countByEnumeratingWithState:&v326 objects:v379 count:16];
     if (v118)
     {
       v119 = v118;
-      v120 = *v325;
+      v120 = *v327;
       do
       {
         for (n = 0; n != v119; n = n + 1)
         {
-          if (*v325 != v120)
+          if (*v327 != v120)
           {
             objc_enumerationMutation(xpcServiceBundles5);
           }
 
-          v122 = *(*(&v324 + 1) + 8 * n);
+          v122 = *(*(&v326 + 1) + 8 * n);
           infoPlistSubset = [v122 infoPlistSubset];
           v124 = [infoPlistSubset objectForKeyedSubscript:@"XPCService"];
 
           if (v124)
           {
-            objc_opt_class();
-            v125 = sub_1000146E0(v124);
+            v125 = objc_opt_class();
+            v126 = sub_1000146E0(v124, v125);
 
-            if (!v125)
+            if (!v126)
             {
-              v198 = MIInstallerErrorDomain;
+              v200 = MIInstallerErrorDomain;
               bundleURL4 = [v122 bundleURL];
               path4 = [bundleURL4 path];
-              v200 = objc_opt_class();
-              v199Path = NSStringFromClass(v200);
-              sub_100010734("[MIInstallableBundle performVerificationWithError:]", 2194, v198, 113, 0, 0, @"XPCService key in Info.plist of XPC service at %@ has illegal value type: %@", v202, path4);
+              v202 = objc_opt_class();
+              v201Path = NSStringFromClass(v202);
+              sub_100010734("[MIInstallableBundle performVerificationWithError:]", 2194, v200, 113, 0, 0, @"XPCService key in Info.plist of XPC service at %@ has illegal value type: %@", v204, path4);
               goto LABEL_229;
             }
 
             bundleURL4 = [v124 objectForKeyedSubscript:@"ServiceType"];
             if (bundleURL4)
             {
-              objc_opt_class();
-              v127 = sub_1000146E0(bundleURL4);
+              v128 = objc_opt_class();
+              v129 = sub_1000146E0(bundleURL4, v128);
 
-              if (!v127)
+              if (!v129)
               {
-                v206 = MIInstallerErrorDomain;
+                v208 = MIInstallerErrorDomain;
                 path4 = [v122 bundleURL];
-                v199Path = [path4 path];
-                v207 = objc_opt_class();
-                v265 = NSStringFromClass(v207);
-                path = sub_100010734("[MIInstallableBundle performVerificationWithError:]", 2201, v206, 51, 0, 0, @"XPCService's ServiceType key in Info.plist of service at %@ has illegal value type: %@", v208, v199Path);
+                v201Path = [path4 path];
+                v209 = objc_opt_class();
+                v267 = NSStringFromClass(v209);
+                path = sub_100010734("[MIInstallableBundle performVerificationWithError:]", 2201, v208, 51, 0, 0, @"XPCService's ServiceType key in Info.plist of service at %@ has illegal value type: %@", v210, v201Path);
 
                 goto LABEL_230;
               }
 
               if (([bundleURL4 isEqualToString:@"Application"] & 1) == 0)
               {
-                v209 = MIInstallerErrorDomain;
+                v211 = MIInstallerErrorDomain;
                 path4 = [v122 bundleURL];
-                v199Path = [path4 path];
-                sub_100010734("[MIInstallableBundle performVerificationWithError:]", 2206, v209, 51, 0, 0, @"XPCService's ServiceType key in Info.plist of service at %@ has illegal value: %@ (must be Application)", v210, v199Path);
+                v201Path = [path4 path];
+                sub_100010734("[MIInstallableBundle performVerificationWithError:]", 2206, v211, 51, 0, 0, @"XPCService's ServiceType key in Info.plist of service at %@ has illegal value: %@ (must be Application)", v212, v201Path);
                 path = LABEL_229:;
 
 LABEL_230:
@@ -3778,7 +4042,7 @@ LABEL_230:
           }
         }
 
-        v119 = [xpcServiceBundles5 countByEnumeratingWithState:&v324 objects:v377 count:16];
+        v119 = [xpcServiceBundles5 countByEnumeratingWithState:&v326 objects:v379 count:16];
       }
 
       while (v119);
@@ -3794,63 +4058,63 @@ LABEL_230:
     [(MIInstallableBundle *)self setXpcServiceBundlesEnabled:1, identifier];
   }
 
+  v324 = 0u;
+  v325 = 0u;
   v322 = 0u;
   v323 = 0u;
-  v320 = 0u;
-  v321 = 0u;
   appExtensionBundles = [(MIInstallableBundle *)self appExtensionBundles];
-  v129 = [appExtensionBundles countByEnumeratingWithState:&v320 objects:v376 count:16];
-  if (!v129)
+  v131 = [appExtensionBundles countByEnumeratingWithState:&v322 objects:v378 count:16];
+  if (!v131)
   {
     goto LABEL_174;
   }
 
-  v130 = v129;
-  v131 = *v321;
-  v282 = MIContainerManagerErrorDomain;
+  v132 = v131;
+  v133 = *v323;
+  v284 = MIContainerManagerErrorDomain;
   while (2)
   {
-    v132 = 0;
-    v133 = path;
+    v134 = 0;
+    v135 = path;
     while (2)
     {
-      if (*v321 != v131)
+      if (*v323 != v133)
       {
         objc_enumerationMutation(appExtensionBundles);
       }
 
-      v134 = *(*(&v320 + 1) + 8 * v132);
+      v136 = *(*(&v322 + 1) + 8 * v134);
       identity = [(MIInstallable *)self identity];
       personaUniqueString = [identity personaUniqueString];
-      v319 = v133;
-      v137 = [v134 dataContainerForPersona:personaUniqueString error:&v319];
-      path = v319;
+      v321 = v135;
+      v139 = [v136 dataContainerForPersona:personaUniqueString error:&v321];
+      path = v321;
 
-      if (v137)
+      if (v139)
       {
-        parentBundleID = [v137 parentBundleID];
+        parentBundleID = [v139 parentBundleID];
         if (parentBundleID)
         {
           bundle11 = [(MIInstallable *)self bundle];
           identifier3 = [bundle11 identifier];
-          v141 = [parentBundleID isEqualToString:identifier3];
+          v143 = [parentBundleID isEqualToString:identifier3];
 
-          if ((v141 & 1) == 0)
+          if ((v143 & 1) == 0)
           {
-            v157 = MIInstallerErrorDomain;
-            identifier4 = [v137 identifier];
-            v160 = sub_100010734("[MIInstallableBundle performVerificationWithError:]", 2248, v157, 88, 0, &off_10009CA60, @"An app extension with the identifier %@ is already installed as part of the bundle with identifier %@", v159, identifier4);
-            v161 = path;
-            path = v160;
+            v159 = MIInstallerErrorDomain;
+            identifier4 = [v139 identifier];
+            v162 = sub_100010734("[MIInstallableBundle performVerificationWithError:]", 2248, v159, 88, 0, &off_10009CA60, @"An app extension with the identifier %@ is already installed as part of the bundle with identifier %@", v161, identifier4);
+            v163 = path;
+            path = v162;
 
 LABEL_185:
             goto LABEL_61;
           }
         }
 
-        else if ([v137 status] != 3 && (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3))
+        else if ([v139 status] != 3 && (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3))
         {
-          identifier = v137;
+          identifier = v139;
           MOLogWrite();
         }
       }
@@ -3858,11 +4122,11 @@ LABEL_185:
       else
       {
         domain = [path domain];
-        if (![domain isEqualToString:v282])
+        if (![domain isEqualToString:v284])
         {
 
 LABEL_184:
-          sub_100010734("[MIInstallableBundle performVerificationWithError:]", 2256, MIInstallerErrorDomain, 4, path, 0, @"Failed to look up data container for app extension %@", v144, v134);
+          sub_100010734("[MIInstallableBundle performVerificationWithError:]", 2256, MIInstallerErrorDomain, 4, path, 0, @"Failed to look up data container for app extension %@", v146, v136);
           path = parentBundleID = path;
           goto LABEL_185;
         }
@@ -3875,9 +4139,9 @@ LABEL_184:
         }
       }
 
-      v132 = v132 + 1;
-      v133 = path;
-      if (v130 != v132)
+      v134 = v134 + 1;
+      v135 = path;
+      if (v132 != v134)
       {
         continue;
       }
@@ -3885,8 +4149,8 @@ LABEL_184:
       break;
     }
 
-    v130 = [appExtensionBundles countByEnumeratingWithState:&v320 objects:v376 count:16];
-    if (v130)
+    v132 = [appExtensionBundles countByEnumeratingWithState:&v322 objects:v378 count:16];
+    if (v132)
     {
       continue;
     }
@@ -3896,57 +4160,57 @@ LABEL_184:
 
 LABEL_174:
 
-  v318 = path;
-  v16 = v287;
-  v145 = [(MIInstallableBundle *)self _validateAppManagementDomainForSigningInfo:v287 error:&v318];
-  v146 = v318;
-  v147 = path;
-  path = v146;
+  v320 = path;
+  v16 = v289;
+  v147 = [(MIInstallableBundle *)self _validateAppManagementDomainForSigningInfo:v289 error:&v320];
+  v148 = v320;
+  v149 = path;
+  path = v148;
 
-  if (!v145)
+  if (!v147)
   {
-    installOptions = v272;
+    installOptions = v274;
     error = errorCopy;
     goto LABEL_96;
   }
 
-  installOptions = v272;
+  installOptions = v274;
   error = errorCopy;
-  if (v284)
+  if (v286)
   {
     existingBundleContainer = [(MIInstallable *)self existingBundleContainer];
     bundle12 = [existingBundleContainer bundle];
-    v150 = bundle12;
+    v152 = bundle12;
     if (existingBundleContainer)
     {
-      if (([bundle12 isPlaceholder] & 1) != 0 || objc_msgSend(v272, "installTargetType") == 3)
+      if (([bundle12 isPlaceholder] & 1) != 0 || objc_msgSend(v274, "installTargetType") == 3)
       {
-        entitlements7 = [v287 entitlements];
-        v285 = [v150 codeSigningInfoByValidatingResources:0 performingOnlineAuthorization:0 ignoringCachedSigningInfo:0 checkingTrustCacheIfApplicable:0 skippingProfileIDValidation:0 error:0];
-        entitlements8 = [v285 entitlements];
-        v152 = entitlements8;
+        entitlements7 = [v289 entitlements];
+        v287 = [v152 codeSigningInfoByValidatingResources:0 performingOnlineAuthorization:0 ignoringCachedSigningInfo:0 checkingTrustCacheIfApplicable:0 skippingProfileIDValidation:0 error:0];
+        entitlements8 = [v287 entitlements];
+        v154 = entitlements8;
         if (entitlements8)
         {
-          if (sub_10004BF34(entitlements8) && [v272 installTargetType] == 3)
+          if (sub_10004BF34(entitlements8) && [v274 installTargetType] == 3)
           {
-            v153 = MIInstallerErrorDomain;
-            displayName = [v150 displayName];
-            v156 = sub_100010734("[MIInstallableBundle performVerificationWithError:]", 2348, v153, 172, 0, 0, @"Offloading is not allowed for the marketplace %@.", v155, displayName);
+            v155 = MIInstallerErrorDomain;
+            displayName = [v152 displayName];
+            v158 = sub_100010734("[MIInstallableBundle performVerificationWithError:]", 2348, v155, 172, 0, 0, @"Offloading is not allowed for the marketplace %@.", v157, displayName);
             goto LABEL_290;
           }
 
           if (entitlements7)
           {
-            bundle15 = sub_10004C3B0(v152);
-            v195 = sub_10004C3B0(entitlements7);
-            identifier7 = v195;
+            bundle15 = sub_10004C3B0(v154);
+            v197 = sub_10004C3B0(entitlements7);
+            identifier7 = v197;
             if (bundle15)
             {
-              if (v195)
+              if (v197)
               {
-                if ([v195 isEqualToString:bundle15])
+                if ([v197 isEqualToString:bundle15])
                 {
-                  v197 = path;
+                  v199 = path;
                   goto LABEL_285;
                 }
 
@@ -3954,9 +4218,9 @@ LABEL_174:
                 {
                   bundle13 = [(MIInstallable *)self bundle];
                   identifier5 = [bundle13 identifier];
-                  v264 = identifier7;
-                  v266 = bundle15;
-                  v262 = identifier5;
+                  v266 = identifier7;
+                  v268 = bundle15;
+                  v264 = identifier5;
 LABEL_281:
                   MOLogWrite();
                 }
@@ -3966,7 +4230,7 @@ LABEL_281:
               {
                 bundle13 = [(MIInstallable *)self bundle];
                 identifier5 = [bundle13 identifier];
-                v262 = identifier5;
+                v264 = identifier5;
                 goto LABEL_281;
               }
 
@@ -3990,30 +4254,30 @@ LABEL_237:
           {
             bundle15 = [(MIInstallable *)self bundle];
             identifier7 = [bundle15 identifier];
-            v262 = identifier7;
+            v264 = identifier7;
             MOLogWrite();
             goto LABEL_282;
           }
 
 LABEL_283:
-          v253 = [(MIInstallable *)self bundle:v262];
-          bundleURL5 = [v253 bundleURL];
-          v317 = path;
-          v255 = sub_10004BFB0(bundleURL5, v152, &v317);
-          v197 = v317;
+          v255 = [(MIInstallable *)self bundle:v264];
+          bundleURL5 = [v255 bundleURL];
+          v319 = path;
+          v257 = sub_10004BFB0(bundleURL5, v154, &v319);
+          v199 = v319;
 
-          if (v255)
+          if (v257)
           {
             bundle15 = [(MIInstallable *)self bundle];
             [bundle15 codeSigningInfoByValidatingResources:0 performingOnlineAuthorization:0 ignoringCachedSigningInfo:1 checkingTrustCacheIfApplicable:0 skippingProfileIDValidation:0 error:0];
-            v287 = identifier7 = v287;
+            v289 = identifier7 = v289;
 LABEL_285:
 
-            v316 = v197;
-            v256 = [(MIInstallableBundle *)self _validateApplicationIdentifierForNewBundleSigningInfo:v287 error:&v316];
-            path = v316;
+            v318 = v199;
+            v258 = [(MIInstallableBundle *)self _validateApplicationIdentifierForNewBundleSigningInfo:v289 error:&v318];
+            path = v318;
 
-            if (v256)
+            if (v258)
             {
               goto LABEL_286;
             }
@@ -4021,21 +4285,21 @@ LABEL_285:
 
           else
           {
-            v257 = MIInstallerErrorDomain;
+            v259 = MIInstallerErrorDomain;
             displayName = [(MIInstallable *)self bundle];
             path = [displayName identifier];
-            v156 = sub_100010734("[MIInstallableBundle performVerificationWithError:]", 2373, v257, 4, v197, 0, @"%@: Unable to write placeholder entitlements into downgrade placeholder: %@", v258, path);
+            v158 = sub_100010734("[MIInstallableBundle performVerificationWithError:]", 2373, v259, 4, v199, 0, @"%@: Unable to write placeholder entitlements into downgrade placeholder: %@", v260, path);
 
 LABEL_290:
-            path = v156;
+            path = v158;
           }
 
 LABEL_61:
-          installOptions = v272;
+          installOptions = v274;
 LABEL_62:
           error = errorCopy;
 LABEL_95:
-          v16 = v287;
+          v16 = v289;
 LABEL_96:
           if (error)
           {
@@ -4054,19 +4318,19 @@ LABEL_98:
         {
           bundle15 = [(MIInstallable *)self bundle];
           identifier7 = [bundle15 identifier];
-          bundle14 = [v150 bundleURL];
+          bundle14 = [v152 bundleURL];
           identifier6 = [bundle14 path];
           goto LABEL_237;
         }
 
 LABEL_286:
 
-        identifier8 = v285;
+        identifier8 = v287;
 LABEL_287:
 
 LABEL_288:
-        installOptions = v272;
-        v16 = v287;
+        installOptions = v274;
+        v16 = v289;
 
         v85 = 1;
         goto LABEL_99;
@@ -4089,69 +4353,69 @@ LABEL_288:
     goto LABEL_287;
   }
 
-  v315 = path;
-  v169 = [(MIInstallableBundle *)self _validateApplicationIdentifierForNewBundleSigningInfo:v287 error:&v315];
-  v170 = v315;
+  v317 = path;
+  v171 = [(MIInstallableBundle *)self _validateApplicationIdentifierForNewBundleSigningInfo:v289 error:&v317];
+  v172 = v317;
 
-  if (!v169)
+  if (!v171)
   {
-    path = v170;
+    path = v172;
     goto LABEL_96;
   }
 
-  entitlements9 = [v287 entitlements];
-  v314 = v170;
-  v172 = [(MIInstallableBundle *)self _performWatchVerificationForSigningInfo:v287 isSystemAppInstall:v283 withError:&v314];
-  path = v314;
+  entitlements9 = [v289 entitlements];
+  v316 = v172;
+  v174 = [(MIInstallableBundle *)self _performWatchVerificationForSigningInfo:v289 isSystemAppInstall:v285 withError:&v316];
+  path = v316;
 
-  if ((v172 & 1) == 0)
+  if ((v174 & 1) == 0)
   {
 
     goto LABEL_96;
   }
 
-  v313 = 0;
-  v312 = path;
-  v173 = [(MIInstallableBundle *)self _performAppClipSpecificValidationForEntitlements:entitlements9 isAppClip:&v313 withError:&v312];
-  appExtensionBundles2 = v312;
+  v315 = 0;
+  v314 = path;
+  v175 = [(MIInstallableBundle *)self _performAppClipSpecificValidationForEntitlements:entitlements9 isAppClip:&v315 withError:&v314];
+  appExtensionBundles2 = v314;
 
-  if (!v173)
+  if (!v175)
   {
     goto LABEL_299;
   }
 
-  if (v313 == 1)
+  if (v315 == 1)
   {
-    v175 = sub_10004C3B0(entitlements9);
-    v176 = +[MIFileManager defaultManager];
+    v177 = sub_10004C3B0(entitlements9);
+    v178 = +[MIFileManager defaultManager];
     bundle16 = [(MIInstallable *)self bundle];
     bundleURL6 = [bundle16 bundleURL];
-    v311 = appExtensionBundles2;
-    v179 = [v176 setAppClipAppIdentifier:v175 insecurelyCachedOnBundle:bundleURL6 error:&v311];
-    v180 = v311;
+    v313 = appExtensionBundles2;
+    v181 = [v178 setAppClipAppIdentifier:v177 insecurelyCachedOnBundle:bundleURL6 error:&v313];
+    v182 = v313;
 
-    if ((v179 & 1) == 0)
+    if ((v181 & 1) == 0)
     {
       if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3)
       {
         bundle17 = [(MIInstallable *)self bundle];
         identifier = [bundle17 bundleURL];
-        v264 = v180;
+        v266 = v182;
         MOLogWrite();
       }
 
-      v180 = 0;
+      v182 = 0;
     }
 
-    appExtensionBundles2 = v180;
+    appExtensionBundles2 = v182;
   }
 
-  v182 = appExtensionBundles2;
-  v310 = appExtensionBundles2;
-  v264 = [(MIInstallableBundle *)self _performBrowserAppEntitlementAndArchitectureValidationForSigningInfo:v287 error:&v310, identifier, v264];
-  appExtensionBundles2 = v310;
+  v184 = appExtensionBundles2;
+  v312 = appExtensionBundles2;
+  v266 = [(MIInstallableBundle *)self _performBrowserAppEntitlementAndArchitectureValidationForSigningInfo:v289 error:&v312, identifier, v266];
+  appExtensionBundles2 = v312;
 
-  if (!v264)
+  if (!v266)
   {
 LABEL_299:
 
@@ -4166,219 +4430,219 @@ LABEL_299:
 
     if (isLaunchProhibited)
     {
-      v186 = MIInstallerErrorDomain;
+      v188 = MIInstallerErrorDomain;
       bundle19 = [(MIInstallable *)self bundle];
       displayName2 = [bundle19 displayName];
-      path = sub_100010734("[MIInstallableBundle performVerificationWithError:]", 2440, v186, 209, 0, 0, @"The marketplace %@ has the key %@ = TRUE in its Info.plist. This is not allowed.", v189, displayName2);
+      path = sub_100010734("[MIInstallableBundle performVerificationWithError:]", 2440, v188, 209, 0, 0, @"The marketplace %@ has the key %@ = TRUE in its Info.plist. This is not allowed.", v191, displayName2);
 
       appExtensionBundles2 = bundle19;
       goto LABEL_297;
     }
   }
 
-  v211 = +[MIDaemonConfiguration sharedInstance];
-  if (([v211 codeSigningEnforcementIsDisabled] & 1) != 0 || (-[MIInstallableBundle upgradingBuiltInAppAtURL](self, "upgradingBuiltInAppAtURL"), (v212 = objc_claimAutoreleasedReturnValue()) == 0))
+  v213 = +[MIDaemonConfiguration sharedInstance];
+  if (([v213 codeSigningEnforcementIsDisabled] & 1) != 0 || (-[MIInstallableBundle upgradingBuiltInAppAtURL](self, "upgradingBuiltInAppAtURL"), (v214 = objc_claimAutoreleasedReturnValue()) == 0))
   {
   }
 
   else
   {
-    v213 = v212;
-    v214 = sub_10004BE68(entitlements9);
+    v215 = v214;
+    v216 = sub_10004BE68(entitlements9);
 
-    if ((v214 & 1) == 0)
+    if ((v216 & 1) == 0)
     {
-      v215 = +[MIDaemonConfiguration sharedInstance];
-      hasInternalContent = [v215 hasInternalContent];
+      v217 = +[MIDaemonConfiguration sharedInstance];
+      hasInternalContent = [v217 hasInternalContent];
 
-      v218 = MIInstallerErrorDomain;
+      v220 = MIInstallerErrorDomain;
       if (hasInternalContent)
       {
-        v219 = &off_10009CA88;
-        v220 = @"System app upgrade is missing upgrade entitlement (disable code signing enforcement via boot-args to avoid this).";
-        v221 = 2446;
+        v221 = &off_10009CA88;
+        v222 = @"System app upgrade is missing upgrade entitlement (disable code signing enforcement via boot-args to avoid this).";
+        v223 = 2446;
       }
 
       else
       {
-        v219 = &off_10009CAB0;
-        v220 = @"System app upgrade is missing upgrade entitlement.";
-        v221 = 2448;
+        v221 = &off_10009CAB0;
+        v222 = @"System app upgrade is missing upgrade entitlement.";
+        v223 = 2448;
       }
 
-      v259 = 16;
+      v261 = 16;
       goto LABEL_296;
     }
   }
 
-  if (v283 && (sub_10004BF14(entitlements9) & 1) == 0)
+  if (v285 && (sub_10004BF14(entitlements9) & 1) == 0)
   {
-    v218 = MIInstallerErrorDomain;
-    v219 = &off_10009CAD8;
-    v220 = @"System app install missing system app entitlement.";
-    v221 = 2455;
-    v259 = 127;
+    v220 = MIInstallerErrorDomain;
+    v221 = &off_10009CAD8;
+    v222 = @"System app install missing system app entitlement.";
+    v223 = 2455;
+    v261 = 127;
 LABEL_296:
-    path = sub_100010734("[MIInstallableBundle performVerificationWithError:]", v221, v218, v259, 0, v219, v220, v217, v263);
+    path = sub_100010734("[MIInstallableBundle performVerificationWithError:]", v223, v220, v261, 0, v221, v222, v219, v265);
 LABEL_297:
 
     goto LABEL_298;
   }
 
-  v309 = appExtensionBundles2;
-  v222 = [(MIInstallableBundle *)self _performBuiltInAppUpgradeValidationWithSigningInfo:v287 error:&v309];
-  v223 = v309;
+  v311 = appExtensionBundles2;
+  v224 = [(MIInstallableBundle *)self _performBuiltInAppUpgradeValidationWithSigningInfo:v289 error:&v311];
+  v225 = v311;
 
-  if (!v222)
+  if (!v224)
   {
-    appExtensionBundles2 = v223;
+    appExtensionBundles2 = v225;
     goto LABEL_299;
   }
 
   bundle20 = [(MIInstallable *)self bundle];
   executableURL4 = [bundle20 executableURL];
   [executableURL4 fileSystemRepresentation];
-  v308 = v223;
-  v226 = MIMachOFileMatchesMyArchitecture();
-  path = v223;
+  v310 = v225;
+  v228 = MIMachOFileMatchesMyArchitecture();
+  path = v225;
 
-  if (!v226)
+  if (!v228)
   {
 LABEL_298:
     appExtensionBundles2 = path;
     goto LABEL_299;
   }
 
+  v308 = 0u;
+  v309 = 0u;
   v306 = 0u;
   v307 = 0u;
-  v304 = 0u;
-  v305 = 0u;
   appExtensionBundles2 = [(MIInstallableBundle *)self appExtensionBundles];
-  v227 = [appExtensionBundles2 countByEnumeratingWithState:&v304 objects:v375 count:16];
-  if (v227)
+  v229 = [appExtensionBundles2 countByEnumeratingWithState:&v306 objects:v377 count:16];
+  if (v229)
   {
-    v228 = v227;
-    v229 = *v305;
+    v230 = v229;
+    v231 = *v307;
     do
     {
-      v230 = 0;
-      v231 = path;
+      v232 = 0;
+      v233 = path;
       do
       {
-        if (*v305 != v229)
+        if (*v307 != v231)
         {
           objc_enumerationMutation(appExtensionBundles2);
         }
 
-        executableURL5 = [*(*(&v304 + 1) + 8 * v230) executableURL];
+        executableURL5 = [*(*(&v306 + 1) + 8 * v232) executableURL];
         [executableURL5 fileSystemRepresentation];
-        v303 = v231;
-        v233 = MIMachOFileMatchesMyArchitecture();
-        path = v231;
+        v305 = v233;
+        v235 = MIMachOFileMatchesMyArchitecture();
+        path = v233;
 
-        if (!v233)
+        if (!v235)
         {
           goto LABEL_297;
         }
 
-        v230 = v230 + 1;
-        v231 = path;
+        v232 = v232 + 1;
+        v233 = path;
       }
 
-      while (v228 != v230);
-      v228 = [appExtensionBundles2 countByEnumeratingWithState:&v304 objects:v375 count:16];
+      while (v230 != v232);
+      v230 = [appExtensionBundles2 countByEnumeratingWithState:&v306 objects:v377 count:16];
     }
 
-    while (v228);
+    while (v230);
   }
 
+  v303 = 0u;
+  v304 = 0u;
   v301 = 0u;
   v302 = 0u;
-  v299 = 0u;
-  v300 = 0u;
   appExtensionBundles2 = [(MIInstallableBundle *)self xpcServiceBundles];
-  v234 = [appExtensionBundles2 countByEnumeratingWithState:&v299 objects:v374 count:16];
-  if (v234)
+  v236 = [appExtensionBundles2 countByEnumeratingWithState:&v301 objects:v376 count:16];
+  if (v236)
   {
-    v235 = v234;
-    v236 = *v300;
+    v237 = v236;
+    v238 = *v302;
     do
     {
-      v237 = 0;
-      v238 = path;
+      v239 = 0;
+      v240 = path;
       do
       {
-        if (*v300 != v236)
+        if (*v302 != v238)
         {
           objc_enumerationMutation(appExtensionBundles2);
         }
 
-        executableURL6 = [*(*(&v299 + 1) + 8 * v237) executableURL];
+        executableURL6 = [*(*(&v301 + 1) + 8 * v239) executableURL];
         [executableURL6 fileSystemRepresentation];
-        v298 = v238;
-        v240 = MIMachOFileMatchesMyArchitecture();
-        path = v238;
+        v300 = v240;
+        v242 = MIMachOFileMatchesMyArchitecture();
+        path = v240;
 
-        if (!v240)
+        if (!v242)
         {
           goto LABEL_297;
         }
 
-        v237 = v237 + 1;
-        v238 = path;
+        v239 = v239 + 1;
+        v240 = path;
       }
 
-      while (v235 != v237);
-      v235 = [appExtensionBundles2 countByEnumeratingWithState:&v299 objects:v374 count:16];
+      while (v237 != v239);
+      v237 = [appExtensionBundles2 countByEnumeratingWithState:&v301 objects:v376 count:16];
     }
 
-    while (v235);
+    while (v237);
   }
 
+  v298 = 0u;
+  v299 = 0u;
   v296 = 0u;
   v297 = 0u;
-  v294 = 0u;
-  v295 = 0u;
   driverKitExtensionBundles2 = [(MIInstallableBundle *)self driverKitExtensionBundles];
-  v242 = [driverKitExtensionBundles2 countByEnumeratingWithState:&v294 objects:v373 count:16];
-  if (!v242)
+  v244 = [driverKitExtensionBundles2 countByEnumeratingWithState:&v296 objects:v375 count:16];
+  if (!v244)
   {
     goto LABEL_274;
   }
 
-  v243 = v242;
-  v244 = *v295;
+  v245 = v244;
+  v246 = *v297;
   while (2)
   {
-    v245 = 0;
+    v247 = 0;
     while (2)
     {
-      if (*v295 != v244)
+      if (*v297 != v246)
       {
         objc_enumerationMutation(driverKitExtensionBundles2);
       }
 
-      v246 = *(*(&v294 + 1) + 8 * v245);
-      executableURL7 = [v246 executableURL];
+      v248 = *(*(&v296 + 1) + 8 * v247);
+      executableURL7 = [v248 executableURL];
       [executableURL7 fileSystemRepresentation];
 
-      v293 = path;
-      v248 = MIMachOFileMatchesMyArchitecture();
-      v249 = v293;
+      v295 = path;
+      v250 = MIMachOFileMatchesMyArchitecture();
+      v251 = v295;
 
-      if (!v248)
+      if (!v250)
       {
-        path = v249;
+        path = v251;
 LABEL_304:
 
         goto LABEL_61;
       }
 
-      v292 = v249;
-      v250 = [v246 onlyHasExecutableSlicesForPlatform:10 error:&v292];
-      path = v292;
+      v294 = v251;
+      v252 = [v248 onlyHasExecutableSlicesForPlatform:10 error:&v294];
+      path = v294;
 
-      if ((v250 & 1) == 0)
+      if ((v252 & 1) == 0)
       {
         if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3)
         {
@@ -4388,7 +4652,7 @@ LABEL_304:
         goto LABEL_304;
       }
 
-      if (v243 != ++v245)
+      if (v245 != ++v247)
       {
         continue;
       }
@@ -4396,8 +4660,8 @@ LABEL_304:
       break;
     }
 
-    v243 = [driverKitExtensionBundles2 countByEnumeratingWithState:&v294 objects:v373 count:16];
-    if (v243)
+    v245 = [driverKitExtensionBundles2 countByEnumeratingWithState:&v296 objects:v375 count:16];
+    if (v245)
     {
       continue;
     }
@@ -4408,8 +4672,8 @@ LABEL_304:
 LABEL_274:
 
   v85 = 1;
-  installOptions = v272;
-  v16 = v287;
+  installOptions = v274;
+  v16 = v289;
 LABEL_99:
 
   return v85;
@@ -5319,6 +5583,399 @@ LABEL_56:
 LABEL_32:
 
   return v13;
+}
+
+- (BOOL)_checkEligibilityForAppWithSigningInfo:(id)info distributorInfo:(id)distributorInfo isWebDistribution:(BOOL)distribution withError:(id *)error
+{
+  distributionCopy = distribution;
+  infoCopy = info;
+  distributorInfoCopy = distributorInfo;
+  bundle = [(MIInstallable *)self bundle];
+  displayName = [bundle displayName];
+  eligibilityOperationType = [(MIInstallableBundle *)self eligibilityOperationType];
+  identifier = [bundle identifier];
+  v13 = objc_opt_class();
+  installOptions = [(MIInstallable *)self installOptions];
+  installationRequestorAuditToken = [installOptions installationRequestorAuditToken];
+
+  v16 = [v13 _domainForBrowserEligibilityForApp:bundle withSigningInfo:infoCopy distributorInfo:distributorInfoCopy isWebDistribution:distributionCopy operationType:eligibilityOperationType];
+  v17 = [v13 _domainForMarketplaceEligibilityForApp:bundle withSigningInfo:infoCopy isWebDistribution:distributionCopy distributorInfo:distributorInfoCopy operationType:eligibilityOperationType];
+  if (!(v16 | v17))
+  {
+    v18 = 0;
+    v19 = 0;
+LABEL_3:
+    v20 = 1;
+LABEL_4:
+    v21 = displayName;
+    goto LABEL_5;
+  }
+
+  v23 = v17;
+  v60 = distributorInfoCopy;
+  if (distributionCopy && installationRequestorAuditToken)
+  {
+    v59 = infoCopy;
+    v72 = *installationRequestorAuditToken;
+    v70 = 0;
+    v71 = 0;
+    atoken = v72;
+    v24 = [MICodeSigningInfo getValue:&v71 forEntitlement:@"com.apple.developer.browser.app-installation" fromProcessWithAuditToken:&atoken error:&v70];
+    v25 = v71;
+    v18 = v70;
+    if ((v24 & 1) == 0)
+    {
+      if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3)
+      {
+        v54 = @"com.apple.developer.browser.app-installation";
+        v55 = v18;
+        MOLogWrite();
+      }
+
+      v28 = 0;
+      v19 = 0;
+      v18 = 0;
+      distributorInfoCopy = v60;
+      goto LABEL_37;
+    }
+
+    if (v25)
+    {
+      distributorInfoCopy = v60;
+      if (objc_opt_respondsToSelector())
+      {
+        v58 = v25;
+        if ([v25 BOOLValue])
+        {
+          identity = [(MIInstallable *)self identity];
+          personaUniqueString = [identity personaUniqueString];
+
+          distributorInfoCopy = v60;
+          v68 = 0;
+          v28 = [v13 _shouldSkipEligibilityChecksForInstallRequestorWithAuditToken:installationRequestorAuditToken persona:personaUniqueString authorizingBundleID:&v68];
+          v19 = v68;
+        }
+
+        else
+        {
+          v28 = 0;
+          v19 = 0;
+        }
+
+        v25 = v58;
+        goto LABEL_37;
+      }
+
+      if (qword_1000A9720 && *(qword_1000A9720 + 44) < 3)
+      {
+LABEL_30:
+        v28 = 0;
+        v19 = 0;
+LABEL_37:
+
+        infoCopy = v59;
+        goto LABEL_38;
+      }
+    }
+
+    else
+    {
+      distributorInfoCopy = v60;
+      if (qword_1000A9720 && *(qword_1000A9720 + 44) < 3)
+      {
+        goto LABEL_30;
+      }
+    }
+
+    atoken = v72;
+    v54 = audit_token_to_pid(&atoken);
+    v55 = @"com.apple.developer.browser.app-installation";
+    MOLogWrite();
+    goto LABEL_30;
+  }
+
+  if ([v13 _shouldSkipEligibilityChecksForAppWithSigningInfo:infoCopy])
+  {
+    v19 = 0;
+    v18 = 0;
+    v28 = 1;
+  }
+
+  else
+  {
+    if (![distributorInfoCopy distributorIsThirdParty])
+    {
+      if (!v16)
+      {
+        v18 = 0;
+        if (!v23)
+        {
+          v20 = 1;
+          v19 = 0;
+          goto LABEL_4;
+        }
+
+        v19 = 0;
+        goto LABEL_67;
+      }
+
+      v19 = 0;
+      v18 = 0;
+      goto LABEL_48;
+    }
+
+    distributorID = [distributorInfoCopy distributorID];
+    identity2 = [(MIInstallable *)self identity];
+    personaUniqueString2 = [identity2 personaUniqueString];
+    v28 = [v13 _shouldSkipEligibilityChecksForAuthorizingAppWithBundleID:distributorID persona:personaUniqueString2];
+
+    if (v28)
+    {
+      v19 = distributorID;
+    }
+
+    else
+    {
+      v19 = 0;
+    }
+
+    v18 = 0;
+    distributorInfoCopy = v60;
+  }
+
+LABEL_38:
+  if (!v16)
+  {
+    goto LABEL_61;
+  }
+
+  if (!v28)
+  {
+LABEL_48:
+    v33 = v18;
+    LOBYTE(v72.val[0]) = 0;
+    v66 = v18;
+    v67 = 0;
+    v34 = [v13 _getEligibilityForDomain:v16 forBundle:bundle isEligible:&v72 ineligibilityReason:&v67 error:{&v66, v54, v55}];
+    v35 = v67;
+    v18 = v66;
+
+    if (!v34)
+    {
+      goto LABEL_70;
+    }
+
+    distributorInfoCopy = v60;
+    if ((v72.val[0] & 1) == 0)
+    {
+      v21 = displayName;
+      if (v35)
+      {
+        v42 = [NSString stringWithFormat:@" %@", v35];
+
+        v35 = v42;
+      }
+
+      else
+      {
+        v35 = &stru_100092CF8;
+      }
+
+      errorCopy2 = error;
+      v44 = "install";
+      if (eligibilityOperationType == 1)
+      {
+        v44 = "update";
+      }
+
+      if (eligibilityOperationType == 2)
+      {
+        v44 = "restore";
+      }
+
+      v45 = sub_100010734("[MIInstallableBundle _checkEligibilityForAppWithSigningInfo:distributorInfo:isWebDistribution:withError:]", 3015, MIInstallerErrorDomain, 208, 0, 0, @"This device is not eligible to %s the browser engine app %@.%@", v36, v44);
+
+      v18 = v45;
+      goto LABEL_72;
+    }
+
+    if (!v23)
+    {
+      goto LABEL_3;
+    }
+
+LABEL_67:
+    v38 = v18;
+    LOBYTE(v72.val[0]) = 0;
+    v64 = v18;
+    v65 = 0;
+    v39 = [v13 _getEligibilityForDomain:v23 forBundle:bundle isEligible:&v72 ineligibilityReason:&v65 error:{&v64, v54, v55, v56}];
+    v35 = v65;
+    v18 = v64;
+
+    if (v39)
+    {
+      v21 = displayName;
+      if (v72.val[0])
+      {
+
+        v20 = 1;
+        distributorInfoCopy = v60;
+        goto LABEL_5;
+      }
+
+      if (v35)
+      {
+        v43 = [NSString stringWithFormat:@" %@", v35];
+
+        v35 = v43;
+      }
+
+      else
+      {
+        v35 = &stru_100092CF8;
+      }
+
+      entitlements = [infoCopy entitlements];
+      v47 = sub_10004BF34(entitlements);
+
+      v49 = MIInstallerErrorDomain;
+      v50 = "install";
+      if (eligibilityOperationType == 1)
+      {
+        v50 = "update";
+      }
+
+      if (eligibilityOperationType == 2)
+      {
+        v51 = "restore";
+      }
+
+      else
+      {
+        v51 = v50;
+      }
+
+      if (v47)
+      {
+        v52 = sub_100010734("[MIInstallableBundle _checkEligibilityForAppWithSigningInfo:distributorInfo:isWebDistribution:withError:]", 3044, MIInstallerErrorDomain, 208, 0, 0, @"This device is not eligible to %s the marketplace %@.%@", v48, v51);
+      }
+
+      else
+      {
+        distributorNameForCurrentLocale = [v60 distributorNameForCurrentLocale];
+        v52 = sub_100010734("[MIInstallableBundle _checkEligibilityForAppWithSigningInfo:distributorInfo:isWebDistribution:withError:]", 3046, v49, 208, 0, 0, @"This device is not eligible to %s the app %@ distributed by %@.%@", v53, v51);
+
+        v18 = distributorNameForCurrentLocale;
+      }
+
+      v18 = v52;
+      goto LABEL_71;
+    }
+
+LABEL_70:
+    v21 = displayName;
+LABEL_71:
+    errorCopy2 = error;
+LABEL_72:
+
+    distributorInfoCopy = v60;
+    if (errorCopy2)
+    {
+      v41 = v18;
+      v20 = 0;
+      *errorCopy2 = v18;
+    }
+
+    else
+    {
+      v20 = 0;
+    }
+
+    goto LABEL_5;
+  }
+
+  if (v19)
+  {
+    if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 5)
+    {
+      v32 = "install";
+      if (eligibilityOperationType == 1)
+      {
+        v32 = "update";
+      }
+
+      if (eligibilityOperationType == 2)
+      {
+        v32 = "restore";
+      }
+
+      v55 = v19;
+      v56 = identifier;
+      v54 = v32;
+      MOLogWrite();
+    }
+  }
+
+  else
+  {
+    if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 5)
+    {
+      v37 = "install";
+      if (eligibilityOperationType == 1)
+      {
+        v37 = "update";
+      }
+
+      if (eligibilityOperationType == 2)
+      {
+        v37 = "restore";
+      }
+
+      v54 = identifier;
+      v55 = v37;
+      MOLogWrite();
+    }
+
+    v19 = 0;
+  }
+
+  v28 = 1;
+LABEL_61:
+  if (!v23)
+  {
+    goto LABEL_3;
+  }
+
+  if (!v28)
+  {
+    goto LABEL_67;
+  }
+
+  if (v19)
+  {
+    v21 = displayName;
+    if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 5)
+    {
+      MOLogWrite();
+    }
+  }
+
+  else
+  {
+    v21 = displayName;
+    if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 5)
+    {
+      MOLogWrite();
+    }
+
+    v19 = 0;
+  }
+
+  v20 = 1;
+LABEL_5:
+
+  return v20;
 }
 
 - (BOOL)_validateiTunesMetadataWithError:(id *)error

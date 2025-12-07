@@ -182,10 +182,9 @@
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  status = self->_status;
-  v7 = [v3 stringWithFormat:@"<%@: Status: %@ Fetch Responses: %@>", v5, status, self->_fetchResponses];
+  v6 = [v3 stringWithFormat:@"<%@: Status: %@ Fetch Responses: %@>", v5, self->_status, self->_fetchResponses];
 
-  return v7;
+  return v6;
 }
 
 - (void)setStatus:(id)status

@@ -141,7 +141,6 @@ LABEL_13:
   if ((*(a1 + 44) & 0x10) != 0)
   {
 LABEL_6:
-    v6 = *(a1 + 40);
     PB::TextFormatter::format(this, "stepResult");
   }
 
@@ -475,7 +474,6 @@ LABEL_5:
   }
 
 LABEL_11:
-  v5 = *(v3 + 40);
 
   return PB::Writer::writeVarInt(this);
 }
@@ -907,7 +905,6 @@ LABEL_5:
   }
 
 LABEL_30:
-  v6 = *(a1 + 168);
   PB::TextFormatter::format(this, "externalMachineType");
   v5 = *(a1 + 176);
   if ((v5 & 8) == 0)
@@ -978,7 +975,6 @@ LABEL_10:
   }
 
 LABEL_35:
-  v7 = *(a1 + 172);
   PB::TextFormatter::format(this, "powerMeterIdentification");
   v5 = *(a1 + 176);
   if ((v5 & 0x80) == 0)
@@ -1119,7 +1115,6 @@ LABEL_20:
   }
 
 LABEL_45:
-  v8 = *(a1 + 136);
   PB::TextFormatter::format(this, "totalFloorsClimbed");
   v5 = *(a1 + 176);
   if ((v5 & 0x20000) == 0)
@@ -1134,7 +1129,6 @@ LABEL_21:
   }
 
 LABEL_46:
-  v9 = *(a1 + 144);
   PB::TextFormatter::format(this, "totalStrideCount");
   v5 = *(a1 + 176);
   if ((v5 & 0x40000) == 0)
@@ -1149,7 +1143,6 @@ LABEL_22:
   }
 
 LABEL_47:
-  v10 = *(a1 + 152);
   PB::TextFormatter::format(this, "totalStrokeCount");
   if ((*(a1 + 176) & 0x80000) != 0)
   {
@@ -2014,7 +2007,6 @@ LABEL_11:
   }
 
 LABEL_33:
-  v5 = *(v3 + 136);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 176);
   if ((v4 & 0x20000) == 0)
@@ -2029,7 +2021,6 @@ LABEL_12:
   }
 
 LABEL_34:
-  v6 = *(v3 + 144);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 176);
   if ((v4 & 0x40000) == 0)
@@ -2044,7 +2035,6 @@ LABEL_13:
   }
 
 LABEL_35:
-  v7 = *(v3 + 152);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 176);
   if ((v4 & 0x80000) == 0)
@@ -2073,7 +2063,6 @@ LABEL_15:
   }
 
 LABEL_37:
-  v8 = *(v3 + 168);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 176);
   if ((v4 & 0x400) == 0)
@@ -2130,7 +2119,6 @@ LABEL_19:
   }
 
 LABEL_41:
-  v9 = *(v3 + 172);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 176);
   if ((v4 & 0x80) == 0)
@@ -2180,9 +2168,9 @@ LABEL_22:
   }
 
 LABEL_45:
-  v10 = *(v3 + 96);
+  v5 = *(v3 + 96);
 
-  return PB::Writer::write(this, v10);
+  return PB::Writer::write(this, v5);
 }
 
 uint64_t sub_245D9AAF8(uint64_t result)
@@ -2714,7 +2702,6 @@ LABEL_11:
   }
 
 LABEL_37:
-  v6 = *(a1 + 64);
   PB::TextFormatter::format(this, "floors");
   v5 = *(a1 + 112);
   if ((v5 & 2) == 0)
@@ -2869,7 +2856,6 @@ LABEL_22:
   }
 
 LABEL_48:
-  v7 = *(a1 + 100);
   PB::TextFormatter::format(this, "stepCount");
   v5 = *(a1 + 112);
   if ((v5 & 0x200000) == 0)
@@ -3511,7 +3497,6 @@ LABEL_9:
   }
 
 LABEL_32:
-  v5 = *(v3 + 64);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 112);
   if ((v4 & 0x100000) == 0)
@@ -3526,7 +3511,6 @@ LABEL_10:
   }
 
 LABEL_33:
-  v6 = *(v3 + 100);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 112);
   if ((v4 & 0x200000) == 0)
@@ -3716,9 +3700,9 @@ LABEL_23:
   }
 
 LABEL_47:
-  v7 = *(v3 + 36);
+  v5 = *(v3 + 36);
 
-  return PB::Writer::write(this, v7);
+  return PB::Writer::write(this, v5);
 }
 
 uint64_t sub_245D9BC98(uint64_t result)
@@ -3836,7 +3820,6 @@ LABEL_11:
   if (*(a1 + 28))
   {
 LABEL_5:
-    v6 = *(a1 + 8);
     PB::TextFormatter::format(this, "timestampUs");
   }
 
@@ -4108,7 +4091,6 @@ uint64_t sub_245D9C1AC(uint64_t result, PB::Writer *this)
   v4 = *(result + 28);
   if (v4)
   {
-    v5 = *(result + 8);
     result = PB::Writer::writeVarInt(this);
     v4 = *(v3 + 28);
     if ((v4 & 8) == 0)
@@ -4149,9 +4131,9 @@ LABEL_4:
   }
 
 LABEL_9:
-  v6 = *(v3 + 16);
+  v5 = *(v3 + 16);
 
-  return PB::Writer::write(this, v6);
+  return PB::Writer::write(this, v5);
 }
 
 uint64_t sub_245D9C254(uint64_t result)
@@ -4331,7 +4313,6 @@ uint64_t sub_245D9C3F8(uint64_t a1, PB::TextFormatter *this, char *a3)
   v5 = *(a1 + 52);
   if ((v5 & 0x200) != 0)
   {
-    v7 = *(a1 + 48);
     PB::TextFormatter::format(this, "deterministicAlgoDecisionBool");
     v5 = *(a1 + 52);
     if ((v5 & 2) == 0)
@@ -4379,7 +4360,6 @@ LABEL_5:
   }
 
 LABEL_18:
-  v8 = *(a1 + 24);
   PB::TextFormatter::format(this, "fGyroXNumPeaksInLast5sCount");
   v5 = *(a1 + 52);
   if ((v5 & 0x10) == 0)
@@ -4394,7 +4374,6 @@ LABEL_6:
   }
 
 LABEL_19:
-  v9 = *(a1 + 28);
   PB::TextFormatter::format(this, "fGyroXNumValleysInLast2s");
   v5 = *(a1 + 52);
   if ((v5 & 0x20) == 0)
@@ -4455,7 +4434,6 @@ LABEL_23:
   if (*(a1 + 52))
   {
 LABEL_11:
-    v6 = *(a1 + 8);
     PB::TextFormatter::format(this, "timestampUs");
   }
 
@@ -4970,7 +4948,6 @@ uint64_t sub_245D9CC04(uint64_t result, PB::Writer *this)
   v4 = *(result + 52);
   if (v4)
   {
-    v5 = *(result + 8);
     result = PB::Writer::writeVarInt(this);
     v4 = *(v3 + 52);
     if ((v4 & 0x200) == 0)
@@ -4990,7 +4967,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v6 = *(v3 + 48);
   result = PB::Writer::write(this);
   v4 = *(v3 + 52);
   if ((v4 & 2) == 0)
@@ -5033,7 +5009,6 @@ LABEL_6:
   }
 
 LABEL_16:
-  v7 = *(v3 + 24);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 52);
   if ((v4 & 0x20) == 0)
@@ -5073,7 +5048,6 @@ LABEL_9:
     }
 
 LABEL_20:
-    v8 = *(v3 + 28);
     result = PB::Writer::writeVarInt(this);
     if ((*(v3 + 52) & 0x100) == 0)
     {
@@ -5098,9 +5072,9 @@ LABEL_10:
   }
 
 LABEL_21:
-  v9 = *(v3 + 44);
+  v5 = *(v3 + 44);
 
-  return PB::Writer::write(this, v9);
+  return PB::Writer::write(this, v5);
 }
 
 uint64_t sub_245D9CD54(uint64_t result)
@@ -5450,7 +5424,6 @@ uint64_t sub_245D9D010(uint64_t a1, PB::TextFormatter *this, char *a3)
   v5 = *(a1 + 100);
   if ((v5 & 8) != 0)
   {
-    v6 = *(a1 + 32);
     PB::TextFormatter::format(this, "dataBufferSize");
     v5 = *(a1 + 100);
     if ((v5 & 0x10) == 0)
@@ -5484,7 +5457,6 @@ LABEL_4:
   }
 
 LABEL_27:
-  v7 = *(a1 + 96);
   PB::TextFormatter::format(this, "isWristLooselyLevel");
   v5 = *(a1 + 100);
   if ((v5 & 0x20) == 0)
@@ -5513,7 +5485,6 @@ LABEL_6:
   }
 
 LABEL_29:
-  v8 = *(a1 + 44);
   PB::TextFormatter::format(this, "negPeakLeftHalfWidth");
   v5 = *(a1 + 100);
   if ((v5 & 0x80) == 0)
@@ -5528,7 +5499,6 @@ LABEL_7:
   }
 
 LABEL_30:
-  v9 = *(a1 + 48);
   PB::TextFormatter::format(this, "negPeakRightHalfWidth");
   v5 = *(a1 + 100);
   if ((v5 & 1) == 0)
@@ -5543,7 +5513,6 @@ LABEL_8:
   }
 
 LABEL_31:
-  v10 = *(a1 + 8);
   PB::TextFormatter::format(this, "negPeakTimestampUs");
   v5 = *(a1 + 100);
   if ((v5 & 0x100) == 0)
@@ -5600,7 +5569,6 @@ LABEL_12:
   }
 
 LABEL_35:
-  v11 = *(a1 + 64);
   PB::TextFormatter::format(this, "posPeakLeftHalfWidth");
   v5 = *(a1 + 100);
   if ((v5 & 0x1000) == 0)
@@ -5615,7 +5583,6 @@ LABEL_13:
   }
 
 LABEL_36:
-  v12 = *(a1 + 68);
   PB::TextFormatter::format(this, "posPeakRightHalfWidth");
   v5 = *(a1 + 100);
   if ((v5 & 2) == 0)
@@ -5630,7 +5597,6 @@ LABEL_14:
   }
 
 LABEL_37:
-  v13 = *(a1 + 16);
   PB::TextFormatter::format(this, "posPeakTimestampUs");
   v5 = *(a1 + 100);
   if ((v5 & 0x2000) == 0)
@@ -5701,7 +5667,6 @@ LABEL_19:
   }
 
 LABEL_42:
-  v14 = *(a1 + 24);
   PB::TextFormatter::format(this, "timestampUs");
   v5 = *(a1 + 100);
   if ((v5 & 0x20000) == 0)
@@ -6662,7 +6627,6 @@ uint64_t sub_245D9DF9C(uint64_t result, PB::Writer *this)
   v4 = *(result + 100);
   if ((v4 & 4) != 0)
   {
-    v5 = *(result + 24);
     result = PB::Writer::writeVarInt(this);
     v4 = *(v3 + 100);
     if ((v4 & 8) == 0)
@@ -6682,7 +6646,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v6 = *(v3 + 32);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 100);
   if ((v4 & 0x400) == 0)
@@ -6711,7 +6674,6 @@ LABEL_5:
   }
 
 LABEL_25:
-  v7 = *(v3 + 16);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 100);
   if ((v4 & 0x20) == 0)
@@ -6740,7 +6702,6 @@ LABEL_7:
   }
 
 LABEL_27:
-  v8 = *(v3 + 8);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 100);
   if ((v4 & 0x1000) == 0)
@@ -6755,7 +6716,6 @@ LABEL_8:
   }
 
 LABEL_28:
-  v9 = *(v3 + 68);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 100);
   if ((v4 & 0x800) == 0)
@@ -6770,7 +6730,6 @@ LABEL_9:
   }
 
 LABEL_29:
-  v10 = *(v3 + 64);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 100);
   if ((v4 & 0x80) == 0)
@@ -6785,7 +6744,6 @@ LABEL_10:
   }
 
 LABEL_30:
-  v11 = *(v3 + 48);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 100);
   if ((v4 & 0x40) == 0)
@@ -6800,7 +6758,6 @@ LABEL_11:
   }
 
 LABEL_31:
-  v12 = *(v3 + 44);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 100);
   if ((v4 & 0x2000) == 0)
@@ -6934,7 +6891,6 @@ LABEL_20:
   }
 
 LABEL_41:
-  v13 = *(v3 + 96);
 
   return PB::Writer::write(this);
 }
@@ -6989,14 +6945,12 @@ uint64_t sub_245D9E2C8(uint64_t a1, PB::TextFormatter *this, char *a3)
   v5 = *(a1 + 20);
   if ((v5 & 2) != 0)
   {
-    v6 = *(a1 + 16);
     PB::TextFormatter::format(this, "state");
     v5 = *(a1 + 20);
   }
 
   if (v5)
   {
-    v7 = *(a1 + 8);
     PB::TextFormatter::format(this, "timestamp");
   }
 
@@ -7315,14 +7269,12 @@ uint64_t sub_245D9E6C4(uint64_t result, PB::Writer *this)
   v4 = *(result + 20);
   if (v4)
   {
-    v5 = *(result + 8);
     result = PB::Writer::writeVarInt(this);
     v4 = *(v3 + 20);
   }
 
   if ((v4 & 2) != 0)
   {
-    v6 = *(v3 + 16);
 
     return PB::Writer::writeVarInt(this);
   }
@@ -7358,11 +7310,11 @@ void sub_245D9E7D4(PB::Base *a1)
   JUMPOUT(0x24C194490);
 }
 
-uint64_t sub_245D9E80C(uint64_t result, uint64_t a2)
+uint64_t sub_245D9E80C(uint64_t a1, uint64_t a2)
 {
-  *result = &unk_2858CCD90;
-  *(result + 8) = 0;
-  *(result + 16) = 0;
+  *a1 = &unk_2858CCD90;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
   if (*(a2 + 8))
   {
     operator new();
@@ -7371,11 +7323,11 @@ uint64_t sub_245D9E80C(uint64_t result, uint64_t a2)
   if (*(a2 + 20))
   {
     v2 = *(a2 + 16);
-    *(result + 20) |= 1u;
-    *(result + 16) = v2;
+    *(a1 + 20) |= 1u;
+    *(a1 + 16) = v2;
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t sub_245D9E8E8(uint64_t a1, PB::TextFormatter *this, char *a3)
@@ -7383,14 +7335,13 @@ uint64_t sub_245D9E8E8(uint64_t a1, PB::TextFormatter *this, char *a3)
   PB::TextFormatter::beginObject(this, a3);
   if (*(a1 + 20))
   {
-    v5 = *(a1 + 16);
     PB::TextFormatter::format(this, "axis");
   }
 
-  v6 = *(a1 + 8);
-  if (v6)
+  v5 = *(a1 + 8);
+  if (v5)
   {
-    (*(*v6 + 32))(v6, this, "super");
+    (*(*v5 + 32))(v5, this, "super");
   }
 
   return MEMORY[0x2821A4560](this);
@@ -7622,7 +7573,6 @@ uint64_t sub_245D9ECE0(uint64_t result, PB::Writer *this)
 
   if (*(v3 + 20))
   {
-    v5 = *(v3 + 16);
 
     return PB::Writer::writeVarInt(this);
   }
@@ -7835,7 +7785,6 @@ LABEL_17:
   if (*(a1 + 40))
   {
 LABEL_8:
-    v6 = *(a1 + 8);
     PB::TextFormatter::format(this, "timestampUs");
   }
 
@@ -8144,7 +8093,6 @@ uint64_t sub_245D9F3D8(uint64_t result, PB::Writer *this)
   v4 = *(result + 40);
   if (v4)
   {
-    v5 = *(result + 8);
     result = PB::Writer::writeVarInt(this);
     v4 = *(v3 + 40);
     if ((v4 & 0x10) == 0)
@@ -8227,9 +8175,9 @@ LABEL_7:
   }
 
 LABEL_15:
-  v6 = *(v3 + 24);
+  v5 = *(v3 + 24);
 
-  return PB::Writer::write(this, v6);
+  return PB::Writer::write(this, v5);
 }
 
 void sub_245D9F4D8(PB::Base *a1)
@@ -8449,7 +8397,6 @@ LABEL_5:
   }
 
 LABEL_18:
-  v6 = *(a1 + 64);
   PB::TextFormatter::format(this, "isPeak");
   v5 = *(a1 + 68);
   if ((v5 & 1) == 0)
@@ -8464,7 +8411,6 @@ LABEL_6:
   }
 
 LABEL_19:
-  v7 = *(a1 + 8);
   PB::TextFormatter::format(this, "timestampLeftHalfCrossingUs");
   v5 = *(a1 + 68);
   if ((v5 & 2) == 0)
@@ -8479,7 +8425,6 @@ LABEL_7:
   }
 
 LABEL_20:
-  v8 = *(a1 + 16);
   PB::TextFormatter::format(this, "timestampLeftZeroCrossingUs");
   v5 = *(a1 + 68);
   if ((v5 & 4) == 0)
@@ -8494,7 +8439,6 @@ LABEL_8:
   }
 
 LABEL_21:
-  v9 = *(a1 + 24);
   PB::TextFormatter::format(this, "timestampRightHalfCrossingUs");
   v5 = *(a1 + 68);
   if ((v5 & 8) == 0)
@@ -8509,7 +8453,6 @@ LABEL_9:
   }
 
 LABEL_22:
-  v10 = *(a1 + 32);
   PB::TextFormatter::format(this, "timestampRightZeroCrossingUs");
   v5 = *(a1 + 68);
   if ((v5 & 0x10) == 0)
@@ -8524,7 +8467,6 @@ LABEL_10:
   }
 
 LABEL_23:
-  v11 = *(a1 + 40);
   PB::TextFormatter::format(this, "timestampUs");
   if ((*(a1 + 68) & 0x100) != 0)
   {
@@ -9201,7 +9143,6 @@ uint64_t sub_245D9FFF4(uint64_t result, PB::Writer *this)
   v4 = *(result + 68);
   if ((v4 & 0x10) != 0)
   {
-    v5 = *(result + 40);
     result = PB::Writer::writeVarInt(this);
     v4 = *(v3 + 68);
     if ((v4 & 0x100) == 0)
@@ -9235,7 +9176,6 @@ LABEL_4:
   }
 
 LABEL_14:
-  v6 = *(v3 + 64);
   result = PB::Writer::write(this);
   v4 = *(v3 + 68);
   if ((v4 & 2) == 0)
@@ -9250,7 +9190,6 @@ LABEL_5:
   }
 
 LABEL_15:
-  v7 = *(v3 + 16);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 68);
   if ((v4 & 8) == 0)
@@ -9265,7 +9204,6 @@ LABEL_6:
   }
 
 LABEL_16:
-  v8 = *(v3 + 32);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 68);
   if ((v4 & 1) == 0)
@@ -9280,7 +9218,6 @@ LABEL_7:
   }
 
 LABEL_17:
-  v9 = *(v3 + 8);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 68);
   if ((v4 & 4) == 0)
@@ -9295,7 +9232,6 @@ LABEL_8:
   }
 
 LABEL_18:
-  v10 = *(v3 + 24);
   result = PB::Writer::writeVarInt(this);
   v4 = *(v3 + 68);
   if ((v4 & 0x80) == 0)
@@ -9331,9 +9267,9 @@ LABEL_10:
   }
 
 LABEL_21:
-  v11 = *(v3 + 52);
+  v5 = *(v3 + 52);
 
-  return PB::Writer::write(this, v11);
+  return PB::Writer::write(this, v5);
 }
 
 uint64_t sub_245DA0144(uint64_t result)
@@ -9374,12 +9310,12 @@ void sub_245DA01E4(PB::Base *a1)
   JUMPOUT(0x24C194490);
 }
 
-uint64_t sub_245DA021C(uint64_t result, uint64_t a2)
+uint64_t sub_245DA021C(uint64_t a1, uint64_t a2)
 {
-  *(result + 8) = 0;
-  *result = &unk_2858CCE38;
-  *(result + 16) = 0;
-  *(result + 48) = 0;
+  *(a1 + 8) = 0;
+  *a1 = &unk_2858CCE38;
+  *(a1 + 16) = 0;
+  *(a1 + 48) = 0;
   if (*(a2 + 8))
   {
     operator new();
@@ -9394,8 +9330,8 @@ uint64_t sub_245DA021C(uint64_t result, uint64_t a2)
   if ((v2 & 4) != 0)
   {
     v4 = *(a2 + 36);
-    *(result + 48) |= 4u;
-    *(result + 36) = v4;
+    *(a1 + 48) |= 4u;
+    *(a1 + 36) = v4;
     v2 = *(a2 + 48);
     if ((v2 & 2) == 0)
     {
@@ -9415,8 +9351,8 @@ LABEL_7:
   }
 
   v5 = *(a2 + 32);
-  *(result + 48) |= 2u;
-  *(result + 32) = v5;
+  *(a1 + 48) |= 2u;
+  *(a1 + 32) = v5;
   v2 = *(a2 + 48);
   if ((v2 & 8) == 0)
   {
@@ -9431,15 +9367,15 @@ LABEL_8:
 
 LABEL_14:
   v6 = *(a2 + 40);
-  *(result + 48) |= 8u;
-  *(result + 40) = v6;
+  *(a1 + 48) |= 8u;
+  *(a1 + 40) = v6;
   v2 = *(a2 + 48);
   if ((v2 & 0x10) == 0)
   {
 LABEL_9:
     if ((v2 & 1) == 0)
     {
-      return result;
+      return a1;
     }
 
     goto LABEL_10;
@@ -9447,18 +9383,18 @@ LABEL_9:
 
 LABEL_15:
   v7 = *(a2 + 44);
-  *(result + 48) |= 0x10u;
-  *(result + 44) = v7;
+  *(a1 + 48) |= 0x10u;
+  *(a1 + 44) = v7;
   if ((*(a2 + 48) & 1) == 0)
   {
-    return result;
+    return a1;
   }
 
 LABEL_10:
   v3 = *(a2 + 24);
-  *(result + 48) |= 1u;
-  *(result + 24) = v3;
-  return result;
+  *(a1 + 48) |= 1u;
+  *(a1 + 24) = v3;
+  return a1;
 }
 
 uint64_t sub_245DA03F4(uint64_t a1, PB::TextFormatter *this, char *a3)
@@ -9472,7 +9408,6 @@ uint64_t sub_245DA03F4(uint64_t a1, PB::TextFormatter *this, char *a3)
   v5 = *(a1 + 48);
   if ((v5 & 2) != 0)
   {
-    v9 = *(a1 + 32);
     PB::TextFormatter::format(this, "modeSemanticType");
     v5 = *(a1 + 48);
     if ((v5 & 4) == 0)
@@ -9492,12 +9427,10 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v10 = *(a1 + 36);
   PB::TextFormatter::format(this, "modeUpdateReason");
   if ((*(a1 + 48) & 8) != 0)
   {
 LABEL_6:
-    v6 = *(a1 + 40);
     PB::TextFormatter::format(this, "modeUpdateSource");
   }
 
@@ -9507,15 +9440,14 @@ LABEL_7:
     PB::TextFormatter::format();
   }
 
-  v7 = *(a1 + 48);
-  if ((v7 & 0x10) != 0)
+  v6 = *(a1 + 48);
+  if ((v6 & 0x10) != 0)
   {
-    v8 = *(a1 + 44);
     PB::TextFormatter::format(this, "starting");
-    v7 = *(a1 + 48);
+    v6 = *(a1 + 48);
   }
 
-  if (v7)
+  if (v6)
   {
     PB::TextFormatter::format(this, "timestamp", *(a1 + 24));
   }

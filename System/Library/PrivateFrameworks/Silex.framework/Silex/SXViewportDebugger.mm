@@ -1,8 +1,8 @@
 @interface SXViewportDebugger
 - (id)colorForAppearState:(unint64_t)state;
 - (id)initWithViewport:(id *)viewport;
-- (uint64_t)presentOnView:(uint64_t)result;
 - (void)dealloc;
+- (void)presentOnView:(void *)result;
 - (void)update;
 @end
 
@@ -124,7 +124,7 @@
   return viewport;
 }
 
-- (uint64_t)presentOnView:(uint64_t)result
+- (void)presentOnView:(void *)result
 {
   if (result)
   {

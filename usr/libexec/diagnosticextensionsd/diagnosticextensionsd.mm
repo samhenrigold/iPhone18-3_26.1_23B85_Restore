@@ -204,42 +204,42 @@ void sub_100001144(uint64_t *a1, NSObject *a2)
 
 void sub_1000011C0()
 {
-  v0 = *__error();
+  __error();
   sub_1000010B8();
   sub_1000010A8();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_100001244()
 {
-  v0 = *__error();
+  __error();
   sub_1000010B8();
   sub_1000010A8();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_1000012C8()
 {
-  v0 = *__error();
+  __error();
   sub_1000010B8();
   sub_1000010A8();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_10000134C()
 {
-  v0 = *__error();
+  __error();
   sub_1000010B8();
   sub_1000010A8();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_1000013D0()
 {
-  v0 = *__error();
+  __error();
   sub_1000010B8();
   sub_1000010A8();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_100001454()

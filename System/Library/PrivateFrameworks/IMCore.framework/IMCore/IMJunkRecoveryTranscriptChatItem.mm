@@ -6,16 +6,16 @@
 
 - (id)_initWithItem:(id)item
 {
-  v7.receiver = self;
-  v7.super_class = IMJunkRecoveryTranscriptChatItem;
-  v3 = [(IMChatItem *)&v7 _initWithItem:item];
-  v5 = v3;
+  v6.receiver = self;
+  v6.super_class = IMJunkRecoveryTranscriptChatItem;
+  v3 = [(IMChatItem *)&v6 _initWithItem:item];
+  v4 = v3;
   if (v3)
   {
-    objc_msgSend__setGUID_(v3, v4, @"jr:");
+    [v3 _setGUID:@"jr:"];
   }
 
-  return v5;
+  return v4;
 }
 
 @end

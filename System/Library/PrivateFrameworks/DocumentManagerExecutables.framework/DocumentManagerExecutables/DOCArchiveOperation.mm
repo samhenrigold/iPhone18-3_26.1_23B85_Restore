@@ -9,7 +9,7 @@
 - (id)operationForRedoing
 {
   selfCopy = self;
-  v3 = DOCArchiveOperation.operationForRedoing()();
+  v3 = DOCArchiveOperation.operationForRedoing()(selfCopy);
 
   return v3;
 }

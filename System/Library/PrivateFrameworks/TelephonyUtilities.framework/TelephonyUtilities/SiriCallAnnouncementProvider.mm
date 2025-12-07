@@ -7,9 +7,10 @@
 
 - (void)voiceOverObserver:(id)observer didChangeEnabled:(BOOL)enabled
 {
+  enabledCopy = enabled;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1003FF9C0(selfCopy, enabled);
+  sub_1003FF9C0(selfCopy, enabledCopy);
   swift_unknownObjectRelease();
 }
 

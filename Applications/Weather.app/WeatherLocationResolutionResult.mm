@@ -38,8 +38,8 @@
 + (id)disambiguationWithObjectsToDisambiguate:(id)disambiguate
 {
   sub_100A15E10();
-  static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  static WeatherLocationResolutionResult.disambiguation(with:)();
+  v3 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  static WeatherLocationResolutionResult.disambiguation(with:)(v3, v4, v5, v6, v7);
 }
 
 @end

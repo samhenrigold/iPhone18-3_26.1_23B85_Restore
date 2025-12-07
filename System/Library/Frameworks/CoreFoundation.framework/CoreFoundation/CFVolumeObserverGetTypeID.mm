@@ -28,8 +28,6 @@ void ___CFVolumeObserverGetTypeID_block_invoke()
 
     CFRelease(v1);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 @end

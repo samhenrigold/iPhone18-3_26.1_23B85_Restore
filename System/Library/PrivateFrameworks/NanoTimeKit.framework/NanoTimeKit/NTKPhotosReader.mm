@@ -151,7 +151,7 @@ LABEL_11:
 {
   v0 = objc_opt_class();
   v1 = OUTLINED_FUNCTION_0_13(v0);
-  OUTLINED_FUNCTION_0_10(&dword_22D9C5000, v2, v3, "%@: cannot read contents of %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_10(&dword_22D9C5000, v2, v3, "%@: cannot read contents of %@", v4, v5, v6, v7);
 }
 
 @end

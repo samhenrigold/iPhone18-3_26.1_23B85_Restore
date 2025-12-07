@@ -97,19 +97,17 @@ LABEL_8:
   cityNode = self->_cityNode;
   self->_cityNode = v5;
 
-  v7 = [[CLSSignalNode alloc] initWithIdentifier:2147481599 name:@"City Nature - City Natureish" operatingPoint:0.341 highPrecisionOperatingPoint:0.551 highRecallOperatingPoint:0.088];
-  cityNatureishNode = self->_cityNatureishNode;
-  self->_cityNatureishNode = v7;
+  self->_cityNatureishNode = [[CLSSignalNode alloc] initWithIdentifier:2147481599 name:@"City Nature - City Natureish" operatingPoint:0.341 highPrecisionOperatingPoint:0.551 highRecallOperatingPoint:0.088];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (CLSCityNatureModel)initWithSceneAnalysisVersion:(unint64_t)version
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = CLSCityNatureModel;
-  v4 = [(CLSCityNatureModel *)&v9 init];
+  v13 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = CLSCityNatureModel;
+  v4 = [(CLSCityNatureModel *)&v8 init];
   v5 = v4;
   if (v4)
   {
@@ -122,12 +120,12 @@ LABEL_8:
           v6 = objc_opt_class();
           *buf = 67109378;
           versionCopy = version;
-          v12 = 2112;
-          v13 = v6;
+          v11 = 2112;
+          v12 = v6;
           _os_log_impl(&dword_25E5F0000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Unsupported version %d in %@", buf, 0x12u);
         }
 
-        v5 = 0;
+        return 0;
       }
 
       else
@@ -142,7 +140,6 @@ LABEL_8:
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

@@ -75,7 +75,7 @@ void __26__DNDDevice_currentDevice__block_invoke(uint64_t a1)
 {
   deviceClass = [(DNDDevice *)self deviceClass];
   v4 = [(DNDDevice *)self deviceCapabilities]^ deviceClass;
-  [(DNDDevice *)self frameworkVersion];
+  objc_msgSend_frameworkVersion(self);
   v5 = DNDStringFromOperatingSystemVersion(v8);
   v6 = [v5 hash];
 
@@ -99,11 +99,11 @@ void __26__DNDDevice_currentDevice__block_invoke(uint64_t a1)
       deviceClass = [(DNDDevice *)self deviceClass];
       if (deviceClass == [(DNDDevice *)v5 deviceClass]&& (v7 = [(DNDDevice *)self deviceCapabilities], v7 == [(DNDDevice *)v5 deviceCapabilities]))
       {
-        [(DNDDevice *)self frameworkVersion];
+        objc_msgSend_frameworkVersion(self);
         v8 = DNDStringFromOperatingSystemVersion(&v16);
         if (v5)
         {
-          [(DNDDevice *)v5 frameworkVersion];
+          objc_msgSend_frameworkVersion(v5);
         }
 
         else
@@ -121,13 +121,13 @@ void __26__DNDDevice_currentDevice__block_invoke(uint64_t a1)
 
         else
         {
-          [(DNDDevice *)self frameworkVersion];
+          objc_msgSend_frameworkVersion(self);
           v11 = DNDStringFromOperatingSystemVersion(&v16);
           if (v11)
           {
             if (v5)
             {
-              [(DNDDevice *)v5 frameworkVersion];
+              objc_msgSend_frameworkVersion(v5);
             }
 
             else
@@ -140,11 +140,11 @@ void __26__DNDDevice_currentDevice__block_invoke(uint64_t a1)
             v12 = DNDStringFromOperatingSystemVersion(&v16);
             if (v12)
             {
-              [(DNDDevice *)self frameworkVersion];
+              objc_msgSend_frameworkVersion(self);
               v13 = DNDStringFromOperatingSystemVersion(&v16);
               if (v5)
               {
-                [(DNDDevice *)v5 frameworkVersion];
+                objc_msgSend_frameworkVersion(v5);
               }
 
               else
@@ -192,7 +192,7 @@ void __26__DNDDevice_currentDevice__block_invoke(uint64_t a1)
   v4 = objc_opt_class();
   v5 = DNDStringFromDeviceClass([(DNDDevice *)self deviceClass]);
   v6 = DNDStringFromDeviceCapabilities([(DNDDevice *)self deviceCapabilities]);
-  [(DNDDevice *)self frameworkVersion];
+  objc_msgSend_frameworkVersion(self);
   v7 = DNDStringFromOperatingSystemVersion(v10);
   v8 = [v3 stringWithFormat:@"<%@: %p deviceClass: %@; deviceCapabilities: %@; frameworkVersion: %@>", v4, self, v5, v6, v7];;
 

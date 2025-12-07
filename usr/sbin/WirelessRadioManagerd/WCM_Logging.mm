@@ -2,6 +2,7 @@
 + (id)stringFromXPCObjectWithPrefix:(id)prefix prefix:(id)a4;
 + (int)getNumberOfSavedLogFiles:(int *)files new:(int *)new;
 + (void)initSettingsFromPreferences;
++ (void)logLevel:(int)level message:(id)message;
 + (void)logToFile:(id)file;
 + (void)reloadLogSettingsFromPreferences;
 + (void)reloadiRATSettingsFromPreferences;
@@ -21,13 +22,13 @@
   }
 
   [v2 setDateFormat:@"MM/dd/yy HH:mm:ss.SSS"];
-  qword_1002B8030 = os_log_create("com.apple.WirelessRadioManager.Coex", "Error");
+  qword_1002B8030[0] = os_log_create("com.apple.WirelessRadioManager.Coex", "Error");
   qword_1002B8038 = os_log_create("com.apple.WirelessRadioManager.Coex", "Warning");
   qword_1002B8040 = os_log_create("com.apple.WirelessRadioManager.Coex", "Info");
   qword_1002B8048 = os_log_create("com.apple.WirelessRadioManager.Coex", "Trace");
   qword_1002B8050 = os_log_create("com.apple.WirelessRadioManager.Coex", "Detail");
   qword_1002B8058 = os_log_create("com.apple.WirelessRadioManager.Coex", "Public");
-  qword_1002B8060 = os_log_create("com.apple.WirelessRadioManager.iRAT", "Error");
+  qword_1002B8060[0] = os_log_create("com.apple.WirelessRadioManager.iRAT", "Error");
   qword_1002B8068 = os_log_create("com.apple.WirelessRadioManager.iRAT", "Warning");
   qword_1002B8070 = os_log_create("com.apple.WirelessRadioManager.iRAT", "Info");
   qword_1002B8078 = os_log_create("com.apple.WirelessRadioManager.iRAT", "TraceWifi");
@@ -371,6 +372,147 @@ LABEL_8:
         NSLog(@"Failed to copy %@ to %@", v13, v12);
       }
     }
+  }
+}
+
++ (void)logLevel:(int)level message:(id)message
+{
+  v4 = *&level;
+  block[6] = &v22;
+  v6 = [[NSString alloc] initWithFormat:message arguments:&v22];
+  v7 = 1 << v4;
+  if (v4 > 5)
+  {
+    if ((v7 & 0x3FFF0000) == 0)
+    {
+      goto LABEL_17;
+    }
+
+    if ((v7 & 0x26030000) != 0)
+    {
+      v8 = qword_1002B8060[(v4 - 16)];
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        v21 = v6;
+        v9 = "%@";
+LABEL_15:
+        v11 = v8;
+        v12 = OS_LOG_TYPE_DEFAULT;
+LABEL_16:
+        _os_log_impl(&_mh_execute_header, v11, v12, v9, buf, 0xCu);
+        goto LABEL_17;
+      }
+
+      goto LABEL_17;
+    }
+
+    v10 = qword_1002B8060[(v4 - 16)];
+    if ((v7 & 0x14C0000) != 0)
+    {
+      if (!os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      {
+        goto LABEL_17;
+      }
+
+      *buf = 138412290;
+      v21 = v6;
+      v9 = "%@";
+      goto LABEL_31;
+    }
+
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    {
+      goto LABEL_17;
+    }
+
+    goto LABEL_10;
+  }
+
+  if (v4 > 2)
+  {
+    if ((v7 & 0x20) != 0)
+    {
+      v8 = qword_1002B8030[v4];
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138543362;
+        v21 = v6;
+        v9 = "%{public}@";
+        goto LABEL_15;
+      }
+
+      goto LABEL_17;
+    }
+
+    v10 = qword_1002B8030[v4];
+    if ((v7 & 8) != 0)
+    {
+      if (!os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      {
+        goto LABEL_17;
+      }
+
+      *buf = 138412290;
+      v21 = v6;
+      v9 = "%@";
+LABEL_31:
+      v11 = v10;
+      v12 = OS_LOG_TYPE_INFO;
+      goto LABEL_16;
+    }
+
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    {
+      goto LABEL_17;
+    }
+
+LABEL_10:
+    sub_10015F924(v6, v10);
+    goto LABEL_17;
+  }
+
+  v8 = qword_1002B8030[v4];
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v21 = v6;
+    v9 = "%@";
+    goto LABEL_15;
+  }
+
+LABEL_17:
+  if (byte_1002B8020 == 1 && [self isLogLevelEnabled:v4])
+  {
+    v13 = +[NSDate date];
+    v14 = [qword_1002B8028 stringFromDate:v13];
+    v15 = [NSString alloc];
+    v16 = getpid();
+    if (v4 <= 5)
+    {
+      v17 = &(&off_1002414E0)[v4];
+    }
+
+    else
+    {
+      if ((v7 & 0x3FFF0000) == 0)
+      {
+        v18 = "LogUnknown";
+        goto LABEL_24;
+      }
+
+      v17 = &(&off_100241510)[(v4 - 16)];
+    }
+
+    v18 = *v17;
+LABEL_24:
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_1000CB71C;
+    block[3] = &unk_10023DC80;
+    block[4] = self;
+    block[5] = [v15 initWithFormat:@"%@ [%d] <%s>: %@\n", v14, v16, v18, v6];
+    dispatch_async(qword_1002B80E0, block);
   }
 }
 

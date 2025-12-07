@@ -144,18 +144,18 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v17.receiver = self;
-  v17.super_class = TSCH3DDirectionalLight;
-  v5 = [(TSCH3DLight *)&v17 copyWithZone:zone];
-  if (v5)
+  v16.receiver = self;
+  v16.super_class = TSCH3DDirectionalLight;
+  v4 = [(TSCH3DLight *)&v16 copyWithZone:zone];
+  if (v4)
   {
-    objc_msgSend_direction(self, v4, v6, v7, v8);
+    objc_msgSend_direction(self, v5, v6, v7);
+    v14 = v12;
     v15 = v13;
-    v16 = v14;
-    objc_msgSend_setDirection_(v5, v9, COERCE_DOUBLE(__PAIR64__(HIDWORD(v13), v14)), v10, v11, &v15);
+    objc_msgSend_setDirection_(v4, v8, COERCE_DOUBLE(__PAIR64__(HIDWORD(v12), v13)), v9, v10, &v14);
   }
 
-  return v5;
+  return v4;
 }
 
 - (tvec3<float>)direction
@@ -165,7 +165,7 @@
   if (direction || (v9 = MEMORY[0x277D81150], objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, v3, v4, v5, "[TSCH3DDirectionalLight direction]"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, v12, v13, v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DDirectionalLight.mm"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v16, v17, v18, v19, v10, v15, 150, 0, "invalid nil value for '%{public}s'", "_direction"), v15, v10, objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22, v23), (direction = self->_direction) != 0))
   {
 
-    direction = objc_msgSend_value3(direction, a2, v3, v4, v5);
+    direction = objc_msgSend_value3(direction, v3, v4, v5, a2);
   }
 
   else

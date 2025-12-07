@@ -12,10 +12,10 @@
   {
     v3 = *&self->onDismiss[OBJC_IVAR____TtCV19MobileStoreSettings28OnboardingPrivacyViewWrapper11Coordinator_onDismiss];
     selfCopy = self;
-    v5 = sub_C450(v2);
+    v5 = sub_C450(v2, v3);
     v2(v5);
 
-    sub_C460(v2);
+    sub_C460(v2, v3);
   }
 }
 

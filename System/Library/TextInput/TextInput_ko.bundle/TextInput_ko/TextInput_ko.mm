@@ -1,16 +1,16 @@
 BOOL Hangul2SetAutomata::SendUniChar(Hangul2SetAutomata *this, HangulSyllable *a2, BOOL *a3)
 {
   v4 = a2;
-  *&v43.var0 = 0;
-  v43.var2 = 0;
+  *&v45.var0 = 0;
+  v45.var2 = 0;
   *a3 = 0;
   JamoType = HangulSyllable::GetJamoType(a2);
-  v7 = JamoType;
+  v8 = JamoType;
   if (JamoType == -1)
   {
     *a3 = 1;
     Hangul2SetAutomata::Reset(this);
-    return v7 != -1;
+    return v8 != -1;
   }
 
   var3 = this->var3;
@@ -21,19 +21,19 @@ BOOL Hangul2SetAutomata::SendUniChar(Hangul2SetAutomata *this, HangulSyllable *a
       if (var3 == 5)
       {
         var2 = this->var5.var2;
-        if (v7 != 1)
+        if (v8 != 1)
         {
           goto LABEL_47;
         }
 
-        v22 = HangulSyllable::JongRightHalf(var2);
-        v23 = HangulSyllable::MapChoAndJong(v22);
-        HangulSyllable::SetCho(&chars, v23);
+        v23 = HangulSyllable::JongRightHalf(var2);
+        v25 = HangulSyllable::MapChoAndJong(v23, v24);
+        HangulSyllable::SetCho(&chars, v25);
         HangulSyllable::SetJung(&chars, v4);
         HangulSyllable::SetJong(&chars, 0);
         if (HangulSyllable::CanCompose(&chars))
         {
-          v24 = 3;
+          v26 = 3;
         }
 
         else
@@ -43,13 +43,13 @@ BOOL Hangul2SetAutomata::SendUniChar(Hangul2SetAutomata *this, HangulSyllable *a
             goto LABEL_60;
           }
 
-          v24 = 6;
+          v26 = 6;
         }
 
-        this->var3 = v24;
-        v33 = HangulSyllable::JongLeftHalf(this->var5.var2);
-        HangulSyllable::SetJong(&this->var5, v33);
-        v43 = chars;
+        this->var3 = v26;
+        v35 = HangulSyllable::JongLeftHalf(this->var5.var2);
+        HangulSyllable::SetJong(&this->var5, v35);
+        v45 = chars;
         *&this->var1 = 65538;
         *a3 = 1;
         goto LABEL_62;
@@ -65,72 +65,72 @@ BOOL Hangul2SetAutomata::SendUniChar(Hangul2SetAutomata *this, HangulSyllable *a
     {
       if (JamoType == 1)
       {
-        v9 = HangulSyllable::MapChoAndJong(this->var5.var2);
-        HangulSyllable::SetCho(&chars, v9);
+        v10 = HangulSyllable::MapChoAndJong(this->var5.var2, v7);
+        HangulSyllable::SetCho(&chars, v10);
         HangulSyllable::SetJung(&chars, v4);
         HangulSyllable::SetJong(&chars, 0);
         if (HangulSyllable::CanCompose(&chars))
         {
-          v43 = chars;
+          v45 = chars;
           HangulSyllable::SetJong(&this->var5, 0);
           this->var3 = 3;
-          v10 = 1;
+          v11 = 1;
           *a3 = 1;
-          v11 = 2;
+          v12 = 2;
         }
 
         else if (v4 == 12685)
         {
           HangulSyllable::SetJong(&this->var5, 0);
-          HangulSyllable::SetCho(&v43, chars.var0);
-          HangulSyllable::SetJung(&v43, 12685);
+          HangulSyllable::SetCho(&v45, chars.var0);
+          HangulSyllable::SetJung(&v45, 12685);
           this->var3 = 6;
-          v11 = 2;
-          v10 = 1;
+          v12 = 2;
+          v11 = 1;
         }
 
         else
         {
-          HangulSyllable::SetJung(&v43, v4);
-          v10 = 0;
-          v11 = 1;
+          HangulSyllable::SetJung(&v45, v4);
+          v11 = 0;
+          v12 = 1;
           this->var3 = 1;
           *a3 = 1;
         }
 
-        this->var2 = v10;
-        this->var1 = v11;
+        this->var2 = v11;
+        this->var1 = v12;
         goto LABEL_62;
       }
 
       var2 = this->var5.var2;
 LABEL_47:
-      v29 = HangulSyllable::DoubleJong(var2, v4);
-      if (v29)
+      v31 = HangulSyllable::DoubleJong(var2, v4);
+      if (v31)
       {
-        v30 = v29;
+        v32 = v31;
         var1 = this->var5.var1;
         HangulSyllable::SetCho(&chars, this->var5.var0);
         HangulSyllable::SetJung(&chars, var1);
-        HangulSyllable::SetJong(&chars, v30);
+        HangulSyllable::SetJong(&chars, v32);
         if (HangulSyllable::CanCompose(&chars))
         {
-          HangulSyllable::SetJong(&this->var5, v30);
-          v15 = 1;
-          v32 = 5;
+          HangulSyllable::SetJong(&this->var5, v32);
+          v16 = 1;
+          v34 = 5;
         }
 
         else
         {
-          HangulSyllable::SetCho(&v43, v4);
-          v15 = 0;
+          HangulSyllable::SetCho(&v45, v4);
+          v16 = 0;
           *a3 = 1;
-          v32 = 2;
+          v34 = 2;
         }
 
-        this->var3 = v32;
+        this->var3 = v34;
 LABEL_53:
-        this->var2 = v15;
+        this->var2 = v16;
 LABEL_54:
         this->var1 = 1;
         goto LABEL_62;
@@ -141,21 +141,21 @@ LABEL_54:
 
     if (JamoType != 1)
     {
-      v25 = this->var5.var1;
+      v27 = this->var5.var1;
       HangulSyllable::SetCho(&chars, this->var5.var0);
-      HangulSyllable::SetJung(&chars, v25);
+      HangulSyllable::SetJung(&chars, v27);
       HangulSyllable::SetJong(&chars, v4);
       if (HangulSyllable::NormalizeJong(v4) && HangulSyllable::CanCompose(&chars))
       {
         HangulSyllable::SetJong(&this->var5, v4);
         this->var3 = 4;
-        v15 = 1;
+        v16 = 1;
       }
 
       else
       {
-        HangulSyllable::SetCho(&v43, v4);
-        v15 = 0;
+        HangulSyllable::SetCho(&v45, v4);
+        v16 = 0;
         this->var3 = 2;
         *a3 = 1;
       }
@@ -163,26 +163,26 @@ LABEL_54:
       goto LABEL_53;
     }
 
-    v16 = HangulSyllable::DoubleJung(this->var5.var1, v4, this->var7);
-    if (v16)
+    v17 = HangulSyllable::DoubleJung(this->var5.var1, v4, this->var7);
+    if (v17)
     {
-      v17 = v16;
+      v18 = v17;
       HangulSyllable::SetCho(&this->var6, this->var5.var0);
-      HangulSyllable::SetJung(&this->var6, v17);
+      HangulSyllable::SetJung(&this->var6, v18);
       HangulSyllable::SetJong(&this->var6, 0);
       if (HangulSyllable::CanCompose(&this->var6))
       {
         if (this->var3 == 6)
         {
-          v18 = 2;
+          v19 = 2;
         }
 
         else
         {
-          v18 = 1;
+          v19 = 1;
         }
 
-        this->var2 = v18;
+        this->var2 = v19;
         this->var1 = 1;
         this->var3 = 3;
         *&this->var5.var0 = *&this->var6.var0;
@@ -201,7 +201,7 @@ LABEL_54:
     }
 
 LABEL_60:
-    HangulSyllable::SetJung(&v43, v4);
+    HangulSyllable::SetJung(&v45, v4);
     this->var3 = 1;
     goto LABEL_61;
   }
@@ -212,29 +212,29 @@ LABEL_60:
     {
       if (JamoType == 1)
       {
-        v26 = HangulSyllable::DoubleJung(this->var5.var1, v4, this->var7);
-        if (v26)
+        v28 = HangulSyllable::DoubleJung(this->var5.var1, v4, this->var7);
+        if (v28)
         {
-          v27 = v26;
+          v29 = v28;
           HangulSyllable::SetCho(&chars, 0);
-          HangulSyllable::SetJung(&chars, v27);
+          HangulSyllable::SetJung(&chars, v29);
           HangulSyllable::SetJong(&chars, 0);
           if (HangulSyllable::CanCompose(&chars))
           {
-            v28 = 1;
+            v30 = 1;
             this->var3 = 1;
-            HangulSyllable::Set(&this->var5, 0, v27, 0);
+            HangulSyllable::Set(&this->var5, 0, v29, 0);
           }
 
           else
           {
-            HangulSyllable::SetJung(&v43, v4);
-            v28 = 0;
+            HangulSyllable::SetJung(&v45, v4);
+            v30 = 0;
             this->var3 = 1;
             *a3 = 1;
           }
 
-          this->var2 = v28;
+          this->var2 = v30;
           goto LABEL_54;
         }
 
@@ -251,27 +251,27 @@ LABEL_60:
 
       if (JamoType == 1)
       {
-        v12 = this->var5.var2;
+        v13 = this->var5.var2;
         HangulSyllable::SetCho(&this->var6, this->var5.var0);
         HangulSyllable::SetJung(&this->var6, v4);
-        HangulSyllable::SetJong(&this->var6, v12);
+        HangulSyllable::SetJong(&this->var6, v13);
         CanCompose = HangulSyllable::CanCompose(&this->var6);
         if (v4 == 12685 || CanCompose)
         {
           if (v4 == 12685)
           {
-            v14 = 6;
+            v15 = 6;
           }
 
           else
           {
-            v14 = 3;
+            v15 = 3;
           }
 
-          this->var3 = v14;
+          this->var3 = v15;
           HangulSyllable::SetJung(&this->var5, this->var6.var1);
           HangulSyllable::SetJong(&this->var5, 0);
-          v15 = this->var3 != 6;
+          v16 = this->var3 != 6;
           goto LABEL_53;
         }
 
@@ -280,7 +280,7 @@ LABEL_60:
     }
 
 LABEL_50:
-    HangulSyllable::SetCho(&v43, v4);
+    HangulSyllable::SetCho(&v45, v4);
     this->var3 = 2;
 LABEL_61:
     *a3 = 1;
@@ -290,33 +290,33 @@ LABEL_61:
 
   if (JamoType == 1)
   {
-    v19 = 0;
+    v20 = 0;
   }
 
   else
   {
-    v19 = v4;
+    v20 = v4;
   }
 
   if (JamoType == 1)
   {
-    v20 = 1;
+    v21 = 1;
   }
 
   else
   {
     LODWORD(v4) = 0;
-    v20 = 2;
+    v21 = 2;
   }
 
-  HangulSyllable::SetCho(&this->var5, v19);
+  HangulSyllable::SetCho(&this->var5, v20);
   HangulSyllable::SetJung(&this->var5, v4);
   HangulSyllable::SetJong(&this->var5, 0);
-  this->var3 = v20;
+  this->var3 = v21;
   *&this->var1 = 1;
 LABEL_62:
-  v34 = this->var1;
-  if (v34 == 2)
+  v36 = this->var1;
+  if (v36 == 2)
   {
     Hangul2SetAutomata::ClearOutputString(this);
     chars.var0 = HangulSyllable::GetUnicode(&this->var5);
@@ -328,17 +328,17 @@ LABEL_62:
 
     if (this->var3 == 6)
     {
-      chars.var0 = v43.var0;
-      v37 = this->var4;
-      if (!v37)
+      chars.var0 = v45.var0;
+      v39 = this->var4;
+      if (!v39)
       {
         goto LABEL_79;
       }
 
-      CFStringAppendCharacters(v37, &chars.var0, 1);
-      v38 = this->var4;
-      chars.var0 = v43.var1;
-      if (!v38)
+      CFStringAppendCharacters(v39, &chars.var0, 1);
+      v40 = this->var4;
+      chars.var0 = v45.var1;
+      if (!v40)
       {
         goto LABEL_79;
       }
@@ -346,61 +346,61 @@ LABEL_62:
 
     else
     {
-      chars.var0 = HangulSyllable::GetUnicode(&v43);
-      v38 = this->var4;
-      if (!v38)
+      chars.var0 = HangulSyllable::GetUnicode(&v45);
+      v40 = this->var4;
+      if (!v40)
       {
 LABEL_79:
-        this->var5 = v43;
-        return v7 != -1;
+        this->var5 = v45;
+        return v8 != -1;
       }
     }
 
-    CFStringAppendCharacters(v38, &chars.var0, 1);
+    CFStringAppendCharacters(v40, &chars.var0, 1);
     goto LABEL_79;
   }
 
-  if (v34 == 1)
+  if (v36 == 1)
   {
     Hangul2SetAutomata::ClearOutputString(this);
     if (*a3)
     {
-      chars.var0 = HangulSyllable::GetUnicode(&v43);
-      v35 = this->var4;
-      if (v35)
+      chars.var0 = HangulSyllable::GetUnicode(&v45);
+      v37 = this->var4;
+      if (v37)
       {
-        CFStringAppendCharacters(v35, &chars.var0, 1);
+        CFStringAppendCharacters(v37, &chars.var0, 1);
       }
 
-      this->var5 = v43;
+      this->var5 = v45;
     }
 
     else
     {
       if (this->var3 == 6)
       {
-        v39 = this->var5.var1;
-        if (v39 == 4510)
+        v41 = this->var5.var1;
+        if (v41 == 4510)
         {
-          LOWORD(v39) = HangulSyllable::JungToCompatibility(0x119E);
+          LOWORD(v41) = HangulSyllable::JungToCompatibility(0x119E);
         }
       }
 
       else
       {
-        LOWORD(v39) = HangulSyllable::GetUnicode(&this->var5);
+        LOWORD(v41) = HangulSyllable::GetUnicode(&this->var5);
       }
 
-      chars.var0 = v39;
-      v40 = this->var4;
-      if (v40)
+      chars.var0 = v41;
+      v42 = this->var4;
+      if (v42)
       {
-        CFStringAppendCharacters(v40, &chars.var0, 1);
+        CFStringAppendCharacters(v42, &chars.var0, 1);
       }
     }
   }
 
-  return v7 != -1;
+  return v8 != -1;
 }
 
 void Hangul2SetAutomata::Reset(Hangul2SetAutomata *this)
@@ -414,7 +414,7 @@ void Hangul2SetAutomata::Reset(Hangul2SetAutomata *this)
   Hangul2SetAutomata::ClearOutputString(this);
 }
 
-HangulSyllable *HangulSyllable::Set(HangulSyllable *this, int a2, int a3, int a4)
+HangulSyllable *HangulSyllable::Set(HangulSyllable *this, unsigned __int16 a2, int a3, int a4)
 {
   HangulSyllable::SetCho(this, a2);
   HangulSyllable::SetJung(this, a3);
@@ -449,7 +449,7 @@ void Hangul2SetAutomata::AppendCharToOutput(Hangul2SetAutomata *this, UniChar a2
   }
 }
 
-uint64_t Hangul2SetAutomata::HandleDelete(Hangul2SetAutomata *this)
+uint64_t Hangul2SetAutomata::HandleDelete(Hangul2SetAutomata *this, unsigned __int16 a2)
 {
   var3 = this->var3;
   if (var3 > 2)
@@ -458,16 +458,16 @@ uint64_t Hangul2SetAutomata::HandleDelete(Hangul2SetAutomata *this)
     {
       if (var3 == 3)
       {
-        v6 = HangulSyllable::VowelLeftHalf(this->var5.var1);
-        if (!v6)
+        v7 = HangulSyllable::VowelLeftHalf(this->var5.var1);
+        if (!v7)
         {
           HangulSyllable::SetJung(&this->var5, 0);
           HangulSyllable::SetJong(&this->var5, 0);
-          v7 = 2;
+          v8 = 2;
           goto LABEL_22;
         }
 
-        HangulSyllable::SetJung(&this->var5, v6);
+        HangulSyllable::SetJung(&this->var5, v7);
       }
 
       else
@@ -475,9 +475,9 @@ uint64_t Hangul2SetAutomata::HandleDelete(Hangul2SetAutomata *this)
         HangulSyllable::SetJong(&this->var5, 0);
       }
 
-      v7 = 3;
+      v8 = 3;
 LABEL_22:
-      this->var3 = v7;
+      this->var3 = v8;
       *&this->var1 = 65537;
       var3 = 2;
       goto LABEL_27;
@@ -485,9 +485,9 @@ LABEL_22:
 
     if (var3 == 5)
     {
-      v8 = HangulSyllable::JongLeftHalf(this->var5.var2);
-      HangulSyllable::SetJong(&this->var5, v8);
-      v7 = 4;
+      v9 = HangulSyllable::JongLeftHalf(this->var5.var2);
+      HangulSyllable::SetJong(&this->var5, v9);
+      v8 = 4;
       goto LABEL_22;
     }
 
@@ -509,19 +509,19 @@ LABEL_22:
 
   if (var3 == 1)
   {
-    v9 = HangulSyllable::VowelLeftHalf(this->var5.var1);
+    v10 = HangulSyllable::VowelLeftHalf(this->var5.var1);
     HangulSyllable::SetCho(&this->var5, 0);
-    v10 = &this->var5;
-    if (v9)
+    v11 = &this->var5;
+    if (v10)
     {
-      HangulSyllable::SetJung(v10, v9);
+      HangulSyllable::SetJung(v11, v10);
       HangulSyllable::SetJong(&this->var5, 0);
-      v7 = 1;
+      v8 = 1;
       goto LABEL_22;
     }
 
-    HangulSyllable::SetJung(v10, 0);
-    v11 = &this->var5;
+    HangulSyllable::SetJung(v11, 0);
+    v12 = &this->var5;
     goto LABEL_25;
   }
 
@@ -530,30 +530,30 @@ LABEL_22:
     goto LABEL_27;
   }
 
-  v3 = HangulSyllable::ChoLeftHalf(this->var5.var0);
-  if (!v3)
+  v4 = HangulSyllable::ChoLeftHalf(this->var5.var0);
+  if (!v4)
   {
     HangulSyllable::SetCho(&this->var5, 0);
     HangulSyllable::SetJung(&this->var5, 0);
-    v11 = &this->var5;
+    v12 = &this->var5;
 LABEL_25:
-    HangulSyllable::SetJong(v11, 0);
+    HangulSyllable::SetJong(v12, 0);
     var3 = 0;
     this->var3 = 0;
-    v5 = 0x10000;
+    v6 = 0x10000;
     goto LABEL_26;
   }
 
-  HangulSyllable::SetCho(&this->var5, v3);
+  HangulSyllable::SetCho(&this->var5, v4);
   HangulSyllable::SetJung(&this->var5, 0);
   p_var5 = &this->var5;
 LABEL_13:
   HangulSyllable::SetJong(p_var5, 0);
   var3 = 2;
   this->var3 = 2;
-  v5 = 65537;
+  v6 = 65537;
 LABEL_26:
-  *&this->var1 = v5;
+  *&this->var1 = v6;
 LABEL_27:
   if (this->var1 == 1)
   {
@@ -678,11 +678,11 @@ __CFString *_composeJamo(const __CFString *a1, Hangul2SetAutomata *a2)
 
 id DecomposeHangul(NSString *a1)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   v1 = a1;
   [(NSString *)v1 length];
   MEMORY[0x2A1C7C4A8]();
-  v3 = &v17[-1] - v2;
+  v3 = &v16[-1] - v2;
   if ([(NSString *)v1 length])
   {
     v4 = 0;
@@ -695,39 +695,39 @@ id DecomposeHangul(NSString *a1)
         break;
       }
 
-      HangulSyllable::HangulSyllable(&v18, v6);
-      *v17 = 0;
+      HangulSyllable::HangulSyllable(&v17, v6);
+      *v16 = 0;
       v7 = v5 + 1;
       v8 = &v3[2 * v5];
-      *v8 = HangulSyllable::ChoToCompatibility(v18.var0);
-      if (HangulSyllable::SplitJamoCompound(v18.var1, &v17[1], v17, v9))
+      *v8 = HangulSyllable::ChoToCompatibility(v17.var0);
+      if (HangulSyllable::SplitJamoCompound(v17.var1, &v16[1], v16, v9))
       {
-        *&v3[2 * v7] = HangulSyllable::JungToCompatibility(v17[1]);
+        *&v3[2 * v7] = HangulSyllable::JungToCompatibility(v16[1]);
         v5 += 3;
-        *(v8 + 2) = HangulSyllable::JungToCompatibility(v17[0]);
+        *(v8 + 2) = HangulSyllable::JungToCompatibility(v16[0]);
       }
 
       else
       {
         v5 += 2;
-        *&v3[2 * v7] = HangulSyllable::JungToCompatibility(v18.var1);
+        *&v3[2 * v7] = HangulSyllable::JungToCompatibility(v17.var1);
       }
 
-      if (!v18.var2)
+      if (!v17.var2)
       {
         goto LABEL_13;
       }
 
-      if (!HangulSyllable::SplitJamoCompound(v18.var2, &v17[1], v17, v10))
+      if (!HangulSyllable::SplitJamoCompound(v17.var2, &v16[1], v16, v10))
       {
-        *&v3[2 * v5] = HangulSyllable::JongToCompatibility(v18.var2);
+        *&v3[2 * v5] = HangulSyllable::JongToCompatibility(v17.var2);
         goto LABEL_12;
       }
 
       v11 = &v3[2 * v5];
-      *v11 = HangulSyllable::JongToCompatibility(v17[1]);
+      *v11 = HangulSyllable::JongToCompatibility(v16[1]);
       v5 += 2;
-      *(v11 + 1) = HangulSyllable::JongToCompatibility(v17[0]);
+      *(v11 + 1) = HangulSyllable::JongToCompatibility(v16[0]);
 LABEL_13:
       if ([(NSString *)v1 length]<= ++v4)
       {
@@ -745,18 +745,16 @@ LABEL_12:
   v12 = 0;
 LABEL_16:
   v13 = [MEMORY[0x29EDBA0F8] stringWithCharacters:v3 length:v12];
-
-  v14 = *MEMORY[0x29EDCA608];
 
   return v13;
 }
 
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   v1 = a1;
   [(NSString *)v1 length];
   MEMORY[0x2A1C7C4A8]();
-  v3 = &v17[-1] - v2;
+  v3 = &v16[-1] - v2;
   if ([(NSString *)v1 length])
   {
     v4 = 0;
@@ -769,39 +767,39 @@ LABEL_16:
         break;
       }
 
-      HangulSyllable::HangulSyllable(&v18, v6);
-      *v17 = 0;
+      HangulSyllable::HangulSyllable(&v17, v6);
+      *v16 = 0;
       v7 = v5 + 1;
       v8 = &v3[2 * v5];
-      *v8 = HangulSyllable::ChoToCompatibility(v18.var0);
-      if (HangulSyllable::SplitJamoCompound(v18.var1, &v17[1], v17, v9))
+      *v8 = HangulSyllable::ChoToCompatibility(v17.var0);
+      if (HangulSyllable::SplitJamoCompound(v17.var1, &v16[1], v16, v9))
       {
-        *&v3[2 * v7] = HangulSyllable::JungToCompatibility(v17[1]);
+        *&v3[2 * v7] = HangulSyllable::JungToCompatibility(v16[1]);
         v5 += 3;
-        *(v8 + 2) = HangulSyllable::JungToCompatibility(v17[0]);
+        *(v8 + 2) = HangulSyllable::JungToCompatibility(v16[0]);
       }
 
       else
       {
         v5 += 2;
-        *&v3[2 * v7] = HangulSyllable::JungToCompatibility(v18.var1);
+        *&v3[2 * v7] = HangulSyllable::JungToCompatibility(v17.var1);
       }
 
-      if (!v18.var2)
+      if (!v17.var2)
       {
         goto LABEL_13;
       }
 
-      if (!HangulSyllable::SplitJamoCompound(v18.var2, &v17[1], v17, v10))
+      if (!HangulSyllable::SplitJamoCompound(v17.var2, &v16[1], v16, v10))
       {
-        *&v3[2 * v5] = HangulSyllable::JongToCompatibility(v18.var2);
+        *&v3[2 * v5] = HangulSyllable::JongToCompatibility(v17.var2);
         goto LABEL_12;
       }
 
       v11 = &v3[2 * v5];
-      *v11 = HangulSyllable::JongToCompatibility(v17[1]);
+      *v11 = HangulSyllable::JongToCompatibility(v16[1]);
       v5 += 2;
-      *(v11 + 1) = HangulSyllable::JongToCompatibility(v17[0]);
+      *(v11 + 1) = HangulSyllable::JongToCompatibility(v16[0]);
 LABEL_13:
       if ([(NSString *)v1 length]<= ++v4)
       {
@@ -819,8 +817,6 @@ LABEL_12:
   v12 = 0;
 LABEL_16:
   v13 = [MEMORY[0x29EDBA0F8] stringWithCharacters:v3 length:v12];
-
-  v14 = *MEMORY[0x29EDCA608];
 
   return v13;
 }
@@ -919,31 +915,31 @@ uint64_t HangulSyllable::JongToCompatibility(HangulSyllable *this)
   }
 }
 
-HangulSyllable *HangulSyllable::MapChoAndJong(HangulSyllable *this)
+HangulSyllable *HangulSyllable::MapChoAndJong(HangulSyllable *this, unsigned __int16 a2)
 {
-  v1 = this;
+  v2 = this;
   JamoType = HangulSyllable::GetJamoType(this);
   if (JamoType == 4)
   {
-    v3 = v1 - 4520;
-    if (v3 <= 0x1A)
+    v4 = v2 - 4520;
+    if (v4 <= 0x1A)
     {
-      v4 = &gJongToChoMap;
-      return v4[v3];
+      v5 = &gJongToChoMap;
+      return v5[v4];
     }
   }
 
   else if (JamoType == 2)
   {
-    v3 = v1 - 4352;
-    if (v3 <= 0x12)
+    v4 = v2 - 4352;
+    if (v4 <= 0x12)
     {
-      v4 = &gChoToJongMap;
-      return v4[v3];
+      v5 = &gChoToJongMap;
+      return v5[v4];
     }
   }
 
-  return v1;
+  return v2;
 }
 
 uint64_t HangulSyllable::GetJamoType(HangulSyllable *this)
@@ -1601,121 +1597,119 @@ uint64_t TIInputManager_ko::set_is_10key(uint64_t this, int a2)
 
 void TIInputManager_ko::completion_candidates(TIInputManager *this@<X0>, uint64_t a2@<X8>)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v16[4] = *MEMORY[0x29EDCA608];
   if (*(this + 756) == 1)
   {
-    TIInputManager::input_stem(&v9, this);
-    compose_10key_vowels(&v9, v18);
-    KB::String::~String(&v9);
+    TIInputManager::input_stem(&v7, this);
+    compose_10key_vowels(v16, &v7);
+    KB::String::~String(&v7);
     TIInputManager::predictions_for_string();
-    TIInputManager::input_stem(v8, this);
-    *a2 = v9;
-    *(a2 + 16) = v10;
+    TIInputManager::input_stem(v6, this);
+    *a2 = v7;
+    *(a2 + 16) = v8;
+    v7 = 0uLL;
+    *(a2 + 24) = v9;
+    *(a2 + 40) = v10;
+    v8 = 0;
     v9 = 0uLL;
-    *(a2 + 24) = v11;
-    *(a2 + 40) = v12;
     v10 = 0;
+    *(a2 + 48) = v11;
+    *(a2 + 64) = v12;
     v11 = 0uLL;
+    *(a2 + 72) = v13;
     v12 = 0;
-    *(a2 + 48) = v13;
-    *(a2 + 64) = v14;
     v13 = 0uLL;
-    *(a2 + 72) = v15;
+    v4 = v14;
+    v5 = v15;
     v14 = 0;
-    v15 = 0uLL;
-    v4 = v16;
-    v5 = v17;
-    v16 = 0;
     *(a2 + 88) = v4;
     *(a2 + 96) = v5;
     KB::String::String();
-    KB::String::~String(v8);
-    v8[0] = &v15;
-    std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v8);
-    v8[0] = &v13;
-    std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v8);
-    v8[0] = &v11;
-    std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v8);
-    v8[0] = &v9;
-    std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v8);
-    KB::String::~String(v18);
-    v6 = *MEMORY[0x29EDCA608];
+    KB::String::~String(v6);
+    v6[0] = &v13;
+    std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v6);
+    v6[0] = &v11;
+    std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v6);
+    v6[0] = &v9;
+    std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v6);
+    v6[0] = &v7;
+    std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v6);
+    KB::String::~String(v16);
   }
 
   else
   {
-    v7 = *MEMORY[0x29EDCA608];
 
     MEMORY[0x2A1C69AC0]();
   }
 }
 
-void compose_10key_vowels(const KB::String *a1@<X0>, uint64_t a2@<X8>)
+void compose_10key_vowels(uint64_t *__return_ptr a1@<X8>, const KB::String *a2@<X0>)
 {
-  v34[4] = *MEMORY[0x29EDCA608];
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x4802000000;
-  v32 = __Block_byref_object_copy_;
-  v33 = __Block_byref_object_dispose_;
-  KB::String::String(v34);
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2000000000;
+  v33[4] = *MEMORY[0x29EDCA608];
   v28 = 0;
-  v20[0] = MEMORY[0x29EDCA5F8];
-  v20[1] = 0x40000000;
-  v21 = ___ZL20compose_10key_vowelsRKN2KB6StringE_block_invoke;
-  v22 = &unk_29F37B100;
-  v23 = &v25;
-  v24 = &v29;
-  v4 = *(a1 + 1);
+  v29 = &v28;
+  v30 = 0x4802000000;
+  v31 = __Block_byref_object_copy_;
+  v32 = __Block_byref_object_dispose_;
+  KB::String::String(v33);
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2000000000;
+  v27 = 0;
+  v19[0] = MEMORY[0x29EDCA5F8];
+  v19[1] = 0x40000000;
+  v20 = ___ZL20compose_10key_vowelsRKN2KB6StringE_block_invoke;
+  v21 = &unk_29F37B100;
+  v22 = &v24;
+  v23 = &v28;
+  v4 = *(a2 + 1);
   if (!v4)
   {
-    v4 = a1 + 16;
+    v4 = a2 + 16;
   }
 
-  v16 = v4;
-  v5 = *a1;
-  v17 = 0;
-  v18 = v5;
-  v19 = 0;
-  KB::String::iterator::initialize(&v16);
-  v6 = *a1;
-  v7 = *(a1 + 1);
+  v15 = v4;
+  v5 = *a2;
+  v16 = 0;
+  v17 = v5;
+  v18 = 0;
+  KB::String::iterator::initialize(&v15);
+  v6 = *a2;
+  v7 = *(a2 + 1);
   if (!v7)
   {
-    v7 = a1 + 16;
+    v7 = a2 + 16;
   }
 
-  v12 = v7;
+  v11 = v7;
+  v12 = v6;
   v13 = v6;
-  v14 = v6;
-  v15 = 0;
-  KB::String::iterator::initialize(&v12);
-  while (v17 != v13)
+  v14 = 0;
+  KB::String::iterator::initialize(&v11);
+  while (v16 != v12)
   {
-    v8 = v19;
-    if (HIWORD(v19) || HangulSyllable::GetJamoType(v19) != 1)
+    v8 = v18;
+    if (HIWORD(v18) || HangulSyllable::GetJamoType(v18) != 1)
     {
-      (v21)(v20);
-      KB::String::append((v30 + 5));
+      (v20)(v19);
+      KB::String::append((v29 + 5));
     }
 
     else
     {
-      v9 = v26;
-      if (*(v26 + 12))
+      v9 = v25;
+      if (*(v25 + 12))
       {
-        v10 = HangulSyllable::DoubleJung(*(v26 + 12), v8, 1);
+        v10 = HangulSyllable::DoubleJung(*(v25 + 12), v8, 1);
         if (v10)
         {
-          *(v26 + 12) = v10;
+          *(v25 + 12) = v10;
           goto LABEL_13;
         }
 
-        (v21)(v20);
-        v9 = v26;
+        (v20)(v19);
+        v9 = v25;
       }
 
       *(v9 + 12) = v8;
@@ -1725,30 +1719,29 @@ LABEL_13:
     KB::String::iterator::operator++();
   }
 
-  (v21)(v20);
-  MEMORY[0x29EDA3F40](a2, v30 + 5);
-  _Block_object_dispose(&v25, 8);
-  _Block_object_dispose(&v29, 8);
-  KB::String::~String(v34);
-  v11 = *MEMORY[0x29EDCA608];
+  (v20)(v19);
+  MEMORY[0x29EDA3F40](a1, v29 + 5);
+  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v28, 8);
+  KB::String::~String(v33);
 }
 
 void TIInputManager_ko::autocorrections(TIInputManager *this@<X0>, uint64_t a2@<X8>)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v10[4] = *MEMORY[0x29EDCA608];
   if (*(this + 756) == 1)
   {
     if (*(this + 24))
     {
-      TIInputManager::input_stem(v12, this);
-      compose_10key_vowels(v12, v13);
-      KB::String::~String(v12);
+      TIInputManager::input_stem(v9, this);
+      compose_10key_vowels(v10, v9);
+      KB::String::~String(v9);
       TIInputManager::predictions_for_string();
-      if (v7[0] == v7[1])
+      if (v4[0] == v4[1])
       {
-        MEMORY[0x29EDA3F70](v12, v13, 0);
-        TIInputManager::input_stem(v11, this);
-        std::vector<KB::Candidate>::vector[abi:nn200100](a2, 1uLL);
+        MEMORY[0x29EDA3F70](v9, v10, 0);
+        TIInputManager::input_stem(v8, this);
+        std::vector<KB::Candidate>::vector[abi:nn200100](a2, 1uLL, v9);
         *(a2 + 100) = 0;
         *(a2 + 24) = 0u;
         *(a2 + 40) = 0u;
@@ -1756,14 +1749,14 @@ void TIInputManager_ko::autocorrections(TIInputManager *this@<X0>, uint64_t a2@<
         *(a2 + 72) = 0u;
         *(a2 + 88) = 0;
         KB::String::String();
-        KB::String::~String(v11);
-        MEMORY[0x29EDA3F80](v12);
+        KB::String::~String(v8);
+        MEMORY[0x29EDA3F80](v9);
       }
 
       else
       {
-        TIInputManager::input_stem(v12, this);
-        std::vector<KB::Candidate>::vector[abi:nn200100](a2, 1uLL);
+        TIInputManager::input_stem(v9, this);
+        std::vector<KB::Candidate>::vector[abi:nn200100](a2, 1uLL, v4[0]);
         *(a2 + 100) = 0;
         *(a2 + 24) = 0u;
         *(a2 + 40) = 0u;
@@ -1771,19 +1764,18 @@ void TIInputManager_ko::autocorrections(TIInputManager *this@<X0>, uint64_t a2@<
         *(a2 + 72) = 0u;
         *(a2 + 88) = 0;
         KB::String::String();
-        KB::String::~String(v12);
+        KB::String::~String(v9);
       }
 
-      v12[0] = &v10;
-      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v12);
-      v12[0] = &v9;
-      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v12);
-      v12[0] = &v8;
-      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v12);
-      v12[0] = v7;
-      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v12);
-      KB::String::~String(v13);
-      v6 = *MEMORY[0x29EDCA608];
+      v9[0] = &v7;
+      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v9);
+      v9[0] = &v6;
+      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v9);
+      v9[0] = &v5;
+      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v9);
+      v9[0] = v4;
+      std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](v9);
+      KB::String::~String(v10);
     }
 
     else
@@ -1795,7 +1787,6 @@ void TIInputManager_ko::autocorrections(TIInputManager *this@<X0>, uint64_t a2@<
       *(a2 + 48) = 0u;
       *(a2 + 64) = 0u;
       *(a2 + 80) = 0u;
-      v5 = *MEMORY[0x29EDCA608];
 
       KB::String::String((a2 + 104));
     }
@@ -1803,26 +1794,25 @@ void TIInputManager_ko::autocorrections(TIInputManager *this@<X0>, uint64_t a2@<
 
   else
   {
-    v4 = *MEMORY[0x29EDCA608];
 
     MEMORY[0x2A1C69AA0]();
   }
 }
 
-uint64_t ___ZL20compose_10key_vowelsRKN2KB6StringE_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, unsigned __int16 *a4)
+HangulSyllable *___ZL20compose_10key_vowelsRKN2KB6StringE_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, unsigned __int16 *a4)
 {
   v5 = *(*(a1 + 32) + 8);
   result = *(v5 + 24);
   if (*(v5 + 24))
   {
-    LODWORD(v12) = 0;
-    if (HangulSyllable::SplitJamoCompound(result, &v12 + 1, &v12, a4))
+    LODWORD(v11) = 0;
+    if (HangulSyllable::SplitJamoCompound(result, &v11 + 1, &v11, a4))
     {
       v7 = *(*(a1 + 40) + 8);
-      HangulSyllable::JungToCompatibility(WORD1(v12));
+      HangulSyllable::JungToCompatibility(WORD1(v11));
       KB::String::append((v7 + 40));
       v8 = *(*(a1 + 40) + 8);
-      HangulSyllable::JungToCompatibility(v12);
+      HangulSyllable::JungToCompatibility(v11);
       v9 = (v8 + 40);
     }
 
@@ -1842,7 +1832,6 @@ uint64_t ___ZL20compose_10key_vowelsRKN2KB6StringE_block_invoke(uint64_t a1, uin
           *(*(*(a1 + 32) + 8) + 24) = HangulSyllable::JungToCompatibility(*(*(*(a1 + 32) + 8) + 24));
         }
 
-        v11 = *(*(*(a1 + 32) + 8) + 24);
         v9 = (*(*(a1 + 40) + 8) + 40);
       }
     }
@@ -1879,20 +1868,20 @@ void std::vector<KB::Candidate>::__destroy_vector::operator()[abi:nn200100](void
   }
 }
 
-void *std::vector<KB::Candidate>::vector[abi:nn200100](void *result, unint64_t a2)
+uint64_t *std::vector<KB::Candidate>::vector[abi:nn200100](uint64_t *a1, unint64_t a2, const KB::Candidate *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<KB::Candidate>::__vallocate[abi:nn200100](result, a2);
+    std::vector<KB::Candidate>::__vallocate[abi:nn200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<KB::Candidate>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<KB::Candidate>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x4189374BC6A7F0)
   {
@@ -2024,13 +2013,13 @@ uint64_t std::unordered_set<unsigned long long>::unordered_set(uint64_t a1, uint
   std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(a1, i + 2);
+    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(a1, i + 2, i + 2);
   }
 
   return a1;
 }
 
-void std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -2046,7 +2035,7 @@ void std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equ
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -2054,7 +2043,7 @@ void std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equ
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -2078,7 +2067,7 @@ void std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equ
     {
 LABEL_6:
 
-      std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -2105,33 +2094,33 @@ void std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equ
   *(a1 + 8) = 0;
 }
 
-void *std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(void *a1, unint64_t *a2)
+void *std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(void *a1, unint64_t *a2, void *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v6 = *a2;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -2139,44 +2128,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v8[2] != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
 uint64_t KB::LanguageModelContext::LanguageModelContext(uint64_t a1, uint64_t a2)
@@ -2198,25 +2187,25 @@ uint64_t KB::LanguageModelContext::LanguageModelContext(uint64_t a1, uint64_t a2
   *(a1 + 88) = 0;
   *(a1 + 96) = 0;
   *(a1 + 80) = 0;
-  std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,std::string*>(a1 + 80, *(a2 + 80), *(a2 + 88), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 88) - *(a2 + 80)) >> 3));
+  std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,std::string*>((a1 + 80), *(a2 + 80), *(a2 + 88), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 88) - *(a2 + 80)) >> 3));
   return a1;
 }
 
-void *std::vector<TITokenID>::vector[abi:nn200100](void *result, void *a2)
+uint64_t *std::vector<TITokenID>::vector[abi:nn200100](uint64_t *a1, void *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = a2[1];
   if (v2 != *a2)
   {
-    std::vector<TITokenID>::__vallocate[abi:nn200100](result, (v2 - *a2) >> 3);
+    std::vector<TITokenID>::__vallocate[abi:nn200100](a1, (v2 - *a2) >> 3);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<TITokenID>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<TITokenID>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -2236,7 +2225,7 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<TITokenID>>(uint64_t 
   std::vector<KB::Candidate>::__throw_length_error[abi:nn200100]();
 }
 
-uint64_t std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,std::string*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,std::string*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2246,7 +2235,7 @@ uint64_t std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,s
   return result;
 }
 
-void std::vector<std::string>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<std::string>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {

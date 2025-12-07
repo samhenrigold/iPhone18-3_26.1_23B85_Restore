@@ -174,7 +174,7 @@ LABEL_12:
 
 uint64_t __48__AXLanguageManager_commonPunctuationCharacters__block_invoke()
 {
-  v0 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:{@"~!@#*$%&+|=(){}[]<>, ./?:'_-\"\\""}];;
+  v0 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:{@"~!@#*$%&+|=(){}[]<>, ./?:'_-\"}];;
   v1 = commonPunctuationCharacters_charSet;
   commonPunctuationCharacters_charSet = v0;
 
@@ -487,7 +487,7 @@ void __40__AXLanguageManager_doNotTranslateWords__block_invoke()
     dialectForSystemLanguage = self->_dialectForSystemLanguage;
     if (!dialectForSystemLanguage)
     {
-      _AXLogWithFacility();
+      _AXLogWithFacility(3, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Dialect for system language was nil!");
       dialectForSystemLanguage = self->_dialectForSystemLanguage;
     }
   }
@@ -791,51 +791,51 @@ LABEL_38:
   [codes enumerateObjectsWithOptions:2 usingBlock:v7];
 }
 
-void __63__AXLanguageManager__addDialectMapsForLanguageCodes_toResults___block_invoke(uint64_t a1)
+void __63__AXLanguageManager__addDialectMapsForLanguageCodes_toResults___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = AXCLanguageConvertToCanonicalForm();
-  v3 = *(a1 + 32);
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __63__AXLanguageManager__addDialectMapsForLanguageCodes_toResults___block_invoke_2;
-  v15[3] = &unk_1E71EBC88;
-  v4 = v2;
-  v16 = v4;
-  v5 = [v3 indexOfObjectPassingTest:v15];
-  if (v5 != 0x7FFFFFFFFFFFFFFFLL)
+  v3 = AXCLanguageConvertToCanonicalForm();
+  v4 = *(a1 + 32);
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __63__AXLanguageManager__addDialectMapsForLanguageCodes_toResults___block_invoke_2;
+  v16[3] = &unk_1E71EBC88;
+  v5 = v3;
+  v17 = v5;
+  v6 = [v4 indexOfObjectPassingTest:v16];
+  if (v6 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v8 = v5;
+    v9 = v6;
 LABEL_6:
-    v10 = [*(a1 + 32) objectAtIndexedSubscript:v8];
-    [*(a1 + 32) removeObjectAtIndex:v8];
-    [*(a1 + 32) insertObject:v10 atIndex:0];
+    v11 = [*(a1 + 32) objectAtIndexedSubscript:v9];
+    [*(a1 + 32) removeObjectAtIndex:v9];
+    [*(a1 + 32) insertObject:v11 atIndex:0];
 
     goto LABEL_7;
   }
 
-  v6 = *(a1 + 32);
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __63__AXLanguageManager__addDialectMapsForLanguageCodes_toResults___block_invoke_3;
-  v13[3] = &unk_1E71EBC88;
-  v7 = v4;
-  v14 = v7;
-  v8 = [v6 indexOfObjectPassingTest:v13];
+  v7 = *(a1 + 32);
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __63__AXLanguageManager__addDialectMapsForLanguageCodes_toResults___block_invoke_3;
+  v14[3] = &unk_1E71EBC88;
+  v8 = v5;
+  v15 = v8;
+  v9 = [v7 indexOfObjectPassingTest:v14];
 
-  if (v8 != 0x7FFFFFFFFFFFFFFFLL)
+  if (v9 != 0x7FFFFFFFFFFFFFFFLL)
   {
     goto LABEL_6;
   }
 
-  v9 = *(a1 + 32);
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __63__AXLanguageManager__addDialectMapsForLanguageCodes_toResults___block_invoke_4;
-  v11[3] = &unk_1E71EBC88;
-  v12 = v7;
-  v8 = [v9 indexOfObjectPassingTest:v11];
+  v10 = *(a1 + 32);
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __63__AXLanguageManager__addDialectMapsForLanguageCodes_toResults___block_invoke_4;
+  v12[3] = &unk_1E71EBC88;
+  v13 = v8;
+  v9 = [v10 indexOfObjectPassingTest:v12];
 
-  if (v8 != 0x7FFFFFFFFFFFFFFFLL)
+  if (v9 != 0x7FFFFFFFFFFFFFFFLL)
   {
     goto LABEL_6;
   }

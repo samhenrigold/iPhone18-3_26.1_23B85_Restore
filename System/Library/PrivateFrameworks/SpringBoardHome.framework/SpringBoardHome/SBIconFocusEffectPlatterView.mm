@@ -39,10 +39,10 @@
   v5.super_class = SBIconFocusEffectPlatterView;
   [(SBIconFocusEffectPlatterView *)&v5 layoutSubviews];
   materialView = self->_materialView;
-  [(SBIconFocusEffectPlatterView *)self bounds];
+  objc_msgSend_bounds(self);
   [(MTMaterialView *)materialView setFrame:?];
   vibrantFillView = self->_vibrantFillView;
-  [(SBIconFocusEffectPlatterView *)self bounds];
+  objc_msgSend_bounds(self);
   [(UIView *)vibrantFillView setFrame:?];
 }
 

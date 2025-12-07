@@ -37,7 +37,7 @@ LABEL_10:
 
 uint64_t AppleAVDDecodeFrame(uint64_t a1, uint64_t a2)
 {
-  v97 = *MEMORY[0x277D85DE8];
+  v98 = *MEMORY[0x277D85DE8];
   v4 = *a2;
   v5 = *(a2 + 8);
   if (HIDWORD(v5) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -51,9 +51,9 @@ uint64_t AppleAVDDecodeFrame(uint64_t a1, uint64_t a2)
   }
 
   v6 = *(a2 + 16);
-  v84 = -1;
   v85 = -1;
-  v83 = -1;
+  v86 = -1;
+  v84 = -1;
   pthread_mutex_lock((a1 + 784));
   *(a1 + 224) = v6;
   *(a1 + 1276) = v5;
@@ -66,7 +66,7 @@ uint64_t AppleAVDDecodeFrame(uint64_t a1, uint64_t a2)
   *(a1 + 3760) = *(a2 + 2144);
   *(a1 + 60) = *(a2 + 2136);
   *(a1 + 3552) = 0;
-  v82 = 0;
+  v83 = 0;
   *(a1 + 1280) = v4;
   if (!*(a1 + 3624))
   {
@@ -94,10 +94,10 @@ uint64_t AppleAVDDecodeFrame(uint64_t a1, uint64_t a2)
   v9 = *(a1 + 3568);
   v10 = *(a1 + 228);
   cf = 0;
-  v94 = 0;
   v95 = 0;
+  v96 = 0;
   valuePtr = (v9 * v8 + 4095) & 0xFFFFF000;
-  v87 = 0;
+  v88 = 0;
   *buf = *MEMORY[0x277CD2948];
   memset(&buf[8], 0, 24);
   values = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
@@ -124,9 +124,9 @@ uint64_t AppleAVDDecodeFrame(uint64_t a1, uint64_t a2)
       v11 = 1836070006;
     }
 
-    v87 = v11;
-    cf = CFNumberCreate(0, kCFNumberIntType, &v87);
-    if (cf && (*&buf[16] = *MEMORY[0x277CD2970], v87 = 1024, (v94 = CFNumberCreate(0, kCFNumberIntType, &v87)) != 0))
+    v88 = v11;
+    cf = CFNumberCreate(0, kCFNumberIntType, &v88);
+    if (cf && (*&buf[16] = *MEMORY[0x277CD2970], v88 = 1024, (v95 = CFNumberCreate(0, kCFNumberIntType, &v88)) != 0))
     {
       v15 = CFDictionaryCreate(*MEMORY[0x277CBECE8], buf, &values, 3, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
       v14 = v15;
@@ -136,7 +136,7 @@ uint64_t AppleAVDDecodeFrame(uint64_t a1, uint64_t a2)
         if (v12)
         {
           CacheMode = IOSurfaceGetCacheMode();
-          if (CacheMode == v87)
+          if (CacheMode == v88)
           {
             v13 = IOSurfaceLock(v12, 0, 0);
             if (!v13 || !os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -151,7 +151,7 @@ LABEL_30:
               goto LABEL_32;
             }
 
-            *v88 = 0;
+            *v89 = 0;
             v17 = MEMORY[0x277D86220];
             v18 = "AppleAVD: AppleAVD_VideoDecoder - ERROR IOSurfaceLock failed\n";
             v19 = 2;
@@ -165,23 +165,23 @@ LABEL_30:
               goto LABEL_30;
             }
 
-            *v88 = 136315394;
-            v89 = "CreateCompressedBitBuffer";
-            v90 = 1024;
-            v91 = CacheMode;
+            *v89 = 136315394;
+            v90 = "CreateCompressedBitBuffer";
+            v91 = 1024;
+            v92 = CacheMode;
             v17 = MEMORY[0x277D86220];
             v18 = "AppleAVD: ERROR: %s: Incorrect Cache Mode=%d\n";
             v19 = 18;
           }
 
-          _os_log_impl(&dword_277606000, v17, OS_LOG_TYPE_DEFAULT, v18, v88, v19);
+          _os_log_impl(&dword_277606000, v17, OS_LOG_TYPE_DEFAULT, v18, v89, v19);
           goto LABEL_30;
         }
 
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          *v88 = 0;
-          _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: AppleAVD_VideoDecoder - ERROR IOSurfaceCreate failed\n", v88, 2u);
+          *v89 = 0;
+          _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: AppleAVD_VideoDecoder - ERROR IOSurfaceCreate failed\n", v89, 2u);
         }
       }
     }
@@ -206,10 +206,10 @@ LABEL_32:
     cf = 0;
   }
 
-  if (v94)
+  if (v95)
   {
-    CFRelease(v94);
-    v94 = 0;
+    CFRelease(v95);
+    v95 = 0;
   }
 
   if (v14)
@@ -221,11 +221,11 @@ LABEL_32:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      *v88 = 136315394;
-      v89 = "CreateCompressedBitBuffer";
-      v90 = 1024;
-      v91 = v13;
-      _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: %s(): failed with error %d\n", v88, 0x12u);
+      *v89 = 136315394;
+      v90 = "CreateCompressedBitBuffer";
+      v91 = 1024;
+      v92 = v13;
+      _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: %s(): failed with error %d\n", v89, 0x12u);
     }
 
     if (v12)
@@ -326,9 +326,9 @@ LABEL_53:
     }
 
 LABEL_86:
-    v33 = 18;
+    v34 = 18;
 LABEL_155:
-    _os_log_impl(&dword_277606000, v24, OS_LOG_TYPE_DEFAULT, v25, buf, v33);
+    _os_log_impl(&dword_277606000, v24, OS_LOG_TYPE_DEFAULT, v25, buf, v34);
     goto LABEL_156;
   }
 
@@ -388,8 +388,9 @@ LABEL_63:
 
     v30 = values;
     v31 = HIDWORD(values);
-    v32 = *(a1 + 3872);
-    if (v32)
+    v32 = *(a2 + 2152);
+    v33 = *(a1 + 3872);
+    if (v33)
     {
       if (*(a1 + 32))
       {
@@ -403,33 +404,33 @@ LABEL_63:
 
       else
       {
-        if (AppleAVDChangeVTResolutionInternal(a1, (a1 + 32), v32, values, SHIDWORD(values)))
+        if (AppleAVDChangeVTResolutionInternal(a1, (a1 + 32), v33, values, SHIDWORD(values), *(a2 + 2152)))
         {
-          v34 = 0;
+          v35 = 0;
           goto LABEL_98;
         }
 
-        v35 = *(a1 + 208);
-        if (v35)
+        v36 = *(a1 + 208);
+        if (v36)
         {
-          BufferPool::setCVPixelBufferPool(v35, *(a1 + 32));
+          BufferPool::setCVPixelBufferPool(v36, *(a1 + 32));
         }
       }
     }
 
-    v34 = 1;
+    v35 = 1;
 LABEL_98:
-    v36 = *(a1 + 3864);
-    if (v36)
+    v37 = *(a1 + 3864);
+    if (v37)
     {
       if (!*(a1 + 40))
       {
-        if (!AppleAVDChangeVTResolutionInternal(a1, (a1 + 40), v36, v30, v31))
+        if (!AppleAVDChangeVTResolutionInternal(a1, (a1 + 40), v37, v30, v31, v32))
         {
-          v71 = *(a1 + 200);
-          if (v71)
+          v72 = *(a1 + 200);
+          if (v72)
           {
-            BufferPool::setCVPixelBufferPool(v71, *(a1 + 40));
+            BufferPool::setCVPixelBufferPool(v72, *(a1 + 40));
           }
 
           goto LABEL_103;
@@ -459,7 +460,7 @@ LABEL_215:
       }
     }
 
-    if (v34)
+    if (v35)
     {
 LABEL_103:
       v29 = *(a1 + 3588);
@@ -482,7 +483,7 @@ LABEL_104:
           goto LABEL_124;
         }
 
-        v39 = 875836534;
+        v40 = 875836534;
       }
 
       else
@@ -492,10 +493,10 @@ LABEL_104:
           goto LABEL_124;
         }
 
-        v39 = 875704934;
+        v40 = 875704934;
       }
 
-      if (PixelFormatType != v39)
+      if (PixelFormatType != v40)
       {
         goto LABEL_173;
       }
@@ -509,27 +510,27 @@ LABEL_104:
         {
           if (PixelFormatType != 1885745714)
           {
-            v38 = 13364;
+            v39 = 13364;
             goto LABEL_132;
           }
         }
 
         else if (PixelFormatType != 1882469428)
         {
-          v38 = 12848;
+          v39 = 12848;
 LABEL_132:
-          v40 = v38 | 0x70660000;
+          v41 = v39 | 0x70660000;
 LABEL_133:
-          if (PixelFormatType == v40)
+          if (PixelFormatType == v41)
           {
             goto LABEL_134;
           }
 
 LABEL_173:
-          v41 = 2 * *(a2 + 2112);
+          v42 = 2 * *(a2 + 2112);
 LABEL_135:
-          *(a1 + 3592) = v41;
-          if ((v41 & 0x3F) != 0)
+          *(a1 + 3592) = v42;
+          if ((v42 & 0x3F) != 0)
           {
             v23 = -536870212;
             if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -538,16 +539,16 @@ LABEL_135:
             }
 
             *buf = 67109120;
-            *&buf[4] = v41;
+            *&buf[4] = v42;
             v24 = MEMORY[0x277D86220];
             v25 = "AppleAVD: ERROR: ERROR: tileX offset not a multiple of 64! tileOffsetX:%d";
 LABEL_138:
-            v33 = 8;
+            v34 = 8;
             goto LABEL_155;
           }
 
           *(a1 + 3596) = *(a2 + 2116);
-          v23 = AppleAVDPutTiledPixelBufferIntoBufferPool(a1, &v85, 1, 0, *(a2 + 2152), *(a2 + 2160));
+          v23 = AppleAVDPutTiledPixelBufferIntoBufferPool(a1, &v86, 1, 0, *(a2 + 2152), *(a2 + 2160));
           if (v23)
           {
             if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -561,7 +562,7 @@ LABEL_138:
             goto LABEL_154;
           }
 
-          v23 = AppleAVDPutTiledPixelBufferIntoBufferPool(a1, &v84, 0, 0, *(a2 + 2152), *(a2 + 2160));
+          v23 = AppleAVDPutTiledPixelBufferIntoBufferPool(a1, &v85, 0, 0, *(a2 + 2152), *(a2 + 2160));
           if (v23)
           {
             if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -579,7 +580,7 @@ LABEL_138:
         }
 
 LABEL_134:
-        v41 = (2 * ((2863311531u * *(a2 + 2112)) >> 32)) & 0xFFFFFFFC;
+        v42 = (2 * ((2863311531u * *(a2 + 2112)) >> 32)) & 0xFFFFFFFC;
         goto LABEL_135;
       }
 
@@ -587,7 +588,7 @@ LABEL_134:
       {
         if (PixelFormatType != 1882468912)
         {
-          v40 = 1882468914;
+          v41 = 1882468914;
           goto LABEL_133;
         }
 
@@ -596,12 +597,12 @@ LABEL_134:
     }
 
 LABEL_124:
-    v41 = *(a2 + 2112);
+    v42 = *(a2 + 2112);
     goto LABEL_135;
   }
 
   *(a1 + 848) = *(a2 + 2172);
-  v23 = AppleAVDGetPixelBufferFromBufferPool(a1, &v84, 0, *(a2 + 2152), *(a2 + 2160));
+  v23 = AppleAVDGetPixelBufferFromBufferPool(a1, &v85, 0, *(a2 + 2152), *(a2 + 2160));
   if (v23)
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -617,7 +618,7 @@ LABEL_124:
 
   if ((*(a1 + 848) & 1) == 0)
   {
-    v23 = AppleAVDGetPixelBufferFromBufferPool(a1, &v85, 1, *(a2 + 2152), *(a2 + 2160));
+    v23 = AppleAVDGetPixelBufferFromBufferPool(a1, &v86, 1, *(a2 + 2152), *(a2 + 2160));
     if (v23)
     {
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -629,14 +630,14 @@ LABEL_124:
       v24 = MEMORY[0x277D86220];
       v25 = "AppleAVD: AppleAVDDecodeFrame could not get display buffer from buffer pool";
 LABEL_154:
-      v33 = 2;
+      v34 = 2;
       goto LABEL_155;
     }
   }
 
   if (*(a1 + 1264))
   {
-    v23 = AppleAVDGetSecondPixelBufferFromBufferPoolAndLink(a1, v84, &v83, 0, *(a2 + 2152), *(a2 + 2160));
+    v23 = AppleAVDGetSecondPixelBufferFromBufferPoolAndLink(a1, v85, &v84, 0, *(a2 + 2152), *(a2 + 2160));
     if (v23)
     {
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -652,32 +653,32 @@ LABEL_154:
   }
 
 LABEL_145:
-  v82 = 0;
-  v42 = *(a1 + 848);
-  v43 = v42 ^ 1;
-  v44 = v42 == 0;
-  v45 = &v85;
-  if (!v44)
+  v83 = 0;
+  v43 = *(a1 + 848);
+  v44 = v43 ^ 1;
+  v45 = v43 == 0;
+  v46 = &v86;
+  if (!v45)
   {
-    v45 = &v84;
+    v46 = &v85;
   }
 
-  BufferPool::getBufferInfo(*(a1 + 8 * v43 + 200), *v45, &v82);
-  if (v82)
+  BufferPool::getBufferInfo(*(a1 + 8 * v44 + 200), *v46, &v83);
+  if (v83)
   {
-    v46 = *(v82 + 16);
-    v47 = v46 != 0;
-    if (*(a1 + 3912) == 1 && v46)
+    v47 = *(v83 + 16);
+    v48 = v47 != 0;
+    if (*(a1 + 3912) == 1 && v47)
     {
-      *(*(a1 + 3824) + 6296) = v46;
-      v47 = 1;
+      *(*(a1 + 3824) + 6296) = v47;
+      v48 = 1;
     }
   }
 
   else
   {
+    v48 = 0;
     v47 = 0;
-    v46 = 0;
   }
 
   if (*(a1 + 3716) != 1 || !*(a1 + 3684))
@@ -685,79 +686,79 @@ LABEL_145:
     goto LABEL_244;
   }
 
-  v81 = (a1 + 3704);
+  v82 = (a1 + 3704);
   *(a1 + 3704) = 0;
-  v50 = *(a1 + 228);
-  if (v50 == 2)
+  v51 = *(a1 + 228);
+  if (v51 == 2)
   {
-    v79 = v47;
-    buffer = v46;
-    v59 = *(a1 + 1432);
-    v60 = operator new(0xB0uLL, MEMORY[0x277D826F0]);
-    if (v60)
+    v80 = v48;
+    buffer = v47;
+    v60 = *(a1 + 1432);
+    v61 = operator new(0xB0uLL, MEMORY[0x277D826F0]);
+    if (v61)
     {
-      v61 = v60;
-      HEVC_RBSP::HEVC_RBSP(v60);
+      v62 = v61;
+      HEVC_RBSP::HEVC_RBSP(v61);
       if (!v5)
       {
         goto LABEL_231;
       }
 
-      if (v59 <= 4 && ((1 << v59) & 0x16) != 0)
+      if (v60 <= 4 && ((1 << v60) & 0x16) != 0)
       {
-        v62 = 0;
-        v63 = v4;
-        v80 = v59;
+        v63 = 0;
+        v64 = v4;
+        v81 = v60;
         while (1)
         {
-          v64 = *v63;
-          if (v59 == 2)
+          v65 = *v64;
+          if (v60 == 2)
           {
-            v64 = v63[1] | (v64 << 8);
-            v65 = v63 + 2;
+            v65 = v64[1] | (v65 << 8);
             v66 = v64 + 2;
+            v67 = v65 + 2;
           }
 
-          else if (v59 == 4)
+          else if (v60 == 4)
           {
-            v64 = v63[3] | (((v64 << 16) | (v63[1] << 8) | v63[2]) << 8);
-            v65 = v63 + 4;
+            v65 = v64[3] | (((v65 << 16) | (v64[1] << 8) | v64[2]) << 8);
             v66 = v64 + 4;
+            v67 = v65 + 4;
           }
 
           else
           {
-            v65 = v63 + 1;
             v66 = v64 + 1;
+            v67 = v65 + 1;
           }
 
-          if (&v65[v64] > v4 + v5)
+          if (&v66[v65] > v4 + v5)
           {
             break;
           }
 
-          HEVC_RBSP::setRBSP(v61, v65, v64);
-          if (!HEVC_RBSP::parseNAL(v61, &values, 0))
+          HEVC_RBSP::setRBSP(v62, v66, v65);
+          if (!HEVC_RBSP::parseNAL(v62, &values, 0))
           {
-            v70 = 305;
+            v71 = 305;
             goto LABEL_229;
           }
 
           if (HIDWORD(values) == 39)
           {
-            v68 = v65[2];
-            v67 = v65 + 2;
-            if (v68 == 5)
+            v69 = v66[2];
+            v68 = v66 + 2;
+            if (v69 == 5)
             {
-              v69 = RemoveEPB(v67, v64 - 2, *(a1 + 3696));
-              parseSEI(*(a1 + 3696), v69, *(a1 + 3688), v81);
+              v70 = RemoveEPB(v68, v65 - 2, *(a1 + 3696));
+              parseSEI(*(a1 + 3696), v70, *(a1 + 3688), v82);
             }
           }
 
-          v62 += v66;
-          v63 = (v4 + v62);
-          v59 = v80;
-          if (v62 >= v5)
+          v63 += v67;
+          v64 = (v4 + v63);
+          v60 = v81;
+          if (v63 >= v5)
           {
             goto LABEL_231;
           }
@@ -768,15 +769,15 @@ LABEL_145:
           *buf = 136315906;
           *&buf[4] = "FindFrameMetadataHEVC";
           *&buf[12] = 1024;
-          *&buf[14] = v64;
+          *&buf[14] = v65;
           *&buf[18] = 2048;
-          *&buf[20] = v65;
+          *&buf[20] = v66;
           *&buf[28] = 2048;
           *&buf[30] = v4 + v5;
           _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: %s NALU too big! %d nal_ptr:%p, buf_end:%p", buf, 0x26u);
         }
 
-        v70 = 318;
+        v71 = 318;
       }
 
       else
@@ -784,11 +785,11 @@ LABEL_145:
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
-          *&buf[4] = v59;
+          *&buf[4] = v60;
           _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: HEVC_Decoder::ParseHeader unsupported naluLengthSize %d", buf, 8u);
         }
 
-        v70 = 317;
+        v71 = 317;
       }
     }
 
@@ -801,7 +802,7 @@ LABEL_145:
         _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: %s: error creating rbsp!\n", buf, 0xCu);
       }
 
-      v70 = 304;
+      v71 = 304;
     }
 
 LABEL_229:
@@ -810,14 +811,14 @@ LABEL_229:
       *buf = 136315394;
       *&buf[4] = "FindFrameMetadataHEVC";
       *&buf[12] = 1024;
-      *&buf[14] = v70;
+      *&buf[14] = v71;
       _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: %s return with error %d", buf, 0x12u);
     }
   }
 
   else
   {
-    if (v50 != 1)
+    if (v51 != 1)
     {
 LABEL_244:
       v23 = 0;
@@ -830,99 +831,99 @@ LABEL_244:
       goto LABEL_156;
     }
 
-    v51 = *(a1 + 1432);
-    if (v51 > v5)
+    v52 = *(a1 + 1432);
+    if (v52 > v5)
     {
       goto LABEL_156;
     }
 
-    v79 = v47;
-    buffer = v46;
-    if (v51 <= 4 && ((1 << v51) & 0x16) != 0)
+    v80 = v48;
+    buffer = v47;
+    if (v52 <= 4 && ((1 << v52) & 0x16) != 0)
     {
-      v52 = 0;
+      v53 = 0;
       do
       {
-        v53 = (v4 + v52);
-        v54 = *v53;
-        if (v51 == 2)
+        v54 = (v4 + v53);
+        v55 = *v54;
+        if (v52 == 2)
         {
-          v54 = v53[1] | (v54 << 8);
-          v55 = v53 + 2;
+          v55 = v54[1] | (v55 << 8);
           v56 = v54 + 2;
+          v57 = v55 + 2;
         }
 
-        else if (v51 == 4)
+        else if (v52 == 4)
         {
-          v54 = v53[3] | (((v54 << 16) | (v53[1] << 8) | v53[2]) << 8);
-          v55 = v53 + 4;
+          v55 = v54[3] | (((v55 << 16) | (v54[1] << 8) | v54[2]) << 8);
           v56 = v54 + 4;
+          v57 = v55 + 4;
         }
 
         else
         {
-          v55 = v53 + 1;
           v56 = v54 + 1;
+          v57 = v55 + 1;
         }
 
-        v52 += v56;
-        if (v52 > v5 || v54 > v5)
+        v53 += v57;
+        if (v53 > v5 || v55 > v5)
         {
           break;
         }
 
-        if ((*v55 & 0x1F) == 6)
+        if ((*v56 & 0x1F) == 6)
         {
-          v58 = RemoveEPB(v55 + 1, v54 - 1, *(a1 + 3696));
-          parseSEI(*(a1 + 3696), v58, *(a1 + 3688), v81);
+          v59 = RemoveEPB(v56 + 1, v55 - 1, *(a1 + 3696));
+          parseSEI(*(a1 + 3696), v59, *(a1 + 3688), v82);
         }
       }
 
-      while (v52 + v51 <= v5);
+      while (v53 + v52 <= v5);
     }
   }
 
 LABEL_231:
-  v72 = *v81;
-  if (!v72)
+  v73 = *v82;
+  if (!v73)
   {
     goto LABEL_244;
   }
 
-  if (v79)
+  if (v80)
   {
-    v73 = *(a1 + 3688);
-    if (*v73 == 109 && *(v73 + 1) == 101 && *(v73 + 2) == 116 && *(v73 + 3) == 97)
+    v74 = *(a1 + 3688);
+    if (*v74 == 109 && *(v74 + 1) == 101 && *(v74 + 2) == 116 && *(v74 + 3) == 97)
     {
-      v74 = *MEMORY[0x277CBECE8];
-      v75 = CFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], (v73 + 4), v72, *MEMORY[0x277CBED00]);
-      if (v75)
+      v75 = *MEMORY[0x277CBECE8];
+      v76 = CFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], (v74 + 4), v73, *MEMORY[0x277CBED00]);
+      if (v76)
       {
-        v76 = CFPropertyListCreateFromXMLData(v74, v75, 0, 0);
-        if (v76)
+        v77 = CFPropertyListCreateFromXMLData(v75, v76, 0, 0);
+        if (v77)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
-            v77 = *(a1 + 224);
+            v78 = *(a1 + 224);
             *buf = 67109120;
-            *&buf[4] = v77;
+            *&buf[4] = v78;
             _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: AppleAVDDecodeFrame - frame # %d metadataDict attached\n", buf, 8u);
           }
 
-          CVBufferSetAttachment(buffer, @"MetadataDictionary", v76, kCVAttachmentMode_ShouldPropagate);
-          CFRelease(v76);
+          CVBufferSetAttachment(buffer, @"MetadataDictionary", v77, kCVAttachmentMode_ShouldPropagate);
+          CFRelease(v77);
         }
 
-        CFRelease(v75);
+        CFRelease(v76);
       }
     }
   }
 
   v23 = 0;
-  *v81 = 0;
+  *v82 = 0;
 LABEL_156:
-  v48 = AppleAVDDecodeFrameInternal(a1, v4, v5, v6, v85, v84, v83, v23);
-  if (v48 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  v49 = AppleAVDDecodeFrameInternal(a1, v4, v5, v6, v86, v85, v84, v23);
+  if (v49 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: AppleAVDDecodeFrameInternal failed\n", buf, 2u);
@@ -937,15 +938,20 @@ LABEL_156:
     }
   }
 
-  if (v48)
+  if (v49)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
       *&buf[4] = "AppleAVDDecodeFrame";
       *&buf[12] = 1024;
-      *&buf[14] = v48;
+      *&buf[14] = v49;
       _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: %s(): failed with error %d\n", buf, 0x12u);
+    }
+
+    if (v85 != -1)
+    {
+      AppleAVDReleaseCVPixelBuffer(a1, v85, 0, *(a1 + 224), 0);
     }
 
     if (v84 != -1)
@@ -953,19 +959,14 @@ LABEL_156:
       AppleAVDReleaseCVPixelBuffer(a1, v84, 0, *(a1 + 224), 0);
     }
 
-    if (v83 != -1)
+    if (v86 != -1)
     {
-      AppleAVDReleaseCVPixelBuffer(a1, v83, 0, *(a1 + 224), 0);
-    }
-
-    if (v85 != -1)
-    {
-      AppleAVDReleaseCVPixelBuffer(a1, v85, 1, *(a1 + 224), 0);
+      AppleAVDReleaseCVPixelBuffer(a1, v86, 1, *(a1 + 224), 0);
     }
   }
 
   pthread_mutex_unlock((a1 + 784));
-  return v48;
+  return v49;
 }
 
 uint64_t CAVDDecoder::mapAVDMemory(uint64_t a1, mach_port_t **a2, int a3, uint64_t a4, int a5, int a6, _OWORD *a7, unsigned __int8 a8, __int16 a9, uint64_t a10, uint64_t a11, __int16 a12)
@@ -1034,7 +1035,7 @@ uint64_t CAVDDecoder::mapAVDMemory(uint64_t a1, mach_port_t **a2, int a3, uint64
   return v14;
 }
 
-uint64_t BufferPool::getBuffer(uint64_t a1, unsigned int *a2, int a3, __CVBuffer *a4, uint64_t a5, uint64_t a6)
+uint64_t BufferPool::getBuffer(uint64_t a1, unsigned int *a2, unsigned int a3, __CVBuffer *a4, uint64_t a5, uint64_t a6)
 {
   v55 = *MEMORY[0x277D85DE8];
   pixelBufferOut = 0;
@@ -1984,18 +1985,18 @@ LABEL_24:
   return 0;
 }
 
-uint64_t DisplayCallBack(uint64_t a1, unsigned __int8 a2, const void *a3, uint64_t a4)
+uint64_t DisplayCallBack(uint64_t *a1, unsigned __int8 a2, const void *a3, uint64_t a4)
 {
   v7 = a2;
   kdebug_trace();
-  if (*(a1 + 16))
+  if (*(a1 + 4))
   {
-    MEMORY[0x277CAEB50](*(a1 + 8), *(a1 + 8 * v7 + 2112), a4, 0, a3);
+    MEMORY[0x277CAEB50](a1[1], a1[v7 + 264], a4, 0, a3);
   }
 
   else
   {
-    v9 = *(a1 + 5608);
+    v9 = a1[701];
     kdebug_trace();
     if (v9)
     {
@@ -2015,23 +2016,23 @@ uint64_t DisplayCallBack(uint64_t a1, unsigned __int8 a2, const void *a3, uint64
   return kdebug_trace();
 }
 
-uint64_t DisplayCallBack_0(uint64_t a1, unsigned __int8 a2, const void *a3, uint64_t a4, int a5)
+uint64_t DisplayCallBack_0(uint64_t *a1, unsigned __int8 a2, const void *a3, uint64_t a4, int a5)
 {
   v9 = a2;
   kdebug_trace();
-  if (*(a1 + 16))
+  if (*(a1 + 4))
   {
-    MEMORY[0x277CAEB50](*(a1 + 8), *(a1 + 8 * v9 + 2112), a4, 0, a3);
+    MEMORY[0x277CAEB50](a1[1], a1[v9 + 264], a4, 0, a3);
   }
 
   else
   {
     if (a5 == 409)
     {
-      *(a1 + 4 * v9 + 4160) = 10;
+      *(a1 + v9 + 1040) = 10;
     }
 
-    v11 = *(a1 + 16816);
+    v11 = a1[2102];
     kdebug_trace();
     if (v11)
     {
@@ -2051,13 +2052,13 @@ uint64_t DisplayCallBack_0(uint64_t a1, unsigned __int8 a2, const void *a3, uint
   return kdebug_trace();
 }
 
-uint64_t DisplayCallBack_1(uint64_t a1, unsigned __int8 a2, uint64_t a3, uint64_t a4)
+uint64_t DisplayCallBack_1(void *a1, unsigned __int8 a2, uint64_t a3, uint64_t a4)
 {
   v7 = a2;
   kdebug_trace();
-  if (*(a1 + 16))
+  if (*(a1 + 4))
   {
-    MEMORY[0x277CAEB50](*(a1 + 8), *(a1 + 8 * v7 + 2112), a4, 0, a3);
+    MEMORY[0x277CAEB50](a1[1], a1[v7 + 264], a4, 0, a3);
   }
 
   else
@@ -2069,7 +2070,7 @@ uint64_t DisplayCallBack_1(uint64_t a1, unsigned __int8 a2, uint64_t a3, uint64_
   return kdebug_trace();
 }
 
-uint64_t DisplayCallBack_2()
+uint64_t DisplayCallBack_2(void *a1, unsigned int a2, uint64_t a3, uint64_t a4)
 {
   kdebug_trace();
   kdebug_trace();
@@ -2078,8 +2079,9 @@ uint64_t DisplayCallBack_2()
   return kdebug_trace();
 }
 
-uint64_t AppleAVDWrapperHEVCDecoderDecodeFrameWithOptions(uint64_t a1, uint64_t a2, void *a3, char a4, const __CFDictionary *a5, int *a6)
+uint64_t AppleAVDWrapperHEVCDecoderDecodeFrameWithOptions(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, const __CFDictionary *a5, int *a6)
 {
+  v8 = a4;
   valuePtr[1] = *MEMORY[0x277D85DE8];
   VTVideoDecoderGetCMBaseObject();
   DerivedStorage = CMBaseObjectGetDerivedStorage();
@@ -2131,7 +2133,7 @@ LABEL_20:
 LABEL_39:
           v24 = 4294954385;
 LABEL_40:
-          AppleAVDHEVCDecoderEmitErrorToVT(v13);
+          AppleAVDHEVCDecoderEmitErrorToVT(v13, a2, v24);
           v27 = 2;
           if (!a6)
           {
@@ -2153,7 +2155,7 @@ LABEL_26:
       }
 
 LABEL_25:
-      v24 = AppleAVDWrapperHEVCDecoderDecodeFrame(a1, a2, a3, a4, a6);
+      v24 = AppleAVDWrapperHEVCDecoderDecodeFrame(a1, a2, a3, v8, a6);
       v27 = 0;
       if (!a6)
       {
@@ -2286,7 +2288,7 @@ LABEL_31:
 
 uint64_t AppleAVDWrapperHEVCDecoderDecodeFrame(uint64_t a1, uint64_t a2, void *a3, char a4, int *a5)
 {
-  v185 = *MEMORY[0x277D85DE8];
+  v193 = *MEMORY[0x277D85DE8];
   valuePtr = 0;
   VTVideoDecoderGetCMBaseObject();
   DerivedStorage = CMBaseObjectGetDerivedStorage();
@@ -2338,8 +2340,10 @@ LABEL_22:
 LABEL_23:
     kdebug_trace();
     v19 = v10;
+    v20 = a2;
+    v21 = 4294954385;
 LABEL_24:
-    AppleAVDHEVCDecoderEmitErrorToVT(v19);
+    AppleAVDHEVCDecoderEmitErrorToVT(v19, v20, v21);
     if (a5)
     {
       *a5 = 2;
@@ -2374,8 +2378,8 @@ LABEL_21:
     v18 = 0;
   }
 
-  v132 = v18;
-  if (AppleAVDSetParameter(*(v10 + 5184), 34, &v132))
+  v140 = v18;
+  if (AppleAVDSetParameter(*(v10 + 5184), 34, &v140))
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
@@ -2389,7 +2393,7 @@ LABEL_21:
   }
 
   theBuffer = CMSampleBufferGetDataBuffer(a3);
-  if (!theBuffer || (v20 = CMBlockBufferGetDataLength(theBuffer)) == 0)
+  if (!theBuffer || (v22 = CMBlockBufferGetDataLength(theBuffer)) == 0)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
@@ -2401,10 +2405,12 @@ LABEL_21:
     }
 
     kdebug_trace();
-    v25 = -12909;
-    v26 = v10;
+    v27 = -12909;
+    v28 = v10;
+    v29 = a2;
+    v30 = 4294954387;
 LABEL_36:
-    AppleAVDHEVCDecoderEmitErrorToVT(v26);
+    AppleAVDHEVCDecoderEmitErrorToVT(v28, v29, v30);
     if (!a5)
     {
       goto LABEL_38;
@@ -2413,44 +2419,46 @@ LABEL_36:
     goto LABEL_37;
   }
 
-  v21 = v20;
+  v23 = v22;
   if (*(v10 + 5832) != 6)
   {
-    v114 = 0;
-    v117 = v20;
+    v122 = 0;
+    v125 = v22;
     goto LABEL_44;
   }
 
   FormatDescription = CMSampleBufferGetFormatDescription(a3);
-  if (FormatDescription && (v23 = FormatDescription, !CMFormatDescriptionEqual(*(v10 + 24), FormatDescription)))
+  if (FormatDescription && (v25 = FormatDescription, !CMFormatDescriptionEqual(*(v10 + 24), FormatDescription)))
   {
     FigFormatDescriptionRelease();
     *(v10 + 24) = FigFormatDescriptionRetain();
-    CreateHeaderBuffer_0(v10, v23);
-    v24 = (v21 + (*(v10 + 5640) & 0xFFFFFF));
-    v114 = 1;
+    CreateHeaderBuffer_0(v10, v25);
+    v26 = (v23 + (*(v10 + 5640) & 0xFFFFFF));
+    v122 = 1;
   }
 
   else
   {
-    v114 = 0;
-    v24 = v21;
+    v122 = 0;
+    v26 = v23;
   }
 
-  v117 = v24;
+  v125 = v26;
   if (*(v10 + 5832) != 6)
   {
 LABEL_44:
     Decryptor = FigSampleBufferGetDecryptor();
-    v28 = Decryptor;
+    v32 = Decryptor;
     if (*(v10 + 5208) == 1 && !Decryptor)
     {
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
 LABEL_49:
-        v32 = v10;
+        v36 = v10;
+        v37 = a2;
+        v38 = 4294954385;
 LABEL_50:
-        AppleAVDHEVCDecoderEmitErrorToVT(v32);
+        AppleAVDHEVCDecoderEmitErrorToVT(v36, v37, v38);
         goto LABEL_26;
       }
 
@@ -2460,94 +2468,96 @@ LABEL_50:
       *&buf[14] = 1;
       *&buf[18] = 2048;
       *&buf[20] = v10;
-      v29 = MEMORY[0x277D86220];
-      v30 = "AppleAVD: ERROR: %s(): frame# %d, session: %p, decryptor attachment is NULL\n";
-      v31 = 28;
+      v33 = MEMORY[0x277D86220];
+      v34 = "AppleAVD: ERROR: %s(): frame# %d, session: %p, decryptor attachment is NULL\n";
+      v35 = 28;
 LABEL_48:
-      _os_log_impl(&dword_277606000, v29, OS_LOG_TYPE_DEFAULT, v30, buf, v31);
+      _os_log_impl(&dword_277606000, v33, OS_LOG_TYPE_DEFAULT, v34, buf, v35);
       goto LABEL_49;
     }
 
     if (!Decryptor || Decryptor == *(v10 + 5192))
     {
 LABEL_88:
-      v53 = *(v10 + 5832);
-      if (v53 == 4)
+      v61 = *(v10 + 5832);
+      if (v61 == 4)
       {
-        v92 = v21;
-        SliceDataForDecryptor = GetSliceDataForDecryptor(v10);
+        v100 = v23;
+        SliceDataForDecryptor = GetSliceDataForDecryptor(v10, theBuffer);
         if (SliceDataForDecryptor)
         {
-          v25 = SliceDataForDecryptor;
+          v27 = SliceDataForDecryptor;
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
-            v94 = *(v10 + 5208);
+            v102 = *(v10 + 5208);
             *buf = 136315650;
             *&buf[4] = "AppleAVDWrapperHEVCDecoderDecodeFrame";
             *&buf[12] = 1024;
-            *&buf[14] = v94;
+            *&buf[14] = v102;
             *&buf[18] = 1024;
-            *&buf[20] = v25;
-            v38 = MEMORY[0x277D86220];
-            v39 = "AppleAVD: ERROR: %s(): frame# %d, Could not get slice data for decryptor, err %d\n";
+            *&buf[20] = v27;
+            v46 = MEMORY[0x277D86220];
+            v47 = "AppleAVD: ERROR: %s(): frame# %d, Could not get slice data for decryptor, err %d\n";
             goto LABEL_203;
           }
 
           goto LABEL_204;
         }
 
-        v103 = *(v10 + 8000);
-        if ((v103 - 257) <= 0xFFFFFFFFFFFFFEFFLL)
+        v111 = *(v10 + 8000);
+        if ((v111 - 257) <= 0xFFFFFFFFFFFFFEFFLL)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134218240;
-            *&buf[4] = v103;
+            *&buf[4] = v111;
             *&buf[12] = 1024;
             *&buf[14] = 256;
             _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: AppleAVD_HEVCVideoDecoder ERROR: BAD encryptedSliceCount %zd MAX_SLICES %d", buf, 0x12u);
           }
 
-          v32 = v10;
+          v36 = v10;
+          v37 = a2;
+          v38 = 4294954387;
           goto LABEL_50;
         }
 
-        v53 = *(v10 + 5832);
-        v21 = v92;
+        v61 = *(v10 + 5832);
+        v23 = v100;
       }
 
-      if (v53 != 5 || (SampleAttachmentsArray = CMSampleBufferGetSampleAttachmentsArray(a3, 0)) == 0)
+      if (v61 != 5 || (SampleAttachmentsArray = CMSampleBufferGetSampleAttachmentsArray(a3, 0)) == 0)
       {
         Length = 0;
         goto LABEL_98;
       }
 
-      dataLengtha = v21;
+      dataLengtha = v23;
       ValueAtIndex = CFArrayGetValueAtIndex(SampleAttachmentsArray, 0);
       if (ValueAtIndex)
       {
-        v56 = ValueAtIndex;
+        v64 = ValueAtIndex;
         Value = CFDictionaryGetValue(ValueAtIndex, *MEMORY[0x277CC0630]);
         if (!Value)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
-            v91 = *(v10 + 5208);
+            v99 = *(v10 + 5208);
             *buf = 136315650;
             *&buf[4] = "AppleAVDWrapperHEVCDecoderDecodeFrame";
             *&buf[12] = 1024;
-            *&buf[14] = v91;
+            *&buf[14] = v99;
             *&buf[18] = 1024;
             *&buf[20] = 312;
             _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: ERROR: %s(): frame# %d, cryptorIV is NULL, err %d\n", buf, 0x18u);
           }
 
-          AppleAVDHEVCDecoderEmitErrorToVT(v10);
-          v25 = 312;
+          AppleAVDHEVCDecoderEmitErrorToVT(v10, a2, 4294954387);
+          v27 = 312;
           goto LABEL_38;
         }
 
-        v58 = Value;
+        v66 = Value;
         Length = CFDataGetLength(Value);
         if (Length >= 0x11)
         {
@@ -2560,18 +2570,18 @@ LABEL_88:
             _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: ERROR: %s(): oversized iv %d\n", buf, 0x12u);
           }
 
-          AppleAVDHEVCDecoderEmitErrorToVT(v10);
-          v25 = 313;
+          AppleAVDHEVCDecoderEmitErrorToVT(v10, a2, 4294954387);
+          v27 = 313;
           goto LABEL_38;
         }
 
-        v186.length = CFDataGetLength(v58);
-        v186.location = 0;
-        CFDataGetBytes(v58, v186, (v10 + 5924));
-        v95 = CFDictionaryGetValue(v56, *MEMORY[0x277CC0628]);
-        CFNumberGetValue(v95, kCFNumberSInt32Type, &valuePtr);
-        v96 = CFDictionaryGetValue(v56, *MEMORY[0x277CC0638]);
-        if (!v96)
+        v194.length = CFDataGetLength(v66);
+        v194.location = 0;
+        CFDataGetBytes(v66, v194, (v10 + 5924));
+        v103 = CFDictionaryGetValue(v64, *MEMORY[0x277CC0628]);
+        CFNumberGetValue(v103, kCFNumberSInt32Type, &valuePtr);
+        v104 = CFDictionaryGetValue(v64, *MEMORY[0x277CC0638]);
+        if (!v104)
         {
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
@@ -2580,24 +2590,24 @@ LABEL_88:
 
           *buf = 136315138;
           *&buf[4] = "AppleAVDWrapperHEVCDecoderDecodeFrame";
-          v29 = MEMORY[0x277D86220];
-          v30 = "AppleAVD: %s() ERROR: CryptorSubsampleAuxiliaryData is NULL";
-          v31 = 12;
+          v33 = MEMORY[0x277D86220];
+          v34 = "AppleAVD: %s() ERROR: CryptorSubsampleAuxiliaryData is NULL";
+          v35 = 12;
           goto LABEL_48;
         }
 
-        v97 = v96;
-        BytePtr = CFDataGetBytePtr(v96);
-        v99 = CFDataGetLength(v97);
-        v100 = v99 >> 3;
-        if (v99 >= 0x808)
+        v105 = v104;
+        BytePtr = CFDataGetBytePtr(v104);
+        v107 = CFDataGetLength(v105);
+        v108 = v107 >> 3;
+        if (v107 >= 0x808)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315394;
             *&buf[4] = "AppleAVDWrapperHEVCDecoderDecodeFrame";
             *&buf[12] = 2048;
-            *&buf[14] = v100;
+            *&buf[14] = v108;
             _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: %s() ERROR: crauxNumEntries %ld out of range", buf, 0x16u);
           }
 
@@ -2605,30 +2615,30 @@ LABEL_88:
           goto LABEL_49;
         }
 
-        *(v10 + 8000) = v100;
+        *(v10 + 8000) = v108;
         if (BytePtr)
         {
-          if (v99 >= 8)
+          if (v107 >= 8)
           {
-            v105 = *BytePtr;
+            v113 = *BytePtr;
             *(v10 + 5952) = *BytePtr;
             *(v10 + 6976) = *(BytePtr + 1);
-            if (v99 >= 0x10)
+            if (v107 >= 0x10)
             {
-              v106 = v100 - 1;
-              v107 = (v10 + 5956);
-              v108 = BytePtr + 8;
+              v114 = v108 - 1;
+              v115 = (v10 + 5956);
+              v116 = BytePtr + 8;
               do
               {
-                v105 += *v108 + *(v108 - 1);
-                *v107 = v105;
-                v107[256] = v108[1];
-                ++v107;
-                v108 += 2;
-                --v106;
+                v113 += *v116 + *(v116 - 1);
+                *v115 = v113;
+                v115[256] = v116[1];
+                ++v115;
+                v116 += 2;
+                --v114;
               }
 
-              while (v106);
+              while (v114);
             }
           }
         }
@@ -2639,85 +2649,89 @@ LABEL_88:
         Length = 0;
       }
 
-      v21 = dataLengtha;
+      v23 = dataLengtha;
       goto LABEL_98;
     }
 
-    dataLength = v21;
+    dataLength = v23;
     LODWORD(rhs.value) = *(v10 + 5832);
     lhs.value = 0;
     NativeSession = FigCPECryptorGetNativeSession(Decryptor, &lhs);
     if (NativeSession)
     {
-      v25 = NativeSession;
+      v27 = NativeSession;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v34 = *(v10 + 5208);
+        v40 = *(v10 + 5208);
         *buf = 136315650;
         *&buf[4] = "AppleAVDWrapperHEVCDecoderDecodeFrame";
         *&buf[12] = 1024;
-        *&buf[14] = v34;
+        *&buf[14] = v40;
         *&buf[18] = 1024;
-        *&buf[20] = v25;
+        *&buf[20] = v27;
         _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: ERROR: %s(): frame# %d, FigCPECryptorGetNativeSession returned err %d\n", buf, 0x18u);
       }
 
-      v35 = v10;
+      v41 = v10;
+      v42 = a2;
+      v43 = 4294954387;
       goto LABEL_205;
     }
 
-    v36 = AppleAVDSetParameter(*(v10 + 5184), 24, &rhs);
-    if (v36)
+    v44 = AppleAVDSetParameter(*(v10 + 5184), 24, &rhs);
+    if (v44)
     {
-      v25 = v36;
+      v27 = v44;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v37 = *(v10 + 5208);
+        v45 = *(v10 + 5208);
         *buf = 136315650;
         *&buf[4] = "AppleAVDWrapperHEVCDecoderDecodeFrame";
         *&buf[12] = 1024;
-        *&buf[14] = v37;
+        *&buf[14] = v45;
         *&buf[18] = 1024;
-        *&buf[20] = v25;
-        v38 = MEMORY[0x277D86220];
-        v39 = "AppleAVD: ERROR: %s(): frame# %d, Could not set kAppleAVDSetCryptScheme, err %d\n";
+        *&buf[20] = v27;
+        v46 = MEMORY[0x277D86220];
+        v47 = "AppleAVD: ERROR: %s(): frame# %d, Could not set kAppleAVDSetCryptScheme, err %d\n";
 LABEL_203:
-        _os_log_impl(&dword_277606000, v38, OS_LOG_TYPE_DEFAULT, v39, buf, 0x18u);
+        _os_log_impl(&dword_277606000, v46, OS_LOG_TYPE_DEFAULT, v47, buf, 0x18u);
         goto LABEL_204;
       }
 
       goto LABEL_204;
     }
 
-    v40 = AppleAVDSetParameter(*(v10 + 5184), 25, lhs.value);
-    if (v40)
+    v48 = AppleAVDSetParameter(*(v10 + 5184), 25, lhs.value);
+    if (v48)
     {
-      v25 = v40;
+      v27 = v48;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v41 = *(v10 + 5208);
+        v49 = *(v10 + 5208);
         *buf = 136315650;
         *&buf[4] = "AppleAVDWrapperHEVCDecoderDecodeFrame";
         *&buf[12] = 1024;
-        *&buf[14] = v41;
+        *&buf[14] = v49;
         *&buf[18] = 1024;
-        *&buf[20] = v25;
-        v38 = MEMORY[0x277D86220];
-        v39 = "AppleAVD: ERROR: %s(): frame# %d, AppleAVDSetParameter [kAppleAVDSetCryptRef] failed with %d\n";
+        *&buf[20] = v27;
+        v46 = MEMORY[0x277D86220];
+        v47 = "AppleAVD: ERROR: %s(): frame# %d, AppleAVDSetParameter [kAppleAVDSetCryptRef] failed with %d\n";
         goto LABEL_203;
       }
 
 LABEL_204:
-      v35 = v10;
+      v41 = v10;
+      v42 = a2;
+      v43 = 4294954385;
 LABEL_205:
-      AppleAVDHEVCDecoderEmitErrorToVT(v35);
+      AppleAVDHEVCDecoderEmitErrorToVT(v41, v42, v43);
 LABEL_38:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
         *&buf[4] = "AppleAVDWrapperHEVCDecoderDecodeFrame";
         *&buf[12] = 1024;
-        *&buf[14] = v25;
+        *&buf[14] = v27;
         _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: %s(): failed with error %d\n", buf, 0x12u);
       }
 
@@ -2725,81 +2739,81 @@ LABEL_38:
     }
 
     __dst = *(v10 + 8008);
-    v131 = 0;
-    ExternalProtectionMethods = FigCPECryptorGetExternalProtectionMethods(v28, &v131);
+    v139 = 0;
+    ExternalProtectionMethods = FigCPECryptorGetExternalProtectionMethods(v32, &v139);
     if (ExternalProtectionMethods)
     {
-      v25 = ExternalProtectionMethods;
+      v27 = ExternalProtectionMethods;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v43 = *(v10 + 5208);
+        v51 = *(v10 + 5208);
         *buf = 136315650;
         *&buf[4] = "AppleAVDWrapperHEVCDecoderDecodeFrame";
         *&buf[12] = 1024;
-        *&buf[14] = v43;
+        *&buf[14] = v51;
         *&buf[18] = 1024;
-        *&buf[20] = v25;
+        *&buf[20] = v27;
         _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: ERROR: %s(): frame# %d, FigCPECryptorGetExternalProtectionMethods, err %d\n", buf, 0x18u);
       }
 
-      AppleAVDHEVCDecoderEmitErrorToVT(v10);
+      AppleAVDHEVCDecoderEmitErrorToVT(v10, a2, 4294954385);
       goto LABEL_38;
     }
 
-    v44 = 3;
-    if ((v131 & 1) == 0)
+    v52 = 3;
+    if ((v139 & 1) == 0)
     {
-      v44 = 1;
+      v52 = 1;
     }
 
-    v45 = 7;
-    if ((v131 & 2) == 0)
+    v53 = 7;
+    if ((v139 & 2) == 0)
     {
-      v45 = v44;
+      v53 = v52;
     }
 
-    v46 = *(v10 + 8008);
-    v113 = v45;
-    if (v46 == v45)
+    v54 = *(v10 + 8008);
+    v121 = v53;
+    if (v54 == v53)
     {
 LABEL_83:
-      v52 = *(v10 + 5192);
-      if (v28 != v52)
+      v60 = *(v10 + 5192);
+      if (v32 != v60)
       {
-        if (v52)
+        if (v60)
         {
-          CFRelease(v52);
+          CFRelease(v60);
         }
 
-        *(v10 + 5192) = v28;
-        CFRetain(v28);
+        *(v10 + 5192) = v32;
+        CFRetain(v32);
       }
 
-      v21 = dataLength;
+      v23 = dataLength;
       goto LABEL_88;
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v47 = *(v10 + 5208);
+      v55 = *(v10 + 5208);
       *buf = 67109632;
-      *&buf[4] = v47;
+      *&buf[4] = v55;
       *&buf[8] = 2048;
-      *&buf[10] = v46;
+      *&buf[10] = v54;
       *&buf[18] = 2048;
-      *&buf[20] = v113;
+      *&buf[20] = v121;
       _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: AppleAVD_HEVCVideoDecoder: frame# %d, new CVPixelBufferPool created protectionOptions %llu %llu \n", buf, 0x1Cu);
     }
 
-    *(v10 + 8008) = v113;
+    *(v10 + 8008) = v121;
     if (*(v10 + 8016))
     {
-      inited = InitPixelBufferCompressionSupported(*v10, *(v10 + 5184), *(v10 + 5220), *(v10 + 5212), *(v10 + 5216), *(v10 + 5224), *(v10 + 5228), *(v10 + 5745), *(v10 + 5744), *(v10 + 5801), v113, 5, 4, 2, 2, (v10 + 40), (v10 + 56), *(v10 + 16848), *(v10 + 16852), *(v10 + 16866), 0);
+      inited = InitPixelBufferCompressionSupported(*v10, *(v10 + 5184), *(v10 + 5220), *(v10 + 5212), *(v10 + 5216), *(v10 + 5224), *(v10 + 5228), *(v10 + 5745), *(v10 + 5744), *(v10 + 5801), v121, 5, 4, 2, 2, (v10 + 40), (v10 + 56), *(v10 + 16848), *(v10 + 16852), *(v10 + 16866), 0);
       if (!inited)
       {
-        v49 = 1;
+        v57 = 1;
 LABEL_82:
-        *(v10 + 16865) = v49;
+        *(v10 + 16865) = v57;
         goto LABEL_83;
       }
     }
@@ -2809,115 +2823,115 @@ LABEL_82:
       inited = InitPixelBufferCompressionNotSupported_0(v10);
       if (!inited)
       {
-        v49 = 0;
+        v57 = 0;
         goto LABEL_82;
       }
     }
 
-    v25 = inited;
+    v27 = inited;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v50 = *(v10 + 5208);
-      v51 = *(v10 + 8016);
+      v58 = *(v10 + 5208);
+      v59 = *(v10 + 8016);
       *buf = 136316418;
       *&buf[4] = "AppleAVDWrapperHEVCDecoderDecodeFrame";
       *&buf[12] = 1024;
-      *&buf[14] = v50;
+      *&buf[14] = v58;
       *&buf[18] = 2048;
       *&buf[20] = __dst;
-      v179 = 2048;
-      v180 = v113;
-      v181 = 1024;
-      v182 = v51;
-      v183 = 1024;
-      v184 = v25;
+      v187 = 2048;
+      v188 = v121;
+      v189 = 1024;
+      v190 = v59;
+      v191 = 1024;
+      v192 = v27;
       _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: ERROR: %s(): frame# %d, new CVPixelBufferPool created protectionOptions %llu %llu - ioSurfaceType: %d, err: %d\n", buf, 0x32u);
     }
 
-    AppleAVDHEVCDecoderEmitErrorToVT(v10);
+    AppleAVDHEVCDecoderEmitErrorToVT(v10, a2, 4294954385);
     *(v10 + 8008) = __dst;
     goto LABEL_38;
   }
 
   Length = 0;
 LABEL_98:
-  v130 = **&MEMORY[0x277CC08F0];
-  v129 = v130;
+  v138 = **&MEMORY[0x277CC08F0];
+  v137 = v138;
   CMSampleBufferGetOutputDuration(buf, a3);
-  v59 = *buf;
+  v67 = *buf;
   *(v10 + 5900) = *&buf[16];
-  *(v10 + 5884) = v59;
-  dataLengthb = v21;
+  *(v10 + 5884) = v67;
+  dataLengthb = v23;
   if ((*(v10 + 5896) & 0x1D) == 1)
   {
     if ((*(v10 + 5848) & 0x1D) == 1)
     {
-      v60 = v10 + 5836;
-      CMSampleBufferGetDecodeTimeStamp(&v130, a3);
-      lhs = v130;
+      v68 = v10 + 5836;
+      CMSampleBufferGetDecodeTimeStamp(&v138, a3);
+      lhs = v138;
       rhs = *(v10 + 5836);
       CMTimeSubtract(buf, &lhs, &rhs);
-      v61 = *buf;
-      v62 = v10 + 5744;
+      v69 = *buf;
+      v70 = v10 + 5744;
       *(v10 + 5900) = *&buf[16];
-      *(v10 + 5884) = v61;
-      *(v10 + 5836) = *&v130.value;
-      epoch = v130.epoch;
+      *(v10 + 5884) = v69;
+      *(v10 + 5836) = *&v138.value;
+      epoch = v138.epoch;
     }
 
     else
     {
-      CMSampleBufferGetPresentationTimeStamp(&v129, a3);
-      v60 = v10 + 5860;
-      lhs = v129;
+      CMSampleBufferGetPresentationTimeStamp(&v137, a3);
+      v68 = v10 + 5860;
+      lhs = v137;
       rhs = *(v10 + 5860);
       CMTimeSubtract(buf, &lhs, &rhs);
-      v65 = *buf;
-      v62 = v10 + 5744;
+      v73 = *buf;
+      v70 = v10 + 5744;
       *(v10 + 5900) = *&buf[16];
-      *(v10 + 5884) = v65;
-      *(v10 + 5860) = *&v129.value;
-      epoch = v129.epoch;
+      *(v10 + 5884) = v73;
+      *(v10 + 5860) = *&v137.value;
+      epoch = v137.epoch;
     }
 
-    *(v60 + 16) = epoch;
-    v66 = *(v62 + 140);
-    if (v66 < 1)
+    *(v68 + 16) = epoch;
+    v74 = *(v70 + 140);
+    if (v74 < 1)
     {
-      v64 = 0.0;
+      v72 = 0.0;
     }
 
     else
     {
-      v64 = *(v10 + 5892) / v66;
+      v72 = *(v10 + 5892) / v74;
     }
 
-    *(v10 + 5912) = v64;
-    v21 = dataLengthb;
+    *(v10 + 5912) = v72;
+    v23 = dataLengthb;
   }
 
   else
   {
-    v64 = *(v10 + 5912);
+    v72 = *(v10 + 5912);
   }
 
-  if (((v64 + 0.5) - 1025) >= 0xFFFFFC00)
+  if (((v72 + 0.5) - 1025) >= 0xFFFFFC00)
   {
-    v67 = (v64 + 0.5);
+    v75 = (v72 + 0.5);
   }
 
   else
   {
-    v67 = 30;
+    v75 = 30;
   }
 
-  v68 = *(v10 + 5920);
-  if (v67 != v68)
+  v76 = *(v10 + 5920);
+  if (v75 != v76)
   {
-    v67 = filterSmallDeltaFPS(v68, v67);
+    v75 = filterSmallDeltaFPS(v76, v75);
   }
 
-  *(v10 + 5920) = v67;
+  *(v10 + 5920) = v75;
   *(v10 + 8156) = 1;
   if (*(v10 + 8164) == 1)
   {
@@ -2933,23 +2947,25 @@ LABEL_98:
       }
 
       v19 = v10;
+      v20 = a2;
+      v21 = 4294958325;
       goto LABEL_24;
     }
 
     if (*(v10 + 5208) == 1)
     {
       AppleAVDHEVCCheckEnableMultiViewDecode(v10);
-      v69 = AppleAVDSetParameter(*(v10 + 5184), 5, (v10 + 8164));
-      if (v69)
+      v77 = AppleAVDSetParameter(*(v10 + 5184), 5, (v10 + 8164));
+      if (v77)
       {
-        v25 = v69;
+        v27 = v77;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           LOWORD(lhs.value) = 0;
           _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: AppleAVD_HEVCVideoDecoder ERROR: Could not get bitstream buffer", &lhs, 2u);
         }
 
-        AppleAVDHEVCDecoderEmitErrorToVT(v10);
+        AppleAVDHEVCDecoderEmitErrorToVT(v10, a2, 4294954385);
 LABEL_126:
         if (a5)
         {
@@ -2965,7 +2981,7 @@ LABEL_126:
       if (*(v10 + 8164))
       {
         calcLayersToDecodeFromDisplayLayersList(v10);
-        if (getMultiViewLayerOffsetInfo(v10, theBuffer, v21, buf))
+        if (getMultiViewLayerOffsetInfo(v10, theBuffer, v23, buf))
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
@@ -2973,44 +2989,46 @@ LABEL_126:
             _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: AppleAVD_HEVCVideoDecoder ERROR: Could not get getMultiViewLayerOffsetInfo", &lhs, 2u);
           }
 
-          AppleAVDHEVCDecoderEmitErrorToVT(v10);
-          v25 = 0;
+          AppleAVDHEVCDecoderEmitErrorToVT(v10, a2, 4294954385);
+          v27 = 0;
           goto LABEL_126;
         }
       }
     }
   }
 
-  v125[1] = v117;
-  v126 = 0;
-  v125[0] = 0;
-  LODWORD(v126) = *(v10 + 5208);
-  v70 = AppleAVDGetParameter(*(v10 + 5184), 55, v125);
-  if (v70)
+  v133[1] = v125;
+  v134 = 0;
+  v133[0] = 0;
+  LODWORD(v134) = *(v10 + 5208);
+  v78 = AppleAVDGetParameter(*(v10 + 5184), 55, v133);
+  if (v78)
   {
-    v25 = v70;
+    v27 = v78;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
       *&buf[4] = "AppleAVDWrapperHEVCDecoderDecodeFrame";
       *&buf[12] = 1024;
-      *&buf[14] = v25;
+      *&buf[14] = v27;
       _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: ERROR: %s(): AppleAVDGetParameter [kAppleAVDGetCompressedPictureBuffer] failed with %d\n", buf, 0x12u);
     }
 
-    v26 = v10;
+    v28 = v10;
+    v29 = a2;
+    v30 = 4294954385;
     goto LABEL_36;
   }
 
-  v71 = v125[0];
-  __dsta = v125[0];
-  if (v114)
+  v79 = v133[0];
+  __dsta = v133[0];
+  if (v122)
   {
-    memcpy(v125[0], *(v10 + 5632), *(v10 + 5640) & 0xFFFFFF);
-    v71 = &__dsta[*(v10 + 5640) & 0xFFFFFF];
+    memcpy(v133[0], *(v10 + 5632), *(v10 + 5640) & 0xFFFFFF);
+    v79 = &__dsta[*(v10 + 5640) & 0xFFFFFF];
   }
 
-  if (CMBlockBufferCopyDataBytes(theBuffer, 0, dataLengthb, v71))
+  if (CMBlockBufferCopyDataBytes(theBuffer, 0, dataLengthb, v79))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
@@ -3019,8 +3037,8 @@ LABEL_126:
     }
 
     kdebug_trace();
-    v25 = -12911;
-    AppleAVDHEVCDecoderEmitErrorToVT(v10);
+    v27 = -12911;
+    AppleAVDHEVCDecoderEmitErrorToVT(v10, a2, 4294954385);
     AppleAVDReleaseOneCPBWithFrameworkError(*(v10 + 5184), *(v10 + 5208));
     if (!a5)
     {
@@ -3033,21 +3051,13 @@ LABEL_37:
   }
 
   theBuffera = *(v10 + 5208);
-  v72 = *(v10 + 8088);
-  memset(v123, 0, sizeof(v123));
-  v124 = 0;
-  LOBYTE(v123[0]) = v72;
-  if (!v72)
+  v80 = *(v10 + 8088);
+  memset(v131, 0, sizeof(v131));
+  v132 = 0;
+  LOBYTE(v131[0]) = v80;
+  if (!v80)
   {
-    AppleAVDSetParameter(*(v10 + 5184), 39, v123);
-    v134 = 0u;
-    v135 = 0u;
-    v136 = 0u;
-    v137 = 0u;
-    v138 = 0u;
-    v139 = 0u;
-    v140 = 0u;
-    v141 = 0u;
+    AppleAVDSetParameter(*(v10 + 5184), 39, v131);
     v142 = 0u;
     v143 = 0u;
     v144 = 0u;
@@ -3072,32 +3082,32 @@ LABEL_37:
     v163 = 0u;
     v164 = 0u;
     v165 = 0u;
+    v166 = 0u;
+    v167 = 0u;
+    v168 = 0u;
+    v169 = 0u;
+    v170 = 0u;
+    v171 = 0u;
+    v172 = 0u;
+    v173 = 0u;
     goto LABEL_26;
   }
 
-  v111 = v67;
-  v73 = 8089;
-  v74 = 2;
-  v75 = v72;
+  v119 = v75;
+  v81 = 8089;
+  v82 = 2;
+  v83 = v80;
   do
   {
-    *(v123 + v74) = *(v10 + v73);
-    v74 += 2;
-    ++v73;
-    --v75;
+    *(v131 + v82) = *(v10 + v81);
+    v82 += 2;
+    ++v81;
+    --v83;
   }
 
-  while (v75);
-  AppleAVDSetParameter(*(v10 + 5184), 39, v123);
-  v76 = 0;
-  v134 = 0u;
-  v135 = 0u;
-  v136 = 0u;
-  v137 = 0u;
-  v138 = 0u;
-  v139 = 0u;
-  v140 = 0u;
-  v141 = 0u;
+  while (v83);
+  AppleAVDSetParameter(*(v10 + 5184), 39, v131);
+  v84 = 0;
   v142 = 0u;
   v143 = 0u;
   v144 = 0u;
@@ -3112,32 +3122,40 @@ LABEL_37:
   v153 = 0u;
   v154 = 0u;
   v155 = 0u;
-  v110 = (v72 - 1);
   v156 = 0u;
   v157 = 0u;
-  v109 = v72;
   v158 = 0u;
   v159 = 0u;
   v160 = 0u;
   v161 = 0u;
   v162 = 0u;
   v163 = 0u;
+  v118 = (v80 - 1);
   v164 = 0u;
   v165 = 0u;
-  v77 = *(v10 + 5208);
+  v117 = v80;
+  v166 = 0u;
+  v167 = 0u;
+  v168 = 0u;
+  v169 = 0u;
+  v170 = 0u;
+  v171 = 0u;
+  v172 = 0u;
+  v173 = 0u;
+  v85 = *(v10 + 5208);
   while (1)
   {
-    bzero(&v135, 0x878uLL);
-    *&v134 = __dsta;
-    *(&v134 + 1) = v117;
-    LODWORD(v135) = v77;
-    v172 = *(v10 + 8089 + v76);
-    v78 = !*(v10 + 8164) || v110 == v76;
-    v79 = v78;
-    v173 = v79;
-    v171 = theBuffera;
-    v174 = *v10;
-    v175 = a2;
+    bzero(&v143, 0x878uLL);
+    *&v142 = __dsta;
+    *(&v142 + 1) = v125;
+    LODWORD(v143) = v85;
+    v180 = *(v10 + 8089 + v84);
+    v86 = !*(v10 + 8164) || v118 == v84;
+    v87 = v86;
+    v181 = v87;
+    v179 = theBuffera;
+    v182 = *v10;
+    v183 = a2;
     if (*(v10 + 8024))
     {
       if ((a4 & 4) != 0)
@@ -3145,93 +3163,93 @@ LABEL_37:
         goto LABEL_158;
       }
 
-      v80 = 1;
+      v88 = 1;
     }
 
     else
     {
-      v80 = *(v10 + 8020) ? 2 : 1;
+      v88 = *(v10 + 8020) ? 2 : 1;
     }
 
-    DWORD1(v135) = v80;
+    DWORD1(v143) = v88;
 LABEL_158:
-    HIDWORD(v135) = 0;
-    *&v136 = __PAIR64__(Length, valuePtr);
-    v167 = v111;
-    *(&v136 + 1) = *(v10 + 5924);
-    v170 = 0;
+    HIDWORD(v143) = 0;
+    *&v144 = __PAIR64__(Length, valuePtr);
+    v175 = v119;
+    *(&v144 + 1) = *(v10 + 5924);
+    v178 = 0;
+    v184 = 0;
+    v177 = 0;
     v176 = 0;
-    v169 = 0;
-    v168 = 0;
-    v177 = *(v10 + 16865);
+    v185 = *(v10 + 16865);
     if ((*(v10 + 5832) & 0xFFFFFFFE) == 4)
     {
-      v81 = *(v10 + 8000);
-      if (v81 >= 257)
+      v89 = *(v10 + 8000);
+      if (v89 >= 257)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315650;
           *&buf[4] = "AppleAVDWrapperHEVCDecoderDecodeFrame";
           *&buf[12] = 2048;
-          *&buf[14] = v81;
+          *&buf[14] = v89;
           *&buf[22] = 1024;
           *&buf[24] = 256;
           _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: ERROR: %s(): encryptedSliceCount (%ld) exceeds MAX_SLICES (%d)\n", buf, 0x1Cu);
         }
 
         kdebug_trace();
-        AppleAVDHEVCDecoderEmitErrorToVT(v10);
+        AppleAVDHEVCDecoderEmitErrorToVT(v10, a2, 4294954387);
         AppleAVDReleaseOneCPBWithFrameworkError(*(v10 + 5184), *(v10 + 5208));
         if (a5)
         {
           *a5 = 2;
         }
 
-        v25 = -12911;
+        v27 = -12911;
         goto LABEL_38;
       }
 
-      if (HIDWORD(v81) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+      if (HIDWORD(v89) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
         *&buf[4] = "AppleAVDWrapperHEVCDecoderDecodeFrame";
         *&buf[12] = 1024;
         *&buf[14] = 3682;
         _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: WARNING: %s %d 64->32 conversion problem!", buf, 0x12u);
-        v81 = *(v10 + 8000);
+        v89 = *(v10 + 8000);
       }
 
-      v166 = v81;
+      v174 = v89;
       __memcpy_chk();
       __memcpy_chk();
     }
 
     else
     {
-      v166 = 0;
+      v174 = 0;
     }
 
     if (a4)
     {
-      BYTE8(v135) = 0;
-      v82 = *a5 | 1;
-      *a5 = v82;
+      BYTE8(v143) = 0;
+      v90 = *a5 | 1;
+      *a5 = v90;
     }
 
     else
     {
-      BYTE8(v135) = 1;
-      v82 = *a5;
+      BYTE8(v143) = 1;
+      v90 = *a5;
     }
 
-    v83 = *(v10 + 5208);
-    *(v10 + 64 + 8 * v83) = a2;
-    *(v10 + 4160 + 4 * v83) = v82;
-    if (!v76)
+    v91 = *(v10 + 5208);
+    *(v10 + 64 + 8 * v91) = a2;
+    *(v10 + 4160 + 4 * v91) = v90;
+    if (!v84)
     {
-      v84 = *(v10 + 8040);
-      if (v84)
+      v92 = *(v10 + 8040);
+      if (v92)
       {
         if (HIDWORD(dataLengthb) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
@@ -3242,28 +3260,28 @@ LABEL_158:
           _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: WARNING: %s %d 64->32 conversion problem!", buf, 0x12u);
         }
 
-        if (WriteNAL(v84, __dsta, dataLengthb))
+        if (WriteNAL(v92, __dsta, dataLengthb))
         {
-          v85 = *(v10 + 8048);
-          if (v85)
+          v93 = *(v10 + 8048);
+          if (v93)
           {
-            fprintf(v85, "Error writing decEncryptedOutput for frame %d \n", *(v10 + 5208));
+            fprintf(v93, "Error writing decEncryptedOutput for frame %d \n", *(v10 + 5208));
           }
         }
       }
     }
 
-    v86 = *(v10 + 8056);
-    if (v86)
+    v94 = *(v10 + 8056);
+    if (v94)
     {
-      fwrite(__dsta, 1uLL, dataLengthb, v86);
+      fwrite(__dsta, 1uLL, dataLengthb, v94);
     }
 
-    v87 = AppleAVDDecodeFrame(*(v10 + 5184), &v134);
-    if (!v76)
+    v95 = AppleAVDDecodeFrame(*(v10 + 5184), &v142);
+    if (!v84)
     {
-      v88 = *(v10 + 8032);
-      if (v88)
+      v96 = *(v10 + 8032);
+      if (v96)
       {
         if (HIDWORD(dataLengthb) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
@@ -3274,70 +3292,70 @@ LABEL_158:
           _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: WARNING: %s %d 64->32 conversion problem!", buf, 0x12u);
         }
 
-        if (WriteNAL(v88, __dsta, dataLengthb))
+        if (WriteNAL(v96, __dsta, dataLengthb))
         {
-          v89 = *(v10 + 8048);
-          if (v89)
+          v97 = *(v10 + 8048);
+          if (v97)
           {
-            fprintf(v89, "Error writing decOutput for frame %d \n", *(v10 + 5208));
+            fprintf(v97, "Error writing decOutput for frame %d \n", *(v10 + 5208));
           }
         }
       }
     }
 
-    v90 = *(v10 + 8064);
-    if (v90)
+    v98 = *(v10 + 8064);
+    if (v98)
     {
-      fwrite(__dsta, 1uLL, dataLengthb, v90);
+      fwrite(__dsta, 1uLL, dataLengthb, v98);
     }
 
-    if (v87)
+    if (v95)
     {
       break;
     }
 
-    v77 = *(v10 + 5208) + 1;
-    *(v10 + 5208) = v77;
-    if (v109 == ++v76)
+    v85 = *(v10 + 5208) + 1;
+    *(v10 + 5208) = v85;
+    if (v117 == ++v84)
     {
       goto LABEL_26;
     }
   }
 
   kdebug_trace();
-  AppleAVDHEVCDecoderEmitErrorToVT(v10);
+  AppleAVDHEVCDecoderEmitErrorToVT(v10, a2, 4294954387);
   AppleAVDReleaseOneCPBWithFrameworkError(*(v10 + 5184), *(v10 + 5208));
   *a5 = 2;
-  v25 = HIDWORD(v135);
-  v101 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
-  if (!v25)
+  v27 = HIDWORD(v143);
+  v109 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
+  if (!v27)
   {
-    if (v101)
+    if (v109)
     {
-      v104 = *(v10 + 5208);
+      v112 = *(v10 + 5208);
       *buf = 67109120;
-      *&buf[4] = v104;
+      *&buf[4] = v112;
       _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: AppleAVD_HEVCVideoDecoder_DecodeFrame ERROR: framenum %d kVTVideoDecoderMalfunctionErr", buf, 8u);
     }
 
-    v25 = -12911;
+    v27 = -12911;
     goto LABEL_38;
   }
 
-  if (!v101)
+  if (!v109)
   {
     goto LABEL_38;
   }
 
-  v102 = *(v10 + 5208);
+  v110 = *(v10 + 5208);
   *buf = 67109376;
-  *&buf[4] = v102;
+  *&buf[4] = v110;
   *&buf[8] = 1024;
-  *&buf[10] = v25;
+  *&buf[10] = v27;
   _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: AppleAVD_HEVCVideoDecoder_DecodeFrame ERROR: framenum %d decryptError %x", buf, 0xEu);
-  v25 = HIDWORD(v135);
+  v27 = HIDWORD(v143);
 LABEL_128:
-  if (v25)
+  if (v27)
   {
     goto LABEL_38;
   }
@@ -3357,7 +3375,7 @@ void HevcReleaseSliceHeader(uint64_t a1)
   }
 }
 
-uint64_t CAVDHevcDecoder::initPicture(uint64_t a1, uint64_t a2, _DWORD *a3, uint64_t a4, _DWORD *a5, uint64_t a6, char a7)
+uint64_t CAVDHevcDecoder::initPicture(uint64_t a1, uint64_t a2, _DWORD *a3, uint64_t a4, _DWORD *a5, uint64_t a6, uint64_t a7)
 {
   v12 = a3[1];
   *(a6 + 144) = 0u;
@@ -3497,7 +3515,7 @@ void HEVC_RLM::releaseUnusedPictures(HEVC_RLM *this)
   while (v2 != 16);
 }
 
-uint64_t AppleAVDCommandBuilder::decodeFrameFig(uint64_t a1, uint64_t a2, int *a3)
+uint64_t AppleAVDCommandBuilder::decodeFrameFig(void *a1, uint64_t a2, int *a3)
 {
   v91 = *MEMORY[0x277D85DE8];
   kdebug_trace();
@@ -3505,20 +3523,20 @@ uint64_t AppleAVDCommandBuilder::decodeFrameFig(uint64_t a1, uint64_t a2, int *a
   if (!result)
   {
     v7 = *(a2 + 12) & 0xF;
-    v8 = *(a1 + 5600);
+    v8 = a1[700];
     v9 = (v8 + 3656 * v7);
     bzero(v9, 0xE48uLL);
     v10 = *(a2 + 12);
-    *(a1 + 5660) = v10;
+    *(a1 + 1415) = v10;
     v11 = *(a2 + 2176);
-    *(a1 + 5668) = v11;
+    *(a1 + 1417) = v11;
     v12 = *(a2 + 2184);
-    *(a1 + 5672) = v12;
-    *(a1 + 5676) = *(a2 + 2324);
+    *(a1 + 1418) = v12;
+    *(a1 + 1419) = *(a2 + 2324);
     *(a1 + 6016) = *(a2 + 2124);
-    *(a1 + 5644) = *(a2 + 8);
+    *(a1 + 1411) = *(a2 + 8);
     *(a1 + 5892) = *(a2 + 2116);
-    *(a1 + 6248) = *(a2 + 2336);
+    *(a1 + 1562) = *(a2 + 2336);
     if (*(a2 + 2348))
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -3540,7 +3558,7 @@ uint64_t AppleAVDCommandBuilder::decodeFrameFig(uint64_t a1, uint64_t a2, int *a
     *(a1 + 6036) = v48;
     if (*(a2 + 2333) == 1 && (!v12 || !v11 || *(a1 + 5412) == 1))
     {
-      if ((*(**(a1 + 8) + 72))(*(a1 + 8)))
+      if ((*(*a1[1] + 72))(a1[1]))
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
@@ -3554,7 +3572,7 @@ uint64_t AppleAVDCommandBuilder::decodeFrameFig(uint64_t a1, uint64_t a2, int *a
         goto LABEL_6;
       }
 
-      v58 = (*(**(a1 + 8) + 56))(*(a1 + 8), *(a1 + 6036), 0xFFFFFFFFLL, 1, 0, *a2, *(a2 + 2328), 0);
+      v58 = (*(*a1[1] + 56))(a1[1], *(a1 + 6036), 0xFFFFFFFFLL, 1, 0, *a2, *(a2 + 2328), 0);
       if (v58)
       {
         v14 = v58;
@@ -3578,7 +3596,7 @@ LABEL_139:
 
     *(v9 + 3644) = 1;
     v86 = 0;
-    if (((*(**(a1 + 8) + 112))(*(a1 + 8), v48, &v86, 1) & 1) == 0)
+    if (((*(*a1[1] + 112))(a1[1], v48, &v86, 1) & 1) == 0)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
@@ -3626,7 +3644,7 @@ LABEL_9:
 
           *(v9 + 907) = *(a2 + v26);
           *(v9 + 454) = *(a2 + 2136);
-          LODWORD(v27) = *(a1 + 280);
+          LODWORD(v27) = *(a1 + 70);
           if (v27 >= 1)
           {
             v28 = 0;
@@ -3634,22 +3652,22 @@ LABEL_9:
             v30 = v9 + 52;
             do
             {
-              *(v9 + v28 + 68) = *(v29 + 4 * v28);
-              v31 = a1 + 416 + 104 * *(v29 + 4 * v28);
+              *(v9 + v28 + 68) = *&v29[4 * v28];
+              v31 = &a1[13 * *&v29[4 * v28] + 52];
               v32 = *v31;
-              v33 = *(v31 + 32);
-              *(v30 + 1) = *(v31 + 16);
+              v33 = *(v31 + 2);
+              *(v30 + 1) = *(v31 + 1);
               *(v30 + 2) = v33;
               *v30 = v32;
-              v34 = *(v31 + 48);
-              v35 = *(v31 + 64);
-              v36 = *(v31 + 80);
-              *(v30 + 12) = *(v31 + 96);
+              v34 = *(v31 + 3);
+              v35 = *(v31 + 4);
+              v36 = *(v31 + 5);
+              *(v30 + 12) = v31[12];
               *(v30 + 4) = v35;
               *(v30 + 5) = v36;
               *(v30 + 3) = v34;
               ++v28;
-              v27 = *(a1 + 280);
+              v27 = *(a1 + 70);
               v30 += 52;
             }
 
@@ -3657,7 +3675,7 @@ LABEL_9:
           }
 
           *v9 = v27;
-          v37 = *(a1 + 5408);
+          v37 = *(a1 + 1352);
           if (v37 >= 3)
           {
             if (v37 != 3)
@@ -3673,7 +3691,7 @@ LABEL_9:
                 *(v9 + 860) = -1;
                 if (v27 >= 1)
                 {
-                  v22 = (a1 + 4 * (v27 - 1) + 284);
+                  v22 = a1 + (v27 - 1) + 71;
                 }
 
                 v47 = *v22;
@@ -3685,7 +3703,7 @@ LABEL_9:
                 v57 = (a2 + 16);
                 if (v27 >= 1)
                 {
-                  v57 = (a1 + 4 * (v27 - 1) + 284);
+                  v57 = a1 + (v27 - 1) + 71;
                 }
 
                 v46 = *v57;
@@ -3699,20 +3717,20 @@ LABEL_9:
               {
 LABEL_18:
                 v39 = 0;
-                v40 = a1 + 16;
+                v40 = a1 + 2;
                 v41 = 1;
                 do
                 {
                   v42 = v41;
-                  LODWORD(v43) = *(v40 + 4 * v39);
+                  LODWORD(v43) = *(v40 + v39);
                   if (v43 >= 1)
                   {
                     v44 = 0;
                     do
                     {
-                      *(3656 * v7 + v8 + 4 + 32 * v39 + v44) = *(a1 + 24 + (v39 << 7) + 4 * v44);
+                      *(3656 * v7 + v8 + 4 + 32 * v39 + v44) = *(&a1[16 * v39 + 3] + v44);
                       ++v44;
-                      v43 = *(v40 + 4 * v39);
+                      v43 = *(v40 + v39);
                     }
 
                     while (v44 < v43);
@@ -3720,28 +3738,28 @@ LABEL_18:
 
                   v41 = 0;
                   *(v9 + v39 + 2) = v43;
-                  *(v40 + 4 * v39) = 0;
+                  *(v40 + v39) = 0;
                   v39 = 1;
                 }
 
                 while ((v42 & 1) != 0);
                 *a3 = v14;
                 *(v9 + 858) = v14;
-                (*(**(a1 + 8) + 96))(*(a1 + 8), 9, v9 + 1824);
+                (*(*a1[1] + 96))(a1[1], 9, v9 + 1824);
                 if (v14)
                 {
-                  v45 = *(a1 + 6288);
+                  v45 = a1[786];
                 }
 
                 else
                 {
-                  CAVDDecoder::getDecoderAnalyticsInfo(*(a1 + 8), *(a1 + 6288) + 32);
-                  v45 = *(a1 + 6288);
+                  CAVDDecoder::getDecoderAnalyticsInfo(a1[1], a1[786] + 32);
+                  v45 = a1[786];
                   *(v9 + 913) = *(v45 + 36);
-                  if (*(a1 + 5408) == 4 && (*(v45 + 21) & 1) == 0 && *(v45 + 48))
+                  if (*(a1 + 1352) == 4 && (*(v45 + 21) & 1) == 0 && *(v45 + 48))
                   {
                     *(v45 + 21) = 1;
-                    *(v45 + 22) = *(a1 + 6248);
+                    *(v45 + 22) = *(a1 + 1562);
                   }
 
                   *(v45 + 56) = 1;
@@ -3772,7 +3790,7 @@ LABEL_57:
                           }
 
                           *__str = 1;
-                          v51 = (*(**(a1 + 8) + 104))(*(a1 + 8), 18, __str);
+                          v51 = (*(*a1[1] + 104))(a1[1], 18, __str);
                           if (v51)
                           {
                             v52 = v51;
@@ -3876,7 +3894,7 @@ LABEL_55:
               }
 
 LABEL_17:
-              *(a1 + 280) = 0;
+              *(a1 + 70) = 0;
               goto LABEL_18;
             }
 
@@ -3891,11 +3909,11 @@ LABEL_17:
             if (*(a1 + 6016) == 1)
             {
               *(v9 + 862) = -1;
-              *(v9 + 863) = *(a1 + 6252);
+              *(v9 + 863) = *(a1 + 1563);
               goto LABEL_17;
             }
 
-            v38 = *(a1 + 6252);
+            v38 = *(a1 + 1563);
           }
 
           else
@@ -3909,46 +3927,46 @@ LABEL_17:
         }
       }
 
-      v16 = a1 + 104 * v15;
+      v16 = &a1[13 * v15];
       v17 = *(v9 + 217);
       v18 = *(v9 + 219);
-      *(v16 + 432) = *(v9 + 218);
-      *(v16 + 448) = v18;
-      *(v16 + 416) = v17;
+      *(v16 + 27) = *(v9 + 218);
+      *(v16 + 28) = v18;
+      *(v16 + 26) = v17;
       v19 = *(v9 + 220);
       v20 = *(v9 + 221);
       v21 = *(v9 + 222);
-      *(v16 + 512) = *(v9 + 446);
-      *(v16 + 480) = v20;
-      *(v16 + 496) = v21;
-      *(v16 + 464) = v19;
+      v16[64] = *(v9 + 446);
+      *(v16 + 30) = v20;
+      *(v16 + 31) = v21;
+      *(v16 + 29) = v19;
       goto LABEL_9;
     }
 
     v62 = v86;
     v63 = *(v86 + 8);
     v64 = *(v86 + 24);
-    *(a1 + 5456) = *(v86 + 40);
-    *(a1 + 5440) = v64;
-    *(a1 + 5424) = v63;
+    *(a1 + 341) = *(v86 + 40);
+    *(a1 + 340) = v64;
+    *(a1 + 339) = v63;
     v65 = *(v62 + 56);
     v66 = *(v62 + 72);
     v67 = *(v62 + 88);
-    *(a1 + 5520) = *(v62 + 104);
-    *(a1 + 5504) = v67;
-    *(a1 + 5488) = v66;
-    *(a1 + 5472) = v65;
+    *(a1 + 345) = *(v62 + 104);
+    *(a1 + 344) = v67;
+    *(a1 + 343) = v66;
+    *(a1 + 342) = v65;
     v68 = *(v62 + 120);
     v69 = *(v62 + 136);
     v70 = *(v62 + 152);
-    *(a1 + 5584) = *(v62 + 168);
-    *(a1 + 5568) = v70;
-    *(a1 + 5552) = v69;
-    *(a1 + 5536) = v68;
-    *(a1 + 5648) = *a2;
+    *(a1 + 349) = *(v62 + 168);
+    *(a1 + 348) = v70;
+    *(a1 + 347) = v69;
+    *(a1 + 346) = v68;
+    a1[706] = *a2;
     if ((*(a1 + 5893) & 1) == 0 && *(a1 + 5892) == 1 && *(a2 + 2144))
     {
-      v71 = AppleAVDCommandBuilder::allocRVRAMemory(a1, *(a1 + 5624), *(a1 + 5628));
+      v71 = AppleAVDCommandBuilder::allocRVRAMemory(a1, *(a1 + 1406), *(a1 + 1407));
       if (v71)
       {
         v14 = v71;
@@ -3967,7 +3985,7 @@ LABEL_140:
       }
 
       *(a1 + 5893) = 1;
-      (*(**(a1 + 8) + 104))(*(a1 + 8), 28, a1 + 5896);
+      (*(*a1[1] + 104))(a1[1], 28, a1 + 737);
     }
 
     v72 = AppleAVDCommandBuilder::decodeFrameFigHelper_VASetParameters(a1, a2);
@@ -3978,13 +3996,13 @@ LABEL_140:
     }
 
     a3[1] = 0;
-    if (*(a1 + 5672))
+    if (*(a1 + 1418))
     {
-      (*(**(a1 + 8) + 104))(*(a1 + 8), 10, a2 + 2192);
+      (*(*a1[1] + 104))(a1[1], 10, a2 + 2192);
     }
 
-    (*(**(a1 + 8) + 104))(*(a1 + 8), 39, a2 + 2112);
-    v73 = *(a1 + 6240);
+    (*(*a1[1] + 104))(a1[1], 39, a2 + 2112);
+    v73 = *(a1 + 1560);
     if (!v73)
     {
       goto LABEL_113;
@@ -3992,52 +4010,52 @@ LABEL_140:
 
     if (*(a2 + 2112))
     {
-      (*(**(a1 + 8) + 104))(*(a1 + 8), 40, a2 + 1088);
-      (*(**(a1 + 8) + 104))(*(a1 + 8), 41, a2 + 64);
-      v73 = *(a1 + 6240);
+      (*(*a1[1] + 104))(a1[1], 40, a2 + 1088);
+      (*(*a1[1] + 104))(a1[1], 41, a2 + 64);
+      v73 = *(a1 + 1560);
     }
 
     if (v73 != 4)
     {
       if (v73 == 2)
       {
-        v74 = *(a1 + 5648);
-        v75 = *(a1 + 5880);
+        v74 = a1[706];
+        v75 = *(a1 + 1470);
         if (v75 == 5)
         {
-          v82 = *(a1 + 6232);
+          v82 = a1[779];
           *(v82 + 216) = 2;
           *(v82 + 236) = 1;
           *(v82 + 220) = *(a2 + 48);
-          (*(**(a1 + 8) + 104))(*(a1 + 8), 36, *(a1 + 6232) + 216);
-          *(*(a1 + 6232) + 244) = *(*(a1 + 6232) + 246) << 16;
-          *(*(a1 + 6232) + 244) |= 0x10000u;
-          v77 = *(**(a1 + 8) + 104);
+          (*(*a1[1] + 104))(a1[1], 36, a1[779] + 216);
+          *(a1[779] + 244) = *(a1[779] + 246) << 16;
+          *(a1[779] + 244) |= 0x10000u;
+          v77 = *(*a1[1] + 104);
           goto LABEL_142;
         }
 
-        if (v75 == 4 && *(a2 + 44) && *(a1 + 5408) == 4)
+        if (v75 == 4 && *(a2 + 44) && *(a1 + 1352) == 4)
         {
-          v76 = *(a1 + 6232);
+          v76 = a1[779];
           *(v76 + 216) = 4;
           *(v76 + 236) = 0x100000001;
           *(v76 + 220) = *(a2 + 48);
-          v77 = *(**(a1 + 8) + 104);
+          v77 = *(*a1[1] + 104);
 LABEL_142:
           v77();
         }
 
 LABEL_114:
-        *(a1 + 5680) = *(a2 + 20);
-        v78 = *(a1 + 5608);
-        if ((v78 == 28 || v78 >= 0x12F) && (*(a1 + 6040) & 8) != 0)
+        *(a1 + 1420) = *(a2 + 20);
+        v78 = *(a1 + 1402);
+        if ((v78 == 28 || v78 >= 0x12F) && (a1[755] & 8) != 0)
         {
-          (*(**(a1 + 8) + 104))(*(a1 + 8), 51, *(a1 + 6048));
+          (*(*a1[1] + 104))(a1[1], 51, a1[756]);
         }
 
-        (*(**(a1 + 8) + 104))(*(a1 + 8), 24, a2 + 2340);
+        (*(*a1[1] + 104))(a1[1], 24, a2 + 2340);
         kdebug_trace();
-        v14 = (*(**(a1 + 8) + 32))(*(a1 + 8), v74, *(a2 + 8), *(a2 + 12), *(a2 + 16), *(a2 + 20), *(a2 + 24), v9 + 1736);
+        v14 = (*(*a1[1] + 32))(a1[1], v74, *(a2 + 8), *(a2 + 12), *(a2 + 16), *(a2 + 20), *(a2 + 24), v9 + 1736);
         kdebug_trace();
         if (!v14)
         {
@@ -4049,16 +4067,16 @@ LABEL_114:
         {
           v13 = 0;
 LABEL_123:
-          (*(**(a1 + 8) + 96))(*(a1 + 8), 22, a1 + 5632);
-          (*(**(a1 + 8) + 96))(*(a1 + 8), 7, v9 + 1790);
-          if (*(a1 + 6240) == 3 && (SampleBufferForSIODecrypt = AppleAVDCommandBuilder::retrieveSampleBufferForSIODecrypt(a1)) != 0)
+          (*(*a1[1] + 96))(a1[1], 22, a1 + 704);
+          (*(*a1[1] + 96))(a1[1], 7, v9 + 1790);
+          if (*(a1 + 1560) == 3 && (SampleBufferForSIODecrypt = AppleAVDCommandBuilder::retrieveSampleBufferForSIODecrypt(a1)) != 0)
           {
             v14 = SampleBufferForSIODecrypt;
           }
 
-          else if (*(*a1 + 3912) == 1 && *(a1 + 6296))
+          else if (*(*a1 + 3912) == 1 && a1[787])
           {
-            (*(**(a1 + 8) + 208))(*(a1 + 8));
+            (*(*a1[1] + 208))(a1[1]);
           }
 
           goto LABEL_6;
@@ -4082,11 +4100,11 @@ LABEL_131:
 
 LABEL_113:
       a3[1] = 0;
-      v74 = *(a1 + 5648);
+      v74 = a1[706];
       goto LABEL_114;
     }
 
-    v80 = *(a1 + 5408);
+    v80 = *(a1 + 1352);
     if (v80 != 1)
     {
       v14 = -536870206;
@@ -4107,7 +4125,7 @@ LABEL_113:
       goto LABEL_140;
     }
 
-    v81 = *(a1 + 5880);
+    v81 = *(a1 + 1470);
     if (v81)
     {
       if (v81 != 3)
@@ -4129,14 +4147,14 @@ LABEL_113:
           goto LABEL_131;
         }
 
-        *(*(a1 + 6232) + 244) |= 0x100000u;
-        *(*(a1 + 6232) + 244) = 1;
-        *(*(a1 + 6232) + 245) = 9;
+        *(a1[779] + 244) |= 0x100000u;
+        *(a1[779] + 244) = 1;
+        *(a1[779] + 245) = 9;
         goto LABEL_151;
       }
 
-      *(*(a1 + 6232) + 244) = 10;
-      *(*(a1 + 6232) + 244) &= 0xFFFF00FF;
+      *(a1[779] + 244) = 10;
+      *(a1[779] + 244) &= 0xFFFF00FF;
       v90 = 0;
       memset(buf, 0, sizeof(buf));
       *__str = 0;
@@ -4157,9 +4175,9 @@ LABEL_113:
 
     else
     {
-      *(*(a1 + 6232) + 244) &= ~0x100000u;
-      *(*(a1 + 6232) + 244) = 10;
-      *(*(a1 + 6232) + 244) &= 0xFFFF00FF;
+      *(a1[779] + 244) &= ~0x100000u;
+      *(a1[779] + 244) = 10;
+      *(a1[779] + 244) &= 0xFFFF00FF;
       v90 = 0;
       memset(buf, 0, sizeof(buf));
       *__str = 0;
@@ -4178,15 +4196,15 @@ LABEL_113:
       }
     }
 
-    v85 = *(a1 + 6232);
+    v85 = a1[779];
     *(v85 + 216) = 4;
     *(v85 + 236) = 0x100000001;
     *(v85 + 220) = *(a2 + 48);
-    (*(**(a1 + 8) + 104))(*(a1 + 8), 36, *(a1 + 6232) + 216);
+    (*(*a1[1] + 104))(a1[1], 36, a1[779] + 216);
 LABEL_151:
-    *(*(a1 + 6232) + 244) &= 0x3FFFFFu;
-    (*(**(a1 + 8) + 104))(*(a1 + 8), 38, *(a1 + 6232) + 244);
-    v74 = *(a1 + 5648);
+    *(a1[779] + 244) &= 0x3FFFFFu;
+    (*(*a1[1] + 104))(a1[1], 38, a1[779] + 244);
+    v74 = a1[706];
     goto LABEL_114;
   }
 
@@ -6574,7 +6592,7 @@ LABEL_8:
   return result;
 }
 
-uint64_t HEVC_RBSP::parseSliceHeader(uint64_t a1, unsigned int *a2, _DWORD *a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7, uint64_t a8)
+uint64_t HEVC_RBSP::parseSliceHeader(uint64_t a1, unsigned int *a2, _DWORD *a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned int a7, uint64_t a8)
 {
   v253 = *MEMORY[0x277D85DE8];
   v14 = a3[4];
@@ -7165,7 +7183,7 @@ LABEL_144:
     ++*(a1 + 164);
     HEVC_RBSP::flush_bits(a1, 1);
     a2[5] = 0;
-    v68 = (a2 + 5);
+    v68 = a2 + 5;
   }
 
   else
@@ -7194,7 +7212,7 @@ LABEL_144:
     HEVC_RBSP::flush_bits(a1, v63 + 32);
     v67 = v66 + ~(-2 << (v63 + 31));
     a2[5] = v67;
-    v68 = (a2 + 5);
+    v68 = a2 + 5;
     if (v67 > 2)
     {
       result = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
@@ -9948,11 +9966,11 @@ LABEL_84:
 
     v48 = a3[15];
     v49 = a2[5718];
-    v50 = (a3 + 37);
+    v50 = a3 + 37;
     v52 = *(v25 + 2644) == 1 && v47 != 0;
     do
     {
-      v53 = v49 + v49 * *&v50[4 * v36];
+      v53 = v49 + v49 * v50[v36];
       if (v53 + v37 > v44)
       {
         v53 = v44 - v37;

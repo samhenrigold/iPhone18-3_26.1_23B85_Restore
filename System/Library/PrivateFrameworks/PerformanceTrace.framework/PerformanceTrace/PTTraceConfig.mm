@@ -13,6 +13,7 @@
 + (id)getCurrentConfig;
 + (id)userSelectedTracePlanName;
 + (id)userSpecifiedCustomTracePlanArguments;
++ (void)setControlCenterModuleAvailable:(BOOL)available;
 + (void)setUserSelectedTracePlanName:(id)name;
 + (void)setUserSpecifiedCustomTracePlanArguments:(id)arguments;
 - (BOOL)storeConfig;
@@ -62,12 +63,12 @@
   }
 
   [(PTTraceConfig *)v4 setKernelBufferDrainQoS:25];
-  [(PTTraceConfig *)v4 setKernelBufferDrainRateMS:500];
+  v7 = [(PTTraceConfig *)v4 setKernelBufferDrainRateMS:500];
   if (template - 1 < 2)
   {
     [MEMORY[0x277CBEB18] arrayWithObjects:{&unk_28701CD78, &unk_28701CD90, &unk_28701CDA8, &unk_28701CDC0, &unk_28701CDD8, 0}];
-    v7 = LABEL_9:;
-    [(PTTraceConfig *)v4 setTraceGroups:v7];
+    v8 = LABEL_9:;
+    [(PTTraceConfig *)v4 setTraceGroups:v8];
     goto LABEL_12;
   }
 
@@ -77,8 +78,8 @@
     goto LABEL_9;
   }
 
-  v7 = _clientLogHandle();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = _clientLogHandle(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     +[PTTraceConfig configWithTemplate:];
   }
@@ -87,26 +88,25 @@ LABEL_12:
 
   [(PTTraceConfig *)v4 setOwnerPID:getpid()];
   proc_name([(PTTraceConfig *)v4 ownerPID], buffer, 0x21u);
-  v8 = [MEMORY[0x277CCACA8] stringWithCString:buffer encoding:4];
-  [(PTTraceConfig *)v4 setOwnerName:v8];
+  v9 = [MEMORY[0x277CCACA8] stringWithCString:buffer encoding:4];
+  [(PTTraceConfig *)v4 setOwnerName:v9];
 
   ownerName = [(PTTraceConfig *)v4 ownerName];
 
   if (!ownerName)
   {
-    v10 = [MEMORY[0x277CCACA8] stringWithCString:buffer encoding:1];
-    [(PTTraceConfig *)v4 setOwnerName:v10];
+    v11 = [MEMORY[0x277CCACA8] stringWithCString:buffer encoding:1];
+    [(PTTraceConfig *)v4 setOwnerName:v11];
   }
 
   [(PTTraceConfig *)v4 setSource:4];
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (id)configWithDictionary:(id)dictionary
 {
-  v147 = *MEMORY[0x277D85DE8];
+  v144 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v4 = MEMORY[0x277CBE660];
   if (!dictionaryCopy || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -504,7 +504,7 @@ LABEL_12:
 
   if (v93)
   {
-    v135 = v11;
+    v133 = v11;
     v94 = [dictionaryCopy valueForKey:@"traceRecordArgs"];
     objc_opt_class();
     v95 = objc_opt_isKindOfClass();
@@ -514,28 +514,26 @@ LABEL_12:
       [MEMORY[0x277CBEAD8] raise:*v4 format:{@"%@ is not an array type.", @"traceRecordArgs"}];
     }
 
-    v136 = dictionaryCopy;
     [dictionaryCopy valueForKey:@"traceRecordArgs"];
-    v141 = 0u;
-    v142 = 0u;
-    v143 = 0u;
-    v96 = v144 = 0u;
-    v97 = [v96 countByEnumeratingWithState:&v141 objects:v146 count:16];
+    v138 = 0u;
+    v139 = 0u;
+    v140 = 0u;
+    v96 = v141 = 0u;
+    v97 = [v96 countByEnumeratingWithState:&v138 objects:v143 count:16];
     if (v97)
     {
       v98 = v97;
-      v99 = *v142;
+      v99 = *v139;
       v100 = *MEMORY[0x277CBE660];
       do
       {
         for (i = 0; i != v98; ++i)
         {
-          if (*v142 != v99)
+          if (*v139 != v99)
           {
             objc_enumerationMutation(v96);
           }
 
-          v102 = *(*(&v141 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -543,16 +541,15 @@ LABEL_12:
           }
         }
 
-        v98 = [v96 countByEnumeratingWithState:&v141 objects:v146 count:16];
+        v98 = [v96 countByEnumeratingWithState:&v138 objects:v143 count:16];
       }
 
       while (v98);
     }
 
-    v11 = v135;
-    [v135 setTraceRecordArgs:v96];
+    v11 = v133;
+    [v133 setTraceRecordArgs:v96];
 
-    dictionaryCopy = v136;
     v4 = MEMORY[0x277CBE660];
   }
 
@@ -562,24 +559,24 @@ LABEL_12:
     [v11 setOverrideSymbolicate:0];
   }
 
-  v103 = [dictionaryCopy valueForKey:@"symbolicate"];
+  v102 = [dictionaryCopy valueForKey:@"symbolicate"];
 
-  if (v103)
+  if (v102)
   {
-    v104 = [dictionaryCopy valueForKey:@"symbolicate"];
+    v103 = [dictionaryCopy valueForKey:@"symbolicate"];
     objc_opt_class();
-    v105 = objc_opt_isKindOfClass();
+    v104 = objc_opt_isKindOfClass();
 
-    if ((v105 & 1) == 0)
+    if ((v104 & 1) == 0)
     {
       [MEMORY[0x277CBEAD8] raise:*v4 format:{@"%@ is not a BOOLean type.", @"symbolicate"}];
     }
 
-    v106 = [dictionaryCopy valueForKey:@"symbolicate"];
-    if ([v106 unsignedLongValue])
+    v105 = [dictionaryCopy valueForKey:@"symbolicate"];
+    if ([v105 unsignedLongValue])
     {
-      v107 = [dictionaryCopy valueForKey:@"symbolicate"];
-      unsignedLongValue8 = [v107 unsignedLongValue];
+      v106 = [dictionaryCopy valueForKey:@"symbolicate"];
+      unsignedLongValue8 = [v106 unsignedLongValue];
 
       if (unsignedLongValue8 != 1)
       {
@@ -591,92 +588,92 @@ LABEL_12:
     {
     }
 
-    v109 = [dictionaryCopy valueForKey:@"symbolicate"];
-    [v11 setSymbolicate:{objc_msgSend(v109, "BOOLValue")}];
+    v108 = [dictionaryCopy valueForKey:@"symbolicate"];
+    [v11 setSymbolicate:{objc_msgSend(v108, "BOOLValue")}];
   }
 
-  v110 = [dictionaryCopy valueForKey:@"traceDirectoryURL"];
+  v109 = [dictionaryCopy valueForKey:@"traceDirectoryURL"];
 
-  if (v110)
+  if (v109)
   {
-    v111 = [dictionaryCopy valueForKey:@"traceDirectoryURL"];
+    v110 = [dictionaryCopy valueForKey:@"traceDirectoryURL"];
     objc_opt_class();
-    v112 = objc_opt_isKindOfClass();
+    v111 = objc_opt_isKindOfClass();
 
-    if ((v112 & 1) == 0)
+    if ((v111 & 1) == 0)
     {
       [MEMORY[0x277CBEAD8] raise:*v4 format:@"traceDirectoryURL is not a string type."];
     }
 
-    v113 = MEMORY[0x277CBEBC0];
-    v114 = [dictionaryCopy valueForKey:@"traceDirectoryURL"];
-    v115 = [v113 fileURLWithPath:v114];
-    [v11 setTraceDirectoryURL:v115];
+    v112 = MEMORY[0x277CBEBC0];
+    v113 = [dictionaryCopy valueForKey:@"traceDirectoryURL"];
+    v114 = [v112 fileURLWithPath:v113];
+    [v11 setTraceDirectoryURL:v114];
   }
 
-  v116 = [dictionaryCopy valueForKey:@"traceType"];
+  v115 = [dictionaryCopy valueForKey:@"traceType"];
 
-  if (v116)
+  if (v115)
   {
-    v117 = [dictionaryCopy valueForKey:@"traceType"];
+    v116 = [dictionaryCopy valueForKey:@"traceType"];
     objc_opt_class();
-    v118 = objc_opt_isKindOfClass();
+    v117 = objc_opt_isKindOfClass();
 
-    if ((v118 & 1) == 0)
+    if ((v117 & 1) == 0)
     {
       [MEMORY[0x277CBEAD8] raise:*v4 format:@"traceType is not a string type."];
     }
 
-    v119 = [dictionaryCopy valueForKey:@"traceType"];
-    [v11 setTraceType:traceTypeForString(v119)];
+    v118 = [dictionaryCopy valueForKey:@"traceType"];
+    [v11 setTraceType:traceTypeForString(v118)];
   }
 
-  v120 = [dictionaryCopy valueForKey:@"traceGroups"];
+  v119 = [dictionaryCopy valueForKey:@"traceGroups"];
 
-  if (v120)
+  if (v119)
   {
-    v121 = [dictionaryCopy valueForKey:@"traceGroups"];
+    v120 = [dictionaryCopy valueForKey:@"traceGroups"];
     objc_opt_class();
-    v122 = objc_opt_isKindOfClass();
+    v121 = objc_opt_isKindOfClass();
 
-    if ((v122 & 1) == 0)
+    if ((v121 & 1) == 0)
     {
       [MEMORY[0x277CBEAD8] raise:*v4 format:@"traceGroups is not an NSArray type."];
     }
 
-    v123 = [dictionaryCopy valueForKey:@"traceGroups"];
+    v122 = [dictionaryCopy valueForKey:@"traceGroups"];
     array = [MEMORY[0x277CBEB18] array];
+    v134 = 0u;
+    v135 = 0u;
+    v136 = 0u;
     v137 = 0u;
-    v138 = 0u;
-    v139 = 0u;
-    v140 = 0u;
-    v125 = v123;
-    v126 = [v125 countByEnumeratingWithState:&v137 objects:v145 count:16];
-    if (v126)
+    v124 = v122;
+    v125 = [v124 countByEnumeratingWithState:&v134 objects:v142 count:16];
+    if (v125)
     {
-      v127 = v126;
-      v128 = *v138;
+      v126 = v125;
+      v127 = *v135;
       do
       {
-        for (j = 0; j != v127; ++j)
+        for (j = 0; j != v126; ++j)
         {
-          if (*v138 != v128)
+          if (*v135 != v127)
           {
-            objc_enumerationMutation(v125);
+            objc_enumerationMutation(v124);
           }
 
-          v130 = *(*(&v137 + 1) + 8 * j);
-          if (v130 && traceGroupForString(*(*(&v137 + 1) + 8 * j)))
+          v129 = *(*(&v134 + 1) + 8 * j);
+          if (v129 && traceGroupForString(*(*(&v134 + 1) + 8 * j)))
           {
-            v131 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:traceGroupForString(v130)];
-            [array addObject:v131];
+            v130 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:traceGroupForString(v129)];
+            [array addObject:v130];
           }
         }
 
-        v127 = [v125 countByEnumeratingWithState:&v137 objects:v145 count:16];
+        v126 = [v124 countByEnumeratingWithState:&v134 objects:v142 count:16];
       }
 
-      while (v127);
+      while (v126);
     }
 
     if ([array count])
@@ -686,15 +683,14 @@ LABEL_12:
   }
 
   [v11 setSource:4];
-  v132 = v11;
+  v131 = v11;
 
-  v133 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 + (id)_defaultTraceRecordConfig
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(PTTraceConfig);
   [(PTTraceConfig *)v2 setUseTraceRecord:1];
   [(PTTraceConfig *)v2 setTraceType:1];
@@ -721,8 +717,6 @@ LABEL_12:
     [(PTTraceConfig *)v2 setOwnerName:v6];
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return v2;
 }
 
@@ -748,7 +742,7 @@ LABEL_12:
 
 + (id)getCurrentConfig
 {
-  v3 = _clientLogHandle();
+  v3 = _clientLogHandle(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -790,7 +784,7 @@ void __33__PTTraceConfig_getCurrentConfig__block_invoke(uint64_t a1, uint64_t a2
   v6 = v5;
   if (a2 || !v5)
   {
-    v10 = _clientLogHandle();
+    v10 = _clientLogHandle(v5);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __33__PTTraceConfig_getCurrentConfig__block_invoke_cold_1();
@@ -815,7 +809,7 @@ void __33__PTTraceConfig_getCurrentConfig__block_invoke(uint64_t a1, uint64_t a2
 
 + (BOOL)resetConfig
 {
-  v2 = _clientLogHandle();
+  v2 = _clientLogHandle(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -851,7 +845,7 @@ void __33__PTTraceConfig_getCurrentConfig__block_invoke(uint64_t a1, uint64_t a2
 
 void __28__PTTraceConfig_resetConfig__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4 = _clientLogHandle();
+  v4 = _clientLogHandle(a1);
   v5 = v4;
   if (a2)
   {
@@ -875,7 +869,7 @@ void __28__PTTraceConfig_resetConfig__block_invoke(uint64_t a1, uint64_t a2)
 
 + (BOOL)isInRecordingWorkflow
 {
-  v2 = _clientLogHandle();
+  v2 = _clientLogHandle(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -911,8 +905,8 @@ void __28__PTTraceConfig_resetConfig__block_invoke(uint64_t a1, uint64_t a2)
 
 void __38__PTTraceConfig_isInRecordingWorkflow__block_invoke(uint64_t a1, int a2, uint64_t a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v6 = _clientLogHandle();
+  v11 = *MEMORY[0x277D85DE8];
+  v6 = _clientLogHandle(a1);
   v7 = v6;
   if (a3)
   {
@@ -932,20 +926,18 @@ void __38__PTTraceConfig_isInRecordingWorkflow__block_invoke(uint64_t a1, int a2
         v8 = @"Recording";
       }
 
-      v10 = 138543362;
-      v11 = v8;
-      _os_log_impl(&dword_25E3D3000, v7, OS_LOG_TYPE_INFO, "Got recording state: %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_25E3D3000, v7, OS_LOG_TYPE_INFO, "Got recording state: %{public}@", &v9, 0xCu);
     }
 
     *(*(*(a1 + 32) + 8) + 24) = a2;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)storeConfig
 {
-  v3 = _clientLogHandle();
+  v3 = _clientLogHandle(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -980,12 +972,13 @@ void __38__PTTraceConfig_isInRecordingWorkflow__block_invoke(uint64_t a1, int a2
 void __28__PTTraceConfig_storeConfig__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _clientLogHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _clientLogHandle(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __28__PTTraceConfig_storeConfig__block_invoke_cold_1(v3, v4);
+      __28__PTTraceConfig_storeConfig__block_invoke_cold_1(v4, v5);
     }
   }
 
@@ -1007,20 +1000,20 @@ void __28__PTTraceConfig_storeConfig__block_invoke(uint64_t a1, void *a2)
   [connection resume];
 }
 
-void __32__PTTraceConfig__initConnection__block_invoke()
+void __32__PTTraceConfig__initConnection__block_invoke(uint64_t a1)
 {
-  v0 = _clientLogHandle();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = _clientLogHandle(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_25E3D3000, v0, OS_LOG_TYPE_INFO, "XPC connection invalidated.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_25E3D3000, v1, OS_LOG_TYPE_INFO, "XPC connection invalidated.", v2, 2u);
   }
 }
 
-void __32__PTTraceConfig__initConnection__block_invoke_181()
+void __32__PTTraceConfig__initConnection__block_invoke_181(uint64_t a1)
 {
-  v0 = _clientLogHandle();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = _clientLogHandle(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __32__PTTraceConfig__initConnection__block_invoke_181_cold_1();
   }
@@ -1037,7 +1030,7 @@ void __32__PTTraceConfig__initConnection__block_invoke_181()
 void __38__PTTraceConfig__getRemoteObjectProxy__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = _clientLogHandle();
+  v3 = _clientLogHandle(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __38__PTTraceConfig__getRemoteObjectProxy__block_invoke_cold_1(v2, v3);
@@ -1159,7 +1152,7 @@ void __38__PTTraceConfig__getRemoteObjectProxy__block_invoke(uint64_t a1, void *
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = objc_alloc_init(PTTraceConfig);
   [(PTTraceConfig *)v4 setSymbolicate:[(PTTraceConfig *)self symbolicate]];
   [(PTTraceConfig *)v4 setCallstackSamplingRateMS:[(PTTraceConfig *)self callstackSamplingRateMS]];
@@ -1205,7 +1198,6 @@ void __38__PTTraceConfig__getRemoteObjectProxy__block_invoke(uint64_t a1, void *
   }
 
   [(PTTraceConfig *)v4 setSource:4];
-  v16 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -1215,12 +1207,12 @@ void __38__PTTraceConfig__getRemoteObjectProxy__block_invoke(uint64_t a1, void *
   v2 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.PerformanceTrace.ControlCenterPrefs"];
   v3 = [v2 objectForKey:@"ControlCenterPerformanceTraceIsAvailable"];
 
-  v4 = _controlCenterHandle();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = _controlCenterHandle(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138543362;
     v9 = v3;
-    _os_log_impl(&dword_25E3D3000, v4, OS_LOG_TYPE_DEFAULT, "Control Center module availability status from preferences : %{public}@", &v8, 0xCu);
+    _os_log_impl(&dword_25E3D3000, v5, OS_LOG_TYPE_DEFAULT, "Control Center module availability status from preferences : %{public}@", &v8, 0xCu);
   }
 
   if (v3 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -1238,64 +1230,97 @@ void __38__PTTraceConfig__getRemoteObjectProxy__block_invoke(uint64_t a1, void *
     bOOLValue = isAppleInternal_isAppleInternal;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return bOOLValue & 1;
 }
 
-+ (id)userSelectedTracePlanName
++ (void)setControlCenterModuleAvailable:(BOOL)available
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v2 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.PerformanceTrace.ControlCenterPrefs"];
-  v3 = [v2 valueForKey:@"ControlCenterPerformanceTraceSelectedTracePlanName"];
-
-  v4 = _controlCenterHandle();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  availableCopy = available;
+  v11 = *MEMORY[0x277D85DE8];
+  isControlCenterModuleAvailable = [self isControlCenterModuleAvailable];
+  v5 = isControlCenterModuleAvailable;
+  v6 = _controlCenterHandle(isControlCenterModuleAvailable);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  if (v5 == availableCopy)
   {
-    v13 = 138543362;
-    v14 = v3;
-    _os_log_impl(&dword_25E3D3000, v4, OS_LOG_TYPE_DEFAULT, "Selected trace plan name from preferences: %{public}@", &v13, 0xCu);
-  }
-
-  if (v3 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
-  {
-    v5 = +[PTTraceConfig availableTracePlanNames];
-    v6 = [v5 containsObject:v3];
-
-    v7 = v3;
-    if ((v6 & 1) == 0)
+    if (v7)
     {
-      v8 = _controlCenterHandle();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-      {
-        +[PTTraceConfig(ControlCenter) userSelectedTracePlanName];
-      }
-
-      v7 = @"default";
+      LOWORD(v10[0]) = 0;
+      _os_log_impl(&dword_25E3D3000, v6, OS_LOG_TYPE_DEFAULT, "ControlCenter module is already available", v10, 2u);
     }
   }
 
   else
   {
-    v9 = _controlCenterHandle();
-    v7 = @"default";
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    if (v7)
     {
-      v13 = 138543362;
-      v14 = @"default";
-      _os_log_impl(&dword_25E3D3000, v9, OS_LOG_TYPE_DEFAULT, "Falling back to trace plan named %{public}@", &v13, 0xCu);
+      v10[0] = 67109120;
+      v10[1] = availableCopy;
+      _os_log_impl(&dword_25E3D3000, v6, OS_LOG_TYPE_DEFAULT, "Writing Control Center module availability status to preferences : %{BOOL}d", v10, 8u);
+    }
+
+    v8 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.PerformanceTrace.ControlCenterPrefs"];
+    [v8 setBool:availableCopy forKey:@"ControlCenterPerformanceTraceIsAvailable"];
+
+    v9 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.control-center.PerformanceTraceModule"];
+    [v9 setBool:availableCopy forKey:@"SBIconVisibility"];
+
+    PTServicesPostStateDidChangeNotification();
+  }
+}
+
++ (id)userSelectedTracePlanName
+{
+  v17 = *MEMORY[0x277D85DE8];
+  v2 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.PerformanceTrace.ControlCenterPrefs"];
+  v3 = [v2 valueForKey:@"ControlCenterPerformanceTraceSelectedTracePlanName"];
+
+  v5 = _controlCenterHandle(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = 138543362;
+    v16 = v3;
+    _os_log_impl(&dword_25E3D3000, v5, OS_LOG_TYPE_DEFAULT, "Selected trace plan name from preferences: %{public}@", &v15, 0xCu);
+  }
+
+  if (v3 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0))
+  {
+    v7 = +[PTTraceConfig availableTracePlanNames];
+    v8 = [v7 containsObject:v3];
+
+    v10 = v3;
+    if ((v8 & 1) == 0)
+    {
+      v11 = _controlCenterHandle(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        +[PTTraceConfig(ControlCenter) userSelectedTracePlanName];
+      }
+
+      v10 = @"default";
     }
   }
 
-  v10 = v7;
+  else
+  {
+    v12 = _controlCenterHandle(isKindOfClass);
+    v10 = @"default";
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = 138543362;
+      v16 = @"default";
+      _os_log_impl(&dword_25E3D3000, v12, OS_LOG_TYPE_DEFAULT, "Falling back to trace plan named %{public}@", &v15, 0xCu);
+    }
+  }
 
-  v11 = *MEMORY[0x277D85DE8];
+  v13 = v10;
 
-  return v10;
+  return v13;
 }
 
 + (void)setUserSelectedTracePlanName:(id)name
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v5 = +[PTTraceConfig availableTracePlanNames];
   v6 = [v5 containsObject:nameCopy];
@@ -1303,30 +1328,31 @@ void __38__PTTraceConfig__getRemoteObjectProxy__block_invoke(uint64_t a1, void *
   if (v6)
   {
     userSelectedTracePlanName = [self userSelectedTracePlanName];
-    v8 = [nameCopy isEqualToString:userSelectedTracePlanName];
-    v9 = _controlCenterHandle();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-    if (v8)
+    v9 = [nameCopy isEqualToString:userSelectedTracePlanName];
+    v10 = v9;
+    v11 = _controlCenterHandle(v9);
+    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+    if (v10)
     {
-      if (v10)
+      if (v12)
       {
-        v13 = 138543362;
-        v14 = nameCopy;
-        _os_log_impl(&dword_25E3D3000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ is already the selected trace plan", &v13, 0xCu);
+        v14 = 138543362;
+        v15 = nameCopy;
+        _os_log_impl(&dword_25E3D3000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ is already the selected trace plan", &v14, 0xCu);
       }
     }
 
     else
     {
-      if (v10)
+      if (v12)
       {
-        v13 = 138543362;
-        v14 = nameCopy;
-        _os_log_impl(&dword_25E3D3000, v9, OS_LOG_TYPE_DEFAULT, "Writing selected trace plan name to preferences: %{public}@", &v13, 0xCu);
+        v14 = 138543362;
+        v15 = nameCopy;
+        _os_log_impl(&dword_25E3D3000, v11, OS_LOG_TYPE_DEFAULT, "Writing selected trace plan name to preferences: %{public}@", &v14, 0xCu);
       }
 
-      v11 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.PerformanceTrace.ControlCenterPrefs"];
-      [v11 setValue:nameCopy forKey:@"ControlCenterPerformanceTraceSelectedTracePlanName"];
+      v13 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.PerformanceTrace.ControlCenterPrefs"];
+      [v13 setValue:nameCopy forKey:@"ControlCenterPerformanceTraceSelectedTracePlanName"];
 
       PTServicesPostStateDidChangeNotification();
     }
@@ -1334,52 +1360,49 @@ void __38__PTTraceConfig__getRemoteObjectProxy__block_invoke(uint64_t a1, void *
 
   else
   {
-    userSelectedTracePlanName = _controlCenterHandle();
+    userSelectedTracePlanName = _controlCenterHandle(v7);
     if (os_log_type_enabled(userSelectedTracePlanName, OS_LOG_TYPE_ERROR))
     {
       +[PTTraceConfig(ControlCenter) setUserSelectedTracePlanName:];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)userSpecifiedCustomTracePlanArguments
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.PerformanceTrace.ControlCenterPrefs"];
   v3 = [v2 valueForKey:@"ControlCenterPerformanceTraceCustomTracePlanArguments"];
 
-  v4 = _controlCenterHandle();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = _controlCenterHandle(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v20 = v3;
-    _os_log_impl(&dword_25E3D3000, v4, OS_LOG_TYPE_DEFAULT, "Custom trace plan arguments from preferences: %{public}@", buf, 0xCu);
+    v19 = v3;
+    _os_log_impl(&dword_25E3D3000, v5, OS_LOG_TYPE_DEFAULT, "Custom trace plan arguments from preferences: %{public}@", buf, 0xCu);
   }
 
   if (v3 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
-    v5 = v3;
-    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
-    if (v6)
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
+    v6 = v3;
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    if (v7)
     {
-      v7 = v6;
-      v8 = *v15;
+      v8 = v7;
+      v9 = *v14;
       while (2)
       {
-        for (i = 0; i != v7; ++i)
+        for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v8)
+          if (*v14 != v9)
           {
-            objc_enumerationMutation(v5);
+            objc_enumerationMutation(v6);
           }
 
-          v10 = *(*(&v14 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -1388,8 +1411,8 @@ void __38__PTTraceConfig__getRemoteObjectProxy__block_invoke(uint64_t a1, void *
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
-        if (v7)
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        if (v8)
         {
           continue;
         }
@@ -1398,7 +1421,7 @@ void __38__PTTraceConfig__getRemoteObjectProxy__block_invoke(uint64_t a1, void *
       }
     }
 
-    v11 = v5;
+    v11 = v6;
   }
 
   else
@@ -1407,27 +1430,23 @@ LABEL_15:
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 + (void)setUserSpecifiedCustomTracePlanArguments:(id)arguments
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   argumentsCopy = arguments;
-  v4 = _controlCenterHandle();
+  v4 = _controlCenterHandle(argumentsCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = argumentsCopy;
-    _os_log_impl(&dword_25E3D3000, v4, OS_LOG_TYPE_DEFAULT, "Writing custom trace plan arguments to preferences: %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = argumentsCopy;
+    _os_log_impl(&dword_25E3D3000, v4, OS_LOG_TYPE_DEFAULT, "Writing custom trace plan arguments to preferences: %{public}@", &v6, 0xCu);
   }
 
   v5 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.PerformanceTrace.ControlCenterPrefs"];
   [v5 setValue:argumentsCopy forKey:@"ControlCenterPerformanceTraceCustomTracePlanArguments"];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (id)availableTracePlanNames
@@ -1444,11 +1463,11 @@ LABEL_15:
 
 void __55__PTTraceConfig_ControlCenter__availableTracePlanNames__block_invoke()
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CBEB18] array];
-  v7[0] = @"default";
-  v7[1] = @"profile";
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
+  v6[0] = @"default";
+  v6[1] = @"profile";
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
   [v0 addObjectsFromArray:v1];
 
   if (isAppleInternal_pred != -1)
@@ -1461,16 +1480,14 @@ void __55__PTTraceConfig_ControlCenter__availableTracePlanNames__block_invoke()
     [v0 addObject:@"custom"];
   }
 
-  v6[0] = @"lightweight power metrics";
-  v6[1] = @"passive";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
+  v5[0] = @"lightweight power metrics";
+  v5[1] = @"passive";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
   [v0 addObjectsFromArray:v2];
 
   v3 = [v0 copy];
   v4 = availableTracePlanNames_availablePlans;
   availableTracePlanNames_availablePlans = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (id)displayNameForTracePlanName:(id)name
@@ -1486,8 +1503,8 @@ void __55__PTTraceConfig_ControlCenter__availableTracePlanNames__block_invoke()
 
   if (v5)
   {
-    v6 = [displayNameForTracePlanName__tracePlanNameToDisplayNameMap objectForKeyedSubscript:nameCopy];
-    if (v6)
+    v7 = [displayNameForTracePlanName__tracePlanNameToDisplayNameMap objectForKeyedSubscript:nameCopy];
+    if (v7)
     {
       goto LABEL_10;
     }
@@ -1495,72 +1512,71 @@ void __55__PTTraceConfig_ControlCenter__availableTracePlanNames__block_invoke()
 
   else
   {
-    v7 = _controlCenterHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _controlCenterHandle(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       +[PTTraceConfig(ControlCenter) setUserSelectedTracePlanName:];
     }
   }
 
-  v6 = nameCopy;
+  v7 = nameCopy;
 LABEL_10:
 
-  return v6;
+  return v7;
 }
 
 void __60__PTTraceConfig_ControlCenter__displayNameForTracePlanName___block_invoke()
 {
-  v4[5] = *MEMORY[0x277D85DE8];
-  v3[0] = @"default";
-  v3[1] = @"profile";
-  v4[0] = @"System Activity (Detailed)";
-  v4[1] = @"System Activity (Summary)";
-  v3[2] = @"custom";
-  v3[3] = @"lightweight power metrics";
-  v4[2] = @"Custom (Apple Internal)";
-  v4[3] = @"Power Profiler";
-  v3[4] = @"passive";
-  v4[4] = @"Lookback Collection";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:5];
+  v3[5] = *MEMORY[0x277D85DE8];
+  v2[0] = @"default";
+  v2[1] = @"profile";
+  v3[0] = @"System Activity (Detailed)";
+  v3[1] = @"System Activity (Summary)";
+  v2[2] = @"custom";
+  v2[3] = @"lightweight power metrics";
+  v3[2] = @"Custom (Apple Internal)";
+  v3[3] = @"Power Profiler";
+  v2[4] = @"passive";
+  v3[4] = @"Lookback Collection";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:5];
   v1 = displayNameForTracePlanName__tracePlanNameToDisplayNameMap;
   displayNameForTracePlanName__tracePlanNameToDisplayNameMap = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)globalSettingsAreLocked
 {
   v17 = *MEMORY[0x277D85DE8];
-  if (![self isInRecordingWorkflow])
+  isInRecordingWorkflow = [self isInRecordingWorkflow];
+  if (!isInRecordingWorkflow)
   {
     v14 = 0;
-    v4 = [PTPassiveTraceConfig sharedConfig:&v14];
-    v5 = v14;
-    v6 = v5;
-    if (v4)
+    v5 = [PTPassiveTraceConfig sharedConfig:&v14];
+    v6 = v14;
+    v7 = v6;
+    if (v5)
     {
-      v13 = v5;
-      v7 = [v4 instrumentationConfigLocked:&v13];
-      v2 = v13;
+      v13 = v6;
+      v8 = [v5 instrumentationConfigLocked:&v13];
+      v3 = v13;
 
-      if (v7)
+      if (v8)
       {
-        v8 = _controlCenterHandle();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v9 = _controlCenterHandle(v6);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
-          bOOLValue = [v7 BOOLValue];
-          v10 = @"not locked";
+          bOOLValue = [v8 BOOLValue];
+          v11 = @"not locked";
           if (bOOLValue)
           {
-            v10 = @"locked";
+            v11 = @"locked";
           }
 
           *buf = 138543362;
-          v16 = v10;
-          _os_log_impl(&dword_25E3D3000, v8, OS_LOG_TYPE_DEFAULT, "Global settings are %{public}@ due to passive instrumentation locked setting", buf, 0xCu);
+          v16 = v11;
+          _os_log_impl(&dword_25E3D3000, v9, OS_LOG_TYPE_DEFAULT, "Global settings are %{public}@ due to passive instrumentation locked setting", buf, 0xCu);
         }
 
-        bOOLValue2 = [v7 BOOLValue];
+        bOOLValue2 = [v8 BOOLValue];
 LABEL_16:
 
         goto LABEL_17;
@@ -1569,49 +1585,46 @@ LABEL_16:
 
     else
     {
-      v2 = v5;
+      v3 = v6;
     }
 
-    v7 = _controlCenterHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _controlCenterHandle(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      +[(PTTraceConfig(ControlCenter) *)v2];
+      +[(PTTraceConfig(ControlCenter) *)v3];
     }
 
     bOOLValue2 = 0;
     goto LABEL_16;
   }
 
-  v2 = _controlCenterHandle();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _controlCenterHandle(isInRecordingWorkflow);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_25E3D3000, v2, OS_LOG_TYPE_DEFAULT, "Global settings are locked since we are in recording workflow", buf, 2u);
+    _os_log_impl(&dword_25E3D3000, v3, OS_LOG_TYPE_DEFAULT, "Global settings are locked since we are in recording workflow", buf, 2u);
   }
 
   bOOLValue2 = 1;
 LABEL_17:
 
-  v11 = *MEMORY[0x277D85DE8];
   return bOOLValue2;
 }
 
 void __28__PTTraceConfig_storeConfig__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_25E3D3000, a2, OS_LOG_TYPE_ERROR, "An error occurred storing config: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_25E3D3000, a2, OS_LOG_TYPE_ERROR, "An error occurred storing config: %{public}@", &v2, 0xCu);
 }
 
 void __38__PTTraceConfig__getRemoteObjectProxy__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_25E3D3000, a2, OS_LOG_TYPE_ERROR, "Failed to connect to the service protocol: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_25E3D3000, a2, OS_LOG_TYPE_ERROR, "Failed to connect to the service protocol: %{public}@", &v2, 0xCu);
 }
 
 @end

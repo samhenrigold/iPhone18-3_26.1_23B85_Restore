@@ -205,7 +205,7 @@ uint64_t sub_1000026F4(uint64_t result)
   return result;
 }
 
-uint64_t sub_10000275C(uint64_t a1)
+void sub_10000275C(uint64_t a1)
 {
   *a1 = &off_100008588;
   if (*(a1 + 8) != 1)
@@ -215,7 +215,7 @@ uint64_t sub_10000275C(uint64_t a1)
   }
 
   v2 = CAVerboseAbort();
-  return sub_1000027BC(v2);
+  sub_1000027BC(v2);
 }
 
 void sub_1000027BC(uint64_t a1)
@@ -228,7 +228,7 @@ void sub_1000027BC(uint64_t a1)
   }
 }
 
-void sub_100002844(uint64_t a1, void *a2)
+void sub_100002844(uint64_t a1, uint64_t *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -304,7 +304,7 @@ uint64_t sub_100002944(uint64_t a1)
   return a1;
 }
 
-uint64_t sub_100002984()
+uint64_t sub_100002984(uint64_t a1)
 {
   if (!qword_10000C050)
   {
@@ -316,11 +316,19 @@ uint64_t sub_100002984()
 
 uint64_t sub_100002A54()
 {
-  v0 = sub_100002984();
+  v3 = 0;
+  v0 = sub_100002984(&v3);
+  v1 = v3;
   if (!v0)
   {
-    v2 = abort_report_np();
-    free(v2);
+    v1 = abort_report_np("%s", v3);
+    goto LABEL_5;
+  }
+
+  if (v3)
+  {
+LABEL_5:
+    free(v1);
   }
 
   return v0;
@@ -365,13 +373,12 @@ std::logic_error *sub_100002BD8(std::logic_error *a1, const char *a2)
 
 uint64_t sub_100002C0C(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10000C050 = result;
   return result;
 }
 
-uint64_t sub_100002CA8(uint64_t a1)
+void sub_100002CA8(uint64_t a1)
 {
   *a1 = &off_100008588;
   if (*(a1 + 8) != 1)
@@ -381,7 +388,7 @@ uint64_t sub_100002CA8(uint64_t a1)
   }
 
   v2 = CAVerboseAbort();
-  return sub_100002D08(v2);
+  sub_100002D08(v2);
 }
 
 void sub_100002D08(uint64_t a1)
@@ -565,10 +572,10 @@ void sub_1000030BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1000033BC()
+void sub_1000033BC(_Unwind_Exception *a1)
 {
-  sub_100004594(v1);
-  XPC_Connection::~XPC_Connection(v0);
+  sub_100004594(v2);
+  XPC_Connection::~XPC_Connection(v1);
   operator delete();
 }
 

@@ -11,22 +11,22 @@
 - (CKSSShare)initWithParams:(ccss_shamir_parameters *)params x:(unsigned int)x y:(id)y
 {
   yCopy = y;
-  v12.receiver = self;
-  v12.super_class = CKSSShare;
-  v7 = [(CKSSShare *)&v12 init];
-  if (v7 && (v8 = ccss_sizeof_share(), v7->_share_size = v8, v7->_share = malloc_type_malloc(v8, 0xDDFD590CuLL), ccss_shamir_share_init(), share = v7->_share, [yCopy bytes], objc_msgSend(yCopy, "length"), ccss_shamir_share_import()))
+  v11.receiver = self;
+  v11.super_class = CKSSShare;
+  v7 = [(CKSSShare *)&v11 init];
+  if (v7 && (v8 = ccss_sizeof_share(), v7->_share_size = v8, v7->_share = malloc_type_malloc(v8, 0xDDFD590CuLL), ccss_shamir_share_init(), [yCopy bytes], objc_msgSend(yCopy, "length"), ccss_shamir_share_import()))
   {
     free(v7->_share);
     printf("Failed on import with share import");
-    v10 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v10 = v7;
+    v9 = v7;
   }
 
-  return v10;
+  return v9;
 }
 
 - (CKSSShare)initWithParams:(ccss_shamir_parameters *)params share:(ccss_shamir_share *)share
@@ -48,12 +48,9 @@
 
 - (unsigned)x
 {
-  v3 = objc_alloc(MEMORY[0x277CBEB28]);
-  share = self->_share;
-  v5 = [v3 initWithLength:ccss_shamir_share_sizeof_y()];
-  v6 = self->_share;
-  [v5 mutableBytes];
-  [v5 length];
+  v2 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:ccss_shamir_share_sizeof_y()];
+  [v2 mutableBytes];
+  [v2 length];
   ccss_shamir_share_export();
 
   return 0;
@@ -61,34 +58,29 @@
 
 - (id)y
 {
-  v3 = objc_alloc(MEMORY[0x277CBEB28]);
-  share = self->_share;
-  v5 = [v3 initWithLength:ccss_shamir_share_sizeof_y()];
-  v6 = self->_share;
-  [v5 mutableBytes];
-  [v5 length];
+  v2 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:ccss_shamir_share_sizeof_y()];
+  [v2 mutableBytes];
+  [v2 length];
   if (ccss_shamir_share_export())
   {
-    v7 = 0;
+    v3 = 0;
   }
 
   else
   {
-    v7 = v5;
+    v3 = v2;
   }
 
-  return v7;
+  return v3;
 }
 
 - (void)dealloc
 {
-  share_size = self->_share_size;
-  share = self->_share;
   cc_clear();
   free(self->_share);
-  v5.receiver = self;
-  v5.super_class = CKSSShare;
-  [(CKSSShare *)&v5 dealloc];
+  v3.receiver = self;
+  v3.super_class = CKSSShare;
+  [(CKSSShare *)&v3 dealloc];
 }
 
 @end

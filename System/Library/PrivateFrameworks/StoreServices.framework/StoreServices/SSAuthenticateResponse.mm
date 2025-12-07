@@ -93,30 +93,30 @@ LABEL_9:
   v5 = encodingCopy;
   if (encodingCopy && MEMORY[0x1DA6E0380](encodingCopy) == MEMORY[0x1E69E9E80])
   {
-    v19.receiver = self;
-    v19.super_class = SSAuthenticateResponse;
-    v7 = [(SSAuthenticateResponse *)&v19 init];
+    v21.receiver = self;
+    v21.super_class = SSAuthenticateResponse;
+    v7 = [(SSAuthenticateResponse *)&v21 init];
     if (v7)
     {
-      objc_opt_class();
-      v8 = SSXPCDictionaryCopyCFObjectWithClass(v5, "0");
-      v9 = +[SSAccountStore defaultStore];
-      v10 = [v9 accountWithUniqueIdentifier:v8];
+      v8 = objc_opt_class();
+      v9 = SSXPCDictionaryCopyCFObjectWithClass(v5, "0", v8);
+      v10 = +[SSAccountStore defaultStore];
+      v11 = [v10 accountWithUniqueIdentifier:v9];
       authenticatedAccount = v7->_authenticatedAccount;
-      v7->_authenticatedAccount = v10;
+      v7->_authenticatedAccount = v11;
 
       v7->_authenticateResponseType = xpc_dictionary_get_int64(v5, "3");
       v7->_credentialSource = xpc_dictionary_get_int64(v5, "4");
-      v12 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v13 = xpc_dictionary_get_value(v5, "1");
-      v14 = [v12 initWithXPCEncoding:v13];
+      v13 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v14 = xpc_dictionary_get_value(v5, "1");
+      v15 = [v13 initWithXPCEncoding:v14];
       error = v7->_error;
-      v7->_error = v14;
+      v7->_error = v15;
 
-      objc_opt_class();
-      v16 = SSXPCDictionaryCopyCFObjectWithClass(v5, "2");
+      v17 = objc_opt_class();
+      v18 = SSXPCDictionaryCopyCFObjectWithClass(v5, "2", v17);
       responseDictionary = v7->_responseDictionary;
-      v7->_responseDictionary = v16;
+      v7->_responseDictionary = v18;
     }
 
     self = v7;

@@ -239,90 +239,88 @@
 {
   proxyCopy = proxy;
   v5 = [proxyCopy pid];
-  serverDelegate = self->_serverDelegate;
   if (objc_opt_respondsToSelector())
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v8 = self->_serverDelegate;
-    v7 = objc_opt_respondsToSelector() ^ 1;
+    v6 = objc_opt_respondsToSelector() ^ 1;
   }
 
   processMonitor = self->_processMonitor;
-  if (!processMonitor && (v7 & 1) == 0)
+  if (!processMonitor && (v6 & 1) == 0)
   {
     if (!self->_bundleIDToProxy)
     {
-      v10 = objc_alloc_init(NSMutableDictionary);
+      v8 = objc_alloc_init(NSMutableDictionary);
       bundleIDToProxy = self->_bundleIDToProxy;
-      self->_bundleIDToProxy = v10;
+      self->_bundleIDToProxy = v8;
     }
 
-    v12 = +[RBSProcessStateDescriptor descriptor];
-    [v12 setValues:1];
-    v33[0] = _NSConcreteStackBlock;
-    v33[1] = 3221225472;
-    v33[2] = sub_10000476C;
-    v33[3] = &unk_1001755E8;
-    v34 = v12;
+    v10 = +[RBSProcessStateDescriptor descriptor];
+    [v10 setValues:1];
+    v31[0] = _NSConcreteStackBlock;
+    v31[1] = 3221225472;
+    v31[2] = sub_10000476C;
+    v31[3] = &unk_1001755E8;
+    v32 = v10;
     selfCopy = self;
-    v13 = v12;
-    v14 = [RBSProcessMonitor monitorWithConfiguration:v33];
-    v15 = self->_processMonitor;
-    self->_processMonitor = v14;
+    v11 = v10;
+    v12 = [RBSProcessMonitor monitorWithConfiguration:v31];
+    v13 = self->_processMonitor;
+    self->_processMonitor = v12;
 
     processMonitor = self->_processMonitor;
   }
 
   if (processMonitor)
   {
-    v16 = [RBSProcessIdentifier identifierWithPid:v5];
-    if (v16)
+    v14 = [RBSProcessIdentifier identifierWithPid:v5];
+    if (v14)
     {
-      v32 = 0;
-      v17 = [RBSProcessHandle handleForIdentifier:v16 error:&v32];
-      v18 = v32;
-      bundle = [v17 bundle];
+      v30 = 0;
+      v15 = [RBSProcessHandle handleForIdentifier:v14 error:&v30];
+      v16 = v30;
+      bundle = [v15 bundle];
       identifier = [bundle identifier];
 
       if (identifier)
       {
         [(NSMutableDictionary *)self->_bundleIDToProxy setObject:proxyCopy forKeyedSubscript:identifier];
-        v21 = nr_daemon_log();
-        v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+        v19 = nr_daemon_log();
+        v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
 
-        if (v22)
+        if (v20)
         {
-          v23 = nr_daemon_log();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+          v21 = nr_daemon_log();
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
           {
             machServiceName = self->_machServiceName;
             allKeys = [(NSMutableDictionary *)self->_bundleIDToProxy allKeys];
-            v26 = [allKeys componentsJoinedByString:{@", "}];
+            v24 = [allKeys componentsJoinedByString:{@", "}];
             *buf = 138412802;
-            v37 = machServiceName;
+            v35 = machServiceName;
+            v36 = 2112;
+            v37 = identifier;
             v38 = 2112;
-            v39 = identifier;
-            v40 = 2112;
-            v41 = v26;
-            _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "NRXPCServer: %@ starts monitoring %@; new monitoring bundle IDs: [%@]", buf, 0x20u);
+            v39 = v24;
+            _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "NRXPCServer: %@ starts monitoring %@; new monitoring bundle IDs: [%@]", buf, 0x20u);
           }
         }
 
         _currentAppsPredicates = [(NRXPCServer *)self _currentAppsPredicates];
-        v28 = _currentAppsPredicates;
+        v26 = _currentAppsPredicates;
         if (_currentAppsPredicates)
         {
-          v29 = self->_processMonitor;
-          v30[0] = _NSConcreteStackBlock;
-          v30[1] = 3221225472;
-          v30[2] = sub_100004820;
-          v30[3] = &unk_100175610;
-          v31 = _currentAppsPredicates;
-          [(RBSProcessMonitor *)v29 updateConfiguration:v30];
+          v27 = self->_processMonitor;
+          v28[0] = _NSConcreteStackBlock;
+          v28[1] = 3221225472;
+          v28[2] = sub_100004820;
+          v28[3] = &unk_100175610;
+          v29 = _currentAppsPredicates;
+          [(RBSProcessMonitor *)v27 updateConfiguration:v28];
         }
       }
     }

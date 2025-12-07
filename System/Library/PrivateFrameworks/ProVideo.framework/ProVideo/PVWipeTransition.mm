@@ -27,12 +27,12 @@
 
   memset(&v47, 0, sizeof(v47));
   lhs = *time;
-  [(PVEffect *)self effectRange];
+  objc_msgSend_effectRange(self);
   rhs = v44[0];
   CMTimeSubtract(&v47, &lhs, &rhs);
   v44[0] = v47;
   Seconds = CMTimeGetSeconds(v44);
-  [(PVEffect *)self effectRange];
+  objc_msgSend_effectRange(self);
   lhs = v44[1];
   v14 = CMTimeGetSeconds(&lhs);
   v15 = (*(**context.m_Obj + 40))();

@@ -524,10 +524,10 @@ LABEL_35:
 
 - (IDSInterfaceAddress)initWithInterfaceAddress:(ifaddrs *)address bflags:(unsigned __int8)bflags
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v22.receiver = self;
-  v22.super_class = IDSInterfaceAddress;
-  v6 = [(IDSInterfaceAddress *)&v22 init];
+  v33 = *MEMORY[0x1E69E9840];
+  v31.receiver = self;
+  v31.super_class = IDSInterfaceAddress;
+  v6 = [(IDSInterfaceAddress *)&v31 init];
   if (!v6)
   {
     goto LABEL_29;
@@ -556,7 +556,7 @@ LABEL_35:
 
   if (!v6->_address)
   {
-    v20 = 0;
+    v29 = 0;
     goto LABEL_31;
   }
 
@@ -599,10 +599,10 @@ LABEL_35:
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"IDSInterface", @"IDS", @"interface is CompanionLink");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"IDSInterface", @"IDS", @"interface is CompanionLink", v20, v21, v22, v23, v24, v31.receiver);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"IDSInterface", @"interface is CompanionLink");
+          _IDSLogV(0, @"IDSFoundation", @"IDSInterface", @"interface is CompanionLink", v25, v26, v27, v28, v31.receiver);
         }
       }
     }
@@ -675,10 +675,10 @@ LABEL_28:
   }
 
 LABEL_29:
-  v20 = v6;
+  v29 = v6;
 LABEL_31:
 
-  return v20;
+  return v29;
 }
 
 @end

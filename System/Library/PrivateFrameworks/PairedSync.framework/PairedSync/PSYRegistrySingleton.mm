@@ -19,9 +19,11 @@
 
 uint64_t __32__PSYRegistrySingleton_registry__block_invoke()
 {
-  registry_singleton = objc_alloc_init(MEMORY[0x277D37B50]);
+  v0 = objc_alloc_init(MEMORY[0x277D37B50]);
+  v1 = registry_singleton;
+  registry_singleton = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (void)addDelegate:(id)delegate

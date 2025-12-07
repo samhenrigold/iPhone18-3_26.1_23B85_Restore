@@ -30,7 +30,7 @@
 
 - (void)_establishRelationship
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   if (self->_originalDictionary)
   {
     codableAttribute = [(INCodableAttributeRelationship *)self codableAttribute];
@@ -38,29 +38,29 @@
     __INCodableDescriptionParentNameKey = [(INCodableAttributeRelationship *)self __INCodableDescriptionParentNameKey];
     v6 = [(NSDictionary *)originalDictionary objectForKeyedSubscript:__INCodableDescriptionParentNameKey];
 
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     _codableDescription = [codableAttribute _codableDescription];
     attributes = [_codableDescription attributes];
     allValues = [attributes allValues];
 
-    v10 = [allValues countByEnumeratingWithState:&v47 objects:v52 count:16];
+    v10 = [allValues countByEnumeratingWithState:&v46 objects:v51 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v48;
+      v12 = *v47;
 LABEL_4:
       v13 = 0;
       while (1)
       {
-        if (*v48 != v12)
+        if (*v47 != v12)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v14 = *(*(&v47 + 1) + 8 * v13);
+        v14 = *(*(&v46 + 1) + 8 * v13);
         propertyName = [v14 propertyName];
         v16 = [propertyName isEqualToString:v6];
 
@@ -71,7 +71,7 @@ LABEL_4:
 
         if (v11 == ++v13)
         {
-          v11 = [allValues countByEnumeratingWithState:&v47 objects:v52 count:16];
+          v11 = [allValues countByEnumeratingWithState:&v46 objects:v51 count:16];
           if (v11)
           {
             goto LABEL_4;
@@ -168,38 +168,38 @@ LABEL_4:
 
       if (v28 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {
-        v45 = 0u;
-        v46 = 0u;
-        v43 = 0u;
         v44 = 0u;
+        v45 = 0u;
+        v42 = 0u;
+        v43 = 0u;
         v29 = v28;
-        v30 = [v29 countByEnumeratingWithState:&v43 objects:v51 count:16];
+        v30 = [v29 countByEnumeratingWithState:&v42 objects:v50 count:16];
         if (v30)
         {
           v31 = v30;
-          v41 = v23;
-          v42 = codableAttribute;
-          v32 = *v44;
+          v40 = v23;
+          v41 = codableAttribute;
+          v32 = *v43;
           do
           {
             for (i = 0; i != v31; ++i)
             {
-              if (*v44 != v32)
+              if (*v43 != v32)
               {
                 objc_enumerationMutation(v29);
               }
 
-              v34 = [v22 transformedValue:{*(*(&v43 + 1) + 8 * i), v41, v42, v43}];
+              v34 = [v22 transformedValue:{*(*(&v42 + 1) + 8 * i), v40, v41, v42}];
               [(NSArray *)v25 if_addObjectIfNonNil:v34];
             }
 
-            v31 = [v29 countByEnumeratingWithState:&v43 objects:v51 count:16];
+            v31 = [v29 countByEnumeratingWithState:&v42 objects:v50 count:16];
           }
 
           while (v31);
           __INCodableDescriptionPredicateValueKey = v29;
-          v23 = v41;
-          codableAttribute = v42;
+          v23 = v40;
+          codableAttribute = v41;
         }
 
         else
@@ -233,8 +233,6 @@ LABEL_10:
 
 LABEL_49:
   }
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 - (id)__INCodableDescriptionPredicateValueKey

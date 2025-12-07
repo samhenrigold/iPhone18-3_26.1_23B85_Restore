@@ -6,6 +6,7 @@
 + (void)pearlIdentities;
 - (CIDVUIBiometricBindingFlowManager)_biometricBindingFlowManager;
 - (DSBiometricManager)initWithContext:(id)context;
+- (void)configurePeriocularEnabled:(BOOL)enabled;
 - (void)deleteAllPearlIdentities;
 - (void)deleteGlobalAuthACL;
 @end
@@ -87,32 +88,32 @@
 
 - (void)deleteAllPearlIdentities
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   [(DSBiometricManager *)self deleteGlobalAuthACL];
   mEMORY[0x277D3F928] = [MEMORY[0x277D3F928] sharedInstance];
   v4 = [mEMORY[0x277D3F928] identitiesForIdentityType:2];
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
+        v10 = *(*(&v12 + 1) + 8 * v9);
         mEMORY[0x277D3F928]2 = [MEMORY[0x277D3F928] sharedInstance];
         [mEMORY[0x277D3F928]2 removeIdentity:v10];
 
@@ -120,7 +121,7 @@
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
@@ -130,8 +131,43 @@
   {
     [(DSBiometricManager *)self configurePeriocularEnabled:0];
   }
+}
 
-  v12 = *MEMORY[0x277D85DE8];
+- (void)configurePeriocularEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v20[1] = *MEMORY[0x277D85DE8];
+  mEMORY[0x277D3F928] = [MEMORY[0x277D3F928] sharedInstance];
+  v6 = [mEMORY[0x277D3F928] deviceForType:2];
+
+  authContext = [(DSBiometricManager *)self authContext];
+  v19 = &unk_285BB9358;
+  v20[0] = &unk_285BB9370;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+  v9 = [authContext evaluatePolicy:1007 options:v8 error:0];
+
+  authContext2 = [(DSBiometricManager *)self authContext];
+  externalizedContext = [authContext2 externalizedContext];
+
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2050000000;
+  v12 = getBKUIPeriocularEnableSplashViewControllerClass_softClass;
+  v18 = getBKUIPeriocularEnableSplashViewControllerClass_softClass;
+  if (!getBKUIPeriocularEnableSplashViewControllerClass_softClass)
+  {
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __getBKUIPeriocularEnableSplashViewControllerClass_block_invoke;
+    v14[3] = &unk_278F75430;
+    v14[4] = &v15;
+    __getBKUIPeriocularEnableSplashViewControllerClass_block_invoke(v14);
+    v12 = v16[3];
+  }
+
+  v13 = v12;
+  _Block_object_dispose(&v15, 8);
+  [v12 setPeriocularFaceIDMatchEnabledForUserConfigurationWithDevice:v6 credentialSet:externalizedContext enabled:enabledCopy];
 }
 
 - (void)deleteGlobalAuthACL
@@ -212,58 +248,54 @@ void __41__DSBiometricManager_deleteGlobalAuthACL__block_invoke_2(uint64_t a1, v
 
 + (void)deleteAllTouchIDs
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   identities = [MEMORY[0x277D3F970] identities];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  v3 = [identities countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [identities countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(identities);
         }
 
-        [MEMORY[0x277D3F970] removeIdentity:*(*(&v8 + 1) + 8 * v6++)];
+        [MEMORY[0x277D3F970] removeIdentity:*(*(&v7 + 1) + 8 * v6++)];
       }
 
       while (v4 != v6);
-      v4 = [identities countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [identities countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)pearlIdentities
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_248C7E000, a2, OS_LOG_TYPE_ERROR, "DS Face ID: Failed to fetch BKDevice: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_248C7E000, a2, OS_LOG_TYPE_ERROR, "DS Face ID: Failed to fetch BKDevice: %@", &v2, 0xCu);
 }
 
 void __41__DSBiometricManager_deleteGlobalAuthACL__block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[DSBiometricManager deleteGlobalAuthACL]_block_invoke_2";
-  v5 = 2114;
-  v6 = a1;
-  _os_log_error_impl(&dword_248C7E000, a2, OS_LOG_TYPE_ERROR, "%s: Encountered error '%{public}@'", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[DSBiometricManager deleteGlobalAuthACL]_block_invoke_2";
+  v4 = 2114;
+  v5 = a1;
+  _os_log_error_impl(&dword_248C7E000, a2, OS_LOG_TYPE_ERROR, "%s: Encountered error '%{public}@'", &v2, 0x16u);
 }
 
 @end

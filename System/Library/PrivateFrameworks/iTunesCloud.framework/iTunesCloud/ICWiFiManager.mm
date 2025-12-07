@@ -24,9 +24,11 @@
 
 uint64_t __34__ICWiFiManager_sharedWiFiManager__block_invoke()
 {
-  sharedWiFiManager_sharedWiFiManager = objc_alloc_init(ICWiFiManager);
+  v0 = objc_alloc_init(ICWiFiManager);
+  v1 = sharedWiFiManager_sharedWiFiManager;
+  sharedWiFiManager_sharedWiFiManager = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (ICWiFiManager)init

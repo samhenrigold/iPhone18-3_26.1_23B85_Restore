@@ -441,23 +441,22 @@ void MTParserPath_::detectSustainedHoverAtEdge(uint64_t a1, uint64_t a2, MTSurfa
   *(a1 + 544) |= v18 && v11;
 }
 
-uint64_t MTParserPath_::computeZSignalInstability(uint64_t result, uint64_t a2, float *a3, int a4, double a5)
+void MTParserPath_::computeZSignalInstability(float *a1, uint64_t a2, float *a3, int a4, double a5)
 {
-  v6 = *(result + 64);
-  v7 = *(result + 160);
+  v6 = a1[16];
+  v7 = a1[40];
   if (v6 <= v7)
   {
-    v8 = *(result + 160);
+    v8 = a1[40];
   }
 
   else
   {
-    v8 = *(result + 64);
+    v8 = a1[16];
   }
 
   if (v8 > 0.0)
   {
-    v11 = result;
     v12 = fabsf(((v6 - v7) * 100.0) / v8);
     if (a4)
     {
@@ -500,10 +499,10 @@ uint64_t MTParserPath_::computeZSignalInstability(uint64_t result, uint64_t a2, 
     }
 
     v20 = ((a3[7] + -1.0) * v19) + 1.0;
-    v22 = v11[19];
-    v21 = v11[20];
-    v23 = vabds_f32(v22, v11[43]);
-    v24 = vabds_f32(v21, v11[44]);
+    v22 = a1[19];
+    v21 = a1[20];
+    v23 = vabds_f32(v22, a1[43]);
+    v24 = vabds_f32(v21, a1[44]);
     if (v23 > v24)
     {
       v24 = v23;
@@ -517,23 +516,21 @@ uint64_t MTParserPath_::computeZSignalInstability(uint64_t result, uint64_t a2, 
     }
 
     v27 = pow(v26, 1.5);
-    v28 = v11[133];
+    v28 = a1[133];
     v29 = 0.25;
     if (v28 >= v27)
     {
       v29 = 0.5;
-      if (v6 >= v11[134])
+      if (v6 >= a1[134])
       {
         v29 = 0.75;
       }
     }
 
     v30 = pow(v29, (*(a2 + 8) - *(a2 + 16)) / 0.00800000038);
-    v11[133] = ((1.0 - v30) * v27) + (v30 * v28);
-    return MTContact_getEllipseEccentricity();
+    a1[133] = ((1.0 - v30) * v27) + (v30 * v28);
+    MTContact_getEllipseEccentricity();
   }
-
-  return result;
 }
 
 void MTParserPath_::pullHysteresisCenterHidingUnstablePixelDeltasXY(float a1, float a2, float a3, float a4, uint64_t a5, float *a6, float *a7)
@@ -570,15 +567,15 @@ void MTParserPath_::pullHysteresisCenterHidingUnstablePixelDeltasXY(float a1, fl
   a7[1] = a2;
 }
 
-void MTParserPath_::pullHysteresisCenterCancelingEllipseTipMotion(float *a1, uint64_t a2, float *a3, MTSurfaceDimensions_ *this, float a5, int8x16_t a6, int8x16_t a7, float a8, int8x16_t a9, float a10)
+void MTParserPath_::pullHysteresisCenterCancelingEllipseTipMotion(float *result, uint64_t a2, float *a3, MTSurfaceDimensions_ *this, float a5, int8x16_t a6, int8x16_t a7, float a8, int8x16_t a9, float a10)
 {
   v15 = *a3;
   *a7.i32 = *a7.i32 - *a9.i32;
   *v10.i32 = a8 - a10;
   if (*(a2 + 43) == 1)
   {
-    *a7.i32 = *a7.i32 + a1[112];
-    *v10.i32 = *v10.i32 + a1[113];
+    *a7.i32 = *a7.i32 + result[112];
+    *v10.i32 = *v10.i32 + result[113];
   }
 
   v16 = a3[1];
@@ -610,7 +607,7 @@ void MTParserPath_::pullHysteresisCenterCancelingEllipseTipMotion(float *a1, uin
     *a3 = v19;
     a9.i32[0] = 0;
 LABEL_11:
-    a1[112] = *a9.i32;
+    result[112] = *a9.i32;
   }
 
   v21 = *a6.i32 - v16;
@@ -640,7 +637,7 @@ LABEL_11:
         *a6.i32 = v23 - fabsf(v21);
         v26.i64[0] = 0x8000000080000000;
         v26.i64[1] = 0x8000000080000000;
-        *(a1 + 113) = vbslq_s8(v26, a6, v10).u32[0];
+        *(result + 113) = vbslq_s8(v26, a6, v10).u32[0];
         goto LABEL_24;
       }
 
@@ -653,19 +650,19 @@ LABEL_11:
     }
 
     a3[1] = v25;
-    a1[113] = 0.0;
+    result[113] = 0.0;
   }
 
 LABEL_24:
-  v27 = a1[22];
-  v28 = a1[94];
-  if (!v17 || (*a7.i32 * (a1[21] - a1[93])) < 0.0)
+  v27 = result[22];
+  v28 = result[94];
+  if (!v17 || (*a7.i32 * (result[21] - result[93])) < 0.0)
   {
     v38 = v10.i32[0];
     v29 = MTSurfaceDimensions_::convertPixelDeltaToMillimeters(this, v18, 0);
     v10.i32[0] = v38;
-    v30 = a1[21];
-    v31 = a1[93];
+    v30 = result[21];
+    v31 = result[93];
     v32 = v30 - v31;
     if ((v30 - v31) < -v29)
     {
@@ -683,15 +680,15 @@ LABEL_24:
       v34 = v30;
     }
 
-    a1[93] = v34;
+    result[93] = v34;
     LOBYTE(v22) = *(a2 + 41);
   }
 
   if ((v22 & 1) == 0 || (*v10.i32 * (v27 - v28)) < 0.0)
   {
     v35 = MTSurfaceDimensions_::convertPixelDeltaToMillimeters(this, v23, 1);
-    v36 = a1[22];
-    v37 = a1[94];
+    v36 = result[22];
+    v37 = result[94];
     if ((v36 - v37) <= v35)
     {
       if ((v36 - v37) < -v35)
@@ -705,7 +702,7 @@ LABEL_24:
       v36 = v35 + v37;
     }
 
-    a1[94] = v36;
+    result[94] = v36;
   }
 }
 
@@ -1117,8 +1114,8 @@ void MTParserPath_::measureInstability(uint64_t a1, uint64_t a2, uint64_t a3, fl
 
   else
   {
-    v35 = *(a1 + 84);
-    v9 = hypotf(v35.f32[0] - *(a1 + 360), v35.f32[1] - *(a1 + 364));
+    v37 = *(a1 + 84);
+    v9 = hypotf(v37.f32[0] - *(a1 + 360), v37.f32[1] - *(a1 + 364));
     if (v9 > *(a1 + 368))
     {
       *(a1 + 368) = v9;
@@ -1140,7 +1137,7 @@ void MTParserPath_::measureInstability(uint64_t a1, uint64_t a2, uint64_t a3, fl
     v13 = v11 * -0.1 + 0.9;
     v14 = (*(a2 + 8) - *(a2 + 16)) / 0.00800000038;
     v15 = pow(v13, v14);
-    *(a1 + 372) = vmla_n_f32(vmul_n_f32(v35, 1.0 - v15), *(a1 + 372), v15);
+    *(a1 + 372) = vmla_n_f32(vmul_n_f32(v37, 1.0 - v15), *(a1 + 372), v15);
     v16 = 0.0;
     if ((*(a2 + 28) & 2) != 0)
     {
@@ -1155,60 +1152,60 @@ void MTParserPath_::measureInstability(uint64_t a1, uint64_t a2, uint64_t a3, fl
   v20 = pow(0.949999988, v14);
   *(a1 + 540) = ((1.0 - v20) * v10) + (v20 * *(a1 + 540));
   MTParserPath_::computeZSignalInstability(a1, a2, a3, *(a1 + 352), v8);
-  v22 = v21;
-  v23 = 0.0;
+  v24 = v23;
+  v25 = 0.0;
   if ((*(a1 + 352) & 1) == 0)
   {
-    v24 = v8;
-    if (v24 <= 0.0)
+    v26 = v8;
+    if (v26 <= 0.0)
     {
-      v26 = 0.2;
+      v28 = 0.2;
     }
 
     else
     {
-      v25 = *(a3 + 84);
-      v26 = 0.0;
+      v27 = *(a3 + 84);
+      v28 = 0.0;
       v19 = 0.0;
-      if (v25 > v24)
+      if (v27 > v26)
       {
-        v19 = (v25 - v24) / v25;
+        v19 = (v27 - v26) / v27;
       }
 
-      v27 = *(a3 + 88);
-      if (v27 > v24)
+      v29 = *(a3 + 88);
+      if (v29 > v26)
       {
-        v26 = ((v27 - v24) / v27) * 0.2;
+        v28 = ((v29 - v26) / v29) * 0.2;
       }
     }
 
-    if (v19 <= v26)
+    if (v19 <= v28)
     {
-      v23 = v26;
+      v25 = v28;
     }
 
     else
     {
-      v23 = v19;
+      v25 = v19;
     }
 
-    v28 = MTLoggingPlugin();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+    v30 = MTLoggingPlugin(v21, v22);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
     {
-      v34 = *(a1 + 32);
+      v36 = *(a1 + 32);
       *buf = 67109888;
-      v37 = v34;
-      v38 = 2048;
-      v39 = v22;
+      v39 = v36;
       v40 = 2048;
-      v41 = v23;
+      v41 = v24;
       v42 = 2048;
-      v43 = v8;
-      _os_log_debug_impl(&dword_0, v28, OS_LOG_TYPE_DEBUG, "\tDHML:  P%d Wating for slide, ZInstability=%f, TimeInstability=%f (from dtstart=%lfs)", buf, 0x26u);
+      v43 = v25;
+      v44 = 2048;
+      v45 = v8;
+      _os_log_debug_impl(&dword_0, v30, OS_LOG_TYPE_DEBUG, "\tDHML:  P%d Wating for slide, ZInstability=%f, TimeInstability=%f (from dtstart=%lfs)", buf, 0x26u);
     }
   }
 
-  v29 = 0.0;
+  v31 = 0.0;
   if ((*(a1 + 8) - 1000) <= 0xBB7)
   {
     if ((*(a2 + 28) & 2) != 0 && (*(a1 + 354) & 1) == 0)
@@ -1218,17 +1215,17 @@ void MTParserPath_::measureInstability(uint64_t a1, uint64_t a2, uint64_t a3, fl
 
     if ((*(a2 + 24) - 1000) <= 0x3E7)
     {
-      v30 = 40;
+      v32 = 40;
       if (*(a1 + 36) == 7)
       {
-        v30 = 136;
+        v32 = 136;
       }
 
-      if ((*(a1 + v30) | 4) == 5 && *(a2 + 372) >= 5 && (*(a1 + 352) & 1) == 0)
+      if ((*(a1 + v32) | 4) == 5 && *(a2 + 372) >= 5 && (*(a1 + 352) & 1) == 0)
       {
-        v31 = MTPathStates_::numFingerSlidWhileEngaged(a2);
-        v29 = v31 >= 3 ? 0.0 : 0.3;
-        if (v31 < 3)
+        v33 = MTPathStates_::numFingerSlidWhileEngaged(a2);
+        v31 = v33 >= 3 ? 0.0 : 0.3;
+        if (v33 < 3)
         {
           v16 = v16 + v16;
         }
@@ -1237,61 +1234,61 @@ void MTParserPath_::measureInstability(uint64_t a1, uint64_t a2, uint64_t a3, fl
 
     if (*(a3 + 100) == 1 && (*(a1 + 352) & 1) == 0 && *(a2 + 372) >= 5 && MTPathStates_::numFingerSlidWhileEngaged(a2) >= 3)
     {
-      v22 = v22 * 0.5;
-      v23 = v23 * 0.5;
+      v24 = v24 * 0.5;
+      v25 = v25 * 0.5;
     }
   }
 
   if (a4)
   {
-    if (v22 <= v29)
+    if (v24 <= v31)
     {
-      v32 = v29;
+      v34 = v31;
     }
 
     else
     {
-      v32 = v22;
+      v34 = v24;
     }
 
-    if (v23 <= v16)
+    if (v25 <= v16)
     {
-      v33 = v16;
+      v35 = v16;
     }
 
     else
     {
-      v33 = v23;
+      v35 = v25;
     }
 
-    if (v32 <= v33)
+    if (v34 <= v35)
     {
-      v32 = v33;
+      v34 = v35;
     }
 
-    *a4 = v32;
+    *a4 = v34;
   }
 }
 
-void MTParserPath_::filterContactForScreenUI(uint64_t a1, uint64_t a2, MTSurfaceDimensions_ *this, uint64_t a4, uint64_t a5, int8x16_t a6, double a7, int8x16_t a8, int8x16_t a9)
+void MTParserPath_::filterContactForScreenUI(uint64_t a1, uint64_t a2, MTSurfaceDimensions_ *this, uint64_t a4, float *a5, int8x16_t a6, double a7, int8x16_t a8, int8x16_t a9)
 {
-  v79.x = mthm_ComputeFingerEllipseTipOffset_mm(a5, this, (a1 + 16), (a1 + 112), a6, a7, a8, a9);
-  *v14.i8 = MTSurfaceDimensions_::convertMillimetersToPixels(this, v79);
-  v66 = v14;
-  v67 = v15;
+  v80.x = mthm_ComputeFingerEllipseTipOffset_mm(a5, this, (a1 + 16), (a1 + 112), a6, a7, a8, a9);
+  *v14.i8 = MTSurfaceDimensions_::convertMillimetersToPixels(this, v80);
+  v67 = v14;
+  v68 = v15;
   v16 = 0.0;
   v17 = 0;
   if (*(a5 + 52) == 1)
   {
-    v80.x = mthm_ComputeFingerEllipseTipOffsetFromPressure_mm(a5, this, a1 + 16);
-    v17 = MTSurfaceDimensions_::convertMillimetersToPixels(this, v80).u32[0];
+    v81.x = mthm_ComputeFingerEllipseTipOffsetFromPressure_mm(a5, this, a1 + 16);
+    v17 = MTSurfaceDimensions_::convertMillimetersToPixels(this, v81).u32[0];
     v16 = v18;
   }
 
   *&v19 = MTSurfaceDimensions_::convertSurfaceFractionToPixels(this, *(a1 + 48));
-  v68 = v20;
-  v69 = v19;
-  v77 = 0.0;
+  v69 = v20;
+  v70 = v19;
+  v78 = 0.0;
   v23 = *(a1 + 36);
   if (v23 >= 3 && *(a1 + 132) && (v23 < 5 || (*(a1 + 352) & 1) == 0))
   {
@@ -1311,113 +1308,113 @@ void MTParserPath_::filterContactForScreenUI(uint64_t a1, uint64_t a2, MTSurface
 
   *(a1 + 520) = *(a1 + 512);
   MTParserPath_::correctAndQuantizeRadius(a1, a4, v19, *v20.i64, v21, v22);
-  v28 = *(a4 + 80) == 1 && *(a1 + 56) == 0.0 && *(a1 + 60) == 0.0;
-  v29 = *(a4 + 76);
-  if (v29 <= 0.0 || v24 & 1 | ((*(a1 + 352) & 1) == 0) | v28)
+  v29 = *(a4 + 80) == 1 && *(a1 + 56) == 0.0 && *(a1 + 60) == 0.0;
+  v30 = *(a4 + 76);
+  if (v30 <= 0.0 || v24 & 1 | ((*(a1 + 352) & 1) == 0) | v29)
   {
-    v30 = 0;
+    v31 = 0;
   }
 
   else
   {
-    v26 = *(a1 + 264);
-    v30 = *(a1 + 24) - v26 > v29;
+    v27 = *(a1 + 264);
+    v31 = *(a1 + 24) - v27 > v30;
   }
 
-  if (((v24 | v28) & 1) == 0 && !v30)
+  if (((v24 | v29) & 1) == 0 && !v31)
   {
     if (*(a4 + 97) == 1)
     {
-      v27.i32[0] = *(a1 + 440);
-      v31 = *(a1 + 444);
-      v74 = off_109CB8;
-      v75 = *(this + 8);
-      v76 = *(this + 24);
-      MTParserPath_::pullHysteresisCenterCancelingEllipseTipMotion(a1, a5, (a1 + 400), &v74, *&v69, v68, v66, v67, v27, v31);
-      MTSurfaceDimensions_::~MTSurfaceDimensions_(&v74);
+      v28.i32[0] = *(a1 + 440);
+      v32 = *(a1 + 444);
+      v75 = off_109CB8;
+      v76 = *(this + 8);
+      v77 = *(this + 24);
+      MTParserPath_::pullHysteresisCenterCancelingEllipseTipMotion(a1, a5, (a1 + 400), &v75, *&v70, v69, v67, v68, v28, v32);
+      MTSurfaceDimensions_::~MTSurfaceDimensions_(&v75);
     }
 
-    if (*(a5 + 52))
+    if (a5[13])
     {
-      v27.i32[0] = *(a1 + 476);
-      v32 = *(a1 + 480);
-      v71 = off_109CB8;
-      v33 = *(this + 24);
-      v72 = *(this + 8);
-      v73 = v33;
-      LODWORD(v26) = v17;
-      MTParserPath_::pullHysteresisCenterCancelingEllipseTipMotionFromPressure(a1, v69, *v68.i32, v26, v16, *v27.i64, v32, v25, a1 + 400);
-      MTSurfaceDimensions_::~MTSurfaceDimensions_(&v71);
+      v28.i32[0] = *(a1 + 476);
+      v33 = *(a1 + 480);
+      v72 = off_109CB8;
+      v34 = *(this + 24);
+      v73 = *(this + 8);
+      v74 = v34;
+      LODWORD(v27) = v17;
+      MTParserPath_::pullHysteresisCenterCancelingEllipseTipMotionFromPressure(a1, v70, *v69.i32, v27, v16, *v28.i64, v33, v26, a1 + 400);
+      MTSurfaceDimensions_::~MTSurfaceDimensions_(&v72);
     }
 
-    MTParserPath_::measureInstability(a1, a2, a4, &v77);
-    v35 = v34;
-    MTParserPath_::pullHysteresisCenterHidingUnstablePixelDeltasXY(*&v69, *v68.i32, v35, v35, v36, a4, (a1 + 400));
-    v37 = *(a1 + 400);
-    LODWORD(v81.y) = v68.i32[0];
-    v81.x = *&v69;
-    v39 = MTParserPath_::applyAbsolutePixelHysteresis(v38, v81, (a1 + 400), *(a1 + 144), *(a4 + 56));
-    v40 = *(a1 + 352) | v39;
-    *(a1 + 352) = v40;
+    MTParserPath_::measureInstability(a1, a2, a4, &v78);
+    v36 = v35;
+    MTParserPath_::pullHysteresisCenterHidingUnstablePixelDeltasXY(*&v70, *v69.i32, v36, v36, v37, a4, (a1 + 400));
+    v38 = *(a1 + 400);
+    LODWORD(v82.y) = v69.i32[0];
+    v82.x = *&v70;
+    v40 = MTParserPath_::applyAbsolutePixelHysteresis(v39, v82, (a1 + 400), *(a1 + 144), *(a4 + 56));
+    v41 = *(a1 + 352) | v40;
+    *(a1 + 352) = v41;
     if (*(a1 + 545))
     {
-      v41 = 0;
+      v42 = 0;
     }
 
     else
     {
-      v41 = *(a1 + 354) | v39;
+      v42 = *(a1 + 354) | v40;
     }
 
-    *(a1 + 354) = v41;
-    *(a1 + 353) = v40;
-    MTParserPath_::pullHysteresisCenterHidingUnstablePixelDeltasXY(*&v69, *v68.i32, v77, v77, v39, a4, (a1 + 408));
-    LODWORD(v82.y) = v68.i32[0];
-    v82.x = *&v69;
-    v45 = MTParserPath_::applyAbsolutePixelHysteresis(v44, v82, (a1 + 408), *(a1 + 144), *(a4 + 56));
-    *(a1 + 353) |= v45;
+    *(a1 + 354) = v42;
+    *(a1 + 353) = v41;
+    MTParserPath_::pullHysteresisCenterHidingUnstablePixelDeltasXY(*&v70, *v69.i32, v78, v78, v40, a4, (a1 + 408));
+    LODWORD(v83.y) = v69.i32[0];
+    v83.x = *&v70;
+    v46 = MTParserPath_::applyAbsolutePixelHysteresis(v45, v83, (a1 + 408), *(a1 + 144), *(a4 + 56));
+    *(a1 + 353) |= v46;
     if (*(a5 + 42) == 1)
     {
-      v70 = vcvt_f32_s32(vcvt_s32_f32(*(a1 + 416)));
-      MTParserPath_::pullHysteresisCenterHidingUnstablePixelDeltasXY(*v66.i32, v67, v35, v35, v45, a4, (a1 + 416));
-      LODWORD(v83.x) = v66.i32[0];
-      v83.y = v67;
-      v45 = MTParserPath_::applyAbsolutePixelHysteresis(v46, v83, (a1 + 416), v70, *(a4 + 56));
+      v71 = vcvt_f32_s32(vcvt_s32_f32(*(a1 + 416)));
+      MTParserPath_::pullHysteresisCenterHidingUnstablePixelDeltasXY(*v67.i32, v68, v36, v36, v46, a4, (a1 + 416));
+      LODWORD(v84.x) = v67.i32[0];
+      v84.y = v68;
+      v46 = MTParserPath_::applyAbsolutePixelHysteresis(v47, v84, (a1 + 416), v71, *(a4 + 56));
     }
 
-    v47 = *(a1 + 400);
-    v48 = vsub_f32(v47, v37);
-    v49 = vadd_f32(v48, *(a1 + 432));
-    *(a1 + 424) = v48;
-    *(a1 + 432) = v49;
+    v48 = *(a1 + 400);
+    v49 = vsub_f32(v48, v38);
+    v50 = vadd_f32(v49, *(a1 + 432));
+    *(a1 + 424) = v49;
+    *(a1 + 432) = v50;
     if ((*(a1 + 352) & 1) != 0 || *(a1 + 353) == 1)
     {
       *(a1 + 392) = *(a1 + 384);
-      *(a1 + 384) = vcvt_f32_s32(vcvt_s32_f32(v47));
+      *(a1 + 384) = vcvt_f32_s32(vcvt_s32_f32(v48));
     }
 
     goto LABEL_63;
   }
 
-  *(a1 + 400) = vdupq_lane_s64(__SPAIR64__(v68.u32[0], LODWORD(v69)), 0);
+  *(a1 + 400) = vdupq_lane_s64(__SPAIR64__(v69.u32[0], LODWORD(v70)), 0);
   *(a1 + 392) = *(a1 + 384);
-  *(a1 + 384) = vcvt_f32_s32(vcvt_s32_f32(__PAIR64__(v68.u32[0], LODWORD(v69))));
+  *(a1 + 384) = vcvt_f32_s32(vcvt_s32_f32(__PAIR64__(v69.u32[0], LODWORD(v70))));
   if (*(a5 + 42) == 1)
   {
-    *(a1 + 416) = v66.i32[0];
-    *(a1 + 420) = v67;
+    *(a1 + 416) = v67.i32[0];
+    *(a1 + 420) = v68;
   }
 
   *(a1 + 424) = 0;
   *(a1 + 432) = 0;
   *(a1 + 536) = *(a1 + 64);
   *(a1 + 540) = *(a1 + 76);
-  v42 = *(a1 + 8) - 1000;
-  if (v42 <= 0xBB7)
+  v43 = *(a1 + 8) - 1000;
+  if (v43 <= 0xBB7)
   {
-    v43 = *(a1 + 84);
-    *(a1 + 372) = v43;
-    *(a1 + 360) = v43;
+    v44 = *(a1 + 84);
+    *(a1 + 372) = v44;
+    *(a1 + 360) = v44;
   }
 
   if (*(a5 + 43) != 1)
@@ -1431,20 +1428,20 @@ LABEL_33:
     goto LABEL_44;
   }
 
-  if ((v28 | v24))
+  if ((v29 | v24))
   {
     *(a1 + 448) = 0;
     *(a1 + 484) = 0;
     goto LABEL_33;
   }
 
-  *(a1 + 448) = vadd_f32(*(a1 + 448), vsub_f32(__PAIR64__(LODWORD(v67), v66.u32[0]), *(a1 + 440)));
+  *(a1 + 448) = vadd_f32(*(a1 + 448), vsub_f32(__PAIR64__(LODWORD(v68), v67.u32[0]), *(a1 + 440)));
   if (v24)
   {
 LABEL_34:
     *(a1 + 352) = 0;
     *(a1 + 354) = 0;
-    if (v42 <= 0xBB7)
+    if (v43 <= 0xBB7)
     {
       *(a1 + 368) = 0;
       *(a1 + 548) = 0;
@@ -1454,12 +1451,12 @@ LABEL_34:
   }
 
 LABEL_44:
-  if (!v30)
+  if (!v31)
   {
     goto LABEL_54;
   }
 
-  if (v42 > 0xBB7)
+  if (v43 > 0xBB7)
   {
     *(a1 + 352) = 0;
     *(a1 + 354) = 0;
@@ -1467,13 +1464,13 @@ LABEL_44:
 
   else
   {
-    v50 = 40;
+    v51 = 40;
     if (*(a1 + 36) == 7)
     {
-      v50 = 136;
+      v51 = 136;
     }
 
-    if (*(a1 + v50) == 1 && *(a2 + 412) >= 2 && *(a2 + 372) > 1)
+    if (*(a1 + v51) == 1 && *(a2 + 412) >= 2 && *(a2 + 372) > 1)
     {
       goto LABEL_54;
     }
@@ -1488,41 +1485,41 @@ LABEL_53:
 LABEL_54:
   if (*(a1 + 40) <= 5 && *(a1 + 136) < 6)
   {
-    v52 = MTLoggingPlugin();
-    if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
+    v53 = MTLoggingPlugin(v25, v26);
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
     {
-      v53 = *(a1 + 32);
-      v54 = MTGetPathStageName();
-      MTParserPath_::filterContactForScreenUI(v54, buf, v53, v52);
+      v54 = *(a1 + 32);
+      v55 = MTGetPathStageName();
+      MTParserPath_::filterContactForScreenUI(v55, buf, v54, v53);
     }
   }
 
   else
   {
-    v51 = MTLoggingPlugin();
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+    v52 = MTLoggingPlugin(v25, v26);
+    if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
     {
-      MTParserPath_::filterContactForScreenUI(a1, (a1 + 40), v51);
+      MTParserPath_::filterContactForScreenUI(a1, (a1 + 40), v52);
     }
   }
 
-  v35 = 0.0;
+  v36 = 0.0;
 LABEL_63:
-  *(a1 + 355) = MTParserPath_::applyAbsoluteForceHysteresis(*(a1 + 68), *(a1 + 164), v45, (a1 + 356), a4);
+  *(a1 + 355) = MTParserPath_::applyAbsoluteForceHysteresis(*(a1 + 68), *(a1 + 164), v46, (a1 + 356), a4);
   *(a1 + 68) = *(a1 + 356);
-  *(a1 + 440) = v66.i32[0];
-  *(a1 + 444) = v67;
+  *(a1 + 440) = v67.i32[0];
+  *(a1 + 444) = v68;
   if (*(a5 + 52) == 1)
   {
     *(a1 + 476) = v17;
     *(a1 + 480) = v16;
   }
 
-  v84.x = *(a1 + 56);
+  v85.x = *(a1 + 56);
   *(a1 + 48) = vcvt_f32_s32(vcvt_s32_f32(*(a1 + 400)));
-  v84.y = *(a1 + 60);
-  *(a1 + 56) = MTSurfaceDimensions_::convertSurfaceFractionVelocityToPixelsPerSecond(this, v84);
-  *(a1 + 60) = v55;
+  v85.y = *(a1 + 60);
+  *(a1 + 56) = MTSurfaceDimensions_::convertSurfaceFractionVelocityToPixelsPerSecond(this, v85);
+  *(a1 + 60) = v56;
   *(a1 + 464) = *(a1 + 56);
   *(a1 + 472) = hypotf(*(a1 + 92), *(a1 + 96));
   if (*(a4 + 101) == 1 && (*(a1 + 36) - 1) <= 2)
@@ -1531,50 +1528,50 @@ LABEL_63:
     *(a1 + 472) = 0;
   }
 
-  v60 = 1.0 - v35;
-  if ((1.0 - v35) < 0.0)
+  v61 = 1.0 - v36;
+  if ((1.0 - v36) < 0.0)
   {
-    v60 = 0.0;
+    v61 = 0.0;
   }
 
-  MTParserPath_::updateDampedVelocity(a1, a2, a4, v60, 0.0, v56, v57, v58, v59);
-  v62 = *(a4 + 64);
-  if (v62 >= 0.0)
+  MTParserPath_::updateDampedVelocity(a1, a2, a4, v61, 0.0, v57, v58, v59, v60);
+  v63 = *(a4 + 64);
+  if (v63 >= 0.0)
   {
-    v63 = v62 * 0.0174532925;
-    MTParserPath_::updateAngularHysteresisCenter((a1 + 456), v61, *(a1 + 104), v63);
+    v64 = v63 * 0.0174532925;
+    MTParserPath_::updateAngularHysteresisCenter((a1 + 456), v62, *(a1 + 104), v64);
     *(a1 + 104) = *(a1 + 456);
   }
 
-  v64 = *(a4 + 68);
-  if (v64 >= 0.0)
+  v65 = *(a4 + 68);
+  if (v65 >= 0.0)
   {
-    v65 = v64 * 0.0174532925;
-    MTParserPath_::updateAngularHysteresisCenter((a1 + 460), v61, *(a1 + 72), v65);
+    v66 = v65 * 0.0174532925;
+    MTParserPath_::updateAngularHysteresisCenter((a1 + 460), v62, *(a1 + 72), v66);
     *(a1 + 72) = *(a1 + 460);
   }
 }
 
-void MTParserPath_::correctAndQuantizeRadius(uint64_t a1, uint64_t a2, double a3, double a4, float64x2_t _Q2, int8x16_t a6)
+void MTParserPath_::correctAndQuantizeRadius(uint64_t result, uint64_t a2, double a3, double a4, float64x2_t _Q2, int8x16_t a6)
 {
   v7 = 0.0;
   if (*(a2 + 102) == 1)
   {
-    v8 = *(a1 + 36) - 1;
-    if (v8 <= 5 && (*(a1 + 132) - 1) >= 6)
+    v8 = *(result + 36) - 1;
+    if (v8 <= 5 && (*(result + 132) - 1) >= 6)
     {
-      _D1 = vrev64_s32(*(a1 + 76));
+      _D1 = vrev64_s32(*(result + 76));
     }
 
     else
     {
       __asm { FMOV            V2.2D, #0.5 }
 
-      v13 = vmulq_f64(vcvtq_f64_f32(*(a1 + 76)), _Q2);
-      _D1 = vcvt_f32_f64(vmlaq_f64(vextq_s8(v13, v13, 8uLL), _Q2, vcvtq_f64_f32(*(a1 + 504))));
+      v13 = vmulq_f64(vcvtq_f64_f32(*(result + 76)), _Q2);
+      _D1 = vcvt_f32_f64(vmlaq_f64(vextq_s8(v13, v13, 8uLL), _Q2, vcvtq_f64_f32(*(result + 504))));
     }
 
-    *(a1 + 504) = _D1;
+    *(result + 504) = _D1;
     v15 = 0.0;
     v16 = 0.0;
     if (v8 <= 3)
@@ -1584,16 +1581,16 @@ void MTParserPath_::correctAndQuantizeRadius(uint64_t a1, uint64_t a2, double a3
       __asm { FMLA            S2, S0, V1.S[1]; float }
 
       v18 = fmaxf(*_Q2.f64, 2.0);
-      v15 = _QuantizedRadius(fmaxf(*a6.i32, 2.0), *(a1 + 520), _Q2, a6);
-      v16 = _QuantizedRadius(v18, *(a1 + 524), v19, v20);
+      v15 = _QuantizedRadius(fmaxf(*a6.i32, 2.0), *(result + 520), _Q2, a6);
+      v16 = _QuantizedRadius(v18, *(result + 524), v19, v20);
     }
 
-    *(a1 + 512) = v15;
-    *(a1 + 516) = v16;
+    *(result + 512) = v15;
+    *(result + 516) = v16;
     v7 = 1.0;
   }
 
-  *(a1 + 528) = v7;
+  *(result + 528) = v7;
 }
 
 float _QuantizedRadius(float a1, float a2, int8x16_t a3, int8x16_t a4)
@@ -1746,7 +1743,7 @@ void __cxx_global_var_init_10_6(uint64_t a1, const char *a2)
   }
 }
 
-uint64_t MTPathStates_::MTPathStates_(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4, char a5, int a6)
+uint64_t MTPathStates_::MTPathStates_(uint64_t a1, uint64_t a2, int a3, int a4, char a5, int a6)
 {
   v11 = a4;
   v12[0] = a3;
@@ -1760,7 +1757,7 @@ uint64_t MTPathStates_::MTPathStates_(uint64_t a1, uint64_t a2, unsigned int a3,
   *(a1 + 288) = 0;
   *(a1 + 296) = 0;
   *(a1 + 280) = 0;
-  MTRestZoneIntegrator_::MTRestZoneIntegrator_(a1 + 512);
+  MTRestZoneIntegrator_::MTRestZoneIntegrator_((a1 + 512), a2, a3, a4);
   std::vector<MTParserPath_>::reserve(v7, 0x20uLL);
   v8 = *(a1 + 288);
   v9 = 32;
@@ -1790,14 +1787,14 @@ uint64_t MTPathStates_::MTPathStates_(uint64_t a1, uint64_t a2, unsigned int a3,
   return a1;
 }
 
-void sub_4C21C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_4C21C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<MTParserPath_>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<MTParserPath_>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<MTParserPath_>::reserve(uint64_t *result, unint64_t a2)
 {
   if (0x193D4BB7E327A977 * ((result[2] - *result) >> 3) < a2)
   {
@@ -1812,9 +1809,9 @@ void *std::vector<MTParserPath_>::reserve(void *result, unint64_t a2)
   return result;
 }
 
-void sub_4C328(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_4C328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<MTParserPath_>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1997,7 +1994,7 @@ MTPathStates_ *MTPathStates_::expandAndFilterPackedContacts(uint64_t a1, uint64_
       do
       {
         v9 = *(v8 + 16);
-        MTParserPath_::updateCurPrevContactsWith((v7 + 568 * v9), v8, *(a1 + 40), (a1 + 244), *(a1 + 8));
+        MTParserPath_::updateCurPrevContactsWith((v7 + 568 * v9), v8, *(a1 + 40), *(a1 + 8), (a1 + 244));
         v7 = *(a1 + 280);
         v10 = v7 + 568 * v9;
         if (*(v10 + 36) == 1 || !*(v10 + 132))
@@ -2801,7 +2798,7 @@ double MTPathStates_::forwardFirmwareDistributedForces(MTPathStates_ *this)
 
       v9 = v6 + v5;
       v10 = hypotf(*(v9 - 196), *(v9 - 192));
-      MTForceFilter_::updateForceFilter(v9, this + 82, v8, v10, *(this + 1) - *(this + 2));
+      MTForceFilter_::updateForceFilter(v9, v8, v10, *(this + 1) - *(this + 2), this + 82);
       ++v2;
     }
 
@@ -2821,7 +2818,7 @@ double MTPathStates_::forwardFirmwareDistributedForces(MTPathStates_ *this)
     v13 = hypotf(v3[23], v3[24]);
     v14 = *(this + 1) - *(this + 2);
 
-    MTForceFilter_::updateForceFilter((v3 + 72), this + 82, v12, v13, v14);
+    MTForceFilter_::updateForceFilter((v3 + 72), v12, v13, v14, this + 82);
   }
 
   return result;
@@ -3385,13 +3382,13 @@ LABEL_91:
 void MTPathStates_::checkForLonelyHighRestingThumb(MTPathStates_ *this)
 {
   v1 = *(this + 110);
-  if (v1 && !*(this + 114) && *(this + 117) + *(this + 116) == 1 || (v1 = *(this + 111)) != 0 && !*(this + 115) && *(this + 116) + *(this + 117) == 1)
+  if (v1 && !*(this + 114) && *(this + 117) + *(this + 116) == 1 || (v1 = *(this + 111), v1) && !*(this + 115) && *(this + 116) + *(this + 117) == 1)
   {
     MTPathStates_::assignLonelyHighRestingThumb(this, v1);
   }
 }
 
-void MTPathStates_::tasksFilterAndPixelatePositions(uint64_t a1, uint64_t a2, int a3, int8x16_t a4, double a5, int8x16_t a6, int8x16_t a7)
+void MTPathStates_::tasksFilterAndPixelatePositions(uint64_t a1, uint64_t a2, unsigned int a3, int8x16_t a4, double a5, int8x16_t a6, int8x16_t a7)
 {
   if (a3 >= 1)
   {
@@ -3401,7 +3398,7 @@ void MTPathStates_::tasksFilterAndPixelatePositions(uint64_t a1, uint64_t a2, in
     {
       v10 = *v9;
       v9 += 24;
-      MTParserPath_::filterContactForScreenUI(*(a1 + 280) + 568 * v10, a1, *(a1 + 40), a1 + 48, a1 + 180, a4, a5, a6, a7);
+      MTParserPath_::filterContactForScreenUI(*(a1 + 280) + 568 * v10, a1, *(a1 + 40), a1 + 48, (a1 + 180), a4, a5, a6, a7);
       --v8;
     }
 
@@ -3409,11 +3406,12 @@ void MTPathStates_::tasksFilterAndPixelatePositions(uint64_t a1, uint64_t a2, in
   }
 }
 
-void MTPathStates_::assignLonelyHighRestingThumb(MTPathStates_ *this, unsigned int a2)
+void MTPathStates_::assignLonelyHighRestingThumb(MTPathStates_ *this, uint64_t a2)
 {
+  v2 = a2;
   v4 = *(this + 35) + 568 * a2;
   v5 = *(v4 + 224);
-  v6 = MTLoggingPlugin();
+  v6 = MTLoggingPlugin(this, a2);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v7 = *(this + 1);
@@ -3430,146 +3428,146 @@ void MTPathStates_::assignLonelyHighRestingThumb(MTPathStates_ *this, unsigned i
     }
 
     v11 = v7 - *(this + 63);
-    v41 = 136317698;
-    v42 = "[Debug] ";
-    v43 = 2080;
-    v44 = "";
+    v43 = 136317698;
+    v44 = "[Debug] ";
     v45 = 2080;
-    v46 = "assignLonelyHighRestingThumb";
-    v47 = 1024;
-    v48 = a2;
-    v49 = 2048;
-    v50 = v8;
+    v46 = "";
+    v47 = 2080;
+    v48 = "assignLonelyHighRestingThumb";
+    v49 = 1024;
+    v50 = v2;
     v51 = 2048;
-    v52 = qword_121A48;
+    v52 = v8;
     v53 = 2048;
-    v54 = v9;
+    v54 = qword_121A48;
     v55 = 2048;
-    v56 = 0x4000000000000000;
-    v57 = 2080;
-    v58 = v10;
-    v59 = 2048;
-    v60 = v11;
+    v56 = v9;
+    v57 = 2048;
+    v58 = 0x4000000000000000;
+    v59 = 2080;
+    v60 = v10;
     v61 = 2048;
-    v62 = qword_121A50;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s [MTZoom] Thumb path P%d: Touch duration = %.3f sec (> %.3f sec for RT), Discounted distance = %.3f mm (< %.3f mm for RT), Thumb touched down with finger = %s (No for RT) , Time since last finger liftoff = %.3f sec (> %.3f sec for RT)", &v41, 0x6Cu);
+    v62 = v11;
+    v63 = 2048;
+    v64 = qword_121A50;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s [MTZoom] Thumb path P%d: Touch duration = %.3f sec (> %.3f sec for RT), Discounted distance = %.3f mm (< %.3f mm for RT), Thumb touched down with finger = %s (No for RT) , Time since last finger liftoff = %.3f sec (> %.3f sec for RT)", &v43, 0x6Cu);
   }
 
-  v12 = *(this + 1);
-  if (*&qword_121A48 < v12 - v5 && *(v4 + 380) < 2.0 && (*(this + 484) & 1) == 0 && v12 - *(this + 63) > *&qword_121A50)
+  v14 = *(this + 1);
+  if (*&qword_121A48 < v14 - v5 && *(v4 + 380) < 2.0 && (*(this + 484) & 1) == 0 && v14 - *(this + 63) > *&qword_121A50)
   {
-    v13 = MTLoggingPlugin();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v15 = MTLoggingPlugin(v12, v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      v41 = 136315906;
-      v42 = "[Debug] ";
-      v43 = 2080;
-      v44 = "";
+      v43 = 136315906;
+      v44 = "[Debug] ";
       v45 = 2080;
-      v46 = "assignLonelyHighRestingThumb";
-      v47 = 1024;
-      v48 = a2;
-      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s [MTZoom] Marking thumb path P%d as resting thumb", &v41, 0x26u);
+      v46 = "";
+      v47 = 2080;
+      v48 = "assignLonelyHighRestingThumb";
+      v49 = 1024;
+      v50 = v2;
+      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s [MTZoom] Marking thumb path P%d as resting thumb", &v43, 0x26u);
     }
 
-    v14 = 0;
-    v15 = 0;
-    v16 = 568 * a2 - 9088;
-    v17 = *(this + 35);
-    v18 = 568 * a2 - 8520;
-    v19 = 568 * a2 - 7952;
-    v20 = 568 * a2 - 568;
-    v21 = 568 * a2 - 7384;
-    v22 = v17 + 7366;
-    v23 = 568 * a2 - 6816;
-    v24 = 568 * a2 - 1136;
-    v25 = 568 * a2 - 6248;
-    v26 = 568 * a2 - 5680;
-    v27 = 568 * a2 - 1704;
-    v28 = v17 + 5094;
-    v29 = 568 * a2 - 5112;
-    v30 = 568 * a2 - 4544;
-    v31 = 568 * a2 - 3976;
-    v32 = 568 * a2 - 3408;
-    v33 = 568 * a2 - 2840;
-    v34 = 568 * a2 - 2272;
-    v35 = vdupq_n_s64(0x1FuLL);
+    v16 = 0;
+    v17 = 0;
+    v18 = 568 * v2 - 9088;
+    v19 = *(this + 35);
+    v20 = 568 * v2 - 8520;
+    v21 = 568 * v2 - 7952;
+    v22 = 568 * v2 - 568;
+    v23 = 568 * v2 - 7384;
+    v24 = v19 + 7366;
+    v25 = 568 * v2 - 6816;
+    v26 = 568 * v2 - 1136;
+    v27 = 568 * v2 - 6248;
+    v28 = 568 * v2 - 5680;
+    v29 = 568 * v2 - 1704;
+    v30 = v19 + 5094;
+    v31 = 568 * v2 - 5112;
+    v32 = 568 * v2 - 4544;
+    v33 = 568 * v2 - 3976;
+    v34 = 568 * v2 - 3408;
+    v35 = 568 * v2 - 2840;
+    v36 = 568 * v2 - 2272;
+    v37 = vdupq_n_s64(0x1FuLL);
     do
     {
-      v36 = vdupq_n_s64(v15);
-      v37 = vorrq_s8(v36, xmmword_D64F0);
-      if (vuzp1_s8(vuzp1_s16(vmovn_s64(vcgtq_u64(v35, v37)), 14), 14).u8[0])
+      v38 = vdupq_n_s64(v17);
+      v39 = vorrq_s8(v38, xmmword_D64F0);
+      if (vuzp1_s8(vuzp1_s16(vmovn_s64(vcgtq_u64(v37, v39)), 14), 14).u8[0])
       {
-        *(v17 + v14 + 1118) = v20 == v14;
-      }
-
-      if (vuzp1_s8(vuzp1_s16(vmovn_s64(vcgtq_u64(vdupq_n_s64(0x1FuLL), v37)), 14), 14).i8[1])
-      {
-        *(v17 + v14 + 1686) = v24 == v14;
-      }
-
-      if (vuzp1_s8(vuzp1_s16(14, vmovn_s64(vcgtq_u64(vdupq_n_s64(0x1FuLL), vorrq_s8(v36, xmmword_D64E0)))), 14).i8[2])
-      {
-        *(v17 + v14 + 2254) = v27 == v14;
-        *(v17 + v14 + 2822) = v34 == v14;
-      }
-
-      v38 = vorrq_s8(v36, xmmword_D6910);
-      if (vuzp1_s8(14, vuzp1_s16(vmovn_s64(vcgtq_u64(vdupq_n_s64(0x1FuLL), v38)), 14)).i32[1])
-      {
-        *(v17 + v14 + 3390) = v33 == v14;
-      }
-
-      if (vuzp1_s8(14, vuzp1_s16(vmovn_s64(vcgtq_u64(vdupq_n_s64(0x1FuLL), v38)), 14)).i8[5])
-      {
-        *(v17 + v14 + 3958) = v32 == v14;
-      }
-
-      if (vuzp1_s8(14, vuzp1_s16(14, vmovn_s64(vcgtq_u64(vdupq_n_s64(0x1FuLL), vorrq_s8(v36, xmmword_D6900))))).i8[6])
-      {
-        *(v17 + 4526 + v14) = v31 == v14;
-        *(v28 + v14) = v30 == v14;
-      }
-
-      v39 = vorrq_s8(v36, xmmword_D68F0);
-      if (vuzp1_s8(vuzp1_s16(vmovn_s64(vcgtq_u64(vdupq_n_s64(0x1FuLL), v39)), 14), 14).u8[0])
-      {
-        *(v28 + v14 + 568) = v29 == v14;
+        *(v19 + v16 + 1118) = v22 == v16;
       }
 
       if (vuzp1_s8(vuzp1_s16(vmovn_s64(vcgtq_u64(vdupq_n_s64(0x1FuLL), v39)), 14), 14).i8[1])
       {
-        *(v28 + v14 + 1136) = v26 == v14;
+        *(v19 + v16 + 1686) = v26 == v16;
       }
 
-      if (vuzp1_s8(vuzp1_s16(14, vmovn_s64(vcgtq_u64(vdupq_n_s64(0x1FuLL), vorrq_s8(v36, xmmword_D68E0)))), 14).i8[2])
+      if (vuzp1_s8(vuzp1_s16(14, vmovn_s64(vcgtq_u64(vdupq_n_s64(0x1FuLL), vorrq_s8(v38, xmmword_D64E0)))), 14).i8[2])
       {
-        *(v28 + v14 + 1704) = v25 == v14;
-        *(v22 + v14) = v23 == v14;
+        *(v19 + v16 + 2254) = v29 == v16;
+        *(v19 + v16 + 2822) = v36 == v16;
       }
 
-      v40 = vorrq_s8(v36, xmmword_D68D0);
+      v40 = vorrq_s8(v38, xmmword_D6910);
       if (vuzp1_s8(14, vuzp1_s16(vmovn_s64(vcgtq_u64(vdupq_n_s64(0x1FuLL), v40)), 14)).i32[1])
       {
-        *(v28 + v14 + 2840) = v21 == v14;
+        *(v19 + v16 + 3390) = v35 == v16;
       }
 
       if (vuzp1_s8(14, vuzp1_s16(vmovn_s64(vcgtq_u64(vdupq_n_s64(0x1FuLL), v40)), 14)).i8[5])
       {
-        *(v28 + v14 + 3408) = v19 == v14;
+        *(v19 + v16 + 3958) = v34 == v16;
       }
 
-      if (vuzp1_s8(14, vuzp1_s16(14, vmovn_s64(vcgtq_u64(vdupq_n_s64(0x1FuLL), vorrq_s8(v36, xmmword_D68C0))))).i8[6])
+      if (vuzp1_s8(14, vuzp1_s16(14, vmovn_s64(vcgtq_u64(vdupq_n_s64(0x1FuLL), vorrq_s8(v38, xmmword_D6900))))).i8[6])
       {
-        *(v28 + v14 + 3976) = v18 == v14;
-        *(v22 + v14 + 2272) = v16 == v14;
+        *(v19 + 4526 + v16) = v33 == v16;
+        *(v30 + v16) = v32 == v16;
       }
 
-      v15 += 16;
-      v14 += 9088;
+      v41 = vorrq_s8(v38, xmmword_D68F0);
+      if (vuzp1_s8(vuzp1_s16(vmovn_s64(vcgtq_u64(vdupq_n_s64(0x1FuLL), v41)), 14), 14).u8[0])
+      {
+        *(v30 + v16 + 568) = v31 == v16;
+      }
+
+      if (vuzp1_s8(vuzp1_s16(vmovn_s64(vcgtq_u64(vdupq_n_s64(0x1FuLL), v41)), 14), 14).i8[1])
+      {
+        *(v30 + v16 + 1136) = v28 == v16;
+      }
+
+      if (vuzp1_s8(vuzp1_s16(14, vmovn_s64(vcgtq_u64(vdupq_n_s64(0x1FuLL), vorrq_s8(v38, xmmword_D68E0)))), 14).i8[2])
+      {
+        *(v30 + v16 + 1704) = v27 == v16;
+        *(v24 + v16) = v25 == v16;
+      }
+
+      v42 = vorrq_s8(v38, xmmword_D68D0);
+      if (vuzp1_s8(14, vuzp1_s16(vmovn_s64(vcgtq_u64(vdupq_n_s64(0x1FuLL), v42)), 14)).i32[1])
+      {
+        *(v30 + v16 + 2840) = v23 == v16;
+      }
+
+      if (vuzp1_s8(14, vuzp1_s16(vmovn_s64(vcgtq_u64(vdupq_n_s64(0x1FuLL), v42)), 14)).i8[5])
+      {
+        *(v30 + v16 + 3408) = v21 == v16;
+      }
+
+      if (vuzp1_s8(14, vuzp1_s16(14, vmovn_s64(vcgtq_u64(vdupq_n_s64(0x1FuLL), vorrq_s8(v38, xmmword_D68C0))))).i8[6])
+      {
+        *(v30 + v16 + 3976) = v20 == v16;
+        *(v24 + v16 + 2272) = v18 == v16;
+      }
+
+      v17 += 16;
+      v16 += 9088;
     }
 
-    while (v15 != 32);
+    while (v17 != 32);
   }
 }
 
@@ -3990,7 +3988,7 @@ float32x2_t MTPathStates_::getHighRestingThumbDisplacement(MTPathStates_ *this)
   return result;
 }
 
-void std::vector<float>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<float>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -4039,7 +4037,7 @@ void std::vector<float>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
@@ -4055,13 +4053,13 @@ char *std::vector<MTPoint>::insert(void *a1, char *__src, char *a3)
     v10 = *a1;
     v26 = 0u;
     v27 = 0u;
-    v11 = ((v6 - v10) >> 3) + 1;
+    v11 = (&v6[-v10] >> 3) + 1;
     if (v11 >> 61)
     {
       std::vector<HSUtil::CoderKey const*>::__throw_length_error[abi:ne200100]();
     }
 
-    v12 = __src - v10;
+    v12 = &__src[-v10];
     v13 = v7 - v10;
     if (v13 >> 2 > v11)
     {
@@ -4131,7 +4129,7 @@ char *std::vector<MTPoint>::insert(void *a1, char *__src, char *a3)
     else
     {
       *v6 = *(v6 - 1);
-      v9 = v6 + 8;
+      v9 = (v6 + 8);
     }
 
     a1[1] = v9;
@@ -4816,7 +4814,7 @@ uint64_t std::__split_buffer<MTParserPath_>::~__split_buffer(uint64_t a1)
   return a1;
 }
 
-uint64_t std::vector<MTParserPath_>::__emplace_back_slow_path<MTParserType const&,MTParserOptions const&>(uint64_t a1, unsigned int *a2, unsigned int *a3)
+uint64_t std::vector<MTParserPath_>::__emplace_back_slow_path<MTParserType const&,MTParserOptions const&>(uint64_t a1, int *a2, int *a3)
 {
   v3 = 0x193D4BB7E327A977 * ((*(a1 + 8) - *a1) >> 3);
   v4 = v3 + 1;
@@ -4867,14 +4865,14 @@ uint64_t std::vector<MTParserPath_>::__emplace_back_slow_path<MTParserType const
   return v13;
 }
 
-void sub_505D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_505D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::__split_buffer<MTParserPath_>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-float *std::__introsort<std::_ClassicAlgPolicy,std::greater<float> &,float *,true>(float *result, float *a2, uint64_t a3, uint64_t a4, char a5, double a6)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,std::greater<float> &,float *,true>(uint64_t result, float *a2, uint64_t a3, uint64_t a4, char a5, double a6)
 {
   v9 = result;
 LABEL_2:
@@ -6080,7 +6078,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
         v30 = a1[1];
         if (v29 <= v30)
         {
-          v31 = a1[1];
+          v31 = *(a1 + 1);
           v30 = v29;
         }
 
@@ -6097,7 +6095,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
 
         else
         {
-          v49 = a1[2];
+          v49 = *(a1 + 2);
         }
 
         if (*a1 <= v47)
@@ -6189,16 +6187,16 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
 
         else
         {
-          v7 = a1[1];
+          v7 = *(a1 + 1);
         }
 
         if (*a1 > v6)
         {
-          v5 = a1[1];
+          v5 = *(a1 + 1);
         }
 
         *a1 = v7;
-        a1[1] = v5;
+        *(a1 + 1) = v5;
         v8 = a1[3];
         v9 = *(a2 - 1);
         if (v8 > v9)
@@ -6284,7 +6282,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
 
         if (v22 <= v21)
         {
-          v19 = a1[2];
+          v19 = *(a1 + 2);
           v21 = v22;
         }
 
@@ -6625,7 +6623,7 @@ uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::greater<floa
   return result;
 }
 
-float *std::__introsort<std::_ClassicAlgPolicy,MTPointVelocityGreaterThan &,MTPoint *,false>(float *result, float *a2, uint64_t a3, uint64_t a4, char a5)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,MTPointVelocityGreaterThan &,MTPoint *,false>(uint64_t result, float *a2, uint64_t a3, uint64_t a4, char a5)
 {
   v8 = result;
 LABEL_2:
@@ -7861,7 +7859,7 @@ uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,MTPointVelocityGrea
   return result;
 }
 
-uint64_t std::vector<MTPoint>::__init_with_size[abi:ne200100]<MTPoint*,MTPoint*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<MTPoint>::__init_with_size[abi:ne200100]<MTPoint*,MTPoint*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7883,27 +7881,26 @@ void sub_52974(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::__split_buffer<MTPoint>::emplace_back<MTPoint const&>(void *result, void *a2)
+void std::__split_buffer<MTPoint>::emplace_back<MTPoint const&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<MTActionEvent_>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<MTActionEvent_>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -7912,21 +7909,20 @@ void *std::__split_buffer<MTPoint>::emplace_back<MTPoint const&>(void *result, v
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-uint64_t std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8158,13 +8154,15 @@ void __cxx_global_var_init_30_5(uint64_t a1, const char *a2)
   }
 }
 
-MTFingerToPathMap_ *MTHandMotion_::MTHandMotion_(MTFingerToPathMap_ *a1, uint64_t a2, int a3, int a4, int a5, uint64_t a6)
+MTFingerToPathMap_ *MTHandMotion_::MTHandMotion_(MTFingerToPathMap_ *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6)
 {
+  v8 = a4;
+  v9 = a3;
   MTFingerToPathMap_::MTFingerToPathMap_(a1, 1);
   *v12 = off_109728;
   *(v12 + 120) = a2;
-  *(v12 + 128) = a3;
-  *(v12 + 132) = a4;
+  *(v12 + 128) = v9;
+  *(v12 + 132) = v8;
   *(v12 + 380) = a5;
   *(v12 + 384) = a6;
   MTParameterFactory_::initMotionExtractionParams(v12 + 144);
@@ -8179,7 +8177,7 @@ void MTHandMotion_::~MTHandMotion_(MTHandMotion_ *this)
   operator delete();
 }
 
-void MTHandMotion_::clearHandMotion(MTHandMotion_ *this, int a2)
+void MTHandMotion_::clearHandMotion(MTHandMotion_ *this, uint64_t a2)
 {
   v2 = a2;
   if (a2)
@@ -8209,10 +8207,10 @@ void MTHandMotion_::clearHandMotion(MTHandMotion_ *this, int a2)
   *(this + 376) = 0;
   *(this + 46) = 0;
   MTFingerToPathMap_::clearFingerPathMappings(this);
-  v8 = MTLoggingPlugin();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v10 = MTLoggingPlugin(v8, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    MTHandMotion_::clearHandMotion(v2, v8);
+    MTHandMotion_::clearHandMotion(v2, v10);
   }
 }
 
@@ -8281,7 +8279,7 @@ void MTHandMotion_::extractHandMotion(MTHandMotion_ *this, const MTPathStates_ *
 {
   if (*(a2 + 1) - *(a2 + 2) == 0.0)
   {
-    v10 = MTLoggingPlugin();
+    v10 = MTLoggingPlugin(this, a2);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = *(a2 + 1);
@@ -8829,50 +8827,50 @@ LABEL_17:
 
 void MTHandMotion_::clipMotionToDominantAxes(MTHandMotion_ *this, double a2, int a3)
 {
-  v6 = 1.0 - exp(-a2 / *(this + 36));
-  if ((*(this + 138) & 1) != 0 || *(this + 20) != 1 && *(this + 22) != 1 && (*(this + 139) & 1) != 0 || (v7 = 1.0, *(this + 101) >= 3u))
+  v7 = 1.0 - exp(-a2 / *(this + 36));
+  if ((*(this + 138) & 1) != 0 || *(this + 20) != 1 && *(this + 22) != 1 && (*(this + 139) & 1) != 0 || (v8 = 1.0, *(this + 101) >= 3u))
   {
-    v7 = *(this + 64);
+    v8 = *(this + 64);
   }
 
-  v8 = 1.0 - v6;
-  v9 = *(this + 208);
-  v10 = *(this + 216);
-  v11 = vmlaq_n_f64(vcvtq_f64_f32(vmul_n_f32(v9, v6)), vcvtq_f64_f32(*(this + 224)), v8);
+  v9 = 1.0 - v7;
+  v10 = *(this + 208);
+  v11 = *(this + 216);
+  v12 = vmlaq_n_f64(vcvtq_f64_f32(vmul_n_f32(v10, v7)), vcvtq_f64_f32(*(this + 224)), v9);
   *(this + 63) = 1065353216;
-  v12 = vcvt_f32_f64(vmlaq_n_f64(vcvtq_f64_f32(vmul_n_f32(vmul_n_f32(v10, v7), v6)), vcvtq_f64_f32(*(this + 232)), v8));
-  *(this + 28) = vcvt_f32_f64(v11);
-  *(this + 29) = v12;
-  v13 = (sqrtf(COERCE_FLOAT(vmul_f32(v9, v9).i32[1]) + (v9.f32[0] * v9.f32[0])) * v6) + v8 * *(this + 60);
-  *(this + 60) = v13;
-  v36 = 1065353216;
+  v13 = vcvt_f32_f64(vmlaq_n_f64(vcvtq_f64_f32(vmul_n_f32(vmul_n_f32(v11, v8), v7)), vcvtq_f64_f32(*(this + 232)), v9));
+  *(this + 28) = vcvt_f32_f64(v12);
+  *(this + 29) = v13;
+  v14 = (sqrtf(COERCE_FLOAT(vmul_f32(v10, v10).i32[1]) + (v10.f32[0] * v10.f32[0])) * v7) + v9 * *(this + 60);
+  *(this + 60) = v14;
   v37 = 1065353216;
-  v14 = *(this + 32) - 2000;
-  if (v14 > 0x3E7)
+  v38 = 1065353216;
+  v15 = *(this + 32) - 2000;
+  if (v15 > 0x3E7)
   {
-    MTHandMotion_::computeTrackpadDominanceWeights(this, &v37, &v36);
-    v15 = __PAIR64__(v36, v37);
+    MTHandMotion_::computeTrackpadDominanceWeights(this, &v38, &v37);
+    v16 = __PAIR64__(v37, v38);
   }
 
   else if (*(this + 20) == 1 || *(this + 22) == 1)
   {
-    v15 = 0x3FCCCCCD3FB33333;
+    v16 = 0x3FCCCCCD3FB33333;
   }
 
   else
   {
-    v15 = 0x3F99999A3F8CCCCDLL;
+    v16 = 0x3F99999A3F8CCCCDLL;
   }
 
-  v16 = vmul_f32(vabs_f32(v12), v15);
-  if (v16.f32[0] <= v16.f32[1])
+  v17 = vmul_f32(vabs_f32(v13), v16);
+  if (v17.f32[0] <= v17.f32[1])
   {
-    v17 = v16.f32[1];
+    v18 = v17.f32[1];
   }
 
   else
   {
-    v17 = v16.f32[0];
+    v18 = v17.f32[0];
   }
 
   *(this + 284) = *(this + 14);
@@ -8889,11 +8887,11 @@ void MTHandMotion_::clipMotionToDominantAxes(MTHandMotion_ *this, double a2, int
     }
   }
 
-  if (v17 < v13)
+  if (v18 < v14)
   {
-    if (v13 > 0.0)
+    if (v14 > 0.0)
     {
-      *(this + 63) = v17 / v13;
+      *(this + 63) = v18 / v14;
     }
 
     if (*(this + 153) == 1)
@@ -8921,18 +8919,18 @@ LABEL_43:
     goto LABEL_49;
   }
 
-  if (v17 > 0.0)
+  if (v18 > 0.0)
   {
-    *(this + 63) = v13 / v17;
+    *(this + 63) = v14 / v18;
   }
 
-  v18 = *(this + 153);
-  if (v18 == 1)
+  v19 = *(this + 153);
+  if (v19 == 1)
   {
     *(this + 284) = 0;
   }
 
-  v19 = *(this + 152);
+  v20 = *(this + 152);
   if ((a3 & 3) == 0 && *(this + 152))
   {
     *(this + 24) = 0;
@@ -8940,24 +8938,24 @@ LABEL_43:
 
   if (a3)
   {
-    v20 = 1;
+    v21 = 1;
   }
 
   else
   {
-    v20 = 2;
+    v21 = 2;
   }
 
-  if (v16.f32[0] <= (v16.f32[1] * v20))
+  if (v17.f32[0] <= (v17.f32[1] * v21))
   {
-    if (v16.f32[1] > (v16.f32[0] * v20))
+    if (v17.f32[1] > (v17.f32[0] * v21))
     {
-      if (v18)
+      if (v19)
       {
         *(this + 73) = 0;
       }
 
-      if (v19)
+      if (v20)
       {
         *(this + 50) = 0;
       }
@@ -8966,32 +8964,32 @@ LABEL_43:
 
   else
   {
-    if (v18)
+    if (v19)
     {
       *(this + 74) = 0;
     }
 
-    if (v19)
+    if (v20)
     {
       goto LABEL_43;
     }
   }
 
 LABEL_49:
-  v21 = *(this + 71);
-  if (v14 >= 0x3E8)
+  v22 = *(this + 71);
+  if (v15 >= 0x3E8)
   {
-    v23 = fabsf(v21);
+    v24 = fabsf(v22);
   }
 
   else
   {
-    v22 = 1.0 / tanf(0.38397);
-    v23 = fabsf(v21);
-    v24 = fabsf(*(this + 72));
-    if (v23 <= (v22 * v24))
+    v23 = 1.0 / tanf(0.38397);
+    v24 = fabsf(v22);
+    v25 = fabsf(*(this + 72));
+    if (v24 <= (v23 * v25))
     {
-      if (v24 > (v22 * v23))
+      if (v25 > (v23 * v24))
       {
         *(this + 48) = 0;
       }
@@ -9002,11 +9000,11 @@ LABEL_49:
       *(this + 49) = 0;
     }
 
-    v25 = fabsf(*(this + 48));
-    v26 = fabsf(*(this + 49));
-    if (v25 <= (v22 * v26))
+    v26 = fabsf(*(this + 48));
+    v27 = fabsf(*(this + 49));
+    if (v26 <= (v23 * v27))
     {
-      if (v26 > (v22 * v25))
+      if (v27 > (v23 * v26))
       {
         *(this + 48) = 0;
       }
@@ -9018,86 +9016,86 @@ LABEL_49:
     }
   }
 
-  v27 = *(this + 37);
-  v28 = 0.0;
-  v29 = v23 < v27;
-  v30 = 0.0;
-  if (!v29)
+  v28 = *(this + 37);
+  v29 = 0.0;
+  v30 = v24 < v28;
+  v31 = 0.0;
+  if (!v30)
   {
-    if (v21 <= 0.0)
+    if (v22 <= 0.0)
     {
-      v30 = v21 + v27;
+      v31 = v22 + v28;
     }
 
     else
     {
-      v30 = v21 - v27;
+      v31 = v22 - v28;
     }
   }
 
-  *(this + 71) = v30;
-  v31 = *(this + 72);
-  if (fabsf(v31) >= v27)
-  {
-    if (v31 <= 0.0)
-    {
-      v28 = v27 + v31;
-    }
-
-    else
-    {
-      v28 = v31 - v27;
-    }
-  }
-
-  *(this + 72) = v28;
-  v32 = *(this + 73);
-  v33 = 0.0;
-  v34 = 0.0;
-  if (fabsf(v32) >= v27)
+  *(this + 71) = v31;
+  v32 = *(this + 72);
+  if (fabsf(v32) >= v28)
   {
     if (v32 <= 0.0)
     {
-      v34 = v27 + v32;
+      v29 = v28 + v32;
     }
 
     else
     {
-      v34 = v32 - v27;
+      v29 = v32 - v28;
     }
   }
 
-  *(this + 73) = v34;
-  v35 = *(this + 74);
-  if (fabsf(v35) >= v27)
+  *(this + 72) = v29;
+  v33 = *(this + 73);
+  v34 = 0.0;
+  v35 = 0.0;
+  if (fabsf(v33) >= v28)
   {
-    if (v35 <= 0.0)
+    if (v33 <= 0.0)
     {
-      v33 = v27 + v35;
+      v35 = v28 + v33;
     }
 
     else
     {
-      v33 = v35 - v27;
+      v35 = v33 - v28;
     }
   }
 
-  *(this + 74) = v33;
-  MTHandMotion_::convertPixelDeltasTo_mm_s(this, a2);
+  *(this + 73) = v35;
+  v36 = *(this + 74);
+  if (fabsf(v36) >= v28)
+  {
+    if (v36 <= 0.0)
+    {
+      v34 = v28 + v36;
+    }
+
+    else
+    {
+      v34 = v36 - v28;
+    }
+  }
+
+  *(this + 74) = v34;
+  MTHandMotion_::convertPixelDeltasTo_mm_s(this, a2, v6);
 
   MTHandMotion_::convertPixelVelocitiesTo_mm_s(this);
 }
 
-void MTHandMotion_::convertPixelDeltasTo_mm_s(MTHandMotion_ *this, double a2)
+void MTHandMotion_::convertPixelDeltasTo_mm_s(MTHandMotion_ *this, double a2, uint64_t a3)
 {
-  v7.x = *(this + 48);
-  v7.y = *(this + 49);
-  *(this + 79) = MTSurfaceDimensions_::convertPixelDeltasToMillimetersPerSecond(*(this + 15), v7, a2).u32[0];
-  *(this + 80) = v4;
-  MTSurfaceDimensions_::convertPixelDeltaToMillimetersPerSecond(*(this + 15), *(this + 50), a2);
-  *(this + 81) = v5;
-  MTSurfaceDimensions_::convertPixelDeltaToMillimetersPerSecond(*(this + 15), *(this + 51), a2);
-  *(this + 82) = v6;
+  v10.x = *(this + 48);
+  v10.y = *(this + 49);
+  *(this + 79) = MTSurfaceDimensions_::convertPixelDeltasToMillimetersPerSecond(*(this + 15), v10, a2, a3).u32[0];
+  *(this + 80) = v5;
+  MTSurfaceDimensions_::convertPixelDeltaToMillimetersPerSecond(*(this + 15), *(this + 50), a2, v6);
+  *(this + 81) = v7;
+  MTSurfaceDimensions_::convertPixelDeltaToMillimetersPerSecond(*(this + 15), *(this + 51), a2, v8);
+  *(this + 82) = v9;
 }
 
 void MTHandMotion_::convertPixelVelocitiesTo_mm_s(MTHandMotion_ *this)
@@ -9548,8 +9546,8 @@ BOOL MTForceBehavior_::addStage(MTForceBehavior_ *a1, int a2, int a3, int a4, fl
   if (a2 >= 1)
   {
     v13 = &a1->var5.var0[2 * a2];
-    *(v13 - 8) = a6;
-    *(v13 - 4) = a5;
+    *(v13 - 2) = a6;
+    *(v13 - 1) = a5;
   }
 
   result = MTForceBehavior_::isThresholdLadderMonotonic(&a1->var5.var0);

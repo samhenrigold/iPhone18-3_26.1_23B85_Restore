@@ -9,25 +9,25 @@
 
 - (uint64_t)_commonInitializationWithFrameName:()WebPrivate groupName:
 {
-  v4 = WTF::fastMalloc(0x28);
-  result = WebCore::LocalFrameLoaderClient::LocalFrameLoaderClient(v4, self);
-  *(v4 + 2) = 0;
-  *(v4 + 3) = 0;
-  *v4 = &unk_1F472B518;
-  *(v4 + 4) = 0;
-  *a2 = v4;
+  v5 = WTF::fastMalloc(0x28);
+  result = WebCore::LocalFrameLoaderClient::LocalFrameLoaderClient(v5, a2);
+  *(v5 + 2) = 0;
+  *(v5 + 3) = 0;
+  *v5 = &unk_1F472B518;
+  *(v5 + 4) = 0;
+  *a3 = v5;
   return result;
 }
 
 - (uint64_t)initSimpleHTMLDocumentWithStyle:()WebPrivate frame:preferences:groupName:
 {
-  v4 = WTF::fastMalloc(0x28);
-  result = WebCore::LocalFrameLoaderClient::LocalFrameLoaderClient(v4, self);
-  *(v4 + 2) = 0;
-  *(v4 + 3) = 0;
-  *v4 = &unk_1F472B518;
-  *(v4 + 4) = 0;
-  *a2 = v4;
+  v5 = WTF::fastMalloc(0x28);
+  result = WebCore::LocalFrameLoaderClient::LocalFrameLoaderClient(v5, a2);
+  *(v5 + 2) = 0;
+  *(v5 + 3) = 0;
+  *v5 = &unk_1F472B518;
+  *(v5 + 4) = 0;
+  *a3 = v5;
   return result;
 }
 

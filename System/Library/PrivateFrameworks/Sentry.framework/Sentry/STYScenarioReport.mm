@@ -196,36 +196,31 @@
 
 - (void)initWithSignpostInterval:(os_log_t)log scenario:error:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 134217984;
-  v3 = 0x3FF999999999999ALL;
-  _os_log_debug_impl(&dword_2656CE000, log, OS_LOG_TYPE_DEBUG, "Device is not memory constrained reducing the threshold by a fraction of %f", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 134217984;
+  v2 = 0x3FF999999999999ALL;
+  _os_log_debug_impl(&dword_2656CE000, log, OS_LOG_TYPE_DEBUG, "Device is not memory constrained reducing the threshold by a fraction of %f", &v1, 0xCu);
 }
 
 - (void)initWithSignpostInterval:(void *)a1 scenario:(NSObject *)a2 error:.cold.2(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 scenarioID];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_debug_impl(&dword_2656CE000, a2, OS_LOG_TYPE_DEBUG, "[Signpost: %@] Signpost interval is whitelisted", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_debug_impl(&dword_2656CE000, a2, OS_LOG_TYPE_DEBUG, "[Signpost: %@] Signpost interval is whitelisted", &v4, 0xCu);
 }
 
 - (void)initWithSignpostInterval:(void *)a1 scenario:(float *)a2 error:(NSObject *)a3 .cold.3(void *a1, float *a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = [a1 scenarioID];
   v6 = *a2;
-  v8 = 138412546;
-  v9 = v5;
-  v10 = 2048;
-  v11 = v6;
-  _os_log_debug_impl(&dword_2656CE000, a3, OS_LOG_TYPE_DEBUG, "[Signpost: %@] The target latency is %.0f ms", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412546;
+  v8 = v5;
+  v9 = 2048;
+  v10 = v6;
+  _os_log_debug_impl(&dword_2656CE000, a3, OS_LOG_TYPE_DEBUG, "[Signpost: %@] The target latency is %.0f ms", &v7, 0x16u);
 }
 
 @end

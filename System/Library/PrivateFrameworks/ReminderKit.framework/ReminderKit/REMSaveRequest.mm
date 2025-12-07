@@ -77,6 +77,7 @@
 - (void)preFetchDueDateDeltaAlertsForCompletedRecurrenceClone;
 - (void)preFlightActionSaveAndUpdateParentsOfRecurrentSubtasksWithLogPrefix:(id)prefix;
 - (void)saveWithQueue:(id)queue completion:(id)completion;
+- (void)updateReminderChangeItem:(id)item fromICSTodo:(id)todo icsCalendar:(id)calendar isNew:(BOOL)new withOptions:(id)options;
 - (void)updateUIDInReminderChangeItem:(id)item fromICSComponent:(id)component icsCalendar:(id)calendar;
 @end
 
@@ -84,7 +85,7 @@
 
 - (id)importRemindersFromICSData:(id)data insertIntoListChangeItem:(id)item error:(id *)error
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   itemCopy = item;
   array = [MEMORY[0x1E695DF70] array];
@@ -94,13 +95,13 @@
   {
     objectID = [itemCopy objectID];
     *buf = 138412290;
-    v52 = objectID;
+    v51 = objectID;
     _os_log_impl(&dword_19A0DB000, v12, OS_LOG_TYPE_INFO, "Importing ICS data into list change item {%@}.", buf, 0xCu);
   }
 
-  v50 = 0;
-  v14 = [objc_alloc(MEMORY[0x1E69E3CB0]) initWithData:dataCopy options:0 error:&v50];
-  v15 = v50;
+  v49 = 0;
+  v14 = [objc_alloc(MEMORY[0x1E69E3CB0]) initWithData:dataCopy options:0 error:&v49];
+  v15 = v49;
   if (v15 || !v14)
   {
     v34 = +[REMLogStore write];
@@ -124,44 +125,44 @@
       [saveRequest setUpdateLastModifiedDates:0];
     }
 
-    v39 = dataCopy;
+    v38 = dataCopy;
     v17 = saveRequest;
     if ([saveRequest cloneCompletedRecurrentRemindersAtSave])
     {
       [saveRequest setCloneCompletedRecurrentRemindersAtSave:0];
     }
 
-    v38 = v14;
+    v37 = v14;
     [v14 calendar];
+    v45 = 0u;
     v46 = 0u;
     v47 = 0u;
-    v48 = 0u;
-    v45 = v49 = 0u;
-    obj = [v45 componentKeys];
-    v44 = [obj countByEnumeratingWithState:&v46 objects:v55 count:16];
-    if (v44)
+    v44 = v48 = 0u;
+    obj = [v44 componentKeys];
+    v43 = [obj countByEnumeratingWithState:&v45 objects:v54 count:16];
+    if (v43)
     {
-      v43 = *v47;
-      v40 = saveRequest;
-      v41 = array;
+      v42 = *v46;
+      v39 = saveRequest;
+      v40 = array;
       do
       {
-        for (i = 0; i != v44; ++i)
+        for (i = 0; i != v43; ++i)
         {
-          if (*v47 != v43)
+          if (*v46 != v42)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v46 + 1) + 8 * i);
-          v20 = [v45 componentForKey:v19];
+          v19 = *(*(&v45 + 1) + 8 * i);
+          v20 = [v44 componentForKey:v19];
           if (!v20)
           {
             write = [*(v11 + 3368) write];
             if (os_log_type_enabled(write, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v52 = v19;
+              v51 = v19;
               _os_log_impl(&dword_19A0DB000, write, OS_LOG_TYPE_INFO, "Could not find a component with {key: %@}.", buf, 0xCu);
             }
           }
@@ -174,8 +175,8 @@
             rem_nonNilSummary = [v23 rem_nonNilSummary];
             v26 = [v17 addReminderWithTitle:rem_nonNilSummary toListChangeItem:itemCopy];
 
-            [(REMSaveRequest *)self _populateReminderChangeItem:v26 withICSTodoItem:v24 icsCalendar:v45 isNew:1 withOptions:0];
-            v27 = [(REMSaveRequest *)self _iCalendarDataFromICSTodoItem:v24 icsCalendar:v45];
+            [(REMSaveRequest *)self _populateReminderChangeItem:v26 withICSTodoItem:v24 icsCalendar:v44 isNew:1 withOptions:0];
+            v27 = [(REMSaveRequest *)self _iCalendarDataFromICSTodoItem:v24 icsCalendar:v44];
             [v26 setImportedICSData:v27];
 
             [array addObject:v26];
@@ -188,47 +189,69 @@
               selfCopy = self;
               v33 = v32 = itemCopy;
               *buf = 138412546;
-              v52 = objectID2;
-              v53 = 2112;
-              v54 = v33;
+              v51 = objectID2;
+              v52 = 2112;
+              v53 = v33;
               _os_log_impl(&dword_19A0DB000, write2, OS_LOG_TYPE_INFO, "Added ICSTodo as reminder change item into list change item {reminder: %@, list: %@}.", buf, 0x16u);
 
               itemCopy = v32;
               self = selfCopy;
               v11 = v30;
-              v17 = v40;
+              v17 = v39;
 
-              array = v41;
+              array = v40;
             }
           }
         }
 
-        v44 = [obj countByEnumeratingWithState:&v46 objects:v55 count:16];
+        v43 = [obj countByEnumeratingWithState:&v45 objects:v54 count:16];
       }
 
-      while (v44);
+      while (v43);
     }
 
-    v14 = v38;
-    dataCopy = v39;
+    v14 = v37;
+    dataCopy = v38;
     v15 = 0;
   }
 
-  v36 = *MEMORY[0x1E69E9840];
-
   return array;
+}
+
+- (void)updateReminderChangeItem:(id)item fromICSTodo:(id)todo icsCalendar:(id)calendar isNew:(BOOL)new withOptions:(id)options
+{
+  newCopy = new;
+  optionsCopy = options;
+  calendarCopy = calendar;
+  todoCopy = todo;
+  itemCopy = item;
+  saveRequest = [itemCopy saveRequest];
+  if ([saveRequest updateLastModifiedDates])
+  {
+    [saveRequest setUpdateLastModifiedDates:0];
+  }
+
+  if ([saveRequest cloneCompletedRecurrentRemindersAtSave])
+  {
+    [saveRequest setCloneCompletedRecurrentRemindersAtSave:0];
+  }
+
+  [(REMSaveRequest *)self _populateReminderChangeItem:itemCopy withICSTodoItem:todoCopy icsCalendar:calendarCopy isNew:newCopy withOptions:optionsCopy];
+  v16 = [(REMSaveRequest *)self _iCalendarDataFromICSTodoItem:todoCopy icsCalendar:calendarCopy];
+
+  [itemCopy setImportedICSData:v16];
 }
 
 - (BOOL)updateReminderChangeItem:(id)item fromICSData:(id)data isNew:(BOOL)new withOptions:(id)options error:(id *)error
 {
   newCopy = new;
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   dataCopy = data;
   optionsCopy = options;
-  v44 = 0;
-  v15 = [objc_alloc(MEMORY[0x1E69E3CB0]) initWithData:dataCopy options:0 error:&v44];
-  v16 = v44;
+  v43 = 0;
+  v15 = [objc_alloc(MEMORY[0x1E69E3CB0]) initWithData:dataCopy options:0 error:&v43];
+  v16 = v43;
   if (v16)
   {
     v17 = 1;
@@ -263,31 +286,31 @@
   else
   {
     selfCopy = self;
-    v39 = newCopy;
+    v38 = newCopy;
     calendar = [v15 calendar];
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     componentKeys = [calendar componentKeys];
-    v23 = [componentKeys countByEnumeratingWithState:&v40 objects:v47 count:16];
+    v23 = [componentKeys countByEnumeratingWithState:&v39 objects:v46 count:16];
     if (v23)
     {
       v24 = v23;
-      v35 = v16;
-      v36 = v15;
-      v37 = optionsCopy;
-      v25 = *v41;
+      v34 = v16;
+      v35 = v15;
+      v36 = optionsCopy;
+      v25 = *v40;
       while (2)
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v41 != v25)
+          if (*v40 != v25)
           {
             objc_enumerationMutation(componentKeys);
           }
 
-          v27 = *(*(&v40 + 1) + 8 * i);
+          v27 = *(*(&v39 + 1) + 8 * i);
           v28 = [calendar componentForKey:v27];
           if (!v28)
           {
@@ -295,7 +318,7 @@
             if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v46 = v27;
+              v45 = v27;
               _os_log_impl(&dword_19A0DB000, v29, OS_LOG_TYPE_INFO, "Could not find a component with {key: %@}.", buf, 0xCu);
             }
           }
@@ -305,15 +328,15 @@
           if (v31)
           {
             v32 = v31;
-            optionsCopy = v37;
-            [(REMSaveRequest *)selfCopy updateReminderChangeItem:itemCopy fromICSTodo:v31 icsCalendar:calendar isNew:v39 withOptions:v37];
+            optionsCopy = v36;
+            [(REMSaveRequest *)selfCopy updateReminderChangeItem:itemCopy fromICSTodo:v31 icsCalendar:calendar isNew:v38 withOptions:v36];
 
             v20 = 1;
             goto LABEL_24;
           }
         }
 
-        v24 = [componentKeys countByEnumeratingWithState:&v40 objects:v47 count:16];
+        v24 = [componentKeys countByEnumeratingWithState:&v39 objects:v46 count:16];
         if (v24)
         {
           continue;
@@ -323,10 +346,10 @@
       }
 
       v20 = 0;
-      optionsCopy = v37;
+      optionsCopy = v36;
 LABEL_24:
-      v16 = v35;
-      v15 = v36;
+      v16 = v34;
+      v15 = v35;
     }
 
     else
@@ -335,13 +358,12 @@ LABEL_24:
     }
   }
 
-  v33 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
 - (void)updateUIDInReminderChangeItem:(id)item fromICSComponent:(id)component icsCalendar:(id)calendar
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   componentCopy = component;
   calendarCopy = calendar;
@@ -372,30 +394,28 @@ LABEL_24:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       objectID = [itemCopy objectID];
-      v19 = 138412546;
-      v20 = objectID;
-      v21 = 2112;
-      v22 = v12;
-      _os_log_impl(&dword_19A0DB000, v16, OS_LOG_TYPE_INFO, "Setting ICS item UID to reminder change item {%@, uid: %@}.", &v19, 0x16u);
+      v18 = 138412546;
+      v19 = objectID;
+      v20 = 2112;
+      v21 = v12;
+      _os_log_impl(&dword_19A0DB000, v16, OS_LOG_TYPE_INFO, "Setting ICS item UID to reminder change item {%@, uid: %@}.", &v18, 0x16u);
     }
 
     [itemCopy setDaCalendarItemUniqueIdentifier:v12];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_iCalendarDataFromICSTodoItem:(id)item icsCalendar:(id)calendar
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   itemCopy = item;
   calendarCopy = calendar;
   v7 = objc_alloc_init(MEMORY[0x1E69E3C68]);
   if (v7)
   {
     [v7 setX_calendarserver_access:{objc_msgSend(calendarCopy, "x_calendarserver_access")}];
-    v12[0] = itemCopy;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+    v11[0] = itemCopy;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
     [v7 setComponents:v8 options:2];
 
     v9 = _iCalendarDataFromICSCalendar(v7, 1);
@@ -406,15 +426,13 @@ LABEL_24:
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (void)_populateReminderChangeItem:(id)item withICSTodoItem:(id)todoItem icsCalendar:(id)calendar isNew:(BOOL)new withOptions:(id)options
 {
   newCopy = new;
-  v71 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   todoItemCopy = todoItem;
   calendarCopy = calendar;
@@ -436,7 +454,7 @@ LABEL_24:
     last_modified = [todoItemCopy dtstamp];
   }
 
-  v62 = last_modified;
+  v61 = last_modified;
   rem_dateAsUTC = [last_modified rem_dateAsUTC];
   [itemCopy setLastModifiedDate:rem_dateAsUTC];
 
@@ -446,7 +464,7 @@ LABEL_24:
   [itemCopy setCreationDate:rem_dateAsUTC2];
   [itemCopy setPriority:{objc_msgSend(todoItemCopy, "priority")}];
   v22 = [(REMSaveRequest *)self icsDueOrEndDateWithICSCalendarItem:todoItemCopy options:optionsCopy];
-  v65 = v22;
+  v64 = v22;
   if (v22)
   {
     v23 = v22;
@@ -463,9 +481,9 @@ LABEL_24:
     [itemCopy setDueDateComponents:0];
   }
 
-  v61 = rem_dateAsUTC2;
-  v63 = optionsCopy;
-  v64 = calendarCopy;
+  v60 = rem_dateAsUTC2;
+  v62 = optionsCopy;
+  v63 = calendarCopy;
   [(REMSaveRequest *)self updateUIDInReminderChangeItem:itemCopy fromICSComponent:todoItemCopy icsCalendar:calendarCopy];
   v27 = [todoItemCopy url];
 
@@ -476,26 +494,26 @@ LABEL_24:
   }
 
   array = [MEMORY[0x1E695DF70] array];
+  v65 = 0u;
   v66 = 0u;
   v67 = 0u;
   v68 = 0u;
-  v69 = 0u;
   components2 = [todoItemCopy components];
-  v31 = [components2 countByEnumeratingWithState:&v66 objects:v70 count:16];
+  v31 = [components2 countByEnumeratingWithState:&v65 objects:v69 count:16];
   if (v31)
   {
     v32 = v31;
-    v33 = *v67;
+    v33 = *v66;
     do
     {
       for (i = 0; i != v32; ++i)
       {
-        if (*v67 != v33)
+        if (*v66 != v33)
         {
           objc_enumerationMutation(components2);
         }
 
-        v35 = *(*(&v66 + 1) + 8 * i);
+        v35 = *(*(&v65 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -503,14 +521,14 @@ LABEL_24:
         }
       }
 
-      v32 = [components2 countByEnumeratingWithState:&v66 objects:v70 count:16];
+      v32 = [components2 countByEnumeratingWithState:&v65 objects:v69 count:16];
     }
 
     while (v32);
   }
 
-  [(REMSaveRequest *)self _populateAlarmsInReminderChangeItem:itemCopy withICSAlarms:array icsCalendar:v64];
-  [(REMSaveRequest *)self _populateRecurrencesInReminderChangeItem:itemCopy withICSComponent:todoItemCopy icsCalendar:v64];
+  [(REMSaveRequest *)self _populateAlarmsInReminderChangeItem:itemCopy withICSAlarms:array icsCalendar:v63];
+  [(REMSaveRequest *)self _populateRecurrencesInReminderChangeItem:itemCopy withICSComponent:todoItemCopy icsCalendar:v63];
   completed = [todoItemCopy completed];
   rem_dateAsUTC3 = [completed rem_dateAsUTC];
 
@@ -518,9 +536,9 @@ LABEL_24:
   {
     if ([todoItemCopy percentComplete] == 100 || objc_msgSend(todoItemCopy, "status") == 4)
     {
-      if (v65)
+      if (v64)
       {
-        [v65 rem_dateWithICSCalendar:v64];
+        [v64 rem_dateWithICSCalendar:v63];
       }
 
       else
@@ -570,10 +588,10 @@ LABEL_24:
   }
 
   x_apple_sort_order = [todoItemCopy x_apple_sort_order];
-  if (!x_apple_sort_order && !v61)
+  if (!x_apple_sort_order && !v60)
   {
     v53 = +[REMLogStore write];
-    v54 = v63;
+    v54 = v62;
     if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
     {
       [REMSaveRequest(Importing) _populateReminderChangeItem:todoItemCopy withICSTodoItem:? icsCalendar:? isNew:? withOptions:?];
@@ -586,7 +604,7 @@ LABEL_24:
   }
 
   [itemCopy setIcsDisplayOrder:x_apple_sort_order];
-  v54 = v63;
+  v54 = v62;
   if (newCopy)
   {
     date = [itemCopy listChangeItem];
@@ -598,7 +616,6 @@ LABEL_40:
   rem_dateAsUTC4 = [x_apple_alternative_due_date_for_calendar rem_dateAsUTC];
 
   [itemCopy setAlternativeDisplayDateDateForCalendarWithNormalizedDate:rem_dateAsUTC4];
-  v59 = *MEMORY[0x1E69E9840];
 }
 
 - (id)icsDueOrEndDateWithICSCalendarItem:(id)item options:(id)options
@@ -629,34 +646,34 @@ LABEL_7:
 
 - (void)_populateAlarmsInReminderChangeItem:(id)item withICSAlarms:(id)alarms icsCalendar:(id)calendar
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   alarmsCopy = alarms;
   calendarCopy = calendar;
   [itemCopy removeAllAlarms];
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v11 = alarmsCopy;
-  v12 = [v11 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v30;
-    v27 = *v30;
-    v28 = itemCopy;
-    v26 = v11;
+    v14 = *v29;
+    v26 = *v29;
+    v27 = itemCopy;
+    v25 = v11;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v30 != v14)
+        if (*v29 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v29 + 1) + 8 * i);
+        v16 = *(*(&v28 + 1) + 8 * i);
         if (![v16 action])
         {
           trigger = [v16 trigger];
@@ -677,10 +694,10 @@ LABEL_7:
             v13 = v22;
             self = v20;
             calendarCopy = v19;
-            v11 = v26;
-            v14 = v27;
+            v11 = v25;
+            v14 = v26;
 
-            itemCopy = v28;
+            itemCopy = v27;
             if (v24)
             {
               continue;
@@ -691,18 +708,16 @@ LABEL_7:
         [(REMSaveRequest *)self _addAlarmsToReminderChangeItem:itemCopy withICSAlarm:v16 icsCalendar:calendarCopy];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v13);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_addAlarmsToReminderChangeItem:(id)item withICSAlarm:(id)alarm icsCalendar:(id)calendar
 {
-  v106 = *MEMORY[0x1E69E9840];
+  v105 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   alarmCopy = alarm;
   calendarCopy = calendar;
@@ -729,16 +744,16 @@ LABEL_7:
     {
       objectID = [itemCopy objectID];
       *buf = 138412546;
-      v103 = makeUID;
-      v104 = 2112;
-      v105 = objectID;
+      v102 = makeUID;
+      v103 = 2112;
+      v104 = objectID;
       _os_log_impl(&dword_19A0DB000, v14, OS_LOG_TYPE_INFO, "Imported ICS alarm has no UID, generating one {alarmUID: %@, reminderID: %@}.", buf, 0x16u);
     }
   }
 
   trigger = [alarmCopy trigger];
   isDurationBased = [trigger isDurationBased];
-  v91 = trigger;
+  v90 = trigger;
   value = [trigger value];
   if (isDurationBased)
   {
@@ -806,7 +821,7 @@ LABEL_7:
 
   x_apple_structured_location = [alarmCopy x_apple_structured_location];
   location = [alarmCopy location];
-  v90 = x_apple_structured_location;
+  v89 = x_apple_structured_location;
   if (v28 | v30 || x_apple_structured_location | location)
   {
     if ((v28 | v30) != 0 && (x_apple_structured_location | location) != 0)
@@ -821,9 +836,9 @@ LABEL_7:
       {
         objectID2 = [itemCopy objectID];
         *buf = 138412546;
-        v103 = makeUID;
-        v104 = 2112;
-        v105 = objectID2;
+        v102 = makeUID;
+        v103 = 2112;
+        v104 = objectID2;
         _os_log_impl(&dword_19A0DB000, v32, OS_LOG_TYPE_INFO, "Importing a Proximity/Location trigger when we have already imported a TimeInterval/Date trigger from the same ICSAlarm. So we found a concrete case that they co-exist. {alarmUID: %@, reminderID: %@}", buf, 0x16u);
       }
     }
@@ -856,15 +871,15 @@ LABEL_38:
         }
 
 LABEL_39:
-        v85 = itemCopy;
+        v84 = itemCopy;
         v35 = alarmCopy;
         x_apple_structured_location2 = [v35 x_apple_structured_location];
         location2 = [v35 location];
 
         if (x_apple_structured_location2)
         {
-          v87 = calendarCopy;
-          v83 = array;
+          v86 = calendarCopy;
+          v82 = array;
           v38 = [REMStructuredLocation alloc];
           title = [x_apple_structured_location2 title];
           v40 = [(REMStructuredLocation *)v38 initWithTitle:title];
@@ -874,13 +889,13 @@ LABEL_39:
           lowercaseString = [scheme lowercaseString];
           v44 = [lowercaseString isEqualToString:@"geo"];
 
-          v84 = value2;
+          v83 = value2;
           if (v44)
           {
             absoluteString = [value2 absoluteString];
             v46 = [absoluteString substringFromIndex:4];
             v47 = [v46 rangeOfString:@";"];
-            v81 = location2;
+            v80 = location2;
             if (v48)
             {
               v49 = [v46 substringToIndex:v47];
@@ -888,9 +903,9 @@ LABEL_39:
               v46 = v49;
             }
 
-            calendarCopy = v87;
+            calendarCopy = v86;
             v50 = makeUID;
-            v51 = [v46 componentsSeparatedByString:{@", ", v81}];
+            v51 = [v46 componentsSeparatedByString:{@", ", v80}];
             if ([v51 count] == 2)
             {
               v52 = [v51 objectAtIndex:0];
@@ -908,13 +923,13 @@ LABEL_39:
               if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412290;
-                v103 = v46;
+                v102 = v46;
                 _os_log_impl(&dword_19A0DB000, v53, OS_LOG_TYPE_INFO, "Ignoring invalid coordinates when converting location from ICS: %@", buf, 0xCu);
               }
             }
 
             makeUID = v50;
-            location2 = v82;
+            location2 = v81;
           }
 
           else
@@ -923,11 +938,11 @@ LABEL_39:
             if (os_log_type_enabled(absoluteString, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v103 = value2;
+              v102 = value2;
               _os_log_impl(&dword_19A0DB000, absoluteString, OS_LOG_TYPE_INFO, "Ignoring unexpected location URL scheme when converting location from ICS: %@.", buf, 0xCu);
             }
 
-            calendarCopy = v87;
+            calendarCopy = v86;
           }
 
           v54 = [x_apple_structured_location2 parameterValueForName:@"X-APPLE-RADIUS"];
@@ -963,7 +978,7 @@ LABEL_39:
             [(REMStructuredLocation *)v40 setMapKitHandle:mapKitHandle];
           }
 
-          array = v83;
+          array = v82;
         }
 
         else
@@ -977,7 +992,7 @@ LABEL_39:
         }
 
         v30 = [[REMAlarmLocationTrigger alloc] initWithStructuredLocation:v40 proximity:v28];
-        itemCopy = v85;
+        itemCopy = v84;
 LABEL_67:
         v61 = [itemCopy addAlarmWithTrigger:v30];
         [v61 setAlarmUID:makeUID];
@@ -1011,29 +1026,29 @@ LABEL_68:
     v65 = 0;
   }
 
-  v98 = 0u;
-  v99 = 0u;
-  v96 = 0u;
   v97 = 0u;
+  v98 = 0u;
+  v95 = 0u;
+  v96 = 0u;
   v66 = array;
-  v67 = [v66 countByEnumeratingWithState:&v96 objects:v101 count:16];
+  v67 = [v66 countByEnumeratingWithState:&v95 objects:v100 count:16];
   if (v67)
   {
     v68 = v67;
-    v69 = *v97;
+    v69 = *v96;
     do
     {
       for (i = 0; i != v68; ++i)
       {
-        if (*v97 != v69)
+        if (*v96 != v69)
         {
           objc_enumerationMutation(v66);
         }
 
-        [*(*(&v96 + 1) + 8 * i) setAcknowledgedDate:v65];
+        [*(*(&v95 + 1) + 8 * i) setAcknowledgedDate:v65];
       }
 
-      v68 = [v66 countByEnumeratingWithState:&v96 objects:v101 count:16];
+      v68 = [v66 countByEnumeratingWithState:&v95 objects:v100 count:16];
     }
 
     while (v68);
@@ -1043,79 +1058,75 @@ LABEL_68:
 
   if (relatedTo)
   {
-    v86 = makeUID;
-    v88 = calendarCopy;
+    v85 = makeUID;
+    v87 = calendarCopy;
     v72 = itemCopy;
-    v94 = 0u;
-    v95 = 0u;
-    v92 = 0u;
     v93 = 0u;
+    v94 = 0u;
+    v91 = 0u;
+    v92 = 0u;
     v73 = v66;
-    v74 = [v73 countByEnumeratingWithState:&v92 objects:v100 count:16];
+    v74 = [v73 countByEnumeratingWithState:&v91 objects:v99 count:16];
     if (v74)
     {
       v75 = v74;
-      v76 = *v93;
+      v76 = *v92;
       do
       {
         for (j = 0; j != v75; ++j)
         {
-          if (*v93 != v76)
+          if (*v92 != v76)
           {
             objc_enumerationMutation(v73);
           }
 
-          v78 = *(*(&v92 + 1) + 8 * j);
+          v78 = *(*(&v91 + 1) + 8 * j);
           relatedTo2 = [alarmCopy relatedTo];
           [v78 setOriginalAlarmUID:relatedTo2];
         }
 
-        v75 = [v73 countByEnumeratingWithState:&v92 objects:v100 count:16];
+        v75 = [v73 countByEnumeratingWithState:&v91 objects:v99 count:16];
       }
 
       while (v75);
     }
 
     itemCopy = v72;
-    makeUID = v86;
-    calendarCopy = v88;
+    makeUID = v85;
+    calendarCopy = v87;
   }
-
-  v80 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_populateRecurrencesInReminderChangeItem:(id)item withICSComponent:(id)component icsCalendar:(id)calendar
 {
-  v85 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   componentCopy = component;
   [itemCopy removeAllRecurrenceRules];
-  v74 = 0u;
-  v75 = 0u;
+  v71 = 0u;
   v72 = 0u;
-  v73 = 0u;
-  v53 = componentCopy;
+  v69 = 0u;
+  v70 = 0u;
+  v50 = componentCopy;
   obj = [componentCopy rrule];
-  v8 = [obj countByEnumeratingWithState:&v72 objects:v80 count:16];
+  v8 = [obj countByEnumeratingWithState:&v69 objects:v77 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v73;
-    v11 = 0x1E696A000uLL;
-    v54 = *v73;
+    v10 = *v70;
+    v51 = *v70;
     do
     {
-      v12 = 0;
-      v55 = v9;
+      v11 = 0;
+      v52 = v9;
       do
       {
-        if (*v73 != v10)
+        if (*v70 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v72 + 1) + 8 * v12);
-        v14 = *(v11 + 3776);
+        v12 = *(*(&v69 + 1) + 8 * v11);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -1124,21 +1135,21 @@ LABEL_68:
 
         accountID = [itemCopy accountID];
         objectID = [itemCopy objectID];
-        v16 = v13;
-        v68 = accountID;
-        freq = [v16 freq];
-        v18 = freq;
+        v14 = v12;
+        v65 = accountID;
+        freq = [v14 freq];
+        v16 = freq;
         if (freq <= 3)
         {
           if ((freq - 1) < 3)
           {
-            v20 = +[REMLogStore write];
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+            v18 = +[REMLogStore write];
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
               *buf = 67109120;
-              LODWORD(v82) = v18;
-              v21 = v20;
-              v22 = "Encountered an ICS frequency that we don't handle: %d. Defaulting to daily";
+              LODWORD(v79) = v16;
+              v19 = v18;
+              v20 = "Encountered an ICS frequency that we don't handle: %d. Defaulting to daily";
               goto LABEL_52;
             }
 
@@ -1148,15 +1159,15 @@ LABEL_20:
           }
 
 LABEL_19:
-          v20 = +[REMLogStore write];
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+          v18 = +[REMLogStore write];
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
             *buf = 67109120;
-            LODWORD(v82) = v18;
-            v21 = v20;
-            v22 = "Encountered an unknown ICS frequency: %d";
+            LODWORD(v79) = v16;
+            v19 = v18;
+            v20 = "Encountered an unknown ICS frequency: %d";
 LABEL_52:
-            _os_log_error_impl(&dword_19A0DB000, v21, OS_LOG_TYPE_ERROR, v22, buf, 8u);
+            _os_log_error_impl(&dword_19A0DB000, v19, OS_LOG_TYPE_ERROR, v20, buf, 8u);
           }
 
           goto LABEL_20;
@@ -1166,13 +1177,13 @@ LABEL_52:
         {
           if (freq == 6)
           {
-            v19 = 2;
+            v17 = 2;
             goto LABEL_18;
           }
 
           if (freq == 7)
           {
-            v19 = 3;
+            v17 = 3;
             goto LABEL_18;
           }
 
@@ -1181,164 +1192,161 @@ LABEL_52:
 
         if (freq != 4)
         {
-          v19 = 1;
+          v17 = 1;
 LABEL_18:
-          v66 = v19;
+          v63 = v17;
           goto LABEL_22;
         }
 
 LABEL_21:
-        v66 = 0;
+        v63 = 0;
 LABEL_22:
-        interval = [v16 interval];
+        interval = [v14 interval];
         integerValue = [interval integerValue];
 
-        wkst = [v16 wkst];
-        v25 = wkst;
+        wkst = [v14 wkst];
+        v23 = wkst;
         if (wkst)
         {
-          v64 = REMWeekdayFromICSWeekday([wkst integerValue]);
+          v61 = REMWeekdayFromICSWeekday([wkst integerValue]);
         }
 
         else
         {
-          v64 = 0;
+          v61 = 0;
         }
 
-        until = [v16 until];
-        v67 = v25;
+        until = [v14 until];
+        v64 = v23;
         if (until)
         {
-          v27 = [objc_alloc(MEMORY[0x1E69E3C90]) initWithValue:until];
-          rem_dateAsUTC = [v27 rem_dateAsUTC];
+          v25 = [objc_alloc(MEMORY[0x1E69E3C90]) initWithValue:until];
+          rem_dateAsUTC = [v25 rem_dateAsUTC];
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            v29 = [rem_dateAsUTC dateByAddingTimeInterval:86399.0];
+            v27 = [rem_dateAsUTC dateByAddingTimeInterval:86399.0];
 
-            rem_dateAsUTC = v29;
+            rem_dateAsUTC = v27;
           }
 
-          v61 = [REMRecurrenceEnd recurrenceEndWithEndDate:rem_dateAsUTC];
+          v58 = [REMRecurrenceEnd recurrenceEndWithEndDate:rem_dateAsUTC];
 
           goto LABEL_31;
         }
 
-        v30 = [v16 count];
+        v28 = [v14 count];
 
-        if (v30)
+        if (v28)
         {
-          v27 = [v16 count];
-          v61 = +[REMRecurrenceEnd recurrenceEndWithOccurrenceCount:](REMRecurrenceEnd, "recurrenceEndWithOccurrenceCount:", [v27 unsignedIntegerValue]);
+          v25 = [v14 count];
+          v58 = +[REMRecurrenceEnd recurrenceEndWithOccurrenceCount:](REMRecurrenceEnd, "recurrenceEndWithOccurrenceCount:", [v25 unsignedIntegerValue]);
 LABEL_31:
 
           goto LABEL_32;
         }
 
-        v61 = 0;
+        v58 = 0;
 LABEL_32:
-        v65 = until;
-        v69 = v13;
-        v70 = v12;
-        v31 = v16;
-        byday = [v16 byday];
-        v60 = byday;
+        v62 = until;
+        v66 = v12;
+        v67 = v11;
+        v29 = v14;
+        byday = [v14 byday];
+        v57 = byday;
         if ([byday count])
         {
-          v33 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(byday, "count")}];
+          v31 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(byday, "count")}];
+          v73 = 0u;
+          v74 = 0u;
+          v75 = 0u;
           v76 = 0u;
-          v77 = 0u;
-          v78 = 0u;
-          v79 = 0u;
-          v34 = byday;
-          v35 = [v34 countByEnumeratingWithState:&v76 objects:buf count:16];
-          if (v35)
+          v32 = byday;
+          v33 = [v32 countByEnumeratingWithState:&v73 objects:buf count:16];
+          if (v33)
           {
-            v36 = v35;
-            v37 = *v77;
+            v34 = v33;
+            v35 = *v74;
             do
             {
-              for (i = 0; i != v36; ++i)
+              for (i = 0; i != v34; ++i)
               {
-                if (*v77 != v37)
+                if (*v74 != v35)
                 {
-                  objc_enumerationMutation(v34);
+                  objc_enumerationMutation(v32);
                 }
 
-                v39 = *(*(&v76 + 1) + 8 * i);
-                v40 = REMWeekdayFromICSWeekday([v39 weekday]);
-                number = [v39 number];
-                v42 = +[REMRecurrenceDayOfWeek dayOfWeek:weekNumber:](REMRecurrenceDayOfWeek, "dayOfWeek:weekNumber:", v40, [number integerValue]);
+                v37 = *(*(&v73 + 1) + 8 * i);
+                v38 = REMWeekdayFromICSWeekday([v37 weekday]);
+                number = [v37 number];
+                v40 = +[REMRecurrenceDayOfWeek dayOfWeek:weekNumber:](REMRecurrenceDayOfWeek, "dayOfWeek:weekNumber:", v38, [number integerValue]);
 
-                [v33 addObject:v42];
+                [v31 addObject:v40];
               }
 
-              v36 = [v34 countByEnumeratingWithState:&v76 objects:buf count:16];
+              v34 = [v32 countByEnumeratingWithState:&v73 objects:buf count:16];
             }
 
-            while (v36);
+            while (v34);
           }
         }
 
         else
         {
-          v33 = 0;
+          v31 = 0;
         }
 
-        v43 = integerValue;
+        v41 = integerValue;
         if (integerValue <= 1)
         {
-          v43 = 1;
+          v41 = 1;
         }
 
-        v63 = v43;
-        v58 = +[REMRecurrenceRule newObjectID];
-        v59 = [REMRecurrenceRule alloc];
-        v44 = v31;
-        bymonthday = [v31 bymonthday];
-        bymonth = [v31 bymonth];
-        byweekno = [v31 byweekno];
-        byyearday = [v31 byyearday];
-        bysetpos = [v31 bysetpos];
-        v49 = [(REMRecurrenceRule *)v59 initRecurrenceRuleWithObjectID:v58 accountID:v68 reminderID:objectID frequency:v66 interval:v63 firstDayOfTheWeek:v64 daysOfTheWeek:v33 daysOfTheMonth:bymonthday monthsOfTheYear:bymonth weeksOfTheYear:byweekno daysOfTheYear:byyearday setPositions:bysetpos end:v61];
+        v60 = v41;
+        v55 = +[REMRecurrenceRule newObjectID];
+        v56 = [REMRecurrenceRule alloc];
+        v42 = v29;
+        bymonthday = [v29 bymonthday];
+        bymonth = [v29 bymonth];
+        byweekno = [v29 byweekno];
+        byyearday = [v29 byyearday];
+        bysetpos = [v29 bysetpos];
+        v47 = [(REMRecurrenceRule *)v56 initRecurrenceRuleWithObjectID:v55 accountID:v65 reminderID:objectID frequency:v63 interval:v60 firstDayOfTheWeek:v61 daysOfTheWeek:v31 daysOfTheMonth:bymonthday monthsOfTheYear:bymonth weeksOfTheYear:byweekno daysOfTheYear:byyearday setPositions:bysetpos end:v58];
 
-        v10 = v54;
-        v9 = v55;
-        v11 = 0x1E696A000;
-        v13 = v69;
-        v12 = v70;
-        if (v49)
+        v10 = v51;
+        v9 = v52;
+        v12 = v66;
+        v11 = v67;
+        if (v47)
         {
-          [itemCopy addRecurrenceRule:v49];
+          [itemCopy addRecurrenceRule:v47];
           goto LABEL_48;
         }
 
 LABEL_46:
-        v49 = +[REMLogStore write];
-        if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+        v47 = +[REMLogStore write];
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
         {
           objectID2 = [itemCopy objectID];
           *buf = 138412546;
-          v82 = v13;
-          v83 = 2112;
-          v84 = objectID2;
-          _os_log_error_impl(&dword_19A0DB000, v49, OS_LOG_TYPE_ERROR, "Couldn't populate the recurrence rule {icsRecurrence: %@, reminderID: %@}", buf, 0x16u);
+          v79 = v12;
+          v80 = 2112;
+          v81 = objectID2;
+          _os_log_error_impl(&dword_19A0DB000, v47, OS_LOG_TYPE_ERROR, "Couldn't populate the recurrence rule {icsRecurrence: %@, reminderID: %@}", buf, 0x16u);
         }
 
 LABEL_48:
 
-        ++v12;
+        ++v11;
       }
 
-      while (v12 != v9);
-      v51 = [obj countByEnumeratingWithState:&v72 objects:v80 count:16];
-      v9 = v51;
+      while (v11 != v9);
+      v49 = [obj countByEnumeratingWithState:&v69 objects:v77 count:16];
+      v9 = v49;
     }
 
-    while (v51);
+    while (v49);
   }
-
-  v52 = *MEMORY[0x1E69E9840];
 }
 
 - (REMSaveRequest)initWithStore:(id)store
@@ -2957,67 +2965,67 @@ LABEL_12:
 
 - (void)_updateResolutionTokenMapForChangeItem:(id)item
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   resolutionTokenMap = [itemCopy resolutionTokenMap];
   if (resolutionTokenMap)
   {
     v5 = [MEMORY[0x1E695DFA8] set];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     changedKeys = [itemCopy changedKeys];
-    v7 = [changedKeys countByEnumeratingWithState:&v22 objects:v27 count:16];
+    v7 = [changedKeys countByEnumeratingWithState:&v21 objects:v26 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v23;
+      v9 = *v22;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v23 != v9)
+          if (*v22 != v9)
           {
             objc_enumerationMutation(changedKeys);
           }
 
-          v11 = [itemCopy resolutionTokenKeyForChangedKey:*(*(&v22 + 1) + 8 * i)];
+          v11 = [itemCopy resolutionTokenKeyForChangedKey:*(*(&v21 + 1) + 8 * i)];
           if (v11)
           {
             [v5 addObject:v11];
           }
         }
 
-        v8 = [changedKeys countByEnumeratingWithState:&v22 objects:v27 count:16];
+        v8 = [changedKeys countByEnumeratingWithState:&v21 objects:v26 count:16];
       }
 
       while (v8);
     }
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v12 = v5;
-    v13 = [v12 countByEnumeratingWithState:&v18 objects:v26 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v17 objects:v25 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v19;
+      v15 = *v18;
       do
       {
         for (j = 0; j != v14; ++j)
         {
-          if (*v19 != v15)
+          if (*v18 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          [resolutionTokenMap updateForKey:{*(*(&v18 + 1) + 8 * j), v18}];
+          [resolutionTokenMap updateForKey:{*(*(&v17 + 1) + 8 * j), v17}];
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v18 objects:v26 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v17 objects:v25 count:16];
       }
 
       while (v14);
@@ -3032,13 +3040,11 @@ LABEL_12:
       [REMSaveRequest _updateResolutionTokenMapForChangeItem:v12];
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_willSaveAccountChangeItems:(id)items listChangeItems:(id)changeItems listSectionChangeItems:(id)sectionChangeItems smartListChangeItems:(id)listChangeItems smartListSectionChangeItems:(id)listSectionChangeItems templateChangeItems:(id)templateChangeItems templateSectionChangeItems:(id)templateSectionChangeItems reminderChangeItems:(id)self0
 {
-  v140 = *MEMORY[0x1E69E9840];
+  v139 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   changeItemsCopy = changeItems;
   sectionChangeItemsCopy = sectionChangeItems;
@@ -3047,27 +3053,27 @@ LABEL_12:
   templateChangeItemsCopy = templateChangeItems;
   templateSectionChangeItemsCopy = templateSectionChangeItems;
   reminderChangeItemsCopy = reminderChangeItems;
+  v127 = 0u;
   v128 = 0u;
   v129 = 0u;
   v130 = 0u;
-  v131 = 0u;
   obj = itemsCopy;
-  v21 = [obj countByEnumeratingWithState:&v128 objects:v139 count:16];
+  v21 = [obj countByEnumeratingWithState:&v127 objects:v138 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v129;
+    v23 = *v128;
     do
     {
       v24 = 0;
       do
       {
-        if (*v129 != v23)
+        if (*v128 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v25 = *(*(&v128 + 1) + 8 * v24);
+        v25 = *(*(&v127 + 1) + 8 * v24);
         v26 = objc_autoreleasePoolPush();
         [(REMSaveRequest *)self _updateResolutionTokenMapForChangeItem:v25];
         objc_autoreleasePoolPop(v26);
@@ -3075,33 +3081,33 @@ LABEL_12:
       }
 
       while (v22 != v24);
-      v22 = [obj countByEnumeratingWithState:&v128 objects:v139 count:16];
+      v22 = [obj countByEnumeratingWithState:&v127 objects:v138 count:16];
     }
 
     while (v22);
   }
 
-  v126 = 0u;
-  v127 = 0u;
-  v124 = 0u;
   v125 = 0u;
+  v126 = 0u;
+  v123 = 0u;
+  v124 = 0u;
   v27 = changeItemsCopy;
-  v28 = [v27 countByEnumeratingWithState:&v124 objects:v138 count:16];
+  v28 = [v27 countByEnumeratingWithState:&v123 objects:v137 count:16];
   if (v28)
   {
     v29 = v28;
-    v30 = *v125;
+    v30 = *v124;
     do
     {
       v31 = 0;
       do
       {
-        if (*v125 != v30)
+        if (*v124 != v30)
         {
           objc_enumerationMutation(v27);
         }
 
-        v32 = *(*(&v124 + 1) + 8 * v31);
+        v32 = *(*(&v123 + 1) + 8 * v31);
         v33 = objc_autoreleasePoolPush();
         [(REMSaveRequest *)self _updateResolutionTokenMapForChangeItem:v32];
         objc_autoreleasePoolPop(v33);
@@ -3109,33 +3115,33 @@ LABEL_12:
       }
 
       while (v29 != v31);
-      v29 = [v27 countByEnumeratingWithState:&v124 objects:v138 count:16];
+      v29 = [v27 countByEnumeratingWithState:&v123 objects:v137 count:16];
     }
 
     while (v29);
   }
 
-  v122 = 0u;
-  v123 = 0u;
-  v120 = 0u;
   v121 = 0u;
-  v94 = sectionChangeItemsCopy;
-  v34 = [v94 countByEnumeratingWithState:&v120 objects:v137 count:16];
+  v122 = 0u;
+  v119 = 0u;
+  v120 = 0u;
+  v93 = sectionChangeItemsCopy;
+  v34 = [v93 countByEnumeratingWithState:&v119 objects:v136 count:16];
   if (v34)
   {
     v35 = v34;
-    v36 = *v121;
+    v36 = *v120;
     do
     {
       v37 = 0;
       do
       {
-        if (*v121 != v36)
+        if (*v120 != v36)
         {
-          objc_enumerationMutation(v94);
+          objc_enumerationMutation(v93);
         }
 
-        v38 = *(*(&v120 + 1) + 8 * v37);
+        v38 = *(*(&v119 + 1) + 8 * v37);
         v39 = objc_autoreleasePoolPush();
         [(REMSaveRequest *)self _updateResolutionTokenMapForChangeItem:v38];
         objc_autoreleasePoolPop(v39);
@@ -3143,33 +3149,33 @@ LABEL_12:
       }
 
       while (v35 != v37);
-      v35 = [v94 countByEnumeratingWithState:&v120 objects:v137 count:16];
+      v35 = [v93 countByEnumeratingWithState:&v119 objects:v136 count:16];
     }
 
     while (v35);
   }
 
-  v118 = 0u;
-  v119 = 0u;
-  v116 = 0u;
   v117 = 0u;
-  v93 = listChangeItemsCopy;
-  v40 = [v93 countByEnumeratingWithState:&v116 objects:v136 count:16];
+  v118 = 0u;
+  v115 = 0u;
+  v116 = 0u;
+  v92 = listChangeItemsCopy;
+  v40 = [v92 countByEnumeratingWithState:&v115 objects:v135 count:16];
   if (v40)
   {
     v41 = v40;
-    v42 = *v117;
+    v42 = *v116;
     do
     {
       v43 = 0;
       do
       {
-        if (*v117 != v42)
+        if (*v116 != v42)
         {
-          objc_enumerationMutation(v93);
+          objc_enumerationMutation(v92);
         }
 
-        v44 = *(*(&v116 + 1) + 8 * v43);
+        v44 = *(*(&v115 + 1) + 8 * v43);
         v45 = objc_autoreleasePoolPush();
         [(REMSaveRequest *)self _updateResolutionTokenMapForChangeItem:v44];
         objc_autoreleasePoolPop(v45);
@@ -3177,33 +3183,33 @@ LABEL_12:
       }
 
       while (v41 != v43);
-      v41 = [v93 countByEnumeratingWithState:&v116 objects:v136 count:16];
+      v41 = [v92 countByEnumeratingWithState:&v115 objects:v135 count:16];
     }
 
     while (v41);
   }
 
-  v114 = 0u;
-  v115 = 0u;
-  v112 = 0u;
   v113 = 0u;
-  v92 = listSectionChangeItemsCopy;
-  v46 = [v92 countByEnumeratingWithState:&v112 objects:v135 count:16];
+  v114 = 0u;
+  v111 = 0u;
+  v112 = 0u;
+  v91 = listSectionChangeItemsCopy;
+  v46 = [v91 countByEnumeratingWithState:&v111 objects:v134 count:16];
   if (v46)
   {
     v47 = v46;
-    v48 = *v113;
+    v48 = *v112;
     do
     {
       v49 = 0;
       do
       {
-        if (*v113 != v48)
+        if (*v112 != v48)
         {
-          objc_enumerationMutation(v92);
+          objc_enumerationMutation(v91);
         }
 
-        v50 = *(*(&v112 + 1) + 8 * v49);
+        v50 = *(*(&v111 + 1) + 8 * v49);
         v51 = objc_autoreleasePoolPush();
         [(REMSaveRequest *)self _updateResolutionTokenMapForChangeItem:v50];
         objc_autoreleasePoolPop(v51);
@@ -3211,35 +3217,35 @@ LABEL_12:
       }
 
       while (v47 != v49);
-      v47 = [v92 countByEnumeratingWithState:&v112 objects:v135 count:16];
+      v47 = [v91 countByEnumeratingWithState:&v111 objects:v134 count:16];
     }
 
     while (v47);
   }
 
-  v89 = v27;
+  v88 = v27;
 
-  v110 = 0u;
-  v111 = 0u;
-  v108 = 0u;
   v109 = 0u;
+  v110 = 0u;
+  v107 = 0u;
+  v108 = 0u;
   v52 = templateChangeItemsCopy;
-  v53 = [v52 countByEnumeratingWithState:&v108 objects:v134 count:16];
+  v53 = [v52 countByEnumeratingWithState:&v107 objects:v133 count:16];
   if (v53)
   {
     v54 = v53;
-    v55 = *v109;
+    v55 = *v108;
     do
     {
       v56 = 0;
       do
       {
-        if (*v109 != v55)
+        if (*v108 != v55)
         {
           objc_enumerationMutation(v52);
         }
 
-        v57 = *(*(&v108 + 1) + 8 * v56);
+        v57 = *(*(&v107 + 1) + 8 * v56);
         v58 = objc_autoreleasePoolPush();
         [(REMSaveRequest *)self _updateResolutionTokenMapForChangeItem:v57];
         objc_autoreleasePoolPop(v58);
@@ -3247,33 +3253,33 @@ LABEL_12:
       }
 
       while (v54 != v56);
-      v54 = [v52 countByEnumeratingWithState:&v108 objects:v134 count:16];
+      v54 = [v52 countByEnumeratingWithState:&v107 objects:v133 count:16];
     }
 
     while (v54);
   }
 
-  v106 = 0u;
-  v107 = 0u;
-  v104 = 0u;
   v105 = 0u;
+  v106 = 0u;
+  v103 = 0u;
+  v104 = 0u;
   v59 = templateSectionChangeItemsCopy;
-  v60 = [v59 countByEnumeratingWithState:&v104 objects:v133 count:16];
+  v60 = [v59 countByEnumeratingWithState:&v103 objects:v132 count:16];
   if (v60)
   {
     v61 = v60;
-    v62 = *v105;
+    v62 = *v104;
     do
     {
       v63 = 0;
       do
       {
-        if (*v105 != v62)
+        if (*v104 != v62)
         {
           objc_enumerationMutation(v59);
         }
 
-        v64 = *(*(&v104 + 1) + 8 * v63);
+        v64 = *(*(&v103 + 1) + 8 * v63);
         v65 = objc_autoreleasePoolPush();
         [(REMSaveRequest *)self _updateResolutionTokenMapForChangeItem:v64];
         objc_autoreleasePoolPop(v65);
@@ -3281,36 +3287,36 @@ LABEL_12:
       }
 
       while (v61 != v63);
-      v61 = [v59 countByEnumeratingWithState:&v104 objects:v133 count:16];
+      v61 = [v59 countByEnumeratingWithState:&v103 objects:v132 count:16];
     }
 
     while (v61);
   }
 
-  v87 = v59;
-  v88 = v52;
+  v86 = v59;
+  v87 = v52;
 
-  v102 = 0u;
-  v103 = 0u;
-  v100 = 0u;
   v101 = 0u;
-  v91 = reminderChangeItemsCopy;
-  v99 = [v91 countByEnumeratingWithState:&v100 objects:v132 count:16];
-  if (v99)
+  v102 = 0u;
+  v99 = 0u;
+  v100 = 0u;
+  v90 = reminderChangeItemsCopy;
+  v98 = [v90 countByEnumeratingWithState:&v99 objects:v131 count:16];
+  if (v98)
   {
     v66 = 0x1E695D000uLL;
-    v97 = *v101;
+    v96 = *v100;
     do
     {
       v67 = 0;
       do
       {
-        if (*v101 != v97)
+        if (*v100 != v96)
         {
-          objc_enumerationMutation(v91);
+          objc_enumerationMutation(v90);
         }
 
-        v68 = *(*(&v100 + 1) + 8 * v67);
+        v68 = *(*(&v99 + 1) + 8 * v67);
         v69 = objc_autoreleasePoolPush();
         date = [*(v66 + 3840) date];
         creationDate = [v68 creationDate];
@@ -3389,20 +3395,18 @@ LABEL_69:
         ++v67;
       }
 
-      while (v99 != v67);
-      v85 = [v91 countByEnumeratingWithState:&v100 objects:v132 count:16];
-      v99 = v85;
+      while (v98 != v67);
+      v85 = [v90 countByEnumeratingWithState:&v99 objects:v131 count:16];
+      v98 = v85;
     }
 
     while (v85);
   }
-
-  v86 = *MEMORY[0x1E69E9840];
 }
 
 - (void)saveWithQueue:(id)queue completion:(id)completion
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   completionCopy = completion;
   v8 = completionCopy;
@@ -3437,8 +3441,8 @@ LABEL_9:
       {
         author2 = [(REMSaveRequest *)self author];
         *buf = 138543618;
-        v24 = author2;
-        v25 = 1024;
+        v23 = author2;
+        v24 = 1024;
         saveIsNoopIfNoChangedKeys = [(REMSaveRequest *)self saveIsNoopIfNoChangedKeys];
         _os_log_impl(&dword_19A0DB000, v11, OS_LOG_TYPE_DEFAULT, "Save Request has no changed keys. Opted to return early as no-op. {author: %{public}@, saveIsNoopIfNoChangedKeys: %d}", buf, 0x12u);
       }
@@ -3460,7 +3464,7 @@ LABEL_9:
     {
       author3 = [(REMSaveRequest *)self author];
       *buf = 138543362;
-      v24 = author3;
+      v23 = author3;
       _os_log_impl(&dword_19A0DB000, v14, OS_LOG_TYPE_DEFAULT, "LOOKATME: Save Request has no changed keys. Save will continue. Revisit if caller should avoid such saves. {author: %{public}@}", buf, 0xCu);
     }
   }
@@ -3479,14 +3483,13 @@ LABEL_9:
   activity_block[2] = __43__REMSaveRequest_saveWithQueue_completion___block_invoke;
   activity_block[3] = &unk_1E7507C90;
   activity_block[4] = self;
-  v20 = queueCopy;
-  v21 = v17;
-  v22 = v8;
+  v19 = queueCopy;
+  v20 = v17;
+  v21 = v8;
   store = v17;
   _os_activity_initiate(&dword_19A0DB000, "REMSaveRequest save async", OS_ACTIVITY_FLAG_IF_NONE_PRESENT, activity_block);
 
 LABEL_18:
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __43__REMSaveRequest_saveWithQueue_completion___block_invoke(uint64_t a1)
@@ -3540,27 +3543,26 @@ id __43__REMSaveRequest_saveWithQueue_completion___block_invoke_3(uint64_t a1, u
   v4 = +[REMLogStore write];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_19A0DB000, v4, OS_LOG_TYPE_DEFAULT, "os_transaction RELEASE {name: com.apple.reminderkit.REMSaveRequest}", v7, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_19A0DB000, v4, OS_LOG_TYPE_DEFAULT, "os_transaction RELEASE {name: com.apple.reminderkit.REMSaveRequest}", v6, 2u);
   }
 
-  v5 = *(a1 + 40);
   return objc_opt_self();
 }
 
 - (BOOL)saveSynchronouslyWithError:(id *)error
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
-  v25 = 0;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__12;
-  v20 = __Block_byref_object_dispose__12;
+  v26 = *MEMORY[0x1E69E9840];
   v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__12;
+  v19 = __Block_byref_object_dispose__12;
+  v20 = 0;
   if ([(REMSaveRequest *)self _changeItemsAreAllEmpty])
   {
     author = [(REMSaveRequest *)self author];
@@ -3606,26 +3608,25 @@ LABEL_5:
   *buf = 0;
   *&buf[8] = 0;
   os_activity_scope_enter(v7, buf);
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __45__REMSaveRequest_saveSynchronouslyWithError___block_invoke;
-  v15[3] = &unk_1E75094D8;
-  v15[4] = self;
-  v15[5] = &v22;
-  v15[6] = &v16;
-  [(REMSaveRequest *)self _prepareSave:v15];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __45__REMSaveRequest_saveSynchronouslyWithError___block_invoke;
+  v14[3] = &unk_1E75094D8;
+  v14[4] = self;
+  v14[5] = &v21;
+  v14[6] = &v15;
+  [(REMSaveRequest *)self _prepareSave:v14];
   if (error)
   {
-    *error = v17[5];
+    *error = v16[5];
   }
 
-  v10 = *(v23 + 24);
+  v10 = *(v22 + 24);
   os_activity_scope_leave(buf);
 LABEL_14:
 
-  _Block_object_dispose(&v16, 8);
-  _Block_object_dispose(&v22, 8);
-  v13 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v21, 8);
   return v10 & 1;
 }
 
@@ -3710,29 +3711,29 @@ void __53__REMSaveRequest_notifyChangeDelegateForSaveSuccess___block_invoke(uint
 
 - (BOOL)_changeItemsAreAllEmpty
 {
-  v111 = *MEMORY[0x1E69E9840];
+  v110 = *MEMORY[0x1E69E9840];
+  v98 = 0u;
   v99 = 0u;
   v100 = 0u;
   v101 = 0u;
-  v102 = 0u;
   trackedAccountChangeItems = [(REMSaveRequest *)self trackedAccountChangeItems];
   allValues = [trackedAccountChangeItems allValues];
 
-  v5 = [allValues countByEnumeratingWithState:&v99 objects:v110 count:16];
+  v5 = [allValues countByEnumeratingWithState:&v98 objects:v109 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v100;
+    v7 = *v99;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v100 != v7)
+      if (*v99 != v7)
       {
         objc_enumerationMutation(allValues);
       }
 
-      valueWithoutPerformingCopy = [*(*(&v99 + 1) + 8 * v8) valueWithoutPerformingCopy];
+      valueWithoutPerformingCopy = [*(*(&v98 + 1) + 8 * v8) valueWithoutPerformingCopy];
       changedKeys = [valueWithoutPerformingCopy changedKeys];
       v11 = [changedKeys count];
 
@@ -3743,7 +3744,7 @@ LABEL_3:
 
       if (v6 == ++v8)
       {
-        v6 = [allValues countByEnumeratingWithState:&v99 objects:v110 count:16];
+        v6 = [allValues countByEnumeratingWithState:&v98 objects:v109 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -3758,28 +3759,28 @@ LABEL_3:
   {
 LABEL_9:
 
-    v97 = 0u;
-    v98 = 0u;
-    v95 = 0u;
     v96 = 0u;
+    v97 = 0u;
+    v94 = 0u;
+    v95 = 0u;
     trackedListChangeItems = [(REMSaveRequest *)self trackedListChangeItems];
     allValues = [trackedListChangeItems allValues];
 
-    v13 = [allValues countByEnumeratingWithState:&v95 objects:v109 count:16];
+    v13 = [allValues countByEnumeratingWithState:&v94 objects:v108 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v96;
+      v15 = *v95;
 LABEL_11:
       v16 = 0;
       while (1)
       {
-        if (*v96 != v15)
+        if (*v95 != v15)
         {
           objc_enumerationMutation(allValues);
         }
 
-        valueWithoutPerformingCopy2 = [*(*(&v95 + 1) + 8 * v16) valueWithoutPerformingCopy];
+        valueWithoutPerformingCopy2 = [*(*(&v94 + 1) + 8 * v16) valueWithoutPerformingCopy];
         changedKeys2 = [valueWithoutPerformingCopy2 changedKeys];
         v19 = [changedKeys2 count];
 
@@ -3790,7 +3791,7 @@ LABEL_11:
 
         if (v14 == ++v16)
         {
-          v14 = [allValues countByEnumeratingWithState:&v95 objects:v109 count:16];
+          v14 = [allValues countByEnumeratingWithState:&v94 objects:v108 count:16];
           if (v14)
           {
             goto LABEL_11;
@@ -3805,28 +3806,28 @@ LABEL_11:
     {
 LABEL_17:
 
-      v93 = 0u;
-      v94 = 0u;
-      v91 = 0u;
       v92 = 0u;
+      v93 = 0u;
+      v90 = 0u;
+      v91 = 0u;
       trackedSmartListChangeItems = [(REMSaveRequest *)self trackedSmartListChangeItems];
       allValues = [trackedSmartListChangeItems allValues];
 
-      v21 = [allValues countByEnumeratingWithState:&v91 objects:v108 count:16];
+      v21 = [allValues countByEnumeratingWithState:&v90 objects:v107 count:16];
       if (v21)
       {
         v22 = v21;
-        v23 = *v92;
+        v23 = *v91;
 LABEL_19:
         v24 = 0;
         while (1)
         {
-          if (*v92 != v23)
+          if (*v91 != v23)
           {
             objc_enumerationMutation(allValues);
           }
 
-          valueWithoutPerformingCopy3 = [*(*(&v91 + 1) + 8 * v24) valueWithoutPerformingCopy];
+          valueWithoutPerformingCopy3 = [*(*(&v90 + 1) + 8 * v24) valueWithoutPerformingCopy];
           changedKeys3 = [valueWithoutPerformingCopy3 changedKeys];
           v27 = [changedKeys3 count];
 
@@ -3837,7 +3838,7 @@ LABEL_19:
 
           if (v22 == ++v24)
           {
-            v22 = [allValues countByEnumeratingWithState:&v91 objects:v108 count:16];
+            v22 = [allValues countByEnumeratingWithState:&v90 objects:v107 count:16];
             if (v22)
             {
               goto LABEL_19;
@@ -3852,28 +3853,28 @@ LABEL_19:
       {
 LABEL_25:
 
-        v89 = 0u;
-        v90 = 0u;
-        v87 = 0u;
         v88 = 0u;
+        v89 = 0u;
+        v86 = 0u;
+        v87 = 0u;
         trackedTemplateChangeItems = [(REMSaveRequest *)self trackedTemplateChangeItems];
         allValues = [trackedTemplateChangeItems allValues];
 
-        v29 = [allValues countByEnumeratingWithState:&v87 objects:v107 count:16];
+        v29 = [allValues countByEnumeratingWithState:&v86 objects:v106 count:16];
         if (v29)
         {
           v30 = v29;
-          v31 = *v88;
+          v31 = *v87;
 LABEL_27:
           v32 = 0;
           while (1)
           {
-            if (*v88 != v31)
+            if (*v87 != v31)
             {
               objc_enumerationMutation(allValues);
             }
 
-            valueWithoutPerformingCopy4 = [*(*(&v87 + 1) + 8 * v32) valueWithoutPerformingCopy];
+            valueWithoutPerformingCopy4 = [*(*(&v86 + 1) + 8 * v32) valueWithoutPerformingCopy];
             changedKeys4 = [valueWithoutPerformingCopy4 changedKeys];
             v35 = [changedKeys4 count];
 
@@ -3884,7 +3885,7 @@ LABEL_27:
 
             if (v30 == ++v32)
             {
-              v30 = [allValues countByEnumeratingWithState:&v87 objects:v107 count:16];
+              v30 = [allValues countByEnumeratingWithState:&v86 objects:v106 count:16];
               if (v30)
               {
                 goto LABEL_27;
@@ -3899,28 +3900,28 @@ LABEL_27:
         {
 LABEL_33:
 
-          v85 = 0u;
-          v86 = 0u;
-          v83 = 0u;
           v84 = 0u;
+          v85 = 0u;
+          v82 = 0u;
+          v83 = 0u;
           trackedReminderChangeItems = [(REMSaveRequest *)self trackedReminderChangeItems];
           allValues = [trackedReminderChangeItems allValues];
 
-          v37 = [allValues countByEnumeratingWithState:&v83 objects:v106 count:16];
+          v37 = [allValues countByEnumeratingWithState:&v82 objects:v105 count:16];
           if (v37)
           {
             v38 = v37;
-            v39 = *v84;
+            v39 = *v83;
 LABEL_35:
             v40 = 0;
             while (1)
             {
-              if (*v84 != v39)
+              if (*v83 != v39)
               {
                 objc_enumerationMutation(allValues);
               }
 
-              valueWithoutPerformingCopy5 = [*(*(&v83 + 1) + 8 * v40) valueWithoutPerformingCopy];
+              valueWithoutPerformingCopy5 = [*(*(&v82 + 1) + 8 * v40) valueWithoutPerformingCopy];
               changedKeys5 = [valueWithoutPerformingCopy5 changedKeys];
               v43 = [changedKeys5 count];
 
@@ -3931,7 +3932,7 @@ LABEL_35:
 
               if (v38 == ++v40)
               {
-                v38 = [allValues countByEnumeratingWithState:&v83 objects:v106 count:16];
+                v38 = [allValues countByEnumeratingWithState:&v82 objects:v105 count:16];
                 if (v38)
                 {
                   goto LABEL_35;
@@ -3946,28 +3947,28 @@ LABEL_35:
           {
 LABEL_41:
 
-            v81 = 0u;
-            v82 = 0u;
-            v79 = 0u;
             v80 = 0u;
+            v81 = 0u;
+            v78 = 0u;
+            v79 = 0u;
             trackedListSectionChangeItems = [(REMSaveRequest *)self trackedListSectionChangeItems];
             allValues = [trackedListSectionChangeItems allValues];
 
-            v45 = [allValues countByEnumeratingWithState:&v79 objects:v105 count:16];
+            v45 = [allValues countByEnumeratingWithState:&v78 objects:v104 count:16];
             if (v45)
             {
               v46 = v45;
-              v47 = *v80;
+              v47 = *v79;
 LABEL_43:
               v48 = 0;
               while (1)
               {
-                if (*v80 != v47)
+                if (*v79 != v47)
                 {
                   objc_enumerationMutation(allValues);
                 }
 
-                valueWithoutPerformingCopy6 = [*(*(&v79 + 1) + 8 * v48) valueWithoutPerformingCopy];
+                valueWithoutPerformingCopy6 = [*(*(&v78 + 1) + 8 * v48) valueWithoutPerformingCopy];
                 changedKeys6 = [valueWithoutPerformingCopy6 changedKeys];
                 v51 = [changedKeys6 count];
 
@@ -3978,7 +3979,7 @@ LABEL_43:
 
                 if (v46 == ++v48)
                 {
-                  v46 = [allValues countByEnumeratingWithState:&v79 objects:v105 count:16];
+                  v46 = [allValues countByEnumeratingWithState:&v78 objects:v104 count:16];
                   if (v46)
                   {
                     goto LABEL_43;
@@ -3993,28 +3994,28 @@ LABEL_43:
             {
 LABEL_49:
 
-              v77 = 0u;
-              v78 = 0u;
-              v75 = 0u;
               v76 = 0u;
+              v77 = 0u;
+              v74 = 0u;
+              v75 = 0u;
               trackedSmartListSectionChangeItems = [(REMSaveRequest *)self trackedSmartListSectionChangeItems];
               allValues = [trackedSmartListSectionChangeItems allValues];
 
-              v53 = [allValues countByEnumeratingWithState:&v75 objects:v104 count:16];
+              v53 = [allValues countByEnumeratingWithState:&v74 objects:v103 count:16];
               if (v53)
               {
                 v54 = v53;
-                v55 = *v76;
+                v55 = *v75;
 LABEL_51:
                 v56 = 0;
                 while (1)
                 {
-                  if (*v76 != v55)
+                  if (*v75 != v55)
                   {
                     objc_enumerationMutation(allValues);
                   }
 
-                  valueWithoutPerformingCopy7 = [*(*(&v75 + 1) + 8 * v56) valueWithoutPerformingCopy];
+                  valueWithoutPerformingCopy7 = [*(*(&v74 + 1) + 8 * v56) valueWithoutPerformingCopy];
                   changedKeys7 = [valueWithoutPerformingCopy7 changedKeys];
                   v59 = [changedKeys7 count];
 
@@ -4025,7 +4026,7 @@ LABEL_51:
 
                   if (v54 == ++v56)
                   {
-                    v54 = [allValues countByEnumeratingWithState:&v75 objects:v104 count:16];
+                    v54 = [allValues countByEnumeratingWithState:&v74 objects:v103 count:16];
                     if (v54)
                     {
                       goto LABEL_51;
@@ -4040,14 +4041,14 @@ LABEL_51:
               {
 LABEL_57:
 
-                v73 = 0u;
-                v74 = 0u;
-                v71 = 0u;
                 v72 = 0u;
+                v73 = 0u;
+                v70 = 0u;
+                v71 = 0u;
                 trackedTemplateSectionChangeItems = [(REMSaveRequest *)self trackedTemplateSectionChangeItems];
                 allValues = [trackedTemplateSectionChangeItems allValues];
 
-                v61 = [allValues countByEnumeratingWithState:&v71 objects:v103 count:16];
+                v61 = [allValues countByEnumeratingWithState:&v70 objects:v102 count:16];
                 if (!v61)
                 {
                   v68 = 1;
@@ -4055,17 +4056,17 @@ LABEL_57:
                 }
 
                 v62 = v61;
-                v63 = *v72;
+                v63 = *v71;
 LABEL_59:
                 v64 = 0;
                 while (1)
                 {
-                  if (*v72 != v63)
+                  if (*v71 != v63)
                   {
                     objc_enumerationMutation(allValues);
                   }
 
-                  valueWithoutPerformingCopy8 = [*(*(&v71 + 1) + 8 * v64) valueWithoutPerformingCopy];
+                  valueWithoutPerformingCopy8 = [*(*(&v70 + 1) + 8 * v64) valueWithoutPerformingCopy];
                   changedKeys8 = [valueWithoutPerformingCopy8 changedKeys];
                   v67 = [changedKeys8 count];
 
@@ -4076,7 +4077,7 @@ LABEL_59:
 
                   if (v62 == ++v64)
                   {
-                    v62 = [allValues countByEnumeratingWithState:&v71 objects:v103 count:16];
+                    v62 = [allValues countByEnumeratingWithState:&v70 objects:v102 count:16];
                     v68 = 1;
                     if (v62)
                     {
@@ -4097,13 +4098,12 @@ LABEL_59:
   v68 = 0;
 LABEL_67:
 
-  v69 = *MEMORY[0x1E69E9840];
   return v68;
 }
 
 - (void)_prepareSave:(id)save
 {
-  v123 = *MEMORY[0x1E69E9840];
+  v122 = *MEMORY[0x1E69E9840];
   saveCopy = save;
   if (!saveCopy)
   {
@@ -4135,259 +4135,257 @@ LABEL_67:
   trackedTemplateSectionChangeItems = [(REMSaveRequest *)self trackedTemplateSectionChangeItems];
   allValues8 = [trackedTemplateSectionChangeItems allValues];
 
-  v82 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(allValues, "count")}];
+  v81 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(allValues, "count")}];
+  v110 = 0u;
   v111 = 0u;
   v112 = 0u;
   v113 = 0u;
-  v114 = 0u;
   obj = allValues;
-  v17 = [obj countByEnumeratingWithState:&v111 objects:v122 count:16];
+  v17 = [obj countByEnumeratingWithState:&v110 objects:v121 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v112;
+    v19 = *v111;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v112 != v19)
+        if (*v111 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = [*(*(&v111 + 1) + 8 * i) valueForSaveRequest:self];
-        [v82 addObject:v21];
+        v21 = [*(*(&v110 + 1) + 8 * i) valueForSaveRequest:self];
+        [v81 addObject:v21];
       }
 
-      v18 = [obj countByEnumeratingWithState:&v111 objects:v122 count:16];
+      v18 = [obj countByEnumeratingWithState:&v110 objects:v121 count:16];
     }
 
     while (v18);
   }
 
-  v81 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(allValues2, "count")}];
+  v80 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(allValues2, "count")}];
+  v106 = 0u;
   v107 = 0u;
   v108 = 0u;
   v109 = 0u;
-  v110 = 0u;
   v22 = allValues2;
-  v23 = [v22 countByEnumeratingWithState:&v107 objects:v121 count:16];
+  v23 = [v22 countByEnumeratingWithState:&v106 objects:v120 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v108;
+    v25 = *v107;
     do
     {
       for (j = 0; j != v24; ++j)
       {
-        if (*v108 != v25)
+        if (*v107 != v25)
         {
           objc_enumerationMutation(v22);
         }
 
-        v27 = [*(*(&v107 + 1) + 8 * j) valueForSaveRequest:self];
-        [v81 addObject:v27];
+        v27 = [*(*(&v106 + 1) + 8 * j) valueForSaveRequest:self];
+        [v80 addObject:v27];
       }
 
-      v24 = [v22 countByEnumeratingWithState:&v107 objects:v121 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v106 objects:v120 count:16];
     }
 
     while (v24);
   }
 
-  v80 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(allValues3, "count")}];
+  v79 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(allValues3, "count")}];
+  v102 = 0u;
   v103 = 0u;
   v104 = 0u;
   v105 = 0u;
-  v106 = 0u;
   v28 = allValues3;
-  v29 = [v28 countByEnumeratingWithState:&v103 objects:v120 count:16];
+  v29 = [v28 countByEnumeratingWithState:&v102 objects:v119 count:16];
   if (v29)
   {
     v30 = v29;
-    v31 = *v104;
+    v31 = *v103;
     do
     {
       for (k = 0; k != v30; ++k)
       {
-        if (*v104 != v31)
+        if (*v103 != v31)
         {
           objc_enumerationMutation(v28);
         }
 
-        v33 = [*(*(&v103 + 1) + 8 * k) valueForSaveRequest:self];
-        [v80 addObject:v33];
+        v33 = [*(*(&v102 + 1) + 8 * k) valueForSaveRequest:self];
+        [v79 addObject:v33];
       }
 
-      v30 = [v28 countByEnumeratingWithState:&v103 objects:v120 count:16];
+      v30 = [v28 countByEnumeratingWithState:&v102 objects:v119 count:16];
     }
 
     while (v30);
   }
 
-  v79 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(allValues4, "count")}];
+  v78 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(allValues4, "count")}];
+  v98 = 0u;
   v99 = 0u;
   v100 = 0u;
   v101 = 0u;
-  v102 = 0u;
   v34 = allValues4;
-  v35 = [v34 countByEnumeratingWithState:&v99 objects:v119 count:16];
+  v35 = [v34 countByEnumeratingWithState:&v98 objects:v118 count:16];
   if (v35)
   {
     v36 = v35;
-    v37 = *v100;
+    v37 = *v99;
     do
     {
       for (m = 0; m != v36; ++m)
       {
-        if (*v100 != v37)
+        if (*v99 != v37)
         {
           objc_enumerationMutation(v34);
         }
 
-        v39 = [*(*(&v99 + 1) + 8 * m) valueForSaveRequest:self];
-        [v79 addObject:v39];
+        v39 = [*(*(&v98 + 1) + 8 * m) valueForSaveRequest:self];
+        [v78 addObject:v39];
       }
 
-      v36 = [v34 countByEnumeratingWithState:&v99 objects:v119 count:16];
+      v36 = [v34 countByEnumeratingWithState:&v98 objects:v118 count:16];
     }
 
     while (v36);
   }
 
-  v69 = v34;
+  v68 = v34;
 
   v40 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(allValues5, "count")}];
+  v94 = 0u;
   v95 = 0u;
   v96 = 0u;
   v97 = 0u;
-  v98 = 0u;
   v41 = allValues5;
-  v42 = [v41 countByEnumeratingWithState:&v95 objects:v118 count:16];
+  v42 = [v41 countByEnumeratingWithState:&v94 objects:v117 count:16];
   if (v42)
   {
     v43 = v42;
-    v44 = *v96;
+    v44 = *v95;
     do
     {
       for (n = 0; n != v43; ++n)
       {
-        if (*v96 != v44)
+        if (*v95 != v44)
         {
           objc_enumerationMutation(v41);
         }
 
-        v46 = [*(*(&v95 + 1) + 8 * n) valueForSaveRequest:self];
+        v46 = [*(*(&v94 + 1) + 8 * n) valueForSaveRequest:self];
         [v40 addObject:v46];
       }
 
-      v43 = [v41 countByEnumeratingWithState:&v95 objects:v118 count:16];
+      v43 = [v41 countByEnumeratingWithState:&v94 objects:v117 count:16];
     }
 
     while (v43);
   }
 
-  v72 = v28;
-  v74 = v22;
+  v71 = v28;
+  v73 = v22;
 
   v47 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(allValues6, "count")}];
+  v90 = 0u;
   v91 = 0u;
   v92 = 0u;
   v93 = 0u;
-  v94 = 0u;
   v48 = allValues6;
-  v49 = [v48 countByEnumeratingWithState:&v91 objects:v117 count:16];
+  v49 = [v48 countByEnumeratingWithState:&v90 objects:v116 count:16];
   if (v49)
   {
     v50 = v49;
-    v51 = *v92;
+    v51 = *v91;
     do
     {
       for (ii = 0; ii != v50; ++ii)
       {
-        if (*v92 != v51)
+        if (*v91 != v51)
         {
           objc_enumerationMutation(v48);
         }
 
-        v53 = [*(*(&v91 + 1) + 8 * ii) valueForSaveRequest:self];
+        v53 = [*(*(&v90 + 1) + 8 * ii) valueForSaveRequest:self];
         [v47 addObject:v53];
       }
 
-      v50 = [v48 countByEnumeratingWithState:&v91 objects:v117 count:16];
+      v50 = [v48 countByEnumeratingWithState:&v90 objects:v116 count:16];
     }
 
     while (v50);
   }
 
-  v71 = v41;
+  v70 = v41;
 
   v54 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(allValues7, "count")}];
+  v86 = 0u;
   v87 = 0u;
   v88 = 0u;
   v89 = 0u;
-  v90 = 0u;
-  v77 = allValues7;
-  v55 = [v77 countByEnumeratingWithState:&v87 objects:v116 count:16];
+  v76 = allValues7;
+  v55 = [v76 countByEnumeratingWithState:&v86 objects:v115 count:16];
   if (v55)
   {
     v56 = v55;
-    v57 = *v88;
+    v57 = *v87;
     do
     {
       for (jj = 0; jj != v56; ++jj)
       {
-        if (*v88 != v57)
+        if (*v87 != v57)
         {
-          objc_enumerationMutation(v77);
+          objc_enumerationMutation(v76);
         }
 
-        v59 = [*(*(&v87 + 1) + 8 * jj) valueForSaveRequest:self];
+        v59 = [*(*(&v86 + 1) + 8 * jj) valueForSaveRequest:self];
         [v54 addObject:v59];
       }
 
-      v56 = [v77 countByEnumeratingWithState:&v87 objects:v116 count:16];
+      v56 = [v76 countByEnumeratingWithState:&v86 objects:v115 count:16];
     }
 
     while (v56);
   }
 
-  v68 = v48;
+  v67 = v48;
 
   v60 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(allValues8, "count")}];
+  v82 = 0u;
   v83 = 0u;
   v84 = 0u;
   v85 = 0u;
-  v86 = 0u;
   v61 = allValues8;
-  v62 = [v61 countByEnumeratingWithState:&v83 objects:v115 count:16];
+  v62 = [v61 countByEnumeratingWithState:&v82 objects:v114 count:16];
   if (v62)
   {
     v63 = v62;
-    v64 = *v84;
+    v64 = *v83;
     do
     {
       for (kk = 0; kk != v63; ++kk)
       {
-        if (*v84 != v64)
+        if (*v83 != v64)
         {
           objc_enumerationMutation(v61);
         }
 
-        v66 = [*(*(&v83 + 1) + 8 * kk) valueForSaveRequest:self];
+        v66 = [*(*(&v82 + 1) + 8 * kk) valueForSaveRequest:self];
         [v60 addObject:v66];
       }
 
-      v63 = [v61 countByEnumeratingWithState:&v83 objects:v115 count:16];
+      v63 = [v61 countByEnumeratingWithState:&v82 objects:v114 count:16];
     }
 
     while (v63);
   }
 
-  [(REMSaveRequest *)self _willSaveAccountChangeItems:v82 listChangeItems:v81 listSectionChangeItems:v47 smartListChangeItems:v80 smartListSectionChangeItems:v54 templateChangeItems:v79 templateSectionChangeItems:v60 reminderChangeItems:v40];
-  saveCopy[2](saveCopy, v82, v81, v47, v80, v54, v79, v60, v40);
-
-  v67 = *MEMORY[0x1E69E9840];
+  [(REMSaveRequest *)self _willSaveAccountChangeItems:v81 listChangeItems:v80 listSectionChangeItems:v47 smartListChangeItems:v79 smartListSectionChangeItems:v54 templateChangeItems:v78 templateSectionChangeItems:v60 reminderChangeItems:v40];
+  saveCopy[2](saveCopy, v81, v80, v47, v79, v54, v78, v60, v40);
 }
 
 - (void)performPreSaveActions
@@ -4400,56 +4398,53 @@ LABEL_67:
 
 - (void)preFetchDueDateDeltaAlertsForCompletedRecurrenceClone
 {
-  v9 = *MEMORY[0x1E69E9840];
   allKeys = [a2 allKeys];
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)preFlightActionSaveAndUpdateParentsOfRecurrentSubtasksWithLogPrefix:(id)prefix
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   prefixCopy = prefix;
   v5 = +[REMLogStore write];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v46 = prefixCopy;
+    v45 = prefixCopy;
     _os_log_impl(&dword_19A0DB000, v5, OS_LOG_TYPE_INFO, "%{public}@: Preflight - Collect parentsOfRecurrentSubtasks", buf, 0xCu);
   }
 
-  v33 = prefixCopy;
+  v32 = prefixCopy;
 
   v6 = MEMORY[0x1E695DFA8];
   trackedReminderChangeItems = [(REMSaveRequest *)self trackedReminderChangeItems];
   v8 = [v6 setWithCapacity:{objc_msgSend(trackedReminderChangeItems, "count")}];
 
   v9 = objc_opt_new();
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   trackedReminderChangeItems2 = [(REMSaveRequest *)self trackedReminderChangeItems];
   allValues = [trackedReminderChangeItems2 allValues];
 
-  v12 = [allValues countByEnumeratingWithState:&v39 objects:v44 count:16];
+  v12 = [allValues countByEnumeratingWithState:&v38 objects:v43 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v40;
+    v14 = *v39;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v40 != v14)
+        if (*v39 != v14)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v16 = [*(*(&v39 + 1) + 8 * i) valueForSaveRequest:self];
+        v16 = [*(*(&v38 + 1) + 8 * i) valueForSaveRequest:self];
         objectID = [v16 objectID];
         [v8 addObject:objectID];
 
@@ -4469,7 +4464,7 @@ LABEL_67:
         }
       }
 
-      v13 = [allValues countByEnumeratingWithState:&v39 objects:v44 count:16];
+      v13 = [allValues countByEnumeratingWithState:&v38 objects:v43 count:16];
     }
 
     while (v13);
@@ -4479,7 +4474,7 @@ LABEL_67:
   if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v46 = v33;
+    v45 = v32;
     _os_log_impl(&dword_19A0DB000, v21, OS_LOG_TYPE_INFO, "%{public}@: Preflight -  Fetch and update parents of recurrent subtasks", buf, 0xCu);
   }
 
@@ -4488,9 +4483,9 @@ LABEL_67:
   {
     store = [(REMSaveRequest *)self store];
     allObjects = [v9 allObjects];
-    v38 = 0;
-    v24 = [store fetchRemindersWithObjectIDs:allObjects error:&v38];
-    v25 = v38;
+    v37 = 0;
+    v24 = [store fetchRemindersWithObjectIDs:allObjects error:&v37];
+    v25 = v37;
 
     if (v25)
     {
@@ -4508,44 +4503,42 @@ LABEL_67:
         goto LABEL_22;
       }
 
-      v36 = 0u;
-      v37 = 0u;
-      v34 = 0u;
       v35 = 0u;
+      v36 = 0u;
+      v33 = 0u;
+      v34 = 0u;
       objectEnumerator = [v24 objectEnumerator];
-      v28 = [objectEnumerator countByEnumeratingWithState:&v34 objects:v43 count:16];
-      if (v28)
+      v27 = [objectEnumerator countByEnumeratingWithState:&v33 objects:v42 count:16];
+      if (v27)
       {
-        v29 = v28;
-        v30 = *v35;
+        v28 = v27;
+        v29 = *v34;
         do
         {
-          for (j = 0; j != v29; ++j)
+          for (j = 0; j != v28; ++j)
           {
-            if (*v35 != v30)
+            if (*v34 != v29)
             {
               objc_enumerationMutation(objectEnumerator);
             }
 
-            v32 = [(REMSaveRequest *)self updateReminder:*(*(&v34 + 1) + 8 * j)];
+            v31 = [(REMSaveRequest *)self updateReminder:*(*(&v33 + 1) + 8 * j)];
           }
 
-          v29 = [objectEnumerator countByEnumeratingWithState:&v34 objects:v43 count:16];
+          v28 = [objectEnumerator countByEnumeratingWithState:&v33 objects:v42 count:16];
         }
 
-        while (v29);
+        while (v28);
       }
     }
 
 LABEL_22:
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (id)advanceForwardRecurrenceAfterNowAndCreateIncompleteCloneWithoutRecurrenceRulesAndSubtasks
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   v3 = 0x1E7506000uLL;
   v4 = +[REMLogStore write];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
@@ -4555,7 +4548,7 @@ LABEL_22:
   }
 
   rem_now = [MEMORY[0x1E695DF00] rem_now];
-  v40 = objc_opt_new();
+  v39 = objc_opt_new();
   [(REMSaveRequest *)self preFlightActionSaveAndUpdateParentsOfRecurrentSubtasksWithLogPrefix:@"IncompleteRecurrenceClone"];
   v6 = +[REMLogStore write];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
@@ -4564,40 +4557,40 @@ LABEL_22:
     _os_log_impl(&dword_19A0DB000, v6, OS_LOG_TYPE_INFO, "IncompleteRecurrenceClone: Incomplete Duplicate and Advance Forward", buf, 2u);
   }
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   trackedReminderChangeItems = [(REMSaveRequest *)self trackedReminderChangeItems];
   allValues = [trackedReminderChangeItems allValues];
 
-  v42 = [allValues countByEnumeratingWithState:&v43 objects:v56 count:16];
-  if (v42)
+  v41 = [allValues countByEnumeratingWithState:&v42 objects:v55 count:16];
+  if (v41)
   {
-    v10 = *v44;
+    v10 = *v43;
     *&v9 = 138543618;
-    v36 = v9;
-    v38 = rem_now;
+    v35 = v9;
+    v37 = rem_now;
     selfCopy = self;
-    v41 = *v44;
-    v37 = allValues;
+    v40 = *v43;
+    v36 = allValues;
     do
     {
       v11 = 0;
       do
       {
-        if (*v44 != v10)
+        if (*v43 != v10)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v12 = [*(*(&v43 + 1) + 8 * v11) valueForSaveRequest:{self, v36}];
+        v12 = [*(*(&v42 + 1) + 8 * v11) valueForSaveRequest:{self, v35}];
         write = [*(v3 + 3368) write];
         if (os_log_type_enabled(write, OS_LOG_TYPE_INFO))
         {
           objectID = [v12 objectID];
           *buf = 138543362;
-          v48 = objectID;
+          v47 = objectID;
           _os_log_impl(&dword_19A0DB000, write, OS_LOG_TYPE_INFO, "IncompleteRecurrenceClone: Performing check for has recurrenceRules {reminderID: %{public}@};", buf, 0xCu);
         }
 
@@ -4619,10 +4612,10 @@ LABEL_22:
             }
 
             objectID2 = [v12 objectID];
-            *buf = v36;
-            v48 = objectID2;
-            v49 = 2048;
-            *v50 = v19;
+            *buf = v35;
+            v47 = objectID2;
+            v48 = 2048;
+            *v49 = v19;
             _os_log_fault_impl(&dword_19A0DB000, write2, OS_LOG_TYPE_FAULT, "IncompleteRecurrenceClone: Unable to clone recurrent reminder with dueDateAdvanceAmount < 0 {reminderID: %{public}@, dueDateAdvanceAmount: %f}", buf, 0x16u);
           }
 
@@ -4633,7 +4626,7 @@ LABEL_22:
             if (objectID2)
             {
               objectID3 = [v12 objectID];
-              [v40 setObject:objectID2 forKeyedSubscript:objectID3];
+              [v39 setObject:objectID2 forKeyedSubscript:objectID3];
 
               [v12 cleanupDuplicate:objectID2 markAsCompleted:0];
               [v12 advanceForwardToNextRecurrenceAfterDate:rem_now];
@@ -4644,7 +4637,7 @@ LABEL_22:
               write3 = [*(v3 + 3368) write];
               if (os_log_type_enabled(write3, OS_LOG_TYPE_FAULT))
               {
-                [(REMSaveRequest *)v55 advanceForwardRecurrenceAfterNowAndCreateIncompleteCloneWithoutRecurrenceRulesAndSubtasks];
+                [(REMSaveRequest *)v54 advanceForwardRecurrenceAfterNowAndCreateIncompleteCloneWithoutRecurrenceRulesAndSubtasks];
               }
             }
           }
@@ -4666,25 +4659,25 @@ LABEL_22:
             recurrenceRules3 = [v12 recurrenceRules];
             v31 = [v29 numberWithUnsignedInteger:{objc_msgSend(recurrenceRules3, "count")}];
             *buf = 138544386;
-            v48 = objectID4;
-            v49 = 1026;
-            *v50 = isCompleted;
-            allValues = v37;
-            *&v50[4] = 2114;
-            *&v50[6] = objectID5;
-            v51 = 2114;
-            v52 = iCalendarDescription;
-            v53 = 2114;
-            v54 = v31;
+            v47 = objectID4;
+            v48 = 1026;
+            *v49 = isCompleted;
+            allValues = v36;
+            *&v49[4] = 2114;
+            *&v49[6] = objectID5;
+            v50 = 2114;
+            v51 = iCalendarDescription;
+            v52 = 2114;
+            v53 = v31;
             _os_log_impl(&dword_19A0DB000, write4, OS_LOG_TYPE_INFO, "IncompleteRecurrenceClone: Skipping advanceForwardRecurrenceAfterNowAndCreateIncompleteCloneWithoutRecurrenceRulesAndSubtasks to advance forward date alarm for reminder, didn't meet conditions for hasRecurrenceRules {reminderID: %{public}@, isCompleted:%{public}i, recurrenceRuleID: %{public}@, recurrenceRule: %{public}@, ruleCount: %{public}@};", buf, 0x30u);
 
-            rem_now = v38;
+            rem_now = v37;
             self = selfCopy;
 
             v3 = 0x1E7506000;
           }
 
-          v10 = v41;
+          v10 = v40;
         }
 
 LABEL_25:
@@ -4692,22 +4685,21 @@ LABEL_25:
         ++v11;
       }
 
-      while (v42 != v11);
-      v42 = [allValues countByEnumeratingWithState:&v43 objects:v56 count:16];
+      while (v41 != v11);
+      v41 = [allValues countByEnumeratingWithState:&v42 objects:v55 count:16];
     }
 
-    while (v42);
+    while (v41);
   }
 
-  v33 = [v40 copy];
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = [v39 copy];
 
   return v33;
 }
 
 - (id)advanceForwardRecurrenceAndCreateCompletedCloneWithoutRecurrenceRulesAndSubtasksAfterDate:(id)date
 {
-  v79 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   v4 = 0x1E7506000uLL;
   v5 = +[REMLogStore write];
@@ -4717,7 +4709,7 @@ LABEL_25:
     _os_log_impl(&dword_19A0DB000, v5, OS_LOG_TYPE_INFO, "CompletedRecurrenceClone: Started advanceForwardRecurrenceAndCreateCompletedCloneWithoutRecurrenceRulesAndSubtasksAfterDate", buf, 2u);
   }
 
-  v60 = objc_opt_new();
+  v59 = objc_opt_new();
   [(REMSaveRequest *)self preFetchDueDateDeltaAlertsForCompletedRecurrenceClone];
   [(REMSaveRequest *)self preFlightActionSaveAndUpdateParentsOfRecurrentSubtasksWithLogPrefix:@"CompletedRecurrenceClone"];
   v6 = +[REMLogStore write];
@@ -4727,37 +4719,37 @@ LABEL_25:
     _os_log_impl(&dword_19A0DB000, v6, OS_LOG_TYPE_INFO, "CompletedRecurrenceClone: Complete Duplicate and Advance Forward", buf, 2u);
   }
 
-  v71 = 0u;
-  v72 = 0u;
-  v69 = 0u;
   v70 = 0u;
+  v71 = 0u;
+  v68 = 0u;
+  v69 = 0u;
   trackedReminderChangeItems = [(REMSaveRequest *)self trackedReminderChangeItems];
   allValues = [trackedReminderChangeItems allValues];
 
   obj = allValues;
-  v68 = [allValues countByEnumeratingWithState:&v69 objects:v78 count:16];
-  if (v68)
+  v67 = [allValues countByEnumeratingWithState:&v68 objects:v77 count:16];
+  if (v67)
   {
-    v67 = *v70;
+    v66 = *v69;
     *&v9 = 138543618;
-    v59 = v9;
+    v58 = v9;
     do
     {
       v10 = 0;
       do
       {
-        if (*v70 != v67)
+        if (*v69 != v66)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = [*(*(&v69 + 1) + 8 * v10) valueForSaveRequest:{self, v59}];
+        v11 = [*(*(&v68 + 1) + 8 * v10) valueForSaveRequest:{self, v58}];
         write = [*(v4 + 3368) write];
         if (os_log_type_enabled(write, OS_LOG_TYPE_INFO))
         {
           objectID = [v11 objectID];
           *buf = 138543362;
-          v75 = objectID;
+          v74 = objectID;
           _os_log_impl(&dword_19A0DB000, write, OS_LOG_TYPE_INFO, "CompletedRecurrenceClone: Performing check for isCompleted and has recurrenceRules {reminderID: %{public}@};", buf, 0xCu);
         }
 
@@ -4778,7 +4770,7 @@ LABEL_23:
           objectID2 = [v11 objectID];
           isCompleted = [v11 isCompleted];
           [firstObject objectID];
-          v38 = v66 = v10;
+          v38 = v65 = v10;
           iCalendarDescription = [firstObject iCalendarDescription];
           v40 = MEMORY[0x1E696AD98];
           [v11 recurrenceRules];
@@ -4786,22 +4778,22 @@ LABEL_23:
           v43 = v42 = self;
           v44 = [v40 numberWithUnsignedInteger:{objc_msgSend(v43, "count")}];
           *buf = 138544386;
-          v75 = objectID2;
-          v76 = 1026;
-          *v77 = isCompleted;
-          *&v77[4] = 2114;
-          *&v77[6] = v38;
-          *&v77[14] = 2114;
-          *&v77[16] = iCalendarDescription;
-          *&v77[24] = 2114;
-          *&v77[26] = v44;
+          v74 = objectID2;
+          v75 = 1026;
+          *v76 = isCompleted;
+          *&v76[4] = 2114;
+          *&v76[6] = v38;
+          *&v76[14] = 2114;
+          *&v76[16] = iCalendarDescription;
+          *&v76[24] = 2114;
+          *&v76[26] = v44;
           _os_log_impl(&dword_19A0DB000, write2, OS_LOG_TYPE_INFO, "CompletedRecurrenceClone: Skipping advanceForwardRecurrenceAfterNowAndAndCreateCompletedCloneWithoutRecurrenceRulesAndSubtasks to advance forward date alarm for reminder, didn't meet conditions for isCompleted and hasRecurrenceRules {reminderID: %{public}@, isCompleted:%{public}i, recurrenceRuleID: %{public}@, recurrenceRule: %{public}@, ruleCount: %{public}@};", buf, 0x30u);
 
           v4 = 0x1E7506000;
           self = v42;
           firstObject = v41;
 
-          v10 = v66;
+          v10 = v65;
 LABEL_25:
 
           goto LABEL_26;
@@ -4830,10 +4822,10 @@ LABEL_25:
           if (os_log_type_enabled(write2, OS_LOG_TYPE_FAULT))
           {
             objectID2 = [v11 objectID];
-            *buf = v59;
-            v75 = objectID2;
-            v76 = 2048;
-            *v77 = v21;
+            *buf = v58;
+            v74 = objectID2;
+            v75 = 2048;
+            *v76 = v21;
             _os_log_fault_impl(&dword_19A0DB000, write2, OS_LOG_TYPE_FAULT, "CompletedRecurrenceClone: Unable to clone recurrent reminder with dueDateAdvanceAmount < 0 {reminderID: %{public}@, dueDateAdvanceAmount: %f}", buf, 0x16u);
             goto LABEL_25;
           }
@@ -4841,8 +4833,8 @@ LABEL_25:
 
         else
         {
-          v62 = firstObject;
-          v65 = v10;
+          v61 = firstObject;
+          v64 = v10;
           dueDateComponents2 = [v11 dueDateComponents];
           timeZone = [dueDateComponents2 timeZone];
           v24 = [MEMORY[0x1E695DFE8] timeZoneWithName:@"GMT"];
@@ -4853,7 +4845,7 @@ LABEL_25:
             defaultTimeZone = [MEMORY[0x1E695DFE8] defaultTimeZone];
             dueDateComponents3 = [v11 dueDateComponents];
             v28 = MEMORY[0x1E695DF10];
-            v61 = v11;
+            v60 = v11;
             dueDateComponents4 = [v11 dueDateComponents];
             v30 = [v28 rem_dateWithDateComponents:dueDateComponents4 timeZone:defaultTimeZone];
 
@@ -4880,20 +4872,20 @@ LABEL_25:
                 objectID3 = [v11 objectID];
                 rem_stringRepresentation = [dueDateComponents3 rem_stringRepresentation];
                 *buf = 138544386;
-                v75 = objectID3;
-                v76 = 2114;
-                *v77 = defaultTimeZone;
-                *&v77[8] = 2114;
-                *&v77[10] = rem_stringRepresentation;
-                *&v77[18] = 2114;
-                *&v77[20] = v45;
-                *&v77[28] = 2048;
-                *&v77[30] = v21;
+                v74 = objectID3;
+                v75 = 2114;
+                *v76 = defaultTimeZone;
+                *&v76[8] = 2114;
+                *&v76[10] = rem_stringRepresentation;
+                *&v76[18] = 2114;
+                *&v76[20] = v45;
+                *&v76[28] = 2048;
+                *&v76[30] = v21;
                 _os_log_impl(&dword_19A0DB000, write3, OS_LOG_TYPE_DEFAULT, "CompletedRecurrenceClone: FYI we are advancing a GMT due date across a DST boundary, this user maybe impacted by an hour drift caused by loss of user original due date time zone. {reminderID: %{public}@, userTimeZone: %{public}@, dueDateComponents(before): %{public}@, nextDSTDate: %{public}@, dueDateAdvanceAmount: %f}", buf, 0x34u);
               }
             }
 
-            v11 = v61;
+            v11 = v60;
           }
 
           write2 = +[REMReminder newObjectID];
@@ -4901,13 +4893,13 @@ LABEL_25:
           if (v50)
           {
             objectID4 = [v11 objectID];
-            [v60 setObject:v50 forKeyedSubscript:objectID4];
+            [v59 setObject:v50 forKeyedSubscript:objectID4];
 
             [v11 cleanupDuplicate:v50 markAsCompleted:1];
             [v11 setCompleted:0];
             recurrenceRules3 = [v11 recurrenceRules];
-            firstObject = v62;
-            [v11 advanceForwardToNextRecurrenceAfterDate:v62];
+            firstObject = v61;
+            [v11 advanceForwardToNextRecurrenceAfterDate:v61];
             displayDate = [v11 displayDate];
             date = [displayDate date];
 
@@ -4917,14 +4909,14 @@ LABEL_25:
           else
           {
             recurrenceRules3 = [*(v4 + 3368) write];
-            firstObject = v62;
+            firstObject = v61;
             if (os_log_type_enabled(recurrenceRules3, OS_LOG_TYPE_FAULT))
             {
-              [(REMSaveRequest *)v73 advanceForwardRecurrenceAndCreateCompletedCloneWithoutRecurrenceRulesAndSubtasksAfterDate:v11];
+              [(REMSaveRequest *)v72 advanceForwardRecurrenceAndCreateCompletedCloneWithoutRecurrenceRulesAndSubtasksAfterDate:v11];
             }
           }
 
-          v10 = v65;
+          v10 = v64;
         }
 
 LABEL_26:
@@ -4932,18 +4924,16 @@ LABEL_26:
         ++v10;
       }
 
-      while (v68 != v10);
-      v55 = [obj countByEnumeratingWithState:&v69 objects:v78 count:16];
-      v68 = v55;
+      while (v67 != v10);
+      v55 = [obj countByEnumeratingWithState:&v68 objects:v77 count:16];
+      v67 = v55;
     }
 
     while (v55);
   }
 
   [(REMSaveRequest *)self setCloneCompletedRecurrentRemindersAtSave:0];
-  v56 = [v60 copy];
-
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = [v59 copy];
 
   return v56;
 }
@@ -5790,7 +5780,7 @@ LABEL_16:
 
 - (void)_trackAccountCapabilities:(id)capabilities forObjectID:(id)d
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   capabilitiesCopy = capabilities;
   dCopy = d;
   if (!capabilitiesCopy)
@@ -5824,10 +5814,10 @@ LABEL_12:
   {
     *buf = 138412802;
     selfCopy = self;
-    v16 = 2112;
-    v17 = capabilitiesCopy;
-    v18 = 2112;
-    v19 = dCopy;
+    v15 = 2112;
+    v16 = capabilitiesCopy;
+    v17 = 2112;
+    v18 = dCopy;
     _os_log_debug_impl(&dword_19A0DB000, v9, OS_LOG_TYPE_DEBUG, "_trackAccountCapabilities {SaveRequest: %@ accountCapabilities: %@ objectID: %@", buf, 0x20u);
   }
 
@@ -5835,7 +5825,6 @@ LABEL_12:
   [trackedAccountCapabilities setObject:capabilitiesCopy forKeyedSubscript:dCopy];
 
 LABEL_13:
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_trackedAccountCapabilitiesForObjectID:(id)d
@@ -6253,7 +6242,6 @@ LABEL_3:
 - (void)updateAccount:.cold.2()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -6264,15 +6252,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)updateAccount:.cold.3()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -6283,15 +6268,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)_updateAccountWithListChangeItem:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -6302,15 +6284,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)_updateAccountWithListChangeItem:.cold.2()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -6321,15 +6300,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)addGroupWithName:toAccountGroupContextChangeItem:groupObjectID:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -6340,15 +6316,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)addListWithName:toAccountChangeItem:listObjectID:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -6359,59 +6332,44 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)addListUsingTemplate:(void *)a1 toAccountChangeItem:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 objectID];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addListUsingTemplate:(void *)a1 toAccountChangeItem:.cold.2(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 objectID];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addListUsingPublicTemplateWithREMListRepresentation:(void *)a1 toAccountChangeItem:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 objectID];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addListUsingPublicTemplateWithREMListRepresentation:(void *)a1 toAccountChangeItem:.cold.2(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 objectID];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateList:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -6422,15 +6380,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)updateList:.cold.2()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -6441,15 +6396,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)_updateListStorage:accountCapabilities:.cold.2()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -6460,15 +6412,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)_updateListWithReminderChangeItem:.cold.2()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -6479,15 +6428,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)_updateListWithReminderChangeItem:.cold.3()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -6498,15 +6444,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)updateSmartList:.cold.2()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -6517,15 +6460,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)updateSmartList:.cold.3()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -6536,15 +6476,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)updateTemplate:.cold.2()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -6555,15 +6492,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)updateTemplate:.cold.3()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -6574,71 +6508,56 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)addReminderWithTitle:toListChangeItem:reminderObjectID:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = +[REMLogStore write];
   if (OUTLINED_FUNCTION_7_0(v1))
   {
     OUTLINED_FUNCTION_8_0();
     OUTLINED_FUNCTION_1_5();
-    _os_log_fault_impl(v3, v4, v5, v6, v7, 0xCu);
+    _os_log_fault_impl(v2, v3, v4, v5, v6, 0xCu);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addReminderWithTitle:toListChangeItem:reminderObjectID:.cold.2()
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = +[REMLogStore write];
   if (OUTLINED_FUNCTION_7_0(v1))
   {
     OUTLINED_FUNCTION_8_0();
     OUTLINED_FUNCTION_1_5();
-    _os_log_fault_impl(v3, v4, v5, v6, v7, 0xCu);
+    _os_log_fault_impl(v2, v3, v4, v5, v6, 0xCu);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addReminderWithTitle:toReminderSubtaskContextChangeItem:reminderObjectID:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = +[REMLogStore write];
   if (OUTLINED_FUNCTION_7_0(v1))
   {
     OUTLINED_FUNCTION_8_0();
     OUTLINED_FUNCTION_1_5();
-    _os_log_fault_impl(v3, v4, v5, v6, v7, 0xCu);
+    _os_log_fault_impl(v2, v3, v4, v5, v6, 0xCu);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addReminderWithTitle:toReminderSubtaskContextChangeItem:reminderObjectID:.cold.2()
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = +[REMLogStore write];
   if (OUTLINED_FUNCTION_7_0(v1))
   {
     OUTLINED_FUNCTION_8_0();
     OUTLINED_FUNCTION_1_5();
-    _os_log_fault_impl(v3, v4, v5, v6, v7, 0xCu);
+    _os_log_fault_impl(v2, v3, v4, v5, v6, 0xCu);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateReminder:.cold.2()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -6649,15 +6568,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)updateReminder:.cold.3()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -6668,15 +6584,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)addListSectionWithDisplayName:toListSectionContextChangeItem:listSectionObjectID:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -6687,15 +6600,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)updateListSection:.cold.3()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -6706,15 +6616,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)addSmartListSectionWithDisplayName:toSmartListSectionContextChangeItem:smartListSectionObjectID:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -6725,15 +6632,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)updateSmartListSection:.cold.3()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -6744,15 +6648,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)addTemplateSectionWithDisplayName:toTemplateSectionContextChangeItem:templateSectionObjectID:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -6763,15 +6664,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)updateTemplateSection:.cold.3()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -6782,19 +6680,16 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)preFlightActionSaveAndUpdateParentsOfRecurrentSubtasksWithLogPrefix:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_19A0DB000, v1, OS_LOG_TYPE_ERROR, "%{public}@: Preflight -  Error fetching parentsOfRecurrentSubtasks {error: %@}", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_19A0DB000, v1, OS_LOG_TYPE_ERROR, "%{public}@: Preflight -  Error fetching parentsOfRecurrentSubtasks {error: %@}", v2, 0x16u);
 }
 
 - (void)advanceForwardRecurrenceAfterNowAndCreateIncompleteCloneWithoutRecurrenceRulesAndSubtasks
@@ -6818,7 +6713,6 @@ LABEL_3:
 - (void)_trackAccountChangeItem:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -6829,15 +6723,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)_updateTrackedAccountChangeItem:withObjectID:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -6848,15 +6739,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)_trackListChangeItem:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -6867,15 +6755,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)_trackSmartListChangeItem:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -6886,15 +6771,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)_trackSmartListChangeItem:.cold.2()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -6905,15 +6787,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)_trackTemplateChangeItem:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -6924,15 +6803,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)_trackTemplateChangeItem:.cold.2()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -6943,15 +6819,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)_trackListSectionChangeItem:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -6962,15 +6835,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)_trackListSectionChangeItem:.cold.2()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -6981,15 +6851,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)_trackSmartListSectionChangeItem:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -7000,15 +6867,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)_trackSmartListSectionChangeItem:.cold.2()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -7019,15 +6883,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)_trackTemplateSectionChangeItem:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -7038,15 +6899,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)_trackTemplateSectionChangeItem:.cold.2()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -7057,15 +6915,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)_trackReminderChangeItem:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -7076,15 +6931,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)_trackReminderChangeItem:.cold.2()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -7095,15 +6947,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)_trackAccountCapabilities:forObjectID:.cold.2()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -7114,33 +6963,28 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)_trackedAccountCapabilitiesForObjectID:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_debug_impl(&dword_19A0DB000, v1, OS_LOG_TYPE_DEBUG, "_trackedAccountCapabilitiesForObjectID {SaveRequest: %@ objectID: %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_19A0DB000, v1, OS_LOG_TYPE_DEBUG, "_trackedAccountCapabilitiesForObjectID {SaveRequest: %@ objectID: %@", v2, 0x16u);
 }
 
 - (void)_trackedAccountCapabilitiesForObjectID:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_fault_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_FAULT, "Don't have account capabilities for {objectID: %@}", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_FAULT, "Don't have account capabilities for {objectID: %@}", v1, 0xCu);
 }
 
 - (void)_copyReminder:toListChangeItem:.cold.2()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -7151,15 +6995,12 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 - (void)_copyReminder:toReminderSubtaskContextChangeItem:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696AEC0];
   v3 = objc_opt_class();
   NSStringFromClass(v3);
@@ -7170,9 +7011,7 @@ LABEL_3:
   OUTLINED_FUNCTION_3_1();
   v5 = [v2 stringWithFormat:@"%@.%@"];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v13, v14, v15);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v6, v7, "[%{public}@] Passing in nil '%s'", v8, v9, v10, v11, v12, v13);
 }
 
 @end

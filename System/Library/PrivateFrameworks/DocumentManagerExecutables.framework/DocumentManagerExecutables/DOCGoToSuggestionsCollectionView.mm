@@ -14,7 +14,7 @@
   *v10 = 0;
   v10[1] = 0;
   v11 = OBJC_IVAR____TtC26DocumentManagerExecutablesP33_03A6F4A3946F5CAF17EC184247B3DEF332DOCGoToSuggestionsCollectionView_focusableCollectionViewState;
-  type metadata accessor for DOCFocusableCollectionViewState();
+  type metadata accessor for DOCFocusableCollectionViewState(0);
   v12 = swift_allocObject();
   v13 = OBJC_IVAR____TtC26DocumentManagerExecutables31DOCFocusableCollectionViewState_indexPathForMostRecentlySelectedItem;
   v14 = type metadata accessor for IndexPath();

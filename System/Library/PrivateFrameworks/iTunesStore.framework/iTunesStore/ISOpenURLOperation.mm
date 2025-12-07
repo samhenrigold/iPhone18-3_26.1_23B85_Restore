@@ -49,7 +49,7 @@ LABEL_2:
 - (void)run
 {
   selfCopy = self;
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   uRLBagKey = [(ISOpenURLRequest *)self->_request URLBagKey];
 
   if (uRLBagKey)
@@ -100,14 +100,12 @@ LABEL_43:
     {
       v41 = objc_opt_class();
       request = selfCopy->_request;
-      v58 = 138412546;
-      v59 = v41;
-      v60 = 2112;
-      v61 = request;
+      v57 = 138412546;
+      v58 = v41;
+      v59 = 2112;
+      v60 = request;
       v43 = v41;
-      LODWORD(v48) = 22;
-      v47 = &v58;
-      v44 = _os_log_send_and_compose_impl();
+      v44 = _os_log_send_and_compose_impl(v40, 0, 0, 0, &dword_275BC3000, oSLogObject, 0, "%@: No URL to open for request: %@", &v57, 22);
 
       if (!v44)
       {
@@ -116,9 +114,9 @@ LABEL_55:
         goto LABEL_58;
       }
 
-      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v44 encoding:{4, &v58, v48}];
+      oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v44 encoding:4];
       free(v44);
-      v47 = oSLogObject;
+      v46 = oSLogObject;
       SSFileLog();
     }
 
@@ -188,33 +186,31 @@ LABEL_58:
     goto LABEL_17;
   }
 
-  v58 = 138412802;
-  v59 = objc_opt_class();
-  v60 = 2112;
-  v61 = v8;
-  v62 = 2112;
-  v63 = _newSortedTargetsArray;
-  v18 = v59;
-  LODWORD(v48) = 32;
-  v47 = &v58;
-  v19 = _os_log_send_and_compose_impl();
+  v57 = 138412802;
+  v58 = objc_opt_class();
+  v59 = 2112;
+  v60 = v8;
+  v61 = 2112;
+  v62 = _newSortedTargetsArray;
+  v18 = v58;
+  v19 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &dword_275BC3000, oSLogObject2, 1, "%@: Opening URL: %@ with client states: %@", &v57, 32);
 
   if (v19)
   {
-    oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v19 encoding:{4, &v58, v48}];
+    oSLogObject2 = [MEMORY[0x277CCACA8] stringWithCString:v19 encoding:4];
     free(v19);
-    v47 = oSLogObject2;
+    v46 = oSLogObject2;
     SSFileLog();
 LABEL_17:
   }
 
   defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
+  v52 = 0u;
   v53 = 0u;
   v54 = 0u;
   v55 = 0u;
-  v56 = 0u;
   obj = _newSortedTargetsArray;
-  v20 = [obj countByEnumeratingWithState:&v53 objects:v57 count:16];
+  v20 = [obj countByEnumeratingWithState:&v52 objects:v56 count:16];
   if (!v20)
   {
     v45 = 0;
@@ -222,18 +218,18 @@ LABEL_17:
   }
 
   v21 = v20;
-  v49 = v12;
-  v51 = *v54;
+  v48 = v12;
+  v50 = *v53;
   do
   {
     for (i = 0; i != v21; ++i)
     {
-      if (*v54 != v51)
+      if (*v53 != v50)
       {
         objc_enumerationMutation(obj);
       }
 
-      v23 = [*(*(&v53 + 1) + 8 * i) copyURLForURL:{v8, v47}];
+      v23 = [*(*(&v52 + 1) + 8 * i) copyURLForURL:{v8, v46}];
       v24 = [defaultWorkspace applicationsAvailableForOpeningURL:v23];
       if (![v24 count])
       {
@@ -274,23 +270,22 @@ LABEL_17:
       if (v31)
       {
         v32 = objc_opt_class();
-        v58 = 138412546;
-        v59 = v32;
-        v60 = 2112;
-        v61 = v23;
+        v57 = 138412546;
+        v58 = v32;
+        v59 = 2112;
+        v60 = v23;
         v33 = v32;
-        LODWORD(v48) = 22;
-        v47 = &v58;
-        v34 = _os_log_send_and_compose_impl();
+        LODWORD(v47) = 22;
+        v34 = _os_log_send_and_compose_impl(v31, 0, 0, 0, &dword_275BC3000, oSLogObject3, 1, "%@: Opening converted URL: %@", &v57, v47);
 
         if (!v34)
         {
           goto LABEL_36;
         }
 
-        oSLogObject3 = [MEMORY[0x277CCACA8] stringWithCString:v34 encoding:{4, &v58, v48}];
+        oSLogObject3 = [MEMORY[0x277CCACA8] stringWithCString:v34 encoding:4];
         free(v34);
-        v47 = oSLogObject3;
+        v46 = oSLogObject3;
         SSFileLog();
       }
 
@@ -306,19 +301,17 @@ LABEL_36:
       }
     }
 
-    v21 = [obj countByEnumeratingWithState:&v53 objects:v57 count:16];
+    v21 = [obj countByEnumeratingWithState:&v52 objects:v56 count:16];
   }
 
   while (v21);
   v45 = 0;
 LABEL_59:
-  v12 = v49;
+  v12 = v48;
 LABEL_61:
 
 LABEL_62:
-  [(ISOperation *)selfCopy setSuccess:v45, v47];
-
-  v46 = *MEMORY[0x277D85DE8];
+  [(ISOperation *)selfCopy setSuccess:v45, v46];
 }
 
 - (id)_newSortedTargetsArray
@@ -339,25 +332,25 @@ LABEL_62:
 
 - (BOOL)_openURL:(id)l
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   if ([(ISOpenURLRequest *)self->_request interruptsKeybagRefresh])
   {
     SBSInterruptKeybagRefetch();
   }
 
-  v13 = 0;
+  v12 = 0;
   v5 = SBSSpringBoardServerPort();
-  MEMORY[0x277C8B810](v5, &v13 + 1, &v13);
-  if (HIBYTE(v13))
+  MEMORY[0x277C8B810](v5, &v12 + 1, &v12);
+  if (HIBYTE(v12))
   {
     mEMORY[0x277D0AE18] = [MEMORY[0x277D0AE18] sharedService];
     createClientPort = [mEMORY[0x277D0AE18] createClientPort];
 
-    v14 = *MEMORY[0x277D0AC58];
-    v15[0] = MEMORY[0x277CBEC38];
+    v13 = *MEMORY[0x277D0AC58];
+    v14[0] = MEMORY[0x277CBEC38];
     v8 = 1;
-    defaultWorkspace = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    defaultWorkspace = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     mEMORY[0x277D0AE18]2 = [MEMORY[0x277D0AE18] sharedService];
     [mEMORY[0x277D0AE18]2 openURL:lCopy application:@"com.apple.MobileStore" options:defaultWorkspace clientPort:createClientPort withResult:0];
   }
@@ -368,7 +361,6 @@ LABEL_62:
     v8 = [defaultWorkspace openSensitiveURL:lCopy withOptions:0];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

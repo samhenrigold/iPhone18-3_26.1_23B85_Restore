@@ -1,3 +1,21 @@
+void sub_24026B5CC(uint64_t a1)
+{
+  *a1 = &unk_285227420;
+  if (*(a1 + 639) < 0)
+  {
+    operator delete(*(a1 + 616));
+  }
+
+  *(a1 + 32) = &unk_285226DD8;
+  *(a1 + 464) = &unk_285226E28;
+  *(a1 + 48) = &unk_285226E00;
+  MEMORY[0x245CBC6E0](a1 + 56);
+  std::iostream::~basic_iostream();
+  MEMORY[0x245CBC9C0](a1 + 464);
+
+  JUMPOUT(0x245CBCA30);
+}
+
 uint64_t sub_24026B6C4(uint64_t a1)
 {
   *a1 = &unk_285227420;
@@ -64,7 +82,7 @@ uint64_t sub_24026B79C(uint64_t a1, __int128 *a2, _DWORD *a3)
     sub_2402546E0(&v12);
     if (*(a2 + 23) >= 0)
     {
-      LOBYTE(v9) = a2;
+      v9 = a2;
     }
 
     else
@@ -101,15 +119,25 @@ uint64_t sub_24026BA44(void *a1, uint64_t a2)
   return 1;
 }
 
-void sub_24026BADC(_DWORD *a1)
+void sub_24026BADC(_DWORD *a1, int64_t a2)
 {
   if (a1[2] == 2)
   {
     operator new();
   }
 
-  (*(*a1 + 112))();
-  sub_24026A5C8();
+  v4 = (*(*a1 + 112))();
+  if (v4 >= a2)
+  {
+    v5 = a2;
+  }
+
+  else
+  {
+    v5 = v4;
+  }
+
+  sub_24026A5C8(&v6, v5);
 }
 
 uint64_t sub_24026BC44(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -248,15 +276,20 @@ void sub_24026BE20(uint64_t a1@<X0>, uint64_t a2@<X8>)
   }
 }
 
-void sub_24026BF1C(uint64_t a1, _DWORD *a2)
+void sub_24026BF1C(uint64_t *a1, _DWORD *a2, int64_t a3)
 {
   if (a2[2] == 2)
   {
     operator new();
   }
 
-  (*(*a2 + 112))(a2);
-  sub_24026A5C8();
+  v4 = (*(*a2 + 112))(a2);
+  if (v4 < a3)
+  {
+    a3 = v4;
+  }
+
+  sub_24026A5C8(&v5, a3);
 }
 
 uint64_t sub_24026C0A0(uint64_t a1)
@@ -411,7 +444,7 @@ void sub_24026C51C(uint64_t a1, uint64_t *a2)
   v7 = v4;
   if (v4)
   {
-    atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
   }
 
   (*(*a1 + 24))(a1, &v6);
@@ -752,7 +785,7 @@ LABEL_7:
   return a1;
 }
 
-void sub_24026CFA0(uint64_t *a1)
+void sub_24026CFA0(const void **a1)
 {
   v4 = a1;
   v25 = a1;

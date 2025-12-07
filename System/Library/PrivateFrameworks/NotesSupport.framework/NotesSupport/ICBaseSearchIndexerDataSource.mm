@@ -353,7 +353,7 @@ LABEL_14:
       eligibleForPhotosProcessing = os_log_create("com.apple.notes", "SearchIndexer");
       if (os_log_type_enabled(eligibleForPhotosProcessing, OS_LOG_TYPE_DEBUG))
       {
-        [ICBaseSearchIndexerDataSource searchableItemResultForObject:];
+        [ICBaseSearchIndexerDataSource searchableItemResultForObject:objectCopy];
       }
 
       v12 = 0;
@@ -380,22 +380,22 @@ LABEL_14:
 void __54__ICBaseSearchIndexerDataSource_startObservingChanges__block_invoke(uint64_t a1)
 {
   v1 = (a1 + 32);
-  [*(a1 + 32) loadOrClearStateIfNecessary];
-  if ((ICUseCoreDataCoreSpotlightIntegration() & 1) == 0)
+  v2 = [*(a1 + 32) loadOrClearStateIfNecessary];
+  if ((ICUseCoreDataCoreSpotlightIntegration(v2, v3) & 1) == 0)
   {
-    v2 = [*v1 objectIDsToProcess];
-    v3 = [v2 count];
+    v4 = [*v1 objectIDsToProcess];
+    v5 = [v4 count];
 
-    if (v3)
+    if (v5)
     {
-      v4 = os_log_create("com.apple.notes", "SearchIndexer");
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+      v6 = os_log_create("com.apple.notes", "SearchIndexer");
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
         __54__ICBaseSearchIndexerDataSource_startObservingChanges__block_invoke_cold_1();
       }
 
-      v5 = [MEMORY[0x1E696AD88] defaultCenter];
-      [v5 postNotificationName:@"ICSearchIndexerDataSourceDidChangeNotification" object:*v1];
+      v7 = [MEMORY[0x1E696AD88] defaultCenter];
+      [v7 postNotificationName:@"ICSearchIndexerDataSourceDidChangeNotification" object:*v1];
     }
   }
 }
@@ -430,183 +430,183 @@ void __54__ICBaseSearchIndexerDataSource_startObservingChanges__block_invoke(uin
 
 - (void)contextWillSave:(id)save
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   saveCopy = save;
-  if ((ICUseCoreDataCoreSpotlightIntegration() & 1) == 0)
+  if ((ICUseCoreDataCoreSpotlightIntegration(saveCopy, v5) & 1) == 0)
   {
     object = [saveCopy object];
     persistentStoreCoordinator = [object persistentStoreCoordinator];
     persistentStoreCoordinator2 = [(ICBaseSearchIndexerDataSource *)self persistentStoreCoordinator];
-    v8 = [persistentStoreCoordinator isEqual:persistentStoreCoordinator2];
+    v9 = [persistentStoreCoordinator isEqual:persistentStoreCoordinator2];
 
-    if (v8)
+    if (v9)
     {
-      v53 = saveCopy;
+      v54 = saveCopy;
       array = [MEMORY[0x1E695DF70] array];
-      v10 = [MEMORY[0x1E695DFA8] set];
+      v11 = [MEMORY[0x1E695DFA8] set];
       insertedObjects = [object insertedObjects];
-      v12 = [insertedObjects count];
+      v13 = [insertedObjects count];
 
-      if (v12)
+      if (v13)
       {
         insertedObjects2 = [object insertedObjects];
-        [v10 unionSet:insertedObjects2];
+        [v11 unionSet:insertedObjects2];
       }
 
       updatedObjects = [object updatedObjects];
-      v15 = [updatedObjects count];
+      v16 = [updatedObjects count];
 
-      if (v15)
+      if (v16)
       {
         updatedObjects2 = [object updatedObjects];
-        [v10 unionSet:updatedObjects2];
+        [v11 unionSet:updatedObjects2];
       }
 
       deletedObjects = [object deletedObjects];
-      v18 = [deletedObjects count];
+      v19 = [deletedObjects count];
 
-      if (v18)
+      if (v19)
       {
         deletedObjects2 = [object deletedObjects];
-        [v10 unionSet:deletedObjects2];
+        [v11 unionSet:deletedObjects2];
       }
 
       array2 = [MEMORY[0x1E695DF70] array];
-      v70 = 0u;
       v71 = 0u;
       v72 = 0u;
       v73 = 0u;
-      obj = v10;
-      v58 = [obj countByEnumeratingWithState:&v70 objects:v80 count:16];
-      if (v58)
+      v74 = 0u;
+      obj = v11;
+      v59 = [obj countByEnumeratingWithState:&v71 objects:v81 count:16];
+      if (v59)
       {
-        v57 = *v71;
+        v58 = *v72;
         selfCopy = self;
         do
         {
-          for (i = 0; i != v58; ++i)
+          for (i = 0; i != v59; ++i)
           {
-            if (*v71 != v57)
+            if (*v72 != v58)
             {
               objc_enumerationMutation(obj);
             }
 
-            v21 = *(*(&v70 + 1) + 8 * i);
-            v22 = objc_opt_new();
-            if ([(ICBaseSearchIndexerDataSource *)self isFolderWithServerShareChanged:v21])
+            v22 = *(*(&v71 + 1) + 8 * i);
+            v23 = objc_opt_new();
+            if ([(ICBaseSearchIndexerDataSource *)self isFolderWithServerShareChanged:v22])
             {
-              [array2 addObject:v21];
+              [array2 addObject:v22];
             }
 
-            if ([v21 conformsToProtocol:&unk_1F4FEEE80])
+            if ([v22 conformsToProtocol:&unk_1F4FEEE80])
             {
-              targetSearchIndexable = [v21 targetSearchIndexable];
-              [v22 ic_addNonNilObject:targetSearchIndexable];
+              targetSearchIndexable = [v22 targetSearchIndexable];
+              [v23 ic_addNonNilObject:targetSearchIndexable];
             }
 
-            else if ([v21 conformsToProtocol:&unk_1F4FEEE20])
+            else if ([v22 conformsToProtocol:&unk_1F4FEEE20])
             {
-              [v22 ic_addNonNilObject:v21];
+              [v23 ic_addNonNilObject:v22];
             }
 
-            if ([v22 count])
+            if ([v23 count])
             {
-              firstObject = [v22 firstObject];
-              v25 = objc_opt_respondsToSelector();
+              firstObject = [v23 firstObject];
+              v26 = objc_opt_respondsToSelector();
 
-              if (v25)
+              if (v26)
               {
-                v26 = MEMORY[0x1E695DFD8];
-                changedValues = [v21 changedValues];
+                v27 = MEMORY[0x1E695DFD8];
+                changedValues = [v22 changedValues];
                 allKeys = [changedValues allKeys];
-                v29 = [v26 setWithArray:allKeys];
+                v30 = [v27 setWithArray:allKeys];
 
-                firstObject2 = [v22 firstObject];
-                v31 = [firstObject2 additionalSearchIndexablesForChangedKeys:v29];
+                firstObject2 = [v23 firstObject];
+                v32 = [firstObject2 additionalSearchIndexablesForChangedKeys:v30];
 
-                if ([v31 count])
+                if ([v32 count])
                 {
-                  allObjects = [v31 allObjects];
-                  [v22 ic_addObjectsFromNonNilArray:allObjects];
+                  allObjects = [v32 allObjects];
+                  [v23 ic_addObjectsFromNonNilArray:allObjects];
                 }
               }
 
-              v59 = v22;
-              v60 = i;
-              v68 = 0u;
+              v60 = v23;
+              v61 = i;
               v69 = 0u;
-              v66 = 0u;
+              v70 = 0u;
               v67 = 0u;
-              v33 = v22;
-              v34 = [v33 countByEnumeratingWithState:&v66 objects:v79 count:16];
-              if (v34)
+              v68 = 0u;
+              v34 = v23;
+              v35 = [v34 countByEnumeratingWithState:&v67 objects:v80 count:16];
+              if (v35)
               {
-                v35 = v34;
-                v36 = *v67;
+                v36 = v35;
+                v37 = *v68;
                 do
                 {
-                  for (j = 0; j != v35; ++j)
+                  for (j = 0; j != v36; ++j)
                   {
-                    if (*v67 != v36)
+                    if (*v68 != v37)
                     {
-                      objc_enumerationMutation(v33);
+                      objc_enumerationMutation(v34);
                     }
 
-                    v38 = *(*(&v66 + 1) + 8 * j);
-                    objectID = [v38 objectID];
+                    v39 = *(*(&v67 + 1) + 8 * j);
+                    objectID = [v39 objectID];
                     isTemporaryID = [objectID isTemporaryID];
 
                     if (isTemporaryID)
                     {
-                      managedObjectContext = [v38 managedObjectContext];
-                      v78 = v38;
-                      v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v78 count:1];
-                      v65 = 0;
-                      v43 = [managedObjectContext obtainPermanentIDsForObjects:v42 error:&v65];
-                      v44 = v65;
+                      managedObjectContext = [v39 managedObjectContext];
+                      v79 = v39;
+                      v43 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v79 count:1];
+                      v66 = 0;
+                      v44 = [managedObjectContext obtainPermanentIDsForObjects:v43 error:&v66];
+                      v45 = v66;
 
-                      if ((v43 & 1) == 0)
+                      if ((v44 & 1) == 0)
                       {
-                        v45 = os_log_create("com.apple.notes", "SearchIndexer");
-                        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+                        v46 = os_log_create("com.apple.notes", "SearchIndexer");
+                        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
                         {
-                          v49 = objc_opt_class();
-                          v50 = NSStringFromClass(v49);
+                          v50 = objc_opt_class();
+                          v51 = NSStringFromClass(v50);
                           *buf = 138412546;
-                          v75 = v50;
-                          v76 = 2112;
-                          v77 = v44;
-                          _os_log_error_impl(&dword_1D4576000, v45, OS_LOG_TYPE_ERROR, "Error obtaining permanent ID for %@: %@", buf, 0x16u);
+                          v76 = v51;
+                          v77 = 2112;
+                          v78 = v45;
+                          _os_log_error_impl(&dword_1D4576000, v46, OS_LOG_TYPE_ERROR, "Error obtaining permanent ID for %@: %@", buf, 0x16u);
                         }
                       }
                     }
 
-                    objectID2 = [v38 objectID];
+                    objectID2 = [v39 objectID];
                     isTemporaryID2 = [objectID2 isTemporaryID];
 
                     if ((isTemporaryID2 & 1) == 0)
                     {
-                      objectID3 = [v38 objectID];
+                      objectID3 = [v39 objectID];
                       [array addObject:objectID3];
                     }
                   }
 
-                  v35 = [v33 countByEnumeratingWithState:&v66 objects:v79 count:16];
+                  v36 = [v34 countByEnumeratingWithState:&v67 objects:v80 count:16];
                 }
 
-                while (v35);
+                while (v36);
               }
 
               self = selfCopy;
-              v22 = v59;
-              i = v60;
+              v23 = v60;
+              i = v61;
             }
           }
 
-          v58 = [obj countByEnumeratingWithState:&v70 objects:v80 count:16];
+          v59 = [obj countByEnumeratingWithState:&v71 objects:v81 count:16];
         }
 
-        while (v58);
+        while (v59);
       }
 
       if ([array count] || objc_msgSend(array2, "count"))
@@ -616,19 +616,19 @@ void __54__ICBaseSearchIndexerDataSource_startObservingChanges__block_invoke(uin
         block[1] = 3221225472;
         block[2] = __49__ICBaseSearchIndexerDataSource_contextWillSave___block_invoke;
         block[3] = &unk_1E8484908;
-        v62 = array2;
+        v63 = array2;
         selfCopy2 = self;
-        v64 = array;
+        v65 = array;
         dispatch_async(processingQueue, block);
       }
 
-      object = v52;
-      saveCopy = v53;
+      object = v53;
+      saveCopy = v54;
     }
   }
 }
 
-uint64_t __49__ICBaseSearchIndexerDataSource_contextWillSave___block_invoke(id *a1)
+void *__49__ICBaseSearchIndexerDataSource_contextWillSave___block_invoke(id *a1)
 {
   v15 = *MEMORY[0x1E69E9840];
   v10 = 0u;
@@ -1459,54 +1459,55 @@ void __70__ICBaseSearchIndexerDataSource_stageObjectIDURIsForIndexing_context___
 
 - (void)saveStateIfNecessary
 {
-  v27 = *MEMORY[0x1E69E9840];
-  if (ICVerboseSearchLogging())
+  v29 = *MEMORY[0x1E69E9840];
+  v3 = ICVerboseSearchLogging();
+  if (v3)
   {
-    v3 = os_log_create("com.apple.notes", "SearchIndexer");
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v5 = os_log_create("com.apple.notes", "SearchIndexer");
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       [ICBaseSearchIndexerDataSource saveStateIfNecessary];
     }
   }
 
-  if ((ICUseCoreDataCoreSpotlightIntegration() & 1) == 0)
+  if ((ICUseCoreDataCoreSpotlightIntegration(v3, v4) & 1) == 0)
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];
     needsReindexing = [(ICBaseSearchIndexerDataSource *)self needsReindexing];
-    v6 = [MEMORY[0x1E696AD98] numberWithBool:needsReindexing];
-    [dictionary setObject:v6 forKeyedSubscript:@"NeedsReindexing"];
+    v8 = [MEMORY[0x1E696AD98] numberWithBool:needsReindexing];
+    [dictionary setObject:v8 forKeyedSubscript:@"NeedsReindexing"];
 
     array = [MEMORY[0x1E695DF70] array];
     objectIDsBeingProcessed = [(ICBaseSearchIndexerDataSource *)self objectIDsBeingProcessed];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __53__ICBaseSearchIndexerDataSource_saveStateIfNecessary__block_invoke;
-    v19[3] = &unk_1E84849A8;
-    v9 = array;
-    v20 = v9;
-    [objectIDsBeingProcessed enumerateObjectsUsingBlock:v19];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __53__ICBaseSearchIndexerDataSource_saveStateIfNecessary__block_invoke;
+    v21[3] = &unk_1E84849A8;
+    v11 = array;
+    v22 = v11;
+    [objectIDsBeingProcessed enumerateObjectsUsingBlock:v21];
 
     objectIDsToProcess = [(ICBaseSearchIndexerDataSource *)self objectIDsToProcess];
-    v14 = MEMORY[0x1E69E9820];
-    v15 = 3221225472;
-    v16 = __53__ICBaseSearchIndexerDataSource_saveStateIfNecessary__block_invoke_2;
-    v17 = &unk_1E84849A8;
-    v11 = v9;
-    v18 = v11;
-    [objectIDsToProcess enumerateObjectsUsingBlock:&v14];
+    v16 = MEMORY[0x1E69E9820];
+    v17 = 3221225472;
+    v18 = __53__ICBaseSearchIndexerDataSource_saveStateIfNecessary__block_invoke_2;
+    v19 = &unk_1E84849A8;
+    v13 = v11;
+    v20 = v13;
+    [objectIDsToProcess enumerateObjectsUsingBlock:&v16];
 
-    [dictionary setObject:v11 forKeyedSubscript:{@"ObjectIDURIs", v14, v15, v16, v17}];
-    v12 = os_log_create("com.apple.notes", "SearchIndexer");
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    [dictionary setObject:v13 forKeyedSubscript:{@"ObjectIDURIs", v16, v17, v18, v19}];
+    v14 = os_log_create("com.apple.notes", "SearchIndexer");
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      v13 = [v11 count];
+      v15 = [v13 count];
       *buf = 138412802;
       selfCopy = self;
-      v23 = 2048;
-      v24 = v13;
-      v25 = 1024;
-      v26 = needsReindexing;
-      _os_log_debug_impl(&dword_1D4576000, v12, OS_LOG_TYPE_DEBUG, "Saving indexing state for %@: objectIDs=%lu needsReindexing=%d", buf, 0x1Cu);
+      v25 = 2048;
+      v26 = v15;
+      v27 = 1024;
+      v28 = needsReindexing;
+      _os_log_debug_impl(&dword_1D4576000, v14, OS_LOG_TYPE_DEBUG, "Saving indexing state for %@: objectIDs=%lu needsReindexing=%d", buf, 0x1Cu);
     }
 
     [(ICBaseSearchIndexerDataSource *)self saveStateDictionary:dictionary];
@@ -1907,20 +1908,20 @@ LABEL_8:
   [standardUserDefaults setObject:MEMORY[0x1E695E118] forKey:v7];
 }
 
-- (void)searchableItemResultForObject:.cold.3()
+- (void)searchableItemResultForObject:(uint64_t)a1 .cold.3(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __54__ICBaseSearchIndexerDataSource_startObservingChanges__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_7(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_3(&dword_1D4576000, v0, v1, "We have object IDs to process after starting to observe changes %@", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_3(&dword_1D4576000, v0, v1, "We have object IDs to process after starting to observe changes %@", v2, v3, v4, v5);
 }
 
 void __161__ICBaseSearchIndexerDataSource_decisionOnObjectID_searchableItemToIndex_additionalItemsToIndex_objectIDURIToDelete_additionalUniqueIdentifiersToDelete_context___block_invoke_cold_1(uint64_t a1, void *a2)
@@ -1959,14 +1960,14 @@ void __63__ICBaseSearchIndexerDataSource_stageForReindexingWithContext___block_i
 {
   OUTLINED_FUNCTION_7(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_0(&dword_1D4576000, v0, v1, "%@ Error fetching allIndexableObjectIDsInReversedReindexingOrder", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0(&dword_1D4576000, v0, v1, "%@ Error fetching allIndexableObjectIDsInReversedReindexingOrder", v2, v3, v4, v5);
 }
 
 void __70__ICBaseSearchIndexerDataSource_stageObjectIDURIsForIndexing_context___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_7(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_0(&dword_1D4576000, v0, v1, "%@ Error fetching through indexableObjectIDsWithURIs:", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0(&dword_1D4576000, v0, v1, "%@ Error fetching through indexableObjectIDsWithURIs:", v2, v3, v4, v5);
 }
 
 - (void)objectIDsFromSearchableItems:(void *)a3 .cold.1(uint8_t *a1, void *a2, void *a3, NSObject *a4)

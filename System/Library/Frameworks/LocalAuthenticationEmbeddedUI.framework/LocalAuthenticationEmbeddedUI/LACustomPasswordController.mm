@@ -6,25 +6,26 @@
 - (int64_t)preferredStatusBarStyle;
 - (void)_finishWithError:(uint64_t)error;
 - (void)authorizationController:(id)controller didProvideAuthorizationRequirementWithReply:(id)reply;
+- (void)dismissViewControllerAnimated:(BOOL)animated completion:(id)completion;
 @end
 
 @implementation LACustomPasswordController
 
 - (LACustomPasswordController)initWithConfiguration:(id)configuration
 {
-  v45[4] = *MEMORY[0x277D85DE8];
+  v44[4] = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
-  v44.receiver = self;
-  v44.super_class = LACustomPasswordController;
-  v4 = [(LACustomPasswordController *)&v44 initWithNibName:0 bundle:0];
+  v43.receiver = self;
+  v43.super_class = LACustomPasswordController;
+  v4 = [(LACustomPasswordController *)&v43 initWithNibName:0 bundle:0];
   if (v4)
   {
     v5 = objc_opt_new();
     laContext = v4->_laContext;
     v4->_laContext = v5;
 
-    v39 = [objc_alloc(MEMORY[0x277D24190]) initWithCustomPasswordConfiguration:configurationCopy context:v4->_laContext];
-    validateConfiguration = [v39 validateConfiguration];
+    v38 = [objc_alloc(MEMORY[0x277D24190]) initWithCustomPasswordConfiguration:configurationCopy context:v4->_laContext];
+    validateConfiguration = [v38 validateConfiguration];
     if (validateConfiguration)
     {
       v7 = MEMORY[0x277CBEAD8];
@@ -34,12 +35,12 @@
 
     objc_initWeak(&location, v4);
     v9 = [LAAuthorizationViewController alloc];
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __52__LACustomPasswordController_initWithConfiguration___block_invoke;
-    v41[3] = &unk_278A656D0;
-    objc_copyWeak(&v42, &location);
-    v10 = [(LAAuthorizationViewController *)v9 initWithConfiguration:v39 completion:v41];
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __52__LACustomPasswordController_initWithConfiguration___block_invoke;
+    v40[3] = &unk_278A656D0;
+    objc_copyWeak(&v41, &location);
+    v10 = [(LAAuthorizationViewController *)v9 initWithConfiguration:v38 completion:v40];
     [(LAAuthorizationViewController *)v10 setDelegate:v4];
     view = [(LACustomPasswordController *)v4 view];
     view2 = [(LAAuthorizationViewController *)v10 view];
@@ -50,40 +51,39 @@
     view3 = [(LAAuthorizationViewController *)v10 view];
     [view3 setTranslatesAutoresizingMaskIntoConstraints:0];
 
-    v24 = MEMORY[0x277CCAAD0];
+    v23 = MEMORY[0x277CCAAD0];
     view4 = [(LACustomPasswordController *)v4 view];
     leadingAnchor = [view4 leadingAnchor];
     view5 = [(LAAuthorizationViewController *)v10 view];
     leadingAnchor2 = [view5 leadingAnchor];
-    v33 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v45[0] = v33;
+    v32 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v44[0] = v32;
     view6 = [(LACustomPasswordController *)v4 view];
     trailingAnchor = [view6 trailingAnchor];
     view7 = [(LAAuthorizationViewController *)v10 view];
     trailingAnchor2 = [view7 trailingAnchor];
-    v28 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v45[1] = v28;
+    v27 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+    v44[1] = v27;
     view8 = [(LACustomPasswordController *)v4 view];
     topAnchor = [view8 topAnchor];
     view9 = [(LAAuthorizationViewController *)v10 view];
     topAnchor2 = [view9 topAnchor];
     v15 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v45[2] = v15;
+    v44[2] = v15;
     view10 = [(LACustomPasswordController *)v4 view];
     bottomAnchor = [view10 bottomAnchor];
     view11 = [(LAAuthorizationViewController *)v10 view];
     bottomAnchor2 = [view11 bottomAnchor];
     v20 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v45[3] = v20;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:4];
-    [v24 activateConstraints:v21];
+    v44[3] = v20;
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:4];
+    [v23 activateConstraints:v21];
 
     objc_storeWeak(&v4->_authorizationController, v10);
-    objc_destroyWeak(&v42);
+    objc_destroyWeak(&v41);
     objc_destroyWeak(&location);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -120,6 +120,16 @@ void __52__LACustomPasswordController_initWithConfiguration___block_invoke(uint6
   preferredStatusBarStyle = [WeakRetained preferredStatusBarStyle];
 
   return preferredStatusBarStyle;
+}
+
+- (void)dismissViewControllerAnimated:(BOOL)animated completion:(id)completion
+{
+  v5 = MEMORY[0x23EE74B30](completion, a2, animated);
+  completion = self->_completion;
+  self->_completion = v5;
+
+  WeakRetained = objc_loadWeakRetained(&self->_authorizationController);
+  [WeakRetained dismiss];
 }
 
 - (void)authorizationController:(id)controller didProvideAuthorizationRequirementWithReply:(id)reply

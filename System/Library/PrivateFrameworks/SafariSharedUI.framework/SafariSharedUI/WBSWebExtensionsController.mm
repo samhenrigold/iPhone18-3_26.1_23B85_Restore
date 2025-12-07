@@ -509,14 +509,15 @@ LABEL_12:
 
 - (BOOL)_extensionShouldBeAutomaticallyEnabled:(id)enabled
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   enabledCopy = enabled;
   v5 = [(WBSExtensionsController *)self composedIdentifierForExtensionStateForExtension:enabledCopy];
   v6 = +[WBSCloudExtensionStateManager sharedManager];
   profileServerID = [(WBSExtensionsController *)self profileServerID];
   v8 = [v6 isExtensionEnabledInCloudWithComposedIdentifier:v5 forProfileServerID:profileServerID];
 
-  if (![enabledCopy safari_isUnpackedExtension])
+  safari_isUnpackedExtension = [enabledCopy safari_isUnpackedExtension];
+  if (!safari_isUnpackedExtension)
   {
     if (v8)
     {
@@ -524,7 +525,7 @@ LABEL_12:
     }
 
 LABEL_11:
-    v16 = 0;
+    v18 = 0;
     goto LABEL_12;
   }
 
@@ -538,16 +539,16 @@ LABEL_11:
 
   if (!v8)
   {
-    v11 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v13 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(safari_isUnpackedExtension, v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 141558275;
-      v21 = 1752392040;
-      v22 = 2117;
-      v23 = v5;
-      v12 = "Automatically enabling unpacked extension %{sensitive, mask.hash}@";
+      v23 = 1752392040;
+      v24 = 2117;
+      v25 = v5;
+      v14 = "Automatically enabling unpacked extension %{sensitive, mask.hash}@";
 LABEL_9:
-      _os_log_impl(&dword_1C6968000, v11, OS_LOG_TYPE_INFO, v12, buf, 0x16u);
+      _os_log_impl(&dword_1C6968000, v13, OS_LOG_TYPE_INFO, v14, buf, 0x16u);
       goto LABEL_10;
     }
 
@@ -555,31 +556,31 @@ LABEL_9:
   }
 
 LABEL_7:
-  v11 = WBS_LOG_CHANNEL_PREFIXCloudExtensions();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v13 = WBS_LOG_CHANNEL_PREFIXCloudExtensions(safari_isUnpackedExtension, v10);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     *buf = 141558275;
-    v21 = 1752392040;
-    v22 = 2117;
-    v23 = v5;
-    v12 = "Automatically enabling extension %{sensitive, mask.hash}@ on download since it's on in the cloud";
+    v23 = 1752392040;
+    v24 = 2117;
+    v25 = v5;
+    v14 = "Automatically enabling extension %{sensitive, mask.hash}@ on download since it's on in the cloud";
     goto LABEL_9;
   }
 
 LABEL_10:
-  v13 = *MEMORY[0x1E69C95F0];
-  v19[0] = MEMORY[0x1E695E118];
-  v14 = [MEMORY[0x1E695DF00] now];
-  v18[2] = *MEMORY[0x1E69C95E8];
-  v19[1] = v14;
-  v19[2] = MEMORY[0x1E695E110];
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:3];
+  v15 = *MEMORY[0x1E69C95F0];
+  v21[0] = MEMORY[0x1E695E118];
+  v16 = [MEMORY[0x1E695DF00] now];
+  v20[2] = *MEMORY[0x1E69C95E8];
+  v21[1] = v16;
+  v21[2] = MEMORY[0x1E695E110];
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:3];
 
-  [(WBSExtensionsController *)self _setExtensionIdentifierToStateMap:v15 forExtensionWithComposedIdentifier:v5];
-  v16 = 1;
+  [(WBSExtensionsController *)self _setExtensionIdentifierToStateMap:v17 forExtensionWithComposedIdentifier:v5];
+  v18 = 1;
 LABEL_12:
 
-  return v16;
+  return v18;
 }
 
 - (id)_updatedExtensionStateForCurrentPermissions:(id)permissions previousExtensionState:(id)state
@@ -754,7 +755,7 @@ LABEL_10:
 
 - (void)sendMessage:(id)message toApplicationWithID:(id)d fromExtensionWithIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   identifierCopy = identifier;
   handlerCopy = handler;
@@ -777,13 +778,13 @@ LABEL_10:
     if (array)
     {
       v15 = [MEMORY[0x1E695DF00] now];
-      v53[0] = MEMORY[0x1E69E9820];
-      v53[1] = 3221225472;
-      v53[2] = __108__WBSWebExtensionsController_sendMessage_toApplicationWithID_fromExtensionWithIdentifier_completionHandler___block_invoke;
-      v53[3] = &unk_1E8289418;
-      v54 = v15;
+      v55[0] = MEMORY[0x1E69E9820];
+      v55[1] = 3221225472;
+      v55[2] = __108__WBSWebExtensionsController_sendMessage_toApplicationWithID_fromExtensionWithIdentifier_completionHandler___block_invoke;
+      v55[3] = &unk_1E8289418;
+      v56 = v15;
       v16 = v15;
-      [array safari_removeObjectsPassingTest:v53];
+      [array safari_removeObjectsPassingTest:v55];
     }
 
     else
@@ -792,10 +793,11 @@ LABEL_10:
       [-[WBSWebExtensionsController sendMessage:toApplicationWithID:fromExtensionWithIdentifier:completionHandler:]::nativeMessagingActiveContextTracker setObject:? forKeyedSubscript:?];
     }
 
-    if ([array count] < 0x97)
+    v17 = [array count];
+    if (v17 < 0x97)
     {
-      v19 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:5.0];
-      [array addObject:v19];
+      v21 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:5.0];
+      [array addObject:v21];
 
       extension = [v12 extension];
       if (!self->_nativeRequestIdentifiersToCompletionHandlers)
@@ -808,9 +810,9 @@ LABEL_10:
       nativeRequestExtensions = self->_nativeRequestExtensions;
       if (!nativeRequestExtensions)
       {
-        v23 = [MEMORY[0x1E695DFA8] set];
-        v24 = self->_nativeRequestExtensions;
-        self->_nativeRequestExtensions = v23;
+        v25 = [MEMORY[0x1E695DFA8] set];
+        v26 = self->_nativeRequestExtensions;
+        self->_nativeRequestExtensions = v25;
 
         nativeRequestExtensions = self->_nativeRequestExtensions;
       }
@@ -822,83 +824,83 @@ LABEL_10:
       aBlock[1] = 3221225472;
       aBlock[2] = __108__WBSWebExtensionsController_sendMessage_toApplicationWithID_fromExtensionWithIdentifier_completionHandler___block_invoke_142;
       aBlock[3] = &unk_1E8289440;
-      objc_copyWeak(&v50, buf);
-      objc_copyWeak(&v51, &location);
-      v25 = _Block_copy(aBlock);
-      v47[0] = MEMORY[0x1E69E9820];
-      v47[1] = 3221225472;
-      v47[2] = __108__WBSWebExtensionsController_sendMessage_toApplicationWithID_fromExtensionWithIdentifier_completionHandler___block_invoke_2;
-      v47[3] = &unk_1E8289468;
-      v26 = v25;
-      v48 = v26;
-      [extension setRequestCancellationBlock:v47];
+      objc_copyWeak(&v52, buf);
+      objc_copyWeak(&v53, &location);
+      v27 = _Block_copy(aBlock);
+      v49[0] = MEMORY[0x1E69E9820];
+      v49[1] = 3221225472;
+      v49[2] = __108__WBSWebExtensionsController_sendMessage_toApplicationWithID_fromExtensionWithIdentifier_completionHandler___block_invoke_2;
+      v49[3] = &unk_1E8289468;
+      v28 = v27;
+      v50 = v28;
+      [extension setRequestCancellationBlock:v49];
+      v46[0] = MEMORY[0x1E69E9820];
+      v46[1] = 3221225472;
+      v46[2] = __108__WBSWebExtensionsController_sendMessage_toApplicationWithID_fromExtensionWithIdentifier_completionHandler___block_invoke_4;
+      v46[3] = &unk_1E8289490;
+      v29 = v28;
+      v47 = v29;
+      objc_copyWeak(&v48, &location);
+      [extension setRequestInterruptionBlock:v46];
       v44[0] = MEMORY[0x1E69E9820];
       v44[1] = 3221225472;
-      v44[2] = __108__WBSWebExtensionsController_sendMessage_toApplicationWithID_fromExtensionWithIdentifier_completionHandler___block_invoke_4;
-      v44[3] = &unk_1E8289490;
-      v27 = v26;
-      v45 = v27;
-      objc_copyWeak(&v46, &location);
-      [extension setRequestInterruptionBlock:v44];
-      v42[0] = MEMORY[0x1E69E9820];
-      v42[1] = 3221225472;
-      v42[2] = __108__WBSWebExtensionsController_sendMessage_toApplicationWithID_fromExtensionWithIdentifier_completionHandler___block_invoke_6;
-      v42[3] = &unk_1E82894B8;
-      v28 = v27;
-      v43 = v28;
-      [extension setRequestCompletionBlock:v42];
-      v29 = objc_alloc_init(MEMORY[0x1E696ABE0]);
+      v44[2] = __108__WBSWebExtensionsController_sendMessage_toApplicationWithID_fromExtensionWithIdentifier_completionHandler___block_invoke_6;
+      v44[3] = &unk_1E82894B8;
+      v30 = v29;
+      v45 = v30;
+      [extension setRequestCompletionBlock:v44];
+      v31 = objc_alloc_init(MEMORY[0x1E696ABE0]);
       privacyPreservingProfileIdentifier = [v12 privacyPreservingProfileIdentifier];
-      v31 = privacyPreservingProfileIdentifier;
+      v33 = privacyPreservingProfileIdentifier;
       if (privacyPreservingProfileIdentifier)
       {
-        v58[0] = @"message";
-        v58[1] = @"profile";
-        v59[0] = messageCopy;
-        v59[1] = privacyPreservingProfileIdentifier;
-        [MEMORY[0x1E695DF20] dictionaryWithObjects:v59 forKeys:v58 count:2];
+        v60[0] = @"message";
+        v60[1] = @"profile";
+        v61[0] = messageCopy;
+        v61[1] = privacyPreservingProfileIdentifier;
+        [MEMORY[0x1E695DF20] dictionaryWithObjects:v61 forKeys:v60 count:2];
       }
 
       else
       {
-        v56 = @"message";
-        v57 = messageCopy;
-        [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
+        v58 = @"message";
+        v59 = messageCopy;
+        [MEMORY[0x1E695DF20] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
       }
-      v32 = ;
-      [v29 setUserInfo:v32];
+      v34 = ;
+      [v31 setUserInfo:v34];
 
-      v55 = v29;
-      v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v55 count:1];
-      v37[0] = MEMORY[0x1E69E9820];
-      v37[1] = 3221225472;
-      v37[2] = __108__WBSWebExtensionsController_sendMessage_toApplicationWithID_fromExtensionWithIdentifier_completionHandler___block_invoke_8;
-      v37[3] = &unk_1E8289508;
-      objc_copyWeak(&v40, buf);
-      objc_copyWeak(&v41, &location);
-      v38 = handlerCopy;
-      v34 = v28;
-      v39 = v34;
-      [extension beginExtensionRequestWithInputItems:v33 completion:v37];
+      v57 = v31;
+      v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v57 count:1];
+      v39[0] = MEMORY[0x1E69E9820];
+      v39[1] = 3221225472;
+      v39[2] = __108__WBSWebExtensionsController_sendMessage_toApplicationWithID_fromExtensionWithIdentifier_completionHandler___block_invoke_8;
+      v39[3] = &unk_1E8289508;
+      objc_copyWeak(&v42, buf);
+      objc_copyWeak(&v43, &location);
+      v40 = handlerCopy;
+      v36 = v30;
+      v41 = v36;
+      [extension beginExtensionRequestWithInputItems:v35 completion:v39];
 
-      objc_destroyWeak(&v41);
-      objc_destroyWeak(&v40);
+      objc_destroyWeak(&v43);
+      objc_destroyWeak(&v42);
 
-      objc_destroyWeak(&v46);
-      objc_destroyWeak(&v51);
-      objc_destroyWeak(&v50);
+      objc_destroyWeak(&v48);
+      objc_destroyWeak(&v53);
+      objc_destroyWeak(&v52);
       objc_destroyWeak(&location);
       objc_destroyWeak(buf);
     }
 
     else
     {
-      v17 = WBS_LOG_CHANNEL_PREFIXWebExtensions();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v19 = WBS_LOG_CHANNEL_PREFIXWebExtensions(v17, v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         *buf = 138477827;
-        v61 = composedIdentifier;
-        _os_log_impl(&dword_1C6968000, v17, OS_LOG_TYPE_INFO, "Dropping native message from %{private}@ due to too many active native messages", buf, 0xCu);
+        v63 = composedIdentifier;
+        _os_log_impl(&dword_1C6968000, v19, OS_LOG_TYPE_INFO, "Dropping native message from %{private}@ due to too many active native messages", buf, 0xCu);
       }
 
       extension = [MEMORY[0x1E696ABC0] errorWithDomain:@"SFErrorDomain" code:3 userInfo:0];
@@ -1147,35 +1149,35 @@ void __108__WBSWebExtensionsController_sendMessage_toApplicationWithID_fromExten
 
 - (void)_deleteStorageForExtensionWithComposedIdentifier:(id)identifier
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
   v6 = [standardUserDefaults BOOLForKey:*MEMORY[0x1E69C91E0]];
 
   if ((v6 & 1) == 0)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXWebExtensions();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v9 = WBS_LOG_CHANNEL_PREFIXWebExtensions(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 138477827;
-      v16 = identifierCopy;
-      _os_log_impl(&dword_1C6968000, v7, OS_LOG_TYPE_INFO, "Deleting storage for removed extension with composed identifier %{private}@", buf, 0xCu);
+      v20 = identifierCopy;
+      _os_log_impl(&dword_1C6968000, v9, OS_LOG_TYPE_INFO, "Deleting storage for removed extension with composed identifier %{private}@", buf, 0xCu);
     }
 
     _urlForWebKitExtensionsDirectory = [(WBSWebExtensionsController *)self _urlForWebKitExtensionsDirectory];
-    v9 = [_urlForWebKitExtensionsDirectory URLByAppendingPathComponent:identifierCopy isDirectory:1];
+    v11 = [_urlForWebKitExtensionsDirectory URLByAppendingPathComponent:identifierCopy isDirectory:1];
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    v14 = 0;
-    [defaultManager removeItemAtURL:v9 error:&v14];
-    v11 = v14;
+    v18 = 0;
+    [defaultManager removeItemAtURL:v11 error:&v18];
+    v13 = v18;
 
-    if (v11)
+    if (v13)
     {
-      v12 = WBS_LOG_CHANNEL_PREFIXWebExtensions();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v16 = WBS_LOG_CHANNEL_PREFIXWebExtensions(v14, v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        safari_privacyPreservingDescription = [v11 safari_privacyPreservingDescription];
-        [(WBSWebExtensionsController *)identifierCopy _deleteStorageForExtensionWithComposedIdentifier:safari_privacyPreservingDescription, buf, v12];
+        safari_privacyPreservingDescription = [v13 safari_privacyPreservingDescription];
+        [(WBSWebExtensionsController *)identifierCopy _deleteStorageForExtensionWithComposedIdentifier:safari_privacyPreservingDescription, buf, v16];
       }
     }
   }
@@ -2156,7 +2158,7 @@ id __91__WBSWebExtensionsController__loadPermissionsFromStorageForWebExtension_c
 
 id __91__WBSWebExtensionsController__loadPermissionsFromStorageForWebExtension_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [WBSWebExtensionMatchPattern matchPatternWithString:v3];
   v5 = v4;
@@ -2167,17 +2169,18 @@ id __91__WBSWebExtensionsController__loadPermissionsFromStorageForWebExtension_c
 
   else
   {
-    if ([v4 matchesAllHosts])
+    v7 = [v4 matchesAllHosts];
+    if (v7)
     {
-      v7 = WBS_LOG_CHANNEL_PREFIXWebExtensions();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v9 = WBS_LOG_CHANNEL_PREFIXWebExtensions(v7, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        v8 = *(a1 + 32);
+        v10 = *(a1 + 32);
         *buf = 138478083;
-        v19 = v5;
-        v20 = 2113;
-        v21 = v8;
-        _os_log_impl(&dword_1C6968000, v7, OS_LOG_TYPE_INFO, "Skipping loading permission: %{private}@ since it doesn't match any manifest accessible patterns (%{private}@)", buf, 0x16u);
+        v23 = v5;
+        v24 = 2113;
+        v25 = v10;
+        _os_log_impl(&dword_1C6968000, v9, OS_LOG_TYPE_INFO, "Skipping loading permission: %{private}@ since it doesn't match any manifest accessible patterns (%{private}@)", buf, 0x16u);
       }
 
       v6 = 0;
@@ -2186,43 +2189,44 @@ id __91__WBSWebExtensionsController__loadPermissionsFromStorageForWebExtension_c
 
     else
     {
-      v9 = *(a1 + 32);
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 3221225472;
-      v16[2] = __91__WBSWebExtensionsController__loadPermissionsFromStorageForWebExtension_completionHandler___block_invoke_187;
-      v16[3] = &unk_1E8289610;
+      v11 = *(a1 + 32);
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __91__WBSWebExtensionsController__loadPermissionsFromStorageForWebExtension_completionHandler___block_invoke_187;
+      v20[3] = &unk_1E8289610;
       v6 = v5;
-      v17 = v6;
-      if ([v9 safari_containsObjectPassingTest:v16])
+      v21 = v6;
+      if ([v11 safari_containsObjectPassingTest:v20])
       {
         v5 = 0;
       }
 
       else
       {
-        v10 = *(a1 + 40);
-        v14[0] = MEMORY[0x1E69E9820];
-        v14[1] = 3221225472;
-        v14[2] = __91__WBSWebExtensionsController__loadPermissionsFromStorageForWebExtension_completionHandler___block_invoke_2_189;
-        v14[3] = &unk_1E8289610;
+        v12 = *(a1 + 40);
+        v18[0] = MEMORY[0x1E69E9820];
+        v18[1] = 3221225472;
+        v18[2] = __91__WBSWebExtensionsController__loadPermissionsFromStorageForWebExtension_completionHandler___block_invoke_2_189;
+        v18[3] = &unk_1E8289610;
         v6 = v6;
-        v15 = v6;
-        if ([v10 safari_containsObjectPassingTest:v14])
+        v19 = v6;
+        v13 = [v12 safari_containsObjectPassingTest:v18];
+        if (v13)
         {
           v5 = 0;
         }
 
         else
         {
-          v11 = WBS_LOG_CHANNEL_PREFIXWebExtensions();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+          v15 = WBS_LOG_CHANNEL_PREFIXWebExtensions(v13, v14);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
           {
-            v12 = *(a1 + 32);
+            v16 = *(a1 + 32);
             *buf = 138478083;
-            v19 = v6;
-            v20 = 2113;
-            v21 = v12;
-            _os_log_impl(&dword_1C6968000, v11, OS_LOG_TYPE_INFO, "Skipping loading permission: %{private}@ since it doesn't match any manifest accessible patterns (%{private}@)", buf, 0x16u);
+            v23 = v6;
+            v24 = 2113;
+            v25 = v16;
+            _os_log_impl(&dword_1C6968000, v15, OS_LOG_TYPE_INFO, "Skipping loading permission: %{private}@ since it doesn't match any manifest accessible patterns (%{private}@)", buf, 0x16u);
           }
 
           *(*(*(a1 + 48) + 8) + 24) = 1;

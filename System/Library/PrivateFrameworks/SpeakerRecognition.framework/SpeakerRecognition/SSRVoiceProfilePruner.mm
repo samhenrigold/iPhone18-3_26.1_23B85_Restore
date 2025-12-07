@@ -9,30 +9,30 @@
 
 - (unint64_t)_deleteUtterances:(id)utterances
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   utterancesCopy = utterances;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v4 = [utterancesCopy countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v4 = [utterancesCopy countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v20;
+    v7 = *v19;
     v8 = MEMORY[0x277D01970];
     do
     {
-      v18 = v6;
+      v17 = v6;
       for (i = 0; i != v5; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(utterancesCopy);
         }
 
-        path = [*(*(&v19 + 1) + 8 * i) path];
+        path = [*(*(&v18 + 1) + 8 * i) path];
         stringByDeletingPathExtension = [path stringByDeletingPathExtension];
         v12 = [stringByDeletingPathExtension stringByAppendingPathExtension:@"json"];
 
@@ -40,9 +40,9 @@
         if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v24 = "[SSRVoiceProfilePruner _deleteUtterances:]";
-          v25 = 2114;
-          v26 = path;
+          v23 = "[SSRVoiceProfilePruner _deleteUtterances:]";
+          v24 = 2114;
+          v25 = path;
           _os_log_impl(&dword_225E12000, v13, OS_LOG_TYPE_DEFAULT, "%s Deleting %{public}@", buf, 0x16u);
         }
 
@@ -50,8 +50,8 @@
         v15 = [SSRUtils removeItemAtPath:v12];
       }
 
-      v6 = v18 + v5;
-      v5 = [utterancesCopy countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v6 = v17 + v5;
+      v5 = [utterancesCopy countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v5);
@@ -62,45 +62,44 @@
     v6 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (id)_retrainVoiceProfile:(id)profile withAsset:(id)asset
 {
-  v45[3] = *MEMORY[0x277D85DE8];
+  v44[3] = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   assetCopy = asset;
   v6 = +[SSRVoiceProfileManager sharedInstance];
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x3032000000;
-  v35 = __Block_byref_object_copy__5164;
-  v36 = __Block_byref_object_dispose__5165;
-  v37 = 0;
-  v44[0] = @"SSRVoiceRetrainingVoiceProfile";
-  v44[1] = @"SSRVoiceRetrainingPayloadProfile";
-  v45[0] = profileCopy;
-  v45[1] = MEMORY[0x277CBEC28];
-  v44[2] = @"SSRVoiceRetrainingAsset";
-  v45[2] = assetCopy;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:3];
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = __Block_byref_object_copy__5164;
+  v35 = __Block_byref_object_dispose__5165;
+  v36 = 0;
+  v43[0] = @"SSRVoiceRetrainingVoiceProfile";
+  v43[1] = @"SSRVoiceRetrainingPayloadProfile";
+  v44[0] = profileCopy;
+  v44[1] = MEMORY[0x277CBEC28];
+  v43[2] = @"SSRVoiceRetrainingAsset";
+  v44[2] = assetCopy;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:3];
   v8 = [SSRVoiceProfileRetrainingContext alloc];
-  v9 = (v33 + 5);
-  obj = v33[5];
+  v9 = (v32 + 5);
+  obj = v32[5];
   v10 = [(SSRVoiceProfileRetrainingContext *)v8 initWithVoiceRetrainingContext:v7 error:&obj];
   objc_storeStrong(v9, obj);
   v11 = dispatch_group_create();
   dispatch_group_enter(v11);
   date = [MEMORY[0x277CBEAA8] date];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __56__SSRVoiceProfilePruner__retrainVoiceProfile_withAsset___block_invoke;
-  v28[3] = &unk_2785789C8;
-  v30 = &v32;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __56__SSRVoiceProfilePruner__retrainVoiceProfile_withAsset___block_invoke;
+  v27[3] = &unk_2785789C8;
+  v29 = &v31;
   v13 = v11;
-  v29 = v13;
-  [v6 triggerRetrainingVoiceProfile:profileCopy withContext:v10 withCompletion:v28];
+  v28 = v13;
+  [v6 triggerRetrainingVoiceProfile:profileCopy withContext:v10 withCompletion:v27];
   v14 = dispatch_time(0, 12000000000);
   v15 = dispatch_group_wait(v13, v14);
   date2 = [MEMORY[0x277CBEAA8] date];
@@ -112,25 +111,24 @@
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v41 = "[SSRVoiceProfilePruner _retrainVoiceProfile:withAsset:]";
-      v42 = 2114;
-      v43 = v18;
+      v40 = "[SSRVoiceProfilePruner _retrainVoiceProfile:withAsset:]";
+      v41 = 2114;
+      v42 = v18;
       _os_log_error_impl(&dword_225E12000, v19, OS_LOG_TYPE_ERROR, "%s ERR: %{public}@", buf, 0x16u);
     }
 
     v20 = MEMORY[0x277CCA9B8];
-    v38 = @"reason";
-    v39 = v18;
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+    v37 = @"reason";
+    v38 = v18;
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
     v22 = [v20 errorWithDomain:@"com.apple.speakerrecognition" code:707 userInfo:v21];
-    v23 = v33[5];
-    v33[5] = v22;
+    v23 = v32[5];
+    v32[5] = v22;
   }
 
-  v24 = v33[5];
+  v24 = v32[5];
 
-  _Block_object_dispose(&v32, 8);
-  v25 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v31, 8);
 
   return v24;
 }
@@ -144,28 +142,28 @@ void __56__SSRVoiceProfilePruner__retrainVoiceProfile_withAsset___block_invoke(u
 
 - (void)_getScoresForAudio:(id)audio withController:(id)controller withDetector:(id)detector forProfile:(id)profile withCompletion:(id)completion
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   audioCopy = audio;
   controllerCopy = controller;
   detectorCopy = detector;
   profileCopy = profile;
   completionCopy = completion;
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x3032000000;
-  v49 = __Block_byref_object_copy__5164;
-  v50 = __Block_byref_object_dispose__5165;
-  v51 = 0;
-  [MEMORY[0x277D01748] lpcmInt16ASBD];
-  v43[0] = MEMORY[0x277D85DD0];
-  v43[1] = 3221225472;
-  v43[2] = __98__SSRVoiceProfilePruner__getScoresForAudio_withController_withDetector_forProfile_withCompletion___block_invoke;
-  v43[3] = &unk_278578CE8;
-  v45 = &v46;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x3032000000;
+  v47 = __Block_byref_object_copy__5164;
+  v48 = __Block_byref_object_dispose__5165;
+  v49 = 0;
+  objc_msgSend_lpcmInt16ASBD(MEMORY[0x277D01748]);
+  v41[0] = MEMORY[0x277D85DD0];
+  v41[1] = 3221225472;
+  v41[2] = __98__SSRVoiceProfilePruner__getScoresForAudio_withController_withDetector_forProfile_withCompletion___block_invoke;
+  v41[3] = &unk_278578CE8;
+  v43 = &v44;
   v15 = controllerCopy;
-  v44 = v15;
-  [SSRUtils streamAudioFromFileUrl:audioCopy audioStreamBasicDescriptor:buf samplesPerStreamChunk:640 audioDataAvailableHandler:v43];
-  if (!v47[5])
+  v42 = v15;
+  [SSRUtils streamAudioFromFileUrl:audioCopy audioStreamBasicDescriptor:buf samplesPerStreamChunk:640 audioDataAvailableHandler:v41];
+  if (!v45[5])
   {
     getLatestSpeakerInfo = [v15 getLatestSpeakerInfo];
     if (!getLatestSpeakerInfo)
@@ -182,23 +180,23 @@ void __56__SSRVoiceProfilePruner__retrainVoiceProfile_withAsset___block_invoke(u
       }
 
       v20 = MEMORY[0x277CCA9B8];
-      v58 = @"reason";
-      v59 = v18;
-      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+      v56 = @"reason";
+      v57 = v18;
+      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
       v22 = [v20 errorWithDomain:@"com.apple.speakerrecognition" code:111 userInfo:v21];
-      v23 = v47[5];
-      v47[5] = v22;
+      v23 = v45[5];
+      v45[5] = v22;
 
       if (completionCopy)
       {
-        completionCopy[2](completionCopy, v47[5], -INFINITY, -INFINITY, -INFINITY, -INFINITY);
+        completionCopy[2](completionCopy, v45[5], -INFINITY, -INFINITY, -INFINITY, -INFINITY);
       }
     }
 
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    LODWORD(v61) = -8388608;
+    LODWORD(v59) = -8388608;
     v24 = [getLatestSpeakerInfo objectForKeyedSubscript:@"spIdKnownUserScores"];
     if (v24)
     {
@@ -223,27 +221,27 @@ void __56__SSRVoiceProfilePruner__retrainVoiceProfile_withAsset___block_invoke(u
       [v32 floatValue];
     }
 
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __98__SSRVoiceProfilePruner__getScoresForAudio_withController_withDetector_forProfile_withCompletion___block_invoke_24;
-    v42[3] = &unk_2785789A0;
-    v42[4] = &v46;
-    v42[5] = buf;
-    [detectorCopy computeTriggerConfidenceForAudio:audioCopy withCompletion:v42];
-    if (v47[5])
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __98__SSRVoiceProfilePruner__getScoresForAudio_withController_withDetector_forProfile_withCompletion___block_invoke_24;
+    v40[3] = &unk_2785789A0;
+    v40[4] = &v44;
+    v40[5] = buf;
+    [detectorCopy computeTriggerConfidenceForAudio:audioCopy withCompletion:v40];
+    if (v45[5])
     {
       v33 = *MEMORY[0x277D01970];
       if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         lastPathComponent = [audioCopy lastPathComponent];
-        v40 = v47[5];
-        *v52 = 136315650;
-        v53 = "[SSRVoiceProfilePruner _getScoresForAudio:withController:withDetector:forProfile:withCompletion:]";
+        v38 = v45[5];
+        *v50 = 136315650;
+        v51 = "[SSRVoiceProfilePruner _getScoresForAudio:withController:withDetector:forProfile:withCompletion:]";
+        v52 = 2114;
+        v53 = lastPathComponent;
         v54 = 2114;
-        v55 = lastPathComponent;
-        v56 = 2114;
-        v57 = v40;
-        _os_log_error_impl(&dword_225E12000, v33, OS_LOG_TYPE_ERROR, "%s ERR: Failed in trigger processing %{public}@ with %{public}@", v52, 0x20u);
+        v55 = v38;
+        _os_log_error_impl(&dword_225E12000, v33, OS_LOG_TYPE_ERROR, "%s ERR: Failed in trigger processing %{public}@ with %{public}@", v50, 0x20u);
       }
 
       if (!completionCopy)
@@ -251,7 +249,7 @@ void __56__SSRVoiceProfilePruner__retrainVoiceProfile_withAsset___block_invoke(u
         goto LABEL_26;
       }
 
-      v34 = v47[5];
+      v34 = v45[5];
     }
 
     else
@@ -265,7 +263,6 @@ LABEL_26:
       }
 
       v34 = 0;
-      v35 = *(*&buf[8] + 24);
     }
 
     (completionCopy[2])(completionCopy, v34);
@@ -276,25 +273,24 @@ LABEL_26:
   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     lastPathComponent2 = [audioCopy lastPathComponent];
-    v38 = v47[5];
+    v36 = v45[5];
     *buf = 136315650;
     *&buf[4] = "[SSRVoiceProfilePruner _getScoresForAudio:withController:withDetector:forProfile:withCompletion:]";
     *&buf[12] = 2114;
     *&buf[14] = lastPathComponent2;
     *&buf[22] = 2114;
-    v61 = v38;
+    v59 = v36;
     _os_log_error_impl(&dword_225E12000, v16, OS_LOG_TYPE_ERROR, "%s ERR: Failed in processing %{public}@ with %{public}@", buf, 0x20u);
   }
 
   if (completionCopy)
   {
-    completionCopy[2](completionCopy, v47[5], -INFINITY, -INFINITY, -INFINITY, -INFINITY);
+    completionCopy[2](completionCopy, v45[5], -INFINITY, -INFINITY, -INFINITY, -INFINITY);
   }
 
 LABEL_27:
 
-  _Block_object_dispose(&v46, 8);
-  v36 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v44, 8);
 }
 
 void __98__SSRVoiceProfilePruner__getScoresForAudio_withController_withDetector_forProfile_withCompletion___block_invoke(uint64_t a1, uint64_t a2, int a3, void *a4)
@@ -326,7 +322,7 @@ void __98__SSRVoiceProfilePruner__getScoresForAudio_withController_withDetector_
 
 - (void)pruneVoiceProfile:(id)profile forSpIdType:(unint64_t)type withAsset:(id)asset
 {
-  v198[3] = *MEMORY[0x277D85DE8];
+  v197[3] = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   assetCopy = asset;
   if (CSIsIOS())
@@ -337,9 +333,9 @@ void __98__SSRVoiceProfilePruner__getScoresForAudio_withController_withDetector_
       if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v184 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
-        v185 = 1026;
-        *v186 = type;
+        v183 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
+        v184 = 1026;
+        *v185 = type;
         v11 = "%s Called with explicit spId type %{public}d - Bailing out";
         v12 = v10;
         v13 = 18;
@@ -354,11 +350,11 @@ LABEL_7:
     v15 = [SSRLoggingAggregator alloc];
     locale = [profileCopy locale];
     configVersion = [assetCopy configVersion];
-    v146 = [(SSRLoggingAggregator *)v15 initWithEvent:@"pruning" locale:locale configVersion:configVersion];
+    v145 = [(SSRLoggingAggregator *)v15 initWithEvent:@"pruning" locale:locale configVersion:configVersion];
 
-    v143 = [MEMORY[0x277CBEB18] arrayWithCapacity:28];
-    v145 = [profileCopy getExplicitEnrollmentUtterancesForType:1];
-    v144 = [profileCopy getImplicitEnrollmentUtterancesForType:1];
+    v142 = [MEMORY[0x277CBEB18] arrayWithCapacity:28];
+    v144 = [profileCopy getExplicitEnrollmentUtterancesForType:1];
+    v143 = [profileCopy getImplicitEnrollmentUtterancesForType:1];
     pruningNumRetentionUtterance = [assetCopy pruningNumRetentionUtterance];
     pruningCookie = [profileCopy pruningCookie];
     voiceProfilePruningCookie = [assetCopy voiceProfilePruningCookie];
@@ -376,11 +372,11 @@ LABEL_7:
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v184 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
-      v185 = 2114;
-      *v186 = voiceProfilePruningCookie;
-      *&v186[8] = 2114;
-      *&v186[10] = pruningCookie;
+      v183 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
+      v184 = 2114;
+      *v185 = voiceProfilePruningCookie;
+      *&v185[8] = 2114;
+      *&v185[10] = pruningCookie;
       _os_log_impl(&dword_225E12000, v30, OS_LOG_TYPE_DEFAULT, "%s Voice Profile pruning cookie from Asset %{public}@ lastCookie %{public}@", buf, 0x20u);
     }
 
@@ -395,25 +391,25 @@ LABEL_7:
           if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315650;
-            v184 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
-            v185 = 2114;
-            *v186 = v145;
-            *&v186[8] = 2114;
-            *&v186[10] = v144;
+            v183 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
+            v184 = 2114;
+            *v185 = v144;
+            *&v185[8] = 2114;
+            *&v185[10] = v143;
             _os_log_impl(&dword_225E12000, v34, OS_LOG_TYPE_DEFAULT, "%s Explicit utterances: %{public}@, Implicit utterances: %{public}@", buf, 0x20u);
           }
 
-          if (v145)
+          if (v144)
           {
-            if ([v145 count] > 3)
+            if ([v144 count] > 3)
             {
-              if (v144 && [v144 count])
+              if (v143 && [v143 count])
               {
                 v37 = *MEMORY[0x277D01970];
                 if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 136315138;
-                  v184 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
+                  v183 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
                   _os_log_impl(&dword_225E12000, v37, OS_LOG_TYPE_DEFAULT, "%s Pruning(1)::----------------------------- Retrain profile to create explicit model ---------------------------------------", buf, 0xCu);
                 }
 
@@ -424,178 +420,178 @@ LABEL_7:
                   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
                   {
                     *buf = 136315394;
-                    v184 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
-                    v185 = 2114;
-                    *v186 = v38;
+                    v183 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
+                    v184 = 2114;
+                    *v185 = v38;
                     _os_log_error_impl(&dword_225E12000, v39, OS_LOG_TYPE_ERROR, "%s ERR: creating pruning voice profile failed with %{public}@", buf, 0x16u);
                   }
 
-                  [(SSRLoggingAggregator *)v146 setVoiceProfilePruningFailureReasonCode:5];
-                  [(SSRLoggingAggregator *)v146 pushAnalytics];
+                  [(SSRLoggingAggregator *)v145 setVoiceProfilePruningFailureReasonCode:5];
+                  [(SSRLoggingAggregator *)v145 pushAnalytics];
                 }
 
                 else
                 {
-                  v198[0] = &unk_283933918;
-                  v197[0] = @"SSRSpeakerRecognitionStyle";
-                  v197[1] = @"SSRSpeakerRecognitionProfileArray";
-                  v196 = profileCopy;
-                  v42 = [MEMORY[0x277CBEA60] arrayWithObjects:&v196 count:1];
-                  v198[1] = v42;
-                  v197[2] = @"SSRSpeakerRecognitionAsset";
-                  v198[2] = assetCopy;
-                  v122 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v198 forKeys:v197 count:3];
+                  v197[0] = &unk_283933918;
+                  v196[0] = @"SSRSpeakerRecognitionStyle";
+                  v196[1] = @"SSRSpeakerRecognitionProfileArray";
+                  v195 = profileCopy;
+                  v41 = [MEMORY[0x277CBEA60] arrayWithObjects:&v195 count:1];
+                  v197[1] = v41;
+                  v196[2] = @"SSRSpeakerRecognitionAsset";
+                  v197[2] = assetCopy;
+                  v121 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v197 forKeys:v196 count:3];
 
-                  v175 = 0;
-                  v176 = &v175;
-                  v177 = 0x3032000000;
-                  v178 = __Block_byref_object_copy__5164;
-                  v179 = __Block_byref_object_dispose__5165;
-                  v180 = 0;
-                  v43 = [SSRSpeakerRecognitionContext alloc];
-                  v44 = (v176 + 5);
-                  obj = v176[5];
-                  v136 = [(SSRSpeakerRecognitionContext *)v43 initWithVoiceRecognitionContext:v122 error:&obj];
-                  objc_storeStrong(v44, obj);
-                  v45 = v176[5];
-                  if (v45 || !v136)
+                  v174 = 0;
+                  v175 = &v174;
+                  v176 = 0x3032000000;
+                  v177 = __Block_byref_object_copy__5164;
+                  v178 = __Block_byref_object_dispose__5165;
+                  v179 = 0;
+                  v42 = [SSRSpeakerRecognitionContext alloc];
+                  v43 = (v175 + 5);
+                  obj = v175[5];
+                  v135 = [(SSRSpeakerRecognitionContext *)v42 initWithVoiceRecognitionContext:v121 error:&obj];
+                  objc_storeStrong(v43, obj);
+                  v44 = v175[5];
+                  if (v44 || !v135)
                   {
-                    v74 = *MEMORY[0x277D01970];
+                    v73 = *MEMORY[0x277D01970];
                     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
                     {
                       *buf = 136315394;
-                      v184 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
-                      v185 = 2114;
-                      *v186 = v45;
-                      _os_log_error_impl(&dword_225E12000, v74, OS_LOG_TYPE_ERROR, "%s ERR: Failed to create SSR context with error %{public}@ - Bailing out", buf, 0x16u);
+                      v183 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
+                      v184 = 2114;
+                      *v185 = v44;
+                      _os_log_error_impl(&dword_225E12000, v73, OS_LOG_TYPE_ERROR, "%s ERR: Failed to create SSR context with error %{public}@ - Bailing out", buf, 0x16u);
                     }
 
                     allObjects = 0;
-                    v138 = 0;
+                    v137 = 0;
                   }
 
                   else
                   {
-                    v46 = [SSRSpeakerRecognitionController alloc];
-                    v47 = (v176 + 5);
-                    v173 = v176[5];
-                    v140 = [(SSRSpeakerRecognitionController *)v46 initWithContext:v136 withDelegate:self error:&v173];
-                    objc_storeStrong(v47, v173);
-                    v48 = [SSRTriggerPhraseDetector alloc];
+                    v45 = [SSRSpeakerRecognitionController alloc];
+                    v46 = (v175 + 5);
+                    v172 = v175[5];
+                    v139 = [(SSRSpeakerRecognitionController *)v45 initWithContext:v135 withDelegate:self error:&v172];
+                    objc_storeStrong(v46, v172);
+                    v47 = [SSRTriggerPhraseDetector alloc];
                     locale2 = [profileCopy locale];
-                    v135 = [(SSRTriggerPhraseDetector *)v48 initWithLocale:locale2 asset:assetCopy];
+                    v134 = [(SSRTriggerPhraseDetector *)v47 initWithLocale:locale2 asset:assetCopy];
 
-                    v50 = *MEMORY[0x277D01970];
+                    v49 = *MEMORY[0x277D01970];
                     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 136315138;
-                      v184 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
-                      _os_log_impl(&dword_225E12000, v50, OS_LOG_TYPE_DEFAULT, "%s Pruning(2)::----------------------------- Check Explicit Utterance scores ---------------------------------------", buf, 0xCu);
+                      v183 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
+                      _os_log_impl(&dword_225E12000, v49, OS_LOG_TYPE_DEFAULT, "%s Pruning(2)::----------------------------- Check Explicit Utterance scores ---------------------------------------", buf, 0xCu);
                     }
 
-                    v171 = 0u;
-                    v172 = 0u;
-                    v169 = 0u;
                     v170 = 0u;
-                    v125 = v145;
-                    v51 = [v125 countByEnumeratingWithState:&v169 objects:v195 count:16];
-                    if (v51)
+                    v171 = 0u;
+                    v168 = 0u;
+                    v169 = 0u;
+                    v124 = v144;
+                    v50 = [v124 countByEnumeratingWithState:&v168 objects:v194 count:16];
+                    if (v50)
                     {
                       log = 0;
-                      v126 = 0;
-                      v132 = *v170;
-                      *&v52 = 136315138;
-                      v118 = v52;
+                      v125 = 0;
+                      v131 = *v169;
+                      *&v51 = 136315138;
+                      v117 = v51;
                       while (2)
                       {
-                        v53 = 0;
-                        v128 = v51;
+                        v52 = 0;
+                        v127 = v50;
                         do
                         {
-                          if (*v170 != v132)
+                          if (*v169 != v131)
                           {
-                            objc_enumerationMutation(v125);
+                            objc_enumerationMutation(v124);
                           }
 
-                          v54 = *(*(&v169 + 1) + 8 * v53);
-                          v165 = 0;
-                          v166 = &v165;
-                          v167 = 0x2020000000;
-                          v168 = -8388608;
-                          v161 = 0;
-                          v162 = &v161;
-                          v163 = 0x2020000000;
-                          v164 = -8388608;
-                          v157 = 0;
-                          v158 = &v157;
-                          v159 = 0x2020000000;
-                          v160 = -8388608;
-                          v153 = 0;
-                          v154 = &v153;
-                          v155 = 0x2020000000;
-                          v156 = -8388608;
-                          v118 = [(SSRSpeakerRecognitionController *)v140 resetWithContext:v136, v118];
-                          v152[0] = MEMORY[0x277D85DD0];
-                          v152[1] = 3221225472;
-                          v152[2] = __65__SSRVoiceProfilePruner_pruneVoiceProfile_forSpIdType_withAsset___block_invoke;
-                          v152[3] = &unk_278578970;
-                          v152[4] = &v175;
-                          v152[5] = &v165;
-                          v152[6] = &v161;
-                          v152[7] = &v157;
-                          v152[8] = &v153;
-                          [(SSRVoiceProfilePruner *)self _getScoresForAudio:v54 withController:v140 withDetector:v135 forProfile:profileCopy withCompletion:v152];
-                          v137 = v176[5];
-                          if (v137)
+                          v53 = *(*(&v168 + 1) + 8 * v52);
+                          v164 = 0;
+                          v165 = &v164;
+                          v166 = 0x2020000000;
+                          v167 = -8388608;
+                          v160 = 0;
+                          v161 = &v160;
+                          v162 = 0x2020000000;
+                          v163 = -8388608;
+                          v156 = 0;
+                          v157 = &v156;
+                          v158 = 0x2020000000;
+                          v159 = -8388608;
+                          v152 = 0;
+                          v153 = &v152;
+                          v154 = 0x2020000000;
+                          v155 = -8388608;
+                          v117 = [(SSRSpeakerRecognitionController *)v139 resetWithContext:v135, v117];
+                          v151[0] = MEMORY[0x277D85DD0];
+                          v151[1] = 3221225472;
+                          v151[2] = __65__SSRVoiceProfilePruner_pruneVoiceProfile_forSpIdType_withAsset___block_invoke;
+                          v151[3] = &unk_278578970;
+                          v151[4] = &v174;
+                          v151[5] = &v164;
+                          v151[6] = &v160;
+                          v151[7] = &v156;
+                          v151[8] = &v152;
+                          [(SSRVoiceProfilePruner *)self _getScoresForAudio:v53 withController:v139 withDetector:v134 forProfile:profileCopy withCompletion:v151];
+                          v136 = v175[5];
+                          if (v136)
                           {
-                            v57 = *MEMORY[0x277D01970];
+                            v56 = *MEMORY[0x277D01970];
                             if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
                             {
-                              *buf = v118;
-                              v184 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
-                              _os_log_error_impl(&dword_225E12000, v57, OS_LOG_TYPE_ERROR, "%s ERR: ScoreCard is nil in voice profile pruning - Bailing out", buf, 0xCu);
+                              *buf = v117;
+                              v183 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
+                              _os_log_error_impl(&dword_225E12000, v56, OS_LOG_TYPE_ERROR, "%s ERR: ScoreCard is nil in voice profile pruning - Bailing out", buf, 0xCu);
                             }
 
-                            [(SSRLoggingAggregator *)v146 setVoiceProfilePruningFailureReasonCode:6];
-                            [(SSRLoggingAggregator *)v146 pushAnalytics];
+                            [(SSRLoggingAggregator *)v145 setVoiceProfilePruningFailureReasonCode:6];
+                            [(SSRLoggingAggregator *)v145 pushAnalytics];
                           }
 
                           else
                           {
-                            v58 = v166[6];
-                            if (v58 <= 0.0 || v58 <= v27 || (v59 = v162[6], v59 <= 0.0) || v59 <= v25)
+                            v57 = v165[6];
+                            if (v57 <= 0.0 || v57 <= v27 || (v58 = v161[6], v58 <= 0.0) || v58 <= v25)
                             {
-                              LODWORD(v56) = *(v158 + 6);
-                              [(SSRLoggingAggregator *)v146 appendVoiceProfileFailedExplicitUtteranceScoreWith:v56];
-                              v67 = *MEMORY[0x277D01970];
-                              if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+                              LODWORD(v55) = *(v157 + 6);
+                              [(SSRLoggingAggregator *)v145 appendVoiceProfileFailedExplicitUtteranceScoreWith:v55];
+                              v66 = *MEMORY[0x277D01970];
+                              if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
                               {
-                                lastPathComponent = [v54 lastPathComponent];
-                                v69 = v154[6];
-                                v70 = v166[6];
-                                v71 = v162[6];
-                                v72 = *(v158 + 6);
+                                lastPathComponent = [v53 lastPathComponent];
+                                v68 = v153[6];
+                                v69 = v165[6];
+                                v70 = v161[6];
+                                v71 = *(v157 + 6);
                                 *buf = 136317442;
-                                v184 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
-                                v185 = 1026;
-                                *v186 = v126;
-                                *&v186[4] = 2114;
-                                *&v186[6] = lastPathComponent;
-                                *&v186[14] = 2050;
-                                *&v186[16] = v69;
-                                *&v186[24] = 2050;
-                                *&v186[26] = v29;
-                                *&v186[34] = 2050;
-                                *&v186[36] = v70;
-                                v187 = 2050;
-                                v188 = v27;
-                                v189 = 2050;
-                                v190 = v71;
-                                v191 = 2050;
-                                v192 = v25;
-                                v193 = 2050;
-                                v194 = v72;
-                                _os_log_error_impl(&dword_225E12000, v67, OS_LOG_TYPE_ERROR, "%s Low Score Explicit utterance[%{public}d]: %{public}@ --> T:(%{public}.3f, %{public}.3f) S:(%{public}.3f, %{public}.3f) P:(%{public}.3f, %{public}.3f) C:%{public}.3f", buf, 0x62u);
+                                v183 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
+                                v184 = 1026;
+                                *v185 = v125;
+                                *&v185[4] = 2114;
+                                *&v185[6] = lastPathComponent;
+                                *&v185[14] = 2050;
+                                *&v185[16] = v68;
+                                *&v185[24] = 2050;
+                                *&v185[26] = v29;
+                                *&v185[34] = 2050;
+                                *&v185[36] = v69;
+                                v186 = 2050;
+                                v187 = v27;
+                                v188 = 2050;
+                                v189 = v70;
+                                v190 = 2050;
+                                v191 = v25;
+                                v192 = 2050;
+                                v193 = v71;
+                                _os_log_error_impl(&dword_225E12000, v66, OS_LOG_TYPE_ERROR, "%s Low Score Explicit utterance[%{public}d]: %{public}@ --> T:(%{public}.3f, %{public}.3f) S:(%{public}.3f, %{public}.3f) P:(%{public}.3f, %{public}.3f) C:%{public}.3f", buf, 0x62u);
                               }
 
                               log = 1;
@@ -603,64 +599,64 @@ LABEL_7:
 
                             else
                             {
-                              v60 = *MEMORY[0x277D01970];
-                              if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
+                              v59 = *MEMORY[0x277D01970];
+                              if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
                               {
-                                lastPathComponent2 = [v54 lastPathComponent];
-                                v62 = v154[6];
-                                v63 = v166[6];
-                                v64 = v162[6];
-                                v65 = *(v158 + 6);
+                                lastPathComponent2 = [v53 lastPathComponent];
+                                v61 = v153[6];
+                                v62 = v165[6];
+                                v63 = v161[6];
+                                v64 = *(v157 + 6);
                                 *buf = 136317442;
-                                v184 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
-                                v185 = 1026;
-                                *v186 = v126;
-                                *&v186[4] = 2114;
-                                *&v186[6] = lastPathComponent2;
-                                *&v186[14] = 2050;
-                                *&v186[16] = v62;
-                                *&v186[24] = 2050;
-                                *&v186[26] = v29;
-                                *&v186[34] = 2050;
-                                *&v186[36] = v63;
-                                v187 = 2050;
-                                v188 = v27;
-                                v189 = 2050;
-                                v190 = v64;
-                                v191 = 2050;
-                                v192 = v25;
-                                v193 = 2050;
-                                v194 = v65;
-                                _os_log_impl(&dword_225E12000, v60, OS_LOG_TYPE_DEFAULT, "%s Explicit utterance[%{public}d]: %{public}@ --> T:(%{public}.3f, %{public}.3f) S:(%{public}.3f, %{public}.3f) P:(%{public}.3f(%{public}.3f) C:%{public}.3f", buf, 0x62u);
+                                v183 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
+                                v184 = 1026;
+                                *v185 = v125;
+                                *&v185[4] = 2114;
+                                *&v185[6] = lastPathComponent2;
+                                *&v185[14] = 2050;
+                                *&v185[16] = v61;
+                                *&v185[24] = 2050;
+                                *&v185[26] = v29;
+                                *&v185[34] = 2050;
+                                *&v185[36] = v62;
+                                v186 = 2050;
+                                v187 = v27;
+                                v188 = 2050;
+                                v189 = v63;
+                                v190 = 2050;
+                                v191 = v25;
+                                v192 = 2050;
+                                v193 = v64;
+                                _os_log_impl(&dword_225E12000, v59, OS_LOG_TYPE_DEFAULT, "%s Explicit utterance[%{public}d]: %{public}@ --> T:(%{public}.3f, %{public}.3f) S:(%{public}.3f, %{public}.3f) P:(%{public}.3f(%{public}.3f) C:%{public}.3f", buf, 0x62u);
                               }
 
-                              LODWORD(v66) = *(v158 + 6);
-                              [(SSRLoggingAggregator *)v146 appendVoiceProfileExplicitUtteranceScoreWith:v66];
+                              LODWORD(v65) = *(v157 + 6);
+                              [(SSRLoggingAggregator *)v145 appendVoiceProfileExplicitUtteranceScoreWith:v65];
                             }
 
-                            ++v126;
+                            ++v125;
                           }
 
-                          _Block_object_dispose(&v153, 8);
-                          _Block_object_dispose(&v157, 8);
-                          _Block_object_dispose(&v161, 8);
-                          _Block_object_dispose(&v165, 8);
-                          if (v137)
+                          _Block_object_dispose(&v152, 8);
+                          _Block_object_dispose(&v156, 8);
+                          _Block_object_dispose(&v160, 8);
+                          _Block_object_dispose(&v164, 8);
+                          if (v136)
                           {
 LABEL_107:
 
 LABEL_108:
                             allObjects = 0;
-                            v138 = 0;
+                            v137 = 0;
                             goto LABEL_109;
                           }
 
-                          ++v53;
+                          ++v52;
                         }
 
-                        while (v128 != v53);
-                        v51 = [v125 countByEnumeratingWithState:&v169 objects:v195 count:16];
-                        if (v51)
+                        while (v127 != v52);
+                        v50 = [v124 countByEnumeratingWithState:&v168 objects:v194 count:16];
+                        if (v50)
                         {
                           continue;
                         }
@@ -670,16 +666,16 @@ LABEL_108:
 
                       if (log)
                       {
-                        v73 = *MEMORY[0x277D01970];
+                        v72 = *MEMORY[0x277D01970];
                         if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
                         {
-                          *buf = v118;
-                          v184 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
-                          _os_log_error_impl(&dword_225E12000, v73, OS_LOG_TYPE_ERROR, "%s ERR: Detected explicit utterances with lower scores, Bailing out", buf, 0xCu);
+                          *buf = v117;
+                          v183 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
+                          _os_log_error_impl(&dword_225E12000, v72, OS_LOG_TYPE_ERROR, "%s ERR: Detected explicit utterances with lower scores, Bailing out", buf, 0xCu);
                         }
 
-                        [(SSRLoggingAggregator *)v146 setVoiceProfilePruningFailureReasonCode:4];
-                        [(SSRLoggingAggregator *)v146 pushAnalytics];
+                        [(SSRLoggingAggregator *)v145 setVoiceProfilePruningFailureReasonCode:4];
+                        [(SSRLoggingAggregator *)v145 pushAnalytics];
                         goto LABEL_108;
                       }
                     }
@@ -688,182 +684,182 @@ LABEL_108:
                     {
                     }
 
-                    v75 = *MEMORY[0x277D01970];
+                    v74 = *MEMORY[0x277D01970];
                     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 136315138;
-                      v184 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
-                      _os_log_impl(&dword_225E12000, v75, OS_LOG_TYPE_DEFAULT, "%s Pruning(3)::----------------------------- Implicit selection ---------------------------------------", buf, 0xCu);
+                      v183 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
+                      _os_log_impl(&dword_225E12000, v74, OS_LOG_TYPE_DEFAULT, "%s Pruning(3)::----------------------------- Implicit selection ---------------------------------------", buf, 0xCu);
                     }
 
-                    v150 = 0u;
-                    v151 = 0u;
-                    v148 = 0u;
                     v149 = 0u;
-                    v120 = v144;
-                    v76 = [v120 countByEnumeratingWithState:&v148 objects:v182 count:16];
-                    if (v76)
+                    v150 = 0u;
+                    v147 = 0u;
+                    v148 = 0u;
+                    v119 = v143;
+                    v75 = [v119 countByEnumeratingWithState:&v147 objects:v181 count:16];
+                    if (v75)
                     {
-                      v121 = 0;
+                      v120 = 0;
                       loga = 0;
-                      v130 = *v149;
-                      *&v77 = 136315138;
-                      v119 = v77;
+                      v129 = *v148;
+                      *&v76 = 136315138;
+                      v118 = v76;
                       while (2)
                       {
-                        v78 = 0;
-                        v127 = v76;
+                        v77 = 0;
+                        v126 = v75;
                         do
                         {
-                          if (*v149 != v130)
+                          if (*v148 != v129)
                           {
-                            objc_enumerationMutation(v120);
+                            objc_enumerationMutation(v119);
                           }
 
-                          v79 = *(*(&v148 + 1) + 8 * v78);
-                          v165 = 0;
-                          v166 = &v165;
-                          v167 = 0x2020000000;
-                          v168 = -8388608;
-                          v161 = 0;
-                          v162 = &v161;
-                          v163 = 0x2020000000;
-                          v164 = -8388608;
-                          v157 = 0;
-                          v158 = &v157;
-                          v159 = 0x2020000000;
-                          v160 = -8388608;
-                          v153 = 0;
-                          v154 = &v153;
-                          v155 = 0x2020000000;
-                          v156 = -8388608;
-                          v119 = [(SSRSpeakerRecognitionController *)v140 resetWithContext:v136, v119];
-                          v147[0] = MEMORY[0x277D85DD0];
-                          v147[1] = 3221225472;
-                          v147[2] = __65__SSRVoiceProfilePruner_pruneVoiceProfile_forSpIdType_withAsset___block_invoke_9;
-                          v147[3] = &unk_278578970;
-                          v147[4] = &v175;
-                          v147[5] = &v165;
-                          v147[6] = &v161;
-                          v147[7] = &v157;
-                          v147[8] = &v153;
-                          [(SSRVoiceProfilePruner *)self _getScoresForAudio:v79 withController:v140 withDetector:v135 forProfile:profileCopy withCompletion:v147];
-                          v133 = v79;
-                          v139 = v176[5];
-                          if (v139)
+                          v78 = *(*(&v147 + 1) + 8 * v77);
+                          v164 = 0;
+                          v165 = &v164;
+                          v166 = 0x2020000000;
+                          v167 = -8388608;
+                          v160 = 0;
+                          v161 = &v160;
+                          v162 = 0x2020000000;
+                          v163 = -8388608;
+                          v156 = 0;
+                          v157 = &v156;
+                          v158 = 0x2020000000;
+                          v159 = -8388608;
+                          v152 = 0;
+                          v153 = &v152;
+                          v154 = 0x2020000000;
+                          v155 = -8388608;
+                          v118 = [(SSRSpeakerRecognitionController *)v139 resetWithContext:v135, v118];
+                          v146[0] = MEMORY[0x277D85DD0];
+                          v146[1] = 3221225472;
+                          v146[2] = __65__SSRVoiceProfilePruner_pruneVoiceProfile_forSpIdType_withAsset___block_invoke_9;
+                          v146[3] = &unk_278578970;
+                          v146[4] = &v174;
+                          v146[5] = &v164;
+                          v146[6] = &v160;
+                          v146[7] = &v156;
+                          v146[8] = &v152;
+                          [(SSRVoiceProfilePruner *)self _getScoresForAudio:v78 withController:v139 withDetector:v134 forProfile:profileCopy withCompletion:v146];
+                          v132 = v78;
+                          v138 = v175[5];
+                          if (v138)
                           {
-                            v81 = *MEMORY[0x277D01970];
+                            v80 = *MEMORY[0x277D01970];
                             if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
                             {
-                              *buf = v119;
-                              v184 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
-                              _os_log_error_impl(&dword_225E12000, v81, OS_LOG_TYPE_ERROR, "%s ERR: ScoreCard is nil in voice profile pruning - Bailing out", buf, 0xCu);
+                              *buf = v118;
+                              v183 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
+                              _os_log_error_impl(&dword_225E12000, v80, OS_LOG_TYPE_ERROR, "%s ERR: ScoreCard is nil in voice profile pruning - Bailing out", buf, 0xCu);
                             }
 
-                            [(SSRLoggingAggregator *)v146 setVoiceProfilePruningFailureReasonCode:6];
-                            [(SSRLoggingAggregator *)v146 pushAnalytics];
+                            [(SSRLoggingAggregator *)v145 setVoiceProfilePruningFailureReasonCode:6];
+                            [(SSRLoggingAggregator *)v145 pushAnalytics];
                           }
 
                           else
                           {
-                            if (v154[6] <= v29 || (v82 = v166[6], v82 <= 0.0) || v82 <= v23 || (v83 = v162[6], v83 <= 0.0) || v83 <= v21)
+                            if (v153[6] <= v29 || (v81 = v165[6], v81 <= 0.0) || v81 <= v23 || (v82 = v161[6], v82 <= 0.0) || v82 <= v21)
                             {
-                              v91 = *MEMORY[0x277D01970];
-                              if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
+                              v90 = *MEMORY[0x277D01970];
+                              if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
                               {
-                                lastPathComponent3 = [v133 lastPathComponent];
-                                v95 = v154[6];
-                                v96 = v166[6];
-                                v97 = v162[6];
-                                v98 = *(v158 + 6);
+                                lastPathComponent3 = [v132 lastPathComponent];
+                                v94 = v153[6];
+                                v95 = v165[6];
+                                v96 = v161[6];
+                                v97 = *(v157 + 6);
                                 *buf = 136317442;
-                                v184 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
-                                v185 = 1026;
-                                *v186 = loga;
-                                *&v186[4] = 2114;
-                                *&v186[6] = lastPathComponent3;
-                                *&v186[14] = 2050;
-                                *&v186[16] = v95;
-                                *&v186[24] = 2050;
-                                *&v186[26] = v29;
-                                *&v186[34] = 2050;
-                                *&v186[36] = v96;
-                                v187 = 2050;
-                                v188 = v23;
-                                v189 = 2050;
-                                v190 = v97;
-                                v191 = 2050;
-                                v192 = v21;
-                                v193 = 2050;
-                                v194 = v98;
-                                _os_log_error_impl(&dword_225E12000, v91, OS_LOG_TYPE_ERROR, "%s Deleting low Score Implicit utterance[%{public}d]: %{public}@ --> T:(%{public}.3f, %{public}.3f) S:(%{public}.3f, %{public}.3f) P:(%{public}.3f, %{public}.3f) C:%{public}.3f", buf, 0x62u);
+                                v183 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
+                                v184 = 1026;
+                                *v185 = loga;
+                                *&v185[4] = 2114;
+                                *&v185[6] = lastPathComponent3;
+                                *&v185[14] = 2050;
+                                *&v185[16] = v94;
+                                *&v185[24] = 2050;
+                                *&v185[26] = v29;
+                                *&v185[34] = 2050;
+                                *&v185[36] = v95;
+                                v186 = 2050;
+                                v187 = v23;
+                                v188 = 2050;
+                                v189 = v96;
+                                v190 = 2050;
+                                v191 = v21;
+                                v192 = 2050;
+                                v193 = v97;
+                                _os_log_error_impl(&dword_225E12000, v90, OS_LOG_TYPE_ERROR, "%s Deleting low Score Implicit utterance[%{public}d]: %{public}@ --> T:(%{public}.3f, %{public}.3f) S:(%{public}.3f, %{public}.3f) P:(%{public}.3f, %{public}.3f) C:%{public}.3f", buf, 0x62u);
                               }
 
-                              LODWORD(v92) = *(v158 + 6);
-                              [(SSRLoggingAggregator *)v146 appendVoiceProfileDiscardedImplicitUtteranceScoreWith:v92];
-                              v181 = v133;
-                              v93 = [MEMORY[0x277CBEA60] arrayWithObjects:&v181 count:1];
-                              [(SSRVoiceProfilePruner *)self _deleteUtterances:v93];
+                              LODWORD(v91) = *(v157 + 6);
+                              [(SSRLoggingAggregator *)v145 appendVoiceProfileDiscardedImplicitUtteranceScoreWith:v91];
+                              v180 = v132;
+                              v92 = [MEMORY[0x277CBEA60] arrayWithObjects:&v180 count:1];
+                              [(SSRVoiceProfilePruner *)self _deleteUtterances:v92];
 
-                              ++v121;
+                              ++v120;
                             }
 
                             else
                             {
-                              v84 = *MEMORY[0x277D01970];
-                              if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
+                              v83 = *MEMORY[0x277D01970];
+                              if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
                               {
-                                lastPathComponent4 = [v133 lastPathComponent];
-                                v86 = v154[6];
-                                v87 = v166[6];
-                                v88 = v162[6];
-                                v89 = *(v158 + 6);
+                                lastPathComponent4 = [v132 lastPathComponent];
+                                v85 = v153[6];
+                                v86 = v165[6];
+                                v87 = v161[6];
+                                v88 = *(v157 + 6);
                                 *buf = 136317442;
-                                v184 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
-                                v185 = 1026;
-                                *v186 = loga;
-                                *&v186[4] = 2114;
-                                *&v186[6] = lastPathComponent4;
-                                *&v186[14] = 2050;
-                                *&v186[16] = v86;
-                                *&v186[24] = 2050;
-                                *&v186[26] = v29;
-                                *&v186[34] = 2050;
-                                *&v186[36] = v87;
-                                v187 = 2050;
-                                v188 = v23;
-                                v189 = 2050;
-                                v190 = v88;
-                                v191 = 2050;
-                                v192 = v21;
-                                v193 = 2050;
-                                v194 = v89;
-                                _os_log_impl(&dword_225E12000, v84, OS_LOG_TYPE_DEFAULT, "%s Implicit utterance[%{public}d]: %{public}@ --> T:(%{public}.3f, %{public}.3f) S:(%{public}.3f, %{public}.3f) P:(%{public}.3f, %{public}.3f) C:%{public}.3f", buf, 0x62u);
+                                v183 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
+                                v184 = 1026;
+                                *v185 = loga;
+                                *&v185[4] = 2114;
+                                *&v185[6] = lastPathComponent4;
+                                *&v185[14] = 2050;
+                                *&v185[16] = v85;
+                                *&v185[24] = 2050;
+                                *&v185[26] = v29;
+                                *&v185[34] = 2050;
+                                *&v185[36] = v86;
+                                v186 = 2050;
+                                v187 = v23;
+                                v188 = 2050;
+                                v189 = v87;
+                                v190 = 2050;
+                                v191 = v21;
+                                v192 = 2050;
+                                v193 = v88;
+                                _os_log_impl(&dword_225E12000, v83, OS_LOG_TYPE_DEFAULT, "%s Implicit utterance[%{public}d]: %{public}@ --> T:(%{public}.3f, %{public}.3f) S:(%{public}.3f, %{public}.3f) P:(%{public}.3f, %{public}.3f) C:%{public}.3f", buf, 0x62u);
                               }
 
-                              LODWORD(v90) = *(v158 + 6);
-                              [(SSRLoggingAggregator *)v146 appendVoiceProfileImplicitUtteranceScoreWith:v90];
+                              LODWORD(v89) = *(v157 + 6);
+                              [(SSRLoggingAggregator *)v145 appendVoiceProfileImplicitUtteranceScoreWith:v89];
                             }
 
                             ++loga;
                           }
 
-                          _Block_object_dispose(&v153, 8);
-                          _Block_object_dispose(&v157, 8);
-                          _Block_object_dispose(&v161, 8);
-                          _Block_object_dispose(&v165, 8);
-                          if (v139)
+                          _Block_object_dispose(&v152, 8);
+                          _Block_object_dispose(&v156, 8);
+                          _Block_object_dispose(&v160, 8);
+                          _Block_object_dispose(&v164, 8);
+                          if (v138)
                           {
-                            v125 = v120;
+                            v124 = v119;
                             goto LABEL_107;
                           }
 
-                          ++v78;
+                          ++v77;
                         }
 
-                        while (v127 != v78);
-                        v76 = [v120 countByEnumeratingWithState:&v148 objects:v182 count:16];
-                        if (v76)
+                        while (v126 != v77);
+                        v75 = [v119 countByEnumeratingWithState:&v147 objects:v181 count:16];
+                        if (v75)
                         {
                           continue;
                         }
@@ -871,134 +867,134 @@ LABEL_108:
                         break;
                       }
 
-                      v99 = v121;
+                      v98 = v120;
                     }
 
                     else
                     {
-                      v99 = 0;
+                      v98 = 0;
                     }
 
-                    [(SSRLoggingAggregator *)v146 setVoiceProfileDiscardedUtteranceCount:v99];
-                    v100 = *MEMORY[0x277D01970];
+                    [(SSRLoggingAggregator *)v145 setVoiceProfileDiscardedUtteranceCount:v98];
+                    v99 = *MEMORY[0x277D01970];
                     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 136315138;
-                      v184 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
-                      _os_log_impl(&dword_225E12000, v100, OS_LOG_TYPE_DEFAULT, "%s Pruning(4)::----------------------------- Implicit sampling ---------------------------------------", buf, 0xCu);
+                      v183 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
+                      _os_log_impl(&dword_225E12000, v99, OS_LOG_TYPE_DEFAULT, "%s Pruning(4)::----------------------------- Implicit sampling ---------------------------------------", buf, 0xCu);
                     }
 
-                    v138 = [profileCopy getImplicitEnrollmentUtterancesForType:type];
-                    v101 = pruningNumRetentionUtterance + [v138 count] - 1;
-                    v131 = v101 / pruningNumRetentionUtterance;
-                    if (pruningNumRetentionUtterance <= v101)
+                    v137 = [profileCopy getImplicitEnrollmentUtterancesForType:type];
+                    v100 = pruningNumRetentionUtterance + [v137 count] - 1;
+                    v130 = v100 / pruningNumRetentionUtterance;
+                    if (pruningNumRetentionUtterance <= v100)
                     {
-                      v134 = [v125 count];
-                      v114 = 0;
-                      v129 = pruningNumRetentionUtterance + 5;
-                      for (i = -1; v114 < [v138 count]; --i)
+                      v133 = [v124 count];
+                      v113 = 0;
+                      v128 = pruningNumRetentionUtterance + 5;
+                      for (i = -1; v113 < [v137 count]; --i)
                       {
-                        if (v114 % v131)
+                        if (v113 % v130)
                         {
-                          v116 = [v138 objectAtIndexedSubscript:v114];
-                          [v143 addObject:v116];
+                          v115 = [v137 objectAtIndexedSubscript:v113];
+                          [v142 addObject:v115];
                         }
 
                         else
                         {
-                          ++v134;
+                          ++v133;
                         }
 
-                        v117 = [v138 count];
-                        if (v129 > v134 && i + v117 <= v129 - v134)
+                        v116 = [v137 count];
+                        if (v128 > v133 && i + v116 <= v128 - v133)
                         {
                           break;
                         }
 
-                        ++v114;
+                        ++v113;
                       }
                     }
 
-                    v102 = *MEMORY[0x277D01970];
-                    if (os_log_type_enabled(v102, OS_LOG_TYPE_DEFAULT))
+                    v101 = *MEMORY[0x277D01970];
+                    if (os_log_type_enabled(v101, OS_LOG_TYPE_DEFAULT))
                     {
-                      v103 = [v138 count];
-                      v104 = [v143 count];
+                      v102 = [v137 count];
+                      v103 = [v142 count];
                       *buf = 136316162;
-                      v184 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
-                      v185 = 2050;
-                      *v186 = v103;
-                      *&v186[8] = 2050;
-                      *&v186[10] = v131;
-                      *&v186[18] = 2050;
-                      *&v186[20] = pruningNumRetentionUtterance;
-                      *&v186[28] = 2050;
-                      *&v186[30] = v104;
-                      _os_log_impl(&dword_225E12000, v102, OS_LOG_TYPE_DEFAULT, "%s Utterance selection totalImplicit: %{public}lu selectionIndex: %{public}lu retentionCount: %{public}lu deleteCount: %{public}lu ", buf, 0x34u);
+                      v183 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
+                      v184 = 2050;
+                      *v185 = v102;
+                      *&v185[8] = 2050;
+                      *&v185[10] = v130;
+                      *&v185[18] = 2050;
+                      *&v185[20] = pruningNumRetentionUtterance;
+                      *&v185[28] = 2050;
+                      *&v185[30] = v103;
+                      _os_log_impl(&dword_225E12000, v101, OS_LOG_TYPE_DEFAULT, "%s Utterance selection totalImplicit: %{public}lu selectionIndex: %{public}lu retentionCount: %{public}lu deleteCount: %{public}lu ", buf, 0x34u);
                     }
 
-                    if (v143 && [v143 count])
+                    if (v142 && [v142 count])
                     {
-                      v105 = [MEMORY[0x277CBEB58] setWithArray:v138];
-                      v106 = [MEMORY[0x277CBEB98] setWithArray:v143];
-                      [v105 minusSet:v106];
-                      allObjects = [v105 allObjects];
+                      v104 = [MEMORY[0x277CBEB58] setWithArray:v137];
+                      v105 = [MEMORY[0x277CBEB98] setWithArray:v142];
+                      [v104 minusSet:v105];
+                      allObjects = [v104 allObjects];
                     }
 
                     else
                     {
-                      allObjects = v138;
+                      allObjects = v137;
                     }
 
-                    v107 = *MEMORY[0x277D01970];
-                    if (os_log_type_enabled(v107, OS_LOG_TYPE_DEFAULT))
+                    v106 = *MEMORY[0x277D01970];
+                    if (os_log_type_enabled(v106, OS_LOG_TYPE_DEFAULT))
                     {
-                      v108 = [v143 count];
+                      v107 = [v142 count];
                       *buf = 136315650;
-                      v184 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
-                      v185 = 2048;
-                      *v186 = v108;
-                      *&v186[8] = 2114;
-                      *&v186[10] = v143;
-                      _os_log_impl(&dword_225E12000, v107, OS_LOG_TYPE_DEFAULT, "%s Deleting implicit utterances(%lu) - %{public}@", buf, 0x20u);
+                      v183 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
+                      v184 = 2048;
+                      *v185 = v107;
+                      *&v185[8] = 2114;
+                      *&v185[10] = v142;
+                      _os_log_impl(&dword_225E12000, v106, OS_LOG_TYPE_DEFAULT, "%s Deleting implicit utterances(%lu) - %{public}@", buf, 0x20u);
                     }
 
-                    [(SSRVoiceProfilePruner *)self _deleteUtterances:v143];
-                    -[SSRLoggingAggregator setVoiceProfilePrunedUtteranceCount:](v146, "setVoiceProfilePrunedUtteranceCount:", [v143 count]);
-                    -[SSRLoggingAggregator setVoiceProfileRetainedUtteranceCount:](v146, "setVoiceProfileRetainedUtteranceCount:", [allObjects count]);
-                    v109 = *MEMORY[0x277D01970];
+                    [(SSRVoiceProfilePruner *)self _deleteUtterances:v142];
+                    -[SSRLoggingAggregator setVoiceProfilePrunedUtteranceCount:](v145, "setVoiceProfilePrunedUtteranceCount:", [v142 count]);
+                    -[SSRLoggingAggregator setVoiceProfileRetainedUtteranceCount:](v145, "setVoiceProfileRetainedUtteranceCount:", [allObjects count]);
+                    v108 = *MEMORY[0x277D01970];
                     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 136315138;
-                      v184 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
-                      _os_log_impl(&dword_225E12000, v109, OS_LOG_TYPE_DEFAULT, "%s Pruning(5)::----------------------------- Retrain the voice profile ---------------------------------------", buf, 0xCu);
+                      v183 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
+                      _os_log_impl(&dword_225E12000, v108, OS_LOG_TYPE_DEFAULT, "%s Pruning(5)::----------------------------- Retrain the voice profile ---------------------------------------", buf, 0xCu);
                     }
 
-                    v110 = [(SSRVoiceProfilePruner *)self _retrainVoiceProfile:profileCopy withAsset:assetCopy];
-                    v111 = v176[5];
-                    v176[5] = v110;
+                    v109 = [(SSRVoiceProfilePruner *)self _retrainVoiceProfile:profileCopy withAsset:assetCopy];
+                    v110 = v175[5];
+                    v175[5] = v109;
 
-                    v112 = v176[5];
-                    if (v112)
+                    v111 = v175[5];
+                    if (v111)
                     {
-                      v113 = *MEMORY[0x277D01970];
+                      v112 = *MEMORY[0x277D01970];
                       if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
                       {
                         *buf = 136315394;
-                        v184 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
-                        v185 = 2114;
-                        *v186 = v112;
-                        _os_log_error_impl(&dword_225E12000, v113, OS_LOG_TYPE_ERROR, "%s ERR: creating pruning voice profile failed with %{public}@", buf, 0x16u);
+                        v183 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
+                        v184 = 2114;
+                        *v185 = v111;
+                        _os_log_error_impl(&dword_225E12000, v112, OS_LOG_TYPE_ERROR, "%s ERR: creating pruning voice profile failed with %{public}@", buf, 0x16u);
                       }
 
-                      [(SSRLoggingAggregator *)v146 setVoiceProfilePruningFailureReasonCode:7];
+                      [(SSRLoggingAggregator *)v145 setVoiceProfilePruningFailureReasonCode:7];
                     }
 
-                    [(SSRLoggingAggregator *)v146 pushAnalytics];
+                    [(SSRLoggingAggregator *)v145 pushAnalytics];
 LABEL_109:
                   }
 
-                  _Block_object_dispose(&v175, 8);
+                  _Block_object_dispose(&v174, 8);
                 }
               }
 
@@ -1008,12 +1004,12 @@ LABEL_109:
                 if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 136315138;
-                  v184 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
+                  v183 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
                   _os_log_impl(&dword_225E12000, v40, OS_LOG_TYPE_DEFAULT, "%s Zero implicit utterances - Bailing out", buf, 0xCu);
                 }
 
-                [(SSRLoggingAggregator *)v146 setVoiceProfilePruningFailureReasonCode:3];
-                [(SSRLoggingAggregator *)v146 pushAnalytics];
+                [(SSRLoggingAggregator *)v145 setVoiceProfilePruningFailureReasonCode:3];
+                [(SSRLoggingAggregator *)v145 pushAnalytics];
               }
             }
 
@@ -1023,12 +1019,12 @@ LABEL_109:
               if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
               {
                 *buf = 136315138;
-                v184 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
+                v183 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
                 _os_log_error_impl(&dword_225E12000, v35, OS_LOG_TYPE_ERROR, "%s ERR: Low explicit utterances - Bailing out", buf, 0xCu);
               }
 
-              [(SSRLoggingAggregator *)v146 setVoiceProfilePruningFailureReasonCode:2];
-              [(SSRLoggingAggregator *)v146 pushAnalytics];
+              [(SSRLoggingAggregator *)v145 setVoiceProfilePruningFailureReasonCode:2];
+              [(SSRLoggingAggregator *)v145 pushAnalytics];
             }
           }
 
@@ -1038,19 +1034,19 @@ LABEL_109:
             if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
             {
               *buf = 136315138;
-              v184 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
+              v183 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
               _os_log_error_impl(&dword_225E12000, v36, OS_LOG_TYPE_ERROR, "%s ERR: No explicit utterances!!! - Bailing out", buf, 0xCu);
             }
 
-            [(SSRLoggingAggregator *)v146 setVoiceProfilePruningFailureReasonCode:1];
-            [(SSRLoggingAggregator *)v146 pushAnalytics];
+            [(SSRLoggingAggregator *)v145 setVoiceProfilePruningFailureReasonCode:1];
+            [(SSRLoggingAggregator *)v145 pushAnalytics];
           }
         }
 
         else if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
         {
           *buf = 136315138;
-          v184 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
+          v183 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
           _os_log_error_impl(&dword_225E12000, v34, OS_LOG_TYPE_ERROR, "%s ERR: Failed updating pruning cookie", buf, 0xCu);
         }
 
@@ -1061,7 +1057,7 @@ LABEL_109:
       if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v184 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
+        v183 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
         v32 = "%s Already pruned voice profile - Bailing out";
 LABEL_25:
         _os_log_impl(&dword_225E12000, v31, OS_LOG_TYPE_DEFAULT, v32, buf, 0xCu);
@@ -1074,7 +1070,7 @@ LABEL_25:
       if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v184 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
+        v183 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
         v32 = "%s Pruning cookie unavailable from asset - Bailing out";
         goto LABEL_25;
       }
@@ -1089,7 +1085,7 @@ LABEL_42:
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v184 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
+    v183 = "[SSRVoiceProfilePruner pruneVoiceProfile:forSpIdType:withAsset:]";
     v11 = "%s ";
     v12 = v14;
     v13 = 12;
@@ -1097,8 +1093,6 @@ LABEL_42:
   }
 
 LABEL_43:
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 void __65__SSRVoiceProfilePruner_pruneVoiceProfile_forSpIdType_withAsset___block_invoke(void *a1, void *a2, float a3, float a4, float a5, float a6)

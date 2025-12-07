@@ -3,21 +3,21 @@
 
 @implementation MTLFunctionInternal
 
-uint64_t __60___MTLFunctionInternal_initializeStitchableFunctionMetadata__block_invoke(uint64_t result)
+void *__60___MTLFunctionInternal_initializeStitchableFunctionMetadata__block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if (!*(v1 + 371))
   {
     v2 = result;
     v3 = [*(v1 + 24) compiler];
-    v4 = *(v2 + 32);
+    v4 = v2[4];
     v5 = MEMORY[0x1E69E9820];
     v6 = 3221225472;
     v7 = __60___MTLFunctionInternal_initializeStitchableFunctionMetadata__block_invoke_2;
     v8 = &unk_1E6EEC0F0;
     v9 = v4;
     result = [v3 reflectionWithFunction:? options:? sync:? completionHandler:?];
-    *(*(v2 + 32) + 371) = 1;
+    *(v2[4] + 371) = 1;
   }
 
   return result;
@@ -27,7 +27,7 @@ void __60___MTLFunctionInternal_initializeStitchableFunctionMetadata__block_invo
 {
   ReflectionValidator<MTLStitchingReflectionReader>::Validate(*(*(a1 + 32) + 24), 0x20000000, a3);
   MTLNewReflectionData(a3);
-  ReflectionReaderFactory<MTLStitchingReflectionReader>::Create();
+  ReflectionReaderFactory<MTLStitchingReflectionReader>::Create(0x20000000);
 }
 
 uint64_t __77___MTLFunctionInternal_storeTrackingDataWithDescriptor_function_variantHash___block_invoke()
@@ -39,7 +39,7 @@ uint64_t __77___MTLFunctionInternal_storeTrackingDataWithDescriptor_function_var
 
 void __130___MTLFunctionInternal_newSpecializedFunctionWithDescriptor_destinationArchive_functionCache_sync_compilerTask_completionHandler___block_invoke(uint64_t a1, uint64_t a2, dispatch_data_t data, uint64_t a4)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v8 = *(a1 + 32);
   if (v8)
   {
@@ -75,9 +75,9 @@ void __130___MTLFunctionInternal_newSpecializedFunctionWithDescriptor_destinatio
 
   else
   {
-    v28 = 0;
+    v27 = 0;
     buffer_ptr.var0.var0 = 0;
-    v10 = dispatch_data_create_map(data, &buffer_ptr, &v28);
+    v10 = dispatch_data_create_map(data, &buffer_ptr, &v27);
     if ((*buffer_ptr.var0.var0 & 1) != 0 && (v11 = *(buffer_ptr.var0.var0 + 44), v11))
     {
       subrange = dispatch_data_create_subrange(data, *(buffer_ptr.var0.var0 + 40), v11);
@@ -121,8 +121,6 @@ void __130___MTLFunctionInternal_newSpecializedFunctionWithDescriptor_destinatio
 
     v25 = 0;
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 id __113___MTLFunctionInternal_newSpecializedFunctionWithDescriptor_destinationArchive_functionCache_compilerTask_error___block_invoke(uint64_t a1, void *a2, void *a3)

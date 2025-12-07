@@ -1,6 +1,7 @@
 @interface NFCCContentViewControllerAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)_setModuleState:(int64_t)state animated:(BOOL)animated;
 @end
 
 @implementation NFCCContentViewControllerAccessibility
@@ -75,6 +76,24 @@ uint64_t __84__NFCCContentViewControllerAccessibility__accessibilityLoadAccessib
   v4 = *v3;
 
   return v4;
+}
+
+- (void)_setModuleState:(int64_t)state animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v7 = [(NFCCContentViewControllerAccessibility *)self safeIntegerForKey:@"_moduleState"];
+  v10.receiver = self;
+  v10.super_class = NFCCContentViewControllerAccessibility;
+  [(NFCCContentViewControllerAccessibility *)&v10 _setModuleState:state animated:animatedCopy];
+  if ([(NFCCContentViewControllerAccessibility *)self safeBoolForKey:@"isExpanded"]&& v7 != state && state <= 5)
+  {
+    v8 = accessibilityLocalizedString(off_29F2DF6D8[state]);
+    if (v8)
+    {
+      v9 = v8;
+      UIAccessibilitySpeakOrQueueIfNeeded();
+    }
+  }
 }
 
 @end

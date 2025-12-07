@@ -170,12 +170,12 @@ uint64_t __35__PEEditActionBatch__cancelLoading__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __53__PEEditActionBatch__processDidCompleteWithID_error___block_invoke(uint64_t result)
+void *__53__PEEditActionBatch__processDidCompleteWithID_error___block_invoke(void *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
     v1 = result;
-    [*(*(result + 40) + 16) removeObjectForKey:?];
+    [*(result[5] + 16) removeObjectForKey:?];
     v2 = v1[4];
     v3 = v1[6];
     v4 = v1[7] == 0;

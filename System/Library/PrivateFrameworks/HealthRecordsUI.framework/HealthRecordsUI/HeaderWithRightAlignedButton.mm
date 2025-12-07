@@ -33,7 +33,7 @@
   {
     if (traitCollection)
     {
-      sub_1D106F934(0, &qword_1EE06B758);
+      sub_1D106F934(0, &qword_1EE06B758, 0x1E69DD1B8);
       v10 = collectionCopy;
       v11 = sub_1D1390D8C();
 

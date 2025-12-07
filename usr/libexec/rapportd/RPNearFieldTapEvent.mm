@@ -58,9 +58,9 @@
 - (RPNearFieldTapEvent)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v22.receiver = self;
-  v22.super_class = RPNearFieldTapEvent;
-  v5 = [(RPNearFieldTapEvent *)&v22 init];
+  v29.receiver = self;
+  v29.super_class = RPNearFieldTapEvent;
+  v5 = [(RPNearFieldTapEvent *)&v29 init];
   if (!v5)
   {
     goto LABEL_17;
@@ -126,26 +126,26 @@
     v5->_isUnsupportedApplicationLabel = [v18 decodeBoolForKey:@"isUnsupportedApplicationLabel"];
   }
 
-  v23 = 0;
+  v30 = 0;
   if (NSDecodeSInt64RangedIfPresent())
   {
-    v5->_flags = v23;
+    v5->_flags = v30;
   }
 
   if (!v5->_identifier || !v5->_applicationLabel || !v5->_date)
   {
-    v20 = RPErrorF();
-    [v18 failWithError:v20];
+    v26 = RPErrorF(4294960591, "Decode NearFieldTap with missing parameter", v19, v20, v21, v22, v23, v24, v28);
+    [v18 failWithError:v26];
 
 LABEL_17:
-    v19 = 0;
+    v25 = 0;
     goto LABEL_18;
   }
 
-  v19 = v5;
+  v25 = v5;
 LABEL_18:
 
-  return v19;
+  return v25;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -249,48 +249,41 @@ LABEL_18:
 
 - (id)descriptionWithLevel:(int)level
 {
-  isSameAccount = self->_isSameAccount;
-  contactID = self->_contactID;
-  applicationDomain = self->_applicationDomain;
-  date = self->_date;
-  identifier = self->_identifier;
-  applicationLabel = self->_applicationLabel;
-  NSAppendPrintF();
-  v4 = 0;
+  v22 = 0;
+  NSAppendPrintF(&v22, "RPNearFieldTap ID %{mask}, appLabel %@, appDomain %@, date %@ sameAccount %d CNID %@", *&level, self->_identifier, self->_applicationLabel, self->_applicationDomain, self->_date, self->_isSameAccount, self->_contactID);
+  v4 = v22;
   v5 = v4;
-  if (self->_flags)
+  flags = self->_flags;
+  if (flags)
   {
-    v27 = v4;
-    identifier = self->_flags;
-    applicationLabel = &unk_100149661;
-    NSAppendPrintF();
-    v6 = v27;
+    v21 = v4;
+    NSAppendPrintF(&v21, ", flags  %#{flags}", flags, &unk_100149661);
+    v7 = v21;
 
-    v5 = v6;
+    v5 = v7;
   }
 
-  pkData = self->_pkData;
-  v8 = [(NSData *)pkData length:identifier];
-  v17 = pkData;
-  v22 = v8;
-  NSAppendPrintF();
-  v9 = v5;
+  v20 = v5;
+  NSAppendPrintF(&v20, ", pkData <%.3@> %d B", self->_pkData, [(NSData *)self->_pkData length]);
+  v8 = v20;
 
-  v10 = [(NSUUID *)self->_bonjourListenerUUID UUIDString:v17];
-  NSAppendPrintF();
-  v11 = v9;
+  v19 = v8;
+  uUIDString = [(NSUUID *)self->_bonjourListenerUUID UUIDString];
+  NSAppendPrintF(&v19, ", bonjourUUID '%{mask}'", uUIDString);
+  v10 = v19;
 
-  shouldForceSingleBandAWDLMode = self->_shouldForceSingleBandAWDLMode;
-  NSAppendPrintF();
-  v12 = v11;
+  v18 = v10;
+  NSAppendPrintF(&v18, ", forceSingleBand '%d'", self->_shouldForceSingleBandAWDLMode);
+  v11 = v18;
 
-  isKnownIdentity = self->_isKnownIdentity;
-  NSAppendPrintF();
-  v13 = v12;
+  v17 = v11;
+  NSAppendPrintF(&v17, ", isKnownIdentity '%d'", self->_isKnownIdentity);
+  v12 = v17;
 
-  isUnsupportedApplicationLabel = self->_isUnsupportedApplicationLabel;
-  NSAppendPrintF();
-  v14 = v13;
+  v16 = v12;
+  NSAppendPrintF(&v16, ", isUnsupportedApplicationLabel '%d'", self->_isUnsupportedApplicationLabel);
+  v13 = v16;
+  v14 = v16;
 
   return v13;
 }

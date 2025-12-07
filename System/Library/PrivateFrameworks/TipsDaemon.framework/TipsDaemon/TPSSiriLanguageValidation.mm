@@ -20,7 +20,7 @@
 
 - (void)validateWithCompletion:(id)completion
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   targetLanguages = [(TPSSiriLanguageValidation *)self targetLanguages];
   if ([targetLanguages count])
@@ -68,23 +68,23 @@ LABEL_15:
         targeting = [MEMORY[0x277D71778] targeting];
         if (os_log_type_enabled(targeting, OS_LOG_TYPE_DEBUG))
         {
-          v19 = objc_opt_class();
-          v20 = v19;
+          v18 = objc_opt_class();
+          v19 = v18;
           targetLanguages4 = [(TPSSiriLanguageValidation *)self targetLanguages];
-          v22 = [targetLanguages4 componentsJoinedByString:{@", "}];
+          v21 = [targetLanguages4 componentsJoinedByString:{@", "}];
           excludeLanguages3 = [(TPSSiriLanguageValidation *)self excludeLanguages];
-          v24 = [excludeLanguages3 componentsJoinedByString:{@", "}];
-          v25 = 138413314;
-          v26 = v19;
-          v27 = 2112;
-          v28 = lowercaseString;
-          v29 = 2112;
-          v30 = v22;
-          v31 = 2112;
-          v32 = v24;
-          v33 = 1024;
-          v34 = v14;
-          _os_log_debug_impl(&dword_232D6F000, targeting, OS_LOG_TYPE_DEBUG, "%@ - checking Siri Language: %@, target languages: %@, exclude languages: %@. Valid: %d", &v25, 0x30u);
+          v23 = [excludeLanguages3 componentsJoinedByString:{@", "}];
+          v24 = 138413314;
+          v25 = v18;
+          v26 = 2112;
+          v27 = lowercaseString;
+          v28 = 2112;
+          v29 = v21;
+          v30 = 2112;
+          v31 = v23;
+          v32 = 1024;
+          v33 = v14;
+          _os_log_debug_impl(&dword_232D6F000, targeting, OS_LOG_TYPE_DEBUG, "%@ - checking Siri Language: %@, target languages: %@, exclude languages: %@. Valid: %d", &v24, 0x30u);
         }
 
         goto LABEL_18;
@@ -105,7 +105,6 @@ LABEL_15:
 LABEL_18:
 
   completionCopy[2](completionCopy, v14, 0);
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 @end

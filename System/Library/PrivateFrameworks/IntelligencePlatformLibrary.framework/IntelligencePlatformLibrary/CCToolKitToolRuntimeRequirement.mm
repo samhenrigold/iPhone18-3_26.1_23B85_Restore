@@ -328,9 +328,9 @@ LABEL_21:
         {
           v42 = [CCToolKitToolRuntimeRequirementFeatureFlag alloc];
           v43 = CCPBReaderReadDataNoCopy();
-          v60 = 0;
-          v44 = [(CCItemMessage *)v42 initWithData:v43 error:&v60];
-          v10 = v60;
+          v58 = 0;
+          v44 = [(CCItemMessage *)v42 initWithData:v43 error:&v58];
+          v10 = v58;
           featureFlag = self->_featureFlag;
           self->_featureFlag = v44;
 
@@ -417,9 +417,9 @@ LABEL_48:
         {
           v36 = [CCToolKitToolRuntimeRequirementAvailabilityAnnotation alloc];
           v37 = CCPBReaderReadDataNoCopy();
-          v62 = 0;
-          v38 = [(CCItemMessage *)v36 initWithData:v37 error:&v62];
-          v10 = v62;
+          v60 = 0;
+          v38 = [(CCItemMessage *)v36 initWithData:v37 error:&v60];
+          v10 = v60;
           v39 = self->_platform;
           self->_platform = v38;
 
@@ -439,9 +439,9 @@ LABEL_48:
         {
           v24 = [CCToolKitToolRuntimeRequirementDeviceCapability alloc];
           v25 = CCPBReaderReadDataNoCopy();
-          v61 = 0;
-          v26 = [(CCItemMessage *)v24 initWithData:v25 error:&v61];
-          v10 = v61;
+          v59 = 0;
+          v26 = [(CCItemMessage *)v24 initWithData:v25 error:&v59];
+          v10 = v59;
           v27 = self->_deviceCapability;
           self->_deviceCapability = v26;
 
@@ -473,7 +473,6 @@ LABEL_42:
       {
         v51 = objc_opt_class();
         v52 = NSStringFromClass(v51);
-        v53 = *&v6[*v9];
         v10 = CCSkipFieldErrorForMessage();
       }
 
@@ -493,23 +492,22 @@ LABEL_51:
   if (!*&v6[*v9])
   {
     v10 = 0;
-    v58 = 1;
+    v56 = 1;
     goto LABEL_55;
   }
 
 LABEL_52:
-  v54 = objc_opt_class();
-  v55 = NSStringFromClass(v54);
-  v56 = *&v6[*v9];
-  v57 = CCInvalidBufferErrorForMessage();
+  v53 = objc_opt_class();
+  v54 = NSStringFromClass(v53);
+  v55 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v10 = 0;
 LABEL_53:
-  v58 = 0;
+  v56 = 0;
 LABEL_55:
 
-  return v58;
+  return v56;
 }
 
 - (CCToolKitToolRuntimeRequirement)initWithKind:(id)kind kindType:(unsigned int)type error:(id *)error

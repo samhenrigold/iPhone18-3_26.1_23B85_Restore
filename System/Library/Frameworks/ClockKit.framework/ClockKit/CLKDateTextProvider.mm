@@ -135,22 +135,23 @@ LABEL_19:
   else
   {
     v22 = v17;
+    isWeekdayDayTemplate = _isWeekdayDayTemplate(v18);
     v17 = v22;
-    if (_isWeekdayDayTemplate(v18))
+    if (isWeekdayDayTemplate)
     {
       v17 = v22;
-      if (CLKRemovesPunctuationFromWeekdayDay())
+      if (CLKRemovesPunctuationFromWeekdayDay(isWeekdayDayTemplate, v24))
       {
         if (!_removePunctationIfNecessaryFromTextForTemplate_punctuationExceptDash)
         {
           punctuationCharacterSet = [MEMORY[0x277CCAB50] punctuationCharacterSet];
           [punctuationCharacterSet removeCharactersInString:@"-"];
-          v24 = _removePunctationIfNecessaryFromTextForTemplate_punctuationExceptDash;
+          v26 = _removePunctationIfNecessaryFromTextForTemplate_punctuationExceptDash;
           _removePunctationIfNecessaryFromTextForTemplate_punctuationExceptDash = punctuationCharacterSet;
         }
 
-        v25 = [v22 componentsSeparatedByCharactersInSet:?];
-        v17 = [v25 componentsJoinedByString:&stru_284A20458];
+        v27 = [v22 componentsSeparatedByCharactersInSet:?];
+        v17 = [v27 componentsJoinedByString:&stru_284A20458];
       }
     }
 
@@ -160,18 +161,18 @@ LABEL_19:
   if (([styleCopy uppercase] & 1) != 0 || self->_uppercase)
   {
     currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
-    v27 = [v17 uppercaseStringWithLocale:currentLocale2];
+    v29 = [v17 uppercaseStringWithLocale:currentLocale2];
 
-    v17 = v27;
+    v17 = v29;
   }
 
-  v28 = objc_opt_new();
+  v30 = objc_opt_new();
   font = [styleCopy font];
-  v30 = *MEMORY[0x277D740A8];
-  [v28 setObject:font forKeyedSubscript:*MEMORY[0x277D740A8]];
+  v32 = *MEMORY[0x277D740A8];
+  [v30 setObject:font forKeyedSubscript:*MEMORY[0x277D740A8]];
 
   otherAttributes = [styleCopy otherAttributes];
-  [v28 addEntriesFromDictionary:otherAttributes];
+  [v30 addEntriesFromDictionary:otherAttributes];
 
   if ([styleCopy shouldEmbedTintColors])
   {
@@ -180,41 +181,41 @@ LABEL_19:
     if (tintColor)
     {
       tintColor2 = [(CLKTextProvider *)self tintColor];
-      [v28 setObject:tintColor2 forKeyedSubscript:*MEMORY[0x277D740C0]];
+      [v30 setObject:tintColor2 forKeyedSubscript:*MEMORY[0x277D740C0]];
     }
   }
 
   if (v21)
   {
-    v46 = [v28 objectForKeyedSubscript:v30];
-    v34 = [v28 mutableCopy];
-    [v46 pointSize];
-    v36 = [v46 fontWithSize:v35 + -2.0];
-    [v34 setObject:v36 forKeyedSubscript:v30];
+    v48 = [v30 objectForKeyedSubscript:v32];
+    v36 = [v30 mutableCopy];
+    [v48 pointSize];
+    v38 = [v48 fontWithSize:v37 + -2.0];
+    [v36 setObject:v38 forKeyedSubscript:v32];
 
-    v37 = [(NSDateFormatter *)self->_dateFormatter _attributedStringWithFieldsFromDate:self->_date];
-    v38 = objc_alloc(MEMORY[0x277CCAB48]);
-    string = [v37 string];
-    v40 = [v38 initWithString:string];
+    v39 = [(NSDateFormatter *)self->_dateFormatter _attributedStringWithFieldsFromDate:self->_date];
+    v40 = objc_alloc(MEMORY[0x277CCAB48]);
+    string = [v39 string];
+    v42 = [v40 initWithString:string];
 
-    v41 = [v37 length];
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __64__CLKDateTextProvider__sessionAttributedTextForIndex_withStyle___block_invoke;
-    v47[3] = &unk_278A1E778;
-    v42 = v40;
-    v48 = v42;
-    v49 = v34;
-    v50 = v28;
-    v43 = v34;
-    [v37 enumerateAttributesInRange:0 options:v41 usingBlock:{0, v47}];
-    v44 = v50;
-    v14 = v42;
+    v43 = [v39 length];
+    v49[0] = MEMORY[0x277D85DD0];
+    v49[1] = 3221225472;
+    v49[2] = __64__CLKDateTextProvider__sessionAttributedTextForIndex_withStyle___block_invoke;
+    v49[3] = &unk_278A1E778;
+    v44 = v42;
+    v50 = v44;
+    v51 = v36;
+    v52 = v30;
+    v45 = v36;
+    [v39 enumerateAttributesInRange:0 options:v43 usingBlock:{0, v49}];
+    v46 = v52;
+    v14 = v44;
   }
 
   else
   {
-    v14 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v17 attributes:v28];
+    v14 = [objc_alloc(MEMORY[0x277CCA898]) initWithString:v17 attributes:v30];
   }
 
 LABEL_38:

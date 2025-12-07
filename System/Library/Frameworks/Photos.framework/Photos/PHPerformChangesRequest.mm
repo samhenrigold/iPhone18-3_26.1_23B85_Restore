@@ -1848,24 +1848,25 @@ void __84__PHPerformChangesRequest_notifyChangesTransactionFailedWithLazyPhotoLi
 {
   requestCopy = request;
   inserts = self->_inserts;
-  v9 = requestCopy;
-  if (!inserts || ([(NSMutableOrderedSet *)inserts containsObject:requestCopy]& 1) == 0)
+  v11 = requestCopy;
+  if (!inserts || (v6 = [(NSMutableOrderedSet *)inserts containsObject:requestCopy], v7 = v11, (v6 & 1) == 0))
   {
     updates = self->_updates;
     if (!updates)
     {
-      v7 = objc_alloc_init(MEMORY[0x1E695DFA0]);
-      v8 = self->_updates;
-      self->_updates = v7;
+      v9 = objc_alloc_init(MEMORY[0x1E695DFA0]);
+      v10 = self->_updates;
+      self->_updates = v9;
 
       updates = self->_updates;
     }
 
-    [(NSMutableOrderedSet *)updates addObject:v9];
-    [(PHPerformChangesRequest *)self recordFailedOnDemandRequest:v9];
+    [(NSMutableOrderedSet *)updates addObject:v11];
+    v6 = [(PHPerformChangesRequest *)self recordFailedOnDemandRequest:v11];
+    v7 = v11;
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v6, v7);
 }
 
 - (void)recordInsertRequest:(id)request

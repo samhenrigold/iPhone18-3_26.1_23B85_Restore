@@ -204,7 +204,7 @@ LABEL_12:
 - (id)envelopeDictionary
 {
   v17 = *MEMORY[0x1E69E9840];
-  v3 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->_adjustments, "count")}];
+  v3 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:objc_msgSend_count(self->_adjustments)];
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;

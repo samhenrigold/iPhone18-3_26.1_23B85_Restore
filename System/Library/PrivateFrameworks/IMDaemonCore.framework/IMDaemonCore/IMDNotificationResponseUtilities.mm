@@ -112,7 +112,7 @@
 
 - (void)_markMessageAsRead:(id)read inChat:(id)chat withCompletionHandler:(id)handler
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   readCopy = read;
   chatCopy = chat;
   handlerCopy = handler;
@@ -143,7 +143,7 @@
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v19 = chatCopy;
+      v18 = chatCopy;
       _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "couldn't find chat for %@ to mark message as read", buf, 0xCu);
     }
   }
@@ -155,13 +155,11 @@ LABEL_9:
   }
 
 LABEL_10:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userNotificationCenter:(id)center didReceiveNotificationResponse:(id)response withCompletionHandler:(id)handler
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   centerCopy = center;
   responseCopy = response;
   handlerCopy = handler;
@@ -171,7 +169,7 @@ LABEL_10:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v32 = centerCopy;
+      v31 = centerCopy;
       _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "receive notification response for bundleID [%@]", buf, 0xCu);
     }
   }
@@ -182,16 +180,16 @@ LABEL_10:
   if (v13)
   {
     screenTimeAskReponseHandler2 = [(IMDNotificationResponseUtilities *)self screenTimeAskReponseHandler];
-    v15 = v30;
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = sub_22B5BA030;
-    v30[3] = &unk_278705AF0;
+    v15 = v29;
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = sub_22B5BA030;
+    v29[3] = &unk_278705AF0;
     v16 = responseCopy;
-    v30[4] = v16;
-    v30[5] = self;
-    v30[6] = handlerCopy;
-    [screenTimeAskReponseHandler2 handleNotificationResponse:v16 userNotificationCenter:centerCopy completionHandler:v30];
+    v29[4] = v16;
+    v29[5] = self;
+    v29[6] = handlerCopy;
+    [screenTimeAskReponseHandler2 handleNotificationResponse:v16 userNotificationCenter:centerCopy completionHandler:v29];
 LABEL_13:
 
     goto LABEL_14;
@@ -203,16 +201,16 @@ LABEL_13:
   if (v18)
   {
     screenTimeAskReponseHandler2 = [(IMDNotificationResponseUtilities *)self familyInviteResponseHandler];
-    v15 = v29;
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = sub_22B5BA170;
-    v29[3] = &unk_278705AF0;
+    v15 = v28;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = sub_22B5BA170;
+    v28[3] = &unk_278705AF0;
     v19 = responseCopy;
-    v29[4] = v19;
-    v29[5] = self;
-    v29[6] = handlerCopy;
-    [screenTimeAskReponseHandler2 handleNotificationResponse:v19 userNotificationCenter:centerCopy completionHandler:v29];
+    v28[4] = v19;
+    v28[5] = self;
+    v28[6] = handlerCopy;
+    [screenTimeAskReponseHandler2 handleNotificationResponse:v19 userNotificationCenter:centerCopy completionHandler:v28];
     goto LABEL_13;
   }
 
@@ -222,16 +220,16 @@ LABEL_13:
   if (v21)
   {
     screenTimeAskReponseHandler2 = [(IMDNotificationResponseUtilities *)self askToBuyResponseHandler];
-    v15 = v28;
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = sub_22B5BA2B0;
-    v28[3] = &unk_278705AF0;
+    v15 = v27;
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = sub_22B5BA2B0;
+    v27[3] = &unk_278705AF0;
     v22 = responseCopy;
-    v28[4] = v22;
-    v28[5] = self;
-    v28[6] = handlerCopy;
-    [screenTimeAskReponseHandler2 handleNotificationResponse:v22 userNotificationCenter:centerCopy completionHandler:v28];
+    v27[4] = v22;
+    v27[5] = self;
+    v27[6] = handlerCopy;
+    [screenTimeAskReponseHandler2 handleNotificationResponse:v22 userNotificationCenter:centerCopy completionHandler:v27];
     goto LABEL_13;
   }
 
@@ -241,22 +239,20 @@ LABEL_13:
   if (v24)
   {
     screenTimeAskReponseHandler2 = [(IMDNotificationResponseUtilities *)self safetyMonitorResponseHandler];
-    v15 = v27;
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = sub_22B5BA3F0;
-    v27[3] = &unk_278705AF0;
+    v15 = v26;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = sub_22B5BA3F0;
+    v26[3] = &unk_278705AF0;
     v25 = responseCopy;
-    v27[4] = v25;
-    v27[5] = self;
-    v27[6] = handlerCopy;
-    [screenTimeAskReponseHandler2 handleNotificationResponse:v25 userNotificationCenter:centerCopy completionHandler:v27];
+    v26[4] = v25;
+    v26[5] = self;
+    v26[6] = handlerCopy;
+    [screenTimeAskReponseHandler2 handleNotificationResponse:v25 userNotificationCenter:centerCopy completionHandler:v26];
     goto LABEL_13;
   }
 
 LABEL_14:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 @end

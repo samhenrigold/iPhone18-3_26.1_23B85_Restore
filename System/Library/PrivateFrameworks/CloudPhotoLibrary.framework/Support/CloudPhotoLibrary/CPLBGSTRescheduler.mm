@@ -292,7 +292,7 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v4 = sub_100025CA0();
+      v4 = sub_100025CA0(self);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         v8 = 138412290;
@@ -371,23 +371,24 @@
   v17 = [(CPLBGSTActivity *)v15 initWithTask:taskCopy request:request2 rescheduler:self];
 
   [(CPLBGSTRescheduler *)self _setCurrentActivity:v17];
-  if ([(NSMutableDictionary *)self->_requests count])
+  v18 = [(NSMutableDictionary *)self->_requests count];
+  if (v18)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v18 = sub_100025CA0();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v19 = sub_100025CA0(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = [(NSMutableDictionary *)self->_requests count];
-        v26 = 138413058;
-        v27 = taskCopy;
-        v28 = 2112;
+        v20 = [(NSMutableDictionary *)self->_requests count];
+        v27 = 138413058;
+        v28 = taskCopy;
+        v29 = 2112;
         selfCopy4 = self;
-        v30 = 2048;
-        v31 = *&v19;
-        v32 = 2048;
-        v33 = v13;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Acquired %@ for %@ - %lu interested clients (took %.3fs)", &v26, 0x2Au);
+        v31 = 2048;
+        v32 = *&v20;
+        v33 = 2048;
+        v34 = v13;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Acquired %@ for %@ - %lu interested clients (took %.3fs)", &v27, 0x2Au);
       }
     }
 
@@ -405,19 +406,19 @@
       goto LABEL_10;
     }
 
-    p_super = sub_100025CA0();
+    p_super = sub_100025CA0(0);
     if (!os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_9;
     }
 
-    v26 = 138412546;
-    v27 = taskCopy;
-    v28 = 2112;
+    v27 = 138412546;
+    v28 = taskCopy;
+    v29 = 2112;
     selfCopy4 = self;
-    v22 = "Acquired %@ for %@. Waiting for clients to be interested";
-    v23 = p_super;
-    v24 = 22;
+    v23 = "Acquired %@ for %@. Waiting for clients to be interested";
+    v24 = p_super;
+    v25 = 22;
     goto LABEL_20;
   }
 
@@ -425,16 +426,16 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v25 = sub_100025CA0();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      v26 = sub_100025CA0(deferBlock);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
-        v26 = 138412802;
-        v27 = taskCopy;
-        v28 = 2112;
+        v27 = 138412802;
+        v28 = taskCopy;
+        v29 = 2112;
         selfCopy4 = self;
-        v30 = 2048;
-        v31 = v13;
-        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Re-acquired Background %@ for %@ - resuming deferred activity (took %.3fs)", &v26, 0x20u);
+        v31 = 2048;
+        v32 = v13;
+        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Re-acquired Background %@ for %@ - resuming deferred activity (took %.3fs)", &v27, 0x20u);
       }
 
       deferBlock = self->_deferBlock;
@@ -451,20 +452,20 @@
     goto LABEL_10;
   }
 
-  p_super = sub_100025CA0();
+  p_super = sub_100025CA0(deferBlock);
   if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = 138412802;
-    v27 = taskCopy;
-    v28 = 2112;
+    v27 = 138412802;
+    v28 = taskCopy;
+    v29 = 2112;
     selfCopy4 = self;
-    v30 = 2048;
-    v31 = v13;
-    v22 = "Acquired Background %@ for %@ but we are closing (took %.3fs)";
-    v23 = p_super;
-    v24 = 32;
+    v31 = 2048;
+    v32 = v13;
+    v23 = "Acquired Background %@ for %@ but we are closing (took %.3fs)";
+    v24 = p_super;
+    v25 = 32;
 LABEL_20:
-    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, v22, &v26, v24);
+    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, v23, &v27, v25);
   }
 
 LABEL_9:
@@ -910,33 +911,34 @@ LABEL_11:
   [p_super timeIntervalSinceDate:v6];
   v8 = -v7;
 
-  if ([(NSMutableDictionary *)self->_requests count])
+  v9 = [(NSMutableDictionary *)self->_requests count];
+  if (v9)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v9 = sub_100025CA0();
-      if (sub_100003424(v9))
+      v10 = sub_100025CA0(v9);
+      if (sub_100003424(v10))
       {
         [(NSMutableDictionary *)self->_requests count];
         sub_10002B084();
-        v34 = v10;
         v35 = v11;
-        v36 = v8;
+        v36 = v12;
+        v37 = v8;
         _os_log_impl(&_mh_execute_header, p_super, OS_LOG_TYPE_DEFAULT, "Failed to acquire Background task for %@ - %lu interested clients (took %.3fs)", buf, 0x20u);
       }
     }
 
     requests = self->_requests;
-    v29[0] = _NSConcreteStackBlock;
-    v29[1] = 3221225472;
-    v29[2] = sub_100026350;
-    v29[3] = &unk_100273378;
-    v30 = errorCopy;
-    [(NSMutableDictionary *)requests enumerateKeysAndObjectsUsingBlock:v29];
-    v13 = self->_requests;
+    v30[0] = _NSConcreteStackBlock;
+    v30[1] = 3221225472;
+    v30[2] = sub_100026350;
+    v30[3] = &unk_100273378;
+    v31 = errorCopy;
+    [(NSMutableDictionary *)requests enumerateKeysAndObjectsUsingBlock:v30];
+    v14 = self->_requests;
     self->_requests = 0;
 
-    p_super = v30;
+    p_super = v31;
     goto LABEL_7;
   }
 
@@ -948,18 +950,18 @@ LABEL_11:
       goto LABEL_8;
     }
 
-    v22 = sub_100025CA0();
-    if (!sub_1000033C0(v22))
+    v23 = sub_100025CA0(0);
+    if (!sub_1000033C0(v23))
     {
       goto LABEL_7;
     }
 
     *buf = 138412546;
     selfCopy = self;
-    v33 = 2112;
-    v34 = errorCopy;
+    v34 = 2112;
+    v35 = errorCopy;
     sub_10002B098();
-    v21 = 22;
+    v22 = 22;
     goto LABEL_17;
   }
 
@@ -967,13 +969,13 @@ LABEL_11:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v23 = sub_100025CA0();
-      if (sub_1000033C0(v23))
+      v24 = sub_100025CA0(deferBlock);
+      if (sub_1000033C0(v24))
       {
         sub_10002B084();
         sub_10002B0C0();
         sub_10002B098();
-        _os_log_impl(v24, v25, v26, v27, v28, 0x20u);
+        _os_log_impl(v25, v26, v27, v28, v29, 0x20u);
       }
 
       deferBlock = self->_deferBlock;
@@ -990,15 +992,15 @@ LABEL_11:
     goto LABEL_8;
   }
 
-  v15 = sub_100025CA0();
-  if (sub_1000033C0(v15))
+  v16 = sub_100025CA0(deferBlock);
+  if (sub_1000033C0(v16))
   {
     sub_10002B084();
     sub_10002B0C0();
     sub_10002B098();
-    v21 = 32;
+    v22 = 32;
 LABEL_17:
-    _os_log_impl(v16, v17, v18, v19, v20, v21);
+    _os_log_impl(v17, v18, v19, v20, v21, v22);
   }
 
 LABEL_7:

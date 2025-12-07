@@ -8,7 +8,7 @@
 
 + (id)_renderImageToSurfaceWithImage:(id)image
 {
-  v30[4] = *MEMORY[0x1E69E9840];
+  v29[4] = *MEMORY[0x1E69E9840];
   imageCopy = image;
   v4 = imageCopy;
   if (imageCopy)
@@ -27,22 +27,22 @@
       v11 = v10;
       [v4 scale];
       v13 = v12;
-      v29[0] = *MEMORY[0x1E696CDE0];
+      v28[0] = *MEMORY[0x1E696CDE0];
       v14 = v9 * v12;
       v15 = [MEMORY[0x1E696AD98] numberWithDouble:v14];
-      v30[0] = v15;
-      v29[1] = *MEMORY[0x1E696CD90];
+      v29[0] = v15;
+      v28[1] = *MEMORY[0x1E696CD90];
       v16 = v11 * v13;
       v17 = [MEMORY[0x1E696AD98] numberWithDouble:v16];
       v18 = *MEMORY[0x1E696CD78];
-      v30[1] = v17;
-      v30[2] = &unk_1F305C7A8;
+      v29[1] = v17;
+      v29[2] = &unk_1F305C7A8;
       v19 = *MEMORY[0x1E696CDA0];
-      v29[2] = v18;
-      v29[3] = v19;
+      v28[2] = v18;
+      v28[3] = v19;
       v20 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:1111970369];
-      v30[3] = v20;
-      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:4];
+      v29[3] = v20;
+      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:4];
 
       v22 = [objc_alloc(MEMORY[0x1E696CDE8]) initWithProperties:v21];
       [v22 lockWithOptions:1 seed:0];
@@ -52,11 +52,11 @@
       {
         v25 = v24;
         cGImage = [v4 CGImage];
-        v32.origin.x = 0.0;
-        v32.origin.y = 0.0;
-        v32.size.width = v14;
-        v32.size.height = v16;
-        CGContextDrawImage(v25, v32, cGImage);
+        v31.origin.x = 0.0;
+        v31.origin.y = 0.0;
+        v31.size.width = v14;
+        v31.size.height = v16;
+        CGContextDrawImage(v25, v31, cGImage);
         CGColorSpaceRelease(DeviceRGB);
         CGContextFlush(v25);
         CFRelease(v25);
@@ -75,8 +75,6 @@
   {
     v7 = 0;
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

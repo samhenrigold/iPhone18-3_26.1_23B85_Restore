@@ -1,11 +1,18 @@
 @interface TDAssetPackDistiller
 - (BOOL)assetStoreWriteToDisk;
 - (BOOL)setAsset:(id)asset withKey:(const _renditionkeytoken *)key fromRenditionSpec:(id)spec;
+- (TDAssetPackDistiller)initWithDocument:(id)document outputPath:(id)path versionString:(id)string usingAssetPackMapping:(id)mapping attemptIncremental:(BOOL)incremental;
 - (id)assetPackForTags:(id)tags;
 - (void)dealloc;
 - (void)removeRenditionsFromAssetStoreWithKey:(id)key;
+- (void)setAssetColorSpaceID:(unsigned int)d;
+- (void)setAssetSchemaVersion:(unsigned int)version;
+- (void)setAssetStorageVersion:(unsigned int)version;
 - (void)setAssetStorageVersionString:(const char *)string;
+- (void)setAssetStoreAssociatedChecksum:(unsigned int)checksum;
 - (void)setAssetStoreKeyFormatData:(id)data;
+- (void)setAssetStoreKeySemantics:(int)semantics;
+- (void)setAssetStoreRenditionCount:(unsigned int)count;
 - (void)setAssetStoreUuid:(id)uuid;
 - (void)setAuthoringTool:(id)tool;
 - (void)setDeploymentPlatform:(id)platform;
@@ -13,6 +20,81 @@
 @end
 
 @implementation TDAssetPackDistiller
+
+- (TDAssetPackDistiller)initWithDocument:(id)document outputPath:(id)path versionString:(id)string usingAssetPackMapping:(id)mapping attemptIncremental:(BOOL)incremental
+{
+  incrementalCopy = incremental;
+  v33 = *MEMORY[0x277D85DE8];
+  v31 = 0;
+  v29.receiver = self;
+  v29.super_class = TDAssetPackDistiller;
+  v30 = 0;
+  v11 = [(TDDistiller *)&v29 initWithDocument:document outputPath:path attemptIncremental:incremental versionString:string];
+  v12 = v11;
+  if (v11)
+  {
+    [(TDAssetPackDistiller *)v11 setAssetPackMap:mapping];
+    v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    v13 = [mapping countByEnumeratingWithState:&v25 objects:v32 count:16];
+    if (v13)
+    {
+      v14 = v13;
+      v24 = v12;
+      v15 = *v26;
+      while (2)
+      {
+        for (i = 0; i != v14; ++i)
+        {
+          if (*v26 != v15)
+          {
+            objc_enumerationMutation(mapping);
+          }
+
+          v17 = *(*(&v25 + 1) + 8 * i);
+          outputPath = [v17 outputPath];
+          stringByDeletingLastPathComponent = [outputPath stringByDeletingLastPathComponent];
+          if (([objc_msgSend(MEMORY[0x277CCAA00] "defaultManager")] & 1) == 0)
+          {
+            v30 = 0;
+            if (([objc_msgSend(MEMORY[0x277CCAA00] "defaultManager")] & 1) == 0)
+            {
+              v22 = NSStringFromSelector(a2);
+              NSLog(&cfstr_Tdassetpackdis.isa, v22, v30);
+
+              return 0;
+            }
+          }
+
+          v20 = off_278EBA538;
+          if (!incrementalCopy)
+          {
+            v20 = 0x277D02680;
+          }
+
+          v21 = [objc_alloc(*v20) initWithPath:outputPath];
+          [v21 setUuid:{objc_msgSend(document, "uuid")}];
+          [v17 setAssetStore:v21];
+          [objc_msgSend(v17 "assetStore")];
+        }
+
+        v14 = [mapping countByEnumeratingWithState:&v25 objects:v32 count:16];
+        if (v14)
+        {
+          continue;
+        }
+
+        break;
+      }
+
+      return v24;
+    }
+  }
+
+  return v12;
+}
 
 - (void)dealloc
 {
@@ -24,53 +106,46 @@
 
 - (id)assetPackForTags:(id)tags
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   assetPackMap = [(TDAssetPackDistiller *)self assetPackMap];
-  v5 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v5)
+  v5 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (!v5)
   {
-    v6 = v5;
-    v7 = *v13;
+    return 0;
+  }
+
+  v6 = v5;
+  v7 = *v12;
 LABEL_3:
-    v8 = 0;
-    while (1)
+  v8 = 0;
+  while (1)
+  {
+    if (*v12 != v7)
     {
-      if (*v13 != v7)
+      objc_enumerationMutation(assetPackMap);
+    }
+
+    v9 = *(*(&v11 + 1) + 8 * v8);
+    if ([objc_msgSend(v9 "tags")])
+    {
+      return v9;
+    }
+
+    if (v6 == ++v8)
+    {
+      v6 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v11 objects:v15 count:16];
+      if (v6)
       {
-        objc_enumerationMutation(assetPackMap);
+        goto LABEL_3;
       }
 
-      v9 = *(*(&v12 + 1) + 8 * v8);
-      if ([objc_msgSend(v9 "tags")])
-      {
-        break;
-      }
-
-      if (v6 == ++v8)
-      {
-        v6 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v12 objects:v16 count:16];
-        if (v6)
-        {
-          goto LABEL_3;
-        }
-
-        goto LABEL_9;
-      }
+      return 0;
     }
   }
-
-  else
-  {
-LABEL_9:
-    v9 = 0;
-  }
-
-  v10 = *MEMORY[0x277D85DE8];
-  return v9;
 }
 
 - (BOOL)setAsset:(id)asset withKey:(const _renditionkeytoken *)key fromRenditionSpec:(id)spec
@@ -140,305 +215,519 @@ uint64_t __59__TDAssetPackDistiller_setAsset_withKey_fromRenditionSpec___block_i
 
 - (void)removeRenditionsFromAssetStoreWithKey:(id)key
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v15.receiver = self;
-  v15.super_class = TDAssetPackDistiller;
-  [(TDDistiller *)&v15 removeRenditionsFromAssetStoreWithKey:?];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
+  v16 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = TDAssetPackDistiller;
+  [(TDDistiller *)&v14 removeRenditionsFromAssetStoreWithKey:?];
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   assetPackMap = [(TDAssetPackDistiller *)self assetPackMap];
-  v6 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v11 objects:v16 count:16];
+  v6 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v10 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(assetPackMap);
         }
 
-        [objc_msgSend(*(*(&v11 + 1) + 8 * v9++) "assetStore")];
+        [objc_msgSend(*(*(&v10 + 1) + 8 * v9++) "assetStore")];
       }
 
       while (v7 != v9);
-      v7 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v11 objects:v16 count:16];
+      v7 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v10 objects:v15 count:16];
     }
 
     while (v7);
   }
+}
 
-  v10 = *MEMORY[0x277D85DE8];
+- (void)setAssetStoreRenditionCount:(unsigned int)count
+{
+  v3 = *&count;
+  v16 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = TDAssetPackDistiller;
+  [(TDDistiller *)&v14 setAssetStoreRenditionCount:?];
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  assetPackMap = [(TDAssetPackDistiller *)self assetPackMap];
+  v6 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v10 objects:v15 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v11;
+    do
+    {
+      v9 = 0;
+      do
+      {
+        if (*v11 != v8)
+        {
+          objc_enumerationMutation(assetPackMap);
+        }
+
+        [objc_msgSend(*(*(&v10 + 1) + 8 * v9++) "assetStore")];
+      }
+
+      while (v7 != v9);
+      v7 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v10 objects:v15 count:16];
+    }
+
+    while (v7);
+  }
 }
 
 - (void)setAssetStoreUuid:(id)uuid
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v15.receiver = self;
-  v15.super_class = TDAssetPackDistiller;
-  [(TDDistiller *)&v15 setAssetStoreUuid:?];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
+  v16 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = TDAssetPackDistiller;
+  [(TDDistiller *)&v14 setAssetStoreUuid:?];
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   assetPackMap = [(TDAssetPackDistiller *)self assetPackMap];
-  v6 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v11 objects:v16 count:16];
+  v6 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v10 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(assetPackMap);
         }
 
-        [objc_msgSend(*(*(&v11 + 1) + 8 * v9++) "assetStore")];
+        [objc_msgSend(*(*(&v10 + 1) + 8 * v9++) "assetStore")];
       }
 
       while (v7 != v9);
-      v7 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v11 objects:v16 count:16];
+      v7 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v10 objects:v15 count:16];
     }
 
     while (v7);
   }
+}
 
-  v10 = *MEMORY[0x277D85DE8];
+- (void)setAssetStoreAssociatedChecksum:(unsigned int)checksum
+{
+  v3 = *&checksum;
+  v16 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = TDAssetPackDistiller;
+  [(TDDistiller *)&v14 setAssetStoreAssociatedChecksum:?];
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  assetPackMap = [(TDAssetPackDistiller *)self assetPackMap];
+  v6 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v10 objects:v15 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v11;
+    do
+    {
+      v9 = 0;
+      do
+      {
+        if (*v11 != v8)
+        {
+          objc_enumerationMutation(assetPackMap);
+        }
+
+        [objc_msgSend(*(*(&v10 + 1) + 8 * v9++) "assetStore")];
+      }
+
+      while (v7 != v9);
+      v7 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v10 objects:v15 count:16];
+    }
+
+    while (v7);
+  }
 }
 
 - (void)setAssetStoreKeyFormatData:(id)data
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v15.receiver = self;
-  v15.super_class = TDAssetPackDistiller;
-  [(TDDistiller *)&v15 setAssetStoreKeyFormatData:?];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
+  v16 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = TDAssetPackDistiller;
+  [(TDDistiller *)&v14 setAssetStoreKeyFormatData:?];
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   assetPackMap = [(TDAssetPackDistiller *)self assetPackMap];
-  v6 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v11 objects:v16 count:16];
+  v6 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v10 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(assetPackMap);
         }
 
-        [objc_msgSend(*(*(&v11 + 1) + 8 * v9++) "assetStore")];
+        [objc_msgSend(*(*(&v10 + 1) + 8 * v9++) "assetStore")];
       }
 
       while (v7 != v9);
-      v7 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v11 objects:v16 count:16];
+      v7 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v10 objects:v15 count:16];
     }
 
     while (v7);
   }
+}
 
-  v10 = *MEMORY[0x277D85DE8];
+- (void)setAssetStoreKeySemantics:(int)semantics
+{
+  v3 = *&semantics;
+  v16 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = TDAssetPackDistiller;
+  [(TDDistiller *)&v14 setAssetStoreKeySemantics:?];
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  assetPackMap = [(TDAssetPackDistiller *)self assetPackMap];
+  v6 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v10 objects:v15 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v11;
+    do
+    {
+      v9 = 0;
+      do
+      {
+        if (*v11 != v8)
+        {
+          objc_enumerationMutation(assetPackMap);
+        }
+
+        [objc_msgSend(*(*(&v10 + 1) + 8 * v9++) "assetStore")];
+      }
+
+      while (v7 != v9);
+      v7 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v10 objects:v15 count:16];
+    }
+
+    while (v7);
+  }
+}
+
+- (void)setAssetStorageVersion:(unsigned int)version
+{
+  v3 = *&version;
+  v16 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = TDAssetPackDistiller;
+  [(TDDistiller *)&v14 setAssetStorageVersion:?];
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  assetPackMap = [(TDAssetPackDistiller *)self assetPackMap];
+  v6 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v10 objects:v15 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v11;
+    do
+    {
+      v9 = 0;
+      do
+      {
+        if (*v11 != v8)
+        {
+          objc_enumerationMutation(assetPackMap);
+        }
+
+        [objc_msgSend(*(*(&v10 + 1) + 8 * v9++) "assetStore")];
+      }
+
+      while (v7 != v9);
+      v7 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v10 objects:v15 count:16];
+    }
+
+    while (v7);
+  }
 }
 
 - (void)setAssetStorageVersionString:(const char *)string
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v15.receiver = self;
-  v15.super_class = TDAssetPackDistiller;
-  [(TDDistiller *)&v15 setAssetStorageVersionString:?];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
+  v16 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = TDAssetPackDistiller;
+  [(TDDistiller *)&v14 setAssetStorageVersionString:?];
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   assetPackMap = [(TDAssetPackDistiller *)self assetPackMap];
-  v6 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v11 objects:v16 count:16];
+  v6 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v10 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(assetPackMap);
         }
 
-        [objc_msgSend(*(*(&v11 + 1) + 8 * v9++) "assetStore")];
+        [objc_msgSend(*(*(&v10 + 1) + 8 * v9++) "assetStore")];
       }
 
       while (v7 != v9);
-      v7 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v11 objects:v16 count:16];
+      v7 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v10 objects:v15 count:16];
     }
 
     while (v7);
   }
+}
 
-  v10 = *MEMORY[0x277D85DE8];
+- (void)setAssetSchemaVersion:(unsigned int)version
+{
+  v3 = *&version;
+  v16 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = TDAssetPackDistiller;
+  [(TDDistiller *)&v14 setAssetSchemaVersion:?];
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  assetPackMap = [(TDAssetPackDistiller *)self assetPackMap];
+  v6 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v10 objects:v15 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v11;
+    do
+    {
+      v9 = 0;
+      do
+      {
+        if (*v11 != v8)
+        {
+          objc_enumerationMutation(assetPackMap);
+        }
+
+        [objc_msgSend(*(*(&v10 + 1) + 8 * v9++) "assetStore")];
+      }
+
+      while (v7 != v9);
+      v7 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v10 objects:v15 count:16];
+    }
+
+    while (v7);
+  }
+}
+
+- (void)setAssetColorSpaceID:(unsigned int)d
+{
+  v3 = *&d;
+  v16 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = TDAssetPackDistiller;
+  [(TDDistiller *)&v14 setAssetColorSpaceID:?];
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  assetPackMap = [(TDAssetPackDistiller *)self assetPackMap];
+  v6 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v10 objects:v15 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v11;
+    do
+    {
+      v9 = 0;
+      do
+      {
+        if (*v11 != v8)
+        {
+          objc_enumerationMutation(assetPackMap);
+        }
+
+        [objc_msgSend(*(*(&v10 + 1) + 8 * v9++) "assetStore")];
+      }
+
+      while (v7 != v9);
+      v7 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v10 objects:v15 count:16];
+    }
+
+    while (v7);
+  }
 }
 
 - (void)setDeploymentPlatform:(id)platform
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v15.receiver = self;
-  v15.super_class = TDAssetPackDistiller;
-  [(TDDistiller *)&v15 setDeploymentPlatform:?];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
+  v16 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = TDAssetPackDistiller;
+  [(TDDistiller *)&v14 setDeploymentPlatform:?];
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   assetPackMap = [(TDAssetPackDistiller *)self assetPackMap];
-  v6 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v11 objects:v16 count:16];
+  v6 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v10 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(assetPackMap);
         }
 
-        [objc_msgSend(*(*(&v11 + 1) + 8 * v9++) "assetStore")];
+        [objc_msgSend(*(*(&v10 + 1) + 8 * v9++) "assetStore")];
       }
 
       while (v7 != v9);
-      v7 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v11 objects:v16 count:16];
+      v7 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v10 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDeploymentPlatformVersion:(id)version
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v15.receiver = self;
-  v15.super_class = TDAssetPackDistiller;
-  [(TDDistiller *)&v15 setDeploymentPlatformVersion:?];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
+  v16 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = TDAssetPackDistiller;
+  [(TDDistiller *)&v14 setDeploymentPlatformVersion:?];
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   assetPackMap = [(TDAssetPackDistiller *)self assetPackMap];
-  v6 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v11 objects:v16 count:16];
+  v6 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v10 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(assetPackMap);
         }
 
-        [objc_msgSend(*(*(&v11 + 1) + 8 * v9++) "assetStore")];
+        [objc_msgSend(*(*(&v10 + 1) + 8 * v9++) "assetStore")];
       }
 
       while (v7 != v9);
-      v7 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v11 objects:v16 count:16];
+      v7 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v10 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAuthoringTool:(id)tool
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v15.receiver = self;
-  v15.super_class = TDAssetPackDistiller;
-  [(TDDistiller *)&v15 setAuthoringTool:?];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
+  v16 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = TDAssetPackDistiller;
+  [(TDDistiller *)&v14 setAuthoringTool:?];
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   assetPackMap = [(TDAssetPackDistiller *)self assetPackMap];
-  v6 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v11 objects:v16 count:16];
+  v6 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v10 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(assetPackMap);
         }
 
-        [objc_msgSend(*(*(&v11 + 1) + 8 * v9++) "assetStore")];
+        [objc_msgSend(*(*(&v10 + 1) + 8 * v9++) "assetStore")];
       }
 
       while (v7 != v9);
-      v7 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v11 objects:v16 count:16];
+      v7 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v10 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)assetStoreWriteToDisk
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v15.receiver = self;
-  v15.super_class = TDAssetPackDistiller;
-  assetStoreWriteToDisk = [(TDDistiller *)&v15 assetStoreWriteToDisk];
+  v16 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = TDAssetPackDistiller;
+  assetStoreWriteToDisk = [(TDDistiller *)&v14 assetStoreWriteToDisk];
   if (assetStoreWriteToDisk)
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     assetPackMap = [(TDAssetPackDistiller *)self assetPackMap];
-    v5 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v11 objects:v16 count:16];
+    v5 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v10 objects:v15 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v12;
+      v7 = *v11;
 LABEL_4:
       v8 = 0;
       while (1)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(assetPackMap);
         }
 
-        assetStoreWriteToDisk = [objc_msgSend(*(*(&v11 + 1) + 8 * v8) "assetStore")];
+        assetStoreWriteToDisk = [objc_msgSend(*(*(&v10 + 1) + 8 * v8) "assetStore")];
         if (!assetStoreWriteToDisk)
         {
           break;
@@ -446,14 +735,14 @@ LABEL_4:
 
         if (v6 == ++v8)
         {
-          v6 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v11 objects:v16 count:16];
+          v6 = [(NSSet *)assetPackMap countByEnumeratingWithState:&v10 objects:v15 count:16];
           LOBYTE(assetStoreWriteToDisk) = 1;
           if (v6)
           {
             goto LABEL_4;
           }
 
-          break;
+          return assetStoreWriteToDisk;
         }
       }
     }
@@ -464,7 +753,6 @@ LABEL_4:
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return assetStoreWriteToDisk;
 }
 

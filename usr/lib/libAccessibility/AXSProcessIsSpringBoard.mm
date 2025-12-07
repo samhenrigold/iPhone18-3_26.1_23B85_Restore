@@ -3,7 +3,7 @@
 
 @implementation AXSProcessIsSpringBoard
 
-uint64_t ___AXSProcessIsSpringBoard_block_invoke()
+void *___AXSProcessIsSpringBoard_block_invoke()
 {
   if (cachedAppID_onceToken != -1)
   {

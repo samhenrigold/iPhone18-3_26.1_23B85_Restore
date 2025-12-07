@@ -39,7 +39,7 @@ void __47__ATXModeScreenShareFeaturizer_provideFeatures__block_invoke(uint64_t a
 {
   v2 = a2;
   v3 = [v2 state];
-  v4 = __atxlog_handle_modes();
+  v4 = __atxlog_handle_modes(v3);
   v5 = v4;
   if (v3)
   {
@@ -58,17 +58,14 @@ void __47__ATXModeScreenShareFeaturizer_provideFeatures__block_invoke(uint64_t a
 
 uint64_t __47__ATXModeScreenShareFeaturizer_provideFeatures__block_invoke_12(uint64_t a1, void *a2)
 {
-  v3 = [a2 eventBody];
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = [a2 eventBody];
 
   return MEMORY[0x2821F96F8]();
 }
 
 - (id)_provideFeaturesWithScreenShareEvent:(id)event
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   isStart = [eventCopy isStart];
   if (isStart)
@@ -83,18 +80,15 @@ uint64_t __47__ATXModeScreenShareFeaturizer_provideFeatures__block_invoke_12(uin
 
   v6 = objc_alloc_init(ATXModeFeatureSet);
   [(ATXModeFeatureSet *)v6 setValue:isStart forBinaryFeatureOfType:17];
-  [(ATXModeFeatureSet *)v6 setValue:v5 forBinaryFeatureOfType:20];
-  v7 = __atxlog_handle_modes();
+  v7 = __atxlog_handle_modes([(ATXModeFeatureSet *)v6 setValue:v5 forBinaryFeatureOfType:20]);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10[0] = 67109376;
-    v10[1] = isStart;
-    v11 = 1024;
-    v12 = v5;
-    _os_log_impl(&dword_260C9F000, v7, OS_LOG_TYPE_DEFAULT, "ATXModeScreenShareFeaturizer: updating screen share feature: isScreenSharing: %d, isAirPlayMirroring: %d", v10, 0xEu);
+    v9[0] = 67109376;
+    v9[1] = isStart;
+    v10 = 1024;
+    v11 = v5;
+    _os_log_impl(&dword_260C9F000, v7, OS_LOG_TYPE_DEFAULT, "ATXModeScreenShareFeaturizer: updating screen share feature: isScreenSharing: %d, isAirPlayMirroring: %d", v9, 0xEu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -110,41 +104,41 @@ uint64_t __47__ATXModeScreenShareFeaturizer_provideFeatures__block_invoke_12(uin
 
 - (void)beginListening
 {
-  objc_initWeak(&location, self);
+  inited = objc_initWeak(&location, self);
   if (!self->_queue)
   {
-    v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v4 = dispatch_queue_create("com.apple.BiomeScreenShare.queue", v3);
+    v4 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v5 = dispatch_queue_create("com.apple.BiomeScreenShare.queue", v4);
     queue = self->_queue;
-    self->_queue = v4;
+    self->_queue = v5;
   }
 
-  v6 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = __atxlog_handle_modes(inited);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_260C9F000, v6, OS_LOG_TYPE_DEFAULT, "ATXModeScreenShareFeaturizer: registering for real time events", buf, 2u);
+    _os_log_impl(&dword_260C9F000, v7, OS_LOG_TYPE_DEFAULT, "ATXModeScreenShareFeaturizer: registering for real time events", buf, 2u);
   }
 
-  v7 = [objc_alloc(MEMORY[0x277CF1918]) initWithIdentifier:@"FocusModes.ScreenShare" targetQueue:self->_queue];
+  v8 = [objc_alloc(MEMORY[0x277CF1918]) initWithIdentifier:@"FocusModes.ScreenShare" targetQueue:self->_queue];
   scheduler = self->_scheduler;
-  self->_scheduler = v7;
+  self->_scheduler = v8;
 
-  v9 = BiomeLibrary();
-  screen = [v9 Screen];
+  v10 = BiomeLibrary();
+  screen = [v10 Screen];
   sharing = [screen Sharing];
   atx_DSLPublisher = [sharing atx_DSLPublisher];
-  v13 = [atx_DSLPublisher subscribeOn:self->_scheduler];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __46__ATXModeScreenShareFeaturizer_beginListening__block_invoke_21;
-  v16[3] = &unk_279AB7CF8;
-  objc_copyWeak(&v17, &location);
-  v14 = [v13 sinkWithCompletion:&__block_literal_global_20 receiveInput:v16];
+  v14 = [atx_DSLPublisher subscribeOn:self->_scheduler];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __46__ATXModeScreenShareFeaturizer_beginListening__block_invoke_21;
+  v17[3] = &unk_279AB7CF8;
+  objc_copyWeak(&v18, &location);
+  v15 = [v14 sinkWithCompletion:&__block_literal_global_20 receiveInput:v17];
   sink = self->_sink;
-  self->_sink = v14;
+  self->_sink = v15;
 
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v18);
   objc_destroyWeak(&location);
 }
 
@@ -152,7 +146,7 @@ void __46__ATXModeScreenShareFeaturizer_beginListening__block_invoke(uint64_t a1
 {
   v2 = a2;
   v3 = [v2 state];
-  v4 = __atxlog_handle_modes();
+  v4 = __atxlog_handle_modes(v3);
   v5 = v4;
   if (v3)
   {
@@ -171,17 +165,17 @@ void __46__ATXModeScreenShareFeaturizer_beginListening__block_invoke(uint64_t a1
 
 void __46__ATXModeScreenShareFeaturizer_beginListening__block_invoke_21(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = __atxlog_handle_modes();
+  v4 = __atxlog_handle_modes(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = MEMORY[0x277CCABB0];
     v6 = [v3 eventBody];
     v7 = [v5 numberWithBool:{objc_msgSend(v6, "isStart")}];
-    v12 = 138543362;
-    v13 = v7;
-    _os_log_impl(&dword_260C9F000, v4, OS_LOG_TYPE_DEFAULT, "ATXModeScreenShareFeaturizer: received new screen share event, isStart: %{public}@", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = v7;
+    _os_log_impl(&dword_260C9F000, v4, OS_LOG_TYPE_DEFAULT, "ATXModeScreenShareFeaturizer: received new screen share event, isStart: %{public}@", &v11, 0xCu);
   }
 
   v8 = [v3 eventBody];
@@ -192,8 +186,6 @@ void __46__ATXModeScreenShareFeaturizer_beginListening__block_invoke_21(uint64_t
     v10 = [v3 eventBody];
     [WeakRetained _processNewScreenShareEvent:v10];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopListening
@@ -215,20 +207,18 @@ void __46__ATXModeScreenShareFeaturizer_beginListening__block_invoke_21(uint64_t
 
 void __47__ATXModeScreenShareFeaturizer_provideFeatures__block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
-  OUTLINED_FUNCTION_0_0(&dword_260C9F000, v2, v3, "ATXModeScreenShareFeaturizer: error fetching last screen share event: %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_260C9F000, v2, v3, "ATXModeScreenShareFeaturizer: error fetching last screen share event: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void __46__ATXModeScreenShareFeaturizer_beginListening__block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
-  OUTLINED_FUNCTION_0_0(&dword_260C9F000, v2, v3, "ATXModeScreenShareFeaturizer: error listening to screen share events: %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_260C9F000, v2, v3, "ATXModeScreenShareFeaturizer: error listening to screen share events: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

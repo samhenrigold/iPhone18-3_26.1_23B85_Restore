@@ -8,6 +8,7 @@
 - (int)uploadFile:(id)file description:(id)description;
 - (void)_checkTestHook;
 - (void)_cleanItemAt:(id)at;
+- (void)_compressRange:(unsigned int)range startWL:(unsigned int)l endWL:(unsigned int)wL content:(id)content;
 - (void)_doCleanup:(id)cleanup;
 - (void)_fillSweepParams;
 - (void)_gatherRadarInfo;
@@ -120,6 +121,48 @@ LABEL_9:
   else
   {
     v8 = 0;
+  }
+}
+
+- (void)_compressRange:(unsigned int)range startWL:(unsigned int)l endWL:(unsigned int)wL content:(id)content
+{
+  v7 = *&l;
+  contentCopy = content;
+  if (v7 < wL)
+  {
+    do
+    {
+      blockPath = [(NANDTelemetry_NandGBBSweepDaily *)self blockPath];
+      v11 = [NSString stringWithFormat:@"%@/Sweep_Wordline_%d.bin", blockPath, v7];
+      [contentCopy addObject:v11];
+
+      v7 = (v7 + 1);
+    }
+
+    while (wL != v7);
+  }
+
+  if (wL == range)
+  {
+    blockPath2 = [(NANDTelemetry_NandGBBSweepDaily *)self blockPath];
+    v13 = [NSString stringWithFormat:@"%@/FTLCounters.json", blockPath2];
+    [contentCopy addObject:v13];
+
+    blockPath3 = [(NANDTelemetry_NandGBBSweepDaily *)self blockPath];
+    v15 = [NSString stringWithFormat:@"%@/MSPCounters.json", blockPath3];
+    [contentCopy addObject:v15];
+
+    blockPath4 = [(NANDTelemetry_NandGBBSweepDaily *)self blockPath];
+    v17 = [NSString stringWithFormat:@"%@/description.txt", blockPath4];
+    [contentCopy addObject:v17];
+
+    blockPath5 = [(NANDTelemetry_NandGBBSweepDaily *)self blockPath];
+    v19 = [NSString stringWithFormat:@"%@/Defects.txt", blockPath5];
+    [contentCopy addObject:v19];
+
+    blockPath6 = [(NANDTelemetry_NandGBBSweepDaily *)self blockPath];
+    v21 = [NSString stringWithFormat:@"%@/ErrorLog.txt", blockPath6];
+    [contentCopy addObject:v21];
   }
 }
 
@@ -370,7 +413,7 @@ LABEL_23:
 {
   v38 = 0;
   v35 = objc_alloc_init(NSMutableArray);
-  v36 = getDeviceSerialNumber();
+  v36 = getDeviceSerialNumber(v35);
   v3 = off_1000D8000;
   v4 = byte_1000D8260;
   v63 = 0u;
@@ -699,8 +742,7 @@ LABEL_42:
   {
     *(v3 + 8) = xmmword_1000D826C;
     *(v3 + 6) = dword_1000D827C;
-    [(NANDTelemetry_NandGBBSweepDaily *)self ctl];
-    Send_ASF_Tunnel();
+    Send_ASF_Tunnel([(NANDTelemetry_NandGBBSweepDaily *)self ctl], 270, v3, 0, 0);
   }
 
   free(v3);

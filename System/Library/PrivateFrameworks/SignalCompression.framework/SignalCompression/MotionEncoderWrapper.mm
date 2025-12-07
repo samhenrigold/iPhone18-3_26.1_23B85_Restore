@@ -30,10 +30,10 @@ void __61__MotionEncoderWrapper_motionEncoderWrapperLogSharedInstance__block_inv
 - (MotionEncoderWrapper)initWithAttributeCount:(unsigned int)count componentCount:(unsigned int)componentCount quantization:(unsigned int)quantization
 {
   quantizationCopy = quantization;
-  v42 = *MEMORY[0x277D85DE8];
-  v35.receiver = self;
-  v35.super_class = MotionEncoderWrapper;
-  v8 = [(MotionEncoderWrapper *)&v35 init];
+  v41 = *MEMORY[0x277D85DE8];
+  v34.receiver = self;
+  v34.super_class = MotionEncoderWrapper;
+  v8 = [(MotionEncoderWrapper *)&v34 init];
   v9 = v8;
   if (!v8)
   {
@@ -48,7 +48,7 @@ void __61__MotionEncoderWrapper_motionEncoderWrapperLogSharedInstance__block_inv
   v9->encoder = v10;
   *&v9->_intraFramePeriod = 2;
   std::vector<unsigned char>::vector[abi:ne200100](&__p, 8uLL);
-  v11 = gcl::motion::Encoder::encodeSequenceParameterSet(v9->encoder, v9->_attributeCount, v9->_componentsPerAttribute, __p, v33 - __p, &v9->encParametersLength);
+  v11 = gcl::motion::Encoder::encodeSequenceParameterSet(v9->encoder, v9->_attributeCount, v9->_componentsPerAttribute, __p, v32 - __p, &v9->encParametersLength);
   if (v11)
   {
     motionEncoderWrapperLogSharedInstance = [(MotionEncoderWrapper *)v9 motionEncoderWrapperLogSharedInstance];
@@ -67,19 +67,19 @@ void __61__MotionEncoderWrapper_motionEncoderWrapperLogSharedInstance__block_inv
 
   else
   {
-    v15 = v33;
-    if (v33 >= v34)
+    v15 = v32;
+    if (v32 >= v33)
     {
       v17 = __p;
-      v18 = v33 - __p;
-      v19 = v33 - __p + 1;
+      v18 = v32 - __p;
+      v19 = v32 - __p + 1;
       if (v19 < 0)
       {
         std::vector<gcl::ArithmeticContext>::__throw_length_error[abi:ne200100]();
       }
 
-      v20 = v34 - __p;
-      if (2 * (v34 - __p) > v19)
+      v20 = v33 - __p;
+      if (2 * (v33 - __p) > v19)
       {
         v19 = 2 * v20;
       }
@@ -108,8 +108,8 @@ void __61__MotionEncoderWrapper_motionEncoderWrapperLogSharedInstance__block_inv
       v16 = &v22[v18 + 1];
       memcpy(v22, v17, v18);
       __p = v22;
-      v33 = v16;
-      v34 = &v22[v21];
+      v32 = v16;
+      v33 = &v22[v21];
       if (v17)
       {
         operator delete(v17);
@@ -118,11 +118,11 @@ void __61__MotionEncoderWrapper_motionEncoderWrapperLogSharedInstance__block_inv
 
     else
     {
-      *v33 = quantizationCopy;
+      *v32 = quantizationCopy;
       v16 = (v15 + 1);
     }
 
-    v33 = v16;
+    v32 = v16;
     ++v9->encParametersLength;
     v23 = [MEMORY[0x277CBEA90] dataWithBytes:__p length:?];
     encoderParamsData = v9->_encoderParamsData;
@@ -149,18 +149,18 @@ void __61__MotionEncoderWrapper_motionEncoderWrapperLogSharedInstance__block_inv
     if (os_log_type_enabled(motionEncoderWrapperLogSharedInstance2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109632;
-      v37 = 0;
-      v38 = 1024;
-      v39 = 3;
-      v40 = 1024;
-      v41 = 0;
+      v36 = 0;
+      v37 = 1024;
+      v38 = 3;
+      v39 = 1024;
+      v40 = 0;
       _os_log_impl(&dword_26606F000, motionEncoderWrapperLogSharedInstance2, OS_LOG_TYPE_DEFAULT, "Local Encoder version is %d %d %d", buf, 0x14u);
     }
   }
 
   if (__p)
   {
-    v33 = __p;
+    v32 = __p;
     operator delete(__p);
   }
 
@@ -175,7 +175,6 @@ LABEL_31:
     v29 = v9;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
@@ -285,22 +284,20 @@ LABEL_8:
 
 - (void)encodeFrameInternal:(int)a1 outputEncodedBuffer:(NSObject *)a2 outputBufferLength:type:encodeError:.cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_26606F000, a2, OS_LOG_TYPE_ERROR, "Error cannot compress inputs %d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_26606F000, a2, OS_LOG_TYPE_ERROR, "Error cannot compress inputs %d", v2, 8u);
 }
 
 - (void)encodeFrameInternal:(os_log_t)log outputEncodedBuffer:outputBufferLength:type:encodeError:.cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 134218240;
-  v5 = a1;
-  v6 = 2048;
-  v7 = a2;
-  _os_log_error_impl(&dword_26606F000, log, OS_LOG_TYPE_ERROR, "Error outbuffer %p is invalid %zu", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 134218240;
+  v4 = a1;
+  v5 = 2048;
+  v6 = a2;
+  _os_log_error_impl(&dword_26606F000, log, OS_LOG_TYPE_ERROR, "Error outbuffer %p is invalid %zu", &v3, 0x16u);
 }
 
 @end

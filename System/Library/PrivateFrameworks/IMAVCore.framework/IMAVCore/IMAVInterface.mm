@@ -54,20 +54,18 @@
 
   if (v9 == delegateCopy)
   {
-    v10 = sub_254761764();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_254761764(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v15 = 134218242;
       v16 = delegateCopy;
       v17 = 2112;
       selfCopy = self;
-      _os_log_impl(&dword_254743000, v10, OS_LOG_TYPE_DEFAULT, "Unsetting %p as the delegate on %@", &v15, 0x16u);
+      _os_log_impl(&dword_254743000, v11, OS_LOG_TYPE_DEFAULT, "Unsetting %p as the delegate on %@", &v15, 0x16u);
     }
 
-    objc_msgSend_setDelegate_(self, v11, 0, v12, v13);
+    objc_msgSend_setDelegate_(self, v12, 0, v13, v14);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)systemSupportsFrontFacingCamera

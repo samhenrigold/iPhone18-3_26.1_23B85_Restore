@@ -58,23 +58,23 @@
   os_unfair_lock_unlock(&self->connectionLock);
 }
 
-void __60__TRIXPCCovariateFetcher_setupArchivingServiceXPCConnection__block_invoke()
+void __60__TRIXPCCovariateFetcher_setupArchivingServiceXPCConnection__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = TRILogCategory_ClientFramework();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v3 = TRILogCategory_ClientFramework();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_26F567000, v0, OS_LOG_TYPE_DEFAULT, "Covariate fetch connection to TrialArchivingService was interrupted.", v1, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_26F567000, v3, OS_LOG_TYPE_DEFAULT, "Covariate fetch connection to TrialArchivingService was interrupted.", v4, 2u);
   }
 }
 
-void __60__TRIXPCCovariateFetcher_setupArchivingServiceXPCConnection__block_invoke_28()
+void __60__TRIXPCCovariateFetcher_setupArchivingServiceXPCConnection__block_invoke_28(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = TRILogCategory_ClientFramework();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v3 = TRILogCategory_ClientFramework();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_26F567000, v0, OS_LOG_TYPE_DEFAULT, "Covariate fetch connection to TrialArchivingService was invalidated.", v1, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_26F567000, v3, OS_LOG_TYPE_DEFAULT, "Covariate fetch connection to TrialArchivingService was invalidated.", v4, 2u);
   }
 }
 
@@ -148,17 +148,15 @@ void __52__TRIXPCCovariateFetcher_sendMessageToRemoteObject___block_invoke(uint6
 
 void __52__TRIXPCCovariateFetcher_sendMessageToRemoteObject___block_invoke_2(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = TRILogCategory_ClientFramework();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_error_impl(&dword_26F567000, v3, OS_LOG_TYPE_ERROR, "TRIXPCCovariateFetcher failed to connect to remote object proxy with error: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_error_impl(&dword_26F567000, v3, OS_LOG_TYPE_ERROR, "TRIXPCCovariateFetcher failed to connect to remote object proxy with error: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)mapsDeviceCountryCode

@@ -146,23 +146,23 @@
 
 - (void)_nextAlarmChanged:(id)changed
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   v5 = objc_opt_class();
   userInfo = [changedCopy userInfo];
   v7 = [userInfo objectForKey:*MEMORY[0x277D295D0]];
   v8 = SBSafeCast(v5, v7);
 
-  v9 = SBLogAmbientPresentation();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = SBLogAmbientPresentation(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     name = [changedCopy name];
     alarmID = [v8 alarmID];
-    v12 = 138543618;
-    v13 = name;
-    v14 = 2114;
-    v15 = alarmID;
-    _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Ambient Scheduled Alarm Observer recieved %{public}@ notification containing alarmID: %{public}@", &v12, 0x16u);
+    v13 = 138543618;
+    v14 = name;
+    v15 = 2114;
+    v16 = alarmID;
+    _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "Ambient Scheduled Alarm Observer recieved %{public}@ notification containing alarmID: %{public}@", &v13, 0x16u);
   }
 
   [(SBAmbientScheduledAlarmObserver *)self _updateScheduledTimersForNextAlarm];
@@ -172,7 +172,7 @@
 {
   v10 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
-  v5 = SBLogAmbientPresentation();
+  v5 = SBLogAmbientPresentation(updatedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     name = [updatedCopy name];
@@ -205,7 +205,7 @@
 
   else
   {
-    v5 = SBLogAmbientPresentation();
+    v5 = SBLogAmbientPresentation(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(location[0]) = 0;
@@ -229,25 +229,25 @@ void __69__SBAmbientScheduledAlarmObserver__updateScheduledTimersForNextAlarm__b
     block[1] = 3221225472;
     block[2] = __69__SBAmbientScheduledAlarmObserver__updateScheduledTimersForNextAlarm__block_invoke_2;
     block[3] = &unk_2783A9CE8;
-    objc_copyWeak(&v12, (a1 + 32));
-    v11 = v5;
+    objc_copyWeak(&v13, (a1 + 32));
+    v12 = v5;
     dispatch_async(MEMORY[0x277D85CD0], block);
 
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v13);
   }
 
   else
   {
-    v6 = SBLogAmbientPresentation();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = SBLogAmbientPresentation(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "No sleep alarm for ambient scheduled alarm observer!", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "No sleep alarm for ambient scheduled alarm observer!", v10, 2u);
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 32));
-    v8 = [WeakRetained delegate];
-    [v8 alarmDidResetForAmbientScheduledAlarmObserver:WeakRetained];
+    v9 = [WeakRetained delegate];
+    [v9 alarmDidResetForAmbientScheduledAlarmObserver:WeakRetained];
   }
 }
 
@@ -294,8 +294,7 @@ void __59__SBAmbientScheduledAlarmObserver__scheduleTimersForAlarm___block_invok
     }
 
     v12 = [*(a1 + 40) _newScheduledTimerForFireDate:v7];
-    [*(*(a1 + 40) + 40) setValue:v12 forKey:v5];
-    v13 = SBLogAmbientPresentation();
+    v13 = SBLogAmbientPresentation([*(*(a1 + 40) + 40) setValue:v12 forKey:v5]);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v14 = [*(a1 + 48) alarmID];
@@ -337,7 +336,7 @@ LABEL_9:
 {
   v12 = *MEMORY[0x277D85DE8];
   firedCopy = fired;
-  v5 = SBLogAmbientPresentation();
+  v5 = SBLogAmbientPresentation(firedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;

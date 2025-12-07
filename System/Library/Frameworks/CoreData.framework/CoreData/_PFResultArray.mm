@@ -1,5 +1,6 @@
 @interface _PFResultArray
 - (BOOL)_setPurgeable:(BOOL)purgeable;
+- (_PFResultArray)initWithObjects:(id *)objects count:(unsigned int)count store:(id)store metadata:(id)metadata;
 - (id)objectAtIndex:(unint64_t)index;
 - (unint64_t)count;
 - (unint64_t)countByEnumeratingWithState:(id *)state objects:(id *)objects count:(unint64_t)count;
@@ -48,6 +49,24 @@
   v4.receiver = self;
   v4.super_class = _PFResultArray;
   [(_PFResultArray *)&v4 dealloc];
+}
+
+- (_PFResultArray)initWithObjects:(id *)objects count:(unsigned int)count store:(id)store metadata:(id)metadata
+{
+  v12.receiver = self;
+  v12.super_class = _PFResultArray;
+  v9 = [(_PFResultArray *)&v12 init:objects];
+  v10 = v9;
+  if (v9)
+  {
+    v9->_count = objects->var0;
+    v9->_weakRequestStore = [[_PFWeakReference alloc] initWithObject:store];
+    v10->_resultSet = objects;
+    v10->_resultType = 2;
+    v10->_metadata = metadata;
+  }
+
+  return v10;
 }
 
 - (unint64_t)indexOfObject:(id)object inRange:(_NSRange)range
@@ -132,7 +151,7 @@
 
 - (id)objectAtIndex:(unint64_t)index
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   resultSet = self->_resultSet;
   var7 = resultSet->var7;
   if ((*&var7 & 0x10) != 0)
@@ -141,7 +160,7 @@
     {
       v15 = MEMORY[0x1E695DF30];
       v16 = *MEMORY[0x1E695D940];
-      v25 = _NSMethodExceptionProem();
+      v24 = _NSMethodExceptionProem();
       v17 = @"%@: backing buffer has been purged";
     }
 
@@ -154,21 +173,19 @@
 
       v15 = MEMORY[0x1E695DF30];
       v16 = *MEMORY[0x1E695D940];
-      v25 = _NSMethodExceptionProem();
+      v24 = _NSMethodExceptionProem();
       v17 = @"%@: backing buffer can be purged";
     }
 
-    [v15 raise:v16 format:{v17, v25, v26, v27}];
-    goto LABEL_23;
+    [v15 raise:v16 format:{v17, v24, v25, v26}];
+    return 0;
   }
 
 LABEL_2:
   if (self->_count <= index)
   {
     [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695DA20] format:{@"%@: index (%lu) beyond bounds (%lu)", _NSMethodExceptionProem(), index, self->_count}];
-LABEL_23:
-    v18 = 0;
-    goto LABEL_30;
+    return 0;
   }
 
   if (!resultSet->var5)
@@ -219,12 +236,12 @@ LABEL_14:
       {
 LABEL_16:
         *buf = 134218752;
-        v29 = v7;
-        v30 = 2048;
-        v31 = 0;
-        v32 = 2048;
-        v33 = v8;
-        v34 = 2048;
+        v28 = v7;
+        v29 = 2048;
+        v30 = 0;
+        v31 = 2048;
+        v32 = v8;
+        v33 = 2048;
         indexCopy = index;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: Index beyond buffer: %ld, %ld, %ld, %ld\n", buf, 0x2Au);
       }
@@ -236,7 +253,7 @@ LABEL_16:
     goto LABEL_14;
   }
 
-  v23 = index - v8;
+  v22 = index - v8;
   if (index == v8)
   {
 LABEL_26:
@@ -244,16 +261,16 @@ LABEL_26:
     goto LABEL_27;
   }
 
-  v24 = v9[1];
+  v23 = v9[1];
   v19 = 8;
   do
   {
-    v19 += *(v9 + v24);
-    v24 += 4;
-    --v23;
+    v19 += *(v9 + v23);
+    v23 += 4;
+    --v22;
   }
 
-  while (v23);
+  while (v22);
 LABEL_27:
   v18 = v9 + v19;
   if (!*(v9 + v19))
@@ -263,8 +280,6 @@ LABEL_27:
   }
 
   [v18 _setParentBuffer:self];
-LABEL_30:
-  v21 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -309,48 +324,46 @@ LABEL_30:
 
 - (void)getObjects:(id *)objects
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   count = self->_count;
   MEMORY[0x1EEE9AC00](self);
-  v8 = v13 - v7;
-  if (count <= 0x200)
+  v8 = v12 - v7;
+  if (count > 0x200)
   {
-    bzero(v13 - v7, 8 * v6);
+    v8 = NSAllocateScannedUncollectable();
+    if (self->_count)
+    {
+LABEL_3:
+      v9 = 0;
+      do
+      {
+        *&v8[8 * v9] = [(_PFResultArray *)self objectAtIndex:v9];
+        ++v9;
+        v10 = self->_count;
+      }
+
+      while (v9 < v10);
+      v11 = 8 * v10;
+      goto LABEL_8;
+    }
+  }
+
+  else
+  {
+    bzero(v12 - v7, 8 * v6);
     if (count)
     {
       goto LABEL_3;
     }
-
-LABEL_7:
-    v11 = 0;
-    goto LABEL_8;
   }
 
-  v8 = NSAllocateScannedUncollectable();
-  if (!self->_count)
-  {
-    goto LABEL_7;
-  }
-
-LABEL_3:
-  v9 = 0;
-  do
-  {
-    *&v8[8 * v9] = [(_PFResultArray *)self objectAtIndex:v9];
-    ++v9;
-    v10 = self->_count;
-  }
-
-  while (v9 < v10);
-  v11 = 8 * v10;
+  v11 = 0;
 LABEL_8:
   memmove(objects, v8, v11);
   if (count >= 0x201)
   {
     NSZoneFree(0, v8);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getObjects:(id *)objects range:(_NSRange)range
@@ -358,7 +371,7 @@ LABEL_8:
   length = range.length;
   location = range.location;
   selfCopy = self;
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (range.location + range.length > self->_count)
   {
     self = [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695DA20] format:{@"%@: index (%lu) beyond bounds (%lu)", _NSMethodExceptionProem(), range.location + range.length - 1, self->_count}];
@@ -366,9 +379,9 @@ LABEL_8:
 
   if (length)
   {
-    v14 = &v14;
+    v13 = &v13;
     MEMORY[0x1EEE9AC00](self);
-    v9 = &v14 - v8;
+    v9 = &v13 - v8;
     if (length > 0x200)
     {
       v9 = NSAllocateScannedUncollectable();
@@ -376,7 +389,7 @@ LABEL_8:
 
     else
     {
-      bzero(&v14 - v8, 8 * length);
+      bzero(&v13 - v8, 8 * length);
     }
 
     if (location < selfCopy->_count)
@@ -385,7 +398,7 @@ LABEL_8:
       v11 = v9;
       do
       {
-        *v11++ = [(_PFResultArray *)selfCopy objectAtIndex:location + v10 - 1, v14, v15];
+        *v11++ = [(_PFResultArray *)selfCopy objectAtIndex:location + v10 - 1, v13, v14];
         v12 = location + v10 < selfCopy->_count && length > v10;
         ++v10;
       }
@@ -399,8 +412,6 @@ LABEL_8:
       NSZoneFree(0, v9);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

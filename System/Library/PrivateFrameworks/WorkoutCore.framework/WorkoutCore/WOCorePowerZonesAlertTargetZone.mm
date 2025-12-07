@@ -10,15 +10,12 @@
 - (int64_t)hash
 {
   Hasher.init()();
-  v3 = self + OBJC_IVAR___WOCorePowerZonesAlertTargetZone_type;
   swift_beginAccess();
-  v7 = *v3;
-  v8 = v3[16];
   selfCopy = self;
-  PowerZonesAlertZoneType.hash(into:)(v9);
-  v5 = Hasher.finalize()();
+  PowerZonesAlertZoneType.hash(into:)(v6);
+  v4 = Hasher.finalize()();
 
-  return v5;
+  return v4;
 }
 
 - (WOCorePowerZonesAlertTargetZone)init

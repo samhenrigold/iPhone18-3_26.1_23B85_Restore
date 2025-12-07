@@ -9,7 +9,7 @@
 - (UIView)viewFadingInFromCustomAlpha;
 - (_UINavigationBarLargeTitleViewLayout)fromLargeTitleViewLayout;
 - (_UINavigationBarLargeTitleViewLayout)toLargeTitleViewLayout;
-- (uint64_t)_removeAllClippingViews;
+- (id)_removeAllClippingViews;
 - (unint64_t)_animationOptions;
 - (void)_addClippingView:(uint64_t)view;
 - (void)_animateAsTwoPartsWithOverlap:(double)overlap partOne:(id)one partTwo:(id)two;
@@ -810,7 +810,7 @@ LABEL_6:
   }
 }
 
-- (uint64_t)_removeAllClippingViews
+- (id)_removeAllClippingViews
 {
   v12 = *MEMORY[0x1E69E9840];
   if (result)
@@ -820,7 +820,7 @@ LABEL_6:
     v10 = 0u;
     v7 = 0u;
     v8 = 0u;
-    v2 = *(result + 168);
+    v2 = result[21];
     v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     if (v3)
     {
@@ -846,7 +846,7 @@ LABEL_6:
       while (v4);
     }
 
-    return [*(v1 + 168) removeAllObjects];
+    return [v1[21] removeAllObjects];
   }
 
   return result;

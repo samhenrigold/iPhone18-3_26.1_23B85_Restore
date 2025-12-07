@@ -1,52 +1,57 @@
-id sub_10027EE54(uint64_t a1)
+void sub_10027EE54(uint64_t a1, uint64_t a2)
 {
-  v2 = v1;
-  v28.receiver = v1;
-  v28.super_class = type metadata accessor for MultiDeviceTesterViewController();
-  objc_msgSendSuper2(&v28, "traitCollectionDidChange:", a1);
-  v4 = [*&v1[OBJC_IVAR____TtC5Music31MultiDeviceTesterViewController_stackView] arrangedSubviews];
-  sub_100009F78(0, &qword_101181620);
-  v5 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v3 = v2;
+  v29.receiver = v2;
+  v29.super_class = type metadata accessor for MultiDeviceTesterViewController();
+  objc_msgSendSuper2(&v29, "traitCollectionDidChange:", a1);
+  v5 = [*&v2[OBJC_IVAR____TtC5Music31MultiDeviceTesterViewController_stackView] arrangedSubviews];
+  sub_100009F78(0, &qword_101181620, UIView_ptr);
+  v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-  if (!(v5 >> 62))
+  if (!(v6 >> 62))
   {
-    v6 = *((v5 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (v6)
+    v7 = *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (v7)
     {
       goto LABEL_3;
     }
+
+LABEL_16:
+
+    return;
   }
 
 LABEL_15:
-  v6 = _CocoaArrayWrapper.endIndex.getter();
-  if (!v6)
+  v7 = _CocoaArrayWrapper.endIndex.getter();
+  if (!v7)
   {
+    goto LABEL_16;
   }
 
 LABEL_3:
-  v7 = 0;
-  v25 = v5 & 0xFFFFFFFFFFFFFF8;
-  v26 = v5 & 0xC000000000000001;
-  v24 = v5;
+  v8 = 0;
+  v26 = v6 & 0xFFFFFFFFFFFFFF8;
+  v27 = v6 & 0xC000000000000001;
+  v25 = v6;
   while (1)
   {
-    if (v26)
+    if (v27)
     {
-      v8 = sub_100062D50(v7, v5);
+      v9 = sub_100062D50(v8, v6);
     }
 
     else
     {
-      if (v7 >= *(v25 + 16))
+      if (v8 >= *(v26 + 16))
       {
         goto LABEL_14;
       }
 
-      v8 = *(v5 + 8 * v7 + 32);
+      v9 = *(v6 + 8 * v8 + 32);
     }
 
-    v9 = v8;
-    if (__OFADD__(v7, 1))
+    v10 = v9;
+    if (__OFADD__(v8, 1))
     {
       __break(1u);
 LABEL_14:
@@ -54,48 +59,48 @@ LABEL_14:
       goto LABEL_15;
     }
 
-    v27 = v7 + 1;
-    v10 = v6;
+    v28 = v8 + 1;
+    v11 = v7;
     type metadata accessor for MultiDeviceTesterViewController.DeviceView();
-    v11 = swift_dynamicCastClassUnconditional();
-    sub_10010FC20(&qword_101183990);
-    v12 = swift_allocObject();
-    *(v12 + 16) = xmmword_100EBE270;
-    v13 = v9;
-    result = [v2 view];
-    if (!result)
+    v12 = swift_dynamicCastClassUnconditional();
+    sub_10010FC20(&qword_101183990, &qword_100EBC750);
+    v13 = swift_allocObject();
+    *(v13 + 16) = xmmword_100EBE270;
+    v14 = v10;
+    v15 = [v3 view];
+    if (!v15)
     {
       break;
     }
 
-    v15 = v2;
-    v16 = result;
-    v17 = [result traitCollection];
+    v16 = v3;
+    v17 = v15;
+    v18 = [v15 traitCollection];
 
-    *(v12 + 32) = v17;
-    v18 = v11 + OBJC_IVAR____TtCC5Music31MultiDeviceTesterViewController10DeviceView_device;
-    v19 = *(v11 + OBJC_IVAR____TtCC5Music31MultiDeviceTesterViewController10DeviceView_device + 80);
-    v20 = objc_opt_self();
-    *(v12 + 40) = [v20 traitCollectionWithUserInterfaceIdiom:v19];
-    *(v12 + 48) = [v20 traitCollectionWithHorizontalSizeClass:*(v18 + 88)];
-    sub_100009F78(0, &unk_101183B00);
+    *(v13 + 32) = v18;
+    v19 = v12 + OBJC_IVAR____TtCC5Music31MultiDeviceTesterViewController10DeviceView_device;
+    v20 = *(v12 + OBJC_IVAR____TtCC5Music31MultiDeviceTesterViewController10DeviceView_device + 80);
+    v21 = objc_opt_self();
+    *(v13 + 40) = [v21 traitCollectionWithUserInterfaceIdiom:v20];
+    *(v13 + 48) = [v21 traitCollectionWithHorizontalSizeClass:*(v19 + 88)];
+    sub_100009F78(0, &unk_101183B00, UITraitCollection_ptr);
     isa = Array._bridgeToObjectiveC()().super.isa;
 
-    v22 = [v20 traitCollectionWithTraitsFromCollections:isa];
+    v23 = [v21 traitCollectionWithTraitsFromCollections:isa];
 
-    [v15 setOverrideTraitCollection:v22 forChildViewController:*(v11 + OBJC_IVAR____TtCC5Music31MultiDeviceTesterViewController10DeviceView_viewController)];
-    ++v7;
-    v6 = v10;
-    v23 = v27 == v10;
-    v5 = v24;
-    v2 = v15;
-    if (v23)
+    [v16 setOverrideTraitCollection:v23 forChildViewController:*(v12 + OBJC_IVAR____TtCC5Music31MultiDeviceTesterViewController10DeviceView_viewController)];
+    ++v8;
+    v7 = v11;
+    v24 = v28 == v11;
+    v6 = v25;
+    v3 = v16;
+    if (v24)
     {
+      goto LABEL_16;
     }
   }
 
   __break(1u);
-  return result;
 }
 
 void sub_10027F1B4(uint64_t a1)
@@ -119,7 +124,7 @@ void sub_10027F1B4(uint64_t a1)
 
   v14 = OBJC_IVAR____TtCC5Music31MultiDeviceTesterViewController10DeviceView_viewController;
   [v10 addChildViewController:*&v13[OBJC_IVAR____TtCC5Music31MultiDeviceTesterViewController10DeviceView_viewController]];
-  sub_10010FC20(&qword_101183990);
+  sub_10010FC20(&qword_101183990, &qword_100EBC750);
   v15 = swift_allocObject();
   *(v15 + 16) = xmmword_100EBE270;
   v16 = [v10 view];
@@ -133,7 +138,7 @@ void sub_10027F1B4(uint64_t a1)
     v20 = objc_opt_self();
     *(v15 + 40) = [v20 traitCollectionWithUserInterfaceIdiom:v19];
     *(v15 + 48) = [v20 traitCollectionWithHorizontalSizeClass:*(a1 + 88)];
-    sub_100009F78(0, &unk_101183B00);
+    sub_100009F78(0, &unk_101183B00, UITraitCollection_ptr);
     isa = Array._bridgeToObjectiveC()().super.isa;
 
     v22 = [v20 traitCollectionWithTraitsFromCollections:isa];
@@ -158,32 +163,32 @@ void sub_10027F1B4(uint64_t a1)
   __break(1u);
 }
 
-void sub_10027F4A8(uint64_t a1, void *a2)
+void sub_10027F4A8(uint64_t a1, void *a2, uint64_t a3)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v5 = Strong;
-    sub_10010FC20(&qword_101181530);
-    v6 = swift_allocObject();
-    *(v6 + 16) = xmmword_100EBC6B0;
-    *(v6 + 56) = sub_100009F78(0, &qword_101183B40);
-    *(v6 + 32) = a2;
-    v7 = objc_allocWithZone(UIActivityViewController);
-    v8 = a2;
+    v6 = Strong;
+    sub_10010FC20(&qword_101181530, &unk_100EBCFE0);
+    v7 = swift_allocObject();
+    *(v7 + 16) = xmmword_100EBC6B0;
+    *(v7 + 56) = sub_100009F78(0, &qword_101183B40, UIImage_ptr);
+    *(v7 + 32) = a2;
+    v8 = objc_allocWithZone(UIActivityViewController);
+    v9 = a2;
     isa = Array._bridgeToObjectiveC()().super.isa;
 
-    v10 = [v7 initWithActivityItems:isa applicationActivities:0];
+    v11 = [v8 initWithActivityItems:isa applicationActivities:0];
 
-    v11 = [v10 popoverPresentationController];
-    if (v11)
+    v12 = [v11 popoverPresentationController];
+    if (v12)
     {
-      v12 = v11;
-      [v11 setSourceView:a1];
+      v13 = v12;
+      [v12 setSourceView:a1];
     }
 
-    [v5 presentViewController:v10 animated:1 completion:0];
+    [v6 presentViewController:v11 animated:1 completion:0];
   }
 }
 
@@ -222,7 +227,7 @@ void sub_10027F608(void *a1, void *a2)
 void sub_10027F7A0()
 {
   v1 = [*(v0 + OBJC_IVAR____TtC5Music31MultiDeviceTesterViewController_stackView) arrangedSubviews];
-  sub_100009F78(0, &qword_101181620);
+  sub_100009F78(0, &qword_101181620, UIView_ptr);
   v2 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (!(v2 >> 62))
@@ -240,21 +245,21 @@ LABEL_15:
     type metadata accessor for JSONEncoder();
     swift_allocObject();
     JSONEncoder.init()();
-    *&v27 = v5;
-    sub_10010FC20(&qword_1011886E8);
-    sub_1002830E0(&qword_1011886F0, sub_100282C38);
+    *&v28 = v5;
+    sub_10010FC20(&qword_1011886E8, &qword_100EC43B8);
+    sub_1002830E0(&qword_1011886F0, sub_100282C38, &protocol conformance descriptor for <A> [A]);
     v22 = dispatch thunk of JSONEncoder.encode<A>(_:)();
     v24 = v23;
 
     v25 = [objc_opt_self() standardUserDefaults];
-    *(&v28 + 1) = &type metadata for Data;
-    *&v27 = v22;
-    *(&v27 + 1) = v24;
-    v26[0] = 0xD00000000000001DLL;
-    v26[1] = 0x8000000100E42E30;
+    *(&v29 + 1) = &type metadata for Data;
+    *&v28 = v22;
+    *(&v28 + 1) = v24;
+    v27[0] = 0xD00000000000001DLL;
+    v27[1] = 0x8000000100E42E30;
     sub_10002BC44(v22, v24);
-    sub_100009838();
-    NSUserDefaults.subscript.setter(&v27, v26, &type metadata for String);
+    v26 = sub_100009838();
+    NSUserDefaults.subscript.setter(&v28, v27, &type metadata for String, v26);
     sub_10002C064(v22, v24);
 
     return;
@@ -267,12 +272,12 @@ LABEL_15:
   }
 
 LABEL_3:
-  v34 = _swiftEmptyArrayStorage;
+  v35 = _swiftEmptyArrayStorage;
   sub_10066CA04(0, v3 & ~(v3 >> 63), 0);
   if ((v3 & 0x8000000000000000) == 0)
   {
     v4 = 0;
-    v5 = v34;
+    v5 = v35;
     if ((v2 & 0xC000000000000001) == 0)
     {
       goto LABEL_6;
@@ -286,38 +291,38 @@ LABEL_5:
       v8 = swift_dynamicCastClassUnconditional();
       v10 = *(v8 + OBJC_IVAR____TtCC5Music31MultiDeviceTesterViewController10DeviceView_device + 16);
       v9 = *(v8 + OBJC_IVAR____TtCC5Music31MultiDeviceTesterViewController10DeviceView_device + 32);
-      v27 = *(v8 + OBJC_IVAR____TtCC5Music31MultiDeviceTesterViewController10DeviceView_device);
-      v28 = v10;
-      v29 = v9;
+      v28 = *(v8 + OBJC_IVAR____TtCC5Music31MultiDeviceTesterViewController10DeviceView_device);
+      v29 = v10;
+      v30 = v9;
       v12 = *(v8 + OBJC_IVAR____TtCC5Music31MultiDeviceTesterViewController10DeviceView_device + 64);
       v11 = *(v8 + OBJC_IVAR____TtCC5Music31MultiDeviceTesterViewController10DeviceView_device + 80);
       v13 = *(v8 + OBJC_IVAR____TtCC5Music31MultiDeviceTesterViewController10DeviceView_device + 48);
-      v33 = *(v8 + OBJC_IVAR____TtCC5Music31MultiDeviceTesterViewController10DeviceView_device + 96);
-      v31 = v12;
-      v32 = v11;
-      v30 = v13;
-      sub_100282B34(&v27, v26);
+      v34 = *(v8 + OBJC_IVAR____TtCC5Music31MultiDeviceTesterViewController10DeviceView_device + 96);
+      v32 = v12;
+      v33 = v11;
+      v31 = v13;
+      sub_100282B34(&v28, v27);
 
-      v34 = v5;
+      v35 = v5;
       v15 = v5[2];
       v14 = v5[3];
       if (v15 >= v14 >> 1)
       {
         sub_10066CA04((v14 > 1), v15 + 1, 1);
-        v5 = v34;
+        v5 = v35;
       }
 
       v5[2] = v15 + 1;
       v16 = &v5[13 * v15];
-      v17 = v27;
-      v18 = v29;
-      *(v16 + 3) = v28;
+      v17 = v28;
+      v18 = v30;
+      *(v16 + 3) = v29;
       *(v16 + 4) = v18;
       *(v16 + 2) = v17;
-      v19 = v30;
-      v20 = v31;
-      v21 = v32;
-      *(v16 + 64) = v33;
+      v19 = v31;
+      v20 = v32;
+      v21 = v33;
+      *(v16 + 64) = v34;
       *(v16 + 6) = v20;
       *(v16 + 7) = v21;
       *(v16 + 5) = v19;
@@ -348,12 +353,12 @@ LABEL_6:
 id sub_10027FB04(uint64_t a1, uint64_t a2, void *a3)
 {
   v22 = OBJC_IVAR____TtC5Music31MultiDeviceTesterViewController_devices;
-  sub_10010FC20(&qword_101188700);
+  sub_10010FC20(&qword_101188700, &qword_100EC43C0);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_100EC3E00;
   *(v3 + 32) = 0x656E6F685069;
   *(v3 + 40) = 0xE600000000000000;
-  sub_10010FC20(&qword_101188708);
+  sub_10010FC20(&qword_101188708, &qword_100EC43C8);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_100EC3E10;
   *(v4 + 32) = 0x5320656E6F685069;
@@ -996,7 +1001,7 @@ id sub_10027FB04(uint64_t a1, uint64_t a2, void *a3)
   *(v3 + 216) = v11;
   v12 = sub_10010C884(v3);
   swift_setDeallocating();
-  sub_10010FC20(&qword_101188710);
+  sub_10010FC20(&qword_101188710, &unk_100EC43D0);
   swift_arrayDestroy();
   swift_deallocClassInstance();
   *&v23[v22] = v12;
@@ -1030,12 +1035,12 @@ id sub_10027FB04(uint64_t a1, uint64_t a2, void *a3)
 id sub_100280F64(void *a1)
 {
   v19 = OBJC_IVAR____TtC5Music31MultiDeviceTesterViewController_devices;
-  sub_10010FC20(&qword_101188700);
+  sub_10010FC20(&qword_101188700, &qword_100EC43C0);
   v1 = swift_allocObject();
   *(v1 + 16) = xmmword_100EC3E00;
   *(v1 + 32) = 0x656E6F685069;
   *(v1 + 40) = 0xE600000000000000;
-  sub_10010FC20(&qword_101188708);
+  sub_10010FC20(&qword_101188708, &qword_100EC43C8);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_100EC3E10;
   *(v2 + 32) = 0x5320656E6F685069;
@@ -1680,7 +1685,7 @@ id sub_100280F64(void *a1)
   *(v1 + 216) = v9;
   v10 = sub_10010C884(v1);
   swift_setDeallocating();
-  sub_10010FC20(&qword_101188710);
+  sub_10010FC20(&qword_101188710, &unk_100EC43D0);
   swift_arrayDestroy();
   swift_deallocClassInstance();
   *&v20[v19] = v10;
@@ -1810,101 +1815,103 @@ unint64_t sub_10028252C(Swift::String string)
   }
 }
 
-uint64_t sub_100282578@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
+void sub_100282578(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = sub_10010FC20(&qword_1011886A0);
+  v5 = sub_10010FC20(&qword_1011886A0, &qword_100EC43A8);
   v6 = *(v5 - 8);
-  __chkstk_darwin(v5);
-  v8 = &v30 - v7;
+  __chkstk_darwin();
+  v8 = &v29 - v7;
   sub_10000954C(a1, a1[3]);
   sub_100282A8C();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (v2)
   {
-    return sub_10000959C(a1);
+    sub_10000959C(a1);
   }
 
-  LOBYTE(v40) = 0;
-  v9 = KeyedDecodingContainer.decode(_:forKey:)();
-  v11 = v10;
-  v32 = v9;
-  type metadata accessor for CGSize(0);
-  LOBYTE(v33) = 1;
-  sub_100282BF0(&qword_1011886B0, type metadata accessor for CGSize);
-  KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v12 = v40;
-  v13 = v41;
-  LOBYTE(v33) = 2;
-  sub_100282AE0();
-  KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v14 = v40;
-  type metadata accessor for UIEdgeInsets(0);
-  LOBYTE(v33) = 3;
-  sub_100282BF0(&qword_1011886C0, type metadata accessor for UIEdgeInsets);
-  KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v15 = v40;
-  v16 = v41;
-  v17 = v42;
-  v18 = v43;
-  LOBYTE(v33) = 4;
-  KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v19 = v40;
-  LOBYTE(v40) = 7;
-  v20 = KeyedDecodingContainer.decode(_:forKey:)();
-  LOBYTE(v40) = 8;
-  v54 = KeyedDecodingContainer.decode(_:forKey:)();
-  LOBYTE(v40) = 5;
-  v31 = KeyedDecodingContainer.decode(_:forKey:)();
-  v55 = 6;
-  v21 = KeyedDecodingContainer.decode(_:forKey:)();
-  HIDWORD(v30) = v20 & 1;
-  v22 = v54 & 1;
-  (*(v6 + 8))(v8, v5);
-  v23 = v32;
-  *&v33 = v32;
-  *(&v33 + 1) = v11;
-  *&v34 = v12;
-  *(&v34 + 1) = v13;
-  *&v35 = v14;
-  *(&v35 + 1) = v15;
-  *&v36 = v16;
-  *(&v36 + 1) = v17;
-  *&v37 = v18;
-  *(&v37 + 1) = v19;
-  v24 = v31;
-  *&v38 = v31;
-  *(&v38 + 1) = v21;
-  v25 = BYTE4(v30);
-  LOBYTE(v39) = BYTE4(v30);
-  HIBYTE(v39) = v22;
-  sub_100282B34(&v33, &v40);
-  sub_10000959C(a1);
-  v40 = v23;
-  v41 = v11;
-  v42 = v12;
-  v43 = v13;
-  v44 = v14;
-  v45 = v15;
-  v46 = v16;
-  v47 = v17;
-  v48 = v18;
-  v49 = v19;
-  v50 = v24;
-  v51 = v21;
-  v52 = v25;
-  v53 = v22;
-  result = sub_100282B6C(&v40);
-  v27 = v38;
-  *(a2 + 64) = v37;
-  *(a2 + 80) = v27;
-  *(a2 + 96) = v39;
-  v28 = v34;
-  *a2 = v33;
-  *(a2 + 16) = v28;
-  v29 = v36;
-  *(a2 + 32) = v35;
-  *(a2 + 48) = v29;
-  return result;
+  else
+  {
+    LOBYTE(v39) = 0;
+    v9 = KeyedDecodingContainer.decode(_:forKey:)();
+    v11 = v10;
+    v31 = v9;
+    type metadata accessor for CGSize(0);
+    LOBYTE(v32) = 1;
+    sub_100282BF0(&qword_1011886B0, type metadata accessor for CGSize, &protocol conformance descriptor for CGSize);
+    KeyedDecodingContainer.decode<A>(_:forKey:)();
+    v12 = v39;
+    v13 = v40;
+    LOBYTE(v32) = 2;
+    sub_100282AE0();
+    KeyedDecodingContainer.decode<A>(_:forKey:)();
+    v14 = v39;
+    type metadata accessor for UIEdgeInsets(0);
+    LOBYTE(v32) = 3;
+    sub_100282BF0(&qword_1011886C0, type metadata accessor for UIEdgeInsets, &protocol conformance descriptor for UIEdgeInsets);
+    KeyedDecodingContainer.decode<A>(_:forKey:)();
+    v15 = v39;
+    v16 = v40;
+    v17 = v41;
+    v18 = v42;
+    LOBYTE(v32) = 4;
+    KeyedDecodingContainer.decode<A>(_:forKey:)();
+    v19 = v39;
+    LOBYTE(v39) = 7;
+    v20 = KeyedDecodingContainer.decode(_:forKey:)();
+    LOBYTE(v39) = 8;
+    v53 = KeyedDecodingContainer.decode(_:forKey:)();
+    LOBYTE(v39) = 5;
+    v30 = KeyedDecodingContainer.decode(_:forKey:)();
+    v54 = 6;
+    v21 = KeyedDecodingContainer.decode(_:forKey:)();
+    HIDWORD(v29) = v20 & 1;
+    v22 = v53 & 1;
+    (*(v6 + 8))(v8, v5);
+    v23 = v31;
+    *&v32 = v31;
+    *(&v32 + 1) = v11;
+    *&v33 = v12;
+    *(&v33 + 1) = v13;
+    *&v34 = v14;
+    *(&v34 + 1) = v15;
+    *&v35 = v16;
+    *(&v35 + 1) = v17;
+    *&v36 = v18;
+    *(&v36 + 1) = v19;
+    v24 = v30;
+    *&v37 = v30;
+    *(&v37 + 1) = v21;
+    v25 = BYTE4(v29);
+    LOBYTE(v38) = BYTE4(v29);
+    HIBYTE(v38) = v22;
+    sub_100282B34(&v32, &v39);
+    sub_10000959C(a1);
+    v39 = v23;
+    v40 = v11;
+    v41 = v12;
+    v42 = v13;
+    v43 = v14;
+    v44 = v15;
+    v45 = v16;
+    v46 = v17;
+    v47 = v18;
+    v48 = v19;
+    v49 = v24;
+    v50 = v21;
+    v51 = v25;
+    v52 = v22;
+    sub_100282B6C(&v39);
+    v26 = v37;
+    *(a2 + 64) = v36;
+    *(a2 + 80) = v26;
+    *(a2 + 96) = v38;
+    v27 = v33;
+    *a2 = v32;
+    *(a2 + 16) = v27;
+    v28 = v35;
+    *(a2 + 32) = v34;
+    *(a2 + 48) = v28;
+  }
 }
 
 unint64_t sub_100282A8C()
@@ -1943,7 +1950,7 @@ unint64_t sub_100282B9C()
   return result;
 }
 
-uint64_t sub_100282BF0(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_100282BF0(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -2049,7 +2056,7 @@ LABEL_11:
   __break(1u);
 }
 
-uint64_t sub_100282F24(uint64_t a1, void *a2)
+double sub_100282F24(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   if (a2 != 1)
   {
@@ -2080,12 +2087,12 @@ id sub_100283044()
   return [v1 drawViewHierarchyInRect:1 afterScreenUpdates:?];
 }
 
-uint64_t sub_1002830E0(unint64_t *a1, void (*a2)(void))
+uint64_t sub_1002830E0(unint64_t *a1, void (*a2)(void), uint64_t a3)
 {
   result = *a1;
   if (!result)
   {
-    sub_1001109D0(&qword_1011886E8);
+    sub_1001109D0(&qword_1011886E8, &qword_100EC43B8);
     a2();
     result = swift_getWitnessTable();
     atomic_store(result, a1);
@@ -2106,7 +2113,7 @@ unint64_t sub_100283158()
   return result;
 }
 
-uint64_t sub_1002831C8()
+uint64_t sub_1002831C8(uint64_t a1)
 {
 
   return swift_deallocObject();
@@ -2310,121 +2317,122 @@ unint64_t sub_100283448()
   return result;
 }
 
-id sub_1002834E4()
+void sub_1002834E4()
 {
   v1 = v0;
-  v2 = sub_10010FC20(&unk_101181520);
-  __chkstk_darwin(v2 - 8);
-  v51 = &v49 - v3;
-  v4 = type metadata accessor for MCDItemDetailViewController();
-  v55.receiver = v0;
-  v55.super_class = v4;
-  objc_msgSendSuper2(&v55, "viewDidLoad");
-  v5 = *&v0[OBJC_IVAR____TtC5Music27MCDItemDetailViewController_dataSource + 8];
+  sub_10010FC20(&unk_101181520, &qword_100EBCC60);
+  __chkstk_darwin();
+  v52 = &v50 - v2;
+  v3 = type metadata accessor for MCDItemDetailViewController();
+  v56.receiver = v0;
+  v56.super_class = v3;
+  objc_msgSendSuper2(&v56, "viewDidLoad");
+  v4 = *&v0[OBJC_IVAR____TtC5Music27MCDItemDetailViewController_dataSource + 8];
   ObjectType = swift_getObjectType();
-  v7 = v5[9];
-  v50 = ObjectType;
-  v7(v52, ObjectType, v5);
-  v8 = v53;
-  v9 = v54;
-  sub_10000954C(v52, v53);
-  (*(v9 + 40))(v8, v9);
-  v10 = String._bridgeToObjectiveC()();
+  v6 = v4[9];
+  v51 = ObjectType;
+  v6(v53, ObjectType, v4);
+  v7 = v54;
+  v8 = v55;
+  sub_10000954C(v53, v54);
+  (*(v8 + 40))(v7, v8);
+  v9 = String._bridgeToObjectiveC()();
 
-  sub_10000959C(v52);
-  [v0 setTitle:v10];
+  sub_10000959C(v53);
+  [v0 setTitle:v9];
 
-  v11 = [v0 navigationItem];
-  v12 = [objc_allocWithZone(UIView) init];
-  [v11 setTitleView:v12];
+  v10 = [v0 navigationItem];
+  v11 = [objc_allocWithZone(UIView) init];
+  [v10 setTitleView:v11];
 
-  result = [v1 view];
-  if (!result)
+  v12 = [v1 view];
+  if (!v12)
   {
     __break(1u);
     goto LABEL_6;
   }
 
-  v14 = result;
-  v15 = objc_opt_self();
-  v16 = [v15 clearColor];
-  [v14 setBackgroundColor:v16];
+  v13 = v12;
+  v14 = objc_opt_self();
+  v15 = [v14 clearColor];
+  [v13 setBackgroundColor:v15];
 
-  v17 = OBJC_IVAR____TtC5Music27MCDItemDetailViewController_tableView;
+  v16 = OBJC_IVAR____TtC5Music27MCDItemDetailViewController_tableView;
   [*&v1[OBJC_IVAR____TtC5Music27MCDItemDetailViewController_tableView] setAutoresizingMask:18];
-  v18 = *&v1[v17];
-  result = [v1 view];
-  if (!result)
+  v17 = *&v1[v16];
+  v18 = [v1 view];
+  if (!v18)
   {
 LABEL_6:
     __break(1u);
     goto LABEL_7;
   }
 
-  v19 = result;
-  [result bounds];
+  v19 = v18;
+  [v18 bounds];
   v21 = v20;
   v23 = v22;
   v25 = v24;
   v27 = v26;
 
-  [v18 setFrame:{v21, v23, v25, v27}];
-  result = [v1 view];
-  if (result)
+  [v17 setFrame:{v21, v23, v25, v27}];
+  v28 = [v1 view];
+  if (v28)
   {
-    v28 = result;
-    [result addSubview:*&v1[v17]];
+    v29 = v28;
+    [v28 addSubview:*&v1[v16]];
 
-    v29 = *&v1[v17];
-    v30 = [v15 clearColor];
-    [v29 setBackgroundColor:v30];
+    v30 = *&v1[v16];
+    v31 = [v14 clearColor];
+    [v30 setBackgroundColor:v31];
 
-    [*&v1[v17] setDataSource:v1];
-    [*&v1[v17] setDelegate:v1];
-    [*&v1[v17] _setHeaderAndFooterViewsFloat:0];
-    [*&v1[v17] setRemembersLastFocusedIndexPath:1];
-    [*&v1[v17] setTableHeaderView:*&v1[OBJC_IVAR____TtC5Music27MCDItemDetailViewController_mediaContainerHeader]];
-    [*&v1[v17] setForcesVerticalScrollIndicators:1];
+    [*&v1[v16] setDataSource:v1];
+    [*&v1[v16] setDelegate:v1];
+    [*&v1[v16] _setHeaderAndFooterViewsFloat:0];
+    [*&v1[v16] setRemembersLastFocusedIndexPath:1];
+    [*&v1[v16] setTableHeaderView:*&v1[OBJC_IVAR____TtC5Music27MCDItemDetailViewController_mediaContainerHeader]];
+    [*&v1[v16] setForcesVerticalScrollIndicators:1];
     sub_100283D74();
-    v31 = *&v1[v17];
-    sub_100009F78(0, &qword_101188930);
+    v32 = *&v1[v16];
+    sub_100009F78(0, &qword_101188930, UITableViewHeaderFooterView_ptr);
     ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-    v33 = v31;
-    v34 = String._bridgeToObjectiveC()();
-    [v33 registerClass:ObjCClassFromMetadata forHeaderFooterViewReuseIdentifier:v34];
+    v34 = v32;
+    v35 = String._bridgeToObjectiveC()();
+    [v34 registerClass:ObjCClassFromMetadata forHeaderFooterViewReuseIdentifier:v35];
 
-    v35 = *&v1[v17];
-    sub_100009F78(0, &qword_101188938);
-    v36 = swift_getObjCClassFromMetadata();
-    v37 = v35;
-    v38 = String._bridgeToObjectiveC()();
-    [v37 registerClass:v36 forCellReuseIdentifier:v38];
+    v36 = *&v1[v16];
+    sub_100009F78(0, &qword_101188938, UITableViewCell_ptr);
+    v37 = swift_getObjCClassFromMetadata();
+    v38 = v36;
+    v39 = String._bridgeToObjectiveC()();
+    [v38 registerClass:v37 forCellReuseIdentifier:v39];
 
-    v39 = v5[16];
-    v40 = swift_unknownObjectRetain();
-    v41 = v50;
-    v39(v40, &off_1010A32A8, v50, v5);
-    v42 = v5[19];
-    v43 = v1;
-    v42(v1, v41, v5);
+    v40 = v4[16];
+    v41 = swift_unknownObjectRetain();
+    v42 = v51;
+    v40(v41, &off_1010A32A8, v51, v4);
+    v43 = v4[19];
+    v44 = v1;
+    v43(v1, v42, v4);
     sub_100284468();
-    v44 = type metadata accessor for TaskPriority();
-    v45 = v51;
-    (*(*(v44 - 8) + 56))(v51, 1, 1, v44);
-    v46 = swift_allocObject();
-    swift_unknownObjectWeakInit();
+    v45 = type metadata accessor for TaskPriority();
+    v46 = v52;
+    (*(*(v45 - 8) + 56))(v52, 1, 1, v45);
     v47 = swift_allocObject();
-    *(v47 + 16) = &unk_100EC46A0;
-    *(v47 + 24) = v46;
-    v48 = static Task<>.delayed(by:priority:task:)(v45, &unk_100EBE9E0, v47, &type metadata for () + 8, 2.0);
+    swift_unknownObjectWeakInit();
+    v48 = swift_allocObject();
+    *(v48 + 16) = &unk_100EC46A0;
+    *(v48 + 24) = v47;
+    v49 = static Task<>.delayed(by:priority:task:)(v46, &unk_100EBE9E0, v48, (&type metadata for () + 1), 2.0);
 
-    sub_1000095E8(v45, &unk_101181520);
-    *&v43[OBJC_IVAR____TtC5Music27MCDItemDetailViewController_errorLoadingTimeout] = v48;
+    sub_1000095E8(v46, &unk_101181520, &qword_100EBCC60);
+    *&v44[OBJC_IVAR____TtC5Music27MCDItemDetailViewController_errorLoadingTimeout] = v49;
+
+    return;
   }
 
 LABEL_7:
   __break(1u);
-  return result;
 }
 
 uint64_t sub_100283AC0(uint64_t a1)
@@ -2451,191 +2459,192 @@ uint64_t sub_100283B58()
   v2 = swift_unknownObjectWeakLoadStrong();
   if (v2)
   {
-    v3 = v2;
-    v4 = sub_10028434C();
-    if (v3[OBJC_IVAR____TtC5Music27MCDItemDetailViewController_canDisplayLoadingError] == 1)
+    v4 = v2;
+    v5 = sub_10028434C(v3);
+    if (v4[OBJC_IVAR____TtC5Music27MCDItemDetailViewController_canDisplayLoadingError] == 1)
     {
-      v5 = *&v3[OBJC_IVAR____TtC5Music27MCDItemDetailViewController_dataSource + 8];
+      v6 = *&v4[OBJC_IVAR____TtC5Music27MCDItemDetailViewController_dataSource + 8];
       ObjectType = swift_getObjectType();
-      v7 = (*(v5 + 112))(ObjectType, v5);
+      v8 = (*(v6 + 112))(ObjectType, v6);
     }
 
     else
     {
-      v7 = 1;
+      v8 = 1;
     }
 
-    [v4 setHidden:v7 & 1];
+    [v5 setHidden:v8 & 1];
   }
 
   swift_beginAccess();
-  v8 = swift_unknownObjectWeakLoadStrong();
-  if (v8)
+  v9 = swift_unknownObjectWeakLoadStrong();
+  if (v9)
   {
-    v9 = *(v8 + OBJC_IVAR____TtC5Music27MCDItemDetailViewController_errorView);
-    v10 = v8;
+    v10 = *(v9 + OBJC_IVAR____TtC5Music27MCDItemDetailViewController_errorView);
     v11 = v9;
+    v12 = v10;
 
-    if (v9)
+    if (v10)
     {
-      [v11 setHidden:0];
+      [v12 setHidden:0];
     }
   }
 
   swift_beginAccess();
-  v12 = swift_unknownObjectWeakLoadStrong();
-  if (v12)
+  v13 = swift_unknownObjectWeakLoadStrong();
+  if (v13)
   {
-    *&v12[OBJC_IVAR____TtC5Music27MCDItemDetailViewController_errorLoadingTimeout] = 0;
+    *&v13[OBJC_IVAR____TtC5Music27MCDItemDetailViewController_errorLoadingTimeout] = 0;
   }
 
-  v13 = *(v0 + 8);
+  v14 = *(v0 + 8);
 
-  return v13();
+  return v14();
 }
 
 void sub_100283D74()
 {
   v1 = v0;
-  v2 = sub_10010FC20(&unk_101188920);
-  __chkstk_darwin(v2 - 8);
-  v4 = &v30 - v3;
-  v5 = *(v0 + OBJC_IVAR____TtC5Music27MCDItemDetailViewController_dataSource + 8);
+  sub_10010FC20(&unk_101188920, &qword_100EBCC50);
+  __chkstk_darwin();
+  v3 = &v29 - v2;
+  v4 = *(v0 + OBJC_IVAR____TtC5Music27MCDItemDetailViewController_dataSource + 8);
   ObjectType = swift_getObjectType();
-  v7 = (*(v5 + 40))(ObjectType, v5);
-  v8 = OBJC_IVAR____TtC5Music27MCDItemDetailViewController_mediaContainerHeader;
+  v6 = (*(v4 + 40))(ObjectType, v4);
+  v7 = OBJC_IVAR____TtC5Music27MCDItemDetailViewController_mediaContainerHeader;
   swift_getKeyPath();
-  v36 = v7;
-  sub_1002866EC(&unk_10118F210, type metadata accessor for MusicCPUIMediaContainerTableHeaderFooterView.ViewModel);
+  v35 = v6;
+  sub_1002866EC(&unk_10118F210, type metadata accessor for MusicCPUIMediaContainerTableHeaderFooterView.ViewModel, &unk_100EC2C20);
 
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  v9 = OBJC_IVAR____TtCC5Music44MusicCPUIMediaContainerTableHeaderFooterView9ViewModel__artwork;
+  v8 = OBJC_IVAR____TtCC5Music44MusicCPUIMediaContainerTableHeaderFooterView9ViewModel__artwork;
   swift_beginAccess();
-  sub_1000089F8(v7 + v9, v4, &unk_101188920);
-  sub_100261718(v4);
+  sub_1000089F8(v6 + v8, v3, &unk_101188920, &qword_100EBCC50);
+  sub_100261718(v3);
 
   swift_getKeyPath();
-  v35 = v7;
+  v34 = v6;
 
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  v10 = *(v7 + OBJC_IVAR____TtCC5Music44MusicCPUIMediaContainerTableHeaderFooterView9ViewModel__title);
-  v11 = *(v7 + OBJC_IVAR____TtCC5Music44MusicCPUIMediaContainerTableHeaderFooterView9ViewModel__title + 8);
+  v9 = *(v6 + OBJC_IVAR____TtCC5Music44MusicCPUIMediaContainerTableHeaderFooterView9ViewModel__title);
+  v10 = *(v6 + OBJC_IVAR____TtCC5Music44MusicCPUIMediaContainerTableHeaderFooterView9ViewModel__title + 8);
 
-  sub_100261EE0(v10, v11);
+  sub_100261EE0(v9, v10);
 
-  v12 = *(*(v1 + v8) + OBJC_IVAR____TtC5Music44MusicCPUIMediaContainerTableHeaderFooterView_viewModel);
+  v11 = *(*(v1 + v7) + OBJC_IVAR____TtC5Music44MusicCPUIMediaContainerTableHeaderFooterView_viewModel);
   swift_getKeyPath();
-  v35 = v7;
+  v34 = v6;
 
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  v13 = *(v7 + OBJC_IVAR____TtCC5Music44MusicCPUIMediaContainerTableHeaderFooterView9ViewModel__titleAccessory);
-  v14 = *(v7 + OBJC_IVAR____TtCC5Music44MusicCPUIMediaContainerTableHeaderFooterView9ViewModel__titleAccessory + 8);
+  v12 = *(v6 + OBJC_IVAR____TtCC5Music44MusicCPUIMediaContainerTableHeaderFooterView9ViewModel__titleAccessory);
+  v13 = *(v6 + OBJC_IVAR____TtCC5Music44MusicCPUIMediaContainerTableHeaderFooterView9ViewModel__titleAccessory + 8);
   swift_getKeyPath();
+  v31 = v11;
   v32 = v12;
   v33 = v13;
-  v34 = v14;
-  v35 = v12;
+  v34 = v11;
 
   ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
   swift_getKeyPath();
-  v35 = v7;
+  v34 = v6;
 
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  v15 = *(v7 + OBJC_IVAR____TtCC5Music44MusicCPUIMediaContainerTableHeaderFooterView9ViewModel__subtitle);
-  v16 = *(v7 + OBJC_IVAR____TtCC5Music44MusicCPUIMediaContainerTableHeaderFooterView9ViewModel__subtitle + 8);
+  v14 = *(v6 + OBJC_IVAR____TtCC5Music44MusicCPUIMediaContainerTableHeaderFooterView9ViewModel__subtitle);
+  v15 = *(v6 + OBJC_IVAR____TtCC5Music44MusicCPUIMediaContainerTableHeaderFooterView9ViewModel__subtitle + 8);
 
-  sub_100262364(v15, v16);
+  sub_100262364(v14, v15);
 
-  v31 = v8;
-  v17 = *(v1 + v8);
-  v18 = v1;
-  v19 = *(v17 + OBJC_IVAR____TtC5Music44MusicCPUIMediaContainerTableHeaderFooterView_viewModel);
+  v30 = v7;
+  v16 = *(v1 + v7);
+  v17 = v1;
+  v18 = *(v16 + OBJC_IVAR____TtC5Music44MusicCPUIMediaContainerTableHeaderFooterView_viewModel);
   swift_getKeyPath();
-  v35 = v7;
+  v34 = v6;
 
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  v20 = *(v7 + OBJC_IVAR____TtCC5Music44MusicCPUIMediaContainerTableHeaderFooterView9ViewModel__isPlayable);
-  if (v20 == *(v19 + OBJC_IVAR____TtCC5Music44MusicCPUIMediaContainerTableHeaderFooterView9ViewModel__isPlayable))
+  v19 = *(v6 + OBJC_IVAR____TtCC5Music44MusicCPUIMediaContainerTableHeaderFooterView9ViewModel__isPlayable);
+  if (v19 == *(v18 + OBJC_IVAR____TtCC5Music44MusicCPUIMediaContainerTableHeaderFooterView9ViewModel__isPlayable))
   {
-    *(v19 + OBJC_IVAR____TtCC5Music44MusicCPUIMediaContainerTableHeaderFooterView9ViewModel__isPlayable) = v20;
+    *(v18 + OBJC_IVAR____TtCC5Music44MusicCPUIMediaContainerTableHeaderFooterView9ViewModel__isPlayable) = v19;
   }
 
   else
   {
-    KeyPath = swift_getKeyPath();
-    __chkstk_darwin(KeyPath);
-    *(&v30 - 2) = v19;
-    *(&v30 - 8) = v20;
-    v35 = v19;
+    swift_getKeyPath();
+    __chkstk_darwin();
+    *(&v29 - 2) = v18;
+    *(&v29 - 8) = v19;
+    v34 = v18;
     ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
   }
 
-  v22 = v31;
-  v23 = *(v1 + v31);
-  v24 = swift_allocObject();
+  v20 = v30;
+  v21 = *(v1 + v30);
+  v22 = swift_allocObject();
   swift_unknownObjectWeakInit();
-  v25 = &v23[OBJC_IVAR____TtC5Music44MusicCPUIMediaContainerTableHeaderFooterView_playAction];
-  v26 = *&v23[OBJC_IVAR____TtC5Music44MusicCPUIMediaContainerTableHeaderFooterView_playAction];
-  *v25 = sub_100286774;
-  v25[1] = v24;
-  v27 = v23;
+  v23 = &v21[OBJC_IVAR____TtC5Music44MusicCPUIMediaContainerTableHeaderFooterView_playAction];
+  v24 = *&v21[OBJC_IVAR____TtC5Music44MusicCPUIMediaContainerTableHeaderFooterView_playAction];
+  v25 = *&v21[OBJC_IVAR____TtC5Music44MusicCPUIMediaContainerTableHeaderFooterView_playAction + 8];
+  *v23 = sub_100286774;
+  v23[1] = v22;
+  v26 = v21;
 
-  sub_100020438(v26);
+  sub_100020438(v24, v25);
 
-  v28 = *(v18 + OBJC_IVAR____TtC5Music27MCDItemDetailViewController_tableView);
-  v29 = *(v18 + v22);
+  v27 = *(v17 + OBJC_IVAR____TtC5Music27MCDItemDetailViewController_tableView);
+  v28 = *(v17 + v20);
+  [v27 frame];
+  [v28 sizeThatFits:{CGRectGetWidth(v36), 1.79769313e308}];
   [v28 frame];
-  [v29 sizeThatFits:{CGRectGetWidth(v37), 1.79769313e308}];
-  [v29 frame];
-  [v29 setFrame:?];
+  [v28 setFrame:?];
 }
 
-void sub_1002842F0(char a1)
+void sub_1002842F0(char a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v3 = Strong;
+    v4 = Strong;
     sub_100284718(a1 & 1);
   }
 }
 
-id sub_10028434C()
+id sub_10028434C(__n128 a1)
 {
-  v1 = type metadata accessor for UIContentUnavailableConfiguration();
-  v2 = *(v1 - 8);
-  __chkstk_darwin(v1);
-  v4 = &v14 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = v0 + OBJC_IVAR____TtC5Music27MCDItemDetailViewController____lazy_storage___loadingView;
-  v6 = *(v0 + OBJC_IVAR____TtC5Music27MCDItemDetailViewController____lazy_storage___loadingView);
-  if (v6)
+  v2 = type metadata accessor for UIContentUnavailableConfiguration();
+  v3 = *(v2 - 8);
+  __chkstk_darwin();
+  v5 = &v15 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = v1 + OBJC_IVAR____TtC5Music27MCDItemDetailViewController____lazy_storage___loadingView;
+  v7 = *(v1 + OBJC_IVAR____TtC5Music27MCDItemDetailViewController____lazy_storage___loadingView);
+  if (v7)
   {
-    v7 = *(v0 + OBJC_IVAR____TtC5Music27MCDItemDetailViewController____lazy_storage___loadingView);
+    v8 = *(v1 + OBJC_IVAR____TtC5Music27MCDItemDetailViewController____lazy_storage___loadingView);
   }
 
   else
   {
     static UIContentUnavailableConfiguration.loading()();
-    v8 = UIContentUnavailableConfiguration.makeContentView()();
-    v10 = v9;
-    (*(v2 + 8))(v4, v1);
-    v11 = *v5;
-    *v5 = v8;
-    *(v5 + 8) = v10;
-    v7 = v8;
+    v9 = UIContentUnavailableConfiguration.makeContentView()();
+    v11 = v10;
+    (*(v3 + 8))(v5, v2);
+    v12 = *v6;
+    *v6 = v9;
+    *(v6 + 8) = v11;
+    v8 = v9;
 
-    v6 = 0;
+    v7 = 0;
   }
 
-  v12 = v6;
-  return v7;
+  v13 = v7;
+  return v8;
 }
 
 id sub_100284468()
@@ -2643,19 +2652,19 @@ id sub_100284468()
   result = [v0 view];
   if (result)
   {
-    v2 = result;
-    v3 = sub_10028434C();
-    [v2 addSubview:v3];
+    v3 = result;
+    v4 = sub_10028434C(v2);
+    [v3 addSubview:v4];
 
-    v4 = OBJC_IVAR____TtC5Music27MCDItemDetailViewController____lazy_storage___loadingView;
-    v5 = *&v0[OBJC_IVAR____TtC5Music27MCDItemDetailViewController_tableView];
-    v6 = *&v0[OBJC_IVAR____TtC5Music27MCDItemDetailViewController____lazy_storage___loadingView];
-    [v5 frame];
-    [v6 setFrame:?];
+    v5 = OBJC_IVAR____TtC5Music27MCDItemDetailViewController____lazy_storage___loadingView;
+    v6 = *&v0[OBJC_IVAR____TtC5Music27MCDItemDetailViewController_tableView];
+    v7 = *&v0[OBJC_IVAR____TtC5Music27MCDItemDetailViewController____lazy_storage___loadingView];
+    [v6 frame];
+    [v7 setFrame:?];
 
-    v7 = *&v0[v4];
+    v8 = *&v0[v5];
 
-    return [v7 setUserInteractionEnabled:0];
+    return [v8 setUserInteractionEnabled:0];
   }
 
   else
@@ -2666,45 +2675,45 @@ id sub_100284468()
   return result;
 }
 
-id sub_100284538(uint64_t a1, uint64_t a2)
+id sub_100284538(uint64_t a1, uint64_t a2, __n128 a3)
 {
-  v3 = v2;
-  v5 = type metadata accessor for UIContentUnavailableConfiguration();
-  v6 = *(v5 - 8);
-  *&v7 = __chkstk_darwin(v5).n128_u64[0];
-  v9 = &v19 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = OBJC_IVAR____TtC5Music27MCDItemDetailViewController_errorView;
-  [*&v3[OBJC_IVAR____TtC5Music27MCDItemDetailViewController_errorView] removeFromSuperview];
+  v4 = v3;
+  v6 = type metadata accessor for UIContentUnavailableConfiguration();
+  v7 = *(v6 - 8);
+  *&v8 = __chkstk_darwin().n128_u64[0];
+  v10 = &v20 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = OBJC_IVAR____TtC5Music27MCDItemDetailViewController_errorView;
+  [*&v4[OBJC_IVAR____TtC5Music27MCDItemDetailViewController_errorView] removeFromSuperview];
   if (!a2)
   {
-    v18 = *&v3[v10];
-    *&v3[v10] = 0;
+    v19 = *&v4[v11];
+    *&v4[v11] = 0;
 
-    return [*&v3[OBJC_IVAR____TtC5Music27MCDItemDetailViewController_tableView] reloadData];
+    return [*&v4[OBJC_IVAR____TtC5Music27MCDItemDetailViewController_tableView] reloadData];
   }
 
   static UIContentUnavailableConfiguration.empty()();
 
   UIContentUnavailableConfiguration.text.setter();
-  v11 = UIContentUnavailableConfiguration.makeContentView()();
-  v12 = *&v3[v10];
-  *&v3[v10] = v11;
-  v13 = v11;
+  v12 = UIContentUnavailableConfiguration.makeContentView()();
+  v13 = *&v4[v11];
+  *&v4[v11] = v12;
+  v14 = v12;
 
-  result = [v3 view];
+  result = [v4 view];
   if (result)
   {
-    v15 = result;
-    [result addSubview:v13];
+    v16 = result;
+    [result addSubview:v14];
 
-    v16 = *&v3[OBJC_IVAR____TtC5Music27MCDItemDetailViewController_tableView];
-    v17 = v13;
-    [v16 frame];
-    [v17 setFrame:?];
+    v17 = *&v4[OBJC_IVAR____TtC5Music27MCDItemDetailViewController_tableView];
+    v18 = v14;
+    [v17 frame];
+    [v18 setFrame:?];
 
-    [v17 setHidden:(v3[OBJC_IVAR____TtC5Music27MCDItemDetailViewController_canDisplayLoadingError] & 1) == 0];
-    (*(v6 + 8))(v9, v5);
-    return [*&v3[OBJC_IVAR____TtC5Music27MCDItemDetailViewController_tableView] reloadData];
+    [v18 setHidden:(v4[OBJC_IVAR____TtC5Music27MCDItemDetailViewController_canDisplayLoadingError] & 1) == 0];
+    (*(v7 + 8))(v10, v6);
+    return [*&v4[OBJC_IVAR____TtC5Music27MCDItemDetailViewController_tableView] reloadData];
   }
 
   __break(1u);
@@ -2714,40 +2723,39 @@ id sub_100284538(uint64_t a1, uint64_t a2)
 uint64_t sub_100284718(uint64_t a1)
 {
   v2 = v1;
-  v73 = a1;
-  v3 = sub_10010FC20(&unk_101181520);
-  __chkstk_darwin(v3 - 8);
-  v76 = &v62 - v4;
-  v67 = type metadata accessor for PlaybackIntentDescriptor.IntentType(0);
-  __chkstk_darwin(v67);
-  v69 = &v62 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for PlaybackIntentDescriptor(0);
-  v71 = *(v6 - 8);
-  __chkstk_darwin(v6 - 8);
-  v74 = &v62 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v72 = v7;
-  __chkstk_darwin(v8);
-  v75 = &v62 - v9;
-  v10 = type metadata accessor for MusicPropertySource();
-  v65 = *(v10 - 8);
-  __chkstk_darwin(v10);
-  v12 = &v62 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v13);
-  v15 = &v62 - v14;
-  v16 = sub_10010FC20(&unk_101188910);
-  __chkstk_darwin(v16 - 8);
-  v66 = &v62 - v17;
-  v18 = sub_10010FC20(&unk_10118CDB0);
-  __chkstk_darwin(v18 - 8);
-  v77 = &v62 - v19;
-  v20 = type metadata accessor for MusicPlaybackIntentDescriptor();
-  v21 = *(v20 - 8);
-  *&v22 = __chkstk_darwin(v20).n128_u64[0];
-  v68 = &v62 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v24 = [v1 navigationController];
-  if (v24)
+  v67 = a1;
+  sub_10010FC20(&unk_101181520, &qword_100EBCC60);
+  __chkstk_darwin();
+  v70 = &v56 - v3;
+  v61 = type metadata accessor for PlaybackIntentDescriptor.IntentType(0);
+  __chkstk_darwin();
+  v63 = &v56 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v65 = *(type metadata accessor for PlaybackIntentDescriptor(0) - 8);
+  __chkstk_darwin();
+  v68 = &v56 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v66 = v5;
+  __chkstk_darwin();
+  v69 = &v56 - v6;
+  v7 = type metadata accessor for MusicPropertySource();
+  v59 = *(v7 - 8);
+  __chkstk_darwin();
+  v9 = &v56 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v11 = &v56 - v10;
+  sub_10010FC20(&unk_101188910, &qword_100EBE7A0);
+  __chkstk_darwin();
+  v60 = &v56 - v12;
+  sub_10010FC20(&unk_10118CDB0, &unk_100EC0360);
+  __chkstk_darwin();
+  v71 = &v56 - v13;
+  v14 = type metadata accessor for MusicPlaybackIntentDescriptor();
+  v15 = *(v14 - 8);
+  *&v16 = __chkstk_darwin().n128_u64[0];
+  v62 = &v56 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = [v1 navigationController];
+  if (v18)
   {
-    v25 = v24;
+    v19 = v18;
     type metadata accessor for CarPlayRootNavigationController();
     if (swift_dynamicCastClass())
     {
@@ -2755,105 +2763,105 @@ uint64_t sub_100284718(uint64_t a1)
     }
   }
 
-  v70 = v1;
-  v26 = *&v1[OBJC_IVAR____TtC5Music27MCDItemDetailViewController_dataSource];
-  v27 = *&v2[OBJC_IVAR____TtC5Music27MCDItemDetailViewController_dataSource + 8];
+  v64 = v1;
+  v20 = *&v1[OBJC_IVAR____TtC5Music27MCDItemDetailViewController_dataSource];
+  v21 = *&v2[OBJC_IVAR____TtC5Music27MCDItemDetailViewController_dataSource + 8];
   ObjectType = swift_getObjectType();
-  v29 = v77;
-  (*(v27 + 88))(ObjectType, v27);
-  v64 = *(v21 + 48);
-  if (v64(v29, 1, v20) == 1)
+  v23 = v71;
+  (*(v21 + 88))(ObjectType, v21);
+  v58 = *(v15 + 48);
+  if (v58(v23, 1, v14) == 1)
   {
-    (*(v27 + 72))(v84, ObjectType, v27);
-    v63 = v20;
-    v62 = v21;
-    v30 = v10;
-    v31 = v85;
-    v32 = v86;
-    v33 = sub_10000954C(v84, v85);
-    v82 = v31;
-    v83 = *(v32 + 8);
-    v34 = sub_10001C8B8(v81);
-    (*(*(v31 - 8) + 16))(v34, v33, v31);
-    v80 = 0;
-    v78 = 0u;
-    v79 = 0u;
-    (*(v27 + 80))(ObjectType, v27);
-    v35 = v65;
-    (*(v65 + 104))(v12, enum case for MusicPropertySource.catalog(_:), v30);
-    LOBYTE(v33) = static MusicPropertySource.== infix(_:_:)();
-    v36 = *(v35 + 8);
-    v36(v12, v30);
-    v37 = v30;
-    v21 = v62;
-    v36(v15, v37);
-    v38 = type metadata accessor for MusicPlaybackSource();
-    v39 = *(v38 - 8);
-    v40 = &enum case for MusicPlaybackSource.catalog(_:);
-    if ((v33 & 1) == 0)
+    (*(v21 + 72))(v78, ObjectType, v21);
+    v57 = v14;
+    v56 = v15;
+    v24 = v7;
+    v25 = v79;
+    v26 = v80;
+    v27 = sub_10000954C(v78, v79);
+    v76 = v25;
+    v77 = *(v26 + 8);
+    v28 = sub_10001C8B8(v75);
+    (*(*(v25 - 8) + 16))(v28, v27, v25);
+    v74 = 0;
+    v72 = 0u;
+    v73 = 0u;
+    (*(v21 + 80))(ObjectType, v21);
+    v29 = v59;
+    (*(v59 + 104))(v9, enum case for MusicPropertySource.catalog(_:), v24);
+    LOBYTE(v27) = static MusicPropertySource.== infix(_:_:)();
+    v30 = *(v29 + 8);
+    v30(v9, v24);
+    v31 = v24;
+    v15 = v56;
+    v30(v11, v31);
+    v32 = type metadata accessor for MusicPlaybackSource();
+    v33 = *(v32 - 8);
+    v34 = &enum case for MusicPlaybackSource.catalog(_:);
+    if ((v27 & 1) == 0)
     {
-      v40 = &enum case for MusicPlaybackSource.library(_:);
+      v34 = &enum case for MusicPlaybackSource.library(_:);
     }
 
-    v41 = v66;
-    (*(*(v38 - 8) + 104))(v66, *v40, v38);
-    v42 = v38;
-    v20 = v63;
-    (*(v39 + 56))(v41, 0, 1, v42);
-    v43 = v68;
-    v44 = v77;
+    v35 = v60;
+    (*(*(v32 - 8) + 104))(v60, *v34, v32);
+    v36 = v32;
+    v14 = v57;
+    (*(v33 + 56))(v35, 0, 1, v36);
+    v37 = v62;
+    v38 = v71;
     MusicPlaybackIntentDescriptor.init(container:startingAt:playbackSource:)();
-    sub_10000959C(v84);
-    if (v64(v44, 1, v20) != 1)
+    sub_10000959C(v78);
+    if (v58(v38, 1, v14) != 1)
     {
-      sub_1000095E8(v44, &unk_10118CDB0);
+      sub_1000095E8(v38, &unk_10118CDB0, &unk_100EC0360);
     }
   }
 
   else
   {
-    v43 = v68;
-    (*(v21 + 32))(v68, v29, v20);
+    v37 = v62;
+    (*(v15 + 32))(v62, v23, v14);
   }
 
-  v45 = v69;
-  (*(v21 + 16))(v69, v43, v20);
+  v39 = v63;
+  (*(v15 + 16))(v63, v37, v14);
   swift_storeEnumTagMultiPayload();
-  (*(v27 + 72))(v81, ObjectType, v27);
-  v46 = v20;
-  v47 = v82;
-  v48 = v83;
-  v49 = sub_10000954C(v81, v82);
-  v85 = v47;
-  v86 = *(*(*(v48 + 8) + 8) + 8);
-  v50 = sub_10001C8B8(v84);
-  (*(*(v47 - 8) + 16))(v50, v49, v47);
-  v51 = *(v27 + 8);
-  *(&v79 + 1) = ObjectType;
-  v80 = v51;
-  *&v78 = v26;
+  (*(v21 + 72))(v75, ObjectType, v21);
+  v40 = v14;
+  v41 = v76;
+  v42 = v77;
+  v43 = sub_10000954C(v75, v76);
+  v79 = v41;
+  v80 = *(*(*(v42 + 8) + 8) + 8);
+  v44 = sub_10001C8B8(v78);
+  (*(*(v41 - 8) + 16))(v44, v43, v41);
+  v45 = *(v21 + 8);
+  *(&v73 + 1) = ObjectType;
+  v74 = v45;
+  *&v72 = v20;
   swift_unknownObjectRetain();
-  v52 = v70;
-  v53 = v70;
-  v54 = v75;
-  PlaybackIntentDescriptor.init(intentType:representedObject:intentOptions:replaceIntent:shuffleMode:repeatMode:sourceViewController:issuer:forceSharePlayPrompt:)(v45, v84, 3, 1, v73 & 1, 0, 0, 1, v75, v52, &v78);
-  sub_10000959C(v81);
-  v55 = type metadata accessor for TaskPriority();
-  v56 = v76;
-  (*(*(v55 - 8) + 56))(v76, 1, 1, v55);
-  v57 = v74;
-  sub_1001DFCE4(v54, v74);
+  v46 = v64;
+  v47 = v64;
+  v48 = v69;
+  PlaybackIntentDescriptor.init(intentType:representedObject:intentOptions:replaceIntent:shuffleMode:repeatMode:sourceViewController:issuer:forceSharePlayPrompt:)(v39, v78, 3, 1, v67 & 1, 0, 0, 1, v69, v46, &v72);
+  sub_10000959C(v75);
+  v49 = type metadata accessor for TaskPriority();
+  v50 = v70;
+  (*(*(v49 - 8) + 56))(v70, 1, 1, v49);
+  v51 = v68;
+  sub_1001DFCE4(v48, v68);
   type metadata accessor for MainActor();
-  v58 = static MainActor.shared.getter();
-  v59 = (*(v71 + 80) + 32) & ~*(v71 + 80);
-  v60 = swift_allocObject();
-  *(v60 + 16) = v58;
-  *(v60 + 24) = &protocol witness table for MainActor;
-  sub_1001DFD58(v57, v60 + v59);
-  sub_1001F4CB8(0, 0, v56, &unk_100EC45C0, v60);
+  v52 = static MainActor.shared.getter();
+  v53 = (*(v65 + 80) + 32) & ~*(v65 + 80);
+  v54 = swift_allocObject();
+  *(v54 + 16) = v52;
+  *(v54 + 24) = &protocol witness table for MainActor;
+  sub_1001DFD58(v51, v54 + v53);
+  sub_1001F4CB8(0, 0, v50, &unk_100EC45C0, v54);
 
-  sub_100188CDC(v54);
-  return (*(v21 + 8))(v43, v46);
+  sub_100188CDC(v48);
+  return (*(v15 + 8))(v37, v40);
 }
 
 uint64_t sub_100284FB8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -2965,86 +2973,84 @@ uint64_t sub_10028535C()
   return v16();
 }
 
-id sub_10028555C(uint64_t a1)
+void sub_10028555C(uint64_t a1)
 {
-  v3 = type metadata accessor for Locale();
-  __chkstk_darwin(v3 - 8);
-  v4 = type metadata accessor for String.LocalizationValue();
-  __chkstk_darwin(v4 - 8);
-  v5 = sub_10010FC20(&unk_101188900);
-  __chkstk_darwin(v5);
-  v7 = &v16[-v6];
-  sub_1000089F8(a1, &v16[-v6], &unk_101188900);
-  v8 = _s14descr101094081C15DataSourceErrorOMa();
-  if ((*(*(v8 - 8) + 48))(v7, 1, v8) == 1)
+  type metadata accessor for Locale();
+  __chkstk_darwin();
+  type metadata accessor for String.LocalizationValue();
+  __chkstk_darwin();
+  sub_10010FC20(&unk_101188900, &qword_100ED9260);
+  __chkstk_darwin();
+  v4 = &v13[-v3];
+  sub_1000089F8(a1, &v13[-v3], &unk_101188900, &qword_100ED9260);
+  v5 = _s14descr101094081C15DataSourceErrorOMa(0);
+  if ((*(*(v5 - 8) + 48))(v4, 1, v5) == 1)
   {
-    v9 = OBJC_IVAR____TtC5Music27MCDItemDetailViewController_errorView;
+    v6 = OBJC_IVAR____TtC5Music27MCDItemDetailViewController_errorView;
     [*(v1 + OBJC_IVAR____TtC5Music27MCDItemDetailViewController_errorView) removeFromSuperview];
-    v10 = *(v1 + v9);
-    *(v1 + v9) = 0;
+    v7 = *(v1 + v6);
+    *(v1 + v6) = 0;
 
-    return [*(v1 + OBJC_IVAR____TtC5Music27MCDItemDetailViewController_tableView) reloadData];
+    [*(v1 + OBJC_IVAR____TtC5Music27MCDItemDetailViewController_tableView) reloadData];
   }
 
   else
   {
-    v12 = type metadata accessor for MusicPropertySource();
-    v13 = (*(*(v12 - 8) + 88))(v7, v12);
-    if (v13 == enum case for MusicPropertySource.catalog(_:) || v13 == enum case for MusicPropertySource.library(_:))
+    v8 = type metadata accessor for MusicPropertySource();
+    v9 = (*(*(v8 - 8) + 88))(v4, v8);
+    if (v9 == enum case for MusicPropertySource.catalog(_:) || v9 == enum case for MusicPropertySource.library(_:))
     {
       String.LocalizationValue.init(stringLiteral:)();
       static Locale.current.getter();
-      v14 = String.init(localized:table:bundle:locale:comment:)();
-      sub_100284538(v14, v15);
+      v10 = String.init(localized:table:bundle:locale:comment:)();
+      sub_100284538(v10, v11, v12);
     }
 
     else
     {
-      result = _diagnoseUnexpectedEnumCase<A>(type:)();
+      _diagnoseUnexpectedEnumCase<A>(type:)();
       __break(1u);
     }
   }
-
-  return result;
 }
 
 id sub_100285980(void *a1, uint64_t a2)
 {
-  v5 = sub_10010FC20(&qword_1011888C0);
-  __chkstk_darwin(v5 - 8);
-  v7 = &v22[-1] - v6;
-  v8 = *(v2 + OBJC_IVAR____TtC5Music27MCDItemDetailViewController_dataSource + 8);
+  sub_10010FC20(&qword_1011888C0, &qword_100EC2FA0);
+  __chkstk_darwin();
+  v6 = &v20[-1] - v5;
+  v7 = *(v2 + OBJC_IVAR____TtC5Music27MCDItemDetailViewController_dataSource + 8);
   ObjectType = swift_getObjectType();
-  v10 = (*(v8 + 32))(a2, ObjectType, v8);
-  if (!v11)
+  v9 = (*(v7 + 32))(a2, ObjectType, v7);
+  if (!v10)
   {
     return 0;
   }
 
+  v11 = v9;
   v12 = v10;
-  v13 = v11;
-  v14 = String._bridgeToObjectiveC()();
-  v15 = [a1 dequeueReusableHeaderFooterViewWithIdentifier:v14];
+  v13 = String._bridgeToObjectiveC()();
+  v14 = [a1 dequeueReusableHeaderFooterViewWithIdentifier:v13];
 
-  if (v15)
+  if (v14)
   {
-    __chkstk_darwin(v16);
-    *(&v21 - 2) = v12;
-    *(&v21 - 1) = v13;
-    v22[3] = sub_10010FC20(&qword_1011888C8);
-    v22[4] = sub_100286450();
-    sub_10001C8B8(v22);
-    v17 = v15;
-    sub_10010FC20(&qword_1011888D8);
+    __chkstk_darwin();
+    *(&v19 - 2) = v11;
+    *(&v19 - 1) = v12;
+    v20[3] = sub_10010FC20(&qword_1011888C8, &qword_100EC4568);
+    v20[4] = sub_100286450();
+    sub_10001C8B8(v20);
+    v15 = v14;
+    sub_10010FC20(&qword_1011888D8, &unk_100EC4570);
     sub_1002864B4();
     UIHostingConfiguration<>.init(content:)();
 
     UITableViewHeaderFooterView.contentConfiguration.setter();
 
-    v18 = v17;
+    v16 = v15;
     static UIBackgroundConfiguration.clear()();
-    v19 = type metadata accessor for UIBackgroundConfiguration();
-    (*(*(v19 - 8) + 56))(v7, 0, 1, v19);
+    v17 = type metadata accessor for UIBackgroundConfiguration();
+    (*(*(v17 - 8) + 56))(v6, 0, 1, v17);
     UITableViewHeaderFooterView.backgroundConfiguration.setter();
   }
 
@@ -3052,60 +3058,60 @@ id sub_100285980(void *a1, uint64_t a2)
   {
   }
 
-  return v15;
+  return v14;
 }
 
-uint64_t sub_100285BCC@<X0>(uint64_t a1@<X8>)
+uint64_t sub_100285BCC@<X0>(uint64_t a3@<X8>)
 {
   sub_100009838();
 
-  v2 = Text.init<A>(_:)();
-  v4 = v3;
+  v4 = Text.init<A>(_:)();
   v6 = v5;
+  v8 = v7;
   static Font.caption.getter();
-  v7 = Text.font(_:)();
-  v9 = v8;
+  v9 = Text.font(_:)();
   v11 = v10;
+  v13 = v12;
 
-  sub_10011895C(v2, v4, v6 & 1);
+  sub_10011895C(v4, v6, v8 & 1);
 
   static HierarchicalShapeStyle.secondary.getter();
-  v12 = Text.foregroundStyle<A>(_:)();
-  v14 = v13;
+  v14 = Text.foregroundStyle<A>(_:)();
   v16 = v15;
   v18 = v17;
-  sub_10011895C(v7, v9, v11 & 1);
+  v20 = v19;
+  sub_10011895C(v9, v11, v13 & 1);
 
-  v19 = *(sub_10010FC20(&qword_1011888F0) + 36);
-  *(a1 + v19) = swift_getKeyPath();
-  sub_10010FC20(&unk_10118F250);
+  v21 = *(sub_10010FC20(&qword_1011888F0, &qword_100EC2E88) + 36);
+  *(a3 + v21) = swift_getKeyPath();
+  sub_10010FC20(&unk_10118F250, &qword_100EC45B0);
   swift_storeEnumTagMultiPayload();
-  *a1 = v12;
-  *(a1 + 8) = v14;
-  *(a1 + 16) = v16 & 1;
-  *(a1 + 24) = v18;
-  LOBYTE(v12) = static Edge.Set.top.getter();
+  *a3 = v14;
+  *(a3 + 8) = v16;
+  *(a3 + 16) = v18 & 1;
+  *(a3 + 24) = v20;
+  LOBYTE(v14) = static Edge.Set.top.getter();
   EdgeInsets.init(_all:)();
-  v21 = v20;
   v23 = v22;
   v25 = v24;
   v27 = v26;
-  result = sub_10010FC20(&qword_1011888D8);
-  v29 = a1 + *(result + 36);
-  *v29 = v12;
-  *(v29 + 8) = v21;
-  *(v29 + 16) = v23;
-  *(v29 + 24) = v25;
-  *(v29 + 32) = v27;
-  *(v29 + 40) = 0;
+  v29 = v28;
+  result = sub_10010FC20(&qword_1011888D8, &unk_100EC4570);
+  v31 = a3 + *(result + 36);
+  *v31 = v14;
+  *(v31 + 8) = v23;
+  *(v31 + 16) = v25;
+  *(v31 + 24) = v27;
+  *(v31 + 32) = v29;
+  *(v31 + 40) = 0;
   return result;
 }
 
-id sub_100286364()
+id sub_100286364(__n128 a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for MCDItemDetailViewController();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for MCDItemDetailViewController();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 unint64_t sub_100286450()
@@ -3113,7 +3119,7 @@ unint64_t sub_100286450()
   result = qword_1011888D0;
   if (!qword_1011888D0)
   {
-    sub_1001109D0(&qword_1011888C8);
+    sub_1001109D0(&qword_1011888C8, &qword_100EC4568);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1011888D0);
   }
@@ -3126,7 +3132,7 @@ unint64_t sub_1002864B4()
   result = qword_1011888E0;
   if (!qword_1011888E0)
   {
-    sub_1001109D0(&qword_1011888D8);
+    sub_1001109D0(&qword_1011888D8, &unk_100EC4570);
     sub_100286540();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1011888E0);
@@ -3140,8 +3146,8 @@ unint64_t sub_100286540()
   result = qword_1011888E8;
   if (!qword_1011888E8)
   {
-    sub_1001109D0(&qword_1011888F0);
-    sub_1002866EC(&qword_1011888F8, type metadata accessor for VibrancyModifier);
+    sub_1001109D0(&qword_1011888F0, &qword_100EC2E88);
+    sub_1002866EC(&qword_1011888F8, type metadata accessor for VibrancyModifier, &unk_100EDF894);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1011888E8);
   }
@@ -3163,7 +3169,7 @@ uint64_t sub_1002865FC(uint64_t a1)
   return sub_100284FB8(a1, v6, v7, v1 + v5);
 }
 
-uint64_t sub_1002866EC(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1002866EC(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -3203,10 +3209,10 @@ void sub_10028680C()
   __break(1u);
 }
 
-uint64_t sub_1002868EC()
+uint64_t sub_1002868EC(uint64_t a1)
 {
   result = type metadata accessor for URL();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_initClassMetadata2();
     if (!result)
@@ -3223,48 +3229,48 @@ uint64_t sub_1002869C4()
   v0 = type metadata accessor for Logger();
   sub_100006080(v0, qword_101188940);
   sub_1000060E4(v0, qword_101188940);
-  return static Logger.music(_:)();
+  return static Logger.music(_:)(0x524C746567646957, 0xEE00656863614355);
 }
 
-uint64_t sub_100286A34()
+void sub_100286A34()
 {
-  v1 = sub_10010FC20(&qword_101188C20);
-  __chkstk_darwin(v1 - 8);
-  v44 = &v43 - v2;
-  v46[0] = type metadata accessor for String.Encoding();
-  v3 = *(v46[0] - 8);
-  __chkstk_darwin(v46[0]);
-  v5 = &v43 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = v0[1];
-  v46[7] = *v0;
-  v46[8] = v6;
-  v7 = v0[3];
-  v46[9] = v0[2];
-  v46[10] = v7;
-  v9 = v0[4];
-  v8 = v0[5];
-  v45 = v0;
-  v46[11] = v9;
-  v46[12] = v8;
+  sub_10010FC20(&qword_101188C20, &qword_100EC2030);
+  __chkstk_darwin();
+  v42 = &v41 - v1;
+  v44[0] = type metadata accessor for String.Encoding();
+  v2 = *(v44[0] - 8);
+  __chkstk_darwin();
+  v4 = &v41 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = v0[1];
+  v44[7] = *v0;
+  v44[8] = v5;
+  v6 = v0[3];
+  v44[9] = v0[2];
+  v44[10] = v6;
+  v8 = v0[4];
+  v7 = v0[5];
+  v43 = v0;
+  v44[11] = v8;
+  v44[12] = v7;
 
-  v11 = 0;
-  v12 = _swiftEmptyArrayStorage;
+  v9 = 0;
+  v10 = _swiftEmptyArrayStorage;
 LABEL_2:
-  if (v11 <= 3)
+  if (v9 <= 3)
   {
-    v13 = 3;
+    v11 = 3;
   }
 
   else
   {
-    v13 = v11;
+    v11 = v9;
   }
 
-  v14 = v13 + 1;
-  v15 = 16 * v11 + 40;
-  while (v11 != 3)
+  v12 = v11 + 1;
+  v13 = 16 * v9 + 40;
+  while (v9 != 3)
   {
-    if (v14 == ++v11)
+    if (v12 == ++v9)
     {
       __break(1u);
 LABEL_32:
@@ -3272,142 +3278,136 @@ LABEL_32:
       goto LABEL_33;
     }
 
-    v16 = v15 + 16;
-    v17 = *(&v46[3] + v15);
-    v15 += 16;
-    if (v17)
+    v14 = v13 + 16;
+    v15 = *(&v44[3] + v13);
+    v13 += 16;
+    if (v15)
     {
-      v18 = *(v46 + v16);
+      v16 = *(v44 + v14);
 
-      result = swift_isUniquelyReferenced_nonNull_native();
-      if ((result & 1) == 0)
+      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        result = sub_100498B7C(0, v12[2] + 1, 1, v12);
-        v12 = result;
+        v10 = sub_100498B7C(0, *(v10 + 2) + 1, 1, v10);
       }
 
-      v20 = v12[2];
-      v19 = v12[3];
-      if (v20 >= v19 >> 1)
+      v18 = *(v10 + 2);
+      v17 = *(v10 + 3);
+      if (v18 >= v17 >> 1)
       {
-        result = sub_100498B7C((v19 > 1), v20 + 1, 1, v12);
-        v12 = result;
+        v10 = sub_100498B7C((v17 > 1), v18 + 1, 1, v10);
       }
 
-      v12[2] = v20 + 1;
-      v21 = &v12[2 * v20];
-      v21[4] = v18;
-      v21[5] = v17;
+      *(v10 + 2) = v18 + 1;
+      v19 = &v10[16 * v18];
+      *(v19 + 4) = v16;
+      *(v19 + 5) = v15;
       goto LABEL_2;
     }
   }
 
-  sub_10010FC20(&qword_1011815E0);
-  result = swift_arrayDestroy();
-  v22 = 0;
-  v23 = (v3 + 8);
-  v24 = v12 + 5;
-  v25 = -v12[2];
-  v26 = -1;
-  while (v25 + v26 != -1)
+  sub_10010FC20(&qword_1011815E0, &qword_100EBD050);
+  swift_arrayDestroy();
+  v20 = 0;
+  v21 = (v2 + 8);
+  v22 = (v10 + 40);
+  v23 = -*(v10 + 2);
+  v24 = -1;
+  while (v23 + v24 != -1)
   {
-    if (++v26 >= v12[2])
+    if (++v24 >= *(v10 + 2))
     {
       goto LABEL_32;
     }
 
-    v27 = v24 + 2;
-    v28 = *v24;
-    v46[1] = *(v24 - 1);
-    v46[2] = v28;
+    v25 = v22 + 2;
+    v26 = *v22;
+    v44[1] = *(v22 - 1);
+    v44[2] = v26;
 
     static String.Encoding.utf8.getter();
     sub_100009838();
-    v29 = StringProtocol.lengthOfBytes(using:)();
-    (*v23)(v5, v46[0]);
+    v27 = StringProtocol.lengthOfBytes(using:)();
+    (*v21)(v4, v44[0]);
 
-    v24 = v27;
-    v30 = __OFADD__(v22, v29);
-    v22 += v29;
-    if (v30)
+    v22 = v25;
+    v28 = __OFADD__(v20, v27);
+    v20 += v27;
+    if (v28)
     {
       __break(1u);
       break;
     }
   }
 
-  v31 = type metadata accessor for PosterWidgetConfiguration.BasicMusicItem();
-  v33 = v44;
-  v32 = v45;
-  sub_100288264(v45 + *(v31 + 32), v44);
-  v34 = type metadata accessor for Date();
-  v35 = (*(*(v34 - 8) + 48))(v33, 1, v34) != 1;
-  sub_1002882D4(v33);
-  result = *(v32 + *(v31 + 40));
-  if (!result)
+  v29 = type metadata accessor for PosterWidgetConfiguration.BasicMusicItem(0);
+  v31 = v42;
+  v30 = v43;
+  sub_100288264(v43 + *(v29 + 32), v42);
+  v32 = type metadata accessor for Date();
+  v33 = (*(*(v32 - 8) + 48))(v31, 1, v32) != 1;
+  sub_1002882D4(v31);
+  v34 = *(v30 + *(v29 + 40));
+  if (!v34)
   {
     goto LABEL_25;
   }
 
-  result = [result size];
-  v38 = v36 * v37;
-  if ((*&v38 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
+  [v34 size];
+  v37 = v35 * v36;
+  if ((*&v37 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
   {
     goto LABEL_38;
   }
 
-  if (v38 <= -9.22337204e18)
+  if (v37 <= -9.22337204e18)
   {
 LABEL_33:
     __break(1u);
     goto LABEL_34;
   }
 
-  if (v38 >= 9.22337204e18)
+  if (v37 >= 9.22337204e18)
   {
     __break(1u);
 LABEL_25:
-    v38 = 0.0;
+    v37 = 0.0;
   }
 
-  if ((v38 - 0x2000000000000000) >> 62 != 3)
+  if ((v37 - 0x2000000000000000) >> 62 != 3)
   {
 LABEL_34:
     __break(1u);
     goto LABEL_35;
   }
 
-  v39 = 8 * v35;
-  v30 = __OFADD__(v22, v39);
-  v40 = v22 + v39;
-  if (v30)
+  v38 = 8 * v33;
+  v28 = __OFADD__(v20, v38);
+  v39 = v20 + v38;
+  if (v28)
   {
 LABEL_35:
     __break(1u);
     goto LABEL_36;
   }
 
-  v30 = __OFADD__(v40, 2);
-  v41 = v40 + 2;
-  if (v30)
+  v28 = __OFADD__(v39, 2);
+  v40 = v39 + 2;
+  if (v28)
   {
 LABEL_36:
     __break(1u);
     goto LABEL_37;
   }
 
-  v42 = 4 * v38;
-  result = v41 + v42;
-  if (!__OFADD__(v41, v42))
+  if (!__OFADD__(v40, 4 * v37))
   {
-    return result;
+    return;
   }
 
 LABEL_37:
   __break(1u);
 LABEL_38:
   __break(1u);
-  return result;
 }
 
 uint64_t sub_100286E28@<X0>(void *a1@<X8>)
@@ -3446,255 +3446,255 @@ uint64_t (*sub_100286EA8(uint64_t a1, uint64_t a2))()
 uint64_t sub_100286F04()
 {
   v1 = v0;
-  v2 = v113;
-  v3 = sub_10010FC20(&qword_101188C20);
-  __chkstk_darwin(v3 - 8);
-  v100 = &v86 - v4;
-  v5 = type metadata accessor for String.Encoding();
-  v101 = *(v5 - 8);
-  __chkstk_darwin(v5);
-  v103 = &v86 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = *v0;
-  v102 = *(v0 + 1);
-  v115 = v102;
-  v8 = v0[3];
-  v9 = *(v1 + 32);
-  v10 = *(v1 + 40);
-  v114 = v7;
+  v2 = v112;
+  sub_10010FC20(&qword_101188C20, &qword_100EC2030);
+  __chkstk_darwin();
+  v99 = &v85 - v3;
+  v4 = type metadata accessor for String.Encoding();
+  v100 = *(v4 - 8);
+  __chkstk_darwin();
+  v102 = &v85 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = *v0;
+  v101 = *(v0 + 1);
+  v114 = v101;
+  v7 = v0[3];
+  v8 = *(v1 + 32);
+  v9 = *(v1 + 40);
+  v113 = v6;
+  v115 = v7;
   v116 = v8;
   v117 = v9;
-  v118 = v10;
-  v11 = type metadata accessor for WidgetMusicItem();
-  v12 = *(v11 + 28);
+  v10 = type metadata accessor for WidgetMusicItem(0);
+  v11 = *(v10 + 28);
 
-  v119 = URL.absoluteString.getter();
-  v120 = v13;
-  v92 = v11;
-  v14 = *(v1 + *(v11 + 32));
-  if (v14 <= 3)
+  v118 = URL.absoluteString.getter();
+  v119 = v12;
+  v91 = v10;
+  v13 = *(v1 + *(v10 + 32));
+  if (v13 <= 3)
   {
-    if (*(v1 + *(v11 + 32)) > 1u)
+    if (*(v1 + *(v10 + 32)) > 1u)
     {
-      if (v14 == 2)
+      if (v13 == 2)
       {
-        v15 = xmmword_100EC4710;
+        v14 = xmmword_100EC4710;
       }
 
       else
       {
-        v15 = xmmword_100EC4700;
+        v14 = xmmword_100EC4700;
       }
     }
 
-    else if (*(v1 + *(v11 + 32)))
+    else if (*(v1 + *(v10 + 32)))
     {
-      v15 = xmmword_100EC4720;
+      v14 = xmmword_100EC4720;
     }
 
     else
     {
-      v15 = xmmword_100EC46B0;
+      v14 = xmmword_100EC46B0;
     }
 
     goto LABEL_18;
   }
 
-  if (*(v1 + *(v11 + 32)) <= 5u)
+  if (*(v1 + *(v10 + 32)) <= 5u)
   {
-    if (v14 == 4)
+    if (v13 == 4)
     {
-      v15 = xmmword_100EC46F0;
+      v14 = xmmword_100EC46F0;
     }
 
     else
     {
-      v15 = xmmword_100EC46E0;
+      v14 = xmmword_100EC46E0;
     }
 
     goto LABEL_18;
   }
 
-  if (v14 == 6)
+  if (v13 == 6)
   {
-    v15 = xmmword_100EC46D0;
+    v14 = xmmword_100EC46D0;
     goto LABEL_18;
   }
 
-  if (v14 == 7)
+  if (v13 == 7)
   {
-    v15 = xmmword_100EC46C0;
+    v14 = xmmword_100EC46C0;
 LABEL_18:
-    v121 = v15;
+    v120 = v14;
     goto LABEL_19;
   }
 
-  v121 = 0uLL;
+  v120 = 0uLL;
 LABEL_19:
-  v16 = (v1 + v92[9]);
-  v17 = v16[1];
-  v122 = *v16;
-  v123 = v17;
-  v18 = (v1 + v92[10]);
-  v19 = v18[1];
-  if (v19)
+  v15 = (v1 + v91[9]);
+  v16 = v15[1];
+  v121 = *v15;
+  v122 = v16;
+  v17 = (v1 + v91[10]);
+  v18 = v17[1];
+  if (v18)
   {
-    v20 = *v18;
+    v19 = *v17;
   }
 
   else
   {
-    v20 = 0;
+    v19 = 0;
   }
 
-  v124 = v20;
-  v125 = v19;
-  v21 = (v1 + v92[11]);
-  v22 = v21[1];
-  v126 = *v21;
-  v127 = v22;
-  v23 = (v1 + v92[12]);
-  v24 = v23[1];
-  v95 = v5;
-  if (v24)
+  v123 = v19;
+  v124 = v18;
+  v20 = (v1 + v91[11]);
+  v21 = v20[1];
+  v125 = *v20;
+  v126 = v21;
+  v22 = (v1 + v91[12]);
+  v23 = v22[1];
+  v94 = v4;
+  if (v23)
   {
-    v25 = *v23;
+    v24 = *v22;
   }
 
   else
   {
-    v25 = 0;
+    v24 = 0;
   }
 
-  v128 = v25;
-  v129 = v24;
-  v26 = (v1 + v92[13]);
-  v27 = v26[1];
-  if (v27)
+  v127 = v24;
+  v128 = v23;
+  v25 = (v1 + v91[13]);
+  v26 = v25[1];
+  if (v26)
   {
-    v28 = *v26;
+    v27 = *v25;
   }
 
   else
   {
-    v28 = 0;
+    v27 = 0;
   }
 
-  v130 = v28;
-  v131 = v27;
-  v29 = (v1 + v92[14]);
-  v30 = v29[1];
-  v132 = *v29;
-  v133 = v30;
-  v31 = v92[19];
-  v91 = v1;
-  v32 = (v1 + v31);
-  v33 = v32[1];
-  v134 = *v32;
-  v135 = v33;
+  v129 = v27;
+  v130 = v26;
+  v28 = (v1 + v91[14]);
+  v29 = v28[1];
+  v131 = *v28;
+  v132 = v29;
+  v30 = v91[19];
+  v90 = v1;
+  v31 = (v1 + v30);
+  v32 = v31[1];
+  v133 = *v31;
+  v134 = v32;
 
-  v34 = 0;
-  v35 = _swiftEmptyArrayStorage;
-  v36 = 12;
-  v37 = v113;
+  v33 = 0;
+  v34 = _swiftEmptyArrayStorage;
+  v35 = 12;
+  v36 = v112;
 LABEL_29:
-  if (v34 <= 0xC)
+  if (v33 <= 0xC)
   {
-    v38 = 12;
+    v37 = 12;
   }
 
   else
   {
-    v38 = v34;
+    v37 = v33;
   }
 
-  v39 = v38 + 1;
-  v40 = 16 * v34 + 40;
-  v41 = v95;
+  v38 = v37 + 1;
+  v39 = 16 * v33 + 40;
+  v40 = v94;
   while (1)
   {
-    if (v34 == 12)
+    if (v33 == 12)
     {
-      sub_10010FC20(&qword_1011815E0);
+      sub_10010FC20(&qword_1011815E0, &qword_100EBD050);
       swift_arrayDestroy();
-      v19 = 0;
-      v46 = *(v35 + 2);
-      *&v102 = v101 + 8;
-      v39 = (v35 + 40);
-      v12 = -v46;
-      v36 = -1;
+      v18 = 0;
+      v45 = *(v34 + 2);
+      *&v101 = v100 + 8;
+      v38 = (v34 + 40);
+      v11 = -v45;
+      v35 = -1;
       do
       {
-        if (v12 + v36 == -1)
+        if (v11 + v35 == -1)
         {
           goto LABEL_47;
         }
 
-        if (++v36 >= *(v35 + 2))
+        if (++v35 >= *(v34 + 2))
         {
           goto LABEL_90;
         }
 
-        v37 = (v39 + 16);
-        v34 = *v39;
-        v111 = *(v39 - 8);
-        v112 = v34;
+        v36 = (v38 + 16);
+        v33 = *v38;
+        v110 = *(v38 - 8);
+        v111 = v33;
 
-        v2 = v103;
+        v2 = v102;
         static String.Encoding.utf8.getter();
         sub_100009838();
-        v17 = StringProtocol.lengthOfBytes(using:)();
-        (*v102)(v2, v41);
+        v16 = StringProtocol.lengthOfBytes(using:)();
+        (*v101)(v2, v40);
 
-        v39 = v37;
-        v47 = __OFADD__(v19, v17);
-        v19 += v17;
+        v38 = v36;
+        v46 = __OFADD__(v18, v16);
+        v18 += v16;
       }
 
-      while (!v47);
+      while (!v46);
       __break(1u);
 LABEL_47:
-      v90 = v19;
+      v89 = v18;
 
+      v47 = v90;
       v48 = v91;
-      v49 = v92;
-      v50 = v100;
-      sub_100288264(v91 + v92[17], v100);
-      v51 = type metadata accessor for Date();
-      v89 = (*(*(v51 - 8) + 48))(v50, 1, v51) != 1;
-      sub_1002882D4(v50);
-      sub_10010FC20(&qword_101188C28);
+      v49 = v99;
+      sub_100288264(v90 + v91[17], v99);
+      v50 = type metadata accessor for Date();
+      v88 = (*(*(v50 - 8) + 48))(v49, 1, v50) != 1;
+      sub_1002882D4(v49);
+      sub_10010FC20(&qword_101188C28, &qword_100EC4868);
       inited = swift_initStackObject();
       *(inited + 16) = xmmword_100EBDC20;
-      v53 = v48 + v49[21];
-      v2 = *v53;
-      v37 = *(v53 + 8);
-      v35 = *(v53 + 16);
-      LOBYTE(v53) = *(v53 + 24);
+      v52 = v47 + v48[21];
+      v2 = *v52;
+      v36 = *(v52 + 8);
+      v34 = *(v52 + 16);
+      LOBYTE(v52) = *(v52 + 24);
       *(inited + 32) = v2;
-      *(inited + 40) = v37;
-      *(inited + 48) = v35;
-      *(inited + 56) = v53;
-      v54 = (v48 + v49[22]);
-      v12 = v54[1];
-      v36 = v54[2];
-      LOBYTE(v41) = *(v54 + 24);
-      v101 = *v54;
-      *(inited + 64) = v101;
-      *(inited + 72) = v12;
-      *(inited + 80) = v36;
-      *(inited + 88) = v41;
-      v17 = _swiftEmptyArrayStorage;
-      if (v53)
+      *(inited + 40) = v36;
+      *(inited + 48) = v34;
+      *(inited + 56) = v52;
+      v53 = (v47 + v48[22]);
+      v11 = v53[1];
+      v35 = v53[2];
+      LOBYTE(v40) = *(v53 + 24);
+      v100 = *v53;
+      *(inited + 64) = v100;
+      *(inited + 72) = v11;
+      *(inited + 80) = v35;
+      *(inited + 88) = v40;
+      v16 = _swiftEmptyArrayStorage;
+      if (v52)
       {
         goto LABEL_50;
       }
 
-      v100 = inited;
-      v17 = sub_1004995F4(0, 1, 1, _swiftEmptyArrayStorage);
-      v34 = *(v17 + 16);
-      v39 = *(v17 + 24);
-      v19 = v34 + 1;
-      if (v34 < v39 >> 1)
+      v99 = inited;
+      v16 = sub_1004995F4(0, 1, 1, _swiftEmptyArrayStorage);
+      v33 = *(v16 + 16);
+      v38 = *(v16 + 24);
+      v18 = v33 + 1;
+      if (v33 < v38 >> 1)
       {
         goto LABEL_49;
       }
@@ -3702,35 +3702,35 @@ LABEL_47:
       goto LABEL_105;
     }
 
-    if (v39 == ++v34)
+    if (v38 == ++v33)
     {
       break;
     }
 
-    v42 = v40 + 16;
-    v17 = *&v113[v40];
-    v40 += 16;
-    if (v17)
+    v41 = v39 + 16;
+    v16 = *&v112[v39];
+    v39 += 16;
+    if (v16)
     {
-      v43 = *(&v110[12] + v42);
+      v42 = *(&v109[12] + v41);
 
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        v35 = sub_100498B7C(0, *(v35 + 2) + 1, 1, v35);
+        v34 = sub_100498B7C(0, *(v34 + 2) + 1, 1, v34);
       }
 
-      v12 = *(v35 + 2);
-      v44 = *(v35 + 3);
-      v19 = v12 + 1;
-      if (v12 >= v44 >> 1)
+      v11 = *(v34 + 2);
+      v43 = *(v34 + 3);
+      v18 = v11 + 1;
+      if (v11 >= v43 >> 1)
       {
-        v35 = sub_100498B7C((v44 > 1), v12 + 1, 1, v35);
+        v34 = sub_100498B7C((v43 > 1), v11 + 1, 1, v34);
       }
 
-      *(v35 + 2) = v19;
-      v45 = &v35[16 * v12];
-      *(v45 + 4) = v43;
-      *(v45 + 5) = v17;
+      *(v34 + 2) = v18;
+      v44 = &v34[16 * v11];
+      *(v44 + 4) = v42;
+      *(v44 + 5) = v16;
       goto LABEL_29;
     }
   }
@@ -3770,266 +3770,266 @@ LABEL_102:
     {
       __break(1u);
 LABEL_105:
-      v17 = sub_1004995F4((v39 > 1), v19, 1, v17);
+      v16 = sub_1004995F4((v38 > 1), v18, 1, v16);
 LABEL_49:
-      *(v17 + 16) = v19;
-      v55 = (v17 + 24 * v34);
-      v55[4] = v2;
-      v55[5] = v37;
-      v55[6] = v35;
+      *(v16 + 16) = v18;
+      v54 = (v16 + 24 * v33);
+      v54[4] = v2;
+      v54[5] = v36;
+      v54[6] = v34;
 LABEL_50:
 
-      if (v41)
+      if (v40)
       {
-        v2 = v103;
-        v35 = v102;
+        v2 = v102;
+        v34 = v101;
       }
 
       else
       {
         isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-        v2 = v103;
-        v35 = v102;
+        v2 = v102;
+        v34 = v101;
         if ((isUniquelyReferenced_nonNull_native & 1) == 0)
         {
-          v17 = sub_1004995F4(0, *(v17 + 16) + 1, 1, v17);
+          v16 = sub_1004995F4(0, *(v16 + 16) + 1, 1, v16);
         }
 
-        v58 = *(v17 + 16);
-        v57 = *(v17 + 24);
-        if (v58 >= v57 >> 1)
+        v57 = *(v16 + 16);
+        v56 = *(v16 + 24);
+        if (v57 >= v56 >> 1)
         {
-          v17 = sub_1004995F4((v57 > 1), v58 + 1, 1, v17);
+          v16 = sub_1004995F4((v56 > 1), v57 + 1, 1, v16);
         }
 
-        *(v17 + 16) = v58 + 1;
-        v59 = (v17 + 24 * v58);
-        v59[4] = v101;
-        v59[5] = v12;
-        v59[6] = v36;
+        *(v16 + 16) = v57 + 1;
+        v58 = (v16 + 24 * v57);
+        v58[4] = v100;
+        v58[5] = v11;
+        v58[6] = v35;
       }
 
-      v19 = *(v17 + 16);
+      v18 = *(v16 + 16);
 
-      v39 = (v19 * 24) >> 64;
-      v34 = v91;
-      if (v39 != (24 * v19) >> 63)
+      v38 = (v18 * 24) >> 64;
+      v33 = v90;
+      if (v38 != (24 * v18) >> 63)
       {
         goto LABEL_94;
       }
 
-      v12 = *(v91 + v92[20]);
-      v36 = *(v12 + 16);
-      v87 = *(*(v91 + v92[15]) + 16);
-      v88 = 24 * v19;
-      if (v36)
+      v11 = *(v90 + v91[20]);
+      v35 = *(v11 + 16);
+      v86 = *(*(v90 + v91[15]) + 16);
+      v87 = 24 * v18;
+      if (v35)
       {
-        v110[0] = _swiftEmptyArrayStorage;
-        v17 = v110;
-        sub_10066C89C(0, v36, 0);
-        v60 = 0;
-        v61 = v110[0];
-        v62 = (v12 + 72);
-        v41 = &type metadata for String;
-        v93 = v36;
-        v94 = v12;
+        v109[0] = _swiftEmptyArrayStorage;
+        v16 = v109;
+        sub_10066C89C(0, v35, 0);
+        v59 = 0;
+        v60 = v109[0];
+        v61 = (v11 + 72);
+        v40 = &type metadata for String;
+        v92 = v35;
+        v93 = v11;
         while (1)
         {
-          v39 = *(v12 + 16);
-          if (v60 >= v39)
+          v38 = *(v11 + 16);
+          if (v59 >= v38)
           {
             goto LABEL_92;
           }
 
+          v96 = v59;
           v97 = v60;
-          v98 = v61;
-          v63 = *(v62 - 5);
-          v64 = *(v62 - 4);
-          v65 = *(v62 - 3);
-          v66 = *(v62 - 2);
-          v67 = *(v62 - 1);
-          v68 = *v62;
-          v96 = v62;
+          v62 = *(v61 - 5);
+          v63 = *(v61 - 4);
+          v64 = *(v61 - 3);
+          v65 = *(v61 - 2);
+          v66 = *(v61 - 1);
+          v67 = *v61;
+          v95 = v61;
+          v103 = v62;
           v104 = v63;
           v105 = v64;
           v106 = v65;
           v107 = v66;
           v108 = v67;
-          v109 = v68;
           swift_bridgeObjectRetain_n();
-          v100 = v66;
+          v99 = v65;
           swift_bridgeObjectRetain_n();
-          v99 = v68;
+          v98 = v67;
           swift_bridgeObjectRetain_n();
+          v110 = v62;
           v111 = v63;
-          v112 = v64;
 
           static String.Encoding.utf8.getter();
-          v37 = sub_100009838();
-          v12 = StringProtocol.lengthOfBytes(using:)();
-          v19 = *v35;
-          v34 = v95;
-          (*v35)(v2, v95);
-          v101 = v64;
+          v36 = sub_100009838();
+          v11 = StringProtocol.lengthOfBytes(using:)();
+          v18 = *v34;
+          v33 = v94;
+          (*v34)(v2, v94);
+          v100 = v63;
 
-          v36 = v35;
+          v35 = v34;
+          v110 = v105;
           v111 = v106;
-          v112 = v107;
 
           static String.Encoding.utf8.getter();
-          v17 = StringProtocol.lengthOfBytes(using:)();
-          (v19)(v2, v34);
+          v16 = StringProtocol.lengthOfBytes(using:)();
+          (v18)(v2, v33);
 
-          v35 = (v12 + v17);
-          if (__OFADD__(v12, v17) || (v12 = v109, v111 = v108, v112 = v109, , static String.Encoding.utf8.getter(), v69 = StringProtocol.lengthOfBytes(using:)(), (v19)(v2, v34), , v47 = __OFADD__(v35, v69), v17 = &v35[v69], v47))
+          v34 = (v11 + v16);
+          if (__OFADD__(v11, v16) || (v11 = v108, v110 = v107, v111 = v108, , static String.Encoding.utf8.getter(), v68 = StringProtocol.lengthOfBytes(using:)(), (v18)(v2, v33), , v46 = __OFADD__(v34, v68), v16 = &v34[v68], v46))
           {
             __break(1u);
             goto LABEL_89;
           }
 
           swift_arrayDestroy();
-          v34 = v17 + 8;
-          if (__OFADD__(v17, 8))
+          v33 = v16 + 8;
+          if (__OFADD__(v16, 8))
           {
             goto LABEL_93;
           }
 
-          v61 = v98;
-          v110[0] = v98;
-          v71 = v98[2];
-          v70 = v98[3];
-          v19 = v71 + 1;
-          if (v71 >= v70 >> 1)
+          v60 = v97;
+          v109[0] = v97;
+          v70 = v97[2];
+          v69 = v97[3];
+          v18 = v70 + 1;
+          if (v70 >= v69 >> 1)
           {
-            v17 = v110;
-            sub_10066C89C((v70 > 1), v71 + 1, 1);
-            v61 = v110[0];
+            v16 = v109;
+            sub_10066C89C((v69 > 1), v70 + 1, 1);
+            v60 = v109[0];
           }
 
-          v72 = v96;
-          v60 = v97 + 1;
-          v61[2] = v19;
-          v61[v71 + 4] = v34;
-          v62 = v72 + 7;
-          v36 = v93;
-          v12 = v94;
-          v2 = v103;
-          v35 = v102;
-          if (v93 == v60)
+          v71 = v95;
+          v59 = v96 + 1;
+          v60[2] = v18;
+          v60[v70 + 4] = v33;
+          v61 = v71 + 7;
+          v35 = v92;
+          v11 = v93;
+          v2 = v102;
+          v34 = v101;
+          if (v92 == v59)
           {
-            v34 = v91;
+            v33 = v90;
             goto LABEL_69;
           }
         }
       }
 
-      v61 = _swiftEmptyArrayStorage;
-      v19 = _swiftEmptyArrayStorage[2];
-      if (v19)
+      v60 = _swiftEmptyArrayStorage;
+      v18 = _swiftEmptyArrayStorage[2];
+      if (v18)
       {
 LABEL_69:
-        v17 = 0;
-        v39 = 32;
+        v16 = 0;
+        v38 = 32;
         while (1)
         {
-          v73 = *(v61 + v39);
-          v47 = __OFADD__(v17, v73);
-          v17 += v73;
-          if (v47)
+          v72 = *(v60 + v38);
+          v46 = __OFADD__(v16, v72);
+          v16 += v72;
+          if (v46)
           {
             goto LABEL_91;
           }
 
-          v39 += 8;
-          if (!--v19)
+          v38 += 8;
+          if (!--v18)
           {
             goto LABEL_72;
           }
         }
       }
 
-      v17 = 0;
+      v16 = 0;
 LABEL_72:
 
-      v74 = *(v34 + v92[25]);
-      if (!v74)
+      v73 = *(v33 + v91[25]);
+      if (!v73)
       {
         goto LABEL_77;
       }
 
-      [v74 size];
-      v77 = v75 * v76;
-      v39 = *&v77 & 0x7FFFFFFFFFFFFFFFLL;
+      [v73 size];
+      v76 = v74 * v75;
+      v38 = *&v76 & 0x7FFFFFFFFFFFFFFFLL;
     }
 
-    while ((*&v77 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL);
-    v39 = 0xC3E0000000000001;
-    if (v77 <= -9.22337204e18)
+    while ((*&v76 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL);
+    v38 = 0xC3E0000000000001;
+    if (v76 <= -9.22337204e18)
     {
       goto LABEL_95;
     }
 
-    if (v77 >= 9.22337204e18)
+    if (v76 >= 9.22337204e18)
     {
       __break(1u);
 LABEL_77:
-      v77 = 0.0;
+      v76 = 0.0;
     }
 
-    v39 = v77;
-    if ((v77 - 0x2000000000000000) >> 62 != 3)
+    v38 = v76;
+    if ((v76 - 0x2000000000000000) >> 62 != 3)
     {
       goto LABEL_96;
     }
 
-    v78 = 8 * v89;
-    v47 = __OFADD__(v90, v78);
-    v79 = v90 + v78;
-    if (v47)
+    v77 = 8 * v88;
+    v46 = __OFADD__(v89, v77);
+    v78 = v89 + v77;
+    if (v46)
     {
       goto LABEL_97;
     }
 
-    v47 = __OFADD__(v79, v88);
-    v80 = v79 + v88;
-    if (v47)
+    v46 = __OFADD__(v78, v87);
+    v79 = v78 + v87;
+    if (v46)
     {
       goto LABEL_98;
     }
 
-    v47 = __OFADD__(v80, 1);
-    v81 = v80 + 1;
-    if (v47)
+    v46 = __OFADD__(v79, 1);
+    v80 = v79 + 1;
+    if (v46)
     {
       goto LABEL_99;
     }
 
-    v47 = __OFADD__(v81, v87 + 1);
-    v82 = v81 + v87 + 1;
-    if (v47)
+    v46 = __OFADD__(v80, v86 + 1);
+    v81 = v80 + v86 + 1;
+    if (v46)
     {
       goto LABEL_100;
     }
 
-    v47 = __OFADD__(v82, 8);
-    v83 = v82 + 8;
-    if (v47)
+    v46 = __OFADD__(v81, 8);
+    v82 = v81 + 8;
+    if (v46)
     {
       goto LABEL_101;
     }
 
-    v47 = __OFADD__(v83, v17);
-    v84 = v83 + v17;
-    if (v47)
+    v46 = __OFADD__(v82, v16);
+    v83 = v82 + v16;
+    if (v46)
     {
       goto LABEL_102;
     }
 
-    v39 *= 4;
-    result = v84 + v39;
+    v38 *= 4;
+    result = v83 + v38;
   }
 
-  while (__OFADD__(v84, v39));
+  while (__OFADD__(v83, v38));
   return result;
 }
 
@@ -4095,21 +4095,27 @@ void sub_100287AC0(uint64_t a1, char a2)
   }
 }
 
-uint64_t sub_100287B40()
+uint64_t *sub_100287B40()
 {
-  v1 = *(*v0 + 112);
+  v1 = *v0;
+  v2 = *(*v0 + 112);
+  v3 = *(*v0 + 88);
+  v4 = *(*v0 + 80);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  (*(*(AssociatedTypeWitness - 8) + 8))(v0 + v1, AssociatedTypeWitness);
-  v3 = *(*v0 + 120);
-  v4 = type metadata accessor for WidgetLRUCache.DiskEntry();
-  (*(*(v4 - 8) + 8))(v0 + v3, v4);
-  v5 = *(*v0 + 144);
-  v6 = type metadata accessor for Date();
-  (*(*(v6 - 8) + 8))(v0 + v5, v6);
+  (*(*(AssociatedTypeWitness - 8) + 8))(v0 + v2, AssociatedTypeWitness);
+  v6 = *(*v0 + 120);
+  v13[0] = v4;
+  v13[1] = v3;
+  v14 = *(v1 + 96);
+  v7 = type metadata accessor for WidgetLRUCache.DiskEntry(0, v13);
+  (*(*(v7 - 8) + 8))(v0 + v6, v7);
+  v8 = *(*v0 + 144);
+  v9 = type metadata accessor for Date();
+  (*(*(v9 - 8) + 8))(v0 + v8, v9);
 
-  v7 = *(*v0 + 168);
-  v8 = type metadata accessor for Optional();
-  (*(*(v8 - 8) + 8))(v0 + v7, v8);
+  v10 = *(*v0 + 168);
+  v11 = type metadata accessor for Optional();
+  (*(*(v11 - 8) + 8))(v0 + v10, v11);
   return v0;
 }
 
@@ -4164,20 +4170,33 @@ uint64_t sub_100287F64()
   return _swift_defaultActor_deallocate(v0);
 }
 
-uint64_t sub_100287FA8()
+uint64_t sub_100287FA8(uint64_t a1)
 {
+  v2 = *(a1 + 80);
+  v3 = *(a1 + 88);
   result = swift_getAssociatedTypeWitness();
-  if (v1 <= 0x3F)
+  if (v5 <= 0x3F)
   {
-    result = type metadata accessor for WidgetLRUCache.DiskEntry();
-    if (v2 <= 0x3F)
+    v11 = *(result - 8) + 64;
+    v9[0] = v2;
+    v9[1] = v3;
+    v10 = *(a1 + 96);
+    result = type metadata accessor for WidgetLRUCache.DiskEntry(319, v9);
+    if (v6 <= 0x3F)
     {
+      v12 = *(result - 8) + 64;
+      v13 = &value witness table for Builtin.Int64 + 64;
+      v14 = &value witness table for Builtin.Int64 + 64;
       result = type metadata accessor for Date();
-      if (v3 <= 0x3F)
+      if (v7 <= 0x3F)
       {
+        v15 = *(result - 8) + 64;
+        v16 = &unk_100EC4780;
+        v17 = &unk_100EC4780;
         result = type metadata accessor for Optional();
-        if (v4 <= 0x3F)
+        if (v8 <= 0x3F)
         {
+          v18 = *(result - 8) + 64;
           return swift_initClassMetadata2();
         }
       }
@@ -4187,13 +4206,13 @@ uint64_t sub_100287FA8()
   return result;
 }
 
-void sub_10028816C()
+void sub_10028816C(uint64_t a1)
 {
   type metadata accessor for URL();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    sub_100039B3C();
-    if (v1 <= 0x3F)
+    sub_100039B3C(319);
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
@@ -4202,28 +4221,28 @@ void sub_10028816C()
 
 uint64_t sub_100288264(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_10010FC20(&qword_101188C20);
+  v4 = sub_10010FC20(&qword_101188C20, &qword_100EC2030);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_1002882D4(uint64_t a1)
 {
-  v2 = sub_10010FC20(&qword_101188C20);
+  v2 = sub_10010FC20(&qword_101188C20, &qword_100EC2030);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
-uint64_t sub_100288360()
+uint64_t sub_100288360(uint64_t a1)
 {
   result = type metadata accessor for Genre();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = type metadata accessor for Composer();
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       result = type metadata accessor for Artist();
-      if (v3 <= 0x3F)
+      if (v4 <= 0x3F)
       {
         swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
         return 0;
@@ -4234,16 +4253,16 @@ uint64_t sub_100288360()
   return result;
 }
 
-void sub_100288430()
+void sub_100288430(uint64_t a1)
 {
   type metadata accessor for MusicLibrary();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     _s6AlbumsV5ScopeOMa(319);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
-      sub_10018D5F0();
-      if (v2 <= 0x3F)
+      sub_10018D5F0(319);
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -4253,47 +4272,47 @@ void sub_100288430()
 
 uint64_t sub_1002884E4@<X0>(uint64_t a1@<X0>, char a2@<W1>, uint64_t a3@<X8>)
 {
-  v6 = _s6AlbumsV5ScopeOMa(0);
-  v7 = __chkstk_darwin(v6);
-  v43 = &v42 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __chkstk_darwin(v7);
-  v11 = &v42 - v10;
-  __chkstk_darwin(v9);
-  v13 = &v42 - v12;
+  _s6AlbumsV5ScopeOMa(0);
+  __chkstk_darwin();
+  v40 = &v39 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v8 = &v39 - v7;
+  __chkstk_darwin();
+  v10 = &v39 - v9;
   type metadata accessor for MusicLibrary();
   *a3 = static MusicLibrary.shared.getter();
-  v14 = _s6AlbumsVMa(0);
-  v15 = (a3 + v14[7]);
-  *v15 = 0;
-  v15[1] = 0xE000000000000000;
-  v45 = v14[8];
-  *(a3 + v45) = &_swiftEmptySetSingleton;
-  sub_10028CC7C(a1, a3 + v14[6], _s6AlbumsV5ScopeOMa);
+  v11 = _s6AlbumsVMa(0);
+  v12 = (a3 + v11[7]);
+  *v12 = 0;
+  v12[1] = 0xE000000000000000;
+  v42 = v11[8];
+  *(a3 + v42) = &_swiftEmptySetSingleton;
+  sub_10028CC7C(a1, a3 + v11[6], _s6AlbumsV5ScopeOMa);
   *(a3 + 8) = a2;
-  v44 = objc_opt_self();
-  v16 = [v44 standardUserDefaults];
+  v41 = objc_opt_self();
+  v13 = [v41 standardUserDefaults];
   sub_10028A3AC();
   sub_100110448();
   sub_10011049C();
-  NSUserDefaults.decodeValue<A>(_:forKey:)(&_s11ContentSortVN, &v47);
+  NSUserDefaults.decodeValue<A>(_:forKey:)(&_s11ContentSortVN, &v44);
 
-  v17 = v47;
-  if ((v47 & 0xFF00) == 0x200)
+  v14 = v44;
+  if ((v44 & 0xFF00) == 0x200)
   {
-    sub_10028CC7C(a1, v13, _s6AlbumsV5ScopeOMa);
+    sub_10028CC7C(a1, v10, _s6AlbumsV5ScopeOMa);
     EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
     if (EnumCaseMultiPayload <= 1)
     {
       if (EnumCaseMultiPayload)
       {
-        sub_10028CCE4(v13, _s6AlbumsV5ScopeOMa);
-        v20 = 67;
+        sub_10028CCE4(v10, _s6AlbumsV5ScopeOMa);
+        v17 = 67;
       }
 
       else
       {
-        sub_10028CCE4(v13, _s6AlbumsV5ScopeOMa);
-        v20 = 68;
+        sub_10028CCE4(v10, _s6AlbumsV5ScopeOMa);
+        v17 = 68;
       }
     }
 
@@ -4301,278 +4320,278 @@ uint64_t sub_1002884E4@<X0>(uint64_t a1@<X0>, char a2@<W1>, uint64_t a3@<X8>)
     {
       if (EnumCaseMultiPayload != 2)
       {
-        v19 = a1;
+        v16 = a1;
         if (EnumCaseMultiPayload == 3)
         {
-          v20 = 64;
+          v17 = 64;
         }
 
         else
         {
-          v20 = 66;
+          v17 = 66;
         }
 
-        v21 = v45;
+        v18 = v42;
 LABEL_16:
-        v26 = sub_10045FDA0(v20);
-        if ((v26 & 0xFF00) == 0x200)
+        v23 = sub_10045FDA0(v17);
+        if ((v23 & 0xFF00) == 0x200)
         {
-          sub_10028CC7C(v19, v11, _s6AlbumsV5ScopeOMa);
-          v27 = swift_getEnumCaseMultiPayload();
-          if (v27 >= 3)
+          sub_10028CC7C(v16, v8, _s6AlbumsV5ScopeOMa);
+          v24 = swift_getEnumCaseMultiPayload();
+          if (v24 >= 3)
           {
-            if (v27 == 3)
+            if (v24 == 3)
             {
-              v24 = 0;
+              v21 = 0;
 LABEL_26:
-              v28 = v44;
-              v29 = &selRef_objectAtIndexedSubscript_;
-              v22 = (a3 + v14[9]);
-              *v22 = v24;
-              v22[1] = 1;
-              v23 = v22 + 1;
+              v25 = v41;
+              v26 = &selRef_objectAtIndexedSubscript_;
+              v19 = (a3 + v11[9]);
+              *v19 = v21;
+              v19[1] = 1;
+              v20 = v19 + 1;
               goto LABEL_27;
             }
           }
 
           else
           {
-            sub_10028CCE4(v11, _s6AlbumsV5ScopeOMa);
+            sub_10028CCE4(v8, _s6AlbumsV5ScopeOMa);
           }
 
-          v24 = 4;
+          v21 = 4;
           goto LABEL_26;
         }
 
-        v22 = (a3 + v14[9]);
-        *v22 = v26;
-        v22[1] = HIBYTE(v26) & 1;
-        v23 = v22 + 1;
-        v24 = v26;
-        if ((v26 & 0x100) == 0)
+        v19 = (a3 + v11[9]);
+        *v19 = v23;
+        v19[1] = HIBYTE(v23) & 1;
+        v20 = v19 + 1;
+        v21 = v23;
+        if ((v23 & 0x100) == 0)
         {
-          v25 = 0;
+          v22 = 0;
           goto LABEL_21;
         }
 
         goto LABEL_22;
       }
 
-      sub_10028CCE4(v13, _s6AlbumsV5ScopeOMa);
-      v20 = 65;
+      sub_10028CCE4(v10, _s6AlbumsV5ScopeOMa);
+      v17 = 65;
     }
 
-    v21 = v45;
-    v19 = a1;
+    v18 = v42;
+    v16 = a1;
     goto LABEL_16;
   }
 
-  v22 = (a3 + v14[9]);
-  *v22 = v47;
-  v22[1] = HIBYTE(v17) & 1;
-  v23 = v22 + 1;
-  v24 = v17;
-  if ((v17 & 0x100) == 0)
+  v19 = (a3 + v11[9]);
+  *v19 = v44;
+  v19[1] = HIBYTE(v14) & 1;
+  v20 = v19 + 1;
+  v21 = v14;
+  if ((v14 & 0x100) == 0)
   {
-    v25 = 0;
-    v21 = v45;
-    v19 = a1;
+    v22 = 0;
+    v18 = v42;
+    v16 = a1;
 LABEL_21:
-    v28 = v44;
-    v29 = &selRef_objectAtIndexedSubscript_;
+    v25 = v41;
+    v26 = &selRef_objectAtIndexedSubscript_;
     goto LABEL_28;
   }
 
-  v21 = v45;
-  v19 = a1;
+  v18 = v42;
+  v16 = a1;
 LABEL_22:
-  v28 = v44;
-  v29 = &selRef_objectAtIndexedSubscript_;
+  v25 = v41;
+  v26 = &selRef_objectAtIndexedSubscript_;
 LABEL_27:
-  v25 = 256;
+  v22 = 256;
 LABEL_28:
-  v30 = sub_100375F10(v25 | v24);
-  if ((v30 & 0xFF00) != 0x200)
+  sub_100375F10(v22 | v21);
+  if ((v27 & 0xFF00) != 0x200)
   {
-    v33 = (v30 >> 8) & 1;
+    v30 = (v27 >> 8) & 1;
     goto LABEL_35;
   }
 
-  v31 = v43;
-  sub_10028CC7C(v19, v43, _s6AlbumsV5ScopeOMa);
-  v32 = swift_getEnumCaseMultiPayload();
-  if (v32 >= 3)
+  v28 = v40;
+  sub_10028CC7C(v16, v40, _s6AlbumsV5ScopeOMa);
+  v29 = swift_getEnumCaseMultiPayload();
+  if (v29 >= 3)
   {
-    if (v32 == 3)
+    if (v29 == 3)
     {
-      LOBYTE(v30) = 0;
-      LOBYTE(v33) = 1;
+      LOBYTE(v27) = 0;
+      LOBYTE(v30) = 1;
       goto LABEL_35;
     }
   }
 
   else
   {
-    sub_10028CCE4(v31, _s6AlbumsV5ScopeOMa);
+    sub_10028CCE4(v28, _s6AlbumsV5ScopeOMa);
   }
 
-  LOBYTE(v33) = 1;
-  LOBYTE(v30) = 4;
+  LOBYTE(v30) = 1;
+  LOBYTE(v27) = 4;
 LABEL_35:
-  *v22 = v30;
-  *v23 = v33;
-  v34 = [v28 v29[462]];
-  v35 = sub_10010FC20(&unk_10118CD70);
+  *v19 = v27;
+  *v20 = v30;
+  v31 = [v25 v26[462]];
+  v32 = sub_10010FC20(&unk_10118CD70, &qword_100EBE248);
   sub_10028A5BC(0x704F7265746C6946, 0xEC0000006E6F6974);
-  sub_100178DD8(&unk_101182910, sub_100178D84);
-  sub_100178DD8(&unk_101182920, sub_100178E50);
-  NSUserDefaults.decodeValue<A>(_:forKey:)(v35, &v46);
+  sub_100178DD8(&unk_101182910, sub_100178D84, &protocol conformance descriptor for <> Set<A>);
+  sub_100178DD8(&unk_101182920, sub_100178E50, &protocol conformance descriptor for <> Set<A>);
+  NSUserDefaults.decodeValue<A>(_:forKey:)(v32, &v43);
 
-  v36 = v46;
-  if (!v46)
+  v33 = v43;
+  if (!v43)
   {
-    v37 = sub_10028A7B0();
-    v38 = Optional<A>.convertToSet.getter(v37);
-    if (v38)
+    v34 = sub_10028A7B0();
+    v35 = Optional<A>.convertToSet.getter(v34);
+    if (v35)
     {
-      v36 = v38;
+      v33 = v35;
     }
 
     else
     {
-      v36 = &_swiftEmptySetSingleton;
+      v33 = &_swiftEmptySetSingleton;
     }
   }
 
-  v39 = sub_10028AAFC();
-  v40 = sub_1003AE5C4(v39, v36);
+  v36 = sub_10028AAFC();
+  v37 = sub_1003AE5C4(v36, v33);
 
-  result = sub_10028CCE4(v19, _s6AlbumsV5ScopeOMa);
-  *(a3 + v21) = v40;
+  result = sub_10028CCE4(v16, _s6AlbumsV5ScopeOMa);
+  *(a3 + v18) = v37;
   return result;
 }
 
-uint64_t sub_100288ABC@<X0>(uint64_t a1@<X8>)
+uint64_t sub_100288ABC@<X0>(uint64_t a2@<X8>)
 {
-  v16 = _s6AlbumsVMa(0);
-  __chkstk_darwin(v16);
-  v15[6] = v15 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v3);
-  v18 = v15 - v4;
-  v17 = type metadata accessor for Album();
-  __chkstk_darwin(v17);
-  v5 = sub_10010FC20(&qword_101188E88);
+  v14[7] = _s6AlbumsVMa(0);
+  __chkstk_darwin();
+  v14[6] = v14 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v14[9] = v14 - v4;
+  v14[8] = type metadata accessor for Album();
+  __chkstk_darwin();
+  v5 = sub_10010FC20(&qword_101188E88, &unk_100ECBD70);
   v6 = *(v5 - 8);
-  __chkstk_darwin(v5);
-  v15[5] = v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v8);
-  v10 = v15 - v9;
-  v11 = sub_10010E83C(&off_1010998F8);
-  sub_10028B578(v11, v10);
+  __chkstk_darwin();
+  v14[5] = v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v9 = v14 - v8;
+  v10 = sub_10010E83C(&off_1010998F8);
+  sub_10028B578(v10, v9);
 
   MusicLibrarySectionedRequest<>.filterSections(equalTo:)();
-  v24[3] = v5;
-  v24[4] = sub_10028CD9C();
-  v12 = sub_10001C8B8(v24);
-  v19 = v6;
-  (*(v6 + 16))(v12, v10, v5);
-  v23 = 0;
-  v21 = 0u;
-  v22 = 0u;
-  v20 = a1;
+  v20[3] = v5;
+  v20[4] = sub_10028CD9C();
+  v11 = sub_10001C8B8(v20);
+  v15 = v6;
+  (*(v6 + 16))(v11, v9, v5);
+  v19 = 0;
+  v17 = 0u;
+  v18 = 0u;
+  v16 = a2;
   MusicPlaybackIntentDescriptor.init(request:startingAt:)();
-  v13 = type metadata accessor for MusicPlaybackIntentDescriptor();
-  (*(*(v13 - 8) + 56))(v20, 0, 1, v13);
-  return (*(v19 + 8))(v10, v5);
+  v12 = type metadata accessor for MusicPlaybackIntentDescriptor();
+  (*(*(v12 - 8) + 56))(v16, 0, 1, v12);
+  return (*(v15 + 8))(v9, v5);
 }
 
 uint64_t sub_100289108@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v21 = a2;
-  v19 = sub_10010FC20(&qword_10118CE70);
-  __chkstk_darwin(v19);
-  v20 = _s6AlbumsVMa(0);
-  __chkstk_darwin(v20);
-  v17[4] = v17 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v4);
-  __chkstk_darwin(v5);
-  v18 = sub_10010FC20(&unk_101184730);
-  __chkstk_darwin(v18);
-  v17[3] = v17 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v7);
-  __chkstk_darwin(v8);
-  v10 = v17 - v9;
-  v25[3] = sub_10010FC20(&qword_101188E88);
-  v25[4] = sub_10028CD9C();
-  v11 = sub_10001C8B8(v25);
-  sub_10028B578(&_swiftEmptySetSingleton, v11);
-  sub_10028CE50(a1, v10);
-  v12 = type metadata accessor for Album();
-  v13 = *(v12 - 8);
-  if ((*(v13 + 48))(v10, 1, v12) == 1)
+  v14 = a2;
+  v13[6] = sub_10010FC20(&qword_10118CE70, &qword_100EC8A70);
+  __chkstk_darwin();
+  v13[7] = _s6AlbumsVMa(0);
+  __chkstk_darwin();
+  v13[4] = v13 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  __chkstk_darwin();
+  v13[5] = sub_10010FC20(&unk_101184730, &unk_100ECB920);
+  __chkstk_darwin();
+  v13[3] = v13 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  __chkstk_darwin();
+  v6 = v13 - v5;
+  v18[3] = sub_10010FC20(&qword_101188E88, &unk_100ECBD70);
+  v18[4] = sub_10028CD9C();
+  v7 = sub_10001C8B8(v18);
+  sub_10028B578(&_swiftEmptySetSingleton, v7);
+  sub_10028CE50(a1, v6);
+  v8 = type metadata accessor for Album();
+  v9 = *(v8 - 8);
+  if ((*(v9 + 48))(v6, 1, v8) == 1)
   {
-    sub_1000095E8(v10, &unk_101184730);
-    v22 = 0u;
-    v23 = 0u;
-    v24 = 0;
+    sub_1000095E8(v6, &unk_101184730, &unk_100ECB920);
+    v15 = 0u;
+    v16 = 0u;
+    v17 = 0;
   }
 
   else
   {
-    *(&v23 + 1) = v12;
-    v24 = &protocol witness table for Album;
-    v14 = sub_10001C8B8(&v22);
-    (*(v13 + 32))(v14, v10, v12);
+    *(&v16 + 1) = v8;
+    v17 = &protocol witness table for Album;
+    v10 = sub_10001C8B8(&v15);
+    (*(v9 + 32))(v10, v6, v8);
   }
 
   MusicPlaybackIntentDescriptor.init(request:startingAt:)();
-  v15 = type metadata accessor for MusicPlaybackIntentDescriptor();
-  return (*(*(v15 - 8) + 56))(v21, 0, 1, v15);
+  v11 = type metadata accessor for MusicPlaybackIntentDescriptor();
+  return (*(*(v11 - 8) + 56))(v14, 0, 1, v11);
 }
 
-uint64_t sub_1002897C8(uint64_t a1)
+double sub_1002897C8(uint64_t a1)
 {
-  v32 = a1;
+  v30 = a1;
   v2 = type metadata accessor for Artist();
-  v27 = *(v2 - 8);
-  v28 = v2;
-  __chkstk_darwin(v2);
-  v4 = &v26 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v25 = *(v2 - 8);
+  v26 = v2;
+  __chkstk_darwin();
+  v4 = &v24 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   v5 = type metadata accessor for Composer();
-  v29 = *(v5 - 8);
-  __chkstk_darwin(v5);
-  v7 = &v26 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v27 = *(v5 - 8);
+  __chkstk_darwin();
+  v7 = &v24 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = type metadata accessor for Genre();
   v9 = *(v8 - 8);
-  __chkstk_darwin(v8);
-  v11 = &v26 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = _s6AlbumsV5ScopeOMa(0);
-  __chkstk_darwin(v12);
-  v14 = &v26 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v15);
-  v17 = &v26 - v16;
-  v30 = *(_s6AlbumsVMa(0) + 24);
-  v31 = v1;
-  sub_10028CC7C(v1 + v30, v17, _s6AlbumsV5ScopeOMa);
+  __chkstk_darwin();
+  v11 = &v24 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  _s6AlbumsV5ScopeOMa(0);
+  __chkstk_darwin();
+  v13 = &v24 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v15 = &v24 - v14;
+  v28 = *(_s6AlbumsVMa(0) + 24);
+  v29 = v1;
+  sub_10028CC7C(v1 + v28, v15, _s6AlbumsV5ScopeOMa);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload <= 1)
   {
     if (EnumCaseMultiPayload)
     {
-      v23 = v29;
-      (*(v29 + 32))(v7, v17, v5);
+      v21 = v27;
+      (*(v27 + 32))(v7, v15, v5);
       swift_getKeyPath();
-      sub_10010FC20(&qword_10118CE70);
+      sub_10010FC20(&qword_10118CE70, &qword_100EC8A70);
       MusicLibrarySectionedRequest<>.filterItems<A>(matching:contains:)();
 
-      (*(v23 + 8))(v7, v5);
+      (*(v21 + 8))(v7, v5);
     }
 
     else
     {
-      (*(v9 + 32))(v11, v17, v8);
+      (*(v9 + 32))(v11, v15, v8);
       swift_getKeyPath();
-      sub_10010FC20(&qword_10118CE70);
+      sub_10010FC20(&qword_10118CE70, &qword_100EC8A70);
       MusicLibrarySectionedRequest.filterItems<A>(matching:contains:)();
 
       (*(v9 + 8))(v11, v8);
@@ -4583,39 +4602,39 @@ uint64_t sub_1002897C8(uint64_t a1)
 
   if (EnumCaseMultiPayload == 2)
   {
-    v22 = v27;
-    v21 = v28;
-    (*(v27 + 32))(v4, v17, v28);
+    v20 = v25;
+    v19 = v26;
+    (*(v25 + 32))(v4, v15, v26);
     swift_getKeyPath();
-    sub_10010FC20(&qword_10118CE70);
+    sub_10010FC20(&qword_10118CE70, &qword_100EC8A70);
     MusicLibrarySectionedRequest.filterItems<A>(matching:contains:)();
 
-    (*(v22 + 8))(v4, v21);
+    (*(v20 + 8))(v4, v19);
 LABEL_9:
-    v20 = v30;
-    v19 = v31;
+    v18 = v28;
+    v17 = v29;
     goto LABEL_10;
   }
 
-  v20 = v30;
-  v19 = v31;
+  v18 = v28;
+  v17 = v29;
   if (EnumCaseMultiPayload != 3)
   {
     swift_getKeyPath();
-    v33 = 1;
-    sub_10010FC20(&qword_10118CE70);
+    v31 = 1;
+    sub_10010FC20(&qword_10118CE70, &qword_100EC8A70);
     MusicLibrarySectionedRequest.filterItems<A>(matching:equalTo:)();
   }
 
 LABEL_10:
-  sub_10028CC7C(v19 + v20, v14, _s6AlbumsV5ScopeOMa);
-  v24 = swift_getEnumCaseMultiPayload();
-  result = sub_10028CCE4(v14, _s6AlbumsV5ScopeOMa);
-  if (v24 != 2)
+  sub_10028CC7C(v17 + v18, v13, _s6AlbumsV5ScopeOMa);
+  v22 = swift_getEnumCaseMultiPayload();
+  sub_10028CCE4(v13, _s6AlbumsV5ScopeOMa);
+  if (v22 != 2)
   {
     swift_getKeyPath();
-    v34 = 1;
-    sub_10010FC20(&qword_10118CE70);
+    v32 = 1;
+    sub_10010FC20(&qword_10118CE70, &qword_100EC8A70);
     MusicLibrarySectionedRequest<>.includeItems<A>(matching:equalTo:)();
   }
 
@@ -4624,15 +4643,15 @@ LABEL_10:
 
 void sub_100289CA8()
 {
-  v1 = _s6AlbumsVMa(0);
-  __chkstk_darwin(v1);
-  v4 = &v16[-((v3 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v5 = *(v0 + *(v2 + 36));
-  if (v5 <= 2)
+  _s6AlbumsVMa(0);
+  __chkstk_darwin();
+  v3 = &v15[-((v2 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v4 = *(v0 + *(v1 + 36));
+  if (v4 <= 2)
   {
-    if (*(v0 + *(v2 + 36)))
+    if (*(v0 + *(v1 + 36)))
     {
-      if (v5 == 1)
+      if (v4 == 1)
       {
         goto LABEL_7;
       }
@@ -4641,7 +4660,7 @@ void sub_100289CA8()
     }
 
     swift_getKeyPath();
-    sub_10010FC20(&qword_10118CE70);
+    sub_10010FC20(&qword_10118CE70, &qword_100EC8A70);
     MusicLibrarySectionedRequest.sortItems<A>(by:ascending:)();
 LABEL_14:
 
@@ -4649,19 +4668,19 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  if (v5 == 3)
+  if (v4 == 3)
   {
     swift_getKeyPath();
-    sub_10010FC20(&qword_10118CE70);
+    sub_10010FC20(&qword_10118CE70, &qword_100EC8A70);
     MusicLibrarySectionedRequest<>.sortItems<A>(by:ascending:)();
     goto LABEL_14;
   }
 
-  if (v5 == 4)
+  if (v4 == 4)
   {
 LABEL_7:
     swift_getKeyPath();
-    sub_10010FC20(&qword_10118CE70);
+    sub_10010FC20(&qword_10118CE70, &qword_100EC8A70);
 LABEL_15:
     MusicLibrarySectionedRequest.sortItems<A>(by:ascending:)();
 
@@ -4669,63 +4688,62 @@ LABEL_15:
   }
 
 LABEL_8:
-  v6 = v2;
+  v5 = v1;
   if (qword_10117F750 != -1)
   {
     swift_once();
   }
 
-  v7 = type metadata accessor for Logger();
-  sub_1000060E4(v7, static Logger.libraryView);
-  sub_10028CC7C(v0, v4, _s6AlbumsVMa);
-  v8 = Logger.logObject.getter();
-  v9 = static os_log_type_t.fault.getter();
-  if (os_log_type_enabled(v8, v9))
+  v6 = type metadata accessor for Logger();
+  sub_1000060E4(v6, static Logger.libraryView);
+  sub_10028CC7C(v0, v3, _s6AlbumsVMa);
+  v7 = Logger.logObject.getter();
+  v8 = static os_log_type_t.fault.getter();
+  if (os_log_type_enabled(v7, v8))
   {
+    v9 = swift_slowAlloc();
     v10 = swift_slowAlloc();
-    v11 = swift_slowAlloc();
-    v17 = v11;
-    *v10 = 136446210;
-    v16[7] = v4[*(v6 + 36)];
-    v12 = String.init<A>(describing:)();
-    v14 = v13;
-    sub_10028CCE4(v4, _s6AlbumsVMa);
-    v15 = sub_1000105AC(v12, v14, &v17);
+    v16 = v10;
+    *v9 = 136446210;
+    v15[7] = v3[*(v5 + 36)];
+    v11 = String.init<A>(describing:)();
+    v13 = v12;
+    sub_10028CCE4(v3, _s6AlbumsVMa);
+    v14 = sub_1000105AC(v11, v13, &v16);
 
-    *(v10 + 4) = v15;
-    _os_log_impl(&_mh_execute_header, v8, v9, "Tried to apply unhandled sortOption=%{public}s to albums request.", v10, 0xCu);
-    sub_10000959C(v11);
+    *(v9 + 4) = v14;
+    _os_log_impl(&_mh_execute_header, v7, v8, "Tried to apply unhandled sortOption=%{public}s to albums request.", v9, 0xCu);
+    sub_10000959C(v10);
   }
 
   else
   {
 
-    sub_10028CCE4(v4, _s6AlbumsVMa);
+    sub_10028CCE4(v3, _s6AlbumsVMa);
   }
 }
 
-uint64_t sub_10028A010(uint64_t a1)
+void sub_10028A010(uint64_t a1)
 {
-  v20 = a1;
+  v21 = a1;
   v2 = type metadata accessor for MusicFavoriteStatus();
   v3 = *(v2 - 8);
-  __chkstk_darwin(v2);
-  v5 = &v18 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  result = _s6AlbumsVMa(0);
-  v7 = *(v1 + *(result + 32));
-  if (*(v7 + 16))
+  __chkstk_darwin();
+  v5 = &v19 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = *(v1 + *(_s6AlbumsVMa(0) + 32));
+  if (*(v6 + 16))
   {
-    v19 = v3;
+    v20 = v3;
     Hasher.init(_seed:)();
     String.hash(into:)();
-    result = Hasher._finalize()();
-    v8 = v7 + 56;
-    v9 = -1 << *(v7 + 32);
-    v10 = result & ~v9;
-    if ((*(v7 + 56 + ((v10 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v10))
+    v7 = Hasher._finalize()();
+    v8 = v6 + 56;
+    v9 = -1 << *(v6 + 32);
+    v10 = v7 & ~v9;
+    if ((*(v6 + 56 + ((v10 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v10))
     {
       v11 = ~v9;
-      while (!*(*(v7 + 48) + v10) || *(*(v7 + 48) + v10) == 2)
+      while (!*(*(v6 + 48) + v10) || *(*(v6 + 48) + v10) == 2)
       {
         v12 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
@@ -4743,320 +4761,318 @@ uint64_t sub_10028A010(uint64_t a1)
 
 LABEL_10:
       swift_getKeyPath();
-      v13 = v19;
-      (*(v19 + 104))(v5, enum case for MusicFavoriteStatus.favorited(_:), v2);
-      sub_10010FC20(&qword_10118CE70);
-      sub_10028C564(&qword_1011831C8, &type metadata accessor for MusicFavoriteStatus);
+      v13 = v20;
+      (*(v20 + 104))(v5, enum case for MusicFavoriteStatus.favorited(_:), v2);
+      sub_10010FC20(&qword_10118CE70, &qword_100EC8A70);
+      sub_10028C564(&qword_1011831C8, &type metadata accessor for MusicFavoriteStatus, &protocol conformance descriptor for MusicFavoriteStatus);
       MusicLibrarySectionedRequest<>.filterItems<A>(matching:equalTo:)();
 
-      result = (*(v13 + 8))(v5, v2);
+      (*(v13 + 8))(v5, v2);
     }
 
 LABEL_11:
-    if (*(v7 + 16))
+    if (*(v6 + 16))
     {
       Hasher.init(_seed:)();
       String.hash(into:)();
-      result = Hasher._finalize()();
-      v14 = -1 << *(v7 + 32);
-      v15 = result & ~v14;
-      if ((*(v8 + ((v15 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v15))
+      v14 = Hasher._finalize()();
+      v15 = -1 << *(v6 + 32);
+      v16 = v14 & ~v15;
+      if ((*(v8 + ((v16 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v16))
       {
-        v16 = ~v14;
-        while (!*(*(v7 + 48) + v15) || *(*(v7 + 48) + v15) == 1)
+        v17 = ~v15;
+        while (!*(*(v6 + 48) + v16) || *(*(v6 + 48) + v16) == 1)
         {
-          v17 = _stringCompareWithSmolCheck(_:_:expecting:)();
+          v18 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-          if (v17)
+          if (v18)
           {
             goto LABEL_20;
           }
 
-          v15 = (v15 + 1) & v16;
-          if (((*(v8 + ((v15 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v15) & 1) == 0)
+          v16 = (v16 + 1) & v17;
+          if (((*(v8 + ((v16 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v16) & 1) == 0)
           {
-            return result;
+            return;
           }
         }
 
 LABEL_20:
-        sub_10010FC20(&qword_10118CE70);
-        return MusicLibrarySectionedRequest.includeOnlyDownloadedContent.setter();
+        sub_10010FC20(&qword_10118CE70, &qword_100EC8A70);
+        MusicLibrarySectionedRequest.includeOnlyDownloadedContent.setter();
       }
     }
   }
-
-  return result;
 }
 
 uint64_t sub_10028A3AC()
 {
   v1 = v0;
-  v2 = _s6AlbumsV5ScopeOMa(0);
-  __chkstk_darwin(v2);
-  v4 = v10 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_10028CC7C(v1, v4, _s6AlbumsV5ScopeOMa);
+  _s6AlbumsV5ScopeOMa(0);
+  __chkstk_darwin();
+  v3 = v9 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_10028CC7C(v1, v3, _s6AlbumsV5ScopeOMa);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload <= 1)
   {
     if (EnumCaseMultiPayload)
     {
-      v6 = 0x8000000100E41720;
-      sub_10028CCE4(v4, _s6AlbumsV5ScopeOMa);
-      v7 = 0xD000000000000010;
+      v5 = 0x8000000100E41720;
+      sub_10028CCE4(v3, _s6AlbumsV5ScopeOMa);
+      v6 = 0xD000000000000010;
     }
 
     else
     {
-      sub_10028CCE4(v4, _s6AlbumsV5ScopeOMa);
-      v6 = 0xED00007365726E65;
-      v7 = 0x477972617262694CLL;
+      sub_10028CCE4(v3, _s6AlbumsV5ScopeOMa);
+      v5 = 0xED00007365726E65;
+      v6 = 0x477972617262694CLL;
     }
   }
 
   else if (EnumCaseMultiPayload == 2)
   {
-    v7 = 0xD000000000000013;
-    v6 = 0x8000000100E41700;
-    sub_10028CCE4(v4, _s6AlbumsV5ScopeOMa);
+    v6 = 0xD000000000000013;
+    v5 = 0x8000000100E41700;
+    sub_10028CCE4(v3, _s6AlbumsV5ScopeOMa);
   }
 
   else if (EnumCaseMultiPayload == 3)
   {
-    v6 = 0xED0000736D75626CLL;
-    v7 = 0x417972617262694CLL;
+    v5 = 0xED0000736D75626CLL;
+    v6 = 0x417972617262694CLL;
   }
 
   else
   {
-    v7 = 0xD000000000000013;
-    v6 = 0x8000000100E41740;
+    v6 = 0xD000000000000013;
+    v5 = 0x8000000100E41740;
   }
 
-  v10[0] = v7;
-  v10[1] = v6;
+  v9[0] = v6;
+  v9[1] = v5;
 
-  v8._countAndFlagsBits = 0x53746E65746E6F43;
-  v8._object = 0xEB0000000074726FLL;
-  String.append(_:)(v8);
+  v7._countAndFlagsBits = 0x53746E65746E6F43;
+  v7._object = 0xEB0000000074726FLL;
+  String.append(_:)(v7);
 
-  return v10[0];
+  return v9[0];
 }
 
 uint64_t sub_10028A5BC(uint64_t a1, void *a2)
 {
-  v5 = _s6AlbumsV5ScopeOMa(0);
-  __chkstk_darwin(v5);
-  v7 = v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = _s6AlbumsVMa(0);
-  sub_10028CC7C(v2 + *(v8 + 24), v7, _s6AlbumsV5ScopeOMa);
+  _s6AlbumsV5ScopeOMa(0);
+  __chkstk_darwin();
+  v6 = v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = _s6AlbumsVMa(0);
+  sub_10028CC7C(v2 + *(v7 + 24), v6, _s6AlbumsV5ScopeOMa);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload <= 1)
   {
     if (EnumCaseMultiPayload)
     {
-      v10 = 0x8000000100E41720;
-      sub_10028CCE4(v7, _s6AlbumsV5ScopeOMa);
-      v11 = 0xD000000000000010;
+      v9 = 0x8000000100E41720;
+      sub_10028CCE4(v6, _s6AlbumsV5ScopeOMa);
+      v10 = 0xD000000000000010;
     }
 
     else
     {
-      sub_10028CCE4(v7, _s6AlbumsV5ScopeOMa);
-      v10 = 0xED00007365726E65;
-      v11 = 0x477972617262694CLL;
+      sub_10028CCE4(v6, _s6AlbumsV5ScopeOMa);
+      v9 = 0xED00007365726E65;
+      v10 = 0x477972617262694CLL;
     }
   }
 
   else if (EnumCaseMultiPayload == 2)
   {
-    v11 = 0xD000000000000013;
-    v10 = 0x8000000100E41700;
-    sub_10028CCE4(v7, _s6AlbumsV5ScopeOMa);
+    v10 = 0xD000000000000013;
+    v9 = 0x8000000100E41700;
+    sub_10028CCE4(v6, _s6AlbumsV5ScopeOMa);
   }
 
   else if (EnumCaseMultiPayload == 3)
   {
-    v10 = 0xED0000736D75626CLL;
-    v11 = 0x417972617262694CLL;
+    v9 = 0xED0000736D75626CLL;
+    v10 = 0x417972617262694CLL;
   }
 
   else
   {
-    v11 = 0xD000000000000013;
-    v10 = 0x8000000100E41740;
+    v10 = 0xD000000000000013;
+    v9 = 0x8000000100E41740;
   }
 
-  v14[0] = v11;
-  v14[1] = v10;
+  v13[0] = v10;
+  v13[1] = v9;
 
-  v12._countAndFlagsBits = a1;
-  v12._object = a2;
-  String.append(_:)(v12);
+  v11._countAndFlagsBits = a1;
+  v11._object = a2;
+  String.append(_:)(v11);
 
-  return v14[0];
+  return v13[0];
 }
 
 uint64_t sub_10028A7B0()
 {
-  v1 = _s6AlbumsV5ScopeOMa(0);
-  v2 = __chkstk_darwin(v1);
-  v4 = &v30 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v2);
-  v6 = &v30 - v5;
-  v7 = *(_s6AlbumsVMa(0) + 24);
-  sub_10028CC7C(v0 + v7, v6, _s6AlbumsV5ScopeOMa);
+  _s6AlbumsV5ScopeOMa(0);
+  __chkstk_darwin();
+  v2 = &v28 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v4 = &v28 - v3;
+  v5 = *(_s6AlbumsVMa(0) + 24);
+  sub_10028CC7C(v0 + v5, v4, _s6AlbumsV5ScopeOMa);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload <= 1)
   {
     if (EnumCaseMultiPayload)
     {
-      v10 = 4;
+      v8 = 4;
     }
 
     else
     {
-      v10 = 5;
+      v8 = 5;
     }
 
-    v11 = sub_100190B90(v10);
-    sub_10028CCE4(v6, _s6AlbumsV5ScopeOMa);
+    v9 = sub_100190B90(v8);
+    sub_10028CCE4(v4, _s6AlbumsV5ScopeOMa);
   }
 
   else
   {
     if (EnumCaseMultiPayload == 2)
     {
-      sub_10028CCE4(v6, _s6AlbumsV5ScopeOMa);
+      sub_10028CCE4(v4, _s6AlbumsV5ScopeOMa);
       goto LABEL_13;
     }
 
     if (EnumCaseMultiPayload == 3)
     {
-      v9 = 0;
+      v7 = 0;
     }
 
     else
     {
-      v9 = 3;
+      v7 = 3;
     }
 
-    v11 = sub_100190B90(v9);
+    v9 = sub_100190B90(v7);
   }
 
-  if (v11 != 3)
+  if (v9 != 3)
   {
-    return v11;
+    return v9;
   }
 
 LABEL_13:
-  sub_10028CC7C(v0 + v7, v4, _s6AlbumsV5ScopeOMa);
-  v12 = swift_getEnumCaseMultiPayload();
-  if (v12 <= 2)
+  sub_10028CC7C(v0 + v5, v2, _s6AlbumsV5ScopeOMa);
+  v10 = swift_getEnumCaseMultiPayload();
+  if (v10 <= 2)
   {
-    if (v12 >= 2)
+    if (v10 >= 2)
     {
-      sub_10028CCE4(v4, _s6AlbumsV5ScopeOMa);
+      sub_10028CCE4(v2, _s6AlbumsV5ScopeOMa);
       return 3;
     }
 
-    sub_10028CCE4(v4, _s6AlbumsV5ScopeOMa);
+    sub_10028CCE4(v2, _s6AlbumsV5ScopeOMa);
 LABEL_17:
-    v13 = [objc_opt_self() standardUserDefaults];
+    v11 = [objc_opt_self() standardUserDefaults];
     Library.SortConfiguration.storageKey.getter(0);
-    v14 = String._bridgeToObjectiveC()();
+    v12 = String._bridgeToObjectiveC()();
 
-    v15 = [v13 stringForKey:v14];
+    v13 = [v11 stringForKey:v12];
 
-    if (v15)
+    if (v13)
     {
-      v16 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v18 = v17;
+      v14 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v16 = v15;
 
-      v19._countAndFlagsBits = v16;
-      v19._object = v18;
-      v20 = _findStringSwitchCase(cases:string:)(&off_101098E28, v19);
+      v17._countAndFlagsBits = v14;
+      v17._object = v16;
+      v18 = _findStringSwitchCase(cases:string:)(&off_101098E28, v17);
 
-      if (v20 >= 3)
+      if (v18 >= 3)
       {
         return 3;
       }
 
       else
       {
-        return v20;
+        return v18;
       }
     }
 
     return 3;
   }
 
-  if (v12 == 3)
+  if (v10 == 3)
   {
     goto LABEL_17;
   }
 
-  v21 = [objc_opt_self() standardUserDefaults];
+  v19 = [objc_opt_self() standardUserDefaults];
   Library.SortConfiguration.storageKey.getter(2u);
-  v22 = String._bridgeToObjectiveC()();
+  v20 = String._bridgeToObjectiveC()();
 
-  v23 = [v21 stringForKey:v22];
+  v21 = [v19 stringForKey:v20];
 
-  if (!v23)
+  if (!v21)
   {
     return 3;
   }
 
-  v24 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v26 = v25;
+  v22 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v24 = v23;
 
-  v27._countAndFlagsBits = v24;
-  v27._object = v26;
-  v28 = _findStringSwitchCase(cases:string:)(&off_101098E28, v27);
+  v25._countAndFlagsBits = v22;
+  v25._object = v24;
+  v26 = _findStringSwitchCase(cases:string:)(&off_101098E28, v25);
 
-  if (v28 >= 3)
+  if (v26 >= 3)
   {
     return 3;
   }
 
   else
   {
-    return v28;
+    return v26;
   }
 }
 
 void *sub_10028AAFC()
 {
-  v1 = _s6AlbumsV5ScopeOMa(0);
-  __chkstk_darwin(v1);
-  v3 = v10 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = _s6AlbumsVMa(0);
-  sub_10028CC7C(v0 + *(v4 + 24), v3, _s6AlbumsV5ScopeOMa);
+  _s6AlbumsV5ScopeOMa(0);
+  __chkstk_darwin();
+  v2 = v9 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = _s6AlbumsVMa(0);
+  sub_10028CC7C(v0 + *(v3 + 24), v2, _s6AlbumsV5ScopeOMa);
   if (swift_getEnumCaseMultiPayload() - 1 >= 2)
   {
     if (*(v0 + 8))
     {
-      v5 = &off_101098E90;
+      v4 = &off_101098E90;
     }
 
     else
     {
-      v6 = [objc_opt_self() currentDevice];
-      v7 = [v6 userInterfaceIdiom];
+      v5 = [objc_opt_self() currentDevice];
+      v6 = [v5 userInterfaceIdiom];
 
-      v5 = &off_101098E90;
-      if (v7 != 6)
+      v4 = &off_101098E90;
+      if (v6 != 6)
       {
-        v10[1] = *v0;
+        v9[1] = *v0;
         type metadata accessor for MusicLibrary();
 
-        v10[0] = static MusicLibrary.shared.getter();
-        sub_10028C564(&qword_10118CE20, &type metadata accessor for MusicLibrary);
-        v8 = dispatch thunk of static Equatable.== infix(_:_:)();
+        v9[0] = static MusicLibrary.shared.getter();
+        sub_10028C564(&qword_10118CE20, &type metadata accessor for MusicLibrary, &protocol conformance descriptor for MusicLibrary);
+        v7 = dispatch thunk of static Equatable.== infix(_:_:)();
 
-        if (v8)
+        if (v7)
         {
-          v5 = &off_101098EB8;
+          v4 = &off_101098EB8;
         }
       }
     }
@@ -5064,124 +5080,125 @@ void *sub_10028AAFC()
 
   else
   {
-    v5 = _swiftEmptyArrayStorage;
+    v4 = _swiftEmptyArrayStorage;
   }
 
-  sub_10028CCE4(v3, _s6AlbumsV5ScopeOMa);
-  return v5;
+  sub_10028CCE4(v2, _s6AlbumsV5ScopeOMa);
+  return v4;
 }
 
-void sub_10028ACDC(__int16 a1)
+void sub_10028ACDC(uint64_t a1)
 {
-  v3 = _s6AlbumsV5ScopeOMa(0);
-  __chkstk_darwin(v3);
-  v5 = v18 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = _s6AlbumsVMa(0);
-  v7 = (v1 + *(v6 + 36));
-  v8 = *v7;
-  v9 = v7[1];
-  if ((sub_1006B8B0C(*v7, a1) & 1) == 0 || ((((a1 & 0x100) == 0) ^ v9) & 1) == 0)
+  v2 = a1;
+  _s6AlbumsV5ScopeOMa(0);
+  __chkstk_darwin();
+  v4 = v17 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = _s6AlbumsVMa(0);
+  v6 = (v1 + *(v5 + 36));
+  v7 = *v6;
+  v8 = v6[1];
+  if ((sub_1006B8B0C(*v6, v2) & 1) == 0 || ((((v2 & 0x100) == 0) ^ v8) & 1) == 0)
   {
-    v10 = objc_opt_self();
-    v11 = [v10 standardUserDefaults];
-    v18[3] = &_s11ContentSortVN;
-    v18[4] = sub_100110448();
-    v18[5] = sub_10011049C();
-    LOBYTE(v18[0]) = v8;
-    BYTE1(v18[0]) = v9;
-    v12 = v1;
+    v9 = objc_opt_self();
+    v10 = [v9 standardUserDefaults];
+    v17[3] = &_s11ContentSortVN;
+    v17[4] = sub_100110448();
+    v17[5] = sub_10011049C();
+    LOBYTE(v17[0]) = v7;
+    BYTE1(v17[0]) = v8;
+    v11 = v1;
     sub_10028A5BC(0x53746E65746E6F43, 0xEB0000000074726FLL);
-    NSUserDefaults.encodeValue(_:forKey:)(v18);
+    NSUserDefaults.encodeValue(_:forKey:)(v17);
 
-    sub_10000959C(v18);
-    v13 = [v10 standardUserDefaults];
-    if (v9)
+    sub_10000959C(v17);
+    v12 = [v9 standardUserDefaults];
+    if (v8)
     {
-      v14 = 256;
+      v13 = 256;
     }
 
     else
     {
-      v14 = 0;
+      v13 = 0;
     }
 
-    v15 = sub_10045E2D4(v14 | v8);
-    sub_10028CC7C(v12 + *(v6 + 24), v5, _s6AlbumsV5ScopeOMa);
+    v14 = sub_10045E2D4(v13 | v7);
+    sub_10028CC7C(v11 + *(v5 + 24), v4, _s6AlbumsV5ScopeOMa);
     EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
     if (EnumCaseMultiPayload <= 1)
     {
       if (EnumCaseMultiPayload)
       {
-        sub_10028CCE4(v5, _s6AlbumsV5ScopeOMa);
-        v17 = 67;
+        sub_10028CCE4(v4, _s6AlbumsV5ScopeOMa);
+        v16 = 67;
       }
 
       else
       {
-        sub_10028CCE4(v5, _s6AlbumsV5ScopeOMa);
-        v17 = 68;
+        sub_10028CCE4(v4, _s6AlbumsV5ScopeOMa);
+        v16 = 68;
       }
     }
 
     else if (EnumCaseMultiPayload == 2)
     {
-      sub_10028CCE4(v5, _s6AlbumsV5ScopeOMa);
-      v17 = 65;
+      sub_10028CCE4(v4, _s6AlbumsV5ScopeOMa);
+      v16 = 65;
     }
 
     else if (EnumCaseMultiPayload == 3)
     {
-      v17 = 64;
+      v16 = 64;
     }
 
     else
     {
-      v17 = 66;
+      v16 = 66;
     }
 
-    NSUserDefaults.setSortType(_:for:keyDomain:)(v15, v17, 0, 0);
+    NSUserDefaults.setSortType(_:for:keyDomain:)(v14, v16, 0, 0);
   }
 }
 
 void sub_10028AF58(uint64_t a1)
 {
   v2 = v1;
-  v24 = a1;
+  v23 = a1;
   v3 = type metadata accessor for Artist();
   v4 = *(v3 - 8);
-  v22 = v3;
-  v23 = v4;
-  __chkstk_darwin(v3);
-  v6 = &v21 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v21 = v3;
+  v22 = v4;
+  __chkstk_darwin();
+  v6 = &v20 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = type metadata accessor for Composer();
   v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
-  v10 = &v21 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v10 = &v20 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = type metadata accessor for Genre();
   v12 = *(v11 - 8);
-  __chkstk_darwin(v11);
-  v14 = &v21 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = _s6AlbumsV5ScopeOMa(0);
-  __chkstk_darwin(v15);
-  v17 = &v21 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_10028CC7C(v2, v17, _s6AlbumsV5ScopeOMa);
+  __chkstk_darwin();
+  v14 = &v20 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  _s6AlbumsV5ScopeOMa(0);
+  __chkstk_darwin();
+  v16 = &v20 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_10028CC7C(v2, v16, _s6AlbumsV5ScopeOMa);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload <= 1)
   {
     if (EnumCaseMultiPayload)
     {
-      (*(v8 + 32))(v10, v17, v7);
+      (*(v8 + 32))(v10, v16, v7);
       Hasher._combine(_:)(3uLL);
-      sub_10028C564(&qword_101188E78, &type metadata accessor for Composer);
+      sub_10028C564(&qword_101188E78, &type metadata accessor for Composer, &protocol conformance descriptor for Composer);
       dispatch thunk of Hashable.hash(into:)();
       (*(v8 + 8))(v10, v7);
     }
 
     else
     {
-      (*(v12 + 32))(v14, v17, v11);
+      (*(v12 + 32))(v14, v16, v11);
       Hasher._combine(_:)(2uLL);
-      sub_10028C564(&qword_101188E80, &type metadata accessor for Genre);
+      sub_10028C564(&qword_101188E80, &type metadata accessor for Genre, &protocol conformance descriptor for Genre);
       dispatch thunk of Hashable.hash(into:)();
       (*(v12 + 8))(v14, v11);
     }
@@ -5189,13 +5206,13 @@ void sub_10028AF58(uint64_t a1)
 
   else if (EnumCaseMultiPayload == 2)
   {
+    v18 = v21;
     v19 = v22;
-    v20 = v23;
-    (*(v23 + 32))(v6, v17, v22);
+    (*(v22 + 32))(v6, v16, v21);
     Hasher._combine(_:)(4uLL);
-    sub_10028C564(&qword_101188E70, &type metadata accessor for Artist);
+    sub_10028C564(&qword_101188E70, &type metadata accessor for Artist, &protocol conformance descriptor for Artist);
     dispatch thunk of Hashable.hash(into:)();
-    (*(v20 + 8))(v6, v19);
+    (*(v19 + 8))(v6, v18);
   }
 
   else
@@ -5214,83 +5231,83 @@ uint64_t sub_10028B394@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
 
 _UNKNOWN **sub_10028B3E0()
 {
-  v1 = _s6AlbumsV5ScopeOMa(0);
-  __chkstk_darwin(v1);
-  v3 = &v10 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = _s6AlbumsVMa(0);
-  sub_10028CC7C(v0 + *(v4 + 24), v3, _s6AlbumsV5ScopeOMa);
+  _s6AlbumsV5ScopeOMa(0);
+  __chkstk_darwin();
+  v2 = &v9 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = _s6AlbumsVMa(0);
+  sub_10028CC7C(v0 + *(v3 + 24), v2, _s6AlbumsV5ScopeOMa);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if ((EnumCaseMultiPayload - 1) < 2)
   {
-    sub_10028CCE4(v3, _s6AlbumsV5ScopeOMa);
+    sub_10028CCE4(v2, _s6AlbumsV5ScopeOMa);
     type metadata accessor for MusicLibrary();
     static MusicLibrary.shared.getter();
-    v6 = static MusicLibrary.== infix(_:_:)();
+    v5 = static MusicLibrary.== infix(_:_:)();
 
-    v7 = &off_101098B58;
-    v8 = &off_101098B30;
+    v6 = &off_101098B58;
+    v7 = &off_101098B30;
   }
 
   else
   {
     if ((EnumCaseMultiPayload - 3) >= 2)
     {
-      sub_10028CCE4(v3, _s6AlbumsV5ScopeOMa);
+      sub_10028CCE4(v2, _s6AlbumsV5ScopeOMa);
     }
 
     type metadata accessor for MusicLibrary();
     static MusicLibrary.shared.getter();
-    v6 = static MusicLibrary.== infix(_:_:)();
+    v5 = static MusicLibrary.== infix(_:_:)();
 
-    v7 = &off_101098B08;
-    v8 = &off_101098AE0;
+    v6 = &off_101098B08;
+    v7 = &off_101098AE0;
   }
 
-  if (v6)
+  if (v5)
   {
-    return v8;
+    return v7;
   }
 
   else
   {
-    return v7;
+    return v6;
   }
 }
 
-uint64_t sub_10028B578@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+double sub_10028B578@<D0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v68 = a1;
+  v70 = a1;
   v4 = type metadata accessor for MusicFavoriteStatus();
-  v57 = *(v4 - 8);
-  v58 = v4;
-  __chkstk_darwin(v4);
-  v56 = &v55 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v59 = *(v4 - 8);
+  v60 = v4;
+  __chkstk_darwin();
+  v58 = &v57 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = type metadata accessor for Artist();
-  v60 = *(v6 - 8);
-  v61 = v6;
-  __chkstk_darwin(v6);
-  v59 = &v55 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v62 = *(v6 - 8);
+  v63 = v6;
+  __chkstk_darwin();
+  v61 = &v57 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = type metadata accessor for Composer();
-  v65 = *(v8 - 8);
-  v66 = v8;
-  __chkstk_darwin(v8);
-  v64 = &v55 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v67 = *(v8 - 8);
+  v68 = v8;
+  __chkstk_darwin();
+  v66 = &v57 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = type metadata accessor for Genre();
-  v62 = *(v10 - 8);
-  v63 = v10;
-  __chkstk_darwin(v10);
-  v12 = &v55 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = _s6AlbumsV5ScopeOMa(0);
-  __chkstk_darwin(v13);
-  v15 = &v55 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v64 = *(v10 - 8);
+  v65 = v10;
+  __chkstk_darwin();
+  v12 = &v57 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  _s6AlbumsV5ScopeOMa(0);
+  __chkstk_darwin();
+  v14 = &v57 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for Album();
   type metadata accessor for Track();
   MusicLibrarySectionedRequest.init()();
 
-  sub_10010FC20(&qword_101188E88);
+  sub_10010FC20(&qword_101188E88, &unk_100ECBD70);
   MusicLibrarySectionedRequest.library.setter();
   MusicLibrarySectionedRequest.includeOnlyDownloadedContent.setter();
-  v16 = _s6AlbumsVMa(0);
+  v15 = _s6AlbumsVMa(0);
   MusicLibrarySectionedRequest.filterSections<>(text:)();
   swift_getKeyPath();
   MusicLibrarySectionedRequest.sortItems<A>(by:ascending:)();
@@ -5299,62 +5316,62 @@ uint64_t sub_10028B578@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   MusicLibrarySectionedRequest.sortItems<A>(by:ascending:)();
 
   swift_getKeyPath();
-  v67 = a2;
+  v69 = a2;
   MusicLibrarySectionedRequest.sortItems<A>(by:ascending:)();
 
-  sub_10028CC7C(v2 + v16[6], v15, _s6AlbumsV5ScopeOMa);
-  result = swift_getEnumCaseMultiPayload();
-  if (result <= 1)
+  sub_10028CC7C(v2 + v15[6], v14, _s6AlbumsV5ScopeOMa);
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload <= 1)
   {
-    v19 = v64;
-    v20 = v66;
-    if (result)
+    v19 = v66;
+    v20 = v68;
+    if (EnumCaseMultiPayload)
     {
-      v26 = v65;
-      (*(v65 + 32))(v64, v15, v66);
+      v26 = v67;
+      (*(v67 + 32))(v66, v14, v68);
       swift_getKeyPath();
       MusicLibrarySectionedRequest<>.filterItems<A>(matching:contains:)();
 
-      result = (*(v26 + 8))(v19, v20);
+      (*(v26 + 8))(v19, v20);
       goto LABEL_10;
     }
 
-    v21 = v62;
+    v21 = v64;
     v22 = v12;
-    v23 = v15;
-    v24 = v63;
-    (*(v62 + 32))(v12, v23, v63);
+    v23 = v14;
+    v24 = v65;
+    (*(v64 + 32))(v12, v23, v65);
     swift_getKeyPath();
 LABEL_8:
     MusicLibrarySectionedRequest.filterItems<A>(matching:contains:)();
 
-    result = (*(v21 + 8))(v22, v24);
+    (*(v21 + 8))(v22, v24);
 LABEL_10:
     v18 = v2;
     goto LABEL_11;
   }
 
-  if (result == 2)
+  if (EnumCaseMultiPayload == 2)
   {
-    v22 = v59;
-    v21 = v60;
-    v25 = v15;
-    v24 = v61;
-    (*(v60 + 32))(v59, v25, v61);
+    v22 = v61;
+    v21 = v62;
+    v25 = v14;
+    v24 = v63;
+    (*(v62 + 32))(v61, v25, v63);
     swift_getKeyPath();
     goto LABEL_8;
   }
 
   v18 = v2;
-  if (result != 3)
+  if (EnumCaseMultiPayload != 3)
   {
     swift_getKeyPath();
-    v69 = 1;
+    LOBYTE(v71[0]) = 1;
     MusicLibrarySectionedRequest.filterSections<A>(matching:equalTo:)();
   }
 
 LABEL_11:
-  v27 = *(v18 + v16[9]);
+  v27 = *(v18 + v15[9]);
   if (v27 > 2)
   {
     if (v27 == 3)
@@ -5374,7 +5391,7 @@ LABEL_11:
 
   else
   {
-    if (!*(v18 + v16[9]))
+    if (!*(v18 + v15[9]))
     {
       swift_getKeyPath();
       MusicLibrarySectionedRequest.sortSections<A>(by:ascending:)();
@@ -5394,7 +5411,7 @@ LABEL_20:
   MusicLibrarySectionedRequest.sortSections<A>(by:ascending:)();
 
 LABEL_21:
-  v28 = *(v18 + v16[8]);
+  v28 = *(v18 + v15[8]);
   if (!*(v28 + 16))
   {
     return result;
@@ -5402,11 +5419,11 @@ LABEL_21:
 
   Hasher.init(_seed:)();
   String.hash(into:)();
-  result = Hasher._finalize()();
-  v29 = v28 + 56;
-  v30 = -1 << *(v28 + 32);
-  v31 = result & ~v30;
-  if (((*(v28 + 56 + ((v31 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v31) & 1) == 0)
+  v29 = Hasher._finalize()();
+  v30 = v28 + 56;
+  v31 = -1 << *(v28 + 32);
+  v32 = v29 & ~v31;
+  if (((*(v28 + 56 + ((v32 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v32) & 1) == 0)
   {
 LABEL_38:
     if (!*(v28 + 16))
@@ -5417,51 +5434,51 @@ LABEL_38:
     goto LABEL_39;
   }
 
-  v32 = ~v30;
-  while (!*(*(v28 + 48) + v31) || *(*(v28 + 48) + v31) == 2)
+  v33 = ~v31;
+  while (!*(*(v28 + 48) + v32) || *(*(v28 + 48) + v32) == 2)
   {
-    v33 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v34 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    if (v33)
+    if (v34)
     {
       goto LABEL_30;
     }
 
-    v31 = (v31 + 1) & v32;
-    if (((*(v29 + ((v31 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v31) & 1) == 0)
+    v32 = (v32 + 1) & v33;
+    if (((*(v30 + ((v32 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v32) & 1) == 0)
     {
       goto LABEL_38;
     }
   }
 
 LABEL_30:
-  if (!*(v68 + 16) || (v34 = v68, Hasher.init(_seed:)(), String.hash(into:)(), v35 = Hasher._finalize()(), v36 = v34 + 56, v37 = -1 << *(v34 + 32), v38 = v35 & ~v37, ((*(v34 + 56 + ((v38 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v38) & 1) == 0))
+  if (!v70[2] || (v35 = v70, Hasher.init(_seed:)(), String.hash(into:)(), v36 = Hasher._finalize()(), v37 = v35 + 7, v38 = -1 << *(v35 + 32), v39 = v36 & ~v38, ((*(v35 + ((v39 >> 3) & 0xFFFFFFFFFFFFFF8) + 56) >> v39) & 1) == 0))
   {
 LABEL_37:
     swift_getKeyPath();
-    v42 = v57;
-    v41 = v58;
-    v43 = v56;
-    (*(v57 + 104))(v56, enum case for MusicFavoriteStatus.favorited(_:), v58);
-    sub_10028C564(&qword_1011831C8, &type metadata accessor for MusicFavoriteStatus);
+    v43 = v59;
+    v42 = v60;
+    v44 = v58;
+    (*(v59 + 104))(v58, enum case for MusicFavoriteStatus.favorited(_:), v60);
+    sub_10028C564(&qword_1011831C8, &type metadata accessor for MusicFavoriteStatus, &protocol conformance descriptor for MusicFavoriteStatus);
     MusicLibrarySectionedRequest<>.filterSections<A>(matching:equalTo:)();
 
-    result = (*(v42 + 8))(v43, v41);
+    (*(v43 + 8))(v44, v42);
     goto LABEL_38;
   }
 
-  v39 = ~v37;
-  while (!*(*(v68 + 48) + v38) || *(*(v68 + 48) + v38) == 2)
+  v40 = ~v38;
+  while (!*(v70[6] + v39) || *(v70[6] + v39) == 2)
   {
-    v40 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v41 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    if (v40)
+    if (v41)
     {
       goto LABEL_38;
     }
 
-    v38 = (v38 + 1) & v39;
-    if (((*(v36 + ((v38 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v38) & 1) == 0)
+    v39 = (v39 + 1) & v40;
+    if (((*(v37 + ((v39 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v39) & 1) == 0)
     {
       goto LABEL_37;
     }
@@ -5472,52 +5489,53 @@ LABEL_37:
 LABEL_39:
     Hasher.init(_seed:)();
     String.hash(into:)();
-    result = Hasher._finalize()();
-    v44 = -1 << *(v28 + 32);
-    v45 = result & ~v44;
-    if ((*(v29 + ((v45 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v45))
+    v45 = Hasher._finalize()();
+    v46 = -1 << *(v28 + 32);
+    v47 = v45 & ~v46;
+    if ((*(v30 + ((v47 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v47))
     {
-      v46 = ~v44;
-      while (!*(*(v28 + 48) + v45) || *(*(v28 + 48) + v45) == 1)
+      v48 = ~v46;
+      while (!*(*(v28 + 48) + v47) || *(*(v28 + 48) + v47) == 1)
       {
-        v47 = _stringCompareWithSmolCheck(_:_:expecting:)();
+        v49 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-        if (v47)
+        if (v49)
         {
           goto LABEL_47;
         }
 
-        v45 = (v45 + 1) & v46;
-        if (((*(v29 + ((v45 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v45) & 1) == 0)
+        v47 = (v47 + 1) & v48;
+        if (((*(v30 + ((v47 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v47) & 1) == 0)
         {
           return result;
         }
       }
 
 LABEL_47:
-      if (*(v68 + 16) && (v48 = v68, Hasher.init(_seed:)(), String.hash(into:)(), v49 = Hasher._finalize()(), v50 = v48 + 56, v51 = -1 << *(v48 + 32), v52 = v49 & ~v51, ((*(v48 + 56 + ((v52 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v52) & 1) != 0))
+      if (v70[2] && (v50 = v70, Hasher.init(_seed:)(), String.hash(into:)(), v51 = Hasher._finalize()(), v52 = v50 + 7, v53 = -1 << *(v50 + 32), v54 = v51 & ~v53, ((*(v50 + ((v54 >> 3) & 0xFFFFFFFFFFFFFF8) + 56) >> v54) & 1) != 0))
       {
-        v53 = ~v51;
-        while (!*(*(v68 + 48) + v52) || *(*(v68 + 48) + v52) == 1)
+        v55 = ~v53;
+        while (!*(v70[6] + v54) || *(v70[6] + v54) == 1)
         {
-          v54 = _stringCompareWithSmolCheck(_:_:expecting:)();
+          v56 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-          if (v54)
+          if (v56)
           {
             return result;
           }
 
-          v52 = (v52 + 1) & v53;
-          if (((*(v50 + ((v52 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v52) & 1) == 0)
+          v54 = (v54 + 1) & v55;
+          if (((*(v52 + ((v54 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v54) & 1) == 0)
           {
-            return MusicLibrarySectionedRequest.includeOnlyDownloadedContent.setter();
+            goto LABEL_55;
           }
         }
       }
 
       else
       {
-        return MusicLibrarySectionedRequest.includeOnlyDownloadedContent.setter();
+LABEL_55:
+        MusicLibrarySectionedRequest.includeOnlyDownloadedContent.setter();
       }
     }
   }
@@ -5533,10 +5551,10 @@ uint64_t sub_10028C0A0(void *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64
   return a4(v5, v6);
 }
 
-void sub_10028C0F0(uint64_t a1)
+void sub_10028C0F0(__int128 *a1)
 {
   type metadata accessor for MusicLibrary();
-  sub_10028C564(&qword_101180378, &type metadata accessor for MusicLibrary);
+  sub_10028C564(&qword_101180378, &type metadata accessor for MusicLibrary, &protocol conformance descriptor for MusicLibrary);
   dispatch thunk of Hashable.hash(into:)();
   Hasher._combine(_:)(*(v1 + 8));
   v3 = _s6AlbumsVMa(0);
@@ -5549,30 +5567,30 @@ void sub_10028C0F0(uint64_t a1)
   Hasher._combine(_:)(v4);
 }
 
-uint64_t sub_10028C30C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void sub_10028C30C(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   type metadata accessor for TitledSection();
   type metadata accessor for Album();
   MusicLibrarySectionedRequest.init()();
 
-  sub_10010FC20(&qword_10118CE70);
+  sub_10010FC20(&qword_10118CE70, &qword_100EC8A70);
   MusicLibrarySectionedRequest.library.setter();
   MusicLibrarySectionedRequest.includeOnlyDownloadedContent.setter();
   MusicLibrarySectionedRequest.filterItems(text:)(*(v2 + *(a1 + 28)));
   sub_1002897C8(a2);
   sub_100289CA8();
 
-  return sub_10028A010(a2);
+  sub_10028A010(a2);
 }
 
-Swift::Int sub_10028C40C(uint64_t a1, uint64_t a2, void (*a3)(_BYTE *))
+Swift::Int sub_10028C40C(uint64_t a1, uint64_t a2, void (*a3)(void *))
 {
   Hasher.init(_seed:)();
   a3(v5);
   return Hasher._finalize()();
 }
 
-Swift::Int sub_10028C470(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(_BYTE *))
+Swift::Int sub_10028C470(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void *))
 {
   Hasher.init(_seed:)();
   a4(v6);
@@ -5581,12 +5599,12 @@ Swift::Int sub_10028C470(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(_BYTE
 
 uint64_t sub_10028C50C(uint64_t a1)
 {
-  result = sub_10028C564(&qword_101188E58, _s6AlbumsVMa);
+  result = sub_10028C564(&qword_101188E58, _s6AlbumsVMa, &unk_100EC48AC);
   *(a1 + 8) = result;
   return result;
 }
 
-uint64_t sub_10028C564(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_10028C564(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -5599,100 +5617,100 @@ uint64_t sub_10028C564(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t sub_10028C5F4(uint64_t a1, uint64_t a2)
+uint64_t sub_10028C5F4(uint64_t a1, char *a2)
 {
-  v44 = a1;
-  v45 = a2;
+  v40 = a1;
+  v41 = a2;
   v2 = type metadata accessor for Artist();
-  v39 = *(v2 - 8);
-  v40 = v2;
-  __chkstk_darwin(v2);
-  v38 = &v38 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v35 = *(v2 - 8);
+  v36 = v2;
+  __chkstk_darwin();
+  v34 = &v34 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   v4 = type metadata accessor for Composer();
-  v42 = *(v4 - 8);
-  v43 = v4;
-  __chkstk_darwin(v4);
-  v6 = &v38 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v38 = *(v4 - 8);
+  v39 = v4;
+  __chkstk_darwin();
+  v6 = &v34 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = type metadata accessor for Genre();
-  v41 = *(v7 - 8);
-  __chkstk_darwin(v7);
-  v9 = &v38 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = _s6AlbumsV5ScopeOMa(0);
-  v11 = __chkstk_darwin(v10);
-  v13 = &v38 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = __chkstk_darwin(v11);
-  v16 = &v38 - v15;
-  __chkstk_darwin(v14);
-  v18 = &v38 - v17;
-  v19 = sub_10010FC20(&qword_101188E68);
-  v20 = __chkstk_darwin(v19 - 8);
-  v22 = &v38 - v21;
-  v23 = *(v20 + 56);
-  sub_10028CC7C(v44, &v38 - v21, _s6AlbumsV5ScopeOMa);
-  sub_10028CC7C(v45, &v22[v23], _s6AlbumsV5ScopeOMa);
+  v37 = *(v7 - 8);
+  __chkstk_darwin();
+  v9 = &v34 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  _s6AlbumsV5ScopeOMa(0);
+  __chkstk_darwin();
+  v11 = &v34 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v13 = &v34 - v12;
+  __chkstk_darwin();
+  v15 = &v34 - v14;
+  sub_10010FC20(&qword_101188E68, &qword_100EC4970);
+  __chkstk_darwin();
+  v17 = &v34 - v16;
+  v19 = *(v18 + 56);
+  sub_10028CC7C(v40, &v34 - v16, _s6AlbumsV5ScopeOMa);
+  sub_10028CC7C(v41, &v17[v19], _s6AlbumsV5ScopeOMa);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload <= 1)
   {
-    v45 = v9;
-    v26 = v41;
-    v25 = v42;
-    v27 = v43;
+    v41 = v9;
+    v22 = v37;
+    v21 = v38;
+    v23 = v39;
     if (EnumCaseMultiPayload)
     {
-      sub_10028CC7C(v22, v16, _s6AlbumsV5ScopeOMa);
+      sub_10028CC7C(v17, v13, _s6AlbumsV5ScopeOMa);
       if (swift_getEnumCaseMultiPayload() != 1)
       {
-        (*(v25 + 8))(v16, v27);
+        (*(v21 + 8))(v13, v23);
         goto LABEL_17;
       }
 
-      (*(v25 + 32))(v6, &v22[v23], v27);
-      v31 = static Composer.== infix(_:_:)();
-      v33 = *(v25 + 8);
-      v33(v6, v27);
-      v33(v16, v27);
+      (*(v21 + 32))(v6, &v17[v19], v23);
+      v27 = static Composer.== infix(_:_:)();
+      v29 = *(v21 + 8);
+      v29(v6, v23);
+      v29(v13, v23);
     }
 
     else
     {
-      sub_10028CC7C(v22, v18, _s6AlbumsV5ScopeOMa);
+      sub_10028CC7C(v17, v15, _s6AlbumsV5ScopeOMa);
       if (swift_getEnumCaseMultiPayload())
       {
-        (*(v26 + 8))(v18, v7);
+        (*(v22 + 8))(v15, v7);
         goto LABEL_17;
       }
 
-      v34 = v26;
-      v35 = v45;
-      (*(v26 + 32))(v45, &v22[v23], v7);
-      v31 = static Genre.== infix(_:_:)();
-      v36 = *(v34 + 8);
-      v36(v35, v7);
-      v36(v18, v7);
+      v30 = v22;
+      v31 = v41;
+      (*(v22 + 32))(v41, &v17[v19], v7);
+      v27 = static Genre.== infix(_:_:)();
+      v32 = *(v30 + 8);
+      v32(v31, v7);
+      v32(v15, v7);
     }
 
 LABEL_19:
-    sub_10028CCE4(v22, _s6AlbumsV5ScopeOMa);
-    return v31 & 1;
+    sub_10028CCE4(v17, _s6AlbumsV5ScopeOMa);
+    return v27 & 1;
   }
 
   if (EnumCaseMultiPayload == 2)
   {
-    sub_10028CC7C(v22, v13, _s6AlbumsV5ScopeOMa);
+    sub_10028CC7C(v17, v11, _s6AlbumsV5ScopeOMa);
     if (swift_getEnumCaseMultiPayload() != 2)
     {
-      (*(v39 + 8))(v13, v40);
+      (*(v35 + 8))(v11, v36);
       goto LABEL_17;
     }
 
-    v29 = v38;
-    v28 = v39;
-    v30 = v40;
-    (*(v39 + 32))(v38, &v22[v23], v40);
-    v31 = static Artist.== infix(_:_:)();
-    v32 = *(v28 + 8);
-    v32(v29, v30);
-    v32(v13, v30);
+    v25 = v34;
+    v24 = v35;
+    v26 = v36;
+    (*(v35 + 32))(v34, &v17[v19], v36);
+    v27 = static Artist.== infix(_:_:)();
+    v28 = *(v24 + 8);
+    v28(v25, v26);
+    v28(v11, v26);
     goto LABEL_19;
   }
 
@@ -5704,9 +5722,9 @@ LABEL_19:
     }
 
 LABEL_17:
-    sub_1000095E8(v22, &qword_101188E68);
-    v31 = 0;
-    return v31 & 1;
+    sub_1000095E8(v17, &qword_101188E68, &qword_100EC4970);
+    v27 = 0;
+    return v27 & 1;
   }
 
   if (swift_getEnumCaseMultiPayload() != 3)
@@ -5715,15 +5733,15 @@ LABEL_17:
   }
 
 LABEL_12:
-  sub_10028CCE4(v22, _s6AlbumsV5ScopeOMa);
-  v31 = 1;
-  return v31 & 1;
+  sub_10028CCE4(v17, _s6AlbumsV5ScopeOMa);
+  v27 = 1;
+  return v27 & 1;
 }
 
 uint64_t sub_10028CB8C(uint64_t a1, uint64_t a2)
 {
   type metadata accessor for MusicLibrary();
-  if (static MusicLibrary.== infix(_:_:)() & 1) != 0 && *(a1 + 8) == *(a2 + 8) && (v4 = _s6AlbumsVMa(0), (sub_10028C5F4(a1 + v4[6], a2 + v4[6])) && ((v5 = v4[7], v6 = *(a1 + v5), v7 = *(a1 + v5 + 8), v8 = (a2 + v5), v6 == *v8) ? (v9 = v7 == v8[1]) : (v9 = 0), (v9 || (_stringCompareWithSmolCheck(_:_:expecting:)()) && (sub_10018FCA0(*(a1 + v4[8]), *(a2 + v4[8]))))
+  if (static MusicLibrary.== infix(_:_:)() & 1) != 0 && *(a1 + 8) == *(a2 + 8) && (v4 = _s6AlbumsVMa(0), (sub_10028C5F4(a1 + v4[6], (a2 + v4[6]))) && ((v5 = v4[7], v6 = *(a1 + v5), v7 = *(a1 + v5 + 8), v8 = (a2 + v5), v6 == *v8) ? (v9 = v7 == v8[1]) : (v9 = 0), (v9 || (_stringCompareWithSmolCheck(_:_:expecting:)()) && (sub_10018FCA0(*(a1 + v4[8]), *(a2 + v4[8]))))
   {
     v10 = v4[9];
     v11 = (a1 + v10);
@@ -5771,7 +5789,7 @@ unint64_t sub_10028CD9C()
   result = qword_101188E90;
   if (!qword_101188E90)
   {
-    sub_1001109D0(&qword_101188E88);
+    sub_1001109D0(&qword_101188E88, &unk_100ECBD70);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_101188E90);
   }
@@ -5789,7 +5807,7 @@ uint64_t sub_10028CE00(void *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64
 
 uint64_t sub_10028CE50(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_10010FC20(&unk_101184730);
+  v4 = sub_10010FC20(&unk_101184730, &unk_100ECB920);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -5800,10 +5818,11 @@ uint64_t sub_10028CEC0(uint64_t result)
   if (v2)
   {
     v3 = result;
+    v4 = *(v1 + 80);
 
     v2(v1, v3);
 
-    return sub_100020438(v2);
+    return sub_100020438(v2, v4);
   }
 
   return result;
@@ -5815,10 +5834,11 @@ uint64_t sub_10028CF38(uint64_t result, char a2)
   if (v3)
   {
     v5 = result;
+    v6 = *(v2 + 96);
 
     v3(a2 & 1, v5);
 
-    return sub_100020438(v3);
+    return sub_100020438(v3, v6);
   }
 
   return result;
@@ -5827,9 +5847,9 @@ uint64_t sub_10028CF38(uint64_t result, char a2)
 uint64_t sub_10028CFB0()
 {
 
-  sub_100020438(*(v0 + 56));
-  sub_100020438(*(v0 + 72));
-  sub_100020438(*(v0 + 88));
+  sub_100020438(*(v0 + 56), *(v0 + 64));
+  sub_100020438(*(v0 + 72), *(v0 + 80));
+  sub_100020438(*(v0 + 88), *(v0 + 96));
 
   return swift_deallocClassInstance();
 }
@@ -5837,11 +5857,11 @@ uint64_t sub_10028CFB0()
 uint64_t sub_10028D034()
 {
 
-  sub_100020438(*(v0 + 40));
-  sub_100020438(*(v0 + 56));
-  sub_100020438(*(v0 + 72));
-  sub_100020438(*(v0 + 88));
-  sub_100020438(*(v0 + 104));
+  sub_100020438(*(v0 + 40), *(v0 + 48));
+  sub_100020438(*(v0 + 56), *(v0 + 64));
+  sub_100020438(*(v0 + 72), *(v0 + 80));
+  sub_100020438(*(v0 + 88), *(v0 + 96));
+  sub_100020438(*(v0 + 104), *(v0 + 112));
   return v0;
 }
 
@@ -5852,12 +5872,12 @@ uint64_t sub_10028D084()
   return swift_deallocClassInstance();
 }
 
-unint64_t sub_10028D0DC(uint64_t a1, char a2)
+void sub_10028D0DC(uint64_t a1, char a2)
 {
   v29 = *(a1 + 16);
   if (!v29)
   {
-    return _swiftEmptyArrayStorage;
+    return;
   }
 
   v2 = 0;
@@ -5872,14 +5892,14 @@ unint64_t sub_10028D0DC(uint64_t a1, char a2)
     ObjectType = swift_getObjectType();
     v7 = *(v5 + 8);
     swift_unknownObjectRetain();
-    result = v7(ObjectType, v5);
-    v9 = result;
-    if (result >> 62)
+    v8 = v7(ObjectType, v5);
+    v9 = v8;
+    if (v8 >> 62)
     {
       break;
     }
 
-    v10 = *((result & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v10 = *((v8 & 0xFFFFFFFFFFFFFF8) + 0x10);
     if (v10)
     {
       goto LABEL_6;
@@ -5891,13 +5911,12 @@ LABEL_3:
 
     if (v22 + 1 == v29)
     {
-      return _swiftEmptyArrayStorage;
+      return;
     }
   }
 
-  result = _CocoaArrayWrapper.endIndex.getter();
-  v10 = result;
-  if (!result)
+  v10 = _CocoaArrayWrapper.endIndex.getter();
+  if (!v10)
   {
     goto LABEL_3;
   }
@@ -5912,8 +5931,7 @@ LABEL_6:
 LABEL_9:
   if (v28)
   {
-    result = sub_1007E9564(v11, v9);
-    v12 = result;
+    v12 = sub_1007E9564(v11, v9);
     v13 = __OFADD__(v11, 1);
     v14 = v11 + 1;
     if (v13)
@@ -5960,7 +5978,7 @@ LABEL_15:
 
           specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
 
-          result = swift_unknownObjectRelease();
+          swift_unknownObjectRelease();
 LABEL_8:
           v9 = v26;
           v11 = v30;
@@ -5988,19 +6006,18 @@ LABEL_26:
   __break(1u);
 LABEL_27:
   __break(1u);
-  return result;
 }
 
-void sub_10028D3E8()
+void sub_10028D3E8(uint64_t a1)
 {
   sub_10028D558(319, &qword_1011891E8, &type metadata accessor for MusicFavoriteStatus, &type metadata accessor for Optional);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    sub_10028D4F4();
-    if (v1 <= 0x3F)
+    sub_10028D4F4(319);
+    if (v2 <= 0x3F)
     {
       sub_10028D558(319, &qword_10119F120, &type metadata accessor for DynamicTypeSize, &type metadata accessor for Environment);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -6008,15 +6025,15 @@ void sub_10028D3E8()
   }
 }
 
-void sub_10028D4F4()
+void sub_10028D4F4(uint64_t a1)
 {
   if (!qword_1011891F0)
   {
-    sub_1001109D0(&unk_1011891F8);
-    v0 = type metadata accessor for Environment();
-    if (!v1)
+    sub_1001109D0(&unk_1011891F8, qword_100EDB130);
+    v1 = type metadata accessor for Environment();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1011891F0);
+      atomic_store(v1, &qword_1011891F0);
     }
   }
 }
@@ -6036,29 +6053,29 @@ void sub_10028D558(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_
 
 uint64_t sub_10028D5BC@<X0>(uint64_t a1@<X8>)
 {
-  v3 = type metadata accessor for EnvironmentValues();
-  v4 = *(v3 - 8);
-  __chkstk_darwin(v3);
-  v6 = &v20[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v7 = _s5TitleV5SpecsVMa(0);
-  __chkstk_darwin(v7);
-  v9 = &v20[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  __chkstk_darwin(v10);
-  v12 = &v20[-v11];
-  v13 = v1 + *(_s5TitleVMa(0) + 24);
+  v4 = type metadata accessor for EnvironmentValues();
+  v5 = *(v4 - 8);
+  __chkstk_darwin();
+  v7 = &v23[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v8 = _s5TitleV5SpecsVMa(0);
+  __chkstk_darwin();
+  v10 = &v23[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  __chkstk_darwin();
+  v12 = &v23[-v11];
+  v13 = v2 + *(_s5TitleVMa(0) + 24);
   v14 = *v13;
   if (*(v13 + 8) != 1)
   {
 
-    static os_log_type_t.fault.getter();
-    v15 = static Log.runtimeIssuesLog.getter();
-    os_log(_:dso:log:_:_:)();
+    v15 = static os_log_type_t.fault.getter();
+    v16 = static Log.runtimeIssuesLog.getter();
+    os_log(_:dso:log:_:_:)(v15, &_mh_execute_header, v16, "Accessing Environment's value outside of being installed on a View. This will always read the default value and will not update.", 128, 2, _swiftEmptyArrayStorage);
 
     EnvironmentValues.init()();
     swift_getAtKeyPath();
-    sub_10027AC30(v14, 0);
-    (*(v4 + 8))(v6, v3);
-    LOBYTE(v14) = v20[15];
+    v18 = sub_10027AC30(v14, 0, v17);
+    (*(v5 + 8))(v7, v4, v18);
+    LOBYTE(v14) = v23[15];
   }
 
   if (v14 == 2 || (v14 & 1) == 0)
@@ -6068,7 +6085,7 @@ uint64_t sub_10028D5BC@<X0>(uint64_t a1@<X8>)
       swift_once();
     }
 
-    v16 = qword_101189150;
+    v19 = qword_101189150;
   }
 
   else
@@ -6078,46 +6095,46 @@ uint64_t sub_10028D5BC@<X0>(uint64_t a1@<X8>)
       swift_once();
     }
 
-    v16 = qword_101189168;
+    v19 = qword_101189168;
   }
 
-  v17 = sub_1000060E4(v7, v16);
-  sub_10028EC34(v17, v9);
-  sub_10028ED38(v9, v12);
-  v18 = type metadata accessor for Font.TextStyle();
-  return (*(*(v18 - 8) + 32))(a1, v12, v18);
+  v20 = sub_1000060E4(v8, v19);
+  sub_10028EC34(v20, v10);
+  sub_10028ED38(v10, v12);
+  v21 = type metadata accessor for Font.TextStyle();
+  return (*(*(v21 - 8) + 32))(a1, v12, v21);
 }
 
 uint64_t sub_10028D86C@<X0>(uint64_t a1@<X8>)
 {
-  v3 = type metadata accessor for EnvironmentValues();
-  v4 = *(v3 - 8);
-  __chkstk_darwin(v3);
-  v6 = &v14[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v7 = v1 + *(_s5TitleVMa(0) + 24);
-  v8 = *v7;
-  if (*(v7 + 8) != 1)
+  v4 = type metadata accessor for EnvironmentValues();
+  v5 = *(v4 - 8);
+  __chkstk_darwin();
+  v7 = &v18[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v8 = v2 + *(_s5TitleVMa(0) + 24);
+  v9 = *v8;
+  if (*(v8 + 8) != 1)
   {
 
-    static os_log_type_t.fault.getter();
-    v9 = static Log.runtimeIssuesLog.getter();
-    os_log(_:dso:log:_:_:)();
+    v10 = static os_log_type_t.fault.getter();
+    v11 = static Log.runtimeIssuesLog.getter();
+    os_log(_:dso:log:_:_:)(v10, &_mh_execute_header, v11, "Accessing Environment's value outside of being installed on a View. This will always read the default value and will not update.", 128, 2, _swiftEmptyArrayStorage);
 
     EnvironmentValues.init()();
     swift_getAtKeyPath();
-    sub_10027AC30(v8, 0);
-    (*(v4 + 8))(v6, v3);
-    LOBYTE(v8) = v14[15];
+    v13 = sub_10027AC30(v9, 0, v12);
+    (*(v5 + 8))(v7, v4, v13);
+    LOBYTE(v9) = v18[15];
   }
 
-  if (v8 == 2 || (v8 & 1) == 0)
+  if (v9 == 2 || (v9 & 1) == 0)
   {
     if (qword_10117F4A0 != -1)
     {
       swift_once();
     }
 
-    v10 = qword_101189150;
+    v14 = qword_101189150;
   }
 
   else
@@ -6127,153 +6144,153 @@ uint64_t sub_10028D86C@<X0>(uint64_t a1@<X8>)
       swift_once();
     }
 
-    v10 = qword_101189168;
+    v14 = qword_101189168;
   }
 
-  v11 = _s5TitleV5SpecsVMa(0);
-  v12 = sub_1000060E4(v11, v10);
-  return sub_10028EC34(v12, a1);
+  v15 = _s5TitleV5SpecsVMa(0);
+  v16 = sub_1000060E4(v15, v14);
+  return sub_10028EC34(v16, a1);
 }
 
 uint64_t sub_10028DA68@<X0>(uint64_t a1@<X8>)
 {
-  v63 = a1;
-  v2 = sub_10010FC20(&qword_101188610);
-  __chkstk_darwin(v2 - 8);
-  v57 = &v53 - v3;
-  v56 = _s5TitleV5SpecsVMa(0) - 8;
-  __chkstk_darwin(v56);
-  v5 = &v53 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v58 = sub_10010FC20(&qword_101189238);
-  __chkstk_darwin(v58);
-  v54 = &v53 - v6;
-  v62 = sub_10010FC20(&qword_101189240);
-  __chkstk_darwin(v62);
-  v55 = &v53 - v7;
-  v8 = sub_10010FC20(&qword_1011831D0);
-  __chkstk_darwin(v8 - 8);
-  v10 = &v53 - v9;
-  v11 = _s5TitleVMa(0);
-  sub_10028E5F4(v1 + *(v11 + 20), v10);
-  LOBYTE(v10) = TextBadge.init(for:)(v10);
-  sub_10028DFF4(&v64);
-  TextBadge.view(favoriteBadgeConfiguration:)(&v64, v10);
-  v13 = v12;
-  v59 = v14;
-  v60 = v12;
-  v15 = v14;
-  v17 = v16;
-  v61 = v16;
-  v19 = v18;
-  sub_10028E664(&v64);
-  v53 = v1;
-  v20 = *v1;
-  v21 = v1[1];
-  *&v64 = v20;
-  *(&v64 + 1) = v21;
+  v62 = a1;
+  sub_10010FC20(&qword_101188610, &qword_100EC4D60);
+  __chkstk_darwin();
+  v56 = &v52 - v2;
+  v55 = _s5TitleV5SpecsVMa(0) - 8;
+  __chkstk_darwin();
+  v4 = &v52 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v57 = sub_10010FC20(&qword_101189238, &qword_100EC4D68);
+  __chkstk_darwin();
+  v53 = &v52 - v5;
+  v61 = sub_10010FC20(&qword_101189240, &qword_100EC4D70);
+  __chkstk_darwin();
+  v54 = &v52 - v6;
+  sub_10010FC20(&qword_1011831D0, &unk_100EC4CD0);
+  __chkstk_darwin();
+  v8 = &v52 - v7;
+  v9 = _s5TitleVMa(0);
+  sub_10028E5F4(v1 + *(v9 + 20), v8);
+  LOBYTE(v8) = TextBadge.init(for:)(v8);
+  sub_10028DFF4(&v63);
+  TextBadge.view(favoriteBadgeConfiguration:)(&v63, v8, v10);
+  v12 = v11;
+  v58 = v13;
+  v59 = v11;
+  v14 = v13;
+  v16 = v15;
+  v60 = v15;
+  v18 = v17;
+  sub_10028E664(&v63);
+  v52 = v1;
+  v19 = *v1;
+  v20 = v1[1];
+  *&v63 = v19;
+  *(&v63 + 1) = v20;
   sub_100009838();
 
-  v22 = Text.init<A>(_:)();
-  v24 = v23;
-  *&v64 = v22;
-  *(&v64 + 1) = v23;
-  v26 = v25 & 1;
-  LOBYTE(v65) = v25 & 1;
-  *(&v65 + 1) = v27;
-  v28 = v17 & 1;
-  v29 = v54;
-  View.textSuffix(_:)(v13, v15, v28, v19, &type metadata for Text, &protocol witness table for Text, v54);
-  sub_10011895C(v22, v24, v26);
+  v21 = Text.init<A>(_:)();
+  v23 = v22;
+  *&v63 = v21;
+  *(&v63 + 1) = v22;
+  v25 = v24 & 1;
+  LOBYTE(v64) = v24 & 1;
+  *(&v64 + 1) = v26;
+  v27 = v16 & 1;
+  v28 = v53;
+  View.textSuffix(_:)(v12, v14, v27, v18, &type metadata for Text, &protocol witness table for Text, v53);
+  sub_10011895C(v21, v23, v25);
 
-  LODWORD(v22) = static HierarchicalShapeStyle.primary.getter();
-  *(v29 + *(sub_10010FC20(&qword_101189248) + 36)) = v22;
-  sub_10028D86C(v5);
-  v30 = type metadata accessor for Font.Design();
-  v31 = v57;
-  (*(*(v30 - 8) + 56))(v57, 1, 1, v30);
-  v32 = v56;
-  v33 = static Font.system(_:design:weight:)();
-  sub_10028E6B8(v31);
-  sub_10028E720(v5);
+  LODWORD(v21) = static HierarchicalShapeStyle.primary.getter();
+  *(v28 + *(sub_10010FC20(&qword_101189248, &qword_100EC4D78) + 36)) = v21;
+  sub_10028D86C(v4);
+  v29 = type metadata accessor for Font.Design();
+  v30 = v56;
+  (*(*(v29 - 8) + 56))(v56, 1, 1, v29);
+  v31 = v55;
+  v32 = static Font.system(_:design:weight:)();
+  sub_10028E6B8(v30);
+  sub_10028E720(v4);
   KeyPath = swift_getKeyPath();
-  v35 = (v29 + *(v58 + 36));
-  *v35 = KeyPath;
-  v35[1] = v33;
-  sub_10028D86C(v5);
-  sub_10028E720(v5);
+  v34 = (v28 + *(v57 + 36));
+  *v34 = KeyPath;
+  v34[1] = v32;
+  sub_10028D86C(v4);
+  sub_10028E720(v4);
   sub_10028E77C();
-  v36 = v55;
+  v35 = v54;
   View.fontWeight(_:)();
-  sub_1000095E8(v29, &qword_101189238);
-  v37 = (v36 + *(sub_10010FC20(&qword_101189280) + 36));
-  v38 = *(sub_10010FC20(&qword_1011A13C0) + 28);
-  v39 = enum case for Image.Scale.small(_:);
-  v40 = type metadata accessor for Image.Scale();
-  (*(*(v40 - 8) + 104))(v37 + v38, v39, v40);
-  *v37 = swift_getKeyPath();
-  sub_10028D86C(v5);
-  LOBYTE(v37) = v5[*(v32 + 32)];
-  sub_10028E720(v5);
-  v41 = swift_getKeyPath();
-  v42 = v36 + *(sub_10010FC20(&qword_101189288) + 36);
-  *v42 = v41;
-  *(v42 + 8) = v37;
+  sub_1000095E8(v28, &qword_101189238, &qword_100EC4D68);
+  v36 = (v35 + *(sub_10010FC20(&qword_101189280, &unk_100EC4DC8) + 36));
+  v37 = *(sub_10010FC20(&qword_1011A13C0, &qword_100EC0AD0) + 28);
+  v38 = enum case for Image.Scale.small(_:);
+  v39 = type metadata accessor for Image.Scale();
+  (*(*(v39 - 8) + 104))(v36 + v37, v38, v39);
+  *v36 = swift_getKeyPath();
+  sub_10028D86C(v4);
+  LOBYTE(v36) = v4[*(v31 + 32)];
+  sub_10028E720(v4);
+  v40 = swift_getKeyPath();
+  v41 = v35 + *(sub_10010FC20(&qword_101189288, &qword_100EC4E38) + 36);
+  *v41 = v40;
+  *(v41 + 8) = v36;
   static Alignment.leading.getter();
   _FrameLayout.init(width:height:alignment:)();
-  v43 = v62;
-  v44 = (v36 + *(v62 + 36));
-  v45 = v65;
-  *v44 = v64;
-  v44[1] = v45;
-  v44[2] = v66;
-  v46 = AccessibilityIdentifier.containerDetailHeaderTitle.unsafeMutableAddressor();
-  v47 = *v46;
-  v48 = v46[1];
-  v49 = v46[2];
-  v50 = v46[3];
-  v51 = sub_10028E9FC();
+  v42 = v61;
+  v43 = (v35 + *(v61 + 36));
+  v44 = v64;
+  *v43 = v63;
+  v43[1] = v44;
+  v43[2] = v65;
+  v45 = AccessibilityIdentifier.containerDetailHeaderTitle.unsafeMutableAddressor();
+  v46 = *v45;
+  v47 = v45[1];
+  v48 = v45[2];
+  v49 = v45[3];
+  v50 = sub_10028E9FC();
 
-  View.accessibilityIdentifier(_:)(v47, v48, v49, v50, v43, v51);
+  View.accessibilityIdentifier(_:)(v46, v47, v48, v49, v42, v50);
 
-  sub_10011895C(v60, v59, v61 & 1);
+  sub_10011895C(v59, v58, v60 & 1);
 
-  return sub_1000095E8(v36, &qword_101189240);
+  return sub_1000095E8(v35, &qword_101189240, &qword_100EC4D70);
 }
 
-uint64_t sub_10028DFF4@<X0>(void *a1@<X8>)
+uint64_t sub_10028DFF4@<X0>(void *x8_0@<X8>)
 {
-  v3 = type metadata accessor for EnvironmentValues();
-  v4 = *(v3 - 8);
-  __chkstk_darwin(v3);
-  v6 = &v15 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = [objc_opt_self() currentDevice];
-  v8 = [v7 userInterfaceIdiom];
+  v4 = type metadata accessor for EnvironmentValues();
+  v5 = *(v4 - 8);
+  __chkstk_darwin();
+  v7 = &v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = [objc_opt_self() currentDevice];
+  v9 = [v8 userInterfaceIdiom];
 
-  if (v8 != 6)
+  if (v9 != 6)
   {
-    v9 = v1 + *(_s5TitleVMa(0) + 24);
-    v10 = *v9;
-    if (*(v9 + 8) != 1)
+    v10 = v2 + *(_s5TitleVMa(0) + 24);
+    v11 = *v10;
+    if (*(v10 + 8) != 1)
     {
 
-      static os_log_type_t.fault.getter();
-      v11 = static Log.runtimeIssuesLog.getter();
-      os_log(_:dso:log:_:_:)();
+      v12 = static os_log_type_t.fault.getter();
+      v13 = static Log.runtimeIssuesLog.getter();
+      os_log(_:dso:log:_:_:)(v12, &_mh_execute_header, v13, "Accessing Environment's value outside of being installed on a View. This will always read the default value and will not update.", 128, 2, _swiftEmptyArrayStorage);
 
       EnvironmentValues.init()();
       swift_getAtKeyPath();
-      sub_10027AC30(v10, 0);
-      (*(v4 + 8))(v6, v3);
+      v15 = sub_10027AC30(v11, 0, v14);
+      (*(v5 + 8))(v7, v4, v15);
     }
   }
 
   sub_10028EC98();
-  v12 = static UIFont.preferredFont(forTextStyle:weight:)();
-  v13 = [objc_opt_self() configurationWithFont:v12 scale:1];
+  v16 = static UIFont.preferredFont(forTextStyle:weight:)();
+  v17 = [objc_opt_self() configurationWithFont:v16 scale:1];
 
-  v17 = &_s5TitleV23FavoriteBadgeShapeStyleVN;
-  v18 = sub_10028ECE4();
-  return FavoriteBadgeConfiguration.init(symbolConfiguration:foregroundStyle:)(v13, &v16, a1);
+  v21 = &_s5TitleV23FavoriteBadgeShapeStyleVN;
+  v22 = sub_10028ECE4();
+  return FavoriteBadgeConfiguration.init(symbolConfiguration:foregroundStyle:)(v17, &v20, x8_0);
 }
 
 uint64_t sub_10028E2CC@<X0>(uint64_t *a1@<X8>)
@@ -6287,7 +6304,7 @@ uint64_t sub_10028E2F4()
 {
   v0 = type metadata accessor for Font.TextStyle();
   v1 = *(v0 - 8);
-  __chkstk_darwin(v0);
+  __chkstk_darwin();
   v3 = &v9 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   v4 = _s5TitleV5SpecsVMa(0);
   sub_100006080(v4, qword_101189150);
@@ -6301,12 +6318,12 @@ uint64_t sub_10028E2F4()
   return result;
 }
 
-uint64_t sub_10028E430()
+uint64_t sub_10028E430(__n128 a1)
 {
-  v0 = _s5TitleV5SpecsVMa(0);
-  sub_100006080(v0, qword_101189168);
-  v1 = sub_1000060E4(v0, qword_101189168);
-  return sub_10028E47C(v1);
+  v1 = _s5TitleV5SpecsVMa(0);
+  sub_100006080(v1, qword_101189168);
+  v2 = sub_1000060E4(v1, qword_101189168);
+  return sub_10028E47C(v2);
 }
 
 uint64_t sub_10028E47C@<X0>(uint64_t a1@<X8>)
@@ -6332,21 +6349,21 @@ uint64_t sub_10028E47C@<X0>(uint64_t a1@<X8>)
 
 uint64_t sub_10028E560(uint64_t a1)
 {
-  result = sub_10028EF14(&qword_101189230, _s5TitleVMa);
+  result = sub_10028EF14(&qword_101189230, _s5TitleVMa, &unk_100EC4D0C);
   *(a1 + 8) = result;
   return result;
 }
 
 uint64_t sub_10028E5F4(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_10010FC20(&qword_1011831D0);
+  v4 = sub_10010FC20(&qword_1011831D0, &unk_100EC4CD0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_10028E6B8(uint64_t a1)
 {
-  v2 = sub_10010FC20(&qword_101188610);
+  v2 = sub_10010FC20(&qword_101188610, &qword_100EC4D60);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -6363,9 +6380,9 @@ unint64_t sub_10028E77C()
   result = qword_101189250;
   if (!qword_101189250)
   {
-    sub_1001109D0(&qword_101189238);
+    sub_1001109D0(&qword_101189238, &qword_100EC4D68);
     sub_10028E834();
-    sub_100020674(&unk_1011914B0, &qword_101184D00);
+    sub_100020674(&unk_1011914B0, &qword_101184D00, &qword_100EC11B0, &protocol conformance descriptor for _EnvironmentKeyWritingModifier<A>);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_101189250);
   }
@@ -6378,15 +6395,15 @@ unint64_t sub_10028E834()
   result = qword_101189258;
   if (!qword_101189258)
   {
-    sub_1001109D0(&qword_101189248);
-    sub_1001109D0(&qword_101189260);
-    sub_1001109D0(&qword_101189268);
+    sub_1001109D0(&qword_101189248, &qword_100EC4D78);
+    sub_1001109D0(&qword_101189260, &qword_100EC4DB0);
+    sub_1001109D0(&qword_101189268, &qword_100EC4DB8);
     swift_getOpaqueTypeConformance2();
-    sub_1001109D0(&qword_101189270);
-    sub_100020674(&qword_101189278, &qword_101189270);
+    sub_1001109D0(&qword_101189270, &qword_100EC4DC0);
+    sub_100020674(&qword_101189278, &qword_101189270, &qword_100EC4DC0, &protocol conformance descriptor for HStack<A>);
     swift_getOpaqueTypeConformance2();
     swift_getOpaqueTypeConformance2();
-    sub_100020674(&unk_101184E40, &qword_10119A240);
+    sub_100020674(&unk_101184E40, &qword_10119A240, &qword_100EC09F0, &protocol conformance descriptor for _ForegroundStyleModifier<A>);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_101189258);
   }
@@ -6399,7 +6416,7 @@ unint64_t sub_10028E9FC()
   result = qword_101189290;
   if (!qword_101189290)
   {
-    sub_1001109D0(&qword_101189240);
+    sub_1001109D0(&qword_101189240, &qword_100EC4D70);
     sub_10028EA88();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_101189290);
@@ -6413,9 +6430,9 @@ unint64_t sub_10028EA88()
   result = qword_101189298;
   if (!qword_101189298)
   {
-    sub_1001109D0(&qword_101189288);
+    sub_1001109D0(&qword_101189288, &qword_100EC4E38);
     sub_10028EB40();
-    sub_100020674(&unk_10118A590, &qword_10119A2F0);
+    sub_100020674(&unk_10118A590, &qword_10119A2F0, &unk_100EC4E40, &protocol conformance descriptor for _EnvironmentKeyWritingModifier<A>);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_101189298);
   }
@@ -6428,11 +6445,11 @@ unint64_t sub_10028EB40()
   result = qword_1011892A0;
   if (!qword_1011892A0)
   {
-    sub_1001109D0(&qword_101189280);
-    sub_1001109D0(&qword_101189238);
+    sub_1001109D0(&qword_101189280, &unk_100EC4DC8);
+    sub_1001109D0(&qword_101189238, &qword_100EC4D68);
     sub_10028E77C();
     swift_getOpaqueTypeConformance2();
-    sub_100020674(&qword_1011A1670, &qword_1011A13C0);
+    sub_100020674(&qword_1011A1670, &qword_1011A13C0, &qword_100EC0AD0, &protocol conformance descriptor for _EnvironmentKeyWritingModifier<A>);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_1011892A0);
   }
@@ -6479,10 +6496,10 @@ uint64_t sub_10028ED38(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_10028EDD4()
+uint64_t sub_10028EDD4(uint64_t a1)
 {
   result = type metadata accessor for Font.TextStyle();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -6496,9 +6513,9 @@ unint64_t sub_10028EE58()
   result = qword_101189348;
   if (!qword_101189348)
   {
-    sub_1001109D0(&qword_101189350);
+    sub_1001109D0(&qword_101189350, &qword_100EC4E78);
     sub_10028E9FC();
-    sub_10028EF14(&qword_101181038, &type metadata accessor for AccessibilityAttachmentModifier);
+    sub_10028EF14(&qword_101181038, &type metadata accessor for AccessibilityAttachmentModifier, &protocol conformance descriptor for AccessibilityAttachmentModifier);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_101189348);
   }
@@ -6506,7 +6523,7 @@ unint64_t sub_10028EE58()
   return result;
 }
 
-uint64_t sub_10028EF14(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_10028EF14(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -6523,51 +6540,51 @@ uint64_t sub_10028EF5C()
 {
   v0 = type metadata accessor for BlendMode();
   v1 = *(v0 - 8);
-  __chkstk_darwin(v0);
-  v3 = &v17 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v4);
-  v6 = &v17 - v5;
+  __chkstk_darwin();
+  v3 = &v15 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v5 = &v15 - v4;
   sub_10028F250();
   EnvironmentValues.subscript.getter();
-  if ((v20[0] & 0xFE) == 2)
+  if ((v18[0] & 0xFE) == 2)
   {
-    v18 = type metadata accessor for TintShapeStyle();
-    v19 = &protocol witness table for TintShapeStyle;
-    sub_10001C8B8(&v17);
+    v16 = type metadata accessor for TintShapeStyle();
+    v17 = &protocol witness table for TintShapeStyle;
+    sub_10001C8B8(&v15);
     TintShapeStyle.init()();
   }
 
   else
   {
-    if (v20[0])
+    if (v18[0])
     {
-      v7 = &enum case for BlendMode.plusDarker(_:);
+      v6 = &enum case for BlendMode.plusDarker(_:);
     }
 
     else
     {
-      v7 = &enum case for BlendMode.plusLighter(_:);
+      v6 = &enum case for BlendMode.plusLighter(_:);
     }
 
-    (*(v1 + 104))(v3, *v7, v0);
-    (*(v1 + 32))(v6, v3, v0);
-    v8 = static HierarchicalShapeStyle.secondary.getter();
-    v9 = sub_10010FC20(&qword_101189360);
-    v18 = v9;
-    v19 = sub_100020674(&qword_101189368, &qword_101189360);
-    v10 = sub_10001C8B8(&v17);
-    (*(v1 + 16))(v10 + *(v9 + 36), v6, v0);
-    *v10 = v8;
-    (*(v1 + 8))(v6, v0);
+    (*(v1 + 104))(v3, *v6, v0);
+    (*(v1 + 32))(v5, v3, v0);
+    v7 = static HierarchicalShapeStyle.secondary.getter();
+    v8 = sub_10010FC20(&qword_101189360, &qword_100EC4ED0);
+    v16 = v8;
+    v17 = sub_100020674(&qword_101189368, &qword_101189360, &qword_100EC4ED0, &protocol conformance descriptor for _BlendModeShapeStyle<A>);
+    v9 = sub_10001C8B8(&v15);
+    (*(v1 + 16))(v9 + *(v8 + 36), v5, v0);
+    *v9 = v7;
+    (*(v1 + 8))(v5, v0);
   }
 
-  sub_100188D80(&v17, v20);
-  v11 = sub_10000954C(v20, v20[3]);
-  v12 = __chkstk_darwin(v11);
-  (*(v14 + 16))(&v17 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0), v12);
-  v15 = AnyShapeStyle.init<A>(_:)();
-  sub_10000959C(v20);
-  return v15;
+  sub_100188D80(&v15, v18);
+  sub_10000954C(v18, v18[3]);
+  v10 = __chkstk_darwin();
+  (*(v12 + 16))(&v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), v10);
+  v13 = AnyShapeStyle.init<A>(_:)();
+  sub_10000959C(v18);
+  return v13;
 }
 
 unint64_t sub_10028F250()
@@ -6617,21 +6634,20 @@ id sub_10028F3D8()
   return result;
 }
 
-uint64_t sub_10028F414()
+void sub_10028F414()
 {
   v0 = objc_allocWithZone(UIColor);
-  v4[4] = sub_10028F4DC;
-  v4[5] = 0;
-  v4[0] = _NSConcreteStackBlock;
-  v4[1] = 1107296256;
-  v4[2] = sub_10003640C;
-  v4[3] = &unk_1010A3558;
-  v1 = _Block_copy(v4);
+  v3[4] = sub_10028F4DC;
+  v3[5] = 0;
+  v3[0] = _NSConcreteStackBlock;
+  v3[1] = 1107296256;
+  v3[2] = sub_10003640C;
+  v3[3] = &unk_1010A3558;
+  v1 = _Block_copy(v3);
   v2 = [v0 initWithDynamicProvider:v1];
   _Block_release(v1);
 
   qword_101218948 = v2;
-  return result;
 }
 
 id sub_10028F4DC(void *a1)
@@ -6736,7 +6752,7 @@ char *sub_10028F6BC(double a1, double a2, double a3, double a4)
   v97.super_class = v28;
   v29 = objc_msgSendSuper2(&v97, "initWithFrame:", a1, a2, a3, a4);
   [v29 setMaximumContentSizeCategory:UIContentSizeCategoryExtraExtraExtraLarge];
-  sub_100009F78(0, &qword_101183A00);
+  sub_100009F78(0, &qword_101183A00, UIFont_ptr);
   v30 = static UIFont.preferredFont(forTextStyle:weight:)();
   v31 = objc_opt_self();
   v32 = [v31 configurationWithFont:v30];
@@ -6767,7 +6783,7 @@ char *sub_10028F6BC(double a1, double a2, double a3, double a4)
   v42 = *&v29[v35];
   v43 = swift_allocObject();
   swift_unknownObjectWeakInit();
-  v44 = sub_100009F78(0, &qword_101183A18);
+  v44 = sub_100009F78(0, &qword_101183A18, UIButton_ptr);
   v45 = v42;
   ControlEventHandling<>.on(_:handler:)(64, sub_10029312C, v43, v44);
 
@@ -6925,33 +6941,380 @@ char *sub_10028F6BC(double a1, double a2, double a3, double a4)
   return v29;
 }
 
-uint64_t sub_100290224(void *a1, uint64_t a2, void *a3)
+_BYTE *sub_100290224(void *a1, uint64_t a2, void *a3)
 {
-  v55 = a1;
-  v4 = sub_10010FC20(&unk_101183AB0);
-  __chkstk_darwin(v4 - 8);
-  v6 = &v52 - v5;
-  v7 = type metadata accessor for Locale();
-  __chkstk_darwin(v7 - 8);
-  v8 = type metadata accessor for String.LocalizationValue();
-  __chkstk_darwin(v8 - 8);
-  v9 = type metadata accessor for UIButton.Configuration.CornerStyle();
-  v10 = *(v9 - 8);
-  __chkstk_darwin(v9);
-  v12 = &v52 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = type metadata accessor for UIButton.Configuration();
-  v53 = *(v13 - 8);
-  v54 = v13;
-  __chkstk_darwin(v13);
-  v15 = &v52 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v54 = a1;
+  sub_10010FC20(&unk_101183AB0, &qword_100EBF4D0);
+  __chkstk_darwin();
+  v5 = &v51 - v4;
+  type metadata accessor for Locale();
+  __chkstk_darwin();
+  type metadata accessor for String.LocalizationValue();
+  __chkstk_darwin();
+  v6 = type metadata accessor for UIButton.Configuration.CornerStyle();
+  v7 = *(v6 - 8);
+  __chkstk_darwin();
+  v9 = &v51 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for UIButton.Configuration();
+  v52 = *(v10 - 8);
+  v53 = v10;
+  __chkstk_darwin();
+  v12 = &v51 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_beginAccess();
   result = swift_unknownObjectWeakLoadStrong();
   if (result)
   {
-    v17 = result;
-    v52 = v6;
+    v14 = result;
+    v51 = v5;
     static UIButton.Configuration.plain()();
+    v15 = String._bridgeToObjectiveC()();
+    v16 = [objc_opt_self() systemImageNamed:v15];
+
+    UIButton.Configuration.image.setter();
+    v17 = a3;
+    UIButton.Configuration.preferredSymbolConfigurationForImage.setter();
+    if (qword_10117F4D0 != -1)
+    {
+      swift_once();
+    }
+
+    v18 = sub_1000060E4(v6, qword_101218950);
+    (*(v7 + 16))(v9, v18, v6);
+    UIButton.Configuration.cornerStyle.setter();
+    v19 = OBJC_IVAR____TtC5Music27NowPlayingQueueControlsView_autoPlayState;
+    v20 = v14[OBJC_IVAR____TtC5Music27NowPlayingQueueControlsView_autoPlayState];
+    if (v20 == 2 || (v20 & 1) == 0)
+    {
+      v21 = v54;
+      if (qword_10117F4B0 != -1)
+      {
+        swift_once();
+      }
+
+      v22 = &qword_101218930;
+    }
+
+    else
+    {
+      v21 = v54;
+      if (qword_10117F4B8 != -1)
+      {
+        swift_once();
+      }
+
+      v22 = &qword_101218938;
+    }
+
+    v23 = *v22;
+    v24 = UIButton.Configuration.background.modify();
+    UIBackgroundConfiguration.backgroundColor.setter();
+    v24(v55, 0);
+    v25 = [v21 imageView];
+    if (v25)
+    {
+      v26 = v25;
+      v27 = [v25 superview];
+
+      if (v27)
+      {
+        v28 = [v27 layer];
+
+        [v28 setAllowsGroupBlending:0];
+      }
+    }
+
+    v29 = v14[v19];
+    if (v29 == 2 || (v29 & 1) == 0)
+    {
+      v36 = [v21 imageView];
+      if (v36)
+      {
+        v37 = v36;
+        v38 = [v36 layer];
+
+        [v38 setCompositingFilter:0];
+      }
+
+      if (v14[v19] == 2)
+      {
+        if (qword_10117F4C8 != -1)
+        {
+          swift_once();
+        }
+
+        v39 = &qword_101218948;
+      }
+
+      else
+      {
+        if (qword_10117F4C0 != -1)
+        {
+          swift_once();
+        }
+
+        v39 = &qword_101218940;
+      }
+
+      v40 = *v39;
+      UIButton.Configuration.baseForegroundColor.setter();
+    }
+
+    else
+    {
+      v30 = [v14 traitCollection];
+      v31 = [v30 userInterfaceIdiom];
+
+      if (v31 != 6)
+      {
+        v32 = [v21 imageView];
+        if (v32)
+        {
+          v33 = v32;
+          v34 = [v32 layer];
+
+          [v34 setCompositingFilter:kCAFilterDestOut];
+        }
+      }
+
+      v35 = [objc_opt_self() blackColor];
+      UIButton.Configuration.baseForegroundColor.setter();
+    }
+
+    String.LocalizationValue.init(stringLiteral:)();
+    static Locale.current.getter();
+    String.init(localized:table:bundle:locale:comment:)();
+    v41 = String._bridgeToObjectiveC()();
+
+    [v21 setAccessibilityValue:v41];
+
+    String.LocalizationValue.init(stringLiteral:)();
+    static Locale.current.getter();
+    String.init(localized:table:bundle:locale:comment:)();
+    v42 = String._bridgeToObjectiveC()();
+
+    [v21 setAccessibilityLabel:v42];
+
+    v43 = AccessibilityIdentifier.nowPlayingAutoPlayButton.unsafeMutableAddressor();
+    v44 = *v43;
+    v45 = v43[1];
+    v46 = v43[2];
+    v47 = v43[3];
+    sub_100009F78(0, &qword_101183A18, UIButton_ptr);
+
+    UIAccessibilityIdentification.musicAccessibilityIdentifier.setter(v44, v45, v46, v47);
+    v48 = v51;
+    v49 = v52;
+    v50 = v53;
+    (*(v52 + 16))(v51, v12, v53);
+    (*(v49 + 56))(v48, 0, 1, v50);
+    UIButton.configuration.setter();
+
+    return (*(v49 + 8))(v12, v50);
+  }
+
+  return result;
+}
+
+char *sub_1002909DC(void *a1, uint64_t a2, void *a3)
+{
+  sub_10010FC20(&unk_101183AB0, &qword_100EBF4D0);
+  __chkstk_darwin();
+  v6 = v53 - v5;
+  type metadata accessor for Locale();
+  __chkstk_darwin();
+  v53[1] = v53 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for String.LocalizationValue();
+  __chkstk_darwin();
+  v8 = type metadata accessor for UIButton.Configuration.CornerStyle();
+  v9 = *(v8 - 8);
+  __chkstk_darwin();
+  v11 = v53 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for UIButton.Configuration();
+  v54 = *(v12 - 8);
+  v55 = v12;
+  __chkstk_darwin();
+  v14 = v53 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  swift_beginAccess();
+  result = swift_unknownObjectWeakLoadStrong();
+  if (result)
+  {
+    v16 = result;
+    v53[0] = v6;
+    static UIButton.Configuration.plain()();
+    v17 = String._bridgeToObjectiveC()();
+    v18 = [objc_opt_self() systemImageNamed:v17];
+
+    UIButton.Configuration.image.setter();
+    v19 = a3;
+    UIButton.Configuration.preferredSymbolConfigurationForImage.setter();
+    if (qword_10117F4D0 != -1)
+    {
+      swift_once();
+    }
+
+    v20 = sub_1000060E4(v8, qword_101218950);
+    (*(v9 + 16))(v11, v20, v8);
+    UIButton.Configuration.cornerStyle.setter();
+    v21 = [a1 imageView];
+    if (v21)
+    {
+      v22 = v21;
+      v23 = [v21 superview];
+
+      if (v23)
+      {
+        v24 = [v23 layer];
+
+        [v24 setAllowsGroupBlending:0];
+      }
+    }
+
+    if (v16[OBJC_IVAR____TtC5Music27NowPlayingQueueControlsView_shuffleType + 8])
+    {
+      v25 = [a1 imageView];
+      if (v25)
+      {
+        v26 = v25;
+        v27 = [v25 layer];
+
+        [v27 setCompositingFilter:0];
+      }
+
+      if (qword_10117F4C8 != -1)
+      {
+        swift_once();
+      }
+
+      v28 = qword_101218948;
+    }
+
+    else
+    {
+      if ((*&v16[OBJC_IVAR____TtC5Music27NowPlayingQueueControlsView_shuffleType] - 1) <= 1)
+      {
+        v29 = [v16 traitCollection];
+        v30 = [v29 userInterfaceIdiom];
+
+        if (v30 != 6)
+        {
+          v31 = [a1 imageView];
+          if (v31)
+          {
+            v32 = v31;
+            v33 = [v31 layer];
+
+            [v33 setCompositingFilter:kCAFilterDestOut];
+          }
+        }
+
+        v34 = [objc_opt_self() blackColor];
+        UIButton.Configuration.baseForegroundColor.setter();
+        if (qword_10117F4B8 != -1)
+        {
+          swift_once();
+        }
+
+        v35 = qword_101218938;
+        v36 = UIButton.Configuration.background.modify();
+        UIBackgroundConfiguration.backgroundColor.setter();
+        v36(v56, 0);
+        goto LABEL_28;
+      }
+
+      v37 = [a1 imageView];
+      if (v37)
+      {
+        v38 = v37;
+        v39 = [v37 layer];
+
+        [v39 setCompositingFilter:0];
+      }
+
+      if (qword_10117F4C0 != -1)
+      {
+        swift_once();
+      }
+
+      v28 = qword_101218940;
+    }
+
+    v40 = v28;
+    UIButton.Configuration.baseForegroundColor.setter();
+    if (qword_10117F4B0 != -1)
+    {
+      swift_once();
+    }
+
+    v41 = qword_101218930;
+    v42 = UIButton.Configuration.background.modify();
+    UIBackgroundConfiguration.backgroundColor.setter();
+    v42(v56, 0);
+LABEL_28:
+    String.LocalizationValue.init(stringLiteral:)();
+    static Locale.current.getter();
+    String.init(localized:table:bundle:locale:comment:)();
+    v43 = String._bridgeToObjectiveC()();
+
+    [a1 setAccessibilityValue:v43];
+
+    String.LocalizationValue.init(stringLiteral:)();
+    static Locale.current.getter();
+    String.init(localized:table:bundle:locale:comment:)();
+    v44 = String._bridgeToObjectiveC()();
+
+    [a1 setAccessibilityLabel:v44];
+
+    v45 = AccessibilityIdentifier.nowPlayingShuffleButton.unsafeMutableAddressor();
+    v46 = *v45;
+    v47 = v45[1];
+    v48 = v45[2];
+    v49 = v45[3];
+    sub_100009F78(0, &qword_101183A18, UIButton_ptr);
+
+    UIAccessibilityIdentification.musicAccessibilityIdentifier.setter(v46, v47, v48, v49);
+    v51 = v54;
+    v50 = v55;
+    v52 = v53[0];
+    (*(v54 + 16))(v53[0], v14, v55);
+    (*(v51 + 56))(v52, 0, 1, v50);
+    UIButton.configuration.setter();
+
+    return (*(v51 + 8))(v14, v50);
+  }
+
+  return result;
+}
+
+char *sub_100291210(void *a1, uint64_t a2, void *a3)
+{
+  sub_10010FC20(&unk_101183AB0, &qword_100EBF4D0);
+  __chkstk_darwin();
+  v6 = &v54 - v5;
+  type metadata accessor for Locale();
+  __chkstk_darwin();
+  v58 = &v54 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for String.LocalizationValue();
+  __chkstk_darwin();
+  v8 = type metadata accessor for UIButton.Configuration.CornerStyle();
+  v9 = *(v8 - 8);
+  __chkstk_darwin();
+  v11 = &v54 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for UIButton.Configuration();
+  v59 = *(v12 - 8);
+  __chkstk_darwin();
+  v14 = &v54 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  swift_beginAccess();
+  result = swift_unknownObjectWeakLoadStrong();
+  if (result)
+  {
+    v16 = result;
+    v55 = v12;
+    static UIButton.Configuration.plain()();
+    v56 = v6;
+    v57 = v16;
+    v17 = &v16[OBJC_IVAR____TtC5Music27NowPlayingQueueControlsView_repeatType];
     v18 = String._bridgeToObjectiveC()();
+
     v19 = [objc_opt_self() systemImageNamed:v18];
 
     UIButton.Configuration.image.setter();
@@ -6962,55 +7325,82 @@ uint64_t sub_100290224(void *a1, uint64_t a2, void *a3)
       swift_once();
     }
 
-    v21 = sub_1000060E4(v9, qword_101218950);
-    (*(v10 + 16))(v12, v21, v9);
+    v21 = sub_1000060E4(v8, qword_101218950);
+    (*(v9 + 16))(v11, v21, v8);
     UIButton.Configuration.cornerStyle.setter();
-    v22 = OBJC_IVAR____TtC5Music27NowPlayingQueueControlsView_autoPlayState;
-    v23 = v17[OBJC_IVAR____TtC5Music27NowPlayingQueueControlsView_autoPlayState];
-    if (v23 == 2 || (v23 & 1) == 0)
+    v22 = [a1 imageView];
+    if (v22)
     {
-      v24 = v55;
-      if (qword_10117F4B0 != -1)
+      v23 = v22;
+      v24 = [v22 superview];
+
+      if (v24)
+      {
+        v25 = [v24 layer];
+
+        [v25 setAllowsGroupBlending:0];
+      }
+    }
+
+    if (v17[8])
+    {
+      v26 = [a1 imageView];
+      if (v26)
+      {
+        v27 = v26;
+        v28 = [v26 layer];
+
+        [v28 setCompositingFilter:0];
+      }
+
+      v29 = v55;
+      if (qword_10117F4C8 != -1)
       {
         swift_once();
       }
 
-      v25 = &qword_101218930;
+      v30 = qword_101218948;
     }
 
     else
     {
-      v24 = v55;
-      if (qword_10117F4B8 != -1)
+      if ((*v17 - 1) <= 1)
       {
-        swift_once();
+        v31 = [v57 traitCollection];
+        v32 = [v31 userInterfaceIdiom];
+
+        if (v32 != 6)
+        {
+          v33 = [a1 imageView];
+          if (v33)
+          {
+            v34 = v33;
+            v35 = [v33 layer];
+
+            [v35 setCompositingFilter:kCAFilterDestOut];
+          }
+        }
+
+        v36 = [objc_opt_self() blackColor];
+        UIButton.Configuration.baseForegroundColor.setter();
+        if (qword_10117F4B8 != -1)
+        {
+          swift_once();
+        }
+
+        v37 = qword_101218938;
+        v38 = UIButton.Configuration.background.modify();
+        UIBackgroundConfiguration.backgroundColor.setter();
+        v38(v60, 0);
+        String.LocalizationValue.init(stringLiteral:)();
+        static Locale.current.getter();
+        String.init(localized:table:bundle:locale:comment:)();
+        v45 = String._bridgeToObjectiveC()();
+        v29 = v55;
+        goto LABEL_28;
       }
 
-      v25 = &qword_101218938;
-    }
-
-    v26 = *v25;
-    v27 = UIButton.Configuration.background.modify();
-    UIBackgroundConfiguration.backgroundColor.setter();
-    v27(v56, 0);
-    v28 = [v24 imageView];
-    if (v28)
-    {
-      v29 = v28;
-      v30 = [v28 superview];
-
-      if (v30)
-      {
-        v31 = [v30 layer];
-
-        [v31 setAllowsGroupBlending:0];
-      }
-    }
-
-    v32 = v17[v22];
-    if (v32 == 2 || (v32 & 1) == 0)
-    {
-      v39 = [v24 imageView];
+      v39 = [a1 imageView];
       if (v39)
       {
         v40 = v39;
@@ -7019,125 +7409,111 @@ uint64_t sub_100290224(void *a1, uint64_t a2, void *a3)
         [v41 setCompositingFilter:0];
       }
 
-      if (v17[v22] == 2)
+      v29 = v55;
+      if (qword_10117F4C0 != -1)
       {
-        if (qword_10117F4C8 != -1)
-        {
-          swift_once();
-        }
-
-        v42 = &qword_101218948;
+        swift_once();
       }
 
-      else
-      {
-        if (qword_10117F4C0 != -1)
-        {
-          swift_once();
-        }
-
-        v42 = &qword_101218940;
-      }
-
-      v43 = *v42;
-      UIButton.Configuration.baseForegroundColor.setter();
+      v30 = qword_101218940;
     }
 
-    else
+    v42 = v30;
+    UIButton.Configuration.baseForegroundColor.setter();
+    if (qword_10117F4B0 != -1)
     {
-      v33 = [v17 traitCollection];
-      v34 = [v33 userInterfaceIdiom];
-
-      if (v34 != 6)
-      {
-        v35 = [v24 imageView];
-        if (v35)
-        {
-          v36 = v35;
-          v37 = [v35 layer];
-
-          [v37 setCompositingFilter:kCAFilterDestOut];
-        }
-      }
-
-      v38 = [objc_opt_self() blackColor];
-      UIButton.Configuration.baseForegroundColor.setter();
+      swift_once();
     }
 
-    String.LocalizationValue.init(stringLiteral:)();
-    static Locale.current.getter();
-    String.init(localized:table:bundle:locale:comment:)();
-    v44 = String._bridgeToObjectiveC()();
-
-    [v24 setAccessibilityValue:v44];
-
+    v43 = qword_101218930;
+    v44 = UIButton.Configuration.background.modify();
+    UIBackgroundConfiguration.backgroundColor.setter();
+    v44(v60, 0);
     String.LocalizationValue.init(stringLiteral:)();
     static Locale.current.getter();
     String.init(localized:table:bundle:locale:comment:)();
     v45 = String._bridgeToObjectiveC()();
+LABEL_28:
 
-    [v24 setAccessibilityLabel:v45];
+    [a1 setAccessibilityValue:v45];
 
-    v46 = AccessibilityIdentifier.nowPlayingAutoPlayButton.unsafeMutableAddressor();
-    v47 = *v46;
-    v48 = v46[1];
-    sub_100009F78(0, &qword_101183A18);
+    String.LocalizationValue.init(stringLiteral:)();
+    static Locale.current.getter();
+    String.init(localized:table:bundle:locale:comment:)();
+    v46 = String._bridgeToObjectiveC()();
 
-    UIAccessibilityIdentification.musicAccessibilityIdentifier.setter(v47, v48);
-    v49 = v52;
-    v50 = v53;
-    v51 = v54;
-    (*(v53 + 16))(v52, v15, v54);
-    (*(v50 + 56))(v49, 0, 1, v51);
+    [a1 setAccessibilityLabel:v46];
+
+    v47 = AccessibilityIdentifier.nowPlayingRepeatButton.unsafeMutableAddressor();
+    v48 = *v47;
+    v49 = v47[1];
+    v50 = v47[2];
+    v51 = v47[3];
+    sub_100009F78(0, &qword_101183A18, UIButton_ptr);
+
+    UIAccessibilityIdentification.musicAccessibilityIdentifier.setter(v48, v49, v50, v51);
+    v52 = v59;
+    v53 = v56;
+    (*(v59 + 16))(v56, v14, v29);
+    (*(v52 + 56))(v53, 0, 1, v29);
     UIButton.configuration.setter();
 
-    return (*(v50 + 8))(v15, v51);
+    return (*(v52 + 8))(v14, v29);
   }
 
   return result;
 }
 
-uint64_t sub_1002909DC(void *a1, uint64_t a2, void *a3)
+unsigned __int8 *sub_100291AE8(void *a1, uint64_t a2, void *a3)
 {
-  v5 = sub_10010FC20(&unk_101183AB0);
-  __chkstk_darwin(v5 - 8);
-  v7 = v54 - v6;
-  v8 = type metadata accessor for Locale();
-  __chkstk_darwin(v8 - 8);
-  v54[1] = v54 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for String.LocalizationValue();
-  __chkstk_darwin(v10 - 8);
-  v11 = type metadata accessor for UIButton.Configuration.CornerStyle();
-  v12 = *(v11 - 8);
-  __chkstk_darwin(v11);
-  v14 = v54 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = type metadata accessor for UIButton.Configuration();
-  v55 = *(v15 - 8);
-  v56 = v15;
-  __chkstk_darwin(v15);
-  v17 = v54 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_10010FC20(&unk_101183AB0, &qword_100EBF4D0);
+  __chkstk_darwin();
+  v6 = &v45 - v5;
+  v7 = type metadata accessor for UIButton.Configuration.CornerStyle();
+  v8 = *(v7 - 8);
+  __chkstk_darwin();
+  v10 = &v45 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = type metadata accessor for UIButton.Configuration();
+  v47 = *(v11 - 8);
+  __chkstk_darwin();
+  v13 = &v45 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_beginAccess();
   result = swift_unknownObjectWeakLoadStrong();
   if (result)
   {
-    v19 = result;
-    v54[0] = v7;
+    v15 = result;
+    v45 = v11;
+    v46 = v6;
     static UIButton.Configuration.plain()();
-    v20 = String._bridgeToObjectiveC()();
-    v21 = [objc_opt_self() systemImageNamed:v20];
+    v16 = OBJC_IVAR____TtC5Music27NowPlayingQueueControlsView_useListeningHistory;
+    v17 = v15[OBJC_IVAR____TtC5Music27NowPlayingQueueControlsView_useListeningHistory];
+    if (v17 == 2 || (v17 & 1) == 0)
+    {
+      v18 = a1;
+    }
+
+    else
+    {
+      v18 = a1;
+    }
+
+    v19 = String._bridgeToObjectiveC()();
+
+    v20 = [objc_opt_self() systemImageNamed:v19];
 
     UIButton.Configuration.image.setter();
-    v22 = a3;
+    v21 = a3;
     UIButton.Configuration.preferredSymbolConfigurationForImage.setter();
     if (qword_10117F4D0 != -1)
     {
       swift_once();
     }
 
-    v23 = sub_1000060E4(v11, qword_101218950);
-    (*(v12 + 16))(v14, v23, v11);
+    v22 = sub_1000060E4(v7, qword_101218950);
+    (*(v8 + 16))(v10, v22, v7);
     UIButton.Configuration.cornerStyle.setter();
-    v24 = [a1 imageView];
+    v23 = v18;
+    v24 = [v18 imageView];
     if (v24)
     {
       v25 = v24;
@@ -7151,65 +7527,17 @@ uint64_t sub_1002909DC(void *a1, uint64_t a2, void *a3)
       }
     }
 
-    if (v19[OBJC_IVAR____TtC5Music27NowPlayingQueueControlsView_shuffleType + 8])
+    v28 = v15[v16];
+    v29 = v46;
+    if (v28 == 2 || (v28 & 1) == 0)
     {
-      v28 = [a1 imageView];
-      if (v28)
+      v37 = [v23 imageView];
+      if (v37)
       {
-        v29 = v28;
-        v30 = [v28 layer];
+        v38 = v37;
+        v39 = [v37 layer];
 
-        [v30 setCompositingFilter:0];
-      }
-
-      if (qword_10117F4C8 != -1)
-      {
-        swift_once();
-      }
-
-      v31 = qword_101218948;
-    }
-
-    else
-    {
-      if ((*&v19[OBJC_IVAR____TtC5Music27NowPlayingQueueControlsView_shuffleType] - 1) <= 1)
-      {
-        v32 = [v19 traitCollection];
-        v33 = [v32 userInterfaceIdiom];
-
-        if (v33 != 6)
-        {
-          v34 = [a1 imageView];
-          if (v34)
-          {
-            v35 = v34;
-            v36 = [v34 layer];
-
-            [v36 setCompositingFilter:kCAFilterDestOut];
-          }
-        }
-
-        v37 = [objc_opt_self() blackColor];
-        UIButton.Configuration.baseForegroundColor.setter();
-        if (qword_10117F4B8 != -1)
-        {
-          swift_once();
-        }
-
-        v38 = qword_101218938;
-        v39 = UIButton.Configuration.background.modify();
-        UIBackgroundConfiguration.backgroundColor.setter();
-        v39(v57, 0);
-        goto LABEL_28;
-      }
-
-      v40 = [a1 imageView];
-      if (v40)
-      {
-        v41 = v40;
-        v42 = [v40 layer];
-
-        [v42 setCompositingFilter:0];
+        [v39 setCompositingFilter:0];
       }
 
       if (qword_10117F4C0 != -1)
@@ -7217,412 +7545,106 @@ uint64_t sub_1002909DC(void *a1, uint64_t a2, void *a3)
         swift_once();
       }
 
-      v31 = qword_101218940;
-    }
-
-    v43 = v31;
-    UIButton.Configuration.baseForegroundColor.setter();
-    if (qword_10117F4B0 != -1)
-    {
-      swift_once();
-    }
-
-    v44 = qword_101218930;
-    v45 = UIButton.Configuration.background.modify();
-    UIBackgroundConfiguration.backgroundColor.setter();
-    v45(v57, 0);
-LABEL_28:
-    String.LocalizationValue.init(stringLiteral:)();
-    static Locale.current.getter();
-    String.init(localized:table:bundle:locale:comment:)();
-    v46 = String._bridgeToObjectiveC()();
-
-    [a1 setAccessibilityValue:v46];
-
-    String.LocalizationValue.init(stringLiteral:)();
-    static Locale.current.getter();
-    String.init(localized:table:bundle:locale:comment:)();
-    v47 = String._bridgeToObjectiveC()();
-
-    [a1 setAccessibilityLabel:v47];
-
-    v48 = AccessibilityIdentifier.nowPlayingShuffleButton.unsafeMutableAddressor();
-    v49 = *v48;
-    v50 = v48[1];
-    sub_100009F78(0, &qword_101183A18);
-
-    UIAccessibilityIdentification.musicAccessibilityIdentifier.setter(v49, v50);
-    v52 = v55;
-    v51 = v56;
-    v53 = v54[0];
-    (*(v55 + 16))(v54[0], v17, v56);
-    (*(v52 + 56))(v53, 0, 1, v51);
-    UIButton.configuration.setter();
-
-    return (*(v52 + 8))(v17, v51);
-  }
-
-  return result;
-}
-
-uint64_t sub_100291210(void *a1, uint64_t a2, void *a3)
-{
-  v5 = sub_10010FC20(&unk_101183AB0);
-  __chkstk_darwin(v5 - 8);
-  v7 = &v55 - v6;
-  v8 = type metadata accessor for Locale();
-  __chkstk_darwin(v8 - 8);
-  v59 = &v55 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for String.LocalizationValue();
-  __chkstk_darwin(v10 - 8);
-  v11 = type metadata accessor for UIButton.Configuration.CornerStyle();
-  v12 = *(v11 - 8);
-  __chkstk_darwin(v11);
-  v14 = &v55 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = type metadata accessor for UIButton.Configuration();
-  v60 = *(v15 - 8);
-  __chkstk_darwin(v15);
-  v17 = &v55 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  swift_beginAccess();
-  result = swift_unknownObjectWeakLoadStrong();
-  if (result)
-  {
-    v19 = result;
-    v56 = v15;
-    static UIButton.Configuration.plain()();
-    v57 = v7;
-    v58 = v19;
-    v20 = &v19[OBJC_IVAR____TtC5Music27NowPlayingQueueControlsView_repeatType];
-    v21 = String._bridgeToObjectiveC()();
-
-    v22 = [objc_opt_self() systemImageNamed:v21];
-
-    UIButton.Configuration.image.setter();
-    v23 = a3;
-    UIButton.Configuration.preferredSymbolConfigurationForImage.setter();
-    if (qword_10117F4D0 != -1)
-    {
-      swift_once();
-    }
-
-    v24 = sub_1000060E4(v11, qword_101218950);
-    (*(v12 + 16))(v14, v24, v11);
-    UIButton.Configuration.cornerStyle.setter();
-    v25 = [a1 imageView];
-    if (v25)
-    {
-      v26 = v25;
-      v27 = [v25 superview];
-
-      if (v27)
-      {
-        v28 = [v27 layer];
-
-        [v28 setAllowsGroupBlending:0];
-      }
-    }
-
-    if (v20[8])
-    {
-      v29 = [a1 imageView];
-      if (v29)
-      {
-        v30 = v29;
-        v31 = [v29 layer];
-
-        [v31 setCompositingFilter:0];
-      }
-
-      v32 = v56;
-      if (qword_10117F4C8 != -1)
+      v40 = qword_101218940;
+      UIButton.Configuration.baseForegroundColor.setter();
+      if (qword_10117F4B0 != -1)
       {
         swift_once();
       }
 
-      v33 = qword_101218948;
+      v36 = qword_101218930;
     }
 
     else
     {
-      if ((*v20 - 1) <= 1)
+      v30 = [v15 traitCollection];
+      v31 = [v30 userInterfaceIdiom];
+
+      if (v31 != 6)
       {
-        v34 = [v58 traitCollection];
-        v35 = [v34 userInterfaceIdiom];
-
-        if (v35 != 6)
+        v32 = [v23 imageView];
+        if (v32)
         {
-          v36 = [a1 imageView];
-          if (v36)
-          {
-            v37 = v36;
-            v38 = [v36 layer];
+          v33 = v32;
+          v34 = [v32 layer];
 
-            [v38 setCompositingFilter:kCAFilterDestOut];
-          }
+          [v34 setCompositingFilter:kCAFilterDestOut];
         }
-
-        v39 = [objc_opt_self() blackColor];
-        UIButton.Configuration.baseForegroundColor.setter();
-        if (qword_10117F4B8 != -1)
-        {
-          swift_once();
-        }
-
-        v40 = qword_101218938;
-        v41 = UIButton.Configuration.background.modify();
-        UIBackgroundConfiguration.backgroundColor.setter();
-        v41(v61, 0);
-        String.LocalizationValue.init(stringLiteral:)();
-        static Locale.current.getter();
-        String.init(localized:table:bundle:locale:comment:)();
-        v48 = String._bridgeToObjectiveC()();
-        v32 = v56;
-        goto LABEL_28;
       }
 
-      v42 = [a1 imageView];
-      if (v42)
-      {
-        v43 = v42;
-        v44 = [v42 layer];
-
-        [v44 setCompositingFilter:0];
-      }
-
-      v32 = v56;
-      if (qword_10117F4C0 != -1)
+      v35 = [objc_opt_self() blackColor];
+      UIButton.Configuration.baseForegroundColor.setter();
+      if (qword_10117F4B8 != -1)
       {
         swift_once();
       }
 
-      v33 = qword_101218940;
+      v36 = qword_101218938;
     }
 
-    v45 = v33;
-    UIButton.Configuration.baseForegroundColor.setter();
-    if (qword_10117F4B0 != -1)
-    {
-      swift_once();
-    }
-
-    v46 = qword_101218930;
-    v47 = UIButton.Configuration.background.modify();
+    v41 = v36;
+    v42 = UIButton.Configuration.background.modify();
     UIBackgroundConfiguration.backgroundColor.setter();
-    v47(v61, 0);
-    String.LocalizationValue.init(stringLiteral:)();
-    static Locale.current.getter();
-    String.init(localized:table:bundle:locale:comment:)();
-    v48 = String._bridgeToObjectiveC()();
-LABEL_28:
-
-    [a1 setAccessibilityValue:v48];
-
-    String.LocalizationValue.init(stringLiteral:)();
-    static Locale.current.getter();
-    String.init(localized:table:bundle:locale:comment:)();
-    v49 = String._bridgeToObjectiveC()();
-
-    [a1 setAccessibilityLabel:v49];
-
-    v50 = AccessibilityIdentifier.nowPlayingRepeatButton.unsafeMutableAddressor();
-    v51 = *v50;
-    v52 = v50[1];
-    sub_100009F78(0, &qword_101183A18);
-
-    UIAccessibilityIdentification.musicAccessibilityIdentifier.setter(v51, v52);
-    v53 = v60;
-    v54 = v57;
-    (*(v60 + 16))(v57, v17, v32);
-    (*(v53 + 56))(v54, 0, 1, v32);
+    v42(v48, 0);
+    v43 = v47;
+    v44 = v45;
+    (*(v47 + 16))(v29, v13, v45);
+    (*(v43 + 56))(v29, 0, 1, v44);
     UIButton.configuration.setter();
 
-    return (*(v53 + 8))(v17, v32);
+    return (*(v43 + 8))(v13, v44);
   }
 
   return result;
 }
 
-uint64_t sub_100291AE8(void *a1, uint64_t a2, void *a3)
+_BYTE *sub_1002920AC(void *a1, uint64_t a2)
 {
-  v5 = sub_10010FC20(&unk_101183AB0);
-  __chkstk_darwin(v5 - 8);
-  v7 = &v46 - v6;
+  sub_10010FC20(&unk_101183AB0, &qword_100EBF4D0);
+  __chkstk_darwin();
+  v4 = v53 - v3;
+  v5 = type metadata accessor for AutomationSemantics();
+  v60 = *(v5 - 8);
+  __chkstk_darwin();
+  v59 = v53 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for Locale();
+  __chkstk_darwin();
+  v56 = v53 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for String.LocalizationValue();
+  __chkstk_darwin();
   v8 = type metadata accessor for UIButton.Configuration.CornerStyle();
   v9 = *(v8 - 8);
-  __chkstk_darwin(v8);
-  v11 = &v46 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v11 = v53 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = type metadata accessor for UIButton.Configuration();
-  v48 = *(v12 - 8);
-  __chkstk_darwin(v12);
-  v14 = &v46 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v57 = *(v12 - 8);
+  v58 = v12;
+  __chkstk_darwin();
+  v14 = v53 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_beginAccess();
   result = swift_unknownObjectWeakLoadStrong();
   if (result)
   {
     v16 = result;
-    v46 = v12;
-    v47 = v7;
     static UIButton.Configuration.plain()();
-    v17 = OBJC_IVAR____TtC5Music27NowPlayingQueueControlsView_useListeningHistory;
-    v18 = v16[OBJC_IVAR____TtC5Music27NowPlayingQueueControlsView_useListeningHistory];
-    if (v18 == 2 || (v18 & 1) == 0)
+    v53[1] = OBJC_IVAR____TtC5Music27NowPlayingQueueControlsView_transitionStyle;
+    v54 = v5;
+    v17 = *&v16[OBJC_IVAR____TtC5Music27NowPlayingQueueControlsView_transitionStyle];
+    v55 = a1;
+    if (v17 <= 1)
     {
-      v19 = a1;
-    }
-
-    else
-    {
-      v19 = a1;
-    }
-
-    v20 = String._bridgeToObjectiveC()();
-
-    v21 = [objc_opt_self() systemImageNamed:v20];
-
-    UIButton.Configuration.image.setter();
-    v22 = a3;
-    UIButton.Configuration.preferredSymbolConfigurationForImage.setter();
-    if (qword_10117F4D0 != -1)
-    {
-      swift_once();
-    }
-
-    v23 = sub_1000060E4(v8, qword_101218950);
-    (*(v9 + 16))(v11, v23, v8);
-    UIButton.Configuration.cornerStyle.setter();
-    v24 = v19;
-    v25 = [v19 imageView];
-    if (v25)
-    {
-      v26 = v25;
-      v27 = [v25 superview];
-
-      if (v27)
-      {
-        v28 = [v27 layer];
-
-        [v28 setAllowsGroupBlending:0];
-      }
-    }
-
-    v29 = v16[v17];
-    v30 = v47;
-    if (v29 == 2 || (v29 & 1) == 0)
-    {
-      v38 = [v24 imageView];
-      if (v38)
-      {
-        v39 = v38;
-        v40 = [v38 layer];
-
-        [v40 setCompositingFilter:0];
-      }
-
-      if (qword_10117F4C0 != -1)
-      {
-        swift_once();
-      }
-
-      v41 = qword_101218940;
-      UIButton.Configuration.baseForegroundColor.setter();
-      if (qword_10117F4B0 != -1)
-      {
-        swift_once();
-      }
-
-      v37 = qword_101218930;
-    }
-
-    else
-    {
-      v31 = [v16 traitCollection];
-      v32 = [v31 userInterfaceIdiom];
-
-      if (v32 != 6)
-      {
-        v33 = [v24 imageView];
-        if (v33)
-        {
-          v34 = v33;
-          v35 = [v33 layer];
-
-          [v35 setCompositingFilter:kCAFilterDestOut];
-        }
-      }
-
-      v36 = [objc_opt_self() blackColor];
-      UIButton.Configuration.baseForegroundColor.setter();
-      if (qword_10117F4B8 != -1)
-      {
-        swift_once();
-      }
-
-      v37 = qword_101218938;
-    }
-
-    v42 = v37;
-    v43 = UIButton.Configuration.background.modify();
-    UIBackgroundConfiguration.backgroundColor.setter();
-    v43(v49, 0);
-    v44 = v48;
-    v45 = v46;
-    (*(v48 + 16))(v30, v14, v46);
-    (*(v44 + 56))(v30, 0, 1, v45);
-    UIButton.configuration.setter();
-
-    return (*(v44 + 8))(v14, v45);
-  }
-
-  return result;
-}
-
-uint64_t sub_1002920AC(void *a1)
-{
-  v2 = sub_10010FC20(&unk_101183AB0);
-  __chkstk_darwin(v2 - 8);
-  v4 = v55 - v3;
-  v5 = type metadata accessor for AutomationSemantics();
-  v62 = *(v5 - 8);
-  __chkstk_darwin(v5);
-  v61 = v55 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = type metadata accessor for Locale();
-  __chkstk_darwin(v7 - 8);
-  v58 = v55 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for String.LocalizationValue();
-  __chkstk_darwin(v9 - 8);
-  v10 = type metadata accessor for UIButton.Configuration.CornerStyle();
-  v11 = *(v10 - 8);
-  __chkstk_darwin(v10);
-  v13 = v55 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for UIButton.Configuration();
-  v59 = *(v14 - 8);
-  v60 = v14;
-  __chkstk_darwin(v14);
-  v16 = v55 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  swift_beginAccess();
-  result = swift_unknownObjectWeakLoadStrong();
-  if (result)
-  {
-    v18 = result;
-    static UIButton.Configuration.plain()();
-    v55[1] = OBJC_IVAR____TtC5Music27NowPlayingQueueControlsView_transitionStyle;
-    v56 = v5;
-    v19 = *&v18[OBJC_IVAR____TtC5Music27NowPlayingQueueControlsView_transitionStyle];
-    v57 = a1;
-    if (v19 <= 1)
-    {
-      v20 = String._bridgeToObjectiveC()();
-      v21 = [objc_opt_self() imageNamed:v20];
+      v18 = String._bridgeToObjectiveC()();
+      v19 = [objc_opt_self() imageNamed:v18];
     }
 
     UIButton.Configuration.image.setter();
-    sub_100009F78(0, &qword_101183A00);
-    v22 = static UIFont.preferredFont(forTextStyle:weight:)();
-    v23 = objc_opt_self();
-    v24 = [v23 configurationWithFont:v22];
+    sub_100009F78(0, &qword_101183A00, UIFont_ptr);
+    v20 = static UIFont.preferredFont(forTextStyle:weight:)();
+    v21 = objc_opt_self();
+    v22 = [v21 configurationWithFont:v20];
 
-    v25 = [v23 configurationWithScale:2];
-    v26 = [v24 configurationByApplyingConfiguration:v25];
+    v23 = [v21 configurationWithScale:2];
+    v24 = [v22 configurationByApplyingConfiguration:v23];
 
     UIButton.Configuration.preferredSymbolConfigurationForImage.setter();
     if (qword_10117F4D0 != -1)
@@ -7630,19 +7652,19 @@ uint64_t sub_1002920AC(void *a1)
       swift_once();
     }
 
-    v27 = sub_1000060E4(v10, qword_101218950);
-    (*(v11 + 16))(v13, v27, v10);
+    v25 = sub_1000060E4(v8, qword_101218950);
+    (*(v9 + 16))(v11, v25, v8);
     UIButton.Configuration.cornerStyle.setter();
-    v28 = OBJC_IVAR____TtC5Music27NowPlayingQueueControlsView_transitionsActive;
-    v29 = v18[OBJC_IVAR____TtC5Music27NowPlayingQueueControlsView_transitionsActive];
-    if (v29 == 2 || (v29 & 1) == 0)
+    v26 = OBJC_IVAR____TtC5Music27NowPlayingQueueControlsView_transitionsActive;
+    v27 = v16[OBJC_IVAR____TtC5Music27NowPlayingQueueControlsView_transitionsActive];
+    if (v27 == 2 || (v27 & 1) == 0)
     {
       if (qword_10117F4B0 != -1)
       {
         swift_once();
       }
 
-      v30 = &qword_101218930;
+      v28 = &qword_101218930;
     }
 
     else
@@ -7652,48 +7674,48 @@ uint64_t sub_1002920AC(void *a1)
         swift_once();
       }
 
-      v30 = &qword_101218938;
+      v28 = &qword_101218938;
     }
 
-    v31 = *v30;
-    v32 = UIButton.Configuration.background.modify();
+    v29 = *v28;
+    v30 = UIButton.Configuration.background.modify();
     UIBackgroundConfiguration.backgroundColor.setter();
-    v32(v63, 0);
-    v33 = v57;
-    v34 = [v57 imageView];
-    if (v34)
+    v30(v61, 0);
+    v31 = v55;
+    v32 = [v55 imageView];
+    if (v32)
     {
-      v35 = v34;
-      v36 = [v34 superview];
+      v33 = v32;
+      v34 = [v32 superview];
 
-      if (v36)
+      if (v34)
       {
-        v37 = [v36 layer];
+        v35 = [v34 layer];
 
-        [v37 setAllowsGroupBlending:0];
+        [v35 setAllowsGroupBlending:0];
       }
     }
 
-    v38 = v18[v28];
-    if (v38 == 2 || (v38 & 1) == 0)
+    v36 = v16[v26];
+    if (v36 == 2 || (v36 & 1) == 0)
     {
-      v45 = [v33 imageView];
-      if (v45)
+      v43 = [v31 imageView];
+      if (v43)
       {
-        v46 = v45;
-        v47 = [v45 layer];
+        v44 = v43;
+        v45 = [v43 layer];
 
-        [v47 setCompositingFilter:0];
+        [v45 setCompositingFilter:0];
       }
 
-      if (v18[v28] == 2)
+      if (v16[v26] == 2)
       {
         if (qword_10117F4C8 != -1)
         {
           swift_once();
         }
 
-        v48 = &qword_101218948;
+        v46 = &qword_101218948;
       }
 
       else
@@ -7703,62 +7725,62 @@ uint64_t sub_1002920AC(void *a1)
           swift_once();
         }
 
-        v48 = &qword_101218940;
+        v46 = &qword_101218940;
       }
 
-      v49 = *v48;
+      v47 = *v46;
       UIButton.Configuration.baseForegroundColor.setter();
       String.LocalizationValue.init(stringLiteral:)();
     }
 
     else
     {
-      v39 = [v18 traitCollection];
-      v40 = [v39 userInterfaceIdiom];
+      v37 = [v16 traitCollection];
+      v38 = [v37 userInterfaceIdiom];
 
-      if (v40 != 6)
+      if (v38 != 6)
       {
-        v41 = [v33 imageView];
-        if (v41)
+        v39 = [v31 imageView];
+        if (v39)
         {
-          v42 = v41;
-          v43 = [v41 layer];
+          v40 = v39;
+          v41 = [v39 layer];
 
-          [v43 setCompositingFilter:kCAFilterDestOut];
+          [v41 setCompositingFilter:kCAFilterDestOut];
         }
       }
 
-      v44 = [objc_opt_self() blackColor];
+      v42 = [objc_opt_self() blackColor];
       UIButton.Configuration.baseForegroundColor.setter();
       String.LocalizationValue.init(stringLiteral:)();
     }
 
     static Locale.current.getter();
     String.init(localized:table:bundle:locale:comment:)();
-    v50 = String._bridgeToObjectiveC()();
+    v48 = String._bridgeToObjectiveC()();
 
-    [v33 setAccessibilityValue:v50];
+    [v31 setAccessibilityValue:v48];
 
     String.LocalizationValue.init(stringLiteral:)();
     static Locale.current.getter();
     String.init(localized:table:bundle:locale:comment:)();
-    v51 = String._bridgeToObjectiveC()();
+    v49 = String._bridgeToObjectiveC()();
 
-    [v33 setAccessibilityLabel:v51];
+    [v31 setAccessibilityLabel:v49];
 
-    memset(v63, 0, sizeof(v63));
-    v52 = v61;
+    memset(v61, 0, sizeof(v61));
+    v50 = v59;
     static AutomationSemantics.nowPlaying(name:id:)();
-    sub_100011DF0(v63);
+    sub_100011DF0(v61);
     UIView.setAutomationSemantics(_:)();
-    (*(v62 + 8))(v52, v56);
-    v54 = v59;
-    v53 = v60;
-    (*(v59 + 16))(v4, v16, v60);
-    (*(v54 + 56))(v4, 0, 1, v53);
+    (*(v60 + 8))(v50, v54);
+    v52 = v57;
+    v51 = v58;
+    (*(v57 + 16))(v4, v14, v58);
+    (*(v52 + 56))(v4, 0, 1, v51);
     UIButton.configuration.setter();
 
-    return (*(v54 + 8))(v16, v53);
+    return (*(v52 + 8))(v14, v51);
   }
 
   return result;
@@ -7770,14 +7792,16 @@ void sub_100292AB0(uint64_t a1, uint64_t a2, void *a3)
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v5 = *(Strong + *a3);
-    v6 = Strong;
-    sub_100030444(v5);
+    v5 = (Strong + *a3);
+    v6 = *v5;
+    v7 = v5[1];
+    v8 = Strong;
+    sub_100030444(*v5, v7);
 
-    if (v5)
+    if (v6)
     {
-      v5();
-      sub_100020438(v5);
+      v6();
+      sub_100020438(v6, v7);
     }
   }
 }
@@ -7890,23 +7914,23 @@ unint64_t sub_1002931A8()
   return result;
 }
 
-void sub_1002932C4()
+void sub_1002932C4(uint64_t a1)
 {
   type metadata accessor for MusicPin();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    sub_10002EF7C();
-    if (v1 <= 0x3F)
+    sub_10002EF7C(319);
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-uint64_t sub_1002933B0()
+uint64_t sub_1002933B0(uint64_t a1)
 {
   result = type metadata accessor for DragDropPins.Origin(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -7915,10 +7939,10 @@ uint64_t sub_1002933B0()
   return result;
 }
 
-uint64_t sub_10029344C()
+uint64_t sub_10029344C(uint64_t a1)
 {
   result = type metadata accessor for MusicPin();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -7929,12 +7953,12 @@ uint64_t sub_10029344C()
 
 uint64_t sub_100293500(uint64_t a1)
 {
-  result = sub_100293558(&qword_1011895E0, type metadata accessor for DragDropPins.Origin);
+  result = sub_100293558(&qword_1011895E0, type metadata accessor for DragDropPins.Origin, &unk_100EC4F74);
   *(a1 + 8) = result;
   return result;
 }
 
-uint64_t sub_100293558(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_100293558(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -7952,7 +7976,7 @@ uint64_t sub_1002935A0(uint64_t a1, uint64_t a2)
   v3[3] = a2;
   v3[4] = v2;
   v3[2] = a1;
-  v4 = sub_10010FC20(&unk_1011972A0);
+  v4 = sub_10010FC20(&unk_1011972A0, &qword_100ECBC60);
   v3[5] = v4;
   v3[6] = *(v4 - 8);
   v3[7] = swift_task_alloc();
@@ -7973,13 +7997,13 @@ uint64_t sub_100293704()
   if (!*(v1 + 16))
   {
 LABEL_4:
-    v13 = v0[2];
-    v14 = type metadata accessor for Notice(0);
-    (*(*(v14 - 8) + 56))(v13, 1, 1, v14);
+    v14 = v0[2];
+    v15 = type metadata accessor for Notice(0);
+    (*(*(v15 - 8) + 56))(v14, 1, 1, v15);
 
-    v15 = v0[1];
+    v16 = v0[1];
 
-    return v15();
+    return v16();
   }
 
   v3 = v0[11];
@@ -7989,53 +8013,54 @@ LABEL_4:
   v6 = v0[7];
   v7 = v0[8];
   v8 = v0[6];
-  v24 = v0[5];
-  v9 = *(type metadata accessor for DragDropPins(0) - 8);
-  sub_1002942FC(v1 + ((*(v9 + 80) + 32) & ~*(v9 + 80)), v7);
-  v10 = *(v4 + 32);
-  v10(v3, v7, v5);
-  v10(v2, v3, v5);
+  v25 = v0[5];
+  v9 = v0[4];
+  v10 = *(type metadata accessor for DragDropPins(0) - 8);
+  sub_1002942FC(v1 + ((*(v10 + 80) + 32) & ~*(v10 + 80)), v7);
+  v11 = *(v4 + 32);
+  v11(v3, v7, v5);
+  v11(v2, v3, v5);
   v0[13] = type metadata accessor for MusicLibrary();
   static MusicLibrary.shared.getter();
   MusicLibrary.pinsObserver.getter();
 
   dispatch thunk of MusicLibraryPinsObserver.pins.getter();
 
-  v11 = sub_1003FC8E4();
-  LOBYTE(v2) = v12;
-  v0[14] = v11;
-  (*(v8 + 8))(v6, v24);
+  v12 = sub_1003FC8E4(v9);
+  LOBYTE(v2) = v13;
+  v0[14] = v12;
+  (*(v8 + 8))(v6, v25);
   if (v2)
   {
     (*(v0[10] + 8))(v0[12], v0[9]);
     goto LABEL_4;
   }
 
-  v17 = v0[4];
-  v18 = (v17 + *(type metadata accessor for DragDropPins.Destination(0) + 20));
-  if (*v18)
+  v18 = v0[4];
+  v19 = (v18 + *(type metadata accessor for DragDropPins.Destination(0) + 20));
+  if (*v19)
   {
-    v25 = (*v18 + **v18);
-    v19 = swift_task_alloc();
-    v0[15] = v19;
-    *v19 = v0;
-    v19[1] = sub_100293A94;
-    v20 = v0[12];
+    v26 = (*v19 + **v19);
+    v20 = swift_task_alloc();
+    v0[15] = v20;
+    *v20 = v0;
+    v20[1] = sub_100293A94;
+    v21 = v0[12];
 
-    return v25(v20);
+    return v26(v21);
   }
 
   else
   {
     v0[16] = static MusicLibrary.shared.getter();
-    v21 = swift_task_alloc();
-    v0[17] = v21;
-    *v21 = v0;
-    v21[1] = sub_100293C3C;
-    v22 = v0[14];
-    v23 = v0[12];
+    v22 = swift_task_alloc();
+    v0[17] = v22;
+    *v22 = v0;
+    v22[1] = sub_100293C3C;
+    v23 = v0[14];
+    v24 = v0[12];
 
-    return MusicLibrary.movePin(_:position:)(v23, v22);
+    return MusicLibrary.movePin(_:position:)(v24, v23);
   }
 }
 
@@ -8045,17 +8070,17 @@ uint64_t sub_100293A94()
   return _swift_task_switch(sub_100293B90, 0, 0);
 }
 
-uint64_t sub_100293B90()
+uint64_t sub_100293B90(uint64_t a1)
 {
-  v0[16] = static MusicLibrary.shared.getter();
-  v1 = swift_task_alloc();
-  v0[17] = v1;
-  *v1 = v0;
-  v1[1] = sub_100293C3C;
-  v2 = v0[14];
-  v3 = v0[12];
+  v1[16] = static MusicLibrary.shared.getter();
+  v2 = swift_task_alloc();
+  v1[17] = v2;
+  *v2 = v1;
+  v2[1] = sub_100293C3C;
+  v3 = v1[14];
+  v4 = v1[12];
 
-  return MusicLibrary.movePin(_:position:)(v3, v2);
+  return MusicLibrary.movePin(_:position:)(v4, v3);
 }
 
 uint64_t sub_100293C3C()
@@ -8122,13 +8147,15 @@ Swift::Int sub_100293FE8()
   return Hasher._finalize()();
 }
 
-uint64_t sub_100294044()
+double sub_100294044(uint64_t a1)
 {
   MusicPin.id.getter();
   String.hash(into:)();
+
+  return result;
 }
 
-Swift::Int sub_100294094()
+Swift::Int sub_100294094(uint64_t a1)
 {
   Hasher.init(_seed:)();
   MusicPin.id.getter();
@@ -8137,26 +8164,26 @@ Swift::Int sub_100294094()
   return Hasher._finalize()();
 }
 
-uint64_t sub_1002940EC()
+uint64_t sub_1002940EC(uint64_t a1)
 {
-  v0 = MusicPin.id.getter();
-  v2 = v1;
-  if (v0 == MusicPin.id.getter() && v2 == v3)
+  v1 = MusicPin.id.getter();
+  v3 = v2;
+  if (v1 == MusicPin.id.getter() && v3 == v4)
   {
-    v4 = 1;
+    v5 = 1;
   }
 
   else
   {
-    v4 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v4 & 1;
+  return v5 & 1;
 }
 
 uint64_t sub_100294208(uint64_t a1)
 {
-  result = sub_100293558(&qword_101189630, type metadata accessor for DragDropPins.Destination);
+  result = sub_100293558(&qword_101189630, type metadata accessor for DragDropPins.Destination, &unk_100EC4FF8);
   *(a1 + 8) = result;
   return result;
 }
@@ -8181,163 +8208,163 @@ char *sub_100294370(double a1, double a2, double a3, double a4)
 
   v14._object = 0x8000000100E44020;
   v14._countAndFlagsBits = 0xD000000000000029;
-  v15 = AccessibilityIdentifier.init(name:)(v14);
-  v16 = UIView.withAccessibilityIdentifier(_:)(v15, *(&v15 + 1));
+  v76 = AccessibilityIdentifier.init(name:)(v14);
+  v15 = UIView.withAccessibilityIdentifier(_:)(v76.rawValue._countAndFlagsBits, v76.rawValue._object, v76.name._countAndFlagsBits, v76.name._object);
 
-  *&v5[v11] = v16;
-  v78.receiver = v5;
-  v78.super_class = type metadata accessor for NowPlayingQueueRemainingSongsCell();
-  v17 = objc_msgSendSuper2(&v78, "initWithFrame:", a1, a2, a3, a4);
-  v18._countAndFlagsBits = 0xD000000000000023;
-  v18._object = 0x8000000100E44080;
-  v19 = AccessibilityIdentifier.init(name:)(v18);
-  UIAccessibilityIdentification.musicAccessibilityIdentifier.setter(v19, *(&v19 + 1));
-  v20 = v17;
-  v21 = [v20 layer];
-  [v21 setAllowsGroupBlending:0];
+  *&v5[v11] = v15;
+  v75.receiver = v5;
+  v75.super_class = type metadata accessor for NowPlayingQueueRemainingSongsCell();
+  v16 = objc_msgSendSuper2(&v75, "initWithFrame:", a1, a2, a3, a4);
+  v17._countAndFlagsBits = 0xD000000000000023;
+  v17._object = 0x8000000100E44080;
+  v77 = AccessibilityIdentifier.init(name:)(v17);
+  UIAccessibilityIdentification.musicAccessibilityIdentifier.setter(v77.rawValue._countAndFlagsBits, v77.rawValue._object, v77.name._countAndFlagsBits, v77.name._object);
+  v18 = v16;
+  v19 = [v18 layer];
+  [v19 setAllowsGroupBlending:0];
 
-  v22 = [objc_allocWithZone(UIColor) initWithWhite:0.45 alpha:1.0];
+  v20 = [objc_allocWithZone(UIColor) initWithWhite:0.45 alpha:1.0];
   if (qword_10117F878 != -1)
   {
     swift_once();
   }
 
-  v23 = qword_101218F90;
-  v24 = String._bridgeToObjectiveC()();
-  v25 = [objc_opt_self() imageNamed:v24 inBundle:v23];
+  v21 = qword_101218F90;
+  v22 = String._bridgeToObjectiveC()();
+  v23 = [objc_opt_self() imageNamed:v22 inBundle:v21];
 
-  v26 = [objc_allocWithZone(UIImageView) initWithImage:v25];
-  v27 = UIView.forAutolayout.getter();
+  v24 = [objc_allocWithZone(UIImageView) initWithImage:v23];
+  v25 = UIView.forAutolayout.getter();
 
-  v28._object = 0x8000000100E440D0;
-  v28._countAndFlagsBits = 0xD000000000000029;
-  v29 = AccessibilityIdentifier.init(name:)(v28);
-  v30 = UIView.withAccessibilityIdentifier(_:)(v29, *(&v29 + 1));
+  v26._object = 0x8000000100E440D0;
+  v26._countAndFlagsBits = 0xD000000000000029;
+  v78 = AccessibilityIdentifier.init(name:)(v26);
+  v27 = UIView.withAccessibilityIdentifier(_:)(v78.rawValue._countAndFlagsBits, v78.rawValue._object, v78.name._countAndFlagsBits, v78.name._object);
 
-  v31 = v22;
-  [v30 setTintColor:v31];
-  v32 = OBJC_IVAR____TtC5Music33NowPlayingQueueRemainingSongsCell_label;
-  v33 = *&v20[OBJC_IVAR____TtC5Music33NowPlayingQueueRemainingSongsCell_label];
-  [v33 setTextColor:v31];
+  v28 = v20;
+  [v27 setTintColor:v28];
+  v29 = OBJC_IVAR____TtC5Music33NowPlayingQueueRemainingSongsCell_label;
+  v30 = *&v18[OBJC_IVAR____TtC5Music33NowPlayingQueueRemainingSongsCell_label];
+  [v30 setTextColor:v28];
 
-  v77 = v31;
-  v34 = *&v20[v32];
-  v35 = objc_opt_self();
-  v36 = v34;
-  v37 = [v35 preferredFontForTextStyle:UIFontTextStyleBody];
-  [v36 setFont:v37];
+  v74 = v28;
+  v31 = *&v18[v29];
+  v32 = objc_opt_self();
+  v33 = v31;
+  v34 = [v32 preferredFontForTextStyle:UIFontTextStyleBody];
+  [v33 setFont:v34];
 
-  v38 = [v20 contentView];
-  v39 = v30;
-  [v38 addSubview:v39];
+  v35 = [v18 contentView];
+  v36 = v27;
+  [v35 addSubview:v36];
 
-  v40 = [v20 contentView];
-  [v40 addSubview:*&v20[v32]];
+  v37 = [v18 contentView];
+  [v37 addSubview:*&v18[v29]];
 
-  v41 = [v20 traitCollection];
-  v76 = sub_100050078();
-  v42 = UITraitCollection.subscript.getter();
+  v38 = [v18 traitCollection];
+  v73 = sub_100050078();
+  v39 = UITraitCollection.subscript.getter();
 
-  v43 = [v20 contentView];
-  v44 = [v43 layer];
+  v40 = [v18 contentView];
+  v41 = [v40 layer];
 
-  if (v42)
+  if (v39)
   {
-    v45 = kCAFilterPlusL;
+    v42 = kCAFilterPlusL;
   }
 
   else
   {
-    v45 = 0;
+    v42 = 0;
   }
 
-  [v44 setCompositingFilter:v45];
+  [v41 setCompositingFilter:v42];
 
   swift_unknownObjectRelease();
-  v74 = objc_opt_self();
-  sub_10010FC20(&qword_101183990);
-  v46 = swift_allocObject();
-  *(v46 + 16) = xmmword_100EBEE80;
-  v47 = [v39 leadingAnchor];
+  v71 = objc_opt_self();
+  sub_10010FC20(&qword_101183990, &qword_100EBC750);
+  v43 = swift_allocObject();
+  *(v43 + 16) = xmmword_100EBEE80;
+  v44 = [v36 leadingAnchor];
 
-  v48 = [v20 layoutMarginsGuide];
-  v49 = [v48 leadingAnchor];
+  v45 = [v18 layoutMarginsGuide];
+  v46 = [v45 leadingAnchor];
 
-  v50 = [v47 constraintEqualToAnchor:v49];
-  *(v46 + 32) = v50;
-  v51 = [v39 widthAnchor];
+  v47 = [v44 constraintEqualToAnchor:v46];
+  *(v43 + 32) = v47;
+  v48 = [v36 widthAnchor];
 
-  v52 = [v39 heightAnchor];
-  v53 = [v51 constraintEqualToAnchor:v52];
+  v49 = [v36 heightAnchor];
+  v50 = [v48 constraintEqualToAnchor:v49];
 
-  *(v46 + 40) = v53;
-  v54 = [v39 heightAnchor];
+  *(v43 + 40) = v50;
+  v51 = [v36 heightAnchor];
 
   if (qword_10117F850 != -1)
   {
     swift_once();
   }
 
-  v55 = [v54 constraintEqualToConstant:{*&qword_101218F38, v74}];
+  v52 = [v51 constraintEqualToConstant:{*&qword_101218F38, v71}];
 
-  *(v46 + 48) = v55;
-  v56 = [v39 centerYAnchor];
+  *(v43 + 48) = v52;
+  v53 = [v36 centerYAnchor];
 
-  v57 = [v20 contentView];
-  v58 = [v57 centerYAnchor];
+  v54 = [v18 contentView];
+  v55 = [v54 centerYAnchor];
 
-  v59 = [v56 constraintEqualToAnchor:v58];
-  *(v46 + 56) = v59;
-  v60 = [*&v20[v32] centerYAnchor];
-  v61 = [v20 contentView];
+  v56 = [v53 constraintEqualToAnchor:v55];
+  *(v43 + 56) = v56;
+  v57 = [*&v18[v29] centerYAnchor];
+  v58 = [v18 contentView];
 
-  v62 = [v61 centerYAnchor];
-  v63 = [v60 constraintEqualToAnchor:v62];
+  v59 = [v58 centerYAnchor];
+  v60 = [v57 constraintEqualToAnchor:v59];
 
-  *(v46 + 64) = v63;
-  v64 = [*&v20[v32] leadingAnchor];
-  v65 = [v39 trailingAnchor];
+  *(v43 + 64) = v60;
+  v61 = [*&v18[v29] leadingAnchor];
+  v62 = [v36 trailingAnchor];
 
   if (qword_10117F860 != -1)
   {
     swift_once();
   }
 
-  v66 = [v64 constraintEqualToAnchor:v65 constant:*&qword_101218F48];
+  v63 = [v61 constraintEqualToAnchor:v62 constant:*&qword_101218F48];
 
-  *(v46 + 72) = v66;
-  v67 = [*&v20[v32] trailingAnchor];
-  v68 = [v20 layoutMarginsGuide];
+  *(v43 + 72) = v63;
+  v64 = [*&v18[v29] trailingAnchor];
+  v65 = [v18 layoutMarginsGuide];
 
-  v69 = [v68 trailingAnchor];
-  v70 = [v67 constraintEqualToAnchor:v69];
+  v66 = [v65 trailingAnchor];
+  v67 = [v64 constraintEqualToAnchor:v66];
 
-  *(v46 + 80) = v70;
+  *(v43 + 80) = v67;
   sub_100294F58();
   isa = Array._bridgeToObjectiveC()().super.isa;
 
-  [v75 activateConstraints:isa];
+  [v72 activateConstraints:isa];
 
-  sub_10010FC20(&unk_101182D80);
-  v72 = swift_allocObject();
-  *(v72 + 16) = xmmword_100EBC6B0;
-  *(v72 + 32) = &type metadata for HasAnimatedBackgroundTrait;
-  *(v72 + 40) = v76;
+  sub_10010FC20(&unk_101182D80, "ʫ\n");
+  v69 = swift_allocObject();
+  *(v69 + 16) = xmmword_100EBC6B0;
+  *(v69 + 32) = &type metadata for HasAnimatedBackgroundTrait;
+  *(v69 + 40) = v73;
   UIView.registerForTraitChanges<A>(_:handler:)();
 
   swift_unknownObjectRelease();
 
-  return v20;
+  return v18;
 }
 
-id sub_100294CCC()
+id sub_100294CCC(__n128 a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for NowPlayingQueueRemainingSongsCell();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for NowPlayingQueueRemainingSongsCell();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
-uint64_t sub_100294D78(void *a1)
+double sub_100294D78(void *a1)
 {
   v2 = [a1 traitCollection];
   sub_100050078();
@@ -8358,7 +8385,8 @@ uint64_t sub_100294D78(void *a1)
 
   [v5 setCompositingFilter:v6];
 
-  return swift_unknownObjectRelease();
+  swift_unknownObjectRelease();
+  return result;
 }
 
 void sub_100294E5C()
@@ -8373,10 +8401,10 @@ void sub_100294E5C()
 
   v6._countAndFlagsBits = 0xD000000000000029;
   v6._object = 0x8000000100E44020;
-  v7 = AccessibilityIdentifier.init(name:)(v6);
-  v8 = UIView.withAccessibilityIdentifier(_:)(v7, *(&v7 + 1));
+  v8 = AccessibilityIdentifier.init(name:)(v6);
+  v7 = UIView.withAccessibilityIdentifier(_:)(v8.rawValue._countAndFlagsBits, v8.rawValue._object, v8.name._countAndFlagsBits, v8.name._object);
 
-  *(v1 + v3) = v8;
+  *(v1 + v3) = v7;
   _assertionFailure(_:_:file:line:flags:)();
   __break(1u);
 }
@@ -8397,7 +8425,7 @@ unint64_t sub_100294F58()
 void sub_100294FA4()
 {
   v1 = *(v0 + OBJC_IVAR____TtC5Music25NowPlayingQueueRepeatCell_label);
-  sub_100009F78(0, &unk_101189D70);
+  sub_100009F78(0, &unk_101189D70, NSAttributedString_ptr);
   v2 = *(v0 + OBJC_IVAR____TtC5Music25NowPlayingQueueRepeatCell_text);
   v3 = *(v0 + OBJC_IVAR____TtC5Music25NowPlayingQueueRepeatCell_text + 8);
   v4 = v1;
@@ -8406,11 +8434,11 @@ void sub_100294FA4()
   v5._object = v3;
   String.append(_:)(v5);
 
-  sub_10010FC20(&qword_10119FB30);
+  sub_10010FC20(&qword_10119FB30, &unk_100EBC740);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_100EBC6B0;
   *(inited + 32) = NSFontAttributeName;
-  v7 = sub_100009F78(0, &qword_101183A00);
+  v7 = sub_100009F78(0, &qword_101183A00, UIFont_ptr);
   v8 = NSFontAttributeName;
   v9 = static UIFont.preferredFont(forTextStyle:weight:)();
   *(inited + 64) = v7;
@@ -8454,71 +8482,71 @@ char *sub_100295214(double a1, double a2, double a3, double a4)
   v14 = UIView.forAutolayout.getter();
   v15._object = 0x8000000100E44130;
   v15._countAndFlagsBits = 0xD00000000000001BLL;
-  v16 = AccessibilityIdentifier.init(name:)(v15);
-  v17 = UIView.withAccessibilityIdentifier(_:)(v16, *(&v16 + 1));
+  v42 = AccessibilityIdentifier.init(name:)(v15);
+  v16 = UIView.withAccessibilityIdentifier(_:)(v42.rawValue._countAndFlagsBits, v42.rawValue._object, v42.name._countAndFlagsBits, v42.name._object);
 
-  *&v5[v11] = v17;
-  v43.receiver = v5;
-  v43.super_class = type metadata accessor for NowPlayingQueueRepeatCell();
-  v18 = objc_msgSendSuper2(&v43, "initWithFrame:", a1, a2, a3, a4);
-  v19._object = 0x8000000100E44130;
-  v19._countAndFlagsBits = 0xD00000000000001BLL;
-  v20 = AccessibilityIdentifier.init(name:)(v19);
-  UIAccessibilityIdentification.musicAccessibilityIdentifier.setter(v20, *(&v20 + 1));
-  v21 = v18;
-  v22 = [v21 layer];
-  [v22 setAllowsGroupBlending:0];
+  *&v5[v11] = v16;
+  v41.receiver = v5;
+  v41.super_class = type metadata accessor for NowPlayingQueueRepeatCell();
+  v17 = objc_msgSendSuper2(&v41, "initWithFrame:", a1, a2, a3, a4);
+  v18._object = 0x8000000100E44130;
+  v18._countAndFlagsBits = 0xD00000000000001BLL;
+  v43 = AccessibilityIdentifier.init(name:)(v18);
+  UIAccessibilityIdentification.musicAccessibilityIdentifier.setter(v43.rawValue._countAndFlagsBits, v43.rawValue._object, v43.name._countAndFlagsBits, v43.name._object);
+  v19 = v17;
+  v20 = [v19 layer];
+  [v20 setAllowsGroupBlending:0];
 
-  v23 = OBJC_IVAR____TtC5Music25NowPlayingQueueRepeatCell_label;
-  [*&v21[OBJC_IVAR____TtC5Music25NowPlayingQueueRepeatCell_label] setNumberOfLines:0];
-  [*&v21[v23] setTextAlignment:1];
-  v24 = [v21 contentView];
-  [v24 addSubview:*&v21[v23]];
+  v21 = OBJC_IVAR____TtC5Music25NowPlayingQueueRepeatCell_label;
+  [*&v19[OBJC_IVAR____TtC5Music25NowPlayingQueueRepeatCell_label] setNumberOfLines:0];
+  [*&v19[v21] setTextAlignment:1];
+  v22 = [v19 contentView];
+  [v22 addSubview:*&v19[v21]];
 
   sub_1002956E0();
-  v25 = objc_opt_self();
-  sub_10010FC20(&qword_101183990);
-  v26 = swift_allocObject();
-  *(v26 + 16) = xmmword_100EBE270;
-  v27 = [*&v21[v23] leadingAnchor];
-  v28 = [v21 layoutMarginsGuide];
-  v29 = [v28 leadingAnchor];
+  v23 = objc_opt_self();
+  sub_10010FC20(&qword_101183990, &qword_100EBC750);
+  v24 = swift_allocObject();
+  *(v24 + 16) = xmmword_100EBE270;
+  v25 = [*&v19[v21] leadingAnchor];
+  v26 = [v19 layoutMarginsGuide];
+  v27 = [v26 leadingAnchor];
 
-  v30 = [v27 constraintEqualToAnchor:v29];
-  *(v26 + 32) = v30;
-  v31 = [*&v21[v23] trailingAnchor];
-  v32 = [v21 layoutMarginsGuide];
+  v28 = [v25 constraintEqualToAnchor:v27];
+  *(v24 + 32) = v28;
+  v29 = [*&v19[v21] trailingAnchor];
+  v30 = [v19 layoutMarginsGuide];
 
-  v33 = [v32 trailingAnchor];
-  v34 = [v31 constraintEqualToAnchor:v33];
+  v31 = [v30 trailingAnchor];
+  v32 = [v29 constraintEqualToAnchor:v31];
 
-  *(v26 + 40) = v34;
-  v35 = [*&v21[v23] centerYAnchor];
-  v36 = [v21 contentView];
+  *(v24 + 40) = v32;
+  v33 = [*&v19[v21] centerYAnchor];
+  v34 = [v19 contentView];
 
-  v37 = [v36 centerYAnchor];
-  v38 = [v35 constraintEqualToAnchor:v37];
+  v35 = [v34 centerYAnchor];
+  v36 = [v33 constraintEqualToAnchor:v35];
 
-  *(v26 + 48) = v38;
-  sub_100009F78(0, &qword_1011838A0);
+  *(v24 + 48) = v36;
+  sub_100009F78(0, &qword_1011838A0, NSLayoutConstraint_ptr);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
-  [v25 activateConstraints:isa];
+  [v23 activateConstraints:isa];
 
-  sub_10010FC20(&unk_101182D80);
-  v40 = swift_allocObject();
-  *(v40 + 16) = xmmword_100EBC6B0;
-  v41 = sub_100050078();
-  *(v40 + 32) = &type metadata for HasAnimatedBackgroundTrait;
-  *(v40 + 40) = v41;
+  sub_10010FC20(&unk_101182D80, "ʫ\n");
+  v38 = swift_allocObject();
+  *(v38 + 16) = xmmword_100EBC6B0;
+  v39 = sub_100050078();
+  *(v38 + 32) = &type metadata for HasAnimatedBackgroundTrait;
+  *(v38 + 40) = v39;
   UIView.registerForTraitChanges<A>(_:handler:)();
 
   swift_unknownObjectRelease();
 
-  return v21;
+  return v19;
 }
 
-uint64_t sub_1002956E0()
+double sub_1002956E0()
 {
   v1 = v0;
   v2 = [v0 traitCollection];
@@ -8555,19 +8583,20 @@ uint64_t sub_1002956E0()
 
   [v7 setCompositingFilter:v10];
 
-  return swift_unknownObjectRelease();
+  swift_unknownObjectRelease();
+  return result;
 }
 
-id sub_100295870()
+id sub_100295870(__n128 a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for NowPlayingQueueRepeatCell();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for NowPlayingQueueRepeatCell();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 uint64_t sub_10029593C(uint64_t a1)
 {
-  v2 = sub_10010FC20(&qword_101180420);
+  v2 = sub_10010FC20(&qword_101180420, &unk_100EDEFD0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -8585,194 +8614,188 @@ void sub_1002959A4()
   v6 = UIView.forAutolayout.getter();
   v7._object = 0x8000000100E44130;
   v7._countAndFlagsBits = 0xD00000000000001BLL;
-  v8 = AccessibilityIdentifier.init(name:)(v7);
-  v9 = UIView.withAccessibilityIdentifier(_:)(v8, *(&v8 + 1));
+  v9 = AccessibilityIdentifier.init(name:)(v7);
+  v8 = UIView.withAccessibilityIdentifier(_:)(v9.rawValue._countAndFlagsBits, v9.rawValue._object, v9.name._countAndFlagsBits, v9.name._object);
 
-  *(v1 + v3) = v9;
+  *(v1 + v3) = v8;
   _assertionFailure(_:_:file:line:flags:)();
   __break(1u);
 }
 
 id sub_100295AB0(double a1, double a2, double a3, double a4)
 {
-  v9 = type metadata accessor for Locale();
-  __chkstk_darwin(v9 - 8);
-  v90[0] = v90 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = type metadata accessor for String.LocalizationValue();
-  __chkstk_darwin(v11 - 8);
-  v12 = sub_10010FC20(&qword_101183A90);
-  __chkstk_darwin(v12 - 8);
-  v14 = v90 - v13;
-  v15 = type metadata accessor for NowPlayingQueueAddCell();
-  v91.receiver = v4;
-  v91.super_class = v15;
-  v16 = objc_msgSendSuper2(&v91, "initWithFrame:", a1, a2, a3, a4);
-  v17._countAndFlagsBits = 0xD000000000000018;
-  v17._object = 0x8000000100E441E0;
-  v18 = AccessibilityIdentifier.init(name:)(v17);
-  UIAccessibilityIdentification.musicAccessibilityIdentifier.setter(v18, *(&v18 + 1));
-  v19 = [v16 layer];
-  [v19 setAllowsGroupBlending:0];
+  type metadata accessor for Locale();
+  __chkstk_darwin();
+  v84[0] = v84 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for String.LocalizationValue();
+  __chkstk_darwin();
+  sub_10010FC20(&qword_101183A90, &unk_100EBE340);
+  __chkstk_darwin();
+  v11 = v84 - v10;
+  v12 = type metadata accessor for NowPlayingQueueAddCell();
+  v85.receiver = v4;
+  v85.super_class = v12;
+  v13 = objc_msgSendSuper2(&v85, "initWithFrame:", a1, a2, a3, a4);
+  v14._countAndFlagsBits = 0xD000000000000018;
+  v14._object = 0x8000000100E441E0;
+  v86 = AccessibilityIdentifier.init(name:)(v14);
+  UIAccessibilityIdentification.musicAccessibilityIdentifier.setter(v86.rawValue._countAndFlagsBits, v86.rawValue._object, v86.name._countAndFlagsBits, v86.name._object);
+  v15 = [v13 layer];
+  [v15 setAllowsGroupBlending:0];
 
-  v20 = v16;
-  v21 = [v20 layer];
-  [v21 setAllowsGroupOpacity:0];
+  v16 = v13;
+  v17 = [v16 layer];
+  [v17 setAllowsGroupOpacity:0];
 
-  v22 = [objc_allocWithZone(UIView) init];
-  v23 = UIView.forAutolayout.getter();
+  v18 = [objc_allocWithZone(UIView) init];
+  v19 = UIView.forAutolayout.getter();
 
-  v24 = objc_opt_self();
-  v25 = [v24 labelColor];
-  v26 = [v25 colorWithAlphaComponent:0.08];
+  v20 = objc_opt_self();
+  v21 = [v20 labelColor];
+  v22 = [v21 colorWithAlphaComponent:0.08];
 
-  [v23 setBackgroundColor:v26];
-  v27 = [v24 labelColor];
-  v28 = [v27 colorWithAlphaComponent:0.08];
+  [v19 setBackgroundColor:v22];
+  v23 = [v20 labelColor];
+  v24 = [v23 colorWithAlphaComponent:0.08];
 
   UIView.Border.init(thickness:color:)();
-  UIView.border.setter(v30, v29 & 1, v31);
-  v32 = UIView.Corner.small.unsafeMutableAddressor();
-  v33 = type metadata accessor for UIView.Corner();
-  v34 = *(v33 - 8);
-  (*(v34 + 16))(v14, v32, v33);
-  (*(v34 + 56))(v14, 0, 1, v33);
+  UIView.border.setter(v26, v25 & 1, v27);
+  v28 = UIView.Corner.small.unsafeMutableAddressor();
+  v29 = type metadata accessor for UIView.Corner();
+  v30 = *(v29 - 8);
+  (*(v30 + 16))(v11, v28, v29);
+  (*(v30 + 56))(v11, 0, 1, v29);
   UIView.corner.setter();
-  v35 = String._bridgeToObjectiveC()();
-  v36 = [objc_opt_self() systemImageNamed:v35];
+  v31 = String._bridgeToObjectiveC()();
+  v32 = [objc_opt_self() systemImageNamed:v31];
 
-  v37 = [objc_allocWithZone(UIImageView) initWithImage:v36];
-  v38 = UIView.forAutolayout.getter();
+  v33 = [objc_allocWithZone(UIImageView) initWithImage:v32];
+  v34 = UIView.forAutolayout.getter();
 
-  v39._object = 0x8000000100E44200;
-  v39._countAndFlagsBits = 0xD00000000000001ELL;
-  v40 = AccessibilityIdentifier.init(name:)(v39);
-  v41 = UIView.withAccessibilityIdentifier(_:)(v40, *(&v40 + 1));
+  v35._object = 0x8000000100E44200;
+  v35._countAndFlagsBits = 0xD00000000000001ELL;
+  v87 = AccessibilityIdentifier.init(name:)(v35);
+  v36 = UIView.withAccessibilityIdentifier(_:)(v87.rawValue._countAndFlagsBits, v87.rawValue._object, v87.name._countAndFlagsBits, v87.name._object);
 
-  v42 = [v24 labelColor];
-  [v41 setTintColor:v42];
+  v37 = [v20 labelColor];
+  [v36 setTintColor:v37];
 
-  sub_100009F78(0, &qword_101183A00);
-  v43 = static UIFont.preferredFont(forTextStyle:weight:)();
-  v44 = [objc_opt_self() configurationWithFont:v43];
+  sub_100009F78(0, &qword_101183A00, UIFont_ptr);
+  v38 = static UIFont.preferredFont(forTextStyle:weight:)();
+  v39 = [objc_opt_self() configurationWithFont:v38];
 
-  [v41 setPreferredSymbolConfiguration:v44];
-  v45 = v41;
-  [v23 addSubview:v45];
-  v46 = [objc_allocWithZone(UILabel) init];
-  v47 = UIView.forAutolayout.getter();
+  [v36 setPreferredSymbolConfiguration:v39];
+  v40 = v36;
+  [v19 addSubview:v40];
+  v41 = [objc_allocWithZone(UILabel) init];
+  v42 = UIView.forAutolayout.getter();
 
-  v48._object = 0x8000000100E44220;
-  v48._countAndFlagsBits = 0xD00000000000001ELL;
-  v49 = AccessibilityIdentifier.init(name:)(v48);
-  v50 = UIView.withAccessibilityIdentifier(_:)(v49, *(&v49 + 1));
+  v43._object = 0x8000000100E44220;
+  v43._countAndFlagsBits = 0xD00000000000001ELL;
+  v88 = AccessibilityIdentifier.init(name:)(v43);
+  v44 = UIView.withAccessibilityIdentifier(_:)(v88.rawValue._countAndFlagsBits, v88.rawValue._object, v88.name._countAndFlagsBits, v88.name._object);
 
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
   String.init(localized:table:bundle:locale:comment:)();
-  v51 = String._bridgeToObjectiveC()();
+  v45 = String._bridgeToObjectiveC()();
 
-  [v50 setText:v51];
+  [v44 setText:v45];
 
-  v52 = [objc_opt_self() preferredFontForTextStyle:UIFontTextStyleBody];
-  [v50 setFont:v52];
+  v46 = [objc_opt_self() preferredFontForTextStyle:UIFontTextStyleBody];
+  [v44 setFont:v46];
 
-  v53 = [v24 labelColor];
-  [v50 setTextColor:v53];
+  v47 = [v20 labelColor];
+  [v44 setTextColor:v47];
 
-  v54 = [v20 contentView];
-  [v54 addSubview:v23];
+  v48 = [v16 contentView];
+  [v48 addSubview:v19];
 
-  v55 = [v20 contentView];
-  v56 = v50;
-  [v55 addSubview:v56];
+  v49 = [v16 contentView];
+  v50 = v44;
+  [v49 addSubview:v50];
 
   sub_1002967B8();
-  v90[0] = objc_opt_self();
-  sub_10010FC20(&qword_101183990);
-  v57 = swift_allocObject();
-  *(v57 + 16) = xmmword_100EBEE90;
-  v58 = [v23 leadingAnchor];
-  v59 = [v20 layoutMarginsGuide];
-  v60 = [v59 leadingAnchor];
+  v84[0] = objc_opt_self();
+  sub_10010FC20(&qword_101183990, &qword_100EBC750);
+  v51 = swift_allocObject();
+  *(v51 + 16) = xmmword_100EBEE90;
+  v52 = [v19 leadingAnchor];
+  v53 = [v16 layoutMarginsGuide];
+  v54 = [v53 leadingAnchor];
 
-  v61 = [v58 constraintEqualToAnchor:v60];
-  *(v57 + 32) = v61;
-  v62 = [v23 widthAnchor];
-  v63 = [v23 heightAnchor];
-  v64 = [v62 constraintEqualToAnchor:v63];
+  v55 = [v52 constraintEqualToAnchor:v54];
+  *(v51 + 32) = v55;
+  v56 = [v19 widthAnchor];
+  v57 = [v19 heightAnchor];
+  v58 = [v56 constraintEqualToAnchor:v57];
 
-  *(v57 + 40) = v64;
-  v65 = [v23 heightAnchor];
+  *(v51 + 40) = v58;
+  v59 = [v19 heightAnchor];
   if (qword_10117F850 != -1)
   {
     swift_once();
   }
 
-  v66 = [v65 constraintEqualToConstant:*&qword_101218F38];
+  v60 = [v59 constraintEqualToConstant:*&qword_101218F38];
 
-  *(v57 + 48) = v66;
-  v67 = [v23 centerYAnchor];
-  v68 = [v20 contentView];
-  v69 = [v68 centerYAnchor];
+  *(v51 + 48) = v60;
+  v61 = [v19 centerYAnchor];
+  v62 = [v16 contentView];
+  v63 = [v62 centerYAnchor];
 
-  v70 = [v67 constraintEqualToAnchor:v69];
-  *(v57 + 56) = v70;
-  v71 = [v45 centerYAnchor];
+  v64 = [v61 constraintEqualToAnchor:v63];
+  *(v51 + 56) = v64;
+  v65 = [v40 centerYAnchor];
 
-  v72 = [v23 centerYAnchor];
-  v73 = [v71 constraintEqualToAnchor:v72];
+  v66 = [v19 centerYAnchor];
+  v67 = [v65 constraintEqualToAnchor:v66];
 
-  *(v57 + 64) = v73;
-  v74 = [v45 centerXAnchor];
+  *(v51 + 64) = v67;
+  v68 = [v40 centerXAnchor];
 
-  v75 = [v23 centerXAnchor];
-  v76 = [v74 constraintEqualToAnchor:v75];
+  v69 = [v19 centerXAnchor];
+  v70 = [v68 constraintEqualToAnchor:v69];
 
-  *(v57 + 72) = v76;
-  v77 = [v56 centerYAnchor];
+  *(v51 + 72) = v70;
+  v71 = [v50 centerYAnchor];
 
-  v78 = [v20 contentView];
-  v79 = [v78 centerYAnchor];
+  v72 = [v16 contentView];
+  v73 = [v72 centerYAnchor];
 
-  v80 = [v77 constraintEqualToAnchor:v79];
-  *(v57 + 80) = v80;
-  v81 = [v56 leadingAnchor];
+  v74 = [v71 constraintEqualToAnchor:v73];
+  *(v51 + 80) = v74;
+  v75 = [v50 leadingAnchor];
 
-  v82 = [v23 trailingAnchor];
-  v83 = [v81 constraintEqualToAnchor:v82 constant:12.0];
+  v76 = [v19 trailingAnchor];
+  v77 = [v75 constraintEqualToAnchor:v76 constant:12.0];
 
-  *(v57 + 88) = v83;
-  v84 = [v56 trailingAnchor];
+  *(v51 + 88) = v77;
+  v78 = [v50 trailingAnchor];
 
-  v85 = [v20 layoutMarginsGuide];
-  v86 = [v85 trailingAnchor];
+  v79 = [v16 layoutMarginsGuide];
+  v80 = [v79 trailingAnchor];
 
-  v87 = [v84 constraintEqualToAnchor:v86];
-  *(v57 + 96) = v87;
-  sub_100009F78(0, &qword_1011838A0);
+  v81 = [v78 constraintEqualToAnchor:v80];
+  *(v51 + 96) = v81;
+  sub_100009F78(0, &qword_1011838A0, NSLayoutConstraint_ptr);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
-  [v90[0] activateConstraints:isa];
+  [v84[0] activateConstraints:isa];
 
-  return v20;
+  return v16;
 }
 
-uint64_t sub_100296680(uint64_t a1)
+double sub_100296680(uint64_t a1, __n128 a2)
 {
-  v6.receiver = v1;
-  v6.super_class = type metadata accessor for NowPlayingQueueAddCell();
-  objc_msgSendSuper2(&v6, "traitCollectionDidChange:", a1);
-  v3 = [v1 traitCollection];
+  v7.receiver = v2;
+  v7.super_class = type metadata accessor for NowPlayingQueueAddCell();
+  objc_msgSendSuper2(&v7, "traitCollectionDidChange:", a1);
+  v4 = [v2 traitCollection];
   sub_100050078();
-  v4 = UITraitCollection.subscript.getter();
+  v5 = UITraitCollection.subscript.getter();
 
-  if (!a1)
-  {
-    return sub_1002967B8();
-  }
-
-  result = UITraitCollection.subscript.getter();
-  if ((result & 1) != (v4 & 1))
+  if (!a1 || (UITraitCollection.subscript.getter() & 1) != (v5 & 1))
   {
     return sub_1002967B8();
   }
@@ -8780,7 +8803,7 @@ uint64_t sub_100296680(uint64_t a1)
   return result;
 }
 
-uint64_t sub_1002967B8()
+double sub_1002967B8()
 {
   v1 = [v0 contentView];
   v2 = [v1 layer];
@@ -8801,141 +8824,142 @@ uint64_t sub_1002967B8()
 
   [v2 setCompositingFilter:v4];
 
-  return swift_unknownObjectRelease();
+  swift_unknownObjectRelease();
+  return result;
 }
 
-id sub_10029689C()
+id sub_10029689C(__n128 a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for NowPlayingQueueAddCell();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for NowPlayingQueueAddCell();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
-void *sub_1002968F4()
+char *sub_1002968F4()
 {
   ObjectType = swift_getObjectType();
-  v79 = sub_10010FC20(&qword_101189790);
-  v77 = *(v79 - 8);
-  __chkstk_darwin(v79);
-  v75 = &v60 - v2;
-  v78 = sub_10010FC20(&qword_101189798);
+  v78 = sub_10010FC20(&qword_101189790, &qword_100EC5128);
   v76 = *(v78 - 8);
-  __chkstk_darwin(v78);
-  v74 = &v60 - v3;
-  v82 = sub_10010FC20(&qword_1011897A0);
-  v81 = *(v82 - 8);
-  __chkstk_darwin(v82);
-  v80 = &v60 - v4;
-  v5 = sub_10010FC20(&qword_1011897A8);
-  v84 = *(v5 - 8);
-  v85 = v5;
-  __chkstk_darwin(v5);
-  v83 = &v60 - v6;
-  v66 = sub_10010FC20(&qword_1011897B0);
-  v65 = *(v66 - 8);
-  __chkstk_darwin(v66);
-  v64 = &v60 - v7;
-  v69 = sub_10010FC20(&qword_1011897B8);
-  v68 = *(v69 - 8);
-  __chkstk_darwin(v69);
-  v67 = &v60 - v8;
-  v72 = sub_10010FC20(&unk_1011897C0);
-  v71 = *(v72 - 8);
-  __chkstk_darwin(v72);
-  v70 = &v60 - v9;
-  v10 = sub_10010FC20(&qword_101182140);
-  __chkstk_darwin(v10 - 8);
-  v73 = &v60 - v11;
-  v12 = sub_10010FC20(&qword_1011897D0);
-  v13 = *(v12 - 8);
+  __chkstk_darwin();
+  v74 = &v59 - v2;
+  v77 = sub_10010FC20(&qword_101189798, &qword_100EC5130);
+  v75 = *(v77 - 8);
+  __chkstk_darwin();
+  v73 = &v59 - v3;
+  v81 = sub_10010FC20(&qword_1011897A0, &qword_100EC5138);
+  v80 = *(v81 - 8);
+  __chkstk_darwin();
+  v79 = &v59 - v4;
+  v5 = sub_10010FC20(&qword_1011897A8, &qword_100EC5140);
+  v83 = *(v5 - 8);
+  v84 = v5;
+  __chkstk_darwin();
+  v82 = &v59 - v6;
+  v65 = sub_10010FC20(&qword_1011897B0, &qword_100EC5148);
+  v64 = *(v65 - 8);
+  __chkstk_darwin();
+  v63 = &v59 - v7;
+  v68 = sub_10010FC20(&qword_1011897B8, &qword_100EC5150);
+  v67 = *(v68 - 8);
+  __chkstk_darwin();
+  v66 = &v59 - v8;
+  v71 = sub_10010FC20(&unk_1011897C0, &qword_100EC5158);
+  v70 = *(v71 - 8);
+  __chkstk_darwin();
+  v69 = &v59 - v9;
+  sub_10010FC20(&qword_101182140, &unk_100EBD2A0);
+  __chkstk_darwin();
+  v72 = &v59 - v10;
+  v11 = sub_10010FC20(&qword_1011897D0, &qword_100EC9750);
+  v12 = *(v11 - 8);
+  v97 = v11;
   v98 = v12;
-  v99 = v13;
-  __chkstk_darwin(v12);
-  v15 = &v60 - v14;
-  v16 = sub_10010FC20(&qword_1011897D8);
-  v17 = *(v16 - 8);
-  __chkstk_darwin(v16);
-  v19 = &v60 - v18;
-  v93 = sub_10010FC20(&qword_1011897E0);
-  v20 = *(v93 - 8);
-  __chkstk_darwin(v93);
-  v22 = &v60 - v21;
-  v23 = sub_10010FC20(&qword_1011897E8);
-  v87 = *(v23 - 1);
-  v88 = v23;
-  __chkstk_darwin(v23);
-  v25 = &v60 - v24;
-  v62 = sub_10010FC20(&unk_1011897F0);
-  v61 = *(v62 - 8);
-  *&v26 = __chkstk_darwin(v62).n128_u64[0];
-  v60 = &v60 - v27;
+  __chkstk_darwin();
+  v14 = &v59 - v13;
+  v15 = sub_10010FC20(&qword_1011897D8, &qword_100EC5160);
+  v16 = *(v15 - 8);
+  __chkstk_darwin();
+  v18 = &v59 - v17;
+  v92 = sub_10010FC20(&qword_1011897E0, &qword_100EC5168);
+  v19 = *(v92 - 8);
+  __chkstk_darwin();
+  v21 = &v59 - v20;
+  v22 = sub_10010FC20(&qword_1011897E8, &qword_100EC5170);
+  v86 = *(v22 - 1);
+  v87 = v22;
+  __chkstk_darwin();
+  v24 = &v59 - v23;
+  v61 = sub_10010FC20(&unk_1011897F0, &qword_100EC5178);
+  v60 = *(v61 - 8);
+  *&v25 = __chkstk_darwin().n128_u64[0];
+  v59 = &v59 - v26;
   *&v0[OBJC_IVAR____TtC5Music20CarPlaySceneDelegate_window] = 0;
   if (_swiftEmptyArrayStorage >> 62 && _CocoaArrayWrapper.endIndex.getter())
   {
-    v28 = sub_10010E5A8(_swiftEmptyArrayStorage);
+    sub_10010E5A8(_swiftEmptyArrayStorage);
   }
 
   else
   {
-    v28 = &_swiftEmptySetSingleton;
+    v27 = &_swiftEmptySetSingleton;
   }
 
-  *&v0[OBJC_IVAR____TtC5Music20CarPlaySceneDelegate_observers] = v28;
-  v101.receiver = v0;
-  v101.super_class = ObjectType;
-  v86 = objc_msgSendSuper2(&v101, "init", v26, v60);
-  v97 = ApplicationCapabilities.Controller.shared.unsafeMutableAddressor();
+  *&v0[OBJC_IVAR____TtC5Music20CarPlaySceneDelegate_observers] = v27;
+  v100.receiver = v0;
+  v100.super_class = ObjectType;
+  v85 = objc_msgSendSuper2(&v100, "init", v25, v59);
+  v96 = ApplicationCapabilities.Controller.shared.unsafeMutableAddressor();
 
   ApplicationCapabilities.Controller.$capabilities.getter();
 
   swift_getKeyPath();
-  v96 = sub_100020674(&qword_101182BB0, &qword_1011897D0);
-  v29 = v98;
+  v95 = sub_100020674(&qword_101182BB0, &qword_1011897D0, &qword_100EC9750, &protocol conformance descriptor for Published<A>.Publisher);
+  v28 = v97;
   Publisher.map<A>(_:)();
 
-  v30 = *(v99 + 8);
-  v99 += 8;
-  v95 = v30;
-  v30(v15, v29);
+  v29 = *(v98 + 8);
+  v98 += 8;
+  v94 = v29;
+  v29(v14, v28);
   type metadata accessor for MusicCarPlayUserSubscriptionState(0);
-  v94 = &protocol conformance descriptor for Publishers.MapKeyPath<A, B>;
-  sub_100020674(&qword_101189800, &qword_1011897D8);
+  v93 = &protocol conformance descriptor for Publishers.MapKeyPath<A, B>;
+  sub_100020674(&qword_101189800, &qword_1011897D8, &qword_100EC5160, &protocol conformance descriptor for Publishers.MapKeyPath<A, B>);
   Publisher.map<A>(_:)();
-  (*(v17 + 8))(v19, v16);
-  v63 = &protocol conformance descriptor for Publishers.Map<A, B>;
-  sub_100020674(&qword_101189808, &qword_1011897E0);
-  sub_10029916C(&unk_101189810, type metadata accessor for MusicCarPlayUserSubscriptionState);
-  v31 = v93;
+  (*(v16 + 8))(v18, v15);
+  v62 = &protocol conformance descriptor for Publishers.Map<A, B>;
+  sub_100020674(&qword_101189808, &qword_1011897E0, &qword_100EC5168, &protocol conformance descriptor for Publishers.Map<A, B>);
+  sub_10029916C(&unk_101189810, type metadata accessor for MusicCarPlayUserSubscriptionState, &unk_100EBC2F0);
+  v30 = v92;
   Publisher<>.removeDuplicates()();
-  (*(v20 + 8))(v22, v31);
-  sub_100009F78(0, &qword_101182960);
-  v32 = static OS_dispatch_queue.main.getter();
-  v100 = v32;
-  v92 = type metadata accessor for OS_dispatch_queue.SchedulerOptions();
-  v33 = *(v92 - 8);
-  v91 = *(v33 + 56);
-  v93 = v33 + 56;
-  v34 = v73;
-  v91(v73, 1, 1, v92);
-  v90 = &protocol conformance descriptor for Publishers.RemoveDuplicates<A>;
-  sub_100020674(&unk_101189820, &qword_1011897E8);
-  v89 = sub_10001C070(&qword_101184920, &qword_101182960);
-  v35 = v60;
-  v36 = v88;
+  (*(v19 + 8))(v21, v30);
+  sub_100009F78(0, &qword_101182960, OS_dispatch_queue_ptr);
+  v31 = static OS_dispatch_queue.main.getter();
+  v99 = v31;
+  v91 = type metadata accessor for OS_dispatch_queue.SchedulerOptions();
+  v32 = *(v91 - 8);
+  v90 = *(v32 + 56);
+  v92 = v32 + 56;
+  v33 = v72;
+  v90(v72, 1, 1, v91);
+  v89 = &protocol conformance descriptor for Publishers.RemoveDuplicates<A>;
+  sub_100020674(&unk_101189820, &qword_1011897E8, &qword_100EC5170, &protocol conformance descriptor for Publishers.RemoveDuplicates<A>);
+  v88 = sub_10001C070(&qword_101184920, &qword_101182960, OS_dispatch_queue_ptr, &protocol conformance descriptor for OS_dispatch_queue);
+  v34 = v59;
+  v35 = v87;
   Publisher.receive<A>(on:options:)();
-  sub_1000095E8(v34, &qword_101182140);
+  sub_1000095E8(v33, &qword_101182140, &unk_100EBD2A0);
 
-  v87[1](v25, v36);
+  v86[1](v24, v35);
   swift_getKeyPath();
-  v88 = objc_opt_self();
-  v37 = [v88 sharedController];
-  v100 = v37;
-  v87 = &protocol conformance descriptor for Publishers.ReceiveOn<A, B>;
-  sub_100020674(&qword_101189830, &unk_1011897F0);
-  v38 = v62;
+  v87 = objc_opt_self();
+  v36 = [v87 sharedController];
+  v99 = v36;
+  v86 = &protocol conformance descriptor for Publishers.ReceiveOn<A, B>;
+  sub_100020674(&qword_101189830, &unk_1011897F0, &qword_100EC5178, &protocol conformance descriptor for Publishers.ReceiveOn<A, B>);
+  v37 = v61;
   Publisher<>.assign<A>(to:on:)();
 
-  (*(v61 + 8))(v35, v38);
+  (*(v60 + 8))(v34, v37);
   swift_beginAccess();
   AnyCancellable.store(in:)();
   swift_endAccess();
@@ -8943,36 +8967,36 @@ void *sub_1002968F4()
   ApplicationCapabilities.Controller.$capabilities.getter();
 
   swift_getKeyPath();
-  v39 = v64;
-  v40 = v98;
+  v38 = v63;
+  v39 = v97;
   Publisher.map<A>(_:)();
 
-  v95(v15, v40);
-  sub_100020674(&unk_101189838, &qword_1011897B0);
-  sub_10029916C(&qword_1011807C0, type metadata accessor for ICMusicSubscriptionStatusCapabilities);
-  v41 = v67;
-  v42 = v66;
+  v94(v14, v39);
+  sub_100020674(&unk_101189838, &qword_1011897B0, &qword_100EC5148, v93);
+  sub_10029916C(&qword_1011807C0, type metadata accessor for ICMusicSubscriptionStatusCapabilities, &unk_100EBC2C8);
+  v40 = v66;
+  v41 = v65;
   Publisher<>.removeDuplicates()();
-  (*(v65 + 8))(v39, v42);
-  v43 = static OS_dispatch_queue.main.getter();
-  v100 = v43;
-  v91(v34, 1, 1, v92);
-  sub_100020674(&qword_101189848, &qword_1011897B8);
-  v44 = v70;
-  v45 = v69;
+  (*(v64 + 8))(v38, v41);
+  v42 = static OS_dispatch_queue.main.getter();
+  v99 = v42;
+  v90(v33, 1, 1, v91);
+  sub_100020674(&qword_101189848, &qword_1011897B8, &qword_100EC5150, v89);
+  v43 = v69;
+  v44 = v68;
   Publisher.receive<A>(on:options:)();
-  sub_1000095E8(v34, &qword_101182140);
+  sub_1000095E8(v33, &qword_101182140, &unk_100EBD2A0);
 
-  (*(v68 + 8))(v41, v45);
+  (*(v67 + 8))(v40, v44);
   swift_getKeyPath();
-  v46 = [v88 sharedController];
-  v100 = v46;
-  sub_100020674(&qword_101189850, &unk_1011897C0);
-  v47 = v72;
+  v45 = [v87 sharedController];
+  v99 = v45;
+  sub_100020674(&qword_101189850, &unk_1011897C0, &qword_100EC5158, v86);
+  v46 = v71;
   Publisher<>.assign<A>(to:on:)();
 
-  (*(v71 + 8))(v44, v47);
-  v48 = v86;
+  (*(v70 + 8))(v43, v46);
+  v47 = v85;
   swift_beginAccess();
   AnyCancellable.store(in:)();
   swift_endAccess();
@@ -8980,43 +9004,43 @@ void *sub_1002968F4()
   ApplicationCapabilities.Controller.$capabilities.getter();
 
   swift_getKeyPath();
-  v49 = v75;
+  v48 = v74;
   Publisher.map<A>(_:)();
 
-  v95(v15, v40);
-  sub_100020674(&qword_101189858, &qword_101189790);
-  v50 = v74;
+  v94(v14, v39);
+  sub_100020674(&qword_101189858, &qword_101189790, &qword_100EC5128, v93);
+  v49 = v73;
+  v50 = v78;
+  Publisher.map<A>(_:)();
+  (*(v76 + 8))(v48, v50);
+  sub_100020674(&qword_101189860, &qword_101189798, &qword_100EC5130, v62);
   v51 = v79;
-  Publisher.map<A>(_:)();
-  (*(v77 + 8))(v49, v51);
-  sub_100020674(&qword_101189860, &qword_101189798);
-  v52 = v80;
-  v53 = v78;
+  v52 = v77;
   Publisher<>.removeDuplicates()();
-  (*(v76 + 8))(v50, v53);
-  v54 = static OS_dispatch_queue.main.getter();
-  v100 = v54;
-  v91(v34, 1, 1, v92);
-  sub_100020674(&qword_101189868, &qword_1011897A0);
-  v55 = v83;
-  v56 = v82;
+  (*(v75 + 8))(v49, v52);
+  v53 = static OS_dispatch_queue.main.getter();
+  v99 = v53;
+  v90(v33, 1, 1, v91);
+  sub_100020674(&qword_101189868, &qword_1011897A0, &qword_100EC5138, v89);
+  v54 = v82;
+  v55 = v81;
   Publisher.receive<A>(on:options:)();
-  sub_1000095E8(v34, &qword_101182140);
+  sub_1000095E8(v33, &qword_101182140, &unk_100EBD2A0);
 
-  (*(v81 + 8))(v52, v56);
+  (*(v80 + 8))(v51, v55);
   swift_getKeyPath();
-  v57 = [v88 sharedController];
-  v100 = v57;
-  sub_100020674(&unk_101189870, &qword_1011897A8);
-  v58 = v85;
+  v56 = [v87 sharedController];
+  v99 = v56;
+  sub_100020674(&unk_101189870, &qword_1011897A8, &qword_100EC5140, v86);
+  v57 = v84;
   Publisher<>.assign<A>(to:on:)();
 
-  (*(v84 + 8))(v55, v58);
+  (*(v83 + 8))(v54, v57);
   swift_beginAccess();
   AnyCancellable.store(in:)();
   swift_endAccess();
 
-  return v48;
+  return v47;
 }
 
 uint64_t sub_100297A48@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
@@ -9030,7 +9054,7 @@ uint64_t sub_100297D1C(id *a1)
 {
   v2 = type metadata accessor for URL();
   v3 = *(v2 - 8);
-  *&v4 = __chkstk_darwin(v2).n128_u64[0];
+  *&v4 = __chkstk_darwin().n128_u64[0];
   v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = [*a1 URL];
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
@@ -9043,88 +9067,90 @@ uint64_t sub_100297E8C(uint64_t a1)
 {
   v2 = type metadata accessor for URLQueryItem();
   v3 = *(v2 - 8);
-  v72 = v2;
-  v73 = v3;
-  __chkstk_darwin(v2);
-  v64 = &v63 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v5);
-  v67 = &v63 - v6;
-  v7 = sub_10010FC20(&qword_101189768);
-  __chkstk_darwin(v7 - 8);
-  v65 = &v63 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v9);
-  v66 = &v63 - v10;
-  v11 = type metadata accessor for URLComponents();
-  v70 = *(v11 - 8);
-  __chkstk_darwin(v11);
-  v71 = &v63 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = type metadata accessor for URL();
-  v68 = *(v13 - 8);
-  v69 = v13;
-  __chkstk_darwin(v13);
-  v15 = &v63 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = sub_10010FC20(&qword_101189770);
-  __chkstk_darwin(v16 - 8);
-  v18 = &v63 - v17;
-  v19 = sub_10010FC20(&qword_101189778);
-  v20 = *(v19 - 8);
-  __chkstk_darwin(v19);
-  v22 = (&v63 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0));
-  __chkstk_darwin(v23);
-  v25 = &v63 - v24;
-  v74 = a1;
-  sub_10010FC20(&qword_101189780);
-  sub_100020674(&qword_101189788, &qword_101189780);
-  Sequence.firstNonNilWithOriginal<A>(_:)();
-  if ((*(v20 + 48))(v18, 1, v19) == 1)
+  v71 = v2;
+  v72 = v3;
+  __chkstk_darwin();
+  v63 = &v62 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v66 = &v62 - v5;
+  sub_10010FC20(&qword_101189768, &qword_100EC5108);
+  __chkstk_darwin();
+  v64 = &v62 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v65 = &v62 - v7;
+  v8 = type metadata accessor for URLComponents();
+  v69 = *(v8 - 8);
+  __chkstk_darwin();
+  v70 = &v62 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for URL();
+  v67 = *(v10 - 8);
+  v68 = v10;
+  __chkstk_darwin();
+  v12 = &v62 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_10010FC20(&qword_101189770, &qword_100EC5110);
+  __chkstk_darwin();
+  v14 = &v62 - v13;
+  v15 = sub_10010FC20(&qword_101189778, &qword_100EC5118);
+  v16 = *(v15 - 8);
+  __chkstk_darwin();
+  v18 = (&v62 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0));
+  __chkstk_darwin();
+  v20 = &v62 - v19;
+  v73 = a1;
+  v21 = sub_10010FC20(&qword_101189780, &qword_100EC5120);
+  v22 = sub_100020674(&qword_101189788, &qword_101189780, &qword_100EC5120, &protocol conformance descriptor for Set<A>);
+  v23 = Sequence.firstNonNilWithOriginal<A>(_:)(sub_100297D1C, 0, v21, v8, v22);
+  if ((*(v16 + 48))(v14, 1, v15, v23) == 1)
   {
-    v26 = &qword_101189770;
-    v27 = v18;
+    v24 = &qword_101189770;
+    v25 = &qword_100EC5110;
+    v26 = v14;
 LABEL_15:
-    sub_1000095E8(v27, v26);
+    sub_1000095E8(v26, v24, v25);
     return 2;
   }
 
-  sub_1002990FC(v18, v25);
-  sub_1000089F8(v25, v22, &qword_101189778);
-  v28 = *v22;
-  v29 = *(v19 + 48);
-  v30 = [*v22 URL];
+  sub_1002990FC(v14, v20);
+  sub_1000089F8(v20, v18, &qword_101189778, &qword_100EC5118);
+  v27 = *v18;
+  v28 = *(v15 + 48);
+  v29 = [*v18 URL];
 
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
-  v31 = URL.pathComponents.getter();
-  (*(v68 + 1))(v15, v69);
-  v32 = v70;
-  v33 = v70 + 8;
-  v34 = v22 + v29;
-  v35 = *(v70 + 1);
-  v35(v34, v11);
-  sub_1000089F8(v25, v22, &qword_101189778);
+  v30 = URL.pathComponents.getter();
+  (*(v67 + 1))(v12, v68);
+  v31 = v69;
+  v32 = v69 + 8;
+  v33 = v18 + v28;
+  v34 = *(v69 + 1);
+  v34(v33, v8);
+  sub_1000089F8(v20, v18, &qword_101189778, &qword_100EC5118);
 
-  v36 = v71;
-  (*(v32 + 32))(v71, v22 + *(v19 + 48), v11);
-  if (!*(v31 + 16))
+  v35 = v70;
+  (*(v31 + 32))(v70, v18 + *(v15 + 48), v8);
+  if (!*(v30 + 16))
   {
 
-    v35(v36, v11);
-    v26 = &qword_101189778;
-    v27 = v25;
+    v34(v35, v8);
+    v24 = &qword_101189778;
+    v25 = &qword_100EC5118;
+    v26 = v20;
     goto LABEL_15;
   }
 
-  v70 = v25;
+  v69 = v20;
 
-  v37._object = 0x8000000100E442B0;
-  v37._countAndFlagsBits = 0xD000000000000010;
-  if (!String.hasPrefix(_:)(v37))
+  v36._object = 0x8000000100E442B0;
+  v36._countAndFlagsBits = 0xD000000000000010;
+  if (!String.hasPrefix(_:)(v36))
   {
-    v52._countAndFlagsBits = 0x73676E6974746573;
-    v52._object = 0xE800000000000000;
-    v53 = String.hasPrefix(_:)(v52);
+    v51._countAndFlagsBits = 0x73676E6974746573;
+    v51._object = 0xE800000000000000;
+    v52 = String.hasPrefix(_:)(v51);
 
-    v35(v36, v11);
-    sub_1000095E8(v70, &qword_101189778);
-    if (v53)
+    v34(v35, v8);
+    sub_1000095E8(v69, &qword_101189778, &qword_100EC5118);
+    if (v52)
     {
       return 1;
     }
@@ -9138,56 +9164,56 @@ LABEL_15:
   result = URLComponents.queryItems.getter();
   if (!result)
   {
-    v35(v36, v11);
-    v54 = v70;
+    v34(v35, v8);
+    v53 = v69;
     goto LABEL_32;
   }
 
-  v39 = result;
-  v63 = v35;
-  v68 = v33;
-  v69 = v11;
-  v40 = *(result + 16);
+  v38 = result;
+  v62 = v34;
+  v67 = v32;
+  v68 = v8;
+  v39 = *(result + 16);
+  v40 = v71;
   v41 = v72;
-  v42 = v73;
-  v43 = v67;
-  if (!v40)
+  v42 = v66;
+  if (!v39)
   {
 LABEL_13:
 
-    v48 = 1;
-    v49 = v69;
-    v50 = v71;
-    v51 = v66;
+    v47 = 1;
+    v48 = v68;
+    v49 = v70;
+    v50 = v65;
 LABEL_24:
-    v55 = v70;
-    v56 = v65;
-    (*(v42 + 56))(v51, v48, 1, v41);
-    sub_1000089F8(v51, v56, &qword_101189768);
-    if ((*(v42 + 48))(v56, 1, v41) == 1)
+    v54 = v69;
+    v55 = v64;
+    (*(v41 + 56))(v50, v47, 1, v40);
+    sub_1000089F8(v50, v55, &qword_101189768, &qword_100EC5108);
+    if ((*(v41 + 48))(v55, 1, v40) == 1)
     {
-      sub_1000095E8(v51, &qword_101189768);
-      v63(v50, v49);
+      sub_1000095E8(v50, &qword_101189768, &qword_100EC5108);
+      v62(v49, v48);
     }
 
     else
     {
-      v57 = v64;
-      (*(v42 + 32))(v64, v56, v41);
-      v58 = v42;
+      v56 = v63;
+      (*(v41 + 32))(v63, v55, v40);
+      v57 = v41;
       URLQueryItem.value.getter();
-      v60 = v59;
-      (*(v58 + 8))(v57, v41);
-      sub_1000095E8(v51, &qword_101189768);
-      v61 = v63;
-      if (v60)
+      v59 = v58;
+      (*(v57 + 8))(v56, v40);
+      sub_1000095E8(v50, &qword_101189768, &qword_100EC5108);
+      v60 = v62;
+      if (v59)
       {
 
-        v62 = String.BOOLValue.getter();
+        v61 = String.BOOLValue.getter();
         swift_bridgeObjectRelease_n();
-        v61(v50, v49);
-        sub_1000095E8(v55, &qword_101189778);
-        if (v62)
+        v60(v49, v48);
+        sub_1000095E8(v54, &qword_101189778, &qword_100EC5118);
+        if (v61)
         {
           return 256;
         }
@@ -9198,47 +9224,47 @@ LABEL_24:
         }
       }
 
-      v63(v50, v49);
+      v62(v49, v48);
     }
 
-    v54 = v55;
+    v53 = v54;
 LABEL_32:
-    sub_1000095E8(v54, &qword_101189778);
+    sub_1000095E8(v53, &qword_101189778, &qword_100EC5118);
     return 0;
   }
 
-  v44 = 0;
-  v45 = (v73 + 8);
-  while (v44 < *(v39 + 16))
+  v43 = 0;
+  v44 = (v72 + 8);
+  while (v43 < *(v38 + 16))
   {
-    (*(v42 + 16))(v43, v39 + ((*(v42 + 80) + 32) & ~*(v42 + 80)) + *(v42 + 72) * v44, v41);
-    if (URLQueryItem.name.getter() == 0x646574616D696E61 && v46 == 0xE800000000000000)
+    (*(v41 + 16))(v42, v38 + ((*(v41 + 80) + 32) & ~*(v41 + 80)) + *(v41 + 72) * v43, v40);
+    if (URLQueryItem.name.getter() == 0x646574616D696E61 && v45 == 0xE800000000000000)
     {
 
 LABEL_23:
 
-      v42 = v73;
-      v51 = v66;
-      (*(v73 + 32))(v66, v43, v41);
-      v48 = 0;
-      v49 = v69;
-      v50 = v71;
+      v41 = v72;
+      v50 = v65;
+      (*(v72 + 32))(v65, v42, v40);
+      v47 = 0;
+      v48 = v68;
+      v49 = v70;
       goto LABEL_24;
     }
 
-    v47 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v46 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    if (v47)
+    if (v46)
     {
-      v41 = v72;
+      v40 = v71;
       goto LABEL_23;
     }
 
-    ++v44;
+    ++v43;
+    v40 = v71;
+    result = (*v44)(v42, v71);
     v41 = v72;
-    result = (*v45)(v43, v72);
-    v42 = v73;
-    if (v40 == v44)
+    if (v39 == v43)
     {
       goto LABEL_13;
     }
@@ -9259,8 +9285,8 @@ void sub_100298794(void *a1, void *a2)
     v7 = CPUIWindow.__allocating_init(windowScene:)();
     v8 = [objc_allocWithZone(type metadata accessor for CarPlayRootNavigationController()) init];
     v9 = [a2 URLContexts];
-    sub_100009F78(0, &qword_101189758);
-    sub_10001C070(&qword_101189760, &qword_101189758);
+    sub_100009F78(0, &qword_101189758, UIOpenURLContext_ptr);
+    sub_10001C070(&qword_101189760, &qword_101189758, UIOpenURLContext_ptr, &protocol conformance descriptor for NSObject);
     v10 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
 
     v11 = sub_100297E8C(v10);
@@ -9308,7 +9334,7 @@ void sub_100298A40(void *a1)
 {
   v2 = type metadata accessor for Logger();
   v3 = *(v2 - 8);
-  __chkstk_darwin(v2);
+  __chkstk_darwin();
   v5 = &v19 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = Logger.scenes.unsafeMutableAddressor();
   (*(v3 + 16))(v5, v6, v2);
@@ -9351,7 +9377,7 @@ void sub_100298C70(void *a1)
 {
   v2 = type metadata accessor for Logger();
   v3 = *(v2 - 8);
-  __chkstk_darwin(v2);
+  __chkstk_darwin();
   v5 = v37 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = Logger.scenes.unsafeMutableAddressor();
   (*(v3 + 16))(v5, v6, v2);
@@ -9384,8 +9410,8 @@ void sub_100298C70(void *a1)
   v17 = [objc_opt_self() sharedApplication];
   v18 = [v17 connectedScenes];
 
-  v19 = sub_100009F78(0, &qword_1011839F0);
-  sub_10001C070(&qword_101183DE0, &qword_1011839F0);
+  v19 = sub_100009F78(0, &qword_1011839F0, UIScene_ptr);
+  sub_10001C070(&qword_101183DE0, &qword_1011839F0, UIScene_ptr, &protocol conformance descriptor for NSObject);
   v20 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
 
   v37[2] = v19;
@@ -9446,7 +9472,7 @@ LABEL_19:
 
     if (!v34)
     {
-      sub_10005C9F8();
+      sub_10005C9F8(v22);
 
       return;
     }
@@ -9490,7 +9516,7 @@ LABEL_15:
   }
 
 LABEL_21:
-  sub_10005C9F8();
+  sub_10005C9F8(v22);
 
   v35 = [objc_opt_self() sharedCloudController];
   if (v35)
@@ -9507,12 +9533,12 @@ LABEL_24:
 
 uint64_t sub_1002990FC(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_10010FC20(&qword_101189778);
+  v4 = sub_10010FC20(&qword_101189778, &qword_100EC5118);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
-uint64_t sub_10029916C(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_10029916C(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -9532,21 +9558,19 @@ uint64_t sub_1002991D8()
     return 0;
   }
 
-  v1[0] = 0x706154776F6C6C61;
-  v1[1] = 0xEF72616461526F54;
   sub_100009838();
-  NSUserDefaults.subscript.getter(v1, &v2);
-  if (v3)
+  NSUserDefaults.subscript.getter(&v1);
+  if (v2)
   {
     if (swift_dynamicCast())
     {
-      return LOBYTE(v1[0]);
+      return 97;
     }
   }
 
   else
   {
-    sub_1000095E8(&v2, &unk_101183F30);
+    sub_1000095E8(&v1, &unk_101183F30, qword_100EBF960);
   }
 
   return 1;
@@ -9612,169 +9636,170 @@ LABEL_11:
 void sub_10029948C()
 {
   v1 = v0;
-  v2 = sub_10010FC20(&unk_101189A00);
-  v3 = __chkstk_darwin(v2 - 8);
-  v5 = &v85 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __chkstk_darwin(v3);
-  v8 = &v85 - v7;
-  v9 = __chkstk_darwin(v6);
-  v11 = &v85 - v10;
-  __chkstk_darwin(v9);
-  v13 = &v85 - v12;
-  v14 = sub_10010FC20(&unk_101181520);
-  __chkstk_darwin(v14 - 8);
-  v16 = &v85 - v15;
-  v17 = OBJC_IVAR___MusicNowPlayingLyricsViewController_nowPlaying;
-  v18 = *&v1[OBJC_IVAR___MusicNowPlayingLyricsViewController_nowPlaying];
-  if (v18)
+  sub_10010FC20(&unk_101189A00, &unk_100EC5500);
+  __chkstk_darwin();
+  v3 = &v81 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v5 = &v81 - v4;
+  __chkstk_darwin();
+  v7 = &v81 - v6;
+  __chkstk_darwin();
+  v9 = &v81 - v8;
+  sub_10010FC20(&unk_101181520, &qword_100EBCC60);
+  __chkstk_darwin();
+  v11 = &v81 - v10;
+  v12 = OBJC_IVAR___MusicNowPlayingLyricsViewController_nowPlaying;
+  v13 = *&v1[OBJC_IVAR___MusicNowPlayingLyricsViewController_nowPlaying];
+  if (v13)
   {
-    v89 = v8;
-    v19 = v18;
-    v20 = [v19 tracklist];
-    v21 = [v20 playingItem];
+    v85 = v5;
+    v14 = v13;
+    v15 = [v14 tracklist];
+    v16 = [v15 playingItem];
 
-    v91 = v21;
-    if (v21)
+    v87 = v16;
+    if (v16)
     {
       if (qword_10117F5F8 != -1)
       {
         swift_once();
       }
 
-      *(&v93 + 1) = &type metadata for Player.VocalsCommand.Prepare;
-      *&v94 = &protocol witness table for Player.VocalsCommand.Prepare;
-      v22 = (*(*qword_101218AC8 + 760))(&v92);
-      sub_10000959C(&v92);
-      if (v22)
+      *(&v89 + 1) = &type metadata for Player.VocalsCommand.Prepare;
+      *&v90 = &protocol witness table for Player.VocalsCommand.Prepare;
+      v17 = (*(*qword_101218AC8 + 760))(&v88);
+      sub_10000959C(&v88);
+      if (v17)
       {
-        v23 = type metadata accessor for TaskPriority();
-        (*(*(v23 - 8) + 56))(v16, 1, 1, v23);
+        v18 = type metadata accessor for TaskPriority();
+        (*(*(v18 - 8) + 56))(v11, 1, 1, v18);
         type metadata accessor for MainActor();
-        v24 = v1;
-        v25 = static MainActor.shared.getter();
-        v26 = swift_allocObject();
-        v26[2] = v25;
-        v26[3] = &protocol witness table for MainActor;
-        v26[4] = v24;
-        sub_10086E658(0, 0, v16, &unk_100EC5518, v26);
+        v19 = v1;
+        v20 = static MainActor.shared.getter();
+        v21 = swift_allocObject();
+        v21[2] = v20;
+        v21[3] = &protocol witness table for MainActor;
+        v21[4] = v19;
+        sub_10086E658(0, 0, v11, &unk_100EC5518, v21);
       }
 
       sub_1002A6BD4();
       sub_1002AA8E0();
-      v27 = [v91 metadataObject];
-      if (v27)
+      v22 = [v87 metadataObject];
+      if (v22)
       {
-        v28 = v27;
-        v29 = [v27 innermostModelObject];
+        v23 = v22;
+        v24 = [v22 innermostModelObject];
 
         objc_opt_self();
-        v27 = swift_dynamicCastObjCClass();
-        if (!v27)
+        v22 = swift_dynamicCastObjCClass();
+        if (!v22)
         {
 
-          v27 = 0;
+          v22 = 0;
         }
       }
 
-      v30 = *&v1[OBJC_IVAR___MusicNowPlayingLyricsViewController_song];
-      *&v1[OBJC_IVAR___MusicNowPlayingLyricsViewController_song] = v27;
-      v31 = v27;
-      sub_1002A05E0(v30);
+      v25 = *&v1[OBJC_IVAR___MusicNowPlayingLyricsViewController_song];
+      *&v1[OBJC_IVAR___MusicNowPlayingLyricsViewController_song] = v22;
+      v26 = v22;
+      sub_1002A05E0(v25);
 
-      v90 = v19;
-      v32 = [v19 tracklist];
-      v33 = MPCPlayerResponseTracklist.currentPlayEvent.getter();
+      v86 = v14;
+      v27 = [v14 tracklist];
+      MPCPlayerResponseTracklist.currentPlayEvent.getter();
+      v29 = v28;
 
-      v34 = *&v1[OBJC_IVAR___MusicNowPlayingLyricsViewController_modelPlayEvent];
-      *&v1[OBJC_IVAR___MusicNowPlayingLyricsViewController_modelPlayEvent] = v33;
+      v30 = *&v1[OBJC_IVAR___MusicNowPlayingLyricsViewController_modelPlayEvent];
+      *&v1[OBJC_IVAR___MusicNowPlayingLyricsViewController_modelPlayEvent] = v29;
 
-      v35 = OBJC_IVAR___MusicNowPlayingLyricsViewController_syncedLyricsViewController;
-      v36 = *&v1[OBJC_IVAR___MusicNowPlayingLyricsViewController_syncedLyricsViewController];
-      if (v36)
+      v31 = OBJC_IVAR___MusicNowPlayingLyricsViewController_syncedLyricsViewController;
+      v32 = *&v1[OBJC_IVAR___MusicNowPlayingLyricsViewController_syncedLyricsViewController];
+      if (v32)
       {
-        v37 = v36;
-        v38 = [v91 nowPlayingAudioFormat];
-        if (v38)
+        v33 = v32;
+        v34 = [v87 nowPlayingAudioFormat];
+        if (v34)
         {
-          v39 = v38;
-          v40 = [v38 isSpatialized];
+          v35 = v34;
+          v36 = [v34 isSpatialized];
         }
 
         else
         {
-          v40 = 0;
+          v36 = 0;
         }
 
-        (*((swift_isaMask & *v37) + 0x180))(v40);
+        (*((swift_isaMask & *v33) + 0x180))(v36);
 
-        v43 = *&v1[v35];
-        if (v43)
+        v39 = *&v1[v31];
+        if (v39)
         {
-          v44 = v43;
-          if ([v90 state] == 5)
+          v40 = v39;
+          if ([v86 state] == 5)
           {
-            v45 = 0;
-            v46 = 0;
-            v47 = 0;
-            *(&v92 + 1) = 0;
-            *&v93 = 0;
+            v41 = 0;
+            v42 = 0;
+            v43 = 0;
+            *(&v88 + 1) = 0;
+            *&v89 = 0;
           }
 
           else
           {
-            [v91 duration];
+            [v87 duration];
             type metadata accessor for MPCPlayerItemDurationSnapshot(0);
-            v46 = v48;
-            v45 = swift_allocObject();
-            v49 = v93;
-            *(v45 + 16) = v92;
-            *(v45 + 32) = v49;
-            *(v45 + 48) = v94;
-            *(v45 + 64) = v95;
-            v47 = &protocol witness table for MPCPlayerItemDurationSnapshot;
+            v42 = v44;
+            v41 = swift_allocObject();
+            v45 = v89;
+            *(v41 + 16) = v88;
+            *(v41 + 32) = v45;
+            *(v41 + 48) = v90;
+            *(v41 + 64) = v91;
+            v43 = &protocol witness table for MPCPlayerItemDurationSnapshot;
           }
 
-          *&v92 = v45;
-          *(&v93 + 1) = v46;
-          *&v94 = v47;
-          (*((swift_isaMask & *v44) + 0x240))(&v92);
+          *&v88 = v41;
+          *(&v89 + 1) = v42;
+          *&v90 = v43;
+          (*((swift_isaMask & *v40) + 0x240))(&v88);
 
-          v50 = *&v1[v17];
-          if (v50)
+          v46 = *&v1[v12];
+          if (v46)
           {
-            v51 = [v50 tracklist];
-            v52 = [v51 vocalsControlCommand];
+            v47 = [v46 tracklist];
+            v48 = [v47 vocalsControlCommand];
 
-            if (v52)
+            if (v48)
             {
-              v53 = [v52 isActive];
+              v49 = [v48 isActive];
               swift_unknownObjectRelease();
-              if (v53)
+              if (v49)
               {
-                v54 = *&v1[OBJC_IVAR___MusicNowPlayingLyricsViewController_lyrics];
-                if (v54)
+                v50 = *&v1[OBJC_IVAR___MusicNowPlayingLyricsViewController_lyrics];
+                if (v50)
                 {
-                  v55 = *(*v54 + 312);
-                  v56 = *v54 + 312;
+                  v51 = *(*v50 + 312);
+                  v52 = *v50 + 312;
 
-                  v87 = v56;
-                  v88 = v55;
-                  (v55)(v57);
-                  v58 = type metadata accessor for Lyrics.Transliteration(0);
-                  v59 = *(*(v58 - 8) + 48);
-                  if (v59(v13, 1, v58) == 1)
+                  v83 = v52;
+                  v84 = v51;
+                  (v51)(v53);
+                  v54 = type metadata accessor for Lyrics.Transliteration(0);
+                  v55 = *(*(v54 - 8) + 48);
+                  if (v55(v9, 1, v54) == 1)
                   {
 
-                    v60 = v13;
+                    v56 = v9;
 LABEL_33:
-                    sub_1000095E8(v60, &unk_101189A00);
+                    sub_1000095E8(v56, &unk_101189A00, &unk_100EC5500);
                     goto LABEL_34;
                   }
 
-                  v86 = v59;
-                  sub_1000095E8(v13, &unk_101189A00);
-                  v61 = *&v1[v35];
-                  if (!v61)
+                  v82 = v55;
+                  sub_1000095E8(v9, &unk_101189A00, &unk_100EC5500);
+                  v57 = *&v1[v31];
+                  if (!v57)
                   {
 LABEL_51:
                     __break(1u);
@@ -9783,35 +9808,35 @@ LABEL_52:
                     return;
                   }
 
-                  v85 = *((swift_isaMask & *v61) + 0x3B8);
-                  v62 = v61;
-                  v85();
+                  v81 = *((swift_isaMask & *v57) + 0x3B8);
+                  v58 = v57;
+                  v81();
 
-                  if (v86(v11, 1, v58) != 1)
+                  if (v82(v7, 1, v54) != 1)
                   {
 
-                    v60 = v11;
+                    v56 = v7;
                     goto LABEL_33;
                   }
 
-                  sub_1000095E8(v11, &unk_101189A00);
-                  v63 = *(**LyricsOptionsManager.shared.unsafeMutableAddressor() + 248);
+                  sub_1000095E8(v7, &unk_101189A00, &unk_100EC5500);
+                  v59 = *(**LyricsOptionsManager.shared.unsafeMutableAddressor() + 248);
 
-                  v64 = v63(2);
+                  v60 = v59(2);
 
-                  if ((v64 & 1) == 0)
+                  if ((v60 & 1) == 0)
                   {
-                    v81 = *&v1[v35];
-                    v83 = v89;
-                    v82 = v90;
-                    if (v81)
+                    v77 = *&v1[v31];
+                    v79 = v85;
+                    v78 = v86;
+                    if (v77)
                     {
-                      v84 = v81;
-                      v88();
-                      (*((swift_isaMask & *v84) + 0x3C0))(v83);
+                      v80 = v77;
+                      v84();
+                      (*((swift_isaMask & *v80) + 0x3C0))(v79);
 
                       sub_1002A24D0();
-                      sub_1002A5A68(5u);
+                      sub_1002A5A68(5);
 
                       return;
                     }
@@ -9824,59 +9849,59 @@ LABEL_52:
           }
 
 LABEL_34:
-          v65 = *&v1[v35];
-          if (v65)
+          v61 = *&v1[v31];
+          if (v61)
           {
-            v66 = *((swift_isaMask & *v65) + 0x3B8);
-            v67 = v65;
-            v66();
+            v62 = *((swift_isaMask & *v61) + 0x3B8);
+            v63 = v61;
+            v62();
 
-            v68 = type metadata accessor for Lyrics.Transliteration(0);
-            v69 = *(v68 - 8);
-            if ((*(v69 + 48))(v5, 1, v68) == 1)
+            v64 = type metadata accessor for Lyrics.Transliteration(0);
+            v65 = *(v64 - 8);
+            if ((*(v65 + 48))(v3, 1, v64) == 1)
             {
 
-              sub_1000095E8(v5, &unk_101189A00);
+              sub_1000095E8(v3, &unk_101189A00, &unk_100EC5500);
               return;
             }
 
-            sub_1000095E8(v5, &unk_101189A00);
-            v70 = *(**LyricsOptionsManager.shared.unsafeMutableAddressor() + 248);
+            sub_1000095E8(v3, &unk_101189A00, &unk_100EC5500);
+            v66 = *(**LyricsOptionsManager.shared.unsafeMutableAddressor() + 248);
 
-            v71 = v70(1);
+            v67 = v66(1);
 
-            if (v71)
+            if (v67)
             {
 
               return;
             }
 
-            v72 = *&v1[v17];
-            v73 = v90;
-            if (v72)
+            v68 = *&v1[v12];
+            v69 = v86;
+            if (v68)
             {
-              v74 = [v72 tracklist];
-              v75 = [v74 vocalsControlCommand];
+              v70 = [v68 tracklist];
+              v71 = [v70 vocalsControlCommand];
 
-              if (v75)
+              if (v71)
               {
-                v76 = [v75 isActive];
+                v72 = [v71 isActive];
                 swift_unknownObjectRelease();
-                if (v76)
+                if (v72)
                 {
                   goto LABEL_44;
                 }
               }
             }
 
-            v77 = *&v1[v35];
-            if (v77)
+            v73 = *&v1[v31];
+            if (v73)
             {
-              v78 = v89;
-              (*(v69 + 56))(v89, 1, 1, v68);
-              v79 = *((swift_isaMask & *v77) + 0x3C0);
-              v80 = v77;
-              v79(v78);
+              v74 = v85;
+              (*(v65 + 56))(v85, 1, 1, v64);
+              v75 = *((swift_isaMask & *v73) + 0x3C0);
+              v76 = v73;
+              v75(v74);
 
               sub_1002A24D0();
 LABEL_44:
@@ -9905,9 +9930,9 @@ LABEL_50:
     }
   }
 
-  v91 = *&v1[OBJC_IVAR___MusicNowPlayingLyricsViewController_song];
-  v41 = v91;
+  v87 = *&v1[OBJC_IVAR___MusicNowPlayingLyricsViewController_song];
+  v37 = v87;
   *&v1[OBJC_IVAR___MusicNowPlayingLyricsViewController_song] = 0;
-  sub_1002A05E0(v41);
-  v42 = v91;
+  sub_1002A05E0(v37);
+  v38 = v87;
 }

@@ -23,41 +23,39 @@
   v10 = rect.origin.y;
   v11 = rect.origin.x;
   v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_2806E0710, &qword_26F4A60A0);
-  v14 = *(*(v13 - 8) + 64);
   MEMORY[0x28223BE20](v13 - 8);
-  v16 = &v20 - v15;
-  v17 = sub_26F49FC08();
-  (*(*(v17 - 8) + 56))(v16, 1, 1, v17);
-  v18 = swift_allocObject();
-  v18[2] = 0.0;
-  v18[3] = 0.0;
-  *(v18 + 4) = self;
-  v18[5] = v11;
-  v18[6] = v10;
-  v18[7] = v9;
-  v18[8] = v8;
-  v18[9] = x;
-  v18[10] = y;
-  v18[11] = width;
-  v18[12] = height;
+  v15 = &v19 - v14;
+  v16 = sub_26F49FC08();
+  (*(*(v16 - 8) + 56))(v15, 1, 1, v16);
+  v17 = swift_allocObject();
+  v17[2] = 0.0;
+  v17[3] = 0.0;
+  *(v17 + 4) = self;
+  v17[5] = v11;
+  v17[6] = v10;
+  v17[7] = v9;
+  v17[8] = v8;
+  v17[9] = x;
+  v17[10] = y;
+  v17[11] = width;
+  v17[12] = height;
   selfCopy = self;
-  sub_26F40570C(0, 0, v16, &unk_26F4ABED8, v18);
+  sub_26F40570C(0, 0, v15, &unk_26F4ABED8, v17);
 }
 
 - (void)dismissErrorUI
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_2806E0710, &qword_26F4A60A0);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v10 - v5;
-  v7 = sub_26F49FC08();
-  (*(*(v7 - 8) + 56))(v6, 1, 1, v7);
-  v8 = swift_allocObject();
-  v8[2] = 0;
-  v8[3] = 0;
-  v8[4] = self;
+  v5 = &v9 - v4;
+  v6 = sub_26F49FC08();
+  (*(*(v6 - 8) + 56))(v5, 1, 1, v6);
+  v7 = swift_allocObject();
+  v7[2] = 0;
+  v7[3] = 0;
+  v7[4] = self;
   selfCopy = self;
-  sub_26F40570C(0, 0, v6, &unk_26F4ABED0, v8);
+  sub_26F40570C(0, 0, v5, &unk_26F4ABED0, v7);
 }
 
 - (id)dismissHandler
@@ -106,7 +104,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_26F3ACE98(v7);
+  sub_26F3ACE98(v7, v8);
 }
 
 - (UIView)view
@@ -132,58 +130,57 @@
 - (void)translate:(id)translate sourceLocale:(id)locale targetLocale:(id)targetLocale completion:(id)completion
 {
   v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2806DEFD8, &qword_26F4A3670);
-  v11 = *(*(v10 - 8) + 64);
   MEMORY[0x28223BE20](v10 - 8);
-  v13 = &v25 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v14);
-  v16 = &v25 - v15;
-  v17 = _Block_copy(completion);
+  v12 = &v24 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v13);
+  v15 = &v24 - v14;
+  v16 = _Block_copy(completion);
   sub_26F49C7FC();
-  v18 = sub_26F49FAF8();
+  v17 = sub_26F49FAF8();
   if (locale)
   {
     sub_26F49DA18();
-    v19 = sub_26F49DAB8();
-    (*(*(v19 - 8) + 56))(v16, 0, 1, v19);
+    v18 = sub_26F49DAB8();
+    (*(*(v18 - 8) + 56))(v15, 0, 1, v18);
   }
 
   else
   {
-    v20 = sub_26F49DAB8();
-    (*(*(v20 - 8) + 56))(v16, 1, 1, v20);
+    v19 = sub_26F49DAB8();
+    (*(*(v19 - 8) + 56))(v15, 1, 1, v19);
   }
 
   if (targetLocale)
   {
     sub_26F49DA18();
-    v21 = 0;
+    v20 = 0;
   }
 
   else
   {
-    v21 = 1;
+    v20 = 1;
   }
 
-  v22 = sub_26F49DAB8();
-  (*(*(v22 - 8) + 56))(v13, v21, 1, v22);
-  if (v17)
+  v21 = sub_26F49DAB8();
+  (*(*(v21 - 8) + 56))(v12, v20, 1, v21);
+  if (v16)
   {
-    v23 = swift_allocObject();
-    *(v23 + 16) = v17;
-    v17 = sub_26F49C848;
+    v22 = swift_allocObject();
+    *(v22 + 16) = v16;
+    v16 = sub_26F49C848;
   }
 
   else
   {
-    v23 = 0;
+    v22 = 0;
   }
 
   selfCopy = self;
-  VisualTranslationViewBridge.translate(_:sourceLocale:targetLocale:completion:)(v18, v16, v13, v17, v23);
-  sub_26F3ACE98(v17);
+  VisualTranslationViewBridge.translate(_:sourceLocale:targetLocale:completion:)(v17, v15, v12, v16, v22);
+  sub_26F3ACE98(v16, v22);
 
-  sub_26F3B6B4C(v13, &qword_2806DEFD8, &qword_26F4A3670);
-  sub_26F3B6B4C(v16, &qword_2806DEFD8, &qword_26F4A3670);
+  sub_26F3B6B4C(v12, &qword_2806DEFD8, &qword_26F4A3670);
+  sub_26F3B6B4C(v15, &qword_2806DEFD8, &qword_26F4A3670);
 }
 
 - (void)showDebugMenu
@@ -191,7 +188,6 @@
   selfCopy = self;
   if (_LTIsInternalInstall())
   {
-    v2 = *(selfCopy + OBJC_IVAR____TtC13TranslationUI27VisualTranslationViewBridge_observable);
     swift_getKeyPath();
     swift_getKeyPath();
 
@@ -207,7 +203,7 @@
 {
   v5 = *(self + OBJC_IVAR____TtC13TranslationUI27VisualTranslationViewBridge_observable);
   type metadata accessor for VisualTranslationObservable(0);
-  sub_26F49AAC4(&qword_2806E1668, type metadata accessor for VisualTranslationObservable);
+  sub_26F49AAC4(&qword_2806E1668, type metadata accessor for VisualTranslationObservable, &protocol conformance descriptor for VisualTranslationErrorViewModel);
   selfCopy = self;
   sub_26F49DD48();
   sub_26F49DD58();

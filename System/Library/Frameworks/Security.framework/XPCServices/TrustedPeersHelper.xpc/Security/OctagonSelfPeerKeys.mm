@@ -1,6 +1,4 @@
 @interface OctagonSelfPeerKeys
-- (NSString)description;
-- (NSString)peerID;
 - (_TtC18TrustedPeersHelper19OctagonSelfPeerKeys)init;
 - (void)setEncryptionKey:(id)key;
 - (void)setPeerID:(id)d;
@@ -25,23 +23,15 @@
   keyCopy = key;
 }
 
-- (NSString)peerID
-{
-  v2 = *(self + OBJC_IVAR____TtC18TrustedPeersHelper19OctagonSelfPeerKeys_peerID);
-  v3 = *(self + OBJC_IVAR____TtC18TrustedPeersHelper19OctagonSelfPeerKeys_peerID + 8);
-
-  v4 = sub_100216964();
-
-  return v4;
-}
-
 - (void)setPeerID:(id)d
 {
   v4 = sub_100216974();
-  v5 = (self + OBJC_IVAR____TtC18TrustedPeersHelper19OctagonSelfPeerKeys_peerID);
-  v6 = *(self + OBJC_IVAR____TtC18TrustedPeersHelper19OctagonSelfPeerKeys_peerID + 8);
-  *v5 = v4;
-  v5[1] = v7;
+  v12 = (self + OBJC_IVAR____TtC18TrustedPeersHelper19OctagonSelfPeerKeys_peerID);
+  v13 = *(self + OBJC_IVAR____TtC18TrustedPeersHelper19OctagonSelfPeerKeys_peerID + 8);
+  *v12 = v4;
+  v12[1] = v5;
+
+  v13, v5, v6, v7, v8, v9, v10, v11, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24;
 }
 
 - (void)setPublicEncryptionKey:(id)key
@@ -56,16 +46,6 @@
   v4 = *(self + OBJC_IVAR____TtC18TrustedPeersHelper19OctagonSelfPeerKeys_publicSigningKey);
   *(self + OBJC_IVAR____TtC18TrustedPeersHelper19OctagonSelfPeerKeys_publicSigningKey) = key;
   keyCopy = key;
-}
-
-- (NSString)description
-{
-  selfCopy = self;
-  sub_100057958();
-
-  v3 = sub_100216964();
-
-  return v3;
 }
 
 - (_TtC18TrustedPeersHelper19OctagonSelfPeerKeys)init

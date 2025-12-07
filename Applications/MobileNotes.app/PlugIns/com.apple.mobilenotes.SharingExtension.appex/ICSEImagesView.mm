@@ -112,7 +112,7 @@
   {
     if (previewCopy)
     {
-      [previewCopy videoDuration];
+      objc_msgSend_videoDuration(previewCopy);
     }
 
     else

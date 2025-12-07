@@ -22,7 +22,7 @@
 
   v6 = MSVLyricsAgent.isEqual(_:)(v8);
 
-  outlined destroy of TaskPriority?(v8, &_sypSgMd_3);
+  outlined destroy of TaskPriority?(v8, &_sypSgMd_3, &_sypSgMR_3);
   return v6 & 1;
 }
 

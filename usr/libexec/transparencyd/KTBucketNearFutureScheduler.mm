@@ -47,38 +47,35 @@ LABEL_9:
 - (void)setQoS:(unsigned int)s
 {
   v4 = sub_100095820(&qword_100385458, &qword_1002D7C18);
-  v5 = *(*(v4 - 8) + 64);
   __chkstk_darwin(v4 - 8);
-  v7 = &v14 - v6;
-  v8 = type metadata accessor for DispatchQoS.QoSClass();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  __chkstk_darwin(v8);
-  v12 = &v14 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v12 - v5;
+  v7 = type metadata accessor for DispatchQoS.QoSClass();
+  v8 = *(v7 - 8);
+  __chkstk_darwin(v7);
+  v10 = &v12 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
   DispatchQoS.QoSClass.init(rawValue:)();
-  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  if ((*(v8 + 48))(v6, 1, v7) == 1)
   {
 
-    sub_1000F6848(v7);
+    sub_1000F6848(v6);
   }
 
   else
   {
-    (*(v9 + 32))(v12, v7, v8);
-    (*((swift_isaMask & selfCopy->super.isa) + 0x108))(v12);
+    (*(v8 + 32))(v10, v6, v7);
+    (*((swift_isaMask & selfCopy->super.isa) + 0x108))(v10);
 
-    (*(v9 + 8))(v12, v8);
+    (*(v8 + 8))(v10, v7);
   }
 }
 
 - (int64_t)triggerWithUseTokens:(double)tokens
 {
-  v3 = *(&self->super.isa + OBJC_IVAR____TtC13transparencyd27KTBucketNearFutureScheduler_queue);
   selfCopy = self;
   OS_dispatch_queue.sync<A>(execute:)();
 
-  return v6;
+  return v5;
 }
 
 - (void)cancel

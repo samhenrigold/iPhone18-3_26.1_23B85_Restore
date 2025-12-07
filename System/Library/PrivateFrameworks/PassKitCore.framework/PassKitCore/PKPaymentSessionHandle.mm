@@ -1,13 +1,13 @@
 @interface PKPaymentSessionHandle
 - (BOOL)isFirstInQueue;
-- (id)_initWithQueue:(void *)queue;
+- (dispatch_object_t)_initWithQueue:(void *)queue;
 - (id)initWithInternalNFSessionHandle:(void *)handle targetQueue:;
 - (void)invalidateSessionWithCompletion:(id)completion;
 @end
 
 @implementation PKPaymentSessionHandle
 
-- (id)_initWithQueue:(void *)queue
+- (dispatch_object_t)_initWithQueue:(void *)queue
 {
   v3 = a2;
   v10.receiver = queue;
@@ -19,15 +19,15 @@
     v6 = dispatch_queue_attr_make_initially_inactive(v5);
 
     v7 = dispatch_queue_create("com.apple.passkit.sessionHandle.internalSession", v6);
-    v8 = *(v4 + 1);
-    *(v4 + 1) = v7;
+    v8 = v4[1];
+    v4[1] = v7;
 
     if (v3)
     {
-      dispatch_set_target_queue(*(v4 + 1), v3);
+      dispatch_set_target_queue(v4[1], v3);
     }
 
-    dispatch_activate(*(v4 + 1));
+    dispatch_activate(v4[1]);
   }
 
   return v4;

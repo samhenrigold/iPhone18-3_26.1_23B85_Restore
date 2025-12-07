@@ -159,7 +159,7 @@
 - (double)duration
 {
   springAnimation = [(HUSpringAnimationSettings *)self springAnimation];
-  [springAnimation duration];
+  objc_msgSend_duration(springAnimation);
   v4 = v3;
 
   return v4;

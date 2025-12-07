@@ -896,7 +896,7 @@ LABEL_6:
   v10 = xpc_dictionary_get_BOOL(tilesCopy, "disk");
   LODWORD(v8) = xpc_dictionary_get_BOOL(tilesCopy, "net");
   v11 = xpc_dictionary_get_BOOL(tilesCopy, "wifi");
-  v225 = xpc_dictionary_get_BOOL(tilesCopy, "preload");
+  v224 = xpc_dictionary_get_BOOL(tilesCopy, "preload");
   v12 = xpc_dictionary_get_BOOL(tilesCopy, "proactively_load_on_failure");
   v13 = xpc_dictionary_get_BOOL(tilesCopy, "prefer_stale");
   objc_opt_class();
@@ -944,14 +944,14 @@ LABEL_52:
       goto LABEL_53;
     }
 
-    v218 = v18;
-    v219 = v17;
-    v220 = v14;
-    v221 = v22;
-    v223 = v9;
-    v224 = v19;
-    v222 = v21;
-    if (v225 && ([peerCopy hasEntitlement:@"com.apple.geoservices.preload"] & 1) == 0)
+    v217 = v18;
+    v218 = v17;
+    v219 = v14;
+    v220 = v22;
+    v222 = v9;
+    v223 = v19;
+    v221 = v21;
+    if (v224 && ([peerCopy hasEntitlement:@"com.apple.geoservices.preload"] & 1) == 0)
     {
       v44 = NSStringFromSelector(a2);
       bundleIdentifier = [peerCopy bundleIdentifier];
@@ -960,78 +960,78 @@ LABEL_52:
       NSLog(@"%@", v46);
       aSelectora = v46;
       v47 = [NSError GEOErrorWithCode:-5 reason:v46];
+      v294 = 0u;
       v295 = 0u;
       v296 = 0u;
       v297 = 0u;
-      v298 = 0u;
       v48 = v9;
-      v49 = [v48 countByEnumeratingWithState:&v295 objects:v313 count:16];
+      v49 = [v48 countByEnumeratingWithState:&v294 objects:v312 count:16];
       if (v49)
       {
         v50 = v49;
-        v51 = *v296;
+        v51 = *v295;
         do
         {
           for (i = 0; i != v50; i = i + 1)
           {
-            if (*v296 != v51)
+            if (*v295 != v51)
             {
               objc_enumerationMutation(v48);
             }
 
-            v53 = *(*(&v295 + 1) + 8 * i);
+            v53 = *(*(&v294 + 1) + 8 * i);
             peerID = [peerCopy peerID];
             [(GEOTileServer *)self _receivedTile:0 error:v47 info:0 forKey:v53 forPeer:peerID];
           }
 
-          v50 = [v48 countByEnumeratingWithState:&v295 objects:v313 count:16];
+          v50 = [v48 countByEnumeratingWithState:&v294 objects:v312 count:16];
         }
 
         while (v50);
       }
 
-      v22 = v221;
-      v21 = v222;
-      xpc_connection_send_message(v221, v222);
+      v22 = v220;
+      v21 = v221;
+      xpc_connection_send_message(v220, v221);
 
-      v9 = v223;
-      v17 = v219;
-      v14 = v220;
+      v9 = v222;
+      v17 = v218;
+      v14 = v219;
       goto LABEL_51;
     }
 
     v23 = xpc_dictionary_get_value(tilesCopy, "priorities");
-    v204 = v23;
+    v203 = v23;
     if (xpc_get_type(v23) != &_xpc_type_data)
     {
       v24 = [NSError GEOErrorWithCode:-10 reason:@"Bad XPC request encoding (type)"];
       v25 = v9;
       v26 = v24;
+      v290 = 0u;
       v291 = 0u;
       v292 = 0u;
       v293 = 0u;
-      v294 = 0u;
       v27 = v25;
-      v28 = [v27 countByEnumeratingWithState:&v291 objects:v312 count:16];
+      v28 = [v27 countByEnumeratingWithState:&v290 objects:v311 count:16];
       if (v28)
       {
         v29 = v28;
-        v30 = *v292;
+        v30 = *v291;
         do
         {
           for (j = 0; j != v29; j = j + 1)
           {
-            if (*v292 != v30)
+            if (*v291 != v30)
             {
               objc_enumerationMutation(v27);
             }
 
-            v32 = *(*(&v291 + 1) + 8 * j);
+            v32 = *(*(&v290 + 1) + 8 * j);
             peerID2 = [peerCopy peerID];
             [(GEOTileServer *)self _receivedTile:0 error:v26 info:0 forKey:v32 forPeer:peerID2];
           }
 
-          v29 = [v27 countByEnumeratingWithState:&v291 objects:v312 count:16];
+          v29 = [v27 countByEnumeratingWithState:&v290 objects:v311 count:16];
         }
 
         while (v29);
@@ -1039,16 +1039,16 @@ LABEL_52:
 
 LABEL_49:
 
-      v22 = v221;
-      v21 = v222;
-      xpc_connection_send_message(v221, v222);
-      v17 = v219;
-      v14 = v220;
+      v22 = v220;
+      v21 = v221;
+      xpc_connection_send_message(v220, v221);
+      v17 = v218;
+      v14 = v219;
 LABEL_50:
 
-      v9 = v223;
+      v9 = v222;
 LABEL_51:
-      v19 = v224;
+      v19 = v223;
       goto LABEL_52;
     }
 
@@ -1057,31 +1057,31 @@ LABEL_51:
     {
       v55 = v9;
       v26 = [NSError GEOErrorWithCode:-10 reason:@"Bad XPC request encoding (length)"];
+      v286 = 0u;
       v287 = 0u;
       v288 = 0u;
       v289 = 0u;
-      v290 = 0u;
       v27 = v55;
-      v56 = [v27 countByEnumeratingWithState:&v287 objects:v311 count:16];
+      v56 = [v27 countByEnumeratingWithState:&v286 objects:v310 count:16];
       if (v56)
       {
         v57 = v56;
-        v58 = *v288;
+        v58 = *v287;
         do
         {
           for (k = 0; k != v57; k = k + 1)
           {
-            if (*v288 != v58)
+            if (*v287 != v58)
             {
               objc_enumerationMutation(v27);
             }
 
-            v60 = *(*(&v287 + 1) + 8 * k);
+            v60 = *(*(&v286 + 1) + 8 * k);
             peerID3 = [peerCopy peerID];
             [(GEOTileServer *)self _receivedTile:0 error:v26 info:0 forKey:v60 forPeer:peerID3];
           }
 
-          v57 = [v27 countByEnumeratingWithState:&v287 objects:v311 count:16];
+          v57 = [v27 countByEnumeratingWithState:&v286 objects:v310 count:16];
         }
 
         while (v57);
@@ -1096,31 +1096,31 @@ LABEL_51:
     if (xpc_get_type(v26) != &_xpc_type_data)
     {
       v36 = [NSError GEOErrorWithCode:-10 reason:@"Bad XPC request encoding (type)"];
+      v282 = 0u;
       v283 = 0u;
       v284 = 0u;
       v285 = 0u;
-      v286 = 0u;
-      v37 = v223;
-      v38 = [v37 countByEnumeratingWithState:&v283 objects:v310 count:16];
+      v37 = v222;
+      v38 = [v37 countByEnumeratingWithState:&v282 objects:v309 count:16];
       if (v38)
       {
         v39 = v38;
-        v40 = *v284;
+        v40 = *v283;
         do
         {
           for (m = 0; m != v39; m = m + 1)
           {
-            if (*v284 != v40)
+            if (*v283 != v40)
             {
               objc_enumerationMutation(v37);
             }
 
-            v42 = *(*(&v283 + 1) + 8 * m);
+            v42 = *(*(&v282 + 1) + 8 * m);
             peerID4 = [peerCopy peerID];
             [(GEOTileServer *)self _receivedTile:0 error:v36 info:0 forKey:v42 forPeer:peerID4];
           }
 
-          v39 = [v37 countByEnumeratingWithState:&v283 objects:v310 count:16];
+          v39 = [v37 countByEnumeratingWithState:&v282 objects:v309 count:16];
         }
 
         while (v39);
@@ -1128,46 +1128,46 @@ LABEL_51:
 
 LABEL_71:
 
-      xpc_connection_send_message(v221, v222);
-      v17 = v219;
-      v14 = v220;
+      xpc_connection_send_message(v220, v221);
+      v17 = v218;
+      v14 = v219;
 LABEL_72:
 
       tilesCopy = v186;
-      v22 = v221;
-      v21 = v222;
+      v22 = v220;
+      v21 = v221;
       goto LABEL_50;
     }
 
     v62 = xpc_data_get_length(v26);
-    if (v62 != [v223 count])
+    if (v62 != [v222 count])
     {
       v36 = [NSError GEOErrorWithCode:-10 reason:@"Bad XPC request encoding (length)"];
+      v278 = 0u;
       v279 = 0u;
       v280 = 0u;
       v281 = 0u;
-      v282 = 0u;
-      v37 = v223;
-      v71 = [v37 countByEnumeratingWithState:&v279 objects:v309 count:16];
+      v37 = v222;
+      v71 = [v37 countByEnumeratingWithState:&v278 objects:v308 count:16];
       if (v71)
       {
         v72 = v71;
-        v73 = *v280;
+        v73 = *v279;
         do
         {
           for (n = 0; n != v72; n = n + 1)
           {
-            if (*v280 != v73)
+            if (*v279 != v73)
             {
               objc_enumerationMutation(v37);
             }
 
-            v75 = *(*(&v279 + 1) + 8 * n);
+            v75 = *(*(&v278 + 1) + 8 * n);
             peerID5 = [peerCopy peerID];
             [(GEOTileServer *)self _receivedTile:0 error:v36 info:0 forKey:v75 forPeer:peerID5];
           }
 
-          v72 = [v37 countByEnumeratingWithState:&v279 objects:v309 count:16];
+          v72 = [v37 countByEnumeratingWithState:&v278 objects:v308 count:16];
         }
 
         while (v72);
@@ -1176,37 +1176,37 @@ LABEL_72:
       goto LABEL_71;
     }
 
-    v203 = bytes_ptr;
+    v202 = bytes_ptr;
     v63 = xpc_data_get_bytes_ptr(v26);
     v36 = xpc_dictionary_get_value(tilesCopy, "additional_infos");
     if (xpc_get_type(v36) != &_xpc_type_data)
     {
       aSelectorb = [NSError GEOErrorWithCode:-10 reason:@"Bad XPC request encoding (type)"];
+      v274 = 0u;
       v275 = 0u;
       v276 = 0u;
       v277 = 0u;
-      v278 = 0u;
-      v64 = v223;
-      v65 = [v64 countByEnumeratingWithState:&v275 objects:v308 count:16];
+      v64 = v222;
+      v65 = [v64 countByEnumeratingWithState:&v274 objects:v307 count:16];
       if (v65)
       {
         v66 = v65;
-        v67 = *v276;
+        v67 = *v275;
         do
         {
           for (ii = 0; ii != v66; ii = ii + 1)
           {
-            if (*v276 != v67)
+            if (*v275 != v67)
             {
               objc_enumerationMutation(v64);
             }
 
-            v69 = *(*(&v275 + 1) + 8 * ii);
+            v69 = *(*(&v274 + 1) + 8 * ii);
             peerID6 = [peerCopy peerID];
             [(GEOTileServer *)self _receivedTile:0 error:aSelectorb info:0 forKey:v69 forPeer:peerID6];
           }
 
-          v66 = [v64 countByEnumeratingWithState:&v275 objects:v308 count:16];
+          v66 = [v64 countByEnumeratingWithState:&v274 objects:v307 count:16];
         }
 
         while (v66);
@@ -1214,44 +1214,44 @@ LABEL_72:
 
 LABEL_91:
 
-      xpc_connection_send_message(v221, v222);
-      v17 = v219;
-      v14 = v220;
+      xpc_connection_send_message(v220, v221);
+      v17 = v218;
+      v14 = v219;
 LABEL_92:
 
       goto LABEL_72;
     }
 
-    v200 = v63;
+    v199 = v63;
     v77 = xpc_data_get_length(v36);
-    if (v77 != 16 * [v223 count])
+    if (v77 != 16 * [v222 count])
     {
       aSelectorb = [NSError GEOErrorWithCode:-10 reason:@"Bad XPC request encoding (length)"];
+      v270 = 0u;
       v271 = 0u;
       v272 = 0u;
       v273 = 0u;
-      v274 = 0u;
-      v64 = v223;
-      v87 = [v64 countByEnumeratingWithState:&v271 objects:v307 count:16];
+      v64 = v222;
+      v87 = [v64 countByEnumeratingWithState:&v270 objects:v306 count:16];
       if (v87)
       {
         v88 = v87;
-        v89 = *v272;
+        v89 = *v271;
         do
         {
           for (jj = 0; jj != v88; jj = jj + 1)
           {
-            if (*v272 != v89)
+            if (*v271 != v89)
             {
               objc_enumerationMutation(v64);
             }
 
-            v91 = *(*(&v271 + 1) + 8 * jj);
+            v91 = *(*(&v270 + 1) + 8 * jj);
             peerID7 = [peerCopy peerID];
             [(GEOTileServer *)self _receivedTile:0 error:aSelectorb info:0 forKey:v91 forPeer:peerID7];
           }
 
-          v88 = [v64 countByEnumeratingWithState:&v271 objects:v307 count:16];
+          v88 = [v64 countByEnumeratingWithState:&v270 objects:v306 count:16];
         }
 
         while (v88);
@@ -1260,7 +1260,7 @@ LABEL_92:
       goto LABEL_91;
     }
 
-    v199 = xpc_data_get_bytes_ptr(v36);
+    v198 = xpc_data_get_bytes_ptr(v36);
     v78 = xpc_dictionary_get_value(tilesCopy, "signposts");
     aSelectorb = v78;
     if (v78)
@@ -1268,32 +1268,32 @@ LABEL_92:
       v79 = v78;
       if (xpc_get_type(v78) != &_xpc_type_data)
       {
-        v217 = [NSError GEOErrorWithCode:-10 reason:@"Bad XPC request encoding (type)"];
+        v216 = [NSError GEOErrorWithCode:-10 reason:@"Bad XPC request encoding (type)"];
+        v266 = 0u;
         v267 = 0u;
         v268 = 0u;
         v269 = 0u;
-        v270 = 0u;
-        v80 = v223;
-        v81 = [v80 countByEnumeratingWithState:&v267 objects:v306 count:16];
+        v80 = v222;
+        v81 = [v80 countByEnumeratingWithState:&v266 objects:v305 count:16];
         if (v81)
         {
           v82 = v81;
-          v83 = *v268;
+          v83 = *v267;
           do
           {
             for (kk = 0; kk != v82; kk = kk + 1)
             {
-              if (*v268 != v83)
+              if (*v267 != v83)
               {
                 objc_enumerationMutation(v80);
               }
 
-              v85 = *(*(&v267 + 1) + 8 * kk);
+              v85 = *(*(&v266 + 1) + 8 * kk);
               peerID8 = [peerCopy peerID];
-              [(GEOTileServer *)self _receivedTile:0 error:v217 info:0 forKey:v85 forPeer:peerID8];
+              [(GEOTileServer *)self _receivedTile:0 error:v216 info:0 forKey:v85 forPeer:peerID8];
             }
 
-            v82 = [v80 countByEnumeratingWithState:&v267 objects:v306 count:16];
+            v82 = [v80 countByEnumeratingWithState:&v266 objects:v305 count:16];
           }
 
           while (v82);
@@ -1301,44 +1301,44 @@ LABEL_92:
 
 LABEL_114:
 
-        xpc_connection_send_message(v221, v222);
+        xpc_connection_send_message(v220, v221);
 LABEL_210:
-        v17 = v219;
-        v14 = v220;
+        v17 = v218;
+        v14 = v219;
 
         goto LABEL_92;
       }
 
       v93 = v79;
       v94 = xpc_data_get_length(v79);
-      if (v94 != 8 * [v223 count])
+      if (v94 != 8 * [v222 count])
       {
-        v217 = [NSError GEOErrorWithCode:-10 reason:@"Bad XPC request encoding (length)"];
+        v216 = [NSError GEOErrorWithCode:-10 reason:@"Bad XPC request encoding (length)"];
+        v262 = 0u;
         v263 = 0u;
         v264 = 0u;
         v265 = 0u;
-        v266 = 0u;
-        v80 = v223;
-        v104 = [v80 countByEnumeratingWithState:&v263 objects:v305 count:16];
+        v80 = v222;
+        v104 = [v80 countByEnumeratingWithState:&v262 objects:v304 count:16];
         if (v104)
         {
           v105 = v104;
-          v106 = *v264;
+          v106 = *v263;
           do
           {
             for (mm = 0; mm != v105; mm = mm + 1)
             {
-              if (*v264 != v106)
+              if (*v263 != v106)
               {
                 objc_enumerationMutation(v80);
               }
 
-              v108 = *(*(&v263 + 1) + 8 * mm);
+              v108 = *(*(&v262 + 1) + 8 * mm);
               peerID9 = [peerCopy peerID];
-              [(GEOTileServer *)self _receivedTile:0 error:v217 info:0 forKey:v108 forPeer:peerID9];
+              [(GEOTileServer *)self _receivedTile:0 error:v216 info:0 forKey:v108 forPeer:peerID9];
             }
 
-            v105 = [v80 countByEnumeratingWithState:&v263 objects:v305 count:16];
+            v105 = [v80 countByEnumeratingWithState:&v262 objects:v304 count:16];
           }
 
           while (v105);
@@ -1347,47 +1347,47 @@ LABEL_210:
         goto LABEL_114;
       }
 
-      v195 = xpc_data_get_bytes_ptr(v93);
+      v194 = xpc_data_get_bytes_ptr(v93);
     }
 
     else
     {
-      v195 = 0;
+      v194 = 0;
     }
 
     v95 = xpc_dictionary_get_value(tilesCopy, "ctime");
-    v217 = v95;
+    v216 = v95;
     if (v95)
     {
       v96 = v95;
       if (xpc_get_type(v95) != &_xpc_type_data)
       {
-        v216 = [NSError GEOErrorWithCode:-10 reason:@"Bad XPC request encoding (type)"];
+        v215 = [NSError GEOErrorWithCode:-10 reason:@"Bad XPC request encoding (type)"];
+        v258 = 0u;
         v259 = 0u;
         v260 = 0u;
         v261 = 0u;
-        v262 = 0u;
-        v97 = v223;
-        v98 = [v97 countByEnumeratingWithState:&v259 objects:v304 count:16];
+        v97 = v222;
+        v98 = [v97 countByEnumeratingWithState:&v258 objects:v303 count:16];
         if (v98)
         {
           v99 = v98;
-          v100 = *v260;
+          v100 = *v259;
           do
           {
             for (nn = 0; nn != v99; nn = nn + 1)
             {
-              if (*v260 != v100)
+              if (*v259 != v100)
               {
                 objc_enumerationMutation(v97);
               }
 
-              v102 = *(*(&v259 + 1) + 8 * nn);
+              v102 = *(*(&v258 + 1) + 8 * nn);
               peerID10 = [peerCopy peerID];
-              [(GEOTileServer *)self _receivedTile:0 error:v216 info:0 forKey:v102 forPeer:peerID10];
+              [(GEOTileServer *)self _receivedTile:0 error:v215 info:0 forKey:v102 forPeer:peerID10];
             }
 
-            v99 = [v97 countByEnumeratingWithState:&v259 objects:v304 count:16];
+            v99 = [v97 countByEnumeratingWithState:&v258 objects:v303 count:16];
           }
 
           while (v99);
@@ -1395,41 +1395,41 @@ LABEL_210:
 
 LABEL_133:
 
-        xpc_connection_send_message(v221, v222);
+        xpc_connection_send_message(v220, v221);
 LABEL_209:
 
         goto LABEL_210;
       }
 
       v110 = xpc_data_get_length(v96);
-      if (v110 != 8 * [v223 count])
+      if (v110 != 8 * [v222 count])
       {
-        v216 = [NSError GEOErrorWithCode:-10 reason:@"Bad XPC request encoding (length)"];
+        v215 = [NSError GEOErrorWithCode:-10 reason:@"Bad XPC request encoding (length)"];
+        v254 = 0u;
         v255 = 0u;
         v256 = 0u;
         v257 = 0u;
-        v258 = 0u;
-        v97 = v223;
-        v119 = [v97 countByEnumeratingWithState:&v255 objects:v303 count:16];
+        v97 = v222;
+        v119 = [v97 countByEnumeratingWithState:&v254 objects:v302 count:16];
         if (v119)
         {
           v120 = v119;
-          v121 = *v256;
+          v121 = *v255;
           do
           {
             for (i1 = 0; i1 != v120; i1 = i1 + 1)
             {
-              if (*v256 != v121)
+              if (*v255 != v121)
               {
                 objc_enumerationMutation(v97);
               }
 
-              v123 = *(*(&v255 + 1) + 8 * i1);
+              v123 = *(*(&v254 + 1) + 8 * i1);
               peerID11 = [peerCopy peerID];
-              [(GEOTileServer *)self _receivedTile:0 error:v216 info:0 forKey:v123 forPeer:peerID11];
+              [(GEOTileServer *)self _receivedTile:0 error:v215 info:0 forKey:v123 forPeer:peerID11];
             }
 
-            v120 = [v97 countByEnumeratingWithState:&v255 objects:v303 count:16];
+            v120 = [v97 countByEnumeratingWithState:&v254 objects:v302 count:16];
           }
 
           while (v120);
@@ -1438,24 +1438,24 @@ LABEL_209:
         goto LABEL_133;
       }
 
-      v191 = xpc_data_get_bytes_ptr(v96);
+      v190 = xpc_data_get_bytes_ptr(v96);
     }
 
     else
     {
-      v191 = 0;
+      v190 = 0;
     }
 
     uint64 = xpc_dictionary_get_uint64(tilesCopy, "reason");
     v111 = xpc_dictionary_get_array(tilesCopy, "cis");
     if (xpc_get_type(v111) == &_xpc_type_array && xpc_array_get_count(v111))
     {
-      v216 = [NSArray _geo_arrayFromXPCObject:v111];
+      v215 = [NSArray _geo_arrayFromXPCObject:v111];
     }
 
     else
     {
-      v216 = 0;
+      v215 = 0;
     }
 
     int64 = xpc_dictionary_get_int64(tilesCopy, "batch");
@@ -1479,22 +1479,22 @@ LABEL_209:
         v118 = 0;
       }
 
-      v215 = v118;
+      v214 = v118;
     }
 
     else
     {
-      v215 = auditToken;
+      v214 = auditToken;
     }
 
+    v250 = 0u;
     v251 = 0u;
     v252 = 0u;
     v253 = 0u;
-    v254 = 0u;
-    obj = v223;
+    obj = v222;
     v185 = v111;
-    v210 = [obj countByEnumeratingWithState:&v251 objects:v302 count:16];
-    if (!v210)
+    v209 = [obj countByEnumeratingWithState:&v250 objects:v301 count:16];
+    if (!v209)
     {
       v182 = 0;
       v156 = obj;
@@ -1502,50 +1502,49 @@ LABEL_209:
     }
 
     group = 0;
-    v208 = *v252;
-    v188 = GeoOfflineConfig_CohortAllowList[1];
+    v207 = *v251;
 LABEL_138:
     v125 = 0;
     while (1)
     {
-      if (*v252 != v208)
+      if (*v251 != v207)
       {
         objc_enumerationMutation(obj);
       }
 
-      v126 = *(*(&v251 + 1) + 8 * v125);
+      v126 = *(*(&v250 + 1) + 8 * v125);
       v127 = peerCopy;
-      v128 = v215;
+      v128 = v214;
       if (GEOTileKeyIsOffline())
       {
         v129 = [v127 valueForEntitlement:@"com.apple.geoservices.restricted-tiles"];
         if (([v129 containsObject:@"offline"] & 1) == 0)
         {
           GEOConfigGetArray();
-          v130 = v205 = v128;
-          [v205 offlineCohortId];
-          v212 = v127;
+          v130 = v204 = v128;
+          [v204 offlineCohortId];
+          v211 = v127;
           v131 = v129;
           v133 = v132 = v126;
           v134 = [v130 containsObject:v133];
 
           v126 = v132;
           v129 = v131;
-          v127 = v212;
+          v127 = v211;
 
-          v128 = v205;
+          v128 = v204;
           if ((v134 & 1) == 0)
           {
             v145 = GEOGetTileLoadingLog();
             if (os_log_type_enabled(v145, OS_LOG_TYPE_FAULT))
             {
-              offlineCohortId = [v205 offlineCohortId];
+              offlineCohortId = [v204 offlineCohortId];
               LODWORD(length[0]) = 138543362;
               *(length + 4) = offlineCohortId;
               _os_log_impl(&_mh_execute_header, v145, OS_LOG_TYPE_FAULT, "Attempt to load offline tiles from un-entitled or mis-entitled client: %{public}@", length, 0xCu);
             }
 
-            v128 = v205;
+            v128 = v204;
 LABEL_162:
 
             v147 = GEOGetTileLoadingLog();
@@ -1578,13 +1577,13 @@ LABEL_162:
 
       length[0] = GEOTileKeyMakeOnline();
       length[1] = v135;
-      LODWORD(v242) = 0;
+      LODWORD(v241) = 0;
       if (GEOTileKeyStyle())
       {
-        v213 = v127;
+        v212 = v127;
         v136 = v127;
         v137 = v136;
-        v196 = v126;
+        v195 = v126;
         v152 = -1;
         v153 = "A";
         do
@@ -1599,8 +1598,8 @@ LABEL_162:
           ++v152;
         }
 
-        while (v154 != v242);
-        v206 = v152 > 0xA;
+        while (v154 != v241);
+        v205 = v152 > 0xA;
         v138 = *(v153 + 1);
         if (!v138)
         {
@@ -1637,16 +1636,16 @@ LABEL_162:
           v128 = v139;
 LABEL_157:
 
-          v127 = v213;
+          v127 = v212;
           goto LABEL_158;
         }
 
 LABEL_154:
 
-        v126 = v196;
-        v127 = v213;
+        v126 = v195;
+        v127 = v212;
         v128 = v139;
-        if (v206)
+        if (v205)
         {
           goto LABEL_158;
         }
@@ -1657,38 +1656,38 @@ LABEL_154:
 LABEL_158:
 
 LABEL_167:
-      if (++v125 == v210)
+      if (++v125 == v209)
       {
-        v155 = [obj countByEnumeratingWithState:&v251 objects:v302 count:16];
-        v210 = v155;
+        v155 = [obj countByEnumeratingWithState:&v250 objects:v301 count:16];
+        v209 = v155;
         if (!v155)
         {
 
           if (group)
           {
-            v249 = 0u;
-            v250 = 0u;
-            v247 = 0u;
             v248 = 0u;
+            v249 = 0u;
+            v246 = 0u;
+            v247 = 0u;
             v156 = group;
-            v157 = [v156 countByEnumeratingWithState:&v247 objects:v300 count:16];
+            v157 = [v156 countByEnumeratingWithState:&v246 objects:v299 count:16];
             if (v157)
             {
               v158 = v157;
-              v159 = *v248;
+              v159 = *v247;
               do
               {
                 for (i2 = 0; i2 != v158; i2 = i2 + 1)
                 {
-                  if (*v248 != v159)
+                  if (*v247 != v159)
                   {
                     objc_enumerationMutation(v156);
                   }
 
-                  [obj removeKey:*(*(&v247 + 1) + 8 * i2)];
+                  [obj removeKey:*(*(&v246 + 1) + 8 * i2)];
                 }
 
-                v158 = [v156 countByEnumeratingWithState:&v247 objects:v300 count:16];
+                v158 = [v156 countByEnumeratingWithState:&v246 objects:v299 count:16];
               }
 
               while (v158);
@@ -1730,12 +1729,12 @@ LABEL_183:
           GEOMachAbsoluteTimeGetCurrent();
           v168 = v167;
           offlineCohortId2 = [v161 offlineCohortId];
+          v242 = 0u;
           v243 = 0u;
           v244 = 0u;
           v245 = 0u;
-          v246 = 0u;
           v187 = obj;
-          obja = [v187 countByEnumeratingWithState:&v243 objects:v299 count:16];
+          obja = [v187 countByEnumeratingWithState:&v242 objects:v298 count:16];
           if (!obja)
           {
 LABEL_208:
@@ -1746,10 +1745,10 @@ LABEL_208:
             block[2] = sub_100042EA8;
             block[3] = &unk_100083288;
             block[4] = self;
-            v230 = peerID12;
-            v231 = int64;
+            v229 = peerID12;
+            v230 = int64;
+            v231 = v220;
             v232 = v221;
-            v233 = v222;
             v179 = int64;
             v180 = peerID12;
             dispatch_group_notify(groupa, queue, block);
@@ -1758,37 +1757,37 @@ LABEL_208:
           }
 
           v169 = 0;
-          v189 = *v244;
+          v188 = *v243;
           while (2)
           {
             v170 = 0;
 LABEL_192:
-            if (*v244 != v189)
+            if (*v243 != v188)
             {
               objc_enumerationMutation(v187);
             }
 
-            v171 = *(*(&v243 + 1) + 8 * v170);
+            v171 = *(*(&v242 + 1) + 8 * v170);
             length[1] = 0;
             length[0] = 0;
             *length = *v171;
-            v172 = v200[v169];
-            v242 = v199[v169];
-            v214 = v203[v169];
-            if (v195)
+            v172 = v199[v169];
+            v241 = v198[v169];
+            v213 = v202[v169];
+            if (v194)
             {
-              v211 = v195[v169];
+              v210 = v194[v169];
             }
 
             else
             {
-              v211 = 0;
+              v210 = 0;
             }
 
-            if (v191)
+            if (v190)
             {
-              v173 = v191[v169];
-              if (v216)
+              v173 = v190[v169];
+              if (v215)
               {
                 goto LABEL_199;
               }
@@ -1800,13 +1799,13 @@ LABEL_201:
             else
             {
               v173 = 0.0;
-              if (!v216)
+              if (!v215)
               {
                 goto LABEL_201;
               }
 
 LABEL_199:
-              v174 = [v216 objectAtIndexedSubscript:v169];
+              v174 = [v215 objectAtIndexedSubscript:v169];
             }
 
             objc_opt_class();
@@ -1818,34 +1817,34 @@ LABEL_199:
 
             ++v169;
             dispatch_group_enter(groupa);
-            v175 = &v242;
+            v175 = &v241;
             if (!v172)
             {
               v175 = 0;
             }
 
-            v209 = v175;
-            v207 = qos_class_self();
+            v208 = v175;
+            v206 = qos_class_self();
             v176 = self->_queue;
-            v234[0] = _NSConcreteStackBlock;
-            v234[1] = 3221225472;
-            v234[2] = sub_100042D04;
-            v234[3] = &unk_100083260;
-            v240 = *length;
-            v241 = v225;
+            v233[0] = _NSConcreteStackBlock;
+            v233[1] = 3221225472;
+            v233[2] = sub_100042D04;
+            v233[3] = &unk_100083260;
+            v239 = *length;
+            v240 = v224;
             v177 = offlineCohortId2;
-            v239 = v168;
-            v235 = v177;
+            v238 = v168;
+            v234 = v177;
             selfCopy = self;
-            v237 = peerID12;
-            v238 = groupa;
-            HIDWORD(v181) = v207;
+            v236 = peerID12;
+            v237 = groupa;
+            HIDWORD(v181) = v206;
             LOBYTE(v181) = uint64;
-            [v224 loadKey:length additionalInfo:v209 priority:v214 forClient:int64 auditToken:v215 options:v218 | 0x20 cacheInfo:v173 reason:v174 qos:v181 signpostID:v211 createTime:v176 callbackQ:0 beginNetwork:v234 callback:v182];
+            [v223 loadKey:length additionalInfo:v208 priority:v213 forClient:int64 auditToken:v214 options:v217 | 0x20 cacheInfo:v173 reason:v174 qos:v181 signpostID:v210 createTime:v176 callbackQ:0 beginNetwork:v233 callback:v182];
 
             if (obja == ++v170)
             {
-              obja = [v187 countByEnumeratingWithState:&v243 objects:v299 count:16];
+              obja = [v187 countByEnumeratingWithState:&v242 objects:v298 count:16];
               if (!obja)
               {
                 goto LABEL_208;

@@ -217,7 +217,7 @@
   dCopy = d;
   iDCopy = iD;
   nameCopy = name;
-  if ([dCopy isEqualToIgnoringCase:IDSDefaultPairedDevice])
+  if (objc_msgSend_isEqualToIgnoringCase_(dCopy))
   {
     v10 = OSLogHandleForIDSCategory();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
@@ -274,7 +274,7 @@
           else
           {
             v23 = [v18 objectForKey:IDSDevicePropertyIdentifierOverride];
-            if ([_stripFZIDPrefix length] && objc_msgSend(_stripFZIDPrefix, "isEqualToIgnoringCase:", v23))
+            if ([_stripFZIDPrefix length] && objc_msgSend_isEqualToIgnoringCase_(_stripFZIDPrefix))
             {
               v24 = OSLogHandleForIDSCategory();
               if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
@@ -850,7 +850,7 @@ LABEL_13:
 
   service2 = [v5 service];
   pushTopic2 = [service2 pushTopic];
-  v22 = [pushTopic2 isEqualToIgnoringCase:@"com.apple.private.alloy.accountssync"];
+  v22 = objc_msgSend_isEqualToIgnoringCase_(pushTopic2);
 
   if (v22)
   {
@@ -1702,7 +1702,7 @@ LABEL_36:
                 }
 
                 v37 = *(*(&v58 + 1) + 8 * i);
-                if (([v37 isEqualToIgnoringCase:dCopy]& 1) == 0 && accountType)
+                if ((objc_msgSend_isEqualToIgnoringCase_(v37) & 1) == 0 && accountType)
                 {
                   v38 = [(IDSDAccountController *)self accountWithUniqueID:v37];
                   if ([v38 accountType] == accountType)
@@ -2153,7 +2153,7 @@ LABEL_29:
 
             v15 = v14 == 0;
             loginID2 = [v12 loginID];
-            v17 = [loginID2 isEqualToIgnoringCase:dCopy];
+            v17 = objc_msgSend_isEqualToIgnoringCase_(loginID2);
 
             if (v15)
             {
@@ -2423,7 +2423,7 @@ LABEL_12:
           {
             service = [v12 service];
             identifier = [service identifier];
-            if ([identifier isEqualToIgnoringCase:v27])
+            if (objc_msgSend_isEqualToIgnoringCase_(identifier))
             {
               v16 = [v12 hasAliasURI:iCopy];
 
@@ -2558,7 +2558,7 @@ LABEL_41:
           {
             service = [v11 service];
             identifier = [service identifier];
-            if ([identifier isEqualToIgnoringCase:v27])
+            if (objc_msgSend_isEqualToIgnoringCase_(identifier))
             {
               loginID = [v11 loginID];
               v16 = IMAreEmailsLogicallyTheSame();
@@ -2731,7 +2731,7 @@ LABEL_41:
 
             service = [v11 service];
             identifier = [service identifier];
-            if ([identifier isEqualToIgnoringCase:v44])
+            if (objc_msgSend_isEqualToIgnoringCase_(identifier))
             {
               loginID = [v11 loginID];
               v15 = [NSString stringWithFormat:@"P:%@"];
@@ -2834,7 +2834,7 @@ LABEL_71:
           {
             service2 = [v22 service];
             identifier2 = [service2 identifier];
-            if ([identifier2 isEqualToIgnoringCase:v44])
+            if (objc_msgSend_isEqualToIgnoringCase_(identifier2))
             {
               accountInfo = [v22 accountInfo];
               v27 = [accountInfo objectForKey:v41];
@@ -3131,7 +3131,7 @@ LABEL_13:
         if (dCopy || v21)
         {
           smallDescription = [v18 loginID];
-          v22 = [smallDescription isEqualToIgnoringCase:dCopy];
+          v22 = objc_msgSend_isEqualToIgnoringCase_(smallDescription);
 
           LODWORD(smallDescription) = v37;
           if ((v22 & 1) == 0)
@@ -3523,11 +3523,11 @@ LABEL_39:
         identifier = [v8 identifier];
         if (![v8 adHocServiceType])
         {
-          v10 = [identifier isEqualToIgnoringCase:@"com.apple.madrid"];
-          v11 = [identifier isEqualToIgnoringCase:@"com.apple.private.alloy.sms"];
-          v12 = [identifier isEqualToIgnoringCase:@"com.apple.ess"];
-          v13 = [identifier isEqualToIgnoringCase:@"com.apple.private.ac"];
-          if (((v10 | v11 | v12 | v13 | [identifier isEqualToIgnoringCase:@"com.apple.private.alloy.facetime.multi"]) & 1) == 0)
+          v10 = objc_msgSend_isEqualToIgnoringCase_(identifier);
+          v11 = objc_msgSend_isEqualToIgnoringCase_(identifier);
+          v12 = objc_msgSend_isEqualToIgnoringCase_(identifier);
+          v13 = objc_msgSend_isEqualToIgnoringCase_(identifier);
+          if (((v10 | v11 | v12 | v13 | objc_msgSend_isEqualToIgnoringCase_(identifier)) & 1) == 0)
           {
             [(IDSDAccountController *)self setupLocalAccountForService:v8];
           }
@@ -3591,11 +3591,11 @@ LABEL_39:
         identifier = [v9 identifier];
         if (![v9 adHocServiceType])
         {
-          v11 = [identifier isEqualToIgnoringCase:@"com.apple.madrid"];
-          v12 = [identifier isEqualToIgnoringCase:@"com.apple.private.alloy.sms"];
-          v13 = [identifier isEqualToIgnoringCase:@"com.apple.ess"];
-          v14 = [identifier isEqualToIgnoringCase:@"com.apple.private.ac"];
-          v15 = [identifier isEqualToIgnoringCase:@"com.apple.private.alloy.facetime.multi"];
+          v11 = objc_msgSend_isEqualToIgnoringCase_(identifier);
+          v12 = objc_msgSend_isEqualToIgnoringCase_(identifier);
+          v13 = objc_msgSend_isEqualToIgnoringCase_(identifier);
+          v14 = objc_msgSend_isEqualToIgnoringCase_(identifier);
+          v15 = objc_msgSend_isEqualToIgnoringCase_(identifier);
           if ((v11 & 1) == 0 && (v12 & 1) == 0 && (v13 & 1) == 0 && (v14 & 1) == 0 && (v15 & 1) == 0)
           {
             v16 = [(IDSDAccountController *)self existingAccountOnService:v9 withType:2 loginID:0];
@@ -4149,7 +4149,7 @@ LABEL_53:
                 if ([loginID2 length] || -[NSObject length](v107, "length"))
                 {
                   loginID3 = [v39 loginID];
-                  v46 = [loginID3 isEqualToIgnoringCase:v107];
+                  v46 = objc_msgSend_isEqualToIgnoringCase_(loginID3);
 
                   accountType = v108;
                   if ((v46 & 1) == 0)
@@ -4236,7 +4236,7 @@ LABEL_62:
           }
 
           primaryAccountUniqueID = [v27 primaryAccountUniqueID];
-          v65 = [primaryAccountUniqueID isEqualToIgnoringCase:uniqueID2];
+          v65 = objc_msgSend_isEqualToIgnoringCase_(primaryAccountUniqueID);
 
           accountType = v108;
           if ((v65 & 1) == 0)
@@ -4722,11 +4722,11 @@ LABEL_123:
 
           v9 = *(*(&v52 + 1) + 8 * i);
           identifier = [v9 identifier];
-          v11 = [identifier isEqualToIgnoringCase:@"com.apple.madrid"];
+          v11 = objc_msgSend_isEqualToIgnoringCase_(identifier);
           v12 = @"com.apple.imservice.iMessage";
           if ((v11 & 1) == 0)
           {
-            v13 = [identifier isEqualToIgnoringCase:@"com.apple.ess"];
+            v13 = objc_msgSend_isEqualToIgnoringCase_(identifier);
             v12 = @"com.apple.imservice.FaceTime";
             if (!v13)
             {
@@ -5227,7 +5227,7 @@ LABEL_123:
         service = [v11 service];
         pushTopic = [service pushTopic];
 
-        if ([pushTopic isEqualToIgnoringCase:@"com.apple.private.alloy.willow"] && !objc_msgSend(v11, "accountType"))
+        if (objc_msgSend_isEqualToIgnoringCase_(pushTopic) && ![v11 accountType])
         {
           [v31 addObject:v11];
           if (v5)
@@ -6666,45 +6666,44 @@ LABEL_16:
   _copyForEnumerating = [accounts _copyForEnumerating];
 
   group = dispatch_group_create();
-  v45[0] = 0;
-  v45[1] = v45;
-  v45[2] = 0x2020000000;
-  v46 = 1;
-  v43[0] = 0;
-  v43[1] = v43;
-  v43[2] = 0x2020000000;
-  v44 = 0;
-  v41[0] = 0;
-  v41[1] = v41;
-  v41[2] = 0x2020000000;
-  v42 = 0;
+  v44[0] = 0;
+  v44[1] = v44;
+  v44[2] = 0x2020000000;
+  v45 = 1;
+  v42[0] = 0;
+  v42[1] = v42;
+  v42[2] = 0x2020000000;
+  v43 = 0;
+  v40[0] = 0;
+  v40[1] = v40;
+  v40[2] = 0x2020000000;
+  v41 = 0;
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   obj = _copyForEnumerating;
-  v6 = [obj countByEnumeratingWithState:&v37 objects:v48 count:16];
+  v6 = [obj countByEnumeratingWithState:&v36 objects:v47 count:16];
   if (v6)
   {
-    v7 = *v38;
-    v24 = kIDSServiceDefaultsSentinelAlias;
+    v7 = *v37;
     do
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v38 != v7)
+        if (*v37 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v37 + 1) + 8 * i);
+        v9 = *(*(&v36 + 1) + 8 * i);
         v10 = objc_autoreleasePoolPush();
         if (([v9 isAdHocAccount] & 1) == 0 && objc_msgSend(v9, "isEnabled") && objc_msgSend(v9, "isRegistered") && (objc_msgSend(v9, "shouldRegisterUsingDSHandle") & 1) == 0)
         {
           prefixedURIStringsFromRegistration = [v9 prefixedURIStringsFromRegistration];
           firstObject = [prefixedURIStringsFromRegistration firstObject];
 
-          if ([firstObject isEqualToIgnoringCase:v24])
+          if (objc_msgSend_isEqualToIgnoringCase_(firstObject))
           {
 
             firstObject = 0;
@@ -6721,25 +6720,25 @@ LABEL_16:
             dispatch_group_enter(group);
             v17 = [IDSURI URIWithPrefixedURI:firstObject withServiceLoggingHint:identifier];
             v18 = +[IDSPeerIDManager sharedInstance];
-            v47 = v17;
-            v19 = [NSArray arrayWithObjects:&v47 count:1];
-            v32[0] = _NSConcreteStackBlock;
-            v32[1] = 3221225472;
-            v32[2] = sub_10046BFA4;
-            v32[3] = &unk_100BDCF78;
-            v34 = v45;
-            v35 = v43;
-            v36 = v41;
-            v33 = group;
+            v46 = v17;
+            v19 = [NSArray arrayWithObjects:&v46 count:1];
+            v31[0] = _NSConcreteStackBlock;
+            v31[1] = 3221225472;
+            v31[2] = sub_10046BFA4;
+            v31[3] = &unk_100BDCF78;
+            v33 = v44;
+            v34 = v42;
+            v35 = v40;
+            v32 = group;
             LOBYTE(v22) = 0;
-            [v18 startQueryForURIs:v19 fromIdentity:registrationCert fromURI:v17 fromService:identifier forSending:0 forceToServer:0 clientRequestedForceQuery:v22 reason:@"GDRQuery" completionBlock:v32];
+            [v18 startQueryForURIs:v19 fromIdentity:registrationCert fromURI:v17 fromService:identifier forSending:0 forceToServer:0 clientRequestedForceQuery:v22 reason:@"GDRQuery" completionBlock:v31];
           }
         }
 
         objc_autoreleasePoolPop(v10);
       }
 
-      v6 = [obj countByEnumeratingWithState:&v37 objects:v48 count:16];
+      v6 = [obj countByEnumeratingWithState:&v36 objects:v47 count:16];
     }
 
     while (v6);
@@ -6750,16 +6749,16 @@ LABEL_16:
   block[1] = 3221225472;
   block[2] = sub_10046C030;
   block[3] = &unk_100BDCD70;
-  v28 = blockCopy;
-  v29 = v45;
-  v30 = v41;
-  v31 = v43;
+  v27 = blockCopy;
+  v28 = v44;
+  v29 = v40;
+  v30 = v42;
   v21 = blockCopy;
   dispatch_group_notify(group, v20, block);
 
-  _Block_object_dispose(v41, 8);
-  _Block_object_dispose(v43, 8);
-  _Block_object_dispose(v45, 8);
+  _Block_object_dispose(v40, 8);
+  _Block_object_dispose(v42, 8);
+  _Block_object_dispose(v44, 8);
 }
 
 - (void)issueGetDependentRequest
@@ -7284,7 +7283,7 @@ LABEL_19:
               v15 = *(*(&v27 + 1) + 8 * i);
               v16 = [v15 _dictionaryForKey:@"private-device-data"];
               v17 = [v16 _stringForKey:v7];
-              v18 = [v17 isEqualToIgnoringCase:dCopy];
+              v18 = objc_msgSend_isEqualToIgnoringCase_(v17);
 
               if (v18)
               {
@@ -7380,7 +7379,7 @@ LABEL_19:
               v15 = *(*(&v27 + 1) + 8 * i);
               v16 = [v15 _dictionaryForKey:@"private-device-data"];
               v17 = [v16 _stringForKey:v7];
-              v18 = [v17 isEqualToIgnoringCase:dCopy];
+              v18 = objc_msgSend_isEqualToIgnoringCase_(v17);
 
               if (v18)
               {
@@ -7477,7 +7476,7 @@ LABEL_19:
               v15 = *(*(&v30 + 1) + 8 * i);
               v16 = [v15 _dictionaryForKey:v6];
               v17 = [v16 _stringForKey:v7];
-              v18 = [v17 isEqualToIgnoringCase:dCopy];
+              v18 = objc_msgSend_isEqualToIgnoringCase_(v17);
 
               if (v18)
               {
@@ -8217,7 +8216,7 @@ LABEL_11:
     v9 = sub_1004508E4(profileID);
     if (v9)
     {
-      if ([serviceType isEqualToIgnoringCase:@"iMessage"])
+      if (objc_msgSend_isEqualToIgnoringCase_(serviceType))
       {
         v10 = 4;
       }
@@ -8227,7 +8226,7 @@ LABEL_11:
         v10 = 0;
       }
 
-      if ([serviceType isEqualToIgnoringCase:@"FaceTime"])
+      if (objc_msgSend_isEqualToIgnoringCase_(serviceType))
       {
         v10 = 5;
       }

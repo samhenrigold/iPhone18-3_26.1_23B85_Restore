@@ -70,8 +70,8 @@
     while (!_ZF);
   }
 
-  device = [v3 device];
-  v23 = [device newBufferWithBytes:v27 length:4 * v5 options:0];
+  v22 = objc_msgSend_device(v3);
+  v23 = [v22 newBufferWithBytes:v27 length:4 * v5 options:0];
 
   _D0 = 0.5 / v2;
   __asm { FCVT            H0, D0 }
@@ -134,8 +134,8 @@
   }
 
   while (v19-- > 1);
-  device = [charsCopy device];
-  v24 = [device newBufferWithBytes:&v26 length:128 options:0];
+  v23 = objc_msgSend_device(charsCopy);
+  v24 = [v23 newBufferWithBytes:&v26 length:128 options:0];
 
   return v24;
 }
@@ -174,8 +174,8 @@
 
   v16 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:25 width:length height:length mipmapped:0];
   [v16 setUsage:1];
-  device = [gaussianCopy device];
-  v18 = [device newTextureWithDescriptor:v16];
+  v17 = objc_msgSend_device(gaussianCopy);
+  v18 = [v17 newTextureWithDescriptor:v16];
 
   memset(v20, 0, 24);
   v20[3] = length;

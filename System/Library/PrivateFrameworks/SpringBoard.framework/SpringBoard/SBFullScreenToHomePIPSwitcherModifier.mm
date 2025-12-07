@@ -97,7 +97,7 @@
   }
 
   [(SBSetupPIPMorphingSwitcherEventResponse *)v6 setAppLayoutBoundingBox:v10, v12, v14, v16];
-  v21 = SBAppendSwitcherModifierResponse(v5, transitionWillBegin);
+  v21 = SBAppendSwitcherModifierResponse();
   [(SBChainableModifierEventResponse *)v4 addChildResponse:v21];
 
   v22 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:2 updateMode:2];

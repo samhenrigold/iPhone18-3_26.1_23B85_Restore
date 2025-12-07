@@ -70,14 +70,12 @@
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    interaction = self->_interaction;
     PBDataWriterWriteInt32Field();
   }
 
@@ -138,7 +136,6 @@
   v5 = [equal isMemberOfClass:objc_opt_class()];
   if (v5)
   {
-    v6 = *(equal + 28);
     if (*&self->_has)
     {
       if ((*(equal + 28) & 1) == 0 || self->_timestamp != *(equal + 1))

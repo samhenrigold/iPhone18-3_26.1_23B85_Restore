@@ -2,6 +2,7 @@
 - (MTL4ToolsCommandBuffer)initWithBaseObject:(id)object parent:(id)parent;
 - (NSString)label;
 - (id)computeCommandEncoder;
+- (id)computeCommandEncoderWithSubstreamCount:(unsigned int)count;
 - (id)machineLearningCommandEncoder;
 - (id)renderCommandEncoderWithDescriptor:(id)descriptor;
 - (id)renderCommandEncoderWithDescriptor:(id)descriptor options:(unint64_t)options;
@@ -251,6 +252,26 @@
   objc_autoreleasePoolPop(v7);
 
   return v9;
+}
+
+- (id)computeCommandEncoderWithSubstreamCount:(unsigned int)count
+{
+  v3 = *&count;
+  v5 = objc_autoreleasePoolPush();
+  v6 = [-[MTLToolsObject baseObject](self "baseObject")];
+  if (v6)
+  {
+    v7 = [(MTL4ToolsCommandEncoder *)[MTL4ToolsComputeCommandEncoder alloc] initWithCommandEncoder:v6 commandBuffer:self];
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  objc_autoreleasePoolPop(v5);
+
+  return v7;
 }
 
 - (unint64_t)privateDataOffset

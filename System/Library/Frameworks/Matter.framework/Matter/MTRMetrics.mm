@@ -46,7 +46,7 @@
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "Cannot get metrics value for nil key");
     }
 
     v5 = 0;
@@ -75,7 +75,7 @@
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "Cannot set metrics value for nil key");
     }
   }
 }
@@ -99,7 +99,7 @@
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "Cannot remove metrics value for nil key");
     }
   }
 }

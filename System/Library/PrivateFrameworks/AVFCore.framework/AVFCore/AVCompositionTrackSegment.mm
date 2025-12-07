@@ -128,10 +128,10 @@
   v5 = NSStringFromClass(v4);
   if (self)
   {
-    [(AVAssetTrackSegment *)self timeMapping];
+    objc_msgSend_timeMapping(self);
     time = v16;
     Seconds = CMTimeGetSeconds(&time);
-    [(AVAssetTrackSegment *)self timeMapping];
+    objc_msgSend_timeMapping(self);
   }
 
   else
@@ -153,10 +153,10 @@
     priv = self->_priv;
     editAssetURL = priv->editAssetURL;
     editAssetTrackID = priv->editAssetTrackID;
-    [(AVAssetTrackSegment *)self timeMapping];
+    objc_msgSend_timeMapping(self);
     time = v14;
     v11 = CMTimeGetSeconds(&time);
-    [(AVAssetTrackSegment *)self timeMapping];
+    objc_msgSend_timeMapping(self);
     time = v13;
     [v7 appendFormat:@"from trackID %d of asset %@ sourceTimeRange [%.3f, +%.3f]", editAssetTrackID, editAssetURL, *&v11, CMTimeGetSeconds(&time)];
   }

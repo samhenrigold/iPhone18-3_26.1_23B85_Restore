@@ -7,7 +7,7 @@
 
 - (void)performRawActionModel:(NSDictionary *)model withParentTracker:(_TtC13BookAnalytics9BATracker *)tracker shouldReportFigaro:(BOOL)figaro sourceViewController:(UIViewController *)controller completion:(id)completion
 {
-  v13 = sub_6620C(&unk_3BDBB0);
+  v13 = sub_6620C(&unk_3BDBB0, &qword_2E47D0);
   __chkstk_darwin(v13 - 8);
   v15 = &v25 - v14;
   v16 = _Block_copy(completion);

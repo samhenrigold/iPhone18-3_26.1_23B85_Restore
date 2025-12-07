@@ -1,43 +1,14 @@
-void sub_1000C25E4(uint64_t a1, uint64_t a2)
-{
-  sub_100091028(a2, __stack_chk_guard);
-  sub_100090FE8();
-  sub_1000691D0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x1Eu);
-}
-
-void sub_1000C2694(uint64_t a1, uint64_t a2)
-{
-  sub_100091028(a2, __stack_chk_guard);
-  sub_100090FE8();
-  sub_1000691D0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x1Eu);
-}
-
-void sub_1000C2710()
-{
-  sub_10004E7C0();
-  sub_10003E020(v0);
-  v1 = *__error();
-  v2 = __error();
-  strerror(*v2);
-  sub_100069130();
-  sub_10009100C();
-  sub_10005BDB4();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x22u);
-}
-
 void sub_1000C27B8()
 {
   sub_10004E7C0();
   sub_10003E020(v0);
-  v1 = *__error();
-  v2 = __error();
-  strerror(*v2);
+  __error();
+  v1 = __error();
+  strerror(*v1);
   sub_100069130();
   sub_10009100C();
   sub_10005BD84();
-  _os_log_fault_impl(v3, v4, v5, v6, v7, 0x22u);
+  _os_log_fault_impl(v2, v3, v4, v5, v6, 0x22u);
 }
 
 void sub_1000C2860()
@@ -256,104 +227,102 @@ void sub_1000C3610(uint64_t a1, void *a2)
   _os_log_fault_impl(&_mh_execute_header, v2, OS_LOG_TYPE_FAULT, "Unable to format: pid %d doesn't exist", v4, 8u);
 }
 
-void sub_1000C366C(uint64_t a1)
+void sub_1000C366C()
 {
-  v1 = *(a1 + 32);
   sub_10005D690();
   sub_100060BBC();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1000C36E0(unsigned int *a1)
+void sub_1000C36E0()
 {
-  v1 = *a1;
   sub_10005D690();
   sub_10005BE3C();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_1000C37F0(unsigned int *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (byte_100127EC8 == 1)
   {
-    v9 = *__error();
-    v10 = sub_10003E080();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = __error();
+    v10 = *v9;
+    v12 = sub_10003E080(v9, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v11 = *a1;
+      v13 = *a1;
       *buf = 136315394;
-      v29 = "_numClientsSampling == 0";
-      v30 = 1024;
-      v31 = v11;
-      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%s: Still have %d clients sampling when dealloc'ed", buf, 0x12u);
+      v31 = "_numClientsSampling == 0";
+      v32 = 1024;
+      v33 = v13;
+      _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "%s: Still have %d clients sampling when dealloc'ed", buf, 0x12u);
     }
 
-    *__error() = v9;
+    *__error() = v10;
   }
 
   if (byte_100127EC9 == 1 && dword_100127558 <= 3)
   {
-    v13 = *__error();
-    v14 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: Still have %d clients sampling when dealloc'ed", "_numClientsSampling == 0", *a1);
-    if (v14)
+    v15 = *__error();
+    v16 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: Still have %d clients sampling when dealloc'ed", "_numClientsSampling == 0", *a1);
+    if (v16)
     {
-      v20 = v14;
-      v21 = sub_1000692C4(v14);
-      if (v21)
+      v23 = v16;
+      v24 = sub_1000692C4(v16);
+      if (v24)
       {
-        v24 = v21;
-        v25 = 0;
+        v27 = v24;
+        v28 = 0;
       }
 
       else
       {
-        v22 = sub_1000977FC();
-        v24 = malloc_type_calloc(v22, v23, 0x76F48353uLL);
-        sub_100080AE4(v20, v24);
-        v25 = v24;
+        v25 = sub_1000977FC();
+        v27 = malloc_type_calloc(v25, v26, 0x76F48353uLL);
+        sub_100080AE4(v23, v27);
+        v28 = v27;
       }
 
       if (qword_100127ED0)
       {
-        v26 = qword_100127ED0;
+        v29 = qword_100127ED0;
       }
 
       else
       {
-        v26 = __stderrp;
+        v29 = __stderrp;
       }
 
-      fprintf(v26, "%s\n", v24);
-      if (v25)
+      fprintf(v29, "%s\n", v27);
+      if (v28)
       {
-        free(v25);
+        free(v28);
       }
 
-      CFRelease(v20);
+      CFRelease(v23);
     }
 
     else
     {
-      v15 = sub_10003E080();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+      v18 = sub_10003E080(0, v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
       {
-        v16 = *a1;
+        v19 = *a1;
         *buf = 136315394;
-        v29 = "_numClientsSampling == 0";
-        v30 = 1024;
-        v31 = v16;
-        _os_log_fault_impl(&_mh_execute_header, v15, OS_LOG_TYPE_FAULT, "Unable to format: %s: Still have %d clients sampling when dealloc'ed", buf, 0x12u);
+        v31 = "_numClientsSampling == 0";
+        v32 = 1024;
+        v33 = v19;
+        _os_log_fault_impl(&_mh_execute_header, v18, OS_LOG_TYPE_FAULT, "Unable to format: %s: Still have %d clients sampling when dealloc'ed", buf, 0x12u);
       }
 
       sub_100097808();
-      sub_100069310("UNABLE TO FORMAT STRING\n", v17, v18, v19);
+      sub_100069310("UNABLE TO FORMAT STRING\n", v20, v21, v22);
     }
 
-    *__error() = v13;
+    *__error() = v15;
   }
 
-  v27 = *a1;
-  sub_10003DF54("[SPStackshotProvider dealloc]", "SPSampleProvider.m", 480, "%s: Still have %d clients sampling when dealloc'ed", a5, a6, a7, a8, "_numClientsSampling == 0");
+  sub_10003DF54("[SPStackshotProvider dealloc]", "SPSampleProvider.m", 480, "%s: Still have %d clients sampling when dealloc'ed", a5, a6, a7, a8, "_numClientsSampling == 0", *a1);
   abort();
 }
 
@@ -373,61 +342,62 @@ void sub_1000C3B2C(uint64_t a1, _DWORD *a2, int a3)
 
 int *sub_1000C3B80()
 {
-  v1 = *__error();
-  v2 = sub_10003E080();
-  if (sub_1000693B0(v2))
+  v1 = __error();
+  v2 = *v1;
+  v4 = sub_10003E080(v1, v3);
+  if (sub_1000693B0(v4))
   {
-    v22[0] = 0;
-    sub_100097774(&_mh_execute_header, v3, v4, "failed to set the sampling thread to a fixed-priority policy", v22);
+    v25[0] = 0;
+    sub_100097774(&_mh_execute_header, v5, v6, "failed to set the sampling thread to a fixed-priority policy", v25);
   }
 
   result = __error();
-  *result = v1;
+  *result = v2;
   if (byte_100127EC9 == 1 && dword_100127558 <= 4)
   {
-    v7 = *__error();
-    v8 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"failed to set the sampling thread to a fixed-priority policy");
-    if (v8)
+    v9 = *__error();
+    v10 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"failed to set the sampling thread to a fixed-priority policy");
+    if (v10)
     {
-      v9 = v8;
-      if (sub_1000692C4(v8))
+      v12 = v10;
+      if (sub_1000692C4(v10))
       {
-        v10 = 0;
+        v13 = 0;
       }
 
       else
       {
-        v17 = sub_1000977FC();
-        v19 = malloc_type_calloc(v17, v18, 0xA71AFBB0uLL);
-        sub_10004E764(v19);
-        v10 = v1;
+        v20 = sub_1000977FC();
+        v22 = malloc_type_calloc(v20, v21, 0xA71AFBB0uLL);
+        sub_10004E764(v22);
+        v13 = v2;
       }
 
-      v20 = sub_100080B60(qword_100127ED0);
-      fprintf(v20, "%s\n", v21);
-      if (v10)
+      v23 = sub_100080B60(qword_100127ED0);
+      fprintf(v23, "%s\n", v24);
+      if (v13)
       {
-        free(v10);
+        free(v13);
       }
 
-      CFRelease(v9);
+      CFRelease(v12);
     }
 
     else
     {
-      v11 = sub_10003E080();
-      if (sub_1000693B0(v11))
+      v14 = sub_10003E080(0, v11);
+      if (sub_1000693B0(v14))
       {
-        v23[0] = 0;
-        sub_100097774(&_mh_execute_header, v12, v13, "Unable to format: failed to set the sampling thread to a fixed-priority policy", v23);
+        v26[0] = 0;
+        sub_100097774(&_mh_execute_header, v15, v16, "Unable to format: failed to set the sampling thread to a fixed-priority policy", v26);
       }
 
       sub_100097808();
-      sub_100069310("UNABLE TO FORMAT STRING\n", v14, v15, v16);
+      sub_100069310("UNABLE TO FORMAT STRING\n", v17, v18, v19);
     }
 
     result = __error();
-    *result = v7;
+    *result = v9;
   }
 
   return result;
@@ -435,61 +405,62 @@ int *sub_1000C3B80()
 
 int *sub_1000C3D10()
 {
-  v1 = *__error();
-  v2 = sub_10003E080();
-  if (sub_1000693B0(v2))
+  v1 = __error();
+  v2 = *v1;
+  v4 = sub_10003E080(v1, v3);
+  if (sub_1000693B0(v4))
   {
-    v22[0] = 0;
-    sub_100097774(&_mh_execute_header, v3, v4, "failed to set sampling thread's priority", v22);
+    v25[0] = 0;
+    sub_100097774(&_mh_execute_header, v5, v6, "failed to set sampling thread's priority", v25);
   }
 
   result = __error();
-  *result = v1;
+  *result = v2;
   if (byte_100127EC9 == 1 && dword_100127558 <= 4)
   {
-    v7 = *__error();
-    v8 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"failed to set sampling thread's priority");
-    if (v8)
+    v9 = *__error();
+    v10 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"failed to set sampling thread's priority");
+    if (v10)
     {
-      v9 = v8;
-      if (sub_1000692C4(v8))
+      v12 = v10;
+      if (sub_1000692C4(v10))
       {
-        v10 = 0;
+        v13 = 0;
       }
 
       else
       {
-        v17 = sub_1000977FC();
-        v19 = malloc_type_calloc(v17, v18, 0x6D1B51D4uLL);
-        sub_10004E764(v19);
-        v10 = v1;
+        v20 = sub_1000977FC();
+        v22 = malloc_type_calloc(v20, v21, 0x6D1B51D4uLL);
+        sub_10004E764(v22);
+        v13 = v2;
       }
 
-      v20 = sub_100080B60(qword_100127ED0);
-      fprintf(v20, "%s\n", v21);
-      if (v10)
+      v23 = sub_100080B60(qword_100127ED0);
+      fprintf(v23, "%s\n", v24);
+      if (v13)
       {
-        free(v10);
+        free(v13);
       }
 
-      CFRelease(v9);
+      CFRelease(v12);
     }
 
     else
     {
-      v11 = sub_10003E080();
-      if (sub_1000693B0(v11))
+      v14 = sub_10003E080(0, v11);
+      if (sub_1000693B0(v14))
       {
-        v23[0] = 0;
-        sub_100097774(&_mh_execute_header, v12, v13, "Unable to format: failed to set sampling thread's priority", v23);
+        v26[0] = 0;
+        sub_100097774(&_mh_execute_header, v15, v16, "Unable to format: failed to set sampling thread's priority", v26);
       }
 
       sub_100097808();
-      sub_100069310("UNABLE TO FORMAT STRING\n", v14, v15, v16);
+      sub_100069310("UNABLE TO FORMAT STRING\n", v17, v18, v19);
     }
 
     result = __error();
-    *result = v7;
+    *result = v9;
   }
 
   return result;
@@ -511,62 +482,63 @@ void sub_1000C3F80(_DWORD *a1, uint64_t a2)
 
 void sub_1000C4178()
 {
-  v1 = *__error();
-  v2 = sub_10003E080();
-  if (sub_1000693B0(v2))
+  v1 = __error();
+  v2 = *v1;
+  v4 = sub_10003E080(v1, v3);
+  if (sub_1000693B0(v4))
   {
-    v22[0] = 0;
-    sub_100097774(&_mh_execute_header, v3, v4, "shared instance has 0 references", v22);
+    v25[0] = 0;
+    sub_100097774(&_mh_execute_header, v5, v6, "shared instance has 0 references", v25);
   }
 
-  *__error() = v1;
+  *__error() = v2;
   if (byte_100127EC9 == 1 && dword_100127558 <= 4)
   {
-    v6 = *__error();
-    v7 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"shared instance has 0 references");
-    if (v7)
+    v8 = *__error();
+    v9 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"shared instance has 0 references");
+    if (v9)
     {
-      v8 = v7;
-      if (sub_1000692C4(v7))
+      v11 = v9;
+      if (sub_1000692C4(v9))
       {
-        v9 = 0;
+        v12 = 0;
       }
 
       else
       {
-        v16 = sub_1000977FC();
-        v18 = malloc_type_calloc(v16, v17, 0xC44C137AuLL);
-        sub_10004E764(v18);
-        v9 = v1;
+        v19 = sub_1000977FC();
+        v21 = malloc_type_calloc(v19, v20, 0xC44C137AuLL);
+        sub_10004E764(v21);
+        v12 = v2;
       }
 
-      v19 = sub_100080B60(qword_100127ED0);
-      fprintf(v19, "%s\n", v21);
-      if (v9)
+      v22 = sub_100080B60(qword_100127ED0);
+      fprintf(v22, "%s\n", v24);
+      if (v12)
       {
-        free(v9);
+        free(v12);
       }
 
-      CFRelease(v8);
+      CFRelease(v11);
     }
 
     else
     {
-      v10 = sub_10003E080();
-      if (sub_1000693B0(v10))
+      v13 = sub_10003E080(0, v10);
+      if (sub_1000693B0(v13))
       {
-        v23[0] = 0;
-        sub_100097774(&_mh_execute_header, v11, v12, "Unable to format: shared instance has 0 references", v23);
+        v26[0] = 0;
+        sub_100097774(&_mh_execute_header, v14, v15, "Unable to format: shared instance has 0 references", v26);
       }
 
       sub_100097808();
-      sub_100069310("UNABLE TO FORMAT STRING\n", v13, v14, v15);
+      sub_100069310("UNABLE TO FORMAT STRING\n", v16, v17, v18);
     }
 
-    *__error() = v6;
+    *__error() = v8;
   }
 
-  v20 = qword_100127E98;
+  v23 = qword_100127E98;
   qword_100127E98 = 0;
 }
 
@@ -595,32 +567,27 @@ void sub_1000C4454()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1000C44C4(unsigned int *a1, uint64_t a2)
+void sub_1000C44C4()
 {
-  v2 = *a1;
-  v3 = *(a2 + 68);
   sub_10005D690();
-  v7 = 1024;
-  v8 = v4;
-  _os_log_debug_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "Already sampling with %uus-interval stackshots and %us-interval occasional data", v6, 0xEu);
+  v3 = 1024;
+  v4 = v0;
+  _os_log_debug_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEBUG, "Already sampling with %uus-interval stackshots and %us-interval occasional data", v2, 0xEu);
 }
 
-void sub_1000C4550(unsigned int *a1, unsigned int *a2)
+void sub_1000C4550()
 {
-  v2 = *a1;
-  v3 = *a2;
   sub_10005D690();
-  v7 = 1024;
-  v8 = v4;
-  _os_log_fault_impl(&_mh_execute_header, v5, OS_LOG_TYPE_FAULT, "Unable to format: Already sampling with %uus-interval stackshots and %us-interval occasional data", v6, 0xEu);
+  v3 = 1024;
+  v4 = v0;
+  _os_log_fault_impl(&_mh_execute_header, v1, OS_LOG_TYPE_FAULT, "Unable to format: Already sampling with %uus-interval stackshots and %us-interval occasional data", v2, 0xEu);
 }
 
-void sub_1000C45DC(unsigned int *a1)
+void sub_1000C45DC()
 {
-  v1 = *a1;
   sub_10005D690();
   sub_10005BE3C();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_1000C46B8()
@@ -632,145 +599,147 @@ void sub_1000C46B8()
 
 uint64_t sub_1000C4728(int *a1)
 {
-  v2 = *__error();
-  v3 = sub_10003E080();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+  v2 = __error();
+  v3 = *v2;
+  v5 = sub_10003E080(v2, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
-    *v21 = 0;
-    sub_100097790(&_mh_execute_header, v3, v4, "shared instance isn't self", v21);
+    *v24 = 0;
+    sub_100097790(&_mh_execute_header, v5, v6, "shared instance isn't self", v24);
   }
 
-  *__error() = v2;
+  *__error() = v3;
   if (byte_100127EC9 != 1 || dword_100127558 > 4)
   {
     return 1;
   }
 
-  v7 = *__error();
-  v8 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"shared instance isn't self");
-  if (v8)
+  v9 = *__error();
+  v10 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"shared instance isn't self");
+  if (v10)
   {
-    v9 = v8;
-    v10 = sub_1000692C4(v8);
-    if (v10)
+    v12 = v10;
+    v13 = sub_1000692C4(v10);
+    if (v13)
     {
-      v11 = v10;
-      v12 = 0;
+      v14 = v13;
+      v15 = 0;
     }
 
     else
     {
-      v18 = sub_1000977FC();
-      v11 = malloc_type_calloc(v18, v19, 0x71A30AC7uLL);
-      sub_100080AE4(v9, v11);
-      v12 = v11;
+      v21 = sub_1000977FC();
+      v14 = malloc_type_calloc(v21, v22, 0x71A30AC7uLL);
+      sub_100080AE4(v12, v14);
+      v15 = v14;
     }
 
     if (qword_100127ED0)
     {
-      v20 = qword_100127ED0;
+      v23 = qword_100127ED0;
     }
 
     else
     {
-      v20 = __stderrp;
+      v23 = __stderrp;
     }
 
-    fprintf(v20, "%s\n", v11);
-    if (v12)
+    fprintf(v23, "%s\n", v14);
+    if (v15)
     {
-      free(v12);
+      free(v15);
     }
 
-    CFRelease(v9);
+    CFRelease(v12);
   }
 
   else
   {
-    v13 = sub_10003E080();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v16 = sub_10003E080(0, v11);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
-      *v22 = 0;
-      sub_100097790(&_mh_execute_header, v13, v14, "Unable to format: shared instance isn't self", v22);
+      *v25 = 0;
+      sub_100097790(&_mh_execute_header, v16, v17, "Unable to format: shared instance isn't self", v25);
     }
 
     sub_100097808();
-    sub_100069310("UNABLE TO FORMAT STRING\n", v15, v16, v17);
+    sub_100069310("UNABLE TO FORMAT STRING\n", v18, v19, v20);
   }
 
   result = 0;
-  *a1 = v7;
+  *a1 = v9;
   return result;
 }
 
 int *sub_1000C49C8(uint64_t a1, uint64_t a2)
 {
-  v4 = *__error();
-  v5 = sub_10003E080();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+  v4 = __error();
+  v5 = *v4;
+  v7 = sub_10003E080(v4, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
   {
     sub_100080B34();
-    sub_100080B90(&_mh_execute_header, v21, v22, "filePath %s cut off with date (needed %zu chars)", v23, v24, v25, v26, v33, v34, v35);
+    sub_100080B90(&_mh_execute_header, v24, v25, "filePath %s cut off with date (needed %zu chars)", v26, v27, v28, v29, v36, v38);
   }
 
   result = __error();
-  *result = v4;
+  *result = v5;
   if (byte_100127EC9 == 1 && dword_100127558 <= 4)
   {
-    v8 = *__error();
-    v9 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"filePath %s cut off with date (needed %zu chars)");
-    if (v9)
+    v10 = *__error();
+    v11 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"filePath %s cut off with date (needed %zu chars)", a1, a2);
+    if (v11)
     {
-      v10 = v9;
-      v11 = sub_1000692C4(v9);
-      if (v11)
+      v13 = v11;
+      v14 = sub_1000692C4(v11);
+      if (v14)
       {
-        v12 = v11;
-        v13 = 0;
+        v15 = v14;
+        v16 = 0;
       }
 
       else
       {
-        v18 = sub_1000977FC();
-        v12 = malloc_type_calloc(v18, v19, 0x67BC2E96uLL);
-        sub_100080AE4(v10, v12);
-        v13 = v12;
+        v21 = sub_1000977FC();
+        v15 = malloc_type_calloc(v21, v22, 0x67BC2E96uLL);
+        sub_100080AE4(v13, v15);
+        v16 = v15;
       }
 
       if (qword_100127ED0)
       {
-        v20 = qword_100127ED0;
+        v23 = qword_100127ED0;
       }
 
       else
       {
-        v20 = __stderrp;
+        v23 = __stderrp;
       }
 
-      fprintf(v20, "%s\n", v12);
-      if (v13)
+      fprintf(v23, "%s\n", v15);
+      if (v16)
       {
-        free(v13);
+        free(v16);
       }
 
-      CFRelease(v10);
+      CFRelease(v13);
     }
 
     else
     {
-      v14 = sub_10003E080();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+      v17 = sub_10003E080(0, v12);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
       {
         sub_100080B34();
-        sub_100080B90(&_mh_execute_header, v27, v28, "Unable to format: filePath %s cut off with date (needed %zu chars)", v29, v30, v31, v32, a1, a2, v35);
+        sub_100080B90(&_mh_execute_header, v30, v31, "Unable to format: filePath %s cut off with date (needed %zu chars)", v32, v33, v34, v35, v37, v39);
       }
 
       sub_100097808();
-      sub_100069310("UNABLE TO FORMAT STRING\n", v15, v16, v17);
+      sub_100069310("UNABLE TO FORMAT STRING\n", v18, v19, v20);
     }
 
     result = __error();
-    *result = v8;
+    *result = v10;
   }
 
   return result;
@@ -778,20 +747,20 @@ int *sub_1000C49C8(uint64_t a1, uint64_t a2)
 
 void sub_1000C4C34(uint64_t a1, NSObject *a2)
 {
-  v3 = *__error();
-  v4 = __error();
-  strerror(*v4);
+  __error();
+  v3 = __error();
+  strerror(*v3);
   sub_100069034();
-  _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "Unable to open %s to save stackshots: %d (%s)", v5, 0x1Cu);
+  _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "Unable to open %s to save stackshots: %d (%s)", v4, 0x1Cu);
 }
 
 void sub_1000C4CD8(uint64_t a1, NSObject *a2)
 {
-  v3 = *__error();
-  v4 = __error();
-  strerror(*v4);
+  __error();
+  v3 = __error();
+  strerror(*v3);
   sub_100069034();
-  _os_log_fault_impl(&_mh_execute_header, a2, OS_LOG_TYPE_FAULT, "Unable to format: Unable to open %s to save stackshots: %d (%s)", v5, 0x1Cu);
+  _os_log_fault_impl(&_mh_execute_header, a2, OS_LOG_TYPE_FAULT, "Unable to format: Unable to open %s to save stackshots: %d (%s)", v4, 0x1Cu);
 }
 
 void sub_1000C4DE4()
@@ -1161,82 +1130,83 @@ void sub_1000C58B4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   v8 = &off_1000CE000;
   if (byte_100127EC8 == 1)
   {
-    v9 = *__error();
-    v10 = sub_10003E080();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = __error();
+    v10 = *v9;
+    v12 = sub_10003E080(v9, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v24 = "bodies || angleBracketContents || stateInfo";
-      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%s: No frame bodies, state, nor angle bracket contents", buf, 0xCu);
+      v27 = "bodies || angleBracketContents || stateInfo";
+      _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "%s: No frame bodies, state, nor angle bracket contents", buf, 0xCu);
     }
 
-    *__error() = v9;
+    *__error() = v10;
   }
 
   if (byte_100127EC9 == 1 && dword_100127558 <= 3)
   {
-    v12 = *__error();
-    v13 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: No frame bodies, state, nor angle bracket contents", "bodies || angleBracketContents || stateInfo");
-    if (v13)
+    v14 = *__error();
+    v15 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: No frame bodies, state, nor angle bracket contents", "bodies || angleBracketContents || stateInfo");
+    if (v15)
     {
-      v18 = v13;
-      v19 = sub_1000692C4(v13);
-      if (v19)
+      v21 = v15;
+      v22 = sub_1000692C4(v15);
+      if (v22)
       {
-        v8 = v19;
-        v21 = 0;
+        v8 = v22;
+        v24 = 0;
       }
 
       else
       {
-        v20 = malloc_type_calloc(0x400uLL, 1uLL, 0x9EF20C4EuLL);
-        sub_10004E764(v20);
-        v21 = &off_1000CE000;
+        v23 = malloc_type_calloc(0x400uLL, 1uLL, 0x9EF20C4EuLL);
+        sub_10004E764(v23);
+        v24 = &off_1000CE000;
       }
 
       if (qword_100127ED0)
       {
-        v22 = qword_100127ED0;
+        v25 = qword_100127ED0;
       }
 
       else
       {
-        v22 = __stderrp;
+        v25 = __stderrp;
       }
 
-      fprintf(v22, "%s\n", v8);
-      if (v21)
+      fprintf(v25, "%s\n", v8);
+      if (v24)
       {
-        free(v21);
+        free(v24);
       }
 
-      CFRelease(v18);
+      CFRelease(v21);
     }
 
     else
     {
-      v14 = sub_10003E080();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+      v17 = sub_10003E080(0, v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
-        v24 = "bodies || angleBracketContents || stateInfo";
-        _os_log_fault_impl(&_mh_execute_header, v14, OS_LOG_TYPE_FAULT, "Unable to format: %s: No frame bodies, state, nor angle bracket contents", buf, 0xCu);
+        v27 = "bodies || angleBracketContents || stateInfo";
+        _os_log_fault_impl(&_mh_execute_header, v17, OS_LOG_TYPE_FAULT, "Unable to format: %s: No frame bodies, state, nor angle bracket contents", buf, 0xCu);
       }
 
       if (qword_100127ED0)
       {
-        v17 = qword_100127ED0;
+        v20 = qword_100127ED0;
       }
 
       else
       {
-        v17 = __stderrp;
+        v20 = __stderrp;
       }
 
-      sub_100069310("UNABLE TO FORMAT STRING\n", v15, v16, v17);
+      sub_100069310("UNABLE TO FORMAT STRING\n", v18, v19, v20);
     }
 
-    *__error() = v12;
+    *__error() = v14;
   }
 
   sub_10003DF54("+[SPTreeNode nodeWithParent:isKernel:bodies:address:stateInfo:angleBracketContents:]", "SPTextualReportParser.m", 70, "%s: No frame bodies, state, nor angle bracket contents", a5, a6, a7, a8, "bodies || angleBracketContents || stateInfo");
@@ -1247,49 +1217,87 @@ void sub_1000C5AC0(void *a1, void *a2)
 {
   if (byte_100127EC8 == 1)
   {
-    v5 = *__error();
-    v6 = sub_10003E080();
-    if (sub_1000A5974(v6))
+    v5 = __error();
+    v6 = *v5;
+    v8 = sub_10003E080(v5, v7);
+    if (sub_1000A5974(v8))
     {
-      v7 = [a1 debugDescription];
-      v8 = [v7 UTF8String];
-      v9 = [a2 debugDescription];
+      v9 = [a1 debugDescription];
+      v10 = [v9 UTF8String];
+      v11 = [a2 debugDescription];
       *buf = 136315650;
-      v38 = "!(bodies && angleBracketContents)";
-      v39 = 2080;
-      v40 = v8;
-      v41 = 2080;
-      v42 = [v9 UTF8String];
+      v44 = "!(bodies && angleBracketContents)";
+      v45 = 2080;
+      v46 = v10;
+      v47 = 2080;
+      v48 = [v11 UTF8String];
       _os_log_error_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "%s: bodies (%s) and angle bracket contents (%s)", buf, 0x20u);
     }
 
-    *__error() = v5;
+    *__error() = v6;
   }
 
   if (byte_100127EC9 == 1 && dword_100127558 <= 3)
   {
-    v11 = *__error();
-    v12 = [a1 debugDescription];
-    v13 = [v12 UTF8String];
-    v14 = [a2 debugDescription];
-    v36 = [v14 UTF8String];
-    v35 = "!(bodies && angleBracketContents)";
-    v16 = sub_1000A598C(v36, v15, @"%s: bodies (%s) and angle bracket contents (%s)");
+    v13 = *__error();
+    v14 = [a1 debugDescription];
+    v15 = [v14 UTF8String];
+    v16 = [a2 debugDescription];
+    v42 = [v16 UTF8String];
+    v41 = "!(bodies && angleBracketContents)";
+    v18 = sub_1000A598C(v42, v17, @"%s: bodies (%s) and angle bracket contents (%s)");
 
-    if (v16)
+    if (v18)
     {
-      v25 = sub_1000692C4(v16);
-      if (v25)
+      v29 = sub_1000692C4(v18);
+      if (v29)
       {
-        v12 = v25;
-        v27 = 0;
+        v14 = v29;
+        v31 = 0;
       }
 
       else
       {
-        v26 = malloc_type_calloc(0x400uLL, 1uLL, 0xB491877uLL);
-        sub_1000A57F4(v26);
-        v27 = v12;
+        v30 = malloc_type_calloc(0x400uLL, 1uLL, 0xB491877uLL);
+        sub_1000A57F4(v30);
+        v31 = v14;
+      }
+
+      if (qword_100127ED0)
+      {
+        v32 = qword_100127ED0;
+      }
+
+      else
+      {
+        v32 = __stderrp;
+      }
+
+      fprintf(v32, "%s\n", v14);
+      if (v31)
+      {
+        free(v31);
+      }
+
+      CFRelease(v18);
+    }
+
+    else
+    {
+      v21 = sub_10003E080(v19, v20);
+      if (sub_1000A595C(v21))
+      {
+        v22 = [a1 debugDescription];
+        v23 = [v22 UTF8String];
+        v24 = [a2 debugDescription];
+        v25 = [v24 UTF8String];
+        *buf = 136315650;
+        v44 = "!(bodies && angleBracketContents)";
+        v45 = 2080;
+        v46 = v23;
+        v47 = 2080;
+        v48 = v25;
+        _os_log_fault_impl(&_mh_execute_header, 0, OS_LOG_TYPE_FAULT, "Unable to format: %s: bodies (%s) and angle bracket contents (%s)", buf, 0x20u);
       }
 
       if (qword_100127ED0)
@@ -1302,76 +1310,39 @@ void sub_1000C5AC0(void *a1, void *a2)
         v28 = __stderrp;
       }
 
-      fprintf(v28, "%s\n", v12);
-      if (v27)
-      {
-        free(v27);
-      }
-
-      CFRelease(v16);
+      sub_100069310("UNABLE TO FORMAT STRING\n", v26, v27, v28);
     }
 
-    else
-    {
-      v17 = sub_10003E080();
-      if (sub_1000A595C(v17))
-      {
-        v18 = [a1 debugDescription];
-        v19 = [v18 UTF8String];
-        v20 = [a2 debugDescription];
-        v21 = [v20 UTF8String];
-        *buf = 136315650;
-        v38 = "!(bodies && angleBracketContents)";
-        v39 = 2080;
-        v40 = v19;
-        v41 = 2080;
-        v42 = v21;
-        _os_log_fault_impl(&_mh_execute_header, 0, OS_LOG_TYPE_FAULT, "Unable to format: %s: bodies (%s) and angle bracket contents (%s)", buf, 0x20u);
-      }
-
-      if (qword_100127ED0)
-      {
-        v24 = qword_100127ED0;
-      }
-
-      else
-      {
-        v24 = __stderrp;
-      }
-
-      sub_100069310("UNABLE TO FORMAT STRING\n", v22, v23, v24);
-    }
-
-    *__error() = v11;
+    *__error() = v13;
   }
 
-  v29 = [a1 debugDescription];
-  [v29 UTF8String];
-  v30 = [a2 debugDescription];
-  [v30 UTF8String];
-  sub_10003DF54("+[SPTreeNode nodeWithParent:isKernel:bodies:address:stateInfo:angleBracketContents:]", "SPTextualReportParser.m", 69, "%s: bodies (%s) and angle bracket contents (%s)", v31, v32, v33, v34, "!(bodies && angleBracketContents)");
+  v33 = [a1 debugDescription];
+  v34 = [v33 UTF8String];
+  v35 = [a2 debugDescription];
+  v36 = [v35 UTF8String];
+  sub_10003DF54("+[SPTreeNode nodeWithParent:isKernel:bodies:address:stateInfo:angleBracketContents:]", "SPTextualReportParser.m", 69, "%s: bodies (%s) and angle bracket contents (%s)", v37, v38, v39, v40, "!(bodies && angleBracketContents)", v34, v36);
 
   abort();
 }
 
 void sub_1000C5DEC()
 {
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   sub_100069034();
   sub_1000691C4();
-  _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0x1Cu);
+  _os_log_error_impl(v1, v2, OS_LOG_TYPE_ERROR, v3, v4, 0x1Cu);
 }
 
 void sub_1000C5E8C()
 {
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   sub_100069034();
   sub_1000691C4();
-  _os_log_fault_impl(v2, v3, OS_LOG_TYPE_FAULT, v4, v5, 0x1Cu);
+  _os_log_fault_impl(v1, v2, OS_LOG_TYPE_FAULT, v3, v4, 0x1Cu);
 }
 
 void sub_1000C5FA0()
@@ -1468,181 +1439,179 @@ void sub_1000C64CC(uint64_t a1, _DWORD *a2)
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
-void sub_1000C65E8(uint64_t a1)
+void sub_1000C65E8()
 {
-  v3 = &off_1000CE000;
+  v1 = &off_1000CE000;
   if (byte_100127EC8 == 1)
   {
-    v4 = *__error();
-    v5 = sub_10003E080();
+    v2 = __error();
+    v3 = *v2;
+    v5 = sub_10003E080(v2, v4);
     if (sub_1000A59D0(v5))
     {
-      v6 = *(*(*a1 + 8) + 24);
       sub_1000A5944();
-      sub_1000A58B4(&_mh_execute_header, v7, v8, "%s: bufSize overflow (%d)", v9, v10, v11, v12, v37, v38, v39);
+      sub_1000A58B4(&_mh_execute_header, v6, v7, "%s: bufSize overflow (%d)", v8, v9, v10, v11, v36, v37);
     }
 
-    *__error() = v4;
+    *__error() = v3;
   }
 
   if (byte_100127EC9 == 1 && dword_100127558 <= 3)
   {
-    v14 = *__error();
+    v13 = *__error();
     sub_1000A59BC();
-    v16 = CFStringCreateWithFormat(v15, 0, @"%s: bufSize overflow (%d)");
-    if (v16)
+    v15 = CFStringCreateWithFormat(v14, 0, @"%s: bufSize overflow (%d)");
+    if (v15)
     {
-      v28 = v16;
-      v29 = sub_1000692C4(v16);
-      if (v29)
+      v27 = v15;
+      v28 = sub_1000692C4(v15);
+      if (v28)
       {
-        v3 = v29;
-        v31 = 0;
+        v1 = v28;
+        v30 = 0;
       }
 
       else
       {
-        v30 = malloc_type_calloc(0x400uLL, 1uLL, 0x6F14803CuLL);
-        sub_10006ADC4(v30);
-        v31 = &off_1000CE000;
+        v29 = malloc_type_calloc(0x400uLL, 1uLL, 0x6F14803CuLL);
+        sub_10006ADC4(v29);
+        v30 = &off_1000CE000;
       }
 
       if (qword_100127ED0)
       {
-        v32 = qword_100127ED0;
+        v31 = qword_100127ED0;
       }
 
       else
       {
-        v32 = __stderrp;
+        v31 = __stderrp;
       }
 
-      fprintf(v32, "%s\n", v3);
-      if (v31)
+      fprintf(v31, "%s\n", v1);
+      if (v30)
       {
-        free(v31);
+        free(v30);
       }
 
-      CFRelease(v28);
+      CFRelease(v27);
     }
 
     else
     {
-      v17 = sub_10003E080();
+      v17 = sub_10003E080(0, v16);
       if (sub_10006AECC(v17))
       {
-        v18 = *(*(*a1 + 8) + 24);
         sub_1000A5944();
-        sub_100080BB0(&_mh_execute_header, v19, v20, "Unable to format: %s: bufSize overflow (%d)", v21, v22, v23, v24, v37, v38, v39);
+        sub_100080BB0(&_mh_execute_header, v18, v19, "Unable to format: %s: bufSize overflow (%d)", v20, v21, v22, v23, v36, v37);
       }
 
       if (qword_100127ED0)
       {
-        v27 = qword_100127ED0;
+        v26 = qword_100127ED0;
       }
 
       else
       {
-        v27 = __stderrp;
+        v26 = __stderrp;
       }
 
-      sub_100069310("UNABLE TO FORMAT STRING\n", v25, v26, v27);
+      sub_100069310("UNABLE TO FORMAT STRING\n", v24, v25, v26);
     }
 
-    *__error() = v14;
+    *__error() = v13;
   }
 
   sub_1000A59BC();
-  sub_10003DF54("[SPTextualReportParser parseSpindumpFile:andReportToStream:]_block_invoke", "SPTextualReportParser.m", 251, "%s: bufSize overflow (%d)", v33, v34, v35, v36, v37);
+  sub_10003DF54("[SPTextualReportParser parseSpindumpFile:andReportToStream:]_block_invoke", "SPTextualReportParser.m", 251, "%s: bufSize overflow (%d)", v32, v33, v34, v35);
   abort();
 }
 
-void sub_1000C67F8(uint64_t a1)
+void sub_1000C67F8()
 {
-  v3 = &off_1000CE000;
+  v1 = &off_1000CE000;
   if (byte_100127EC8 == 1)
   {
-    v4 = *__error();
-    v5 = sub_10003E080();
+    v2 = __error();
+    v3 = *v2;
+    v5 = sub_10003E080(v2, v4);
     if (sub_1000A59D0(v5))
     {
-      v6 = *(*(*a1 + 8) + 24);
       sub_1000A5944();
-      sub_1000A58B4(&_mh_execute_header, v7, v8, "%s: Unable to allocate %d buffer", v9, v10, v11, v12, v37, v38, v39);
+      sub_1000A58B4(&_mh_execute_header, v6, v7, "%s: Unable to allocate %d buffer", v8, v9, v10, v11, v36, v37);
     }
 
-    *__error() = v4;
+    *__error() = v3;
   }
 
   if (byte_100127EC9 == 1 && dword_100127558 <= 3)
   {
-    v14 = *__error();
+    v13 = *__error();
     sub_1000A59BC();
-    v16 = CFStringCreateWithFormat(v15, 0, @"%s: Unable to allocate %d buffer");
-    if (v16)
+    v15 = CFStringCreateWithFormat(v14, 0, @"%s: Unable to allocate %d buffer");
+    if (v15)
     {
-      v28 = v16;
-      v29 = sub_1000692C4(v16);
-      if (v29)
+      v27 = v15;
+      v28 = sub_1000692C4(v15);
+      if (v28)
       {
-        v3 = v29;
-        v31 = 0;
+        v1 = v28;
+        v30 = 0;
       }
 
       else
       {
-        v30 = malloc_type_calloc(0x400uLL, 1uLL, 0x29DCA47uLL);
-        sub_10006ADC4(v30);
-        v31 = &off_1000CE000;
+        v29 = malloc_type_calloc(0x400uLL, 1uLL, 0x29DCA47uLL);
+        sub_10006ADC4(v29);
+        v30 = &off_1000CE000;
       }
 
       if (qword_100127ED0)
       {
-        v32 = qword_100127ED0;
+        v31 = qword_100127ED0;
       }
 
       else
       {
-        v32 = __stderrp;
+        v31 = __stderrp;
       }
 
-      fprintf(v32, "%s\n", v3);
-      if (v31)
+      fprintf(v31, "%s\n", v1);
+      if (v30)
       {
-        free(v31);
+        free(v30);
       }
 
-      CFRelease(v28);
+      CFRelease(v27);
     }
 
     else
     {
-      v17 = sub_10003E080();
+      v17 = sub_10003E080(0, v16);
       if (sub_10006AECC(v17))
       {
-        v18 = *(*(*a1 + 8) + 24);
         sub_1000A5944();
-        sub_100080BB0(&_mh_execute_header, v19, v20, "Unable to format: %s: Unable to allocate %d buffer", v21, v22, v23, v24, v37, v38, v39);
+        sub_100080BB0(&_mh_execute_header, v18, v19, "Unable to format: %s: Unable to allocate %d buffer", v20, v21, v22, v23, v36, v37);
       }
 
       if (qword_100127ED0)
       {
-        v27 = qword_100127ED0;
+        v26 = qword_100127ED0;
       }
 
       else
       {
-        v27 = __stderrp;
+        v26 = __stderrp;
       }
 
-      sub_100069310("UNABLE TO FORMAT STRING\n", v25, v26, v27);
+      sub_100069310("UNABLE TO FORMAT STRING\n", v24, v25, v26);
     }
 
-    *__error() = v14;
+    *__error() = v13;
   }
 
   sub_1000A59BC();
-  sub_10003DF54("[SPTextualReportParser parseSpindumpFile:andReportToStream:]_block_invoke", "SPTextualReportParser.m", 254, "%s: Unable to allocate %d buffer", v33, v34, v35, v36, v37);
+  sub_10003DF54("[SPTextualReportParser parseSpindumpFile:andReportToStream:]_block_invoke", "SPTextualReportParser.m", 254, "%s: Unable to allocate %d buffer", v32, v33, v34, v35);
   abort();
 }
 
@@ -1664,83 +1633,84 @@ void sub_1000C7138()
 {
   if (byte_100127EC8 == 1)
   {
-    v0 = *__error();
-    v1 = sub_10003E080();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    v0 = __error();
+    v1 = *v0;
+    v3 = sub_10003E080(v0, v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v2 = *__error();
-      v3 = __error();
-      strerror(*v3);
+      __error();
+      v4 = __error();
+      strerror(*v4);
       sub_1000A59E8();
-      _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "%s: ftello failed: %d (%s)", buf, 0x1Cu);
+      _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "%s: ftello failed: %d (%s)", buf, 0x1Cu);
     }
 
-    *__error() = v0;
+    *__error() = v1;
   }
 
   if (byte_100127EC9 == 1 && dword_100127558 <= 3)
   {
-    v5 = *__error();
     v6 = *__error();
-    v7 = __error();
-    v8 = strerror(*v7);
-    v9 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: ftello failed: %d (%s)", "pos != -1", v6, v8);
-    v10 = v9;
-    if (v9)
+    v7 = *__error();
+    v8 = __error();
+    v9 = strerror(*v8);
+    v10 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%s: ftello failed: %d (%s)", "pos != -1", v7, v9);
+    v12 = v10;
+    if (v10)
     {
-      v23 = sub_1000692C4(v9);
-      if (!v23)
+      v25 = sub_1000692C4(v10);
+      if (!v25)
       {
-        v24 = malloc_type_calloc(0x400uLL, 1uLL, 0x7EF3DC29uLL);
-        sub_10004E764(v24);
+        v26 = malloc_type_calloc(0x400uLL, 1uLL, 0x7EF3DC29uLL);
+        sub_10004E764(v26);
       }
 
       if (qword_100127ED0)
       {
-        v25 = qword_100127ED0;
+        v27 = qword_100127ED0;
       }
 
       else
       {
-        v25 = __stderrp;
+        v27 = __stderrp;
       }
 
-      fprintf(v25, "%s\n", v23);
-      CFRelease(v10);
+      fprintf(v27, "%s\n", v25);
+      CFRelease(v12);
     }
 
     else
     {
-      v11 = sub_10003E080();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+      v13 = sub_10003E080(0, v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
       {
-        v12 = *__error();
-        v13 = __error();
-        strerror(*v13);
+        __error();
+        v14 = __error();
+        strerror(*v14);
         sub_1000A59E8();
-        _os_log_fault_impl(&_mh_execute_header, v11, OS_LOG_TYPE_FAULT, "Unable to format: %s: ftello failed: %d (%s)", buf, 0x1Cu);
+        _os_log_fault_impl(&_mh_execute_header, v13, OS_LOG_TYPE_FAULT, "Unable to format: %s: ftello failed: %d (%s)", buf, 0x1Cu);
       }
 
       if (qword_100127ED0)
       {
-        v16 = qword_100127ED0;
+        v17 = qword_100127ED0;
       }
 
       else
       {
-        v16 = __stderrp;
+        v17 = __stderrp;
       }
 
-      sub_100069310("UNABLE TO FORMAT STRING\n", v14, v15, v16);
+      sub_100069310("UNABLE TO FORMAT STRING\n", v15, v16, v17);
     }
 
-    *__error() = v5;
+    *__error() = v6;
   }
 
-  v17 = *__error();
-  v18 = __error();
-  strerror(*v18);
-  sub_10003DF54("LookaheadLines", "SPTextualReportParser.m", 936, "%s: ftello failed: %d (%s)", v19, v20, v21, v22, "pos != -1");
+  v18 = *__error();
+  v19 = __error();
+  v20 = strerror(*v19);
+  sub_10003DF54("LookaheadLines", "SPTextualReportParser.m", 936, "%s: ftello failed: %d (%s)", v21, v22, v23, v24, "pos != -1", v18, v20);
   abort();
 }
 
@@ -1765,181 +1735,179 @@ void sub_1000C7AF8()
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_1000C7B6C(uint64_t a1)
+void sub_1000C7B6C()
 {
-  v3 = &off_1000CE000;
+  v1 = &off_1000CE000;
   if (byte_100127EC8 == 1)
   {
-    v4 = *__error();
-    v5 = sub_10003E080();
+    v2 = __error();
+    v3 = *v2;
+    v5 = sub_10003E080(v2, v4);
     if (sub_1000A59D0(v5))
     {
-      v6 = *(*(*a1 + 8) + 24);
       sub_1000A5944();
-      sub_1000A58B4(&_mh_execute_header, v7, v8, "%s: bufSize overflow (%d)", v9, v10, v11, v12, v37, v38, v39);
+      sub_1000A58B4(&_mh_execute_header, v6, v7, "%s: bufSize overflow (%d)", v8, v9, v10, v11, v36, v37);
     }
 
-    *__error() = v4;
+    *__error() = v3;
   }
 
   if (byte_100127EC9 == 1 && dword_100127558 <= 3)
   {
-    v14 = *__error();
+    v13 = *__error();
     sub_1000A59BC();
-    v16 = CFStringCreateWithFormat(v15, 0, @"%s: bufSize overflow (%d)");
-    if (v16)
+    v15 = CFStringCreateWithFormat(v14, 0, @"%s: bufSize overflow (%d)");
+    if (v15)
     {
-      v28 = v16;
-      v29 = sub_1000692C4(v16);
-      if (v29)
+      v27 = v15;
+      v28 = sub_1000692C4(v15);
+      if (v28)
       {
-        v3 = v29;
-        v31 = 0;
+        v1 = v28;
+        v30 = 0;
       }
 
       else
       {
-        v30 = malloc_type_calloc(0x400uLL, 1uLL, 0x97648203uLL);
-        sub_10006ADC4(v30);
-        v31 = &off_1000CE000;
+        v29 = malloc_type_calloc(0x400uLL, 1uLL, 0x97648203uLL);
+        sub_10006ADC4(v29);
+        v30 = &off_1000CE000;
       }
 
       if (qword_100127ED0)
       {
-        v32 = qword_100127ED0;
+        v31 = qword_100127ED0;
       }
 
       else
       {
-        v32 = __stderrp;
+        v31 = __stderrp;
       }
 
-      fprintf(v32, "%s\n", v3);
-      if (v31)
+      fprintf(v31, "%s\n", v1);
+      if (v30)
       {
-        free(v31);
+        free(v30);
       }
 
-      CFRelease(v28);
+      CFRelease(v27);
     }
 
     else
     {
-      v17 = sub_10003E080();
+      v17 = sub_10003E080(0, v16);
       if (sub_10006AECC(v17))
       {
-        v18 = *(*(*a1 + 8) + 24);
         sub_1000A5944();
-        sub_100080BB0(&_mh_execute_header, v19, v20, "Unable to format: %s: bufSize overflow (%d)", v21, v22, v23, v24, v37, v38, v39);
+        sub_100080BB0(&_mh_execute_header, v18, v19, "Unable to format: %s: bufSize overflow (%d)", v20, v21, v22, v23, v36, v37);
       }
 
       if (qword_100127ED0)
       {
-        v27 = qword_100127ED0;
+        v26 = qword_100127ED0;
       }
 
       else
       {
-        v27 = __stderrp;
+        v26 = __stderrp;
       }
 
-      sub_100069310("UNABLE TO FORMAT STRING\n", v25, v26, v27);
+      sub_100069310("UNABLE TO FORMAT STRING\n", v24, v25, v26);
     }
 
-    *__error() = v14;
+    *__error() = v13;
   }
 
   sub_1000A59BC();
-  sub_10003DF54("LookaheadLines_block_invoke", "SPTextualReportParser.m", 947, "%s: bufSize overflow (%d)", v33, v34, v35, v36, v37);
+  sub_10003DF54("LookaheadLines_block_invoke", "SPTextualReportParser.m", 947, "%s: bufSize overflow (%d)", v32, v33, v34, v35);
   abort();
 }
 
-void sub_1000C7D7C(uint64_t a1)
+void sub_1000C7D7C()
 {
-  v3 = &off_1000CE000;
+  v1 = &off_1000CE000;
   if (byte_100127EC8 == 1)
   {
-    v4 = *__error();
-    v5 = sub_10003E080();
+    v2 = __error();
+    v3 = *v2;
+    v5 = sub_10003E080(v2, v4);
     if (sub_1000A59D0(v5))
     {
-      v6 = *(*(*a1 + 8) + 24);
       sub_1000A5944();
-      sub_1000A58B4(&_mh_execute_header, v7, v8, "%s: Unable to allocate %d buffer", v9, v10, v11, v12, v37, v38, v39);
+      sub_1000A58B4(&_mh_execute_header, v6, v7, "%s: Unable to allocate %d buffer", v8, v9, v10, v11, v36, v37);
     }
 
-    *__error() = v4;
+    *__error() = v3;
   }
 
   if (byte_100127EC9 == 1 && dword_100127558 <= 3)
   {
-    v14 = *__error();
+    v13 = *__error();
     sub_1000A59BC();
-    v16 = CFStringCreateWithFormat(v15, 0, @"%s: Unable to allocate %d buffer");
-    if (v16)
+    v15 = CFStringCreateWithFormat(v14, 0, @"%s: Unable to allocate %d buffer");
+    if (v15)
     {
-      v28 = v16;
-      v29 = sub_1000692C4(v16);
-      if (v29)
+      v27 = v15;
+      v28 = sub_1000692C4(v15);
+      if (v28)
       {
-        v3 = v29;
-        v31 = 0;
+        v1 = v28;
+        v30 = 0;
       }
 
       else
       {
-        v30 = malloc_type_calloc(0x400uLL, 1uLL, 0x126F64F7uLL);
-        sub_10006ADC4(v30);
-        v31 = &off_1000CE000;
+        v29 = malloc_type_calloc(0x400uLL, 1uLL, 0x126F64F7uLL);
+        sub_10006ADC4(v29);
+        v30 = &off_1000CE000;
       }
 
       if (qword_100127ED0)
       {
-        v32 = qword_100127ED0;
+        v31 = qword_100127ED0;
       }
 
       else
       {
-        v32 = __stderrp;
+        v31 = __stderrp;
       }
 
-      fprintf(v32, "%s\n", v3);
-      if (v31)
+      fprintf(v31, "%s\n", v1);
+      if (v30)
       {
-        free(v31);
+        free(v30);
       }
 
-      CFRelease(v28);
+      CFRelease(v27);
     }
 
     else
     {
-      v17 = sub_10003E080();
+      v17 = sub_10003E080(0, v16);
       if (sub_10006AECC(v17))
       {
-        v18 = *(*(*a1 + 8) + 24);
         sub_1000A5944();
-        sub_100080BB0(&_mh_execute_header, v19, v20, "Unable to format: %s: Unable to allocate %d buffer", v21, v22, v23, v24, v37, v38, v39);
+        sub_100080BB0(&_mh_execute_header, v18, v19, "Unable to format: %s: Unable to allocate %d buffer", v20, v21, v22, v23, v36, v37);
       }
 
       if (qword_100127ED0)
       {
-        v27 = qword_100127ED0;
+        v26 = qword_100127ED0;
       }
 
       else
       {
-        v27 = __stderrp;
+        v26 = __stderrp;
       }
 
-      sub_100069310("UNABLE TO FORMAT STRING\n", v25, v26, v27);
+      sub_100069310("UNABLE TO FORMAT STRING\n", v24, v25, v26);
     }
 
-    *__error() = v14;
+    *__error() = v13;
   }
 
   sub_1000A59BC();
-  sub_10003DF54("LookaheadLines_block_invoke", "SPTextualReportParser.m", 950, "%s: Unable to allocate %d buffer", v33, v34, v35, v36, v37);
+  sub_10003DF54("LookaheadLines_block_invoke", "SPTextualReportParser.m", 950, "%s: Unable to allocate %d buffer", v32, v33, v34, v35);
   abort();
 }
 

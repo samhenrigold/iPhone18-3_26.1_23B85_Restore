@@ -12,7 +12,7 @@
   v7 = [v5 interfaceWithProtocol:&OBJC_PROTOCOL____TtP24MusicScriptUpdateService32MusicScriptUpdateServiceProtocol_];
   [connectionCopy setExportedInterface:v7];
 
-  v8 = [objc_allocWithZone(type metadata accessor for MusicScriptUpdateService()) init];
+  v8 = [objc_allocWithZone(type metadata accessor for MusicScriptUpdateService(0)) init];
   [connectionCopy setExportedObject:v8];
 
   [connectionCopy resume];
@@ -21,9 +21,9 @@
 
 - (_TtC24MusicScriptUpdateService27ScriptUpdateServiceDelegate)init
 {
-  v3.receiver = self;
-  v3.super_class = type metadata accessor for ScriptUpdateServiceDelegate();
-  return [(ScriptUpdateServiceDelegate *)&v3 init];
+  v4.receiver = self;
+  v4.super_class = type metadata accessor for ScriptUpdateServiceDelegate(self, a2, v2);
+  return [(ScriptUpdateServiceDelegate *)&v4 init];
 }
 
 @end

@@ -15,31 +15,29 @@
 {
   v3 = type metadata accessor for UUID();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  __chkstk_darwin(v3, v6);
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = OBJC_IVAR___APSClientIdentityMetric_correlationID;
+  __chkstk_darwin(v3);
+  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = OBJC_IVAR___APSClientIdentityMetric_correlationID;
   swift_beginAccess();
-  (*(v4 + 16))(v8, self + v9, v3);
-  v10.super.isa = UUID._bridgeToObjectiveC()().super.isa;
-  (*(v4 + 8))(v8, v3);
+  (*(v4 + 16))(v6, self + v7, v3);
+  v8.super.isa = UUID._bridgeToObjectiveC()().super.isa;
+  (*(v4 + 8))(v6, v3);
 
-  return v10.super.isa;
+  return v8.super.isa;
 }
 
 - (void)setCorrelationID:(id)d
 {
   v4 = type metadata accessor for UUID();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4, v7);
-  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  v10 = OBJC_IVAR___APSClientIdentityMetric_correlationID;
+  v8 = OBJC_IVAR___APSClientIdentityMetric_correlationID;
   swift_beginAccess();
-  v11 = *(v5 + 40);
+  v9 = *(v5 + 40);
   selfCopy = self;
-  v11(self + v10, v9, v4);
+  v9(self + v8, v7, v4);
   swift_endAccess();
 }
 
@@ -69,14 +67,11 @@
 
 - (NSString)name
 {
-  v2 = (self + OBJC_IVAR___APSClientIdentityMetric_name);
   swift_beginAccess();
-  v4 = *v2;
-  v3 = v2[1];
 
-  v5 = String._bridgeToObjectiveC()();
+  v2 = String._bridgeToObjectiveC()();
 
-  return v5;
+  return v2;
 }
 
 - (void)setName:(id)name
@@ -85,7 +80,6 @@
   v6 = v5;
   v7 = (self + OBJC_IVAR___APSClientIdentityMetric_name);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }
@@ -93,12 +87,12 @@
 - (NSDictionary)dictionaryRepresentation
 {
   selfCopy = self;
-  ClientIdentityMetric.dictionaryRepresentation.getter();
+  ClientIdentityMetric.dictionaryRepresentation.getter(selfCopy, v3);
 
   sub_1000C8C30(&unk_1001BD630, &unk_10015DAA0);
-  v3.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
+  v4.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
-  return v3.super.isa;
+  return v4.super.isa;
 }
 
 - (APSClientIdentityMetric)init

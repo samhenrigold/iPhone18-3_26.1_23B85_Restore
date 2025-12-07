@@ -135,27 +135,27 @@ void __62__BCSNotificationManager__addRequestForNotification_codeType___block_in
 
 - (id)_notificationWithIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = self->_notifications;
-  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         identifier = [v9 identifier];
         v11 = [identifier isEqualToString:identifierCopy];
 
@@ -166,7 +166,7 @@ void __62__BCSNotificationManager__addRequestForNotification_codeType___block_in
         }
       }
 
-      v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -178,36 +178,34 @@ void __62__BCSNotificationManager__addRequestForNotification_codeType___block_in
 
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (void)withdrawNotificationsWithProcessID:(int)d codeType:(int64_t)type
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   v8 = self->_notifications;
-  v9 = [(NSMutableSet *)v8 countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v9 = [(NSMutableSet *)v8 countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v28;
+    v11 = *v27;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v28 != v11)
+        if (*v27 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v27 + 1) + 8 * i);
+        v13 = *(*(&v26 + 1) + 8 * i);
         if ([v13 requestingProcessID] == d)
         {
           identifier = [v13 identifier];
@@ -217,7 +215,7 @@ LABEL_11:
         }
       }
 
-      v10 = [(NSMutableSet *)v8 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v10 = [(NSMutableSet *)v8 countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
     while (v10);
@@ -226,40 +224,38 @@ LABEL_11:
   v15 = [(BCSNotificationManager *)self _userNotificationCenterForCodeType:type];
   [v15 removePendingNotificationRequestsWithIdentifiers:array2];
   [v15 removeDeliveredNotificationsWithIdentifiers:array2];
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v16 = array;
-  v17 = [v16 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v24;
+    v19 = *v23;
     do
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v24 != v19)
+        if (*v23 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        [(NSMutableSet *)self->_notifications removeObject:*(*(&v23 + 1) + 8 * j)];
+        [(NSMutableSet *)self->_notifications removeObject:*(*(&v22 + 1) + 8 * j)];
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
     while (v18);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didReceiveNotificationResponse:(id)response
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   actionIdentifier = [responseCopy actionIdentifier];
   notification = [responseCopy notification];
@@ -268,11 +264,11 @@ LABEL_11:
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v13 = 138543618;
-    v14 = actionIdentifier;
-    v15 = 2114;
-    v16 = identifier;
-    _os_log_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "BCSNotificationManager: did receive notification response with action identifier %{public}@ and request identifier %{public}@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = actionIdentifier;
+    v14 = 2114;
+    v15 = identifier;
+    _os_log_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "BCSNotificationManager: did receive notification response with action identifier %{public}@ and request identifier %{public}@", &v12, 0x16u);
   }
 
   v9 = [(BCSNotificationManager *)self _notificationWithIdentifier:identifier];
@@ -298,8 +294,6 @@ LABEL_11:
 
     [v9 didHandleBulletinActionWithIdentifier:actionIdentifier];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userNotificationCenter:(id)center didReceiveNotificationResponse:(id)response withCompletionHandler:(id)handler
@@ -311,13 +305,11 @@ LABEL_11:
 
 void __62__BCSNotificationManager__addRequestForNotification_codeType___block_invoke_cold_1(void *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v1 = [a1 _bcs_privacyPreservingDescription];
-  v3 = 138543362;
-  v4 = v1;
-  _os_log_error_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "BCSNotificationManager: error adding notification request: %{public}@", &v3, 0xCu);
-
-  v2 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = v1;
+  _os_log_error_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "BCSNotificationManager: error adding notification request: %{public}@", &v2, 0xCu);
 }
 
 @end

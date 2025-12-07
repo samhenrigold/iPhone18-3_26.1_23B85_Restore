@@ -72,17 +72,15 @@ void __102__GTURLAccessProviderXPCDispatcher_securityScopedURLFromSandboxID_comp
   {
     v5 = [v3 startAccessingSecurityScopedResource];
     xpc_dictionary_set_nsobject(*(a1 + 40), "url", v4);
-    v6 = *MEMORY[0x277D861B8];
     [v4 fileSystemRepresentation];
-    v7 = *MEMORY[0x277D861E8];
-    v10 = *(a1 + 48);
-    v11 = *(a1 + 64);
-    v8 = sandbox_extension_issue_file_to_process();
-    if (v8)
+    v8 = *(a1 + 48);
+    v9 = *(a1 + 64);
+    v6 = sandbox_extension_issue_file_to_process();
+    if (v6)
     {
-      v9 = v8;
-      xpc_dictionary_set_string(*(a1 + 40), "sandboxExtension", v8);
-      free(v9);
+      v7 = v6;
+      xpc_dictionary_set_string(*(a1 + 40), "sandboxExtension", v6);
+      free(v7);
     }
 
     if (v5)
@@ -91,7 +89,7 @@ void __102__GTURLAccessProviderXPCDispatcher_securityScopedURLFromSandboxID_comp
     }
   }
 
-  [*(a1 + 32) sendMessage:{*(a1 + 40), v10, v11}];
+  [*(a1 + 32) sendMessage:{*(a1 + 40), v8, v9}];
 }
 
 - (void)makeURL_:(id)l_ replyConnection:(id)connection
@@ -165,7 +163,7 @@ uint64_t __99__GTURLAccessProviderXPCDispatcher_transferIdentifier_toDevice_comp
 
 - (void)copyIdentifier_toDevice_completionHandler_:(id)handler_ replyConnection:(id)connection
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   handler_Copy = handler_;
   v8 = gt_xpc_dictionary_create_reply(handler_Copy);
@@ -177,13 +175,13 @@ uint64_t __99__GTURLAccessProviderXPCDispatcher_transferIdentifier_toDevice_comp
   {
     v13 = v12;
     service = self->_service;
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __95__GTURLAccessProviderXPCDispatcher_copyIdentifier_toDevice_completionHandler__replyConnection___block_invoke;
-    v22[3] = &unk_2796615A0;
-    v23 = v8;
-    v24 = connectionCopy;
-    [(GTURLAccessProvider *)service copyIdentifier:nsobject toDevice:v13 completionHandler:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __95__GTURLAccessProviderXPCDispatcher_copyIdentifier_toDevice_completionHandler__replyConnection___block_invoke;
+    v21[3] = &unk_2796615A0;
+    v22 = v8;
+    v23 = connectionCopy;
+    [(GTURLAccessProvider *)service copyIdentifier:nsobject toDevice:v13 completionHandler:v21];
   }
 
   else
@@ -205,17 +203,15 @@ uint64_t __99__GTURLAccessProviderXPCDispatcher_transferIdentifier_toDevice_comp
     }
 
     v18 = MEMORY[0x277CCA9B8];
-    v25 = *MEMORY[0x277CCA450];
+    v24 = *MEMORY[0x277CCA450];
     v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid argument sent to service %@: %@", @"GTURLAccessProviderXPCDispatcher", @"Invalid device UDID passed to copyIdentifier"];
-    v26[0] = v19;
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v25[0] = v19;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     v13 = [v18 errorWithDomain:@"com.apple.gputools.transport" code:4 userInfo:v20];
 
     xpc_dictionary_set_nserror(v8, "error", v13);
     [connectionCopy sendMessage:v8];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __95__GTURLAccessProviderXPCDispatcher_copyIdentifier_toDevice_completionHandler__replyConnection___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -247,17 +243,15 @@ uint64_t __95__GTURLAccessProviderXPCDispatcher_copyIdentifier_toDevice_completi
     connection = [connectionCopy connection];
     xpc_connection_get_audit_token();
 
-    v15 = *MEMORY[0x277D861B8];
     [v12 fileSystemRepresentation];
-    v16 = *MEMORY[0x277D861E8];
-    v19 = 0u;
-    v20 = 0u;
-    v17 = sandbox_extension_issue_file_to_process();
-    if (v17)
+    v17 = 0u;
+    v18 = 0u;
+    v15 = sandbox_extension_issue_file_to_process();
+    if (v15)
     {
-      v18 = v17;
-      xpc_dictionary_set_string(v8, "sandboxExtension", v17);
-      free(v18);
+      v16 = v15;
+      xpc_dictionary_set_string(v8, "sandboxExtension", v15);
+      free(v16);
     }
 
     if (startAccessingSecurityScopedResource)
@@ -265,7 +259,7 @@ uint64_t __95__GTURLAccessProviderXPCDispatcher_copyIdentifier_toDevice_completi
       [v12 stopAccessingSecurityScopedResource];
     }
 
-    [connectionCopy sendMessage:{v8, v19, v20}];
+    [connectionCopy sendMessage:{v8, v17, v18}];
   }
 
   else
@@ -276,7 +270,7 @@ uint64_t __95__GTURLAccessProviderXPCDispatcher_copyIdentifier_toDevice_completi
 
 - (void)copyIdentifier_toDevice_directory_completionHandler_:(id)handler_ replyConnection:(id)connection
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   handler_Copy = handler_;
   connectionCopy = connection;
   v8 = gt_xpc_dictionary_create_reply(handler_Copy);
@@ -298,15 +292,15 @@ uint64_t __95__GTURLAccessProviderXPCDispatcher_copyIdentifier_toDevice_completi
       }
 
       service = self->_service;
-      v33[0] = MEMORY[0x277D85DD0];
-      v33[1] = 3221225472;
-      v33[2] = __105__GTURLAccessProviderXPCDispatcher_copyIdentifier_toDevice_directory_completionHandler__replyConnection___block_invoke;
-      v33[3] = &unk_2796615A0;
-      v34 = v8;
-      v35 = connectionCopy;
-      [(GTURLAccessProvider *)service copyIdentifier:nsobject toDevice:v13 directory:v15 completionHandler:v33];
+      v32[0] = MEMORY[0x277D85DD0];
+      v32[1] = 3221225472;
+      v32[2] = __105__GTURLAccessProviderXPCDispatcher_copyIdentifier_toDevice_directory_completionHandler__replyConnection___block_invoke;
+      v32[3] = &unk_2796615A0;
+      v33 = v8;
+      v34 = connectionCopy;
+      [(GTURLAccessProvider *)service copyIdentifier:nsobject toDevice:v13 directory:v15 completionHandler:v32];
 
-      v19 = v34;
+      v19 = v33;
     }
 
     else
@@ -328,10 +322,10 @@ uint64_t __95__GTURLAccessProviderXPCDispatcher_copyIdentifier_toDevice_completi
       }
 
       v29 = MEMORY[0x277CCA9B8];
-      v36 = *MEMORY[0x277CCA450];
+      v35 = *MEMORY[0x277CCA450];
       v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid argument sent to service %@: %@", @"GTURLAccessProviderXPCDispatcher", @"Invalid destination directory passed to copyIdentifier"];
-      v37 = v30;
-      v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+      v36 = v30;
+      v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
       v19 = [v29 errorWithDomain:@"com.apple.gputools.transport" code:4 userInfo:v31];
 
       xpc_dictionary_set_nserror(v8, "error", v19);
@@ -358,17 +352,15 @@ uint64_t __95__GTURLAccessProviderXPCDispatcher_copyIdentifier_toDevice_completi
     }
 
     v23 = MEMORY[0x277CCA9B8];
-    v38 = *MEMORY[0x277CCA450];
+    v37 = *MEMORY[0x277CCA450];
     v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid argument sent to service %@: %@", @"GTURLAccessProviderXPCDispatcher", @"Invalid device UDID passed to copyIdentifier"];
-    v39[0] = v24;
-    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
+    v38[0] = v24;
+    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
     v13 = [v23 errorWithDomain:@"com.apple.gputools.transport" code:4 userInfo:v25];
 
     xpc_dictionary_set_nserror(v8, "error", v13);
     [connectionCopy sendMessage:v8];
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __105__GTURLAccessProviderXPCDispatcher_copyIdentifier_toDevice_directory_completionHandler__replyConnection___block_invoke(uint64_t a1, uint64_t a2, void *a3)

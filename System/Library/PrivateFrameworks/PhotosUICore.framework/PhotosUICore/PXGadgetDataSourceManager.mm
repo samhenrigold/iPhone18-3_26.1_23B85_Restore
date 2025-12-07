@@ -265,7 +265,7 @@ void __46__PXGadgetDataSourceManager__updateDataSource__block_invoke_2(uint64_t 
   v7 = [v5 identifier];
   if (v6)
   {
-    [v6 indexPathForGadgetSectionWithIdentifier:v7];
+    objc_msgSend_indexPathForGadgetSectionWithIdentifier_(v6);
   }
 
   else
@@ -885,7 +885,7 @@ void __56__PXGadgetDataSourceManager_beginLoadingInitialGadgets___block_invoke_1
   *(v3 + 40) = v2;
 }
 
-uint64_t __56__PXGadgetDataSourceManager_beginLoadingInitialGadgets___block_invoke_20(void *a1)
+void *__56__PXGadgetDataSourceManager_beginLoadingInitialGadgets___block_invoke_20(void *a1)
 {
   result = [*(a1[4] + 128) isEqualToArray:a1[5]];
   *(*(a1[6] + 8) + 24) = result;

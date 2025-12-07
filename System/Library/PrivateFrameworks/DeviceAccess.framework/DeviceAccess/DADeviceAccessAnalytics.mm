@@ -114,21 +114,20 @@ uint64_t __62__DADeviceAccessAnalytics_markSessionActivationForPid_atTime___bloc
 
 id __64__DADeviceAccessAnalytics_markSessionInvalidationForPid_atTime___block_invoke(uint64_t a1)
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"Identifier";
-  v5[1] = @"ElapsedTime";
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"Identifier";
+  v4[1] = @"ElapsedTime";
   v1 = *(a1 + 40);
-  v6[0] = *(a1 + 32);
-  v6[1] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = *(a1 + 32);
+  v5[1] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   return v2;
 }
 
 + (void)markState:(int64_t)state deviceID:(id)d shared:(BOOL)shared discovery:(id)discovery flags:(unint64_t)flags sourceApp:(int64_t)app atTime:(id)time errorCode:(unint64_t)self0
 {
-  v175 = *MEMORY[0x277D85DE8];
+  v171 = *MEMORY[0x277D85DE8];
   dCopy = d;
   discoveryCopy = discovery;
   timeCopy = time;
@@ -154,38 +153,35 @@ id __64__DADeviceAccessAnalytics_markSessionInvalidationForPid_atTime___block_in
     if (([v16 isEqual:v17] & 1) == 0)
     {
       v23 = [v16 timeIntervelBetweenState:v17];
-      v153 = v17;
+      v149 = v17;
       v24 = [v16 stateTransitionAsString:v17];
       if (gLogCategory_DeviceAccessAnalytics <= 40 && (gLogCategory_DeviceAccessAnalytics != -1 || _LogCategory_Initialize()))
       {
-        v126 = dCopy;
-        v127 = v23;
-        v125 = v24;
-        LogPrintF();
+        LogPrintF(&gLogCategory_DeviceAccessAnalytics, "+[DADeviceAccessAnalytics markState:deviceID:shared:discovery:flags:sourceApp:atTime:errorCode:]", 40, "Analytics event: %@: (%@) %@", v24, dCopy, v23);
       }
 
-      v164 = MEMORY[0x277D85DD0];
-      v165 = 3221225472;
-      v166 = __96__DADeviceAccessAnalytics_markState_deviceID_shared_discovery_flags_sourceApp_atTime_errorCode___block_invoke_2;
-      v167 = &unk_278F58160;
-      v152 = v24;
-      v168 = v152;
-      v169 = dCopy;
+      v160 = MEMORY[0x277D85DD0];
+      v161 = 3221225472;
+      v162 = __96__DADeviceAccessAnalytics_markState_deviceID_shared_discovery_flags_sourceApp_atTime_errorCode___block_invoke_2;
+      v163 = &unk_278F58160;
+      v148 = v24;
+      v164 = v148;
+      v165 = dCopy;
       flagsCopy = flags;
-      v149 = v16;
-      v170 = v149;
-      v17 = v153;
-      v171 = v153;
+      v145 = v16;
+      v166 = v145;
+      v17 = v149;
+      v167 = v149;
       v25 = v23;
-      v172 = v25;
+      v168 = v25;
       AnalyticsSendEventLazy();
-      [daDeviceState setObject:v171 forKeyedSubscript:v169];
+      [daDeviceState setObject:v167 forKeyedSubscript:v165];
       if (!discoveryCopy || [discoveryCopy flags] < 2 || objc_msgSend(discoveryCopy, "flags") < 2 || state > 0x1E || ((1 << state) & 0x42100000) == 0)
       {
         goto LABEL_83;
       }
 
-      v144 = v25;
+      v140 = v25;
       configuration = [discoveryCopy configuration];
       bundleID = [configuration bundleID];
       v28 = bundleID;
@@ -204,24 +200,24 @@ id __64__DADeviceAccessAnalytics_markSessionInvalidationForPid_atTime___block_in
       configuration2 = [discoveryCopy configuration];
       if (configuration2)
       {
-        v141 = &unk_285B52900;
+        v137 = &unk_285B52900;
       }
 
       else
       {
         v32 = MEMORY[0x277CCABB0];
         configurations = [discoveryCopy configurations];
-        v141 = [v32 numberWithUnsignedInteger:{objc_msgSend(configurations, "count")}];
+        v137 = [v32 numberWithUnsignedInteger:{objc_msgSend(configurations, "count")}];
       }
 
-      v143 = v30;
-      v142 = [MEMORY[0x277CC1E90] bundleRecordWithBundleIdentifier:v30 allowPlaceholder:1 error:0];
+      v139 = v30;
+      v138 = [MEMORY[0x277CC1E90] bundleRecordWithBundleIdentifier:v30 allowPlaceholder:1 error:0];
       configuration3 = [discoveryCopy configuration];
       configurations2 = [discoveryCopy configurations];
-      v134 = configurations2;
-      v135 = dCopy;
-      v128 = timeCopy;
-      v137 = configuration3;
+      v130 = configurations2;
+      v131 = dCopy;
+      v124 = timeCopy;
+      v133 = configuration3;
       if (configuration3)
       {
         bluetoothCompanyIdentifiers = [configuration3 bluetoothCompanyIdentifiers];
@@ -253,7 +249,7 @@ id __64__DADeviceAccessAnalytics_markSessionInvalidationForPid_atTime___block_in
         v54 = 1;
         if (!networkHotspotSSID && !v50 && !v52)
         {
-          wifiAwareServiceName = [v137 wifiAwareServiceName];
+          wifiAwareServiceName = [v133 wifiAwareServiceName];
           v54 = wifiAwareServiceName != 0;
         }
 
@@ -283,26 +279,26 @@ LABEL_54:
 
       if (configurations2)
       {
-        v162 = 0u;
-        v163 = 0u;
-        v160 = 0u;
-        v161 = 0u;
+        v158 = 0u;
+        v159 = 0u;
+        v156 = 0u;
+        v157 = 0u;
         v56 = configurations2;
-        v139 = [v56 countByEnumeratingWithState:&v160 objects:v174 count:16];
-        if (v139)
+        v135 = [v56 countByEnumeratingWithState:&v156 objects:v170 count:16];
+        if (v135)
         {
-          v138 = *v161;
+          v134 = *v157;
           obj = v56;
 LABEL_35:
           v57 = 0;
           while (1)
           {
-            if (*v161 != v138)
+            if (*v157 != v134)
             {
               objc_enumerationMutation(obj);
             }
 
-            v58 = *(*(&v160 + 1) + 8 * v57);
+            v58 = *(*(&v156 + 1) + 8 * v57);
             bluetoothCompanyIdentifiers2 = [v58 bluetoothCompanyIdentifiers];
             v60 = [bluetoothCompanyIdentifiers2 count];
 
@@ -343,11 +339,11 @@ LABEL_35:
               break;
             }
 
-            if (v139 == ++v57)
+            if (v135 == ++v57)
             {
               v56 = obj;
-              v139 = [obj countByEnumeratingWithState:&v160 objects:v174 count:16];
-              if (v139)
+              v135 = [obj countByEnumeratingWithState:&v156 objects:v170 count:16];
+              if (v135)
               {
                 goto LABEL_35;
               }
@@ -374,14 +370,14 @@ LABEL_55:
       if (configuration4)
       {
         configuration5 = [discoveryCopy configuration];
-        v140 = [v80 numberWithUnsignedInteger:{objc_msgSend(configuration5, "flags") & 4}];
+        v136 = [v80 numberWithUnsignedInteger:{objc_msgSend(configuration5, "flags") & 4}];
       }
 
       else
       {
         configuration5 = [discoveryCopy configurations];
         v82 = [configuration5 cuFilteredArrayUsingBlock:&__block_literal_global_174];
-        v140 = [v80 numberWithInt:{objc_msgSend(v82, "count") != 0}];
+        v136 = [v80 numberWithInt:{objc_msgSend(v82, "count") != 0}];
       }
 
       configuration6 = [discoveryCopy configuration];
@@ -389,14 +385,14 @@ LABEL_55:
       if (configuration6)
       {
         configuration7 = [discoveryCopy configuration];
-        v133 = [v84 numberWithUnsignedInteger:{objc_msgSend(configuration7, "flags") & 2}];
+        v129 = [v84 numberWithUnsignedInteger:{objc_msgSend(configuration7, "flags") & 2}];
       }
 
       else
       {
         configuration7 = [discoveryCopy configurations];
         v86 = [configuration7 cuFilteredArrayUsingBlock:&__block_literal_global_177];
-        v133 = [v84 numberWithInt:{objc_msgSend(v86, "count") != 0}];
+        v129 = [v84 numberWithInt:{objc_msgSend(v86, "count") != 0}];
       }
 
       configuration8 = [discoveryCopy configuration];
@@ -419,14 +415,14 @@ LABEL_55:
       if (configuration10)
       {
         configuration11 = [discoveryCopy configuration];
-        v132 = [v93 numberWithBool:{objc_msgSend(configuration11, "allowsRename")}];
+        v128 = [v93 numberWithBool:{objc_msgSend(configuration11, "allowsRename")}];
       }
 
       else
       {
         configuration11 = [discoveryCopy configurations];
         v95 = [configuration11 cuFilteredArrayUsingBlock:&__block_literal_global_181];
-        v132 = [v93 numberWithInt:{objc_msgSend(v95, "count") != 0}];
+        v128 = [v93 numberWithInt:{objc_msgSend(v95, "count") != 0}];
       }
 
       configuration12 = [discoveryCopy configuration];
@@ -434,14 +430,14 @@ LABEL_55:
       if (configuration12)
       {
         configuration13 = [discoveryCopy configuration];
-        v131 = [v97 numberWithUnsignedInteger:{objc_msgSend(configuration13, "flags") & 8}];
+        v127 = [v97 numberWithUnsignedInteger:{objc_msgSend(configuration13, "flags") & 8}];
       }
 
       else
       {
         configuration13 = [discoveryCopy configurations];
         v99 = [configuration13 cuFilteredArrayUsingBlock:&__block_literal_global_183];
-        v131 = [v97 numberWithInt:{objc_msgSend(v99, "count") != 0}];
+        v127 = [v97 numberWithInt:{objc_msgSend(v99, "count") != 0}];
       }
 
       configuration14 = [discoveryCopy configuration];
@@ -449,83 +445,83 @@ LABEL_55:
       if (configuration14)
       {
         configuration15 = [discoveryCopy configuration];
-        v130 = [v101 numberWithUnsignedInteger:{objc_msgSend(configuration15, "wifiAwareServiceType") & 0x14}];
+        v126 = [v101 numberWithUnsignedInteger:{objc_msgSend(configuration15, "wifiAwareServiceType") & 0x14}];
       }
 
       else
       {
         configuration15 = [discoveryCopy configurations];
         v103 = [configuration15 cuFilteredArrayUsingBlock:&__block_literal_global_185];
-        v130 = [v101 numberWithInt:{objc_msgSend(v103, "count") != 0}];
+        v126 = [v101 numberWithInt:{objc_msgSend(v103, "count") != 0}];
       }
 
       v104 = *(v78 + 2992);
-      [v142 infoDictionary];
+      [v138 infoDictionary];
       v106 = v105 = v78;
       v107 = [v106 objectForKey:@"WiFiAwareSubscribableServices" ofClass:objc_opt_class()];
       v108 = [v104 numberWithUnsignedInteger:{objc_msgSend(v107, "count")}];
 
       v109 = *(v105 + 2992);
-      infoDictionary = [v142 infoDictionary];
+      infoDictionary = [v138 infoDictionary];
       v111 = [infoDictionary objectForKey:@"WiFiAwarePublishableServices" ofClass:objc_opt_class()];
       v112 = [v109 numberWithUnsignedInteger:{objc_msgSend(v111, "count")}];
 
       if (([discoveryCopy flags] & 8) != 0)
       {
         configuration16 = [discoveryCopy configuration];
-        dCopy = v135;
+        dCopy = v131;
         if (configuration16)
         {
-          v129 = &unk_285B52900;
+          v125 = &unk_285B52900;
         }
 
         else
         {
           v115 = MEMORY[0x277CCABB0];
           configurations3 = [discoveryCopy configurations];
-          v129 = [v115 numberWithUnsignedInteger:{objc_msgSend(configurations3, "count")}];
+          v125 = [v115 numberWithUnsignedInteger:{objc_msgSend(configurations3, "count")}];
         }
 
-        timeCopy = v128;
+        timeCopy = v124;
         v113 = 0x27EEB3000uLL;
       }
 
       else
       {
-        v129 = &unk_285B52918;
-        dCopy = v135;
-        timeCopy = v128;
+        v125 = &unk_285B52918;
+        dCopy = v131;
+        timeCopy = v124;
         v113 = 0x27EEB3000;
       }
 
       v117 = *(v113 + 2344);
       if (v117 <= 40 && (v117 != -1 || _LogCategory_Initialize()))
       {
-        [DADeviceAccessAnalytics markState:code deviceID:? shared:? discovery:? flags:? sourceApp:? atTime:? errorCode:?];
+        [DADeviceAccessAnalytics markState:code deviceID:v139 shared:v140 discovery:? flags:? sourceApp:? atTime:? errorCode:?];
       }
 
-      v154 = v144;
-      v155 = v149;
-      v156 = v90;
-      v157 = v108;
-      v145 = v90;
-      v158 = v112;
-      v159 = discoveryCopy;
-      v151 = v129;
-      v150 = v130;
-      v148 = v133;
-      v147 = v112;
-      v146 = v108;
-      v118 = v131;
-      v119 = v132;
-      v120 = v145;
-      v121 = v141;
-      v122 = v143;
-      v123 = v140;
+      v150 = v140;
+      v151 = v145;
+      v152 = v90;
+      v153 = v108;
+      v141 = v90;
+      v154 = v112;
+      v155 = discoveryCopy;
+      v147 = v125;
+      v146 = v126;
+      v144 = v129;
+      v143 = v112;
+      v142 = v108;
+      v118 = v127;
+      v119 = v128;
+      v120 = v141;
+      v121 = v137;
+      v122 = v139;
+      v123 = v136;
       AnalyticsSendEventLazy();
 
-      v25 = v144;
-      v17 = v153;
+      v25 = v140;
+      v17 = v149;
 LABEL_83:
     }
   }
@@ -534,8 +530,6 @@ LABEL_83:
   {
     [daDeviceState setObject:v17 forKeyedSubscript:dCopy];
   }
-
-  v124 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __96__DADeviceAccessAnalytics_markState_deviceID_shared_discovery_flags_sourceApp_atTime_errorCode___block_invoke()
@@ -549,7 +543,7 @@ uint64_t __96__DADeviceAccessAnalytics_markState_deviceID_shared_discovery_flags
 
 id __96__DADeviceAccessAnalytics_markState_deviceID_shared_discovery_flags_sourceApp_atTime_errorCode___block_invoke_2(uint64_t a1)
 {
-  v13[6] = *MEMORY[0x277D85DE8];
+  v12[6] = *MEMORY[0x277D85DE8];
   if (gLogCategory_DeviceAccessAnalytics <= 40 && (gLogCategory_DeviceAccessAnalytics != -1 || _LogCategory_Initialize()))
   {
     __96__DADeviceAccessAnalytics_markState_deviceID_shared_discovery_flags_sourceApp_atTime_errorCode___block_invoke_2_cold_1(a1);
@@ -567,26 +561,24 @@ id __96__DADeviceAccessAnalytics_markState_deviceID_shared_discovery_flags_sourc
     v3 = v2;
   }
 
-  v13[0] = v3;
-  v12[0] = @"DeviceFlags";
-  v12[1] = @"sourceApplication";
+  v12[0] = v3;
+  v11[0] = @"DeviceFlags";
+  v11[1] = @"sourceApplication";
   v4 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 48), "state")}];
   v5 = *(a1 + 32);
-  v13[1] = v4;
-  v13[2] = v5;
-  v12[2] = @"State";
-  v12[3] = @"StateFrom";
+  v12[1] = v4;
+  v12[2] = v5;
+  v11[2] = @"State";
+  v11[3] = @"StateFrom";
   v6 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 48), "state")}];
-  v13[3] = v6;
-  v12[4] = @"StateTo";
+  v12[3] = v6;
+  v11[4] = @"StateTo";
   v7 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 56), "state")}];
-  v12[5] = @"ElapsedTime";
+  v11[5] = @"ElapsedTime";
   v8 = *(a1 + 64);
-  v13[4] = v7;
-  v13[5] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:6];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[4] = v7;
+  v12[5] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:6];
 
   return v9;
 }
@@ -665,28 +657,28 @@ void *__96__DADeviceAccessAnalytics_markState_deviceID_shared_discovery_flags_so
 
 id __96__DADeviceAccessAnalytics_markState_deviceID_shared_discovery_flags_sourceApp_atTime_errorCode___block_invoke_7(uint64_t a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
-  v29[0] = @"AccessoryDiscoveryErrorOccurred";
-  v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 144)];
+  v39 = *MEMORY[0x277D85DE8];
+  v28[0] = @"AccessoryDiscoveryErrorOccurred";
+  v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 144)];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v30[0] = v28;
-  v30[1] = v2;
-  v29[1] = @"AccessoryReadyToUseInSeconds";
-  v29[2] = @"BluetoothTransportBridging";
+  v29[0] = v27;
+  v29[1] = v2;
+  v28[1] = @"AccessoryReadyToUseInSeconds";
+  v28[2] = @"BluetoothTransportBridging";
   v4 = *(a1 + 48);
   if (!v4)
   {
     v4 = @"-";
   }
 
-  v30[2] = v3;
-  v30[3] = v4;
-  v29[3] = @"BundleID";
-  v29[4] = @"DiscoveryTechnology";
-  v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 152)];
-  v30[4] = v27;
-  v29[5] = @"DiscoveryTimeInSeconds";
+  v29[2] = v3;
+  v29[3] = v4;
+  v28[3] = @"BundleID";
+  v28[4] = @"DiscoveryTechnology";
+  v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 152)];
+  v29[4] = v26;
+  v28[5] = @"DiscoveryTimeInSeconds";
   v5 = [*(a1 + 56) discoveryTime];
   v6 = v5;
   if (v5)
@@ -705,64 +697,62 @@ id __96__DADeviceAccessAnalytics_markState_deviceID_shared_discovery_flags_sourc
     v8 = &unk_285B52918;
   }
 
-  v30[5] = v7;
-  v30[6] = v8;
-  v29[6] = @"DisplayItemsCount";
-  v29[7] = @"HasBluetoothCompanyIDs";
-  v26 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 160)];
+  v29[5] = v7;
+  v29[6] = v8;
+  v28[6] = @"DisplayItemsCount";
+  v28[7] = @"HasBluetoothCompanyIDs";
+  v25 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 160)];
   v9 = *(a1 + 72);
-  v30[7] = v26;
-  v30[8] = v9;
-  v29[8] = @"HasBluetoothLEHID";
-  v29[9] = @"HasBlobMaskMfgData";
+  v29[7] = v25;
+  v29[8] = v9;
+  v28[8] = @"HasBluetoothLEHID";
+  v28[9] = @"HasBlobMaskMfgData";
   v10 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 161)];
-  v30[9] = v10;
-  v29[10] = @"HasBluetoothNames";
+  v29[9] = v10;
+  v28[10] = @"HasBluetoothNames";
   v11 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 162)];
-  v30[10] = v11;
-  v29[11] = @"HasBluetoothServices";
+  v29[10] = v11;
+  v28[11] = @"HasBluetoothServices";
   v12 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 163)];
-  v30[11] = v12;
-  v29[12] = @"HasBlobMaskServiceData";
+  v29[11] = v12;
+  v28[12] = @"HasBlobMaskServiceData";
   v13 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 164)];
-  v30[12] = v13;
-  v29[13] = @"HasRenameOption";
-  v29[14] = @"HasRenameSSID";
-  v31 = vbslq_s8(vceqzq_s64(*(a1 + 80)), vdupq_n_s64(MEMORY[0x277CBEC28]), *(a1 + 80));
-  v29[15] = @"HasSSIDs";
+  v29[12] = v13;
+  v28[13] = @"HasRenameOption";
+  v28[14] = @"HasRenameSSID";
+  v30 = vbslq_s8(vceqzq_s64(*(a1 + 80)), vdupq_n_s64(MEMORY[0x277CBEC28]), *(a1 + 80));
+  v28[15] = @"HasSSIDs";
   v14 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 165)];
-  v32 = v14;
-  v29[16] = @"HasSSIDPrefixes";
+  v31 = v14;
+  v28[16] = @"HasSSIDPrefixes";
   v15 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 166)];
-  v34 = *(a1 + 96);
-  v29[17] = @"HasWiFiAwareSubscribableServices";
-  v29[18] = @"HasWiFiAwarePublishableServices";
+  v33 = *(a1 + 96);
+  v28[17] = @"HasWiFiAwareSubscribableServices";
+  v28[18] = @"HasWiFiAwarePublishableServices";
   v17 = *(a1 + 112);
   v16 = *(a1 + 120);
-  v33 = v15;
-  v35 = v17;
-  v29[19] = @"isBluetoothPairing";
-  v29[20] = @"isExtensionDiscovery";
+  v32 = v15;
+  v34 = v17;
+  v28[19] = @"isBluetoothPairing";
+  v28[20] = @"isExtensionDiscovery";
   v18 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v16, "runningExtension")}];
   v19 = *(a1 + 128);
   v20 = *(a1 + 136);
-  v36 = v18;
-  v37 = v19;
-  v29[21] = @"isWiFiAwarePublisher";
-  v29[22] = @"MigrationItemsCount";
+  v35 = v18;
+  v36 = v19;
+  v28[21] = @"isWiFiAwarePublisher";
+  v28[22] = @"MigrationItemsCount";
   v21 = &unk_285B52918;
   if (v20)
   {
     v21 = v20;
   }
 
-  v38 = v21;
-  v29[23] = @"SharedAccessory";
+  v37 = v21;
+  v28[23] = @"SharedAccessory";
   v22 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 167)];
-  v39 = v22;
-  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:24];
-
-  v24 = *MEMORY[0x277D85DE8];
+  v38 = v22;
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:24];
 
   return v23;
 }
@@ -770,7 +760,7 @@ id __96__DADeviceAccessAnalytics_markState_deviceID_shared_discovery_flags_sourc
 + (void)sendAnalytics:(char)a1 forEvent:.cold.1(char a1)
 {
   v1 = [MEMORY[0x277CCABB0] numberWithInt:a1 & 1];
-  LogPrintF();
+  LogPrintF(&gLogCategory_DeviceAccessAnalytics, "+[DADeviceAccessAnalytics sendAnalytics:forEvent:]", 115, "Invalid parameters (info_is_nil = %@, time_is_nil = %@)", v1, &unk_285B52918);
 }
 
 + (void)markSessionActivationForPid:(uint64_t)a1 atTime:(void *)a2 .cold.2(uint64_t a1, void *a2)
@@ -778,7 +768,7 @@ id __96__DADeviceAccessAnalytics_markState_deviceID_shared_discovery_flags_sourc
   v15 = [OUTLINED_FUNCTION_0_2() numberWithInt:?];
   v4 = [*(v2 + 2992) numberWithInt:a2 & 1];
   OUTLINED_FUNCTION_1_2(v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15);
-  LogPrintF();
+  LogPrintF(&gLogCategory_DeviceAccessAnalytics, "+[DADeviceAccessAnalytics markSessionActivationForPid:atTime:]", 115, "Invalid parameters (pid_is_nil = %@, time_is_nil = %@)");
 }
 
 + (void)markSessionInvalidationForPid:(uint64_t)a1 atTime:(void *)a2 .cold.1(uint64_t a1, void *a2)
@@ -786,20 +776,13 @@ id __96__DADeviceAccessAnalytics_markState_deviceID_shared_discovery_flags_sourc
   v15 = [OUTLINED_FUNCTION_0_2() numberWithInt:?];
   v4 = [*(v2 + 2992) numberWithInt:a2 == 0];
   OUTLINED_FUNCTION_1_2(v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15);
-  LogPrintF();
+  LogPrintF(&gLogCategory_DeviceAccessAnalytics, "+[DADeviceAccessAnalytics markSessionInvalidationForPid:atTime:]", 115, "Invalid parameters passed (pid_is_nil = %@, time_is_nil = %@)");
 }
 
-+ (void)markState:(uint64_t)a1 deviceID:shared:discovery:flags:sourceApp:atTime:errorCode:.cold.2(uint64_t a1)
++ (void)markState:(uint64_t)a3 deviceID:shared:discovery:flags:sourceApp:atTime:errorCode:.cold.2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v1 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a1];
-  LogPrintF();
-}
-
-uint64_t __96__DADeviceAccessAnalytics_markState_deviceID_shared_discovery_flags_sourceApp_atTime_errorCode___block_invoke_2_cold_1(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  return LogPrintF();
+  v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a1];
+  LogPrintF(&gLogCategory_DeviceAccessAnalytics, "+[DADeviceAccessAnalytics markState:deviceID:shared:discovery:flags:sourceApp:atTime:errorCode:]", 40, "Analytics discovery event: %@: (%@) %@", a2, a3, v5);
 }
 
 @end

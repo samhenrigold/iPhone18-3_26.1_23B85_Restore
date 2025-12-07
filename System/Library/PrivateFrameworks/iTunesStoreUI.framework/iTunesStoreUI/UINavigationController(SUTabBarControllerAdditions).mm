@@ -1,6 +1,6 @@
 @interface UINavigationController(SUTabBarControllerAdditions)
 - (uint64_t)tabBarControllerDidLongPressTabBarItem:()SUTabBarControllerAdditions;
-- (uint64_t)tabBarControllerDidReselectTabBarItem:()SUTabBarControllerAdditions;
+- (void)tabBarControllerDidReselectTabBarItem:()SUTabBarControllerAdditions;
 @end
 
 @implementation UINavigationController(SUTabBarControllerAdditions)
@@ -12,7 +12,7 @@
   return [topViewController tabBarControllerDidLongPressTabBarItem:a3];
 }
 
-- (uint64_t)tabBarControllerDidReselectTabBarItem:()SUTabBarControllerAdditions
+- (void)tabBarControllerDidReselectTabBarItem:()SUTabBarControllerAdditions
 {
   result = [objc_msgSend(self "viewControllers")];
   if (result == 1)

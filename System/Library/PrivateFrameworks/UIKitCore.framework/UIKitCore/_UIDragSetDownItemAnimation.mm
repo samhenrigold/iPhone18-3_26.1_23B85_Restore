@@ -295,17 +295,17 @@ LABEL_11:
   propertyAnimator = self->_propertyAnimator;
   self->_propertyAnimator = v3;
 
-  preview = [(_DUIVisibleDroppedItem *)self->_droppedItem preview];
+  v5 = objc_msgSend_preview(self->_droppedItem);
   v6 = [UIView alloc];
   [(UIView *)self->_dropContainerView bounds];
   v7 = [(UIView *)v6 initWithFrame:?];
   [(UIView *)v7 setHidden:1];
   [(UIView *)v7 setUserInteractionEnabled:0];
   [(UIView *)self->_dropContainerView insertSubview:v7 atIndex:0];
-  v69 = v7;
+  v68 = v7;
   objc_storeStrong(&self->_retargetingContainerView, v7);
-  v70 = preview;
-  [preview unscaledSize];
+  v69 = v5;
+  [v5 unscaledSize];
   v9 = v8;
   v11 = v10;
   v12 = [[_UIPlatterContainerView alloc] initWithFrame:0.0, 0.0, v8, v10];
@@ -315,21 +315,21 @@ LABEL_11:
   [(UIView *)self->_platterContainerView setCenter:self->_center.x, self->_center.y];
   [(UIView *)self->_retargetingContainerView addSubview:self->_platterContainerView];
   v14 = self->_platterContainerView;
-  v95 = 0u;
-  v96 = 0u;
   v94 = 0u;
+  v95 = 0u;
+  v93 = 0u;
   target = [(UITargetedPreview *)self->_targetedDropPreview target];
   v16 = target;
   if (target)
   {
-    [target transform];
+    objc_msgSend_transform(target);
   }
 
   else
   {
-    v95 = 0u;
-    v96 = 0u;
     v94 = 0u;
+    v95 = 0u;
+    v93 = 0u;
   }
 
   view = [(UITargetedPreview *)self->_targetedDropPreview view];
@@ -368,21 +368,21 @@ LABEL_11:
   droppedItem = self->_droppedItem;
   if (droppedItem)
   {
-    [(_DUIVisibleDroppedItem *)droppedItem appliedTransform];
+    objc_msgSend_appliedTransform(droppedItem);
   }
 
   else
   {
-    v92 = 0u;
-    v93 = 0u;
     v91 = 0u;
+    v92 = 0u;
+    v90 = 0u;
   }
 
   v27 = self->_appPlatterView;
-  *&v89.m11 = v91;
-  *&v89.m13 = v92;
-  *&v89.m21 = v93;
-  [(_UIPlatterView *)v27 setAppliedTransform:&v89];
+  *&v88.m11 = v90;
+  *&v88.m13 = v91;
+  *&v88.m21 = v92;
+  [(_UIPlatterView *)v27 setAppliedTransform:&v88];
   if ([_duiPreview previewMode] != 2)
   {
     [(UIView *)self->_appPlatterView setAlpha:0.0];
@@ -401,8 +401,8 @@ LABEL_11:
     [(_UIPlatterView *)v28 setConstrainSize:[(_DUIVisibleDroppedItem *)self->_droppedItem constrainSize]];
     if ([(UITargetedPreview *)self->_targetedDropPreview _isDefaultPreview])
     {
-      preview2 = [(_DUIVisibleDroppedItem *)self->_droppedItem preview];
-      shadowProperties = [preview2 shadowProperties];
+      v30 = objc_msgSend_preview(self->_droppedItem);
+      shadowProperties = [v30 shadowProperties];
       [(_UIPlatterView *)v28 setShadowProperties:shadowProperties];
     }
 
@@ -421,124 +421,123 @@ LABEL_11:
 
   [(_UIPlatterContainerView *)self->_platterContainerView setSource:v32];
   [(_UIPlatterContainerView *)self->_platterContainerView setTarget:v28];
-  memset(&v90, 0, sizeof(v90));
+  memset(&v89, 0, sizeof(v89));
   if (v32)
   {
-    v35 = v32;
-LABEL_24:
-    [(_UIPlatterView *)v35 targetTransform];
-    goto LABEL_25;
+    objc_msgSend_targetTransform(v32);
   }
 
-  if (v28)
+  else if (v28)
   {
-    v35 = v28;
-    goto LABEL_24;
+    objc_msgSend_targetTransform(v28);
   }
 
-  memset(&v89, 0, sizeof(v89));
-LABEL_25:
-  CATransform3DGetAffineTransform(&v90, &v89);
-  *&v89.m11 = *&v90.a;
-  *&v89.m13 = *&v90.c;
-  *&v89.m21 = *&v90.tx;
-  [(_UIPlatterContainerView *)v14 applyTransform:&v89 withSize:v9, v11];
+  else
+  {
+    memset(&v88, 0, sizeof(v88));
+  }
+
+  CATransform3DGetAffineTransform(&v89, &v88);
+  *&v88.m11 = *&v89.a;
+  *&v88.m13 = *&v89.c;
+  *&v88.m21 = *&v89.tx;
+  [(_UIPlatterContainerView *)v14 applyTransform:&v88 withSize:v9, v11];
   _previewContainer = [(UITargetedDragPreview *)self->_targetedDropPreview _previewContainer];
   if (_previewContainer)
   {
     imageComponent = [(_DUIVisibleDroppedItem *)self->_droppedItem imageComponent];
     if (-[UITargetedPreview _isDefaultPreview](self->_targetedDropPreview, "_isDefaultPreview") && ([imageComponent representsPortal] & 1) == 0)
     {
-      v39 = [_UIDragSlotHostingView alloc];
+      v38 = [_UIDragSlotHostingView alloc];
       [imageComponent frame];
-      v41 = v40;
-      v43 = v42;
-      v45 = v44;
-      v47 = v46;
+      v40 = v39;
+      v42 = v41;
+      v44 = v43;
+      v46 = v45;
       [imageComponent size3D];
-      v38 = -[_UIDragSlotHostingView initWithFrame:contentSize:slotID:](v39, "initWithFrame:contentSize:slotID:", [imageComponent slotID], v41, v43, v45, v47, v48, v49, v50);
+      v37 = -[_UIDragSlotHostingView initWithFrame:contentSize:slotID:](v38, "initWithFrame:contentSize:slotID:", [imageComponent slotID], v40, v42, v44, v46, v47, v48, v49);
     }
 
     else
     {
-      v38 = 0;
+      v37 = 0;
     }
 
-    [(_UIPlatterContainerView *)v14 installPreviewContainer:_previewContainer overrideSourceView:v38];
+    [(_UIPlatterContainerView *)v14 installPreviewContainer:_previewContainer overrideSourceView:v37];
     ++self->_animationCount;
   }
 
-  v68 = _previewContainer;
+  v67 = _previewContainer;
   if ([(_UIDragSetDownItemAnimation *)self needsReparenting])
   {
     [(_UIDragSetDownItemAnimation *)self reparentRetargetingContainerViewInTargetContainer];
   }
 
-  v51 = window2 == 0;
-  objc_initWeak(&v89, self);
+  v50 = window2 == 0;
+  objc_initWeak(&v88, self);
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __77___UIDragSetDownItemAnimation_configureCrossfadingAnimationToTargetedPreview__block_invoke;
   aBlock[3] = &unk_1E70F5A28;
-  objc_copyWeak(&v88, &v89);
-  v52 = _Block_copy(aBlock);
+  objc_copyWeak(&v87, &v88);
+  v51 = _Block_copy(aBlock);
   positionHandler = self->_positionHandler;
-  self->_positionHandler = v52;
+  self->_positionHandler = v51;
 
-  v82[0] = MEMORY[0x1E69E9820];
-  v82[1] = 3221225472;
-  v82[2] = __77___UIDragSetDownItemAnimation_configureCrossfadingAnimationToTargetedPreview__block_invoke_2;
-  v82[3] = &unk_1E7116670;
-  objc_copyWeak(&v86, &v89);
-  v54 = v28;
-  v83 = v54;
-  v84 = v32;
-  v85 = v14;
-  v55 = v14;
-  v56 = v32;
-  v57 = _Block_copy(v82);
+  v81[0] = MEMORY[0x1E69E9820];
+  v81[1] = 3221225472;
+  v81[2] = __77___UIDragSetDownItemAnimation_configureCrossfadingAnimationToTargetedPreview__block_invoke_2;
+  v81[3] = &unk_1E7116670;
+  objc_copyWeak(&v85, &v88);
+  v53 = v28;
+  v82 = v53;
+  v83 = v32;
+  v84 = v14;
+  v54 = v14;
+  v55 = v32;
+  v56 = _Block_copy(v81);
   morphHandler = self->_morphHandler;
-  self->_morphHandler = v57;
+  self->_morphHandler = v56;
 
-  v80[0] = MEMORY[0x1E69E9820];
-  v80[1] = 3221225472;
-  v80[2] = __77___UIDragSetDownItemAnimation_configureCrossfadingAnimationToTargetedPreview__block_invoke_3;
-  v80[3] = &unk_1E70F3590;
-  v59 = v54;
-  v81 = v59;
-  v60 = _Block_copy(v80);
+  v79[0] = MEMORY[0x1E69E9820];
+  v79[1] = 3221225472;
+  v79[2] = __77___UIDragSetDownItemAnimation_configureCrossfadingAnimationToTargetedPreview__block_invoke_3;
+  v79[3] = &unk_1E70F3590;
+  v58 = v53;
+  v80 = v58;
+  v59 = _Block_copy(v79);
   midpointHandler = self->_midpointHandler;
-  self->_midpointHandler = v60;
+  self->_midpointHandler = v59;
 
-  v78[0] = MEMORY[0x1E69E9820];
-  v78[1] = 3221225472;
-  v78[2] = __77___UIDragSetDownItemAnimation_configureCrossfadingAnimationToTargetedPreview__block_invoke_4;
-  v78[3] = &unk_1E70F3590;
-  v79 = v59;
-  v62 = v59;
-  v63 = _Block_copy(v78);
+  v77[0] = MEMORY[0x1E69E9820];
+  v77[1] = 3221225472;
+  v77[2] = __77___UIDragSetDownItemAnimation_configureCrossfadingAnimationToTargetedPreview__block_invoke_4;
+  v77[3] = &unk_1E70F3590;
+  v78 = v58;
+  v61 = v58;
+  v62 = _Block_copy(v77);
   nearCompletionHandler = self->_nearCompletionHandler;
-  self->_nearCompletionHandler = v63;
+  self->_nearCompletionHandler = v62;
 
-  v71[0] = MEMORY[0x1E69E9820];
-  v71[1] = 3221225472;
-  v71[2] = __77___UIDragSetDownItemAnimation_configureCrossfadingAnimationToTargetedPreview__block_invoke_5;
-  v71[3] = &unk_1E712BA60;
-  objc_copyWeak(&v73, &v89);
-  v77 = v51;
-  v72 = view;
+  v70[0] = MEMORY[0x1E69E9820];
+  v70[1] = 3221225472;
+  v70[2] = __77___UIDragSetDownItemAnimation_configureCrossfadingAnimationToTargetedPreview__block_invoke_5;
+  v70[3] = &unk_1E712BA60;
+  objc_copyWeak(&v72, &v88);
+  v76 = v50;
+  v71 = view;
+  v73 = v93;
   v74 = v94;
   v75 = v95;
-  v76 = v96;
-  v65 = view;
-  v66 = _Block_copy(v71);
+  v64 = view;
+  v65 = _Block_copy(v70);
   completionHandler = self->_completionHandler;
-  self->_completionHandler = v66;
+  self->_completionHandler = v65;
 
-  objc_destroyWeak(&v73);
-  objc_destroyWeak(&v86);
+  objc_destroyWeak(&v72);
+  objc_destroyWeak(&v85);
+  objc_destroyWeak(&v87);
   objc_destroyWeak(&v88);
-  objc_destroyWeak(&v89);
 }
 
 - (void)reparentRetargetingContainerViewInTargetContainer
@@ -1143,7 +1142,7 @@ LABEL_25:
   memset(&v11, 0, sizeof(v11));
   if (itemCopy)
   {
-    [itemCopy appliedTransform];
+    objc_msgSend_appliedTransform(itemCopy);
   }
 
   else
@@ -1173,10 +1172,10 @@ LABEL_25:
   self->_center.z = 0.0;
   if (itemCopy)
   {
-    [itemCopy velocity3D];
+    objc_msgSend_velocity3D(itemCopy);
     *&self->_initialVelocity.var0.x = v13;
     *&self->_initialVelocity.var0.z = v14;
-    [itemCopy targetVelocity3D];
+    objc_msgSend_targetVelocity3D(itemCopy);
     v5 = *&self->_center.x;
   }
 

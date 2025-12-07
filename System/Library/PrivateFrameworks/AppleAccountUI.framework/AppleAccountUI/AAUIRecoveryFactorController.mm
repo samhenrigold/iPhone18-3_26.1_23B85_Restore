@@ -70,83 +70,84 @@
   {
     dtoHelper = self->_dtoHelper;
     aa_altDSID = [v5 aa_altDSID];
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __58__AAUIRecoveryFactorController_startAddingRecoveryContact__block_invoke;
-    v9[3] = &unk_1E820C140;
-    v9[4] = self;
-    [(AAUIDTOHelper *)dtoHelper shouldGateUsingRatchetForAltDSID:aa_altDSID completion:v9];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __58__AAUIRecoveryFactorController_startAddingRecoveryContact__block_invoke;
+    v10[3] = &unk_1E820C140;
+    v10[4] = self;
+    [(AAUIDTOHelper *)dtoHelper shouldGateUsingRatchetForAltDSID:aa_altDSID completion:v10];
   }
 
   else
   {
-    v8 = _AAUILogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = _AAUILogSystem(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       [AAUIRecoveryFactorController startAddingRecoveryContact];
     }
   }
 }
 
-void __58__AAUIRecoveryFactorController_startAddingRecoveryContact__block_invoke(uint64_t a1, int a2)
+void __58__AAUIRecoveryFactorController_startAddingRecoveryContact__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (!a2)
   {
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __58__AAUIRecoveryFactorController_startAddingRecoveryContact__block_invoke_39;
-    v13[3] = &unk_1E820B8F0;
-    v13[4] = *(a1 + 32);
-    v11 = MEMORY[0x1E69E96A0];
-    v12 = v13;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __58__AAUIRecoveryFactorController_startAddingRecoveryContact__block_invoke_39;
+    v14[3] = &unk_1E820B8F0;
+    v14[4] = *(a1 + 32);
+    v12 = MEMORY[0x1E69E96A0];
+    v13 = v14;
 LABEL_10:
-    dispatch_async(v11, v12);
+    dispatch_async(v12, v13);
     return;
   }
 
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(a1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __58__AAUIRecoveryFactorController_startAddingRecoveryContact__block_invoke_cold_1();
   }
 
-  if (![*(*(a1 + 32) + 40) isDTOGatingEnabled])
+  v4 = [*(*(a1 + 32) + 40) isDTOGatingEnabled];
+  if (!v4)
   {
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __58__AAUIRecoveryFactorController_startAddingRecoveryContact__block_invoke_2;
     block[3] = &unk_1E820B8F0;
     block[4] = *(a1 + 32);
-    v11 = MEMORY[0x1E69E96A0];
-    v12 = block;
+    v12 = MEMORY[0x1E69E96A0];
+    v13 = block;
     goto LABEL_10;
   }
 
-  v4 = _AAUILogSystem();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = _AAUILogSystem(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     __58__AAUIRecoveryFactorController_startAddingRecoveryContact__block_invoke_cold_2();
   }
 
-  v5 = *(a1 + 32);
-  v6 = v5[5];
-  v7 = [v5 presentingViewController];
-  v8 = [v6 makeRatchetContextWithPresentationContext:v7 DTOContextType:1];
+  v6 = *(a1 + 32);
+  v7 = v6[5];
+  v8 = [v6 presentingViewController];
+  v9 = [v7 makeRatchetContextWithPresentationContext:v8 DTOContextType:1];
 
-  v9 = *(a1 + 32);
-  v10 = *(v9 + 40);
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __58__AAUIRecoveryFactorController_startAddingRecoveryContact__block_invoke_35;
-  v15[3] = &unk_1E820C1A8;
-  v15[4] = v9;
-  [v10 shouldAllowOpForContext:v8 completion:v15];
+  v10 = *(a1 + 32);
+  v11 = *(v10 + 40);
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __58__AAUIRecoveryFactorController_startAddingRecoveryContact__block_invoke_35;
+  v16[3] = &unk_1E820C1A8;
+  v16[4] = v10;
+  [v11 shouldAllowOpForContext:v9 completion:v16];
 }
 
 void __58__AAUIRecoveryFactorController_startAddingRecoveryContact__block_invoke_35(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     __58__AAUIRecoveryFactorController_startAddingRecoveryContact__block_invoke_35_cold_1(a2, v5, v6);
@@ -163,10 +164,10 @@ void __58__AAUIRecoveryFactorController_startAddingRecoveryContact__block_invoke
   }
 }
 
-uint64_t __58__AAUIRecoveryFactorController_startAddingRecoveryContact__block_invoke_2(uint64_t a1)
+uint64_t __58__AAUIRecoveryFactorController_startAddingRecoveryContact__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = _AAUILogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = _AAUILogSystem(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __58__AAUIRecoveryFactorController_startAddingRecoveryContact__block_invoke_2_cold_1();
   }
@@ -174,10 +175,10 @@ uint64_t __58__AAUIRecoveryFactorController_startAddingRecoveryContact__block_in
   return [*(a1 + 32) _continueAddingRecoveryContact];
 }
 
-uint64_t __58__AAUIRecoveryFactorController_startAddingRecoveryContact__block_invoke_39(uint64_t a1)
+uint64_t __58__AAUIRecoveryFactorController_startAddingRecoveryContact__block_invoke_39(uint64_t a1, uint64_t a2)
 {
-  v2 = _AAUILogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = _AAUILogSystem(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __58__AAUIRecoveryFactorController_startAddingRecoveryContact__block_invoke_39_cold_1();
   }
@@ -235,29 +236,29 @@ LABEL_7:
   if (v6)
   {
     _stateController2 = [(AAUIRecoveryFactorController *)self _stateController];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __84__AAUIRecoveryFactorController_authenticateAndGenerateNewRecoveryKeyWithCompletion___block_invoke;
-    v10[3] = &unk_1E820C2E0;
-    objc_copyWeak(&v12, &location);
-    v11 = completionCopy;
-    [_stateController2 authenticateAndGenerateNewRecoveryKeyWithCompletion:v10];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __84__AAUIRecoveryFactorController_authenticateAndGenerateNewRecoveryKeyWithCompletion___block_invoke;
+    v11[3] = &unk_1E820C2E0;
+    objc_copyWeak(&v13, &location);
+    v12 = completionCopy;
+    [_stateController2 authenticateAndGenerateNewRecoveryKeyWithCompletion:v11];
 
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v13);
   }
 
   else
   {
-    v8 = _AAUILogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _AAUILogSystem(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [AAUIRecoveryFactorController authenticateAndGenerateNewRecoveryKeyWithCompletion:];
     }
 
     if (completionCopy)
     {
-      v9 = [MEMORY[0x1E696ABC0] aa_errorWithCode:-3];
-      (*(completionCopy + 2))(completionCopy, 0, v9);
+      v10 = [MEMORY[0x1E696ABC0] aa_errorWithCode:-3];
+      (*(completionCopy + 2))(completionCopy, 0, v10);
     }
   }
 
@@ -316,7 +317,7 @@ void __66__AAUIRecoveryFactorController_generateRecoveryKeyWithCompletion___bloc
 void __66__AAUIRecoveryFactorController_validateRecoveryKeyWithCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem(v5);
   v7 = v6;
   if (v5)
   {
@@ -359,29 +360,29 @@ void __66__AAUIRecoveryFactorController_validateRecoveryKeyWithCompletion___bloc
   if (v6)
   {
     _stateController2 = [(AAUIRecoveryFactorController *)self _stateController];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __93__AAUIRecoveryFactorController_authenticateAndDeleteRecoveryKeyFromAllSystemsWithCompletion___block_invoke;
-    v10[3] = &unk_1E820C2E0;
-    objc_copyWeak(&v12, &location);
-    v11 = completionCopy;
-    [_stateController2 authenticateAndDeleteRecoveryKeyWithCompletion:v10];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __93__AAUIRecoveryFactorController_authenticateAndDeleteRecoveryKeyFromAllSystemsWithCompletion___block_invoke;
+    v11[3] = &unk_1E820C2E0;
+    objc_copyWeak(&v13, &location);
+    v12 = completionCopy;
+    [_stateController2 authenticateAndDeleteRecoveryKeyWithCompletion:v11];
 
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v13);
   }
 
   else
   {
-    v8 = _AAUILogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _AAUILogSystem(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [AAUIRecoveryFactorController authenticateAndDeleteRecoveryKeyFromAllSystemsWithCompletion:];
     }
 
     if (completionCopy)
     {
-      v9 = [MEMORY[0x1E696ABC0] aa_errorWithCode:-3];
-      (*(completionCopy + 2))(completionCopy, 0, v9);
+      v10 = [MEMORY[0x1E696ABC0] aa_errorWithCode:-3];
+      (*(completionCopy + 2))(completionCopy, 0, v10);
     }
   }
 
@@ -401,34 +402,36 @@ void __93__AAUIRecoveryFactorController_authenticateAndDeleteRecoveryKeyFromAllS
   errorCopy = error;
   descriptionCopy = description;
   completionCopy = completion;
+  v12 = completionCopy;
   if (successCopy)
   {
-    v12 = objc_alloc_init(MEMORY[0x1E698B850]);
-    [v12 startHealthCheckWithCompletion:&__block_literal_global_4];
+    v13 = objc_alloc_init(MEMORY[0x1E698B850]);
+    [v13 startHealthCheckWithCompletion:&__block_literal_global_4];
   }
 
   else
   {
-    v12 = _AAUILogSystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = _AAUILogSystem(completionCopy);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [AAUIRecoveryFactorController _handleRecoveryKeyOperationResultWithSuccess:error:operationDescription:completion:];
     }
   }
 
-  if (completionCopy)
+  if (v12)
   {
-    completionCopy[2](completionCopy, successCopy, errorCopy);
+    (v12)[2](v12, successCopy, errorCopy);
   }
 }
 
 void __115__AAUIRecoveryFactorController__handleRecoveryKeyOperationResultWithSuccess_error_operationDescription_completion___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = _AAUILogSystem();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _AAUILogSystem(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __115__AAUIRecoveryFactorController__handleRecoveryKeyOperationResultWithSuccess_error_operationDescription_completion___block_invoke_cold_1();
     }

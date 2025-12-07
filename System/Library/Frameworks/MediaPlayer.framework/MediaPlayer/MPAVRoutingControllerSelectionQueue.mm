@@ -161,7 +161,7 @@ LABEL_21:
   _Block_object_dispose(&v9, 8);
 }
 
-uint64_t __47__MPAVRoutingControllerSelectionQueue__dequeue__block_invoke(uint64_t a1)
+void *__47__MPAVRoutingControllerSelectionQueue__dequeue__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 16) count];
   if (result)
@@ -1266,7 +1266,7 @@ void __57__MPAVRoutingControllerSelectionQueue_pendingPickedRoute__block_invoke(
   return v3;
 }
 
-uint64_t __55__MPAVRoutingControllerSelectionQueue_hasPendingRoutes__block_invoke(uint64_t a1)
+void *__55__MPAVRoutingControllerSelectionQueue_hasPendingRoutes__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 32) count];
   *(*(*(a1 + 40) + 8) + 24) = result != 0;

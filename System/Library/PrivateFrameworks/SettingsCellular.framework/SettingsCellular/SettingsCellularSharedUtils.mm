@@ -39,50 +39,50 @@ uint64_t __53__SettingsCellularSharedUtils_sharedCTClientWorkloop__block_invoke(
 
 + (void)logSpecifiers:(id)specifiers origin:(id)origin
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   specifiersCopy = specifiers;
   originCopy = origin;
   v7 = [Logger loggerWithCategory:@"Specifiers"];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v25 = originCopy;
-    v26 = 2048;
-    v27 = [specifiersCopy count];
+    v24 = originCopy;
+    v25 = 2048;
+    v26 = [specifiersCopy count];
     _os_log_impl(&dword_2658CA000, v7, OS_LOG_TYPE_DEFAULT, "%@ showing %zu specifiers", buf, 0x16u);
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v8 = specifiersCopy;
-  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v11 = v9;
-    v12 = *v20;
+    v12 = *v19;
     *&v10 = 138412546;
-    v18 = v10;
+    v17 = v10;
     do
     {
       v13 = 0;
       do
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v19 + 1) + 8 * v13);
-        v15 = [Logger loggerWithCategory:@"Specifiers", v18, v19];
+        v14 = *(*(&v18 + 1) + 8 * v13);
+        v15 = [Logger loggerWithCategory:@"Specifiers", v17, v18];
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           name = [v14 name];
-          *buf = v18;
-          v25 = originCopy;
-          v26 = 2112;
-          v27 = name;
+          *buf = v17;
+          v24 = originCopy;
+          v25 = 2112;
+          v26 = name;
           _os_log_impl(&dword_2658CA000, v15, OS_LOG_TYPE_DEFAULT, "%@ showing specifier: %@", buf, 0x16u);
         }
 
@@ -90,13 +90,11 @@ uint64_t __53__SettingsCellularSharedUtils_sharedCTClientWorkloop__block_invoke(
       }
 
       while (v11 != v13);
-      v11 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v11);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 + (id)usageSizeString:(double)string

@@ -75,7 +75,7 @@
 
 - (id)_synchronousRemoteObjectProxyForDomain:(unint64_t)domain errorHandler:(id)handler
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v7 = self->_connectionWrapper;
   if (![(BMXPCConnectionWrapper *)v7 isValid])
@@ -89,9 +89,9 @@
   if (!v7)
   {
     v16 = MEMORY[0x1E696ABC0];
-    v28 = *MEMORY[0x1E696A578];
-    v29[0] = @"Failed to get or create BMXPCConnectionWrapper";
-    connection = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+    v27 = *MEMORY[0x1E696A578];
+    v28[0] = @"Failed to get or create BMXPCConnectionWrapper";
+    connection = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
     v15 = [v16 errorWithDomain:@"BMAccessErrorDomain" code:0 userInfo:connection];
     handlerCopy[2](handlerCopy, v15);
 LABEL_10:
@@ -103,37 +103,35 @@ LABEL_10:
   if (!connection)
   {
     v17 = MEMORY[0x1E696ABC0];
-    v26 = *MEMORY[0x1E696A578];
-    v27 = @"Failed to get connection from BMXPCConnectionWrapper";
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    v25 = *MEMORY[0x1E696A578];
+    v26 = @"Failed to get connection from BMXPCConnectionWrapper";
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
     v18 = [v17 errorWithDomain:@"BMAccessErrorDomain" code:0 userInfo:v15];
     handlerCopy[2](handlerCopy, v18);
 
     goto LABEL_10;
   }
 
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __70__BMAccessClient__synchronousRemoteObjectProxyForDomain_errorHandler___block_invoke;
-  v21[3] = &unk_1E796B0A0;
-  v22 = v7;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __70__BMAccessClient__synchronousRemoteObjectProxyForDomain_errorHandler___block_invoke;
+  v20[3] = &unk_1E796B0A0;
+  v21 = v7;
   v10 = handlerCopy;
-  v23 = v10;
-  v11 = [connection synchronousRemoteObjectProxyWithErrorHandler:v21];
+  v22 = v10;
+  v11 = [connection synchronousRemoteObjectProxyWithErrorHandler:v20];
   if (!v11)
   {
     v12 = MEMORY[0x1E696ABC0];
-    v24 = *MEMORY[0x1E696A578];
-    v25 = @"Failed to create remote object proxy";
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+    v23 = *MEMORY[0x1E696A578];
+    v24 = @"Failed to create remote object proxy";
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
     v14 = [v12 errorWithDomain:@"BMAccessErrorDomain" code:0 userInfo:v13];
     v10[2](v10, v14);
   }
 
-  v15 = v22;
+  v15 = v21;
 LABEL_11:
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -161,15 +159,15 @@ void __70__BMAccessClient__synchronousRemoteObjectProxyForDomain_errorHandler___
 
 - (id)requestAccessToResource:(id)resource mode:(unint64_t)mode error:(id *)error
 {
-  v90[1] = *MEMORY[0x1E69E9840];
+  v89[1] = *MEMORY[0x1E69E9840];
   resourceCopy = resource;
-  v46 = resourceCopy;
+  v45 = resourceCopy;
   if (resourceCopy)
   {
     v7 = resourceCopy;
     v8 = +[BMPaths isTestPathOverridden];
-    v49 = v7;
-    type = [v49 type];
+    v48 = v7;
+    type = [v48 type];
     if (type > 2)
     {
       switch(type)
@@ -181,7 +179,7 @@ void __70__BMAccessClient__synchronousRemoteObjectProxyForDomain_errorHandler___
           v10 = "BMAccessClient.requestAccessToResource: Set";
           break;
         case 5:
-          name = [v49 name];
+          name = [v48 name];
           v14 = [name isEqual:@"BMSyncResource"];
 
           if (v14)
@@ -191,7 +189,7 @@ void __70__BMAccessClient__synchronousRemoteObjectProxyForDomain_errorHandler___
 
           else
           {
-            name2 = [v49 name];
+            name2 = [v48 name];
             v34 = [name2 isEqual:@"BMSharedSyncResource"];
 
             if (v34)
@@ -201,10 +199,10 @@ void __70__BMAccessClient__synchronousRemoteObjectProxyForDomain_errorHandler___
 
             else
             {
-              name3 = [v49 name];
-              v40 = [name3 isEqual:@"BMSetsMergeableDeltasResource"];
+              name3 = [v48 name];
+              v39 = [name3 isEqual:@"BMSetsMergeableDeltasResource"];
 
-              if (v40)
+              if (v39)
               {
                 v10 = "BMAccessClient.requestAccessToResource: SetsMergeableDeltas";
               }
@@ -251,26 +249,26 @@ LABEL_20:
 
     state.opaque[0] = 0;
     state.opaque[1] = 0;
-    v44 = v15;
+    v43 = v15;
     os_activity_scope_enter(v15, &state);
-    v16 = BMServiceDomainForResource(v49);
+    v16 = BMServiceDomainForResource(v48);
     v17 = +[BMProcess current];
     v18 = [v17 processType] == 5;
 
     if (!v18 && !v8)
     {
       v19 = +[BMProcess current];
-      v45 = [BMAccessControlPolicy policyForProcess:v19 connectionFlags:0 useCase:self->_useCase];
+      v44 = [BMAccessControlPolicy policyForProcess:v19 connectionFlags:0 useCase:self->_useCase];
 
-      if (([(BMAccessDescriptor *)v45 allowsAccessToResource:v49 withMode:mode]& 1) == 0)
+      if (([(BMAccessDescriptor *)v44 allowsAccessToResource:v48 withMode:mode]& 1) == 0)
       {
-        [(BMAccessTracker *)self->_accessTracker logMissingEntitlementsForAccessToResource:v49 domain:v16 withMode:mode useCase:self->_useCase];
+        [(BMAccessTracker *)self->_accessTracker logMissingEntitlementsForAccessToResource:v48 domain:v16 withMode:mode useCase:self->_useCase];
         if (error)
         {
           v25 = MEMORY[0x1E696ABC0];
-          v87 = *MEMORY[0x1E696A578];
-          v88 = @"Not entitled";
-          v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v88 forKeys:&v87 count:1];
+          v86 = *MEMORY[0x1E696A578];
+          v87 = @"Not entitled";
+          v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v87 forKeys:&v86 count:1];
           *error = [v25 errorWithDomain:@"BMAccessErrorDomain" code:3 userInfo:v26];
         }
 
@@ -279,7 +277,7 @@ LABEL_20:
       }
     }
 
-    v45 = [[BMAccessDescriptor alloc] initWithDomain:v16 accessMode:mode resource:v49];
+    v44 = [[BMAccessDescriptor alloc] initWithDomain:v16 accessMode:mode resource:v48];
     v12 = [(BMAccessAssertionCache *)self->_accessAssertionCache assertionForAccessDescriptor:?];
     if (v12)
     {
@@ -295,13 +293,13 @@ LABEL_46:
     if (v21 || v8)
     {
       v22 = +[BMResourceContainerManager sharedInstance];
-      v77 = 0;
-      v23 = [v22 openContainerForResource:v49 mode:mode error:&v77];
-      v24 = v77;
+      v76 = 0;
+      v23 = [v22 openContainerForResource:v48 mode:mode error:&v76];
+      v24 = v76;
 
       if (v23)
       {
-        v12 = [[_BMAccessAssertionNotApplicable alloc] initWithDescriptor:v45 container:v23];
+        v12 = [[_BMAccessAssertionNotApplicable alloc] initWithDescriptor:v44 container:v23];
       }
 
       else
@@ -309,9 +307,9 @@ LABEL_46:
         if (error)
         {
           v35 = MEMORY[0x1E696ABC0];
-          v85 = *MEMORY[0x1E696A578];
-          v86 = @"Cannot open container";
-          v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v86 forKeys:&v85 count:1];
+          v84 = *MEMORY[0x1E696A578];
+          v85 = @"Cannot open container";
+          v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v85 forKeys:&v84 count:1];
           *error = [v35 errorWithDomain:@"BMAccessErrorDomain" code:13 userInfo:v36];
         }
 
@@ -321,65 +319,65 @@ LABEL_46:
       goto LABEL_46;
     }
 
-    v76 = 0;
-    v70 = 0;
-    v71 = &v70;
-    v72 = 0x3032000000;
-    v73 = __Block_byref_object_copy_;
-    v74 = __Block_byref_object_dispose_;
     v75 = 0;
-    v64 = 0;
-    v65 = &v64;
-    v66 = 0x3032000000;
-    v67 = __Block_byref_object_copy_;
-    v68 = __Block_byref_object_dispose_;
     v69 = 0;
-    v58 = 0;
-    v59 = &v58;
-    v60 = 0x3032000000;
-    v61 = __Block_byref_object_copy_;
-    v62 = __Block_byref_object_dispose_;
+    v70 = &v69;
+    v71 = 0x3032000000;
+    v72 = __Block_byref_object_copy_;
+    v73 = __Block_byref_object_dispose_;
+    v74 = 0;
     v63 = 0;
-    v52 = 0;
-    v53 = &v52;
-    v54 = 0x3032000000;
-    v55 = __Block_byref_object_copy_;
-    v56 = __Block_byref_object_dispose_;
+    v64 = &v63;
+    v65 = 0x3032000000;
+    v66 = __Block_byref_object_copy_;
+    v67 = __Block_byref_object_dispose_;
+    v68 = 0;
     v57 = 0;
+    v58 = &v57;
+    v59 = 0x3032000000;
+    v60 = __Block_byref_object_copy_;
+    v61 = __Block_byref_object_dispose_;
+    v62 = 0;
+    v51 = 0;
+    v52 = &v51;
+    v53 = 0x3032000000;
+    v54 = __Block_byref_object_copy_;
+    v55 = __Block_byref_object_dispose_;
+    v56 = 0;
     v27 = MEMORY[0x1E69E9820];
     do
     {
-      v51[0] = v27;
-      v51[1] = 3221225472;
-      v51[2] = __53__BMAccessClient_requestAccessToResource_mode_error___block_invoke;
-      v51[3] = &unk_1E796B0C8;
-      v51[4] = &v52;
-      v28 = [(BMAccessClient *)self _synchronousRemoteObjectProxyForDomain:v16 errorHandler:v51];
-      v50[0] = MEMORY[0x1E69E9820];
+      v50[0] = v27;
       v50[1] = 3221225472;
-      v50[2] = __53__BMAccessClient_requestAccessToResource_mode_error___block_invoke_102;
-      v50[3] = &unk_1E796B0F0;
-      v50[4] = &v70;
-      v50[5] = &v58;
-      v50[6] = &v64;
-      v50[7] = &v52;
-      [v28 requestAccessToResource:v49 withMode:mode reply:v50];
+      v50[2] = __53__BMAccessClient_requestAccessToResource_mode_error___block_invoke;
+      v50[3] = &unk_1E796B0C8;
+      v50[4] = &v51;
+      v28 = [(BMAccessClient *)self _synchronousRemoteObjectProxyForDomain:v16 errorHandler:v50];
+      v49[0] = MEMORY[0x1E69E9820];
+      v49[1] = 3221225472;
+      v49[2] = __53__BMAccessClient_requestAccessToResource_mode_error___block_invoke_102;
+      v49[3] = &unk_1E796B0F0;
+      v49[4] = &v69;
+      v49[5] = &v57;
+      v49[6] = &v63;
+      v49[7] = &v51;
+      [v28 requestAccessToResource:v48 withMode:mode reply:v49];
     }
 
-    while ((BMShouldRetry(v53[5], &v76, 2uLL, 1) & 1) != 0);
-    v29 = v65[5];
+    while ((BMShouldRetry(v52[5], &v75, 2uLL, 1) & 1) != 0);
+    v29 = v64[5];
     if (v29)
     {
-      v12 = [(BMAccessAssertionCache *)self->_accessAssertionCache createAssertionForAccessDescriptor:v45 extensionToken:v29 container:v71[5] path:v59[5]];
+      v12 = [(BMAccessAssertionCache *)self->_accessAssertionCache createAssertionForAccessDescriptor:v44 extensionToken:v29 container:v70[5] path:v58[5]];
       if (v12)
       {
 LABEL_45:
-        _Block_object_dispose(&v52, 8);
+        _Block_object_dispose(&v51, 8);
 
-        _Block_object_dispose(&v58, 8);
-        _Block_object_dispose(&v64, 8);
+        _Block_object_dispose(&v57, 8);
+        _Block_object_dispose(&v63, 8);
 
-        _Block_object_dispose(&v70, 8);
+        _Block_object_dispose(&v69, 8);
         goto LABEL_46;
       }
 
@@ -387,13 +385,13 @@ LABEL_45:
       if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         v31 = BMAccessModePrintableDescription(mode);
-        v32 = v53[5];
+        v32 = v52[5];
         *buf = 138543874;
-        v80 = v31;
-        v81 = 2114;
-        v82 = v49;
-        v83 = 2114;
-        v84 = v32;
+        v79 = v31;
+        v80 = 2114;
+        v81 = v48;
+        v82 = 2114;
+        v83 = v32;
         _os_log_error_impl(&dword_1AC15D000, v30, OS_LOG_TYPE_ERROR, "Failed to create assertion for %{public}@ access to %{public}@ with error %{public}@", buf, 0x20u);
       }
     }
@@ -403,14 +401,14 @@ LABEL_45:
       v30 = __biome_log_for_category(6);
       if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
-        v41 = BMAccessModePrintableDescription(mode);
-        v42 = v53[5];
+        v40 = BMAccessModePrintableDescription(mode);
+        v41 = v52[5];
         *buf = 138543874;
-        v80 = v41;
-        v81 = 2114;
-        v82 = v49;
-        v83 = 2114;
-        v84 = v42;
+        v79 = v40;
+        v80 = 2114;
+        v81 = v48;
+        v82 = 2114;
+        v83 = v41;
         _os_log_error_impl(&dword_1AC15D000, v30, OS_LOG_TYPE_ERROR, "Failed to acquire extension token for %{public}@ access to %{public}@ with error %{public}@", buf, 0x20u);
       }
     }
@@ -422,10 +420,10 @@ LABEL_45:
   if (error)
   {
     v11 = MEMORY[0x1E696ABC0];
-    v89 = *MEMORY[0x1E696A578];
-    v90[0] = @"nil resource";
-    v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v90 forKeys:&v89 count:1];
-    [v11 errorWithDomain:@"BMAccessErrorDomain" code:12 userInfo:v43];
+    v88 = *MEMORY[0x1E696A578];
+    v89[0] = @"nil resource";
+    v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v89 forKeys:&v88 count:1];
+    [v11 errorWithDomain:@"BMAccessErrorDomain" code:12 userInfo:v42];
     *error = v12 = 0;
   }
 
@@ -435,8 +433,6 @@ LABEL_45:
   }
 
 LABEL_47:
-
-  v37 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -638,9 +634,9 @@ void __50__BMAccessClient_Deletions__removeResource_error___block_invoke(uint64_
 
 void __53__BMAccessClient_requestAccessToResource_mode_error___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1AC15D000, a2, a3, "Error extending sandbox token - unable to establish XPC connection: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_1AC15D000, a2, a3, "Error extending sandbox token - unable to establish XPC connection: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

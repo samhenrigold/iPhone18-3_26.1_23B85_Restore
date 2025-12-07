@@ -16,39 +16,38 @@
 
 + (id)suggestionsWithData:(id)data queryString:(id)string
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   stringCopy = string;
-  v7 = *MEMORY[0x1E695E480];
   [dataCopy bytes];
-  v29 = dataCopy;
+  v27 = dataCopy;
   [dataCopy length];
   cf = _MDPlistBytesCreateTrusted();
-  v8 = _MDPlistBytesCopyPlistAtIndex();
-  v9 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(v8, "count")}];
+  v7 = _MDPlistBytesCopyPlistAtIndex();
+  v8 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:objc_msgSend_count(v7)];
+  v28 = 0u;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v10 = v8;
-  v11 = [v10 countByEnumeratingWithState:&v30 objects:v34 count:16];
-  if (v11)
+  v9 = v7;
+  v10 = [v9 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  if (v10)
   {
-    v12 = v11;
-    v13 = *v31;
+    v11 = v10;
+    v12 = *v29;
     do
     {
-      for (i = 0; i != v12; ++i)
+      for (i = 0; i != v11; ++i)
       {
-        if (*v31 != v13)
+        if (*v29 != v12)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v30 + 1) + 8 * i);
-        if ([v15 count] == 23)
+        v14 = *(*(&v28 + 1) + 8 * i);
+        if (objc_msgSend_count(v14, cf) == 23)
         {
-          v16 = [v15 objectAtIndexedSubscript:0];
+          v15 = [v14 objectAtIndexedSubscript:0];
           objc_opt_class();
           isKindOfClass = objc_opt_isKindOfClass();
 
@@ -57,42 +56,40 @@
             goto LABEL_14;
           }
 
-          v18 = [v15 objectAtIndexedSubscript:22];
+          v17 = [v14 objectAtIndexedSubscript:22];
           objc_opt_class();
-          v19 = objc_opt_isKindOfClass();
+          v18 = objc_opt_isKindOfClass();
 
-          if ((v19 & 1) == 0)
+          if ((v18 & 1) == 0)
           {
             goto LABEL_14;
           }
 
-          v20 = [v15 objectAtIndexedSubscript:0];
-          v21 = [v15 objectAtIndexedSubscript:22];
-          v22 = [v15 subarrayWithRange:{1, objc_msgSend(v15, "count") - 2}];
-          v23 = [[SPSearchSuggestion alloc] initWithSuggestion:v20 query:stringCopy scores:v22 bundleIDs:v21];
-          [(SPSearchSuggestion *)v23 setQuery:stringCopy];
-          if (v23)
+          v19 = [v14 objectAtIndexedSubscript:0];
+          v20 = [v14 objectAtIndexedSubscript:22];
+          v21 = [v14 subarrayWithRange:{1, objc_msgSend_count(v14) - 2}];
+          v22 = [[SPSearchSuggestion alloc] initWithSuggestion:v19 query:stringCopy scores:v21 bundleIDs:v20];
+          [(SPSearchSuggestion *)v22 setQuery:stringCopy];
+          if (v22)
           {
-            [v9 addObject:v23];
+            [v8 addObject:v22];
           }
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
-    while (v12);
+    while (v11);
   }
 
 LABEL_14:
 
   CFRelease(cf);
-  allObjects = [v9 allObjects];
-  v25 = [allObjects sortedArrayUsingSelector:sel_compare_];
+  allObjects = [v8 allObjects];
+  v24 = [allObjects sortedArrayUsingSelector:sel_compare_];
 
-  v26 = *MEMORY[0x1E69E9840];
-
-  return v25;
+  return v24;
 }
 
 + (id)suggestionsWithNLPData:(id)data queryString:(id)string
@@ -106,13 +103,13 @@ LABEL_14:
 
 - (SPSearchSuggestion)initWithSuggestion:(id)suggestion query:(id)query scores:(id)scores bundleIDs:(id)ds
 {
-  v87 = *MEMORY[0x1E69E9840];
+  v86 = *MEMORY[0x1E69E9840];
   suggestionCopy = suggestion;
   queryCopy = query;
   scoresCopy = scores;
   dsCopy = ds;
   v14 = suggestionCopy;
-  v15 = [scoresCopy count];
+  v15 = objc_msgSend_count(scoresCopy);
   obj = suggestion;
   if (v15 != 21)
   {
@@ -177,41 +174,41 @@ LABEL_19:
   v15 = 21;
   if (integerValue == 22)
   {
-    v75 = scoresCopy;
-    v76 = queryCopy;
+    v74 = scoresCopy;
+    v75 = queryCopy;
     lowercaseString = [v14 lowercaseString];
 
     v23 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"**=%@cwd", v14];
     [v23 addObject:v24];
 
-    v84 = 0u;
-    v85 = 0u;
-    v82 = 0u;
     v83 = 0u;
-    v74 = dsCopy;
+    v84 = 0u;
+    v81 = 0u;
+    v82 = 0u;
+    v73 = dsCopy;
     v25 = dsCopy;
-    v26 = [v25 countByEnumeratingWithState:&v82 objects:v86 count:16];
+    v26 = [v25 countByEnumeratingWithState:&v81 objects:v85 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v83;
+      v28 = *v82;
       do
       {
         for (i = 0; i != v27; ++i)
         {
-          if (*v83 != v28)
+          if (*v82 != v28)
           {
             objc_enumerationMutation(v25);
           }
 
           v30 = MEMORY[0x1E696AEC0];
-          v31 = [*(*(&v82 + 1) + 8 * i) stringByReplacingOccurrencesOfString:@" " withString:@"*"];
+          v31 = [*(*(&v81 + 1) + 8 * i) stringByReplacingOccurrencesOfString:@" " withString:@"*"];
           v32 = [v30 stringWithFormat:@"**=%@*cwd", v31];
           [v23 addObject:v32];
         }
 
-        v27 = [v25 countByEnumeratingWithState:&v82 objects:v86 count:16];
+        v27 = [v25 countByEnumeratingWithState:&v81 objects:v85 count:16];
       }
 
       while (v27);
@@ -222,21 +219,21 @@ LABEL_19:
     v18 = [v33 stringWithFormat:@"(%@)", v34];
 
     v19 = 7;
-    scoresCopy = v75;
-    queryCopy = v76;
-    dsCopy = v74;
+    scoresCopy = v74;
+    queryCopy = v75;
+    dsCopy = v73;
     v15 = 21;
     v20 = lowercaseString;
   }
 
 LABEL_20:
-  v81.receiver = self;
-  v81.super_class = SPSearchSuggestion;
-  v41 = [(SPSearchSuggestion *)&v81 init];
+  v80.receiver = self;
+  v80.super_class = SPSearchSuggestion;
+  v41 = [(SPSearchSuggestion *)&v80 init];
   v42 = v41;
   if (v41)
   {
-    v78 = v20;
+    v77 = v20;
     if (v15 == 21)
     {
       v43 = [scoresCopy objectAtIndexedSubscript:0];
@@ -346,13 +343,12 @@ LABEL_20:
     v42->_categories = 0;
 
     [(SPSearchSuggestion *)v42 setScore:*p_compositeScore];
-    v20 = v78;
-    [(SPSearchSuggestion *)v42 setSuggestion:v78];
+    v20 = v77;
+    [(SPSearchSuggestion *)v42 setSuggestion:v77];
     [(SPSearchSuggestion *)v42 setQuery:queryCopy];
     [(SPSearchSuggestion *)v42 setType:v19];
   }
 
-  v72 = *MEMORY[0x1E69E9840];
   return v42;
 }
 
@@ -582,11 +578,9 @@ LABEL_20:
   v4 = objc_opt_class();
   suggestion = [(SPSearchSuggestion *)self suggestion];
   suggestion2 = [(SPSearchSuggestion *)self suggestion];
-  v7 = [suggestion2 length];
-  fragments = self->_fragments;
-  v9 = [v3 stringWithFormat:@"<%@: %p> %@ len:%ld fragments:%ld max_score:%llu age:%g weight:%d pweight:%d rweight:%d c_score:%g type:%d pfx_len:%d st:%d phrase_score:%g field_weight:%f hasUsed:%d isShortcut:%d", v4, self, suggestion, v7, fragments, self->_maxscore, *&self->_age, self->_weight, self->_parentWeight, self->_rootWeight, *&self->_compositeScore, self->_completionType, self->_prefixLen, self->_isSingleThread, *&self->_phraseScore, self->_fieldWeight, self->_hasUsedDate, self->_isShortcut];
+  v7 = [v3 stringWithFormat:@"<%@: %p> %@ len:%ld fragments:%ld max_score:%llu age:%g weight:%d pweight:%d rweight:%d c_score:%g type:%d pfx_len:%d st:%d phrase_score:%g field_weight:%f hasUsed:%d isShortcut:%d", v4, self, suggestion, objc_msgSend(suggestion2, "length"), self->_fragments, self->_maxscore, *&self->_age, self->_weight, self->_parentWeight, self->_rootWeight, *&self->_compositeScore, self->_completionType, self->_prefixLen, self->_isSingleThread, *&self->_phraseScore, self->_fieldWeight, self->_hasUsedDate, self->_isShortcut];
 
-  return v9;
+  return v7;
 }
 
 - (int64_t)compare:(id)compare
@@ -708,52 +702,52 @@ LABEL_6:
 
 - (id)suggestionsFeedbackData
 {
-  v41[22] = *MEMORY[0x1E69E9840];
-  v40[0] = @"queryLen";
+  v40[22] = *MEMORY[0x1E69E9840];
+  v39[0] = @"queryLen";
   v3 = SSRoundDouble(4, [(SPSearchSuggestion *)self queryLen]);
-  v41[0] = v3;
-  v40[1] = @"queryFragmentCount";
+  v40[0] = v3;
+  v39[1] = @"queryFragmentCount";
   v4 = SSRoundDouble(4, [(SPSearchSuggestion *)self queryFragmentCount]);
-  v41[1] = v4;
-  v40[2] = @"queryCompletionCount";
+  v40[1] = v4;
+  v39[2] = @"queryCompletionCount";
   v5 = SSRoundUInt64([(SPSearchSuggestion *)self queryCompletionCount]);
-  v41[2] = v5;
-  v40[3] = @"len";
+  v40[2] = v5;
+  v39[3] = @"len";
   suggestion = [(SPSearchSuggestion *)self suggestion];
   v7 = SSRoundDouble(4, [suggestion length]);
-  v41[3] = v7;
-  v40[4] = @"fragments";
+  v40[3] = v7;
+  v39[4] = @"fragments";
   v8 = SSRoundDouble(4, [(SPSearchSuggestion *)self fragments]);
-  v41[4] = v8;
-  v40[5] = @"age";
+  v40[4] = v8;
+  v39[5] = @"age";
   [(SPSearchSuggestion *)self age];
   v10 = SSRoundDouble(4, v9);
-  v41[5] = v10;
-  v40[6] = @"prob";
+  v40[5] = v10;
+  v39[6] = @"prob";
   [(SPSearchSuggestion *)self prob];
   v12 = SSRoundDouble(2, v11);
-  v41[6] = v12;
-  v40[7] = @"maxscore";
-  v39 = SSRoundUInt64([(SPSearchSuggestion *)self maxscore]);
-  v41[7] = v39;
-  v40[8] = @"weight";
-  v38 = SSRoundDouble(4, [(SPSearchSuggestion *)self weight]);
-  v41[8] = v38;
-  v40[9] = @"parentWeight";
-  v37 = SSRoundDouble(4, [(SPSearchSuggestion *)self parentWeight]);
-  v41[9] = v37;
-  v40[10] = @"rootWeight";
-  v36 = SSRoundDouble(4, [(SPSearchSuggestion *)self rootWeight]);
-  v41[10] = v36;
-  v40[11] = @"phraseScore";
+  v40[6] = v12;
+  v39[7] = @"maxscore";
+  v38 = SSRoundUInt64([(SPSearchSuggestion *)self maxscore]);
+  v40[7] = v38;
+  v39[8] = @"weight";
+  v37 = SSRoundDouble(4, [(SPSearchSuggestion *)self weight]);
+  v40[8] = v37;
+  v39[9] = @"parentWeight";
+  v36 = SSRoundDouble(4, [(SPSearchSuggestion *)self parentWeight]);
+  v40[9] = v36;
+  v39[10] = @"rootWeight";
+  v35 = SSRoundDouble(4, [(SPSearchSuggestion *)self rootWeight]);
+  v40[10] = v35;
+  v39[11] = @"phraseScore";
   [(SPSearchSuggestion *)self phraseScore];
-  v35 = SSRoundDouble(4, v13);
-  v41[11] = v35;
-  v40[12] = @"punishment";
+  v34 = SSRoundDouble(4, v13);
+  v40[11] = v34;
+  v39[12] = @"punishment";
   [(SPSearchSuggestion *)self punishment];
-  v34 = SSRoundDouble(4, v14);
-  v41[12] = v34;
-  v40[13] = @"compositeScore";
+  v33 = SSRoundDouble(4, v14);
+  v40[12] = v33;
+  v39[13] = @"compositeScore";
   [(SPSearchSuggestion *)self compositeScore];
   v16 = v15;
   v17 = 0.0;
@@ -762,19 +756,19 @@ LABEL_6:
     [(SPSearchSuggestion *)self compositeScore];
   }
 
-  v33 = SSRoundDouble(4, v17);
-  v41[13] = v33;
-  v40[14] = @"completionType";
-  v32 = SSRoundDouble(4, [(SPSearchSuggestion *)self completionType]);
-  v41[14] = v32;
-  v40[15] = @"prefixLen";
-  v31 = SSRoundDouble(4, [(SPSearchSuggestion *)self prefixLen]);
-  v41[15] = v31;
-  v40[16] = @"fieldWeight";
+  v32 = SSRoundDouble(4, v17);
+  v40[13] = v32;
+  v39[14] = @"completionType";
+  v31 = SSRoundDouble(4, [(SPSearchSuggestion *)self completionType]);
+  v40[14] = v31;
+  v39[15] = @"prefixLen";
+  v30 = SSRoundDouble(4, [(SPSearchSuggestion *)self prefixLen]);
+  v40[15] = v30;
+  v39[16] = @"fieldWeight";
   [(SPSearchSuggestion *)self fieldWeight];
-  v30 = SSRoundDouble(4, v18);
-  v41[16] = v30;
-  v40[17] = @"isSingleThread";
+  v29 = SSRoundDouble(4, v18);
+  v40[16] = v29;
+  v39[17] = @"isSingleThread";
   if ([(SPSearchSuggestion *)self isSingleThread])
   {
     v19 = &unk_1F55B3C00;
@@ -785,8 +779,8 @@ LABEL_6:
     v19 = &unk_1F55B3BE8;
   }
 
-  v41[17] = v19;
-  v40[18] = @"hasUsedDate";
+  v40[17] = v19;
+  v39[18] = @"hasUsedDate";
   if ([(SPSearchSuggestion *)self hasUsedDate])
   {
     v20 = &unk_1F55B3C00;
@@ -797,8 +791,8 @@ LABEL_6:
     v20 = &unk_1F55B3BE8;
   }
 
-  v41[18] = v20;
-  v40[19] = @"isShortcut";
+  v40[18] = v20;
+  v39[19] = @"isShortcut";
   if ([(SPSearchSuggestion *)self isShortcut])
   {
     v21 = &unk_1F55B3C00;
@@ -809,8 +803,8 @@ LABEL_6:
     v21 = &unk_1F55B3BE8;
   }
 
-  v41[19] = v21;
-  v40[20] = @"hasMultipleResults";
+  v40[19] = v21;
+  v39[20] = @"hasMultipleResults";
   if ([(SPSearchSuggestion *)self hasMultipleResults])
   {
     v22 = &unk_1F55B3C00;
@@ -821,8 +815,8 @@ LABEL_6:
     v22 = &unk_1F55B3BE8;
   }
 
-  v41[20] = v22;
-  v40[21] = @"bundleIDs";
+  v40[20] = v22;
+  v39[21] = @"bundleIDs";
   bundleIDs = [(SPSearchSuggestion *)self bundleIDs];
   v24 = bundleIDs;
   v25 = MEMORY[0x1E695E0F0];
@@ -831,19 +825,17 @@ LABEL_6:
     v25 = bundleIDs;
   }
 
-  v41[21] = v25;
-  v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:v40 count:22];
+  v40[21] = v25;
+  v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:v39 count:22];
 
   v27 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v26 options:2 error:0];
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return v27;
 }
 
 - (NSArray)searchEntities
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   if (self->_spotlightQuery)
   {
     suggestion = [(SPSearchSuggestion *)self suggestion];
@@ -864,10 +856,8 @@ LABEL_6:
     v6 = [SPSearchEntity searchEntityWithSearchString:bundleIDs spotlightQueryString:v9 preferredBundleIDs:bundleIDs2];
   }
 
-  v14[0] = v6;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v13[0] = v6;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
 
   return v11;
 }

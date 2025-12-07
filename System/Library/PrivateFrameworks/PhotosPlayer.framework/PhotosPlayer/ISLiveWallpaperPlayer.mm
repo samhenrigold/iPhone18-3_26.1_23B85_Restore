@@ -117,7 +117,7 @@ void __46__ISLiveWallpaperPlayer__seekVideoToBeginning__block_invoke_2(uint64_t 
   memset(&v18, 0, sizeof(v18));
   if (videoPlayer)
   {
-    [videoPlayer currentTime];
+    objc_msgSend_currentTime(videoPlayer);
   }
 
   [videoPlayer rate];
@@ -244,7 +244,7 @@ void __36__ISLiveWallpaperPlayer__setActive___block_invoke(uint64_t a1)
         v10 = asset;
         if (asset)
         {
-          [asset duration];
+          objc_msgSend_duration(asset);
         }
 
         else
@@ -266,7 +266,7 @@ void __36__ISLiveWallpaperPlayer__setActive___block_invoke(uint64_t a1)
         v12 = videoPlayer3;
         if (videoPlayer3)
         {
-          [videoPlayer3 currentTime];
+          objc_msgSend_currentTime(videoPlayer3);
         }
 
         else

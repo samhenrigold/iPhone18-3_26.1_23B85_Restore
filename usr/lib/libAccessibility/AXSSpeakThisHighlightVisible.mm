@@ -3,7 +3,7 @@
 
 @implementation AXSSpeakThisHighlightVisible
 
-uint64_t ___AXSSpeakThisHighlightVisible_block_invoke()
+void *___AXSSpeakThisHighlightVisible_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

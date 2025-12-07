@@ -338,7 +338,7 @@ void __45__PXGItemsLayout_updateItemEffectIDsIfNeeded__block_invoke(uint64_t a1,
   v7 = v6;
   if (v6)
   {
-    [v6 spritesInRange:*(a1 + 40) << 32];
+    objc_msgSend_spritesInRange_(v6);
     v8 = *(&v13 + 1);
   }
 
@@ -971,7 +971,7 @@ LABEL_5:
   self->_currentStylableItems[type] = v9;
 }
 
-uint64_t __38__PXGItemsLayout__updateStylableType___block_invoke(uint64_t a1, uint64_t a2, int a3)
+void *__38__PXGItemsLayout__updateStylableType___block_invoke(uint64_t a1, uint64_t a2, int a3)
 {
   v47 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) spriteIndexForItem:a2];
@@ -990,9 +990,9 @@ uint64_t __38__PXGItemsLayout__updateStylableType___block_invoke(uint64_t a1, ui
     v37 = 0u;
     v38 = 0u;
     v9 = *(a1 + 32);
-    if (v9 && ([v9 styleForSpriteAtIndex:v7], v10 = *(a1 + 32), v8 = 0uLL, v22 = 0u, v10))
+    if (v9 && (objc_msgSend_styleForSpriteAtIndex_(v9), v10 = *(a1 + 32), v8 = 0uLL, v22 = 0u, v10))
     {
-      [v10 geometryForSpriteAtIndex:v7];
+      objc_msgSend_geometryForSpriteAtIndex_(v10);
       v12 = 0;
       v11 = 0.0;
     }
@@ -1268,15 +1268,15 @@ LABEL_27:
     v8 = [v7 mutableCopy];
 
     [v8 shiftIndexesStartingAtIndex:p_loadedItems->location by:-p_loadedItems->location];
-    indexSet = [v8 copy];
+    v9 = [v8 copy];
   }
 
   else
   {
-    indexSet = [MEMORY[0x277CCAA78] indexSet];
+    v9 = objc_msgSend_indexSet(MEMORY[0x277CCAA78]);
   }
 
-  return indexSet;
+  return v9;
 }
 
 - (id)itemsForSpriteIndexes:(id)indexes
@@ -1547,7 +1547,7 @@ uint64_t __79__PXGItemsLayout_setNumberOfItems_withChangeDetails_changeMediaVers
     v8 = (a5 + 32);
     do
     {
-      [*(v6 + 32) indexAfterRevertingChangesFromIndex:v7];
+      [*(v6 + 32) indexAfterRevertingChangesFromIndex:{v7, a4}];
       result = (*(*(v6 + 40) + 16))();
       if (result)
       {
@@ -1575,7 +1575,7 @@ uint64_t __79__PXGItemsLayout_setNumberOfItems_withChangeDetails_changeMediaVers
     v8 = (a5 + 32);
     do
     {
-      [*(v7 + 32) indexAfterRevertingChangesFromIndex:*(v7 + 56) + v6];
+      [*(v7 + 32) indexAfterRevertingChangesFromIndex:{*(v7 + 56) + v6, a4}];
       result = (*(*(v7 + 48) + 16))();
       if (result)
       {
@@ -1593,21 +1593,21 @@ uint64_t __79__PXGItemsLayout_setNumberOfItems_withChangeDetails_changeMediaVers
   return result;
 }
 
-uint64_t __79__PXGItemsLayout_setNumberOfItems_withChangeDetails_changeMediaVersionHandler___block_invoke_3(uint64_t result, uint64_t a2)
+id *__79__PXGItemsLayout_setNumberOfItems_withChangeDetails_changeMediaVersionHandler___block_invoke_3(id *result, uint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 32);
-  v5 = *(*(v4 + 920) + 8 * a2);
-  if (*(*(v4 + 912) + 8 * a2) != 0x7FFFFFFFFFFFFFFFLL)
+  v4 = result[4];
+  v5 = *(v4[115] + 8 * a2);
+  if (*(v4[114] + 8 * a2) != 0x7FFFFFFFFFFFFFFFLL)
   {
-    *(*(*(result + 32) + 912) + 8 * a2) = [*(result + 40) indexAfterApplyingChangesToIndex:?];
-    result = [*(v3 + 32) invalidateStylableType:a2];
+    *(*(result[4] + 114) + 8 * a2) = [result[5] indexAfterApplyingChangesToIndex:?];
+    result = [v3[4] invalidateStylableType:a2];
   }
 
   if (v5 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    result = [*(v3 + 40) indexAfterApplyingChangesToIndex:v5];
-    *(*(*(v3 + 32) + 920) + 8 * a2) = result;
+    result = [v3[5] indexAfterApplyingChangesToIndex:v5];
+    *(*(v3[4] + 115) + 8 * a2) = result;
   }
 
   return result;

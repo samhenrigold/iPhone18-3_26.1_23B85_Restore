@@ -129,7 +129,7 @@
 
     self->_zoomingShelfLayoutFocusedItemHorizontalCenterOffset = self->_zoomingShelfLayoutInterItemSpacing + v7 + self->_zoomingShelfLayoutScaledItemWidth * 0.5;
     v14 = [(IKViewElementStyle *)self->_shelfViewElementStyle valueForStyle:@"itml-shelf-layout"];
-    self->_wantsZoomingShelfLayout = [v14 isEqualToString:@"zooming"];
+    self->_wantsZoomingShelfLayout = objc_msgSend_isEqualToString_(v14);
 
     [(SUUIShelfPageSectionConfiguration *)self _updateShelfLayoutDataContentInset];
     shelfCollectionView = self->_shelfCollectionView;
@@ -421,9 +421,9 @@ LABEL_14:
   v15 = v14;
   style = [v9 style];
   visibility = [style visibility];
-  v18 = [visibility isEqualToString:@"hidden"];
+  isEqualToString = objc_msgSend_isEqualToString_(visibility);
 
-  if (v18)
+  if (isEqualToString)
   {
     v19 = 0;
   }

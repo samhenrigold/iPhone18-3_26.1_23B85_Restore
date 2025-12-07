@@ -66,13 +66,13 @@ void __47__ML3DatabaseResult_objectForFirstRowAndColumn__block_invoke(uint64_t a
   return v2;
 }
 
-uint64_t __51__ML3DatabaseResult_int64ValueForFirstRowAndColumn__block_invoke(uint64_t result, void *a2, uint64_t a3, _BYTE *a4)
+void *__51__ML3DatabaseResult_int64ValueForFirstRowAndColumn__block_invoke(void *result, void *a2, uint64_t a3, _BYTE *a4)
 {
   if (!a3)
   {
     v5 = result;
     result = [a2 int64ForColumnIndex:?];
-    *(*(*(v5 + 32) + 8) + 24) = result;
+    *(*(v5[4] + 8) + 24) = result;
   }
 
   *a4 = 1;
@@ -127,7 +127,7 @@ void __37__ML3DatabaseResult_objectsInColumn___block_invoke(uint64_t a1, void *a
   else
   {
     v5 = *(*(*(a1 + 32) + 8) + 40);
-    v6 = [a2 objectAtIndexedSubscript:*(a1 + 40)];
+    v6 = [a2 objectAtIndexedSubscript:{*(a1 + 40), a4}];
     v8 = v6;
     if (v6)
     {

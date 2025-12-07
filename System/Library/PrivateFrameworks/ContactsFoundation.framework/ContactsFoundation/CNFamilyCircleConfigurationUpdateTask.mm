@@ -123,13 +123,10 @@ uint64_t __47__CNFamilyCircleConfigurationUpdateTask_os_log__block_invoke()
 
 - (void)loadDefaultSourceIfNecessary
 {
-  v8 = *MEMORY[0x1E69E9840];
   userInfo = [self userInfo];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)loadDelegateAccountsFromSource
@@ -142,25 +139,19 @@ uint64_t __47__CNFamilyCircleConfigurationUpdateTask_os_log__block_invoke()
 
 - (void)loadDefaultSinkIfNecessary
 {
-  v10 = *MEMORY[0x1E69E9840];
   accountSource = [self accountSource];
   primaryAccount = [accountSource primaryAccount];
   appleID = [primaryAccount appleID];
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateDelegateAccounts
 {
-  v8 = *MEMORY[0x1E69E9840];
   userInfo = [self userInfo];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

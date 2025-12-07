@@ -266,7 +266,7 @@ void __92__HKSleepChartDataSource_queriesForRequest_useCollectionQueryForSixMont
     v10 = *MEMORY[0x1E696B998];
     if (os_log_type_enabled(*MEMORY[0x1E696B998], OS_LOG_TYPE_ERROR))
     {
-      __92__HKSleepChartDataSource_queriesForRequest_useCollectionQueryForSixMonth_completionHandler___block_invoke_300_cold_1(a1, v10);
+      __92__HKSleepChartDataSource_queriesForRequest_useCollectionQueryForSixMonth_completionHandler___block_invoke_300_cold_1(a1, v10, v9);
     }
   }
 
@@ -770,21 +770,32 @@ void __92__HKSleepChartDataSource_generateSharableQueryDataForRequest_healthStor
   return v11;
 }
 
-void __92__HKSleepChartDataSource_queriesForRequest_useCollectionQueryForSixMonth_completionHandler___block_invoke_300_cold_1(uint64_t a1, void *a2)
+void __92__HKSleepChartDataSource_queriesForRequest_useCollectionQueryForSixMonth_completionHandler___block_invoke_300_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v3 = a2;
-  v4 = objc_opt_class();
-  v5 = *(a1 + 32);
-  v6 = v4;
-  v13 = [v5 queryIdentifier];
-  OUTLINED_FUNCTION_1_0(&dword_1C3942000, v7, v8, "[%{public}@.%{public}@]: error fetching summaries %{public}@", v9, v10, v11, v12, 2u);
+  v5 = a2;
+  v6 = objc_opt_class();
+  v7 = *(a1 + 32);
+  v8 = v6;
+  v9 = [v7 queryIdentifier];
+  *v16 = 138543874;
+  *&v16[4] = v6;
+  *&v16[12] = 2114;
+  *&v16[14] = v9;
+  *&v16[22] = 2114;
+  OUTLINED_FUNCTION_1_0(&dword_1C3942000, v10, v11, "[%{public}@.%{public}@]: error fetching summaries %{public}@", v12, v13, v14, v15, *v16, *&v16[8], *&v16[16], a3);
 }
 
 void __92__HKSleepChartDataSource_generateSharableQueryDataForRequest_healthStore_completionHandler___block_invoke_cold_1(uint64_t a1, void *a2)
 {
   v3 = HKStringForChartDataSourceQueryRequestAudience([*(a1 + 32) audience]);
-  v10 = [a2 localizedDescription];
-  OUTLINED_FUNCTION_1_0(&dword_1C3942000, v4, v5, "[RemoteCharting]_%@_%@: no results were returned from query with error: %@", v6, v7, v8, v9, 2u);
+  v4 = *MEMORY[0x1E696B698];
+  v5 = [a2 localizedDescription];
+  *v12 = 138412802;
+  *&v12[4] = v3;
+  *&v12[12] = 2112;
+  *&v12[14] = v4;
+  *&v12[22] = 2112;
+  OUTLINED_FUNCTION_1_0(&dword_1C3942000, v6, v7, "[RemoteCharting]_%@_%@: no results were returned from query with error: %@", v8, v9, v10, v11, *v12, *&v12[8], *&v12[16], v5);
 }
 
 @end

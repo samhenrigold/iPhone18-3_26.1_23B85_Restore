@@ -303,7 +303,6 @@ LABEL_11:
   has = self->_has;
   if ((has & 0x80) != 0)
   {
-    traceResistance25C = self->_traceResistance25C;
     PBDataWriterWriteFloatField();
     has = self->_has;
     if ((has & 0x100) == 0)
@@ -323,7 +322,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  traceResistanceTemperatureCoeff = self->_traceResistanceTemperatureCoeff;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -338,7 +336,6 @@ LABEL_4:
   }
 
 LABEL_16:
-  systemEquivalentResistance = self->_systemEquivalentResistance;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 1) == 0)
@@ -353,7 +350,6 @@ LABEL_5:
   }
 
 LABEL_17:
-  downstreamCommonResistance = self->_downstreamCommonResistance;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 2) == 0)
@@ -368,7 +364,6 @@ LABEL_6:
   }
 
 LABEL_18:
-  downstreamNorthResistance = self->_downstreamNorthResistance;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 8) == 0)
@@ -383,7 +378,6 @@ LABEL_7:
   }
 
 LABEL_19:
-  resistanceGGToVcut = self->_resistanceGGToVcut;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -398,7 +392,6 @@ LABEL_8:
   }
 
 LABEL_20:
-  resistancePMUToVcut = self->_resistancePMUToVcut;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -413,12 +406,10 @@ LABEL_9:
   }
 
 LABEL_21:
-  resistanceVcutToPmax = self->_resistanceVcutToPmax;
   PBDataWriterWriteFloatField();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_10:
-    resistanceCellTabToGG = self->_resistanceCellTabToGG;
     PBDataWriterWriteFloatField();
   }
 

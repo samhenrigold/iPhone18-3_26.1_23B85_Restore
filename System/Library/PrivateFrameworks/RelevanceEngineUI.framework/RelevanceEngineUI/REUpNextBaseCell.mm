@@ -14,7 +14,9 @@
 - (void)setForegroundTextColorToColor:(id)color shouldOverrideContentHeaderColor:(BOOL)headerColor;
 - (void)setHighlightBehavior:(unint64_t)behavior;
 - (void)setHighlightInsets:(UIEdgeInsets)insets;
+- (void)setHighlighted:(BOOL)highlighted;
 - (void)setOverrideContentImage:(id)image;
+- (void)setShadowViewHidden:(BOOL)hidden;
 @end
 
 @implementation REUpNextBaseCell
@@ -134,6 +136,32 @@ void __32__REUpNextBaseCell__shadowImage__block_invoke()
   }
 
   return v3;
+}
+
+- (void)setHighlighted:(BOOL)highlighted
+{
+  highlightedCopy = highlighted;
+  isHighlighted = [(REUpNextBaseCell *)self isHighlighted];
+  v7.receiver = self;
+  v7.super_class = REUpNextBaseCell;
+  [(REUpNextBaseCell *)&v7 setHighlighted:highlightedCopy];
+  if (isHighlighted != highlightedCopy)
+  {
+    if (highlightedCopy)
+    {
+      [(REUpNextBaseCell *)self _updateColorOverlay];
+    }
+
+    else
+    {
+      v6[0] = MEMORY[0x277D85DD0];
+      v6[1] = 3221225472;
+      v6[2] = __35__REUpNextBaseCell_setHighlighted___block_invoke;
+      v6[3] = &unk_279AF63C8;
+      v6[4] = self;
+      [MEMORY[0x277D75D18] animateWithDuration:v6 animations:0.25];
+    }
+  }
 }
 
 - (void)didLongPress:(id)press
@@ -292,6 +320,17 @@ LABEL_6:
     [(CALayer *)imageLayer setContents:[(UIImage *)v8 CGImage]];
     [MEMORY[0x277CD9FF0] commit];
     imageCopy = v8;
+  }
+}
+
+- (void)setShadowViewHidden:(BOOL)hidden
+{
+  hiddenCopy = hidden;
+  if ([(UIImageView *)self->_shadowView isHidden]!= hidden)
+  {
+    shadowView = self->_shadowView;
+
+    [(UIImageView *)shadowView setHidden:hiddenCopy];
   }
 }
 

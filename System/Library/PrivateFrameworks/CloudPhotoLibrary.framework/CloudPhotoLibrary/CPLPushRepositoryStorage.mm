@@ -64,8 +64,7 @@
       {
         currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
         v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineStorageViews.m"];
-        pushRepository = self->_pushRepository;
-        [currentHandler handleFailureInMethod:a2 object:self file:v11 lineNumber:44 description:{@"Invalid scope type for %@: %ld", pushRepository, self->_storageScopeType}];
+        [currentHandler handleFailureInMethod:a2 object:self file:v11 lineNumber:44 description:{@"Invalid scope type for %@: %ld", self->_pushRepository, self->_storageScopeType}];
 
         abort();
       }

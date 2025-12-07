@@ -174,23 +174,23 @@ void __27__SPUAProgressItem_update___block_invoke(uint64_t a1)
     if (v8 == 2)
     {
       v4 = (v4 + 1);
-      [v3 setDeleteCount:v4];
+      v9 = [v3 setDeleteCount:v4];
     }
 
     else if (v8)
     {
       v7 = (v6 + 1);
-      [v3 setErrorCount:v7];
+      v9 = [v3 setErrorCount:v7];
     }
 
     else
     {
       v5 = (v5 + 1);
-      [v3 setCompleteCount:v5];
+      v9 = [v3 setCompleteCount:v5];
     }
 
-    v9 = logForCSLogCategoryDefault();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = logForCSLogCategoryDefault(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       v14 = *(a1 + 40);
       v15 = [v3 bundleID];
@@ -214,26 +214,24 @@ void __27__SPUAProgressItem_update___block_invoke(uint64_t a1)
       v32 = v4;
       v33 = 1024;
       v34 = v7;
-      _os_log_debug_impl(&dword_231A35000, v9, OS_LOG_TYPE_DEBUG, "update relatedItem(%d) %@:%@:%@ %d:%d:%d:%d:%d", v18, 0x44u);
+      _os_log_debug_impl(&dword_231A35000, v10, OS_LOG_TYPE_DEBUG, "update relatedItem(%d) %@:%@:%@ %d:%d:%d:%d:%d", v18, 0x44u);
     }
 
-    v10 = v4 + v5 + [v3 errorCount];
-    if (v10 >= [v3 expectedCount])
+    v11 = v4 + v5 + [v3 errorCount];
+    if (v11 >= [v3 expectedCount])
     {
       [sUserActionItems removeObject:v3];
       if (v4)
       {
         if (!v5)
         {
-          v11 = [v3 bundleID];
-          v12 = [v3 relatedID];
-          _queueRelatedDelete(v11, v12);
+          v12 = [v3 bundleID];
+          v13 = [v3 relatedID];
+          _queueRelatedDelete(v12, v13);
         }
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

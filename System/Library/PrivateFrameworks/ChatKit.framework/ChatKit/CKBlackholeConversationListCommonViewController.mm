@@ -86,51 +86,51 @@
 
 - (void)viewDidLoad
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v19.receiver = self;
-  v19.super_class = CKBlackholeConversationListCommonViewController;
-  [(CKBlackholeConversationListCommonViewController *)&v19 viewDidLoad];
-  v3 = CKFrameworkBundle();
-  v4 = [v3 localizedStringForKey:@"BLACKHOLE_CONVERSATIONLIST_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-  [(CKBlackholeConversationListCommonViewController *)self setTitle:v4];
+  v23 = *MEMORY[0x1E69E9840];
+  v20.receiver = self;
+  v20.super_class = CKBlackholeConversationListCommonViewController;
+  viewDidLoad = [(CKBlackholeConversationListCommonViewController *)&v20 viewDidLoad];
+  v4 = CKFrameworkBundle(viewDidLoad);
+  v5 = [v4 localizedStringForKey:@"BLACKHOLE_CONVERSATIONLIST_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+  [(CKBlackholeConversationListCommonViewController *)self setTitle:v5];
 
   clearAllButton = [(CKBlackholeConversationListCommonViewController *)self clearAllButton];
   navigationItem = [(CKBlackholeConversationListCommonViewController *)self navigationItem];
   [navigationItem setRightBarButtonItem:clearAllButton];
 
-  v7 = objc_alloc(MEMORY[0x1E69DD020]);
+  v8 = objc_alloc(MEMORY[0x1E69DD020]);
   view = [(CKBlackholeConversationListCommonViewController *)self view];
   [view bounds];
-  v9 = [v7 initWithFrame:2 style:?];
-  [(CKBlackholeConversationListCommonViewController *)self setTableView:v9];
+  v10 = [v8 initWithFrame:2 style:?];
+  [(CKBlackholeConversationListCommonViewController *)self setTableView:v10];
 
   tableView = [(CKBlackholeConversationListCommonViewController *)self tableView];
   [tableView registerClass:objc_opt_class() forCellReuseIdentifier:@"identifiers"];
 
-  v11 = objc_alloc(MEMORY[0x1E69DD7B8]);
+  v12 = objc_alloc(MEMORY[0x1E69DD7B8]);
   tableView2 = [(CKBlackholeConversationListCommonViewController *)self tableView];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __62__CKBlackholeConversationListCommonViewController_viewDidLoad__block_invoke;
-  v18[3] = &unk_1E72F50C0;
-  v18[4] = self;
-  v13 = [v11 initWithTableView:tableView2 cellProvider:v18];
-  [(CKBlackholeConversationListCommonViewController *)self setTableViewDataSource:v13];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __62__CKBlackholeConversationListCommonViewController_viewDidLoad__block_invoke;
+  v19[3] = &unk_1E72F50C0;
+  v19[4] = self;
+  v14 = [v12 initWithTableView:tableView2 cellProvider:v19];
+  [(CKBlackholeConversationListCommonViewController *)self setTableViewDataSource:v14];
 
-  v14 = IMLogHandleForCategory();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+  v15 = IMLogHandleForCategory();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     mEMORY[0x1E69A5B50] = [MEMORY[0x1E69A5B50] sharedController];
     isConnected = [mEMORY[0x1E69A5B50] isConnected];
-    v17 = @"NO";
+    v18 = @"NO";
     if (isConnected)
     {
-      v17 = @"YES";
+      v18 = @"YES";
     }
 
     *buf = 138412290;
-    v21 = v17;
-    _os_log_impl(&dword_19020E000, v14, OS_LOG_TYPE_INFO, "viewDidLoad. Daemon connected? : %@", buf, 0xCu);
+    v22 = v18;
+    _os_log_impl(&dword_19020E000, v15, OS_LOG_TYPE_INFO, "viewDidLoad. Daemon connected? : %@", buf, 0xCu);
   }
 }
 
@@ -243,7 +243,7 @@ id __62__CKBlackholeConversationListCommonViewController_viewDidLoad__block_invo
 
 - (id)tableView:(id)view trailingSwipeActionsConfigurationForRowAtIndexPath:(id)path
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   visibleConversations = [(CKBlackholeConversationListCommonViewController *)self visibleConversations];
   v7 = [pathCopy row];
@@ -251,25 +251,25 @@ id __62__CKBlackholeConversationListCommonViewController_viewDidLoad__block_invo
   v8 = [visibleConversations objectAtIndex:v7];
 
   v9 = MEMORY[0x1E69DC8E8];
-  v10 = CKFrameworkBundle();
-  v11 = [v10 localizedStringForKey:@"DELETE" value:&stru_1F04268F8 table:@"ChatKit"];
-  v18 = MEMORY[0x1E69E9820];
-  v19 = 3221225472;
-  v20 = __112__CKBlackholeConversationListCommonViewController_tableView_trailingSwipeActionsConfigurationForRowAtIndexPath___block_invoke;
-  v21 = &unk_1E72F3A70;
+  v11 = CKFrameworkBundle(v10);
+  v12 = [v11 localizedStringForKey:@"DELETE" value:&stru_1F04268F8 table:@"ChatKit"];
+  v19 = MEMORY[0x1E69E9820];
+  v20 = 3221225472;
+  v21 = __112__CKBlackholeConversationListCommonViewController_tableView_trailingSwipeActionsConfigurationForRowAtIndexPath___block_invoke;
+  v22 = &unk_1E72F3A70;
   selfCopy = self;
-  v23 = v8;
-  v12 = v8;
-  v13 = [v9 contextualActionWithStyle:1 title:v11 handler:&v18];
+  v24 = v8;
+  v13 = v8;
+  v14 = [v9 contextualActionWithStyle:1 title:v12 handler:&v19];
 
-  v14 = MEMORY[0x1E69DCFC0];
-  v24[0] = v13;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:{1, v18, v19, v20, v21, selfCopy}];
-  v16 = [v14 configurationWithActions:v15];
+  v15 = MEMORY[0x1E69DCFC0];
+  v25[0] = v14;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:{1, v19, v20, v21, v22, selfCopy}];
+  v17 = [v15 configurationWithActions:v16];
 
-  [v16 setPerformsFirstActionWithFullSwipe:0];
+  [v17 setPerformsFirstActionWithFullSwipe:0];
 
-  return v16;
+  return v17;
 }
 
 - (void)_deleteConversation:(id)conversation
@@ -284,7 +284,7 @@ id __62__CKBlackholeConversationListCommonViewController_viewDidLoad__block_invo
   [(CKBlackholeConversationListCommonViewController *)self _confirmDeleteConversation:conversationCopy view:view withCompletionHandler:v6];
 }
 
-uint64_t __71__CKBlackholeConversationListCommonViewController__deleteConversation___block_invoke(uint64_t a1, int a2)
+void *__71__CKBlackholeConversationListCommonViewController__deleteConversation___block_invoke(uint64_t a1, int a2)
 {
   result = [*(a1 + 32) endHoldingConversationListUpdatesForKey:@"kCKBlackholeConversationListHoldUpdatesForDeletion"];
   if (a2)
@@ -414,7 +414,7 @@ uint64_t __105__CKBlackholeConversationListCommonViewController__confirmDeleteCo
   [(CKBlackholeConversationListCommonViewController *)self _clearAllTappedWithCompletionHandler:v4];
 }
 
-uint64_t __66__CKBlackholeConversationListCommonViewController__clearAllTapped__block_invoke(uint64_t a1, int a2)
+void *__66__CKBlackholeConversationListCommonViewController__clearAllTapped__block_invoke(uint64_t a1, int a2)
 {
   result = [*(a1 + 32) endHoldingConversationListUpdatesForKey:@"kCKBlackholeConversationListHoldUpdatesForDeletion"];
   if (a2)
@@ -429,7 +429,7 @@ uint64_t __66__CKBlackholeConversationListCommonViewController__clearAllTapped__
 
 - (void)popViewControllerIfNecessary
 {
-  if (!CKMessageUnknownFilteringEnabled())
+  if (!CKMessageUnknownFilteringEnabled(self, a2))
   {
     navigationController = [(CKBlackholeConversationListCommonViewController *)self navigationController];
     v3 = [navigationController popViewControllerAnimated:1];
@@ -705,7 +705,7 @@ LABEL_7:
   if (!clearAllButton)
   {
     v4 = objc_alloc(MEMORY[0x1E69DC708]);
-    v5 = CKFrameworkBundle();
+    v5 = CKFrameworkBundle(v4);
     v6 = [v5 localizedStringForKey:@"BLACKHOLE_CONVERSATIONLIST_CLEAR_ALL" value:&stru_1F04268F8 table:@"ChatKit"];
     v7 = [v4 initWithTitle:v6 style:0 target:self action:sel__clearAllTapped];
     v8 = self->_clearAllButton;
@@ -724,8 +724,7 @@ LABEL_7:
   {
     v4 = objc_alloc(MEMORY[0x1E69DCC10]);
     v5 = [v4 initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
-    [(UILabel *)v5 setAdjustsFontForContentSizeCategory:1];
-    v6 = CKFrameworkBundle();
+    v6 = CKFrameworkBundle([(UILabel *)v5 setAdjustsFontForContentSizeCategory:1]);
     v7 = [v6 localizedStringForKey:@"BLACKHOLE_EMPTY_CONVERSATION_LIST_LABEL" value:&stru_1F04268F8 table:@"ChatKit"];
     [(UILabel *)v5 setText:v7];
 
@@ -762,42 +761,44 @@ LABEL_7:
 {
   mEMORY[0x1E69A5B20] = [MEMORY[0x1E69A5B20] sharedInstance];
   isEnabled = [mEMORY[0x1E69A5B20] isEnabled];
-  v4 = CKFrameworkBundle();
-  v5 = v4;
-  if (isEnabled)
+  v4 = isEnabled;
+  v5 = CKFrameworkBundle(isEnabled);
+  v6 = v5;
+  if (v4)
   {
-    v6 = @"DELETE_ALERT_MESSAGE_ON_ICLOUD";
+    v7 = @"DELETE_ALERT_MESSAGE_ON_ICLOUD";
   }
 
   else
   {
-    v6 = @"DELETE_ALERT_MESSAGE";
+    v7 = @"DELETE_ALERT_MESSAGE";
   }
 
-  v7 = [v4 localizedStringForKey:v6 value:&stru_1F04268F8 table:@"ChatKit"];
+  v8 = [v5 localizedStringForKey:v7 value:&stru_1F04268F8 table:@"ChatKit"];
 
-  return v7;
+  return v8;
 }
 
 - (id)_alertTitleForClearAll
 {
   mEMORY[0x1E69A5B20] = [MEMORY[0x1E69A5B20] sharedInstance];
   isEnabled = [mEMORY[0x1E69A5B20] isEnabled];
-  v4 = CKFrameworkBundle();
-  v5 = v4;
-  if (isEnabled)
+  v4 = isEnabled;
+  v5 = CKFrameworkBundle(isEnabled);
+  v6 = v5;
+  if (v4)
   {
-    v6 = @"BLACKHOLE_BATCH_DELETE_PROMPT";
+    v7 = @"BLACKHOLE_BATCH_DELETE_PROMPT";
   }
 
   else
   {
-    v6 = @"BLACKHOLE_BATCH_DELETE_PROMPT_ICLOUD";
+    v7 = @"BLACKHOLE_BATCH_DELETE_PROMPT_ICLOUD";
   }
 
-  v7 = [v4 localizedStringForKey:v6 value:&stru_1F04268F8 table:@"ChatKit"];
+  v8 = [v5 localizedStringForKey:v7 value:&stru_1F04268F8 table:@"ChatKit"];
 
-  return v7;
+  return v8;
 }
 
 - (CGSize)sizeForChildContentContainer:(id)container withParentContainerSize:(CGSize)size

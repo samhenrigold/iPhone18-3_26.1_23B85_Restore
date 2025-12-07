@@ -157,13 +157,12 @@ LABEL_16:
 
 - (id)description
 {
-  v7.receiver = self;
-  v7.super_class = RENowPlayingRelevanceProvider;
-  v3 = [(RENowPlayingRelevanceProvider *)&v7 description];
-  bundleIdentifier = self->_bundleIdentifier;
-  v5 = [v3 stringByAppendingFormat:@" state=%lu, bundleIdentifier=%@, itemIdentifier=%@", self->_state, bundleIdentifier, self->_itemIdentifer];
+  v6.receiver = self;
+  v6.super_class = RENowPlayingRelevanceProvider;
+  v3 = [(RENowPlayingRelevanceProvider *)&v6 description];
+  v4 = [v3 stringByAppendingFormat:@" state=%lu, bundleIdentifier=%@, itemIdentifier=%@", self->_state, self->_bundleIdentifier, self->_itemIdentifer];
 
-  return v5;
+  return v4;
 }
 
 @end

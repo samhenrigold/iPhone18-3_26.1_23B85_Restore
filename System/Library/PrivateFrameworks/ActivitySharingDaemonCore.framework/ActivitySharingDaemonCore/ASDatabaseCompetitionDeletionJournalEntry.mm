@@ -89,28 +89,28 @@
 
 uint64_t __70__ASDatabaseCompetitionDeletionJournalEntry_applyEntries_withProfile___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   obj = *(a1 + 32);
-  v5 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     while (2)
     {
       v8 = 0;
       do
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = ASCompetitionPredicateForFriendUUIDAndType(*(*(*(&v16 + 1) + 8 * v8) + 8), *(*(*(&v16 + 1) + 8 * v8) + 16));
+        v9 = ASCompetitionPredicateForFriendUUIDAndType(*(*(*(&v15 + 1) + 8 * v8) + 8), *(*(*(&v15 + 1) + 8 * v8) + 16));
         v10 = [*(a1 + 40) database];
         v11 = [(HDHealthEntity *)ASDatabaseCompetitionEntity deleteEntitiesWithPredicate:v9 healthDatabase:v10 error:a3];
 
@@ -124,7 +124,7 @@ uint64_t __70__ASDatabaseCompetitionDeletionJournalEntry_applyEntries_withProfil
       }
 
       while (v6 != v8);
-      v6 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v6)
       {
         continue;
@@ -137,7 +137,6 @@ uint64_t __70__ASDatabaseCompetitionDeletionJournalEntry_applyEntries_withProfil
   v12 = 1;
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -147,14 +146,6 @@ uint64_t __70__ASDatabaseCompetitionDeletionJournalEntry_applyEntries_withProfil
   v6 = [v5 addJournalEntries:*(a1 + 40) error:a3];
 
   return v6;
-}
-
-+ (void)applyEntries:withProfile:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3_0(&dword_23E5E3000, v0, v1, "Error applying journal deletes for competitions %@: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

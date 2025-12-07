@@ -329,18 +329,18 @@ uint64_t __79__MAAssetTypeDescriptor__typeDescriptorDictionaryForAssetType_typeD
   }
 
   v2 = [(MAAssetTypeDescriptor *)self objectForKey:@"Asset Specifiers"];
-  objc_opt_class();
-  if (OUTLINED_FUNCTION_0())
+  v3 = objc_opt_class();
+  if (OUTLINED_FUNCTION_0(v3))
   {
-    v3 = v2;
+    v4 = v2;
   }
 
   else
   {
-    v3 = &__NSArray0__struct;
+    v4 = &__NSArray0__struct;
   }
 
-  return v3;
+  return v4;
 }
 
 - (NSDictionary)assetProperties
@@ -351,18 +351,18 @@ uint64_t __79__MAAssetTypeDescriptor__typeDescriptorDictionaryForAssetType_typeD
   }
 
   v2 = [(MAAssetTypeDescriptor *)self objectForKey:@"MobileAssetProperties"];
-  objc_opt_class();
-  if (OUTLINED_FUNCTION_0())
+  v3 = objc_opt_class();
+  if (OUTLINED_FUNCTION_0(v3))
   {
-    v3 = v2;
+    v4 = v2;
   }
 
   else
   {
-    v3 = &__NSDictionary0__struct;
+    v4 = &__NSDictionary0__struct;
   }
 
-  return v3;
+  return v4;
 }
 
 - (BOOL)shouldMakeDataVault
@@ -373,8 +373,8 @@ uint64_t __79__MAAssetTypeDescriptor__typeDescriptorDictionaryForAssetType_typeD
   }
 
   v2 = [(MAAssetTypeDescriptor *)self objectForKey:@"Make Repository Data Vault"];
-  objc_opt_class();
-  if (OUTLINED_FUNCTION_0())
+  v3 = objc_opt_class();
+  if (OUTLINED_FUNCTION_0(v3))
   {
     bOOLValue = [v2 BOOLValue];
   }
@@ -395,8 +395,8 @@ uint64_t __79__MAAssetTypeDescriptor__typeDescriptorDictionaryForAssetType_typeD
   }
 
   v2 = [(MAAssetTypeDescriptor *)self objectForKey:@"RemoveV1Assets"];
-  objc_opt_class();
-  if (OUTLINED_FUNCTION_0())
+  v3 = objc_opt_class();
+  if (OUTLINED_FUNCTION_0(v3))
   {
     bOOLValue = [v2 BOOLValue];
   }

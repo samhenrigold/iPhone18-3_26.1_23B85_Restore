@@ -7,15 +7,15 @@
 
 - (BOOL)setBSSto:(id)sto orBssid:(id)bssid onContainer:(id)container withError:(id *)error
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   stoCopy = sto;
   bssidCopy = bssid;
   containerCopy = container;
-  v33.receiver = self;
-  v33.super_class = PoliciesRoamingMO;
-  v34 = 0;
-  v13 = [(PoliciesMO *)&v33 setRelationOn:@"bss" to:stoCopy withError:&v34];
-  v14 = v34;
+  v32.receiver = self;
+  v32.super_class = PoliciesRoamingMO;
+  v33 = 0;
+  v13 = [(PoliciesMO *)&v32 setRelationOn:@"bss" to:stoCopy withError:&v33];
+  v14 = v33;
   if (!v14)
   {
     goto LABEL_8;
@@ -31,15 +31,15 @@
     v18 = v13;
     v20 = v19 = containerCopy;
     *buf = 136447234;
-    v36 = "[PoliciesRoamingMO setBSSto:orBssid:onContainer:withError:]";
-    v37 = 1024;
-    v38 = 26;
-    v39 = 2112;
-    v40 = v20;
-    v41 = 2112;
-    v42 = stoCopy;
-    v43 = 2112;
-    v44 = v14;
+    v35 = "[PoliciesRoamingMO setBSSto:orBssid:onContainer:withError:]";
+    v36 = 1024;
+    v37 = 26;
+    v38 = 2112;
+    v39 = v20;
+    v40 = 2112;
+    v41 = stoCopy;
+    v42 = 2112;
+    v43 = v14;
     _os_log_impl(&dword_1C8460000, v15, OS_LOG_TYPE_FAULT, "%{public}s::%d:Unable to set %@.bss to %@: %@", buf, 0x30u);
 
     containerCopy = v19;
@@ -60,9 +60,9 @@ LABEL_8:
     goto LABEL_15;
   }
 
-  v32 = v14;
-  v21 = [containerCopy bssForBssid:bssidCopy prefetchProperties:0 withError:&v32];
-  v22 = v32;
+  v31 = v14;
+  v21 = [containerCopy bssForBssid:bssidCopy prefetchProperties:0 withError:&v31];
+  v22 = v31;
 
   if (v22)
   {
@@ -73,22 +73,22 @@ LABEL_8:
     }
 
     *buf = 136446978;
-    v36 = "[PoliciesRoamingMO setBSSto:orBssid:onContainer:withError:]";
-    v37 = 1024;
-    v38 = 30;
-    v39 = 2112;
-    v40 = bssidCopy;
-    v41 = 2112;
-    v42 = v22;
+    v35 = "[PoliciesRoamingMO setBSSto:orBssid:onContainer:withError:]";
+    v36 = 1024;
+    v37 = 30;
+    v38 = 2112;
+    v39 = bssidCopy;
+    v40 = 2112;
+    v41 = v22;
     v24 = "%{public}s::%d:After the previous Exception we tried to re-fetch the BSSMo for %@ and run into %@";
     goto LABEL_13;
   }
 
-  v30.receiver = self;
-  v30.super_class = PoliciesRoamingMO;
-  v31 = 0;
-  v13 = [(PoliciesMO *)&v30 setRelationOn:@"bss" to:v21 withError:&v31];
-  v25 = v31;
+  v29.receiver = self;
+  v29.super_class = PoliciesRoamingMO;
+  v30 = 0;
+  v13 = [(PoliciesMO *)&v29 setRelationOn:@"bss" to:v21 withError:&v30];
+  v25 = v30;
   if (!v25)
   {
     v14 = 0;
@@ -105,13 +105,13 @@ LABEL_8:
   if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
   {
     *buf = 136446978;
-    v36 = "[PoliciesRoamingMO setBSSto:orBssid:onContainer:withError:]";
-    v37 = 1024;
-    v38 = 34;
-    v39 = 2112;
-    v40 = bssidCopy;
-    v41 = 2112;
-    v42 = v22;
+    v35 = "[PoliciesRoamingMO setBSSto:orBssid:onContainer:withError:]";
+    v36 = 1024;
+    v37 = 34;
+    v38 = 2112;
+    v39 = bssidCopy;
+    v40 = 2112;
+    v41 = v22;
     v24 = "%{public}s::%d:After the previous Exception we re-fetched the BSSMo for %@ and still run into %@";
 LABEL_13:
     _os_log_impl(&dword_1C8460000, v23, OS_LOG_TYPE_FAULT, v24, buf, 0x26u);
@@ -129,7 +129,6 @@ LABEL_15:
 
 LABEL_16:
 
-  v27 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

@@ -16,35 +16,33 @@
 
 - (void)contactNameRecordChangesForClient:(id)client queryId:(unint64_t)id
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   v7 = pp_xpc_server_log_handle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v15 = clientCopy;
-    v16 = 2048;
+    v14 = clientCopy;
+    v15 = 2048;
     idCopy = id;
     _os_log_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEFAULT, "PPContactServer: contactNameRecordChangesForClient: %@ queryId: %llu", buf, 0x16u);
   }
 
   queryManager = self->_queryManager;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __75__PPContactServerRequestHandler_contactNameRecordChangesForClient_queryId___block_invoke;
-  v11[3] = &unk_278978A80;
-  v11[4] = self;
-  v12 = clientCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __75__PPContactServerRequestHandler_contactNameRecordChangesForClient_queryId___block_invoke;
+  v10[3] = &unk_278978A80;
+  v10[4] = self;
+  v11 = clientCopy;
   idCopy2 = id;
   v9 = clientCopy;
-  [(PPXPCServerPipelinedBatchQueryManager *)queryManager runConcurrentlyWithRequestThrottle:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [(PPXPCServerPipelinedBatchQueryManager *)queryManager runConcurrentlyWithRequestThrottle:v10];
 }
 
 void __75__PPContactServerRequestHandler_contactNameRecordChangesForClient_queryId___block_invoke(void *a1)
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   v2 = pp_contacts_signpost_handle();
   v3 = os_signpost_id_generate(v2);
 
@@ -58,9 +56,9 @@ void __75__PPContactServerRequestHandler_contactNameRecordChangesForClient_query
 
   v6 = a1[5];
   v7 = *(a1[4] + 32);
-  v33 = 0;
-  v8 = [v7 contactNameRecordChangesForClient:v6 error:&v33];
-  v9 = v33;
+  v32 = 0;
+  v8 = [v7 contactNameRecordChangesForClient:v6 error:&v32];
+  v9 = v32;
   v10 = pp_contacts_signpost_handle();
   v11 = v10;
   if (v3 - 1 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v10))
@@ -71,36 +69,36 @@ void __75__PPContactServerRequestHandler_contactNameRecordChangesForClient_query
 
   if (v8)
   {
-    v34 = v8;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
+    v33 = v8;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
     *buf = 0;
-    v30 = buf;
-    v31 = 0x2020000000;
-    v32 = 0;
+    v29 = buf;
+    v30 = 0x2020000000;
+    v31 = 0;
     v13 = *(a1[4] + 16);
     v14 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@-contactNameRecordChangesForClient", a1[5]];
     v15 = a1[6];
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __75__PPContactServerRequestHandler_contactNameRecordChangesForClient_queryId___block_invoke_2;
-    v26[3] = &unk_278977680;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __75__PPContactServerRequestHandler_contactNameRecordChangesForClient_queryId___block_invoke_2;
+    v25[3] = &unk_278977680;
     v16 = v12;
-    v27 = v16;
-    v28 = buf;
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __75__PPContactServerRequestHandler_contactNameRecordChangesForClient_queryId___block_invoke_3;
-    v23[3] = &unk_2789776A8;
-    v17 = a1[6];
-    v24 = a1[4];
-    v25 = v17;
+    v26 = v16;
+    v27 = buf;
     v22[0] = MEMORY[0x277D85DD0];
     v22[1] = 3221225472;
-    v22[2] = __75__PPContactServerRequestHandler_contactNameRecordChangesForClient_queryId___block_invoke_5;
-    v22[3] = &unk_2789776D0;
-    v22[4] = v24;
-    v22[5] = v17;
-    [v13 sendBatchedResultForQueryWithName:v14 queryId:v15 batchGenerator:v26 sendError:v23 sendBatch:v22];
+    v22[2] = __75__PPContactServerRequestHandler_contactNameRecordChangesForClient_queryId___block_invoke_3;
+    v22[3] = &unk_2789776A8;
+    v17 = a1[6];
+    v23 = a1[4];
+    v24 = v17;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __75__PPContactServerRequestHandler_contactNameRecordChangesForClient_queryId___block_invoke_5;
+    v21[3] = &unk_2789776D0;
+    v21[4] = v23;
+    v21[5] = v17;
+    [v13 sendBatchedResultForQueryWithName:v14 queryId:v15 batchGenerator:v25 sendError:v22 sendBatch:v21];
 
     _Block_object_dispose(buf, 8);
   }
@@ -108,50 +106,47 @@ void __75__PPContactServerRequestHandler_contactNameRecordChangesForClient_query
   else
   {
     v18 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v35 = @"PPServerSideErrorInfoKey";
+    v34 = @"PPServerSideErrorInfoKey";
     v19 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@", v9];
-    v36[0] = v19;
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+    v35[0] = v19;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
     v16 = [v18 initWithDomain:@"PPServerSideErrorDomain" code:1 userInfo:v20];
 
     [*(a1[4] + 8) contactNameRecordChangesBatch:0 isLast:1 error:v16 queryId:a1[6] completion:&__block_literal_global_147_16802];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __75__PPContactServerRequestHandler_contactNameRecordChangesForClient_queryId___block_invoke_2(uint64_t a1, BOOL *a2)
+void *__75__PPContactServerRequestHandler_contactNameRecordChangesForClient_queryId___block_invoke_2(uint64_t a1, BOOL *a2)
 {
   v4 = [*(a1 + 32) count];
-  v5 = *(a1 + 32);
-  v6 = *(*(*(a1 + 40) + 8) + 24);
-  v7 = v4 - v6;
-  if ((v4 - v6) >= 0x32)
+  v5 = *(*(*(a1 + 40) + 8) + 24);
+  v6 = v4 - v5;
+  if ((v4 - v5) >= 0x32)
   {
-    v8 = 50;
+    v7 = 50;
   }
 
   else
   {
-    v8 = v4 - v6;
+    v7 = v4 - v5;
   }
 
   result = [*(a1 + 32) subarrayWithRange:?];
-  *a2 = v7 < 0x33;
-  *(*(*(a1 + 40) + 8) + 24) += v8;
+  *a2 = v6 < 0x33;
+  *(*(*(a1 + 40) + 8) + 24) += v7;
   return result;
 }
 
 - (void)contactNameRecordChangesForClient:(id)client completion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   completionCopy = completion;
   v8 = pp_xpc_server_log_handle();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v27 = clientCopy;
+    v26 = clientCopy;
     _os_log_impl(&dword_23224A000, v8, OS_LOG_TYPE_DEFAULT, "PPContactServer: contactNameRecordChangesForClient: %@", buf, 0xCu);
   }
 
@@ -167,9 +162,9 @@ uint64_t __75__PPContactServerRequestHandler_contactNameRecordChangesForClient_q
   }
 
   store = self->_store;
-  v23 = 0;
-  v14 = [(PPLocalContactStore *)store contactNameRecordChangesForClient:clientCopy error:&v23];
-  v15 = v23;
+  v22 = 0;
+  v14 = [(PPLocalContactStore *)store contactNameRecordChangesForClient:clientCopy error:&v22];
+  v15 = v22;
   v16 = pp_contacts_signpost_handle();
   v17 = v16;
   if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
@@ -186,44 +181,40 @@ uint64_t __75__PPContactServerRequestHandler_contactNameRecordChangesForClient_q
   else
   {
     v18 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v24 = @"PPServerSideErrorInfoKey";
+    v23 = @"PPServerSideErrorInfoKey";
     v19 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@", v15];
-    v25 = v19;
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+    v24 = v19;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
     v21 = [v18 initWithDomain:@"PPServerSideErrorDomain" code:1 userInfo:v20];
 
     (completionCopy)[2](completionCopy, 0, v21);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)contactNameRecordsForClient:(id)client queryId:(unint64_t)id
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   v7 = pp_xpc_server_log_handle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v15 = clientCopy;
-    v16 = 2048;
+    v14 = clientCopy;
+    v15 = 2048;
     idCopy = id;
     _os_log_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEFAULT, "PPContactServer: contactNameRecordsForClient: %@ queryId: %llu", buf, 0x16u);
   }
 
   queryManager = self->_queryManager;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __69__PPContactServerRequestHandler_contactNameRecordsForClient_queryId___block_invoke;
-  v11[3] = &unk_278978A80;
-  v11[4] = self;
-  v12 = clientCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __69__PPContactServerRequestHandler_contactNameRecordsForClient_queryId___block_invoke;
+  v10[3] = &unk_278978A80;
+  v10[4] = self;
+  v11 = clientCopy;
   idCopy2 = id;
   v9 = clientCopy;
-  [(PPXPCServerPipelinedBatchQueryManager *)queryManager runConcurrentlyWithRequestThrottle:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [(PPXPCServerPipelinedBatchQueryManager *)queryManager runConcurrentlyWithRequestThrottle:v10];
 }
 
 void __69__PPContactServerRequestHandler_contactNameRecordsForClient_queryId___block_invoke(void *a1)
@@ -319,34 +310,34 @@ intptr_t __69__PPContactServerRequestHandler_contactNameRecordsForClient_queryId
 
 void __69__PPContactServerRequestHandler_contactNameRecordsForClient_queryId___block_invoke_2(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
   v4 = *(v2 + 32);
-  v20 = 0;
-  v11 = MEMORY[0x277D85DD0];
-  v12 = 3221225472;
-  v13 = __69__PPContactServerRequestHandler_contactNameRecordsForClient_queryId___block_invoke_3;
-  v14 = &unk_278975CB0;
-  v15 = v2;
-  v19 = *(a1 + 72);
-  v16 = *(a1 + 48);
-  v17 = *(a1 + 56);
-  v18 = *(a1 + 64);
-  LOBYTE(v4) = [v4 iterContactNameRecordsForClient:v3 error:&v20 block:&v11];
-  v5 = v20;
+  v19 = 0;
+  v10 = MEMORY[0x277D85DD0];
+  v11 = 3221225472;
+  v12 = __69__PPContactServerRequestHandler_contactNameRecordsForClient_queryId___block_invoke_3;
+  v13 = &unk_278975CB0;
+  v14 = v2;
+  v18 = *(a1 + 72);
+  v15 = *(a1 + 48);
+  v16 = *(a1 + 56);
+  v17 = *(a1 + 64);
+  LOBYTE(v4) = [v4 iterContactNameRecordsForClient:v3 error:&v19 block:&v10];
+  v5 = v19;
   if ((v4 & 1) == 0)
   {
     v6 = pp_xpc_server_log_handle();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v22 = v5;
+      v21 = v5;
       _os_log_error_impl(&dword_23224A000, v6, OS_LOG_TYPE_ERROR, "PPContactRecordResultBuffer: iterContactNameRecordsForClient: failed with error: %@", buf, 0xCu);
     }
   }
 
-  [*(a1 + 56) runWithLockAcquired:{&__block_literal_global_134_16837, v11, v12, v13, v14, v15}];
+  [*(a1 + 56) runWithLockAcquired:{&__block_literal_global_134_16837, v10, v11, v12, v13, v14}];
   (*(*(a1 + 72) + 16))();
   v7 = pp_contacts_signpost_handle();
   v8 = v7;
@@ -356,8 +347,6 @@ void __69__PPContactServerRequestHandler_contactNameRecordsForClient_queryId___b
     *buf = 0;
     _os_signpost_emit_with_name_impl(&dword_23224A000, v8, OS_SIGNPOST_INTERVAL_END, v9, "PPContactServer.contactNameRecordsForClient", "", buf, 2u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 id __69__PPContactServerRequestHandler_contactNameRecordsForClient_queryId___block_invoke_138(uint64_t a1, _BYTE *a2)
@@ -429,7 +418,7 @@ LABEL_15:
 
 void __69__PPContactServerRequestHandler_contactNameRecordsForClient_queryId___block_invoke_139(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 loadingComplete])
   {
@@ -460,10 +449,10 @@ void __69__PPContactServerRequestHandler_contactNameRecordsForClient_queryId___b
     v12 = pp_xpc_server_log_handle();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      v15 = [*(a1 + 32) count];
-      v16 = 134217984;
-      v17 = v15;
-      _os_log_debug_impl(&dword_23224A000, v12, OS_LOG_TYPE_DEBUG, "PPContactRecordResultBuffer: batchGenerator: clientRecords = %tu", &v16, 0xCu);
+      v14 = [*(a1 + 32) count];
+      v15 = 134217984;
+      v16 = v14;
+      _os_log_debug_impl(&dword_23224A000, v12, OS_LOG_TYPE_DEBUG, "PPContactRecordResultBuffer: batchGenerator: clientRecords = %tu", &v15, 0xCu);
     }
 
     dispatch_semaphore_signal(*(a1 + 40));
@@ -474,15 +463,13 @@ void __69__PPContactServerRequestHandler_contactNameRecordsForClient_queryId___b
     v13 = pp_xpc_server_log_handle();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v16 = 67109120;
-      LODWORD(v17) = [v3 loadingComplete];
-      _os_log_debug_impl(&dword_23224A000, v13, OS_LOG_TYPE_DEBUG, "PPContactRecordResultBuffer: batchGenerator: buffer empty, loadingComplete: %d", &v16, 8u);
+      v15 = 67109120;
+      LODWORD(v16) = [v3 loadingComplete];
+      _os_log_debug_impl(&dword_23224A000, v13, OS_LOG_TYPE_DEBUG, "PPContactRecordResultBuffer: batchGenerator: buffer empty, loadingComplete: %d", &v15, 8u);
     }
 
     *(*(*(a1 + 48) + 8) + 24) = 1;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __69__PPContactServerRequestHandler_contactNameRecordsForClient_queryId___block_invoke_3(uint64_t a1, void *a2, _BYTE *a3)
@@ -551,7 +538,7 @@ void __69__PPContactServerRequestHandler_contactNameRecordsForClient_queryId___b
 
 void __69__PPContactServerRequestHandler_contactNameRecordsForClient_queryId___block_invoke_129(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 records];
   [v4 addObject:*(a1 + 32)];
@@ -559,14 +546,13 @@ void __69__PPContactServerRequestHandler_contactNameRecordsForClient_queryId___b
   v5 = pp_xpc_server_log_handle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = [v3 records];
-    v8 = 134217984;
-    v9 = [v7 count];
-    _os_log_debug_impl(&dword_23224A000, v5, OS_LOG_TYPE_DEBUG, "PPContactRecordResultBuffer: loading: record.count = %tu", &v8, 0xCu);
+    v6 = [v3 records];
+    v7 = 134217984;
+    v8 = [v6 count];
+    _os_log_debug_impl(&dword_23224A000, v5, OS_LOG_TYPE_DEBUG, "PPContactRecordResultBuffer: loading: record.count = %tu", &v7, 0xCu);
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)feedbackDisambiguationResultWithChoicesIdentifiers:(id)identifiers chosenContactIdentifier:(id)identifier completion:(id)completion
@@ -620,36 +606,34 @@ uint64_t __119__PPContactServerRequestHandler_feedbackDisambiguationResultWithCh
 
 - (void)contactHandlesForSource:(id)source queryId:(unint64_t)id
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   v7 = pp_xpc_server_log_handle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     documentId = [sourceCopy documentId];
     *buf = 138412546;
-    v16 = documentId;
-    v17 = 2048;
+    v15 = documentId;
+    v16 = 2048;
     idCopy = id;
     _os_log_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEFAULT, "PPContactServer: contactHandlesForSource:%@ queryId:%llu", buf, 0x16u);
   }
 
   queryManager = self->_queryManager;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __65__PPContactServerRequestHandler_contactHandlesForSource_queryId___block_invoke;
-  v12[3] = &unk_278978A80;
-  v12[4] = self;
-  v13 = sourceCopy;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __65__PPContactServerRequestHandler_contactHandlesForSource_queryId___block_invoke;
+  v11[3] = &unk_278978A80;
+  v11[4] = self;
+  v12 = sourceCopy;
   idCopy2 = id;
   v10 = sourceCopy;
-  [(PPXPCServerPipelinedBatchQueryManager *)queryManager runConcurrentlyWithRequestThrottle:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [(PPXPCServerPipelinedBatchQueryManager *)queryManager runConcurrentlyWithRequestThrottle:v11];
 }
 
 void __65__PPContactServerRequestHandler_contactHandlesForSource_queryId___block_invoke(void *a1)
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   v2 = pp_contacts_signpost_handle();
   v3 = os_signpost_id_generate(v2);
 
@@ -663,9 +647,9 @@ void __65__PPContactServerRequestHandler_contactHandlesForSource_queryId___block
 
   v6 = a1[5];
   v7 = *(a1[4] + 32);
-  v32 = 0;
-  v8 = [v7 contactHandlesForSource:v6 error:&v32];
-  v9 = v32;
+  v31 = 0;
+  v8 = [v7 contactHandlesForSource:v6 error:&v31];
+  v9 = v31;
   v10 = pp_contacts_signpost_handle();
   v11 = v10;
   if (v3 - 1 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v10))
@@ -677,32 +661,32 @@ void __65__PPContactServerRequestHandler_contactHandlesForSource_queryId___block
   if (v8)
   {
     *buf = 0;
-    v29 = buf;
-    v30 = 0x2020000000;
-    v31 = 0;
+    v28 = buf;
+    v29 = 0x2020000000;
+    v30 = 0;
     v12 = *(a1[4] + 16);
     v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@-contactHandlesForSource", *(a1[4] + 40)];
     v14 = a1[6];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __65__PPContactServerRequestHandler_contactHandlesForSource_queryId___block_invoke_2;
-    v25[3] = &unk_278977680;
-    v26 = v8;
-    v27 = buf;
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __65__PPContactServerRequestHandler_contactHandlesForSource_queryId___block_invoke_3;
-    v22[3] = &unk_2789776A8;
-    v15 = a1[6];
-    v23 = a1[4];
-    v24 = v15;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __65__PPContactServerRequestHandler_contactHandlesForSource_queryId___block_invoke_2;
+    v24[3] = &unk_278977680;
+    v25 = v8;
+    v26 = buf;
     v21[0] = MEMORY[0x277D85DD0];
     v21[1] = 3221225472;
-    v21[2] = __65__PPContactServerRequestHandler_contactHandlesForSource_queryId___block_invoke_5;
-    v21[3] = &unk_2789776D0;
-    v21[4] = v23;
-    v21[5] = v15;
-    [v12 sendBatchedResultForQueryWithName:v13 queryId:v14 batchGenerator:v25 sendError:v22 sendBatch:v21];
+    v21[2] = __65__PPContactServerRequestHandler_contactHandlesForSource_queryId___block_invoke_3;
+    v21[3] = &unk_2789776A8;
+    v15 = a1[6];
+    v22 = a1[4];
+    v23 = v15;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __65__PPContactServerRequestHandler_contactHandlesForSource_queryId___block_invoke_5;
+    v20[3] = &unk_2789776D0;
+    v20[4] = v22;
+    v20[5] = v15;
+    [v12 sendBatchedResultForQueryWithName:v13 queryId:v14 batchGenerator:v24 sendError:v21 sendBatch:v20];
 
     _Block_object_dispose(buf, 8);
   }
@@ -710,71 +694,66 @@ void __65__PPContactServerRequestHandler_contactHandlesForSource_queryId___block
   else
   {
     v16 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v33 = @"PPServerSideErrorInfoKey";
+    v32 = @"PPServerSideErrorInfoKey";
     v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@", v9];
-    v34[0] = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+    v33[0] = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
     v19 = [v16 initWithDomain:@"PPServerSideErrorDomain" code:1 userInfo:v18];
 
     [*(a1[4] + 8) contactHandlesForSourceBatch:0 isLast:1 error:v19 queryId:a1[6] completion:&__block_literal_global_118_16853];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __65__PPContactServerRequestHandler_contactHandlesForSource_queryId___block_invoke_2(uint64_t a1, BOOL *a2)
+void *__65__PPContactServerRequestHandler_contactHandlesForSource_queryId___block_invoke_2(uint64_t a1, BOOL *a2)
 {
   v4 = [*(a1 + 32) count];
-  v5 = *(a1 + 32);
-  v6 = *(*(*(a1 + 40) + 8) + 24);
-  v7 = v4 - v6;
-  if ((v4 - v6) >= 0x32)
+  v5 = *(*(*(a1 + 40) + 8) + 24);
+  v6 = v4 - v5;
+  if ((v4 - v5) >= 0x32)
   {
-    v8 = 50;
+    v7 = 50;
   }
 
   else
   {
-    v8 = v4 - v6;
+    v7 = v4 - v5;
   }
 
   result = [*(a1 + 32) subarrayWithRange:?];
-  *a2 = v7 < 0x33;
-  *(*(*(a1 + 40) + 8) + 24) += v8;
+  *a2 = v6 < 0x33;
+  *(*(*(a1 + 40) + 8) + 24) += v7;
   return result;
 }
 
 - (void)contactHandlesForTopics:(id)topics queryId:(unint64_t)id
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   topicsCopy = topics;
   v7 = pp_xpc_server_log_handle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218240;
-    v15 = [topicsCopy count];
-    v16 = 2048;
+    v14 = [topicsCopy count];
+    v15 = 2048;
     idCopy = id;
     _os_log_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEFAULT, "PPContactServer: contactHandlesForTopics:%tu queryId:%llu", buf, 0x16u);
   }
 
   queryManager = self->_queryManager;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __65__PPContactServerRequestHandler_contactHandlesForTopics_queryId___block_invoke;
-  v11[3] = &unk_278978A80;
-  v11[4] = self;
-  v12 = topicsCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __65__PPContactServerRequestHandler_contactHandlesForTopics_queryId___block_invoke;
+  v10[3] = &unk_278978A80;
+  v10[4] = self;
+  v11 = topicsCopy;
   idCopy2 = id;
   v9 = topicsCopy;
-  [(PPXPCServerPipelinedBatchQueryManager *)queryManager runConcurrentlyWithRequestThrottle:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [(PPXPCServerPipelinedBatchQueryManager *)queryManager runConcurrentlyWithRequestThrottle:v10];
 }
 
 void __65__PPContactServerRequestHandler_contactHandlesForTopics_queryId___block_invoke(void *a1)
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   v2 = pp_contacts_signpost_handle();
   v3 = os_signpost_id_generate(v2);
 
@@ -788,9 +767,9 @@ void __65__PPContactServerRequestHandler_contactHandlesForTopics_queryId___block
 
   v6 = a1[5];
   v7 = *(a1[4] + 32);
-  v33 = 0;
-  v8 = [v7 contactHandlesForTopics:v6 error:&v33];
-  v9 = v33;
+  v32 = 0;
+  v8 = [v7 contactHandlesForTopics:v6 error:&v32];
+  v9 = v32;
   v10 = pp_contacts_signpost_handle();
   v11 = v10;
   if (v3 - 1 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v10))
@@ -802,32 +781,32 @@ void __65__PPContactServerRequestHandler_contactHandlesForTopics_queryId___block
   if (v8)
   {
     *buf = 0;
-    v30 = buf;
-    v31 = 0x2020000000;
-    v32 = 0;
+    v29 = buf;
+    v30 = 0x2020000000;
+    v31 = 0;
     v12 = *(a1[4] + 16);
     v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@-contactHandlesForTopics", *(a1[4] + 40)];
     v14 = a1[6];
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __65__PPContactServerRequestHandler_contactHandlesForTopics_queryId___block_invoke_2;
-    v26[3] = &unk_278977680;
-    v27 = v8;
-    v28 = buf;
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __65__PPContactServerRequestHandler_contactHandlesForTopics_queryId___block_invoke_3;
-    v23[3] = &unk_2789776A8;
-    v15 = a1[6];
-    v24 = a1[4];
-    v25 = v15;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __65__PPContactServerRequestHandler_contactHandlesForTopics_queryId___block_invoke_2;
+    v25[3] = &unk_278977680;
+    v26 = v8;
+    v27 = buf;
     v22[0] = MEMORY[0x277D85DD0];
     v22[1] = 3221225472;
-    v22[2] = __65__PPContactServerRequestHandler_contactHandlesForTopics_queryId___block_invoke_5;
-    v22[3] = &unk_2789776D0;
-    v22[4] = v24;
-    v22[5] = v15;
-    [v12 sendBatchedResultForQueryWithName:v13 queryId:v14 batchGenerator:v26 sendError:v23 sendBatch:v22];
+    v22[2] = __65__PPContactServerRequestHandler_contactHandlesForTopics_queryId___block_invoke_3;
+    v22[3] = &unk_2789776A8;
+    v15 = a1[6];
+    v23 = a1[4];
+    v24 = v15;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __65__PPContactServerRequestHandler_contactHandlesForTopics_queryId___block_invoke_5;
+    v21[3] = &unk_2789776D0;
+    v21[4] = v23;
+    v21[5] = v15;
+    [v12 sendBatchedResultForQueryWithName:v13 queryId:v14 batchGenerator:v25 sendError:v22 sendBatch:v21];
 
     _Block_object_dispose(buf, 8);
   }
@@ -836,18 +815,16 @@ void __65__PPContactServerRequestHandler_contactHandlesForTopics_queryId___block
   {
     v16 = objc_alloc(MEMORY[0x277CCA9B8]);
     v17 = objc_autoreleasePoolPush();
-    v34 = @"PPServerSideErrorInfoKey";
+    v33 = @"PPServerSideErrorInfoKey";
     v18 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@", v9];
-    v35[0] = v18;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
+    v34[0] = v18;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
 
     objc_autoreleasePoolPop(v17);
     v20 = [v16 initWithDomain:@"PPServerSideErrorDomain" code:1 userInfo:v19];
 
     [*(a1[4] + 8) contactHandlesForTopicsBatch:0 isLast:1 error:v20 queryId:a1[6] completion:&__block_literal_global_110];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 id __65__PPContactServerRequestHandler_contactHandlesForTopics_queryId___block_invoke_2(uint64_t a1, BOOL *a2)
@@ -891,7 +868,7 @@ id __65__PPContactServerRequestHandler_contactHandlesForTopics_queryId___block_i
 
 void __74__PPContactServerRequestHandler_upcomingRelevantContactsForQuery_queryId___block_invoke(void *a1)
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   v2 = pp_contacts_signpost_handle();
   v3 = os_signpost_id_generate(v2);
 
@@ -905,9 +882,9 @@ void __74__PPContactServerRequestHandler_upcomingRelevantContactsForQuery_queryI
 
   v6 = a1[5];
   v7 = *(a1[4] + 32);
-  v32 = 0;
-  v8 = [v7 upcomingRelevantContactsForQuery:v6 error:&v32];
-  v9 = v32;
+  v31 = 0;
+  v8 = [v7 upcomingRelevantContactsForQuery:v6 error:&v31];
+  v9 = v31;
   v10 = pp_contacts_signpost_handle();
   v11 = v10;
   if (v3 - 1 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v10))
@@ -919,32 +896,32 @@ void __74__PPContactServerRequestHandler_upcomingRelevantContactsForQuery_queryI
   if (v8)
   {
     *buf = 0;
-    v29 = buf;
-    v30 = 0x2020000000;
-    v31 = 0;
+    v28 = buf;
+    v29 = 0x2020000000;
+    v30 = 0;
     v12 = *(a1[4] + 16);
     v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@-upcomingRelevantContactsForQuery", *(a1[4] + 40)];
     v14 = a1[6];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __74__PPContactServerRequestHandler_upcomingRelevantContactsForQuery_queryId___block_invoke_2;
-    v25[3] = &unk_278977680;
-    v26 = v8;
-    v27 = buf;
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __74__PPContactServerRequestHandler_upcomingRelevantContactsForQuery_queryId___block_invoke_3;
-    v22[3] = &unk_2789776A8;
-    v15 = a1[6];
-    v23 = a1[4];
-    v24 = v15;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __74__PPContactServerRequestHandler_upcomingRelevantContactsForQuery_queryId___block_invoke_2;
+    v24[3] = &unk_278977680;
+    v25 = v8;
+    v26 = buf;
     v21[0] = MEMORY[0x277D85DD0];
     v21[1] = 3221225472;
-    v21[2] = __74__PPContactServerRequestHandler_upcomingRelevantContactsForQuery_queryId___block_invoke_5;
-    v21[3] = &unk_2789776D0;
-    v21[4] = v23;
-    v21[5] = v15;
-    [v12 sendBatchedResultForQueryWithName:v13 queryId:v14 batchGenerator:v25 sendError:v22 sendBatch:v21];
+    v21[2] = __74__PPContactServerRequestHandler_upcomingRelevantContactsForQuery_queryId___block_invoke_3;
+    v21[3] = &unk_2789776A8;
+    v15 = a1[6];
+    v22 = a1[4];
+    v23 = v15;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __74__PPContactServerRequestHandler_upcomingRelevantContactsForQuery_queryId___block_invoke_5;
+    v20[3] = &unk_2789776D0;
+    v20[4] = v22;
+    v20[5] = v15;
+    [v12 sendBatchedResultForQueryWithName:v13 queryId:v14 batchGenerator:v24 sendError:v21 sendBatch:v20];
 
     _Block_object_dispose(buf, 8);
   }
@@ -952,71 +929,66 @@ void __74__PPContactServerRequestHandler_upcomingRelevantContactsForQuery_queryI
   else
   {
     v16 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v33 = @"PPServerSideErrorInfoKey";
+    v32 = @"PPServerSideErrorInfoKey";
     v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@", v9];
-    v34[0] = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+    v33[0] = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
     v19 = [v16 initWithDomain:@"PPServerSideErrorDomain" code:1 userInfo:v18];
 
     [*(a1[4] + 8) upcomingRelevantContactsBatch:0 isLast:1 error:v19 queryId:a1[6] completion:&__block_literal_global_102];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __74__PPContactServerRequestHandler_upcomingRelevantContactsForQuery_queryId___block_invoke_2(uint64_t a1, BOOL *a2)
+void *__74__PPContactServerRequestHandler_upcomingRelevantContactsForQuery_queryId___block_invoke_2(uint64_t a1, BOOL *a2)
 {
   v4 = [*(a1 + 32) count];
-  v5 = *(a1 + 32);
-  v6 = *(*(*(a1 + 40) + 8) + 24);
-  v7 = v4 - v6;
-  if ((v4 - v6) >= 0x32)
+  v5 = *(*(*(a1 + 40) + 8) + 24);
+  v6 = v4 - v5;
+  if ((v4 - v5) >= 0x32)
   {
-    v8 = 50;
+    v7 = 50;
   }
 
   else
   {
-    v8 = v4 - v6;
+    v7 = v4 - v5;
   }
 
   result = [*(a1 + 32) subarrayWithRange:?];
-  *a2 = v7 < 0x33;
-  *(*(*(a1 + 40) + 8) + 24) += v8;
+  *a2 = v6 < 0x33;
+  *(*(*(a1 + 40) + 8) + 24) += v7;
   return result;
 }
 
 - (void)rankedContactsWithQuery:(id)query queryId:(unint64_t)id
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   v7 = pp_xpc_server_log_handle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v15 = queryCopy;
-    v16 = 2048;
+    v14 = queryCopy;
+    v15 = 2048;
     idCopy = id;
     _os_log_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEFAULT, "PPContactServer: rankedContactsWithQuery:%@ queryId:%llu", buf, 0x16u);
   }
 
   queryManager = self->_queryManager;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __65__PPContactServerRequestHandler_rankedContactsWithQuery_queryId___block_invoke;
-  v11[3] = &unk_278978A80;
-  v11[4] = self;
-  v12 = queryCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __65__PPContactServerRequestHandler_rankedContactsWithQuery_queryId___block_invoke;
+  v10[3] = &unk_278978A80;
+  v10[4] = self;
+  v11 = queryCopy;
   idCopy2 = id;
   v9 = queryCopy;
-  [(PPXPCServerPipelinedBatchQueryManager *)queryManager runConcurrentlyWithRequestThrottle:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [(PPXPCServerPipelinedBatchQueryManager *)queryManager runConcurrentlyWithRequestThrottle:v10];
 }
 
 void __65__PPContactServerRequestHandler_rankedContactsWithQuery_queryId___block_invoke(void *a1)
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   v2 = pp_contacts_signpost_handle();
   v3 = os_signpost_id_generate(v2);
 
@@ -1030,9 +1002,9 @@ void __65__PPContactServerRequestHandler_rankedContactsWithQuery_queryId___block
 
   v6 = a1[5];
   v7 = *(a1[4] + 32);
-  v32 = 0;
-  v8 = [v7 rankedContactsWithQuery:v6 error:&v32];
-  v9 = v32;
+  v31 = 0;
+  v8 = [v7 rankedContactsWithQuery:v6 error:&v31];
+  v9 = v31;
   v10 = pp_contacts_signpost_handle();
   v11 = v10;
   if (v3 - 1 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v10))
@@ -1044,32 +1016,32 @@ void __65__PPContactServerRequestHandler_rankedContactsWithQuery_queryId___block
   if (v8)
   {
     *buf = 0;
-    v29 = buf;
-    v30 = 0x2020000000;
-    v31 = 0;
+    v28 = buf;
+    v29 = 0x2020000000;
+    v30 = 0;
     v12 = *(a1[4] + 16);
     v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@-rankedContactsWithQuery", *(a1[4] + 40)];
     v14 = a1[6];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __65__PPContactServerRequestHandler_rankedContactsWithQuery_queryId___block_invoke_2;
-    v25[3] = &unk_278977680;
-    v26 = v8;
-    v27 = buf;
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __65__PPContactServerRequestHandler_rankedContactsWithQuery_queryId___block_invoke_3;
-    v22[3] = &unk_2789776A8;
-    v15 = a1[6];
-    v23 = a1[4];
-    v24 = v15;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __65__PPContactServerRequestHandler_rankedContactsWithQuery_queryId___block_invoke_2;
+    v24[3] = &unk_278977680;
+    v25 = v8;
+    v26 = buf;
     v21[0] = MEMORY[0x277D85DD0];
     v21[1] = 3221225472;
-    v21[2] = __65__PPContactServerRequestHandler_rankedContactsWithQuery_queryId___block_invoke_5;
-    v21[3] = &unk_2789776D0;
-    v21[4] = v23;
-    v21[5] = v15;
-    [v12 sendBatchedResultForQueryWithName:v13 queryId:v14 batchGenerator:v25 sendError:v22 sendBatch:v21];
+    v21[2] = __65__PPContactServerRequestHandler_rankedContactsWithQuery_queryId___block_invoke_3;
+    v21[3] = &unk_2789776A8;
+    v15 = a1[6];
+    v22 = a1[4];
+    v23 = v15;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __65__PPContactServerRequestHandler_rankedContactsWithQuery_queryId___block_invoke_5;
+    v20[3] = &unk_2789776D0;
+    v20[4] = v22;
+    v20[5] = v15;
+    [v12 sendBatchedResultForQueryWithName:v13 queryId:v14 batchGenerator:v24 sendError:v21 sendBatch:v20];
 
     _Block_object_dispose(buf, 8);
   }
@@ -1077,37 +1049,34 @@ void __65__PPContactServerRequestHandler_rankedContactsWithQuery_queryId___block
   else
   {
     v16 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v33 = @"PPServerSideErrorInfoKey";
+    v32 = @"PPServerSideErrorInfoKey";
     v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@", v9];
-    v34[0] = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+    v33[0] = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
     v19 = [v16 initWithDomain:@"PPServerSideErrorDomain" code:1 userInfo:v18];
 
     [*(a1[4] + 8) rankedContactsBatch:0 isLast:1 error:v19 queryId:a1[6] completion:&__block_literal_global_16884];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __65__PPContactServerRequestHandler_rankedContactsWithQuery_queryId___block_invoke_2(uint64_t a1, BOOL *a2)
+void *__65__PPContactServerRequestHandler_rankedContactsWithQuery_queryId___block_invoke_2(uint64_t a1, BOOL *a2)
 {
   v4 = [*(a1 + 32) count];
-  v5 = *(a1 + 32);
-  v6 = *(*(*(a1 + 40) + 8) + 24);
-  v7 = v4 - v6;
-  if ((v4 - v6) >= 0x32)
+  v5 = *(*(*(a1 + 40) + 8) + 24);
+  v6 = v4 - v5;
+  if ((v4 - v5) >= 0x32)
   {
-    v8 = 50;
+    v7 = 50;
   }
 
   else
   {
-    v8 = v4 - v6;
+    v7 = v4 - v5;
   }
 
   result = [*(a1 + 32) subarrayWithRange:?];
-  *a2 = v7 < 0x33;
-  *(*(*(a1 + 40) + 8) + 24) += v8;
+  *a2 = v6 < 0x33;
+  *(*(*(a1 + 40) + 8) + 24) += v7;
   return result;
 }
 

@@ -402,7 +402,7 @@ id __49__UIEventSessionActionAnalytics_q_writeAnalytics__block_invoke_39(uint64_
   _Block_object_dispose(buf, 8);
 }
 
-uint64_t __47__UIEventSessionActionAnalytics_writeAnalytics__block_invoke(uint64_t a1)
+void *__47__UIEventSessionActionAnalytics_writeAnalytics__block_invoke(uint64_t a1)
 {
   if (os_variant_has_internal_diagnostics())
   {
@@ -423,7 +423,7 @@ uint64_t __47__UIEventSessionActionAnalytics_writeAnalytics__block_invoke(uint64
   return result;
 }
 
-uint64_t __47__UIEventSessionActionAnalytics_writeAnalytics__block_invoke_51(uint64_t a1)
+void *__47__UIEventSessionActionAnalytics_writeAnalytics__block_invoke_51(uint64_t a1)
 {
   result = [*(a1 + 32) q_writeAnalytics];
   if (*(*(*(a1 + 48) + 8) + 24) && *(a1 + 40))
@@ -527,7 +527,7 @@ id __62__UIEventSessionActionAnalytics_writeEventWithFields_andName___block_invo
     [updateCopy setHardwareKeyboardState:self->_hardwareKeyboardState];
     [updateCopy setMagicKeyboardState:self->_magicKeyboardState];
     bundleID = [(UIEventSessionActionAnalytics *)self bundleID];
-    if ([bundleID isEqualToString:@"com.apple.springboard"])
+    if (objc_msgSend_isEqualToString_(bundleID))
     {
       source = [updateCopy source];
 
@@ -687,7 +687,7 @@ uint64_t __65__UIEventSessionActionAnalytics_shouldEnableTouchHeatMapAnalyzer__b
 
   if ((v1 & 0xFFFFFFFFFFFFFFFBLL) == 1)
   {
-    if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UITouchHeatMapAnalyzerIpad, @"UITouchHeatMapAnalyzerIpad", _UIInternalPreferenceUpdateInteger) & 1) == 0 && qword_1EA95E658)
+    if (!_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UITouchHeatMapAnalyzerIpad, @"UITouchHeatMapAnalyzerIpad", _UIInternalPreferenceUpdateInteger) && qword_1EA95E658)
     {
       result = qword_1EA95E658 >= 0;
     }
@@ -771,14 +771,14 @@ uint64_t __65__UIEventSessionActionAnalytics_shouldEnableTouchHeatMapAnalyzer__b
                 {
                   v18 = [v17 objectForKey:v7];
                   v19 = [v17 objectForKey:v8];
-                  if ([v18 isEqual:v9] && objc_msgSend(v19, "isEqual:", &unk_1EFE32F50))
+                  if (objc_msgSend_isEqual_(v18) && objc_msgSend_isEqual_(v19))
                   {
                     v20 = v5;
                     v21 = v9;
                     v22 = v8;
                     v23 = v7;
                     v24 = IOHIDServiceClientCopyProperty(service, @"Transport");
-                    if ([v24 isEqualToString:@"AID"])
+                    if (objc_msgSend_isEqualToString_(v24))
                     {
                       CFRelease(cf);
 
@@ -1073,7 +1073,7 @@ LABEL_39:
 - (void)q_updateHardwareState
 {
   v21 = *MEMORY[0x1E69E9840];
-  if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UIEventSessionActionAnalyticsMagicKeyboardStateEnabled, @"UIEventSessionActionAnalyticsMagicKeyboardStateEnabled", _UIInternalPreferenceUpdateBool) & 1) == 0 && byte_1EA95E64C)
+  if (!_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UIEventSessionActionAnalyticsMagicKeyboardStateEnabled, @"UIEventSessionActionAnalyticsMagicKeyboardStateEnabled", _UIInternalPreferenceUpdateBool) && byte_1EA95E64C)
   {
     [(UIEventSessionActionAnalytics *)self updateAIDState];
   }

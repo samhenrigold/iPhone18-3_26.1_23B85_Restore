@@ -38,7 +38,7 @@
   v13 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDCameraRecordingLoadBalancerLogEvent selectedResidentHasActiveSessionWithCamera](self, "selectedResidentHasActiveSessionWithCamera")}];
   [dictionary setObject:v13 forKeyedSubscript:@"selectedResidentHasActiveSessionWithCamera"];
 
-  v14 = [dictionary copy];
+  v14 = objc_msgSend_copy(dictionary);
 
   return v14;
 }
@@ -59,39 +59,39 @@
   v27 = [(HMMLogEvent *)&v47 init];
   if (v27)
   {
-    v28 = [residentsCopy copy];
+    v28 = objc_msgSend_copy(residentsCopy);
     numberOfResidents = v27->_numberOfResidents;
     v27->_numberOfResidents = v28;
 
-    v30 = [retriesCopy copy];
+    v30 = objc_msgSend_copy(retriesCopy);
     numberOfRetries = v27->_numberOfRetries;
     v27->_numberOfRetries = v30;
 
-    v32 = [slotsCopy copy];
+    v32 = objc_msgSend_copy(slotsCopy);
     totalNumberOfJobSlots = v27->_totalNumberOfJobSlots;
     v27->_totalNumberOfJobSlots = v32;
 
-    v34 = [jobSlotsCopy copy];
+    v34 = objc_msgSend_copy(jobSlotsCopy);
     remainingNumberOfJobSlots = v27->_remainingNumberOfJobSlots;
     v27->_remainingNumberOfJobSlots = v34;
 
-    v36 = [typeCopy copy];
+    v36 = objc_msgSend_copy(typeCopy);
     selectedResidentDeviceType = v27->_selectedResidentDeviceType;
     v27->_selectedResidentDeviceType = v36;
 
-    v38 = [streamsCopy copy];
+    v38 = objc_msgSend_copy(streamsCopy);
     selectedResidentNumberOfActiveStreams = v27->_selectedResidentNumberOfActiveStreams;
     v27->_selectedResidentNumberOfActiveStreams = v38;
 
-    v40 = [levelCopy copy];
+    v40 = objc_msgSend_copy(levelCopy);
     selectedResidentSystemResourceUsageLevel = v27->_selectedResidentSystemResourceUsageLevel;
     v27->_selectedResidentSystemResourceUsageLevel = v40;
 
-    v42 = [residentJobSlotsCopy copy];
+    v42 = objc_msgSend_copy(residentJobSlotsCopy);
     selectedResidentJobSlots = v27->_selectedResidentJobSlots;
     v27->_selectedResidentJobSlots = v42;
 
-    v44 = [partialJobSlotsCopy copy];
+    v44 = objc_msgSend_copy(partialJobSlotsCopy);
     selectedResidentPartialJobSlots = v27->_selectedResidentPartialJobSlots;
     v27->_selectedResidentPartialJobSlots = v44;
 

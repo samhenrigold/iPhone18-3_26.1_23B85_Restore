@@ -1,8 +1,8 @@
-void Nightingale::phaseFactorProcessor::getjDayStartOfVPhasestojDayRangeStart(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X8>)
+void Nightingale::phaseFactorProcessor::getjDayStartOfVPhasestojDayRangeStart(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X3>, const void **a5@<X8>)
 {
   *a5 = 0;
-  *(a5 + 8) = 0;
-  *(a5 + 16) = 0;
+  a5[1] = 0;
+  a5[2] = 0;
   v6 = *a4;
   if (a4[1] != *a4)
   {
@@ -32,11 +32,11 @@ void sub_25C644D98(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void Nightingale::phaseFactorProcessor::getjDayEndOfVPhasestojDayRangeEnd(uint64_t a1@<X0>, unint64_t a2@<X1>, void *a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X8>)
+void Nightingale::phaseFactorProcessor::getjDayEndOfVPhasestojDayRangeEnd(uint64_t a1@<X0>, unint64_t a2@<X1>, void *a3@<X2>, uint64_t *a4@<X3>, const void **a5@<X8>)
 {
   *a5 = 0;
-  *(a5 + 8) = 0;
-  *(a5 + 16) = 0;
+  a5[1] = 0;
+  a5[2] = 0;
   v6 = *a4;
   if (a4[1] != *a4)
   {
@@ -66,11 +66,11 @@ void sub_25C644E58(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t Nightingale::phaseFactorProcessor::findEndOfReproductiveBfrADate(uint64_t a1, uint64_t *a2, uint64_t *a3, int a4)
+uint64_t Nightingale::phaseFactorProcessor::findEndOfReproductiveBfrADate(uint64_t a1, uint64_t a2, uint64_t *a3, int a4)
 {
   v5 = *a2;
-  v6 = a2[1];
-  if (v5 == v6 || a2[3] == a2[4])
+  v6 = *(a2 + 8);
+  if (v5 == v6 || *(a2 + 24) == *(a2 + 32))
   {
     return 0xFFFFFFFFLL;
   }
@@ -93,7 +93,7 @@ uint64_t Nightingale::phaseFactorProcessor::findEndOfReproductiveBfrADate(uint64
         std::vector<int>::__throw_out_of_range[abi:ne200100]();
       }
 
-      if (*(v5 + 4 * v10) > a4)
+      if (v5[v10] > a4)
       {
         break;
       }
@@ -111,8 +111,8 @@ uint64_t Nightingale::phaseFactorProcessor::findEndOfReproductiveBfrADate(uint64
   v24 = 0;
   v25 = 0;
   v26 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v24, v5, v5 + 4 * v12, v12);
-  v14 = a2[3];
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v24, v5, &v5[v12], v12);
+  v14 = *(a2 + 24);
   v22 = 0;
   v23 = 0;
   v21 = 0;
@@ -175,66 +175,67 @@ void sub_25C644FB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t Nightingale::phaseFactorProcessor::ccMenstCycleLen_handling(uint64_t *a1, void *a2, uint64_t *a3)
+unint64_t Nightingale::phaseFactorProcessor::ccMenstCycleLen_handling(uint64_t *a1, void *a2, uint64_t *a3)
 {
   EndOfAPhaseSet = Nightingale::phaseFactorProcessor::jDayLastEndOfAPhaseSet(a1, a2, a3);
-  v6 = *a1;
-  v5 = a1[1];
-  log = ha_get_log();
+  v5 = EndOfAPhaseSet;
+  v7 = *a1;
+  v6 = a1[1];
+  log = ha_get_log(EndOfAPhaseSet);
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
   {
-    Nightingale::phaseFactorProcessor::ccMenstCycleLen_handling(EndOfAPhaseSet, log);
+    Nightingale::phaseFactorProcessor::ccMenstCycleLen_handling(v5, log);
   }
 
-  v9 = *a1;
-  v8 = a1[1];
-  if (*a1 == v8)
+  v10 = *a1;
+  v9 = a1[1];
+  if (*a1 == v9)
   {
     return 0;
   }
 
-  if (EndOfAPhaseSet == -2)
+  if (v5 == -2)
   {
-    v16 = (v8 - v9) >> 3;
-    if (v16 >= 2)
+    v17 = (v9 - v10) >> 3;
+    if (v17 >= 2)
     {
       return 2;
     }
 
     else
     {
-      return v16;
+      return v17;
     }
   }
 
   else
   {
-    result = (v5 - v6) >> 3;
-    if (EndOfAPhaseSet != -1)
+    result = (v6 - v7) >> 3;
+    if (v5 != -1)
     {
-      v11 = v8 - v9;
-      v12 = (v8 - v9) >> 3;
-      if (v12 >= 1)
+      v12 = v9 - v10;
+      v13 = (v9 - v10) >> 3;
+      if (v13 >= 1)
       {
-        v13 = (result - v12);
-        v14 = (v11 >> 3) & 0x7FFFFFFF;
-        for (i = (v9 + 4); ; i += 2)
+        v14 = (result - v13);
+        v15 = (v12 >> 3) & 0x7FFFFFFF;
+        for (i = (v10 + 4); ; i += 2)
         {
-          if (!v12)
+          if (!v13)
           {
             std::vector<int>::__throw_out_of_range[abi:ne200100]();
           }
 
-          if (*i >= EndOfAPhaseSet)
+          if (*i >= v5)
           {
             break;
           }
 
           result = (result - 1);
-          --v12;
-          if (!--v14)
+          --v13;
+          if (!--v15)
           {
-            return v13;
+            return v14;
           }
         }
       }
@@ -484,8 +485,8 @@ char *std::vector<Nightingale::Phase>::insert(void *a1, char *__src, char *a3)
     }
 
     v23 = 0;
-    v24 = (__src - v10);
-    v25 = (__src - v10);
+    v24 = &__src[-v10];
+    v25 = &__src[-v10];
     std::__split_buffer<Nightingale::Phase>::emplace_back<Nightingale::Phase const&>(&v23, a3);
     v14 = v24;
     memcpy(v25, v4, a1[1] - v4);
@@ -523,7 +524,7 @@ char *std::vector<Nightingale::Phase>::insert(void *a1, char *__src, char *a3)
     if (v6)
     {
       *v6 = *(v6 - 1);
-      v9 = v6 + 1;
+      v9 = (v6 + 1);
     }
 
     else
@@ -562,7 +563,7 @@ uint64_t Nightingale::phaseFactorProcessor::suppressFWStEnd(uint64_t a1, unsigne
   v20 = 0;
   v21 = 0;
   v19 = 0;
-  std::vector<Nightingale::Phase>::__init_with_size[abi:ne200100]<Nightingale::Phase const*,Nightingale::Phase const*>(&v19, &v16, &v18, 6);
+  std::vector<Nightingale::Phase>::__init_with_size[abi:ne200100]<Nightingale::Phase const*,Nightingale::Phase const*>(&v19, &v16, v18, 6);
   if (*(a2 + 4) != 1 || *(a3 + 4) != 1)
   {
     goto LABEL_11;
@@ -626,24 +627,24 @@ void sub_25C6456A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t Nightingale::phaseFactorProcessor::getCCVec@<X0>(void *a1@<X8>)
+uint64_t *Nightingale::phaseFactorProcessor::getCCVec@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = 1798;
-  v4 = 5;
+  v2 = 1798;
+  v3 = 5;
   a1[1] = 0;
   a1[2] = 0;
   *a1 = 0;
-  return std::vector<Nightingale::Phase>::__init_with_size[abi:ne200100]<Nightingale::Phase const*,Nightingale::Phase const*>(a1, &v3, &vars0, 3);
+  return std::vector<Nightingale::Phase>::__init_with_size[abi:ne200100]<Nightingale::Phase const*,Nightingale::Phase const*>(a1, &v2, &vars0, 3);
 }
 
-uint64_t Nightingale::phaseFactorProcessor::getAllCycleVec@<X0>(void *a1@<X8>)
+uint64_t *Nightingale::phaseFactorProcessor::getAllCycleVec@<X0>(uint64_t *__return_ptr a1@<X8>)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 0x706050403020100;
+  v3 = *MEMORY[0x277D85DE8];
+  v2 = 0x706050403020100;
   a1[1] = 0;
   a1[2] = 0;
   *a1 = 0;
-  return std::vector<Nightingale::Phase>::__init_with_size[abi:ne200100]<Nightingale::Phase const*,Nightingale::Phase const*>(a1, &v3, &v4, 8);
+  return std::vector<Nightingale::Phase>::__init_with_size[abi:ne200100]<Nightingale::Phase const*,Nightingale::Phase const*>(a1, &v2, &v3, 8);
 }
 
 uint64_t Nightingale::phaseFactorProcessor::aPhase_contains_phaseTobeDetected(uint64_t a1, uint64_t a2, void *a3)
@@ -889,7 +890,7 @@ BOOL Nightingale::phaseFactorProcessor::containContraceptiveCycleFactors(uint64_
   v13 = 0;
   v14 = 0;
   __p = 0;
-  std::vector<Nightingale::Phase>::__init_with_size[abi:ne200100]<Nightingale::Phase const*,Nightingale::Phase const*>(&__p, &v9, &v11, 6);
+  std::vector<Nightingale::Phase>::__init_with_size[abi:ne200100]<Nightingale::Phase const*,Nightingale::Phase const*>(&__p, &v9, v11, 6);
   v3 = a2[1];
   v4 = *a2;
   if (*a2 == v3 || __p == v13)
@@ -991,7 +992,7 @@ BOOL Nightingale::phaseFactorProcessor::vPhasesContainsVPhases(uint64_t a1, unsi
   return result;
 }
 
-uint64_t std::vector<Nightingale::PhaseSet>::__init_with_size[abi:ne200100]<std::__wrap_iter<Nightingale::PhaseSet*>,std::__wrap_iter<Nightingale::PhaseSet*>>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<Nightingale::PhaseSet>::__init_with_size[abi:ne200100]<std::__wrap_iter<Nightingale::PhaseSet*>,std::__wrap_iter<Nightingale::PhaseSet*>>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1013,16 +1014,16 @@ void sub_25C645C44(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::pair<std::vector<int>,std::vector<Nightingale::PhaseSet>>::pair[abi:ne200100]<std::vector<int>&,std::vector<Nightingale::PhaseSet>&,0>(void *a1, uint64_t *a2, uint64_t *a3)
+uint64_t *std::pair<std::vector<int>,std::vector<Nightingale::PhaseSet>>::pair[abi:ne200100]<std::vector<int>&,std::vector<Nightingale::PhaseSet>&,0>(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1, *a2, a2[1], (a2[1] - *a2) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
   a1[3] = 0;
   a1[4] = 0;
   a1[5] = 0;
-  std::vector<Nightingale::PhaseSet>::__init_with_size[abi:ne200100]<std::__wrap_iter<Nightingale::PhaseSet*>,std::__wrap_iter<Nightingale::PhaseSet*>>((a1 + 3), *a3, a3[1], (a3[1] - *a3) >> 3);
+  std::vector<Nightingale::PhaseSet>::__init_with_size[abi:ne200100]<std::__wrap_iter<Nightingale::PhaseSet*>,std::__wrap_iter<Nightingale::PhaseSet*>>(a1 + 3, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 3);
   return a1;
 }
 
@@ -1038,15 +1039,14 @@ void sub_25C645CC0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::__split_buffer<Nightingale::Phase>::emplace_back<Nightingale::Phase const&>(void *result, char *a2)
+void std::__split_buffer<Nightingale::Phase>::emplace_back<Nightingale::Phase const&>(unint64_t *a1, char *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
       operator new();
     }
@@ -1056,17 +1056,16 @@ void *std::__split_buffer<Nightingale::Phase>::emplace_back<Nightingale::Phase c
     v9 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-((v6 + 1) / 2)], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-((v6 + 1) / 2)], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v8[v9];
-    v3[1] = &v5[v7];
+    a1[1] = &v5[v7];
   }
 
   *v4 = *a2;
-  v3[2] = v4 + 1;
-  return result;
+  a1[2] = (v4 + 1);
 }
 
 uint64_t Nightingale::ngtProjector::ngtProjector(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -1119,7 +1118,7 @@ void Nightingale::ngtProjector::~ngtProjector(Nightingale::ngtProjector *this)
   Nightingale::structDLIn_hr::~structDLIn_hr((this + 128));
 }
 
-void Nightingale::ngtProjector::projector(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6)
+void Nightingale::ngtProjector::projector(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   Nightingale::periodEstimatorAggregation::periodEstimatorAggregation(v71);
   Nightingale::periodEstimatorCalendarWithEnd::periodEstimatorCalendarWithEnd(v70, *(a1 + 112));
@@ -1154,7 +1153,7 @@ void Nightingale::ngtProjector::projector(uint64_t a1, uint64_t a2, uint64_t a3,
     }
   }
 
-  Nightingale::ngtProjector::get1stFwCompletePeriodProj(a1, a5, v37);
+  Nightingale::ngtProjector::get1stFwCompletePeriodProj(v37, a1, a5);
   v16 = v53;
   *(a1 + 32) = v52;
   *(a1 + 48) = v16;
@@ -1248,7 +1247,7 @@ void Nightingale::ngtProjector::projector(uint64_t a1, uint64_t a2, uint64_t a3,
     memset(v55, 0, sizeof(v55));
     if (!Nightingale::CGradient::get_vGrad_empty(v45))
     {
-      Nightingale::ngtProjector::getDerivedPeriodProjs(a1, v37, v27, &v65);
+      Nightingale::ngtProjector::getDerivedPeriodProjs(&v65, a1, v37, v27);
       std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>::__vdeallocate(v55);
       v55[0] = v65;
       *&v55[1] = v66;
@@ -1263,7 +1262,7 @@ void Nightingale::ngtProjector::projector(uint64_t a1, uint64_t a2, uint64_t a3,
       std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>::__destroy_vector::operator()[abi:ne200100](v36);
       v36[0] = &v65;
       std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>::__destroy_vector::operator()[abi:ne200100](v36);
-      Nightingale::ngtProjector::constructSurfacedPeriodProjs(a1, v37, v55, v14, &v65);
+      Nightingale::ngtProjector::constructSurfacedPeriodProjs(&v65, a1, v37, v55, v14);
       std::vector<Nightingale::ngt_Prediction>::__insert_with_size[abi:ne200100]<std::__wrap_iter<Nightingale::ngt_Prediction*>,std::__wrap_iter<Nightingale::ngt_Prediction*>>(a2, *(a2 + 8), v65, *(&v65 + 1), 0x4EC4EC4EC4EC4EC5 * ((*(&v65 + 1) - v65) >> 3));
       if (v65)
       {
@@ -1272,8 +1271,8 @@ void Nightingale::ngtProjector::projector(uint64_t a1, uint64_t a2, uint64_t a3,
       }
     }
 
-    Nightingale::ngtProjector::getDerivedFwProjs(v45, &v55[1] + 1, &v65);
-    Nightingale::ngtProjector::getDerivedFwProjs(v38, v55, v36);
+    Nightingale::ngtProjector::getDerivedFwProjs(&v65, v45, &v55[1] + 1);
+    Nightingale::ngtProjector::getDerivedFwProjs(v36, v38, v55);
     Nightingale::ngtProjector::constructSurfacedFwProjs(v37, &v65, v36, v14, &v34);
     std::vector<Nightingale::ngt_Prediction>::__insert_with_size[abi:ne200100]<std::__wrap_iter<Nightingale::ngt_Prediction*>,std::__wrap_iter<Nightingale::ngt_Prediction*>>(a3, *(a3 + 8), v34, v35, 0x4EC4EC4EC4EC4EC5 * ((v35 - v34) >> 3));
     if (v34)
@@ -1375,12 +1374,12 @@ void Nightingale::ngtProjector::projector(uint64_t a1, uint64_t a2, uint64_t a3,
   Nightingale::periodEstimatorAggregation::~periodEstimatorAggregation(v71);
 }
 
-void sub_25C646410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *__p, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, ...)
+void sub_25C646410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *__p, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__pa, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   Nightingale::firstFwPeriodStartOutStruct::~firstFwPeriodStartOutStruct(va);
-  Nightingale::periodEstimatorCalendarWithEnd::~periodEstimatorCalendarWithEnd((v9 - 136));
-  Nightingale::periodEstimatorAggregation::~periodEstimatorAggregation((v9 - 97));
+  Nightingale::periodEstimatorCalendarWithEnd::~periodEstimatorCalendarWithEnd((v16 - 136));
+  Nightingale::periodEstimatorAggregation::~periodEstimatorAggregation((v16 - 97));
   _Unwind_Resume(a1);
 }
 
@@ -1396,7 +1395,7 @@ void Nightingale::ngtProjector::get1stPeriodProjInPeriodNow(Nightingale::periodE
     v17 = 0;
     v18 = 0;
     v19 = 0;
-    Nightingale::periodEstimatorCalendar::getPeriodStartGradient(a1, 0.0, 0.0, v8);
+    Nightingale::periodEstimatorCalendar::getPeriodStartGradient(v8, a1, 0.0, 0.0);
     if (__p[0])
     {
       __p[1] = __p[0];
@@ -1459,8 +1458,9 @@ void Nightingale::ngtProjector::get1stPeriodProjInPeriodNow(Nightingale::periodE
   }
 }
 
-void sub_25C646674(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_25C646674(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   if (__p)
   {
     operator delete(__p);
@@ -1471,7 +1471,7 @@ void sub_25C646674(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(a19);
   }
 
-  std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>::~pair(&a29);
+  std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>::~pair(va);
   _Unwind_Resume(a1);
 }
 
@@ -1636,40 +1636,40 @@ uint64_t std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEst
   return a1;
 }
 
-double Nightingale::ngtProjector::get1stFwCompletePeriodProj@<D0>(Nightingale::ngtProjector *this@<X0>, int a2@<W2>, uint64_t a3@<X8>)
+double Nightingale::ngtProjector::get1stFwCompletePeriodProj@<D0>(uint64_t *__return_ptr a1@<X8>, Nightingale::ngtProjector *this@<X0>, uint64_t a4@<X2>)
 {
-  Nightingale::ngtProjector::compute1stFWPeriodStart(this, a2, a3);
-  if (!Nightingale::CGradient::get_vGrad_empty((a3 + 200)))
+  Nightingale::ngtProjector::compute1stFWPeriodStart(this, a4, a1);
+  if (!Nightingale::CGradient::get_vGrad_empty((a1 + 25)))
   {
-    Nightingale::periodEstimatorCalendarWithEnd::getPeriodEndProjection(*(*(this + 12) + 8) - 96, (a3 + 200), &v9);
-    v8 = *(a3 + 280);
-    if (v8)
+    Nightingale::periodEstimatorCalendarWithEnd::getPeriodEndProjection(*(*(this + 12) + 8) - 96, (a1 + 25), &v8);
+    v7 = a1[35];
+    if (v7)
     {
-      *(a3 + 288) = v8;
-      operator delete(v8);
+      a1[36] = v7;
+      operator delete(v7);
     }
 
-    *(a3 + 280) = v9;
-    *(a3 + 296) = v10;
-    *(a3 + 304) = v11[0];
-    *(a3 + 313) = *(v11 + 9);
-    result = v12[0];
-    *(a3 + 336) = *v12;
-    *(a3 + 349) = *(&v12[1] + 5);
+    *(a1 + 35) = v8;
+    a1[37] = v9;
+    *(a1 + 19) = v10[0];
+    *(a1 + 313) = *(v10 + 9);
+    result = v11[0];
+    *(a1 + 21) = *v11;
+    *(a1 + 349) = *(&v11[1] + 5);
   }
 
   return result;
 }
 
-void Nightingale::ngtProjector::getDerivedPeriodProjs(Nightingale::ngtProjector *this@<X0>, Nightingale::firstFwPeriodStartOutStruct *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+void Nightingale::ngtProjector::getDerivedPeriodProjs(uint64_t *__return_ptr a1@<X8>, Nightingale::ngtProjector *this@<X0>, Nightingale::firstFwPeriodStartOutStruct *a3@<X1>, int w2_0@<W2>)
 {
-  *(a4 + 16) = 0u;
-  *(a4 + 32) = 0u;
-  *a4 = 0u;
-  v9 = *(a2 + 90);
+  *(a1 + 1) = 0u;
+  *(a1 + 2) = 0u;
+  *a1 = 0u;
+  v9 = *(a3 + 90);
   if (v9 == 3)
   {
-    adjusted = Nightingale::CGradient::get_adjusted((a2 + 200));
+    adjusted = Nightingale::CGradient::get_adjusted((a3 + 200));
   }
 
   else
@@ -1679,27 +1679,27 @@ void Nightingale::ngtProjector::getDerivedPeriodProjs(Nightingale::ngtProjector 
 
   v11 = (v9 - 1) < 2;
   v12 = v11 | adjusted;
-  Nightingale::periodEstimatorAggregation::deriveRestPeriodProjs(*(this + 14), a2 + 200, *(this + 12), a3, 2, (v11 | adjusted) & 1, v11, &v18);
-  if ((a4 + 24) != &v18)
+  Nightingale::periodEstimatorAggregation::deriveRestPeriodProjs(&v18, *(this + 14), a3 + 200, *(this + 12), w2_0, 2, (v11 | adjusted) & 1, v11);
+  if (a1 + 3 != &v18)
   {
-    std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>::__assign_with_size[abi:ne200100]<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*>(a4 + 24, v18, v19, 0xCCCCCCCCCCCCCCCDLL * ((v19 - v18) >> 5));
+    std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>::__assign_with_size[abi:ne200100]<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*>(a1 + 3, v18, v19, 0xCCCCCCCCCCCCCCCDLL * ((v19 - v18) >> 5));
   }
 
   v16 = 0uLL;
   v17 = 0;
-  if (*(a2 + 90) == 3)
+  if (*(a3 + 90) == 3)
   {
-    if (&v18 != a4)
+    if (&v18 != a1)
     {
       v13 = &v18;
 LABEL_10:
-      std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>::__assign_with_size[abi:ne200100]<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*>(a4, *v13, v13[1], 0xCCCCCCCCCCCCCCCDLL * ((v13[1] - *v13) >> 5));
+      std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>::__assign_with_size[abi:ne200100]<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*>(a1, *v13, v13[1], 0xCCCCCCCCCCCCCCCDLL * ((v13[1] - *v13) >> 5));
     }
   }
 
   else
   {
-    Nightingale::periodEstimatorAggregation::deriveRestPeriodProjs(*(this + 14), a2 + 16, *(this + 12), a3, 2, v12 & 1, 0, &v14);
+    Nightingale::periodEstimatorAggregation::deriveRestPeriodProjs(&v14, *(this + 14), a3 + 16, *(this + 12), w2_0, 2, v12 & 1, 0);
     v13 = &v16;
     std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>::__vdeallocate(&v16);
     v16 = v14;
@@ -1708,7 +1708,7 @@ LABEL_10:
     v14 = 0uLL;
     v20 = &v14;
     std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>::__destroy_vector::operator()[abi:ne200100](&v20);
-    if (&v16 != a4)
+    if (&v16 != a1)
     {
       goto LABEL_10;
     }
@@ -1720,7 +1720,7 @@ LABEL_10:
   std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>::__destroy_vector::operator()[abi:ne200100](&v16);
 }
 
-void sub_25C646BDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void ***a9, uint64_t a10, uint64_t a11, uint64_t a12, void **a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
+void sub_25C646BDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char **a9, uint64_t a10, uint64_t a11, uint64_t a12, char *a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
 {
   a9 = &a13;
   std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>::__destroy_vector::operator()[abi:ne200100](&a9);
@@ -1738,14 +1738,14 @@ void Nightingale::derivedPeriodProjsStruct::~derivedPeriodProjsStruct(void **thi
   std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>::__destroy_vector::operator()[abi:ne200100](&v2);
 }
 
-void Nightingale::ngtProjector::constructSurfacedPeriodProjs(Nightingale::ngtProjector *this@<X0>, Nightingale::firstFwPeriodStartOutStruct *a2@<X1>, Nightingale::derivedPeriodProjsStruct *a3@<X2>, int a4@<W3>, void *a5@<X8>)
+void Nightingale::ngtProjector::constructSurfacedPeriodProjs(uint64_t *__return_ptr a1@<X8>, Nightingale::ngtProjector *this@<X0>, Nightingale::firstFwPeriodStartOutStruct *a3@<X1>, Nightingale::derivedPeriodProjsStruct *a4@<X2>, int a5@<W3>)
 {
-  *a5 = 0;
-  a5[1] = 0;
-  a5[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   LOBYTE(v37) = 0;
   v39 = 0;
-  std::optional<Nightingale::periodEstimationOutStruct>::operator=[abi:ne200100]<Nightingale::periodEstimationOutStruct&,void>(&v37, a2 + 16);
+  std::optional<Nightingale::periodEstimationOutStruct>::operator=[abi:ne200100]<Nightingale::periodEstimationOutStruct&,void>(&v37, a3 + 16);
   v10 = *(this + 12);
   v11 = *(v10 + 96);
   if ((v11 & 0x100000000) != 0)
@@ -1754,9 +1754,9 @@ void Nightingale::ngtProjector::constructSurfacedPeriodProjs(Nightingale::ngtPro
     *(this + 764) = 1;
   }
 
-  Nightingale::ngtProjector::periodEstimationOutStruct2NgtPrediction(this, a2 + 200, a2 + 280, &v37, a4, &v30);
-  HIDWORD(v36) = *(a2 + 90);
-  std::vector<Nightingale::ngt_Prediction>::push_back[abi:ne200100](a5, &v30);
+  Nightingale::ngtProjector::periodEstimationOutStruct2NgtPrediction(this, a3 + 200, a3 + 280, &v37, a5, &v30);
+  HIDWORD(v36) = *(a3 + 90);
+  std::vector<Nightingale::ngt_Prediction>::push_back[abi:ne200100](a1, &v30);
   *(this + 81) = v36;
   v12 = v35;
   *(this + 616) = v34;
@@ -1767,7 +1767,7 @@ void Nightingale::ngtProjector::constructSurfacedPeriodProjs(Nightingale::ngtPro
   v14 = v33;
   *(this + 584) = v32;
   *(this + 600) = v14;
-  Nightingale::ngtProjector::periodEstimationOutStruct2NgtPrediction(this, a2 + 16, a2 + 96, &v37, a4, &v23);
+  Nightingale::ngtProjector::periodEstimationOutStruct2NgtPrediction(this, a3 + 16, a3 + 96, &v37, a5, &v23);
   v15 = v28;
   *(this + 45) = v27;
   *(this + 46) = v15;
@@ -1783,15 +1783,15 @@ void Nightingale::ngtProjector::constructSurfacedPeriodProjs(Nightingale::ngtPro
     *(this + 764) = 0;
   }
 
-  v18 = *(a3 + 3);
-  v19 = *(a3 + 4);
+  v18 = *(a4 + 3);
+  v19 = *(a4 + 4);
   if (v18 != v19)
   {
     v20 = 0;
     do
     {
       v21 = v20;
-      if (0xCCCCCCCCCCCCCCCDLL * ((*(a3 + 1) - *a3) >> 5) <= v20)
+      if (0xCCCCCCCCCCCCCCCDLL * ((*(a4 + 1) - *a4) >> 5) <= v20)
       {
         if (v39 == 1)
         {
@@ -1807,11 +1807,11 @@ void Nightingale::ngtProjector::constructSurfacedPeriodProjs(Nightingale::ngtPro
 
       else
       {
-        std::optional<Nightingale::periodEstimationOutStruct>::operator=[abi:ne200100]<Nightingale::periodEstimationOutStruct&,void>(&v37, *a3 + 160 * v20);
+        std::optional<Nightingale::periodEstimationOutStruct>::operator=[abi:ne200100]<Nightingale::periodEstimationOutStruct&,void>(&v37, *a4 + 160 * v20);
       }
 
       v22 = v18 + 80;
-      Nightingale::ngtProjector::periodEstimationOutStruct2NgtPrediction(this, v18, v18 + 80, &v37, a4, &v23);
+      Nightingale::ngtProjector::periodEstimationOutStruct2NgtPrediction(this, v18, v18 + 80, &v37, a5, &v23);
       v36 = v29;
       v34 = v27;
       v35 = v28;
@@ -1819,8 +1819,8 @@ void Nightingale::ngtProjector::constructSurfacedPeriodProjs(Nightingale::ngtPro
       v31 = v24;
       v32 = v25;
       v33 = v26;
-      HIDWORD(v36) = *(a2 + 90);
-      std::vector<Nightingale::ngt_Prediction>::push_back[abi:ne200100](a5, &v30);
+      HIDWORD(v36) = *(a3 + 90);
+      std::vector<Nightingale::ngt_Prediction>::push_back[abi:ne200100](a1, &v30);
       v20 = v21 + 1;
       v18 += 160;
     }
@@ -1860,11 +1860,11 @@ void sub_25C646EAC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void Nightingale::ngtProjector::getDerivedFwProjs(Nightingale::CGradient *this@<X2>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+void Nightingale::ngtProjector::getDerivedFwProjs(const void **__return_ptr a1@<X8>, Nightingale::CGradient *this@<X2>, uint64_t *a3@<X1>)
 {
-  *a3 = 0;
-  *(a3 + 8) = 0;
-  *(a3 + 16) = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (*(this + 76) == 1)
   {
     expectation = *(this + 18);
@@ -1892,9 +1892,9 @@ void Nightingale::ngtProjector::getDerivedFwProjs(Nightingale::CGradient *this@<
     }
   }
 
-  v8 = *a2;
-  v9 = a2[1];
-  if (*a2 != v9)
+  v8 = *a3;
+  v9 = a3[1];
+  if (*a3 != v9)
   {
     v10 = 0;
     v11 = roundf(expectation);
@@ -1947,17 +1947,17 @@ LABEL_21:
         v15 = 0x100000000;
       }
 
-      v18 = *(a3 + 8);
-      v17 = *(a3 + 16);
+      v18 = a1[1];
+      v17 = a1[2];
       if (v18 >= v17)
       {
-        v20 = (v18 - *a3) >> 3;
+        v20 = (v18 - *a1) >> 3;
         if ((v20 + 1) >> 61)
         {
           std::vector<float>::__throw_length_error[abi:ne200100]();
         }
 
-        v21 = v17 - *a3;
+        v21 = v17 - *a1;
         v22 = v21 >> 2;
         if (v21 >> 2 <= (v20 + 1))
         {
@@ -1976,19 +1976,19 @@ LABEL_21:
 
         if (v23)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<std::optional<float>>>(a3, v23);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<std::optional<float>>>(a1, v23);
         }
 
         v24 = (8 * v20);
         *v24 = v15 | v14 | (v10 << 8);
-        v19 = 8 * v20 + 8;
-        v25 = *(a3 + 8) - *a3;
+        v19 = (8 * v20 + 8);
+        v25 = a1[1] - *a1;
         v26 = v24 - v25;
-        memcpy(v24 - v25, *a3, v25);
-        v27 = *a3;
-        *a3 = v26;
-        *(a3 + 8) = v19;
-        *(a3 + 16) = 0;
+        memcpy(v24 - v25, *a1, v25);
+        v27 = *a1;
+        *a1 = v26;
+        a1[1] = v19;
+        a1[2] = 0;
         if (v27)
         {
           operator delete(v27);
@@ -1998,10 +1998,10 @@ LABEL_21:
       else
       {
         *v18 = v15 | v14 | (v10 << 8);
-        v19 = (v18 + 1);
+        v19 = v18 + 8;
       }
 
-      *(a3 + 8) = v19;
+      a1[1] = v19;
       if (*(v8 + 76) == 1)
       {
         v28 = *(v8 + 72);
@@ -2596,7 +2596,7 @@ void Nightingale::firstFwPeriodStartOutStruct::~firstFwPeriodStartOutStruct(Nigh
   }
 }
 
-void Nightingale::ngtProjector::compute1stFWPeriodStart(Nightingale::ngtProjector *this@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+void Nightingale::ngtProjector::compute1stFWPeriodStart(Nightingale::ngtProjector *this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   Nightingale::firstFwPeriodStartOutStruct::firstFwPeriodStartOutStruct(a3);
   if (*(*(this + 14) + 36) != 1)
@@ -2613,9 +2613,9 @@ void Nightingale::ngtProjector::compute1stFWPeriodStart(Nightingale::ngtProjecto
 
   v8 = *(v7 - 96);
   v9 = v6[13];
-  Nightingale::wristTemperatureInputProcess::wristTemperatureInputProcess(&v62);
-  Nightingale::wristTemperatureInputAcquisition::wristTemperatureInputAcquisition(v61);
-  Nightingale::ngtProjector::runLunaAlgorithm(this, a2, &v47);
+  Nightingale::wristTemperatureInputProcess::wristTemperatureInputProcess(&v61);
+  Nightingale::wristTemperatureInputAcquisition::wristTemperatureInputAcquisition(v60);
+  Nightingale::ngtProjector::runLunaAlgorithm(&v47, this, a2);
   LOBYTE(v40) = 0;
   BYTE4(v40) = 0;
   BYTE8(v40) = 0;
@@ -2639,9 +2639,9 @@ void Nightingale::ngtProjector::compute1stFWPeriodStart(Nightingale::ngtProjecto
   v46[0] = 0;
   v46[4] = 0;
   v46[96] = 0;
-  if (v50 == 7 || v54 == 5)
+  if (v49 == 7 || v53 == 5)
   {
-    Nightingale::ngtProjector::runHrAlgorithm(this, a2, &v28);
+    Nightingale::ngtProjector::runHrAlgorithm(&v28, this, a2);
     v40 = v28;
     if (__p[0])
     {
@@ -2672,7 +2672,7 @@ void Nightingale::ngtProjector::compute1stFWPeriodStart(Nightingale::ngtProjecto
 
   Nightingale::fwEstimatorOPK::fwEstimatorOPK(v27);
   v15 = Nightingale::fwEstimatorOPK::getOnGoingjDayFwEndOpk(v27, v8, v9);
-  Nightingale::ngtProjector::runCalAlgs(this, &v28);
+  Nightingale::ngtProjector::runCalAlgs(&v28, this);
   Nightingale::ngtProjector::determineFinalFwEnd(this, a3, &v47, &v40, v15 & 0xFFFFFFFFFFLL, &v28, v8);
   Nightingale::ngtProjector::determineFinalPeriod(v16, a3, &v47, &v40, &v28, v8);
   if (a2)
@@ -2685,28 +2685,28 @@ LABEL_18:
       *(a3 + 444) = *&v45[8];
       *(a3 + 460) = v21;
       *(a3 + 472) = *&v45[36];
-      *(a3 + 368) = v55[0];
-      *(a3 + 377) = *(v55 + 9);
-      if ((a3 + 368) != v55)
+      *(a3 + 368) = v54[0];
+      *(a3 + 377) = *(v54 + 9);
+      if ((a3 + 368) != v54)
       {
-        std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>((a3 + 400), __src, v57, (v57 - __src) >> 2);
+        std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>((a3 + 400), __src, v56, (v56 - __src) >> 2);
       }
 
-      *(a3 + 424) = v58;
-      *(a3 + 432) = v59;
-      *(a3 + 440) = v60;
+      *(a3 + 424) = v57;
+      *(a3 + 432) = v58;
+      *(a3 + 440) = v59;
       v22 = v45[0];
       *(a3 + 504) = BYTE8(v40);
       *(a3 + 505) = v22;
-      v23 = v53;
-      *(a3 + 506) = v49;
+      v23 = v52;
+      *(a3 + 506) = v48;
       *(a3 + 507) = v23;
       goto LABEL_21;
     }
 
     v18 = *(v17 + 104);
     v19 = v18 + 1;
-    if (v48)
+    if ((v47 & 0x100000000) != 0)
     {
       v20 = &v47;
     }
@@ -2788,18 +2788,18 @@ LABEL_21:
 
   if (__src)
   {
-    v57 = __src;
+    v56 = __src;
     operator delete(__src);
   }
 
-  if (v51)
+  if (v50)
   {
-    v52 = v51;
-    operator delete(v51);
+    v51 = v50;
+    operator delete(v50);
   }
 
-  Nightingale::wristTemperatureInputAcquisition::~wristTemperatureInputAcquisition(v61);
-  Nightingale::wristTemperatureInputProcess::~wristTemperatureInputProcess(&v62);
+  Nightingale::wristTemperatureInputAcquisition::~wristTemperatureInputAcquisition(v60);
+  Nightingale::wristTemperatureInputProcess::~wristTemperatureInputProcess(&v61);
 }
 
 void sub_25C647E48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *__p)
@@ -2816,52 +2816,52 @@ void sub_25C647E48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void Nightingale::ngtProjector::runLunaAlgorithm(Nightingale::ngtProjector *this@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+void Nightingale::ngtProjector::runLunaAlgorithm(uint64_t *__return_ptr a1@<X8>, Nightingale::ngtProjector *this@<X0>, uint64_t a3@<X1>)
 {
-  *a3 = 0;
-  *(a3 + 4) = 0;
-  *(a3 + 8) = 0;
-  *(a3 + 12) = 7;
-  v6 = (a3 + 16);
-  v7 = Nightingale::CGradient::CGradient(a3 + 16);
-  *(a3 + 152) = -1;
-  *(a3 + 72) = 0;
-  *(a3 + 76) = 0;
-  *(a3 + 80) = 0;
-  *(a3 + 84) = 0;
-  *(a3 + 88) = 0;
-  *(a3 + 92) = 0x800000005;
-  *(a3 + 100) = 0;
-  *(a3 + 102) = 0;
-  *(a3 + 104) = -1;
-  *(a3 + 116) = 0;
-  *(a3 + 120) = 0;
-  *(a3 + 128) = 0;
-  *(a3 + 136) = 0;
-  *(a3 + 144) = 0;
-  *(a3 + 156) = 0;
-  *(a3 + 160) = 0;
-  *(a3 + 168) = 5;
+  *a1 = 0;
+  *(a1 + 4) = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 3) = 7;
+  v6 = (a1 + 2);
+  v7 = Nightingale::CGradient::CGradient((a1 + 2));
+  *(a1 + 38) = -1;
+  *(a1 + 72) = 0;
+  *(a1 + 76) = 0;
+  *(a1 + 80) = 0;
+  *(a1 + 84) = 0;
+  *(a1 + 88) = 0;
+  *(a1 + 92) = 0x800000005;
+  *(a1 + 50) = 0;
+  *(a1 + 102) = 0;
+  a1[13] = -1;
+  *(a1 + 116) = 0;
+  *(a1 + 120) = 0;
+  a1[16] = 0;
+  a1[17] = 0;
+  a1[18] = 0;
+  *(a1 + 156) = 0;
+  *(a1 + 160) = 0;
+  *(a1 + 42) = 5;
   v8 = *(this + 12);
   if (*(v8 + 84) == 1 && Nightingale::ngtProjector::runSensorBasedAlgDueToCycleFactors(v7, (*(v8 + 8) - 24)))
   {
     Nightingale::wristTemperatureInputAcquisition::wristTemperatureInputAcquisition(v45);
     JDayIdx1stTmp = Nightingale::wristTemperatureInputAcquisition::getJDayIdx1stTmp(v9, *(this + 15));
-    v11 = (a3 + 96);
+    v11 = a1 + 12;
     if (v12)
     {
       v13 = JDayIdx1stTmp;
       v14 = Nightingale::fwEstimatorLuna::fwEstimatorLuna(v44, *(this + 14));
-      Nightingale::fwEstimatorLuna::getFwEndLuna(v14, *(this + 12), *(this + 15), *(this + 14), v13, a2, &v32);
+      Nightingale::fwEstimatorLuna::getFwEndLuna(v14, *(this + 12), *(this + 15), *(this + 14), v13, a3, &v32);
       *v11 = v39[0];
-      *(a3 + 105) = *(v39 + 9);
+      *(a1 + 105) = *(v39 + 9);
       if (v11 != v39)
       {
-        std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>((a3 + 128), v40, v41, (v41 - v40) >> 2);
+        std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(a1 + 16, v40, v41, (v41 - v40) >> 2);
       }
 
-      *(a3 + 152) = v42;
-      *(a3 + 160) = v43;
+      a1[19] = v42;
+      *(a1 + 160) = v43;
       if (v34 == 1 && v38 == 1 && v36 == 1 && v32 != 7)
       {
         Nightingale::periodEstimatorLuna::periodEstimatorLuna(v31, *(this + 14));
@@ -2891,72 +2891,72 @@ void Nightingale::ngtProjector::runLunaAlgorithm(Nightingale::ngtProjector *this
         v27 = v32;
         v28 = __PAIR64__(v16, v15);
         Nightingale::periodEstimatorLuna::estimatePeriodLuna(v31, *(this + 15), *(this + 12), *(this + 14), v13, &v27, &__p);
-        *a3 = v33;
-        *(a3 + 4) = v34;
-        *(a3 + 12) = v32;
+        *a1 = v33;
+        *(a1 + 4) = v34;
+        *(a1 + 3) = v32;
         if (v26 == 1)
         {
-          *(a3 + 104) = -1;
+          *(a1 + 26) = -1;
         }
 
         else
         {
-          *(a3 + 8) = v34;
+          *(a1 + 8) = v34;
         }
 
         if (v6 != &__p)
         {
-          std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>((a3 + 16), __p, v18, (v18 - __p) >> 2);
+          std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(a1 + 2, __p, v18, (v18 - __p) >> 2);
         }
 
-        *(a3 + 40) = v19[0];
-        *(a3 + 49) = *(v19 + 9);
-        *(a3 + 92) = v25;
-        *(a3 + 88) = v24;
+        *(a1 + 5) = v19[0];
+        *(a1 + 49) = *(v19 + 9);
+        *(a1 + 23) = v25;
+        *(a1 + 88) = v24;
         if ((Nightingale::CGradient::get_adjusted(&__p) & 1) == 0)
         {
-          if (*(a3 + 76) == v21)
+          if (*(a1 + 76) == v21)
           {
-            if (*(a3 + 76))
+            if (*(a1 + 76))
             {
-              *(a3 + 72) = v20;
+              *(a1 + 18) = v20;
             }
           }
 
-          else if (*(a3 + 76))
+          else if (*(a1 + 76))
           {
-            *(a3 + 76) = 0;
+            *(a1 + 76) = 0;
           }
 
           else
           {
-            *(a3 + 72) = v20;
-            *(a3 + 76) = 1;
+            *(a1 + 18) = v20;
+            *(a1 + 76) = 1;
           }
 
-          if (*(a3 + 84) == v23)
+          if (*(a1 + 84) == v23)
           {
-            if (*(a3 + 84))
+            if (*(a1 + 84))
             {
-              *(a3 + 80) = v22;
+              *(a1 + 20) = v22;
             }
           }
 
-          else if (*(a3 + 84))
+          else if (*(a1 + 84))
           {
-            *(a3 + 84) = 0;
+            *(a1 + 84) = 0;
           }
 
           else
           {
-            *(a3 + 80) = v22;
-            *(a3 + 84) = 1;
+            *(a1 + 20) = v22;
+            *(a1 + 84) = 1;
           }
         }
 
-        if (a2)
+        if (a3)
         {
-          *(a3 + 168) = v25;
+          *(a1 + 42) = v25;
         }
 
         if (__p)
@@ -2986,7 +2986,7 @@ void Nightingale::ngtProjector::runLunaAlgorithm(Nightingale::ngtProjector *this
   }
 }
 
-void sub_25C648274(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *__p, uint64_t a36)
+void sub_25C648274(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *__p, uint64_t a36)
 {
   Nightingale::periodEstimatorLuna::~periodEstimatorLuna(&a24);
   if (__p)
@@ -3001,95 +3001,95 @@ void sub_25C648274(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void Nightingale::ngtProjector::runHrAlgorithm(Nightingale::ngtProjector *this@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+void Nightingale::ngtProjector::runHrAlgorithm(uint64_t *__return_ptr a1@<X8>, Nightingale::ngtProjector *this@<X0>, int a3@<W1>)
 {
-  *a3 = 0;
-  *(a3 + 4) = 0;
-  *(a3 + 8) = 0;
-  *(a3 + 12) = 7;
-  v6 = (a3 + 16);
-  v7 = Nightingale::CGradient::CGradient(a3 + 16);
-  *(a3 + 72) = 0;
-  *(a3 + 76) = 0;
-  *(a3 + 80) = 0;
-  *(a3 + 84) = 0;
-  *(a3 + 88) = 0;
-  *(a3 + 92) = 0xBF80000000000005;
-  *(a3 + 100) = -1;
-  *(a3 + 108) = -1;
+  *a1 = 0;
+  *(a1 + 4) = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 3) = 7;
+  v6 = (a1 + 2);
+  v7 = Nightingale::CGradient::CGradient((a1 + 2));
+  *(a1 + 72) = 0;
+  *(a1 + 76) = 0;
+  *(a1 + 80) = 0;
+  *(a1 + 84) = 0;
+  *(a1 + 88) = 0;
+  *(a1 + 92) = 0xBF80000000000005;
+  *(a1 + 100) = -1;
+  *(a1 + 108) = -1;
   __asm { FMOV            V0.4S, #-1.0 }
 
-  *(a3 + 116) = _Q0;
+  *(a1 + 116) = _Q0;
   __asm { FMOV            V0.2S, #-1.0 }
 
-  *(a3 + 132) = _Q0;
-  *(a3 + 140) = 0;
-  *(a3 + 144) = 0;
-  *(a3 + 148) = 0;
-  *(a3 + 240) = 0;
+  *(a1 + 132) = _Q0;
+  *(a1 + 140) = 0;
+  *(a1 + 144) = 0;
+  *(a1 + 148) = 0;
+  *(a1 + 240) = 0;
   if (Nightingale::ngtProjector::runSensorBasedAlgDueToCycleFactors(v7, (*(*(this + 12) + 8) - 24)))
   {
-    Nightingale::lstmHrFw::lstmHrFw(v36, *(this + 15), *(this + 12), *(this + 14), *(this + 13));
-    FWEndHr = Nightingale::lstmHrFw::getFWEndHr(v36, a2, &v29);
-    Nightingale::lstmHrPeriod::lstmHrPeriod(v28, *(this + 15), *(this + 12), *(this + 14), *(this + 13), v31, FWEndHr);
-    Nightingale::lstmHrPeriod::estimatePeriodStartHr(v28, &__p);
-    Nightingale::lstmHrPeriod::getEnsembleTelemetry(v28, v18);
-    *a3 = v29;
-    v14 = v30;
-    *(a3 + 4) = v30;
-    *(a3 + 8) = v14;
-    if (v14)
+    Nightingale::lstmHrFw::lstmHrFw(v33, *(this + 15), *(this + 12), *(this + 14), *(this + 13));
+    Nightingale::lstmHrFw::getFWEndHr(v28, v33, a3);
+    Nightingale::lstmHrPeriod::lstmHrPeriod(v27, *(this + 15), *(this + 12), *(this + 14), *(this + 13), v28[2]);
+    Nightingale::lstmHrPeriod::estimatePeriodStartHr(&__p, v27);
+    Nightingale::lstmHrPeriod::getEnsembleTelemetry(v17, v27);
+    *a1 = v28[0];
+    v13 = BYTE4(v28[0]);
+    *(a1 + 4) = BYTE4(v28[0]);
+    *(a1 + 8) = v13;
+    if (v13)
     {
-      *(a3 + 12) = 4;
+      *(a1 + 3) = 4;
     }
 
     if (v6 != &__p)
     {
-      std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>((a3 + 16), __p, v21, (v21 - __p) >> 2);
+      std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(a1 + 2, __p, v20, (v20 - __p) >> 2);
     }
 
-    *(a3 + 40) = v22[0];
-    *(a3 + 49) = *(v22 + 9);
+    *(a1 + 5) = v21[0];
+    *(a1 + 49) = *(v21 + 9);
     if ((Nightingale::CGradient::get_adjusted(&__p) & 1) == 0)
     {
-      *(a3 + 72) = v23;
-      *(a3 + 76) = v24;
-      *(a3 + 80) = v25;
-      *(a3 + 84) = v26;
+      *(a1 + 18) = v22;
+      *(a1 + 76) = v23;
+      *(a1 + 20) = v24;
+      *(a1 + 84) = v25;
     }
 
-    v15 = v27;
-    *(a3 + 88) = v27;
-    if (v15 == 1 && !Nightingale::CGradient::get_vGrad_empty(&__p))
+    v14 = v26;
+    *(a1 + 88) = v26;
+    if (v14 == 1 && !Nightingale::CGradient::get_vGrad_empty(&__p))
     {
-      *(a3 + 92) = 3;
+      *(a1 + 23) = 3;
     }
 
-    v16 = v18[3];
-    *(a3 + 180) = v18[2];
-    *(a3 + 196) = v16;
-    *(a3 + 212) = v19[0];
-    *(a3 + 225) = *(v19 + 13);
-    v17 = v18[1];
-    *(a3 + 148) = v18[0];
-    *(a3 + 164) = v17;
-    if (a2)
+    v15 = v17[3];
+    *(a1 + 180) = v17[2];
+    *(a1 + 196) = v15;
+    *(a1 + 212) = v18[0];
+    *(a1 + 225) = *(v18 + 13);
+    v16 = v17[1];
+    *(a1 + 148) = v17[0];
+    *(a1 + 164) = v16;
+    if (a3)
     {
-      *(a3 + 96) = v32;
-      *(a3 + 112) = *v33;
-      *(a3 + 124) = *&v33[12];
-      *(a3 + 140) = v34;
-      *(a3 + 144) = v35;
+      *(a1 + 6) = v29;
+      *(a1 + 7) = *v30;
+      *(a1 + 124) = *&v30[12];
+      *(a1 + 35) = v31;
+      *(a1 + 144) = v32;
     }
 
     if (__p)
     {
-      v21 = __p;
+      v20 = __p;
       operator delete(__p);
     }
 
-    Nightingale::lstmHrPeriod::~lstmHrPeriod(v28);
-    Nightingale::lstmHrFw::~lstmHrFw(v36);
+    Nightingale::lstmHrPeriod::~lstmHrPeriod(v27);
+    Nightingale::lstmHrFw::~lstmHrFw(v33);
   }
 }
 
@@ -3107,26 +3107,26 @@ void sub_25C648538(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void Nightingale::ngtProjector::runCalAlgs(Nightingale::ngtProjector *this@<X0>, uint64_t a2@<X8>)
+void Nightingale::ngtProjector::runCalAlgs(uint64_t *__return_ptr a1@<X8>, Nightingale::ngtProjector *this@<X0>)
 {
-  *a2 = 0;
-  *(a2 + 4) = 0;
-  *(a2 + 8) = 3;
-  Nightingale::CGradient::CGradient(a2 + 16);
-  *(a2 + 72) = 0;
-  *(a2 + 76) = 0;
-  *(a2 + 80) = 0;
-  *(a2 + 84) = 0;
-  *(a2 + 88) = 0;
-  *(a2 + 92) = 0;
-  Nightingale::CGradient::CGradient(a2 + 96);
-  *(a2 + 152) = 0;
-  *(a2 + 156) = 0;
-  *(a2 + 160) = 0;
-  *(a2 + 164) = 0;
-  *(a2 + 168) = 0;
-  *(a2 + 172) = 0;
-  *(a2 + 176) = 3;
+  *a1 = 0;
+  *(a1 + 4) = 0;
+  a1[1] = 3;
+  Nightingale::CGradient::CGradient((a1 + 2));
+  *(a1 + 72) = 0;
+  *(a1 + 76) = 0;
+  *(a1 + 80) = 0;
+  *(a1 + 84) = 0;
+  *(a1 + 88) = 0;
+  *(a1 + 92) = 0;
+  Nightingale::CGradient::CGradient((a1 + 12));
+  *(a1 + 152) = 0;
+  *(a1 + 156) = 0;
+  *(a1 + 160) = 0;
+  *(a1 + 164) = 0;
+  *(a1 + 168) = 0;
+  *(a1 + 172) = 0;
+  a1[22] = 3;
   v4 = *(this + 12);
   v6 = *v4;
   v5 = v4[1];
@@ -3135,47 +3135,47 @@ void Nightingale::ngtProjector::runCalAlgs(Nightingale::ngtProjector *this@<X0>,
     Nightingale::periodEstimatorCalendar::periodEstimatorCalendar(v16, *(this + 14));
     Nightingale::fwEstimatorCalendar::fwEstimatorCalendar(v15);
     Nightingale::periodEstimatorCalendar::predict1stPeriodStartCal(v16, *(*(this + 12) + 8) - 96, *(*(this + 12) + 104), *(*(this + 12) + 96), *(*(this + 12) + 124) | 0x100000000, &v12);
-    v7 = *(a2 + 16);
+    v7 = a1[2];
     if (v7)
     {
-      *(a2 + 24) = v7;
+      a1[3] = v7;
       operator delete(v7);
     }
 
-    *(a2 + 16) = v12;
-    *(a2 + 32) = v13;
-    *(a2 + 40) = v14[0];
-    *(a2 + 49) = *(v14 + 9);
-    *(a2 + 176) = 3;
-    if (!Nightingale::CGradient::get_vGrad_empty((a2 + 16)))
+    *(a1 + 1) = v12;
+    a1[4] = v13;
+    *(a1 + 5) = v14[0];
+    *(a1 + 49) = *(v14 + 9);
+    *(a1 + 44) = 3;
+    if (!Nightingale::CGradient::get_vGrad_empty((a1 + 2)))
     {
       v8 = *(*(*(this + 12) + 8) - 96);
-      if (*(a2 + 92) == 1)
+      if (*(a1 + 92) == 1)
       {
-        expectation = *(a2 + 88);
+        expectation = *(a1 + 22);
       }
 
       else
       {
-        v10 = *(a2 + 52);
+        v10 = *(a1 + 52);
         if ((v10 & 0x100000000) != 0)
         {
-          *(a2 + 88) = v10;
+          *(a1 + 22) = v10;
           expectation = *&v10;
         }
 
         else
         {
-          expectation = Nightingale::CGradient::get_expectation((a2 + 16));
-          *(a2 + 88) = expectation;
+          expectation = Nightingale::CGradient::get_expectation((a1 + 2));
+          *(a1 + 22) = expectation;
         }
       }
 
-      *(a2 + 92) = 1;
+      *(a1 + 92) = 1;
       v11 = Nightingale::fwEstimatorCalendar::getjDayFwEndCal(v15, v8, (roundf(expectation) + v8));
-      *a2 = v11;
-      *(a2 + 4) = BYTE4(v11);
-      *(a2 + 8) = 3;
+      *a1 = v11;
+      *(a1 + 4) = BYTE4(v11);
+      *(a1 + 2) = 3;
     }
 
     Nightingale::fwEstimatorCalendar::~fwEstimatorCalendar(v15);
@@ -3183,12 +3183,12 @@ void Nightingale::ngtProjector::runCalAlgs(Nightingale::ngtProjector *this@<X0>,
   }
 }
 
-void sub_25C648750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_25C648750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   Nightingale::fwEstimatorCalendar::~fwEstimatorCalendar(va);
-  Nightingale::periodEstimatorCalendar::~periodEstimatorCalendar((v9 - 64));
-  Nightingale::fwPeriodEstimateStruct::~fwPeriodEstimateStruct(v8);
+  Nightingale::periodEstimatorCalendar::~periodEstimatorCalendar((v16 - 64));
+  Nightingale::fwPeriodEstimateStruct::~fwPeriodEstimateStruct(v15);
   _Unwind_Resume(a1);
 }
 
@@ -3247,9 +3247,9 @@ LABEL_4:
   }
 }
 
-void sub_25C6488F4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25C6488F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   Nightingale::fwEstimatorCalendar::~fwEstimatorCalendar(va);
   _Unwind_Resume(a1);
 }
@@ -3581,39 +3581,39 @@ LABEL_20:
   return v8;
 }
 
-uint64_t Nightingale::ngtProjector::nullifyAFwProj(_BOOL8 a1, uint64_t a2, uint64_t *a3, uint64_t a4)
+uint64_t Nightingale::ngtProjector::nullifyAFwProj(_BOOL8 a1, __int128 *a2, uint64_t *a3, uint64_t a4)
 {
   v23 = 0;
   v24 = 0;
   v25 = 0;
   if (Nightingale::ngtProjector::isFinite_aProj(a1, a2))
   {
-    if ((Nightingale::CGradient::get_isNull(a4) & 1) != 0 || (Nightingale::CGradient::get_isNull(a4) & 1) == 0 && *(a4 + 76) == 1 && *(a4 + 72) > (*(a2 + 88) + *(a2 + 92) - 1))
+    if ((Nightingale::CGradient::get_isNull(a4) & 1) != 0 || (Nightingale::CGradient::get_isNull(a4) & 1) == 0 && *(a4 + 76) == 1 && *(a4 + 72) > (*(a2 + 22) + *(a2 + 23) - 1))
     {
-      v7 = *(a2 + 80);
-      v20 = *(a2 + 64);
+      v7 = a2[5];
+      v20 = a2[4];
       v21 = v7;
-      v22 = *(a2 + 96);
-      v8 = *(a2 + 16);
+      v22 = *(a2 + 12);
+      v8 = a2[1];
       v16 = *a2;
       v17 = v8;
-      v9 = *(a2 + 48);
-      v18 = *(a2 + 32);
+      v9 = a2[3];
+      v18 = a2[2];
       v19 = v9;
       v10 = Nightingale::phaseFactorProjector::projected1stFWFailRepro(&v23, &v16, a3);
     }
 
     else
     {
-      v12 = *(a2 + 80);
-      v20 = *(a2 + 64);
+      v12 = a2[5];
+      v20 = a2[4];
       v21 = v12;
-      v22 = *(a2 + 96);
-      v13 = *(a2 + 16);
+      v22 = *(a2 + 12);
+      v13 = a2[1];
       v16 = *a2;
       v17 = v13;
-      v14 = *(a2 + 48);
-      v18 = *(a2 + 32);
+      v14 = a2[3];
+      v18 = a2[2];
       v19 = v14;
       v10 = Nightingale::phaseFactorProjector::projectedFWFailRepro(&v23, &v16, a3);
     }
@@ -3843,7 +3843,7 @@ void Nightingale::ngtProjector::surfaceLunaCa(uint64_t a1, int *a2, int a3, unin
   *(a5 + 228) = v17;
 }
 
-uint64_t Nightingale::ngtProjector::getCAtBoundedDaysBetweenFwEndAndNotification(Nightingale::ngtProjector *this, int a2)
+uint64_t Nightingale::ngtProjector::getCAtBoundedDaysBetweenFwEndAndNotification(Nightingale::ngtProjector *this, unsigned int a2)
 {
   if (a2 >= 0xA)
   {
@@ -3856,7 +3856,7 @@ uint64_t Nightingale::ngtProjector::getCAtBoundedDaysBetweenFwEndAndNotification
   }
 
   v3 = v2 >> 1;
-  if (a2 < 0)
+  if ((a2 & 0x80000000) != 0)
   {
     return 0xFFFFFFFFLL;
   }
@@ -4132,7 +4132,7 @@ BOOL Nightingale::ngtProjector::isFinite_aProj(_BOOL8 isFinite_aGrad, uint64_t a
     isFinite_aGrad = Nightingale::ngtProjector::isFinite_aGrad(isFinite_aGrad, (a2 + 8));
     if (!isFinite_aGrad)
     {
-      log = ha_get_log();
+      log = ha_get_log(isFinite_aGrad);
       result = os_log_type_enabled(log, OS_LOG_TYPE_FAULT);
       if (!result)
       {
@@ -4144,13 +4144,19 @@ BOOL Nightingale::ngtProjector::isFinite_aProj(_BOOL8 isFinite_aGrad, uint64_t a
     }
   }
 
-  if (*(a2 + 80) != 1 || Nightingale::ngtProjector::isFinite_aGrad(isFinite_aGrad, (a2 + 48)))
+  if (*(a2 + 80) != 1)
   {
     return 1;
   }
 
-  v5 = ha_get_log();
-  result = os_log_type_enabled(v5, OS_LOG_TYPE_FAULT);
+  v3 = Nightingale::ngtProjector::isFinite_aGrad(isFinite_aGrad, (a2 + 48));
+  if (v3)
+  {
+    return 1;
+  }
+
+  v6 = ha_get_log(v3);
+  result = os_log_type_enabled(v6, OS_LOG_TYPE_FAULT);
   if (result)
   {
     Nightingale::ngtProjector::isFinite_aProj();
@@ -4301,7 +4307,7 @@ BOOL Nightingale::ngtProjector::isFinite_aGrad(uint64_t a1, void *a2)
 {
   if ((*a2 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
   {
-    log = ha_get_log();
+    log = ha_get_log(a1);
     result = os_log_type_enabled(log, OS_LOG_TYPE_FAULT);
     if (!result)
     {
@@ -4314,7 +4320,7 @@ BOOL Nightingale::ngtProjector::isFinite_aGrad(uint64_t a1, void *a2)
 
   if ((a2[1] & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
   {
-    v4 = ha_get_log();
+    v4 = ha_get_log(a1);
     result = os_log_type_enabled(v4, OS_LOG_TYPE_FAULT);
     if (!result)
     {
@@ -4327,7 +4333,7 @@ BOOL Nightingale::ngtProjector::isFinite_aGrad(uint64_t a1, void *a2)
 
   if ((a2[2] & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
   {
-    v5 = ha_get_log();
+    v5 = ha_get_log(a1);
     result = os_log_type_enabled(v5, OS_LOG_TYPE_FAULT);
     if (!result)
     {
@@ -4340,7 +4346,7 @@ BOOL Nightingale::ngtProjector::isFinite_aGrad(uint64_t a1, void *a2)
 
   if ((a2[3] & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000)
   {
-    v6 = ha_get_log();
+    v6 = ha_get_log(a1);
     result = os_log_type_enabled(v6, OS_LOG_TYPE_FAULT);
     if (!result)
     {
@@ -4354,7 +4360,7 @@ BOOL Nightingale::ngtProjector::isFinite_aGrad(uint64_t a1, void *a2)
   return 1;
 }
 
-uint64_t Nightingale::phaseFactorProjector::failReproAProjection(uint64_t a1, _DWORD *a2, uint64_t *a3, uint64_t *a4)
+uint64_t Nightingale::phaseFactorProjector::failReproAProjection(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t *a4)
 {
   v4 = a2[23];
   if (v4 < 1)
@@ -4369,7 +4375,7 @@ uint64_t Nightingale::phaseFactorProjector::failReproAProjection(uint64_t a1, _D
     v12 = 0;
     v13 = 0;
     __p = 0;
-    std::vector<Nightingale::Phase>::__init_with_size[abi:ne200100]<Nightingale::Phase*,Nightingale::Phase*>(&__p, *a3, a3[1], a3[1] - *a3);
+    std::vector<Nightingale::Phase>::__init_with_size[abi:ne200100]<Nightingale::Phase*,Nightingale::Phase*>(&__p, *a3, *(a3 + 8), *(a3 + 8) - *a3);
     v9 = Nightingale::phaseFactorProcessor::detectPhases(a1, v8, &__p, a4);
     if (__p)
     {
@@ -4497,7 +4503,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<Nightingale::ngt_Pred
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-char *std::vector<Nightingale::ngt_Prediction>::__insert_with_size[abi:ne200100]<std::__wrap_iter<Nightingale::ngt_Prediction*>,std::__wrap_iter<Nightingale::ngt_Prediction*>>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *std::vector<Nightingale::ngt_Prediction>::__insert_with_size[abi:ne200100]<std::__wrap_iter<Nightingale::ngt_Prediction*>,std::__wrap_iter<Nightingale::ngt_Prediction*>>(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 < 1)
@@ -4506,8 +4512,8 @@ char *std::vector<Nightingale::ngt_Prediction>::__insert_with_size[abi:ne200100]
   }
 
   v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
+  v10 = a1[1];
+  v9 = a1[2];
   if (0x4EC4EC4EC4EC4EC5 * ((v9 - v10) >> 3) < a5)
   {
     v11 = *a1;
@@ -4563,17 +4569,17 @@ char *std::vector<Nightingale::ngt_Prediction>::__insert_with_size[abi:ne200100]
     }
 
     while (v42);
-    memcpy(v43, v5, *(a1 + 8) - v5);
+    memcpy(v43, v5, a1[1] - v5);
     v50 = *a1;
-    v51 = &v43[*(a1 + 8) - v5];
-    *(a1 + 8) = v5;
+    v51 = &v43[a1[1] - v5];
+    a1[1] = v5;
     v52 = v5 - v50;
     v53 = (v41 - (v5 - v50));
     memcpy(v53, v50, v52);
     v54 = *a1;
     *a1 = v53;
-    *(a1 + 8) = v51;
-    *(a1 + 16) = 0;
+    a1[1] = v51;
+    a1[2] = 0;
     if (v54)
     {
       operator delete(v54);
@@ -4587,7 +4593,7 @@ char *std::vector<Nightingale::ngt_Prediction>::__insert_with_size[abi:ne200100]
   {
     v33 = &__dst[104 * a5];
     v34 = v10 - 104 * a5;
-    v35 = *(a1 + 8);
+    v35 = a1[1];
     while (v34 < v10)
     {
       v36 = *v34;
@@ -4606,7 +4612,7 @@ char *std::vector<Nightingale::ngt_Prediction>::__insert_with_size[abi:ne200100]
       v35 += 104;
     }
 
-    *(a1 + 8) = v35;
+    a1[1] = v35;
     if (v10 != v33)
     {
       memmove(&__dst[104 * a5], __dst, v10 - v33);
@@ -4621,11 +4627,11 @@ char *std::vector<Nightingale::ngt_Prediction>::__insert_with_size[abi:ne200100]
   v18 = a4 - &__src[v16];
   if (a4 != &__src[v16])
   {
-    memmove(*(a1 + 8), &__src[v16], a4 - &__src[v16]);
+    memmove(a1[1], &__src[v16], a4 - &__src[v16]);
   }
 
   v19 = (v10 + v18);
-  *(a1 + 8) = v10 + v18;
+  a1[1] = v10 + v18;
   if (v16 >= 1)
   {
     v20 = &v5[104 * a5];
@@ -4657,7 +4663,7 @@ char *std::vector<Nightingale::ngt_Prediction>::__insert_with_size[abi:ne200100]
       v21 = v22 - v7;
     }
 
-    *(a1 + 8) = v21;
+    a1[1] = v21;
     if (v19 != v20)
     {
       memmove(&v5[104 * a5], v5, v19 - v20);
@@ -4755,21 +4761,21 @@ void sub_25C64A0B8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>::__assign_with_size[abi:ne200100]<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>::__assign_with_size[abi:ne200100]<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*>(char **a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   v8 = *a1;
-  if (0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 16) - *a1) >> 5) < a4)
+  if (0xCCCCCCCCCCCCCCCDLL * ((a1[2] - *a1) >> 5) < a4)
   {
     std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>::__vdeallocate(a1);
     if (a4 <= 0x199999999999999)
     {
-      v9 = 0x999999999999999ALL * ((*(a1 + 16) - *a1) >> 5);
+      v9 = 0x999999999999999ALL * ((a1[2] - *a1) >> 5);
       if (v9 <= a4)
       {
         v9 = a4;
       }
 
-      if (0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 16) - *a1) >> 5) >= 0xCCCCCCCCCCCCCCLL)
+      if (0xCCCCCCCCCCCCCCCDLL * ((a1[2] - *a1) >> 5) >= 0xCCCCCCCCCCCCCCLL)
       {
         v10 = 0x199999999999999;
       }
@@ -4785,12 +4791,12 @@ void std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::p
     std::vector<float>::__throw_length_error[abi:ne200100]();
   }
 
-  v11 = *(a1 + 8) - v8;
+  v11 = a1[1] - v8;
   if (0xCCCCCCCCCCCCCCCDLL * (v11 >> 5) >= a4)
   {
     std::__copy_impl::operator()[abi:ne200100]<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct> *,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct> *,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct> *>(&v16, a2, a3, v8);
     v13 = v12;
-    v14 = *(a1 + 8);
+    v14 = a1[1];
     if (v14 != v12)
     {
       do
@@ -4802,17 +4808,17 @@ void std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::p
       while (v14 != v13);
     }
 
-    *(a1 + 8) = v13;
+    a1[1] = v13;
   }
 
   else
   {
     std::__copy_impl::operator()[abi:ne200100]<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct> *,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct> *,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct> *>(&v15, a2, a2 + v11, v8);
-    *(a1 + 8) = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*>(a1, a2 + v11, a3, *(a1 + 8));
+    a1[1] = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*>(a1, a2 + v11, a3, a1[1]);
   }
 }
 
-void std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>::__vdeallocate(void **a1)
+void std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>::__vdeallocate(char **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -4839,7 +4845,7 @@ void std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::p
   }
 }
 
-void std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x19999999999999ALL)
   {
@@ -4849,7 +4855,7 @@ void std::vector<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::p
   std::vector<float>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>>,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*,std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>*>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   if (a2 != a3)
   {
@@ -4859,7 +4865,7 @@ uint64_t std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<s
     {
       std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>::pair[abi:ne200100](a4, v6);
       v6 += 160;
-      a4 += 160;
+      a4 += 20;
       v7 -= 160;
     }
 
@@ -4887,29 +4893,29 @@ void sub_25C64A37C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>::pair[abi:ne200100](uint64_t a1, uint64_t a2)
+void *std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>::pair[abi:ne200100](void *a1, uint64_t a2)
 {
   *a1 = 0;
-  *(a1 + 8) = 0;
-  *(a1 + 16) = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
   v4 = *(a2 + 24);
   *(a1 + 33) = *(a2 + 33);
-  *(a1 + 24) = v4;
+  *(a1 + 3) = v4;
   v5 = *(a2 + 56);
   v6 = *(a2 + 69);
-  *(a1 + 80) = 0;
+  a1[10] = 0;
   *(a1 + 69) = v6;
-  *(a1 + 56) = v5;
-  *(a1 + 88) = 0;
-  *(a1 + 96) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 80, *(a2 + 80), *(a2 + 88), (*(a2 + 88) - *(a2 + 80)) >> 2);
+  *(a1 + 7) = v5;
+  a1[11] = 0;
+  a1[12] = 0;
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 10, *(a2 + 80), *(a2 + 88), (*(a2 + 88) - *(a2 + 80)) >> 2);
   v7 = *(a2 + 104);
   *(a1 + 113) = *(a2 + 113);
-  *(a1 + 104) = v7;
+  *(a1 + 13) = v7;
   v8 = *(a2 + 136);
   *(a1 + 149) = *(a2 + 149);
-  *(a1 + 136) = v8;
+  *(a1 + 17) = v8;
   return a1;
 }
 
@@ -5069,29 +5075,29 @@ void sub_25C64A700(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>::pair[abi:ne200100]<Nightingale::periodEstimationOutStruct&,Nightingale::periodEstimationOutStruct&,0>(uint64_t a1, uint64_t a2, uint64_t a3)
+void *std::pair<Nightingale::periodEstimationOutStruct,Nightingale::periodEstimationOutStruct>::pair[abi:ne200100]<Nightingale::periodEstimationOutStruct&,Nightingale::periodEstimationOutStruct&,0>(void *a1, uint64_t a2, uint64_t a3)
 {
   *a1 = 0;
-  *(a1 + 8) = 0;
-  *(a1 + 16) = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
   v6 = *(a2 + 24);
   *(a1 + 33) = *(a2 + 33);
-  *(a1 + 24) = v6;
+  *(a1 + 3) = v6;
   v7 = *(a2 + 56);
   v8 = *(a2 + 69);
-  *(a1 + 80) = 0;
+  a1[10] = 0;
   *(a1 + 69) = v8;
-  *(a1 + 56) = v7;
-  *(a1 + 88) = 0;
-  *(a1 + 96) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 80, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 2);
+  *(a1 + 7) = v7;
+  a1[11] = 0;
+  a1[12] = 0;
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 10, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 2);
   v9 = *(a3 + 24);
   *(a1 + 113) = *(a3 + 33);
-  *(a1 + 104) = v9;
+  *(a1 + 13) = v9;
   v10 = *(a3 + 56);
   *(a1 + 149) = *(a3 + 69);
-  *(a1 + 136) = v10;
+  *(a1 + 17) = v10;
   return a1;
 }
 
@@ -5573,17 +5579,17 @@ double Nightingale::PeriodPredictorWrapper_t::PeriodPredictorWrapper_t(Nightinga
   return result;
 }
 
-void *std::vector<double>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<double>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned long>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned long>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_25C64B828(_Unwind_Exception *exception_object)
@@ -5852,7 +5858,7 @@ LABEL_11:
   }
 }
 
-void Nightingale::uiLogProcessor::periodListToCycleInfo(uint64_t a1, uint64_t *a2, void *a3, uint64_t *a4)
+void Nightingale::uiLogProcessor::periodListToCycleInfo(uint64_t a1, uint64_t *a2, void *a3, unint64_t *a4)
 {
   LOBYTE(v12) = 0;
   v13 = 0;
@@ -6001,7 +6007,7 @@ void Nightingale::uiLogProcessor::extractPeriods(uint64_t a1, unsigned int **a2,
         v31 = 0;
         v32 = 0;
         v33 = 0;
-        std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&v31, v41, v42, (v42 - v41) >> 3);
+        std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&v31, v41, v42, v42 - v41);
         v25 = std::vector<BOOL>::vector(v30, &v38);
         Nightingale::uiLogProcessor::periodListToCycleInfo(v25, &v31, v30, a6);
         if (v30[0])
@@ -6065,7 +6071,7 @@ LABEL_28:
         v27 = 0;
         v28 = 0;
         v29 = 0;
-        std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&v27, v22, v42, (v42 - v22) >> 3);
+        std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&v27, v22, v42, v42 - v22);
         v23 = std::vector<BOOL>::vector(__p, &v38);
         Nightingale::uiLogProcessor::periodListToCycleInfo(v23, &v27, __p, a6);
         if (__p[0])
@@ -6228,12 +6234,12 @@ void std::vector<std::pair<int,int>>::push_back[abi:ne200100](uint64_t a1, void 
   *(a1 + 8) = v6;
 }
 
-uint64_t *Nightingale::uiCycleFactorProcess::suppressPeriodReproductive(uint64_t a1, uint64_t *a2, uint64_t *a3)
+uint64_t **Nightingale::uiCycleFactorProcess::suppressPeriodReproductive(uint64_t a1, uint64_t **a2, uint64_t *a3)
 {
   v20 = 0;
   v21 = 0;
   v22 = 0;
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&v20, *a2, a2[1], (a2[1] - *a2) >> 3);
+  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&v20, *a2, a2[1], a2[1] - *a2);
   v6 = v20;
   if (v21 != v20)
   {
@@ -6257,20 +6263,19 @@ uint64_t *Nightingale::uiCycleFactorProcess::suppressPeriodReproductive(uint64_t
       if ((((v10 & 0x100) == 0) & v10) != 0 || (v10 & 0x10000) != 0)
       {
         v11 = a2[1];
-        v12 = *a2 + 8 * v8;
-        v13 = (v12 + 8);
-        if ((v12 + 8) != v11)
+        v12 = &(*a2)[v8];
+        v13 = v12 + 1;
+        if (v12 + 1 != v11)
         {
           do
           {
-            v14 = v13[1];
+            v14 = *(v13 + 1);
             *(v13 - 2) = *v13;
-            *(v13 - 1) = v14;
-            v13 += 2;
+            *(v13++ - 1) = v14;
           }
 
           while (v13 != v11);
-          v12 = (v13 - 2);
+          v12 = v13 - 1;
         }
 
         a2[1] = v12;
@@ -6959,24 +6964,24 @@ LABEL_18:
   return v8 | (v5 << 32);
 }
 
-void Nightingale::uiLogProcessor::removeOutlier(char **a1@<X1>, char **a2@<X8>)
+void Nightingale::uiLogProcessor::removeOutlier(uint64_t *a1@<X1>, uint64_t *a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
   a2[2] = 0;
-  v3 = *a1;
-  v4 = a1[1];
-  v6 = (v4 - v3) >> 2;
-  if (v6 > 2)
+  v4 = *a1;
+  v5 = a1[1];
+  v7 = (v5 - v4) >> 2;
+  if (v7 > 2)
   {
     __p = 0;
-    v8 = 0;
     v9 = 0;
-    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, v3, v4, v6);
+    v10 = 0;
+    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, v4, v5, v7);
     Nightingale::get_mad(&__p, 1);
     if (__p)
     {
-      v8 = __p;
+      v9 = __p;
       operator delete(__p);
     }
 
@@ -6985,7 +6990,7 @@ void Nightingale::uiLogProcessor::removeOutlier(char **a1@<X1>, char **a2@<X8>)
 
   if (a2 != a1)
   {
-    std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(a2, v3, v4, v6);
+    std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(a2, v4, v5, v7);
   }
 }
 
@@ -7003,7 +7008,7 @@ void sub_25C64CF24(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void Nightingale::uiLogProcessor::genPeriodSlide(void *a1@<X1>, int a2@<W2>, uint64_t a3@<X3>, int a4@<W4>, const void **a5@<X8>)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   *a5 = 0;
   a5[1] = 0;
   a5[2] = 0;
@@ -7065,86 +7070,90 @@ void Nightingale::uiLogProcessor::genPeriodSlide(void *a1@<X1>, int a2@<W2>, uin
 
     *buf = v17;
     std::vector<float>::push_back[abi:ne200100](a5, buf);
-    log = ha_get_log();
-    if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
+    log = ha_get_log(v18);
+    v20 = os_log_type_enabled(log, OS_LOG_TYPE_DEBUG);
+    if (v20)
     {
       Nightingale::uiLogProcessor::genPeriodSlide();
     }
 
     if (a5[1] - *a5 != 4)
     {
-      v19 = 0;
+      v21 = 0;
       do
       {
-        v20 = ha_get_log();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+        v22 = ha_get_log(v20);
+        v20 = os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG);
+        if (v20)
         {
-          if (v19 >= (a5[1] - *a5) >> 2)
+          if (v21 >= (a5[1] - *a5) >> 2)
           {
             std::vector<int>::__throw_out_of_range[abi:ne200100]();
           }
 
-          v21 = *(*a5 + v19);
+          v23 = *(*a5 + v21);
           *buf = 134217984;
-          *&buf[4] = v21;
-          _os_log_debug_impl(&dword_25C4D8000, v20, OS_LOG_TYPE_DEBUG, "%3.1f, ", buf, 0xCu);
+          *&buf[4] = v23;
+          _os_log_debug_impl(&dword_25C4D8000, v22, OS_LOG_TYPE_DEBUG, "%3.1f, ", buf, 0xCu);
         }
 
-        ++v19;
+        ++v21;
       }
 
-      while (v19 < ((a5[1] - *a5) >> 2) - 1);
+      while (v21 < ((a5[1] - *a5) >> 2) - 1);
     }
 
-    v22 = ha_get_log();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+    v24 = ha_get_log(v20);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
     {
       Nightingale::uiLogProcessor::genPeriodSlide(a5 + 1);
     }
 
     Nightingale::uiLogProcessor::removeOutlier(a5, buf);
-    v23 = *a5;
+    v25 = *a5;
     if (*a5)
     {
-      a5[1] = v23;
-      operator delete(v23);
+      a5[1] = v25;
+      operator delete(v25);
     }
 
     *a5 = *buf;
-    a5[2] = v30;
-    v24 = ha_get_log();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    a5[2] = v33;
+    v26 = ha_get_log(v25);
+    v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG);
+    if (v27)
     {
       Nightingale::uiLogProcessor::genPeriodSlide();
     }
 
     if (a5[1] - *a5 != 4)
     {
-      v25 = 0;
+      v28 = 0;
       do
       {
-        v26 = ha_get_log();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+        v29 = ha_get_log(v27);
+        v27 = os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG);
+        if (v27)
         {
-          if (v25 >= (a5[1] - *a5) >> 2)
+          if (v28 >= (a5[1] - *a5) >> 2)
           {
             std::vector<int>::__throw_out_of_range[abi:ne200100]();
           }
 
-          v27 = *(*a5 + v25);
+          v30 = *(*a5 + v28);
           *buf = 134217984;
-          *&buf[4] = v27;
-          _os_log_debug_impl(&dword_25C4D8000, v26, OS_LOG_TYPE_DEBUG, "%3.1f, ", buf, 0xCu);
+          *&buf[4] = v30;
+          _os_log_debug_impl(&dword_25C4D8000, v29, OS_LOG_TYPE_DEBUG, "%3.1f, ", buf, 0xCu);
         }
 
-        ++v25;
+        ++v28;
       }
 
-      while (v25 < ((a5[1] - *a5) >> 2) - 1);
+      while (v28 < ((a5[1] - *a5) >> 2) - 1);
     }
 
-    v28 = ha_get_log();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+    v31 = ha_get_log(v27);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
     {
       Nightingale::uiLogProcessor::genPeriodSlide(a5 + 1);
     }
@@ -7203,53 +7212,53 @@ BOOL Nightingale::uiLogProcessor::vecPhaseContains(uint64_t a1, unsigned __int8 
   return v4 > v8;
 }
 
-void Nightingale::uiLogProcessor::genCycleSlide(uint64_t *a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X3>, _DWORD *a4@<X4>, char a5@<W5>, char **a6@<X8>)
+void Nightingale::uiLogProcessor::genCycleSlide(void *result@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, _DWORD *a5@<X4>, char a6@<W5>, char **a7@<X8>)
 {
   __p[3] = *MEMORY[0x277D85DE8];
-  *a6 = 0;
-  a6[1] = 0;
-  a6[2] = 0;
-  v7 = -1431655765 * ((a1[1] - *a1) >> 5);
-  if (!v7)
+  *a7 = 0;
+  a7[1] = 0;
+  a7[2] = 0;
+  v8 = -1431655765 * ((a2[1] - *a2) >> 5);
+  if (!v8)
   {
     return;
   }
 
-  v8 = a5;
-  v11 = a2;
-  if (a2 == 3)
+  v9 = a6;
+  v12 = a3;
+  if (a3 == 3)
   {
 LABEL_5:
-    v14 = v7 - 1;
-    if (v7 - HIDWORD(a2) < v7 - 1)
+    v15 = v8 - 1;
+    if (v8 - HIDWORD(a3) < v8 - 1)
     {
-      v15 = v7 - HIDWORD(a2);
+      v16 = v8 - HIDWORD(a3);
       while (1)
       {
-        v16 = *a1;
-        if (0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 5) <= v15)
+        v17 = *a2;
+        if (0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 5) <= v16)
         {
           std::vector<int>::__throw_out_of_range[abi:ne200100]();
         }
 
         memset(__p, 0, 24);
-        std::vector<Nightingale::Phase>::__init_with_size[abi:ne200100]<Nightingale::Phase*,Nightingale::Phase*>(__p, *(v16 + 96 * v15 + 72), *(v16 + 96 * v15 + 80), *(v16 + 96 * v15 + 80) - *(v16 + 96 * v15 + 72));
-        v17 = *a1;
-        if (0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 5) <= v15)
+        std::vector<Nightingale::Phase>::__init_with_size[abi:ne200100]<Nightingale::Phase*,Nightingale::Phase*>(__p, *(v17 + 96 * v16 + 72), *(v17 + 96 * v16 + 80), *(v17 + 96 * v16 + 80) - *(v17 + 96 * v16 + 72));
+        v18 = *a2;
+        if (0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 5) <= v16)
         {
 LABEL_76:
           std::vector<int>::__throw_out_of_range[abi:ne200100]();
         }
 
-        v51 = 0;
-        v52 = 0;
-        v53 = 0;
-        std::vector<Nightingale::Phase>::__init_with_size[abi:ne200100]<Nightingale::Phase*,Nightingale::Phase*>(&v51, *(v17 + 96 * v15 + 72), *(v17 + 96 * v15 + 80), *(v17 + 96 * v15 + 80) - *(v17 + 96 * v15 + 72));
-        v18 = v52 - v51;
-        if (v52 == v51)
+        v54 = 0;
+        v55 = 0;
+        v56 = 0;
+        std::vector<Nightingale::Phase>::__init_with_size[abi:ne200100]<Nightingale::Phase*,Nightingale::Phase*>(&v54, *(v18 + 96 * v16 + 72), *(v18 + 96 * v16 + 80), *(v18 + 96 * v16 + 80) - *(v18 + 96 * v16 + 72));
+        v19 = v55 - v54;
+        if (v55 == v54)
         {
-          v23 = 0;
-          if (!v51)
+          v24 = 0;
+          if (!v54)
           {
             goto LABEL_23;
           }
@@ -7257,78 +7266,79 @@ LABEL_76:
 
         else
         {
-          if (v18 <= 1)
+          if (v19 <= 1)
           {
-            v19 = 1;
+            v20 = 1;
           }
 
           else
           {
-            v19 = v52 - v51;
+            v20 = v55 - v54;
           }
 
-          if (*v51)
+          if (*v54)
           {
-            v20 = 0;
-            v21 = v19 - 1;
-            while (v21 != v20)
+            v21 = 0;
+            v22 = v20 - 1;
+            while (v22 != v21)
             {
-              if (!v51[++v20])
+              if (!v54[++v21])
               {
-                v23 = v18 > v20;
+                v24 = v19 > v21;
                 goto LABEL_22;
               }
             }
 
-            v23 = 0;
+            v24 = 0;
           }
 
           else
           {
-            v23 = 1;
+            v24 = 1;
           }
         }
 
 LABEL_22:
-        v52 = v51;
-        operator delete(v51);
+        v55 = v54;
+        operator delete(v54);
 LABEL_23:
-        if (0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 5) <= v15)
+        if (0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 5) <= v16)
         {
           goto LABEL_76;
         }
 
-        v24 = *a1 + 96 * v15;
-        v25 = *(v24 + 24);
-        if (((v23 | v25 ^ 1) & 1) == 0)
+        v25 = *a2 + 96 * v16;
+        v26 = *(v25 + 24);
+        if (((v24 | v26 ^ 1) & 1) == 0)
         {
-          if ((v25 & 1) == 0)
+          if ((v26 & 1) == 0)
           {
             std::__throw_bad_optional_access[abi:ne200100]();
           }
 
-          v50 = (*(v24 + 20) - *v24 + 1);
-          std::vector<float>::push_back[abi:ne200100](a6, &v50);
+          v53 = (*(v25 + 20) - *v25 + 1);
+          std::vector<float>::push_back[abi:ne200100](a7, &v53);
         }
 
+        result = __p[0];
         if (__p[0])
         {
           __p[1] = __p[0];
           operator delete(__p[0]);
         }
 
-        if (v14 == ++v15)
+        if (v15 == ++v16)
         {
-          v13 = *a6;
-          v8 = a5;
+          v14 = *a7;
+          v9 = a6;
           goto LABEL_32;
         }
       }
     }
 
-    v13 = 0;
+    v14 = 0;
 LABEL_32:
-    if (v11 != 2)
+    if (v12 != 2)
     {
       goto LABEL_34;
     }
@@ -7336,10 +7346,10 @@ LABEL_32:
     goto LABEL_33;
   }
 
-  v13 = 0;
-  if (a2 != 2)
+  v14 = 0;
+  if (a3 != 2)
   {
-    if (a2 != 1)
+    if (a3 != 1)
     {
       goto LABEL_34;
     }
@@ -7348,42 +7358,43 @@ LABEL_32:
   }
 
 LABEL_33:
-  a6[1] = v13;
+  a7[1] = v14;
   LODWORD(__p[0]) = 1105199104;
-  std::vector<float>::push_back[abi:ne200100](a6, __p);
-  v13 = *a6;
+  std::vector<float>::push_back[abi:ne200100](a7, __p);
+  v14 = *a7;
 LABEL_34:
-  v27 = a6 + 1;
-  v26 = a6[1];
-  if ((v26 - v13) >= 0x31 && (v26 - v13) << 30 != 0xC00000000)
+  v28 = a7 + 1;
+  v27 = a7[1];
+  if ((v27 - v14) >= 0x31 && (v27 - v14) << 30 != 0xC00000000)
   {
-    v28 = &v13[(((v26 - v13) << 30) - 0xC00000000) >> 30];
-    v29 = v26 - v28;
-    if (v26 != v28)
+    v29 = &v14[(((v27 - v14) << 30) - 0xC00000000) >> 30];
+    v30 = v27 - v29;
+    if (v27 != v29)
     {
-      memmove(v13, v28, v26 - v28);
+      result = memmove(v14, v29, v27 - v29);
     }
 
-    *v27 = &v13[v29];
+    *v28 = &v14[v30];
   }
 
-  if (v11 == 1 && *(a3 + 4) == 1)
+  if (v12 == 1 && *(a4 + 4) == 1)
   {
-    *__p = *a3;
-    std::vector<float>::push_back[abi:ne200100](a6, __p);
+    *__p = *a4;
+    std::vector<float>::push_back[abi:ne200100](a7, __p);
   }
 
-  log = ha_get_log();
-  if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
+  log = ha_get_log(result);
+  v32 = os_log_type_enabled(log, OS_LOG_TYPE_DEBUG);
+  if (v32)
   {
     Nightingale::uiLogProcessor::genCycleSlide();
   }
 
-  v31 = a6[1];
-  if (*a6 == v31)
+  v33 = a7[1];
+  if (*a7 == v33)
   {
-    v36 = ha_get_log();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+    v38 = ha_get_log(v32);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
     {
       Nightingale::uiLogProcessor::genCycleSlide();
     }
@@ -7391,68 +7402,70 @@ LABEL_34:
 
   else
   {
-    if (v31 - *a6 != 4)
+    if (v33 - *a7 != 4)
     {
-      v32 = 0;
+      v34 = 0;
       do
       {
-        v33 = ha_get_log();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+        v35 = ha_get_log(v32);
+        v32 = os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG);
+        if (v32)
         {
-          if (v32 >= (a6[1] - *a6) >> 2)
+          if (v34 >= (a7[1] - *a7) >> 2)
           {
             std::vector<int>::__throw_out_of_range[abi:ne200100]();
           }
 
-          v34 = *&(*a6)[4 * v32];
+          v36 = *&(*a7)[4 * v34];
           LODWORD(__p[0]) = 134217984;
-          *(__p + 4) = *&v34;
-          _os_log_debug_impl(&dword_25C4D8000, v33, OS_LOG_TYPE_DEBUG, "%3.1f, ", __p, 0xCu);
+          *(__p + 4) = *&v36;
+          _os_log_debug_impl(&dword_25C4D8000, v35, OS_LOG_TYPE_DEBUG, "%3.1f, ", __p, 0xCu);
         }
 
-        ++v32;
+        ++v34;
       }
 
-      while (v32 < ((a6[1] - *a6) >> 2) - 1);
+      while (v34 < ((a7[1] - *a7) >> 2) - 1);
     }
 
-    v35 = ha_get_log();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+    v37 = ha_get_log(v32);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
     {
-      Nightingale::uiLogProcessor::genPeriodSlide(a6 + 1);
+      Nightingale::uiLogProcessor::genPeriodSlide(a7 + 1);
     }
   }
 
-  v38 = *a6;
-  v37 = a6[1];
-  Nightingale::uiLogProcessor::removeOutlier(a6, __p);
-  v39 = *a6;
-  if (*a6)
+  v40 = *a7;
+  v39 = a7[1];
+  Nightingale::uiLogProcessor::removeOutlier(a7, __p);
+  v41 = *a7;
+  if (*a7)
   {
-    *v27 = v39;
-    operator delete(v39);
+    *v28 = v41;
+    operator delete(v41);
   }
 
-  v40 = __p[0];
-  *a6 = __p[0];
-  v41 = __p[1];
-  *(a6 + 1) = *&__p[1];
-  if ((v8 & 1) != 0 && a4)
+  v42 = __p[0];
+  *a7 = __p[0];
+  v43 = __p[1];
+  *(a7 + 1) = *&__p[1];
+  if ((v9 & 1) != 0 && a5)
   {
-    *a4 = ((v37 - v38) >> 2) - ((v41 - v40) >> 2);
+    *a5 = ((v39 - v40) >> 2) - ((v43 - v42) >> 2);
   }
 
-  v42 = ha_get_log();
-  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+  v44 = ha_get_log(v41);
+  v45 = os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG);
+  if (v45)
   {
     Nightingale::uiLogProcessor::genCycleSlide();
   }
 
-  v43 = a6[1];
-  if (*a6 == v43)
+  v46 = a7[1];
+  if (*a7 == v46)
   {
-    v48 = ha_get_log();
-    if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
+    v51 = ha_get_log(v45);
+    if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
     {
       Nightingale::uiLogProcessor::genCycleSlide();
     }
@@ -7460,35 +7473,36 @@ LABEL_34:
 
   else
   {
-    if (v43 - *a6 != 4)
+    if (v46 - *a7 != 4)
     {
-      v44 = 0;
+      v47 = 0;
       do
       {
-        v45 = ha_get_log();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
+        v48 = ha_get_log(v45);
+        v45 = os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG);
+        if (v45)
         {
-          if (v44 >= (a6[1] - *a6) >> 2)
+          if (v47 >= (a7[1] - *a7) >> 2)
           {
             std::vector<int>::__throw_out_of_range[abi:ne200100]();
           }
 
-          v46 = *&(*a6)[4 * v44];
+          v49 = *&(*a7)[4 * v47];
           LODWORD(__p[0]) = 134217984;
-          *(__p + 4) = *&v46;
-          _os_log_debug_impl(&dword_25C4D8000, v45, OS_LOG_TYPE_DEBUG, "%3.1f, ", __p, 0xCu);
+          *(__p + 4) = *&v49;
+          _os_log_debug_impl(&dword_25C4D8000, v48, OS_LOG_TYPE_DEBUG, "%3.1f, ", __p, 0xCu);
         }
 
-        ++v44;
+        ++v47;
       }
 
-      while (v44 < ((a6[1] - *a6) >> 2) - 1);
+      while (v47 < ((a7[1] - *a7) >> 2) - 1);
     }
 
-    v47 = ha_get_log();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
+    v50 = ha_get_log(v45);
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
     {
-      Nightingale::uiLogProcessor::genPeriodSlide(a6 + 1);
+      Nightingale::uiLogProcessor::genPeriodSlide(a7 + 1);
     }
   }
 }
@@ -7525,22 +7539,22 @@ double Nightingale::uiLogProcessor::getVariance(double a1, double a2, uint64_t a
   return a2;
 }
 
-void Nightingale::uiLogProcessor::calSlideMeanStd(uint64_t *a1@<X1>, int a2@<W2>, uint64_t a3@<X8>)
+void Nightingale::uiLogProcessor::calSlideMeanStd(uint64_t a1@<X1>, int a2@<W2>, uint64_t a3@<X8>)
 {
-  v5 = *a1;
-  v6 = a1[1];
-  v8 = v6 - v5;
-  if (v6 != v5)
+  v7 = *a1;
+  v8 = *(a1 + 8);
+  v10 = v8 - v7;
+  if (v8 != v7)
   {
     memset(__p, 0, sizeof(__p));
-    v9 = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(__p, v5, v6, v8 >> 2);
-    Nightingale::uiLogProcessor::getCenter(v9, __p, a2);
+    v11 = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(__p, v7, v8, v10 >> 2);
+    Nightingale::uiLogProcessor::getCenter(v11, __p, a2);
   }
 
   *a3 = 0;
-  *(a3 + 8) = v8;
+  *(a3 + 8) = v10;
   *(a3 + 16) = 0;
-  *(a3 + 24) = v8;
+  *(a3 + 24) = v10;
 }
 
 void sub_25C64DB18(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
@@ -7553,12 +7567,12 @@ void sub_25C64DB18(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-float Nightingale::uiLogProcessor::getACyclePeriodSlideMeanStd(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
+float Nightingale::uiLogProcessor::getACyclePeriodSlideMeanStd(float *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v19 = 0;
   v20 = 0;
   __p = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, *a2, a2[1], (a2[1] - *a2) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
   Nightingale::uiLogProcessor::calSlideMeanStd(&__p, 1, &v21);
   if (__p)
   {
@@ -7611,7 +7625,7 @@ float Nightingale::uiLogProcessor::getACyclePeriodSlideMeanStd(uint64_t a1, uint
   v12 = 0;
   v13 = 0;
   v11 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v11, *a3, a3[1], (a3[1] - *a3) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v11, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 2);
   Nightingale::uiLogProcessor::calSlideMeanStd(&v11, 1, &v14);
   if (v11)
   {
@@ -7700,7 +7714,7 @@ void Nightingale::uiLogProcessor::getDLStartProcDate(uint64_t a1, uint64_t a2, u
     while (1)
     {
       v13 = *v7;
-      v7 += 15;
+      v7 += 60;
       v12 = v13;
       if (v5)
       {
@@ -7721,17 +7735,17 @@ void Nightingale::uiLogProcessor::getDLStartProcDate(uint64_t a1, uint64_t a2, u
   }
 }
 
-void Nightingale::uiLogProcessor::getCyclePeriodMeanStdAllCycles(uint64_t a1, uint64_t *a2, uint64_t a3, int a4, uint64_t a5)
+void Nightingale::uiLogProcessor::getCyclePeriodMeanStdAllCycles(float *a1, uint64_t *a2, uint64_t a3, int a4, uint64_t a5)
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   v7 = *a2;
   v8 = a2[1];
   if (v7 != v8)
   {
-    v53 = 0;
     v54 = 0;
     v55 = 0;
-    v12 = std::vector<Nightingale::cycleInfo>::__init_with_size[abi:ne200100]<Nightingale::cycleInfo*,Nightingale::cycleInfo*>(&v53, v7, v8, 0xAAAAAAAAAAAAAAABLL * ((v8 - v7) >> 5));
+    v56 = 0;
+    v12 = std::vector<Nightingale::cycleInfo>::__init_with_size[abi:ne200100]<Nightingale::cycleInfo*,Nightingale::cycleInfo*>(&v54, v7, v8, 0xAAAAAAAAAAAAAAABLL * ((v8 - v7) >> 5));
     v14 = 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 5);
     if (v14 >= 1)
     {
@@ -7761,10 +7775,10 @@ void Nightingale::uiLogProcessor::getCyclePeriodMeanStdAllCycles(uint64_t a1, ui
           while (v17 != v16);
         }
 
-        ShouldBeInSlideCC = Nightingale::uiLogProcessor::getWhatShouldBeInSlideCC(v12, v13, &v53, a5);
-        Nightingale::uiLogProcessor::genCycleSlide(&v53, ShouldBeInSlideCC, a3, 0, 0, &v51);
-        memset(v48, 0, sizeof(v48));
-        std::vector<Nightingale::cycleInfo>::__init_with_size[abi:ne200100]<Nightingale::cycleInfo*,Nightingale::cycleInfo*>(v48, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 5));
+        ShouldBeInSlideCC = Nightingale::uiLogProcessor::getWhatShouldBeInSlideCC(v12, v13, &v54, a5);
+        Nightingale::uiLogProcessor::genCycleSlide(ShouldBeInSlideCC, &v54, ShouldBeInSlideCC, a3, 0, 0, &v52);
+        memset(v49, 0, sizeof(v49));
+        std::vector<Nightingale::cycleInfo>::__init_with_size[abi:ne200100]<Nightingale::cycleInfo*,Nightingale::cycleInfo*>(v49, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 5));
         if (v18 >= SHIDWORD(ShouldBeInSlideCC))
         {
           v21 = HIDWORD(ShouldBeInSlideCC);
@@ -7775,127 +7789,128 @@ void Nightingale::uiLogProcessor::getCyclePeriodMeanStdAllCycles(uint64_t a1, ui
           v21 = v18;
         }
 
-        Nightingale::uiLogProcessor::genPeriodSlide(v48, v21, a3, a4, &v49);
-        *buf = v48;
+        Nightingale::uiLogProcessor::genPeriodSlide(v49, v21, a3, a4, &v50);
+        *buf = v49;
         std::vector<Nightingale::cycleInfo>::__destroy_vector::operator()[abi:ne200100](buf);
-        v46 = 0;
         v47 = 0;
-        v45 = 0;
-        std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v45, v51, v52, (v52 - v51) >> 2);
+        v48 = 0;
+        v46 = 0;
+        std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v46, v52, v53, (v53 - v52) >> 2);
         __p = 0;
-        v43 = 0;
         v44 = 0;
-        std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, v49, v50, (v50 - v49) >> 2);
-        Nightingale::uiLogProcessor::getACyclePeriodSlideMeanStd(a1, &v45, &__p, v54 - 96);
+        v45 = 0;
+        std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, v50, v51, (v51 - v50) >> 2);
+        Nightingale::uiLogProcessor::getACyclePeriodSlideMeanStd(a1, &v46, &__p, v55 - 96);
         if (__p)
         {
-          v43 = __p;
+          v44 = __p;
           operator delete(__p);
         }
 
-        if (v45)
+        if (v46)
         {
-          v46 = v45;
-          operator delete(v45);
+          v47 = v46;
+          operator delete(v46);
         }
 
         v22 = v15 - 1;
-        if (0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 5) <= v15 - 1 || (v23 = *a2 + 96 * v22, v24 = *(v54 - 64), *(v23 + 36) = *(v54 - 60), *(v23 + 32) = v24, 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 5) <= v22) || (v25 = *a2 + 96 * v22, v26 = *(v54 - 56), *(v25 + 44) = *(v54 - 52), *(v25 + 40) = v26, 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 5) <= v22) || (v27 = *a2 + 96 * v22, v28 = *(v54 - 48), *(v27 + 52) = *(v54 - 44), *(v27 + 48) = v28, 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 5) <= v22))
+        if (0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 5) <= v15 - 1 || (v23 = *a2 + 96 * v22, v24 = *(v55 - 64), *(v23 + 36) = *(v55 - 60), *(v23 + 32) = v24, 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 5) <= v22) || (v25 = *a2 + 96 * v22, v26 = *(v55 - 56), *(v25 + 44) = *(v55 - 52), *(v25 + 40) = v26, 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 5) <= v22) || (v27 = *a2 + 96 * v22, v28 = *(v55 - 48), *(v27 + 52) = *(v55 - 44), *(v27 + 48) = v28, 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 5) <= v22))
         {
           std::vector<int>::__throw_out_of_range[abi:ne200100]();
         }
 
         v29 = *a2 + 96 * v22;
-        v30 = *(v54 - 40);
-        *(v29 + 60) = *(v54 - 36);
+        v30 = *(v55 - 40);
+        *(v29 + 60) = *(v55 - 36);
         *(v29 + 56) = v30;
-        v31 = v54;
-        v32 = *(v54 - 24);
+        v31 = v55;
+        v32 = *(v55 - 24);
         if (v32)
         {
-          *(v54 - 16) = v32;
+          *(v55 - 16) = v32;
           operator delete(v32);
         }
 
-        v54 = v31 - 96;
-        log = ha_get_log();
-        if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
+        v55 = v31 - 96;
+        log = ha_get_log(v32);
+        v34 = os_log_type_enabled(log, OS_LOG_TYPE_DEBUG);
+        if (v34)
         {
           if (0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 5) <= v22)
           {
             std::vector<int>::__throw_out_of_range[abi:ne200100]();
           }
 
-          v34 = *a2 + 96 * v22;
-          v35 = -1.0;
+          v35 = *a2 + 96 * v22;
           v36 = -1.0;
-          if (*(v34 + 36) == 1)
+          v37 = -1.0;
+          if (*(v35 + 36) == 1)
           {
-            v36 = *(v34 + 32);
+            v37 = *(v35 + 32);
           }
 
-          if (*(v34 + 44) == 1)
+          if (*(v35 + 44) == 1)
           {
-            v35 = *(v34 + 40);
+            v36 = *(v35 + 40);
           }
 
           *buf = 134218240;
-          *&buf[4] = v36;
-          v57 = 2048;
-          v58 = v35;
+          *&buf[4] = v37;
+          v58 = 2048;
+          v59 = v36;
           _os_log_debug_impl(&dword_25C4D8000, log, OS_LOG_TYPE_DEBUG, "\t cycleLenMean: %6.4f, cycleLenVar: %6.4f, ", buf, 0x16u);
         }
 
         if (v15 != 1)
         {
-          v37 = ha_get_log();
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+          v38 = ha_get_log(v34);
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
           {
             if (0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 5) <= v22)
             {
               std::vector<int>::__throw_out_of_range[abi:ne200100]();
             }
 
-            v38 = *a2 + 96 * v22;
-            v39 = -1.0;
+            v39 = *a2 + 96 * v22;
             v40 = -1.0;
-            if (*(v38 + 52) == 1)
+            v41 = -1.0;
+            if (*(v39 + 52) == 1)
             {
-              v40 = *(v38 + 48);
+              v41 = *(v39 + 48);
             }
 
-            if (*(v38 + 60) == 1)
+            if (*(v39 + 60) == 1)
             {
-              v39 = *(v38 + 56);
+              v40 = *(v39 + 56);
             }
 
             *buf = 134218240;
-            *&buf[4] = v40;
-            v57 = 2048;
-            v58 = v39;
-            _os_log_debug_impl(&dword_25C4D8000, v37, OS_LOG_TYPE_DEBUG, "periodLenMean: %6.4f, periodLenVar: %6.4f},", buf, 0x16u);
+            *&buf[4] = v41;
+            v58 = 2048;
+            v59 = v40;
+            _os_log_debug_impl(&dword_25C4D8000, v38, OS_LOG_TYPE_DEBUG, "periodLenMean: %6.4f, periodLenVar: %6.4f},", buf, 0x16u);
           }
         }
 
-        if (v49)
+        if (v50)
         {
-          v50 = v49;
-          operator delete(v49);
+          v51 = v50;
+          operator delete(v50);
         }
 
-        v12 = v51;
-        if (v51)
+        v12 = v52;
+        if (v52)
         {
-          v52 = v51;
-          operator delete(v51);
+          v53 = v52;
+          operator delete(v52);
         }
       }
 
       while (v15-- > 1);
     }
 
-    v51 = &v53;
-    std::vector<Nightingale::cycleInfo>::__destroy_vector::operator()[abi:ne200100](&v51);
+    v52 = &v54;
+    std::vector<Nightingale::cycleInfo>::__destroy_vector::operator()[abi:ne200100](&v52);
   }
 }
 
@@ -8003,7 +8018,7 @@ void sub_25C64E4E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void Nightingale::uiLogProcessor::hist_process(uint64_t a1@<X1>, uint64_t *a2@<X2>, uint64_t a3@<X8>)
+void Nightingale::uiLogProcessor::hist_process(int **a1@<X1>, uint64_t *a2@<X2>, uint64_t a3@<X8>)
 {
   *(a3 + 28) = 0;
   *(a3 + 32) = 0;
@@ -8032,7 +8047,7 @@ void Nightingale::uiLogProcessor::hist_process(uint64_t a1@<X1>, uint64_t *a2@<X
   *(a3 + 8) = 0;
   *(a3 + 24) = 0;
   *(a3 + 16) = 0;
-  if (*a1 != *(a1 + 8))
+  if (*a1 != a1[1])
   {
     Nightingale::uiLogProcessor::process(a1, a2, __p);
     std::vector<Nightingale::cycleInfo>::__vdeallocate(a3);
@@ -8053,7 +8068,7 @@ void Nightingale::uiLogProcessor::hist_process(uint64_t a1@<X1>, uint64_t *a2@<X
     Nightingale::uiLogProcessor::addCycleEnd(v6, a3);
     Nightingale::uiLogProcessor::opk2Cycles(v7, a1, a3);
     v8 = *a1;
-    v9 = *(a1 + 8) - *a1;
+    v9 = a1[1] - *a1;
     if (v9)
     {
       v10 = 0xEEEEEEEEEEEEEEEFLL * (v9 >> 2);
@@ -8091,7 +8106,7 @@ LABEL_9:
 
 void Nightingale::uiLogProcessor::process(int **a1@<X1>, uint64_t *a2@<X2>, uint64_t a3@<X8>)
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v100 = *MEMORY[0x277D85DE8];
   *(a3 + 28) = 0;
   *(a3 + 32) = 0;
   *(a3 + 36) = 0;
@@ -8120,11 +8135,11 @@ void Nightingale::uiLogProcessor::process(int **a1@<X1>, uint64_t *a2@<X2>, uint
   *(a3 + 24) = 0;
   *(a3 + 16) = 0;
   __src = 0;
-  v87 = 0;
-  v88 = 0;
+  v96 = 0;
+  v97 = 0;
   __p = 0;
-  v84 = 0;
-  v85 = 0;
+  v93 = 0;
+  v94 = 0;
   v5 = *a1;
   v4 = a1[1];
   if (*a1 != v4)
@@ -8135,12 +8150,12 @@ void Nightingale::uiLogProcessor::process(int **a1@<X1>, uint64_t *a2@<X2>, uint
       v7 += 15;
       if (v7 == v4)
       {
-        v75 = *v5;
+        v84 = *v5;
         goto LABEL_7;
       }
     }
 
-    v75 = *v7;
+    v84 = *v7;
 LABEL_7:
     if (v5 != v4)
     {
@@ -8152,20 +8167,20 @@ LABEL_7:
         v11 = &v5[v8];
         if ((v5[v8 + 1] - 1) <= 3)
         {
-          v12 = v87;
-          if (v87 >= v88)
+          v12 = v96;
+          if (v96 >= v97)
           {
             v14 = __src;
-            v15 = v87 - __src;
-            v16 = (v87 - __src) >> 2;
+            v15 = v96 - __src;
+            v16 = (v96 - __src) >> 2;
             v17 = v16 + 1;
             if ((v16 + 1) >> 62)
             {
               std::vector<float>::__throw_length_error[abi:ne200100]();
             }
 
-            v18 = v88 - __src;
-            if ((v88 - __src) >> 1 > v17)
+            v18 = v97 - __src;
+            if ((v97 - __src) >> 1 > v17)
             {
               v17 = v18 >> 1;
             }
@@ -8187,14 +8202,14 @@ LABEL_7:
 
             v20 = (4 * v16);
             v21 = *v11;
-            v22 = &v20[-((v87 - __src) >> 2)];
+            v22 = &v20[-((v96 - __src) >> 2)];
             *v20 = v21;
             v13 = v20 + 1;
             memcpy(v22, v14, v15);
             v23 = __src;
             __src = v22;
-            v87 = v13;
-            v88 = 0;
+            v96 = v13;
+            v97 = 0;
             if (v23)
             {
               operator delete(v23);
@@ -8203,31 +8218,31 @@ LABEL_7:
 
           else
           {
-            *v87 = *v11;
+            *v96 = *v11;
             v13 = v12 + 1;
           }
 
-          v87 = v13;
+          v96 = v13;
           if (0xEEEEEEEEEEEEEEEFLL * (a1[1] - *a1) <= v10)
           {
             std::vector<int>::__throw_out_of_range[abi:ne200100]();
           }
 
           v24 = &(*a1)[v8];
-          v25 = v84;
-          if (v84 >= v85)
+          v25 = v93;
+          if (v93 >= v94)
           {
             v26 = __p;
-            v27 = v84 - __p;
-            v28 = (v84 - __p) >> 2;
+            v27 = v93 - __p;
+            v28 = (v93 - __p) >> 2;
             v29 = v28 + 1;
             if ((v28 + 1) >> 62)
             {
               std::vector<float>::__throw_length_error[abi:ne200100]();
             }
 
-            v30 = v85 - __p;
-            if ((v85 - __p) >> 1 > v29)
+            v30 = v94 - __p;
+            if ((v94 - __p) >> 1 > v29)
             {
               v29 = v30 >> 1;
             }
@@ -8249,14 +8264,14 @@ LABEL_7:
 
             v32 = (4 * v28);
             v33 = v24[1];
-            v34 = &v32[-((v84 - __p) >> 2)];
+            v34 = &v32[-((v93 - __p) >> 2)];
             *v32 = v33;
             v9 = v32 + 1;
             memcpy(v34, v26, v27);
             v35 = __p;
             __p = v34;
-            v84 = v9;
-            v85 = 0;
+            v93 = v9;
+            v94 = 0;
             if (v35)
             {
               operator delete(v35);
@@ -8265,11 +8280,11 @@ LABEL_7:
 
           else
           {
-            *v84 = v24[1];
+            *v93 = v24[1];
             v9 = v25 + 1;
           }
 
-          v84 = v9;
+          v93 = v9;
           v5 = *a1;
           v4 = a1[1];
         }
@@ -8279,7 +8294,7 @@ LABEL_7:
       }
 
       while (0xEEEEEEEEEEEEEEEFLL * (v4 - v5) > v10);
-      if (__src != v87)
+      if (__src != v96)
       {
         v36 = __p;
         if (__p == v9)
@@ -8287,16 +8302,18 @@ LABEL_7:
           goto LABEL_102;
         }
 
-        log = ha_get_log();
-        if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
+        log = ha_get_log(__p);
+        v38 = os_log_type_enabled(log, OS_LOG_TYPE_DEBUG);
+        if (v38)
         {
           Nightingale::uiLogProcessor::process();
         }
 
-        if (__src == v87)
+        if (__src == v96)
         {
-          v39 = ha_get_log();
-          if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+          v41 = ha_get_log(v38);
+          v40 = os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG);
+          if (v40)
           {
             Nightingale::uiLogProcessor::genCycleSlide();
           }
@@ -8304,43 +8321,46 @@ LABEL_7:
 
         else
         {
-          if (v87 - __src != 4)
+          if (v96 - __src != 4)
           {
-            v69 = 0;
+            v78 = 0;
             do
             {
-              v70 = ha_get_log();
-              if (os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG))
+              v79 = ha_get_log(v38);
+              v38 = os_log_type_enabled(v79, OS_LOG_TYPE_DEBUG);
+              if (v38)
               {
-                v71 = *(__src + v69);
+                v80 = *(__src + v78);
                 *buf = 67109120;
-                v90 = v71;
-                _os_log_debug_impl(&dword_25C4D8000, v70, OS_LOG_TYPE_DEBUG, "%d, ", buf, 8u);
+                v99 = v80;
+                _os_log_debug_impl(&dword_25C4D8000, v79, OS_LOG_TYPE_DEBUG, "%d, ", buf, 8u);
               }
 
-              ++v69;
+              ++v78;
             }
 
-            while (v69 < ((v87 - __src) >> 2) - 1);
+            while (v78 < ((v96 - __src) >> 2) - 1);
           }
 
-          v38 = ha_get_log();
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+          v39 = ha_get_log(v38);
+          v40 = os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG);
+          if (v40)
           {
             Nightingale::uiLogProcessor::process();
           }
         }
 
-        v40 = ha_get_log();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+        v42 = ha_get_log(v40);
+        v43 = os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG);
+        if (v43)
         {
           Nightingale::uiLogProcessor::process();
         }
 
-        if (__p == v84)
+        if (__p == v93)
         {
-          v42 = ha_get_log();
-          if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+          v45 = ha_get_log(v43);
+          if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
           {
             Nightingale::uiLogProcessor::genCycleSlide();
           }
@@ -8348,65 +8368,69 @@ LABEL_7:
 
         else
         {
-          if (v84 - __p != 4)
+          if (v93 - __p != 4)
           {
-            v72 = 0;
+            v81 = 0;
             do
             {
-              v73 = ha_get_log();
-              if (os_log_type_enabled(v73, OS_LOG_TYPE_DEBUG))
+              v82 = ha_get_log(v43);
+              v43 = os_log_type_enabled(v82, OS_LOG_TYPE_DEBUG);
+              if (v43)
               {
-                v74 = *(__p + v72);
+                v83 = *(__p + v81);
                 *buf = 67109120;
-                v90 = v74;
-                _os_log_debug_impl(&dword_25C4D8000, v73, OS_LOG_TYPE_DEBUG, "%d, ", buf, 8u);
+                v99 = v83;
+                _os_log_debug_impl(&dword_25C4D8000, v82, OS_LOG_TYPE_DEBUG, "%d, ", buf, 8u);
               }
 
-              ++v72;
+              ++v81;
             }
 
-            while (v72 < ((v84 - __p) >> 2) - 1);
+            while (v81 < ((v93 - __p) >> 2) - 1);
           }
 
-          v41 = ha_get_log();
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+          v44 = ha_get_log(v43);
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
           {
             Nightingale::uiLogProcessor::process();
           }
         }
 
-        v80 = 0;
-        v81 = 0;
-        v82 = 0;
-        std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v80, __src, v87, (v87 - __src) >> 2);
-        v77 = 0;
-        v78 = 0;
-        v79 = 0;
-        v43 = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v77, __p, v84, (v84 - __p) >> 2);
-        Nightingale::uiLogProcessor::extractPeriods(v43, &v80, &v77, v75, a2, a3);
-        if (v77)
+        v89 = 0;
+        v90 = 0;
+        v91 = 0;
+        std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v89, __src, v96, (v96 - __src) >> 2);
+        v86 = 0;
+        v87 = 0;
+        v88 = 0;
+        v46 = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v86, __p, v93, (v93 - __p) >> 2);
+        Nightingale::uiLogProcessor::extractPeriods(v46, &v89, &v86, v84, a2, a3);
+        if (v86)
         {
-          v78 = v77;
-          operator delete(v77);
+          v87 = v86;
+          operator delete(v86);
         }
 
-        if (v80)
+        v47 = v89;
+        if (v89)
         {
-          v81 = v80;
-          operator delete(v80);
+          v90 = v89;
+          operator delete(v89);
         }
 
-        v44 = ha_get_log();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
+        v48 = ha_get_log(v47);
+        v49 = os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG);
+        if (v49)
         {
           Nightingale::uiLogProcessor::process();
         }
 
-        v45 = *(a3 + 8);
-        if (*a3 == v45)
+        v50 = *(a3 + 8);
+        if (*a3 == v50)
         {
-          v51 = ha_get_log();
-          if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+          v57 = ha_get_log(v49);
+          v56 = os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG);
+          if (v56)
           {
             Nightingale::uiLogProcessor::genCycleSlide();
           }
@@ -8414,51 +8438,55 @@ LABEL_7:
 
         else
         {
-          if (v45 - *a3 != 96)
+          if (v50 - *a3 != 96)
           {
-            v46 = 0;
-            v47 = 0;
+            v51 = 0;
+            v52 = 0;
             do
             {
-              v48 = ha_get_log();
-              if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
+              v53 = ha_get_log(v49);
+              v49 = os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG);
+              if (v49)
               {
-                if (0xAAAAAAAAAAAAAAABLL * ((*(a3 + 8) - *a3) >> 5) <= v47)
+                if (0xAAAAAAAAAAAAAAABLL * ((*(a3 + 8) - *a3) >> 5) <= v52)
                 {
                   std::vector<int>::__throw_out_of_range[abi:ne200100]();
                 }
 
-                v49 = *(*a3 + v46);
+                v54 = *(*a3 + v51);
                 *buf = 67109120;
-                v90 = v49;
-                _os_log_debug_impl(&dword_25C4D8000, v48, OS_LOG_TYPE_DEBUG, "%d, ", buf, 8u);
+                v99 = v54;
+                _os_log_debug_impl(&dword_25C4D8000, v53, OS_LOG_TYPE_DEBUG, "%d, ", buf, 8u);
               }
 
-              ++v47;
-              v46 += 96;
+              ++v52;
+              v51 += 96;
             }
 
-            while (v47 < -1 - 0x5555555555555555 * ((*(a3 + 8) - *a3) >> 5));
+            while (v52 < -1 - 0x5555555555555555 * ((*(a3 + 8) - *a3) >> 5));
           }
 
-          v50 = ha_get_log();
-          if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
+          v55 = ha_get_log(v49);
+          v56 = os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG);
+          if (v56)
           {
             Nightingale::uiLogProcessor::process();
           }
         }
 
-        v52 = ha_get_log();
-        if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
+        v58 = ha_get_log(v56);
+        v59 = os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG);
+        if (v59)
         {
           Nightingale::uiLogProcessor::process();
         }
 
-        v53 = *(a3 + 8);
-        if (*a3 == v53)
+        v60 = *(a3 + 8);
+        if (*a3 == v60)
         {
-          v60 = ha_get_log();
-          if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
+          v68 = ha_get_log(v59);
+          v67 = os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG);
+          if (v67)
           {
             Nightingale::uiLogProcessor::genCycleSlide();
           }
@@ -8466,61 +8494,64 @@ LABEL_7:
 
         else
         {
-          if (v53 - *a3 != 96)
+          if (v60 - *a3 != 96)
           {
-            v54 = 0;
-            v55 = 0;
+            v61 = 0;
+            v62 = 0;
             do
             {
-              v56 = ha_get_log();
-              if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
+              v63 = ha_get_log(v59);
+              v59 = os_log_type_enabled(v63, OS_LOG_TYPE_DEBUG);
+              if (v59)
               {
-                if (0xAAAAAAAAAAAAAAABLL * ((*(a3 + 8) - *a3) >> 5) <= v55)
+                if (0xAAAAAAAAAAAAAAABLL * ((*(a3 + 8) - *a3) >> 5) <= v62)
                 {
                   std::vector<int>::__throw_out_of_range[abi:ne200100]();
                 }
 
-                v57 = *a3 + v54;
-                if (*(v57 + 8) == 1)
+                v64 = *a3 + v61;
+                if (*(v64 + 8) == 1)
                 {
-                  v58 = *(v57 + 4);
+                  v65 = *(v64 + 4);
                 }
 
                 else
                 {
-                  v58 = -1;
+                  v65 = -1;
                 }
 
                 *buf = 67109120;
-                v90 = v58;
-                _os_log_debug_impl(&dword_25C4D8000, v56, OS_LOG_TYPE_DEBUG, "%d, ", buf, 8u);
+                v99 = v65;
+                _os_log_debug_impl(&dword_25C4D8000, v63, OS_LOG_TYPE_DEBUG, "%d, ", buf, 8u);
               }
 
-              ++v55;
-              v54 += 96;
+              ++v62;
+              v61 += 96;
             }
 
-            while (v55 < -1 - 0x5555555555555555 * ((*(a3 + 8) - *a3) >> 5));
+            while (v62 < -1 - 0x5555555555555555 * ((*(a3 + 8) - *a3) >> 5));
           }
 
-          v59 = ha_get_log();
-          if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
+          v66 = ha_get_log(v59);
+          v67 = os_log_type_enabled(v66, OS_LOG_TYPE_DEBUG);
+          if (v67)
           {
             Nightingale::uiLogProcessor::process();
           }
         }
 
-        v61 = ha_get_log();
-        if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
+        v69 = ha_get_log(v67);
+        v70 = os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG);
+        if (v70)
         {
           Nightingale::uiLogProcessor::process();
         }
 
-        v62 = *(a3 + 8);
-        if (*a3 == v62)
+        v71 = *(a3 + 8);
+        if (*a3 == v71)
         {
-          v68 = ha_get_log();
-          if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
+          v77 = ha_get_log(v70);
+          if (os_log_type_enabled(v77, OS_LOG_TYPE_DEBUG))
           {
             Nightingale::uiLogProcessor::process();
           }
@@ -8528,35 +8559,36 @@ LABEL_7:
 
         else
         {
-          if (v62 - *a3 != 96)
+          if (v71 - *a3 != 96)
           {
-            v63 = 0;
-            v64 = 28;
+            v72 = 0;
+            v73 = 28;
             do
             {
-              v65 = ha_get_log();
-              if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
+              v74 = ha_get_log(v70);
+              v70 = os_log_type_enabled(v74, OS_LOG_TYPE_DEBUG);
+              if (v70)
               {
-                if (0xAAAAAAAAAAAAAAABLL * ((*(a3 + 8) - *a3) >> 5) <= v63)
+                if (0xAAAAAAAAAAAAAAABLL * ((*(a3 + 8) - *a3) >> 5) <= v72)
                 {
                   std::vector<int>::__throw_out_of_range[abi:ne200100]();
                 }
 
-                v66 = *(*a3 + v64);
+                v75 = *(*a3 + v73);
                 *buf = 67109120;
-                v90 = v66;
-                _os_log_debug_impl(&dword_25C4D8000, v65, OS_LOG_TYPE_DEBUG, "%d, ", buf, 8u);
+                v99 = v75;
+                _os_log_debug_impl(&dword_25C4D8000, v74, OS_LOG_TYPE_DEBUG, "%d, ", buf, 8u);
               }
 
-              ++v63;
-              v64 += 96;
+              ++v72;
+              v73 += 96;
             }
 
-            while (v63 < -1 - 0x5555555555555555 * ((*(a3 + 8) - *a3) >> 5));
+            while (v72 < -1 - 0x5555555555555555 * ((*(a3 + 8) - *a3) >> 5));
           }
 
-          v67 = ha_get_log();
-          if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
+          v76 = ha_get_log(v70);
+          if (os_log_type_enabled(v76, OS_LOG_TYPE_DEBUG))
           {
             Nightingale::uiLogProcessor::process();
           }
@@ -8569,13 +8601,13 @@ LABEL_7:
 LABEL_102:
   if (v36)
   {
-    v84 = v36;
+    v93 = v36;
     operator delete(v36);
   }
 
   if (__src)
   {
-    v87 = __src;
+    v96 = __src;
     operator delete(__src);
   }
 }
@@ -8672,7 +8704,7 @@ void sub_25C64F28C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void Nightingale::uiLogProcessor::extractCycles(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+void Nightingale::uiLogProcessor::extractCycles(float *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
   *(a5 + 28) = 0;
   *(a5 + 32) = 0;
@@ -8767,7 +8799,7 @@ void Nightingale::uiLogProcessor::getEnsembleInput(uint64_t a1@<X0>, uint64_t *a
   {
     ShouldBeInSlideCC = Nightingale::uiLogProcessor::getWhatShouldBeInSlideCC(a1, a2, a2, a2[15]);
     v21 = 0;
-    Nightingale::uiLogProcessor::genCycleSlide(a2, ShouldBeInSlideCC, a3, &v21, 1, &v19);
+    Nightingale::uiLogProcessor::genCycleSlide(ShouldBeInSlideCC, a2, ShouldBeInSlideCC, a3, &v21, 1, &v19);
     v13 = 0;
     v14 = 0;
     __p = 0;
@@ -8850,252 +8882,282 @@ void sub_25C64F680(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<float>::resize(void *a1, unint64_t a2)
+void std::vector<float>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 2;
+  v2 = (result[1] - *result) >> 2;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 4 * a2;
+      result[1] = *result + 4 * a2;
     }
   }
 
   else
   {
-    std::vector<float>::__append(a1, a2 - v2);
+    std::vector<float>::__append(result, a2 - v2);
   }
 }
 
-void Nightingale::uiLogProcessor::print_anUILog(uint64_t a1, uint64_t *a2)
+void Nightingale::uiLogProcessor::print_anUILog(uint64_t result, char **a2)
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   if (*a2 != a2[1])
   {
-    log = ha_get_log();
-    if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
+    log = ha_get_log(result);
+    v4 = os_log_type_enabled(log, OS_LOG_TYPE_DEBUG);
+    if (v4)
     {
       Nightingale::uiLogProcessor::print_anUILog();
     }
 
-    v4 = *a2;
-    v5 = a2[1];
-    if (*a2 != v5)
+    v5 = *a2;
+    v6 = a2[1];
+    if (*a2 != v6)
     {
-      v6 = 0;
+      v7 = 0;
       do
       {
-        v7 = ha_get_log();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+        v8 = ha_get_log(v4);
+        v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
+        if (v9)
         {
-          v24 = *v4;
-          v25 = *(v4 + 28);
+          v34 = *v5;
+          v35 = v5[28];
           *buf = 67109376;
-          v66 = v24;
-          v67 = 1024;
-          v68 = v25;
-          _os_log_debug_impl(&dword_25C4D8000, v7, OS_LOG_TYPE_DEBUG, "\t{jDayPeriodStart: %d, isDeterminant: %d", buf, 0xEu);
+          v92 = v34;
+          v93 = 1024;
+          v94 = v35;
+          _os_log_debug_impl(&dword_25C4D8000, v8, OS_LOG_TYPE_DEBUG, "\t{jDayPeriodStart: %d, isDeterminant: %d", buf, 0xEu);
         }
 
-        v8 = ha_get_log();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+        v10 = ha_get_log(v9);
+        v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
+        if (v11)
         {
-          Nightingale::uiLogProcessor::print_anUILog(&v63, v4, v64);
+          Nightingale::uiLogProcessor::print_anUILog(&v89, v5, v90);
         }
 
-        v9 = ha_get_log();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+        v12 = ha_get_log(v11);
+        v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG);
+        if (v13)
         {
-          Nightingale::uiLogProcessor::print_anUILog(&v61, v4, v62);
+          Nightingale::uiLogProcessor::print_anUILog(&v87, v5, v88);
         }
 
-        v10 = ha_get_log();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+        v14 = ha_get_log(v13);
+        v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG);
+        if (v15)
         {
-          Nightingale::uiLogProcessor::print_anUILog(&v59, v4, v60);
+          Nightingale::uiLogProcessor::print_anUILog(&v85, v5, v86);
         }
 
-        v11 = ha_get_log();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+        v16 = ha_get_log(v15);
+        v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG);
+        if (v17)
         {
-          Nightingale::uiLogProcessor::print_anUILog(&v57, v4, &v58, v11);
+          Nightingale::uiLogProcessor::print_anUILog(&v83, v5, &v84, v16);
         }
 
-        v12 = ha_get_log();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+        v18 = ha_get_log(v17);
+        v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG);
+        if (v19)
         {
-          Nightingale::uiLogProcessor::print_anUILog(&v55, v4, &v56, v12);
+          Nightingale::uiLogProcessor::print_anUILog(&v81, v5, &v82, v18);
         }
 
-        v13 = ha_get_log();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+        v20 = ha_get_log(v19);
+        v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG);
+        if (v21)
         {
-          Nightingale::uiLogProcessor::print_anUILog(&v53, v4, &v54, v13);
+          Nightingale::uiLogProcessor::print_anUILog(&v79, v5, &v80, v20);
         }
 
-        v14 = ha_get_log();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+        v22 = ha_get_log(v21);
+        v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG);
+        if (v23)
         {
-          Nightingale::uiLogProcessor::print_anUILog(&v51, v4, &v52, v14);
+          Nightingale::uiLogProcessor::print_anUILog(&v77, v5, &v78, v22);
         }
 
-        v15 = ha_get_log();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+        v24 = ha_get_log(v23);
+        v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG);
+        if (v25)
         {
-          Nightingale::uiLogProcessor::print_anUILog(&v49, v50);
+          Nightingale::uiLogProcessor::print_anUILog(&v75, v76);
         }
 
-        v16 = *(v4 + 72);
-        v17 = *(v4 + 80);
-        if (v16 != v17)
+        v26 = *(v5 + 9);
+        v27 = *(v5 + 10);
+        if (v26 != v27)
         {
-          v18 = 0;
+          v28 = 0;
           do
           {
-            v19 = ha_get_log();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+            v29 = ha_get_log(v25);
+            v25 = os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG);
+            if (v25)
             {
-              v21 = *(v16 + v18);
+              v31 = *(v26 + v28);
               *buf = 67109120;
-              v66 = v21;
-              _os_log_debug_impl(&dword_25C4D8000, v19, OS_LOG_TYPE_DEBUG, "%d ", buf, 8u);
+              v92 = v31;
+              _os_log_debug_impl(&dword_25C4D8000, v29, OS_LOG_TYPE_DEBUG, "%d ", buf, 8u);
             }
 
-            if (~*(v4 + 72) + *(v4 + 80) > v18)
+            if (~*(v5 + 9) + *(v5 + 10) > v28)
             {
-              v20 = ha_get_log();
-              if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+              v30 = ha_get_log(v25);
+              v25 = os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG);
+              if (v25)
               {
-                Nightingale::uiLogProcessor::print_anUILog(&v47, v48);
+                Nightingale::uiLogProcessor::print_anUILog(&v73, v74);
               }
             }
 
-            ++v18;
+            ++v28;
           }
 
-          while (v16 + v18 != v17);
+          while (v26 + v28 != v27);
         }
 
-        v22 = ha_get_log();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+        v32 = ha_get_log(v25);
+        v4 = os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG);
+        if (v4)
         {
-          Nightingale::uiLogProcessor::print_anUILog(&v45, v46);
+          Nightingale::uiLogProcessor::print_anUILog(&v71, v72);
         }
 
-        if (-1 - 0x5555555555555555 * ((a2[1] - *a2) >> 5) > v6)
+        if (-1 - 0x5555555555555555 * ((a2[1] - *a2) >> 5) > v7)
         {
-          v23 = ha_get_log();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+          v33 = ha_get_log(v4);
+          v4 = os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG);
+          if (v4)
           {
-            Nightingale::uiLogProcessor::print_anUILog(&v43, v44);
+            Nightingale::uiLogProcessor::print_anUILog(&v69, v70);
           }
         }
 
-        ++v6;
-        v4 += 96;
+        ++v7;
+        v5 += 96;
       }
 
-      while (v4 != v5);
+      while (v5 != v6);
     }
 
-    v26 = ha_get_log();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+    v36 = ha_get_log(v4);
+    v37 = os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG);
+    if (v37)
     {
       Nightingale::uiLogProcessor::print_anUILog();
     }
 
-    v27 = ha_get_log();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+    v38 = ha_get_log(v37);
+    v39 = os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG);
+    if (v39)
     {
       Nightingale::uiLogProcessor::print_anUILog();
     }
 
-    v28 = ha_get_log();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+    v40 = ha_get_log(v39);
+    v41 = os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG);
+    if (v41)
     {
       Nightingale::uiLogProcessor::print_anUILog();
     }
 
-    v29 = ha_get_log();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+    v42 = ha_get_log(v41);
+    v43 = os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG);
+    if (v43)
     {
       Nightingale::uiLogProcessor::print_anUILog();
     }
 
-    v30 = ha_get_log();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+    v44 = ha_get_log(v43);
+    v45 = os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG);
+    if (v45)
     {
       Nightingale::uiLogProcessor::print_anUILog();
     }
 
-    v31 = ha_get_log();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+    v46 = ha_get_log(v45);
+    v47 = os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG);
+    if (v47)
     {
       Nightingale::uiLogProcessor::print_anUILog();
     }
 
-    v32 = ha_get_log();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+    v48 = ha_get_log(v47);
+    v49 = os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG);
+    if (v49)
     {
       Nightingale::uiLogProcessor::print_anUILog();
     }
 
-    v33 = ha_get_log();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+    v50 = ha_get_log(v49);
+    v51 = os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG);
+    if (v51)
     {
       Nightingale::uiLogProcessor::print_anUILog();
     }
 
-    v34 = ha_get_log();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+    v52 = ha_get_log(v51);
+    v53 = os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG);
+    if (v53)
     {
       Nightingale::uiLogProcessor::print_anUILog();
     }
 
-    v35 = ha_get_log();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+    v54 = ha_get_log(v53);
+    v55 = os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG);
+    if (v55)
     {
       Nightingale::uiLogProcessor::print_anUILog();
     }
 
-    v36 = ha_get_log();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+    v56 = ha_get_log(v55);
+    v57 = os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG);
+    if (v57)
     {
       Nightingale::uiLogProcessor::print_anUILog();
     }
 
-    v37 = ha_get_log();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+    v58 = ha_get_log(v57);
+    v59 = os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG);
+    if (v59)
     {
       Nightingale::uiLogProcessor::print_anUILog();
     }
 
-    v38 = ha_get_log();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+    v60 = ha_get_log(v59);
+    v61 = os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG);
+    if (v61)
     {
       Nightingale::uiLogProcessor::print_anUILog();
     }
 
-    v39 = ha_get_log();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+    v62 = ha_get_log(v61);
+    v63 = os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG);
+    if (v63)
     {
       Nightingale::uiLogProcessor::print_anUILog();
     }
 
-    v40 = ha_get_log();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+    v64 = ha_get_log(v63);
+    v65 = os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG);
+    if (v65)
     {
       Nightingale::uiLogProcessor::print_anUILog();
     }
 
-    v41 = ha_get_log();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+    v66 = ha_get_log(v65);
+    v67 = os_log_type_enabled(v66, OS_LOG_TYPE_DEBUG);
+    if (v67)
     {
       Nightingale::uiLogProcessor::print_anUILog();
     }
 
-    v42 = ha_get_log();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+    v68 = ha_get_log(v67);
+    if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
     {
       Nightingale::uiLogProcessor::print_anUILog();
     }
@@ -9136,7 +9198,7 @@ uint64_t Nightingale::PhaseSet::contains(void *a1, unsigned int a2)
 
 void Nightingale::PhaseSet::phasesOnInPhaseSet2Vec(void *a1, uint64_t a2)
 {
-  *&v22[7] = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v20 = 0x706050403020100;
   v21 = 8;
   v18 = 0;
@@ -9249,20 +9311,20 @@ __n128 Nightingale::uiProcessForLstm::uiProcessForLstm(uint64_t a1, uint64_t a2,
   return result;
 }
 
-void Nightingale::uiProcessForLstm::prepareUiLogForDL(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void Nightingale::uiProcessForLstm::prepareUiLogForDL(uint64_t **result, uint64_t a2, float **a3, uint64_t a4, uint64_t a5)
 {
   if (*(a2 + 4) == 1 && *(a2 + 12) == 1 && *(a2 + 20) == 1)
   {
-    *(a1 + 56) = *(a2 + 16);
-    *(a1 + 48) = *a2;
-    *(a1 + 52) = *(a2 + 8);
-    Nightingale::uiProcessForLstm::prepareDLSliceFlow(a1, a2, a3);
+    *(result + 14) = *(a2 + 16);
+    *(result + 12) = *a2;
+    *(result + 13) = *(a2 + 8);
+    Nightingale::uiProcessForLstm::prepareDLSliceFlow(result, a2, a3);
 
-    Nightingale::uiProcessForLstm::prepareDLSliceCycleMeanStd(a1, v9, a4, a5);
+    Nightingale::uiProcessForLstm::prepareDLSliceCycleMeanStd(result, v10, v11, v9, a4, a5);
   }
 }
 
-void Nightingale::uiProcessForLstm::prepareDLSliceFlow(uint64_t **a1, uint64_t a2, uint64_t a3)
+void Nightingale::uiProcessForLstm::prepareDLSliceFlow(uint64_t **a1, uint64_t a2, float **a3)
 {
   v4 = a1[2];
   if (*(v4 + 12))
@@ -9409,7 +9471,7 @@ void Nightingale::uiProcessForLstm::prepareDLSliceFlow(uint64_t **a1, uint64_t a
 
           if ((*(v37 + 60 * v36 + 4) - 5) <= 0xFFFFFFFB)
           {
-            *(*(v27 + 8) - 4) = 0x40000000;
+            *(v27[1] - 1) = 2.0;
           }
 
           v38 = v33 - (v34 + 4);
@@ -9429,14 +9491,14 @@ void Nightingale::uiProcessForLstm::prepareDLSliceFlow(uint64_t **a1, uint64_t a
     }
 
     v39 = *v27;
-    v40 = *(v27 + 8);
+    v40 = v27[1];
     if (*v27 != v40)
     {
       v41 = *(a1 + 7);
       if (v41 != 0.0)
       {
         v42 = *(a1 + 6);
-        v43 = (v40 - v39) >> 2;
+        v43 = v40 - v39;
         if (v43 <= 1)
         {
           v43 = 1;
@@ -9471,71 +9533,71 @@ void sub_25C6503C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void Nightingale::uiProcessForLstm::prepareDLSliceCycleMeanStd(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void Nightingale::uiProcessForLstm::prepareDLSliceCycleMeanStd(uint64_t result, __n128 a2, __n128 a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v4 = **(a1 + 8);
-  v5 = 0xAAAAAAAAAAAAAAABLL * ((*(*(a1 + 8) + 8) - v4) >> 5);
-  if (v5 >= 2)
+  v6 = **(result + 8);
+  v7 = 0xAAAAAAAAAAAAAAABLL * ((*(*(result + 8) + 8) - v6) >> 5);
+  if (v7 >= 2)
   {
-    v9 = v5 - 1;
-    v10 = v5 & 0x7FFFFFFF;
-    v11 = (96 * v10) | 0x18;
-    v12 = 0xAAAAAAAAAAAAAAABLL * ((*(*(a1 + 8) + 8) - v4) >> 5);
+    v11 = v7 - 1;
+    v12 = v7 & 0x7FFFFFFF;
+    v13 = (96 * v12) | 0x18;
+    v14 = 0xAAAAAAAAAAAAAAABLL * ((*(*(result + 8) + 8) - v6) >> 5);
     while (1)
     {
-      v13 = (v12 - 1);
-      if (v5 <= v13)
+      v15 = (v14 - 1);
+      if (v7 <= v15)
       {
         goto LABEL_35;
       }
 
-      v14 = v4 + 96 * v13;
-      v15 = *(a1 + 48);
-      if (v15 >= *v14)
+      v16 = v6 + 96 * v15;
+      v17 = *(result + 48);
+      if (v17 >= *v16)
       {
         break;
       }
 
-      --v10;
-      v11 -= 96;
-      LODWORD(v12) = v12 - 1;
-      if (v13 <= 0)
+      --v12;
+      v13 -= 96;
+      LODWORD(v14) = v14 - 1;
+      if (v15 <= 0)
       {
         return;
       }
     }
 
-    if (*(v14 + 36) == 1 && *(v14 + 44) == 1)
+    if (*(v16 + 36) == 1 && *(v16 + 44) == 1)
     {
-      v16 = roundf(*(v14 + 32)) - (v15 - *v14);
-      v17 = sqrtf(*(v14 + 40));
-      v18 = *(a1 + 52);
-      if (*(v14 + 24) == 1 && v18 >= *(v14 + 20))
+      v18 = roundf(*(v16 + 32)) - (v17 - *v16);
+      v19 = sqrtf(*(v16 + 40));
+      v20 = *(result + 52);
+      if (*(v16 + 24) == 1 && v20 >= *(v16 + 20))
       {
-        v18 = *(v14 + 20);
+        v20 = *(v16 + 20);
       }
 
-      Nightingale::uiProcessForLstm::fillUpMeanStdVec(v16, v17, a1, v15, v18, a3, a4);
-      if (v12 < v9)
+      Nightingale::uiProcessForLstm::fillUpMeanStdVec(v18, v19, result, v17, v20, a5, a6);
+      if (v14 < v11)
       {
-        v20 = 0;
+        v22 = 0;
         while (1)
         {
-          v21 = **(a1 + 8);
-          if (0xAAAAAAAAAAAAAAABLL * ((*(*(a1 + 8) + 8) - v21) >> 5) <= v10 + v20)
+          v23 = **(result + 8);
+          if (0xAAAAAAAAAAAAAAABLL * ((*(*(result + 8) + 8) - v23) >> 5) <= v12 + v22)
           {
             break;
           }
 
-          v22 = v21 + v11;
-          if (*(v21 + v11 + 12) == 1 && *(v22 + 20) == 1 && *(v21 + v11) == 1)
+          v24 = v23 + v13;
+          if (*(v23 + v13 + 12) == 1 && *(v24 + 20) == 1 && *(v23 + v13) == 1)
           {
-            Nightingale::uiProcessForLstm::fillUpMeanStdVec(roundf(*(v22 + 8)), sqrtf(*(v22 + 16)), v19, *(v22 - 24), *(v21 + v11 - 4), a3, a4);
+            Nightingale::uiProcessForLstm::fillUpMeanStdVec(roundf(*(v24 + 8)), sqrtf(*(v24 + 16)), v21, *(v24 - 24), *(v23 + v13 - 4), a5, a6);
           }
 
-          v23 = v10 + v20++;
-          v11 += 96;
-          if (v9 <= v23 + 1)
+          v25 = v12 + v22++;
+          v13 += 96;
+          if (v11 <= v25 + 1)
           {
             goto LABEL_20;
           }
@@ -9546,60 +9608,60 @@ LABEL_35:
       }
 
 LABEL_20:
-      v24 = *(*(a1 + 8) + 8);
-      v25 = *(v24 - 96);
-      if (*(a1 + 48) < v25 && *(v24 - 60) == 1 && *(v24 - 52) == 1)
+      v26 = *(*(result + 8) + 8);
+      v27 = *(v26 - 96);
+      if (*(result + 48) < v27 && *(v26 - 60) == 1 && *(v26 - 52) == 1)
       {
-        Nightingale::uiProcessForLstm::fillUpMeanStdVec(roundf(*(v24 - 64)), sqrtf(*(v24 - 56)), v19, v25, *(a1 + 52), a3, a4);
+        Nightingale::uiProcessForLstm::fillUpMeanStdVec(roundf(*(v26 - 64)), sqrtf(*(v26 - 56)), v21, v27, *(result + 52), a5, a6);
       }
 
-      v26 = *a3;
-      v27 = *(a3 + 8);
-      if (*a3 != v27)
+      v28 = *a5;
+      v29 = *(a5 + 8);
+      if (*a5 != v29)
       {
-        v28 = *(a1 + 36);
-        if (v28 != 0.0)
+        v30 = *(result + 36);
+        if (v30 != 0.0)
         {
-          v29 = *(a1 + 32);
-          v30 = (v27 - v26) >> 2;
-          if (v30 <= 1)
+          v31 = *(result + 32);
+          v32 = (v29 - v28) >> 2;
+          if (v32 <= 1)
           {
-            v30 = 1;
+            v32 = 1;
           }
 
           do
           {
-            *v26 = (*v26 - v29) / v28;
-            ++v26;
-            --v30;
+            *v28 = (*v28 - v31) / v30;
+            ++v28;
+            --v32;
           }
 
-          while (v30);
+          while (v32);
         }
       }
 
-      v31 = *a4;
-      v32 = *(a4 + 8);
-      if (*a4 != v32)
+      v33 = *a6;
+      v34 = *(a6 + 8);
+      if (*a6 != v34)
       {
-        v33 = *(a1 + 44);
-        if (v33 != 0.0)
+        v35 = *(result + 44);
+        if (v35 != 0.0)
         {
-          v34 = *(a1 + 40);
-          v35 = (v32 - v31) >> 2;
-          if (v35 <= 1)
+          v36 = *(result + 40);
+          v37 = (v34 - v33) >> 2;
+          if (v37 <= 1)
           {
-            v35 = 1;
+            v37 = 1;
           }
 
           do
           {
-            *v31 = (*v31 - v34) / v33;
-            ++v31;
-            --v35;
+            *v33 = (*v33 - v36) / v35;
+            ++v33;
+            --v37;
           }
 
-          while (v35);
+          while (v37);
         }
       }
     }
@@ -9625,7 +9687,7 @@ void Nightingale::uiProcessForLstm::fillUpMeanStdVec(float a1, float a2, uint64_
   }
 }
 
-char *std::vector<std::pair<int,int>>::__assign_with_size[abi:ne200100]<std::pair<int,int>*,std::pair<int,int>*>(char **a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
+char *std::vector<std::pair<int,int>>::__assign_with_size[abi:ne200100]<std::pair<int,int>*,std::pair<int,int>*>(uint64_t *a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -9719,21 +9781,4 @@ char *std::vector<std::pair<int,int>>::__assign_with_size[abi:ne200100]<std::pai
   }
 
   return result;
-}
-
-uint64_t std::vector<Nightingale::cycleInfo>::__init_with_size[abi:ne200100]<Nightingale::cycleInfo*,Nightingale::cycleInfo*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
-{
-  if (a4)
-  {
-    std::vector<Nightingale::cycleInfo>::__vallocate[abi:ne200100](result, a4);
-  }
-
-  return result;
-}
-
-void sub_25C650888(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
-{
-  *(v9 + 8) = v10;
-  std::vector<Nightingale::cycleInfo>::__destroy_vector::operator()[abi:ne200100](&a9);
-  _Unwind_Resume(a1);
 }

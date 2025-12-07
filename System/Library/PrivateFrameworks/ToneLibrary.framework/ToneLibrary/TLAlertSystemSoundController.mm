@@ -1,5 +1,6 @@
 @interface TLAlertSystemSoundController
 + (id)_descriptionForAlertComponentsSuppressionFlags:(unsigned int)flags;
++ (id)_optionsForSystemSoundAlert:(id)alert withSound:(id)sound vibrationIdentifier:(id)identifier isDeemphasized:(BOOL)deemphasized;
 + (id)_soundForAlert:(id)alert toneIdentifierForDeemphasizingAlert:(id)deemphasizingAlert;
 + (id)_toneIdentifierForDeemphasizingAlert:(id)alert;
 + (id)_vibrationIdentifierForDeemphasizingAlert:(id)alert correspondingToneIdentifierForDeemphasizingAlert:(id)deemphasizingAlert;
@@ -54,7 +55,7 @@
 
 - (void)dealloc
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   os_unfair_lock_assert_not_owner(&self->_lock);
   v3 = self->_audioQueue;
   audioQueue = self->_audioQueue;
@@ -62,27 +63,27 @@
 
   [(TLAudioQueue *)v3 assertNotRunningOnAudioQueue];
   os_unfair_lock_lock(&self->_lock);
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v5 = self->_alertSystemSoundContexts;
-  v6 = [(NSMapTable *)v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [(NSMapTable *)v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * i);
+        v11 = *(*(&v18 + 1) + 8 * i);
         if (!v8)
         {
           v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -91,7 +92,7 @@
         [v8 addObject:v11];
       }
 
-      v7 = [(NSMapTable *)v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [(NSMapTable *)v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
@@ -113,26 +114,25 @@
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __39__TLAlertSystemSoundController_dealloc__block_invoke;
-  v16[3] = &unk_1E8578900;
-  v17 = v12;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __39__TLAlertSystemSoundController_dealloc__block_invoke;
+  v15[3] = &unk_1E8578900;
+  v16 = v12;
   selfCopy = self;
   v13 = v12;
-  [(TLAudioQueue *)v3 performSynchronousTaskWithBlock:v16];
+  [(TLAudioQueue *)v3 performSynchronousTaskWithBlock:v15];
 
-  v15.receiver = self;
-  v15.super_class = TLAlertSystemSoundController;
-  [(TLAlertSystemSoundController *)&v15 dealloc];
-  v14 = *MEMORY[0x1E69E9840];
+  v14.receiver = self;
+  v14.super_class = TLAlertSystemSoundController;
+  [(TLAlertSystemSoundController *)&v14 dealloc];
 }
 
-uint64_t __39__TLAlertSystemSoundController_dealloc__block_invoke(uint64_t result)
+id *__39__TLAlertSystemSoundController_dealloc__block_invoke(id *result)
 {
-  if (*(result + 32))
+  if (result[4])
   {
-    return [*(result + 40) _processStopTasksDescriptor:?];
+    return [result[5] _processStopTasksDescriptor:?];
   }
 
   return result;
@@ -192,7 +192,7 @@ uint64_t __39__TLAlertSystemSoundController_dealloc__block_invoke(uint64_t resul
 {
   var1 = deferralContext.var1;
   var0 = deferralContext.var0;
-  v39 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   alertCopy = alert;
   contextCopy = context;
   forDeemphasizingAlertCopy = forDeemphasizingAlert;
@@ -225,39 +225,40 @@ uint64_t __39__TLAlertSystemSoundController_dealloc__block_invoke(uint64_t resul
 
   v22 = vibrationIdentifier;
   isValid = [v20 isValid];
-  v24 = TLLogPlayback();
-  v25 = v24;
-  if (!isValid)
+  v24 = isValid;
+  v26 = TLLogPlayback(isValid, v25);
+  v27 = v26;
+  if (!v24)
   {
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543874;
       selfCopy3 = self;
-      v35 = 2114;
-      v36 = alertCopy;
-      v37 = 2114;
-      v38 = v20;
-      _os_log_error_impl(&dword_1D9356000, v25, OS_LOG_TYPE_ERROR, "%{public}@: _playAlert:(%{public}@) […]. Failed to begin playback with invalid sound: %{public}@.", buf, 0x20u);
+      v38 = 2114;
+      v39 = alertCopy;
+      v40 = 2114;
+      v41 = v20;
+      _os_log_error_impl(&dword_1D9356000, v27, OS_LOG_TYPE_ERROR, "%{public}@: _playAlert:(%{public}@) […]. Failed to begin playback with invalid sound: %{public}@.", buf, 0x20u);
     }
 
     os_unfair_lock_lock(&self->_lock);
-    v27 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    [(TLAlertSystemSoundController *)self _removeAlert:alertCopy alertSystemSoundContext:contextCopy didFailToPrepareSound:1 appendingPlaybackCompletionContextToArray:v27];
+    v31 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    [(TLAlertSystemSoundController *)self _removeAlert:alertCopy alertSystemSoundContext:contextCopy didFailToPrepareSound:1 appendingPlaybackCompletionContextToArray:v31];
     [contextCopy setLoadingSound:0];
-    v29 = 0;
-    v28 = 0;
+    v33 = 0;
+    v32 = 0;
     goto LABEL_20;
   }
 
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543874;
     selfCopy3 = self;
-    v35 = 2114;
-    v36 = alertCopy;
-    v37 = 2114;
-    v38 = v20;
-    _os_log_impl(&dword_1D9356000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@: _playAlert:(%{public}@) […]. Sound: %{public}@.", buf, 0x20u);
+    v38 = 2114;
+    v39 = alertCopy;
+    v40 = 2114;
+    v41 = v20;
+    _os_log_impl(&dword_1D9356000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@: _playAlert:(%{public}@) […]. Sound: %{public}@.", buf, 0x20u);
   }
 
   os_unfair_lock_lock(&self->_lock);
@@ -272,9 +273,9 @@ uint64_t __39__TLAlertSystemSoundController_dealloc__block_invoke(uint64_t resul
       [(TLAlertSystemSoundController *)self _beginRequiringBacklightObservationForAlert:alertCopy alertSystemSoundContext:contextCopy];
     }
 
-    v29 = [(TLAlertSystemSoundController *)self _prepareForPreemptingAlertsBeforeBeginningPlaybackOfAlert:alertCopy withSound:v20 playbackCompletionType:4];
-    v28 = [(TLAlertSystemSoundController *)self _playTaskDescriptorForAlert:alertCopy withSound:v20 vibrationIdentifier:v22 alertSystemSoundContext:contextCopy];
-    v27 = 0;
+    v33 = [(TLAlertSystemSoundController *)self _prepareForPreemptingAlertsBeforeBeginningPlaybackOfAlert:alertCopy withSound:v20 playbackCompletionType:4];
+    v32 = [(TLAlertSystemSoundController *)self _playTaskDescriptorForAlert:alertCopy withSound:v20 vibrationIdentifier:v22 alertSystemSoundContext:contextCopy];
+    v31 = 0;
 LABEL_20:
     os_unfair_lock_unlock(&self->_lock);
     goto LABEL_21;
@@ -282,43 +283,41 @@ LABEL_20:
 
   [contextCopy setLoadingSound:0];
   os_unfair_lock_unlock(&self->_lock);
-  v26 = TLLogPlayback();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  v30 = TLLogPlayback(v28, v29);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy3 = self;
-    v35 = 2114;
-    v36 = alertCopy;
-    _os_log_impl(&dword_1D9356000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@: _playAlert:(%{public}@) […]. Aborting playback because this alert is already being interrupted.", buf, 0x16u);
+    v38 = 2114;
+    v39 = alertCopy;
+    _os_log_impl(&dword_1D9356000, v30, OS_LOG_TYPE_DEFAULT, "%{public}@: _playAlert:(%{public}@) […]. Aborting playback because this alert is already being interrupted.", buf, 0x16u);
   }
 
-  v27 = 0;
-  v28 = 0;
-  v29 = 0;
+  v31 = 0;
+  v32 = 0;
+  v33 = 0;
 LABEL_21:
-  if ([v27 count])
+  if ([v31 count])
   {
-    [(TLAlertSystemSoundController *)self _processPlaybackCompletionContexts:v27];
+    [(TLAlertSystemSoundController *)self _processPlaybackCompletionContexts:v31];
   }
 
-  if (v29)
+  if (v33)
   {
-    [(TLAlertSystemSoundController *)self _processStopTasksDescriptor:v29];
+    [(TLAlertSystemSoundController *)self _processStopTasksDescriptor:v33];
   }
 
-  if (v28)
+  if (v32)
   {
-    v32 = v28;
-    v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v32 count:1];
-    [(TLAlertSystemSoundController *)self _processPlayTaskDescriptors:v30];
+    v35 = v32;
+    v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
+    [(TLAlertSystemSoundController *)self _processPlayTaskDescriptors:v34];
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - ($61DF9F24A7329A1BB61181F7D05C320D)_considerDeferringPlayingAlertForBacklightStatusResolution:(id)resolution alertSystemSoundContext:(id)context
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   resolutionCopy = resolution;
   contextCopy = context;
   os_unfair_lock_assert_owner(&self->_lock);
@@ -326,39 +325,38 @@ LABEL_21:
   toneIdentifierForDeemphasizingAlert = [contextCopy toneIdentifierForDeemphasizingAlert];
   v10 = [toneIdentifierForDeemphasizingAlert length];
 
-  v11 = 0;
+  v13 = 0;
   if (v10 && backlightStatus == -1)
   {
-    v12 = TLLogPlayback();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = TLLogPlayback(v11, v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138543618;
+      v18 = 138543618;
       selfCopy = self;
-      v19 = 2114;
-      v20 = resolutionCopy;
-      _os_log_impl(&dword_1D9356000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: _considerDeferringPlayingAlertForBacklightStatusResolution:(%{public}@) […]. Deemphasizing this alert is allowed but the backlight status is unknown. Deferring until the backlight status is known.", &v17, 0x16u);
+      v20 = 2114;
+      v21 = resolutionCopy;
+      _os_log_impl(&dword_1D9356000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: _considerDeferringPlayingAlertForBacklightStatusResolution:(%{public}@) […]. Deemphasizing this alert is allowed but the backlight status is unknown. Deferring until the backlight status is known.", &v18, 0x16u);
     }
 
     [(TLAlertSystemSoundController *)self _beginRequiringBacklightObservationForAlert:resolutionCopy alertSystemSoundContext:contextCopy];
-    v11 = 256;
+    v13 = 256;
   }
 
   if (v10)
   {
-    v13 = v11 + 1;
+    v15 = v13 + 1;
   }
 
   else
   {
-    v13 = v11;
+    v15 = v13;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-  v15 = backlightStatus;
-  v16 = v13;
-  result.var1 = v16;
-  result.var2 = BYTE1(v16);
-  result.var0 = v15;
+  v16 = backlightStatus;
+  v17 = v15;
+  result.var1 = v17;
+  result.var2 = BYTE1(v17);
+  result.var0 = v16;
   return result;
 }
 
@@ -398,34 +396,34 @@ LABEL_21:
 
 - (void)_processPlayTaskDescriptors:(id)descriptors
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   descriptorsCopy = descriptors;
   os_unfair_lock_assert_not_owner(&self->_lock);
   selfCopy = self;
   [(TLAudioQueue *)self->_audioQueue assertRunningOnAudioQueue];
-  v65 = 0u;
   v66 = 0u;
-  v63 = 0u;
+  v67 = 0u;
   v64 = 0u;
+  v65 = 0u;
   obj = descriptorsCopy;
-  v5 = [obj countByEnumeratingWithState:&v63 objects:v75 count:16];
+  v5 = [obj countByEnumeratingWithState:&v64 objects:v76 count:16];
   if (v5)
   {
     v7 = v5;
-    v47 = 0;
-    v44 = *v64;
+    v48 = 0;
+    v45 = *v65;
     *&v6 = 138543874;
-    v42 = v6;
+    v43 = v6;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v64 != v44)
+        if (*v65 != v45)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v63 + 1) + 8 * i);
+        v9 = *(*(&v64 + 1) + 8 * i);
         alert = [v9 alert];
         sound = [v9 sound];
         vibrationIdentifier = [v9 vibrationIdentifier];
@@ -434,42 +432,42 @@ LABEL_21:
         alertSystemSoundContext = [v9 alertSystemSoundContext];
         if (alertSystemSoundContext)
         {
-          v15 = v47;
-          if (!v47)
+          v15 = v48;
+          if (!v48)
           {
             v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
           }
 
-          v47 = v15;
+          v48 = v15;
           [v15 addObject:v9];
         }
 
         soundID = [sound soundID];
         v17 = [objc_opt_class() _optionsForSystemSoundAlert:alert withSound:sound vibrationIdentifier:vibrationIdentifier isDeemphasized:isDeemphasized];
-        v18 = TLLogPlayback();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v19 = TLLogPlayback(v17, v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v42;
+          *buf = v43;
           selfCopy2 = self;
-          v71 = 2114;
-          v72 = alert;
-          v73 = 2048;
-          v74 = soundID;
-          _os_log_impl(&dword_1D9356000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@: _processPlayTaskDescriptors:(%{public}@). Calling AudioServicesPlaySystemSoundWithOptions for soundID: %lu.", buf, 0x20u);
+          v72 = 2114;
+          v73 = alert;
+          v74 = 2048;
+          v75 = soundID;
+          _os_log_impl(&dword_1D9356000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@: _processPlayTaskDescriptors:(%{public}@). Calling AudioServicesPlaySystemSoundWithOptions for soundID: %lu.", buf, 0x20u);
         }
 
-        v56 = MEMORY[0x1E69E9820];
-        v57 = 3221225472;
-        v58 = __60__TLAlertSystemSoundController__processPlayTaskDescriptors___block_invoke;
-        v59 = &unk_1E8579738;
+        v57 = MEMORY[0x1E69E9820];
+        v58 = 3221225472;
+        v59 = __60__TLAlertSystemSoundController__processPlayTaskDescriptors___block_invoke;
+        v60 = &unk_1E8579738;
         selfCopy3 = self;
-        v61 = alert;
-        v62 = soundID;
-        v19 = alert;
+        v62 = alert;
+        v63 = soundID;
+        v20 = alert;
         AudioServicesPlaySystemSoundWithOptions();
       }
 
-      v7 = [obj countByEnumeratingWithState:&v63 objects:v75 count:16];
+      v7 = [obj countByEnumeratingWithState:&v64 objects:v76 count:16];
     }
 
     while (v7);
@@ -477,48 +475,48 @@ LABEL_21:
 
   else
   {
-    v47 = 0;
+    v48 = 0;
   }
 
-  v20 = v47;
-  if ([v47 count])
+  v21 = v48;
+  if ([v48 count])
   {
     os_unfair_lock_lock(&self->_lock);
+    v56 = 0u;
+    v54 = 0u;
     v55 = 0u;
     v53 = 0u;
-    v54 = 0u;
-    v52 = 0u;
-    v21 = v47;
-    v22 = [v21 countByEnumeratingWithState:&v52 objects:v68 count:16];
-    if (v22)
+    v22 = v48;
+    v23 = [v22 countByEnumeratingWithState:&v53 objects:v69 count:16];
+    if (v23)
     {
-      v23 = v22;
-      v45 = 0;
-      v24 = 0;
-      v25 = *v53;
+      v24 = v23;
+      v46 = 0;
+      v25 = 0;
+      v26 = *v54;
       do
       {
-        for (j = 0; j != v23; ++j)
+        for (j = 0; j != v24; ++j)
         {
-          if (*v53 != v25)
+          if (*v54 != v26)
           {
-            objc_enumerationMutation(v21);
+            objc_enumerationMutation(v22);
           }
 
-          v27 = *(*(&v52 + 1) + 8 * j);
-          alertSystemSoundContext2 = [v27 alertSystemSoundContext];
+          v28 = *(*(&v53 + 1) + 8 * j);
+          alertSystemSoundContext2 = [v28 alertSystemSoundContext];
           if (([alertSystemSoundContext2 hasPlaybackStarted] & 1) == 0)
           {
             [alertSystemSoundContext2 setHasPlaybackStarted:1];
             playbackObserver = [alertSystemSoundContext2 playbackObserver];
             if (playbackObserver)
             {
-              if (!v24)
+              if (!v25)
               {
-                v24 = objc_alloc_init(MEMORY[0x1E695DF70]);
+                v25 = objc_alloc_init(MEMORY[0x1E695DF70]);
               }
 
-              [v24 addObject:v27];
+              [v25 addObject:v28];
             }
           }
 
@@ -529,37 +527,37 @@ LABEL_21:
               [alertSystemSoundContext2 setHasDeemphasizedPlaybackStarted:1];
               if ([alertSystemSoundContext2 shouldBeInterruptedAfterDeemphasizedPlaybackStarts])
               {
-                v30 = v24;
-                alert2 = [v27 alert];
-                v32 = TLLogPlayback();
-                if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+                v31 = v25;
+                alert2 = [v28 alert];
+                v34 = TLLogPlayback(alert2, v33);
+                if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138543618;
                   selfCopy2 = selfCopy;
-                  v71 = 2114;
-                  v72 = alert2;
-                  _os_log_impl(&dword_1D9356000, v32, OS_LOG_TYPE_DEFAULT, "%{public}@: _processPlayTaskDescriptors:. Preparing for deferred interruption of %{public}@.", buf, 0x16u);
+                  v72 = 2114;
+                  v73 = alert2;
+                  _os_log_impl(&dword_1D9356000, v34, OS_LOG_TYPE_DEFAULT, "%{public}@: _processPlayTaskDescriptors:. Preparing for deferred interruption of %{public}@.", buf, 0x16u);
                 }
 
                 playbackCompletionContext = [alertSystemSoundContext2 playbackCompletionContext];
                 playbackCompletionType = [playbackCompletionContext playbackCompletionType];
 
                 stoppingOptionsForDeferredInterruption = [alertSystemSoundContext2 stoppingOptionsForDeferredInterruption];
-                v67 = alert2;
-                v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v67 count:1];
-                v37 = [(TLAlertSystemSoundController *)selfCopy _prepareForStoppingAlerts:v36 withOptions:stoppingOptionsForDeferredInterruption playbackCompletionType:playbackCompletionType];
+                v68 = alert2;
+                v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v68 count:1];
+                v39 = [(TLAlertSystemSoundController *)selfCopy _prepareForStoppingAlerts:v38 withOptions:stoppingOptionsForDeferredInterruption playbackCompletionType:playbackCompletionType];
 
-                v24 = v30;
-                if (v37)
+                v25 = v31;
+                if (v39)
                 {
-                  v38 = v45;
-                  if (!v45)
+                  v40 = v46;
+                  if (!v46)
                   {
-                    v38 = objc_alloc_init(MEMORY[0x1E695DF70]);
+                    v40 = objc_alloc_init(MEMORY[0x1E695DF70]);
                   }
 
-                  v45 = v38;
-                  [v38 addObject:v37];
+                  v46 = v40;
+                  [v40 addObject:v39];
                 }
 
                 [alertSystemSoundContext2 setStoppingOptionsForDeferredInterruption:0];
@@ -569,94 +567,90 @@ LABEL_21:
           }
         }
 
-        v23 = [v21 countByEnumeratingWithState:&v52 objects:v68 count:16];
+        v24 = [v22 countByEnumeratingWithState:&v53 objects:v69 count:16];
       }
 
-      while (v23);
+      while (v24);
     }
 
     else
     {
-      v45 = 0;
-      v24 = 0;
+      v46 = 0;
+      v25 = 0;
     }
 
     os_unfair_lock_unlock(&selfCopy->_lock);
-    if ([v24 count])
+    if ([v25 count])
     {
-      v39 = dispatch_get_global_queue(0, 0);
+      v41 = dispatch_get_global_queue(0, 0);
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __60__TLAlertSystemSoundController__processPlayTaskDescriptors___block_invoke_9;
       block[3] = &unk_1E85789A0;
-      v51 = v24;
-      dispatch_async(v39, block);
+      v52 = v25;
+      dispatch_async(v41, block);
     }
 
-    if ([v45 count])
+    if ([v46 count])
     {
       audioQueue = selfCopy->_audioQueue;
-      v48[0] = MEMORY[0x1E69E9820];
-      v48[1] = 3221225472;
-      v48[2] = __60__TLAlertSystemSoundController__processPlayTaskDescriptors___block_invoke_2;
-      v48[3] = &unk_1E8578900;
-      v48[4] = selfCopy;
-      v49 = v45;
-      [(TLAudioQueue *)audioQueue performSynchronousTaskWithOptions:1 block:v48];
+      v49[0] = MEMORY[0x1E69E9820];
+      v49[1] = 3221225472;
+      v49[2] = __60__TLAlertSystemSoundController__processPlayTaskDescriptors___block_invoke_2;
+      v49[3] = &unk_1E8578900;
+      v49[4] = selfCopy;
+      v50 = v46;
+      [(TLAudioQueue *)audioQueue performSynchronousTaskWithOptions:1 block:v49];
     }
 
-    v20 = v47;
+    v21 = v48;
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __60__TLAlertSystemSoundController__processPlayTaskDescriptors___block_invoke(uint64_t a1)
+uint64_t __60__TLAlertSystemSoundController__processPlayTaskDescriptors___block_invoke(uint64_t a1, uint64_t a2)
 {
   v14 = *MEMORY[0x1E69E9840];
-  v2 = TLLogPlayback();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = TLLogPlayback(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v5 = *(a1 + 48);
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v6 = *(a1 + 48);
     v8 = 138543874;
-    v9 = v3;
+    v9 = v4;
     v10 = 2114;
-    v11 = v4;
+    v11 = v5;
     v12 = 2048;
-    v13 = v5;
-    _os_log_impl(&dword_1D9356000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: _processPlayTaskDescriptors:(%{public}@). Running completion block for AudioServicesPlaySystemSoundWithOptions for soundID: %lu.", &v8, 0x20u);
+    v13 = v6;
+    _os_log_impl(&dword_1D9356000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: _processPlayTaskDescriptors:(%{public}@). Running completion block for AudioServicesPlaySystemSoundWithOptions for soundID: %lu.", &v8, 0x20u);
   }
 
-  result = [*(a1 + 32) _didCompletePlaybackForAlert:*(a1 + 40)];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _didCompletePlaybackForAlert:*(a1 + 40)];
 }
 
 void __60__TLAlertSystemSoundController__processPlayTaskDescriptors___block_invoke_9(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v1 = *(a1 + 32);
-  v2 = [v1 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v13;
+    v4 = *v12;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v13 != v4)
+        if (*v12 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = *(*(&v12 + 1) + 8 * i);
+        v6 = *(*(&v11 + 1) + 8 * i);
         v7 = [v6 alert];
         v8 = [v6 alertSystemSoundContext];
         v9 = [v8 playbackObserver];
@@ -672,58 +666,54 @@ void __60__TLAlertSystemSoundController__processPlayTaskDescriptors___block_invo
         }
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v3);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
-void __60__TLAlertSystemSoundController__processPlayTaskDescriptors___block_invoke_2(uint64_t a1)
+void __60__TLAlertSystemSoundController__processPlayTaskDescriptors___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v17 = *MEMORY[0x1E69E9840];
-  v2 = TLLogPlayback();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = TLLogPlayback(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     *buf = 138543362;
-    v16 = v3;
-    _os_log_impl(&dword_1D9356000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: _processPlayTaskDescriptors:. Processing deferred interruptions.", buf, 0xCu);
+    v16 = v4;
+    _os_log_impl(&dword_1D9356000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: _processPlayTaskDescriptors:. Processing deferred interruptions.", buf, 0xCu);
   }
 
   v12 = 0u;
   v13 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v4 = *(a1 + 40);
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
-  if (v5)
+  v5 = *(a1 + 40);
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
   {
-    v6 = v5;
-    v7 = *v11;
+    v7 = v6;
+    v8 = *v11;
     do
     {
-      v8 = 0;
+      v9 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v11 != v8)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(v5);
         }
 
-        [*(a1 + 32) _processStopTasksDescriptor:{*(*(&v10 + 1) + 8 * v8++), v10}];
+        [*(a1 + 32) _processStopTasksDescriptor:{*(*(&v10 + 1) + 8 * v9++), v10}];
       }
 
-      while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      while (v7 != v9);
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v6);
+    while (v7);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)stopPlayingAlerts:(id)alerts withOptions:(id)options playbackCompletionType:(int64_t)type
@@ -755,152 +745,153 @@ void __60__TLAlertSystemSoundController__processPlayTaskDescriptors___block_invo
 
 - (id)_prepareForStoppingAlerts:(id)alerts withOptions:(id)options playbackCompletionType:(int64_t)type
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   alertsCopy = alerts;
   optionsCopy = options;
   os_unfair_lock_assert_owner(&self->_lock);
   v9 = [alertsCopy count];
-  v10 = TLLogPlayback();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = TLLogPlayback(v9, v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     if (v9 == 1)
     {
-      v11 = "";
+      v12 = "";
     }
 
     else
     {
-      v11 = "s";
+      v12 = "s";
     }
 
-    v12 = NSStringFromTLAlertPlaybackCompletionType(type);
+    v13 = NSStringFromTLAlertPlaybackCompletionType(type);
     *buf = 138544386;
     selfCopy5 = self;
-    v43 = 2048;
-    v44 = v9;
-    v45 = 2082;
-    v46 = v11;
-    v47 = 2114;
-    v48 = optionsCopy;
-    v49 = 2112;
-    v50 = v12;
-    _os_log_impl(&dword_1D9356000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: _prepareForStoppingAlerts:([%lu alert%{public}s]) withOptions:(%{public}@) playbackCompletionType:(%@)", buf, 0x34u);
+    v49 = 2048;
+    v50 = v9;
+    v51 = 2082;
+    v52 = v12;
+    v53 = 2114;
+    v54 = optionsCopy;
+    v55 = 2112;
+    v56 = v13;
+    _os_log_impl(&dword_1D9356000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: _prepareForStoppingAlerts:([%lu alert%{public}s]) withOptions:(%{public}@) playbackCompletionType:(%@)", buf, 0x34u);
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
-  v37 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   obj = alertsCopy;
-  v13 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
-  if (v13)
+  v14 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+  if (v14)
   {
-    v14 = v13;
-    v33 = 0;
-    v34 = 0;
-    v15 = *v37;
-    v16 = optionsCopy;
+    v15 = v14;
+    v39 = 0;
+    v40 = 0;
+    v16 = *v43;
+    v17 = optionsCopy;
     while (1)
     {
-      for (i = 0; i != v14; ++i)
+      for (i = 0; i != v15; ++i)
       {
-        if (*v37 != v15)
+        if (*v43 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v36 + 1) + 8 * i);
-        optionsCopy = [(NSMapTable *)self->_alertSystemSoundContexts objectForKey:v18, optionsCopy];
-        v20 = optionsCopy;
+        v19 = *(*(&v42 + 1) + 8 * i);
+        optionsCopy = [(NSMapTable *)self->_alertSystemSoundContexts objectForKey:v19, optionsCopy];
+        v22 = optionsCopy;
         if (optionsCopy)
         {
-          if ([optionsCopy isDeemphasized] && !objc_msgSend(v20, "hasDeemphasizedPlaybackStarted"))
+          if ([optionsCopy isDeemphasized] && !objc_msgSend(v22, "hasDeemphasizedPlaybackStarted"))
           {
-            playbackCompletionContext = [v20 playbackCompletionContext];
+            playbackCompletionContext = [v22 playbackCompletionContext];
             [playbackCompletionContext setPlaybackCompletionType:type];
-            [v20 setStoppingOptionsForDeferredInterruption:v16];
-            [v20 setShouldBeInterruptedAfterDeemphasizedPlaybackStarts:1];
-            sound = TLLogPlayback();
+            [v22 setStoppingOptionsForDeferredInterruption:v17];
+            v30 = [v22 setShouldBeInterruptedAfterDeemphasizedPlaybackStarts:1];
+            sound = TLLogPlayback(v30, v31);
             if (os_log_type_enabled(sound, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543874;
               selfCopy5 = self;
-              v43 = 2114;
-              v44 = v18;
-              v45 = 2114;
-              v46 = v20;
+              v49 = 2114;
+              v50 = v19;
+              v51 = 2114;
+              v52 = v22;
               _os_log_impl(&dword_1D9356000, sound, OS_LOG_TYPE_DEFAULT, "%{public}@: _prepareForStoppingAlerts…: Deferring stop request for %{public}@ with system sound context: %{public}@. Will process stop request after deemphasized playback starts.", buf, 0x20u);
             }
 
             goto LABEL_34;
           }
 
-          if (![v20 isBeingInterrupted])
+          if (![v22 isBeingInterrupted])
           {
             goto LABEL_17;
           }
 
-          if ([v20 isBeingDeemphasized])
+          optionsCopy = [v22 isBeingDeemphasized];
+          if (optionsCopy)
           {
-            [v20 setBeingDeemphasized:0];
+            [v22 setBeingDeemphasized:0];
 LABEL_17:
-            playbackCompletionContext = [v20 playbackCompletionContext];
+            playbackCompletionContext = [v22 playbackCompletionContext];
             [playbackCompletionContext setPlaybackCompletionType:type];
-            [v20 setBeingInterrupted:1];
-            v22 = TLLogPlayback();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+            v24 = [v22 setBeingInterrupted:1];
+            v26 = TLLogPlayback(v24, v25);
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543874;
               selfCopy5 = self;
-              v43 = 2114;
-              v44 = v18;
-              v45 = 2114;
-              v46 = v20;
-              _os_log_impl(&dword_1D9356000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@: _prepareForStoppingAlerts…: Beginning interruption of %{public}@ with system sound context: %{public}@.", buf, 0x20u);
+              v49 = 2114;
+              v50 = v19;
+              v51 = 2114;
+              v52 = v22;
+              _os_log_impl(&dword_1D9356000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@: _prepareForStoppingAlerts…: Beginning interruption of %{public}@ with system sound context: %{public}@.", buf, 0x20u);
             }
 
-            sound = [v20 sound];
+            sound = [v22 sound];
             if (sound)
             {
-              v24 = v34;
-              if (!v34)
+              v29 = v40;
+              if (!v40)
               {
-                v24 = [objc_alloc(MEMORY[0x1E696AD18]) initWithKeyOptions:0 valueOptions:0 capacity:1];
+                v29 = [objc_alloc(MEMORY[0x1E696AD18]) initWithKeyOptions:0 valueOptions:0 capacity:1];
               }
 
-              v34 = v24;
-              [v24 setObject:sound forKey:v18];
+              v40 = v29;
+              [v29 setObject:sound forKey:v19];
             }
 
             else
             {
               typeCopy = type;
-              v26 = TLLogPlayback();
-              if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+              v33 = TLLogPlayback(0, v27);
+              if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543874;
                 selfCopy5 = self;
-                v43 = 2114;
-                v44 = v18;
-                v45 = 2114;
-                v46 = playbackCompletionContext;
-                _os_log_impl(&dword_1D9356000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@: _prepareForStoppingAlerts…: %{public}@ didn't even get a chance to begin playing. Merely processing playback completion context: %{public}@.", buf, 0x20u);
+                v49 = 2114;
+                v50 = v19;
+                v51 = 2114;
+                v52 = playbackCompletionContext;
+                _os_log_impl(&dword_1D9356000, v33, OS_LOG_TYPE_DEFAULT, "%{public}@: _prepareForStoppingAlerts…: %{public}@ didn't even get a chance to begin playing. Merely processing playback completion context: %{public}@.", buf, 0x20u);
               }
 
               type = typeCopy;
               if (playbackCompletionContext)
               {
-                v27 = v33;
-                if (!v33)
+                v34 = v39;
+                if (!v39)
                 {
-                  v27 = objc_alloc_init(MEMORY[0x1E695DF70]);
+                  v34 = objc_alloc_init(MEMORY[0x1E695DF70]);
                 }
 
-                v33 = v27;
-                [(TLAlertSystemSoundController *)self _removeAlert:v18 alertSystemSoundContext:v20 didFailToPrepareSound:0 appendingPlaybackCompletionContextToArray:v27];
+                v39 = v34;
+                [(TLAlertSystemSoundController *)self _removeAlert:v19 alertSystemSoundContext:v22 didFailToPrepareSound:0 appendingPlaybackCompletionContextToArray:v34];
               }
 
-              v16 = optionsCopy;
+              v17 = optionsCopy;
             }
 
 LABEL_34:
@@ -909,157 +900,155 @@ LABEL_34:
           }
         }
 
-        playbackCompletionContext = TLLogPlayback();
+        playbackCompletionContext = TLLogPlayback(optionsCopy, v21);
         if (os_log_type_enabled(playbackCompletionContext, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543874;
           selfCopy5 = self;
-          v43 = 2114;
-          v44 = v18;
-          v45 = 2114;
-          v46 = v20;
+          v49 = 2114;
+          v50 = v19;
+          v51 = 2114;
+          v52 = v22;
           _os_log_impl(&dword_1D9356000, playbackCompletionContext, OS_LOG_TYPE_DEFAULT, "%{public}@: _prepareForStoppingAlerts…: Ignoring stop request for %{public}@ with system sound context: %{public}@.", buf, 0x20u);
         }
 
 LABEL_35:
       }
 
-      v14 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
-      if (!v14)
+      v15 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+      if (!v15)
       {
         goto LABEL_39;
       }
     }
   }
 
-  v33 = 0;
-  v34 = 0;
-  v16 = optionsCopy;
+  v39 = 0;
+  v40 = 0;
+  v17 = optionsCopy;
 LABEL_39:
 
-  if ([v34 count] || objc_msgSend(v33, "count"))
+  if ([v40 count] || objc_msgSend(v39, "count"))
   {
-    v28 = objc_alloc_init(TLAlertSystemSoundStopTasksDescriptor);
-    [(TLAlertSystemSoundStopTasksDescriptor *)v28 setInterruptedAlertsToSound:v34];
-    v29 = v33;
-    [(TLAlertSystemSoundStopTasksDescriptor *)v28 setPlaybackCompletionContextsToProcess:v33];
-    [(TLAlertSystemSoundStopTasksDescriptor *)v28 setOptions:v16];
-    [(TLAlertSystemSoundStopTasksDescriptor *)v28 setPlaybackCompletionType:type];
+    v35 = objc_alloc_init(TLAlertSystemSoundStopTasksDescriptor);
+    [(TLAlertSystemSoundStopTasksDescriptor *)v35 setInterruptedAlertsToSound:v40];
+    v36 = v39;
+    [(TLAlertSystemSoundStopTasksDescriptor *)v35 setPlaybackCompletionContextsToProcess:v39];
+    [(TLAlertSystemSoundStopTasksDescriptor *)v35 setOptions:v17];
+    [(TLAlertSystemSoundStopTasksDescriptor *)v35 setPlaybackCompletionType:type];
   }
 
   else
   {
-    v28 = 0;
-    v29 = v33;
+    v35 = 0;
+    v36 = v39;
   }
 
-  v30 = *MEMORY[0x1E69E9840];
-
-  return v28;
+  return v35;
 }
 
 - (void)_processStopTasksDescriptor:(id)descriptor
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   descriptorCopy = descriptor;
   os_unfair_lock_assert_not_owner(&self->_lock);
   selfCopy = self;
   [(TLAudioQueue *)self->_audioQueue assertRunningOnAudioQueue];
   options = [descriptorCopy options];
   playbackCompletionType = [descriptorCopy playbackCompletionType];
-  v22 = descriptorCopy;
+  v23 = descriptorCopy;
   interruptedAlertsToSound = [descriptorCopy interruptedAlertsToSound];
-  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v7 = [interruptedAlertsToSound countByEnumeratingWithState:&v26 objects:v40 count:16];
+  v30 = 0u;
+  v7 = [interruptedAlertsToSound countByEnumeratingWithState:&v27 objects:v41 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v27;
-    v23 = interruptedAlertsToSound;
+    v9 = *v28;
+    v24 = interruptedAlertsToSound;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v27 != v9)
+        if (*v28 != v9)
         {
           objc_enumerationMutation(interruptedAlertsToSound);
         }
 
-        v11 = *(*(&v26 + 1) + 8 * i);
+        v11 = *(*(&v27 + 1) + 8 * i);
         v12 = [interruptedAlertsToSound objectForKey:v11];
         soundID = [v12 soundID];
+        v15 = soundID;
         if (options)
         {
-          v14 = [options shouldWaitUntilEndOfCurrentRepetition] ^ 1;
+          soundID = [options shouldWaitUntilEndOfCurrentRepetition];
+          v16 = soundID ^ 1;
         }
 
         else
         {
-          v14 = 1;
+          v16 = 1;
         }
 
-        v15 = TLLogPlayback();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v17 = TLLogPlayback(soundID, v14);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
           NSStringFromTLAlertPlaybackCompletionType(playbackCompletionType);
-          v16 = options;
-          v17 = v8;
-          v19 = v18 = v9;
+          v18 = options;
+          v19 = v8;
+          v21 = v20 = v9;
           *buf = 138544386;
-          v31 = selfCopy;
-          v32 = 2114;
-          v33 = v19;
-          v34 = 2048;
-          v35 = soundID;
-          v36 = 1024;
-          v37 = v14;
-          v38 = 2114;
-          v39 = v11;
-          _os_log_impl(&dword_1D9356000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: _processStopTasksDescriptor:. playbackCompletionType: %{public}@. Calling AudioServicesStopSystemSound for soundID: %lu with inStopNow = %{BOOL}d for alert %{public}@.", buf, 0x30u);
+          v32 = selfCopy;
+          v33 = 2114;
+          v34 = v21;
+          v35 = 2048;
+          v36 = v15;
+          v37 = 1024;
+          v38 = v16;
+          v39 = 2114;
+          v40 = v11;
+          _os_log_impl(&dword_1D9356000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: _processStopTasksDescriptor:. playbackCompletionType: %{public}@. Calling AudioServicesStopSystemSound for soundID: %lu with inStopNow = %{BOOL}d for alert %{public}@.", buf, 0x30u);
 
-          v9 = v18;
-          v8 = v17;
-          options = v16;
-          interruptedAlertsToSound = v23;
+          v9 = v20;
+          v8 = v19;
+          options = v18;
+          interruptedAlertsToSound = v24;
         }
 
         AudioServicesStopSystemSound();
       }
 
-      v8 = [interruptedAlertsToSound countByEnumeratingWithState:&v26 objects:v40 count:16];
+      v8 = [interruptedAlertsToSound countByEnumeratingWithState:&v27 objects:v41 count:16];
     }
 
     while (v8);
   }
 
-  playbackCompletionContextsToProcess = [v22 playbackCompletionContextsToProcess];
+  playbackCompletionContextsToProcess = [v23 playbackCompletionContextsToProcess];
   [(TLAlertSystemSoundController *)selfCopy _processPlaybackCompletionContexts:playbackCompletionContextsToProcess];
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_prepareForPreemptingAlertsBeforeBeginningPlaybackOfAlert:(id)alert withSound:(id)sound playbackCompletionType:(int64_t)type
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   alertCopy = alert;
   soundCopy = sound;
   os_unfair_lock_assert_owner(&self->_lock);
   configuration = [alertCopy configuration];
   shouldRepeat = [configuration shouldRepeat];
-  v28 = configuration;
+  v27 = configuration;
   isForPreview = [configuration isForPreview];
-  v29 = soundCopy;
+  v28 = soundCopy;
   soundID = [soundCopy soundID];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   selfCopy = self;
   obj = self->_alertSystemSoundContexts;
-  v12 = [(NSMapTable *)obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v12 = [(NSMapTable *)obj countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (!v12)
   {
     v14 = 0;
@@ -1068,26 +1057,26 @@ LABEL_39:
 
   v13 = v12;
   v14 = 0;
-  v15 = *v36;
-  v32 = shouldRepeat ^ 1;
+  v15 = *v35;
+  v31 = shouldRepeat ^ 1;
   v16 = isForPreview ^ 1;
   do
   {
     for (i = 0; i != v13; ++i)
     {
-      if (*v36 != v15)
+      if (*v35 != v15)
       {
         objc_enumerationMutation(obj);
       }
 
-      v18 = *(*(&v35 + 1) + 8 * i);
+      v18 = *(*(&v34 + 1) + 8 * i);
       if (v18 != alertCopy)
       {
-        v19 = [(NSMapTable *)selfCopy->_alertSystemSoundContexts objectForKey:*(*(&v35 + 1) + 8 * i)];
+        v19 = [(NSMapTable *)selfCopy->_alertSystemSoundContexts objectForKey:*(*(&v34 + 1) + 8 * i)];
         sound = [v19 sound];
         shouldRepeat2 = [sound soundID] == soundID;
 
-        if (((shouldRepeat2 | v32) & 1) == 0)
+        if (((shouldRepeat2 | v31) & 1) == 0)
         {
           configuration2 = [v18 configuration];
           shouldRepeat2 = [configuration2 shouldRepeat];
@@ -1124,15 +1113,13 @@ LABEL_16:
       }
     }
 
-    v13 = [(NSMapTable *)obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+    v13 = [(NSMapTable *)obj countByEnumeratingWithState:&v34 objects:v38 count:16];
   }
 
   while (v13);
 LABEL_21:
 
   v25 = [(TLAlertSystemSoundController *)selfCopy _prepareForStoppingAlerts:v14 withOptions:0 playbackCompletionType:type];
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return v25;
 }
@@ -1161,7 +1148,7 @@ LABEL_21:
 
 - (void)_preheatForAlert:(id)alert backlightStatus:(int64_t)status completionHandler:(id)handler
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   alertCopy = alert;
   handlerCopy = handler;
   os_unfair_lock_assert_not_owner(&self->_lock);
@@ -1192,65 +1179,64 @@ LABEL_21:
   v15 = [v12 _soundForAlert:alertCopy toneIdentifierForDeemphasizingAlert:v14];
   soundID = [v15 soundID];
   isValid = [v15 isValid];
-  v18 = TLLogPlayback();
-  v19 = v18;
-  if (isValid)
+  v18 = isValid;
+  v20 = TLLogPlayback(isValid, v19);
+  v21 = v20;
+  if (v18)
   {
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138544130;
       selfCopy2 = self;
-      v29 = 2114;
-      v30 = alertCopy;
-      v31 = 2114;
-      v32 = v15;
-      v33 = 2048;
-      v34 = soundID;
-      _os_log_impl(&dword_1D9356000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@: _preheatForAlert:(%{public}@). Pre-heating succeeded with sound: %{public}@ and soundID: %lu.", buf, 0x2Au);
+      v30 = 2114;
+      v31 = alertCopy;
+      v32 = 2114;
+      v33 = v15;
+      v34 = 2048;
+      v35 = soundID;
+      _os_log_impl(&dword_1D9356000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@: _preheatForAlert:(%{public}@). Pre-heating succeeded with sound: %{public}@ and soundID: %lu.", buf, 0x2Au);
     }
 
-    v20 = 0;
+    v22 = 0;
     if (!handlerCopy)
     {
       goto LABEL_16;
     }
 
 LABEL_15:
-    v21 = dispatch_get_global_queue(0, 0);
+    v23 = dispatch_get_global_queue(0, 0);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __83__TLAlertSystemSoundController__preheatForAlert_backlightStatus_completionHandler___block_invoke;
     block[3] = &unk_1E8579788;
-    v25 = handlerCopy;
-    v26 = v20 == 0;
-    v24 = v20;
-    dispatch_async(v21, block);
+    v26 = handlerCopy;
+    v27 = v22 == 0;
+    v25 = v22;
+    dispatch_async(v23, block);
 
     goto LABEL_16;
   }
 
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
     *buf = 138544130;
     selfCopy2 = self;
-    v29 = 2114;
-    v30 = alertCopy;
-    v31 = 2114;
-    v32 = v15;
-    v33 = 2048;
-    v34 = soundID;
-    _os_log_error_impl(&dword_1D9356000, v19, OS_LOG_TYPE_ERROR, "%{public}@: _preheatForAlert:(%{public}@). Pre-heating failed with sound: %{public}@ and soundID: %lu.", buf, 0x2Au);
+    v30 = 2114;
+    v31 = alertCopy;
+    v32 = 2114;
+    v33 = v15;
+    v34 = 2048;
+    v35 = soundID;
+    _os_log_error_impl(&dword_1D9356000, v21, OS_LOG_TYPE_ERROR, "%{public}@: _preheatForAlert:(%{public}@). Pre-heating failed with sound: %{public}@ and soundID: %lu.", buf, 0x2Au);
   }
 
-  v20 = [MEMORY[0x1E696ABC0] tl_errorWithDomain:@"TLAlertErrorDomain" description:{@"Failed to pre-heat alert %@.", alertCopy}];
+  v22 = [MEMORY[0x1E696ABC0] tl_errorWithDomain:@"TLAlertErrorDomain" description:{@"Failed to pre-heat alert %@.", alertCopy}];
   if (handlerCopy)
   {
     goto LABEL_15;
   }
 
 LABEL_16:
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_soundForAlert:(id)alert toneIdentifierForDeemphasizingAlert:(id)deemphasizingAlert
@@ -1585,9 +1571,195 @@ LABEL_22:
   return v5;
 }
 
++ (id)_optionsForSystemSoundAlert:(id)alert withSound:(id)sound vibrationIdentifier:(id)identifier isDeemphasized:(BOOL)deemphasized
+{
+  deemphasizedCopy = deemphasized;
+  v62 = *MEMORY[0x1E69E9840];
+  alertCopy = alert;
+  soundCopy = sound;
+  identifierCopy = identifier;
+  v13 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  configuration = [alertCopy configuration];
+  v15 = [objc_opt_class() _soundBehaviorForAlert:alertCopy withSound:soundCopy isDeemphasized:deemphasizedCopy];
+  if (v15)
+  {
+    v17 = v15;
+    v18 = TLLogPlayback(v15, v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    {
+      v54 = 138544130;
+      selfCopy8 = self;
+      v56 = 2114;
+      v57 = alertCopy;
+      v58 = 2114;
+      v59 = soundCopy;
+      v60 = 2048;
+      *&v61 = v17;
+      _os_log_impl(&dword_1D9356000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@: +_optionsForSystemSoundAlert:(%{public}@) withSound:(%{public}@). kAudioServicesPlaySystemSoundOptionBehaviorKey => %lu.", &v54, 0x2Au);
+    }
+
+    v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v17];
+    [v13 setObject:v19 forKey:*MEMORY[0x1E695A8B0]];
+  }
+
+  v20 = [objc_opt_class() _componentSuppressionFlagsForAlert:alertCopy];
+  if (!v20)
+  {
+    goto LABEL_9;
+  }
+
+  v22 = v20;
+  v23 = TLLogPlayback(v20, v21);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  {
+    [self _descriptionForAlertComponentsSuppressionFlags:v22];
+    v24 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+    v54 = 138544130;
+    selfCopy8 = self;
+    v56 = 2114;
+    v57 = alertCopy;
+    v58 = 2114;
+    v59 = soundCopy;
+    v60 = 2114;
+    v61 = v24;
+    _os_log_impl(&dword_1D9356000, v23, OS_LOG_TYPE_DEFAULT, "%{public}@: +_optionsForSystemSoundAlert:(%{public}@) withSound:(%{public}@). kAudioServicesPlaySystemSoundOptionFlagsKey => %{public}@.", &v54, 0x2Au);
+  }
+
+  v25 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v22];
+  [v13 setObject:v25 forKey:*MEMORY[0x1E695A8B8]];
+
+  if ((v22 & 2) == 0)
+  {
+LABEL_9:
+    v26 = [objc_opt_class() _vibrationPatternForAlert:alertCopy withSound:soundCopy vibrationIdentifier:identifierCopy];
+    if (v26)
+    {
+      v28 = v26;
+      v29 = TLLogPlayback(v26, v27);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      {
+        v54 = 138543874;
+        selfCopy8 = self;
+        v56 = 2114;
+        v57 = alertCopy;
+        v58 = 2114;
+        v59 = soundCopy;
+        _os_log_impl(&dword_1D9356000, v29, OS_LOG_TYPE_DEFAULT, "%{public}@: +_optionsForSystemSoundAlert:(%{public}@) withSound:(%{public}@). kAudioServicesPlaySystemSoundOptionVibrationPatternKey => non-nil.", &v54, 0x20u);
+      }
+
+      [v13 setObject:v28 forKey:*MEMORY[0x1E695A8E0]];
+    }
+  }
+
+  shouldRepeat = [configuration shouldRepeat];
+  if (shouldRepeat)
+  {
+    v32 = TLLogPlayback(shouldRepeat, v31);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    {
+      v54 = 138543874;
+      selfCopy8 = self;
+      v56 = 2114;
+      v57 = alertCopy;
+      v58 = 2114;
+      v59 = soundCopy;
+      _os_log_impl(&dword_1D9356000, v32, OS_LOG_TYPE_DEFAULT, "%{public}@: +_optionsForSystemSoundAlert:(%{public}@) withSound:(%{public}@). kAudioServicesPlaySystemSoundOptionLoopKey => true.", &v54, 0x20u);
+    }
+
+    [v13 setObject:MEMORY[0x1E695E118] forKey:*MEMORY[0x1E695A8C8]];
+  }
+
+  v33 = +[TLToneManager sharedToneManager];
+  toneIdentifier = [alertCopy toneIdentifier];
+  [v33 _unduckTimeForToneIdentifier:toneIdentifier];
+  v36 = v35;
+
+  if (llround(v36 * 8388608.0) != llround(0.0))
+  {
+    v39 = TLLogPlayback(v37, v38);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+    {
+      v54 = 138544130;
+      selfCopy8 = self;
+      v56 = 2114;
+      v57 = alertCopy;
+      v58 = 2114;
+      v59 = soundCopy;
+      v60 = 2048;
+      v61 = v36;
+      _os_log_impl(&dword_1D9356000, v39, OS_LOG_TYPE_DEFAULT, "%{public}@: +_optionsForSystemSoundAlert:(%{public}@) withSound:(%{public}@). kAudioServicesPlaySystemSoundOptionUnduckTimeKey => %.3f.", &v54, 0x2Au);
+    }
+
+    v40 = [MEMORY[0x1E696AD98] numberWithDouble:v36];
+    [v13 setObject:v40 forKey:*MEMORY[0x1E695A8D8]];
+  }
+
+  _hasCustomAudioVolume = [configuration _hasCustomAudioVolume];
+  if (_hasCustomAudioVolume)
+  {
+    v43 = TLLogPlayback(_hasCustomAudioVolume, v42);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+    {
+      [configuration audioVolume];
+      v54 = 138544130;
+      selfCopy8 = self;
+      v56 = 2114;
+      v57 = alertCopy;
+      v58 = 2114;
+      v59 = soundCopy;
+      v60 = 2048;
+      v61 = v44;
+      _os_log_impl(&dword_1D9356000, v43, OS_LOG_TYPE_DEFAULT, "%{public}@: +_optionsForSystemSoundAlert:(%{public}@) withSound:(%{public}@). kAudioServicesPlaySystemSoundOptionVolumeKey => %f.", &v54, 0x2Au);
+    }
+
+    v45 = MEMORY[0x1E696AD98];
+    [configuration audioVolume];
+    v46 = [v45 numberWithFloat:?];
+    [v13 setObject:v46 forKey:*MEMORY[0x1E695A8E8]];
+  }
+
+  shouldIgnoreRingerSwitch = [configuration shouldIgnoreRingerSwitch];
+  if ((shouldIgnoreRingerSwitch & 1) != 0 || (shouldIgnoreRingerSwitch = [configuration isForPreview], shouldIgnoreRingerSwitch))
+  {
+    v49 = TLLogPlayback(shouldIgnoreRingerSwitch, v48);
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+    {
+      v54 = 138543874;
+      selfCopy8 = self;
+      v56 = 2114;
+      v57 = alertCopy;
+      v58 = 2114;
+      v59 = soundCopy;
+      _os_log_impl(&dword_1D9356000, v49, OS_LOG_TYPE_DEFAULT, "%{public}@: +_optionsForSystemSoundAlert:(%{public}@) withSound:(%{public}@). kAudioServicesPlaySystemSoundOptionIgnoreRingerSwitchKey => true.", &v54, 0x20u);
+    }
+
+    [v13 setObject:MEMORY[0x1E695E118] forKey:*MEMORY[0x1E695A8C0]];
+  }
+
+  prefersToDisallowExternalPlayback = [configuration prefersToDisallowExternalPlayback];
+  if (prefersToDisallowExternalPlayback)
+  {
+    v52 = TLLogPlayback(prefersToDisallowExternalPlayback, v51);
+    if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+    {
+      v54 = 138543874;
+      selfCopy8 = self;
+      v56 = 2114;
+      v57 = alertCopy;
+      v58 = 2114;
+      v59 = soundCopy;
+      _os_log_impl(&dword_1D9356000, v52, OS_LOG_TYPE_DEFAULT, "%{public}@: +_optionsForSystemSoundAlert:(%{public}@) withSound:(%{public}@). kAudioServicesPlaySystemSoundOptionPrefersToDisallowExternalPlaybackKey => true.", &v54, 0x20u);
+    }
+
+    [v13 setObject:MEMORY[0x1E695E118] forKey:*MEMORY[0x1E695A8D0]];
+  }
+
+  return v13;
+}
+
 - (void)_didCompletePlaybackForAlert:(id)alert
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   alertCopy = alert;
   os_unfair_lock_assert_not_owner(&self->_lock);
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -1595,20 +1767,20 @@ LABEL_22:
   v6 = [(NSMapTable *)self->_alertSystemSoundContexts objectForKey:alertCopy];
   sound = [v6 sound];
   [v6 setSound:0];
-  [v6 setVibrationIdentifier:0];
-  v8 = TLLogPlayback();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v8 = [v6 setVibrationIdentifier:0];
+  v10 = TLLogPlayback(v8, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = [alertCopy debugDescription];
+    v11 = [alertCopy debugDescription];
     *buf = 138544130;
     *&buf[4] = self;
     *&buf[12] = 2114;
-    *&buf[14] = v9;
+    *&buf[14] = v11;
     *&buf[22] = 2114;
-    v52 = sound;
-    LOWORD(v53) = 2114;
-    *(&v53 + 2) = v6;
-    _os_log_impl(&dword_1D9356000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: _didCompletePlaybackForAlert:(%{public}@). Removed sound %{public}@ from %{public}@.", buf, 0x2Au);
+    v54 = sound;
+    LOWORD(v55) = 2114;
+    *(&v55 + 2) = v6;
+    _os_log_impl(&dword_1D9356000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: _didCompletePlaybackForAlert:(%{public}@). Removed sound %{public}@ from %{public}@.", buf, 0x2Au);
   }
 
   playbackCompletionContext = [v6 playbackCompletionContext];
@@ -1619,7 +1791,7 @@ LABEL_22:
     if ([toneIdentifierForDeemphasizingAlert length] && objc_msgSend(v6, "isBeingDeemphasized"))
     {
       [v6 setLoadingSound:1];
-      v13 = 1;
+      v15 = 1;
       goto LABEL_10;
     }
 
@@ -1632,115 +1804,112 @@ LABEL_22:
     toneIdentifierForDeemphasizingAlert = 0;
   }
 
-  v13 = 0;
+  v15 = 0;
 LABEL_10:
 
   os_unfair_lock_unlock(&self->_lock);
-  if (!v13)
+  if (!v15)
   {
-    v18 = 0;
+    v21 = 0;
     goto LABEL_21;
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v52 = __Block_byref_object_copy__3;
-  *&v53 = __Block_byref_object_dispose__3;
-  *(&v53 + 1) = 0;
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x2020000000;
-  v46 = 0;
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x3032000000;
-  v40 = __Block_byref_object_copy__3;
-  v41 = __Block_byref_object_dispose__3;
-  v42 = 0;
+  v54 = __Block_byref_object_copy__3;
+  *&v55 = __Block_byref_object_dispose__3;
+  *(&v55 + 1) = 0;
+  v45 = 0;
+  v46 = &v45;
+  v47 = 0x2020000000;
+  v48 = 0;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x3032000000;
+  v42 = __Block_byref_object_copy__3;
+  v43 = __Block_byref_object_dispose__3;
+  v44 = 0;
   audioQueue = self->_audioQueue;
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __61__TLAlertSystemSoundController__didCompletePlaybackForAlert___block_invoke;
-  v30[3] = &unk_1E85797B0;
-  v34 = buf;
-  v30[4] = self;
-  v15 = alertCopy;
-  v31 = v15;
-  v32 = toneIdentifierForDeemphasizingAlert;
-  v35 = &v43;
-  v36 = &v37;
-  v33 = vibrationIdentifierForDeemphasizingAlert;
-  [(TLAudioQueue *)audioQueue performSynchronousTaskWithOptions:1 block:v30];
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __61__TLAlertSystemSoundController__didCompletePlaybackForAlert___block_invoke;
+  v32[3] = &unk_1E85797B0;
+  v36 = buf;
+  v32[4] = self;
+  v17 = alertCopy;
+  v33 = v17;
+  v34 = toneIdentifierForDeemphasizingAlert;
+  v37 = &v45;
+  v38 = &v39;
+  v35 = vibrationIdentifierForDeemphasizingAlert;
+  [(TLAudioQueue *)audioQueue performSynchronousTaskWithOptions:1 block:v32];
   os_unfair_lock_lock(&self->_lock);
-  v16 = [(NSMapTable *)self->_alertSystemSoundContexts objectForKey:v15];
-  v17 = v16;
-  if (!v16)
+  v18 = [(NSMapTable *)self->_alertSystemSoundContexts objectForKey:v17];
+  v20 = v18;
+  if (!v18)
   {
-    v19 = TLLogPlayback();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v22 = TLLogPlayback(0, v19);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = [v15 debugDescription];
-      *v47 = 138543618;
+      v23 = [v17 debugDescription];
+      *v49 = 138543618;
       selfCopy = self;
-      v49 = 2114;
-      v50 = v20;
-      _os_log_impl(&dword_1D9356000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@: _didCompletePlaybackForAlert:(%{public}@). System sound context for this alert has already been removed. This likely indicates that the alert was stopped programmatically around the time we were trying to load the deemphasized sound. Aborting deemphasizing process immediately.", v47, 0x16u);
+      v51 = 2114;
+      v52 = v23;
+      _os_log_impl(&dword_1D9356000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@: _didCompletePlaybackForAlert:(%{public}@). System sound context for this alert has already been removed. This likely indicates that the alert was stopped programmatically around the time we were trying to load the deemphasized sound. Aborting deemphasizing process immediately.", v49, 0x16u);
     }
 
     goto LABEL_19;
   }
 
-  if ((v44[3] & 1) == 0)
+  if ((v46[3] & 1) == 0)
   {
-    [(TLAlertSystemSoundController *)self _removeAlert:v15 alertSystemSoundContext:v16 didFailToPrepareSound:1 appendingPlaybackCompletionContextToArray:v5];
-    [v17 setLoadingSound:0];
+    [(TLAlertSystemSoundController *)self _removeAlert:v17 alertSystemSoundContext:v18 didFailToPrepareSound:1 appendingPlaybackCompletionContextToArray:v5];
+    [v20 setLoadingSound:0];
 LABEL_19:
-    v18 = 0;
+    v21 = 0;
     goto LABEL_20;
   }
 
-  [v16 setSound:*(*&buf[8] + 40)];
-  [v17 setVibrationIdentifier:v38[5]];
-  [v17 setLoadingSound:0];
-  [v17 setBeingDeemphasized:0];
-  [v17 setBeingInterrupted:0];
-  [v17 setDeemphasized:1];
-  v18 = [(TLAlertSystemSoundController *)self _playTaskDescriptorForAlert:v15 withSound:*(*&buf[8] + 40) vibrationIdentifier:v38[5] alertSystemSoundContext:v17];
+  [v18 setSound:*(*&buf[8] + 40)];
+  [v20 setVibrationIdentifier:v40[5]];
+  [v20 setLoadingSound:0];
+  [v20 setBeingDeemphasized:0];
+  [v20 setBeingInterrupted:0];
+  [v20 setDeemphasized:1];
+  v21 = [(TLAlertSystemSoundController *)self _playTaskDescriptorForAlert:v17 withSound:*(*&buf[8] + 40) vibrationIdentifier:v40[5] alertSystemSoundContext:v20];
 LABEL_20:
 
   os_unfair_lock_unlock(&self->_lock);
-  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(&v39, 8);
 
-  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v45, 8);
   _Block_object_dispose(buf, 8);
 
 LABEL_21:
-  if (sound | v18)
+  if (sound | v21)
   {
-    v21 = self->_audioQueue;
-    v23 = MEMORY[0x1E69E9820];
-    v24 = 3221225472;
-    v25 = __61__TLAlertSystemSoundController__didCompletePlaybackForAlert___block_invoke_42;
-    v26 = &unk_1E8579038;
-    v27 = sound;
-    v28 = v18;
+    v24 = self->_audioQueue;
+    v25 = MEMORY[0x1E69E9820];
+    v26 = 3221225472;
+    v27 = __61__TLAlertSystemSoundController__didCompletePlaybackForAlert___block_invoke_42;
+    v28 = &unk_1E8579038;
+    v29 = sound;
+    v30 = v21;
     selfCopy2 = self;
-    [(TLAudioQueue *)v21 performSynchronousTaskWithOptions:1 block:&v23];
+    [(TLAudioQueue *)v24 performSynchronousTaskWithOptions:1 block:&v25];
   }
 
   if ([v5 count])
   {
     [(TLAlertSystemSoundController *)self _processPlaybackCompletionContexts:v5];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
-void __61__TLAlertSystemSoundController__didCompletePlaybackForAlert___block_invoke(uint64_t a1)
+void __61__TLAlertSystemSoundController__didCompletePlaybackForAlert___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
+  v21 = *MEMORY[0x1E69E9840];
   v3 = [objc_opt_class() _soundForAlert:*(a1 + 40) toneIdentifierForDeemphasizingAlert:*(a1 + 48)];
   v4 = *(*(a1 + 64) + 8);
   v5 = *(v4 + 40);
@@ -1748,30 +1917,28 @@ void __61__TLAlertSystemSoundController__didCompletePlaybackForAlert___block_inv
 
   *(*(*(a1 + 72) + 8) + 24) = [*(*(*(a1 + 64) + 8) + 40) isValid];
   objc_storeStrong((*(*(a1 + 80) + 8) + 40), *(a1 + 56));
-  v6 = TLLogPlayback();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v8 = TLLogPlayback(v6, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = *(a1 + 32);
-    v8 = [*(a1 + 40) debugDescription];
-    v9 = *(*(*(a1 + 64) + 8) + 40);
-    v10 = *(*(*(a1 + 80) + 8) + 40);
-    v12 = 138544130;
-    v13 = v7;
-    v14 = 2114;
-    v15 = v8;
-    v16 = 2114;
-    v17 = v9;
-    v18 = 2114;
-    v19 = v10;
-    _os_log_impl(&dword_1D9356000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: _didCompletePlaybackForAlert:(%{public}@). About to begin playing deemphasized sound: %{public}@ and vibration identifier: %{public}@.", &v12, 0x2Au);
+    v9 = *(a1 + 32);
+    v10 = [*(a1 + 40) debugDescription];
+    v11 = *(*(*(a1 + 64) + 8) + 40);
+    v12 = *(*(*(a1 + 80) + 8) + 40);
+    v13 = 138544130;
+    v14 = v9;
+    v15 = 2114;
+    v16 = v10;
+    v17 = 2114;
+    v18 = v11;
+    v19 = 2114;
+    v20 = v12;
+    _os_log_impl(&dword_1D9356000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: _didCompletePlaybackForAlert:(%{public}@). About to begin playing deemphasized sound: %{public}@ and vibration identifier: %{public}@.", &v13, 0x2Au);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __61__TLAlertSystemSoundController__didCompletePlaybackForAlert___block_invoke_42(void *a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v2 = a1[4];
   if (v2)
   {
@@ -1782,12 +1949,10 @@ void __61__TLAlertSystemSoundController__didCompletePlaybackForAlert___block_inv
   if (v3)
   {
     v4 = a1[6];
-    v7[0] = v3;
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
+    v6[0] = v3;
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
     [v4 _processPlayTaskDescriptors:v5];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_processPlaybackCompletionContexts:(id)contexts
@@ -1822,47 +1987,50 @@ void __67__TLAlertSystemSoundController__processPlaybackCompletionContexts___blo
     v3 = [v2 countByEnumeratingWithState:&v14 objects:v22 count:16];
     if (v3)
     {
-      v4 = v3;
-      v5 = *v15;
+      v5 = v3;
+      v6 = *v15;
       do
       {
-        for (i = 0; i != v4; ++i)
+        v7 = 0;
+        do
         {
-          if (*v15 != v5)
+          if (*v15 != v6)
           {
             objc_enumerationMutation(v2);
           }
 
-          v7 = *(*(&v14 + 1) + 8 * i);
-          v8 = TLLogPlayback();
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+          v8 = *(*(&v14 + 1) + 8 * v7);
+          v9 = TLLogPlayback(v3, v4);
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
           {
-            v9 = *(a1 + 40);
+            v10 = *(a1 + 40);
             *buf = 138543618;
-            v19 = v9;
+            v19 = v10;
             v20 = 2114;
-            v21 = v7;
-            _os_log_impl(&dword_1D9356000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: -_processPlaybackCompletionContexts: […]: Processing %{public}@.", buf, 0x16u);
+            v21 = v8;
+            _os_log_impl(&dword_1D9356000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: -_processPlaybackCompletionContexts: […]: Processing %{public}@.", buf, 0x16u);
           }
 
-          v10 = [v7 playbackCompletionType];
-          v11 = [v7 error];
-          v12 = [v7 completionHandler];
-          if (v12)
+          v11 = [v8 playbackCompletionType];
+          v12 = [v8 error];
+          v13 = [v8 completionHandler];
+          if (v13)
           {
-            [v7 setCompletionHandler:0];
-            (v12)[2](v12, v10, v11);
+            [v8 setCompletionHandler:0];
+            (v13)[2](v13, v11, v12);
           }
+
+          ++v7;
         }
 
-        v4 = [v2 countByEnumeratingWithState:&v14 objects:v22 count:16];
+        while (v5 != v7);
+        v3 = [v2 countByEnumeratingWithState:&v14 objects:v22 count:16];
+        v5 = v3;
       }
 
-      while (v4);
+      while (v3);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_removeAlert:(id)alert alertSystemSoundContext:(id)context didFailToPrepareSound:(BOOL)sound appendingPlaybackCompletionContextToArray:(id)array
@@ -1874,16 +2042,16 @@ void __67__TLAlertSystemSoundController__processPlaybackCompletionContexts___blo
   arrayCopy = array;
   os_unfair_lock_assert_owner(&self->_lock);
   playbackCompletionContext = [contextCopy playbackCompletionContext];
-  v14 = playbackCompletionContext;
+  v15 = playbackCompletionContext;
   if (soundCopy)
   {
     [playbackCompletionContext setPlaybackCompletionType:5];
-    v15 = [MEMORY[0x1E696ABC0] tl_errorWithDomain:@"TLAlertErrorDomain" description:@"Failed to prepare tone sound ID for playback."];
-    [v14 setError:v15];
+    v16 = [MEMORY[0x1E696ABC0] tl_errorWithDomain:@"TLAlertErrorDomain" description:@"Failed to prepare tone sound ID for playback."];
+    [v15 setError:v16];
   }
 
-  v16 = TLLogPlayback();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v17 = TLLogPlayback(playbackCompletionContext, v14);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     v18 = 138544130;
     selfCopy = self;
@@ -1893,182 +2061,177 @@ void __67__TLAlertSystemSoundController__processPlaybackCompletionContexts___blo
     v23 = contextCopy;
     v24 = 1024;
     v25 = soundCopy;
-    _os_log_impl(&dword_1D9356000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@: _removeAlert:(%{public}@) alertSystemSoundContext:(%{public}@) didFailToPrepareSound:(%{BOOL}u)…", &v18, 0x26u);
+    _os_log_impl(&dword_1D9356000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: _removeAlert:(%{public}@) alertSystemSoundContext:(%{public}@) didFailToPrepareSound:(%{BOOL}u)…", &v18, 0x26u);
   }
 
   [(TLAlertSystemSoundController *)self _endRequiringBacklightObservationForAlert:alertCopy alertSystemSoundContext:contextCopy];
   [(NSMapTable *)self->_alertSystemSoundContexts removeObjectForKey:alertCopy];
-  if (v14)
+  if (v15)
   {
     [contextCopy setPlaybackCompletionContext:0];
-    [arrayCopy addObject:v14];
+    [arrayCopy addObject:v15];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_beginRequiringBacklightObservationForAlert:(id)alert alertSystemSoundContext:(id)context
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   alertCopy = alert;
   contextCopy = context;
   os_unfair_lock_assert_owner(&self->_lock);
-  if ([contextCopy isRequiringBacklightObservation])
+  isRequiringBacklightObservation = [contextCopy isRequiringBacklightObservation];
+  if (isRequiringBacklightObservation)
   {
-    v8 = TLLogGeneral();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_INFO);
+    v10 = TLLogGeneral(isRequiringBacklightObservation, v9);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
 
-    if (v9)
+    if (v11)
     {
-      v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/ToneLibrary/Library/Playback/BackEnds/SystemSound/TLAlertSystemSoundController.m"];
-      v11 = TLLogGeneral();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/ToneLibrary/Library/Playback/BackEnds/SystemSound/TLAlertSystemSoundController.m"];
+      v16 = TLLogGeneral(v14, v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        lastPathComponent = [v10 lastPathComponent];
+        lastPathComponent = [v14 lastPathComponent];
         callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
-        v27 = 136381443;
+        v35 = 136381443;
         selfCopy = "[TLAlertSystemSoundController _beginRequiringBacklightObservationForAlert:alertSystemSoundContext:]";
-        v29 = 2113;
-        v30 = lastPathComponent;
-        v31 = 2049;
-        v32 = 1243;
-        v33 = 2113;
-        v34 = callStackSymbols;
-        _os_log_impl(&dword_1D9356000, v11, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", &v27, 0x2Au);
+        v37 = 2113;
+        v38 = lastPathComponent;
+        v39 = 2049;
+        v40 = 1243;
+        v41 = 2113;
+        v42 = callStackSymbols;
+        _os_log_impl(&dword_1D9356000, v16, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", &v35, 0x2Au);
       }
     }
 
     else
     {
-      v10 = TLLogGeneral();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v14 = TLLogGeneral(v12, v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        [(TLToneManager *)v10 _migrateLegacyToneSettings:v14];
+        [(TLToneManager *)v14 _migrateLegacyToneSettings:v19];
       }
     }
 
-    v21 = TLLogGeneral();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v28 = TLLogGeneral(v26, v27);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
-      [(TLAlertSystemSoundController *)alertCopy _beginRequiringBacklightObservationForAlert:contextCopy alertSystemSoundContext:v21];
+      [(TLAlertSystemSoundController *)alertCopy _beginRequiringBacklightObservationForAlert:contextCopy alertSystemSoundContext:v28];
     }
   }
 
-  [contextCopy setRequiringBacklightObservation:1];
+  v29 = [contextCopy setRequiringBacklightObservation:1];
   backlightObservationRequestsCount = self->_backlightObservationRequestsCount;
   self->_backlightObservationRequestsCount = backlightObservationRequestsCount + 1;
-  v23 = TLLogPlayback();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  v32 = TLLogPlayback(v29, v31);
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = self->_backlightObservationRequestsCount;
-    v27 = 138544386;
+    v33 = self->_backlightObservationRequestsCount;
+    v35 = 138544386;
     selfCopy = self;
-    v29 = 2114;
-    v30 = alertCopy;
-    v31 = 2114;
-    v32 = contextCopy;
-    v33 = 2048;
-    v34 = backlightObservationRequestsCount;
-    v35 = 2048;
-    v36 = v24;
-    _os_log_impl(&dword_1D9356000, v23, OS_LOG_TYPE_DEFAULT, "%{public}@: -_beginRequiringBacklightObservationForAlert:(%{public}@) alertSystemSoundContext:(%{public}@); requests count incremented from %lu to %lu.", &v27, 0x34u);
+    v37 = 2114;
+    v38 = alertCopy;
+    v39 = 2114;
+    v40 = contextCopy;
+    v41 = 2048;
+    v42 = backlightObservationRequestsCount;
+    v43 = 2048;
+    v44 = v33;
+    _os_log_impl(&dword_1D9356000, v32, OS_LOG_TYPE_DEFAULT, "%{public}@: -_beginRequiringBacklightObservationForAlert:(%{public}@) alertSystemSoundContext:(%{public}@); requests count incremented from %lu to %lu.", &v35, 0x34u);
   }
 
   if (self->_backlightObservationRequestsCount == 1)
   {
-    v25 = +[TLBacklight sharedBacklight];
-    [v25 addObserver:self];
+    v34 = +[TLBacklight sharedBacklight];
+    [v34 addObserver:self];
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_endRequiringBacklightObservationForAlert:(id)alert alertSystemSoundContext:(id)context
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   alertCopy = alert;
   contextCopy = context;
   os_unfair_lock_assert_owner(&self->_lock);
   if ([contextCopy isRequiringBacklightObservation])
   {
-    [contextCopy setRequiringBacklightObservation:0];
+    v8 = [contextCopy setRequiringBacklightObservation:0];
     backlightObservationRequestsCount = self->_backlightObservationRequestsCount;
     if (!backlightObservationRequestsCount)
     {
-      v9 = TLLogGeneral();
-      v10 = os_log_type_enabled(v9, OS_LOG_TYPE_INFO);
+      v11 = TLLogGeneral(v8, v9);
+      v12 = os_log_type_enabled(v11, OS_LOG_TYPE_INFO);
 
-      if (v10)
+      if (v12)
       {
-        v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/ToneLibrary/Library/Playback/BackEnds/SystemSound/TLAlertSystemSoundController.m"];
-        v12 = TLLogGeneral();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/ToneLibrary/Library/Playback/BackEnds/SystemSound/TLAlertSystemSoundController.m"];
+        v17 = TLLogGeneral(v15, v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
-          lastPathComponent = [v11 lastPathComponent];
+          lastPathComponent = [v15 lastPathComponent];
           callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
-          v34 = 136381443;
+          v40 = 136381443;
           selfCopy = "[TLAlertSystemSoundController _endRequiringBacklightObservationForAlert:alertSystemSoundContext:]";
-          v36 = 2113;
-          v37 = lastPathComponent;
-          v38 = 2049;
-          v39 = 1261;
-          v40 = 2113;
-          v41 = callStackSymbols;
-          _os_log_impl(&dword_1D9356000, v12, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", &v34, 0x2Au);
+          v42 = 2113;
+          v43 = lastPathComponent;
+          v44 = 2049;
+          v45 = 1261;
+          v46 = 2113;
+          v47 = callStackSymbols;
+          _os_log_impl(&dword_1D9356000, v17, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", &v40, 0x2Au);
         }
       }
 
       else
       {
-        v11 = TLLogGeneral();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v15 = TLLogGeneral(v13, v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          [(TLToneManager *)v11 _migrateLegacyToneSettings:v15];
+          [(TLToneManager *)v15 _migrateLegacyToneSettings:v20];
         }
       }
 
-      v22 = TLLogGeneral();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v29 = TLLogGeneral(v27, v28);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
-        [(TLAlertSystemSoundController *)v22 _endRequiringBacklightObservationForAlert:v23 alertSystemSoundContext:v24, v25, v26, v27, v28, v29];
+        [(TLAlertSystemSoundController *)v29 _endRequiringBacklightObservationForAlert:v30 alertSystemSoundContext:v31, v32, v33, v34, v35, v36];
       }
 
       backlightObservationRequestsCount = self->_backlightObservationRequestsCount;
     }
 
     self->_backlightObservationRequestsCount = backlightObservationRequestsCount - 1;
-    v30 = TLLogPlayback();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v37 = TLLogPlayback(v8, v9);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
     {
-      v31 = self->_backlightObservationRequestsCount;
-      v34 = 138544386;
+      v38 = self->_backlightObservationRequestsCount;
+      v40 = 138544386;
       selfCopy = self;
-      v36 = 2114;
-      v37 = alertCopy;
-      v38 = 2114;
-      v39 = contextCopy;
-      v40 = 2048;
-      v41 = backlightObservationRequestsCount;
-      v42 = 2048;
-      v43 = v31;
-      _os_log_impl(&dword_1D9356000, v30, OS_LOG_TYPE_DEFAULT, "%{public}@: -_endRequiringBacklightObservationForAlert:(%{public}@) alertSystemSoundContext:(%{public}@); requests count incremented from %lu to %lu.", &v34, 0x34u);
+      v42 = 2114;
+      v43 = alertCopy;
+      v44 = 2114;
+      v45 = contextCopy;
+      v46 = 2048;
+      v47 = backlightObservationRequestsCount;
+      v48 = 2048;
+      v49 = v38;
+      _os_log_impl(&dword_1D9356000, v37, OS_LOG_TYPE_DEFAULT, "%{public}@: -_endRequiringBacklightObservationForAlert:(%{public}@) alertSystemSoundContext:(%{public}@); requests count incremented from %lu to %lu.", &v40, 0x34u);
     }
 
     if (!self->_backlightObservationRequestsCount)
     {
-      v32 = +[TLBacklight sharedBacklight];
-      [v32 removeObserver:self];
+      v39 = +[TLBacklight sharedBacklight];
+      [v39 removeObserver:self];
 
       self->_backlightStatus = -1;
     }
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (void)backlightStatusDidChange:(int64_t)change
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   os_unfair_lock_assert_not_owner(&self->_lock);
   os_unfair_lock_lock(&self->_lock);
   backlightStatus = self->_backlightStatus;
@@ -2076,25 +2239,25 @@ void __67__TLAlertSystemSoundController__processPlaybackCompletionContexts___blo
   if (backlightStatus == change || (self->_backlightStatus = change, change == -1))
   {
     os_unfair_lock_unlock(&self->_lock);
-    v32 = 0;
-    v31 = 0;
+    v36 = 0;
+    v35 = 0;
     goto LABEL_41;
   }
 
-  v57 = 0u;
+  v60 = 0u;
+  v61 = 0u;
   v58 = 0u;
-  v55 = 0u;
-  v56 = 0u;
+  v59 = 0u;
   v6 = self->_alertSystemSoundContexts;
-  v7 = [(NSMapTable *)v6 countByEnumeratingWithState:&v55 objects:v68 count:16];
+  v7 = [(NSMapTable *)v6 countByEnumeratingWithState:&v58 objects:v71 count:16];
   if (v7)
   {
     v8 = v7;
-    v39 = backlightStatus;
-    v41 = 0;
-    v43 = 0;
+    v42 = backlightStatus;
     v44 = 0;
-    v9 = *v56;
+    v46 = 0;
+    v47 = 0;
+    v9 = *v59;
     if (changeCopy == 1)
     {
       v10 = @"on";
@@ -2105,17 +2268,17 @@ void __67__TLAlertSystemSoundController__processPlaybackCompletionContexts___blo
       v10 = @"off";
     }
 
-    v42 = v10;
+    v45 = v10;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v56 != v9)
+        if (*v59 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v55 + 1) + 8 * i);
+        v12 = *(*(&v58 + 1) + 8 * i);
         v13 = [(NSMapTable *)self->_alertSystemSoundContexts objectForKey:v12];
         toneIdentifierForDeemphasizingAlert = [v13 toneIdentifierForDeemphasizingAlert];
         vibrationIdentifierForDeemphasizingAlert = [v13 vibrationIdentifierForDeemphasizingAlert];
@@ -2125,217 +2288,222 @@ void __67__TLAlertSystemSoundController__processPlaybackCompletionContexts___blo
 
           if (sound)
           {
-            if (changeCopy == 1 && ([v13 isBeingDeemphasized] & 1) == 0 && (objc_msgSend(v13, "isDeemphasized") & 1) == 0 && (objc_msgSend(v13, "isBeingInterrupted") & 1) == 0)
+            if (changeCopy == 1 && ([v13 isBeingDeemphasized] & 1) == 0 && (objc_msgSend(v13, "isDeemphasized") & 1) == 0)
             {
-              v17 = TLLogPlayback();
-              if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+              isBeingInterrupted = [v13 isBeingInterrupted];
+              if ((isBeingInterrupted & 1) == 0)
               {
-                v40 = [v12 debugDescription];
-                *buf = 138543874;
-                selfCopy2 = self;
-                v62 = 2114;
-                v63 = @"on";
-                v64 = 2114;
-                v65 = v40;
-                _os_log_impl(&dword_1D9356000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: backlightStatusDidChange:(%{public}@). Backlight was turned on. Deemphasizing: %{public}@.", buf, 0x20u);
+                v19 = TLLogPlayback(isBeingInterrupted, v18);
+                if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+                {
+                  v43 = [v12 debugDescription];
+                  *buf = 138543874;
+                  selfCopy2 = self;
+                  v65 = 2114;
+                  v66 = @"on";
+                  v67 = 2114;
+                  v68 = v43;
+                  _os_log_impl(&dword_1D9356000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@: backlightStatusDidChange:(%{public}@). Backlight was turned on. Deemphasizing: %{public}@.", buf, 0x20u);
+                }
+
+                [v13 setBeingDeemphasized:1];
+                v20 = v44;
+                if (!v44)
+                {
+                  v20 = objc_alloc_init(MEMORY[0x1E695DF70]);
+                }
+
+                v44 = v20;
+                [v20 addObject:v12];
               }
-
-              [v13 setBeingDeemphasized:1];
-              v18 = v41;
-              if (!v41)
-              {
-                v18 = objc_alloc_init(MEMORY[0x1E695DF70]);
-              }
-
-              v41 = v18;
-              [v18 addObject:v12];
             }
-          }
-
-          else if ([v13 isLoadingSound])
-          {
-            v19 = TLLogPlayback();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
-            {
-              v20 = [v12 debugDescription];
-              *buf = 138544130;
-              selfCopy2 = self;
-              v62 = 2114;
-              v63 = v42;
-              v64 = 2114;
-              v65 = v20;
-              v66 = 2114;
-              v67 = v13;
-              _os_log_impl(&dword_1D9356000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@: backlightStatusDidChange:(%{public}@). Backlight was turned on, but we are still loading the regular sound for %{public}@ with context %{public}@. Deferring application of updated backlight status.", buf, 0x2Au);
-            }
-
-            v43 = 1;
           }
 
           else
           {
-            [v13 setLoadingSound:1];
-            v21 = [[TLDeemphasizableAlertSystemSoundBeginPlayingContext alloc] initWithAlert:v12 alertSystemSoundContext:v13 toneIdentifierForDeemphasizingAlert:toneIdentifierForDeemphasizingAlert vibrationIdentifierForDeemphasizingAlert:vibrationIdentifierForDeemphasizingAlert];
-            v22 = v44;
-            if (!v44)
+            isLoadingSound = [v13 isLoadingSound];
+            if (isLoadingSound)
             {
-              v22 = objc_alloc_init(MEMORY[0x1E695DF70]);
+              v23 = TLLogPlayback(isLoadingSound, v22);
+              if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+              {
+                v24 = [v12 debugDescription];
+                *buf = 138544130;
+                selfCopy2 = self;
+                v65 = 2114;
+                v66 = v45;
+                v67 = 2114;
+                v68 = v24;
+                v69 = 2114;
+                v70 = v13;
+                _os_log_impl(&dword_1D9356000, v23, OS_LOG_TYPE_DEFAULT, "%{public}@: backlightStatusDidChange:(%{public}@). Backlight was turned on, but we are still loading the regular sound for %{public}@ with context %{public}@. Deferring application of updated backlight status.", buf, 0x2Au);
+              }
+
+              v46 = 1;
             }
 
-            v44 = v22;
-            [v22 addObject:v21];
+            else
+            {
+              [v13 setLoadingSound:1];
+              v25 = [[TLDeemphasizableAlertSystemSoundBeginPlayingContext alloc] initWithAlert:v12 alertSystemSoundContext:v13 toneIdentifierForDeemphasizingAlert:toneIdentifierForDeemphasizingAlert vibrationIdentifierForDeemphasizingAlert:vibrationIdentifierForDeemphasizingAlert];
+              v26 = v47;
+              if (!v47)
+              {
+                v26 = objc_alloc_init(MEMORY[0x1E695DF70]);
+              }
+
+              v47 = v26;
+              [v26 addObject:v25];
+            }
           }
         }
       }
 
-      v8 = [(NSMapTable *)v6 countByEnumeratingWithState:&v55 objects:v68 count:16];
+      v8 = [(NSMapTable *)v6 countByEnumeratingWithState:&v58 objects:v71 count:16];
     }
 
     while (v8);
 
-    if (v43)
+    if (v46)
     {
-      self->_backlightStatus = v39;
-      v51 = 0u;
-      v52 = 0u;
-      v53 = 0u;
+      self->_backlightStatus = v42;
       v54 = 0u;
-      v23 = v41;
-      v24 = [(TLAlertStoppingOptions *)v23 countByEnumeratingWithState:&v51 objects:v59 count:16];
-      if (v24)
+      v55 = 0u;
+      v56 = 0u;
+      v57 = 0u;
+      v27 = v44;
+      v28 = [(TLAlertStoppingOptions *)v27 countByEnumeratingWithState:&v54 objects:v62 count:16];
+      if (v28)
       {
-        v25 = v24;
-        v26 = *v52;
+        v29 = v28;
+        v30 = *v55;
         do
         {
-          for (j = 0; j != v25; ++j)
+          for (j = 0; j != v29; ++j)
           {
-            if (*v52 != v26)
+            if (*v55 != v30)
             {
-              objc_enumerationMutation(v23);
+              objc_enumerationMutation(v27);
             }
 
-            v28 = [(NSMapTable *)self->_alertSystemSoundContexts objectForKey:*(*(&v51 + 1) + 8 * j)];
-            [v28 setBeingDeemphasized:0];
+            v32 = [(NSMapTable *)self->_alertSystemSoundContexts objectForKey:*(*(&v54 + 1) + 8 * j)];
+            [v32 setBeingDeemphasized:0];
           }
 
-          v25 = [(TLAlertStoppingOptions *)v23 countByEnumeratingWithState:&v51 objects:v59 count:16];
+          v29 = [(TLAlertStoppingOptions *)v27 countByEnumeratingWithState:&v54 objects:v62 count:16];
         }
 
-        while (v25);
+        while (v29);
       }
 
-      [(TLAlertStoppingOptions *)v23 removeAllObjects];
-      v29 = 0;
-      v30 = 0;
-      v31 = 1;
+      [(TLAlertStoppingOptions *)v27 removeAllObjects];
+      v33 = 0;
+      v34 = 0;
+      v35 = 1;
       goto LABEL_49;
     }
 
-    v34 = v41;
+    v38 = v44;
   }
 
   else
   {
 
-    v44 = 0;
-    v34 = 0;
+    v47 = 0;
+    v38 = 0;
   }
 
-  if ([v34 count])
+  if ([v38 count])
   {
-    v23 = objc_alloc_init(TLAlertStoppingOptions);
-    [(TLAlertStoppingOptions *)v23 setShouldWaitUntilEndOfCurrentRepetition:1];
-    v29 = v34;
-    v30 = [(TLAlertSystemSoundController *)self _prepareForStoppingAlerts:v34 withOptions:v23 playbackCompletionType:0];
-    v31 = 0;
+    v27 = objc_alloc_init(TLAlertStoppingOptions);
+    [(TLAlertStoppingOptions *)v27 setShouldWaitUntilEndOfCurrentRepetition:1];
+    v33 = v38;
+    v34 = [(TLAlertSystemSoundController *)self _prepareForStoppingAlerts:v38 withOptions:v27 playbackCompletionType:0];
+    v35 = 0;
 LABEL_49:
 
     goto LABEL_51;
   }
 
-  v29 = v34;
-  v31 = 0;
-  v30 = 0;
+  v33 = v38;
+  v35 = 0;
+  v34 = 0;
 LABEL_51:
 
   os_unfair_lock_unlock(&self->_lock);
-  v32 = v44;
-  if (v30)
+  v36 = v47;
+  if (v34)
   {
     goto LABEL_52;
   }
 
 LABEL_41:
-  v33 = v32;
-  v30 = 0;
-  if ([v32 count])
+  v37 = v36;
+  v34 = 0;
+  if ([v36 count])
   {
-    v32 = v33;
+    v36 = v37;
 LABEL_52:
     audioQueue = self->_audioQueue;
-    v46[0] = MEMORY[0x1E69E9820];
-    v46[1] = 3221225472;
-    v46[2] = __57__TLAlertSystemSoundController_backlightStatusDidChange___block_invoke;
-    v46[3] = &unk_1E85797D8;
-    v46[4] = self;
-    v49 = changeCopy;
-    v36 = v32;
-    v30 = v30;
-    v47 = v30;
-    v37 = v36;
-    v48 = v37;
-    v50 = v31;
-    [(TLAudioQueue *)audioQueue performTaskWithBlock:v46];
+    v49[0] = MEMORY[0x1E69E9820];
+    v49[1] = 3221225472;
+    v49[2] = __57__TLAlertSystemSoundController_backlightStatusDidChange___block_invoke;
+    v49[3] = &unk_1E85797D8;
+    v49[4] = self;
+    v52 = changeCopy;
+    v40 = v36;
+    v34 = v34;
+    v50 = v34;
+    v41 = v40;
+    v51 = v41;
+    v53 = v35;
+    [(TLAudioQueue *)audioQueue performTaskWithBlock:v49];
 
-    v32 = v37;
+    v36 = v41;
     goto LABEL_53;
   }
 
-  v32 = v33;
-  if (v31)
+  v36 = v37;
+  if (v35)
   {
     goto LABEL_52;
   }
 
 LABEL_53:
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __57__TLAlertSystemSoundController_backlightStatusDidChange___block_invoke(uint64_t a1)
+void *__57__TLAlertSystemSoundController_backlightStatusDidChange___block_invoke(uint64_t a1)
 {
   v11 = *MEMORY[0x1E69E9840];
   result = [*(a1 + 32) _processDeemphasizableAlertChangesForBackglightStatus:*(a1 + 56) stopTasksDescriptorForDeemphasizedAlerts:*(a1 + 40) deemphasizableAlertBeginPlayingContexts:*(a1 + 48)];
   if (*(a1 + 64) == 1)
   {
-    v3 = TLLogPlayback();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = TLLogPlayback(result, v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 32);
-      v5 = @"off";
+      v5 = *(a1 + 32);
+      v6 = @"off";
       if (*(a1 + 56) == 1)
       {
-        v5 = @"on";
+        v6 = @"on";
       }
 
       v7 = 138543618;
-      v8 = v4;
+      v8 = v5;
       v9 = 2114;
-      v10 = v5;
-      _os_log_impl(&dword_1D9356000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: backlightStatusDidChange:(%{public}@). Triggering delayed application of updated backlight status.", &v7, 0x16u);
+      v10 = v6;
+      _os_log_impl(&dword_1D9356000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: backlightStatusDidChange:(%{public}@). Triggering delayed application of updated backlight status.", &v7, 0x16u);
     }
 
-    result = [*(a1 + 32) backlightStatusDidChange:*(a1 + 56)];
+    return [*(a1 + 32) backlightStatusDidChange:*(a1 + 56)];
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)_processDeemphasizableAlertChangesForBackglightStatus:(int64_t)status stopTasksDescriptorForDeemphasizedAlerts:(id)alerts deemphasizableAlertBeginPlayingContexts:(id)contexts
 {
-  v86 = *MEMORY[0x1E69E9840];
+  v88 = *MEMORY[0x1E69E9840];
   alertsCopy = alerts;
   contextsCopy = contexts;
   os_unfair_lock_assert_not_owner(&self->_lock);
@@ -2356,33 +2524,33 @@ uint64_t __57__TLAlertSystemSoundController_backlightStatusDidChange___block_inv
   v11 = [contextsCopy count];
   if (!v11)
   {
-    v57 = 0;
+    v59 = 0;
     goto LABEL_52;
   }
 
-  v54 = v9;
-  v51 = contextsCopy;
-  v52 = alertsCopy;
+  v56 = v9;
+  v53 = contextsCopy;
+  v54 = alertsCopy;
+  v73 = 0u;
+  v74 = 0u;
   v71 = 0u;
   v72 = 0u;
-  v69 = 0u;
-  v70 = 0u;
   obj = contextsCopy;
-  v12 = [obj countByEnumeratingWithState:&v69 objects:v85 count:16];
+  v12 = [obj countByEnumeratingWithState:&v71 objects:v87 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v70;
+    v14 = *v72;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v70 != v14)
+        if (*v72 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v69 + 1) + 8 * i);
+        v16 = *(*(&v71 + 1) + 8 * i);
         alert = [v16 alert];
         toneIdentifierForDeemphasizingAlert = [v16 toneIdentifierForDeemphasizingAlert];
         vibrationIdentifierForDeemphasizingAlert = [v16 vibrationIdentifierForDeemphasizingAlert];
@@ -2416,92 +2584,92 @@ uint64_t __57__TLAlertSystemSoundController_backlightStatusDidChange___block_inv
         }
       }
 
-      v13 = [obj countByEnumeratingWithState:&v69 objects:v85 count:16];
+      v13 = [obj countByEnumeratingWithState:&v71 objects:v87 count:16];
     }
 
     while (v13);
   }
 
   os_unfair_lock_lock(&self->_lock);
+  v69 = 0u;
+  v70 = 0u;
   v67 = 0u;
   v68 = 0u;
-  v65 = 0u;
-  v66 = 0u;
-  v55 = obj;
-  v25 = [v55 countByEnumeratingWithState:&v65 objects:v84 count:16];
+  v57 = obj;
+  v25 = [v57 countByEnumeratingWithState:&v67 objects:v86 count:16];
   if (!v25)
   {
-    v57 = 0;
-    v53 = 0;
+    v59 = 0;
+    v55 = 0;
     goto LABEL_51;
   }
 
   v26 = v25;
-  v53 = 0;
-  v57 = 0;
-  obja = *v66;
+  v55 = 0;
+  v59 = 0;
+  obja = *v68;
   v27 = @"off";
   if (status == 1)
   {
     v27 = @"on";
   }
 
-  v56 = v27;
+  v58 = v27;
   do
   {
     for (j = 0; j != v26; ++j)
     {
-      if (*v66 != obja)
+      if (*v68 != obja)
       {
-        objc_enumerationMutation(v55);
+        objc_enumerationMutation(v57);
       }
 
-      v29 = *(*(&v65 + 1) + 8 * j);
+      v29 = *(*(&v67 + 1) + 8 * j);
       alert2 = [v29 alert];
       alertSystemSoundContext = [v29 alertSystemSoundContext];
       sound = [v29 sound];
       vibrationIdentifier2 = [v29 vibrationIdentifier];
-      v34 = TLLogPlayback();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+      v35 = TLLogPlayback(vibrationIdentifier2, v34);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
-        v35 = [alert2 debugDescription];
+        v36 = [alert2 debugDescription];
         *buf = 138544386;
         selfCopy2 = self;
-        v76 = 2114;
-        v77 = v56;
         v78 = 2114;
-        v79 = v35;
+        v79 = v58;
         v80 = 2114;
-        v81 = sound;
+        v81 = v36;
         v82 = 2114;
-        v83 = vibrationIdentifier2;
-        _os_log_impl(&dword_1D9356000, v34, OS_LOG_TYPE_DEFAULT, "%{public}@: _processDeemphasizableAlertChanges…:(%{public}@). About to begin playing alert %{public}@ with sound: %{public}@ and vibration identifier: %{public}@.", buf, 0x34u);
+        v83 = sound;
+        v84 = 2114;
+        v85 = vibrationIdentifier2;
+        _os_log_impl(&dword_1D9356000, v35, OS_LOG_TYPE_DEFAULT, "%{public}@: _processDeemphasizableAlertChanges…:(%{public}@). About to begin playing alert %{public}@ with sound: %{public}@ and vibration identifier: %{public}@.", buf, 0x34u);
       }
 
       if (!sound)
       {
-        [(TLAlertSystemSoundController *)self _removeAlert:alert2 alertSystemSoundContext:alertSystemSoundContext didFailToPrepareSound:1 appendingPlaybackCompletionContextToArray:v54];
+        [(TLAlertSystemSoundController *)self _removeAlert:alert2 alertSystemSoundContext:alertSystemSoundContext didFailToPrepareSound:1 appendingPlaybackCompletionContextToArray:v56];
 LABEL_45:
         [alertSystemSoundContext setLoadingSound:0];
         goto LABEL_46;
       }
 
-      v36 = [(NSMapTable *)self->_alertSystemSoundContexts objectForKey:alert2];
+      v37 = [(NSMapTable *)self->_alertSystemSoundContexts objectForKey:alert2];
 
-      if (!v36)
+      if (!v37)
       {
-        v43 = TLLogPlayback();
-        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+        v46 = TLLogPlayback(v38, v39);
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138544130;
           selfCopy2 = self;
-          v76 = 2114;
-          v77 = v56;
           v78 = 2114;
-          v79 = alert2;
+          v79 = v58;
           v80 = 2114;
-          v81 = alertSystemSoundContext;
-          _os_log_impl(&dword_1D9356000, v43, OS_LOG_TYPE_DEFAULT, "%{public}@: _processDeemphasizableAlertChanges…:(%{public}@). Alert %{public}@ for %{public}@ has already been removed. Aborting.", buf, 0x2Au);
+          v81 = alert2;
+          v82 = 2114;
+          v83 = alertSystemSoundContext;
+          _os_log_impl(&dword_1D9356000, v46, OS_LOG_TYPE_DEFAULT, "%{public}@: _processDeemphasizableAlertChanges…:(%{public}@). Alert %{public}@ for %{public}@ has already been removed. Aborting.", buf, 0x2Au);
         }
 
         goto LABEL_45;
@@ -2511,81 +2679,81 @@ LABEL_45:
       [alertSystemSoundContext setVibrationIdentifier:vibrationIdentifier2];
       [alertSystemSoundContext setLoadingSound:0];
       [alertSystemSoundContext setDeemphasized:status == 1];
-      v37 = [(TLAlertSystemSoundController *)self _prepareForPreemptingAlertsBeforeBeginningPlaybackOfAlert:alert2 withSound:sound playbackCompletionType:4];
-      v38 = v37;
-      if (v37)
+      v40 = [(TLAlertSystemSoundController *)self _prepareForPreemptingAlertsBeforeBeginningPlaybackOfAlert:alert2 withSound:sound playbackCompletionType:4];
+      v41 = v40;
+      if (v40)
       {
-        playbackCompletionContextsToProcess2 = [v37 playbackCompletionContextsToProcess];
+        playbackCompletionContextsToProcess2 = [v40 playbackCompletionContextsToProcess];
         if ([playbackCompletionContextsToProcess2 count])
         {
-          [v54 addObjectsFromArray:playbackCompletionContextsToProcess2];
-          [v38 setPlaybackCompletionContextsToProcess:0];
+          [v56 addObjectsFromArray:playbackCompletionContextsToProcess2];
+          [v41 setPlaybackCompletionContextsToProcess:0];
         }
 
-        v40 = v53;
-        if (!v53)
+        v43 = v55;
+        if (!v55)
         {
-          v40 = objc_alloc_init(MEMORY[0x1E695DF70]);
+          v43 = objc_alloc_init(MEMORY[0x1E695DF70]);
         }
 
-        v53 = v40;
-        [v40 addObject:v38];
+        v55 = v43;
+        [v43 addObject:v41];
       }
 
-      v41 = [(TLAlertSystemSoundController *)self _playTaskDescriptorForAlert:alert2 withSound:sound vibrationIdentifier:vibrationIdentifier2 alertSystemSoundContext:alertSystemSoundContext];
-      v42 = v57;
-      if (!v57)
+      v44 = [(TLAlertSystemSoundController *)self _playTaskDescriptorForAlert:alert2 withSound:sound vibrationIdentifier:vibrationIdentifier2 alertSystemSoundContext:alertSystemSoundContext];
+      v45 = v59;
+      if (!v59)
       {
-        v42 = objc_alloc_init(MEMORY[0x1E695DF70]);
+        v45 = objc_alloc_init(MEMORY[0x1E695DF70]);
       }
 
-      v57 = v42;
-      [v42 addObject:v41];
+      v59 = v45;
+      [v45 addObject:v44];
 
 LABEL_46:
     }
 
-    v26 = [v55 countByEnumeratingWithState:&v65 objects:v84 count:16];
+    v26 = [v57 countByEnumeratingWithState:&v67 objects:v86 count:16];
   }
 
   while (v26);
 LABEL_51:
 
   os_unfair_lock_unlock(&self->_lock);
-  contextsCopy = v51;
-  alertsCopy = v52;
-  v11 = v53;
-  v9 = v54;
+  contextsCopy = v53;
+  alertsCopy = v54;
+  v11 = v55;
+  v9 = v56;
 LABEL_52:
-  v44 = v11;
+  v47 = v11;
   if ([v11 count])
   {
+    v65 = 0u;
+    v66 = 0u;
     v63 = 0u;
     v64 = 0u;
-    v61 = 0u;
-    v62 = 0u;
-    v45 = v44;
-    v46 = [v45 countByEnumeratingWithState:&v61 objects:v73 count:16];
-    if (v46)
+    v48 = v47;
+    v49 = [v48 countByEnumeratingWithState:&v63 objects:v75 count:16];
+    if (v49)
     {
-      v47 = v46;
-      v48 = *v62;
+      v50 = v49;
+      v51 = *v64;
       do
       {
-        for (k = 0; k != v47; ++k)
+        for (k = 0; k != v50; ++k)
         {
-          if (*v62 != v48)
+          if (*v64 != v51)
           {
-            objc_enumerationMutation(v45);
+            objc_enumerationMutation(v48);
           }
 
-          [(TLAlertSystemSoundController *)self _processStopTasksDescriptor:*(*(&v61 + 1) + 8 * k)];
+          [(TLAlertSystemSoundController *)self _processStopTasksDescriptor:*(*(&v63 + 1) + 8 * k)];
         }
 
-        v47 = [v45 countByEnumeratingWithState:&v61 objects:v73 count:16];
+        v50 = [v48 countByEnumeratingWithState:&v63 objects:v75 count:16];
       }
 
-      while (v47);
+      while (v50);
     }
   }
 
@@ -2594,23 +2762,20 @@ LABEL_52:
     [(TLAlertSystemSoundController *)self _processPlaybackCompletionContexts:v9];
   }
 
-  if ([v57 count])
+  if ([v59 count])
   {
-    [(TLAlertSystemSoundController *)self _processPlayTaskDescriptors:v57];
+    [(TLAlertSystemSoundController *)self _processPlayTaskDescriptors:v59];
   }
-
-  v50 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_beginRequiringBacklightObservationForAlert:(os_log_t)log alertSystemSoundContext:.cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_1D9356000, log, OS_LOG_TYPE_ERROR, "Already requiring backlight observation for %{public}@ with context %{public}@.", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_1D9356000, log, OS_LOG_TYPE_ERROR, "Already requiring backlight observation for %{public}@ with context %{public}@.", &v3, 0x16u);
 }
 
 @end

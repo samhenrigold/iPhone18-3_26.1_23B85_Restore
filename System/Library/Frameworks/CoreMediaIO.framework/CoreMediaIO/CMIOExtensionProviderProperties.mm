@@ -90,13 +90,14 @@ uint64_t __65__CMIOExtensionProviderProperties_initWithPropertyValues_client___b
   if (p_isa)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v5 = CMIOLog();
-      p_isa = &v5->isa;
-      if (v5)
+      v7 = CMIOLog(isKindOfClass, v6);
+      p_isa = &v7->isa;
+      if (v7)
       {
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
           [CMIOExtensionProviderProperties name];
         }
@@ -121,14 +122,15 @@ LABEL_4:
 
   v4 = name;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     name = +[CMIOExtensionPropertyState propertyStateWithValue:attributes:](CMIOExtensionPropertyState, "propertyStateWithValue:attributes:", v4, +[CMIOExtensionPropertyAttributes readOnlyPropertyAttribute]);
     goto LABEL_4;
   }
 
-  v5 = CMIOLog();
-  if (v5 && os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v7 = CMIOLog(isKindOfClass, v6);
+  if (v7 && os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     [CMIOExtensionProviderProperties setName:];
   }
@@ -143,13 +145,14 @@ LABEL_4:
   if (p_isa)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v5 = CMIOLog();
-      p_isa = &v5->isa;
-      if (v5)
+      v7 = CMIOLog(isKindOfClass, v6);
+      p_isa = &v7->isa;
+      if (v7)
       {
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
           [CMIOExtensionProviderProperties manufacturer];
         }
@@ -174,14 +177,15 @@ LABEL_4:
 
   v4 = manufacturer;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     manufacturer = +[CMIOExtensionPropertyState propertyStateWithValue:attributes:](CMIOExtensionPropertyState, "propertyStateWithValue:attributes:", v4, +[CMIOExtensionPropertyAttributes readOnlyPropertyAttribute]);
     goto LABEL_4;
   }
 
-  v5 = CMIOLog();
-  if (v5 && os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v7 = CMIOLog(isKindOfClass, v6);
+  if (v7 && os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     [CMIOExtensionProviderProperties setManufacturer:];
   }
@@ -223,46 +227,38 @@ LABEL_4:
 
 - (void)name
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProvider.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setName:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProvider.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)manufacturer
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProvider.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setManufacturer:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProvider.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

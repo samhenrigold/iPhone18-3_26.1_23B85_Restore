@@ -57,9 +57,9 @@
   v16 = v15;
   if (requiresConversion)
   {
-    v17 = [v15 isEqualToString:@"contactDict"];
+    isEqualToString = objc_msgSend_isEqualToString_(v15);
 
-    if (v17)
+    if (isEqualToString)
     {
       v18 = [(NSMutableDictionary *)self->super._payloadAttributes objectForKeyedSubscript:@"verifiedType"];
       intValue = [v18 intValue];
@@ -138,7 +138,7 @@
 
   else
   {
-    v23 = [v15 isEqualToString:@"uri"];
+    v23 = objc_msgSend_isEqualToString_(v15);
 
     if (v23)
     {
@@ -190,7 +190,7 @@
   keyCopy = key;
   builderCopy = builder;
   valueCopy = value;
-  if ([keyCopy isEqualToString:@"mergeTarget"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v11 = [(PLManagedObjectJournalEntryPayload *)self UUIDStringForData:valueCopy];
 

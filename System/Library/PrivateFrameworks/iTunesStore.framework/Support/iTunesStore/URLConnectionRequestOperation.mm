@@ -306,15 +306,21 @@ LABEL_11:
         shouldLog = [v11 shouldLog];
         if ([v11 shouldLogToDisk])
         {
-          v13 = shouldLog | 2;
+          LODWORD(v13) = shouldLog | 2;
         }
 
         else
         {
-          v13 = shouldLog;
+          LODWORD(v13) = shouldLog;
         }
 
-        if (!os_log_type_enabled([v11 OSLogObject], OS_LOG_TYPE_INFO))
+        oSLogObject = [v11 OSLogObject];
+        if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+        {
+          v13 = v13;
+        }
+
+        else
         {
           v13 &= 2u;
         }
@@ -329,20 +335,18 @@ LABEL_11:
           v24 = v7;
           v25 = 2048;
           v26 = [v10 length];
-          LODWORD(v18) = 42;
-          v17 = &v19;
-          v14 = _os_log_send_and_compose_impl();
-          if (v14)
+          v15 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Set kbsync data for account: %@, transaction type: %lu, with length: %lu", &v19, 42);
+          if (v15)
           {
-            v15 = v14;
-            v16 = [NSString stringWithCString:v14 encoding:4, &v19, v18];
-            free(v15);
-            v17 = v16;
+            v16 = v15;
+            v17 = [NSString stringWithCString:v15 encoding:4];
+            free(v16);
+            v18 = v17;
             SSFileLog();
           }
         }
 
-        [properties setValue:v10 forRequestParameter:{@"kbsync", v17}];
+        [properties setValue:v10 forRequestParameter:{@"kbsync", v18}];
       }
     }
   }

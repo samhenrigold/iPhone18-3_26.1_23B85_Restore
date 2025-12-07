@@ -24,9 +24,11 @@
 
 uint64_t __69__CNObservableContractEnforcementPreferences_shouldSwizzleNilResults__block_invoke(uint64_t a1)
 {
-  shouldSwizzleNilResults_cn_once_object_17 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(*(a1 + 32), "primitiveShouldSwizzleNilResults")}];
+  v1 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(*(a1 + 32), "primitiveShouldSwizzleNilResults")}];
+  v2 = shouldSwizzleNilResults_cn_once_object_17;
+  shouldSwizzleNilResults_cn_once_object_17 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 + (BOOL)primitiveShouldSwizzleNilResults

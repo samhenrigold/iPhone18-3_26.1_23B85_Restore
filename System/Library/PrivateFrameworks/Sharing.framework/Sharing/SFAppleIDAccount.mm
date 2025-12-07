@@ -200,45 +200,47 @@
 
 - (id)description
 {
-  NSAppendPrintF();
-  v22 = 0;
-  appleID = self->_appleID;
-  NSAppendPrintF();
-  v3 = v22;
+  v24 = 0;
+  NSAppendPrintF(&v24, "SFAppleIDAccount");
+  v3 = v24;
+  v23 = v3;
+  NSAppendPrintF(&v23, " AppleID: %{mask}", self->_appleID);
+  v4 = v23;
 
-  altDSID = self->_altDSID;
-  NSAppendPrintF();
-  v4 = v3;
+  v22 = v4;
+  NSAppendPrintF(&v22, ", AltDSID: %@", self->_altDSID);
+  v5 = v22;
 
-  certificateToken = self->_certificateToken;
-  NSAppendPrintF();
-  v5 = v4;
+  v21 = v5;
+  NSAppendPrintF(&v21, ", Certificate Token: %@", self->_certificateToken);
+  v6 = v21;
 
-  certificateTokenCreationDate = self->_certificateTokenCreationDate;
-  NSAppendPrintF();
-  v6 = v5;
+  v20 = v6;
+  NSAppendPrintF(&v20, ", Certificate Token Creation Date: %@", self->_certificateTokenCreationDate);
+  v7 = v20;
 
-  contactInfo = self->_contactInfo;
-  NSAppendPrintF();
-  v7 = v6;
+  v19 = v7;
+  NSAppendPrintF(&v19, ", Contact Info: %@", self->_contactInfo);
+  v8 = v19;
 
-  creationDate = self->_creationDate;
-  NSAppendPrintF();
-  v8 = v7;
+  v18 = v8;
+  NSAppendPrintF(&v18, ", Creation Date: %@", self->_creationDate);
+  v9 = v18;
 
-  identity = self->_identity;
-  NSAppendPrintF();
-  v9 = v8;
+  v17 = v9;
+  NSAppendPrintF(&v17, ", Identity: %@", self->_identity);
+  v10 = v17;
 
-  privateKeyPersistentReference = self->_privateKeyPersistentReference;
-  NSAppendPrintF();
-  v10 = v9;
+  v16 = v10;
+  NSAppendPrintF(&v16, ", Private Key Persistent Reference: %p", self->_privateKeyPersistentReference);
+  v11 = v16;
 
-  validationRecord = self->_validationRecord;
-  NSAppendPrintF();
-  v11 = v10;
+  v15 = v11;
+  NSAppendPrintF(&v15, ", VRecord: %@", self->_validationRecord);
+  v12 = v15;
+  v13 = v15;
 
-  return v10;
+  return v12;
 }
 
 - (SFAppleIDAccount)initWithCoder:(id)coder

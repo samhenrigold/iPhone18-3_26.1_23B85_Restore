@@ -1,637 +1,3 @@
-uint64_t OUTLINED_FUNCTION_53_0()
-{
-
-  return swift_slowAlloc();
-}
-
-uint64_t OUTLINED_FUNCTION_53_3(__n128 *a1, __n128 a2)
-{
-  a1[1] = a2;
-  a1[2].n128_u64[0] = v3;
-  a1[2].n128_u64[1] = v2;
-  a1[3].n128_u64[0] = v4;
-}
-
-uint64_t OUTLINED_FUNCTION_53_5(uint64_t result)
-{
-  v4 = result & ~(v3 << *(v1 + 32));
-  v5 = (v3 << v4) & ~*(v2 + 8 * (v4 >> 6));
-  return result;
-}
-
-uint64_t ConnectionType.stringRawValue.getter()
-{
-  result = 0x6E776F6E6B6E55;
-  switch(*v0)
-  {
-    case 1:
-      result = 0x69462D6957;
-      break;
-    case 2:
-      result = 1312905047;
-      break;
-    case 3:
-      result = 0x4E41525455;
-      break;
-    case 4:
-      result = 0x31414D4443204732;
-      break;
-    case 5:
-      result = 0x53525047204732;
-      break;
-    case 6:
-      result = 0x65676445204732;
-      break;
-    case 7:
-      result = 0x414D444357204733;
-      break;
-    case 8:
-      v2 = 0x445348204733;
-      goto LABEL_21;
-    case 9:
-      v2 = 0x555348204733;
-LABEL_21:
-      result = v2 & 0xFFFFFFFFFFFFLL | 0x4150000000000000;
-      break;
-    case 0xA:
-    case 0xB:
-    case 0xC:
-      result = 0x44564520414D4443;
-      break;
-    case 0xD:
-      result = 1146114632;
-      break;
-    case 0xE:
-      result = 4543564;
-      break;
-    case 0xF:
-      result = 0x41534E524E204735;
-      break;
-    case 0x10:
-      result = 0x524E204735;
-      break;
-    case 0x11:
-      result = 0x504354504DLL;
-      break;
-    case 0x12:
-      result = 0x796C6C654264654CLL;
-      break;
-    case 0x13:
-      result = 5456969;
-      break;
-    case 0x14:
-      result = 5263184;
-      break;
-    case 0x15:
-      result = 0x65636E65726F6C46;
-      break;
-    case 0x16:
-      result = 0x6C61636F4CLL;
-      break;
-    case 0x17:
-      result = 0x504354504D574ELL;
-      break;
-    case 0x18:
-      result = 0x6365737069;
-      break;
-    default:
-      return result;
-  }
-
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_72_1()
-{
-
-  return _stringCompareWithSmolCheck(_:_:expecting:)();
-}
-
-void OUTLINED_FUNCTION_72_2(uint64_t a1, void *a2)
-{
-  a2[1] = 0;
-  a2[2] = 0;
-  *a2 = v2;
-}
-
-uint64_t lazy protocol witness table accessor for type NetworkConnectionProvider and conformance NetworkConnectionProvider(unint64_t *a1, uint64_t a2, void (*a3)(uint64_t))
-{
-  result = *a1;
-  if (!result)
-  {
-    a3(a2);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
-  }
-
-  return result;
-}
-
-uint64_t outlined init with copy of ConnectionSnapshotReport?(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
-{
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
-  (*(*(v6 - 8) + 16))(a2, a1, v6);
-  return a2;
-}
-
-void static NetworkManager.releaseDormancySuspendAssertion(_:)(void *a1)
-{
-  if (a1 && *a1)
-  {
-    swift_unknownObjectRelease();
-    *a1 = 0;
-    if (one-time initialization token for siriNetwork != -1)
-    {
-      OUTLINED_FUNCTION_0_6();
-    }
-
-    v2 = type metadata accessor for Logger();
-    oslog = OUTLINED_FUNCTION_17(v2, static Logger.siriNetwork);
-    v3 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(oslog, v3))
-    {
-      v4 = OUTLINED_FUNCTION_14();
-      *v4 = 0;
-      _os_log_impl(&dword_223515000, oslog, v3, "NetworkManager - Assertion: Released dormancy suspension assertion.", v4, 2u);
-      OUTLINED_FUNCTION_12();
-    }
-  }
-}
-
-void CommunicationProtocolAce.cancelPingTimer()()
-{
-  if (*(v0 + 224))
-  {
-    v1 = v0;
-    v2 = one-time initialization token for siriNetwork;
-    swift_unknownObjectRetain();
-    if (v2 != -1)
-    {
-      OUTLINED_FUNCTION_0_8();
-      swift_once();
-    }
-
-    v3 = type metadata accessor for Logger();
-    OUTLINED_FUNCTION_58(v3, static Logger.siriNetwork);
-    v4 = Logger.logObject.getter();
-    static os_log_type_t.default.getter();
-    v5 = OUTLINED_FUNCTION_16_0();
-    if (os_log_type_enabled(v5, v6))
-    {
-      OUTLINED_FUNCTION_17_5();
-      v7 = swift_slowAlloc();
-      OUTLINED_FUNCTION_40_2(v7);
-      OUTLINED_FUNCTION_6_0();
-      _os_log_impl(v8, v9, v10, v11, v12, 2u);
-      v13 = OUTLINED_FUNCTION_1_2();
-      MEMORY[0x223DE38F0](v13);
-    }
-
-    swift_getObjectType();
-    OS_dispatch_source.cancel()();
-    swift_unknownObjectRelease();
-    v14 = *(v1 + 224);
-    *(v1 + 224) = 0;
-
-    swift_unknownObjectRelease();
-  }
-}
-
-void NetworkConnectionProvider.handleStateUpdate(_:)()
-{
-  OUTLINED_FUNCTION_46();
-  v1 = v0;
-  v3 = v2;
-  v151 = type metadata accessor for ConnectionAnalysisInfo();
-  v4 = OUTLINED_FUNCTION_71(v151);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_14_2();
-  MEMORY[0x28223BE20](v7);
-  OUTLINED_FUNCTION_35_0();
-  OUTLINED_FUNCTION_49_1(v8);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriNetwork22ConnectionAnalysisInfoVSgMd, &_s11SiriNetwork22ConnectionAnalysisInfoVSgMR);
-  v10 = OUTLINED_FUNCTION_11_1(v9);
-  v12 = *(v11 + 64);
-  MEMORY[0x28223BE20](v10);
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_14_2();
-  MEMORY[0x28223BE20](v13);
-  OUTLINED_FUNCTION_35_0();
-  v136 = v14;
-  OUTLINED_FUNCTION_31();
-  v139 = type metadata accessor for NWError();
-  v15 = OUTLINED_FUNCTION_0_0(v139);
-  v138 = v16;
-  v18 = *(v17 + 64);
-  MEMORY[0x28223BE20](v15);
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_14_2();
-  MEMORY[0x28223BE20](v19);
-  OUTLINED_FUNCTION_35_0();
-  OUTLINED_FUNCTION_49_1(v20);
-  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Network12NWConnectionC5StateOSgMd, &_s7Network12NWConnectionC5StateOSgMR);
-  v22 = OUTLINED_FUNCTION_11_1(v21);
-  v24 = *(v23 + 64);
-  MEMORY[0x28223BE20](v22);
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_14_2();
-  MEMORY[0x28223BE20](v25);
-  v27 = &v129 - v26;
-  v28 = type metadata accessor for NWConnection.State();
-  v29 = OUTLINED_FUNCTION_0_0(v28);
-  v31 = v30;
-  v33 = *(v32 + 64);
-  MEMORY[0x28223BE20](v29);
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_14_2();
-  MEMORY[0x28223BE20](v34);
-  OUTLINED_FUNCTION_14_2();
-  MEMORY[0x28223BE20](v35);
-  OUTLINED_FUNCTION_14_2();
-  MEMORY[0x28223BE20](v36);
-  v38 = &v129 - v37;
-  v145 = NetworkConnectionProvider.connectionIdentifier.getter();
-  v40 = v39;
-  if (one-time initialization token for siriNetwork != -1)
-  {
-    OUTLINED_FUNCTION_0_8();
-    swift_once();
-  }
-
-  v41 = type metadata accessor for Logger();
-  v42 = __swift_project_value_buffer(v41, static Logger.siriNetwork);
-  v43 = *(v31 + 16);
-  v148 = v3;
-  v44 = v42;
-  (v43)(v38, v3, v28);
-
-  v144 = v44;
-  v45 = Logger.logObject.getter();
-  LODWORD(v44) = static os_log_type_t.default.getter();
-  v147 = v1;
-
-  v143 = v44;
-  v46 = os_log_type_enabled(v45, v44);
-  v146 = v31;
-  v150 = v40;
-  if (v46)
-  {
-    v131 = v45;
-    OUTLINED_FUNCTION_4_3();
-    v47 = swift_slowAlloc();
-    v130 = OUTLINED_FUNCTION_116();
-    v155 = v130;
-    *v47 = 136315650;
-    *(v47 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v145, v40, &v155);
-    *(v47 + 12) = 2080;
-    (v43)(v27, v38, v28);
-    OUTLINED_FUNCTION_9_0();
-    __swift_storeEnumTagSinglePayload(v48, v49, v50, v28);
-    v51 = v142;
-    outlined init with copy of NetworkConnectionProtocol?(v27, v142, &_s7Network12NWConnectionC5StateOSgMd, &_s7Network12NWConnectionC5StateOSgMR);
-    EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v51, 1, v28);
-    v132 = v43;
-    if (EnumTagSinglePayload == 1)
-    {
-      v53 = 0xE100000000000000;
-      v54 = 45;
-      v55 = v147;
-      v56 = v146;
-    }
-
-    else
-    {
-      v56 = v146;
-      v60 = *(v146 + 32);
-      v61 = v152;
-      OUTLINED_FUNCTION_45();
-      v62();
-      (v43)(v140, v61, v28);
-      OUTLINED_FUNCTION_80();
-      v54 = String.init<A>(describing:)();
-      v53 = v63;
-      (*(v56 + 8))(v61, v28);
-      v55 = v147;
-    }
-
-    outlined destroy of NetworkConnectionProtocol?(v27, &_s7Network12NWConnectionC5StateOSgMd, &_s7Network12NWConnectionC5StateOSgMR);
-    v64 = v38;
-    v58 = *(v56 + 8);
-    v58(v64, v28);
-    getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v54, v53, &v155);
-    OUTLINED_FUNCTION_115();
-    *(v47 + 14) = v27;
-    *(v47 + 22) = 2080;
-    OUTLINED_FUNCTION_8();
-    swift_beginAccess();
-    outlined init with copy of NetworkConnectionProtocol?(v55 + 16, v156, &_s11SiriNetwork0B18ConnectionProtocol_pSgMd, &_s11SiriNetwork0B18ConnectionProtocol_pSgMR);
-    outlined init with copy of NetworkConnectionProtocol?(v156, &v157, &_s11SiriNetwork0B18ConnectionProtocol_pSgMd, &_s11SiriNetwork0B18ConnectionProtocol_pSgMR);
-    if (v158)
-    {
-      outlined init with take of RPCOspreyConnectionProtocol(&v157, v154);
-      outlined init with copy of RPCOspreyConnectionProtocol(v154, &v153);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriNetwork0B18ConnectionProtocol_pMd, _s11SiriNetwork0B18ConnectionProtocol_pMR);
-      v65 = String.init<A>(describing:)();
-      v67 = v66;
-      __swift_destroy_boxed_opaque_existential_0(v154);
-    }
-
-    else
-    {
-      v67 = 0xE100000000000000;
-      v65 = 45;
-    }
-
-    v59 = v132;
-    outlined destroy of NetworkConnectionProtocol?(v156, &_s11SiriNetwork0B18ConnectionProtocol_pSgMd, &_s11SiriNetwork0B18ConnectionProtocol_pSgMR);
-    getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v65, v67, &v155);
-    OUTLINED_FUNCTION_104();
-
-    *(v47 + 24) = v65;
-    v68 = v131;
-    _os_log_impl(&dword_223515000, v131, v143, "Provider - NetworkConnectionProvider [%s]: State updated to %s. Info: %s", v47, 0x20u);
-    swift_arrayDestroy();
-    OUTLINED_FUNCTION_2_2();
-    MEMORY[0x223DE38F0]();
-    OUTLINED_FUNCTION_2_2();
-    MEMORY[0x223DE38F0]();
-  }
-
-  else
-  {
-
-    v57 = v38;
-    v58 = *(v31 + 8);
-    v58(v57, v28);
-    v55 = v147;
-    v59 = v43;
-  }
-
-  v69 = v152;
-  OUTLINED_FUNCTION_45();
-  v59();
-  v70 = ConnectionProviderState.init(from:)(v69);
-  v71 = *(v55 + 1520);
-  *(v55 + 1520) = v70;
-  v72 = *(v55 + 1528);
-  *(v55 + 1528) = v73;
-  outlined consume of ConnectionProviderState(v71, v72);
-  OUTLINED_FUNCTION_8();
-  swift_beginAccess();
-  outlined init with copy of NetworkConnectionProtocol?(v55 + 16, v156, &_s11SiriNetwork0B18ConnectionProtocol_pSgMd, &_s11SiriNetwork0B18ConnectionProtocol_pSgMR);
-  v74 = v149;
-  if (!*(&v156[1] + 1))
-  {
-    outlined destroy of NetworkConnectionProtocol?(v156, &_s11SiriNetwork0B18ConnectionProtocol_pSgMd, &_s11SiriNetwork0B18ConnectionProtocol_pSgMR);
-    goto LABEL_16;
-  }
-
-  outlined init with take of RPCOspreyConnectionProtocol(v156, &v157);
-  if (*(v55 + 2099))
-  {
-    __swift_destroy_boxed_opaque_existential_0(&v157);
-LABEL_16:
-    v75 = v150;
-
-    v76 = Logger.logObject.getter();
-    v77 = static os_log_type_t.default.getter();
-
-    if (os_log_type_enabled(v76, v77))
-    {
-      OUTLINED_FUNCTION_6_5();
-      v78 = swift_slowAlloc();
-      OUTLINED_FUNCTION_4_3();
-      v79 = swift_slowAlloc();
-      *&v156[0] = v79;
-      *v78 = 136315138;
-      getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v145, v75, v156);
-      OUTLINED_FUNCTION_115();
-      *(v78 + 4) = v69;
-      _os_log_impl(&dword_223515000, v76, v77, "Provider - NetworkConnectionProvider [%s]: Connection state updated, but connection does not exist or was cancelled", v78, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v79);
-      OUTLINED_FUNCTION_2_2();
-      MEMORY[0x223DE38F0]();
-      OUTLINED_FUNCTION_2_2();
-      MEMORY[0x223DE38F0]();
-    }
-
-    else
-    {
-    }
-
-    goto LABEL_31;
-  }
-
-  v80 = v141;
-  OUTLINED_FUNCTION_45();
-  v59();
-  v81 = v80;
-  v82 = v146;
-  v83 = (*(v146 + 88))(v81, v28);
-  if (v83 == *MEMORY[0x277CD8DE8])
-  {
-    OUTLINED_FUNCTION_93();
-    (*(v82 + 96))(v81, v28);
-    v84 = v138;
-    v85 = v139;
-    (*(v138 + 32))(v74, v81, v139);
-    OUTLINED_FUNCTION_34_1();
-    lazy protocol witness table accessor for type NetworkConnectionProvider and conformance NetworkConnectionProvider(v86, 255, v87);
-    OUTLINED_FUNCTION_10_0();
-    v88 = swift_allocError();
-    v89 = *(v84 + 16);
-    v89(v90, v74, v85);
-    v91 = *(v55 + 2104);
-    *(v55 + 2104) = v88;
-
-    if (swift_unknownObjectWeakLoadStrong())
-    {
-      OUTLINED_FUNCTION_10_0();
-      v92 = swift_allocError();
-      v89(v93, v74, v85);
-      lazy protocol witness table accessor for type NetworkConnectionError and conformance NetworkConnectionError();
-      OUTLINED_FUNCTION_10_0();
-      v94 = swift_allocError();
-      *(v95 + 8) = 0;
-      *(v95 + 16) = 0;
-      *v95 = v92;
-      *(v95 + 24) = xmmword_2235F0AA0;
-      specialized BackgroundConnection.connectionProvider(_:received:)();
-      swift_unknownObjectRelease();
-    }
-
-    (*(v84 + 8))(v74, v85);
-  }
-
-  else
-  {
-    v96 = v83;
-    if (v83 == *MEMORY[0x277CD8DE0])
-    {
-      OUTLINED_FUNCTION_93();
-      (*(v146 + 96))(v81, v28);
-      v97 = v138;
-      v98 = v137;
-      v99 = v139;
-      (*(v138 + 32))(v137, v81, v139);
-      OUTLINED_FUNCTION_34_1();
-      lazy protocol witness table accessor for type NetworkConnectionProvider and conformance NetworkConnectionProvider(v100, 255, v101);
-      OUTLINED_FUNCTION_10_0();
-      v102 = swift_allocError();
-      (*(v97 + 16))(v103, v98, v99);
-      lazy protocol witness table accessor for type NetworkConnectionError and conformance NetworkConnectionError();
-      OUTLINED_FUNCTION_10_0();
-      v104 = swift_allocError();
-      *(v105 + 8) = 0;
-      *(v105 + 16) = 0;
-      *v105 = v102;
-      *(v105 + 24) = xmmword_2235F0A90;
-      NetworkConnectionProvider.closeWithError(_:)();
-
-      (*(v97 + 8))(v98, v99);
-    }
-
-    else if (v83 == *MEMORY[0x277CD8DD8])
-    {
-      OUTLINED_FUNCTION_93();
-    }
-
-    else if (v83 == *MEMORY[0x277CD8DF8])
-    {
-      OUTLINED_FUNCTION_93();
-      v106 = *__swift_project_boxed_opaque_existential_1(&v157, v158);
-      v107 = NWConnection.identifier.getter();
-      OUTLINED_FUNCTION_95();
-      *(v55 + 56) = v107;
-      *(v55 + 64) = 0;
-      NetworkConnectionProvider.updateAndEmitConnectionMetricsPreparationReport()();
-    }
-
-    else if (v83 == *MEMORY[0x277CD8DD0])
-    {
-      *(v55 + 2101) = 1;
-      specialized ConnectionProviderProtocol.setupStaleConnectionTimer()();
-      NetworkConnectionProvider.updateAndEmitConnectionMetricsReadyEstablishmentReport()();
-      outlined init with copy of RPCOspreyConnectionProtocol(&v157, v156);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriNetwork0B18ConnectionProtocol_pMd, _s11SiriNetwork0B18ConnectionProtocol_pMR);
-      type metadata accessor for NWConnection();
-      if (swift_dynamicCast())
-      {
-        MEMORY[0x223DE1A50]();
-        v108 = nw_connection_uses_multipath();
-        swift_unknownObjectRelease();
-
-        *(v55 + 2100) = v108;
-      }
-
-      v112 = v150;
-      NetworkConnectionProvider.updateConnectionMetricsSnapthotReport(_:)();
-      v113 = v55 + 2064;
-      v114 = *(v55 + 2064);
-      if (v114)
-      {
-        v115 = *(v55 + 2072);
-        memset(v156, 0, 41);
-
-        v114(v156);
-        outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v114);
-        v116 = *(v55 + 2064);
-      }
-
-      else
-      {
-        v116 = 0;
-      }
-
-      v117 = *(v55 + 2072);
-      *v113 = 0;
-      *(v55 + 2072) = 0;
-      outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v116);
-
-      v118 = Logger.logObject.getter();
-      v119 = static os_log_type_t.default.getter();
-
-      if (os_log_type_enabled(v118, v119))
-      {
-        swift_slowAlloc();
-        *&v156[0] = OUTLINED_FUNCTION_53_0();
-        *v113 = 136315650;
-        v120 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v145, v112, v156);
-
-        *(v55 + 2068) = v120;
-        *(v55 + 2076) = 1024;
-        *(v55 + 2078) = *(v55 + 2100);
-
-        *(v55 + 2082) = 2080;
-        v121 = v136;
-        specialized ConnectionProviderProtocol.connectionAnalysisInfo.getter(v136);
-        v122 = v135;
-        outlined init with copy of NetworkConnectionProtocol?(v121, v135, &_s11SiriNetwork22ConnectionAnalysisInfoVSgMd, &_s11SiriNetwork22ConnectionAnalysisInfoVSgMR);
-        OUTLINED_FUNCTION_113(v122);
-        if (v123)
-        {
-          v127 = 0xE700000000000000;
-          v125 = 0x6E776F6E6B6E75;
-        }
-
-        else
-        {
-          v124 = v134;
-          outlined init with take of ConnectionAnalysisInfo(v122, v134);
-          outlined init with copy of ConnectionAnalysisInfo(v124, v133);
-          OUTLINED_FUNCTION_50();
-          v125 = String.init<A>(describing:)();
-          v127 = v126;
-          outlined destroy of ConnectionAnalysisInfo(v124);
-        }
-
-        outlined destroy of NetworkConnectionProtocol?(v136, &_s11SiriNetwork22ConnectionAnalysisInfoVSgMd, &_s11SiriNetwork22ConnectionAnalysisInfoVSgMR);
-        v128 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v125, v127, v156);
-
-        *(v113 + 20) = v128;
-        _os_log_impl(&dword_223515000, v118, v119, "Provider - NetworkConnectionProvider [%s]: isMPTCP %{BOOL}d, Analysis Info - %s", v113, 0x1Cu);
-        OUTLINED_FUNCTION_52_0();
-        OUTLINED_FUNCTION_2_2();
-        MEMORY[0x223DE38F0]();
-        OUTLINED_FUNCTION_2_2();
-        MEMORY[0x223DE38F0]();
-      }
-
-      else
-      {
-      }
-    }
-
-    else
-    {
-      v109 = *MEMORY[0x277CD8DF0];
-      OUTLINED_FUNCTION_93();
-      if (v96 == v109)
-      {
-        lazy protocol witness table accessor for type NetworkConnectionError and conformance NetworkConnectionError();
-        OUTLINED_FUNCTION_10_0();
-        v110 = swift_allocError();
-        *(v111 + 8) = 0;
-        *(v111 + 16) = 0;
-        *v111 = 1;
-        *(v111 + 24) = xmmword_2235F01E0;
-        NetworkConnectionProvider.closeWithError(_:)();
-      }
-
-      else
-      {
-        v58(v141, v28);
-      }
-    }
-  }
-
-  __swift_destroy_boxed_opaque_existential_0(&v157);
-LABEL_31:
-  OUTLINED_FUNCTION_47();
-}
-
 unint64_t type metadata accessor for OS_dispatch_source()
 {
   result = lazy cache variable for type metadata for OS_dispatch_source;
@@ -645,20 +11,20 @@ unint64_t type metadata accessor for OS_dispatch_source()
   return result;
 }
 
-unint64_t specialized _NativeDictionary.setValue(_:forKey:isUnique:)(unsigned int a1, char a2, double a3)
+uint64_t specialized _NativeDictionary.setValue(_:forKey:isUnique:)(uint64_t a1, char a2, double a3)
 {
   v4 = v3;
   v8 = *v3;
-  v9 = specialized __RawDictionaryStorage.find<A>(_:)(a1);
-  OUTLINED_FUNCTION_2_19(v9, v10);
-  if (v13)
+  specialized __RawDictionaryStorage.find<A>(_:)(a1);
+  OUTLINED_FUNCTION_2_19();
+  if (v11)
   {
     __break(1u);
     goto LABEL_11;
   }
 
-  v14 = v11;
-  v15 = v12;
+  v12 = v9;
+  v13 = v10;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss17_NativeDictionaryVys6UInt32VSdGMd, &_ss17_NativeDictionaryVys6UInt32VSdGMR);
   result = _NativeDictionary.ensureUnique(isUnique:capacity:)(a2 & 1, v8);
   if ((result & 1) == 0)
@@ -666,9 +32,8 @@ unint64_t specialized _NativeDictionary.setValue(_:forKey:isUnique:)(unsigned in
     goto LABEL_5;
   }
 
-  v17 = *v4;
   result = specialized __RawDictionaryStorage.find<A>(_:)(a1);
-  if ((v15 & 1) != (v18 & 1))
+  if ((v13 & 1) != (v15 & 1))
   {
 LABEL_11:
     result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
@@ -676,18 +41,18 @@ LABEL_11:
     return result;
   }
 
-  v14 = result;
+  v12 = result;
 LABEL_5:
-  v19 = *v4;
-  if (v15)
+  v16 = *v4;
+  if (v13)
   {
-    *(v19[7] + 8 * v14) = a3;
+    *(v16[7] + 8 * v12) = a3;
   }
 
   else
   {
 
-    return specialized _NativeDictionary._insert(at:key:value:)(v14, a1, v19, a3);
+    return specialized _NativeDictionary._insert(at:key:value:)(v12, a1, v16, a3);
   }
 
   return result;
@@ -696,16 +61,16 @@ LABEL_5:
 Swift::Void __swiftcall PingInfo.markPingSent(withIndex:)(Swift::UInt32 withIndex)
 {
   v2 = v1;
+  v3 = *&withIndex;
   v4 = [objc_opt_self() processInfo];
   [v4 systemUptime];
   v6 = v5;
 
   swift_beginAccess();
-  v7 = *(v2 + 32);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v2 + 32);
-  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(withIndex, isUniquelyReferenced_nonNull_native, v6);
-  *(v2 + 32) = v9;
+  v8 = *(v2 + 32);
+  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v3, isUniquelyReferenced_nonNull_native, v6);
+  *(v2 + 32) = v8;
   swift_endAccess();
 }
 
@@ -786,9 +151,7 @@ Swift::Int CommunicationProtocolAce.checkPings()()
     type metadata accessor for PingInfo();
     OUTLINED_FUNCTION_109();
     swift_allocObject();
-    v18 = PingInfo.init(pingAcknowledgedCount:avgPingTime:)(0, 0.0);
-    v19 = *(v0 + 240);
-    *(v0 + 240) = v18;
+    *(v0 + 240) = PingInfo.init(pingAcknowledgedCount:avgPingTime:)(0, 0.0);
 
     if (!*(v0 + 240))
     {
@@ -796,9 +159,9 @@ Swift::Int CommunicationProtocolAce.checkPings()()
     }
   }
 
-  v20 = *(v0 + 232);
+  v18 = *(v0 + 232);
 
-  PingInfo.markPingSent(withIndex:)(v20);
+  PingInfo.markPingSent(withIndex:)(v18);
 
   if (!*(v0 + 240))
   {
@@ -832,86 +195,66 @@ Swift::Int CommunicationProtocolAce.checkPings()()
   return result;
 }
 
-uint64_t closure #1 in CommunicationProtocolAce.resumePingTimer()()
+uint64_t closure #1 in CommunicationProtocolAce.resumePingTimer()(uint64_t a1)
 {
   swift_beginAccess();
   result = swift_weakLoadStrong();
   if (result)
   {
-    CommunicationProtocolAce.pingTimerFired()();
+    CommunicationProtocolAce.pingTimerFired()(result, v2, v3, v4);
   }
 
   return result;
 }
 
-uint64_t CommunicationProtocolAce.pingTimerFired()()
+uint64_t CommunicationProtocolAce.pingTimerFired()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = v0;
-  OUTLINED_FUNCTION_36_2();
-  v3 = v0[6];
+  v6 = v4;
+  OUTLINED_FUNCTION_36_2((v4 + 5), a2, a3, a4);
   OUTLINED_FUNCTION_48_0();
-  if (!(!v5 & v4))
+  if ((!v15 & v14 || (v16 = OUTLINED_FUNCTION_41_0(), outlined copy of Data._Representation(v16, v17), v18 = OUTLINED_FUNCTION_41_0(), v19 = MEMORY[0x223DE13E0](v18), v20 = OUTLINED_FUNCTION_41_0(), outlined consume of Data?(v20, v21), v19 <= 0)) && ((OUTLINED_FUNCTION_37_1((v4 + 9), v7, v8, v9, v10, v11, v12, v13, v75), OUTLINED_FUNCTION_48_0(), !v15 & v14) || (v22 = OUTLINED_FUNCTION_41_0(), outlined copy of Data._Representation(v22, v23), v24 = OUTLINED_FUNCTION_41_0(), v25 = MEMORY[0x223DE13E0](v24), v26 = OUTLINED_FUNCTION_41_0(), outlined consume of Data?(v26, v27), v25 < 1)))
   {
-    v6 = v0[5];
-    v7 = OUTLINED_FUNCTION_41_0();
-    outlined copy of Data._Representation(v7, v8);
-    v9 = OUTLINED_FUNCTION_41_0();
-    v10 = MEMORY[0x223DE13E0](v9);
-    v11 = OUTLINED_FUNCTION_41_0();
-    outlined consume of Data?(v11, v12);
-    if (v10 > 0)
-    {
-      goto LABEL_5;
-    }
-  }
-
-  OUTLINED_FUNCTION_37_1();
-  v13 = v2[10];
-  OUTLINED_FUNCTION_48_0();
-  if (!v5 & v4 || (v14 = v2[9], v15 = OUTLINED_FUNCTION_41_0(), outlined copy of Data._Representation(v15, v16), v17 = OUTLINED_FUNCTION_41_0(), v18 = MEMORY[0x223DE13E0](v17), v19 = OUTLINED_FUNCTION_41_0(), outlined consume of Data?(v19, v20), v18 < 1))
-  {
-    v21 = CommunicationProtocolAce.checkPings()();
+    v28 = CommunicationProtocolAce.checkPings()();
   }
 
   else
   {
-LABEL_5:
     CommunicationProtocolAce.checkForProgressOnReadingData()();
   }
 
-  v22 = v21;
+  v29 = v28;
   result = CommunicationProtocolAce.aceDelegate.getter();
   if (result)
   {
-    v25 = result;
-    v26 = v24;
-    if ((v22 & 2) != 0 && BackgroundConnection.shouldFallbackQuickly()() || (v22 & 4) != 0)
+    v32 = result;
+    v33 = v31;
+    if ((v29 & 2) != 0 && BackgroundConnection.shouldFallbackQuickly()() || (v29 & 4) != 0)
     {
       if (BackgroundConnection.isUsingPeer()())
       {
         if (!AFDeviceSupportsWiFiLPASMode() || !BackgroundConnection.logTcpInfoIndicatesPoorLinkQuality()())
         {
           OUTLINED_FUNCTION_61();
-          if (!v5)
+          if (!v15)
           {
             OUTLINED_FUNCTION_0_8();
             swift_once();
           }
 
-          v54 = type metadata accessor for Logger();
-          OUTLINED_FUNCTION_58(v54, static Logger.siriNetwork);
-          v55 = Logger.logObject.getter();
+          v61 = type metadata accessor for Logger();
+          OUTLINED_FUNCTION_58(v61, static Logger.siriNetwork);
+          v62 = Logger.logObject.getter();
           static os_log_type_t.default.getter();
-          v56 = OUTLINED_FUNCTION_16_0();
-          if (os_log_type_enabled(v56, v57))
+          v63 = OUTLINED_FUNCTION_16_0();
+          if (os_log_type_enabled(v63, v64))
           {
             OUTLINED_FUNCTION_17_5();
-            v58 = swift_slowAlloc();
-            OUTLINED_FUNCTION_11_7(v58);
+            v65 = swift_slowAlloc();
+            OUTLINED_FUNCTION_11_7(v65);
             OUTLINED_FUNCTION_15_0();
-            _os_log_impl(v59, v60, v61, v62, v63, 2u);
-            v64 = OUTLINED_FUNCTION_6_15();
-            MEMORY[0x223DE38F0](v64);
+            _os_log_impl(v66, v67, v68, v69, v70, 2u);
+            v71 = OUTLINED_FUNCTION_6_15();
+            MEMORY[0x223DE38F0](v71);
           }
 
           return swift_unknownObjectRelease();
@@ -926,28 +269,28 @@ LABEL_5:
         }
 
         OUTLINED_FUNCTION_61();
-        if (!v5)
+        if (!v15)
         {
           OUTLINED_FUNCTION_0_8();
           swift_once();
         }
 
-        v28 = type metadata accessor for Logger();
-        OUTLINED_FUNCTION_58(v28, static Logger.siriNetwork);
-        v29 = Logger.logObject.getter();
-        v1 = static os_log_type_t.default.getter();
-        v30 = OUTLINED_FUNCTION_16_0();
-        if (os_log_type_enabled(v30, v31))
+        v35 = type metadata accessor for Logger();
+        OUTLINED_FUNCTION_58(v35, static Logger.siriNetwork);
+        v36 = Logger.logObject.getter();
+        v5 = static os_log_type_t.default.getter();
+        v37 = OUTLINED_FUNCTION_16_0();
+        if (os_log_type_enabled(v37, v38))
         {
           OUTLINED_FUNCTION_17_5();
           *swift_slowAlloc() = 0;
           OUTLINED_FUNCTION_55_0();
-          _os_log_impl(v32, v33, v34, v35, v36, 2u);
-          v37 = OUTLINED_FUNCTION_7_2();
-          MEMORY[0x223DE38F0](v37);
+          _os_log_impl(v39, v40, v41, v42, v43, 2u);
+          v44 = OUTLINED_FUNCTION_7_2();
+          MEMORY[0x223DE38F0](v44);
         }
 
-        if (v22)
+        if (v29)
         {
           goto LABEL_27;
         }
@@ -956,39 +299,39 @@ LABEL_5:
 
     else
     {
-      if (v22 < 8)
+      if (v29 < 8)
       {
 LABEL_12:
-        if ((v22 & 1) == 0)
+        if ((v29 & 1) == 0)
         {
           return swift_unknownObjectRelease();
         }
 
-        v27 = 0;
+        v34 = 0;
         goto LABEL_28;
       }
 
-      if (v22)
+      if (v29)
       {
 LABEL_27:
-        v27 = 1;
+        v34 = 1;
 LABEL_28:
         if (!BackgroundConnection.isUsingPop()() || BackgroundConnection.isUsingPeer()())
         {
           OUTLINED_FUNCTION_7_1();
-          v38 = swift_allocObject();
+          v45 = swift_allocObject();
           swift_weakInit();
           OUTLINED_FUNCTION_109();
-          v1 = swift_allocObject();
-          *(v1 + 16) = v38;
-          *(v1 + 24) = v25;
-          *(v1 + 32) = v26;
+          v5 = swift_allocObject();
+          *(v5 + 16) = v45;
+          *(v5 + 24) = v32;
+          *(v5 + 32) = v33;
 
           swift_unknownObjectRetain();
           BackgroundConnection.logTcpInfoIndicatesPoorLinkQuality(_:)();
         }
 
-        if (!v27)
+        if (!v34)
         {
           return swift_unknownObjectRelease();
         }
@@ -996,49 +339,49 @@ LABEL_28:
     }
 
     OUTLINED_FUNCTION_61();
-    if (!v5)
+    if (!v15)
     {
       OUTLINED_FUNCTION_0_8();
       swift_once();
     }
 
-    v39 = type metadata accessor for Logger();
-    OUTLINED_FUNCTION_58(v39, static Logger.siriNetwork);
-    v40 = Logger.logObject.getter();
-    v41 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v40, v41))
+    v46 = type metadata accessor for Logger();
+    OUTLINED_FUNCTION_58(v46, static Logger.siriNetwork);
+    v47 = Logger.logObject.getter();
+    v48 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v47, v48))
     {
       OUTLINED_FUNCTION_17_5();
-      v42 = swift_slowAlloc();
-      OUTLINED_FUNCTION_51_1(v42);
-      _os_log_impl(&dword_223515000, v40, v41, "CommunicationProtocol - Ace pings: Ping timeout", v1, 2u);
-      v43 = OUTLINED_FUNCTION_2_0();
-      MEMORY[0x223DE38F0](v43);
+      v49 = swift_slowAlloc();
+      OUTLINED_FUNCTION_51_1(v49);
+      _os_log_impl(&dword_223515000, v47, v48, "CommunicationProtocol - Ace pings: Ping timeout", v5, 2u);
+      v50 = OUTLINED_FUNCTION_2_0();
+      MEMORY[0x223DE38F0](v50);
     }
 
-    if (v2[13])
+    if (v6[13])
     {
-      v44 = Logger.logObject.getter();
-      v2 = static os_log_type_t.default.getter();
-      v45 = OUTLINED_FUNCTION_16_0();
-      if (os_log_type_enabled(v45, v46))
+      v51 = Logger.logObject.getter();
+      v6 = static os_log_type_t.default.getter();
+      v52 = OUTLINED_FUNCTION_16_0();
+      if (os_log_type_enabled(v52, v53))
       {
         OUTLINED_FUNCTION_17_5();
-        v47 = swift_slowAlloc();
-        OUTLINED_FUNCTION_11_7(v47);
+        v54 = swift_slowAlloc();
+        OUTLINED_FUNCTION_11_7(v54);
         OUTLINED_FUNCTION_15_0();
-        _os_log_impl(v48, v49, v50, v51, v52, 2u);
-        v53 = OUTLINED_FUNCTION_6_15();
-        MEMORY[0x223DE38F0](v53);
+        _os_log_impl(v55, v56, v57, v58, v59, 2u);
+        v60 = OUTLINED_FUNCTION_6_15();
+        MEMORY[0x223DE38F0](v60);
       }
     }
 
     lazy protocol witness table accessor for type BackgroundConnectionError and conformance BackgroundConnectionError();
     OUTLINED_FUNCTION_10_0();
-    v65 = swift_allocError();
-    OUTLINED_FUNCTION_79_0(v65, v66);
-    v67 = OUTLINED_FUNCTION_68_1();
-    BackgroundConnection.fallbackToNextConnectionMethod(error:)(v67);
+    v72 = swift_allocError();
+    OUTLINED_FUNCTION_79_0(v72, v73);
+    v74 = OUTLINED_FUNCTION_68_1();
+    BackgroundConnection.fallbackToNextConnectionMethod(error:)(v74);
 
     return swift_unknownObjectRelease();
   }
@@ -1132,7 +475,7 @@ uint64_t BackgroundConnection.connectionSendData(_:)(uint64_t a1, unint64_t a2)
   v3[0] = a1;
   v3[1] = a2;
   outlined copy of Data._Representation(a1, a2);
-  BackgroundConnection.sendData(_:with:)(v3, destructiveProjectEnumData for ConnectionConfigurationError, 0);
+  BackgroundConnection.sendData(_:with:)(v3, destructiveProjectEnumData for ConnectionConfigurationError);
   return __swift_destroy_boxed_opaque_existential_0(v3);
 }
 
@@ -1161,27 +504,25 @@ uint64_t outlined init with copy of Any?(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t specialized closure #1 in NetworkActivityTracingInternal.stop(label:reason:error:completion:)(uint64_t a1, int a2, uint64_t a3, void *a4, void (*a5)(void), uint64_t a6)
+uint64_t specialized closure #1 in NetworkActivityTracingInternal.stop(label:reason:error:completion:)(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void (*a5)(void), uint64_t a6)
 {
-  v123 = a6;
-  v124 = a3;
+  v121 = a6;
+  v122 = a3;
   v9 = type metadata accessor for UUID();
-  v122 = *(v9 - 8);
-  v10 = *(v122 + 64);
-  v11 = MEMORY[0x28223BE20](v9);
-  v13 = &v94 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v11);
-  v15 = &v94 - v14;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, _s10Foundation4UUIDVSgMR);
-  v17 = *(*(v16 - 8) + 64);
-  v18 = MEMORY[0x28223BE20](v16 - 8);
-  v20 = &v94 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = MEMORY[0x28223BE20](v18);
-  v23 = &v94 - v22;
-  v24 = MEMORY[0x28223BE20](v21);
-  v120 = &v94 - v25;
-  MEMORY[0x28223BE20](v24);
-  v121 = &v94 - v26;
+  v120 = *(v9 - 8);
+  v10 = MEMORY[0x28223BE20](v9);
+  v12 = &v92 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v10);
+  v14 = &v92 - v13;
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, _s10Foundation4UUIDVSgMR);
+  v16 = MEMORY[0x28223BE20](v15 - 8);
+  v18 = &v92 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = MEMORY[0x28223BE20](v16);
+  v21 = &v92 - v20;
+  v22 = MEMORY[0x28223BE20](v19);
+  v118 = &v92 - v23;
+  MEMORY[0x28223BE20](v22);
+  v119 = &v92 - v24;
   swift_beginAccess();
   result = swift_weakLoadStrong();
   if (!result)
@@ -1189,216 +530,216 @@ uint64_t specialized closure #1 in NetworkActivityTracingInternal.stop(label:rea
     return result;
   }
 
-  v28 = result;
-  v118 = v9;
+  v26 = result;
+  v116 = v9;
   if (a2 == 1)
   {
-    v111 = a2;
-    v112 = v20;
-    v119 = v13;
-    v113 = v23;
-    v116 = v15;
+    v109 = a2;
+    v110 = v18;
+    v117 = v12;
+    v111 = v21;
+    v114 = v14;
     swift_beginAccess();
-    v117 = v28;
-    v20 = *(v28 + 16);
-    v15 = v20 + 64;
-    v29 = 1 << v20[32];
-    v30 = -1;
-    if (v29 < 64)
+    v115 = v26;
+    v18 = *(v26 + 16);
+    v14 = v18 + 64;
+    v27 = 1 << v18[32];
+    v28 = -1;
+    if (v27 < 64)
     {
-      v30 = ~(-1 << v29);
+      v28 = ~(-1 << v27);
     }
 
-    v23 = v30 & *(v20 + 8);
-    v31 = (v29 + 63) >> 6;
-    v105 = (v122 + 32);
-    v104 = (v122 + 16);
-    v103 = (v122 + 8);
+    v21 = v28 & *(v18 + 8);
+    v29 = (v27 + 63) >> 6;
+    v103 = (v120 + 32);
+    v102 = (v120 + 16);
+    v101 = (v120 + 8);
 
-    v28 = 0;
-    v32 = static Logger.siriNetwork;
-    *&v33 = 136315906;
-    v108 = v33;
-    v107 = "SiriNetworkActivityUnknown";
-    v106 = v124;
-    v102 = "SiriNetworkActivitySucceeded";
-    v101 = "SiriNetworkActivityTimedOut";
-    v100 = "SiriNetworkActivityFailed";
-    v99 = "SiriNetworkActivityCancelled";
-    v98 = "remoteRequestExecution";
-    v114 = v20;
-    while (v23)
+    v26 = 0;
+    v30 = static Logger.siriNetwork;
+    *&v31 = 136315906;
+    v106 = v31;
+    v105 = "SiriNetworkActivityUnknown";
+    v104 = v122;
+    v100 = "SiriNetworkActivitySucceeded";
+    v99 = "SiriNetworkActivityTimedOut";
+    v98 = "SiriNetworkActivityFailed";
+    v97 = "SiriNetworkActivityCancelled";
+    v96 = "remoteRequestExecution";
+    v112 = v18;
+    while (v21)
     {
 LABEL_11:
-      v35 = __clz(__rbit64(v23));
-      v23 &= v23 - 1;
-      v36 = *(*(v20 + 7) + ((v28 << 9) | (8 * v35)));
-      if (v36[32] == 1 && v36[34] == 1)
+      v33 = __clz(__rbit64(v21));
+      v21 &= v21 - 1;
+      v34 = *(*(v18 + 7) + ((v26 << 9) | (8 * v33)));
+      if (v34[32] == 1 && v34[34] == 1)
       {
-        v37 = a5;
-        v38 = one-time initialization token for siriNetwork;
+        v35 = a5;
+        v36 = one-time initialization token for siriNetwork;
 
-        if (v38 != -1)
+        if (v36 != -1)
         {
           swift_once();
         }
 
-        v39 = type metadata accessor for Logger();
-        v40 = v32;
-        __swift_project_value_buffer(v39, v32);
+        v37 = type metadata accessor for Logger();
+        v38 = v30;
+        __swift_project_value_buffer(v37, v30);
 
-        v41 = a4;
-        v42 = Logger.logObject.getter();
-        v43 = static os_log_type_t.default.getter();
+        v39 = a4;
+        v40 = Logger.logObject.getter();
+        v41 = static os_log_type_t.default.getter();
 
-        v109 = v43;
-        if (os_log_type_enabled(v42, v43))
+        v107 = v41;
+        if (os_log_type_enabled(v40, v41))
         {
-          v97 = v42;
-          v115 = a4;
-          v110 = v37;
-          v44 = swift_slowAlloc();
-          v95 = swift_slowAlloc();
-          v96 = swift_slowAlloc();
-          v127 = v96;
-          *v44 = v108;
-          LOBYTE(v126) = v36[35];
-          v45 = String.init<A>(describing:)();
-          v47 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v45, v46, &v127);
+          v95 = v40;
+          v113 = a4;
+          v108 = v35;
+          v42 = swift_slowAlloc();
+          v93 = swift_slowAlloc();
+          v94 = swift_slowAlloc();
+          v125 = v94;
+          *v42 = v106;
+          LOBYTE(v124) = v34[35];
+          v43 = String.init<A>(describing:)();
+          v45 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v43, v44, &v125);
 
-          *(v44 + 4) = v47;
-          *(v44 + 12) = 2080;
-          v48 = v121;
-          specialized NetworkActivity.token.getter(v121);
-          v49 = v120;
-          outlined init with copy of UUID?(v48, v120);
-          v50 = v118;
-          if (__swift_getEnumTagSinglePayload(v49, 1, v118) == 1)
+          *(v42 + 4) = v45;
+          *(v42 + 12) = 2080;
+          v46 = v119;
+          specialized NetworkActivity.token.getter(v119);
+          v47 = v118;
+          outlined init with copy of UUID?(v46, v118);
+          v48 = v116;
+          if (__swift_getEnumTagSinglePayload(v47, 1, v116) == 1)
           {
-            v51 = 0;
-            v52 = 0xE000000000000000;
+            v49 = 0;
+            v50 = 0xE000000000000000;
           }
 
           else
           {
-            v53 = v116;
-            (*v105)(v116, v49, v50);
-            (*v104)(v119, v53, v50);
-            v54 = String.init<A>(describing:)();
-            v52 = v55;
-            v56 = v53;
-            v51 = v54;
-            (*v103)(v56, v50);
+            v51 = v114;
+            (*v103)(v114, v47, v48);
+            (*v102)(v117, v51, v48);
+            v52 = String.init<A>(describing:)();
+            v50 = v53;
+            v54 = v51;
+            v49 = v52;
+            (*v101)(v54, v48);
           }
 
-          v20 = v114;
-          v57 = 0xD00000000000001ALL;
-          outlined destroy of ConnectionSnapshotReport?(v121, &_s10Foundation4UUIDVSgMd, _s10Foundation4UUIDVSgMR);
-          v58 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v51, v52, &v127);
+          v18 = v112;
+          v55 = 0xD00000000000001ALL;
+          outlined destroy of ConnectionSnapshotReport?(v119, &_s10Foundation4UUIDVSgMd, _s10Foundation4UUIDVSgMR);
+          v56 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v49, v50, &v125);
 
-          *(v44 + 14) = v58;
-          *(v44 + 22) = 2080;
-          v59 = v107;
-          v60 = v115;
-          switch(v106)
+          *(v42 + 14) = v56;
+          *(v42 + 22) = 2080;
+          v57 = v105;
+          v58 = v113;
+          switch(v104)
           {
             case 1:
-              v61 = &v130;
+              v59 = v128;
               goto LABEL_26;
             case 2:
-              v57 = 0xD00000000000001CLL;
-              v61 = &v129;
+              v55 = 0xD00000000000001CLL;
+              v59 = &v127;
               goto LABEL_26;
             case 3:
-              v57 = 0xD00000000000001BLL;
-              v61 = &v128;
+              v55 = 0xD00000000000001BLL;
+              v59 = &v126;
               goto LABEL_26;
             case 4:
-              v57 = 0xD000000000000019;
-              v61 = &v127;
+              v55 = 0xD000000000000019;
+              v59 = &v125;
               goto LABEL_26;
             case 5:
-              v57 = 0xD00000000000001CLL;
-              v61 = &v126;
+              v55 = 0xD00000000000001CLL;
+              v59 = &v124;
 LABEL_26:
-              v59 = *(v61 - 32);
+              v57 = *(v59 - 32);
               break;
             default:
               break;
           }
 
-          v62 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v57, v59 | 0x8000000000000000, &v127);
+          v60 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v55, v57 | 0x8000000000000000, &v125);
 
-          *(v44 + 24) = v62;
-          *(v44 + 32) = 2112;
-          if (v60)
+          *(v42 + 24) = v60;
+          *(v42 + 32) = 2112;
+          if (v58)
           {
-            v63 = v60;
-            v64 = _swift_stdlib_bridgeErrorToNSError();
-            v65 = v64;
+            v61 = v58;
+            v62 = _swift_stdlib_bridgeErrorToNSError();
+            v63 = v62;
           }
 
           else
           {
-            v64 = 0;
-            v65 = 0;
+            v62 = 0;
+            v63 = 0;
           }
 
-          v32 = static Logger.siriNetwork;
-          v66 = v97;
-          *(v44 + 34) = v64;
-          v67 = v95;
-          *v95 = v65;
-          _os_log_impl(&dword_223515000, v66, v109, "NetworkActivity Tracing: Stopping network sub-activity %s %s with reason %s and error: %@", v44, 0x2Au);
-          outlined destroy of ConnectionSnapshotReport?(v67, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-          MEMORY[0x223DE38F0](v67, -1, -1);
-          v68 = v96;
+          v30 = static Logger.siriNetwork;
+          v64 = v95;
+          *(v42 + 34) = v62;
+          v65 = v93;
+          *v93 = v63;
+          _os_log_impl(&dword_223515000, v64, v107, "NetworkActivity Tracing: Stopping network sub-activity %s %s with reason %s and error: %@", v42, 0x2Au);
+          outlined destroy of ConnectionSnapshotReport?(v65, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+          MEMORY[0x223DE38F0](v65, -1, -1);
+          v66 = v94;
           swift_arrayDestroy();
-          MEMORY[0x223DE38F0](v68, -1, -1);
-          MEMORY[0x223DE38F0](v44, -1, -1);
+          MEMORY[0x223DE38F0](v66, -1, -1);
+          MEMORY[0x223DE38F0](v42, -1, -1);
 
-          a5 = v110;
-          a4 = v115;
+          a5 = v108;
+          a4 = v113;
         }
 
         else
         {
 
-          v32 = v40;
-          a5 = v37;
-          v20 = v114;
+          v30 = v38;
+          a5 = v35;
+          v18 = v112;
         }
 
-        v36[34] = 0;
-        specialized NetworkActivity.stop(completionReason:error:)(v124, a4);
+        v34[34] = 0;
+        specialized NetworkActivity.stop(completionReason:error:)(v122, a4);
       }
     }
 
     while (1)
     {
-      v34 = v28 + 1;
-      if (__OFADD__(v28, 1))
+      v32 = v26 + 1;
+      if (__OFADD__(v26, 1))
       {
         break;
       }
 
-      if (v34 >= v31)
+      if (v32 >= v29)
       {
 
-        v15 = v116;
-        v28 = v117;
-        v23 = v113;
-        v13 = v119;
-        v20 = v112;
-        LOBYTE(a2) = v111;
+        v14 = v114;
+        v26 = v115;
+        v21 = v111;
+        v12 = v117;
+        v18 = v110;
+        a2 = v109;
         goto LABEL_33;
       }
 
-      v23 = *&v15[8 * v34];
-      ++v28;
-      if (v23)
+      v21 = *&v14[8 * v32];
+      ++v26;
+      if (v21)
       {
-        v28 = v34;
+        v26 = v32;
         goto LABEL_11;
       }
     }
@@ -1409,131 +750,131 @@ LABEL_26:
 
 LABEL_33:
   swift_beginAccess();
-  v69 = specialized Dictionary.subscript.getter(a2, *(v28 + 16));
-  if (v69)
+  v67 = specialized Dictionary.subscript.getter(a2, *(v26 + 16));
+  if (v67)
   {
-    v31 = v69;
-    if (*(v69 + 34) != 1)
+    v29 = v67;
+    if (*(v67 + 34) != 1)
     {
 LABEL_52:
 
       goto LABEL_53;
     }
 
-    v119 = v13;
+    v117 = v12;
     if (one-time initialization token for siriNetwork == -1)
     {
 LABEL_36:
-      v70 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v70, static Logger.siriNetwork);
-      v71 = a4;
+      v68 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v68, static Logger.siriNetwork);
+      v69 = a4;
 
-      v72 = Logger.logObject.getter();
-      v73 = static os_log_type_t.default.getter();
+      v70 = Logger.logObject.getter();
+      v71 = static os_log_type_t.default.getter();
 
-      if (os_log_type_enabled(v72, v73))
+      if (os_log_type_enabled(v70, v71))
       {
-        LODWORD(v121) = v73;
-        v117 = v28;
-        v115 = a4;
-        v110 = a5;
-        v74 = swift_slowAlloc();
-        v116 = swift_slowAlloc();
-        v120 = swift_slowAlloc();
-        v126 = v120;
-        *v74 = 136315906;
-        v125 = *(v31 + 35);
-        v75 = String.init<A>(describing:)();
-        v77 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v75, v76, &v126);
+        LODWORD(v119) = v71;
+        v115 = v26;
+        v113 = a4;
+        v108 = a5;
+        v72 = swift_slowAlloc();
+        v114 = swift_slowAlloc();
+        v118 = swift_slowAlloc();
+        v124 = v118;
+        *v72 = 136315906;
+        v123 = *(v29 + 35);
+        v73 = String.init<A>(describing:)();
+        v75 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v73, v74, &v124);
 
-        *(v74 + 4) = v77;
-        *(v74 + 12) = 2080;
-        specialized NetworkActivity.token.getter(v23);
-        outlined init with copy of UUID?(v23, v20);
-        v78 = v118;
-        if (__swift_getEnumTagSinglePayload(v20, 1, v118) == 1)
+        *(v72 + 4) = v75;
+        *(v72 + 12) = 2080;
+        specialized NetworkActivity.token.getter(v21);
+        outlined init with copy of UUID?(v21, v18);
+        v76 = v116;
+        if (__swift_getEnumTagSinglePayload(v18, 1, v116) == 1)
         {
-          v79 = 0;
-          v80 = 0xE000000000000000;
+          v77 = 0;
+          v78 = 0xE000000000000000;
         }
 
         else
         {
-          v81 = v122;
-          (*(v122 + 32))(v15, v20, v78);
-          (*(v81 + 16))(v119, v15, v78);
-          v79 = String.init<A>(describing:)();
-          v80 = v82;
-          (*(v81 + 8))(v15, v78);
+          v79 = v120;
+          (*(v120 + 32))(v14, v18, v76);
+          (*(v79 + 16))(v117, v14, v76);
+          v77 = String.init<A>(describing:)();
+          v78 = v80;
+          (*(v79 + 8))(v14, v76);
         }
 
-        v83 = 0xD00000000000001ALL;
-        outlined destroy of ConnectionSnapshotReport?(v23, &_s10Foundation4UUIDVSgMd, _s10Foundation4UUIDVSgMR);
-        v84 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v79, v80, &v126);
+        v81 = 0xD00000000000001ALL;
+        outlined destroy of ConnectionSnapshotReport?(v21, &_s10Foundation4UUIDVSgMd, _s10Foundation4UUIDVSgMR);
+        v82 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v77, v78, &v124);
 
-        *(v74 + 14) = v84;
-        *(v74 + 22) = 2080;
-        v85 = "SiriNetworkActivityUnknown";
-        a4 = v115;
-        switch(v124)
+        *(v72 + 14) = v82;
+        *(v72 + 22) = 2080;
+        v83 = "SiriNetworkActivityUnknown";
+        a4 = v113;
+        switch(v122)
         {
           case 1:
-            v85 = "SiriNetworkActivitySucceeded";
+            v83 = "SiriNetworkActivitySucceeded";
             break;
           case 2:
-            v86 = "SiriNetworkActivitySucceeded";
+            v84 = "SiriNetworkActivitySucceeded";
             goto LABEL_46;
           case 3:
-            v85 = "SiriNetworkActivityFailed";
-            v83 = 0xD00000000000001BLL;
+            v83 = "SiriNetworkActivityFailed";
+            v81 = 0xD00000000000001BLL;
             break;
           case 4:
-            v85 = "SiriNetworkActivityCancelled";
-            v83 = 0xD000000000000019;
+            v83 = "SiriNetworkActivityCancelled";
+            v81 = 0xD000000000000019;
             break;
           case 5:
-            v86 = "SiriNetworkActivityCancelled";
+            v84 = "SiriNetworkActivityCancelled";
 LABEL_46:
-            v85 = v86 - 32;
-            v83 = 0xD00000000000001CLL;
+            v83 = v84 - 32;
+            v81 = 0xD00000000000001CLL;
             break;
           default:
             break;
         }
 
-        v87 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v83, v85 | 0x8000000000000000, &v126);
+        v85 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v81, v83 | 0x8000000000000000, &v124);
 
-        *(v74 + 24) = v87;
-        *(v74 + 32) = 2112;
+        *(v72 + 24) = v85;
+        *(v72 + 32) = 2112;
         if (a4)
         {
-          v88 = a4;
-          v89 = _swift_stdlib_bridgeErrorToNSError();
-          v90 = v89;
+          v86 = a4;
+          v87 = _swift_stdlib_bridgeErrorToNSError();
+          v88 = v87;
         }
 
         else
         {
-          v89 = 0;
-          v90 = 0;
+          v87 = 0;
+          v88 = 0;
         }
 
-        a5 = v110;
-        v91 = v121;
-        v92 = v120;
-        *(v74 + 34) = v89;
-        v93 = v116;
-        *v116 = v90;
-        _os_log_impl(&dword_223515000, v72, v91, "NetworkActivity Tracing: Stopping network activity %s %s with reason %s and error: %@", v74, 0x2Au);
-        outlined destroy of ConnectionSnapshotReport?(v93, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-        MEMORY[0x223DE38F0](v93, -1, -1);
+        a5 = v108;
+        v89 = v119;
+        v90 = v118;
+        *(v72 + 34) = v87;
+        v91 = v114;
+        *v114 = v88;
+        _os_log_impl(&dword_223515000, v70, v89, "NetworkActivity Tracing: Stopping network activity %s %s with reason %s and error: %@", v72, 0x2Au);
+        outlined destroy of ConnectionSnapshotReport?(v91, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+        MEMORY[0x223DE38F0](v91, -1, -1);
         swift_arrayDestroy();
-        MEMORY[0x223DE38F0](v92, -1, -1);
-        MEMORY[0x223DE38F0](v74, -1, -1);
+        MEMORY[0x223DE38F0](v90, -1, -1);
+        MEMORY[0x223DE38F0](v72, -1, -1);
       }
 
-      *(v31 + 34) = 0;
-      specialized NetworkActivity.stop(completionReason:error:)(v124, a4);
+      *(v29 + 34) = 0;
+      specialized NetworkActivity.stop(completionReason:error:)(v122, a4);
       goto LABEL_52;
     }
 
@@ -1545,15 +886,8 @@ LABEL_58:
 LABEL_53:
   if (a5)
   {
-    a5(v69);
+    a5(v67);
   }
-}
-
-unint64_t specialized __RawDictionaryStorage.find<A>(_:)(unsigned int a1)
-{
-  v3 = MEMORY[0x223DE2950](*(v1 + 40), a1, 4);
-
-  return specialized __RawDictionaryStorage.find<A>(_:hashValue:)(a1, v3);
 }
 
 unint64_t specialized __RawDictionaryStorage.find<A>(_:hashValue:)(int a1, uint64_t a2)
@@ -1618,192 +952,185 @@ LABEL_12:
   return result;
 }
 
-uint64_t specialized NetworkActivity.stop(completionReason:error:)(uint64_t a1, void *a2)
+void specialized NetworkActivity.stop(completionReason:error:)(uint64_t a1, void *a2)
 {
   v3 = v2;
-  v47 = a1;
+  v39 = a1;
   v5 = type metadata accessor for NWActivity.CompletionReason();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x28223BE20](v5);
-  v10 = &v43 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v8);
-  v12 = &v43 - v11;
+  v7 = MEMORY[0x28223BE20](v5);
+  v9 = &v35 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v11 = &v35 - v10;
   specialized NetworkActivity.moveTo(_:)(3u);
   swift_beginAccess();
-  v13 = *(v2 + 24);
 
-  v15 = specialized Set.isEmpty.getter(v14);
+  v13 = specialized Set.isEmpty.getter(v12);
 
-  if ((v15 & 1) != 0 || (v17 = *(v3 + 16)) == 0)
+  if ((v13 & 1) != 0 || (v14 = *(v3 + 16)) == 0)
   {
 LABEL_23:
-    if (!a2 || (*&v48 = a2, v32 = a2, __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR), type metadata accessor for CTServiceDescriptor(0, &lazy cache variable for type metadata for NSError, 0x277CCA9B8), result = swift_dynamicCast(), !result))
+    if (!a2 || (*&v40 = a2, v26 = a2, __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR), type metadata accessor for CTServiceDescriptor(0, &lazy cache variable for type metadata for NSError, 0x277CCA9B8), !swift_dynamicCast()))
     {
       if (!*(v3 + 16))
       {
-        return result;
+        return;
       }
 
-      (*(v6 + 104))(v10, **(&unk_2784DD390 + v47), v5);
+      (*(v6 + 104))(v9, **(&unk_2784DD390 + v39), v5);
 
       NWActivity.complete(reason:)();
 
-      v12 = v10;
-      return (*(v6 + 8))(v12, v5);
+      v11 = v9;
+      goto LABEL_35;
     }
 
-    v33 = v50;
-    v34 = [v50 code];
-    v35 = [v33 userInfo];
-    v36 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+    v27 = v42;
+    v28 = [v42 code];
+    v29 = [v27 userInfo];
+    v30 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
-    v37 = *MEMORY[0x277CCA7E8];
-    v38 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    specialized Dictionary.subscript.getter(v38, v39, v36, &v48);
+    v31 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    specialized Dictionary.subscript.getter(v31, v32, v30, &v40);
 
-    if (v49)
+    if (v41)
     {
       if (swift_dynamicCast())
       {
-        v40 = v50;
-        v41 = [v50 code];
+        v33 = v42;
+        v34 = [v42 code];
 
 LABEL_32:
-        *v12 = v34;
-        *(v12 + 1) = v41;
-        (*(v6 + 104))(v12, *MEMORY[0x277CD8AB0], v5);
+        *v11 = v28;
+        *(v11 + 1) = v34;
+        (*(v6 + 104))(v11, *MEMORY[0x277CD8AB0], v5);
         if (*(v3 + 16))
         {
-          v42 = *(v3 + 16);
 
           NWActivity.complete(reason:)();
         }
 
-        return (*(v6 + 8))(v12, v5);
+LABEL_35:
+        (*(v6 + 8))(v11, v5);
+        return;
       }
     }
 
     else
     {
-      outlined destroy of ConnectionSnapshotReport?(&v48, &_sypSgMd, &_sypSgMR);
+      outlined destroy of ConnectionSnapshotReport?(&v40, &_sypSgMd, &_sypSgMR);
     }
 
-    v41 = -1;
+    v34 = -1;
     goto LABEL_32;
   }
 
-  v45 = v6;
-  v46 = v5;
-  v18 = *(v3 + 24);
-  v44 = v12;
-  if ((v18 & 0xC000000000000001) != 0)
+  v37 = v6;
+  v38 = v5;
+  v15 = *(v3 + 24);
+  v36 = v11;
+  if ((v15 & 0xC000000000000001) != 0)
   {
 
     __CocoaSet.makeIterator()();
     type metadata accessor for NWConnection();
-    _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_0(&lazy protocol witness table cache variable for type NWConnection and conformance NWConnection, MEMORY[0x277CD8E08]);
-    result = Set.Iterator.init(_cocoa:)();
-    v18 = v51;
-    v19 = v52;
-    v21 = v53;
-    v20 = v54;
-    v22 = v55;
+    _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_0(&lazy protocol witness table cache variable for type NWConnection and conformance NWConnection, MEMORY[0x277CD8E08], &protocol conformance descriptor for NWConnection);
+    Set.Iterator.init(_cocoa:)();
+    v15 = v43;
+    v16 = v44;
+    v18 = v45;
+    v17 = v46;
+    v19 = v47;
   }
 
   else
   {
-    v23 = -1 << *(v18 + 32);
-    v19 = v18 + 56;
-    v21 = ~v23;
-    v24 = -v23;
-    if (v24 < 64)
+    v20 = -1 << *(v15 + 32);
+    v16 = v15 + 56;
+    v18 = ~v20;
+    v21 = -v20;
+    if (v21 < 64)
     {
-      v25 = ~(-1 << v24);
+      v22 = ~(-1 << v21);
     }
 
     else
     {
-      v25 = -1;
+      v22 = -1;
     }
 
-    v22 = v25 & *(v18 + 56);
+    v19 = v22 & *(v15 + 56);
 
-    v20 = 0;
+    v17 = 0;
   }
 
-  v43 = v21;
-  v26 = (v21 + 64) >> 6;
-  if (v18 < 0)
+  v35 = v18;
+  if (v15 < 0)
   {
     goto LABEL_12;
   }
 
-  while (v22)
+  while (v19)
   {
-    v27 = v20;
 LABEL_19:
-    v30 = __clz(__rbit64(v22));
-    v22 &= v22 - 1;
-    v31 = *(*(v18 + 48) + ((v27 << 9) | (8 * v30)));
+    v19 &= v19 - 1;
 
     while (1)
     {
-      v49 = type metadata accessor for NWActivity();
-      *&v48 = v17;
+      v41 = type metadata accessor for NWActivity();
+      *&v40 = v14;
 
-      NWConnection.endActivity(_:)(&v48);
+      NWConnection.endActivity(_:)(&v40);
 
-      result = outlined destroy of ConnectionSnapshotReport?(&v48, &_sypSgMd, &_sypSgMR);
-      if ((v18 & 0x8000000000000000) == 0)
+      outlined destroy of ConnectionSnapshotReport?(&v40, &_sypSgMd, &_sypSgMR);
+      if ((v15 & 0x8000000000000000) == 0)
       {
         break;
       }
 
 LABEL_12:
-      v28 = __CocoaSet.Iterator.next()();
-      if (!v28)
+      v23 = __CocoaSet.Iterator.next()();
+      if (!v23)
       {
         goto LABEL_22;
       }
 
-      v50 = v28;
+      v42 = v23;
       type metadata accessor for NWConnection();
       swift_dynamicCast();
     }
   }
 
-  v29 = v20;
+  v24 = v17;
   while (1)
   {
-    v27 = v29 + 1;
-    if (__OFADD__(v29, 1))
+    v25 = v24 + 1;
+    if (__OFADD__(v24, 1))
     {
       break;
     }
 
-    if (v27 >= v26)
+    if (v25 >= ((v18 + 64) >> 6))
     {
 LABEL_22:
 
-      result = outlined consume of Set<MessageCenterUser>.Iterator._Variant();
-      v6 = v45;
-      v5 = v46;
-      v12 = v44;
+      outlined consume of Set<MessageCenterUser>.Iterator._Variant(v15);
+      v6 = v37;
+      v5 = v38;
+      v11 = v36;
       goto LABEL_23;
     }
 
-    v22 = *(v19 + 8 * v27);
-    ++v29;
-    if (v22)
+    v19 = *(v16 + 8 * v25);
+    ++v24;
+    if (v19)
     {
-      v20 = v27;
+      v17 = v25;
       goto LABEL_19;
     }
   }
 
   __break(1u);
-  return result;
 }
 
 uint64_t closure #1 in BackgroundConnection.setupReadHandlerOnProvider()(uint64_t a1, unint64_t a2, void *a3, char a4, uint64_t a5, uint64_t a6)
@@ -1919,20 +1246,20 @@ LABEL_30:
         }
 
         outlined copy of Data._Representation(a1, a2);
-        BackgroundConnection.connectionHasBytesAvailable(_:)(a1, a2);
-        v42 = outlined consume of Data?(a1, a2);
+        BackgroundConnection.connectionHasBytesAvailable(_:)(a1, a2, v42, v43, v44, v45, v46);
+        outlined consume of Data?(a1, a2);
         if (a4)
         {
-          BackgroundConnection.setupReadHandlerOnProvider()(v42);
+          BackgroundConnection.setupReadHandlerOnProvider()();
         }
 
         outlined consume of Data?(a1, a2);
       }
     }
 
-    v45 = v43[0];
-    v46 = v43[1];
-    v47 = v44;
+    v49 = v47[0];
+    v50 = v47[1];
+    v51 = v48;
     if (one-time initialization token for siriNetwork != -1)
     {
       swift_once();
@@ -1940,10 +1267,10 @@ LABEL_30:
 
     v14 = type metadata accessor for Logger();
     __swift_project_value_buffer(v14, static Logger.siriNetwork);
-    outlined init with copy of NetworkConnectionError(&v45, v43);
+    outlined init with copy of NetworkConnectionError(&v49, v47);
     v15 = Logger.logObject.getter();
     v16 = static os_log_type_t.error.getter();
-    outlined destroy of NetworkConnectionError(&v45);
+    outlined destroy of NetworkConnectionError(&v49);
     if (os_log_type_enabled(v15, v16))
     {
       v17 = swift_slowAlloc();
@@ -1951,12 +1278,12 @@ LABEL_30:
       *v17 = 138412290;
       lazy protocol witness table accessor for type NetworkConnectionError and conformance NetworkConnectionError();
       swift_allocError();
-      v19 = v47;
-      v20 = v46;
-      *v21 = v45;
+      v19 = v51;
+      v20 = v50;
+      *v21 = v49;
       *(v21 + 16) = v20;
       *(v21 + 32) = v19;
-      outlined init with copy of NetworkConnectionError(&v45, v43);
+      outlined init with copy of NetworkConnectionError(&v49, v47);
       v22 = _swift_stdlib_bridgeErrorToNSError();
       *(v17 + 4) = v22;
       *v18 = v22;
@@ -1968,26 +1295,26 @@ LABEL_30:
 
     lazy protocol witness table accessor for type NetworkConnectionError and conformance NetworkConnectionError();
     v23 = swift_allocError();
-    v24 = v47;
-    v25 = v46;
-    *v26 = v45;
+    v24 = v51;
+    v25 = v50;
+    *v26 = v49;
     *(v26 + 16) = v25;
     *(v26 + 32) = v24;
     swift_allocObject();
     swift_beginAccess();
     swift_weakLoadStrong();
     swift_weakInit();
-    outlined init with copy of NetworkConnectionError(&v45, v43);
+    outlined init with copy of NetworkConnectionError(&v49, v47);
 
-    outlined init with copy of NetworkConnectionError(&v45, v43);
+    outlined init with copy of NetworkConnectionError(&v49, v47);
 
-    outlined init with copy of NetworkConnectionError(&v45, v43);
+    outlined init with copy of NetworkConnectionError(&v49, v47);
 
     specialized BackgroundConnection.fallbackToNextConnectionMethodWithError(_:with:)();
 
-    outlined destroy of NetworkConnectionError(&v45);
+    outlined destroy of NetworkConnectionError(&v49);
 
-    return outlined destroy of NetworkConnectionError(&v45);
+    return outlined destroy of NetworkConnectionError(&v49);
   }
 
   return result;
@@ -1998,13 +1325,12 @@ void CommunicationProtocolAce.bytesAvailable(_:)(uint64_t a1, unint64_t a2)
   v3 = v2;
   OUTLINED_FUNCTION_25_2();
   swift_beginAccess();
-  v6 = v2[41];
   OUTLINED_FUNCTION_31_2();
-  if (!(!v9 & v8))
+  if (!(!v8 & v7))
   {
-    v10 = v2[40];
+    v9 = v2[40];
     *(v2 + 20) = xmmword_2235EF700;
-    outlined consume of Data?(v10, v7);
+    outlined consume of Data?(v9, v6);
     if (CommunicationProtocolAce.aceDelegate.getter())
     {
       BackgroundConnection.updateFirstByteReadTime()();
@@ -2012,63 +1338,61 @@ void CommunicationProtocolAce.bytesAvailable(_:)(uint64_t a1, unint64_t a2)
     }
   }
 
-  OUTLINED_FUNCTION_40_1();
-  v11 = OUTLINED_FUNCTION_65_0();
-  outlined init with copy of DataDecompressing?(v11, v12, v13, v14);
-  if (!v194)
+  OUTLINED_FUNCTION_40_1((v2 + 14), v183);
+  v10 = OUTLINED_FUNCTION_65_0();
+  outlined init with copy of DataDecompressing?(v10, v11, v12, v13);
+  if (!v185)
   {
-    outlined destroy of NetworkConnectionProtocol?(v193, &_s11SiriNetwork17DataDecompressing_pSgMd, &_s11SiriNetwork17DataDecompressing_pSgMR);
+    outlined destroy of NetworkConnectionProtocol?(v184, &_s11SiriNetwork17DataDecompressing_pSgMd, &_s11SiriNetwork17DataDecompressing_pSgMR);
 LABEL_7:
-    v19 = OUTLINED_FUNCTION_3_2();
-    outlined copy of Data._Representation(v19, v20);
+    v16 = OUTLINED_FUNCTION_3_2();
+    outlined copy of Data._Representation(v16, v17);
     goto LABEL_8;
   }
 
-  outlined init with copy of RPCOspreyConnectionProtocol(v193, &v185);
-  outlined destroy of NetworkConnectionProtocol?(v193, &_s11SiriNetwork17DataDecompressing_pSgMd, &_s11SiriNetwork17DataDecompressing_pSgMR);
-  v15 = v189;
-  __swift_project_boxed_opaque_existential_1(&v185, v188);
-  v16 = *(v15 + 16);
-  v17 = OUTLINED_FUNCTION_3_2();
-  v49 = v18(v17);
-  v51 = v50;
-  __swift_destroy_boxed_opaque_existential_0(&v185);
-  if (v51 >> 60 == 15)
+  outlined init with copy of RPCOspreyConnectionProtocol(v184, v177);
+  outlined destroy of NetworkConnectionProtocol?(v184, &_s11SiriNetwork17DataDecompressing_pSgMd, &_s11SiriNetwork17DataDecompressing_pSgMR);
+  __swift_project_boxed_opaque_existential_1(v177, v178);
+  v14 = OUTLINED_FUNCTION_3_2();
+  v45 = v15(v14);
+  v47 = v46;
+  __swift_destroy_boxed_opaque_existential_0(v177);
+  if (v47 >> 60 == 15)
   {
     goto LABEL_7;
   }
 
-  a1 = v49;
-  a2 = v51;
+  a1 = v45;
+  a2 = v47;
 LABEL_8:
   OUTLINED_FUNCTION_25_2();
   swift_beginAccess();
-  v21 = v3[6];
-  if (v21 >> 60 == 15)
+  v18 = v3[6];
+  if (v18 >> 60 == 15)
   {
-    v22 = v3[5];
+    v19 = v3[5];
     v3[5] = a1;
     v3[6] = a2;
-    v23 = OUTLINED_FUNCTION_3_2();
-    outlined copy of Data._Representation(v23, v24);
-    outlined consume of Data?(v22, v21);
+    v20 = OUTLINED_FUNCTION_3_2();
+    outlined copy of Data._Representation(v20, v21);
+    outlined consume of Data?(v19, v18);
   }
 
   else
   {
-    v25 = CommunicationProtocolAce.bufferedInputData.modify();
-    OUTLINED_FUNCTION_24_1(v25, v26);
-    if (!(!v9 & v8))
+    v22 = CommunicationProtocolAce.bufferedInputData.modify();
+    OUTLINED_FUNCTION_24_1();
+    if (!(!v8 & v7))
     {
       OUTLINED_FUNCTION_3_2();
       Data.append(_:)();
     }
 
-    (v25)(v193, 0);
+    (v22)(v184, 0);
   }
 
-  v27 = v3[6];
-  if (v27 >> 60 == 15)
+  v23 = v3[6];
+  if (v23 >> 60 == 15)
   {
     if (one-time initialization token for siriNetwork != -1)
     {
@@ -2076,55 +1400,55 @@ LABEL_8:
       swift_once();
     }
 
-    v28 = type metadata accessor for Logger();
-    OUTLINED_FUNCTION_58(v28, static Logger.siriNetwork);
-    v29 = Logger.logObject.getter();
+    v24 = type metadata accessor for Logger();
+    OUTLINED_FUNCTION_58(v24, static Logger.siriNetwork);
+    v25 = Logger.logObject.getter();
     static os_log_type_t.error.getter();
-    v30 = OUTLINED_FUNCTION_16_0();
-    if (os_log_type_enabled(v30, v31))
+    v26 = OUTLINED_FUNCTION_16_0();
+    if (os_log_type_enabled(v26, v27))
     {
       OUTLINED_FUNCTION_17_5();
-      v32 = swift_slowAlloc();
-      OUTLINED_FUNCTION_40_2(v32);
+      v28 = swift_slowAlloc();
+      OUTLINED_FUNCTION_40_2(v28);
       OUTLINED_FUNCTION_44_2();
-      _os_log_impl(v33, v34, v35, v36, v37, v38);
-      v39 = OUTLINED_FUNCTION_1_2();
-      MEMORY[0x223DE38F0](v39);
+      _os_log_impl(v29, v30, v31, v32, v33, v34);
+      v35 = OUTLINED_FUNCTION_1_2();
+      MEMORY[0x223DE38F0](v35);
     }
 
-    v40 = OUTLINED_FUNCTION_3_2();
-    outlined consume of Data._Representation(v40, v41);
+    v36 = OUTLINED_FUNCTION_3_2();
+    outlined consume of Data._Representation(v36, v37);
   }
 
   else
   {
-    v191 = v3[5];
-    v192 = v27;
-    outlined copy of Data._Representation(v191, v27);
+    v181 = v3[5];
+    v182 = v23;
+    outlined copy of Data._Representation(v181, v23);
     if (one-time initialization token for siriNetwork != -1)
     {
       OUTLINED_FUNCTION_0_8();
       swift_once();
     }
 
-    v42 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v42, static Logger.siriNetwork);
-    v43 = Logger.logObject.getter();
+    v38 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v38, static Logger.siriNetwork);
+    v39 = Logger.logObject.getter();
     static os_log_type_t.default.getter();
-    v44 = OUTLINED_FUNCTION_16_0();
-    v46 = &qword_2235F0FF0[2];
-    if (os_log_type_enabled(v44, v45))
+    v40 = OUTLINED_FUNCTION_16_0();
+    v42 = &unk_2235F1000;
+    if (os_log_type_enabled(v40, v41))
     {
       OUTLINED_FUNCTION_6_5();
-      v47 = swift_slowAlloc();
-      *v47 = 134217984;
-      OUTLINED_FUNCTION_40_1();
-      v48 = 0;
-      switch(v192 >> 62)
+      v43 = swift_slowAlloc();
+      *v43 = 134217984;
+      OUTLINED_FUNCTION_40_1(&v181, v176);
+      v44 = 0;
+      switch(v182 >> 62)
       {
         case 1uLL:
-          LODWORD(v48) = HIDWORD(v191) - v191;
-          if (__OFSUB__(HIDWORD(v191), v191))
+          LODWORD(v44) = HIDWORD(v181) - v181;
+          if (__OFSUB__(HIDWORD(v181), v181))
           {
             __break(1u);
 LABEL_65:
@@ -2140,20 +1464,20 @@ LABEL_69:
             JUMPOUT(0x22352CBE4);
           }
 
-          v48 = v48;
+          v44 = v44;
 LABEL_29:
-          *(v47 + 4) = v48;
+          *(v43 + 4) = v44;
           OUTLINED_FUNCTION_74_0();
-          _os_log_impl(v55, v56, v57, v58, v59, 0xCu);
-          v60 = OUTLINED_FUNCTION_4_0();
-          MEMORY[0x223DE38F0](v60);
+          _os_log_impl(v51, v52, v53, v54, v55, 0xCu);
+          v56 = OUTLINED_FUNCTION_4_0();
+          MEMORY[0x223DE38F0](v56);
           break;
         case 2uLL:
-          v53 = *(v191 + 16);
-          v52 = *(v191 + 24);
-          v54 = __OFSUB__(v52, v53);
-          v48 = v52 - v53;
-          if (!v54)
+          v49 = *(v181 + 16);
+          v48 = *(v181 + 24);
+          v50 = __OFSUB__(v48, v49);
+          v44 = v48 - v49;
+          if (!v50)
           {
             goto LABEL_29;
           }
@@ -2162,110 +1486,110 @@ LABEL_29:
         case 3uLL:
           goto LABEL_29;
         default:
-          v48 = BYTE6(v192);
+          v44 = BYTE6(v182);
           goto LABEL_29;
       }
     }
 
     if (v3[13])
     {
-      OUTLINED_FUNCTION_62_0(v61, v62, v63, v64, v65, v66, v67, v68, v178, v179, v180, v181, v182, v183, v184, v185, v186, v187, v188, v189, v190, v191);
+      OUTLINED_FUNCTION_62_0(v57, v58, v59, v60, v61, v62, v63, v64, v172, v173, v174, v175, v176[0], v176[1], v176[2], v177[0], v177[1], v177[2], v178, v179, v180, v181);
       OUTLINED_FUNCTION_27_1();
       swift_beginAccess();
       CommunicationProtocolAce.consumeHttpHeader(withData:)();
       swift_endAccess();
-      v69 = Logger.logObject.getter();
+      v65 = Logger.logObject.getter();
       static os_log_type_t.default.getter();
-      v70 = OUTLINED_FUNCTION_16_0();
-      if (os_log_type_enabled(v70, v71))
+      v66 = OUTLINED_FUNCTION_16_0();
+      if (os_log_type_enabled(v66, v67))
       {
         OUTLINED_FUNCTION_6_5();
-        v72 = swift_slowAlloc();
-        OUTLINED_FUNCTION_63_2(v72, 3.852e-34);
+        v68 = swift_slowAlloc();
+        OUTLINED_FUNCTION_63_2(v68, 3.852e-34);
         OUTLINED_FUNCTION_34_2();
-        _os_log_impl(v73, v74, v75, v76, v77, 0xCu);
-        v78 = OUTLINED_FUNCTION_5_14();
-        MEMORY[0x223DE38F0](v78);
+        _os_log_impl(v69, v70, v71, v72, v73, 0xCu);
+        v74 = OUTLINED_FUNCTION_5_14();
+        MEMORY[0x223DE38F0](v74);
       }
     }
 
-    v79 = OUTLINED_FUNCTION_65_0();
-    outlined init with copy of DataDecompressing?(v79, v80, &_s11SiriNetwork17DataDecompressing_pSgMd, &_s11SiriNetwork17DataDecompressing_pSgMR);
-    v81 = v194;
-    v82 = outlined destroy of NetworkConnectionProtocol?(v193, &_s11SiriNetwork17DataDecompressing_pSgMd, &_s11SiriNetwork17DataDecompressing_pSgMR);
-    if (!v81)
+    v75 = OUTLINED_FUNCTION_65_0();
+    outlined init with copy of DataDecompressing?(v75, v76, &_s11SiriNetwork17DataDecompressing_pSgMd, &_s11SiriNetwork17DataDecompressing_pSgMR);
+    v77 = v185;
+    v78 = outlined destroy of NetworkConnectionProtocol?(v184, &_s11SiriNetwork17DataDecompressing_pSgMd, &_s11SiriNetwork17DataDecompressing_pSgMR);
+    if (!v77)
     {
-      OUTLINED_FUNCTION_62_0(v82, v83, v84, v85, v86, v87, v88, v89, v178, v179, v180, v181, v182, v183, v184, v185, v186, v187, v188, v189, v190, v191);
+      OUTLINED_FUNCTION_62_0(v78, v79, v80, v81, v82, v83, v84, v85, v172, v173, v174, v175, v176[0], v176[1], v176[2], v177[0], v177[1], v177[2], v178, v179, v180, v181);
       OUTLINED_FUNCTION_27_1();
       swift_beginAccess();
-      CommunicationProtocolAce.consumeAceHeader(withData:)(&v191);
+      CommunicationProtocolAce.consumeAceHeader(withData:)(&v181);
       swift_endAccess();
-      v123 = Logger.logObject.getter();
+      v117 = Logger.logObject.getter();
       static os_log_type_t.default.getter();
-      v124 = OUTLINED_FUNCTION_16_0();
-      if (os_log_type_enabled(v124, v125))
+      v118 = OUTLINED_FUNCTION_16_0();
+      if (os_log_type_enabled(v118, v119))
       {
         OUTLINED_FUNCTION_6_5();
-        v127 = swift_slowAlloc();
-        OUTLINED_FUNCTION_63_2(v127, 3.852e-34);
+        v121 = swift_slowAlloc();
+        OUTLINED_FUNCTION_63_2(v121, 3.852e-34);
         OUTLINED_FUNCTION_34_2();
-        _os_log_impl(v128, v129, v130, v131, v132, 0xCu);
-        v133 = OUTLINED_FUNCTION_5_14();
-        MEMORY[0x223DE38F0](v133);
+        _os_log_impl(v122, v123, v124, v125, v126, 0xCu);
+        v127 = OUTLINED_FUNCTION_5_14();
+        MEMORY[0x223DE38F0](v127);
       }
 
-      v134 = OUTLINED_FUNCTION_65_0();
-      outlined init with copy of DataDecompressing?(v134, v135, v136, v137);
-      if (v194)
+      v128 = OUTLINED_FUNCTION_65_0();
+      outlined init with copy of DataDecompressing?(v128, v129, v130, v131);
+      if (v185)
       {
-        outlined init with copy of RPCOspreyConnectionProtocol(v193, &v185);
-        outlined destroy of NetworkConnectionProtocol?(v193, &_s11SiriNetwork17DataDecompressing_pSgMd, &_s11SiriNetwork17DataDecompressing_pSgMR);
-        v138 = v189;
-        v179 = v189;
-        v139 = __swift_project_boxed_opaque_existential_1(&v185, v188);
-        v180 = *(v138 + 16);
-        v181 = v139;
+        outlined init with copy of RPCOspreyConnectionProtocol(v184, v177);
+        outlined destroy of NetworkConnectionProtocol?(v184, &_s11SiriNetwork17DataDecompressing_pSgMd, &_s11SiriNetwork17DataDecompressing_pSgMR);
+        v132 = v179;
+        v173 = v179;
+        v133 = __swift_project_boxed_opaque_existential_1(v177, v178);
+        v174 = *(v132 + 16);
+        v175 = v133;
+        v134 = OUTLINED_FUNCTION_50_1();
+        outlined copy of Data._Representation(v134, v135);
+        v136 = OUTLINED_FUNCTION_50_1();
+        v137 = v174(v136);
+        v139 = v138;
         v140 = OUTLINED_FUNCTION_50_1();
-        outlined copy of Data._Representation(v140, v141);
-        v142 = OUTLINED_FUNCTION_50_1();
-        v143 = v180(v142);
-        v145 = v144;
-        v146 = OUTLINED_FUNCTION_50_1();
-        outlined consume of Data._Representation(v146, v147);
-        __swift_destroy_boxed_opaque_existential_0(&v185);
-        if (v145 >> 60 != 15)
+        outlined consume of Data._Representation(v140, v141);
+        __swift_destroy_boxed_opaque_existential_0(v177);
+        if (v139 >> 60 != 15)
         {
-          v148 = Logger.logObject.getter();
+          v142 = Logger.logObject.getter();
           static os_log_type_t.default.getter();
-          v149 = OUTLINED_FUNCTION_16_0();
-          if (os_log_type_enabled(v149, v150))
+          v143 = OUTLINED_FUNCTION_16_0();
+          if (os_log_type_enabled(v143, v144))
           {
             OUTLINED_FUNCTION_6_5();
-            v151 = swift_slowAlloc();
-            *v151 = 134217984;
-            v154 = 0;
-            switch(v192 >> 62)
+            v145 = swift_slowAlloc();
+            *v145 = 134217984;
+            v148 = 0;
+            switch(v182 >> 62)
             {
               case 1uLL:
-                LODWORD(v154) = HIDWORD(v191) - v191;
-                if (__OFSUB__(HIDWORD(v191), v191))
+                LODWORD(v148) = HIDWORD(v181) - v181;
+                if (__OFSUB__(HIDWORD(v181), v181))
                 {
                   goto LABEL_66;
                 }
 
-                v154 = v154;
+                v148 = v148;
 LABEL_53:
-                *(v151 + 4) = v154;
-                OUTLINED_FUNCTION_80_0(&dword_223515000, v152, v153, "CommunicationProtocol - Ace bytes available: Still have %ld after Ace Header, decompressing");
+                *(v145 + 4) = v148;
+                OUTLINED_FUNCTION_80_0(&dword_223515000, v146, v147, "CommunicationProtocol - Ace bytes available: Still have %ld after Ace Header, decompressing");
                 OUTLINED_FUNCTION_2_2();
                 MEMORY[0x223DE38F0]();
                 break;
               case 2uLL:
-                v156 = *(v191 + 16);
-                v155 = *(v191 + 24);
-                v54 = __OFSUB__(v155, v156);
-                v154 = v155 - v156;
-                if (!v54)
+                v150 = *(v181 + 16);
+                v149 = *(v181 + 24);
+                v50 = __OFSUB__(v149, v150);
+                v148 = v149 - v150;
+                if (!v50)
                 {
                   goto LABEL_53;
                 }
@@ -2274,53 +1598,53 @@ LABEL_53:
               case 3uLL:
                 goto LABEL_53;
               default:
-                v154 = BYTE6(v192);
+                v148 = BYTE6(v182);
                 goto LABEL_53;
             }
           }
 
-          v157 = v191;
-          v158 = v192;
-          v191 = v143;
-          v192 = v145;
-          v159 = OUTLINED_FUNCTION_26();
-          outlined copy of Data._Representation(v159, v160);
-          outlined consume of Data._Representation(v157, v158);
-          v161 = OUTLINED_FUNCTION_26();
-          outlined copy of Data._Representation(v161, v162);
-          v163 = Logger.logObject.getter();
+          v151 = v181;
+          v152 = v182;
+          v181 = v137;
+          v182 = v139;
+          v153 = OUTLINED_FUNCTION_26();
+          outlined copy of Data._Representation(v153, v154);
+          outlined consume of Data._Representation(v151, v152);
+          v155 = OUTLINED_FUNCTION_26();
+          outlined copy of Data._Representation(v155, v156);
+          v157 = Logger.logObject.getter();
           static os_log_type_t.default.getter();
-          v164 = OUTLINED_FUNCTION_16_0();
-          if (os_log_type_enabled(v164, v165))
+          v158 = OUTLINED_FUNCTION_16_0();
+          if (os_log_type_enabled(v158, v159))
           {
             OUTLINED_FUNCTION_6_5();
-            v166 = swift_slowAlloc();
-            *v166 = 134217984;
-            v167 = 0;
-            switch(v145 >> 62)
+            v160 = swift_slowAlloc();
+            *v160 = 134217984;
+            v161 = 0;
+            switch(v139 >> 62)
             {
               case 1uLL:
-                LODWORD(v167) = HIDWORD(v143) - v143;
-                if (__OFSUB__(HIDWORD(v143), v143))
+                LODWORD(v161) = HIDWORD(v137) - v137;
+                if (__OFSUB__(HIDWORD(v137), v137))
                 {
                   goto LABEL_68;
                 }
 
-                v167 = v167;
+                v161 = v161;
 LABEL_61:
-                *(v166 + 4) = v167;
-                v172 = OUTLINED_FUNCTION_26();
-                outlined consume of Data?(v172, v173);
-                OUTLINED_FUNCTION_80_0(&dword_223515000, v174, v175, "CommunicationProtocol - Ace bytes available: Decompressed %ld bytes");
+                *(v160 + 4) = v161;
+                v166 = OUTLINED_FUNCTION_26();
+                outlined consume of Data?(v166, v167);
+                OUTLINED_FUNCTION_80_0(&dword_223515000, v168, v169, "CommunicationProtocol - Ace bytes available: Decompressed %ld bytes");
                 OUTLINED_FUNCTION_2_2();
                 MEMORY[0x223DE38F0]();
                 break;
               case 2uLL:
-                v171 = *(v143 + 16);
-                v170 = *(v143 + 24);
-                v54 = __OFSUB__(v170, v171);
-                v167 = v170 - v171;
-                if (!v54)
+                v165 = *(v137 + 16);
+                v164 = *(v137 + 24);
+                v50 = __OFSUB__(v164, v165);
+                v161 = v164 - v165;
+                if (!v50)
                 {
                   goto LABEL_61;
                 }
@@ -2329,83 +1653,81 @@ LABEL_61:
               case 3uLL:
                 goto LABEL_61;
               default:
-                v167 = BYTE6(v145);
+                v161 = BYTE6(v139);
                 goto LABEL_61;
             }
           }
 
           else
           {
-            v168 = OUTLINED_FUNCTION_26();
-            outlined consume of Data?(v168, v169);
+            v162 = OUTLINED_FUNCTION_26();
+            outlined consume of Data?(v162, v163);
           }
 
-          v176 = OUTLINED_FUNCTION_26();
-          outlined consume of Data?(v176, v177);
+          v170 = OUTLINED_FUNCTION_26();
+          outlined consume of Data?(v170, v171);
         }
 
-        v46 = qword_2235F0FF0 + 16;
+        v42 = &unk_2235F1000;
       }
 
       else
       {
-        outlined destroy of NetworkConnectionProtocol?(v193, &_s11SiriNetwork17DataDecompressing_pSgMd, &_s11SiriNetwork17DataDecompressing_pSgMR);
+        outlined destroy of NetworkConnectionProtocol?(v184, &_s11SiriNetwork17DataDecompressing_pSgMd, &_s11SiriNetwork17DataDecompressing_pSgMR);
       }
     }
 
-    v90 = OUTLINED_FUNCTION_65_0();
-    outlined init with copy of DataDecompressing?(v90, v91, v92, v93);
-    if (v194)
+    v86 = OUTLINED_FUNCTION_65_0();
+    outlined init with copy of DataDecompressing?(v86, v87, v88, v89);
+    if (v185)
     {
-      v94 = outlined destroy of NetworkConnectionProtocol?(v193, &_s11SiriNetwork17DataDecompressing_pSgMd, &_s11SiriNetwork17DataDecompressing_pSgMR);
-      OUTLINED_FUNCTION_62_0(v94, v95, v96, v97, v98, v99, v100, v101, v178, v179, v180, v181, v182, v183, v184, v185, v186, v187, v188, v189, v190, v191);
+      v90 = outlined destroy of NetworkConnectionProtocol?(v184, &_s11SiriNetwork17DataDecompressing_pSgMd, &_s11SiriNetwork17DataDecompressing_pSgMR);
+      OUTLINED_FUNCTION_62_0(v90, v91, v92, v93, v94, v95, v96, v97, v172, v173, v174, v175, v176[0], v176[1], v176[2], v177[0], v177[1], v177[2], v178, v179, v180, v181);
       OUTLINED_FUNCTION_27_1();
       swift_beginAccess();
-      CommunicationProtocolAce.consumeAceData(withData:)(&v191);
+      CommunicationProtocolAce.consumeAceData(withData:)(&v181);
       swift_endAccess();
-      v102 = Logger.logObject.getter();
+      v98 = Logger.logObject.getter();
       static os_log_type_t.default.getter();
-      v103 = OUTLINED_FUNCTION_16_0();
-      if (os_log_type_enabled(v103, v104))
+      v99 = OUTLINED_FUNCTION_16_0();
+      if (os_log_type_enabled(v99, v100))
       {
         OUTLINED_FUNCTION_6_5();
-        v105 = swift_slowAlloc();
-        OUTLINED_FUNCTION_63_2(v105, COERCE_FLOAT(v46[396]));
+        v101 = swift_slowAlloc();
+        OUTLINED_FUNCTION_63_2(v101, COERCE_FLOAT(v42[396]));
         OUTLINED_FUNCTION_18_5();
-        _os_log_impl(v106, v107, v108, v109, v110, v111);
-        v112 = OUTLINED_FUNCTION_2_0();
-        MEMORY[0x223DE38F0](v112);
+        _os_log_impl(v102, v103, v104, v105, v106, v107);
+        v108 = OUTLINED_FUNCTION_2_0();
+        MEMORY[0x223DE38F0](v108);
       }
 
-      v113 = OUTLINED_FUNCTION_3_2();
-      outlined consume of Data._Representation(v113, v114);
+      v109 = OUTLINED_FUNCTION_3_2();
+      outlined consume of Data._Representation(v109, v110);
     }
 
     else
     {
-      v115 = OUTLINED_FUNCTION_3_2();
-      outlined consume of Data._Representation(v115, v116);
-      outlined destroy of NetworkConnectionProtocol?(v193, &_s11SiriNetwork17DataDecompressing_pSgMd, &_s11SiriNetwork17DataDecompressing_pSgMR);
+      v111 = OUTLINED_FUNCTION_3_2();
+      outlined consume of Data._Representation(v111, v112);
+      outlined destroy of NetworkConnectionProtocol?(v184, &_s11SiriNetwork17DataDecompressing_pSgMd, &_s11SiriNetwork17DataDecompressing_pSgMR);
     }
 
-    OUTLINED_FUNCTION_40_1();
-    v117 = v191;
-    v118 = v192;
-    v119 = v3[5];
-    v120 = v3[6];
-    v3[5] = v191;
-    v3[6] = v118;
-    outlined copy of Data._Representation(v117, v118);
-    v121 = OUTLINED_FUNCTION_14_3();
-    outlined consume of Data?(v121, v122);
-    outlined consume of Data._Representation(v191, v192);
+    OUTLINED_FUNCTION_40_1(&v181, v177);
+    v113 = v181;
+    v114 = v182;
+    v3[5] = v181;
+    v3[6] = v114;
+    outlined copy of Data._Representation(v113, v114);
+    v115 = OUTLINED_FUNCTION_14_3();
+    outlined consume of Data?(v115, v116);
+    outlined consume of Data._Representation(v181, v182);
   }
 }
 
-uint64_t closure #1 in ZlibDataDecompressor.decompressedDataForData(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X4>, _OWORD *a5@<X8>)
+uint64_t closure #1 in ZlibDataDecompressor.decompressedDataForData(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X4>, __int128 *a5@<X8>)
 {
   v6 = v5;
-  v35 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     swift_beginAccess();
@@ -2416,22 +1738,22 @@ uint64_t closure #1 in ZlibDataDecompressor.decompressedDataForData(_:)@<X0>(uin
   if ((v12 & 0x8000000000000000) != 0)
   {
     __break(1u);
-    goto LABEL_26;
+    goto LABEL_25;
   }
 
   LODWORD(a4) = v12;
   if (HIDWORD(v12))
   {
-LABEL_26:
+LABEL_25:
     __break(1u);
-LABEL_27:
+LABEL_26:
     swift_once();
     goto LABEL_20;
   }
 
   swift_beginAccess();
   *(a2 + 24) = a4;
-  v34 = xmmword_2235EF6F0;
+  v30 = xmmword_2235EF6F0;
   v13 = *(a2 + 128);
   while (1)
   {
@@ -2458,25 +1780,23 @@ LABEL_27:
       if (v14 >> 1 >= 0xFF9)
       {
         memset(__dst, 0, sizeof(__dst));
-        v33 = -v14;
+        v29 = -v14;
         memcpy(__dst, v13, v17);
         v15 = *__dst;
-        v6 = v6 & 0xF00000000000000 | *&__dst[8] | ((*&__dst[12] | (v33 << 16)) << 32);
+        v6 = v6 & 0xF00000000000000 | *&__dst[8] | ((*&__dst[12] | (v29 << 16)) << 32);
         v16 = v6;
       }
 
       else
       {
-        v18 = type metadata accessor for __DataStorage();
-        v19 = *(v18 + 48);
-        v20 = *(v18 + 52);
+        type metadata accessor for __DataStorage();
         swift_allocObject();
         v15 = v17 << 32;
         v16 = __DataStorage.init(bytes:length:)() | 0x4000000000000000;
       }
     }
 
-    if (*(&v34 + 1) >> 60 != 15)
+    if (*(&v30 + 1) >> 60 != 15)
     {
       Data.append(_:)();
     }
@@ -2484,11 +1804,10 @@ LABEL_27:
     outlined consume of Data._Representation(v15, v16);
     if (a4 || *(a2 + 48) || !*(a2 + 24))
     {
-      v21 = v34;
-      *a5 = v34;
-      outlined copy of Data?(v21, *(&v21 + 1));
-      result = outlined consume of Data?(v21, *(&v21 + 1));
-      goto LABEL_24;
+      v18 = v30;
+      *a5 = v30;
+      outlined copy of Data?(v18, *(&v18 + 1));
+      return outlined consume of Data?(v18, *(&v18 + 1));
     }
   }
 
@@ -2500,53 +1819,50 @@ LABEL_27:
   }
 
   a5 = String.init(cString:)();
-  v6 = v23;
+  v6 = v20;
   if (one-time initialization token for siriNetwork != -1)
   {
-    goto LABEL_27;
+    goto LABEL_26;
   }
 
 LABEL_20:
-  v24 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v24, static Logger.siriNetwork);
+  v21 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v21, static Logger.siriNetwork);
 
-  v25 = Logger.logObject.getter();
-  v26 = static os_log_type_t.error.getter();
+  v22 = Logger.logObject.getter();
+  v23 = static os_log_type_t.error.getter();
 
-  if (os_log_type_enabled(v25, v26))
+  if (os_log_type_enabled(v22, v23))
   {
-    v27 = swift_slowAlloc();
-    v28 = swift_slowAlloc();
-    *__dst = v28;
-    *v27 = 67109378;
-    *(v27 + 4) = a4;
-    *(v27 + 8) = 2080;
-    v29 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a5, v6, __dst);
+    v24 = swift_slowAlloc();
+    v25 = swift_slowAlloc();
+    *__dst = v25;
+    *v24 = 67109378;
+    *(v24 + 4) = a4;
+    *(v24 + 8) = 2080;
+    v26 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a5, v6, __dst);
 
-    *(v27 + 10) = v29;
-    _os_log_impl(&dword_223515000, v25, v26, "DataCompressor - Compression: Inflate finished with unexpected status %d %s", v27, 0x12u);
-    __swift_destroy_boxed_opaque_existential_0(v28);
-    MEMORY[0x223DE38F0](v28, -1, -1);
-    MEMORY[0x223DE38F0](v27, -1, -1);
+    *(v24 + 10) = v26;
+    _os_log_impl(&dword_223515000, v22, v23, "DataCompressor - Compression: Inflate finished with unexpected status %d %s", v24, 0x12u);
+    __swift_destroy_boxed_opaque_existential_0(v25);
+    MEMORY[0x223DE38F0](v25, -1, -1);
+    MEMORY[0x223DE38F0](v24, -1, -1);
   }
 
   else
   {
   }
 
-  outlined consume of Data?(v34, *(&v34 + 1));
-  v34 = xmmword_2235EF700;
+  outlined consume of Data?(v30, *(&v30 + 1));
+  v30 = xmmword_2235EF700;
   lazy protocol witness table accessor for type DataCompressorError and conformance DataCompressorError();
   swift_allocError();
-  *v30 = a4;
+  *v27 = a4;
   swift_willThrow();
-  result = outlined consume of Data?(v34, *(&v34 + 1));
-LABEL_24:
-  v31 = *MEMORY[0x277D85DE8];
-  return result;
+  return outlined consume of Data?(v30, *(&v30 + 1));
 }
 
-uint64_t (*CommunicationProtocolAce.bufferedInputData.modify())()
+uint64_t (*CommunicationProtocolAce.bufferedInputData.modify())(uint64_t a1)
 {
   OUTLINED_FUNCTION_27_1();
   swift_beginAccess();
@@ -2556,9 +1872,8 @@ uint64_t (*CommunicationProtocolAce.bufferedInputData.modify())()
 void closure #1 in NetworkConnectionProvider.readData(_:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void (*a7)(uint64_t, unint64_t, void *, uint64_t))
 {
   v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Network7NWErrorOSgMd, &_s7Network7NWErrorOSgMR);
-  v12 = *(*(v11 - 8) + 64);
   MEMORY[0x28223BE20](v11 - 8);
-  v14 = &v34 - v13;
+  v13 = &v33 - v12;
   swift_beginAccess();
   Strong = swift_weakLoadStrong();
   if (Strong)
@@ -2570,83 +1885,83 @@ void closure #1 in NetworkConnectionProvider.readData(_:)(uint64_t a1, unint64_t
         swift_once();
       }
 
-      v16 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v16, static Logger.siriNetwork);
+      v15 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v15, static Logger.siriNetwork);
 
-      v17 = Logger.logObject.getter();
-      v18 = static os_log_type_t.default.getter();
+      v16 = Logger.logObject.getter();
+      v17 = static os_log_type_t.default.getter();
 
-      if (os_log_type_enabled(v17, v18))
+      if (os_log_type_enabled(v16, v17))
       {
+        v18 = swift_slowAlloc();
         v19 = swift_slowAlloc();
-        v20 = swift_slowAlloc();
-        v34 = v20;
-        *v19 = 136315138;
-        v21 = NetworkConnectionProvider.connectionIdentifier.getter();
-        v23 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v21, v22, &v34);
+        v33 = v19;
+        *v18 = 136315138;
+        v20 = NetworkConnectionProvider.connectionIdentifier.getter();
+        v22 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v21, &v33);
 
-        *(v19 + 4) = v23;
-        _os_log_impl(&dword_223515000, v17, v18, "Provider - NetworkConnectionProvider [%s]: Reader got data, but connection was cancelled", v19, 0xCu);
-        __swift_destroy_boxed_opaque_existential_0(v20);
-        MEMORY[0x223DE38F0](v20, -1, -1);
+        *(v18 + 4) = v22;
+        _os_log_impl(&dword_223515000, v16, v17, "Provider - NetworkConnectionProvider [%s]: Reader got data, but connection was cancelled", v18, 0xCu);
+        __swift_destroy_boxed_opaque_existential_0(v19);
         MEMORY[0x223DE38F0](v19, -1, -1);
+        MEMORY[0x223DE38F0](v18, -1, -1);
       }
     }
 
     else
     {
-      v24 = *(Strong + 2080);
-      v25 = __CFADD__(v24, 1);
-      v26 = v24 + 1;
-      if (v25)
+      v23 = *(Strong + 2080);
+      v24 = __CFADD__(v23, 1);
+      v25 = v23 + 1;
+      if (v24)
       {
         __break(1u);
       }
 
       else
       {
-        *(Strong + 2080) = v26;
-        if (a2 >> 60 == 15 || (v27 = type metadata accessor for NWError(), v28 = 1, __swift_getEnumTagSinglePayload(a5, 1, v27) != 1))
+        *(Strong + 2080) = v25;
+        if (a2 >> 60 == 15 || (v26 = type metadata accessor for NWError(), v27 = 1, __swift_getEnumTagSinglePayload(a5, 1, v26) != 1))
         {
-          outlined init with copy of NetworkConnectionProtocol?(a5, v14, &_s7Network7NWErrorOSgMd, &_s7Network7NWErrorOSgMR);
-          v30 = type metadata accessor for NWError();
-          if (__swift_getEnumTagSinglePayload(v14, 1, v30) == 1)
+          outlined init with copy of NetworkConnectionProtocol?(a5, v13, &_s7Network7NWErrorOSgMd, &_s7Network7NWErrorOSgMR);
+          v29 = type metadata accessor for NWError();
+          if (__swift_getEnumTagSinglePayload(v13, 1, v29) == 1)
           {
-            outlined destroy of NetworkConnectionProtocol?(v14, &_s7Network7NWErrorOSgMd, &_s7Network7NWErrorOSgMR);
+            outlined destroy of NetworkConnectionProtocol?(v13, &_s7Network7NWErrorOSgMd, &_s7Network7NWErrorOSgMR);
             lazy protocol witness table accessor for type NetworkConnectionError and conformance NetworkConnectionError();
-            v29 = swift_allocError();
-            *(v31 + 16) = 0;
-            *v31 = 0;
+            v28 = swift_allocError();
+            *(v30 + 16) = 0;
+            *v30 = 0;
           }
 
           else
           {
-            lazy protocol witness table accessor for type NetworkConnectionProvider and conformance NetworkConnectionProvider(&lazy protocol witness table cache variable for type NWError and conformance NWError, 255, MEMORY[0x277CD8FC0]);
-            v32 = swift_allocError();
-            (*(*(v30 - 8) + 32))(v33, v14, v30);
+            lazy protocol witness table accessor for type NetworkConnectionProvider and conformance NetworkConnectionProvider(&lazy protocol witness table cache variable for type NWError and conformance NWError, 255, MEMORY[0x277CD8FC0], MEMORY[0x277CD8FD0]);
+            v31 = swift_allocError();
+            (*(*(v29 - 8) + 32))(v32, v13, v29);
             lazy protocol witness table accessor for type NetworkConnectionError and conformance NetworkConnectionError();
-            v29 = swift_allocError();
-            *(v31 + 16) = 0;
-            *v31 = v32;
+            v28 = swift_allocError();
+            *(v30 + 16) = 0;
+            *v30 = v31;
           }
 
-          *(v31 + 8) = 0;
-          v28 = 0;
-          *(v31 + 24) = xmmword_2235F0AB0;
+          *(v30 + 8) = 0;
+          v27 = 0;
+          *(v30 + 24) = xmmword_2235F0AB0;
         }
 
         else
         {
-          v29 = 0;
+          v28 = 0;
         }
 
-        a7(a1, a2, v29, v28);
+        a7(a1, a2, v28, v27);
       }
     }
   }
 }
 
-void BackgroundConnection.connectionHasBytesAvailable(_:)(uint64_t a1, unint64_t a2)
+void BackgroundConnection.connectionHasBytesAvailable(_:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   if (a2 >> 60 == 15)
   {
@@ -2657,15 +1972,15 @@ LABEL_8:
       swift_once();
     }
 
-    v7 = type metadata accessor for Logger();
-    OUTLINED_FUNCTION_58(v7, static Logger.siriNetwork);
+    v12 = type metadata accessor for Logger();
+    OUTLINED_FUNCTION_58(v12, static Logger.siriNetwork);
     oslog = Logger.logObject.getter();
-    v8 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(oslog, v8))
+    v13 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(oslog, v13))
     {
-      v9 = OUTLINED_FUNCTION_14();
-      *v9 = 0;
-      _os_log_impl(&dword_223515000, oslog, v8, "Background Connection - Reader: Connection does not have bytes available", v9, 2u);
+      v14 = OUTLINED_FUNCTION_14();
+      *v14 = 0;
+      _os_log_impl(&dword_223515000, oslog, v13, "Background Connection - Reader: Connection does not have bytes available", v14, 2u);
       OUTLINED_FUNCTION_2_2();
       MEMORY[0x223DE38F0]();
     }
@@ -2676,20 +1991,20 @@ LABEL_8:
     switch(a2 >> 62)
     {
       case 1uLL:
-        v5 = a1;
-        v6 = a1 >> 32;
+        v10 = a1;
+        v11 = a1 >> 32;
         goto LABEL_7;
       case 2uLL:
-        v5 = *(a1 + 16);
-        v6 = *(a1 + 24);
+        v10 = *(a1 + 16);
+        v11 = *(a1 + 24);
 LABEL_7:
-        if (v5 == v6)
+        if (v10 == v11)
         {
           goto LABEL_8;
         }
 
-        v10 = OUTLINED_FUNCTION_32();
-        outlined copy of Data?(v10, v11);
+        v15 = OUTLINED_FUNCTION_32();
+        outlined copy of Data?(v15, v16);
         goto LABEL_16;
       case 3uLL:
         goto LABEL_4;
@@ -2697,45 +2012,36 @@ LABEL_7:
         if ((a2 & 0xFF000000000000) == 0)
         {
 LABEL_4:
-          v3 = OUTLINED_FUNCTION_32();
-          outlined consume of Data?(v3, v4);
+          v8 = OUTLINED_FUNCTION_32();
+          outlined consume of Data?(v8, v9);
           goto LABEL_8;
         }
 
 LABEL_16:
-        OUTLINED_FUNCTION_36_5();
-        v12 = outlined init with copy of MessageCenterBrowserProtocol?(v2 + 1096, v23, &_s11SiriNetwork21CommunicationProtocol_pSgMd, &_s11SiriNetwork21CommunicationProtocol_pSgMR);
-        if (v24)
+        OUTLINED_FUNCTION_36_5(v7 + 1096, a2, a3, a4, a5, a6, a7);
+        v17 = outlined init with copy of MessageCenterBrowserProtocol?(v7 + 1096, v27, &_s11SiriNetwork21CommunicationProtocol_pSgMd, &_s11SiriNetwork21CommunicationProtocol_pSgMR);
+        if (v28)
         {
-          OUTLINED_FUNCTION_101_1(v12);
-          outlined destroy of NetworkConnectionProtocol?(v23, &_s11SiriNetwork21CommunicationProtocol_pSgMd, &_s11SiriNetwork21CommunicationProtocol_pSgMR);
-          OUTLINED_FUNCTION_143(v22);
-          v14 = *(v13 + 176);
-          v15 = OUTLINED_FUNCTION_32();
-          v16(v15);
-          v17 = OUTLINED_FUNCTION_32();
-          outlined consume of Data?(v17, v18);
-          __swift_destroy_boxed_opaque_existential_0(v22);
+          OUTLINED_FUNCTION_101_1(v17, v18);
+          outlined destroy of NetworkConnectionProtocol?(v27, &_s11SiriNetwork21CommunicationProtocol_pSgMd, &_s11SiriNetwork21CommunicationProtocol_pSgMR);
+          OUTLINED_FUNCTION_143(v26);
+          v19 = OUTLINED_FUNCTION_32();
+          v20(v19);
+          v21 = OUTLINED_FUNCTION_32();
+          outlined consume of Data?(v21, v22);
+          __swift_destroy_boxed_opaque_existential_0(v26);
         }
 
         else
         {
-          v19 = OUTLINED_FUNCTION_32();
-          outlined consume of Data?(v19, v20);
-          outlined destroy of NetworkConnectionProtocol?(v23, &_s11SiriNetwork21CommunicationProtocol_pSgMd, &_s11SiriNetwork21CommunicationProtocol_pSgMR);
+          v23 = OUTLINED_FUNCTION_32();
+          outlined consume of Data?(v23, v24);
+          outlined destroy of NetworkConnectionProtocol?(v27, &_s11SiriNetwork21CommunicationProtocol_pSgMd, &_s11SiriNetwork21CommunicationProtocol_pSgMR);
         }
 
         break;
     }
   }
-}
-
-__n128 OUTLINED_FUNCTION_60_3@<Q0>(uint64_t a1@<X8>)
-{
-  v2 = *(a1 + 48) + 40 * v1;
-  result = *v2;
-  v4 = *(v2 + 16);
-  return result;
 }
 
 uint64_t ZlibDataDecompressor.decompressedDataForData(_:)(uint64_t a1, unint64_t a2)
@@ -2814,7 +2120,7 @@ uint64_t OUTLINED_FUNCTION_58_3()
 
 uint64_t CommunicationProtocolAce.consumeAceData(withData:)(uint64_t *a1)
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   v5 = *a1;
   v6 = a1[1];
   v7 = v1;
@@ -2833,7 +2139,7 @@ uint64_t CommunicationProtocolAce.consumeAceData(withData:)(uint64_t *a1)
 LABEL_6:
       if (v2 < 1)
       {
-        goto LABEL_53;
+        return 0;
       }
 
       v8 = 0;
@@ -2850,7 +2156,7 @@ LABEL_6:
 
       goto LABEL_61;
     case 3uLL:
-      goto LABEL_54;
+      return v8;
     default:
       v2 = BYTE6(v6);
       goto LABEL_6;
@@ -2860,8 +2166,8 @@ LABEL_6:
   {
     v14 = *a1;
     v3 = a1[1];
-    v70 = v2;
-    v71 = v8;
+    v67 = v2;
+    v68 = v8;
     switch(v3 >> 62)
     {
       case 1uLL:
@@ -2935,31 +2241,29 @@ LABEL_22:
 
         v16 = v18;
 LABEL_29:
-        closure #1 in static AceSerialization.parsePacket(data:)(v16, v15, &v75);
+        closure #1 in static AceSerialization.parsePacket(data:)(v16, v15, &v72);
         v2 = v7;
         if (!v7)
         {
-          v26 = v78;
-          v27 = v79;
-          v28 = v80;
-          v81[0] = v75;
-          v81[1] = v76;
-          v82 = v77;
+          v26 = v75;
+          v27 = v76;
+          v28 = v77;
+          v78[0] = v72;
+          v78[1] = v73;
+          v79 = v74;
           v4 = a1;
-          v29 = *a1;
-          v30 = a1[1];
+          v29 = OUTLINED_FUNCTION_50_1();
+          outlined copy of Data._Representation(v29, v30);
           v31 = OUTLINED_FUNCTION_50_1();
-          outlined copy of Data._Representation(v31, v32);
-          v33 = OUTLINED_FUNCTION_50_1();
-          outlined consume of Data._Representation(v33, v34);
+          outlined consume of Data._Representation(v31, v32);
           v3 = Data.advanced(by:)();
-          v36 = v35;
-          v37 = OUTLINED_FUNCTION_50_1();
-          outlined consume of Data._Representation(v37, v38);
+          v34 = v33;
+          v35 = OUTLINED_FUNCTION_50_1();
+          outlined consume of Data._Representation(v35, v36);
           *a1 = v3;
-          a1[1] = v36;
-          v8 = v71 + v28;
-          if (__OFADD__(v71, v28))
+          a1[1] = v34;
+          v8 = v68 + v28;
+          if (__OFADD__(v68, v28))
           {
             __break(1u);
 LABEL_56:
@@ -2978,104 +2282,104 @@ LABEL_62:
             OUTLINED_FUNCTION_0_8();
             swift_once();
 LABEL_43:
-            v41 = type metadata accessor for Logger();
-            OUTLINED_FUNCTION_58(v41, static Logger.siriNetwork);
-            v42 = OUTLINED_FUNCTION_53();
-            outlined copy of AceSerializationError(v42, v43, v8);
-            v44 = Logger.logObject.getter();
-            v45 = static os_log_type_t.error.getter();
-            v46 = OUTLINED_FUNCTION_53();
-            outlined consume of AceSerializationError(v46, v47, v8);
-            if (os_log_type_enabled(v44, v45))
+            v39 = type metadata accessor for Logger();
+            OUTLINED_FUNCTION_58(v39, static Logger.siriNetwork);
+            v40 = OUTLINED_FUNCTION_53();
+            outlined copy of AceSerializationError(v40, v41, v8);
+            v42 = Logger.logObject.getter();
+            v43 = static os_log_type_t.error.getter();
+            v44 = OUTLINED_FUNCTION_53();
+            outlined consume of AceSerializationError(v44, v45, v8);
+            if (os_log_type_enabled(v42, v43))
             {
               OUTLINED_FUNCTION_6_5();
-              v48 = swift_slowAlloc();
+              v46 = swift_slowAlloc();
               OUTLINED_FUNCTION_28_3();
-              v49 = swift_slowAlloc();
-              *v48 = 138412290;
+              v47 = swift_slowAlloc();
+              *v46 = 138412290;
               lazy protocol witness table accessor for type AceSerializationError and conformance AceSerializationError();
               OUTLINED_FUNCTION_10_0();
               swift_allocError();
-              *v50 = v4;
-              *(v50 + 8) = v3;
-              *(v50 + 16) = v8;
-              v51 = OUTLINED_FUNCTION_53();
-              outlined copy of AceSerializationError(v51, v52, v8);
-              v53 = _swift_stdlib_bridgeErrorToNSError();
-              *(v48 + 4) = v53;
-              *v49 = v53;
-              _os_log_impl(&dword_223515000, v44, v45, "CommunicationProtocol - Ace Data: Error reading Ace data %@", v48, 0xCu);
-              outlined destroy of NetworkConnectionProtocol?(v49, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-              v54 = OUTLINED_FUNCTION_5_14();
-              MEMORY[0x223DE38F0](v54);
-              v55 = OUTLINED_FUNCTION_4_0();
-              MEMORY[0x223DE38F0](v55);
+              *v48 = v4;
+              *(v48 + 8) = v3;
+              *(v48 + 16) = v8;
+              v49 = OUTLINED_FUNCTION_53();
+              outlined copy of AceSerializationError(v49, v50, v8);
+              v51 = _swift_stdlib_bridgeErrorToNSError();
+              *(v46 + 4) = v51;
+              *v47 = v51;
+              _os_log_impl(&dword_223515000, v42, v43, "CommunicationProtocol - Ace Data: Error reading Ace data %@", v46, 0xCu);
+              outlined destroy of NetworkConnectionProtocol?(v47, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+              v52 = OUTLINED_FUNCTION_5_14();
+              MEMORY[0x223DE38F0](v52);
+              v53 = OUTLINED_FUNCTION_4_0();
+              MEMORY[0x223DE38F0](v53);
             }
 
             lazy protocol witness table accessor for type AceSerializationError and conformance AceSerializationError();
             OUTLINED_FUNCTION_10_0();
             swift_allocError();
-            *v56 = v4;
-            *(v56 + 8) = v3;
-            *(v56 + 16) = v8;
+            *v54 = v4;
+            *(v54 + 8) = v3;
+            *(v54 + 16) = v8;
             swift_willThrow();
 
-            goto LABEL_54;
+            return v8;
           }
 
           v7 = 0;
           if (v28 <= 0)
           {
-            outlined destroy of NetworkConnectionProtocol?(v81, &_s11SiriNetwork13SessionObject_pSgMd, &_s11SiriNetwork13SessionObject_pSgMR);
-            goto LABEL_54;
+            outlined destroy of NetworkConnectionProtocol?(v78, &_s11SiriNetwork13SessionObject_pSgMd, &_s11SiriNetwork13SessionObject_pSgMR);
+            return v8;
           }
 
-          v2 = v70 - v28;
-          if (v70 >= v28)
+          v2 = v67 - v28;
+          if (v67 >= v28)
           {
-            v39 = v70 - v28;
+            v37 = v67 - v28;
           }
 
           else
           {
-            v39 = 0;
+            v37 = 0;
           }
 
           v4 = &_s11SiriNetwork13SessionObject_pSgMd;
-          outlined init with copy of DataDecompressing?(v81, &v73, &_s11SiriNetwork13SessionObject_pSgMd, &_s11SiriNetwork13SessionObject_pSgMR);
-          if (v74)
+          outlined init with copy of DataDecompressing?(v78, &v70, &_s11SiriNetwork13SessionObject_pSgMd, &_s11SiriNetwork13SessionObject_pSgMR);
+          if (v71)
           {
-            outlined init with take of RPCOspreyConnectionProtocol(&v73, &v75);
-            outlined init with copy of RPCOspreyConnectionProtocol(&v75, &v73);
-            CommunicationProtocolAce.handleAceObject(_:)(&v73);
-            outlined destroy of NetworkConnectionProtocol?(&v73, &_s11SiriNetwork13SessionObject_pSgMd, &_s11SiriNetwork13SessionObject_pSgMR);
-            __swift_destroy_boxed_opaque_existential_0(&v75);
+            outlined init with take of RPCOspreyConnectionProtocol(&v70, &v72);
+            outlined init with copy of RPCOspreyConnectionProtocol(&v72, &v70);
+            CommunicationProtocolAce.handleAceObject(_:)(&v70);
+            outlined destroy of NetworkConnectionProtocol?(&v70, &_s11SiriNetwork13SessionObject_pSgMd, &_s11SiriNetwork13SessionObject_pSgMR);
+            __swift_destroy_boxed_opaque_existential_0(&v72);
           }
 
           else
           {
-            outlined destroy of NetworkConnectionProtocol?(&v73, &_s11SiriNetwork13SessionObject_pSgMd, &_s11SiriNetwork13SessionObject_pSgMR);
+            outlined destroy of NetworkConnectionProtocol?(&v70, &_s11SiriNetwork13SessionObject_pSgMd, &_s11SiriNetwork13SessionObject_pSgMR);
             CommunicationProtocolAce.handlePacket(_:)(v26 | (v27 << 32));
           }
 
-          outlined destroy of NetworkConnectionProtocol?(v81, &_s11SiriNetwork13SessionObject_pSgMd, &_s11SiriNetwork13SessionObject_pSgMR);
-          if (v39 <= 0)
+          outlined destroy of NetworkConnectionProtocol?(v78, &_s11SiriNetwork13SessionObject_pSgMd, &_s11SiriNetwork13SessionObject_pSgMR);
+          if (v37 <= 0)
           {
-            goto LABEL_54;
+            return v8;
           }
 
           continue;
         }
 
-        *&v81[0] = v7;
-        v40 = v7;
+        *&v78[0] = v7;
+        v38 = v7;
         __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
         if (swift_dynamicCast())
         {
-          v3 = *(&v75 + 1);
-          v4 = v75;
-          v8 = v76;
-          if (v76)
+          v3 = *(&v72 + 1);
+          v4 = v72;
+          v8 = v73;
+          if (v73)
           {
             if (one-time initialization token for siriNetwork == -1)
             {
@@ -3091,33 +2395,33 @@ LABEL_43:
             swift_once();
           }
 
-          v57 = type metadata accessor for Logger();
-          OUTLINED_FUNCTION_58(v57, static Logger.siriNetwork);
-          v58 = Logger.logObject.getter();
-          v59 = static os_log_type_t.default.getter();
-          v60 = OUTLINED_FUNCTION_16_0();
-          if (os_log_type_enabled(v60, v61))
+          v55 = type metadata accessor for Logger();
+          OUTLINED_FUNCTION_58(v55, static Logger.siriNetwork);
+          v56 = Logger.logObject.getter();
+          v57 = static os_log_type_t.default.getter();
+          v58 = OUTLINED_FUNCTION_16_0();
+          if (os_log_type_enabled(v58, v59))
           {
             OUTLINED_FUNCTION_6_5();
-            v62 = swift_slowAlloc();
+            v60 = swift_slowAlloc();
             OUTLINED_FUNCTION_28_3();
-            v63 = swift_slowAlloc();
-            *v62 = 138412290;
+            v61 = swift_slowAlloc();
+            *v60 = 138412290;
             lazy protocol witness table accessor for type AceSerializationError and conformance AceSerializationError();
             OUTLINED_FUNCTION_10_0();
             swift_allocError();
-            *v64 = v4;
-            *(v64 + 8) = v3;
-            *(v64 + 16) = 0;
-            v65 = _swift_stdlib_bridgeErrorToNSError();
-            *(v62 + 4) = v65;
-            *v63 = v65;
-            _os_log_impl(&dword_223515000, v58, v59, "CommunicationProtocol - Ace Data: Need more data to read Ace object %@", v62, 0xCu);
-            outlined destroy of NetworkConnectionProtocol?(v63, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-            v66 = OUTLINED_FUNCTION_5_14();
-            MEMORY[0x223DE38F0](v66);
-            v67 = OUTLINED_FUNCTION_7_2();
-            MEMORY[0x223DE38F0](v67);
+            *v62 = v4;
+            *(v62 + 8) = v3;
+            *(v62 + 16) = 0;
+            v63 = _swift_stdlib_bridgeErrorToNSError();
+            *(v60 + 4) = v63;
+            *v61 = v63;
+            _os_log_impl(&dword_223515000, v56, v57, "CommunicationProtocol - Ace Data: Need more data to read Ace object %@", v60, 0xCu);
+            outlined destroy of NetworkConnectionProtocol?(v61, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+            v64 = OUTLINED_FUNCTION_5_14();
+            MEMORY[0x223DE38F0](v64);
+            v65 = OUTLINED_FUNCTION_7_2();
+            MEMORY[0x223DE38F0](v65);
           }
         }
 
@@ -3125,173 +2429,169 @@ LABEL_43:
         {
         }
 
-LABEL_53:
-        v8 = 0;
-LABEL_54:
-        v68 = *MEMORY[0x277D85DE8];
-        return v8;
+        return 0;
       case 3uLL:
-        *(&v73 + 6) = 0;
-        *&v73 = 0;
-        v16 = &v73;
-        v15 = &v73;
+        *(&v70 + 6) = 0;
+        *&v70 = 0;
+        v16 = &v70;
+        v15 = &v70;
         goto LABEL_29;
       default:
-        *&v73 = *a1;
-        WORD4(v73) = v3;
-        BYTE10(v73) = BYTE2(v3);
-        BYTE11(v73) = BYTE3(v3);
-        BYTE12(v73) = BYTE4(v3);
-        BYTE13(v73) = BYTE5(v3);
-        v15 = (&v73 + BYTE6(v3));
-        v16 = &v73;
+        *&v70 = *a1;
+        WORD4(v70) = v3;
+        BYTE10(v70) = BYTE2(v3);
+        BYTE11(v70) = BYTE3(v3);
+        BYTE12(v70) = BYTE4(v3);
+        BYTE13(v70) = BYTE5(v3);
+        v15 = (&v70 + BYTE6(v3));
+        v16 = &v70;
         goto LABEL_29;
     }
   }
 }
 
-uint64_t closure #1 in static AceSerialization.parsePacket(data:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t closure #1 in static AceSerialization.parsePacket(data:)@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v42 = 0;
-  v40 = 0u;
-  v41 = 0u;
+  v48 = 0;
+  v46 = 0u;
+  v47 = 0u;
   if (!a1)
   {
-    lazy protocol witness table accessor for type AceSerializationError and conformance AceSerializationError();
-    OUTLINED_FUNCTION_60();
-    *v7 = xmmword_2235EF700;
-    v8 = 1;
+    v8 = lazy protocol witness table accessor for type AceSerializationError and conformance AceSerializationError();
+    OUTLINED_FUNCTION_60(&type metadata for AceSerializationError, v8);
+    *v9 = xmmword_2235EF700;
+    v10 = 1;
 LABEL_6:
-    *(v7 + 16) = v8;
+    *(v9 + 16) = v10;
 LABEL_7:
     swift_willThrow();
-    return outlined destroy of SessionObject?(&v40);
+    return outlined destroy of SessionObject?(&v46);
   }
 
   v4 = a2 - a1;
   v5 = a2 - a1 - 5;
   if (a2 - a1 < 5)
   {
-    lazy protocol witness table accessor for type AceSerializationError and conformance AceSerializationError();
-    OUTLINED_FUNCTION_60();
-    *v6 = 5;
-    *(v6 + 8) = v4;
+    v6 = lazy protocol witness table accessor for type AceSerializationError and conformance AceSerializationError();
+    OUTLINED_FUNCTION_60(&type metadata for AceSerializationError, v6);
+    *v7 = 5;
+    *(v7 + 8) = v4;
 LABEL_4:
-    *(v6 + 16) = 0;
+    *(v7 + 16) = 0;
     goto LABEL_7;
   }
 
-  v11 = AceDataType.init(rawValue:)(*a1);
-  v12 = 0;
-  switch(v11)
+  v13 = AceDataType.init(rawValue:)(*a1);
+  v14 = 0;
+  switch(v13)
   {
     case 2u:
     case 3u:
       goto LABEL_16;
     case 6u:
-      v12 = 1;
+      v14 = 1;
 LABEL_16:
       if (one-time initialization token for ntohl != -1)
       {
-        OUTLINED_FUNCTION_2_23();
+        OUTLINED_FUNCTION_2_23(&one-time initialization token for ntohl);
       }
 
-      v16 = static Endian.ntohl(*(a1 + 1));
-      if (v5 < v16)
+      v19 = static Endian.ntohl(*(a1 + 1));
+      if (v5 < v19)
       {
-        lazy protocol witness table accessor for type AceSerializationError and conformance AceSerializationError();
-        OUTLINED_FUNCTION_60();
-        *v6 = v16;
-        *(v6 + 8) = v5;
+        v20 = lazy protocol witness table accessor for type AceSerializationError and conformance AceSerializationError();
+        OUTLINED_FUNCTION_60(&type metadata for AceSerializationError, v20);
+        *v7 = v19;
+        *(v7 + 8) = v5;
         goto LABEL_4;
       }
 
-      v17 = (a1 + 5);
-      if (v12)
+      v21 = a1 + 5;
+      if (v14)
       {
-        v18 = static AceSerialization.parseSpeechPacket(withBytes:length:)(v17, v16);
-        if (!v18)
+        v22 = static AceSerialization.parseSpeechPacket(withBytes:length:)(v21, v19);
+        if (!v22)
         {
-          v31 = MEMORY[0x223DE13C0](a1 + 5, v16);
-          v33 = v32;
-          lazy protocol witness table accessor for type AceSerializationError and conformance AceSerializationError();
-          OUTLINED_FUNCTION_60();
-          *v7 = v31;
-          *(v7 + 8) = v33;
-          v8 = 2;
+          v35 = MEMORY[0x223DE13C0](a1 + 5, v19);
+          v37 = v36;
+          v38 = lazy protocol witness table accessor for type AceSerializationError and conformance AceSerializationError();
+          OUTLINED_FUNCTION_60(&type metadata for AceSerializationError, v38);
+          *v9 = v35;
+          *(v9 + 8) = v37;
+          v10 = 2;
           goto LABEL_6;
         }
 
-        v19 = v18;
-        v20 = type metadata accessor for SpeechPacket();
-        outlined destroy of SessionObject?(&v40);
-        v13 = 0;
+        v23 = v22;
+        v24 = type metadata accessor for SpeechPacket();
+        outlined destroy of SessionObject?(&v46);
+        v15 = 0;
         result = 0;
-        *&v40 = v19;
-        *(&v41 + 1) = v20;
-        v21 = &protocol witness table for SpeechPacket;
+        *&v46 = v23;
+        *(&v47 + 1) = v24;
+        v25 = &protocol witness table for SpeechPacket;
       }
 
       else
       {
-        MEMORY[0x223DE13C0](v17, v16);
-        v22 = type metadata accessor for AceObject();
-        v23 = OUTLINED_FUNCTION_26();
-        outlined copy of Data._Representation(v23, v24);
-        v25 = OUTLINED_FUNCTION_26();
-        v27 = @nonobjc AceObject.__allocating_init(plistData:)(v25, v26);
-        if (!v27)
+        MEMORY[0x223DE13C0](v21, v19);
+        v26 = type metadata accessor for AceObject();
+        v27 = OUTLINED_FUNCTION_26();
+        outlined copy of Data._Representation(v27, v28);
+        v29 = OUTLINED_FUNCTION_26();
+        v31 = @nonobjc AceObject.__allocating_init(plistData:)(v29, v30);
+        if (!v31)
         {
-          v34 = MEMORY[0x223DE13C0](a1 + 5, v16);
-          v36 = v35;
-          lazy protocol witness table accessor for type AceSerializationError and conformance AceSerializationError();
-          OUTLINED_FUNCTION_60();
-          *v37 = v34;
-          v37[1] = v36;
-          OUTLINED_FUNCTION_5_19(v37, 1);
-          v38 = OUTLINED_FUNCTION_26();
-          outlined consume of Data._Representation(v38, v39);
-          return outlined destroy of SessionObject?(&v40);
+          v39 = MEMORY[0x223DE13C0](a1 + 5, v19);
+          v41 = v40;
+          v42 = lazy protocol witness table accessor for type AceSerializationError and conformance AceSerializationError();
+          OUTLINED_FUNCTION_60(&type metadata for AceSerializationError, v42);
+          *v43 = v39;
+          v43[1] = v41;
+          OUTLINED_FUNCTION_5_19(v43, 1);
+          v44 = OUTLINED_FUNCTION_26();
+          outlined consume of Data._Representation(v44, v45);
+          return outlined destroy of SessionObject?(&v46);
         }
 
-        v28 = v27;
-        v29 = OUTLINED_FUNCTION_26();
-        outlined consume of Data._Representation(v29, v30);
-        outlined destroy of SessionObject?(&v40);
-        v13 = 0;
+        v32 = v31;
+        v33 = OUTLINED_FUNCTION_26();
+        outlined consume of Data._Representation(v33, v34);
+        outlined destroy of SessionObject?(&v46);
+        v15 = 0;
         result = 0;
-        *&v40 = v28;
-        *(&v41 + 1) = v22;
-        v21 = &protocol witness table for AceObject;
+        *&v46 = v32;
+        *(&v47 + 1) = v26;
+        v25 = &protocol witness table for AceObject;
       }
 
-      v42 = v21;
-      v14 = v16 + 5;
+      v48 = v25;
+      v16 = v19 + 5;
 LABEL_13:
-      v15 = v41;
-      *a3 = v40;
-      *(a3 + 16) = v15;
-      *(a3 + 32) = v42;
-      *(a3 + 40) = v13;
+      v17 = v47;
+      *a3 = v46;
+      *(a3 + 16) = v17;
+      *(a3 + 32) = v48;
+      *(a3 + 40) = v15;
       *(a3 + 44) = result;
-      *(a3 + 48) = v14;
+      *(a3 + 48) = v16;
       break;
     case 7u:
-      lazy protocol witness table accessor for type AceSerializationError and conformance AceSerializationError();
-      OUTLINED_FUNCTION_60();
-      *v7 = 0;
-      *(v7 + 8) = 0;
-      v8 = 3;
+      v18 = lazy protocol witness table accessor for type AceSerializationError and conformance AceSerializationError();
+      OUTLINED_FUNCTION_60(&type metadata for AceSerializationError, v18);
+      *v9 = 0;
+      *(v9 + 8) = 0;
+      v10 = 3;
       goto LABEL_6;
     default:
-      v13 = static AceSerialization.rawPacketType(fromDataType:)(v11);
+      v15 = static AceSerialization.rawPacketType(fromDataType:)(v13);
       if (one-time initialization token for ntohl != -1)
       {
-        OUTLINED_FUNCTION_2_23();
+        OUTLINED_FUNCTION_2_23(&one-time initialization token for ntohl);
       }
 
       result = static Endian.ntohl(*(a1 + 1));
-      v14 = 5;
+      v16 = 5;
       goto LABEL_13;
   }
 
@@ -3350,7 +2650,7 @@ void CommunicationProtocolAce.handlePacket(_:)(unint64_t a1)
   }
 }
 
-void CommunicationProtocolAce.handleAcePong(_:)(Swift::UInt32 a1)
+void CommunicationProtocolAce.handleAcePong(_:)(uint64_t a1)
 {
   v2 = v1;
   if (one-time initialization token for siriNetwork != -1)
@@ -3380,7 +2680,6 @@ void CommunicationProtocolAce.handleAcePong(_:)(Swift::UInt32 a1)
   {
     if (*(v2 + 240))
     {
-      v15 = *(v2 + 240);
 
       PingInfo.markPongReceived(withIndex:)(a1);
     }
@@ -3389,23 +2688,24 @@ void CommunicationProtocolAce.handleAcePong(_:)(Swift::UInt32 a1)
   else
   {
 
-    CommunicationProtocolAce.handleBarrierReply(barrierValue:)(a1);
+    CommunicationProtocolAce.handleBarrierReply(barrierValue:)(a1, v15, v16, v17);
   }
 }
 
 Swift::Void __swiftcall PingInfo.markPongReceived(withIndex:)(Swift::UInt32 withIndex)
 {
   v2 = v1;
+  v3 = *&withIndex;
   swift_beginAccess();
   v4 = *(v1 + 32);
   if (*(v4 + 16))
   {
-    v5 = specialized __RawDictionaryStorage.find<A>(_:)(withIndex);
+    v5 = specialized __RawDictionaryStorage.find<A>(_:)(v3);
     if (v6)
     {
       v7 = *(*(v4 + 56) + 8 * v5);
       swift_beginAccess();
-      specialized Dictionary._Variant.removeValue(forKey:)(withIndex);
+      specialized Dictionary._Variant.removeValue(forKey:)(v3);
       swift_endAccess();
       v8 = [objc_opt_self() processInfo];
       [v8 systemUptime];
@@ -3432,59 +2732,52 @@ Swift::Void __swiftcall PingInfo.markPongReceived(withIndex:)(Swift::UInt32 with
   }
 }
 
-uint64_t specialized Dictionary._Variant.removeValue(forKey:)(unsigned int a1)
+uint64_t specialized Dictionary._Variant.removeValue(forKey:)(uint64_t a1)
 {
   v2 = v1;
-  v3 = *v1;
-  v4 = specialized __RawDictionaryStorage.find<A>(_:)(a1);
-  if ((v5 & 1) == 0)
+  v3 = specialized __RawDictionaryStorage.find<A>(_:)(a1);
+  if ((v4 & 1) == 0)
   {
     return 0;
   }
 
-  v6 = v4;
-  v7 = *v2;
+  v5 = v3;
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v12 = *v2;
-  v9 = *(*v2 + 24);
+  v10 = *v1;
+  v7 = *(*v1 + 24);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss17_NativeDictionaryVys6UInt32VSdGMd, &_ss17_NativeDictionaryVys6UInt32VSdGMR);
-  _NativeDictionary.ensureUnique(isUnique:capacity:)(isUniquelyReferenced_nonNull_native, v9);
-  v10 = *(*(v12 + 56) + 8 * v6);
+  _NativeDictionary.ensureUnique(isUnique:capacity:)(isUniquelyReferenced_nonNull_native, v7);
+  v8 = *(*(v10 + 56) + 8 * v5);
   _NativeDictionary._delete(at:)();
-  *v2 = v12;
-  return v10;
+  *v2 = v10;
+  return v8;
 }
 
 {
   v2 = v1;
-  v3 = *v1;
-  v4 = specialized __RawDictionaryStorage.find<A>(_:)(a1);
-  if ((v5 & 1) == 0)
+  v3 = specialized __RawDictionaryStorage.find<A>(_:)(a1);
+  if ((v4 & 1) == 0)
   {
     return 0;
   }
 
-  v6 = v4;
-  v7 = *v2;
+  v5 = v3;
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v14 = *v2;
-  v9 = *(*v2 + 24);
+  v10 = *v1;
+  v7 = *(*v1 + 24);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss17_NativeDictionaryVys6UInt32VySbcGMd, &_ss17_NativeDictionaryVys6UInt32VySbcGMR);
-  _NativeDictionary.ensureUnique(isUnique:capacity:)(isUniquelyReferenced_nonNull_native, v9);
-  v10 = (*(v14 + 56) + 16 * v6);
-  v11 = *v10;
-  v12 = v10[1];
+  _NativeDictionary.ensureUnique(isUnique:capacity:)(isUniquelyReferenced_nonNull_native, v7);
+  v8 = *(*(v10 + 56) + 16 * v5);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sySbcMd, &_sySbcMR);
   _NativeDictionary._delete(at:)();
-  *v2 = v14;
-  return v11;
+  *v2 = v10;
+  return v8;
 }
 
 uint64_t OUTLINED_FUNCTION_57_2()
 {
-  v4 = *(v1 + 16);
-  result = v2;
-  *(v3 - 152) = v0;
+  result = v1;
+  *(v2 - 152) = v0;
   return result;
 }
 
@@ -3507,7 +2800,6 @@ void BackgroundConnection.setupReadHandlerOnProvider()()
   {
     v2 = *(v0 + 1088);
     v3 = one-time initialization token for readBufferBegin;
-    v4 = *(v0 + 1080);
     swift_unknownObjectRetain();
     if (v3 != -1)
     {
@@ -3517,17 +2809,17 @@ void BackgroundConnection.setupReadHandlerOnProvider()()
     siri_kdebug_trace(static Constants.Signposts.readBufferBegin);
     ObjectType = swift_getObjectType();
     OUTLINED_FUNCTION_7_1();
-    v6 = swift_allocObject();
+    v5 = swift_allocObject();
     swift_weakInit();
     OUTLINED_FUNCTION_109();
-    v7 = swift_allocObject();
-    v7[2] = v6;
-    v7[3] = v1;
-    v7[4] = v2;
-    v8 = *(v2 + 512);
+    v6 = swift_allocObject();
+    v6[2] = v5;
+    v6[3] = v1;
+    v6[4] = v2;
+    v7 = *(v2 + 512);
     swift_unknownObjectRetain();
 
-    v8(partial apply for closure #1 in BackgroundConnection.setupReadHandlerOnProvider(), v7, ObjectType, v2);
+    v7(partial apply for closure #1 in BackgroundConnection.setupReadHandlerOnProvider(), v6, ObjectType, v2);
 
     swift_unknownObjectRelease();
   }
@@ -3550,16 +2842,16 @@ uint64_t NetworkConnectionProvider.readData(_:)(uint64_t a1, uint64_t a2)
   if (os_log_type_enabled(v8, v9))
   {
     OUTLINED_FUNCTION_6_5();
-    v27[6] = v3;
+    v25[6] = v3;
     v10 = a2;
     v11 = a1;
     v12 = swift_slowAlloc();
     OUTLINED_FUNCTION_4_3();
     v13 = swift_slowAlloc();
-    v27[0] = v13;
+    v25[0] = v13;
     *v12 = 136315138;
     v14 = NetworkConnectionProvider.connectionIdentifier.getter();
-    v4 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v15, v27);
+    v4 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v15, v25);
 
     *(v12 + 4) = v4;
     _os_log_impl(&dword_223515000, v8, v9, "Provider - NetworkConnectionProvider [%s]: Reader. Ready to receive data.", v12, 0xCu);
@@ -3574,17 +2866,17 @@ uint64_t NetworkConnectionProvider.readData(_:)(uint64_t a1, uint64_t a2)
 
   OUTLINED_FUNCTION_8();
   swift_beginAccess();
-  outlined init with copy of NetworkConnectionProtocol?(v2 + 16, &v25, &_s11SiriNetwork0B18ConnectionProtocol_pSgMd, &_s11SiriNetwork0B18ConnectionProtocol_pSgMR);
-  if (!v26)
+  outlined init with copy of NetworkConnectionProtocol?(v2 + 16, &v23, &_s11SiriNetwork0B18ConnectionProtocol_pSgMd, &_s11SiriNetwork0B18ConnectionProtocol_pSgMR);
+  if (!v24)
   {
-    outlined destroy of NetworkConnectionProtocol?(&v25, &_s11SiriNetwork0B18ConnectionProtocol_pSgMd, &_s11SiriNetwork0B18ConnectionProtocol_pSgMR);
+    outlined destroy of NetworkConnectionProtocol?(&v23, &_s11SiriNetwork0B18ConnectionProtocol_pSgMd, &_s11SiriNetwork0B18ConnectionProtocol_pSgMR);
     goto LABEL_9;
   }
 
-  outlined init with take of RPCOspreyConnectionProtocol(&v25, v27);
+  outlined init with take of RPCOspreyConnectionProtocol(&v23, v25);
   if (*(v2 + 2099))
   {
-    __swift_destroy_boxed_opaque_existential_0(v27);
+    __swift_destroy_boxed_opaque_existential_0(v25);
 LABEL_9:
     lazy protocol witness table accessor for type NetworkConnectionError and conformance NetworkConnectionError();
     OUTLINED_FUNCTION_10_0();
@@ -3593,31 +2885,32 @@ LABEL_9:
     return OUTLINED_FUNCTION_39(xmmword_2235F01E0, v18, v19);
   }
 
-  v21 = __swift_project_boxed_opaque_existential_1(v27, v27[3]);
+  __swift_project_boxed_opaque_existential_1(v25, v25[3]);
   OUTLINED_FUNCTION_7_1();
-  v22 = swift_allocObject();
-  OUTLINED_FUNCTION_77(v22);
+  v21 = swift_allocObject();
+  OUTLINED_FUNCTION_77(v21);
   swift_weakInit();
   OUTLINED_FUNCTION_109();
-  v23 = swift_allocObject();
-  v23[2] = v4;
-  v23[3] = a1;
-  v23[4] = a2;
-  v24 = *v21;
+  v22 = swift_allocObject();
+  v22[2] = v4;
+  v22[3] = a1;
+  v22[4] = a2;
 
   NWConnection.receive(minimumIncompleteLength:maximumLength:completion:)();
 
-  return __swift_destroy_boxed_opaque_existential_0(v27);
+  return __swift_destroy_boxed_opaque_existential_0(v25);
 }
 
-uint64_t OUTLINED_FUNCTION_70_0(uint64_t a1, uint64_t a2, uint64_t *a3)
+unint64_t OUTLINED_FUNCTION_70_0(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
 
   return getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v3, v4, a3);
 }
 
-uint64_t OUTLINED_FUNCTION_70_2()
+double OUTLINED_FUNCTION_70_2()
 {
+
+  return result;
 }
 
 uint64_t NetworkActivityTracing.stop(label:reason:error:completion:)(uint64_t a1)
@@ -3639,68 +2932,63 @@ uint64_t NetworkActivityTracing.stop(label:reason:error:completion:)(uint64_t a1
 
 uint64_t NetworkActivityTracing.stop(label:reason:error:completion:)(char *a1, unsigned __int8 *a2, void *a3, uint64_t a4, uint64_t a5)
 {
-  v9 = *(v5 + OBJC_IVAR___SNNetworkActivityTracingInternal_networkActivityTracing);
-  v10 = *a2;
-  v11 = *a1;
+  v8 = *a2;
+  v9 = *a1;
 
-  specialized NetworkActivityTracingInternal.stop(label:reason:error:completion:)(v11, v10, a3, a4, a5);
+  specialized NetworkActivityTracingInternal.stop(label:reason:error:completion:)(v9, v8, a3, a4, a5);
 }
 
 uint64_t specialized NetworkActivityTracingInternal.stop(label:reason:error:completion:)(char a1, int a2, void *a3, uint64_t a4, uint64_t a5)
 {
-  v26 = a2;
+  v24 = a2;
   v10 = type metadata accessor for DispatchWorkItemFlags();
-  v29 = *(v10 - 8);
-  v11 = *(v29 + 64);
+  v27 = *(v10 - 8);
   MEMORY[0x28223BE20](v10);
-  v13 = &v25[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v14 = type metadata accessor for DispatchQoS();
-  v27 = *(v14 - 8);
-  v28 = v14;
-  v15 = *(v27 + 64);
-  MEMORY[0x28223BE20](v14);
-  v17 = &v25[-((v16 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v18 = *(v5 + 32);
-  v19 = swift_allocObject();
+  v12 = &v23[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v13 = type metadata accessor for DispatchQoS();
+  v25 = *(v13 - 8);
+  v26 = v13;
+  MEMORY[0x28223BE20](v13);
+  v15 = &v23[-((v14 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v16 = *(v5 + 32);
+  v17 = swift_allocObject();
   swift_weakInit();
-  v20 = swift_allocObject();
-  *(v20 + 16) = v19;
-  *(v20 + 24) = a1;
-  *(v20 + 25) = v26;
-  *(v20 + 32) = a3;
-  *(v20 + 40) = a4;
-  *(v20 + 48) = a5;
+  v18 = swift_allocObject();
+  *(v18 + 16) = v17;
+  *(v18 + 24) = a1;
+  *(v18 + 25) = v24;
+  *(v18 + 32) = a3;
+  *(v18 + 40) = a4;
+  *(v18 + 48) = a5;
   aBlock[4] = partial apply for specialized closure #1 in NetworkActivityTracingInternal.stop(label:reason:error:completion:);
-  aBlock[5] = v20;
+  aBlock[5] = v18;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable () -> ();
   aBlock[3] = &block_descriptor_68;
-  v21 = _Block_copy(aBlock);
-  v22 = v18;
+  v19 = _Block_copy(aBlock);
+  v20 = v16;
 
-  v23 = a3;
-  outlined copy of (@escaping @callee_guaranteed @Sendable () -> (@out UMUserPersonProtocol?))?(a4);
+  v21 = a3;
+  outlined copy of (@escaping @callee_guaranteed @Sendable () -> (@out UMUserPersonProtocol?))?(a4, a5);
   static DispatchQoS.unspecified.getter();
-  v30 = MEMORY[0x277D84F90];
-  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
+  v28 = MEMORY[0x277D84F90];
+  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_0(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
   lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  MEMORY[0x223DE2460](0, v17, v13, v21);
-  _Block_release(v21);
+  MEMORY[0x223DE2460](0, v15, v12, v19);
+  _Block_release(v19);
 
-  (*(v29 + 8))(v13, v10);
-  (*(v27 + 8))(v17, v28);
+  (*(v27 + 8))(v12, v10);
+  (*(v25 + 8))(v15, v26);
 }
 
 uint64_t sub_22352F1F8()
 {
-  v1 = *(v0 + 16);
 
   if (*(v0 + 40))
   {
-    v2 = *(v0 + 48);
   }
 
   return MEMORY[0x2821FE8E8](v0, 56, 7);
@@ -3710,32 +2998,31 @@ void closure #1 in NetworkAnalytics.setNetId(_:)()
 {
   OUTLINED_FUNCTION_46();
   v2 = v1;
-  v48 = v3;
+  v46 = v3;
   v5 = v4;
-  v6 = type metadata accessor for UUID();
-  v7 = OUTLINED_FUNCTION_0_0(v6);
-  v9 = v8;
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v7);
+  v7 = v6;
+  v8 = type metadata accessor for UUID();
+  OUTLINED_FUNCTION_0_0();
+  v10 = v9;
+  MEMORY[0x28223BE20](v11);
   OUTLINED_FUNCTION_9();
-  v47 = v12 - v13;
+  v45 = v12 - v13;
   MEMORY[0x28223BE20](v14);
-  v16 = &v44 - v15;
+  v16 = &v42 - v15;
   v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, _s10Foundation4UUIDVSgMR);
   v18 = OUTLINED_FUNCTION_11_1(v17);
-  v20 = *(v19 + 64);
   MEMORY[0x28223BE20](v18);
   OUTLINED_FUNCTION_9();
-  v23 = v21 - v22;
-  MEMORY[0x28223BE20](v24);
+  v21 = v19 - v20;
+  MEMORY[0x28223BE20](v22);
   OUTLINED_FUNCTION_51_0();
-  MEMORY[0x28223BE20](v25);
-  v27 = &v44 - v26;
-  OUTLINED_FUNCTION_40_1();
+  MEMORY[0x28223BE20](v23);
+  v25 = &v42 - v24;
+  OUTLINED_FUNCTION_40_1(v7 + 16, &v49);
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v29 = Strong;
+    v27 = Strong;
     if (v5)
     {
       UUID.init(uuidString:)();
@@ -3743,58 +3030,58 @@ void closure #1 in NetworkAnalytics.setNetId(_:)()
 
     else
     {
-      __swift_storeEnumTagSinglePayload(v27, 1, 1, v6);
+      __swift_storeEnumTagSinglePayload(v25, 1, 1, v8);
     }
 
-    v30 = *v48;
+    v28 = *v46;
     swift_beginAccess();
-    outlined assign with take of UUID?(v27, v29 + v30);
+    outlined assign with take of UUID?(v25, v27 + v28);
     swift_endAccess();
-    v31 = v9;
+    v29 = v10;
     if (one-time initialization token for siriNetwork != -1)
     {
-      OUTLINED_FUNCTION_0_6();
+      OUTLINED_FUNCTION_0_6(&one-time initialization token for siriNetwork);
     }
 
-    v32 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v32, static Logger.siriNetwork);
-    v33 = v29;
-    v34 = Logger.logObject.getter();
-    v35 = static os_log_type_t.default.getter();
+    v30 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v30, static Logger.siriNetwork);
+    v31 = v27;
+    v32 = Logger.logObject.getter();
+    v33 = static os_log_type_t.default.getter();
 
-    if (os_log_type_enabled(v34, v35))
+    if (os_log_type_enabled(v32, v33))
     {
-      v46 = v2;
-      v36 = OUTLINED_FUNCTION_55();
-      v45 = OUTLINED_FUNCTION_54();
-      v49 = v45;
-      *v36 = 136315138;
-      v37 = *v48;
-      OUTLINED_FUNCTION_40_1();
-      outlined init with copy of UUID?(v33 + v37, v0);
-      outlined init with copy of UUID?(v0, v23);
-      if (__swift_getEnumTagSinglePayload(v23, 1, v6) == 1)
+      v44 = v2;
+      v34 = OUTLINED_FUNCTION_55();
+      v43 = OUTLINED_FUNCTION_54();
+      v47 = v43;
+      *v34 = 136315138;
+      v35 = *v46;
+      OUTLINED_FUNCTION_40_1(v31 + *v46, &v48);
+      outlined init with copy of UUID?(v31 + v35, v0);
+      outlined init with copy of UUID?(v0, v21);
+      if (__swift_getEnumTagSinglePayload(v21, 1, v8) == 1)
       {
-        v38 = 0xE400000000000000;
-        v39 = 1819047278;
+        v36 = 0xE400000000000000;
+        v37 = 1819047278;
       }
 
       else
       {
-        (*(v31 + 32))(v16, v23, v6);
-        (*(v31 + 16))(v47, v16, v6);
-        v39 = String.init<A>(describing:)();
-        v38 = v40;
-        v41 = OUTLINED_FUNCTION_32_2();
-        v42(v41);
+        (*(v29 + 32))(v16, v21, v8);
+        (*(v29 + 16))(v45, v16, v8);
+        v37 = String.init<A>(describing:)();
+        v36 = v38;
+        v39 = OUTLINED_FUNCTION_32_2();
+        v40(v39);
       }
 
       outlined destroy of NetworkConnectionProtocol?(v0, &_s10Foundation4UUIDVSgMd, _s10Foundation4UUIDVSgMR);
-      v43 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v39, v38, &v49);
+      v41 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v37, v36, &v47);
 
-      *(v36 + 4) = v43;
-      _os_log_impl(&dword_223515000, v34, v35, v46, v36, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v45);
+      *(v34 + 4) = v41;
+      _os_log_impl(&dword_223515000, v32, v33, v44, v34, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v43);
       OUTLINED_FUNCTION_12();
       OUTLINED_FUNCTION_12();
     }
@@ -3806,49 +3093,47 @@ void closure #1 in NetworkAnalytics.setNetId(_:)()
 Swift::Void __swiftcall NetworkAnalytics.logRequestLinkBetweenOrchestratorAndNetworkComponent()()
 {
   OUTLINED_FUNCTION_46();
-  v2 = type metadata accessor for DispatchWorkItemFlags();
-  v3 = OUTLINED_FUNCTION_0_0(v2);
-  v5 = *(v4 + 64);
+  type metadata accessor for DispatchWorkItemFlags();
+  OUTLINED_FUNCTION_0_0();
+  MEMORY[0x28223BE20](v2);
+  OUTLINED_FUNCTION_9_5();
+  OUTLINED_FUNCTION_0_0();
   MEMORY[0x28223BE20](v3);
-  v6 = OUTLINED_FUNCTION_9_5();
-  v7 = OUTLINED_FUNCTION_0_0(v6);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
   OUTLINED_FUNCTION_7();
-  v10 = mach_absolute_time();
-  v11 = *(v0 + OBJC_IVAR___SNNetworkAnalyticsInternal_queue);
+  v4 = mach_absolute_time();
+  v5 = *(v0 + OBJC_IVAR___SNNetworkAnalyticsInternal_queue);
   OUTLINED_FUNCTION_7_1();
-  v12 = swift_allocObject();
-  OUTLINED_FUNCTION_28_0(v12);
+  v6 = swift_allocObject();
+  OUTLINED_FUNCTION_28_0(v6);
   swift_unknownObjectWeakInit();
   OUTLINED_FUNCTION_3();
-  v13 = swift_allocObject();
-  *(v13 + 16) = v1;
-  *(v13 + 24) = v10;
-  v25[4] = partial apply for closure #1 in NetworkAnalytics.logRequestLinkBetweenOrchestratorAndNetworkComponent();
-  v25[5] = v13;
+  v7 = swift_allocObject();
+  *(v7 + 16) = v1;
+  *(v7 + 24) = v4;
+  v19[4] = partial apply for closure #1 in NetworkAnalytics.logRequestLinkBetweenOrchestratorAndNetworkComponent();
+  v19[5] = v7;
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_3(COERCE_DOUBLE(1107296256));
-  v25[2] = v14;
-  v25[3] = &block_descriptor_108;
-  v15 = _Block_copy(v25);
-  v16 = v11;
+  v19[2] = v8;
+  v19[3] = &block_descriptor_108;
+  v9 = _Block_copy(v19);
+  v10 = v5;
   OUTLINED_FUNCTION_42();
   static DispatchQoS.unspecified.getter();
   OUTLINED_FUNCTION_2_9();
-  lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(v17, v18);
-  v19 = OUTLINED_FUNCTION_27_0();
-  __swift_instantiateConcreteTypeFromMangledNameV2(v19, v20);
+  lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(v11, v12, MEMORY[0x277D851A0]);
+  v13 = OUTLINED_FUNCTION_27_0();
+  __swift_instantiateConcreteTypeFromMangledNameV2(v13, v14);
   OUTLINED_FUNCTION_45_0(&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A]);
   OUTLINED_FUNCTION_11_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_43_1();
-  _Block_release(v15);
+  _Block_release(v9);
 
-  v21 = OUTLINED_FUNCTION_16_1();
-  v22(v21);
-  v23 = OUTLINED_FUNCTION_16();
-  v24(v23);
+  v15 = OUTLINED_FUNCTION_16_1();
+  v16(v15);
+  v17 = OUTLINED_FUNCTION_16();
+  v18(v17);
   OUTLINED_FUNCTION_39_0();
 
   OUTLINED_FUNCTION_47();
@@ -3856,93 +3141,90 @@ Swift::Void __swiftcall NetworkAnalytics.logRequestLinkBetweenOrchestratorAndNet
 
 uint64_t sub_22352F818()
 {
-  v1 = *(v0 + 16);
 
   OUTLINED_FUNCTION_3();
 
-  return MEMORY[0x2821FE8E8](v2, v3, v4);
+  return MEMORY[0x2821FE8E8](v0, v1, v2);
 }
 
 uint64_t _s11SiriNetwork0B18ConnectionProviderC06createC18WithInitialPayload_07networkC12ProtocolTypeySo16OS_dispatch_dataCSg_xmtKAA0bcJ0RzlF0B012NWConnectionC_Tt0g5(void *a1)
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Network10NWEndpointOSgMd, &_s7Network10NWEndpointOSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = v21 - v6;
-  v8 = type metadata accessor for NWEndpoint();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  v11 = MEMORY[0x28223BE20](v8);
-  v13 = v21 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v11);
-  v15 = v21 - v14;
-  memcpy(v25, (v2 + 1536), 0x204uLL);
-  memcpy(v24, (v2 + 1536), 0x204uLL);
-  outlined init with copy of ConnectionConfiguration(v25, v23);
-  NWEndpoint.init(configuration:)(v24, v7);
-  if (__swift_getEnumTagSinglePayload(v7, 1, v8) == 1)
+  v6 = v24 - v5;
+  v7 = type metadata accessor for NWEndpoint();
+  v8 = *(v7 - 8);
+  v9 = MEMORY[0x28223BE20](v7);
+  v11 = v24 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9);
+  v13 = v24 - v12;
+  memcpy(v28, (v2 + 1536), 0x204uLL);
+  memcpy(v27, (v2 + 1536), 0x204uLL);
+  outlined init with copy of ConnectionConfiguration(v28, v26);
+  NWEndpoint.init(configuration:)(v27, v6);
+  if (__swift_getEnumTagSinglePayload(v6, 1, v7) == 1)
   {
-    outlined destroy of NetworkConnectionProtocol?(v7, &_s7Network10NWEndpointOSgMd, &_s7Network10NWEndpointOSgMR);
+    outlined destroy of NetworkConnectionProtocol?(v6, &_s7Network10NWEndpointOSgMd, &_s7Network10NWEndpointOSgMR);
     lazy protocol witness table accessor for type NetworkConnectionError and conformance NetworkConnectionError();
     swift_allocError();
-    *(v16 + 8) = 0;
-    *(v16 + 16) = 0;
-    *v16 = 0;
-    *(v16 + 24) = xmmword_2235F01E0;
+    *(v14 + 8) = 0;
+    *(v14 + 16) = 0;
+    *v14 = 0;
+    *(v14 + 24) = xmmword_2235F01E0;
     return swift_willThrow();
   }
 
   else
   {
-    (*(v9 + 32))(v15, v7, v8);
+    (*(v8 + 32))(v13, v6, v7);
     if (one-time initialization token for streamOpenNetwork != -1)
     {
       swift_once();
     }
 
     siri_kdebug_trace(static Constants.Signposts.streamOpenNetwork);
-    v18 = type metadata accessor for NWConnection();
-    (*(v9 + 16))(v13, v15, v8);
-    memcpy(v24, (v2 + 1536), 0x204uLL);
-    memcpy(v23, (v2 + 1536), 0x204uLL);
-    v22[3] = v18;
-    v22[4] = &protocol witness table for NWConnection;
-    outlined init with copy of ConnectionConfiguration(v24, v21);
-    v19 = a1;
-    v22[0] = NWConnection.init(endpoint:configuration:with:)(v13, v23, a1);
+    v16 = type metadata accessor for NWConnection();
+    (*(v8 + 16))(v11, v13, v7);
+    memcpy(v27, (v2 + 1536), 0x204uLL);
+    memcpy(v26, (v2 + 1536), 0x204uLL);
+    v25[3] = v16;
+    v25[4] = &protocol witness table for NWConnection;
+    outlined init with copy of ConnectionConfiguration(v27, v24);
+    v17 = a1;
+    v25[0] = NWConnection.init(endpoint:configuration:with:)(v11, v26, a1);
     swift_beginAccess();
-    outlined assign with take of NetworkConnectionProtocol?(v22, v2 + 16);
+    outlined assign with take of NetworkConnectionProtocol?(v25, v2 + 16);
     swift_endAccess();
     if (one-time initialization token for shared != -1)
     {
       swift_once();
     }
 
-    outlined init with copy of NetworkConnectionProtocol?(v2 + 16, v23, &_s11SiriNetwork0B18ConnectionProtocol_pSgMd, &_s11SiriNetwork0B18ConnectionProtocol_pSgMR);
-    if (v23[3])
+    outlined init with copy of NetworkConnectionProtocol?(v2 + 16, v26, &_s11SiriNetwork0B18ConnectionProtocol_pSgMd, &_s11SiriNetwork0B18ConnectionProtocol_pSgMR);
+    if (v26[3])
     {
       __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriNetwork0B18ConnectionProtocol_pMd, _s11SiriNetwork0B18ConnectionProtocol_pMR);
       if (swift_dynamicCast())
       {
-        v20 = v21[0];
+        v23 = v24[0];
       }
 
       else
       {
-        v20 = 0;
+        v23 = 0;
       }
     }
 
     else
     {
-      outlined destroy of NetworkConnectionProtocol?(v23, &_s11SiriNetwork0B18ConnectionProtocol_pSgMd, &_s11SiriNetwork0B18ConnectionProtocol_pSgMR);
-      v20 = 0;
+      outlined destroy of NetworkConnectionProtocol?(v26, &_s11SiriNetwork0B18ConnectionProtocol_pSgMd, &_s11SiriNetwork0B18ConnectionProtocol_pSgMR);
+      v23 = 0;
     }
 
-    NetworkActivityTracing.addNWConnection(_:completion:)(v20, 0, 0);
+    NetworkActivityTracing.addNWConnection(_:completion:)(v23, 0, 0, v18, v19, v20, v21, v22, v24[0]);
 
-    result = (*(v9 + 8))(v15, v8);
+    result = (*(v8 + 8))(v13, v7);
     *(v2 + 2101) = 0;
   }
 
@@ -3973,40 +3255,68 @@ Swift::Void __swiftcall NetworkWiFiManager.acquireWiFiAssertion(wifiAssertionTyp
   NetworkWiFiManager.acquireWiFiAssertion(wifiAssertionType:)(&v2);
 }
 
+Swift::Void __swiftcall NetworkWiFiManager.acquireWiFiAssertion(wifiAssertionType:)(SiriNetwork::WiFiAssertionType wifiAssertionType)
+{
+  v1 = *wifiAssertionType;
+  if (one-time initialization token for siriNetwork != -1)
+  {
+    OUTLINED_FUNCTION_0_6(&one-time initialization token for siriNetwork);
+  }
+
+  v2 = type metadata accessor for Logger();
+  v3 = OUTLINED_FUNCTION_17(v2, static Logger.siriNetwork);
+  v4 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v3, v4))
+  {
+    v5 = swift_slowAlloc();
+    v6 = swift_slowAlloc();
+    v10 = v6;
+    *v5 = 136315138;
+    v7 = String.init<A>(describing:)();
+    v9 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v7, v8, &v10);
+
+    *(v5 + 4) = v9;
+    _os_log_impl(&dword_223515000, v3, v4, "NetworkWiFiManager - Assertion: acquireWiFiAssertion: %s", v5, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v6);
+    OUTLINED_FUNCTION_12();
+    OUTLINED_FUNCTION_12();
+  }
+
+  NetworkWiFiManager.setWiFiManagerClientType(_:)(dword_2235F3A94[v1]);
+}
+
 Swift::Void __swiftcall NetworkManager.startMonitoringNetwork(_:)(Swift::String a1)
 {
   v3 = v1;
   object = a1._object;
   countAndFlagsBits = a1._countAndFlagsBits;
   v6 = type metadata accessor for DispatchWorkItemFlags();
-  v7 = OUTLINED_FUNCTION_0_0(v6);
-  v9 = v8;
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v7);
+  OUTLINED_FUNCTION_0_0();
+  v8 = v7;
+  MEMORY[0x28223BE20](v9);
   OUTLINED_FUNCTION_0_1();
-  v26 = OUTLINED_FUNCTION_8_1();
-  v12 = OUTLINED_FUNCTION_0_0(v26);
-  v14 = v13;
-  v16 = *(v15 + 64);
+  v22 = OUTLINED_FUNCTION_8_1();
+  OUTLINED_FUNCTION_0_0();
+  v11 = v10;
   MEMORY[0x28223BE20](v12);
   OUTLINED_FUNCTION_0_1();
-  v19 = v18 - v17;
-  v20 = *(v3 + OBJC_IVAR___SNNetworkManagerInternal_queue);
+  v15 = v14 - v13;
+  v16 = *(v3 + OBJC_IVAR___SNNetworkManagerInternal_queue);
   OUTLINED_FUNCTION_7_1();
-  v21 = swift_allocObject();
+  v17 = swift_allocObject();
   swift_unknownObjectWeakInit();
-  v22 = swift_allocObject();
-  v22[2] = v21;
-  v22[3] = countAndFlagsBits;
-  v22[4] = object;
-  v30 = partial apply for closure #1 in NetworkManager.startMonitoringNetwork(_:);
-  v31 = v22;
+  v18 = swift_allocObject();
+  v18[2] = v17;
+  v18[3] = countAndFlagsBits;
+  v18[4] = object;
+  v26 = partial apply for closure #1 in NetworkManager.startMonitoringNetwork(_:);
+  v27 = v18;
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_3(COERCE_DOUBLE(1107296256));
-  v28 = v23;
-  v29 = &block_descriptor_17_0;
-  v24 = _Block_copy(aBlock);
-  v25 = v20;
+  v24 = v19;
+  v25 = &block_descriptor_17_0;
+  v20 = _Block_copy(aBlock);
+  v21 = v16;
 
   static DispatchQoS.unspecified.getter();
   lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags();
@@ -4014,10 +3324,10 @@ Swift::Void __swiftcall NetworkManager.startMonitoringNetwork(_:)(Swift::String 
   lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_5_3();
-  _Block_release(v24);
+  _Block_release(v20);
 
-  (*(v9 + 8))(v2, v6);
-  (*(v14 + 8))(v19, v26);
+  (*(v8 + 8))(v2, v6);
+  (*(v11 + 8))(v15, v22);
 }
 
 uint64_t sub_223530170()
@@ -4030,9 +3340,6 @@ uint64_t sub_223530170()
 
 uint64_t sub_2235301A4()
 {
-  v1 = *(v0 + 16);
-
-  v2 = *(v0 + 32);
 
   return MEMORY[0x2821FE8E8](v0, 40, 7);
 }
@@ -4052,59 +3359,56 @@ void NetworkAnalytics.setNetworkConnectionId(_:)()
 {
   OUTLINED_FUNCTION_46();
   OUTLINED_FUNCTION_53_1();
-  v2 = type metadata accessor for DispatchWorkItemFlags();
-  v3 = OUTLINED_FUNCTION_0_0(v2);
-  v34[2] = v4;
-  v6 = *(v5 + 64);
+  type metadata accessor for DispatchWorkItemFlags();
+  OUTLINED_FUNCTION_0_0();
+  v27[2] = v2;
   MEMORY[0x28223BE20](v3);
-  v7 = OUTLINED_FUNCTION_9_5();
-  v8 = OUTLINED_FUNCTION_0_0(v7);
-  v34[0] = v9;
-  v34[1] = v8;
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v8);
+  OUTLINED_FUNCTION_9_5();
+  OUTLINED_FUNCTION_0_0();
+  v27[0] = v5;
+  v27[1] = v4;
+  MEMORY[0x28223BE20](v4);
   OUTLINED_FUNCTION_7();
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, _s10Foundation4UUIDVSgMR);
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  MEMORY[0x28223BE20](v12 - 8);
-  v16 = v34 - v15;
-  v17 = *(v0 + OBJC_IVAR___SNNetworkAnalyticsInternal_queue);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, _s10Foundation4UUIDVSgMR);
+  v7 = *(v6 - 8);
+  MEMORY[0x28223BE20](v6 - 8);
+  v9 = v27 - v8;
+  v10 = *(v0 + OBJC_IVAR___SNNetworkAnalyticsInternal_queue);
   OUTLINED_FUNCTION_7_1();
-  v18 = swift_allocObject();
-  OUTLINED_FUNCTION_28_0(v18);
+  v11 = swift_allocObject();
+  OUTLINED_FUNCTION_28_0(v11);
   swift_unknownObjectWeakInit();
-  v19 = OUTLINED_FUNCTION_27_0();
-  outlined init with copy of UUID?(v19, v20);
-  v21 = ((*(v13 + 80) + 24) & ~*(v13 + 80));
-  v22 = swift_allocObject();
-  *(v22 + 16) = v1;
-  outlined init with take of UUID?(v16, v21 + v22);
-  v35[4] = partial apply for closure #1 in NetworkAnalytics.setNetworkConnectionId(_:);
-  v35[5] = v22;
+  v12 = OUTLINED_FUNCTION_27_0();
+  outlined init with copy of UUID?(v12, v13);
+  v14 = ((*(v7 + 80) + 24) & ~*(v7 + 80));
+  v15 = swift_allocObject();
+  *(v15 + 16) = v1;
+  outlined init with take of UUID?(v9, v14 + v15);
+  v28[4] = partial apply for closure #1 in NetworkAnalytics.setNetworkConnectionId(_:);
+  v28[5] = v15;
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_3(COERCE_DOUBLE(1107296256));
-  v35[2] = v23;
-  v35[3] = &block_descriptor_23;
-  v24 = _Block_copy(v35);
-  v25 = v17;
+  v28[2] = v16;
+  v28[3] = &block_descriptor_23;
+  v17 = _Block_copy(v28);
+  v18 = v10;
   OUTLINED_FUNCTION_42();
   static DispatchQoS.unspecified.getter();
-  v34[3] = MEMORY[0x277D84F90];
+  v27[3] = MEMORY[0x277D84F90];
   OUTLINED_FUNCTION_2_9();
-  lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(v26, v27);
-  v28 = OUTLINED_FUNCTION_27_0();
-  __swift_instantiateConcreteTypeFromMangledNameV2(v28, v29);
+  lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(v19, v20, MEMORY[0x277D851A0]);
+  v21 = OUTLINED_FUNCTION_27_0();
+  __swift_instantiateConcreteTypeFromMangledNameV2(v21, v22);
   OUTLINED_FUNCTION_45_0(&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A]);
   OUTLINED_FUNCTION_11_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_43_1();
-  _Block_release(v24);
+  _Block_release(v17);
 
-  v30 = OUTLINED_FUNCTION_16_1();
-  v31(v30);
-  v32 = OUTLINED_FUNCTION_16();
-  v33(v32);
+  v23 = OUTLINED_FUNCTION_16_1();
+  v24(v23);
+  v25 = OUTLINED_FUNCTION_16();
+  v26(v25);
   OUTLINED_FUNCTION_39_0();
 
   OUTLINED_FUNCTION_47();
@@ -4116,12 +3420,11 @@ uint64_t sub_2235304CC()
   v2 = *(v1 + 80);
   v3 = (v2 + 24) & ~v2;
   v4 = *(v1 + 64);
-  v5 = *(v0 + 16);
 
-  v6 = type metadata accessor for UUID();
-  if (!__swift_getEnumTagSinglePayload(v0 + v3, 1, v6))
+  v5 = type metadata accessor for UUID();
+  if (!__swift_getEnumTagSinglePayload(v0 + v3, 1, v5))
   {
-    (*(*(v6 - 8) + 8))(v0 + v3, v6);
+    (*(*(v5 - 8) + 8))(v0 + v3, v5);
   }
 
   return MEMORY[0x2821FE8E8](v0, v3 + v4, v2 | 7);
@@ -4176,14 +3479,6 @@ uint64_t get_enum_tag_for_layout_string_11SiriNetwork24ConnectionSnapshotReportV
   }
 
   return (v1 + 1);
-}
-
-uint64_t OUTLINED_FUNCTION_35_1()
-{
-  result = v0[2];
-  v2 = v0[3];
-  v3 = v0[4];
-  return result;
 }
 
 uint64_t OUTLINED_FUNCTION_35_2(uint64_t a1)
@@ -4248,54 +3543,52 @@ uint64_t outlined assign with take of UUID?(uint64_t a1, uint64_t a2)
 void NetworkAnalytics.setNetId(_:)()
 {
   OUTLINED_FUNCTION_46();
-  v30 = v2;
+  v25 = v2;
   v4 = v3;
   v6 = v5;
   v8 = v7;
-  v9 = type metadata accessor for DispatchWorkItemFlags();
-  v10 = OUTLINED_FUNCTION_0_0(v9);
-  v12 = *(v11 + 64);
+  type metadata accessor for DispatchWorkItemFlags();
+  OUTLINED_FUNCTION_0_0();
+  MEMORY[0x28223BE20](v9);
+  OUTLINED_FUNCTION_9_5();
+  OUTLINED_FUNCTION_0_0();
   MEMORY[0x28223BE20](v10);
-  v13 = OUTLINED_FUNCTION_9_5();
-  v14 = OUTLINED_FUNCTION_0_0(v13);
-  v16 = *(v15 + 64);
-  MEMORY[0x28223BE20](v14);
   OUTLINED_FUNCTION_7();
-  v17 = *(v0 + OBJC_IVAR___SNNetworkAnalyticsInternal_queue);
+  v11 = *(v0 + OBJC_IVAR___SNNetworkAnalyticsInternal_queue);
   OUTLINED_FUNCTION_7_1();
-  v18 = swift_allocObject();
-  OUTLINED_FUNCTION_28_0(v18);
+  v12 = swift_allocObject();
+  OUTLINED_FUNCTION_28_0(v12);
   swift_unknownObjectWeakInit();
   OUTLINED_FUNCTION_109();
-  v19 = swift_allocObject();
-  v19[2] = v1;
-  v19[3] = v8;
-  v19[4] = v6;
-  v31[4] = v4;
-  v31[5] = v19;
+  v13 = swift_allocObject();
+  v13[2] = v1;
+  v13[3] = v8;
+  v13[4] = v6;
+  v26[4] = v4;
+  v26[5] = v13;
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_3(COERCE_DOUBLE(1107296256));
-  v31[2] = v20;
-  v31[3] = v30;
-  v21 = _Block_copy(v31);
+  v26[2] = v14;
+  v26[3] = v25;
+  v15 = _Block_copy(v26);
 
-  v22 = v17;
+  v16 = v11;
 
   static DispatchQoS.unspecified.getter();
   OUTLINED_FUNCTION_2_9();
-  lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(v23, v24);
+  lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(v17, v18, MEMORY[0x277D851A0]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
   lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
-  OUTLINED_FUNCTION_44();
-  OUTLINED_FUNCTION_30_2();
-  v25 = OUTLINED_FUNCTION_6();
-  MEMORY[0x223DE2460](v25);
-  _Block_release(v21);
+  v19 = OUTLINED_FUNCTION_44();
+  OUTLINED_FUNCTION_30_2(v19);
+  v20 = OUTLINED_FUNCTION_6();
+  MEMORY[0x223DE2460](v20);
+  _Block_release(v15);
 
-  v26 = OUTLINED_FUNCTION_16_1();
-  v27(v26);
-  v28 = OUTLINED_FUNCTION_16();
-  v29(v28);
+  v21 = OUTLINED_FUNCTION_16_1();
+  v22(v21);
+  v23 = OUTLINED_FUNCTION_16();
+  v24(v23);
   OUTLINED_FUNCTION_39_0();
 
   OUTLINED_FUNCTION_47();
@@ -4306,7 +3599,7 @@ uint64_t static NetworkAnalytics.netProvider(from:)()
   v0 = String.lowercased()();
   OUTLINED_FUNCTION_7_21();
   v2 = v0._countAndFlagsBits == 0xD000000000000018 && v1 == v0._object;
-  if (v2 || (OUTLINED_FUNCTION_4_29() & 1) != 0)
+  if (v2 || (OUTLINED_FUNCTION_4_29(0xD000000000000018, v1) & 1) != 0)
   {
 
     return 1;
@@ -4316,7 +3609,7 @@ uint64_t static NetworkAnalytics.netProvider(from:)()
   {
     OUTLINED_FUNCTION_7_21();
     v5 = v0._countAndFlagsBits == 0xD00000000000001ELL && v4 == v0._object;
-    if (v5 || (OUTLINED_FUNCTION_4_29() & 1) != 0)
+    if (v5 || (OUTLINED_FUNCTION_4_29(0xD00000000000001ELL, v4) & 1) != 0)
     {
 
       return 3;
@@ -4326,7 +3619,7 @@ uint64_t static NetworkAnalytics.netProvider(from:)()
     {
       OUTLINED_FUNCTION_7_21();
       v7 = v0._countAndFlagsBits == 0xD000000000000014 && v6 == v0._object;
-      if (v7 || (OUTLINED_FUNCTION_4_29() & 1) != 0)
+      if (v7 || (OUTLINED_FUNCTION_4_29(0xD000000000000014, v6) & 1) != 0)
       {
 
         return 2;
@@ -4336,7 +3629,7 @@ uint64_t static NetworkAnalytics.netProvider(from:)()
       {
         OUTLINED_FUNCTION_7_21();
         v9 = v0._countAndFlagsBits == 0xD000000000000017 && v8 == v0._object;
-        if (v9 || (OUTLINED_FUNCTION_4_29() & 1) != 0)
+        if (v9 || (OUTLINED_FUNCTION_4_29(0xD000000000000017, v8) & 1) != 0)
         {
 
           return 4;
@@ -4353,7 +3646,7 @@ uint64_t static NetworkAnalytics.netProvider(from:)()
 
           else
           {
-            OUTLINED_FUNCTION_4_29();
+            OUTLINED_FUNCTION_4_29(0xD00000000000001ELL, v10);
             OUTLINED_FUNCTION_12_11();
             if (v0._countAndFlagsBits)
             {
@@ -4376,30 +3669,29 @@ id Connection.__deallocating_deinit()
   v1 = v0;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, _s10Foundation4UUIDVSgMR);
   v3 = OUTLINED_FUNCTION_11_1(v2);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v16 - v6;
+  v5 = &v14 - v4;
   if (!*&v0[OBJC_IVAR___SNConnectionInternal_activeBackgroundConnection])
   {
     dispatch_group_leave(*&v0[OBJC_IVAR___SNConnectionInternal_activeConnectionGroup]);
   }
 
-  v8 = OBJC_IVAR___SNConnectionInternal_networkAnalytics;
-  v9 = *&v0[OBJC_IVAR___SNConnectionInternal_networkAnalytics];
-  v10 = type metadata accessor for UUID();
-  __swift_storeEnumTagSinglePayload(v7, 1, 1, v10);
-  v11 = v9;
+  v6 = OBJC_IVAR___SNConnectionInternal_networkAnalytics;
+  v7 = *&v0[OBJC_IVAR___SNConnectionInternal_networkAnalytics];
+  v8 = type metadata accessor for UUID();
+  __swift_storeEnumTagSinglePayload(v5, 1, 1, v8);
+  v9 = v7;
   NetworkAnalytics.setNetworkConnectionId(_:)();
 
-  outlined destroy of NetworkConnectionProtocol?(v7, &_s10Foundation4UUIDVSgMd, _s10Foundation4UUIDVSgMR);
-  v12 = *&v1[v8];
-  v13 = OUTLINED_FUNCTION_53_1();
-  NetworkAnalytics.setConnectionProvider(_:)(v13);
+  outlined destroy of NetworkConnectionProtocol?(v5, &_s10Foundation4UUIDVSgMd, _s10Foundation4UUIDVSgMR);
+  v10 = *&v1[v6];
+  v11 = OUTLINED_FUNCTION_53_1();
+  NetworkAnalytics.setConnectionProvider(_:)(v11);
 
-  v14 = type metadata accessor for Connection();
-  v16.receiver = v1;
-  v16.super_class = v14;
-  return objc_msgSendSuper2(&v16, sel_dealloc);
+  v12 = type metadata accessor for Connection();
+  v14.receiver = v1;
+  v14.super_class = v12;
+  return objc_msgSendSuper2(&v14, sel_dealloc);
 }
 
 uint64_t outlined consume of ConnectionPolicyRoute?(uint64_t a1, uint64_t a2)
@@ -4416,9 +3708,8 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
   v1 = v0;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, _s10Foundation4UUIDVSgMR);
   v3 = OUTLINED_FUNCTION_11_1(v2);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = (&v125 - v6);
+  v5 = (&v128 - v4);
   if (one-time initialization token for siriNetwork != -1)
   {
 LABEL_58:
@@ -4426,70 +3717,70 @@ LABEL_58:
     swift_once();
   }
 
-  v8 = type metadata accessor for Logger();
-  v9 = __swift_project_value_buffer(v8, static Logger.siriNetwork);
-  v10 = Logger.logObject.getter();
-  v11 = static os_log_type_t.default.getter();
-  v12 = OUTLINED_FUNCTION_16_0();
-  if (os_log_type_enabled(v12, v13))
+  v6 = type metadata accessor for Logger();
+  v7 = __swift_project_value_buffer(v6, static Logger.siriNetwork);
+  v8 = Logger.logObject.getter();
+  v9 = static os_log_type_t.default.getter();
+  v10 = OUTLINED_FUNCTION_16_0();
+  if (os_log_type_enabled(v10, v11))
   {
     OUTLINED_FUNCTION_17_5();
-    v14 = swift_slowAlloc();
-    *v14 = 0;
-    _os_log_impl(&dword_223515000, v10, v11, "Connection - Start: Starting connection", v14, 2u);
+    v12 = swift_slowAlloc();
+    *v12 = 0;
+    _os_log_impl(&dword_223515000, v8, v9, "Connection - Start: Starting connection", v12, 2u);
     OUTLINED_FUNCTION_2_2();
     MEMORY[0x223DE38F0]();
   }
 
   if (*(v1 + OBJC_IVAR___SNConnectionInternal_activeBackgroundConnection))
   {
-    v15 = Logger.logObject.getter();
+    v13 = Logger.logObject.getter();
     static os_log_type_t.error.getter();
-    v16 = OUTLINED_FUNCTION_16_0();
-    if (os_log_type_enabled(v16, v17))
+    v14 = OUTLINED_FUNCTION_16_0();
+    if (os_log_type_enabled(v14, v15))
     {
       OUTLINED_FUNCTION_17_5();
-      v18 = swift_slowAlloc();
-      OUTLINED_FUNCTION_40_2(v18);
+      v16 = swift_slowAlloc();
+      OUTLINED_FUNCTION_40_2(v16);
       OUTLINED_FUNCTION_6_0();
-      _os_log_impl(v19, v20, v21, v22, v23, 2u);
-      v24 = OUTLINED_FUNCTION_1_2();
-      MEMORY[0x223DE38F0](v24);
+      _os_log_impl(v17, v18, v19, v20, v21, 2u);
+      v22 = OUTLINED_FUNCTION_1_2();
+      MEMORY[0x223DE38F0](v22);
     }
 
-    lazy protocol witness table accessor for type NetworkConnectionError and conformance NetworkConnectionError();
-    v25 = OUTLINED_FUNCTION_60();
-    v27 = 2;
+    v23 = lazy protocol witness table accessor for type NetworkConnectionError and conformance NetworkConnectionError();
+    v24 = OUTLINED_FUNCTION_60(&type metadata for NetworkConnectionError, v23);
+    v26 = 2;
 LABEL_12:
-    *(v26 + 8) = 0;
-    *(v26 + 16) = 0;
-    *v26 = v27;
-    *(v26 + 24) = xmmword_2235F01E0;
+    *(v25 + 8) = 0;
+    *(v25 + 16) = 0;
+    *v25 = v26;
+    *(v25 + 24) = xmmword_2235F01E0;
 LABEL_13:
-    v134 = v25;
+    v137 = v24;
     swift_willThrow();
     return;
   }
 
   if (*(v1 + OBJC_IVAR___SNConnectionInternal_isCanceledInternal))
   {
-    v28 = Logger.logObject.getter();
+    v27 = Logger.logObject.getter();
     static os_log_type_t.error.getter();
-    v29 = OUTLINED_FUNCTION_16_0();
-    if (os_log_type_enabled(v29, v30))
+    v28 = OUTLINED_FUNCTION_16_0();
+    if (os_log_type_enabled(v28, v29))
     {
       OUTLINED_FUNCTION_17_5();
-      v31 = swift_slowAlloc();
-      OUTLINED_FUNCTION_40_2(v31);
+      v30 = swift_slowAlloc();
+      OUTLINED_FUNCTION_40_2(v30);
       OUTLINED_FUNCTION_6_0();
-      _os_log_impl(v32, v33, v34, v35, v36, 2u);
-      v37 = OUTLINED_FUNCTION_1_2();
-      MEMORY[0x223DE38F0](v37);
+      _os_log_impl(v31, v32, v33, v34, v35, 2u);
+      v36 = OUTLINED_FUNCTION_1_2();
+      MEMORY[0x223DE38F0](v36);
     }
 
-    lazy protocol witness table accessor for type NetworkConnectionError and conformance NetworkConnectionError();
-    v25 = OUTLINED_FUNCTION_60();
-    v27 = 1;
+    v37 = lazy protocol witness table accessor for type NetworkConnectionError and conformance NetworkConnectionError();
+    v24 = OUTLINED_FUNCTION_60(&type metadata for NetworkConnectionError, v37);
+    v26 = 1;
     goto LABEL_12;
   }
 
@@ -4512,94 +3803,95 @@ LABEL_13:
       MEMORY[0x223DE38F0](v49);
     }
 
-    lazy protocol witness table accessor for type ConnectionConfigurationError and conformance ConnectionConfigurationError();
-    v25 = OUTLINED_FUNCTION_60();
-    *v50 = 1;
+    v50 = lazy protocol witness table accessor for type ConnectionConfigurationError and conformance ConnectionConfigurationError();
+    v24 = OUTLINED_FUNCTION_60(&type metadata for ConnectionConfigurationError, v50);
+    *v51 = 1;
     goto LABEL_13;
   }
 
-  v147 = MEMORY[0x277D84FA0];
-  v51 = (v1 + OBJC_IVAR___SNConnectionInternal_connectionConfiguration);
-  v52 = *(v1 + OBJC_IVAR___SNConnectionInternal_connectionConfiguration + 392);
-  if (v52)
+  v150 = MEMORY[0x277D84FA0];
+  v52 = (v1 + OBJC_IVAR___SNConnectionInternal_connectionConfiguration);
+  v53 = *(v1 + OBJC_IVAR___SNConnectionInternal_connectionConfiguration + 392);
+  if (v53)
   {
-    v53 = static ConnectionPolicyRoute.aceptableRoutes(_:)(v52);
-    specialized Set.formUnion<A>(_:)(v53);
+    static ConnectionPolicyRoute.aceptableRoutes(_:)(v53);
+    specialized Set.formUnion<A>(_:)(v54);
   }
 
-  v54 = *(v51 + 51);
-  if (v54 != 1)
+  v55 = *(v52 + 51);
+  if (v55 != 1)
   {
-    v55 = v9;
-    v56 = *(v51 + 50);
+    v56 = v7;
+    v57 = *(v52 + 50);
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11SiriNetwork21ConnectionPolicyRouteVGMd, &_ss23_ContiguousArrayStorageCy11SiriNetwork21ConnectionPolicyRouteVGMR);
-    v57 = swift_allocObject();
-    *(v57 + 16) = xmmword_2235EFCB0;
-    *(v57 + 32) = v56;
-    *(v57 + 40) = v54;
-    memcpy((v57 + 48), v51 + 52, 0x62uLL);
-    v146[0] = v56;
-    v9 = v55;
-    v146[1] = v54;
-    memcpy(&v146[2], v51 + 52, 0x62uLL);
-    outlined init with copy of ConnectionPolicyRoute(v146, v145);
-    v58 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC11SiriNetwork21ConnectionPolicyRouteV_Tt0g5(v57);
-    v59 = static ConnectionPolicyRoute.aceptableRoutes(_:)(v58);
+    v58 = swift_allocObject();
+    *(v58 + 16) = xmmword_2235EFCB0;
+    *(v58 + 32) = v57;
+    *(v58 + 40) = v55;
+    memcpy((v58 + 48), v52 + 52, 0x62uLL);
+    v149[0] = v57;
+    v7 = v56;
+    v149[1] = v55;
+    memcpy(&v149[2], v52 + 52, 0x62uLL);
+    outlined init with copy of ConnectionPolicyRoute(v149, v148);
+    v59 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC11SiriNetwork21ConnectionPolicyRouteV_Tt0g5(v58);
+    static ConnectionPolicyRoute.aceptableRoutes(_:)(v59);
+    v61 = v60;
 
-    specialized Set.formUnion<A>(_:)(v59);
+    specialized Set.formUnion<A>(_:)(v61);
   }
 
-  if (!*(_sSaySayxGqd__c7ElementQyd__RszSTRd__lufC11SiriNetwork21ConnectionPolicyRouteV_ShyAFGTt0g5(v147) + 2))
+  v62 = _sSaySayxGqd__c7ElementQyd__RszSTRd__lufC11SiriNetwork21ConnectionPolicyRouteV_ShyAFGTt0g5(v150);
+  if (!*(v62 + 2))
   {
 
-    v99 = Logger.logObject.getter();
+    v101 = Logger.logObject.getter();
     static os_log_type_t.error.getter();
-    v100 = OUTLINED_FUNCTION_16_0();
-    if (os_log_type_enabled(v100, v101))
+    v102 = OUTLINED_FUNCTION_16_0();
+    if (os_log_type_enabled(v102, v103))
     {
       OUTLINED_FUNCTION_17_5();
-      v102 = swift_slowAlloc();
-      OUTLINED_FUNCTION_40_2(v102);
+      v104 = swift_slowAlloc();
+      OUTLINED_FUNCTION_40_2(v104);
       OUTLINED_FUNCTION_6_0();
-      _os_log_impl(v103, v104, v105, v106, v107, 2u);
-      v108 = OUTLINED_FUNCTION_1_2();
-      MEMORY[0x223DE38F0](v108);
+      _os_log_impl(v105, v106, v107, v108, v109, 2u);
+      v110 = OUTLINED_FUNCTION_1_2();
+      MEMORY[0x223DE38F0](v110);
     }
 
-    lazy protocol witness table accessor for type ConnectionConfigurationError and conformance ConnectionConfigurationError();
-    v25 = OUTLINED_FUNCTION_60();
-    *v109 = 0;
+    v111 = lazy protocol witness table accessor for type ConnectionConfigurationError and conformance ConnectionConfigurationError();
+    v24 = OUTLINED_FUNCTION_60(&type metadata for ConnectionConfigurationError, v111);
+    *v112 = 0;
     goto LABEL_13;
   }
 
-  v131 = v9;
-  v60 = OBJC_IVAR___SNConnectionInternal_networkAnalytics;
-  v61 = *(v1 + OBJC_IVAR___SNConnectionInternal_networkAnalytics);
+  v134 = v7;
+  v63 = OBJC_IVAR___SNConnectionInternal_networkAnalytics;
+  v64 = *(v1 + OBJC_IVAR___SNConnectionInternal_networkAnalytics);
   UUID.init()();
-  v62 = type metadata accessor for UUID();
-  __swift_storeEnumTagSinglePayload(v7, 0, 1, v62);
+  v65 = type metadata accessor for UUID();
+  __swift_storeEnumTagSinglePayload(v5, 0, 1, v65);
   NetworkAnalytics.setNetworkConnectionId(_:)();
 
-  outlined destroy of NetworkConnectionProtocol?(v7, &_s10Foundation4UUIDVSgMd, _s10Foundation4UUIDVSgMR);
-  v63 = *v51;
-  v64 = *(v1 + v60);
-  v65 = ConnectionProtocolTechnology.provider()();
-  v137 = v51;
-  NetworkAnalytics.setConnectionProvider(_:)(v65);
+  outlined destroy of NetworkConnectionProtocol?(v5, &_s10Foundation4UUIDVSgMd, _s10Foundation4UUIDVSgMR);
+  v66 = *(v1 + v63);
+  v67 = ConnectionProtocolTechnology.provider()();
+  v140 = v52;
+  NetworkAnalytics.setConnectionProvider(_:)(v67);
 
-  v66 = v137;
+  v68 = v140;
 
-  v132 = static ConnectionPolicyRoute.groupedRoutesAndSortedByPriority(_:)();
+  v135 = static ConnectionPolicyRoute.groupedRoutesAndSortedByPriority(_:)(v62);
 
-  if (*(v66 + 49) && (v66[44] & 1) == 0)
+  if (*(v68 + 49) && (v68[44] & 1) == 0)
   {
-    v110 = v66[43];
+    v113 = v68[43];
     OUTLINED_FUNCTION_8();
     swift_beginAccess();
-    v68 = *&static ConnectionPolicy.maxGlobalTimeout;
-    if (*&static ConnectionPolicy.maxGlobalTimeout >= v110)
+    v70 = *&static ConnectionPolicy.maxGlobalTimeout;
+    if (*&static ConnectionPolicy.maxGlobalTimeout >= v113)
     {
-      v68 = v110;
+      v70 = v113;
     }
   }
 
@@ -4607,144 +3899,144 @@ LABEL_13:
   {
     OUTLINED_FUNCTION_8();
     swift_beginAccess();
-    v68 = *&static ConnectionPolicy.maxGlobalTimeout;
+    v70 = *&static ConnectionPolicy.maxGlobalTimeout;
   }
 
-  v69 = v132;
-  v129 = v132[2];
-  if (!v129)
+  v71 = v135;
+  v132 = v135[2];
+  if (!v132)
   {
     goto LABEL_47;
   }
 
-  v70 = 0;
-  v135 = OBJC_IVAR___SNConnectionInternal_networkManager;
-  v136 = OBJC_IVAR___SNConnectionInternal_connectionQueue;
-  v130 = v132 + 4;
-  v71 = 0.0;
-  *&v67 = 134218242;
-  v125 = v67;
+  v72 = 0;
+  v138 = OBJC_IVAR___SNConnectionInternal_networkManager;
+  v139 = OBJC_IVAR___SNConnectionInternal_connectionQueue;
+  v133 = v135 + 4;
+  v73 = 0.0;
+  *&v69 = 134218242;
+  v128 = v69;
   while (2)
   {
-    if (v70 >= v69[2])
+    if (v72 >= v71[2])
     {
       __break(1u);
       return;
     }
 
-    v72 = &v130[2 * v70];
-    v73 = *v72;
-    v7 = v72[1];
+    v74 = &v133[2 * v72];
+    v75 = *v74;
+    v5 = v74[1];
     swift_bridgeObjectRetain_n();
-    v74 = Logger.logObject.getter();
-    v75 = static os_log_type_t.default.getter();
+    v76 = Logger.logObject.getter();
+    v77 = static os_log_type_t.default.getter();
 
-    LODWORD(v138) = v75;
-    v76 = os_log_type_enabled(v74, v75);
-    v133 = v73;
-    if (v76)
+    LODWORD(v141) = v77;
+    v78 = os_log_type_enabled(v76, v77);
+    v136 = v75;
+    if (v78)
     {
       OUTLINED_FUNCTION_30();
-      v77 = swift_slowAlloc();
-      v127 = v74;
-      v78 = v77;
+      v79 = swift_slowAlloc();
+      v130 = v76;
+      v80 = v79;
       OUTLINED_FUNCTION_4_3();
-      v126 = swift_slowAlloc();
-      v146[0] = v126;
-      *v78 = v125;
-      *(v78 + 4) = v73;
-      *(v78 + 12) = 2080;
-      v79 = MEMORY[0x223DE2280](v7, &type metadata for ConnectionPolicyRoute);
-      v128 = v7;
-      v81 = v70;
-      v82 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v79, v80, v146);
-      v7 = v128;
+      v129 = swift_slowAlloc();
+      v149[0] = v129;
+      *v80 = v128;
+      *(v80 + 4) = v75;
+      *(v80 + 12) = 2080;
+      v81 = MEMORY[0x223DE2280](v5, &type metadata for ConnectionPolicyRoute);
+      v131 = v5;
+      v83 = v72;
+      v84 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v81, v82, v149);
+      v5 = v131;
 
-      *(v78 + 14) = v82;
-      v70 = v81;
-      v83 = v127;
-      _os_log_impl(&dword_223515000, v127, v138, "Connection - Start: Acceptable Routes for priority %ld: %s", v78, 0x16u);
-      __swift_destroy_boxed_opaque_existential_0(v126);
+      *(v80 + 14) = v84;
+      v72 = v83;
+      v85 = v130;
+      _os_log_impl(&dword_223515000, v130, v141, "Connection - Start: Acceptable Routes for priority %ld: %s", v80, 0x16u);
+      __swift_destroy_boxed_opaque_existential_0(v129);
       OUTLINED_FUNCTION_2_2();
       MEMORY[0x223DE38F0]();
-      v84 = OUTLINED_FUNCTION_2_0();
-      MEMORY[0x223DE38F0](v84);
+      v86 = OUTLINED_FUNCTION_2_0();
+      MEMORY[0x223DE38F0](v86);
     }
 
     else
     {
     }
 
-    static ConnectionPolicyRoute.maxTimeoutFromRoutes(_:)(v7);
-    if (v85 <= 5.0)
+    static ConnectionPolicyRoute.maxTimeoutFromRoutes(_:)(v5);
+    if (v87 <= 5.0)
     {
-      v86 = v85;
+      v88 = v87;
     }
 
     else
     {
-      v86 = 5.0;
+      v88 = 5.0;
     }
 
-    if (v71 == 0.0 || v68 > v71)
+    if (v73 == 0.0 || v70 > v73)
     {
-      v133 = v70 + 1;
-      v88 = static ConnectionPolicyRoute.prioritizedPOPRoutes(_:)(v7);
+      v136 = v72 + 1;
+      v90 = static ConnectionPolicyRoute.prioritizedPOPRoutes(_:)(v5);
 
-      v89 = 0;
-      v138 = v88[2];
-      v90 = 4;
-      while (v138 != v89)
+      v91 = 0;
+      v141 = v90[2];
+      v92 = 4;
+      while (v141 != v91)
       {
-        if (v89 >= v88[2])
+        if (v91 >= v90[2])
         {
           __break(1u);
           goto LABEL_58;
         }
 
-        memcpy(v141, &v88[v90], 0x72uLL);
-        memcpy(v142, &v88[v90], sizeof(v142));
-        memcpy(v143, v66, 0x204uLL);
-        memcpy(v140, v66, sizeof(v140));
-        memcpy(v144, v66 + 50, 0x72uLL);
-        outlined init with copy of ConnectionPolicyRoute(v141, v146);
-        outlined init with copy of ConnectionConfiguration(v143, v146);
-        outlined destroy of NetworkConnectionProtocol?(v144, &_s11SiriNetwork21ConnectionPolicyRouteVSgMd, &_s11SiriNetwork21ConnectionPolicyRouteVSgMR);
-        memcpy(&v140[400], v142, 0x72uLL);
-        memcpy(v145, v140, 0x204uLL);
-        memcpy(v146, v140, 0x204uLL);
-        v91 = *(v1 + v136);
-        v92 = *(v1 + v135);
-        outlined init with copy of ConnectionConfiguration(v145, &v139);
-        v93 = v1;
-        v94 = one-time initialization token for sharedNetworkAnalytics;
-        v95 = v91;
-        v96 = v92;
-        if (v94 != -1)
+        memcpy(v144, &v90[v92], 0x72uLL);
+        memcpy(v145, &v90[v92], sizeof(v145));
+        memcpy(v146, v68, 0x204uLL);
+        memcpy(v143, v68, sizeof(v143));
+        memcpy(v147, v68 + 50, 0x72uLL);
+        outlined init with copy of ConnectionPolicyRoute(v144, v149);
+        outlined init with copy of ConnectionConfiguration(v146, v149);
+        outlined destroy of NetworkConnectionProtocol?(v147, &_s11SiriNetwork21ConnectionPolicyRouteVSgMd, &_s11SiriNetwork21ConnectionPolicyRouteVSgMR);
+        memcpy(&v143[400], v145, 0x72uLL);
+        memcpy(v148, v143, 0x204uLL);
+        memcpy(v149, v143, 0x204uLL);
+        v93 = *(v1 + v139);
+        v94 = *(v1 + v138);
+        outlined init with copy of ConnectionConfiguration(v148, &v142);
+        v95 = v1;
+        v96 = one-time initialization token for sharedNetworkAnalytics;
+        v97 = v93;
+        v98 = v94;
+        if (v96 != -1)
         {
           OUTLINED_FUNCTION_24_3();
           swift_once();
         }
 
-        v97 = static NetworkAnalytics.sharedNetworkAnalytics;
+        v99 = static NetworkAnalytics.sharedNetworkAnalytics;
         type metadata accessor for BackgroundConnection();
         swift_allocObject();
-        v7 = BackgroundConnection.init(connectionConfiguration:connectionQueue:networkManager:networkAnalytics:)(v146, v95, v92, v97);
-        v98 = v97;
-        Connection.scheduleBackgroundConnection(_:after:)(v7, v71);
+        v5 = BackgroundConnection.init(connectionConfiguration:connectionQueue:networkManager:networkAnalytics:)(v149, v97, v94, v99);
+        v100 = v99;
+        Connection.scheduleBackgroundConnection(_:after:)(v5, v73);
 
-        memcpy(v146, v140, 0x204uLL);
-        outlined destroy of ConnectionConfiguration(v146);
-        v90 += 15;
-        ++v89;
-        v1 = v93;
-        v66 = v137;
+        memcpy(v149, v143, 0x204uLL);
+        outlined destroy of ConnectionConfiguration(v149);
+        v92 += 15;
+        ++v91;
+        v1 = v95;
+        v68 = v140;
       }
 
-      v71 = v71 + v86;
-      v69 = v132;
-      v70 = v133;
-      if (v133 != v129)
+      v73 = v73 + v88;
+      v71 = v135;
+      v72 = v136;
+      if (v136 != v132)
       {
         continue;
       }
@@ -4757,36 +4049,36 @@ LABEL_47:
     break;
   }
 
-  v111 = Logger.logObject.getter();
-  v112 = static os_log_type_t.default.getter();
+  v114 = Logger.logObject.getter();
+  v115 = static os_log_type_t.default.getter();
 
-  if (os_log_type_enabled(v111, v112))
+  if (os_log_type_enabled(v114, v115))
   {
-    v114 = swift_slowAlloc();
+    v117 = swift_slowAlloc();
     OUTLINED_FUNCTION_4_3();
-    v115 = swift_slowAlloc();
-    v146[0] = v115;
-    *v114 = 134218754;
-    *(v114 + 4) = v133;
-    *(v114 + 12) = 2048;
-    *(v114 + 14) = v71;
-    *(v114 + 22) = 2048;
-    *(v114 + 24) = v68;
-    *(v114 + 32) = 2080;
-    v145[0] = v7;
+    v118 = swift_slowAlloc();
+    v149[0] = v118;
+    *v117 = 134218754;
+    *(v117 + 4) = v136;
+    *(v117 + 12) = 2048;
+    *(v117 + 14) = v73;
+    *(v117 + 22) = 2048;
+    *(v117 + 24) = v70;
+    *(v117 + 32) = 2080;
+    v148[0] = v5;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay11SiriNetwork21ConnectionPolicyRouteVGMd, &_sSay11SiriNetwork21ConnectionPolicyRouteVGMR);
-    v116 = String.init<A>(describing:)();
-    getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v116, v117, v146);
+    v119 = String.init<A>(describing:)();
+    getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v119, v120, v149);
     OUTLINED_FUNCTION_53_4();
 
-    *(v114 + 34) = v7;
+    *(v117 + 34) = v5;
     OUTLINED_FUNCTION_6_0();
-    _os_log_impl(v118, v119, v120, v121, v122, 0x2Au);
-    __swift_destroy_boxed_opaque_existential_0(v115);
-    v123 = OUTLINED_FUNCTION_2_0();
-    MEMORY[0x223DE38F0](v123);
-    v124 = OUTLINED_FUNCTION_1_2();
-    MEMORY[0x223DE38F0](v124);
+    _os_log_impl(v121, v122, v123, v124, v125, 0x2Au);
+    __swift_destroy_boxed_opaque_existential_0(v118);
+    v126 = OUTLINED_FUNCTION_2_0();
+    MEMORY[0x223DE38F0](v126);
+    v127 = OUTLINED_FUNCTION_1_2();
+    MEMORY[0x223DE38F0](v127);
   }
 
   else
@@ -4794,7 +4086,7 @@ LABEL_47:
   }
 }
 
-uint64_t specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(uint64_t result, int64_t a2, char a3, uint64_t a4)
+void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, char *a4)
 {
   v5 = result;
   if ((a3 & 1) == 0)
@@ -4803,7 +4095,7 @@ uint64_t specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:
     goto LABEL_8;
   }
 
-  v6 = *(a4 + 24);
+  v6 = *(a4 + 3);
   v7 = v6 >> 1;
   if ((v6 >> 1) >= a2)
   {
@@ -4819,10 +4111,10 @@ uint64_t specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:
     }
 
 LABEL_8:
-    v8 = *(a4 + 16);
+    v8 = *(a4 + 2);
     if (v7 <= v8)
     {
-      v9 = *(a4 + 16);
+      v9 = *(a4 + 2);
     }
 
     else
@@ -4840,8 +4132,8 @@ LABEL_8:
       if (v5)
       {
 LABEL_13:
-        specialized UnsafeMutablePointer.moveInitialize(from:count:)((a4 + 32), v8, (v10 + 32));
-        *(a4 + 16) = 0;
+        specialized UnsafeMutablePointer.moveInitialize(from:count:)(a4 + 32, v8, (v10 + 32));
+        *(a4 + 2) = 0;
 LABEL_16:
 
         return v10;
@@ -4865,254 +4157,31 @@ LABEL_16:
   return result;
 }
 
-{
-  v5 = result;
-  if ((a3 & 1) == 0)
-  {
-    v7 = a2;
-    goto LABEL_8;
-  }
-
-  v6 = *(a4 + 24);
-  v7 = v6 >> 1;
-  if ((v6 >> 1) >= a2)
-  {
-    goto LABEL_8;
-  }
-
-  if (v7 + 0x4000000000000000 >= 0)
-  {
-    v7 = v6 & 0xFFFFFFFFFFFFFFFELL;
-    if ((v6 & 0xFFFFFFFFFFFFFFFELL) <= a2)
-    {
-      v7 = a2;
-    }
-
-LABEL_8:
-    v8 = *(a4 + 16);
-    if (v7 <= v8)
-    {
-      v9 = *(a4 + 16);
-    }
-
-    else
-    {
-      v9 = v7;
-    }
-
-    if (v9)
-    {
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd, &_ss23_ContiguousArrayStorageCyypGMR);
-      v10 = swift_allocObject();
-      v11 = _swift_stdlib_malloc_size(v10);
-      *(v10 + 16) = v8;
-      *(v10 + 24) = 2 * ((v11 - 32) / 32);
-      if (v5)
-      {
-LABEL_13:
-        specialized UnsafeMutablePointer.moveInitialize(from:count:)((a4 + 32), v8, (v10 + 32));
-        *(a4 + 16) = 0;
-LABEL_16:
-
-        return v10;
-      }
-    }
-
-    else
-    {
-      v10 = MEMORY[0x277D84F90];
-      if (result)
-      {
-        goto LABEL_13;
-      }
-    }
-
-    swift_arrayInitWithCopy();
-    goto LABEL_16;
-  }
-
-  __break(1u);
-  return result;
-}
-
-{
-  v5 = result;
-  if ((a3 & 1) == 0)
-  {
-    v7 = a2;
-    goto LABEL_8;
-  }
-
-  v6 = *(a4 + 24);
-  v7 = v6 >> 1;
-  if ((v6 >> 1) >= a2)
-  {
-    goto LABEL_8;
-  }
-
-  if (v7 + 0x4000000000000000 >= 0)
-  {
-    v7 = v6 & 0xFFFFFFFFFFFFFFFELL;
-    if ((v6 & 0xFFFFFFFFFFFFFFFELL) <= a2)
-    {
-      v7 = a2;
-    }
-
-LABEL_8:
-    v8 = *(a4 + 16);
-    if (v7 <= v8)
-    {
-      v9 = *(a4 + 16);
-    }
-
-    else
-    {
-      v9 = v7;
-    }
-
-    if (v9)
-    {
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
-      v10 = swift_allocObject();
-      v11 = _swift_stdlib_malloc_size(v10);
-      *(v10 + 16) = v8;
-      *(v10 + 24) = 2 * ((v11 - 32) / 16);
-      if (v5)
-      {
-LABEL_13:
-        specialized UnsafeMutablePointer.moveInitialize(from:count:)((a4 + 32), v8, (v10 + 32));
-        *(a4 + 16) = 0;
-LABEL_16:
-
-        return v10;
-      }
-    }
-
-    else
-    {
-      v10 = MEMORY[0x277D84F90];
-      if (result)
-      {
-        goto LABEL_13;
-      }
-    }
-
-    swift_arrayInitWithCopy();
-    goto LABEL_16;
-  }
-
-  __break(1u);
-  return result;
-}
-
-{
-  v5 = result;
-  if ((a3 & 1) == 0)
-  {
-    v7 = a2;
-    goto LABEL_8;
-  }
-
-  v6 = *(a4 + 24);
-  v7 = v6 >> 1;
-  if ((v6 >> 1) >= a2)
-  {
-    goto LABEL_8;
-  }
-
-  if (v7 + 0x4000000000000000 >= 0)
-  {
-    v7 = v6 & 0xFFFFFFFFFFFFFFFELL;
-    if ((v6 & 0xFFFFFFFFFFFFFFFELL) <= a2)
-    {
-      v7 = a2;
-    }
-
-LABEL_8:
-    v8 = *(a4 + 16);
-    if (v7 <= v8)
-    {
-      v9 = *(a4 + 16);
-    }
-
-    else
-    {
-      v9 = v7;
-    }
-
-    if (v9)
-    {
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySi3key_Say11SiriNetwork21ConnectionPolicyRouteVG5valuetGMd, &_ss23_ContiguousArrayStorageCySi3key_Say11SiriNetwork21ConnectionPolicyRouteVG5valuetGMR);
-      v10 = swift_allocObject();
-      v11 = _swift_stdlib_malloc_size(v10);
-      *(v10 + 16) = v8;
-      *(v10 + 24) = 2 * ((v11 - 32) / 16);
-      if (v5)
-      {
-LABEL_13:
-        specialized UnsafeMutablePointer.moveInitialize(from:count:)((a4 + 32), v8, (v10 + 32));
-        *(a4 + 16) = 0;
-LABEL_16:
-
-        return v10;
-      }
-    }
-
-    else
-    {
-      v10 = MEMORY[0x277D84F90];
-      if (result)
-      {
-        goto LABEL_13;
-      }
-    }
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi3key_Say11SiriNetwork21ConnectionPolicyRouteVG5valuetMd, &_sSi3key_Say11SiriNetwork21ConnectionPolicyRouteVG5valuetMR);
-    swift_arrayInitWithCopy();
-    goto LABEL_16;
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(uint64_t a1, int64_t a2, char a3)
+char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, int64_t a2, char a3)
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
 
-{
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
-  *v3 = result;
-  return result;
-}
-
-{
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
-  *v3 = result;
-  return result;
-}
-
-void *static ConnectionPolicyRoute.groupedRoutesAndSortedByPriority(_:)()
+void *static ConnectionPolicyRoute.groupedRoutesAndSortedByPriority(_:)(uint64_t a1)
 {
 
-  v1 = _sSD8grouping2bySDyxSay7ElementQyd__GGqd__n_xADKXEtKcAERs_STRd__lufCSi_Say11SiriNetwork21ConnectionPolicyRouteVGTt1g504_s11d9Network21fgh46V32groupedRoutesAndSortedByPriorityySaySi3key_Q24ACG5valuetGAFFZSiACXEfU_Tf1nc_n(v0);
-  v3 = specialized _copyCollectionToContiguousArray<A>(_:)(v1);
-  specialized MutableCollection<>.sort(by:)(&v3);
+  v2 = _sSD8grouping2bySDyxSay7ElementQyd__GGqd__n_xADKXEtKcAERs_STRd__lufCSi_Say11SiriNetwork21ConnectionPolicyRouteVGTt1g504_s11d9Network21fgh46V32groupedRoutesAndSortedByPriorityySaySi3key_Q24ACG5valuetGAFFZSiACXEfU_Tf1nc_n(v1);
+  v4 = specialized _copyCollectionToContiguousArray<A>(_:)(v2);
+  specialized MutableCollection<>.sort(by:)(&v4);
 
-  return v3;
+  return v4;
 }
 
-uint64_t _sSD8grouping2bySDyxSay7ElementQyd__GGqd__n_xADKXEtKcAERs_STRd__lufCSi_Say11SiriNetwork21ConnectionPolicyRouteVGTt1g504_s11d9Network21fgh46V32groupedRoutesAndSortedByPriorityySaySi3key_Q24ACG5valuetGAFFZSiACXEfU_Tf1nc_n(uint64_t a1)
+void *_sSD8grouping2bySDyxSay7ElementQyd__GGqd__n_xADKXEtKcAERs_STRd__lufCSi_Say11SiriNetwork21ConnectionPolicyRouteVGTt1g504_s11d9Network21fgh46V32groupedRoutesAndSortedByPriorityySaySi3key_Q24ACG5valuetGAFFZSiACXEfU_Tf1nc_n(uint64_t a1)
 {
   v2 = 0;
   v3 = MEMORY[0x277D84F98];
-  v31 = MEMORY[0x277D84F98];
+  v30 = MEMORY[0x277D84F98];
   v4 = *(a1 + 16);
   v5 = 32;
-  v28 = v4;
+  v27 = v4;
   while (1)
   {
     if (v4 == v2)
@@ -5141,7 +4210,7 @@ uint64_t _sSD8grouping2bySDyxSay7ElementQyd__GGqd__n_xADKXEtKcAERs_STRd__lufCSi_
     if (v3[3] >= v11)
     {
       v15 = v7;
-      outlined init with copy of ConnectionPolicyRoute(__dst, v29);
+      outlined init with copy of ConnectionPolicyRoute(__dst, v28);
       if (v12)
       {
         goto LABEL_11;
@@ -5150,9 +4219,9 @@ uint64_t _sSD8grouping2bySDyxSay7ElementQyd__GGqd__n_xADKXEtKcAERs_STRd__lufCSi_
 
     else
     {
-      outlined init with copy of ConnectionPolicyRoute(__dst, v29);
+      outlined init with copy of ConnectionPolicyRoute(__dst, v28);
       specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v11, 1);
-      v3 = v31;
+      v3 = v30;
       v13 = specialized __RawDictionaryStorage.find<A>(_:)(v6);
       if ((v12 & 1) != (v14 & 1))
       {
@@ -5169,23 +4238,22 @@ LABEL_11:
         *(v20 + 8 * v15) = v21;
         if ((isUniquelyReferenced_nonNull_native & 1) == 0)
         {
-          v24 = *(v21 + 16);
           specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-          v21 = v25;
-          *(v20 + 8 * v15) = v25;
+          v21 = v24;
+          *(v20 + 8 * v15) = v24;
         }
 
         v23 = *(v21 + 16);
         if (v23 >= *(v21 + 24) >> 1)
         {
           specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-          v21 = v26;
-          *(v20 + 8 * v15) = v26;
+          v21 = v25;
+          *(v20 + 8 * v15) = v25;
         }
 
         *(v21 + 16) = v23 + 1;
         memcpy((v21 + 120 * v23 + 32), __dst, 0x72uLL);
-        v4 = v28;
+        v4 = v27;
         goto LABEL_16;
       }
     }
@@ -5222,20 +4290,6 @@ LABEL_21:
   return result;
 }
 
-unint64_t specialized __RawDictionaryStorage.find<A>(_:)(uint64_t a1)
-{
-  v3 = MEMORY[0x223DE2960](*(v1 + 40), a1);
-
-  return specialized __RawDictionaryStorage.find<A>(_:hashValue:)(a1, v3);
-}
-
-{
-  v2 = v1;
-  v4 = AnyHashable._rawHashValue(seed:)(*(v2 + 40));
-
-  return specialized __RawDictionaryStorage.find<A>(_:hashValue:)(a1, v4);
-}
-
 unint64_t specialized __RawDictionaryStorage.find<A>(_:hashValue:)(uint64_t a1, uint64_t a2)
 {
   v3 = ~(-1 << *(v2 + 32));
@@ -5270,10 +4324,12 @@ void *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1)
   }
 
   v3 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSi3key_Say11SiriNetwork21ConnectionPolicyRouteVG5valuet_Tt1g5(*(a1 + 16), 0);
-  v4 = specialized Sequence._copySequenceContents(initializing:)(&v6, v3 + 4, v1, a1);
+  specialized Sequence._copySequenceContents(initializing:)(&v8, v3 + 4, v1, a1);
+  v5 = v4;
+  v6 = v8;
 
-  outlined consume of Set<MessageCenterUser>.Iterator._Variant();
-  if (v4 != v1)
+  outlined consume of Set<MessageCenterUser>.Iterator._Variant(v6);
+  if (v5 != v1)
   {
     __break(1u);
     return MEMORY[0x277D84F90];
@@ -5329,9 +4385,8 @@ LABEL_12:
   return result;
 }
 
-uint64_t specialized Sequence._copySequenceContents(initializing:)(uint64_t result, void *a2, unint64_t a3, uint64_t a4)
+void specialized Sequence._copySequenceContents(initializing:)(void *a1, void *a2, unint64_t a3, uint64_t a4)
 {
-  v5 = result;
   v6 = a4 + 64;
   v7 = -1 << *(a4 + 32);
   if (-v7 < 64)
@@ -5348,17 +4403,15 @@ uint64_t specialized Sequence._copySequenceContents(initializing:)(uint64_t resu
   if (!a2)
   {
     v13 = 0;
-    v10 = 0;
 LABEL_20:
-    *v5 = a4;
-    v5[1] = v6;
-    v5[2] = ~v7;
-    v5[3] = v13;
-    v5[4] = v9;
-    return v10;
+    *a1 = a4;
+    a1[1] = v6;
+    a1[2] = ~v7;
+    a1[3] = v13;
+    a1[4] = v9;
+    return;
   }
 
-  v10 = a3;
   if (!a3)
   {
     v13 = 0;
@@ -5370,7 +4423,7 @@ LABEL_20:
     v11 = a2;
     v12 = 0;
     v13 = 0;
-    while (v12 < v10)
+    while (v12 < a3)
     {
       v14 = v12 + 1;
       if (__OFADD__(v12, 1))
@@ -5391,7 +4444,6 @@ LABEL_20:
           if (v15 >= ((63 - v7) >> 6))
           {
             v9 = 0;
-            v10 = v12;
             goto LABEL_20;
           }
 
@@ -5414,7 +4466,7 @@ LABEL_15:
       v9 &= v9 - 1;
       *v11 = *(*(a4 + 48) + v16);
       v11[1] = v17;
-      if (v14 == v10)
+      if (v14 == a3)
       {
 
         v13 = v15;
@@ -5433,7 +4485,6 @@ LABEL_24:
   }
 
   __break(1u);
-  return result;
 }
 
 Swift::String __swiftcall ConnectionProtocolTechnology.provider()()
@@ -5522,140 +4573,124 @@ void Connection.scheduleBackgroundConnection(_:after:)(void *a1, double a2)
 {
   v4 = v2;
   v7 = type metadata accessor for DispatchWorkItemFlags();
-  v8 = OUTLINED_FUNCTION_0_0(v7);
-  v10 = v9;
-  v12 = *(v11 + 64);
-  MEMORY[0x28223BE20](v8);
+  OUTLINED_FUNCTION_0_0();
+  v9 = v8;
+  MEMORY[0x28223BE20](v10);
   OUTLINED_FUNCTION_7();
-  v13 = type metadata accessor for DispatchQoS();
-  v14 = OUTLINED_FUNCTION_0_0(v13);
-  v16 = *(v15 + 64);
-  MEMORY[0x28223BE20](v14);
+  v11 = type metadata accessor for DispatchQoS();
+  OUTLINED_FUNCTION_0_0();
+  MEMORY[0x28223BE20](v12);
   OUTLINED_FUNCTION_0_1();
-  v20 = v19 - v18;
+  v16 = v15 - v14;
   if (!*&v4[OBJC_IVAR___SNConnectionInternal_activeBackgroundConnection] && (v4[OBJC_IVAR___SNConnectionInternal_isCanceledInternal] & 1) == 0)
   {
-    v21 = a1[56];
-    if (v21 != 1)
+    v17 = a1[56];
+    if (v17 != 1)
     {
-      v40 = v17;
-      v45 = v10;
-      v22 = a1[55];
+      v36 = v13;
+      v40 = v9;
+      v18 = a1[55];
       memcpy(__dst, a1 + 57, sizeof(__dst));
-      v43 = v22;
-      v55[0] = v22;
-      v55[1] = v21;
-      OUTLINED_FUNCTION_57_4(v55);
-      outlined init with copy of ConnectionPolicyRoute(v55, &v49);
+      v38 = v18;
+      v50[0] = v18;
+      v50[1] = v17;
+      OUTLINED_FUNCTION_57_4(v50);
+      outlined init with copy of ConnectionPolicyRoute(v50, &v44);
       if (one-time initialization token for siriNetwork != -1)
       {
         OUTLINED_FUNCTION_0_8();
         swift_once();
       }
 
-      v23 = type metadata accessor for Logger();
-      OUTLINED_FUNCTION_58(v23, static Logger.siriNetwork);
+      v19 = type metadata accessor for Logger();
+      OUTLINED_FUNCTION_58(v19, static Logger.siriNetwork);
 
-      v24 = Logger.logObject.getter();
-      v25 = static os_log_type_t.default.getter();
+      v20 = Logger.logObject.getter();
+      v21 = static os_log_type_t.default.getter();
 
-      v41 = v25;
-      v44 = v21;
-      if (os_log_type_enabled(v24, v25))
+      v37 = v21;
+      v39 = v17;
+      if (os_log_type_enabled(v20, v21))
       {
-        v39 = v24;
+        v35 = v20;
         OUTLINED_FUNCTION_30();
-        v26 = swift_slowAlloc();
+        v22 = swift_slowAlloc();
         OUTLINED_FUNCTION_4_3();
-        v38 = swift_slowAlloc();
-        v48 = v38;
-        *v26 = 134218242;
-        *(v26 + 4) = a2;
-        *(v26 + 12) = 2080;
-        v27 = a1[56];
-        if (v27 == 1)
+        v34 = swift_slowAlloc();
+        v43 = v34;
+        *v22 = 134218242;
+        *(v22 + 4) = a2;
+        *(v22 + 12) = 2080;
+        v23 = a1[56];
+        if (v23 == 1)
         {
-          v28 = 0xE100000000000000;
-          v29 = 45;
+          v24 = 0xE100000000000000;
+          v25 = 45;
         }
 
         else
         {
-          v30 = a1[55];
-          OUTLINED_FUNCTION_57_4(v47);
-          v47[0] = v30;
-          v47[1] = v27;
-          v49 = v30;
-          v50 = v27;
-          OUTLINED_FUNCTION_57_4(&v49);
-          outlined init with copy of ConnectionPolicyRoute(&v49, &v46);
-          v29 = String.init<A>(describing:)();
-          v28 = v31;
+          v26 = a1[55];
+          OUTLINED_FUNCTION_57_4(v42);
+          v42[0] = v26;
+          v42[1] = v23;
+          v44 = v26;
+          v45 = v23;
+          OUTLINED_FUNCTION_57_4(&v44);
+          outlined init with copy of ConnectionPolicyRoute(&v44, &v41);
+          v25 = String.init<A>(describing:)();
+          v24 = v27;
         }
 
-        v32 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v29, v28, &v48);
+        v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v24, &v43);
 
-        *(v26 + 14) = v32;
-        v24 = v39;
-        _os_log_impl(&dword_223515000, v39, v41, "Connection - Start: Background Connection. Scheduling route after delay %f: %s", v26, 0x16u);
-        __swift_destroy_boxed_opaque_existential_0(v38);
+        *(v22 + 14) = v28;
+        v20 = v35;
+        _os_log_impl(&dword_223515000, v35, v37, "Connection - Start: Background Connection. Scheduling route after delay %f: %s", v22, 0x16u);
+        __swift_destroy_boxed_opaque_existential_0(v34);
         OUTLINED_FUNCTION_2_2();
         MEMORY[0x223DE38F0]();
         OUTLINED_FUNCTION_2_2();
         MEMORY[0x223DE38F0]();
       }
 
-      v42 = *&v4[OBJC_IVAR___SNConnectionInternal_connectionQueue];
       OUTLINED_FUNCTION_7_1();
-      v33 = swift_allocObject();
+      v29 = swift_allocObject();
       swift_unknownObjectWeakInit();
-      v34 = swift_allocObject();
-      *(v34 + 16) = v33;
-      *(v34 + 24) = v43;
-      *(v34 + 32) = v44;
-      memcpy((v34 + 40), __dst, 0x62uLL);
-      *(v34 + 144) = a1;
-      *(v34 + 152) = a2;
-      v53 = partial apply for closure #1 in Connection.scheduleBackgroundConnection(_:after:);
-      v54 = v34;
-      v49 = MEMORY[0x277D85DD0];
-      v50 = 1107296256;
+      v30 = swift_allocObject();
+      *(v30 + 16) = v29;
+      *(v30 + 24) = v38;
+      *(v30 + 32) = v39;
+      memcpy((v30 + 40), __dst, 0x62uLL);
+      *(v30 + 144) = a1;
+      *(v30 + 152) = a2;
+      v48 = partial apply for closure #1 in Connection.scheduleBackgroundConnection(_:after:);
+      v49 = v30;
+      v44 = MEMORY[0x277D85DD0];
+      v45 = 1107296256;
       OUTLINED_FUNCTION_3_5();
-      v51 = v35;
-      v52 = &block_descriptor_174;
-      _Block_copy(&v49);
+      v46 = v31;
+      v47 = &block_descriptor_174;
+      _Block_copy(&v44);
       OUTLINED_FUNCTION_53_4();
 
       static DispatchQoS.unspecified.getter();
-      v47[0] = MEMORY[0x277D84F90];
+      v42[0] = MEMORY[0x277D84F90];
       OUTLINED_FUNCTION_1_24();
-      _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_1(v36, v37);
+      _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_1(v32, v33, MEMORY[0x277D851A0]);
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
       lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
       dispatch thunk of SetAlgebra.init<A>(_:)();
-      MEMORY[0x223DE2460](0, v20, v3, v4);
+      MEMORY[0x223DE2460](0, v16, v3, v4);
       _Block_release(v4);
-      (*(v45 + 8))(v3, v7);
-      (*(v40 + 8))(v20, v13);
+      (*(v40 + 8))(v3, v7);
+      (*(v36 + 8))(v16, v11);
     }
   }
 }
 
 uint64_t sub_223532948()
 {
-  v1 = v0[2];
-
-  v2 = v0[4];
-
-  v3 = v0[6];
-
-  v4 = v0[9];
-
-  v5 = v0[11];
-
-  v6 = v0[14];
-
-  v7 = v0[18];
 
   return MEMORY[0x2821FE8E8](v0, 160, 7);
 }
@@ -5683,7 +4718,7 @@ uint64_t NetworkConnectionProvider.openConnectionWithInitialPayload(_:completion
   }
 
   OUTLINED_FUNCTION_96();
-  outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v13);
+  outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v13, v14);
   specialized ConnectionProviderProtocol.cancelOpenTimer()();
   specialized ConnectionProviderProtocol.cancelOpenSlowTimer()();
   specialized ConnectionProviderProtocol.configureNetworkAnalytics()();
@@ -5712,7 +4747,7 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
     swift_once();
   }
 
-  v99 = 0x6E776F6E6B6E75;
+  v97 = 0x6E776F6E6B6E75;
   v6 = type metadata accessor for Logger();
   __swift_project_value_buffer(v6, static Logger.siriNetwork);
 
@@ -5804,9 +4839,9 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
   {
     if ((*(v3 + 138) & 1) == 0)
     {
-      OUTLINED_FUNCTION_95_1(v106);
+      OUTLINED_FUNCTION_95_1(v104);
       OUTLINED_FUNCTION_95_1(__src);
-      outlined init with copy of ConnectionConfiguration(v106, __dst);
+      outlined init with copy of ConnectionConfiguration(v104, __dst);
       v21 = 0;
       goto LABEL_29;
     }
@@ -5821,9 +4856,9 @@ LABEL_30:
   {
     if (proposedFallbackMethod == SiriNetwork_ConnectionMethod_unknown)
     {
-      OUTLINED_FUNCTION_95_1(v106);
+      OUTLINED_FUNCTION_95_1(v104);
       OUTLINED_FUNCTION_95_1(__src);
-      outlined init with copy of ConnectionConfiguration(v106, __dst);
+      outlined init with copy of ConnectionConfiguration(v104, __dst);
       v21 = v20;
 LABEL_29:
       proposedFallbackMethod = ConnectionMethod.nextConnectionMethodSupported(connectionConfiguration:)(__src, v21);
@@ -5884,12 +4919,12 @@ LABEL_36:
   if (proposedFallbackMethod == SiriNetwork_ConnectionMethod_peer && *(v3 + 137) == 1)
   {
     swift_beginAccess();
-    specialized Set._Variant.insert(_:)(v106, 2);
+    specialized Set._Variant.insert(_:)(v104, 2uLL);
     swift_endAccess();
     v33 = *(v3 + 1136);
-    OUTLINED_FUNCTION_95_1(v106);
+    OUTLINED_FUNCTION_95_1(v104);
     OUTLINED_FUNCTION_95_1(__src);
-    outlined init with copy of ConnectionConfiguration(v106, __dst);
+    outlined init with copy of ConnectionConfiguration(v104, __dst);
     LOBYTE(v33) = ConnectionMethod.nextConnectionMethodSupported(connectionConfiguration:)(__src, v33);
     memcpy(__dst, __src, sizeof(__dst));
     outlined destroy of ConnectionConfiguration(__dst);
@@ -5923,13 +4958,13 @@ LABEL_36:
         v40 = 0xE300000000000000;
         v42 = 7368560;
 LABEL_44:
-        v99 = v42;
+        v97 = v42;
         break;
       default:
         break;
     }
 
-    v43 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v99, v40, __dst);
+    v43 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v97, v40, __dst);
 
     *(v38 + 4) = v43;
     _os_log_impl(&dword_223515000, v34, v35, "Background Connection - Start. Selected method: %s.", v38, 0xCu);
@@ -5940,64 +4975,63 @@ LABEL_44:
     MEMORY[0x223DE38F0](v45);
   }
 
-  v46 = *(v3 + 1136);
-  v47 = ConnectionMethod.communicationProtocolClass(for:)(*(v3 + 48));
-  v49 = v48;
-  v50 = swift_allocObject();
-  v51 = *(v3 + 32);
-  v52 = *(v49 + 8);
-  v50[5] = v47;
-  v50[6] = v49;
-  __swift_allocate_boxed_opaque_existential_1(v50 + 2);
-  v53 = v51;
+  v46 = ConnectionMethod.communicationProtocolClass(for:)(*(v3 + 48));
+  v48 = v47;
+  v49 = swift_allocObject();
+  v50 = *(v3 + 32);
+  v51 = *(v48 + 8);
+  v49[5] = v46;
+  v49[6] = v48;
+  __swift_allocate_boxed_opaque_existential_1(v49 + 2);
+  v52 = v50;
 
-  v88 = v53;
-  v52(v3, &protocol witness table for BackgroundConnection);
-  v96 = v50;
-  outlined init with copy of RPCOspreyConnectionProtocol((v50 + 2), __dst);
+  v86 = v52;
+  v51(v3, &protocol witness table for BackgroundConnection);
+  v94 = v49;
+  outlined init with copy of RPCOspreyConnectionProtocol((v49 + 2), __dst);
   swift_beginAccess();
   outlined assign with take of CommunicationProtocol?(__dst, v3 + 1096);
   swift_endAccess();
-  outlined init with copy of MessageCenterBrowserProtocol?(v3 + 1096, v113, &_s11SiriNetwork21CommunicationProtocol_pSgMd, &_s11SiriNetwork21CommunicationProtocol_pSgMR);
-  if (v114)
+  outlined init with copy of MessageCenterBrowserProtocol?(v3 + 1096, v111, &_s11SiriNetwork21CommunicationProtocol_pSgMd, &_s11SiriNetwork21CommunicationProtocol_pSgMR);
+  if (v112)
   {
-    outlined init with copy of RPCOspreyConnectionProtocol(v113, __dst);
-    outlined destroy of NetworkConnectionProtocol?(v113, &_s11SiriNetwork21CommunicationProtocol_pSgMd, &_s11SiriNetwork21CommunicationProtocol_pSgMR);
-    v54 = *&__dst[24];
-    v55 = *&__dst[32];
+    outlined init with copy of RPCOspreyConnectionProtocol(v111, __dst);
+    outlined destroy of NetworkConnectionProtocol?(v111, &_s11SiriNetwork21CommunicationProtocol_pSgMd, &_s11SiriNetwork21CommunicationProtocol_pSgMR);
+    v53 = *&__dst[24];
+    v54 = *&__dst[32];
     __swift_project_boxed_opaque_existential_1(__dst, *&__dst[24]);
-    (*(v55 + 88))(*(v3 + 1136) != 0, v54, v55);
+    (*(v54 + 88))(*(v3 + 1136) != 0, v53, v54);
     __swift_destroy_boxed_opaque_existential_0(__dst);
   }
 
   else
   {
-    outlined destroy of NetworkConnectionProtocol?(v113, &_s11SiriNetwork21CommunicationProtocol_pSgMd, &_s11SiriNetwork21CommunicationProtocol_pSgMR);
+    outlined destroy of NetworkConnectionProtocol?(v111, &_s11SiriNetwork21CommunicationProtocol_pSgMd, &_s11SiriNetwork21CommunicationProtocol_pSgMR);
   }
 
   OUTLINED_FUNCTION_95_1(__dst);
-  memcpy(v111, (v3 + 40), sizeof(v111));
-  v56 = __dst[96];
-  v110[0] = *(v3 + 137);
-  *(v110 + 7) = *(v3 + 144);
-  v109[0] = *(v3 + 153);
-  *(v109 + 15) = *(v3 + 168);
-  memcpy(v108, (v3 + 192), sizeof(v108));
-  v98 = *&__dst[320];
-  v100 = *&__dst[336];
-  v57 = *&__dst[344];
-  v58 = *&__dst[352];
-  v59 = *&__dst[360];
-  v60 = *&__dst[368];
-  v61 = *&__dst[376];
-  v62 = *&__dst[384];
-  v63 = *&__dst[392];
-  memcpy(v107, (v3 + 440), sizeof(v107));
+  memcpy(v109, (v3 + 40), sizeof(v109));
+  v55 = __dst[96];
+  v108[0] = *(v3 + 137);
+  *(v108 + 7) = *(v3 + 144);
+  v107[0] = *(v3 + 153);
+  *(v107 + 15) = *(v3 + 168);
+  memcpy(v106, (v3 + 192), sizeof(v106));
+  v96 = *&__dst[320];
+  v98 = *&__dst[336];
+  v56 = *&__dst[344];
+  v57 = *&__dst[352];
+  v58 = *&__dst[360];
+  v59 = *&__dst[368];
+  v60 = *&__dst[376];
+  v61 = *&__dst[384];
+  v62 = *&__dst[392];
+  memcpy(v105, (v3 + 440), sizeof(v105));
   if (*(v3 + 1136))
   {
-    outlined init with copy of ConnectionConfiguration(__dst, v106);
-    v97 = v60;
-    v64 = v61;
+    outlined init with copy of ConnectionConfiguration(__dst, v104);
+    v95 = v59;
+    v63 = v60;
   }
 
   else
@@ -6012,158 +5046,157 @@ LABEL_44:
     *&__src[56] = *&__dst[376];
     *&__src[64] = *&__dst[384];
     *&__src[72] = *&__dst[392];
-    outlined init with copy of ConnectionConfiguration(__dst, v106);
+    outlined init with copy of ConnectionConfiguration(__dst, v104);
     outlined destroy of NetworkConnectionProtocol?(__src, &_s11SiriNetwork16ConnectionPolicyVSgMd, &_s11SiriNetwork16ConnectionPolicyVSgMR);
-    v98 = 0uLL;
-    v100 = 0;
+    v96 = 0uLL;
+    v98 = 0;
+    v56 = 0;
     v57 = 0;
     v58 = 0;
-    v59 = 0;
-    v97 = 0;
-    v64 = 0;
-    v62 = 0;
+    v95 = 0;
     v63 = 0;
+    v61 = 0;
+    v62 = 0;
   }
 
   if (__dst[98])
   {
-    v65 = v56;
+    v64 = v55;
   }
 
   else
   {
-    v65 = 1;
+    v64 = 1;
   }
 
-  v66 = *(v3 + 1136) == 3;
-  v89 = ConnectionMethod.providerClass(for:)(*__dst);
-  v87 = v67;
-  memcpy(v106, v111, 0x60uLL);
-  v91 = v65;
-  v92 = v66;
-  v106[96] = v65;
-  *&v106[97] = v110[0];
-  *&v106[104] = *(v110 + 7);
-  v106[112] = v66;
-  *&v106[113] = v109[0];
-  *&v106[128] = *(v109 + 15);
-  *&v106[144] = 0x4056800000000000;
-  memcpy(&v106[152], v108, 0xA8uLL);
-  *&v106[320] = v98;
-  *&v106[336] = v100;
-  v93 = v57;
-  *&v94 = v58;
-  *&v106[344] = v57;
-  *&v106[352] = v58;
-  *(&v94 + 1) = v59;
-  v95 = v64;
-  *&v106[360] = v59;
-  *&v106[368] = v97;
-  *&v106[376] = v64;
-  *&v106[384] = v62;
-  v90 = v63;
-  *&v106[392] = v63;
-  memcpy(&v106[400], v107, 0x74uLL);
-  memcpy(__src, v106, sizeof(__src));
-  v68 = *(v3 + 1144);
-  v69 = *(v3 + 1176);
-  v70 = *(v87 + 448);
-  outlined init with copy of ConnectionConfiguration(v106, v102);
-  v71 = v68;
-  v72 = v70(__src, v88, v68, v69, v89, v87);
-  v73 = *(v3 + 1080);
-  *(v3 + 1080) = v72;
-  *(v3 + 1088) = v87;
+  v65 = *(v3 + 1136) == 3;
+  v87 = ConnectionMethod.providerClass(for:)(*__dst);
+  v85 = v66;
+  memcpy(v104, v109, 0x60uLL);
+  v89 = v64;
+  v90 = v65;
+  v104[96] = v64;
+  *&v104[97] = v108[0];
+  *&v104[104] = *(v108 + 7);
+  v104[112] = v65;
+  *&v104[113] = v107[0];
+  *&v104[128] = *(v107 + 15);
+  *&v104[144] = 0x4056800000000000;
+  memcpy(&v104[152], v106, 0xA8uLL);
+  *&v104[320] = v96;
+  *&v104[336] = v98;
+  v91 = v56;
+  *&v92 = v57;
+  *&v104[344] = v56;
+  *&v104[352] = v57;
+  *(&v92 + 1) = v58;
+  v93 = v63;
+  *&v104[360] = v58;
+  *&v104[368] = v95;
+  *&v104[376] = v63;
+  *&v104[384] = v61;
+  v88 = v62;
+  *&v104[392] = v62;
+  memcpy(&v104[400], v105, 0x74uLL);
+  memcpy(__src, v104, sizeof(__src));
+  v67 = *(v3 + 1144);
+  v68 = *(v3 + 1176);
+  v69 = *(v85 + 448);
+  outlined init with copy of ConnectionConfiguration(v104, v100);
+  v70 = v67;
+  v71 = v69(__src, v86, v67, v68, v87, v85);
+  *(v3 + 1080) = v71;
+  *(v3 + 1088) = v85;
   swift_unknownObjectRetain();
   swift_unknownObjectRelease();
-  v101 = 0;
+  v99 = 0;
   outlined init with copy of MessageCenterBrowserProtocol?(v3 + 1096, __src, &_s11SiriNetwork21CommunicationProtocol_pSgMd, &_s11SiriNetwork21CommunicationProtocol_pSgMR);
   if (*&__src[24])
   {
-    v74 = v106[113];
-    outlined init with copy of RPCOspreyConnectionProtocol(__src, v102);
+    v72 = v104[113];
+    outlined init with copy of RPCOspreyConnectionProtocol(__src, v100);
     outlined destroy of NetworkConnectionProtocol?(__src, &_s11SiriNetwork21CommunicationProtocol_pSgMd, &_s11SiriNetwork21CommunicationProtocol_pSgMR);
-    v75 = v103;
-    v76 = v104;
-    __swift_project_boxed_opaque_existential_1(v102, v103);
-    v77 = (*(v76 + 96))(&v101, v74, v75, v76);
-    __swift_destroy_boxed_opaque_existential_0(v102);
+    v73 = v101;
+    v74 = v102;
+    __swift_project_boxed_opaque_existential_1(v100, v101);
+    v75 = (*(v74 + 96))(&v99, v72, v73, v74);
+    __swift_destroy_boxed_opaque_existential_0(v100);
   }
 
   else
   {
     outlined destroy of NetworkConnectionProtocol?(__src, &_s11SiriNetwork21CommunicationProtocol_pSgMd, &_s11SiriNetwork21CommunicationProtocol_pSgMR);
-    v77 = 0;
+    v75 = 0;
   }
 
-  v78 = *(v87 + 128);
-  v79 = swift_unknownObjectRetain();
-  v78(v79, &protocol witness table for BackgroundConnection, v89, v87);
+  v76 = *(v85 + 128);
+  v77 = swift_unknownObjectRetain();
+  v76(v77, &protocol witness table for BackgroundConnection, v87, v85);
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v81 = Strong;
-    (*(v87 + 168))(__src, v89, v87);
-    specialized Connection.willStartConnection(_:type:)(v3, __src[0], v81);
+    v79 = Strong;
+    (*(v85 + 168))(__src, v87, v85);
+    specialized Connection.willStartConnection(_:type:)(v3, __src[0], v79);
     swift_unknownObjectRelease();
   }
 
   OUTLINED_FUNCTION_7_1();
-  v82 = swift_allocObject();
+  v80 = swift_allocObject();
   swift_weakInit();
-  memcpy(v115, v111, 0x60uLL);
-  LOBYTE(v115[6]) = v65;
-  *(&v115[6] + 1) = v110[0];
-  *(&v115[6] + 1) = *(v110 + 7);
-  LOBYTE(v115[7]) = v92;
-  *(&v115[7] + 1) = v109[0];
-  v115[8] = *(v109 + 15);
-  *&v115[9] = 0x4056800000000000;
-  memcpy(&v115[9] + 8, v108, 0xA8uLL);
-  v115[20] = v98;
-  *&v115[21] = v100;
-  *(&v115[21] + 1) = v93;
-  v115[22] = v94;
-  *&v115[23] = v97;
-  *(&v115[23] + 1) = v95;
-  *&v115[24] = v62;
-  *(&v115[24] + 1) = v90;
-  memcpy(&v115[25], v107, 0x74uLL);
-  v83 = v101;
-  v84 = swift_allocObject();
-  v84[2] = v82;
-  v84[3] = v72;
-  v84[4] = v87;
-  v84[5] = v96;
-  memcpy(v84 + 6, v115, 0x204uLL);
-  v84[71] = v77;
-  v84[72] = v83;
-  v85 = *(v87 + 456);
-  v86 = v77;
+  memcpy(v113, v109, 0x60uLL);
+  LOBYTE(v113[6]) = v64;
+  *(&v113[6] + 1) = v108[0];
+  *(&v113[6] + 1) = *(v108 + 7);
+  LOBYTE(v113[7]) = v90;
+  *(&v113[7] + 1) = v107[0];
+  v113[8] = *(v107 + 15);
+  *&v113[9] = 0x4056800000000000;
+  memcpy(&v113[9] + 8, v106, 0xA8uLL);
+  v113[20] = v96;
+  *&v113[21] = v98;
+  *(&v113[21] + 1) = v91;
+  v113[22] = v92;
+  *&v113[23] = v95;
+  *(&v113[23] + 1) = v93;
+  *&v113[24] = v61;
+  *(&v113[24] + 1) = v88;
+  memcpy(&v113[25], v105, 0x74uLL);
+  v81 = v99;
+  v82 = swift_allocObject();
+  v82[2] = v80;
+  v82[3] = v71;
+  v82[4] = v85;
+  v82[5] = v94;
+  memcpy(v82 + 6, v113, 0x204uLL);
+  v82[71] = v75;
+  v82[72] = v81;
+  v83 = *(v85 + 456);
+  v84 = v75;
   swift_unknownObjectRetain_n();
 
-  outlined init with copy of ConnectionConfiguration(v115, __src);
-  v85(v77, partial apply for specialized closure #2 in BackgroundConnection.start(proposedFallbackMethod:allowFallbackToNewMethod:), v84, v89, v87);
+  outlined init with copy of ConnectionConfiguration(v113, __src);
+  v83(v75, partial apply for specialized closure #2 in BackgroundConnection.start(proposedFallbackMethod:allowFallbackToNewMethod:), v82, v87, v85);
 
   swift_unknownObjectRelease_n();
-  memcpy(__src, v111, 0x60uLL);
-  __src[96] = v91;
-  *&__src[97] = v110[0];
-  *&__src[104] = *(v110 + 7);
-  __src[112] = v92;
-  *&__src[113] = v109[0];
-  *&__src[128] = *(v109 + 15);
+  memcpy(__src, v109, 0x60uLL);
+  __src[96] = v89;
+  *&__src[97] = v108[0];
+  *&__src[104] = *(v108 + 7);
+  __src[112] = v90;
+  *&__src[113] = v107[0];
+  *&__src[128] = *(v107 + 15);
   *&__src[144] = 0x4056800000000000;
-  memcpy(&__src[152], v108, 0xA8uLL);
-  *&__src[320] = v98;
-  *&__src[336] = v100;
-  *&__src[344] = v93;
-  *&__src[352] = v94;
-  *&__src[368] = v97;
-  *&__src[376] = v95;
-  *&__src[384] = v62;
-  *&__src[392] = v90;
-  memcpy(&__src[400], v107, 0x74uLL);
+  memcpy(&__src[152], v106, 0xA8uLL);
+  *&__src[320] = v96;
+  *&__src[336] = v98;
+  *&__src[344] = v91;
+  *&__src[352] = v92;
+  *&__src[368] = v95;
+  *&__src[376] = v93;
+  *&__src[384] = v61;
+  *&__src[392] = v88;
+  memcpy(&__src[400], v105, 0x74uLL);
   outlined destroy of ConnectionConfiguration(__src);
 }
 
@@ -6184,45 +5217,15 @@ uint64_t sub_223533960()
 
 uint64_t sub_223533998()
 {
-  v1 = *(v0 + 16);
 
-  v2 = *(v0 + 24);
   swift_unknownObjectRelease();
-  v3 = *(v0 + 40);
-
-  v4 = *(v0 + 72);
-
-  v5 = *(v0 + 88);
-
-  v6 = *(v0 + 104);
-
-  v7 = *(v0 + 120);
-
-  v8 = *(v0 + 136);
-
-  v9 = *(v0 + 208);
-
-  v10 = *(v0 + 224);
-
-  v11 = *(v0 + 240);
 
   if (*(v0 + 440))
   {
-    v12 = *(v0 + 376);
-
-    v13 = *(v0 + 440);
   }
 
   if (*(v0 + 456) != 1)
   {
-
-    v14 = *(v0 + 472);
-
-    v15 = *(v0 + 496);
-
-    v16 = *(v0 + 512);
-
-    v17 = *(v0 + 536);
   }
 
   return MEMORY[0x2821FE8E8](v0, 584, 7);
@@ -6310,36 +5313,35 @@ uint64_t ConnectionPolicyRoute.routeHost.getter()
   if (v0[6])
   {
     v3 = v0[5];
-    v4 = v0[6];
 
     if (AFIsInternalInstall())
     {
       return v3;
     }
 
-    v5._countAndFlagsBits = OUTLINED_FUNCTION_4_24();
-    if (String.hasSuffix(_:)(v5))
+    v4._countAndFlagsBits = OUTLINED_FUNCTION_4_24();
+    if (String.hasSuffix(_:)(v4))
     {
       return v3;
     }
 
-    v6._countAndFlagsBits = OUTLINED_FUNCTION_2_28();
-    if (String.hasPrefix(_:)(v6))
+    v5._countAndFlagsBits = OUTLINED_FUNCTION_2_28();
+    if (String.hasPrefix(_:)(v5))
     {
       return v3;
     }
   }
 
-  if (!v2 || (, (AFIsInternalInstall() & 1) != 0) || (v7._countAndFlagsBits = OUTLINED_FUNCTION_4_24(), String.hasSuffix(_:)(v7)))
+  if (!v2 || (, (AFIsInternalInstall() & 1) != 0) || (v6._countAndFlagsBits = OUTLINED_FUNCTION_4_24(), String.hasSuffix(_:)(v6)))
   {
   }
 
   else
   {
-    v9._countAndFlagsBits = OUTLINED_FUNCTION_2_28();
-    v10 = String.hasPrefix(_:)(v9);
+    v8._countAndFlagsBits = OUTLINED_FUNCTION_2_28();
+    v9 = String.hasPrefix(_:)(v8);
 
-    if (!v10)
+    if (!v9)
     {
 
       return 0;
@@ -6349,48 +5351,45 @@ uint64_t ConnectionPolicyRoute.routeHost.getter()
   return v1;
 }
 
-uint64_t closure #1 in Connection.scheduleBackgroundConnection(_:after:)(uint64_t a1, void *a2, uint64_t a3, double a4)
+char *closure #1 in Connection.scheduleBackgroundConnection(_:after:)(uint64_t a1, void *a2, uint64_t a3, double a4)
 {
   v8 = type metadata accessor for DispatchWorkItemFlags();
-  v51 = *(v8 - 8);
-  v52 = v8;
-  v9 = *(v51 + 64);
+  v48 = *(v8 - 8);
+  v49 = v8;
   MEMORY[0x28223BE20](v8);
-  v11 = &v42 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = type metadata accessor for DispatchQoS();
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 8);
-  MEMORY[0x28223BE20](v12);
-  v16 = &v42 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = type metadata accessor for DispatchTime();
-  v50 = *(v17 - 8);
-  v18 = *(v50 + 64);
-  v19 = MEMORY[0x28223BE20](v17);
-  v49 = &v42 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v19);
-  v53 = &v42 - v21;
+  v10 = &v39 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = type metadata accessor for DispatchQoS();
+  v12 = *(v11 - 8);
+  MEMORY[0x28223BE20](v11);
+  v14 = &v39 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = type metadata accessor for DispatchTime();
+  v47 = *(v15 - 8);
+  v16 = MEMORY[0x28223BE20](v15);
+  v46 = &v39 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v16);
+  v50 = &v39 - v18;
   swift_beginAccess();
   result = swift_unknownObjectWeakLoadStrong();
   if (result)
   {
-    v23 = result;
-    v46 = v11;
-    v47 = v12;
+    v20 = result;
+    v43 = v10;
+    v44 = v11;
     swift_beginAccess();
-    outlined init with copy of ConnectionPolicyRoute(a2, v55);
+    outlined init with copy of ConnectionPolicyRoute(a2, v52);
     specialized Set._Variant.insert(_:)();
-    memcpy(v56, v55, 0x72uLL);
+    memcpy(v53, v52, 0x72uLL);
     swift_endAccess();
-    outlined destroy of ConnectionPolicyRoute(v56);
+    outlined destroy of ConnectionPolicyRoute(v53);
     swift_beginAccess();
 
     specialized Set._Variant.insert(_:)();
     swift_endAccess();
 
     swift_beginAccess();
-    outlined init with copy of ConnectionPolicyRoute(a2, v55);
+    outlined init with copy of ConnectionPolicyRoute(a2, v52);
     specialized Set._Variant.insert(_:)();
-    memcpy(__dst, v55, 0x72uLL);
+    memcpy(__dst, v52, 0x72uLL);
     swift_endAccess();
     outlined destroy of ConnectionPolicyRoute(__dst);
     if (one-time initialization token for siriNetwork != -1)
@@ -6398,106 +5397,106 @@ uint64_t closure #1 in Connection.scheduleBackgroundConnection(_:after:)(uint64_
       swift_once();
     }
 
-    v24 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v24, static Logger.siriNetwork);
-    outlined init with copy of ConnectionPolicyRoute(a2, v55);
-    v25 = Logger.logObject.getter();
-    v26 = static os_log_type_t.default.getter();
+    v21 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v21, static Logger.siriNetwork);
+    outlined init with copy of ConnectionPolicyRoute(a2, v52);
+    v22 = Logger.logObject.getter();
+    v23 = static os_log_type_t.default.getter();
     outlined destroy of ConnectionPolicyRoute(a2);
-    v27 = os_log_type_enabled(v25, v26);
-    v48 = v17;
-    if (v27)
+    v24 = os_log_type_enabled(v22, v23);
+    v45 = v15;
+    if (v24)
     {
-      v43 = a3;
-      v44 = v16;
-      v45 = v13;
-      v28 = swift_slowAlloc();
-      v29 = swift_slowAlloc();
-      v54 = v29;
-      *v28 = 136315138;
-      v30 = a2[1];
-      if (v30)
+      v40 = a3;
+      v41 = v14;
+      v42 = v12;
+      v25 = swift_slowAlloc();
+      v26 = swift_slowAlloc();
+      v51[0] = v26;
+      *v25 = 136315138;
+      v27 = a2[1];
+      if (v27)
       {
-        v55[0] = *a2;
-        v55[1] = v30;
+        v52[0] = *a2;
+        v52[1] = v27;
 
-        v31 = String.init<A>(describing:)();
-        v33 = v32;
+        v28 = String.init<A>(describing:)();
+        v30 = v29;
       }
 
       else
       {
-        v33 = 0xE700000000000000;
-        v31 = 0x6E776F6E6B6E75;
+        v30 = 0xE700000000000000;
+        v28 = 0x6E776F6E6B6E75;
       }
 
-      v34 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v31, v33, &v54);
+      v31 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v28, v30, v51);
 
-      *(v28 + 4) = v34;
-      _os_log_impl(&dword_223515000, v25, v26, "Connection - Start: Background Connection. Scheduled route %s", v28, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v29);
-      MEMORY[0x223DE38F0](v29, -1, -1);
-      MEMORY[0x223DE38F0](v28, -1, -1);
+      *(v25 + 4) = v31;
+      _os_log_impl(&dword_223515000, v22, v23, "Connection - Start: Background Connection. Scheduled route %s", v25, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v26);
+      MEMORY[0x223DE38F0](v26, -1, -1);
+      MEMORY[0x223DE38F0](v25, -1, -1);
 
-      v16 = v44;
-      v13 = v45;
-      v17 = v48;
-      a3 = v43;
+      v14 = v41;
+      v12 = v42;
+      v15 = v45;
+      a3 = v40;
     }
 
     else
     {
     }
 
-    v35 = swift_allocObject();
-    v35[2] = v23;
-    memcpy(v35 + 3, a2, 0x72uLL);
-    v35[18] = a3;
-    v35[19] = a1;
+    v32 = swift_allocObject();
+    v32[2] = v20;
+    memcpy(v32 + 3, a2, 0x72uLL);
+    v32[18] = a3;
+    v32[19] = a1;
     if (a4 <= 0.0)
     {
-      outlined init with copy of ConnectionPolicyRoute(a2, v55);
+      outlined init with copy of ConnectionPolicyRoute(a2, v52);
 
-      v41 = v23;
+      v38 = v20;
 
-      closure #1 in closure #1 in Connection.scheduleBackgroundConnection(_:after:)(v41, a2, a3);
+      closure #1 in closure #1 in Connection.scheduleBackgroundConnection(_:after:)(v38, a2, a3, a1);
     }
 
     else
     {
-      v44 = *&v23[OBJC_IVAR___SNConnectionInternal_connectionQueue];
-      outlined init with copy of ConnectionPolicyRoute(a2, v55);
+      v41 = *&v20[OBJC_IVAR___SNConnectionInternal_connectionQueue];
+      outlined init with copy of ConnectionPolicyRoute(a2, v52);
 
-      v45 = v23;
+      v42 = v20;
 
-      v36 = v49;
+      v33 = v46;
       static DispatchTime.now()();
       + infix(_:_:)();
-      v50 = *(v50 + 8);
-      (v50)(v36, v17);
-      v55[4] = partial apply for closure #1 in closure #1 in Connection.scheduleBackgroundConnection(_:after:);
-      v55[5] = v35;
-      v55[0] = MEMORY[0x277D85DD0];
-      v55[1] = 1107296256;
-      v55[2] = thunk for @escaping @callee_guaranteed @Sendable () -> ();
-      v55[3] = &block_descriptor_180;
-      v37 = _Block_copy(v55);
+      v47 = *(v47 + 8);
+      (v47)(v33, v15);
+      v52[4] = partial apply for closure #1 in closure #1 in Connection.scheduleBackgroundConnection(_:after:);
+      v52[5] = v32;
+      v52[0] = MEMORY[0x277D85DD0];
+      v52[1] = 1107296256;
+      v52[2] = thunk for @escaping @callee_guaranteed @Sendable () -> ();
+      v52[3] = &block_descriptor_180;
+      v34 = _Block_copy(v52);
 
       static DispatchQoS.unspecified.getter();
-      v54 = MEMORY[0x277D84F90];
-      _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_1(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
+      v51[0] = MEMORY[0x277D84F90];
+      _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_1(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
       lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
-      v38 = v46;
-      v39 = v52;
+      v35 = v43;
+      v36 = v49;
       dispatch thunk of SetAlgebra.init<A>(_:)();
-      v40 = v53;
-      MEMORY[0x223DE2440](v53, v16, v38, v37);
-      _Block_release(v37);
+      v37 = v50;
+      MEMORY[0x223DE2440](v50, v14, v35, v34);
+      _Block_release(v34);
 
-      (*(v51 + 8))(v38, v39);
-      (*(v13 + 1))(v16, v47);
-      (v50)(v40, v48);
+      (*(v48 + 8))(v35, v36);
+      (*(v12 + 1))(v14, v44);
+      (v47)(v37, v45);
     }
   }
 
@@ -6506,19 +5505,6 @@ uint64_t closure #1 in Connection.scheduleBackgroundConnection(_:after:)(uint64_
 
 uint64_t sub_22353433C()
 {
-  v1 = *(v0 + 32);
-
-  v2 = *(v0 + 48);
-
-  v3 = *(v0 + 72);
-
-  v4 = *(v0 + 88);
-
-  v5 = *(v0 + 112);
-
-  v6 = *(v0 + 144);
-
-  v7 = *(v0 + 152);
 
   return MEMORY[0x2821FE8E8](v0, 160, 7);
 }
@@ -6534,39 +5520,34 @@ void ConnectionConfiguration.hash(into:)(void *a1)
   v3 = *(v1 + 8);
   v4 = *(v1 + 24);
   v5 = *(v1 + 40);
-  v26 = *(v1 + 16);
-  v27 = *(v1 + 32);
   v6 = *(v1 + 56);
-  v30 = *(v1 + 48);
-  v31 = *(v1 + 72);
-  v28 = *(v1 + 64);
-  v29 = *(v1 + 80);
-  v32 = *(v1 + 88);
-  v33 = *(v1 + 96);
-  v34 = *(v1 + 97);
-  v35 = *(v1 + 98);
-  v36 = *(v1 + 113);
-  v37 = *(v1 + 114);
-  v38 = *(v1 + 128);
+  v26 = *(v1 + 72);
+  v27 = *(v1 + 88);
+  v28 = *(v1 + 96);
+  v29 = *(v1 + 97);
+  v30 = *(v1 + 98);
+  v31 = *(v1 + 113);
+  v32 = *(v1 + 114);
+  v33 = *(v1 + 128);
   v18 = *(v1 + 120);
   v19 = *(v1 + 208);
-  v39 = *(v1 + 201);
-  v40 = *(v1 + 216);
+  v34 = *(v1 + 201);
+  v35 = *(v1 + 216);
   v20 = *(v1 + 224);
   v21 = *(v1 + 240);
-  v41 = *(v1 + 232);
-  v42 = *(v1 + 248);
+  v36 = *(v1 + 232);
+  v37 = *(v1 + 248);
   v22 = *(v1 + 256);
   v23 = *(v1 + 272);
-  v43 = *(v1 + 264);
-  v44 = *(v1 + 280);
-  v45 = *(v1 + 312);
-  v46 = *(v1 + 313);
+  v38 = *(v1 + 264);
+  v39 = *(v1 + 280);
+  v40 = *(v1 + 312);
+  v41 = *(v1 + 313);
   v7 = *(v1 + 392);
   v24 = *(v1 + 304);
   v25 = *(v1 + 400);
   v8 = *(v1 + 408);
-  v47 = *(v1 + 416);
+  v42 = *(v1 + 416);
   v9 = *(v1 + 424);
   MEMORY[0x223DE2980](*v1);
   MEMORY[0x223DE2980](v3);
@@ -6596,18 +5577,18 @@ void ConnectionConfiguration.hash(into:)(void *a1)
   if (v8 != 1 && v9)
   {
 
-    v11 = v32;
+    v11 = v27;
     goto LABEL_11;
   }
 
-  v11 = v32;
+  v11 = v27;
   if (v6)
   {
 LABEL_11:
     OUTLINED_FUNCTION_1_11();
     String.hash(into:)();
 
-    if (v31)
+    if (v26)
     {
       goto LABEL_12;
     }
@@ -6623,7 +5604,7 @@ LABEL_15:
   }
 
   OUTLINED_FUNCTION_2_8();
-  if (!v31)
+  if (!v26)
   {
     goto LABEL_15;
   }
@@ -6642,12 +5623,12 @@ LABEL_13:
 LABEL_16:
   OUTLINED_FUNCTION_2_8();
 LABEL_17:
-  Hasher._combine(_:)(v33);
-  Hasher._combine(_:)(v34);
-  Hasher._combine(_:)(v35);
-  Hasher._combine(_:)(v36);
-  Hasher._combine(_:)(v37);
-  if (v38)
+  Hasher._combine(_:)(v28);
+  Hasher._combine(_:)(v29);
+  Hasher._combine(_:)(v30);
+  Hasher._combine(_:)(v31);
+  Hasher._combine(_:)(v32);
+  if (v33)
   {
     OUTLINED_FUNCTION_2_8();
   }
@@ -6659,8 +5640,8 @@ LABEL_17:
     MEMORY[0x223DE29A0](v12);
   }
 
-  Hasher._combine(_:)(v39);
-  if (v40)
+  Hasher._combine(_:)(v34);
+  if (v35)
   {
     OUTLINED_FUNCTION_2_8();
   }
@@ -6672,7 +5653,7 @@ LABEL_17:
     MEMORY[0x223DE29A0](v13);
   }
 
-  if (v41)
+  if (v36)
   {
     OUTLINED_FUNCTION_2_8();
   }
@@ -6684,7 +5665,7 @@ LABEL_17:
     MEMORY[0x223DE29A0](v14);
   }
 
-  if (v42)
+  if (v37)
   {
     OUTLINED_FUNCTION_2_8();
   }
@@ -6695,7 +5676,7 @@ LABEL_17:
     MEMORY[0x223DE2980](v21);
   }
 
-  if (v43)
+  if (v38)
   {
     OUTLINED_FUNCTION_2_8();
   }
@@ -6707,7 +5688,7 @@ LABEL_17:
     MEMORY[0x223DE29A0](v15);
   }
 
-  if (v44)
+  if (v39)
   {
     OUTLINED_FUNCTION_2_8();
   }
@@ -6719,7 +5700,7 @@ LABEL_17:
     MEMORY[0x223DE29A0](v16);
   }
 
-  if (v45)
+  if (v40)
   {
     OUTLINED_FUNCTION_2_8();
   }
@@ -6731,18 +5712,18 @@ LABEL_17:
     MEMORY[0x223DE29A0](v17);
   }
 
-  Hasher._combine(_:)(v46);
+  Hasher._combine(_:)(v41);
   if (v7)
   {
     memcpy(__dst, (v1 + 320), 0x48uLL);
     __dst[9] = v7;
     OUTLINED_FUNCTION_1_11();
-    memcpy(v49, (v1 + 320), 0x48uLL);
-    v49[9] = v7;
-    outlined init with copy of ConnectionPolicy(v49, v50);
+    memcpy(v44, (v1 + 320), 0x48uLL);
+    v44[9] = v7;
+    outlined init with copy of ConnectionPolicy(v44, v45);
     ConnectionPolicy.hash(into:)(a1);
-    memcpy(v50, __dst, 0x50uLL);
-    outlined destroy of ConnectionPolicy(v50);
+    memcpy(v45, __dst, 0x50uLL);
+    outlined destroy of ConnectionPolicy(v45);
   }
 
   else
@@ -6760,22 +5741,22 @@ LABEL_17:
     memcpy(&__dst[4], (v1 + 432), 0x52uLL);
     __dst[0] = v25;
     __dst[1] = v10;
-    __dst[2] = v47;
+    __dst[2] = v42;
     __dst[3] = v9;
     OUTLINED_FUNCTION_1_11();
-    v49[0] = v25;
-    v49[1] = v10;
-    v49[2] = v47;
-    v49[3] = v9;
-    memcpy(&v49[4], (v1 + 432), 0x52uLL);
-    outlined init with copy of ConnectionPolicyRoute(v49, v50);
-    ConnectionPolicyRoute.hash(into:)();
-    memcpy(v50, __dst, 0x72uLL);
-    outlined destroy of ConnectionPolicyRoute(v50);
+    v44[0] = v25;
+    v44[1] = v10;
+    v44[2] = v42;
+    v44[3] = v9;
+    memcpy(&v44[4], (v1 + 432), 0x52uLL);
+    outlined init with copy of ConnectionPolicyRoute(v44, v45);
+    ConnectionPolicyRoute.hash(into:)(a1);
+    memcpy(v45, __dst, 0x72uLL);
+    outlined destroy of ConnectionPolicyRoute(v45);
   }
 }
 
-uint64_t ConnectionPolicy.hash(into:)(void *a1)
+void ConnectionPolicy.hash(into:)(void *a1)
 {
   v2 = v1;
   v4 = *(v2 + 16);
@@ -6784,34 +5765,16 @@ uint64_t ConnectionPolicy.hash(into:)(void *a1)
   v7 = *(v2 + 19);
   v8 = *(v2 + 20);
   v9 = *(v2 + 21);
-  v10 = v2[3];
+  v10 = *(v2 + 24);
   v11 = *(v2 + 32);
-  v12 = v2[5];
-  v25 = v12;
-  v26 = v2[7];
-  v27 = *(v2 + 48);
-  v28 = *(v2 + 64);
-  v29 = v2[9];
-  if (v2[1])
+  v14 = *(v2 + 40);
+  v15 = *(v2 + 56);
+  v16 = *(v2 + 48);
+  v17 = *(v2 + 64);
+  v18 = *(v2 + 72);
+  if (*(v2 + 8))
   {
-    v24 = *(v2 + 16);
-    v13 = *(v2 + 17);
-    v14 = *(v2 + 18);
-    v15 = *(v2 + 19);
-    v16 = *(v2 + 20);
-    v17 = *(v2 + 21);
-    v18 = *(v2 + 32);
-    v19 = v2[3];
-    v20 = *v2;
     Hasher._combine(_:)(1u);
-    v10 = v19;
-    v11 = v18;
-    v9 = v17;
-    v8 = v16;
-    v7 = v15;
-    v6 = v14;
-    v5 = v13;
-    v4 = v24;
     String.hash(into:)();
   }
 
@@ -6836,18 +5799,18 @@ uint64_t ConnectionPolicy.hash(into:)(void *a1)
     Hasher._combine(_:)(1u);
     if ((v10 & 0x7FFFFFFFFFFFFFFFLL) != 0)
     {
-      v21 = v10;
+      v12 = v10;
     }
 
     else
     {
-      v21 = 0;
+      v12 = 0;
     }
 
-    MEMORY[0x223DE29A0](v21);
+    MEMORY[0x223DE29A0](v12);
   }
 
-  if (v27)
+  if (v16)
   {
     Hasher._combine(_:)(0);
   }
@@ -6855,10 +5818,10 @@ uint64_t ConnectionPolicy.hash(into:)(void *a1)
   else
   {
     Hasher._combine(_:)(1u);
-    MEMORY[0x223DE2980](v25);
+    MEMORY[0x223DE2980](v14);
   }
 
-  if (v28)
+  if (v17)
   {
     Hasher._combine(_:)(0);
   }
@@ -6866,23 +5829,23 @@ uint64_t ConnectionPolicy.hash(into:)(void *a1)
   else
   {
     Hasher._combine(_:)(1u);
-    if ((v26 & 0x7FFFFFFFFFFFFFFFLL) != 0)
+    if ((v15 & 0x7FFFFFFFFFFFFFFFLL) != 0)
     {
-      v22 = v26;
+      v13 = v15;
     }
 
     else
     {
-      v22 = 0;
+      v13 = 0;
     }
 
-    MEMORY[0x223DE29A0](v22);
+    MEMORY[0x223DE29A0](v13);
   }
 
-  return specialized Set.hash(into:)(a1, v29);
+  specialized Set.hash(into:)(a1, v18);
 }
 
-uint64_t specialized Set.hash(into:)(void *__src, uint64_t a2)
+void specialized Set.hash(into:)(void *__src, uint64_t a2)
 {
   memcpy(__dst, __src, sizeof(__dst));
   Hasher._finalize()();
@@ -6896,137 +5859,135 @@ uint64_t specialized Set.hash(into:)(void *__src, uint64_t a2)
   v5 = v4 & *(a2 + 56);
   v6 = (v3 + 63) >> 6;
 
-  v8 = 0;
-  for (i = 0; v5; v8 ^= v13)
+  v7 = 0;
+  for (i = 0; v5; v7 ^= v12)
   {
-    v10 = i;
+    v9 = i;
 LABEL_9:
-    v11 = __clz(__rbit64(v5));
+    v10 = __clz(__rbit64(v5));
     v5 &= v5 - 1;
-    v12 = (*(a2 + 48) + 120 * (v11 | (v10 << 6)));
-    memcpy(v16, v12, 0x72uLL);
-    memcpy(v15, v12, sizeof(v15));
+    v11 = (*(a2 + 48) + 120 * (v10 | (v9 << 6)));
+    memcpy(v16, v11, 0x72uLL);
+    memcpy(v15, v11, sizeof(v15));
     Hasher.init(_seed:)();
-    outlined init with copy of ConnectionPolicyRoute(v16, &v14);
-    ConnectionPolicyRoute.hash(into:)();
-    v13 = Hasher._finalize()();
-    result = outlined destroy of ConnectionPolicyRoute(v16);
+    outlined init with copy of ConnectionPolicyRoute(v16, &v13);
+    ConnectionPolicyRoute.hash(into:)(v14);
+    v12 = Hasher._finalize()();
+    outlined destroy of ConnectionPolicyRoute(v16);
   }
 
   while (1)
   {
-    v10 = i + 1;
+    v9 = i + 1;
     if (__OFADD__(i, 1))
     {
       break;
     }
 
-    if (v10 >= v6)
+    if (v9 >= v6)
     {
 
-      return MEMORY[0x223DE2980](v8);
+      MEMORY[0x223DE2980](v7);
+      return;
     }
 
-    v5 = *(a2 + 56 + 8 * v10);
+    v5 = *(a2 + 56 + 8 * v9);
     ++i;
     if (v5)
     {
-      i = v10;
+      i = v9;
       goto LABEL_9;
     }
   }
 
   __break(1u);
-  return result;
 }
 
-BOOL static ConnectionPolicyRoute.== infix(_:_:)(uint64_t a1, uint64_t a2)
+BOOL static ConnectionPolicyRoute.== infix(_:_:)(double *a1, uint64_t a2)
 {
-  v3 = *(a1 + 8);
-  v4 = *(a1 + 16);
-  v6 = *(a1 + 24);
-  v5 = *(a1 + 32);
-  v7 = *(a1 + 40);
-  v8 = *(a1 + 48);
-  v9 = *(a1 + 56);
-  v10 = *(a1 + 64);
+  v3 = *(a1 + 1);
+  v4 = *(a1 + 2);
+  v6 = *(a1 + 3);
+  v5 = *(a1 + 4);
+  v7 = *(a1 + 5);
+  v8 = *(a1 + 6);
+  v9 = *(a1 + 7);
+  v10 = *(a1 + 8);
   v11 = *(a1 + 72);
-  v13 = *(a1 + 80);
-  v12 = *(a1 + 88);
+  v13 = *(a1 + 10);
+  v12 = *(a1 + 11);
   v14 = *(a1 + 96);
-  v15 = *(a1 + 104);
+  v15 = a1[13];
   v16 = *(a1 + 112);
   v17 = *(a1 + 113);
-  v19 = *(a2 + 8);
-  v18 = *(a2 + 16);
-  v20 = *(a2 + 24);
-  v100 = *(a2 + 32);
-  v22 = *(a2 + 40);
-  v21 = *(a2 + 48);
-  v23 = *(a2 + 56);
-  v24 = *(a2 + 64);
-  v25 = *(a2 + 72);
-  v26 = *(a2 + 80);
-  v27 = *(a2 + 88);
-  v28 = *(a2 + 96);
-  v29 = *(a2 + 104);
-  v30 = *(a2 + 112);
-  v31 = *(a2 + 113);
+  v18 = *(a2 + 8);
+  v19 = *(a2 + 24);
+  v98 = *(a2 + 32);
+  v21 = *(a2 + 40);
+  v20 = *(a2 + 48);
+  v22 = *(a2 + 56);
+  v23 = *(a2 + 64);
+  v24 = *(a2 + 72);
+  v25 = *(a2 + 80);
+  v26 = *(a2 + 88);
+  v27 = *(a2 + 96);
+  v28 = *(a2 + 104);
+  v29 = *(a2 + 112);
+  v30 = *(a2 + 113);
   if (v3)
   {
-    if (!v19)
+    if (!v18)
     {
       return 0;
     }
 
-    v99 = *(a2 + 16);
-    if (*a1 != *a2 || v3 != v19)
+    v97 = *(a2 + 16);
+    if (*a1 != *a2 || v3 != v18)
     {
-      v91 = *(a1 + 40);
-      v93 = *(a1 + 48);
-      v78 = *(a1 + 80);
-      v82 = *(a2 + 64);
-      v75 = *(a2 + 96);
-      v85 = *(a2 + 112);
-      v69 = *(a1 + 112);
-      v72 = *(a1 + 96);
-      v65 = *(a2 + 113);
-      v33 = *(a1 + 113);
-      v67 = *(a2 + 88);
-      v34 = *(a1 + 88);
-      v35 = *(a2 + 80);
-      v97 = *(a1 + 72);
-      v36 = *(a1 + 56);
-      v95 = *(a1 + 64);
-      v37 = *(a2 + 72);
-      v38 = *(a2 + 56);
-      v39 = *(a2 + 48);
-      v89 = *(a2 + 40);
-      v40 = *(a1 + 32);
-      v64 = *(a1 + 16);
-      v41 = _stringCompareWithSmolCheck(_:_:expecting:)();
-      v5 = v40;
-      v22 = v89;
-      v7 = v91;
-      v21 = v39;
-      v8 = v93;
-      v10 = v95;
-      v23 = v38;
-      v25 = v37;
-      v13 = v78;
-      v24 = v82;
-      v9 = v36;
-      v11 = v97;
-      v26 = v35;
-      v12 = v34;
-      v27 = v67;
-      v17 = v33;
-      v31 = v65;
-      v16 = v69;
-      v14 = v72;
-      v30 = v85;
-      v28 = v75;
-      if ((v41 & 1) == 0)
+      v89 = *(a1 + 5);
+      v91 = *(a1 + 6);
+      v76 = *(a1 + 10);
+      v80 = *(a2 + 64);
+      v73 = *(a2 + 96);
+      v83 = *(a2 + 112);
+      v67 = *(a1 + 112);
+      v70 = *(a1 + 96);
+      v63 = *(a2 + 113);
+      v32 = *(a1 + 113);
+      v65 = *(a2 + 88);
+      v33 = *(a1 + 11);
+      v34 = *(a2 + 80);
+      v95 = *(a1 + 72);
+      v35 = *(a1 + 7);
+      v93 = *(a1 + 8);
+      v36 = *(a2 + 72);
+      v37 = *(a2 + 56);
+      v38 = *(a2 + 48);
+      v87 = *(a2 + 40);
+      v39 = *(a1 + 4);
+      v40 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v5 = v39;
+      v21 = v87;
+      v7 = v89;
+      v20 = v38;
+      v8 = v91;
+      v10 = v93;
+      v22 = v37;
+      v24 = v36;
+      v13 = v76;
+      v23 = v80;
+      v9 = v35;
+      v11 = v95;
+      v25 = v34;
+      v12 = v33;
+      v26 = v65;
+      v17 = v32;
+      v30 = v63;
+      v16 = v67;
+      v14 = v70;
+      v29 = v83;
+      v27 = v73;
+      if ((v40 & 1) == 0)
       {
         return 0;
       }
@@ -7035,8 +5996,8 @@ BOOL static ConnectionPolicyRoute.== infix(_:_:)(uint64_t a1, uint64_t a2)
 
   else
   {
-    v99 = *(a2 + 16);
-    if (v19)
+    v97 = *(a2 + 16);
+    if (v18)
     {
       return 0;
     }
@@ -7044,14 +6005,14 @@ BOOL static ConnectionPolicyRoute.== infix(_:_:)(uint64_t a1, uint64_t a2)
 
   if (v6)
   {
-    if (!v20)
+    if (!v19)
     {
       return 0;
     }
 
-    if (v4 == v99 && v6 == v20)
+    if (v4 == v97 && v6 == v19)
     {
-      if (v5 != v100)
+      if (v5 != v98)
       {
         return 0;
       }
@@ -7059,39 +6020,39 @@ BOOL static ConnectionPolicyRoute.== infix(_:_:)(uint64_t a1, uint64_t a2)
 
     else
     {
-      v66 = v5;
-      v68 = v21;
-      v90 = v22;
-      v92 = v7;
-      v94 = v8;
-      v96 = v10;
-      v79 = v26;
-      v83 = v23;
-      v70 = v25;
-      v73 = v9;
-      v98 = v11;
-      v86 = v12;
-      v76 = v17;
-      v43 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v64 = v5;
+      v66 = v20;
+      v88 = v21;
+      v90 = v7;
+      v92 = v8;
+      v94 = v10;
+      v77 = v25;
+      v81 = v22;
+      v68 = v24;
+      v71 = v9;
+      v96 = v11;
+      v84 = v12;
+      v74 = v17;
+      v42 = _stringCompareWithSmolCheck(_:_:expecting:)();
       result = 0;
-      if ((v43 & 1) == 0)
+      if ((v42 & 1) == 0)
       {
         return result;
       }
 
-      v21 = v68;
-      v17 = v76;
-      v23 = v83;
-      v12 = v86;
-      v26 = v79;
-      v11 = v98;
-      v9 = v73;
-      v8 = v94;
-      v10 = v96;
-      v25 = v70;
-      v22 = v90;
-      v7 = v92;
-      if (v66 != v100)
+      v20 = v66;
+      v17 = v74;
+      v22 = v81;
+      v12 = v84;
+      v25 = v77;
+      v11 = v96;
+      v9 = v71;
+      v8 = v92;
+      v10 = v94;
+      v24 = v68;
+      v21 = v88;
+      v7 = v90;
+      if (v64 != v98)
       {
         return result;
       }
@@ -7101,7 +6062,7 @@ BOOL static ConnectionPolicyRoute.== infix(_:_:)(uint64_t a1, uint64_t a2)
   else
   {
     result = 0;
-    if (v20 || v5 != v100)
+    if (v19 || v5 != v98)
     {
       return result;
     }
@@ -7109,56 +6070,56 @@ BOOL static ConnectionPolicyRoute.== infix(_:_:)(uint64_t a1, uint64_t a2)
 
   if (v8)
   {
-    if (!v21)
+    if (!v20)
     {
       return 0;
     }
 
-    if (v7 != v22 || v8 != v21)
+    if (v7 != v21 || v8 != v20)
     {
-      v87 = v30;
-      v77 = v17;
-      v46 = v12;
-      v80 = v26;
-      v84 = v24;
-      v47 = v11;
-      v74 = v9;
-      v48 = v10;
-      v71 = v25;
-      v49 = v23;
-      v50 = _stringCompareWithSmolCheck(_:_:expecting:)();
-      v23 = v49;
-      v25 = v71;
-      v10 = v48;
-      v9 = v74;
-      v11 = v47;
-      v26 = v80;
-      v24 = v84;
-      v12 = v46;
-      v17 = v77;
-      v30 = v87;
-      if ((v50 & 1) == 0)
+      v85 = v29;
+      v75 = v17;
+      v45 = v12;
+      v78 = v25;
+      v82 = v23;
+      v46 = v11;
+      v72 = v9;
+      v47 = v10;
+      v69 = v24;
+      v48 = v22;
+      v49 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v22 = v48;
+      v24 = v69;
+      v10 = v47;
+      v9 = v72;
+      v11 = v46;
+      v25 = v78;
+      v23 = v82;
+      v12 = v45;
+      v17 = v75;
+      v29 = v85;
+      if ((v49 & 1) == 0)
       {
         return 0;
       }
     }
   }
 
-  else if (v21)
+  else if (v20)
   {
     return 0;
   }
 
   if (v10)
   {
-    if (!v24)
+    if (!v23)
     {
       return 0;
     }
 
-    if (v9 == v23 && v10 == v24)
+    if (v9 == v22 && v10 == v23)
     {
-      if (v11 != v25)
+      if (v11 != v24)
       {
         return 0;
       }
@@ -7166,24 +6127,24 @@ BOOL static ConnectionPolicyRoute.== infix(_:_:)(uint64_t a1, uint64_t a2)
 
     else
     {
-      v52 = v25;
-      v53 = v11;
-      v81 = v26;
-      v88 = v12;
-      v54 = v30;
-      v55 = v17;
-      v56 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v51 = v24;
+      v52 = v11;
+      v79 = v25;
+      v86 = v12;
+      v53 = v29;
+      v54 = v17;
+      v55 = _stringCompareWithSmolCheck(_:_:expecting:)();
       result = 0;
-      if ((v56 & 1) == 0)
+      if ((v55 & 1) == 0)
       {
         return result;
       }
 
-      v17 = v55;
-      v30 = v54;
-      v12 = v88;
-      v26 = v81;
-      if ((v53 ^ v52))
+      v17 = v54;
+      v29 = v53;
+      v12 = v86;
+      v25 = v79;
+      if ((v52 ^ v51))
       {
         return result;
       }
@@ -7193,7 +6154,7 @@ BOOL static ConnectionPolicyRoute.== infix(_:_:)(uint64_t a1, uint64_t a2)
   else
   {
     result = 0;
-    if (v24 || ((v11 ^ v25) & 1) != 0)
+    if (v23 || ((v11 ^ v24) & 1) != 0)
     {
       return result;
     }
@@ -7201,19 +6162,19 @@ BOOL static ConnectionPolicyRoute.== infix(_:_:)(uint64_t a1, uint64_t a2)
 
   if (v12)
   {
-    if (!v27)
+    if (!v26)
     {
       return 0;
     }
 
-    if (v13 != v26 || v12 != v27)
+    if (v13 != v25 || v12 != v26)
     {
-      v58 = v30;
-      v59 = v17;
-      v60 = _stringCompareWithSmolCheck(_:_:expecting:)();
-      v17 = v59;
-      v30 = v58;
-      if ((v60 & 1) == 0)
+      v57 = v29;
+      v58 = v17;
+      v59 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v17 = v58;
+      v29 = v57;
+      if ((v59 & 1) == 0)
       {
         return 0;
       }
@@ -7222,7 +6183,7 @@ BOOL static ConnectionPolicyRoute.== infix(_:_:)(uint64_t a1, uint64_t a2)
     goto LABEL_54;
   }
 
-  if (v27)
+  if (v26)
   {
     return 0;
   }
@@ -7230,20 +6191,20 @@ BOOL static ConnectionPolicyRoute.== infix(_:_:)(uint64_t a1, uint64_t a2)
 LABEL_54:
   if (v14 == 3)
   {
-    if (v28 != 3)
+    if (v27 != 3)
     {
       return 0;
     }
   }
 
-  else if (v28 == 3 || v14 != v28)
+  else if (v27 == 3 || v14 != v27)
   {
     return 0;
   }
 
   if (v16)
   {
-    if (!v30)
+    if (!v29)
     {
       return 0;
     }
@@ -7251,17 +6212,17 @@ LABEL_54:
 
   else
   {
-    if (v15 == v29)
+    if (v15 == v28)
     {
-      v62 = v30;
+      v61 = v29;
     }
 
     else
     {
-      v62 = 1;
+      v61 = 1;
     }
 
-    if (v62)
+    if (v61)
     {
       return 0;
     }
@@ -7269,159 +6230,153 @@ LABEL_54:
 
   if (v17 == 5)
   {
-    return v31 == 5;
+    return v30 == 5;
   }
 
   else
   {
-    return v31 != 5 && v17 == v31;
+    return v30 != 5 && v17 == v30;
   }
 }
 
-uint64_t specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(uint64_t a1, char a2)
+uint64_t specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  if (*(*v2 + 24) > a1)
-  {
-    v6 = *(*v2 + 24);
-  }
-
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySiSay11SiriNetwork21ConnectionPolicyRouteVGGMd, &_ss18_DictionaryStorageCySiSay11SiriNetwork21ConnectionPolicyRouteVGGMR);
   result = static _DictionaryStorage.resize(original:capacity:move:)();
-  v8 = result;
+  v7 = result;
   if (!*(v5 + 16))
   {
-LABEL_33:
+LABEL_31:
 
-LABEL_34:
-    *v3 = v8;
+LABEL_32:
+    *v3 = v7;
     return result;
   }
 
-  v33 = v3;
-  v9 = 0;
-  v10 = (v5 + 64);
-  v11 = 1 << *(v5 + 32);
-  if (v11 < 64)
+  v30 = v3;
+  v8 = 0;
+  v9 = (v5 + 64);
+  v10 = 1 << *(v5 + 32);
+  if (v10 < 64)
   {
-    v12 = ~(-1 << v11);
+    v11 = ~(-1 << v10);
   }
 
   else
   {
-    v12 = -1;
+    v11 = -1;
   }
 
-  v13 = v12 & *(v5 + 64);
-  v14 = (v11 + 63) >> 6;
-  v15 = result + 64;
-  if (!v13)
+  v12 = v11 & *(v5 + 64);
+  v13 = (v10 + 63) >> 6;
+  v14 = result + 64;
+  if (!v12)
   {
-LABEL_9:
-    v17 = v9;
+LABEL_7:
+    v16 = v8;
     while (1)
     {
-      v9 = v17 + 1;
-      if (__OFADD__(v17, 1))
+      v8 = v16 + 1;
+      if (__OFADD__(v16, 1))
       {
         __break(1u);
-        goto LABEL_36;
+        goto LABEL_34;
       }
 
-      if (v9 >= v14)
+      if (v8 >= v13)
       {
         break;
       }
 
-      v18 = v10[v9];
-      ++v17;
-      if (v18)
+      v17 = v9[v8];
+      ++v16;
+      if (v17)
       {
-        v16 = __clz(__rbit64(v18));
-        v13 = (v18 - 1) & v18;
-        goto LABEL_14;
+        v15 = __clz(__rbit64(v17));
+        v12 = (v17 - 1) & v17;
+        goto LABEL_12;
       }
     }
 
-    if ((a2 & 1) == 0)
+    if ((v4 & 1) == 0)
     {
 
-      v3 = v33;
-      goto LABEL_34;
+      v3 = v30;
+      goto LABEL_32;
     }
 
-    v32 = 1 << *(v5 + 32);
-    v3 = v33;
-    if (v32 >= 64)
+    v29 = 1 << *(v5 + 32);
+    v3 = v30;
+    if (v29 >= 64)
     {
-      specialized UnsafeMutablePointer.assign(repeating:count:)(0, (v32 + 63) >> 6, v5 + 64);
+      specialized UnsafeMutablePointer.assign(repeating:count:)(0, (v29 + 63) >> 6, v5 + 64);
     }
 
     else
     {
-      *v10 = -1 << v32;
+      *v9 = -1 << v29;
     }
 
     *(v5 + 16) = 0;
-    goto LABEL_33;
+    goto LABEL_31;
   }
 
   while (1)
   {
-    v16 = __clz(__rbit64(v13));
-    v13 &= v13 - 1;
-LABEL_14:
-    v19 = v16 | (v9 << 6);
-    v20 = *(v5 + 56);
-    v21 = *(*(v5 + 48) + 8 * v19);
-    v22 = *(v20 + 8 * v19);
-    if ((a2 & 1) == 0)
+    v15 = __clz(__rbit64(v12));
+    v12 &= v12 - 1;
+LABEL_12:
+    v18 = v15 | (v8 << 6);
+    v19 = *(*(v5 + 48) + 8 * v18);
+    v20 = *(*(v5 + 56) + 8 * v18);
+    if ((v4 & 1) == 0)
     {
-      v23 = *(v20 + 8 * v19);
     }
 
-    result = MEMORY[0x223DE2960](*(v8 + 40), v21);
-    v24 = -1 << *(v8 + 32);
-    v25 = result & ~v24;
-    v26 = v25 >> 6;
-    if (((-1 << v25) & ~*(v15 + 8 * (v25 >> 6))) == 0)
+    result = MEMORY[0x223DE2960](*(v7 + 40), v19);
+    v21 = -1 << *(v7 + 32);
+    v22 = result & ~v21;
+    v23 = v22 >> 6;
+    if (((-1 << v22) & ~*(v14 + 8 * (v22 >> 6))) == 0)
     {
       break;
     }
 
-    v27 = __clz(__rbit64((-1 << v25) & ~*(v15 + 8 * (v25 >> 6)))) | v25 & 0x7FFFFFFFFFFFFFC0;
-LABEL_25:
-    *(v15 + ((v27 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v27;
-    *(*(v8 + 48) + 8 * v27) = v21;
-    *(*(v8 + 56) + 8 * v27) = v22;
-    ++*(v8 + 16);
-    if (!v13)
+    v24 = __clz(__rbit64((-1 << v22) & ~*(v14 + 8 * (v22 >> 6)))) | v22 & 0x7FFFFFFFFFFFFFC0;
+LABEL_23:
+    *(v14 + ((v24 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v24;
+    *(*(v7 + 48) + 8 * v24) = v19;
+    *(*(v7 + 56) + 8 * v24) = v20;
+    ++*(v7 + 16);
+    if (!v12)
     {
-      goto LABEL_9;
+      goto LABEL_7;
     }
   }
 
-  v28 = 0;
-  v29 = (63 - v24) >> 6;
-  while (++v26 != v29 || (v28 & 1) == 0)
+  v25 = 0;
+  v26 = (63 - v21) >> 6;
+  while (++v23 != v26 || (v25 & 1) == 0)
   {
-    v30 = v26 == v29;
-    if (v26 == v29)
+    v27 = v23 == v26;
+    if (v23 == v26)
     {
-      v26 = 0;
+      v23 = 0;
     }
 
-    v28 |= v30;
-    v31 = *(v15 + 8 * v26);
-    if (v31 != -1)
+    v25 |= v27;
+    v28 = *(v14 + 8 * v23);
+    if (v28 != -1)
     {
-      v27 = __clz(__rbit64(~v31)) + (v26 << 6);
-      goto LABEL_25;
+      v24 = __clz(__rbit64(~v28)) + (v23 << 6);
+      goto LABEL_23;
     }
   }
 
-LABEL_36:
+LABEL_34:
   __break(1u);
   return result;
 }
@@ -7485,9 +6440,7 @@ void closure #1 in NetworkManager.startMonitoringNetwork(_:)(uint64_t a1, uint64
       swift_unknownObjectRelease();
       _Block_release(v17);
 
-      v20 = *&v6[v7];
       *&v6[v7] = evaluator_for_endpoint;
-
       swift_unknownObjectRelease();
     }
   }
@@ -7536,7 +6489,7 @@ void closure #1 in NetworkAnalytics.setConnectionProvider(_:)(uint64_t a1, uint6
     {
       v12 = swift_slowAlloc();
       v13 = swift_slowAlloc();
-      v19 = v13;
+      v18 = v13;
       *v12 = 136315138;
       if (v9[OBJC_IVAR___SNNetworkAnalyticsInternal_connectionProvider + 4])
       {
@@ -7546,13 +6499,12 @@ void closure #1 in NetworkAnalytics.setConnectionProvider(_:)(uint64_t a1, uint6
 
       else
       {
-        v18 = *&v9[OBJC_IVAR___SNNetworkAnalyticsInternal_connectionProvider];
         type metadata accessor for NETSchemaNETProvider(0);
         v15 = String.init<A>(describing:)();
         v14 = v16;
       }
 
-      v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v14, &v19);
+      v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v14, &v18);
 
       *(v12 + 4) = v17;
       _os_log_impl(&dword_223515000, v10, v11, "Network Analytics: ConnectionProvider set: %s", v12, 0xCu);
@@ -7563,11 +6515,11 @@ void closure #1 in NetworkAnalytics.setConnectionProvider(_:)(uint64_t a1, uint6
   }
 }
 
-void static ConnectionPolicyRoute.maxTimeoutFromRoutes(_:)(uint64_t a1)
+void static ConnectionPolicyRoute.maxTimeoutFromRoutes(_:)(uint64_t result)
 {
   v1 = 0;
-  v2 = *(a1 + 16);
-  v3 = a1 + 144;
+  v2 = *(result + 16);
+  v3 = result + 144;
   v4 = MEMORY[0x277D84F90];
 LABEL_2:
   v5 = (v3 + 120 * v1);
@@ -7599,16 +6551,15 @@ LABEL_2:
       v8 = *(v5 - 16);
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        v10 = *(v4 + 16);
         specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-        v4 = v11;
+        v4 = v10;
       }
 
       v9 = *(v4 + 16);
       if (v9 >= *(v4 + 24) >> 1)
       {
         specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-        v4 = v12;
+        v4 = v11;
       }
 
       *(v4 + 16) = v9 + 1;
@@ -7626,13 +6577,13 @@ LABEL_14:
 void specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)()
 {
   OUTLINED_FUNCTION_6_11();
-  if (v5)
+  if (v4)
   {
     OUTLINED_FUNCTION_1_13();
-    if (v7 != v8)
+    if (v5 != v6)
     {
       OUTLINED_FUNCTION_8_7();
-      if (v7)
+      if (v5)
       {
         __break(1u);
         return;
@@ -7642,33 +6593,28 @@ void specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacit
     }
   }
 
-  else
-  {
-    v6 = v4;
-  }
-
-  OUTLINED_FUNCTION_12_4(v6);
+  OUTLINED_FUNCTION_12_4();
   if (v2)
   {
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySdGMd, _ss23_ContiguousArrayStorageCySdGMR);
-    v9 = OUTLINED_FUNCTION_16_6();
-    v10 = _swift_stdlib_malloc_size(v9);
-    *(v9 + 2) = v3;
-    *(v9 + 3) = 2 * ((v10 - 32) / 8);
+    v7 = OUTLINED_FUNCTION_16_6();
+    v8 = _swift_stdlib_malloc_size(v7);
+    *(v7 + 2) = v3;
+    *(v7 + 3) = 2 * ((v8 - 32) / 8);
   }
 
   else
   {
-    v9 = MEMORY[0x277D84F90];
+    v7 = MEMORY[0x277D84F90];
   }
 
-  v11 = v9 + 32;
-  v12 = v0 + 32;
+  v9 = v7 + 32;
+  v10 = v0 + 32;
   if (v1)
   {
-    if (v9 != v0 || &v12[8 * v3] <= v11)
+    if (v7 != v0 || &v10[8 * v3] <= v9)
     {
-      memmove(v11, v12, 8 * v3);
+      memmove(v9, v10, 8 * v3);
     }
 
     *(v0 + 2) = 0;
@@ -7676,19 +6622,19 @@ void specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacit
 
   else
   {
-    memcpy(v11, v12, 8 * v3);
+    memcpy(v9, v10, 8 * v3);
   }
 }
 
 {
   OUTLINED_FUNCTION_6_11();
-  if (v5)
+  if (v4)
   {
     OUTLINED_FUNCTION_1_13();
-    if (v7 != v8)
+    if (v5 != v6)
     {
       OUTLINED_FUNCTION_8_7();
-      if (v7)
+      if (v5)
       {
         __break(1u);
         return;
@@ -7698,31 +6644,26 @@ void specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacit
     }
   }
 
-  else
-  {
-    v6 = v4;
-  }
-
-  OUTLINED_FUNCTION_3_10(v6);
+  OUTLINED_FUNCTION_3_10();
   if (v3)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11SiriNetwork21ConnectionPolicyRouteVGMd, &_ss23_ContiguousArrayStorageCy11SiriNetwork21ConnectionPolicyRouteVGMR);
-    v9 = OUTLINED_FUNCTION_11_6();
-    v10 = _swift_stdlib_malloc_size(v9);
-    OUTLINED_FUNCTION_4_9(v10);
+    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11SiriNetwork21ConnectionPolicyRouteVGMd, &_ss23_ContiguousArrayStorageCy11SiriNetwork21ConnectionPolicyRouteVGMR);
+    v8 = OUTLINED_FUNCTION_11_6(v7);
+    v9 = _swift_stdlib_malloc_size(v8);
+    OUTLINED_FUNCTION_4_9(v9);
   }
 
   else
   {
-    v9 = MEMORY[0x277D84F90];
+    v8 = MEMORY[0x277D84F90];
   }
 
-  v11 = OUTLINED_FUNCTION_10_3();
+  v10 = OUTLINED_FUNCTION_10_3();
   if (v1)
   {
-    if (v9 != v0 || &v12[120 * v2] <= v11)
+    if (v8 != v0 || &v11[120 * v2] <= v10)
     {
-      memmove(v11, v12, 120 * v2);
+      memmove(v10, v11, 120 * v2);
     }
 
     v0[2] = 0;
@@ -7736,13 +6677,13 @@ void specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacit
 
 {
   OUTLINED_FUNCTION_6_11();
-  if (v5)
+  if (v4)
   {
     OUTLINED_FUNCTION_1_13();
-    if (v7 != v8)
+    if (v5 != v6)
     {
       OUTLINED_FUNCTION_8_7();
-      if (v7)
+      if (v5)
       {
         __break(1u);
         return;
@@ -7752,31 +6693,26 @@ void specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacit
     }
   }
 
-  else
-  {
-    v6 = v4;
-  }
-
-  OUTLINED_FUNCTION_3_10(v6);
+  OUTLINED_FUNCTION_3_10();
   if (v3)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11SiriNetwork25ConnectionInterfaceReportVGMd, &_ss23_ContiguousArrayStorageCy11SiriNetwork25ConnectionInterfaceReportVGMR);
-    v9 = OUTLINED_FUNCTION_11_6();
-    v10 = _swift_stdlib_malloc_size(v9);
-    OUTLINED_FUNCTION_4_9(v10);
+    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11SiriNetwork25ConnectionInterfaceReportVGMd, &_ss23_ContiguousArrayStorageCy11SiriNetwork25ConnectionInterfaceReportVGMR);
+    v8 = OUTLINED_FUNCTION_11_6(v7);
+    v9 = _swift_stdlib_malloc_size(v8);
+    OUTLINED_FUNCTION_4_9(v9);
   }
 
   else
   {
-    v9 = MEMORY[0x277D84F90];
+    v8 = MEMORY[0x277D84F90];
   }
 
-  v11 = OUTLINED_FUNCTION_10_3();
+  v10 = OUTLINED_FUNCTION_10_3();
   if (v1)
   {
-    if (v9 != v0 || &v12[296 * v2] <= v11)
+    if (v8 != v0 || &v11[296 * v2] <= v10)
     {
-      memmove(v11, v12, 296 * v2);
+      memmove(v10, v11, 296 * v2);
     }
 
     v0[2] = 0;
@@ -7790,13 +6726,13 @@ void specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacit
 
 {
   OUTLINED_FUNCTION_6_11();
-  if (v5)
+  if (v4)
   {
     OUTLINED_FUNCTION_1_13();
-    if (v7 != v8)
+    if (v5 != v6)
     {
       OUTLINED_FUNCTION_8_7();
-      if (v7)
+      if (v5)
       {
         __break(1u);
         return;
@@ -7806,32 +6742,27 @@ void specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacit
     }
   }
 
-  else
-  {
-    v6 = v4;
-  }
-
-  OUTLINED_FUNCTION_3_10(v6);
+  OUTLINED_FUNCTION_3_10();
   if (v3)
   {
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11SiriNetwork24ConnectionTCPInfoMetricsVGMd, &_ss23_ContiguousArrayStorageCy11SiriNetwork24ConnectionTCPInfoMetricsVGMR);
-    v9 = swift_allocObject();
-    v10 = _swift_stdlib_malloc_size(v9);
-    v9[2] = v2;
-    v9[3] = 2 * ((v10 - 32) / 256);
+    v7 = swift_allocObject();
+    v8 = _swift_stdlib_malloc_size(v7);
+    v7[2] = v2;
+    v7[3] = 2 * ((v8 - 32) / 256);
   }
 
   else
   {
-    v9 = MEMORY[0x277D84F90];
+    v7 = MEMORY[0x277D84F90];
   }
 
-  v11 = OUTLINED_FUNCTION_10_3();
+  v9 = OUTLINED_FUNCTION_10_3();
   if (v1)
   {
-    if (v9 != v0 || &v12[256 * v2] <= v11)
+    if (v7 != v0 || &v10[256 * v2] <= v9)
     {
-      memmove(v11, v12, v2 << 8);
+      memmove(v9, v10, v2 << 8);
     }
 
     v0[2] = 0;
@@ -7845,13 +6776,13 @@ void specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacit
 
 {
   OUTLINED_FUNCTION_6_11();
-  if (v5)
+  if (v4)
   {
     OUTLINED_FUNCTION_1_13();
-    if (v7 != v8)
+    if (v5 != v6)
     {
       OUTLINED_FUNCTION_8_7();
-      if (v7)
+      if (v5)
       {
         __break(1u);
         return;
@@ -7861,33 +6792,28 @@ void specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacit
     }
   }
 
-  else
-  {
-    v6 = v4;
-  }
-
-  OUTLINED_FUNCTION_3_10(v6);
+  OUTLINED_FUNCTION_3_10();
   if (v3)
   {
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
-    v9 = OUTLINED_FUNCTION_16_6();
-    _swift_stdlib_malloc_size(v9);
+    v7 = OUTLINED_FUNCTION_16_6();
+    _swift_stdlib_malloc_size(v7);
     OUTLINED_FUNCTION_7_9();
-    v9[2] = v2;
-    v9[3] = v10;
+    v7[2] = v2;
+    v7[3] = v8;
   }
 
   else
   {
-    v9 = MEMORY[0x277D84F90];
+    v7 = MEMORY[0x277D84F90];
   }
 
-  v11 = OUTLINED_FUNCTION_10_3();
+  v9 = OUTLINED_FUNCTION_10_3();
   if (v1)
   {
-    if (v9 != v0 || &v12[16 * v2] <= v11)
+    if (v7 != v0 || &v10[16 * v2] <= v9)
     {
-      memmove(v11, v12, 16 * v2);
+      memmove(v9, v10, 16 * v2);
     }
 
     v0[2] = 0;
@@ -7901,13 +6827,13 @@ void specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacit
 
 {
   OUTLINED_FUNCTION_6_11();
-  if (v5)
+  if (v4)
   {
     OUTLINED_FUNCTION_1_13();
-    if (v7 != v8)
+    if (v5 != v6)
     {
       OUTLINED_FUNCTION_8_7();
-      if (v7)
+      if (v5)
       {
         __break(1u);
         return;
@@ -7917,31 +6843,26 @@ void specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacit
     }
   }
 
-  else
-  {
-    v6 = v4;
-  }
-
-  OUTLINED_FUNCTION_3_10(v6);
+  OUTLINED_FUNCTION_3_10();
   if (v3)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11SiriNetwork24ConnectionEndpointReportVGMd, &_ss23_ContiguousArrayStorageCy11SiriNetwork24ConnectionEndpointReportVGMR);
-    v9 = OUTLINED_FUNCTION_11_6();
-    v10 = _swift_stdlib_malloc_size(v9);
-    OUTLINED_FUNCTION_4_9(v10);
+    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11SiriNetwork24ConnectionEndpointReportVGMd, &_ss23_ContiguousArrayStorageCy11SiriNetwork24ConnectionEndpointReportVGMR);
+    v8 = OUTLINED_FUNCTION_11_6(v7);
+    v9 = _swift_stdlib_malloc_size(v8);
+    OUTLINED_FUNCTION_4_9(v9);
   }
 
   else
   {
-    v9 = MEMORY[0x277D84F90];
+    v8 = MEMORY[0x277D84F90];
   }
 
-  v11 = OUTLINED_FUNCTION_10_3();
+  v10 = OUTLINED_FUNCTION_10_3();
   if (v1)
   {
-    if (v9 != v0 || &v12[24 * v2] <= v11)
+    if (v8 != v0 || &v11[24 * v2] <= v10)
     {
-      memmove(v11, v12, 24 * v2);
+      memmove(v10, v11, 24 * v2);
     }
 
     v0[2] = 0;
@@ -7955,13 +6876,13 @@ void specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacit
 
 {
   OUTLINED_FUNCTION_6_11();
-  if (v5)
+  if (v4)
   {
     OUTLINED_FUNCTION_1_13();
-    if (v7 != v8)
+    if (v5 != v6)
     {
       OUTLINED_FUNCTION_8_7();
-      if (v7)
+      if (v5)
       {
         __break(1u);
         return;
@@ -7971,33 +6892,28 @@ void specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacit
     }
   }
 
-  else
-  {
-    v6 = v4;
-  }
-
-  OUTLINED_FUNCTION_12_4(v6);
+  OUTLINED_FUNCTION_12_4();
   if (v2)
   {
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11SiriNetwork25ConnectionHandshakeReportVGMd, &_ss23_ContiguousArrayStorageCy11SiriNetwork25ConnectionHandshakeReportVGMR);
-    v9 = swift_allocObject();
-    v10 = _swift_stdlib_malloc_size(v9);
-    *(v9 + 2) = v3;
-    *(v9 + 3) = 2 * ((v10 - 32) / 48);
+    v7 = swift_allocObject();
+    v8 = _swift_stdlib_malloc_size(v7);
+    *(v7 + 2) = v3;
+    *(v7 + 3) = 2 * ((v8 - 32) / 48);
   }
 
   else
   {
-    v9 = MEMORY[0x277D84F90];
+    v7 = MEMORY[0x277D84F90];
   }
 
-  v11 = v9 + 32;
-  v12 = v0 + 32;
+  v9 = v7 + 32;
+  v10 = v0 + 32;
   if (v1)
   {
-    if (v9 != v0 || &v12[48 * v3] <= v11)
+    if (v7 != v0 || &v10[48 * v3] <= v9)
     {
-      memmove(v11, v12, 48 * v3);
+      memmove(v9, v10, 48 * v3);
     }
 
     *(v0 + 2) = 0;
@@ -8011,13 +6927,13 @@ void specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacit
 
 {
   OUTLINED_FUNCTION_6_11();
-  if (v5)
+  if (v4)
   {
     OUTLINED_FUNCTION_1_13();
-    if (v7 != v8)
+    if (v5 != v6)
     {
       OUTLINED_FUNCTION_8_7();
-      if (v7)
+      if (v5)
       {
         __break(1u);
         return;
@@ -8027,31 +6943,26 @@ void specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacit
     }
   }
 
-  else
-  {
-    v6 = v4;
-  }
-
-  OUTLINED_FUNCTION_3_10(v6);
+  OUTLINED_FUNCTION_3_10();
   if (v3)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11SiriNetwork26ConnectionResolutionReportVGMd, &_ss23_ContiguousArrayStorageCy11SiriNetwork26ConnectionResolutionReportVGMR);
-    v9 = OUTLINED_FUNCTION_11_6();
-    v10 = _swift_stdlib_malloc_size(v9);
-    OUTLINED_FUNCTION_4_9(v10);
+    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11SiriNetwork26ConnectionResolutionReportVGMd, &_ss23_ContiguousArrayStorageCy11SiriNetwork26ConnectionResolutionReportVGMR);
+    v8 = OUTLINED_FUNCTION_11_6(v7);
+    v9 = _swift_stdlib_malloc_size(v8);
+    OUTLINED_FUNCTION_4_9(v9);
   }
 
   else
   {
-    v9 = MEMORY[0x277D84F90];
+    v8 = MEMORY[0x277D84F90];
   }
 
-  v11 = OUTLINED_FUNCTION_10_3();
+  v10 = OUTLINED_FUNCTION_10_3();
   if (v1)
   {
-    if (v9 != v0 || &v12[80 * v2] <= v11)
+    if (v8 != v0 || &v11[80 * v2] <= v10)
     {
-      memmove(v11, v12, 80 * v2);
+      memmove(v10, v11, 80 * v2);
     }
 
     v0[2] = 0;
@@ -8065,13 +6976,13 @@ void specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacit
 
 {
   OUTLINED_FUNCTION_6_11();
-  if (v5)
+  if (v4)
   {
     OUTLINED_FUNCTION_1_13();
-    if (v7 != v8)
+    if (v5 != v6)
     {
       OUTLINED_FUNCTION_8_7();
-      if (v7)
+      if (v5)
       {
         __break(1u);
         return;
@@ -8081,34 +6992,29 @@ void specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacit
     }
   }
 
-  else
-  {
-    v6 = v4;
-  }
-
-  OUTLINED_FUNCTION_12_4(v6);
+  OUTLINED_FUNCTION_12_4();
   if (v2)
   {
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySnySiGGMd, &_ss23_ContiguousArrayStorageCySnySiGGMR);
-    v9 = OUTLINED_FUNCTION_16_6();
-    _swift_stdlib_malloc_size(v9);
+    v7 = OUTLINED_FUNCTION_16_6();
+    _swift_stdlib_malloc_size(v7);
     OUTLINED_FUNCTION_7_9();
-    *(v9 + 2) = v3;
-    *(v9 + 3) = v10;
+    *(v7 + 2) = v3;
+    *(v7 + 3) = v8;
   }
 
   else
   {
-    v9 = MEMORY[0x277D84F90];
+    v7 = MEMORY[0x277D84F90];
   }
 
-  v11 = v9 + 32;
-  v12 = v0 + 32;
+  v9 = v7 + 32;
+  v10 = v0 + 32;
   if (v1)
   {
-    if (v9 != v0 || &v12[16 * v3] <= v11)
+    if (v7 != v0 || &v10[16 * v3] <= v9)
     {
-      memmove(v11, v12, 16 * v3);
+      memmove(v9, v10, 16 * v3);
     }
 
     *(v0 + 2) = 0;
@@ -8116,7 +7022,7 @@ void specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacit
 
   else
   {
-    memcpy(v11, v12, 16 * v3);
+    memcpy(v9, v10, 16 * v3);
   }
 }
 
@@ -8167,7 +7073,7 @@ void *static ConnectionPolicyRoute.prioritizedPOPRoutes(_:)(uint64_t a1)
     if (__dst[113] == 4)
     {
       v12 = v3[2];
-      OUTLINED_FUNCTION_15_9(v4, v5, v6, v7, v8, v9, v10, v11, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, __dst[0]);
+      OUTLINED_FUNCTION_15_9(v4, v5, v6, v7, v8, v9, v10, v11, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34);
       if (!swift_isUniquelyReferenced_nonNull_native() || v12 >= v3[3] >> 1)
       {
         specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
@@ -8183,19 +7089,18 @@ void *static ConnectionPolicyRoute.prioritizedPOPRoutes(_:)(uint64_t a1)
 
     else
     {
-      OUTLINED_FUNCTION_15_9(v4, v5, v6, v7, v8, v9, v10, v11, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, __dst[0]);
+      OUTLINED_FUNCTION_15_9(v4, v5, v6, v7, v8, v9, v10, v11, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34);
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        v17 = v3[2];
         specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-        v3 = v18;
+        v3 = v17;
       }
 
       v16 = v3[2];
       if (v16 >= v3[3] >> 1)
       {
         specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-        v3 = v19;
+        v3 = v18;
       }
 
       v3[2] = v16 + 1;
@@ -8211,7 +7116,7 @@ void *static ConnectionPolicyRoute.prioritizedPOPRoutes(_:)(uint64_t a1)
   return v3;
 }
 
-uint64_t static ConnectionPolicyRoute.aceptableRoutes(_:)(uint64_t a1)
+void static ConnectionPolicyRoute.aceptableRoutes(_:)(uint64_t a1)
 {
   v2 = a1 + 56;
   v3 = 1 << *(a1 + 32);
@@ -8224,58 +7129,58 @@ uint64_t static ConnectionPolicyRoute.aceptableRoutes(_:)(uint64_t a1)
   v5 = v4 & *(a1 + 56);
   v6 = (v3 + 63) >> 6;
 
-  v8 = 0;
-  v9 = MEMORY[0x277D84F90];
+  v7 = 0;
+  v8 = MEMORY[0x277D84F90];
   while (1)
   {
-    v10 = v8;
+    v9 = v7;
     if (!v5)
     {
       break;
     }
 
 LABEL_8:
-    v11 = __clz(__rbit64(v5));
+    v10 = __clz(__rbit64(v5));
     v5 &= v5 - 1;
-    v12 = memcpy(__dst, (*(a1 + 48) + 120 * (v11 | (v8 << 6))), 0x72uLL);
+    v11 = memcpy(__dst, (*(a1 + 48) + 120 * (v10 | (v7 << 6))), 0x72uLL);
     if (!__dst[6])
     {
-      OUTLINED_FUNCTION_15_9(v12, v13, v14, v15, v16, v17, v18, v19, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, __dst[0]);
+      OUTLINED_FUNCTION_15_9(v11, v12, v13, v14, v15, v16, v17, v18, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39);
       goto LABEL_14;
     }
 
-    v20 = __dst[5];
-    OUTLINED_FUNCTION_15_9(v12, v13, v14, v15, v16, v17, v18, v19, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, __dst[0]);
+    v19 = __dst[5];
+    OUTLINED_FUNCTION_15_9(v11, v12, v13, v14, v15, v16, v17, v18, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39);
 
-    if (AFIsInternalInstall() & 1) != 0 || (OUTLINED_FUNCTION_9_13())
+    if ((AFIsInternalInstall() & 1) != 0 || OUTLINED_FUNCTION_9_13())
     {
       goto LABEL_21;
     }
 
-    v21._countAndFlagsBits = OUTLINED_FUNCTION_2_28();
-    String.hasPrefix(_:)(v21);
+    v20._countAndFlagsBits = OUTLINED_FUNCTION_2_28();
+    String.hasPrefix(_:)(v20);
     OUTLINED_FUNCTION_2();
-    if (v20)
+    if (v19)
     {
 LABEL_22:
       isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-      v42 = v9;
+      v41 = v8;
       if ((isUniquelyReferenced_nonNull_native & 1) == 0)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v9 + 16) + 1, 1);
-        v9 = v42;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v8 + 16) + 1, 1);
+        v8 = v41;
       }
 
-      v25 = *(v9 + 16);
-      v24 = *(v9 + 24);
-      if (v25 >= v24 >> 1)
+      v24 = *(v8 + 16);
+      v23 = *(v8 + 24);
+      if (v24 >= v23 >> 1)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v24 > 1, v25 + 1, 1);
-        v9 = v42;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v23 > 1), v24 + 1, 1);
+        v8 = v41;
       }
 
-      *(v9 + 16) = v25 + 1;
-      result = memcpy((v9 + 120 * v25 + 32), __dst, 0x72uLL);
+      *(v8 + 16) = v24 + 1;
+      memcpy((v8 + 120 * v24 + 32), __dst, 0x72uLL);
     }
 
     else
@@ -8284,7 +7189,7 @@ LABEL_14:
       if (__dst[8])
       {
 
-        if (AFIsInternalInstall() || (OUTLINED_FUNCTION_9_13() & 1) != 0 || (v22._countAndFlagsBits = OUTLINED_FUNCTION_2_28(), String.hasPrefix(_:)(v22)))
+        if (AFIsInternalInstall() || OUTLINED_FUNCTION_9_13() || (v21._countAndFlagsBits = OUTLINED_FUNCTION_2_28(), String.hasPrefix(_:)(v21)))
         {
 
 LABEL_21:
@@ -8293,26 +7198,26 @@ LABEL_21:
         }
       }
 
-      result = outlined destroy of ConnectionPolicyRoute(__dst);
+      outlined destroy of ConnectionPolicyRoute(__dst);
     }
   }
 
   while (1)
   {
-    v8 = v10 + 1;
-    if (__OFADD__(v10, 1))
+    v7 = v9 + 1;
+    if (__OFADD__(v9, 1))
     {
       break;
     }
 
-    if (v8 >= v6)
+    if (v7 >= v6)
     {
 
-      return v9;
+      return;
     }
 
-    v5 = *(v2 + 8 * v8);
-    ++v10;
+    v5 = *(v2 + 8 * v7);
+    ++v9;
     if (v5)
     {
       goto LABEL_8;
@@ -8320,7 +7225,6 @@ LABEL_21:
   }
 
   __break(1u);
-  return result;
 }
 
 Swift::Int specialized MutableCollection<>.sort(by:)(uint64_t *a1)
@@ -8331,8 +7235,8 @@ Swift::Int specialized MutableCollection<>.sort(by:)(uint64_t *a1)
     v2 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(v2);
   }
 
-  v3 = *(v2 + 16);
-  v5[0] = v2 + 32;
+  v3 = v2[2];
+  v5[0] = (v2 + 4);
   v5[1] = v3;
   result = specialized UnsafeMutableBufferPointer._stableSortImpl(by:)(v5);
   *a1 = v2;
@@ -8689,28 +7593,26 @@ uint64_t ConnectionPolicyRoute.debugDescription.getter()
 uint64_t NetworkManager.registerClient()(uint64_t a1, uint64_t a2)
 {
   v6 = type metadata accessor for DispatchWorkItemFlags();
-  v7 = OUTLINED_FUNCTION_0_0(v6);
-  v9 = v8;
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v7);
+  OUTLINED_FUNCTION_0_0();
+  v8 = v7;
+  MEMORY[0x28223BE20](v9);
   OUTLINED_FUNCTION_0_1();
-  v24 = OUTLINED_FUNCTION_8_1();
-  v12 = OUTLINED_FUNCTION_0_0(v24);
-  v14 = *(v13 + 64);
-  MEMORY[0x28223BE20](v12);
+  OUTLINED_FUNCTION_8_1();
+  OUTLINED_FUNCTION_0_0();
+  MEMORY[0x28223BE20](v10);
   OUTLINED_FUNCTION_0_1();
-  v15 = *(v2 + OBJC_IVAR___SNNetworkManagerInternal_queue);
+  v11 = *(v2 + OBJC_IVAR___SNNetworkManagerInternal_queue);
   OUTLINED_FUNCTION_7_1();
-  v16 = swift_allocObject();
+  v12 = swift_allocObject();
   swift_unknownObjectWeakInit();
-  v28 = a1;
-  v29 = v16;
+  v23 = a1;
+  v24 = v12;
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_3(COERCE_DOUBLE(1107296256));
-  v26 = v17;
-  v27 = a2;
-  v18 = _Block_copy(aBlock);
-  v19 = v15;
+  v21 = v13;
+  v22 = a2;
+  v14 = _Block_copy(aBlock);
+  v15 = v11;
 
   static DispatchQoS.unspecified.getter();
   lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags();
@@ -8718,13 +7620,13 @@ uint64_t NetworkManager.registerClient()(uint64_t a1, uint64_t a2)
   lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
   OUTLINED_FUNCTION_3_0();
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  v20 = OUTLINED_FUNCTION_6();
-  MEMORY[0x223DE2460](v20);
-  _Block_release(v18);
+  v16 = OUTLINED_FUNCTION_6();
+  MEMORY[0x223DE2460](v16);
+  _Block_release(v14);
 
-  (*(v9 + 8))(v3, v6);
-  v21 = OUTLINED_FUNCTION_5_4();
-  v22(v21);
+  (*(v8 + 8))(v3, v6);
+  v17 = OUTLINED_FUNCTION_5_4();
+  v18(v17);
 }
 
 uint64_t sub_223536A3C()
@@ -8739,7 +7641,7 @@ id @nonobjc AnalyticsWorkspace.init(workspaceWithService:)(uint64_t a1, uint64_t
 {
   if (a2)
   {
-    v3 = MEMORY[0x223DE2070]();
+    v3 = MEMORY[0x223DE2070](a1);
   }
 
   else
@@ -8752,12 +7654,12 @@ id @nonobjc AnalyticsWorkspace.init(workspaceWithService:)(uint64_t a1, uint64_t
   return v4;
 }
 
-void type metadata accessor for WiFiClientType(uint64_t a1, unint64_t *a2)
+void type metadata accessor for WiFiClientType(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -8768,13 +7670,12 @@ void partial apply for closure #1 in NetworkAnalytics.setNetworkConnectionId(_:)
 {
   v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, _s10Foundation4UUIDVSgMR);
   OUTLINED_FUNCTION_11_1(v0);
-  v2 = *(v1 + 80);
-  v3 = OUTLINED_FUNCTION_52_1();
+  v1 = OUTLINED_FUNCTION_52_1();
 
-  closure #1 in NetworkAnalytics.setNetworkConnectionId(_:)(v3, v4);
+  closure #1 in NetworkAnalytics.setNetworkConnectionId(_:)(v1, v2);
 }
 
-void specialized _NativeSet.insertNew(_:at:isUnique:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void specialized _NativeSet.insertNew(_:at:isUnique:)(Swift::Int result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v9 = a2;
   v11 = *(*v8 + 16);
@@ -8783,7 +7684,7 @@ void specialized _NativeSet.insertNew(_:at:isUnique:)(uint64_t a1, uint64_t a2, 
   {
     if (a3)
     {
-      specialized _NativeSet.resize(capacity:)(v11 + 1, a2, a3, a4, a5, a6, a7, a8, *&v22[0], SLOBYTE(v22[1]), *&v22[2], *&v22[3], *&v22[4], *&v22[5], *&v22[6], *&v22[7], *&v22[8], *&v22[9], *&v22[10], *&v22[11], *&v22[12], *&v22[13], *&v22[14], *&v22[15], *&v22[16], *&v22[17], *&v22[18], *&v22[19], *&v22[20], *&v22[21]);
+      specialized _NativeSet.resize(capacity:)(v11 + 1, a2, a3, a4, a5, a6, a7, a8, *&v21[0], *&v21[1], *&v21[2], *&v21[3], *&v21[4], *&v21[5], *&v21[6], *&v21[7], *&v21[8], *&v21[9], *&v21[10], *&v21[11], *&v21[12], *&v21[13], *&v21[14], *&v21[15], *&v21[16], *&v21[17], *&v21[18], *&v21[19], *&v21[20], *&v21[21]);
       goto LABEL_10;
     }
 
@@ -8792,48 +7693,47 @@ void specialized _NativeSet.insertNew(_:at:isUnique:)(uint64_t a1, uint64_t a2, 
       specialized _NativeSet.copyAndResize(capacity:)(v11 + 1);
 LABEL_10:
       v17 = *v8;
-      v18 = *(*v8 + 40);
       Hasher.init(_seed:)();
-      specialized BackgroundConnectionProtocol.hash(into:)(v27);
-      v19 = Hasher._finalize()();
-      v20 = ~(-1 << *(v17 + 32));
+      specialized BackgroundConnectionProtocol.hash(into:)(v26);
+      v18 = Hasher._finalize()();
+      v19 = ~(-1 << *(v17 + 32));
       while (1)
       {
-        v9 = v19 & v20;
-        if (((*(v17 + 56 + (((v19 & v20) >> 3) & 0xFFFFFFFFFFFFFF8)) >> (v19 & v20)) & 1) == 0)
+        v9 = v18 & v19;
+        if (((*(v17 + 56 + (((v18 & v19) >> 3) & 0xFFFFFFFFFFFFFF8)) >> (v18 & v19)) & 1) == 0)
         {
           goto LABEL_7;
         }
 
         type metadata accessor for BackgroundConnection();
-        v21 = *(*(v17 + 48) + 8 * v9);
-        memcpy(__dst, (v21 + 40), 0x204uLL);
-        memcpy(__src, (v21 + 40), 0x204uLL);
-        memcpy(v25, (a1 + 40), 0x204uLL);
-        memcpy(v22, (a1 + 40), 0x204uLL);
-        outlined init with copy of ConnectionConfiguration(__dst, v27);
-        outlined init with copy of ConnectionConfiguration(v25, v27);
-        LOBYTE(v21) = static ConnectionConfiguration.== infix(_:_:)(__src, v22);
-        memcpy(v26, v22, 0x204uLL);
+        v20 = *(*(v17 + 48) + 8 * v9);
+        memcpy(__dst, (v20 + 40), 0x204uLL);
+        memcpy(__src, (v20 + 40), 0x204uLL);
+        memcpy(v24, (result + 40), 0x204uLL);
+        memcpy(v21, (result + 40), 0x204uLL);
+        outlined init with copy of ConnectionConfiguration(__dst, v26);
+        outlined init with copy of ConnectionConfiguration(v24, v26);
+        LOBYTE(v20) = static ConnectionConfiguration.== infix(_:_:)(__src, v21);
+        memcpy(v25, v21, 0x204uLL);
+        outlined destroy of ConnectionConfiguration(v25);
+        memcpy(v26, __src, 0x204uLL);
         outlined destroy of ConnectionConfiguration(v26);
-        memcpy(v27, __src, 0x204uLL);
-        outlined destroy of ConnectionConfiguration(v27);
-        if (v21)
+        if (v20)
         {
           goto LABEL_15;
         }
 
-        v19 = v9 + 1;
+        v18 = v9 + 1;
       }
     }
 
-    specialized _NativeSet.copy()();
+    specialized _NativeSet.copy()(&_ss11_SetStorageCy11SiriNetwork20BackgroundConnectionCGMd);
   }
 
 LABEL_7:
   v13 = *v8;
   *(*v8 + 8 * (v9 >> 6) + 56) |= 1 << v9;
-  *(*(v13 + 48) + 8 * v9) = a1;
+  *(*(v13 + 48) + 8 * v9) = result;
   v14 = *(v13 + 16);
   v15 = __OFADD__(v14, 1);
   v16 = v14 + 1;
@@ -8861,121 +7761,41 @@ unint64_t specialized _NativeSet._delete(at:)(unint64_t result)
   if (((1 << v6) & *(v4 + 8 * (v6 >> 6))) != 0)
   {
     v7 = ~v5;
-    v8 = *v1;
 
-    v9 = _HashTable.previousHole(before:)();
+    v8 = _HashTable.previousHole(before:)();
     if ((*(v4 + 8 * (v6 >> 6)) & (1 << v6)) != 0)
     {
-      v10 = (v9 + 1) & v7;
+      v9 = (v8 + 1) & v7;
       do
       {
-        v11 = *(v3 + 48);
-        v12 = 120 * v6;
-        memcpy(__dst, (v11 + 120 * v6), 0x72uLL);
-        v13 = *(v3 + 40);
-        memcpy(v28, (v11 + 120 * v6), sizeof(v28));
+        v10 = *(v3 + 48);
+        v11 = 120 * v6;
+        memcpy(__dst, (v10 + 120 * v6), 0x72uLL);
+        memcpy(v27, (v10 + 120 * v6), sizeof(v27));
         Hasher.init(_seed:)();
-        outlined init with copy of ConnectionPolicyRoute(__dst, &v27);
-        ConnectionPolicyRoute.hash(into:)();
-        v14 = Hasher._finalize()();
+        outlined init with copy of ConnectionPolicyRoute(__dst, &v25);
+        ConnectionPolicyRoute.hash(into:)(v26);
+        v12 = Hasher._finalize()();
         outlined destroy of ConnectionPolicyRoute(__dst);
-        v15 = v14 & v7;
-        if (v2 >= v10)
+        v13 = v12 & v7;
+        if (v2 >= v9)
         {
-          if (v15 >= v10 && v2 >= v15)
+          if (v13 >= v9 && v2 >= v13)
           {
 LABEL_15:
-            v18 = *(v3 + 48);
-            v19 = (v18 + 120 * v2);
-            v20 = (v18 + v12);
-            v21 = v18 + v12 + 120;
-            if (120 * v2 < v12 || v19 >= v21 || v2 != v6)
+            v16 = *(v3 + 48);
+            v17 = (v16 + 120 * v2);
+            v18 = (v16 + v11);
+            v19 = v16 + v11 + 120;
+            if (120 * v2 < v11 || v17 >= v19 || v2 != v6)
             {
-              memmove(v19, v20, 0x78uLL);
+              memmove(v17, v18, 0x78uLL);
               v2 = v6;
             }
           }
         }
 
-        else if (v15 >= v10 || v2 >= v15)
-        {
-          goto LABEL_15;
-        }
-
-        v6 = (v6 + 1) & v7;
-      }
-
-      while (((*(v4 + ((v6 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v6) & 1) != 0);
-    }
-
-    *(v4 + ((v2 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << v2) - 1;
-  }
-
-  else
-  {
-    *(v4 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << result) - 1;
-  }
-
-  v24 = *(v3 + 16);
-  v25 = __OFSUB__(v24, 1);
-  v26 = v24 - 1;
-  if (v25)
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    *(v3 + 16) = v26;
-    ++*(v3 + 36);
-  }
-
-  return result;
-}
-
-{
-  v2 = result;
-  v3 = *v1;
-  v4 = *v1 + 56;
-  v5 = -1 << *(*v1 + 32);
-  v6 = (result + 1) & ~v5;
-  if (((1 << v6) & *(v4 + 8 * (v6 >> 6))) != 0)
-  {
-    v7 = ~v5;
-    v8 = *v1;
-
-    v9 = _HashTable.previousHole(before:)();
-    if ((*(v4 + 8 * (v6 >> 6)) & (1 << v6)) != 0)
-    {
-      v10 = (v9 + 1) & v7;
-      do
-      {
-        v11 = *(v3 + 40);
-        v12 = *(*(v3 + 48) + 8 * v6);
-        Hasher.init(_seed:)();
-
-        v13 = NWConnection.identifier.getter();
-        MEMORY[0x223DE29A0](v13);
-        v14 = Hasher._finalize()();
-
-        v15 = v14 & v7;
-        if (v2 >= v10)
-        {
-          if (v15 >= v10 && v2 >= v15)
-          {
-LABEL_15:
-            v18 = *(v3 + 48);
-            v19 = (v18 + 8 * v2);
-            v20 = (v18 + 8 * v6);
-            if (v2 != v6 || v19 >= v20 + 1)
-            {
-              *v19 = *v20;
-              v2 = v6;
-            }
-          }
-        }
-
-        else if (v15 >= v10 || v2 >= v15)
+        else if (v13 >= v9 || v2 >= v13)
         {
           goto LABEL_15;
         }
@@ -9020,22 +7840,95 @@ LABEL_15:
   if (((1 << v6) & *(v4 + 8 * (v6 >> 6))) != 0)
   {
     v7 = ~v5;
-    v8 = *v1;
 
-    v9 = _HashTable.previousHole(before:)();
+    v8 = _HashTable.previousHole(before:)();
     if ((*(v4 + 8 * (v6 >> 6)) & (1 << v6)) != 0)
     {
-      v10 = (v9 + 1) & v7;
+      v9 = (v8 + 1) & v7;
       do
       {
-        outlined init with copy of MessageCenterEndpoint(*(v3 + 48) + 40 * v6, v28);
-        v11 = *(v3 + 40);
         Hasher.init(_seed:)();
-        v12 = v29;
-        v13 = v30;
-        __swift_project_boxed_opaque_existential_1(v28, v29);
-        (*(v13 + 16))(v12, v13);
-        if (v14)
+
+        v10 = NWConnection.identifier.getter();
+        MEMORY[0x223DE29A0](v10);
+        v11 = Hasher._finalize()();
+
+        v12 = v11 & v7;
+        if (v2 >= v9)
+        {
+          if (v12 >= v9 && v2 >= v12)
+          {
+LABEL_15:
+            v15 = *(v3 + 48);
+            v16 = (v15 + 8 * v2);
+            v17 = (v15 + 8 * v6);
+            if (v2 != v6 || v16 >= v17 + 1)
+            {
+              *v16 = *v17;
+              v2 = v6;
+            }
+          }
+        }
+
+        else if (v12 >= v9 || v2 >= v12)
+        {
+          goto LABEL_15;
+        }
+
+        v6 = (v6 + 1) & v7;
+      }
+
+      while (((*(v4 + ((v6 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v6) & 1) != 0);
+    }
+
+    *(v4 + ((v2 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << v2) - 1;
+  }
+
+  else
+  {
+    *(v4 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << result) - 1;
+  }
+
+  v19 = *(v3 + 16);
+  v20 = __OFSUB__(v19, 1);
+  v21 = v19 - 1;
+  if (v20)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    *(v3 + 16) = v21;
+    ++*(v3 + 36);
+  }
+
+  return result;
+}
+
+{
+  v2 = result;
+  v3 = *v1;
+  v4 = *v1 + 56;
+  v5 = -1 << *(*v1 + 32);
+  v6 = (result + 1) & ~v5;
+  if (((1 << v6) & *(v4 + 8 * (v6 >> 6))) != 0)
+  {
+    v7 = ~v5;
+
+    v8 = _HashTable.previousHole(before:)();
+    if ((*(v4 + 8 * (v6 >> 6)) & (1 << v6)) != 0)
+    {
+      v9 = (v8 + 1) & v7;
+      do
+      {
+        outlined init with copy of MessageCenterEndpoint(*(v3 + 48) + 40 * v6, v26);
+        Hasher.init(_seed:)();
+        v10 = v27;
+        v11 = v28;
+        __swift_project_boxed_opaque_existential_1(v26, v27);
+        (*(v11 + 16))(v10, v11);
+        if (v12)
         {
           Hasher._combine(_:)(1u);
           String.hash(into:)();
@@ -9046,30 +7939,30 @@ LABEL_15:
           Hasher._combine(_:)(0);
         }
 
-        v15 = Hasher._finalize()();
-        outlined destroy of MessageCenterEndpoint(v28);
-        v16 = v15 & v7;
-        if (v2 >= v10)
+        v13 = Hasher._finalize()();
+        outlined destroy of MessageCenterEndpoint(v26);
+        v14 = v13 & v7;
+        if (v2 >= v9)
         {
-          if (v16 >= v10 && v2 >= v16)
+          if (v14 >= v9 && v2 >= v14)
           {
 LABEL_18:
-            v19 = *(v3 + 48);
-            v20 = v19 + 40 * v2;
-            v21 = (v19 + 40 * v6);
-            if (v2 != v6 || v20 >= v21 + 40)
+            v17 = *(v3 + 48);
+            v18 = v17 + 40 * v2;
+            v19 = (v17 + 40 * v6);
+            if (v2 != v6 || v18 >= v19 + 40)
             {
-              v23 = *v21;
-              v24 = v21[1];
-              *(v20 + 32) = *(v21 + 4);
-              *v20 = v23;
-              *(v20 + 16) = v24;
+              v21 = *v19;
+              v22 = v19[1];
+              *(v18 + 32) = *(v19 + 4);
+              *v18 = v21;
+              *(v18 + 16) = v22;
               v2 = v6;
             }
           }
         }
 
-        else if (v16 >= v10 || v2 >= v16)
+        else if (v14 >= v9 || v2 >= v14)
         {
           goto LABEL_18;
         }
@@ -9088,17 +7981,17 @@ LABEL_18:
     *(v4 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << result) - 1;
   }
 
-  v25 = *(v3 + 16);
-  v26 = __OFSUB__(v25, 1);
-  v27 = v25 - 1;
-  if (v26)
+  v23 = *(v3 + 16);
+  v24 = __OFSUB__(v23, 1);
+  v25 = v23 - 1;
+  if (v24)
   {
     __break(1u);
   }
 
   else
   {
-    *(v3 + 16) = v27;
+    *(v3 + 16) = v25;
     ++*(v3 + 36);
   }
 
@@ -9114,46 +8007,39 @@ LABEL_18:
   if (((1 << v6) & *(v4 + 8 * (v6 >> 6))) != 0)
   {
     v7 = ~v5;
-    v8 = *v1;
 
-    v9 = _HashTable.previousHole(before:)();
+    v8 = _HashTable.previousHole(before:)();
     if ((*(v4 + 8 * (v6 >> 6)) & (1 << v6)) != 0)
     {
-      v10 = (v9 + 1) & v7;
+      v9 = (v8 + 1) & v7;
       do
       {
-        v11 = *(v3 + 40);
-        v12 = (*(v3 + 48) + 32 * v6);
-        v13 = *v12;
-        v14 = v12[1];
-        v15 = v12[2];
-        v16 = v12[3];
         Hasher.init(_seed:)();
 
         String.hash(into:)();
         String.hash(into:)();
-        v17 = Hasher._finalize()();
+        v10 = Hasher._finalize()();
 
-        v18 = v17 & v7;
-        if (v2 >= v10)
+        v11 = v10 & v7;
+        if (v2 >= v9)
         {
-          if (v18 >= v10 && v2 >= v18)
+          if (v11 >= v9 && v2 >= v11)
           {
 LABEL_15:
-            v21 = *(v3 + 48);
-            v22 = (v21 + 32 * v2);
-            v23 = (v21 + 32 * v6);
-            if (v2 != v6 || v22 >= v23 + 2)
+            v14 = *(v3 + 48);
+            v15 = (v14 + 32 * v2);
+            v16 = (v14 + 32 * v6);
+            if (v2 != v6 || v15 >= v16 + 2)
             {
-              v25 = v23[1];
-              *v22 = *v23;
-              v22[1] = v25;
+              v18 = v16[1];
+              *v15 = *v16;
+              v15[1] = v18;
               v2 = v6;
             }
           }
         }
 
-        else if (v18 >= v10 || v2 >= v18)
+        else if (v11 >= v9 || v2 >= v11)
         {
           goto LABEL_15;
         }
@@ -9172,17 +8058,17 @@ LABEL_15:
     *(v4 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << result) - 1;
   }
 
-  v26 = *(v3 + 16);
-  v27 = __OFSUB__(v26, 1);
-  v28 = v26 - 1;
-  if (v27)
+  v19 = *(v3 + 16);
+  v20 = __OFSUB__(v19, 1);
+  v21 = v19 - 1;
+  if (v20)
   {
     __break(1u);
   }
 
   else
   {
-    *(v3 + 16) = v28;
+    *(v3 + 16) = v21;
     ++*(v3 + 36);
   }
 
@@ -9198,39 +8084,36 @@ LABEL_15:
   if (((1 << v6) & *(v4 + 8 * (v6 >> 6))) != 0)
   {
     v7 = ~v5;
-    v8 = *v1;
 
-    v9 = _HashTable.previousHole(before:)();
+    v8 = _HashTable.previousHole(before:)();
     if ((*(v4 + 8 * (v6 >> 6)) & (1 << v6)) != 0)
     {
-      v10 = (v9 + 1) & v7;
+      v9 = (v8 + 1) & v7;
       do
       {
-        v11 = *(v3 + 40);
-        v12 = *(*(v3 + 48) + 8 * v6);
         Hasher.init(_seed:)();
 
-        specialized BackgroundConnectionProtocol.hash(into:)(v24);
-        v13 = Hasher._finalize()();
+        specialized BackgroundConnectionProtocol.hash(into:)(v21);
+        v10 = Hasher._finalize()();
 
-        v14 = v13 & v7;
-        if (v2 >= v10)
+        v11 = v10 & v7;
+        if (v2 >= v9)
         {
-          if (v14 >= v10 && v2 >= v14)
+          if (v11 >= v9 && v2 >= v11)
           {
 LABEL_15:
-            v17 = *(v3 + 48);
-            v18 = (v17 + 8 * v2);
-            v19 = (v17 + 8 * v6);
-            if (v2 != v6 || v18 >= v19 + 1)
+            v14 = *(v3 + 48);
+            v15 = (v14 + 8 * v2);
+            v16 = (v14 + 8 * v6);
+            if (v2 != v6 || v15 >= v16 + 1)
             {
-              *v18 = *v19;
+              *v15 = *v16;
               v2 = v6;
             }
           }
         }
 
-        else if (v14 >= v10 || v2 >= v14)
+        else if (v11 >= v9 || v2 >= v11)
         {
           goto LABEL_15;
         }
@@ -9249,17 +8132,17 @@ LABEL_15:
     *(v4 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << result) - 1;
   }
 
-  v21 = *(v3 + 16);
-  v22 = __OFSUB__(v21, 1);
-  v23 = v21 - 1;
-  if (v22)
+  v18 = *(v3 + 16);
+  v19 = __OFSUB__(v18, 1);
+  v20 = v18 - 1;
+  if (v19)
   {
     __break(1u);
   }
 
   else
   {
-    *(v3 + 16) = v23;
+    *(v3 + 16) = v20;
     ++*(v3 + 36);
   }
 
@@ -9275,39 +8158,38 @@ LABEL_15:
   if (((1 << v6) & *(v4 + 8 * (v6 >> 6))) != 0)
   {
     v7 = ~v5;
-    v8 = *v1;
 
-    v9 = _HashTable.previousHole(before:)();
+    v8 = _HashTable.previousHole(before:)();
     if ((*(v4 + 8 * (v6 >> 6)) & (1 << v6)) != 0)
     {
-      v10 = (v9 + 1) & v7;
+      v9 = (v8 + 1) & v7;
       do
       {
-        outlined init with copy of AnyHashable(*(v3 + 48) + 40 * v6, v24);
-        v11 = AnyHashable._rawHashValue(seed:)(*(v3 + 40));
-        outlined destroy of AnyHashable(v24);
-        v12 = v11 & v7;
-        if (v2 >= v10)
+        outlined init with copy of AnyHashable(*(v3 + 48) + 40 * v6, v23);
+        v10 = AnyHashable._rawHashValue(seed:)(*(v3 + 40));
+        outlined destroy of AnyHashable(v23);
+        v11 = v10 & v7;
+        if (v2 >= v9)
         {
-          if (v12 >= v10 && v2 >= v12)
+          if (v11 >= v9 && v2 >= v11)
           {
 LABEL_15:
-            v15 = *(v3 + 48);
-            v16 = v15 + 40 * v2;
-            v17 = (v15 + 40 * v6);
-            if (v2 != v6 || v16 >= v17 + 40)
+            v14 = *(v3 + 48);
+            v15 = v14 + 40 * v2;
+            v16 = (v14 + 40 * v6);
+            if (v2 != v6 || v15 >= v16 + 40)
             {
-              v19 = *v17;
-              v20 = v17[1];
-              *(v16 + 32) = *(v17 + 4);
-              *v16 = v19;
-              *(v16 + 16) = v20;
+              v18 = *v16;
+              v19 = v16[1];
+              *(v15 + 32) = *(v16 + 4);
+              *v15 = v18;
+              *(v15 + 16) = v19;
               v2 = v6;
             }
           }
         }
 
-        else if (v12 >= v10 || v2 >= v12)
+        else if (v11 >= v9 || v2 >= v11)
         {
           goto LABEL_15;
         }
@@ -9326,17 +8208,17 @@ LABEL_15:
     *(v4 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << result) - 1;
   }
 
-  v21 = *(v3 + 16);
-  v22 = __OFSUB__(v21, 1);
-  v23 = v21 - 1;
-  if (v22)
+  v20 = *(v3 + 16);
+  v21 = __OFSUB__(v20, 1);
+  v22 = v20 - 1;
+  if (v21)
   {
     __break(1u);
   }
 
   else
   {
-    *(v3 + 16) = v23;
+    *(v3 + 16) = v22;
     ++*(v3 + 36);
   }
 
@@ -9347,76 +8229,74 @@ void closure #1 in NetworkAnalytics.setNetworkConnectionId(_:)(uint64_t a1, uint
 {
   v3 = type metadata accessor for UUID();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  v6 = MEMORY[0x28223BE20](v3);
-  v8 = &v36 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v6);
-  v10 = &v36 - v9;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, _s10Foundation4UUIDVSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  v13 = MEMORY[0x28223BE20](v11 - 8);
-  v15 = &v36 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = MEMORY[0x28223BE20](v13);
-  v18 = &v36 - v17;
-  MEMORY[0x28223BE20](v16);
-  v20 = &v36 - v19;
+  v5 = MEMORY[0x28223BE20](v3);
+  v7 = &v34 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v5);
+  v9 = &v34 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, _s10Foundation4UUIDVSgMR);
+  v11 = MEMORY[0x28223BE20](v10 - 8);
+  v13 = &v34 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = MEMORY[0x28223BE20](v11);
+  v16 = &v34 - v15;
+  MEMORY[0x28223BE20](v14);
+  v18 = &v34 - v17;
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v22 = Strong;
-    v39 = v4;
-    outlined init with copy of UUID?(a2, v20);
-    v23 = OBJC_IVAR___SNNetworkAnalyticsInternal_networkConnectionId;
+    v20 = Strong;
+    v37 = v4;
+    outlined init with copy of UUID?(a2, v18);
+    v21 = OBJC_IVAR___SNNetworkAnalyticsInternal_networkConnectionId;
     swift_beginAccess();
-    outlined assign with take of UUID?(v20, v22 + v23);
+    outlined assign with take of UUID?(v18, v20 + v21);
     swift_endAccess();
     if (one-time initialization token for siriNetwork != -1)
     {
       swift_once();
     }
 
-    v24 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v24, static Logger.siriNetwork);
-    v25 = v22;
-    v26 = Logger.logObject.getter();
-    v27 = static os_log_type_t.default.getter();
+    v22 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v22, static Logger.siriNetwork);
+    v23 = v20;
+    v24 = Logger.logObject.getter();
+    v25 = static os_log_type_t.default.getter();
 
-    if (os_log_type_enabled(v26, v27))
+    if (os_log_type_enabled(v24, v25))
     {
-      v38 = v25;
-      v28 = swift_slowAlloc();
-      v37 = swift_slowAlloc();
-      v40 = v37;
-      *v28 = 136315138;
-      outlined init with copy of UUID?(v22 + v23, v18);
-      outlined init with copy of UUID?(v18, v15);
-      if (__swift_getEnumTagSinglePayload(v15, 1, v3) == 1)
+      v36 = v23;
+      v26 = swift_slowAlloc();
+      v35 = swift_slowAlloc();
+      v38[0] = v35;
+      *v26 = 136315138;
+      outlined init with copy of UUID?(v20 + v21, v16);
+      outlined init with copy of UUID?(v16, v13);
+      if (__swift_getEnumTagSinglePayload(v13, 1, v3) == 1)
       {
-        v29 = 0xE300000000000000;
-        v30 = 7104878;
+        v27 = 0xE300000000000000;
+        v28 = 7104878;
       }
 
       else
       {
-        v31 = v39;
-        (*(v39 + 32))(v10, v15, v3);
-        (*(v31 + 16))(v8, v10, v3);
-        v30 = String.init<A>(describing:)();
-        v29 = v32;
-        (*(v31 + 8))(v10, v3);
+        v29 = v37;
+        (*(v37 + 32))(v9, v13, v3);
+        (*(v29 + 16))(v7, v9, v3);
+        v28 = String.init<A>(describing:)();
+        v27 = v30;
+        (*(v29 + 8))(v9, v3);
       }
 
-      v33 = v38;
-      outlined destroy of NetworkConnectionProtocol?(v18, &_s10Foundation4UUIDVSgMd, _s10Foundation4UUIDVSgMR);
-      v34 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v30, v29, &v40);
+      v31 = v36;
+      outlined destroy of NetworkConnectionProtocol?(v16, &_s10Foundation4UUIDVSgMd, _s10Foundation4UUIDVSgMR);
+      v32 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v28, v27, v38);
 
-      *(v28 + 4) = v34;
-      _os_log_impl(&dword_223515000, v26, v27, "Network Analytics: NetworkConnectionId set: %s", v28, 0xCu);
-      v35 = v37;
-      __swift_destroy_boxed_opaque_existential_0(v37);
-      MEMORY[0x223DE38F0](v35, -1, -1);
-      MEMORY[0x223DE38F0](v28, -1, -1);
+      *(v26 + 4) = v32;
+      _os_log_impl(&dword_223515000, v24, v25, "Network Analytics: NetworkConnectionId set: %s", v26, 0xCu);
+      v33 = v35;
+      __swift_destroy_boxed_opaque_existential_0(v35);
+      MEMORY[0x223DE38F0](v33, -1, -1);
+      MEMORY[0x223DE38F0](v26, -1, -1);
     }
 
     else
@@ -9425,7 +8305,7 @@ void closure #1 in NetworkAnalytics.setNetworkConnectionId(_:)(uint64_t a1, uint
   }
 }
 
-void closure #1 in closure #1 in Connection.scheduleBackgroundConnection(_:after:)(uint64_t a1, void *a2, uint64_t a3)
+void closure #1 in closure #1 in Connection.scheduleBackgroundConnection(_:after:)(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   if (*(a1 + OBJC_IVAR___SNConnectionInternal_activeBackgroundConnection))
   {
@@ -9434,188 +8314,185 @@ void closure #1 in closure #1 in Connection.scheduleBackgroundConnection(_:after
       swift_once();
     }
 
-    v4 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v4, static Logger.siriNetwork);
+    v5 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v5, static Logger.siriNetwork);
     outlined init with copy of ConnectionPolicyRoute(a2, __dst);
-    v5 = Logger.logObject.getter();
-    v6 = static os_log_type_t.default.getter();
+    v6 = Logger.logObject.getter();
+    v7 = static os_log_type_t.default.getter();
     outlined destroy of ConnectionPolicyRoute(a2);
-    if (os_log_type_enabled(v5, v6))
+    if (os_log_type_enabled(v6, v7))
     {
-      v7 = swift_slowAlloc();
       v8 = swift_slowAlloc();
-      v32[0] = v8;
-      *v7 = 136315138;
-      v9 = a2[1];
-      if (v9)
+      v9 = swift_slowAlloc();
+      v33[0] = v9;
+      *v8 = 136315138;
+      v10 = a2[1];
+      if (v10)
       {
         __dst[0] = *a2;
-        __dst[1] = v9;
+        __dst[1] = v10;
 
-        v10 = String.init<A>(describing:)();
-        v12 = v11;
+        v11 = String.init<A>(describing:)();
+        v13 = v12;
       }
 
       else
       {
-        v10 = 0x6E776F6E6B6E75;
-        v12 = 0xE700000000000000;
+        v11 = 0x6E776F6E6B6E75;
+        v13 = 0xE700000000000000;
       }
 
-      v23 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v10, v12, v32);
+      v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v11, v13, v33);
 
-      *(v7 + 4) = v23;
-      _os_log_impl(&dword_223515000, v5, v6, "Connection - Start: Background Connection. Starting route %s cancelled. Race lost", v7, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v8);
+      *(v8 + 4) = v24;
+      _os_log_impl(&dword_223515000, v6, v7, "Connection - Start: Background Connection. Starting route %s cancelled. Race lost", v8, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v9);
+      MEMORY[0x223DE38F0](v9, -1, -1);
       MEMORY[0x223DE38F0](v8, -1, -1);
-      MEMORY[0x223DE38F0](v7, -1, -1);
     }
   }
 
   else
   {
     swift_beginAccess();
-    specialized Set._Variant.remove(_:)(a2, v35);
+    specialized Set._Variant.remove(_:)(v36, a2);
     swift_endAccess();
-    outlined destroy of NetworkConnectionProtocol?(v35, &_s11SiriNetwork21ConnectionPolicyRouteVSgMd, &_s11SiriNetwork21ConnectionPolicyRouteVSgMR);
+    outlined destroy of NetworkConnectionProtocol?(v36, &_s11SiriNetwork21ConnectionPolicyRouteVSgMd, &_s11SiriNetwork21ConnectionPolicyRouteVSgMR);
     if (one-time initialization token for siriNetwork != -1)
     {
       swift_once();
     }
 
-    v14 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v14, static Logger.siriNetwork);
+    v15 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v15, static Logger.siriNetwork);
     outlined init with copy of ConnectionPolicyRoute(a2, __dst);
 
-    v15 = Logger.logObject.getter();
-    v16 = static os_log_type_t.default.getter();
+    v16 = Logger.logObject.getter();
+    v17 = static os_log_type_t.default.getter();
     outlined destroy of ConnectionPolicyRoute(a2);
 
-    if (os_log_type_enabled(v15, v16))
+    if (os_log_type_enabled(v16, v17))
     {
-      v17 = swift_slowAlloc();
       v18 = swift_slowAlloc();
-      v34[0] = v18;
-      *v17 = 136315394;
-      v19 = a2[1];
-      if (v19)
+      v19 = swift_slowAlloc();
+      v35[0] = v19;
+      *v18 = 136315394;
+      v20 = a2[1];
+      if (v20)
       {
         __dst[0] = *a2;
-        __dst[1] = v19;
+        __dst[1] = v20;
 
-        v20 = String.init<A>(describing:)();
-        v22 = v21;
+        v21 = String.init<A>(describing:)();
+        v23 = v22;
       }
 
       else
       {
-        v20 = 0x6E776F6E6B6E75;
-        v22 = 0xE700000000000000;
+        v21 = 0x6E776F6E6B6E75;
+        v23 = 0xE700000000000000;
       }
 
-      v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v22, v34);
+      v25 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v21, v23, v35);
 
-      *(v17 + 4) = v24;
-      *(v17 + 12) = 2080;
+      *(v18 + 4) = v25;
+      *(v18 + 12) = 2080;
       memcpy(__dst, (a3 + 40), 0x204uLL);
-      memcpy(v32, (a3 + 40), 0x204uLL);
-      outlined init with copy of ConnectionConfiguration(__dst, &v31);
-      v25 = String.init<A>(describing:)();
-      v27 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v26, v34);
+      memcpy(v33, (a3 + 40), 0x204uLL);
+      outlined init with copy of ConnectionConfiguration(__dst, &v32);
+      v26 = String.init<A>(describing:)();
+      v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v26, v27, v35);
 
-      *(v17 + 14) = v27;
-      _os_log_impl(&dword_223515000, v15, v16, "Connection - Start: Background Connection. Starting route %s with connection configuration: %s", v17, 0x16u);
+      *(v18 + 14) = v28;
+      _os_log_impl(&dword_223515000, v16, v17, "Connection - Start: Background Connection. Starting route %s with connection configuration: %s", v18, 0x16u);
       swift_arrayDestroy();
+      MEMORY[0x223DE38F0](v19, -1, -1);
       MEMORY[0x223DE38F0](v18, -1, -1);
-      MEMORY[0x223DE38F0](v17, -1, -1);
     }
 
     swift_beginAccess();
     Strong = swift_unknownObjectWeakLoadStrong();
-    v29 = &protocol witness table for Connection;
+    v30 = &protocol witness table for Connection;
     if (!Strong)
     {
-      v29 = 0;
+      v30 = 0;
     }
 
-    *(a3 + 24) = v29;
+    *(a3 + 24) = v30;
     swift_unknownObjectWeakAssign();
 
     BackgroundConnection.start()();
-    if (v30)
+    if (v31)
     {
     }
   }
 }
 
-unint64_t specialized Set._Variant.remove(_:)@<X0>(void *__src@<X0>, _OWORD *a2@<X8>)
+unint64_t specialized Set._Variant.remove(_:)@<X0>(uint64_t *__return_ptr a1@<X8>, void *__src@<X0>)
 {
   v3 = v2;
   memcpy(__dst, __src, 0x72uLL);
   v6 = *v3;
-  v7 = *(*v3 + 40);
-  memcpy(v18, __src, 0x72uLL);
+  memcpy(v16, __src, 0x72uLL);
   Hasher.init(_seed:)();
-  ConnectionPolicyRoute.hash(into:)();
+  ConnectionPolicyRoute.hash(into:)(v15);
   result = Hasher._finalize()();
-  v9 = ~(-1 << *(v6 + 32));
+  v8 = ~(-1 << *(*&v6 + 32));
   while (1)
   {
-    v10 = result & v9;
-    if (((*(v6 + 56 + (((result & v9) >> 3) & 0xFFFFFFFFFFFFFF8)) >> (result & v9)) & 1) == 0)
+    v9 = result & v8;
+    if (((*(*&v6 + 56 + (((result & v8) >> 3) & 0xFFFFFFFFFFFFFF8)) >> (result & v8)) & 1) == 0)
     {
-      *a2 = xmmword_2235EFB30;
-      a2[1] = 0u;
-      a2[2] = 0u;
-      a2[3] = 0u;
-      a2[4] = 0u;
-      a2[5] = 0u;
-      a2[6] = 0u;
-      *(a2 + 56) = 0;
+      *a1 = xmmword_2235EFB30;
+      *(a1 + 1) = 0u;
+      *(a1 + 2) = 0u;
+      *(a1 + 3) = 0u;
+      *(a1 + 4) = 0u;
+      *(a1 + 5) = 0u;
+      *(a1 + 6) = 0u;
+      *(a1 + 56) = 0;
       return result;
     }
 
-    v11 = *(v6 + 48);
-    memcpy(v17, (v11 + 120 * v10), 0x72uLL);
-    memcpy(__srca, (v11 + 120 * v10), 0x72uLL);
-    LOBYTE(v11) = static ConnectionPolicyRoute.== infix(_:_:)(__srca, __dst);
-    memcpy(v18, __srca, 0x72uLL);
-    outlined init with copy of ConnectionPolicyRoute(v17, v15);
-    outlined destroy of ConnectionPolicyRoute(v18);
-    if (v11)
+    v10 = *(*&v6 + 48);
+    memcpy(v15, (v10 + 120 * v9), 0x72uLL);
+    memcpy(__srca, (v10 + 120 * v9), 0x72uLL);
+    LOBYTE(v10) = static ConnectionPolicyRoute.== infix(_:_:)(__srca, __dst);
+    memcpy(v16, __srca, 0x72uLL);
+    outlined init with copy of ConnectionPolicyRoute(v15, v13);
+    outlined destroy of ConnectionPolicyRoute(v16);
+    if (v10)
     {
       break;
     }
 
-    result = v10 + 1;
+    result = v9 + 1;
   }
 
-  v12 = *v3;
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v14 = *v3;
+  v12 = *v3;
   __srca[0] = *v3;
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
     specialized _NativeSet.copy()();
-    v14 = __srca[0];
+    v12 = __srca[0];
   }
 
-  memcpy(a2, (*(v14 + 48) + 120 * v10), 0x72uLL);
-  result = specialized _NativeSet._delete(at:)(v10);
+  memcpy(a1, (*(*&v12 + 48) + 120 * v9), 0x72uLL);
+  result = specialized _NativeSet._delete(at:)(v9);
   *v3 = __srca[0];
   return result;
 }
 
-uint64_t closure #1 in NetworkManager.registerClient()(uint64_t a1, void (*a2)(uint64_t))
+void *closure #1 in NetworkManager.registerClient()(uint64_t a1, void (*a2)(uint64_t))
 {
   swift_beginAccess();
   result = swift_unknownObjectWeakLoadStrong();
   if (result)
   {
     v4 = result;
-    v5 = *(result + OBJC_IVAR___SNNetworkManagerInternal_networkWirelessCoexManager);
 
-    a2(v6);
+    a2(v5);
   }
 
   return result;
@@ -9626,44 +8503,42 @@ void NetworkWirelessCoexManager.unregisterClient()()
   OUTLINED_FUNCTION_46();
   v2 = v1;
   v4 = v3;
-  v5 = type metadata accessor for DispatchWorkItemFlags();
-  v6 = OUTLINED_FUNCTION_0_0(v5);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v6);
+  type metadata accessor for DispatchWorkItemFlags();
+  OUTLINED_FUNCTION_0_0();
+  MEMORY[0x28223BE20](v5);
   OUTLINED_FUNCTION_0_1();
-  v9 = OUTLINED_FUNCTION_8_1();
-  v10 = OUTLINED_FUNCTION_0_0(v9);
-  v12 = *(v11 + 64);
-  MEMORY[0x28223BE20](v10);
+  OUTLINED_FUNCTION_8_1();
+  OUTLINED_FUNCTION_0_0();
+  MEMORY[0x28223BE20](v6);
   OUTLINED_FUNCTION_7();
-  v13 = *(v0 + 168);
+  v7 = *(v0 + 168);
   OUTLINED_FUNCTION_7_1();
-  v14 = swift_allocObject();
+  v8 = swift_allocObject();
   swift_weakInit();
-  v25[4] = v4;
-  v25[5] = v14;
+  v19[4] = v4;
+  v19[5] = v8;
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_3(COERCE_DOUBLE(1107296256));
-  v25[2] = v15;
-  v25[3] = v2;
-  v16 = _Block_copy(v25);
-  v17 = v13;
+  v19[2] = v9;
+  v19[3] = v2;
+  v10 = _Block_copy(v19);
+  v11 = v7;
 
   static DispatchQoS.unspecified.getter();
   OUTLINED_FUNCTION_2_33();
-  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_2(v18, v19);
+  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_2(v12, v13, MEMORY[0x277D851A0]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
   lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
   OUTLINED_FUNCTION_8_21();
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  v20 = OUTLINED_FUNCTION_6();
-  MEMORY[0x223DE2460](v20);
-  _Block_release(v16);
+  v14 = OUTLINED_FUNCTION_6();
+  MEMORY[0x223DE2460](v14);
+  _Block_release(v10);
 
-  v21 = OUTLINED_FUNCTION_16_1();
-  v22(v21);
-  v23 = OUTLINED_FUNCTION_16();
-  v24(v23);
+  v15 = OUTLINED_FUNCTION_16_1();
+  v16(v15);
+  v17 = OUTLINED_FUNCTION_16();
+  v18(v17);
 
   OUTLINED_FUNCTION_47();
 }
@@ -9676,24 +8551,24 @@ uint64_t sub_223537E50()
   return MEMORY[0x2821FE8E8](v0, v1, v2);
 }
 
-uint64_t closure #1 in NetworkWirelessCoexManager.resetLinkRecommendationInfo()()
+uint64_t closure #1 in NetworkWirelessCoexManager.resetLinkRecommendationInfo()(uint64_t a1)
 {
   swift_beginAccess();
   result = swift_weakLoadStrong();
   if (result)
   {
-    v1 = result;
+    v2 = result;
     swift_beginAccess();
-    *(v1 + 56) = 256;
-    *(v1 + 72) = 0;
-    *(v1 + 80) = 0;
-    *(v1 + 64) = 0;
-    *(v1 + 85) = 0;
-    *(v1 + 96) = 0u;
-    *(v1 + 112) = 0u;
-    *(v1 + 128) = 0u;
-    *(v1 + 144) = 0u;
-    *(v1 + 160) = 0;
+    *(v2 + 56) = 256;
+    *(v2 + 72) = 0;
+    *(v2 + 80) = 0;
+    *(v2 + 64) = 0;
+    *(v2 + 85) = 0;
+    *(v2 + 96) = 0u;
+    *(v2 + 112) = 0u;
+    *(v2 + 128) = 0u;
+    *(v2 + 144) = 0u;
+    *(v2 + 160) = 0;
   }
 
   return result;
@@ -9719,75 +8594,71 @@ Swift::Void __swiftcall NetworkManager.updateNetworkPerformanceFeed()()
     [*(v1 + OBJC_IVAR___SNNetworkManagerInternal_lockConnectionQuality) lock];
     *(v1 + OBJC_IVAR___SNNetworkManagerInternal_connectionQualityReport) = 50529027;
     [*(v1 + v10) unlock];
-    v11 = *MEMORY[0x277D6B6A0];
-    v12 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v14 = v13;
-    v15 = objc_allocWithZone(MEMORY[0x277D6B500]);
-    v42 = @nonobjc AnalyticsWorkspace.init(workspaceWithService:)(v12, v14);
-    v16 = [objc_allocWithZone(MEMORY[0x277D6B6E8]) initWithWorkspace_];
-    if (v16)
+    v11 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v13 = v12;
+    v14 = objc_allocWithZone(MEMORY[0x277D6B500]);
+    v38 = @nonobjc AnalyticsWorkspace.init(workspaceWithService:)(v11, v13);
+    v15 = [objc_allocWithZone(MEMORY[0x277D6B6E8]) initWithWorkspace_];
+    if (v15)
     {
-      v17 = *(v1 + OBJC_IVAR___SNNetworkManagerInternal_queue);
-      v18 = v16;
-      [v18 setQueue_];
+      v16 = *(v1 + OBJC_IVAR___SNNetworkManagerInternal_queue);
+      v17 = v15;
+      [v17 setQueue_];
       __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_SStGMd, &_ss23_ContiguousArrayStorageCySS_SStGMR);
       inited = swift_initStackObject();
       *(inited + 16) = xmmword_2235EFCB0;
-      v20 = *MEMORY[0x277D6B6C8];
       *(inited + 32) = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      *(inited + 40) = v21;
-      v22 = *MEMORY[0x277D6B6B0];
+      *(inited + 40) = v19;
       *(inited + 48) = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      *(inited + 56) = v23;
-      v24 = Dictionary.init(dictionaryLiteral:)();
-      v25 = swift_initStackObject();
-      *(v25 + 16) = xmmword_2235EFCB0;
-      v26 = *MEMORY[0x277D6B6B8];
-      *(v25 + 32) = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      *(v25 + 40) = v27;
-      *(v25 + 48) = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      *(v25 + 56) = v28;
-      v29 = Dictionary.init(dictionaryLiteral:)();
-      v30 = v18;
-      specialized _dictionaryUpCast<A, B, C, D>(_:)(v24);
-      v32 = v31;
-      v33 = swift_allocObject();
+      *(inited + 56) = v20;
+      v21 = Dictionary.init(dictionaryLiteral:)();
+      v22 = swift_initStackObject();
+      *(v22 + 16) = xmmword_2235EFCB0;
+      *(v22 + 32) = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      *(v22 + 40) = v23;
+      *(v22 + 48) = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      *(v22 + 56) = v24;
+      v25 = Dictionary.init(dictionaryLiteral:)();
+      v26 = v17;
+      specialized _dictionaryUpCast<A, B, C, D>(_:)(v21);
+      v28 = v27;
+      v29 = swift_allocObject();
       swift_unknownObjectWeakInit();
-      v34 = swift_allocObject();
-      v34[2] = v33;
-      v34[3] = v30;
-      v34[4] = v29;
-      v47 = partial apply for closure #1 in NetworkManager.updateNetworkPerformanceFeed();
-      v48 = v34;
+      v30 = swift_allocObject();
+      v30[2] = v29;
+      v30[3] = v26;
+      v30[4] = v25;
+      v43 = partial apply for closure #1 in NetworkManager.updateNetworkPerformanceFeed();
+      v44 = v30;
       aBlock = MEMORY[0x277D85DD0];
-      v44 = 1107296256;
-      v45 = thunk for @escaping @callee_guaranteed (@guaranteed [AnyHashable : Any]?, @guaranteed Error?) -> ();
-      v46 = &block_descriptor_9;
-      v35 = _Block_copy(&aBlock);
+      v40 = 1107296256;
+      v41 = thunk for @escaping @callee_guaranteed (@guaranteed [AnyHashable : Any]?, @guaranteed Error?) -> ();
+      v42 = &block_descriptor_9;
+      v31 = _Block_copy(&aBlock);
 
-      outlined bridged method (mnbnnn) of @objc NetworkPerformanceFeed.fullScorecard(for:options:reply:)(1, v32, v35, v30);
-      _Block_release(v35);
-      v36 = v30;
-      specialized _dictionaryUpCast<A, B, C, D>(_:)(v24);
-      v38 = v37;
+      outlined bridged method (mnbnnn) of @objc NetworkPerformanceFeed.fullScorecard(for:options:reply:)(1, v28, v31, v26);
+      _Block_release(v31);
+      v32 = v26;
+      specialized _dictionaryUpCast<A, B, C, D>(_:)(v21);
+      v34 = v33;
 
-      v39 = swift_allocObject();
+      v35 = swift_allocObject();
       swift_unknownObjectWeakInit();
-      v40 = swift_allocObject();
-      v40[2] = v39;
-      v40[3] = v36;
-      v40[4] = v29;
-      v47 = partial apply for closure #2 in NetworkManager.updateNetworkPerformanceFeed();
-      v48 = v40;
+      v36 = swift_allocObject();
+      v36[2] = v35;
+      v36[3] = v32;
+      v36[4] = v25;
+      v43 = partial apply for closure #2 in NetworkManager.updateNetworkPerformanceFeed();
+      v44 = v36;
       aBlock = MEMORY[0x277D85DD0];
-      v44 = 1107296256;
-      v45 = thunk for @escaping @callee_guaranteed (@guaranteed [AnyHashable : Any]?, @guaranteed Error?) -> ();
-      v46 = &block_descriptor_10_1;
-      v41 = _Block_copy(&aBlock);
+      v40 = 1107296256;
+      v41 = thunk for @escaping @callee_guaranteed (@guaranteed [AnyHashable : Any]?, @guaranteed Error?) -> ();
+      v42 = &block_descriptor_10_1;
+      v37 = _Block_copy(&aBlock);
 
-      outlined bridged method (mnbnnn) of @objc NetworkPerformanceFeed.fullScorecard(for:options:reply:)(2, v38, v41, v36);
+      outlined bridged method (mnbnnn) of @objc NetworkPerformanceFeed.fullScorecard(for:options:reply:)(2, v34, v37, v32);
 
-      _Block_release(v41);
+      _Block_release(v37);
     }
 
     else
@@ -9795,4 +8666,1137 @@ Swift::Void __swiftcall NetworkManager.updateNetworkPerformanceFeed()()
       __break(1u);
     }
   }
+}
+
+uint64_t sub_223538390()
+{
+  MEMORY[0x223DE39C0](v0 + 16);
+
+  return MEMORY[0x2821FE8E8](v0, 24, 7);
+}
+
+Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> BackgroundConnection.start()()
+{
+  v0[1136] = 0;
+  v0[138] = v0[658];
+  v0[136] = v0[656];
+  BackgroundConnection.start(proposedFallbackMethod:allowFallbackToNewMethod:)(SiriNetwork_ConnectionMethod_unknown, 1);
+}
+
+uint64_t ConnectionMethod.communicationProtocolClass(for:)(uint64_t a1)
+{
+  if (a1 == 2)
+  {
+    return type metadata accessor for CommunicationProtocolProtobuf();
+  }
+
+  if (a1 == 1)
+  {
+    return type metadata accessor for CommunicationProtocolAce();
+  }
+
+  result = _diagnoseUnexpectedEnumCaseValue<A, B>(type:rawValue:)();
+  __break(1u);
+  return result;
+}
+
+uint64_t *__swift_allocate_boxed_opaque_existential_1(uint64_t *a1)
+{
+  v1 = a1;
+  if ((*(*(a1[3] - 8) + 82) & 2) != 0)
+  {
+    *a1 = swift_allocBox();
+    return v2;
+  }
+
+  return v1;
+}
+
+uint64_t protocol witness for CommunicationProtocol.init(withDelegate:connectionQueue:) in conformance CommunicationProtocolAce@<X0>(uint64_t *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>, uint64_t a4@<X2>)
+{
+  result = CommunicationProtocolAce.__allocating_init(withDelegate:connectionQueue:)(a2, a3, a4);
+  *a1 = result;
+  return result;
+}
+
+uint64_t OUTLINED_FUNCTION_67(uint64_t a1)
+{
+
+  return outlined init with copy of MessageCenterEndpoint(v1 + 344, a1 + 16);
+}
+
+unint64_t OUTLINED_FUNCTION_67_0(uint64_t a1, uint64_t a2, ...)
+{
+  va_start(va, a2);
+
+  return getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v2, v3, va);
+}
+
+uint64_t CommunicationProtocolAce.init(withDelegate:connectionQueue:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  *(v3 + 24) = 0;
+  swift_unknownObjectWeakInit();
+  *(v3 + 40) = xmmword_2235EF700;
+  *(v3 + 56) = xmmword_2235EF6F0;
+  *(v3 + 72) = xmmword_2235EF700;
+  *(v3 + 88) = xmmword_2235EF700;
+  *(v3 + 104) = 0u;
+  *(v3 + 120) = 0u;
+  *(v3 + 136) = 0u;
+  *(v3 + 152) = 0u;
+  *(v3 + 168) = 0u;
+  *(v3 + 184) = 0u;
+  *(v3 + 200) = 0;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sySbcMd, &_sySbcMR);
+  *(v3 + 208) = Dictionary.init(dictionaryLiteral:)();
+  *(v3 + 216) = -100000;
+  *(v3 + 224) = 0;
+  *(v3 + 232) = 0;
+  *(v3 + 240) = 0;
+  *(v3 + 248) = 0;
+  *(v3 + 256) = xmmword_2235EF700;
+  *(v3 + 272) = 0u;
+  *(v3 + 288) = 0u;
+  *(v3 + 304) = 0u;
+  *(v3 + 320) = 0;
+  *(v3 + 328) = 0xF000000000000000;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss13ManagedBufferCyytSo16os_unfair_lock_sVGMd, &_ss13ManagedBufferCyytSo16os_unfair_lock_sVGMR);
+  v6 = swift_allocObject();
+  *(v6 + 16) = 0;
+  *(v3 + 336) = v6;
+  ObjectType = swift_getObjectType();
+  if (dynamic_cast_existential_1_conditional(a1, ObjectType, &protocol descriptor for CommunicationProtocolDelegateAce))
+  {
+    v9 = *(v8 + 8);
+  }
+
+  else
+  {
+    swift_unknownObjectRelease();
+    v9 = 0;
+  }
+
+  *(v3 + 24) = v9;
+  swift_unknownObjectWeakAssign();
+  swift_unknownObjectRelease();
+  *(v3 + 32) = a3;
+  return v3;
+}
+
+void *OUTLINED_FUNCTION_49_3(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char __src)
+{
+
+  return memcpy(&a9, &__src, 0xF9uLL);
+}
+
+void *OUTLINED_FUNCTION_49_5(uint64_t a1, uint64_t a2)
+{
+  v3 = (a2 + 40);
+
+  return memcpy(&STACK[0x668], v3, 0x204uLL);
+}
+
+uint64_t outlined assign with take of CommunicationProtocol?(uint64_t a1, uint64_t a2)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriNetwork21CommunicationProtocol_pSgMd, &_s11SiriNetwork21CommunicationProtocol_pSgMR);
+  (*(*(v4 - 8) + 40))(a2, a1, v4);
+  return a2;
+}
+
+Swift::Void __swiftcall CommunicationProtocolAce.connectionStarted(fallingBack:)(Swift::Bool fallingBack)
+{
+  v2 = v1;
+  if (fallingBack)
+  {
+    if (one-time initialization token for siriNetwork != -1)
+    {
+      OUTLINED_FUNCTION_0_8();
+      swift_once();
+    }
+
+    v3 = type metadata accessor for Logger();
+    OUTLINED_FUNCTION_58(v3, static Logger.siriNetwork);
+
+    v4 = Logger.logObject.getter();
+    static os_log_type_t.default.getter();
+    v5 = OUTLINED_FUNCTION_16_0();
+    if (os_log_type_enabled(v5, v6))
+    {
+      OUTLINED_FUNCTION_30();
+      v7 = swift_slowAlloc();
+      *v7 = 134218240;
+      OUTLINED_FUNCTION_36_2((v2 + 40), v8, v9, v10);
+      v18 = 0;
+      if (v2[41] >> 60 != 15)
+      {
+        v19 = OUTLINED_FUNCTION_18();
+        outlined copy of Data._Representation(v19, v20);
+        v21 = OUTLINED_FUNCTION_18();
+        v18 = MEMORY[0x223DE13E0](v21);
+        v22 = OUTLINED_FUNCTION_18();
+        outlined consume of Data?(v22, v23);
+      }
+
+      *(v7 + 4) = v18;
+      *(v7 + 12) = 2048;
+      OUTLINED_FUNCTION_37_1((v2 + 9), v11, v12, v13, v14, v15, v16, v17, v53);
+      v24 = 0;
+      if (v2[10] >> 60 != 15)
+      {
+        v25 = OUTLINED_FUNCTION_18();
+        outlined copy of Data._Representation(v25, v26);
+        v27 = OUTLINED_FUNCTION_18();
+        v24 = MEMORY[0x223DE13E0](v27);
+        v28 = OUTLINED_FUNCTION_18();
+        outlined consume of Data?(v28, v29);
+      }
+
+      *(v7 + 14) = v24;
+
+      OUTLINED_FUNCTION_15_0();
+      _os_log_impl(v30, v31, v32, v33, v34, 0x16u);
+      v35 = OUTLINED_FUNCTION_6_15();
+      MEMORY[0x223DE38F0](v35);
+    }
+
+    else
+    {
+    }
+
+    OUTLINED_FUNCTION_25_2();
+    swift_beginAccess();
+    OUTLINED_FUNCTION_31_2();
+    if (!(!v38 & v37) && !specialized Collection.isEmpty.getter(v2[9], v36))
+    {
+      OUTLINED_FUNCTION_40_1((v2 + 40), v57);
+      if (v2[41] >> 60 != 15)
+      {
+        v39 = CommunicationProtocolAce.safetyNetBuffer.modify();
+        OUTLINED_FUNCTION_24_1();
+        if (!(!v38 & v37))
+        {
+          OUTLINED_FUNCTION_40_1((v2 + 9), v54);
+          OUTLINED_FUNCTION_31_2();
+          outlined copy of Data?(v40, v41);
+          OUTLINED_FUNCTION_0();
+          Data.append(_:)();
+          v42 = OUTLINED_FUNCTION_0();
+          outlined consume of Data._Representation(v42, v43);
+        }
+
+        (v39)(v55, 0);
+      }
+    }
+
+    OUTLINED_FUNCTION_40_1((v2 + 40), v56);
+    OUTLINED_FUNCTION_31_2();
+    if (!v38 & v37 || specialized Collection.isEmpty.getter(v2[40], v44))
+    {
+      v45 = 0;
+      v46 = 0xF000000000000000;
+    }
+
+    else
+    {
+      v45 = v2[40];
+      v46 = v2[41];
+      v47 = OUTLINED_FUNCTION_58_0();
+      outlined copy of Data?(v47, v48);
+    }
+
+    v49 = v2[9];
+    v50 = v2[10];
+    v2[9] = v45;
+    v2[10] = v46;
+    outlined consume of Data?(v49, v50);
+  }
+
+  OUTLINED_FUNCTION_25_2();
+  swift_beginAccess();
+  v51 = v2[40];
+  v52 = v2[41];
+  *(v2 + 20) = xmmword_2235EF6F0;
+  outlined consume of Data?(v51, v52);
+}
+
+uint64_t ConnectionMethod.providerClass(for:)(uint64_t a1)
+{
+  if (a1 == 2)
+  {
+    v1 = type metadata accessor for RPCOspreyConnectionProvider();
+    v2 = &lazy protocol witness table cache variable for type RPCOspreyConnectionProvider and conformance RPCOspreyConnectionProvider;
+    v3 = type metadata accessor for RPCOspreyConnectionProvider;
+    v4 = &protocol conformance descriptor for RPCOspreyConnectionProvider;
+LABEL_5:
+    lazy protocol witness table accessor for type RPCOspreyConnectionProvider and conformance RPCOspreyConnectionProvider(v2, v3, v4);
+    return v1;
+  }
+
+  if (a1 == 1)
+  {
+    v1 = type metadata accessor for NetworkConnectionProvider();
+    v2 = &lazy protocol witness table cache variable for type NetworkConnectionProvider and conformance NetworkConnectionProvider;
+    v3 = type metadata accessor for NetworkConnectionProvider;
+    v4 = &protocol conformance descriptor for NetworkConnectionProvider;
+    goto LABEL_5;
+  }
+
+  result = _diagnoseUnexpectedEnumCaseValue<A, B>(type:rawValue:)();
+  __break(1u);
+  return result;
+}
+
+uint64_t lazy protocol witness table accessor for type RPCOspreyConnectionProvider and conformance RPCOspreyConnectionProvider(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
+{
+  result = *a1;
+  if (!result)
+  {
+    a2(255);
+    result = swift_getWitnessTable();
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+uint64_t NetworkConnectionProvider.__allocating_init(connectionConfiguration:connectionQueue:networkManager:networkAnalytics:)(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v8 = swift_allocObject();
+  NetworkConnectionProvider.init(connectionConfiguration:connectionQueue:networkManager:networkAnalytics:)(a1, a2, a3, a4);
+  return v8;
+}
+
+uint64_t NetworkConnectionProvider.init(connectionConfiguration:connectionQueue:networkManager:networkAnalytics:)(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  *(v4 + 1496) = 0;
+  *(v4 + 1512) = 0;
+  *(v4 + 16) = 0u;
+  *(v4 + 32) = 0u;
+  *(v4 + 48) = 0;
+  swift_unknownObjectWeakInit();
+  *(v4 + 2096) = 0;
+  *(v4 + 2080) = 0u;
+  *(v4 + 2064) = 0u;
+  *(v4 + 2098) = 1;
+  *(v4 + 2104) = 0u;
+  *(v4 + 2120) = 0u;
+  *(v4 + 2136) = 0;
+  *(v4 + 2152) = 0;
+  *(v4 + 2160) = 0u;
+  memcpy((v4 + 1536), a1, 0x204uLL);
+  *(v4 + 2056) = a2;
+  _s11SiriNetwork27ConnectionPreparationReportVSgWOi0_(__src);
+  memcpy(__dst, __src, sizeof(__dst));
+  _s11SiriNetwork24ConnectionSnapshotReportVSgWOi0_(v13);
+  *(v4 + 56) = 0;
+  *(v4 + 64) = 1;
+  v9 = MEMORY[0x277D84F90];
+  *(v4 + 72) = MEMORY[0x277D84F90];
+  *(v4 + 80) = 0u;
+  *(v4 + 96) = v9;
+  *(v4 + 104) = 0;
+  *(v4 + 108) = 1;
+  *(v4 + 144) = 0;
+  *(v4 + 112) = 0u;
+  *(v4 + 128) = 0u;
+  memcpy((v4 + 152), __dst, 0x168uLL);
+  *(v4 + 512) = 0u;
+  *(v4 + 528) = 0u;
+  *(v4 + 544) = 0u;
+  *(v4 + 560) = 0u;
+  *(v4 + 576) = 0u;
+  *(v4 + 592) = 0u;
+  *(v4 + 608) = 0u;
+  memcpy((v4 + 624), v13, 0x2C8uLL);
+  *(v4 + 1336) = v9;
+  *(v4 + 1344) = 0u;
+  *(v4 + 1360) = 0u;
+  *(v4 + 1376) = 0;
+  *(v4 + 1384) = 1;
+  *(v4 + 1392) = 0;
+  *(v4 + 1400) = 1;
+  *(v4 + 1408) = 0;
+  *(v4 + 1416) = 1;
+  *(v4 + 1424) = 0u;
+  *(v4 + 1440) = 0;
+  *(v4 + 1444) = 1;
+  *(v4 + 1448) = 0;
+  *(v4 + 1456) = 1;
+  *(v4 + 1464) = 0;
+  *(v4 + 1472) = 1;
+  *(v4 + 1480) = 0;
+  *(v4 + 1488) = 1;
+  *(v4 + 1520) = 0;
+  *(v4 + 1528) = 2;
+  *(v4 + 2144) = a4;
+  v10 = *(v4 + 1496);
+  *(v4 + 1496) = a3;
+
+  return v4;
+}
+
+uint64_t CommunicationProtocolAce.initialPayload(withBufferedInitialLength:forceReconnect:)(uint64_t *a1)
+{
+  v25 = xmmword_2235EF700;
+  if (CommunicationProtocolAce.aceDelegate.getter())
+  {
+    if (BackgroundConnection.isUsingPop()())
+    {
+      outlined consume of Data?(0, 0xF000000000000000);
+      v25 = xmmword_2235EF6F0;
+      OUTLINED_FUNCTION_37_1(v1 + 72, v3, v4, v5, v6, v7, v8, v9, v24);
+      if (*(v1 + 80) >> 60 == 15)
+      {
+        CommunicationProtocolAce.httpHeaderData()();
+        OUTLINED_FUNCTION_31_2();
+        OUTLINED_FUNCTION_21_4();
+        Data.append(_:)();
+        v10 = OUTLINED_FUNCTION_21_4();
+        outlined consume of Data._Representation(v10, v11);
+        static AceStreamHeader.createAceStreamHeaderData(withMagic:compressionType:)(&outlined read-only object #0 of one-time initialization function for aceHeaderMagic, 1);
+        OUTLINED_FUNCTION_71_0();
+        Data.append(_:)();
+        v21 = OUTLINED_FUNCTION_21_4();
+        outlined consume of Data._Representation(v21, v22);
+      }
+
+      else
+      {
+        v15 = OUTLINED_FUNCTION_0();
+        outlined copy of Data._Representation(v15, v16);
+        OUTLINED_FUNCTION_0();
+        Data.append(_:)();
+        v17 = OUTLINED_FUNCTION_0();
+        v18 = MEMORY[0x223DE13E0](v17);
+        v19 = OUTLINED_FUNCTION_0();
+        outlined consume of Data?(v19, v20);
+        *a1 = v18;
+      }
+    }
+
+    v14 = *(&v25 + 1);
+    v12 = v25;
+    if (*(&v25 + 1) >> 60 == 15)
+    {
+      swift_unknownObjectRelease();
+      v13 = 0;
+    }
+
+    else
+    {
+      v13 = specialized Data.withUnsafeBytes<A>(_:)(v25, *(&v25 + 1));
+      swift_unknownObjectRelease();
+    }
+  }
+
+  else
+  {
+    v12 = 0;
+    v13 = 0;
+    v14 = 0xF000000000000000;
+  }
+
+  outlined consume of Data?(v12, v14);
+  return v13;
+}
+
+uint64_t protocol witness for ConnectionProviderProtocol.delegate.setter in conformance NetworkConnectionProvider(uint64_t a1, uint64_t a2)
+{
+  *(v2 + 1512) = a2;
+  swift_unknownObjectWeakAssign();
+
+  return swift_unknownObjectRelease();
+}
+
+uint64_t ConnectionProviderProtocol.connectionType.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
+{
+  result = (*(a2 + 280))();
+  if (result)
+  {
+    v7 = 17;
+  }
+
+  else
+  {
+    (*(a2 + 160))(__src, a1, a2);
+    memcpy(__dst, __src, 0x121uLL);
+    result = _s11SiriNetwork25ConnectionInterfaceReportVSgWOg(__dst);
+    if (result == 1)
+    {
+      v7 = 0;
+    }
+
+    else
+    {
+      result = outlined destroy of ConnectionSnapshotReport?(__src, &_s11SiriNetwork25ConnectionInterfaceReportVSgMd, &_s11SiriNetwork25ConnectionInterfaceReportVSgMR);
+      v7 = __dst[32];
+    }
+  }
+
+  *a3 = v7;
+  return result;
+}
+
+void *ConnectionProviderProtocol.primaryInterface.getter(uint64_t a1)
+{
+  v1 = MEMORY[0x28223BE20](a1);
+  v3 = v2;
+  v4 = v1;
+  v6 = v5;
+  v7 = *(v2 + 40);
+  v7(v16);
+  memcpy(v20, v18, sizeof(v20));
+  OUTLINED_FUNCTION_10_1(v20);
+  if (v8)
+  {
+    _s11SiriNetwork25ConnectionInterfaceReportVSgWOi0_(v13);
+    OUTLINED_FUNCTION_17_0();
+    outlined destroy of ConnectionMetrics(v15);
+    v9 = v13;
+    goto LABEL_6;
+  }
+
+  memcpy(__dst, &v18[384], 0x121uLL);
+  OUTLINED_FUNCTION_17_0();
+  outlined init with copy of ConnectionSnapshotReport?(__dst, v19, &_s11SiriNetwork25ConnectionInterfaceReportVSgMd, &_s11SiriNetwork25ConnectionInterfaceReportVSgMR);
+  outlined destroy of ConnectionMetrics(v15);
+  memcpy(v13, __dst, 0x121uLL);
+  v10 = _s11SiriNetwork25ConnectionInterfaceReportVSgWOg(v13);
+  if (v10 == 1)
+  {
+    v9 = __dst;
+LABEL_6:
+    memcpy(v19, v9, 0x121uLL);
+    (v7)(v16, v4, v3);
+    memcpy(v13, v17, sizeof(v13));
+    if (_s11SiriNetwork27ConnectionPreparationReportVSgWOg(v13) == 1)
+    {
+      OUTLINED_FUNCTION_17_0();
+      outlined destroy of ConnectionMetrics(v15);
+      outlined destroy of ConnectionSnapshotReport?(v19, &_s11SiriNetwork25ConnectionInterfaceReportVSgMd, &_s11SiriNetwork25ConnectionInterfaceReportVSgMR);
+      _s11SiriNetwork25ConnectionInterfaceReportVSgWOi0_(__dst);
+    }
+
+    else
+    {
+      memcpy(__dst, &v17[40], 0x121uLL);
+      OUTLINED_FUNCTION_17_0();
+      outlined init with copy of ConnectionSnapshotReport?(__dst, v12, &_s11SiriNetwork25ConnectionInterfaceReportVSgMd, &_s11SiriNetwork25ConnectionInterfaceReportVSgMR);
+      outlined destroy of ConnectionMetrics(v15);
+      outlined destroy of ConnectionSnapshotReport?(v19, &_s11SiriNetwork25ConnectionInterfaceReportVSgMd, &_s11SiriNetwork25ConnectionInterfaceReportVSgMR);
+    }
+  }
+
+  return memcpy(v6, __dst, 0x121uLL);
+}
+
+uint64_t _s11SiriNetwork27ConnectionPreparationReportVSgWOg(uint64_t a1)
+{
+  v1 = *(a1 + 336);
+  if (v1 >= 0xFFFFFFFF)
+  {
+    LODWORD(v1) = -1;
+  }
+
+  return (v1 + 1);
+}
+
+uint64_t specialized Connection.willStartConnection(_:type:)(uint64_t a1, char a2, uint64_t a3)
+{
+  v6 = type metadata accessor for DispatchWorkItemFlags();
+  v21 = *(v6 - 8);
+  MEMORY[0x28223BE20](v6);
+  v8 = v20 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for DispatchQoS();
+  v10 = *(v9 - 8);
+  MEMORY[0x28223BE20](v9);
+  v12 = v20 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = lazy protocol witness table accessor for type BackgroundConnection and conformance BackgroundConnection(&lazy protocol witness table cache variable for type BackgroundConnection and conformance BackgroundConnection, v13, type metadata accessor for BackgroundConnection, &protocol conformance descriptor for BackgroundConnection);
+  result = swift_unknownObjectWeakLoadStrong();
+  if (result)
+  {
+    v16 = result;
+    result = swift_unknownObjectRelease();
+    if (v16 == a3)
+    {
+      v20[1] = *(a3 + OBJC_IVAR___SNConnectionInternal_connectionQueue);
+      v17 = swift_allocObject();
+      swift_unknownObjectWeakInit();
+      v18 = swift_allocObject();
+      *(v18 + 16) = v17;
+      *(v18 + 24) = a1;
+      *(v18 + 32) = v14;
+      *(v18 + 40) = a2;
+      aBlock[4] = partial apply for closure #1 in Connection.willStartConnection(_:type:);
+      aBlock[5] = v18;
+      aBlock[0] = MEMORY[0x277D85DD0];
+      aBlock[1] = 1107296256;
+      aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable () -> ();
+      aBlock[3] = &block_descriptor_249_0;
+      v19 = _Block_copy(aBlock);
+
+      static DispatchQoS.unspecified.getter();
+      v22 = MEMORY[0x277D84F90];
+      lazy protocol witness table accessor for type BackgroundConnection and conformance BackgroundConnection(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, 255, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
+      lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
+      dispatch thunk of SetAlgebra.init<A>(_:)();
+      MEMORY[0x223DE2460](0, v12, v8, v19);
+      _Block_release(v19);
+      (*(v21 + 8))(v8, v6);
+      (*(v10 + 8))(v12, v9);
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_2235396C4()
+{
+  MEMORY[0x223DE39C0](v0 + 16);
+  OUTLINED_FUNCTION_7_1();
+
+  return MEMORY[0x2821FE8E8](v1, v2, v3);
+}
+
+void specialized ConnectionProviderProtocol.cancelOpenSlowTimer()()
+{
+  if (*(v0 + 2120))
+  {
+    v1 = v0;
+    v2 = one-time initialization token for siriNetwork;
+    swift_unknownObjectRetain();
+    if (v2 != -1)
+    {
+      swift_once();
+    }
+
+    v3 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v3, static Logger.siriNetwork);
+
+    v4 = Logger.logObject.getter();
+    v5 = static os_log_type_t.default.getter();
+
+    if (os_log_type_enabled(v4, v5))
+    {
+      v6 = swift_slowAlloc();
+      v7 = swift_slowAlloc();
+      v14 = v7;
+      *v6 = 136315394;
+      v8 = _typeName(_:qualified:)();
+      v10 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v8, v9, &v14);
+
+      *(v6 + 4) = v10;
+      *(v6 + 12) = 2080;
+      v11 = NetworkConnectionProvider.connectionIdentifier.getter();
+      v13 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v11, v12, &v14);
+
+      *(v6 + 14) = v13;
+      _os_log_impl(&dword_223515000, v4, v5, "Provider - %s [%s]: Open slow timer cancelled.", v6, 0x16u);
+      swift_arrayDestroy();
+      MEMORY[0x223DE38F0](v7, -1, -1);
+      MEMORY[0x223DE38F0](v6, -1, -1);
+    }
+
+    *(v1 + 2120) = 0;
+    swift_unknownObjectRelease();
+    swift_getObjectType();
+    OS_dispatch_source.cancel()();
+
+    swift_unknownObjectRelease();
+  }
+}
+
+{
+  OUTLINED_FUNCTION_112();
+  if (*(v0 + 2136))
+  {
+    v3 = v0;
+    v4 = one-time initialization token for siriNetwork;
+    swift_unknownObjectRetain();
+    if (v4 != -1)
+    {
+      OUTLINED_FUNCTION_0_8();
+      swift_once();
+    }
+
+    v5 = type metadata accessor for Logger();
+    OUTLINED_FUNCTION_58(v5, static Logger.siriNetwork);
+
+    v6 = Logger.logObject.getter();
+    static os_log_type_t.default.getter();
+    OUTLINED_FUNCTION_122();
+    if (OUTLINED_FUNCTION_121())
+    {
+      OUTLINED_FUNCTION_89();
+      OUTLINED_FUNCTION_53_0();
+      OUTLINED_FUNCTION_105();
+      OUTLINED_FUNCTION_38_0(4.8151e-34);
+      v7 = _typeName(_:qualified:)();
+      OUTLINED_FUNCTION_119(v7, v8, v9, v10);
+      OUTLINED_FUNCTION_94();
+      OUTLINED_FUNCTION_21_3();
+      v11 = OUTLINED_FUNCTION_65();
+      getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v11, v12, v13);
+      OUTLINED_FUNCTION_118();
+      *(v1 + 14) = v2;
+      OUTLINED_FUNCTION_36_0(&dword_223515000, v14, v15, "Provider - %s [%s]: Open slow timer cancelled.");
+      OUTLINED_FUNCTION_52_0();
+      OUTLINED_FUNCTION_2_2();
+      MEMORY[0x223DE38F0]();
+      OUTLINED_FUNCTION_2_2();
+      MEMORY[0x223DE38F0]();
+    }
+
+    *(v3 + 2136) = 0;
+    swift_unknownObjectRelease();
+    swift_getObjectType();
+    OS_dispatch_source.cancel()();
+    OUTLINED_FUNCTION_63_1();
+
+    swift_unknownObjectRelease();
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_63_1();
+  }
+}
+
+id outlined bridged method (mnbnnn) of @objc NetworkPerformanceFeed.fullScorecard(for:options:reply:)(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+{
+  isa = Dictionary._bridgeToObjectiveC()().super.isa;
+
+  v8 = [a4 fullScorecardFor:a1 options:isa reply:a3];
+
+  return v8;
+}
+
+void specialized ConnectionProviderProtocol.configureNetworkAnalytics()()
+{
+  v1 = v0;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, _s10Foundation4UUIDVSgMR);
+  MEMORY[0x28223BE20](v2 - 8);
+  v4 = &v12 - v3;
+  v5 = *(v0 + 2144);
+  NetworkAnalytics.resetSequenceNumber()();
+
+  v6 = *(v1 + 2144);
+  NetworkAnalytics.setIsConnectionActive(_:)(1);
+
+  v7 = *(v1 + 2144);
+  NetworkAnalytics.getOrchestratorRequestId()(v4);
+
+  v8 = type metadata accessor for UUID();
+  LODWORD(v7) = __swift_getEnumTagSinglePayload(v4, 1, v8);
+  outlined destroy of NetworkConnectionProtocol?(v4, &_s10Foundation4UUIDVSgMd, _s10Foundation4UUIDVSgMR);
+  if (v7 == 1)
+  {
+    v9 = *(v1 + 2144);
+    NetworkAnalytics.resetNetId()();
+
+    v10 = *(v1 + 2144);
+    NetworkAnalytics.setNetIdAvailable(_:)(1);
+  }
+
+  v11 = *(v1 + 2144);
+  NetworkAnalytics.logRequestLinkBetweenOrchestratorAndNetworkComponent()();
+}
+
+{
+  v2 = v0;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, _s10Foundation4UUIDVSgMR);
+  v4 = OUTLINED_FUNCTION_11_1(v3);
+  MEMORY[0x28223BE20](v4);
+  OUTLINED_FUNCTION_56();
+  v5 = *(v0 + 2160);
+  NetworkAnalytics.resetSequenceNumber()();
+
+  v6 = *(v2 + 2160);
+  NetworkAnalytics.setIsConnectionActive(_:)(1);
+
+  v7 = *(v2 + 2160);
+  NetworkAnalytics.getOrchestratorRequestId()(v1);
+
+  v8 = type metadata accessor for UUID();
+  LODWORD(v7) = __swift_getEnumTagSinglePayload(v1, 1, v8);
+  outlined destroy of NetworkConnectionProtocol?(v1, &_s10Foundation4UUIDVSgMd, _s10Foundation4UUIDVSgMR);
+  if (v7 == 1)
+  {
+    v9 = *(v2 + 2160);
+    NetworkAnalytics.resetNetId()();
+
+    v10 = *(v2 + 2160);
+    NetworkAnalytics.setNetIdAvailable(_:)(1);
+  }
+
+  v11 = *(v2 + 2160);
+  NetworkAnalytics.logRequestLinkBetweenOrchestratorAndNetworkComponent()();
+}
+
+void specialized ConnectionProviderProtocol.cancelOpenTimer()()
+{
+  if (*(v0 + 2112))
+  {
+    v1 = v0;
+    v2 = one-time initialization token for siriNetwork;
+    swift_unknownObjectRetain();
+    if (v2 != -1)
+    {
+      swift_once();
+    }
+
+    v3 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v3, static Logger.siriNetwork);
+
+    v4 = Logger.logObject.getter();
+    v5 = static os_log_type_t.default.getter();
+
+    if (os_log_type_enabled(v4, v5))
+    {
+      v6 = swift_slowAlloc();
+      v7 = swift_slowAlloc();
+      v14 = v7;
+      *v6 = 136315394;
+      v8 = _typeName(_:qualified:)();
+      v10 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v8, v9, &v14);
+
+      *(v6 + 4) = v10;
+      *(v6 + 12) = 2080;
+      v11 = NetworkConnectionProvider.connectionIdentifier.getter();
+      v13 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v11, v12, &v14);
+
+      *(v6 + 14) = v13;
+      _os_log_impl(&dword_223515000, v4, v5, "Provider - %s [%s]: Open timer cancelled.", v6, 0x16u);
+      swift_arrayDestroy();
+      MEMORY[0x223DE38F0](v7, -1, -1);
+      MEMORY[0x223DE38F0](v6, -1, -1);
+    }
+
+    *(v1 + 2112) = 0;
+    swift_unknownObjectRelease();
+    swift_getObjectType();
+    OS_dispatch_source.cancel()();
+
+    swift_unknownObjectRelease();
+  }
+}
+
+{
+  OUTLINED_FUNCTION_112();
+  if (*(v0 + 2128))
+  {
+    v3 = v0;
+    v4 = one-time initialization token for siriNetwork;
+    swift_unknownObjectRetain();
+    if (v4 != -1)
+    {
+      OUTLINED_FUNCTION_0_8();
+      swift_once();
+    }
+
+    v5 = type metadata accessor for Logger();
+    OUTLINED_FUNCTION_58(v5, static Logger.siriNetwork);
+
+    v6 = Logger.logObject.getter();
+    static os_log_type_t.default.getter();
+    OUTLINED_FUNCTION_122();
+    if (OUTLINED_FUNCTION_121())
+    {
+      OUTLINED_FUNCTION_89();
+      OUTLINED_FUNCTION_53_0();
+      OUTLINED_FUNCTION_105();
+      OUTLINED_FUNCTION_38_0(4.8151e-34);
+      v7 = _typeName(_:qualified:)();
+      OUTLINED_FUNCTION_119(v7, v8, v9, v10);
+      OUTLINED_FUNCTION_94();
+      OUTLINED_FUNCTION_21_3();
+      v11 = OUTLINED_FUNCTION_65();
+      getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v11, v12, v13);
+      OUTLINED_FUNCTION_118();
+      *(v1 + 14) = v2;
+      OUTLINED_FUNCTION_36_0(&dword_223515000, v14, v15, "Provider - %s [%s]: Open timer cancelled.");
+      OUTLINED_FUNCTION_52_0();
+      OUTLINED_FUNCTION_2_2();
+      MEMORY[0x223DE38F0]();
+      OUTLINED_FUNCTION_2_2();
+      MEMORY[0x223DE38F0]();
+    }
+
+    *(v3 + 2128) = 0;
+    swift_unknownObjectRelease();
+    swift_getObjectType();
+    OS_dispatch_source.cancel()();
+    OUTLINED_FUNCTION_63_1();
+
+    swift_unknownObjectRelease();
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_63_1();
+  }
+}
+
+uint64_t _s11SiriNetwork25ConnectionInterfaceReportVSgWOg(uint64_t a1)
+{
+  v1 = *(a1 + 8);
+  if (v1 >= 0xFFFFFFFF)
+  {
+    LODWORD(v1) = -1;
+  }
+
+  return (v1 + 1);
+}
+
+uint64_t CommunicationProtocolAce.__allocating_init(withDelegate:connectionQueue:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  OUTLINED_FUNCTION_72_0();
+  swift_allocObject();
+  v5 = OUTLINED_FUNCTION_52();
+  CommunicationProtocolAce.init(withDelegate:connectionQueue:)(v5, v6, a3);
+  return v3;
+}
+
+uint64_t lazy protocol witness table accessor for type BackgroundConnection and conformance BackgroundConnection(unint64_t *a1, uint64_t a2, uint64_t (*a3)(uint64_t), uint64_t a4)
+{
+  result = *a1;
+  if (!result)
+  {
+    a3(a2);
+    result = swift_getWitnessTable();
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+void NetworkAnalytics.setIsConnectionActive(_:)()
+{
+  OUTLINED_FUNCTION_46();
+  v3 = v2;
+  v5 = v4;
+  v7 = v6;
+  type metadata accessor for DispatchWorkItemFlags();
+  OUTLINED_FUNCTION_0_0();
+  MEMORY[0x28223BE20](v8);
+  v24 = OUTLINED_FUNCTION_9_5();
+  OUTLINED_FUNCTION_0_0();
+  v10 = v9;
+  MEMORY[0x28223BE20](v11);
+  OUTLINED_FUNCTION_7();
+  v12 = *&v0[OBJC_IVAR___SNNetworkAnalyticsInternal_queue];
+  v13 = swift_allocObject();
+  *(v13 + 16) = v0;
+  *(v13 + 24) = v7;
+  v25[4] = v5;
+  v25[5] = v13;
+  OUTLINED_FUNCTION_1_1();
+  OUTLINED_FUNCTION_0_3(COERCE_DOUBLE(1107296256));
+  v25[2] = v14;
+  v25[3] = v3;
+  v15 = _Block_copy(v25);
+  v16 = v12;
+  v17 = v0;
+  static DispatchQoS.unspecified.getter();
+  OUTLINED_FUNCTION_2_9();
+  lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(v18, v19, MEMORY[0x277D851A0]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
+  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
+  v20 = OUTLINED_FUNCTION_44();
+  OUTLINED_FUNCTION_30_2(v20);
+  v21 = OUTLINED_FUNCTION_6();
+  MEMORY[0x223DE2460](v21);
+  _Block_release(v15);
+
+  v22 = OUTLINED_FUNCTION_16_1();
+  v23(v22);
+  (*(v10 + 8))(v1, v24);
+
+  OUTLINED_FUNCTION_47();
+}
+
+uint64_t NetworkAnalytics.getOrchestratorRequestId()@<X0>(uint64_t a1@<X8>)
+{
+  type metadata accessor for UUID();
+  v3 = OUTLINED_FUNCTION_47_0();
+  __swift_storeEnumTagSinglePayload(v3, 1, 1, v4);
+  v5 = *&v1[OBJC_IVAR___SNNetworkAnalyticsInternal_queue];
+  OUTLINED_FUNCTION_3();
+  v6 = swift_allocObject();
+  *(v6 + 16) = a1;
+  *(v6 + 24) = v1;
+  OUTLINED_FUNCTION_3();
+  v7 = swift_allocObject();
+  *(v7 + 16) = partial apply for closure #1 in NetworkAnalytics.getOrchestratorRequestId();
+  *(v7 + 24) = v6;
+  v19[4] = thunk for @callee_guaranteed () -> ()partial apply;
+  v19[5] = v7;
+  OUTLINED_FUNCTION_20_2();
+  v19[1] = 1107296256;
+  OUTLINED_FUNCTION_5_9();
+  v19[2] = v8;
+  v19[3] = &block_descriptor_101;
+  v9 = _Block_copy(v19);
+  v10 = v5;
+  v11 = v1;
+
+  v12 = OUTLINED_FUNCTION_31_1();
+  dispatch_sync(v12, v13);
+
+  _Block_release(v9);
+  v14 = OUTLINED_FUNCTION_36_1();
+  v17 = OUTLINED_FUNCTION_46_0(v14, v15, v16, 219);
+
+  if (v17)
+  {
+    __break(1u);
+  }
+
+  return result;
+}
+
+void NetworkAnalytics.increaseSequenceNumber()()
+{
+  OUTLINED_FUNCTION_46();
+  v3 = v2;
+  v5 = v4;
+  type metadata accessor for DispatchWorkItemFlags();
+  OUTLINED_FUNCTION_0_0();
+  MEMORY[0x28223BE20](v6);
+  v22 = OUTLINED_FUNCTION_9_5();
+  OUTLINED_FUNCTION_0_0();
+  v8 = v7;
+  MEMORY[0x28223BE20](v9);
+  OUTLINED_FUNCTION_7();
+  v10 = *&v0[OBJC_IVAR___SNNetworkAnalyticsInternal_queue];
+  OUTLINED_FUNCTION_7_1();
+  v11 = swift_allocObject();
+  *(v11 + 16) = v0;
+  v23[4] = v5;
+  v23[5] = v11;
+  OUTLINED_FUNCTION_1_1();
+  OUTLINED_FUNCTION_0_3(COERCE_DOUBLE(1107296256));
+  v23[2] = v12;
+  v23[3] = v3;
+  v13 = _Block_copy(v23);
+  v14 = v10;
+  v15 = v0;
+  static DispatchQoS.unspecified.getter();
+  OUTLINED_FUNCTION_2_9();
+  lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(v16, v17, MEMORY[0x277D851A0]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
+  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
+  v18 = OUTLINED_FUNCTION_44();
+  OUTLINED_FUNCTION_30_2(v18);
+  v19 = OUTLINED_FUNCTION_6();
+  MEMORY[0x223DE2460](v19);
+  _Block_release(v13);
+
+  v20 = OUTLINED_FUNCTION_16_1();
+  v21(v20);
+  (*(v8 + 8))(v1, v22);
+
+  OUTLINED_FUNCTION_47();
+}
+
+uint64_t sub_22353A398()
+{
+  OUTLINED_FUNCTION_7_1();
+
+  return MEMORY[0x2821FE8E8](v1, v2, v3);
+}
+
+uint64_t sub_22353A3FC()
+{
+
+  return MEMORY[0x2821FE8E8](v0, 25, 7);
+}
+
+uint64_t NetworkActivity.__deallocating_deinit()
+{
+  NetworkActivity.deinit();
+  v1 = *(*v0 + 48);
+  v2 = *(*v0 + 52);
+
+  return MEMORY[0x2821FE8D8](v0, v1, v2);
+}
+
+uint64_t NetworkActivity.deinit()
+{
+  v1 = *(*v0 + 112);
+  v2 = type metadata accessor for Optional();
+  (*(*(v2 - 8) + 8))(v0 + v1, v2);
+
+  return v0;
+}
+
+Swift::Void __swiftcall NetworkManager.releaseWiFiAssertion()()
+{
+  type metadata accessor for DispatchWorkItemFlags();
+  OUTLINED_FUNCTION_0_0();
+  MEMORY[0x28223BE20](v1);
+  OUTLINED_FUNCTION_0_1();
+  OUTLINED_FUNCTION_8_1();
+  OUTLINED_FUNCTION_0_0();
+  MEMORY[0x28223BE20](v2);
+  OUTLINED_FUNCTION_0_1();
+  v3 = *(v0 + OBJC_IVAR___SNNetworkManagerInternal_queue);
+  OUTLINED_FUNCTION_7_1();
+  v4 = swift_allocObject();
+  swift_unknownObjectWeakInit();
+  v15 = partial apply for closure #1 in NetworkManager.releaseWiFiAssertion();
+  v16 = v4;
+  OUTLINED_FUNCTION_1_1();
+  OUTLINED_FUNCTION_0_3(COERCE_DOUBLE(1107296256));
+  v13 = v5;
+  v14 = &block_descriptor_14;
+  v6 = _Block_copy(aBlock);
+  v7 = v3;
+
+  static DispatchQoS.unspecified.getter();
+  lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
+  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
+  OUTLINED_FUNCTION_4_1();
+  OUTLINED_FUNCTION_5_3();
+  _Block_release(v6);
+
+  v8 = OUTLINED_FUNCTION_7_10();
+  v9(v8);
+  v10 = OUTLINED_FUNCTION_5_4();
+  v11(v10);
+}
+
+void closure #1 in NetworkManager.releaseWiFiAssertion()(uint64_t a1)
+{
+  swift_beginAccess();
+  Strong = swift_unknownObjectWeakLoadStrong();
+  if (Strong)
+  {
+    v2 = Strong;
+    v3 = *(Strong + OBJC_IVAR___SNNetworkManagerInternal_networkWiFiManager);
+    NetworkWiFiManager.releaseWiFiAssertion()();
+  }
+}
+
+Swift::Void __swiftcall NetworkWiFiManager.releaseWiFiAssertion()()
+{
+  if (one-time initialization token for siriNetwork != -1)
+  {
+    OUTLINED_FUNCTION_0_6(&one-time initialization token for siriNetwork);
+  }
+
+  v0 = type metadata accessor for Logger();
+  v1 = OUTLINED_FUNCTION_17(v0, static Logger.siriNetwork);
+  v2 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v1, v2))
+  {
+    v3 = swift_slowAlloc();
+    *v3 = 0;
+    _os_log_impl(&dword_223515000, v1, v2, "NetworkWiFiManager - Assertion: releaseWiFiAssertion", v3, 2u);
+    OUTLINED_FUNCTION_12();
+  }
+
+  NetworkWiFiManager.setWiFiManagerClientType(_:)(0);
 }

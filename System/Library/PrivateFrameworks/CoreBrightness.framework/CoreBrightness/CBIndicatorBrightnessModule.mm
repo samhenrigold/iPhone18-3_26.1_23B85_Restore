@@ -226,318 +226,311 @@
       _os_log_error_impl(&dword_1DE8E5000, v10, v11, "SDR brightness is higher than current IB - something is probably off", v25, 2u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)processTransaction
 {
   v35 = *MEMORY[0x1E69E9840];
-  if (!self->_nextUpdate.dirty)
+  if (self->_nextUpdate.dirty)
   {
-    goto LABEL_103;
-  }
-
-  self->_maxContrastBoostedBrightness = self->_nextUpdate.maxContrastBoostedBrightness;
-  self->_mib = clamp(self->_nextUpdate.minimumIndicatorBrightness * self->_mibCompensationFactor, self->_minBrightness, self->_maxBrightness);
-  self->_sdrBrightness = self->_nextUpdate.sdrBrightness;
-  self->_contentHeadroom = self->_nextUpdate.contentHeadroom;
-  v21 = 0;
-  if (self->_nextUpdate.appliedHeadroom > 1.3)
-  {
-    v21 = self->_contentHeadroom > 1.3;
-  }
-
-  self->_hdrContent = v21;
-  self->_lux = self->_nextUpdate.lux;
-  self->_rtplcApplied = self->_nextUpdate.rtplc.applied;
-  self->_rtplcCap = self->_nextUpdate.rtplc.cap;
-  v28 = self->_nextUpdate.sdrBrightness * self->_nextUpdate.appliedHeadroom;
-  if (self->_lastReportedUIBrightness <= 0.0 || fabs((self->_lastReportedUIBrightness - v28)) / self->_lastReportedUIBrightness >= 0.05 || (HIDWORD(v2) = 1078525952, fabs((self->_lastReportedUIBrightness - v28)) >= 50.0))
-  {
-    [(NSMutableArray *)self->_mibServices enumerateObjectsUsingBlock:?];
-    self->_lastReportedUIBrightness = v28;
-  }
-
-  mib = self->_mib;
-  if (!self->_indicatorBrightnessFollowsMIB && self->_contrastIndicatorEnabled)
-  {
-    if (self->_hdrContent)
+    self->_maxContrastBoostedBrightness = self->_nextUpdate.maxContrastBoostedBrightness;
+    self->_mib = clamp(self->_nextUpdate.minimumIndicatorBrightness * self->_mibCompensationFactor, self->_minBrightness, self->_maxBrightness);
+    self->_sdrBrightness = self->_nextUpdate.sdrBrightness;
+    self->_contentHeadroom = self->_nextUpdate.contentHeadroom;
+    v21 = 0;
+    if (self->_nextUpdate.appliedHeadroom > 1.3)
     {
-      *&v2 = self->_lux;
-      [(CBIndicatorBrightnessModule *)self calculate60JNDContrastIndicatorForSDRBrightness:COERCE_DOUBLE(LODWORD(self->_sdrBrightness)) andLux:v2];
-      v26 = v3;
+      v21 = self->_contentHeadroom > 1.3;
     }
 
-    else
+    self->_hdrContent = v21;
+    self->_lux = self->_nextUpdate.lux;
+    self->_rtplcApplied = self->_nextUpdate.rtplc.applied;
+    self->_rtplcCap = self->_nextUpdate.rtplc.cap;
+    v28 = self->_nextUpdate.sdrBrightness * self->_nextUpdate.appliedHeadroom;
+    if (self->_lastReportedUIBrightness <= 0.0 || fabs((self->_lastReportedUIBrightness - v28)) / self->_lastReportedUIBrightness >= 0.05 || (HIDWORD(v2) = 1078525952, fabs((self->_lastReportedUIBrightness - v28)) >= 50.0))
     {
-      if (CBU_IsPad())
+      [(NSMutableArray *)self->_mibServices enumerateObjectsUsingBlock:?];
+      self->_lastReportedUIBrightness = v28;
+    }
+
+    mib = self->_mib;
+    if (!self->_indicatorBrightnessFollowsMIB && self->_contrastIndicatorEnabled)
+    {
+      if (self->_hdrContent)
       {
-        *&v4 = self->_sdrBrightness * self->_contentHeadroom;
-        *&v5 = self->_lux;
-        [(CBIndicatorBrightnessModule *)self calculate22JNDContrastIndicatorForSDRBrightness:v4 andLux:v5];
+        *&v2 = self->_lux;
+        [(CBIndicatorBrightnessModule *)self calculate60JNDContrastIndicatorForSDRBrightness:COERCE_DOUBLE(LODWORD(self->_sdrBrightness)) andLux:v2];
+        v26 = v3;
       }
 
       else
       {
-        *&v4 = self->_sdrBrightness;
-        *&v5 = self->_lux;
-        [(CBIndicatorBrightnessModule *)self calculate20JNDContrastIndicatorForSDRBrightness:v4 andLux:v5];
-      }
-
-      v26 = v6;
-    }
-
-    v25 = fmaxf(fminf(v26, self->_maxContrastBoostedBrightness), self->_sdrBrightness);
-    if (self->_logHandle)
-    {
-      logHandle = self->_logHandle;
-    }
-
-    else
-    {
-      if (_COREBRIGHTNESS_LOG_DEFAULT)
-      {
-        inited = _COREBRIGHTNESS_LOG_DEFAULT;
-      }
-
-      else
-      {
-        inited = init_default_corebrightness_log();
-      }
-
-      logHandle = inited;
-    }
-
-    if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
-    {
-      __os_log_helper_16_0_4_8_0_8_0_8_0_4_0(v34, COERCE__INT64(v26), COERCE__INT64(v25), COERCE__INT64(self->_contentHeadroom), self->_hdrContent);
-      _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "Calculated contrast IB=%f, capped=%f, contentHeadroom=%f, HDR=%d", v34, 0x26u);
-    }
-
-    mib = fmaxf(mib, fminf(v25, self->_maxBrightness));
-  }
-
-  if (self->_rtplcApplied)
-  {
-    v24 = self->_rtplcCap - 1.0;
-    if (v24 < self->_mib)
-    {
-      if (self->_logHandle)
-      {
-        v18 = self->_logHandle;
-      }
-
-      else
-      {
-        v17 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
-        v18 = v17;
-      }
-
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
-      {
-        __os_log_helper_16_0_2_8_0_8_0(v33, COERCE__INT64(v24), COERCE__INT64(self->_mib));
-        _os_log_error_impl(&dword_1DE8E5000, v18, OS_LOG_TYPE_ERROR, "RTPLC Cap (%f) < MIB (%f), this should never happen!", v33, 0x16u);
-      }
-    }
-
-    mib = fminf(mib, clamp(fmaxf(v24, self->_mib), self->_minBrightness, self->_maxBrightness));
-  }
-
-  if (self->_nextUpdate.silEnabled)
-  {
-    sILState = [+[CBSILState sharedInstance](CBSILState SILState];
-    if (sILState > 1)
-    {
-      if (sILState == 2)
-      {
-        [(CBIndicatorBrightnessModule *)self setSilState:1];
-      }
-
-      else if (sILState - 3 <= 1)
-      {
-        [(CBIndicatorBrightnessModule *)self setSilState:0];
-      }
-    }
-  }
-
-  else
-  {
-    sILState2 = [+[CBSILState sharedInstance](CBSILState SILState];
-    if (sILState2)
-    {
-      if (sILState2 == 1)
-      {
-        [(CBIndicatorBrightnessModule *)self setSilState:2];
-      }
-    }
-
-    else
-    {
-      [(CBIndicatorBrightnessModule *)self setSilState:4];
-    }
-  }
-
-  self->_nextUpdate.dirty = 0;
-  sILState3 = [+[CBSILState sharedInstance](CBSILState SILState];
-  if (sILState3)
-  {
-    if (sILState3 != 1)
-    {
-      if (sILState3 != 2)
-      {
-        if (sILState3 - 3 <= 1)
+        if (CBU_IsPad())
         {
-          [(CBIndicatorBrightnessModule *)self endRamp];
+          *&v4 = self->_sdrBrightness * self->_contentHeadroom;
+          *&v5 = self->_lux;
+          [(CBIndicatorBrightnessModule *)self calculate22JNDContrastIndicatorForSDRBrightness:v4 andLux:v5];
         }
 
-        goto LABEL_103;
+        else
+        {
+          *&v4 = self->_sdrBrightness;
+          *&v5 = self->_lux;
+          [(CBIndicatorBrightnessModule *)self calculate20JNDContrastIndicatorForSDRBrightness:v4 andLux:v5];
+        }
+
+        v26 = v6;
       }
 
-      if (self->_currentIndicatorBrightness <= self->_sdrBrightness)
-      {
-        [(CBIndicatorBrightnessModule *)self endRamp];
-        [(CBIndicatorBrightnessModule *)self forceBrightnessTransaction];
-        goto LABEL_103;
-      }
-
-LABEL_98:
-      *&v7 = self->_sdrBrightness;
-      [(CBIndicatorBrightnessModule *)self rampTo:v7];
-      goto LABEL_103;
-    }
-
-    if (self->_jumpToTarget && self->_firstMIBReceived)
-    {
+      v25 = fmaxf(fminf(v26, self->_maxContrastBoostedBrightness), self->_sdrBrightness);
       if (self->_logHandle)
       {
-        v13 = self->_logHandle;
+        logHandle = self->_logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v12 = _COREBRIGHTNESS_LOG_DEFAULT;
+          inited = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v12 = init_default_corebrightness_log();
+          inited = init_default_corebrightness_log();
         }
 
-        v13 = v12;
+        logHandle = inited;
       }
 
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
       {
-        __os_log_helper_16_0_1_8_0(v32, COERCE__INT64(self->_mib));
-        _os_log_impl(&dword_1DE8E5000, v13, OS_LOG_TYPE_DEFAULT, "Jumping to target compensated MIB (%f)", v32, 0xCu);
+        __os_log_helper_16_0_4_8_0_8_0_8_0_4_0(v34, COERCE__INT64(v26), COERCE__INT64(v25), COERCE__INT64(self->_contentHeadroom), self->_hdrContent);
+        _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "Calculated contrast IB=%f, capped=%f, contentHeadroom=%f, HDR=%d", v34, 0x26u);
       }
 
-      self->_jumpToTarget = 0;
-      self->_currentIndicatorBrightness = self->_mib;
-      [(CBIndicatorBrightnessModule *)self forceBrightnessTransaction];
+      mib = fmaxf(mib, fminf(v25, self->_maxBrightness));
+    }
+
+    if (self->_rtplcApplied)
+    {
+      v24 = self->_rtplcCap - 1.0;
+      if (v24 < self->_mib)
+      {
+        if (self->_logHandle)
+        {
+          v18 = self->_logHandle;
+        }
+
+        else
+        {
+          v17 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
+          v18 = v17;
+        }
+
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        {
+          __os_log_helper_16_0_2_8_0_8_0(v33, COERCE__INT64(v24), COERCE__INT64(self->_mib));
+          _os_log_error_impl(&dword_1DE8E5000, v18, OS_LOG_TYPE_ERROR, "RTPLC Cap (%f) < MIB (%f), this should never happen!", v33, 0x16u);
+        }
+      }
+
+      mib = fminf(mib, clamp(fmaxf(v24, self->_mib), self->_minBrightness, self->_maxBrightness));
+    }
+
+    if (self->_nextUpdate.silEnabled)
+    {
+      sILState = [+[CBSILState sharedInstance](CBSILState SILState];
+      if (sILState > 1)
+      {
+        if (sILState == 2)
+        {
+          [(CBIndicatorBrightnessModule *)self setSilState:1];
+        }
+
+        else if (sILState - 3 <= 1)
+        {
+          [(CBIndicatorBrightnessModule *)self setSilState:0];
+        }
+      }
     }
 
     else
     {
-      if (mib <= self->_sdrBrightness && !self->_indicatorBrightnessFollowsMIB)
+      sILState2 = [+[CBSILState sharedInstance](CBSILState SILState];
+      if (sILState2)
       {
-        if (self->_contrastIndicatorEnabled)
+        if (sILState2 == 1)
         {
-          if (self->_logHandle)
+          [(CBIndicatorBrightnessModule *)self setSilState:2];
+        }
+      }
+
+      else
+      {
+        [(CBIndicatorBrightnessModule *)self setSilState:4];
+      }
+    }
+
+    self->_nextUpdate.dirty = 0;
+    sILState3 = [+[CBSILState sharedInstance](CBSILState SILState];
+    if (sILState3)
+    {
+      if (sILState3 != 1)
+      {
+        if (sILState3 != 2)
+        {
+          if (sILState3 - 3 <= 1)
           {
-            v9 = self->_logHandle;
+            [(CBIndicatorBrightnessModule *)self endRamp];
           }
 
-          else
-          {
-            v8 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
-            v9 = v8;
-          }
-
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-          {
-            __os_log_helper_16_0_2_8_0_8_0(v30, COERCE__INT64(mib), COERCE__INT64(self->_sdrBrightness));
-            _os_log_error_impl(&dword_1DE8E5000, v9, OS_LOG_TYPE_ERROR, "TargetIB(%f) < SDR(%f)", v30, 0x16u);
-          }
+          return;
         }
 
         if (self->_currentIndicatorBrightness <= self->_sdrBrightness)
         {
-          self->_currentIndicatorBrightness = self->_sdrBrightness;
           [(CBIndicatorBrightnessModule *)self endRamp];
-          goto LABEL_103;
+          [(CBIndicatorBrightnessModule *)self forceBrightnessTransaction];
+          return;
         }
 
-        goto LABEL_98;
+LABEL_98:
+        *&v7 = self->_sdrBrightness;
+        [(CBIndicatorBrightnessModule *)self rampTo:v7];
+        return;
       }
 
-      v23 = 0;
-      if (self->_currentIndicatorBrightness < self->_sdrBrightness && !self->_indicatorBrightnessFollowsMIB)
+      if (self->_jumpToTarget && self->_firstMIBReceived)
       {
-        self->_currentIndicatorBrightness = self->_sdrBrightness;
-        v23 = 1;
-      }
-
-      v22 = fminf(self->_sdrBrightness * self->_lastAppliedDimmingFactor, mib);
-      if (!self->_indicatorBrightnessFollowsMIB && self->_currentIndicatorBrightness < v22)
-      {
-        v7 = ((v22 - self->_currentIndicatorBrightness) / self->_currentIndicatorBrightness);
-        if (v7 >= 0.1)
+        if (self->_logHandle)
         {
-          if (self->_logHandle)
+          v13 = self->_logHandle;
+        }
+
+        else
+        {
+          if (_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v11 = self->_logHandle;
+            v12 = _COREBRIGHTNESS_LOG_DEFAULT;
           }
 
           else
           {
-            v10 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
-            v11 = v10;
+            v12 = init_default_corebrightness_log();
           }
 
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
-          {
-            __os_log_helper_16_0_2_8_0_8_0(v31, COERCE__INT64(self->_currentIndicatorBrightness), COERCE__INT64(v22));
-            _os_log_impl(&dword_1DE8E5000, v11, OS_LOG_TYPE_INFO, "Short-cutting ramp for contrast indicator %f -> %f", v31, 0x16u);
-          }
+          v13 = v12;
         }
 
-        self->_currentIndicatorBrightness = v22;
-        v23 = 1;
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        {
+          __os_log_helper_16_0_1_8_0(v32, COERCE__INT64(self->_mib));
+          _os_log_impl(&dword_1DE8E5000, v13, OS_LOG_TYPE_DEFAULT, "Jumping to target compensated MIB (%f)", v32, 0xCu);
+        }
+
+        self->_jumpToTarget = 0;
+        self->_currentIndicatorBrightness = self->_mib;
+        [(CBIndicatorBrightnessModule *)self forceBrightnessTransaction];
       }
 
-      *&v7 = mib;
-      [(CBIndicatorBrightnessModule *)self rampTo:v23 & 1 indicatorUpdatedOutsideOfRamp:v7];
-    }
-  }
+      else
+      {
+        if (mib <= self->_sdrBrightness && !self->_indicatorBrightnessFollowsMIB)
+        {
+          if (self->_contrastIndicatorEnabled)
+          {
+            if (self->_logHandle)
+            {
+              v9 = self->_logHandle;
+            }
 
-  else
-  {
-    self->_currentIndicatorBrightness = self->_sdrBrightness;
-    self->_lastAppliedDimmingFactor = 1.0;
-    *&v7 = mib;
-    if (mib > self->_sdrBrightness || self->_indicatorBrightnessFollowsMIB)
-    {
-      *&v7 = mib;
-      [(CBIndicatorBrightnessModule *)self rampTo:1 indicatorUpdatedOutsideOfRamp:v7];
+            else
+            {
+              v8 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
+              v9 = v8;
+            }
+
+            if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+            {
+              __os_log_helper_16_0_2_8_0_8_0(v30, COERCE__INT64(mib), COERCE__INT64(self->_sdrBrightness));
+              _os_log_error_impl(&dword_1DE8E5000, v9, OS_LOG_TYPE_ERROR, "TargetIB(%f) < SDR(%f)", v30, 0x16u);
+            }
+          }
+
+          if (self->_currentIndicatorBrightness <= self->_sdrBrightness)
+          {
+            self->_currentIndicatorBrightness = self->_sdrBrightness;
+            [(CBIndicatorBrightnessModule *)self endRamp];
+            return;
+          }
+
+          goto LABEL_98;
+        }
+
+        v23 = 0;
+        if (self->_currentIndicatorBrightness < self->_sdrBrightness && !self->_indicatorBrightnessFollowsMIB)
+        {
+          self->_currentIndicatorBrightness = self->_sdrBrightness;
+          v23 = 1;
+        }
+
+        v22 = fminf(self->_sdrBrightness * self->_lastAppliedDimmingFactor, mib);
+        if (!self->_indicatorBrightnessFollowsMIB && self->_currentIndicatorBrightness < v22)
+        {
+          v7 = ((v22 - self->_currentIndicatorBrightness) / self->_currentIndicatorBrightness);
+          if (v7 >= 0.1)
+          {
+            if (self->_logHandle)
+            {
+              v11 = self->_logHandle;
+            }
+
+            else
+            {
+              v10 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
+              v11 = v10;
+            }
+
+            if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+            {
+              __os_log_helper_16_0_2_8_0_8_0(v31, COERCE__INT64(self->_currentIndicatorBrightness), COERCE__INT64(v22));
+              _os_log_impl(&dword_1DE8E5000, v11, OS_LOG_TYPE_INFO, "Short-cutting ramp for contrast indicator %f -> %f", v31, 0x16u);
+            }
+          }
+
+          self->_currentIndicatorBrightness = v22;
+          v23 = 1;
+        }
+
+        *&v7 = mib;
+        [(CBIndicatorBrightnessModule *)self rampTo:v23 & 1 indicatorUpdatedOutsideOfRamp:v7];
+      }
     }
 
     else
     {
-      if ([(CBIndicatorBrightnessModule *)self isRampRunning])
+      self->_currentIndicatorBrightness = self->_sdrBrightness;
+      self->_lastAppliedDimmingFactor = 1.0;
+      *&v7 = mib;
+      if (mib > self->_sdrBrightness || self->_indicatorBrightnessFollowsMIB)
       {
-        [(CBIndicatorBrightnessModule *)self endRamp];
+        *&v7 = mib;
+        [(CBIndicatorBrightnessModule *)self rampTo:1 indicatorUpdatedOutsideOfRamp:v7];
       }
 
-      [(CBIndicatorBrightnessModule *)self forceBrightnessTransaction];
+      else
+      {
+        if ([(CBIndicatorBrightnessModule *)self isRampRunning])
+        {
+          [(CBIndicatorBrightnessModule *)self endRamp];
+        }
+
+        [(CBIndicatorBrightnessModule *)self forceBrightnessTransaction];
+      }
     }
   }
-
-LABEL_103:
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)endRamp
@@ -611,137 +604,131 @@ LABEL_103:
   v20.receiver = self;
   v20.super_class = CBIndicatorBrightnessModule;
   selfCopy = [(CBModule *)&v20 initWithQueue:queue];
-  if (selfCopy)
+  if (!selfCopy)
   {
-    v8 = os_log_create("com.apple.CoreBrightness.CBIndicatorBrightnessModule", "default");
-    *(selfCopy + 5) = v8;
-    *(selfCopy + 12) = minCopy;
-    *(selfCopy + 13) = maxCopy;
-    *(selfCopy + 14) = boostMaxCopy;
-    *(selfCopy + 15) = *(selfCopy + 12);
-    *(selfCopy + 72) = 0;
-    *(selfCopy + 28) = *(selfCopy + 12);
-    *(selfCopy + 31) = *(selfCopy + 12);
-    *(selfCopy + 29) = *(selfCopy + 12);
-    *(selfCopy + 30) = 1.5;
-    if (*(selfCopy + 5))
-    {
-      v19 = *(selfCopy + 5);
-    }
+    return 0;
+  }
 
-    else
-    {
-      if (_COREBRIGHTNESS_LOG_DEFAULT)
-      {
-        inited = _COREBRIGHTNESS_LOG_DEFAULT;
-      }
-
-      else
-      {
-        inited = init_default_corebrightness_log();
-      }
-
-      v19 = inited;
-    }
-
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
-    {
-      __os_log_helper_16_0_4_8_0_8_0_8_0_8_0(v32, COERCE__INT64(*(selfCopy + 12)), COERCE__INT64(*(selfCopy + 13)), COERCE__INT64(*(selfCopy + 14)), COERCE__INT64(*(selfCopy + 30)));
-      _os_log_impl(&dword_1DE8E5000, v19, OS_LOG_TYPE_DEFAULT, "IndicatorBrightnessModule Init | min: %f, max: %f, contrastBoostMax: %f, mibCompensationFactor: %f", v32, 0x2Au);
-    }
-
-    *(selfCopy + 33) = 1.0;
-    *(selfCopy + 19) = *(selfCopy + 14);
-    *(selfCopy + 20) = *(selfCopy + 12);
-    *(selfCopy + 22) = *(selfCopy + 12);
-    *(selfCopy + 21) = 1.0;
-    *(selfCopy + 23) = 0;
-    *(selfCopy + 25) = *(selfCopy + 13);
-    *(selfCopy + 104) = 0;
-    *(selfCopy + 24) = 1.0;
-    *(selfCopy + 108) = 0;
-    *(selfCopy + 109) = 0;
-    *(selfCopy + 34) = 0.5;
-    *(selfCopy + 19) = functionCopy;
-    *(selfCopy + 128) = 0;
-    *(selfCopy + 129) = 0;
-    *(selfCopy + 160) = 0;
-    *(selfCopy + 41) = 0x800000;
-    v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    *(selfCopy + 21) = v9;
-    *(selfCopy + 190) = _os_feature_enabled_impl();
-    if (*(selfCopy + 5))
-    {
-      v17 = *(selfCopy + 5);
-    }
-
-    else
-    {
-      if (_COREBRIGHTNESS_LOG_DEFAULT)
-      {
-        v16 = _COREBRIGHTNESS_LOG_DEFAULT;
-      }
-
-      else
-      {
-        v16 = init_default_corebrightness_log();
-      }
-
-      v17 = v16;
-    }
-
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
-    {
-      __os_log_helper_16_0_1_4_0(v31, *(selfCopy + 190) & 1);
-      _os_log_impl(&dword_1DE8E5000, v17, OS_LOG_TYPE_DEFAULT, "Enforce MIB: %d", v31, 8u);
-    }
-
-    *(selfCopy + 191) = _os_feature_enabled_impl();
-    if (*(selfCopy + 5))
-    {
-      v15 = *(selfCopy + 5);
-    }
-
-    else
-    {
-      if (_COREBRIGHTNESS_LOG_DEFAULT)
-      {
-        v14 = _COREBRIGHTNESS_LOG_DEFAULT;
-      }
-
-      else
-      {
-        v14 = init_default_corebrightness_log();
-      }
-
-      v15 = v14;
-    }
-
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-    {
-      __os_log_helper_16_0_1_4_0(v30, *(selfCopy + 191) & 1);
-      _os_log_impl(&dword_1DE8E5000, v15, OS_LOG_TYPE_DEFAULT, "Contrast indicator enabled: %d", v30, 8u);
-    }
-
-    *(selfCopy + 192) = 0;
-    v10 = MEMORY[0x1E69E5928](providerCopy);
-    *(selfCopy + 22) = v10;
-    *(selfCopy + 188) = 0;
-    *(selfCopy + 46) = *(selfCopy + 13);
-    *(selfCopy + 193) = 0;
-    v11 = [CBIndicatorAnalyticsModule alloc];
-    v12 = [(CBIndicatorAnalyticsModule *)v11 initWithQueue:*(selfCopy + 3) andIndicatorModule:selfCopy];
-    *(selfCopy + 25) = v12;
-    v29 = selfCopy;
+  v8 = os_log_create("com.apple.CoreBrightness.CBIndicatorBrightnessModule", "default");
+  *(selfCopy + 5) = v8;
+  *(selfCopy + 12) = minCopy;
+  *(selfCopy + 13) = maxCopy;
+  *(selfCopy + 14) = boostMaxCopy;
+  *(selfCopy + 15) = *(selfCopy + 12);
+  *(selfCopy + 72) = 0;
+  *(selfCopy + 28) = *(selfCopy + 12);
+  *(selfCopy + 31) = *(selfCopy + 12);
+  *(selfCopy + 29) = *(selfCopy + 12);
+  *(selfCopy + 30) = 1.5;
+  if (*(selfCopy + 5))
+  {
+    v19 = *(selfCopy + 5);
   }
 
   else
   {
-    v29 = 0;
+    if (_COREBRIGHTNESS_LOG_DEFAULT)
+    {
+      inited = _COREBRIGHTNESS_LOG_DEFAULT;
+    }
+
+    else
+    {
+      inited = init_default_corebrightness_log();
+    }
+
+    v19 = inited;
   }
 
-  *MEMORY[0x1E69E9840];
-  return v29;
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  {
+    __os_log_helper_16_0_4_8_0_8_0_8_0_8_0(v32, COERCE__INT64(*(selfCopy + 12)), COERCE__INT64(*(selfCopy + 13)), COERCE__INT64(*(selfCopy + 14)), COERCE__INT64(*(selfCopy + 30)));
+    _os_log_impl(&dword_1DE8E5000, v19, OS_LOG_TYPE_DEFAULT, "IndicatorBrightnessModule Init | min: %f, max: %f, contrastBoostMax: %f, mibCompensationFactor: %f", v32, 0x2Au);
+  }
+
+  *(selfCopy + 33) = 1.0;
+  *(selfCopy + 19) = *(selfCopy + 14);
+  *(selfCopy + 20) = *(selfCopy + 12);
+  *(selfCopy + 22) = *(selfCopy + 12);
+  *(selfCopy + 21) = 1.0;
+  *(selfCopy + 23) = 0;
+  *(selfCopy + 25) = *(selfCopy + 13);
+  *(selfCopy + 104) = 0;
+  *(selfCopy + 24) = 1.0;
+  *(selfCopy + 108) = 0;
+  *(selfCopy + 109) = 0;
+  *(selfCopy + 34) = 0.5;
+  *(selfCopy + 19) = functionCopy;
+  *(selfCopy + 128) = 0;
+  *(selfCopy + 129) = 0;
+  *(selfCopy + 160) = 0;
+  *(selfCopy + 41) = 0x800000;
+  v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  *(selfCopy + 21) = v9;
+  *(selfCopy + 190) = _os_feature_enabled_impl();
+  if (*(selfCopy + 5))
+  {
+    v17 = *(selfCopy + 5);
+  }
+
+  else
+  {
+    if (_COREBRIGHTNESS_LOG_DEFAULT)
+    {
+      v16 = _COREBRIGHTNESS_LOG_DEFAULT;
+    }
+
+    else
+    {
+      v16 = init_default_corebrightness_log();
+    }
+
+    v17 = v16;
+  }
+
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  {
+    __os_log_helper_16_0_1_4_0(v31, *(selfCopy + 190) & 1);
+    _os_log_impl(&dword_1DE8E5000, v17, OS_LOG_TYPE_DEFAULT, "Enforce MIB: %d", v31, 8u);
+  }
+
+  *(selfCopy + 191) = _os_feature_enabled_impl();
+  if (*(selfCopy + 5))
+  {
+    v15 = *(selfCopy + 5);
+  }
+
+  else
+  {
+    if (_COREBRIGHTNESS_LOG_DEFAULT)
+    {
+      v14 = _COREBRIGHTNESS_LOG_DEFAULT;
+    }
+
+    else
+    {
+      v14 = init_default_corebrightness_log();
+    }
+
+    v15 = v14;
+  }
+
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  {
+    __os_log_helper_16_0_1_4_0(v30, *(selfCopy + 191) & 1);
+    _os_log_impl(&dword_1DE8E5000, v15, OS_LOG_TYPE_DEFAULT, "Contrast indicator enabled: %d", v30, 8u);
+  }
+
+  *(selfCopy + 192) = 0;
+  v10 = MEMORY[0x1E69E5928](providerCopy);
+  *(selfCopy + 22) = v10;
+  *(selfCopy + 188) = 0;
+  *(selfCopy + 46) = *(selfCopy + 13);
+  *(selfCopy + 193) = 0;
+  v11 = [CBIndicatorAnalyticsModule alloc];
+  v12 = [(CBIndicatorAnalyticsModule *)v11 initWithQueue:*(selfCopy + 3) andIndicatorModule:selfCopy];
+  *(selfCopy + 25) = v12;
+  return selfCopy;
 }
 
 - (void)dealloc
@@ -815,8 +802,6 @@ LABEL_103:
       _os_log_error_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_ERROR, "Negative SDR brightness %f, ignoring", v8, 0xCu);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)setAppliedHeadroom:(float)headroom
@@ -863,8 +848,6 @@ LABEL_103:
       _os_log_error_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_ERROR, "Applied headroom is lower than 1 (%f), ignoring", v7, 0xCu);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void __52__CBIndicatorBrightnessModule_isEXBrightDispatching__block_invoke(uint64_t a1, __IOHIDServiceClient *a2, uint64_t a3)
@@ -905,15 +888,13 @@ void __52__CBIndicatorBrightnessModule_isEXBrightDispatching__block_invoke(uint6
       _os_log_error_impl(&dword_1DE8E5000, v4, OS_LOG_TYPE_ERROR, "Failed to copy property %s from MIB service (%lu)", v8, 0x16u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)setProperty:(id)property forKey:(id)key
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  v41 = a2;
+  v39 = a2;
   propertyCopy = property;
   keyCopy = key;
   if ([key isEqualToString:@"MinimumIndicatorBrightnessEnforce"])
@@ -939,15 +920,15 @@ void __52__CBIndicatorBrightnessModule_isEXBrightDispatching__block_invoke(uint6
       logHandle = inited;
     }
 
-    v38 = logHandle;
-    v37 = OS_LOG_TYPE_DEFAULT;
+    v36 = logHandle;
+    v35 = OS_LOG_TYPE_DEFAULT;
     if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
     {
-      __os_log_helper_16_0_1_4_0(v47, selfCopy->_enforceMIB);
-      _os_log_impl(&dword_1DE8E5000, v38, v37, "Enforce MIB: %d", v47, 8u);
+      __os_log_helper_16_0_1_4_0(v45, selfCopy->_enforceMIB);
+      _os_log_impl(&dword_1DE8E5000, v36, v35, "Enforce MIB: %d", v45, 8u);
     }
 
-    v43 = 1;
+    return 1;
   }
 
   else if ([keyCopy isEqualToString:@"IndicatorContrastEnabled"])
@@ -973,37 +954,35 @@ void __52__CBIndicatorBrightnessModule_isEXBrightDispatching__block_invoke(uint6
       v19 = v18;
     }
 
-    v36 = v19;
-    v35 = OS_LOG_TYPE_DEFAULT;
+    v34 = v19;
+    v33 = OS_LOG_TYPE_DEFAULT;
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      __os_log_helper_16_0_1_4_0(v46, selfCopy->_contrastIndicatorEnabled);
-      _os_log_impl(&dword_1DE8E5000, v36, v35, "Contrast indicator enabled: %d", v46, 8u);
+      __os_log_helper_16_0_1_4_0(v44, selfCopy->_contrastIndicatorEnabled);
+      _os_log_impl(&dword_1DE8E5000, v34, v33, "Contrast indicator enabled: %d", v44, 8u);
     }
 
-    v43 = 1;
+    return 1;
   }
 
   else if ([keyCopy isEqualToString:@"SecureIndicatorBrightnessRampSpeed"])
   {
     [propertyCopy floatValue];
-    v34 = LODWORD(v4);
+    v32 = LODWORD(v4);
     [(CBIndicatorBrightnessModule *)selfCopy setRampSpeed:v4];
-    v43 = 1;
+    return 1;
   }
 
   else if ([keyCopy isEqualToString:@"SecureIndicatorLightEnabled"])
   {
-    bOOLValue = [propertyCopy BOOLValue];
-    [(CBIndicatorBrightnessModule *)selfCopy setSilEnabled:bOOLValue & 1];
-    v43 = 1;
+    -[CBIndicatorBrightnessModule setSilEnabled:](selfCopy, "setSilEnabled:", [propertyCopy BOOLValue] & 1);
+    return 1;
   }
 
   else if ([keyCopy isEqualToString:@"SecureIndicatorActiveCount"])
   {
-    unsignedIntValue = [propertyCopy unsignedIntValue];
-    [(CBIndicatorBrightnessModule *)selfCopy setSilEnabled:unsignedIntValue != 0];
-    v43 = 1;
+    -[CBIndicatorBrightnessModule setSilEnabled:](selfCopy, "setSilEnabled:", [propertyCopy unsignedIntValue] != 0);
+    return 1;
   }
 
   else if ([keyCopy isEqualToString:@"MinimumIndicatorBrightness"])
@@ -1011,7 +990,7 @@ void __52__CBIndicatorBrightnessModule_isEXBrightDispatching__block_invoke(uint6
     [propertyCopy floatValue];
     v31 = LODWORD(v5);
     [(CBIndicatorBrightnessModule *)selfCopy setMinimumIndicatorBrightness:v5];
-    v43 = 1;
+    return 1;
   }
 
   else if ([keyCopy isEqualToString:@"IndicatorBrightnessFollowsMIB"])
@@ -1067,22 +1046,22 @@ void __52__CBIndicatorBrightnessModule_isEXBrightDispatching__block_invoke(uint6
             v7 = "Disabling";
           }
 
-          __os_log_helper_16_2_2_8_32_8_0(v45, v7, COERCE__INT64(v28));
-          _os_log_debug_impl(&dword_1DE8E5000, v27, v26, "%s IB = MIB (%f)", v45, 0x16u);
+          __os_log_helper_16_2_2_8_32_8_0(v43, v7, COERCE__INT64(v28));
+          _os_log_debug_impl(&dword_1DE8E5000, v27, v26, "%s IB = MIB (%f)", v43, 0x16u);
         }
 
-        v43 = 1;
+        return 1;
       }
 
       else
       {
-        v43 = 0;
+        return 0;
       }
     }
 
     else
     {
-      v43 = 0;
+      return 0;
     }
   }
 
@@ -1171,17 +1150,14 @@ void __52__CBIndicatorBrightnessModule_isEXBrightDispatching__block_invoke(uint6
 
         if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
-          __os_log_helper_16_0_1_8_0(v44, COERCE__INT64(selfCopy->_mibCompensationFactor));
-          _os_log_impl(&dword_1DE8E5000, v11, OS_LOG_TYPE_INFO, "Updating MIB compensation factor: %f", v44, 0xCu);
+          __os_log_helper_16_0_1_8_0(v42, COERCE__INT64(selfCopy->_mibCompensationFactor));
+          _os_log_impl(&dword_1DE8E5000, v11, OS_LOG_TYPE_INFO, "Updating MIB compensation factor: %f", v42, 0xCu);
         }
       }
     }
 
-    v43 = 0;
+    return 0;
   }
-
-  *MEMORY[0x1E69E9840];
-  return v43 & 1;
 }
 
 - (void)handleNotificationForKey:(id)key withProperty:(id)property
@@ -1302,8 +1278,6 @@ void __52__CBIndicatorBrightnessModule_isEXBrightDispatching__block_invoke(uint6
   {
     [(CBIndicatorBrightnessModule *)self processTransaction];
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)handleHIDEvent:(__IOHIDEvent *)event from:(__IOHIDServiceClient *)from
@@ -1311,122 +1285,116 @@ void __52__CBIndicatorBrightnessModule_isEXBrightDispatching__block_invoke(uint6
   v21 = *MEMORY[0x1E69E9840];
   if (self->_indicatorBrightnessFollowsMIB)
   {
-    v17 = 0;
+    return 0;
   }
 
-  else if (event && ([(NSMutableArray *)self->_mibServices containsObject:from]& 1) != 0)
+  if (!event || ([(NSMutableArray *)self->_mibServices containsObject:from]& 1) == 0)
   {
-    if (IOHIDEventGetType() == 1 && IOHIDEventGetIntegerValue() == 65280 && IOHIDEventGetIntegerValue() == 98)
-    {
-      TimeStamp = IOHIDEventGetTimeStamp();
-      DataValue = IOHIDEventGetDataValue();
-      if (IOHIDEventGetIntegerValue() == 16)
-      {
-        if (self->_logHandle)
-        {
-          logHandle = self->_logHandle;
-        }
+    return 0;
+  }
 
-        else
-        {
-          if (_COREBRIGHTNESS_LOG_DEFAULT)
-          {
-            inited = _COREBRIGHTNESS_LOG_DEFAULT;
-          }
-
-          else
-          {
-            inited = init_default_corebrightness_log();
-          }
-
-          logHandle = inited;
-        }
-
-        if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
-        {
-          __os_log_helper_16_0_4_8_0_8_0_8_0_8_0(v18, TimeStamp, COERCE__INT64(*DataValue / 1000000.0), COERCE__INT64(*(DataValue + 8)), COERCE__INT64(*(DataValue + 12)));
-          _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "[New Event] eventTimestamp=%llu MIBData.(ts=%fs mib=%f aggregatedLux=%f)\n", v18, 0x2Au);
-        }
-
-        LODWORD(v5) = *(DataValue + 8);
-        [(CBIndicatorBrightnessModule *)self setMinimumIndicatorBrightness:v5];
-        LODWORD(v6) = *(DataValue + 12);
-        [(CBIndicatorBrightnessModule *)self setLux:v6];
-        v17 = 1;
-      }
-
-      else
-      {
-        if (self->_logHandle)
-        {
-          v11 = self->_logHandle;
-        }
-
-        else
-        {
-          if (_COREBRIGHTNESS_LOG_DEFAULT)
-          {
-            v10 = _COREBRIGHTNESS_LOG_DEFAULT;
-          }
-
-          else
-          {
-            v10 = init_default_corebrightness_log();
-          }
-
-          v11 = v10;
-        }
-
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-        {
-          __os_log_helper_16_0_1_8_0(v19, TimeStamp);
-          _os_log_error_impl(&dword_1DE8E5000, v11, OS_LOG_TYPE_ERROR, "[New Event] eventTimestamp=%llu (unknown payload)", v19, 0xCu);
-        }
-
-        v17 = 0;
-      }
-    }
-
-    else
+  if (IOHIDEventGetType() == 1 && IOHIDEventGetIntegerValue() == 65280 && IOHIDEventGetIntegerValue() == 98)
+  {
+    TimeStamp = IOHIDEventGetTimeStamp();
+    DataValue = IOHIDEventGetDataValue();
+    if (IOHIDEventGetIntegerValue() == 16)
     {
       if (self->_logHandle)
       {
-        v13 = self->_logHandle;
+        logHandle = self->_logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v12 = _COREBRIGHTNESS_LOG_DEFAULT;
+          inited = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v12 = init_default_corebrightness_log();
+          inited = init_default_corebrightness_log();
         }
 
-        v13 = v12;
+        logHandle = inited;
       }
 
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
       {
-        Type = IOHIDEventGetType();
-        __os_log_helper_16_0_1_4_0(v20, Type);
-        _os_log_error_impl(&dword_1DE8E5000, v13, OS_LOG_TYPE_ERROR, "[New Event] unknown event type %u", v20, 8u);
+        __os_log_helper_16_0_4_8_0_8_0_8_0_8_0(v18, TimeStamp, COERCE__INT64(*DataValue / 1000000.0), COERCE__INT64(*(DataValue + 8)), COERCE__INT64(*(DataValue + 12)));
+        _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "[New Event] eventTimestamp=%llu MIBData.(ts=%fs mib=%f aggregatedLux=%f)\n", v18, 0x2Au);
       }
 
-      v17 = 0;
+      LODWORD(v5) = *(DataValue + 8);
+      [(CBIndicatorBrightnessModule *)self setMinimumIndicatorBrightness:v5];
+      LODWORD(v6) = *(DataValue + 12);
+      [(CBIndicatorBrightnessModule *)self setLux:v6];
+      return 1;
+    }
+
+    else
+    {
+      if (self->_logHandle)
+      {
+        v11 = self->_logHandle;
+      }
+
+      else
+      {
+        if (_COREBRIGHTNESS_LOG_DEFAULT)
+        {
+          v10 = _COREBRIGHTNESS_LOG_DEFAULT;
+        }
+
+        else
+        {
+          v10 = init_default_corebrightness_log();
+        }
+
+        v11 = v10;
+      }
+
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        __os_log_helper_16_0_1_8_0(v19, TimeStamp);
+        _os_log_error_impl(&dword_1DE8E5000, v11, OS_LOG_TYPE_ERROR, "[New Event] eventTimestamp=%llu (unknown payload)", v19, 0xCu);
+      }
+
+      return 0;
     }
   }
 
   else
   {
-    v17 = 0;
-  }
+    if (self->_logHandle)
+    {
+      v13 = self->_logHandle;
+    }
 
-  *MEMORY[0x1E69E9840];
-  return v17 & 1;
+    else
+    {
+      if (_COREBRIGHTNESS_LOG_DEFAULT)
+      {
+        v12 = _COREBRIGHTNESS_LOG_DEFAULT;
+      }
+
+      else
+      {
+        v12 = init_default_corebrightness_log();
+      }
+
+      v13 = v12;
+    }
+
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      Type = IOHIDEventGetType();
+      __os_log_helper_16_0_1_4_0(v20, Type);
+      _os_log_error_impl(&dword_1DE8E5000, v13, OS_LOG_TYPE_ERROR, "[New Event] unknown event type %u", v20, 8u);
+    }
+
+    return 0;
+  }
 }
 
 - (BOOL)addHIDServiceClient:(__IOHIDServiceClient *)client
@@ -1541,8 +1509,6 @@ void __52__CBIndicatorBrightnessModule_isEXBrightDispatching__block_invoke(uint6
       _os_log_error_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_ERROR, "Negative MIB %f, ignoring", v8, 0xCu);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)setLux:(float)lux
@@ -1589,8 +1555,6 @@ void __52__CBIndicatorBrightnessModule_isEXBrightDispatching__block_invoke(uint6
       _os_log_error_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_ERROR, "Negative lux %f, ignoring", v7, 0xCu);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)setRampSpeed:(float)speed
@@ -1672,8 +1636,6 @@ void __52__CBIndicatorBrightnessModule_isEXBrightDispatching__block_invoke(uint6
     __os_log_helper_16_0_1_8_0(v15, COERCE__INT64(selfCopy->_rampSpeed));
     _os_log_impl(&dword_1DE8E5000, v4, OS_LOG_TYPE_DEFAULT, "MIB ramp speed overriden to %f seconds/stop", v15, 0xCu);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)setSilEnabled:(BOOL)enabled
@@ -1742,33 +1704,32 @@ void __54__CBIndicatorBrightnessModule_startMonitoringForRTPLC__block_invoke(uin
   _Block_object_dispose(v13, 8);
 }
 
-uint64_t __54__CBIndicatorBrightnessModule_startMonitoringForRTPLC__block_invoke_68(uint64_t result)
+void *__54__CBIndicatorBrightnessModule_startMonitoringForRTPLC__block_invoke_68(void *result)
 {
-  v2 = result;
-  v5 = 0;
-  v4 = *(result + 61) & 1;
-  v3 = *(result + 68);
-  if ((*(*(*(*(result + 40) + 8) + 40) + 188) & 1) == 0 && (*(result + 61) & 1) != 0 || (*(*(*(*(result + 40) + 8) + 40) + 188) & 1) != 0 && (v1 = *(result + 68), *(*(*(*(result + 40) + 8) + 40) + 184) > v3))
+  v1 = result;
+  v3 = 0;
+  v2 = *(result + 17);
+  if ((*(*(*(*(result + 5) + 8) + 40) + 188) & 1) == 0 && (*(result + 61) & 1) != 0 || (*(*(*(*(result + 5) + 8) + 40) + 188) & 1) != 0 && *(*(*(*(result + 5) + 8) + 40) + 184) > v2)
   {
-    *(*(*(*(result + 40) + 8) + 40) + 104) = *(result + 61) & 1;
-    *(*(*(*(result + 40) + 8) + 40) + 100) = v3;
-    *(*(*(*(result + 40) + 8) + 40) + 109) = 1;
-    v5 = 1;
+    *(*(*(*(result + 5) + 8) + 40) + 104) = *(result + 61) & 1;
+    *(*(*(*(result + 5) + 8) + 40) + 100) = v2;
+    *(*(*(*(result + 5) + 8) + 40) + 109) = 1;
+    v3 = 1;
   }
 
-  if (*(*(*(*(result + 40) + 8) + 40) + 96) != *(result + 64))
+  if (*(*(*(*(result + 5) + 8) + 40) + 96) != *(result + 16))
   {
-    *(*(*(*(result + 40) + 8) + 40) + 96) = *(result + 64);
-    *(*(*(*(result + 40) + 8) + 40) + 109) = 1;
-    v5 = 1;
+    *(*(*(*(result + 5) + 8) + 40) + 96) = *(result + 16);
+    *(*(*(*(result + 5) + 8) + 40) + 109) = 1;
+    v3 = 1;
   }
 
-  if (v5)
+  if (v3)
   {
-    result = [*(result + 32) isRampRunning];
+    result = [*(result + 4) isRampRunning];
     if (!result)
     {
-      return [*(*(*(v2 + 40) + 8) + 40) processTransaction];
+      return [*(*(v1[5] + 8) + 40) processTransaction];
     }
   }
 
@@ -2131,8 +2092,6 @@ double __49__CBIndicatorBrightnessModule_processTransaction__block_invoke(uint64
       _os_log_fault_impl(&dword_1DE8E5000, v25, OS_LOG_TYPE_FAULT, "Ignoring IB target (%f) that is different than current SDR brightness (%f)", v39, 0x16u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)sendRampIsRunningNotification

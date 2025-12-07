@@ -48,21 +48,21 @@
 
 - (void)presentNotificationForSession:(id)session
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   identifier = [(DEDFollowUpNotifier *)self identifier];
-  v5 = Log();
+  v5 = Log(identifier);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     bugSessionIdentifier = [(DEDFollowUpNotifier *)self bugSessionIdentifier];
     *buf = 138543618;
-    v71 = identifier;
-    v72 = 2114;
-    v73 = bugSessionIdentifier;
+    v70 = identifier;
+    v71 = 2114;
+    v72 = bugSessionIdentifier;
     _os_log_impl(&dword_248AD7000, v5, OS_LOG_TYPE_DEFAULT, "Scheduling followup notification: %{public}@ for session [%{public}@]", buf, 0x16u);
   }
 
   v7 = objc_opt_new();
-  v67 = identifier;
+  v66 = identifier;
   [v7 setUniqueIdentifier:identifier];
   config = [(DEDFollowUpNotifier *)self config];
   followupLocalizedTitle = [config followupLocalizedTitle];
@@ -193,59 +193,56 @@ LABEL_18:
 
   [v7 setNotification:v41];
   followUpController = [(DEDFollowUpNotifier *)self followUpController];
-  v68[0] = MEMORY[0x277D85DD0];
-  v68[1] = 3221225472;
-  v68[2] = __53__DEDFollowUpNotifier_presentNotificationForSession___block_invoke;
-  v68[3] = &unk_278F657E0;
-  v69 = v67;
-  v65 = v67;
-  [followUpController postFollowUpItem:v7 completion:v68];
-
-  v66 = *MEMORY[0x277D85DE8];
+  v67[0] = MEMORY[0x277D85DD0];
+  v67[1] = 3221225472;
+  v67[2] = __53__DEDFollowUpNotifier_presentNotificationForSession___block_invoke;
+  v67[3] = &unk_278F657E0;
+  v68 = v66;
+  v65 = v66;
+  [followUpController postFollowUpItem:v7 completion:v67];
 }
 
 void __53__DEDFollowUpNotifier_presentNotificationForSession___block_invoke(uint64_t a1, int a2, void *a3)
 {
   v19 = *MEMORY[0x277D85DE8];
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
-    v6 = Log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = Log(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
+      v8 = *(a1 + 32);
       v17 = 138543362;
-      v18 = v7;
-      _os_log_impl(&dword_248AD7000, v6, OS_LOG_TYPE_DEFAULT, "Followup item posted: %{public}@", &v17, 0xCu);
+      v18 = v8;
+      _os_log_impl(&dword_248AD7000, v7, OS_LOG_TYPE_DEFAULT, "Followup item posted: %{public}@", &v17, 0xCu);
     }
   }
 
   else
   {
-    v6 = Log();
-    v8 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
-    if (v5)
+    v7 = Log(v5);
+    v9 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
+    if (v6)
     {
-      if (v8)
+      if (v9)
       {
-        __53__DEDFollowUpNotifier_presentNotificationForSession___block_invoke_cold_1(v5, v6);
+        __53__DEDFollowUpNotifier_presentNotificationForSession___block_invoke_cold_1(v6, v7);
       }
     }
 
-    else if (v8)
+    else if (v9)
     {
-      __53__DEDFollowUpNotifier_presentNotificationForSession___block_invoke_cold_2(v6, v9, v10, v11, v12, v13, v14, v15);
+      __53__DEDFollowUpNotifier_presentNotificationForSession___block_invoke_cold_2(v7, v10, v11, v12, v13, v14, v15, v16);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeNotificationForSession:(id)session
 {
   v25 = *MEMORY[0x277D85DE8];
   identifier = [(DEDFollowUpNotifier *)self identifier];
-  v5 = Log();
+  v5 = Log(identifier);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     bugSessionIdentifier = [(DEDFollowUpNotifier *)self bugSessionIdentifier];
@@ -265,14 +262,12 @@ void __53__DEDFollowUpNotifier_presentNotificationForSession___block_invoke(uint
 
   if (v9)
   {
-    v10 = Log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = Log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(DEDFollowUpNotifier *)v10 removeNotificationForSession:v11, v12, v13, v14, v15, v16, v17];
+      [(DEDFollowUpNotifier *)v11 removeNotificationForSession:v12, v13, v14, v15, v16, v17, v18];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -316,7 +311,7 @@ void __53__DEDFollowUpNotifier_presentNotificationForSession___block_invoke(uint
   v27 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   hostIdentifierCopy = hostIdentifier;
-  v7 = Log();
+  v7 = Log(hostIdentifierCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
@@ -333,26 +328,24 @@ void __53__DEDFollowUpNotifier_presentNotificationForSession___block_invoke(uint
   [v8 clearPendingFollowUpItemsWithUniqueIdentifiers:v9 error:&v21];
   v10 = v21;
 
-  v11 = Log();
-  v12 = v11;
+  v12 = Log(v11);
+  v13 = v12;
   if (v10)
   {
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [(DEDFollowUpNotifier *)v12 removeNotificationForSession:v13, v14, v15, v16, v17, v18, v19];
+      [(DEDFollowUpNotifier *)v13 removeNotificationForSession:v14, v15, v16, v17, v18, v19, v20];
     }
   }
 
-  else if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     v24 = identifierCopy;
     v25 = 2114;
     v26 = hostIdentifierCopy;
-    _os_log_impl(&dword_248AD7000, v12, OS_LOG_TYPE_DEFAULT, "Removed notification with identifier [%{public}@] for app [%{public}@]", buf, 0x16u);
+    _os_log_impl(&dword_248AD7000, v13, OS_LOG_TYPE_DEFAULT, "Removed notification with identifier [%{public}@] for app [%{public}@]", buf, 0x16u);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (DEDNotifierConfiguration)config
@@ -364,13 +357,11 @@ void __53__DEDFollowUpNotifier_presentNotificationForSession___block_invoke(uint
 
 void __53__DEDFollowUpNotifier_presentNotificationForSession___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 description];
-  v5 = 138543362;
-  v6 = v3;
-  _os_log_error_impl(&dword_248AD7000, a2, OS_LOG_TYPE_ERROR, "Followup item was not posted.\n[error info] %{public}@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543362;
+  v5 = v3;
+  _os_log_error_impl(&dword_248AD7000, a2, OS_LOG_TYPE_ERROR, "Followup item was not posted.\n[error info] %{public}@", &v4, 0xCu);
 }
 
 @end

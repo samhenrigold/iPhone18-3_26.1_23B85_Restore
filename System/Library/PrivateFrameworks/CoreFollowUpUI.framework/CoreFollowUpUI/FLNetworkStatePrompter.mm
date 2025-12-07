@@ -48,7 +48,7 @@
 
 void __69__FLNetworkStatePrompter_preflightNetworkStateWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = +[FLNetworkObserver sharedNetworkObserver];
   v3 = [v2 isNetworkReachable];
 
@@ -65,9 +65,9 @@ void __69__FLNetworkStatePrompter_preflightNetworkStateWithCompletionHandler___b
     block[1] = 3221225472;
     block[2] = __69__FLNetworkStatePrompter_preflightNetworkStateWithCompletionHandler___block_invoke_1;
     block[3] = &unk_278E359C0;
-    v15 = *(a1 + 40);
+    v14 = *(a1 + 40);
     dispatch_async(MEMORY[0x277D85CD0], block);
-    v5 = v15;
+    v5 = v14;
   }
 
   else
@@ -79,23 +79,21 @@ void __69__FLNetworkStatePrompter_preflightNetworkStateWithCompletionHandler___b
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v17 = v7;
+      v16 = v7;
       _os_log_impl(&dword_245383000, v8, OS_LOG_TYPE_DEFAULT, "Network is unreachable and airplane mode state is: %d", buf, 8u);
     }
 
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __69__FLNetworkStatePrompter_preflightNetworkStateWithCompletionHandler___block_invoke_2;
-    v11[3] = &unk_278E35B48;
-    v13 = v7;
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __69__FLNetworkStatePrompter_preflightNetworkStateWithCompletionHandler___block_invoke_2;
+    v10[3] = &unk_278E35B48;
+    v12 = v7;
     v9 = *(a1 + 40);
-    v11[4] = *(a1 + 32);
-    v12 = v9;
-    dispatch_async(MEMORY[0x277D85CD0], v11);
-    v5 = v12;
+    v10[4] = *(a1 + 32);
+    v11 = v9;
+    dispatch_async(MEMORY[0x277D85CD0], v10);
+    v5 = v11;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __69__FLNetworkStatePrompter_preflightNetworkStateWithCompletionHandler___block_invoke_2(uint64_t a1)
@@ -120,7 +118,7 @@ uint64_t __69__FLNetworkStatePrompter_preflightNetworkStateWithCompletionHandler
 
 - (void)_mainQueue_promptToDisableAirplaneModeWithCompletionHandler:(id)handler
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   v5 = _FLLogSystem();
@@ -131,11 +129,11 @@ uint64_t __69__FLNetworkStatePrompter_preflightNetworkStateWithCompletionHandler
   }
 
   v6 = [(FLNetworkStatePrompter *)self _disableAirplaneActionWithCompletionHandler:handlerCopy];
-  v15[0] = v6;
+  v14[0] = v6;
   v7 = [(FLNetworkStatePrompter *)self _cancelActionWithCompletionHandler:handlerCopy];
 
-  v15[1] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  v14[1] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
 
   v9 = MGGetBoolAnswer();
   v10 = @"WIFI";
@@ -148,7 +146,6 @@ uint64_t __69__FLNetworkStatePrompter_preflightNetworkStateWithCompletionHandler
   v12 = FLLoc();
 
   [FLAlertControllerHelper presentAlertWithTitle:v12 message:0 actions:v8 presentingController:self->_presenter];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_disableAirplaneActionWithCompletionHandler:(id)handler
@@ -199,29 +196,28 @@ void __70__FLNetworkStatePrompter__disableAirplaneActionWithCompletionHandler___
   _Block_object_dispose(buf, 8);
 }
 
-void __70__FLNetworkStatePrompter__disableAirplaneActionWithCompletionHandler___block_invoke_20(uint64_t a1, int a2)
+void __70__FLNetworkStatePrompter__disableAirplaneActionWithCompletionHandler___block_invoke_20(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v12 = *MEMORY[0x277D85DE8];
   v4 = _FLLogSystem();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v12 = a2;
+    v11 = v2;
     _os_log_impl(&dword_245383000, v4, OS_LOG_TYPE_DEFAULT, "Finished disabling with result... %d", buf, 8u);
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __70__FLNetworkStatePrompter__disableAirplaneActionWithCompletionHandler___block_invoke_21;
-  v8[3] = &unk_278E35B98;
-  v9 = *(a1 + 32);
-  v10 = a2;
-  dispatch_async(MEMORY[0x277D85CD0], v8);
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __70__FLNetworkStatePrompter__disableAirplaneActionWithCompletionHandler___block_invoke_21;
+  v7[3] = &unk_278E35B98;
+  v8 = *(a1 + 32);
+  v9 = v2;
+  dispatch_async(MEMORY[0x277D85CD0], v7);
   v5 = *(*(a1 + 40) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = 0;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_cancelActionWithCompletionHandler:(id)handler
@@ -239,46 +235,44 @@ void __70__FLNetworkStatePrompter__disableAirplaneActionWithCompletionHandler___
   return v6;
 }
 
-void __61__FLNetworkStatePrompter__cancelActionWithCompletionHandler___block_invoke(uint64_t a1)
+void __61__FLNetworkStatePrompter__cancelActionWithCompletionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = _FLLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _FLLogSystem();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_245383000, v2, OS_LOG_TYPE_DEFAULT, "Dismiss action initiated, bailing...", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_245383000, v3, OS_LOG_TYPE_DEFAULT, "Dismiss action initiated, bailing...", v6, 2u);
   }
 
-  v3 = *(a1 + 32);
-  v4 = FLError();
-  (*(v3 + 16))(v3, 0, v4);
+  v4 = *(a1 + 32);
+  v5 = FLError();
+  (*(v4 + 16))(v4, 0, v5);
 }
 
 - (void)_mainQueue_verificationFailedAlert
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   v3 = _FLLogSystem();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v10 = 0;
-    _os_log_impl(&dword_245383000, v3, OS_LOG_TYPE_DEFAULT, "Showing verification failed...", v10, 2u);
+    *v9 = 0;
+    _os_log_impl(&dword_245383000, v3, OS_LOG_TYPE_DEFAULT, "Showing verification failed...", v9, 2u);
   }
 
   v4 = FLLoc();
   v5 = [FLAlertControllerAction actionWithTitle:v4 style:1 handler:0];
-  v11[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
 
   v7 = FLLoc();
   v8 = FLLoc();
   [FLAlertControllerHelper presentAlertWithTitle:v7 message:v8 actions:v6 presentingController:self->_presenter];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = _FLLogSystem();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -287,10 +281,9 @@ void __61__FLNetworkStatePrompter__cancelActionWithCompletionHandler___block_inv
     _os_log_impl(&dword_245383000, v3, OS_LOG_TYPE_DEFAULT, "<%@> : checking out...", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = FLNetworkStatePrompter;
-  [(FLNetworkStatePrompter *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = FLNetworkStatePrompter;
+  [(FLNetworkStatePrompter *)&v4 dealloc];
 }
 
 @end

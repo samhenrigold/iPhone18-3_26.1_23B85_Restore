@@ -184,7 +184,7 @@
     v8[3] = &unk_1E70FA0F0;
     v9 = a2;
     v8[4] = self;
-    [(UIView *)v6 _animateCollectionTableAnimationWithDuration:UIView delay:2 options:v10 animations:v8 completion:?];
+    [UIView _animateCollectionTableAnimationWithDuration:v10 delay:v8 options:v6 animations:0.0 completion:?];
     if (a2)
     {
       *(self + 48) |= 1u;
@@ -252,7 +252,7 @@
     v6[3] = &unk_1E70FA0F0;
     v7 = a2;
     v6[4] = visible;
-    [(UIView *)v4 _animateCollectionTableAnimationWithDuration:UIView delay:2 options:v8 animations:v6 completion:?];
+    [UIView _animateCollectionTableAnimationWithDuration:v8 delay:v6 options:v4 animations:0.0 completion:?];
     if (a2)
     {
       *(visible + 48) |= 2u;

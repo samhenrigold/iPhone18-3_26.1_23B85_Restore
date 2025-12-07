@@ -6,29 +6,29 @@
 
 - (void)MSMutableDeepCopyWithZone:()MCDictionaryUtilities
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(self, "count")}];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = [self keyEnumerator];
-  v6 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       v9 = 0;
       do
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * v9);
+        v10 = *(*(&v17 + 1) + 8 * v9);
         v11 = [self objectForKey:v10];
         objc_opt_class();
         if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
@@ -54,14 +54,13 @@ LABEL_10:
       }
 
       while (v7 != v9);
-      v14 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v14 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
       v7 = v14;
     }
 
     while (v14);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

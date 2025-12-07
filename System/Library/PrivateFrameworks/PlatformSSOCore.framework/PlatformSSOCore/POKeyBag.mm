@@ -36,13 +36,14 @@
 - (BOOL)isUserKeybagUnlocked
 {
   v2 = MKBGetDeviceLockState();
-  v3 = PO_LOG_POKeyBag();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v3 = v2;
+  v4 = PO_LOG_POKeyBag(v2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    [(POKeyBag *)v2 isUserKeybagUnlocked];
+    [(POKeyBag *)v3 isUserKeybagUnlocked];
   }
 
-  return v2 == 0;
+  return v3 == 0;
 }
 
 - (void)waitForKeyBagUnlockWithCompletion:(id)completion
@@ -83,11 +84,10 @@
 
 - (void)startObservingKeyBagLockStatusChanges
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = self;
-  _os_log_error_impl(&dword_25E8B1000, a2, OS_LOG_TYPE_ERROR, "notify_register_dispatch failed: %u", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = self;
+  _os_log_error_impl(&dword_25E8B1000, a2, OS_LOG_TYPE_ERROR, "notify_register_dispatch failed: %u", v2, 8u);
 }
 
 void __49__POKeyBag_startObservingKeyBagLockStatusChanges__block_invoke(uint64_t a1)
@@ -95,44 +95,45 @@ void __49__POKeyBag_startObservingKeyBagLockStatusChanges__block_invoke(uint64_t
   v2 = *(a1 + 32);
   objc_sync_enter(v2);
   v3 = [*(a1 + 32) isUserKeybagUnlocked];
-  v4 = PO_LOG_POKeyBag();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
-  if (v3)
+  v4 = v3;
+  v5 = PO_LOG_POKeyBag(v3);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
+  if (v4)
   {
-    if (v5)
+    if (v6)
     {
       __49__POKeyBag_startObservingKeyBagLockStatusChanges__block_invoke_cold_2();
     }
 
     [*(a1 + 32) setFirstUnlock:1];
-    v6 = [*(a1 + 32) startupCompletion];
+    v7 = [*(a1 + 32) startupCompletion];
 
-    if (v6)
+    if (v7)
     {
-      v7 = PO_LOG_POKeyBag();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      v9 = PO_LOG_POKeyBag(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         __49__POKeyBag_startObservingKeyBagLockStatusChanges__block_invoke_cold_3();
       }
 
-      v8 = [*(a1 + 32) startupCompletion];
-      v8[2]();
+      v10 = [*(a1 + 32) startupCompletion];
+      v10[2]();
 
       [*(a1 + 32) setStartupCompletion:0];
     }
 
-    v9 = [*(a1 + 32) unlockCompletion];
+    v11 = [*(a1 + 32) unlockCompletion];
 
-    if (v9)
+    if (v11)
     {
-      v10 = PO_LOG_POKeyBag();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v13 = PO_LOG_POKeyBag(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         __49__POKeyBag_startObservingKeyBagLockStatusChanges__block_invoke_cold_4();
       }
 
-      v11 = [*(a1 + 32) unlockCompletion];
-      v11[2]();
+      v14 = [*(a1 + 32) unlockCompletion];
+      v14[2]();
 
       [*(a1 + 32) setUnlockCompletion:0];
     }
@@ -140,17 +141,17 @@ void __49__POKeyBag_startObservingKeyBagLockStatusChanges__block_invoke(uint64_t
 
   else
   {
-    if (v5)
+    if (v6)
     {
       __49__POKeyBag_startObservingKeyBagLockStatusChanges__block_invoke_cold_1();
     }
 
-    v12 = [*(a1 + 32) lockHandler];
+    v15 = [*(a1 + 32) lockHandler];
 
-    if (v12)
+    if (v15)
     {
-      v13 = [*(a1 + 32) lockHandler];
-      v13[2]();
+      v16 = [*(a1 + 32) lockHandler];
+      v16[2]();
     }
   }
 
@@ -169,11 +170,10 @@ void __49__POKeyBag_startObservingKeyBagLockStatusChanges__block_invoke(uint64_t
 
 - (void)isUserKeybagUnlocked
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = self;
-  _os_log_debug_impl(&dword_25E8B1000, a2, OS_LOG_TYPE_DEBUG, "unlock state %x", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = self;
+  _os_log_debug_impl(&dword_25E8B1000, a2, OS_LOG_TYPE_DEBUG, "unlock state %x", v2, 8u);
 }
 
 @end

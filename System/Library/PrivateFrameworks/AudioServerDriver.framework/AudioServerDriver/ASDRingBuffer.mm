@@ -32,7 +32,7 @@
   v5 = readFormat;
   if (readFormat)
   {
-    [readFormat audioStreamBasicDescription];
+    objc_msgSend_audioStreamBasicDescription(readFormat);
   }
 
   else
@@ -48,7 +48,7 @@
   v8 = writeFormat;
   if (writeFormat)
   {
-    [writeFormat audioStreamBasicDescription];
+    objc_msgSend_audioStreamBasicDescription(writeFormat);
   }
 
   else
@@ -81,7 +81,7 @@
   return v2;
 }
 
-uint64_t __27__ASDRingBuffer_writeBlock__block_invoke(uint64_t a1, const AudioBufferList *a2, unsigned int a3, uint64_t a4)
+uint64_t __27__ASDRingBuffer_writeBlock__block_invoke(uint64_t a1, const AudioBufferList *a2, UInt32 a3, uint64_t a4)
 {
   v4 = *(a1 + 32);
   if (!v4)

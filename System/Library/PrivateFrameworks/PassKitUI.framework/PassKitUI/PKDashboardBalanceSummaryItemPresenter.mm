@@ -1328,15 +1328,16 @@ LABEL_10:
 
 - (void)_selectFileFormatForExportedStatementDataForItem:(id)item atIndexPath:(id)path inCollectionView:(id)view
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   pathCopy = path;
   viewCopy = view;
-  if (PKStoreDemoModeEnabled())
+  v10 = PKStoreDemoModeEnabled();
+  if (v10)
   {
-    v10 = PKUIStoreDemoGatewayViewController();
+    v13 = PKUIStoreDemoGatewayViewController(v10, v11, v12);
     pkui_viewControllerFromResponderChain = [viewCopy pkui_viewControllerFromResponderChain];
-    [pkui_viewControllerFromResponderChain presentViewController:v10 animated:1 completion:0];
+    [pkui_viewControllerFromResponderChain presentViewController:v13 animated:1 completion:0];
   }
 
   else
@@ -1346,10 +1347,10 @@ LABEL_10:
     exportTransactionDataFeatureDescriptor = [account exportTransactionDataFeatureDescriptor];
     supportedFileFormatsForTransactionData = [exportTransactionDataFeatureDescriptor supportedFileFormatsForTransactionData];
 
-    v16 = [supportedFileFormatsForTransactionData count];
-    if (v16 < 2)
+    v19 = [supportedFileFormatsForTransactionData count];
+    if (v19 < 2)
     {
-      if (v16 == 1)
+      if (v19 == 1)
       {
         firstObject = [supportedFileFormatsForTransactionData firstObject];
         [(PKDashboardBalanceSummaryItemPresenter *)self _downloadExportedStatementDataForItem:itemCopy withFileFormat:firstObject atIndexPath:pathCopy inCollectionView:viewCopy];
@@ -1358,72 +1359,72 @@ LABEL_10:
 
     else
     {
-      v36 = account;
-      v38 = itemCopy;
-      v17 = MEMORY[0x1E69DC650];
-      v18 = PKLocalizedFeatureString();
-      v37 = [v17 alertControllerWithTitle:v18 message:0 preferredStyle:0];
+      v39 = account;
+      v41 = itemCopy;
+      v20 = MEMORY[0x1E69DC650];
+      v21 = PKLocalizedFeatureString();
+      v40 = [v20 alertControllerWithTitle:v21 message:0 preferredStyle:0];
 
-      v47 = 0u;
+      v50 = 0u;
+      v51 = 0u;
       v48 = 0u;
-      v45 = 0u;
-      v46 = 0u;
-      v35 = supportedFileFormatsForTransactionData;
-      v19 = supportedFileFormatsForTransactionData;
-      v20 = [v19 countByEnumeratingWithState:&v45 objects:v49 count:16];
-      if (v20)
+      v49 = 0u;
+      v38 = supportedFileFormatsForTransactionData;
+      v22 = supportedFileFormatsForTransactionData;
+      v23 = [v22 countByEnumeratingWithState:&v48 objects:v52 count:16];
+      if (v23)
       {
-        v21 = v20;
-        v22 = *v46;
+        v24 = v23;
+        v25 = *v49;
         do
         {
-          for (i = 0; i != v21; ++i)
+          for (i = 0; i != v24; ++i)
           {
-            if (*v46 != v22)
+            if (*v49 != v25)
             {
-              objc_enumerationMutation(v19);
+              objc_enumerationMutation(v22);
             }
 
-            v24 = *(*(&v45 + 1) + 8 * i);
-            v25 = [(PKDashboardBalanceSummaryItemPresenter *)self _readableFileTypeForFormat:v24 feature:feature];
-            if (v25)
+            v27 = *(*(&v48 + 1) + 8 * i);
+            v28 = [(PKDashboardBalanceSummaryItemPresenter *)self _readableFileTypeForFormat:v27 feature:feature];
+            if (v28)
             {
-              v26 = MEMORY[0x1E69DC648];
-              v40[0] = MEMORY[0x1E69E9820];
-              v40[1] = 3221225472;
-              v40[2] = __120__PKDashboardBalanceSummaryItemPresenter__selectFileFormatForExportedStatementDataForItem_atIndexPath_inCollectionView___block_invoke;
-              v40[3] = &unk_1E8013518;
-              v40[4] = self;
-              v41 = v38;
-              v42 = v24;
-              v43 = pathCopy;
-              v44 = viewCopy;
-              v27 = [v26 actionWithTitle:v25 style:0 handler:v40];
-              [v37 addAction:v27];
+              v29 = MEMORY[0x1E69DC648];
+              v43[0] = MEMORY[0x1E69E9820];
+              v43[1] = 3221225472;
+              v43[2] = __120__PKDashboardBalanceSummaryItemPresenter__selectFileFormatForExportedStatementDataForItem_atIndexPath_inCollectionView___block_invoke;
+              v43[3] = &unk_1E8013518;
+              v43[4] = self;
+              v44 = v41;
+              v45 = v27;
+              v46 = pathCopy;
+              v47 = viewCopy;
+              v30 = [v29 actionWithTitle:v28 style:0 handler:v43];
+              [v40 addAction:v30];
             }
           }
 
-          v21 = [v19 countByEnumeratingWithState:&v45 objects:v49 count:16];
+          v24 = [v22 countByEnumeratingWithState:&v48 objects:v52 count:16];
         }
 
-        while (v21);
+        while (v24);
       }
 
-      v28 = MEMORY[0x1E69DC648];
-      v29 = PKLocalizedFeatureString();
-      v30 = [v28 actionWithTitle:v29 style:1 handler:0];
-      [v37 addAction:v30];
+      v31 = MEMORY[0x1E69DC648];
+      v32 = PKLocalizedFeatureString();
+      v33 = [v31 actionWithTitle:v32 style:1 handler:0];
+      [v40 addAction:v33];
 
-      popoverPresentationController = [v37 popoverPresentationController];
-      v32 = [viewCopy cellForItemAtIndexPath:pathCopy];
-      [popoverPresentationController setSourceView:v32];
+      popoverPresentationController = [v40 popoverPresentationController];
+      v35 = [viewCopy cellForItemAtIndexPath:pathCopy];
+      [popoverPresentationController setSourceView:v35];
 
       pkui_viewControllerFromResponderChain2 = [viewCopy pkui_viewControllerFromResponderChain];
-      [pkui_viewControllerFromResponderChain2 presentViewController:v37 animated:1 completion:0];
+      [pkui_viewControllerFromResponderChain2 presentViewController:v40 animated:1 completion:0];
 
-      itemCopy = v38;
-      supportedFileFormatsForTransactionData = v35;
-      account = v36;
+      itemCopy = v41;
+      supportedFileFormatsForTransactionData = v38;
+      account = v39;
     }
   }
 }
@@ -1694,7 +1695,7 @@ LABEL_30:
       }
 
       v22 = [*v21 identifier];
-      v23 = [objc_alloc(getQLItemClass[0]()) initWithDataProvider:v3 contentType:v22 previewTitle:v10];
+      v23 = [objc_alloc(getQLItemClass()) initWithDataProvider:v3 contentType:v22 previewTitle:v10];
       v24 = v3[10];
       v3[10] = v23;
 
@@ -1764,11 +1765,12 @@ void __124__PKDashboardBalanceSummaryItemPresenter__downloadExportedStatementDat
 {
   itemCopy = item;
   viewCopy = view;
-  if (PKStoreDemoModeEnabled())
+  v8 = PKStoreDemoModeEnabled();
+  if (v8)
   {
-    v8 = PKUIStoreDemoGatewayViewController();
+    v11 = PKUIStoreDemoGatewayViewController(v8, v9, v10);
     pkui_viewControllerFromResponderChain = [viewCopy pkui_viewControllerFromResponderChain];
-    [pkui_viewControllerFromResponderChain presentViewController:v8 animated:1 completion:0];
+    [pkui_viewControllerFromResponderChain presentViewController:v11 animated:1 completion:0];
   }
 
   else
@@ -1780,15 +1782,15 @@ void __124__PKDashboardBalanceSummaryItemPresenter__downloadExportedStatementDat
     aBlock[1] = 3221225472;
     aBlock[2] = __95__PKDashboardBalanceSummaryItemPresenter__downloadAndPresentStatementForItem_inCollectionView___block_invoke;
     aBlock[3] = &unk_1E8013540;
-    v34 = feature;
-    v12 = viewCopy;
-    v33 = v12;
-    v13 = _Block_copy(aBlock);
+    v37 = feature;
+    v15 = viewCopy;
+    v36 = v15;
+    v16 = _Block_copy(aBlock);
     webService = [itemCopy webService];
     account2 = [itemCopy account];
     statement = [itemCopy statement];
     accountIdentifier = [statement accountIdentifier];
-    v18 = accountIdentifier;
+    v21 = accountIdentifier;
     if (accountIdentifier)
     {
       accountIdentifier2 = accountIdentifier;
@@ -1799,11 +1801,11 @@ void __124__PKDashboardBalanceSummaryItemPresenter__downloadExportedStatementDat
       accountIdentifier2 = [account2 accountIdentifier];
     }
 
-    v20 = accountIdentifier2;
+    v23 = accountIdentifier2;
 
     if (self->_pdfData && self->_pdfItem)
     {
-      pkui_viewControllerFromResponderChain2 = [v12 pkui_viewControllerFromResponderChain];
+      pkui_viewControllerFromResponderChain2 = [v15 pkui_viewControllerFromResponderChain];
       navigationController = [pkui_viewControllerFromResponderChain2 navigationController];
       _createPreviewController = [(PKDashboardBalanceSummaryItemPresenter *)self _createPreviewController];
       [navigationController presentViewController:_createPreviewController animated:1 completion:0];
@@ -1812,29 +1814,29 @@ void __124__PKDashboardBalanceSummaryItemPresenter__downloadExportedStatementDat
     else
     {
       self->_downloadingPDF = 1;
-      [v12 reloadData];
+      [v15 reloadData];
       pkui_viewControllerFromResponderChain2 = objc_alloc_init(MEMORY[0x1E69B84A0]);
-      [pkui_viewControllerFromResponderChain2 setAccountIdentifier:v20];
+      [pkui_viewControllerFromResponderChain2 setAccountIdentifier:v23];
       [statement identifier];
-      v28 = v12;
-      v24 = webService;
-      v26 = v25 = v13;
-      [pkui_viewControllerFromResponderChain2 setDocumentIdentifier:v26];
+      v31 = v15;
+      v27 = webService;
+      v29 = v28 = v16;
+      [pkui_viewControllerFromResponderChain2 setDocumentIdentifier:v29];
 
       accountBaseURL = [account2 accountBaseURL];
       [pkui_viewControllerFromResponderChain2 setBaseURL:accountBaseURL];
 
-      v13 = v25;
-      webService = v24;
+      v16 = v28;
+      webService = v27;
       [pkui_viewControllerFromResponderChain2 setAction:1];
-      v29[0] = MEMORY[0x1E69E9820];
-      v29[1] = 3221225472;
-      v29[2] = __95__PKDashboardBalanceSummaryItemPresenter__downloadAndPresentStatementForItem_inCollectionView___block_invoke_2;
-      v29[3] = &unk_1E8013608;
-      v29[4] = self;
-      v30 = v28;
-      v31 = v13;
-      [v24 accountDocumentActionWithRequest:pkui_viewControllerFromResponderChain2 completion:v29];
+      v32[0] = MEMORY[0x1E69E9820];
+      v32[1] = 3221225472;
+      v32[2] = __95__PKDashboardBalanceSummaryItemPresenter__downloadAndPresentStatementForItem_inCollectionView___block_invoke_2;
+      v32[3] = &unk_1E8013608;
+      v32[4] = self;
+      v33 = v31;
+      v34 = v16;
+      [v27 accountDocumentActionWithRequest:pkui_viewControllerFromResponderChain2 completion:v32];
     }
   }
 }
@@ -1924,7 +1926,7 @@ void __95__PKDashboardBalanceSummaryItemPresenter__downloadAndPresentStatementFo
     {
       objc_storeStrong((*(a1 + 32) + 56), obj);
       v11 = [*MEMORY[0x1E6982F10] identifier];
-      v12 = [objc_alloc(getQLItemClass[0]()) initWithDataProvider:*(a1 + 32) contentType:v11 previewTitle:v5];
+      v12 = [objc_alloc(getQLItemClass()) initWithDataProvider:*(a1 + 32) contentType:v11 previewTitle:v5];
       v13 = *(a1 + 32);
       v14 = *(v13 + 72);
       *(v13 + 72) = v12;
@@ -2027,7 +2029,7 @@ void __95__PKDashboardBalanceSummaryItemPresenter__downloadAndPresentStatementFo
 
 - (id)_createPreviewController
 {
-  v3 = objc_alloc_init(getQLPreviewControllerClass());
+  v3 = objc_alloc_init(getQLPreviewControllerClass(self, a2));
   [v3 setDelegate:self];
   [v3 setDataSource:self];
 

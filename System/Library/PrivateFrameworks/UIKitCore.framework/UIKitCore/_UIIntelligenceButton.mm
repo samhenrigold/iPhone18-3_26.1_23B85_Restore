@@ -10,18 +10,20 @@
 
 - (BOOL)isHighlighted
 {
-  v3.receiver = self;
-  v3.super_class = type metadata accessor for _UIIntelligenceButton();
-  return [(UIControl *)&v3 isHighlighted];
+  v3 = type metadata accessor for _UIIntelligenceButton();
+  v6.receiver = self;
+  v6.super_class = v4;
+  return [(UIControl *)&v6 isHighlighted];
 }
 
 - (void)setHighlighted:(BOOL)highlighted
 {
   highlightedCopy = highlighted;
-  v5.receiver = self;
-  v5.super_class = type metadata accessor for _UIIntelligenceButton();
-  v4 = v5.receiver;
-  [(UIButton *)&v5 setHighlighted:highlightedCopy];
+  type metadata accessor for _UIIntelligenceButton();
+  v7.receiver = self;
+  v7.super_class = v5;
+  selfCopy = self;
+  [(UIButton *)&v7 setHighlighted:highlightedCopy];
   sub_18913AF64();
 }
 
@@ -33,13 +35,14 @@
 
 - (void)updateConfiguration
 {
-  v5.receiver = self;
-  v5.super_class = type metadata accessor for _UIIntelligenceButton();
-  v2 = v5.receiver;
-  [(UIButton *)&v5 updateConfiguration];
-  v3 = *&v2[OBJC_IVAR____TtC5UIKit21_UIIntelligenceButton_imagePortal];
-  _imageEffectContainerView = [v2 _imageEffectContainerView];
-  [v3 setSourceView_];
+  type metadata accessor for _UIIntelligenceButton();
+  v7.receiver = self;
+  v7.super_class = v3;
+  selfCopy = self;
+  [(UIButton *)&v7 updateConfiguration];
+  v5 = *(&selfCopy->super.super.super.super.super.isa + OBJC_IVAR____TtC5UIKit21_UIIntelligenceButton_imagePortal);
+  v6 = [(UIButton *)selfCopy _imageEffectContainerView:v7.receiver];
+  [v5 setSourceView_];
 
   sub_18913AE28();
 }

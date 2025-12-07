@@ -4,14 +4,14 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)setByAddingTraitToken:(id)result;
 - (id)setByRemovingTraitToken:(id)result;
-- (uint64_t)NSSetRepresentation;
 - (uint64_t)initWithNSSetRepresentation:(void *)representation;
 - (unint64_t)countByEnumeratingWithState:(id *)state objects:(id *)objects count:(unint64_t)count;
+- (void)NSSetRepresentation;
 - (void)addTraitTokenValue:(int8x16_t)value;
 - (void)allTraitTokens;
 - (void)dealloc;
-- (void)enumerateAllTraitTokenValues:(uint64_t)values;
-- (void)removeTraitTokenValue:(__n128)value;
+- (void)enumerateAllTraitTokenValues:(uint64_t *)result;
+- (void)removeTraitTokenValue:(int8x16_t)value;
 @end
 
 @implementation _UITraitTokenSet
@@ -99,7 +99,7 @@
   return _UITraitTokenSetIsEqualToSet(&self->_storage, equal + 16);
 }
 
-- (void)removeTraitTokenValue:(__n128)value
+- (void)removeTraitTokenValue:(int8x16_t)value
 {
   if (self)
   {
@@ -152,16 +152,16 @@
   return result;
 }
 
-- (void)enumerateAllTraitTokenValues:(uint64_t)values
+- (void)enumerateAllTraitTokenValues:(uint64_t *)result
 {
-  if (values)
+  if (result)
   {
     if (!a2)
     {
       [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
     }
 
-    _UITraitTokenSetEnumerate((values + 16), a2);
+    _UITraitTokenSetEnumerate(result + 2, a2);
   }
 }
 
@@ -247,7 +247,7 @@
   return v3;
 }
 
-- (uint64_t)NSSetRepresentation
+- (void)NSSetRepresentation
 {
   if (result)
   {

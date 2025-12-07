@@ -405,7 +405,6 @@
   v57 = MEMORY[0x277D82BE0](v58);
   objc_storeStrong(&v58, 0);
   objc_storeStrong(v59, 0);
-  *MEMORY[0x277D85DE8];
 
   return v57;
 }
@@ -709,7 +708,6 @@ void __63__SUSettingsUpdateOperation_action_PrepareUpdateProcess_error___block_i
 
   objc_storeStrong(&v35, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)action_PurgeSpace:(id)space error:(id *)error
@@ -891,7 +889,6 @@ void __63__SUSettingsUpdateOperation_action_PrepareUpdateProcess_error___block_i
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
   return v70;
 }
 
@@ -975,7 +972,6 @@ void __53__SUSettingsUpdateOperation_action_PurgeSpace_error___block_invoke(uint
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __53__SUSettingsUpdateOperation_action_PurgeSpace_error___block_invoke_324(uint64_t a1)
@@ -1035,7 +1031,6 @@ void __53__SUSettingsUpdateOperation_action_PurgeSpace_error___block_invoke_324(
   }
 
   objc_storeStrong(v22, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __53__SUSettingsUpdateOperation_action_PurgeSpace_error___block_invoke_325(uint64_t a1, void *a2)
@@ -1097,7 +1092,6 @@ void __53__SUSettingsUpdateOperation_action_PurgeSpace_error___block_invoke_325(
   }
 
   objc_storeStrong(v23, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __53__SUSettingsUpdateOperation_action_PurgeSpace_error___block_invoke_326(uint64_t a1)
@@ -1196,7 +1190,6 @@ void __53__SUSettingsUpdateOperation_action_PurgeSpace_error___block_invoke_326(
   }
 
   objc_storeStrong(v34, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __53__SUSettingsUpdateOperation_action_PurgeSpace_error___block_invoke_327(uint64_t a1, char a2, id obj)
@@ -1279,7 +1272,6 @@ void __53__SUSettingsUpdateOperation_action_PurgeSpace_error___block_invoke_327(
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)action_AquireKeybag:(id)keybag error:(id *)error
@@ -1413,7 +1405,6 @@ void __53__SUSettingsUpdateOperation_action_PurgeSpace_error___block_invoke_327(
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
   return v51;
 }
 
@@ -1474,7 +1465,6 @@ void __55__SUSettingsUpdateOperation_action_AquireKeybag_error___block_invoke(ui
   }
 
   objc_storeStrong(v22, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __55__SUSettingsUpdateOperation_action_AquireKeybag_error___block_invoke_330(uint64_t a1, void *a2, id obj)
@@ -1545,7 +1535,6 @@ void __55__SUSettingsUpdateOperation_action_AquireKeybag_error___block_invoke_33
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __55__SUSettingsUpdateOperation_action_AquireKeybag_error___block_invoke_331(uint64_t a1)
@@ -1712,7 +1701,6 @@ void __55__SUSettingsUpdateOperation_action_AquireKeybag_error___block_invoke_33
   }
 
   objc_storeStrong(v48, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)action_PresentTermsConditions:(id)conditions error:(id *)error
@@ -1874,7 +1862,6 @@ LABEL_8:
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
   return v61;
 }
 
@@ -1934,7 +1921,6 @@ void __65__SUSettingsUpdateOperation_action_PresentTermsConditions_error___block
   }
 
   objc_storeStrong(v21, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __65__SUSettingsUpdateOperation_action_PresentTermsConditions_error___block_invoke_336(uint64_t a1, void *a2)
@@ -1994,7 +1980,6 @@ void __65__SUSettingsUpdateOperation_action_PresentTermsConditions_error___block
   }
 
   objc_storeStrong(v22, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __65__SUSettingsUpdateOperation_action_PresentTermsConditions_error___block_invoke_337(uint64_t a1)
@@ -2122,7 +2107,6 @@ void __65__SUSettingsUpdateOperation_action_PresentTermsConditions_error___block
   }
 
   objc_storeStrong(v44, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __65__SUSettingsUpdateOperation_action_PresentTermsConditions_error___block_invoke_338(uint64_t a1, char a2, id obj)
@@ -2154,7 +2138,6 @@ void __65__SUSettingsUpdateOperation_action_PresentTermsConditions_error___block
   objc_storeStrong(v11, 0);
   [*(*(a1 + 48) + 112) postEvent:*(a1 + 56) withInfo:*(a1 + 40)];
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)action_ResolveUpdateOperation:(id)operation error:(id *)error
@@ -2236,7 +2219,6 @@ void __65__SUSettingsUpdateOperation_action_PresentTermsConditions_error___block
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   return v26;
 }
 
@@ -2546,7 +2528,6 @@ void __65__SUSettingsUpdateOperation_action_PresentTermsConditions_error___block
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
   return v110;
 }
 
@@ -2607,7 +2588,6 @@ void __69__SUSettingsUpdateOperation_action_PresentDownloadConstraints_error___b
   }
 
   objc_storeStrong(v22, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __69__SUSettingsUpdateOperation_action_PresentDownloadConstraints_error___block_invoke_343(uint64_t a1, void *a2)
@@ -2667,7 +2647,6 @@ void __69__SUSettingsUpdateOperation_action_PresentDownloadConstraints_error___b
   }
 
   objc_storeStrong(v22, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __69__SUSettingsUpdateOperation_action_PresentDownloadConstraints_error___block_invoke_344(uint64_t a1)
@@ -2764,7 +2743,6 @@ void __69__SUSettingsUpdateOperation_action_PresentDownloadConstraints_error___b
   }
 
   objc_storeStrong(v30, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)action_InitiateUpdateDownload:(id)download error:(id *)error
@@ -2973,7 +2951,6 @@ void __65__SUSettingsUpdateOperation_action_InitiateUpdateDownload_error___block
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __65__SUSettingsUpdateOperation_action_InitiateUpdateDownload_error___block_invoke_346(uint64_t a1, void *a2, void *a3)
@@ -3114,7 +3091,6 @@ void __65__SUSettingsUpdateOperation_action_InitiateUpdateDownload_error___block
 
   objc_storeStrong(&v41, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)action_InitiateUpdateInstallation:(id)installation error:(id *)error
@@ -3271,7 +3247,6 @@ void __69__SUSettingsUpdateOperation_action_InitiateUpdateInstallation_error___b
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)action_ScheduleUpdate:(id)update error:(id *)error
@@ -3419,7 +3394,6 @@ void __57__SUSettingsUpdateOperation_action_ScheduleUpdate_error___block_invoke(
 
   objc_storeStrong(&v33, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __57__SUSettingsUpdateOperation_action_ScheduleUpdate_error___block_invoke_350(uint64_t a1, char a2, id obj)
@@ -3532,7 +3506,6 @@ void __57__SUSettingsUpdateOperation_action_ScheduleUpdate_error___block_invoke_
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)action_ReportUpdateOperationOutcome:(id)outcome error:(id *)error
@@ -3737,7 +3710,6 @@ void __57__SUSettingsUpdateOperation_action_ScheduleUpdate_error___block_invoke_
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
   return v83;
 }
 
@@ -3781,7 +3753,6 @@ void __71__SUSettingsUpdateOperation_action_ReportUpdateOperationOutcome_error__
   }
 
   objc_storeStrong(v10, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __71__SUSettingsUpdateOperation_action_ReportUpdateOperationOutcome_error___block_invoke_354(uint64_t a1)
@@ -3830,7 +3801,6 @@ void __71__SUSettingsUpdateOperation_action_ReportUpdateOperationOutcome_error__
   }
 
   objc_storeStrong(v14, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __71__SUSettingsUpdateOperation_action_ReportUpdateOperationOutcome_error___block_invoke_355(uint64_t a1)
@@ -3899,7 +3869,6 @@ void __71__SUSettingsUpdateOperation_action_ReportUpdateOperationOutcome_error__
   }
 
   objc_storeStrong(v18, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __71__SUSettingsUpdateOperation_action_ReportUpdateOperationOutcome_error___block_invoke_356(uint64_t a1)
@@ -3948,7 +3917,6 @@ void __71__SUSettingsUpdateOperation_action_ReportUpdateOperationOutcome_error__
   }
 
   objc_storeStrong(v14, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __71__SUSettingsUpdateOperation_action_ReportUpdateOperationOutcome_error___block_invoke_357(uint64_t a1)
@@ -3995,7 +3963,6 @@ void __71__SUSettingsUpdateOperation_action_ReportUpdateOperationOutcome_error__
   }
 
   objc_storeStrong(v13, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)actionUnknownAction:(id)action error:(id *)error
@@ -4160,7 +4127,6 @@ LABEL_13:
   objc_storeStrong(&v49, 0);
   objc_storeStrong(location, 0);
   objc_storeStrong(&selfCopy, 0);
-  *MEMORY[0x277D85DE8];
   return v52;
 }
 
@@ -4216,7 +4182,6 @@ LABEL_13:
   objc_storeStrong(&v16, 0);
   objc_storeStrong(&v17, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)downloadAndInstall:(id)install withOptions:(id)options completionHandler:(id)handler
@@ -4271,7 +4236,6 @@ LABEL_13:
   objc_storeStrong(&v16, 0);
   objc_storeStrong(&v17, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)downloadAndScheduleUpdate:(id)update forInstallationTonightWithOptions:(id)options completionHandler:(id)handler
@@ -4326,7 +4290,6 @@ LABEL_13:
   objc_storeStrong(&v16, 0);
   objc_storeStrong(&v17, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)installUpdate:(id)update withOptions:(id)options completionHandler:(id)handler
@@ -4384,7 +4347,6 @@ LABEL_13:
   objc_storeStrong(&v18, 0);
   objc_storeStrong(&v19, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)promoteDownloadToUserInitiated:(id)initiated completionHandler:(id)handler
@@ -4457,50 +4419,47 @@ LABEL_13:
 
   objc_storeStrong(&v27, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __78__SUSettingsUpdateOperation_promoteDownloadToUserInitiated_completionHandler___block_invoke(uint64_t a1, char a2, id obj)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v16 = a1;
-  v15 = a2;
+  v17 = *MEMORY[0x277D85DE8];
+  v15 = a1;
+  v14 = a2;
   location = 0;
   objc_storeStrong(&location, obj);
-  v13[1] = a1;
-  v13[0] = objc_loadWeakRetained((a1 + 48));
-  v8 = 0;
-  if (!v13[0])
+  v12[1] = a1;
+  v12[0] = objc_loadWeakRetained((a1 + 48));
+  v7 = 0;
+  if (!v12[0])
   {
-    v7 = SUSettingsSharedLogger();
-    v12 = [v7 oslog];
-    MEMORY[0x277D82BD8](v7);
-    v11 = 16;
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v6 = SUSettingsSharedLogger();
+    v11 = [v6 oslog];
+    MEMORY[0x277D82BD8](v6);
+    v10 = 16;
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      log = v12;
-      type = v11;
-      v6 = NSStringFromSelector(*(a1 + 56));
-      v10 = MEMORY[0x277D82BE0](v6);
-      __os_log_helper_16_2_2_8_32_8_66(v17, "[SUSettingsUpdateOperation promoteDownloadToUserInitiated:completionHandler:]_block_invoke", v10);
-      _os_log_error_impl(&dword_26AC94000, log, type, "%s: Self is nil in %{public}@. Stopping.", v17, 0x16u);
-      MEMORY[0x277D82BD8](v6);
-      objc_storeStrong(&v10, 0);
+      log = v11;
+      type = v10;
+      v5 = NSStringFromSelector(*(a1 + 56));
+      v9 = MEMORY[0x277D82BE0](v5);
+      __os_log_helper_16_2_2_8_32_8_66(v16, "[SUSettingsUpdateOperation promoteDownloadToUserInitiated:completionHandler:]_block_invoke", v9);
+      _os_log_error_impl(&dword_26AC94000, log, type, "%s: Self is nil in %{public}@. Stopping.", v16, 0x16u);
+      MEMORY[0x277D82BD8](v5);
+      objc_storeStrong(&v9, 0);
     }
 
-    objc_storeStrong(&v12, 0);
-    v8 = 1;
+    objc_storeStrong(&v11, 0);
+    v7 = 1;
   }
 
-  if ((v8 & 1) == 0)
+  if ((v7 & 1) == 0)
   {
-    v3 = *(a1 + 32);
     (*(*(a1 + 40) + 16))();
   }
 
-  objc_storeStrong(v13, 0);
+  objc_storeStrong(v12, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)scheduleUpdate:(id)update forInstallationTonightWithOptions:(id)options completionHandler:(id)handler
@@ -4555,7 +4514,6 @@ void __78__SUSettingsUpdateOperation_promoteDownloadToUserInitiated_completionHa
   objc_storeStrong(&v16, 0);
   objc_storeStrong(&v17, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)unscheduleAutomaticInstallation:(id)installation completionHandler:(id)handler
@@ -4581,7 +4539,6 @@ void __78__SUSettingsUpdateOperation_promoteDownloadToUserInitiated_completionHa
   (*(v7 + 2))(v7, 1);
   objc_storeStrong(&v7, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)cancel:(id)cancel
@@ -4626,7 +4583,6 @@ void __78__SUSettingsUpdateOperation_promoteDownloadToUserInitiated_completionHa
   objc_sync_exit(obj);
   MEMORY[0x277D82BD8](obj);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidateMachine
@@ -4702,7 +4658,6 @@ void __78__SUSettingsUpdateOperation_promoteDownloadToUserInitiated_completionHa
 
   objc_storeStrong(&v19, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
   return v25 & 1;
 }
 

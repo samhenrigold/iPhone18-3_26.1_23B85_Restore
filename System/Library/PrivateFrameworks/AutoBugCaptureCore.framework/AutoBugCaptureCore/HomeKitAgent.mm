@@ -53,7 +53,7 @@ void __28__HomeKitAgent__loadHomeKit__block_invoke()
   gHomeKitDyLibHandle = dlopen("/System/Library/Frameworks/HomeKit.framework/HomeKit", 6);
   if (!gHomeKitDyLibHandle)
   {
-    v3 = xpcLogHandle();
+    v3 = xpcLogHandle(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       v6 = 0;
@@ -84,7 +84,7 @@ LABEL_15:
   _loadHomeKit_symbolsLoaded = v2;
   if (v1)
   {
-    v3 = xpcLogHandle();
+    v3 = xpcLogHandle(Class);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       v7 = 0;
@@ -179,29 +179,27 @@ void __56__HomeKitAgent__replyWithResidentDevicesIDSIdentifiers___block_invoke(u
 
   if (v6)
   {
-    v7 = [v3 residentDevices];
+    v8 = [v3 residentDevices];
     v10[0] = MEMORY[0x277D85DD0];
     v10[1] = 3221225472;
     v10[2] = __56__HomeKitAgent__replyWithResidentDevicesIDSIdentifiers___block_invoke_2;
     v10[3] = &unk_278CF0D30;
-    v8 = *(a1 + 40);
+    v9 = *(a1 + 40);
     v10[4] = *(a1 + 32);
-    v11 = v8;
-    [v7 enumerateObjectsUsingBlock:v10];
+    v11 = v9;
+    [v8 enumerateObjectsUsingBlock:v10];
   }
 
   else
   {
-    v7 = homekitLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = homekitLogHandle(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
       v13 = v3;
-      _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_INFO, "User does not own this home : %@", buf, 0xCu);
+      _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_INFO, "User does not own this home : %@", buf, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __56__HomeKitAgent__replyWithResidentDevicesIDSIdentifiers___block_invoke_2(uint64_t a1, void *a2)
@@ -219,19 +217,17 @@ void __56__HomeKitAgent__replyWithResidentDevicesIDSIdentifiers___block_invoke_2
 
   else
   {
-    v7 = homekitLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = homekitLogHandle(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v8 = [v3 name];
+      v9 = [v3 name];
       v10 = 138412546;
       v11 = v3;
       v12 = 2112;
-      v13 = v8;
-      _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_ERROR, "Failed to retrieve account ID from ResidentDevice %@ (%@)", &v10, 0x16u);
+      v13 = v9;
+      _os_log_impl(&dword_241804000, v8, OS_LOG_TYPE_ERROR, "Failed to retrieve account ID from ResidentDevice %@ (%@)", &v10, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)homeManagerDidUpdateHomes:(id)homes

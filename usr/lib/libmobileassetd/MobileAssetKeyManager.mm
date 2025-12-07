@@ -2024,139 +2024,139 @@ LABEL_13:
   objc_opt_class();
   if (objc_opt_isKindOfClass() & 1) != 0 && (objc_opt_class(), (objc_opt_isKindOfClass()))
   {
-    v47 = bOOLValue;
+    v55 = bOOLValue;
     v17 = [[NSData alloc] initWithBase64EncodedString:v15 options:0];
     v18 = [[NSData alloc] initWithBase64EncodedString:v16 options:0];
-    v48 = v18;
-    v49 = v17;
+    v56 = v18;
+    v57 = v17;
     if (v17 && v18)
     {
-      ParallelCompressionEnterThreadErrorContext();
+      ParallelCompressionEnterThreadErrorContext(v18, v19, v20, v21, v22, v23, v24, v25, tweakLength);
       Mutable = CFArrayCreateMutable(0, 0, &kAAByteStreamArrayCallBacks);
-      v20 = AAFileStreamOpenWithPath([lCopy fileSystemRepresentation], 2, 0x1B6u);
-      if (v20)
+      v27 = AAFileStreamOpenWithPath([lCopy fileSystemRepresentation], 2, 0x1B6u);
+      if (v27)
       {
-        v21 = v20;
+        v28 = v27;
         errorCopy = error;
-        v45 = lCopy;
-        CFArrayAppendValue(Mutable, v20);
+        v53 = lCopy;
+        CFArrayAppendValue(Mutable, v27);
         LOBYTE(buffer) = 0;
-        v22 = calloc(1uLL, 0x20uLL);
-        *v22 = v21;
-        v22[2] = unsignedLongLongValue;
-        v22[3] = 0;
-        v23 = dispatch_data_create(&buffer, 0, 0, 0);
-        v24 = v22[1];
-        v22[1] = v23;
+        v29 = calloc(1uLL, 0x20uLL);
+        *v29 = v28;
+        v29[2] = unsignedLongLongValue;
+        v29[3] = 0;
+        v30 = dispatch_data_create(&buffer, 0, 0, 0);
+        v31 = v29[1];
+        v29[1] = v30;
 
-        v25 = AACustomByteStreamOpen();
-        AACustomByteStreamSetData(v25, v22);
-        AACustomByteStreamSetReadProc(v25, _inPlaceStreamRead);
-        AACustomByteStreamSetWriteProc(v25, _inPlaceStreamWrite);
-        AACustomByteStreamSetCloseProc(v25, _inPlaceStreamClose);
+        v32 = AACustomByteStreamOpen();
+        AACustomByteStreamSetData(v32, v29);
+        AACustomByteStreamSetReadProc(v32, _inPlaceStreamRead);
+        AACustomByteStreamSetWriteProc(v32, _inPlaceStreamWrite);
+        AACustomByteStreamSetCloseProc(v32, _inPlaceStreamClose);
         theArray = Mutable;
-        CFArrayAppendValue(Mutable, v25);
-        v46 = v48;
-        v41 = v49;
-        v26 = keyCopy;
-        v27 = calloc(1uLL, 0x20uLL);
-        ostream = v25;
-        *v27 = v25;
-        objc_storeStrong(v27 + 2, v49);
-        *(v27 + 6) = -4304;
-        bytes = [v26 bytes];
-        v29 = [v26 length];
+        CFArrayAppendValue(Mutable, v32);
+        v54 = v56;
+        v49 = v57;
+        v33 = keyCopy;
+        v34 = calloc(1uLL, 0x20uLL);
+        ostream = v32;
+        *v34 = v32;
+        objc_storeStrong(v34 + 2, v57);
+        *(v34 + 6) = -4304;
+        bytes = [v33 bytes];
+        v36 = [v33 length];
 
-        if (CCCryptorCreateWithMode(1u, 0xBu, 0, 0, 0, bytes, v29, 0, 0, 0, 0, v27 + 1) || ([v46 bytes], objc_msgSend(v46, "length"), CCCryptorGCMSetIV()))
+        if (CCCryptorCreateWithMode(1u, 0xBu, 0, 0, 0, bytes, v36, 0, 0, 0, 0, v34 + 1) || ([v54 bytes], objc_msgSend(v54, "length"), CCCryptorGCMSetIV()))
         {
-          _gcmDecryptionStreamClose(v27);
-          v30 = 0;
+          _gcmDecryptionStreamClose(v34);
+          v37 = 0;
         }
 
         else
         {
-          v30 = AACustomByteStreamOpen();
-          AACustomByteStreamSetData(v30, v27);
-          AACustomByteStreamSetReadProc(v30, _gcmDecryptionStreamRead);
-          AACustomByteStreamSetCloseProc(v30, _gcmDecryptionStreamClose);
+          v37 = AACustomByteStreamOpen();
+          AACustomByteStreamSetData(v37, v34);
+          AACustomByteStreamSetReadProc(v37, _gcmDecryptionStreamRead);
+          AACustomByteStreamSetCloseProc(v37, _gcmDecryptionStreamClose);
         }
 
-        v31 = Mutable;
-        CFArrayAppendValue(Mutable, v30);
+        v38 = Mutable;
+        CFArrayAppendValue(Mutable, v37);
         error = errorCopy;
-        lCopy = v45;
+        lCopy = v53;
         p_weak_ivar_lyt = (&MAAIRBMobileAssetOperationMetadata__metaData + 56);
-        if (v47)
+        if (v55)
         {
-          v30 = AADecompressionInputStreamOpen(v30, 0, 1);
-          CFArrayAppendValue(theArray, v30);
+          v37 = AADecompressionInputStreamOpen(v37, 0, 1);
+          CFArrayAppendValue(theArray, v37);
         }
 
-        v33 = AAByteStreamProcess(v30, ostream);
+        v40 = AAByteStreamProcess(v37, ostream);
       }
 
       else
       {
-        v33 = -1;
-        v31 = Mutable;
+        v40 = -1;
+        v38 = Mutable;
         p_weak_ivar_lyt = &MAAIRBMobileAssetOperationMetadata__metaData.weak_ivar_lyt;
       }
 
-      CFRelease(v31);
-      v38 = _maLeaveAAErrorContext();
-      if (v33 < 0)
+      CFRelease(v38);
+      v45 = _maLeaveAAErrorContext();
+      if (v40 < 0)
       {
-        v34 = [p_weak_ivar_lyt[226] stringWithFormat:@"failed to decrypt file (%lld)", v33];
-        v39 = _MAClientLog(@"KeyManager");
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+        v41 = [p_weak_ivar_lyt[226] stringWithFormat:@"failed to decrypt file (%lld)", v40];
+        v46 = _MAClientLog(@"KeyManager");
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
         {
           buffer = 138412546;
-          v53 = v34;
-          v54 = 2112;
-          v55 = v38;
-          _os_log_impl(&dword_0, v39, OS_LOG_TYPE_ERROR, "[DecryptFileAtURL]: %@: %@", &buffer, 0x16u);
+          v61 = v41;
+          v62 = 2112;
+          v63 = v45;
+          _os_log_impl(&dword_0, v46, OS_LOG_TYPE_ERROR, "[DecryptFileAtURL]: %@: %@", &buffer, 0x16u);
         }
 
-        v36 = [(MobileAssetKeyManager *)self keyManagerResult:30029 underlying:v38 description:v34 error:error];
+        v43 = [(MobileAssetKeyManager *)self keyManagerResult:30029 underlying:v45 description:v41 error:error];
       }
 
       else
       {
-        v34 = 0;
-        v36 = 1;
+        v41 = 0;
+        v43 = 1;
       }
     }
 
     else
     {
-      v34 = [NSString stringWithFormat:@"metadata contains invalid tag/iv"];
-      v37 = _MAClientLog(@"KeyManager");
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      v41 = [NSString stringWithFormat:@"metadata contains invalid tag/iv"];
+      v44 = _MAClientLog(@"KeyManager");
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
         buffer = 138412290;
-        v53 = v34;
-        _os_log_impl(&dword_0, v37, OS_LOG_TYPE_ERROR, "[DecryptFileAtURL]: %@", &buffer, 0xCu);
+        v61 = v41;
+        _os_log_impl(&dword_0, v44, OS_LOG_TYPE_ERROR, "[DecryptFileAtURL]: %@", &buffer, 0xCu);
       }
 
-      v36 = [(MobileAssetKeyManager *)self keyManagerResult:30029 underlying:0 description:v34 error:error];
+      v43 = [(MobileAssetKeyManager *)self keyManagerResult:30029 underlying:0 description:v41 error:error];
     }
   }
 
   else
   {
-    v34 = [NSString stringWithFormat:@"metadata is missing tag/iv"];
-    v35 = _MAClientLog(@"KeyManager");
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    v41 = [NSString stringWithFormat:@"metadata is missing tag/iv"];
+    v42 = _MAClientLog(@"KeyManager");
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
     {
       buffer = 138412290;
-      v53 = v34;
-      _os_log_impl(&dword_0, v35, OS_LOG_TYPE_ERROR, "[DecryptFileAtURL]: %@", &buffer, 0xCu);
+      v61 = v41;
+      _os_log_impl(&dword_0, v42, OS_LOG_TYPE_ERROR, "[DecryptFileAtURL]: %@", &buffer, 0xCu);
     }
 
-    v36 = [(MobileAssetKeyManager *)self keyManagerResult:30029 underlying:0 description:v34 error:error];
+    v43 = [(MobileAssetKeyManager *)self keyManagerResult:30029 underlying:0 description:v41 error:error];
   }
 
-  return v36;
+  return v43;
 }
 
 - (id)copyDawToken:(BOOL)token useAppleConnect:(BOOL)connect error:(id *)error

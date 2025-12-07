@@ -15,10 +15,10 @@
 
 - (AMSUIMessageGroup)init
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v13.receiver = self;
-  v13.super_class = AMSUIMessageGroup;
-  v2 = [(IAMMessageGroup *)&v13 initWithGroupIdentifier:@"com.apple.ams"];
+  v15 = *MEMORY[0x1E69E9840];
+  v12.receiver = self;
+  v12.super_class = AMSUIMessageGroup;
+  v2 = [(IAMMessageGroup *)&v12 initWithGroupIdentifier:@"com.apple.ams"];
   if (v2)
   {
     mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
@@ -32,7 +32,7 @@
     {
       v5 = objc_opt_class();
       *buf = 138543362;
-      v15 = v5;
+      v14 = v5;
       _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: Incorrect initializer used. This will fetch a bag", buf, 0xCu);
     }
 
@@ -48,7 +48,6 @@
     v2->_clientMetricsOverlay = v9;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -75,7 +74,7 @@
 
 - (void)viewControllerForModalMessagePresentation:(id)presentation completion:(id)completion
 {
-  v90 = *MEMORY[0x1E69E9840];
+  v89 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   contentPages = [presentation contentPages];
   firstObject = [contentPages firstObject];
@@ -103,7 +102,7 @@
     v10 = 0;
   }
 
-  v75 = v10;
+  v74 = v10;
   v11 = [contentParameters objectForKeyedSubscript:@"clientIdentifier"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -126,7 +125,7 @@
     clientIdentifier = [(AMSUIMessageGroup *)self clientIdentifier];
   }
 
-  v71 = clientIdentifier;
+  v70 = clientIdentifier;
 
   v14 = [contentParameters objectForKeyedSubscript:@"clientVersion"];
   objc_opt_class();
@@ -156,12 +155,12 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v76 = v18;
+    v75 = v18;
   }
 
   else
   {
-    v76 = 0;
+    v75 = 0;
   }
 
   v19 = [contentParameters objectForKeyedSubscript:@"serviceType"];
@@ -176,14 +175,14 @@
     v20 = 0;
   }
 
-  v70 = v20;
+  v69 = v20;
 
   v21 = [contentParameters objectForKeyedSubscript:@"params"];
-  v83 = 0;
-  v22 = [(AMSUIMessageGroup *)self _dictionaryForParamObject:v21 error:&v83];
-  v23 = v83;
+  v82 = 0;
+  v22 = [(AMSUIMessageGroup *)self _dictionaryForParamObject:v21 error:&v82];
+  v23 = v82;
 
-  v74 = v23;
+  v73 = v23;
   if (v23)
   {
     mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedConfig];
@@ -199,25 +198,25 @@
       [contentParameters objectForKeyedSubscript:@"params"];
       v28 = v27 = v22;
       *buf = 138543874;
-      v85 = v26;
-      v86 = 2114;
-      v87 = v74;
-      v88 = 2112;
-      v89 = v28;
+      v84 = v26;
+      v85 = 2114;
+      v86 = v73;
+      v87 = 2112;
+      v88 = v28;
       _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: Error deserializing MI params data. %{public}@ %@", buf, 0x20u);
 
       v22 = v27;
     }
   }
 
-  v67 = v9;
-  v68 = v22;
+  v66 = v9;
+  v67 = v22;
   v29 = [contentParameters objectForKeyedSubscript:@"sidepack"];
-  v82 = 0;
-  v30 = [(AMSUIMessageGroup *)self _dictionaryForParamObject:v29 error:&v82];
-  v31 = v82;
+  v81 = 0;
+  v30 = [(AMSUIMessageGroup *)self _dictionaryForParamObject:v29 error:&v81];
+  v31 = v81;
 
-  v73 = v31;
+  v72 = v31;
   if (v31)
   {
     mEMORY[0x1E698C968]2 = [MEMORY[0x1E698C968] sharedConfig];
@@ -234,11 +233,11 @@
       v35 = v30;
       v37 = v36 = v17;
       *buf = 138543874;
-      v85 = v34;
-      v86 = 2114;
-      v87 = v73;
-      v88 = 2112;
-      v89 = v37;
+      v84 = v34;
+      v85 = 2114;
+      v86 = v72;
+      v87 = 2112;
+      v88 = v37;
       _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_ERROR, "%{public}@: Error deserializing sidepack data. %{public}@ %@", buf, 0x20u);
 
       v17 = v36;
@@ -247,11 +246,11 @@
   }
 
   v38 = [contentParameters objectForKeyedSubscript:@"metrics"];
-  v81 = 0;
-  v39 = [(AMSUIMessageGroup *)self _dictionaryForParamObject:v38 error:&v81];
-  v40 = v81;
+  v80 = 0;
+  v39 = [(AMSUIMessageGroup *)self _dictionaryForParamObject:v38 error:&v80];
+  v40 = v80;
 
-  v72 = v40;
+  v71 = v40;
   if (v40)
   {
     mEMORY[0x1E698C968]3 = [MEMORY[0x1E698C968] sharedConfig];
@@ -269,14 +268,14 @@
       v46 = objc_opt_class();
       v47 = [contentParameters objectForKeyedSubscript:@"metrics"];
       *buf = 138543874;
-      v85 = v46;
+      v84 = v46;
       v17 = v45;
       v30 = v44;
       v39 = v43;
-      v86 = 2114;
-      v87 = v72;
-      v88 = 2112;
-      v89 = v47;
+      v85 = 2114;
+      v86 = v71;
+      v87 = 2112;
+      v88 = v47;
       _os_log_impl(&dword_1BB036000, oSLogObject3, OS_LOG_TYPE_ERROR, "%{public}@: Error deserializing metrics overlay. %{public}@ %@", buf, 0x20u);
     }
   }
@@ -313,7 +312,7 @@
     v53 = 0;
   }
 
-  v54 = v70;
+  v54 = v69;
 
   if ([v53 isEqualToString:@"activeiTunes"])
   {
@@ -326,19 +325,19 @@
     ams_activeiTunesAccount = 0;
   }
 
-  v57 = v71;
-  v66 = v17;
-  if (v70 && v76 && v71 && v17)
+  v57 = v70;
+  v65 = v17;
+  if (v69 && v75 && v70 && v17)
   {
-    v58 = v68;
-    v59 = [(AMSUIMessageGroup *)self _viewControllerForServiceType:v70 placement:v76 clientIdentifier:v71 clientVersion:v17 params:v68 account:ams_activeiTunesAccount sidepack:v30 metrics:v39, v17];
+    v58 = v67;
+    v59 = [(AMSUIMessageGroup *)self _viewControllerForServiceType:v69 placement:v75 clientIdentifier:v70 clientVersion:v17 params:v67 account:ams_activeiTunesAccount sidepack:v30 metrics:v39, v17];
   }
 
   else
   {
-    if (v75)
+    if (v74)
     {
-      v59 = [(AMSUIMessageGroup *)self _viewControllerForURL:v75 account:ams_activeiTunesAccount sidepack:v30 metrics:v39];
+      v59 = [(AMSUIMessageGroup *)self _viewControllerForURL:v74 account:ams_activeiTunesAccount sidepack:v30 metrics:v39];
     }
 
     else
@@ -346,27 +345,25 @@
       v60 = MEMORY[0x1E698CAD0];
       v61 = AMSError();
       v62 = v60;
-      v57 = v71;
+      v57 = v70;
       v59 = [v62 promiseWithError:v61];
 
-      v54 = v70;
+      v54 = v69;
     }
 
-    v58 = v68;
+    v58 = v67;
   }
 
-  v78[0] = MEMORY[0x1E69E9820];
-  v78[1] = 3221225472;
-  v78[2] = __74__AMSUIMessageGroup_viewControllerForModalMessagePresentation_completion___block_invoke;
-  v78[3] = &unk_1E7F25078;
-  v78[4] = self;
-  v79 = contentParameters;
-  v80 = completionCopy;
+  v77[0] = MEMORY[0x1E69E9820];
+  v77[1] = 3221225472;
+  v77[2] = __74__AMSUIMessageGroup_viewControllerForModalMessagePresentation_completion___block_invoke;
+  v77[3] = &unk_1E7F25078;
+  v77[4] = self;
+  v78 = contentParameters;
+  v79 = completionCopy;
   v63 = completionCopy;
   v64 = contentParameters;
-  [v59 addFinishBlock:v78];
-
-  v65 = *MEMORY[0x1E69E9840];
+  [v59 addFinishBlock:v77];
 }
 
 void __74__AMSUIMessageGroup_viewControllerForModalMessagePresentation_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -390,7 +387,7 @@ void __74__AMSUIMessageGroup_viewControllerForModalMessagePresentation_completio
 
 uint64_t __74__AMSUIMessageGroup_viewControllerForModalMessagePresentation_completion___block_invoke_2(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32) || !*(a1 + 40))
   {
     v2 = [MEMORY[0x1E698C968] sharedConfigOversize];
@@ -402,64 +399,53 @@ uint64_t __74__AMSUIMessageGroup_viewControllerForModalMessagePresentation_compl
     v3 = [v2 OSLogObject];
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v4 = *(a1 + 48);
-      v5 = objc_opt_class();
-      v6 = *(a1 + 32);
-      v7 = *(a1 + 56);
-      v18 = 138543874;
-      v19 = v5;
-      v20 = 2114;
-      v21 = v6;
-      v22 = 2112;
-      v23 = v7;
-      _os_log_impl(&dword_1BB036000, v3, OS_LOG_TYPE_ERROR, "%{public}@: Failed to load view controller. %{public}@ \nparams: %@", &v18, 0x20u);
+      v4 = objc_opt_class();
+      v5 = *(a1 + 32);
+      v6 = *(a1 + 56);
+      v9 = 138543874;
+      v10 = v4;
+      v11 = 2114;
+      v12 = v5;
+      v13 = 2112;
+      v14 = v6;
+      _os_log_impl(&dword_1BB036000, v3, OS_LOG_TYPE_ERROR, "%{public}@: Failed to load view controller. %{public}@ \nparams: %@", &v9, 0x20u);
     }
-
-    v8 = *(*(a1 + 64) + 16);
   }
 
   else
   {
-    v9 = [MEMORY[0x1E698C8A8] deviceIsiPad];
-    v10 = *(a1 + 40);
-    if (v9)
+    if ([MEMORY[0x1E698C8A8] deviceIsiPad])
     {
-      v11 = 2;
+      v7 = 2;
     }
 
     else
     {
-      v11 = -2;
+      v7 = -2;
     }
 
-    [*(a1 + 40) setModalPresentationStyle:v11];
-    v12 = [MEMORY[0x1E698C968] sharedConfig];
-    if (!v12)
+    [*(a1 + 40) setModalPresentationStyle:v7];
+    v2 = [MEMORY[0x1E698C968] sharedConfig];
+    if (!v2)
     {
-      v12 = [MEMORY[0x1E698C968] sharedConfig];
+      v2 = [MEMORY[0x1E698C968] sharedConfig];
     }
 
-    v13 = [v12 OSLogObject];
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v3 = [v2 OSLogObject];
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = *(a1 + 48);
-      v18 = 138543362;
-      v19 = objc_opt_class();
-      _os_log_impl(&dword_1BB036000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@: Successfully loaded view controller", &v18, 0xCu);
+      v9 = 138543362;
+      v10 = objc_opt_class();
+      _os_log_impl(&dword_1BB036000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Successfully loaded view controller", &v9, 0xCu);
     }
-
-    v15 = *(a1 + 40);
-    v8 = *(*(a1 + 64) + 16);
   }
 
-  result = v8();
-  v17 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 64) + 16))();
 }
 
 - (void)webViewController:(id)controller didFinishPurchaseWithResult:(id)result error:(id)error
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   errorCopy = error;
   delegate = [(AMSUIMessageGroup *)self delegate];
@@ -479,11 +465,11 @@ uint64_t __74__AMSUIMessageGroup_viewControllerForModalMessagePresentation_compl
     {
       v14 = objc_opt_class();
       v15 = AMSLogKey();
-      v20 = 138543618;
-      v21 = v14;
-      v22 = 2114;
-      v23 = v15;
-      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Sending web purchase completion", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v14;
+      v21 = 2114;
+      v22 = v15;
+      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Sending web purchase completion", &v19, 0x16u);
     }
 
     mEMORY[0x1E698C968]2 = [(AMSUIMessageGroup *)self delegate];
@@ -502,20 +488,18 @@ uint64_t __74__AMSUIMessageGroup_viewControllerForModalMessagePresentation_compl
     {
       v17 = objc_opt_class();
       v18 = AMSLogKey();
-      v20 = 138543618;
-      v21 = v17;
-      v22 = 2114;
-      v23 = v18;
-      _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Skipping web purchase completion callback", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v17;
+      v21 = 2114;
+      v22 = v18;
+      _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Skipping web purchase completion callback", &v19, 0x16u);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dynamicViewController:(id)controller didFinishPurchaseWithResult:(id)result error:(id)error
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   errorCopy = error;
   delegate = [(AMSUIMessageGroup *)self delegate];
@@ -535,11 +519,11 @@ uint64_t __74__AMSUIMessageGroup_viewControllerForModalMessagePresentation_compl
     {
       v14 = objc_opt_class();
       v15 = AMSLogKey();
-      v20 = 138543618;
-      v21 = v14;
-      v22 = 2114;
-      v23 = v15;
-      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Sending dynamic purchase completion", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v14;
+      v21 = 2114;
+      v22 = v15;
+      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Sending dynamic purchase completion", &v19, 0x16u);
     }
 
     mEMORY[0x1E698C968]2 = [(AMSUIMessageGroup *)self delegate];
@@ -558,20 +542,18 @@ uint64_t __74__AMSUIMessageGroup_viewControllerForModalMessagePresentation_compl
     {
       v17 = objc_opt_class();
       v18 = AMSLogKey();
-      v20 = 138543618;
-      v21 = v17;
-      v22 = 2114;
-      v23 = v18;
-      _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Skipping dynamic purchase completion callback", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v17;
+      v21 = 2114;
+      v22 = v18;
+      _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Skipping dynamic purchase completion callback", &v19, 0x16u);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dynamicViewController:(id)controller didFinishCarrierLinkingWithResult:(id)result error:(id)error
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   errorCopy = error;
   delegate = [(AMSUIMessageGroup *)self delegate];
@@ -591,11 +573,11 @@ uint64_t __74__AMSUIMessageGroup_viewControllerForModalMessagePresentation_compl
     {
       v14 = objc_opt_class();
       v15 = AMSLogKey();
-      v20 = 138543618;
-      v21 = v14;
-      v22 = 2114;
-      v23 = v15;
-      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Sending dynamic carrier linking completion", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v14;
+      v21 = 2114;
+      v22 = v15;
+      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Sending dynamic carrier linking completion", &v19, 0x16u);
     }
 
     mEMORY[0x1E698C968]2 = [(AMSUIMessageGroup *)self delegate];
@@ -614,15 +596,13 @@ uint64_t __74__AMSUIMessageGroup_viewControllerForModalMessagePresentation_compl
     {
       v17 = objc_opt_class();
       v18 = AMSLogKey();
-      v20 = 138543618;
-      v21 = v17;
-      v22 = 2114;
-      v23 = v18;
-      _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Skipping dynamic carrier linking completion callback", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v17;
+      v21 = 2114;
+      v22 = v18;
+      _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Skipping dynamic carrier linking completion callback", &v19, 0x16u);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_dictionaryForParamObject:(id)object error:(id *)error
@@ -827,7 +807,7 @@ id __68__AMSUIMessageGroup__viewControllerForURL_account_sidepack_metrics___bloc
 
 void __68__AMSUIMessageGroup__viewControllerForURL_account_sidepack_metrics___block_invoke_2(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) integerValue];
   if (v2 == 2)
   {
@@ -858,15 +838,14 @@ void __68__AMSUIMessageGroup__viewControllerForURL_account_sidepack_metrics___bl
       v10 = [v9 OSLogObject];
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v11 = *(a1 + 40);
-        v12 = objc_opt_class();
-        v13 = *(a1 + 32);
-        v17 = 138543618;
+        v11 = objc_opt_class();
+        v12 = *(a1 + 32);
+        v15 = 138543618;
+        v16 = v11;
+        v17 = 2112;
         v18 = v12;
-        v19 = 2112;
-        v20 = v13;
-        v14 = v12;
-        _os_log_impl(&dword_1BB036000, v10, OS_LOG_TYPE_ERROR, "%{public}@: Unsupported URL type: %@", &v17, 0x16u);
+        v13 = v11;
+        _os_log_impl(&dword_1BB036000, v10, OS_LOG_TYPE_ERROR, "%{public}@: Unsupported URL type: %@", &v15, 0x16u);
       }
 
       goto LABEL_12;
@@ -883,17 +862,15 @@ void __68__AMSUIMessageGroup__viewControllerForURL_account_sidepack_metrics___bl
     if (!v5)
     {
 LABEL_12:
-      v15 = *(a1 + 80);
+      v14 = *(a1 + 80);
       v5 = AMSError();
-      [v15 finishWithError:v5];
+      [v14 finishWithError:v5];
       goto LABEL_13;
     }
   }
 
   [*(a1 + 80) finishWithResult:v5];
 LABEL_13:
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (AMSUIMessageGroupDelegate)delegate

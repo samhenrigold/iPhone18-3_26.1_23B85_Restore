@@ -178,7 +178,7 @@ LABEL_12:
 
 - (void)prpcSign:(__CFData *)sign outSignature:(const __CFData *)signature outDeviceNonce:(const __CFData *)nonce outError:(int *)error
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v80 = *MEMORY[0x1E69E9840];
   v9 = handleForCategory(0);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
@@ -188,31 +188,31 @@ LABEL_12:
   obj = self;
   objc_sync_enter(obj);
   CFStringGetCStringPtr(@"Savage", 0x8000100u);
-  v77 = 0;
   v76 = 0;
   v75 = 0;
+  v74 = 0;
   if (!signature)
   {
-    v46 = handleForCategory(0);
-    [CRComponentSigning prpcSign:v46 outSignature:? outDeviceNonce:? outError:?];
+    v45 = handleForCategory(0);
+    [CRComponentSigning prpcSign:v45 outSignature:? outDeviceNonce:? outError:?];
 LABEL_70:
-    v68 = 0;
-    value = 0;
     v67 = 0;
+    value = 0;
+    v66 = 0;
     goto LABEL_64;
   }
 
   if (!nonce)
   {
-    v47 = handleForCategory(0);
-    [CRComponentSigning prpcSign:v47 outSignature:? outDeviceNonce:? outError:?];
+    v46 = handleForCategory(0);
+    [CRComponentSigning prpcSign:v46 outSignature:? outDeviceNonce:? outError:?];
     goto LABEL_70;
   }
 
   if (!sign)
   {
-    v48 = handleForCategory(0);
-    [CRComponentSigning prpcSign:v48 outSignature:? outDeviceNonce:? outError:?];
+    v47 = handleForCategory(0);
+    [CRComponentSigning prpcSign:v47 outSignature:? outDeviceNonce:? outError:?];
     goto LABEL_70;
   }
 
@@ -222,54 +222,54 @@ LABEL_70:
     [CRComponentSigning prpcSign:sign outSignature:v10 outDeviceNonce:? outError:?];
   }
 
-  v67 = [MEMORY[0x1E696AEC0] stringWithContentsOfFile:@"/private/preboot/active" encoding:1 error:0];
-  if (!v67)
+  v66 = [MEMORY[0x1E696AEC0] stringWithContentsOfFile:@"/private/preboot/active" encoding:1 error:0];
+  if (!v66)
   {
-    v49 = handleForCategory(0);
-    [CRComponentSigning prpcSign:v49 outSignature:? outDeviceNonce:? outError:?];
+    v48 = handleForCategory(0);
+    [CRComponentSigning prpcSign:v48 outSignature:? outDeviceNonce:? outError:?];
     goto LABEL_70;
   }
 
-  value = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s/%@/", "/private/preboot/", v67];
+  value = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s/%@/", "/private/preboot/", v66];
   if (!value)
   {
-    v50 = handleForCategory(0);
-    [CRComponentSigning prpcSign:v50 outSignature:? outDeviceNonce:? outError:?];
-    v68 = 0;
+    v49 = handleForCategory(0);
+    [CRComponentSigning prpcSign:v49 outSignature:? outDeviceNonce:? outError:?];
+    v67 = 0;
     value = 0;
     goto LABEL_64;
   }
 
-  v72 = +[CRPersonalizationManager getDefaultAMAuthInstallRef];
-  if (!v72)
+  v71 = +[CRPersonalizationManager getDefaultAMAuthInstallRef];
+  if (!v71)
   {
-    v51 = handleForCategory(0);
-    [CRComponentSigning prpcSign:v51 outSignature:? outDeviceNonce:? outError:?];
-    v68 = 0;
+    v50 = handleForCategory(0);
+    [CRComponentSigning prpcSign:v50 outSignature:? outDeviceNonce:? outError:?];
+    v67 = 0;
     goto LABEL_64;
   }
 
-  if (+[CRPersonalizationManager shouldPersonalizeWithSSOByDefault]&& [CRPersonalizationManager enableSSO:v72])
+  if (+[CRPersonalizationManager shouldPersonalizeWithSSOByDefault]&& [CRPersonalizationManager enableSSO:v71])
   {
-    v62 = handleForCategory(0);
-    [CRComponentSigning prpcSign:v62 outSignature:? outDeviceNonce:? outError:?];
-    v68 = 0;
+    v61 = handleForCategory(0);
+    [CRComponentSigning prpcSign:v61 outSignature:? outDeviceNonce:? outError:?];
+    v67 = 0;
     goto LABEL_64;
   }
 
-  v68 = +[CRPersonalizationManager SOCKSInfo];
-  if (!v68)
+  v67 = +[CRPersonalizationManager SOCKSInfo];
+  if (!v67)
   {
     goto LABEL_18;
   }
 
-  v11 = [v68 objectForKeyedSubscript:@"SOCKSHost"];
-  v12 = [v68 objectForKeyedSubscript:@"SOCKSPort"];
+  v11 = [v67 objectForKeyedSubscript:@"SOCKSHost"];
+  v12 = [v67 objectForKeyedSubscript:@"SOCKSPort"];
   v13 = v12;
   if (v11 && v12 && AMAuthInstallSetSOCKSProxyInformation())
   {
-    v63 = handleForCategory(0);
-    [CRComponentSigning prpcSign:v63 outSignature:v13 outDeviceNonce:v11 outError:?];
+    v62 = handleForCategory(0);
+    [CRComponentSigning prpcSign:v62 outSignature:v13 outDeviceNonce:v11 outError:?];
 LABEL_64:
     v38 = 1;
     if (!error)
@@ -285,24 +285,24 @@ LABEL_18:
   theDict = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   if (!theDict)
   {
-    v52 = handleForCategory(0);
-    [CRComponentSigning prpcSign:v52 outSignature:? outDeviceNonce:? outError:?];
+    v51 = handleForCategory(0);
+    [CRComponentSigning prpcSign:v51 outSignature:? outDeviceNonce:? outError:?];
     goto LABEL_64;
   }
 
   Mutable = CFDictionaryCreateMutable(v14, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   if (!Mutable)
   {
-    v53 = handleForCategory(0);
-    [CRComponentSigning prpcSign:v53 outSignature:? outDeviceNonce:? outError:?];
+    v52 = handleForCategory(0);
+    [CRComponentSigning prpcSign:v52 outSignature:? outDeviceNonce:? outError:?];
     goto LABEL_64;
   }
 
   v15 = CFDictionaryCreateMutable(v14, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   if (!v15)
   {
-    v54 = handleForCategory(0);
-    [CRComponentSigning prpcSign:v54 outSignature:? outDeviceNonce:? outError:?];
+    v53 = handleForCategory(0);
+    [CRComponentSigning prpcSign:v53 outSignature:? outDeviceNonce:? outError:?];
     goto LABEL_64;
   }
 
@@ -324,8 +324,8 @@ LABEL_18:
 
   if (!SavageUpdaterCreate())
   {
-    v55 = handleForCategory(0);
-    [CRComponentSigning prpcSign:v55 outSignature:&v75 outDeviceNonce:? outError:?];
+    v54 = handleForCategory(0);
+    [CRComponentSigning prpcSign:v54 outSignature:? outDeviceNonce:? outError:?];
     goto LABEL_64;
   }
 
@@ -333,12 +333,12 @@ LABEL_18:
   v18 = *MEMORY[0x1E69E5218];
   while (!SavageUpdaterIsDone())
   {
-    v73[1] = 0;
-    v74 = 0;
+    v72[1] = 0;
+    v73 = 0;
     if (v17 == 30)
     {
-      v40 = handleForCategory(0);
-      [CRComponentSigning prpcSign:v40 outSignature:buf outDeviceNonce:? outError:?];
+      v39 = handleForCategory(0);
+      [CRComponentSigning prpcSign:v39 outSignature:buf outDeviceNonce:? outError:?];
 LABEL_58:
 
       goto LABEL_64;
@@ -349,15 +349,15 @@ LABEL_58:
     {
       *buf = 138412546;
       *&buf[4] = v15;
-      v79 = 1024;
-      v80 = v17 + 1;
+      v78 = 1024;
+      v79 = v17 + 1;
       _os_log_impl(&dword_1CEDC5000, v19, OS_LOG_TYPE_DEFAULT, "updaterOptions: %@ updaterLoopCount: %d", buf, 0x12u);
     }
 
-    if (!SavageUpdaterExecCommand() || v75)
+    if (!SavageUpdaterExecCommand() || v74)
     {
-      v41 = handleForCategory(0);
-      [CRComponentSigning prpcSign:v41 outSignature:&v75 outDeviceNonce:buf outError:?];
+      v40 = handleForCategory(0);
+      [CRComponentSigning prpcSign:v40 outSignature:&v74 outDeviceNonce:buf outError:?];
       goto LABEL_58;
     }
 
@@ -365,7 +365,7 @@ LABEL_58:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      *&buf[4] = v74;
+      *&buf[4] = v73;
       _os_log_impl(&dword_1CEDC5000, v20, OS_LOG_TYPE_DEFAULT, "deviceInfoDict: %@", buf, 0xCu);
     }
 
@@ -376,19 +376,19 @@ LABEL_58:
       _os_log_impl(&dword_1CEDC5000, v21, OS_LOG_TYPE_DEFAULT, "Add response ticket ...", buf, 2u);
     }
 
-    CFDictionarySetValue(v15, v18, v74);
-    v22 = [CRPersonalizationManager initWithAuthInstallObj:v72];
+    CFDictionarySetValue(v15, v18, v73);
+    v22 = [CRPersonalizationManager initWithAuthInstallObj:v71];
     v23 = v22;
     if (!v22)
     {
-      v42 = handleForCategory(0);
-      [CRComponentSigning prpcSign:v42 outSignature:? outDeviceNonce:? outError:?];
+      v41 = handleForCategory(0);
+      [CRComponentSigning prpcSign:v41 outSignature:? outDeviceNonce:? outError:?];
       goto LABEL_62;
     }
 
-    v73[0] = 0;
-    v24 = [v22 AddResponseTicketForSavageUpdaterOptions:v15 auth:1 error:v73];
-    v25 = v73[0];
+    v72[0] = 0;
+    v24 = [v22 AddResponseTicketForSavageUpdaterOptions:v15 auth:1 error:v72];
+    v25 = v72[0];
     if (v25)
     {
       v26 = 0;
@@ -401,9 +401,9 @@ LABEL_58:
 
     if ((v26 & 1) == 0)
     {
-      v43 = v25;
-      v44 = handleForCategory(0);
-      [CRComponentSigning prpcSign:v44 outSignature:? outDeviceNonce:? outError:?];
+      v42 = v25;
+      v43 = handleForCategory(0);
+      [CRComponentSigning prpcSign:v43 outSignature:? outDeviceNonce:? outError:?];
       goto LABEL_63;
     }
 
@@ -415,12 +415,12 @@ LABEL_58:
       _os_log_impl(&dword_1CEDC5000, v27, OS_LOG_TYPE_DEFAULT, "perform next stage: %@", buf, 0xCu);
     }
 
-    if (!SavageUpdaterExecCommand() || v75)
+    if (!SavageUpdaterExecCommand() || v74)
     {
-      v45 = handleForCategory(0);
-      [CRComponentSigning prpcSign:v45 outSignature:&v75 outDeviceNonce:buf outError:?];
+      v44 = handleForCategory(0);
+      [CRComponentSigning prpcSign:v44 outSignature:&v74 outDeviceNonce:buf outError:?];
 LABEL_62:
-      v43 = *buf;
+      v42 = *buf;
 LABEL_63:
 
       goto LABEL_64;
@@ -432,10 +432,10 @@ LABEL_63:
     ++v17;
   }
 
-  if (v75)
+  if (v74)
   {
-    v56 = handleForCategory(0);
-    [CRComponentSigning prpcSign:v56 outSignature:&v75 outDeviceNonce:? outError:?];
+    v55 = handleForCategory(0);
+    [CRComponentSigning prpcSign:v55 outSignature:? outDeviceNonce:? outError:?];
     goto LABEL_64;
   }
 
@@ -452,33 +452,33 @@ LABEL_63:
   v31 = v30;
   if (!v29)
   {
+    v56 = handleForCategory(0);
+    [CRComponentSigning prpcSign:v56 outSignature:? outDeviceNonce:? outError:?];
+    goto LABEL_64;
+  }
+
+  if (!v30)
+  {
     v57 = handleForCategory(0);
     [CRComponentSigning prpcSign:v57 outSignature:? outDeviceNonce:? outError:?];
     goto LABEL_64;
   }
 
-  if (!v30)
+  BytePtr = CFDataGetBytePtr(v29);
+  Length = CFDataGetLength(v29);
+  if (createECDSADerData(BytePtr, Length, &v76, &v75))
   {
     v58 = handleForCategory(0);
     [CRComponentSigning prpcSign:v58 outSignature:? outDeviceNonce:? outError:?];
     goto LABEL_64;
   }
 
-  BytePtr = CFDataGetBytePtr(v29);
-  Length = CFDataGetLength(v29);
-  if (createECDSADerData(BytePtr, Length, &v77, &v76))
-  {
-    v59 = handleForCategory(0);
-    [CRComponentSigning prpcSign:v59 outSignature:? outDeviceNonce:? outError:?];
-    goto LABEL_64;
-  }
-
-  v34 = CFDataCreateWithBytesNoCopy(0, v77, v76, *MEMORY[0x1E695E488]);
+  v34 = CFDataCreateWithBytesNoCopy(0, v76, v75, *MEMORY[0x1E695E488]);
   *signature = v34;
   if (!v34)
   {
-    v60 = handleForCategory(0);
-    [CRComponentSigning prpcSign:v60 outSignature:? outDeviceNonce:? outError:?];
+    v59 = handleForCategory(0);
+    [CRComponentSigning prpcSign:v59 outSignature:? outDeviceNonce:? outError:?];
     goto LABEL_64;
   }
 
@@ -488,8 +488,8 @@ LABEL_63:
   *nonce = v37;
   if (!v37)
   {
-    v61 = handleForCategory(0);
-    [CRComponentSigning prpcSign:v61 outSignature:? outDeviceNonce:? outError:?];
+    v60 = handleForCategory(0);
+    [CRComponentSigning prpcSign:v60 outSignature:? outDeviceNonce:? outError:?];
     goto LABEL_64;
   }
 
@@ -512,7 +512,6 @@ LABEL_55:
   AMSupportSafeRelease();
 
   objc_sync_exit(obj);
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 @end

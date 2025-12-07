@@ -128,11 +128,11 @@
 
 - (PRLikeness)initWithCoder:(id)coder
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v41.receiver = self;
-  v41.super_class = PRLikeness;
-  v5 = [(PRLikeness *)&v41 init];
+  v40.receiver = self;
+  v40.super_class = PRLikeness;
+  v5 = [(PRLikeness *)&v40 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_uniqueIdentifier"];
@@ -196,21 +196,20 @@
     v37 = CGRectMakeWithDictionaryRepresentation(v36, &v5->_cropRectForTopLeftOrigin);
     if (v36 && !v37)
     {
-      v38 = _PRGetLogSystem();
+      v38 = _PRGetLogSystem(v37);
       if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v43 = "[PRLikeness initWithCoder:]";
-        v44 = 1024;
-        v45 = 192;
-        v46 = 2112;
-        v47 = v36;
+        v42 = "[PRLikeness initWithCoder:]";
+        v43 = 1024;
+        v44 = 192;
+        v45 = 2112;
+        v46 = v36;
         _os_log_impl(&dword_25E428000, v38, OS_LOG_TYPE_DEFAULT, "%s (%d) CGRectMakeWithDictionaryRepresentation failed with %@", buf, 0x1Cu);
       }
     }
   }
 
-  v39 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -250,7 +249,7 @@
   v19 = *MEMORY[0x277D85DE8];
   if (!data)
   {
-    v8 = 0;
+    v9 = 0;
     goto LABEL_13;
   }
 
@@ -261,44 +260,43 @@
   bytes = [v5 bytes];
   if (!bytes)
   {
-    v7 = 4;
+    v8 = 4;
     goto LABEL_8;
   }
 
-  v7 = *bytes;
-  if (v7 == 3)
+  v8 = *bytes;
+  if (v8 == 3)
   {
 LABEL_11:
-    v8 = 0;
+    v9 = 0;
     goto LABEL_12;
   }
 
-  if (v7 != 1)
+  if (v8 != 1)
   {
 LABEL_8:
-    v9 = _PRGetLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _PRGetLogSystem(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v7];
+      v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v8];
       v13 = 136315650;
       v14 = "+[PRLikeness likenessWithPropagatedData:]";
       v15 = 1024;
       v16 = 243;
       v17 = 2112;
-      v18 = v10;
-      _os_log_impl(&dword_25E428000, v9, OS_LOG_TYPE_DEFAULT, "%s (%d) Unsupported likeness type parsed: %@", &v13, 0x1Cu);
+      v18 = v11;
+      _os_log_impl(&dword_25E428000, v10, OS_LOG_TYPE_DEFAULT, "%s (%d) Unsupported likeness type parsed: %@", &v13, 0x1Cu);
     }
 
     goto LABEL_11;
   }
 
-  v8 = [PRLikeness monogramWithRecipe:v4 staticRepresentation:0];
+  v9 = [PRLikeness monogramWithRecipe:v4 staticRepresentation:0];
 LABEL_12:
 
 LABEL_13:
-  v11 = *MEMORY[0x277D85DE8];
 
-  return v8;
+  return v9;
 }
 
 - (id)dataForPropagation
@@ -411,26 +409,25 @@ LABEL_13:
     staticRepresentationData = self->_staticRepresentationData;
     if (!staticRepresentationData)
     {
-      staticRepresentation = 0;
-      goto LABEL_2;
+      return 0;
     }
 
-    v7 = CGDataProviderCreateWithCFData(staticRepresentationData);
-    if (v7)
+    v6 = CGDataProviderCreateWithCFData(staticRepresentationData);
+    if (v6)
     {
-      v8 = v7;
-      staticRepresentation = CGImageCreateWithPNGDataProvider(v7, 0, 1, kCGRenderingIntentDefault);
-      CGDataProviderRelease(v8);
+      v7 = v6;
+      staticRepresentation = CGImageCreateWithPNGDataProvider(v6, 0, 1, kCGRenderingIntentDefault);
+      CGDataProviderRelease(v7);
       self->_staticRepresentation = staticRepresentation;
       if (staticRepresentation)
       {
-        goto LABEL_2;
+        return staticRepresentation;
       }
     }
 
     else
     {
-      v9 = _PRGetLogSystem();
+      v9 = _PRGetLogSystem(0);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         v11 = 136315394;
@@ -443,7 +440,7 @@ LABEL_13:
       self->_staticRepresentation = 0;
     }
 
-    v10 = _PRGetLogSystem();
+    v10 = _PRGetLogSystem(v8);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = 136315394;
@@ -453,11 +450,9 @@ LABEL_13:
       _os_log_impl(&dword_25E428000, v10, OS_LOG_TYPE_DEFAULT, "%s (%d) CGImageCreateWithPNGDataProvider returned NULL!", &v11, 0x12u);
     }
 
-    staticRepresentation = self->_staticRepresentation;
+    return self->_staticRepresentation;
   }
 
-LABEL_2:
-  v3 = *MEMORY[0x277D85DE8];
   return staticRepresentation;
 }
 
@@ -489,7 +484,7 @@ LABEL_2:
 
 - (NSData)staticRepresentationData
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   staticRepresentation = self->_staticRepresentation;
   if (staticRepresentation && !self->_staticRepresentationData)
   {
@@ -499,16 +494,17 @@ LABEL_2:
     {
       v6 = v5;
       CGImageDestinationAddImage(v5, staticRepresentation, 0);
-      if (!CGImageDestinationFinalize(v6))
+      v7 = CGImageDestinationFinalize(v6);
+      if (!v7)
       {
-        v7 = _PRGetLogSystem();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+        v8 = _PRGetLogSystem(v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
-          v14 = 136315394;
-          v15 = "_PRGetPNGDataForImage";
-          v16 = 1024;
-          v17 = 556;
-          _os_log_impl(&dword_25E428000, v7, OS_LOG_TYPE_DEFAULT, "%s (%d) CGImageDestinationFinalize returned false!", &v14, 0x12u);
+          v15 = 136315394;
+          v16 = "_PRGetPNGDataForImage";
+          v17 = 1024;
+          v18 = 556;
+          _os_log_impl(&dword_25E428000, v8, OS_LOG_TYPE_DEFAULT, "%s (%d) CGImageDestinationFinalize returned false!", &v15, 0x12u);
         }
 
         CFRelease(Mutable);
@@ -520,14 +516,14 @@ LABEL_2:
 
     else
     {
-      v8 = _PRGetLogSystem();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = _PRGetLogSystem(0);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 136315394;
-        v15 = "_PRGetPNGDataForImage";
-        v16 = 1024;
-        v17 = 548;
-        _os_log_impl(&dword_25E428000, v8, OS_LOG_TYPE_DEFAULT, "%s (%d) CGImageDestinationCreateWithData return NULL!", &v14, 0x12u);
+        v15 = 136315394;
+        v16 = "_PRGetPNGDataForImage";
+        v17 = 1024;
+        v18 = 548;
+        _os_log_impl(&dword_25E428000, v9, OS_LOG_TYPE_DEFAULT, "%s (%d) CGImageDestinationCreateWithData return NULL!", &v15, 0x12u);
       }
 
       CFRelease(Mutable);
@@ -539,22 +535,21 @@ LABEL_2:
 
     if (!self->_staticRepresentationData)
     {
-      v10 = _PRGetLogSystem();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = _PRGetLogSystem(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 136315394;
-        v15 = "[PRLikeness staticRepresentationData]";
-        v16 = 1024;
-        v17 = 380;
-        _os_log_impl(&dword_25E428000, v10, OS_LOG_TYPE_DEFAULT, "%s (%d) _PRGetPNGDataForImage returned nil!", &v14, 0x12u);
+        v15 = 136315394;
+        v16 = "[PRLikeness staticRepresentationData]";
+        v17 = 1024;
+        v18 = 380;
+        _os_log_impl(&dword_25E428000, v12, OS_LOG_TYPE_DEFAULT, "%s (%d) _PRGetPNGDataForImage returned nil!", &v15, 0x12u);
       }
     }
   }
 
-  v11 = self->_staticRepresentationData;
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = self->_staticRepresentationData;
 
-  return v11;
+  return v13;
 }
 
 + (id)descriptionForScope:(unint64_t)scope

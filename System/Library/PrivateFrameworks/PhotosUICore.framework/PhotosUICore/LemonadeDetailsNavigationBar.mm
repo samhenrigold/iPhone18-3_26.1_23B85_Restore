@@ -11,9 +11,10 @@
   x = test.x;
   eventCopy = event;
   selfCopy = self;
-  v10 = sub_1A44AEBC4(event, x, y);
+  sub_1A44AEBC4(event, x, y);
+  v11 = v10;
 
-  return v10;
+  return v11;
 }
 
 - (_TtC12PhotosUICoreP33_5A77AA35E7CED42F2D112515D5FBA02128LemonadeDetailsNavigationBar)initWithFrame:(CGRect)frame

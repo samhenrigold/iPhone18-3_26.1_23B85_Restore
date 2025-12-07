@@ -157,7 +157,7 @@
   attachmentCopy = attachment;
   [(ICImageCollectionViewCell *)&v10 setAttachment:attachmentCopy];
   v5 = [ICMediaTimeFormatter timecodeFormatter:v10.receiver];
-  [attachmentCopy duration];
+  objc_msgSend_duration(attachmentCopy);
   v7 = v6;
 
   v8 = [v5 stringFromTimeInterval:v7];

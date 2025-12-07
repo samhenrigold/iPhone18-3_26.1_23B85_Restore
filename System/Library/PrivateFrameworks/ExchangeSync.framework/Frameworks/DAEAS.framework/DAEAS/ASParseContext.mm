@@ -2,6 +2,7 @@
 - (ASParseContext)init;
 - (BOOL)advanceOffsetByAmount:(unsigned int)amount retainLastToken:(BOOL)token;
 - (BOOL)hasNumberOfTokensRemaining:(unsigned int)remaining;
+- (char)bufferForLength:(unsigned int)length shouldFree:(BOOL *)free;
 - (id)bufferWithAllData;
 - (int)_numTokensForNextOpaqueDataCheckNumTokens:(BOOL)tokens;
 - (int)numTokensForNextString;
@@ -256,39 +257,122 @@ LABEL_29:
 
 - (id)bufferWithAllData
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   dataBuffers = [(ASParseContext *)self dataBuffers];
-  v5 = [dataBuffers countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [dataBuffers countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(dataBuffers);
         }
 
-        [v3 appendData:*(*(&v11 + 1) + 8 * i)];
+        [v3 appendData:*(*(&v10 + 1) + 8 * i)];
       }
 
-      v6 = [dataBuffers countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [dataBuffers countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v3;
+}
+
+- (char)bufferForLength:(unsigned int)length shouldFree:(BOOL *)free
+{
+  v5 = *&length;
+  dataBuffers = [(ASParseContext *)self dataBuffers];
+  v8 = [dataBuffers objectAtIndexedSubscript:0];
+
+  v9 = [v8 length];
+  v10 = v9 - [(ASParseContext *)self offsetIntoFirstData];
+  bytes = [v8 bytes];
+  v12 = (bytes + [(ASParseContext *)self offsetIntoFirstData]);
+  v13 = v5 - v10;
+  if (v5 > v10)
+  {
+    if (![(ASParseContext *)self hasNumberOfTokensRemaining:v5])
+    {
+      v12 = 0;
+      goto LABEL_17;
+    }
+
+    v14 = malloc_type_malloc(v5, 0xA0C6CCB3uLL);
+    memcpy(v14, v12, v10);
+    dataBuffers2 = [(ASParseContext *)self dataBuffers];
+    v16 = [dataBuffers2 count];
+
+    if (v16 >= 2)
+    {
+      v17 = &v14[v10];
+      v18 = 2;
+      v19 = 1;
+      do
+      {
+        dataBuffers3 = [(ASParseContext *)self dataBuffers];
+        v21 = [dataBuffers3 objectAtIndexedSubscript:v19];
+
+        v22 = [v21 length];
+        if (v22 >= v13)
+        {
+          v23 = v13;
+        }
+
+        else
+        {
+          v23 = v22;
+        }
+
+        v8 = v21;
+        memcpy(v17, [v21 bytes], v23);
+        v13 -= v23;
+        if (!v13)
+        {
+          break;
+        }
+
+        v17 += v23;
+        v19 = v18;
+        dataBuffers4 = [(ASParseContext *)self dataBuffers];
+        v25 = [dataBuffers4 count];
+      }
+
+      while (v25 > v18++);
+    }
+
+    if (!free)
+    {
+      v12 = v14;
+      goto LABEL_17;
+    }
+
+    v27 = 1;
+    v12 = v14;
+    goto LABEL_14;
+  }
+
+  if (free)
+  {
+    v27 = 0;
+LABEL_14:
+    *free = v27;
+  }
+
+LABEL_17:
+
+  return v12;
 }
 
 - (BOOL)advanceOffsetByAmount:(unsigned int)amount retainLastToken:(BOOL)token
@@ -392,7 +476,7 @@ LABEL_12:
 
 - (unsigned)currentByte
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   logFileHandle = [(ASParseContext *)self logFileHandle];
 
   if (logFileHandle)
@@ -410,11 +494,11 @@ LABEL_12:
       {
         dataBuffers2 = [(ASParseContext *)self dataBuffers];
         v12 = [dataBuffers2 objectAtIndexedSubscript:0];
-        v20 = 134218240;
-        v21 = [v12 length];
-        v22 = 2048;
+        v19 = 134218240;
+        v20 = [v12 length];
+        v21 = 2048;
         offsetIntoFirstData2 = [(ASParseContext *)self offsetIntoFirstData];
-        _os_log_impl(&dword_24A0AC000, v9, v10, "Big failure: we were about to dereference garbage.  Please save your DA logs, and file a bug (length = %luu, offset = %lu)", &v20, 0x16u);
+        _os_log_impl(&dword_24A0AC000, v9, v10, "Big failure: we were about to dereference garbage.  Please save your DA logs, and file a bug (length = %luu, offset = %lu)", &v19, 0x16u);
       }
 
       [(ASParseContext *)self setTrafficLogger:0];
@@ -428,7 +512,6 @@ LABEL_12:
   bytes = [v15 bytes];
   v17 = *(bytes + [(ASParseContext *)self offsetIntoFirstData]);
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 

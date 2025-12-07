@@ -165,7 +165,7 @@ LABEL_7:
   return v3;
 }
 
-uint64_t __63__SUUISettingsGroupsDescription_hasEditableSettingDescriptions__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__63__SUUISettingsGroupsDescription_hasEditableSettingDescriptions__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 hasEditableSettingDescriptions];
   if (result)
@@ -356,7 +356,7 @@ void __77__SUUISettingsGroupsDescription__addSettingsGroupWithViewElement_contro
   if (!v5)
   {
     type = [elementCopy type];
-    if ([type isEqualToString:@"signin"])
+    if (objc_msgSend_isEqualToString_(type))
     {
       v5 = objc_alloc_init(SUUISignInSettingsGroupController);
     }

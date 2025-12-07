@@ -9,11 +9,11 @@
 - (void)setSelection:(id)selection
 {
   selectionCopy = selection;
-  objc_msgSend_willModify(self, v4, v5, v6, v7);
+  objc_msgSend_willModify(self, v4, v5, v6);
   objc_opt_class();
-  v8 = TSUCheckedDynamicCast();
+  v7 = TSUCheckedDynamicCast();
   tableNameSelection = self->_tableNameSelection;
-  self->_tableNameSelection = v8;
+  self->_tableNameSelection = v7;
 }
 
 - (void)loadFromUnarchiver:(id)unarchiver
@@ -27,7 +27,7 @@
 {
   archiverCopy = archiver;
   google::protobuf::internal::AssignDescriptors();
-  objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v3, sub_2214D522C, off_2812E4498[152], v4);
+  objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v3, sub_2214D522C, off_2812E4498[152]);
 }
 
 @end

@@ -1,7 +1,7 @@
 @interface NSString(NSStringUtils)
 + (id)mf_messageIDStringWithDomainHint:()NSStringUtils;
 + (uint64_t)mf_stringForMimeTypeFromFileName:()NSStringUtils;
-+ (uint64_t)mf_stringWithAttachmentCharacter;
++ (void)mf_stringWithAttachmentCharacter;
 - (__CFString)mf_stringByEscapingHTMLCodes;
 - (id)mf_fileSystemString;
 - (id)mf_stringWithNoExtraSpaces;
@@ -31,7 +31,7 @@
 
 - (id)mf_fileSystemString
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = [self length];
   result = self;
   if (v2)
@@ -48,10 +48,9 @@
 
   if (!result)
   {
-    result = self;
+    return self;
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -94,7 +93,7 @@
   return v1;
 }
 
-+ (uint64_t)mf_stringWithAttachmentCharacter
++ (void)mf_stringWithAttachmentCharacter
 {
   result = mf_stringWithAttachmentCharacter_stringWithAttachmentCharacter;
   if (!mf_stringWithAttachmentCharacter_stringWithAttachmentCharacter)
@@ -113,7 +112,7 @@
   pathExtension = 0;
   stringByDeletingPathExtension = 0;
   selfCopy = 0;
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   do
   {
     while (1)
@@ -143,14 +142,14 @@ LABEL_9:
       }
 
       v5 = (v5 + 1);
-      v9 = [pathExtension length] ? objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@-%d.%@", stringByDeletingPathExtension, v5, pathExtension) : objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@-%d", stringByDeletingPathExtension, v5, v17);
+      v9 = [pathExtension length] ? objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@-%d.%@", stringByDeletingPathExtension, v5, pathExtension) : objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@-%d", stringByDeletingPathExtension, v5, v16);
       selfCopy = v9;
 LABEL_12:
-      v20 = 0u;
-      v21 = 0u;
-      v18 = 0u;
       v19 = 0u;
-      v10 = [a3 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v20 = 0u;
+      v17 = 0u;
+      v18 = 0u;
+      v10 = [a3 countByEnumeratingWithState:&v17 objects:v21 count:16];
       v11 = selfCopy;
       if (!v10)
       {
@@ -158,24 +157,24 @@ LABEL_12:
       }
 
       v12 = v10;
-      v13 = *v19;
+      v13 = *v18;
 LABEL_14:
       v14 = 0;
       while (1)
       {
-        if (*v19 != v13)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(a3);
         }
 
-        if ([*(*(&v18 + 1) + 8 * v14) isEqualToString:selfCopy])
+        if ([*(*(&v17 + 1) + 8 * v14) isEqualToString:selfCopy])
         {
           break;
         }
 
         if (v12 == ++v14)
         {
-          v12 = [a3 countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v12 = [a3 countByEnumeratingWithState:&v17 objects:v21 count:16];
           if (v12)
           {
             goto LABEL_14;
@@ -192,13 +191,12 @@ LABEL_21:
   }
 
   while (!v11);
-  v15 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (__CFString)mf_stringByEscapingHTMLCodes
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   string = [MEMORY[0x1E696AD60] string];
   selfCopy = self;
   v3 = [self length];
@@ -221,7 +219,7 @@ LABEL_7:
       v5 += v7;
       if (v5 >= v4)
       {
-        goto LABEL_33;
+        return string;
       }
     }
 
@@ -301,8 +299,6 @@ LABEL_30:
     }
   }
 
-LABEL_33:
-  v13 = *MEMORY[0x1E69E9840];
   return string;
 }
 

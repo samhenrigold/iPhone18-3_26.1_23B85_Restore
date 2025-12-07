@@ -431,45 +431,44 @@ LABEL_5:
 
 void __54__PXPhotosDragController_dropInteraction_performDrop___block_invoke_2_81(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v17;
     v8 = *MEMORY[0x277D3CF78];
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v14 = 0u;
         v15 = 0u;
-        v16 = 0u;
-        v11 = *(a1 + 40);
-        if (v11)
+        v10 = *(a1 + 40);
+        if (v10)
         {
-          [v11 indexPathForAssetReference:v10];
-          if (v15 != v8 && v16 != 0x7FFFFFFFFFFFFFFFLL && *(&v16 + 1) == 0x7FFFFFFFFFFFFFFFLL)
+          objc_msgSend_indexPathForAssetReference_(v10);
+          if (v14 != v8 && v15 != 0x7FFFFFFFFFFFFFFFLL && *(&v15 + 1) == 0x7FFFFFFFFFFFFFFFLL)
           {
-            v14[0] = v15;
-            v14[1] = v16;
-            [v3 setSelectedState:1 forIndexPath:v14];
+            v13[0] = v14;
+            v13[1] = v15;
+            [v3 setSelectedState:1 forIndexPath:v13];
           }
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v6);
@@ -765,14 +764,14 @@ LABEL_19:
   [animator addCompletion:v9];
 }
 
-uint64_t __78__PXPhotosDragController_dragInteraction_willAnimateLiftWithAnimator_session___block_invoke(uint64_t result, uint64_t a2)
+void *__78__PXPhotosDragController_dragInteraction_willAnimateLiftWithAnimator_session___block_invoke(void *result, uint64_t a2)
 {
   if (a2)
   {
     if (a2 == 1)
     {
-      v4 = *(result + 40);
-      v5 = *(result + 32);
+      v4 = result[5];
+      v5 = result[4];
 
       return [v5 _localSessionForDragSession:v4 changeBlock:&__block_literal_global_71];
     }
@@ -782,8 +781,8 @@ uint64_t __78__PXPhotosDragController_dragInteraction_willAnimateLiftWithAnimato
   {
     v8[5] = v2;
     v8[6] = v3;
-    v7 = *(result + 32);
-    v6 = *(result + 40);
+    v7 = result[4];
+    v6 = result[5];
     v8[0] = MEMORY[0x277D85DD0];
     v8[1] = 3221225472;
     v8[2] = __78__PXPhotosDragController_dragInteraction_willAnimateLiftWithAnimator_session___block_invoke_3;
@@ -880,11 +879,11 @@ LABEL_13:
 LABEL_14:
 }
 
-uint64_t __77__PXPhotosDragController_dragInteraction_item_willAnimateCancelWithAnimator___block_invoke(uint64_t result, uint64_t a2)
+id *__77__PXPhotosDragController_dragInteraction_item_willAnimateCancelWithAnimator___block_invoke(id *result, uint64_t a2)
 {
   if (!a2)
   {
-    return [*(result + 32) _removeDraggedAssetReferece:*(result + 40) fromLocalSession:*(result + 48)];
+    return [result[4] _removeDraggedAssetReferece:result[5] fromLocalSession:result[6]];
   }
 
   return result;
@@ -1361,7 +1360,7 @@ void __67__PXPhotosDragController_dragInteraction_itemsForBeginningSession___blo
       v11 = *(a1 + 32);
       if (v11)
       {
-        [v11 indexPath];
+        objc_msgSend_indexPath(v11);
       }
 
       else
@@ -1698,7 +1697,7 @@ LABEL_8:
                   v56 = 0u;
                   if (dataSource)
                   {
-                    [dataSource indexPathForAssetReference:v23];
+                    objc_msgSend_indexPathForAssetReference_(dataSource);
                   }
 
                   v54[0] = v55;

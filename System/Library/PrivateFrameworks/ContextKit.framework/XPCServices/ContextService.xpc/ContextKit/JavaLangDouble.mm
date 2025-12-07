@@ -7,6 +7,7 @@
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isInfinite;
 - (BOOL)isNaN;
+- (JavaLangDouble)initWithNSString:(id)string;
 - (char)charValue;
 - (int)compareToWithId:(id)id;
 - (int)intValue;
@@ -15,6 +16,13 @@
 @end
 
 @implementation JavaLangDouble
+
+- (JavaLangDouble)initWithNSString:(id)string
+{
+  JavaLangDouble_parseDoubleWithNSString_(string, a2);
+  self->value_ = v4;
+  return self;
+}
 
 - (int)compareToWithId:(id)id
 {
@@ -137,7 +145,6 @@
 
 - (BOOL)isNaN
 {
-  value = self->value_;
   if ((atomic_load_explicit(JavaLangDouble__initialized, memory_order_acquire) & 1) == 0)
   {
     sub_100242234();

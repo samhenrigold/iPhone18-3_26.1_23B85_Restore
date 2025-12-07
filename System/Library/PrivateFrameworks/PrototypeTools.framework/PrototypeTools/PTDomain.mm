@@ -66,56 +66,56 @@ void __27__PTDomain__sharedInstance__block_invoke()
   v1 = _sharedInstance___sharedInstancesByClassName;
   _sharedInstance___sharedInstancesByClassName = v0;
 
-  if (PTInstallIsAppleInternal())
+  if (PTInstallIsAppleInternal(v2, v3))
   {
-    v2 = +[PTDefaults sharedInstance];
-    v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"prototypeSettingsEnabled"];
+    v4 = +[PTDefaults sharedInstance];
+    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"prototypeSettingsEnabled"];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __27__PTDomain__sharedInstance__block_invoke_2;
+    v21[3] = &unk_27835ED38;
+    v6 = v4;
+    v22 = v6;
+    v7 = MEMORY[0x277D85CD0];
+    v8 = [v6 observeDefault:v5 onQueue:MEMORY[0x277D85CD0] withBlock:v21];
+
+    v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"activePrototypingEnabled"];
     v19[0] = MEMORY[0x277D85DD0];
     v19[1] = 3221225472;
-    v19[2] = __27__PTDomain__sharedInstance__block_invoke_2;
+    v19[2] = __27__PTDomain__sharedInstance__block_invoke_2_11;
     v19[3] = &unk_27835ED38;
-    v4 = v2;
-    v20 = v4;
-    v5 = MEMORY[0x277D85CD0];
-    v6 = [v4 observeDefault:v3 onQueue:MEMORY[0x277D85CD0] withBlock:v19];
+    v10 = v6;
+    v20 = v10;
+    v11 = [v10 observeDefault:v9 onQueue:v7 withBlock:v19];
 
-    v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"activePrototypingEnabled"];
+    v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"remotePrototypingEnabled"];
     v17[0] = MEMORY[0x277D85DD0];
     v17[1] = 3221225472;
-    v17[2] = __27__PTDomain__sharedInstance__block_invoke_2_11;
+    v17[2] = __27__PTDomain__sharedInstance__block_invoke_2_16;
     v17[3] = &unk_27835ED38;
-    v8 = v4;
-    v18 = v8;
-    v9 = [v8 observeDefault:v7 onQueue:v5 withBlock:v17];
+    v18 = v10;
+    v13 = v10;
+    v14 = [v13 observeDefault:v12 onQueue:v7 withBlock:v17];
 
-    v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"remotePrototypingEnabled"];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __27__PTDomain__sharedInstance__block_invoke_2_16;
-    v15[3] = &unk_27835ED38;
-    v16 = v8;
-    v11 = v8;
-    v12 = [v11 observeDefault:v10 onQueue:v5 withBlock:v15];
-
-    v13 = [v11 observeTestRecipeDefaultsOnQueue:v5 withBlock:&__block_literal_global_22];
+    v15 = [v13 observeTestRecipeDefaultsOnQueue:v7 withBlock:&__block_literal_global_22];
   }
 
   else
   {
-    v11 = PTLogObjectForTopic(1);
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = PTLogObjectForTopic(1);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v14 = 0;
-      _os_log_impl(&dword_21E61D000, v11, OS_LOG_TYPE_DEFAULT, "Not observing PTDefaults on customer install.", v14, 2u);
+      *v16 = 0;
+      _os_log_impl(&dword_21E61D000, v13, OS_LOG_TYPE_DEFAULT, "Not observing PTDefaults on customer install.", v16, 2u);
     }
   }
 }
 
 - (id)_init
 {
-  v9.receiver = self;
-  v9.super_class = PTDomain;
-  v2 = [(PTDomain *)&v9 init];
+  v11.receiver = self;
+  v11.super_class = PTDomain;
+  v2 = [(PTDomain *)&v11 init];
   if (v2)
   {
     v3 = [objc_alloc(objc_msgSend(objc_opt_class() "rootSettingsClass"))];
@@ -126,7 +126,7 @@ void __27__PTDomain__sharedInstance__block_invoke()
     testRecipesByIdentifier = v2->_testRecipesByIdentifier;
     v2->_testRecipesByIdentifier = v5;
 
-    if (PTInstallIsAppleInternal())
+    if (PTInstallIsAppleInternal(v7, v8))
     {
       [(PTDomain *)v2 _updateServerConnectionStatusIfNecessary];
       DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
@@ -164,7 +164,7 @@ void __27__PTDomain__sharedInstance__block_invoke()
 + (void)registerTestRecipe:(id)recipe
 {
   recipeCopy = recipe;
-  if (PTInstallIsAppleInternal())
+  if (PTInstallIsAppleInternal(recipeCopy, v4))
   {
     _sharedInstance = [self _sharedInstance];
     [_sharedInstance _registerTestRecipe:recipeCopy];
@@ -868,22 +868,22 @@ void __42__PTDomain__registerWithServerIfNecessary__block_invoke(uint64_t a1, ui
 
 + (id)domainGroupName
 {
-  objc_opt_class();
-  OUTLINED_FUNCTION_0();
+  v2 = objc_opt_class();
+  OUTLINED_FUNCTION_0(v2);
   return 0;
 }
 
 + (id)domainName
 {
-  objc_opt_class();
-  OUTLINED_FUNCTION_0();
+  v2 = objc_opt_class();
+  OUTLINED_FUNCTION_0(v2);
   return 0;
 }
 
 + (Class)rootSettingsClass
 {
-  objc_opt_class();
-  OUTLINED_FUNCTION_0();
+  v2 = objc_opt_class();
+  OUTLINED_FUNCTION_0(v2);
   return 0;
 }
 

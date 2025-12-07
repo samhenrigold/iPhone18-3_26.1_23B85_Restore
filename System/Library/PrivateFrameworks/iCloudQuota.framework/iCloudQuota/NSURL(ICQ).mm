@@ -89,28 +89,28 @@ LABEL_12:
 
 - (id)icq_queryItemForName:()ICQ
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = [MEMORY[0x277CCACE0] componentsWithURL:self resolvingAgainstBaseURL:1];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   queryItems = [v5 queryItems];
-  v7 = [queryItems countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [queryItems countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(queryItems);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         name = [v10 name];
         v12 = [name isEqualToString:v4];
 
@@ -121,7 +121,7 @@ LABEL_12:
         }
       }
 
-      v7 = [queryItems countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [queryItems countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         continue;
@@ -133,78 +133,76 @@ LABEL_12:
 
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)icq_URLByAppendingQueryParamtersFromContext:()ICQ
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if (v4)
   {
     v5 = [MEMORY[0x277CCACE0] componentsWithURL:self resolvingAgainstBaseURL:0];
     v6 = MEMORY[0x277CBEB18];
-    v37 = v5;
+    v36 = v5;
     queryItems = [v5 queryItems];
     v8 = [v6 arrayWithArray:queryItems];
 
     v9 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
     v10 = v8;
-    v11 = [v10 countByEnumeratingWithState:&v43 objects:v48 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v42 objects:v47 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v44;
+      v13 = *v43;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v44 != v13)
+          if (*v43 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          name = [*(*(&v43 + 1) + 8 * i) name];
+          name = [*(*(&v42 + 1) + 8 * i) name];
           [v9 addObject:name];
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v43 objects:v48 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v42 objects:v47 count:16];
       }
 
       while (v12);
     }
 
-    v36 = v10;
+    v35 = v10;
 
     v16 = [MEMORY[0x277CCACE0] componentsWithString:v4];
-    v38 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v37 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v42 = 0u;
-    v35 = v16;
+    v34 = v16;
     queryItems2 = [v16 queryItems];
-    v18 = [queryItems2 countByEnumeratingWithState:&v39 objects:v47 count:16];
+    v18 = [queryItems2 countByEnumeratingWithState:&v38 objects:v46 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v40;
+      v20 = *v39;
       do
       {
         for (j = 0; j != v19; ++j)
         {
-          if (*v40 != v20)
+          if (*v39 != v20)
           {
             objc_enumerationMutation(queryItems2);
           }
 
-          v22 = *(*(&v39 + 1) + 8 * j);
+          v22 = *(*(&v38 + 1) + 8 * j);
           name2 = [v22 name];
           lowercaseString = [name2 lowercaseString];
           v25 = [lowercaseString isEqualToString:@"context"];
@@ -223,24 +221,24 @@ LABEL_11:
 
           if ((v30 & 1) == 0)
           {
-            [v38 addObject:v22];
+            [v37 addObject:v22];
           }
         }
 
-        v19 = [queryItems2 countByEnumeratingWithState:&v39 objects:v47 count:16];
+        v19 = [queryItems2 countByEnumeratingWithState:&v38 objects:v46 count:16];
       }
 
       while (v19);
     }
 
-    [v36 addObjectsFromArray:v38];
-    v31 = v37;
-    if ([v36 count])
+    [v35 addObjectsFromArray:v37];
+    v31 = v36;
+    if ([v35 count])
     {
-      [v37 setQueryItems:v36];
+      [v36 setQueryItems:v35];
     }
 
-    v32 = [v37 URL];
+    v32 = [v36 URL];
   }
 
   else
@@ -249,14 +247,12 @@ LABEL_11:
     if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v50 = "[NSURL(ICQ) icq_URLByAppendingQueryParamtersFromContext:]";
+      v49 = "[NSURL(ICQ) icq_URLByAppendingQueryParamtersFromContext:]";
       _os_log_impl(&dword_275572000, v31, OS_LOG_TYPE_DEFAULT, "%s Context is unavailable bailing.", buf, 0xCu);
     }
 
     v32 = 0;
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v32;
 }

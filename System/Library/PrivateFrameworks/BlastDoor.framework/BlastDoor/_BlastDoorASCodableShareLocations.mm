@@ -12,15 +12,13 @@
 
 - (id)description
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCACA8];
-  v9.receiver = self;
-  v9.super_class = _BlastDoorASCodableShareLocations;
-  v4 = [(_BlastDoorASCodableShareLocations *)&v9 description];
+  v8.receiver = self;
+  v8.super_class = _BlastDoorASCodableShareLocations;
+  v4 = [(_BlastDoorASCodableShareLocations *)&v8 description];
   dictionaryRepresentation = [(_BlastDoorASCodableShareLocations *)self dictionaryRepresentation];
   v6 = [v3 stringWithFormat:@"%@ %@", v4, dictionaryRepresentation];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

@@ -1,6 +1,7 @@
 @interface CALNNotificationDataSourceUtils
 + (id)calendarWithSourceClientIdentifier:(id)identifier inEventStore:(id)store;
 + (id)eventWithSourceClientIdentifier:(id)identifier inEventStore:(id)store;
++ (id)notificationReferenceOfType:(int)type withSourceClientIdentifier:(id)identifier inEventStore:(id)store withNotificationReferenceProvider:(id)provider;
 + (id)objectIDWithSourceClientIdentifier:(id)identifier;
 + (id)sourceClientIdentifierForNotification:(id)notification;
 + (void)clearSharedCalendarInvitationResponseWithSourceClientIdentifier:(id)identifier inEventStore:(id)store;
@@ -72,6 +73,85 @@ LABEL_9:
   }
 
   return v6;
+}
+
++ (id)notificationReferenceOfType:(int)type withSourceClientIdentifier:(id)identifier inEventStore:(id)store withNotificationReferenceProvider:(id)provider
+{
+  v8 = *&type;
+  identifierCopy = identifier;
+  storeCopy = store;
+  providerCopy = provider;
+  if ((v8 - 3) < 3)
+  {
+    objectID = [self objectIDWithSourceClientIdentifier:identifierCopy];
+    if (objectID)
+    {
+      goto LABEL_13;
+    }
+  }
+
+  else
+  {
+    if (v8 >= 2)
+    {
+      if (v8 != 2)
+      {
+        goto LABEL_17;
+      }
+
+      v13 = [MEMORY[0x277CBEBC0] URLWithString:identifierCopy];
+      if (v13)
+      {
+        v15 = [self calendarWithSourceClientIdentifier:identifierCopy inEventStore:storeCopy];
+        objectID = [v15 objectID];
+      }
+
+      else
+      {
+        v16 = +[CALNLogSubsystem calendar];
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        {
+          +[CALNNotificationDataSourceUtils notificationReferenceOfType:withSourceClientIdentifier:inEventStore:withNotificationReferenceProvider:];
+        }
+
+        objectID = 0;
+      }
+    }
+
+    else
+    {
+      v13 = [self eventWithSourceClientIdentifier:identifierCopy inEventStore:storeCopy];
+      objectID = [v13 objectID];
+    }
+
+    if (objectID)
+    {
+LABEL_13:
+      v17 = [providerCopy notificationReferenceForObjectID:objectID withType:v8 inEventStore:storeCopy];
+      if (!v17)
+      {
+        v18 = +[CALNLogSubsystem defaultCategory];
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        {
+          +[CALNNotificationDataSourceUtils notificationReferenceOfType:withSourceClientIdentifier:inEventStore:withNotificationReferenceProvider:];
+        }
+      }
+
+      goto LABEL_20;
+    }
+  }
+
+LABEL_17:
+  objectID = +[CALNLogSubsystem calendar];
+  if (os_log_type_enabled(objectID, OS_LOG_TYPE_ERROR))
+  {
+    [CALNNotificationDataSourceUtils notificationReferenceOfType:identifierCopy withSourceClientIdentifier:v8 inEventStore:objectID withNotificationReferenceProvider:?];
+  }
+
+  v17 = 0;
+LABEL_20:
+
+  return v17;
 }
 
 + (id)eventWithSourceClientIdentifier:(id)identifier inEventStore:(id)store
@@ -193,16 +273,16 @@ LABEL_9:
 
 + (void)hideCalendarFromNotificationCenter:(id)center inEventStore:(id)store
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   centerCopy = center;
-  v14[0] = centerCopy;
+  v13[0] = centerCopy;
   v6 = MEMORY[0x277CBEA60];
   storeCopy = store;
-  v8 = [v6 arrayWithObjects:v14 count:1];
-  v13 = 0;
-  v9 = [storeCopy hideCalendarsFromNotificationCenter:v8 error:&v13];
+  v8 = [v6 arrayWithObjects:v13 count:1];
+  v12 = 0;
+  v9 = [storeCopy hideCalendarsFromNotificationCenter:v8 error:&v12];
 
-  v10 = v13;
+  v10 = v12;
   if ((v9 & 1) == 0)
   {
     v11 = +[CALNLogSubsystem defaultCategory];
@@ -211,8 +291,6 @@ LABEL_9:
       [CALNNotificationDataSourceUtils hideCalendarFromNotificationCenter:centerCopy inEventStore:?];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (void)clearSharedCalendarInvitationResponseWithSourceClientIdentifier:(id)identifier inEventStore:(id)store
@@ -262,109 +340,37 @@ LABEL_9:
   }
 }
 
-+ (void)objectIDWithSourceClientIdentifier:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_242909000, v0, v1, "Failed to construct objectID from sourceClientIdentifier (%{public}@)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)objectIDWithSourceClientIdentifier:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_242909000, v0, v1, "Failed to construct URL from sourceClientIdentifier (%{public}@)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)notificationReferenceOfType:withSourceClientIdentifier:inEventStore:withNotificationReferenceProvider:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_242909000, v0, v1, "Failed to construct calendarURI for shared calendar invitation with sourceClientIdentifier = %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)notificationReferenceOfType:withSourceClientIdentifier:inEventStore:withNotificationReferenceProvider:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_242909000, v0, v1, "Failed to load notification reference for sourceClientIdentifier (%{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 + (void)notificationReferenceOfType:(os_log_t)log withSourceClientIdentifier:inEventStore:withNotificationReferenceProvider:.cold.3(uint64_t a1, int a2, os_log_t log)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 67109378;
-  v4[1] = a2;
-  v5 = 2114;
-  v6 = a1;
-  _os_log_error_impl(&dword_242909000, log, OS_LOG_TYPE_ERROR, "Failed to get objectID for notification of type %d with sourceClientIdentifier %{public}@", v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)eventWithSourceClientIdentifier:inEventStore:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_242909000, v0, v1, "Failed to construct eventURI with sourceClientIdentifier %{public}@", v2, v3, v4, v5, v7);
   v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)calendarWithSourceClientIdentifier:inEventStore:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_242909000, v0, v1, "Failed to get calendar for sourceClientIdentifier (%{public}@).", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)calendarWithSourceClientIdentifier:inEventStore:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_242909000, v0, v1, "Failed to construct calendarURI for sourceClientIdentifier (%{public}@)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109378;
+  v3[1] = a2;
+  v4 = 2114;
+  v5 = a1;
+  _os_log_error_impl(&dword_242909000, log, OS_LOG_TYPE_ERROR, "Failed to get objectID for notification of type %d with sourceClientIdentifier %{public}@", v3, 0x12u);
 }
 
 + (void)hideCalendarFromNotificationCenter:(void *)a1 inEventStore:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 objectID];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0(&dword_242909000, v2, v3, "Failed to hide calendar (%{public}@) from notification center: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_242909000, v2, v3, "Failed to hide calendar (%{public}@) from notification center: %@", v4, v5, v6, v7);
 }
 
 + (void)clearSharedCalendarInvitationResponseWithSourceClientIdentifier:(void *)a1 inEventStore:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(a1, "entityType")}];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0(&dword_242909000, v2, v3, "Unexpected entity type %{public}@ when trying to get EKInviteReplyNotification with sourceClientIdentifier %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_242909000, v2, v3, "Unexpected entity type %{public}@ when trying to get EKInviteReplyNotification with sourceClientIdentifier %{public}@", v4, v5, v6, v7);
 }
 
 + (void)clearSharedCalendarInvitationResponseWithSourceClientIdentifier:inEventStore:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_242909000, v1, OS_LOG_TYPE_ERROR, "Failed to remove invite reply notification with sourceClientIdentifier %{public}@: %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)clearSharedCalendarInvitationResponseWithSourceClientIdentifier:inEventStore:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_242909000, v0, v1, "Failed to get invite reply notification with sourceClientIdentifier %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_242909000, v1, OS_LOG_TYPE_ERROR, "Failed to remove invite reply notification with sourceClientIdentifier %{public}@: %@", v2, 0x16u);
 }
 
 @end

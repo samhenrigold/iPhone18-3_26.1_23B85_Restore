@@ -85,43 +85,43 @@
     }
 
     CFDictionarySetValue(Mutable, keyCopy, *v12);
-    v13 = getLogger();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = getLogger(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       alertKey = self->_alertKey;
       bOOLValue2 = [valueCopy BOOLValue];
-      v16 = @"disabled";
+      v17 = @"disabled";
       if (bOOLValue2)
       {
-        v16 = @"enabled";
+        v17 = @"enabled";
       }
 
-      v17 = v16;
+      v18 = v17;
       *buf = 138543874;
-      v23 = alertKey;
-      v24 = 2114;
-      v25 = keyCopy;
+      v25 = alertKey;
       v26 = 2114;
-      v27 = v17;
-      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Storing custom user pref for %{public}@ - [%{public}@: %{public}@]", buf, 0x20u);
+      v27 = keyCopy;
+      v28 = 2114;
+      v29 = v18;
+      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "Storing custom user pref for %{public}@ - [%{public}@: %{public}@]", buf, 0x20u);
     }
 
-    v18 = _CTServerConnectionSetCellBroadcastCustomPrefForAlertType();
-    v19 = getLogger();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 134218240;
-      v23 = v18 >> 32;
-      v24 = 1024;
-      LODWORD(v25) = 0;
-      _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "Error code: %ld, Did succeed: %d", buf, 0x12u);
-    }
-
-    v20 = getLogger();
+    v19 = _CTServerConnectionSetCellBroadcastCustomPrefForAlertType();
+    v20 = getLogger(v19);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
+      *buf = 134218240;
+      v25 = v19 >> 32;
+      v26 = 1024;
+      LODWORD(v27) = 0;
+      _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "Error code: %ld, Did succeed: %d", buf, 0x12u);
+    }
+
+    v22 = getLogger(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    {
       *buf = 0;
-      _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "Custom preference stored successfully", buf, 2u);
+      _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "Custom preference stored successfully", buf, 2u);
     }
 
     CFRelease(v9);
@@ -130,11 +130,11 @@
 
   else
   {
-    v21 = getLogger();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v23 = getLogger(0);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, "Error in creating connection to Telephony", buf, 2u);
+      _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "Error in creating connection to Telephony", buf, 2u);
     }
   }
 }
@@ -148,33 +148,34 @@
   {
     v9 = v8;
     bOOLValue = [valueCopy BOOLValue];
-    v11 = getLogger();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v11 = bOOLValue;
+    v12 = getLogger(bOOLValue);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       alertKey = self->_alertKey;
-      v13 = @"disabled";
-      if (bOOLValue)
+      v14 = @"disabled";
+      if (v11)
       {
-        v13 = @"enabled";
+        v14 = @"enabled";
       }
 
-      v14 = v13;
+      v15 = v14;
       *buf = 138412546;
-      v19 = alertKey;
-      v20 = 2112;
-      v21 = v14;
-      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Storing alert state for %@: %@", buf, 0x16u);
+      v20 = alertKey;
+      v21 = 2112;
+      v22 = v15;
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Storing alert state for %@: %@", buf, 0x16u);
     }
 
-    v15 = _CTServerConnectionSetCellBroadcastSettingForAlertType();
-    v16 = getLogger();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v16 = _CTServerConnectionSetCellBroadcastSettingForAlertType();
+    v17 = getLogger(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
-      v19 = v15 >> 32;
-      v20 = 1024;
-      LODWORD(v21) = 0;
-      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "Error code: %ld, Did succeed: %d", buf, 0x12u);
+      v20 = v16 >> 32;
+      v21 = 1024;
+      LODWORD(v22) = 0;
+      _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "Error code: %ld, Did succeed: %d", buf, 0x12u);
     }
 
     CFRelease(v9);
@@ -182,11 +183,11 @@
 
   else
   {
-    v17 = getLogger();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = getLogger(0);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "Error in creating server connection", buf, 2u);
+      _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "Error in creating server connection", buf, 2u);
     }
   }
 }
@@ -202,7 +203,7 @@
     if (HIDWORD(CellBroadcastSettingForAlertType))
     {
       v8 = CellBroadcastSettingForAlertType;
-      v9 = getLogger();
+      v9 = getLogger(CellBroadcastSettingForAlertType);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218240;
@@ -213,7 +214,7 @@
       }
     }
 
-    v10 = getLogger();
+    v10 = getLogger(CellBroadcastSettingForAlertType);
     v11 = v10;
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
@@ -235,7 +236,7 @@
 
     else
     {
-      v14 = getLogger();
+      v14 = getLogger(0);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -260,19 +261,20 @@
     v8 = v7;
     Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
     CFDictionarySetValue(Mutable, @"AlertType", self->_alertKey);
-    v10 = getLogger();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = getLogger(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       alertKey = self->_alertKey;
       *buf = 138412290;
-      v16 = alertKey;
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Reading custom pref for %@", buf, 0xCu);
+      v18 = alertKey;
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Reading custom pref for %@", buf, 0xCu);
     }
 
-    if (_CTServerConnectionGetCellBroadcastCustomPrefForAlertType() >> 32)
+    CellBroadcastCustomPrefForAlertType = _CTServerConnectionGetCellBroadcastCustomPrefForAlertType();
+    if (HIDWORD(CellBroadcastCustomPrefForAlertType))
     {
-      v13 = getLogger();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v15 = getLogger(CellBroadcastCustomPrefForAlertType);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         sub_253C();
       }
@@ -280,10 +282,10 @@
 
     else
     {
-      v13 = getLogger();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v15 = getLogger(CellBroadcastCustomPrefForAlertType);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        sub_264C(&self->_alertKey);
+        sub_264C();
       }
     }
 
@@ -293,11 +295,11 @@
 
   else
   {
-    v12 = getLogger();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = getLogger(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Error creating Server connection", buf, 2u);
+      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "Error creating Server connection", buf, 2u);
     }
   }
 
@@ -307,7 +309,7 @@
 - (id)getEnhancedDeliveryState
 {
   v3 = [(EACellBroadcastSwitchExtension *)self readCustomPrefForKey:@"EnhancedDeliveryPref" withDefault:0];
-  v4 = getLogger();
+  v4 = getLogger(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     sub_26C4(self, v3);
@@ -330,7 +332,7 @@
 
 - (void)addEnhancedDeliveryOption
 {
-  v3 = getLogger();
+  v3 = getLogger(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -387,7 +389,7 @@
 - (id)getAlwaysDeliverState
 {
   v3 = [(EACellBroadcastSwitchExtension *)self readCustomPrefForKey:@"AlwaysDeliverPref" withDefault:0];
-  v4 = getLogger();
+  v4 = getLogger(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     sub_2770(self, v3);
@@ -428,14 +430,14 @@
   [(EACellBroadcastSwitchExtension *)self setAlertStateforKey:alertKey withValue:stateCopy];
   bOOLValue = [stateCopy BOOLValue];
 
-  v7 = getLogger();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  v8 = getLogger(v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
   if (bOOLValue)
   {
-    if (v8)
+    if (v9)
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Adding Advanced options", buf, 2u);
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Adding Advanced options", buf, 2u);
     }
 
     [(EACellBroadcastSwitchExtension *)self addAlwaysDeliverOption];
@@ -444,10 +446,10 @@
 
   else
   {
-    if (v8)
+    if (v9)
     {
-      *v9 = 0;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Removing Advanced options", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Removing Advanced options", v10, 2u);
     }
 
     [(EACellBroadcastSwitchExtension *)self removeAlwaysDeliverOption];
@@ -469,38 +471,39 @@
   alertDict = selfCopy->_alertDict;
   selfCopy->_alertDict = v7;
 
-  v9 = getLogger();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = getLogger(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = selfCopy->_alertKey;
-    v11 = selfCopy->_alertDict;
+    v11 = selfCopy->_alertKey;
+    v12 = selfCopy->_alertDict;
     *buf = 138412546;
-    v38 = v10;
-    v39 = 2112;
     v40 = v11;
-    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Custom settings for %@ - %@", buf, 0x16u);
+    v41 = 2112;
+    v42 = v12;
+    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Custom settings for %@ - %@", buf, 0x16u);
   }
 
-  v12 = [(EACellBroadcastSwitchExtension *)selfCopy readAlertState:selfCopy->_alertKey];
+  v13 = [(EACellBroadcastSwitchExtension *)selfCopy readAlertState:selfCopy->_alertKey];
   [(NSMutableArray *)selfCopy->_specifierArray addObject:selfCopy->_rootGroupSpecifier];
   [(EACellBroadcastSwitchExtension *)selfCopy addRootAlertSwitch];
-  bOOLValue = [v12 BOOLValue];
-  v14 = getLogger();
-  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
-  if (bOOLValue)
+  bOOLValue = [v13 BOOLValue];
+  v15 = bOOLValue;
+  v16 = getLogger(bOOLValue);
+  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+  if (v15)
   {
-    if (v15)
+    if (v17)
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "Root alert is enabled - Adding other options", buf, 2u);
+      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "Root alert is enabled - Adding other options", buf, 2u);
     }
 
-    v16 = [(NSDictionary *)selfCopy->_alertDict objectForKeyedSubscript:@"CustomPreferences"];
-    v14 = v16;
-    if (!v16 || [v16 count]>= 3)
+    v18 = [(NSDictionary *)selfCopy->_alertDict objectForKeyedSubscript:@"CustomPreferences"];
+    v16 = v18;
+    if (!v18 || (v18 = [v18 count], v18 >= 3))
     {
-      v17 = getLogger();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v19 = getLogger(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         sub_281C();
       }
@@ -508,60 +511,60 @@
       goto LABEL_30;
     }
 
+    v36 = 0u;
+    v37 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    v14 = v14;
-    v18 = [v14 countByEnumeratingWithState:&v32 objects:v36 count:16];
-    if (!v18)
+    v16 = v16;
+    v20 = [v16 countByEnumeratingWithState:&v34 objects:v38 count:16];
+    if (!v20)
     {
 
       goto LABEL_30;
     }
 
-    v19 = v18;
-    v30 = v12;
-    v31 = selfCopy;
-    v20 = 0;
-    v21 = 0;
-    v22 = *v33;
+    v21 = v20;
+    v32 = v13;
+    v33 = selfCopy;
+    v22 = 0;
+    v23 = 0;
+    v24 = *v35;
     do
     {
-      for (i = 0; i != v19; i = i + 1)
+      for (i = 0; i != v21; i = i + 1)
       {
-        if (*v33 != v22)
+        if (*v35 != v24)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v16);
         }
 
-        v24 = *(*(&v32 + 1) + 8 * i);
-        v25 = [v24 objectForKeyedSubscript:@"ShowAlwaysDeliverSwitch"];
+        v26 = *(*(&v34 + 1) + 8 * i);
+        v27 = [v26 objectForKeyedSubscript:@"ShowAlwaysDeliverSwitch"];
 
-        if (v25)
+        if (v27)
         {
-          v20 = 1;
+          v22 = 1;
         }
 
         else
         {
-          v26 = [v24 objectForKeyedSubscript:@"EnableEnhancedDelivery"];
+          v28 = [v26 objectForKeyedSubscript:@"EnableEnhancedDelivery"];
 
-          v21 |= v26 != 0;
+          v23 |= v28 != 0;
         }
       }
 
-      v19 = [v14 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v21 = [v16 countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
-    while (v19);
+    while (v21);
 
-    if (v21)
+    if (v23)
     {
-      selfCopy = v31;
-      [(NSMutableArray *)v31->_specifierArray addObject:v31->_groupSpecifierForEnhancedDelivery];
-      [(EACellBroadcastSwitchExtension *)v31 addEnhancedDeliveryOption];
-      if ((v20 & 1) == 0)
+      selfCopy = v33;
+      [(NSMutableArray *)v33->_specifierArray addObject:v33->_groupSpecifierForEnhancedDelivery];
+      [(EACellBroadcastSwitchExtension *)v33 addEnhancedDeliveryOption];
+      if ((v22 & 1) == 0)
       {
         goto LABEL_29;
       }
@@ -569,11 +572,11 @@
 
     else
     {
-      selfCopy = v31;
-      if ((v20 & 1) == 0)
+      selfCopy = v33;
+      if ((v22 & 1) == 0)
       {
 LABEL_29:
-        v12 = v30;
+        v13 = v32;
         goto LABEL_30;
       }
     }
@@ -583,17 +586,17 @@ LABEL_29:
     goto LABEL_29;
   }
 
-  if (v15)
+  if (v17)
   {
     *buf = 0;
-    _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "Root alert is disabled - not adding other customizations", buf, 2u);
+    _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "Root alert is disabled - not adding other customizations", buf, 2u);
   }
 
 LABEL_30:
 
   objc_storeStrong(&selfCopy->PSListController_opaque[OBJC_IVAR___PSListController__specifiers], selfCopy->_specifierArray);
   specifierArray = selfCopy->_specifierArray;
-  v28 = specifierArray;
+  v30 = specifierArray;
 
   return specifierArray;
 }

@@ -30,7 +30,7 @@
   selfCopy = self;
   sub_1002A617C(v2);
 
-  sub_100005744(0, &qword_100972EB0);
+  sub_100005744(0, &qword_100972EB0, UIView_ptr);
   v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v4.super.isa;

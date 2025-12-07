@@ -55,14 +55,14 @@
   dispatch_sync(queue, v4);
 }
 
-uint64_t __81__FBApplicationDataStoreRepositoryServerClientContext_setInterestedInAllChanges___block_invoke(uint64_t result)
+unsigned __int8 *__81__FBApplicationDataStoreRepositoryServerClientContext_setInterestedInAllChanges___block_invoke(unsigned __int8 *result)
 {
-  v1 = *(result + 32);
-  v2 = *(result + 40);
+  v1 = *(result + 4);
+  v2 = result[40];
   if (*(v1 + 32) != v2)
   {
     *(v1 + 32) = v2;
-    return [*(result + 32) _queue_updateObservers];
+    return [*(result + 4) _queue_updateObservers];
   }
 
   return result;

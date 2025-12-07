@@ -85,7 +85,7 @@
   v8 = selectionSnapshot;
   if (selectionSnapshot)
   {
-    [selectionSnapshot firstSelectedIndexPath];
+    objc_msgSend_firstSelectedIndexPath(selectionSnapshot);
   }
 
   else
@@ -131,9 +131,9 @@
   {
     v5 = [_PXCuratedLibraryNavigateToNextZoomLevelActionPerformer alloc];
     viewModel = [(PXCuratedLibraryActionManager *)self viewModel];
-    layout = [resultCopy layout];
+    v7 = objc_msgSend_layout(resultCopy);
     spriteReference = [resultCopy spriteReference];
-    v9 = [(_PXCuratedLibraryNavigateToNextZoomLevelActionPerformer *)v5 initWithActionType:@"PXCuratedLibraryActionNavigateToNextZoomLevel" viewModel:viewModel layout:layout hitSpriteReference:spriteReference];
+    v9 = [(_PXCuratedLibraryNavigateToNextZoomLevelActionPerformer *)v5 initWithActionType:@"PXCuratedLibraryActionNavigateToNextZoomLevel" viewModel:viewModel layout:v7 hitSpriteReference:spriteReference];
   }
 
   else

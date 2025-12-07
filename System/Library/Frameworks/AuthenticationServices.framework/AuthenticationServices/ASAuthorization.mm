@@ -144,7 +144,8 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  if ([ASAuthorization authorizationCredentialIsAccountRegistration:credentialCopy])
+  v23 = [ASAuthorization authorizationCredentialIsAccountRegistration:credentialCopy];
+  if (v23)
   {
     user = credentialCopy;
     v4 = [ASAuthorization authorizationProviderForAccountRegistration:user];
@@ -152,10 +153,10 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  v23 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+  v25 = WBS_LOG_CHANNEL_PREFIXAuthorization(v23, v24);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
   {
-    [ASAuthorization authorizationFromCredential:v23];
+    [(ASAuthorization *)v25 authorizationFromCredential:credentialCopy];
   }
 
   v21 = 0;
@@ -209,15 +210,13 @@ LABEL_16:
   return v4;
 }
 
-+ (void)authorizationFromCredential:(void *)a1 .cold.1(void *a1)
++ (void)authorizationFromCredential:(void *)a1 .cold.1(void *a1, uint64_t a2)
 {
   v5 = *MEMORY[0x1E69E9840];
-  v1 = a1;
+  v2 = a1;
   v3 = 138477827;
   v4 = objc_opt_class();
-  _os_log_error_impl(&dword_1B1C8D000, v1, OS_LOG_TYPE_ERROR, "Found credential of unexpected type: %{private}@", &v3, 0xCu);
-
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B1C8D000, v2, OS_LOG_TYPE_ERROR, "Found credential of unexpected type: %{private}@", &v3, 0xCu);
 }
 
 @end

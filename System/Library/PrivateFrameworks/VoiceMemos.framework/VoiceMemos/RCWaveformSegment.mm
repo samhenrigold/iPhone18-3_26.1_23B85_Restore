@@ -280,34 +280,34 @@ LABEL_12:
 
 + (id)segmentsByShiftingSegments:(id)segments byTimeOffset:(double)offset
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   segmentsCopy = segments;
   if ([segmentsCopy count])
   {
     v6 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(segmentsCopy, "count")}];
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v7 = segmentsCopy;
-    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v8)
     {
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = [*(*(&v14 + 1) + 8 * i) copyWithTimeRangeOffsetByTimeOffset:{offset, v14}];
+          v11 = [*(*(&v13 + 1) + 8 * i) copyWithTimeRangeOffsetByTimeOffset:{offset, v13}];
           [v6 addObject:v11];
         }
 
-        v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -319,14 +319,12 @@ LABEL_12:
     v6 = [segmentsCopy mutableCopy];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 + (id)segmentsByMergingSegments:(id)segments preferredSegmentDuration:(double)duration beforeTime:(double)time andThenUsePreferredSegmentDuration:(double)segmentDuration
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   segmentsCopy = segments;
   if ([segmentsCopy count] <= 1)
   {
@@ -334,37 +332,37 @@ LABEL_12:
     goto LABEL_42;
   }
 
-  v45 = segmentsCopy;
-  v46 = [segmentsCopy mutableCopy];
-  if (v46)
+  v44 = segmentsCopy;
+  v45 = [segmentsCopy mutableCopy];
+  if (v45)
   {
     v12 = MEMORY[0x277CBEB18];
     array = [MEMORY[0x277CBEB18] array];
     v14 = [v12 arrayWithObject:array];
 
     array2 = [MEMORY[0x277CBEB18] array];
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
     v52 = 0u;
-    v15 = v46;
-    v16 = [v15 countByEnumeratingWithState:&v51 objects:v56 count:16];
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v15 = v45;
+    v16 = [v15 countByEnumeratingWithState:&v50 objects:v55 count:16];
     if (v16)
     {
-      v17 = *v52;
+      v17 = *v51;
       v18 = 0.0;
       segmentDurationCopy = duration;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v52 != v17)
+          if (*v51 != v17)
           {
             objc_enumerationMutation(v15);
           }
 
-          v21 = *(*(&v51 + 1) + 8 * i);
-          [v21 timeRange];
+          v21 = *(*(&v50 + 1) + 8 * i);
+          objc_msgSend_timeRange(v21);
           v23 = v22;
           v25 = v24;
           if (v22 >= time && segmentDurationCopy == duration)
@@ -389,31 +387,31 @@ LABEL_12:
           }
         }
 
-        v16 = [v15 countByEnumeratingWithState:&v51 objects:v56 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v50 objects:v55 count:16];
       }
 
       while (v16);
     }
 
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     v30 = v14;
-    v31 = [v30 countByEnumeratingWithState:&v47 objects:v55 count:16];
+    v31 = [v30 countByEnumeratingWithState:&v46 objects:v54 count:16];
     if (v31)
     {
-      v32 = *v48;
+      v32 = *v47;
       do
       {
         for (j = 0; j != v31; ++j)
         {
-          if (*v48 != v32)
+          if (*v47 != v32)
           {
             objc_enumerationMutation(v30);
           }
 
-          v34 = *(*(&v47 + 1) + 8 * j);
+          v34 = *(*(&v46 + 1) + 8 * j);
           if ([v34 count] == 1)
           {
             firstObject = [v34 objectAtIndexedSubscript:0];
@@ -429,9 +427,9 @@ LABEL_12:
 
             firstObject = [v34 firstObject];
             lastObject2 = [v34 lastObject];
-            [firstObject timeRange];
+            objc_msgSend_timeRange(firstObject);
             v38 = v37;
-            [lastObject2 timeRange];
+            objc_msgSend_timeRange(lastObject2);
             v40 = v39 - v38;
             if (v38 >= time)
             {
@@ -456,7 +454,7 @@ LABEL_12:
           }
         }
 
-        v31 = [v30 countByEnumeratingWithState:&v47 objects:v55 count:16];
+        v31 = [v30 countByEnumeratingWithState:&v46 objects:v54 count:16];
       }
 
       while (v31);
@@ -468,10 +466,8 @@ LABEL_12:
     array2 = segmentsCopy;
   }
 
-  segmentsCopy = v45;
+  segmentsCopy = v44;
 LABEL_42:
-
-  v43 = *MEMORY[0x277D85DE8];
 
   return array2;
 }
@@ -492,7 +488,7 @@ LABEL_42:
 
 - (id)segmentsByJoiningIfSmallSegment:(id)segment averagePowerLevelJoinLimit:(unint64_t)limit
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   segmentCopy = segment;
   if (!segmentCopy)
   {
@@ -500,26 +496,26 @@ LABEL_42:
     v11 = &selfCopy;
     v12 = 1;
 LABEL_5:
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:{v12, selfCopy2, v20, selfCopy, v22}];
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:{v12, selfCopy2, v19, selfCopy, v21}];
     goto LABEL_8;
   }
 
-  [(RCWaveformSegment *)self timeRange];
+  objc_msgSend_timeRange(self);
   v8 = v7;
-  [segmentCopy timeRange];
+  objc_msgSend_timeRange(segmentCopy);
   if (v8 == v9)
   {
     v10 = [(RCWaveformSegment *)self _segmentsByJoiningIfNecessaryGreaterSegment:segmentCopy averagePowerLevelJoinLimit:limit];
     goto LABEL_8;
   }
 
-  [segmentCopy timeRange];
+  objc_msgSend_timeRange(segmentCopy);
   v14 = v13;
-  [(RCWaveformSegment *)self timeRange];
+  objc_msgSend_timeRange(self);
   if (v14 != v15)
   {
     selfCopy2 = self;
-    v20 = segmentCopy;
+    v19 = segmentCopy;
     v11 = &selfCopy2;
     v12 = 2;
     goto LABEL_5;
@@ -529,8 +525,6 @@ LABEL_5:
 LABEL_8:
   v16 = v10;
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
@@ -538,31 +532,31 @@ LABEL_8:
 {
   var1 = range.var1;
   var0 = range.var0;
-  [(RCWaveformSegment *)self timeRange];
-  if (RCTimeRangeEqualToTimeRange(var0, var1, v6, v7) || ([(RCWaveformSegment *)self timeRange], RCTimeRangeContainsRange(var0, var1, v8, v9)) || ([(RCWaveformSegment *)self timeRange], RCTimeRangeContainsRange(var0, var1, v10, v11)))
+  objc_msgSend_timeRange(self, a2);
+  if (RCTimeRangeEqualToTimeRange(var0, var1, v6, v7) || (objc_msgSend_timeRange(self), RCTimeRangeContainsRange(var0, var1, v8, v9)) || (objc_msgSend_timeRange(self), RCTimeRangeContainsRange(var0, var1, v10, v11)))
   {
     selfCopy = self;
   }
 
   else
   {
-    [(RCWaveformSegment *)self timeRange];
+    objc_msgSend_timeRange(self);
     if (v14 > var1)
     {
-      [(RCWaveformSegment *)self timeRange];
+      objc_msgSend_timeRange(self);
       if (v15 <= var1)
       {
         goto LABEL_16;
       }
     }
 
-    [(RCWaveformSegment *)self timeRange];
+    objc_msgSend_timeRange(self);
     if (var0 < v16)
     {
       var0 = v16;
     }
 
-    [(RCWaveformSegment *)self timeRange];
+    objc_msgSend_timeRange(self);
     if (var1 < v17)
     {
       v17 = var1;
@@ -576,7 +570,7 @@ LABEL_16:
 
     else
     {
-      RCTimeRangeMake(var0, v17);
+      RCTimeRangeMake();
       selfCopy = [(RCWaveformSegment *)self _segmentWithValuesInContainedTimeRange:?];
     }
   }
@@ -596,12 +590,12 @@ LABEL_16:
       v7 = [segmentsCopy objectAtIndexedSubscript:i - 1];
       v8 = v6 + 1;
       v9 = [segmentsCopy objectAtIndexedSubscript:v6 + 1];
-      [v9 timeRange];
+      objc_msgSend_timeRange(v9);
       v11 = v10;
-      [v7 timeRange];
+      objc_msgSend_timeRange(v7);
       if (vabdd_f64(v11, v12) > 0.01)
       {
-        [v7 timeRange];
+        objc_msgSend_timeRange(v7);
         v13 = [v7 copyWithAdjustedTimeRange:?];
 
         v7 = v13;
@@ -630,7 +624,7 @@ LABEL_16:
   if (averagePowerLevelsCount)
   {
     v8 = averagePowerLevelsCount;
-    [(RCWaveformSegment *)self timeRange];
+    objc_msgSend_timeRange(self);
     if (!RCTimeRangeContainsRange(v9, v10, var0, var1))
     {
       currentHandler = [MEMORY[0x277CCA890] currentHandler];
@@ -639,7 +633,7 @@ LABEL_16:
 
     v11 = RCTimeRangeDeltaWithExactPrecision(self->_timeRange.beginTime, self->_timeRange.endTime);
     v12 = v11 / [(RCWaveformSegment *)self averagePowerLevelsCount];
-    [(RCWaveformSegment *)self timeRange];
+    objc_msgSend_timeRange(self);
     v14 = (var0 - v13) / v12;
     if (v8 - 1 >= v14)
     {
@@ -651,7 +645,7 @@ LABEL_16:
       v15 = v8 - 1;
     }
 
-    [(RCWaveformSegment *)self timeRange];
+    objc_msgSend_timeRange(self);
     v17 = v16 + (v12 * v15);
     v18 = RCTimeRangeDeltaWithExactPrecision(v17, var1);
     if (v8 == v15)
@@ -693,14 +687,14 @@ LABEL_16:
 
 - (id)_segmentsByJoiningIfNecessaryGreaterSegment:(id)segment averagePowerLevelJoinLimit:(unint64_t)limit
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   segmentCopy = segment;
   if (segmentCopy)
   {
     v7 = objc_opt_class();
-    v15[0] = self;
-    v15[1] = segmentCopy;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+    v14[0] = self;
+    v14[1] = segmentCopy;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
     v9 = [v7 _discontinuityRepairedSegmentsByGrowingToFillGapsInSegments:v8];
 
     v10 = [v9 objectAtIndexedSubscript:0];
@@ -710,35 +704,32 @@ LABEL_16:
 
   else
   {
-    v16[0] = self;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+    v15[0] = self;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 + (id)_segmentsByJoiningSegment:(id)segment toSegmentIfNecessaryWithGreaterSegment:(id)greaterSegment averagePowerLevelJoinLimit:(unint64_t)limit
 {
-  v60[1] = *MEMORY[0x277D85DE8];
+  v51[1] = *MEMORY[0x277D85DE8];
   segmentCopy = segment;
   greaterSegmentCopy = greaterSegment;
-  [segmentCopy timeRange];
+  objc_msgSend_timeRange(segmentCopy);
   v11 = RCTimeRangeDeltaWithExactPrecision(v9, v10);
-  [greaterSegmentCopy timeRange];
+  objc_msgSend_timeRange(greaterSegmentCopy);
   v14 = RCTimeRangeDeltaWithExactPrecision(v12, v13);
   if ([segmentCopy averagePowerLevelsCount] <= 1)
   {
-    [segmentCopy timeRange];
-    v16 = v15;
-    [greaterSegmentCopy timeRange];
-    RCTimeRangeMake(v16, v17);
-    v18 = [greaterSegmentCopy copyWithAdjustedTimeRange:?];
-    v60[0] = v18;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:1];
+    objc_msgSend_timeRange(segmentCopy);
+    objc_msgSend_timeRange(greaterSegmentCopy);
+    RCTimeRangeMake();
+    v15 = [greaterSegmentCopy copyWithAdjustedTimeRange:?];
+    v51[0] = v15;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:1];
 LABEL_5:
-    v23 = v19;
+    v17 = v16;
 LABEL_6:
 
     goto LABEL_7;
@@ -746,100 +737,97 @@ LABEL_6:
 
   if ([greaterSegmentCopy averagePowerLevelsCount] <= 1)
   {
-    [segmentCopy timeRange];
-    v21 = v20;
-    [greaterSegmentCopy timeRange];
-    RCTimeRangeMake(v21, v22);
-    v18 = [segmentCopy copyWithAdjustedTimeRange:?];
-    v59 = v18;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v59 count:1];
+    objc_msgSend_timeRange(segmentCopy);
+    objc_msgSend_timeRange(greaterSegmentCopy);
+    RCTimeRangeMake();
+    v15 = [segmentCopy copyWithAdjustedTimeRange:?];
+    v50 = v15;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:1];
     goto LABEL_5;
   }
 
   averagePowerLevelsCount = [segmentCopy averagePowerLevelsCount];
   if ([greaterSegmentCopy averagePowerLevelsCount] + averagePowerLevelsCount < limit)
   {
-    v27 = v11;
-    v28 = v14;
-    if ((v27 + v28) > 0.0)
+    v20 = v11;
+    v21 = v14;
+    if ((v20 + v21) > 0.0)
     {
-      [segmentCopy timeRange];
-      v30 = v29;
-      [greaterSegmentCopy timeRange];
-      v32 = RCTimeRangeMake(v30, v31);
-      v34 = v33;
-      [segmentCopy timeRange];
-      v37 = RCTimeRangeDeltaWithExactPrecision(v35, v36);
+      objc_msgSend_timeRange(segmentCopy);
+      objc_msgSend_timeRange(greaterSegmentCopy);
+      RCTimeRangeMake();
+      v23 = v22;
+      v25 = v24;
+      objc_msgSend_timeRange(segmentCopy);
+      v28 = RCTimeRangeDeltaWithExactPrecision(v26, v27);
       averagePowerLevelsCount2 = [segmentCopy averagePowerLevelsCount];
-      [greaterSegmentCopy timeRange];
-      v41 = RCTimeRangeDeltaWithExactPrecision(v39, v40);
+      objc_msgSend_timeRange(greaterSegmentCopy);
+      v32 = RCTimeRangeDeltaWithExactPrecision(v30, v31);
       averagePowerLevelsCount3 = [greaterSegmentCopy averagePowerLevelsCount];
-      v43 = v37;
-      v44 = v43 / averagePowerLevelsCount2;
-      v45 = v41;
-      v46 = v45 / averagePowerLevelsCount3;
-      if (v44 > 0.0)
+      v34 = v28;
+      v35 = v34 / averagePowerLevelsCount2;
+      v36 = v32;
+      v37 = v36 / averagePowerLevelsCount3;
+      if (v35 > 0.0)
       {
-        if (v46 <= 0.0)
+        if (v37 <= 0.0)
         {
-          v46 = v43 / averagePowerLevelsCount2;
+          v37 = v34 / averagePowerLevelsCount2;
         }
 
-        else if (v44 < v46)
+        else if (v35 < v37)
         {
-          v46 = v43 / averagePowerLevelsCount2;
+          v37 = v34 / averagePowerLevelsCount2;
         }
       }
 
-      v47 = (RCTimeRangeDeltaWithExactPrecision(v32, v34) / v46);
-      v18 = [MEMORY[0x277CBEB28] dataWithLength:4 * v47];
-      mutableBytes = [v18 mutableBytes];
-      if (v47)
+      v38 = (RCTimeRangeDeltaWithExactPrecision(v23, v25) / v37);
+      v15 = [MEMORY[0x277CBEB28] dataWithLength:4 * v38];
+      mutableBytes = [v15 mutableBytes];
+      if (v38)
       {
-        v49 = mutableBytes;
-        for (i = 0; i != v47; ++i)
+        v40 = mutableBytes;
+        for (i = 0; i != v38; ++i)
         {
-          [segmentCopy timeRange];
-          v51 = v46 * i;
-          if (v52 <= v51)
+          objc_msgSend_timeRange(segmentCopy);
+          v42 = v37 * i;
+          if (v43 <= v42)
           {
             averagePowerLevels = [greaterSegmentCopy averagePowerLevels];
-            v54 = (v51 - v43);
-            v55 = v45;
+            v45 = (v42 - v34);
+            v46 = v36;
           }
 
           else
           {
             averagePowerLevels = [segmentCopy averagePowerLevels];
-            v54 = v51;
-            v55 = v43;
+            v45 = v42;
+            v46 = v34;
           }
 
-          *(v49 + 4 * i) = *(averagePowerLevels + 4 * (v54 / v55));
+          *(v40 + 4 * i) = *(averagePowerLevels + 4 * (v45 / v46));
         }
       }
 
-      v56 = [[RCWaveformSegment alloc] initWithTimeRange:v18 averagePowerLevelData:v32, v34];
-      v58 = v56;
-      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v58 count:1];
+      v47 = [[RCWaveformSegment alloc] initWithTimeRange:v15 averagePowerLevelData:v23, v25];
+      v49 = v47;
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v49 count:1];
 
       goto LABEL_6;
     }
   }
 
-  v57[0] = segmentCopy;
-  v57[1] = greaterSegmentCopy;
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:2];
+  v48[0] = segmentCopy;
+  v48[1] = greaterSegmentCopy;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:2];
 LABEL_7:
 
-  v24 = *MEMORY[0x277D85DE8];
-
-  return v23;
+  return v17;
 }
 
 + (id)_segmentByMergingMergableSegments:(id)segments
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   segmentsCopy = segments;
   if ([segmentsCopy count])
   {
@@ -870,32 +858,32 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v7 = segmentsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
-    v9 = *v22;
+    v9 = *v21;
     v10 = 0.0;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * i);
-        [v12 timeRange];
+        v12 = *(*(&v20 + 1) + 8 * i);
+        objc_msgSend_timeRange(v12, v20);
         v15 = RCTimeRangeDeltaWithExactPrecision(v13, v14);
         v10 = v10 + v15 / [v12 averagePowerLevelsCount];
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v8);
@@ -916,8 +904,6 @@ LABEL_18:
 
 LABEL_19:
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
@@ -926,93 +912,93 @@ LABEL_19:
   segmentsCopy = segments;
   firstObject = [segmentsCopy firstObject];
   lastObject = [segmentsCopy lastObject];
-  [firstObject timeRange];
+  objc_msgSend_timeRange(firstObject);
+  objc_msgSend_timeRange(lastObject);
+  RCTimeRangeMake();
   v7 = v6;
-  [lastObject timeRange];
-  v9 = RCTimeRangeMake(v7, v8);
-  v11 = v10;
-  v12 = (RCTimeRangeDeltaWithExactPrecision(v9, v10) / duration);
-  v41 = [MEMORY[0x277CBEB28] dataWithLength:4 * v12];
-  mutableBytes = [v41 mutableBytes];
-  if (v12)
+  v9 = v8;
+  v10 = (RCTimeRangeDeltaWithExactPrecision(v6, v8) / duration);
+  v39 = [MEMORY[0x277CBEB28] dataWithLength:4 * v10];
+  mutableBytes = [v39 mutableBytes];
+  if (v10)
   {
-    v14 = mutableBytes;
-    v15 = 0;
-    for (i = 0; i != v12; ++i)
+    v12 = mutableBytes;
+    v13 = 0;
+    for (i = 0; i != v10; ++i)
     {
-      [firstObject timeRange];
-      v18 = v17 + i * duration;
-      v19 = v15;
+      objc_msgSend_timeRange(firstObject);
+      v16 = v15 + i * duration;
+      v17 = v13;
       do
       {
-        v15 = v19;
-        if (v19 >= [segmentsCopy count])
+        v13 = v17;
+        if (v17 >= [segmentsCopy count])
         {
           break;
         }
 
-        v20 = [segmentsCopy objectAtIndexedSubscript:v19];
-        [v20 timeRange];
-        v23 = RCTimeRangeContainsTime(v21, v22, v18);
-        ++v19;
+        v18 = [segmentsCopy objectAtIndexedSubscript:v17];
+        objc_msgSend_timeRange(v18);
+        v21 = RCTimeRangeContainsTime(v19, v20, v16);
+        ++v17;
       }
 
-      while (!v23);
-      if ([segmentsCopy count] == v15)
+      while (!v21);
+      if ([segmentsCopy count] == v13)
       {
         break;
       }
 
-      v24 = [segmentsCopy objectAtIndexedSubscript:v15];
-      [v24 timeRange];
-      v27 = RCTimeRangeDeltaWithExactPrecision(v25, v26);
-      averagePowerLevelsCount = [v24 averagePowerLevelsCount];
-      [v24 timeRange];
-      v30 = v29;
-      averagePowerLevelsCount2 = [v24 averagePowerLevelsCount];
-      v32 = (v18 - v30) / (v27 / averagePowerLevelsCount);
-      if (averagePowerLevelsCount2 - 1 >= v32)
+      v22 = [segmentsCopy objectAtIndexedSubscript:v13];
+      objc_msgSend_timeRange(v22);
+      v25 = RCTimeRangeDeltaWithExactPrecision(v23, v24);
+      averagePowerLevelsCount = [v22 averagePowerLevelsCount];
+      objc_msgSend_timeRange(v22);
+      v28 = v27;
+      averagePowerLevelsCount2 = [v22 averagePowerLevelsCount];
+      v30 = (v16 - v28) / (v25 / averagePowerLevelsCount);
+      if (averagePowerLevelsCount2 - 1 >= v30)
       {
-        v33 = v32;
+        v31 = v30;
       }
 
       else
       {
-        v33 = averagePowerLevelsCount2 - 1;
+        v31 = averagePowerLevelsCount2 - 1;
       }
 
-      v34 = [segmentsCopy objectAtIndexedSubscript:v15];
-      v35 = v33 + 1;
-      if (v33 + 1 >= ([v24 averagePowerLevelsCount] - 1))
+      v32 = [segmentsCopy objectAtIndexedSubscript:v13];
+      v33 = v31 + 1;
+      if (v31 + 1 >= ([v22 averagePowerLevelsCount] - 1))
       {
-        if (v15 + 1 >= [segmentsCopy count])
+        if (v13 + 1 >= [segmentsCopy count])
         {
-          v35 = v33;
+          v33 = v31;
         }
 
         else
         {
-          v36 = [segmentsCopy objectAtIndexedSubscript:?];
+          v34 = [segmentsCopy objectAtIndexedSubscript:?];
 
-          v35 = 0;
-          v34 = v36;
+          v33 = 0;
+          v32 = v34;
         }
       }
 
-      v37 = *([v24 averagePowerLevels] + 4 * v33);
-      v38 = *([v34 averagePowerLevels] + 4 * v35);
-      if (v37 >= v38)
+      v35 = *([v22 averagePowerLevels] + 4 * v31);
+      v36 = *([v32 averagePowerLevels] + 4 * v33);
+      if (v35 >= v36)
       {
-        v38 = v37;
+        v36 = v35;
       }
 
-      *(v14 + 4 * i) = v38;
+      *(v12 + 4 * i) = v36;
     }
   }
 
-  v39 = [[RCWaveformSegment alloc] initWithTimeRange:v41 averagePowerLevelData:v9, v11];
+  v37 = [[RCWaveformSegment alloc] initWithTimeRange:v39 averagePowerLevelData:v7, v9];
 
-  return v39;
+  return v37;
 }
 
 - ($F24F406B2B787EFB06265DBA3D28CBD5)timeRange

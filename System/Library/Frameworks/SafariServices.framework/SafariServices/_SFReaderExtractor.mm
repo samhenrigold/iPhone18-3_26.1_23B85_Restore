@@ -96,7 +96,7 @@
 
 - (void)_finishWithContent:(id)content error:(id)error
 {
-  v21[2] = *MEMORY[0x1E69E9840];
+  v23[2] = *MEMORY[0x1E69E9840];
   contentCopy = content;
   errorCopy = error;
   [(_SFReaderExtractor *)self _invalidateTimers];
@@ -123,9 +123,9 @@
         v13 = v12;
         if (v12)
         {
-          v20[0] = @"error";
-          v20[1] = @"stack";
-          v21[0] = v12;
+          v22[0] = @"error";
+          v22[1] = @"stack";
+          v23[0] = v12;
           v14 = [contentCopy objectForKeyedSubscript:?];
           v15 = v14;
           v16 = @"No stack trace";
@@ -134,16 +134,16 @@
             v16 = v14;
           }
 
-          v21[1] = v16;
-          v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
+          v23[1] = v16;
+          v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
 
           v18 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.safariservices.readerExtractorErrorDomain" code:2 userInfo:v17];
           v8[2](v8, 0, v18);
 
-          v19 = WBS_LOG_CHANNEL_PREFIXReaderExtraction();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+          v21 = WBS_LOG_CHANNEL_PREFIXReaderExtraction(v19, v20);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
           {
-            [(_SFReaderExtractor *)v9 _finishWithContent:v13 error:v19];
+            [(_SFReaderExtractor *)v9 _finishWithContent:v13 error:v21];
           }
         }
 
@@ -245,12 +245,12 @@
 
 - (void)webView:(id)view didFinishNavigation:(id)navigation
 {
-  [(_SFReaderExtractor *)self _invalidateTimers:view];
-  v5 = WBS_LOG_CHANNEL_PREFIXReaderExtraction();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v5 = [(_SFReaderExtractor *)self _invalidateTimers:view];
+  v7 = WBS_LOG_CHANNEL_PREFIXReaderExtraction(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_1D4644000, v5, OS_LOG_TYPE_DEFAULT, "Collecting article content after finishing navigation", v6, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_1D4644000, v7, OS_LOG_TYPE_DEFAULT, "Collecting article content after finishing navigation", v8, 2u);
   }
 
   [(_SFReaderController *)self->_readerController collectArticleContent];
@@ -260,10 +260,10 @@
 - (void)webView:(id)view didFailProvisionalNavigation:(id)navigation withError:(id)error
 {
   errorCopy = error;
-  v7 = WBS_LOG_CHANNEL_PREFIXReaderExtraction();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = WBS_LOG_CHANNEL_PREFIXReaderExtraction(errorCopy, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    [_SFReaderExtractor webView:v7 didFailProvisionalNavigation:errorCopy withError:?];
+    [_SFReaderExtractor webView:v8 didFailProvisionalNavigation:errorCopy withError:?];
   }
 
   [(_SFReaderExtractor *)self _finishWithContent:0 error:errorCopy];
@@ -271,28 +271,28 @@
 
 - (void)webView:(id)view didFailNavigation:(id)navigation withError:(id)error
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   code = [errorCopy code];
-  v8 = WBS_LOG_CHANNEL_PREFIXReaderExtraction();
-  v9 = v8;
+  v9 = WBS_LOG_CHANNEL_PREFIXReaderExtraction(code, v8);
+  v10 = v9;
   if (code == -999)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = v9;
+      v11 = v10;
       safari_privacyPreservingDescription = [errorCopy safari_privacyPreservingDescription];
-      v12 = 138543362;
-      v13 = safari_privacyPreservingDescription;
-      _os_log_impl(&dword_1D4644000, v10, OS_LOG_TYPE_DEFAULT, "Failed navigation but ignoring error: %{public}@", &v12, 0xCu);
+      v13 = 138543362;
+      v14 = safari_privacyPreservingDescription;
+      _os_log_impl(&dword_1D4644000, v11, OS_LOG_TYPE_DEFAULT, "Failed navigation but ignoring error: %{public}@", &v13, 0xCu);
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [_SFReaderExtractor webView:v9 didFailNavigation:errorCopy withError:?];
+      [_SFReaderExtractor webView:v10 didFailNavigation:errorCopy withError:?];
     }
 
     [(_SFReaderExtractor *)self _finishWithContent:0 error:errorCopy];
@@ -313,7 +313,7 @@
 
 - (void)webViewWebContentProcessDidTerminate:(id)terminate
 {
-  v4 = WBS_LOG_CHANNEL_PREFIXReaderExtraction();
+  v4 = WBS_LOG_CHANNEL_PREFIXReaderExtraction(self, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     [_SFReaderExtractor webViewWebContentProcessDidTerminate:v4];
@@ -325,14 +325,14 @@
 
 - (void)readerController:(id)controller didCollectArticleContent:(id)content
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   contentCopy = content;
-  v6 = WBS_LOG_CHANNEL_PREFIXReaderExtraction();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = WBS_LOG_CHANNEL_PREFIXReaderExtraction(contentCopy, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138739971;
-    v8 = contentCopy;
-    _os_log_impl(&dword_1D4644000, v6, OS_LOG_TYPE_DEFAULT, "Did collect article content: %{sensitive}@", &v7, 0xCu);
+    v8 = 138739971;
+    v9 = contentCopy;
+    _os_log_impl(&dword_1D4644000, v7, OS_LOG_TYPE_DEFAULT, "Did collect article content: %{sensitive}@", &v8, 0xCu);
   }
 
   [(_SFReaderExtractor *)self _finishWithContent:contentCopy error:0];
@@ -352,14 +352,18 @@
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v5, v6, "Failed provisional navigation: %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v5, v6, "Failed provisional navigation: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 - (void)webView:(void *)a1 didFailNavigation:(void *)a2 withError:.cold.1(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v5, v6, "Failed navigation: %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v5, v6, "Failed navigation: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

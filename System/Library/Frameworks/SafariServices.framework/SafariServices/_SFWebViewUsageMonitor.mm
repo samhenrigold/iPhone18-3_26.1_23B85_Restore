@@ -61,25 +61,26 @@
 
 - (void)auditUsageIfNeeded
 {
-  v17 = *MEMORY[0x1E69E9840];
-  if ([(_SFWebViewUsageMonitor *)self shouldAudit])
+  v19 = *MEMORY[0x1E69E9840];
+  shouldAudit = [(_SFWebViewUsageMonitor *)self shouldAudit];
+  if (shouldAudit)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXUserTrackingDetection();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v5 = WBS_LOG_CHANNEL_PREFIXUserTrackingDetection(shouldAudit, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       hostAppIdentifier = self->_hostAppIdentifier;
-      v5 = v3;
-      v7 = 138544386;
-      v8 = hostAppIdentifier;
-      v9 = 1024;
-      urlHasIDFA = [(_SFWebViewUsageMonitor *)self urlHasIDFA];
+      v7 = v5;
+      v9 = 138544386;
+      v10 = hostAppIdentifier;
       v11 = 1024;
-      urlHasQueryString = [(_SFWebViewUsageMonitor *)self urlHasQueryString];
+      urlHasIDFA = [(_SFWebViewUsageMonitor *)self urlHasIDFA];
       v13 = 1024;
-      userInteracted = [(_SFWebViewUsageMonitor *)self userInteracted];
+      urlHasQueryString = [(_SFWebViewUsageMonitor *)self urlHasQueryString];
       v15 = 1024;
+      userInteracted = [(_SFWebViewUsageMonitor *)self userInteracted];
+      v17 = 1024;
       viewControllerViewIsHidden = [(_SFWebViewUsageMonitor *)self viewControllerViewIsHidden];
-      _os_log_impl(&dword_1D4644000, v5, OS_LOG_TYPE_DEFAULT, "Found possible user tracking in app (%{public}@). Details: [hasIDFA: %d, hasQueryString: %d, userInteracted: %d, viewIsHidden: %d]", &v7, 0x24u);
+      _os_log_impl(&dword_1D4644000, v7, OS_LOG_TYPE_DEFAULT, "Found possible user tracking in app (%{public}@). Details: [hasIDFA: %d, hasQueryString: %d, userInteracted: %d, viewIsHidden: %d]", &v9, 0x24u);
     }
 
     mEMORY[0x1E69C8810] = [MEMORY[0x1E69C8810] sharedLogger];

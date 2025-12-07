@@ -28,7 +28,7 @@
   {
     path = [(TUIMicaPlayer *)player path];
     path2 = [lCopy path];
-    v26 = [path isEqualToString:path2];
+    v26 = objc_msgSend_isEqualToString_(path);
 
     v27 = gravityCopy;
     if (v26)
@@ -106,7 +106,7 @@ LABEL_15:
     [v37 setString:valueCopy];
     v46 = objc_opt_class();
     v39 = TUIDynamicCast(v46, [v37 font]);
-    if ([v39 isEqualToString:@"Serif UI Display Bold"])
+    if (objc_msgSend_isEqualToString_(v39))
     {
       [v37 fontSize];
       [v37 setFont:{+[UIFont systemFontOfSize:weight:design:](UIFont, "systemFontOfSize:weight:design:", kCTFontUIFontDesignSerif)}];
@@ -190,7 +190,7 @@ LABEL_17:
     if (targetTriggerState == state)
     {
       triggerName = [(_TUIMicaPlayerLayer *)self triggerName];
-      v10 = [triggerName isEqualToString:triggerCopy];
+      v10 = objc_msgSend_isEqualToString_(triggerName);
 
       if (v10)
       {

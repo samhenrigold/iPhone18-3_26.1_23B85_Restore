@@ -4,14 +4,121 @@
 + (void)getDisplayState;
 + (void)getThermalPressureLevel;
 - (BOOL)saveWithOptions:(id)options;
+- (CDTerminatingStackshotReport)initWithPid:(int)pid procName:(id)name bundleID:(id)d exitSnapshot:(exit_reason_snapshot *)snapshot reason:(id)reason;
 - (id)additionalIPSMetadata;
 - (id)decode_reason:(exit_reason_snapshot *)decode_reason reason:(id)reason;
+- (id)initForPid:(int)pid exitSnapshot:(exit_reason_snapshot *)snapshot reason:(id)reason;
 - (id)reportNamePrefix;
 - (void)generateLogAtLevel:(BOOL)level withBlock:(id)block;
 - (void)launchDiagnosticsReporter;
 @end
 
 @implementation CDTerminatingStackshotReport
+
+- (CDTerminatingStackshotReport)initWithPid:(int)pid procName:(id)name bundleID:(id)d exitSnapshot:(exit_reason_snapshot *)snapshot reason:(id)reason
+{
+  v11 = *&pid;
+  nameCopy = name;
+  dCopy = d;
+  reasonCopy = reason;
+  v26.receiver = self;
+  v26.super_class = CDTerminatingStackshotReport;
+  v16 = [(CDStackshotReport *)&v26 initForPid:v11 process:nameCopy withReason:0 exceptionCode:0 exceptionCodeCount:0 stackshotFlags:0];
+  v17 = v16;
+  if (v16)
+  {
+    objc_storeStrong(v16 + 10, name);
+    objc_storeStrong(&v17->_bundleID, d);
+    v18 = [(CDTerminatingStackshotReport *)v17 decode_reason:snapshot reason:reasonCopy];
+    termination_info = v17->_termination_info;
+    v17->_termination_info = v18;
+
+    [(CDStackshotReport *)v17 setReason:reasonCopy];
+    mEMORY[0x1E69B7C10] = [MEMORY[0x1E69B7C10] sharedInstance];
+    v21 = [mEMORY[0x1E69B7C10] getTaskingKey:@"disableWatchdogStackshot"];
+    v17->_isSnapshotDisabled = [v21 BOOLValue];
+
+    info = 0;
+    if (!mach_timebase_info(&info))
+    {
+      if (info.denom)
+      {
+        LODWORD(v22) = info.numer;
+        v23 = v22 * 0.000000001 / info.denom;
+        v17->_awakeSystemUptime = (v23 * mach_absolute_time());
+      }
+    }
+  }
+
+  return v17;
+}
+
+- (id)initForPid:(int)pid exitSnapshot:(exit_reason_snapshot *)snapshot reason:(id)reason
+{
+  v6 = *&pid;
+  name = 0;
+  v8 = MEMORY[0x1E69E9A60];
+  reasonCopy = reason;
+  if (task_read_for_pid())
+  {
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    {
+      *v22 = 0;
+      _os_log_impl(&dword_1D97FA000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "failed task_read_for_pid", v22, 2u);
+    }
+
+    v10 = 0;
+    v11 = 0;
+  }
+
+  else
+  {
+    v12 = [objc_alloc(MEMORY[0x1E69D4F38]) initWithTask:name];
+    v10 = v12;
+    if (v12)
+    {
+      name = [v12 name];
+      v11 = [name copy];
+    }
+
+    else
+    {
+      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_1D97FA000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "failed to create VMUProcInfo", buf, 2u);
+      }
+
+      v11 = 0;
+    }
+
+    mach_port_deallocate(*v8, name);
+  }
+
+  v14 = [(CDTerminatingStackshotReport *)self initWithPid:v6 procName:v11 bundleID:0 exitSnapshot:snapshot reason:reasonCopy];
+
+  if (v14)
+  {
+    if (v10)
+    {
+      *(&v14->_cpuType + 1) = [v10 cpuType];
+      userAppName = [v10 userAppName];
+      v16 = [userAppName copy];
+      procPath = v14->_procPath;
+      v14->_procPath = v16;
+
+      if ([(NSString *)v14->_procPath length])
+      {
+        v18 = [MEMORY[0x1E69B7C08] findBundleAtPath:v14->_procPath withKeys:&unk_1F5514360 bundleURL:0];
+        v19 = [v18 objectForKeyedSubscript:@"CFBundleIdentifier"];
+        bundleID = v14->_bundleID;
+        v14->_bundleID = v19;
+      }
+    }
+  }
+
+  return v14;
+}
 
 - (id)reportNamePrefix
 {
@@ -31,26 +138,26 @@
 
 - (id)additionalIPSMetadata
 {
-  v16[4] = *MEMORY[0x1E69E9840];
+  v15[4] = *MEMORY[0x1E69E9840];
   appName = self->super._appName;
   if (!appName)
   {
     appName = @"Unknown";
   }
 
-  v15[0] = *MEMORY[0x1E69B7C38];
-  v15[1] = @"app_name";
-  v16[0] = appName;
-  v16[1] = appName;
-  v15[2] = @"share_with_app_devs";
+  v14[0] = *MEMORY[0x1E69B7C38];
+  v14[1] = @"app_name";
+  v15[0] = appName;
+  v15[1] = appName;
+  v14[2] = @"share_with_app_devs";
   v4 = MEMORY[0x1E696AD98];
   mEMORY[0x1E69B7C10] = [MEMORY[0x1E69B7C10] sharedInstance];
   v6 = [v4 numberWithBool:{objc_msgSend(mEMORY[0x1E69B7C10], "optIn3rdParty")}];
-  v16[2] = v6;
-  v15[3] = *MEMORY[0x1E69B7C48];
+  v15[2] = v6;
+  v14[3] = *MEMORY[0x1E69B7C48];
   incidentID = [(OSAReport *)self incidentID];
-  v16[3] = incidentID;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:4];
+  v15[3] = incidentID;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:4];
   v9 = [v8 mutableCopy];
 
   etlKey = [(OSAReport *)self etlKey];
@@ -66,8 +173,6 @@
   {
     [v9 setObject:bundleID forKeyedSubscript:*MEMORY[0x1E69B7C40]];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -122,59 +227,58 @@
 
 - (void)generateLogAtLevel:(BOOL)level withBlock:(id)block
 {
-  v109[10] = *MEMORY[0x1E69E9840];
+  v107[10] = *MEMORY[0x1E69E9840];
   blockCopy = block;
-  v108[0] = @"incident";
+  v106[0] = @"incident";
   incidentID = [(OSAReport *)self incidentID];
-  v109[0] = incidentID;
-  v108[1] = @"crashReporterKey";
+  v107[0] = incidentID;
+  v106[1] = @"crashReporterKey";
   mEMORY[0x1E69B7C10] = [MEMORY[0x1E69B7C10] sharedInstance];
   crashReporterKey = [mEMORY[0x1E69B7C10] crashReporterKey];
-  v109[1] = crashReporterKey;
-  v108[2] = @"modelCode";
+  v107[1] = crashReporterKey;
+  v106[2] = @"modelCode";
   mEMORY[0x1E69B7C10]2 = [MEMORY[0x1E69B7C10] sharedInstance];
   modelCode = [mEMORY[0x1E69B7C10]2 modelCode];
-  v109[2] = modelCode;
-  v108[3] = @"pid";
-  v65 = [MEMORY[0x1E696AD98] numberWithInt:self->super._pid];
-  v109[3] = v65;
-  v108[4] = @"cpuType";
+  v107[2] = modelCode;
+  v106[3] = @"pid";
+  v63 = [MEMORY[0x1E696AD98] numberWithInt:self->super._pid];
+  v107[3] = v63;
+  v106[4] = @"cpuType";
   decode_cpuType = [(CDTerminatingStackshotReport *)self decode_cpuType];
-  v109[4] = decode_cpuType;
-  v108[5] = @"osVersion";
-  v106[0] = @"train";
+  v107[4] = decode_cpuType;
+  v106[5] = @"osVersion";
+  v104[0] = @"train";
   mEMORY[0x1E69B7C10]3 = [MEMORY[0x1E69B7C10] sharedInstance];
   osTrain = [mEMORY[0x1E69B7C10]3 osTrain];
-  v107[0] = osTrain;
-  v106[1] = @"build";
+  v105[0] = osTrain;
+  v104[1] = @"build";
   mEMORY[0x1E69B7C10]4 = [MEMORY[0x1E69B7C10] sharedInstance];
   buildVersion = [mEMORY[0x1E69B7C10]4 buildVersion];
-  v107[1] = buildVersion;
-  v106[2] = @"releaseType";
+  v105[1] = buildVersion;
+  v104[2] = @"releaseType";
   mEMORY[0x1E69B7C10]5 = [MEMORY[0x1E69B7C10] sharedInstance];
   releaseType = [mEMORY[0x1E69B7C10]5 releaseType];
-  v107[2] = releaseType;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v107 forKeys:v106 count:3];
-  v109[5] = v10;
-  v108[6] = @"captureTime";
-  v11 = *(&self->super.super.super.isa + *MEMORY[0x1E69B7C18]);
-  v12 = OSADateFormat();
-  v109[6] = v12;
-  v109[7] = &unk_1F55144C8;
-  v108[7] = @"deployVersion";
-  v108[8] = @"variant";
-  v108[9] = @"variantVersion";
-  v109[8] = @"stackshot";
-  v109[9] = &unk_1F55144E0;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v109 forKeys:v108 count:10];
-  v14 = (blockCopy + 16);
-  (*(blockCopy + 2))(blockCopy, v13);
+  v105[2] = releaseType;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v105 forKeys:v104 count:3];
+  v107[5] = v10;
+  v106[6] = @"captureTime";
+  v11 = OSADateFormat();
+  v107[6] = v11;
+  v107[7] = &unk_1F55144C8;
+  v106[7] = @"deployVersion";
+  v106[8] = @"variant";
+  v106[9] = @"variantVersion";
+  v107[8] = @"stackshot";
+  v107[9] = &unk_1F55144E0;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v107 forKeys:v106 count:10];
+  v13 = (blockCopy + 16);
+  (*(blockCopy + 2))(blockCopy, v12);
 
-  v15 = blockCopy;
-  v16 = MEMORY[0x1E69B7C00];
+  v14 = blockCopy;
+  v15 = MEMORY[0x1E69B7C00];
   problemType = [(CDTerminatingStackshotReport *)self problemType];
-  v18 = [v16 commonFieldsForBody:problemType];
-  (*v14)(v15, v18);
+  v17 = [v15 commonFieldsForBody:problemType];
+  (*v13)(v14, v17);
 
   mEMORY[0x1E69B7C10]6 = [MEMORY[0x1E69B7C10] sharedInstance];
   LODWORD(problemType) = [mEMORY[0x1E69B7C10]6 appleInternal];
@@ -184,76 +288,76 @@
     mEMORY[0x1E69B7C10]7 = [MEMORY[0x1E69B7C10] sharedInstance];
     hwModel = [mEMORY[0x1E69B7C10]7 hwModel];
 
-    v104 = @"codeName";
-    v105 = hwModel;
-    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v105 forKeys:&v104 count:1];
-    (*(v15 + 2))(v15, v22);
+    v102 = @"codeName";
+    v103 = hwModel;
+    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v103 forKeys:&v102 count:1];
+    (*(v14 + 2))(v14, v21);
   }
 
   if ([(NSString *)self->super._appName length])
   {
     appName = self->super._appName;
-    v102 = @"procName";
-    v103 = appName;
-    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v103 forKeys:&v102 count:1];
-    (*(v15 + 2))(v15, v24);
+    v100 = @"procName";
+    v101 = appName;
+    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v101 forKeys:&v100 count:1];
+    (*(v14 + 2))(v14, v23);
   }
 
   if ([(NSString *)self->_procPath length])
   {
     procPath = self->_procPath;
-    v100 = @"procPath";
-    v101 = procPath;
-    v26 = MEMORY[0x1E695DF20];
-    v27 = procPath;
-    v28 = [v26 dictionaryWithObjects:&v101 forKeys:&v100 count:1];
+    v98 = @"procPath";
+    v99 = procPath;
+    v25 = MEMORY[0x1E695DF20];
+    v26 = procPath;
+    v27 = [v25 dictionaryWithObjects:&v99 forKeys:&v98 count:1];
 
-    (*(v15 + 2))(v15, v28);
+    (*(v14 + 2))(v14, v27);
   }
 
   if (self->_bundleID)
   {
     bundleID = self->_bundleID;
-    v98 = @"bundleInfo";
-    v96 = @"CFBundleIdentifier";
-    v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&bundleID forKeys:&v96 count:1];
-    v99 = v29;
-    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v99 forKeys:&v98 count:1];
-    (*(v15 + 2))(v15, v30);
+    v96 = @"bundleInfo";
+    v94 = @"CFBundleIdentifier";
+    v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&bundleID forKeys:&v94 count:1];
+    v97 = v28;
+    v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v97 forKeys:&v96 count:1];
+    (*(v14 + 2))(v14, v29);
   }
 
   if ([(NSDictionary *)self->_termination_info count])
   {
     termination_info = self->_termination_info;
-    v94 = @"termination";
-    v95 = termination_info;
-    v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v95 forKeys:&v94 count:1];
-    (*(v15 + 2))(v15, v32);
+    v92 = @"termination";
+    v93 = termination_info;
+    v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v93 forKeys:&v92 count:1];
+    (*(v14 + 2))(v14, v31);
   }
 
   bootSessionUUID = [objc_opt_class() bootSessionUUID];
   if (bootSessionUUID)
   {
-    v92 = @"bootSessionUUID";
-    v93 = bootSessionUUID;
-    v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v93 forKeys:&v92 count:1];
-    (*(v15 + 2))(v15, v33);
+    v90 = @"bootSessionUUID";
+    v91 = bootSessionUUID;
+    v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v91 forKeys:&v90 count:1];
+    (*(v14 + 2))(v14, v32);
   }
 
-  v90 = @"uptime";
-  v34 = [objc_opt_class() reduceToTwoSigFigures:self->_awakeSystemUptime];
-  v91 = v34;
-  v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v91 forKeys:&v90 count:1];
-  (*(v15 + 2))(v15, v35);
+  v88 = @"uptime";
+  v33 = [objc_opt_class() reduceToTwoSigFigures:self->_awakeSystemUptime];
+  v89 = v33;
+  v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v89 forKeys:&v88 count:1];
+  (*(v14 + 2))(v14, v34);
 
-  v36 = +[CDTerminatingStackshotReport getThermalPressureLevel];
-  v37 = v36;
-  if (v36)
+  v35 = +[CDTerminatingStackshotReport getThermalPressureLevel];
+  v36 = v35;
+  if (v35)
   {
-    v88 = @"thermalPressureLevel";
-    v89 = v36;
-    v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v89 forKeys:&v88 count:1];
-    (*(v15 + 2))(v15, v38);
+    v86 = @"thermalPressureLevel";
+    v87 = v35;
+    v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v87 forKeys:&v86 count:1];
+    (*(v14 + 2))(v14, v37);
   }
 
   processInfo = [MEMORY[0x1E696AE30] processInfo];
@@ -261,94 +365,92 @@
 
   if (isLowPowerModeEnabled)
   {
-    (*(v15 + 2))(v15, &unk_1F5514638);
+    (*(v14 + 2))(v14, &unk_1F5514638);
   }
 
-  v41 = +[CDTerminatingStackshotReport getDisplayState];
-  v42 = v41;
-  if (v41)
+  v40 = +[CDTerminatingStackshotReport getDisplayState];
+  v41 = v40;
+  if (v40)
   {
-    v86 = @"displayState";
-    v87 = v41;
-    v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v87 forKeys:&v86 count:1];
-    (*(v15 + 2))(v15, v43);
+    v84 = @"displayState";
+    v85 = v40;
+    v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v85 forKeys:&v84 count:1];
+    (*(v14 + 2))(v14, v42);
   }
 
-  v44 = +[_TtC15CoreDiagnostics22AppleIntelligenceState getAppleIntelligenceAvailability];
-  if ([v44 count])
+  v43 = +[_TtC15CoreDiagnostics22AppleIntelligenceState getAppleIntelligenceAvailability];
+  if ([v43 count])
   {
-    v84 = @"appleIntelligenceStatus";
-    v85 = v44;
-    v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v85 forKeys:&v84 count:1];
-    (*(v15 + 2))(v15, v45);
+    v82 = @"appleIntelligenceStatus";
+    v83 = v43;
+    v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
+    (*(v14 + 2))(v14, v44);
   }
 
   isSnapshotDisabled = [(CDTerminatingStackshotReport *)self isSnapshotDisabled];
-  v47 = MEMORY[0x1E69B7C30];
+  v46 = MEMORY[0x1E69B7C30];
   if (!isSnapshotDisabled)
   {
     if (self->super._ss_trace_buffer)
     {
-      v82 = &unk_1F55144F8;
-      v83 = @"stackshot";
-      v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
-      (*(v15 + 2))(v15, v48);
+      v80 = &unk_1F55144F8;
+      v81 = @"stackshot";
+      v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
+      (*(v14 + 2))(v14, v47);
 
-      v49 = objc_alloc_init(MEMORY[0x1E69B7BF0]);
-      [(CDStackshotReport *)self decodeKCDataWithBlock:v15 withTuning:&unk_1F5514660 usingCatalog:v49];
-      v80 = @"binaryImages";
-      reportUsedImages = [v49 reportUsedImages];
-      v81 = reportUsedImages;
-      v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
-      (*(v15 + 2))(v15, v51);
+      v48 = objc_alloc_init(MEMORY[0x1E69B7BF0]);
+      [(CDStackshotReport *)self decodeKCDataWithBlock:v14 withTuning:&unk_1F5514660 usingCatalog:v48];
+      v78 = @"binaryImages";
+      reportUsedImages = [v48 reportUsedImages];
+      v79 = reportUsedImages;
+      v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
+      (*(v14 + 2))(v14, v50);
 
-      [v49 appendNotesTo:*(&self->super.super.super.isa + *v47)];
-      v78 = &unk_1F5514528;
-      v79 = &stru_1F550D880;
-      v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
-      (*(v15 + 2))(v15, v52);
+      [v48 appendNotesTo:*(&self->super.super.super.isa + *v46)];
+      v76 = &unk_1F5514528;
+      v77 = &stru_1F550D880;
+      v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
+      (*(v14 + 2))(v14, v51);
     }
 
     spindump = [(CDTerminatingStackshotReport *)self spindump];
 
     if (spindump)
     {
-      v76 = @"spindump";
+      v74 = @"spindump";
       spindump2 = [(CDTerminatingStackshotReport *)self spindump];
-      v77 = spindump2;
-      v55 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
-      (*(v15 + 2))(v15, v55);
+      v75 = spindump2;
+      v54 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
+      (*(v14 + 2))(v14, v54);
     }
   }
 
   additionalPayload = self->super._additionalPayload;
   if (additionalPayload)
   {
-    v74 = @"additionalPayload";
-    v75 = additionalPayload;
-    v57 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
-    (*(v15 + 2))(v15, v57);
+    v72 = @"additionalPayload";
+    v73 = additionalPayload;
+    v56 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
+    (*(v14 + 2))(v14, v56);
   }
 
-  v58 = *v47;
-  [*(&self->super.super.super.isa + v58) addObject:{@"This is a watchdog-triggered termination event, and not expected to be well-represented in the legacy crash format"}];
+  v57 = *v46;
+  [*(&self->super.super.super.isa + v57) addObject:{@"This is a watchdog-triggered termination event, and not expected to be well-represented in the legacy crash format"}];
   if (self->_isSnapshotDisabled)
   {
-    [*(&self->super.super.super.isa + v58) addObject:@"stackshot inclusion disabled"];
+    [*(&self->super.super.super.isa + v57) addObject:@"stackshot inclusion disabled"];
   }
 
-  if ([*(&self->super.super.super.isa + v58) count])
+  if ([*(&self->super.super.super.isa + v57) count])
   {
-    v59 = *(&self->super.super.super.isa + v58);
-    v72[0] = @"reportNotes";
-    v72[1] = &unk_1F5514540;
-    v73[0] = v59;
-    v73[1] = &unk_1F5514510;
-    v60 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v73 forKeys:v72 count:2];
-    (*(v15 + 2))(v15, v60);
+    v58 = *(&self->super.super.super.isa + v57);
+    v70[0] = @"reportNotes";
+    v70[1] = &unk_1F5514540;
+    v71[0] = v58;
+    v71[1] = &unk_1F5514510;
+    v59 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v71 forKeys:v70 count:2];
+    (*(v14 + 2))(v14, v59);
   }
-
-  v61 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)saveWithOptions:(id)options
@@ -475,20 +577,16 @@ LABEL_25:
 
 + (void)getThermalPressureLevel
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)getDisplayState
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

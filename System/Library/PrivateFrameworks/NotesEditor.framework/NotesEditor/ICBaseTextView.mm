@@ -730,7 +730,7 @@ void __59__ICBaseTextView_StyleRendering__updateStyleLayersInRange___block_invok
   }
 }
 
-void __59__ICBaseTextView_StyleRendering__updateStyleLayersInRange___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void __59__ICBaseTextView_StyleRendering__updateStyleLayersInRange___block_invoke_2(uint64_t a1, uint64_t a2, char *a3, uint64_t a4)
 {
   v7 = *(*(a1 + 40) + 8);
   *(v7 + 32) = a2;
@@ -756,7 +756,7 @@ void __59__ICBaseTextView_StyleRendering__updateStyleLayersInRange___block_invok
   {
     v11 = [*(a1 + 32) textStorage];
     v12 = [v11 ic_range];
-    v14 = v12 + v13;
+    v14 = (v12 + v13);
 
     if (v14 == a3)
     {
@@ -799,7 +799,7 @@ LABEL_18:
   {
     v19 = [*(a1 + 32) textStorage];
     v20 = [v19 ic_range];
-    v22 = v20 + v21;
+    v22 = (v20 + v21);
 
     if (v22 == a3)
     {

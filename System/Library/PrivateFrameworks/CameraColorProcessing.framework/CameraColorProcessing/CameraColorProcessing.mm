@@ -333,7 +333,8 @@ char *CAWBAFE::SetHistogramWeight(char *result, unsigned int a2, uint64_t a3)
     v6 = (a3 + 2);
     do
     {
-      *v3++ = *(v6 - 1);
+      *v3 = *(v6 - 1);
+      v3 += 2;
       result = memcpy(v4, v6, 0x400uLL);
       v4 += 1024;
       v6 += 513;
@@ -570,7 +571,7 @@ void CAWBAFE::GetRawRGBtoXYZCCM(CAWBAFE *this, unsigned int a2, int *a3, float a
   v32 = v61;
   v33 = CAWBAFE::InterpCCMfromBases(v16, ColorRatioXFromCCT, ColorRatioYFromCCT, var63, v61, &defaultCCMStrengthTuningTable, this->var89, 1.0);
   CAWBAFE::GetAdaptationMatrix(v33, flt_1C9332668, v62, v60, v34, v35, v36, v37, v38, v39, v40);
-  CAWBAFE::Multiply3by3Matrix(v41, v60[0].i32, flt_1C9332674, v59);
+  CAWBAFE::Multiply3by3Matrix(v41, v60[0].f32, flt_1C9332674, v59);
   v43 = 0;
   v44 = 0;
   do
@@ -949,7 +950,7 @@ float CAWBAFE::Multiply3by3Matrix(CAWBAFE *this, float *a2, float *a3, float *a4
   return result;
 }
 
-float CAWBAFE::GetAdaptationMatrix(CAWBAFE *this, float *a2, float *a3, int32x4_t *a4, double a5, double a6, double a7, double a8, double a9, double a10, int32x4_t a11)
+float32_t CAWBAFE::GetAdaptationMatrix(CAWBAFE *this, float *a2, float *a3, float32x4_t *a4, double a5, double a6, double a7, double a8, double a9, double a10, int32x4_t a11)
 {
   v13 = a2[1];
   v14 = a2[2];
@@ -1036,7 +1037,7 @@ float CAWBAFE::GetAdaptationMatrix(CAWBAFE *this, float *a2, float *a3, int32x4_
   *a4 = vmlaq_f32(v35, xmmword_1C93323E0, v34);
   a4[1] = vuzp1q_s32(v40, vrev64q_s32(v40));
   result = ((v36 * 0.0367) + ((v23 * -0.00853) * -0.1614)) + ((v31 * 0.96849) * 1.0296);
-  *a4[2].i32 = result;
+  a4[2].f32[0] = result;
   return result;
 }
 
@@ -1123,9 +1124,9 @@ BOOL useLowerLocalHistogramThreshold()
   return v0() > 9;
 }
 
-void sub_1C92CD1B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C92CD1B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1162,23 +1163,24 @@ void *__getFigCapturePlatformIdentifierSymbolLoc_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __CMCaptureLibraryCore_block_invoke()
+uint64_t __CMCaptureLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   CMCaptureLibraryCore_frameworkLibrary = result;
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_0()
+uint64_t OUTLINED_FUNCTION_0(uint64_t a1, uint64_t a2, uint64_t a3, char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unsigned int a12, int a13, char a14)
 {
 
   return fig_log_call_emit_and_clean_up_after_send_and_compose();
 }
 
-uint64_t OUTLINED_FUNCTION_4()
+uint64_t OUTLINED_FUNCTION_4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, const char *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
 
-  return _os_log_send_and_compose_impl();
+  return _os_log_send_and_compose_impl(a1, 0, va, 128, a5, v12, v13, a8);
 }
 
 BOOL OUTLINED_FUNCTION_5(NSObject *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, int a12, __int16 a13, char a14, os_log_type_t type)
@@ -2507,7 +2509,7 @@ uint64_t CAWBAFEFDAssist::CalculateSemanticSpatialCCMMap(CAWBAFEFDAssist *this, 
   {
     v23 = 0;
     v24 = (v18 * (y + (v16 * v22)));
-    f32 = a4[4 * v16++].f32;
+    v25 = &a4[4 * v16++];
     LODWORD(v26) = (v18 * (y + (v16 * v22)));
     if (v26 >= 0xC0)
     {
@@ -2568,13 +2570,13 @@ uint64_t CAWBAFEFDAssist::CalculateSemanticSpatialCCMMap(CAWBAFEFDAssist *this, 
         }
       }
 
-      v39 = v30 + f32[v23];
+      v39 = v30 + v25->f32[v23];
       if (v39 > 1.0)
       {
         v39 = 1.0;
       }
 
-      f32[v23++] = v39;
+      v25->f32[v23++] = v39;
     }
 
     while (v27 != 16);
@@ -2584,7 +2586,7 @@ uint64_t CAWBAFEFDAssist::CalculateSemanticSpatialCCMMap(CAWBAFEFDAssist *this, 
   return result;
 }
 
-void CAWBAFEFDAssist::LimitCropRect(CAWBAFEFDAssist *this, sBTRect *a2, int a3, unsigned int a4)
+void CAWBAFEFDAssist::LimitCropRect(CAWBAFEFDAssist *this, sBTRect *a2, unsigned int a3, int a4)
 {
   v4 = vmax_s32(*&a2->x, 0);
   *&a2->x = v4;
@@ -3493,9 +3495,9 @@ LABEL_7:
   while (v14 != 5);
 }
 
-void sub_1C92D4B64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C92D4B64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3539,20 +3541,20 @@ LABEL_7:
   return result;
 }
 
-uint64_t ___ZL20CMCaptureLibraryCorePPc_block_invoke()
+uint64_t ___ZL20CMCaptureLibraryCorePPc_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   CMCaptureLibraryCore(char **)::frameworkLibrary = result;
   return result;
 }
 
-void CAWBAFE::CAWBAFE(uint64_t a1)
+void CAWBAFE::CAWBAFE(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
-  v2 = a1 + 20480;
+  v5 = a1 + 20480;
   CObject::CObject((a1 + 8));
   *a1 = &unk_1F48DE968;
-  *(v2 + 232) = 0;
-  *(v2 + 3416) = 0;
+  *(v5 + 232) = 0;
+  *(v5 + 3416) = 0;
   operator new();
 }
 
@@ -3661,82 +3663,82 @@ void CAWBAFE::ComputeSkinColor_fdProbApproach(CAWBAFE *this, unsigned int *a2, c
   *(var113 + 789) = v15;
   CAWBAFEFDAssist::GetfdWindowRGB(this->var4, var113, this->var10, var7 + 9);
   updated = CAWBAFEFDAssist::GetfdTileRGBFDProbApproach(this->var4, this->var113, this->var9);
-  v17 = this->var113;
-  v18 = *(v17 + 789);
-  switch(v18)
+  v19 = this->var113;
+  v20 = *(v19 + 789);
+  switch(v20)
   {
     case 2:
-      updated = CAWBAFEFDAssist::GetfdHiResWindowRGB(this->var4, v17, this->var11, this->var7 + 49);
+      updated = CAWBAFEFDAssist::GetfdHiResWindowRGB(this->var4, v19, this->var11, this->var7 + 49);
       break;
     case 1:
-      CAWBAFEFDAssist::UpdateSemanticTileProbTable(this->var4, v17, a3, this->var7);
+      CAWBAFEFDAssist::UpdateSemanticTileProbTable(this->var4, v19, a3, this->var7);
       break;
     case 0:
-      updated = CAWBAFEFDAssist::UpdateANODTileProbTable(this->var4, v17, this->var7);
+      updated = CAWBAFEFDAssist::UpdateANODTileProbTable(this->var4, v19, this->var7);
       break;
   }
 
-  v19 = this->var113;
-  if (v6[718] == 1 && (*(v19 + 789) - 1) <= 1)
+  v21 = this->var113;
+  if (v6[718] == 1 && (*(v21 + 789) - 1) <= 1)
   {
-    updated = CAWBAFEFDAssist::CalculateSemanticSpatialCCMMap(this->var4, v19, a3, this->var141);
-    v19 = this->var113;
+    updated = CAWBAFEFDAssist::CalculateSemanticSpatialCCMMap(this->var4, v21, a3, this->var141);
+    v21 = this->var113;
   }
 
-  if (*(v19 + 799))
+  if (*(v21 + 799))
   {
-    v36 = 0;
-    v20 = MEMORY[0x1EEE9AC00](updated);
-    v22 = (v35.f32 - v21);
-    MEMORY[0x1EEE9AC00](v20);
-    v24 = (v35.f32 - v23);
-    CAWBAFEFDAssist::GetfdSkinRGB(this->var4, v22, v25);
+    v40 = 0;
+    v22 = MEMORY[0x1EEE9AC00](updated, v21, v17, v18);
+    v24 = (v39.f32 - v23);
+    MEMORY[0x1EEE9AC00](v22, v25, *(this->var113 + 799), v26);
+    v28 = (v39.f32 - v27);
+    CAWBAFEFDAssist::GetfdSkinRGB(this->var4, v24, v29);
     if (*(this->var113 + 799))
     {
-      v30 = 0;
-      v31 = 0;
-      v32 = v22 + 2;
-      v35 = xmmword_1C9332340;
+      v34 = 0;
+      v35 = 0;
+      v36 = v24 + 2;
+      v39 = xmmword_1C9332340;
       do
       {
-        v37 = *(v32 - 1);
-        v38 = *v32;
-        CAWBAFE::GetBinIndices(this, &v36 + 1, &v36, &v37, 2, COERCE_DOUBLE(__PAIR64__(HIDWORD(v37), v38)), v26, v27, *v28.i32, v29);
-        LODWORD(v26) = HIDWORD(v36);
-        v33 = *&v36;
-        v34 = vdupq_lane_s64(__SPAIR64__(v36, HIDWORD(v36)), 0);
-        v29 = *v35.i64;
-        v28.i32[0] = vmovn_s32(vcgtq_f32(v35, v34)).u32[0];
-        v27 = COERCE_DOUBLE(vmovn_s32(vcgtq_f32(v34, v35)));
-        v28.i32[1] = HIDWORD(v27);
-        LOWORD(v27) = vminv_u16(v28);
-        if (LOBYTE(v27))
+        v41 = *(v36 - 1);
+        v42 = *v36;
+        CAWBAFE::GetBinIndices(this, &v40 + 1, &v40, &v41, 2u, COERCE_DOUBLE(__PAIR64__(HIDWORD(v41), v42)), v30, v31, *v32.i32, v33);
+        LODWORD(v30) = HIDWORD(v40);
+        v37 = *&v40;
+        v38 = vdupq_lane_s64(__SPAIR64__(v40, HIDWORD(v40)), 0);
+        v33 = *v39.i64;
+        v32.i32[0] = vmovn_s32(vcgtq_f32(v39, v38)).u32[0];
+        v31 = COERCE_DOUBLE(vmovn_s32(vcgtq_f32(v38, v39)));
+        v32.i32[1] = HIDWORD(v31);
+        LOWORD(v31) = vminv_u16(v32);
+        if (LOBYTE(v31))
         {
-          v24[2 * v31] = *(&v36 + 1);
-          v24[(2 * v31++) | 1] = v33;
+          v28[2 * v35] = *(&v40 + 1);
+          v28[(2 * v35++) | 1] = v37;
         }
 
-        ++v30;
-        v32 += 3;
+        ++v34;
+        v36 += 3;
       }
 
-      while (v30 < *(this->var113 + 799));
+      while (v34 < *(this->var113 + 799));
     }
 
     else
     {
-      LOWORD(v31) = 0;
+      LOWORD(v35) = 0;
     }
 
-    CAWBAFEFDAssist::SetfdSkinC1C2(this->var4, v24, v31);
-    *(this->var113 + 799) = v31;
+    CAWBAFEFDAssist::SetfdSkinC1C2(this->var4, v28, v35);
+    *(this->var113 + 799) = v35;
   }
 
   CAWBAFEFDAssist::SetNumAwbSkin2WhiteLUT(this->var4, *(v6 + 490));
   CAWBAFEFDAssist::ModifyColorHistogramProbApproach(this->var4, this->var113, this->var114, a2, *(v6 + 91));
 }
 
-uint64_t CAWBAFE::GetBinIndices(uint64_t result, float *a2, float *a3, float *a4, int a5, double a6, double a7, double a8, float a9, double a10)
+uint64_t CAWBAFE::GetBinIndices(uint64_t result, float *a2, float *a3, float *a4, unsigned int a5, double a6, double a7, double a8, float a9, double a10)
 {
   v12 = result;
   v14 = *a4;
@@ -4540,7 +4542,7 @@ uint64_t CAWBAFE::ComputeAWBGainsGrayworld(CAWBAFE *this, int a2, int a3, double
   v52[1] = v37 * 200.0;
   *&a4 = (v37 * 200.0) / v15;
   v52[2] = *&a4;
-  CAWBAFE::GetBinIndices(this, &v51, &v50, v52, 1, a4, a5, a6, a7, a8);
+  CAWBAFE::GetBinIndices(this, &v51, &v50, v52, 1u, a4, a5, a6, a7, a8);
   v39 = v50;
   v38 = v51;
   if (v51 < 1.0)
@@ -4861,7 +4863,7 @@ uint64_t CAWBAFE::ApplyManualWBGains(CAWBAFE *this, double a2, double a3, double
   v36 = v14;
   *&v14 = 200.0 / v13;
   v37 = 200.0 / v13;
-  CAWBAFE::GetBinIndices(this, &this->var38, &this->var39, &v36, 1, v14, *&v10, *&v12, v35.f32[0], a6);
+  CAWBAFE::GetBinIndices(this, &this->var38, &this->var39, &v36, 1u, v14, *&v10, *&v12, v35.f32[0], a6);
   v15.i64[0] = *&this->var38;
   __asm { FMOV            V1.2S, #1.0 }
 
@@ -6022,7 +6024,8 @@ LABEL_18:
     v124 = v3;
     do
     {
-      v125 = *v124++;
+      v125 = v124->i32[0];
+      v124 = (v124 + 4);
       v126 = v125 - *var54;
       if (v125 < *var54)
       {
@@ -6034,7 +6037,7 @@ LABEL_18:
     }
 
     while (v123);
-    v3 += 32;
+    v3 += 8;
   }
 
   return result;
@@ -7278,15 +7281,15 @@ uint64_t CAWBAFE::SetFlashProjectionConfig(uint64_t result, unsigned __int8 *a2)
   }
 
   while (v3);
-  v5 = (a2 + 88);
+  v5 = a2 + 88;
   v6 = (result + 112);
   v7 = 6;
   v8 = vdupq_n_s32(0x37800000u);
   do
   {
-    *(v6 - 1) = vmulq_f32(vcvtq_f32_s32(v5[-1]), v8);
-    v9 = v5->i32[0];
-    v5 = (v5 + 20);
+    *(v6 - 1) = vmulq_f32(vcvtq_f32_s32(*(v5 - 1)), v8);
+    v9 = *v5;
+    v5 += 20;
     *v6 = v9 * 0.000015259;
     v6 += 5;
     --v7;
@@ -7294,7 +7297,7 @@ uint64_t CAWBAFE::SetFlashProjectionConfig(uint64_t result, unsigned __int8 *a2)
 
   while (v7);
   v10 = (result + 216);
-  v11 = (a2 + 212);
+  v11 = a2 + 212;
   v12 = 6;
   do
   {
@@ -7304,7 +7307,7 @@ uint64_t CAWBAFE::SetFlashProjectionConfig(uint64_t result, unsigned __int8 *a2)
     v10[18] = *(v11 - 2) * 0.000015259;
     v10[24] = *(v11 - 1) * 0.000015259;
     v13 = *v11;
-    v11 += 6;
+    v11 += 24;
     v10[30] = v13 * 0.000015259;
     ++v10;
     --v12;
@@ -7323,14 +7326,14 @@ uint64_t CAWBAFE::SetFlashProjectionConfig(uint64_t result, unsigned __int8 *a2)
       v14 = a2[336];
     }
 
-    v15 = (a2 + 338);
+    v15 = a2 + 338;
     v16 = (result + 364);
     do
     {
-      v17 = vcvts_n_f32_s32(v15[6], 0xEuLL);
+      v17 = vcvts_n_f32_s32(*(v15 + 6), 0xEuLL);
       *(v16 - 1) = vcvts_n_f32_s32(*v15, 0xEuLL);
       *v16 = v17;
-      ++v15;
+      v15 += 2;
       v16 += 2;
       --v14;
     }
@@ -7350,14 +7353,14 @@ uint64_t CAWBAFE::SetFlashProjectionConfig(uint64_t result, unsigned __int8 *a2)
       v18 = a2[362];
     }
 
-    v19 = (a2 + 364);
+    v19 = a2 + 364;
     v20 = (result + 388);
     do
     {
-      v21 = vcvts_n_f32_s32(v19[6], 0xEuLL);
+      v21 = vcvts_n_f32_s32(*(v19 + 6), 0xEuLL);
       *(v20 - 1) = vcvts_n_f32_s32(*v19, 0xEuLL);
       *v20 = v21;
-      ++v19;
+      v19 += 2;
       v20 += 2;
       --v18;
     }
@@ -7377,14 +7380,14 @@ uint64_t CAWBAFE::SetFlashProjectionConfig(uint64_t result, unsigned __int8 *a2)
       v22 = a2[388];
     }
 
-    v23 = (a2 + 390);
+    v23 = a2 + 390;
     v24 = (result + 412);
     do
     {
-      v25 = vcvts_n_f32_s32(v23[6], 0xEuLL);
+      v25 = vcvts_n_f32_s32(*(v23 + 6), 0xEuLL);
       *(v24 - 1) = vcvts_n_f32_s32(*v23, 0xEuLL);
       *v24 = v25;
-      ++v23;
+      v23 += 2;
       v24 += 2;
       --v22;
     }
@@ -7404,14 +7407,14 @@ uint64_t CAWBAFE::SetFlashProjectionConfig(uint64_t result, unsigned __int8 *a2)
       v26 = a2[414];
     }
 
-    v27 = (a2 + 416);
+    v27 = a2 + 416;
     v28 = (result + 436);
     do
     {
-      v29 = vcvts_n_f32_s32(v27[6], 0xEuLL);
+      v29 = vcvts_n_f32_s32(*(v27 + 6), 0xEuLL);
       *(v28 - 1) = vcvts_n_f32_s32(*v27, 0xEuLL);
       *v28 = v29;
-      ++v27;
+      v27 += 2;
       v28 += 2;
       --v26;
     }
@@ -7432,141 +7435,141 @@ CAWBAFE *CAWBAFE::SetFileVersionUpdate(CAWBAFE *this, unsigned int a2, int a3, i
   return this;
 }
 
-float CAWBAFE::EstimateCurrentSceneLuxLevel(CAWBAFE *this)
+float CAWBAFE::EstimateCurrentSceneLuxLevel(CAWBAFE *this, uint64_t a2, uint64_t a3, float a4)
 {
-  v1 = MEMORY[0x1EEE9AC00](this);
-  v2 = v1;
-  v3 = v1[61];
-  v4 = *(v3 + 352);
-  v5 = *(v3 + 354);
-  if (*(v3 + 354))
+  v4 = MEMORY[0x1EEE9AC00](this, a2, a3, a4);
+  v5 = v4;
+  v6 = v4[61];
+  v7 = *(v6 + 352);
+  v8 = *(v6 + 354);
+  if (*(v6 + 354))
   {
-    v6 = 0;
-    v7 = 0;
-    v8 = v1[63];
-    v9 = *(v8 + 48) << 8;
-    v10 = v1[2843];
-    v11 = *(v10 + 3640);
-    v12 = (((((*(v10 + 2708) * *(v10 + 92)) >> 8) * *(v10 + 1442)) >> 8) * *(v10 + 254)) >> 8;
-    v13 = *(v10 + 3638) >> 4;
-    v14 = v11 >> 5;
-    v15 = (v8 + 32);
-    v16 = v42;
+    v9 = 0;
+    v10 = 0;
+    v11 = v4[63];
+    v12 = *(v11 + 48) << 8;
+    v13 = v4[2843];
+    v14 = *(v13 + 3640);
+    v15 = (((((*(v13 + 2708) * *(v13 + 92)) >> 8) * *(v13 + 1442)) >> 8) * *(v13 + 254)) >> 8;
+    v16 = *(v13 + 3638) >> 4;
+    v17 = v14 >> 5;
+    v18 = (v11 + 32);
+    v19 = v45;
     do
     {
-      if (v4)
+      if (v7)
       {
-        v6 += v4;
-        v17 = v15;
-        v18 = v4;
-        v19 = v16;
+        v9 += v7;
+        v20 = v18;
+        v21 = v7;
+        v22 = v19;
         do
         {
-          v20 = v17[4];
-          if (v20)
+          v23 = v20[4];
+          if (v23)
           {
-            v21 = (*(v17 - 8) * v12) >> 13;
-            if (v21 >= v9)
+            v24 = (*(v20 - 8) * v15) >> 13;
+            if (v24 >= v12)
             {
-              v21 = v9;
+              v24 = v12;
             }
 
-            v22 = (*(v17 - 4) * v12) >> 13;
-            if (v22 >= v9)
+            v25 = (*(v20 - 4) * v15) >> 13;
+            if (v25 >= v12)
             {
-              v22 = v9;
+              v25 = v12;
             }
 
-            v23 = (*v17 * v12) >> 13;
-            if (v23 >= v9)
+            v26 = (*v20 * v15) >> 13;
+            if (v26 >= v12)
             {
-              v23 = v9;
+              v26 = v12;
             }
 
-            v20 = ((v21 * v13 + 2560 * v22 + v23 * v14) >> 10) / v20;
+            v23 = ((v24 * v16 + 2560 * v25 + v26 * v17) >> 10) / v23;
           }
 
-          v17 += 16;
-          *v19++ = v20;
-          --v18;
+          v20 += 16;
+          *v22++ = v23;
+          --v21;
         }
 
-        while (v18);
+        while (v21);
       }
 
-      ++v7;
-      v16 += 4 * v4;
-      v15 += 16 * v4;
+      ++v10;
+      v19 += 4 * v7;
+      v18 += 16 * v7;
     }
 
-    while (v7 != v5);
+    while (v10 != v8);
   }
 
-  heapsort(v42, (v5 * v4), 4uLL, CompareTileStats);
-  v24 = 0;
-  v25 = 0;
-  v26 = (v5 * v4) + 2;
-  if (v5 * v4)
+  heapsort(v45, (v8 * v7), 4uLL, CompareTileStats);
+  v27 = 0;
+  v28 = 0;
+  v29 = (v8 * v7) + 2;
+  if (v8 * v7)
   {
-    v26 = (v5 * v4) - 1;
+    v29 = (v8 * v7) - 1;
   }
 
-  if (v4 >= v5)
+  if (v7 >= v8)
   {
-    v27 = v5;
+    v30 = v8;
   }
 
   else
   {
-    v27 = v4;
+    v30 = v7;
   }
 
-  v28 = *&v42[4 * (v26 >> 2)];
-  v29 = *&v42[4 * (75 * ((v5 * v4) - 1) / 100)];
-  v30 = (v5 * v4) - v27;
-  if (v30 <= 1)
+  v31 = *&v45[4 * (v29 >> 2)];
+  v32 = *&v45[4 * (75 * ((v8 * v7) - 1) / 100)];
+  v33 = (v8 * v7) - v30;
+  if (v33 <= 1)
   {
-    v30 = 1;
+    v33 = 1;
   }
 
   do
   {
-    v25 += *&v42[v24];
-    v24 += 4;
+    v28 += *&v45[v27];
+    v27 += 4;
   }
 
-  while (4 * v30 != v24);
-  v31 = v25 / v30;
-  *(v2 + 5262) = v31;
-  v32 = v2[2843];
-  v33 = (v32 + 1548);
-  v34 = *(v32 + 306);
-  v35 = (v31 << BYTE4(*(v32 + 1548))) * *(v32 + 1548);
-  v36 = *(v2 + 5256);
-  v37 = 100000 * *(v32 + 1432);
-  v38 = ((v36 * v35 / v37) * v34) >> 8;
-  if (v38 >= 0xFFFF)
+  while (4 * v33 != v27);
+  v34 = v28 / v33;
+  *(v5 + 5262) = v34;
+  v35 = v5[2843];
+  v36 = (v35 + 1548);
+  v37 = *(v35 + 306);
+  v38 = (v34 << BYTE4(*(v35 + 1548))) * *(v35 + 1548);
+  v39 = *(v5 + 5256);
+  v40 = 100000 * *(v35 + 1432);
+  v41 = ((v39 * v38 / v40) * v37) >> 8;
+  if (v41 >= 0xFFFF)
   {
-    v38 = 0xFFFF;
+    v41 = 0xFFFF;
   }
 
-  *(v2 + 5168) = v38;
-  *(v2 + 10338) = (v38 + 0.5);
-  v39 = ((v36 * ((v28 << BYTE4(*v33)) * *v33) / v37) * v34) >> 8;
-  if (v39 >= 0xFFFF)
+  *(v5 + 5168) = v41;
+  *(v5 + 10338) = (v41 + 0.5);
+  v42 = ((v39 * ((v31 << BYTE4(*v36)) * *v36) / v40) * v37) >> 8;
+  if (v42 >= 0xFFFF)
   {
-    v39 = 0xFFFF;
+    v42 = 0xFFFF;
   }
 
-  *(v2 + 10339) = (v39 + 0.5);
-  v40 = ((v36 * ((v29 << BYTE4(*v33)) * *v33) / v37) * v34) >> 8;
-  if (v40 >= 0xFFFF)
+  *(v5 + 10339) = (v42 + 0.5);
+  v43 = ((v39 * ((v32 << BYTE4(*v36)) * *v36) / v40) * v37) >> 8;
+  if (v43 >= 0xFFFF)
   {
-    v40 = 0xFFFF;
+    v43 = 0xFFFF;
   }
 
-  result = v40 + 0.5;
-  *(v2 + 10340) = result;
+  result = v43 + 0.5;
+  *(v5 + 10340) = result;
   return result;
 }
 
@@ -8005,22 +8008,24 @@ void CAWBAFE::SetFaceAssistedAWBResultsForMatchProvidedSkinGains(CAWBAFE *this, 
   *(var113 + 1596) = 1;
 }
 
-void CAWBAFEH14::Process(CAWBAFEH14 *this, sMetaData *a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9)
+void CAWBAFEH14::Process(CAWBAFEH14 *this, sPhotometerAWBMetadata *var6, uint64_t a3, double a4, double a5, double a6, double a7, double a8, double a9, double a10)
 {
+  v10 = var6;
   p_var68 = &this->var68;
-  this->var126 = a2;
-  *&this->var124 = *&a2->zoom.ispInputWidth;
-  this->var122 = a2->channel;
-  this->var46 = a2->ae.UBMisc.awbReflow.bGenerateReflowAWB;
-  LODWORD(a4) = 1199570688;
-  if (a2->ae.luxLevel <= 65535.0)
+  this->var126 = var6;
+  *&this->var124 = *(var6 + 1167);
+  this->var122 = *(var6 + 72);
+  this->var46 = *(var6 + 2716);
+  LODWORD(a4) = *(var6 + 73);
+  LODWORD(a5) = 1199570688;
+  if (*&a4 <= 65535.0)
   {
-    luxLevel = a2->ae.luxLevel;
+    v13 = *(var6 + 73);
   }
 
   else
   {
-    luxLevel = 65535.0;
+    v13 = 65535.0;
   }
 
   var18 = (this->var16 + 1);
@@ -8032,14 +8037,14 @@ void CAWBAFEH14::Process(CAWBAFEH14 *this, sMetaData *a2, double a3, double a4, 
   this->var16 = var18;
   if (var18 <= this->var17 || !this->var28)
   {
-    var126 = a2;
+    var126 = var6;
     if (this->var129)
     {
       var6 = this->var6;
-      var126 = a2;
+      var126 = v10;
       if (*var6 == 1)
       {
-        v16 = sqrtf(luxLevel) + 0.5;
+        v16 = sqrtf(v13) + 0.5;
         *(var6 + *(var6 + 2) + 2) = v16;
         CAWBAFEPhotometerAssistPenrose::updatePhotometerDetectionOutput(this->var5, var6, v16);
         var126 = this->var126;
@@ -8048,45 +8053,50 @@ void CAWBAFEH14::Process(CAWBAFEH14 *this, sMetaData *a2, double a3, double a4, 
 
     if (var126->awb.bBypassConvergenceFr && !this->var19)
     {
-      *&a4 = this->var45.var16;
-      if (*&a4 > vcvts_n_f32_u32(*&p_var68[6 * (*(p_var68 + 58) - 1) + 184], 8uLL) && *&a4 < vcvts_n_f32_u32(*(p_var68 + 92), 8uLL))
+      *&a4 = vcvts_n_f32_u32(*&p_var68[6 * (*(p_var68 + 58) - 1) + 184], 8uLL);
+      *&a5 = this->var45.var16;
+      if (*&a5 > *&a4)
       {
-        this->var16 = this->var18;
-        this->var19 = 1;
-        v52 = *&a4;
-        var17 = this->var45.var17;
-        memcpy(this->var53, this->var45.var26, sizeof(this->var53));
-        v17 = vdupq_lane_s64(__SPAIR64__(LODWORD(var17), LODWORD(v52)), 0);
-        *&this->var38 = v17;
-        CAWBAFE::ComputeChannelGainsfromHistWP(this, v52, var17, &this->var35, &this->var36, *v17.i64, v18, v19, v20, v21);
-        LODWORD(v24) = 1166016512;
-        LODWORD(v25) = 0.5;
-        v26 = ((this->var35 * 4096.0) + 0.5);
-        if (v26 >= 0xFFFF)
+        *&a4 = vcvts_n_f32_u32(*(p_var68 + 92), 8uLL);
+        if (*&a5 < *&a4)
         {
-          v26 = 0xFFFF;
-        }
+          this->var16 = this->var18;
+          this->var19 = 1;
+          v52 = *&a5;
+          var17 = this->var45.var17;
+          memcpy(this->var53, this->var45.var26, sizeof(this->var53));
+          v17 = vdupq_lane_s64(__SPAIR64__(LODWORD(var17), LODWORD(v52)), 0);
+          *&this->var38 = v17;
+          CAWBAFE::ComputeChannelGainsfromHistWP(this, v52, var17, &this->var35, &this->var36, *v17.i64, v18, v19, v20, v21);
+          LODWORD(v24) = 1166016512;
+          LODWORD(v25) = 0.5;
+          v26 = ((this->var35 * 4096.0) + 0.5);
+          if (v26 >= 0xFFFF)
+          {
+            v26 = 0xFFFF;
+          }
 
-        if (v26 <= 0x800)
-        {
-          v26 = 2048;
-        }
+          if (v26 <= 0x800)
+          {
+            v26 = 2048;
+          }
 
-        this->var21[0] = v26;
-        v27 = ((this->var36 * 4096.0) + 0.5);
-        if (v27 >= 0xFFFF)
-        {
-          v27 = 0xFFFF;
-        }
+          this->var21[0] = v26;
+          v27 = ((this->var36 * 4096.0) + 0.5);
+          if (v27 >= 0xFFFF)
+          {
+            v27 = 0xFFFF;
+          }
 
-        if (v27 <= 0x800)
-        {
-          v27 = 2048;
-        }
+          if (v27 <= 0x800)
+          {
+            v27 = 2048;
+          }
 
-        this->var21[2] = v27;
-        this->var21[1] = 4096;
-        this->var20 = CAWBAFE::GetCCTFromColorRatio(this, this->var40, (p_var68 + 184), v24, v25, v22, v23);
+          this->var21[2] = v27;
+          this->var21[1] = 4096;
+          this->var20 = CAWBAFE::GetCCTFromColorRatio(this, this->var40, (p_var68 + 184), v24, v25, v22, v23);
+        }
       }
     }
 
@@ -8096,7 +8106,7 @@ void CAWBAFEH14::Process(CAWBAFEH14 *this, sMetaData *a2, double a3, double a4, 
     {
       *(p_var68 + 12) = 0x100013F800000;
       *(p_var68 + 10) = 1;
-      *&a3 = 0xB400000100;
+      *&a4 = 0xB400000100;
       *(p_var68 + 48) = 0xB400000100;
       v30 = this->var126;
       if (v30->isReprocessing || v30->isReplay || p_var68[3224] == 1)
@@ -8106,7 +8116,7 @@ void CAWBAFEH14::Process(CAWBAFEH14 *this, sMetaData *a2, double a3, double a4, 
 
       else
       {
-        v46 = (a2->ae.gainAnal.v16 * a2->ae.exposureTime * a2->ae.gainDigi.v16 * a2->ae.gainDigiSensor.v16) >> 16;
+        v46 = (*(v10 + 124) * *(v10 + 60) * *(v10 + 126) * *(v10 + 125)) >> 16;
         if (var16 == 1)
         {
           this->var123 = v46;
@@ -8116,14 +8126,14 @@ void CAWBAFEH14::Process(CAWBAFEH14 *this, sMetaData *a2, double a3, double a4, 
             if (*(v47 + 1) == 1 && *(v47 + 54) == 1)
             {
               this->var16 = v29;
-              a3 = fmin(*(v47 + 76) * 4.0, 65535.0);
-              *&a3 = a3;
-              *(p_var68 + 3) = LODWORD(a3);
-              *&a4 = COERCE_UNSIGNED_INT(0.5) | 0x40EFFFE000000000;
-              *&a3 = *&a3 + 0.5;
-              *(p_var68 + 8) = *&a3;
-              *(p_var68 + 9) = *&a3;
-              *(p_var68 + 10) = *&a3;
+              a4 = fmin(*(v47 + 76) * 4.0, 65535.0);
+              *&a4 = a4;
+              *(p_var68 + 3) = LODWORD(a4);
+              *&a5 = COERCE_UNSIGNED_INT(0.5) | 0x40EFFFE000000000;
+              *&a4 = *&a4 + 0.5;
+              *(p_var68 + 8) = *&a4;
+              *(p_var68 + 9) = *&a4;
+              *(p_var68 + 10) = *&a4;
             }
           }
         }
@@ -8142,13 +8152,13 @@ void CAWBAFEH14::Process(CAWBAFEH14 *this, sMetaData *a2, double a3, double a4, 
           if (v51)
           {
             this->var16 = v29;
-            *&a3 = *&this->var66[5][2 * *p_var68 + 1018];
-            if (luxLevel > *&a3)
+            *&a4 = *&this->var66[5][2 * *p_var68 + 1018];
+            if (v13 > *&a4)
             {
-              *&a3 = luxLevel + 0.5;
-              *(p_var68 + 8) = (luxLevel + 0.5);
-              *(p_var68 + 3) = luxLevel;
-              *(p_var68 + 18) = *&a2->ae.luxLevelLow;
+              *&a4 = v13 + 0.5;
+              *(p_var68 + 8) = (v13 + 0.5);
+              *(p_var68 + 3) = v13;
+              *(p_var68 + 18) = *(v10 + 74);
             }
           }
         }
@@ -8159,20 +8169,20 @@ void CAWBAFEH14::Process(CAWBAFEH14 *this, sMetaData *a2, double a3, double a4, 
     {
       if (*(p_var68 + 1) > 1u)
       {
-        CAWBAFE::EstimateCurrentSceneLuxLevel(this);
+        CAWBAFE::EstimateCurrentSceneLuxLevel(this, var6, a3, *&a4);
       }
 
       else
       {
-        *(p_var68 + 8) = (luxLevel + 0.5);
-        *(p_var68 + 3) = luxLevel;
-        *(p_var68 + 18) = *&a2->ae.luxLevelLow;
+        *(p_var68 + 8) = (v13 + 0.5);
+        *(p_var68 + 3) = v13;
+        *(p_var68 + 18) = *(v10 + 74);
       }
 
-      LODWORD(a4) = 0.5;
-      *&a3 = vcvts_n_f32_u32(a2->ae.gainDigiSensor.v16 * a2->ae.gainDigi.v16, 8uLL) + 0.5;
-      *(p_var68 + 96) = *&a3;
-      *(p_var68 + 97) = a2->ae.sceneBrightnessForLux;
+      LODWORD(a5) = 0.5;
+      *&a4 = vcvts_n_f32_u32(*(v10 + 125) * *(v10 + 126), 8uLL) + 0.5;
+      *(p_var68 + 96) = *&a4;
+      *(p_var68 + 97) = *(v10 + 72);
       v30 = this->var126;
     }
 
@@ -8185,20 +8195,20 @@ void CAWBAFEH14::Process(CAWBAFEH14 *this, sMetaData *a2, double a3, double a4, 
       {
         if (v45 == 3)
         {
-          CAWBAFE::ProcessSchemeTapToWB(this, a3, a4, a5, a6, a7, a8, a9);
+          CAWBAFE::ProcessSchemeTapToWB(this, a4, a5, a6, a7, a8, a9, a10);
         }
 
         else if (v45 == 4)
         {
-          *&a3 = luxLevel + 0.5;
-          *(p_var68 + 8) = (luxLevel + 0.5);
-          CAWBAFE::ProcessSchemeManualWB(this, a3, a4, a5, a6, a7);
+          *&a4 = v13 + 0.5;
+          *(p_var68 + 8) = (v13 + 0.5);
+          CAWBAFE::ProcessSchemeManualWB(this, a4, a5, a6, a7, a8);
         }
       }
 
       else if (v45 == 1)
       {
-        this->var27 = CAWBAFEH14::ComputeAWBGains(this);
+        this->var27 = CAWBAFEH14::ComputeAWBGains(this, *(p_var68 + 8), *(v10 + 124), *&a4);
         this->var32[0] = this->var21[0];
         this->var32[1] = this->var21[1];
         this->var32[2] = this->var21[2];
@@ -8206,7 +8216,7 @@ void CAWBAFEH14::Process(CAWBAFEH14 *this, sMetaData *a2, double a3, double a4, 
 
       else if (v45 == 2)
       {
-        CAWBAFE::ProcessSchemeGrayworld(this, a3, a4, a5, *&a6, a7);
+        CAWBAFE::ProcessSchemeGrayworld(this, a4, a5, a6, *&a7, a8);
       }
     }
 
@@ -8223,384 +8233,384 @@ void CAWBAFEH14::Process(CAWBAFEH14 *this, sMetaData *a2, double a3, double a4, 
   }
 }
 
-uint64_t CAWBAFEH14::ComputeAWBGains(CAWBAFEH14 *this)
+uint64_t CAWBAFEH14::ComputeAWBGains(CAWBAFEH14 *this, uint64_t a2, uint64_t a3, float a4)
 {
-  v1 = MEMORY[0x1EEE9AC00](this);
-  v4 = v2;
-  v5 = v1;
-  var67 = v1->var67;
-  p_var46 = &v1->var46;
-  LOWORD(v8) = v1->var81;
-  v9 = 7680.0 / v8;
-  v10 = 0.25;
-  v11 = v9 < 0.25 || v9 > 2.0;
-  if (v9 <= 2.0 || v9 < 0.25)
+  v4 = MEMORY[0x1EEE9AC00](this, a2, a3, a4);
+  v7 = v5;
+  v8 = v4;
+  var67 = v4->var67;
+  p_var46 = &v4->var46;
+  LOWORD(v11) = v4->var81;
+  v12 = 7680.0 / v11;
+  v13 = 0.25;
+  v14 = v12 < 0.25 || v12 > 2.0;
+  if (v12 <= 2.0 || v12 < 0.25)
   {
-    v10 = 0.03125;
+    v13 = 0.03125;
   }
 
-  v12 = v9 * 0.125;
-  if (v11)
+  v15 = v12 * 0.125;
+  if (v14)
   {
-    v13 = v10;
-  }
-
-  else
-  {
-    v13 = v12;
-  }
-
-  CAWBAFEH14::ComputeAWBChromaHistogram(v1, v2, v3);
-  v14 = CAWBAFE::ComputeAmbientLuxLevel(v5, v4);
-  v18 = v14;
-  if (v5->var16 < v5->var18 || var67[7] > 1u || *p_var46)
-  {
-    v5->var45.var0 = v14;
+    v16 = v13;
   }
 
   else
   {
-    v18 = CAWBAFEH14::updateLuxLevelFromSceneChangeDetection(v5, &v5->var45, v14, v15, v16, *v17.i32);
+    v16 = v15;
   }
 
-  v19 = *(v5->var6 + 55);
-  if (v18 < *var67 || v5->var16 <= v5->var17)
+  CAWBAFEH14::ComputeAWBChromaHistogram(v4, v5, v6);
+  v17 = CAWBAFE::ComputeAmbientLuxLevel(v8, v7);
+  v21 = v17;
+  if (v8->var16 < v8->var18 || var67[7] > 1u || *p_var46)
   {
-    var65 = v5->var65;
-    var66 = v5->var66;
+    v8->var45.var0 = v17;
+  }
+
+  else
+  {
+    v21 = CAWBAFEH14::updateLuxLevelFromSceneChangeDetection(v8, &v8->var45, v17, v18, v19, *v20.i32);
+  }
+
+  v22 = *(v8->var6 + 55);
+  if (v21 < *var67 || v8->var16 <= v8->var17)
+  {
+    var65 = v8->var65;
+    var66 = v8->var66;
 LABEL_27:
     memcpy(var65, var66, 0x400uLL);
     goto LABEL_28;
   }
 
-  v20 = *(var67 + 12);
-  if (v18 >= var67[v20 - 1])
+  v23 = *(var67 + 12);
+  if (v21 >= var67[v23 - 1])
   {
-    var65 = v5->var65;
-    var66 = &v5->var65[1024 * v20];
+    var65 = v8->var65;
+    var66 = &v8->var65[1024 * v23];
     goto LABEL_27;
   }
 
-  if (v20 >= 2)
+  if (v23 >= 2)
   {
-    v21 = 0;
-    v22 = 0;
-    v23 = v5->var66;
-    v24 = v5->var66[1];
-    v25.i64[0] = 0x101010101010101;
-    v25.i64[1] = 0x101010101010101;
+    v24 = 0;
+    v25 = 0;
+    v26 = v8->var66;
+    v27 = v8->var66[1];
+    v28.i64[0] = 0x101010101010101;
+    v28.i64[1] = 0x101010101010101;
     do
     {
-      v26 = var67[v22];
-      if (v18 >= v26)
+      v29 = var67[v25];
+      if (v21 >= v29)
       {
-        v27 = var67[v21 + 1];
-        if (v18 < v27)
+        v30 = var67[v24 + 1];
+        if (v21 < v30)
         {
-          v28 = 0;
-          LODWORD(v16) = ((v18 - v26) << 12) / (v27 - v26);
+          v31 = 0;
+          LODWORD(v19) = ((v21 - v29) << 12) / (v30 - v29);
           do
           {
-            v29 = *&v24[v28];
-            v30 = *&(*v23)[v28];
-            v31 = vmovl_u8(*v29.i8);
-            v32 = vmovl_high_u8(v29);
-            v33 = vmovl_u8(*v30.i8);
-            v34 = vmovl_high_u8(v30);
-            v17.i32[0] = 4096 - LODWORD(v16);
-            v35 = vuzp1q_s8(vrshrn_high_n_s32(vrshrn_n_s32(vmlal_lane_u16(vmull_lane_u16(*v33.i8, v17, 0), *v31.i8, *&v16, 0), 0xCuLL), vmlal_high_lane_u16(vmull_high_lane_u16(v33, v17, 0), v31, *&v16, 0), 0xCuLL), vrshrn_high_n_s32(vrshrn_n_s32(vmlal_lane_u16(vmull_lane_u16(*v34.i8, v17, 0), *v32.i8, *&v16, 0), 0xCuLL), vmlal_high_lane_u16(vmull_high_lane_u16(v34, v17, 0), v32, *&v16, 0), 0xCuLL));
-            *&v5->var65[v28] = vbslq_s8(vceqzq_s8(v30), v35, vmaxq_u8(v35, v25));
-            v36 = v28 >= 0x3F0;
-            v28 += 16;
+            v32 = *&v27[v31];
+            v33 = *&(*v26)[v31];
+            v34 = vmovl_u8(*v32.i8);
+            v35 = vmovl_high_u8(v32);
+            v36 = vmovl_u8(*v33.i8);
+            v37 = vmovl_high_u8(v33);
+            v20.i32[0] = 4096 - LODWORD(v19);
+            v38 = vuzp1q_s8(vrshrn_high_n_s32(vrshrn_n_s32(vmlal_lane_u16(vmull_lane_u16(*v36.i8, v20, 0), *v34.i8, *&v19, 0), 0xCuLL), vmlal_high_lane_u16(vmull_high_lane_u16(v36, v20, 0), v34, *&v19, 0), 0xCuLL), vrshrn_high_n_s32(vrshrn_n_s32(vmlal_lane_u16(vmull_lane_u16(*v37.i8, v20, 0), *v35.i8, *&v19, 0), 0xCuLL), vmlal_high_lane_u16(vmull_high_lane_u16(v37, v20, 0), v35, *&v19, 0), 0xCuLL));
+            *&v8->var65[v31] = vbslq_s8(vceqzq_s8(v33), v38, vmaxq_u8(v38, v28));
+            v39 = v31 >= 0x3F0;
+            v31 += 16;
           }
 
-          while (!v36);
-          LODWORD(v20) = *(var67 + 12);
+          while (!v39);
+          LODWORD(v23) = *(var67 + 12);
         }
       }
 
-      v21 = ++v22;
-      ++v23;
-      v24 += 1024;
+      v24 = ++v25;
+      ++v26;
+      v27 += 1024;
     }
 
-    while (v20 - 1 > v22);
+    while (v23 - 1 > v25);
   }
 
 LABEL_28:
-  if (*(var67 + 2116) == 1 && v19 > 0.0 && var67[7] <= 1u)
+  if (*(var67 + 2116) == 1 && v22 > 0.0 && var67[7] <= 1u)
   {
-    v39 = 1.0 - v19;
-    v40 = v131 + 1;
-    v41 = 5180;
-    v42 = 30;
+    v42 = 1.0 - v22;
+    v43 = v134 + 1;
+    v44 = 5180;
+    v45 = 30;
     do
     {
-      v43 = (v19 * SHIWORD(v5->var45.var26[v41 + 282])) + (*(&v5->var0 + v41 * 4 + 2) * v39);
-      *(v40 - 1) = llroundf((v19 * SLOWORD(v5->var45.var26[v41 + 282])) + (*(&v5->var0 + v41 * 4) * v39));
-      *v40 = llroundf(v43);
-      v40 += 2;
-      ++v41;
-      --v42;
+      v46 = (v22 * SHIWORD(v8->var45.var26[v44 + 282])) + (*(&v8->var0 + v44 * 4 + 2) * v42);
+      *(v43 - 1) = llroundf((v22 * SLOWORD(v8->var45.var26[v44 + 282])) + (*(&v8->var0 + v44 * 4) * v42));
+      *v43 = llroundf(v46);
+      v43 += 2;
+      ++v44;
+      --v45;
     }
 
-    while (v42);
-    if (v18 >= var67[2] && v18 < var67[*(var67 + 12) - 2])
+    while (v45);
+    if (v21 >= var67[2] && v21 < var67[*(var67 + 12) - 2])
     {
-      v129.var19 = 0.0;
-      *&v129.var0 = xmmword_1C93329B4;
-      *&v129.var7 = unk_1C93329C4;
-      *&v129.var11 = xmmword_1C93329D4;
-      *&v129.var15 = unk_1C93329E4;
-      *v130 = xmmword_1C93329F8;
-      *&v130[16] = unk_1C9332A08;
-      *&v130[32] = xmmword_1C9332A18;
-      *&v130[48] = unk_1C9332A28;
-      *&v130[64] = 0;
-      v44 = CAWBAFE::calculateWeightFromTuningTable(v5, &v129, ((v19 * 255.0) + 0.5));
-      *v50.i32 = CAWBAFE::calculateWeightFromTuningTable(v5, v130, v18);
-      v46 = 0;
-      v47 = v5 + 1024 * *(var67 + 12);
-      v48 = v47 + 12456;
-      v49 = v47 + 10408;
-      v50.i32[0] = vcvts_n_s32_f32(v44 * *v50.i32, 0xCuLL);
-      v51.i64[0] = 0x101010101010101;
-      v51.i64[1] = 0x101010101010101;
+      v132.var19 = 0.0;
+      *&v132.var0 = xmmword_1C93329B4;
+      *&v132.var7 = unk_1C93329C4;
+      *&v132.var11 = xmmword_1C93329D4;
+      *&v132.var15 = unk_1C93329E4;
+      *v133 = xmmword_1C93329F8;
+      *&v133[16] = unk_1C9332A08;
+      *&v133[32] = xmmword_1C9332A18;
+      *&v133[48] = unk_1C9332A28;
+      *&v133[64] = 0;
+      v47 = CAWBAFE::calculateWeightFromTuningTable(v8, &v132, ((v22 * 255.0) + 0.5));
+      *v53.i32 = CAWBAFE::calculateWeightFromTuningTable(v8, v133, v21);
+      v49 = 0;
+      v50 = v8 + 1024 * *(var67 + 12);
+      v51 = v50 + 12456;
+      v52 = v50 + 10408;
+      v53.i32[0] = vcvts_n_s32_f32(v47 * *v53.i32, 0xCuLL);
+      v54.i64[0] = 0x101010101010101;
+      v54.i64[1] = 0x101010101010101;
       do
       {
-        v52 = *&v48[v46];
-        v53 = *&v49[v46];
-        v54 = vmovl_u8(*v52.i8);
-        v55 = vmovl_high_u8(v52);
-        v56 = vmovl_u8(*v53.i8);
-        v57 = vmovl_high_u8(v53);
-        v45.i32[0] = 4096 - v50.i32[0];
-        v58 = vuzp1q_s8(vrshrn_high_n_s32(vrshrn_n_s32(vmlal_lane_u16(vmull_lane_u16(*v56.i8, v45, 0), *v54.i8, v50, 0), 0xCuLL), vmlal_high_lane_u16(vmull_high_lane_u16(v56, v45, 0), v54, v50, 0), 0xCuLL), vrshrn_high_n_s32(vrshrn_n_s32(vmlal_lane_u16(vmull_lane_u16(*v57.i8, v45, 0), *v55.i8, v50, 0), 0xCuLL), vmlal_high_lane_u16(vmull_high_lane_u16(v57, v45, 0), v55, v50, 0), 0xCuLL));
-        *&v5->var65[v46] = vbslq_s8(vceqzq_s8(v53), v58, vmaxq_u8(v58, v51));
-        v36 = v46 >= 0x3F0;
-        v46 += 16;
+        v55 = *&v51[v49];
+        v56 = *&v52[v49];
+        v57 = vmovl_u8(*v55.i8);
+        v58 = vmovl_high_u8(v55);
+        v59 = vmovl_u8(*v56.i8);
+        v60 = vmovl_high_u8(v56);
+        v48.i32[0] = 4096 - v53.i32[0];
+        v61 = vuzp1q_s8(vrshrn_high_n_s32(vrshrn_n_s32(vmlal_lane_u16(vmull_lane_u16(*v59.i8, v48, 0), *v57.i8, v53, 0), 0xCuLL), vmlal_high_lane_u16(vmull_high_lane_u16(v59, v48, 0), v57, v53, 0), 0xCuLL), vrshrn_high_n_s32(vrshrn_n_s32(vmlal_lane_u16(vmull_lane_u16(*v60.i8, v48, 0), *v58.i8, v53, 0), 0xCuLL), vmlal_high_lane_u16(vmull_high_lane_u16(v60, v48, 0), v58, v53, 0), 0xCuLL));
+        *&v8->var65[v49] = vbslq_s8(vceqzq_s8(v56), v61, vmaxq_u8(v61, v54));
+        v39 = v49 >= 0x3F0;
+        v49 += 16;
       }
 
-      while (!v36);
+      while (!v39);
     }
   }
 
   else
   {
-    v131[4] = *&v5->var85[16][0];
-    v131[5] = *&v5->var85[20][0];
-    v131[6] = *&v5->var85[24][0];
-    v132 = *&v5->var85[28][0];
-    v131[0] = *&v5->var85[0][0];
-    v131[1] = *&v5->var85[4][0];
-    v131[2] = *&v5->var85[8][0];
-    v131[3] = *&v5->var85[12][0];
+    v134[4] = *&v8->var85[16][0];
+    v134[5] = *&v8->var85[20][0];
+    v134[6] = *&v8->var85[24][0];
+    v135 = *&v8->var85[28][0];
+    v134[0] = *&v8->var85[0][0];
+    v134[1] = *&v8->var85[4][0];
+    v134[2] = *&v8->var85[8][0];
+    v134[3] = *&v8->var85[12][0];
   }
 
-  *(var67 + 803) = v19;
-  *&v5->var47.var0 = 0u;
-  *&v5->var47.var4 = 0u;
-  *&v5->var47.var8 = 0;
+  *(var67 + 803) = v22;
+  *&v8->var47.var0 = 0u;
+  *&v8->var47.var4 = 0u;
+  *&v8->var47.var8 = 0;
   if (*p_var46)
   {
-    memcpy(v130, v5->var54, sizeof(v130));
-    bzero(&v129, 0x105CuLL);
-    v129.var0 = v5->var45.var0;
-    v129.var2 = v5->var45.var2;
-    v129.var4 = 1;
-    v129.var25 = v5->var45.var25;
-    v59 = CAWBAFEH14::ComputeAWBGainsCore(v5, v130, v131, &v129);
-    v60 = *(var67 + 2075) != 2 && *(v5->var113 + 1) || v5->var48 != 2;
+    memcpy(v133, v8->var54, sizeof(v133));
+    bzero(&v132, 0x105CuLL);
+    v132.var0 = v8->var45.var0;
+    v132.var2 = v8->var45.var2;
+    v132.var4 = 1;
+    v132.var25 = v8->var45.var25;
+    v62 = CAWBAFEH14::ComputeAWBGainsCore(v8, v133, v134, &v132);
+    v63 = *(var67 + 2075) != 2 && *(v8->var113 + 1) || v8->var48 != 2;
     if (*(var67 + 810) != 1)
     {
-      v61 = *(var67 + 811);
-      if (v61 != 2 && v61 != 1)
+      v64 = *(var67 + 811);
+      if (v64 != 2 && v64 != 1)
       {
-        v60 = 0;
+        v63 = 0;
       }
     }
 
-    if (v129.var0 <= 9u && v60 && (var48 = v5->var48) != 0)
+    if (v132.var0 <= 9u && v63 && (var48 = v8->var48) != 0)
     {
       if (var48 == 2)
       {
-        CAWBAFE::ComputeDigitalFlashAWBV2(v5, v130, &v129);
+        CAWBAFE::ComputeDigitalFlashAWBV2(v8, v133, &v132);
       }
 
       else
       {
-        CAWBAFE::ComputeDigitalFlashAWBV1(v5, v130, &v129, *&v59);
+        CAWBAFE::ComputeDigitalFlashAWBV1(v8, v133, &v132, *&v62);
       }
 
-      memset(v128.var1, 0, sizeof(v128.var1));
-      memset(&v128.var2[2], 0, 24);
-      v128.var0 = 3;
-      *&v128.var1[1] = 0xA00000005;
-      *v128.var2 = 0xCC00000100;
-      v64 = CAWBAFE::calculateWeightFromTuningTable(v5, &v128, v129.var0);
-      v63 = vmla_n_f32(vmul_n_f32(*(p_var46 + 36), v64), *(p_var46 + 12), 1.0 - v64);
-      *&v129.var14 = v63;
+      memset(v131.var1, 0, sizeof(v131.var1));
+      memset(&v131.var2[2], 0, 24);
+      v131.var0 = 3;
+      *&v131.var1[1] = 0xA00000005;
+      *v131.var2 = 0xCC00000100;
+      v67 = CAWBAFE::calculateWeightFromTuningTable(v8, &v131, v132.var0);
+      v66 = vmla_n_f32(vmul_n_f32(*(p_var46 + 36), v67), *(p_var46 + 12), 1.0 - v67);
+      *&v132.var14 = v66;
     }
 
     else
     {
-      v63 = *&v129.var14;
+      v66 = *&v132.var14;
     }
 
-    *&v5->var42 = v63;
-    v5->var44 = v129.var6;
+    *&v8->var42 = v66;
+    v8->var44 = v132.var6;
   }
 
-  memcpy(v5->var45.var26, v5->var53, sizeof(v5->var45.var26));
+  memcpy(v8->var45.var26, v8->var53, sizeof(v8->var45.var26));
   if (*(var67 + 2116) == 1)
   {
-    var6 = v5->var6;
+    var6 = v8->var6;
     if (var6[55] < 0.05)
     {
-      v66 = &var67[*(var67 + 12)];
-      v67 = *(v66 - 3);
-      if (v18 > v67)
+      v69 = &var67[*(var67 + 12)];
+      v70 = *(v69 - 3);
+      if (v21 > v70)
       {
-        v68 = *(v66 - 1);
-        if (v68 >= v5->var45.var0)
+        v71 = *(v69 - 1);
+        if (v71 >= v8->var45.var0)
         {
-          var0 = v5->var45.var0;
+          var0 = v8->var45.var0;
         }
 
         else
         {
-          var0 = v68;
+          var0 = v71;
         }
 
-        v70 = var6[58];
-        if (v70 <= var6[60])
+        v73 = var6[58];
+        if (v73 <= var6[60])
         {
-          v70 = var6[60];
+          v73 = var6[60];
         }
 
-        var23 = v5->var45.var23;
-        v72 = fabsf(sqrtf(var23));
-        v73 = var23 == -INFINITY;
-        v74 = INFINITY;
-        if (!v73)
+        var23 = v8->var45.var23;
+        v75 = fabsf(sqrtf(var23));
+        v76 = var23 == -INFINITY;
+        v77 = INFINITY;
+        if (!v76)
         {
-          v74 = v72;
+          v77 = v75;
         }
 
-        v75 = v70 * v74;
-        v76 = log2f(v67 + 1.0);
-        v77 = log2f((var0 + 1));
-        v5->var45.var0 = exp2f((v77 * (1.0 - v75)) + (v76 * v75));
+        v78 = v73 * v77;
+        v79 = log2f(v70 + 1.0);
+        v80 = log2f((var0 + 1));
+        v8->var45.var0 = exp2f((v80 * (1.0 - v78)) + (v79 * v78));
       }
     }
   }
 
-  CAWBAFEH14::ComputeAWBGainsCore(v5, v5->var53, v131, &v5->var45);
-  if (v5->var16 == v5->var18 && var67[7] <= 1u)
+  CAWBAFEH14::ComputeAWBGainsCore(v8, v8->var53, v134, &v8->var45);
+  if (v8->var16 == v8->var18 && var67[7] <= 1u)
   {
-    CCTFromColorRatio = CAWBAFE::GetCCTFromColorRatio(v5, v5->var38, v5->var87, v78, v79, v80, *&v81);
-    v86 = CCTFromColorRatio;
+    CCTFromColorRatio = CAWBAFE::GetCCTFromColorRatio(v8, v8->var38, v8->var87, v81, v82, v83, *&v84);
+    v89 = CCTFromColorRatio;
     if (CCTFromColorRatio >= 0x1964)
     {
-      v87 = 6500;
+      v90 = 6500;
     }
 
     else
     {
-      v87 = CCTFromColorRatio;
+      v90 = CCTFromColorRatio;
     }
 
-    if (v87 <= 0x9C4)
+    if (v90 <= 0x9C4)
     {
-      v88 = 2500;
+      v91 = 2500;
     }
 
     else
     {
-      v88 = v87;
+      v91 = v90;
     }
 
-    var38 = v5->var38;
-    v90 = var38 - CAWBAFE::GetColorRatioXFromCCT(v5, v88 + v5->var25, v85);
-    if (v90 < 0.125 || (v91 = v5->var38, v90 = v91 - CAWBAFE::GetColorRatioXFromCCT(v5, v5->var25 + v88, v90), v92 = 0.5, v90 <= 0.5))
+    var38 = v8->var38;
+    v93 = var38 - CAWBAFE::GetColorRatioXFromCCT(v8, v91 + v8->var25, v88);
+    if (v93 < 0.125 || (v94 = v8->var38, v93 = v94 - CAWBAFE::GetColorRatioXFromCCT(v8, v8->var25 + v91, v93), v95 = 0.5, v93 <= 0.5))
     {
-      v93 = v5->var38;
-      v94 = v93 - CAWBAFE::GetColorRatioXFromCCT(v5, v5->var25 + v88, v90);
-      v92 = 0.125;
-      if (v94 >= 0.125)
+      v96 = v8->var38;
+      v97 = v96 - CAWBAFE::GetColorRatioXFromCCT(v8, v8->var25 + v91, v93);
+      v95 = 0.125;
+      if (v97 >= 0.125)
       {
-        v95 = v5->var38;
-        v92 = v95 - CAWBAFE::GetColorRatioXFromCCT(v5, v5->var25 + v88, v94);
+        v98 = v8->var38;
+        v95 = v98 - CAWBAFE::GetColorRatioXFromCCT(v8, v8->var25 + v91, v97);
       }
     }
 
-    if (v86 < 0xFA1)
+    if (v89 < 0xFA1)
     {
-      v100 = (v88 - 2500) / 1500.0;
-      v97 = 1.0 - v100;
-      v98 = v100 * 0.25;
-      v99 = 0.5;
+      v103 = (v91 - 2500) / 1500.0;
+      v100 = 1.0 - v103;
+      v101 = v103 * 0.25;
+      v102 = 0.5;
     }
 
     else
     {
-      v96 = (v88 - 4000) / 2500.0;
-      v97 = 1.0 - v96;
-      v98 = v96 * 0.125;
-      v99 = 0.25;
+      v99 = (v91 - 4000) / 2500.0;
+      v100 = 1.0 - v99;
+      v101 = v99 * 0.125;
+      v102 = 0.25;
     }
 
-    v101 = v98 + (v97 * v99);
-    if (v13 >= v92)
+    v104 = v101 + (v100 * v102);
+    if (v16 >= v95)
     {
-      v102 = v92;
+      v105 = v95;
     }
 
     else
     {
-      v102 = v13;
+      v105 = v16;
     }
 
-    if (v13 >= v101)
+    if (v16 >= v104)
     {
-      v13 = v98 + (v97 * v99);
+      v16 = v101 + (v100 * v102);
     }
 
     if (*(var67 + 1797) == 1)
     {
-      v103 = CAWBAFE::calculateWeightFromTuningTable(v5, &v5->var118.var0, v18);
-      if (v92 <= v103)
+      v106 = CAWBAFE::calculateWeightFromTuningTable(v8, &v8->var118.var0, v21);
+      if (v95 <= v106)
       {
-        v92 = v103;
+        v95 = v106;
       }
 
-      v104 = CAWBAFE::calculateWeightFromTuningTable(v5, &v5->var118.var1, v18);
-      if (v101 <= v104)
+      v107 = CAWBAFE::calculateWeightFromTuningTable(v8, &v8->var118.var1, v21);
+      if (v104 <= v107)
       {
-        v101 = v104;
+        v104 = v107;
       }
 
-      v105 = CAWBAFE::calculateWeightFromTuningTable(v5, &v5->var118.var2, v18);
-      if (v102 >= v105)
+      v108 = CAWBAFE::calculateWeightFromTuningTable(v8, &v8->var118.var2, v21);
+      if (v105 >= v108)
       {
-        v102 = v105;
+        v105 = v108;
       }
 
-      v106 = CAWBAFE::calculateWeightFromTuningTable(v5, &v5->var118.var3, v18);
-      if (v13 >= v106)
+      v109 = CAWBAFE::calculateWeightFromTuningTable(v8, &v8->var118.var3, v21);
+      if (v16 >= v109)
       {
-        v13 = v106;
+        v16 = v109;
       }
     }
 
-    var40 = v5->var40;
-    v108 = v5->var38;
-    *&v79 = vabds_f32(var40, v108);
-    if (*&v79 <= v92)
+    var40 = v8->var40;
+    v111 = v8->var38;
+    *&v82 = vabds_f32(var40, v111);
+    if (*&v82 <= v95)
     {
-      *&v80 = v5->var39;
-      *&v79 = vabds_f32(v5->var41, *&v80);
-      if (*&v79 <= v101)
+      *&v83 = v8->var39;
+      *&v82 = vabds_f32(v8->var41, *&v83);
+      if (*&v82 <= v104)
       {
         return 1;
       }
@@ -8608,92 +8618,92 @@ LABEL_28:
 
     if ((var67[1618] & 1) == 0)
     {
-      v109 = v108 - var40;
-      v110 = v102 + var40;
-      v111 = v109 <= v92;
-      if (v109 > v92)
+      v112 = v111 - var40;
+      v113 = v105 + var40;
+      v114 = v112 <= v95;
+      if (v112 > v95)
       {
-        v109 = (v102 + var40) - var40;
+        v112 = (v105 + var40) - var40;
       }
 
-      v112 = -v92;
-      if (!v111 || v109 < v112)
+      v115 = -v95;
+      if (!v114 || v112 < v115)
       {
-        v113 = var40 - v102;
-        if (v109 >= v112)
+        v116 = var40 - v105;
+        if (v112 >= v115)
         {
-          v113 = v110;
+          v116 = v113;
         }
 
-        v5->var38 = v113;
+        v8->var38 = v116;
       }
 
-      var41 = v5->var41;
-      *&v79 = v5->var39 - var41;
-      v115 = v13 + var41;
-      v116 = *&v79 <= v101;
-      if (*&v79 > v101)
+      var41 = v8->var41;
+      *&v82 = v8->var39 - var41;
+      v118 = v16 + var41;
+      v119 = *&v82 <= v104;
+      if (*&v82 > v104)
       {
-        *&v79 = (v13 + var41) - var41;
+        *&v82 = (v16 + var41) - var41;
       }
 
-      *&v80 = -v101;
-      if (!v116 || *&v79 < *&v80)
+      *&v83 = -v104;
+      if (!v119 || *&v82 < *&v83)
       {
-        v117 = var41 - v13;
-        if (*&v79 >= *&v80)
+        v120 = var41 - v16;
+        if (*&v82 >= *&v83)
         {
-          v117 = v115;
+          v120 = v118;
         }
 
-        v5->var39 = v117;
+        v8->var39 = v120;
       }
     }
   }
 
-  v118 = v5->var38;
-  v5->var40 = v118;
-  var39 = v5->var39;
-  v5->var41 = var39;
-  v5->var45.var16 = v118;
-  v5->var45.var17 = var39;
-  CAWBAFE::ComputeChannelGainsfromHistWP(v5, v118, var39, &v5->var35, &v5->var36, v79, v80, v81, v82, v83);
-  LODWORD(v122) = 1166016512;
-  LODWORD(v123) = 0.5;
-  v124 = ((v5->var35 * 4096.0) + 0.5);
-  if (v124 >= 0xFFFF)
+  v121 = v8->var38;
+  v8->var40 = v121;
+  var39 = v8->var39;
+  v8->var41 = var39;
+  v8->var45.var16 = v121;
+  v8->var45.var17 = var39;
+  CAWBAFE::ComputeChannelGainsfromHistWP(v8, v121, var39, &v8->var35, &v8->var36, v82, v83, v84, v85, v86);
+  LODWORD(v125) = 1166016512;
+  LODWORD(v126) = 0.5;
+  v127 = ((v8->var35 * 4096.0) + 0.5);
+  if (v127 >= 0xFFFF)
   {
-    v124 = 0xFFFF;
+    v127 = 0xFFFF;
   }
 
-  if (v124 <= 0x800)
+  if (v127 <= 0x800)
   {
-    v124 = 2048;
+    v127 = 2048;
   }
 
-  v5->var21[0] = v124;
-  v125 = ((v5->var36 * 4096.0) + 0.5);
-  if (v125 >= 0xFFFF)
+  v8->var21[0] = v127;
+  v128 = ((v8->var36 * 4096.0) + 0.5);
+  if (v128 >= 0xFFFF)
   {
-    v125 = 0xFFFF;
+    v128 = 0xFFFF;
   }
 
-  if (v125 <= 0x800)
+  if (v128 <= 0x800)
   {
-    v125 = 2048;
+    v128 = 2048;
   }
 
-  v5->var21[2] = v125;
-  v5->var21[1] = 4096;
-  v5->var20 = CAWBAFE::GetCCTFromColorRatio(v5, v5->var40, v5->var87, v122, v123, v120, v121);
+  v8->var21[2] = v128;
+  v8->var21[1] = 4096;
+  v8->var20 = CAWBAFE::GetCCTFromColorRatio(v8, v8->var40, v8->var87, v125, v126, v123, v124);
   if (*(var67 + 548) != 1)
   {
     return 0;
   }
 
-  CAWBAFEH14::calculateCCMDesatFactorForSkin(v5, *(var67 + 136), v18, v131);
+  CAWBAFEH14::calculateCCMDesatFactorForSkin(v8, *(var67 + 136), v21, v134);
   result = 0;
-  *(var67 + 135) = (v127 * 0.75) + (*(var67 + 135) * 0.25);
+  *(var67 + 135) = (v130 * 0.75) + (*(var67 + 135) * 0.25);
   return result;
 }
 
@@ -8702,7 +8712,7 @@ double CAWBAFEH14::ComputeAWBGainsCore(CAWBAFEH14 *this, int8x16_t *a2, const __
   v7 = &this->var67[1];
   v8 = &this->var54[4];
   p_var49 = &this->var49;
-  *v145 = 0;
+  v145[0] = 0;
   var39 = 0.0;
   a4->var3 = 0;
   if (((*(this->var7 + 181) >> 2) * (*(this->var7 + 180) >> 2)) >> 6 <= 0x200)
@@ -8835,7 +8845,7 @@ LABEL_22:
         v140 = *&v60;
         *&v60 = v35;
         *&this->var38 = vdiv_f32(v63, vdup_lane_s32(*&v60, 0));
-        v64.f32[0] = CAWBAFE::ComputeProjection(this, *v7, &v145[1], v145, &this->var38, &this->var39, a3, &this->var84);
+        v64.f32[0] = CAWBAFE::ComputeProjection(this, *v7, v145 + 1, v145, &this->var38, &this->var39, a3, &this->var84);
         v64.i32[1] = LODWORD(this->var39);
         _D1 = vmla_n_f32(vmul_n_f32(*&this->var40, v140), v64, 1.0 - v140);
       }
@@ -9053,11 +9063,11 @@ LABEL_59:
 
     var38 = this->var38;
     var39 = this->var39;
-    v105 = CAWBAFE::ComputeProjection(this, v103, &v145[1], v145, &this->var38, &var39, a3, (v7 + 33));
+    v105 = CAWBAFE::ComputeProjection(this, v103, v145 + 1, v145, &this->var38, &var39, a3, (v7 + 33));
     if (*(v7 + 33) == 2 && a4->var0 < var67[*(v7 + 10) - 3] && a4->var20 > *p_var38)
     {
       CAWBAFE::blendGrayWorldforLowCCTProjection(this, a4);
-      v106 = CAWBAFE::ComputeProjection(this, a4->var0, &v145[1], v145, &this->var38, &this->var39, a3, (v7 + 33));
+      v106 = CAWBAFE::ComputeProjection(this, a4->var0, v145 + 1, v145, &this->var38, &this->var39, a3, (v7 + 33));
       *&v143.var0 = xmmword_1C9332890;
       *&v143.var1[3] = unk_1C93328A0;
       *&v143.var1[7] = xmmword_1C93328B0;
@@ -9075,8 +9085,8 @@ LABEL_59:
       }
 
       v109 = CAWBAFE::calculateWeightFromTuningTable(this, &v143, v108);
-      v110 = v145[0];
-      v111 = ((1.0 - v109) * v145[0]) + (this->var38 * v109);
+      v110 = *v145;
+      v111 = ((1.0 - v109) * *v145) + (this->var38 * v109);
       v112 = a4->var23 / ((a4->var23 + a4->var24) + 0.0001);
       v113 = (v112 + -0.4) / 0.6;
       if (v113 < 0.0)
@@ -9124,8 +9134,8 @@ LABEL_59:
       }
     }
 
-    v119 = v145[1];
-    if (v105 > v145[1])
+    v119 = *(v145 + 1);
+    if (v105 > *(v145 + 1))
     {
       v119 = v105;
     }
@@ -9153,7 +9163,7 @@ LABEL_59:
     if (*(var113 + 401) > 1u)
     {
       v121 = *(var113 + 770);
-      if (v121 <= v145[0])
+      if (v121 <= *v145)
       {
         v122 = 0;
       }
@@ -9203,7 +9213,7 @@ LABEL_113:
         {
           v126 = 0;
           v127 = *(var113 + 770);
-          if (v127 < v145[1] && var38 < v145[1])
+          if (v127 < *(v145 + 1) && var38 < *(v145 + 1))
           {
             if (v127 >= *p_var38)
             {
@@ -9235,8 +9245,10 @@ LABEL_113:
   return result;
 }
 
-CAWBAFEH14 *CAWBAFEH14::ComputeAWBChromaHistogram(CAWBAFEH14 *this, unsigned __int16 a2, unsigned int a3)
+CAWBAFEH14 *CAWBAFEH14::ComputeAWBChromaHistogram(CAWBAFEH14 *this, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
+  v4 = a2;
   v6 = &this->var66[5][856];
   v28 = 4;
   HIWORD(v7) = 0;
@@ -9287,7 +9299,7 @@ CAWBAFEH14 *CAWBAFEH14::ComputeAWBChromaHistogram(CAWBAFEH14 *this, unsigned __i
   while (v10 != 2048);
   if (this->var26)
   {
-    CAWBAFEH14::ComputeChromaHistfromTile(this);
+    CAWBAFEH14::ComputeChromaHistfromTile(this, a2, a3, *&v17);
   }
 
   if (v6[717] == 1)
@@ -9295,8 +9307,8 @@ CAWBAFEH14 *CAWBAFEH14::ComputeAWBChromaHistogram(CAWBAFEH14 *this, unsigned __i
     CAWBAFE::ComputeSkinColor_fdProbApproach(this, this->var54, this->var126);
   }
 
-  v20 = a3 >> 10;
-  if (a3 >> 10 >= 4)
+  v20 = v3 >> 10;
+  if (v3 >> 10 >= 4)
   {
     v20 = 4;
   }
@@ -9315,7 +9327,7 @@ CAWBAFEH14 *CAWBAFEH14::ComputeAWBChromaHistogram(CAWBAFEH14 *this, unsigned __i
       var6 = this->var6;
       if (*(var6 + 56) > 0.0)
       {
-        CAWBAFEPhotometerAssistPenrose::calcTemproalFilterForChromaHist(this->var5, var6, this->var53, this->var54, this->var65, 32, 0x20u, *(v6 + 101), this->var40, this->var41, a2, &this->var52);
+        CAWBAFEPhotometerAssistPenrose::calcTemproalFilterForChromaHist(this->var5, var6, this->var53, this->var54, this->var65, 32, 0x20u, *(v6 + 101), this->var40, this->var41, v4, &this->var52);
         v22 = v6[3404];
       }
     }
@@ -9340,358 +9352,358 @@ CAWBAFEH14 *CAWBAFEH14::ComputeAWBChromaHistogram(CAWBAFEH14 *this, unsigned __i
   return CAWBAFEH14::calculateGrayIndexFromGrayworld(this, &this->var45, this->var53);
 }
 
-uint64_t CAWBAFEH14::ComputeChromaHistfromTile(CAWBAFEH14 *this)
+uint64_t CAWBAFEH14::ComputeChromaHistfromTile(CAWBAFEH14 *this, uint64_t a2, uint64_t a3, float a4)
 {
-  v1 = MEMORY[0x1EEE9AC00](this);
-  v5 = v1;
-  v6 = 0;
-  v97.var2[7] = 0;
-  *&v97.var0 = xmmword_1C9332A3C;
-  *&v97.var1[3] = unk_1C9332A4C;
-  *&v97.var1[7] = xmmword_1C9332A5C;
-  *&v97.var2[3] = unk_1C9332A6C;
-  v7 = *(v1 + 13362);
-  if (v7 <= 0x100)
+  v4 = MEMORY[0x1EEE9AC00](this, a2, a3, a4);
+  v8 = v4;
+  v9 = 0;
+  v100.var2[7] = 0;
+  *&v100.var0 = xmmword_1C9332A3C;
+  *&v100.var1[3] = unk_1C9332A4C;
+  *&v100.var1[7] = xmmword_1C9332A5C;
+  *&v100.var2[3] = unk_1C9332A6C;
+  v10 = *(v4 + 13362);
+  if (v10 <= 0x100)
   {
-    v8 = *(v1 + 13360);
+    v11 = *(v4 + 13360);
   }
 
   else
   {
-    v8 = HIBYTE(*(v1 + 13360));
+    v11 = HIBYTE(*(v4 + 13360));
   }
 
-  if (v7 <= 0x100)
+  if (v10 <= 0x100)
   {
-    v9 = *(v1 + 13362);
+    v12 = *(v4 + 13362);
   }
 
   else
   {
-    v9 = v7 >> 8;
+    v12 = v10 >> 8;
   }
 
-  v95 = v9;
-  v10 = *(v1 + 560);
-  v11 = *(v1 + 566);
-  v12 = *(v1 + 564);
-  v13 = *(v1 + 570);
-  v14 = *(v1 + 644);
-  v15 = *(v1 + 652);
-  v93 = v14 * 0.000015259;
-  v16 = v1 + 9192;
-  v17 = v5->var14.var0[0];
-  v18 = v5->var13.var2[1];
-  v19 = v5->var13.var2[2];
+  v98 = v12;
+  v13 = *(v4 + 560);
+  v14 = *(v4 + 566);
+  v15 = *(v4 + 564);
+  v16 = *(v4 + 570);
+  v17 = *(v4 + 644);
+  v18 = *(v4 + 652);
+  v96 = v17 * 0.000015259;
+  v19 = v4 + 9192;
+  v20 = v8->var14.var0[0];
+  v21 = v8->var13.var2[1];
+  v22 = v8->var13.var2[2];
   do
   {
-    *&v96[v6] = vcvtq_f32_u32(*(v16 + v6 * 4));
-    v6 += 4;
+    *&v99[v9] = vcvtq_f32_u32(*(v19 + v9 * 4));
+    v9 += 4;
   }
 
-  while (v6 != 1024);
-  v85 = v16;
-  if (v17 <= 0x100)
+  while (v9 != 1024);
+  v88 = v19;
+  if (v20 <= 0x100)
   {
-    v20 = 1.0;
+    v23 = 1.0;
   }
 
   else
   {
-    v20 = 256.0;
+    v23 = 256.0;
   }
 
-  var7 = v5->var7;
+  var7 = v8->var7;
   if (*(var7 + 177))
   {
-    v22 = 0;
-    v23 = 0;
-    v24 = 0;
-    v94 = v8;
-    v25 = v19 - (1048600.0 / v15);
-    v88 = v15 * 0.000015259;
-    v89 = v25;
-    v91 = v10;
-    v92 = v18 - (1048600.0 / v14);
-    v90 = v12;
-    v86 = v13;
-    v87 = v11;
-    v26 = 31.0;
+    v25 = 0;
+    v26 = 0;
+    v27 = 0;
+    v97 = v11;
+    v28 = v22 - (1048600.0 / v18);
+    v91 = v18 * 0.000015259;
+    v92 = v28;
+    v94 = v13;
+    v95 = v21 - (1048600.0 / v17);
+    v93 = v15;
+    v89 = v16;
+    v90 = v14;
+    v29 = 31.0;
     do
     {
       if (*(var7 + 176))
       {
-        v27 = 0;
+        v30 = 0;
         do
         {
-          var9 = v5->var9;
-          v29 = v24;
-          v30 = (var9 + 64 * v24);
-          v31 = v30[13];
-          if (v31)
+          var9 = v8->var9;
+          v32 = v27;
+          v33 = (var9 + 64 * v27);
+          v34 = v33[13];
+          if (v34)
           {
-            v32 = v30[1] / v31;
-            v33 = v30[5] / v31;
-            v34 = v30[9] / v31;
-            v35 = v32 + CAWBAFE::calculateWeightFromTuningTable(v5, &v97, ((v32 * 256.0) + 0.5));
-            v36 = v33 + CAWBAFE::calculateWeightFromTuningTable(v5, &v97, ((v33 * 256.0) + 0.5));
-            v26 = 31.0;
-            v37 = v34 + CAWBAFE::calculateWeightFromTuningTable(v5, &v97, ((v34 * 256.0) + 0.5));
-            var9 = v5->var9;
+            v35 = v33[1] / v34;
+            v36 = v33[5] / v34;
+            v37 = v33[9] / v34;
+            v38 = v35 + CAWBAFE::calculateWeightFromTuningTable(v8, &v100, ((v35 * 256.0) + 0.5));
+            v39 = v36 + CAWBAFE::calculateWeightFromTuningTable(v8, &v100, ((v36 * 256.0) + 0.5));
+            v29 = 31.0;
+            v40 = v37 + CAWBAFE::calculateWeightFromTuningTable(v8, &v100, ((v37 * 256.0) + 0.5));
+            var9 = v8->var9;
           }
 
           else
           {
-            v35 = 0.0;
-            v36 = 0.0;
-            v37 = 0.0;
+            v38 = 0.0;
+            v39 = 0.0;
+            v40 = 0.0;
           }
 
-          v38 = *(var9 + 16 * v29 + 13);
-          if ((v35 > 257.0 || v36 > 257.0 || v37 > 257.0) && v5->var1 >= 10)
+          v41 = *(var9 + 16 * v32 + 13);
+          if ((v38 > 257.0 || v39 > 257.0 || v40 > 257.0) && v8->var1 >= 10)
           {
-            printf("ERR: CAWBAFE::ComputeChromaHistfromTile Tile ID: x=%d y=%d \n\n", v22, v27);
-            if (v5->var1 >= 10)
+            printf("ERR: CAWBAFE::ComputeChromaHistfromTile Tile ID: x=%d y=%d \n\n", v25, v30);
+            if (v8->var1 >= 10)
             {
-              printf("ERR:          PF1 [R G B N]: %d %d %d %d \n\n", *(v5->var9 + 16 * v29 + 1), *(v5->var9 + 16 * v29 + 5), *(v5->var9 + 16 * v29 + 9), *(v5->var9 + 16 * v29 + 13));
+              printf("ERR:          PF1 [R G B N]: %d %d %d %d \n\n", *(v8->var9 + 16 * v32 + 1), *(v8->var9 + 16 * v32 + 5), *(v8->var9 + 16 * v32 + 9), *(v8->var9 + 16 * v32 + 13));
             }
           }
 
-          v39 = 255.0;
-          if (v36 <= 255.0)
+          v42 = 255.0;
+          if (v39 <= 255.0)
           {
-            v40 = v36;
+            v43 = v39;
           }
 
           else
           {
-            v40 = 255.0;
+            v43 = 255.0;
           }
 
-          v41 = v40;
-          v42 = 1.0;
-          if ((v36 + 1.0) <= 255.0)
+          v44 = v43;
+          v45 = 1.0;
+          if ((v39 + 1.0) <= 255.0)
           {
-            v39 = v36 + 1.0;
+            v42 = v39 + 1.0;
           }
 
-          v43 = v39;
-          v44 = v36 - v41;
-          if (v44 > 1.0)
+          v46 = v42;
+          v47 = v39 - v44;
+          if (v47 > 1.0)
           {
-            v44 = 1.0;
+            v47 = 1.0;
           }
 
-          LOWORD(v42) = log2Lut[v41];
-          LOWORD(v25) = log2Lut[v43];
-          v25 = LODWORD(v25);
-          v45 = (v44 * v25) + ((1.0 - v44) * v42);
-          if (v45 >= v94 && v45 <= v95)
+          LOWORD(v45) = log2Lut[v44];
+          LOWORD(v28) = log2Lut[v46];
+          v28 = LODWORD(v28);
+          v48 = (v47 * v28) + ((1.0 - v47) * v45);
+          if (v48 >= v97 && v48 <= v98)
           {
-            if (v35 <= 255.0)
+            if (v38 <= 255.0)
             {
-              v47 = v35;
+              v50 = v38;
             }
 
             else
             {
-              v47 = 255.0;
+              v50 = 255.0;
             }
 
-            v48 = v47;
-            if ((v35 + 1.0) <= 255.0)
+            v51 = v50;
+            if ((v38 + 1.0) <= 255.0)
             {
-              v49 = v35 + 1.0;
-            }
-
-            else
-            {
-              v49 = 255.0;
-            }
-
-            if ((v35 - v48) <= 1.0)
-            {
-              v50 = v35 - v48;
+              v52 = v38 + 1.0;
             }
 
             else
             {
-              v50 = 1.0;
+              v52 = 255.0;
             }
 
-            if (v37 <= 255.0)
+            if ((v38 - v51) <= 1.0)
             {
-              v51 = v37;
-            }
-
-            else
-            {
-              v51 = 255.0;
-            }
-
-            v52 = v51;
-            if ((v37 + 1.0) <= 255.0)
-            {
-              v53 = v37 + 1.0;
+              v53 = v38 - v51;
             }
 
             else
             {
-              v53 = 255.0;
+              v53 = 1.0;
             }
 
-            if ((v37 - v52) <= 1.0)
+            if (v40 <= 255.0)
             {
-              v54 = v37 - v52;
+              v54 = v40;
             }
 
             else
             {
-              v54 = 1.0;
+              v54 = 255.0;
             }
 
-            v55 = 1.0;
-            LODWORD(v2) = 1.0;
-            if (v5->var13.var6)
+            v55 = v54;
+            if ((v40 + 1.0) <= 255.0)
             {
-              LOWORD(v2) = v5->var13.var5[0];
-              HIWORD(v3) = 0;
-              HIWORD(v4) = 0;
-              *&v56 = *&v2 * 255.0 * 0.000122070312;
-              v55 = *&v56;
-              LOWORD(v56) = v5->var13.var5[1];
-              v2 = v56 * 255.0 * 0.000122070312;
-              *&v2 = v2;
+              v56 = v40 + 1.0;
             }
 
-            v57 = v49;
-            *&v58 = 1.0 - v50;
-            LOWORD(v3) = log2Lut[v48];
-            v3 = LODWORD(v3);
-            LOWORD(v4) = log2Lut[v57];
-            v4 = LODWORD(v4);
-            LOWORD(v58) = log2Lut[v52];
-            LOWORD(v53) = log2Lut[v53];
-            v59 = (v54 * LODWORD(v53)) + ((1.0 - v54) * v58);
-            v25 = ((v50 * v4) + ((1.0 - v50) * v3)) - v45;
-            v60 = v59 - v45;
-            v61 = v93 * (v92 + (((((v60 * v90) + (v25 * v91)) * 0.00024414) * v55) * v20));
-            if (v61 >= 0.0 && v61 <= v26)
+            else
             {
-              v63 = (((v60 * v86) + (v25 * v87)) * 0.00024414) * *&v2;
-              HIWORD(v25) = HIWORD(v89);
-              v64 = v88 * (v89 + (v63 * v20));
-              if (v64 >= 0.0 && v64 <= v26)
+              v56 = 255.0;
+            }
+
+            if ((v40 - v55) <= 1.0)
+            {
+              v57 = v40 - v55;
+            }
+
+            else
+            {
+              v57 = 1.0;
+            }
+
+            v58 = 1.0;
+            LODWORD(v5) = 1.0;
+            if (v8->var13.var6)
+            {
+              LOWORD(v5) = v8->var13.var5[0];
+              HIWORD(v6) = 0;
+              HIWORD(v7) = 0;
+              *&v59 = *&v5 * 255.0 * 0.000122070312;
+              v58 = *&v59;
+              LOWORD(v59) = v8->var13.var5[1];
+              v5 = v59 * 255.0 * 0.000122070312;
+              *&v5 = v5;
+            }
+
+            v60 = v52;
+            *&v61 = 1.0 - v53;
+            LOWORD(v6) = log2Lut[v51];
+            v6 = LODWORD(v6);
+            LOWORD(v7) = log2Lut[v60];
+            v7 = LODWORD(v7);
+            LOWORD(v61) = log2Lut[v55];
+            LOWORD(v56) = log2Lut[v56];
+            v62 = (v57 * LODWORD(v56)) + ((1.0 - v57) * v61);
+            v28 = ((v53 * v7) + ((1.0 - v53) * v6)) - v48;
+            v63 = v62 - v48;
+            v64 = v96 * (v95 + (((((v63 * v93) + (v28 * v94)) * 0.00024414) * v58) * v23));
+            if (v64 >= 0.0 && v64 <= v29)
+            {
+              v66 = (((v63 * v89) + (v28 * v90)) * 0.00024414) * *&v5;
+              HIWORD(v28) = HIWORD(v92);
+              v67 = v91 * (v92 + (v66 * v23));
+              if (v67 >= 0.0 && v67 <= v29)
               {
-                v66 = (v36 * v38) / 138.0;
-                if (v66 > 0.0)
+                v69 = (v39 * v41) / 138.0;
+                if (v69 > 0.0)
                 {
-                  v67 = v61 + 0.5;
-                  v68 = (v61 + 0.5);
-                  v69 = v64 + 0.5;
-                  v70 = (v64 + 0.5);
-                  v71 = v68;
-                  v72 = v61 + -0.5;
-                  HIWORD(v3) = 0;
-                  if (v72 < 0.0)
+                  v70 = v64 + 0.5;
+                  v71 = (v64 + 0.5);
+                  v72 = v67 + 0.5;
+                  v73 = (v67 + 0.5);
+                  v74 = v71;
+                  v75 = v64 + -0.5;
+                  HIWORD(v6) = 0;
+                  if (v75 < 0.0)
                   {
-                    v72 = 0.0;
+                    v75 = 0.0;
                   }
 
-                  v73 = v71 - v72;
-                  HIWORD(v4) = 16896;
-                  if (v67 <= 32.0)
+                  v76 = v74 - v75;
+                  HIWORD(v7) = 16896;
+                  if (v70 <= 32.0)
                   {
-                    v74 = v67;
-                  }
-
-                  else
-                  {
-                    v74 = 32.0;
-                  }
-
-                  v75 = v70;
-                  v76 = v64 + -0.5;
-                  if (v76 < 0.0)
-                  {
-                    v76 = 0.0;
-                  }
-
-                  v77 = v75 - v76;
-                  if (v69 <= 32.0)
-                  {
-                    v78 = v69;
+                    v77 = v70;
                   }
 
                   else
                   {
-                    v78 = 32.0;
+                    v77 = 32.0;
                   }
 
-                  v79 = v68 + 32 * v70;
-                  if ((v73 * v77) > 0.0)
+                  v78 = v73;
+                  v79 = v67 + -0.5;
+                  if (v79 < 0.0)
                   {
-                    v3 = v96[v79 - 33];
-                    v96[v79 - 33] = v3 + (v66 * (v73 * v77));
+                    v79 = 0.0;
                   }
 
-                  v25 = v74 - v71;
-                  if ((v25 * v77) > 0.0)
+                  v80 = v78 - v79;
+                  if (v72 <= 32.0)
                   {
-                    v96[v79 - 32] = v96[v79 - 32] + (v66 * (v25 * v77));
+                    v81 = v72;
                   }
 
-                  v80 = v78 - v75;
-                  v81 = v73 * v80;
-                  if (v81 > 0.0)
+                  else
                   {
-                    v96[v79 - 1] = v96[v79 - 1] + (v66 * v81);
+                    v81 = 32.0;
                   }
 
-                  if ((v25 * v80) > 0.0)
+                  v82 = v71 + 32 * v73;
+                  if ((v76 * v80) > 0.0)
                   {
-                    v96[v79] = v96[v79] + (v66 * (v25 * v80));
+                    v6 = v99[v82 - 33];
+                    v99[v82 - 33] = v6 + (v69 * (v76 * v80));
                   }
 
-                  if (v5->var65[v79])
+                  v28 = v77 - v74;
+                  if ((v28 * v80) > 0.0)
                   {
-                    v23 = v23 + (v38 >> 1);
+                    v99[v82 - 32] = v99[v82 - 32] + (v69 * (v28 * v80));
+                  }
+
+                  v83 = v81 - v78;
+                  v84 = v76 * v83;
+                  if (v84 > 0.0)
+                  {
+                    v99[v82 - 1] = v99[v82 - 1] + (v69 * v84);
+                  }
+
+                  if ((v28 * v83) > 0.0)
+                  {
+                    v99[v82] = v99[v82] + (v69 * (v28 * v83));
+                  }
+
+                  if (v8->var65[v82])
+                  {
+                    v26 = v26 + (v41 >> 1);
                   }
                 }
               }
             }
           }
 
-          v24 = v29 + 1;
-          ++v27;
-          var7 = v5->var7;
+          v27 = v32 + 1;
+          ++v30;
+          var7 = v8->var7;
         }
 
-        while (v27 < *(var7 + 176));
+        while (v30 < *(var7 + 176));
       }
 
-      ++v22;
+      ++v25;
     }
 
-    while (v22 < *(var7 + 177));
+    while (v25 < *(var7 + 177));
   }
 
   else
   {
-    v23 = 0;
+    v26 = 0;
   }
 
-  v82 = 0;
-  v83.i64[0] = 0x3F0000003F000000;
-  v83.i64[1] = 0x3F0000003F000000;
+  v85 = 0;
+  v86.i64[0] = 0x3F0000003F000000;
+  v86.i64[1] = 0x3F0000003F000000;
   do
   {
-    *(v85 + v82 * 4) = vcvtq_u32_f32(vaddq_f32(*&v96[v82], v83));
-    v82 += 4;
+    *(v88 + v85 * 4) = vcvtq_u32_f32(vaddq_f32(*&v99[v85], v86));
+    v85 += 4;
   }
 
-  while (v82 != 1024);
-  return v23;
+  while (v85 != 1024);
+  return v26;
 }
 
 CAWBAFEH14 *CAWBAFEH14::calculateGrayIndexFromGrayworld(CAWBAFEH14 *this, sAWBInternalParams *a2, const unsigned int *a3)

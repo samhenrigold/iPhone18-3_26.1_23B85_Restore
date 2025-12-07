@@ -204,7 +204,7 @@ LABEL_14:
           v37 = connection;
           if (connection)
           {
-            [connection auditToken];
+            objc_msgSend_auditToken(connection);
           }
 
           else

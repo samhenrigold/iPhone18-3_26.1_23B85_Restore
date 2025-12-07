@@ -34,34 +34,33 @@
 {
   v5 = type metadata accessor for StickerSectionType();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = _Block_copy(reply);
+  v8 = &v17 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = _Block_copy(reply);
   selfCopy = self;
-  v12 = sub_100003C34();
-  v13 = dispatch thunk of LaunchStateManager.launchConfiguration.getter();
+  v11 = sub_100003C34();
+  v12 = dispatch thunk of LaunchStateManager.launchConfiguration.getter();
 
   LaunchConfiguration.sectionType.getter();
   StickerSectionType.rawValue.getter();
-  (*(v6 + 8))(v9, v5);
+  (*(v6 + 8))(v8, v5);
   LaunchConfiguration.identifier.getter();
-  v15 = v14;
-  v16 = String._bridgeToObjectiveC()();
+  v14 = v13;
+  v15 = String._bridgeToObjectiveC()();
 
-  if (v15)
+  if (v14)
   {
-    v17 = String._bridgeToObjectiveC()();
+    v16 = String._bridgeToObjectiveC()();
   }
 
   else
   {
-    v17 = 0;
+    v16 = 0;
   }
 
-  v10[2](v10, v16, v17);
+  v9[2](v9, v15, v16);
 
-  _Block_release(v10);
+  _Block_release(v9);
 }
 
 - (void)upperCaseString:(id)string withReply:(id)reply

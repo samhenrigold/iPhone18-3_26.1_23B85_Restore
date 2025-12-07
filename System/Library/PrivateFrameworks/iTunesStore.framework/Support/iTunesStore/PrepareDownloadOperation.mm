@@ -182,13 +182,13 @@
     [(PrepareDownloadResponse *)v3 setBundleIdentifier:v9];
   }
 
-  v220 = v8;
+  v230 = v8;
   databaseID = [(SSMemoryEntity *)self->_download databaseID];
   [(PrepareDownloadResponse *)v3 setDownloadIdentifier:databaseID];
   v11 = [(SSMemoryEntity *)self->_download valueForProperty:@"transaction_id"];
   longLongValue = [v11 longLongValue];
 
-  v219 = [[DownloadHandle alloc] initWithTransactionIdentifier:longLongValue downloadIdentifier:databaseID];
+  v229 = [[DownloadHandle alloc] initWithTransactionIdentifier:longLongValue downloadIdentifier:databaseID];
   [(PrepareDownloadResponse *)v3 setDownloadHandle:?];
   v13 = [(SSMemoryEntity *)self->_download valueForProperty:@"rental_id"];
   longLongValue2 = [v13 longLongValue];
@@ -198,7 +198,7 @@
   longLongValue3 = [v15 longLongValue];
 
   [(PrepareDownloadResponse *)v3 setStoreItemIdentifier:longLongValue3];
-  v218 = [(SSMemoryEntity *)self->_download valueForProperty:@"title"];
+  v228 = [(SSMemoryEntity *)self->_download valueForProperty:@"title"];
   [(PrepareDownloadResponse *)v3 setTitle:?];
   v17 = +[SSLogConfig sharedDaemonConfig];
   if (!v17)
@@ -206,60 +206,63 @@
     v17 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog = [v17 shouldLog];
+  LODWORD(v18) = [v17 shouldLog];
   if ([v17 shouldLogToDisk])
   {
-    shouldLog |= 2u;
+    LODWORD(v18) = v18 | 2;
   }
 
   oSLogObject = [v17 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
   {
-    shouldLog &= 2u;
+    v18 = v18;
   }
 
-  v215 = databaseID;
-  if (shouldLog)
+  else
+  {
+    v18 &= 2u;
+  }
+
+  v225 = databaseID;
+  if (v18)
   {
     v20 = objc_opt_class();
-    v223 = 138412546;
-    v224 = v20;
-    v225 = 2048;
-    v226 = databaseID;
-    LODWORD(v201) = 22;
-    v198 = &v223;
-    v21 = _os_log_send_and_compose_impl();
+    v233 = 138412546;
+    v234 = v20;
+    v235 = 2048;
+    v236 = databaseID;
+    v21 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Preparing download: %lld", &v233, 22);
 
     if (!v21)
     {
-      goto LABEL_16;
+      goto LABEL_17;
     }
 
-    oSLogObject = [NSString stringWithCString:v21 encoding:4, &v223, v201];
+    oSLogObject = [NSString stringWithCString:v21 encoding:4];
     free(v21);
-    v198 = oSLogObject;
+    v208 = oSLogObject;
     SSFileLog();
   }
 
-LABEL_16:
+LABEL_17:
   _bestMediaAsset = [(PrepareDownloadOperation *)self _bestMediaAsset];
   -[PrepareDownloadResponse setMediaAssetIdentifier:](v3, "setMediaAssetIdentifier:", [_bestMediaAsset databaseID]);
   v23 = [_bestMediaAsset valueForProperty:@"url_session_task_id"];
   [(PrepareDownloadResponse *)v3 setTaskIdentifier:v23];
 
   v24 = [_bestMediaAsset valueForProperty:@"url"];
-  v217 = v24;
+  v227 = v24;
   if (!v24)
   {
     v29 = 0;
-    v221 = 0;
-    goto LABEL_40;
+    v231 = 0;
+    goto LABEL_44;
   }
 
   _clientIdentifier = [(PrepareDownloadOperation *)self _clientIdentifier];
   [(PrepareDownloadOperation *)self _recordCoreAnalyticsEventForClient:_clientIdentifier downloadKind:v5 url:v24];
 
-  v221 = [[NSURL alloc] initWithString:v24];
+  v231 = [[NSURL alloc] initWithString:v24];
   v26 = [_bestMediaAsset valueForProperty:@"is_downloaded"];
   bOOLValue = [v26 BOOLValue];
 
@@ -267,13 +270,13 @@ LABEL_16:
   {
     v29 = 0;
     LODWORD(v24) = 0;
-    goto LABEL_40;
+    goto LABEL_44;
   }
 
-  v207 = v5;
+  v217 = v5;
   v28 = +[NSFileManager defaultManager];
   v29 = [v28 fileExistsAtPath:v24];
-  v212 = _bestMediaAsset;
+  v222 = _bestMediaAsset;
   if (v29)
   {
     v30 = +[SSLogConfig sharedDaemonConfig];
@@ -282,22 +285,39 @@ LABEL_16:
       v30 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v30 shouldLog];
+    LODWORD(v31) = [v30 shouldLog];
     if ([v30 shouldLogToDisk])
     {
-      shouldLog2 |= 2u;
+      LODWORD(v31) = v31 | 2;
     }
 
     oSLogObject2 = [v30 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
     {
-      shouldLog2 &= 2u;
+      v31 = v31;
     }
 
-    if (!shouldLog2)
+    else
     {
-      goto LABEL_38;
+      v31 &= 2u;
     }
+
+    if (!v31)
+    {
+      goto LABEL_42;
+    }
+
+    v33 = v3;
+    v34 = objc_opt_class();
+    databaseID2 = [v222 databaseID];
+    v233 = 138412802;
+    v234 = v34;
+    v235 = 2048;
+    v236 = v225;
+    v237 = 2048;
+    v238 = databaseID2;
+    LODWORD(v211) = 32;
+    v36 = _os_log_send_and_compose_impl(v31, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: Download %lld asset: %lld is already downloaded", &v233, v211);
   }
 
   else
@@ -309,549 +329,573 @@ LABEL_16:
       v30 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog3 = [v30 shouldLog];
+    LODWORD(v37) = [v30 shouldLog];
     if ([v30 shouldLogToDisk])
     {
-      shouldLog3 |= 2u;
+      LODWORD(v37) = v37 | 2;
     }
 
     oSLogObject2 = [v30 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
     {
-      shouldLog3 &= 2u;
+      v37 = v37;
     }
 
-    if (!shouldLog3)
+    else
     {
-      goto LABEL_38;
+      v37 &= 2u;
     }
+
+    if (!v37)
+    {
+      goto LABEL_42;
+    }
+
+    v33 = v3;
+    v34 = objc_opt_class();
+    databaseID3 = [v222 databaseID];
+    v233 = 138412802;
+    v234 = v34;
+    v235 = 2048;
+    v236 = v225;
+    v237 = 2048;
+    v238 = databaseID3;
+    LODWORD(v211) = 32;
+    v36 = _os_log_send_and_compose_impl(v37, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: Flagging download %lld asset: %lld as not downloaded", &v233, v211);
   }
 
-  v34 = v3;
-  v35 = objc_opt_class();
-  databaseID2 = [v212 databaseID];
-  v223 = 138412802;
-  v224 = v35;
-  v225 = 2048;
-  v226 = v215;
-  v227 = 2048;
-  v228 = databaseID2;
-  LODWORD(v201) = 32;
-  v198 = &v223;
-  v37 = _os_log_send_and_compose_impl();
+  v39 = v36;
 
-  v3 = v34;
-  if (v37)
+  v3 = v33;
+  if (v39)
   {
-    oSLogObject2 = [NSString stringWithCString:v37 encoding:4, &v223, v201];
-    free(v37);
-    v198 = oSLogObject2;
+    oSLogObject2 = [NSString stringWithCString:v39 encoding:4];
+    free(v39);
+    v208 = oSLogObject2;
     SSFileLog();
-LABEL_38:
+LABEL_42:
   }
 
   LODWORD(v24) = 1;
-  v5 = v207;
-  _bestMediaAsset = v212;
-LABEL_40:
-  v38 = +[ApplicationWorkspace defaultWorkspace];
-  if (![v38 isMultiUser])
+  v5 = v217;
+  _bestMediaAsset = v222;
+LABEL_44:
+  v40 = +[ApplicationWorkspace defaultWorkspace];
+  if (![v40 isMultiUser])
   {
-LABEL_49:
+LABEL_53:
 
-    goto LABEL_50;
+    goto LABEL_54;
   }
 
   IsEBookKind = SSDownloadKindIsEBookKind();
 
   if (IsEBookKind)
   {
-    v40 = [(SSMemoryEntity *)self->_download valueForProperty:@"is_shared"];
-    bOOLValue2 = [v40 BOOLValue];
+    v42 = [(SSMemoryEntity *)self->_download valueForProperty:@"is_shared"];
+    bOOLValue2 = [v42 BOOLValue];
 
     if (bOOLValue2)
     {
-      v213 = _bestMediaAsset;
-      v205 = v3;
-      v208 = v5;
-      v38 = +[EBookManifest sharedPurchasedBookManifest];
-      v42 = [(SSMemoryEntity *)self->_download valueForProperty:@"store_publication_version"];
-      v43 = [(SSMemoryEntity *)self->_download valueForProperty:@"store_item_id"];
-      v44 = [(SSMemoryEntity *)self->_download valueForProperty:@"download_permalink"];
-      v45 = [(SSMemoryEntity *)self->_download valueForProperty:@"is_from_store"];
-      bOOLValue3 = [v45 BOOLValue];
+      v223 = _bestMediaAsset;
+      v215 = v3;
+      v218 = v5;
+      v40 = +[EBookManifest sharedPurchasedBookManifest];
+      v44 = [(SSMemoryEntity *)self->_download valueForProperty:@"store_publication_version"];
+      v45 = [(SSMemoryEntity *)self->_download valueForProperty:@"store_item_id"];
+      v46 = [(SSMemoryEntity *)self->_download valueForProperty:@"download_permalink"];
+      v47 = [(SSMemoryEntity *)self->_download valueForProperty:@"is_from_store"];
+      bOOLValue3 = [v47 BOOLValue];
 
       if (bOOLValue3)
       {
-        v47 = [v38 bookPathForAdamID:v43 withPublicationVersion:v42];
+        v49 = [v40 bookPathForAdamID:v45 withPublicationVersion:v44];
       }
 
       else
       {
-        if (![v44 length])
+        if (![v46 length])
         {
-          v49 = 0;
-          v3 = v205;
-          goto LABEL_48;
+          v51 = 0;
+          v3 = v215;
+          goto LABEL_52;
         }
 
-        v47 = [v38 bookPathPermalink:v44];
+        v49 = [v40 bookPathPermalink:v46];
       }
 
-      v48 = v47;
-      v3 = v205;
+      v50 = v49;
+      v3 = v215;
 
-      v49 = v48 != 0;
-LABEL_48:
-      v29 |= v49;
-      LODWORD(v24) = v24 | v49;
+      v51 = v50 != 0;
+LABEL_52:
+      v29 |= v51;
+      LODWORD(v24) = v24 | v51;
 
-      v5 = v208;
-      _bestMediaAsset = v213;
-      goto LABEL_49;
+      v5 = v218;
+      _bestMediaAsset = v223;
+      goto LABEL_53;
     }
   }
 
-LABEL_50:
+LABEL_54:
   if (!SSDownloadKindIsSoftwareKind())
   {
     if ([(PrepareDownloadOperation *)self _shouldFailForFinishedDownload])
     {
-      v59 = +[SSLogConfig sharedDaemonConfig];
-      if (!v59)
+      v61 = +[SSLogConfig sharedDaemonConfig];
+      if (!v61)
       {
-        v59 = +[SSLogConfig sharedConfig];
+        v61 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog4 = [v59 shouldLog];
-      if ([v59 shouldLogToDisk])
+      shouldLog = [v61 shouldLog];
+      if ([v61 shouldLogToDisk])
       {
-        v61 = shouldLog4 | 2;
+        v63 = shouldLog | 2;
       }
 
       else
       {
-        v61 = shouldLog4;
+        v63 = shouldLog;
       }
 
-      oSLogObject3 = [v59 OSLogObject];
+      oSLogObject3 = [v61 OSLogObject];
       if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
       {
-        v63 = v61;
+        v65 = v63;
       }
 
       else
       {
-        v63 = v61 & 2;
+        v65 = v63 & 2;
       }
 
-      if (v63)
+      if (v65)
       {
-LABEL_72:
-        v64 = objc_opt_class();
-        v223 = 138412546;
-        v224 = v64;
-        v225 = 2048;
-        v226 = v215;
-        v65 = v64;
-        LODWORD(v201) = 22;
-        v199 = &v223;
-        v66 = _os_log_send_and_compose_impl();
+        v66 = objc_opt_class();
+        v233 = 138412546;
+        v234 = v66;
+        v235 = 2048;
+        v236 = v225;
+        v67 = v66;
+        LODWORD(v211) = 22;
+        v68 = _os_log_send_and_compose_impl(v65, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%@: Skip prepare for finished download: %lld", &v233, v211);
+LABEL_77:
+        v69 = v68;
 
         p_vtable = (DemoteApplicationOperation + 24);
-        if (!v66)
+        if (!v69)
         {
-LABEL_211:
+LABEL_221:
 
-          v78 = v3;
-          v79 = 4;
-          goto LABEL_212;
+          v83 = v3;
+          v84 = 4;
+          goto LABEL_222;
         }
 
-        oSLogObject3 = [NSString stringWithCString:v66 encoding:4, &v223, v201];
-        free(v66);
-        v199 = oSLogObject3;
+        oSLogObject3 = [NSString stringWithCString:v69 encoding:4];
+        free(v69);
+        v209 = oSLogObject3;
         SSFileLog();
-LABEL_210:
+LABEL_220:
 
-        goto LABEL_211;
+        goto LABEL_221;
       }
 
-LABEL_209:
-      p_vtable = DemoteApplicationOperation.vtable;
-      goto LABEL_210;
+      goto LABEL_219;
     }
 
     if ([(PrepareDownloadOperation *)self _shouldCancelAsDuplicate])
     {
-      v67 = +[SSLogConfig sharedDaemonConfig];
-      if (!v67)
+      v70 = +[SSLogConfig sharedDaemonConfig];
+      if (!v70)
       {
-        v67 = +[SSLogConfig sharedConfig];
+        v70 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog5 = [v67 shouldLog];
-      if ([v67 shouldLogToDisk])
+      shouldLog2 = [v70 shouldLog];
+      if ([v70 shouldLogToDisk])
       {
-        v69 = shouldLog5 | 2;
+        v72 = shouldLog2 | 2;
       }
 
       else
       {
-        v69 = shouldLog5;
+        v72 = shouldLog2;
       }
 
-      oSLogObject4 = [v67 OSLogObject];
+      oSLogObject4 = [v70 OSLogObject];
       if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
       {
-        v71 = v69;
+        v74 = v72;
       }
 
       else
       {
-        v71 = v69 & 2;
-      }
-
-      if (v71)
-      {
-LABEL_98:
-        v75 = objc_opt_class();
-        v223 = 138412546;
-        v224 = v75;
-        v225 = 2048;
-        v226 = v215;
-        v76 = v75;
-        LODWORD(v201) = 22;
-        v199 = &v223;
-        v77 = _os_log_send_and_compose_impl();
-
-        p_vtable = (DemoteApplicationOperation + 24);
-        if (!v77)
-        {
-LABEL_102:
-
-          v78 = v3;
-          v79 = 1;
-LABEL_212:
-          [(PrepareDownloadResponse *)v78 setResult:v79, v199];
-          goto LABEL_213;
-        }
-
-        oSLogObject4 = [NSString stringWithCString:v77 encoding:4, &v223, v201];
-        free(v77);
-        v199 = oSLogObject4;
-        SSFileLog();
-LABEL_101:
-
-        goto LABEL_102;
-      }
-
-LABEL_100:
-      p_vtable = (DemoteApplicationOperation + 24);
-      goto LABEL_101;
-    }
-
-    if ([(PrepareDownloadOperation *)self _shouldCancelAutomaticDownload])
-    {
-      v67 = +[SSLogConfig sharedDaemonConfig];
-      if (!v67)
-      {
-        v67 = +[SSLogConfig sharedConfig];
-      }
-
-      shouldLog6 = [v67 shouldLog];
-      if ([v67 shouldLogToDisk])
-      {
-        v73 = shouldLog6 | 2;
-      }
-
-      else
-      {
-        v73 = shouldLog6;
-      }
-
-      oSLogObject4 = [v67 OSLogObject];
-      if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
-      {
-        v74 = v73;
-      }
-
-      else
-      {
-        v74 = v73 & 2;
+        v74 = v72 & 2;
       }
 
       if (v74)
       {
-        goto LABEL_98;
+        v75 = objc_opt_class();
+        v233 = 138412546;
+        v234 = v75;
+        v235 = 2048;
+        v236 = v225;
+        v76 = v75;
+        LODWORD(v211) = 22;
+        v77 = _os_log_send_and_compose_impl(v74, 0, 0, 0, &_mh_execute_header, oSLogObject4, 0, "%@: Cancel download that exists in library: %lld", &v233, v211);
+LABEL_104:
+        v82 = v77;
+
+        p_vtable = (DemoteApplicationOperation + 24);
+        if (!v82)
+        {
+LABEL_108:
+
+          v83 = v3;
+          v84 = 1;
+LABEL_222:
+          [(PrepareDownloadResponse *)v83 setResult:v84, v209];
+          goto LABEL_223;
+        }
+
+        oSLogObject4 = [NSString stringWithCString:v82 encoding:4];
+        free(v82);
+        v209 = oSLogObject4;
+        SSFileLog();
+LABEL_107:
+
+        goto LABEL_108;
       }
 
-      goto LABEL_100;
+      goto LABEL_106;
     }
 
-    v80 = [(SSMemoryEntity *)self->_download valueForProperty:@"IFNULL(download_state.restore_state, 0)"];
-    integerValue = [v80 integerValue];
+    if ([(PrepareDownloadOperation *)self _shouldCancelAutomaticDownload])
+    {
+      v70 = +[SSLogConfig sharedDaemonConfig];
+      if (!v70)
+      {
+        v70 = +[SSLogConfig sharedConfig];
+      }
+
+      shouldLog3 = [v70 shouldLog];
+      if ([v70 shouldLogToDisk])
+      {
+        v79 = shouldLog3 | 2;
+      }
+
+      else
+      {
+        v79 = shouldLog3;
+      }
+
+      oSLogObject4 = [v70 OSLogObject];
+      if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
+      {
+        v80 = v79;
+      }
+
+      else
+      {
+        v80 = v79 & 2;
+      }
+
+      if (v80)
+      {
+        v81 = objc_opt_class();
+        v233 = 138412546;
+        v234 = v81;
+        v235 = 2048;
+        v236 = v225;
+        v76 = v81;
+        LODWORD(v211) = 22;
+        v77 = _os_log_send_and_compose_impl(v80, 0, 0, 0, &_mh_execute_header, oSLogObject4, 0, "%@: Cancel invalid automatic download: %lld", &v233, v211);
+        goto LABEL_104;
+      }
+
+LABEL_106:
+      p_vtable = (DemoteApplicationOperation + 24);
+      goto LABEL_107;
+    }
+
+    v85 = [(SSMemoryEntity *)self->_download valueForProperty:@"IFNULL(download_state.restore_state, 0)"];
+    integerValue = [v85 integerValue];
 
     if (integerValue == 1)
     {
-      v82 = +[SSLogConfig sharedDaemonConfig];
-      if (!v82)
+      v87 = +[SSLogConfig sharedDaemonConfig];
+      if (!v87)
       {
-        v82 = +[SSLogConfig sharedConfig];
+        v87 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog7 = [v82 shouldLog];
-      if ([v82 shouldLogToDisk])
+      shouldLog4 = [v87 shouldLog];
+      if ([v87 shouldLogToDisk])
       {
-        v84 = shouldLog7 | 2;
+        v89 = shouldLog4 | 2;
       }
 
       else
       {
-        v84 = shouldLog7;
+        v89 = shouldLog4;
       }
 
-      oSLogObject5 = [v82 OSLogObject];
+      oSLogObject5 = [v87 OSLogObject];
       if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
       {
-        v86 = v84;
+        v91 = v89;
       }
 
       else
       {
-        v86 = v84 & 2;
+        v91 = v89 & 2;
       }
 
-      if (v86)
+      if (v91)
       {
-LABEL_113:
-        v87 = objc_opt_class();
-        v223 = 138412546;
-        v224 = v87;
-        v225 = 2048;
-        v226 = v215;
-        v88 = v87;
-        LODWORD(v201) = 22;
-        v199 = &v223;
-LABEL_114:
-        v89 = _os_log_send_and_compose_impl();
+        v92 = objc_opt_class();
+        v233 = 138412546;
+        v234 = v92;
+        v235 = 2048;
+        v236 = v225;
+        v93 = v92;
+        LODWORD(v211) = 22;
+        v94 = "%@: Flagging as finish only for hard-failed restore download: %lld";
+        v95 = v91;
+        v96 = oSLogObject5;
+        v97 = 0;
+LABEL_120:
+        v98 = _os_log_send_and_compose_impl(v95, 0, 0, 0, &_mh_execute_header, v96, v97, v94, &v233, v211);
 
-LABEL_127:
+LABEL_133:
         p_vtable = (DemoteApplicationOperation + 24);
-        if (!v89)
+        if (!v98)
         {
-LABEL_180:
+LABEL_189:
 
-          v78 = v3;
-          v79 = 3;
-          goto LABEL_212;
+          v83 = v3;
+          v84 = 3;
+          goto LABEL_222;
         }
 
-        oSLogObject5 = [NSString stringWithCString:v89 encoding:4, &v223, v201];
-        free(v89);
-        v199 = oSLogObject5;
+        oSLogObject5 = [NSString stringWithCString:v98 encoding:4];
+        free(v98);
+        v209 = oSLogObject5;
         SSFileLog();
-LABEL_179:
+LABEL_188:
 
-        goto LABEL_180;
+        goto LABEL_189;
       }
 
-LABEL_178:
+LABEL_187:
       p_vtable = (DemoteApplicationOperation + 24);
-      goto LABEL_179;
+      goto LABEL_188;
     }
 
     if (_bestMediaAsset)
     {
       if ((v24 & v29) == 1)
       {
-        v82 = +[SSLogConfig sharedDaemonConfig];
-        if (!v82)
+        v87 = +[SSLogConfig sharedDaemonConfig];
+        if (!v87)
         {
-          v82 = +[SSLogConfig sharedConfig];
+          v87 = +[SSLogConfig sharedConfig];
         }
 
-        shouldLog8 = [v82 shouldLog];
-        if ([v82 shouldLogToDisk])
+        shouldLog5 = [v87 shouldLog];
+        if ([v87 shouldLogToDisk])
         {
-          v91 = shouldLog8 | 2;
+          v100 = shouldLog5 | 2;
         }
 
         else
         {
-          v91 = shouldLog8;
+          v100 = shouldLog5;
         }
 
-        oSLogObject5 = [v82 OSLogObject];
+        oSLogObject5 = [v87 OSLogObject];
         if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_INFO))
         {
-          v92 = v91;
+          v101 = v100;
         }
 
         else
         {
-          v92 = v91 & 2;
+          v101 = v100 & 2;
         }
 
-        if (v92)
+        if (v101)
         {
-          v93 = objc_opt_class();
-          v94 = v93;
-          databaseID3 = [_bestMediaAsset databaseID];
-          v223 = 138412802;
-          v224 = v93;
-          v225 = 2048;
-          v226 = v215;
-          v227 = 2048;
-          v228 = databaseID3;
-          LODWORD(v201) = 32;
-          v199 = &v223;
-          v89 = _os_log_send_and_compose_impl();
+          v102 = objc_opt_class();
+          v103 = v102;
+          databaseID4 = [_bestMediaAsset databaseID];
+          v233 = 138412802;
+          v234 = v102;
+          v235 = 2048;
+          v236 = v225;
+          v237 = 2048;
+          v238 = databaseID4;
+          LODWORD(v211) = 32;
+          v98 = _os_log_send_and_compose_impl(v101, 0, 0, 0, &_mh_execute_header, oSLogObject5, 1, "%@: Flagging download %lld as finish only, already have asset: %lld", &v233, v211);
 
-          goto LABEL_127;
+          goto LABEL_133;
         }
 
-        goto LABEL_178;
+        goto LABEL_187;
       }
 
-      if (([v221 isFileURL] & v29) == 1)
+      if (([v231 isFileURL] & v29) == 1)
       {
-        v82 = +[SSLogConfig sharedDaemonConfig];
-        if (!v82)
+        v87 = +[SSLogConfig sharedDaemonConfig];
+        if (!v87)
         {
-          v82 = +[SSLogConfig sharedConfig];
+          v87 = +[SSLogConfig sharedConfig];
         }
 
-        shouldLog9 = [v82 shouldLog];
-        if ([v82 shouldLogToDisk])
+        shouldLog6 = [v87 shouldLog];
+        if ([v87 shouldLogToDisk])
         {
-          v114 = shouldLog9 | 2;
+          v123 = shouldLog6 | 2;
         }
 
         else
         {
-          v114 = shouldLog9;
+          v123 = shouldLog6;
         }
 
-        oSLogObject5 = [v82 OSLogObject];
+        oSLogObject5 = [v87 OSLogObject];
         if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEBUG))
         {
-          v115 = v114;
+          v120 = v123;
         }
 
         else
         {
-          v115 = v114 & 2;
+          v120 = v123 & 2;
         }
 
-        if (v115)
+        if (!v120)
         {
-          goto LABEL_113;
+          goto LABEL_187;
         }
 
-        goto LABEL_178;
+        v124 = objc_opt_class();
+        v233 = 138412546;
+        v234 = v124;
+        v235 = 2048;
+        v236 = v225;
+        v93 = v124;
+        LODWORD(v211) = 22;
+        v94 = "%@: Skipping prepare for file URL download: %lld";
+LABEL_172:
+        v95 = v120;
+        v96 = oSLogObject5;
+        v97 = 2;
+        goto LABEL_120;
       }
 
       if (SSDownloadKindIsSoftwareKind())
       {
-        if ([ApplicationWorkspace keepSafeHarborDataForBundleID:v220])
+        if ([ApplicationWorkspace keepSafeHarborDataForBundleID:v230])
         {
           clientIdentifier = [(PrepareDownloadResponse *)v3 clientIdentifier];
           if (clientIdentifier)
           {
-            v117 = clientIdentifier;
+            v126 = clientIdentifier;
             clientIdentifier2 = [(PrepareDownloadResponse *)v3 clientIdentifier];
-            v119 = [clientIdentifier2 isEqualToString:@"atc"];
+            v128 = [clientIdentifier2 isEqualToString:@"atc"];
 
-            if (v119)
+            if (v128)
             {
-              v82 = +[SSLogConfig sharedDaemonConfig];
-              if (!v82)
+              v87 = +[SSLogConfig sharedDaemonConfig];
+              if (!v87)
               {
-                v82 = +[SSLogConfig sharedConfig];
+                v87 = +[SSLogConfig sharedConfig];
               }
 
-              shouldLog10 = [v82 shouldLog];
-              if ([v82 shouldLogToDisk])
+              shouldLog7 = [v87 shouldLog];
+              if ([v87 shouldLogToDisk])
               {
-                v121 = shouldLog10 | 2;
+                v130 = shouldLog7 | 2;
               }
 
               else
               {
-                v121 = shouldLog10;
+                v130 = shouldLog7;
               }
 
-              oSLogObject5 = [v82 OSLogObject];
+              oSLogObject5 = [v87 OSLogObject];
               if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEBUG))
               {
-                v122 = v121;
+                v120 = v130;
               }
 
               else
               {
-                v122 = v121 & 2;
+                v120 = v130 & 2;
               }
 
-              if (!v122)
+              if (!v120)
               {
-                goto LABEL_178;
+                goto LABEL_187;
               }
 
-LABEL_153:
-              v112 = objc_opt_class();
-              v223 = 138412802;
-              v224 = v112;
-              v225 = 2048;
-              v226 = v215;
-              v227 = 2112;
-              v228 = v220;
-              v88 = v112;
-              LODWORD(v201) = 32;
-              v199 = &v223;
-              goto LABEL_114;
+              v131 = objc_opt_class();
+              v233 = 138412802;
+              v234 = v131;
+              v235 = 2048;
+              v236 = v225;
+              v237 = 2112;
+              v238 = v230;
+              v93 = v131;
+              LODWORD(v211) = 32;
+              v94 = "%@: Keeping safe harbor data with finish only for atc download: %lld bundleID: %@";
+              goto LABEL_172;
             }
           }
         }
       }
 
-      v123 = [(PrepareDownloadOperation *)self _loadSizeIfNecessaryForAsset:_bestMediaAsset];
-      if (v123 >= 1)
+      v132 = [(PrepareDownloadOperation *)self _loadSizeIfNecessaryForAsset:_bestMediaAsset];
+      if (v132 >= 1)
       {
-        [(PrepareDownloadResponse *)v3 setMediaAssetSize:v123];
+        [(PrepareDownloadResponse *)v3 setMediaAssetSize:v132];
       }
 
-      v124 = [_bestMediaAsset valueForProperty:@"local_path"];
-      v125 = [_bestMediaAsset valueForProperty:@"is_hls"];
-      v206 = v125;
+      v133 = [_bestMediaAsset valueForProperty:@"local_path"];
+      v134 = [_bestMediaAsset valueForProperty:@"is_hls"];
+      v216 = v134;
       if (objc_opt_respondsToSelector())
       {
-        bOOLValue4 = [v125 BOOLValue];
-        if (!v124 && bOOLValue4)
+        bOOLValue4 = [v134 BOOLValue];
+        if (!v133 && bOOLValue4)
         {
-          v127 = [(SSMemoryEntity *)self->_download valueForProperty:@"kind"];
-          v128 = sub_10020F36C(v127);
+          v136 = [(SSMemoryEntity *)self->_download valueForProperty:@"kind"];
+          v137 = sub_10020F36C(v136);
 
-          v129 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%lld", [_bestMediaAsset databaseID]);
-          v130 = [v129 stringByAppendingPathExtension:SSDownloadMetadataKeyFileExtensionMoviePackage];
+          v138 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%lld", [_bestMediaAsset databaseID]);
+          v139 = [v138 stringByAppendingPathExtension:SSDownloadMetadataKeyFileExtensionMoviePackage];
 
-          v131 = [v128 stringByAppendingPathComponent:v130];
+          v140 = [v137 stringByAppendingPathComponent:v139];
 
-          v124 = v131;
-          v209 = 1;
-          goto LABEL_189;
+          v133 = v140;
+          v219 = 1;
+          goto LABEL_198;
         }
 
-        v209 = bOOLValue4;
-        if (v124)
+        v219 = bOOLValue4;
+        if (v133)
         {
-LABEL_189:
-          [(PrepareDownloadResponse *)v3 setDestinationPath:v124];
-          v132 = [(SSMemoryEntity *)self->_download valueForProperty:@"has_hdr"];
-          v203 = v132;
+LABEL_198:
+          [(PrepareDownloadResponse *)v3 setDestinationPath:v133];
+          v141 = [(SSMemoryEntity *)self->_download valueForProperty:@"has_hdr"];
+          v213 = v141;
           if (objc_opt_respondsToSelector())
           {
-            bOOLValue5 = [v132 BOOLValue];
+            bOOLValue5 = [v141 BOOLValue];
           }
 
           else
@@ -859,11 +903,11 @@ LABEL_189:
             bOOLValue5 = 0;
           }
 
-          v134 = [(SSMemoryEntity *)self->_download valueForProperty:@"has_4k"];
-          v202 = v134;
+          v143 = [(SSMemoryEntity *)self->_download valueForProperty:@"has_4k"];
+          v212 = v143;
           if (objc_opt_respondsToSelector())
           {
-            bOOLValue6 = [v134 BOOLValue];
+            bOOLValue6 = [v143 BOOLValue];
           }
 
           else
@@ -873,87 +917,86 @@ LABEL_189:
 
           [(PrepareDownloadResponse *)v3 setHasHDR:bOOLValue5];
           [(PrepareDownloadResponse *)v3 setHas4K:bOOLValue6];
-          v136 = [(PrepareDownloadOperation *)self _newURLRequestWithAsset:_bestMediaAsset];
-          v204 = v124;
-          v211 = v136;
-          if (!v136)
+          v145 = [(PrepareDownloadOperation *)self _newURLRequestWithAsset:_bestMediaAsset];
+          v214 = v133;
+          v221 = v145;
+          if (!v145)
           {
-LABEL_250:
-            [(PrepareDownloadResponse *)v3 setHLS:v209];
-            [(PrepareDownloadResponse *)v3 setRequiresDownloadHandler:v136 == 0];
-            [(PrepareDownloadResponse *)v3 setURLRequest:v136];
+LABEL_262:
+            [(PrepareDownloadResponse *)v3 setHLS:v219];
+            [(PrepareDownloadResponse *)v3 setRequiresDownloadHandler:v145 == 0];
+            [(PrepareDownloadResponse *)v3 setURLRequest:v145];
             dataConsumer = [(PrepareDownloadResponse *)v3 dataConsumer];
-            v161 = [(PrepareDownloadOperation *)self _shouldFailForDiskSpaceWithAsset:_bestMediaAsset dataConsumer:dataConsumer];
+            v171 = [(PrepareDownloadOperation *)self _shouldFailForDiskSpaceWithAsset:_bestMediaAsset dataConsumer:dataConsumer];
 
-            if (v161)
+            if (v171)
             {
-              v162 = +[SSLogConfig sharedDaemonConfig];
-              if (!v162)
+              v172 = +[SSLogConfig sharedDaemonConfig];
+              if (!v172)
               {
-                v162 = +[SSLogConfig sharedConfig];
+                v172 = +[SSLogConfig sharedConfig];
               }
 
-              shouldLog11 = [v162 shouldLog];
-              if ([v162 shouldLogToDisk])
+              shouldLog8 = [v172 shouldLog];
+              if ([v172 shouldLogToDisk])
               {
-                v164 = shouldLog11 | 2;
+                v174 = shouldLog8 | 2;
               }
 
               else
               {
-                v164 = shouldLog11;
+                v174 = shouldLog8;
               }
 
-              oSLogObject6 = [v162 OSLogObject];
+              oSLogObject6 = [v172 OSLogObject];
               if (os_log_type_enabled(oSLogObject6, OS_LOG_TYPE_DEFAULT))
               {
-                v166 = v164;
+                v176 = v174;
               }
 
               else
               {
-                v166 = v164 & 2;
+                v176 = v174 & 2;
               }
 
-              if (v166)
+              if (v176)
               {
-                v167 = objc_opt_class();
-                v223 = 138412546;
-                v224 = v167;
-                v225 = 2048;
-                v226 = v215;
-                LODWORD(v201) = 22;
-                v199 = &v223;
-                v168 = _os_log_send_and_compose_impl();
+                v177 = objc_opt_class();
+                v233 = 138412546;
+                v234 = v177;
+                v235 = 2048;
+                v236 = v225;
+                LODWORD(v211) = 22;
+                v178 = _os_log_send_and_compose_impl(v176, 0, 0, 0, &_mh_execute_header, oSLogObject6, 0, "%@: Fail download without enough disk space: %lld", &v233, v211);
 
-                v136 = v211;
+                v145 = v221;
                 p_vtable = (DemoteApplicationOperation + 24);
-                if (!v168)
+                if (!v178)
                 {
-LABEL_304:
+LABEL_317:
 
-                  v196 = SSError();
-                  [(PrepareDownloadResponse *)v3 setError:v196];
+                  v206 = SSError();
+                  [(PrepareDownloadResponse *)v3 setError:v206];
 
                   [(PrepareDownloadResponse *)v3 setResult:2];
                   dataConsumer2 = [(PrepareDownloadResponse *)v3 dataConsumer];
-                  v178 = dataConsumer2;
+                  v188 = dataConsumer2;
                   if (dataConsumer2)
                   {
                     [dataConsumer2 suspend];
                     [(PrepareDownloadResponse *)v3 setDataConsumer:0];
                   }
 
-                  v50 = v204;
-                  v189 = v206;
-LABEL_307:
+                  v52 = v214;
+                  v199 = v216;
+LABEL_320:
 
-                  goto LABEL_87;
+                  goto LABEL_92;
                 }
 
-                oSLogObject6 = [NSString stringWithCString:v168 encoding:4, &v223, v201];
-                free(v168);
-                v199 = oSLogObject6;
+                oSLogObject6 = [NSString stringWithCString:v178 encoding:4];
+                free(v178);
+                v209 = oSLogObject6;
                 SSFileLog();
               }
 
@@ -962,110 +1005,114 @@ LABEL_307:
                 p_vtable = (DemoteApplicationOperation + 24);
               }
 
-              goto LABEL_304;
+              goto LABEL_317;
             }
 
-            v169 = [(SSMemoryEntity *)self->_download valueForProperty:@"is_restore"];
-            bOOLValue7 = [v169 BOOLValue];
+            v179 = [(SSMemoryEntity *)self->_download valueForProperty:@"is_restore"];
+            bOOLValue7 = [v179 BOOLValue];
 
             if (bOOLValue7)
             {
               [(PrepareDownloadResponse *)v3 setRestore:1];
-              -[PrepareDownloadResponse setCellularAllowed:](v3, "setCellularAllowed:", [v136 allowsCellularAccess]);
+              -[PrepareDownloadResponse setCellularAllowed:](v3, "setCellularAllowed:", [v145 allowsCellularAccess]);
               if ((SSDownloadKindIsPodcastKind() & bOOLValue7) == 1)
               {
                 [(PrepareDownloadResponse *)v3 setInfersDiscretionary:1];
                 [(PrepareDownloadResponse *)v3 setClientIdentifier:@"com.apple.podcasts"];
-                v171 = +[SSLogConfig sharedDaemonConfig];
-                if (!v171)
+                v181 = +[SSLogConfig sharedDaemonConfig];
+                if (!v181)
                 {
-                  v171 = +[SSLogConfig sharedConfig];
+                  v181 = +[SSLogConfig sharedConfig];
                 }
 
-                shouldLog12 = [v171 shouldLog];
-                if ([v171 shouldLogToDisk])
+                LODWORD(v182) = [v181 shouldLog];
+                if ([v181 shouldLogToDisk])
                 {
-                  shouldLog12 |= 2u;
+                  LODWORD(v182) = v182 | 2;
                 }
 
-                oSLogObject7 = [v171 OSLogObject];
-                if (!os_log_type_enabled(oSLogObject7, OS_LOG_TYPE_DEFAULT))
+                oSLogObject7 = [v181 OSLogObject];
+                if (os_log_type_enabled(oSLogObject7, OS_LOG_TYPE_DEFAULT))
                 {
-                  shouldLog12 &= 2u;
+                  v182 = v182;
                 }
 
-                if (shouldLog12)
+                else
                 {
-                  v174 = objc_opt_class();
-                  v223 = 138412546;
-                  v224 = v174;
-                  v225 = 2048;
-                  v226 = v215;
-                  LODWORD(v201) = 22;
-                  v199 = &v223;
-                  v175 = _os_log_send_and_compose_impl();
+                  v182 &= 2u;
+                }
 
-                  if (!v175)
+                if (v182)
+                {
+                  v184 = objc_opt_class();
+                  v233 = 138412546;
+                  v234 = v184;
+                  v235 = 2048;
+                  v236 = v225;
+                  LODWORD(v211) = 22;
+                  v185 = _os_log_send_and_compose_impl(v182, 0, 0, 0, &_mh_execute_header, oSLogObject7, 0, "%@: Set infersdiscretionary for podcast download: %lld", &v233, v211);
+
+                  if (!v185)
                   {
-LABEL_276:
+LABEL_289:
 
                     [(PrepareDownloadResponse *)v3 setRequiresPowerPluggedIn:[(PrepareDownloadOperation *)self _requiresPoweredPluggedIn]];
                     [(PrepareDownloadOperation *)self _transferProgressFractionWithAsset:_bestMediaAsset];
                     [(PrepareDownloadResponse *)v3 setTransferProgressFraction:?];
-                    v177 = [(SSMemoryEntity *)self->_download valueForProperty:@"rate_limit"];
-                    v178 = v177;
-                    if (v177)
+                    v187 = [(SSMemoryEntity *)self->_download valueForProperty:@"rate_limit"];
+                    v188 = v187;
+                    if (v187)
                     {
-                      -[PrepareDownloadResponse setBytesPerSecondLimit:](v3, "setBytesPerSecondLimit:", [v177 integerValue]);
+                      -[PrepareDownloadResponse setBytesPerSecondLimit:](v3, "setBytesPerSecondLimit:", [v187 integerValue]);
                     }
 
-                    v214 = _bestMediaAsset;
-                    v199 = [(SSMemoryEntity *)self->_download valueForProperty:@"resource_timeout_interval", v199];
-                    v180 = v199;
-                    if (v199)
+                    v224 = _bestMediaAsset;
+                    v209 = [(SSMemoryEntity *)self->_download valueForProperty:@"resource_timeout_interval", v209];
+                    v190 = v209;
+                    if (v209)
                     {
-                      [v199 doubleValue];
+                      [v209 doubleValue];
                       [(PrepareDownloadResponse *)v3 setTimeoutIntervalForResource:?];
                     }
 
-                    v210 = v5;
-                    v181 = [(SSMemoryEntity *)self->_download valueForProperty:@"timeout_interval"];
-                    v182 = v181;
-                    if (v181)
+                    v220 = v5;
+                    v191 = [(SSMemoryEntity *)self->_download valueForProperty:@"timeout_interval"];
+                    v192 = v191;
+                    if (v191)
                     {
-                      [v181 doubleValue];
+                      [v191 doubleValue];
                       [(PrepareDownloadResponse *)v3 setTimeoutIntervalForRequest:?];
                     }
 
-                    v183 = [(SSMemoryEntity *)self->_download valueForProperty:@"loading_priority"];
-                    if (v183)
+                    v193 = [(SSMemoryEntity *)self->_download valueForProperty:@"loading_priority"];
+                    if (v193)
                     {
-                      [(PrepareDownloadResponse *)v3 setLoadingPriority:v183];
+                      [(PrepareDownloadResponse *)v3 setLoadingPriority:v193];
                     }
 
-                    v184 = [(SSMemoryEntity *)self->_download valueForProperty:@"is_automatic"];
-                    integerValue2 = [v184 integerValue];
+                    v194 = [(SSMemoryEntity *)self->_download valueForProperty:@"is_automatic"];
+                    integerValue2 = [v194 integerValue];
 
                     [(PrepareDownloadResponse *)v3 setAutomaticType:integerValue2];
                     if (integerValue2)
                     {
-                      v186 = bOOLValue7;
+                      v196 = bOOLValue7;
                     }
 
                     else
                     {
-                      v186 = 1;
+                      v196 = 1;
                     }
 
-                    if ((v186 & 1) == 0)
+                    if ((v196 & 1) == 0)
                     {
                       [(PrepareDownloadResponse *)v3 setDiscretionary:1];
                       if (integerValue2 == 2)
                       {
-                        v187 = [(SSMemoryEntity *)self->_download valueForProperty:@"bundle_id"];
-                        if (v187)
+                        v197 = [(SSMemoryEntity *)self->_download valueForProperty:@"bundle_id"];
+                        if (v197)
                         {
-                          [(PrepareDownloadResponse *)v3 setClientSecondaryIdentifier:v187];
+                          [(PrepareDownloadResponse *)v3 setClientSecondaryIdentifier:v197];
                         }
                       }
                     }
@@ -1073,49 +1120,49 @@ LABEL_276:
                     -[PrepareDownloadResponse setTaskPriority:](v3, "setTaskPriority:", [objc_opt_class() _URLSessionTaskPriorityForDownload:self->_download]);
                     if (integerValue2 == 2)
                     {
-                      v188 = 1;
+                      v198 = 1;
                     }
 
                     else
                     {
-                      v188 = bOOLValue7;
+                      v198 = bOOLValue7;
                     }
 
-                    v189 = v206;
-                    if ((v188 & 1) == 0)
+                    v199 = v216;
+                    if ((v198 & 1) == 0)
                     {
-                      v190 = [(SSMemoryEntity *)self->_download valueForProperty:@"thumbnail_url"];
-                      v191 = v190;
-                      if (v220 && v190 && SSDownloadKindIsSoftwareKind())
+                      v200 = [(SSMemoryEntity *)self->_download valueForProperty:@"thumbnail_url"];
+                      v201 = v200;
+                      if (v230 && v200 && SSDownloadKindIsSoftwareKind())
                       {
-                        v216 = [[ApplicationHandle alloc] initWithDownloadHandle:v219 bundleIdentifier:v220];
-                        v192 = [[NSURL alloc] initWithString:v191];
-                        v193 = v3;
-                        v194 = [[LoadSoftwareThumbnailOperation alloc] initWithApplicationHandle:v216 thumbnailURL:v192];
-                        v222 = v194;
-                        v195 = [NSArray arrayWithObjects:&v222 count:1];
-                        [(PrepareDownloadResponse *)v193 setBackgroundOperations:v195];
+                        v226 = [[ApplicationHandle alloc] initWithDownloadHandle:v229 bundleIdentifier:v230];
+                        v202 = [[NSURL alloc] initWithString:v201];
+                        v203 = v3;
+                        v204 = [[LoadSoftwareThumbnailOperation alloc] initWithApplicationHandle:v226 thumbnailURL:v202];
+                        v232 = v204;
+                        v205 = [NSArray arrayWithObjects:&v232 count:1];
+                        [(PrepareDownloadResponse *)v203 setBackgroundOperations:v205];
 
-                        v3 = v193;
-                        v189 = v206;
+                        v3 = v203;
+                        v199 = v216;
                       }
                     }
 
-                    v5 = v210;
-                    v136 = v211;
-                    _bestMediaAsset = v214;
+                    v5 = v220;
+                    v145 = v221;
+                    _bestMediaAsset = v224;
                     p_vtable = (DemoteApplicationOperation + 24);
-                    v50 = v204;
-                    goto LABEL_307;
+                    v52 = v214;
+                    goto LABEL_320;
                   }
 
-                  oSLogObject7 = [NSString stringWithCString:v175 encoding:4, &v223, v201];
-                  free(v175);
-                  v199 = oSLogObject7;
+                  oSLogObject7 = [NSString stringWithCString:v185 encoding:4];
+                  free(v185);
+                  v209 = oSLogObject7;
                   SSFileLog();
                 }
 
-                goto LABEL_276;
+                goto LABEL_289;
               }
             }
 
@@ -1127,15 +1174,15 @@ LABEL_276:
             _clientIdentifier2 = [(PrepareDownloadOperation *)self _clientIdentifier];
             [(PrepareDownloadResponse *)v3 setClientIdentifier:_clientIdentifier2];
 
-            v171 = [_bestMediaAsset valueForProperty:@"is_discretionary"];
-            -[PrepareDownloadResponse setDiscretionary:](v3, "setDiscretionary:", [v171 BOOLValue]);
-            goto LABEL_276;
+            v181 = [_bestMediaAsset valueForProperty:@"is_discretionary"];
+            -[PrepareDownloadResponse setDiscretionary:](v3, "setDiscretionary:", [v181 BOOLValue]);
+            goto LABEL_289;
           }
 
           if (SSDownloadKindIsMediaKind())
           {
-            v137 = [_bestMediaAsset valueForProperty:@"avfoundation_blocked"];
-            if ([v137 BOOLValue])
+            v146 = [_bestMediaAsset valueForProperty:@"avfoundation_blocked"];
+            if ([v146 BOOLValue])
             {
             }
 
@@ -1145,134 +1192,142 @@ LABEL_276:
 
               if ((_isPodcastRestore & 1) == 0)
               {
-                v1992 = [(PrepareDownloadOperation *)self _newAVAssetDownloadSessionOptionsWithAsset:_bestMediaAsset URLRequest:v136];
-                [(PrepareDownloadResponse *)v3 setAVAssetDownloadSessionOptions:v1992];
-                goto LABEL_249;
+                v2092 = [(PrepareDownloadOperation *)self _newAVAssetDownloadSessionOptionsWithAsset:_bestMediaAsset URLRequest:v145];
+                [(PrepareDownloadResponse *)v3 setAVAssetDownloadSessionOptions:v2092];
+                goto LABEL_261;
               }
             }
           }
 
           if (![(PrepareDownloadOperation *)self _isPodcastRestore])
           {
-LABEL_236:
-            v1992 = [(PrepareDownloadOperation *)self _newDataConsumerWithAsset:_bestMediaAsset destinationPath:v124, v199];
-            if (![objc_opt_class() _isDTServiceHubIssuedRequest:v136])
-            {
-LABEL_248:
-              [(PrepareDownloadResponse *)v3 setDataConsumer:v1992, v200];
-LABEL_249:
-
-              goto LABEL_250;
-            }
-
-            v154 = +[SSLogConfig sharedDaemonConfig];
-            if (!v154)
-            {
-              v154 = +[SSLogConfig sharedConfig];
-            }
-
-            shouldLog13 = [v154 shouldLog];
-            if ([v154 shouldLogToDisk])
-            {
-              shouldLog13 |= 2u;
-            }
-
-            oSLogObject8 = [v154 OSLogObject];
-            if (!os_log_type_enabled(oSLogObject8, OS_LOG_TYPE_INFO))
-            {
-              shouldLog13 &= 2u;
-            }
-
-            if (shouldLog13)
-            {
-              v157 = _bestMediaAsset;
-              v158 = objc_opt_class();
-              v223 = 138412290;
-              v224 = v158;
-              LODWORD(v201) = 12;
-              v200 = &v223;
-              v159 = _os_log_send_and_compose_impl();
-
-              _bestMediaAsset = v157;
-              if (!v159)
-              {
 LABEL_247:
+            v2092 = [(PrepareDownloadOperation *)self _newDataConsumerWithAsset:_bestMediaAsset destinationPath:v133, v209];
+            if (![objc_opt_class() _isDTServiceHubIssuedRequest:v145])
+            {
+LABEL_260:
+              [(PrepareDownloadResponse *)v3 setDataConsumer:v2092, v210];
+LABEL_261:
 
-                [v1992 setOverrideProgress:1];
-                v136 = v211;
-                goto LABEL_248;
+              goto LABEL_262;
+            }
+
+            v164 = +[SSLogConfig sharedDaemonConfig];
+            if (!v164)
+            {
+              v164 = +[SSLogConfig sharedConfig];
+            }
+
+            LODWORD(v165) = [v164 shouldLog];
+            if ([v164 shouldLogToDisk])
+            {
+              LODWORD(v165) = v165 | 2;
+            }
+
+            oSLogObject8 = [v164 OSLogObject];
+            if (os_log_type_enabled(oSLogObject8, OS_LOG_TYPE_INFO))
+            {
+              v165 = v165;
+            }
+
+            else
+            {
+              v165 &= 2u;
+            }
+
+            if (v165)
+            {
+              v167 = _bestMediaAsset;
+              v168 = objc_opt_class();
+              v233 = 138412290;
+              v234 = v168;
+              LODWORD(v211) = 12;
+              v169 = _os_log_send_and_compose_impl(v165, 0, 0, 0, &_mh_execute_header, oSLogObject8, 1, "%@: Asking data consumer to override progress value", &v233, v211);
+
+              _bestMediaAsset = v167;
+              if (!v169)
+              {
+LABEL_259:
+
+                [v2092 setOverrideProgress:1];
+                v145 = v221;
+                goto LABEL_260;
               }
 
-              oSLogObject8 = [NSString stringWithCString:v159 encoding:4, &v223, v201];
-              free(v159);
-              v200 = oSLogObject8;
+              oSLogObject8 = [NSString stringWithCString:v169 encoding:4];
+              free(v169);
+              v210 = oSLogObject8;
               SSFileLog();
             }
 
-            goto LABEL_247;
+            goto LABEL_259;
           }
 
-          v147 = +[SSLogConfig sharedDaemonConfig];
-          if (!v147)
+          v157 = +[SSLogConfig sharedDaemonConfig];
+          if (!v157)
           {
-            v147 = +[SSLogConfig sharedConfig];
+            v157 = +[SSLogConfig sharedConfig];
           }
 
-          shouldLog14 = [v147 shouldLog];
-          if ([v147 shouldLogToDisk])
+          LODWORD(v158) = [v157 shouldLog];
+          if ([v157 shouldLogToDisk])
           {
-            shouldLog14 |= 2u;
+            LODWORD(v158) = v158 | 2;
           }
 
-          oSLogObject9 = [v147 OSLogObject];
-          if (!os_log_type_enabled(oSLogObject9, OS_LOG_TYPE_DEFAULT))
+          oSLogObject9 = [v157 OSLogObject];
+          if (os_log_type_enabled(oSLogObject9, OS_LOG_TYPE_DEFAULT))
           {
-            shouldLog14 &= 2u;
+            v158 = v158;
           }
 
-          if (shouldLog14)
+          else
           {
-            v150 = objc_opt_class();
-            databaseID4 = [_bestMediaAsset databaseID];
-            v223 = 138543874;
-            v224 = v150;
-            v225 = 2048;
-            v226 = v215;
-            v227 = 2048;
-            v228 = databaseID4;
-            LODWORD(v201) = 32;
-            v199 = &v223;
-            v152 = _os_log_send_and_compose_impl();
+            v158 &= 2u;
+          }
 
-            if (!v152)
+          if (v158)
+          {
+            v160 = objc_opt_class();
+            databaseID5 = [_bestMediaAsset databaseID];
+            v233 = 138543874;
+            v234 = v160;
+            v235 = 2048;
+            v236 = v225;
+            v237 = 2048;
+            v238 = databaseID5;
+            LODWORD(v211) = 32;
+            v162 = _os_log_send_and_compose_impl(v158, 0, 0, 0, &_mh_execute_header, oSLogObject9, 0, "[%{public}@] Skipping AV asset download for podcast restore download: %lld asset: %lld", &v233, v211);
+
+            if (!v162)
             {
-LABEL_235:
+LABEL_246:
 
-              v136 = v211;
-              goto LABEL_236;
+              v145 = v221;
+              goto LABEL_247;
             }
 
-            oSLogObject9 = [NSString stringWithCString:v152 encoding:4, &v223, v201];
-            free(v152);
-            v199 = oSLogObject9;
+            oSLogObject9 = [NSString stringWithCString:v162 encoding:4];
+            free(v162);
+            v209 = oSLogObject9;
             SSFileLog();
           }
 
-          goto LABEL_235;
+          goto LABEL_246;
         }
       }
 
       else
       {
-        v209 = 0;
-        if (v124)
+        v219 = 0;
+        if (v133)
         {
-          goto LABEL_189;
+          goto LABEL_198;
         }
       }
 
-      v124 = +[ScratchManager directoryPathForDownloadID:assetID:kind:createIfNeeded:](ScratchManager, "directoryPathForDownloadID:assetID:kind:createIfNeeded:", v215, [_bestMediaAsset databaseID], v5, 1);
-      goto LABEL_189;
+      v133 = +[ScratchManager directoryPathForDownloadID:assetID:kind:createIfNeeded:](ScratchManager, "directoryPathForDownloadID:assetID:kind:createIfNeeded:", v225, [_bestMediaAsset databaseID], v5, 1);
+      goto LABEL_198;
     }
 
     if (SSDownloadKindIsSoftwareKind())
@@ -1280,100 +1335,115 @@ LABEL_235:
       clientIdentifier3 = [(PrepareDownloadResponse *)v3 clientIdentifier];
       if (clientIdentifier3)
       {
-        v97 = clientIdentifier3;
+        v106 = clientIdentifier3;
         clientIdentifier4 = [(PrepareDownloadResponse *)v3 clientIdentifier];
         if ([clientIdentifier4 isEqualToString:@"atc"])
         {
-          v99 = [ApplicationWorkspace keepSafeHarborDataForBundleID:v220];
+          v108 = [ApplicationWorkspace keepSafeHarborDataForBundleID:v230];
 
-          if (v99)
+          if (v108)
           {
-            v100 = +[SSLogConfig sharedDaemonConfig];
-            if (!v100)
+            v109 = +[SSLogConfig sharedDaemonConfig];
+            if (!v109)
             {
-              v100 = +[SSLogConfig sharedConfig];
+              v109 = +[SSLogConfig sharedConfig];
             }
 
-            shouldLog15 = [v100 shouldLog];
-            if ([v100 shouldLogToDisk])
+            LODWORD(v110) = [v109 shouldLog];
+            if ([v109 shouldLogToDisk])
             {
-              shouldLog15 |= 2u;
+              LODWORD(v110) = v110 | 2;
             }
 
-            oSLogObject10 = [v100 OSLogObject];
-            if (!os_log_type_enabled(oSLogObject10, OS_LOG_TYPE_DEBUG))
+            oSLogObject10 = [v109 OSLogObject];
+            if (os_log_type_enabled(oSLogObject10, OS_LOG_TYPE_DEBUG))
             {
-              shouldLog15 &= 2u;
+              v110 = v110;
             }
 
-            if (shouldLog15)
+            else
             {
-              v103 = objc_opt_class();
-              v223 = 138412802;
-              v224 = v103;
-              v225 = 2048;
-              v226 = v215;
-              v227 = 2112;
-              v228 = v220;
-              v104 = v103;
-              LODWORD(v201) = 32;
-              v199 = &v223;
-              v105 = _os_log_send_and_compose_impl();
+              v110 &= 2u;
+            }
 
-              if (!v105)
+            if (v110)
+            {
+              v112 = objc_opt_class();
+              v233 = 138412802;
+              v234 = v112;
+              v235 = 2048;
+              v236 = v225;
+              v237 = 2112;
+              v238 = v230;
+              v113 = v112;
+              LODWORD(v211) = 32;
+              v114 = _os_log_send_and_compose_impl(v110, 0, 0, 0, &_mh_execute_header, oSLogObject10, 2, "%@: Keeping no asset download safe harbor data with finish only for download: %lld bundleID: %@", &v233, v211);
+
+              if (!v114)
               {
-                goto LABEL_144;
+LABEL_151:
+
+                [(PrepareDownloadResponse *)v3 setIsPerDeviceVPP:1];
+                v115 = [NSNumber numberWithInteger:1];
+                [(PrepareDownloadResponse *)v3 setDownloadRestoreState:v115];
+
+                download = self->_download;
+                v117 = [NSNumber numberWithInteger:1];
+                [(SSMemoryEntity *)download setValue:v117 forProperty:@"download_state.restore_state"];
+
+                v87 = +[SSLogConfig sharedDaemonConfig];
+                if (!v87)
+                {
+                  v87 = +[SSLogConfig sharedConfig];
+                }
+
+                shouldLog9 = [v87 shouldLog];
+                if ([v87 shouldLogToDisk])
+                {
+                  v119 = shouldLog9 | 2;
+                }
+
+                else
+                {
+                  v119 = shouldLog9;
+                }
+
+                oSLogObject5 = [v87 OSLogObject];
+                if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEBUG))
+                {
+                  v120 = v119;
+                }
+
+                else
+                {
+                  v120 = v119 & 2;
+                }
+
+                if (!v120)
+                {
+                  goto LABEL_187;
+                }
+
+                v121 = objc_opt_class();
+                v233 = 138412802;
+                v234 = v121;
+                v235 = 2048;
+                v236 = v225;
+                v237 = 2112;
+                v238 = v230;
+                v93 = v121;
+                LODWORD(v211) = 32;
+                v94 = "%@: Updated download: %lld bundleID: %@ to only restore data";
+                goto LABEL_172;
               }
 
-              oSLogObject10 = [NSString stringWithCString:v105 encoding:4, &v223, v201];
-              free(v105);
-              v199 = oSLogObject10;
+              oSLogObject10 = [NSString stringWithCString:v114 encoding:4];
+              free(v114);
+              v209 = oSLogObject10;
               SSFileLog();
             }
 
-LABEL_144:
-            [(PrepareDownloadResponse *)v3 setIsPerDeviceVPP:1];
-            v106 = [NSNumber numberWithInteger:1];
-            [(PrepareDownloadResponse *)v3 setDownloadRestoreState:v106];
-
-            download = self->_download;
-            v108 = [NSNumber numberWithInteger:1];
-            [(SSMemoryEntity *)download setValue:v108 forProperty:@"download_state.restore_state"];
-
-            v82 = +[SSLogConfig sharedDaemonConfig];
-            if (!v82)
-            {
-              v82 = +[SSLogConfig sharedConfig];
-            }
-
-            shouldLog16 = [v82 shouldLog];
-            if ([v82 shouldLogToDisk])
-            {
-              v110 = shouldLog16 | 2;
-            }
-
-            else
-            {
-              v110 = shouldLog16;
-            }
-
-            oSLogObject5 = [v82 OSLogObject];
-            if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEBUG))
-            {
-              v111 = v110;
-            }
-
-            else
-            {
-              v111 = v110 & 2;
-            }
-
-            if (!v111)
-            {
-              goto LABEL_178;
-            }
-
-            goto LABEL_153;
+            goto LABEL_151;
           }
         }
 
@@ -1383,118 +1453,127 @@ LABEL_144:
       }
     }
 
-    v59 = +[SSLogConfig sharedDaemonConfig];
-    if (!v59)
+    v61 = +[SSLogConfig sharedDaemonConfig];
+    if (!v61)
     {
-      v59 = +[SSLogConfig sharedConfig];
+      v61 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog17 = [v59 shouldLog];
-    if ([v59 shouldLogToDisk])
+    shouldLog10 = [v61 shouldLog];
+    if ([v61 shouldLogToDisk])
     {
-      v139 = shouldLog17 | 2;
+      v148 = shouldLog10 | 2;
     }
 
     else
     {
-      v139 = shouldLog17;
+      v148 = shouldLog10;
     }
 
-    oSLogObject3 = [v59 OSLogObject];
+    oSLogObject3 = [v61 OSLogObject];
     if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEBUG))
     {
-      v140 = v139;
+      v149 = v148;
     }
 
     else
     {
-      v140 = v139 & 2;
+      v149 = v148 & 2;
     }
 
-    if (v140)
+    if (v149)
     {
-      goto LABEL_72;
+      v150 = objc_opt_class();
+      v233 = 138412546;
+      v234 = v150;
+      v235 = 2048;
+      v236 = v225;
+      v67 = v150;
+      LODWORD(v211) = 22;
+      v68 = _os_log_send_and_compose_impl(v149, 0, 0, 0, &_mh_execute_header, oSLogObject3, 2, "%@: Skip prepare for download with no media asset: %lld", &v233, v211);
+      goto LABEL_77;
     }
 
-    goto LABEL_209;
+LABEL_219:
+    p_vtable = DemoteApplicationOperation.vtable;
+    goto LABEL_220;
   }
 
   [(PrepareDownloadResponse *)v3 setResult:4];
-  v50 = +[SSLogConfig sharedDaemonConfig];
-  if (!v50)
+  v52 = +[SSLogConfig sharedDaemonConfig];
+  if (!v52)
   {
-    v50 = +[SSLogConfig sharedConfig];
+    v52 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog18 = [v50 shouldLog];
-  if ([v50 shouldLogToDisk])
+  shouldLog11 = [v52 shouldLog];
+  if ([v52 shouldLogToDisk])
   {
-    v52 = shouldLog18 | 2;
+    v54 = shouldLog11 | 2;
   }
 
   else
   {
-    v52 = shouldLog18;
+    v54 = shouldLog11;
   }
 
-  oSLogObject11 = [v50 OSLogObject];
+  oSLogObject11 = [v52 OSLogObject];
   if (os_log_type_enabled(oSLogObject11, OS_LOG_TYPE_INFO))
   {
-    v54 = v52;
+    v56 = v54;
   }
 
   else
   {
-    v54 = v52 & 2;
+    v56 = v54 & 2;
   }
 
-  if (!v54)
+  if (!v56)
   {
     p_vtable = (DemoteApplicationOperation + 24);
-    goto LABEL_86;
+    goto LABEL_91;
   }
 
-  v55 = objc_opt_class();
-  v223 = 138412546;
-  v224 = v55;
-  v225 = 2048;
-  v226 = v215;
-  v56 = v55;
-  LODWORD(v201) = 22;
-  v199 = &v223;
-  v57 = _os_log_send_and_compose_impl();
+  v57 = objc_opt_class();
+  v233 = 138412546;
+  v234 = v57;
+  v235 = 2048;
+  v236 = v225;
+  v58 = v57;
+  LODWORD(v211) = 22;
+  v59 = _os_log_send_and_compose_impl(v56, 0, 0, 0, &_mh_execute_header, oSLogObject11, 1, "%@: Ignoring software download: %lld", &v233, v211);
 
   p_vtable = (DemoteApplicationOperation + 24);
-  if (v57)
+  if (v59)
   {
-    oSLogObject11 = [NSString stringWithCString:v57 encoding:4, &v223, v201];
-    free(v57);
-    v199 = oSLogObject11;
+    oSLogObject11 = [NSString stringWithCString:v59 encoding:4];
+    free(v59);
+    v209 = oSLogObject11;
     SSFileLog();
-LABEL_86:
+LABEL_91:
   }
 
-LABEL_87:
+LABEL_92:
 
-LABEL_213:
+LABEL_223:
   defaultWorkspace = [p_vtable + 287 defaultWorkspace];
   if ([defaultWorkspace isMultiUser] && !-[PrepareDownloadResponse result](v3, "result"))
   {
     defaultWorkspace2 = [p_vtable + 287 defaultWorkspace];
-    v143 = [defaultWorkspace2 shouldModifyQuota:v5];
+    v153 = [defaultWorkspace2 shouldModifyQuota:v5];
 
-    if (!v143)
+    if (!v153)
     {
-      goto LABEL_218;
+      goto LABEL_228;
     }
 
     defaultWorkspace = [p_vtable + 287 defaultWorkspace];
     [defaultWorkspace suspendQuotas];
   }
 
-LABEL_218:
+LABEL_228:
   outputBlock = [(PrepareDownloadOperation *)self outputBlock];
-  v145 = outputBlock;
+  v155 = outputBlock;
   if (outputBlock)
   {
     (*(outputBlock + 16))(outputBlock, self, v3);
@@ -1612,7 +1691,7 @@ LABEL_218:
   }
 
   v9 = &CFDictionaryGetValue_ptr;
-  v71 = assetCopy;
+  v72 = assetCopy;
   if (v8)
   {
     LOBYTE(v13) = 0;
@@ -1629,31 +1708,32 @@ LABEL_218:
   }
 
   v70 = v11;
+  v71 = 128;
   policyRules = [(SSDownloadPolicy *)selfCopy->_policy policyRules];
-  v82 = 0u;
   v83 = 0u;
-  v13 = [policyRules count] == 0;
   v84 = 0u;
+  v13 = [policyRules count] == 0;
   v85 = 0u;
+  v86 = 0u;
   v14 = policyRules;
-  v15 = [v14 countByEnumeratingWithState:&v82 objects:v94 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v83 objects:v95 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v83;
-    v73 = SSDownloadSizeLimitDisabled;
-    v72 = SSDownloadSizeLimitNoLimit;
-    v76 = AppBooleanValue;
+    v17 = *v84;
+    v74 = SSDownloadSizeLimitDisabled;
+    v73 = SSDownloadSizeLimitNoLimit;
+    v77 = AppBooleanValue;
     while (2)
     {
       for (i = 0; i != v16; i = i + 1)
       {
-        if (*v83 != v17)
+        if (*v84 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v82 + 1) + 8 * i);
+        v19 = *(*(&v83 + 1) + 8 * i);
         if ([v19 cellularDataStates] == 2)
         {
           if (!AppBooleanValue)
@@ -1668,34 +1748,34 @@ LABEL_218:
         {
           v20 = v14;
           userDefaultStates = [v19 userDefaultStates];
-          v77 = [userDefaultStates count];
-          v78 = 0u;
+          v78 = [userDefaultStates count];
           v79 = 0u;
           v80 = 0u;
           v81 = 0u;
+          v82 = 0u;
           v22 = userDefaultStates;
-          v23 = [v22 countByEnumeratingWithState:&v78 objects:v93 count:16];
+          v23 = [v22 countByEnumeratingWithState:&v79 objects:v94 count:16];
           if (v23)
           {
             v24 = v23;
-            v25 = *v79;
+            v25 = *v80;
             while (2)
             {
               for (j = 0; j != v24; j = j + 1)
               {
-                if (*v79 != v25)
+                if (*v80 != v25)
                 {
                   objc_enumerationMutation(v22);
                 }
 
-                if ([*(*(&v78 + 1) + 8 * j) currentBoolValue])
+                if ([*(*(&v79 + 1) + 8 * j) currentBoolValue])
                 {
 
                   goto LABEL_27;
                 }
               }
 
-              v24 = [v22 countByEnumeratingWithState:&v78 objects:v93 count:16];
+              v24 = [v22 countByEnumeratingWithState:&v79 objects:v94 count:16];
               if (v24)
               {
                 continue;
@@ -1705,7 +1785,7 @@ LABEL_218:
             }
           }
 
-          if (v77)
+          if (v78)
           {
             v14 = v20;
           }
@@ -1715,7 +1795,7 @@ LABEL_218:
 LABEL_27:
             downloadSizeLimit = [v19 downloadSizeLimit];
             v14 = v20;
-            if (downloadSizeLimit == v73)
+            if (downloadSizeLimit == v74)
             {
 
 LABEL_41:
@@ -1723,15 +1803,15 @@ LABEL_41:
               goto LABEL_42;
             }
 
-            v29 = downloadSizeLimit == v72 || longLongValue <= downloadSizeLimit;
+            v29 = downloadSizeLimit == v73 || longLongValue <= downloadSizeLimit;
             v13 |= v29;
           }
 
-          AppBooleanValue = v76;
+          AppBooleanValue = v77;
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v82 objects:v94 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v83 objects:v95 count:16];
       if (v16)
       {
         continue;
@@ -1743,7 +1823,7 @@ LABEL_41:
 
 LABEL_42:
 
-  v30 = [v71 valueForProperty:@"is_hls"];
+  v30 = [v72 valueForProperty:@"is_hls"];
   v9 = &CFDictionaryGetValue_ptr;
   if ((objc_opt_respondsToSelector() & 1) != 0 && [v30 BOOLValue])
   {
@@ -1793,17 +1873,15 @@ LABEL_63:
 
     if (v36)
     {
-      LOWORD(v86[0]) = 0;
-      LODWORD(v69) = 2;
-      v68 = v86;
-      v37 = _os_log_send_and_compose_impl();
+      LOWORD(v87[0]) = 0;
+      v37 = _os_log_send_and_compose_impl(v36, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[Download]: No download policy was set for video download.  Looking up whether cellular is allowed from TV app prefs", v87, 2);
 
       if (!v37)
       {
         goto LABEL_58;
       }
 
-      oSLogObject = [NSString stringWithCString:v37 encoding:4, v86, v69];
+      oSLogObject = [NSString stringWithCString:v37 encoding:4];
       free(v37);
       v68 = oSLogObject;
       SSFileLog();
@@ -1877,7 +1955,7 @@ LABEL_64:
     v47 = v70;
   }
 
-  assetCopy = v71;
+  assetCopy = v72;
 LABEL_82:
   sharedDaemonConfig = [v9[412] sharedDaemonConfig];
   if (!sharedDaemonConfig)
@@ -1916,21 +1994,21 @@ LABEL_82:
   v60 = [assetCopy valueForProperty:@"bytes_total"];
   longLongValue2 = [v60 longLongValue];
   databaseID2 = [(SSMemoryEntity *)selfCopy->_download databaseID];
-  v86[0] = 67109888;
-  v86[1] = v13 & 1;
-  v87 = 2048;
-  v88 = databaseID;
-  v89 = 2048;
-  v90 = longLongValue2;
-  v91 = 2048;
-  v92 = databaseID2;
+  v87[0] = 67109888;
+  v87[1] = v13 & 1;
+  v88 = 2048;
+  v89 = databaseID;
+  v90 = 2048;
+  v91 = longLongValue2;
+  v92 = 2048;
+  v93 = databaseID2;
   LODWORD(v69) = 38;
-  v63 = _os_log_send_and_compose_impl();
+  v63 = _os_log_send_and_compose_impl(v58, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "[Download]: Cellular data status: %d for asset: %lld of size: %lld, %lld", v87, v69, v70, v71);
 
-  assetCopy = v71;
+  assetCopy = v72;
   if (v63)
   {
-    oSLogObject2 = [NSString stringWithCString:v63 encoding:4, v86, v69];
+    oSLogObject2 = [NSString stringWithCString:v63 encoding:4];
     free(v63);
     SSFileLog();
 LABEL_93:
@@ -2022,27 +2100,27 @@ LABEL_93:
   v3 = [(SSMemoryEntity *)self->_download valueForProperty:@"is_from_store"];
   bOOLValue = [v3 BOOLValue];
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v5 = self->_mediaAssets;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v36 objects:v50 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v35 objects:v49 count:16];
   if (v6)
   {
     v7 = v6;
-    v34 = bOOLValue;
-    v8 = *v37;
+    v33 = bOOLValue;
+    v8 = *v36;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v37 != v8)
+      if (*v36 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      v10 = *(*(&v36 + 1) + 8 * v9);
+      v10 = *(*(&v35 + 1) + 8 * v9);
       v11 = [v10 valueForProperty:@"url"];
       if (v11)
       {
@@ -2055,7 +2133,7 @@ LABEL_3:
 
       if (v7 == ++v9)
       {
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v36 objects:v50 count:16];
+        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v35 objects:v49 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -2100,35 +2178,34 @@ LABEL_3:
     if (v21)
     {
       v22 = objc_opt_class();
-      v33 = v22;
+      v32 = v22;
       databaseID = [v10 databaseID];
       selfCopy = self;
       v25 = bOOLValue2;
       v26 = databaseID;
       databaseID2 = [(SSMemoryEntity *)selfCopy->_download databaseID];
-      v40 = 138413314;
-      v41 = v22;
-      v42 = 2048;
-      v43 = v26;
+      v39 = 138413314;
+      v40 = v22;
+      v41 = 2048;
+      v42 = v26;
       bOOLValue2 = v25;
-      v44 = 2048;
-      v45 = databaseID2;
-      v46 = 1024;
-      v47 = v25;
-      v48 = 2112;
-      v49 = v14;
-      LODWORD(v32) = 48;
-      v28 = _os_log_send_and_compose_impl();
+      v43 = 2048;
+      v44 = databaseID2;
+      v45 = 1024;
+      v46 = v25;
+      v47 = 2112;
+      v48 = v14;
+      v28 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Using media asset: %lld, for download: %lld, is local cache: %d, URL: %@", &v39, 48);
 
-      v29 = v34;
+      v29 = v33;
       if (!v28)
       {
 LABEL_24:
 
         if ((v29 & bOOLValue2) == 1)
         {
-          v35 = dispatch_semaphore_create(0);
-          v30 = v35;
+          v34 = dispatch_semaphore_create(0);
+          v30 = v34;
           ACSLocateCachingServer();
           dispatch_semaphore_wait(v30, 0xFFFFFFFFFFFFFFFFLL);
         }
@@ -2138,14 +2215,14 @@ LABEL_24:
         goto LABEL_27;
       }
 
-      oSLogObject = [NSString stringWithCString:v28 encoding:4, &v40, v32];
+      oSLogObject = [NSString stringWithCString:v28 encoding:4];
       free(v28);
       SSFileLog();
     }
 
     else
     {
-      v29 = v34;
+      v29 = v33;
     }
 
     goto LABEL_24;
@@ -2358,16 +2435,21 @@ LABEL_9:
     shouldLog = [v14 shouldLog];
     if ([v14 shouldLogToDisk])
     {
-      v16 = shouldLog | 2;
+      LODWORD(v16) = shouldLog | 2;
     }
 
     else
     {
-      v16 = shouldLog;
+      LODWORD(v16) = shouldLog;
     }
 
     oSLogObject = [v14 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v16 = v16;
+    }
+
+    else
     {
       v16 &= 2u;
     }
@@ -2381,22 +2463,20 @@ LABEL_9:
       v57 = v18;
       v58 = 2048;
       v59 = databaseID;
-      LODWORD(v48) = 22;
-      v47 = &v56;
-      v21 = _os_log_send_and_compose_impl();
+      v21 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Running HEAD operation to get size for asset: %lld", &v56, 22);
 
       if (!v21)
       {
-        goto LABEL_17;
+        goto LABEL_18;
       }
 
-      oSLogObject = [NSString stringWithCString:v21 encoding:4, &v56, v48];
+      oSLogObject = [NSString stringWithCString:v21 encoding:4];
       free(v21);
       v47 = oSLogObject;
       SSFileLog();
     }
 
-LABEL_17:
+LABEL_18:
     v53 = 0;
     v22 = [(PrepareDownloadOperation *)self runSubOperation:v13 returningError:&v53];
     v23 = v53;
@@ -2448,29 +2528,29 @@ LABEL_17:
           v60 = 2048;
           v61 = databaseID2;
           LODWORD(v48) = 32;
-          v34 = _os_log_send_and_compose_impl();
+          v34 = _os_log_send_and_compose_impl(v30, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: Found size: %lld for asset: %lld", &v56, v48);
 
           v7 = v51;
           if (!v34)
           {
-LABEL_48:
+LABEL_49:
 
             v36 = [NSNumber numberWithLongLong:expectedContentLength];
             [assetCopy setValue:v36 forProperty:@"bytes_total"];
-LABEL_49:
+LABEL_50:
 
             [v13 setDelegate:0];
             v35 = v49 ^ 1;
             error = errorCopy;
             if (!errorCopy)
             {
-              goto LABEL_52;
+              goto LABEL_53;
             }
 
-            goto LABEL_50;
+            goto LABEL_51;
           }
 
-          oSLogObject2 = [NSString stringWithCString:v34 encoding:4, &v56, v48];
+          oSLogObject2 = [NSString stringWithCString:v34 encoding:4];
           free(v34);
           SSFileLog();
         }
@@ -2480,7 +2560,7 @@ LABEL_49:
           v7 = v51;
         }
 
-        goto LABEL_48;
+        goto LABEL_49;
       }
     }
 
@@ -2529,22 +2609,22 @@ LABEL_49:
       v60 = 2112;
       v61 = v23;
       LODWORD(v48) = 32;
-      v44 = _os_log_send_and_compose_impl();
+      v44 = _os_log_send_and_compose_impl(v40, 0, 0, 0, &_mh_execute_header, oSLogObject3, 1, "%@: Failed to find size for asset: %lld error: %@", &v56, v48);
 
       if (!v44)
       {
         v7 = v51;
-        goto LABEL_49;
+        goto LABEL_50;
       }
 
-      oSLogObject3 = [NSString stringWithCString:v44 encoding:4, &v56, v48];
+      oSLogObject3 = [NSString stringWithCString:v44 encoding:4];
       free(v44);
       SSFileLog();
     }
 
     v7 = v51;
 
-    goto LABEL_49;
+    goto LABEL_50;
   }
 
   v23 = 0;
@@ -2552,17 +2632,17 @@ LABEL_49:
   expectedContentLength = -1;
   if (!error)
   {
-    goto LABEL_52;
+    goto LABEL_53;
   }
 
-LABEL_50:
+LABEL_51:
   if (v35)
   {
     v45 = v23;
     *error = v23;
   }
 
-LABEL_52:
+LABEL_53:
 
   return expectedContentLength;
 }
@@ -2585,7 +2665,7 @@ LABEL_52:
     [v8 setObject:_newAVContentInfoDictionary forKey:AVAssetDownloadSessioniTunesStoreContentInfoKey];
   }
 
-  v65 = v9;
+  v64 = v9;
   if (([requestCopy allowsCellularAccess] & 1) == 0)
   {
     [v8 setObject:&off_10034C120 forKey:AVAssetDownloadSessionMaxSizeAllowedForCellularAccessKey];
@@ -2597,7 +2677,7 @@ LABEL_52:
     goto LABEL_37;
   }
 
-  v63 = requestCopy;
+  v62 = requestCopy;
   v11 = +[SSLogConfig sharedDaemonConfig];
   if (!v11)
   {
@@ -2632,15 +2712,13 @@ LABEL_52:
   }
 
   databaseID = [(SSMemoryEntity *)self->_download databaseID];
-  v71 = 134217984;
-  v72 = databaseID;
-  LODWORD(v58) = 12;
-  v57 = &v71;
-  v17 = _os_log_send_and_compose_impl();
+  v70 = 134217984;
+  v71 = databaseID;
+  v17 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[Download]: Podcast Request allows cellular for %lld", &v70);
 
   if (v17)
   {
-    oSLogObject = [NSString stringWithCString:v17 encoding:4, &v71, v58];
+    oSLogObject = [NSString stringWithCString:v17 encoding:4];
     free(v17);
     v57 = oSLogObject;
     SSFileLog();
@@ -2663,8 +2741,8 @@ LABEL_18:
     goto LABEL_36;
   }
 
-  v59 = v22;
-  v61 = assetCopy;
+  v58 = v22;
+  v60 = assetCopy;
   v23 = +[SSLogConfig sharedDaemonConfig];
   if (!v23)
   {
@@ -2695,23 +2773,21 @@ LABEL_18:
 
   if (!v27)
   {
-    v29 = v59;
+    v29 = v58;
     goto LABEL_34;
   }
 
   databaseID2 = [(SSMemoryEntity *)self->_download databaseID];
-  v71 = 134218240;
-  v29 = v59;
-  v72 = v59;
-  v73 = 2048;
-  v74 = databaseID2;
-  LODWORD(v58) = 22;
-  v57 = &v71;
-  v30 = _os_log_send_and_compose_impl();
+  v70 = 134218240;
+  v29 = v58;
+  v71 = v58;
+  v72 = 2048;
+  v73 = databaseID2;
+  v30 = _os_log_send_and_compose_impl(v27, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "[Download]: Setting podcast request cellular size limit to %lld for %lld", &v70, 22);
 
   if (v30)
   {
-    oSLogObject2 = [NSString stringWithCString:v30 encoding:4, &v71, v58];
+    oSLogObject2 = [NSString stringWithCString:v30 encoding:4];
     free(v30);
     v57 = oSLogObject2;
     SSFileLog();
@@ -2721,10 +2797,10 @@ LABEL_34:
   v31 = [NSNumber numberWithLongLong:v29];
   [v8 setObject:v31 forKey:AVAssetDownloadSessionMaxSizeAllowedForCellularAccessKey];
 
-  assetCopy = v61;
+  assetCopy = v60;
 LABEL_36:
 
-  requestCopy = v63;
+  requestCopy = v62;
 LABEL_37:
   v32 = objc_alloc_init(NSMutableDictionary);
   v33 = [assetCopy valueForProperty:@"hash_array"];
@@ -2742,25 +2818,25 @@ LABEL_55:
       goto LABEL_56;
     }
 
-    v62 = assetCopy;
-    v64 = requestCopy;
-    v60 = v8;
+    v61 = assetCopy;
+    v63 = requestCopy;
+    v59 = v8;
     v38 = objc_alloc_init(NSMutableArray);
+    v65 = 0u;
     v66 = 0u;
     v67 = 0u;
     v68 = 0u;
-    v69 = 0u;
     v39 = v37;
-    v40 = [v39 countByEnumeratingWithState:&v66 objects:v70 count:16];
+    v40 = [v39 countByEnumeratingWithState:&v65 objects:v69 count:16];
     if (v40)
     {
       v41 = v40;
-      v42 = *v67;
+      v42 = *v66;
       do
       {
         for (i = 0; i != v41; ++i)
         {
-          if (*v67 != v42)
+          if (*v66 != v42)
           {
             objc_enumerationMutation(v39);
           }
@@ -2769,7 +2845,7 @@ LABEL_55:
           [v38 addObject:v44];
         }
 
-        v41 = [v39 countByEnumeratingWithState:&v66 objects:v70 count:16];
+        v41 = [v39 countByEnumeratingWithState:&v65 objects:v69 count:16];
       }
 
       while (v41);
@@ -2781,16 +2857,16 @@ LABEL_55:
       v46 = sub_1000AEC68();
       [v32 setObject:firstObject forKey:v46];
 
-      v8 = v60;
-      assetCopy = v62;
-      requestCopy = v64;
+      v8 = v59;
+      assetCopy = v61;
+      requestCopy = v63;
     }
 
     else
     {
-      v8 = v60;
-      assetCopy = v62;
-      requestCopy = v64;
+      v8 = v59;
+      assetCopy = v61;
+      requestCopy = v63;
       if ([v38 count] < 2)
       {
 LABEL_54:
@@ -3022,7 +3098,7 @@ LABEL_27:
   if (!v5)
   {
     v7 = 0;
-    goto LABEL_36;
+    goto LABEL_37;
   }
 
   v6 = [[NSURL alloc] initWithString:v5];
@@ -3057,16 +3133,21 @@ LABEL_27:
     shouldLog = [v13 shouldLog];
     if ([v13 shouldLogToDisk])
     {
-      v15 = shouldLog | 2;
+      LODWORD(v15) = shouldLog | 2;
     }
 
     else
     {
-      v15 = shouldLog;
+      LODWORD(v15) = shouldLog;
     }
 
     oSLogObject = [v13 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = v15;
+    }
+
+    else
     {
       v15 &= 2u;
     }
@@ -3075,34 +3156,32 @@ LABEL_27:
     {
       v17 = objc_opt_class();
       v18 = v17;
-      v35 = 138412802;
-      v36 = v17;
-      v37 = 1024;
-      v38 = 172800;
-      v39 = 2048;
+      v34 = 138412802;
+      v35 = v17;
+      v36 = 1024;
+      v37 = 172800;
+      v38 = 2048;
       databaseID = [assetCopy databaseID];
-      LODWORD(v32) = 28;
-      v31 = &v35;
-      v19 = _os_log_send_and_compose_impl();
+      v19 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Setting timeout interval to %d for podcast restore: %lld", &v34, 28);
 
       if (!v19)
       {
-LABEL_19:
+LABEL_20:
 
         [v7 setTimeoutInterval:172800.0];
-        goto LABEL_20;
+        goto LABEL_21;
       }
 
-      oSLogObject = [NSString stringWithCString:v19 encoding:4, &v35, v32];
+      oSLogObject = [NSString stringWithCString:v19 encoding:4];
       free(v19);
       v31 = oSLogObject;
       SSFileLog();
     }
 
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
-LABEL_20:
+LABEL_21:
   v20 = [assetCopy valueForProperty:{@"body_data", v31}];
 
   objc_opt_class();
@@ -3120,12 +3199,12 @@ LABEL_20:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v33[0] = _NSConcreteStackBlock;
-      v33[1] = 3221225472;
-      v33[2] = sub_1001DA9F0;
-      v33[3] = &unk_100327658;
-      v34 = v7;
-      [v22 enumerateKeysAndObjectsUsingBlock:v33];
+      v32[0] = _NSConcreteStackBlock;
+      v32[1] = 3221225472;
+      v32[2] = sub_1001DA9F0;
+      v32[3] = &unk_100327658;
+      v33 = v7;
+      [v22 enumerateKeysAndObjectsUsingBlock:v32];
     }
   }
 
@@ -3159,7 +3238,7 @@ LABEL_20:
     [v7 _setRequiresShortConnectionTimeout:1];
   }
 
-LABEL_36:
+LABEL_37:
   return v7;
 }
 
@@ -3397,21 +3476,26 @@ LABEL_16:
     v10 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog = [v10 shouldLog];
+  LODWORD(v11) = [v10 shouldLog];
   shouldLogToDisk = [v10 shouldLogToDisk];
   oSLogObject = [v10 OSLogObject];
   v14 = oSLogObject;
   if (shouldLogToDisk)
   {
-    shouldLog |= 2u;
+    LODWORD(v11) = v11 | 2;
   }
 
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
   {
-    shouldLog &= 2u;
+    v11 = v11;
   }
 
-  if (shouldLog)
+  else
+  {
+    v11 &= 2u;
+  }
+
+  if (v11)
   {
     v15 = objc_opt_class();
     v73 = 138412546;
@@ -3419,25 +3503,23 @@ LABEL_16:
     v75 = 2048;
     v76 = unsignedLongLongValue;
     v16 = v15;
-    LODWORD(v61) = 22;
-    v59 = &v73;
-    v17 = _os_log_send_and_compose_impl();
+    v17 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, v14, 2, "%@: Determined asset size to be %llu bytes", &v73, 22);
 
     if (!v17)
     {
-      goto LABEL_17;
+      goto LABEL_18;
     }
 
-    v14 = [NSString stringWithCString:v17 encoding:4, &v73, v61];
+    v14 = [NSString stringWithCString:v17 encoding:4];
     free(v17);
     v59 = v14;
     SSFileLog();
   }
 
-LABEL_17:
+LABEL_18:
   if (!v62)
   {
-    goto LABEL_32;
+    goto LABEL_34;
   }
 
   diskUsage = [v62 diskUsage];
@@ -3458,23 +3540,28 @@ LABEL_17:
     v21 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog2 = [v21 shouldLog];
+  LODWORD(v22) = [v21 shouldLog];
   shouldLogToDisk2 = [v21 shouldLogToDisk];
   oSLogObject2 = [v21 OSLogObject];
   v25 = oSLogObject2;
   if (shouldLogToDisk2)
   {
-    shouldLog2 |= 2u;
+    LODWORD(v22) = v22 | 2;
   }
 
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
   {
-    shouldLog2 &= 2u;
+    v22 = v22;
   }
 
-  if (!shouldLog2)
+  else
   {
-    goto LABEL_30;
+    v22 &= 2u;
+  }
+
+  if (!v22)
+  {
+    goto LABEL_32;
   }
 
   v26 = objc_opt_class();
@@ -3484,24 +3571,23 @@ LABEL_17:
   v76 = v19;
   v27 = v26;
   LODWORD(v61) = 22;
-  v59 = &v73;
-  v28 = _os_log_send_and_compose_impl();
+  v28 = _os_log_send_and_compose_impl(v22, 0, 0, 0, &_mh_execute_header, v25, 2, "%@: Discovered %llu bytes already transfered", &v73, v61);
 
   if (v28)
   {
-    v25 = [NSString stringWithCString:v28 encoding:4, &v73, v61];
+    v25 = [NSString stringWithCString:v28 encoding:4];
     free(v28);
     v59 = v25;
     SSFileLog();
-LABEL_30:
+LABEL_32:
   }
 
   unsignedLongLongValue -= v20;
-LABEL_32:
+LABEL_34:
   v29 = [assetCopy valueForProperty:{@"initial_odr_size", v59}];
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
-    goto LABEL_44;
+    goto LABEL_47;
   }
 
   unsignedLongLongValue3 = [v29 unsignedLongLongValue];
@@ -3511,23 +3597,28 @@ LABEL_32:
     v31 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog3 = [v31 shouldLog];
+  LODWORD(v32) = [v31 shouldLog];
   shouldLogToDisk3 = [v31 shouldLogToDisk];
   oSLogObject3 = [v31 OSLogObject];
   v35 = oSLogObject3;
   if (shouldLogToDisk3)
   {
-    shouldLog3 |= 2u;
+    LODWORD(v32) = v32 | 2;
   }
 
-  if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEBUG))
   {
-    shouldLog3 &= 2u;
+    v32 = v32;
   }
 
-  if (!shouldLog3)
+  else
   {
-    goto LABEL_42;
+    v32 &= 2u;
+  }
+
+  if (!v32)
+  {
+    goto LABEL_45;
   }
 
   v36 = objc_opt_class();
@@ -3537,20 +3628,19 @@ LABEL_32:
   v76 = unsignedLongLongValue3;
   v37 = v36;
   LODWORD(v61) = 22;
-  v60 = &v73;
-  v38 = _os_log_send_and_compose_impl();
+  v38 = _os_log_send_and_compose_impl(v32, 0, 0, 0, &_mh_execute_header, v35, 2, "%@: Accounted for %llu bytes of initial ODR", &v73, v61);
 
   if (v38)
   {
-    v35 = [NSString stringWithCString:v38 encoding:4, &v73, v61];
+    v35 = [NSString stringWithCString:v38 encoding:4];
     free(v38);
     v60 = v35;
     SSFileLog();
-LABEL_42:
+LABEL_45:
   }
 
   unsignedLongLongValue = &unsignedLongLongValue[unsignedLongLongValue3];
-LABEL_44:
+LABEL_47:
   v39 = [assetCopy valueForProperty:{@"local_path", v60}];
   if (!v39)
   {

@@ -5,7 +5,7 @@
 
 uint64_t __68___HDDataEntitySyncMessageBuilder__addEntity_row_anchor_provenance___block_invoke(void *a1, void *a2, unint64_t a3, uint64_t a4, void *a5)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v8 = a2;
   v9 = a1[4];
   if ((*(v9 + 80) + a3) > *(v9 + 64))
@@ -22,12 +22,12 @@ uint64_t __68___HDDataEntitySyncMessageBuilder__addEntity_row_anchor_provenance_
   v11 = *(v9 + 88);
   v12 = *(v9 + 104) >= 1 && a1[8] != *(v9 + 96);
   v10 = 0;
-  v39 = a5;
+  v38 = a5;
   if (((v11 + a3) > *(v9 + 72) || v12) && v11 >= 1)
   {
-    v42 = 0;
-    v13 = [(_HDDataEntitySyncMessageBuilder *)v9 _sendCurrentCollectionIsFinal:&v42 error:?];
-    v14 = v42;
+    v41 = 0;
+    v13 = [(_HDDataEntitySyncMessageBuilder *)v9 _sendCurrentCollectionIsFinal:&v41 error:?];
+    v14 = v41;
     v15 = 0;
     v16 = a1[4];
     if (a1[8] == *(v16 + 96))
@@ -47,11 +47,11 @@ uint64_t __68___HDDataEntitySyncMessageBuilder__addEntity_row_anchor_provenance_
       v17 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
-        v38 = a1[4];
+        v37 = a1[4];
         *buf = 138543618;
-        v44 = v38;
-        v45 = 2114;
-        v46 = v14;
+        v43 = v37;
+        v44 = 2114;
+        v45 = v14;
         _os_log_error_impl(&dword_228986000, v17, OS_LOG_TYPE_ERROR, "%{public}@: failed to send current collection: %{public}@", buf, 0x16u);
       }
 
@@ -78,8 +78,8 @@ uint64_t __68___HDDataEntitySyncMessageBuilder__addEntity_row_anchor_provenance_
 
   v20 = a1[8];
   v21 = a1[5];
-  v40 = v8;
-  v41 = 0;
+  v39 = v8;
+  v40 = 0;
   v22 = v8;
   v23 = v21;
   if (v9)
@@ -92,7 +92,7 @@ uint64_t __68___HDDataEntitySyncMessageBuilder__addEntity_row_anchor_provenance_
 
     if ((v24 & 1) == 0)
     {
-      [MEMORY[0x277CCA9B8] hk_assignError:&v41 code:100 format:@"Failed to add codable representation to object collection"];
+      [MEMORY[0x277CCA9B8] hk_assignError:&v40 code:100 format:@"Failed to add codable representation to object collection"];
       v29 = 0;
       v28 = 2;
       goto LABEL_27;
@@ -111,7 +111,7 @@ uint64_t __68___HDDataEntitySyncMessageBuilder__addEntity_row_anchor_provenance_
   v29 = 1;
 LABEL_27:
 
-  v30 = v41;
+  v30 = v40;
   if (v29)
   {
     *(a1[4] + 112) = 1;
@@ -124,24 +124,24 @@ LABEL_27:
     v31 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v36 = a1[4];
-      v37 = a1[8];
+      v35 = a1[4];
+      v36 = a1[8];
       *buf = 138543874;
-      v44 = v36;
-      v45 = 2048;
-      v46 = v37;
-      v47 = 2114;
-      v48 = v30;
+      v43 = v35;
+      v44 = 2048;
+      v45 = v36;
+      v46 = 2114;
+      v47 = v30;
       _os_log_error_impl(&dword_228986000, v31, OS_LOG_TYPE_ERROR, "%{public}@: failed to add codable representation for anchor %lld: %{public}@", buf, 0x20u);
     }
 
     v32 = v30;
     if (v32)
     {
-      if (v39)
+      if (v38)
       {
         v33 = v32;
-        *v39 = v32;
+        *v38 = v32;
       }
 
       else
@@ -156,10 +156,9 @@ LABEL_27:
     v10 = v28;
   }
 
-  v8 = v40;
+  v8 = v39;
 LABEL_39:
 
-  v34 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

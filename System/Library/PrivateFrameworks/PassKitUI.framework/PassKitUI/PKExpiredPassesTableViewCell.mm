@@ -2,7 +2,7 @@
 - (CGSize)sizeThatFits:(CGSize)fits;
 - (PKExpiredPassesTableViewCell)initWithReuseIdentifier:(id)identifier;
 - (double)_layoutWithBounds:(double)bounds isTemplateLayout:(double)layout;
-- (uint64_t)_configureLabels;
+- (id)_configureLabels;
 - (void)_determineAccessibilitySettings;
 - (void)layoutSubviews;
 - (void)prepareForReuse;
@@ -76,7 +76,7 @@
     [contentView3 addSubview:v4->_tertiaryLabel];
 
     [(UILabel *)v4->_tertiaryLabel setAccessibilityIdentifier:v21];
-    [(PKExpiredPassesTableViewCell *)v4 _configureLabels];
+    [(PKExpiredPassesTableViewCell *)&v4->super.super.super.super.isa _configureLabels];
     [(PKExpiredPassesTableViewCell *)v4 setAccessoryType:1];
     v33[0] = objc_opt_class();
     v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:1];
@@ -99,7 +99,7 @@
   }
 }
 
-- (uint64_t)_configureLabels
+- (id)_configureLabels
 {
   if (result)
   {
@@ -115,7 +115,7 @@
       v3 = 1;
     }
 
-    v4 = *(result + 1040);
+    v4 = result[130];
     if (v2)
     {
       v5 = 4;
@@ -137,11 +137,11 @@
       v6 = 4;
     }
 
-    [*(v1 + 1040) setLineBreakMode:v6];
-    [*(v1 + 1048) setNumberOfLines:v3];
-    [*(v1 + 1048) setLineBreakMode:v5];
-    [*(v1 + 1056) setNumberOfLines:v3];
-    v7 = *(v1 + 1056);
+    [v1[130] setLineBreakMode:v6];
+    [v1[131] setNumberOfLines:v3];
+    [v1[131] setLineBreakMode:v5];
+    [v1[132] setNumberOfLines:v3];
+    v7 = v1[132];
 
     return [v7 setLineBreakMode:v5];
   }
@@ -216,185 +216,217 @@ void __56__PKExpiredPassesTableViewCell_initWithReuseIdentifier___block_invoke(u
     v16 = CGRectMinXEdge;
   }
 
-  PKContentAlignmentMake();
+  v17 = PKContentAlignmentMake();
   if (_UISolariumFeatureFlagEnabled())
   {
     if (*(self + 1024))
     {
-      v17 = 80.0;
+      v18 = 80.0;
     }
 
     else
     {
-      v17 = 40.0;
+      v18 = 40.0;
     }
   }
 
   else
   {
-    v17 = 80.0;
+    v18 = 80.0;
   }
 
-  v73 = a5;
+  v113 = a5;
   remainder.origin.x = bounds + v14;
   remainder.origin.y = layout + v15;
   remainder.size.width = a5 - (v14 + v12);
   remainder.size.height = a6 - (v13 + v15);
-  v18 = *(MEMORY[0x1E695F050] + 16);
-  v19 = *MEMORY[0x1E695F058];
-  v20 = *(MEMORY[0x1E695F058] + 8);
-  v21 = *(MEMORY[0x1E695F058] + 16);
-  v22 = *(MEMORY[0x1E695F058] + 24);
-  v23 = *(self + 1032);
+  v19 = *(MEMORY[0x1E695F050] + 16);
+  v20 = *MEMORY[0x1E695F058];
+  v21 = *(MEMORY[0x1E695F058] + 8);
+  v22 = *(MEMORY[0x1E695F058] + 16);
+  v23 = *(MEMORY[0x1E695F058] + 24);
+  v24 = *(self + 1032);
   slice.origin = *MEMORY[0x1E695F050];
-  slice.size = v18;
-  v24 = v22;
-  v75 = v20;
-  v76 = v21;
-  v74 = v19;
-  if (v23)
+  slice.size = v19;
+  v25 = v23;
+  v115 = v21;
+  v116 = v22;
+  v114 = v20;
+  if (v24)
   {
-    [(PKPassThumbnailView *)v23 _layoutWithBounds:v78 commit:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), v17 + -10.0, v17];
+    [(PKPassThumbnailView *)v24 _layoutWithBounds:&v118 commit:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), v18 + -10.0, v18];
+    v27 = *&v118;
+    v26 = *&v119;
     x = remainder.origin.x;
     y = remainder.origin.y;
     width = remainder.size.width;
     height = remainder.size.height;
     if (*(self + 1024) == 1)
     {
-      CGRectDivide(*&x, &slice, &remainder, v78[1], CGRectMinYEdge);
-      PKSizeAlignedInRect();
-      v74 = v29;
-      v75 = v30;
-      v76 = v31;
-      v24 = v32;
+      CGRectDivide(*&x, &slice, &remainder, v119, CGRectMinYEdge);
+      v32.n128_u64[0] = *&slice.origin.x;
+      v33.n128_u64[0] = *&slice.origin.y;
+      v34.n128_u64[0] = *&slice.size.width;
+      v35.n128_u64[0] = *&slice.size.height;
+      v36.n128_u64[0] = v27;
+      v37.n128_u64[0] = v26;
+      PKSizeAlignedInRect(v17, v36, v37, v32, v33, v34, v35, v38);
+      v114 = v39;
+      v115 = v40;
+      v116 = v41;
+      v25 = v42;
     }
 
     else
     {
-      CGRectDivide(*&x, &slice, &remainder, v78[0], v16);
+      CGRectDivide(*&x, &slice, &remainder, v118, v16);
       UIRectCenteredRect();
-      v74 = v33;
-      v75 = v34;
-      v76 = v35;
-      v24 = v36;
+      v114 = v43;
+      v115 = v44;
+      v116 = v45;
+      v25 = v46;
       CGRectDivide(remainder, &slice, &remainder, 16.0, v16);
     }
   }
 
-  v77 = v24;
+  v117 = v25;
   if (*(self + 1072))
   {
-    v37 = 0.0;
+    v47 = 0.0;
     if (*(self + 1032) && *(self + 1024) == 1)
     {
-      v37 = 2.0;
+      v47 = 2.0;
       CGRectDivide(remainder, &slice, &remainder, 2.0, CGRectMinYEdge);
     }
 
     [*(self + 1040) sizeThatFits:{remainder.size.width, remainder.size.height}];
-    CGRectDivide(remainder, &slice, &remainder, v38, CGRectMinYEdge);
-    PKSizeAlignedInRect();
-    v70 = v39;
-    v71 = v40;
-    v42 = v41;
-    v72 = v43;
-    v44 = v37 + v43;
+    v49 = *&v48;
+    v51 = fmin(v50, remainder.size.width);
+    CGRectDivide(remainder, &slice, &remainder, v48, CGRectMinYEdge);
+    v52.n128_u64[0] = *&slice.origin.x;
+    v53.n128_u64[0] = *&slice.origin.y;
+    v54.n128_u64[0] = *&slice.size.width;
+    v55.n128_u64[0] = *&slice.size.height;
+    v56.n128_f64[0] = v51;
+    v57.n128_u64[0] = v49;
+    PKSizeAlignedInRect(v17, v56, v57, v52, v53, v54, v55, v58);
+    v110 = v59;
+    v111 = v60;
+    v62 = v61;
+    v112 = v63;
+    v64 = v47 + v63;
   }
 
   else
   {
-    v44 = 0.0;
-    v71 = v21;
-    v72 = v22;
-    v42 = v20;
-    v70 = v19;
+    v64 = 0.0;
+    v111 = v22;
+    v112 = v23;
+    v62 = v21;
+    v110 = v20;
   }
 
   if (*(self + 1080))
   {
-    v45 = remainder.size.width;
-    v46 = remainder.size.height;
+    v65 = remainder.size.width;
+    v66 = remainder.size.height;
     if (*(self + 1072))
     {
-      v47 = remainder.origin.x;
-      v48 = remainder.origin.y;
-      CGRectDivide(*(&v45 - 2), &slice, &remainder, 2.0, CGRectMinYEdge);
-      v44 = v44 + 2.0;
-      v45 = remainder.size.width;
-      v46 = remainder.size.height;
+      v67 = remainder.origin.x;
+      v68 = remainder.origin.y;
+      CGRectDivide(*(&v65 - 2), &slice, &remainder, 2.0, CGRectMinYEdge);
+      v64 = v64 + 2.0;
+      v65 = remainder.size.width;
+      v66 = remainder.size.height;
     }
 
-    [*(self + 1048) sizeThatFits:{v45, v46}];
-    CGRectDivide(remainder, &slice, &remainder, v49, CGRectMinYEdge);
-    PKSizeAlignedInRect();
-    v68 = v50;
-    v69 = v51;
-    v53 = v52;
-    v55 = v54;
-    v44 = v44 + v54;
+    [*(self + 1048) sizeThatFits:{v65, v66}];
+    v70 = *&v69;
+    v72 = fmin(v71, remainder.size.width);
+    CGRectDivide(remainder, &slice, &remainder, v69, CGRectMinYEdge);
+    v73.n128_u64[0] = *&slice.origin.x;
+    v74.n128_u64[0] = *&slice.origin.y;
+    v75.n128_u64[0] = *&slice.size.width;
+    v76.n128_u64[0] = *&slice.size.height;
+    v77.n128_f64[0] = v72;
+    v78.n128_u64[0] = v70;
+    PKSizeAlignedInRect(v17, v77, v78, v73, v74, v75, v76, v79);
+    v108 = v80;
+    v109 = v81;
+    v83 = v82;
+    v85 = v84;
+    v64 = v64 + v84;
   }
 
   else
   {
-    v55 = v22;
-    v68 = v19;
-    v69 = v21;
-    v53 = v20;
+    v85 = v23;
+    v108 = v20;
+    v109 = v22;
+    v83 = v21;
   }
 
   if (*(self + 1088))
   {
-    v56 = remainder.size.width;
-    v57 = remainder.size.height;
+    v86 = remainder.size.width;
+    v87 = remainder.size.height;
     if (*(self + 1080))
     {
-      v58 = remainder.origin.x;
-      v59 = remainder.origin.y;
-      CGRectDivide(*(&v56 - 2), &slice, &remainder, 2.0, CGRectMinYEdge);
-      v44 = v44 + 2.0;
-      v56 = remainder.size.width;
-      v57 = remainder.size.height;
+      v88 = remainder.origin.x;
+      v89 = remainder.origin.y;
+      CGRectDivide(*(&v86 - 2), &slice, &remainder, 2.0, CGRectMinYEdge);
+      v64 = v64 + 2.0;
+      v86 = remainder.size.width;
+      v87 = remainder.size.height;
     }
 
-    [*(self + 1056) sizeThatFits:{v56, v57}];
-    CGRectDivide(remainder, &slice, &remainder, v60, CGRectMinYEdge);
-    PKSizeAlignedInRect();
-    v19 = v61;
-    v20 = v62;
-    v21 = v63;
-    v22 = v64;
-    v44 = v44 + v64;
+    [*(self + 1056) sizeThatFits:{v86, v87}];
+    v91 = *&v90;
+    v93 = fmin(v92, remainder.size.width);
+    CGRectDivide(remainder, &slice, &remainder, v90, CGRectMinYEdge);
+    v94.n128_u64[0] = *&slice.origin.x;
+    v95.n128_u64[0] = *&slice.origin.y;
+    v96.n128_u64[0] = *&slice.size.width;
+    v97.n128_u64[0] = *&slice.size.height;
+    v98.n128_f64[0] = v93;
+    v99.n128_u64[0] = v91;
+    PKSizeAlignedInRect(v17, v98, v99, v94, v95, v96, v97, v100);
+    v20 = v101;
+    v21 = v102;
+    v22 = v103;
+    v23 = v104;
+    v64 = v64 + v104;
   }
 
-  if (*(self + 1024) != 1 && v77 > v44)
+  if (*(self + 1024) != 1 && v117 > v64)
   {
-    v65 = (v77 - v44) * 0.5;
+    v105 = (v117 - v64) * 0.5;
     if (*(self + 1072))
     {
-      v42 = v42 + v65;
+      v62 = v62 + v105;
     }
 
     if (*(self + 1080))
     {
-      v53 = v53 + v65;
+      v83 = v83 + v105;
     }
 
-    v66 = v20 + v65;
+    v106 = v21 + v105;
     if (*(self + 1088))
     {
-      v20 = v66;
+      v21 = v106;
     }
   }
 
   if ((a2 & 1) == 0)
   {
-    [*(self + 1032) setFrame:{v74, v75, v76, v77}];
-    [*(self + 1040) setFrame:{v70, v42, v71, v72}];
-    [*(self + 1048) setFrame:{v68, v53, v69, v55}];
-    [*(self + 1056) setFrame:{v19, v20, v21, v22}];
+    [*(self + 1032) setFrame:{v114, v115, v116, v117}];
+    [*(self + 1040) setFrame:{v110, v62, v111, v112}];
+    [*(self + 1048) setFrame:{v108, v83, v109, v85}];
+    [*(self + 1056) setFrame:{v20, v21, v22, v23}];
   }
 
-  return v73;
+  return v113;
 }
 
 - (void)layoutSubviews

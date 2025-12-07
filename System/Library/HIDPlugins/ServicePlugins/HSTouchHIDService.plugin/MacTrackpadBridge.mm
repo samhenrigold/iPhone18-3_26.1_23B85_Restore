@@ -222,33 +222,33 @@ LABEL_33:
 void __51__MacTrackpadBridge_startDisablingDeviceMonitoring__block_invoke(uint64_t a1, void *a2, int a3)
 {
   v5 = a2;
-  v6 = MTLoggingPlugin();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = MTLoggingPlugin(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136316162;
-    v11 = "";
-    v12 = 2080;
-    v13 = "";
-    v14 = 2080;
-    v15 = "[MacTrackpadBridge startDisablingDeviceMonitoring]_block_invoke";
-    v16 = 2048;
-    v17 = v5;
-    v18 = 1024;
-    v19 = a3;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s HID Dev callback %p : %u", buf, 0x30u);
+    v12 = "";
+    v13 = 2080;
+    v14 = "";
+    v15 = 2080;
+    v16 = "[MacTrackpadBridge startDisablingDeviceMonitoring]_block_invoke";
+    v17 = 2048;
+    v18 = v5;
+    v19 = 1024;
+    v20 = a3;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s HID Dev callback %p : %u", buf, 0x30u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
     [WeakRetained setSignpostBeginTime:mach_continuous_time()];
-    v8 = [WeakRetained queue];
+    v9 = [WeakRetained queue];
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = __51__MacTrackpadBridge_startDisablingDeviceMonitoring__block_invoke_42;
     block[3] = &unk_109150;
     block[4] = WeakRetained;
-    dispatch_async(v8, block);
+    dispatch_async(v9, block);
   }
 }
 
@@ -331,7 +331,7 @@ void __51__MacTrackpadBridge_startDisablingDeviceMonitoring__block_invoke_2(uint
     v5 = 0;
   }
 
-  v11 = MTLoggingPlugin();
+  v11 = MTLoggingPlugin(v3, a2);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *entryID = 136315906;
@@ -377,21 +377,22 @@ void __51__MacTrackpadBridge_startDisablingDeviceMonitoring__block_invoke_2(uint
 void __61__MacTrackpadBridge_startNotificationCenterMonitoring_queue___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v4 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = MTLoggingPlugin();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v5 = MTLoggingPlugin(WeakRetained, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = 136315650;
-      v5 = "";
-      v6 = 2080;
+      v6 = 136315650;
       v7 = "";
       v8 = 2080;
-      v9 = "[MacTrackpadBridge startNotificationCenterMonitoring:queue:]_block_invoke";
-      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s NotificationCenter process died.", &v4, 0x20u);
+      v9 = "";
+      v10 = 2080;
+      v11 = "[MacTrackpadBridge startNotificationCenterMonitoring:queue:]_block_invoke";
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s NotificationCenter process died.", &v6, 0x20u);
     }
 
-    [WeakRetained cancelNotificationCenterSource];
+    [v4 cancelNotificationCenterSource];
     [*(a1 + 32) updatePreference:@"NotificationCenterActive" to:&__kCFBooleanFalse];
   }
 }
@@ -413,23 +414,23 @@ void __61__MacTrackpadBridge_startNotificationCenterMonitoring_queue___block_inv
   *(&self->super._deviceOrientation + 1) = v3;
   if (v3)
   {
-    v4 = *(&self->_powerNofifierRootIOKitPort + 1);
+    v5 = *(&self->_powerNofifierRootIOKitPort + 1);
     queue = [(PointerBridge *)self queue];
-    IONotificationPortSetDispatchQueue(v4, queue);
+    IONotificationPortSetDispatchQueue(v5, queue);
   }
 
   else
   {
-    v5 = MTLoggingPlugin();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = MTLoggingPlugin(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v8 = "[Error] ";
-      v9 = 2080;
-      v10 = "";
-      v11 = 2080;
-      v12 = "[MacTrackpadBridge startForPowerStateMonitoring]";
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s IORegisterForSystemPower failed", buf, 0x20u);
+      v9 = "[Error] ";
+      v10 = 2080;
+      v11 = "";
+      v12 = 2080;
+      v13 = "[MacTrackpadBridge startForPowerStateMonitoring]";
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s IORegisterForSystemPower failed", buf, 0x20u);
     }
   }
 }
@@ -467,20 +468,21 @@ void __61__MacTrackpadBridge_startNotificationCenterMonitoring_queue___block_inv
   if (v8 == 3758097024 || v8 == 3758097008)
   {
     v10 = IOAllowPowerChange(*(&self->super._deviceOrientation + 1), argument);
+    v12 = v10;
     if (v10)
     {
-      v11 = MTLoggingPlugin();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = MTLoggingPlugin(v10, v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v12 = 136315906;
-        v13 = "[Error] ";
-        v14 = 2080;
-        v15 = "";
+        v14 = 136315906;
+        v15 = "[Error] ";
         v16 = 2080;
-        v17 = "[MacTrackpadBridge handlePowerState:messageArgument:]";
+        v17 = "";
         v18 = 2080;
-        v19 = mach_error_string(v10);
-        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s IOAllowPowerChange failed with return %s", &v12, 0x2Au);
+        v19 = "[MacTrackpadBridge handlePowerState:messageArgument:]";
+        v20 = 2080;
+        v21 = mach_error_string(v12);
+        _os_log_impl(&dword_0, v13, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s IOAllowPowerChange failed with return %s", &v14, 0x2Au);
       }
     }
   }

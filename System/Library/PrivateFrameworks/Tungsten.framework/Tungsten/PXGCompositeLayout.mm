@@ -1079,27 +1079,27 @@ LABEL_25:
   while (v10++ != 2);
 }
 
-uint64_t __103__PXGCompositeLayout_didApplySublayoutChangeDetails_axAdjustedSubgroupChangeDetails_countAfterChanges___block_invoke(uint64_t result, uint64_t a2)
+id *__103__PXGCompositeLayout_didApplySublayoutChangeDetails_axAdjustedSubgroupChangeDetails_countAfterChanges___block_invoke(id *result, uint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 32);
-  v5 = *(*(v4 + 880) + 8 * a2);
+  v4 = result[4];
+  v5 = *(v4[110] + 8 * a2);
   if (v5 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    result = [*(result + 40) indexAfterApplyingChangesToIndex:*(*(v4 + 880) + 8 * a2)];
-    v4 = *(v3 + 32);
+    result = [result[5] indexAfterApplyingChangesToIndex:*(v4[110] + 8 * a2)];
+    v4 = v3[4];
     if (v5 != result)
     {
-      *(*(v4 + 880) + 8 * a2) = result;
-      result = [*(v3 + 32) _invalidateStylableType:a2];
-      v4 = *(v3 + 32);
+      *(v4[110] + 8 * a2) = result;
+      result = [v3[4] _invalidateStylableType:a2];
+      v4 = v3[4];
     }
   }
 
-  if (*(*(v4 + 888) + 8 * a2) != 0x7FFFFFFFFFFFFFFFLL)
+  if (*(v4[111] + 8 * a2) != 0x7FFFFFFFFFFFFFFFLL)
   {
-    result = [*(v3 + 40) indexAfterApplyingChangesToIndex:?];
-    *(*(*(v3 + 32) + 888) + 8 * a2) = result;
+    result = [v3[5] indexAfterApplyingChangesToIndex:?];
+    *(*(v3[4] + 111) + 8 * a2) = result;
   }
 
   return result;

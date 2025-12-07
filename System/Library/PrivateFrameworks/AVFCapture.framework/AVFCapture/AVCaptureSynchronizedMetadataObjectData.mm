@@ -12,7 +12,7 @@
   {
     v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
 
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v6, v7))
     {
       objc_exception_throw(v5);
     }
@@ -23,32 +23,32 @@
 
   if (collection)
   {
-    [collection time];
+    objc_msgSend_time(collection);
   }
 
   else
   {
-    memset(v10, 0, sizeof(v10));
+    memset(v12, 0, sizeof(v12));
   }
 
-  v9.receiver = self;
-  v9.super_class = AVCaptureSynchronizedMetadataObjectData;
-  v6 = [(AVCaptureSynchronizedData *)&v9 _initWithTimestamp:v10];
-  if (v6)
+  v11.receiver = self;
+  v11.super_class = AVCaptureSynchronizedMetadataObjectData;
+  v8 = [(AVCaptureSynchronizedData *)&v11 _initWithTimestamp:v12];
+  if (v8)
   {
-    v7 = objc_alloc_init(AVCaptureSynchronizedMetadataObjectDataInternal);
-    v6[2] = v7;
-    if (v7)
+    v9 = objc_alloc_init(AVCaptureSynchronizedMetadataObjectDataInternal);
+    v8[2] = v9;
+    if (v9)
     {
-      *(v6[2] + 16) = [collection handledMetadataObjectTypes];
-      *(v6[2] + 8) = [collection metadataObjects];
-      return v6;
+      *(v8[2] + 16) = [collection handledMetadataObjectTypes];
+      *(v8[2] + 8) = [collection metadataObjects];
+      return v8;
     }
 
     return 0;
   }
 
-  return v6;
+  return v8;
 }
 
 - (void)dealloc
@@ -68,13 +68,13 @@
   memset(&v22[1], 0, sizeof(CMTime));
   if (self)
   {
-    [(AVCaptureSynchronizedData *)self timestamp];
+    objc_msgSend_timestamp(self, a2);
   }
 
   memset(v22, 0, 24);
   if (data)
   {
-    [data timestamp];
+    objc_msgSend_timestamp(data, a2);
   }
 
   if (v22[1].flags & 1) != 0 && (v22[0].flags)
@@ -142,7 +142,7 @@ BOOL __63__AVCaptureSynchronizedMetadataObjectData_addSynchronizedData___block_i
 {
   if (a2)
   {
-    [a2 time];
+    objc_msgSend_time(a2);
   }
 
   else
@@ -153,7 +153,7 @@ BOOL __63__AVCaptureSynchronizedMetadataObjectData_addSynchronizedData___block_i
   v6 = *(a1 + 32);
   if (v6)
   {
-    [v6 time];
+    objc_msgSend_time(v6);
   }
 
   else

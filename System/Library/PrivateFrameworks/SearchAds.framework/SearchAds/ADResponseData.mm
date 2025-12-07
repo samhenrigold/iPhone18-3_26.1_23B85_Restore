@@ -6,11 +6,11 @@
 
 - (ADResponseData)initWithDict:(id)dict
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   dictCopy = dict;
-  v69.receiver = self;
-  v69.super_class = ADResponseData;
-  v5 = [(ADResponseData *)&v69 init];
+  v68.receiver = self;
+  v68.super_class = ADResponseData;
+  v5 = [(ADResponseData *)&v68 init];
   if (v5)
   {
     v6 = objc_opt_class();
@@ -76,15 +76,14 @@
         v61 = objc_opt_class();
         v66 = objc_msgSend_AD_jsonString(dictCopy, v62, v63, v64, v65);
         *buf = 138412546;
-        v71 = v61;
-        v72 = 2112;
-        v73 = v66;
+        v70 = v61;
+        v71 = 2112;
+        v72 = v66;
         _os_log_impl(&dword_264E42000, p_super, OS_LOG_TYPE_ERROR, "[%@] ERROR: No Install Attribution dictionary was provided: %@", buf, 0x16u);
       }
     }
   }
 
-  v67 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

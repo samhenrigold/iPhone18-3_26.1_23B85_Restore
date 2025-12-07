@@ -10,11 +10,12 @@
   v2 = *&self->layer[OBJC_IVAR____TtC6Tamale12PreviewLayer_previewLayerInvalidatedCallback];
   if (v2)
   {
+    v3 = *&self->bufferIdentifiers[OBJC_IVAR____TtC6Tamale12PreviewLayer_previewLayerInvalidatedCallback];
 
-    v3 = sub_100005630(v2);
-    v2(v3);
+    v4 = sub_100005630(v2, v3);
+    v2(v4);
 
-    sub_100005640(v2);
+    sub_100005640(v2, v3);
   }
 }
 
@@ -45,7 +46,7 @@
   AccessibilityNotification.ScreenChanged.init(_:)();
   _AccessibilityNotifications.post()();
   (*(v12 + 8))(v14, v11);
-  sub_10005BBC4(0, &qword_1001D6B40);
+  sub_10005BBC4(0, &qword_1001D6B40, OS_dispatch_queue_ptr);
   v15 = static OS_dispatch_queue.main.getter();
   static DispatchTime.now()();
   + infix(_:_:)();
@@ -60,10 +61,10 @@
   *(&v30 + 1) = &unk_1001C3A90;
   v17 = _Block_copy(&aBlock);
   static DispatchQoS.unspecified.getter();
-  v28 = &_swiftEmptyArrayStorage;
-  sub_1000C55A8(&qword_1001D6B10, &type metadata accessor for DispatchWorkItemFlags);
-  sub_1000033A8(&unk_1001D8010);
-  sub_1000618FC(&qword_1001D6B20, &unk_1001D8010);
+  v28 = _swiftEmptyArrayStorage;
+  sub_1000C55A8(&qword_1001D6B10, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+  sub_1000033A8(&unk_1001D8010, &qword_1001710E0);
+  sub_1000618FC(&qword_1001D6B20, &unk_1001D8010, &qword_1001710E0);
   v19 = v23;
   v18 = v24;
   dispatch thunk of SetAlgebra.init<A>(_:)();

@@ -319,25 +319,26 @@ LABEL_44:
     bytesTransferred2 = [v40 bytesTransferred];
     phaseDescription = [v40 phaseDescription];
     *buf = 134219266;
-    v56 = v47;
-    v57 = 2048;
-    v58 = minutesRemaining;
-    v59 = 2048;
-    v60 = filesTransferred2;
-    v61 = 2048;
-    v62 = bytesTransferred2;
-    v63 = 2048;
-    v64 = v41;
-    v65 = 2112;
-    v66 = phaseDescription;
+    v61 = v47;
+    v62 = 2048;
+    v63 = minutesRemaining;
+    v64 = 2048;
+    v65 = filesTransferred2;
+    v66 = 2048;
+    v67 = bytesTransferred2;
+    v68 = 2048;
+    v69 = v41;
+    v70 = 2112;
+    v71 = phaseDescription;
     _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_INFO, "p:%.2f, m:%ld, f:%llu, b:%llu, r:%.3fMB/s, p:%@", buf, 0x3Eu);
 
     [v40 progress];
-    [v40 minutesRemaining];
-    [v40 filesTransferred];
-    [v40 bytesTransferred];
+    v53 = v52;
+    minutesRemaining2 = [v40 minutesRemaining];
+    filesTransferred3 = [v40 filesTransferred];
+    bytesTransferred3 = [v40 bytesTransferred];
     phaseDescription2 = [v40 phaseDescription];
-    _MBLog();
+    _MBLog(@"I ", "p:%.2f, m:%ld, f:%llu, b:%llu, r:%.3fMB/s, p:%@", v53, minutesRemaining2, filesTransferred3, bytesTransferred3, *&v41, phaseDescription2);
   }
 
   delegate = [(MBDeviceTransferProgressModel *)self delegate];

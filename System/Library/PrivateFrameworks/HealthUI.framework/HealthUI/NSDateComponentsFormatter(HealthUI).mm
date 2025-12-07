@@ -11,9 +11,9 @@
     +[NSDateComponentsFormatter(HealthUI) hk_fullStyleDateComponentsFormatter];
   }
 
-  v1 = hk_fullStyleDateComponentsFormatter___dateComponentsFormatter;
+  v2 = hk_fullStyleDateComponentsFormatter___dateComponentsFormatter;
 
-  return v1;
+  return v2;
 }
 
 @end

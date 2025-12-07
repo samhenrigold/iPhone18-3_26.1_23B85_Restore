@@ -12,9 +12,10 @@
   largeCopy = large;
   extraLargeCopy = extraLarge;
   requestCopy = request;
-  v32.receiver = self;
-  v32.super_class = ATXDefaultHomeScreenItemTilerWrapper;
-  v22 = [(ATXDefaultHomeScreenItemTilerWrapper *)&v32 init];
+  v33.receiver = self;
+  v33.super_class = ATXDefaultHomeScreenItemTilerWrapper;
+  v22 = [(ATXDefaultHomeScreenItemTilerWrapper *)&v33 init];
+  v23 = v22;
   if (!v22)
   {
     goto LABEL_24;
@@ -44,7 +45,7 @@
         unsignedIntegerValue = 12;
       }
 
-      v27 = [[ATXDefaultHomeScreenItemTilerGridSize2 alloc] initWithDefaultStack:stackCopy defaultWidgetsSmall:smallCopy defaultWidgetsMedium:mediumCopy defaultWidgetsLarge:largeCopy defaultWidgetsExtraLarge:extraLargeCopy widgetFamilyMask:mask targetNumberOfSuggestions:unsignedIntegerValue];
+      v28 = [[ATXDefaultHomeScreenItemTilerGridSize2 alloc] initWithDefaultStack:stackCopy defaultWidgetsSmall:smallCopy defaultWidgetsMedium:mediumCopy defaultWidgetsLarge:largeCopy defaultWidgetsExtraLarge:extraLargeCopy widgetFamilyMask:mask targetNumberOfSuggestions:unsignedIntegerValue];
       goto LABEL_22;
     }
 
@@ -53,31 +54,31 @@
       goto LABEL_24;
     }
 
-    v24 = ATXDefaultHomeScreenItemTilerGridSize3;
+    v25 = ATXDefaultHomeScreenItemTilerGridSize3;
     goto LABEL_12;
   }
 
   switch(size)
   {
     case 2uLL:
-      v24 = ATXDefaultHomeScreenItemTilerGridSize4;
+      v25 = ATXDefaultHomeScreenItemTilerGridSize4;
 LABEL_12:
-      v25 = [v24 alloc];
-      v26 = 7;
+      v26 = [v25 alloc];
+      v27 = 7;
 LABEL_14:
-      v27 = [(ATXDefaultHomeScreenItemTilerPodBuilder *)v25 initWithDefaultStack:stackCopy defaultWidgetsSmall:smallCopy defaultWidgetsMedium:mediumCopy defaultWidgetsLarge:largeCopy defaultWidgetsExtraLarge:extraLargeCopy widgetFamilyMask:mask targetNumberOfSuggestions:v26];
+      v28 = [(ATXDefaultHomeScreenItemTilerPodBuilder *)v26 initWithDefaultStack:stackCopy defaultWidgetsSmall:smallCopy defaultWidgetsMedium:mediumCopy defaultWidgetsLarge:largeCopy defaultWidgetsExtraLarge:extraLargeCopy widgetFamilyMask:mask targetNumberOfSuggestions:v27];
 LABEL_22:
-      tiler = v22->_tiler;
-      v22->_tiler = v27;
+      tiler = v23->_tiler;
+      v23->_tiler = v28;
 LABEL_23:
 
       break;
     case 3uLL:
-      v25 = [ATXDefaultHomeScreenItemTilerGridSize5 alloc];
-      v26 = 10;
+      v26 = [ATXDefaultHomeScreenItemTilerGridSize5 alloc];
+      v27 = 10;
       goto LABEL_14;
     case 4uLL:
-      tiler = __atxlog_handle_modes();
+      tiler = __atxlog_handle_modes(v22);
       if (os_log_type_enabled(tiler, OS_LOG_TYPE_FAULT))
       {
         [ATXDefaultHomeScreenItemTilerWrapper initWithDefaultStack:? defaultWidgetsSmall:? defaultWidgetsMedium:? defaultWidgetsLarge:? defaultWidgetsExtraLarge:? widgetFamilyMask:? gridSize:? galleryRequest:?];
@@ -88,7 +89,7 @@ LABEL_23:
 
 LABEL_24:
 
-  return v22;
+  return v23;
 }
 
 - (void)initWithDefaultStack:(os_log_t)log defaultWidgetsSmall:defaultWidgetsMedium:defaultWidgetsLarge:defaultWidgetsExtraLarge:widgetFamilyMask:gridSize:galleryRequest:.cold.1(os_log_t log)

@@ -9,11 +9,10 @@
 
 - (id)get_uuid
 {
-  v6 = *MEMORY[0x1E69E9840];
-  memset(v5, 0, sizeof(v5));
-  uuid_unparse_lower(self->_uuid, v5);
-  v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v5];
-  v3 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
+  memset(v4, 0, sizeof(v4));
+  uuid_unparse_lower(self->_uuid, v4);
+  v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v4];
 
   return v2;
 }

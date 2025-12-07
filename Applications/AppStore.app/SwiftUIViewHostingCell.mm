@@ -19,7 +19,7 @@
   swift_allocObject();
   *(&self->super.super.super.super.super.isa + v10) = FlowPreviewEnvironment.init()();
   v12.receiver = self;
-  v12.super_class = type metadata accessor for SwiftUIViewHostingCell();
+  v12.super_class = type metadata accessor for SwiftUIViewHostingCell(0);
   return [(SwiftUIViewHostingCell *)&v12 initWithFrame:x, y, width, height];
 }
 
@@ -34,7 +34,7 @@
   coderCopy = coder;
   *(&self->super.super.super.super.super.isa + v7) = FlowPreviewEnvironment.init()();
   v11.receiver = self;
-  v11.super_class = type metadata accessor for SwiftUIViewHostingCell();
+  v11.super_class = type metadata accessor for SwiftUIViewHostingCell(0);
   v9 = [(SwiftUIViewHostingCell *)&v11 initWithCoder:coderCopy];
 
   if (v9)

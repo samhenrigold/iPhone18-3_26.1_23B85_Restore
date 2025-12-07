@@ -51,66 +51,8 @@
 {
   keyCopy = key;
   v5 = keyCopy;
-  if (!keyCopy)
+  if (!keyCopy || (limit = self->_limit, limit != [keyCopy limit]) || (v7 = self->_client == 0, objc_msgSend(v5, "client"), v8 = objc_claimAutoreleasedReturnValue(), v9 = v8 != 0, v8, v7 == v9) || (client = self->_client) != 0 && (objc_msgSend(v5, "client"), v11 = objc_claimAutoreleasedReturnValue(), v12 = -[NSString isEqual:](client, "isEqual:", v11), v11, !v12) || (v13 = self->_variant == 0, objc_msgSend(v5, "variant"), v14 = objc_claimAutoreleasedReturnValue(), v15 = v14 != 0, v14, v13 == v15) || (variant = self->_variant) != 0 && (objc_msgSend(v5, "variant"), v17 = objc_claimAutoreleasedReturnValue(), v18 = -[NSString isEqual:](variant, "isEqual:", v17), v17, !v18) || (v19 = self->_reason == 0, objc_msgSend(v5, "reason"), v20 = objc_claimAutoreleasedReturnValue(), v21 = v20 != 0, v20, v19 == v21))
   {
-    goto LABEL_12;
-  }
-
-  limit = self->_limit;
-  if (limit != [keyCopy limit])
-  {
-    goto LABEL_12;
-  }
-
-  v7 = self->_client == 0;
-  client = [v5 client];
-  v9 = client != 0;
-
-  if (v7 == v9)
-  {
-    goto LABEL_12;
-  }
-
-  client = self->_client;
-  if (client)
-  {
-    client2 = [v5 client];
-    v12 = [(NSString *)client isEqual:client2];
-
-    if (!v12)
-    {
-      goto LABEL_12;
-    }
-  }
-
-  v13 = self->_variant == 0;
-  variant = [v5 variant];
-  v15 = variant != 0;
-
-  if (v13 == v15)
-  {
-    goto LABEL_12;
-  }
-
-  variant = self->_variant;
-  if (variant)
-  {
-    variant2 = [v5 variant];
-    v18 = [(NSString *)variant isEqual:variant2];
-
-    if (!v18)
-    {
-      goto LABEL_12;
-    }
-  }
-
-  v19 = self->_reason == 0;
-  reason = [v5 reason];
-  v21 = reason != 0;
-
-  if (v19 == v21)
-  {
-LABEL_12:
     v24 = 0;
   }
 
@@ -119,8 +61,8 @@ LABEL_12:
     reason = self->_reason;
     if (reason)
     {
-      reason2 = [v5 reason];
-      v24 = [(NSString *)reason isEqual:reason2];
+      reason = [v5 reason];
+      v24 = [(NSString *)reason isEqual:reason];
     }
 
     else

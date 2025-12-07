@@ -47,18 +47,18 @@
 
 - (void)layoutSubviews
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_E1DB50);
-  __chkstk_darwin(v3 - 8);
-  v5 = &v10 - v4;
-  v6 = type metadata accessor for VerticalToggleSlider();
-  v10.receiver = self;
-  v10.super_class = v6;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_E1DB50, &qword_B29E40);
+  __chkstk_darwin();
+  v4 = &v9 - v3;
+  v5 = type metadata accessor for VerticalToggleSlider();
+  v9.receiver = self;
+  v9.super_class = v5;
   selfCopy = self;
-  [(VerticalToggleSlider *)&v10 layoutSubviews];
-  v8 = sub_8AA96C();
+  [(VerticalToggleSlider *)&v9 layoutSubviews];
+  v7 = sub_8AA96C();
   sub_ABA670();
-  v9 = sub_ABA680();
-  (*(*(v9 - 8) + 56))(v5, 0, 1, v9);
+  v8 = sub_ABA680();
+  (*(*(v8 - 8) + 56))(v4, 0, 1, v8);
   sub_ABA6A0();
 }
 

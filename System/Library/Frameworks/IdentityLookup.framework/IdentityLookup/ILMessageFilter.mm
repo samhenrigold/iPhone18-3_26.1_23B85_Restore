@@ -71,13 +71,13 @@
 
 void __29__ILMessageFilter_connection__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = ILDefaultLog();
+  v2 = ILDefaultLog(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v8 = WeakRetained;
+    v7 = WeakRetained;
     _os_log_impl(&dword_238A41000, v2, OS_LOG_TYPE_DEFAULT, "Connection interrupted for message filter %@", buf, 0xCu);
   }
 
@@ -93,19 +93,17 @@ void __29__ILMessageFilter_connection__block_invoke(uint64_t a1)
     block[4] = WeakRetained;
     dispatch_async(v4, block);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __29__ILMessageFilter_connection__block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = ILDefaultLog();
+  v2 = ILDefaultLog(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v8 = WeakRetained;
+    v7 = WeakRetained;
     _os_log_impl(&dword_238A41000, v2, OS_LOG_TYPE_DEFAULT, "Default connection invalidated for message filter %@", buf, 0xCu);
   }
 
@@ -121,8 +119,6 @@ void __29__ILMessageFilter_connection__block_invoke_2(uint64_t a1)
     block[4] = WeakRetained;
     dispatch_async(v4, block);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __29__ILMessageFilter_connection__block_invoke_10(uint64_t a1)
@@ -173,7 +169,7 @@ void __50__ILMessageFilter_performQueryRequest_completion___block_invoke(uint64_
 void __50__ILMessageFilter_performQueryRequest_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = ILDefaultLog();
+  v4 = ILDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __50__ILMessageFilter_performQueryRequest_completion___block_invoke_2_cold_1();
@@ -214,7 +210,7 @@ void __51__ILMessageFilter_performReportRequest_completion___block_invoke(uint64
 void __51__ILMessageFilter_performReportRequest_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = ILDefaultLog();
+  v4 = ILDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __51__ILMessageFilter_performReportRequest_completion___block_invoke_2_cold_1();
@@ -255,7 +251,7 @@ void __62__ILMessageFilter_performCapabilitiesQueryRequest_completion___block_in
 void __62__ILMessageFilter_performCapabilitiesQueryRequest_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = ILDefaultLog();
+  v4 = ILDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __62__ILMessageFilter_performCapabilitiesQueryRequest_completion___block_invoke_2_cold_1();
@@ -298,37 +294,13 @@ void __65__ILMessageFilter_performClassificationReportRequest_completion___block
 void __65__ILMessageFilter_performClassificationReportRequest_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = ILDefaultLog();
+  v4 = ILDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __50__ILMessageFilter_performQueryRequest_completion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 32) + 16))();
-}
-
-void __50__ILMessageFilter_performQueryRequest_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_238A41000, v0, v1, "received error calling remote object proxy: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __51__ILMessageFilter_performReportRequest_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_238A41000, v0, v1, "received error calling remote object proxy for performReportRequest: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __62__ILMessageFilter_performCapabilitiesQueryRequest_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_238A41000, v0, v1, "received error calling remote object proxy for performCapabilitiesQueryRequest: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

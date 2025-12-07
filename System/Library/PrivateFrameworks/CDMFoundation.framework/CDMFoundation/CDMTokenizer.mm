@@ -44,29 +44,29 @@
 {
   chainCopy = chain;
   v5 = chainCopy;
-  memset(&v71, 0, sizeof(v71));
+  memset(&v66, 0, sizeof(v66));
   if (chainCopy)
   {
     Length = CFStringGetLength(chainCopy);
-    std::basic_string<char16_t>::resize(&v71, Length, v7);
-    if ((v71.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    std::basic_string<char16_t>::resize(&v66, Length, v7);
+    if ((v66.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v8 = &v71;
+      v8 = &v66;
     }
 
     else
     {
-      v8 = v71.__r_.__value_.__r.__words[0];
+      v8 = v66.__r_.__value_.__r.__words[0];
     }
 
-    v73.location = 0;
-    v73.length = Length;
-    CFStringGetCharacters(v5, v73, v8);
+    v68.location = 0;
+    v68.length = Length;
+    CFStringGetCharacters(v5, v68, v8);
   }
 
-  v65 = v5;
+  v60 = v5;
 
-  v9 = (*(*self->_tokenizer.__ptr_ + 24))(self->_tokenizer.__ptr_, &v71);
+  v9 = (*(*self->_tokenizer.__ptr_ + 24))(self->_tokenizer.__ptr_, &v66);
   v10 = (*(*self->_analyzer + 72))(self->_analyzer, v9);
   if (v9)
   {
@@ -75,9 +75,9 @@
 
   v11 = (*(*self->_normalizer + 72))(self->_normalizer, v10);
   v12 = [CDMTokenChain alloc];
-  v66 = v11;
+  v61 = v11;
   (**self->_locale.__ptr_)(__p);
-  if ((v70 & 0x80u) == 0)
+  if ((v65 & 0x80u) == 0)
   {
     v13 = __p;
   }
@@ -87,9 +87,9 @@
     v13 = __p[0];
   }
 
-  if ((v70 & 0x80u) == 0)
+  if ((v65 & 0x80u) == 0)
   {
-    v14 = v70;
+    v14 = v65;
   }
 
   else
@@ -98,28 +98,23 @@
   }
 
   v15 = [MEMORY[0x1E696AEC0] stringWithCharacters:v13 length:v14];
-  v67 = [(CDMTokenChain *)v12 initWithString:v65 locale:v15];
+  v62 = [(CDMTokenChain *)v12 initWithString:v60 locale:v15];
 
-  if (v70 < 0)
+  if (v65 < 0)
   {
     operator delete(__p[0]);
   }
 
-  v16 = v10[1];
-  v17 = v10[2];
   morphun::TokenIterator::TokenIterator();
-  v18 = v11[1];
-  v19 = v11[2];
   morphun::TokenIterator::TokenIterator();
-  v68 = 0;
-  v20 = 0;
+  v63 = 0;
+  v16 = 0;
   while (1)
   {
-    v21 = v10[2];
-    if (v21)
+    v17 = v10[2];
+    if (v17)
     {
-      morphun::Token::getNext(v21);
-      v22 = v10[2];
+      morphun::Token::getNext(v17);
     }
 
     morphun::TokenIterator::TokenIterator();
@@ -128,21 +123,21 @@
       break;
     }
 
-    v23 = morphun::TokenIterator::operator->();
-    if ((morphun::Token::isHead(v23) & 1) == 0)
+    v18 = morphun::TokenIterator::operator->();
+    if ((morphun::Token::isHead(v18) & 1) == 0)
     {
-      v24 = morphun::TokenIterator::operator->();
-      if ((morphun::Token::isTail(v24) & 1) == 0)
+      v19 = morphun::TokenIterator::operator->();
+      if ((morphun::Token::isTail(v19) & 1) == 0)
       {
         while (1)
         {
-          v25 = morphun::TokenIterator::operator->();
-          v26 = (*(*v25 + 24))(v25);
-          v27 = morphun::TokenIterator::operator->();
-          if (v26 >= (*(*v27 + 24))(v27))
+          v20 = morphun::TokenIterator::operator->();
+          v21 = (*(*v20 + 24))(v20);
+          v22 = morphun::TokenIterator::operator->();
+          if (v21 >= (*(*v22 + 24))(v22))
           {
-            v28 = morphun::TokenIterator::operator->();
-            if (!morphun::Token::isHead(v28))
+            v23 = morphun::TokenIterator::operator->();
+            if (!morphun::Token::isHead(v23))
             {
               break;
             }
@@ -151,128 +146,128 @@
           morphun::TokenIterator::operator++();
         }
 
-        v29 = morphun::TokenIterator::operator*();
-        Value = morphun::Token::getValue(v29);
-        v31 = *(Value + 23);
-        if (v31 >= 0)
+        v24 = morphun::TokenIterator::operator*();
+        Value = morphun::Token::getValue(v24);
+        v26 = *(Value + 23);
+        if (v26 >= 0)
         {
-          v32 = Value;
+          v27 = Value;
         }
 
         else
         {
-          v32 = *Value;
+          v27 = *Value;
         }
 
-        if (v31 >= 0)
+        if (v26 >= 0)
         {
-          v33 = *(Value + 23);
+          v28 = *(Value + 23);
         }
 
         else
         {
-          v33 = *(Value + 8);
+          v28 = *(Value + 8);
         }
 
-        v34 = [MEMORY[0x1E696AEC0] stringWithCharacters:v32 length:v33];
-        CleanValue = morphun::Token::getCleanValue(v29);
-        v36 = *(CleanValue + 23);
-        if ((v36 & 0x80u) != 0)
+        v29 = [MEMORY[0x1E696AEC0] stringWithCharacters:v27 length:v28];
+        CleanValue = morphun::Token::getCleanValue(v24);
+        v31 = *(CleanValue + 23);
+        if ((v31 & 0x80u) != 0)
         {
-          v36 = *(CleanValue + 8);
+          v31 = *(CleanValue + 8);
         }
 
-        if (v36)
+        if (v31)
         {
-          v37 = morphun::Token::getCleanValue(v29);
-          v38 = *(v37 + 23);
-          if (v38 >= 0)
+          v32 = morphun::Token::getCleanValue(v24);
+          v33 = *(v32 + 23);
+          if (v33 >= 0)
           {
-            v39 = v37;
+            v34 = v32;
           }
 
           else
           {
-            v39 = *v37;
+            v34 = *v32;
           }
 
-          if (v38 >= 0)
+          if (v33 >= 0)
           {
-            v40 = *(v37 + 23);
+            v35 = *(v32 + 23);
           }
 
           else
           {
-            v40 = *(v37 + 8);
+            v35 = *(v32 + 8);
           }
 
-          v41 = [MEMORY[0x1E696AEC0] stringWithCharacters:v39 length:v40];
+          v36 = [MEMORY[0x1E696AEC0] stringWithCharacters:v34 length:v35];
         }
 
         else
         {
-          v41 = 0;
+          v36 = 0;
         }
 
-        v42 = [CDMToken alloc];
-        v43 = (*(*v29 + 24))(v29);
-        v44 = (*(*v29 + 32))(v29);
-        isSignificant = morphun::Token::isSignificant(v29);
-        v46 = [(CDMToken *)v42 initWithValue:v34 begin:v43 end:v44 significant:isSignificant whitespace:morphun::Token::isWhitespace(v29) cleanValue:v41 tokenIndex:v68 nonWhitespaceTokenIndex:v20];
+        v37 = [CDMToken alloc];
+        v38 = (*(*v24 + 24))(v24);
+        v39 = (*(*v24 + 32))(v24);
+        isSignificant = morphun::Token::isSignificant(v24);
+        v41 = [(CDMToken *)v37 initWithValue:v29 begin:v38 end:v39 significant:isSignificant whitespace:morphun::Token::isWhitespace(v24) cleanValue:v36 tokenIndex:v63 nonWhitespaceTokenIndex:v16];
 
         while (1)
         {
-          v47 = morphun::TokenIterator::operator->();
-          v48 = morphun::Token::getValue(v47);
-          v49 = *(v48 + 23);
-          v50 = v49 >= 0 ? v48 : *v48;
-          v51 = v49 >= 0 ? *(v48 + 23) : *(v48 + 8);
-          v52 = [MEMORY[0x1E696AEC0] stringWithCharacters:v50 length:v51];
-          v53 = morphun::TokenIterator::operator->();
-          v54 = (*(*v53 + 24))(v53);
-          v55 = morphun::TokenIterator::operator->();
-          v56 = [(CDMToken *)v46 hasValue:v52 from:v54 to:(*(*v55 + 32))(v55)];
+          v42 = morphun::TokenIterator::operator->();
+          v43 = morphun::Token::getValue(v42);
+          v44 = *(v43 + 23);
+          v45 = v44 >= 0 ? v43 : *v43;
+          v46 = v44 >= 0 ? *(v43 + 23) : *(v43 + 8);
+          v47 = [MEMORY[0x1E696AEC0] stringWithCharacters:v45 length:v46];
+          v48 = morphun::TokenIterator::operator->();
+          v49 = (*(*v48 + 24))(v48);
+          v50 = morphun::TokenIterator::operator->();
+          v51 = [(CDMToken *)v41 hasValue:v47 from:v49 to:(*(*v50 + 32))(v50)];
 
-          if (!v56)
+          if (!v51)
           {
             break;
           }
 
-          v57 = morphun::TokenIterator::operator->();
-          v58 = morphun::Token::getCleanValue(v57);
-          v59 = *(v58 + 23);
-          if (v59 >= 0)
+          v52 = morphun::TokenIterator::operator->();
+          v53 = morphun::Token::getCleanValue(v52);
+          v54 = *(v53 + 23);
+          if (v54 >= 0)
           {
-            v60 = v58;
+            v55 = v53;
           }
 
           else
           {
-            v60 = *v58;
+            v55 = *v53;
           }
 
-          if (v59 >= 0)
+          if (v54 >= 0)
           {
-            v61 = *(v58 + 23);
+            v56 = *(v53 + 23);
           }
 
           else
           {
-            v61 = *(v58 + 8);
+            v56 = *(v53 + 8);
           }
 
-          v62 = [MEMORY[0x1E696AEC0] stringWithCharacters:v60 length:v61];
-          [(CDMToken *)v46 addNormalizedValue:v62];
+          v57 = [MEMORY[0x1E696AEC0] stringWithCharacters:v55 length:v56];
+          [(CDMToken *)v41 addNormalizedValue:v57];
 
           morphun::TokenIterator::operator++();
         }
 
-        [(CDMTokenChain *)v67 addToken:v46];
-        v63 = morphun::TokenIterator::operator->();
-        ++v68;
-        v20 += morphun::Token::isWhitespace(v63) ^ 1;
+        [(CDMTokenChain *)v62 addToken:v41];
+        v58 = morphun::TokenIterator::operator->();
+        ++v63;
+        v16 += morphun::Token::isWhitespace(v58) ^ 1;
 
-        v11 = v66;
+        v11 = v61;
       }
     }
 
@@ -285,12 +280,12 @@
   }
 
   (*(*v10 + 16))(v10);
-  if (SHIBYTE(v71.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v66.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v71.__r_.__value_.__l.__data_);
+    operator delete(v66.__r_.__value_.__l.__data_);
   }
 
-  return v67;
+  return v62;
 }
 
 - (CDMTokenizer)initWithLocale:(id)locale maxTokens:(int)tokens maxInputSize:(int)size
@@ -337,7 +332,7 @@
 
 + (void)registerMorphunAssetsPathForLocale:(id)locale withPath:(id)path
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   localeCopy = locale;
   pathCopy = path;
   v7 = CDMOSLoggerForCategory(0);
@@ -345,54 +340,54 @@
   {
     localeIdentifier = [localeCopy localeIdentifier];
     *buf = 136315650;
-    v29 = "+[CDMTokenizer registerMorphunAssetsPathForLocale:withPath:]";
-    v30 = 2112;
-    v31 = localeIdentifier;
-    v32 = 2112;
-    v33 = pathCopy;
+    v28 = "+[CDMTokenizer registerMorphunAssetsPathForLocale:withPath:]";
+    v29 = 2112;
+    v30 = localeIdentifier;
+    v31 = 2112;
+    v32 = pathCopy;
     _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_INFO, "%s Attempting to register Morphun assets from Trial for locale: %@ with path: %@", buf, 0x20u);
   }
 
   localeIdentifier2 = [localeCopy localeIdentifier];
   v10 = localeIdentifier2;
-  std::string::basic_string[abi:ne200100]<0>(&v26, [localeIdentifier2 UTF8String]);
+  std::string::basic_string[abi:ne200100]<0>(&v25, [localeIdentifier2 UTF8String]);
+  v22 = 0;
   v23 = 0;
   v24 = 0;
-  v25 = 0;
+  v19 = 0;
   v20 = 0;
   v21 = 0;
-  v22 = 0;
+  v16 = 0;
   v17 = 0;
   v18 = 0;
-  v19 = 0;
   morphun::util::ULocale::ULocale();
   v11 = pathCopy;
   std::string::basic_string[abi:ne200100]<0>(&__p, [pathCopy UTF8String]);
   morphun::resources::DataRegistrationService::registerDataPathForLocale();
-  if (v16 < 0)
+  if (v15 < 0)
   {
     operator delete(__p);
   }
 
   morphun::util::ULocale::~ULocale(buf);
-  if (SHIBYTE(v19) < 0)
+  if (SHIBYTE(v18) < 0)
   {
-    operator delete(v17);
+    operator delete(v16);
   }
 
-  if (SHIBYTE(v22) < 0)
+  if (SHIBYTE(v21) < 0)
   {
-    operator delete(v20);
+    operator delete(v19);
   }
 
-  if (SHIBYTE(v25) < 0)
+  if (SHIBYTE(v24) < 0)
   {
-    operator delete(v23);
+    operator delete(v22);
   }
 
-  if (v27 < 0)
+  if (v26 < 0)
   {
-    operator delete(v26);
+    operator delete(v25);
   }
 
   v12 = CDMOSLoggerForCategory(0);
@@ -400,35 +395,33 @@
   {
     localeIdentifier3 = [localeCopy localeIdentifier];
     *buf = 136315650;
-    v29 = "+[CDMTokenizer registerMorphunAssetsPathForLocale:withPath:]";
-    v30 = 2112;
-    v31 = localeIdentifier3;
-    v32 = 2112;
-    v33 = pathCopy;
+    v28 = "+[CDMTokenizer registerMorphunAssetsPathForLocale:withPath:]";
+    v29 = 2112;
+    v30 = localeIdentifier3;
+    v31 = 2112;
+    v32 = pathCopy;
     _os_log_impl(&dword_1DC287000, v12, OS_LOG_TYPE_INFO, "%s Registered Morphun assets from Trial for locale: %@ with path: %@", buf, 0x20u);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)syncTrialAsset:(id)asset
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   assetCopy = asset;
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     localeIdentifier = [assetCopy localeIdentifier];
     *buf = 136315394;
-    v25 = "+[CDMTokenizer syncTrialAsset:]";
-    v26 = 2112;
-    v27 = localeIdentifier;
+    v24 = "+[CDMTokenizer syncTrialAsset:]";
+    v25 = 2112;
+    v26 = localeIdentifier;
     _os_log_debug_impl(&dword_1DC287000, v5, OS_LOG_TYPE_DEBUG, "%s Issuing a blocking synchronous API call to get Morphun assets path using MorphunAssets for locale: %@.", buf, 0x16u);
   }
 
-  v23 = 0;
-  v6 = [MEMORY[0x1E69B2870] getAssetPathForLocale:assetCopy withError:&v23];
-  v7 = v23;
+  v22 = 0;
+  v6 = [MEMORY[0x1E69B2870] getAssetPathForLocale:assetCopy withError:&v22];
+  v7 = v22;
   v8 = v7;
   if (!v7)
   {
@@ -440,11 +433,11 @@
       {
         localeIdentifier2 = [assetCopy localeIdentifier];
         *buf = 136315650;
-        v25 = "+[CDMTokenizer syncTrialAsset:]";
-        v26 = 2112;
-        v27 = path;
-        v28 = 2112;
-        v29 = localeIdentifier2;
+        v24 = "+[CDMTokenizer syncTrialAsset:]";
+        v25 = 2112;
+        v26 = path;
+        v27 = 2112;
+        v28 = localeIdentifier2;
         _os_log_impl(&dword_1DC287000, v13, OS_LOG_TYPE_INFO, "%s MorphunAssets returns path: %@ for locale: %@", buf, 0x20u);
       }
 
@@ -457,9 +450,9 @@
     {
       localeIdentifier3 = [assetCopy localeIdentifier];
       *buf = 136315394;
-      v25 = "+[CDMTokenizer syncTrialAsset:]";
-      v26 = 2112;
-      v27 = localeIdentifier3;
+      v24 = "+[CDMTokenizer syncTrialAsset:]";
+      v25 = 2112;
+      v26 = localeIdentifier3;
       _os_log_error_impl(&dword_1DC287000, v17, OS_LOG_TYPE_ERROR, "%s [ERR]: CDM get nil Morphun assets path with no error returned from MorphunAssets for locale: %@.", buf, 0x16u);
     }
 
@@ -483,11 +476,11 @@ LABEL_23:
 
       localeIdentifier4 = [assetCopy localeIdentifier];
       *buf = 136315650;
-      v25 = "+[CDMTokenizer syncTrialAsset:]";
-      v26 = 2112;
-      v27 = v8;
-      v28 = 2112;
-      v29 = localeIdentifier4;
+      v24 = "+[CDMTokenizer syncTrialAsset:]";
+      v25 = 2112;
+      v26 = v8;
+      v27 = 2112;
+      v28 = localeIdentifier4;
       _os_log_impl(&dword_1DC287000, path, OS_LOG_TYPE_INFO, "%s [WARN]: [Not Critical] CDM gets Morphun assets path with error: %@ for embedded locale: %@. Skip following code to register Morphun assets path.", buf, 0x20u);
 
       goto LABEL_12;
@@ -498,11 +491,11 @@ LABEL_23:
     {
       localeIdentifier5 = [assetCopy localeIdentifier];
       *buf = 136315650;
-      v25 = "+[CDMTokenizer syncTrialAsset:]";
-      v26 = 2112;
-      v27 = v8;
-      v28 = 2112;
-      v29 = localeIdentifier5;
+      v24 = "+[CDMTokenizer syncTrialAsset:]";
+      v25 = 2112;
+      v26 = v8;
+      v27 = 2112;
+      v28 = localeIdentifier5;
       _os_log_error_impl(&dword_1DC287000, path, OS_LOG_TYPE_ERROR, "%s [ERR]: CDM gets Morphun assets path with error: %@ for non-embedded locale: %@.", buf, 0x20u);
     }
 
@@ -516,11 +509,11 @@ LABEL_23:
     {
       localeIdentifier6 = [assetCopy localeIdentifier];
       *buf = 136315650;
-      v25 = "+[CDMTokenizer syncTrialAsset:]";
-      v26 = 2112;
-      v27 = v8;
-      v28 = 2112;
-      v29 = localeIdentifier6;
+      v24 = "+[CDMTokenizer syncTrialAsset:]";
+      v25 = 2112;
+      v26 = v8;
+      v27 = 2112;
+      v28 = localeIdentifier6;
       _os_log_error_impl(&dword_1DC287000, path, OS_LOG_TYPE_ERROR, "%s [ERR]: CDM gets Morphun assets path with error: %@ for locale: %@.", buf, 0x20u);
     }
 
@@ -533,11 +526,11 @@ LABEL_23:
   {
     localeIdentifier7 = [assetCopy localeIdentifier];
     *buf = 136315650;
-    v25 = "+[CDMTokenizer syncTrialAsset:]";
-    v26 = 2112;
-    v27 = v8;
-    v28 = 2112;
-    v29 = localeIdentifier7;
+    v24 = "+[CDMTokenizer syncTrialAsset:]";
+    v25 = 2112;
+    v26 = v8;
+    v27 = 2112;
+    v28 = localeIdentifier7;
     _os_log_impl(&dword_1DC287000, path, OS_LOG_TYPE_INFO, "%s [WARN]: CDM gets Morphun assets path with error: %@ for locale: %@. The error code indicates the locale is not supported by MorphunAssets. Skip following code to register Morphun assets path. Morphun will fallback to use assets provided by CoreFoundation / ICU.", buf, 0x20u);
 
 LABEL_12:
@@ -546,23 +539,22 @@ LABEL_12:
 
 LABEL_24:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 + (BOOL)trialAssetUpdate:(id)update
 {
-  v28[2] = *MEMORY[0x1E69E9840];
+  v27[2] = *MEMORY[0x1E69E9840];
   updateCopy = update;
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     localeIdentifier = [updateCopy localeIdentifier];
-    v23 = 136315394;
-    v24 = "+[CDMTokenizer trialAssetUpdate:]";
-    v25 = 2112;
-    v26 = localeIdentifier;
-    _os_log_debug_impl(&dword_1DC287000, v5, OS_LOG_TYPE_DEBUG, "%s Triggering Morphun assets downloading via MorphunAssets API for locale: %@.", &v23, 0x16u);
+    v22 = 136315394;
+    v23 = "+[CDMTokenizer trialAssetUpdate:]";
+    v24 = 2112;
+    v25 = localeIdentifier;
+    _os_log_debug_impl(&dword_1DC287000, v5, OS_LOG_TYPE_DEBUG, "%s Triggering Morphun assets downloading via MorphunAssets API for locale: %@.", &v22, 0x16u);
   }
 
   if ([MEMORY[0x1E69B2870] isLocaleDownloadSupported:updateCopy])
@@ -577,13 +569,13 @@ LABEL_24:
         localeIdentifier2 = [updateCopy localeIdentifier];
         embeddedLocales = [MEMORY[0x1E69B2870] EmbeddedLocales];
         v10 = [self printableLocales:embeddedLocales];
-        v23 = 136315650;
-        v24 = "+[CDMTokenizer trialAssetUpdate:]";
-        v25 = 2112;
-        v26 = localeIdentifier2;
-        v27 = 2112;
-        v28[0] = v10;
-        _os_log_impl(&dword_1DC287000, v6, OS_LOG_TYPE_INFO, "%s Issued an non-blocking Morphun Trial asset downloading for %@ as it's part of Morphun embedded locales: %@", &v23, 0x20u);
+        v22 = 136315650;
+        v23 = "+[CDMTokenizer trialAssetUpdate:]";
+        v24 = 2112;
+        v25 = localeIdentifier2;
+        v26 = 2112;
+        v27[0] = v10;
+        _os_log_impl(&dword_1DC287000, v6, OS_LOG_TYPE_INFO, "%s Issued an non-blocking Morphun Trial asset downloading for %@ as it's part of Morphun embedded locales: %@", &v22, 0x20u);
 
 LABEL_9:
         v7 = 1;
@@ -599,15 +591,15 @@ LABEL_9:
         localeIdentifier3 = [updateCopy localeIdentifier];
         embeddedLocales2 = [MEMORY[0x1E69B2870] EmbeddedLocales];
         v17 = [self printableLocales:embeddedLocales2];
-        v23 = 136315906;
-        v24 = "+[CDMTokenizer trialAssetUpdate:]";
-        v25 = 2112;
-        v26 = localeIdentifier3;
-        v27 = 1024;
-        LODWORD(v28[0]) = 180;
-        WORD2(v28[0]) = 2112;
-        *(v28 + 6) = v17;
-        _os_log_impl(&dword_1DC287000, v14, OS_LOG_TYPE_INFO, "%s Issued a blocking Morphun Trial asset downloading for %@, with timeout of %d secs. This language is NOT part of Morphun embedded locales: %@", &v23, 0x26u);
+        v22 = 136315906;
+        v23 = "+[CDMTokenizer trialAssetUpdate:]";
+        v24 = 2112;
+        v25 = localeIdentifier3;
+        v26 = 1024;
+        LODWORD(v27[0]) = 180;
+        WORD2(v27[0]) = 2112;
+        *(v27 + 6) = v17;
+        _os_log_impl(&dword_1DC287000, v14, OS_LOG_TYPE_INFO, "%s Issued a blocking Morphun Trial asset downloading for %@, with timeout of %d secs. This language is NOT part of Morphun embedded locales: %@", &v22, 0x26u);
       }
 
       if (!v6)
@@ -620,13 +612,13 @@ LABEL_9:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         localeIdentifier4 = [updateCopy localeIdentifier];
-        v23 = 136315650;
-        v24 = "+[CDMTokenizer trialAssetUpdate:]";
-        v25 = 2112;
-        v26 = localeIdentifier4;
-        v27 = 2112;
-        v28[0] = v6;
-        _os_log_error_impl(&dword_1DC287000, v18, OS_LOG_TYPE_ERROR, "%s [ERR]: Morphun Trial asset downloading timed out for: %@, with error: %@", &v23, 0x20u);
+        v22 = 136315650;
+        v23 = "+[CDMTokenizer trialAssetUpdate:]";
+        v24 = 2112;
+        v25 = localeIdentifier4;
+        v26 = 2112;
+        v27[0] = v6;
+        _os_log_error_impl(&dword_1DC287000, v18, OS_LOG_TYPE_ERROR, "%s [ERR]: Morphun Trial asset downloading timed out for: %@, with error: %@", &v22, 0x20u);
       }
 
       v7 = 0;
@@ -642,20 +634,19 @@ LABEL_9:
       localeIdentifier5 = [updateCopy localeIdentifier];
       supportedLocales = [MEMORY[0x1E69B2870] SupportedLocales];
       v13 = [self printableLocales:supportedLocales];
-      v23 = 136315650;
-      v24 = "+[CDMTokenizer trialAssetUpdate:]";
-      v25 = 2112;
-      v26 = localeIdentifier5;
-      v27 = 2112;
-      v28[0] = v13;
-      _os_log_impl(&dword_1DC287000, v6, OS_LOG_TYPE_INFO, "%s [WARN]: Current locale: %@ is NOT in MorphunAssets download supported list: %@. Return TRUE so that Morphun will fallback to use Morphun assets provided by CoreFoundation / ICU on device for this locale.", &v23, 0x20u);
+      v22 = 136315650;
+      v23 = "+[CDMTokenizer trialAssetUpdate:]";
+      v24 = 2112;
+      v25 = localeIdentifier5;
+      v26 = 2112;
+      v27[0] = v13;
+      _os_log_impl(&dword_1DC287000, v6, OS_LOG_TYPE_INFO, "%s [WARN]: Current locale: %@ is NOT in MorphunAssets download supported list: %@. Return TRUE so that Morphun will fallback to use Morphun assets provided by CoreFoundation / ICU on device for this locale.", &v22, 0x20u);
 
       goto LABEL_9;
     }
   }
 
 LABEL_17:
-  v19 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

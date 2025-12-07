@@ -330,8 +330,8 @@ LABEL_11:
   v12 = [(NDSessionManager *)self copyAndSanitizeClientConfiguration:configurationCopy];
   if (![configurationCopy _supportsAVAssetDownloads] || (objc_msgSend(v12, "_supportsAVAssetDownloads") & 1) != 0)
   {
-    v81 = +[NSXPCConnection currentConnection];
-    _xpcConnection = [v81 _xpcConnection];
+    v76 = +[NSXPCConnection currentConnection];
+    _xpcConnection = [v76 _xpcConnection];
     is_extension = xpc_connection_is_extension();
 
     if (is_extension)
@@ -345,7 +345,7 @@ LABEL_11:
       v16 = 0;
     }
 
-    v80 = [optionsCopy mutableCopy];
+    v75 = [optionsCopy mutableCopy];
     sessions = self->_sessions;
     identifier = [v12 identifier];
     v19 = [(NSMutableDictionary *)sessions objectForKeyedSubscript:identifier];
@@ -363,27 +363,27 @@ LABEL_11:
         clientBundleID = self->_clientBundleID;
         identifier3 = [v12 identifier];
         *buf = 138543874;
-        v94 = uuid;
-        v95 = 2112;
-        v96 = clientBundleID;
-        v97 = 2112;
-        v98 = identifier3;
+        v89 = uuid;
+        v90 = 2112;
+        v91 = clientBundleID;
+        v92 = 2112;
+        v93 = identifier3;
         _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "NDSession <%{public}@>.<%@>.<%@>: already has a connected client, returning nil proxy object to client", buf, 0x20u);
       }
 
       v28 = [NSURLError _web_errorWithDomain:NSURLErrorDomain code:-996 URL:0];
-      v91 = @"kNSURLSessionImmediateInvalidationErrorKey";
-      v92 = v28;
-      v29 = [NSDictionary dictionaryWithObjects:&v92 forKeys:&v91 count:1];
+      v86 = @"kNSURLSessionImmediateInvalidationErrorKey";
+      v87 = v28;
+      v29 = [NSDictionary dictionaryWithObjects:&v87 forKeys:&v86 count:1];
       (*(replyCopy + 2))(replyCopy, 0, v29, 0);
 LABEL_10:
 
       v30 = 0;
       v31 = 0;
       v32 = 0;
-LABEL_40:
+LABEL_39:
 
-      goto LABEL_41;
+      goto LABEL_40;
     }
 
     v33 = self->_sessions;
@@ -398,21 +398,21 @@ LABEL_40:
         identifier5 = [v12 identifier];
         v38 = [(NSMutableDictionary *)v36 objectForKeyedSubscript:identifier5];
         sharedContainerIdentifier = [v38 sharedContainerIdentifier];
-        v40 = [(NDSessionManager *)self connection:v81 canUseSharedContainerIdentifier:sharedContainerIdentifier];
+        v40 = [(NDSessionManager *)self connection:v76 canUseSharedContainerIdentifier:sharedContainerIdentifier];
 
         if ((v40 & 1) == 0)
         {
-          v59 = qword_1000EB210;
+          v58 = qword_1000EB210;
           if (os_log_type_enabled(qword_1000EB210, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, "Connected client is an extension is attempting to a connect to a session without a valid shared data container", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "Connected client is an extension is attempting to a connect to a session without a valid shared data container", buf, 2u);
           }
 
           v28 = [NSURLError _web_errorWithDomain:NSURLErrorDomain code:-995 URL:0];
-          v89 = @"kNSURLSessionImmediateInvalidationErrorKey";
-          v90 = v28;
-          v29 = [NSDictionary dictionaryWithObjects:&v90 forKeys:&v89 count:1];
+          v84 = @"kNSURLSessionImmediateInvalidationErrorKey";
+          v85 = v28;
+          v29 = [NSDictionary dictionaryWithObjects:&v85 forKeys:&v84 count:1];
           (*(replyCopy + 2))(replyCopy, 0, v29, 0);
           goto LABEL_10;
         }
@@ -429,11 +429,11 @@ LABEL_40:
         v45 = self->_clientBundleID;
         identifier7 = [v12 identifier];
         *buf = 138543874;
-        v94 = uuid2;
-        v95 = 2112;
-        v96 = v45;
-        v97 = 2112;
-        v98 = identifier7;
+        v89 = uuid2;
+        v90 = 2112;
+        v91 = v45;
+        v92 = 2112;
+        v93 = identifier7;
         _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "NDSession <%{public}@>.<%@>.<%@>: reconnecting existing session", buf, 0x20u);
       }
 
@@ -441,13 +441,13 @@ LABEL_40:
       getTasksForReconnection = [v31 getTasksForReconnection];
       uuid3 = [v31 uuid];
       getTLSSessionCachePrefix = [v31 getTLSSessionCachePrefix];
-      v87[0] = @"NDBackgroundSessionManagerRestoredStateKeyTasks";
-      v87[1] = @"NDBackgroundSessionManagerKeySessionUUID";
-      v88[0] = getTasksForReconnection;
-      v88[1] = uuid3;
-      v87[2] = @"NDBackgroundSessionManagerRestoredStateKeyTLSSessionCachePrefix";
-      v88[2] = getTLSSessionCachePrefix;
-      v30 = [NSDictionary dictionaryWithObjects:v88 forKeys:v87 count:3];
+      v82[0] = @"NDBackgroundSessionManagerRestoredStateKeyTasks";
+      v82[1] = @"NDBackgroundSessionManagerKeySessionUUID";
+      v83[0] = getTasksForReconnection;
+      v83[1] = uuid3;
+      v82[2] = @"NDBackgroundSessionManagerRestoredStateKeyTLSSessionCachePrefix";
+      v83[2] = getTLSSessionCachePrefix;
+      v30 = [NSDictionary dictionaryWithObjects:v83 forKeys:v82 count:3];
       reconnectingProxies = self->_reconnectingProxies;
       identifier8 = [v12 identifier];
       [(NSMutableDictionary *)reconnectingProxies setObject:proxyCopy forKeyedSubscript:identifier8];
@@ -466,17 +466,17 @@ LABEL_40:
 
         if (!sharedContainerIdentifier2)
         {
-          v77 = qword_1000EB210;
+          v72 = qword_1000EB210;
           if (os_log_type_enabled(qword_1000EB210, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEFAULT, "Connected client is an extension and did not specify a valid shared container identifier", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v72, OS_LOG_TYPE_DEFAULT, "Connected client is an extension and did not specify a valid shared container identifier", buf, 2u);
           }
 
           v28 = [NSURLError _web_errorWithDomain:NSURLErrorDomain code:-995 URL:0];
-          v85 = @"kNSURLSessionImmediateInvalidationErrorKey";
-          v86 = v28;
-          v29 = [NSDictionary dictionaryWithObjects:&v86 forKeys:&v85 count:1];
+          v80 = @"kNSURLSessionImmediateInvalidationErrorKey";
+          v81 = v28;
+          v29 = [NSDictionary dictionaryWithObjects:&v81 forKeys:&v80 count:1];
           (*(replyCopy + 2))(replyCopy, 0, v29, 0);
           goto LABEL_10;
         }
@@ -488,52 +488,39 @@ LABEL_40:
         identifier10 = [v12 identifier];
         v57 = self->_clientBundleID;
         *buf = 138412546;
-        v94 = identifier10;
-        v95 = 2112;
-        v96 = v57;
+        v89 = identifier10;
+        v90 = 2112;
+        v91 = v57;
         _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "Creating session with identifier: %@ for bundle id: %@", buf, 0x16u);
       }
 
-      if ([v12 _supportsAVAssetDownloads])
+      if (([v12 _supportsAVAssetDownloads] & 1) == 0)
       {
-        v58 = off_1000D4878;
+        objc_msgSend_usesClassicLoadingMode(v12);
       }
 
-      else
-      {
-        usesClassicLoadingMode = [v12 usesClassicLoadingMode];
-        v58 = off_1000D4888;
-        if (usesClassicLoadingMode)
-        {
-          v58 = off_1000D4880;
-        }
-      }
-
-      v61 = *v58;
-      v62 = objc_alloc(objc_opt_class());
-      queue = self->_queue;
-      v31 = [v62 initWithConfiguration:v12 bundleID:self->_clientBundleID isSpringBoardApp:self->_isSpringBoardApp downloadDirectory:0 options:v80 clientProxy:proxyCopy delegate:self workQueue:queue db:self->_sessionTasksDB];
-      v64 = qword_1000EB210;
-      getTasksForReconnection = v64;
+      v31 = [objc_alloc(objc_opt_class()) initWithConfiguration:v12 bundleID:self->_clientBundleID isSpringBoardApp:self->_isSpringBoardApp downloadDirectory:0 options:v75 clientProxy:proxyCopy delegate:self workQueue:self->_queue db:self->_sessionTasksDB];
+      v59 = qword_1000EB210;
+      getTasksForReconnection = v59;
       if (v31)
       {
-        if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
         {
           uuid4 = [v31 uuid];
-          v66 = self->_clientBundleID;
+          v61 = self->_clientBundleID;
           identifier11 = [v12 identifier];
           *buf = 138543874;
-          v94 = uuid4;
-          v95 = 2112;
-          v96 = v66;
-          v97 = 2112;
-          v98 = identifier11;
+          v89 = uuid4;
+          v90 = 2112;
+          v91 = v61;
+          v92 = 2112;
+          v93 = identifier11;
           _os_log_impl(&_mh_execute_header, getTasksForReconnection, OS_LOG_TYPE_DEFAULT, "NDSession <%{public}@>.<%@>.<%@>: created successfully", buf, 0x20u);
         }
 
-        v68 = self->_sessions;
+        v63 = self->_sessions;
         getTasksForReconnection = [v12 identifier];
-        [(NSMutableDictionary *)v68 setObject:v31 forKeyedSubscript:getTasksForReconnection];
+        [(NSMutableDictionary *)v63 setObject:v31 forKeyedSubscript:getTasksForReconnection];
         v30 = 0;
         v32 = 0;
         v53 = 1;
@@ -541,14 +528,14 @@ LABEL_40:
 
       else
       {
-        if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
         {
           identifier12 = [v12 identifier];
-          v79 = self->_clientBundleID;
+          v74 = self->_clientBundleID;
           *buf = 138412546;
-          v94 = identifier12;
-          v95 = 2112;
-          v96 = v79;
+          v89 = identifier12;
+          v90 = 2112;
+          v91 = v74;
           _os_log_error_impl(&_mh_execute_header, getTasksForReconnection, OS_LOG_TYPE_ERROR, "Coudn't create session with identifier: %@ for bundle id: %@", buf, 0x16u);
         }
 
@@ -559,10 +546,10 @@ LABEL_40:
       }
     }
 
-    [v31 setXPCConnection:v81];
+    [v31 setXPCConnection:v76];
     xpcProtocol = [v31 xpcProtocol];
-    v70 = +[Daemon sharedDaemon];
-    (*(replyCopy + 2))(replyCopy, xpcProtocol, v30, [v70 isPrivileged]);
+    v65 = +[Daemon sharedDaemon];
+    (*(replyCopy + 2))(replyCopy, xpcProtocol, v30, [v65 isPrivileged]);
 
     if (v32)
     {
@@ -571,10 +558,10 @@ LABEL_40:
       identifier13 = [v31 identifier];
       [(NDTaskStorageDB *)sessionTasksDB _updateConfigurationForBundleID:clientBundleID sessionID:identifier13 with:v12];
 
-      v74 = self->_sessionTasksDB;
+      v69 = self->_sessionTasksDB;
       clientBundleID2 = [v31 clientBundleID];
       identifier14 = [v31 identifier];
-      [(NDTaskStorageDB *)v74 _updateOptionsForBundleID:clientBundleID2 sessionID:identifier14 with:v80];
+      [(NDTaskStorageDB *)v69 _updateOptionsForBundleID:clientBundleID2 sessionID:identifier14 with:v75];
     }
 
     if (v53)
@@ -582,11 +569,11 @@ LABEL_40:
       [(NDSessionManager *)self setWorkState];
     }
 
-    goto LABEL_40;
+    goto LABEL_39;
   }
 
   (*(replyCopy + 2))(replyCopy, 0, &off_1000D8A70, 0);
-LABEL_41:
+LABEL_40:
 }
 
 - (BOOL)connection:(id)connection canUseSharedContainerIdentifier:(id)identifier
@@ -771,7 +758,7 @@ LABEL_41:
       _directoryForDownloadedFiles2 = [v6 _directoryForDownloadedFiles];
       if (v5)
       {
-        [v5 auditToken];
+        objc_msgSend_auditToken(v5);
       }
 
       else
@@ -844,7 +831,7 @@ LABEL_41:
   v42 = 0u;
   if (v5)
   {
-    [v5 auditToken];
+    objc_msgSend_auditToken(v5, v41, v42);
   }
 
   *buf = 0;
@@ -874,23 +861,23 @@ LABEL_41:
   {
     clientBundleID = self->_clientBundleID;
     *buf = 138412290;
-    v77 = *&clientBundleID;
+    v71 = *&clientBundleID;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "restoreState: %@", buf, 0xCu);
   }
 
-  v69 = +[NSFileManager defaultManager];
+  v63 = +[NSFileManager defaultManager];
   obj = [(NDTaskStorageDB *)self->_sessionTasksDB _getAllSessionIDsForBundle:self->_clientBundleID];
   if ([obj count] >= 0x401)
   {
     v6 = qword_1000EB210;
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      v58 = self->_clientBundleID;
-      v59 = [obj count];
+      v52 = self->_clientBundleID;
+      v53 = [obj count];
       *buf = 138543618;
-      v77 = *&v58;
-      v78 = 2048;
-      v79 = v59;
+      v71 = *&v52;
+      v72 = 2048;
+      v73 = v53;
       _os_log_fault_impl(&_mh_execute_header, v6, OS_LOG_TYPE_FAULT, "Too many sessions for app <%{public}@> (%zu > 1024)", buf, 0x16u);
     }
 
@@ -899,143 +886,133 @@ LABEL_41:
     obj = v7;
   }
 
-  v66 = +[NSMutableArray array];
-  v74 = 0u;
-  v75 = 0u;
-  v72 = 0u;
-  v73 = 0u;
+  v60 = +[NSMutableArray array];
+  v68 = 0u;
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
   obja = obj;
-  v8 = [obja countByEnumeratingWithState:&v72 objects:v82 count:16];
+  v8 = [obja countByEnumeratingWithState:&v66 objects:v76 count:16];
   if (!v8)
   {
-    goto LABEL_62;
+    goto LABEL_61;
   }
 
-  v9 = *v73;
+  v9 = *v67;
   while (2)
   {
     v10 = 0;
     do
     {
-      if (*v73 != v9)
+      if (*v67 != v9)
       {
         objc_enumerationMutation(obja);
       }
 
-      v11 = *(*(&v72 + 1) + 8 * v10);
+      v11 = *(*(&v66 + 1) + 8 * v10);
       v12 = objc_autoreleasePoolPush();
       v13 = [NDFileUtilities sessionPath:v11 forBundleID:self->_clientBundleID];
-      v71 = 0;
-      if ([v69 fileExistsAtPath:v13 isDirectory:&v71] && (v71 & 1) != 0)
+      v65 = 0;
+      if ([v63 fileExistsAtPath:v13 isDirectory:&v65] && (v65 & 1) != 0)
       {
         v14 = [(NDTaskStorageDB *)self->_sessionTasksDB _getConfigurationForBundleID:self->_clientBundleID sessionID:v11];
         v15 = v14;
         if (!v14 || ([v14 identifier], v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "isEqualToString:", v11), v16, (v17 & 1) == 0))
         {
-          v34 = qword_1000EB210;
+          v28 = qword_1000EB210;
           if (os_log_type_enabled(qword_1000EB210, OS_LOG_TYPE_ERROR))
           {
-            v43 = self->_clientBundleID;
+            v37 = self->_clientBundleID;
             *buf = 138412546;
-            v77 = *&v43;
-            v78 = 2112;
-            v79 = v11;
-            _os_log_error_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, "Missing or invalid configuration value in DB for bundleID: %@, sessionID: %@. Removing session directory", buf, 0x16u);
+            v71 = *&v37;
+            v72 = 2112;
+            v73 = v11;
+            _os_log_error_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "Missing or invalid configuration value in DB for bundleID: %@, sessionID: %@. Removing session directory", buf, 0x16u);
           }
 
           [(NDSessionManager *)self failedSessionRestoreWithID:v11 directoryToDelete:v13];
-          v33 = 0;
-          goto LABEL_50;
+          v27 = 0;
+          goto LABEL_49;
         }
 
         v18 = [(NDTaskStorageDB *)self->_sessionTasksDB _getOptionsForBundleID:self->_clientBundleID sessionID:v11];
-        v65 = v18;
+        v59 = v18;
         if (!v18)
         {
-          v36 = qword_1000EB210;
+          v30 = qword_1000EB210;
           if (os_log_type_enabled(qword_1000EB210, OS_LOG_TYPE_ERROR))
           {
-            v45 = self->_clientBundleID;
+            v39 = self->_clientBundleID;
             *buf = 138412546;
-            v77 = *&v45;
-            v78 = 2112;
-            v79 = v11;
-            _os_log_error_impl(&_mh_execute_header, v36, OS_LOG_TYPE_ERROR, "Missing or invalid options value in DB for bundleID: %@, sessionID: %@. Removing session directory", buf, 0x16u);
+            v71 = *&v39;
+            v72 = 2112;
+            v73 = v11;
+            _os_log_error_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "Missing or invalid options value in DB for bundleID: %@, sessionID: %@. Removing session directory", buf, 0x16u);
           }
 
           [(NDSessionManager *)self failedSessionRestoreWithID:v11 directoryToDelete:v13];
-          v33 = 0;
-          goto LABEL_49;
+          v27 = 0;
+          goto LABEL_48;
         }
 
         v19 = [v18 objectForKeyedSubscript:@"NSURLSessionLastDisconnectDateKey"];
         if (v19)
         {
-          v64 = v19;
+          v58 = v19;
           [v19 timeIntervalSinceNow];
           if (v20 >= -31536000.0)
           {
-            [v64 timeIntervalSinceNow];
-            if (v38 <= -2592000.0)
+            [v58 timeIntervalSinceNow];
+            if (v32 <= -2592000.0)
             {
-              v44 = qword_1000EB210;
-              if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+              v38 = qword_1000EB210;
+              if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
               {
-                [v64 timeIntervalSinceNow];
-                v49 = v48;
+                [v58 timeIntervalSinceNow];
+                v43 = v42;
                 identifier = [v15 identifier];
-                v51 = self->_clientBundleID;
+                v45 = self->_clientBundleID;
                 *buf = 134218498;
-                v77 = -v49;
-                v78 = 2112;
-                v79 = identifier;
-                v80 = 2112;
-                v81 = v51;
-                _os_log_error_impl(&_mh_execute_header, v44, OS_LOG_TYPE_ERROR, "Ignoring stale session (inactive for %fs) with identifier: %@ for bundle id: %@", buf, 0x20u);
+                v71 = -v43;
+                v72 = 2112;
+                v73 = identifier;
+                v74 = 2112;
+                v75 = v45;
+                _os_log_error_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, "Ignoring stale session (inactive for %fs) with identifier: %@ for bundle id: %@", buf, 0x20u);
               }
 
               [(NDSessionManager *)self failedSessionRestoreWithID:v11 directoryToDelete:v13];
-              v33 = 0;
-              goto LABEL_48;
+              v27 = 0;
+              goto LABEL_47;
             }
 
             v21 = 0;
 LABEL_21:
-            _supportsAVAssetDownloads = [v15 _supportsAVAssetDownloads];
-            v23 = off_1000D4878;
-            if ((_supportsAVAssetDownloads & 1) == 0)
+            if (([v15 _supportsAVAssetDownloads] & 1) == 0)
             {
-              usesClassicLoadingMode = [v15 usesClassicLoadingMode];
-              v23 = off_1000D4888;
-              if (usesClassicLoadingMode)
-              {
-                v23 = off_1000D4880;
-              }
+              objc_msgSend_usesClassicLoadingMode(v15);
             }
 
-            v25 = *v23;
-            v26 = objc_alloc(objc_opt_class());
-            queue = self->_queue;
-            v28 = [v26 initWithConfiguration:v15 bundleID:self->_clientBundleID isSpringBoardApp:self->_isSpringBoardApp downloadDirectory:0 options:v65 clientProxy:0 delegate:self workQueue:queue db:self->_sessionTasksDB];
-            v63 = v28;
-            if (v28)
+            v22 = [objc_alloc(objc_opt_class()) initWithConfiguration:v15 bundleID:self->_clientBundleID isSpringBoardApp:self->_isSpringBoardApp downloadDirectory:0 options:v59 clientProxy:0 delegate:self workQueue:self->_queue db:self->_sessionTasksDB];
+            v57 = v22;
+            if (v22)
             {
-              v70 = 0;
-              v62 = [v28 restoreTasks:&v70];
-              v60 = v70;
-              if (v70 == 1)
+              v64 = 0;
+              v56 = [v22 restoreTasks:&v64];
+              v54 = v64;
+              if (v64 == 1)
               {
-                v29 = qword_1000EB210;
-                if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+                v23 = qword_1000EB210;
+                if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
                 {
                   [v15 identifier];
-                  v30 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-                  v31 = self->_clientBundleID;
+                  v24 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+                  v25 = self->_clientBundleID;
                   *buf = 138412546;
-                  v77 = v30;
-                  v78 = 2112;
-                  v79 = v31;
-                  _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Not restoring session with identifier: %@ for bundleID: %@ since it does not have any tasks", buf, 0x16u);
+                  v71 = v24;
+                  v72 = 2112;
+                  v73 = v25;
+                  _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Not restoring session with identifier: %@ for bundleID: %@ since it does not have any tasks", buf, 0x16u);
                 }
 
                 [(NDSessionManager *)self failedSessionRestoreWithID:v11 directoryToDelete:v13];
@@ -1045,91 +1022,91 @@ LABEL_21:
               {
                 if (v21)
                 {
-                  v39 = [v65 mutableCopy];
-                  v40 = +[NSDate now];
-                  [v39 setObject:v40 forKeyedSubscript:@"NSURLSessionLastDisconnectDateKey"];
+                  v33 = [v59 mutableCopy];
+                  v34 = +[NSDate now];
+                  [v33 setObject:v34 forKeyedSubscript:@"NSURLSessionLastDisconnectDateKey"];
 
-                  [(NDTaskStorageDB *)self->_sessionTasksDB _updateOptionsForBundleID:self->_clientBundleID sessionID:v11 with:v39];
+                  [(NDTaskStorageDB *)self->_sessionTasksDB _updateOptionsForBundleID:self->_clientBundleID sessionID:v11 with:v33];
                 }
 
-                [v66 addObjectsFromArray:v62];
+                [v60 addObjectsFromArray:v56];
                 sessions = self->_sessions;
-                identifier2 = [v63 identifier];
-                [(NSMutableDictionary *)sessions setObject:v63 forKeyedSubscript:identifier2];
+                identifier2 = [v57 identifier];
+                [(NSMutableDictionary *)sessions setObject:v57 forKeyedSubscript:identifier2];
               }
 
-              v33 = v60 ^ 1;
+              v27 = v54 ^ 1;
             }
 
             else
             {
-              v37 = qword_1000EB210;
-              if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+              v31 = qword_1000EB210;
+              if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
               {
                 [v15 identifier];
-                v46 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-                v47 = self->_clientBundleID;
+                v40 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+                v41 = self->_clientBundleID;
                 *buf = 138412546;
-                v77 = v46;
-                v78 = 2112;
-                v79 = v47;
-                _os_log_error_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "Coudn't restore session with identifier: %@ for bundle id: %@", buf, 0x16u);
+                v71 = v40;
+                v72 = 2112;
+                v73 = v41;
+                _os_log_error_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "Coudn't restore session with identifier: %@ for bundle id: %@", buf, 0x16u);
               }
 
               [(NDSessionManager *)self failedSessionRestoreWithID:v11 directoryToDelete:v13];
-              v33 = 0;
+              v27 = 0;
             }
 
+LABEL_47:
 LABEL_48:
-LABEL_49:
 
-LABEL_50:
-            goto LABEL_51;
+LABEL_49:
+            goto LABEL_50;
           }
         }
 
-        v64 = 0;
+        v58 = 0;
         v21 = 1;
         goto LABEL_21;
       }
 
-      v32 = qword_1000EB210;
+      v26 = qword_1000EB210;
       if (os_log_type_enabled(qword_1000EB210, OS_LOG_TYPE_ERROR))
       {
-        v35 = self->_clientBundleID;
+        v29 = self->_clientBundleID;
         *buf = 138412546;
-        v77 = *&v35;
-        v78 = 2112;
-        v79 = v11;
-        _os_log_error_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "No directory for bundleID: %@, sessionID: %@", buf, 0x16u);
+        v71 = *&v29;
+        v72 = 2112;
+        v73 = v11;
+        _os_log_error_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "No directory for bundleID: %@, sessionID: %@", buf, 0x16u);
       }
 
       [(NDSessionManager *)self failedSessionRestoreWithID:v11 directoryToDelete:0];
-      v33 = 0;
-LABEL_51:
+      v27 = 0;
+LABEL_50:
 
       objc_autoreleasePoolPop(v12);
-      if (v33 && [v66 count] >= 0x401)
+      if (v27 && [v60 count] >= 0x401)
       {
-        v53 = qword_1000EB210;
+        v47 = qword_1000EB210;
         if (os_log_type_enabled(qword_1000EB210, OS_LOG_TYPE_FAULT))
         {
-          v57 = self->_clientBundleID;
+          v51 = self->_clientBundleID;
           *buf = 138543362;
-          v77 = *&v57;
-          _os_log_fault_impl(&_mh_execute_header, v53, OS_LOG_TYPE_FAULT, "Too many total tasks for app <%{public}@>, skipping other sessions", buf, 0xCu);
+          v71 = *&v51;
+          _os_log_fault_impl(&_mh_execute_header, v47, OS_LOG_TYPE_FAULT, "Too many total tasks for app <%{public}@>, skipping other sessions", buf, 0xCu);
         }
 
-        goto LABEL_62;
+        goto LABEL_61;
       }
 
       v10 = v10 + 1;
     }
 
     while (v8 != v10);
-    v52 = [obja countByEnumeratingWithState:&v72 objects:v82 count:16];
-    v8 = v52;
-    if (v52)
+    v46 = [obja countByEnumeratingWithState:&v66 objects:v76 count:16];
+    v8 = v46;
+    if (v46)
     {
       continue;
     }
@@ -1137,23 +1114,23 @@ LABEL_51:
     break;
   }
 
-LABEL_62:
+LABEL_61:
 
-  v54 = [(NSMutableDictionary *)self->_sessions count];
-  v55 = v54 == 0;
-  if (!v54)
+  v48 = [(NSMutableDictionary *)self->_sessions count];
+  v49 = v48 == 0;
+  if (!v48)
   {
     [NDFileUtilities removeItemAtURL:self->_bundleDirectory];
   }
 
   if (state)
   {
-    *state = v55;
+    *state = v49;
   }
 
   [(NDSessionManager *)self setWorkState];
 
-  return v66;
+  return v60;
 }
 
 - (void)failedSessionRestoreWithID:(id)d directoryToDelete:(id)delete

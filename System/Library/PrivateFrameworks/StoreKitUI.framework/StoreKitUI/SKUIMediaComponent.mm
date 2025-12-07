@@ -150,14 +150,14 @@
       goto LABEL_22;
     }
 
-    if ([v26 isEqualToString:@"audio"])
+    if (objc_msgSend_isEqualToString_(v26))
     {
       v27 = 1;
     }
 
     else
     {
-      if (![v26 isEqualToString:@"video"])
+      if (!objc_msgSend_isEqualToString_(v26))
       {
 LABEL_22:
         v28 = [componentDictionary objectForKey:@"url"];
@@ -310,7 +310,7 @@ LABEL_37:
 - (id)valueForMetricsField:(id)field
 {
   fieldCopy = field;
-  if ([fieldCopy isEqualToString:*MEMORY[0x277D6A490]])
+  if (objc_msgSend_isEqualToString_(fieldCopy))
   {
     title = [MEMORY[0x277CCABB0] numberWithLongLong:self->_mediaIdentifier];
 LABEL_6:
@@ -318,7 +318,7 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  if (([fieldCopy isEqualToString:*MEMORY[0x277D6A4A0]] & 1) != 0 || objc_msgSend(fieldCopy, "isEqualToString:", *MEMORY[0x277D6A4A8]))
+  if ((objc_msgSend_isEqualToString_(fieldCopy) & 1) != 0 || objc_msgSend_isEqualToString_(fieldCopy))
   {
     title = [(SKUIMediaComponent *)self title];
     goto LABEL_6;
@@ -328,6 +328,30 @@ LABEL_6:
 LABEL_7:
 
   return v6;
+}
+
+- (void)initWithArtwork:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIMediaComponent initWithArtwork:]";
+}
+
+- (void)initWithArtworkProvider:(uint64_t)a3 appearance:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIMediaComponent initWithArtworkProvider:appearance:]";
+}
+
+- (void)initWithCustomPageContext:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIMediaComponent initWithCustomPageContext:]";
+}
+
+- (void)initWithFeaturedContentContext:(uint64_t)a3 kind:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIMediaComponent initWithFeaturedContentContext:kind:]";
 }
 
 @end

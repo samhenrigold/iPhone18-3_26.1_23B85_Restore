@@ -110,11 +110,11 @@ void __48__ATXHeuristicDevice__calendarVisibilityManager__block_invoke_2()
   v0 = [MEMORY[0x277CCAB98] defaultCenter];
   [v0 postNotificationName:*MEMORY[0x277CC5948] object:0];
 
-  v1 = __atxlog_handle_default();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+  v2 = __atxlog_handle_default(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_23E3EA000, v1, OS_LOG_TYPE_DEFAULT, "Reposting EKEventStoreChangedNotification because calendar visibility has changed", v2, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_23E3EA000, v2, OS_LOG_TYPE_DEFAULT, "Reposting EKEventStoreChangedNotification because calendar visibility has changed", v3, 2u);
   }
 }
 
@@ -269,27 +269,23 @@ uint64_t __40__ATXHeuristicDevice_sharedAlarmManager__block_invoke()
 
 - (void)setNow:(id)now
 {
-  v4 = [now copy];
-  now = self->_now;
-  self->_now = v4;
+  self->_now = [now copy];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (id)_contactKeysToFetch
 {
-  v9[5] = *MEMORY[0x277D85DE8];
+  v8[5] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBDA78] descriptorForRequiredKeysForStyle:0];
   v3 = [MEMORY[0x277CBDA78] descriptorForRequiredKeysForStyle:{1000, v2}];
   v4 = *MEMORY[0x277CBD098];
-  v9[1] = v3;
-  v9[2] = v4;
+  v8[1] = v3;
+  v8[2] = v4;
   v5 = *MEMORY[0x277CBCFC0];
-  v9[3] = *MEMORY[0x277CBD038];
-  v9[4] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:5];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[3] = *MEMORY[0x277CBD038];
+  v8[4] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:5];
 
   return v6;
 }
@@ -324,17 +320,17 @@ uint64_t __40__ATXHeuristicDevice_sharedAlarmManager__block_invoke()
 
 - (id)resolveContact:(id)contact
 {
-  v19[4] = *MEMORY[0x277D85DE8];
+  v18[4] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBDA78];
   contactCopy = contact;
   v6 = [v4 descriptorForRequiredKeysForStyle:0];
   v7 = *MEMORY[0x277CBD160];
-  v19[0] = v6;
-  v19[1] = v7;
+  v18[0] = v6;
+  v18[1] = v7;
   v8 = *MEMORY[0x277CBCFC0];
-  v19[2] = *MEMORY[0x277CBD098];
-  v19[3] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:4];
+  v18[2] = *MEMORY[0x277CBD098];
+  v18[3] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:4];
 
   v10 = objc_alloc(MEMORY[0x277D3A088]);
   contactStore = [(ATXHeuristicDevice *)self contactStore];
@@ -347,8 +343,8 @@ uint64_t __40__ATXHeuristicDevice_sharedAlarmManager__block_invoke()
     v14 = __atxlog_handle_heuristic();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      *v18 = 0;
-      _os_log_impl(&dword_23E3EA000, v14, OS_LOG_TYPE_DEFAULT, "ATXOngoingCall: Contact found is not a CNContactTypePerson", v18, 2u);
+      *v17 = 0;
+      _os_log_impl(&dword_23E3EA000, v14, OS_LOG_TYPE_DEFAULT, "ATXOngoingCall: Contact found is not a CNContactTypePerson", v17, 2u);
     }
 
     v15 = 0;
@@ -358,8 +354,6 @@ uint64_t __40__ATXHeuristicDevice_sharedAlarmManager__block_invoke()
   {
     v15 = v13;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -374,22 +368,22 @@ uint64_t __40__ATXHeuristicDevice_sharedAlarmManager__block_invoke()
 
 - (id)contactForParticipant:(id)participant
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBDA78];
   participantCopy = participant;
   v6 = [v4 descriptorForRequiredKeysForStyle:0];
   contactPredicate = [participantCopy contactPredicate];
 
   contactStore = [(ATXHeuristicDevice *)self contactStore];
-  v22[0] = v6;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
-  v17 = 0;
-  v10 = [contactStore unifiedContactsMatchingPredicate:contactPredicate keysToFetch:v9 error:&v17];
-  v11 = v17;
+  v23[0] = v6;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+  v18 = 0;
+  v10 = [contactStore unifiedContactsMatchingPredicate:contactPredicate keysToFetch:v9 error:&v18];
+  v11 = v18;
 
   if (v11)
   {
-    firstObject = __atxlog_handle_context_heuristic();
+    firstObject = __atxlog_handle_context_heuristic(v12);
     if (os_log_type_enabled(firstObject, OS_LOG_TYPE_ERROR))
     {
       [ATXHeuristicDevice contactsForPredicate:];
@@ -402,31 +396,30 @@ LABEL_10:
   }
 
   firstObject = [v10 firstObject];
-  v13 = __atxlog_handle_context_heuristic();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = __atxlog_handle_context_heuristic(firstObject);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v19 = v10;
-    v20 = 2112;
-    v21 = contactPredicate;
-    _os_log_impl(&dword_23E3EA000, v13, OS_LOG_TYPE_DEFAULT, "contacts: %@ found with predicate:%@", buf, 0x16u);
+    v20 = v10;
+    v21 = 2112;
+    v22 = contactPredicate;
+    _os_log_impl(&dword_23E3EA000, v14, OS_LOG_TYPE_DEFAULT, "contacts: %@ found with predicate:%@", buf, 0x16u);
   }
 
-  if ([firstObject contactType])
+  contactType = [firstObject contactType];
+  if (contactType)
   {
-    v14 = __atxlog_handle_context_heuristic();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = __atxlog_handle_context_heuristic(contactType);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_23E3EA000, v14, OS_LOG_TYPE_DEFAULT, "Contact found is not a CNContactTypePerson", buf, 2u);
+      _os_log_impl(&dword_23E3EA000, v16, OS_LOG_TYPE_DEFAULT, "Contact found is not a CNContactTypePerson", buf, 2u);
     }
 
     goto LABEL_10;
   }
 
 LABEL_11:
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
@@ -441,7 +434,7 @@ LABEL_11:
 
 - (id)dictContactForCNContact:(id)contact
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   contactCopy = contact;
   v5 = [MEMORY[0x277CBDA78] stringFromContact:contactCopy style:1000];
   v6 = [MEMORY[0x277CBDA78] stringFromContact:contactCopy style:0];
@@ -473,30 +466,30 @@ LABEL_11:
     if (v17)
     {
       v18 = objc_opt_new();
+      v27 = 0u;
       v28 = 0u;
       v29 = 0u;
       v30 = 0u;
-      v31 = 0u;
       emailAddresses2 = [contactCopy emailAddresses];
-      v20 = [emailAddresses2 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v20 = [emailAddresses2 countByEnumeratingWithState:&v27 objects:v31 count:16];
       if (v20)
       {
         v21 = v20;
-        v22 = *v29;
+        v22 = *v28;
         do
         {
           for (i = 0; i != v21; ++i)
           {
-            if (*v29 != v22)
+            if (*v28 != v22)
             {
               objc_enumerationMutation(emailAddresses2);
             }
 
-            value = [*(*(&v28 + 1) + 8 * i) value];
+            value = [*(*(&v27 + 1) + 8 * i) value];
             [v18 addObject:value];
           }
 
-          v21 = [emailAddresses2 countByEnumeratingWithState:&v28 objects:v32 count:16];
+          v21 = [emailAddresses2 countByEnumeratingWithState:&v27 objects:v31 count:16];
         }
 
         while (v21);
@@ -514,31 +507,29 @@ LABEL_11:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v34 = v5;
-      v35 = 2112;
-      v36 = v6;
-      v37 = 2112;
-      v38 = contactCopy;
+      v33 = v5;
+      v34 = 2112;
+      v35 = v6;
+      v36 = 2112;
+      v37 = contactCopy;
       _os_log_error_impl(&dword_23E3EA000, v7, OS_LOG_TYPE_ERROR, "Failed to get shortName/fullName: %@/%@ from contact: %@", buf, 0x20u);
     }
 
     v25 = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return v25;
 }
 
 - (id)_dictContactForIdentifier:(id)identifier
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBDA58];
   identifierCopy = identifier;
   v5 = MEMORY[0x277CBEA60];
   identifierCopy2 = identifier;
   v7 = [v5 arrayWithObjects:&identifierCopy count:1];
-  v8 = [v4 predicateForContactsWithIdentifiers:{v7, identifierCopy, v14}];
+  v8 = [v4 predicateForContactsWithIdentifiers:{v7, identifierCopy, v13}];
 
   v9 = [(ATXHeuristicDevice *)self _contactForPredicate:v8];
 
@@ -551,8 +542,6 @@ LABEL_11:
   {
     v10 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -716,7 +705,7 @@ LABEL_31:
 
 - (id)dictForEvent:(id)event contactCache:(id)cache
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   cacheCopy = cache;
   if (_EventDictionaryLRUCache_onceToken != -1)
@@ -736,11 +725,11 @@ LABEL_31:
       v12 = __atxlog_handle_heuristic();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        v20 = 136315394;
-        v21 = "[ATXHeuristicDevice dictForEvent:contactCache:]";
-        v22 = 2112;
-        v23 = eventIdentifier;
-        _os_log_impl(&dword_23E3EA000, v12, OS_LOG_TYPE_INFO, "%s: Cache hit for ekEvent.eventIdentifier: %@", &v20, 0x16u);
+        v19 = 136315394;
+        v20 = "[ATXHeuristicDevice dictForEvent:contactCache:]";
+        v21 = 2112;
+        v22 = eventIdentifier;
+        _os_log_impl(&dword_23E3EA000, v12, OS_LOG_TYPE_INFO, "%s: Cache hit for ekEvent.eventIdentifier: %@", &v19, 0x16u);
       }
 
       objc_opt_class();
@@ -760,11 +749,11 @@ LABEL_31:
       v15 = __atxlog_handle_heuristic();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
-        v20 = 136315394;
-        v21 = "[ATXHeuristicDevice dictForEvent:contactCache:]";
-        v22 = 2112;
-        v23 = eventIdentifier;
-        _os_log_impl(&dword_23E3EA000, v15, OS_LOG_TYPE_INFO, "%s: Cache miss for ekEvent.eventIdentifier: %@", &v20, 0x16u);
+        v19 = 136315394;
+        v20 = "[ATXHeuristicDevice dictForEvent:contactCache:]";
+        v21 = 2112;
+        v22 = eventIdentifier;
+        _os_log_impl(&dword_23E3EA000, v15, OS_LOG_TYPE_INFO, "%s: Cache miss for ekEvent.eventIdentifier: %@", &v19, 0x16u);
       }
 
       v13 = [(ATXHeuristicDevice *)selfCopy _dictForEvent:eventCopy contactCache:cacheCopy];
@@ -794,14 +783,13 @@ LABEL_31:
   }
 
   objc_sync_exit(selfCopy);
-  v18 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 - (id)_dictForEvent:(id)event contactCache:(id)cache
 {
-  v132 = *MEMORY[0x277D85DE8];
+  v131 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   cacheCopy = cache;
   v8 = objc_autoreleasePoolPush();
@@ -813,9 +801,9 @@ LABEL_31:
       junkStatus = [eventCopy junkStatus];
       eventIdentifier = [eventCopy eventIdentifier];
       *buf = 134218242;
-      v129 = junkStatus;
-      v130 = 2112;
-      v131 = eventIdentifier;
+      v128 = junkStatus;
+      v129 = 2112;
+      v130 = eventIdentifier;
       _os_log_impl(&dword_23E3EA000, v9, OS_LOG_TYPE_DEFAULT, "Ignore event: junkStatus [%lu], id %@", buf, 0x16u);
     }
 
@@ -831,252 +819,252 @@ LABEL_5:
     {
       eventIdentifier2 = [eventCopy eventIdentifier];
       *buf = 138412290;
-      v129 = eventIdentifier2;
+      v128 = eventIdentifier2;
       _os_log_impl(&dword_23E3EA000, v9, OS_LOG_TYPE_DEFAULT, "Ignore event: Cancelled, id %@", buf, 0xCu);
     }
 
     goto LABEL_5;
   }
 
-  v111 = v8;
-  v110 = objc_opt_new();
+  v110 = v8;
+  v109 = objc_opt_new();
   organizer = [eventCopy organizer];
-  v17 = objc_opt_new();
-  v123[0] = MEMORY[0x277D85DD0];
-  v123[1] = 3221225472;
-  v123[2] = __49__ATXHeuristicDevice__dictForEvent_contactCache___block_invoke;
-  v123[3] = &unk_278C3CB90;
-  v123[4] = self;
-  v112 = cacheCopy;
-  v124 = cacheCopy;
-  v113 = v17;
-  v125 = v113;
-  v18 = MEMORY[0x23EF0A350](v123);
-  v109 = organizer;
-  v18[2](v18, organizer);
+  v16 = objc_opt_new();
+  v122[0] = MEMORY[0x277D85DD0];
+  v122[1] = 3221225472;
+  v122[2] = __49__ATXHeuristicDevice__dictForEvent_contactCache___block_invoke;
+  v122[3] = &unk_278C3CB90;
+  v122[4] = self;
+  v111 = cacheCopy;
+  v123 = cacheCopy;
+  v112 = v16;
+  v124 = v112;
+  v17 = MEMORY[0x23EF0A350](v122);
+  v108 = organizer;
+  v17[2](v17, organizer);
   attendees = [eventCopy attendees];
-  v114 = eventCopy;
+  v113 = eventCopy;
   attendees2 = [eventCopy attendees];
-  v21 = [attendees2 count];
+  v20 = [attendees2 count];
 
-  if (v21 >= 5)
+  if (v20 >= 5)
   {
-    v22 = 5;
+    v21 = 5;
   }
 
   else
   {
-    v22 = v21;
+    v21 = v20;
   }
 
-  v23 = [attendees subarrayWithRange:{0, v22}];
+  v22 = [attendees subarrayWithRange:{0, v21}];
 
-  v121 = 0u;
-  v122 = 0u;
-  v119 = 0u;
   v120 = 0u;
-  v24 = v23;
-  v25 = [v24 countByEnumeratingWithState:&v119 objects:v127 count:16];
-  if (v25)
+  v121 = 0u;
+  v118 = 0u;
+  v119 = 0u;
+  v23 = v22;
+  v24 = [v23 countByEnumeratingWithState:&v118 objects:v126 count:16];
+  if (v24)
   {
-    v26 = v25;
-    v27 = *v120;
+    v25 = v24;
+    v26 = *v119;
     do
     {
-      for (i = 0; i != v26; ++i)
+      for (i = 0; i != v25; ++i)
       {
-        if (*v120 != v27)
+        if (*v119 != v26)
         {
-          objc_enumerationMutation(v24);
+          objc_enumerationMutation(v23);
         }
 
-        v29 = *(*(&v119 + 1) + 8 * i);
-        v30 = objc_autoreleasePoolPush();
-        v18[2](v18, v29);
-        objc_autoreleasePoolPop(v30);
+        v28 = *(*(&v118 + 1) + 8 * i);
+        v29 = objc_autoreleasePoolPush();
+        v17[2](v17, v28);
+        objc_autoreleasePoolPop(v29);
       }
 
-      v26 = [v24 countByEnumeratingWithState:&v119 objects:v127 count:16];
+      v25 = [v23 countByEnumeratingWithState:&v118 objects:v126 count:16];
     }
 
-    while (v26);
+    while (v25);
   }
 
-  eventCopy = v114;
-  selfAttendee = [v114 selfAttendee];
+  eventCopy = v113;
+  selfAttendee = [v113 selfAttendee];
 
-  if (selfAttendee && ([v114 selfAttendee], v32 = objc_claimAutoreleasedReturnValue(), v33 = objc_msgSend(v32, "participantStatus"), v32, v33 != 2))
+  if (selfAttendee && ([v113 selfAttendee], v31 = objc_claimAutoreleasedReturnValue(), v32 = objc_msgSend(v31, "participantStatus"), v31, v32 != 2))
   {
-    v34 = __atxlog_handle_heuristic();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    v33 = __atxlog_handle_heuristic();
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
-      selfAttendee2 = [v114 selfAttendee];
+      selfAttendee2 = [v113 selfAttendee];
       participantStatus = [selfAttendee2 participantStatus];
-      eventIdentifier3 = [v114 eventIdentifier];
+      eventIdentifier3 = [v113 eventIdentifier];
       *buf = 134218242;
-      v129 = participantStatus;
-      v130 = 2112;
-      v131 = eventIdentifier3;
-      _os_log_impl(&dword_23E3EA000, v34, OS_LOG_TYPE_DEFAULT, "Ignore event: Not accepted [%lu], id %@", buf, 0x16u);
+      v128 = participantStatus;
+      v129 = 2112;
+      v130 = eventIdentifier3;
+      _os_log_impl(&dword_23E3EA000, v33, OS_LOG_TYPE_DEFAULT, "Ignore event: Not accepted [%lu], id %@", buf, 0x16u);
     }
 
     v12 = 0;
-    v9 = v110;
-    v8 = v111;
+    v9 = v109;
+    v8 = v110;
   }
 
   else
   {
-    v34 = objc_opt_new();
+    v33 = objc_opt_new();
+    v114 = 0u;
     v115 = 0u;
     v116 = 0u;
     v117 = 0u;
-    v118 = 0u;
-    attachments = [v114 attachments];
-    v36 = [attachments countByEnumeratingWithState:&v115 objects:v126 count:16];
-    if (v36)
+    attachments = [v113 attachments];
+    v35 = [attachments countByEnumeratingWithState:&v114 objects:v125 count:16];
+    if (v35)
     {
-      v37 = v36;
-      v38 = *v116;
+      v36 = v35;
+      v37 = *v115;
       do
       {
-        for (j = 0; j != v37; ++j)
+        for (j = 0; j != v36; ++j)
         {
-          if (*v116 != v38)
+          if (*v115 != v37)
           {
             objc_enumerationMutation(attachments);
           }
 
-          v40 = *(*(&v115 + 1) + 8 * j);
-          v41 = objc_autoreleasePoolPush();
-          v42 = [(ATXHeuristicDevice *)self _dictForAttachment:v40];
-          [v34 addObject:v42];
+          v39 = *(*(&v114 + 1) + 8 * j);
+          v40 = objc_autoreleasePoolPush();
+          v41 = [(ATXHeuristicDevice *)self _dictForAttachment:v39];
+          [v33 addObject:v41];
 
-          objc_autoreleasePoolPop(v41);
+          objc_autoreleasePoolPop(v40);
         }
 
-        v37 = [attachments countByEnumeratingWithState:&v115 objects:v126 count:16];
+        v36 = [attachments countByEnumeratingWithState:&v114 objects:v125 count:16];
       }
 
-      while (v37);
+      while (v36);
     }
 
-    eventCopy = v114;
-    title = [v114 title];
-    v9 = v110;
-    [v110 setObject:title forKeyedSubscript:@"eventTitle"];
+    eventCopy = v113;
+    title = [v113 title];
+    v9 = v109;
+    [v109 setObject:title forKeyedSubscript:@"eventTitle"];
 
-    creationDate = [v114 creationDate];
+    creationDate = [v113 creationDate];
     if (creationDate)
     {
-      v45 = MEMORY[0x277CCABB0];
-      v46 = v110;
+      v44 = MEMORY[0x277CCABB0];
+      v45 = v109;
       [creationDate timeIntervalSinceReferenceDate];
-      v47 = [v45 numberWithDouble:?];
-      [v46 setObject:v47 forKeyedSubscript:@"creationDateTimestamp"];
+      v46 = [v44 numberWithDouble:?];
+      [v45 setObject:v46 forKeyedSubscript:@"creationDateTimestamp"];
     }
 
-    lastModifiedDate = [v114 lastModifiedDate];
+    lastModifiedDate = [v113 lastModifiedDate];
     if (lastModifiedDate)
     {
-      v49 = MEMORY[0x277CCABB0];
-      v50 = v110;
+      v48 = MEMORY[0x277CCABB0];
+      v49 = v109;
       [lastModifiedDate timeIntervalSinceReferenceDate];
-      v51 = [v49 numberWithDouble:?];
-      [v50 setObject:v51 forKeyedSubscript:@"modifiedDateTimestamp"];
+      v50 = [v48 numberWithDouble:?];
+      [v49 setObject:v50 forKeyedSubscript:@"modifiedDateTimestamp"];
     }
 
-    startDate = [v114 startDate];
+    startDate = [v113 startDate];
     if (startDate)
     {
-      v53 = MEMORY[0x277CCABB0];
-      v54 = v110;
+      v52 = MEMORY[0x277CCABB0];
+      v53 = v109;
       [startDate timeIntervalSinceReferenceDate];
-      v55 = [v53 numberWithDouble:?];
-      [v54 setObject:v55 forKeyedSubscript:@"startDateTimestamp"];
+      v54 = [v52 numberWithDouble:?];
+      [v53 setObject:v54 forKeyedSubscript:@"startDateTimestamp"];
     }
 
-    endDate = [v114 endDate];
+    endDate = [v113 endDate];
     if (endDate)
     {
-      v57 = MEMORY[0x277CCABB0];
-      v58 = v110;
+      v56 = MEMORY[0x277CCABB0];
+      v57 = v109;
       [endDate timeIntervalSinceReferenceDate];
-      v59 = [v57 numberWithDouble:?];
-      [v58 setObject:v59 forKeyedSubscript:@"endDateTimestamp"];
+      v58 = [v56 numberWithDouble:?];
+      [v57 setObject:v58 forKeyedSubscript:@"endDateTimestamp"];
     }
 
-    startTimeZone = [v114 startTimeZone];
+    startTimeZone = [v113 startTimeZone];
     name = [startTimeZone name];
-    [v110 setObject:name forKeyedSubscript:@"startTimeZoneName"];
+    [v109 setObject:name forKeyedSubscript:@"startTimeZoneName"];
 
-    endTimeZone = [v114 endTimeZone];
+    endTimeZone = [v113 endTimeZone];
     name2 = [endTimeZone name];
-    [v110 setObject:name2 forKeyedSubscript:@"endTimeZoneName"];
+    [v109 setObject:name2 forKeyedSubscript:@"endTimeZoneName"];
 
-    v64 = objc_autoreleasePoolPush();
-    virtualConference = [v114 virtualConference];
+    v63 = objc_autoreleasePoolPush();
+    virtualConference = [v113 virtualConference];
     joinMethods = [virtualConference joinMethods];
     firstObject = [joinMethods firstObject];
-    v66 = [firstObject URL];
-    absoluteString = [v66 absoluteString];
+    v65 = [firstObject URL];
+    absoluteString = [v65 absoluteString];
     if (absoluteString)
     {
-      [v110 setObject:absoluteString forKeyedSubscript:@"conferenceURL"];
+      [v109 setObject:absoluteString forKeyedSubscript:@"conferenceURL"];
     }
 
     else
     {
-      conferenceURLForDisplay = [v114 conferenceURLForDisplay];
+      conferenceURLForDisplay = [v113 conferenceURLForDisplay];
       [conferenceURLForDisplay absoluteString];
-      v71 = v106 = v64;
-      [v110 setObject:v71 forKeyedSubscript:@"conferenceURL"];
+      v70 = v105 = v63;
+      [v109 setObject:v70 forKeyedSubscript:@"conferenceURL"];
 
-      v64 = v106;
+      v63 = v105;
     }
 
-    objc_autoreleasePoolPop(v64);
-    [v110 setObject:v113 forKeyedSubscript:@"contacts"];
-    externalURL = [v114 externalURL];
+    objc_autoreleasePoolPop(v63);
+    [v109 setObject:v112 forKeyedSubscript:@"contacts"];
+    externalURL = [v113 externalURL];
     absoluteString2 = [externalURL absoluteString];
-    [v110 setObject:absoluteString2 forKeyedSubscript:@"externalURL"];
+    [v109 setObject:absoluteString2 forKeyedSubscript:@"externalURL"];
 
-    v74 = MEMORY[0x277CCABB0];
-    [v114 travelTime];
-    v75 = [v74 numberWithDouble:?];
-    [v110 setObject:v75 forKeyedSubscript:@"travelTime"];
+    v73 = MEMORY[0x277CCABB0];
+    [v113 travelTime];
+    v74 = [v73 numberWithDouble:?];
+    [v109 setObject:v74 forKeyedSubscript:@"travelTime"];
 
-    notes = [v114 notes];
-    [v110 setObject:notes forKeyedSubscript:@"notes"];
+    notes = [v113 notes];
+    [v109 setObject:notes forKeyedSubscript:@"notes"];
 
-    v77 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v114, "isAllDay")}];
-    [v110 setObject:v77 forKeyedSubscript:@"isAllDay"];
+    v76 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v113, "isAllDay")}];
+    [v109 setObject:v76 forKeyedSubscript:@"isAllDay"];
 
-    v78 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v114, "hasRecurrenceRules")}];
-    [v110 setObject:v78 forKeyedSubscript:@"hasRecurrenceRules"];
+    v77 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v113, "hasRecurrenceRules")}];
+    [v109 setObject:v77 forKeyedSubscript:@"hasRecurrenceRules"];
 
-    v79 = [v34 copy];
-    [v110 setObject:v79 forKeyedSubscript:@"attachments"];
+    v78 = [v33 copy];
+    [v109 setObject:v78 forKeyedSubscript:@"attachments"];
 
-    v80 = [(ATXHeuristicDevice *)self wrap:v114];
-    [v110 setObject:v80 forKeyedSubscript:@"EKEvent"];
+    v79 = [(ATXHeuristicDevice *)self wrap:v113];
+    [v109 setObject:v79 forKeyedSubscript:@"EKEvent"];
 
-    eventIdentifier4 = [v114 eventIdentifier];
-    [v110 setObject:eventIdentifier4 forKeyedSubscript:@"eventIdentifier"];
+    eventIdentifier4 = [v113 eventIdentifier];
+    [v109 setObject:eventIdentifier4 forKeyedSubscript:@"eventIdentifier"];
 
-    uniqueID = [v114 uniqueID];
-    [v110 setObject:uniqueID forKeyedSubscript:@"uniqueID"];
+    uniqueID = [v113 uniqueID];
+    [v109 setObject:uniqueID forKeyedSubscript:@"uniqueID"];
 
-    preferredLocationWithoutPrediction = [v114 preferredLocationWithoutPrediction];
+    preferredLocationWithoutPrediction = [v113 preferredLocationWithoutPrediction];
     if (preferredLocationWithoutPrediction)
     {
-      v84 = objc_opt_new();
+      v83 = objc_opt_new();
       title2 = [preferredLocationWithoutPrediction title];
 
       if (title2)
       {
         title3 = [preferredLocationWithoutPrediction title];
-        [v84 setObject:title3 forKeyedSubscript:@"title"];
+        [v83 setObject:title3 forKeyedSubscript:@"title"];
       }
 
       address = [preferredLocationWithoutPrediction address];
@@ -1084,68 +1072,67 @@ LABEL_5:
       if (address)
       {
         address2 = [preferredLocationWithoutPrediction address];
-        [v84 setObject:address2 forKeyedSubscript:@"address"];
+        [v83 setObject:address2 forKeyedSubscript:@"address"];
       }
 
-      if ([v84 count])
+      if ([v83 count])
       {
-        [v110 setObject:v84 forKeyedSubscript:@"structuredLocation"];
+        [v109 setObject:v83 forKeyedSubscript:@"structuredLocation"];
       }
     }
 
-    suggestionInfo = [v114 suggestionInfo];
+    suggestionInfo = [v113 suggestionInfo];
 
     if (suggestionInfo)
     {
-      suggestionInfo2 = [v114 suggestionInfo];
+      suggestionInfo2 = [v113 suggestionInfo];
       uniqueKey = [suggestionInfo2 uniqueKey];
-      [v110 setObject:uniqueKey forKeyedSubscript:@"suggestionsInfoUniqueKey"];
+      [v109 setObject:uniqueKey forKeyedSubscript:@"suggestionsInfoUniqueKey"];
 
-      v92 = [v114 customObjectForKey:@"SGEventMetadataKey"];
-      if (v92)
+      v91 = [v113 customObjectForKey:@"SGEventMetadataKey"];
+      if (v91)
       {
-        [v110 setObject:v92 forKeyedSubscript:@"sgEventMetadata"];
+        [v109 setObject:v91 forKeyedSubscript:@"sgEventMetadata"];
       }
     }
 
-    v93 = MEMORY[0x277CCABB0];
-    calendar = [v114 calendar];
-    v95 = [v93 numberWithBool:{objc_msgSend(calendar, "isNaturalLanguageSuggestedEventCalendar")}];
-    [v110 setObject:v95 forKeyedSubscript:@"nlEventCalendar"];
+    v92 = MEMORY[0x277CCABB0];
+    calendar = [v113 calendar];
+    v94 = [v92 numberWithBool:{objc_msgSend(calendar, "isNaturalLanguageSuggestedEventCalendar")}];
+    [v109 setObject:v94 forKeyedSubscript:@"nlEventCalendar"];
 
-    calendar2 = [v114 calendar];
+    calendar2 = [v113 calendar];
     calendarIdentifier = [calendar2 calendarIdentifier];
-    [v110 setObject:calendarIdentifier forKeyedSubscript:@"calendarID"];
+    [v109 setObject:calendarIdentifier forKeyedSubscript:@"calendarID"];
 
-    v98 = [v114 localCustomObjectForKey:@"EKEventNaturalLanguageSuggestedEventExpirationDate"];
-    if (v98)
+    v97 = [v113 localCustomObjectForKey:@"EKEventNaturalLanguageSuggestedEventExpirationDate"];
+    if (v97)
     {
-      v99 = MEMORY[0x277CCABB0];
-      v100 = v110;
-      [v98 timeIntervalSinceReferenceDate];
-      v101 = [v99 numberWithDouble:?];
-      [v100 setObject:v101 forKeyedSubscript:@"nlEventExpirationTime"];
+      v98 = MEMORY[0x277CCABB0];
+      v99 = v109;
+      [v97 timeIntervalSinceReferenceDate];
+      v100 = [v98 numberWithDouble:?];
+      [v99 setObject:v100 forKeyedSubscript:@"nlEventExpirationTime"];
     }
 
-    birthdayContactIdentifier = [v114 birthdayContactIdentifier];
+    birthdayContactIdentifier = [v113 birthdayContactIdentifier];
 
     if (birthdayContactIdentifier)
     {
-      birthdayContactIdentifier2 = [v114 birthdayContactIdentifier];
-      v104 = [(ATXHeuristicDevice *)self _dictContactForIdentifier:birthdayContactIdentifier2];
-      [v110 setObject:v104 forKeyedSubscript:@"birthdayContact"];
+      birthdayContactIdentifier2 = [v113 birthdayContactIdentifier];
+      v103 = [(ATXHeuristicDevice *)self _dictContactForIdentifier:birthdayContactIdentifier2];
+      [v109 setObject:v103 forKeyedSubscript:@"birthdayContact"];
     }
 
-    v12 = [v110 copy];
+    v12 = [v109 copy];
 
-    v8 = v111;
+    v8 = v110;
   }
 
-  cacheCopy = v112;
+  cacheCopy = v111;
 LABEL_6:
 
   objc_autoreleasePoolPop(v8);
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -1212,30 +1199,19 @@ uint64_t __49__ATXHeuristicDevice__dictForEvent_contactCache___block_invoke(uint
 
 - (void)meContact
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_23E3EA000, a2, OS_LOG_TYPE_ERROR, "Error when fetching me contact: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)contactsForPredicate:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_23E3EA000, v0, v1, "Error when fetching contact for predicate %@: %@");
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_23E3EA000, a2, OS_LOG_TYPE_ERROR, "Error when fetching me contact: %@", &v2, 0xCu);
 }
 
 - (void)_dictContactForParticipant:(NSObject *)a3 contactCache:.cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v5 = [a1 objectForKeyedSubscript:@"displayName"];
   OUTLINED_FUNCTION_0();
-  v8 = a2;
-  _os_log_debug_impl(&dword_23E3EA000, a3, OS_LOG_TYPE_DEBUG, "Re-using cached contact dictionary: %@ for id: %@", v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = a2;
+  _os_log_debug_impl(&dword_23E3EA000, a3, OS_LOG_TYPE_DEBUG, "Re-using cached contact dictionary: %@ for id: %@", v6, 0x16u);
 }
 
 @end

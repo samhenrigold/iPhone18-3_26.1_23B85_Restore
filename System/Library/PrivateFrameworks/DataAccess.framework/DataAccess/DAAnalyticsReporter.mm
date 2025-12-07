@@ -83,7 +83,7 @@ LABEL_11:
 
 + (void)reportActiveExchangeOAuthAccountsCount
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = DALoggingwithCategory();
   v3 = *(MEMORY[0x277D03988] + 6);
   if (os_log_type_enabled(v2, v3))
@@ -97,26 +97,26 @@ LABEL_11:
   if (v5)
   {
     v6 = [v4 accountsWithAccountType:v5];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    v7 = [v6 countByEnumeratingWithState:&v17 objects:v24 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v16 objects:v23 count:16];
     if (v7)
     {
       v8 = v7;
       v9 = 0;
-      v10 = *v18;
+      v10 = *v17;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(v6);
           }
 
-          v12 = [*(*(&v17 + 1) + 8 * i) objectForKeyedSubscript:@"DAExchangeOAuthSupportedKey"];
+          v12 = [*(*(&v16 + 1) + 8 * i) objectForKeyedSubscript:@"DAExchangeOAuthSupportedKey"];
 
           if (v12)
           {
@@ -124,7 +124,7 @@ LABEL_11:
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v17 objects:v24 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v16 objects:v23 count:16];
       }
 
       while (v8);
@@ -135,10 +135,10 @@ LABEL_11:
       v9 = 0;
     }
 
-    v22 = @"count";
+    v21 = @"count";
     v13 = [MEMORY[0x277CCABB0] numberWithInteger:v9];
-    v23 = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+    v22 = v13;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
     AnalyticsSendEvent();
 
     v15 = DALoggingwithCategory();
@@ -148,8 +148,6 @@ LABEL_11:
       _os_log_impl(&dword_24844D000, v15, v3, "Reported Exchange OAuth accounts count", buf, 2u);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

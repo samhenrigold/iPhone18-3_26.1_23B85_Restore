@@ -23,7 +23,7 @@
 - (void)viewDidLoad
 {
   ObjectType = swift_getObjectType();
-  sub_1001FEC78(&unk_10092DCD0, v4, type metadata accessor for DynamicViewController);
+  sub_1001FEC78(&unk_10092DCD0, v4, type metadata accessor for DynamicViewController, &unk_1007B22C0);
   selfCopy = self;
   sub_10074D2C4();
   v6.receiver = selfCopy;

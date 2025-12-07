@@ -58,7 +58,7 @@
 
 - (id)avvcContextSettings
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   avvcContext = [(CSAudioRecordContext *)self avvcContext];
   v4 = [avvcContext objectForKeyedSubscript:*MEMORY[0x1E69583A8]];
   unsignedIntegerValue = [v4 unsignedIntegerValue];
@@ -72,9 +72,9 @@
       v8 = CSLogContextFacilityCoreSpeech;
       if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 136315138;
-        v15 = "[CSAudioRecordContext(AVVC) avvcContextSettings]";
-        _os_log_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_DEFAULT, "%s Setting mixable to yes as we are in an active call", &v14, 0xCu);
+        v13 = 136315138;
+        v14 = "[CSAudioRecordContext(AVVC) avvcContextSettings]";
+        _os_log_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_DEFAULT, "%s Setting mixable to yes as we are in an active call", &v13, 0xCu);
       }
 
       v9 = +[CSUtils supportRingtoneA2DP];
@@ -93,8 +93,6 @@
 
     [v7 setAnnounceCallsEnabled:{-[CSAudioRecordContext isRequestDuringActiveCall](self, "isRequestDuringActiveCall")}];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -138,8 +136,6 @@
   {
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
@@ -160,43 +156,35 @@
 - (BOOL)isAudioRecordTypeSupportedByContinuousConversation
 {
   result = 0;
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   type = self->_type;
   if (type <= 0x1B)
   {
     if (((1 << type) & 0xA700C72) != 0)
     {
-      goto LABEL_3;
+      return 1;
     }
 
-    if (((1 << type) & 0x801080) == 0)
+    if (((1 << type) & 0x801080) != 0)
     {
-      goto LABEL_4;
-    }
-
-    if (+[CSUtils isCarplayWithFlexibleFollowupEnabled])
-    {
-LABEL_3:
-      result = 1;
-    }
-
-    else
-    {
-      v6 = CSLogContextFacilityCoreSpeech;
-      v7 = os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT);
-      result = 0;
-      if (v7)
+      if (+[CSUtils isCarplayWithFlexibleFollowupEnabled])
       {
-        v8 = 136315138;
-        v9 = "[CSAudioRecordContext isAudioRecordTypeSupportedByContinuousConversation]";
-        _os_log_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_DEFAULT, "%s CarPlay support is disabled!", &v8, 0xCu);
-        result = 0;
+        return 1;
+      }
+
+      v5 = CSLogContextFacilityCoreSpeech;
+      v6 = os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT);
+      result = 0;
+      if (v6)
+      {
+        v7 = 136315138;
+        v8 = "[CSAudioRecordContext isAudioRecordTypeSupportedByContinuousConversation]";
+        _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s CarPlay support is disabled!", &v7, 0xCu);
+        return 0;
       }
     }
   }
 
-LABEL_4:
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -549,19 +537,17 @@ LABEL_4:
 
 + (id)defaultContext
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = +[CSAudioRecordContext contextForServerInvoke];
   v3 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "+[CSAudioRecordContext defaultContext]";
-    v8 = 2114;
-    v9 = v2;
-    _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s default to recordContext : %{public}@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "+[CSAudioRecordContext defaultContext]";
+    v7 = 2114;
+    v8 = v2;
+    _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s default to recordContext : %{public}@", &v5, 0x16u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return v2;
 }

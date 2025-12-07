@@ -43,31 +43,31 @@
 
 - (void)__updateActiveAssertions
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   if (self)
   {
     os_unfair_lock_lock_with_options();
+    v31 = 0u;
+    v32 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v27 = 0u;
-    v28 = 0u;
     v2 = *(self + 48);
     v3 = 0;
     v4 = 0;
-    v5 = [v2 countByEnumeratingWithState:&v27 objects:v35 count:16];
+    v5 = [v2 countByEnumeratingWithState:&v29 objects:v37 count:16];
     if (v5)
     {
-      v6 = *v28;
+      v6 = *v30;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v28 != v6)
+          if (*v30 != v6)
           {
             objc_enumerationMutation(v2);
           }
 
-          v8 = *(*(&v27 + 1) + 8 * i);
+          v8 = *(*(&v29 + 1) + 8 * i);
           if ([v8 isValid])
           {
             v3 |= [v8 options];
@@ -75,7 +75,7 @@
           }
         }
 
-        v5 = [v2 countByEnumeratingWithState:&v27 objects:v35 count:16];
+        v5 = [v2 countByEnumeratingWithState:&v29 objects:v37 count:16];
       }
 
       while (v5);
@@ -88,78 +88,76 @@
     {
       v11 = objc_autoreleasePoolPush();
       selfCopy = self;
+      v14 = selfCopy;
       if (v4)
       {
-        v13 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+        v15 = HMFGetOSLogHandle(selfCopy, v13);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
-          v14 = HMFGetLogIdentifier(selfCopy);
-          v15 = HMFWiFiAssertionOptionsDescription(v3);
+          v16 = HMFGetLogIdentifier(v14);
+          v17 = HMFWiFiAssertionOptionsDescription(v3);
           *buf = 138543618;
-          v32 = v14;
-          v33 = 2112;
-          v34 = v15;
-          _os_log_impl(&dword_22ADEC000, v13, OS_LOG_TYPE_INFO, "%{public}@Activating with options: %@", buf, 0x16u);
+          v34 = v16;
+          v35 = 2112;
+          v36 = v17;
+          _os_log_impl(&dword_22ADEC000, v15, OS_LOG_TYPE_INFO, "%{public}@Activating with options: %@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v11);
-        v16 = selfCopy[4];
-        [v16 activateWithOptions:v3];
+        v18 = v14[4];
+        [v18 activateWithOptions:v3];
       }
 
       else
       {
-        v24 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+        v27 = HMFGetOSLogHandle(selfCopy, v13);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
         {
-          v25 = HMFGetLogIdentifier(selfCopy);
+          v28 = HMFGetLogIdentifier(v14);
           *buf = 138543362;
-          v32 = v25;
-          _os_log_impl(&dword_22ADEC000, v24, OS_LOG_TYPE_INFO, "%{public}@Deactivating", buf, 0xCu);
+          v34 = v28;
+          _os_log_impl(&dword_22ADEC000, v27, OS_LOG_TYPE_INFO, "%{public}@Deactivating", buf, 0xCu);
         }
 
         objc_autoreleasePoolPop(v11);
-        v16 = selfCopy[4];
-        [v16 deactivate];
+        v18 = v14[4];
+        [v18 deactivate];
       }
     }
 
     else
     {
-      v17 = *(self + 32);
-      v18 = v3 == [v17 assertionOptions];
+      v19 = *(self + 32);
+      v20 = v3 == [v19 assertionOptions];
 
-      if (v18)
+      if (v20)
       {
 LABEL_24:
         os_unfair_lock_unlock((self + 8));
-        goto LABEL_25;
+        return;
       }
 
-      v19 = objc_autoreleasePoolPush();
+      v21 = objc_autoreleasePoolPush();
       selfCopy2 = self;
-      v21 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+      v24 = HMFGetOSLogHandle(selfCopy2, v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
       {
-        v22 = HMFGetLogIdentifier(selfCopy2);
-        v23 = HMFWiFiAssertionOptionsDescription(v3);
+        v25 = HMFGetLogIdentifier(selfCopy2);
+        v26 = HMFWiFiAssertionOptionsDescription(v3);
         *buf = 138543618;
-        v32 = v22;
-        v33 = 2112;
-        v34 = v23;
-        _os_log_impl(&dword_22ADEC000, v21, OS_LOG_TYPE_INFO, "%{public}@Updating activation with options: %@", buf, 0x16u);
+        v34 = v25;
+        v35 = 2112;
+        v36 = v26;
+        _os_log_impl(&dword_22ADEC000, v24, OS_LOG_TYPE_INFO, "%{public}@Updating activation with options: %@", buf, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v19);
-      v16 = selfCopy2[4];
-      [v16 activateWithOptions:v3];
+      objc_autoreleasePoolPop(v21);
+      v18 = selfCopy2[4];
+      [v18 activateWithOptions:v3];
     }
 
     goto LABEL_24;
   }
-
-LABEL_25:
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 + (HMFWiFiManager)sharedManager
@@ -176,9 +174,11 @@ LABEL_25:
 
 uint64_t __31__HMFWiFiManager_sharedManager__block_invoke()
 {
-  qword_280AFC218 = objc_alloc_init(HMFWiFiManager);
+  v0 = objc_alloc_init(HMFWiFiManager);
+  v1 = qword_280AFC218;
+  qword_280AFC218 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (HMFWiFiManager)init
@@ -197,9 +197,9 @@ uint64_t __31__HMFWiFiManager_sharedManager__block_invoke()
 {
   queueCopy = queue;
   sourceCopy = source;
-  v21.receiver = self;
-  v21.super_class = HMFWiFiManager;
-  v9 = [(HMFWiFiManager *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = HMFWiFiManager;
+  v9 = [(HMFWiFiManager *)&v20 init];
   v10 = v9;
   if (v9)
   {
@@ -210,18 +210,17 @@ uint64_t __31__HMFWiFiManager_sharedManager__block_invoke()
 
     objc_storeStrong(&v10->_dataSource, source);
     [(HMFWiFiManagerDataSource *)v10->_dataSource setDelegate:v10];
-    dataSource = v10->_dataSource;
     mACAddressString = [objc_opt_class() MACAddressString];
-    v15 = [[HMFMACAddress alloc] initWithMACAddressString:mACAddressString];
+    v14 = [[HMFMACAddress alloc] initWithMACAddressString:mACAddressString];
     MACAddress = v10->_MACAddress;
-    v10->_MACAddress = v15;
+    v10->_MACAddress = v14;
 
     workQueue = v10->_workQueue;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __47__HMFWiFiManager_initWithWorkQueue_dataSource___block_invoke;
     block[3] = &unk_2786E6C80;
-    v20 = v10;
+    v19 = v10;
     dispatch_async(workQueue, block);
   }
 
@@ -355,27 +354,25 @@ uint64_t __47__HMFWiFiManager_initWithWorkQueue_dataSource___block_invoke(uint64
   reasonCopy = reason;
   v7 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v9 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = HMFGetOSLogHandle(selfCopy, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v10 = HMFGetLogIdentifier(selfCopy);
+    v11 = HMFGetLogIdentifier(selfCopy);
     v14 = 138543618;
-    v15 = v10;
+    v15 = v11;
     v16 = 2112;
     v17 = reasonCopy;
-    _os_log_impl(&dword_22ADEC000, v9, OS_LOG_TYPE_INFO, "%{public}@Taking active assertion with reason: %@", &v14, 0x16u);
+    _os_log_impl(&dword_22ADEC000, v10, OS_LOG_TYPE_INFO, "%{public}@Taking active assertion with reason: %@", &v14, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
-  v11 = [[__HMFWiFiAssertion alloc] initWithOptions:options manager:selfCopy reason:reasonCopy];
+  v12 = [[__HMFWiFiAssertion alloc] initWithOptions:options manager:selfCopy reason:reasonCopy];
   os_unfair_lock_lock_with_options();
-  [(NSHashTable *)selfCopy->_activeAssertions addObject:v11];
+  [(NSHashTable *)selfCopy->_activeAssertions addObject:v12];
   os_unfair_lock_unlock(&selfCopy->_lock);
-  [(__HMFWiFiAssertion *)v11 acquire:0];
+  [(__HMFWiFiAssertion *)v12 acquire:0];
 
-  v12 = *MEMORY[0x277D85DE8];
-
-  return v11;
+  return v12;
 }
 
 - (void)endActiveAssertion:(id)assertion
@@ -423,40 +420,39 @@ uint64_t __47__HMFWiFiManager_initWithWorkQueue_dataSource___block_invoke(uint64
   dispatch_async(workQueue, block);
 }
 
-uint64_t __34__HMFWiFiManager_takeWoWAssertion__block_invoke(uint64_t result)
+void *__34__HMFWiFiManager_takeWoWAssertion__block_invoke(void *result)
 {
   v13 = *MEMORY[0x277D85DE8];
-  v1 = *(result + 32);
+  v1 = result[4];
   if (v1 && (*(v1 + 12) & 1) == 0 && *(v1 + 32))
   {
     v2 = result;
     v3 = objc_autoreleasePoolPush();
-    v4 = *(v2 + 32);
-    v5 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v4 = v2[4];
+    v6 = HMFGetOSLogHandle(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v6 = HMFGetLogIdentifier(v4);
+      v7 = HMFGetLogIdentifier(v4);
       v11 = 138543362;
-      v12 = v6;
-      _os_log_impl(&dword_22ADEC000, v5, OS_LOG_TYPE_INFO, "%{public}@Taking WoW assertion", &v11, 0xCu);
+      v12 = v7;
+      _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_INFO, "%{public}@Taking WoW assertion", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
-    v7 = *(v2 + 32);
-    if (v7 && (*(v7 + 12) = 1, (v8 = *(v2 + 32)) != 0))
+    v8 = v2[4];
+    if (v8 && (*(v8 + 12) = 1, (v9 = v2[4]) != 0))
     {
-      v9 = *(v8 + 32);
+      v10 = *(v9 + 32);
     }
 
     else
     {
-      v9 = 0;
+      v10 = 0;
     }
 
-    result = [v9 setWoWAsserted:1];
+    return [v10 setWoWAsserted:1];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -480,40 +476,39 @@ uint64_t __34__HMFWiFiManager_takeWoWAssertion__block_invoke(uint64_t result)
   dispatch_async(workQueue, block);
 }
 
-uint64_t __37__HMFWiFiManager_releaseWoWAssertion__block_invoke(uint64_t result)
+void *__37__HMFWiFiManager_releaseWoWAssertion__block_invoke(void *result)
 {
   v13 = *MEMORY[0x277D85DE8];
-  v1 = *(result + 32);
+  v1 = result[4];
   if (v1 && *(v1 + 12) == 1 && *(v1 + 32))
   {
     v2 = result;
     v3 = objc_autoreleasePoolPush();
-    v4 = *(v2 + 32);
-    v5 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v4 = v2[4];
+    v6 = HMFGetOSLogHandle(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v6 = HMFGetLogIdentifier(v4);
+      v7 = HMFGetLogIdentifier(v4);
       v11 = 138543362;
-      v12 = v6;
-      _os_log_impl(&dword_22ADEC000, v5, OS_LOG_TYPE_INFO, "%{public}@Releasing WoW assertion", &v11, 0xCu);
+      v12 = v7;
+      _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_INFO, "%{public}@Releasing WoW assertion", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
-    v7 = *(v2 + 32);
-    if (v7 && (*(v7 + 12) = 0, (v8 = *(v2 + 32)) != 0))
+    v8 = v2[4];
+    if (v8 && (*(v8 + 12) = 0, (v9 = v2[4]) != 0))
     {
-      v9 = *(v8 + 32);
+      v10 = *(v9 + 32);
     }
 
     else
     {
-      v9 = 0;
+      v10 = 0;
     }
 
-    result = [v9 setWoWAsserted:0];
+    return [v10 setWoWAsserted:0];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -531,9 +526,11 @@ uint64_t __37__HMFWiFiManager_releaseWoWAssertion__block_invoke(uint64_t result)
 
 uint64_t __29__HMFWiFiManager_logCategory__block_invoke()
 {
-  qword_280AFC228 = HMFCreateOSLogHandle(@"Networking.WiFi.Manager", @"com.apple.HMFoundation");
+  v0 = HMFCreateOSLogHandle(@"Networking.WiFi.Manager", @"com.apple.HMFoundation");
+  v1 = qword_280AFC228;
+  qword_280AFC228 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (void)dataSource:(id)source didChangeWoWState:(BOOL)state
@@ -562,23 +559,24 @@ void __47__HMFWiFiManager_dataSource_didChangeWoWState___block_invoke(uint64_t a
   v10 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
-  v4 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = HMFGetOSLogHandle(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v5 = HMFGetLogIdentifier(v3);
+    v6 = HMFGetLogIdentifier(v3);
     v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_22ADEC000, v4, OS_LOG_TYPE_INFO, "%{public}@Re-Enabling WoW", &v8, 0xCu);
+    v9 = v6;
+    _os_log_impl(&dword_22ADEC000, v5, OS_LOG_TYPE_INFO, "%{public}@Re-Enabling WoW", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  v6 = *(a1 + 32);
-  if (v6 && *(v6 + 12) == 1)
+  v7 = *(a1 + 32);
+  if (v7)
   {
-    [*(v6 + 32) setWoWAsserted:1];
+    if (*(v7 + 12) == 1)
+    {
+      [*(v7 + 32) setWoWAsserted:1];
+    }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dataSource:(id)source didChangeLinkAvailability:(BOOL)availability
@@ -599,22 +597,22 @@ void __47__HMFWiFiManager_dataSource_didChangeWoWState___block_invoke(uint64_t a
   dispatch_assert_queue_V2(workQueue);
   v8 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v10 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v11 = HMFGetOSLogHandle(selfCopy, v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    v11 = HMFGetLogIdentifier(selfCopy);
-    v12 = v11;
-    v13 = @"Down";
+    v12 = HMFGetLogIdentifier(selfCopy);
+    v13 = v12;
+    v14 = @"Down";
     if (availabilityCopy)
     {
-      v13 = @"Up";
+      v14 = @"Up";
     }
 
     v15 = 138543618;
-    v16 = v11;
+    v16 = v12;
     v17 = 2112;
-    v18 = v13;
-    _os_log_impl(&dword_22ADEC000, v10, OS_LOG_TYPE_INFO, "%{public}@WiFi link is %@", &v15, 0x16u);
+    v18 = v14;
+    _os_log_impl(&dword_22ADEC000, v11, OS_LOG_TYPE_INFO, "%{public}@WiFi link is %@", &v15, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -622,8 +620,6 @@ void __47__HMFWiFiManager_dataSource_didChangeWoWState___block_invoke(uint64_t a
   {
     selfCopy->_shouldAssertWoW = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)currentNetworkDidChangeForDataSource:(id)source
@@ -660,41 +656,39 @@ void __47__HMFWiFiManager_dataSource_didChangeWoWState___block_invoke(uint64_t a
   {
     v10 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v12 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v13 = HMFGetOSLogHandle(selfCopy, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v13 = HMFGetLogIdentifier(selfCopy);
-      v14 = v13;
+      v14 = HMFGetLogIdentifier(selfCopy);
+      v15 = v14;
       if (self)
       {
-        v15 = selfCopy->_savedNetworkSSID;
+        v16 = selfCopy->_savedNetworkSSID;
       }
 
       else
       {
-        v15 = 0;
+        v16 = 0;
       }
 
       v19 = 138543874;
-      v20 = v13;
+      v20 = v14;
       v21 = 2112;
-      v22 = v15;
+      v22 = v16;
       v23 = 2112;
       v24 = sSID;
-      _os_log_impl(&dword_22ADEC000, v12, OS_LOG_TYPE_INFO, "%{public}@Current network SSID updated from %@ to %@", &v19, 0x20u);
+      _os_log_impl(&dword_22ADEC000, v13, OS_LOG_TYPE_INFO, "%{public}@Current network SSID updated from %@ to %@", &v19, 0x20u);
     }
 
     objc_autoreleasePoolPop(v10);
     if (self)
     {
-      objc_setProperty_nonatomic_copy(selfCopy, v16, sSID, 40);
+      objc_setProperty_nonatomic_copy(selfCopy, v17, sSID, 40);
     }
 
-    v17 = +[HMFNotificationCenter defaultCenter];
-    [v17 postNotificationName:@"HMFWiFiManagerCurrentNetworkDidChangeNotification" object:selfCopy];
+    v18 = +[HMFNotificationCenter defaultCenter];
+    [v18 postNotificationName:@"HMFWiFiManagerCurrentNetworkDidChangeNotification" object:selfCopy];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 @end

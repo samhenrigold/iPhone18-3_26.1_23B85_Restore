@@ -3,7 +3,6 @@
 - (FACirclePresenter)initWithPresenter:(id)presenter context:(id)context;
 - (FACirclePresenterDelegate)delegate;
 - (id)_serverHookHandlerWithRemoteUIController:(id)controller;
-- (void)cancel;
 - (void)circleRemoteUIDelegate:(id)delegate completedWithResponse:(id)response;
 - (void)circleRemoteUIDelegateDidPresent:(id)present;
 - (void)loadRequest:(id)request completion:(id)completion;
@@ -68,13 +67,6 @@
   [(RemoteUIController *)self->_remoteUIController setHostViewController:self->_presenter];
 }
 
-- (void)cancel
-{
-  remoteUIController = self->_remoteUIController;
-  self->_remoteUIController = 0;
-  MEMORY[0x2821F96F8]();
-}
-
 - (id)_serverHookHandlerWithRemoteUIController:(id)controller
 {
   v3 = MEMORY[0x277CECAC0];
@@ -94,7 +86,7 @@
   v9 = completionCopy;
   if (completion)
   {
-    v10 = _FALogSystem();
+    v10 = _FALogSystem(completionCopy);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [FACirclePresenter loadRequest:v10 completion:?];
@@ -133,7 +125,7 @@
 {
   v14 = *MEMORY[0x277D85DE8];
   responseCopy = response;
-  v6 = _FALogSystem();
+  v6 = _FALogSystem(responseCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     loadSuccess = [responseCopy loadSuccess];
@@ -147,17 +139,15 @@
 
   if (self->_completion)
   {
-    v9 = _FALogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _FALogSystem(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v11[0]) = 0;
-      _os_log_impl(&dword_21BB35000, v9, OS_LOG_TYPE_DEFAULT, "FACirclePresenter - we have a completion, calling back", v11, 2u);
+      _os_log_impl(&dword_21BB35000, v10, OS_LOG_TYPE_DEFAULT, "FACirclePresenter - we have a completion, calling back", v11, 2u);
     }
 
     (*(self->_completion + 2))();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)circleRemoteUIDelegateDidPresent:(id)present

@@ -80,15 +80,15 @@
 
 - (ChipError)_encodeToTLVReader:(PacketBufferTLVReader *)reader
 {
-  v67 = *MEMORY[0x277D85DE8];
-  v54 = 0;
-  v56 = 0;
-  LOBYTE(v61) = 0;
-  v52 = 0uLL;
+  v66 = *MEMORY[0x277D85DE8];
+  v53 = 0;
+  v55 = 0;
+  LOBYTE(v60) = 0;
+  v51 = 0uLL;
   bOOLValue = 0;
-  v51[0] = 0;
-  v51[1] = 0;
-  v50 = v51;
+  v50[0] = 0;
+  v50[1] = 0;
+  v49 = v50;
   search = [(MTRContentLauncherClusterLaunchContentParams *)self search];
   parameterList = [search parameterList];
   v5 = [parameterList count] == 0;
@@ -98,7 +98,7 @@
     operator new();
   }
 
-  v52 = 0uLL;
+  v51 = 0uLL;
   autoPlay = [(MTRContentLauncherClusterLaunchContentParams *)self autoPlay];
   bOOLValue = [autoPlay BOOLValue];
 
@@ -107,13 +107,13 @@
 
   if (!v8)
   {
-    v54 = 1;
-    v55 = 0uLL;
+    v53 = 1;
+    v54 = 0uLL;
     data2 = [(MTRContentLauncherClusterLaunchContentParams *)self data];
     v10 = data2;
     sub_238DB9BD8(buf, [data2 UTF8String], objc_msgSend(data2, "lengthOfBytesUsingEncoding:", 4));
 
-    v55 = *buf;
+    v54 = *buf;
   }
 
   playbackPreferences = [(MTRContentLauncherClusterLaunchContentParams *)self playbackPreferences];
@@ -121,14 +121,14 @@
 
   if (!v12)
   {
-    v56 = 1;
-    memset(v57, 0, sizeof(v57));
+    v55 = 1;
+    memset(v56, 0, sizeof(v56));
+    v57 = 0u;
     v58 = 0u;
     v59 = 0u;
-    v60 = 0u;
     playbackPreferences2 = [(MTRContentLauncherClusterLaunchContentParams *)self playbackPreferences];
     playbackPosition = [playbackPreferences2 playbackPosition];
-    *&v57[0] = [playbackPosition unsignedLongLongValue];
+    *&v56[0] = [playbackPosition unsignedLongLongValue];
 
     playbackPreferences3 = [(MTRContentLauncherClusterLaunchContentParams *)self playbackPreferences];
     textTrack = [playbackPreferences3 textTrack];
@@ -136,7 +136,7 @@
     v18 = languageCode;
     sub_238DB9BD8(buf, [languageCode UTF8String], objc_msgSend(languageCode, "lengthOfBytesUsingEncoding:", 4));
 
-    *(v57 + 8) = *buf;
+    *(v56 + 8) = *buf;
     playbackPreferences4 = [(MTRContentLauncherClusterLaunchContentParams *)self playbackPreferences];
     textTrack2 = [playbackPreferences4 textTrack];
     characteristics = [textTrack2 characteristics];
@@ -144,8 +144,8 @@
 
     if (!v22)
     {
-      BYTE8(v57[1]) = 1;
-      v58 = 0uLL;
+      BYTE8(v56[1]) = 1;
+      v57 = 0uLL;
       playbackPreferences5 = [(MTRContentLauncherClusterLaunchContentParams *)self playbackPreferences];
       textTrack3 = [playbackPreferences5 textTrack];
       characteristics2 = [textTrack3 characteristics];
@@ -156,13 +156,13 @@
         operator new();
       }
 
-      v58 = 0uLL;
+      v57 = 0uLL;
     }
 
     playbackPreferences6 = [(MTRContentLauncherClusterLaunchContentParams *)self playbackPreferences];
     textTrack4 = [playbackPreferences6 textTrack];
     audioOutputIndex = [textTrack4 audioOutputIndex];
-    LOBYTE(v59) = [audioOutputIndex unsignedCharValue];
+    LOBYTE(v58) = [audioOutputIndex unsignedCharValue];
 
     playbackPreferences7 = [(MTRContentLauncherClusterLaunchContentParams *)self playbackPreferences];
     audioTracks = [playbackPreferences7 audioTracks];
@@ -170,8 +170,8 @@
 
     if (!v32)
     {
-      BYTE8(v59) = 1;
-      v60 = 0uLL;
+      BYTE8(v58) = 1;
+      v59 = 0uLL;
       playbackPreferences8 = [(MTRContentLauncherClusterLaunchContentParams *)self playbackPreferences];
       audioTracks2 = [playbackPreferences8 audioTracks];
       v35 = [audioTracks2 count] == 0;
@@ -181,7 +181,7 @@
         operator new();
       }
 
-      v60 = 0uLL;
+      v59 = 0uLL;
     }
   }
 
@@ -190,39 +190,39 @@
 
   if (!v37)
   {
-    v61 = 1;
+    v60 = 1;
     useCurrentContext2 = [(MTRContentLauncherClusterLaunchContentParams *)self useCurrentContext];
-    HIBYTE(v61) = [useCurrentContext2 BOOLValue];
+    HIBYTE(v60) = [useCurrentContext2 BOOLValue];
   }
 
-  sub_2393D9C18(0x62FuLL, 0, &v49);
-  if (v49)
+  sub_2393D9C18(0x62FuLL, 0, &v48);
+  if (v48)
   {
     sub_2393C7B90(buf);
+    v63 = 0;
     v64 = 0;
+    v62 = &unk_284BB83A8;
     v65 = 0;
-    v63 = &unk_284BB83A8;
-    v66 = 0;
-    sub_238EA16C4(&v63, &v49, 0);
-    sub_2393C7BF0(buf, &v63, 0xFFFFFFFF);
-    v40 = sub_238F0D1F4(&v52, buf, 0x100uLL);
+    sub_238EA16C4(&v62, &v48, 0);
+    sub_2393C7BF0(buf, &v62, 0xFFFFFFFF);
+    v40 = sub_238F0D1F4(&v51, buf, 0x100uLL);
     v41 = v40;
-    if (v40 || (v40 = sub_238DD2EFC(buf, &v49), v41 = v40, v40))
+    if (v40 || (v40 = sub_238DD2EFC(buf, &v48), v41 = v40, v40))
     {
       v42 = v39;
     }
 
     else
     {
-      sub_238DD2F90(reader, &v49);
+      sub_238DD2F90(reader, &v48);
       v40 = sub_2393C7114(reader, 21, 256);
-      v42 = v46;
+      v42 = v45;
       v41 = v40;
     }
 
-    v63 = &unk_284BB83A8;
-    sub_238EA1758(&v65);
+    v62 = &unk_284BB83A8;
     sub_238EA1758(&v64);
+    sub_238EA1758(&v63);
   }
 
   else
@@ -232,14 +232,13 @@
     v41 = 11;
   }
 
-  sub_238EA1758(&v49);
-  sub_238EA1790(&v50);
-  v43 = *MEMORY[0x277D85DE8];
-  v44 = v40 & 0xFFFFFFFF00000000 | v41;
-  v45 = v42;
-  result.mFile = v45;
-  result.mError = v44;
-  result.mLine = HIDWORD(v44);
+  sub_238EA1758(&v48);
+  sub_238EA1790(&v49);
+  v43 = v40 & 0xFFFFFFFF00000000 | v41;
+  v44 = v42;
+  result.mFile = v44;
+  result.mError = v43;
+  result.mLine = HIDWORD(v43);
   return result;
 }
 

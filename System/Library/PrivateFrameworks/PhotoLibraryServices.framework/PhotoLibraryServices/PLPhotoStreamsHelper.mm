@@ -345,36 +345,36 @@ void __95__PLPhotoStreamsHelper_deletePhotoStreamAssetsWithLibraryServiceManager
   }
 }
 
-uint64_t __95__PLPhotoStreamsHelper_deletePhotoStreamAssetsWithLibraryServiceManager_withReason_completion___block_invoke_37(uint64_t a1)
+uint64_t __95__PLPhotoStreamsHelper_deletePhotoStreamAssetsWithLibraryServiceManager_withReason_completion___block_invoke_37(uint64_t a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (*(a1 + 56) == 1)
   {
-    v2 = PLMyPhotoStreamGetLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    v3 = PLMyPhotoStreamGetLog();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v3 = *(a1 + 32);
+      v4 = *(a1 + 32);
       *buf = 138412290;
-      v13 = v3;
-      _os_log_impl(&dword_19BF1F000, v2, OS_LOG_TYPE_DEBUG, "removing Photo Stream data directory %@", buf, 0xCu);
+      v14 = v4;
+      _os_log_impl(&dword_19BF1F000, v3, OS_LOG_TYPE_DEBUG, "removing Photo Stream data directory %@", buf, 0xCu);
     }
 
-    v5 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v11 = 0;
-    v6 = [v4 removeItemAtPath:v5 error:&v11];
-    v7 = v11;
-    if ((v6 & 1) == 0 && [*(a1 + 40) fileExistsAtPath:*(a1 + 32)])
+    v6 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v12 = 0;
+    v7 = [v5 removeItemAtPath:v6 error:&v12];
+    v8 = v12;
+    if ((v7 & 1) == 0 && [*(a1 + 40) fileExistsAtPath:*(a1 + 32)])
     {
-      v8 = PLMyPhotoStreamGetLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = PLMyPhotoStreamGetLog();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v9 = *(a1 + 32);
+        v10 = *(a1 + 32);
         *buf = 138412546;
-        v13 = v9;
-        v14 = 2112;
-        v15 = v7;
-        _os_log_impl(&dword_19BF1F000, v8, OS_LOG_TYPE_ERROR, "Failed stream data directory %@ : %@", buf, 0x16u);
+        v14 = v10;
+        v15 = 2112;
+        v16 = v8;
+        _os_log_impl(&dword_19BF1F000, v9, OS_LOG_TYPE_ERROR, "Failed stream data directory %@ : %@", buf, 0x16u);
       }
     }
   }

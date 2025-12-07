@@ -1,7 +1,8 @@
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
@@ -11,10 +12,11 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 2u);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 2u);
 }
 
 uint64_t DESBfloat16TransportReadFrom(uint64_t a1, void *a2)
@@ -171,16 +173,16 @@ id DESGetDeviceClass()
   return v0;
 }
 
-id DESGetDeviceID()
+id DESGetDeviceID(uint64_t a1)
 {
   if (DESGetDeviceID_onceToken != -1)
   {
     DESGetDeviceID_cold_1();
   }
 
-  v1 = DESGetDeviceID_deviceID;
+  v2 = DESGetDeviceID_deviceID;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __DESGetDeviceID_block_invoke()
@@ -199,16 +201,14 @@ id DESGetDeviceType()
 
 id DESGetOSVersion()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 256;
-  v0 = sysctlbyname("kern.osversion", v5, &v4, 0, 0);
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 256;
+  v0 = sysctlbyname("kern.osversion", v4, &v3, 0, 0);
   v1 = 0;
   if (!v0)
   {
-    v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:v5];
+    v1 = [MEMORY[0x277CCACA8] stringWithUTF8String:v4];
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 
   return v1;
 }
@@ -266,23 +266,21 @@ void DESApplyAsynchronousEnumerator(void *a1, void *a2)
 
 id DESSubmissionLogFileURLs(void *a1)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   DESSubmissionLogGarbageCollect();
   v2 = [MEMORY[0x277CCAA00] defaultManager];
   v3 = DESSubmissionLogDirectoryURL();
-  v11[0] = *MEMORY[0x277CBF178];
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
-  v10 = 0;
-  v5 = [v2 contentsOfDirectoryAtURL:v3 includingPropertiesForKeys:v4 options:0 error:&v10];
-  v6 = v10;
+  v10[0] = *MEMORY[0x277CBF178];
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v9 = 0;
+  v5 = [v2 contentsOfDirectoryAtURL:v3 includingPropertiesForKeys:v4 options:0 error:&v9];
+  v6 = v9;
 
   if (a1 && v6)
   {
     v7 = v6;
     *a1 = v6;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -322,7 +320,7 @@ id DESTemporaryDownloadDirectoryURL()
   return v3;
 }
 
-uint64_t binaryGCD(unint64_t a1, unint64_t a2)
+unint64_t binaryGCD(unint64_t a1, unint64_t a2)
 {
   v2 = 1;
   if (a1 != a2)
@@ -434,16 +432,14 @@ id DESLogAndReturnSunsetError()
 
 void __DESLogAndReturnSunsetError_block_invoke()
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CCA9B8];
-  v5 = *MEMORY[0x277CCA450];
-  v6[0] = @"DodML is already sunset. Pls migrate.";
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
+  v4 = *MEMORY[0x277CCA450];
+  v5[0] = @"DodML is already sunset. Pls migrate.";
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
   v2 = [v0 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:1533 userInfo:v1];
   v3 = DESLogAndReturnSunsetError_sunSetError;
   DESLogAndReturnSunsetError_sunSetError = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void *DESLogAndSetSunsetError(void *result)
@@ -477,88 +473,88 @@ id RecordDirURLForRecordType(void *a1)
 
 void GarbageCollectOldRecords(void *a1)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = RecordDirPathForRecordType(v1);
   v3 = objc_alloc_init(MEMORY[0x277CCAA00]);
-  v39 = 0;
-  v4 = [v3 contentsOfDirectoryAtPath:v2 error:&v39];
-  v5 = v39;
+  v38 = 0;
+  v4 = [v3 contentsOfDirectoryAtPath:v2 error:&v38];
+  v5 = v38;
   v6 = v5;
   if (v4)
   {
-    v29 = v5;
+    v28 = v5;
     [v3 changeCurrentDirectoryPath:v2];
     v7 = [MEMORY[0x277CCAC30] predicateWithBlock:&__block_literal_global_3];
-    v30 = v4;
+    v29 = v4;
     v8 = [v4 filteredArrayUsingPredicate:v7];
 
     v9 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
     v10 = v8;
-    v11 = [v10 countByEnumeratingWithState:&v35 objects:v47 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v34 objects:v46 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v36;
+      v13 = *v35;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v36 != v13)
+          if (*v35 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = [*(*(&v35 + 1) + 8 * i) stringByDeletingPathExtension];
+          v15 = [*(*(&v34 + 1) + 8 * i) stringByDeletingPathExtension];
           [v9 addObject:v15];
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v35 objects:v47 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v34 objects:v46 count:16];
       }
 
       while (v12);
     }
 
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     v16 = v9;
-    v17 = [v16 countByEnumeratingWithState:&v31 objects:v46 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v30 objects:v45 count:16];
     if (v17)
     {
       v18 = v17;
-      v27 = v2;
-      v28 = v1;
+      v26 = v2;
+      v27 = v1;
       v19 = 0;
-      v20 = *v32;
+      v20 = *v31;
       do
       {
         for (j = 0; j != v18; ++j)
         {
-          if (*v32 != v20)
+          if (*v31 != v20)
           {
             objc_enumerationMutation(v16);
           }
 
-          v22 = *(*(&v31 + 1) + 8 * j);
+          v22 = *(*(&v30 + 1) + 8 * j);
           v23 = v19 + DeleteFileWithBasePath(v3, v22, @"json");
           v19 = (v23 + DeleteFileWithBasePath(v3, v22, @"desdata"));
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v31 objects:v46 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v30 objects:v45 count:16];
       }
 
       while (v18);
 
-      v1 = v28;
+      v1 = v27;
       if (v19)
       {
-        [DESCoreAnalyticsEventManager sendEventDeleteRecordForBundleID:v28 removedCount:v19];
+        [DESCoreAnalyticsEventManager sendEventDeleteRecordForBundleID:v27 removedCount:v19];
       }
     }
 
@@ -568,21 +564,21 @@ void GarbageCollectOldRecords(void *a1)
       v19 = 0;
     }
 
-    v6 = v29;
+    v6 = v28;
     v24 = +[DESLogging coreChannel];
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
     {
-      v26 = [v16 count];
+      v25 = [v16 count];
       *buf = 134218498;
-      v41 = v19;
-      v42 = 2048;
-      v43 = v26;
-      v44 = 2112;
-      v45 = v1;
+      v40 = v19;
+      v41 = 2048;
+      v42 = v25;
+      v43 = 2112;
+      v44 = v1;
       _os_log_debug_impl(&dword_248FF7000, v24, OS_LOG_TYPE_DEBUG, "Garbage collected %lu file(s) and %lu record(s) for %@", buf, 0x20u);
     }
 
-    v4 = v30;
+    v4 = v29;
 LABEL_25:
 
     goto LABEL_26;
@@ -594,7 +590,7 @@ LABEL_25:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v41 = v6;
+      v40 = v6;
       _os_log_impl(&dword_248FF7000, v10, OS_LOG_TYPE_DEFAULT, "Couldn't read old DES records: %@", buf, 0xCu);
     }
 
@@ -602,8 +598,6 @@ LABEL_25:
   }
 
 LABEL_26:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __GarbageCollectOldRecords_block_invoke(uint64_t a1, void *a2)
@@ -650,51 +644,51 @@ uint64_t DeleteFileWithBasePath(void *a1, void *a2, uint64_t a3)
 
 void GarbageCollectAllRecords()
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   v0 = DESRecordRootURL();
   v1 = [MEMORY[0x277CCAA00] defaultManager];
   v2 = *MEMORY[0x277CBE868];
-  v35[0] = *MEMORY[0x277CBE868];
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
-  v29 = 0;
-  v4 = [v1 contentsOfDirectoryAtURL:v0 includingPropertiesForKeys:v3 options:4 error:&v29];
-  v5 = v29;
+  v34[0] = *MEMORY[0x277CBE868];
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
+  v28 = 0;
+  v4 = [v1 contentsOfDirectoryAtURL:v0 includingPropertiesForKeys:v3 options:4 error:&v28];
+  v5 = v28;
 
   if (v4)
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v25 objects:v30 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
     if (!v7)
     {
       goto LABEL_19;
     }
 
     v8 = v7;
-    v20 = v4;
-    v21 = v1;
-    v22 = v0;
-    v9 = *v26;
+    v19 = v4;
+    v20 = v1;
+    v21 = v0;
+    v9 = *v25;
     while (1)
     {
       v10 = 0;
       do
       {
         v11 = v5;
-        if (*v26 != v9)
+        if (*v25 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v25 + 1) + 8 * v10);
+        v12 = *(*(&v24 + 1) + 8 * v10);
+        v22 = 0;
         v23 = 0;
-        v24 = 0;
-        [v12 getResourceValue:&v24 forKey:v2 error:&v23];
-        v13 = v24;
-        v5 = v23;
+        [v12 getResourceValue:&v23 forKey:v2 error:&v22];
+        v13 = v23;
+        v5 = v22;
 
         if (!v13)
         {
@@ -705,9 +699,9 @@ void GarbageCollectAllRecords()
           }
 
           *buf = 138412546;
-          v32 = v12;
-          v33 = 2112;
-          v34 = v5;
+          v31 = v12;
+          v32 = 2112;
+          v33 = v5;
           v15 = v14;
           v16 = "Fail to read isDirectory for %@ with error=%@";
           v17 = 22;
@@ -725,7 +719,7 @@ void GarbageCollectAllRecords()
         if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v32 = v12;
+          v31 = v12;
           v15 = v14;
           v16 = "Unexpected file in DES record root: %@";
           v17 = 12;
@@ -739,13 +733,13 @@ LABEL_13:
       }
 
       while (v8 != v10);
-      v18 = [v6 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v18 = [v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
       v8 = v18;
       if (!v18)
       {
-        v1 = v21;
-        v0 = v22;
-        v4 = v20;
+        v1 = v20;
+        v0 = v21;
+        v4 = v19;
         goto LABEL_19;
       }
     }
@@ -757,16 +751,21 @@ LABEL_13:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v32 = v0;
-      v33 = 2112;
-      v34 = v5;
+      v31 = v0;
+      v32 = 2112;
+      v33 = v5;
       _os_log_impl(&dword_248FF7000, v6, OS_LOG_TYPE_DEFAULT, "Couldn't find any directories in %@ with error=%@", buf, 0x16u);
     }
 
 LABEL_19:
   }
+}
 
-  v19 = *MEMORY[0x277D85DE8];
+void sub_249004040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
+{
+  va_start(va, a34);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
@@ -783,71 +782,73 @@ void OUTLINED_FUNCTION_3(void *a1, uint64_t a2, os_log_t log, const char *a4, ..
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void OUTLINED_FUNCTION_0_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_2_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void DESSubmissionLogGarbageCollect()
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   v0 = DESSubmissionLogDirectoryURL();
   v1 = [v0 path];
 
-  v66 = 0;
-  v51 = objc_alloc_init(MEMORY[0x277CCAA00]);
-  v2 = [v51 contentsOfDirectoryAtPath:v1 error:&v66];
-  v3 = v66;
+  v65 = 0;
+  v50 = objc_alloc_init(MEMORY[0x277CCAA00]);
+  v2 = [v50 contentsOfDirectoryAtPath:v1 error:&v65];
+  v3 = v65;
   if (v2)
   {
     v4 = [MEMORY[0x277CCAC30] predicateWithBlock:&__block_literal_global_5];
-    v43 = v2;
+    v42 = v2;
     v5 = [v2 filteredArrayUsingPredicate:v4];
 
-    v49 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v47 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v48 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v46 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v6 = [MEMORY[0x277CBEA80] currentCalendar];
     v7 = [MEMORY[0x277CBEAA8] date];
-    v45 = [v6 dateByAddingUnit:16 value:-28 toDate:v7 options:0];
+    v44 = [v6 dateByAddingUnit:16 value:-28 toDate:v7 options:0];
 
-    v64 = 0u;
-    v65 = 0u;
-    v62 = 0u;
     v63 = 0u;
+    v64 = 0u;
+    v61 = 0u;
+    v62 = 0u;
     obj = v5;
-    v8 = [obj countByEnumeratingWithState:&v62 objects:v76 count:16];
-    v46 = v1;
+    v8 = [obj countByEnumeratingWithState:&v61 objects:v75 count:16];
+    v45 = v1;
     if (v8)
     {
       v9 = v8;
-      v10 = *v63;
-      v50 = *MEMORY[0x277CCA108];
+      v10 = *v62;
+      v49 = *MEMORY[0x277CCA108];
       v11 = *MEMORY[0x277CCA1C0];
       do
       {
         for (i = 0; i != v9; ++i)
         {
           v13 = v3;
-          if (*v63 != v10)
+          if (*v62 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = [v1 stringByAppendingPathComponent:*(*(&v62 + 1) + 8 * i)];
-          v61 = v3;
-          v15 = [v51 attributesOfItemAtPath:v14 error:&v61];
-          v3 = v61;
+          v14 = [v1 stringByAppendingPathComponent:*(*(&v61 + 1) + 8 * i)];
+          v60 = v3;
+          v15 = [v50 attributesOfItemAtPath:v14 error:&v60];
+          v3 = v60;
 
           if (v15)
           {
-            v16 = [v15 objectForKey:v50];
+            v16 = [v15 objectForKey:v49];
             v17 = [v15 objectForKey:v11];
             v18 = v17;
             if (v16)
@@ -862,21 +863,21 @@ void DESSubmissionLogGarbageCollect()
 
             if (!v19)
             {
-              if ([v16 compare:v45]== -1)
+              if ([v16 compare:v44]== -1)
               {
-                [v49 addObject:v14];
+                [v48 addObject:v14];
               }
 
-              v74[0] = @"Size";
-              v74[1] = @"Date";
-              v75[0] = v18;
-              v75[1] = v16;
-              v74[2] = @"Path";
-              v75[2] = v14;
-              v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v75 forKeys:v74 count:3];
-              [v47 addObject:v20];
+              v73[0] = @"Size";
+              v73[1] = @"Date";
+              v74[0] = v18;
+              v74[1] = v16;
+              v73[2] = @"Path";
+              v74[2] = v14;
+              v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v74 forKeys:v73 count:3];
+              [v46 addObject:v20];
 
-              v1 = v46;
+              v1 = v45;
             }
           }
 
@@ -886,84 +887,84 @@ void DESSubmissionLogGarbageCollect()
             if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v68 = v3;
+              v67 = v3;
               _os_log_error_impl(&dword_248FF7000, v16, OS_LOG_TYPE_ERROR, "Failed to get file attributes: %@", buf, 0xCu);
             }
           }
         }
 
-        v9 = [obj countByEnumeratingWithState:&v62 objects:v76 count:16];
+        v9 = [obj countByEnumeratingWithState:&v61 objects:v75 count:16];
       }
 
       while (v9);
     }
 
-    v44 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"Date" ascending:0];
-    v73 = v44;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v73 count:1];
-    v22 = [v47 sortedArrayUsingDescriptors:v21];
+    v43 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"Date" ascending:0];
+    v72 = v43;
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v72 count:1];
+    v22 = [v46 sortedArrayUsingDescriptors:v21];
 
-    v59 = 0u;
-    v60 = 0u;
-    v57 = 0u;
     v58 = 0u;
+    v59 = 0u;
+    v56 = 0u;
+    v57 = 0u;
     v23 = v22;
-    v24 = [v23 countByEnumeratingWithState:&v57 objects:v72 count:16];
+    v24 = [v23 countByEnumeratingWithState:&v56 objects:v71 count:16];
     if (v24)
     {
       v25 = v24;
       v26 = 0;
-      v27 = *v58;
+      v27 = *v57;
       do
       {
         for (j = 0; j != v25; ++j)
         {
-          if (*v58 != v27)
+          if (*v57 != v27)
           {
             objc_enumerationMutation(v23);
           }
 
-          v29 = *(*(&v57 + 1) + 8 * j);
+          v29 = *(*(&v56 + 1) + 8 * j);
           v30 = [v29 objectForKey:@"Size"];
           v26 += [v30 unsignedLongLongValue];
 
           if (v26 > 0xA00000)
           {
             v31 = [v29 objectForKey:@"Path"];
-            [v49 addObject:v31];
+            [v48 addObject:v31];
           }
         }
 
-        v25 = [v23 countByEnumeratingWithState:&v57 objects:v72 count:16];
+        v25 = [v23 countByEnumeratingWithState:&v56 objects:v71 count:16];
       }
 
       while (v25);
     }
 
-    v55 = 0u;
-    v56 = 0u;
-    v53 = 0u;
     v54 = 0u;
-    v32 = v49;
-    v33 = [v32 countByEnumeratingWithState:&v53 objects:v71 count:16];
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v32 = v48;
+    v33 = [v32 countByEnumeratingWithState:&v52 objects:v70 count:16];
     if (v33)
     {
       v34 = v33;
-      v35 = *v54;
+      v35 = *v53;
       do
       {
         for (k = 0; k != v34; ++k)
         {
           v37 = v3;
-          if (*v54 != v35)
+          if (*v53 != v35)
           {
             objc_enumerationMutation(v32);
           }
 
-          v38 = *(*(&v53 + 1) + 8 * k);
-          v52 = v3;
-          v39 = [v51 removeItemAtPath:v38 error:&v52];
-          v3 = v52;
+          v38 = *(*(&v52 + 1) + 8 * k);
+          v51 = v3;
+          v39 = [v50 removeItemAtPath:v38 error:&v51];
+          v3 = v51;
 
           v40 = +[DESLogging coreChannel];
           v41 = v40;
@@ -972,7 +973,7 @@ void DESSubmissionLogGarbageCollect()
             if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v68 = v38;
+              v67 = v38;
               _os_log_debug_impl(&dword_248FF7000, v41, OS_LOG_TYPE_DEBUG, "Garbage collected DES submission log file %@", buf, 0xCu);
             }
           }
@@ -980,21 +981,21 @@ void DESSubmissionLogGarbageCollect()
           else if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v68 = v38;
-            v69 = 2112;
-            v70 = v3;
+            v67 = v38;
+            v68 = 2112;
+            v69 = v3;
             _os_log_error_impl(&dword_248FF7000, v41, OS_LOG_TYPE_ERROR, "Could not garbage collect old DES submission log file %@: %@", buf, 0x16u);
           }
         }
 
-        v34 = [v32 countByEnumeratingWithState:&v53 objects:v71 count:16];
+        v34 = [v32 countByEnumeratingWithState:&v52 objects:v70 count:16];
       }
 
       while (v34);
     }
 
-    v1 = v46;
-    v2 = v43;
+    v1 = v45;
+    v2 = v42;
   }
 
   else
@@ -1005,8 +1006,6 @@ void DESSubmissionLogGarbageCollect()
       DESSubmissionLogGarbageCollect_cold_1(v3, obj);
     }
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __DESSubmissionLogGarbageCollect_block_invoke(uint64_t a1, void *a2)
@@ -1130,10 +1129,11 @@ uint64_t __DESSubmissionLogsDateFormatter_block_invoke()
   return [v2 setDateFormat:@"YYYYMMdd'T'HHmmss"];
 }
 
-void OUTLINED_FUNCTION_0_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 uint64_t DESBinary32TransportReadFrom(uint64_t a1, void *a2)
@@ -1780,39 +1780,38 @@ LABEL_72:
 
 uint64_t calculateSigmaFromEpsilonAndDeltaForUnitL2Norm(long double a1, long double a2)
 {
-  v9[4] = *MEMORY[0x277D85DE8];
+  v8[4] = *MEMORY[0x277D85DE8];
   if (a2 != 0.0 && a1 != 0.0)
   {
     v4 = erfc(-0.0) * 0.5;
     v5 = exp(a1);
     if (v4 - v5 * (erfc(sqrt(a1 + a1) / 1.41421356) * 0.5) <= a2)
     {
-      v9[0] = &unk_285C0FB88;
-      *&v9[1] = a1;
-      *&v9[2] = a2;
-      v9[3] = v9;
-      bisect(v9);
-      result = std::__function::__value_func<double ()(double)>::~__value_func[abi:ne200100](v9);
-    }
-
-    else
-    {
-      v8[0] = &unk_285C0FC18;
+      v8[0] = &unk_285C0FB88;
       *&v8[1] = a1;
       *&v8[2] = a2;
       v8[3] = v8;
       bisect(v8);
-      result = std::__function::__value_func<double ()(double)>::~__value_func[abi:ne200100](v8);
+      return std::__function::__value_func<double ()(double)>::~__value_func[abi:ne200100](v8);
+    }
+
+    else
+    {
+      v7[0] = &unk_285C0FC18;
+      *&v7[1] = a1;
+      *&v7[2] = a2;
+      v7[3] = v7;
+      bisect(v7);
+      return std::__function::__value_func<double ()(double)>::~__value_func[abi:ne200100](v7);
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_2490108A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2490108A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<double ()(double)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2161,42 +2160,41 @@ id getFedStatsDataEncoderClass()
   return v1;
 }
 
-void sub_249012A8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_249012A8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t PrivateFederatedLearningLibraryCore()
+uint64_t PrivateFederatedLearningLibraryCore(uint64_t a1)
 {
-  v2 = *MEMORY[0x277D85DE8];
   if (!PrivateFederatedLearningLibraryCore_frameworkLibrary)
   {
     PrivateFederatedLearningLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  result = PrivateFederatedLearningLibraryCore_frameworkLibrary;
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
+  return PrivateFederatedLearningLibraryCore_frameworkLibrary;
 }
 
 uint64_t __PrivateFederatedLearningLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   PrivateFederatedLearningLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 Class __getFedStatsDataEncoderClass_block_invoke(uint64_t a1)
 {
   v3 = 0;
-  if (!PrivateFederatedLearningLibraryCore())
+  if (!PrivateFederatedLearningLibraryCore(&v3))
   {
     __getFedStatsDataEncoderClass_block_invoke_cold_2(&v3);
+  }
+
+  if (v3)
+  {
+    free(v3);
   }
 
   result = objc_getClass("FedStatsDataEncoder");
@@ -2210,16 +2208,79 @@ Class __getFedStatsDataEncoderClass_block_invoke(uint64_t a1)
   return result;
 }
 
+void sub_249012FA8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 buf, int a12, __int16 a13, __int16 a14, id a15, __int128 a16)
+{
+  if (a2)
+  {
+    v19 = objc_begin_catch(a1);
+    if (a2 == 2)
+    {
+      v20 = v19;
+      v21 = +[DESLogging coreChannel];
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      {
+        v29 = NSStringFromSelector(v17);
+        v23 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v24 = [v23 bundleIdentifier];
+        v25 = [v20 callStackSymbols];
+        LODWORD(buf) = 138413058;
+        *(&buf + 4) = v29;
+        WORD6(buf) = 2112;
+        *(&buf + 14) = v24;
+        a14 = 2112;
+        a15 = v20;
+        LOWORD(a16) = 2112;
+        *(&a16 + 2) = v25;
+        _os_log_error_impl(&dword_248FF7000, v21, OS_LOG_TYPE_ERROR, "Caught exception during %@ for plugin %@: %@, %@", &buf, 0x2Au);
+      }
+
+      if (v16)
+      {
+        *v16 = ErrorFromException(v20);
+      }
+
+      objc_end_catch();
+    }
+
+    else
+    {
+      v22 = +[DESLogging coreChannel];
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      {
+        v26 = NSStringFromSelector(v17);
+        v27 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v28 = [v27 bundleIdentifier];
+        LODWORD(buf) = 138412546;
+        *(&buf + 4) = v26;
+        WORD6(buf) = 2112;
+        *(&buf + 14) = v28;
+        _os_log_error_impl(&dword_248FF7000, v22, OS_LOG_TYPE_ERROR, "Caught non-ObjC exception during %@ for plugin %@", &buf, 0x16u);
+      }
+
+      if (v16)
+      {
+        *v16 = ErrorFromException(0);
+      }
+
+      objc_end_catch();
+    }
+
+    JUMPOUT(0x249012F48);
+  }
+
+  _Unwind_Resume(a1);
+}
+
 id ErrorFromException(void *a1)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v1 = MEMORY[0x277CCA9B8];
   if (a1)
   {
-    v7 = @"callStackSymbols";
+    v6 = @"callStackSymbols";
     v2 = [a1 callStackSymbols];
-    v8[0] = v2;
-    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    v7[0] = v2;
+    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
     v4 = [v1 errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:4000 userInfo:v3];
   }
 
@@ -2228,9 +2289,192 @@ id ErrorFromException(void *a1)
     v4 = [MEMORY[0x277CCA9B8] errorWithDomain:@"kDESDistributedEvaluationErrorDomain" code:4000 userInfo:0];
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-
   return v4;
+}
+
+void sub_2490133E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, int a10, __int16 a11, __int16 a12, uint64_t a13, __int128 a14)
+{
+  if (a2)
+  {
+    v17 = objc_begin_catch(exception_object);
+    if (a2 == 2)
+    {
+      v18 = v17;
+      v19 = +[DESLogging coreChannel];
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      {
+        v21 = NSStringFromSelector(v15);
+        v22 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v23 = [v22 bundleIdentifier];
+        v24 = [v18 callStackSymbols];
+        LODWORD(a9) = 138413058;
+        *(&a9 + 4) = v21;
+        WORD6(a9) = 2112;
+        *(&a9 + 14) = v23;
+        a12 = 2112;
+        a13 = v18;
+        LOWORD(a14) = 2112;
+        *(&a14 + 2) = v24;
+        _os_log_error_impl(&dword_248FF7000, v19, OS_LOG_TYPE_ERROR, "Caught exception during %@ for plugin %@: %@, %@", &a9, 0x2Au);
+      }
+
+      if (v14)
+      {
+        *v14 = ErrorFromException(v18);
+      }
+
+      objc_end_catch();
+    }
+
+    else
+    {
+      v20 = +[DESLogging coreChannel];
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      {
+        v25 = NSStringFromSelector(v15);
+        v26 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v27 = [v26 bundleIdentifier];
+        LODWORD(a9) = 138412546;
+        *(&a9 + 4) = v25;
+        WORD6(a9) = 2112;
+        *(&a9 + 14) = v27;
+        _os_log_error_impl(&dword_248FF7000, v20, OS_LOG_TYPE_ERROR, "Caught non-ObjC exception during %@ for plugin %@", &a9, 0x16u);
+      }
+
+      if (v14)
+      {
+        *v14 = ErrorFromException(0);
+      }
+
+      objc_end_catch();
+    }
+
+    JUMPOUT(0x24901338CLL);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_249013704(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, int a10, __int16 a11, __int16 a12, uint64_t a13, __int128 a14)
+{
+  if (a2)
+  {
+    v17 = objc_begin_catch(exception_object);
+    if (a2 == 2)
+    {
+      v18 = v17;
+      v19 = +[DESLogging coreChannel];
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      {
+        v21 = NSStringFromSelector(v15);
+        v22 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v23 = [v22 bundleIdentifier];
+        v24 = [v18 callStackSymbols];
+        LODWORD(a9) = 138413058;
+        *(&a9 + 4) = v21;
+        WORD6(a9) = 2112;
+        *(&a9 + 14) = v23;
+        a12 = 2112;
+        a13 = v18;
+        LOWORD(a14) = 2112;
+        *(&a14 + 2) = v24;
+        _os_log_error_impl(&dword_248FF7000, v19, OS_LOG_TYPE_ERROR, "Caught exception during %@ for plugin %@: %@, %@", &a9, 0x2Au);
+      }
+
+      if (v14)
+      {
+        *v14 = ErrorFromException(v18);
+      }
+
+      objc_end_catch();
+    }
+
+    else
+    {
+      v20 = +[DESLogging coreChannel];
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      {
+        v25 = NSStringFromSelector(v15);
+        v26 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v27 = [v26 bundleIdentifier];
+        LODWORD(a9) = 138412546;
+        *(&a9 + 4) = v25;
+        WORD6(a9) = 2112;
+        *(&a9 + 14) = v27;
+        _os_log_error_impl(&dword_248FF7000, v20, OS_LOG_TYPE_ERROR, "Caught non-ObjC exception during %@ for plugin %@", &a9, 0x16u);
+      }
+
+      if (v14)
+      {
+        *v14 = ErrorFromException(0);
+      }
+
+      objc_end_catch();
+    }
+
+    JUMPOUT(0x2490136ACLL);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_2490139DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, int a10, __int16 a11, __int16 a12, uint64_t a13, __int128 a14)
+{
+  if (a2)
+  {
+    v17 = objc_begin_catch(exception_object);
+    if (a2 == 2)
+    {
+      v18 = v17;
+      v19 = +[DESLogging coreChannel];
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      {
+        v23 = NSStringFromSelector(v15);
+        v24 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v25 = [v24 bundleIdentifier];
+        v26 = [v18 callStackSymbols];
+        LODWORD(a9) = 138413058;
+        *(&a9 + 4) = v23;
+        WORD6(a9) = 2112;
+        *(&a9 + 14) = v25;
+        a12 = 2112;
+        a13 = v18;
+        LOWORD(a14) = 2112;
+        *(&a14 + 2) = v26;
+        _os_log_error_impl(&dword_248FF7000, v19, OS_LOG_TYPE_ERROR, "Caught exception during %@ for plugin %@: %@, %@", &a9, 0x2Au);
+      }
+
+      v20 = ErrorFromException(v18);
+      [v14 completeWithError:v20 completionHandler:&__block_literal_global_7];
+
+      objc_end_catch();
+    }
+
+    else
+    {
+      v21 = +[DESLogging coreChannel];
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      {
+        v27 = NSStringFromSelector(v15);
+        v28 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v29 = [v28 bundleIdentifier];
+        LODWORD(a9) = 138412546;
+        *(&a9 + 4) = v27;
+        WORD6(a9) = 2112;
+        *(&a9 + 14) = v29;
+        _os_log_error_impl(&dword_248FF7000, v21, OS_LOG_TYPE_ERROR, "Caught non-ObjC exception during %@ for plugin %@", &a9, 0x16u);
+      }
+
+      v22 = ErrorFromException(0);
+      [v14 completeWithError:v22 completionHandler:&__block_literal_global_4_0];
+
+      objc_end_catch();
+    }
+
+    JUMPOUT(0x2490139A0);
+  }
+
+  _Unwind_Resume(exception_object);
 }
 
 uint64_t DESDataTransportReadFrom(id *a1, void *a2)
@@ -2355,69 +2599,62 @@ LABEL_30:
 
 void DESShouldAlwaysParticipate_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = @"ShouldAlwaysParticipate";
-  _os_log_debug_impl(&dword_248FF7000, log, OS_LOG_TYPE_DEBUG, "Detected override preference key: %@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = @"ShouldAlwaysParticipate";
+  _os_log_debug_impl(&dword_248FF7000, log, OS_LOG_TYPE_DEBUG, "Detected override preference key: %@", &v1, 0xCu);
 }
 
 void DESLogAndReturnSunsetError_cold_2(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138477827;
-  v3 = @"DodML is already sunset. Pls refer to #help-pfl for more details";
-  _os_log_error_impl(&dword_248FF7000, log, OS_LOG_TYPE_ERROR, "%{private}@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138477827;
+  v2 = @"DodML is already sunset. Pls refer to #help-pfl for more details";
+  _os_log_error_impl(&dword_248FF7000, log, OS_LOG_TYPE_ERROR, "%{private}@", &v1, 0xCu);
 }
 
 void DeleteFileWithBasePath_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_248FF7000, log, OS_LOG_TYPE_ERROR, "Could not garbage collect old DES record file %@: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_248FF7000, log, OS_LOG_TYPE_ERROR, "Could not garbage collect old DES record file %@: %@", &v3, 0x16u);
 }
 
 void DeleteFileWithBasePath_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_248FF7000, a2, OS_LOG_TYPE_DEBUG, "Garbage collected old DES record file %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_248FF7000, a2, OS_LOG_TYPE_DEBUG, "Garbage collected old DES record file %@", &v2, 0xCu);
 }
 
 void DESSubmissionLogGarbageCollect_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_248FF7000, a2, OS_LOG_TYPE_ERROR, "Couldn't read DES submission logs: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_248FF7000, a2, OS_LOG_TYPE_ERROR, "Couldn't read DES submission logs: %@", &v2, 0xCu);
 }
 
 void DESWriteSubmissionLogData_cold_2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_248FF7000, log, OS_LOG_TYPE_ERROR, "Failed to create submission logs directory: %@. Error: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_248FF7000, log, OS_LOG_TYPE_ERROR, "Failed to create submission logs directory: %@. Error: %@", &v3, 0x16u);
 }
 
 void DESWriteSubmissionLogData_cold_3(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_248FF7000, a2, OS_LOG_TYPE_ERROR, "Failed to write submission log data to file: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_248FF7000, a2, OS_LOG_TYPE_ERROR, "Failed to write submission log data to file: %@", &v2, 0xCu);
 }
 
 void __getFedStatsDataEncoderClass_block_invoke_cold_1()

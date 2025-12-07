@@ -1,17 +1,17 @@
-void ACFURTKitNVRMGenerator::create(void *a1@<X0>, int a2@<W1>, ACFURTKitNVRMGenerator **a3@<X8>)
+void ACFURTKitNVRMGenerator::create(ACFURTKitNVRMGenerator **a1@<X8>, void *a2@<X0>, int a3@<W1>)
 {
   v6 = operator new(0x10uLL);
   *v6 = 0;
   v6[2] = 0;
   *(v6 + 12) = 0;
-  *a3 = v6;
-  v7 = ACFURTKitNVRMGenerator::init(v6, a1, a2);
+  *a1 = v6;
+  v7 = ACFURTKitNVRMGenerator::init(v6, a2, a3);
   if ((v7 & 1) == 0)
   {
     LogInstance = ACFULogging::getLogInstance(v7);
-    ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to initialize nv object\n", v9, v10, v11, v12, v13, "ACFURTKitNVRMGenerator");
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to initialize nv object\n", "ACFURTKitNVRMGenerator", "create");
 
-    std::unique_ptr<ACFURTKitNVRMGenerator>::reset[abi:ne200100](a3, 0);
+    std::unique_ptr<ACFURTKitNVRMGenerator>::reset[abi:ne200100](a1, 0);
   }
 }
 
@@ -30,7 +30,7 @@ void ACFURTKitNVRMGenerator::ACFURTKitNVRMGenerator(ACFURTKitNVRMGenerator *this
 
 uint64_t ACFURTKitNVRMGenerator::init(uint64_t a1, void *a2, int a3)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v6 = operator new(0x30uLL);
   *v6 = 0u;
   *(v6 + 1) = 0u;
@@ -42,18 +42,17 @@ uint64_t ACFURTKitNVRMGenerator::init(uint64_t a1, void *a2, int a3)
     std::default_delete<ACFURTKitNVRMGenerator::RTKitNVRMObj>::operator()[abi:ne200100](a1, v7);
     if (!*a1)
     {
-      v33 = "%s::%s: failed: NVRM allocation failure\n";
-LABEL_32:
-      ACFURTKitNVRMGenerator::init(v33);
-      result = 0;
-      goto LABEL_29;
+      v26 = "%s::%s: failed: NVRM allocation failure\n";
+LABEL_31:
+      ACFURTKitNVRMGenerator::init(v26);
+      return 0;
     }
   }
 
   if (a2[2] > 0x13uLL)
   {
-    v33 = "%s::%s: failed: too many nv items\n";
-    goto LABEL_32;
+    v26 = "%s::%s: failed: too many nv items\n";
+    goto LABEL_31;
   }
 
   *(a1 + 8) = a3;
@@ -96,8 +95,8 @@ LABEL_32:
           v13 = v12;
         }
 
-        v27 = memcpy(&__dst, v11, v13);
-        HIDWORD(__dst) = ACFURTKitNVRMGenerator::getVariableTypeFlag(v27, v9[7]);
+        v21 = memcpy(&__dst, v11, v13);
+        HIDWORD(__dst) = ACFURTKitNVRMGenerator::getVariableTypeFlag(v21, v9[7]);
         DWORD2(__dst) = CFDataGetLength(theData);
         std::vector<ACFURTKitNVRMGenerator::RTKitNVRMVariable>::push_back[abi:ne200100](*a1 + 24, &__dst);
       }
@@ -107,77 +106,74 @@ LABEL_32:
         LogInstance = ACFULogging::getLogInstance(0);
         if (*(v9 + 55) < 0)
         {
-          v20 = *v11;
+          v11 = *v11;
         }
 
-        ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to encode NVRM variable '%s'\n", v15, v16, v17, v18, v19, "ACFURTKitNVRMGenerator");
-        v22 = ACFULogging::getLogInstance(v21);
-        std::string::basic_string[abi:ne200100]<0>(&v34, "ACFURTKitNVRMGenerator");
-        v23 = std::string::append(&v34, "::");
-        v24 = *&v23->__r_.__value_.__l.__data_;
-        v35.__r_.__value_.__r.__words[2] = v23->__r_.__value_.__r.__words[2];
-        *&v35.__r_.__value_.__l.__data_ = v24;
-        v23->__r_.__value_.__l.__size_ = 0;
-        v23->__r_.__value_.__r.__words[2] = 0;
-        v23->__r_.__value_.__r.__words[0] = 0;
-        v25 = std::string::append(&v35, "init");
-        v26 = *&v25->__r_.__value_.__l.__data_;
-        v37 = v25->__r_.__value_.__r.__words[2];
-        *__p = v26;
-        v25->__r_.__value_.__l.__size_ = 0;
-        v25->__r_.__value_.__r.__words[2] = 0;
-        v25->__r_.__value_.__r.__words[0] = 0;
-        ACFULogging::handleMessageCFType(v22, __p, 2, "NVRAM variable data:", v9[7]);
-        if (SHIBYTE(v37) < 0)
+        ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to encode NVRM variable '%s'\n", "ACFURTKitNVRMGenerator", "init", v11);
+        v16 = ACFULogging::getLogInstance(v15);
+        std::string::basic_string[abi:ne200100]<0>(&v27, "ACFURTKitNVRMGenerator");
+        v17 = std::string::append(&v27, "::");
+        v18 = *&v17->__r_.__value_.__l.__data_;
+        v28.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
+        *&v28.__r_.__value_.__l.__data_ = v18;
+        v17->__r_.__value_.__l.__size_ = 0;
+        v17->__r_.__value_.__r.__words[2] = 0;
+        v17->__r_.__value_.__r.__words[0] = 0;
+        v19 = std::string::append(&v28, "init");
+        v20 = *&v19->__r_.__value_.__l.__data_;
+        v30 = v19->__r_.__value_.__r.__words[2];
+        *__p = v20;
+        v19->__r_.__value_.__l.__size_ = 0;
+        v19->__r_.__value_.__r.__words[2] = 0;
+        v19->__r_.__value_.__r.__words[0] = 0;
+        ACFULogging::handleMessageCFType(v16, __p, 2, "NVRAM variable data:", v9[7]);
+        if (SHIBYTE(v30) < 0)
         {
           operator delete(__p[0]);
         }
 
-        if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v35.__r_.__value_.__l.__data_);
+          operator delete(v28.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v34.__r_.__value_.__l.__data_);
+          operator delete(v27.__r_.__value_.__l.__data_);
         }
       }
 
-      v28 = v9[1];
-      if (v28)
+      v22 = v9[1];
+      if (v22)
       {
         do
         {
-          v29 = v28;
-          v28 = *v28;
+          v23 = v22;
+          v22 = *v22;
         }
 
-        while (v28);
+        while (v22);
       }
 
       else
       {
         do
         {
-          v29 = v9[2];
-          v30 = *v29 == v9;
-          v9 = v29;
+          v23 = v9[2];
+          v24 = *v23 == v9;
+          v9 = v23;
         }
 
-        while (!v30);
+        while (!v24);
       }
 
-      v9 = v29;
+      v9 = v23;
     }
 
-    while (v29 != v8);
+    while (v23 != v8);
   }
 
-  result = 1;
-LABEL_29:
-  v32 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 void sub_2402B0FB4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30)
@@ -209,16 +205,16 @@ void std::unique_ptr<ACFURTKitNVRMGenerator>::reset[abi:ne200100](ACFURTKitNVRMG
 
 void ACFURTKitNVRMGenerator::create(ACFURTKitNVRMGenerator *this@<X0>, ACFURTKitNVRMGenerator **a2@<X8>)
 {
-  v5 = operator new(0x10uLL);
-  *v5 = 0;
-  v5[2] = 0;
-  *(v5 + 12) = 0;
-  *a2 = v5;
-  v6 = ACFURTKitNVRMGenerator::init(v5, this);
-  if ((v6 & 1) == 0)
+  v4 = operator new(0x10uLL);
+  *v4 = 0;
+  v4[2] = 0;
+  *(v4 + 12) = 0;
+  *a2 = v4;
+  v5 = ACFURTKitNVRMGenerator::init(v4, this);
+  if ((v5 & 1) == 0)
   {
-    LogInstance = ACFULogging::getLogInstance(v6);
-    ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to initialize nv object\n", v8, v9, v10, v11, v12, "ACFURTKitNVRMGenerator");
+    LogInstance = ACFULogging::getLogInstance(v5);
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to initialize nv object\n", "ACFURTKitNVRMGenerator", "create");
 
     std::unique_ptr<ACFURTKitNVRMGenerator>::reset[abi:ne200100](a2, 0);
   }
@@ -226,7 +222,7 @@ void ACFURTKitNVRMGenerator::create(ACFURTKitNVRMGenerator *this@<X0>, ACFURTKit
 
 uint64_t ACFURTKitNVRMGenerator::init(ACFURTKitNVRMGenerator *this, const __CFData *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = operator new(0x30uLL);
   *v4 = 0u;
   *(v4 + 1) = 0u;
@@ -239,16 +235,14 @@ uint64_t ACFURTKitNVRMGenerator::init(ACFURTKitNVRMGenerator *this, const __CFDa
     if (!*this)
     {
       ACFURTKitNVRMGenerator::init(v4);
-LABEL_15:
-      result = 0;
-      goto LABEL_13;
+      return 0;
     }
   }
 
   if (!a2)
   {
     ACFURTKitNVRMGenerator::init(v4);
-    goto LABEL_15;
+    return 0;
   }
 
   Length = CFDataGetLength(a2);
@@ -256,7 +250,7 @@ LABEL_15:
   if (!Length)
   {
     ACFURTKitNVRMGenerator::init(Length);
-    goto LABEL_15;
+    return 0;
   }
 
   *(this + 12) = 0;
@@ -266,19 +260,19 @@ LABEL_15:
   if (v8 < v9)
   {
     ACFURTKitNVRMGenerator::init(BytePtr);
-    goto LABEL_15;
+    return 0;
   }
 
   if (BytePtr[3] != v8)
   {
     ACFURTKitNVRMGenerator::init(BytePtr);
-    goto LABEL_15;
+    return 0;
   }
 
   if (BytePtr[5] >= 2)
   {
     ACFURTKitNVRMGenerator::init(BytePtr);
-    goto LABEL_15;
+    return 0;
   }
 
   v10 = (BytePtr + v9);
@@ -288,32 +282,28 @@ LABEL_15:
     v12 = *MEMORY[0x277CBECE8];
     while (1)
     {
-      v15 = 0uLL;
-      v16 = 0;
-      v15 = *v11;
-      v16 = CFDataCreate(v12, v11 + 16, v11[2]);
-      if (!v16)
+      v14 = 0uLL;
+      v15 = 0;
+      v14 = *v11;
+      v15 = CFDataCreate(v12, v11 + 16, v11[2]);
+      if (!v15)
       {
         break;
       }
 
-      std::vector<ACFURTKitNVRMGenerator::RTKitNVRMVariable>::push_back[abi:ne200100](*this + 24, &v15);
+      std::vector<ACFURTKitNVRMGenerator::RTKitNVRMVariable>::push_back[abi:ne200100](*this + 24, &v14);
       v11 = (v11 + v11[2] + 16);
       if (v11 >= v10)
       {
-        goto LABEL_12;
+        return 1;
       }
     }
 
-    ACFURTKitNVRMGenerator::init(&v15);
-    goto LABEL_15;
+    ACFURTKitNVRMGenerator::init(&v14);
+    return 0;
   }
 
-LABEL_12:
-  result = 1;
-LABEL_13:
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 const __CFData *ACFURTKitNVRMGenerator::copy(const UInt8 **this)
@@ -364,7 +354,7 @@ const __CFData *ACFURTKitNVRMGenerator::copy(const UInt8 **this)
           }
 
           LogInstance = ACFULogging::getLogInstance(v14);
-          ACFULogging::handleMessage(LogInstance, 4u, "%s::%s: checksum: 0x%x\n", v21, v22, v23, v24, v25, "ACFURTKitNVRMGenerator");
+          ACFULogging::handleMessage(LogInstance, 4, "%s::%s: checksum: 0x%x\n", "ACFURTKitNVRMGenerator", "copy", v6);
           v4 = *this;
           v8 = *(*this + 3);
         }
@@ -377,67 +367,67 @@ const __CFData *ACFURTKitNVRMGenerator::copy(const UInt8 **this)
 
     *v4 = 1316386387;
     *(v4 + 1) = v6;
-    v26 = CFDataGetLength(v3);
-    v27 = *this;
-    *(*this + 2) = v26;
-    v28 = *(this + 2);
-    if (*(this + 12) == 1 && v28 < v26)
+    v21 = CFDataGetLength(v3);
+    v22 = *this;
+    *(*this + 2) = v21;
+    v23 = *(this + 2);
+    if (*(this + 12) == 1 && v23 < v21)
     {
       ACFURTKitNVRMGenerator::copy((this + 1), this);
     }
 
     else
     {
-      if (v28 <= v26)
+      if (v23 <= v21)
       {
-        v29 = v26;
+        v24 = v21;
       }
 
       else
       {
-        v29 = *(this + 2);
+        v24 = *(this + 2);
       }
 
-      *(v27 + 3) = v29;
-      *(v27 + 2) = 0x100000001;
-      v45.location = 0;
-      v45.length = 24;
-      CFDataReplaceBytes(v3, v45, v27, 24);
-      v30 = *(*this + 3);
-      v31 = CFDataGetLength(v3);
-      CFDataIncreaseLength(v3, v30 - v31);
-      v33 = ACFULogging::getLogInstance(v32);
-      std::string::basic_string[abi:ne200100]<0>(&v41, "ACFURTKitNVRMGenerator");
-      v34 = std::string::append(&v41, "::");
-      v35 = *&v34->__r_.__value_.__l.__data_;
-      v42.__r_.__value_.__r.__words[2] = v34->__r_.__value_.__r.__words[2];
-      *&v42.__r_.__value_.__l.__data_ = v35;
-      v34->__r_.__value_.__l.__size_ = 0;
-      v34->__r_.__value_.__r.__words[2] = 0;
-      v34->__r_.__value_.__r.__words[0] = 0;
-      v36 = std::string::append(&v42, "copy");
-      v37 = *&v36->__r_.__value_.__l.__data_;
-      v44 = v36->__r_.__value_.__r.__words[2];
-      *__p = v37;
-      v36->__r_.__value_.__l.__size_ = 0;
-      v36->__r_.__value_.__r.__words[2] = 0;
-      v36->__r_.__value_.__r.__words[0] = 0;
-      v38 = CFDataGetBytePtr(v3);
-      v39 = CFDataGetLength(v3);
-      ACFULogging::handleMessageBinary(v33, __p, 4, v38, v39, 0);
-      if (SHIBYTE(v44) < 0)
+      *(v22 + 3) = v24;
+      *(v22 + 2) = 0x100000001;
+      v40.location = 0;
+      v40.length = 24;
+      CFDataReplaceBytes(v3, v40, v22, 24);
+      v25 = *(*this + 3);
+      v26 = CFDataGetLength(v3);
+      CFDataIncreaseLength(v3, v25 - v26);
+      v28 = ACFULogging::getLogInstance(v27);
+      std::string::basic_string[abi:ne200100]<0>(&v36, "ACFURTKitNVRMGenerator");
+      v29 = std::string::append(&v36, "::");
+      v30 = *&v29->__r_.__value_.__l.__data_;
+      v37.__r_.__value_.__r.__words[2] = v29->__r_.__value_.__r.__words[2];
+      *&v37.__r_.__value_.__l.__data_ = v30;
+      v29->__r_.__value_.__l.__size_ = 0;
+      v29->__r_.__value_.__r.__words[2] = 0;
+      v29->__r_.__value_.__r.__words[0] = 0;
+      v31 = std::string::append(&v37, "copy");
+      v32 = *&v31->__r_.__value_.__l.__data_;
+      v39 = v31->__r_.__value_.__r.__words[2];
+      *__p = v32;
+      v31->__r_.__value_.__l.__size_ = 0;
+      v31->__r_.__value_.__r.__words[2] = 0;
+      v31->__r_.__value_.__r.__words[0] = 0;
+      v33 = CFDataGetBytePtr(v3);
+      v34 = CFDataGetLength(v3);
+      ACFULogging::handleMessageBinary(v28, __p, 4, v33, v34, 0);
+      if (SHIBYTE(v39) < 0)
       {
         operator delete(__p[0]);
       }
 
-      if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v42.__r_.__value_.__l.__data_);
+        operator delete(v37.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v41.__r_.__value_.__l.__data_);
+        operator delete(v36.__r_.__value_.__l.__data_);
       }
     }
   }
@@ -551,7 +541,7 @@ void ACFURTKitNVRMGenerator::copyDirectData(const UInt8 **this@<X0>, ACFUDataCon
     else
     {
       LogInstance = ACFULogging::getLogInstance(0);
-      ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to allocate direct data\n", v11, v12, v13, v14, v15, "ACFURTKitNVRMGenerator");
+      ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to allocate direct data\n", "ACFURTKitNVRMGenerator", "copyDirectData");
     }
 
     CFRelease(v4);
@@ -569,7 +559,7 @@ uint64_t ACFURTKitNVRMGenerator::add(ACFURTKitNVRMGenerator *a1, char *a2, const
 {
   v5 = a2;
   v6 = a1;
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v8 = *(*a1 + 24);
   v7 = *(*a1 + 32);
   if (v7 == v8)
@@ -579,7 +569,7 @@ LABEL_9:
     if (DataFromType)
     {
       v15 = DataFromType;
-      *&v31 = 0;
+      *&v30 = 0;
       v16 = v5[23];
       if ((v16 & 0x80000000) != 0)
       {
@@ -607,19 +597,18 @@ LABEL_9:
         v17 = v16;
       }
 
-      v25 = memcpy(&v31, v5, v17);
-      HIDWORD(v31) = ACFURTKitNVRMGenerator::getVariableTypeFlag(v25, cf);
-      DWORD2(v31) = CFDataGetLength(v15);
-      v32 = v15;
+      v25 = memcpy(&v30, v5, v17);
+      HIDWORD(v30) = ACFURTKitNVRMGenerator::getVariableTypeFlag(v25, cf);
+      DWORD2(v30) = CFDataGetLength(v15);
+      v31 = v15;
       AMSupportSafeRetain();
-      std::vector<ACFURTKitNVRMGenerator::RTKitNVRMVariable>::push_back[abi:ne200100](*v6 + 24, &v31);
+      std::vector<ACFURTKitNVRMGenerator::RTKitNVRMVariable>::push_back[abi:ne200100](*v6 + 24, &v30);
       goto LABEL_30;
     }
 
 LABEL_33:
     ACFURTKitNVRMGenerator::add(DataFromType);
-    v28 = 0;
-    goto LABEL_32;
+    return 0;
   }
 
   v10 = 0;
@@ -714,8 +703,6 @@ LABEL_30:
   v28 = 1;
 LABEL_31:
   CFRelease(v15);
-LABEL_32:
-  v29 = *MEMORY[0x277D85DE8];
   return v28;
 }
 
@@ -754,7 +741,7 @@ CFDataRef ACFURTKitNVRMGenerator::createDataFromType(ACFURTKitNVRMGenerator *thi
       }
 
       LogInstance = ACFULogging::getLogInstance(TypeID);
-      ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: data type is not recognized\n", v10, v11, v12, v13, v14, "ACFURTKitNVRMGenerator");
+      ACFULogging::handleMessage(LogInstance, 2, "%s::%s: data type is not recognized\n", "ACFURTKitNVRMGenerator", "createDataFromType");
     }
 
     return 0;
@@ -790,7 +777,7 @@ uint64_t ACFURTKitNVRMGenerator::getVariableTypeFlag(ACFURTKitNVRMGenerator *thi
   }
 
   LogInstance = ACFULogging::getLogInstance(TypeID);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to determine variable type\n", v6, v7, v8, v9, v10, "ACFURTKitNVRMGenerator");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to determine variable type\n", "ACFURTKitNVRMGenerator", "getVariableTypeFlag");
   return 0;
 }
 
@@ -863,7 +850,7 @@ void std::vector<ACFURTKitNVRMGenerator::RTKitNVRMVariable>::push_back[abi:ne200
   *(a1 + 8) = v7;
 }
 
-void ACFURTKitNVRMGenerator::remove(ACFULogging *a1, const char *a2)
+void ACFURTKitNVRMGenerator::remove(ACFULogging *a1, uint64_t a2)
 {
   v3 = *a1;
   v4 = *(*a1 + 24);
@@ -873,17 +860,12 @@ void ACFURTKitNVRMGenerator::remove(ACFULogging *a1, const char *a2)
   {
 LABEL_10:
     LogInstance = ACFULogging::getLogInstance(a1);
-    if (a2[23] < 0)
-    {
-      v17 = *a2;
-    }
-
-    ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: key '%s' not found\n", v12, v13, v14, v15, v16, "ACFURTKitNVRMGenerator");
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: key '%s' not found\n");
   }
 
   else
   {
-    v7 = a2[23];
+    v7 = *(a2 + 23);
     if (0xAAAAAAAAAAAAAAABLL * (v6 >> 3) <= 1)
     {
       v8 = 1;
@@ -923,13 +905,8 @@ LABEL_10:
     }
 
     *(v3 + 32) = &v4[v9];
-    v18 = ACFULogging::getLogInstance(a1);
-    if (a2[23] < 0)
-    {
-      v24 = *a2;
-    }
-
-    ACFULogging::handleMessage(v18, 0, "%s::%s: key '%s' removed\n", v19, v20, v21, v22, v23, "ACFURTKitNVRMGenerator");
+    v12 = ACFULogging::getLogInstance(a1);
+    ACFULogging::handleMessage(v12, 0, "%s::%s: key '%s' removed\n");
   }
 }
 
@@ -1062,7 +1039,7 @@ void ACFURTKitNVRMGenerator::~ACFURTKitNVRMGenerator(ACFURTKitNVRMGenerator *thi
 
 void ACFURTKitNVRMGenerator::log(ACFURTKitNVRMGenerator *this)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v1 = *this;
   v2 = *(*this + 24);
   if (*(*this + 32) != v2)
@@ -1074,11 +1051,23 @@ void ACFURTKitNVRMGenerator::log(ACFURTKitNVRMGenerator *this)
       v6 = (v2 + v4);
       if (v6[2])
       {
-        v16 = *v6;
+        v12 = 0;
+        v11 = 0;
+        v11 = *v6;
         LogInstance = ACFULogging::getLogInstance(this);
         ACFUCommon::hexStringFromCFData(*(*(*this + 24) + v4 + 16), 0, 0, 1);
-        ACFULogging::handleMessage(LogInstance, 0, "%s::%s: %s: 0x%s\n", v8, v9, v10, v11, v12, "ACFURTKitNVRMGenerator");
-        if (v15 < 0)
+        if (v10 >= 0)
+        {
+          p_p = &__p;
+        }
+
+        else
+        {
+          p_p = __p;
+        }
+
+        ACFULogging::handleMessage(LogInstance, 0, "%s::%s: %s: 0x%s\n", "ACFURTKitNVRMGenerator", "log", &v11, p_p);
+        if (v10 < 0)
         {
           operator delete(__p);
         }
@@ -1093,8 +1082,6 @@ void ACFURTKitNVRMGenerator::log(ACFURTKitNVRMGenerator *this)
 
     while (0xAAAAAAAAAAAAAAABLL * ((*(v1 + 32) - v2) >> 3) > v5);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2402B2160(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
@@ -1174,10 +1161,10 @@ void ACFUDiagnostics::create(const __CFString *this@<X0>, const __CFString *a2@<
   *(v6 + 32) = 1;
   *a3 = v6;
   v7 = ACFUDiagnostics::init(v6, this, v3);
-  if (!v7)
+  if ((v7 & 1) == 0)
   {
     LogInstance = ACFULogging::getLogInstance(v7);
-    ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to initialize diagnostics object\n", v9, v10, v11, v12, v13, "ACFUDiagnostics");
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to initialize diagnostics object\n", "ACFUDiagnostics", "create");
 
     std::unique_ptr<ACFUDiagnostics>::reset[abi:ne200100](a3, 0);
   }
@@ -1196,25 +1183,24 @@ void ACFUDiagnostics::ACFUDiagnostics(ACFUDiagnostics *this)
   *(this + 32) = 1;
 }
 
-BOOL ACFUDiagnostics::init(ACFUDiagnostics *this, const __CFString *a2, int a3)
+uint64_t ACFUDiagnostics::init(ACFUDiagnostics *this, const __CFString *a2, int a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   *(this + 32) = a3;
   if (!a2)
   {
-    v9 = 1;
-    goto LABEL_11;
+    return 1;
   }
 
   if (a3)
   {
     __t.__d_.__rep_ = std::chrono::system_clock::now().__d_.__rep_;
-    v15 = std::chrono::system_clock::to_time_t(&__t);
+    v14 = std::chrono::system_clock::to_time_t(&__t);
     v5 = __t.__d_.__rep_ / 1000 % 1000;
-    v6 = localtime(&v15);
-    strftime(v17, 0x3CuLL, "%Y-%m-%d-%H-%M-%S", v6);
+    v6 = localtime(&v14);
+    strftime(v16, 0x3CuLL, "%Y-%m-%d-%H-%M-%S", v6);
     v7 = *MEMORY[0x277CBECE8];
-    v8 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@/Diagnostics-%s-%u/", a2, v17, v5);
+    v8 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@/Diagnostics-%s-%u/", a2, v16, v5);
   }
 
   else
@@ -1227,16 +1213,14 @@ BOOL ACFUDiagnostics::init(ACFUDiagnostics *this, const __CFString *a2, int a3)
   if (!v8)
   {
     ACFUDiagnostics::init(0);
-LABEL_14:
-    v9 = 0;
-    goto LABEL_11;
+    return 0;
   }
 
   v10 = CFURLCreateWithString(v7, v8, 0);
   if (!v10)
   {
     ACFUDiagnostics::init(0);
-    goto LABEL_14;
+    return 0;
   }
 
   v11 = v10;
@@ -1248,8 +1232,6 @@ LABEL_14:
   }
 
   CFRelease(v11);
-LABEL_11:
-  v13 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -1285,8 +1267,7 @@ void ACFUDiagnostics::perform(ACFUDiagnostics *this)
         {
 LABEL_11:
           LogInstance = ACFULogging::getLogInstance(this);
-          v27 = *(v1 + 16);
-          ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: unrecognized action %hhu\n", v8, v9, v10, v11, v12, "ACFUDiagnostics");
+          ACFULogging::handleMessage(LogInstance, 2, "%s::%s: unrecognized action %hhu\n", "ACFUDiagnostics", "perform", *(v1 + 16));
           goto LABEL_15;
         }
 
@@ -1295,7 +1276,7 @@ LABEL_11:
         v4 = ACFUDiagnostics::dumpToIOBuffer(v5, *v1, *(v1 + 8));
         if (v6)
         {
-          goto LABEL_16;
+          goto LABEL_19;
         }
       }
 
@@ -1306,7 +1287,7 @@ LABEL_11:
           this = ACFUDiagnostics::saveLogFile(v2, *v1, *(v1 + 8));
           if (this)
           {
-            goto LABEL_16;
+            goto LABEL_19;
           }
 
 LABEL_13:
@@ -1325,19 +1306,65 @@ LABEL_13:
 LABEL_14:
       if (v4)
       {
-LABEL_16:
-        ACFUCommon::stringFromCFString(*v1, &__p);
-        v16 = ACFULogging::getLogInstance(v15);
-        ACFULogging::handleMessage(v16, 3u, "%s::%s: item %s logged successfully\n", v22, v23, v24, v25, v26, "ACFUDiagnostics");
-        goto LABEL_17;
+LABEL_19:
+        ACFUCommon::stringFromCFString(&__p, *v1);
+        v12 = ACFULogging::getLogInstance(v11);
+        if (v16 < 0)
+        {
+          if (v15)
+          {
+            p_p = __p;
+          }
+
+          else
+          {
+            p_p = "UNDEF";
+          }
+        }
+
+        else if (v16)
+        {
+          p_p = &__p;
+        }
+
+        else
+        {
+          p_p = "UNDEF";
+        }
+
+        ACFULogging::handleMessage(v12, 3, "%s::%s: item %s logged successfully\n", "ACFUDiagnostics", "perform", p_p);
+        goto LABEL_31;
       }
 
 LABEL_15:
-      ACFUCommon::stringFromCFString(*v1, &__p);
-      v14 = ACFULogging::getLogInstance(v13);
-      ACFULogging::handleMessage(v14, 2u, "%s::%s: item %s failed to log\n", v17, v18, v19, v20, v21, "ACFUDiagnostics");
-LABEL_17:
-      if (v29 < 0)
+      ACFUCommon::stringFromCFString(&__p, *v1);
+      v9 = ACFULogging::getLogInstance(v8);
+      if (v16 < 0)
+      {
+        if (v15)
+        {
+          v10 = __p;
+        }
+
+        else
+        {
+          v10 = "UNDEF";
+        }
+      }
+
+      else if (v16)
+      {
+        v10 = &__p;
+      }
+
+      else
+      {
+        v10 = "UNDEF";
+      }
+
+      ACFULogging::handleMessage(v9, 2, "%s::%s: item %s failed to log\n", "ACFUDiagnostics", "perform", v10);
+LABEL_31:
+      if (v16 < 0)
       {
         operator delete(__p);
       }
@@ -1389,38 +1416,37 @@ uint64_t ACFUDiagnostics::saveLogFile(ACFUDiagnostics *this, const __CFString *a
     if (CFDataGetLength(v4) < 1)
     {
       ACFUDiagnostics::saveLogFile(v6);
-      v16 = 0;
+      v15 = 0;
       goto LABEL_25;
     }
 
-    v8 = *MEMORY[0x277CBECE8];
     goto LABEL_21;
   }
 
   length[0] = 0;
   length[1] = 0;
-  v29 = 0;
-  v9 = *MEMORY[0x277CBECE8];
-  v10 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@\n", v4);
-  v11 = v10;
-  if (!v10 || (v10 = CFStringGetLength(v10), v10 <= 0))
+  v24 = 0;
+  v8 = *MEMORY[0x277CBECE8];
+  v9 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@\n", v4);
+  v10 = v9;
+  if (!v9 || (v9 = CFStringGetLength(v9), v9 <= 0))
   {
-    LogInstance = ACFULogging::getLogInstance(v10);
-    v25 = "%s::%s: failed to format object into string\n";
+    LogInstance = ACFULogging::getLogInstance(v9);
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to format object into string\n");
     goto LABEL_35;
   }
 
-  ACFUCommon::stringFromCFString(v11, &v26);
-  *length = v26;
-  v29 = v27;
-  CFRelease(v11);
-  v13 = SHIBYTE(v29);
-  if ((SHIBYTE(v29) & 0x8000000000000000) != 0)
+  ACFUCommon::stringFromCFString(&v21, v10);
+  *length = v21;
+  v24 = v22;
+  CFRelease(v10);
+  v12 = SHIBYTE(v24);
+  if ((SHIBYTE(v24) & 0x8000000000000000) != 0)
   {
-    v14 = length[0];
+    v13 = length[0];
     if (length[0])
     {
-      v13 = length[1];
+      v12 = length[1];
       if (length[1])
       {
         goto LABEL_15;
@@ -1428,57 +1454,56 @@ uint64_t ACFUDiagnostics::saveLogFile(ACFUDiagnostics *this, const __CFString *a
     }
 
 LABEL_32:
-    LogInstance = ACFULogging::getLogInstance(v12);
-    v25 = "%s::%s: failed to get formatted C string\n";
+    v19 = ACFULogging::getLogInstance(v11);
+    ACFULogging::handleMessage(v19, 2, "%s::%s: failed to get formatted C string\n");
     goto LABEL_35;
   }
 
-  if (!HIBYTE(v29))
+  if (!HIBYTE(v24))
   {
     goto LABEL_32;
   }
 
-  v14 = length;
+  v13 = length;
 LABEL_15:
-  v4 = CFDataCreate(v9, v14, v13);
+  v4 = CFDataCreate(v8, v13, v12);
   if (v4)
   {
-    v15 = 1;
+    v14 = 1;
     goto LABEL_17;
   }
 
-  LogInstance = ACFULogging::getLogInstance(0);
-  v25 = "%s::%s: failed to allocate data object to write\n";
+  v20 = ACFULogging::getLogInstance(0);
+  ACFULogging::handleMessage(v20, 2, "%s::%s: failed to allocate data object to write\n");
 LABEL_35:
-  ACFULogging::handleMessage(LogInstance, 2u, v25, v20, v21, v22, v23, v24, "ACFUDiagnostics");
   v4 = 0;
-  v15 = 0;
+  v14 = 0;
 LABEL_17:
-  if (SHIBYTE(v29) < 0)
+  if (SHIBYTE(v24) < 0)
   {
     operator delete(length[0]);
-    if ((v15 & 1) == 0)
+    if ((v14 & 1) == 0)
     {
       goto LABEL_23;
     }
   }
 
-  else if ((v15 & 1) == 0)
+  else if ((v14 & 1) == 0)
   {
     goto LABEL_23;
   }
 
 LABEL_21:
-  v16 = 1;
-  v17 = AMSupportWriteDataToFileURL();
-  if (!v17)
+  v15 = 1;
+  v16 = AMSupportWriteDataToFileURL();
+  if (!v16)
   {
     goto LABEL_24;
   }
 
-  ACFUDiagnostics::saveLogFile(v17);
+  ACFUDiagnostics::saveLogFile(v16);
 LABEL_23:
-  v16 = 0;
+  v15 = 0;
 LABEL_24:
   CFRelease(v6);
   if (v4)
@@ -1487,7 +1512,7 @@ LABEL_25:
     CFRelease(v4);
   }
 
-  return v16;
+  return v15;
 }
 
 void sub_2402B29D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
@@ -1500,7 +1525,7 @@ void sub_2402B29D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL ACFUDiagnostics::dumpToIOBuffer(ACFUDiagnostics *this, const __CFString *a2, const void *a3)
+uint64_t ACFUDiagnostics::dumpToIOBuffer(ACFUDiagnostics *this, __CFString *a2, const void *a3)
 {
   if (!a2 || !a3)
   {
@@ -1513,96 +1538,96 @@ BOOL ACFUDiagnostics::dumpToIOBuffer(ACFUDiagnostics *this, const __CFString *a2
   if (TypeID == v6)
   {
     LogInstance = ACFULogging::getLogInstance(v6);
-    std::string::basic_string[abi:ne200100]<0>(&v31, "ACFUDiagnostics");
-    v8 = std::string::append(&v31, "::");
+    std::string::basic_string[abi:ne200100]<0>(&v26, "ACFUDiagnostics");
+    v8 = std::string::append(&v26, "::");
     v9 = *&v8->__r_.__value_.__l.__data_;
-    v32.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
-    *&v32.__r_.__value_.__l.__data_ = v9;
+    v27.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
+    *&v27.__r_.__value_.__l.__data_ = v9;
     v8->__r_.__value_.__l.__size_ = 0;
     v8->__r_.__value_.__r.__words[2] = 0;
     v8->__r_.__value_.__r.__words[0] = 0;
-    v10 = std::string::append(&v32, "dumpToIOBuffer");
+    v10 = std::string::append(&v27, "dumpToIOBuffer");
     v11 = *&v10->__r_.__value_.__l.__data_;
-    v34 = v10->__r_.__value_.__r.__words[2];
-    v33 = v11;
+    v29 = v10->__r_.__value_.__r.__words[2];
+    v28 = v11;
     v10->__r_.__value_.__l.__size_ = 0;
     v10->__r_.__value_.__r.__words[2] = 0;
     v10->__r_.__value_.__r.__words[0] = 0;
     BytePtr = CFDataGetBytePtr(a3);
     Length = CFDataGetLength(a3);
-    ACFULogging::handleMessageBinary(LogInstance, &v33, 3, BytePtr, Length, 0);
-    if (SHIBYTE(v34) < 0)
+    ACFULogging::handleMessageBinary(LogInstance, &v28, 3, BytePtr, Length, 0);
+    if (SHIBYTE(v29) < 0)
     {
-      operator delete(v33);
+      operator delete(v28);
     }
 
-    if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v32.__r_.__value_.__l.__data_);
+      operator delete(v27.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v31.__r_.__value_.__l.__data_);
+      operator delete(v26.__r_.__value_.__l.__data_);
     }
 
     return 1;
   }
 
-  ACFUCommon::stringFromCFString(a2, &v33);
-  v15 = SHIBYTE(v34);
-  if ((SHIBYTE(v34) & 0x8000000000000000) != 0)
+  ACFUCommon::stringFromCFString(&v28, a2);
+  v15 = SHIBYTE(v29);
+  if ((SHIBYTE(v29) & 0x8000000000000000) != 0)
   {
-    if (!v33)
+    if (!v28)
     {
       goto LABEL_32;
     }
 
-    v15 = *(&v33 + 1);
+    v15 = *(&v28 + 1);
   }
 
   if (v15)
   {
     v16 = ACFULogging::getLogInstance(v14);
-    std::string::basic_string[abi:ne200100]<0>(&v30, "ACFUDiagnostics");
-    v17 = std::string::append(&v30, "::");
+    std::string::basic_string[abi:ne200100]<0>(&v25, "ACFUDiagnostics");
+    v17 = std::string::append(&v25, "::");
     v18 = *&v17->__r_.__value_.__l.__data_;
-    v31.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
-    *&v31.__r_.__value_.__l.__data_ = v18;
+    v26.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
+    *&v26.__r_.__value_.__l.__data_ = v18;
     v17->__r_.__value_.__l.__size_ = 0;
     v17->__r_.__value_.__r.__words[2] = 0;
     v17->__r_.__value_.__r.__words[0] = 0;
-    v19 = std::string::append(&v31, "dumpToIOBuffer");
+    v19 = std::string::append(&v26, "dumpToIOBuffer");
     v20 = *&v19->__r_.__value_.__l.__data_;
-    v32.__r_.__value_.__r.__words[2] = v19->__r_.__value_.__r.__words[2];
-    *&v32.__r_.__value_.__l.__data_ = v20;
+    v27.__r_.__value_.__r.__words[2] = v19->__r_.__value_.__r.__words[2];
+    *&v27.__r_.__value_.__l.__data_ = v20;
     v19->__r_.__value_.__l.__size_ = 0;
     v19->__r_.__value_.__r.__words[2] = 0;
     v19->__r_.__value_.__r.__words[0] = 0;
-    if (v34 >= 0)
+    if (v29 >= 0)
     {
-      v21 = &v33;
+      v21 = &v28;
     }
 
     else
     {
-      v21 = v33;
+      v21 = v28;
     }
 
-    ACFULogging::handleMessageCFType(v16, &v32, 3, v21, a3);
-    if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
+    ACFULogging::handleMessageCFType(v16, &v27, 3, v21, a3);
+    if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v32.__r_.__value_.__l.__data_);
+      operator delete(v27.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v31.__r_.__value_.__l.__data_);
+      operator delete(v26.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v30.__r_.__value_.__l.__data_);
+      operator delete(v25.__r_.__value_.__l.__data_);
     }
 
     v22 = 1;
@@ -1611,15 +1636,15 @@ BOOL ACFUDiagnostics::dumpToIOBuffer(ACFUDiagnostics *this, const __CFString *a2
 
 LABEL_32:
   v24 = ACFULogging::getLogInstance(v14);
-  ACFULogging::handleMessage(v24, 2u, "%s::%s: failed to get formatted C string\n", v25, v26, v27, v28, v29, "ACFUDiagnostics");
+  ACFULogging::handleMessage(v24, 2, "%s::%s: failed to get formatted C string\n", "ACFUDiagnostics", "dumpToIOBuffer");
   v22 = 0;
 LABEL_24:
-  if ((SHIBYTE(v34) & 0x80000000) == 0)
+  if ((SHIBYTE(v29) & 0x80000000) == 0)
   {
     return (v22 & 1) != 0;
   }
 
-  operator delete(v33);
+  operator delete(v28);
   return (v22 & 1) != 0;
 }
 
@@ -1686,7 +1711,6 @@ uint64_t ACFUDiagnostics::copyItem(ACFUDiagnostics *this, CFStringRef theString1
     }
   }
 
-  v6 = *(v2 + 8);
   AMSupportSafeRetain();
   return *(v2 + 8);
 }
@@ -1704,9 +1728,7 @@ void ACFUDiagnostics::createFileDataContainer(ACFULogging *a1@<X0>, uint64_t *a2
 
 LABEL_20:
     LogInstance = ACFULogging::getLogInstance(a1);
-    v22 = "%s::%s: file name is empty\n";
-LABEL_23:
-    ACFULogging::handleMessage(LogInstance, 2u, v22, v17, v18, v19, v20, v21, "ACFUDiagnostics");
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: file name is empty\n");
     return;
   }
 
@@ -1717,97 +1739,101 @@ LABEL_23:
 
 LABEL_3:
   v5 = *(a1 + 3);
-  if (!v5)
+  if (v5)
   {
-    LogInstance = ACFULogging::getLogInstance(a1);
-    v22 = "%s::%s: debug log path does not exist\n";
-    goto LABEL_23;
-  }
+    if ((v4 & 0x80000000) != 0)
+    {
+      a2 = *a2;
+    }
 
-  if ((v4 & 0x80000000) != 0)
-  {
-    a2 = *a2;
-  }
+    v6 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@/%s", v5, a2);
+    v7 = v6;
+    if (v6)
+    {
+      ACFUDataContainer::create(&v26, v6, 1);
+      v8 = v26;
+      *&v26 = 0;
+      std::unique_ptr<ACFUDataContainer>::reset[abi:ne200100](a3, v8);
+      v9 = v26;
+      *&v26 = 0;
+      if (v9)
+      {
+        ACFUDataContainer::~ACFUDataContainer(v9);
+        operator delete(v10);
+      }
 
-  v6 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"%@/%s", v5, a2);
-  v7 = v6;
-  if (!v6)
-  {
-    LogInstance = ACFULogging::getLogInstance(0);
-    v22 = "%s::%s: failed to allocate string\n";
-    goto LABEL_23;
-  }
+      if (*a3)
+      {
+        v11 = ACFULogging::getLogInstance(v9);
+        std::string::basic_string[abi:ne200100]<0>(&v24, "ACFUDiagnostics");
+        v12 = std::string::append(&v24, "::");
+        v13 = *&v12->__r_.__value_.__l.__data_;
+        v25.__r_.__value_.__r.__words[2] = v12->__r_.__value_.__r.__words[2];
+        *&v25.__r_.__value_.__l.__data_ = v13;
+        v12->__r_.__value_.__l.__size_ = 0;
+        v12->__r_.__value_.__r.__words[2] = 0;
+        v12->__r_.__value_.__r.__words[0] = 0;
+        v14 = std::string::append(&v25, "createFileDataContainer");
+        v15 = *&v14->__r_.__value_.__l.__data_;
+        v27 = v14->__r_.__value_.__r.__words[2];
+        v26 = v15;
+        v14->__r_.__value_.__l.__size_ = 0;
+        v14->__r_.__value_.__r.__words[2] = 0;
+        v14->__r_.__value_.__r.__words[0] = 0;
+        ACFULogging::handleMessageCFType(v11, &v26, 4, "data container created. File path:", v7);
+      }
 
-  ACFUDataContainer::create(v6, 1, &v30);
-  v8 = v30;
-  *&v30 = 0;
-  std::unique_ptr<ACFUDataContainer>::reset[abi:ne200100](a3, v8);
-  v9 = v30;
-  *&v30 = 0;
-  if (v9)
-  {
-    ACFUDataContainer::~ACFUDataContainer(v9);
-    operator delete(v10);
-  }
+      else
+      {
+        v19 = ACFULogging::getLogInstance(v9);
+        std::string::basic_string[abi:ne200100]<0>(&v24, "ACFUDiagnostics");
+        v20 = std::string::append(&v24, "::");
+        v21 = *&v20->__r_.__value_.__l.__data_;
+        v25.__r_.__value_.__r.__words[2] = v20->__r_.__value_.__r.__words[2];
+        *&v25.__r_.__value_.__l.__data_ = v21;
+        v20->__r_.__value_.__l.__size_ = 0;
+        v20->__r_.__value_.__r.__words[2] = 0;
+        v20->__r_.__value_.__r.__words[0] = 0;
+        v22 = std::string::append(&v25, "createFileDataContainer");
+        v23 = *&v22->__r_.__value_.__l.__data_;
+        v27 = v22->__r_.__value_.__r.__words[2];
+        v26 = v23;
+        v22->__r_.__value_.__l.__size_ = 0;
+        v22->__r_.__value_.__r.__words[2] = 0;
+        v22->__r_.__value_.__r.__words[0] = 0;
+        ACFULogging::handleMessageCFType(v19, &v26, 2, "failed to create data container. File path:", v7);
+      }
 
-  if (*a3)
-  {
-    v11 = ACFULogging::getLogInstance(v9);
-    std::string::basic_string[abi:ne200100]<0>(&v28, "ACFUDiagnostics");
-    v12 = std::string::append(&v28, "::");
-    v13 = *&v12->__r_.__value_.__l.__data_;
-    v29.__r_.__value_.__r.__words[2] = v12->__r_.__value_.__r.__words[2];
-    *&v29.__r_.__value_.__l.__data_ = v13;
-    v12->__r_.__value_.__l.__size_ = 0;
-    v12->__r_.__value_.__r.__words[2] = 0;
-    v12->__r_.__value_.__r.__words[0] = 0;
-    v14 = std::string::append(&v29, "createFileDataContainer");
-    v15 = *&v14->__r_.__value_.__l.__data_;
-    v31 = v14->__r_.__value_.__r.__words[2];
-    v30 = v15;
-    v14->__r_.__value_.__l.__size_ = 0;
-    v14->__r_.__value_.__r.__words[2] = 0;
-    v14->__r_.__value_.__r.__words[0] = 0;
-    ACFULogging::handleMessageCFType(v11, &v30, 4, "data container created. File path:", v7);
+      if (SHIBYTE(v27) < 0)
+      {
+        operator delete(v26);
+      }
+
+      if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v25.__r_.__value_.__l.__data_);
+      }
+
+      if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v24.__r_.__value_.__l.__data_);
+      }
+
+      CFRelease(v7);
+    }
+
+    else
+    {
+      v18 = ACFULogging::getLogInstance(0);
+      ACFULogging::handleMessage(v18, 2, "%s::%s: failed to allocate string\n");
+    }
   }
 
   else
   {
-    v23 = ACFULogging::getLogInstance(v9);
-    std::string::basic_string[abi:ne200100]<0>(&v28, "ACFUDiagnostics");
-    v24 = std::string::append(&v28, "::");
-    v25 = *&v24->__r_.__value_.__l.__data_;
-    v29.__r_.__value_.__r.__words[2] = v24->__r_.__value_.__r.__words[2];
-    *&v29.__r_.__value_.__l.__data_ = v25;
-    v24->__r_.__value_.__l.__size_ = 0;
-    v24->__r_.__value_.__r.__words[2] = 0;
-    v24->__r_.__value_.__r.__words[0] = 0;
-    v26 = std::string::append(&v29, "createFileDataContainer");
-    v27 = *&v26->__r_.__value_.__l.__data_;
-    v31 = v26->__r_.__value_.__r.__words[2];
-    v30 = v27;
-    v26->__r_.__value_.__l.__size_ = 0;
-    v26->__r_.__value_.__r.__words[2] = 0;
-    v26->__r_.__value_.__r.__words[0] = 0;
-    ACFULogging::handleMessageCFType(v23, &v30, 2, "failed to create data container. File path:", v7);
+    v17 = ACFULogging::getLogInstance(a1);
+    ACFULogging::handleMessage(v17, 2, "%s::%s: debug log path does not exist\n");
   }
-
-  if (SHIBYTE(v31) < 0)
-  {
-    operator delete(v30);
-  }
-
-  if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v29.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v28.__r_.__value_.__l.__data_);
-  }
-
-  CFRelease(v7);
 }
 
 void sub_2402B3028(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
@@ -1850,7 +1876,6 @@ uint64_t ACFUDiagnostics::DiagItem::DiagItem(uint64_t a1, uint64_t a2, uint64_t 
   *(a1 + 8) = a3;
   *(a1 + 16) = a4;
   AMSupportSafeRetain();
-  v5 = *(a1 + 8);
   AMSupportSafeRetain();
   return a1;
 }
@@ -1860,7 +1885,6 @@ uint64_t ACFUDiagnostics::DiagItem::DiagItem(uint64_t a1, uint64_t a2, uint64_t 
   *(a1 + 8) = a3;
   *(a1 + 16) = a4;
   AMSupportSafeRetain();
-  v5 = *(a1 + 8);
   AMSupportSafeRetain();
   return a1;
 }
@@ -1873,8 +1897,7 @@ __n128 ACFUDiagnostics::DiagItem::DiagItem(uint64_t a1, __n128 *a2)
   *(a1 + 16) = a2[1].n128_u8[0];
   result = *a2;
   *a1 = *a2;
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   return result;
 }
 
@@ -1885,8 +1908,7 @@ __n128 ACFUDiagnostics::DiagItem::DiagItem(uint64_t a1, __n128 *a2)
   *(a1 + 16) = a2[1].n128_u8[0];
   result = *a2;
   *a1 = *a2;
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   return result;
 }
 
@@ -1907,7 +1929,7 @@ void ACFUDiagnostics::DiagItem::~DiagItem(ACFUDiagnostics::DiagItem *this)
   }
 }
 
-uint64_t std::vector<ACFUDiagnostics::DiagItem>::__construct_one_at_end[abi:ne200100]<__CFString const*&,void const*&,ACFUDiagnostics::DiagAction &>(uint64_t a1, void *a2, uint64_t *a3, char *a4)
+uint64_t std::vector<ACFUDiagnostics::DiagItem>::__construct_one_at_end[abi:ne200100]<__CFString const*&,void const*&,ACFUDiagnostics::DiagAction &>(uint64_t a1, uint64_t *a2, uint64_t *a3, char *a4)
 {
   v5 = *(a1 + 8);
   v6 = *a3;
@@ -1916,27 +1938,26 @@ uint64_t std::vector<ACFUDiagnostics::DiagItem>::__construct_one_at_end[abi:ne20
   *(v5 + 8) = v6;
   *(v5 + 16) = v7;
   AMSupportSafeRetain();
-  v8 = *(v5 + 8);
   result = AMSupportSafeRetain();
   *(a1 + 8) = v5 + 24;
   return result;
 }
 
-uint64_t std::vector<ACFUDiagnostics::DiagItem>::__emplace_back_slow_path<__CFString const*&,void const*&,ACFUDiagnostics::DiagAction &>(uint64_t a1, void *a2, uint64_t *a3, char *a4)
+uint64_t std::vector<ACFUDiagnostics::DiagItem>::__emplace_back_slow_path<__CFString const*&,void const*&,ACFUDiagnostics::DiagAction &>(char **a1, uint64_t *a2, uint64_t *a3, char *a4)
 {
-  v4 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 3);
+  v4 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v5 = v4 + 1;
   if (v4 + 1 > 0xAAAAAAAAAAAAAAALL)
   {
     std::vector<ACFURTKitNVRMGenerator::RTKitNVRMVariable>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3) > v5)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v5)
   {
-    v5 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
+    v5 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
   {
     v10 = 0xAAAAAAAAAAAAAAALL;
   }
@@ -1946,7 +1967,7 @@ uint64_t std::vector<ACFUDiagnostics::DiagItem>::__emplace_back_slow_path<__CFSt
     v10 = v5;
   }
 
-  v25 = a1;
+  v24 = a1;
   if (v10)
   {
     v11 = std::__allocate_at_least[abi:ne200100]<std::allocator<ACFURTKitNVRMGenerator::RTKitNVRMVariable>>(a1, v10);
@@ -1958,38 +1979,37 @@ uint64_t std::vector<ACFUDiagnostics::DiagItem>::__emplace_back_slow_path<__CFSt
   }
 
   v12 = (v11 + 24 * v4);
-  v22 = v11;
-  v23 = v12;
-  *&v24 = v12;
-  *(&v24 + 1) = v11 + 24 * v10;
+  v21 = v11;
+  v22 = v12;
+  *&v23 = v12;
+  *(&v23 + 1) = v11 + 24 * v10;
   v13 = *a3;
   v14 = *a4;
   *v12 = *a2;
   *(v12 + 1) = v13;
   *(v12 + 16) = v14;
   AMSupportSafeRetain();
-  v15 = *(v12 + 1);
   AMSupportSafeRetain();
-  *&v24 = v24 + 24;
-  v16 = *(a1 + 8);
-  v17 = v23 + *a1 - v16;
-  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<ACFUDiagnostics::DiagItem>,ACFUDiagnostics::DiagItem*>(a1, *a1, v16, v17);
-  v18 = *a1;
-  *a1 = v17;
-  v19 = *(a1 + 16);
-  v21 = v24;
-  *(a1 + 8) = v24;
-  *&v24 = v18;
-  *(&v24 + 1) = v19;
-  v22 = v18;
-  v23 = v18;
-  std::__split_buffer<ACFUDiagnostics::DiagItem>::~__split_buffer(&v22);
-  return v21;
+  *&v23 = v23 + 24;
+  v15 = a1[1];
+  v16 = v22 + *a1 - v15;
+  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<ACFUDiagnostics::DiagItem>,ACFUDiagnostics::DiagItem*>(a1, *a1, v15, v16);
+  v17 = *a1;
+  *a1 = v16;
+  v18 = a1[2];
+  v20 = v23;
+  *(a1 + 1) = v23;
+  *&v23 = v17;
+  *(&v23 + 1) = v18;
+  v21 = v17;
+  v22 = v17;
+  std::__split_buffer<ACFUDiagnostics::DiagItem>::~__split_buffer(&v21);
+  return v20;
 }
 
-void sub_2402B33A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2402B33A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<ACFUDiagnostics::DiagItem>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2141,29 +2161,42 @@ uint64_t ACFURestore::executeCommand(uint64_t a1, int a2, uint64_t a3, void *a4)
     }
 
     v11 = 0;
+    v12 = "Invalid Command";
+    if (a2 == 1)
+    {
+      v12 = "Perform Command";
+    }
+
+    if (!a2)
+    {
+      v12 = "Query Command";
+    }
+
+    v44 = v12;
     while (1)
     {
-      v12 = *(a1 + 80);
-      v13 = *(v12 + 48);
-      v109.__r_.__value_.__r.__words[0] = *(v12 + 40);
-      v109.__r_.__value_.__l.__size_ = v13;
-      if (v13)
+      v13 = *(a1 + 80);
+      v14 = *(v13 + 48);
+      v49.__r_.__value_.__r.__words[0] = *(v13 + 40);
+      v49.__r_.__value_.__l.__size_ = v14;
+      if (v14)
       {
-        atomic_fetch_add_explicit((v13 + 8), 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit((v14 + 8), 1uLL, memory_order_relaxed);
       }
 
-      LOWORD(v109.__r_.__value_.__r.__words[2]) = *(v12 + 56);
-      v109.__r_.__value_.__s.__data_[18] = *(v12 + 58);
-      RestoreStep::operator=(a1 + 48, &v109);
-      if (v109.__r_.__value_.__l.__size_)
+      LOWORD(v49.__r_.__value_.__r.__words[2]) = *(v13 + 56);
+      v49.__r_.__value_.__s.__data_[18] = *(v13 + 58);
+      RestoreStep::operator=(a1 + 48, &v49);
+      if (v49.__r_.__value_.__l.__size_)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v109.__r_.__value_.__l.__size_);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v49.__r_.__value_.__l.__size_);
       }
 
       ACFURestore::logACFUConfig(a1);
-      ACFURestore::getStepName(*(*(a1 + 80) + 32), &v109);
-      LogInstance = ACFULogging::getLogInstance(v14);
-      ACFULogging::handleMessage(LogInstance, 0, "%s::%s: Currently performing: %s\n", v16, v17, v18, v19, v20, "ACFURestore");
+      ACFURestore::getStepName(*(*(a1 + 80) + 32), &v49);
+      LogInstance = ACFULogging::getLogInstance(v15);
+      v17 = (v49.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v49 : v49.__r_.__value_.__r.__words[0];
+      ACFULogging::handleMessage(LogInstance, 0, "%s::%s: Currently performing: %s\n", "ACFURestore", "executeCommand", v17);
       if (!*(a1 + 66))
       {
         break;
@@ -2173,8 +2206,8 @@ uint64_t ACFURestore::executeCommand(uint64_t a1, int a2, uint64_t a3, void *a4)
       {
         if (*(a1 + 9) == 1 && *(a1 + 10) != 1)
         {
-          v44 = ACFULogging::getLogInstance(v21);
-          ACFULogging::handleMessage(v44, 2u, "%s::%s: command not supported in preflight mode\n", v45, v46, v47, v48, v49, "ACFURestore");
+          v26 = ACFULogging::getLogInstance(v18);
+          ACFULogging::handleMessage(v26, 2, "%s::%s: command not supported in preflight mode\n", "ACFURestore", "executeCommand");
           v11 = *(a1 + 65);
           *(a1 + 73) = v11 + 1;
         }
@@ -2183,10 +2216,10 @@ uint64_t ACFURestore::executeCommand(uint64_t a1, int a2, uint64_t a3, void *a4)
         {
           if (a3)
           {
-            v30 = *(a1 + 120);
-            if (v30)
+            v22 = *(a1 + 120);
+            if (v22)
             {
-              CFRelease(v30);
+              CFRelease(v22);
               *(a1 + 120) = 0;
             }
 
@@ -2194,16 +2227,16 @@ uint64_t ACFURestore::executeCommand(uint64_t a1, int a2, uint64_t a3, void *a4)
             AMSupportSafeRetain();
           }
 
-          v22 = (*(*a1 + 32))(a1);
-          if (v22)
+          v19 = (*(*a1 + 32))(a1);
+          if (v19)
           {
-            v31 = ACFULogging::getLogInstance(v22);
-            ACFULogging::handleMessage(v31, 0, "%s::%s: Operation finished successfully! Moving to next step if one exists for this updater! \n", v32, v33, v34, v35, v36, "ACFURestore");
+            v23 = ACFULogging::getLogInstance(v19);
+            ACFULogging::handleMessage(v23, 0, "%s::%s: Operation finished successfully! Moving to next step if one exists for this updater! \n", "ACFURestore", "executeCommand");
             *(a1 + 76) = 0;
             *(a1 + 73) = 0;
             ++*(a1 + 72);
             v11 = *(a1 + 65);
-            goto LABEL_19;
+            goto LABEL_26;
           }
 
           v11 = *(a1 + 65);
@@ -2212,12 +2245,12 @@ uint64_t ACFURestore::executeCommand(uint64_t a1, int a2, uint64_t a3, void *a4)
 
       else if (a2)
       {
-        v37 = ACFULogging::getLogInstance(v21);
-        ACFULogging::handleMessage(v37, 0, "%s::%s: invalid command %d specified\n", v38, v39, v40, v41, v42, "ACFURestore");
-        v43 = *(a1 + 104);
+        v24 = ACFULogging::getLogInstance(v18);
+        ACFULogging::handleMessage(v24, 0, "%s::%s: invalid command %d specified\n", "ACFURestore", "executeCommand", a2);
+        v25 = *(a1 + 104);
         std::string::basic_string[abi:ne200100]<0>(__p, "invalid command specified");
-        v22 = ACFUError::addError(v43, __p, 0xFA5uLL, 0);
-        if (v106 < 0)
+        v19 = ACFUError::addError(v25, __p, 0xFA5uLL, 0);
+        if (v46 < 0)
         {
           operator delete(__p[0]);
         }
@@ -2228,153 +2261,160 @@ uint64_t ACFURestore::executeCommand(uint64_t a1, int a2, uint64_t a3, void *a4)
 
       else
       {
-        v22 = (*(*a1 + 24))(&v107, a1);
-        if (v108 == 1)
+        v19 = (*(*a1 + 24))(&v47, a1);
+        if (v48 == 1)
         {
-          *a4 = v107;
+          *a4 = v47;
           *(a1 + 73) = 0;
           v11 = *(a1 + 64);
-LABEL_19:
-          v29 = 1;
-          goto LABEL_38;
+LABEL_26:
+          v21 = 1;
+          goto LABEL_45;
         }
 
         v11 = *(a1 + 64);
       }
 
-      v50 = ACFULogging::getLogInstance(v22);
-      v101 = *(a1 + 73) + 1;
-      ACFULogging::handleMessage(v50, 0, "%s::%s: We ran into some issues on try %d of %d!\n", v51, v52, v53, v54, v55, "ACFURestore");
-      v56 = ++*(a1 + 73);
-      if (v56 > v11)
+      v27 = ACFULogging::getLogInstance(v19);
+      ACFULogging::handleMessage(v27, 0, "%s::%s: We ran into some issues on try %d of %d!\n", "ACFURestore", "executeCommand", *(a1 + 73) + 1, v11 + 1);
+      v28 = ++*(a1 + 73);
+      if (v28 > v11)
       {
-        v57 = 1;
+        v29 = 1;
       }
 
       else
       {
-        v57 = 2;
+        v29 = 2;
       }
 
-      *(a1 + 76) = v57;
-      v22 = ACFURestore::collectDebugInfo(a1);
-      v29 = 0;
-LABEL_38:
-      v59 = *(a1 + 80);
-      v58 = *(a1 + 88);
-      v60 = *(a1 + 76);
-      if (v58 == v59 && !v60)
+      *(a1 + 76) = v29;
+      v19 = ACFURestore::collectDebugInfo(a1);
+      v21 = 0;
+LABEL_45:
+      v31 = *(a1 + 80);
+      v30 = *(a1 + 88);
+      v32 = *(a1 + 76);
+      if (v30 != v31 || v32)
       {
-        v10 = *(a1 + 72) == *(a1 + 66);
-        *(a1 + 8) = v10;
-        if (v10)
+        switch(v32)
         {
-          v61 = ACFULogging::getLogInstance(v22);
-          ACFULogging::handleMessage(v61, 0, "%s::%s: We are finished with all the update steps! ^_^\n", v62, v63, v64, v65, v66, "ACFURestore");
-          goto LABEL_62;
-        }
+          case 2:
+            v39 = ACFULogging::getLogInstance(v19);
+            ACFULogging::handleMessage(v39, 0, "%s::%s: Current command %s!\n", "ACFURestore", "executeCommand", v44);
+            if ((v21 & 1) == 0)
+            {
+              ACFUError::logError(*(a1 + 104));
+            }
 
-        goto LABEL_41;
-      }
+            break;
+          case 1:
+            v38 = ACFULogging::getLogInstance(v19);
+            ACFULogging::handleMessage(v38, 0, "%s::%s: We have exhausted all our allowed attempts! Please file a radar!\n", "ACFURestore", "executeCommand");
+LABEL_67:
+            *(a1 + 8) = 1;
+            break;
+          case 0:
+            if (*(a1 + 72) != *(a1 + 66))
+            {
+LABEL_48:
+              v36 = ACFULogging::getLogInstance(v19);
+              if ((v49.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+              {
+                v37 = &v49;
+              }
 
-      switch(v60)
-      {
-        case 2:
-          v82 = ACFULogging::getLogInstance(v22);
-          ACFULogging::handleMessage(v82, 0, "%s::%s: Current command %s!\n", v83, v84, v85, v86, v87, "ACFURestore");
-          if ((v29 & 1) == 0)
-          {
-            ACFUError::logError(*(a1 + 104));
-          }
+              else
+              {
+                v37 = v49.__r_.__value_.__r.__words[0];
+              }
 
-          break;
-        case 1:
-          v76 = ACFULogging::getLogInstance(v22);
-          ACFULogging::handleMessage(v76, 0, "%s::%s: We have exhausted all our allowed attempts! Please file a radar!\n", v77, v78, v79, v80, v81, "ACFURestore");
-LABEL_56:
-          *(a1 + 8) = 1;
-          break;
-        case 0:
-          if (*(a1 + 72) == *(a1 + 66))
-          {
+              ACFULogging::handleMessage(v36, 0, "%s::%s: [%s] Performing iteration %d of %d\n", "ACFURestore", "executeCommand", v37, *(a1 + 72), *(a1 + 66));
+              break;
+            }
+
             while (1)
             {
-              v67 = v59[1];
-              v68 = v59;
-              if (v67)
+              v34 = v31[1];
+              v35 = v31;
+              if (v34)
               {
                 do
                 {
-                  v59 = v67;
-                  v67 = *v67;
+                  v31 = v34;
+                  v34 = *v34;
                 }
 
-                while (v67);
+                while (v34);
               }
 
               else
               {
                 do
                 {
-                  v59 = v68[2];
-                  v10 = *v59 == v68;
-                  v68 = v59;
+                  v31 = v35[2];
+                  v10 = *v31 == v35;
+                  v35 = v31;
                 }
 
                 while (!v10);
               }
 
-              *(a1 + 80) = v59;
-              v69 = *(v59 + 58);
-              if (v59 == v58)
+              *(a1 + 80) = v31;
+              if (v31 == v30)
               {
                 break;
               }
 
-              if (*(v59 + 58))
+              if (*(v31 + 58))
               {
-                goto LABEL_61;
+                goto LABEL_72;
               }
             }
 
-            if (*(v59 + 58))
+            if (*(v31 + 58))
             {
-LABEL_61:
-              v88 = ACFULogging::getLogInstance(v22);
-              ACFULogging::handleMessage(v88, 0, "%s::%s: Current step is complete. Moving onto the next restore step\n", v89, v90, v91, v92, v93, "ACFURestore");
+LABEL_72:
+              v40 = ACFULogging::getLogInstance(v19);
+              ACFULogging::handleMessage(v40, 0, "%s::%s: Current step is complete. Moving onto the next restore step\n", "ACFURestore", "executeCommand");
               *(a1 + 72) = 0;
               break;
             }
 
-            v94 = ACFULogging::getLogInstance(v22);
-            ACFULogging::handleMessage(v94, 0, "%s::%s: We have completed all enabled restore steps!\n", v95, v96, v97, v98, v99, "ACFURestore");
-            goto LABEL_56;
-          }
-
-LABEL_41:
-          v70 = ACFULogging::getLogInstance(v22);
-          v102 = *(a1 + 72);
-          v103 = *(a1 + 66);
-          ACFULogging::handleMessage(v70, 0, "%s::%s: [%s] Performing iteration %d of %d\n", v71, v72, v73, v74, v75, "ACFURestore");
-          break;
+            v41 = ACFULogging::getLogInstance(v19);
+            ACFULogging::handleMessage(v41, 0, "%s::%s: We have completed all enabled restore steps!\n", "ACFURestore", "executeCommand");
+            goto LABEL_67;
+        }
       }
 
-LABEL_62:
-      if (SHIBYTE(v109.__r_.__value_.__r.__words[2]) < 0)
+      else
       {
-        operator delete(v109.__r_.__value_.__l.__data_);
+        v10 = *(a1 + 72) == *(a1 + 66);
+        *(a1 + 8) = v10;
+        if (!v10)
+        {
+          goto LABEL_48;
+        }
+
+        v33 = ACFULogging::getLogInstance(v19);
+        ACFULogging::handleMessage(v33, 0, "%s::%s: We are finished with all the update steps! ^_^\n", "ACFURestore", "executeCommand");
       }
 
-      if (((*(a1 + 76) == 2) & ~v29) == 0)
+      if (SHIBYTE(v49.__r_.__value_.__r.__words[2]) < 0)
       {
-        return v29;
+        operator delete(v49.__r_.__value_.__l.__data_);
+      }
+
+      if (((*(a1 + 76) == 2) & ~v21) == 0)
+      {
+        return v21;
       }
     }
 
-    v23 = ACFULogging::getLogInstance(v21);
-    ACFULogging::handleMessage(v23, 0, "%s::%s: This step is not enabled... setting to DONE and moving along.. \n", v24, v25, v26, v27, v28, "ACFURestore");
+    v20 = ACFULogging::getLogInstance(v18);
+    ACFULogging::handleMessage(v20, 0, "%s::%s: This step is not enabled... setting to DONE and moving along.. \n", "ACFURestore", "executeCommand");
     *(a1 + 76) = 0;
-    goto LABEL_19;
+    goto LABEL_26;
   }
 
   ACFURestore::executeCommand(a1);
@@ -2410,24 +2450,69 @@ uint64_t ACFURestore::getCurrentStepHandle@<X0>(uint64_t this@<X0>, uint64_t a2@
 void ACFURestore::logACFUConfig(ACFURestore *this)
 {
   LogInstance = ACFULogging::getLogInstance(this);
-  ACFULogging::handleMessage(LogInstance, 0, "%s::%s: ---- Restore State ----\n", v3, v4, v5, v6, v7, "ACFURestore");
-  v9 = ACFULogging::getLogInstance(v8);
-  *(this + 9);
-  ACFULogging::handleMessage(v9, 0, "%s::%s: Preflight: %s\n", v10, v11, v12, v13, v14, "ACFURestore");
+  ACFULogging::handleMessage(LogInstance, 0, "%s::%s: ---- Restore State ----\n", "ACFURestore", "logACFUConfig");
+  v4 = ACFULogging::getLogInstance(v3);
+  if (*(this + 9))
+  {
+    v5 = "Yes";
+  }
+
+  else
+  {
+    v5 = "No";
+  }
+
+  ACFULogging::handleMessage(v4, 0, "%s::%s: Preflight: %s\n", "ACFURestore", "logACFUConfig", v5);
+  v7 = ACFULogging::getLogInstance(v6);
+  if (*(this + 10))
+  {
+    v8 = "Yes";
+  }
+
+  else
+  {
+    v8 = "No";
+  }
+
+  ACFULogging::handleMessage(v7, 0, "%s::%s: Booted Update: %s\n", "ACFURestore", "logACFUConfig", v8);
+  v10 = ACFULogging::getLogInstance(v9);
+  if (*(this + 11))
+  {
+    v11 = "Yes";
+  }
+
+  else
+  {
+    v11 = "No";
+  }
+
+  ACFULogging::handleMessage(v10, 0, "%s::%s: Post Sealing: %s\n", "ACFURestore", "logACFUConfig", v11);
+  v13 = ACFULogging::getLogInstance(v12);
+  if (*(this + 12))
+  {
+    v14 = "Yes";
+  }
+
+  else
+  {
+    v14 = "No";
+  }
+
+  ACFULogging::handleMessage(v13, 0, "%s::%s: Internal Build: %s\n", "ACFURestore", "logACFUConfig", v14);
   v16 = ACFULogging::getLogInstance(v15);
-  *(this + 10);
-  ACFULogging::handleMessage(v16, 0, "%s::%s: Booted Update: %s\n", v17, v18, v19, v20, v21, "ACFURestore");
-  v23 = ACFULogging::getLogInstance(v22);
-  *(this + 11);
-  ACFULogging::handleMessage(v23, 0, "%s::%s: Post Sealing: %s\n", v24, v25, v26, v27, v28, "ACFURestore");
-  v30 = ACFULogging::getLogInstance(v29);
-  *(this + 12);
-  ACFULogging::handleMessage(v30, 0, "%s::%s: Internal Build: %s\n", v31, v32, v33, v34, v35, "ACFURestore");
-  v37 = ACFULogging::getLogInstance(v36);
-  ACFURestore::isPreflighted(this);
-  ACFULogging::handleMessage(v37, 0, "%s::%s: Cached Ticket: %s\n", v38, v39, v40, v41, v42, "ACFURestore");
-  v44 = ACFULogging::getLogInstance(v43);
-  ACFULogging::handleMessage(v44, 0, "%s::%s: ---- Restore State ----\n", v45, v46, v47, v48, v49, "ACFURestore");
+  if (ACFURestore::isPreflighted(this))
+  {
+    v17 = "Yes";
+  }
+
+  else
+  {
+    v17 = "No";
+  }
+
+  ACFULogging::handleMessage(v16, 0, "%s::%s: Cached Ticket: %s\n", "ACFURestore", "logACFUConfig", v17);
+  v19 = ACFULogging::getLogInstance(v18);
+  ACFULogging::handleMessage(v19, 0, "%s::%s: ---- Restore State ----\n", "ACFURestore", "logACFUConfig");
 }
 
 void ACFURestore::getStepName(int a1@<W1>, std::string *a2@<X8>)
@@ -2441,10 +2526,10 @@ void ACFURestore::getStepName(int a1@<W1>, std::string *a2@<X8>)
   }
 
   v4 = &ACFURestore::getStepName(ACFURestore::UpdateSteps)::UpdateStepString[3 * a1];
-  if (v4[23] < 0)
+  if (*(v4 + 23) < 0)
   {
     v5 = *v4;
-    v6 = *(v4 + 1);
+    v6 = v4[1];
 
     std::string::__init_copy_ctor_external(a2, v5, v6);
   }
@@ -2452,7 +2537,7 @@ void ACFURestore::getStepName(int a1@<W1>, std::string *a2@<X8>)
   else
   {
     *&a2->__r_.__value_.__l.__data_ = *v4;
-    a2->__r_.__value_.__r.__words[2] = *(v4 + 2);
+    a2->__r_.__value_.__r.__words[2] = v4[2];
   }
 }
 
@@ -2579,58 +2664,57 @@ const __CFDictionary *ACFURestore::isPreflighted(ACFURestore *this)
 
 CFDataRef ACFURestore::copyFDRTrustObjectDigest(ACFURestore *this)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   Value = *(this + 17);
   if (!Value || (Value = CFDictionaryContainsKey(Value, @"FDRBootedOSTrustObjectFile"), !Value) && (Value = CFDictionaryContainsKey(*(this + 17), @"FDRTrustObjectFile"), !Value) && (Value = CFDictionaryGetValue(*(this + 17), @"FDRUseEngineering"), Value != *MEMORY[0x277CBED28]))
   {
     LogInstance = ACFULogging::getLogInstance(Value);
-    ACFULogging::handleMessage(LogInstance, 0, "%s::%s: FDR trust object override not required\n", v37, v38, v39, v40, v41, "ACFURestore");
-    v35 = 0;
-    goto LABEL_24;
+    ACFULogging::handleMessage(LogInstance, 0, "%s::%s: FDR trust object override not required\n", "ACFURestore", "copyFDRTrustObjectDigest");
+    return 0;
   }
 
-  v48 = 0;
-  v49 = 0;
+  v27 = 0;
+  v28 = 0;
   v3 = ACFULogging::getLogInstance(Value);
-  ACFULogging::handleMessage(v3, 0, "%s::%s: overriding FDR trust object hash from restore options\n", v4, v5, v6, v7, v8, "ACFURestore");
+  ACFULogging::handleMessage(v3, 0, "%s::%s: overriding FDR trust object hash from restore options\n", "ACFURestore", "copyFDRTrustObjectDigest");
   PeronalizedContentPath = ACFUDataAccess::createPeronalizedContentPath(1);
-  v10 = ACFULogging::getLogInstance(PeronalizedContentPath);
-  v16 = v10;
+  v5 = ACFULogging::getLogInstance(PeronalizedContentPath);
+  v6 = v5;
   if (PeronalizedContentPath)
   {
-    std::string::basic_string[abi:ne200100]<0>(&v44, "ACFURestore");
-    v17 = std::string::append(&v44, "::");
-    v18 = *&v17->__r_.__value_.__l.__data_;
-    v45.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
-    *&v45.__r_.__value_.__l.__data_ = v18;
-    v17->__r_.__value_.__l.__size_ = 0;
-    v17->__r_.__value_.__r.__words[2] = 0;
-    v17->__r_.__value_.__r.__words[0] = 0;
-    v19 = std::string::append(&v45, "copyFDRTrustObjectDigest");
-    v20 = *&v19->__r_.__value_.__l.__data_;
-    v47 = v19->__r_.__value_.__r.__words[2];
-    *__p = v20;
-    v19->__r_.__value_.__l.__size_ = 0;
-    v19->__r_.__value_.__r.__words[2] = 0;
-    v19->__r_.__value_.__r.__words[0] = 0;
-    ACFULogging::handleMessageCFType(v16, __p, 0, "AP Ticket Path: ", PeronalizedContentPath);
-    if (SHIBYTE(v47) < 0)
+    std::string::basic_string[abi:ne200100]<0>(&v23, "ACFURestore");
+    v7 = std::string::append(&v23, "::");
+    v8 = *&v7->__r_.__value_.__l.__data_;
+    v24.__r_.__value_.__r.__words[2] = v7->__r_.__value_.__r.__words[2];
+    *&v24.__r_.__value_.__l.__data_ = v8;
+    v7->__r_.__value_.__l.__size_ = 0;
+    v7->__r_.__value_.__r.__words[2] = 0;
+    v7->__r_.__value_.__r.__words[0] = 0;
+    v9 = std::string::append(&v24, "copyFDRTrustObjectDigest");
+    v10 = *&v9->__r_.__value_.__l.__data_;
+    v26 = v9->__r_.__value_.__r.__words[2];
+    *__p = v10;
+    v9->__r_.__value_.__l.__size_ = 0;
+    v9->__r_.__value_.__r.__words[2] = 0;
+    v9->__r_.__value_.__r.__words[0] = 0;
+    ACFULogging::handleMessageCFType(v6, __p, 0, "AP Ticket Path: ", PeronalizedContentPath);
+    if (SHIBYTE(v26) < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v45.__r_.__value_.__l.__data_);
+      operator delete(v24.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v44.__r_.__value_.__l.__data_);
+      operator delete(v23.__r_.__value_.__l.__data_);
     }
 
-    FileDatafromFilePath = ACFUCommon::createFileDatafromFilePath(PeronalizedContentPath, v21);
-    v23 = FileDatafromFilePath;
+    FileDatafromFilePath = ACFUCommon::createFileDatafromFilePath(PeronalizedContentPath, v11);
+    v13 = FileDatafromFilePath;
     if (FileDatafromFilePath)
     {
       goto LABEL_15;
@@ -2639,24 +2723,24 @@ CFDataRef ACFURestore::copyFDRTrustObjectDigest(ACFURestore *this)
 
   else
   {
-    ACFULogging::handleMessage(v10, 0, "%s::%s: failed to get AP ticket path\n", v11, v12, v13, v14, v15, "ACFURestore");
+    ACFULogging::handleMessage(v5, 0, "%s::%s: failed to get AP ticket path\n", "ACFURestore", "copyFDRTrustObjectDigest");
   }
 
-  v24 = ACFULogging::getLogInstance(FileDatafromFilePath);
-  ACFULogging::handleMessage(v24, 0, "%s::%s: looking for AP ticket in updater options dictionary\n", v25, v26, v27, v28, v29, "ACFURestore");
-  v23 = CFDictionaryGetValue(*(this + 16), @"APTicket");
-  v30 = AMSupportSafeRetain();
-  if (!v23)
+  v14 = ACFULogging::getLogInstance(FileDatafromFilePath);
+  ACFULogging::handleMessage(v14, 0, "%s::%s: looking for AP ticket in updater options dictionary\n", "ACFURestore", "copyFDRTrustObjectDigest");
+  v13 = CFDictionaryGetValue(*(this + 16), @"APTicket");
+  v15 = AMSupportSafeRetain();
+  if (!v13)
   {
-    ACFURestore::copyFDRTrustObjectDigest(v30);
-    v23 = 0;
+    ACFURestore::copyFDRTrustObjectDigest(v15);
+    v13 = 0;
     goto LABEL_29;
   }
 
 LABEL_15:
-  BytePtr = CFDataGetBytePtr(v23);
-  Length = CFDataGetLength(v23);
-  inited = Img4DecodeInitManifest(BytePtr, Length, v50);
+  BytePtr = CFDataGetBytePtr(v13);
+  Length = CFDataGetLength(v13);
+  inited = Img4DecodeInitManifest(BytePtr, Length, v29);
   if (inited)
   {
     ACFURestore::copyFDRTrustObjectDigest(inited);
@@ -2664,16 +2748,16 @@ LABEL_15:
 
   else
   {
-    Img4DecodeGetObjectPropertyData(v50, 1718903152, 1145525076, &v49, &v48);
-    if (v34)
+    Img4DecodeGetObjectPropertyData(v29, 1718903152, 1145525076, &v28, &v27);
+    if (v19)
     {
-      ACFURestore::copyFDRTrustObjectDigest(v34);
+      ACFURestore::copyFDRTrustObjectDigest(v19);
     }
 
     else
     {
-      v35 = CFDataCreate(*MEMORY[0x277CBECE8], v49, v48);
-      if (v35)
+      v20 = CFDataCreate(*MEMORY[0x277CBECE8], v28, v27);
+      if (v20)
       {
         if (!PeronalizedContentPath)
         {
@@ -2688,7 +2772,7 @@ LABEL_15:
   }
 
 LABEL_29:
-  v35 = 0;
+  v20 = 0;
   if (PeronalizedContentPath)
   {
 LABEL_19:
@@ -2696,14 +2780,12 @@ LABEL_19:
   }
 
 LABEL_20:
-  if (v23)
+  if (v13)
   {
-    CFRelease(v23);
+    CFRelease(v13);
   }
 
-LABEL_24:
-  v42 = *MEMORY[0x277D85DE8];
-  return v35;
+  return v20;
 }
 
 void sub_2402B42E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30)
@@ -2851,20 +2933,20 @@ void ACFURestore::ACFURestore(ACFURestore *this)
 uint64_t ACFURestore::init(ACFURestore *this, const __CFDictionary *a2, const void *a3)
 {
   LogInstance = ACFULogging::getLogInstance(this);
-  ACFULogging::handleMessage(LogInstance, 3u, "%s::%s: ACFU Version: %s\n", v7, v8, v9, v10, v11, "ACFURestore");
-  v44 = @"ACFURestore";
-  std::allocate_shared[abi:ne200100]<ACFUError,std::allocator<ACFUError>,__CFString const*,0>(&v44, v45);
-  v12 = *v45;
-  v45[0] = 0;
-  v45[1] = 0;
-  v13 = *(this + 14);
-  *(this + 104) = v12;
-  if (v13)
+  ACFULogging::handleMessage(LogInstance, 3, "%s::%s: ACFU Version: %s\n", "ACFURestore", "init", "AppleConvergedFirmwareUpdater-454.0.1~2939");
+  v39 = @"ACFURestore";
+  std::allocate_shared[abi:ne200100]<ACFUError,std::allocator<ACFUError>,__CFString const*,0>(&v39, v40);
+  v7 = *v40;
+  v40[0] = 0;
+  v40[1] = 0;
+  v8 = *(this + 14);
+  *(this + 104) = v7;
+  if (v8)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
-    if (v45[1])
+    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+    if (v40[1])
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v45[1]);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v40[1]);
     }
   }
 
@@ -2895,9 +2977,9 @@ uint64_t ACFURestore::init(ACFURestore *this, const __CFDictionary *a2, const vo
 
   if (CFDictionaryContainsKey(*(this + 16), @"PreflightContext"))
   {
-    v16 = CFDictionaryGetValue(*(this + 16), @"PreflightContext");
-    v19 = v16 && (v17 = v16, v18 = CFGetTypeID(v16), v18 == CFStringGetTypeID()) && CFStringCompare(v17, @"BootedOS", 0) == kCFCompareEqualTo;
-    *(this + 9) = v19;
+    v11 = CFDictionaryGetValue(*(this + 16), @"PreflightContext");
+    v14 = v11 && (v12 = v11, v13 = CFGetTypeID(v11), v13 == CFStringGetTypeID()) && CFStringCompare(v12, @"BootedOS", 0) == kCFCompareEqualTo;
+    *(this + 9) = v14;
   }
 
   else
@@ -2907,9 +2989,9 @@ uint64_t ACFURestore::init(ACFURestore *this, const __CFDictionary *a2, const vo
 
   if (CFDictionaryContainsKey(*(this + 16), @"BootedUpdate"))
   {
-    v20 = CFDictionaryGetValue(*(this + 16), @"BootedUpdate");
-    v23 = v20 && (v21 = v20, v22 = CFGetTypeID(v20), v22 == CFBooleanGetTypeID()) && CFBooleanGetValue(v21) == 1;
-    *(this + 10) = v23;
+    v15 = CFDictionaryGetValue(*(this + 16), @"BootedUpdate");
+    v18 = v15 && (v16 = v15, v17 = CFGetTypeID(v15), v17 == CFBooleanGetTypeID()) && CFBooleanGetValue(v16) == 1;
+    *(this + 10) = v18;
   }
 
   else
@@ -2919,9 +3001,9 @@ uint64_t ACFURestore::init(ACFURestore *this, const __CFDictionary *a2, const vo
 
   if (CFDictionaryContainsKey(*(this + 16), @"PostFDRSealing"))
   {
-    v24 = CFDictionaryGetValue(*(this + 16), @"PostFDRSealing");
-    v27 = v24 && (v25 = v24, v26 = CFGetTypeID(v24), v26 == CFBooleanGetTypeID()) && CFBooleanGetValue(v25) == 1;
-    *(this + 11) = v27;
+    v19 = CFDictionaryGetValue(*(this + 16), @"PostFDRSealing");
+    v22 = v19 && (v20 = v19, v21 = CFGetTypeID(v19), v21 == CFBooleanGetTypeID()) && CFBooleanGetValue(v20) == 1;
+    *(this + 11) = v22;
   }
 
   else
@@ -2931,9 +3013,9 @@ uint64_t ACFURestore::init(ACFURestore *this, const __CFDictionary *a2, const vo
 
   if (CFDictionaryContainsKey(*(this + 16), @"RestoreInternal"))
   {
-    v28 = CFDictionaryGetValue(*(this + 16), @"RestoreInternal");
-    v31 = v28 && (v29 = v28, v30 = CFGetTypeID(v28), v30 == CFBooleanGetTypeID()) && CFBooleanGetValue(v29) == 1;
-    *(this + 12) = v31;
+    v23 = CFDictionaryGetValue(*(this + 16), @"RestoreInternal");
+    v26 = v23 && (v24 = v23, v25 = CFGetTypeID(v23), v25 == CFBooleanGetTypeID()) && CFBooleanGetValue(v24) == 1;
+    *(this + 12) = v26;
   }
 
   else
@@ -2944,74 +3026,74 @@ uint64_t ACFURestore::init(ACFURestore *this, const __CFDictionary *a2, const vo
   *(this + 18) = CFDictionaryGetValue(*(this + 16), @"ACFUCertUrl");
   if (CFDictionaryContainsKey(*(this + 16), @"ACFUCertUrl"))
   {
-    v32 = CFDictionaryGetValue(*(this + 16), @"ACFUCertUrl");
-    if (v32)
+    v27 = CFDictionaryGetValue(*(this + 16), @"ACFUCertUrl");
+    if (v27)
     {
-      v33 = v32;
-      v34 = CFGetTypeID(v32);
-      if (v34 == CFStringGetTypeID())
+      v28 = v27;
+      v29 = CFGetTypeID(v27);
+      if (v29 == CFStringGetTypeID())
       {
-        v35 = v33;
+        v30 = v28;
       }
 
       else
       {
-        v35 = 0;
+        v30 = 0;
       }
     }
 
     else
     {
-      v35 = 0;
+      v30 = 0;
     }
 
-    *(this + 18) = v35;
+    *(this + 18) = v30;
   }
 
   if (CFDictionaryContainsKey(*(this + 16), @"DebugLogPath"))
   {
-    v36 = CFDictionaryGetValue(*(this + 16), @"DebugLogPath");
-    v37 = CFGetTypeID(v36);
-    v38 = CFStringGetTypeID();
-    if (v37 != v38)
+    v31 = CFDictionaryGetValue(*(this + 16), @"DebugLogPath");
+    v32 = CFGetTypeID(v31);
+    v33 = CFStringGetTypeID();
+    if (v32 != v33)
     {
-      ACFURestore::init(v38);
+      ACFURestore::init(v33);
       return 4002;
     }
   }
 
   else
   {
-    v36 = 0;
+    v31 = 0;
   }
 
-  ACFUDiagnostics::create(v36, 1, v45);
-  std::shared_ptr<ACFUDiagnostics>::operator=[abi:ne200100]<ACFUDiagnostics,std::default_delete<ACFUDiagnostics>,0>(this + 23, v45);
-  v40 = v45[0];
-  v45[0] = 0;
-  if (v40)
+  ACFUDiagnostics::create(v31, 1, v40);
+  std::shared_ptr<ACFUDiagnostics>::operator=[abi:ne200100]<ACFUDiagnostics,std::default_delete<ACFUDiagnostics>,0>(this + 23, v40);
+  v35 = v40[0];
+  v40[0] = 0;
+  if (v35)
   {
-    ACFUDiagnostics::~ACFUDiagnostics(v40);
-    operator delete(v41);
+    ACFUDiagnostics::~ACFUDiagnostics(v35);
+    operator delete(v36);
   }
 
   if (!*(this + 23))
   {
-    ACFURestore::init(v40);
+    ACFURestore::init(v35);
     return 4008;
   }
 
   if (!a3)
   {
-    ACFURestore::init(v40);
+    ACFURestore::init(v35);
     return 1;
   }
 
-  v42 = CFStringGetTypeID();
-  v43 = CFGetTypeID(a3);
-  if (v42 != v43)
+  v37 = CFStringGetTypeID();
+  v38 = CFGetTypeID(a3);
+  if (v37 != v38)
   {
-    ACFURestore::init(v43);
+    ACFURestore::init(v38);
     return 1;
   }
 
@@ -3064,17 +3146,17 @@ void ACFURestore::queryCmd(ACFURestore *this@<X0>, uint64_t a2@<X8>)
 {
   if (*(this + 9) != 1)
   {
-    v13 = *(this + 6);
-    if (!v13)
+    v8 = *(this + 6);
+    if (!v8)
     {
       LogInstance = ACFULogging::getLogInstance(this);
-      ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: FATAL: no operation for queryCmd\n", v30, v31, v32, v33, v34, "ACFURestore");
-      v35 = *(this + 13);
+      ACFULogging::handleMessage(LogInstance, 2, "%s::%s: FATAL: no operation for queryCmd\n", "ACFURestore", "queryCmd");
+      v25 = *(this + 13);
       std::string::basic_string[abi:ne200100]<0>(__p, "FATAL: no operation for queryCmd");
-      ACFUError::addError(v35, __p, 0x3EDuLL, 0);
-      if (v59 < 0)
+      ACFUError::addError(v25, __p, 0x3EDuLL, 0);
+      if (v39 < 0)
       {
-        v12 = __p[0];
+        v7 = __p[0];
         goto LABEL_39;
       }
 
@@ -3083,35 +3165,35 @@ LABEL_34:
       goto LABEL_35;
     }
 
-    v14 = ACFURestore::isPreflighted(this);
-    v15 = (**v13)(&v55, v13, 0, v14 ^ 1);
-    v17 = v55;
-    v16 = v56;
-    if (v56)
+    v9 = ACFURestore::isPreflighted(this);
+    v10 = (**v8)(&v35, v8, 0, v9 ^ 1);
+    v12 = v35;
+    v11 = v36;
+    if (v36)
     {
-      atomic_fetch_add_explicit(&v56->__shared_owners_, 1uLL, memory_order_relaxed);
-      v15 = v56;
-      v18 = v57;
-      if (v56)
+      atomic_fetch_add_explicit(&v36->__shared_owners_, 1uLL, memory_order_relaxed);
+      v10 = v36;
+      v13 = v37;
+      if (v36)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v56);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v36);
       }
 
-      if (!v18)
+      if (!v13)
       {
-        atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
 LABEL_12:
-        v19 = (**v17)(v17);
-        v4 = v19;
-        if (v16)
+        v14 = (**v12)(v12);
+        v4 = v14;
+        if (v11)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v11);
         }
 
         if (v4)
         {
-          v20 = 1;
-          if (!v16)
+          v15 = 1;
+          if (!v11)
           {
             goto LABEL_17;
           }
@@ -3119,25 +3201,25 @@ LABEL_12:
           goto LABEL_16;
         }
 
-        v44 = ACFULogging::getLogInstance(v19);
-        ACFULogging::handleMessage(v44, 2u, "%s::%s: failed to create dictionary\n", v45, v46, v47, v48, v49, "ACFURestore");
-        v50 = *(this + 13);
-        std::string::basic_string[abi:ne200100]<0>(v51, "failed to create dictionary");
-        ACFUError::addError(v50, v51, 0xFA0uLL, 0);
-        if ((v52 & 0x80000000) == 0)
+        v29 = ACFULogging::getLogInstance(v14);
+        ACFULogging::handleMessage(v29, 2, "%s::%s: failed to create dictionary\n", "ACFURestore", "queryCmd");
+        v30 = *(this + 13);
+        std::string::basic_string[abi:ne200100]<0>(v31, "failed to create dictionary");
+        ACFUError::addError(v30, v31, 0xFA0uLL, 0);
+        if ((v32 & 0x80000000) == 0)
         {
 LABEL_45:
-          v20 = 0;
+          v15 = 0;
           v4 = 0;
-          if (!v16)
+          if (!v11)
           {
 LABEL_17:
-            if ((v20 & 1) == 0)
+            if ((v15 & 1) == 0)
             {
               if (!v4)
               {
 LABEL_35:
-                v28 = 0;
+                v23 = 0;
                 goto LABEL_36;
               }
 
@@ -3149,37 +3231,37 @@ LABEL_35:
           }
 
 LABEL_16:
-          std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v11);
           goto LABEL_17;
         }
 
-        v43 = v51;
+        v28 = v31;
 LABEL_44:
-        operator delete(*v43);
+        operator delete(*v28);
         goto LABEL_45;
       }
     }
 
     else
     {
-      v18 = v57;
-      if (!v57)
+      v13 = v37;
+      if (!v37)
       {
         goto LABEL_12;
       }
     }
 
-    v36 = ACFULogging::getLogInstance(v15);
-    ACFULogging::handleMessage(v36, 2u, "%s::%s: failed to perform query step (ret: %d)\n", v37, v38, v39, v40, v41, "ACFURestore");
-    v42 = *(this + 13);
-    std::string::basic_string[abi:ne200100]<0>(v53, "failed to perform query step");
-    ACFUError::addError(v42, v53, v18, 0);
-    if ((v54 & 0x80000000) == 0)
+    v26 = ACFULogging::getLogInstance(v10);
+    ACFULogging::handleMessage(v26, 2, "%s::%s: failed to perform query step (ret: %d)\n", "ACFURestore", "queryCmd", v13);
+    v27 = *(this + 13);
+    std::string::basic_string[abi:ne200100]<0>(v33, "failed to perform query step");
+    ACFUError::addError(v27, v33, v13, 0);
+    if ((v34 & 0x80000000) == 0)
     {
       goto LABEL_45;
     }
 
-    v43 = v53;
+    v28 = v33;
     goto LABEL_44;
   }
 
@@ -3187,15 +3269,15 @@ LABEL_44:
   if (!v4)
   {
     v5 = ACFULogging::getLogInstance(0);
-    ACFULogging::handleMessage(v5, 2u, "%s::%s: Failed to collect preflight info\n", v6, v7, v8, v9, v10, "ACFURestore");
-    v11 = *(this + 13);
-    std::string::basic_string[abi:ne200100]<0>(v60, "Failed to collect preflight info");
-    ACFUError::addError(v11, v60, 0x3F4uLL, 0);
-    if (v61 < 0)
+    ACFULogging::handleMessage(v5, 2, "%s::%s: Failed to collect preflight info\n", "ACFURestore", "queryCmd");
+    v6 = *(this + 13);
+    std::string::basic_string[abi:ne200100]<0>(v40, "Failed to collect preflight info");
+    ACFUError::addError(v6, v40, 0x3F4uLL, 0);
+    if (v41 < 0)
     {
-      v12 = v60[0];
+      v7 = v40[0];
 LABEL_39:
-      operator delete(v12);
+      operator delete(v7);
       goto LABEL_34;
     }
 
@@ -3203,34 +3285,34 @@ LABEL_39:
   }
 
 LABEL_18:
-  v21 = ACFURestore::copyFDRTrustObjectDigest(this);
-  if (v21)
+  v16 = ACFURestore::copyFDRTrustObjectDigest(this);
+  if (v16)
   {
-    CFDictionarySetValue(v4, @"ACFU,FDRTrustObjectHash", v21);
+    CFDictionarySetValue(v4, @"ACFU,FDRTrustObjectHash", v16);
   }
 
-  v22 = *(this + 17);
-  if (v22)
+  v17 = *(this + 17);
+  if (v17)
   {
-    v23 = CFGetTypeID(v22);
-    if (v23 == CFDictionaryGetTypeID())
+    v18 = CFGetTypeID(v17);
+    if (v18 == CFDictionaryGetTypeID())
     {
-      if ((Value = CFDictionaryGetValue(*(this + 17), @"FDRAllowUnsealedData"), v25 = CFDictionaryGetValue(*(this + 17), @"FDRSkipSealing"), Value) && (v26 = CFGetTypeID(Value), v26 == CFBooleanGetTypeID()) && CFBooleanGetValue(Value) || v25 && (v27 = CFGetTypeID(v25), v27 == CFBooleanGetTypeID()) && CFBooleanGetValue(v25))
+      if ((Value = CFDictionaryGetValue(*(this + 17), @"FDRAllowUnsealedData"), v20 = CFDictionaryGetValue(*(this + 17), @"FDRSkipSealing"), Value) && (v21 = CFGetTypeID(Value), v21 == CFBooleanGetTypeID()) && CFBooleanGetValue(Value) || v20 && (v22 = CFGetTypeID(v20), v22 == CFBooleanGetTypeID()) && CFBooleanGetValue(v20))
       {
         CFDictionarySetValue(v4, @"ACFU,FDRAllowUnsealed", *MEMORY[0x277CBED28]);
       }
     }
   }
 
-  if (v21)
+  if (v16)
   {
-    CFRelease(v21);
+    CFRelease(v16);
   }
 
-  v28 = 1;
+  v23 = 1;
 LABEL_36:
   *a2 = v4;
-  *(a2 + 8) = v28;
+  *(a2 + 8) = v23;
 }
 
 void sub_2402B4DC4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32)
@@ -3254,13 +3336,13 @@ uint64_t ACFURestore::performCmd(ACFURestore *this)
   if (!v2)
   {
     LogInstance = ACFULogging::getLogInstance(0);
-    ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: FATAL: no operation for performCmd\n", v33, v34, v35, v36, v37, "ACFURestore");
-    v38 = *(this + 13);
-    std::string::basic_string[abi:ne200100]<0>(v70, "FATAL: no operation for performCmd");
-    ACFUError::addError(v38, v70, 0x3EDuLL, 0);
-    if (v71 < 0)
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: FATAL: no operation for performCmd\n", "ACFURestore", "performCmd");
+    v16 = *(this + 13);
+    std::string::basic_string[abi:ne200100]<0>(v32, "FATAL: no operation for performCmd");
+    ACFUError::addError(v16, v32, 0x3EDuLL, 0);
+    if (v33 < 0)
     {
-      v18 = v70[0];
+      v11 = v32[0];
       goto LABEL_18;
     }
 
@@ -3270,8 +3352,8 @@ uint64_t ACFURestore::performCmd(ACFURestore *this)
   v3 = *(*(this + 10) + 32);
   if (v3 == 2)
   {
-    v19 = ACFULogging::getLogInstance(v2);
-    ACFULogging::handleMessage(v19, 0, "%s::%s: running generic updater step\n", v20, v21, v22, v23, v24, "ACFURestore");
+    v12 = ACFULogging::getLogInstance(v2);
+    ACFULogging::handleMessage(v12, 0, "%s::%s: running generic updater step\n");
     return 1;
   }
 
@@ -3282,55 +3364,53 @@ uint64_t ACFURestore::performCmd(ACFURestore *this)
     *(this + 26) = v6;
     if (!*(this + 28))
     {
-      v39 = ACFULogging::getLogInstance(v2);
-      ACFULogging::handleMessage(v39, 2u, "%s::%s: Incomplete parameter set for certification (ret: %d)\n", v40, v41, v42, v43, v44, "ACFURestore");
-      v45 = *(this + 13);
-      std::string::basic_string[abi:ne200100]<0>(v65, "Incomplete parameter set for certification");
-      ACFUError::addError(v45, v65, 0x3EDuLL, 0);
-      if ((v66 & 0x80000000) == 0)
+      v17 = ACFULogging::getLogInstance(v2);
+      ACFULogging::handleMessage(v17, 2, "%s::%s: Incomplete parameter set for certification (ret: %d)\n", "ACFURestore", "performCmd", 1005);
+      v18 = *(this + 13);
+      std::string::basic_string[abi:ne200100]<0>(v27, "Incomplete parameter set for certification");
+      ACFUError::addError(v18, v27, 0x3EDuLL, 0);
+      if ((v28 & 0x80000000) == 0)
       {
         return 0;
       }
 
-      v18 = v65[0];
+      v11 = v27[0];
       goto LABEL_18;
     }
 
     if (!v6)
     {
-      v53 = ACFULogging::getLogInstance(v2);
-      ACFULogging::handleMessage(v53, 2u, "%s::%s: No certification URL found for certification step (ret: %d)\n", v54, v55, v56, v57, v58, "ACFURestore");
-      v59 = *(this + 13);
-      std::string::basic_string[abi:ne200100]<0>(v63, "No certification URL found for certification step");
-      ACFUError::addError(v59, v63, 0x3F1uLL, 0);
-      if ((v64 & 0x80000000) == 0)
+      v21 = ACFULogging::getLogInstance(v2);
+      ACFULogging::handleMessage(v21, 2, "%s::%s: No certification URL found for certification step (ret: %d)\n", "ACFURestore", "performCmd", 1009);
+      v22 = *(this + 13);
+      std::string::basic_string[abi:ne200100]<0>(v25, "No certification URL found for certification step");
+      ACFUError::addError(v22, v25, 0x3F1uLL, 0);
+      if ((v26 & 0x80000000) == 0)
       {
         return 0;
       }
 
-      v18 = v63[0];
+      v11 = v25[0];
       goto LABEL_18;
     }
 
-    v7 = *(this + 17);
-    v8 = *(this + 15);
-    v9 = (*(*v2 + 32))(v2);
-    if (!v9)
+    v7 = (*(*v2 + 32))(v2);
+    if (!v7)
     {
       return 1;
     }
 
-    v10 = v9;
-    v11 = ACFULogging::getLogInstance(v9);
-    ACFULogging::handleMessage(v11, 2u, "%s::%s: Failed to perform certification step (ret: %d)\n", v12, v13, v14, v15, v16, "ACFURestore");
-    v17 = *(this + 13);
-    std::string::basic_string[abi:ne200100]<0>(v61, "Failed to perform certification step");
-    ACFUError::addError(v17, v61, v10, 0);
-    if (v62 < 0)
+    v8 = v7;
+    v9 = ACFULogging::getLogInstance(v7);
+    ACFULogging::handleMessage(v9, 2, "%s::%s: Failed to perform certification step (ret: %d)\n", "ACFURestore", "performCmd", v8);
+    v10 = *(this + 13);
+    std::string::basic_string[abi:ne200100]<0>(v23, "Failed to perform certification step");
+    ACFUError::addError(v10, v23, v8, 0);
+    if (v24 < 0)
     {
-      v18 = v61[0];
+      v11 = v23[0];
 LABEL_18:
-      operator delete(v18);
+      operator delete(v11);
       return 0;
     }
 
@@ -3339,34 +3419,33 @@ LABEL_18:
 
   if (v3)
   {
-    v25 = ACFULogging::getLogInstance(v2);
-    v60 = *(*(this + 10) + 32);
-    ACFULogging::handleMessage(v25, 0, "%s::%s: running custom updater step with id: %d\n", v26, v27, v28, v29, v30, "ACFURestore");
+    v13 = ACFULogging::getLogInstance(v2);
+    ACFULogging::handleMessage(v13, 0, "%s::%s: running custom updater step with id: %d\n");
     return 1;
   }
 
-  memset(v69, 0, 24);
+  memset(v31, 0, 24);
   v4 = (*(*v2 + 8))(v2, *(this + 15), this + 280);
   v5 = v4;
   if (v4)
   {
-    v46 = ACFULogging::getLogInstance(v4);
-    ACFULogging::handleMessage(v46, 2u, "%s::%s: failed to perform update firmware (ret: %d)\n", v47, v48, v49, v50, v51, "ACFURestore");
-    v52 = *(this + 13);
+    v19 = ACFULogging::getLogInstance(v4);
+    ACFULogging::handleMessage(v19, 2, "%s::%s: failed to perform update firmware (ret: %d)\n", "ACFURestore", "performCmd", v5);
+    v20 = *(this + 13);
     std::string::basic_string[abi:ne200100]<0>(__p, "failed to perform update firmware");
-    ACFUError::addError(v52, __p, v5, 0);
-    if (v68 < 0)
+    ACFUError::addError(v20, __p, v5, 0);
+    if (v30 < 0)
     {
       operator delete(__p[0]);
     }
 
-    v72 = v69;
-    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v72);
+    v34 = v31;
+    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v34);
     return 0;
   }
 
-  v72 = v69;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v72);
+  v34 = v31;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v34);
   return 1;
 }
 
@@ -3641,68 +3720,67 @@ void __cxx_global_array_dtor()
   while (v1);
 }
 
-void ACFUROM::handleFDR(uint64_t a1@<X0>, uint64_t **a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+void ACFUROM::handleFDR(uint64_t a1@<X0>, const char **a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v114 = 0;
-  v115 = 0;
-  v116 = 0;
+  v58 = 0;
+  v59 = 0;
+  v60 = 0;
   if (a2[1] == *a2)
   {
     LogInstance = ACFULogging::getLogInstance(a1);
-    v102 = 0;
-    ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: missing data classes in request\n", v81, v82, v83, v84, v85, "ACFUROM");
+    v47 = 0;
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: missing data classes in request\n", "ACFUROM", "handleFDR");
     v10 = 5001;
     goto LABEL_66;
   }
 
-  v8 = (***(a1 + 8))(&v111);
-  v9 = v111;
-  v102 = v112;
-  if (v112)
+  v8 = (***(a1 + 8))(&v55);
+  v9 = v55;
+  v47 = v56;
+  if (v56)
   {
-    atomic_fetch_add_explicit(&v112->__shared_owners_, 1uLL, memory_order_relaxed);
-    v8 = v112;
-    v10 = v113;
-    if (v112)
+    atomic_fetch_add_explicit(&v56->__shared_owners_, 1uLL, memory_order_relaxed);
+    v8 = v56;
+    v10 = v57;
+    if (v56)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v112);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v56);
     }
 
     if (!v10)
     {
-      atomic_fetch_add_explicit(&v102->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v47->__shared_owners_, 1uLL, memory_order_relaxed);
       goto LABEL_8;
     }
 
 LABEL_81:
-    v86 = ACFULogging::getLogInstance(v8);
-    ACFULogging::handleMessage(v86, 2u, "%s::%s: failed to get board params (%d)\n", v87, v88, v89, v90, v91, "ACFUROM");
+    v43 = ACFULogging::getLogInstance(v8);
+    ACFULogging::handleMessage(v43, 2, "%s::%s: failed to get board params (%d)\n", "ACFUROM", "handleFDR", v10);
     goto LABEL_66;
   }
 
-  v10 = v113;
-  if (v113)
+  v10 = v57;
+  if (v57)
   {
     goto LABEL_81;
   }
 
 LABEL_8:
   v11 = ACFUCommon::Parameter::dataLength((v9 + 1));
-  v12 = v102;
-  if (v102)
+  v12 = v47;
+  if (v47)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v102);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v47);
     if (v11 == 2)
     {
-      atomic_fetch_add_explicit(&v102->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v47->__shared_owners_, 1uLL, memory_order_relaxed);
       goto LABEL_12;
     }
 
 LABEL_82:
-    v92 = ACFULogging::getLogInstance(v12);
-    v98 = "%s::%s: unexpected size for ChipID\n";
+    v44 = ACFULogging::getLogInstance(v12);
+    ACFULogging::handleMessage(v44, 2, "%s::%s: unexpected size for ChipID\n");
 LABEL_84:
-    ACFULogging::handleMessage(v92, 2u, v98, v93, v94, v95, v96, v97, "ACFUROM");
     v10 = 3011;
     goto LABEL_66;
   }
@@ -3714,8 +3792,8 @@ LABEL_84:
 
 LABEL_12:
   v13 = ACFUCommon::Parameter::dataLength((v9 + 5));
-  v14 = v102;
-  if (!v102)
+  v14 = v47;
+  if (!v47)
   {
     if (v13 == 8)
     {
@@ -3725,34 +3803,34 @@ LABEL_12:
     goto LABEL_83;
   }
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v102);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v47);
   if (v13 != 8)
   {
 LABEL_83:
-    v92 = ACFULogging::getLogInstance(v14);
-    v98 = "%s::%s: unexpected size for ECID\n";
+    v45 = ACFULogging::getLogInstance(v14);
+    ACFULogging::handleMessage(v45, 2, "%s::%s: unexpected size for ECID\n");
     goto LABEL_84;
   }
 
-  atomic_fetch_add_explicit(&v102->__shared_owners_, 1uLL, memory_order_relaxed);
+  atomic_fetch_add_explicit(&v47->__shared_owners_, 1uLL, memory_order_relaxed);
 LABEL_16:
-  v105 = *ACFUCommon::Parameter::dataBytePtr((v9 + 1));
-  if (v102)
+  ACFUCommon::Parameter::dataBytePtr((v9 + 1));
+  if (v47)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v102);
-    atomic_fetch_add_explicit(&v102->__shared_owners_, 1uLL, memory_order_relaxed);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v47);
+    atomic_fetch_add_explicit(&v47->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v15 = *ACFUCommon::Parameter::dataBytePtr((v9 + 5));
-  v16 = v102;
-  if (v102)
+  ACFUCommon::Parameter::dataBytePtr((v9 + 5));
+  v15 = v47;
+  if (v47)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v102);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v47);
   }
 
-  v17 = *a2;
-  v18 = a2[1];
-  if (*a2 == v18)
+  v16 = *a2;
+  v17 = a2[1];
+  if (*a2 == v17)
   {
 LABEL_65:
     v10 = 0;
@@ -3762,211 +3840,218 @@ LABEL_65:
   alloc = *MEMORY[0x277CBECE8];
   while (1)
   {
-    if ((*(v17 + 47) & 0x8000000000000000) != 0)
+    if ((*(v16 + 47) & 0x8000000000000000) != 0)
     {
-      if (v17[4])
+      if (*(v16 + 32))
       {
 LABEL_24:
-        v19 = ACFULogging::getLogInstance(v16);
-        if (*(v17 + 23) < 0)
+        v18 = ACFULogging::getLogInstance(v15);
+        v19 = v16;
+        if (*(v16 + 23) < 0)
         {
-          v25 = *v17;
+          v19 = *v16;
         }
 
-        v26 = v17 + 3;
-        if (*(v17 + 47) < 0)
+        v20 = (v16 + 24);
+        if (*(v16 + 47) < 0)
         {
-          v26 = *v26;
+          v20 = *v20;
         }
 
-        v100 = v26;
-        ACFULogging::handleMessage(v19, 0, "%s::%s: Looking for '%s' with parent '%s'\n", v20, v21, v22, v23, v24, "ACFUROM");
+        ACFULogging::handleMessage(v18, 0, "%s::%s: Looking for '%s' with parent '%s'\n", "ACFUROM", "handleFDR", v19, v20);
         goto LABEL_33;
       }
     }
 
-    else if (*(v17 + 47))
+    else if (*(v16 + 47))
     {
       goto LABEL_24;
     }
 
-    v27 = ACFULogging::getLogInstance(v16);
-    if (*(v17 + 23) < 0)
+    v21 = ACFULogging::getLogInstance(v15);
+    v22 = v16;
+    if (*(v16 + 23) < 0)
     {
-      v33 = *v17;
+      v22 = *v16;
     }
 
-    ACFULogging::handleMessage(v27, 0, "%s::%s: Looking for '%s'\n", v28, v29, v30, v31, v32, "ACFUROM");
+    ACFULogging::handleMessage(v21, 0, "%s::%s: Looking for '%s'\n", "ACFUROM", "handleFDR", v22);
 LABEL_33:
-    ACFUFDR::getDataLocalCopy(a3, v17, &v111);
-    v35 = v111;
-    if (v112)
+    ACFUFDR::getDataLocalCopy(a3, v16, &v55);
+    v24 = v55;
+    if (v56)
     {
       break;
     }
 
-    if (v111)
+    if (v55)
     {
-      v36 = *(v17 + 47);
-      if (v36 < 0)
+      v25 = *(v16 + 47);
+      if (v25 < 0)
       {
-        v36 = v17[4];
+        v25 = *(v16 + 32);
       }
 
-      v37 = 24;
+      v26 = 24;
       if ((*(a3 + 16) & 1) == 0)
       {
-        v37 = 0;
+        v26 = 0;
       }
 
-      if (v36)
+      if (v25)
       {
-        v38 = v37;
+        v27 = v26;
       }
 
       else
       {
-        v38 = 0;
+        v27 = 0;
       }
 
-      v39 = ACFULogging::getLogInstance(v34);
-      v45 = v17 + v38;
-      v46 = v17 + v38;
-      if (*(v17 + v38 + 23) < 0)
+      v28 = ACFULogging::getLogInstance(v23);
+      v29 = v16 + v27;
+      v30 = (v16 + v27);
+      if (*(v16 + v27 + 23) < 0)
       {
-        v46 = *v45;
+        v30 = *v29;
       }
 
-      v99 = v46;
-      ACFULogging::handleMessage(v39, 0, "%s::%s: Handling %s\n", v40, v41, v42, v43, v44, "ACFUROM");
-      v47 = v17 + v38;
-      if (*(v45 + 23) < 0)
+      ACFULogging::handleMessage(v28, 0, "%s::%s: Handling %s\n", "ACFUROM", "handleFDR", v30);
+      v31 = (v16 + v27);
+      if (*(v29 + 23) < 0)
       {
-        v47 = *v45;
+        v31 = *v29;
       }
 
-      v48 = "raw";
+      v32 = "raw";
       if (*(a3 + 16))
       {
-        v48 = "combined";
+        v32 = "combined";
       }
 
-      v49 = CFStringCreateWithFormat(alloc, 0, @"%s-%s.bin", v47, v48, v99, v100);
-      if (v49)
+      v33 = CFStringCreateWithFormat(alloc, 0, @"%s-%s.bin", v31, v32);
+      if (v33)
       {
-        ACFUDiagnostics::addItem(*(a1 + 40), v49, v35, 1);
-        CFRelease(v49);
+        ACFUDiagnostics::addItem(*(a1 + 40), v33, v24, 1);
+        CFRelease(v33);
       }
 
       else
       {
-        v57 = ACFULogging::getLogInstance(0);
-        ACFULogging::handleMessage(v57, 0, "%s::%s: could not add cal file into diagnostics\n", v58, v59, v60, v61, v62, "ACFUROM");
+        v36 = ACFULogging::getLogInstance(0);
+        ACFULogging::handleMessage(v36, 0, "%s::%s: could not add cal file into diagnostics\n", "ACFUROM", "handleFDR");
       }
 
-      v63 = *(a1 + 16);
-      v109 = *(a1 + 8);
-      v110 = v63;
-      if (v63)
+      v37 = *(a1 + 16);
+      v53 = *(a1 + 8);
+      v54 = v37;
+      if (v37)
       {
-        atomic_fetch_add_explicit(&v63->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v37->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v64 = *(a1 + 32);
-      v107 = *(a1 + 24);
-      v108 = v64;
-      if (v64)
+      v38 = *(a1 + 32);
+      v51 = *(a1 + 24);
+      v52 = v38;
+      if (v38)
       {
-        atomic_fetch_add_explicit(&v64->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v38->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v10 = std::function<ACFUErrorCode ()(std::shared_ptr<ACFUTransport>,std::shared_ptr<ACFUFirmware>,std::string const&,__CFData const*)>::operator()(a4, &v109, &v107, v45, v35);
-      if (v108)
+      v10 = std::function<ACFUErrorCode ()(std::shared_ptr<ACFUTransport>,std::shared_ptr<ACFUFirmware>,std::string const&,__CFData const*)>::operator()(a4, &v53, &v51, v29, v24);
+      if (v52)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v108);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v52);
       }
 
-      v65 = v110;
-      if (v110)
+      v39 = v54;
+      if (v54)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v110);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v54);
       }
 
       if (v10)
       {
-        v72 = ACFULogging::getLogInstance(v65);
-        ACFULogging::handleMessage(v72, 2u, "%s::%s: failed to handle FDR file\n", v73, v74, v75, v76, v77, "ACFUROM");
-        CFRelease(v35);
+        v41 = ACFULogging::getLogInstance(v39);
+        ACFULogging::handleMessage(v41, 2, "%s::%s: failed to handle FDR file\n", "ACFUROM", "handleFDR");
+        CFRelease(v24);
         goto LABEL_66;
       }
 
-      std::vector<std::string>::push_back[abi:ne200100](&v114, v17);
-      CFRelease(v35);
+      std::vector<std::string>::push_back[abi:ne200100](&v58, v16);
+      CFRelease(v24);
     }
 
     else
     {
-      v50 = ACFULogging::getLogInstance(v34);
-      if (*(v17 + 23) < 0)
+      v34 = ACFULogging::getLogInstance(v23);
+      v35 = v16;
+      if (*(v16 + 23) < 0)
       {
-        v56 = *v17;
+        v35 = *v16;
       }
 
-      ACFULogging::handleMessage(v50, 0, "%s::%s: %s doesn't exist. Skipping...\n", v51, v52, v53, v54, v55, "ACFUROM");
+      ACFULogging::handleMessage(v34, 0, "%s::%s: %s doesn't exist. Skipping...\n", "ACFUROM", "handleFDR", v35);
     }
 
-    v17 += 6;
-    if (v17 == v18)
+    v16 += 48;
+    if (v16 == v17)
     {
       goto LABEL_65;
     }
   }
 
-  v66 = ACFULogging::getLogInstance(v34);
-  if (*(v17 + 47) < 0)
+  v40 = ACFULogging::getLogInstance(v23);
+  if (*(v16 + 47) < 0)
   {
-    if (v17[4])
+    if (!*(v16 + 32))
     {
-      v78 = v17[3];
+      goto LABEL_75;
+    }
+
+    v16 = *(v16 + 24);
+  }
+
+  else
+  {
+    if (*(v16 + 47))
+    {
+      v16 += 24;
       goto LABEL_77;
+    }
+
+LABEL_75:
+    if (*(v16 + 23) < 0)
+    {
+      v16 = *v16;
     }
   }
 
-  else if (*(v17 + 47))
-  {
-    goto LABEL_77;
-  }
-
-  if (*(v17 + 23) < 0)
-  {
-    v79 = *v17;
-  }
-
 LABEL_77:
-  ACFULogging::handleMessage(v66, 2u, "%s::%s: failed to validate %s\n", v67, v68, v69, v70, v71, "ACFUROM");
-  if (v35)
+  ACFULogging::handleMessage(v40, 2, "%s::%s: failed to validate %s\n", "ACFUROM", "handleFDR", v16);
+  if (v24)
   {
-    CFRelease(v35);
+    CFRelease(v24);
   }
 
   v10 = 5002;
 LABEL_66:
-  memset(&v106, 0, sizeof(v106));
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&v106, v114, v115, 0xAAAAAAAAAAAAAAABLL * ((v115 - v114) >> 3));
+  memset(&v50, 0, sizeof(v50));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&v50, v58, v59, 0xAAAAAAAAAAAAAAABLL * ((v59 - v58) >> 3));
   *a5 = 0;
   *(a5 + 8) = 0;
   *(a5 + 16) = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(a5, v106.__r_.__value_.__l.__data_, v106.__r_.__value_.__l.__size_, 0xAAAAAAAAAAAAAAABLL * ((v106.__r_.__value_.__l.__size_ - v106.__r_.__value_.__r.__words[0]) >> 3));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(a5, v50.__r_.__value_.__l.__data_, v50.__r_.__value_.__l.__size_, 0xAAAAAAAAAAAAAAABLL * ((v50.__r_.__value_.__l.__size_ - v50.__r_.__value_.__r.__words[0]) >> 3));
   *(a5 + 24) = v10;
-  v111 = &v106;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v111);
-  if (v102)
+  v55 = &v50;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v55);
+  if (v47)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v102);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v47);
   }
 
-  v111 = &v114;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v111);
+  v55 = &v58;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v55);
 }
 
 void sub_2402B5E94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::__shared_weak_count *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void **a26)
@@ -4315,27 +4400,27 @@ void std::_AllocatorDestroyRangeReverse<std::allocator<std::string>,std::string*
   }
 }
 
-void ACFUFDR::getDataLocalCopy(uint64_t a1@<X0>, const char *a2@<X1>, ACFULogging **a3@<X8>)
+void ACFUFDR::getDataLocalCopy(uint64_t a1@<X0>, uint64_t a2@<X1>, ACFULogging **a3@<X8>)
 {
-  ACFUError::ACFUError(v117, @"ACFUFDR");
-  v116 = 0;
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v110);
-  *(&v111 + *(v111 - 24) + 8) |= 0x4000u;
+  ACFUError::ACFUError(v86, @"ACFUFDR");
+  v85 = 0;
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v79);
+  *(&v80 + *(v80 - 24) + 8) |= 0x4000u;
   LOBYTE(__p[0]) = 48;
-  v5 = std::operator<<[abi:ne200100]<std::char_traits<char>>(&v111, __p);
+  v5 = std::operator<<[abi:ne200100]<std::char_traits<char>>(&v80, __p);
   v6 = *v5;
   *(v5 + *(*v5 - 24) + 24) = 8;
   *(v5 + *(v6 - 24) + 8) = *(v5 + *(v6 - 24) + 8) & 0xFFFFFFB5 | 8;
   v7 = MEMORY[0x245CBEC10]();
   v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "-", 1);
-  v107.__r_.__value_.__s.__data_[0] = 48;
-  v9 = std::operator<<[abi:ne200100]<std::char_traits<char>>(v8, &v107);
+  v76.__r_.__value_.__s.__data_[0] = 48;
+  v9 = std::operator<<[abi:ne200100]<std::char_traits<char>>(v8, &v76);
   v10 = *v9;
   *(v9 + *(*v9 - 24) + 24) = 16;
   *(v9 + *(v10 - 24) + 8) = *(v9 + *(v10 - 24) + 8) & 0xFFFFFFB5 | 8;
   MEMORY[0x245CBEC20]();
   v11 = *MEMORY[0x277CBECE8];
-  if (a2[23] >= 0)
+  if (*(a2 + 23) >= 0)
   {
     v12 = a2;
   }
@@ -4350,19 +4435,19 @@ void ACFUFDR::getDataLocalCopy(uint64_t a1@<X0>, const char *a2@<X1>, ACFULoggin
   v15 = v14;
   if ((v14 & 0x80u) != 0)
   {
-    v14 = *(a2 + 4);
+    v14 = *(a2 + 32);
   }
 
   if (v14)
   {
     if (v15 >= 0)
     {
-      v16 = a2 + 24;
+      v16 = (a2 + 24);
     }
 
     else
     {
-      v16 = *(a2 + 3);
+      v16 = *(a2 + 24);
     }
 
     v17 = CFStringCreateWithCString(v11, v16, 0x8000100u);
@@ -4374,7 +4459,7 @@ void ACFUFDR::getDataLocalCopy(uint64_t a1@<X0>, const char *a2@<X1>, ACFULoggin
   }
 
   std::stringbuf::str();
-  if (v109 >= 0)
+  if (v78 >= 0)
   {
     v18 = __p;
   }
@@ -4386,7 +4471,7 @@ void ACFUFDR::getDataLocalCopy(uint64_t a1@<X0>, const char *a2@<X1>, ACFULoggin
 
   v19 = CFStringCreateWithCString(v11, v18, 0x8000100u);
   v20 = v19;
-  if (SHIBYTE(v109) < 0)
+  if (SHIBYTE(v78) < 0)
   {
     operator delete(__p[0]);
   }
@@ -4401,20 +4486,19 @@ void ACFUFDR::getDataLocalCopy(uint64_t a1@<X0>, const char *a2@<X1>, ACFULoggin
     v21 = *(a2 + 47);
     if ((v21 & 0x80u) != 0)
     {
-      v21 = *(a2 + 4);
+      v21 = *(a2 + 32);
     }
 
     if (v21)
     {
 LABEL_84:
       LogInstance = ACFULogging::getLogInstance(v19);
-      v82 = "%s::%s: failed to allocate dataIntance, dataClass, or parentDataClass\n";
+      ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to allocate dataIntance, dataClass, or parentDataClass\n");
 LABEL_86:
-      ACFULogging::handleMessage(LogInstance, 2u, v82, v77, v78, v79, v80, v81, "ACFUFDR");
-      v52 = 0;
+      v48 = 0;
       v34 = 0;
       v23 = 0;
-      v51 = -1;
+      v47 = -1;
       goto LABEL_61;
     }
   }
@@ -4423,8 +4507,8 @@ LABEL_86:
   v23 = Mutable;
   if (!Mutable)
   {
-    LogInstance = ACFULogging::getLogInstance(0);
-    v82 = "%s::%s: failed to allocate options dictionary\n";
+    v63 = ACFULogging::getLogInstance(0);
+    ACFULogging::handleMessage(v63, 2, "%s::%s: failed to allocate options dictionary\n");
     goto LABEL_86;
   }
 
@@ -4448,35 +4532,35 @@ LABEL_86:
 
   CFDictionaryAddValue(v23, @"CopyAllowUnsealed", v26);
   v28 = ACFULogging::getLogInstance(v27);
-  std::string::basic_string[abi:ne200100]<0>(&v106, "ACFUFDR");
-  v29 = std::string::append(&v106, "::");
+  std::string::basic_string[abi:ne200100]<0>(&v75, "ACFUFDR");
+  v29 = std::string::append(&v75, "::");
   v30 = *&v29->__r_.__value_.__l.__data_;
-  v107.__r_.__value_.__r.__words[2] = v29->__r_.__value_.__r.__words[2];
-  *&v107.__r_.__value_.__l.__data_ = v30;
+  v76.__r_.__value_.__r.__words[2] = v29->__r_.__value_.__r.__words[2];
+  *&v76.__r_.__value_.__l.__data_ = v30;
   v29->__r_.__value_.__l.__size_ = 0;
   v29->__r_.__value_.__r.__words[2] = 0;
   v29->__r_.__value_.__r.__words[0] = 0;
-  v31 = std::string::append(&v107, "getDataLocalCopy");
+  v31 = std::string::append(&v76, "getDataLocalCopy");
   v32 = *&v31->__r_.__value_.__l.__data_;
-  v109 = v31->__r_.__value_.__r.__words[2];
+  v78 = v31->__r_.__value_.__r.__words[2];
   *__p = v32;
   v31->__r_.__value_.__l.__size_ = 0;
   v31->__r_.__value_.__r.__words[2] = 0;
   v31->__r_.__value_.__r.__words[0] = 0;
   ACFULogging::handleMessageCFType(v28, __p, 3, "FDR Validation Options", v23);
-  if (SHIBYTE(v109) < 0)
+  if (SHIBYTE(v78) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (SHIBYTE(v107.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v76.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v107.__r_.__value_.__l.__data_);
+    operator delete(v76.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v106.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v75.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v106.__r_.__value_.__l.__data_);
+    operator delete(v75.__r_.__value_.__l.__data_);
   }
 
   if (v17 && (*(a1 + 16) & 1) == 0)
@@ -4490,8 +4574,8 @@ LABEL_86:
   }
 
   v34 = v33;
-  v35 = v116;
-  if (*(a1 + 1) != 1 || !v33 || !v116)
+  v35 = v85;
+  if (*(a1 + 1) != 1 || !v33 || !v85)
   {
 LABEL_51:
     if (v34)
@@ -4503,46 +4587,46 @@ LABEL_51:
   }
 
   v36 = ACFULogging::getLogInstance(v33);
-  AMFDRGetTrustError();
-  ACFULogging::handleMessage(v36, 3u, "%s::%s: skipping trust error since FDR validation is disabled (Trust Error: 0x%016llx)\n", v37, v38, v39, v40, v41, "ACFUFDR");
-  v43 = ACFULogging::getLogInstance(v42);
-  std::string::basic_string[abi:ne200100]<0>(&v106, "ACFUFDR");
-  v44 = std::string::append(&v106, "::");
-  v45 = *&v44->__r_.__value_.__l.__data_;
-  v107.__r_.__value_.__r.__words[2] = v44->__r_.__value_.__r.__words[2];
-  *&v107.__r_.__value_.__l.__data_ = v45;
-  v44->__r_.__value_.__l.__size_ = 0;
-  v44->__r_.__value_.__r.__words[2] = 0;
-  v44->__r_.__value_.__r.__words[0] = 0;
-  v46 = std::string::append(&v107, "getDataLocalCopy");
-  v47 = *&v46->__r_.__value_.__l.__data_;
-  v109 = v46->__r_.__value_.__r.__words[2];
-  *__p = v47;
-  v46->__r_.__value_.__l.__size_ = 0;
-  v46->__r_.__value_.__r.__words[2] = 0;
-  v46->__r_.__value_.__r.__words[0] = 0;
-  ACFULogging::handleMessageCFType(v43, __p, 3, "fdr error: ", v116);
-  if (SHIBYTE(v109) < 0)
+  v37 = AMFDRGetTrustError();
+  ACFULogging::handleMessage(v36, 3, "%s::%s: skipping trust error since FDR validation is disabled (Trust Error: 0x%016llx)\n", "ACFUFDR", "getDataLocalCopy", v37);
+  v39 = ACFULogging::getLogInstance(v38);
+  std::string::basic_string[abi:ne200100]<0>(&v75, "ACFUFDR");
+  v40 = std::string::append(&v75, "::");
+  v41 = *&v40->__r_.__value_.__l.__data_;
+  v76.__r_.__value_.__r.__words[2] = v40->__r_.__value_.__r.__words[2];
+  *&v76.__r_.__value_.__l.__data_ = v41;
+  v40->__r_.__value_.__l.__size_ = 0;
+  v40->__r_.__value_.__r.__words[2] = 0;
+  v40->__r_.__value_.__r.__words[0] = 0;
+  v42 = std::string::append(&v76, "getDataLocalCopy");
+  v43 = *&v42->__r_.__value_.__l.__data_;
+  v78 = v42->__r_.__value_.__r.__words[2];
+  *__p = v43;
+  v42->__r_.__value_.__l.__size_ = 0;
+  v42->__r_.__value_.__r.__words[2] = 0;
+  v42->__r_.__value_.__r.__words[0] = 0;
+  ACFULogging::handleMessageCFType(v39, __p, 3, "fdr error: ", v85);
+  if (SHIBYTE(v78) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (SHIBYTE(v107.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v76.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v107.__r_.__value_.__l.__data_);
+    operator delete(v76.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v106.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v75.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v106.__r_.__value_.__l.__data_);
+    operator delete(v75.__r_.__value_.__l.__data_);
   }
 
-  v33 = v116;
-  if (v116)
+  v33 = v85;
+  if (v85)
   {
-    CFRelease(v116);
+    CFRelease(v85);
     v35 = 0;
-    v116 = 0;
+    v85 = 0;
     goto LABEL_51;
   }
 
@@ -4554,113 +4638,129 @@ LABEL_52:
     {
       if (v17 && (*(a1 + 16) & 1) == 0)
       {
-        v53 = CFGetTypeID(v34);
+        v49 = CFGetTypeID(v34);
         TypeID = CFDictionaryGetTypeID();
-        if (v53 == TypeID)
+        if (v49 == TypeID)
         {
           Value = CFDictionaryGetValue(v34, v13);
-          v52 = Value;
+          v48 = Value;
           if (Value)
           {
             CFRetain(Value);
-            v56 = CFGetTypeID(v52);
-            v50 = CFDataGetTypeID();
-            if (v56 == v50)
+            v52 = CFGetTypeID(v48);
+            v46 = CFDataGetTypeID();
+            if (v52 == v46)
             {
 LABEL_60:
-              v51 = 0;
+              v47 = 0;
               goto LABEL_61;
             }
 
-            v99 = ACFULogging::getLogInstance(v50);
-            ACFULogging::handleMessage(v99, 2u, "%s::%s: Wrong type, expected data\n", v100, v101, v102, v103, v104, "ACFUFDR");
-            CFRelease(v52);
+            v73 = ACFULogging::getLogInstance(v46);
+            ACFULogging::handleMessage(v73, 2, "%s::%s: Wrong type, expected data\n", "ACFUFDR", "getDataLocalCopy");
+            CFRelease(v48);
           }
 
           else
           {
-            v90 = ACFULogging::getLogInstance(0);
-            if (a2[23] < 0)
+            v66 = ACFULogging::getLogInstance(0);
+            if (*(a2 + 23) >= 0)
             {
-              v96 = *a2;
+              v67 = a2;
             }
 
-            v97 = a2[47];
-            v98 = *(a2 + 3);
-            ACFULogging::handleMessage(v90, 2u, "%s::%s: data class %s not present in parent data class %s\n", v91, v92, v93, v94, v95, "ACFUFDR");
-          }
+            else
+            {
+              v67 = *a2;
+            }
 
-LABEL_94:
-          v52 = 0;
-          goto LABEL_60;
+            v68 = *(a2 + 47);
+            v71 = *(a2 + 24);
+            v70 = (a2 + 24);
+            v69 = v71;
+            if (v68 >= 0)
+            {
+              v72 = v70;
+            }
+
+            else
+            {
+              v72 = v69;
+            }
+
+            ACFULogging::handleMessage(v66, 2, "%s::%s: data class %s not present in parent data class %s\n", "ACFUFDR", "getDataLocalCopy", v67, v72);
+          }
         }
 
-        v83 = ACFULogging::getLogInstance(TypeID);
-        v89 = "%s::%s: Wrong type, expected dict\n";
+        else
+        {
+          v65 = ACFULogging::getLogInstance(TypeID);
+          ACFULogging::handleMessage(v65, 2, "%s::%s: Wrong type, expected dict\n");
+        }
       }
 
       else
       {
-        v48 = CFGetTypeID(v34);
-        v49 = CFDataGetTypeID();
-        if (v48 == v49)
+        v44 = CFGetTypeID(v34);
+        v45 = CFDataGetTypeID();
+        if (v44 == v45)
         {
-          v50 = CFRetain(v34);
-          v51 = 0;
-          v52 = v34;
+          v46 = CFRetain(v34);
+          v47 = 0;
+          v48 = v34;
           goto LABEL_61;
         }
 
-        v83 = ACFULogging::getLogInstance(v49);
-        v89 = "%s::%s: Wrong type, expected data\n";
+        v64 = ACFULogging::getLogInstance(v45);
+        ACFULogging::handleMessage(v64, 2, "%s::%s: Wrong type, expected data\n");
       }
 
-      ACFULogging::handleMessage(v83, 2u, v89, v84, v85, v86, v87, v88, "ACFUFDR");
-      goto LABEL_94;
+      v48 = 0;
+      goto LABEL_60;
     }
   }
 
 LABEL_77:
-  v64 = ACFULogging::getLogInstance(v33);
-  ACFULogging::handleMessage(v64, 2u, "%s::%s: failed to get data from local FDR data store\n", v65, v66, v67, v68, v69, "ACFUFDR");
-  v71 = ACFULogging::getLogInstance(v70);
-  std::string::basic_string[abi:ne200100]<0>(&v106, "ACFUFDR");
-  v72 = std::string::append(&v106, "::");
-  v73 = *&v72->__r_.__value_.__l.__data_;
-  v107.__r_.__value_.__r.__words[2] = v72->__r_.__value_.__r.__words[2];
-  *&v107.__r_.__value_.__l.__data_ = v73;
-  v72->__r_.__value_.__l.__size_ = 0;
-  v72->__r_.__value_.__r.__words[2] = 0;
-  v72->__r_.__value_.__r.__words[0] = 0;
-  v74 = std::string::append(&v107, "getDataLocalCopy");
-  v75 = *&v74->__r_.__value_.__l.__data_;
-  v109 = v74->__r_.__value_.__r.__words[2];
-  *__p = v75;
-  v74->__r_.__value_.__l.__size_ = 0;
-  v74->__r_.__value_.__r.__words[2] = 0;
-  v74->__r_.__value_.__r.__words[0] = 0;
-  ACFULogging::handleMessageCFType(v71, __p, 2, "fdr error: ", v116);
-  if (SHIBYTE(v109) < 0)
+  v55 = ACFULogging::getLogInstance(v33);
+  ACFULogging::handleMessage(v55, 2, "%s::%s: failed to get data from local FDR data store\n", "ACFUFDR", "getDataLocalCopy");
+  v57 = ACFULogging::getLogInstance(v56);
+  std::string::basic_string[abi:ne200100]<0>(&v75, "ACFUFDR");
+  v58 = std::string::append(&v75, "::");
+  v59 = *&v58->__r_.__value_.__l.__data_;
+  v76.__r_.__value_.__r.__words[2] = v58->__r_.__value_.__r.__words[2];
+  *&v76.__r_.__value_.__l.__data_ = v59;
+  v58->__r_.__value_.__l.__size_ = 0;
+  v58->__r_.__value_.__r.__words[2] = 0;
+  v58->__r_.__value_.__r.__words[0] = 0;
+  v60 = std::string::append(&v76, "getDataLocalCopy");
+  v61 = *&v60->__r_.__value_.__l.__data_;
+  v78 = v60->__r_.__value_.__r.__words[2];
+  *__p = v61;
+  v60->__r_.__value_.__l.__size_ = 0;
+  v60->__r_.__value_.__r.__words[2] = 0;
+  v60->__r_.__value_.__r.__words[0] = 0;
+  ACFULogging::handleMessageCFType(v57, __p, 2, "fdr error: ", v85);
+  if (SHIBYTE(v78) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (SHIBYTE(v107.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v76.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v107.__r_.__value_.__l.__data_);
+    operator delete(v76.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v106.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v75.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v106.__r_.__value_.__l.__data_);
+    operator delete(v75.__r_.__value_.__l.__data_);
   }
 
-  v50 = AMFDRGetTrustError();
-  v51 = v50;
-  v52 = 0;
+  v46 = AMFDRGetTrustError();
+  v47 = v46;
+  v48 = 0;
 LABEL_61:
-  v57 = ACFULogging::getLogInstance(v50);
-  ACFULogging::handleMessage(v57, 3u, "%s::%s: FDR Trust Result: 0x%016llx\n", v58, v59, v60, v61, v62, "ACFUFDR");
+  v53 = ACFULogging::getLogInstance(v46);
+  ACFULogging::handleMessage(v53, 3, "%s::%s: FDR Trust Result: 0x%016llx\n", "ACFUFDR", "getDataLocalCopy", v47);
   if (v13)
   {
     CFRelease(v13);
@@ -4671,10 +4771,10 @@ LABEL_61:
     CFRelease(v17);
   }
 
-  if (v116)
+  if (v85)
   {
-    CFRelease(v116);
-    v116 = 0;
+    CFRelease(v85);
+    v85 = 0;
   }
 
   if (v20)
@@ -4692,23 +4792,23 @@ LABEL_61:
     CFRelease(v34);
   }
 
-  *a3 = v52;
-  a3[1] = v51;
-  v110[0] = *MEMORY[0x277D82818];
-  v63 = *(MEMORY[0x277D82818] + 72);
-  *(v110 + *(v110[0] - 24)) = *(MEMORY[0x277D82818] + 64);
-  v111 = v63;
-  v112 = MEMORY[0x277D82878] + 16;
-  if (v114 < 0)
+  *a3 = v48;
+  a3[1] = v47;
+  v79[0] = *MEMORY[0x277D82818];
+  v54 = *(MEMORY[0x277D82818] + 72);
+  *(v79 + *(v79[0] - 24)) = *(MEMORY[0x277D82818] + 64);
+  v80 = v54;
+  v81 = MEMORY[0x277D82878] + 16;
+  if (v83 < 0)
   {
-    operator delete(v113[7].__locale_);
+    operator delete(v82[7].__locale_);
   }
 
-  v112 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v113);
+  v81 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v82);
   std::iostream::~basic_iostream();
-  MEMORY[0x245CBED50](&v115);
-  ACFUError::~ACFUError(v117);
+  MEMORY[0x245CBED50](&v84);
+  ACFUError::~ACFUError(v86);
 }
 
 void sub_2402B6F50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, int a16, __int16 a17, char a18, char a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32, char a33)
@@ -4813,19 +4913,19 @@ uint64_t std::basic_stringstream<char,std::char_traits<char>,std::allocator<char
 
 void ACFUFDR::getDictLocalCopy(uint64_t a1@<X0>, const char *a2@<X1>, ACFULogging **a3@<X8>)
 {
-  ACFUError::ACFUError(v89, @"ACFUFDR");
-  v88 = 0;
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v82);
-  *(&v83 + *(v83 - 24) + 8) |= 0x4000u;
+  ACFUError::ACFUError(v65, @"ACFUFDR");
+  v64 = 0;
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v58);
+  *(&v59 + *(v59 - 24) + 8) |= 0x4000u;
   LOBYTE(__p[0]) = 48;
-  v6 = std::operator<<[abi:ne200100]<std::char_traits<char>>(&v83, __p);
+  v6 = std::operator<<[abi:ne200100]<std::char_traits<char>>(&v59, __p);
   v7 = *v6;
   *(v6 + *(*v6 - 24) + 24) = 8;
   *(v6 + *(v7 - 24) + 8) = *(v6 + *(v7 - 24) + 8) & 0xFFFFFFB5 | 8;
   v8 = MEMORY[0x245CBEC10]();
   v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "-", 1);
-  v79.__r_.__value_.__s.__data_[0] = 48;
-  v10 = std::operator<<[abi:ne200100]<std::char_traits<char>>(v9, &v79);
+  v55.__r_.__value_.__s.__data_[0] = 48;
+  v10 = std::operator<<[abi:ne200100]<std::char_traits<char>>(v9, &v55);
   v11 = *v10;
   *(v10 + *(*v10 - 24) + 24) = 16;
   *(v10 + *(v11 - 24) + 8) = *(v10 + *(v11 - 24) + 8) & 0xFFFFFFB5 | 8;
@@ -4833,7 +4933,7 @@ void ACFUFDR::getDictLocalCopy(uint64_t a1@<X0>, const char *a2@<X1>, ACFULoggin
   v12 = *MEMORY[0x277CBECE8];
   v13 = CFStringCreateWithCString(*MEMORY[0x277CBECE8], a2, 0x8000100u);
   std::stringbuf::str();
-  if (v81 >= 0)
+  if (v57 >= 0)
   {
     v14 = __p;
   }
@@ -4845,7 +4945,7 @@ void ACFUFDR::getDictLocalCopy(uint64_t a1@<X0>, const char *a2@<X1>, ACFULoggin
 
   v15 = CFStringCreateWithCString(v12, v14, 0x8000100u);
   v16 = v15;
-  if (SHIBYTE(v81) < 0)
+  if (SHIBYTE(v57) < 0)
   {
     operator delete(__p[0]);
   }
@@ -4853,12 +4953,11 @@ void ACFUFDR::getDictLocalCopy(uint64_t a1@<X0>, const char *a2@<X1>, ACFULoggin
   if (!v13 || !v16)
   {
     LogInstance = ACFULogging::getLogInstance(v15);
-    v71 = "%s::%s: failed to allocate dataIntance, dataClass\n";
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to allocate dataIntance, dataClass\n");
 LABEL_59:
-    ACFULogging::handleMessage(LogInstance, 2u, v71, v66, v67, v68, v69, v70, "ACFUFDR");
     v29 = 0;
     v18 = 0;
-    v45 = -1;
+    v41 = -1;
     goto LABEL_37;
   }
 
@@ -4866,8 +4965,8 @@ LABEL_59:
   v18 = Mutable;
   if (!Mutable)
   {
-    LogInstance = ACFULogging::getLogInstance(0);
-    v71 = "%s::%s: failed to allocate options dictionary\n";
+    v52 = ACFULogging::getLogInstance(0);
+    ACFULogging::handleMessage(v52, 2, "%s::%s: failed to allocate options dictionary\n");
     goto LABEL_59;
   }
 
@@ -4891,41 +4990,41 @@ LABEL_59:
 
   CFDictionaryAddValue(v18, @"CopyAllowUnsealed", v21);
   v23 = ACFULogging::getLogInstance(v22);
-  std::string::basic_string[abi:ne200100]<0>(&v78, "ACFUFDR");
-  v24 = std::string::append(&v78, "::");
+  std::string::basic_string[abi:ne200100]<0>(&v54, "ACFUFDR");
+  v24 = std::string::append(&v54, "::");
   v25 = *&v24->__r_.__value_.__l.__data_;
-  v79.__r_.__value_.__r.__words[2] = v24->__r_.__value_.__r.__words[2];
-  *&v79.__r_.__value_.__l.__data_ = v25;
+  v55.__r_.__value_.__r.__words[2] = v24->__r_.__value_.__r.__words[2];
+  *&v55.__r_.__value_.__l.__data_ = v25;
   v24->__r_.__value_.__l.__size_ = 0;
   v24->__r_.__value_.__r.__words[2] = 0;
   v24->__r_.__value_.__r.__words[0] = 0;
-  v26 = std::string::append(&v79, "getDictLocalCopy");
+  v26 = std::string::append(&v55, "getDictLocalCopy");
   v27 = *&v26->__r_.__value_.__l.__data_;
-  v81 = v26->__r_.__value_.__r.__words[2];
+  v57 = v26->__r_.__value_.__r.__words[2];
   *__p = v27;
   v26->__r_.__value_.__l.__size_ = 0;
   v26->__r_.__value_.__r.__words[2] = 0;
   v26->__r_.__value_.__r.__words[0] = 0;
   ACFULogging::handleMessageCFType(v23, __p, 3, "FDR Validation Options", v18);
-  if (SHIBYTE(v81) < 0)
+  if (SHIBYTE(v57) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (SHIBYTE(v79.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v55.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v79.__r_.__value_.__l.__data_);
+    operator delete(v55.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v54.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v78.__r_.__value_.__l.__data_);
+    operator delete(v54.__r_.__value_.__l.__data_);
   }
 
   v28 = AMFDRSealingMapCopyLocalDict();
   v29 = v28;
-  v30 = v88;
-  if (*(a1 + 1) != 1 || !v28 || !v88)
+  v30 = v64;
+  if (*(a1 + 1) != 1 || !v28 || !v64)
   {
 LABEL_32:
     if (!v29)
@@ -4937,46 +5036,46 @@ LABEL_32:
   }
 
   v31 = ACFULogging::getLogInstance(v28);
-  AMFDRGetTrustError();
-  ACFULogging::handleMessage(v31, 3u, "%s::%s: skipping trust error since FDR validation is disabled (Trust Error: 0x%016llx)\n", v32, v33, v34, v35, v36, "ACFUFDR");
-  v38 = ACFULogging::getLogInstance(v37);
-  std::string::basic_string[abi:ne200100]<0>(&v78, "ACFUFDR");
-  v39 = std::string::append(&v78, "::");
-  v40 = *&v39->__r_.__value_.__l.__data_;
-  v79.__r_.__value_.__r.__words[2] = v39->__r_.__value_.__r.__words[2];
-  *&v79.__r_.__value_.__l.__data_ = v40;
-  v39->__r_.__value_.__l.__size_ = 0;
-  v39->__r_.__value_.__r.__words[2] = 0;
-  v39->__r_.__value_.__r.__words[0] = 0;
-  v41 = std::string::append(&v79, "getDictLocalCopy");
-  v42 = *&v41->__r_.__value_.__l.__data_;
-  v81 = v41->__r_.__value_.__r.__words[2];
-  *__p = v42;
-  v41->__r_.__value_.__l.__size_ = 0;
-  v41->__r_.__value_.__r.__words[2] = 0;
-  v41->__r_.__value_.__r.__words[0] = 0;
-  ACFULogging::handleMessageCFType(v38, __p, 3, "fdr error: ", v88);
-  if (SHIBYTE(v81) < 0)
+  v32 = AMFDRGetTrustError();
+  ACFULogging::handleMessage(v31, 3, "%s::%s: skipping trust error since FDR validation is disabled (Trust Error: 0x%016llx)\n", "ACFUFDR", "getDictLocalCopy", v32);
+  v34 = ACFULogging::getLogInstance(v33);
+  std::string::basic_string[abi:ne200100]<0>(&v54, "ACFUFDR");
+  v35 = std::string::append(&v54, "::");
+  v36 = *&v35->__r_.__value_.__l.__data_;
+  v55.__r_.__value_.__r.__words[2] = v35->__r_.__value_.__r.__words[2];
+  *&v55.__r_.__value_.__l.__data_ = v36;
+  v35->__r_.__value_.__l.__size_ = 0;
+  v35->__r_.__value_.__r.__words[2] = 0;
+  v35->__r_.__value_.__r.__words[0] = 0;
+  v37 = std::string::append(&v55, "getDictLocalCopy");
+  v38 = *&v37->__r_.__value_.__l.__data_;
+  v57 = v37->__r_.__value_.__r.__words[2];
+  *__p = v38;
+  v37->__r_.__value_.__l.__size_ = 0;
+  v37->__r_.__value_.__r.__words[2] = 0;
+  v37->__r_.__value_.__r.__words[0] = 0;
+  ACFULogging::handleMessageCFType(v34, __p, 3, "fdr error: ", v64);
+  if (SHIBYTE(v57) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (SHIBYTE(v79.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v55.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v79.__r_.__value_.__l.__data_);
+    operator delete(v55.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v54.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v78.__r_.__value_.__l.__data_);
+    operator delete(v54.__r_.__value_.__l.__data_);
   }
 
-  v28 = v88;
-  if (v88)
+  v28 = v64;
+  if (v64)
   {
-    CFRelease(v88);
+    CFRelease(v64);
     v30 = 0;
-    v88 = 0;
+    v64 = 0;
     goto LABEL_32;
   }
 
@@ -4989,57 +5088,57 @@ LABEL_32:
 LABEL_33:
   if (!v30)
   {
-    v43 = CFGetTypeID(v29);
+    v39 = CFGetTypeID(v29);
     TypeID = CFDictionaryGetTypeID();
-    if (v43 != TypeID)
+    if (v39 != TypeID)
     {
-      v72 = ACFULogging::getLogInstance(TypeID);
-      ACFULogging::handleMessage(v72, 2u, "%s::%s: wrong type, expected dict\n", v73, v74, v75, v76, v77, "ACFUFDR");
+      v53 = ACFULogging::getLogInstance(TypeID);
+      ACFULogging::handleMessage(v53, 2, "%s::%s: wrong type, expected dict\n", "ACFUFDR", "getDictLocalCopy");
       CFRelease(v29);
       v29 = 0;
     }
 
-    v45 = 0;
+    v41 = 0;
     goto LABEL_37;
   }
 
 LABEL_49:
-  v53 = ACFULogging::getLogInstance(v28);
-  ACFULogging::handleMessage(v53, 2u, "%s::%s: failed to get dict from local FDR data store\n", v54, v55, v56, v57, v58, "ACFUFDR");
-  v60 = ACFULogging::getLogInstance(v59);
-  std::string::basic_string[abi:ne200100]<0>(&v78, "ACFUFDR");
-  v61 = std::string::append(&v78, "::");
-  v62 = *&v61->__r_.__value_.__l.__data_;
-  v79.__r_.__value_.__r.__words[2] = v61->__r_.__value_.__r.__words[2];
-  *&v79.__r_.__value_.__l.__data_ = v62;
-  v61->__r_.__value_.__l.__size_ = 0;
-  v61->__r_.__value_.__r.__words[2] = 0;
-  v61->__r_.__value_.__r.__words[0] = 0;
-  v63 = std::string::append(&v79, "getDictLocalCopy");
-  v64 = *&v63->__r_.__value_.__l.__data_;
-  v81 = v63->__r_.__value_.__r.__words[2];
-  *__p = v64;
-  v63->__r_.__value_.__l.__size_ = 0;
-  v63->__r_.__value_.__r.__words[2] = 0;
-  v63->__r_.__value_.__r.__words[0] = 0;
-  ACFULogging::handleMessageCFType(v60, __p, 2, "fdr error: ", v88);
-  if (SHIBYTE(v81) < 0)
+  v44 = ACFULogging::getLogInstance(v28);
+  ACFULogging::handleMessage(v44, 2, "%s::%s: failed to get dict from local FDR data store\n", "ACFUFDR", "getDictLocalCopy");
+  v46 = ACFULogging::getLogInstance(v45);
+  std::string::basic_string[abi:ne200100]<0>(&v54, "ACFUFDR");
+  v47 = std::string::append(&v54, "::");
+  v48 = *&v47->__r_.__value_.__l.__data_;
+  v55.__r_.__value_.__r.__words[2] = v47->__r_.__value_.__r.__words[2];
+  *&v55.__r_.__value_.__l.__data_ = v48;
+  v47->__r_.__value_.__l.__size_ = 0;
+  v47->__r_.__value_.__r.__words[2] = 0;
+  v47->__r_.__value_.__r.__words[0] = 0;
+  v49 = std::string::append(&v55, "getDictLocalCopy");
+  v50 = *&v49->__r_.__value_.__l.__data_;
+  v57 = v49->__r_.__value_.__r.__words[2];
+  *__p = v50;
+  v49->__r_.__value_.__l.__size_ = 0;
+  v49->__r_.__value_.__r.__words[2] = 0;
+  v49->__r_.__value_.__r.__words[0] = 0;
+  ACFULogging::handleMessageCFType(v46, __p, 2, "fdr error: ", v64);
+  if (SHIBYTE(v57) < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (SHIBYTE(v79.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v55.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v79.__r_.__value_.__l.__data_);
+    operator delete(v55.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v54.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v78.__r_.__value_.__l.__data_);
+    operator delete(v54.__r_.__value_.__l.__data_);
   }
 
   TypeID = AMFDRGetTrustError();
-  v45 = TypeID;
+  v41 = TypeID;
   if (v29)
   {
     CFRelease(v29);
@@ -5047,17 +5146,17 @@ LABEL_49:
   }
 
 LABEL_37:
-  v46 = ACFULogging::getLogInstance(TypeID);
-  ACFULogging::handleMessage(v46, 3u, "%s::%s: FDR Trust Result: 0x%016llx\n", v47, v48, v49, v50, v51, "ACFUFDR");
+  v42 = ACFULogging::getLogInstance(TypeID);
+  ACFULogging::handleMessage(v42, 3, "%s::%s: FDR Trust Result: 0x%016llx\n", "ACFUFDR", "getDictLocalCopy", v41);
   if (v13)
   {
     CFRelease(v13);
   }
 
-  if (v88)
+  if (v64)
   {
-    CFRelease(v88);
-    v88 = 0;
+    CFRelease(v64);
+    v64 = 0;
   }
 
   if (v16)
@@ -5071,22 +5170,22 @@ LABEL_37:
   }
 
   *a3 = v29;
-  a3[1] = v45;
-  v82[0] = *MEMORY[0x277D82818];
-  v52 = *(MEMORY[0x277D82818] + 72);
-  *(v82 + *(v82[0] - 24)) = *(MEMORY[0x277D82818] + 64);
-  v83 = v52;
-  v84 = MEMORY[0x277D82878] + 16;
-  if (v86 < 0)
+  a3[1] = v41;
+  v58[0] = *MEMORY[0x277D82818];
+  v43 = *(MEMORY[0x277D82818] + 72);
+  *(v58 + *(v58[0] - 24)) = *(MEMORY[0x277D82818] + 64);
+  v59 = v43;
+  v60 = MEMORY[0x277D82878] + 16;
+  if (v62 < 0)
   {
-    operator delete(v85[7].__locale_);
+    operator delete(v61[7].__locale_);
   }
 
-  v84 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v85);
+  v60 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v61);
   std::iostream::~basic_iostream();
-  MEMORY[0x245CBED50](&v87);
-  ACFUError::~ACFUError(v89);
+  MEMORY[0x245CBED50](&v63);
+  ACFUError::~ACFUError(v65);
 }
 
 void sub_2402B7C90(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, char a31)
@@ -5114,22 +5213,22 @@ void sub_2402B7C90(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 uint64_t ACFUFDR::certifyChip(uint64_t a1, __int16 a2, uint64_t a3, __int16 a4)
 {
   valuePtr[0] = a2;
-  v132 = a3;
-  v131 = a4;
+  v84 = a3;
+  v83 = a4;
   bytes = 0;
-  v130 = 0;
-  v5 = std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v124);
-  v123 = 0;
+  v82 = 0;
+  v5 = std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v76);
+  v75 = 0;
   v6 = *(a1 + 32);
   v7 = v6 == 2 && *(a1 + 40) == 0;
   v8 = MEMORY[0x277D82818];
   if (v7)
   {
     LogInstance = ACFULogging::getLogInstance(v5);
-    ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: client sik pubkey must be set for FDR 2.0 certification\n", v101, v102, v103, v104, v105, "ACFUFDR");
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: client sik pubkey must be set for FDR 2.0 certification\n", "ACFUFDR", "certifyChip");
     theDict = 0;
-    v40 = 0;
-    v39 = 0;
+    v35 = 0;
+    v34 = 0;
     goto LABEL_59;
   }
 
@@ -5137,8 +5236,8 @@ uint64_t ACFUFDR::certifyChip(uint64_t a1, __int16 a2, uint64_t a3, __int16 a4)
   v10 = *MEMORY[0x277CBECE8];
   v11 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt64Type, &bytes);
   value = CFNumberCreate(v10, kCFNumberSInt16Type, valuePtr);
-  v12 = CFNumberCreate(v10, kCFNumberSInt64Type, &v132);
-  v13 = CFNumberCreate(v10, kCFNumberSInt16Type, &v131);
+  v12 = CFNumberCreate(v10, kCFNumberSInt64Type, &v84);
+  v13 = CFNumberCreate(v10, kCFNumberSInt16Type, &v83);
   cf = v13;
   if (value)
   {
@@ -5152,10 +5251,10 @@ uint64_t ACFUFDR::certifyChip(uint64_t a1, __int16 a2, uint64_t a3, __int16 a4)
 
   if (v14 || v13 == 0 || v9 != 0 || v11 == 0)
   {
-    v64 = ACFULogging::getLogInstance(v13);
-    ACFULogging::handleMessage(v64, 2u, "%s::%s: failed to setup http header parameters (rngStatus: %d)\n", v65, v66, v67, v68, v69, "ACFUFDR");
-    v39 = 0;
-    v40 = 0;
+    v51 = ACFULogging::getLogInstance(v13);
+    ACFULogging::handleMessage(v51, 2, "%s::%s: failed to setup http header parameters (rngStatus: %d)\n", "ACFUFDR", "certifyChip", v9);
+    v34 = 0;
+    v35 = 0;
     theDict = 0;
     if (!v11)
     {
@@ -5168,10 +5267,10 @@ uint64_t ACFUFDR::certifyChip(uint64_t a1, __int16 a2, uint64_t a3, __int16 a4)
   theDict = CFDictionaryCreateMutable(v10, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (!theDict)
   {
-    v70 = ACFULogging::getLogInstance(0);
-    ACFULogging::handleMessage(v70, 2u, "%s::%s: failed to allocate extra options dictionary\n", v71, v72, v73, v74, v75, "ACFUFDR");
-    v39 = 0;
-    v40 = 0;
+    v52 = ACFULogging::getLogInstance(0);
+    ACFULogging::handleMessage(v52, 2, "%s::%s: failed to allocate extra options dictionary\n", "ACFUFDR", "certifyChip");
+    v34 = 0;
+    v35 = 0;
     theDict = 0;
     goto LABEL_52;
   }
@@ -5180,10 +5279,10 @@ uint64_t ACFUFDR::certifyChip(uint64_t a1, __int16 a2, uint64_t a3, __int16 a4)
   v19 = Mutable;
   if (!Mutable)
   {
-    v76 = ACFULogging::getLogInstance(0);
-    ACFULogging::handleMessage(v76, 2u, "%s::%s: failed to allocate http header dictionary\n", v77, v78, v79, v80, v81, "ACFUFDR");
-    v39 = 0;
-    v40 = 0;
+    v53 = ACFULogging::getLogInstance(0);
+    ACFULogging::handleMessage(v53, 2, "%s::%s: failed to allocate http header dictionary\n", "ACFUFDR", "certifyChip");
+    v34 = 0;
+    v35 = 0;
     goto LABEL_52;
   }
 
@@ -5194,22 +5293,22 @@ uint64_t ACFUFDR::certifyChip(uint64_t a1, __int16 a2, uint64_t a3, __int16 a4)
   CFDictionarySetValue(v19, @"x-fdr-attestation", *MEMORY[0x277CBED28]);
   if (v6 == 2)
   {
-    v21 = std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v117);
+    v21 = std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v69);
     v22 = ACFULogging::getLogInstance(v21);
-    ACFULogging::handleMessage(v22, 0, "%s::%s: configuring for FDR 2.0 certification\n", v23, v24, v25, v26, v27, "ACFUFDR");
-    *(&v118 + *(v118 - 24) + 8) |= 0x4000u;
+    ACFULogging::handleMessage(v22, 0, "%s::%s: configuring for FDR 2.0 certification\n", "ACFUFDR", "certifyChip");
+    *(&v70 + *(v70 - 24) + 8) |= 0x4000u;
     __p.__r_.__value_.__s.__data_[0] = 48;
-    v28 = std::operator<<[abi:ne200100]<std::char_traits<char>>(&v118, &__p);
-    v29 = *v28;
-    *(v28 + *(*v28 - 24) + 24) = 8;
-    *(v28 + *(v29 - 24) + 8) = *(v28 + *(v29 - 24) + 8) & 0xFFFFFFB5 | 8;
-    v30 = MEMORY[0x245CBEC10]();
-    v31 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, "-", 1);
-    v115.__r_.__value_.__s.__data_[0] = 48;
-    v32 = std::operator<<[abi:ne200100]<std::char_traits<char>>(v31, &v115);
-    v33 = *v32;
-    *(v32 + *(*v32 - 24) + 24) = 16;
-    *(v32 + *(v33 - 24) + 8) = *(v32 + *(v33 - 24) + 8) & 0xFFFFFFB5 | 8;
+    v23 = std::operator<<[abi:ne200100]<std::char_traits<char>>(&v70, &__p);
+    v24 = *v23;
+    *(v23 + *(*v23 - 24) + 24) = 8;
+    *(v23 + *(v24 - 24) + 8) = *(v23 + *(v24 - 24) + 8) & 0xFFFFFFB5 | 8;
+    v25 = MEMORY[0x245CBEC10]();
+    v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, "-", 1);
+    v67.__r_.__value_.__s.__data_[0] = 48;
+    v27 = std::operator<<[abi:ne200100]<std::char_traits<char>>(v26, &v67);
+    v28 = *v27;
+    *(v27 + *(*v27 - 24) + 24) = 16;
+    *(v27 + *(v28 - 24) + 8) = *(v27 + *(v28 - 24) + 8) & 0xFFFFFFB5 | 8;
     MEMORY[0x245CBEC20]();
     std::stringbuf::str();
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -5222,41 +5321,41 @@ uint64_t ACFUFDR::certifyChip(uint64_t a1, __int16 a2, uint64_t a3, __int16 a4)
       p_p = __p.__r_.__value_.__r.__words[0];
     }
 
-    v35 = CFStringCreateWithCString(v10, p_p, 0x8000100u);
-    v36 = v35;
+    v30 = CFStringCreateWithCString(v10, p_p, 0x8000100u);
+    v31 = v30;
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    if (v36)
+    if (v31)
     {
-      CFDictionarySetValue(v19, @"x-fdr-client-id", v36);
+      CFDictionarySetValue(v19, @"x-fdr-client-id", v31);
       CFDictionarySetValue(theDict, @"CertifySikPub", *(a1 + 40));
-      CFRelease(v36);
+      CFRelease(v31);
     }
 
     else
     {
-      v106 = ACFULogging::getLogInstance(v35);
-      ACFULogging::handleMessage(v106, 2u, "%s::%s: failed to create client ID\n", v107, v108, v109, v110, v111, "ACFUFDR");
+      v63 = ACFULogging::getLogInstance(v30);
+      ACFULogging::handleMessage(v63, 2, "%s::%s: failed to create client ID\n", "ACFUFDR", "certifyChip");
     }
 
-    v117[0] = *v8;
-    v37 = *(v8 + 72);
-    *(v117 + *(v117[0] - 3)) = *(v8 + 64);
-    v118 = v37;
-    v119 = MEMORY[0x277D82878] + 16;
-    if (v121 < 0)
+    v69[0] = *v8;
+    v32 = *(v8 + 72);
+    *(v69 + *(v69[0] - 3)) = *(v8 + 64);
+    v70 = v32;
+    v71 = MEMORY[0x277D82878] + 16;
+    if (v73 < 0)
     {
-      operator delete(v120[7].__locale_);
+      operator delete(v72[7].__locale_);
     }
 
-    v119 = MEMORY[0x277D82868] + 16;
-    std::locale::~locale(v120);
+    v71 = MEMORY[0x277D82868] + 16;
+    std::locale::~locale(v72);
     std::iostream::~basic_iostream();
-    v38 = MEMORY[0x245CBED50](&v122);
-    if (!v36)
+    v33 = MEMORY[0x245CBED50](&v74);
+    if (!v31)
     {
       goto LABEL_31;
     }
@@ -5264,31 +5363,31 @@ uint64_t ACFUFDR::certifyChip(uint64_t a1, __int16 a2, uint64_t a3, __int16 a4)
 
   else
   {
-    v41 = ACFULogging::getLogInstance(v20);
-    ACFULogging::handleMessage(v41, 0, "%s::%s: configuring for FDR 1.0 certification\n", v42, v43, v44, v45, v46, "ACFUFDR");
+    v36 = ACFULogging::getLogInstance(v20);
+    ACFULogging::handleMessage(v36, 0, "%s::%s: configuring for FDR 1.0 certification\n", "ACFUFDR", "certifyChip");
     CFDictionarySetValue(v19, @"x-fdr-certification-type", @"component");
   }
 
-  v47 = ACFULogging::getLogInstance(v38);
-  std::string::basic_string[abi:ne200100]<0>(&v115, "ACFUFDR");
-  v48 = std::string::append(&v115, "::");
-  v49 = *&v48->__r_.__value_.__l.__data_;
-  __p.__r_.__value_.__r.__words[2] = v48->__r_.__value_.__r.__words[2];
-  *&__p.__r_.__value_.__l.__data_ = v49;
-  v48->__r_.__value_.__l.__size_ = 0;
-  v48->__r_.__value_.__r.__words[2] = 0;
-  v48->__r_.__value_.__r.__words[0] = 0;
-  v50 = std::string::append(&__p, "certifyChip");
-  v51 = *&v50->__r_.__value_.__l.__data_;
-  v118 = v50->__r_.__value_.__r.__words[2];
-  *v117 = v51;
-  v50->__r_.__value_.__l.__size_ = 0;
-  v50->__r_.__value_.__r.__words[2] = 0;
-  v50->__r_.__value_.__r.__words[0] = 0;
-  ACFULogging::handleMessageCFType(v47, v117, 0, "FDR Certification URL:", *(a1 + 8));
-  if (SHIBYTE(v118) < 0)
+  v37 = ACFULogging::getLogInstance(v33);
+  std::string::basic_string[abi:ne200100]<0>(&v67, "ACFUFDR");
+  v38 = std::string::append(&v67, "::");
+  v39 = *&v38->__r_.__value_.__l.__data_;
+  __p.__r_.__value_.__r.__words[2] = v38->__r_.__value_.__r.__words[2];
+  *&__p.__r_.__value_.__l.__data_ = v39;
+  v38->__r_.__value_.__l.__size_ = 0;
+  v38->__r_.__value_.__r.__words[2] = 0;
+  v38->__r_.__value_.__r.__words[0] = 0;
+  v40 = std::string::append(&__p, "certifyChip");
+  v41 = *&v40->__r_.__value_.__l.__data_;
+  v70 = v40->__r_.__value_.__r.__words[2];
+  *v69 = v41;
+  v40->__r_.__value_.__l.__size_ = 0;
+  v40->__r_.__value_.__r.__words[2] = 0;
+  v40->__r_.__value_.__r.__words[0] = 0;
+  ACFULogging::handleMessageCFType(v37, v69, 0, "FDR Certification URL:", *(a1 + 8));
+  if (SHIBYTE(v70) < 0)
   {
-    operator delete(v117[0]);
+    operator delete(v69[0]);
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -5296,49 +5395,46 @@ uint64_t ACFUFDR::certifyChip(uint64_t a1, __int16 a2, uint64_t a3, __int16 a4)
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v115.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v67.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v115.__r_.__value_.__l.__data_);
+    operator delete(v67.__r_.__value_.__l.__data_);
   }
 
-  v40 = CFURLCreateWithString(v10, *(a1 + 8), 0);
-  if (v40)
+  v35 = CFURLCreateWithString(v10, *(a1 + 8), 0);
+  if (v35)
   {
     CFDictionarySetValue(theDict, @"CertifyHeaders", v19);
-    v52 = *(a1 + 56);
-    if (v52)
+    v42 = *(a1 + 56);
+    if (v42)
     {
-      CFDictionarySetValue(theDict, @"CertifyManifestSigCert", v52);
+      CFDictionarySetValue(theDict, @"CertifyManifestSigCert", v42);
     }
 
-    v53 = *(a1 + 48);
-    v54 = *(a1 + 16);
-    v55 = *(a1 + 24);
-    v56 = AMFDRChipCertifyForRestore();
-    if (v56)
+    v43 = AMFDRChipCertifyForRestore();
+    if (v43)
     {
-      if (v123)
+      if (v75)
       {
-        v57 = ACFULogging::getLogInstance(v56);
-        std::string::basic_string[abi:ne200100]<0>(&v115, "ACFUFDR");
-        v58 = std::string::append(&v115, "::");
-        v59 = *&v58->__r_.__value_.__l.__data_;
-        __p.__r_.__value_.__r.__words[2] = v58->__r_.__value_.__r.__words[2];
-        *&__p.__r_.__value_.__l.__data_ = v59;
-        v58->__r_.__value_.__l.__size_ = 0;
-        v58->__r_.__value_.__r.__words[2] = 0;
-        v58->__r_.__value_.__r.__words[0] = 0;
-        v60 = std::string::append(&__p, "certifyChip");
-        v61 = *&v60->__r_.__value_.__l.__data_;
-        v118 = v60->__r_.__value_.__r.__words[2];
-        *v117 = v61;
-        v60->__r_.__value_.__l.__size_ = 0;
-        v60->__r_.__value_.__r.__words[2] = 0;
-        v60->__r_.__value_.__r.__words[0] = 0;
-        ACFULogging::handleMessageCFType(v57, v117, 0, "Signed Certificate: ", v123);
-        if (SHIBYTE(v118) < 0)
+        v44 = ACFULogging::getLogInstance(v43);
+        std::string::basic_string[abi:ne200100]<0>(&v67, "ACFUFDR");
+        v45 = std::string::append(&v67, "::");
+        v46 = *&v45->__r_.__value_.__l.__data_;
+        __p.__r_.__value_.__r.__words[2] = v45->__r_.__value_.__r.__words[2];
+        *&__p.__r_.__value_.__l.__data_ = v46;
+        v45->__r_.__value_.__l.__size_ = 0;
+        v45->__r_.__value_.__r.__words[2] = 0;
+        v45->__r_.__value_.__r.__words[0] = 0;
+        v47 = std::string::append(&__p, "certifyChip");
+        v48 = *&v47->__r_.__value_.__l.__data_;
+        v70 = v47->__r_.__value_.__r.__words[2];
+        *v69 = v48;
+        v47->__r_.__value_.__l.__size_ = 0;
+        v47->__r_.__value_.__r.__words[2] = 0;
+        v47->__r_.__value_.__r.__words[0] = 0;
+        ACFULogging::handleMessageCFType(v44, v69, 0, "Signed Certificate: ", v75);
+        if (SHIBYTE(v70) < 0)
         {
-          operator delete(v117[0]);
+          operator delete(v69[0]);
         }
 
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -5346,39 +5442,39 @@ uint64_t ACFUFDR::certifyChip(uint64_t a1, __int16 a2, uint64_t a3, __int16 a4)
           operator delete(__p.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v115.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v67.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v115.__r_.__value_.__l.__data_);
+          operator delete(v67.__r_.__value_.__l.__data_);
         }
       }
 
-      v39 = 1;
+      v34 = 1;
     }
 
     else
     {
-      v88 = ACFULogging::getLogInstance(v56);
-      ACFULogging::handleMessage(v88, 2u, "%s::%s: failed to perform certification\n", v89, v90, v91, v92, v93, "ACFUFDR");
-      v95 = ACFULogging::getLogInstance(v94);
-      std::string::basic_string[abi:ne200100]<0>(&v115, "ACFUFDR");
-      v96 = std::string::append(&v115, "::");
-      v97 = *&v96->__r_.__value_.__l.__data_;
-      __p.__r_.__value_.__r.__words[2] = v96->__r_.__value_.__r.__words[2];
-      *&__p.__r_.__value_.__l.__data_ = v97;
-      v96->__r_.__value_.__l.__size_ = 0;
-      v96->__r_.__value_.__r.__words[2] = 0;
-      v96->__r_.__value_.__r.__words[0] = 0;
-      v98 = std::string::append(&__p, "certifyChip");
-      v99 = *&v98->__r_.__value_.__l.__data_;
-      v118 = v98->__r_.__value_.__r.__words[2];
-      *v117 = v99;
-      v98->__r_.__value_.__l.__size_ = 0;
-      v98->__r_.__value_.__r.__words[2] = 0;
-      v98->__r_.__value_.__r.__words[0] = 0;
-      ACFULogging::handleMessageCFType(v95, v117, 2, "Certification Error: ", v130);
-      if (SHIBYTE(v118) < 0)
+      v55 = ACFULogging::getLogInstance(v43);
+      ACFULogging::handleMessage(v55, 2, "%s::%s: failed to perform certification\n", "ACFUFDR", "certifyChip");
+      v57 = ACFULogging::getLogInstance(v56);
+      std::string::basic_string[abi:ne200100]<0>(&v67, "ACFUFDR");
+      v58 = std::string::append(&v67, "::");
+      v59 = *&v58->__r_.__value_.__l.__data_;
+      __p.__r_.__value_.__r.__words[2] = v58->__r_.__value_.__r.__words[2];
+      *&__p.__r_.__value_.__l.__data_ = v59;
+      v58->__r_.__value_.__l.__size_ = 0;
+      v58->__r_.__value_.__r.__words[2] = 0;
+      v58->__r_.__value_.__r.__words[0] = 0;
+      v60 = std::string::append(&__p, "certifyChip");
+      v61 = *&v60->__r_.__value_.__l.__data_;
+      v70 = v60->__r_.__value_.__r.__words[2];
+      *v69 = v61;
+      v60->__r_.__value_.__l.__size_ = 0;
+      v60->__r_.__value_.__r.__words[2] = 0;
+      v60->__r_.__value_.__r.__words[0] = 0;
+      ACFULogging::handleMessageCFType(v57, v69, 2, "Certification Error: ", v82);
+      if (SHIBYTE(v70) < 0)
       {
-        operator delete(v117[0]);
+        operator delete(v69[0]);
       }
 
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -5386,22 +5482,22 @@ uint64_t ACFUFDR::certifyChip(uint64_t a1, __int16 a2, uint64_t a3, __int16 a4)
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v115.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v67.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v115.__r_.__value_.__l.__data_);
+        operator delete(v67.__r_.__value_.__l.__data_);
       }
 
-      v39 = 0;
+      v34 = 0;
     }
 
     goto LABEL_51;
   }
 
-  v82 = ACFULogging::getLogInstance(0);
-  ACFULogging::handleMessage(v82, 2u, "%s::%s: failed to allocate certification URL\n", v83, v84, v85, v86, v87, "ACFUFDR");
+  v54 = ACFULogging::getLogInstance(0);
+  ACFULogging::handleMessage(v54, 2, "%s::%s: failed to allocate certification URL\n", "ACFUFDR", "certifyChip");
 LABEL_31:
-  v39 = 0;
-  v40 = 0;
+  v34 = 0;
+  v35 = 0;
 LABEL_51:
   CFRelease(v19);
 LABEL_52:
@@ -5423,21 +5519,21 @@ LABEL_53:
   }
 
 LABEL_59:
-  if (v130)
+  if (v82)
   {
-    CFRelease(v130);
-    v130 = 0;
+    CFRelease(v82);
+    v82 = 0;
   }
 
-  if (v123)
+  if (v75)
   {
-    CFRelease(v123);
-    v123 = 0;
+    CFRelease(v75);
+    v75 = 0;
   }
 
-  if (v40)
+  if (v35)
   {
-    CFRelease(v40);
+    CFRelease(v35);
   }
 
   if (theDict)
@@ -5445,21 +5541,21 @@ LABEL_59:
     CFRelease(theDict);
   }
 
-  v124[0] = *v8;
-  v62 = *(v8 + 72);
-  *(v124 + *(v124[0] - 24)) = *(v8 + 64);
-  v124[2] = v62;
-  v125 = MEMORY[0x277D82878] + 16;
-  if (v127 < 0)
+  v76[0] = *v8;
+  v49 = *(v8 + 72);
+  *(v76 + *(v76[0] - 24)) = *(v8 + 64);
+  v76[2] = v49;
+  v77 = MEMORY[0x277D82878] + 16;
+  if (v79 < 0)
   {
-    operator delete(v126[7].__locale_);
+    operator delete(v78[7].__locale_);
   }
 
-  v125 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v126);
+  v77 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v78);
   std::iostream::~basic_iostream();
-  MEMORY[0x245CBED50](&v128);
-  return v39;
+  MEMORY[0x245CBED50](&v80);
+  return v34;
 }
 
 void sub_2402B881C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, void *__p, uint64_t a30, int a31, __int16 a32, char a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
@@ -5479,7 +5575,7 @@ void sub_2402B881C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a16);
   }
 
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a69);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a65);
   _Unwind_Resume(a1);
 }
 
@@ -5584,16 +5680,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x277D82680]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -5616,9 +5712,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_2402B8BE0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_2402B8BE0(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x245CBEBF0](&a10);
+  MEMORY[0x245CBEBF0](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -5790,18 +5886,17 @@ void ACFUDataContainer::DirectDataRef::~DirectDataRef(ACFUDataContainer::DirectD
             v5 = sysconf(29);
             LogInstance = ACFULogging::getLogInstance(v5);
             v3 += v2 % v5;
-            v20 = *(this + 1);
-            ACFULogging::handleMessage(LogInstance, 4u, "%s::%s: unmaping new length for page alignment (alignedLength: %zu. originalLength: %zu)\n", v7, v8, v9, v10, v11, "ACFUDataContainer");
+            ACFULogging::handleMessage(LogInstance, 4, "%s::%s: unmaping new length for page alignment (alignedLength: %zu. originalLength: %zu)\n", "ACFUDataContainer", "~DirectDataRef", v3, *(this + 1));
             v2 = v2 / v4 * v4;
           }
 
-          v12 = munmap(v2, v3);
-          if (v12 == -1)
+          v7 = munmap(v2, v3);
+          if (v7 == -1)
           {
-            v13 = ACFULogging::getLogInstance(v12);
-            v14 = __error();
-            strerror(*v14);
-            ACFULogging::handleMessage(v13, 2u, "%s::%s: failed to unmap file: (%s)\n", v15, v16, v17, v18, v19, "ACFUDataContainer");
+            v8 = ACFULogging::getLogInstance(v7);
+            v9 = __error();
+            v10 = strerror(*v9);
+            ACFULogging::handleMessage(v8, 2, "%s::%s: failed to unmap file: (%s)\n", "ACFUDataContainer", "~DirectDataRef", v10);
           }
         }
 
@@ -5816,32 +5911,32 @@ void ACFUDataContainer::DirectDataRef::~DirectDataRef(ACFUDataContainer::DirectD
 
 void ACFUDataContainer::create(ACFUDataContainer *this@<X0>, ACFUDataContainer **a2@<X8>)
 {
-  v5 = operator new(0x20uLL);
-  *v5 = 0;
-  v5[2] = -1;
-  *(v5 + 2) = 0;
-  *(v5 + 12) = 0;
-  *a2 = v5;
-  if ((ACFUDataContainer::init(v5, this) & 1) == 0)
+  v4 = operator new(0x20uLL);
+  *v4 = 0;
+  v4[2] = -1;
+  *(v4 + 2) = 0;
+  *(v4 + 12) = 0;
+  *a2 = v4;
+  if ((ACFUDataContainer::init(v4, this) & 1) == 0)
   {
     std::unique_ptr<ACFUDataContainer>::reset[abi:ne200100](a2, 0);
-    LogInstance = ACFULogging::getLogInstance(v6);
-    ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to init data container object\n", v8, v9, v10, v11, v12, "ACFUDataContainer");
+    LogInstance = ACFULogging::getLogInstance(v5);
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to init data container object\n", "ACFUDataContainer", "create");
   }
 }
 
 {
-  v5 = operator new(0x20uLL);
-  *v5 = 0;
-  v5[2] = -1;
-  *(v5 + 2) = 0;
-  *(v5 + 12) = 0;
-  *a2 = v5;
-  if ((ACFUDataContainer::init(v5, this) & 1) == 0)
+  v4 = operator new(0x20uLL);
+  *v4 = 0;
+  v4[2] = -1;
+  *(v4 + 2) = 0;
+  *(v4 + 12) = 0;
+  *a2 = v4;
+  if ((ACFUDataContainer::init(v4, this) & 1) == 0)
   {
     std::unique_ptr<ACFUDataContainer>::reset[abi:ne200100](a2, 0);
-    LogInstance = ACFULogging::getLogInstance(v6);
-    ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to init data container object\n", v8, v9, v10, v11, v12, "ACFUDataContainer");
+    LogInstance = ACFULogging::getLogInstance(v5);
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to init data container object\n", "ACFUDataContainer", "create");
   }
 }
 
@@ -5909,62 +6004,60 @@ uint64_t ACFUDataContainer::init(ACFUDataContainer *this, __CFData *a2)
   return 0;
 }
 
-void ACFUDataContainer::create(__CFString *this@<X0>, const __CFString *a2@<X1>, ACFUDataContainer **a3@<X8>)
+void ACFUDataContainer::create(ACFUDataContainer **__return_ptr a1@<X8>, __CFString *this@<X0>, const __CFString *a3@<X1>)
 {
-  v3 = a2;
+  v3 = a3;
   v6 = operator new(0x20uLL);
   *v6 = 0;
   v6[2] = -1;
   *(v6 + 2) = 0;
   *(v6 + 12) = 0;
-  *a3 = v6;
+  *a1 = v6;
   if ((ACFUDataContainer::init(v6, this, v3) & 1) == 0)
   {
-    std::unique_ptr<ACFUDataContainer>::reset[abi:ne200100](a3, 0);
+    std::unique_ptr<ACFUDataContainer>::reset[abi:ne200100](a1, 0);
     LogInstance = ACFULogging::getLogInstance(v7);
-    ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to init data container object\n", v9, v10, v11, v12, v13, "ACFUDataContainer");
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to init data container object\n", "ACFUDataContainer", "create");
   }
 }
 
 uint64_t ACFUDataContainer::init(ACFUDataContainer *this, __CFString *a2, char a3)
 {
-  ACFUCommon::stringFromCFString(a2, &v43);
-  v46 = v44;
-  *v45 = v43;
-  if ((SHIBYTE(v44) & 0x80000000) == 0)
+  ACFUCommon::stringFromCFString(&v29, a2);
+  v32 = v30;
+  *v31 = v29;
+  if ((SHIBYTE(v30) & 0x80000000) == 0)
   {
-    if (HIBYTE(v44))
+    if (HIBYTE(v30))
     {
-      v7 = v45;
+      v7 = v31;
       goto LABEL_6;
     }
 
-LABEL_40:
+LABEL_39:
     LogInstance = ACFULogging::getLogInstance(v6);
-    v41 = "%s::%s: failed to acquire file path string\n";
-LABEL_44:
-    ACFULogging::handleMessage(LogInstance, 2u, v41, v36, v37, v38, v39, v40, "ACFUDataContainer");
-    goto LABEL_21;
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to acquire file path string\n");
+    goto LABEL_20;
   }
 
-  if (!v45[1])
+  if (!v31[1])
   {
-    goto LABEL_40;
+    goto LABEL_39;
   }
 
-  v7 = v45[0];
+  v7 = v31[0];
 LABEL_6:
   if (access(v7, 0))
   {
     *(this + 25) = 1;
-    if (v46 >= 0)
+    if (v32 >= 0)
     {
-      v8 = v45;
+      v8 = v31;
     }
 
     else
     {
-      v8 = v45[0];
+      v8 = v31[0];
     }
 
     v9 = open(v8, 514, 438);
@@ -5972,26 +6065,26 @@ LABEL_6:
 
   else
   {
-    if (v46 >= 0)
+    if (v32 >= 0)
     {
-      v10 = v45;
+      v10 = v31;
     }
 
     else
     {
-      v10 = v45[0];
+      v10 = v31[0];
     }
 
     if (access(v10, 6))
     {
-      if (v46 >= 0)
+      if (v32 >= 0)
       {
-        v11 = v45;
+        v11 = v31;
       }
 
       else
       {
-        v11 = v45[0];
+        v11 = v31[0];
       }
 
       v12 = access(v11, 4);
@@ -6000,53 +6093,49 @@ LABEL_6:
         v13 = ACFULogging::getLogInstance(v12);
         v14 = __error();
         strerror(*v14);
-        v20 = "%s::%s: no read or write permissions to file: (%s)\n";
-LABEL_20:
-        ACFULogging::handleMessage(v13, 2u, v20, v15, v16, v17, v18, v19, "ACFUDataContainer");
-LABEL_21:
-        v21 = 0;
-        goto LABEL_37;
+        ACFULogging::handleMessage(v13, 2, "%s::%s: no read or write permissions to file: (%s)\n");
+        goto LABEL_20;
       }
 
-      v23 = ACFULogging::getLogInstance(v12);
-      ACFULogging::handleMessage(v23, 2u, "%s::%s: no write permissions to file... attempting to open file as read-only\n", v24, v25, v26, v27, v28, "ACFUDataContainer");
-      if (v46 >= 0)
+      v17 = ACFULogging::getLogInstance(v12);
+      ACFULogging::handleMessage(v17, 2, "%s::%s: no write permissions to file... attempting to open file as read-only\n", "ACFUDataContainer", "init");
+      if (v32 >= 0)
       {
-        v29 = v45;
+        v18 = v31;
       }
 
       else
       {
-        v29 = v45[0];
+        v18 = v31[0];
       }
 
-      v9 = open(v29, 0);
+      v9 = open(v18, 0);
     }
 
     else
     {
       *(this + 25) = 1;
-      if (v46 >= 0)
+      if (v32 >= 0)
       {
-        v22 = v45;
+        v16 = v31;
       }
 
       else
       {
-        v22 = v45[0];
+        v16 = v31[0];
       }
 
-      v9 = open(v22, 2);
+      v9 = open(v16, 2);
     }
   }
 
   *(this + 2) = v9;
   if ((v9 & 0x80000000) != 0)
   {
-    v13 = ACFULogging::getLogInstance(v9);
-    v42 = __error();
-    strerror(*v42);
-    v20 = "%s::%s: failed to open file error: (%s)\n";
+    v25 = ACFULogging::getLogInstance(v9);
+    v26 = __error();
+    strerror(*v26);
+    ACFULogging::handleMessage(v25, 2, "%s::%s: failed to open file error: (%s)\n");
     goto LABEL_20;
   }
 
@@ -6054,37 +6143,39 @@ LABEL_21:
   *(this + 2) = Copy;
   if (!Copy)
   {
-    LogInstance = ACFULogging::getLogInstance(0);
-    v41 = "%s::%s: failed to create copy of file path\n";
-    goto LABEL_44;
+    v27 = ACFULogging::getLogInstance(0);
+    ACFULogging::handleMessage(v27, 2, "%s::%s: failed to create copy of file path\n");
+    goto LABEL_20;
   }
 
   if ((a3 & 1) == 0)
   {
-    MutableFileDatafromFilePath = ACFUCommon::createMutableFileDatafromFilePath(a2, v31);
+    MutableFileDatafromFilePath = ACFUCommon::createMutableFileDatafromFilePath(a2, v20);
     *this = MutableFileDatafromFilePath;
     if (MutableFileDatafromFilePath)
     {
-      v32 = 0;
-      goto LABEL_36;
+      v21 = 0;
+      goto LABEL_35;
     }
 
-    LogInstance = ACFULogging::getLogInstance(0);
-    v41 = "%s::%s: failed to acquire firmware data from file path\n";
-    goto LABEL_44;
+    v28 = ACFULogging::getLogInstance(0);
+    ACFULogging::handleMessage(v28, 2, "%s::%s: failed to acquire firmware data from file path\n");
+LABEL_20:
+    v15 = 0;
+    goto LABEL_36;
   }
 
-  v32 = 1;
-LABEL_36:
-  *(this + 24) = v32;
   v21 = 1;
-LABEL_37:
-  if (SHIBYTE(v46) < 0)
+LABEL_35:
+  *(this + 24) = v21;
+  v15 = 1;
+LABEL_36:
+  if (SHIBYTE(v32) < 0)
   {
-    operator delete(v45[0]);
+    operator delete(v31[0]);
   }
 
-  return v21;
+  return v15;
 }
 
 void sub_2402B95F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
@@ -6101,7 +6192,6 @@ __CFData *ACFUDataContainer::copyData(ACFUDataContainer *this)
 {
   if (*(this + 24) != 1)
   {
-    v5 = *this;
     if (*this)
     {
       AMSupportSafeRetain();
@@ -6120,21 +6210,19 @@ __CFData *ACFUDataContainer::copyData(ACFUDataContainer *this)
   if (!v2)
   {
     LogInstance = ACFULogging::getLogInstance(0);
-    v15 = "%s::%s: file path has not been initialized\n";
-LABEL_20:
-    ACFULogging::handleMessage(LogInstance, 2u, v15, v10, v11, v12, v13, v14, "ACFUDataContainer");
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: file path has not been initialized\n");
     goto LABEL_22;
   }
 
-  ACFUCommon::stringFromCFString(v2, &v23);
-  if (SHIBYTE(v26) < 0)
+  ACFUCommon::stringFromCFString(&v13, v2);
+  if (SHIBYTE(v16) < 0)
   {
     operator delete(__p[0]);
   }
 
-  v26 = v24;
-  *__p = v23;
-  if (SHIBYTE(v24) < 0)
+  v16 = v14;
+  *__p = v13;
+  if (SHIBYTE(v14) < 0)
   {
     if (__p[1])
     {
@@ -6142,39 +6230,39 @@ LABEL_20:
       goto LABEL_12;
     }
 
-    goto LABEL_19;
+LABEL_19:
+    v9 = ACFULogging::getLogInstance(v3);
+    ACFULogging::handleMessage(v9, 2, "%s::%s: failed to acquire file path c string\n");
+    goto LABEL_22;
   }
 
-  if (!HIBYTE(v24))
+  if (!HIBYTE(v14))
   {
-LABEL_19:
-    LogInstance = ACFULogging::getLogInstance(v3);
-    v15 = "%s::%s: failed to acquire file path c string\n";
-    goto LABEL_20;
+    goto LABEL_19;
   }
 
   v4 = __p;
 LABEL_12:
-  v7 = stat(v4, &v27);
-  if (v7 != -1)
+  v6 = stat(v4, &v17);
+  if (v6 != -1)
   {
-    v6 = ACFUDataContainer::copyData(this, 0, v27.st_size);
+    v5 = ACFUDataContainer::copyData(this, 0, v17.st_size);
     goto LABEL_14;
   }
 
-  v16 = ACFULogging::getLogInstance(v7);
-  v17 = __error();
-  strerror(*v17);
-  ACFULogging::handleMessage(v16, 2u, "%s::%s: failed to obtain file stats: (%s)\n", v18, v19, v20, v21, v22, "ACFUDataContainer");
+  v10 = ACFULogging::getLogInstance(v6);
+  v11 = __error();
+  v12 = strerror(*v11);
+  ACFULogging::handleMessage(v10, 2, "%s::%s: failed to obtain file stats: (%s)\n", "ACFUDataContainer", "copyData", v12);
 LABEL_22:
-  v6 = 0;
+  v5 = 0;
 LABEL_14:
-  if (SHIBYTE(v26) < 0)
+  if (SHIBYTE(v16) < 0)
   {
     operator delete(__p[0]);
   }
 
-  return v6;
+  return v5;
 }
 
 void sub_2402B9780(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
@@ -6187,7 +6275,7 @@ void sub_2402B9780(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-__CFData *ACFUDataContainer::copyData(ACFUDataContainer *this, unsigned int a2, unint64_t a3)
+__CFData *ACFUDataContainer::copyData(ACFUDataContainer *this, const __CFString *a2, unint64_t a3)
 {
   if (!a3)
   {
@@ -6196,25 +6284,26 @@ __CFData *ACFUDataContainer::copyData(ACFUDataContainer *this, unsigned int a2, 
   }
 
   v3 = a3;
-  Length = ACFUDataContainer::getLength(this);
+  v4 = a2;
+  Length = ACFUDataContainer::getLength(this, a2);
   if (!Length)
   {
     ACFUDataContainer::copyData(0);
     return 0;
   }
 
-  if (Length <= a2)
+  if (Length <= v4)
   {
     ACFUDataContainer::copyData(Length);
     return 0;
   }
 
-  v7 = a2;
-  v8 = Length - a2;
+  v7 = v4;
+  v8 = Length - v4;
   if (v8 < v3)
   {
     LogInstance = ACFULogging::getLogInstance(Length);
-    ACFULogging::handleMessage(LogInstance, 4u, "%s::%s: reducing requested length %zu -> %zu\n", v10, v11, v12, v13, v14, "ACFUDataContainer");
+    ACFULogging::handleMessage(LogInstance, 4, "%s::%s: reducing requested length %zu -> %zu\n", "ACFUDataContainer", "copyData", v3, v8);
     v3 = v8;
   }
 
@@ -6247,32 +6336,32 @@ __CFData *ACFUDataContainer::copyData(ACFUDataContainer *this, unsigned int a2, 
     return 0;
   }
 
-  v15 = (a2 / sysconf(29));
-  v16 = sysconf(29);
-  v17 = (v15 * v16);
-  v18 = a2 - v17;
-  v19 = ACFULogging::getLogInstance(v16);
-  ACFULogging::handleMessage(v19, 4u, "%s::%s: paging in new length for page alignment (Requested: %zu. Aligned: %zu)\n", v20, v21, v22, v23, v24, "ACFUDataContainer");
-  v25 = mmap(0, v3 + v18, 1, 2, *(this + 2), v17);
-  if (v25 == -1)
+  v10 = (v4 / sysconf(29));
+  v11 = sysconf(29);
+  v12 = (v10 * v11);
+  v13 = v4 - v12;
+  v14 = ACFULogging::getLogInstance(v11);
+  ACFULogging::handleMessage(v14, 4, "%s::%s: paging in new length for page alignment (Requested: %zu. Aligned: %zu)\n", "ACFUDataContainer", "copyData", v3, v3 + v13);
+  v15 = mmap(0, v3 + v13, 1, 2, *(this + 2), v12);
+  if (v15 == -1)
   {
     ACFUDataContainer::copyData(0xFFFFFFFFFFFFFFFFLL);
     return 0;
   }
 
-  v26 = v25;
-  v27 = CFDataCreateMutable(*MEMORY[0x277CBECE8], 0);
-  Mutable = v27;
-  if (v27)
+  v16 = v15;
+  v17 = CFDataCreateMutable(*MEMORY[0x277CBECE8], 0);
+  Mutable = v17;
+  if (v17)
   {
-    CFDataAppendBytes(v27, &v26[v18], v3);
-    v29 = munmap(v26, v3 + v18);
-    if (v29 == -1)
+    CFDataAppendBytes(v17, &v16[v13], v3);
+    v19 = munmap(v16, v3 + v13);
+    if (v19 == -1)
     {
-      v30 = ACFULogging::getLogInstance(v29);
-      v31 = __error();
-      strerror(*v31);
-      ACFULogging::handleMessage(v30, 4u, "%s::%s: failed to un-map file: (%s)\n", v32, v33, v34, v35, v36, "ACFUDataContainer");
+      v20 = ACFULogging::getLogInstance(v19);
+      v21 = __error();
+      v22 = strerror(*v21);
+      ACFULogging::handleMessage(v20, 4, "%s::%s: failed to un-map file: (%s)\n", "ACFUDataContainer", "copyData", v22);
     }
   }
 
@@ -6284,37 +6373,47 @@ __CFData *ACFUDataContainer::copyData(ACFUDataContainer *this, unsigned int a2, 
   return Mutable;
 }
 
-CFIndex ACFUDataContainer::getLength(const __CFString **this)
+CFIndex ACFUDataContainer::getLength(ACFUCommon **this, const __CFString *a2)
 {
   if (*(this + 24) == 1)
   {
-    ACFUCommon::stringFromCFString(this[2], __p);
-    if (v14 >= 0)
+    ACFUCommon::stringFromCFString(__p, this[2]);
+    if (v12 >= 0)
     {
-      v1 = __p;
+      v2 = __p;
     }
 
     else
     {
-      v1 = __p[0];
+      v2 = __p[0];
     }
 
-    v2 = stat(v1, &v15);
-    if (v2 == -1)
+    v3 = stat(v2, &v13);
+    if (v3 == -1)
     {
-      LogInstance = ACFULogging::getLogInstance(v2);
-      v7 = __error();
-      strerror(*v7);
-      ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to determine file size for path '%s' (%s)\n", v8, v9, v10, v11, v12, "ACFUDataContainer");
+      LogInstance = ACFULogging::getLogInstance(v3);
+      if (v12 >= 0)
+      {
+        v8 = __p;
+      }
+
+      else
+      {
+        v8 = __p[0];
+      }
+
+      v9 = __error();
+      v10 = strerror(*v9);
+      ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to determine file size for path '%s' (%s)\n", "ACFUDataContainer", "getLength", v8, v10);
       st_size = 0;
     }
 
     else
     {
-      st_size = v15.st_size;
+      st_size = v13.st_size;
     }
 
-    if (v14 < 0)
+    if (v12 < 0)
     {
       operator delete(__p[0]);
     }
@@ -6324,9 +6423,9 @@ CFIndex ACFUDataContainer::getLength(const __CFString **this)
 
   else
   {
-    v4 = *this;
+    v5 = *this;
 
-    return CFDataGetLength(v4);
+    return CFDataGetLength(v5);
   }
 }
 
@@ -6346,17 +6445,16 @@ void ACFUDataContainer::copyDirectData(ACFUDataContainer *this@<X0>, size_t __si
   if (!__size)
   {
     LogInstance = ACFULogging::getLogInstance(this);
-    v32 = "%s::%s: invalid offset value\n";
-    v33 = 2;
-    goto LABEL_11;
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: invalid offset value\n");
+    return;
   }
 
   if (*(this + 24) == 1)
   {
     if ((*(this + 2) & 0x80000000) != 0)
     {
-      v34 = ACFULogging::getLogInstance(this);
-      ACFULogging::handleMessage(v34, 2u, "%s::%s: invalid file descriptor\n", v35, v36, v37, v38, v39, "ACFUDataContainer");
+      v23 = ACFULogging::getLogInstance(this);
+      ACFULogging::handleMessage(v23, 2, "%s::%s: invalid file descriptor\n", "ACFUDataContainer", "copyDirectData");
       return;
     }
 
@@ -6365,62 +6463,57 @@ void ACFUDataContainer::copyDirectData(ACFUDataContainer *this@<X0>, size_t __si
     v10 = ACFULogging::getLogInstance(v9);
     v11 = (v9 * (a3 / v8));
     v12 = a3 - v11;
-    ACFULogging::handleMessage(v10, 4u, "%s::%s: paging in new length for page alignment (Requested: %zu. Aligned: %zu)\n", v13, v14, v15, v16, v17, "ACFUDataContainer");
-    v18 = mmap(0, v12 + __size, 1, 1, *(this + 2), v11);
-    if (v18 == -1)
+    ACFULogging::handleMessage(v10, 4, "%s::%s: paging in new length for page alignment (Requested: %zu. Aligned: %zu)\n", "ACFUDataContainer", "copyDirectData", __size, v12 + __size);
+    v13 = mmap(0, v12 + __size, 1, 1, *(this + 2), v11);
+    if (v13 == -1)
     {
-      v47 = ACFULogging::getLogInstance(0xFFFFFFFFFFFFFFFFLL);
-      v48 = __error();
-      strerror(*v48);
-      ACFULogging::handleMessage(v47, 2u, "%s::%s: failed to map file: (%s)\n", v49, v50, v51, v52, v53, "ACFUDataContainer");
+      v26 = ACFULogging::getLogInstance(0xFFFFFFFFFFFFFFFFLL);
+      v27 = __error();
+      v28 = strerror(*v27);
+      ACFULogging::handleMessage(v26, 2, "%s::%s: failed to map file: (%s)\n", "ACFUDataContainer", "copyDirectData", v28);
       return;
     }
 
-    v19 = operator new(0x18uLL);
-    *v19 = &v18[v12];
-    v20 = 1;
-    goto LABEL_9;
+    v14 = operator new(0x18uLL);
+    *v14 = &v13[v12];
+    v15 = 1;
   }
 
-  v21 = *this;
-  if (!*this)
+  else
   {
-    v40 = ACFULogging::getLogInstance(this);
-    v46 = "%s::%s: object does not hold any data\n";
-LABEL_17:
-    ACFULogging::handleMessage(v40, 2u, v46, v41, v42, v43, v44, v45, "ACFUDataContainer");
-    return;
+    v16 = *this;
+    if (!*this)
+    {
+      v24 = ACFULogging::getLogInstance(this);
+      ACFULogging::handleMessage(v24, 2, "%s::%s: object does not hold any data\n");
+      return;
+    }
+
+    v17 = malloc(__size);
+    if (!v17)
+    {
+      v25 = ACFULogging::getLogInstance(0);
+      ACFULogging::handleMessage(v25, 2, "%s::%s: unable to allocate data\n");
+      return;
+    }
+
+    v18 = v17;
+    BytePtr = CFDataGetBytePtr(v16);
+    memcpy(v18, &BytePtr[a3], __size);
+    v14 = operator new(0x18uLL);
+    v15 = 0;
+    *v14 = v18;
   }
 
-  v22 = malloc(__size);
-  if (!v22)
+  v14[1] = __size;
+  *(v14 + 16) = v15;
+  *(v14 + 17) = 1;
+  std::unique_ptr<ACFUDataContainer::DirectDataRef>::reset[abi:ne200100](a4, v14);
+  if (!**a4)
   {
-    v40 = ACFULogging::getLogInstance(0);
-    v46 = "%s::%s: unable to allocate data\n";
-    goto LABEL_17;
+    v21 = ACFULogging::getLogInstance(v20);
+    ACFULogging::handleMessage(v21, 4, "%s::%s: failed to create file data\n");
   }
-
-  v23 = v22;
-  BytePtr = CFDataGetBytePtr(v21);
-  memcpy(v23, &BytePtr[a3], __size);
-  v19 = operator new(0x18uLL);
-  v20 = 0;
-  *v19 = v23;
-LABEL_9:
-  v19[1] = __size;
-  *(v19 + 16) = v20;
-  *(v19 + 17) = 1;
-  std::unique_ptr<ACFUDataContainer::DirectDataRef>::reset[abi:ne200100](a4, v19);
-  if (**a4)
-  {
-    return;
-  }
-
-  LogInstance = ACFULogging::getLogInstance(v25);
-  v32 = "%s::%s: failed to create file data\n";
-  v33 = 4;
-LABEL_11:
-  ACFULogging::handleMessage(LogInstance, v33, v32, v27, v28, v29, v30, v31, "ACFUDataContainer");
 }
 
 uint64_t ACFUDataContainer::setData(const __CFString **this, __CFData *a2)
@@ -6466,17 +6559,16 @@ uint64_t ACFUDataContainer::setData(const __CFString **this, __CFData *a2)
   }
 
   v7 = v6;
-  v8 = *this;
-  v9 = 1;
-  v10 = AMSupportWriteDataToFileURL();
+  v8 = 1;
+  v9 = AMSupportWriteDataToFileURL();
   CFRelease(v7);
-  if (v10)
+  if (v9)
   {
-    ACFUDataContainer::setData(v10);
+    ACFUDataContainer::setData(v9);
     return 0;
   }
 
-  return v9;
+  return v8;
 }
 
 uint64_t ACFUDataContainer::writeData(ACFUDataContainer *this, const __CFData *a2, unsigned int a3)
@@ -6485,54 +6577,52 @@ uint64_t ACFUDataContainer::writeData(ACFUDataContainer *this, const __CFData *a
   if ((*(this + 25) & 1) == 0)
   {
     LogInstance = ACFULogging::getLogInstance(v6);
-    v49 = "%s::%s: file does not have write permissions\n";
-LABEL_35:
-    ACFULogging::handleMessage(LogInstance, 2u, v49, v44, v45, v46, v47, v48, "ACFUDataContainer");
-LABEL_40:
-    v41 = 0;
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: file does not have write permissions\n");
+LABEL_38:
+    v32 = 0;
     goto LABEL_26;
   }
 
   if (!a2)
   {
-    LogInstance = ACFULogging::getLogInstance(v6);
-    v49 = "%s::%s: invalid file data\n";
-    goto LABEL_35;
+    v35 = ACFULogging::getLogInstance(v6);
+    ACFULogging::handleMessage(v35, 2, "%s::%s: invalid file data\n");
+    goto LABEL_38;
   }
 
   if (!*(this + 2))
   {
-    LogInstance = ACFULogging::getLogInstance(v6);
-    v49 = "%s::%s: file path has not been initialized\n";
-    goto LABEL_35;
+    v36 = ACFULogging::getLogInstance(v6);
+    ACFULogging::handleMessage(v36, 2, "%s::%s: file path has not been initialized\n");
+    goto LABEL_38;
   }
 
   if ((*(this + 2) & 0x80000000) != 0)
   {
-    LogInstance = ACFULogging::getLogInstance(v6);
-    v49 = "%s::%s: invalid file descriptor\n";
-    goto LABEL_35;
+    v37 = ACFULogging::getLogInstance(v6);
+    ACFULogging::handleMessage(v37, 2, "%s::%s: invalid file descriptor\n");
+    goto LABEL_38;
   }
 
   Length = CFDataGetLength(a2);
   if (!Length)
   {
-    LogInstance = ACFULogging::getLogInstance(0);
-    v49 = "%s::%s: invalid length\n";
-    goto LABEL_35;
+    v38 = ACFULogging::getLogInstance(0);
+    ACFULogging::handleMessage(v38, 2, "%s::%s: invalid length\n");
+    goto LABEL_38;
   }
 
-  ACFUCommon::stringFromCFString(*(this + 2), &v66);
-  if (SHIBYTE(v69) < 0)
+  ACFUCommon::stringFromCFString(&v47, *(this + 2));
+  if (SHIBYTE(v50) < 0)
   {
     operator delete(__p[0]);
   }
 
-  v69 = v67;
-  *__p = v66;
-  if ((SHIBYTE(v67) & 0x80000000) == 0)
+  v50 = v48;
+  *__p = v47;
+  if ((SHIBYTE(v48) & 0x80000000) == 0)
   {
-    if (HIBYTE(v67))
+    if (HIBYTE(v48))
     {
       v9 = __p;
       goto LABEL_13;
@@ -6544,36 +6634,34 @@ LABEL_40:
   if (!__p[1])
   {
 LABEL_34:
-    LogInstance = ACFULogging::getLogInstance(v8);
-    v49 = "%s::%s: failed to acquire file path c string\n";
-    goto LABEL_35;
+    v39 = ACFULogging::getLogInstance(v8);
+    ACFULogging::handleMessage(v39, 2, "%s::%s: failed to acquire file path c string\n");
+    goto LABEL_38;
   }
 
   v9 = __p[0];
 LABEL_13:
-  v10 = stat(v9, &v70);
+  v10 = stat(v9, &v51);
   if (v10 == -1)
   {
-    v50 = ACFULogging::getLogInstance(v10);
-    v51 = __error();
-    strerror(*v51);
-    v57 = "%s::%s: failed to obtain file stats: (%s)\n";
-LABEL_39:
-    ACFULogging::handleMessage(v50, 2u, v57, v52, v53, v54, v55, v56, "ACFUDataContainer");
-    goto LABEL_40;
+    v40 = ACFULogging::getLogInstance(v10);
+    v41 = __error();
+    strerror(*v41);
+    ACFULogging::handleMessage(v40, 2, "%s::%s: failed to obtain file stats: (%s)\n");
+    goto LABEL_38;
   }
 
   v11 = Length + a3;
-  if (v11 > v70.st_size)
+  if (v11 > v51.st_size)
   {
     v12 = ftruncate(*(this + 2), Length + a3);
     if (v12)
     {
-      v50 = ACFULogging::getLogInstance(v12);
-      v59 = __error();
-      strerror(*v59);
-      v57 = "%s::%s: failed to increase file length: (%s)\n";
-      goto LABEL_39;
+      v44 = ACFULogging::getLogInstance(v12);
+      v45 = __error();
+      strerror(*v45);
+      ACFULogging::handleMessage(v44, 2, "%s::%s: failed to increase file length: (%s)\n");
+      goto LABEL_38;
     }
   }
 
@@ -6584,37 +6672,37 @@ LABEL_39:
   v17 = (v14 * (a3 / v13));
   v18 = a3 - v17;
   v19 = Length + v18;
-  ACFULogging::handleMessage(v15, 4u, "%s::%s: paging in new length for page alignment (Requested: %zu. Aligned: %zu)\n", v20, v21, v22, v23, v24, "ACFUDataContainer");
-  v25 = mmap(0, Length + v18, 3, 1, *(this + 2), v17);
-  if (v25 == -1)
+  ACFULogging::handleMessage(v15, 4, "%s::%s: paging in new length for page alignment (Requested: %zu. Aligned: %zu)\n", "ACFUDataContainer", "writeData", Length, Length + v18);
+  v20 = mmap(0, Length + v18, 3, 1, *(this + 2), v17);
+  if (v20 == -1)
   {
-    v50 = ACFULogging::getLogInstance(0xFFFFFFFFFFFFFFFFLL);
-    v58 = __error();
-    strerror(*v58);
-    v57 = "%s::%s: failed to map file: (%s)\n";
-    goto LABEL_39;
+    v42 = ACFULogging::getLogInstance(0xFFFFFFFFFFFFFFFFLL);
+    v43 = __error();
+    strerror(*v43);
+    ACFULogging::handleMessage(v42, 2, "%s::%s: failed to map file: (%s)\n");
+    goto LABEL_38;
   }
 
-  v26 = CFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], &v25[v18], Length, *MEMORY[0x277CBED00]);
+  v21 = CFDataCreateWithBytesNoCopy(*MEMORY[0x277CBECE8], &v20[v18], Length, *MEMORY[0x277CBED00]);
   BytePtr = CFDataGetBytePtr(a2);
-  v28 = CFDataGetLength(a2);
-  v71.location = 0;
-  v71.length = Length;
-  CFDataReplaceBytes(v26, v71, BytePtr, v28);
-  v29 = munmap(v25, v19);
-  if (v29 == -1)
+  v23 = CFDataGetLength(a2);
+  v52.location = 0;
+  v52.length = Length;
+  CFDataReplaceBytes(v21, v52, BytePtr, v23);
+  v24 = munmap(v20, v19);
+  if (v24 == -1)
   {
-    v30 = ACFULogging::getLogInstance(v29);
-    v31 = __error();
-    strerror(*v31);
-    ACFULogging::handleMessage(v30, 4u, "%s::%s: failed to un-map file: (%s)\n", v32, v33, v34, v35, v36, "ACFUDataContainer");
+    v25 = ACFULogging::getLogInstance(v24);
+    v26 = __error();
+    v27 = strerror(*v26);
+    ACFULogging::handleMessage(v25, 4, "%s::%s: failed to un-map file: (%s)\n", "ACFUDataContainer", "writeData", v27);
   }
 
   if (*(this + 24))
   {
 LABEL_24:
-    v41 = 1;
-    if (!v26)
+    v32 = 1;
+    if (!v21)
     {
       goto LABEL_26;
     }
@@ -6626,35 +6714,35 @@ LABEL_24:
   {
     if (CFDataGetLength(*this) < v11)
     {
-      v37 = *this;
-      v38 = CFDataGetLength(*this);
-      CFDataIncreaseLength(v37, v11 - v38);
+      v28 = *this;
+      v29 = CFDataGetLength(*this);
+      CFDataIncreaseLength(v28, v11 - v29);
     }
 
-    v39 = *this;
-    v40 = CFDataGetBytePtr(a2);
-    v72.location = v16;
-    v72.length = Length;
-    CFDataReplaceBytes(v39, v72, v40, Length);
+    v30 = *this;
+    v31 = CFDataGetBytePtr(a2);
+    v53.location = v16;
+    v53.length = Length;
+    CFDataReplaceBytes(v30, v53, v31, Length);
     goto LABEL_24;
   }
 
-  v60 = ACFULogging::getLogInstance(0);
-  ACFULogging::handleMessage(v60, 2u, "%s::%s: object does not hold any data\n", v61, v62, v63, v64, v65, "ACFUDataContainer");
-  v41 = 0;
-  if (v26)
+  v46 = ACFULogging::getLogInstance(0);
+  ACFULogging::handleMessage(v46, 2, "%s::%s: object does not hold any data\n", "ACFUDataContainer", "writeData");
+  v32 = 0;
+  if (v21)
   {
 LABEL_25:
-    CFRelease(v26);
+    CFRelease(v21);
   }
 
 LABEL_26:
-  if (SHIBYTE(v69) < 0)
+  if (SHIBYTE(v50) < 0)
   {
     operator delete(__p[0]);
   }
 
-  return v41;
+  return v32;
 }
 
 void sub_2402BA228(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22)
@@ -6673,89 +6761,87 @@ uint64_t ACFUDataContainer::writeData(uint64_t a1, const void ***a2, unsigned in
   if ((*(a1 + 25) & 1) == 0)
   {
     LogInstance = ACFULogging::getLogInstance(v6);
-    v45 = "%s::%s: file does not have write permissions\n";
-LABEL_39:
-    ACFULogging::handleMessage(LogInstance, 2u, v45, v40, v41, v42, v43, v44, "ACFUDataContainer");
-    goto LABEL_40;
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: file does not have write permissions\n");
+    goto LABEL_39;
   }
 
   if (!*a2)
   {
-    LogInstance = ACFULogging::getLogInstance(v6);
-    v45 = "%s::%s: invalid file data\n";
+    v31 = ACFULogging::getLogInstance(v6);
+    ACFULogging::handleMessage(v31, 2, "%s::%s: invalid file data\n");
     goto LABEL_39;
   }
 
   v7 = *(a1 + 16);
   if (!v7)
   {
-    LogInstance = ACFULogging::getLogInstance(0);
-    v45 = "%s::%s: file path has not been initialized\n";
+    v32 = ACFULogging::getLogInstance(0);
+    ACFULogging::handleMessage(v32, 2, "%s::%s: file path has not been initialized\n");
     goto LABEL_39;
   }
 
   if ((*(a1 + 8) & 0x80000000) != 0)
   {
-    LogInstance = ACFULogging::getLogInstance(v7);
-    v45 = "%s::%s: invalid file descriptor\n";
+    v33 = ACFULogging::getLogInstance(v7);
+    ACFULogging::handleMessage(v33, 2, "%s::%s: invalid file descriptor\n");
     goto LABEL_39;
   }
 
   v8 = (*a2)[1];
   if (!v8)
   {
-    LogInstance = ACFULogging::getLogInstance(v7);
-    v45 = "%s::%s: invalid length\n";
+    v34 = ACFULogging::getLogInstance(v7);
+    ACFULogging::handleMessage(v34, 2, "%s::%s: invalid length\n");
     goto LABEL_39;
   }
 
-  ACFUCommon::stringFromCFString(v7, &v56);
-  if (SHIBYTE(v59) < 0)
+  ACFUCommon::stringFromCFString(&v43, v7);
+  if (SHIBYTE(v46) < 0)
   {
     operator delete(__p[0]);
   }
 
-  v59 = v57;
-  *__p = v56;
-  if ((SHIBYTE(v57) & 0x80000000) == 0)
+  v46 = v44;
+  *__p = v43;
+  if ((SHIBYTE(v44) & 0x80000000) == 0)
   {
-    if (HIBYTE(v57))
+    if (HIBYTE(v44))
     {
       v10 = __p;
       goto LABEL_13;
     }
 
-    goto LABEL_33;
+LABEL_33:
+    v35 = ACFULogging::getLogInstance(v9);
+    ACFULogging::handleMessage(v35, 2, "%s::%s: failed to acquire file path c string\n");
+    goto LABEL_39;
   }
 
   if (!__p[1])
   {
-LABEL_33:
-    LogInstance = ACFULogging::getLogInstance(v9);
-    v45 = "%s::%s: failed to acquire file path c string\n";
-    goto LABEL_39;
+    goto LABEL_33;
   }
 
   v10 = __p[0];
 LABEL_13:
-  v11 = stat(v10, &v60);
+  v11 = stat(v10, &v47);
   if (v11 == -1)
   {
-    v46 = ACFULogging::getLogInstance(v11);
-    v47 = __error();
-    strerror(*v47);
-    v53 = "%s::%s: failed to obtain file stats: (%s)\n";
+    v36 = ACFULogging::getLogInstance(v11);
+    v37 = __error();
+    strerror(*v37);
+    ACFULogging::handleMessage(v36, 2, "%s::%s: failed to obtain file stats: (%s)\n");
   }
 
   else
   {
     v12 = v8 + a3;
-    if (v12 > v60.st_size && (v13 = ftruncate(*(a1 + 8), v8 + a3), v13))
+    if (v12 > v47.st_size && (v13 = ftruncate(*(a1 + 8), v8 + a3), v13))
     {
-      v46 = ACFULogging::getLogInstance(v13);
-      v55 = __error();
-      strerror(*v55);
-      v53 = "%s::%s: failed to increase file length: (%s)\n";
+      v40 = ACFULogging::getLogInstance(v13);
+      v41 = __error();
+      strerror(*v41);
+      ACFULogging::handleMessage(v40, 2, "%s::%s: failed to increase file length: (%s)\n");
     }
 
     else
@@ -6766,19 +6852,27 @@ LABEL_13:
       v17 = a3;
       v18 = (v15 * (a3 / v14));
       v19 = a3 - v18;
-      ACFULogging::handleMessage(v16, 4u, "%s::%s: paging in new length for page alignment (Requested: %zu. Aligned: %zu)\n", v20, v21, v22, v23, v24, "ACFUDataContainer");
-      v25 = mmap(0, v8 + v19, 3, 1, *(a1 + 8), v18);
-      v26 = v25;
-      if (v25 != -1)
+      ACFULogging::handleMessage(v16, 4, "%s::%s: paging in new length for page alignment (Requested: %zu. Aligned: %zu)\n", "ACFUDataContainer", "writeData", v8, v8 + v19);
+      v20 = mmap(0, v8 + v19, 3, 1, *(a1 + 8), v18);
+      v21 = v20;
+      if (v20 == -1)
       {
-        memcpy(&v25[v19], **a2, v8);
-        v27 = munmap(v26, v8 + v19);
-        if (v27 == -1)
+        v38 = ACFULogging::getLogInstance(0xFFFFFFFFFFFFFFFFLL);
+        v39 = __error();
+        strerror(*v39);
+        ACFULogging::handleMessage(v38, 2, "%s::%s: failed to map file: (%s)\n");
+      }
+
+      else
+      {
+        memcpy(&v20[v19], **a2, v8);
+        v22 = munmap(v21, v8 + v19);
+        if (v22 == -1)
         {
-          v28 = ACFULogging::getLogInstance(v27);
-          v29 = __error();
-          strerror(*v29);
-          ACFULogging::handleMessage(v28, 4u, "%s::%s: failed to un-map file: (%s)\n", v30, v31, v32, v33, v34, "ACFUDataContainer");
+          v23 = ACFULogging::getLogInstance(v22);
+          v24 = __error();
+          v25 = strerror(*v24);
+          ACFULogging::handleMessage(v23, 4, "%s::%s: failed to un-map file: (%s)\n", "ACFUDataContainer", "writeData", v25);
         }
 
         if (*(a1 + 24))
@@ -6790,41 +6884,34 @@ LABEL_13:
         {
           if (CFDataGetLength(*a1) < v12)
           {
-            v35 = *a1;
+            v26 = *a1;
             Length = CFDataGetLength(*a1);
-            CFDataIncreaseLength(v35, v12 - Length);
+            CFDataIncreaseLength(v26, v12 - Length);
           }
 
-          v61.location = v17;
-          v61.length = v8;
-          CFDataReplaceBytes(*a1, v61, **a2, v8);
+          v48.location = v17;
+          v48.length = v8;
+          CFDataReplaceBytes(*a1, v48, **a2, v8);
 LABEL_24:
-          v37 = 1;
+          v28 = 1;
           goto LABEL_25;
         }
 
-        LogInstance = ACFULogging::getLogInstance(0);
-        v45 = "%s::%s: object does not hold any data\n";
-        goto LABEL_39;
+        v42 = ACFULogging::getLogInstance(0);
+        ACFULogging::handleMessage(v42, 2, "%s::%s: object does not hold any data\n");
       }
-
-      v46 = ACFULogging::getLogInstance(0xFFFFFFFFFFFFFFFFLL);
-      v54 = __error();
-      strerror(*v54);
-      v53 = "%s::%s: failed to map file: (%s)\n";
     }
   }
 
-  ACFULogging::handleMessage(v46, 2u, v53, v48, v49, v50, v51, v52, "ACFUDataContainer");
-LABEL_40:
-  v37 = 0;
+LABEL_39:
+  v28 = 0;
 LABEL_25:
-  if (SHIBYTE(v59) < 0)
+  if (SHIBYTE(v46) < 0)
   {
     operator delete(__p[0]);
   }
 
-  return v37;
+  return v28;
 }
 
 void sub_2402BA5A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22)
@@ -6843,74 +6930,72 @@ uint64_t ACFUDataContainer::writeData(ACFUDataContainer *this, const unsigned __
   if (!a2 || !a4)
   {
     LogInstance = ACFULogging::getLogInstance(v8);
-    v46 = "%s::%s: invalid data, length value\n";
-LABEL_36:
-    ACFULogging::handleMessage(LogInstance, 2u, v46, v41, v42, v43, v44, v45, "ACFUDataContainer");
-    goto LABEL_37;
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: invalid data, length value\n");
+    goto LABEL_36;
   }
 
   v9 = *(this + 2);
   if (!v9)
   {
-    LogInstance = ACFULogging::getLogInstance(0);
-    v46 = "%s::%s: file path has not been initialized\n";
+    v32 = ACFULogging::getLogInstance(0);
+    ACFULogging::handleMessage(v32, 2, "%s::%s: file path has not been initialized\n");
     goto LABEL_36;
   }
 
   if ((*(this + 2) & 0x80000000) != 0)
   {
-    LogInstance = ACFULogging::getLogInstance(v9);
-    v46 = "%s::%s: invalid file descriptor\n";
+    v33 = ACFULogging::getLogInstance(v9);
+    ACFULogging::handleMessage(v33, 2, "%s::%s: invalid file descriptor\n");
     goto LABEL_36;
   }
 
-  ACFUCommon::stringFromCFString(v9, &v57);
-  if (SHIBYTE(v60) < 0)
+  ACFUCommon::stringFromCFString(&v42, v9);
+  if (SHIBYTE(v45) < 0)
   {
     operator delete(__p[0]);
   }
 
-  v60 = v58;
-  *__p = v57;
-  if ((SHIBYTE(v58) & 0x80000000) == 0)
+  v45 = v43;
+  *__p = v42;
+  if ((SHIBYTE(v43) & 0x80000000) == 0)
   {
-    if (HIBYTE(v58))
+    if (HIBYTE(v43))
     {
       v11 = __p;
       goto LABEL_12;
     }
 
-    goto LABEL_30;
+LABEL_30:
+    v34 = ACFULogging::getLogInstance(v10);
+    ACFULogging::handleMessage(v34, 2, "%s::%s: failed to acquire file path c string\n");
+    goto LABEL_36;
   }
 
   if (!__p[1])
   {
-LABEL_30:
-    LogInstance = ACFULogging::getLogInstance(v10);
-    v46 = "%s::%s: failed to acquire file path c string\n";
-    goto LABEL_36;
+    goto LABEL_30;
   }
 
   v11 = __p[0];
 LABEL_12:
-  v12 = stat(v11, &v61);
+  v12 = stat(v11, &v46);
   if (v12 == -1)
   {
-    v47 = ACFULogging::getLogInstance(v12);
-    v48 = __error();
-    strerror(*v48);
-    v54 = "%s::%s: failed to obtain file stats: (%s)\n";
+    v35 = ACFULogging::getLogInstance(v12);
+    v36 = __error();
+    strerror(*v36);
+    ACFULogging::handleMessage(v35, 2, "%s::%s: failed to obtain file stats: (%s)\n");
   }
 
   else
   {
     v13 = a4 + a3;
-    if (v13 > v61.st_size && (v14 = ftruncate(*(this + 2), a4 + a3), v14))
+    if (v13 > v46.st_size && (v14 = ftruncate(*(this + 2), a4 + a3), v14))
     {
-      v47 = ACFULogging::getLogInstance(v14);
-      v56 = __error();
-      strerror(*v56);
-      v54 = "%s::%s: failed to increase file length: (%s)\n";
+      v39 = ACFULogging::getLogInstance(v14);
+      v40 = __error();
+      strerror(*v40);
+      ACFULogging::handleMessage(v39, 2, "%s::%s: failed to increase file length: (%s)\n");
     }
 
     else
@@ -6921,19 +7006,27 @@ LABEL_12:
       v18 = a3;
       v19 = (v16 * (a3 / v15));
       v20 = a3 - v19;
-      ACFULogging::handleMessage(v17, 4u, "%s::%s: paging in new length for page alignment (Requested: %zu. Aligned: %zu)\n", v21, v22, v23, v24, v25, "ACFUDataContainer");
-      v26 = mmap(0, v20 + a4, 3, 1, *(this + 2), v19);
-      v27 = v26;
-      if (v26 != -1)
+      ACFULogging::handleMessage(v17, 4, "%s::%s: paging in new length for page alignment (Requested: %zu. Aligned: %zu)\n", "ACFUDataContainer", "writeData", a4, v20 + a4);
+      v21 = mmap(0, v20 + a4, 3, 1, *(this + 2), v19);
+      v22 = v21;
+      if (v21 == -1)
       {
-        memcpy(&v26[v20], a2, a4);
-        v28 = munmap(v27, v20 + a4);
-        if (v28 == -1)
+        v37 = ACFULogging::getLogInstance(0xFFFFFFFFFFFFFFFFLL);
+        v38 = __error();
+        strerror(*v38);
+        ACFULogging::handleMessage(v37, 2, "%s::%s: failed to map file: (%s)\n");
+      }
+
+      else
+      {
+        memcpy(&v21[v20], a2, a4);
+        v23 = munmap(v22, v20 + a4);
+        if (v23 == -1)
         {
-          v29 = ACFULogging::getLogInstance(v28);
-          v30 = __error();
-          strerror(*v30);
-          ACFULogging::handleMessage(v29, 4u, "%s::%s: failed to un-map file: (%s)\n", v31, v32, v33, v34, v35, "ACFUDataContainer");
+          v24 = ACFULogging::getLogInstance(v23);
+          v25 = __error();
+          v26 = strerror(*v25);
+          ACFULogging::handleMessage(v24, 4, "%s::%s: failed to un-map file: (%s)\n", "ACFUDataContainer", "writeData", v26);
         }
 
         if (*(this + 24))
@@ -6945,41 +7038,34 @@ LABEL_12:
         {
           if (CFDataGetLength(*this) < v13)
           {
-            v36 = *this;
+            v27 = *this;
             Length = CFDataGetLength(*this);
-            CFDataIncreaseLength(v36, v13 - Length);
+            CFDataIncreaseLength(v27, v13 - Length);
           }
 
-          v62.location = v18;
-          v62.length = a4;
-          CFDataReplaceBytes(*this, v62, a2, a4);
+          v47.location = v18;
+          v47.length = a4;
+          CFDataReplaceBytes(*this, v47, a2, a4);
 LABEL_23:
-          v38 = 1;
+          v29 = 1;
           goto LABEL_24;
         }
 
-        LogInstance = ACFULogging::getLogInstance(0);
-        v46 = "%s::%s: object does not hold any data\n";
-        goto LABEL_36;
+        v41 = ACFULogging::getLogInstance(0);
+        ACFULogging::handleMessage(v41, 2, "%s::%s: object does not hold any data\n");
       }
-
-      v47 = ACFULogging::getLogInstance(0xFFFFFFFFFFFFFFFFLL);
-      v55 = __error();
-      strerror(*v55);
-      v54 = "%s::%s: failed to map file: (%s)\n";
     }
   }
 
-  ACFULogging::handleMessage(v47, 2u, v54, v49, v50, v51, v52, v53, "ACFUDataContainer");
-LABEL_37:
-  v38 = 0;
+LABEL_36:
+  v29 = 0;
 LABEL_24:
-  if (SHIBYTE(v60) < 0)
+  if (SHIBYTE(v45) < 0)
   {
     operator delete(__p[0]);
   }
 
-  return v38;
+  return v29;
 }
 
 void sub_2402BA8D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22)
@@ -7000,7 +7086,7 @@ uint64_t ACFUDataContainer::getData(ACFUDataContainer *this)
   }
 
   LogInstance = ACFULogging::getLogInstance(this);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: cannot aquire reference for a memory optimized data container. Please use copyData() instead\n", v2, v3, v4, v5, v6, "ACFUDataContainer");
+  ACFULogging::handleMessage(LogInstance, 2, "%s::%s: cannot aquire reference for a memory optimized data container. Please use copyData() instead\n", "ACFUDataContainer", "getData");
   return 0;
 }
 
@@ -7041,7 +7127,7 @@ uint64_t ACFUCommon::Parameter::Parameter(uint64_t this)
 
 off_t ACFUCommon::getFileSize(ACFUCommon *this, const __CFURL *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   bzero(buffer, 0x400uLL);
   v3 = CFURLGetFileSystemRepresentation(this, 1u, buffer, 1024);
   if (!v3)
@@ -7061,28 +7147,26 @@ off_t ACFUCommon::getFileSize(ACFUCommon *this, const __CFURL *a2)
     goto LABEL_5;
   }
 
-  v6 = fstat(v4, &v10);
+  v6 = fstat(v4, &v9);
   if (v6)
   {
     ACFUCommon::getFileSize(v6);
     st_size = 0;
     if (!v5)
     {
-      goto LABEL_6;
+      return st_size;
     }
 
     goto LABEL_5;
   }
 
-  st_size = v10.st_size;
+  st_size = v9.st_size;
   if (v5)
   {
 LABEL_5:
     close(v5);
   }
 
-LABEL_6:
-  v8 = *MEMORY[0x277D85DE8];
   return st_size;
 }
 
@@ -7223,7 +7307,7 @@ void ACFUCommon::Parameter::~Parameter(const void **this)
   }
 }
 
-uint64_t ACFUCommon::PersonalizeParams::PersonalizeParams(uint64_t a1, uint64_t a2)
+uint64_t ACFUCommon::PersonalizeParams::PersonalizeParams(uint64_t a1, const void **a2)
 {
   *a1 = &unk_28522EC58;
   *(a1 + 8) = 0;
@@ -7252,7 +7336,7 @@ uint64_t ACFUCommon::PersonalizeParams::PersonalizeParams(uint64_t a1, uint64_t 
   v3 = (a1 + 184);
   v3[2] = 0;
   v5 = *a2;
-  v4 = *(a2 + 8);
+  v4 = a2[1];
   v6 = (v4 - *a2) >> 3;
   *(a1 + 176) = 0;
   std::vector<__CFString const*>::__init_with_size[abi:ne200100]<__CFString const**,__CFString const**>(v3, v5, v4, v6);
@@ -7295,11 +7379,11 @@ LABEL_46:
         }
 
         LogInstance = ACFULogging::getLogInstance(location);
-        ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: Missing ChipID\n", v8, v9, v10, v11, v12, "ACFUCommon");
+        ACFULogging::handleMessage(LogInstance, 2, "%s::%s: Missing ChipID\n", "ACFUCommon", "copyParametersDictionary");
       }
 
-      v13 = CFStringFind(*i, @",BoardID", 0).location;
-      if (v13 != -1)
+      v8 = CFStringFind(*i, @",BoardID", 0).location;
+      if (v8 != -1)
       {
         if (*(this + 32) == 1)
         {
@@ -7308,12 +7392,12 @@ LABEL_46:
           goto LABEL_46;
         }
 
-        v14 = ACFULogging::getLogInstance(v13);
-        ACFULogging::handleMessage(v14, 2u, "%s::%s: Missing BoardID\n", v15, v16, v17, v18, v19, "ACFUCommon");
+        v9 = ACFULogging::getLogInstance(v8);
+        ACFULogging::handleMessage(v9, 2, "%s::%s: Missing BoardID\n", "ACFUCommon", "copyParametersDictionary");
       }
 
-      v20 = CFStringFind(*i, @",SecurityDomain", 0).location;
-      if (v20 != -1)
+      v10 = CFStringFind(*i, @",SecurityDomain", 0).location;
+      if (v10 != -1)
       {
         if (*(this + 144) == 1)
         {
@@ -7322,12 +7406,12 @@ LABEL_46:
           goto LABEL_46;
         }
 
-        v21 = ACFULogging::getLogInstance(v20);
-        ACFULogging::handleMessage(v21, 2u, "%s::%s: Missing SecurityDomain\n", v22, v23, v24, v25, v26, "ACFUCommon");
+        v11 = ACFULogging::getLogInstance(v10);
+        ACFULogging::handleMessage(v11, 2, "%s::%s: Missing SecurityDomain\n", "ACFUCommon", "copyParametersDictionary");
       }
 
-      v27 = CFStringFind(*i, @",ECID", 0).location;
-      if (v27 != -1)
+      v12 = CFStringFind(*i, @",ECID", 0).location;
+      if (v12 != -1)
       {
         if (*(this + 48) == 1)
         {
@@ -7336,12 +7420,12 @@ LABEL_46:
           goto LABEL_46;
         }
 
-        v28 = ACFULogging::getLogInstance(v27);
-        ACFULogging::handleMessage(v28, 2u, "%s::%s: Missing ECID\n", v29, v30, v31, v32, v33, "ACFUCommon");
+        v13 = ACFULogging::getLogInstance(v12);
+        ACFULogging::handleMessage(v13, 2, "%s::%s: Missing ECID\n", "ACFUCommon", "copyParametersDictionary");
       }
 
-      v34 = CFStringFind(*i, @",ProductionMode", 0).location;
-      if (v34 != -1)
+      v14 = CFStringFind(*i, @",ProductionMode", 0).location;
+      if (v14 != -1)
       {
         if (*(this + 96) == 1)
         {
@@ -7350,12 +7434,12 @@ LABEL_46:
           goto LABEL_46;
         }
 
-        v35 = ACFULogging::getLogInstance(v34);
-        ACFULogging::handleMessage(v35, 2u, "%s::%s: Missing ProductionMode\n", v36, v37, v38, v39, v40, "ACFUCommon");
+        v15 = ACFULogging::getLogInstance(v14);
+        ACFULogging::handleMessage(v15, 2, "%s::%s: Missing ProductionMode\n", "ACFUCommon", "copyParametersDictionary");
       }
 
-      v41 = CFStringFind(*i, @",SecurityMode", 0).location;
-      if (v41 != -1)
+      v16 = CFStringFind(*i, @",SecurityMode", 0).location;
+      if (v16 != -1)
       {
         if (*(this + 112) == 1)
         {
@@ -7364,12 +7448,12 @@ LABEL_46:
           goto LABEL_46;
         }
 
-        v42 = ACFULogging::getLogInstance(v41);
-        ACFULogging::handleMessage(v42, 2u, "%s::%s: Missing SecurityMode\n", v43, v44, v45, v46, v47, "ACFUCommon");
+        v17 = ACFULogging::getLogInstance(v16);
+        ACFULogging::handleMessage(v17, 2, "%s::%s: Missing SecurityMode\n", "ACFUCommon", "copyParametersDictionary");
       }
 
-      v48 = CFStringFind(*i, @",UID_MODE", 0).location;
-      if (v48 != -1)
+      v18 = CFStringFind(*i, @",UID_MODE", 0).location;
+      if (v18 != -1)
       {
         if (*(this + 128) == 1)
         {
@@ -7378,12 +7462,12 @@ LABEL_46:
           goto LABEL_46;
         }
 
-        v49 = ACFULogging::getLogInstance(v48);
-        ACFULogging::handleMessage(v49, 2u, "%s::%s: Missing UID_MODE\n", v50, v51, v52, v53, v54, "ACFUCommon");
+        v19 = ACFULogging::getLogInstance(v18);
+        ACFULogging::handleMessage(v19, 2, "%s::%s: Missing UID_MODE\n", "ACFUCommon", "copyParametersDictionary");
       }
 
-      v55 = CFStringFind(*i, @",Nonce", 0).location;
-      if (v55 != -1)
+      v20 = CFStringFind(*i, @",Nonce", 0).location;
+      if (v20 != -1)
       {
         if (*(this + 64) == 1)
         {
@@ -7392,12 +7476,12 @@ LABEL_46:
           goto LABEL_46;
         }
 
-        v56 = ACFULogging::getLogInstance(v55);
-        ACFULogging::handleMessage(v56, 2u, "%s::%s: Missing NonceHash\n", v57, v58, v59, v60, v61, "ACFUCommon");
+        v21 = ACFULogging::getLogInstance(v20);
+        ACFULogging::handleMessage(v21, 2, "%s::%s: Missing NonceHash\n", "ACFUCommon", "copyParametersDictionary");
       }
 
-      v62 = CFStringFind(*i, @",RestoreBootNonce", 0).location;
-      if (v62 != -1)
+      v22 = CFStringFind(*i, @",RestoreBootNonce", 0).location;
+      if (v22 != -1)
       {
         if (*(this + 80) == 1)
         {
@@ -7406,12 +7490,12 @@ LABEL_46:
           goto LABEL_46;
         }
 
-        v63 = ACFULogging::getLogInstance(v62);
-        ACFULogging::handleMessage(v63, 2u, "%s::%s: Missing BootNonce\n", v64, v65, v66, v67, v68, "ACFUCommon");
+        v23 = ACFULogging::getLogInstance(v22);
+        ACFULogging::handleMessage(v23, 2, "%s::%s: Missing BootNonce\n", "ACFUCommon", "copyParametersDictionary");
       }
 
-      v69 = CFStringFind(*i, @",ChipRev", 0).location;
-      if (v69 != -1)
+      v24 = CFStringFind(*i, @",ChipRev", 0).location;
+      if (v24 != -1)
       {
         if (*(this + 176) == 1)
         {
@@ -7420,17 +7504,17 @@ LABEL_46:
           goto LABEL_46;
         }
 
-        v70 = ACFULogging::getLogInstance(v69);
-        ACFULogging::handleMessage(v70, 2u, "%s::%s: Missing ChipRev\n", v71, v72, v73, v74, v75, "ACFUCommon");
+        v25 = ACFULogging::getLogInstance(v24);
+        ACFULogging::handleMessage(v25, 2, "%s::%s: Missing ChipRev\n", "ACFUCommon", "copyParametersDictionary");
       }
 
-      v76 = CFStringFind(*i, @",MinEpoch", 0).location;
-      if (v76 != -1)
+      v26 = CFStringFind(*i, @",MinEpoch", 0).location;
+      if (v26 != -1)
       {
         if (*(this + 160) != 1)
         {
-          v77 = ACFULogging::getLogInstance(v76);
-          ACFULogging::handleMessage(v77, 2u, "%s::%s: Missing MinEpoch\n", v78, v79, v80, v81, v82, "ACFUCommon");
+          v27 = ACFULogging::getLogInstance(v26);
+          ACFULogging::handleMessage(v27, 2, "%s::%s: Missing MinEpoch\n", "ACFUCommon", "copyParametersDictionary");
           continue;
         }
 
@@ -7470,8 +7554,9 @@ void ACFUCommon::PersonalizeParams::logParameters(CFDataRef *this)
   {
     LogInstance = ACFULogging::getLogInstance(this);
     ACFUCommon::Parameter::dataAsString(this + 1, 0, __p);
-    ACFULogging::handleMessage(LogInstance, 0, "%s::%s: ChipID: 0x%s\n", v3, v4, v5, v6, v7, "ACFUCommon");
-    if (v76 < 0)
+    v3 = v31 >= 0 ? __p : __p[0];
+    ACFULogging::handleMessage(LogInstance, 0, "%s::%s: ChipID: 0x%s\n", "ACFUCommon", "logParameters", v3);
+    if (v31 < 0)
     {
       operator delete(__p[0]);
     }
@@ -7479,10 +7564,11 @@ void ACFUCommon::PersonalizeParams::logParameters(CFDataRef *this)
 
   if (*(this + 32) == 1)
   {
-    v8 = ACFULogging::getLogInstance(this);
+    v4 = ACFULogging::getLogInstance(this);
     ACFUCommon::Parameter::dataAsString(this + 3, 0, __p);
-    ACFULogging::handleMessage(v8, 0, "%s::%s: BoardID: 0x%s\n", v9, v10, v11, v12, v13, "ACFUCommon");
-    if (v76 < 0)
+    v5 = v31 >= 0 ? __p : __p[0];
+    ACFULogging::handleMessage(v4, 0, "%s::%s: BoardID: 0x%s\n", "ACFUCommon", "logParameters", v5);
+    if (v31 < 0)
     {
       operator delete(__p[0]);
     }
@@ -7490,10 +7576,11 @@ void ACFUCommon::PersonalizeParams::logParameters(CFDataRef *this)
 
   if (*(this + 48) == 1)
   {
-    v14 = ACFULogging::getLogInstance(this);
+    v6 = ACFULogging::getLogInstance(this);
     ACFUCommon::Parameter::dataAsString(this + 5, 0, __p);
-    ACFULogging::handleMessage(v14, 0, "%s::%s: ECID: 0x%s\n", v15, v16, v17, v18, v19, "ACFUCommon");
-    if (v76 < 0)
+    v7 = v31 >= 0 ? __p : __p[0];
+    ACFULogging::handleMessage(v6, 0, "%s::%s: ECID: 0x%s\n", "ACFUCommon", "logParameters", v7);
+    if (v31 < 0)
     {
       operator delete(__p[0]);
     }
@@ -7501,10 +7588,11 @@ void ACFUCommon::PersonalizeParams::logParameters(CFDataRef *this)
 
   if (*(this + 80) == 1)
   {
-    v20 = ACFULogging::getLogInstance(this);
+    v8 = ACFULogging::getLogInstance(this);
     ACFUCommon::Parameter::dataAsString(this + 9, 0, __p);
-    ACFULogging::handleMessage(v20, 0, "%s::%s: Boot Nonce: 0x%s\n", v21, v22, v23, v24, v25, "ACFUCommon");
-    if (v76 < 0)
+    v9 = v31 >= 0 ? __p : __p[0];
+    ACFULogging::handleMessage(v8, 0, "%s::%s: Boot Nonce: 0x%s\n", "ACFUCommon", "logParameters", v9);
+    if (v31 < 0)
     {
       operator delete(__p[0]);
     }
@@ -7512,10 +7600,11 @@ void ACFUCommon::PersonalizeParams::logParameters(CFDataRef *this)
 
   if (*(this + 64) == 1)
   {
-    v26 = ACFULogging::getLogInstance(this);
+    v10 = ACFULogging::getLogInstance(this);
     ACFUCommon::Parameter::dataAsString(this + 7, 1, __p);
-    ACFULogging::handleMessage(v26, 0, "%s::%s: Boot Nonce Hash: 0x%s\n", v27, v28, v29, v30, v31, "ACFUCommon");
-    if (v76 < 0)
+    v11 = v31 >= 0 ? __p : __p[0];
+    ACFULogging::handleMessage(v10, 0, "%s::%s: Boot Nonce Hash: 0x%s\n", "ACFUCommon", "logParameters", v11);
+    if (v31 < 0)
     {
       operator delete(__p[0]);
     }
@@ -7523,10 +7612,11 @@ void ACFUCommon::PersonalizeParams::logParameters(CFDataRef *this)
 
   if (*(this + 96) == 1)
   {
-    v32 = ACFULogging::getLogInstance(this);
+    v12 = ACFULogging::getLogInstance(this);
     ACFUCommon::Parameter::dataAsString(this + 11, 0, __p);
-    ACFULogging::handleMessage(v32, 0, "%s::%s: Production Mode: 0x%s\n", v33, v34, v35, v36, v37, "ACFUCommon");
-    if (v76 < 0)
+    v13 = v31 >= 0 ? __p : __p[0];
+    ACFULogging::handleMessage(v12, 0, "%s::%s: Production Mode: 0x%s\n", "ACFUCommon", "logParameters", v13);
+    if (v31 < 0)
     {
       operator delete(__p[0]);
     }
@@ -7534,10 +7624,11 @@ void ACFUCommon::PersonalizeParams::logParameters(CFDataRef *this)
 
   if (*(this + 112) == 1)
   {
-    v38 = ACFULogging::getLogInstance(this);
+    v14 = ACFULogging::getLogInstance(this);
     ACFUCommon::Parameter::dataAsString(this + 13, 0, __p);
-    ACFULogging::handleMessage(v38, 0, "%s::%s: Security Mode: 0x%s\n", v39, v40, v41, v42, v43, "ACFUCommon");
-    if (v76 < 0)
+    v15 = v31 >= 0 ? __p : __p[0];
+    ACFULogging::handleMessage(v14, 0, "%s::%s: Security Mode: 0x%s\n", "ACFUCommon", "logParameters", v15);
+    if (v31 < 0)
     {
       operator delete(__p[0]);
     }
@@ -7545,10 +7636,11 @@ void ACFUCommon::PersonalizeParams::logParameters(CFDataRef *this)
 
   if (*(this + 128) == 1)
   {
-    v44 = ACFULogging::getLogInstance(this);
+    v16 = ACFULogging::getLogInstance(this);
     ACFUCommon::Parameter::dataAsString(this + 15, 0, __p);
-    ACFULogging::handleMessage(v44, 0, "%s::%s: UID Mode: 0x%s\n", v45, v46, v47, v48, v49, "ACFUCommon");
-    if (v76 < 0)
+    v17 = v31 >= 0 ? __p : __p[0];
+    ACFULogging::handleMessage(v16, 0, "%s::%s: UID Mode: 0x%s\n", "ACFUCommon", "logParameters", v17);
+    if (v31 < 0)
     {
       operator delete(__p[0]);
     }
@@ -7556,10 +7648,11 @@ void ACFUCommon::PersonalizeParams::logParameters(CFDataRef *this)
 
   if (*(this + 144) == 1)
   {
-    v50 = ACFULogging::getLogInstance(this);
+    v18 = ACFULogging::getLogInstance(this);
     ACFUCommon::Parameter::dataAsString(this + 17, 0, __p);
-    ACFULogging::handleMessage(v50, 0, "%s::%s: Security Domain: 0x%s\n", v51, v52, v53, v54, v55, "ACFUCommon");
-    if (v76 < 0)
+    v19 = v31 >= 0 ? __p : __p[0];
+    ACFULogging::handleMessage(v18, 0, "%s::%s: Security Domain: 0x%s\n", "ACFUCommon", "logParameters", v19);
+    if (v31 < 0)
     {
       operator delete(__p[0]);
     }
@@ -7567,10 +7660,11 @@ void ACFUCommon::PersonalizeParams::logParameters(CFDataRef *this)
 
   if (*(this + 160) == 1)
   {
-    v56 = ACFULogging::getLogInstance(this);
+    v20 = ACFULogging::getLogInstance(this);
     ACFUCommon::Parameter::dataAsString(this + 19, 0, __p);
-    ACFULogging::handleMessage(v56, 0, "%s::%s: Minimum Epoch: 0x%s\n", v57, v58, v59, v60, v61, "ACFUCommon");
-    if (v76 < 0)
+    v21 = v31 >= 0 ? __p : __p[0];
+    ACFULogging::handleMessage(v20, 0, "%s::%s: Minimum Epoch: 0x%s\n", "ACFUCommon", "logParameters", v21);
+    if (v31 < 0)
     {
       operator delete(__p[0]);
     }
@@ -7578,25 +7672,57 @@ void ACFUCommon::PersonalizeParams::logParameters(CFDataRef *this)
 
   if (*(this + 176) == 1)
   {
-    v62 = ACFULogging::getLogInstance(this);
+    v22 = ACFULogging::getLogInstance(this);
     ACFUCommon::Parameter::dataAsString(this + 21, 0, __p);
-    ACFUCommon::PersonalizeParams::getPrettyChipRevision(this, &v74);
-    ACFULogging::handleMessage(v62, 0, "%s::%s: Chip Revision: 0x%s (%s)\n", v63, v64, v65, v66, v67, "ACFUCommon");
-    if (SHIBYTE(v74.__r_.__value_.__r.__words[2]) < 0)
+    v23 = v31;
+    v24 = __p[0];
+    ACFUCommon::PersonalizeParams::getPrettyChipRevision(this, &v29);
+    if (v23 >= 0)
     {
-      operator delete(v74.__r_.__value_.__l.__data_);
+      v25 = __p;
     }
 
-    if (v76 < 0)
+    else
+    {
+      v25 = v24;
+    }
+
+    if ((v29.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v26 = &v29;
+    }
+
+    else
+    {
+      v26 = v29.__r_.__value_.__r.__words[0];
+    }
+
+    ACFULogging::handleMessage(v22, 0, "%s::%s: Chip Revision: 0x%s (%s)\n", "ACFUCommon", "logParameters", v25, v26);
+    if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v29.__r_.__value_.__l.__data_);
+    }
+
+    if (v31 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
-  v68 = ACFULogging::getLogInstance(this);
+  v27 = ACFULogging::getLogInstance(this);
   ACFUCommon::PersonalizeParams::getFusingConfig(this, __p);
-  ACFULogging::handleMessage(v68, 0, "%s::%s: Fusing Config: %s\n", v69, v70, v71, v72, v73, "ACFUCommon");
-  if (v76 < 0)
+  if (v31 >= 0)
+  {
+    v28 = __p;
+  }
+
+  else
+  {
+    v28 = __p[0];
+  }
+
+  ACFULogging::handleMessage(v27, 0, "%s::%s: Fusing Config: %s\n", "ACFUCommon", "logParameters", v28);
+  if (v31 < 0)
   {
     operator delete(__p[0]);
   }
@@ -7620,18 +7746,18 @@ void sub_2402BB7F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 void ACFUCommon::PersonalizeParams::getPrettyChipRevision(ACFUCommon::PersonalizeParams *this@<X0>, std::string *a2@<X8>)
 {
   std::string::basic_string[abi:ne200100]<0>(a2, "Unknown");
-  v11 = 0;
-  DataAs = ACFUCommon::Parameter::GetDataAsType<unsigned short>(this + 168, &v11);
+  v6 = 0;
+  DataAs = ACFUCommon::Parameter::GetDataAsType<unsigned short>(this + 168, &v6);
   if (DataAs)
   {
-    std::string::operator=(a2, (v11 >> 4) + 65);
-    std::string::push_back(a2, v11 & 0xF | 0x30);
+    std::string::operator=(a2, (v6 >> 4) + 65);
+    std::string::push_back(a2, v6 & 0xF | 0x30);
   }
 
   else
   {
     LogInstance = ACFULogging::getLogInstance(DataAs);
-    ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to retrieve chip revision value\n", v6, v7, v8, v9, v10, "ACFUCommon");
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to retrieve chip revision value\n", "ACFUCommon", "getPrettyChipRevision");
   }
 }
 
@@ -7648,43 +7774,45 @@ void sub_2402BB8F8(_Unwind_Exception *exception_object)
 void ACFUCommon::PersonalizeParams::getFusingConfig(ACFUCommon::PersonalizeParams *this@<X0>, void *a2@<X8>)
 {
   std::string::basic_string[abi:ne200100]<0>(a2, "Unknown");
-  v16 = 0;
-  v15 = 0;
-  if (*(this + 96) != 1 || *(this + 112) != 1 || *(this + 144) != 1)
+  v12 = 0;
+  v11 = 0;
+  if (*(this + 96) == 1 && *(this + 112) == 1 && *(this + 144) == 1)
   {
-    return;
-  }
+    DataAs = ACFUCommon::Parameter::GetDataAsType<unsigned char>(this + 88, &v12 + 1);
+    if (DataAs)
+    {
+      v5 = ACFUCommon::Parameter::GetDataAsType<unsigned char>(this + 104, &v12);
+      if (v5)
+      {
+        v6 = ACFUCommon::Parameter::GetDataAsType<unsigned char>(this + 136, &v11);
+        if (v6)
+        {
+          v7 = (2 * v12) | (4 * HIBYTE(v12)) | v11;
+          if (v7 <= 7 && ((0x8Bu >> v7) & 1) != 0)
+          {
+            MEMORY[0x245CBEB90](a2, off_278C9FDB0[v7]);
+          }
+        }
 
-  DataAs = ACFUCommon::Parameter::GetDataAsType<unsigned char>(this + 88, &v16 + 1);
-  if ((DataAs & 1) == 0)
-  {
-    LogInstance = ACFULogging::getLogInstance(DataAs);
-    v14 = "%s::%s: failed to retrieve production mode value\n";
-LABEL_14:
-    ACFULogging::handleMessage(LogInstance, 2u, v14, v9, v10, v11, v12, v13, "ACFUCommon");
-    return;
-  }
+        else
+        {
+          LogInstance = ACFULogging::getLogInstance(v6);
+          ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to retrieve security domain value\n");
+        }
+      }
 
-  v5 = ACFUCommon::Parameter::GetDataAsType<unsigned char>(this + 104, &v16);
-  if ((v5 & 1) == 0)
-  {
-    LogInstance = ACFULogging::getLogInstance(v5);
-    v14 = "%s::%s: failed to retrieve security mode value\n";
-    goto LABEL_14;
-  }
+      else
+      {
+        v9 = ACFULogging::getLogInstance(v5);
+        ACFULogging::handleMessage(v9, 2, "%s::%s: failed to retrieve security mode value\n");
+      }
+    }
 
-  v6 = ACFUCommon::Parameter::GetDataAsType<unsigned char>(this + 136, &v15);
-  if ((v6 & 1) == 0)
-  {
-    LogInstance = ACFULogging::getLogInstance(v6);
-    v14 = "%s::%s: failed to retrieve security domain value\n";
-    goto LABEL_14;
-  }
-
-  v7 = (2 * v16) | (4 * HIBYTE(v16)) | v15;
-  if (v7 <= 7 && ((0x8Bu >> v7) & 1) != 0)
-  {
-    MEMORY[0x245CBEB90](a2, off_278C9FDB0[v7]);
+    else
+    {
+      v8 = ACFULogging::getLogInstance(DataAs);
+      ACFULogging::handleMessage(v8, 2, "%s::%s: failed to retrieve production mode value\n");
+    }
   }
 }
 
@@ -7777,7 +7905,6 @@ uint64_t ACFUCommon::createFileDatafromFilePath(ACFUCommon *this, const __CFStri
     return 0;
   }
 
-  v2 = *MEMORY[0x277CBECE8];
   URLFromString = AMSupportCreateURLFromString();
   if (!URLFromString)
   {
@@ -7785,28 +7912,26 @@ uint64_t ACFUCommon::createFileDatafromFilePath(ACFUCommon *this, const __CFStri
     return 0;
   }
 
-  v4 = URLFromString;
+  v3 = URLFromString;
   DataFromFileURL = AMSupportCreateDataFromFileURL();
   if (DataFromFileURL)
   {
     ACFUCommon::createFileDatafromFilePath(DataFromFileURL);
   }
 
-  CFRelease(v4);
+  CFRelease(v3);
   return 0;
 }
 
 __CFData *ACFUCommon::createMutableFileDatafromFilePath(ACFUCommon *this, const __CFString *a2)
 {
   v2 = MEMORY[0x28223BE20](this, a2);
-  v25 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   bzero(__ptr, 0x1000uLL);
   if (!v2)
   {
     ACFUCommon::createMutableFileDatafromFilePath(v3);
-LABEL_22:
-    Mutable = 0;
-    goto LABEL_16;
+    return 0;
   }
 
   v4 = *MEMORY[0x277CBECE8];
@@ -7814,7 +7939,7 @@ LABEL_22:
   if (!URLFromString)
   {
     ACFUCommon::createMutableFileDatafromFilePath(0);
-    goto LABEL_22;
+    return 0;
   }
 
   v7 = URLFromString;
@@ -7822,10 +7947,10 @@ LABEL_22:
   if (FileSize)
   {
     v9 = FileSize;
-    bzero(v24, 0x400uLL);
-    if (CFURLGetFileSystemRepresentation(v7, 1u, v24, 1024))
+    bzero(v19, 0x400uLL);
+    if (CFURLGetFileSystemRepresentation(v7, 1u, v19, 1024))
     {
-      v10 = fopen(v24, "r");
+      v10 = fopen(v19, "r");
       if (v10)
       {
         v11 = v10;
@@ -7855,8 +7980,9 @@ LABEL_22:
             }
           }
 
+          v16 = v14;
           LogInstance = ACFULogging::getLogInstance(v14);
-          ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: read less bytes than required (read: %zu, required: %zu)\n", v18, v19, v20, v21, v22, "ACFUCommon");
+          ACFULogging::handleMessage(LogInstance, 2, "%s::%s: read less bytes than required (read: %zu, required: %zu)\n", "ACFUCommon", "createMutableFileDatafromFilePath", v16, v13);
 LABEL_19:
           CFRelease(Mutable);
           Mutable = 0;
@@ -7875,7 +8001,7 @@ LABEL_14:
 
     else
     {
-      ACFUCommon::createMutableFileDatafromFilePath(v24);
+      ACFUCommon::createMutableFileDatafromFilePath(v19);
     }
 
     ACFUCommon::createMutableFileDatafromFilePath(v10);
@@ -7889,60 +8015,58 @@ LABEL_14:
   Mutable = 0;
 LABEL_15:
   CFRelease(v7);
-LABEL_16:
-  v15 = *MEMORY[0x277D85DE8];
   return Mutable;
 }
 
-void ACFUCommon::parseDebugArgs(ACFUCommon *this@<X0>, const __CFDictionary *a2@<X1>, _DWORD *a3@<X8>)
+void ACFUCommon::parseDebugArgs(ACFUCommon *this@<X0>, const __CFDictionary *a2@<X1>, _DWORD *a4@<X8>)
 {
-  v71 = *MEMORY[0x277D85DE8];
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
-  v68 = 0u;
-  v65 = 0u;
-  v66 = 0u;
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
+  v60 = *MEMORY[0x277D85DE8];
   v58 = 0u;
-  v55 = 0u;
+  v59 = 0u;
   v56 = 0u;
-  v53 = 0u;
+  v57 = 0u;
   v54 = 0u;
-  v51 = 0u;
+  v55 = 0u;
   v52 = 0u;
-  v49 = 0u;
+  v53 = 0u;
   v50 = 0u;
-  v47 = 0u;
+  v51 = 0u;
   v48 = 0u;
-  v45 = 0u;
+  v49 = 0u;
   v46 = 0u;
-  v43 = 0u;
+  v47 = 0u;
   v44 = 0u;
-  v41 = 0u;
+  v45 = 0u;
   v42 = 0u;
-  *buffer = 0u;
+  v43 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  *buffer = 0u;
+  v29 = 0u;
   if (!this)
   {
     ACFUCommon::parseDebugArgs(0);
 LABEL_29:
-    v23 = 0;
-    v24 = 4006;
+    v18 = 0;
+    v19 = 4006;
     goto LABEL_30;
   }
 
   if (!a2)
   {
     ACFUCommon::parseDebugArgs(this);
-    v23 = 0;
-    v24 = 4005;
+    v18 = 0;
+    v19 = 4005;
     goto LABEL_30;
   }
 
@@ -7951,12 +8075,12 @@ LABEL_29:
   LogInstance = ACFULogging::getLogInstance(Value);
   if (Value)
   {
-    v14 = "%s::%s: Found updater options in dictionary\n";
+    v9 = "%s::%s: Found updater options in dictionary\n";
   }
 
   else
   {
-    v14 = "%s::%s: Assuming updater options dictionary is being passed\n";
+    v9 = "%s::%s: Assuming updater options dictionary is being passed\n";
   }
 
   if (Value)
@@ -7964,78 +8088,78 @@ LABEL_29:
     v6 = Value;
   }
 
-  ACFULogging::handleMessage(LogInstance, 3u, v14, v9, v10, v11, v12, v13, "ACFUCommon");
+  ACFULogging::handleMessage(LogInstance, 3, v9, "ACFUCommon", "parseDebugArgs");
   TypeID = CFDictionaryGetTypeID();
-  v16 = CFGetTypeID(v6);
-  if (TypeID != v16)
+  v11 = CFGetTypeID(v6);
+  if (TypeID != v11)
   {
-    ACFUCommon::parseDebugArgs(v16);
+    ACFUCommon::parseDebugArgs(v11);
 LABEL_32:
-    v23 = 0;
-    v24 = 4002;
+    v18 = 0;
+    v19 = 4002;
     goto LABEL_30;
   }
 
-  v17 = CFDictionaryGetValue(v6, @"ACFUDebugArgs");
-  if (!v17)
+  v12 = CFDictionaryGetValue(v6, @"ACFUDebugArgs");
+  if (!v12)
   {
     ACFUCommon::parseDebugArgs(0);
     goto LABEL_29;
   }
 
-  v18 = v17;
-  v19 = CFStringGetTypeID();
-  v20 = CFGetTypeID(v18);
-  if (v19 != v20)
+  v13 = v12;
+  v14 = CFStringGetTypeID();
+  v15 = CFGetTypeID(v13);
+  if (v14 != v15)
   {
-    ACFUCommon::parseDebugArgs(v20);
+    ACFUCommon::parseDebugArgs(v15);
     goto LABEL_32;
   }
 
-  CString = CFStringGetCString(v18, buffer, 512, 0x8000100u);
+  CString = CFStringGetCString(v13, buffer, 512, 0x8000100u);
   if (CString)
   {
     __stringp = buffer;
-    v22 = strsep(&__stringp, " ");
-    if (v22)
+    v17 = strsep(&__stringp, " ");
+    if (v17)
     {
-      v23 = 0;
-      v24 = 4006;
+      v18 = 0;
+      v19 = 4006;
       while (1)
       {
-        v25 = strlen(a2);
-        v26 = strncmp(v22, a2, v25);
-        if (!v26)
+        v20 = strlen(a2);
+        v21 = strncmp(v17, a2, v20);
+        if (!v21)
         {
-          v27 = v22[v25] == 61;
-          v28 = ACFULogging::getLogInstance(v26);
-          if (!v27)
+          v22 = v17[v20] == 61;
+          v23 = ACFULogging::getLogInstance(v21);
+          if (!v22)
           {
-            ACFULogging::handleMessage(v28, 2u, "%s::%s: Invalid token: %s\n", v29, v30, v31, v32, v33, "ACFUCommon");
+            ACFULogging::handleMessage(v23, 2, "%s::%s: Invalid token: %s\n", "ACFUCommon", "parseDebugArgs", v17);
             goto LABEL_24;
           }
 
-          ACFULogging::handleMessage(v28, 3u, "%s::%s: Token: %s\n", v29, v30, v31, v32, v33, "ACFUCommon");
-          v34 = strchr(v22, 61);
-          if (!v34)
+          ACFULogging::handleMessage(v23, 3, "%s::%s: Token: %s\n", "ACFUCommon", "parseDebugArgs", v17);
+          v24 = strchr(v17, 61);
+          if (!v24)
           {
             ACFUCommon::parseDebugArgs(a2);
             goto LABEL_24;
           }
 
-          std::string::basic_string[abi:ne200100]<0>(&__str, v34 + 1);
-          v35 = std::stoul(&__str, 0, 0);
+          std::string::basic_string[abi:ne200100]<0>(&__str, v24 + 1);
+          v25 = std::stoul(&__str, 0, 0);
           if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__str.__r_.__value_.__l.__data_);
           }
 
-          v24 = 0;
-          v23 = v35;
+          v19 = 0;
+          v18 = v25;
         }
 
-        v22 = strsep(&__stringp, " ");
-        if (!v22)
+        v17 = strsep(&__stringp, " ");
+        if (!v17)
         {
           goto LABEL_30;
         }
@@ -8046,43 +8170,42 @@ LABEL_32:
   }
 
   ACFUCommon::parseDebugArgs(CString);
-  v23 = 0;
+  v18 = 0;
 LABEL_24:
-  v24 = 4007;
+  v19 = 4007;
 LABEL_30:
-  *a3 = v23;
-  a3[1] = v24;
-  v36 = *MEMORY[0x277D85DE8];
+  *a4 = v18;
+  a4[1] = v19;
 }
 
-void ACFUCommon::stringFromCFString(const __CFString *this@<X0>, void *a2@<X8>)
+void ACFUCommon::stringFromCFString(uint64_t *__return_ptr a1@<X8>, const __CFString *this@<X0>)
 {
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (this)
   {
     SystemEncoding = CFStringGetSystemEncoding();
     CStringPtr = CFStringGetCStringPtr(this, SystemEncoding);
     if (CStringPtr)
     {
-      v7 = CStringPtr;
-      v8 = 0;
+      v6 = CStringPtr;
+      v7 = 0;
     }
 
     else
     {
       Length = CFStringGetLength(this);
-      v10 = malloc(Length + 1);
-      v8 = v10;
-      v7 = "";
-      if (v10)
+      v9 = malloc(Length + 1);
+      v7 = v9;
+      v6 = "";
+      if (v9)
       {
-        bzero(v10, Length + 1);
-        v11 = CFStringGetSystemEncoding();
-        if (CFStringGetCString(this, v8, Length + 1, v11))
+        bzero(v9, Length + 1);
+        v10 = CFStringGetSystemEncoding();
+        if (CFStringGetCString(this, v7, Length + 1, v10))
         {
-          v7 = v8;
+          v6 = v7;
         }
       }
     }
@@ -8090,147 +8213,152 @@ void ACFUCommon::stringFromCFString(const __CFString *this@<X0>, void *a2@<X8>)
 
   else
   {
-    v8 = 0;
-    v7 = "";
+    v7 = 0;
+    v6 = "";
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&v12, v7);
-  *a2 = v12;
-  a2[2] = v13;
-  if (v8)
+  std::string::basic_string[abi:ne200100]<0>(&v11, v6);
+  *a1 = v11;
+  a1[2] = v12;
+  if (v7)
   {
-    free(v8);
+    free(v7);
   }
 }
 
-uint64_t ACFUCommon::hexStringFromCFData(ACFUCommon *this, const __CFData *a2, int a3, int a4)
+uint64_t *ACFUCommon::hexStringFromCFData(ACFUCommon *this, const __CFData *a3, int a4, int a5)
 {
-  v5 = a2;
-  TypeID = std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v31);
-  if (!this || (v8 = CFGetTypeID(this), TypeID = CFDataGetTypeID(), v8 != TypeID))
+  v6 = a3;
+  TypeID = std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v28);
+  if (this && (v9 = CFGetTypeID(this), TypeID = CFDataGetTypeID(), v9 == TypeID))
   {
-    LogInstance = ACFULogging::getLogInstance(TypeID);
-    v29 = "%s::%s: bad data\n";
-LABEL_31:
-    ACFULogging::handleMessage(LogInstance, 2u, v29, v24, v25, v26, v27, v28, "ACFUCommon");
-    goto LABEL_25;
-  }
-
-  Length = CFDataGetLength(this);
-  v10 = Length;
-  if (Length < 0)
-  {
-    LogInstance = ACFULogging::getLogInstance(Length);
-    v29 = "%s::%s: failed to get length\n";
-    goto LABEL_31;
-  }
-
-  if (!Length)
-  {
-    goto LABEL_25;
-  }
-
-  BytePtr = CFDataGetBytePtr(this);
-  if (!BytePtr)
-  {
-    LogInstance = ACFULogging::getLogInstance(0);
-    v29 = "%s::%s: failed to get byte ptr\n";
-    goto LABEL_31;
-  }
-
-  v12 = v10 - 1;
-  if (v5)
-  {
-    if (v12 < 0)
+    Length = CFDataGetLength(this);
+    v11 = Length;
+    if (Length < 0)
     {
-      goto LABEL_25;
-    }
-  }
-
-  else
-  {
-    v12 = 0;
-  }
-
-  v13 = v12;
-  if (a4)
-  {
-    v14 = std::uppercase[abi:ne200100];
-  }
-
-  else
-  {
-    v14 = std::nouppercase[abi:ne200100];
-  }
-
-  if (v5)
-  {
-    v15 = -1;
-  }
-
-  else
-  {
-    v15 = 1;
-  }
-
-  do
-  {
-    v14(&v32 + *(v32 - 24));
-    v16 = v32;
-    v17 = &v32 + *(v32 - 24);
-    if (*(v17 + 36) == -1)
-    {
-      std::ios_base::getloc((&v32 + *(v32 - 24)));
-      v18 = std::locale::use_facet(&v37, MEMORY[0x277D82680]);
-      (v18->__vftable[2].~facet_0)(v18, 32);
-      std::locale::~locale(&v37);
-      v16 = v32;
+      LogInstance = ACFULogging::getLogInstance(Length);
+      ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to get length\n");
     }
 
-    *(v17 + 36) = 48;
-    *(&v34[1].__locale_ + *(v16 - 24)) = 2;
-    *(&v34[-1].__locale_ + *(v16 - 24)) = *(&v34[-1].__locale_ + *(v16 - 24)) & 0xFFFFFFB5 | 8;
-    MEMORY[0x245CBEC00](&v32, BytePtr[v13]);
-    if (a3)
+    else
     {
-      v19 = v13 < 1;
-      if (!v5)
+      if (!Length)
       {
-        v19 = v10 - 1 <= v13;
+        goto LABEL_25;
       }
 
-      if (!v19)
+      BytePtr = CFDataGetBytePtr(this);
+      if (BytePtr)
       {
-        LOBYTE(v37.__locale_) = 32;
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v32, &v37, 1);
-      }
-    }
+        v13 = v11 - 1;
+        if (v6)
+        {
+          if (v13 < 0)
+          {
+            goto LABEL_25;
+          }
+        }
 
-    v13 += v15;
-    v20 = v13 >= 0;
-    if (!v5)
-    {
-      v20 = v10 > v13;
+        else
+        {
+          v13 = 0;
+        }
+
+        v14 = v13;
+        if (a5)
+        {
+          v15 = std::uppercase[abi:ne200100];
+        }
+
+        else
+        {
+          v15 = std::nouppercase[abi:ne200100];
+        }
+
+        if (v6)
+        {
+          v16 = -1;
+        }
+
+        else
+        {
+          v16 = 1;
+        }
+
+        do
+        {
+          v15(&v29 + *(v29 - 24));
+          v17 = v29;
+          v18 = &v29 + *(v29 - 24);
+          if (*(v18 + 36) == -1)
+          {
+            std::ios_base::getloc((&v29 + *(v29 - 24)));
+            v19 = std::locale::use_facet(&v34, MEMORY[0x277D82680]);
+            (v19->__vftable[2].~facet_0)(v19, 32);
+            std::locale::~locale(&v34);
+            v17 = v29;
+          }
+
+          *(v18 + 36) = 48;
+          *(&v31[1].__locale_ + *(v17 - 24)) = 2;
+          *(&v31[-1].__locale_ + *(v17 - 24)) = *(&v31[-1].__locale_ + *(v17 - 24)) & 0xFFFFFFB5 | 8;
+          MEMORY[0x245CBEC00](&v29, BytePtr[v14]);
+          if (a4)
+          {
+            v20 = v14 < 1;
+            if (!v6)
+            {
+              v20 = v11 - 1 <= v14;
+            }
+
+            if (!v20)
+            {
+              LOBYTE(v34.__locale_) = 32;
+              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v29, &v34, 1);
+            }
+          }
+
+          v14 += v16;
+          v21 = v14 >= 0;
+          if (!v6)
+          {
+            v21 = v11 > v14;
+          }
+        }
+
+        while (v21);
+      }
+
+      else
+      {
+        v26 = ACFULogging::getLogInstance(0);
+        ACFULogging::handleMessage(v26, 2, "%s::%s: failed to get byte ptr\n");
+      }
     }
   }
 
-  while (v20);
+  else
+  {
+    v24 = ACFULogging::getLogInstance(TypeID);
+    ACFULogging::handleMessage(v24, 2, "%s::%s: bad data\n");
+  }
+
 LABEL_25:
   std::stringbuf::str();
-  v31[0] = *MEMORY[0x277D82818];
-  v21 = *(MEMORY[0x277D82818] + 72);
-  *(v31 + *(v31[0] - 24)) = *(MEMORY[0x277D82818] + 64);
-  v32 = v21;
-  v33 = MEMORY[0x277D82878] + 16;
-  if (v35 < 0)
+  v28[0] = *MEMORY[0x277D82818];
+  v22 = *(MEMORY[0x277D82818] + 72);
+  *(v28 + *(v28[0] - 24)) = *(MEMORY[0x277D82818] + 64);
+  v29 = v22;
+  v30 = MEMORY[0x277D82878] + 16;
+  if (v32 < 0)
   {
-    operator delete(v34[7].__locale_);
+    operator delete(v31[7].__locale_);
   }
 
-  v33 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v34);
+  v30 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v31);
   std::iostream::~basic_iostream();
-  return MEMORY[0x245CBED50](&v36);
+  return MEMORY[0x245CBED50](&v33);
 }
 
 void sub_2402BC700(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30)
@@ -8250,7 +8378,7 @@ void ACFUCommon::cfTypeDescription(ACFUCommon *this@<X0>, int a2@<W1>, void *a3@
   if (!v6)
   {
     LogInstance = ACFULogging::getLogInstance(0);
-    ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to copy type description for type ID %lu\n", v16, v17, v18, v19, v20, "ACFUCommon");
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to copy type description for type ID %lu\n", "ACFUCommon", "cfTypeDescription", this);
     return;
   }
 
@@ -8265,15 +8393,15 @@ void ACFUCommon::cfTypeDescription(ACFUCommon *this@<X0>, int a2@<W1>, void *a3@
   if (v8)
   {
 LABEL_6:
-    ACFUCommon::stringFromCFString(v8, &v21);
-    *a3 = v21;
-    a3[2] = v22;
+    ACFUCommon::stringFromCFString(&v11, v8);
+    *a3 = v11;
+    a3[2] = v12;
     CFRelease(v8);
     goto LABEL_7;
   }
 
   v9 = ACFULogging::getLogInstance(0);
-  ACFULogging::handleMessage(v9, 2u, "%s::%s: failed to create full description for type ID %lu\n", v10, v11, v12, v13, v14, "ACFUCommon");
+  ACFULogging::handleMessage(v9, 2, "%s::%s: failed to create full description for type ID %lu\n", "ACFUCommon", "cfTypeDescription", this);
 LABEL_7:
   CFRelease(v7);
 }
@@ -8290,46 +8418,47 @@ void sub_2402BC874(_Unwind_Exception *exception_object)
 
 BOOL ACFUCommon::doesPathExist(ACFUCommon *this, const __CFURL *a2)
 {
-  v21 = 0;
-  v3 = MEMORY[0x245CBE660](this, &v21);
+  v17 = 0;
+  v3 = MEMORY[0x245CBE660](this, &v17);
   if (v3)
   {
+    v4 = v3;
     LogInstance = ACFULogging::getLogInstance(v3);
-    ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to determine if url exists (%u)\n", v5, v6, v7, v8, v9, "ACFUCommon");
-    v11 = ACFULogging::getLogInstance(v10);
-    std::string::basic_string[abi:ne200100]<0>(&v17, "ACFUCommon");
-    v12 = std::string::append(&v17, "::");
-    v13 = *&v12->__r_.__value_.__l.__data_;
-    v18.__r_.__value_.__r.__words[2] = v12->__r_.__value_.__r.__words[2];
-    *&v18.__r_.__value_.__l.__data_ = v13;
-    v12->__r_.__value_.__l.__size_ = 0;
-    v12->__r_.__value_.__r.__words[2] = 0;
-    v12->__r_.__value_.__r.__words[0] = 0;
-    v14 = std::string::append(&v18, "doesPathExist");
-    v15 = *&v14->__r_.__value_.__l.__data_;
-    v20 = v14->__r_.__value_.__r.__words[2];
-    v19 = v15;
-    v14->__r_.__value_.__l.__size_ = 0;
-    v14->__r_.__value_.__r.__words[2] = 0;
-    v14->__r_.__value_.__r.__words[0] = 0;
-    ACFULogging::handleMessageCFType(v11, &v19, 0, "Path URL: ", this);
-    if (SHIBYTE(v20) < 0)
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to determine if url exists (%u)\n", "ACFUCommon", "doesPathExist", v4);
+    v7 = ACFULogging::getLogInstance(v6);
+    std::string::basic_string[abi:ne200100]<0>(&v13, "ACFUCommon");
+    v8 = std::string::append(&v13, "::");
+    v9 = *&v8->__r_.__value_.__l.__data_;
+    v14.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
+    *&v14.__r_.__value_.__l.__data_ = v9;
+    v8->__r_.__value_.__l.__size_ = 0;
+    v8->__r_.__value_.__r.__words[2] = 0;
+    v8->__r_.__value_.__r.__words[0] = 0;
+    v10 = std::string::append(&v14, "doesPathExist");
+    v11 = *&v10->__r_.__value_.__l.__data_;
+    v16 = v10->__r_.__value_.__r.__words[2];
+    v15 = v11;
+    v10->__r_.__value_.__l.__size_ = 0;
+    v10->__r_.__value_.__r.__words[2] = 0;
+    v10->__r_.__value_.__r.__words[0] = 0;
+    ACFULogging::handleMessageCFType(v7, &v15, 0, "Path URL: ", this);
+    if (SHIBYTE(v16) < 0)
     {
-      operator delete(v19);
+      operator delete(v15);
     }
 
-    if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v18.__r_.__value_.__l.__data_);
+      operator delete(v14.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v17.__r_.__value_.__l.__data_);
+      operator delete(v13.__r_.__value_.__l.__data_);
     }
   }
 
-  return v21 == 1;
+  return v17 == 1;
 }
 
 void sub_2402BC9BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
@@ -8354,7 +8483,7 @@ void sub_2402BC9BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 BOOL ACFUCommon::isPathWritable(const __CFString *this, const __CFString *a2)
 {
-  ACFUCommon::stringFromCFString(this, v4);
+  ACFUCommon::stringFromCFString(v4, this);
   if (v5 < 0)
   {
     if (v4[1])
@@ -8383,35 +8512,35 @@ uint64_t ACFUCommon::removeFileWithURL(ACFUCommon *this, const __CFURL *a2)
   if (this && (v2 = this, v3 = CFURLGetTypeID(), this = CFGetTypeID(v2), v3 == this))
   {
     LogInstance = ACFULogging::getLogInstance(this);
-    std::string::basic_string[abi:ne200100]<0>(&v23, "ACFUCommon");
-    v5 = std::string::append(&v23, "::");
+    std::string::basic_string[abi:ne200100]<0>(&v13, "ACFUCommon");
+    v5 = std::string::append(&v13, "::");
     v6 = *&v5->__r_.__value_.__l.__data_;
-    v24.__r_.__value_.__r.__words[2] = v5->__r_.__value_.__r.__words[2];
-    *&v24.__r_.__value_.__l.__data_ = v6;
+    v14.__r_.__value_.__r.__words[2] = v5->__r_.__value_.__r.__words[2];
+    *&v14.__r_.__value_.__l.__data_ = v6;
     v5->__r_.__value_.__l.__size_ = 0;
     v5->__r_.__value_.__r.__words[2] = 0;
     v5->__r_.__value_.__r.__words[0] = 0;
-    v7 = std::string::append(&v24, "removeFileWithURL");
+    v7 = std::string::append(&v14, "removeFileWithURL");
     v8 = *&v7->__r_.__value_.__l.__data_;
-    v26 = v7->__r_.__value_.__r.__words[2];
-    v25 = v8;
+    v16 = v7->__r_.__value_.__r.__words[2];
+    v15 = v8;
     v7->__r_.__value_.__l.__size_ = 0;
     v7->__r_.__value_.__r.__words[2] = 0;
     v7->__r_.__value_.__r.__words[0] = 0;
-    ACFULogging::handleMessageCFType(LogInstance, &v25, 0, "Removing file at URL: ", v2);
-    if (SHIBYTE(v26) < 0)
+    ACFULogging::handleMessageCFType(LogInstance, &v15, 0, "Removing file at URL: ", v2);
+    if (SHIBYTE(v16) < 0)
     {
-      operator delete(v25);
+      operator delete(v15);
     }
 
-    if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v24.__r_.__value_.__l.__data_);
+      operator delete(v14.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v23.__r_.__value_.__l.__data_);
+      operator delete(v13.__r_.__value_.__l.__data_);
     }
 
     v9 = AMSupportRemoveFile();
@@ -8421,13 +8550,13 @@ uint64_t ACFUCommon::removeFileWithURL(ACFUCommon *this, const __CFURL *a2)
     }
 
     v10 = ACFULogging::getLogInstance(v9);
-    ACFULogging::handleMessage(v10, 2u, "%s::%s: failed to remove file (%u)\n", v11, v12, v13, v14, v15, "ACFUCommon");
+    ACFULogging::handleMessage(v10, 2, "%s::%s: failed to remove file (%u)\n");
   }
 
   else
   {
-    v16 = ACFULogging::getLogInstance(this);
-    ACFULogging::handleMessage(v16, 2u, "%s::%s: failed due to unexpected data type\n", v17, v18, v19, v20, v21, "ACFUCommon");
+    v11 = ACFULogging::getLogInstance(this);
+    ACFULogging::handleMessage(v11, 2, "%s::%s: failed due to unexpected data type\n");
   }
 
   return 0;
@@ -8453,299 +8582,308 @@ void sub_2402BCBF4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t ACFUCommon::createSymlink(__CFString *this, const __CFString *a2, const __CFString *a3, const __CFString *a4)
+uint64_t ACFUCommon::createSymlink(ACFUCommon *this, const __CFString *a2, const __CFString *a3, const __CFString *a4)
 {
-  v63[2] = *MEMORY[0x277D85DE8];
-  memset(&v62, 0, sizeof(v62));
-  memset(&v61, 0, sizeof(v61));
-  memset(&v60, 0, sizeof(v60));
-  v58 = 0;
-  v59 = 0uLL;
-  memset(&v57, 0, sizeof(v57));
-  if (this && a2 && a3)
+  v49[2] = *MEMORY[0x277D85DE8];
+  memset(&v48, 0, sizeof(v48));
+  memset(&v47, 0, sizeof(v47));
+  memset(&v46, 0, sizeof(v46));
+  v44 = 0;
+  v45 = 0uLL;
+  memset(&v43, 0, sizeof(v43));
+  if (!this || !a2 || !a3)
   {
-    ACFUCommon::stringFromCFString(this, &v56);
-    if (SHIBYTE(v62.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v62.__r_.__value_.__l.__data_);
-    }
-
-    v62 = v56;
-    ACFUCommon::stringFromCFString(a2, &v56);
-    if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v61.__r_.__value_.__l.__data_);
-    }
-
-    v61 = v56;
-    ACFUCommon::stringFromCFString(a3, &v56);
-    if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v60.__r_.__value_.__l.__data_);
-    }
-
-    v60 = v56;
-    if ((v62.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      size = HIBYTE(v62.__r_.__value_.__r.__words[2]);
-    }
-
-    else
-    {
-      size = v62.__r_.__value_.__l.__size_;
-    }
-
-    v7 = &v56;
-    std::string::basic_string[abi:ne200100](&v56, size + 1);
-    if ((v56.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-    {
-      v7 = v56.__r_.__value_.__r.__words[0];
-    }
-
-    if (size)
-    {
-      if ((v62.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v8 = &v62;
-      }
-
-      else
-      {
-        v8 = v62.__r_.__value_.__r.__words[0];
-      }
-
-      memmove(v7, v8, size);
-    }
-
-    *(&v7->__r_.__value_.__l.__data_ + size) = 47;
-    if ((v60.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v9 = &v60;
-    }
-
-    else
-    {
-      v9 = v60.__r_.__value_.__r.__words[0];
-    }
-
-    if ((v60.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v10 = HIBYTE(v60.__r_.__value_.__r.__words[2]);
-    }
-
-    else
-    {
-      v10 = v60.__r_.__value_.__l.__size_;
-    }
-
-    v11 = std::string::append(&v56, v9, v10);
-    v12 = v11->__r_.__value_.__r.__words[0];
-    v63[0] = v11->__r_.__value_.__l.__size_;
-    *(v63 + 7) = *(&v11->__r_.__value_.__r.__words[1] + 7);
-    v13 = HIBYTE(v11->__r_.__value_.__r.__words[2]);
-    v11->__r_.__value_.__l.__size_ = 0;
-    v11->__r_.__value_.__r.__words[2] = 0;
-    v11->__r_.__value_.__r.__words[0] = 0;
-    if (SHIBYTE(v59) < 0)
-    {
-      operator delete(v58);
-    }
-
-    v58 = v12;
-    *&v59 = v63[0];
-    *(&v59 + 7) = *(v63 + 7);
-    HIBYTE(v59) = v13;
-    if (SHIBYTE(v56.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v56.__r_.__value_.__l.__data_);
-    }
-
-    LogInstance = ACFULogging::getLogInstance(v11);
-    ACFULogging::handleMessage(LogInstance, 3u, "%s::%s: creating symlink from %s -> %s\n", v15, v16, v17, v18, v19, "ACFUCommon");
-    if ((v62.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v20 = &v62;
-    }
-
-    else
-    {
-      v20 = v62.__r_.__value_.__r.__words[0];
-    }
-
-    if (mkdir(v20, 0x1FFu))
-    {
-      v21 = __error();
-      if (*v21 != 17)
-      {
-        v29 = ACFULogging::getLogInstance(v21);
-        v52 = *__error();
-        v30 = "%s::%s: failed to create directory: %d\n";
-        goto LABEL_80;
-      }
-
-      if ((v62.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v22 = &v62;
-      }
-
-      else
-      {
-        v22 = v62.__r_.__value_.__r.__words[0];
-      }
-
-      v23 = stat(v22, &v57);
-      if (v23)
-      {
-        v29 = ACFULogging::getLogInstance(v23);
-        v53 = *__error();
-        v30 = "%s::%s: failed to get stats for path: %d\n";
-        goto LABEL_80;
-      }
-
-      if ((v57.st_mode & 0x4000) == 0)
-      {
-        v29 = ACFULogging::getLogInstance(v23);
-        v30 = "%s::%s: path exists but is not a directory: 0x%x\n";
-LABEL_80:
-        ACFULogging::handleMessage(v29, 2u, v30, v24, v25, v26, v27, v28, "ACFUCommon");
-        goto LABEL_81;
-      }
-    }
-
-    else
-    {
-      if ((v62.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v31 = &v62;
-      }
-
-      else
-      {
-        v31 = v62.__r_.__value_.__r.__words[0];
-      }
-
-      v32 = chmod(v31, 0x1FFu);
-      if (v32)
-      {
-        v29 = ACFULogging::getLogInstance(v32);
-        v54 = *__error();
-        v30 = "%s::%s: failed to change directory permissions: %d\n";
-        goto LABEL_80;
-      }
-    }
-
-    if (v59 >= 0)
-    {
-      v33 = &v58;
-    }
-
-    else
-    {
-      v33 = v58;
-    }
-
-    v34 = lstat(v33, &v57);
-    if (v34)
-    {
-      v35 = __error();
-      if (*v35 != 2)
-      {
-        v29 = ACFULogging::getLogInstance(v35);
-        v36 = *__error();
-        v30 = "%s::%s: failed to get stats for symlink name: %d\n";
-        goto LABEL_80;
-      }
-    }
-
-    else
-    {
-      if ((v57.st_mode & 0xA000) == 0)
-      {
-        v29 = ACFULogging::getLogInstance(v34);
-        v30 = "%s::%s: symlink name exists but is not a symlink: 0x%x\n";
-        goto LABEL_80;
-      }
-
-      if (v59 >= 0)
-      {
-        v37 = &v58;
-      }
-
-      else
-      {
-        v37 = v58;
-      }
-
-      v38 = unlink(v37);
-      if (v38)
-      {
-        v29 = ACFULogging::getLogInstance(v38);
-        v55 = *__error();
-        v30 = "%s::%s: failed to remove existing symlink: %d\n";
-        goto LABEL_80;
-      }
-    }
-
-    if ((v61.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v39 = &v61;
-    }
-
-    else
-    {
-      v39 = v61.__r_.__value_.__r.__words[0];
-    }
-
-    if (v59 >= 0)
-    {
-      v40 = &v58;
-    }
-
-    else
-    {
-      v40 = v58;
-    }
-
-    v41 = symlink(v39, v40);
-    if (!v41)
-    {
-      v42 = 1;
-      goto LABEL_64;
-    }
-
-    v29 = ACFULogging::getLogInstance(v41);
-    v51 = *__error();
-    v30 = "%s::%s: failed to create symlink: %d\n";
-    goto LABEL_80;
+    LogInstance = ACFULogging::getLogInstance(this);
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: bad input parameters\n", "ACFUCommon", "createSymlink");
+    goto LABEL_84;
   }
 
-  v45 = ACFULogging::getLogInstance(this);
-  ACFULogging::handleMessage(v45, 2u, "%s::%s: bad input parameters\n", v46, v47, v48, v49, v50, "ACFUCommon");
-LABEL_81:
-  v42 = 0;
-LABEL_64:
-  if (SHIBYTE(v59) < 0)
+  ACFUCommon::stringFromCFString(&v42, this);
+  if (SHIBYTE(v48.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v58);
+    operator delete(v48.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
+  v48 = v42;
+  ACFUCommon::stringFromCFString(&v42, a2);
+  if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v60.__r_.__value_.__l.__data_);
+    operator delete(v47.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
+  v47 = v42;
+  ACFUCommon::stringFromCFString(&v42, a3);
+  if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v61.__r_.__value_.__l.__data_);
+    operator delete(v46.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v62.__r_.__value_.__r.__words[2]) < 0)
+  v46 = v42;
+  if ((v48.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    operator delete(v62.__r_.__value_.__l.__data_);
+    size = HIBYTE(v48.__r_.__value_.__r.__words[2]);
   }
 
-  v43 = *MEMORY[0x277D85DE8];
-  return v42;
+  else
+  {
+    size = v48.__r_.__value_.__l.__size_;
+  }
+
+  v7 = &v42;
+  std::string::basic_string[abi:ne200100](&v42, size + 1);
+  if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  {
+    v7 = v42.__r_.__value_.__r.__words[0];
+  }
+
+  if (size)
+  {
+    if ((v48.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v8 = &v48;
+    }
+
+    else
+    {
+      v8 = v48.__r_.__value_.__r.__words[0];
+    }
+
+    memmove(v7, v8, size);
+  }
+
+  *(&v7->__r_.__value_.__l.__data_ + size) = 47;
+  if ((v46.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v9 = &v46;
+  }
+
+  else
+  {
+    v9 = v46.__r_.__value_.__r.__words[0];
+  }
+
+  if ((v46.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v10 = HIBYTE(v46.__r_.__value_.__r.__words[2]);
+  }
+
+  else
+  {
+    v10 = v46.__r_.__value_.__l.__size_;
+  }
+
+  v11 = std::string::append(&v42, v9, v10);
+  v12 = v11->__r_.__value_.__r.__words[0];
+  v49[0] = v11->__r_.__value_.__l.__size_;
+  *(v49 + 7) = *(&v11->__r_.__value_.__r.__words[1] + 7);
+  v13 = HIBYTE(v11->__r_.__value_.__r.__words[2]);
+  v11->__r_.__value_.__l.__size_ = 0;
+  v11->__r_.__value_.__r.__words[2] = 0;
+  v11->__r_.__value_.__r.__words[0] = 0;
+  if (SHIBYTE(v45) < 0)
+  {
+    operator delete(v44);
+  }
+
+  v44 = v12;
+  *&v45 = v49[0];
+  *(&v45 + 7) = *(v49 + 7);
+  HIBYTE(v45) = v13;
+  if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v42.__r_.__value_.__l.__data_);
+  }
+
+  v14 = ACFULogging::getLogInstance(v11);
+  v15 = &v44;
+  if (v45 < 0)
+  {
+    v15 = v44;
+  }
+
+  v16 = &v47;
+  if ((v47.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  {
+    v16 = v47.__r_.__value_.__r.__words[0];
+  }
+
+  ACFULogging::handleMessage(v14, 3, "%s::%s: creating symlink from %s -> %s\n", "ACFUCommon", "createSymlink", v15, v16);
+  if ((v48.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v17 = &v48;
+  }
+
+  else
+  {
+    v17 = v48.__r_.__value_.__r.__words[0];
+  }
+
+  if (mkdir(v17, 0x1FFu))
+  {
+    v18 = __error();
+    if (*v18 != 17)
+    {
+      v37 = ACFULogging::getLogInstance(v18);
+      __error();
+      ACFULogging::handleMessage(v37, 2, "%s::%s: failed to create directory: %d\n");
+      goto LABEL_84;
+    }
+
+    if ((v48.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v19 = &v48;
+    }
+
+    else
+    {
+      v19 = v48.__r_.__value_.__r.__words[0];
+    }
+
+    v20 = stat(v19, &v43);
+    if (v20)
+    {
+      v38 = ACFULogging::getLogInstance(v20);
+      __error();
+      ACFULogging::handleMessage(v38, 2, "%s::%s: failed to get stats for path: %d\n");
+      goto LABEL_84;
+    }
+
+    if ((v43.st_mode & 0x4000) == 0)
+    {
+      v21 = ACFULogging::getLogInstance(v20);
+      ACFULogging::handleMessage(v21, 2, "%s::%s: path exists but is not a directory: 0x%x\n");
+      goto LABEL_84;
+    }
+  }
+
+  else
+  {
+    if ((v48.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v22 = &v48;
+    }
+
+    else
+    {
+      v22 = v48.__r_.__value_.__r.__words[0];
+    }
+
+    v23 = chmod(v22, 0x1FFu);
+    if (v23)
+    {
+      v39 = ACFULogging::getLogInstance(v23);
+      __error();
+      ACFULogging::handleMessage(v39, 2, "%s::%s: failed to change directory permissions: %d\n");
+      goto LABEL_84;
+    }
+  }
+
+  if (v45 >= 0)
+  {
+    v24 = &v44;
+  }
+
+  else
+  {
+    v24 = v44;
+  }
+
+  v25 = lstat(v24, &v43);
+  if (v25)
+  {
+    v26 = __error();
+    if (*v26 != 2)
+    {
+      v27 = ACFULogging::getLogInstance(v26);
+      __error();
+      ACFULogging::handleMessage(v27, 2, "%s::%s: failed to get stats for symlink name: %d\n");
+      goto LABEL_84;
+    }
+  }
+
+  else
+  {
+    if ((v43.st_mode & 0xA000) == 0)
+    {
+      v40 = ACFULogging::getLogInstance(v25);
+      ACFULogging::handleMessage(v40, 2, "%s::%s: symlink name exists but is not a symlink: 0x%x\n");
+      goto LABEL_84;
+    }
+
+    if (v45 >= 0)
+    {
+      v28 = &v44;
+    }
+
+    else
+    {
+      v28 = v44;
+    }
+
+    v29 = unlink(v28);
+    if (v29)
+    {
+      v41 = ACFULogging::getLogInstance(v29);
+      __error();
+      ACFULogging::handleMessage(v41, 2, "%s::%s: failed to remove existing symlink: %d\n");
+      goto LABEL_84;
+    }
+  }
+
+  if ((v47.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v30 = &v47;
+  }
+
+  else
+  {
+    v30 = v47.__r_.__value_.__r.__words[0];
+  }
+
+  if (v45 >= 0)
+  {
+    v31 = &v44;
+  }
+
+  else
+  {
+    v31 = v44;
+  }
+
+  v32 = symlink(v30, v31);
+  if (!v32)
+  {
+    v33 = 1;
+    goto LABEL_68;
+  }
+
+  v36 = ACFULogging::getLogInstance(v32);
+  __error();
+  ACFULogging::handleMessage(v36, 2, "%s::%s: failed to create symlink: %d\n");
+LABEL_84:
+  v33 = 0;
+LABEL_68:
+  if (SHIBYTE(v45) < 0)
+  {
+    operator delete(v44);
+  }
+
+  if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v46.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v47.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v48.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v48.__r_.__value_.__l.__data_);
+  }
+
+  return v33;
 }
 
 void sub_2402BD104(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
@@ -8796,7 +8934,7 @@ uint64_t std::basic_stringstream<char,std::char_traits<char>,std::allocator<char
   return std::iostream::~basic_iostream();
 }
 
-void *std::vector<__CFString const*>::__init_with_size[abi:ne200100]<__CFString const**,__CFString const**>(void *result, const void *a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<__CFString const*>::__init_with_size[abi:ne200100]<__CFString const**,__CFString const**>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8827,7 +8965,7 @@ void sub_2402BD328(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-char *std::vector<__CFString const*>::__vallocate[abi:ne200100](void *a1, unint64_t a2)
+void *std::vector<__CFString const*>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 >> 61)
   {
@@ -8837,7 +8975,7 @@ char *std::vector<__CFString const*>::__vallocate[abi:ne200100](void *a1, unint6
   result = std::__allocate_at_least[abi:ne200100]<std::allocator<__CFString const*>>(a1, a2);
   *a1 = result;
   a1[1] = result;
-  a1[2] = &result[8 * v4];
+  a1[2] = result + 8 * v4;
   return result;
 }
 
@@ -8902,7 +9040,7 @@ void ACFUTimer::create(id a1@<X1>, unsigned int a2@<W0>, void *a3@<X8>)
     *a3 = 0;
     v7 = (*(*v6 + 8))(v6);
     LogInstance = ACFULogging::getLogInstance(v7);
-    ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: failed to init timer object\n", v9, v10, v11, v12, v13, "ACFUTimer");
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: failed to init timer object\n", "ACFUTimer", "create");
   }
 }
 
@@ -8920,17 +9058,16 @@ uint64_t ACFUTimer::init(uint64_t a1, unsigned int a2, id a3)
   if (!a2)
   {
     LogInstance = ACFULogging::getLogInstance(v5);
-    v25 = "%s::%s: invalid timeout value\n";
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: invalid timeout value\n");
 LABEL_11:
-    ACFULogging::handleMessage(LogInstance, 2u, v25, v20, v21, v22, v23, v24, "ACFUTimer");
     v17 = 0;
     goto LABEL_6;
   }
 
   if (!v5)
   {
-    LogInstance = ACFULogging::getLogInstance(0);
-    v25 = "%s::%s: invalid timeout callback\n";
+    v20 = ACFULogging::getLogInstance(0);
+    ACFULogging::handleMessage(v20, 2, "%s::%s: invalid timeout callback\n");
     goto LABEL_11;
   }
 
@@ -8941,8 +9078,8 @@ LABEL_11:
   v10 = *(a1 + 16);
   if (!v10)
   {
-    LogInstance = ACFULogging::getLogInstance(v9);
-    v25 = "%s::%s: failed to create dispatch queue\n";
+    v21 = ACFULogging::getLogInstance(v9);
+    ACFULogging::handleMessage(v21, 2, "%s::%s: failed to create dispatch queue\n");
     goto LABEL_11;
   }
 
@@ -8953,8 +9090,8 @@ LABEL_11:
   v14 = *(a1 + 8);
   if (!v14)
   {
-    LogInstance = ACFULogging::getLogInstance(v13);
-    v25 = "%s::%s: failed to create dispatch timer object\n";
+    v22 = ACFULogging::getLogInstance(v13);
+    ACFULogging::handleMessage(v22, 2, "%s::%s: failed to create dispatch timer object\n");
     goto LABEL_11;
   }
 
@@ -8965,8 +9102,8 @@ LABEL_11:
   handler[1] = 3254779904;
   handler[2] = ___ZN9ACFUTimer4initEjU13block_pointerFvvE_block_invoke;
   handler[3] = &__block_descriptor_48_ea8_32bs_e5_v8__0l;
-  v28 = a1;
-  v27 = v6;
+  v25 = a1;
+  v24 = v6;
   dispatch_source_set_event_handler(v16, handler);
 
   v17 = 1;
@@ -8979,12 +9116,12 @@ uint64_t ___ZN9ACFUTimer4initEjU13block_pointerFvvE_block_invoke(ACFULogging *a1
 {
   v2 = *(a1 + 5);
   LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 3u, "%s::%s: timer fired\n", v4, v5, v6, v7, v8, "ACFUTimer");
+  ACFULogging::handleMessage(LogInstance, 3, "%s::%s: timer fired\n", "ACFUTimer", "init_block_invoke");
   *(v2 + 24) = 258;
   dispatch_source_cancel(*(v2 + 8));
-  v9 = *(*(a1 + 4) + 16);
+  v4 = *(*(a1 + 4) + 16);
 
-  return v9();
+  return v4();
 }
 
 uint64_t ACFUTimer::startOnQueue(dispatch_queue_t *this)
@@ -8996,14 +9133,14 @@ uint64_t ACFUTimer::startOnQueue(dispatch_queue_t *this)
     LogInstance = ACFULogging::getLogInstance(v2);
     if (!v3)
     {
-      ACFULogging::handleMessage(LogInstance, 3u, "%s::%s: starting timer\n", v5, v6, v7, v8, v9, "ACFUTimer");
+      ACFULogging::handleMessage(LogInstance, 3, "%s::%s: starting timer\n", "ACFUTimer", "startOnQueue");
       dispatch_resume(this[1]);
       result = 1;
       *(this + 12) = 1;
       return result;
     }
 
-    ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: timer is already running\n", v5, v6, v7, v8, v9, "ACFUTimer");
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: timer is already running\n", "ACFUTimer", "startOnQueue");
   }
 
   else
@@ -9046,7 +9183,7 @@ void ACFUTimer::stopOnQueue(dispatch_queue_t *this)
   if (*(this + 24) == 1)
   {
     LogInstance = ACFULogging::getLogInstance(v2);
-    ACFULogging::handleMessage(LogInstance, 3u, "%s::%s: stopping timer\n", v4, v5, v6, v7, v8, "ACFUTimer");
+    ACFULogging::handleMessage(LogInstance, 3, "%s::%s: stopping timer\n", "ACFUTimer", "stopOnQueue");
     dispatch_source_cancel(this[1]);
   }
 
@@ -9112,9 +9249,9 @@ void ACFUFile::ACFUFile(ACFUFile *this)
 
 void ACFUFile::fileVersionLog(ACFUFile *this)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v15 = 0u;
-  memset(v14, 0, sizeof(v14));
+  v10 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
+  memset(v8, 0, sizeof(v8));
   v1 = (*(*this + 96))(this);
   if (v1)
   {
@@ -9130,7 +9267,7 @@ void ACFUFile::fileVersionLog(ACFUFile *this)
     {
       if (Length)
       {
-        v5 = v14;
+        v5 = v8;
         do
         {
           v6 = *BytePtr++;
@@ -9141,9 +9278,9 @@ void ACFUFile::fileVersionLog(ACFUFile *this)
         while (Length);
       }
 
-      HIBYTE(v15) = 0;
+      HIBYTE(v9) = 0;
       LogInstance = ACFULogging::getLogInstance(Length);
-      ACFULogging::handleMessage(LogInstance, 0, "%s::%s: Firmware Version: %s\n", v8, v9, v10, v11, v12, "ACFUFile");
+      ACFULogging::handleMessage(LogInstance, 0, "%s::%s: Firmware Version: %s\n", "ACFUFile", "fileVersionLog", v8);
     }
 
     CFRelease(v2);
@@ -9153,8 +9290,6 @@ void ACFUFile::fileVersionLog(ACFUFile *this)
   {
     ACFUFile::fileVersionLog(0);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ACFUFile::saveToPath(ACFUFile *this, const __CFURL *a2)
@@ -9199,46 +9334,56 @@ uint64_t ACFUFile::saveToPath(ACFUFile *this, const __CFURL *a2)
     if (v9)
     {
       ACFUFile::saveToPath(v9);
-      goto LABEL_26;
+      goto LABEL_29;
     }
   }
 
   if (!ACFUDataContainer::getData(*(this + 1)))
   {
     ACFUFile::saveToPath(0);
-LABEL_26:
-    v22 = 0;
-    goto LABEL_14;
+LABEL_29:
+    v19 = 0;
+    goto LABEL_17;
   }
 
   v10 = AMSupportWriteDataToFileURL();
   if (v10)
   {
     ACFUFile::saveToPath(v10);
-    goto LABEL_26;
+    goto LABEL_29;
   }
 
-  Length = ACFUDataContainer::getLength(*(this + 1));
-  FileSize = ACFUCommon::getFileSize(v8, v12);
+  Length = ACFUDataContainer::getLength(*(this + 1), v11);
+  FileSize = ACFUCommon::getFileSize(v8, v13);
   LogInstance = ACFULogging::getLogInstance(FileSize);
-  v15 = CFURLGetString(v8);
-  ACFUCommon::stringFromCFString(v15, &__p);
-  ACFULogging::handleMessage(LogInstance, 0, "%s::%s: Wrote %zu of %zu bytes to %s\n", v16, v17, v18, v19, v20, "ACFUFile");
-  if (v25 < 0)
+  v16 = CFURLGetString(v8);
+  ACFUCommon::stringFromCFString(__p, v16);
+  if (v22 >= 0)
   {
-    operator delete(__p);
+    v17 = __p;
+  }
+
+  else
+  {
+    v17 = __p[0];
+  }
+
+  ACFULogging::handleMessage(LogInstance, 0, "%s::%s: Wrote %zu of %zu bytes to %s\n", "ACFUFile", "saveToPath", FileSize, Length, v17);
+  if (v22 < 0)
+  {
+    operator delete(__p[0]);
   }
 
   if (Length != FileSize)
   {
-    ACFUFile::saveToPath(v21);
-    goto LABEL_26;
+    ACFUFile::saveToPath(v18);
+    goto LABEL_29;
   }
 
-  v22 = 1;
-LABEL_14:
+  v19 = 1;
+LABEL_17:
   CFRelease(v8);
-  return v22;
+  return v19;
 }
 
 void sub_2402BDEC0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
@@ -9373,7 +9518,7 @@ BOOL ACFUFile::init(ACFUDataContainer **this, const __CFString *a2, const __CFSt
   }
 
   v7 = v6;
-  ACFUDataContainer::create(v6, a3, &v14);
+  ACFUDataContainer::create(&v14, v6, a3);
   v8 = v14;
   v14 = 0;
   std::unique_ptr<ACFUDataContainer>::reset[abi:ne200100](this + 1, v8);
@@ -9409,7 +9554,7 @@ void ACFUTrace::ACFUTrace(ACFUTrace *this)
 
 uint64_t *ACFUTrace::getTrace(ACFUTrace *this)
 {
-  if ((atomic_load_explicit(&_MergedGlobals, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_MergedGlobals, memory_order_acquire) & 1) == 0)
   {
     ACFUTrace::getTrace();
   }
@@ -9441,24 +9586,24 @@ void ACFUFirmware::ACFUFirmware(ACFUFirmware *this)
   *(this + 80) = 0;
 }
 
-uint64_t ACFUFirmware::copyFWContainer(ACFUFirmware *this)
+uint64_t ACFUFirmware::copyFWContainer(ACFUFirmware *this, uint64_t a2)
 {
-  v2 = *(this + 4);
-  if (v2)
+  v3 = *(this + 4);
+  if (v3)
   {
-    v3 = *(*v2 + 40);
+    v4 = *(*v3 + 40);
 
-    return v3();
+    return v4();
   }
 
   else
   {
-    ACFUFirmware::copyFWContainer(v2);
+    ACFUFirmware::copyFWContainer(v3);
     return 0;
   }
 }
 
-__CFData *ACFUFirmware::copyFWContainerFromOffset(ACFUFirmware *this, unsigned int a2, unint64_t a3)
+__CFData *ACFUFirmware::copyFWContainerFromOffset(ACFUFirmware *this, const __CFString *a2, unint64_t a3)
 {
   v4 = *(this + 4);
   if (v4)
@@ -9567,19 +9712,19 @@ LABEL_8:
   }
 }
 
-uint64_t ACFUFirmware::copyFWDataByFileName(uint64_t a1)
+uint64_t ACFUFirmware::copyFWDataByFileName(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  if (v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    v3 = **v2;
+    v4 = **v3;
 
-    return v3();
+    return v4();
   }
 
   else
   {
-    ACFUFirmware::copyFWDataByFileName(v2);
+    ACFUFirmware::copyFWDataByFileName(v3);
     return 0;
   }
 }
@@ -9590,12 +9735,12 @@ void ACFUFirmware::copyFWDataRefByFileName(uint64_t a1@<X0>, ACFUDataContainer::
   v3 = *(a1 + 32);
   if (v3)
   {
-    (*(*v3 + 8))(&v13);
-    v4 = v13;
-    v13 = 0;
+    (*(*v3 + 8))(&v8);
+    v4 = v8;
+    v8 = 0;
     std::unique_ptr<ACFUDataContainer::DirectDataRef>::reset[abi:ne200100](a2, v4);
-    v5 = v13;
-    v13 = 0;
+    v5 = v8;
+    v8 = 0;
     if (v5)
     {
       ACFUDataContainer::DirectDataRef::~DirectDataRef(v5);
@@ -9606,7 +9751,7 @@ void ACFUFirmware::copyFWDataRefByFileName(uint64_t a1@<X0>, ACFUDataContainer::
   else
   {
     LogInstance = ACFULogging::getLogInstance(0);
-    ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: file not open\n", v8, v9, v10, v11, v12, "ACFUFirmware");
+    ACFULogging::handleMessage(LogInstance, 2, "%s::%s: file not open\n", "ACFUFirmware", "copyFWDataRefByFileName");
   }
 }
 
@@ -9675,7 +9820,7 @@ uint64_t ACFUFirmware::openFirmwareInRestoreOptions(const void **this, CFDiction
     v8 = "%s::%s: Manifest is not available\n";
 LABEL_9:
     LogInstance = ACFULogging::getLogInstance(Value);
-    ACFULogging::handleMessage(LogInstance, 2u, v8, v10, v11, v12, v13, v14, "ACFUFirmware");
+    ACFULogging::handleMessage(LogInstance, 2, v8, "ACFUFirmware", "openFirmwareInRestoreOptions");
     return v6;
   }
 
@@ -9699,177 +9844,4 @@ LABEL_9:
   }
 
   return 0;
-}
-
-void ACFUFirmware::~ACFUFirmware(ACFUFirmware *this)
-{
-  *this = &unk_28522EDB0;
-  v2 = *(this + 6);
-  if (v2)
-  {
-    CFRelease(v2);
-    *(this + 6) = 0;
-  }
-
-  v3 = *(this + 8);
-  if (v3)
-  {
-    CFRelease(v3);
-    *(this + 8) = 0;
-  }
-
-  v4 = *(this + 9);
-  if (v4)
-  {
-    CFRelease(v4);
-    *(this + 9) = 0;
-  }
-
-  v5 = *(this + 5);
-  if (v5)
-  {
-    CFRelease(v5);
-    *(this + 5) = 0;
-  }
-
-  v6 = *(this + 4);
-  *(this + 4) = 0;
-  if (v6)
-  {
-    (*(*v6 + 56))(v6);
-  }
-
-  std::__tree<std::__value_type<__CFString const*,std::string>,std::__map_value_compare<__CFString const*,std::__value_type<__CFString const*,std::string>,std::less<__CFString const*>,true>,std::allocator<std::__value_type<__CFString const*,std::string>>>::destroy(this + 8, *(this + 2));
-}
-
-uint64_t ACFUFirmware::getFileSizeByFileName(ACFULogging *a1)
-{
-  LogInstance = ACFULogging::getLogInstance(a1);
-  ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: This function has not been implemented\n", v2, v3, v4, v5, v6, "ACFUFirmware");
-  return 0;
-}
-
-CFDataRef ACFUFirmware::hashData(uint64_t a1, uint64_t a2, unsigned int a3)
-{
-  v3 = a3;
-  v33 = *MEMORY[0x277D85DE8];
-  if ((*(a2 + 23) & 0x80000000) == 0)
-  {
-    if (*(a2 + 23))
-    {
-      goto LABEL_3;
-    }
-
-LABEL_9:
-    LogInstance = ACFULogging::getLogInstance(a1);
-    ACFULogging::handleMessage(LogInstance, 2u, "%s::%s: no firmware file provided\n", v7, v8, v9, v10, v11, "ACFUFirmware");
-LABEL_29:
-    result = 0;
-    goto LABEL_30;
-  }
-
-  if (!*(a2 + 8))
-  {
-    goto LABEL_9;
-  }
-
-LABEL_3:
-  if (!a3)
-  {
-    ACFUFirmware::hashData(a1);
-    goto LABEL_29;
-  }
-
-  v5 = *(a1 + 56);
-  switch(v5)
-  {
-    case 2:
-      CC_SHA512_Init(&v30);
-      break;
-    case 1:
-      CC_SHA384_Init(&v30);
-      break;
-    case 0:
-      CC_SHA256_Init(&c);
-      break;
-  }
-
-  v12 = 0;
-  do
-  {
-    if (v3 >= 0x100000)
-    {
-      v13 = 0x100000;
-    }
-
-    else
-    {
-      v13 = v3;
-    }
-
-    v14 = (*(**(a1 + 32) + 8))(md);
-    v15 = *md;
-    if (!*md)
-    {
-      v23 = ACFULogging::getLogInstance(v14);
-      ACFULogging::handleMessage(v23, 2u, "%s::%s: failed to obtain file data\n", v24, v25, v26, v27, v28, "ACFUFirmware");
-      goto LABEL_29;
-    }
-
-    v16 = *(a1 + 56);
-    if (v16)
-    {
-      if (v16 == 1)
-      {
-        DataPtr = ACFUDataContainer::DirectDataRef::getDataPtr(*md);
-        CC_SHA384_Update(&v30, DataPtr, v13);
-      }
-
-      else if (v16 == 2)
-      {
-        v17 = ACFUDataContainer::DirectDataRef::getDataPtr(*md);
-        CC_SHA512_Update(&v30, v17, v13);
-      }
-    }
-
-    else
-    {
-      v19 = ACFUDataContainer::DirectDataRef::getDataPtr(*md);
-      CC_SHA256_Update(&c, v19, v13);
-    }
-
-    v12 += v13;
-    v3 -= v13;
-    ACFUDataContainer::DirectDataRef::~DirectDataRef(v15);
-    operator delete(v20);
-  }
-
-  while (v3);
-  v21 = *(a1 + 56);
-  if (v21 == 2)
-  {
-    CC_SHA512_Final(md, &v30);
-    result = CFDataCreate(*MEMORY[0x277CBECE8], md, 64);
-  }
-
-  else if (v21 == 1)
-  {
-    CC_SHA384_Final(md, &v30);
-    result = CFDataCreate(*MEMORY[0x277CBECE8], md, 48);
-  }
-
-  else
-  {
-    if (v21)
-    {
-      goto LABEL_29;
-    }
-
-    CC_SHA256_Final(md, &c);
-    result = CFDataCreate(*MEMORY[0x277CBECE8], md, 32);
-  }
-
-LABEL_30:
-  v29 = *MEMORY[0x277D85DE8];
-  return result;
 }

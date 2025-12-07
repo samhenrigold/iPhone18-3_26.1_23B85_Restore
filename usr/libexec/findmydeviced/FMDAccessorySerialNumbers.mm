@@ -11,9 +11,9 @@
 - (FMDAccessorySerialNumbers)initWithDevice:(id)device
 {
   deviceCopy = device;
-  v14.receiver = self;
-  v14.super_class = FMDAccessorySerialNumbers;
-  v5 = [(FMDAccessorySerialNumbers *)&v14 init];
+  v15.receiver = self;
+  v15.super_class = FMDAccessorySerialNumbers;
+  v5 = [(FMDAccessorySerialNumbers *)&v15 init];
   if (v5)
   {
     bluetoothDevice = [deviceCopy bluetoothDevice];
@@ -28,12 +28,12 @@
     serialNumberRight = [bluetoothDevice3 serialNumberRight];
     [(FMDAccessorySerialNumbers *)v5 setRightBudSerialNumber:serialNumberRight];
 
-    v12 = sub_100002880();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_100002880(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v16 = v5;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "FMDAccessorySerialNumbers info: %@", buf, 0xCu);
+      v17 = v5;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "FMDAccessorySerialNumbers info: %@", buf, 0xCu);
     }
   }
 

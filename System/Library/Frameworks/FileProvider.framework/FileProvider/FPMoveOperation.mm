@@ -35,14 +35,14 @@
 
 uint64_t __39__FPMoveOperation_checkNonEmptyPackage__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = [v2 startAccessingSecurityScopedResource];
   if ([v2 fp_isPackage])
   {
-    v10 = 0;
-    v4 = fpfs_num_entries([v2 fileSystemRepresentation], 0, &v10);
-    if (!(v4 | v10))
+    v9 = 0;
+    v4 = fpfs_num_entries([v2 fileSystemRepresentation], 0, &v9);
+    if (!(v4 | v9))
     {
       v5 = fp_current_or_default_log();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -50,7 +50,7 @@ uint64_t __39__FPMoveOperation_checkNonEmptyPackage__block_invoke(uint64_t a1, v
         v6 = [v2 path];
         v7 = [v6 fp_prettyPath];
         *buf = 138412290;
-        v12 = v7;
+        v11 = v7;
         _os_log_impl(&dword_1AAAE1000, v5, OS_LOG_TYPE_DEFAULT, "[WARNING] Attempt to move/import an empty package %@", buf, 0xCu);
       }
     }
@@ -61,7 +61,6 @@ uint64_t __39__FPMoveOperation_checkNonEmptyPackage__block_invoke(uint64_t a1, v
     [v2 stopAccessingSecurityScopedResource];
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -366,24 +365,23 @@ LABEL_9:
   lCopy = l;
   startAccessingSecurityScopedResource = [lCopy startAccessingSecurityScopedResource];
   getpid();
-  v6 = (*MEMORY[0x1E69E9BD0] | *MEMORY[0x1E69E9BC8]);
   path = [lCopy path];
   fileSystemRepresentation = [path fileSystemRepresentation];
-  v8 = sandbox_check();
+  v7 = sandbox_check();
 
   if (startAccessingSecurityScopedResource)
   {
     [lCopy stopAccessingSecurityScopedResource];
   }
 
-  return v8 == 0;
+  return v7 == 0;
 }
 
 - (void)_resolveURLsWithCompletionHandler:(id)handler
 {
-  v52[1] = *MEMORY[0x1E69E9840];
+  v51[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
-  v26 = +[FPItemManager defaultManager];
+  v25 = +[FPItemManager defaultManager];
   v4 = dispatch_group_create();
   destinationURL = self->__destinationURL;
   if (destinationURL)
@@ -398,50 +396,50 @@ LABEL_9:
 
       v15 = MEMORY[0x1E696ABC0];
       v16 = self->__destinationURL;
-      v51 = *MEMORY[0x1E696A998];
-      v52[0] = v16;
-      v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:&v51 count:1];
-      v8 = [v15 errorWithDomain:*MEMORY[0x1E696A250] code:513 userInfo:v27];
+      v50 = *MEMORY[0x1E696A998];
+      v51[0] = v16;
+      v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:&v50 count:1];
+      v8 = [v15 errorWithDomain:*MEMORY[0x1E696A250] code:513 userInfo:v26];
       handlerCopy[2](handlerCopy, v8);
       goto LABEL_23;
     }
 
     dispatch_group_enter(v4);
     v6 = self->__destinationURL;
-    v46[0] = MEMORY[0x1E69E9820];
-    v46[1] = 3221225472;
-    v46[2] = __53__FPMoveOperation__resolveURLsWithCompletionHandler___block_invoke;
-    v46[3] = &unk_1E793C978;
-    v46[4] = self;
-    v47 = v4;
-    [v26 fetchItemForURL:v6 completionHandler:v46];
+    v45[0] = MEMORY[0x1E69E9820];
+    v45[1] = 3221225472;
+    v45[2] = __53__FPMoveOperation__resolveURLsWithCompletionHandler___block_invoke;
+    v45[3] = &unk_1E793C978;
+    v45[4] = self;
+    v46 = v4;
+    [v25 fetchItemForURL:v6 completionHandler:v45];
   }
 
   sourceURLs = self->__sourceURLs;
   if (sourceURLs)
   {
-    v27 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSArray count](sourceURLs, "count")}];
+    v26 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSArray count](sourceURLs, "count")}];
     v8 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSArray count](self->__sourceURLs, "count")}];
     v9 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{-[NSDictionary count](self->__targetFilenamesByURL, "count")}];
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     obj = self->__sourceURLs;
-    v10 = [(NSArray *)obj countByEnumeratingWithState:&v42 objects:v50 count:16];
+    v10 = [(NSArray *)obj countByEnumeratingWithState:&v41 objects:v49 count:16];
     if (v10)
     {
-      v11 = *v43;
+      v11 = *v42;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v43 != v11)
+          if (*v42 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v42 + 1) + 8 * i);
+          v13 = *(*(&v41 + 1) + 8 * i);
           if (![(FPMoveOperation *)self _hasAccessToURL:v13 readonly:1])
           {
             v17 = fp_current_or_default_log();
@@ -451,9 +449,9 @@ LABEL_9:
             }
 
             v18 = MEMORY[0x1E696ABC0];
-            v48 = *MEMORY[0x1E696A998];
-            v49 = v13;
-            v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
+            v47 = *MEMORY[0x1E696A998];
+            v48 = v13;
+            v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
             v20 = [v18 errorWithDomain:*MEMORY[0x1E696A250] code:257 userInfo:v19];
             handlerCopy[2](handlerCopy, v20);
 
@@ -463,23 +461,23 @@ LABEL_9:
 
           dispatch_group_enter(v4);
           objc_initWeak(&location, self);
-          v34[0] = MEMORY[0x1E69E9820];
-          v34[1] = 3221225472;
-          v34[2] = __53__FPMoveOperation__resolveURLsWithCompletionHandler___block_invoke_31;
-          v34[3] = &unk_1E793C9A0;
-          v35 = v4;
-          objc_copyWeak(&v40, &location);
-          v36 = v13;
-          v37 = v8;
-          v38 = v9;
-          v39 = v27;
-          [v26 fetchItemForURL:v13 completionHandler:v34];
+          v33[0] = MEMORY[0x1E69E9820];
+          v33[1] = 3221225472;
+          v33[2] = __53__FPMoveOperation__resolveURLsWithCompletionHandler___block_invoke_31;
+          v33[3] = &unk_1E793C9A0;
+          v34 = v4;
+          objc_copyWeak(&v39, &location);
+          v35 = v13;
+          v36 = v8;
+          v37 = v9;
+          v38 = v26;
+          [v25 fetchItemForURL:v13 completionHandler:v33];
 
-          objc_destroyWeak(&v40);
+          objc_destroyWeak(&v39);
           objc_destroyWeak(&location);
         }
 
-        v10 = [(NSArray *)obj countByEnumeratingWithState:&v42 objects:v50 count:16];
+        v10 = [(NSArray *)obj countByEnumeratingWithState:&v41 objects:v49 count:16];
         if (v10)
         {
           continue;
@@ -494,7 +492,7 @@ LABEL_9:
   {
     v9 = 0;
     v8 = 0;
-    v27 = 0;
+    v26 = 0;
   }
 
   callbackQueue = [(FPOperation *)self callbackQueue];
@@ -503,20 +501,19 @@ LABEL_9:
   block[2] = __53__FPMoveOperation__resolveURLsWithCompletionHandler___block_invoke_32;
   block[3] = &unk_1E793A6F0;
   v8 = v8;
-  v29 = v8;
-  v27 = v27;
-  v30 = v27;
+  v28 = v8;
+  v26 = v26;
+  v29 = v26;
   selfCopy = self;
   v9 = v9;
-  v32 = v9;
-  v33 = handlerCopy;
+  v31 = v9;
+  v32 = handlerCopy;
   dispatch_group_notify(v4, callbackQueue, block);
 
-  v21 = v29;
+  v21 = v28;
 LABEL_22:
 
 LABEL_23:
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __53__FPMoveOperation__resolveURLsWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -548,7 +545,7 @@ void __53__FPMoveOperation__resolveURLsWithCompletionHandler___block_invoke(uint
 
 void __53__FPMoveOperation__resolveURLsWithCompletionHandler___block_invoke_31(id *a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = a1[4];
@@ -560,14 +557,14 @@ void __53__FPMoveOperation__resolveURLsWithCompletionHandler___block_invoke_31(i
     v10 = fp_current_or_default_log();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v13 = [a1[5] fp_shortDescription];
-      v14 = 138412802;
-      v15 = v9;
-      v16 = 2112;
-      v17 = v13;
-      v18 = 2112;
-      v19 = v5;
-      _os_log_debug_impl(&dword_1AAAE1000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] %@: source URL %@ resolved to item %@", &v14, 0x20u);
+      v12 = [a1[5] fp_shortDescription];
+      v13 = 138412802;
+      v14 = v9;
+      v15 = 2112;
+      v16 = v12;
+      v17 = 2112;
+      v18 = v5;
+      _os_log_debug_impl(&dword_1AAAE1000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] %@: source URL %@ resolved to item %@", &v13, 0x20u);
     }
 
     [a1[6] addObject:v5];
@@ -586,8 +583,6 @@ void __53__FPMoveOperation__resolveURLsWithCompletionHandler___block_invoke_31(i
 
   objc_sync_exit(v7);
   dispatch_group_leave(a1[4]);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __53__FPMoveOperation__resolveURLsWithCompletionHandler___block_invoke_32(uint64_t a1)
@@ -807,7 +802,7 @@ void __43__FPMoveOperation__runWithRemoteOperation___block_invoke_3(uint64_t a1,
 
 void __52__FPMoveOperation_remoteOperationProgressesAreReady__block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) progress];
   v3 = *(*(a1 + 32) + 448);
   if (!v3)
@@ -818,27 +813,27 @@ void __52__FPMoveOperation_remoteOperationProgressesAreReady__block_invoke(uint6
     v3 = *(*(a1 + 32) + 448);
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   obj = [v3 roots];
-  v5 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v17;
     v8 = *MEMORY[0x1E696A840];
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         v11 = [*(*(a1 + 32) + 528) progressForRoot:v10 completion:&__block_literal_global_55];
         [v11 fp_setFileOperationKind:v8];
         v12 = *(*(a1 + 32) + 584);
@@ -851,13 +846,11 @@ void __52__FPMoveOperation_remoteOperationProgressesAreReady__block_invoke(uint6
         [*(*(a1 + 32) + 512) registerCopyProgress:v11 forItemID:v14];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v6);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)remoteOperationCreatedRoot:(id)root resultingItem:(id)item completion:(id)completion
@@ -1010,7 +1003,7 @@ void __79__FPMoveOperation_remoteOperationCompletedRoot_resultingItem_error_comp
 
 - (void)_recoverFromCollisionError:(id)error withPolicy:(unint64_t)policy
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   fp_userInfoFPItem = [errorCopy fp_userInfoFPItem];
   [(FPActionOperation *)self setHaveErrorRecovery:0];
@@ -1031,29 +1024,29 @@ void __79__FPMoveOperation_remoteOperationCompletedRoot_resultingItem_error_comp
         goto LABEL_21;
       }
 
-      v24 = a2;
+      v23 = a2;
       currentHandler = objc_opt_new();
+      v25 = 0u;
       v26 = 0u;
       v27 = 0u;
       v28 = 0u;
-      v29 = 0u;
       allValues = [(NSDictionary *)self->_errorsByItem allValues];
-      v13 = [allValues countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v13 = [allValues countByEnumeratingWithState:&v25 objects:v29 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v27;
+        v15 = *v26;
         v16 = 1;
         do
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v27 != v15)
+            if (*v26 != v15)
             {
               objc_enumerationMutation(allValues);
             }
 
-            fp_userInfoFPItem2 = [*(*(&v26 + 1) + 8 * i) fp_userInfoFPItem];
+            fp_userInfoFPItem2 = [*(*(&v25 + 1) + 8 * i) fp_userInfoFPItem];
             if (fp_userInfoFPItem2)
             {
               [currentHandler addObject:fp_userInfoFPItem2];
@@ -1061,7 +1054,7 @@ void __79__FPMoveOperation_remoteOperationCompletedRoot_resultingItem_error_comp
             }
           }
 
-          v14 = [allValues countByEnumeratingWithState:&v26 objects:v30 count:16];
+          v14 = [allValues countByEnumeratingWithState:&v25 objects:v29 count:16];
         }
 
         while (v14);
@@ -1084,12 +1077,12 @@ void __79__FPMoveOperation_remoteOperationCompletedRoot_resultingItem_error_comp
       }
 
       v21 = [objc_alloc(*v20) initWithItems:currentHandler];
-      v25[0] = MEMORY[0x1E69E9820];
-      v25[1] = 3221225472;
-      v25[2] = __57__FPMoveOperation__recoverFromCollisionError_withPolicy___block_invoke;
-      v25[3] = &unk_1E7939C00;
-      v25[4] = self;
-      [v21 setActionCompletionBlock:v25];
+      v24[0] = MEMORY[0x1E69E9820];
+      v24[1] = 3221225472;
+      v24[2] = __57__FPMoveOperation__recoverFromCollisionError_withPolicy___block_invoke;
+      v24[3] = &unk_1E7939C00;
+      v24[4] = self;
+      [v21 setActionCompletionBlock:v24];
       [(FPMoveOperation *)self _resetOperationBeforeErrorRecovery];
       v22 = +[FPItemManager defaultManager];
       [v22 scheduleAction:v21];
@@ -1117,8 +1110,6 @@ LABEL_21:
   [(FPMoveOperation *)self _resetOperationBeforeErrorRecovery];
   [(FPMoveOperation *)self _scheduleAgainAfterErrorRecovery];
 LABEL_30:
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __57__FPMoveOperation__recoverFromCollisionError_withPolicy___block_invoke(uint64_t a1, void *a2)
@@ -1153,7 +1144,7 @@ uint64_t __57__FPMoveOperation__recoverFromCollisionError_withPolicy___block_inv
 
 - (void)_completedWithResultsByRoot:(id)root errorsByRoot:(id)byRoot error:(id)error
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   rootCopy = root;
   byRootCopy = byRoot;
   errorCopy = error;
@@ -1165,11 +1156,11 @@ uint64_t __57__FPMoveOperation__recoverFromCollisionError_withPolicy___block_inv
   {
     fp_prettyDescription = [errorCopy fp_prettyDescription];
     *buf = 138412802;
-    v33 = rootCopy;
-    v34 = 2112;
-    v35 = byRootCopy;
-    v36 = 2112;
-    v37 = fp_prettyDescription;
+    v32 = rootCopy;
+    v33 = 2112;
+    v34 = byRootCopy;
+    v35 = 2112;
+    v36 = fp_prettyDescription;
     _os_log_debug_impl(&dword_1AAAE1000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] remote operation finished with results:%@; errors:%@; %@", buf, 0x20u);
   }
 
@@ -1225,16 +1216,15 @@ LABEL_11:
 
   itemManager = [(FPActionOperation *)self itemManager];
   itemID = [asFPItem itemID];
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __66__FPMoveOperation__completedWithResultsByRoot_errorsByRoot_error___block_invoke_2;
-  v30[3] = &unk_1E793C978;
-  v30[4] = self;
-  v31 = firstObject;
-  [itemManager fetchItemForItemID:itemID completionHandler:v30];
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __66__FPMoveOperation__completedWithResultsByRoot_errorsByRoot_error___block_invoke_2;
+  v29[3] = &unk_1E793C978;
+  v29[4] = self;
+  v30 = firstObject;
+  [itemManager fetchItemForItemID:itemID completionHandler:v29];
 
 LABEL_12:
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __66__FPMoveOperation__completedWithResultsByRoot_errorsByRoot_error___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -1291,8 +1281,8 @@ void __66__FPMoveOperation__completedWithResultsByRoot_errorsByRoot_error___bloc
 
 - (void)_completedWithResult:(id)result error:(id)error
 {
-  v28 = a2;
-  v41 = *MEMORY[0x1E69E9840];
+  v27 = a2;
+  v40 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   errorCopy = error;
   callbackQueue = [(FPOperation *)self callbackQueue];
@@ -1345,26 +1335,26 @@ LABEL_11:
   remoteMoveOperation = self->_remoteMoveOperation;
   self->_remoteMoveOperation = 0;
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   allValues = [(NSMutableDictionary *)self->_createdItemsByRoot allValues];
-  v18 = [allValues countByEnumeratingWithState:&v36 objects:v40 count:16];
+  v18 = [allValues countByEnumeratingWithState:&v35 objects:v39 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v37;
+    v20 = *v36;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v37 != v20)
+        if (*v36 != v20)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v22 = *(*(&v36 + 1) + 8 * i);
+        v22 = *(*(&v35 + 1) + 8 * i);
         if ([v22 isProviderItem])
         {
           progressManager = self->_progressManager;
@@ -1374,7 +1364,7 @@ LABEL_11:
         }
       }
 
-      v19 = [allValues countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v19 = [allValues countByEnumeratingWithState:&v35 objects:v39 count:16];
     }
 
     while (v19);
@@ -1385,25 +1375,23 @@ LABEL_11:
 
   if (errorCopy)
   {
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __46__FPMoveOperation__completedWithResult_error___block_invoke;
-    v30[3] = &unk_1E793C9E8;
-    v31 = resultCopy;
-    v32 = errorCopy;
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __46__FPMoveOperation__completedWithResult_error___block_invoke;
+    v29[3] = &unk_1E793C9E8;
+    v30 = resultCopy;
+    v31 = errorCopy;
     selfCopy = self;
-    v34 = v28;
-    [(FPActionOperation *)self tryRecoveringFromError:v32 completion:v30];
+    v33 = v27;
+    [(FPActionOperation *)self tryRecoveringFromError:v31 completion:v29];
   }
 
   else
   {
-    v35.receiver = self;
-    v35.super_class = FPMoveOperation;
-    [(FPOperation *)&v35 completedWithResult:resultCopy error:0];
+    v34.receiver = self;
+    v34.super_class = FPMoveOperation;
+    [(FPOperation *)&v34 completedWithResult:resultCopy error:0];
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 id __46__FPMoveOperation__completedWithResult_error___block_invoke(uint64_t a1, char a2, uint64_t a3)
@@ -1434,7 +1422,7 @@ id __46__FPMoveOperation__completedWithResult_error___block_invoke(uint64_t a1, 
 
 - (void)_presendNotifications
 {
-  v80 = *MEMORY[0x1E69E9840];
+  v79 = *MEMORY[0x1E69E9840];
   callbackQueue = [(FPOperation *)self callbackQueue];
   dispatch_assert_queue_V2(callbackQueue);
 
@@ -1477,12 +1465,12 @@ id __46__FPMoveOperation__completedWithResult_error___block_invoke(uint64_t a1, 
       if (v10)
       {
         v12 = 0;
-        v60 = *MEMORY[0x1E6982E48];
-        v61 = *MEMORY[0x1E695DAA0];
-        v59 = *MEMORY[0x1E6982DC8];
+        v59 = *MEMORY[0x1E6982E48];
+        v60 = *MEMORY[0x1E695DAA0];
+        v58 = *MEMORY[0x1E6982DC8];
         v13 = &OBJC_IVAR___FPProgressManager__queue;
         *&v11 = 138412546;
-        v58 = v11;
+        v57 = v11;
         do
         {
           roots2 = [(FPActionOperationInfo *)self->_info roots];
@@ -1493,33 +1481,33 @@ id __46__FPMoveOperation__completedWithResult_error___block_invoke(uint64_t a1, 
 
           if (([*(&self->super.super.super.super.isa + v13[403]) containsObject:v15] & 1) == 0)
           {
-            v65 = v17;
+            v64 = v17;
             if ([v15 isExternalURL])
             {
               asURL = [v15 asURL];
               startAccessingSecurityScopedResource = [asURL startAccessingSecurityScopedResource];
-              v72 = 0;
               v71 = 0;
-              v20 = [asURL getResourceValue:&v72 forKey:v61 error:&v71];
-              asFPItem2 = v72;
-              v63 = v71;
+              v70 = 0;
+              v20 = [asURL getResourceValue:&v71 forKey:v60 error:&v70];
+              asFPItem2 = v71;
+              v62 = v70;
               if (!v20 || !asFPItem2)
               {
                 v22 = fp_current_or_default_log();
                 if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
                 {
-                  *buf = v58;
-                  v77 = v15;
-                  v78 = 2112;
-                  v79 = v63;
+                  *buf = v57;
+                  v76 = v15;
+                  v77 = 2112;
+                  v78 = v62;
                   _os_log_error_impl(&dword_1AAAE1000, v22, OS_LOG_TYPE_ERROR, "[ERROR] Failed to get type of %@ (%@)", buf, 0x16u);
                 }
 
                 isFolder = [v15 isFolder];
-                v24 = v60;
+                v24 = v59;
                 if (isFolder)
                 {
-                  v24 = v59;
+                  v24 = v58;
                 }
 
                 v25 = v24;
@@ -1535,11 +1523,11 @@ id __46__FPMoveOperation__completedWithResult_error___block_invoke(uint64_t a1, 
               stitcher2 = [(FPActionOperation *)self stitcher];
               itemIdentifier = [asFPItem itemIdentifier];
               providerDomainID = [asFPItem providerDomainID];
-              v29 = [stitcher2 createPlaceholderWithName:v65 contentType:asFPItem2 contentAccessDate:date underParent:itemIdentifier inProviderDomainID:providerDomainID];
+              v29 = [stitcher2 createPlaceholderWithName:v64 contentType:asFPItem2 contentAccessDate:date underParent:itemIdentifier inProviderDomainID:providerDomainID];
               [(NSMutableDictionary *)self->_placeholderIDsByRoot setObject:v29 forKeyedSubscript:v15];
 
               v13 = &OBJC_IVAR___FPProgressManager__queue;
-              stitcher3 = v63;
+              stitcher3 = v62;
             }
 
             else
@@ -1558,23 +1546,23 @@ id __46__FPMoveOperation__completedWithResult_error___block_invoke(uint64_t a1, 
               else if (asFPItem && ([asFPItem2 providerDomainID], v35 = objc_claimAutoreleasedReturnValue(), objc_msgSend(asFPItem, "providerDomainID"), v36 = objc_claimAutoreleasedReturnValue(), v37 = objc_msgSend(v35, "isEqualToString:", v36), v36, v35, v37))
               {
                 stitcher4 = [(FPActionOperation *)self stitcher];
-                v75 = asFPItem2;
-                v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v75 count:1];
-                v69[0] = MEMORY[0x1E69E9820];
-                v69[1] = 3221225472;
-                v69[2] = __40__FPMoveOperation__presendNotifications__block_invoke;
-                v69[3] = &unk_1E793CA10;
-                v70 = asFPItem;
-                [stitcher4 transformItems:v39 handler:v69];
+                v74 = asFPItem2;
+                v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v74 count:1];
+                v68[0] = MEMORY[0x1E69E9820];
+                v68[1] = 3221225472;
+                v68[2] = __40__FPMoveOperation__presendNotifications__block_invoke;
+                v68[3] = &unk_1E793CA10;
+                v69 = asFPItem;
+                [stitcher4 transformItems:v39 handler:v68];
 
-                stitcher3 = v70;
+                stitcher3 = v69;
               }
 
               else
               {
                 stitcher5 = [(FPActionOperation *)self stitcher];
-                v74 = asFPItem2;
-                v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v74 count:1];
+                v73 = asFPItem2;
+                v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v73 count:1];
                 [stitcher5 deleteItems:v41];
 
                 stitcher3 = [(FPActionOperation *)self stitcher];
@@ -1584,7 +1572,7 @@ id __46__FPMoveOperation__completedWithResult_error___block_invoke(uint64_t a1, 
               }
             }
 
-            v17 = v65;
+            v17 = v64;
           }
 
           ++v12;
@@ -1609,15 +1597,15 @@ id __46__FPMoveOperation__completedWithResult_error___block_invoke(uint64_t a1, 
           stitcher6 = [(FPActionOperation *)self stitcher];
           targetFolder5 = [(FPMoveInfo *)self->_info targetFolder];
           asFPItem4 = [targetFolder5 asFPItem];
-          v73 = asFPItem4;
-          v55 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v73 count:1];
-          v66[0] = MEMORY[0x1E69E9820];
-          v66[1] = 3221225472;
-          v66[2] = __40__FPMoveOperation__presendNotifications__block_invoke_2;
-          v66[3] = &unk_1E793CA38;
-          v67 = childItemCount;
-          v68 = v51;
-          [stitcher6 transformItems:v55 handler:v66];
+          v72 = asFPItem4;
+          v55 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v72 count:1];
+          v65[0] = MEMORY[0x1E69E9820];
+          v65[1] = 3221225472;
+          v65[2] = __40__FPMoveOperation__presendNotifications__block_invoke_2;
+          v65[3] = &unk_1E793CA38;
+          v66 = childItemCount;
+          v67 = v51;
+          [stitcher6 transformItems:v55 handler:v65];
         }
       }
 
@@ -1625,8 +1613,6 @@ id __46__FPMoveOperation__completedWithResult_error___block_invoke(uint64_t a1, 
       [stitcher7 flush];
     }
   }
-
-  v57 = *MEMORY[0x1E69E9840];
 }
 
 void __40__FPMoveOperation__presendNotifications__block_invoke(uint64_t a1, void *a2)
@@ -1672,7 +1658,7 @@ void __40__FPMoveOperation__presendNotifications__block_invoke_2(uint64_t a1, vo
 
 - (void)runUserInteractionsPreflight:(id)preflight
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   preflightCopy = preflight;
   if ([(FPActionOperation *)self setupRemoteOperationService])
   {
@@ -1721,10 +1707,10 @@ LABEL_14:
           block[1] = 3221225472;
           block[2] = __48__FPMoveOperation_runUserInteractionsPreflight___block_invoke;
           block[3] = &unk_1E7939EA8;
-          v47 = preflightCopy;
+          v46 = preflightCopy;
           dispatch_async(callbackQueue, block);
 
-          v17 = v47;
+          v17 = v46;
 LABEL_62:
 
           goto LABEL_63;
@@ -1738,7 +1724,7 @@ LABEL_62:
           *&buf[12] = 2112;
           *&buf[14] = providerDomainID2;
           *&buf[22] = 2112;
-          v49 = providerDomainID;
+          v48 = providerDomainID;
           _os_log_debug_impl(&dword_1AAAE1000, v14, OS_LOG_TYPE_DEBUG, "[DEBUG] %@: preflighting for moving items from %@ to %@", buf, 0x20u);
         }
 
@@ -1795,9 +1781,9 @@ LABEL_43:
           *buf = 0;
           *&buf[8] = buf;
           *&buf[16] = 0x3032000000;
-          v49 = __Block_byref_object_copy__16;
-          v50 = __Block_byref_object_dispose__16;
-          v51 = objc_opt_new();
+          v48 = __Block_byref_object_copy__16;
+          v49 = __Block_byref_object_dispose__16;
+          v50 = objc_opt_new();
           v26 = dispatch_group_create();
           v27 = fp_current_or_default_log();
           if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
@@ -1805,7 +1791,7 @@ LABEL_43:
             [FPMoveOperation runUserInteractionsPreflight:?];
           }
 
-          v36 = providerDomainID2;
+          v35 = providerDomainID2;
           if (v17)
           {
             dispatch_group_enter(v26);
@@ -1820,13 +1806,13 @@ LABEL_43:
               destinationItemToPreflight2 = [(FPActionOperation *)self destinationItemToPreflight];
             }
 
-            v43[0] = MEMORY[0x1E69E9820];
-            v43[1] = 3221225472;
-            v43[2] = __48__FPMoveOperation_runUserInteractionsPreflight___block_invoke_80;
-            v43[3] = &unk_1E793CA60;
-            v45 = buf;
-            v44 = v26;
-            [(FPMoveOperation *)self gatherErrorsForUserInteractionForDomain:providerDomainID2 action:v17 sourceItems:sourceItemsToPreflight3 destinationItem:destinationItemToPreflight2 sourceItemKeysAllowList:0 destinationItemKeysAllowList:0 completionHandler:v43];
+            v42[0] = MEMORY[0x1E69E9820];
+            v42[1] = 3221225472;
+            v42[2] = __48__FPMoveOperation_runUserInteractionsPreflight___block_invoke_80;
+            v42[3] = &unk_1E793CA60;
+            v44 = buf;
+            v43 = v26;
+            [(FPMoveOperation *)self gatherErrorsForUserInteractionForDomain:providerDomainID2 action:v17 sourceItems:sourceItemsToPreflight3 destinationItem:destinationItemToPreflight2 sourceItemKeysAllowList:0 destinationItemKeysAllowList:0 completionHandler:v42];
             if (!v22)
             {
             }
@@ -1853,13 +1839,13 @@ LABEL_43:
 
             destinationItemToPreflight3 = [(FPActionOperation *)self destinationItemToPreflight];
             v33 = [MEMORY[0x1E695DFD8] setWithArray:&unk_1F1FC9BF0];
-            v40[0] = MEMORY[0x1E69E9820];
-            v40[1] = 3221225472;
-            v40[2] = __48__FPMoveOperation_runUserInteractionsPreflight___block_invoke_85;
-            v40[3] = &unk_1E793CA60;
-            v42 = buf;
-            v41 = v26;
-            [(FPMoveOperation *)self gatherErrorsForUserInteractionForDomain:providerDomainID action:v22 sourceItems:sourceItemsToPreflight4 destinationItem:destinationItemToPreflight3 sourceItemKeysAllowList:v33 destinationItemKeysAllowList:0 completionHandler:v40];
+            v39[0] = MEMORY[0x1E69E9820];
+            v39[1] = 3221225472;
+            v39[2] = __48__FPMoveOperation_runUserInteractionsPreflight___block_invoke_85;
+            v39[3] = &unk_1E793CA60;
+            v41 = buf;
+            v40 = v26;
+            [(FPMoveOperation *)self gatherErrorsForUserInteractionForDomain:providerDomainID action:v22 sourceItems:sourceItemsToPreflight4 destinationItem:destinationItemToPreflight3 sourceItemKeysAllowList:v33 destinationItemKeysAllowList:0 completionHandler:v39];
 
             if (!v17)
             {
@@ -1867,16 +1853,16 @@ LABEL_43:
           }
 
           callbackQueue2 = [(FPOperation *)self callbackQueue];
-          v37[0] = MEMORY[0x1E69E9820];
-          v37[1] = 3221225472;
-          v37[2] = __48__FPMoveOperation_runUserInteractionsPreflight___block_invoke_2;
-          v37[3] = &unk_1E793CA88;
-          v39 = buf;
-          v37[4] = self;
-          v38 = preflightCopy;
-          dispatch_group_notify(v26, callbackQueue2, v37);
+          v36[0] = MEMORY[0x1E69E9820];
+          v36[1] = 3221225472;
+          v36[2] = __48__FPMoveOperation_runUserInteractionsPreflight___block_invoke_2;
+          v36[3] = &unk_1E793CA88;
+          v38 = buf;
+          v36[4] = self;
+          v37 = preflightCopy;
+          dispatch_group_notify(v26, callbackQueue2, v36);
 
-          providerDomainID2 = v36;
+          providerDomainID2 = v35;
           _Block_object_dispose(buf, 8);
 
           goto LABEL_62;
@@ -1905,8 +1891,6 @@ LABEL_43:
 
   (*(preflightCopy + 2))(preflightCopy, 0);
 LABEL_63:
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 void __48__FPMoveOperation_runUserInteractionsPreflight___block_invoke_80(uint64_t a1, void *a2)
@@ -1939,11 +1923,11 @@ void __48__FPMoveOperation_runUserInteractionsPreflight___block_invoke_85(uint64
 
 void __48__FPMoveOperation_runUserInteractionsPreflight___block_invoke_2(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"description" ascending:1];
   v3 = *(*(*(a1 + 48) + 8) + 40);
-  v8[0] = v2;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = v2;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   v5 = [v3 sortedArrayUsingDescriptors:v4];
 
   v6 = fp_current_or_default_log();
@@ -1953,7 +1937,6 @@ void __48__FPMoveOperation_runUserInteractionsPreflight___block_invoke_2(uint64_
   }
 
   (*(*(a1 + 40) + 16))();
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)gatherErrorsForUserInteractionForDomain:(id)domain action:(id)action sourceItems:(id)items destinationItem:(id)item sourceItemKeysAllowList:(id)list destinationItemKeysAllowList:(id)allowList completionHandler:(id)handler
@@ -1991,27 +1974,26 @@ void __165__FPMoveOperation_gatherErrorsForUserInteractionForDomain_action_sourc
 {
   if (a3)
   {
-    v4 = *(a1 + 80);
-    v5 = *(*(a1 + 80) + 16);
+    v4 = *(*(a1 + 80) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v6 = [a2 remoteObjectProxy];
-    v7 = *(a1 + 32);
-    v8 = *(a1 + 40);
-    v9 = *(a1 + 48);
-    v10 = *(a1 + 56);
-    v11 = *(a1 + 64);
-    v12 = *(a1 + 72);
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __165__FPMoveOperation_gatherErrorsForUserInteractionForDomain_action_sourceItems_destinationItem_sourceItemKeysAllowList_destinationItemKeysAllowList_completionHandler___block_invoke_2;
-    v13[3] = &unk_1E793CAB0;
-    v14 = *(a1 + 80);
-    [v6 userInteractionErrorsForPerformingAction:v7 sourceItems:v8 destinationItem:v9 fpProviderDomainId:v10 sourceItemKeysAllowList:v11 destinationItemKeysAllowList:v12 completionHandler:v13];
+    v5 = [a2 remoteObjectProxy];
+    v6 = *(a1 + 32);
+    v7 = *(a1 + 40);
+    v8 = *(a1 + 48);
+    v9 = *(a1 + 56);
+    v10 = *(a1 + 64);
+    v11 = *(a1 + 72);
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __165__FPMoveOperation_gatherErrorsForUserInteractionForDomain_action_sourceItems_destinationItem_sourceItemKeysAllowList_destinationItemKeysAllowList_completionHandler___block_invoke_2;
+    v12[3] = &unk_1E793CAB0;
+    v13 = *(a1 + 80);
+    [v5 userInteractionErrorsForPerformingAction:v6 sourceItems:v7 destinationItem:v8 fpProviderDomainId:v9 sourceItemKeysAllowList:v10 destinationItemKeysAllowList:v11 completionHandler:v12];
   }
 }
 
@@ -2035,18 +2017,27 @@ void __165__FPMoveOperation_gatherErrorsForUserInteractionForDomain_action_sourc
 
 - (BOOL)_preflightCheckProviderCanMoveWithErrors:(id *)errors
 {
-  v46 = *MEMORY[0x1E69E9840];
-  if (!-[FPMoveInfo byMoving](self->_info, "byMoving") || (v30 = errors, v33 = self, -[FPMoveInfo targetFolder](self->_info, "targetFolder"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 isExternalURL], v5, (v6 & 1) != 0))
+  v45 = *MEMORY[0x1E69E9840];
+  if (![(FPMoveInfo *)self->_info byMoving])
   {
-    v7 = 1;
-    goto LABEL_28;
+    return 1;
   }
 
-  remoteService = [(FPActionOperation *)v33 remoteService];
+  errorsCopy = errors;
+  selfCopy = self;
+  targetFolder = [(FPMoveInfo *)self->_info targetFolder];
+  isExternalURL = [targetFolder isExternalURL];
+
+  if (isExternalURL)
+  {
+    return 1;
+  }
+
+  remoteService = [(FPActionOperation *)selfCopy remoteService];
 
   if (!remoteService)
   {
-    remoteService2 = [(FPActionOperation *)v33 remoteService];
+    remoteService2 = [(FPActionOperation *)selfCopy remoteService];
 
     if (!remoteService2)
     {
@@ -2054,36 +2045,36 @@ void __165__FPMoveOperation_gatherErrorsForUserInteractionForDomain_action_sourc
     }
   }
 
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x3032000000;
-  v42 = __Block_byref_object_copy__16;
-  v43 = __Block_byref_object_dispose__16;
-  v44 = 0;
-  targetFolder = [(FPMoveInfo *)v33->_info targetFolder];
-  asFPItem = [targetFolder asFPItem];
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x3032000000;
+  v41 = __Block_byref_object_copy__16;
+  v42 = __Block_byref_object_dispose__16;
+  v43 = 0;
+  targetFolder2 = [(FPMoveInfo *)selfCopy->_info targetFolder];
+  asFPItem = [targetFolder2 asFPItem];
 
-  v32 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
+  v31 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v36 = 0u;
-  roots = [(FPActionOperationInfo *)v33->_info roots];
-  v13 = [roots countByEnumeratingWithState:&v35 objects:v45 count:16];
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  roots = [(FPActionOperationInfo *)selfCopy->_info roots];
+  v13 = [roots countByEnumeratingWithState:&v34 objects:v44 count:16];
   if (v13)
   {
-    v14 = *v36;
+    v14 = *v35;
     do
     {
       v15 = 0;
       do
       {
-        if (*v36 != v14)
+        if (*v35 != v14)
         {
           objc_enumerationMutation(roots);
         }
 
-        v16 = *(*(&v35 + 1) + 8 * v15);
+        v16 = *(*(&v34 + 1) + 8 * v15);
         if (([v16 isExternalURL] & 1) == 0)
         {
           asFPItem2 = [v16 asFPItem];
@@ -2095,16 +2086,16 @@ void __165__FPMoveOperation_gatherErrorsForUserInteractionForDomain_action_sourc
           {
             asFPItem3 = [v16 asFPItem];
             itemID = [asFPItem3 itemID];
-            [v32 addObject:itemID];
+            [v31 addObject:itemID];
 
 LABEL_15:
             goto LABEL_18;
           }
 
-          if (![(FPActionOperation *)v33 finishAfterPreflight]&& ![(FPActionOperation *)v33 finishAfterPreflight])
+          if (![(FPActionOperation *)selfCopy finishAfterPreflight]&& ![(FPActionOperation *)selfCopy finishAfterPreflight])
           {
             asFPItem3 = [MEMORY[0x1E696AAA8] currentHandler];
-            [asFPItem3 handleFailureInMethod:a2 object:v33 file:@"FPMoveOperation.m" lineNumber:1130 description:@"only preflight is supported on cross-domain moves"];
+            [asFPItem3 handleFailureInMethod:a2 object:selfCopy file:@"FPMoveOperation.m" lineNumber:1130 description:@"only preflight is supported on cross-domain moves"];
             goto LABEL_15;
           }
         }
@@ -2114,37 +2105,35 @@ LABEL_18:
       }
 
       while (v13 != v15);
-      v23 = [roots countByEnumeratingWithState:&v35 objects:v45 count:16];
+      v23 = [roots countByEnumeratingWithState:&v34 objects:v44 count:16];
       v13 = v23;
     }
 
     while (v23);
   }
 
-  if ([v32 count])
+  if ([v31 count])
   {
-    remoteService3 = [(FPActionOperation *)v33 remoteService];
+    remoteService3 = [(FPActionOperation *)selfCopy remoteService];
     synchronousRemoteObjectProxy = [remoteService3 synchronousRemoteObjectProxy];
     itemID2 = [asFPItem itemID];
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __60__FPMoveOperation__preflightCheckProviderCanMoveWithErrors___block_invoke;
-    v34[3] = &unk_1E793CB00;
-    v34[4] = &v39;
-    [synchronousRemoteObjectProxy preflightReparentItemIDs:v32 underParentID:itemID2 reply:v34];
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __60__FPMoveOperation__preflightCheckProviderCanMoveWithErrors___block_invoke;
+    v33[3] = &unk_1E793CB00;
+    v33[4] = &v38;
+    [synchronousRemoteObjectProxy preflightReparentItemIDs:v31 underParentID:itemID2 reply:v33];
   }
 
-  v27 = [v40[5] count];
-  if (v30 && v27)
+  v27 = [v39[5] count];
+  if (errorsCopy && v27)
   {
-    *v30 = v40[5];
+    *errorsCopy = v39[5];
   }
 
-  v7 = [v40[5] count] == 0;
+  v7 = [v39[5] count] == 0;
 
-  _Block_object_dispose(&v39, 8);
-LABEL_28:
-  v28 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v38, 8);
   return v7;
 }
 
@@ -2164,153 +2153,149 @@ void __60__FPMoveOperation__preflightCheckProviderCanMoveWithErrors___block_invo
 
 - (BOOL)_preflightCheckNotMovingIntoSelfWithError:(id *)error
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   targetFolder = [(FPMoveInfo *)self->_info targetFolder];
   isExternalURL = [targetFolder isExternalURL];
 
   if (isExternalURL)
   {
-    v5 = 1;
+    return 1;
   }
 
-  else
+  targetFolder2 = [(FPMoveInfo *)self->_info targetFolder];
+  asFPItem = [targetFolder2 asFPItem];
+
+  v58 = 0;
+  v59 = &v58;
+  v60 = 0x3032000000;
+  v61 = __Block_byref_object_copy__16;
+  v62 = __Block_byref_object_dispose__16;
+  v63 = 0;
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x3032000000;
+  v55 = __Block_byref_object_copy__16;
+  v56 = __Block_byref_object_dispose__16;
+  v57 = 0;
+  v38 = objc_opt_new();
+  v7 = dispatch_group_create();
+  dispatch_group_enter(v7);
+  itemManager = [(FPActionOperation *)self itemManager];
+  itemID = [asFPItem itemID];
+  v48[0] = MEMORY[0x1E69E9820];
+  v48[1] = 3221225472;
+  v48[2] = __61__FPMoveOperation__preflightCheckNotMovingIntoSelfWithError___block_invoke;
+  v48[3] = &unk_1E793CB28;
+  v50 = &v52;
+  v51 = &v58;
+  group = v7;
+  v49 = group;
+  [itemManager fetchParentsForItemID:itemID recursively:1 completionHandler:v48];
+
+  dispatch_group_wait(group, 0xFFFFFFFFFFFFFFFFLL);
+  v10 = [v59[5] arrayByAddingObject:asFPItem];
+  v11 = v59[5];
+  v59[5] = v10;
+
+  v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  roots = [(FPActionOperationInfo *)self->_info roots];
+  v36 = [roots countByEnumeratingWithState:&v44 objects:v65 count:16];
+  if (v36)
   {
-    targetFolder2 = [(FPMoveInfo *)self->_info targetFolder];
-    asFPItem = [targetFolder2 asFPItem];
-
-    v59 = 0;
-    v60 = &v59;
-    v61 = 0x3032000000;
-    v62 = __Block_byref_object_copy__16;
-    v63 = __Block_byref_object_dispose__16;
-    v64 = 0;
-    v53 = 0;
-    v54 = &v53;
-    v55 = 0x3032000000;
-    v56 = __Block_byref_object_copy__16;
-    v57 = __Block_byref_object_dispose__16;
-    v58 = 0;
-    v39 = objc_opt_new();
-    v7 = dispatch_group_create();
-    dispatch_group_enter(v7);
-    itemManager = [(FPActionOperation *)self itemManager];
-    itemID = [asFPItem itemID];
-    v49[0] = MEMORY[0x1E69E9820];
-    v49[1] = 3221225472;
-    v49[2] = __61__FPMoveOperation__preflightCheckNotMovingIntoSelfWithError___block_invoke;
-    v49[3] = &unk_1E793CB28;
-    v51 = &v53;
-    v52 = &v59;
-    group = v7;
-    v50 = group;
-    [itemManager fetchParentsForItemID:itemID recursively:1 completionHandler:v49];
-
-    dispatch_group_wait(group, 0xFFFFFFFFFFFFFFFFLL);
-    v10 = [v60[5] arrayByAddingObject:asFPItem];
-    v11 = v60[5];
-    v60[5] = v10;
-
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
-    v46 = 0u;
-    roots = [(FPActionOperationInfo *)self->_info roots];
-    v37 = [roots countByEnumeratingWithState:&v45 objects:v66 count:16];
-    if (v37)
+    v35 = *v45;
+    v13 = *MEMORY[0x1E696A250];
+    obj = roots;
+    do
     {
-      v36 = *v46;
-      v13 = *MEMORY[0x1E696A250];
-      obj = roots;
-      do
+      for (i = 0; i != v36; ++i)
       {
-        for (i = 0; i != v37; ++i)
+        if (*v45 != v35)
         {
-          if (*v46 != v36)
-          {
-            objc_enumerationMutation(obj);
-          }
-
-          v14 = *(*(&v45 + 1) + 8 * i);
-          if (([v14 isExternalURL] & 1) == 0)
-          {
-            asFPItem2 = [v14 asFPItem];
-            v43 = 0u;
-            v44 = 0u;
-            v41 = 0u;
-            v42 = 0u;
-            v16 = v60[5];
-            v17 = [v16 countByEnumeratingWithState:&v41 objects:v65 count:16];
-            if (v17)
-            {
-              v18 = *v42;
-              do
-              {
-                for (j = 0; j != v17; ++j)
-                {
-                  if (*v42 != v18)
-                  {
-                    objc_enumerationMutation(v16);
-                  }
-
-                  v20 = *(*(&v41 + 1) + 8 * j);
-                  itemID2 = [asFPItem2 itemID];
-                  itemID3 = [v20 itemID];
-                  LODWORD(v20) = [itemID2 isEqual:itemID3];
-
-                  if (v20)
-                  {
-                    v23 = [MEMORY[0x1E696ABC0] errorWithDomain:v13 code:512 userInfo:0];
-                    if ([(FPMoveOperation *)self byCopy])
-                    {
-                      v24 = @"Copy";
-                    }
-
-                    else
-                    {
-                      v24 = @"Move";
-                    }
-
-                    v25 = [v23 fp_annotatedErrorWithItem:asFPItem2 variant:v24];
-                    v26 = v54[5];
-                    v54[5] = v25;
-
-                    [(NSDictionary *)v39 setObject:v54[5] forKeyedSubscript:asFPItem2];
-                  }
-                }
-
-                v17 = [v16 countByEnumeratingWithState:&v41 objects:v65 count:16];
-              }
-
-              while (v17);
-            }
-          }
+          objc_enumerationMutation(obj);
         }
 
-        roots = obj;
-        v37 = [obj countByEnumeratingWithState:&v45 objects:v66 count:16];
+        v14 = *(*(&v44 + 1) + 8 * i);
+        if (([v14 isExternalURL] & 1) == 0)
+        {
+          asFPItem2 = [v14 asFPItem];
+          v42 = 0u;
+          v43 = 0u;
+          v40 = 0u;
+          v41 = 0u;
+          v16 = v59[5];
+          v17 = [v16 countByEnumeratingWithState:&v40 objects:v64 count:16];
+          if (v17)
+          {
+            v18 = *v41;
+            do
+            {
+              for (j = 0; j != v17; ++j)
+              {
+                if (*v41 != v18)
+                {
+                  objc_enumerationMutation(v16);
+                }
+
+                v20 = *(*(&v40 + 1) + 8 * j);
+                itemID2 = [asFPItem2 itemID];
+                itemID3 = [v20 itemID];
+                LODWORD(v20) = [itemID2 isEqual:itemID3];
+
+                if (v20)
+                {
+                  v23 = [MEMORY[0x1E696ABC0] errorWithDomain:v13 code:512 userInfo:0];
+                  if ([(FPMoveOperation *)self byCopy])
+                  {
+                    v24 = @"Copy";
+                  }
+
+                  else
+                  {
+                    v24 = @"Move";
+                  }
+
+                  v25 = [v23 fp_annotatedErrorWithItem:asFPItem2 variant:v24];
+                  v26 = v53[5];
+                  v53[5] = v25;
+
+                  [(NSDictionary *)v38 setObject:v53[5] forKeyedSubscript:asFPItem2];
+                }
+              }
+
+              v17 = [v16 countByEnumeratingWithState:&v40 objects:v64 count:16];
+            }
+
+            while (v17);
+          }
+        }
       }
 
-      while (v37);
+      roots = obj;
+      v36 = [obj countByEnumeratingWithState:&v44 objects:v65 count:16];
     }
 
-    errorsByItem = self->_errorsByItem;
-    self->_errorsByItem = v39;
-    v28 = v39;
-
-    v29 = v54[5];
-    if (error && v29)
-    {
-      *error = v29;
-      v29 = v54[5];
-    }
-
-    v5 = v29 == 0;
-
-    _Block_object_dispose(&v53, 8);
-    _Block_object_dispose(&v59, 8);
+    while (v36);
   }
 
-  v30 = *MEMORY[0x1E69E9840];
+  errorsByItem = self->_errorsByItem;
+  self->_errorsByItem = v38;
+  v28 = v38;
+
+  v29 = v53[5];
+  if (error && v29)
+  {
+    *error = v29;
+    v29 = v53[5];
+  }
+
+  v5 = v29 == 0;
+
+  _Block_object_dispose(&v52, 8);
+  _Block_object_dispose(&v58, 8);
+
   return v5;
 }
 
@@ -2343,8 +2328,8 @@ void __61__FPMoveOperation__preflightCheckNotMovingIntoSelfWithError___block_inv
 
 - (void)_preflightForceBounceIfCopyingOntoSelf
 {
-  v39 = *MEMORY[0x1E69E9840];
-  v20 = 600;
+  v38 = *MEMORY[0x1E69E9840];
+  v19 = 600;
   if (!self->_shouldBounceOnCollision)
   {
     targetFolder = [(FPMoveInfo *)self->_info targetFolder];
@@ -2355,31 +2340,31 @@ void __61__FPMoveOperation__preflightCheckNotMovingIntoSelfWithError___block_inv
       targetFolder2 = [(FPMoveInfo *)self->_info targetFolder];
       asFPItem = [targetFolder2 asFPItem];
 
-      v36 = 0u;
-      v37 = 0u;
-      v34 = 0u;
       v35 = 0u;
+      v36 = 0u;
+      v33 = 0u;
+      v34 = 0u;
       obj = [(FPActionOperationInfo *)self->_info roots];
-      v6 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v6 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
       if (v6)
       {
-        v7 = *v35;
-        v21 = v25;
+        v7 = *v34;
+        v20 = v24;
         while (2)
         {
           for (i = 0; i != v6; ++i)
           {
-            if (*v35 != v7)
+            if (*v34 != v7)
             {
               objc_enumerationMutation(obj);
             }
 
-            v9 = *(*(&v34 + 1) + 8 * i);
-            v28 = 0;
-            v29 = &v28;
-            v30 = 0x3032000000;
-            v31 = __Block_byref_object_copy__16;
-            v32 = __Block_byref_object_dispose__16;
+            v9 = *(*(&v33 + 1) + 8 * i);
+            v27 = 0;
+            v28 = &v27;
+            v29 = 0x3032000000;
+            v30 = __Block_byref_object_copy__16;
+            v31 = __Block_byref_object_dispose__16;
             if ([v9 isProviderItem])
             {
               asFPItem2 = [v9 asFPItem];
@@ -2390,25 +2375,25 @@ void __61__FPMoveOperation__preflightCheckNotMovingIntoSelfWithError___block_inv
               asFPItem2 = 0;
             }
 
-            v33 = asFPItem2;
-            if (!v29[5] && [v9 isExternalURL])
+            v32 = asFPItem2;
+            if (!v28[5] && [v9 isExternalURL])
             {
               v11 = dispatch_semaphore_create(0);
               itemManager = [(FPActionOperation *)self itemManager];
               asURL = [v9 asURL];
-              v24[0] = MEMORY[0x1E69E9820];
-              v24[1] = 3221225472;
-              v25[0] = __57__FPMoveOperation__preflightForceBounceIfCopyingOntoSelf__block_invoke;
-              v25[1] = &unk_1E793CB50;
-              v27 = &v28;
+              v23[0] = MEMORY[0x1E69E9820];
+              v23[1] = 3221225472;
+              v24[0] = __57__FPMoveOperation__preflightForceBounceIfCopyingOntoSelf__block_invoke;
+              v24[1] = &unk_1E793CB50;
+              v26 = &v27;
               v14 = v11;
-              v26 = v14;
-              [itemManager fetchItemForURL:asURL completionHandler:v24];
+              v25 = v14;
+              [itemManager fetchItemForURL:asURL completionHandler:v23];
 
               dispatch_semaphore_wait(v14, 0xFFFFFFFFFFFFFFFFLL);
             }
 
-            v15 = v29[5];
+            v15 = v28[5];
             if (v15)
             {
               parentItemID = [v15 parentItemID];
@@ -2417,17 +2402,17 @@ void __61__FPMoveOperation__preflightCheckNotMovingIntoSelfWithError___block_inv
 
               if (v18)
               {
-                *(&self->super.super.super.super.isa + v20) = 1;
-                _Block_object_dispose(&v28, 8);
+                *(&self->super.super.super.super.isa + v19) = 1;
+                _Block_object_dispose(&v27, 8);
 
                 goto LABEL_20;
               }
             }
 
-            _Block_object_dispose(&v28, 8);
+            _Block_object_dispose(&v27, 8);
           }
 
-          v6 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+          v6 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
           if (v6)
           {
             continue;
@@ -2440,8 +2425,6 @@ void __61__FPMoveOperation__preflightCheckNotMovingIntoSelfWithError___block_inv
 LABEL_20:
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __57__FPMoveOperation__preflightForceBounceIfCopyingOntoSelf__block_invoke(uint64_t a1, void *a2)
@@ -2593,51 +2576,45 @@ LABEL_6:
 
 void __41__FPMoveOperation__mapURLsToFakeFPItems___block_invoke_cold_1(void *a1, void *a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = [a1 fp_shortDescription];
   v6 = [a2 fp_prettyDescription];
-  v8 = 138412546;
-  v9 = v5;
-  v10 = 2112;
-  v11 = v6;
-  _os_log_error_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_ERROR, "[ERROR] Error converting URL %@ to FPItem: %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138412546;
+  v8 = v5;
+  v9 = 2112;
+  v10 = v6;
+  _os_log_error_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_ERROR, "[ERROR] Error converting URL %@ to FPItem: %@", &v7, 0x16u);
 }
 
 - (void)_resolveURLsWithCompletionHandler:(uint64_t *)a1 .cold.1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_ERROR, "[ERROR] No write permission to destination: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_ERROR, "[ERROR] No write permission to destination: %@", &v3, 0xCu);
 }
 
 - (void)_resolveURLsWithCompletionHandler:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_ERROR, "[ERROR] No read permission for source: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_ERROR, "[ERROR] No read permission for source: %@", &v2, 0xCu);
 }
 
 void __53__FPMoveOperation__resolveURLsWithCompletionHandler___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = *(a1 + 32);
   v6 = [*(v5 + 472) fp_shortDescription];
-  v8 = 138412802;
-  v9 = v5;
-  v10 = 2112;
-  v11 = v6;
-  v12 = 2112;
-  v13 = a2;
-  _os_log_debug_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] %@: destination URL %@ resolved to item %@", &v8, 0x20u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138412802;
+  v8 = v5;
+  v9 = 2112;
+  v10 = v6;
+  v11 = 2112;
+  v12 = a2;
+  _os_log_debug_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] %@: destination URL %@ resolved to item %@", &v7, 0x20u);
 }
 
 - (void)_recoverFromCollisionError:withPolicy:.cold.1()
@@ -2665,22 +2642,18 @@ void __46__FPMoveOperation__completedWithResult_error___block_invoke_cold_1()
 
 - (void)runUserInteractionsPreflight:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  LODWORD(v4) = 138412546;
-  *(&v4 + 4) = a1;
+  LODWORD(v3) = 138412546;
+  *(&v3 + 4) = a1;
   OUTLINED_FUNCTION_17();
-  OUTLINED_FUNCTION_1_0(&dword_1AAAE1000, v1, v2, "[DEBUG] %@: running user interaction preflight for %@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1AAAE1000, v1, v2, "[DEBUG] %@: running user interaction preflight for %@", v3, DWORD2(v3));
 }
 
 void __48__FPMoveOperation_runUserInteractionsPreflight___block_invoke_2_cold_1(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  LODWORD(v4) = 138412546;
-  *(&v4 + 4) = *(a1 + 32);
+  LODWORD(v3) = 138412546;
+  *(&v3 + 4) = *(a1 + 32);
   OUTLINED_FUNCTION_17();
-  OUTLINED_FUNCTION_1_0(&dword_1AAAE1000, v1, v2, "[DEBUG] %@: returning %@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1AAAE1000, v1, v2, "[DEBUG] %@: returning %@", v3, DWORD2(v3));
 }
 
 - (void)_preflightCheckProviderCanMoveWithErrors:.cold.1()

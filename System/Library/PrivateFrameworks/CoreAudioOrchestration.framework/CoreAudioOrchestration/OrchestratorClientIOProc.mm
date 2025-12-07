@@ -10,22 +10,21 @@
 
 - (OrchestratorClientIOProc)init
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v6.receiver = self;
-  v6.super_class = OrchestratorClientIOProc;
-  v2 = [(OrchestratorClientIOProc *)&v6 init];
+  v7 = *MEMORY[0x277D85DE8];
+  v5.receiver = self;
+  v5.super_class = OrchestratorClientIOProc;
+  v2 = [(OrchestratorClientIOProc *)&v5 init];
   v3 = v2;
   if (v2)
   {
     v2->mDeviceID = 0;
     v2->mIOProcID = 0;
-    IOProcBrain::IOProcBrain(&v7);
-    v3->mIOBrain.mClientIOProc = v7.mClientIOProc;
-    ADMIO::operator=(&v3->mIOBrain.admIOProc, &v7.admIOProc);
-    IOProcBrain::~IOProcBrain(&v7);
+    IOProcBrain::IOProcBrain(&v6);
+    v3->mIOBrain.mClientIOProc = v6.mClientIOProc;
+    ADMIO::operator=(&v3->mIOBrain.admIOProc, &v6.admIOProc);
+    IOProcBrain::~IOProcBrain(&v6);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

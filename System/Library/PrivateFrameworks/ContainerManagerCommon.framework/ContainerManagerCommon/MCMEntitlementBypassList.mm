@@ -5,8 +5,6 @@
 - (BOOL)systemContainerIdIsWellknown:(id)wellknown;
 - (BOOL)systemGroupContainerIdIsWellknown:(id)wellknown;
 - (MCMEntitlementBypassList)initWithSystemContainerMapping:(id)mapping systemGroupContainerMapping:(id)containerMapping bypassListedCodeSignIdentifierMapping:(id)identifierMapping;
-- (NSDictionary)systemEntitlementBypassList;
-- (NSDictionary)systemGroupEntitlementBypassList;
 - (id)_convertArraysToSetsInNestedDictionary:(id)dictionary;
 - (id)wellKnownContainerIdentifiersForSandboxPushDownCompatibilitySet;
 - (id)wellknownContainerForId:(id)id class:(unint64_t)class;
@@ -22,38 +20,18 @@
 
 + (id)sharedBypassList
 {
-  v5 = *MEMORY[0x1E69E9840];
   if (sharedBypassList_onceToken != -1)
   {
     dispatch_once(&sharedBypassList_onceToken, &__block_literal_global_1397);
   }
 
   v2 = sharedBypassList_sharedInstance;
-  v3 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
 
-- (NSDictionary)systemGroupEntitlementBypassList
-{
-  result = self->_systemGroupEntitlementBypassList;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (NSDictionary)systemEntitlementBypassList
-{
-  result = self->_systemEntitlementBypassList;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (void)setSystemGroupEntitlementBypassList:(id)list
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = *MEMORY[0x1E69E9840];
   p_systemGroupEntitlementBypassList = &self->_systemGroupEntitlementBypassList;
 
   objc_storeStrong(p_systemGroupEntitlementBypassList, list);
@@ -61,8 +39,6 @@
 
 - (void)setSystemEntitlementBypassList:(id)list
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = *MEMORY[0x1E69E9840];
   p_systemEntitlementBypassList = &self->_systemEntitlementBypassList;
 
   objc_storeStrong(p_systemEntitlementBypassList, list);
@@ -70,35 +46,31 @@
 
 - (id)wellKnownContainerIdentifiersForSandboxPushDownCompatibilitySet
 {
-  v5 = *MEMORY[0x1E69E9840];
   if (wellKnownContainerIdentifiersForSandboxPushDownCompatibilitySet_onceToken != -1)
   {
     dispatch_once(&wellKnownContainerIdentifiersForSandboxPushDownCompatibilitySet_onceToken, &__block_literal_global_97);
   }
 
   v2 = wellKnownContainerIdentifiersForSandboxPushDownCompatibilitySet_set;
-  v3 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
 
 uint64_t __91__MCMEntitlementBypassList_wellKnownContainerIdentifiersForSandboxPushDownCompatibilitySet__block_invoke()
 {
-  v2 = *MEMORY[0x1E69E9840];
   wellKnownContainerIdentifiersForSandboxPushDownCompatibilitySet_set = [MEMORY[0x1E695DFD8] setWithObjects:{@"com.apple.facetime", @"com.apple.iBooks", @"com.apple.Maps", @"com.apple.mobilenotes", @"com.apple.mobilesafari", @"com.apple.podcasts", 0}];
-  v0 = *MEMORY[0x1E69E9840];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
 - (id)_convertArraysToSetsInNestedDictionary:(id)dictionary
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v4 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(dictionaryCopy, "count")}];
-  v22 = dictionaryCopy;
+  v21 = dictionaryCopy;
   v5 = [MEMORY[0x1E695DF70] arrayWithObject:dictionaryCopy];
-  v23 = [MEMORY[0x1E695DF70] arrayWithObject:v4];
+  v22 = [MEMORY[0x1E695DF70] arrayWithObject:v4];
   if ([v5 count])
   {
     do
@@ -106,28 +78,28 @@ uint64_t __91__MCMEntitlementBypassList_wellKnownContainerIdentifiersForSandboxP
       lastObject = [v5 lastObject];
       v7 = v5;
       [v5 removeLastObject];
-      lastObject2 = [v23 lastObject];
-      [v23 removeLastObject];
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
+      lastObject2 = [v22 lastObject];
+      [v22 removeLastObject];
       v26 = 0u;
+      v27 = 0u;
+      v24 = 0u;
+      v25 = 0u;
       v9 = lastObject;
-      v10 = [v9 countByEnumeratingWithState:&v25 objects:v24 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v24 objects:v23 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v26;
+        v12 = *v25;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v26 != v12)
+            if (*v25 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            v14 = *(*(&v25 + 1) + 8 * i);
+            v14 = *(*(&v24 + 1) + 8 * i);
             v15 = [v9 objectForKeyedSubscript:v14];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
@@ -137,7 +109,7 @@ uint64_t __91__MCMEntitlementBypassList_wellKnownContainerIdentifiersForSandboxP
 
               [v7 addObject:v15];
               v17 = [lastObject2 objectForKeyedSubscript:v14];
-              [v23 addObject:v17];
+              [v22 addObject:v17];
             }
 
             else
@@ -156,7 +128,7 @@ uint64_t __91__MCMEntitlementBypassList_wellKnownContainerIdentifiersForSandboxP
             }
           }
 
-          v11 = [v9 countByEnumeratingWithState:&v25 objects:v24 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v24 objects:v23 count:16];
         }
 
         while (v11);
@@ -170,14 +142,11 @@ uint64_t __91__MCMEntitlementBypassList_wellKnownContainerIdentifiersForSandboxP
 
   v19 = [v4 copy];
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return v19;
 }
 
 - (BOOL)isLookupAllowedToBypassEntitlementFromCodeSignIdentifier:(id)identifier forContainerClass:(unint64_t)class containerIdentifier:(id)containerIdentifier
 {
-  v19 = *MEMORY[0x1E69E9840];
   containerIdentifierCopy = containerIdentifier;
   if (class <= 0xE)
   {
@@ -227,13 +196,11 @@ LABEL_11:
   v9 = 0;
 LABEL_12:
 
-  v17 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (id)wellknownContainerForId:(id)id class:(unint64_t)class
 {
-  v11 = *MEMORY[0x1E69E9840];
   idCopy = id;
   if (class == 13)
   {
@@ -252,14 +219,11 @@ LABEL_5:
   v8 = 0;
 LABEL_7:
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 - (BOOL)containerIdIsWellknown:(id)wellknown class:(unint64_t)class
 {
-  v11 = *MEMORY[0x1E69E9840];
   wellknownCopy = wellknown;
   if (class == 13)
   {
@@ -280,87 +244,70 @@ LABEL_7:
   v8 = v7;
 LABEL_7:
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (id)wellknownSystemGroupContainers
 {
-  v6 = *MEMORY[0x1E69E9840];
   systemGroupEntitlementBypassList = [(MCMEntitlementBypassList *)self systemGroupEntitlementBypassList];
   allKeys = [systemGroupEntitlementBypassList allKeys];
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return allKeys;
 }
 
 - (BOOL)systemGroupContainerIdIsWellknown:(id)wellknown
 {
-  v9 = *MEMORY[0x1E69E9840];
   wellknownCopy = wellknown;
   systemGroupEntitlementBypassList = [(MCMEntitlementBypassList *)self systemGroupEntitlementBypassList];
   v6 = [systemGroupEntitlementBypassList valueForKey:wellknownCopy];
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6 != 0;
 }
 
 - (id)wellknownSystemGroupContainerForId:(id)id
 {
-  v9 = *MEMORY[0x1E69E9840];
   idCopy = id;
   systemGroupEntitlementBypassList = [(MCMEntitlementBypassList *)self systemGroupEntitlementBypassList];
   v6 = [systemGroupEntitlementBypassList valueForKey:idCopy];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 - (id)wellknownSystemContainers
 {
-  v6 = *MEMORY[0x1E69E9840];
   systemEntitlementBypassList = [(MCMEntitlementBypassList *)self systemEntitlementBypassList];
   allKeys = [systemEntitlementBypassList allKeys];
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return allKeys;
 }
 
 - (BOOL)systemContainerIdIsWellknown:(id)wellknown
 {
-  v9 = *MEMORY[0x1E69E9840];
   wellknownCopy = wellknown;
   systemEntitlementBypassList = [(MCMEntitlementBypassList *)self systemEntitlementBypassList];
   v6 = [systemEntitlementBypassList valueForKey:wellknownCopy];
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6 != 0;
 }
 
 - (id)wellknownSystemContainerForId:(id)id
 {
-  v9 = *MEMORY[0x1E69E9840];
   idCopy = id;
   systemEntitlementBypassList = [(MCMEntitlementBypassList *)self systemEntitlementBypassList];
   v6 = [systemEntitlementBypassList valueForKey:idCopy];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 - (MCMEntitlementBypassList)initWithSystemContainerMapping:(id)mapping systemGroupContainerMapping:(id)containerMapping bypassListedCodeSignIdentifierMapping:(id)identifierMapping
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   mappingCopy = mapping;
   containerMappingCopy = containerMapping;
   identifierMappingCopy = identifierMapping;
-  v17.receiver = self;
-  v17.super_class = MCMEntitlementBypassList;
-  v11 = [(MCMEntitlementBypassList *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = MCMEntitlementBypassList;
+  v11 = [(MCMEntitlementBypassList *)&v16 init];
   v12 = v11;
   if (v11)
   {
@@ -371,47 +318,46 @@ LABEL_7:
     v12->_bypassListedLookupByCodeSignIdentifier = v13;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 void __44__MCMEntitlementBypassList_sharedBypassList__block_invoke()
 {
-  v23[9] = *MEMORY[0x1E69E9840];
-  v22[0] = @"com.apple.mobile.MobileHouseArrest";
-  v15 = [MEMORY[0x1E695DFB0] null];
-  v23[0] = v15;
-  v22[1] = @"com.apple.accountsd";
-  v20 = &unk_1F5A76540;
-  v21 = &unk_1F5A76FD8;
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
-  v23[1] = v0;
-  v22[2] = @"com.apple.itunescloudd";
+  v22[9] = *MEMORY[0x1E69E9840];
+  v21[0] = @"com.apple.mobile.MobileHouseArrest";
+  v14 = [MEMORY[0x1E695DFB0] null];
+  v22[0] = v14;
+  v21[1] = @"com.apple.accountsd";
+  v19 = &unk_1F5A76540;
+  v20 = &unk_1F5A76FD8;
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+  v22[1] = v0;
+  v21[2] = @"com.apple.itunescloudd";
   v1 = [MEMORY[0x1E695DFB0] null];
-  v23[2] = v1;
-  v22[3] = @"com.apple.CacheDeleteDaily";
+  v22[2] = v1;
+  v21[3] = @"com.apple.CacheDeleteDaily";
   v2 = [MEMORY[0x1E695DFB0] null];
-  v23[3] = v2;
-  v22[4] = @"com.apple.Safari.History";
-  v18 = &unk_1F5A76558;
-  v19 = &unk_1F5A76FF0;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
-  v23[4] = v3;
-  v22[5] = @"com.apple.mobile_installation_proxy";
+  v22[3] = v2;
+  v21[4] = @"com.apple.Safari.History";
+  v17 = &unk_1F5A76558;
+  v18 = &unk_1F5A76FF0;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+  v22[4] = v3;
+  v21[5] = @"com.apple.mobile_installation_proxy";
   v4 = [MEMORY[0x1E695DFB0] null];
-  v23[5] = v4;
-  v22[6] = @"com.apple.AppPredictionWidget.extension";
+  v22[5] = v4;
+  v21[6] = @"com.apple.AppPredictionWidget.extension";
   v5 = [MEMORY[0x1E695DFB0] null];
-  v23[6] = v5;
-  v22[7] = @"com.apple.Maps.Widget";
-  v16 = &unk_1F5A76558;
-  v17 = &unk_1F5A77008;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-  v23[7] = v6;
-  v22[8] = @"com.apple.filecoordinationd";
+  v22[6] = v5;
+  v21[7] = @"com.apple.Maps.Widget";
+  v15 = &unk_1F5A76558;
+  v16 = &unk_1F5A77008;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+  v22[7] = v6;
+  v21[8] = @"com.apple.filecoordinationd";
   v7 = [MEMORY[0x1E695DFB0] null];
-  v23[8] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:9];
+  v22[8] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:9];
 
   v9 = containermanager_copy_global_configuration();
   LODWORD(v0) = [v9 isInternalImage];
@@ -431,8 +377,6 @@ void __44__MCMEntitlementBypassList_sharedBypassList__block_invoke()
   v12 = [[MCMEntitlementBypassList alloc] initWithSystemContainerMapping:&unk_1F5A75A50 systemGroupContainerMapping:v11 bypassListedCodeSignIdentifierMapping:v8];
   v13 = sharedBypassList_sharedInstance;
   sharedBypassList_sharedInstance = v12;
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 @end

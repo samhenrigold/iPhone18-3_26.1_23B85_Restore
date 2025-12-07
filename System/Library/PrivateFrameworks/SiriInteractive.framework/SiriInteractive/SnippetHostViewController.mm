@@ -44,13 +44,14 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_267524B98();
+  sub_267524B98(delegate);
 }
 
 - (void)setPresentationMode:(unsigned int)mode
 {
+  v3 = *&mode;
   selfCopy = self;
-  sub_267524EDC(mode);
+  sub_267524EDC(v3);
 }
 
 - (_TtC15SiriInteractive12SceneMetrics)resolvedMetrics
@@ -101,13 +102,14 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_2675264C0();
+  sub_2675264C0(selfCopy);
 }
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_267526660(appear);
+  sub_267526660(appearCopy);
 }
 
 - (void)willTransitionToTraitCollection:(id)collection withTransitionCoordinator:(id)coordinator
@@ -130,7 +132,7 @@
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_267526AB0();
+  sub_267526AB0(selfCopy);
 }
 
 - (void)traitCollectionDidChange:(id)change
@@ -153,7 +155,7 @@
 - (void)invalidate
 {
   selfCopy = self;
-  sub_267527CF4();
+  sub_267527CF4(selfCopy);
 }
 
 - (NSString)description
@@ -168,8 +170,9 @@
 
 - (void)setShouldShareTouchesWithHost:(BOOL)host
 {
+  hostCopy = host;
   selfCopy = self;
-  sub_267528828(host);
+  sub_267528828(hostCopy);
 }
 
 - (id)cancelTouchesForCurrentEventInHostedContent
@@ -238,7 +241,7 @@
 {
   layersCopy = layers;
   selfCopy = self;
-  SnippetHostViewController.sceneLayerManagerDidUpdateLayers(_:)();
+  SnippetHostViewController.sceneLayerManagerDidUpdateLayers(_:)(selfCopy, v5);
 }
 
 - (void)sceneLayerManagerDidStopTrackingLayers:(id)layers
@@ -252,7 +255,7 @@
 {
   layersCopy = layers;
   selfCopy = self;
-  SnippetHostViewController.sceneLayerManagerDidStartTrackingLayers(_:)();
+  SnippetHostViewController.sceneLayerManagerDidStartTrackingLayers(_:)(selfCopy, v5);
 }
 
 - (void)presentationControllerDidDismiss:(id)dismiss

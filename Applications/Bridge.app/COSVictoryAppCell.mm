@@ -25,7 +25,7 @@
 
 - (id)partnerAppStoreIdentifier
 {
-  v2 = sub_1000E63CC();
+  v2 = sub_1000E63CC(self);
 
   return [NSNumber numberWithInteger:v2];
 }
@@ -34,33 +34,33 @@
 {
   if (PBIsInternalInstall())
   {
-    v0 = +[NSUserDefaults standardUserDefaults];
-    v1 = [v0 stringForKey:@"BundleID"];
+    v1 = +[NSUserDefaults standardUserDefaults];
+    v2 = [v1 stringForKey:@"BundleID"];
 
-    if (v1)
+    if (v2)
     {
-      v2 = v1;
-      v3 = pbb_bridge_log();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      v3 = v2;
+      v4 = pbb_bridge_log();
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
-        v5 = 138412290;
-        v6 = v2;
-        _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "(NRC) Overriding bundleID %@", &v5, 0xCu);
+        v6 = 138412290;
+        v7 = v3;
+        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "(NRC) Overriding bundleID %@", &v6, 0xCu);
       }
     }
 
     else
     {
-      v2 = @"com.nike.nikeplus-gps";
+      v3 = @"com.nike.nikeplus-gps";
     }
   }
 
   else
   {
-    v2 = @"com.nike.nikeplus-gps";
+    v3 = @"com.nike.nikeplus-gps";
   }
 
-  return v2;
+  return v3;
 }
 
 @end

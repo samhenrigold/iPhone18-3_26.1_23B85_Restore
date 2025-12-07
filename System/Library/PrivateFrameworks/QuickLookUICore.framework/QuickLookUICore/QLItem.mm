@@ -8,6 +8,7 @@
 + (id)supportedContentTypeIdentifiers;
 + (id)supportedContentTypes;
 + (id)webContentTypes;
++ (unint64_t)_previewExtensionKindForContentType:(id)type firstPartyExtension:(BOOL)extension;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isPromisedItem;
 - (BOOL)shouldCreateTemporaryDirectoryInHost;
@@ -477,197 +478,30 @@
     previewItemURL2 = [v5 previewItemURL];
     v8 = __18__QLItem_isEqual___block_invoke(previewItemURL2, previewItemURL, previewItemURL2);
 
-    if (!v8)
-    {
-      goto LABEL_28;
-    }
-
-    previewItemData = [(QLItem *)self previewItemData];
-    previewItemData2 = [v5 previewItemData];
-    v11 = __18__QLItem_isEqual___block_invoke(previewItemData2, previewItemData, previewItemData2);
-
-    if (!v11)
-    {
-      goto LABEL_28;
-    }
-
-    fpItem = [(QLItem *)self fpItem];
-    fpItem2 = [v5 fpItem];
-    v14 = __18__QLItem_isEqual___block_invoke(fpItem2, fpItem, fpItem2);
-
-    if (!v14)
-    {
-      goto LABEL_28;
-    }
-
-    relativePath = [(QLItem *)self relativePath];
-    relativePath2 = [v5 relativePath];
-    v17 = __18__QLItem_isEqual___block_invoke(relativePath2, relativePath, relativePath2);
-
-    if (!v17)
-    {
-      goto LABEL_28;
-    }
-
-    previewItemProvider = [(QLItem *)self previewItemProvider];
-    previewItemProvider2 = [v5 previewItemProvider];
-    v20 = __18__QLItem_isEqual___block_invoke(previewItemProvider2, previewItemProvider, previewItemProvider2);
-
-    if (!v20)
-    {
-      goto LABEL_28;
-    }
-
-    itemSize = [(QLItem *)self itemSize];
-    itemSize2 = [v5 itemSize];
-    v23 = __18__QLItem_isEqual___block_invoke(itemSize2, itemSize, itemSize2);
-
-    if (!v23)
-    {
-      goto LABEL_28;
-    }
-
-    previewItemContentType = [(QLItem *)self previewItemContentType];
-    previewItemContentType2 = [v5 previewItemContentType];
-    v26 = __18__QLItem_isEqual___block_invoke(previewItemContentType2, previewItemContentType, previewItemContentType2);
-
-    if (!v26)
-    {
-      goto LABEL_28;
-    }
-
-    backgroundColorOverride = [(QLItem *)self backgroundColorOverride];
-    backgroundColorOverride2 = [v5 backgroundColorOverride];
-    v29 = __18__QLItem_isEqual___block_invoke(backgroundColorOverride2, backgroundColorOverride, backgroundColorOverride2);
-
-    if (!v29)
-    {
-      goto LABEL_28;
-    }
-
-    previewItemTitle = [(QLItem *)self previewItemTitle];
-    previewItemTitle2 = [v5 previewItemTitle];
-    v32 = __18__QLItem_isEqual___block_invoke(previewItemTitle2, previewItemTitle, previewItemTitle2);
-
-    if (!v32)
-    {
-      goto LABEL_28;
-    }
-
-    editedFileURL = [(QLItem *)self editedFileURL];
-    editedFileURL2 = [v5 editedFileURL];
-    v35 = __18__QLItem_isEqual___block_invoke(editedFileURL2, editedFileURL, editedFileURL2);
-
-    if (!v35)
-    {
-      goto LABEL_28;
-    }
-
-    password = [(QLItem *)self password];
-    password2 = [v5 password];
-    v38 = __18__QLItem_isEqual___block_invoke(password2, password, password2);
-
-    if (!v38)
-    {
-      goto LABEL_28;
-    }
-
-    uuid = [(QLItem *)self uuid];
-    uuid2 = [v5 uuid];
-    v41 = __18__QLItem_isEqual___block_invoke(uuid2, uuid, uuid2);
-
-    if (!v41)
-    {
-      goto LABEL_28;
-    }
-
-    previewItemDataProvider = [(QLItem *)self previewItemDataProvider];
-    previewItemDataProvider2 = [v5 previewItemDataProvider];
-
-    if (previewItemDataProvider != previewItemDataProvider2)
-    {
-      goto LABEL_28;
-    }
-
-    previewItemType = [(QLItem *)self previewItemType];
-    if (previewItemType != [v5 previewItemType])
-    {
-      goto LABEL_28;
-    }
-
-    processIdentifier = [(QLItem *)self processIdentifier];
-    if (processIdentifier != [v5 processIdentifier])
-    {
-      goto LABEL_28;
-    }
-
-    isPromisedItem = [(QLItem *)self isPromisedItem];
-    if (isPromisedItem != [v5 isPromisedItem])
-    {
-      goto LABEL_28;
-    }
-
-    useFullPDFTransition = [(QLItem *)self useFullPDFTransition];
-    if (useFullPDFTransition != [v5 useFullPDFTransition])
-    {
-      goto LABEL_28;
-    }
-
-    useLoadingTimeout = [(QLItem *)self useLoadingTimeout];
-    if (useLoadingTimeout != [v5 useLoadingTimeout])
-    {
-      goto LABEL_28;
-    }
-
-    wantsPreviewInDebugViewController = [(QLItem *)self wantsPreviewInDebugViewController];
-    if (wantsPreviewInDebugViewController != [v5 wantsPreviewInDebugViewController])
-    {
-      goto LABEL_28;
-    }
-
-    sandboxingURLWrapper = [(QLItem *)self sandboxingURLWrapper];
-    v51 = [sandboxingURLWrapper url];
-    sandboxingURLWrapper2 = [v5 sandboxingURLWrapper];
-    v53 = [sandboxingURLWrapper2 url];
-    v54 = __18__QLItem_isEqual___block_invoke(v53, v51, v53);
-
-    if (!v54)
-    {
-      goto LABEL_28;
-    }
-
-    searchableItemIdentifier = [(QLItem *)self searchableItemIdentifier];
-    searchableItemIdentifier2 = [v5 searchableItemIdentifier];
-    v57 = __18__QLItem_isEqual___block_invoke(searchableItemIdentifier2, searchableItemIdentifier, searchableItemIdentifier2);
-
-    if (!v57)
-    {
-      goto LABEL_28;
-    }
-
-    spotlightQueryString = [(QLItem *)self spotlightQueryString];
-    spotlightQueryString2 = [v5 spotlightQueryString];
-    v60 = __18__QLItem_isEqual___block_invoke(spotlightQueryString2, spotlightQueryString, spotlightQueryString2);
-
-    if (!v60)
-    {
-      goto LABEL_28;
-    }
-
-    searchableItemApplicationBundleIdentifier = [(QLItem *)self searchableItemApplicationBundleIdentifier];
-    searchableItemApplicationBundleIdentifier2 = [v5 searchableItemApplicationBundleIdentifier];
-    v63 = __18__QLItem_isEqual___block_invoke(searchableItemApplicationBundleIdentifier2, searchableItemApplicationBundleIdentifier, searchableItemApplicationBundleIdentifier2);
-
-    if (!v63)
-    {
-      goto LABEL_28;
-    }
-
-    previewItemProviderProgress = [(QLItem *)self previewItemProviderProgress];
-    previewItemProviderProgress2 = [v5 previewItemProviderProgress];
-    v66 = __18__QLItem_isEqual___block_invoke(previewItemProviderProgress2, previewItemProviderProgress, previewItemProviderProgress2);
-
-    if (v66)
+    if (v8
+      && (-[QLItem previewItemData](self, "previewItemData"), v9 = objc_claimAutoreleasedReturnValue(), [v5 previewItemData], v10 = objc_claimAutoreleasedReturnValue(), v11 = __18__QLItem_isEqual___block_invoke(v10, v9, v10), v10, v9, v11)
+      && (-[QLItem fpItem](self, "fpItem"), v12 = objc_claimAutoreleasedReturnValue(), [v5 fpItem], v13 = objc_claimAutoreleasedReturnValue(), v14 = __18__QLItem_isEqual___block_invoke(v13, v12, v13), v13, v12, v14)
+      && (-[QLItem relativePath](self, "relativePath"), v15 = objc_claimAutoreleasedReturnValue(), [v5 relativePath], v16 = objc_claimAutoreleasedReturnValue(), v17 = __18__QLItem_isEqual___block_invoke(v16, v15, v16), v16, v15, v17)
+      && (-[QLItem previewItemProvider](self, "previewItemProvider"), v18 = objc_claimAutoreleasedReturnValue(), [v5 previewItemProvider], v19 = objc_claimAutoreleasedReturnValue(), v20 = __18__QLItem_isEqual___block_invoke(v19, v18, v19), v19, v18, v20)
+      && (-[QLItem itemSize](self, "itemSize"), v21 = objc_claimAutoreleasedReturnValue(), [v5 itemSize], v22 = objc_claimAutoreleasedReturnValue(), v23 = __18__QLItem_isEqual___block_invoke(v22, v21, v22), v22, v21, v23)
+      && (-[QLItem previewItemContentType](self, "previewItemContentType"), v24 = objc_claimAutoreleasedReturnValue(), [v5 previewItemContentType], v25 = objc_claimAutoreleasedReturnValue(), v26 = __18__QLItem_isEqual___block_invoke(v25, v24, v25), v25, v24, v26)
+      && (-[QLItem backgroundColorOverride](self, "backgroundColorOverride"), v27 = objc_claimAutoreleasedReturnValue(), [v5 backgroundColorOverride], v28 = objc_claimAutoreleasedReturnValue(), v29 = __18__QLItem_isEqual___block_invoke(v28, v27, v28), v28, v27, v29)
+      && (-[QLItem previewItemTitle](self, "previewItemTitle"), v30 = objc_claimAutoreleasedReturnValue(), [v5 previewItemTitle], v31 = objc_claimAutoreleasedReturnValue(), v32 = __18__QLItem_isEqual___block_invoke(v31, v30, v31), v31, v30, v32)
+      && (-[QLItem editedFileURL](self, "editedFileURL"), v33 = objc_claimAutoreleasedReturnValue(), [v5 editedFileURL], v34 = objc_claimAutoreleasedReturnValue(), v35 = __18__QLItem_isEqual___block_invoke(v34, v33, v34), v34, v33, v35)
+      && (-[QLItem password](self, "password"), v36 = objc_claimAutoreleasedReturnValue(), [v5 password], v37 = objc_claimAutoreleasedReturnValue(), v38 = __18__QLItem_isEqual___block_invoke(v37, v36, v37), v37, v36, v38)
+      && (-[QLItem uuid](self, "uuid"), v39 = objc_claimAutoreleasedReturnValue(), [v5 uuid], v40 = objc_claimAutoreleasedReturnValue(), v41 = __18__QLItem_isEqual___block_invoke(v40, v39, v40), v40, v39, v41)
+      && (-[QLItem previewItemDataProvider](self, "previewItemDataProvider"), v42 = objc_claimAutoreleasedReturnValue(), [v5 previewItemDataProvider], v43 = objc_claimAutoreleasedReturnValue(), v43, v42, v42 == v43)
+      && (v44 = -[QLItem previewItemType](self, "previewItemType"), v44 == [v5 previewItemType])
+      && (v45 = -[QLItem processIdentifier](self, "processIdentifier"), v45 == [v5 processIdentifier])
+      && (v46 = -[QLItem isPromisedItem](self, "isPromisedItem"), v46 == [v5 isPromisedItem])
+      && (v47 = -[QLItem useFullPDFTransition](self, "useFullPDFTransition"), v47 == [v5 useFullPDFTransition])
+      && (v48 = -[QLItem useLoadingTimeout](self, "useLoadingTimeout"), v48 == [v5 useLoadingTimeout])
+      && (v49 = -[QLItem wantsPreviewInDebugViewController](self, "wantsPreviewInDebugViewController"), v49 == [v5 wantsPreviewInDebugViewController])
+      && (-[QLItem sandboxingURLWrapper](self, "sandboxingURLWrapper"), v50 = objc_claimAutoreleasedReturnValue(), [v50 url], v51 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "sandboxingURLWrapper"), v52 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v52, "url"), v53 = objc_claimAutoreleasedReturnValue(), v54 = __18__QLItem_isEqual___block_invoke(v53, v51, v53), v53, v52, v51, v50, v54)
+      && (-[QLItem searchableItemIdentifier](self, "searchableItemIdentifier"), v55 = objc_claimAutoreleasedReturnValue(), [v5 searchableItemIdentifier], v56 = objc_claimAutoreleasedReturnValue(), v57 = __18__QLItem_isEqual___block_invoke(v56, v55, v56), v56, v55, v57)
+      && (-[QLItem spotlightQueryString](self, "spotlightQueryString"), v58 = objc_claimAutoreleasedReturnValue(), [v5 spotlightQueryString], v59 = objc_claimAutoreleasedReturnValue(), v60 = __18__QLItem_isEqual___block_invoke(v59, v58, v59), v59, v58, v60)
+      && (-[QLItem searchableItemApplicationBundleIdentifier](self, "searchableItemApplicationBundleIdentifier"), v61 = objc_claimAutoreleasedReturnValue(), [v5 searchableItemApplicationBundleIdentifier], v62 = objc_claimAutoreleasedReturnValue(), v63 = __18__QLItem_isEqual___block_invoke(v62, v61, v62), v62, v61, v63)
+      && (-[QLItem previewItemProviderProgress](self, "previewItemProviderProgress"), v64 = objc_claimAutoreleasedReturnValue(), [v5 previewItemProviderProgress], v65 = objc_claimAutoreleasedReturnValue(), v66 = __18__QLItem_isEqual___block_invoke(v65, v64, v65), v65, v64, v66))
     {
       clientPreviewOptions = [(QLItem *)self clientPreviewOptions];
       clientPreviewOptions2 = [v5 clientPreviewOptions];
@@ -676,7 +510,6 @@
 
     else
     {
-LABEL_28:
       v69 = 0;
     }
   }
@@ -1461,7 +1294,7 @@ LABEL_13:
 
 - (unint64_t)previewItemType
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   result = self->_previewItemType;
   if (!result)
   {
@@ -1477,59 +1310,54 @@ LABEL_13:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       previewItemType = self->_previewItemType;
-      v8 = 138412546;
+      v7 = 138412546;
       selfCopy = self;
-      v10 = 2048;
-      v11 = previewItemType;
-      _os_log_impl(&dword_261653000, v5, OS_LOG_TYPE_INFO, "Determined preview item type of item (%@) - Preview type is %lu #PreviewItem", &v8, 0x16u);
+      v9 = 2048;
+      v10 = previewItemType;
+      _os_log_impl(&dword_261653000, v5, OS_LOG_TYPE_INFO, "Determined preview item type of item (%@) - Preview type is %lu #PreviewItem", &v7, 0x16u);
     }
 
-    result = self->_previewItemType;
+    return self->_previewItemType;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (unint64_t)generatedPreviewItemType
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   generatedItemContentType = [(QLItem *)self generatedItemContentType];
 
-  if (generatedItemContentType)
+  if (!generatedItemContentType)
   {
-    result = self->_generatedPreviewItemType;
-    if (!result)
+    return 0;
+  }
+
+  result = self->_generatedPreviewItemType;
+  if (!result)
+  {
+    self->_generatedPreviewItemType = [(QLItem *)self _getGeneratedItemType];
+    v5 = *MEMORY[0x277D43EF8];
+    if (!*MEMORY[0x277D43EF8])
     {
-      self->_generatedPreviewItemType = [(QLItem *)self _getGeneratedItemType];
-      v5 = *MEMORY[0x277D43EF8];
-      if (!*MEMORY[0x277D43EF8])
-      {
-        v8 = MEMORY[0x277D43EF8];
-        QLSInitLogging();
-        v5 = *v8;
-      }
-
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
-      {
-        generatedPreviewItemType = self->_generatedPreviewItemType;
-        v9 = 138412546;
-        selfCopy = self;
-        v11 = 2048;
-        v12 = generatedPreviewItemType;
-        _os_log_impl(&dword_261653000, v5, OS_LOG_TYPE_DEBUG, "Determined generated preview item type of item (%@) - Generated preview type is %lu #PreviewItem", &v9, 0x16u);
-      }
-
-      result = self->_generatedPreviewItemType;
+      v7 = MEMORY[0x277D43EF8];
+      QLSInitLogging();
+      v5 = *v7;
     }
+
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    {
+      generatedPreviewItemType = self->_generatedPreviewItemType;
+      v8 = 138412546;
+      selfCopy = self;
+      v10 = 2048;
+      v11 = generatedPreviewItemType;
+      _os_log_impl(&dword_261653000, v5, OS_LOG_TYPE_DEBUG, "Determined generated preview item type of item (%@) - Generated preview type is %lu #PreviewItem", &v8, 0x16u);
+    }
+
+    return self->_generatedPreviewItemType;
   }
 
-  else
-  {
-    result = 0;
-  }
-
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1581,7 +1409,7 @@ LABEL_13:
 
 - (NSNumber)internalShouldCreateTemporaryDirectoryInHost
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (!self->_internalShouldCreateTemporaryDirectoryInHost)
   {
     previewItemURL = [(QLItem *)self previewItemURL];
@@ -1600,9 +1428,9 @@ LABEL_13:
       {
         v6 = v5;
         v7 = [(QLItem *)self description];
-        v15 = 138412290;
-        v16 = v7;
-        _os_log_impl(&dword_261653000, v6, OS_LOG_TYPE_DEFAULT, "QLPreviewItem has an url, create a tmp dir in the host: %@ #PreviewItem", &v15, 0xCu);
+        v14 = 138412290;
+        v15 = v7;
+        _os_log_impl(&dword_261653000, v6, OS_LOG_TYPE_DEFAULT, "QLPreviewItem has an url, create a tmp dir in the host: %@ #PreviewItem", &v14, 0xCu);
       }
 
       v8 = MEMORY[0x277CBEC38];
@@ -1620,9 +1448,9 @@ LABEL_13:
       {
         v9 = v5;
         v10 = [(QLItem *)self description];
-        v15 = 138412290;
-        v16 = v10;
-        _os_log_impl(&dword_261653000, v9, OS_LOG_TYPE_DEFAULT, "QLPreviewItem has no url yet, don't create a tmp dir in the host: %@ #PreviewItem", &v15, 0xCu);
+        v14 = 138412290;
+        v15 = v10;
+        _os_log_impl(&dword_261653000, v9, OS_LOG_TYPE_DEFAULT, "QLPreviewItem has no url yet, don't create a tmp dir in the host: %@ #PreviewItem", &v14, 0xCu);
       }
 
       v8 = MEMORY[0x277CBEC28];
@@ -1633,7 +1461,6 @@ LABEL_13:
   }
 
   v12 = self->_internalShouldCreateTemporaryDirectoryInHost;
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -1905,7 +1732,7 @@ void __44__QLItem_PreviewInfo__supportedContentTypes__block_invoke(uint64_t a1)
 
 void __38__QLItem_PreviewInfo__webContentTypes__block_invoke()
 {
-  v8[3] = *MEMORY[0x277D85DE8];
+  v7[3] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CBEB58] set];
   v1 = webContentTypes_sSet;
   webContentTypes_sSet = v0;
@@ -1916,13 +1743,11 @@ void __38__QLItem_PreviewInfo__webContentTypes__block_invoke()
 
   v4 = webContentTypes_sSet;
   v5 = *MEMORY[0x277CE1DA0];
-  v8[0] = *MEMORY[0x277CE1E68];
-  v8[1] = v5;
-  v8[2] = *MEMORY[0x277CE1ED8];
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:3];
+  v7[0] = *MEMORY[0x277CE1E68];
+  v7[1] = v5;
+  v7[2] = *MEMORY[0x277CE1ED8];
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:3];
   [v4 addObjectsFromArray:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (id)rtfContentTypes
@@ -1972,52 +1797,52 @@ uint64_t __38__QLItem_PreviewInfo__rtfContentTypes__block_invoke()
 
 void __49__QLItem_PreviewInfo__contentTypesToPreviewTypes__block_invoke()
 {
-  v60[15] = *MEMORY[0x277D85DE8];
+  v59[15] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CE1D20];
-  v59[0] = *MEMORY[0x277CE1E08];
-  v59[1] = v0;
-  v60[0] = &unk_2873F31B0;
-  v60[1] = &unk_2873F31C8;
+  v58[0] = *MEMORY[0x277CE1E08];
+  v58[1] = v0;
+  v59[0] = &unk_2873F31B0;
+  v59[1] = &unk_2873F31C8;
   v1 = *MEMORY[0x277CE1CF8];
-  v59[2] = *MEMORY[0x277CE1EB8];
-  v59[3] = v1;
-  v60[2] = &unk_2873F31E0;
-  v60[3] = &unk_2873F31F8;
+  v58[2] = *MEMORY[0x277CE1EB8];
+  v58[3] = v1;
+  v59[2] = &unk_2873F31E0;
+  v59[3] = &unk_2873F31F8;
   v2 = *MEMORY[0x277CE1E50];
-  v59[4] = *MEMORY[0x277CE1E20];
-  v59[5] = v2;
-  v60[4] = &unk_2873F3210;
-  v60[5] = &unk_2873F3210;
+  v58[4] = *MEMORY[0x277CE1E20];
+  v58[5] = v2;
+  v59[4] = &unk_2873F3210;
+  v59[5] = &unk_2873F3210;
   v3 = *MEMORY[0x277CE1D78];
-  v59[6] = *MEMORY[0x277CE1E58];
-  v59[7] = v3;
-  v60[6] = &unk_2873F3210;
-  v60[7] = &unk_2873F3210;
+  v58[6] = *MEMORY[0x277CE1E58];
+  v58[7] = v3;
+  v59[6] = &unk_2873F3210;
+  v59[7] = &unk_2873F3210;
   v4 = *MEMORY[0x277CE1DD0];
-  v59[8] = *MEMORY[0x277CE1DC8];
-  v59[9] = v4;
-  v60[8] = &unk_2873F3210;
-  v60[9] = &unk_2873F3228;
+  v58[8] = *MEMORY[0x277CE1DC8];
+  v58[9] = v4;
+  v59[8] = &unk_2873F3210;
+  v59[9] = &unk_2873F3228;
   v5 = *MEMORY[0x277CE1DA0];
-  v59[10] = *MEMORY[0x277CE1E68];
-  v59[11] = v5;
-  v60[10] = &unk_2873F3240;
-  v60[11] = &unk_2873F3240;
+  v58[10] = *MEMORY[0x277CE1E68];
+  v58[11] = v5;
+  v59[10] = &unk_2873F3240;
+  v59[11] = &unk_2873F3240;
   v6 = *MEMORY[0x277CE1E38];
-  v59[12] = *MEMORY[0x277CE1ED8];
-  v59[13] = v6;
-  v60[12] = &unk_2873F3240;
-  v60[13] = &unk_2873F3210;
-  v59[14] = *MEMORY[0x277CE1EF0];
-  v60[14] = &unk_2873F3210;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v60 forKeys:v59 count:15];
+  v58[12] = *MEMORY[0x277CE1ED8];
+  v58[13] = v6;
+  v59[12] = &unk_2873F3240;
+  v59[13] = &unk_2873F3210;
+  v58[14] = *MEMORY[0x277CE1EF0];
+  v59[14] = &unk_2873F3210;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:v58 count:15];
   v8 = [v7 mutableCopy];
   v9 = contentTypesToPreviewTypes_sSupportedTypes;
   contentTypesToPreviewTypes_sSupportedTypes = v8;
 
   v10 = [MEMORY[0x277CE1CB8] typeWithIdentifier:@"com.apple.web-internet-location"];
   v11 = MEMORY[0x277D43EF8];
-  v41 = v10;
+  v40 = v10;
   if (v10)
   {
     [contentTypesToPreviewTypes_sSupportedTypes setObject:&unk_2873F3258 forKeyedSubscript:v10];
@@ -2040,10 +1865,10 @@ void __49__QLItem_PreviewInfo__contentTypesToPreviewTypes__block_invoke()
   }
 
   v13 = [MEMORY[0x277CE1CB8] typeWithIdentifier:@"public.ndjson"];
-  v40 = v13;
+  v39 = v13;
   if (v13)
   {
-    [contentTypesToPreviewTypes_sSupportedTypes setObject:&unk_2873F3210 forKeyedSubscript:{v13, v13, v41}];
+    [contentTypesToPreviewTypes_sSupportedTypes setObject:&unk_2873F3210 forKeyedSubscript:{v13, v13, v40}];
   }
 
   else
@@ -2067,27 +1892,27 @@ void __49__QLItem_PreviewInfo__contentTypesToPreviewTypes__block_invoke()
     [contentTypesToPreviewTypes_sSupportedTypes setObject:&unk_2873F3270 forKeyedSubscript:*MEMORY[0x277CE1CD8]];
   }
 
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
   v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
   v15 = CGImageSourceCopyTypeIdentifiers();
-  v16 = [(__CFArray *)v15 countByEnumeratingWithState:&v50 objects:v58 count:16];
+  v16 = [(__CFArray *)v15 countByEnumeratingWithState:&v49 objects:v57 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v51;
+    v18 = *v50;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v51 != v18)
+        if (*v50 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v50 + 1) + 8 * i);
-        v21 = [MEMORY[0x277CE1CB8] typeWithIdentifier:{v20, v40}];
+        v20 = *(*(&v49 + 1) + 8 * i);
+        v21 = [MEMORY[0x277CE1CB8] typeWithIdentifier:{v20, v39}];
         if (v21)
         {
           [contentTypesToPreviewTypes_sSupportedTypes setObject:&unk_2873F3288 forKeyedSubscript:v21];
@@ -2105,39 +1930,39 @@ void __49__QLItem_PreviewInfo__contentTypesToPreviewTypes__block_invoke()
           if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v57 = v20;
+            v56 = v20;
             _os_log_impl(&dword_261653000, v22, OS_LOG_TYPE_DEBUG, "Invalid UTI %@ returned by CGImageSourceCopyTypeIdentifiers() #UTI", buf, 0xCu);
           }
         }
       }
 
-      v17 = [(__CFArray *)v15 countByEnumeratingWithState:&v50 objects:v58 count:16];
+      v17 = [(__CFArray *)v15 countByEnumeratingWithState:&v49 objects:v57 count:16];
     }
 
     while (v17);
   }
 
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   v23 = [MEMORY[0x277CE6650] audiovisualTypes];
-  v24 = [v23 countByEnumeratingWithState:&v46 objects:v55 count:16];
+  v24 = [v23 countByEnumeratingWithState:&v45 objects:v54 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v47;
+    v26 = *v46;
     do
     {
       for (j = 0; j != v25; ++j)
       {
-        if (*v47 != v26)
+        if (*v46 != v26)
         {
           objc_enumerationMutation(v23);
         }
 
-        v28 = *(*(&v46 + 1) + 8 * j);
-        v29 = [MEMORY[0x277CE1CB8] typeWithIdentifier:{v28, v40}];
+        v28 = *(*(&v45 + 1) + 8 * j);
+        v29 = [MEMORY[0x277CE1CB8] typeWithIdentifier:{v28, v39}];
         if (v29)
         {
           [contentTypesToPreviewTypes_sSupportedTypes setObject:&unk_2873F32A0 forKeyedSubscript:v29];
@@ -2155,39 +1980,39 @@ void __49__QLItem_PreviewInfo__contentTypesToPreviewTypes__block_invoke()
           if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v57 = v28;
+            v56 = v28;
             _os_log_impl(&dword_261653000, v30, OS_LOG_TYPE_DEBUG, "Invalid UTI %@ returned by [AVURLAsset audiovisualTypes] #UTI", buf, 0xCu);
           }
         }
       }
 
-      v25 = [v23 countByEnumeratingWithState:&v46 objects:v55 count:16];
+      v25 = [v23 countByEnumeratingWithState:&v45 objects:v54 count:16];
     }
 
     while (v25);
   }
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   v31 = +[QLPreviewConverter convertibleUTIs];
-  v32 = [v31 countByEnumeratingWithState:&v42 objects:v54 count:16];
+  v32 = [v31 countByEnumeratingWithState:&v41 objects:v53 count:16];
   if (v32)
   {
     v33 = v32;
-    v34 = *v43;
+    v34 = *v42;
     do
     {
       for (k = 0; k != v33; ++k)
       {
-        if (*v43 != v34)
+        if (*v42 != v34)
         {
           objc_enumerationMutation(v31);
         }
 
-        v36 = *(*(&v42 + 1) + 8 * k);
-        v37 = [MEMORY[0x277CE1CB8] typeWithIdentifier:{v36, v40}];
+        v36 = *(*(&v41 + 1) + 8 * k);
+        v37 = [MEMORY[0x277CE1CB8] typeWithIdentifier:{v36, v39}];
         if (v37)
         {
           [contentTypesToPreviewTypes_sSupportedTypes setObject:&unk_2873F3240 forKeyedSubscript:v37];
@@ -2205,25 +2030,24 @@ void __49__QLItem_PreviewInfo__contentTypesToPreviewTypes__block_invoke()
           if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
           {
             *buf = 138412290;
-            v57 = v36;
+            v56 = v36;
             _os_log_impl(&dword_261653000, v38, OS_LOG_TYPE_FAULT, "Invalid UTI %@ returned by [QLPreviewConverter convertibleUTIs] #UTI", buf, 0xCu);
           }
         }
       }
 
-      v33 = [v31 countByEnumeratingWithState:&v42 objects:v54 count:16];
+      v33 = [v31 countByEnumeratingWithState:&v41 objects:v53 count:16];
     }
 
     while (v33);
   }
 
   [contentTypesToPreviewTypes_sSupportedTypes setObject:&unk_2873F3210 forKeyedSubscript:*MEMORY[0x277CE1EE8]];
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)_uncachedExtensionPreviewItemType
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   previewItemContentType = [(QLItem *)self previewItemContentType];
   if (previewItemContentType && ([MEMORY[0x277CE1CB8] typeWithIdentifier:previewItemContentType], v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "_isWildcard"), v4, (v5 & 1) != 0) || (v6 = -[QLItem previewExtensionTypeToUse](self, "previewExtensionTypeToUse"), v6 == 15))
   {
@@ -2237,21 +2061,20 @@ void __49__QLItem_PreviewInfo__contentTypesToPreviewTypes__block_invoke()
 
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412290;
-      v12 = previewItemContentType;
-      _os_log_impl(&dword_261653000, v8, OS_LOG_TYPE_DEFAULT, "Could not determine preview item type because type is wildcard or 3rd party extension not allowed: %@ #PreviewItem", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = previewItemContentType;
+      _os_log_impl(&dword_261653000, v8, OS_LOG_TYPE_DEFAULT, "Could not determine preview item type because type is wildcard or 3rd party extension not allowed: %@ #PreviewItem", &v10, 0xCu);
     }
 
     v6 = 15;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (unint64_t)_uncachedPreviewItemTypeForContentType:(id)type
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   if (typeCopy)
   {
@@ -2264,10 +2087,10 @@ void __49__QLItem_PreviewInfo__contentTypesToPreviewTypes__block_invoke()
   }
 
   v6 = +[QLItem contentTypesToPreviewTypes];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = 15;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 15;
   if ([QLItem contentTypeConformsToRTFD:typeCopy])
   {
     v7 = 4;
@@ -2299,15 +2122,15 @@ void __49__QLItem_PreviewInfo__contentTypesToPreviewTypes__block_invoke()
       v9 = *MEMORY[0x277CE1DC8];
       if (![v5 conformsToType:*MEMORY[0x277CE1DC8]] || (objc_msgSend(v5, "isEqual:", v9) & 1) != 0 || (v7 = -[QLItem _uncachedExtensionPreviewItemType](self, "_uncachedExtensionPreviewItemType"), v7 == 15))
       {
-        v15 = MEMORY[0x277D85DD0];
-        v16 = 3221225472;
-        v17 = __62__QLItem_PreviewInfo___uncachedPreviewItemTypeForContentType___block_invoke;
-        v18 = &unk_279AE14A0;
+        v14 = MEMORY[0x277D85DD0];
+        v15 = 3221225472;
+        v16 = __62__QLItem_PreviewInfo___uncachedPreviewItemTypeForContentType___block_invoke;
+        v17 = &unk_279AE14A0;
         v10 = v5;
-        v19 = v10;
-        v20 = &v21;
-        [v6 enumerateKeysAndObjectsUsingBlock:&v15];
-        v7 = v22[3];
+        v18 = v10;
+        v19 = &v20;
+        [v6 enumerateKeysAndObjectsUsingBlock:&v14];
+        v7 = v21[3];
         if (v7 == 15)
         {
           v11 = MEMORY[0x277D43EF8];
@@ -2321,18 +2144,17 @@ void __49__QLItem_PreviewInfo__contentTypesToPreviewTypes__block_invoke()
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v26 = v10;
+            v25 = v10;
           }
 
-          v7 = [(QLItem *)self _uncachedExtensionPreviewItemType:v15];
+          v7 = [(QLItem *)self _uncachedExtensionPreviewItemType:v14];
         }
       }
     }
   }
 
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v20, 8);
 
-  v13 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -2451,6 +2273,36 @@ uint64_t __47__QLItem_PreviewInfo___previewItemTypeForType___block_invoke()
   _previewItemTypeForType__sCache = objc_alloc_init(MEMORY[0x277CBEB38]);
 
   return MEMORY[0x2821F96F8]();
+}
+
++ (unint64_t)_previewExtensionKindForContentType:(id)type firstPartyExtension:(BOOL)extension
+{
+  extensionCopy = extension;
+  v5 = MEMORY[0x277D43E98];
+  typeCopy = type;
+  sharedManager = [v5 sharedManager];
+  LOBYTE(v11) = 1;
+  v8 = [sharedManager extensionForContentType:typeCopy allowExtensionsForParentTypes:extensionCopy firstPartyExtension:extensionCopy applicationBundleIdentifier:0 extensionPath:0 extensionType:0 generationType:1 shouldUseRestrictedExtension:v11];
+
+  if (v8)
+  {
+    if ([v8 isGenerationPreview])
+    {
+      v9 = 13;
+    }
+
+    else
+    {
+      v9 = 12;
+    }
+  }
+
+  else
+  {
+    v9 = 15;
+  }
+
+  return v9;
 }
 
 - (unint64_t)previewExtensionTypeToUse

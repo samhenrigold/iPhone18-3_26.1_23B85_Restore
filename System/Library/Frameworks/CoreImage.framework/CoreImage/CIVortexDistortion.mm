@@ -133,8 +133,9 @@
   }
 }
 
-double __33__CIVortexDistortion_outputImage__block_invoke(float32x2_t *a1, double a2, CGFloat a3, CGFloat a4, CGFloat a5)
+double __33__CIVortexDistortion_outputImage__block_invoke(float32x2_t *a1, double a2, __n128 a3, CGFloat a4, CGFloat a5)
 {
+  v7 = a3.n128_f64[0];
   v8 = a2;
   v9 = a1[4];
   v10 = a1[5].f32[0];
@@ -142,7 +143,7 @@ double __33__CIVortexDistortion_outputImage__block_invoke(float32x2_t *a1, doubl
   v11 = (v9.f32[0] - v10);
   r2_16 = v9;
   v12 = (v9.f32[1] - v10);
-  v13 = a3;
+  v13 = v7;
   v52.origin.x = v11;
   v52.origin.y = v12;
   v52.size.width = (v10 + v10);
@@ -151,7 +152,7 @@ double __33__CIVortexDistortion_outputImage__block_invoke(float32x2_t *a1, doubl
   if (!CGRectIsEmpty(v46))
   {
     v47.origin.x = v8;
-    v47.origin.y = a3;
+    v47.origin.y = v7;
     v47.size.width = a4;
     v47.size.height = a5;
     v53.origin.x = v11;
@@ -161,7 +162,7 @@ double __33__CIVortexDistortion_outputImage__block_invoke(float32x2_t *a1, doubl
     v14 = CGRectContainsRect(v47, v53);
     v15 = a5;
     v16 = a4;
-    v17 = a3;
+    v17 = v7;
     if (!v14)
     {
       if (v10 >= 300.0)

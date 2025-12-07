@@ -1,5 +1,6 @@
 @interface MBBackupOperationJournal
 + (MBBackupOperationJournal)backupOperationJournalWithBatchSize:(unint64_t)size;
++ (id)driveOperationWithBackupOperationType:(int)type count:(unint64_t)count size:(unint64_t)size;
 - (MBBackupOperationJournal)initWithBatchSize:(unint64_t)size;
 - (id)operationEnumeratorWithDomainManager:(id)manager;
 - (unint64_t)size;
@@ -10,6 +11,54 @@
 
 @implementation MBBackupOperationJournal
 
++ (id)driveOperationWithBackupOperationType:(int)type count:(unint64_t)count size:(unint64_t)size
+{
+  v5 = *&type;
+  if (type > 1)
+  {
+    if (type == 2)
+    {
+      v8 = [MBDriveOperation operationToUploadFilesWithCount:count size:size];
+      goto LABEL_12;
+    }
+
+    if (type != 4)
+    {
+      if (type != 3)
+      {
+        goto LABEL_11;
+      }
+
+LABEL_9:
+      v8 = [MBDriveOperation operationToMoveItemsWithCount:count];
+      goto LABEL_12;
+    }
+
+    goto LABEL_8;
+  }
+
+  if (!type)
+  {
+    goto LABEL_9;
+  }
+
+  if (type == 1)
+  {
+LABEL_8:
+    v8 = [MBDriveOperation operationToRemoveItemsWithCount:count];
+    goto LABEL_12;
+  }
+
+LABEL_11:
+  v9 = +[NSAssertionHandler currentHandler];
+  [v9 handleFailureInMethod:a2 object:self file:@"MBBackupOperationJournal.m" lineNumber:53 description:{@"Invalid backup operation type: %u", v5}];
+
+  v8 = 0;
+LABEL_12:
+
+  return v8;
+}
+
 + (MBBackupOperationJournal)backupOperationJournalWithBatchSize:(unint64_t)size
 {
   v3 = [[MBBackupOperationJournal alloc] initWithBatchSize:size];
@@ -19,7 +68,7 @@
 
 - (MBBackupOperationJournal)initWithBatchSize:(unint64_t)size
 {
-  v5 = sub_100028F5C();
+  v5 = sub_100028F5C(self);
   v6 = [MBEncoder encoderToFile:v5 error:0];
   if (!v6)
   {

@@ -54,7 +54,7 @@
     result = [(THWiOSExpandedMovieViewController *)[(THWiOSExpandedMovieAnimationDelegate *)self movieViewController] freeTransformController];
     if (result)
     {
-      result = [(CGAffineTransform *)result currentTransform];
+      result = objc_msgSend_currentTransform(result);
     }
 
     else

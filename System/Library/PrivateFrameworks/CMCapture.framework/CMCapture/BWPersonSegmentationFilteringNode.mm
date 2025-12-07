@@ -14,75 +14,95 @@
 {
   if (result)
   {
-    v1 = result;
-    v12 = 0;
+    v2 = result;
+    v21 = 0;
     if (*(result + 144))
     {
       return 0;
     }
 
-    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@V%d.bundle", @"/System/Library/VideoProcessors", @"SemanticStyle", 1, v12];
-    v3 = [MEMORY[0x1E696AAE8] bundleWithPath:v2];
-    if (v3)
+    v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@V%d.bundle", @"/System/Library/VideoProcessors", @"SemanticStyle", 1, v21];
+    v4 = [MEMORY[0x1E696AAE8] bundleWithPath:v3];
+    if (v4)
     {
-      v4 = v3;
-      if (![v3 loadAndReturnError:&v12])
+      v5 = v4;
+      if (![v4 loadAndReturnError:&v21])
       {
         return 4294954510;
       }
 
-      v5 = [v4 classNamed:@"FigSemanticStyleFilteringV1"];
-      if (v5)
+      v6 = [v5 classNamed:@"FigSemanticStyleFilteringV1"];
+      if (v6)
       {
-        v6 = v5;
+        v7 = v6;
         metalDevice = [MEMORY[0x1E6991778] metalDevice];
         if (metalDevice)
         {
-          v8 = *(v1 + 168);
-          if (v8 || (v8 = [metalDevice newCommandQueue]) != 0)
+          v9 = *(v2 + 168);
+          if (v9 || (v9 = [metalDevice newCommandQueue]) != 0)
           {
-            v9 = *(v1 + 128);
-            if (v9)
+            v10 = *(v2 + 128);
+            if (v10)
             {
-              if (v9 != 1)
+              if (v10 != 1)
               {
 LABEL_14:
-                v11 = [[v6 alloc] initWithCommandQueue:v8];
-                *(v1 + 144) = v11;
-                [v11 setMaskInterpolationEnabled:*(v1 + 132)];
-                [*(v1 + 144) prepareToProcess:0];
+                v12 = [[v7 alloc] initWithCommandQueue:v9];
+                *(v2 + 144) = v12;
+                [v12 setMaskInterpolationEnabled:*(v2 + 132)];
+                [*(v2 + 144) prepareToProcess:0];
                 return 0;
               }
 
-              v10 = 1;
+              v11 = 1;
             }
 
             else
             {
-              v10 = 4;
+              v11 = 4;
             }
 
-            [v8 setGPUPriority:v10];
+            [v9 setGPUPriority:v11];
             goto LABEL_14;
           }
+
+          OUTLINED_FUNCTION_2_55();
+          OUTLINED_FUNCTION_8_2();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v17, v19, v20, v21, v22, v23, v24, v25);
+          v13 = OUTLINED_FUNCTION_2_55();
+          v16 = 525;
+        }
+
+        else
+        {
+          OUTLINED_FUNCTION_2_55();
+          OUTLINED_FUNCTION_8_2();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v17, v19, v20, v21, v22, v23, v24, v25);
+          v13 = OUTLINED_FUNCTION_2_55();
+          v16 = 520;
         }
       }
 
-      OUTLINED_FUNCTION_2_55();
-      OUTLINED_FUNCTION_8_2();
-      FigDebugAssert3();
-      OUTLINED_FUNCTION_2_55();
+      else
+      {
+        OUTLINED_FUNCTION_2_55();
+        OUTLINED_FUNCTION_8_2();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v17, v19, v20, v21, v22, v23, v24, v25);
+        v13 = OUTLINED_FUNCTION_2_55();
+        v16 = 515;
+      }
     }
 
     else
     {
       OUTLINED_FUNCTION_2_55();
       OUTLINED_FUNCTION_8_2();
-      FigDebugAssert3();
-      OUTLINED_FUNCTION_2_55();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v17, v19, v20, v21, v22, v23, v24, v25);
+      v13 = OUTLINED_FUNCTION_2_55();
+      v16 = 509;
     }
 
-    return FigSignalErrorAtGM();
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v13, 0xFFFFCE0ELL, "<<<< BWPersonSegmentationFilteringNode >>>>", v16, v1, v14, v15, v18);
   }
 
   return result;
@@ -170,14 +190,14 @@ LABEL_14:
 
 - (void)didSelectFormat:(id)format forInput:(id)input forAttachedMediaKey:(id)key
 {
-  if ([key isEqualToString:@"PrimaryFormat"])
+  if (objc_msgSend_isEqualToString_(key, a2, @"PrimaryFormat"))
   {
     output = self->super._output;
 
     [(BWNodeOutput *)output setFormat:format];
   }
 
-  else if ([key isEqualToString:0x1F21AABF0])
+  else if (objc_msgSend_isEqualToString_(key))
   {
     v10 = [(BWNodeOutput *)self->super._output mediaConfigurationForAttachedMediaKey:key];
     v11 = objc_alloc_init(BWVideoFormatRequirements);
@@ -239,7 +259,7 @@ LABEL_14:
     [v10 setFormatRequirements:v11];
   }
 
-  else if (([key isEqualToString:0x1F219EA90] & 1) == 0 && (objc_msgSend(key, "isEqualToString:", 0x1F219EA70) & 1) == 0)
+  else if ((objc_msgSend_isEqualToString_(key) & 1) == 0 && (objc_msgSend_isEqualToString_(key) & 1) == 0)
   {
     v22.receiver = self;
     v22.super_class = BWPersonSegmentationFilteringNode;
@@ -259,15 +279,15 @@ LABEL_14:
 
   if (*MEMORY[0x1E695FF58] == 1)
   {
-    CMSampleBufferGetPresentationTimeStamp(&v48, buffer);
-    time.origin = *&v48.value;
-    *&time.size.width = v48.epoch;
+    CMSampleBufferGetPresentationTimeStamp(&v50, buffer);
+    time.origin = *&v50.value;
+    *&time.size.width = v50.epoch;
     CMTimeGetSeconds(&time);
     kdebug_trace();
   }
 
   [(FigSemanticStyleFilteringV1 *)self->_segmentationMaskFilter finishProcessing];
-  v46 = 0x1F219EA70;
+  v48 = 0x1F219EA70;
   AttachedMedia = BWSampleBufferGetAttachedMedia(buffer, 0x1F219EA70);
   if (AttachedMedia)
   {
@@ -280,7 +300,7 @@ LABEL_14:
   }
 
   v10 = BWSampleBufferGetAttachedMedia(buffer, 0x1F21AABF0);
-  v45 = 0x1F219EA90;
+  v47 = 0x1F219EA90;
   v11 = BWSampleBufferGetAttachedMedia(buffer, 0x1F219EA90);
   if (v11)
   {
@@ -292,15 +312,15 @@ LABEL_14:
     v12 = 0;
   }
 
-  v43 = v10;
+  v45 = v10;
   if (v10)
   {
     v10 = CMSampleBufferGetImageBuffer(v10);
   }
 
   AttachedInferenceResult = BWInferenceGetAttachedInferenceResult(buffer, 105);
-  v14 = [objc_msgSend(AttachedInferenceResult "preventionReason")];
-  v15 = [objc_msgSend(AttachedInferenceResult "preventionReason")];
+  isEqualToString = objc_msgSend_isEqualToString_([AttachedInferenceResult preventionReason]);
+  v15 = objc_msgSend_isEqualToString_([AttachedInferenceResult preventionReason]);
   if (AttachedInferenceResult)
   {
     v16 = [AttachedInferenceResult preventionReason] == 0;
@@ -311,11 +331,11 @@ LABEL_14:
     v16 = 0;
   }
 
-  v17 = v14;
+  v17 = isEqualToString;
   if (!self->_inferencePreviouslyAttached)
   {
     self->_inferencePreviouslyAttached = AttachedInferenceResult != 0;
-    v17 = (AttachedInferenceResult == 0) | v14;
+    v17 = (AttachedInferenceResult == 0) | isEqualToString;
   }
 
   if (((v17 | v15 | v16) & 1) == 0)
@@ -345,7 +365,7 @@ LABEL_76:
 
   if (!v16)
   {
-    if (v14)
+    if (isEqualToString)
     {
       if (self->_frameRateUpsamplingEnabled)
       {
@@ -407,7 +427,7 @@ LABEL_76:
                 width = 1.0;
               }
 
-              [(FigSemanticStyleFilteringV1 *)self->_segmentationMaskFilter setDestinationRectangleInOutputMaskPixelBuffer:y, x, height, width, v43];
+              [(FigSemanticStyleFilteringV1 *)self->_segmentationMaskFilter setDestinationRectangleInOutputMaskPixelBuffer:y, x, height, width, v45];
               [(FigSemanticStyleFilteringV1 *)self->_segmentationMaskFilter setOutputMaskPixelBuffer:v19];
               [(FigSemanticStyleFilteringV1 *)self->_segmentationMaskFilter setOpticalFlowDisplacementPixelBuffer:v12];
               if ([(FigSemanticStyleFilteringV1 *)self->_segmentationMaskFilter process])
@@ -415,19 +435,19 @@ LABEL_76:
                 goto LABEL_97;
               }
 
-              v48.value = 0;
-              CopyWithNewPixelBuffer = BWCMSampleBufferCreateCopyWithNewPixelBuffer(self->_cachedFilteredMaskSampleBuffer, v19, &self->_filteredMaskFormatDescription, &v48);
-              if (!v48.value)
+              v50.value = 0;
+              CopyWithNewPixelBuffer = BWCMSampleBufferCreateCopyWithNewPixelBuffer(self->_cachedFilteredMaskSampleBuffer, v19, &self->_filteredMaskFormatDescription, &v50);
+              if (!v50.value)
               {
                 [BWPersonSegmentationFilteringNode renderSampleBuffer:forInput:];
                 goto LABEL_98;
               }
 
-              CMSetAttachment(v48.value, @"PersonSegmentationMaskToMainImageRotationDegrees", [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_inputOrientationRelativeToSensor], 1u);
-              BWSampleBufferSetAttachedMedia(v18, 0x1F21AABF0, v48.value);
-              if (v48.value)
+              CMSetAttachment(v50.value, @"PersonSegmentationMaskToMainImageRotationDegrees", [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_inputOrientationRelativeToSensor], 1u);
+              BWSampleBufferSetAttachedMedia(v18, 0x1F21AABF0, v50.value);
+              if (v50.value)
               {
-                CFRelease(v48.value);
+                CFRelease(v50.value);
               }
 
               cachedFilteredMaskSampleBuffer = self->_cachedFilteredMaskSampleBuffer;
@@ -437,10 +457,10 @@ LABEL_76:
                 self->_cachedFilteredMaskSampleBuffer = 0;
               }
 
-              BWCMSampleBufferCreateCopyIncludingMetadata(v48.value, &self->_cachedFilteredMaskSampleBuffer);
+              CopyIncludingMetadata = BWCMSampleBufferCreateCopyIncludingMetadata(v50.value, &self->_cachedFilteredMaskSampleBuffer);
               if (!self->_cachedFilteredMaskSampleBuffer)
               {
-                [BWPersonSegmentationFilteringNode renderSampleBuffer:forInput:];
+                [BWPersonSegmentationFilteringNode renderSampleBuffer:? forInput:?];
                 goto LABEL_98;
               }
 
@@ -471,21 +491,21 @@ LABEL_98:
       v40 = self->_cachedFilteredMaskSampleBuffer;
       if (v40)
       {
-        v48.value = 0;
-        BWCMSampleBufferCreateCopyIncludingMetadata(v40, &v48);
+        v50.value = 0;
+        BWCMSampleBufferCreateCopyIncludingMetadata(v40, &v50);
         v7 = MEMORY[0x1E695FF58];
-        if (!v48.value)
+        if (!v50.value)
         {
-          [BWPersonSegmentationFilteringNode renderSampleBuffer:forInput:];
+          [BWPersonSegmentationFilteringNode renderSampleBuffer:? forInput:?];
           v19 = 0;
           CopyWithNewPixelBuffer = 0;
           goto LABEL_75;
         }
 
-        BWSampleBufferSetAttachedMedia(v18, 0x1F21AABF0, v48.value);
-        if (v48.value)
+        BWSampleBufferSetAttachedMedia(v18, 0x1F21AABF0, v50.value);
+        if (v50.value)
         {
-          CFRelease(v48.value);
+          CFRelease(v50.value);
         }
 
         goto LABEL_53;
@@ -503,8 +523,8 @@ LABEL_98:
         CopyWithNewPixelBuffer = 0;
         self->_cachedFilteredMaskSampleBuffer = 0;
 LABEL_74:
-        BWSampleBufferRemoveAttachedMedia(v18, v45);
-        BWSampleBufferRemoveAttachedMedia(v18, v46);
+        BWSampleBufferRemoveAttachedMedia(v18, v47);
+        BWSampleBufferRemoveAttachedMedia(v18, v48);
         [(BWNodeOutput *)self->super._output emitSampleBuffer:v18];
         goto LABEL_75;
       }
@@ -572,7 +592,7 @@ LABEL_91:
     }
   }
 
-  [(FigSemanticStyleFilteringV1 *)self->_segmentationMaskFilter setOpticalFlowDisplacementPixelBuffer:v12, v43];
+  [(FigSemanticStyleFilteringV1 *)self->_segmentationMaskFilter setOpticalFlowDisplacementPixelBuffer:v12, v45];
   [(FigSemanticStyleFilteringV1 *)self->_segmentationMaskFilter setInputImagePixelBuffer:ImageBuffer];
   [(FigSemanticStyleFilteringV1 *)self->_segmentationMaskFilter setInputMaskPixelBuffer:v10];
   v26 = 0.0;
@@ -615,16 +635,16 @@ LABEL_91:
     goto LABEL_97;
   }
 
-  v48.value = 0;
-  CopyWithNewPixelBuffer = BWCMSampleBufferCreateCopyWithNewPixelBuffer(v44, v19, &self->_filteredMaskFormatDescription, &v48);
+  v50.value = 0;
+  CopyWithNewPixelBuffer = BWCMSampleBufferCreateCopyWithNewPixelBuffer(v46, v19, &self->_filteredMaskFormatDescription, &v50);
   v7 = MEMORY[0x1E695FF58];
-  if (v48.value)
+  if (v50.value)
   {
-    CMSetAttachment(v48.value, @"PersonSegmentationMaskToMainImageRotationDegrees", [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_inputOrientationRelativeToSensor], 1u);
-    BWSampleBufferSetAttachedMedia(v18, 0x1F21AABF0, v48.value);
-    if (v48.value)
+    CMSetAttachment(v50.value, @"PersonSegmentationMaskToMainImageRotationDegrees", [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_inputOrientationRelativeToSensor], 1u);
+    BWSampleBufferSetAttachedMedia(v18, 0x1F21AABF0, v50.value);
+    if (v50.value)
     {
-      CFRelease(v48.value);
+      CFRelease(v50.value);
     }
 
     v41 = self->_cachedFilteredMaskSampleBuffer;
@@ -634,10 +654,10 @@ LABEL_91:
       self->_cachedFilteredMaskSampleBuffer = 0;
     }
 
-    BWCMSampleBufferCreateCopyIncludingMetadata(v48.value, &self->_cachedFilteredMaskSampleBuffer);
+    v42 = BWCMSampleBufferCreateCopyIncludingMetadata(v50.value, &self->_cachedFilteredMaskSampleBuffer);
     if (!self->_cachedFilteredMaskSampleBuffer)
     {
-      [BWPersonSegmentationFilteringNode renderSampleBuffer:forInput:];
+      [BWPersonSegmentationFilteringNode renderSampleBuffer:v42 forInput:?];
       goto LABEL_75;
     }
 
@@ -686,107 +706,10 @@ LABEL_80:
 - (uint64_t)renderSampleBuffer:forInput:.cold.1()
 {
   fig_log_get_emitter();
-  FigDebugAssert3();
-  fig_log_get_emitter();
-  return FigSignalErrorAtGM();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.6()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.7()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.8()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.9()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.10()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.11()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.12()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.13()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.14()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.15()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
+  v5 = 0;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5, v0, v7, v8, v9, v10, vars0, vars8);
+  emitter = fig_log_get_emitter();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE14, "<<<< BWPersonSegmentationFilteringNode >>>>", 0x11B, v0, v2, v3, v6);
 }
 
 @end

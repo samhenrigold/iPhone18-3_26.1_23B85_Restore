@@ -24,11 +24,13 @@
   return v3;
 }
 
-uint64_t __42__ATXPosterDescriptorCache_sharedInstance__block_invoke()
+uint64_t __42__ATXPosterDescriptorCache_sharedInstance__block_invoke(uint64_t a1, uint64_t a2)
 {
-  sharedInstance_cache = objc_opt_new();
+  v2 = objc_opt_new();
+  v3 = sharedInstance_cache;
+  sharedInstance_cache = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 - (ATXPosterDescriptorCache)init
@@ -50,7 +52,7 @@ uint64_t __42__ATXPosterDescriptorCache_sharedInstance__block_invoke()
     if (pathCopy)
     {
       v6 = objc_alloc(MEMORY[0x277CEBC68]);
-      v7 = __atxlog_handle_lock_screen();
+      v7 = __atxlog_handle_lock_screen(v6);
       v8 = [v6 initWithCacheFilePath:pathCopy loggingHandle:v7 debugName:@"poster descriptors"];
       fileCache = v5->_fileCache;
       v5->_fileCache = v8;
@@ -112,7 +114,7 @@ uint64_t __39__ATXPosterDescriptorCache_descriptors__block_invoke(uint64_t a1, v
   v11 = *(v10 + 40);
   *(v10 + 40) = v9;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v9, v11);
 }
 
 - (NSSet)allDescriptors
@@ -204,13 +206,14 @@ void __46__ATXPosterDescriptorCache_updateDescriptors___block_invoke(uint64_t a1
     v7 = MEMORY[0x277CBEC10];
   }
 
-  if ([v5 isEqualToDictionary:v7])
+  v8 = [v5 isEqualToDictionary:v7];
+  if (v8)
   {
-    v8 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = __atxlog_handle_lock_screen(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEFAULT, "Bypassing poster descriptor update because the descriptors are the same", buf, 2u);
+      _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_DEFAULT, "Bypassing poster descriptor update because the descriptors are the same", buf, 2u);
     }
   }
 
@@ -226,42 +229,40 @@ void __46__ATXPosterDescriptorCache_updateDescriptors___block_invoke(uint64_t a1
     v22 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v8 = v3[2];
-    v9 = [v8 countByEnumeratingWithState:&v19 objects:v24 count:16];
-    if (v9)
+    v9 = v3[2];
+    v10 = [v9 countByEnumeratingWithState:&v19 objects:v24 count:16];
+    if (v10)
     {
-      v10 = v9;
+      v11 = v10;
       v16 = v6;
-      v11 = *v20;
+      v12 = *v20;
       do
       {
-        for (i = 0; i != v10; ++i)
+        for (i = 0; i != v11; ++i)
         {
-          if (*v20 != v11)
+          if (*v20 != v12)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v9);
           }
 
-          v13 = *(*(&v19 + 1) + 8 * i);
-          v14 = *(*(a1 + 40) + 24);
+          v14 = *(*(&v19 + 1) + 8 * i);
+          v15 = *(*(a1 + 40) + 24);
           block[0] = MEMORY[0x277D85DD0];
           block[1] = 3221225472;
           block[2] = __46__ATXPosterDescriptorCache_updateDescriptors___block_invoke_33;
           block[3] = &unk_278596C10;
-          block[4] = v13;
+          block[4] = v14;
           v18 = *(a1 + 32);
-          dispatch_async(v14, block);
+          dispatch_async(v15, block);
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v19 objects:v24 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v19 objects:v24 count:16];
       }
 
-      while (v10);
+      while (v11);
       v6 = v16;
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerObserver:(id)observer

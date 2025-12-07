@@ -78,17 +78,17 @@ void sub_276E25C08(uint64_t a1, void *a2, void *a3)
     v26 = objc_opt_class();
     v27 = NSStringFromClass(v26);
     v28 = objc_opt_class();
-    v62 = NSStringFromClass(v28);
-    TSUSetCrashReporterInfo();
+    v29 = NSStringFromClass(v28);
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Bad style mapping [%{public}@ %p] -> [%{public}@ %p]", "[TSWPTOCSettings replaceReferencedStylesUsingBlock:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPTOCSettings.mm", 360, v27, v64, v29, v9);
 
-    v29 = MEMORY[0x277D81150];
-    v31 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v30, "[TSWPTOCSettings replaceReferencedStylesUsingBlock:]_block_invoke", "[TSWPTOCSettings replaceReferencedStylesUsingBlock:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPTOCSettings.mm", 360, v27, v64, v62, v9);
-    v33 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v32, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPTOCSettings.mm");
-    v34 = objc_opt_class();
-    v35 = NSStringFromClass(v34);
-    v36 = objc_opt_class();
-    v37 = NSStringFromClass(v36);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v29, v38, v31, v33, 360, 1, "Bad style mapping [%{public}@ %p] -> [%{public}@ %p]", v35, v64, v37, v9);
+    v30 = MEMORY[0x277D81150];
+    v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v31, "[TSWPTOCSettings replaceReferencedStylesUsingBlock:]_block_invoke");
+    v34 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v33, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPTOCSettings.mm");
+    v35 = objc_opt_class();
+    v36 = NSStringFromClass(v35);
+    v37 = objc_opt_class();
+    v38 = NSStringFromClass(v37);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v30, v39, v32, v34, 360, 1, "Bad style mapping [%{public}@ %p] -> [%{public}@ %p]", v36, v64, v38, v9);
 
     TSUCrashBreakpoint();
     goto LABEL_9;
@@ -104,24 +104,24 @@ void sub_276E25C08(uint64_t a1, void *a2, void *a3)
 
   if (!v18 || (objc_msgSend_tocEntryStyle(v5, v19, v20), v21 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v21, (isKindOfClass & 1) == 0))
   {
-    v39 = objc_msgSend_tocEntryStyle(v5, v19, v20);
-    v40 = objc_opt_class();
-    v41 = NSStringFromClass(v40);
-    v44 = objc_msgSend_tocEntryStyle(v5, v42, v43);
-    v45 = objc_opt_class();
-    v63 = NSStringFromClass(v45);
-    TSUSetCrashReporterInfo();
+    v40 = objc_msgSend_tocEntryStyle(v5, v19, v20);
+    v41 = objc_opt_class();
+    v42 = NSStringFromClass(v41);
+    v45 = objc_msgSend_tocEntryStyle(v5, v43, v44);
+    v46 = objc_opt_class();
+    v47 = NSStringFromClass(v46);
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Bad style mapping [%{public}@ %p] -> [%{public}@ %p]", "[TSWPTOCSettings replaceReferencedStylesUsingBlock:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPTOCSettings.mm", 366, v42, v45, v47, v18);
 
-    v46 = MEMORY[0x277D81150];
-    v48 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v47, "[TSWPTOCSettings replaceReferencedStylesUsingBlock:]_block_invoke", "[TSWPTOCSettings replaceReferencedStylesUsingBlock:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPTOCSettings.mm", 366, v41, v44, v63, v18);
-    v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v49, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPTOCSettings.mm");
-    v53 = objc_msgSend_tocEntryStyle(v5, v51, v52);
-    v54 = objc_opt_class();
-    v55 = NSStringFromClass(v54);
-    v58 = objc_msgSend_tocEntryStyle(v5, v56, v57);
-    v59 = objc_opt_class();
-    v60 = NSStringFromClass(v59);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v46, v61, v48, v50, 366, 1, "Bad style mapping [%{public}@ %p] -> [%{public}@ %p]", v55, v58, v60, v18);
+    v48 = MEMORY[0x277D81150];
+    v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v49, "[TSWPTOCSettings replaceReferencedStylesUsingBlock:]_block_invoke");
+    v52 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v51, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPTOCSettings.mm");
+    v55 = objc_msgSend_tocEntryStyle(v5, v53, v54);
+    v56 = objc_opt_class();
+    v57 = NSStringFromClass(v56);
+    v60 = objc_msgSend_tocEntryStyle(v5, v58, v59);
+    v61 = objc_opt_class();
+    v62 = NSStringFromClass(v61);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v48, v63, v50, v52, 366, 1, "Bad style mapping [%{public}@ %p] -> [%{public}@ %p]", v57, v60, v62, v18);
 
     TSUCrashBreakpoint();
 LABEL_9:
@@ -519,14 +519,14 @@ __n128 *sub_276E30F28(void *a1, __n128 *__src, __n128 *a3)
   else if (__src == v6)
   {
     v17 = *a3;
-    v6[1].n128_u64[0] = a3[1].n128_u64[0];
+    *(v6 + 16) = a3[1].n128_u64[0];
     *v6 = v17;
     a1[1] = v6 + 24;
   }
 
   else
   {
-    v8 = (__src + 24);
+    v8 = &__src[1].n128_i8[8];
     if (v6 < 0x18)
     {
       v9 = a1[1];
@@ -534,9 +534,9 @@ __n128 *sub_276E30F28(void *a1, __n128 *__src, __n128 *a3)
 
     else
     {
-      v9 = &v6[1].n128_i8[8];
+      v9 = (v6 + 24);
       v10 = *(v6 - 24);
-      v6[1].n128_u64[0] = v6[-1].n128_u64[1];
+      *(v6 + 16) = *(v6 - 8);
       *v6 = v10;
     }
 
@@ -583,7 +583,7 @@ void sub_276E316F4(uint64_t a1, unint64_t a2)
   sub_276D34F38();
 }
 
-void *sub_276E3174C(void *result, char *__src, char *a3, unint64_t a4)
+void **sub_276E3174C(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -659,7 +659,7 @@ void *sub_276E3174C(void *result, char *__src, char *a3, unint64_t a4)
   return result;
 }
 
-void sub_276E318A8(uint64_t a1, unint64_t a2)
+void sub_276E318A8(uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -669,7 +669,7 @@ void sub_276E318A8(uint64_t a1, unint64_t a2)
   sub_276D34ED8();
 }
 
-__n128 sub_276E318F4(__n128 **a1, __n128 *a2)
+__n128 sub_276E318F4(unint64_t *a1, __n128 *a2)
 {
   v4 = a1[2];
   if (v4 == a1[3])
@@ -701,14 +701,14 @@ __n128 sub_276E318F4(__n128 **a1, __n128 *a2)
     }
 
     v4 = &v8[v9];
-    a1[1] = (v5 + 24 * v7);
+    a1[1] = &v5->n128_u64[3 * v7];
     a1[2] = &v8[v9];
   }
 
   result = *a2;
   v4[1].n128_u64[0] = a2[1].n128_u64[0];
   *v4 = result;
-  a1[2] = (a1[2] + 24);
+  a1[2] += 24;
   return result;
 }
 
@@ -1266,9 +1266,9 @@ void sub_276E33B44(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_276E35914(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_276E35914(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1343,7 +1343,7 @@ void sub_276E367F8(uint64_t a1, const char *a2, uint64_t a3)
   qword_280A58540 = v7;
 }
 
-id sub_276E36A64(uint64_t a1, void *a2)
+TSWPOpaqueFontID *sub_276E36A64(uint64_t a1, void *a2)
 {
   v2 = objc_msgSend_componentsSeparatedByString_(a2, a2, @"|");
   if (objc_msgSend_count(v2, v3, v4))
@@ -1600,7 +1600,7 @@ void sub_276E3B078(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_276E3B128(uint64_t result, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+unsigned __int8 *sub_276E3B128(unsigned __int8 *result, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (a5)
   {
@@ -1609,12 +1609,12 @@ uint64_t sub_276E3B128(uint64_t result, const char *a2, uint64_t a3, uint64_t a4
       v6 = *(a5 + 464);
       if (v6)
       {
-        if (*(a5 + 472) != 1 || *(v6 + 8) != *(result + 28))
+        if (*(a5 + 472) != 1 || *(v6 + 8) != result[28])
         {
           if (*(a5 + 16))
           {
             v7 = MEMORY[0x277D81150];
-            v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "virtual void TSWPAttachmentAttributeArray::buildInverseActionsForRemove(NSRange, __strong id, TSWPStorageActionState *, BOOL)");
+            v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "virtual void TSWPAttachmentAttributeArray::buildInverseActionsForRemove(NSRange, __strong id, TSWPStorageActionState *, BOOL)", a4);
             v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPAttachmentAttributeArray.mm");
             v11 = *(a5 + 16);
             v13 = *v11;
@@ -1645,7 +1645,7 @@ uint64_t sub_276E3B128(uint64_t result, const char *a2, uint64_t a3, uint64_t a4
   return result;
 }
 
-uint64_t sub_276E3B2B8(uint64_t result, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+unsigned __int8 *sub_276E3B2B8(unsigned __int8 *result, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (a5)
   {
@@ -1654,10 +1654,10 @@ uint64_t sub_276E3B2B8(uint64_t result, const char *a2, uint64_t a3, uint64_t a4
       v6 = *(a5 + 464);
       if (v6)
       {
-        if (*(a5 + 472) != 1 || *(v6 + 8) != *(result + 28))
+        if (*(a5 + 472) != 1 || *(v6 + 8) != result[28])
         {
           v7 = MEMORY[0x277D81150];
-          v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "virtual void TSWPAttachmentAttributeArray::buildInverseActionsForAdd(NSRange, __strong id, TSWPStorageActionState *, UInt32)");
+          v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "virtual void TSWPAttachmentAttributeArray::buildInverseActionsForAdd(NSRange, __strong id, TSWPStorageActionState *, UInt32)", a4);
           v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPAttachmentAttributeArray.mm");
           if (*(a5 + 472))
           {
@@ -1699,7 +1699,7 @@ void sub_276E3B420(uint64_t a1, const char *a2, uint64_t a3, unint64_t a4)
   }
 }
 
-uint64_t sub_276E3B4F4(uint64_t result, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, uint64_t a7)
+_BYTE *sub_276E3B4F4(_BYTE *result, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, uint64_t a7)
 {
   if (a6)
   {
@@ -1894,7 +1894,7 @@ LABEL_3:
 LABEL_4:
 }
 
-void sub_276E3BA38(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
+void sub_276E3BA38(uint64_t a1, const char *a2, unint64_t a3, uint64_t a4)
 {
   v5 = a3;
   v8 = *(a1 + 16);
@@ -1965,9 +1965,9 @@ void *sub_276E3BC18(void *result, unint64_t a2)
   return result;
 }
 
-void sub_276E3BC94(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_276E3BC94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_276E3CB0C(va);
   _Unwind_Resume(a1);
 }
@@ -2029,9 +2029,9 @@ id sub_276E3BCA8(void *a1, id *a2)
   return result;
 }
 
-void sub_276E3BD88(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_276E3BD88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_276E3CB0C(va);
   _Unwind_Resume(a1);
 }
@@ -2557,33 +2557,33 @@ uint64_t sub_276E3E81C(uint64_t a1, char a2)
   return a1;
 }
 
-void sub_276E3E8A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
+void sub_276E3E8A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  a10 = v10 + 3;
+  a10 = v10 + 24;
   sub_276E40EC4(&a10);
   a10 = v10;
   sub_276E40E40(&a10);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_276E3E8D4(uint64_t a1)
+uint64_t *sub_276E3E8D4(uint64_t *a1)
 {
-  *(a1 + 216) = 0;
-  v2 = *(a1 + 8);
+  *(a1 + 54) = 0;
+  v2 = a1[1];
   v3 = *a1;
   while (v2 != v3)
   {
-    v2 = sub_276EE9CB4(v2 - 32);
+    v2 = sub_276EE9CB4(v2 - 16);
   }
 
-  v4 = *(a1 + 24);
-  *(a1 + 8) = v3;
+  v4 = a1[3];
+  a1[1] = v3;
     ;
   }
 
-  *(a1 + 32) = v4;
-  sub_276EE3D80(a1 + 72);
-  if (*(a1 + 312))
+  a1[4] = v4;
+  sub_276EE3D80((a1 + 9));
+  if (a1[39])
   {
     v7 = MEMORY[0x277D81150];
     v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "TSWPStorageTransaction::~TSWPStorageTransaction()");
@@ -2593,7 +2593,7 @@ uint64_t sub_276E3E8D4(uint64_t a1)
     objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13);
   }
 
-  if (*(a1 + 304))
+  if (a1[38])
   {
     v14 = MEMORY[0x277D81150];
     v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "TSWPStorageTransaction::~TSWPStorageTransaction()");
@@ -2603,29 +2603,29 @@ uint64_t sub_276E3E8D4(uint64_t a1)
     objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v19, v20);
   }
 
-  v24 = (a1 + 360);
+  v24 = (a1 + 45);
   sub_276E40F9C(&v24);
-  v24 = (a1 + 336);
+  v24 = (a1 + 42);
   sub_276E40F9C(&v24);
-  objc_destroyWeak((a1 + 328));
-  v21 = *(a1 + 280);
+  objc_destroyWeak(a1 + 41);
+  v21 = a1[35];
   if (v21)
   {
-    *(a1 + 288) = v21;
+    a1[36] = v21;
     operator delete(v21);
   }
 
-  v24 = (a1 + 256);
+  v24 = (a1 + 32);
   sub_276E40F48(&v24);
-  v22 = *(a1 + 232);
+  v22 = a1[29];
   if (v22)
   {
-    *(a1 + 240) = v22;
+    a1[30] = v22;
     operator delete(v22);
   }
 
-  sub_276EE3B58(a1 + 72);
-  v24 = (a1 + 24);
+  sub_276EE3B58((a1 + 9));
+  v24 = (a1 + 3);
   sub_276E40EC4(&v24);
   v24 = a1;
   sub_276E40E40(&v24);
@@ -2804,24 +2804,24 @@ LABEL_16:
   return sub_276E3F95C(v3, v12, v13);
 }
 
-NSUInteger sub_276E3EE28(uint64_t a1, uint64_t a2, void *a3)
+NSUInteger sub_276E3EE28(_NSRange **a1, uint64_t a2, void *a3)
 {
   v4 = a3;
   v5 = v4;
   v6 = MEMORY[0x277D81490];
   v7 = *MEMORY[0x277D81490];
   v8 = *(MEMORY[0x277D81490] + 8);
-  if (!*(a1 + 304))
+  if (!a1[38])
   {
     v33 = v4;
-    sub_276E3F1D0(v4, (a1 + 256), &v36);
+    sub_276E3F1D0(v4, a1 + 32, &v36);
     for (i = v36; i != v37; i += 16)
     {
       sub_276E3F2A4(a1, v5, *i, *(i + 1));
     }
 
-    v11 = *(a1 + 280);
-    v12 = *(a1 + 288);
+    v11 = a1[35];
+    v12 = a1[36];
     if (v11 != v12)
     {
       do
@@ -2831,18 +2831,18 @@ NSUInteger sub_276E3EE28(uint64_t a1, uint64_t a2, void *a3)
       }
 
       while (v11 != v12);
-      v11 = *(a1 + 280);
+      v11 = a1[35];
     }
 
-    *(a1 + 288) = v11;
-    sub_276E3F1D0(v5, (a1 + 256), &__p);
+    a1[36] = v11;
+    sub_276E3F1D0(v5, a1 + 32, &__p);
     for (j = __p; j != v35; j += 2)
     {
       objc_msgSend_didChangeParagraphsInIndexRange_(v5, v13, *j, j[1]);
     }
 
-    v16 = *(a1 + 256);
-    v15 = *(a1 + 264);
+    v16 = a1[32];
+    v15 = a1[33];
     if (v16 != v15)
     {
       while (1)
@@ -2853,17 +2853,17 @@ NSUInteger sub_276E3EE28(uint64_t a1, uint64_t a2, void *a3)
           goto LABEL_13;
         }
 
-        if (v16 == sub_276E41540(*(a1 + 256), v16, v16))
+        if (v16 == sub_276E41540(a1[32], v16, v16))
         {
           break;
         }
 
 LABEL_24:
         v16 = (v16 + 56);
-        v15 = *(a1 + 264);
+        v15 = a1[33];
         if (v16 == v15)
         {
-          v16 = *(a1 + 256);
+          v16 = a1[32];
           goto LABEL_27;
         }
       }
@@ -2911,8 +2911,8 @@ LABEL_13:
     }
 
 LABEL_27:
-    sub_276E3F7FC((a1 + 256), v16, v15);
-    *(a1 + 240) = *(a1 + 232);
+    sub_276E3F7FC(a1 + 32, v16, v15);
+    a1[30] = a1[29];
     if (__p)
     {
       v35 = __p;
@@ -3042,7 +3042,7 @@ void sub_276E3F27C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_276E3F2A4(uint64_t *a1, void *a2, const char *a3, uint64_t a4)
+void sub_276E3F2A4(unint64_t *a1, void *a2, const char *a3, uint64_t a4)
 {
   v35 = a2;
   if (v35)
@@ -3165,7 +3165,7 @@ uint64_t sub_276E3F58C(uint64_t *a1, uint64_t a2)
   return result;
 }
 
-void sub_276E3F5CC(uint64_t *a1, const char *a2, unint64_t a3, unint64_t a4, uint64_t a5)
+void sub_276E3F5CC(void *a1, const char *a2, unint64_t a3, unint64_t a4, uint64_t a5)
 {
   if ((a4 & 0x8000000000000000) == 0)
   {
@@ -3367,7 +3367,7 @@ uint64_t sub_276E3F9EC(void *a1)
   }
 
   v2 = a1[4];
-  v3 = v2 - 288;
+  v3 = (v2 - 288);
   v4 = *(v2 - 136);
   v5 = *(v2 - 128);
   while (v4 != v5)
@@ -3429,12 +3429,12 @@ uint64_t sub_276E3FB24(uint64_t a1, int a2)
 
   else
   {
-    sub_276E40B78(a1 + 80, v5, v6, 0xAAAAAAAAAAAAAAABLL * ((v6 - v5) >> 4));
-    sub_276E40B78(a1 + 104, v7, v8, 0xAAAAAAAAAAAAAAABLL * ((v8 - v7) >> 4));
-    sub_276E40B78(a1 + 128, v9, v10, 0xAAAAAAAAAAAAAAABLL * ((v10 - v9) >> 4));
-    sub_276E40B78(a1 + 152, v11, v12, 0xAAAAAAAAAAAAAAABLL * ((v12 - v11) >> 4));
+    sub_276E40B78((a1 + 80), v5, v6, 0xAAAAAAAAAAAAAAABLL * ((v6 - v5) >> 4));
+    sub_276E40B78((a1 + 104), v7, v8, 0xAAAAAAAAAAAAAAABLL * ((v8 - v7) >> 4));
+    sub_276E40B78((a1 + 128), v9, v10, 0xAAAAAAAAAAAAAAABLL * ((v10 - v9) >> 4));
+    sub_276E40B78((a1 + 152), v11, v12, 0xAAAAAAAAAAAAAAABLL * ((v12 - v11) >> 4));
     *(a1 + 176) = v13;
-    sub_276E409B0((a1 + 184), v14, v15, (v15 - v14) >> 4);
+    sub_276E409B0((a1 + 184), v14, v15, v15 - v14);
   }
 
   *(a1 + 208) = v16;
@@ -3451,10 +3451,10 @@ uint64_t sub_276E3FC2C(uint64_t a1, uint64_t a2)
 
   else
   {
-    sub_276E40B78(a1 + 8, *(a2 + 8), *(a2 + 16), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 16) - *(a2 + 8)) >> 4));
-    sub_276E40B78(a1 + 32, *(a2 + 32), *(a2 + 40), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 40) - *(a2 + 32)) >> 4));
-    sub_276E40B78(a1 + 56, *(a2 + 56), *(a2 + 64), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 64) - *(a2 + 56)) >> 4));
-    sub_276E40B78(a1 + 80, *(a2 + 80), *(a2 + 88), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 88) - *(a2 + 80)) >> 4));
+    sub_276E40B78((a1 + 8), *(a2 + 8), *(a2 + 16), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 16) - *(a2 + 8)) >> 4));
+    sub_276E40B78((a1 + 32), *(a2 + 32), *(a2 + 40), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 40) - *(a2 + 32)) >> 4));
+    sub_276E40B78((a1 + 56), *(a2 + 56), *(a2 + 64), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 64) - *(a2 + 56)) >> 4));
+    sub_276E40B78((a1 + 80), *(a2 + 80), *(a2 + 88), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 88) - *(a2 + 80)) >> 4));
     *(a1 + 104) = *(a2 + 104);
     sub_276E409B0((a1 + 112), *(a2 + 112), *(a2 + 120), (*(a2 + 120) - *(a2 + 112)) >> 4);
   }
@@ -3490,7 +3490,7 @@ uint64_t sub_276E3FD04(uint64_t a1, const char *a2)
   return sub_276EE3D80(a1 + 72);
 }
 
-uint64_t sub_276E3FE98(uint64_t *a1, uint64_t a2)
+uint64_t sub_276E3FE98(unint64_t *a1, uint64_t a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -3779,15 +3779,15 @@ LABEL_44:
 LABEL_56:
 }
 
-void sub_276E4050C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_276E4050C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   sub_276EE9CB4(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_276E4057C(uint64_t result, const char *a2)
+_DWORD *sub_276E4057C(_DWORD *result, const char *a2)
 {
   v2 = result;
   if (a2 >> 32)
@@ -3801,26 +3801,26 @@ uint64_t sub_276E4057C(uint64_t result, const char *a2)
     LODWORD(a2) = -1;
   }
 
-  *(v2 + 4) = a2;
+  v2[1] = a2;
   return result;
 }
 
-uint64_t sub_276E40648(uint64_t a1, unsigned __int16 *a2)
+uint64_t sub_276E40648(uint64_t *a1, unsigned __int16 *a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = sub_276E41818(a1, a2);
   }
 
   else
   {
-    sub_276EE9ADC(*(a1 + 8), a2);
+    sub_276EE9ADC(a1[1], a2);
     result = v3 + 32;
-    *(a1 + 8) = v3 + 32;
+    a1[1] = v3 + 32;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
@@ -3831,7 +3831,7 @@ void sub_276E406C8(uint64_t a1, int a2, void *a3, unint64_t a4, unint64_t a5)
   sub_276E40050(a1, a2, 0xFFFFFFFFFFFFFFFFLL, 0x7FFFFFFFFFFFFFFFuLL, 0x7FFFFFFFFFFFFFFFLL, &v10.var0, v9, a4, a5, 0);
 }
 
-void sub_276E40758(uint64_t a1, unsigned __int16 a2, const char *a3, unint64_t a4, void *a5)
+void sub_276E40758(uint64_t a1, __int16 a2, const char *a3, unint64_t a4, void *a5)
 {
   v13 = a3;
   v9 = a5;
@@ -3860,7 +3860,7 @@ LABEL_7:
   if (*(a1 + 320) == 1)
   {
     sub_276EE990C(v12);
-    v12[0] = a2;
+    LOWORD(v12[0]) = a2;
     sub_276E4057C(v12, v13);
     sub_276EEAA88(v12, a4, v9);
     sub_276E40648(a1, v12);
@@ -3869,13 +3869,13 @@ LABEL_7:
   }
 }
 
-uint64_t sub_276E40864()
+uint64_t sub_276E40864(uint64_t a1)
 {
   objc_opt_class();
-  v0 = TSUDynamicCast();
-  v3 = objc_msgSend_length(v0, v1, v2);
+  v1 = TSUDynamicCast();
+  v4 = objc_msgSend_length(v1, v2, v3);
 
-  return v3;
+  return v4;
 }
 
 BOOL sub_276E408C0(_DWORD *a1)
@@ -3892,7 +3892,7 @@ BOOL sub_276E408C0(_DWORD *a1)
   return v4;
 }
 
-uint64_t sub_276E40934(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_276E40934(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3914,7 +3914,7 @@ void sub_276E40994(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-char *sub_276E409B0(char **a1, uint64_t a2, __int128 *a3, unint64_t a4)
+char *sub_276E409B0(uint64_t *a1, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -3961,8 +3961,7 @@ char *sub_276E409B0(char **a1, uint64_t a2, __int128 *a3, unint64_t a4)
     while (v5 != a3)
     {
       *result = *v5;
-      *(result + 4) = *(v5 + 8);
-      v5 += 16;
+      *(result + 4) = *(v5++ + 4);
       result += 16;
     }
 
@@ -3977,8 +3976,7 @@ char *sub_276E409B0(char **a1, uint64_t a2, __int128 *a3, unint64_t a4)
       do
       {
         *result = *v5;
-        *(result + 4) = *(v5 + 8);
-        v5 += 16;
+        *(result + 4) = *(v5++ + 4);
         result += 16;
       }
 
@@ -4010,7 +4008,7 @@ char *sub_276E409B0(char **a1, uint64_t a2, __int128 *a3, unint64_t a4)
   return result;
 }
 
-void sub_276E40AF4(uint64_t a1, unint64_t a2)
+void sub_276E40AF4(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -4030,12 +4028,12 @@ void sub_276E40B30(uint64_t a1, unint64_t a2)
   sub_276D34F38();
 }
 
-uint64_t sub_276E40B78(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+void **sub_276E40B78(void **result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   v6 = a2;
   v7 = result;
   v8 = *result;
-  if (0xAAAAAAAAAAAAAAABLL * ((*(result + 16) - *result) >> 4) < a4)
+  if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 4) < a4)
   {
     sub_276E40D10(result);
     if (a4 <= 0x555555555555555)
@@ -4062,7 +4060,7 @@ uint64_t sub_276E40B78(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
     sub_276D34ED8();
   }
 
-  v11 = *(result + 8);
+  v11 = result[1];
   v12 = v11 - v8;
   if (0xAAAAAAAAAAAAAAABLL * ((v11 - v8) >> 4) >= a4)
   {
@@ -4139,7 +4137,7 @@ void sub_276E40D10(void **a1)
   }
 }
 
-void sub_276E40D70(uint64_t a1, unint64_t a2)
+void sub_276E40D70(uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x555555555555556)
   {
@@ -4198,7 +4196,7 @@ void sub_276E40E40(void ***a1)
     {
       do
       {
-        v4 = sub_276EE9CB4(v4 - 32);
+        v4 = sub_276EE9CB4(v4 - 16);
       }
 
       while (v4 != v2);
@@ -4293,7 +4291,7 @@ void sub_276E41068(uint64_t a1, unint64_t a2)
   sub_276D34F38();
 }
 
-uint64_t sub_276E410C4(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_276E410C4(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4310,7 +4308,7 @@ void sub_276E4112C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_276E4114C(uint64_t a1, uint64_t a2)
+uint64_t *sub_276E4114C(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 8);
   v4 = *(a2 + 16);
@@ -4319,7 +4317,7 @@ uint64_t sub_276E4114C(uint64_t a1, uint64_t a2)
   *(v3 + 40) = 0;
   *(v3 + 48) = 0;
   *(v3 + 32) = 0;
-  result = sub_276E40934(v3 + 32, *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 3);
+  result = sub_276E40934((v3 + 32), *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 3);
   *(a1 + 8) = v3 + 56;
   return result;
 }
@@ -4364,7 +4362,7 @@ uint64_t sub_276E411A8(uint64_t *a1, uint64_t a2)
   *(v7 + 40) = 0;
   *(v7 + 48) = 0;
   *(v7 + 32) = 0;
-  sub_276E40934(56 * v2 + 32, *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 3);
+  sub_276E40934((56 * v2 + 32), *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 3);
   *&v17 = v17 + 56;
   v9 = a1[1];
   v10 = v16 + *a1 - v9;
@@ -4382,9 +4380,9 @@ uint64_t sub_276E411A8(uint64_t *a1, uint64_t a2)
   return v14;
 }
 
-void sub_276E412F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_276E412F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_276E414A8(va);
   _Unwind_Resume(a1);
 }
@@ -4544,7 +4542,7 @@ __n128 sub_276E41588(uint64_t a1, __n128 *a2)
   return result;
 }
 
-uint64_t sub_276E415DC(uint64_t *a1, uint64_t a2)
+uint64_t sub_276E415DC(unint64_t *a1, uint64_t a2)
 {
   v2 = 0x8E38E38E38E38E39 * ((a1[1] - *a1) >> 4);
   v3 = v2 + 1;
@@ -4594,9 +4592,9 @@ uint64_t sub_276E415DC(uint64_t *a1, uint64_t a2)
   return v12;
 }
 
-void sub_276E41710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_276E41710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_276E417C8(va);
   _Unwind_Resume(a1);
 }
@@ -4661,16 +4659,16 @@ uint64_t sub_276E417C8(uint64_t a1)
   return a1;
 }
 
-uint64_t sub_276E41818(uint64_t a1, unsigned __int16 *a2)
+uint64_t sub_276E41818(uint64_t *a1, unsigned __int16 *a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 5;
+  v2 = (a1[1] - *a1) >> 5;
   v3 = v2 + 1;
   if ((v2 + 1) >> 59)
   {
     sub_276D34ED8();
   }
 
-  v6 = *(a1 + 16) - *a1;
+  v6 = a1[2] - *a1;
   if (v6 >> 4 > v3)
   {
     v3 = v6 >> 4;
@@ -4696,14 +4694,14 @@ uint64_t sub_276E41818(uint64_t a1, unsigned __int16 *a2)
   v15 = 32 * v2;
   sub_276EE9ADC(32 * v2, a2);
   v16 = (32 * v2 + 32);
-  v8 = *(a1 + 8);
+  v8 = a1[1];
   v9 = 32 * v2 + *a1 - v8;
   sub_276E41928(a1, *a1, v8, v9);
   v10 = *a1;
   *a1 = v9;
-  v11 = *(a1 + 16);
+  v11 = a1[2];
   v13 = v16;
-  *(a1 + 8) = v16;
+  *(a1 + 1) = v16;
   *&v16 = v10;
   *(&v16 + 1) = v11;
   v14 = v10;
@@ -4712,9 +4710,9 @@ uint64_t sub_276E41818(uint64_t a1, unsigned __int16 *a2)
   return v13;
 }
 
-void sub_276E41914(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_276E41914(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_276E419CC(va);
   _Unwind_Resume(a1);
 }
@@ -4749,10 +4747,10 @@ void sub_276E419A8(_Unwind_Exception *exception_object)
 {
   if (v2)
   {
-    v4 = v1 - 32;
+    v4 = (v1 - 32);
     do
     {
-      v4 = sub_276EE9CB4(v4) - 32;
+      v4 = sub_276EE9CB4(v4) - 16;
       v2 += 32;
     }
 
@@ -4768,7 +4766,7 @@ uint64_t sub_276E419CC(uint64_t a1)
   for (i = *(a1 + 16); i != v3; i = *(a1 + 16))
   {
     *(a1 + 16) = i - 32;
-    sub_276EE9CB4(i - 32);
+    sub_276EE9CB4((i - 32));
   }
 
   if (*a1)
@@ -5074,7 +5072,7 @@ void sub_276E440E8(uint64_t a1, NSUInteger a2, NSUInteger a3, void *a4, uint64_t
   }
 }
 
-void sub_276E443CC(unsigned __int8 *a1, unint64_t a2, NSUInteger a3, void *a4, uint64_t a5, uint64_t a6)
+void sub_276E443CC(TSWPAttributeArray *a1, unint64_t a2, NSUInteger a3, void *a4, uint64_t a5, uint64_t a6)
 {
   v11 = a4;
   if (a5)
@@ -5086,7 +5084,7 @@ void sub_276E443CC(unsigned __int8 *a1, unint64_t a2, NSUInteger a3, void *a4, u
       {
         if (*(a5 + 472))
         {
-          v13 = a1[28];
+          v13 = *(a1 + 28);
           if (*(v12 + 8) == v13)
           {
             goto LABEL_17;
@@ -5095,14 +5093,14 @@ void sub_276E443CC(unsigned __int8 *a1, unint64_t a2, NSUInteger a3, void *a4, u
 
         else
         {
-          v13 = a1[28];
+          v13 = *(a1 + 28);
         }
 
         if (TSWPAttributeArray::hasObjects(v13))
         {
           v14 = *(a5 + 464);
           v27 = *(v14 + 4);
-          v26 = (*(*a1 + 432))(a1);
+          v26 = (*(a1->var0 + 54))(a1);
           v15 = TSWPAttributeArray::effectiveAttributeIndexForCharIndex(a1, a2);
           if (v15 != 0x7FFFFFFFFFFFFFFFLL)
           {
@@ -5119,7 +5117,7 @@ void sub_276E443CC(unsigned __int8 *a1, unint64_t a2, NSUInteger a3, void *a4, u
             }
 
             v17 = TSWPAttributeArray::inverseObjectForApplying(v14, v11, v16, 0, a5);
-            if (TSWPAttributeArray::shouldBeCopiedForUndo(a1[28], v17))
+            if (TSWPAttributeArray::shouldBeCopiedForUndo(*(a1 + 28), v17))
             {
               v25 = v16;
               v20 = objc_msgSend_context(*(a5 + 8), v18, v19);
@@ -5131,7 +5129,7 @@ void sub_276E443CC(unsigned __int8 *a1, unint64_t a2, NSUInteger a3, void *a4, u
 
             TSWPAttributeArray::rangeForAttributeIndex(a1, v15);
             v23 = NSIntersectionRangeInclusive();
-            sub_276F3FE94(v28, a1[28], v23, v24, v17, v27 & 0xFFFFFFFD | v26 | a6);
+            sub_276F3FE94(v28, *(a1 + 28), v23, v24, v17, v27 & 0xFFFFFFFD | v26 | a6);
             sub_276F2F6C0(a5, v28, 0);
             sub_276F40794(v28);
           }
@@ -5139,7 +5137,7 @@ void sub_276E443CC(unsigned __int8 *a1, unint64_t a2, NSUInteger a3, void *a4, u
 
         else
         {
-          (*(*a1 + 448))(a1, a2, a3, a5, a6);
+          (*(a1->var0 + 56))(a1, a2, a3, a5, a6);
         }
       }
     }
@@ -5370,19 +5368,17 @@ void *sub_276E4972C(_BYTE *__dst, void *__src, unint64_t a3)
   return memmove(__dst, __src, v3);
 }
 
-void *sub_276E49FD4(void *result, unint64_t a2)
+void sub_276E49FD4(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > (a1[2] - *a1) >> 4)
   {
     if (!(a2 >> 60))
     {
-      sub_276E4A9C8(result, a2);
+      sub_276E4A9C8(a1, a2);
     }
 
     sub_276D34ED8();
   }
-
-  return result;
 }
 
 void sub_276E4A074(uint64_t a1, _OWORD *a2)
@@ -5444,7 +5440,7 @@ void sub_276E4A074(uint64_t a1, _OWORD *a2)
   *(a1 + 8) = v6;
 }
 
-uint64_t sub_276E4A910(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_276E4A910(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5466,7 +5462,7 @@ void sub_276E4A970(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_276E4A98C(uint64_t a1, unint64_t a2)
+void sub_276E4A98C(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -5486,7 +5482,7 @@ void sub_276E4A9C8(uint64_t a1, unint64_t a2)
   sub_276D34F38();
 }
 
-void *sub_276E4AA10(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *sub_276E4AA10(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -6839,7 +6835,7 @@ TSWP::SelectionArchive *TSWP::SelectionArchive::SelectionArchive(TSWP::Selection
   {
     v6 = *(a2 + 5);
     v7 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((this + 24));
-    sub_276EA4D78(this + 24, v7, (v6 + 8), v5, **(this + 5) - *(this + 8));
+    sub_276EA4D78(this + 3, v7, (v6 + 8), v5, **(this + 5) - *(this + 8));
     v8 = *(this + 8) + v5;
     *(this + 8) = v8;
     v9 = *(this + 5);
@@ -6948,13 +6944,13 @@ void *TSWP::SelectionArchive::default_instance(TSWP::SelectionArchive *this)
   return &TSWP::_SelectionArchive_default_instance_;
 }
 
-uint64_t *TSWP::SelectionArchive::Clear(uint64_t *this)
+google::protobuf::UnknownFieldSet *TSWP::SelectionArchive::Clear(google::protobuf::UnknownFieldSet *this)
 {
   v1 = this;
   v2 = *(this + 8);
   if (v2 >= 1)
   {
-    v3 = (this[5] + 8);
+    v3 = (*(this + 5) + 8);
     do
     {
       v4 = *v3++;
@@ -7001,15 +6997,15 @@ uint64_t *TSWP::SelectionArchive::Clear(uint64_t *this)
 
 google::protobuf::internal *TSWP::SelectionArchive::_InternalParse(uint64_t a1, google::protobuf::internal *a2, uint64_t a3)
 {
-  v52 = a2;
+  v49 = a2;
   v5 = 0;
-  if ((sub_276EA4A1C(a3, &v52) & 1) == 0)
+  if ((sub_276EA4A1C(a3, &v49, *(a3 + 92)) & 1) == 0)
   {
     while (1)
     {
-      v7 = (v52 + 1);
-      v8 = *v52;
-      if ((*v52 & 0x80000000) == 0)
+      v7 = (v49 + 1);
+      v8 = *v49;
+      if ((*v49 & 0x80000000) == 0)
       {
         goto LABEL_6;
       }
@@ -7021,15 +7017,15 @@ google::protobuf::internal *TSWP::SelectionArchive::_InternalParse(uint64_t a1, 
         break;
       }
 
-      TagFallback = google::protobuf::internal::ReadTagFallback(v52, (v9 - 128));
-      v52 = TagFallback;
+      TagFallback = google::protobuf::internal::ReadTagFallback(v49, (v9 - 128));
+      v49 = TagFallback;
       if (!TagFallback)
       {
         goto LABEL_114;
       }
 
       v7 = TagFallback;
-      v8 = v31;
+      v8 = v29;
 LABEL_7:
       v10 = v8 >> 3;
       if (v8 >> 3 <= 4)
@@ -7043,20 +7039,20 @@ LABEL_7:
               goto LABEL_87;
             }
 
-            v36 = (v7 + 1);
-            v35 = *v7;
-            if ((v35 & 0x8000000000000000) != 0)
+            v34 = (v7 + 1);
+            v33 = *v7;
+            if ((v33 & 0x8000000000000000) != 0)
             {
-              v37 = *v36;
-              v35 = (v37 << 7) + v35 - 128;
-              if ((v37 & 0x80000000) == 0)
+              v35 = *v34;
+              v33 = (v35 << 7) + v33 - 128;
+              if ((v35 & 0x80000000) == 0)
               {
-                v36 = (v7 + 2);
+                v34 = (v7 + 2);
                 goto LABEL_65;
               }
 
-              v52 = google::protobuf::internal::VarintParseSlow64(v7, v35);
-              if (!v52)
+              v49 = google::protobuf::internal::VarintParseSlow64(v7, v33);
+              if (!v49)
               {
                 goto LABEL_114;
               }
@@ -7065,10 +7061,10 @@ LABEL_7:
             else
             {
 LABEL_65:
-              v52 = v36;
+              v49 = v34;
             }
 
-            if (v35 > 2)
+            if (v33 > 2)
             {
               sub_276F53E6C();
             }
@@ -7076,7 +7072,7 @@ LABEL_65:
             else
             {
               *(a1 + 16) |= 8u;
-              *(a1 + 68) = v35;
+              *(a1 + 68) = v33;
             }
 
             goto LABEL_95;
@@ -7087,20 +7083,20 @@ LABEL_65:
             goto LABEL_87;
           }
 
-          v25 = (v7 + 1);
-          v24 = *v7;
-          if ((v24 & 0x8000000000000000) != 0)
+          v23 = (v7 + 1);
+          v22 = *v7;
+          if ((v22 & 0x8000000000000000) != 0)
           {
-            v26 = *v25;
-            v24 = (v26 << 7) + v24 - 128;
-            if ((v26 & 0x80000000) == 0)
+            v24 = *v23;
+            v22 = (v24 << 7) + v22 - 128;
+            if ((v24 & 0x80000000) == 0)
             {
-              v25 = (v7 + 2);
+              v23 = (v7 + 2);
               goto LABEL_42;
             }
 
-            v52 = google::protobuf::internal::VarintParseSlow64(v7, v24);
-            if (!v52)
+            v49 = google::protobuf::internal::VarintParseSlow64(v7, v22);
+            if (!v49)
             {
               goto LABEL_114;
             }
@@ -7109,10 +7105,10 @@ LABEL_65:
           else
           {
 LABEL_42:
-            v52 = v25;
+            v49 = v23;
           }
 
-          if (v24 > 1)
+          if (v22 > 1)
           {
             sub_276F53E30();
           }
@@ -7120,7 +7116,7 @@ LABEL_42:
           else
           {
             *(a1 + 16) |= 0x10u;
-            *(a1 + 72) = v24;
+            *(a1 + 72) = v22;
           }
 
           goto LABEL_95;
@@ -7134,24 +7130,23 @@ LABEL_42:
           }
 
           *(a1 + 16) |= 1u;
-          v21 = *(a1 + 48);
-          if (!v21)
+          v20 = *(a1 + 48);
+          if (!v20)
           {
-            v22 = *(a1 + 8);
-            if (v22)
+            v21 = *(a1 + 8);
+            if (v21)
             {
-              v22 = *(v22 & 0xFFFFFFFFFFFFFFFELL);
+              v21 = *(v21 & 0xFFFFFFFFFFFFFFFELL);
             }
 
-            v23 = MEMORY[0x277CA3230](v22);
-            LODWORD(v21) = v23;
-            *(a1 + 48) = v23;
+            v20 = MEMORY[0x277CA3230](v21);
+            *(a1 + 48) = v20;
 LABEL_78:
-            v7 = v52;
+            v7 = v49;
           }
 
 LABEL_79:
-          v43 = sub_276F4F918(a3, v21, v7);
+          v40 = sub_276F4F918(a3, v20, v7);
           goto LABEL_94;
         }
 
@@ -7160,20 +7155,20 @@ LABEL_79:
           goto LABEL_87;
         }
 
-        v33 = (v7 + 1);
-        v32 = *v7;
-        if ((v32 & 0x8000000000000000) != 0)
+        v31 = (v7 + 1);
+        v30 = *v7;
+        if ((v30 & 0x8000000000000000) != 0)
         {
-          v34 = *v33;
-          v32 = (v34 << 7) + v32 - 128;
-          if ((v34 & 0x80000000) == 0)
+          v32 = *v31;
+          v30 = (v32 << 7) + v30 - 128;
+          if ((v32 & 0x80000000) == 0)
           {
-            v33 = (v7 + 2);
+            v31 = (v7 + 2);
             goto LABEL_58;
           }
 
-          v52 = google::protobuf::internal::VarintParseSlow64(v7, v32);
-          if (!v52)
+          v49 = google::protobuf::internal::VarintParseSlow64(v7, v30);
+          if (!v49)
           {
             goto LABEL_114;
           }
@@ -7182,10 +7177,10 @@ LABEL_79:
         else
         {
 LABEL_58:
-          v52 = v33;
+          v49 = v31;
         }
 
-        if (v32 > 8)
+        if (v30 > 8)
         {
           sub_276F53EA8();
         }
@@ -7193,7 +7188,7 @@ LABEL_58:
         else
         {
           *(a1 + 16) |= 4u;
-          *(a1 + 64) = v32;
+          *(a1 + 64) = v30;
         }
 
         goto LABEL_95;
@@ -7206,18 +7201,17 @@ LABEL_58:
           if (v8 == 42)
           {
             *(a1 + 16) |= 2u;
-            v21 = *(a1 + 56);
-            if (!v21)
+            v20 = *(a1 + 56);
+            if (!v20)
             {
-              v41 = *(a1 + 8);
-              if (v41)
+              v39 = *(a1 + 8);
+              if (v39)
               {
-                v41 = *(v41 & 0xFFFFFFFFFFFFFFFELL);
+                v39 = *(v39 & 0xFFFFFFFFFFFFFFFELL);
               }
 
-              v42 = MEMORY[0x277CA3230](v41);
-              LODWORD(v21) = v42;
-              *(a1 + 56) = v42;
+              v20 = MEMORY[0x277CA3230](v39);
+              *(a1 + 56) = v20;
               goto LABEL_78;
             }
 
@@ -7227,15 +7221,15 @@ LABEL_58:
 LABEL_87:
           if (v8)
           {
-            v47 = (v8 & 7) == 4;
+            v44 = (v8 & 7) == 4;
           }
 
           else
           {
-            v47 = 1;
+            v44 = 1;
           }
 
-          if (v47)
+          if (v44)
           {
             *(a3 + 80) = v8 - 1;
             goto LABEL_2;
@@ -7246,10 +7240,10 @@ LABEL_87:
             sub_276EA4A94((a1 + 8));
           }
 
-          v43 = google::protobuf::internal::UnknownFieldParse();
+          v40 = google::protobuf::internal::UnknownFieldParse();
 LABEL_94:
-          v52 = v43;
-          if (!v43)
+          v49 = v40;
+          if (!v40)
           {
             goto LABEL_114;
           }
@@ -7263,28 +7257,28 @@ LABEL_94:
         }
 
         v5 |= 0x20u;
-        v28 = (v7 + 1);
-        v27 = *v7;
-        if ((v27 & 0x8000000000000000) == 0)
+        v26 = (v7 + 1);
+        v25 = *v7;
+        if ((v25 & 0x8000000000000000) == 0)
         {
           goto LABEL_51;
         }
 
-        v29 = *v28;
-        v27 = (v29 << 7) + v27 - 128;
-        if ((v29 & 0x80000000) == 0)
+        v27 = *v26;
+        v25 = (v27 << 7) + v25 - 128;
+        if ((v27 & 0x80000000) == 0)
         {
-          v28 = (v7 + 2);
+          v26 = (v7 + 2);
 LABEL_51:
-          v52 = v28;
-          *(a1 + 76) = v27 != 0;
+          v49 = v26;
+          *(a1 + 76) = v25 != 0;
           goto LABEL_95;
         }
 
-        v48 = google::protobuf::internal::VarintParseSlow64(v7, v27);
-        v52 = v48;
-        *(a1 + 76) = v49 != 0;
-        if (!v48)
+        v45 = google::protobuf::internal::VarintParseSlow64(v7, v25);
+        v49 = v45;
+        *(a1 + 76) = v46 != 0;
+        if (!v45)
         {
           goto LABEL_114;
         }
@@ -7302,19 +7296,19 @@ LABEL_51:
               while (1)
               {
                 v12 = (v11 + 1);
-                v52 = (v11 + 1);
+                v49 = (v11 + 1);
                 v13 = *(a1 + 40);
                 if (!v13)
                 {
                   goto LABEL_15;
                 }
 
-                v19 = *(a1 + 32);
+                v18 = *(a1 + 32);
                 v14 = *v13;
-                if (v19 < *v13)
+                if (v18 < *v13)
                 {
-                  *(a1 + 32) = v19 + 1;
-                  v16 = *&v13[2 * v19 + 2];
+                  *(a1 + 32) = v18 + 1;
+                  v15 = *&v13[2 * v18 + 2];
                   goto LABEL_19;
                 }
 
@@ -7328,15 +7322,14 @@ LABEL_15:
 
                 *v13 = v14 + 1;
                 v15 = MEMORY[0x277CA3230](*(a1 + 24));
-                LODWORD(v16) = v15;
-                v17 = *(a1 + 32);
-                v18 = *(a1 + 40) + 8 * v17;
-                *(a1 + 32) = v17 + 1;
-                *(v18 + 8) = v15;
-                v12 = v52;
+                v16 = *(a1 + 32);
+                v17 = *(a1 + 40) + 8 * v16;
+                *(a1 + 32) = v16 + 1;
+                *(v17 + 8) = v15;
+                v12 = v49;
 LABEL_19:
-                v11 = sub_276F4F918(a3, v16, v12);
-                v52 = v11;
+                v11 = sub_276F4F918(a3, v15, v12);
+                v49 = v11;
                 if (!v11)
                 {
                   goto LABEL_114;
@@ -7357,23 +7350,23 @@ LABEL_19:
             goto LABEL_87;
           }
 
-          v45 = (v7 + 1);
-          v44 = *v7;
-          if ((v44 & 0x8000000000000000) != 0)
+          v42 = (v7 + 1);
+          v41 = *v7;
+          if ((v41 & 0x8000000000000000) != 0)
           {
-            v46 = *v45;
-            v44 = (v46 << 7) + v44 - 128;
-            if ((v46 & 0x80000000) == 0)
+            v43 = *v42;
+            v41 = (v43 << 7) + v41 - 128;
+            if ((v43 & 0x80000000) == 0)
             {
-              v45 = (v7 + 2);
+              v42 = (v7 + 2);
               goto LABEL_84;
             }
 
-            v52 = google::protobuf::internal::VarintParseSlow64(v7, v44);
-            if (!v52)
+            v49 = google::protobuf::internal::VarintParseSlow64(v7, v41);
+            if (!v49)
             {
 LABEL_114:
-              v52 = 0;
+              v49 = 0;
               goto LABEL_2;
             }
           }
@@ -7381,10 +7374,10 @@ LABEL_114:
           else
           {
 LABEL_84:
-            v52 = v45;
+            v49 = v42;
           }
 
-          if (v44 > 8)
+          if (v41 > 8)
           {
             sub_276F53DF4();
           }
@@ -7392,7 +7385,7 @@ LABEL_84:
           else
           {
             *(a1 + 16) |= 0x80u;
-            *(a1 + 84) = v44;
+            *(a1 + 84) = v41;
           }
 
           goto LABEL_95;
@@ -7404,49 +7397,49 @@ LABEL_84:
         }
 
         v5 |= 0x40u;
-        v38 = (v7 + 1);
-        LODWORD(v39) = *v7;
+        v36 = (v7 + 1);
+        LODWORD(v37) = *v7;
         if ((*v7 & 0x80000000) == 0)
         {
           goto LABEL_72;
         }
 
-        v40 = *v38;
-        v39 = (v39 + (v40 << 7) - 128);
-        if ((v40 & 0x80000000) == 0)
+        v38 = *v36;
+        v37 = (v37 + (v38 << 7) - 128);
+        if ((v38 & 0x80000000) == 0)
         {
-          v38 = (v7 + 2);
+          v36 = (v7 + 2);
 LABEL_72:
-          v52 = v38;
-          *(a1 + 80) = v39;
+          v49 = v36;
+          *(a1 + 80) = v37;
           goto LABEL_95;
         }
 
-        v50 = google::protobuf::internal::VarintParseSlow32(v7, v39);
-        v52 = v50;
-        *(a1 + 80) = v51;
-        if (!v50)
+        v47 = google::protobuf::internal::VarintParseSlow32(v7, v37);
+        v49 = v47;
+        *(a1 + 80) = v48;
+        if (!v47)
         {
           goto LABEL_114;
         }
       }
 
 LABEL_95:
-      if (sub_276EA4A1C(a3, &v52))
+      if (sub_276EA4A1C(a3, &v49, *(a3 + 92)))
       {
         goto LABEL_2;
       }
     }
 
-    v7 = (v52 + 2);
+    v7 = (v49 + 2);
 LABEL_6:
-    v52 = v7;
+    v49 = v7;
     goto LABEL_7;
   }
 
 LABEL_2:
   *(a1 + 16) |= v5;
-  return v52;
+  return v49;
 }
 
 unsigned __int8 *TSWP::SelectionArchive::_InternalSerialize(TSWP::SelectionArchive *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3)
@@ -7918,7 +7911,7 @@ LABEL_85:
     return a2;
   }
 
-  return MEMORY[0x2821EAC40]((v47 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v47 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
 }
 
 uint64_t TSWP::SelectionArchive::RequiredFieldsByteSizeFallback(TSWP::SelectionArchive *this)
@@ -8150,7 +8143,7 @@ uint64_t TSWP::SelectionArchive::MergeFrom(uint64_t this, const TSWP::SelectionA
   {
     v6 = *(a2 + 5);
     v7 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((v3 + 24));
-    this = sub_276EA4D78(v3 + 24, v7, (v6 + 8), v5, **(v3 + 40) - *(v3 + 32));
+    this = sub_276EA4D78((v3 + 24), v7, (v6 + 8), v5, **(v3 + 40) - *(v3 + 32));
     v8 = *(v3 + 32) + v5;
     *(v3 + 32) = v8;
     v9 = *(v3 + 40);
@@ -8313,7 +8306,7 @@ LABEL_38:
   return this;
 }
 
-uint64_t *TSWP::SelectionArchive::CopyFrom(uint64_t *this, const Message *a2)
+const Message *TSWP::SelectionArchive::CopyFrom(const Message *this, const Message *a2)
 {
   if (a2 != this)
   {
@@ -8326,7 +8319,7 @@ uint64_t *TSWP::SelectionArchive::CopyFrom(uint64_t *this, const Message *a2)
   return this;
 }
 
-uint64_t *TSWP::SelectionArchive::CopyFrom(uint64_t *this, const TSWP::SelectionArchive *a2)
+const TSWP::SelectionArchive *TSWP::SelectionArchive::CopyFrom(const TSWP::SelectionArchive *this, const TSWP::SelectionArchive *a2)
 {
   if (a2 != this)
   {
@@ -8532,12 +8525,12 @@ uint64_t *TSWP::ObjectAttributeTable_ObjectAttribute::default_instance(TSWP::Obj
   return &TSWP::_ObjectAttributeTable_ObjectAttribute_default_instance_;
 }
 
-uint64_t *TSWP::ObjectAttributeTable_ObjectAttribute::Clear(uint64_t *this)
+google::protobuf::UnknownFieldSet *TSWP::ObjectAttributeTable_ObjectAttribute::Clear(google::protobuf::UnknownFieldSet *this)
 {
   v1 = this;
-  if (this[2])
+  if (*(this + 16))
   {
-    this = TSP::Reference::Clear(this[3]);
+    this = TSP::Reference::Clear(*(this + 3));
   }
 
   v3 = *(v1 + 8);
@@ -8555,15 +8548,15 @@ uint64_t *TSWP::ObjectAttributeTable_ObjectAttribute::Clear(uint64_t *this)
 
 google::protobuf::internal *TSWP::ObjectAttributeTable_ObjectAttribute::_InternalParse(uint64_t a1, google::protobuf::internal *a2, uint64_t a3)
 {
-  v23 = a2;
+  v22 = a2;
   v5 = 0;
-  if ((sub_276EA4A1C(a3, &v23) & 1) == 0)
+  if ((sub_276EA4A1C(a3, &v22, *(a3 + 92)) & 1) == 0)
   {
     while (1)
     {
-      v7 = (v23 + 1);
-      v8 = *v23;
-      if ((*v23 & 0x80000000) == 0)
+      v7 = (v22 + 1);
+      v8 = *v22;
+      if ((*v22 & 0x80000000) == 0)
       {
         goto LABEL_6;
       }
@@ -8575,15 +8568,15 @@ google::protobuf::internal *TSWP::ObjectAttributeTable_ObjectAttribute::_Interna
         break;
       }
 
-      TagFallback = google::protobuf::internal::ReadTagFallback(v23, (v9 - 128));
-      v23 = TagFallback;
+      TagFallback = google::protobuf::internal::ReadTagFallback(v22, (v9 - 128));
+      v22 = TagFallback;
       if (!TagFallback)
       {
         goto LABEL_38;
       }
 
       v7 = TagFallback;
-      v8 = v20;
+      v8 = v19;
 LABEL_7:
       if (v8 >> 3 == 2)
       {
@@ -8599,10 +8592,9 @@ LABEL_7:
               v14 = *(v14 & 0xFFFFFFFFFFFFFFFELL);
             }
 
-            v15 = MEMORY[0x277CA3250](v14);
-            LODWORD(v13) = v15;
-            *(a1 + 24) = v15;
-            v7 = v23;
+            v13 = MEMORY[0x277CA3250](v14);
+            *(a1 + 24) = v13;
+            v7 = v22;
           }
 
           v12 = sub_276F4F9E8(a3, v13, v7);
@@ -8635,7 +8627,7 @@ LABEL_12:
           v12 = google::protobuf::internal::UnknownFieldParse();
         }
 
-        v23 = v12;
+        v22 = v12;
         if (!v12)
         {
           goto LABEL_38;
@@ -8650,50 +8642,50 @@ LABEL_12:
       }
 
       v5 |= 2u;
-      v16 = (v7 + 1);
-      LODWORD(v17) = *v7;
+      v15 = (v7 + 1);
+      LODWORD(v16) = *v7;
       if ((*v7 & 0x80000000) == 0)
       {
         goto LABEL_30;
       }
 
-      v18 = *v16;
-      v17 = (v17 + (v18 << 7) - 128);
-      if ((v18 & 0x80000000) == 0)
+      v17 = *v15;
+      v16 = (v16 + (v17 << 7) - 128);
+      if ((v17 & 0x80000000) == 0)
       {
-        v16 = (v7 + 2);
+        v15 = (v7 + 2);
 LABEL_30:
-        v23 = v16;
-        *(a1 + 32) = v17;
+        v22 = v15;
+        *(a1 + 32) = v16;
         goto LABEL_31;
       }
 
-      v21 = google::protobuf::internal::VarintParseSlow32(v7, v17);
-      v23 = v21;
-      *(a1 + 32) = v22;
-      if (!v21)
+      v20 = google::protobuf::internal::VarintParseSlow32(v7, v16);
+      v22 = v20;
+      *(a1 + 32) = v21;
+      if (!v20)
       {
 LABEL_38:
-        v23 = 0;
+        v22 = 0;
         goto LABEL_2;
       }
 
 LABEL_31:
-      if (sub_276EA4A1C(a3, &v23))
+      if (sub_276EA4A1C(a3, &v22, *(a3 + 92)))
       {
         goto LABEL_2;
       }
     }
 
-    v7 = (v23 + 2);
+    v7 = (v22 + 2);
 LABEL_6:
-    v23 = v7;
+    v22 = v7;
     goto LABEL_7;
   }
 
 LABEL_2:
   *(a1 + 16) |= v5;
-  return v23;
+  return v22;
 }
 
 unsigned __int8 *TSWP::ObjectAttributeTable_ObjectAttribute::_InternalSerialize(TSWP::ObjectAttributeTable_ObjectAttribute *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3)
@@ -8803,7 +8795,7 @@ LABEL_24:
     return a2;
   }
 
-  return MEMORY[0x2821EAC40]((v16 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v16 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
 }
 
 uint64_t TSWP::ObjectAttributeTable_ObjectAttribute::ByteSizeLong(TSWP::ObjectAttributeTable_ObjectAttribute *this)
@@ -8909,7 +8901,7 @@ uint64_t TSWP::ObjectAttributeTable_ObjectAttribute::MergeFrom(uint64_t this, co
   return this;
 }
 
-uint64_t *TSWP::ObjectAttributeTable_ObjectAttribute::CopyFrom(uint64_t *this, const Message *a2)
+const Message *TSWP::ObjectAttributeTable_ObjectAttribute::CopyFrom(const Message *this, const Message *a2)
 {
   if (a2 != this)
   {
@@ -8922,7 +8914,7 @@ uint64_t *TSWP::ObjectAttributeTable_ObjectAttribute::CopyFrom(uint64_t *this, c
   return this;
 }
 
-uint64_t *TSWP::ObjectAttributeTable_ObjectAttribute::CopyFrom(uint64_t *this, const TSWP::ObjectAttributeTable_ObjectAttribute *a2)
+const TSWP::ObjectAttributeTable_ObjectAttribute *TSWP::ObjectAttributeTable_ObjectAttribute::CopyFrom(const TSWP::ObjectAttributeTable_ObjectAttribute *this, const TSWP::ObjectAttributeTable_ObjectAttribute *a2)
 {
   if (a2 != this)
   {
@@ -8993,7 +8985,7 @@ TSWP::ObjectAttributeTable *TSWP::ObjectAttributeTable::ObjectAttributeTable(TSW
   *(this + 1) = 0;
   v4 = (this + 8);
   *(this + 2) = 0;
-  v5 = this + 16;
+  v5 = (this + 16);
   *this = &unk_2885FFE40;
   *(this + 3) = 0;
   *(this + 4) = 0;
@@ -9044,13 +9036,13 @@ void *TSWP::ObjectAttributeTable::default_instance(TSWP::ObjectAttributeTable *t
   return &TSWP::_ObjectAttributeTable_default_instance_;
 }
 
-uint64_t *TSWP::ObjectAttributeTable::Clear(uint64_t *this)
+google::protobuf::UnknownFieldSet *TSWP::ObjectAttributeTable::Clear(google::protobuf::UnknownFieldSet *this)
 {
   v1 = this;
   v2 = *(this + 6);
   if (v2 >= 1)
   {
-    v3 = (this[4] + 8);
+    v3 = (*(this + 4) + 8);
     do
     {
       v4 = *v3++;
@@ -9076,7 +9068,7 @@ uint64_t *TSWP::ObjectAttributeTable::Clear(uint64_t *this)
 google::protobuf::internal *TSWP::ObjectAttributeTable::_InternalParse(uint64_t a1, google::protobuf::internal *a2, uint64_t a3)
 {
   v20 = a2;
-  if ((sub_276EA4A1C(a3, &v20) & 1) == 0)
+  if ((sub_276EA4A1C(a3, &v20, *(a3 + 92)) & 1) == 0)
   {
     while (1)
     {
@@ -9184,7 +9176,7 @@ LABEL_22:
       }
 
 LABEL_14:
-      if (sub_276EA4A1C(a3, &v20))
+      if (sub_276EA4A1C(a3, &v20, *(a3 + 92)))
       {
         return v20;
       }
@@ -9257,7 +9249,7 @@ unsigned __int8 *TSWP::ObjectAttributeTable::_InternalSerialize(TSWP::ObjectAttr
     return a2;
   }
 
-  return MEMORY[0x2821EAC40]((v13 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v13 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
 }
 
 uint64_t TSWP::ObjectAttributeTable::ByteSizeLong(TSWP::ObjectAttributeTable *this)
@@ -9335,7 +9327,7 @@ uint64_t TSWP::ObjectAttributeTable::MergeFrom(uint64_t this, const TSWP::Object
   {
     v6 = *(a2 + 4);
     v7 = google::protobuf::internal::RepeatedPtrFieldBase::InternalExtend((v3 + 16));
-    this = sub_276EA4F24(v3 + 16, v7, (v6 + 8), v5, **(v3 + 32) - *(v3 + 24));
+    this = sub_276EA4F24((v3 + 16), v7, (v6 + 8), v5, **(v3 + 32) - *(v3 + 24));
     v8 = *(v3 + 24) + v5;
     *(v3 + 24) = v8;
     v9 = *(v3 + 32);
@@ -9348,7 +9340,7 @@ uint64_t TSWP::ObjectAttributeTable::MergeFrom(uint64_t this, const TSWP::Object
   return this;
 }
 
-uint64_t *TSWP::ObjectAttributeTable::CopyFrom(uint64_t *this, const Message *a2)
+const Message *TSWP::ObjectAttributeTable::CopyFrom(const Message *this, const Message *a2)
 {
   if (a2 != this)
   {
@@ -9361,7 +9353,7 @@ uint64_t *TSWP::ObjectAttributeTable::CopyFrom(uint64_t *this, const Message *a2
   return this;
 }
 
-uint64_t *TSWP::ObjectAttributeTable::CopyFrom(uint64_t *this, const TSWP::ObjectAttributeTable *a2)
+const TSWP::ObjectAttributeTable *TSWP::ObjectAttributeTable::CopyFrom(const TSWP::ObjectAttributeTable *this, const TSWP::ObjectAttributeTable *a2)
 {
   if (a2 != this)
   {
@@ -9491,7 +9483,7 @@ void *TSWP::StringAttributeTable_StringAttribute::default_instance(TSWP::StringA
   return &TSWP::_StringAttributeTable_StringAttribute_default_instance_;
 }
 
-uint64_t *TSWP::StringAttributeTable_StringAttribute::Clear(TSWP::StringAttributeTable_StringAttribute *this)
+google::protobuf::UnknownFieldSet *TSWP::StringAttributeTable_StringAttribute::Clear(TSWP::StringAttributeTable_StringAttribute *this)
 {
   if (*(this + 16))
   {
@@ -9525,7 +9517,7 @@ google::protobuf::internal *TSWP::StringAttributeTable_StringAttribute::_Interna
 {
   v20 = a2;
   v5 = 0;
-  if ((sub_276EA4A1C(a3, &v20) & 1) == 0)
+  if ((sub_276EA4A1C(a3, &v20, *(a3 + 92)) & 1) == 0)
   {
     while (1)
     {
@@ -9633,7 +9625,7 @@ LABEL_34:
       }
 
 LABEL_27:
-      if (sub_276EA4A1C(a3, &v20))
+      if (sub_276EA4A1C(a3, &v20, *(a3 + 92)))
       {
         goto LABEL_2;
       }

@@ -133,7 +133,6 @@ id __61__AKClientConnectionLifecycleManager_activeServiceConnection__block_invok
 
   v4 = MEMORY[0x1E69E5928](v45[0]);
   objc_storeStrong(v45, 0);
-  *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -198,8 +197,6 @@ void __63__AKClientConnectionLifecycleManager_teardownServiceConnection__block_i
     [*(a1[4].isa + 2) invalidate];
     objc_storeStrong(a1[4].isa + 2, 0);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void __61__AKClientConnectionLifecycleManager_activeServiceConnection__block_invoke_3(id *a1)
@@ -250,7 +247,6 @@ void __61__AKClientConnectionLifecycleManager_activeServiceConnection__block_inv
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (AKClientConnectionLifecycleManager)initWithConfiguration:(id)configuration
@@ -321,7 +317,6 @@ void __61__AKClientConnectionLifecycleManager_activeServiceConnection__block_inv
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -196,7 +196,7 @@ LABEL_14:
   return result;
 }
 
-uint64_t __67__SUUINavigationPaletteView_sizeThatFitsWidth_viewElement_context___block_invoke(uint64_t a1, uint64_t a2)
+void *__67__SUUINavigationPaletteView_sizeThatFitsWidth_viewElement_context___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 48) _sizeForViewElement:a2 width:*(a1 + 32) context:*(a1 + 56)];
   v5 = *(*(a1 + 40) + 8);
@@ -594,9 +594,9 @@ LABEL_24:
         v9 = *(*(&v17 + 1) + 8 * i);
         v10 = [(NSMapTable *)self->_viewElementViews objectForKey:v9];
         itmlID = [v10 itmlID];
-        v12 = [itmlID isEqualToString:identifierCopy];
+        isEqualToString = objc_msgSend_isEqualToString_(itmlID);
 
-        if (v12)
+        if (isEqualToString)
         {
           v13 = v9;
 LABEL_13:

@@ -26,8 +26,8 @@
 
 + (id)transportKeyForCharacteristic:(id)characteristic
 {
-  service = [characteristic service];
-  accessory = [service accessory];
+  v3 = objc_msgSend_service(characteristic, a2);
+  accessory = [v3 accessory];
 
   if ([accessory transportTypes])
   {
@@ -78,46 +78,46 @@
 
 - (void)addCharacteristic:(id)characteristic withUpdateLogger:(id)logger
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   loggerCopy = logger;
   v8 = [HFCharacteristicReadLogger transportKeyForCharacteristic:characteristicCopy];
   if (loggerCopy)
   {
     loggerActivity = [loggerCopy loggerActivity];
-    os_activity_scope_enter(loggerActivity, &v27);
+    os_activity_scope_enter(loggerActivity, &v26);
 
     v10 = HFLogForCategory(0x3DuLL);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = +[HFCharacteristicReadLogger nameForTransportType:](HFCharacteristicReadLogger, "nameForTransportType:", [v8 integerValue]);
-      service = [characteristicCopy service];
-      accessory = [service accessory];
+      v12 = objc_msgSend_service(characteristicCopy);
+      accessory = [v12 accessory];
       name = [accessory name];
       *buf = 138412546;
-      v29 = v11;
-      v30 = 2112;
-      v31 = name;
+      v28 = v11;
+      v29 = 2112;
+      v30 = name;
       _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "Reads Complete Tracking: %@ Accessory: %@", buf, 0x16u);
     }
 
-    os_activity_scope_leave(&v27);
+    os_activity_scope_leave(&v26);
   }
 
   else
   {
-    v22 = HFLogForCategory(0x3DuLL);
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v21 = HFLogForCategory(0x3DuLL);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = +[HFCharacteristicReadLogger nameForTransportType:](HFCharacteristicReadLogger, "nameForTransportType:", [v8 integerValue]);
-      service2 = [characteristicCopy service];
-      accessory2 = [service2 accessory];
+      v22 = +[HFCharacteristicReadLogger nameForTransportType:](HFCharacteristicReadLogger, "nameForTransportType:", [v8 integerValue]);
+      v23 = objc_msgSend_service(characteristicCopy);
+      accessory2 = [v23 accessory];
       name2 = [accessory2 name];
       *buf = 138412546;
-      v29 = v23;
-      v30 = 2112;
-      v31 = name2;
-      _os_log_impl(&dword_20D9BF000, v22, OS_LOG_TYPE_DEFAULT, "Reads Complete Tracking: %@ Accessory: %@", buf, 0x16u);
+      v28 = v22;
+      v29 = 2112;
+      v30 = name2;
+      _os_log_impl(&dword_20D9BF000, v21, OS_LOG_TYPE_DEFAULT, "Reads Complete Tracking: %@ Accessory: %@", buf, 0x16u);
     }
   }
 
@@ -134,13 +134,11 @@
   accessoriesToReadByTransport3 = [(HFCharacteristicReadLogger *)self accessoriesToReadByTransport];
   v20 = [accessoriesToReadByTransport3 objectForKeyedSubscript:v8];
   [v20 addCharacteristic:characteristicCopy];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markCharacteristicAsRead:(id)read withLogger:(id)logger
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   loggerCopy = logger;
   readCopy = read;
   v8 = [HFCharacteristicReadLogger transportKeyForCharacteristic:readCopy];
@@ -162,9 +160,9 @@
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         v14 = +[HFCharacteristicReadLogger nameForTransportType:](HFCharacteristicReadLogger, "nameForTransportType:", [v8 integerValue]);
-        v18 = 138412290;
-        v19 = v14;
-        _os_log_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_DEFAULT, "Reads Complete Tracking: Completed reads for %@ accessories.", &v18, 0xCu);
+        v17 = 138412290;
+        v18 = v14;
+        _os_log_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_DEFAULT, "Reads Complete Tracking: Completed reads for %@ accessories.", &v17, 0xCu);
       }
 
       os_activity_scope_leave(&state);
@@ -172,18 +170,16 @@
 
     else
     {
-      v16 = HFLogForCategory(0x3DuLL);
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v15 = HFLogForCategory(0x3DuLL);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = +[HFCharacteristicReadLogger nameForTransportType:](HFCharacteristicReadLogger, "nameForTransportType:", [v8 integerValue]);
+        v16 = +[HFCharacteristicReadLogger nameForTransportType:](HFCharacteristicReadLogger, "nameForTransportType:", [v8 integerValue]);
         LODWORD(state.opaque[0]) = 138412290;
-        *(state.opaque + 4) = v17;
-        _os_log_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_DEFAULT, "Reads Complete Tracking: Completed reads for %@ accessories.", &state, 0xCu);
+        *(state.opaque + 4) = v16;
+        _os_log_impl(&dword_20D9BF000, v15, OS_LOG_TYPE_DEFAULT, "Reads Complete Tracking: Completed reads for %@ accessories.", &state, 0xCu);
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -27,54 +27,56 @@
   {
     assets = [(PUHidePhotosActionController *)self assets];
     v6 = PLSuffixForItems();
-    v21 = assets;
-    if ([assets count] == 1)
+    v29 = assets;
+    v7 = [assets count];
+    if (v7 == 1)
     {
-      v7 = [@"HIDE_CONFIRMATION_MESSAGE_" stringByAppendingString:v6];
-      v8 = PULocalizedString(v7);
+      v8 = [@"HIDE_CONFIRMATION_MESSAGE_" stringByAppendingString:v6];
+      v9 = PULocalizedString(v8);
 
-      v9 = [@"HIDE_BUTTON_TITLE_" stringByAppendingString:v6];
-      v10 = PULocalizedString(v9);
+      v10 = [@"HIDE_BUTTON_TITLE_" stringByAppendingString:v6];
+      v11 = PULocalizedString(v10);
     }
 
     else
     {
-      v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"HIDE_CONFIRMATION_MESSAGE_%@S", v6];
-      v8 = PULocalizedString(v12);
+      v13 = v7;
+      v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"HIDE_CONFIRMATION_MESSAGE_%@S", v6];
+      v9 = PULocalizedString(v14);
 
-      v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"HIDE_BUTTON_TITLE_%@S", v6];
-      v13 = PULocalizedString(v9);
-      v10 = PULocalizedStringWithValidatedFormat(v13, @"%lu");
+      v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"HIDE_BUTTON_TITLE_%@S", v6];
+      v15 = PULocalizedString(v10);
+      v11 = PULocalizedStringWithValidatedFormat(v15, @"%lu", v16, v17, v18, v19, v20, v21, v13);
     }
 
-    v14 = PULocalizedString(@"CANCEL");
-    v11 = [MEMORY[0x1E69DC650] alertControllerWithTitle:v8 message:0 preferredStyle:0];
-    v15 = MEMORY[0x1E69DC648];
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __96__PUHidePhotosActionController_alertControllerForTogglingAssetsVisibilityWithCompletionHandler___block_invoke;
-    v24[3] = &unk_1E7B80980;
-    v16 = handlerCopy;
-    v25 = v16;
-    v17 = [v15 actionWithTitle:v10 style:2 handler:v24];
-    [v11 addAction:v17];
+    v22 = PULocalizedString(@"CANCEL");
+    v12 = [MEMORY[0x1E69DC650] alertControllerWithTitle:v9 message:0 preferredStyle:0];
+    v23 = MEMORY[0x1E69DC648];
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __96__PUHidePhotosActionController_alertControllerForTogglingAssetsVisibilityWithCompletionHandler___block_invoke;
+    v32[3] = &unk_1E7B80980;
+    v24 = handlerCopy;
+    v33 = v24;
+    v25 = [v23 actionWithTitle:v11 style:2 handler:v32];
+    [v12 addAction:v25];
 
-    v18 = MEMORY[0x1E69DC648];
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __96__PUHidePhotosActionController_alertControllerForTogglingAssetsVisibilityWithCompletionHandler___block_invoke_2;
-    v22[3] = &unk_1E7B80980;
-    v23 = v16;
-    v19 = [v18 actionWithTitle:v14 style:1 handler:v22];
-    [v11 addAction:v19];
+    v26 = MEMORY[0x1E69DC648];
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __96__PUHidePhotosActionController_alertControllerForTogglingAssetsVisibilityWithCompletionHandler___block_invoke_2;
+    v30[3] = &unk_1E7B80980;
+    v31 = v24;
+    v27 = [v26 actionWithTitle:v22 style:1 handler:v30];
+    [v12 addAction:v27];
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  return v11;
+  return v12;
 }
 
 uint64_t __96__PUHidePhotosActionController_alertControllerForTogglingAssetsVisibilityWithCompletionHandler___block_invoke(uint64_t a1)

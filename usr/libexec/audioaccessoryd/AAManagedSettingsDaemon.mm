@@ -65,48 +65,57 @@
 {
   if (!self->_activateCalled)
   {
+    selfCopy = self;
     self->_activateCalled = 1;
-    if (dword_1002F68B8 <= 30 && (dword_1002F68B8 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F68B8 <= 30)
     {
-      sub_1001EC7E0();
+      if (dword_1002F68B8 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001EC7E0(self, a2, v2);
+      }
     }
 
     if (_os_feature_enabled_impl())
     {
-      [(AAManagedSettingsDaemon *)self _managedSettingsListenerEnsureStarted];
-      [(AAManagedSettingsDaemon *)self _fetchManagedSettings];
-      v3 = +[AAPairedDeviceDaemon sharedAAPairedDeviceDaemon];
-      aaPairedDeviceDaemon = self->_aaPairedDeviceDaemon;
-      self->_aaPairedDeviceDaemon = v3;
+      [(AAManagedSettingsDaemon *)selfCopy _managedSettingsListenerEnsureStarted];
+      [(AAManagedSettingsDaemon *)selfCopy _fetchManagedSettings];
+      v4 = +[AAPairedDeviceDaemon sharedAAPairedDeviceDaemon];
+      aaPairedDeviceDaemon = selfCopy->_aaPairedDeviceDaemon;
+      selfCopy->_aaPairedDeviceDaemon = v4;
 
-      [(AAManagedSettingsDaemon *)self _handleAlarmEvent];
+      [(AAManagedSettingsDaemon *)selfCopy _handleAlarmEvent];
     }
   }
 }
 
 - (void)_handleAlarmEvent
 {
-  if (dword_1002F68B8 <= 30 && (dword_1002F68B8 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1002F68B8 <= 30)
   {
-    sub_1001EC7FC();
+    if (dword_1002F68B8 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001EC7FC(self, a2, v2);
+    }
   }
 
-  dispatchQueue = self->_dispatchQueue;
+  dispatchQueue = selfCopy->_dispatchQueue;
   handler[0] = _NSConcreteStackBlock;
   handler[1] = 3221225472;
   handler[2] = sub_100074A58;
   handler[3] = &unk_1002B68D0;
-  handler[4] = self;
+  handler[4] = selfCopy;
   xpc_set_event_stream_handler("com.apple.alarm", dispatchQueue, handler);
 }
 
 - (void)_scheduleCleanupAlarm
 {
-  if ([(AAManagedSettingsDaemon *)self allowTemporaryPairingConnection])
+  allowTemporaryPairingConnection = [(AAManagedSettingsDaemon *)self allowTemporaryPairingConnection];
+  if (allowTemporaryPairingConnection)
   {
     _nextCleanupAlarmTime = [(AAManagedSettingsDaemon *)self _nextCleanupAlarmTime];
-    v4 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_date(v4, "Date", _nextCleanupAlarmTime);
+    v7 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_date(v7, "Date", _nextCleanupAlarmTime);
     xpc_set_event();
     if (dword_1002F68B8 <= 30 && (dword_1002F68B8 != -1 || _LogCategory_Initialize()))
     {
@@ -114,9 +123,12 @@
     }
   }
 
-  else if (dword_1002F68B8 <= 30 && (dword_1002F68B8 != -1 || _LogCategory_Initialize()))
+  else if (dword_1002F68B8 <= 30)
   {
-    sub_1001EC874();
+    if (dword_1002F68B8 != -1 || (allowTemporaryPairingConnection = _LogCategory_Initialize(), allowTemporaryPairingConnection))
+    {
+      sub_1001EC874(allowTemporaryPairingConnection, v4, v5);
+    }
   }
 }
 
@@ -163,49 +175,54 @@
 {
   if (!self->_listenerSetup)
   {
+    selfCopy = self;
     self->_listenerSetup = 1;
-    if (dword_1002F68B8 <= 30 && (dword_1002F68B8 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F68B8 <= 30)
     {
-      sub_1001EC958();
+      if (dword_1002F68B8 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001EC958(self, a2, v2);
+      }
     }
 
-    v3[0] = _NSConcreteStackBlock;
-    v3[1] = 3221225472;
-    v3[2] = sub_100074ECC;
-    v3[3] = &unk_1002B9290;
-    v3[4] = self;
-    [MOSystemEffectiveSettingsStore startObservingChangesWithHandler:v3];
+    v4[0] = _NSConcreteStackBlock;
+    v4[1] = 3221225472;
+    v4[2] = sub_100074ECC;
+    v4[3] = &unk_1002B9290;
+    v4[4] = selfCopy;
+    [MOSystemEffectiveSettingsStore startObservingChangesWithHandler:v4];
   }
 }
 
 - (void)_managedSettingsChangedWithEvent:(id)event settingsGroup:(id)group
 {
   groupCopy = group;
-  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v6 = [groupCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v16 = 0u;
+  v6 = [groupCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v14;
     v9 = MOSettingsGroupNameAudioAccessory;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(groupCopy);
         }
 
-        if ([*(*(&v12 + 1) + 8 * v10) isEqualToString:v9])
+        v11 = *(*(&v13 + 1) + 8 * v10);
+        if ([v11 isEqualToString:v9])
         {
           if (dword_1002F68B8 <= 30 && (dword_1002F68B8 != -1 || _LogCategory_Initialize()))
           {
-            sub_1001EC974();
+            sub_1001EC974(v11);
           }
 
           [(AAManagedSettingsDaemon *)self _fetchManagedSettings];
@@ -215,18 +232,18 @@
       }
 
       while (v7 != v10);
-      v11 = [groupCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
-      v7 = v11;
+      v12 = [groupCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = v12;
     }
 
-    while (v11);
+    while (v12);
   }
 }
 
 - (void)_fetchManagedSettings
 {
-  v7 = objc_opt_new();
-  audioAccessory = [v7 audioAccessory];
+  v10 = objc_opt_new();
+  audioAccessory = [v10 audioAccessory];
   temporaryPairingConfiguration = [audioAccessory temporaryPairingConfiguration];
   unpairingTime = [temporaryPairingConfiguration unpairingTime];
   hour = [unpairingTime hour];
@@ -245,10 +262,13 @@
 
   else
   {
-    [(AAManagedSettingsDaemon *)self setAllowTemporaryPairingConnection:0];
-    if (dword_1002F68B8 <= 30 && (dword_1002F68B8 != -1 || _LogCategory_Initialize()))
+    v7 = [(AAManagedSettingsDaemon *)self setAllowTemporaryPairingConnection:0];
+    if (dword_1002F68B8 <= 30)
     {
-      sub_1001EC9F8();
+      if (dword_1002F68B8 != -1 || (v7 = _LogCategory_Initialize(), v7))
+      {
+        sub_1001EC9F8(v7, v8, v9);
+      }
     }
 
     [(AAManagedSettingsDaemon *)self _cleanUp];

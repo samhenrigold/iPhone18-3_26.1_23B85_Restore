@@ -8,7 +8,7 @@
 {
   v2 = objc_alloc_init(MEMORY[0x277D14DA8]);
   [v2 setFaceClassificationEnabled:{objc_msgSend(self, "isFaceClassificationEnabled")}];
-  v3 = [v2 copy];
+  v3 = objc_msgSend_copy(v2);
 
   return v3;
 }

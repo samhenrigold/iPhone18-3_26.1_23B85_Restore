@@ -1,1868 +1,15 @@
-void sub_1860405AC(_Unwind_Exception *a1, uint64_t a2, ...)
+uint64_t Fax4Encode(void *a1, char *a2, uint64_t a3)
 {
-  va_start(va, a2);
-  std::__split_buffer<IIODecodeFrameParams>::~__split_buffer(va);
-  _Unwind_Resume(a1);
-}
-
-IIOImageRead *JP2ReadPlugin::decodeBlocks(uint64_t a1, uint64_t a2, void *a3)
-{
-  result = IIO_Reader::testHeaderSize(*(a1 + 24));
-  if (a3[1] != *a3)
+  v4 = a1[137];
+  if (a3 % *(v4 + 8))
   {
-    memset(v25, 0, sizeof(v25));
-    IIOImageReadSession::IIOImageReadSession(v25, result);
-    v6 = *(a1 + 640);
-    v22 = *(a1 + 624);
-    v23 = v6;
-    v24 = *(a1 + 656);
-    v7 = *(a1 + 576);
-    *cf = *(a1 + 560);
-    v19 = v7;
-    v8 = *(a1 + 608);
-    v20 = *(a1 + 592);
-    v21 = v8;
-    v9 = *(a1 + 512);
-    v14 = *(a1 + 496);
-    v15 = v9;
-    v10 = *(a1 + 544);
-    v16 = *(a1 + 528);
-    v17 = v10;
-    v11 = *(a1 + 480);
-    v12[1] = *(a1 + 472);
-    v13 = v11;
-    v12[0] = v25;
-    if (IIO_XPCServer())
-    {
-      *(&v13 + 1) = MyRead;
-      *&v14 = MySeek;
-      *(&v14 + 1) = 0;
-    }
-
-    cf[0] = 0;
-    _cg_JP2SetupDecompressor(v12, v12);
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t JP2ReadPlugin::decodeImageImpProgressive(IIOReadPlugin *this, IIODecodeParameter *a2, int a3)
-{
-  v66 = 0;
-  *(this + 166) = *(this + 79);
-  if ((gIIODebugFlags & 0x20000) != 0)
-  {
-    v6 = *(this + 55);
-    v7 = v6 >> 24;
-    if ((v6 >> 24) <= 0x7F)
-    {
-      v8 = *(MEMORY[0x1E69E9830] + 4 * v7 + 60) & 0x40000;
-    }
-
-    else
-    {
-      v8 = __maskrune(v7, 0x40000uLL);
-      v6 = *(this + 55);
-    }
-
-    if (v8)
-    {
-      v9 = (v6 >> 24);
-    }
-
-    else
-    {
-      v9 = 46;
-    }
-
-    v10 = v6 << 8 >> 24;
-    if (v10 <= 0x7F)
-    {
-      v11 = *(MEMORY[0x1E69E9830] + 4 * v10 + 60) & 0x40000;
-    }
-
-    else
-    {
-      v11 = __maskrune(v10, 0x40000uLL);
-      v6 = *(this + 55);
-    }
-
-    if (v11)
-    {
-      v12 = (v6 << 8 >> 24);
-    }
-
-    else
-    {
-      v12 = 46;
-    }
-
-    v13 = v6 >> 8;
-    if (v13 <= 0x7F)
-    {
-      v14 = *(MEMORY[0x1E69E9830] + 4 * v13 + 60) & 0x40000;
-    }
-
-    else
-    {
-      v14 = __maskrune(v13, 0x40000uLL);
-      v6 = *(this + 55);
-    }
-
-    if (v14)
-    {
-      v15 = (v6 >> 8);
-    }
-
-    else
-    {
-      v15 = 46;
-    }
-
-    if (v6 <= 0x7F)
-    {
-      if ((*(MEMORY[0x1E69E9830] + 4 * v6 + 60) & 0x40000) != 0)
-      {
-        goto LABEL_22;
-      }
-    }
-
-    else if (__maskrune(v6, 0x40000uLL))
-    {
-LABEL_22:
-      v16 = *(this + 220);
-LABEL_25:
-      ImageIOLog("♦️  '%c%c%c%c' [%s] %s\n", v9, v12, v15, v16, iioTypeStr[a3], "OSStatus JP2ReadPlugin::decodeImageImpProgressive(IIODecodeParameter *, IIOImageType, IOSurfaceRef *, CVPixelBufferRef *, CGImageBlockSetRef *)");
-      goto LABEL_26;
-    }
-
-    v16 = 46;
-    goto LABEL_25;
-  }
-
-LABEL_26:
-  IIOReadPlugin::debugDecodeImage(this, a2);
-  v17 = *(this + 66);
-  v18 = *(this + 134);
-  *(this + 77) = v17;
-  *(this + 78) = v18;
-  v19 = *(a2 + 3);
-  v20 = *(a2 + 4);
-  v21 = (v19 / v17);
-  v22 = (v20 / v18);
-  v23 = ((v19 + *(a2 + 5) + v17 + -1.0) / v17);
-  v24 = ((v20 + *(a2 + 6) + v18 + -1.0) / v18);
-  v60 = v23 - v21;
-  v25 = ((v24 - v22) * (v23 - v21));
-  *(this + 26) = v25;
-  BlockArray = IIOReadPlugin::allocateBlockArray(this, v25);
-  v27 = IIOImageReadSession::globalInfoForType(*(this + 3), 1246769696);
-  if (!v27)
-  {
-    return 4294967246;
-  }
-
-  v28 = v27;
-  v29 = *(v27 + 1);
-  v30 = *(this + 26);
-  v56 = BlockArray;
-  if (v29)
-  {
-    if (v30 > *(v28 + 1))
-    {
-      free(v29);
-      *(v28 + 1) = malloc_type_calloc(4uLL, *(this + 26), 0x100004052888210uLL);
-    }
-  }
-
-  else
-  {
-    *(v28 + 1) = malloc_type_calloc(4uLL, v30, 0x100004052888210uLL);
-    *(v28 + 1) = *(this + 26);
-  }
-
-  v63 = 0;
-  v64 = 0;
-  v65 = 0;
-  if (v24 > v22)
-  {
-    v32 = 0;
-    v33 = MEMORY[0x1E695F050];
-    v59 = (v17 + v17 - 1) / v17;
-    v57 = v24;
-    v58 = v21;
-    do
-    {
-      if (v23 > v21)
-      {
-        v61 = v60 + v32;
-        v34 = v21;
-        do
-        {
-          v35 = *(this + 77);
-          x = (v35 * v34);
-          v37 = *(this + 78);
-          y = (v37 * v22);
-          v39 = *(this + 66);
-          if (v35 + x <= v39)
-          {
-            width = v35;
-          }
-
-          else
-          {
-            width = v39 - x;
-          }
-
-          v41 = *(this + 67);
-          if (v37 + y <= v41)
-          {
-            height = v37;
-          }
-
-          else
-          {
-            height = v41 - y;
-          }
-
-          v43 = width * (*(this + 129) >> 3);
-          *(this + 79) = v43;
-          *(this + 28) = v32;
-          *(this + 29) = v32 + 1;
-          CachedTile = IIOReadPlugin::getCachedTile(this, v43);
-          v45 = CachedTile;
-          if ((gIIODebugFlags & 0x30000) != 0)
-          {
-            ImageIOLog("     numberOfBlocksLeftToDecode: %d\n", CachedTile);
-          }
-
-          if (v45)
-          {
-            if ((gIIODebugFlags & 0x30000) != 0)
-            {
-              ImageIOLog("JP2: Decoding blockArrayIndex: %d, blockIndex: %d  = (%d, %d)\n", v32, v34 + v22 * v59, v34, v22);
-            }
-
-            if (!is_mul_ok(height, *(this + 79)))
-            {
-              goto LABEL_67;
-            }
-
-            v46 = _ImageIO_Malloc(height * *(this + 79), *(this + 52), &v66, kImageMalloc_JP2_Data[0], 0, 0);
-            if (!v46)
-            {
-              goto LABEL_67;
-            }
-
-            *(this + 642) = 1;
-            v47 = *(this + 79);
-            v62[0] = v32;
-            v62[1] = *&x;
-            v62[2] = *&y;
-            v62[3] = *&width;
-            v62[4] = *&height;
-            v62[5] = v46;
-            v62[6] = v47;
-            v62[7] = v66;
-            memset(&v62[8], 0, 24);
-            std::vector<IIODecodeFrameParams>::push_back[abi:fe200100](&v63, v62);
-            IIODecodeFrameParams::~IIODecodeFrameParams(v62);
-          }
-
-          if (!CGRectEqualToRect(*(this + 120), *v33))
-          {
-            v68.origin.x = x;
-            v68.origin.y = y;
-            v68.size.width = width;
-            v68.size.height = height;
-            v67 = CGRectUnion(*(this + 120), v68);
-            x = v67.origin.x;
-            y = v67.origin.y;
-            width = v67.size.width;
-            height = v67.size.height;
-          }
-
-          *(this + 15) = x;
-          *(this + 16) = y;
-          *(this + 17) = width;
-          *(this + 18) = height;
-          ++v34;
-          ++v32;
-        }
-
-        while (v23 != v34);
-        v32 = v61;
-        v24 = v57;
-        v21 = v58;
-      }
-
-      ++v22;
-    }
-
-    while (v22 != v24);
-  }
-
-  JP2ReadPlugin::decodeBlocks(this, v30, &v63);
-  v48 = v64;
-  if (v63 != v64)
-  {
-    v49 = v63 + 40;
-    while (1)
-    {
-      v50 = *(v49 + 32);
-      if ((v50 - 1) < 2)
-      {
-        break;
-      }
-
-      if (!v50)
-      {
-        v51 = *(this + 369);
-        goto LABEL_61;
-      }
-
-LABEL_62:
-      if (*(this + 143) == 1)
-      {
-        JP2ReadPlugin::fixPremultipliedData(this, *(v49 - 32), *v49);
-      }
-
-      *(*(this + 12) + 8 * *(v49 - 40)) = IIOReadPlugin::createImageBlock(this, *v49, *(v49 + 16), *(v49 - 32), *(v49 + 8), *(this + 371));
-      *v49 = 0;
-      v52 = v49 + 48;
-      v49 += 88;
-      if (v52 == v48)
-      {
-        goto LABEL_65;
-      }
-    }
-
-    v51 = 0;
-LABEL_61:
-    *(this + 371) = v51;
-    goto LABEL_62;
-  }
-
-LABEL_65:
-  if ((gIIODebugFlags & 0x30000) != 0)
-  {
-    ImageIOLog("                    coveredRect: {%g, %g, %g, %g}\n\n", *(this + 15), *(this + 16), *(this + 17), *(this + 18));
-  }
-
-LABEL_67:
-  v53 = v63;
-  v54 = v64;
-  while (v53 != v54)
-  {
-    v55 = *(v53 + 40);
-    if (v55)
-    {
-      _ImageIO_Free(v55, *(v53 + 56));
-    }
-
-    v53 += 88;
-  }
-
-  if ((gIIODebugFlags & 0x30000) != 0)
-  {
-    ImageIOLog("<<< copyImageBlockSetJP2Prog\n");
-  }
-
-  v62[0] = &v63;
-  std::vector<IIODecodeFrameParams>::__destroy_vector::operator()[abi:fe200100](v62);
-  return v56;
-}
-
-void sub_186040D1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void **a19)
-{
-  a19 = (v19 - 152);
-  std::vector<IIODecodeFrameParams>::__destroy_vector::operator()[abi:fe200100](&a19);
-  _Unwind_Resume(a1);
-}
-
-IIODecodeFrameParams *std::vector<IIODecodeFrameParams>::__swap_out_circular_buffer(uint64_t a1, void *a2)
-{
-  result = *a1;
-  v5 = *(a1 + 8);
-  v7 = (a2[1] + result - v5);
-  if (v5 != result)
-  {
-    v8 = result;
-    v9 = (a2[1] + result - v5);
-    do
-    {
-      v10 = *(v8 + 1);
-      *v9 = *v8;
-      *(v9 + 1) = v10;
-      v11 = *(v8 + 2);
-      v12 = *(v8 + 3);
-      v13 = *(v8 + 4);
-      *(v9 + 10) = *(v8 + 10);
-      *(v9 + 3) = v12;
-      *(v9 + 4) = v13;
-      *(v9 + 2) = v11;
-      v8 = (v8 + 88);
-      v9 += 88;
-    }
-
-    while (v8 != v5);
-    do
-    {
-      IIODecodeFrameParams::~IIODecodeFrameParams(result);
-      result = (v14 + 88);
-    }
-
-    while (result != v5);
-  }
-
-  a2[1] = v7;
-  v15 = *a1;
-  *a1 = v7;
-  *(a1 + 8) = v15;
-  a2[1] = v15;
-  v16 = *(a1 + 8);
-  *(a1 + 8) = a2[2];
-  a2[2] = v16;
-  v17 = *(a1 + 16);
-  *(a1 + 16) = a2[3];
-  a2[3] = v17;
-  *a2 = a2[1];
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_6_1()
-{
-
-  return __maskrune(v0, 0x40000uLL);
-}
-
-void _TIFFFax3fillruns(uint64_t a1, unsigned int *a2, unsigned int *a3, unsigned int a4)
-{
-  v5 = a3;
-  v6 = a2;
-  if (((a3 - a2) & 4) != 0)
-  {
-    *a3 = 0;
-    v5 = a3 + 1;
-  }
-
-  if (v5 > a2)
-  {
-    v8 = 0;
-    while (1)
-    {
-      v9 = *v6;
-      if (*v6 > a4 || *v6 + v8 > a4)
-      {
-        v9 = a4 - v8;
-        *v6 = a4 - v8;
-      }
-
-      if (v9)
-      {
-        break;
-      }
-
-LABEL_31:
-      v20 = v6[1];
-      if (v20 > a4 || v20 + v8 > a4)
-      {
-        v20 = a4 - v8;
-        v6[1] = a4 - v8;
-      }
-
-      if (!v20)
-      {
-        goto LABEL_57;
-      }
-
-      v22 = (a1 + (v8 >> 3));
-      v23 = v8 & 7;
-      if (v20 <= 8 - (v8 & 7))
-      {
-        v30 = _TIFFFax3fillruns__fillmasks[v20] >> v23;
-      }
-
-      else
-      {
-        if ((v8 & 7) != 0)
-        {
-          *v22++ |= 0xFFu >> v23;
-          v20 -= 8 - (v8 & 7);
-        }
-
-        if (v20 >= 8)
-        {
-          v24 = v20 >> 3;
-          if (v20 < 0x80)
-          {
-            goto LABEL_50;
-          }
-
-          if ((v22 & 7) != 0)
-          {
-            v25 = v22 ^ 7;
-            v26 = (v22 ^ 7) & 7;
-            v27 = v24 - 1;
-            if (v26 >= v27)
-            {
-              v26 = v27;
-            }
-
-            v28 = v26 + 1;
-            memset(v22, 255, v26 + 1);
-            v22 += v28;
-            if (v27 >= (v25 & 7u))
-            {
-              v24 = v27 - (v25 & 7);
-            }
-
-            else
-            {
-              v24 = 0;
-            }
-          }
-
-          memset(v22, 255, 8 * ((v24 >> 3) - 1) + 8);
-          v22 += 8 * (v24 >> 3);
-          v24 &= 7u;
-          if (v24)
-          {
-LABEL_50:
-            v29 = v24;
-            memset(v22, 255, v24);
-          }
-
-          else
-          {
-            v29 = 0;
-          }
-
-          v22 += v29;
-          v20 &= 7u;
-        }
-
-        if (!v20)
-        {
-          goto LABEL_56;
-        }
-
-        v30 = 0xFF00u >> v20;
-      }
-
-      *v22 |= v30;
-LABEL_56:
-      v8 += v6[1];
-LABEL_57:
-      v6 += 2;
-      if (v6 >= v5)
-      {
-        goto LABEL_62;
-      }
-    }
-
-    v11 = (a1 + (v8 >> 3));
-    v12 = 8 - (v8 & 7);
-    if (v9 <= v12)
-    {
-      v19 = *v11 & ~(_TIFFFax3fillruns__fillmasks[v9] >> (v8 & 7));
-    }
-
-    else
-    {
-      if ((v8 & 7) != 0)
-      {
-        *v11++ &= -1 << v12;
-        v9 -= v12;
-      }
-
-      if (v9 >= 8)
-      {
-        v13 = v9 >> 3;
-        if (v9 < 0x80)
-        {
-          goto LABEL_24;
-        }
-
-        if ((v11 & 7) != 0)
-        {
-          v14 = v11 ^ 7;
-          v15 = (v11 ^ 7) & 7;
-          v16 = v13 - 1;
-          if (v15 >= v16)
-          {
-            v15 = v16;
-          }
-
-          v17 = v15 + 1;
-          bzero(v11, v15 + 1);
-          v11 += v17;
-          if (v16 >= (v14 & 7u))
-          {
-            v13 = v16 - (v14 & 7);
-          }
-
-          else
-          {
-            v13 = 0;
-          }
-        }
-
-        bzero(v11, 8 * ((v13 >> 3) - 1) + 8);
-        v11 += 8 * (v13 >> 3);
-        v13 &= 7u;
-        if (v13)
-        {
-LABEL_24:
-          v18 = v13;
-          bzero(v11, v13);
-        }
-
-        else
-        {
-          v18 = 0;
-        }
-
-        v11 += v18;
-        v9 &= 7u;
-      }
-
-      if (!v9)
-      {
-        goto LABEL_30;
-      }
-
-      v19 = *v11 & (0xFFu >> v9);
-    }
-
-    *v11 = v19;
-LABEL_30:
-    v8 += *v6;
-    goto LABEL_31;
-  }
-
-  v8 = 0;
-LABEL_62:
-  if (v8 != a4)
-  {
-    _TIFFFax3fillruns_cold_1();
-  }
-}
-
-uint64_t TIFFInitCCITTFax3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (!InitCCITTFax3(a1, a2, a3, a4, a5, a6, a7, a8))
-  {
-    return 1;
-  }
-
-  if (_TIFFMergeFields(a1, fax3Fields, 1, v9, v10, v11, v12, v13))
-  {
-    return _cg_TIFFSetField(a1, 0x10000, v14, v15, v16, v17, v18, v19, 1);
-  }
-
-  TIFFErrorExtR(a1, "TIFFInitCCITTFax3", "Merging CCITT Fax 3 codec-specific tags failed", v15, v16, v17, v18, v19, v21);
-  return 0;
-}
-
-uint64_t InitCCITTFax3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (!_TIFFMergeFields(a1, faxFields, 5, a4, a5, a6, a7, a8))
-  {
-    v25 = "Merging common CCITT Fax codec-specific tags failed";
-LABEL_8:
-    TIFFErrorExtR(a1, "InitCCITTFax3", v25, v9, v10, v11, v12, v13, v26);
-    return 0;
-  }
-
-  v14 = malloc_type_malloc(0xA0uLL, 0x10D0040430E4CB8uLL);
-  *(a1 + 1096) = v14;
-  if (!v14)
-  {
-    v25 = "No space for state block";
-    goto LABEL_8;
-  }
-
-  _TIFFmemset(v14, 0, 0xA0uLL);
-  v21 = *(a1 + 1096);
-  v22 = *(a1 + 12);
-  *v21 = v22;
-  v23 = *(a1 + 1280);
-  *(a1 + 1288) = Fax3VGetField;
-  *(v21 + 40) = vextq_s8(v23, v23, 8uLL);
-  *(a1 + 1280) = Fax3VSetField;
-  *(v21 + 56) = *(a1 + 1296);
-  *(a1 + 1296) = Fax3PrintDir;
-  *(v21 + 32) = 0;
-  if (!v22)
-  {
-    *(a1 + 16) |= 0x100u;
-  }
-
-  *(v21 + 96) = 0;
-  _cg_TIFFSetField(a1, 65540, v15, v16, v17, v18, v19, v20, _TIFFFax3fillruns);
-  *(*(a1 + 1096) + 136) = 0;
-  *(a1 + 952) = Fax3FixupTags;
-  *(a1 + 960) = Fax3SetupState;
-  *(a1 + 968) = Fax3PreDecode;
-  *(a1 + 1008) = Fax3Decode1D;
-  *(a1 + 1024) = Fax3Decode1D;
-  *(a1 + 1040) = Fax3Decode1D;
-  *(a1 + 976) = Fax3SetupState;
-  *(a1 + 992) = Fax3PreEncode;
-  *(a1 + 1000) = Fax3PostEncode;
-  *(a1 + 1016) = Fax3Encode;
-  *(a1 + 1032) = Fax3Encode;
-  *(a1 + 1048) = Fax3Encode;
-  *(a1 + 1056) = Fax3Close;
-  *(a1 + 1072) = Fax3Cleanup;
-  return 1;
-}
-
-uint64_t TIFFInitCCITTFax4(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (InitCCITTFax3(a1, a2, a3, a4, a5, a6, a7, a8))
-  {
-    if (_TIFFMergeFields(a1, fax4Fields, 1, v9, v10, v11, v12, v13))
-    {
-      a1[126] = Fax4Decode;
-      a1[128] = Fax4Decode;
-      a1[130] = Fax4Decode;
-      a1[127] = Fax4Encode;
-      a1[129] = Fax4Encode;
-      a1[131] = Fax4Encode;
-      a1[125] = Fax4PostEncode;
-      return _cg_TIFFSetField(a1, 0x10000, v14, v15, v16, v17, v18, v19, 1);
-    }
-
-    TIFFErrorExtR(a1, "TIFFInitCCITTFax4", "Merging CCITT Fax 4 codec-specific tags failed", v15, v16, v17, v18, v19, v21);
-  }
-
-  return 0;
-}
-
-uint64_t Fax4Decode(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v8 = a1;
-  v9 = a1[137];
-  if (a3 % *(v9 + 8))
-  {
-    TIFFErrorExtR(a1, "Fax4Decode", "Fractional scanlines cannot be read", a4, a5, a6, a7, a8, v131);
-    return 0xFFFFFFFFLL;
-  }
-
-  v10 = a3;
-  v12 = *(v9 + 72);
-  v11 = *(v9 + 76);
-  v13 = *(v9 + 80);
-  v14 = a1[144];
-  v15 = a1[145];
-  if (a3 < 1)
-  {
-    v25 = a1[144];
-    goto LABEL_203;
-  }
-
-  v17 = v14 + v15;
-  v18 = &TIFFFaxWhiteTable;
-  v19 = *(v9 + 16);
-  v20 = &TIFFFaxBlackTable;
-  v21 = *(v9 + 64);
-  v22 = ((v19 + 7) >> 3);
-  v24 = *(v9 + 112);
-  v23 = *(v9 + 120);
-  v25 = a1[144];
-  v141 = v21;
-  v142 = v17;
-LABEL_5:
-  v143 = a2;
-  if (v19 < 1)
-  {
-    LODWORD(v28) = 0;
-    v31 = v23;
-    goto LABEL_172;
-  }
-
-  v26 = 0;
-  i = 0;
-  v28 = 0;
-  v30 = v24 + 1;
-  v29 = *v24;
-  v31 = v23;
-  while (1)
-  {
-    v32 = *(v9 + 104);
-    if (v31 >= &v23[v32])
-    {
-      goto LABEL_210;
-    }
-
-    if (v11 <= 6)
-    {
-      if (v25 >= v17)
-      {
-        if (!v11)
-        {
-          goto LABEL_204;
-        }
-
-        v11 = 7;
-      }
-
-      else
-      {
-        v33 = *v25++;
-        v12 |= *(v21 + v33) << v11;
-        v11 += 8;
-      }
-    }
-
-    v34 = &TIFFFaxMainTable + 8 * (v12 & 0x7F);
-    v35 = v34[1];
-    v11 -= v35;
-    v12 >>= v35;
-    v36 = *v34;
-    if (v36 >= 4)
-    {
-      if (*v34 > 4u)
-      {
-        switch(v36)
-        {
-          case 5u:
-            if (v31 != v23 && v29 <= v28)
-            {
-              v41 = &v24[v32];
-              v42 = v30 + 1;
-              do
-              {
-                if (v42 >= v41)
-                {
-                  goto LABEL_210;
-                }
-
-                LODWORD(v29) = *(v42 - 1) + v29 + *v42;
-                v42 += 2;
-              }
-
-              while (v29 <= v28);
-              v30 = v42 - 1;
-            }
-
-            v43 = *(v34 + 1);
-            if (v29 >= v43 + v28)
-            {
-              v44 = v29 + v26 - v43;
-              *v31++ = v44 + i;
-              v28 = (v44 + v28);
-              v45 = *--v30;
-              v29 = (v29 - v45);
-              goto LABEL_35;
-            }
-
-            v84 = v19;
-            v135 = v31;
-            v88 = v23;
-            v137 = v22;
-            v133 = v13;
-            Fax3Unexpected("Fax4Decode", a1, *(v9 + 152), v28, v22, &TIFFFaxWhiteTable, &TIFFFaxBlackTable, v21);
-LABEL_156:
-            v23 = v88;
-            v13 = v133;
-            break;
-          case 6u:
-            v84 = v19;
-            *v31 = v19 - v28;
-            v135 = v31 + 1;
-            v88 = v23;
-            v137 = v22;
-            v133 = v13;
-            Fax3Extension("Fax4Decode", a1, *(v9 + 152), v28, v22, &TIFFFaxWhiteTable, &TIFFFaxBlackTable, v21);
-            goto LABEL_156;
-          case 0xCu:
-            *v31++ = v19 - v28;
-            v137 = v22;
-            v135 = v31;
-            if (v11 > 3)
-            {
-              v84 = v19;
-            }
-
-            else if (v25 >= v17)
-            {
-              if (!v11)
-              {
-                v112 = v23;
-                v113 = v10;
-                v114 = v19;
-                goto LABEL_205;
-              }
-
-              v84 = v19;
-              v11 = 4;
-            }
-
-            else
-            {
-              v84 = v19;
-              v87 = *v25++;
-              v12 |= *(v21 + v87) << v11;
-              v11 += 8;
-            }
-
-            if ((v12 & 0xF) != 0)
-            {
-              v89 = v23;
-              Fax3Unexpected("Fax4Decode", a1, *(v9 + 152), v28, v22, &TIFFFaxWhiteTable, &TIFFFaxBlackTable, v21);
-              v23 = v89;
-            }
-
-            v11 -= 4;
-            v12 >>= 4;
-            v13 = 1;
-            break;
-          default:
-            goto LABEL_167;
-        }
-
-        v22 = v137;
-        goto LABEL_145;
-      }
-
-      if (v31 != v23 && v29 <= v28)
-      {
-        v46 = &v24[v32];
-        v47 = v30 + 1;
-        do
-        {
-          if (v47 >= v46)
-          {
-            goto LABEL_210;
-          }
-
-          LODWORD(v29) = *(v47 - 1) + v29 + *v47;
-          v47 += 2;
-        }
-
-        while (v29 <= v28);
-        v30 = v47 - 1;
-      }
-
-      v48 = *(v34 + 1);
-      *v31 = i + v26 + v48 + v29;
-      if (v30 >= &v24[*(v9 + 104)])
-      {
-        goto LABEL_210;
-      }
-
-      i = 0;
-      v28 = (v48 + v29);
-      ++v31;
-      v49 = *v30++;
-      v39 = v49;
-      goto LABEL_44;
-    }
-
-    if (v36 == 1)
-    {
-      if (v31 != v23 && v29 <= v28)
-      {
-        v61 = v30 + 1;
-        do
-        {
-          if (v61 >= &v24[v32])
-          {
-            goto LABEL_210;
-          }
-
-          LODWORD(v29) = *(v61 - 1) + v29 + *v61;
-          v61 += 2;
-        }
-
-        while (v29 <= v28);
-        v30 = v61 - 1;
-      }
-
-      if (v30 + 1 >= &v24[v32])
-      {
-        goto LABEL_210;
-      }
-
-      v62 = *v30;
-      v63 = v30[1];
-      v30 += 2;
-      v28 = v62 + v29;
-      i += v26 + v28;
-      v29 = v28 + v63;
-      goto LABEL_82;
-    }
-
-    if (v36 == 2)
-    {
-      break;
-    }
-
-    if (v36 != 3)
-    {
-      goto LABEL_167;
-    }
-
-    if (v31 != v23 && v29 <= v28)
-    {
-      v37 = &v24[v32];
-      v38 = v30 + 1;
-      while (v38 < v37)
-      {
-        v29 = *(v38 - 1) + v29 + *v38;
-        v38 += 2;
-        if (v29 > v28)
-        {
-          v30 = v38 - 1;
-          goto LABEL_23;
-        }
-      }
-
-      goto LABEL_210;
-    }
-
-LABEL_23:
-    *v31 = i + v26 + v29;
-    if (v30 >= &v24[*(v9 + 104)])
-    {
-LABEL_210:
-      v118 = a1[150];
-      goto LABEL_211;
-    }
-
-    i = 0;
-    ++v31;
-    v40 = *v30++;
-    v39 = v40;
-    v28 = v29;
-LABEL_44:
-    v29 = (v39 + v29);
-LABEL_82:
-    v26 = -v28;
-    if (v28 >= v19)
-    {
-      if (!i)
-      {
-        goto LABEL_171;
-      }
-
-      if (i + v28 >= v19)
-      {
-        goto LABEL_169;
-      }
-
-      if (v11 > 0)
-      {
-        goto LABEL_166;
-      }
-
-      if (v25 < v17)
-      {
-        v81 = *v25++;
-        v12 |= *(v21 + v81) << v11;
-        v11 += 8;
-        goto LABEL_166;
-      }
-
-      if (v11)
-      {
-        v11 = 1;
-LABEL_166:
-        if ((v12 & 1) == 0)
-        {
-LABEL_167:
-          v90 = v23;
-          v84 = v19;
-          v135 = v31;
-          v138 = v22;
-          v134 = v13;
-          Fax3Unexpected("Fax4Decode", a1, *(v9 + 152), v28, v22, &TIFFFaxWhiteTable, &TIFFFaxBlackTable, v21);
-          v13 = v134;
-          v22 = v138;
-          v23 = v90;
-          goto LABEL_145;
-        }
-
-        --v11;
-        v12 >>= 1;
-LABEL_169:
-        if (v31 >= &v23[*(v9 + 104)])
-        {
-          goto LABEL_210;
-        }
-
-        *v31++ = i;
-LABEL_171:
-        v8 = a1;
-        goto LABEL_172;
-      }
-
-LABEL_204:
-      v112 = v23;
-      v113 = v10;
-      v114 = v19;
-      v137 = v22;
-LABEL_205:
-      v115 = v31;
-      v116 = v13;
-      goto LABEL_207;
-    }
-  }
-
-  if (((v31 - v23) & 4) != 0)
-  {
-    while (1)
-    {
-      if (v11 > 12)
-      {
-        goto LABEL_72;
-      }
-
-      if (v25 >= v17)
-      {
-        if (!v11)
-        {
-          goto LABEL_204;
-        }
-
-        v11 = 13;
-      }
-
-      else
-      {
-        v12 |= *(v21 + *v25) << v11;
-        if (v11 > 4)
-        {
-          v11 += 8;
-        }
-
-        else
-        {
-          if ((v25 + 1) < v17)
-          {
-            v56 = v25[1];
-            v25 += 2;
-            v12 |= *(v21 + v56) << (v11 + 8);
-            v11 += 16;
-            goto LABEL_72;
-          }
-
-          v11 = 13;
-        }
-
-        ++v25;
-      }
-
-LABEL_72:
-      v57 = &TIFFFaxBlackTable + 8 * (v12 & 0x1FFF);
-      v58 = v57[1];
-      v11 -= v58;
-      v12 >>= v58;
-      v59 = *v57;
-      if ((v59 - 10) >= 2)
-      {
-        if (v59 != 8)
-        {
-          v82 = v23;
-          v83 = v10;
-          v84 = v19;
-          v85 = v22;
-          v135 = v31;
-          v132 = v13;
-LABEL_141:
-          v86 = a1;
-          goto LABEL_144;
-        }
-
-        v71 = *(v57 + 1);
-        *v31 = v71 + i;
-        v65 = v31 + 1;
-        v28 = (v71 + v28);
-        for (i = 0; ; i += v76)
-        {
-          if (v11 > 11)
-          {
-            goto LABEL_110;
-          }
-
-          if (v25 >= v17)
-          {
-            if (!v11)
-            {
-LABEL_206:
-              v112 = v23;
-              v113 = v10;
-              v114 = v19;
-              v137 = v22;
-              v116 = v13;
-              v115 = v65;
-LABEL_207:
-              TIFFWarningExtR(a1, "Fax4Decode", "Premature EOF at line %u of %s %u (x %u)", v19, v22, &TIFFFaxWhiteTable, &TIFFFaxBlackTable, v21, *(v9 + 152));
-              if (i)
-              {
-                v22 = v137;
-                if (v115 >= &v112[*(v9 + 104)])
-                {
-                  goto LABEL_210;
-                }
-
-                v13 = v116;
-                v19 = v114;
-                *v115 = i;
-                v117 = v115 + 1;
-              }
-
-              else
-              {
-                v13 = v116;
-                v117 = v115;
-                v22 = v137;
-                v19 = v114;
-              }
-
-              v8 = a1;
-              if (v28 == v19)
-              {
-                v11 = 0;
-                v17 = v142;
-                v102 = v143;
-                v21 = v141;
-                LODWORD(v10) = v113;
-                goto LABEL_243;
-              }
-
-              v119 = v19;
-              v120 = v117;
-              v140 = v22;
-              v121 = v13;
-              Fax3BadLength("Fax4Decode", a1, *(v9 + 152), v28, v19, v18, v20, v21);
-              v122 = v28 > v119;
-              if (v28 <= v119)
-              {
-                v13 = v121;
-                v22 = v140;
-                v21 = v141;
-                v17 = v142;
-                v123 = v120;
-                v19 = v119;
-                LODWORD(v10) = v113;
-                v124 = v112;
-              }
-
-              else
-              {
-                v123 = v120;
-                v124 = v112;
-                if (v120 <= v112)
-                {
-                  v13 = v121;
-                  v22 = v140;
-                  v21 = v141;
-                  v17 = v142;
-                  v19 = v119;
-                }
-
-                else
-                {
-                  v125 = v120 - 1;
-                  v126 = v120 - 1;
-                  v13 = v121;
-                  v21 = v141;
-                  v17 = v142;
-                  v19 = v119;
-                  do
-                  {
-                    v127 = *v126--;
-                    LODWORD(v28) = v28 - v127;
-                    v122 = v28 > v119;
-                    v128 = v28 > v119 && v125 > v112;
-                    v125 = v126;
-                  }
-
-                  while (v128);
-                  v123 = v126 + 1;
-                  v22 = v140;
-                }
-
-                LODWORD(v10) = v113;
-              }
-
-              if (v28 >= v19)
-              {
-                if (!v122)
-                {
-                  v11 = 0;
-                  goto LABEL_242;
-                }
-
-                v102 = v143;
-                if (v123 >= &v124[*(v9 + 104)])
-                {
-                  goto LABEL_240;
-                }
-
-                *v123 = v19;
-                if (v123 + 1 >= &v124[*(v9 + 104)])
-                {
-                  goto LABEL_240;
-                }
-
-                v11 = 0;
-                v123[1] = 0;
-                v22 = v140;
-              }
-
-              else
-              {
-                if (((v123 - v124) & 4) != 0)
-                {
-                  if (v123 >= &v124[*(v9 + 104)])
-                  {
-                    goto LABEL_240;
-                  }
-
-                  *v123++ = 0;
-                }
-
-                if (v123 >= &v124[*(v9 + 104)])
-                {
-                  goto LABEL_240;
-                }
-
-                v11 = 0;
-                *v123 = v19 - (v28 & ~(v28 >> 31));
-LABEL_242:
-                v102 = v143;
-              }
-
-LABEL_243:
-              if (v25 >= v17)
-              {
-                if (v11)
-                {
-                  v11 = 13;
-                }
-
-                else
-                {
-                  v11 = 0;
-                }
-              }
-
-              else
-              {
-                v12 |= *(v21 + *v25) << v11;
-                if (v11 > 4)
-                {
-                  v11 += 8;
-                }
-
-                else
-                {
-                  if ((v25 + 1) < v17)
-                  {
-                    v129 = v25[1];
-                    v25 += 2;
-                    v12 |= *(v21 + v129) << (v11 + 8);
-                    v11 += 16;
-                    goto LABEL_253;
-                  }
-
-                  v11 = 13;
-                }
-
-                ++v25;
-              }
-
-LABEL_253:
-              if (v22 <= v10)
-              {
-                v130 = v13;
-                (*(v9 + 88))(v102);
-                *(v9 + 72) = v12 >> 13;
-                *(v9 + 76) = v11 - 13;
-                *(v9 + 80) = v130;
-                v8[145] += v8[144] - v25;
-                v8[144] = v25;
-                if (*(v9 + 152))
-                {
-                  return 1;
-                }
-
-                else
-                {
-                  return 0xFFFFFFFFLL;
-                }
-              }
-
-              goto LABEL_254;
-            }
-
-            v11 = 12;
-          }
-
-          else
-          {
-            v12 |= *(v21 + *v25) << v11;
-            if (v11 > 3)
-            {
-              v11 += 8;
-            }
-
-            else
-            {
-              if ((v25 + 1) < v17)
-              {
-                v72 = v25[1];
-                v25 += 2;
-                v12 |= *(v21 + v72) << (v11 + 8);
-                v11 += 16;
-                goto LABEL_110;
-              }
-
-              v11 = 12;
-            }
-
-            ++v25;
-          }
-
-LABEL_110:
-          v67 = &TIFFFaxWhiteTable + 8 * (v12 & 0xFFF);
-          v73 = v67[1];
-          v11 -= v73;
-          v12 >>= v73;
-          v74 = *v67;
-          if (v74 != 9 && v74 != 11)
-          {
-            if (v74 == 7)
-            {
-              goto LABEL_119;
-            }
-
-            v82 = v23;
-            v83 = v10;
-            v84 = v19;
-            v85 = v22;
-            v132 = v13;
-            v135 = v31 + 1;
-LABEL_143:
-            v86 = a1;
-LABEL_144:
-            TIFFErrorExtR(v86, "Fax4Decode", "Bad code word at line %u of %s %u (x %u)", v19, v22, &TIFFFaxWhiteTable, &TIFFFaxBlackTable, v21, *(v9 + 152));
-            v13 = v132;
-            v22 = v85;
-            v10 = v83;
-            v23 = v82;
-LABEL_145:
-            if (i)
-            {
-              v17 = v142;
-              if (v135 < &v23[*(v9 + 104)])
-              {
-                v19 = v84;
-                *v135 = i;
-                v31 = v135 + 1;
-                v8 = a1;
-                v21 = v141;
-                goto LABEL_172;
-              }
-
-              goto LABEL_210;
-            }
-
-            v8 = a1;
-            v21 = v141;
-            v17 = v142;
-            v31 = v135;
-            v19 = v84;
-LABEL_172:
-            if (v28 == v19)
-            {
-              goto LABEL_196;
-            }
-
-            v136 = v25;
-            v91 = v23;
-            v92 = v10;
-            v93 = v19;
-            v94 = v31;
-            v139 = v22;
-            v95 = v13;
-            v96 = "Line length mismatch";
-            if (v28 < v19)
-            {
-              v96 = "Premature EOL";
-            }
-
-            TIFFWarningExtR(v8, "Fax4Decode", "%s at line %u of %s %u (got %u, expected %u)", v19, v22, v18, v20, v21, v96);
-            v97 = v28 > v93;
-            if (v28 <= v93)
-            {
-              v13 = v95;
-              v22 = v139;
-              v21 = v141;
-              v17 = v142;
-              v31 = v94;
-            }
-
-            else
-            {
-              v31 = v94;
-              if (v94 > v91)
-              {
-                v98 = v94 - 1;
-                v99 = v94 - 1;
-                v13 = v95;
-                v21 = v141;
-                v17 = v142;
-                v19 = v93;
-                v10 = v92;
-                v23 = v91;
-                do
-                {
-                  v100 = *v99--;
-                  LODWORD(v28) = v28 - v100;
-                  v97 = v28 > v93;
-                  v101 = v28 > v93 && v98 > v91;
-                  v98 = v99;
-                }
-
-                while (v101);
-                v31 = v99 + 1;
-                v22 = v139;
-LABEL_186:
-                v25 = v136;
-                if (v28 < v19)
-                {
-                  if (((v31 - v23) & 4) == 0)
-                  {
-                    goto LABEL_190;
-                  }
-
-                  if (v31 < &v23[*(v9 + 104)])
-                  {
-                    *v31++ = 0;
-LABEL_190:
-                    if (v31 < &v23[*(v9 + 104)])
-                    {
-                      *v31++ = v19 - (v28 & ~(v28 >> 31));
-                      goto LABEL_196;
-                    }
-                  }
-
-LABEL_240:
-                  v118 = v8[150];
-                  goto LABEL_211;
-                }
-
-                if (v97)
-                {
-                  v102 = v143;
-                  if (v31 >= &v23[*(v9 + 104)])
-                  {
-                    goto LABEL_240;
-                  }
-
-                  *v31 = v19;
-                  if (v31 + 1 >= &v23[*(v9 + 104)])
-                  {
-                    goto LABEL_240;
-                  }
-
-                  v31[1] = 0;
-                  v31 += 2;
-                  v22 = v139;
-LABEL_197:
-                  if (!v13)
-                  {
-                    if (v22 <= v10)
-                    {
-                      v103 = v25;
-                      v104 = v10;
-                      v105 = v22;
-                      v106 = v23;
-                      v107 = v31;
-                      v108 = v19;
-                      v109 = v102;
-                      (*(v9 + 88))();
-                      if (v107 >= &v106[*(v9 + 104)])
-                      {
-                        v118 = a1[150];
-                        goto LABEL_211;
-                      }
-
-                      v13 = 0;
-                      *v107 = 0;
-                      v23 = *(v9 + 112);
-                      v24 = *(v9 + 120);
-                      *(v9 + 112) = v24;
-                      *(v9 + 120) = v23;
-                      v110 = *(v9 + 8);
-                      a2 = v109 + v110;
-                      ++*(v9 + 152);
-                      v10 = v104 - v110;
-                      v21 = v141;
-                      v17 = v142;
-                      v22 = v105;
-                      v19 = v108;
-                      v25 = v103;
-                      v18 = &TIFFFaxWhiteTable;
-                      v20 = &TIFFFaxBlackTable;
-                      v8 = a1;
-                      if (v104 <= v110)
-                      {
-                        v13 = 0;
-                        v14 = a1[144];
-                        v15 = a1[145];
-LABEL_203:
-                        *(v9 + 72) = v12;
-                        *(v9 + 76) = v11;
-                        *(v9 + 80) = v13;
-                        v8[145] = v14 - v25 + v15;
-                        v8[144] = v25;
-                        return 1;
-                      }
-
-                      goto LABEL_5;
-                    }
-
-LABEL_254:
-                    TIFFErrorExtR(v8, "Fax4Decode", "Buffer overrun detected : %lld bytes available, %d bits needed", v19, v22, v18, v20, v21, v10);
-                    return 0xFFFFFFFFLL;
-                  }
-
-                  if (v11 > 12)
-                  {
-                    goto LABEL_253;
-                  }
-
-                  goto LABEL_243;
-                }
-
-LABEL_196:
-                v102 = v143;
-                goto LABEL_197;
-              }
-
-              v13 = v95;
-              v22 = v139;
-              v21 = v141;
-              v17 = v142;
-            }
-
-            v19 = v93;
-            v10 = v92;
-            v23 = v91;
-            goto LABEL_186;
-          }
-
-          v76 = *(v67 + 1);
-          v28 = (v76 + v28);
-        }
-      }
-
-      v60 = *(v57 + 1);
-      v28 = (v60 + v28);
-      i += v60;
-    }
-  }
-
-  while (1)
-  {
-    if (v11 > 11)
-    {
-      goto LABEL_56;
-    }
-
-    if (v25 >= v17)
-    {
-      if (!v11)
-      {
-        goto LABEL_204;
-      }
-
-      v11 = 12;
-    }
-
-    else
-    {
-      v12 |= *(v21 + *v25) << v11;
-      if (v11 > 3)
-      {
-        v11 += 8;
-      }
-
-      else
-      {
-        if ((v25 + 1) < v17)
-        {
-          v50 = v25[1];
-          v25 += 2;
-          v12 |= *(v21 + v50) << (v11 + 8);
-          v11 += 16;
-          goto LABEL_56;
-        }
-
-        v11 = 12;
-      }
-
-      ++v25;
-    }
-
-LABEL_56:
-    v51 = &TIFFFaxWhiteTable + 8 * (v12 & 0xFFF);
-    v52 = v51[1];
-    v11 -= v52;
-    v12 >>= v52;
-    v53 = *v51;
-    if (v53 != 9 && v53 != 11)
-    {
-      break;
-    }
-
-    v55 = *(v51 + 1);
-    v28 = (v55 + v28);
-    i += v55;
-  }
-
-  if (v53 != 7)
-  {
-    v82 = v23;
-    v83 = v10;
-    v84 = v19;
-    v85 = v22;
-    v135 = v31;
-    v132 = v13;
-    goto LABEL_143;
-  }
-
-  v64 = *(v51 + 1);
-  *v31 = v64 + i;
-  v65 = v31 + 1;
-  v28 = (v64 + v28);
-  i = 0;
-  while (2)
-  {
-    if (v11 > 12)
-    {
-      goto LABEL_96;
-    }
-
-    if (v25 >= v17)
-    {
-      if (!v11)
-      {
-        goto LABEL_206;
-      }
-
-      v11 = 13;
-    }
-
-    else
-    {
-      v12 |= *(v21 + *v25) << v11;
-      if (v11 > 4)
-      {
-        v11 += 8;
-      }
-
-      else
-      {
-        if ((v25 + 1) < v17)
-        {
-          v66 = v25[1];
-          v25 += 2;
-          v12 |= *(v21 + v66) << (v11 + 8);
-          v11 += 16;
-          goto LABEL_96;
-        }
-
-        v11 = 13;
-      }
-
-      ++v25;
-    }
-
-LABEL_96:
-    v67 = &TIFFFaxBlackTable + 8 * (v12 & 0x1FFF);
-    v68 = v67[1];
-    v11 -= v68;
-    v12 >>= v68;
-    v69 = *v67;
-    if ((v69 - 10) < 2)
-    {
-      v70 = *(v67 + 1);
-      v28 = (v70 + v28);
-      i += v70;
-      continue;
-    }
-
-    break;
-  }
-
-  if (v69 != 8)
-  {
-    v82 = v23;
-    v83 = v10;
-    v84 = v19;
-    v85 = v22;
-    v132 = v13;
-    v135 = v31 + 1;
-    goto LABEL_141;
-  }
-
-LABEL_119:
-  if (v65 >= &v23[*(v9 + 104)])
-  {
-    goto LABEL_210;
-  }
-
-  v77 = *(v67 + 1);
-  v31[1] = v77 + i;
-  v28 = (v77 + v28);
-  v31 += 2;
-  if (v31 == v23 || (v29 <= v28 ? (v78 = v29 < v19) : (v78 = 0), !v78))
-  {
-LABEL_35:
-    i = 0;
-    goto LABEL_82;
-  }
-
-  v79 = v30 + 1;
-  while (v79 < &v24[*(v9 + 104)])
-  {
-    v29 = *(v79 - 1) + v29 + *v79;
-    v79 += 2;
-    if (v29 > v28 || v29 >= v19)
-    {
-      i = 0;
-      v30 = v79 - 1;
-      goto LABEL_82;
-    }
-  }
-
-  v118 = a1[150];
-LABEL_211:
-  TIFFErrorExt(v118, "Fax4Decode", "Buffer overflow at line %u of %s %u", v19, v22, v18, v20, v21, *(v9 + 152));
-  return 0xFFFFFFFFLL;
-}
-
-uint64_t Fax4Encode(void *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v9 = a1[137];
-  if (a3 % *(v9 + 8))
-  {
-    TIFFErrorExtR(a1, "Fax4Encode", "Fractional scanlines cannot be written", a4, a5, a6, a7, a8, v15);
+    TIFFErrorExtR(a1, "Fax4Encode", "Fractional scanlines cannot be written");
     return 0;
   }
 
   else
   {
-    v11 = a3;
+    v6 = a3;
     if (a3 < 1)
     {
       return 1;
@@ -1872,18 +19,18 @@ uint64_t Fax4Encode(void *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, u
     {
       while (1)
       {
-        result = Fax3Encode2DRow(a1, a2, *(v9 + 136), *(v9 + 16), a5, a6, a7, a8);
+        result = Fax3Encode2DRow(a1, a2, *(v4 + 136), *(v4 + 16));
         if (!result)
         {
           break;
         }
 
-        _TIFFmemcpy(*(v9 + 136), a2, *(v9 + 8));
-        v13 = *(v9 + 8);
-        a2 += v13;
-        v14 = v11 <= v13;
-        v11 -= v13;
-        if (v14)
+        _TIFFmemcpy(*(v4 + 136), a2, *(v4 + 8));
+        v8 = *(v4 + 8);
+        a2 += v8;
+        v9 = v6 <= v8;
+        v6 -= v8;
+        if (v9)
         {
           return 1;
         }
@@ -1894,22 +41,22 @@ uint64_t Fax4Encode(void *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, u
   return result;
 }
 
-uint64_t Fax4PostEncode(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t Fax4PostEncode(void *a1)
 {
-  v9 = a1[137];
-  v10 = 1;
-  Fax3PutBits(a1, 1, 12, a4, a5, a6, a7, a8);
-  Fax3PutBits(a1, 1, 12, v11, v12, v13, v14, v15);
-  if (*(v9 + 76) != 8)
+  v2 = a1[137];
+  v3 = 1;
+  Fax3PutBits(a1, 1u, 0xCu);
+  Fax3PutBits(a1, 1u, 0xCu);
+  if (*(v2 + 76) != 8)
   {
-    if (a1[145] < a1[141] || TIFFFlushData1(a1, v16, v17, v18, v19, v20, v21, v22))
+    if (a1[145] < a1[141] || TIFFFlushData1(a1))
     {
-      v23 = *(v9 + 72);
-      v24 = a1[144];
-      a1[144] = v24 + 1;
-      *v24 = v23;
+      v4 = *(v2 + 72);
+      v5 = a1[144];
+      a1[144] = v5 + 1;
+      *v5 = v4;
       ++a1[145];
-      *(v9 + 72) = 0x800000000;
+      *(v2 + 72) = 0x800000000;
     }
 
     else
@@ -1918,18 +65,18 @@ uint64_t Fax4PostEncode(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_
     }
   }
 
-  return v10;
+  return v3;
 }
 
-uint64_t TIFFInitCCITTRLE(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t TIFFInitCCITTRLE(int8x16_t *a1)
 {
-  result = InitCCITTFax3(a1, a2, a3, a4, a5, a6, a7, a8);
+  result = InitCCITTFax3(a1);
   if (result)
   {
-    a1[126] = Fax3DecodeRLE;
-    a1[128] = Fax3DecodeRLE;
-    a1[130] = Fax3DecodeRLE;
-    return _cg_TIFFSetField(a1, 0x10000, v10, v11, v12, v13, v14, v15, 7);
+    a1[63].i64[0] = Fax3DecodeRLE;
+    a1[64].i64[0] = Fax3DecodeRLE;
+    a1[65].i64[0] = Fax3DecodeRLE;
+    return _cg_TIFFSetField(a1, 0x10000, v3, v4, v5, v6, v7, v8, 7);
   }
 
   return result;
@@ -1940,7 +87,7 @@ uint64_t Fax3DecodeRLE(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
   v8 = a1[137];
   if (a3 % *(v8 + 8))
   {
-    TIFFErrorExtR(a1, "Fax3DecodeRLE", "Fractional scanlines cannot be read", a4, a5, a6, a7, a8, v61);
+    TIFFErrorExtR(a1, "Fax3DecodeRLE", "Fractional scanlines cannot be read", a4, a5, a6, a7, a8);
     return 0xFFFFFFFFLL;
   }
 
@@ -1952,7 +99,7 @@ uint64_t Fax3DecodeRLE(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
   if (a3 < 1)
   {
     v20 = a1[144];
-LABEL_87:
+LABEL_95:
     *(v8 + 72) = v11;
     *(v8 + 76) = v10;
     *(v8 + 80) = v12;
@@ -1961,20 +108,20 @@ LABEL_87:
     return 1;
   }
 
-  v62 = *(v8 + 80);
-  v65 = a1;
+  v73 = *(v8 + 80);
+  v76 = a1;
   v16 = *(v8 + 16);
   v17 = *(v8 + 64);
   v18 = v13 + v14;
-  v64 = *(v8 + 4);
+  v75 = *(v8 + 4);
   v19 = *(v8 + 120);
   v20 = a1[144];
-  v68 = a1[137];
-  v63 = v17;
+  v79 = a1[137];
+  v74 = v17;
   while (1)
   {
-    v66 = a3;
-    v67 = a2;
+    v77 = a3;
+    v78 = a2;
     v21 = 0;
     v22 = v19;
 LABEL_7:
@@ -1994,114 +141,151 @@ LABEL_7:
         }
 
         v31 = v22;
-LABEL_89:
-        v49 = v8;
-        TIFFWarningExtR(v65, "Fax3DecodeRLE", "Premature EOF at line %u of %s %u (x %u)", a4, a5, a6, a7, a8, *(v8 + 152));
-        if (i)
+LABEL_97:
+        v53 = "tile";
+        if ((v76[2] & 0x400) == 0)
         {
-          v50 = v49;
-          if (v31 < &v19[*(v49 + 104)])
-          {
-            *v31++ = i;
-            goto LABEL_93;
-          }
-
-LABEL_118:
-          v59 = v65[150];
-          v60 = *(v50 + 152);
-          goto LABEL_119;
+          v53 = "strip";
         }
 
-        v50 = v49;
-LABEL_93:
+        v54 = 932;
+        if ((v76[2] & 0x400) == 0)
+        {
+          v54 = 884;
+        }
+
+        v55 = v8;
+        TIFFWarningExtR(v76, "Fax3DecodeRLE", "Premature EOF at line %u of %s %u (x %u)", *(v8 + 152), v53, *(v76 + v54), v21);
+        if (i)
+        {
+          v56 = v55;
+          if (v31 < &v19[*(v55 + 104)])
+          {
+            *v31++ = i;
+            goto LABEL_105;
+          }
+
+LABEL_138:
+          v67 = v76[150];
+          v68 = "tile";
+          if ((v76[2] & 0x400) == 0)
+          {
+            v68 = "strip";
+          }
+
+          v72 = 932;
+          if ((v76[2] & 0x400) == 0)
+          {
+            v72 = 884;
+          }
+
+          v70 = *(v76 + v72);
+          v71 = *(v56 + 152);
+          goto LABEL_143;
+        }
+
+        v56 = v55;
+LABEL_105:
         if (v21 == v16)
         {
-LABEL_94:
-          v51 = v67;
+LABEL_106:
+          v57 = v78;
         }
 
         else
         {
-          v53 = "Line length mismatch";
-          if (v21 < v16)
+          v59 = "tile";
+          if ((v76[2] & 0x400) == 0)
           {
-            v53 = "Premature EOL";
+            v59 = "strip";
           }
 
-          TIFFWarningExtR(v65, "Fax3DecodeRLE", "%s at line %u of %s %u (got %u, expected %u)", a4, a5, a6, a7, a8, v53);
-          v54 = v21 > v16;
+          v60 = 932;
+          if ((v76[2] & 0x400) == 0)
+          {
+            v60 = 884;
+          }
+
+          v61 = "Line length mismatch";
+          if (v21 < v16)
+          {
+            v61 = "Premature EOL";
+          }
+
+          TIFFWarningExtR(v76, "Fax3DecodeRLE", "%s at line %u of %s %u (got %u, expected %u)", v61, *(v56 + 152), v59, *(v76 + v60), v21, v16);
+          v62 = v21 > v16;
           if (v21 <= v16 || v31 <= v19)
           {
-            v50 = v68;
+            v56 = v79;
           }
 
           else
           {
-            v55 = v31 - 1;
-            v56 = v31 - 1;
-            v50 = v68;
+            v63 = v31 - 1;
+            v64 = v31 - 1;
+            v56 = v79;
             do
             {
-              v57 = *v56--;
-              v21 -= v57;
-              v54 = v21 > v16;
-              v58 = v21 > v16 && v55 > v19;
-              v55 = v56;
+              v65 = *v64--;
+              v21 -= v65;
+              v62 = v21 > v16;
+              v66 = v21 > v16 && v63 > v19;
+              v63 = v64;
             }
 
-            while (v58);
-            v31 = v56 + 1;
+            while (v66);
+            v31 = v64 + 1;
           }
 
           if (v21 < v16)
           {
             if (((v31 - v19) & 4) != 0)
             {
-              if (v31 >= &v19[*(v50 + 104)])
+              if (v31 >= &v19[*(v56 + 104)])
               {
-                goto LABEL_118;
+                goto LABEL_138;
               }
 
               *v31++ = 0;
             }
 
-            if (v31 >= &v19[*(v50 + 104)])
+            if (v31 >= &v19[*(v56 + 104)])
             {
-              goto LABEL_118;
+              goto LABEL_138;
             }
 
             *v31++ = v16 - (v21 & ~(v21 >> 31));
-            goto LABEL_94;
+            goto LABEL_106;
           }
 
-          if (!v54)
+          if (!v62)
           {
-            goto LABEL_94;
+            goto LABEL_106;
           }
 
-          v51 = v67;
-          if (v31 >= &v19[*(v50 + 104)])
+          v57 = v78;
+          if (v31 >= &v19[*(v56 + 104)])
           {
-            goto LABEL_118;
+            goto LABEL_138;
           }
 
           *v31 = v16;
-          if (v31 + 1 >= &v19[*(v50 + 104)])
+          if (v31 + 1 >= &v19[*(v56 + 104)])
           {
-            goto LABEL_118;
+            goto LABEL_138;
           }
 
           v31[1] = 0;
           v31 += 2;
         }
 
-        v52 = v50;
-        (*(v50 + 88))(v51, v19, v31, v16);
-        v52[18] = v11;
-        v52[19] = 0;
-        v52[20] = v62;
-        v65[145] += v65[144] - v20;
-        v65[144] = v20;
+        v58 = v56;
+        (*(v56 + 88))(v57, v19, v31, v16);
+        v58[18] = v11;
+        v58[19] = 0;
+        v58[20] = v73;
+        v76[145] += v76[144] - v20;
+        v76[144] = v20;
         return 0xFFFFFFFFLL;
       }
 
@@ -2146,7 +330,7 @@ LABEL_18:
 
         if (v22 >= &v19[*(v8 + 104)])
         {
-          goto LABEL_106;
+          goto LABEL_122;
         }
 
         v29 = *(v25 + 1);
@@ -2156,7 +340,7 @@ LABEL_18:
         v21 += v29;
         if (v21 >= v16)
         {
-          goto LABEL_53;
+          goto LABEL_57;
         }
 
         for (i = 0; ; i += v36)
@@ -2170,7 +354,7 @@ LABEL_18:
           {
             if (!v10)
             {
-              goto LABEL_89;
+              goto LABEL_97;
             }
 
             v10 = 13;
@@ -2218,10 +402,10 @@ LABEL_37:
 
         if (v35 == 12)
         {
-          v62 = 1;
+          v73 = 1;
           if (i)
           {
-            goto LABEL_51;
+            goto LABEL_55;
           }
 
           goto LABEL_48;
@@ -2234,7 +418,7 @@ LABEL_37:
 
         if (v31 >= &v19[*(v8 + 104)])
         {
-          goto LABEL_106;
+          goto LABEL_122;
         }
 
         v37 = *(v33 + 1);
@@ -2243,7 +427,7 @@ LABEL_37:
         v21 += v37;
         if (v21 >= v16)
         {
-          goto LABEL_53;
+          goto LABEL_57;
         }
 
         if ((v37 + i) | v30)
@@ -2269,69 +453,93 @@ LABEL_22:
 LABEL_49:
       v31 = v22;
 LABEL_50:
-      TIFFErrorExtR(v65, "Fax3DecodeRLE", "Bad code word at line %u of %s %u (x %u)", a4, a5, a6, a7, a8, *(v8 + 152));
+      v38 = "tile";
+      if ((v76[2] & 0x400) == 0)
+      {
+        v38 = "strip";
+      }
+
+      v39 = 932;
+      if ((v76[2] & 0x400) == 0)
+      {
+        v39 = 884;
+      }
+
+      TIFFErrorExtR(v76, "Fax3DecodeRLE", "Bad code word at line %u of %s %u (x %u)", *(v8 + 152), v38, *(v76 + v39), v21);
       if (i)
       {
-        goto LABEL_51;
+        goto LABEL_55;
       }
 
 LABEL_48:
-      v8 = v68;
-      goto LABEL_53;
+      v8 = v79;
+      goto LABEL_57;
     }
 
-    v62 = 1;
+    v73 = 1;
     v31 = v22;
     if (!i)
     {
       goto LABEL_48;
     }
 
-LABEL_51:
-    v8 = v68;
-    if (v31 >= &v19[*(v68 + 104)])
+LABEL_55:
+    v8 = v79;
+    if (v31 >= &v19[*(v79 + 104)])
     {
-      goto LABEL_106;
+      goto LABEL_122;
     }
 
     *v31++ = i;
-LABEL_53:
+LABEL_57:
     if (v21 == v16)
     {
-LABEL_75:
-      v44 = v67;
-      goto LABEL_76;
+LABEL_83:
+      v48 = v78;
+      goto LABEL_84;
     }
 
-    v38 = "Line length mismatch";
+    v40 = "tile";
+    if ((v76[2] & 0x400) == 0)
+    {
+      v40 = "strip";
+    }
+
+    v41 = 932;
+    if ((v76[2] & 0x400) == 0)
+    {
+      v41 = 884;
+    }
+
+    v42 = "Line length mismatch";
     if (v21 < v16)
     {
-      v38 = "Premature EOL";
+      v42 = "Premature EOL";
     }
 
-    TIFFWarningExtR(v65, "Fax3DecodeRLE", "%s at line %u of %s %u (got %u, expected %u)", a4, a5, a6, a7, a8, v38);
-    v39 = v21 > v16;
+    TIFFWarningExtR(v76, "Fax3DecodeRLE", "%s at line %u of %s %u (got %u, expected %u)", v42, *(v8 + 152), v40, *(v76 + v41), v21, v16);
+    v43 = v21 > v16;
     if (v21 <= v16 || v31 <= v19)
     {
-      v8 = v68;
+      v8 = v79;
     }
 
     else
     {
-      v40 = v31 - 1;
-      v41 = v31 - 1;
-      v8 = v68;
+      v44 = v31 - 1;
+      v45 = v31 - 1;
+      v8 = v79;
       do
       {
-        v42 = *v41--;
-        v21 -= v42;
-        v39 = v21 > v16;
-        v43 = v21 > v16 && v40 > v19;
-        v40 = v41;
+        v46 = *v45--;
+        v21 -= v46;
+        v43 = v21 > v16;
+        v47 = v21 > v16 && v44 > v19;
+        v44 = v45;
       }
 
-      while (v43);
-      v31 = v41 + 1;
+      while (v47);
+      v31 = v45 + 1;
     }
 
     if (v21 < v16)
@@ -2339,100 +547,113 @@ LABEL_75:
       break;
     }
 
-    if (!v39)
+    if (!v43)
     {
-      goto LABEL_75;
+      goto LABEL_83;
     }
 
-    v44 = v67;
+    v48 = v78;
     if (v31 >= &v19[*(v8 + 104)])
     {
-      goto LABEL_106;
+      goto LABEL_122;
     }
 
     *v31 = v16;
     if (v31 + 1 >= &v19[*(v8 + 104)])
     {
-      goto LABEL_106;
+      goto LABEL_122;
     }
 
     v31[1] = 0;
     v31 += 2;
-LABEL_76:
-    (*(v8 + 88))(v44, v19, v31, v16);
-    if ((v64 & 4) != 0)
+LABEL_84:
+    (*(v8 + 88))(v48, v19, v31, v16);
+    if ((v75 & 4) != 0)
     {
-      v47 = v10 & 7;
+      v51 = v10 & 7;
       v10 &= 0xFFFFFFF8;
-      v11 >>= v47;
-      v8 = v68;
-      v45 = v66;
-      v17 = v63;
+      v11 >>= v51;
+      v8 = v79;
+      v49 = v77;
+      v17 = v74;
     }
 
     else
     {
-      v45 = v66;
-      v17 = v63;
-      if ((v64 & 8) != 0)
+      v49 = v77;
+      v17 = v74;
+      if ((v75 & 8) != 0)
       {
-        v46 = v10 & 0xF;
+        v50 = v10 & 0xF;
         v10 &= 0xFFFFFFF0;
-        v11 >>= v46;
+        v11 >>= v50;
         v20 += (v10 == 0) & v20;
       }
 
-      v8 = v68;
+      v8 = v79;
     }
 
-    v48 = *(v8 + 8);
-    a2 = v44 + v48;
+    v52 = *(v8 + 8);
+    a2 = v48 + v52;
     ++*(v8 + 152);
-    v43 = v45 <= v48;
-    a3 = v45 - v48;
-    if (v43)
+    v47 = v49 <= v52;
+    a3 = v49 - v52;
+    if (v47)
     {
-      a1 = v65;
-      v13 = v65[144];
-      v14 = v65[145];
-      v12 = v62;
-      goto LABEL_87;
+      a1 = v76;
+      v13 = v76[144];
+      v14 = v76[145];
+      v12 = v73;
+      goto LABEL_95;
     }
   }
 
   if (((v31 - v19) & 4) == 0)
   {
-    goto LABEL_69;
+    goto LABEL_77;
   }
 
   if (v31 < &v19[*(v8 + 104)])
   {
     *v31++ = 0;
-LABEL_69:
+LABEL_77:
     if (v31 < &v19[*(v8 + 104)])
     {
       *v31++ = v16 - (v21 & ~(v21 >> 31));
-      goto LABEL_75;
+      goto LABEL_83;
     }
   }
 
-LABEL_106:
-  v59 = v65[150];
-  v60 = *(v8 + 152);
-LABEL_119:
-  TIFFErrorExt(v59, "Fax3DecodeRLE", "Buffer overflow at line %u of %s %u", a4, a5, a6, a7, a8, v60);
+LABEL_122:
+  v67 = v76[150];
+  v68 = "tile";
+  if ((v76[2] & 0x400) == 0)
+  {
+    v68 = "strip";
+  }
+
+  v69 = 932;
+  if ((v76[2] & 0x400) == 0)
+  {
+    v69 = 884;
+  }
+
+  v70 = *(v76 + v69);
+  v71 = *(v8 + 152);
+LABEL_143:
+  TIFFErrorExt(v67, "Fax3DecodeRLE", "Buffer overflow at line %u of %s %u", a4, a5, a6, a7, a8, v71, v68, v70);
   return 0xFFFFFFFFLL;
 }
 
-uint64_t TIFFInitCCITTRLEW(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t TIFFInitCCITTRLEW(int8x16_t *a1)
 {
-  result = InitCCITTFax3(a1, a2, a3, a4, a5, a6, a7, a8);
+  result = InitCCITTFax3(a1);
   if (result)
   {
-    a1[126] = Fax3DecodeRLE;
-    a1[128] = Fax3DecodeRLE;
-    a1[130] = Fax3DecodeRLE;
-    return _cg_TIFFSetField(a1, 0x10000, v10, v11, v12, v13, v14, v15, 11);
+    a1[63].i64[0] = Fax3DecodeRLE;
+    a1[64].i64[0] = Fax3DecodeRLE;
+    a1[65].i64[0] = Fax3DecodeRLE;
+    return _cg_TIFFSetField(a1, 0x10000, v3, v4, v5, v6, v7, v8, 11);
   }
 
   return result;
@@ -2723,122 +944,119 @@ LABEL_7:
 
 uint64_t Fax3SetupState(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  if (*(a1 + 116) != 1)
+  if (*(a1 + 116) == 1)
   {
-    v12 = "Fax3SetupState";
-    v13 = "Bits/sample must be 1 for Group 3/4 encoding/decoding";
-LABEL_32:
-    TIFFErrorExtR(a1, v12, v13, a4, a5, a6, a7, a8, v25);
-    return 0;
-  }
+    v9 = *(a1 + 1096);
+    if ((*(a1 + 17) & 4) != 0)
+    {
+      v10 = _cg_TIFFTileRowSize(a1);
+      v11 = 100;
+    }
 
-  v9 = *(a1 + 1096);
-  if ((*(a1 + 17) & 4) != 0)
-  {
-    v10 = _cg_TIFFTileRowSize(a1, a2, a3, a4, a5, a6, a7, a8);
-    v11 = 100;
+    else
+    {
+      v10 = _cg_TIFFScanlineSize(a1, a2, a3, a4, a5, a6, a7, a8);
+      v11 = 88;
+    }
+
+    v12 = *(a1 + v11);
+    if (v10 >= ((v12 + 7) >> 3))
+    {
+      *(v9 + 8) = v10;
+      *(v9 + 16) = v12;
+      v13 = (*(v9 + 32) & 1) != 0 || *(a1 + 120) == 4;
+      *(v9 + 96) = 0;
+      if ((v12 + 1) >= 0xFFFFFFE0)
+      {
+        v14 = 0;
+      }
+
+      else
+      {
+        v14 = (v12 & 0xFFFFFFE0) + 32;
+      }
+
+      v15 = 2 * v14;
+      if (v14 < 0)
+      {
+        v15 = 0;
+      }
+
+      if (v13)
+      {
+        v14 = v15;
+      }
+
+      *(v9 + 104) = v14;
+      if (v14 <= 0)
+      {
+        TIFFErrorExtR(a1, *a1, "Row pixels integer overflow (rowpixels %u)");
+        return 0;
+      }
+
+      result = _TIFFCheckMalloc(a1, (2 * v14), 4, "for Group 3/4 run arrays");
+      *(v9 + 96) = result;
+      if (!result)
+      {
+        return result;
+      }
+
+      v17 = *(v9 + 104);
+      if (v17 < 0)
+      {
+        v18 = 0;
+      }
+
+      else
+      {
+        v18 = 8 * v17;
+      }
+
+      bzero(result, v18);
+      v19 = 0;
+      v20 = *(v9 + 96);
+      *(v9 + 120) = v20;
+      if (v13)
+      {
+        v19 = v20 + 4 * *(v9 + 104);
+      }
+
+      *(v9 + 112) = v19;
+      if (*(a1 + 120) == 3 && (*(v9 + 32) & 1) != 0)
+      {
+        *(a1 + 1008) = Fax3Decode2D;
+        *(a1 + 1024) = Fax3Decode2D;
+        *(a1 + 1040) = Fax3Decode2D;
+      }
+
+      v21 = *(a1 + 1096);
+      if (v13)
+      {
+        v22 = malloc_type_malloc(v10, 0x100004077774924uLL);
+        *(v21 + 136) = v22;
+        if (!v22)
+        {
+          TIFFErrorExtR(a1, "Fax3SetupState", "No space for Group 3/4 reference line");
+          return 0;
+        }
+      }
+
+      else
+      {
+        *(v21 + 136) = 0;
+      }
+
+      return 1;
+    }
+
+    TIFFErrorExtR(a1, "Fax3SetupState", "Inconsistent number of bytes per row : rowbytes=%lld rowpixels=%u");
   }
 
   else
   {
-    v10 = _cg_TIFFScanlineSize(a1, a2, a3, a4, a5, a6, a7, a8);
-    v11 = 88;
+    TIFFErrorExtR(a1, "Fax3SetupState", "Bits/sample must be 1 for Group 3/4 encoding/decoding");
   }
 
-  v14 = *(a1 + v11);
-  if (v10 >= ((v14 + 7) >> 3))
-  {
-    *(v9 + 8) = v10;
-    *(v9 + 16) = v14;
-    v15 = (*(v9 + 32) & 1) != 0 || *(a1 + 120) == 4;
-    *(v9 + 96) = 0;
-    if ((v14 + 1) >= 0xFFFFFFE0)
-    {
-      v16 = 0;
-    }
-
-    else
-    {
-      v16 = (v14 & 0xFFFFFFE0) + 32;
-    }
-
-    v17 = 2 * v16;
-    if (v16 < 0)
-    {
-      v17 = 0;
-    }
-
-    if (v15)
-    {
-      v16 = v17;
-    }
-
-    *(v9 + 104) = v16;
-    if (v16 <= 0)
-    {
-      v12 = *a1;
-      v25 = v14;
-      v13 = "Row pixels integer overflow (rowpixels %u)";
-      goto LABEL_32;
-    }
-
-    result = _TIFFCheckMalloc(a1, (2 * v16), 4, "for Group 3/4 run arrays", a5, a6, a7, a8);
-    *(v9 + 96) = result;
-    if (!result)
-    {
-      return result;
-    }
-
-    v19 = *(v9 + 104);
-    if (v19 < 0)
-    {
-      v20 = 0;
-    }
-
-    else
-    {
-      v20 = 8 * v19;
-    }
-
-    bzero(result, v20);
-    v21 = 0;
-    v22 = *(v9 + 96);
-    *(v9 + 120) = v22;
-    if (v15)
-    {
-      v21 = v22 + 4 * *(v9 + 104);
-    }
-
-    *(v9 + 112) = v21;
-    if (*(a1 + 120) == 3 && (*(v9 + 32) & 1) != 0)
-    {
-      *(a1 + 1008) = Fax3Decode2D;
-      *(a1 + 1024) = Fax3Decode2D;
-      *(a1 + 1040) = Fax3Decode2D;
-    }
-
-    v23 = *(a1 + 1096);
-    if (v15)
-    {
-      v24 = malloc_type_malloc(v10, 0x100004077774924uLL);
-      *(v23 + 136) = v24;
-      if (!v24)
-      {
-        v12 = "Fax3SetupState";
-        v13 = "No space for Group 3/4 reference line";
-        goto LABEL_32;
-      }
-    }
-
-    else
-    {
-      *(v23 + 136) = 0;
-    }
-
-    return 1;
-  }
-
-  TIFFErrorExtR(a1, "Fax3SetupState", "Inconsistent number of bytes per row : rowbytes=%lld rowpixels=%u", a4, a5, a6, a7, a8, v10);
   return 0;
 }
 
@@ -2871,7 +1089,7 @@ uint64_t Fax3Decode1D(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   v8 = a1[137];
   if (a3 % *(v8 + 8))
   {
-    TIFFErrorExtR(a1, "Fax3Decode1D", "Fractional scanlines cannot be read", a4, a5, a6, a7, a8, v63);
+    TIFFErrorExtR(a1, "Fax3Decode1D", "Fractional scanlines cannot be read", a4, a5, a6, a7, a8);
     return 0xFFFFFFFFLL;
   }
 
@@ -2884,15 +1102,21 @@ uint64_t Fax3Decode1D(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   if (a3 < 1)
   {
     v20 = a1[144];
-    goto LABEL_105;
+LABEL_113:
+    *(v8 + 72) = v12;
+    *(v8 + 76) = v11;
+    *(v8 + 80) = v13;
+    a1[145] = v14 - v20 + v15;
+    a1[144] = v20;
+    return 1;
   }
 
-  v67 = a1;
+  v80 = a1;
   v17 = *(v8 + 16);
   v18 = *(v8 + 64);
   v19 = v14 + v15;
-  v68 = v17;
-  v69 = *(v8 + 120);
+  v81 = v17;
+  v82 = *(v8 + 120);
   v20 = a1[144];
   while (2)
   {
@@ -2910,60 +1134,83 @@ uint64_t Fax3Decode1D(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
           if (!v11)
           {
             v13 = 0;
-LABEL_108:
-            v50 = v67;
+LABEL_116:
+            v54 = v80;
             if (v17)
             {
-              TIFFWarningExtR(v67, "Fax3Decode1D", "%s at line %u of %s %u (got %u, expected %u)", v17, a5, a6, a7, a8, "Premature EOL");
-              v17 = v68;
-              v51 = *(v8 + 104);
-              if (v68 >= 1)
+              v55 = "tile";
+              if ((v80[2] & 0x400) == 0)
               {
-                if (v51)
+                v55 = "strip";
+              }
+
+              v56 = 932;
+              if ((v80[2] & 0x400) == 0)
+              {
+                v56 = 884;
+              }
+
+              TIFFWarningExtR(v80, "Fax3Decode1D", "%s at line %u of %s %u (got %u, expected %u)", "Premature EOL", *(v8 + 152), v55, *(v80 + v56), 0, v17);
+              v17 = v81;
+              v57 = *(v8 + 104);
+              if (v81 >= 1)
+              {
+                if (v57)
                 {
-                  v52 = v69;
-                  *v69 = v68;
-                  v53 = v69 + 1;
-                  goto LABEL_150;
+                  v58 = v82;
+                  *v82 = v81;
+                  v59 = v82 + 1;
+                  goto LABEL_178;
                 }
 
-LABEL_146:
-                v54 = v50[150];
-LABEL_147:
-                TIFFErrorExt(v54, "Fax3Decode1D", "Buffer overflow at line %u of %s %u", v17, a5, a6, a7, a8, *(v8 + 152));
-                return 0xFFFFFFFFLL;
+LABEL_170:
+                v60 = v54[150];
+                v61 = "tile";
+                if ((v54[2] & 0x400) == 0)
+                {
+                  v61 = "strip";
+                }
+
+                v76 = 932;
+                if ((v54[2] & 0x400) == 0)
+                {
+                  v76 = 884;
+                }
+
+                v63 = *(v54 + v76);
+                goto LABEL_175;
               }
 
-              if (!v51)
+              if (!v57)
               {
-                goto LABEL_146;
+                goto LABEL_170;
               }
 
-              v52 = v69;
-              *v69 = v68;
+              v58 = v82;
+              *v82 = v81;
               if (*(v8 + 104) <= 1u)
               {
-                goto LABEL_146;
+                goto LABEL_170;
               }
 
-              v53 = v69 + 2;
-              v69[1] = 0;
+              v59 = v82 + 2;
+              v82[1] = 0;
             }
 
             else
             {
-              v52 = v69;
-              v53 = v69;
+              v58 = v82;
+              v59 = v82;
             }
 
-LABEL_150:
-            (*(v8 + 88))(a2, v52, v53);
+LABEL_178:
+            (*(v8 + 88))(a2, v58, v59);
             *(v8 + 72) = v12;
             *(v8 + 76) = 0;
             *(v8 + 80) = v13;
-            v50[145] += v50[144] - v20;
-            v50[144] = v20;
-            if (v10 < *(v50 + 22))
+            v54[145] += v54[144] - v20;
+            v54[144] = v20;
+            if (v10 < *(v54 + 22))
             {
               return 1;
             }
@@ -3022,7 +1269,7 @@ LABEL_22:
         {
           if (!v11)
           {
-            goto LABEL_108;
+            goto LABEL_116;
           }
 
           v11 = 8;
@@ -3045,7 +1292,7 @@ LABEL_22:
       v12 >>= 8;
     }
 
-    v66 = a2;
+    v79 = a2;
     if ((v12 & 1) == 0)
     {
       do
@@ -3061,8 +1308,8 @@ LABEL_22:
     v24 = 0;
     --v11;
     v12 >>= 1;
-    v25 = v69;
-    v65 = v10;
+    v25 = v82;
+    v78 = v10;
 LABEL_31:
     for (i = 0; ; i += v31)
     {
@@ -3079,94 +1326,118 @@ LABEL_31:
           goto LABEL_42;
         }
 
-        v49 = v25;
-LABEL_118:
-        v50 = v67;
-        TIFFWarningExtR(v67, "Fax3Decode1D", "Premature EOF at line %u of %s %u (x %u)", v17, a5, a6, a7, a8, *(v8 + 152));
+        v53 = v25;
+LABEL_134:
+        v54 = v80;
+        v64 = "tile";
+        if ((v80[2] & 0x400) == 0)
+        {
+          v64 = "strip";
+        }
+
+        v65 = 932;
+        if ((v80[2] & 0x400) == 0)
+        {
+          v65 = 884;
+        }
+
+        TIFFWarningExtR(v80, "Fax3Decode1D", "Premature EOF at line %u of %s %u (x %u)", *(v8 + 152), v64, *(v80 + v65), v24);
         if (i)
         {
-          v17 = v68;
-          if (v49 >= &v69[*(v8 + 104)])
+          v17 = v81;
+          if (v53 >= &v82[*(v8 + 104)])
           {
-            goto LABEL_146;
+            goto LABEL_170;
           }
 
-          *v49 = i;
-          v53 = v49 + 1;
+          *v53 = i;
+          v59 = v53 + 1;
         }
 
         else
         {
-          v17 = v68;
-          v53 = v49;
+          LODWORD(v17) = v81;
+          v59 = v53;
         }
 
         if (v24 == v17)
         {
           v13 = 0;
-          a2 = v66;
-          goto LABEL_124;
+          a2 = v79;
+          goto LABEL_144;
         }
 
-        v55 = v53;
-        v56 = "Premature EOL";
+        v66 = v59;
+        v67 = "tile";
+        if ((v80[2] & 0x400) == 0)
+        {
+          v67 = "strip";
+        }
+
+        v68 = 932;
+        if ((v80[2] & 0x400) == 0)
+        {
+          v68 = 884;
+        }
+
+        v69 = "Premature EOL";
         if (v24 >= v17)
         {
-          v56 = "Line length mismatch";
+          v69 = "Line length mismatch";
         }
 
-        TIFFWarningExtR(v67, "Fax3Decode1D", "%s at line %u of %s %u (got %u, expected %u)", v17, a5, a6, a7, a8, v56);
-        v17 = v68;
-        v52 = v69;
-        v57 = v24 > v68;
-        if (v24 <= v68)
+        TIFFWarningExtR(v80, "Fax3Decode1D", "%s at line %u of %s %u (got %u, expected %u)", v69, *(v8 + 152), v67, *(v80 + v68), v24, v17);
+        v17 = v81;
+        v58 = v82;
+        v70 = v24 > v81;
+        if (v24 <= v81)
         {
-          v53 = v55;
+          v59 = v66;
         }
 
         else
         {
-          v53 = v55;
-          if (v55 > v69)
+          v59 = v66;
+          if (v66 > v82)
           {
-            v58 = v55 - 1;
-            v59 = v55 - 1;
+            v71 = v66 - 1;
+            v72 = v66 - 1;
             do
             {
-              v60 = *v59--;
-              v24 -= v60;
-              v57 = v24 > v68;
-              v61 = v24 > v68 && v58 > v69;
-              v58 = v59;
+              v73 = *v72--;
+              v24 -= v73;
+              v70 = v24 > v81;
+              v74 = v24 > v81 && v71 > v82;
+              v71 = v72;
             }
 
-            while (v61);
-            v53 = v59 + 1;
+            while (v74);
+            v59 = v72 + 1;
           }
         }
 
-        if (v24 >= v68)
+        if (v24 >= v81)
         {
-          if (v57)
+          if (v70)
           {
-            a2 = v66;
-            if (v53 >= &v69[*(v8 + 104)])
+            a2 = v79;
+            if (v59 >= &v82[*(v8 + 104)])
             {
-              goto LABEL_146;
+              goto LABEL_170;
             }
 
-            *v53 = v68;
-            if (v53 + 1 >= &v69[*(v8 + 104)])
+            *v59 = v81;
+            if (v59 + 1 >= &v82[*(v8 + 104)])
             {
-              goto LABEL_146;
+              goto LABEL_170;
             }
 
             v13 = 0;
-            v53[1] = 0;
-            v53 += 2;
-LABEL_124:
-            v52 = v69;
-            goto LABEL_150;
+            v59[1] = 0;
+            v59 += 2;
+LABEL_144:
+            v58 = v82;
+            goto LABEL_178;
           }
 
           v13 = 0;
@@ -3174,28 +1445,28 @@ LABEL_124:
 
         else
         {
-          if (((v53 - v69) & 4) != 0)
+          if (((v59 - v82) & 4) != 0)
           {
-            if (v53 >= &v69[*(v8 + 104)])
+            if (v59 >= &v82[*(v8 + 104)])
             {
-              goto LABEL_146;
+              goto LABEL_170;
             }
 
-            *v53++ = 0;
+            *v59++ = 0;
           }
 
-          if (v53 >= &v69[*(v8 + 104)])
+          if (v59 >= &v82[*(v8 + 104)])
           {
-            goto LABEL_146;
+            goto LABEL_170;
           }
 
-          v62 = v24 & ~(v24 >> 31);
+          v75 = v24 & ~(v24 >> 31);
           v13 = 0;
-          *v53++ = v68 - v62;
+          *v59++ = v81 - v75;
         }
 
-        a2 = v66;
-        goto LABEL_150;
+        a2 = v79;
+        goto LABEL_178;
       }
 
       v12 |= *(v18 + *v20) << v11;
@@ -3237,9 +1508,9 @@ LABEL_42:
           goto LABEL_73;
         }
 
-        if (v25 >= &v69[*(v8 + 104)])
+        if (v25 >= &v82[*(v8 + 104)])
         {
-          goto LABEL_116;
+          goto LABEL_128;
         }
 
         v32 = *(v28 + 1);
@@ -3249,9 +1520,9 @@ LABEL_42:
         v24 += v32;
         if (v24 >= v17)
         {
-LABEL_103:
-          v64 = 0;
-          goto LABEL_77;
+LABEL_111:
+          v77 = 0;
+          goto LABEL_81;
         }
 
         for (i = 0; ; i += v39)
@@ -3265,9 +1536,9 @@ LABEL_103:
           {
             if (!v11)
             {
-              v49 = v25 + 1;
-              v10 = v65;
-              goto LABEL_118;
+              v53 = v25 + 1;
+              v10 = v78;
+              goto LABEL_134;
             }
 
             v11 = 13;
@@ -3308,13 +1579,13 @@ LABEL_61:
           {
             if (v38 == 12)
             {
-              v64 = 1;
+              v77 = 1;
               if (i)
               {
-                goto LABEL_75;
+                goto LABEL_79;
               }
 
-              goto LABEL_77;
+              goto LABEL_81;
             }
 
             if (v38 != 8)
@@ -3322,9 +1593,9 @@ LABEL_61:
               goto LABEL_74;
             }
 
-            if (v34 >= &v69[*(v8 + 104)])
+            if (v34 >= &v82[*(v8 + 104)])
             {
-              goto LABEL_116;
+              goto LABEL_128;
             }
 
             v40 = *(v36 + 1);
@@ -3333,7 +1604,7 @@ LABEL_61:
             v24 += v40;
             if (v24 >= v17)
             {
-              goto LABEL_103;
+              goto LABEL_111;
             }
 
             if ((v40 + i) | v33)
@@ -3341,7 +1612,7 @@ LABEL_61:
               v25 += 2;
             }
 
-            v10 = v65;
+            v10 = v78;
             goto LABEL_31;
           }
 
@@ -3362,138 +1633,169 @@ LABEL_46:
 
     if (v30 == 12)
     {
-      v64 = 1;
+      v77 = 1;
       v34 = v25;
       if (!i)
       {
-        goto LABEL_77;
+        goto LABEL_81;
       }
 
-LABEL_75:
-      if (v34 < &v69[*(v8 + 104)])
+LABEL_79:
+      if (v34 < &v82[*(v8 + 104)])
       {
         *v34++ = i;
-        goto LABEL_77;
+        goto LABEL_81;
       }
 
-LABEL_116:
-      v54 = v67[150];
-      goto LABEL_147;
+      goto LABEL_128;
     }
 
 LABEL_73:
     v34 = v25;
 LABEL_74:
-    TIFFErrorExtR(v67, "Fax3Decode1D", "Bad code word at line %u of %s %u (x %u)", v17, a5, a6, a7, a8, *(v8 + 152));
-    v64 = 0;
-    v17 = v68;
+    v41 = "tile";
+    if ((v80[2] & 0x400) == 0)
+    {
+      v41 = "strip";
+    }
+
+    v42 = 932;
+    if ((v80[2] & 0x400) == 0)
+    {
+      v42 = 884;
+    }
+
+    TIFFErrorExtR(v80, "Fax3Decode1D", "Bad code word at line %u of %s %u (x %u)", *(v8 + 152), v41, *(v80 + v42), v24);
+    v77 = 0;
+    v17 = v81;
     if (i)
     {
-      goto LABEL_75;
+      goto LABEL_79;
     }
 
-LABEL_77:
+LABEL_81:
     if (v24 == v17)
     {
-LABEL_98:
-      v47 = v66;
-      v13 = v64;
+      goto LABEL_106;
     }
 
-    else
+    v43 = "tile";
+    if ((v80[2] & 0x400) == 0)
     {
-      v41 = "Premature EOL";
-      if (v24 >= v17)
-      {
-        v41 = "Line length mismatch";
-      }
-
-      TIFFWarningExtR(v67, "Fax3Decode1D", "%s at line %u of %s %u (got %u, expected %u)", v17, a5, a6, a7, a8, v41);
-      v42 = v24 > v68;
-      if (v24 > v68 && v34 > v69)
-      {
-        v43 = v34 - 1;
-        v44 = v34 - 1;
-        do
-        {
-          v45 = *v44--;
-          v24 -= v45;
-          v42 = v24 > v68;
-          v46 = v24 > v68 && v43 > v69;
-          v43 = v44;
-        }
-
-        while (v46);
-        v34 = v44 + 1;
-      }
-
-      if (v24 < v68)
-      {
-        if (((v34 - v69) & 4) != 0)
-        {
-          if (v34 >= &v69[*(v8 + 104)])
-          {
-            goto LABEL_116;
-          }
-
-          *v34++ = 0;
-        }
-
-        if (v34 >= &v69[*(v8 + 104)])
-        {
-          goto LABEL_116;
-        }
-
-        *v34++ = v68 - (v24 & ~(v24 >> 31));
-        goto LABEL_98;
-      }
-
-      if (!v42)
-      {
-        goto LABEL_98;
-      }
-
-      v47 = v66;
-      v13 = v64;
-      if (v34 >= &v69[*(v8 + 104)])
-      {
-        goto LABEL_116;
-      }
-
-      *v34 = v68;
-      if (v34 + 1 >= &v69[*(v8 + 104)])
-      {
-        goto LABEL_116;
-      }
-
-      v34[1] = 0;
-      v34 += 2;
+      v43 = "strip";
     }
 
-    (*(v8 + 88))(v47, v69, v34, v68);
-    v17 = v68;
-    v48 = *(v8 + 8);
-    a2 = v47 + v48;
-    ++*(v8 + 152);
-    v10 = v65 - v48;
-    if (v65 > v48)
+    v44 = 932;
+    if ((v80[2] & 0x400) == 0)
     {
-      continue;
+      v44 = 884;
+    }
+
+    v45 = "Premature EOL";
+    if (v24 >= v17)
+    {
+      v45 = "Line length mismatch";
+    }
+
+    TIFFWarningExtR(v80, "Fax3Decode1D", "%s at line %u of %s %u (got %u, expected %u)", v45, *(v8 + 152), v43, *(v80 + v44), v24, v17);
+    v46 = v24 > v81;
+    if (v24 > v81 && v34 > v82)
+    {
+      v47 = v34 - 1;
+      v48 = v34 - 1;
+      do
+      {
+        v49 = *v48--;
+        v24 -= v49;
+        v46 = v24 > v81;
+        v50 = v24 > v81 && v47 > v82;
+        v47 = v48;
+      }
+
+      while (v50);
+      v34 = v48 + 1;
+    }
+
+    if (v24 >= v81)
+    {
+      if (v46)
+      {
+        v51 = v79;
+        v13 = v77;
+        if (v34 >= &v82[*(v8 + 104)])
+        {
+          goto LABEL_128;
+        }
+
+        *v34 = v81;
+        if (v34 + 1 >= &v82[*(v8 + 104)])
+        {
+          goto LABEL_128;
+        }
+
+        v34[1] = 0;
+        v34 += 2;
+        goto LABEL_107;
+      }
+
+LABEL_106:
+      v51 = v79;
+      v13 = v77;
+LABEL_107:
+      (*(v8 + 88))(v51, v82, v34, v81);
+      v17 = v81;
+      v52 = *(v8 + 8);
+      a2 = v51 + v52;
+      ++*(v8 + 152);
+      v10 = v78 - v52;
+      if (v78 > v52)
+      {
+        continue;
+      }
+
+      a1 = v80;
+      v14 = v80[144];
+      v15 = v80[145];
+      goto LABEL_113;
     }
 
     break;
   }
 
-  a1 = v67;
-  v14 = v67[144];
-  v15 = v67[145];
-LABEL_105:
-  *(v8 + 72) = v12;
-  *(v8 + 76) = v11;
-  *(v8 + 80) = v13;
-  a1[145] = v14 - v20 + v15;
-  a1[144] = v20;
-  return 1;
+  if (((v34 - v82) & 4) != 0)
+  {
+    if (v34 >= &v82[*(v8 + 104)])
+    {
+      goto LABEL_128;
+    }
+
+    *v34++ = 0;
+  }
+
+  if (v34 < &v82[*(v8 + 104)])
+  {
+    *v34++ = v81 - (v24 & ~(v24 >> 31));
+    goto LABEL_106;
+  }
+
+LABEL_128:
+  v60 = v80[150];
+  v61 = "tile";
+  if ((v80[2] & 0x400) == 0)
+  {
+    v61 = "strip";
+  }
+
+  v62 = 932;
+  if ((v80[2] & 0x400) == 0)
+  {
+    v62 = 884;
+  }
+
+  v63 = *(v80 + v62);
+LABEL_175:
+  TIFFErrorExt(v60, "Fax3Decode1D", "Buffer overflow at line %u of %s %u", v17, a5, a6, a7, a8, *(v8 + 152), v61, v63);
+  return 0xFFFFFFFFLL;
 }
 
 uint64_t Fax3PreEncode(uint64_t a1)
@@ -3545,118 +1847,117 @@ uint64_t Fax3PreEncode(uint64_t a1)
   return 1;
 }
 
-uint64_t Fax3PostEncode(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t Fax3PostEncode(void *a1)
 {
-  v8 = a1[137];
-  if (*(v8 + 76) == 8)
+  v1 = a1[137];
+  if (*(v1 + 76) == 8)
   {
     return 1;
   }
 
-  if (a1[145] < a1[141] || (result = TIFFFlushData1(a1, a2, a3, a4, a5, a6, a7, a8), result))
+  if (a1[145] < a1[141] || (result = TIFFFlushData1(a1), result))
   {
-    v11 = *(v8 + 72);
-    v12 = a1[144];
-    a1[144] = v12 + 1;
-    *v12 = v11;
+    v4 = *(v1 + 72);
+    v5 = a1[144];
+    a1[144] = v5 + 1;
+    *v5 = v4;
     ++a1[145];
-    *(v8 + 72) = 0x800000000;
+    *(v1 + 72) = 0x800000000;
     return 1;
   }
 
   return result;
 }
 
-uint64_t Fax3Encode(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t Fax3Encode(void *a1, char *a2, uint64_t a3)
 {
-  v9 = a1[137];
-  if (a3 % *(v9 + 8))
+  v4 = a1[137];
+  if (a3 % *(v4 + 8))
   {
-    TIFFErrorExtR(a1, "Fax3Encode", "Fractional scanlines cannot be written", a4, a5, a6, a7, a8, v31);
+    TIFFErrorExtR(a1, "Fax3Encode", "Fractional scanlines cannot be written");
     return 0;
   }
 
-  v11 = a3;
+  v6 = a3;
   if (a3 < 1)
   {
     return 1;
   }
 
-  v12 = a2;
-  while ((*(v9 + 4) & 2) != 0)
+  while ((*(v4 + 4) & 2) != 0)
   {
-LABEL_39:
-    if ((*(v9 + 32) & 1) == 0)
+LABEL_38:
+    if ((*(v4 + 32) & 1) == 0)
     {
-      result = Fax3Encode1DRow(a1, v12, *(v9 + 16), a4, a5, a6, a7, a8);
+      result = Fax3Encode1DRow(a1, a2, *(v4 + 16));
       if (!result)
       {
         return result;
       }
 
-      goto LABEL_49;
+      goto LABEL_48;
     }
 
-    if (*(v9 + 128))
+    if (*(v4 + 128))
     {
-      result = Fax3Encode2DRow(a1, v12, *(v9 + 136), *(v9 + 16), a5, a6, a7, a8);
+      result = Fax3Encode2DRow(a1, a2, *(v4 + 136), *(v4 + 16));
       if (!result)
       {
         return result;
       }
 
-      v28 = *(v9 + 144) - 1;
-      *(v9 + 144) = v28;
-      if (!v28)
+      v23 = *(v4 + 144) - 1;
+      *(v4 + 144) = v23;
+      if (!v23)
       {
-        goto LABEL_48;
+        goto LABEL_47;
       }
     }
 
     else
     {
-      result = Fax3Encode1DRow(a1, v12, *(v9 + 16), a4, a5, a6, a7, a8);
+      result = Fax3Encode1DRow(a1, a2, *(v4 + 16));
       if (!result)
       {
         return result;
       }
 
-      *(v9 + 128) = 1;
-      if (!*(v9 + 144))
+      *(v4 + 128) = 1;
+      if (!*(v4 + 144))
       {
-LABEL_48:
-        *(v9 + 128) = 0;
-        *(v9 + 144) = *(v9 + 148) - 1;
-        goto LABEL_49;
+LABEL_47:
+        *(v4 + 128) = 0;
+        *(v4 + 144) = *(v4 + 148) - 1;
+        goto LABEL_48;
       }
     }
 
-    _TIFFmemcpy(*(v9 + 136), v12, *(v9 + 8));
-LABEL_49:
-    v29 = *(v9 + 8);
-    v12 += v29;
+    _TIFFmemcpy(*(v4 + 136), a2, *(v4 + 8));
+LABEL_48:
+    v24 = *(v4 + 8);
+    a2 += v24;
     result = 1;
-    v30 = v11 <= v29;
-    v11 -= v29;
-    if (v30)
+    v25 = v6 <= v24;
+    v6 -= v24;
+    if (v25)
     {
       return result;
     }
   }
 
-  v13 = a1[137];
-  v15 = *(v13 + 72);
-  v14 = *(v13 + 76);
-  if ((*(v13 + 32) & 4) == 0 || v14 == 4)
+  v8 = a1[137];
+  v10 = *(v8 + 72);
+  v9 = *(v8 + 76);
+  if ((*(v8 + 32) & 4) == 0 || v9 == 4)
   {
-    goto LABEL_23;
+    goto LABEL_22;
   }
 
-  v16 = v14 < 4 ? 4 : -4;
-  v17 = v16 + v14;
-  if (v16 + v14 <= v14)
+  v11 = v9 < 4 ? 4 : -4;
+  v12 = v11 + v9;
+  if (v11 + v9 <= v9)
   {
-    if (v17 >= 9)
+    if (v12 >= 9)
     {
       Fax3Encode_cold_1();
     }
@@ -3664,168 +1965,168 @@ LABEL_49:
 
   else
   {
+    v13 = a1[145];
+    do
+    {
+      if (v13 >= a1[141])
+      {
+        result = TIFFFlushData1(a1);
+        if (!result)
+        {
+          return result;
+        }
+      }
+
+      v12 -= v9;
+      v14 = a1[144];
+      a1[144] = v14 + 1;
+      *v14 = v10;
+      v13 = a1[145] + 1;
+      a1[145] = v13;
+      v9 = 8;
+      LOBYTE(v10) = 0;
+    }
+
+    while (v12 > 8);
+    LOBYTE(v10) = 0;
+  }
+
+  v9 -= v12;
+  if (v9)
+  {
+LABEL_22:
+    if (*(v8 + 32))
+    {
+      if (*(v8 + 128))
+      {
+        v17 = 2;
+      }
+
+      else
+      {
+        v17 = 3;
+      }
+
+      v16 = 13;
+    }
+
+    else
+    {
+      v16 = 12;
+      v17 = 1;
+    }
+
+    if (v16 <= v9)
+    {
+      Fax3Encode_cold_2();
+    }
+
     v18 = a1[145];
     do
     {
       if (v18 >= a1[141])
       {
-        result = TIFFFlushData1(a1, a2, a3, a4, a5, a6, a7, a8);
+        result = TIFFFlushData1(a1);
         if (!result)
         {
           return result;
         }
       }
 
-      v17 -= v14;
+      v16 -= v9;
       v19 = a1[144];
       a1[144] = v19 + 1;
-      *v19 = v15;
+      *v19 = (v17 >> v16) | v10;
       v18 = a1[145] + 1;
       a1[145] = v18;
-      v14 = 8;
-      LOBYTE(v15) = 0;
+      v9 = 8;
+      LOBYTE(v10) = 0;
     }
 
-    while (v17 > 8);
-    LOBYTE(v15) = 0;
-  }
-
-  v14 -= v17;
-  if (v14)
-  {
-LABEL_23:
-    if (*(v13 + 32))
+    while (v16 > 8);
+    v20 = 8 - v16;
+    v21 = (_msbmask[v16] & v17) << (8 - v16);
+    if (v16 == 8)
     {
-      if (*(v13 + 128))
+      if (v18 >= a1[141])
       {
-        v22 = 2;
-      }
-
-      else
-      {
-        v22 = 3;
-      }
-
-      v21 = 13;
-    }
-
-    else
-    {
-      v21 = 12;
-      v22 = 1;
-    }
-
-    if (v21 <= v14)
-    {
-      Fax3Encode_cold_2();
-    }
-
-    v23 = a1[145];
-    do
-    {
-      if (v23 >= a1[141])
-      {
-        result = TIFFFlushData1(a1, a2, a3, a4, a5, a6, a7, a8);
+        result = TIFFFlushData1(a1);
         if (!result)
         {
           return result;
         }
       }
 
-      v21 -= v14;
-      v24 = a1[144];
-      a1[144] = v24 + 1;
-      *v24 = (v22 >> v21) | v15;
-      v23 = a1[145] + 1;
-      a1[145] = v23;
-      v14 = 8;
-      LOBYTE(v15) = 0;
-    }
-
-    while (v21 > 8);
-    v25 = 8 - v21;
-    v26 = (_msbmask[v21] & v22) << (8 - v21);
-    if (v21 == 8)
-    {
-      if (v23 >= a1[141])
-      {
-        result = TIFFFlushData1(a1, a2, a3, a4, a5, a6, a7, a8);
-        if (!result)
-        {
-          return result;
-        }
-      }
-
-      v27 = a1[144];
-      a1[144] = v27 + 1;
-      *v27 = v26;
+      v22 = a1[144];
+      a1[144] = v22 + 1;
+      *v22 = v21;
       ++a1[145];
-      v25 = 8;
-      v26 = 0;
+      v20 = 8;
+      v21 = 0;
     }
 
-    *(v13 + 72) = v26;
-    *(v13 + 76) = v25;
-    goto LABEL_39;
+    *(v8 + 72) = v21;
+    *(v8 + 76) = v20;
+    goto LABEL_38;
   }
 
-  if (a1[145] < a1[141] || (result = TIFFFlushData1(a1, a2, a3, a4, a5, a6, a7, a8), result))
+  if (a1[145] < a1[141] || (result = TIFFFlushData1(a1), result))
   {
-    v20 = a1[144];
-    a1[144] = v20 + 1;
-    *v20 = v15;
+    v15 = a1[144];
+    a1[144] = v15 + 1;
+    *v15 = v10;
     ++a1[145];
-    v14 = 8;
-    LOBYTE(v15) = 0;
-    goto LABEL_23;
+    v9 = 8;
+    LOBYTE(v10) = 0;
+    goto LABEL_22;
   }
 
   return result;
 }
 
-double Fax3Close(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double Fax3Close(void *a1)
 {
-  v8 = a1[137];
-  if ((*(v8 + 4) & 1) == 0 && a1[144])
+  v1 = a1[137];
+  if ((*(v1 + 4) & 1) == 0 && a1[144])
   {
-    if (*(v8 + 32))
+    if (*(v1 + 32))
     {
-      if (*(v8 + 128))
+      if (*(v1 + 128))
       {
-        v11 = 2;
+        v4 = 2;
       }
 
       else
       {
-        v11 = 3;
+        v4 = 3;
       }
 
-      v10 = 13;
+      v3 = 13;
     }
 
     else
     {
-      v10 = 12;
-      v11 = 1;
+      v3 = 12;
+      v4 = 1;
     }
 
-    v12 = 6;
+    v5 = 6;
     do
     {
-      Fax3PutBits(a1, v11, v10, a4, a5, a6, a7, a8);
-      --v12;
+      Fax3PutBits(a1, v4, v3);
+      --v5;
     }
 
-    while (v12);
-    if (a1[145] < a1[141] || TIFFFlushData1(a1, v13, v14, a4, a5, a6, a7, a8))
+    while (v5);
+    if (a1[145] < a1[141] || TIFFFlushData1(a1))
     {
-      v16 = *(v8 + 72);
-      v17 = a1[144];
-      a1[144] = v17 + 1;
-      *v17 = v16;
+      v7 = *(v1 + 72);
+      v8 = a1[144];
+      a1[144] = v8 + 1;
+      *v8 = v7;
       ++a1[145];
       *&result = 0x800000000;
-      *(v8 + 72) = 0x800000000;
+      *(v1 + 72) = 0x800000000;
     }
   }
 
@@ -3862,13 +2163,13 @@ uint64_t Fax3Cleanup(uint64_t a1)
   return _TIFFSetDefaultCompressionState(a1);
 }
 
-uint64_t Fax3Decode2D(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t Fax3Decode2D(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v8 = a1;
-  v9 = a1[137];
+  v9 = *(a1 + 1096);
   if (a3 % *(v9 + 8))
   {
-    TIFFErrorExtR(a1, "Fax3Decode2D", "Fractional scanlines cannot be read", a4, a5, a6, a7, a8, v134);
+    TIFFErrorExtR(a1, "Fax3Decode2D", "Fractional scanlines cannot be read", a4, a5, a6, a7, a8);
     return 0xFFFFFFFFLL;
   }
 
@@ -3876,20 +2177,20 @@ uint64_t Fax3Decode2D(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   v12 = *(v9 + 72);
   v13 = *(v9 + 76);
   v14 = *(v9 + 80);
-  v15 = a1[144];
-  v16 = a1[145];
+  v15 = *(a1 + 1152);
+  v16 = *(a1 + 1160);
   if (a3 < 1)
   {
-    v22 = a1[144];
-    goto LABEL_289;
+    v22 = *(a1 + 1152);
+    goto LABEL_308;
   }
 
   v18 = v15 + v16;
   v19 = *(v9 + 16);
   v20 = *(v9 + 64);
   v21 = *(v9 + 120);
-  v22 = a1[144];
-  v143 = v19;
+  v22 = *(a1 + 1152);
+  v161 = v19;
 LABEL_6:
   if (!v14)
   {
@@ -3905,40 +2206,52 @@ LABEL_6:
         if (!v13)
         {
           v14 = 0;
-LABEL_291:
+LABEL_310:
           if (v19)
           {
-LABEL_292:
-            TIFFWarningExtR(v8, "Fax3Decode2D", "%s at line %u of %s %u (got %u, expected %u)", v19, v11, a6, a7, a8, "Premature EOL");
-            v19 = v143;
-            v122 = *(v9 + 104);
-            if (v143 < 1)
+LABEL_311:
+            v130 = "tile";
+            if ((*(v8 + 16) & 0x400) == 0)
             {
-              if (v122)
+              v130 = "strip";
+            }
+
+            v131 = 932;
+            if ((*(v8 + 16) & 0x400) == 0)
+            {
+              v131 = 884;
+            }
+
+            TIFFWarningExtR(v8, "Fax3Decode2D", "%s at line %u of %s %u (got %u, expected %u)", "Premature EOL", *(v9 + 152), v130, *(v8 + v131), 0, v19);
+            v19 = v161;
+            v132 = *(v9 + 104);
+            if (v161 < 1)
+            {
+              if (v132)
               {
-                *v21 = v143;
+                *v21 = v161;
                 if (*(v9 + 104) > 1u)
                 {
-                  v123 = v21 + 2;
+                  v133 = v21 + 2;
                   v21[1] = 0;
-                  goto LABEL_344;
+                  goto LABEL_383;
                 }
               }
             }
 
-            else if (v122)
+            else if (v132)
             {
-              *v21 = v143;
-              v123 = v21 + 1;
-              goto LABEL_344;
+              *v21 = v161;
+              v133 = v21 + 1;
+              goto LABEL_383;
             }
 
-            goto LABEL_338;
+            goto LABEL_373;
           }
 
-LABEL_343:
-          v123 = v21;
-          goto LABEL_344;
+LABEL_382:
+          v133 = v21;
+          goto LABEL_383;
         }
 
         v13 = 11;
@@ -3989,7 +2302,7 @@ LABEL_22:
       {
         if (!v13)
         {
-          goto LABEL_291;
+          goto LABEL_310;
         }
 
         v13 = 8;
@@ -4036,10 +2349,10 @@ LABEL_22:
         v12 >>= 1;
         if (v19)
         {
-          goto LABEL_292;
+          goto LABEL_311;
         }
 
-        goto LABEL_343;
+        goto LABEL_382;
       }
 
       v27 = 1;
@@ -4055,7 +2368,7 @@ LABEL_22:
 
   v13 = v27 - 1;
   v12 = v26 >> 1;
-  v141 = a2;
+  v159 = a2;
   if (v26)
   {
     v31 = 0;
@@ -4074,105 +2387,130 @@ LABEL_22:
           if (!v13)
           {
             v35 = v85;
-LABEL_299:
-            TIFFWarningExtR(a1, "Fax3Decode2D", "Premature EOF at line %u of %s %u (x %u)", v19, v11, a6, a7, a8, *(v9 + 152));
+LABEL_322:
+            v134 = "tile";
+            if ((*(a1 + 16) & 0x400) == 0)
+            {
+              v134 = "strip";
+            }
+
+            v135 = 932;
+            if ((*(a1 + 16) & 0x400) == 0)
+            {
+              v135 = 884;
+            }
+
+            TIFFWarningExtR(a1, "Fax3Decode2D", "Premature EOF at line %u of %s %u (x %u)", *(v9 + 152), v134, *(a1 + v135), v31);
             if (i)
             {
-              v19 = v143;
+              v19 = v161;
               if (v35 >= &v21[*(v9 + 104)])
               {
-                goto LABEL_316;
+                goto LABEL_347;
               }
 
               *v35 = i;
-              v123 = v35 + 1;
+              v133 = v35 + 1;
             }
 
             else
             {
-              LODWORD(v19) = v143;
-              v123 = v35;
+              LODWORD(v19) = v161;
+              v133 = v35;
             }
 
             v8 = a1;
             if (v31 == v19)
             {
-              goto LABEL_340;
+              goto LABEL_379;
             }
 
-            v124 = v123;
-            Fax3BadLength("Fax3Decode2D", a1, *(v9 + 152), v31, v143, a6, a7, a8);
-            v19 = v143;
-            v125 = v31 > v143;
-            if (v31 <= v143)
+            v136 = v133;
+            Fax3BadLength("Fax3Decode2D", a1, *(v9 + 152), v31, v161);
+            v19 = v161;
+            v137 = v31 > v161;
+            if (v31 <= v161)
             {
-              goto LABEL_327;
+              goto LABEL_362;
             }
 
-            v123 = v124;
-            if (v124 > v21)
+            v133 = v136;
+            if (v136 > v21)
             {
-              v126 = v124 - 1;
-              v127 = v124 - 1;
+              v138 = v136 - 1;
+              v139 = v136 - 1;
               do
               {
-                v128 = *v127--;
-                LODWORD(v31) = v31 - v128;
-                v125 = v31 > v143;
-                v129 = v31 > v143 && v126 > v21;
-                v126 = v127;
+                v140 = *v139--;
+                v31 -= v140;
+                v137 = v31 > v161;
+                v141 = v31 > v161 && v138 > v21;
+                v138 = v139;
               }
 
-              while (v129);
-LABEL_326:
-              v123 = v127 + 1;
+              while (v141);
+LABEL_361:
+              v133 = v139 + 1;
             }
 
-LABEL_328:
+LABEL_363:
             if (v31 >= v19)
             {
-              if (!v125)
+              if (!v137)
               {
-                goto LABEL_340;
+                goto LABEL_379;
               }
 
-              a2 = v141;
-              if (v123 < &v21[*(v9 + 104)])
+              a2 = v159;
+              if (v133 < &v21[*(v9 + 104)])
               {
-                *v123 = v19;
-                if (v123 + 1 < &v21[*(v9 + 104)])
+                *v133 = v19;
+                if (v133 + 1 < &v21[*(v9 + 104)])
                 {
                   v14 = 0;
-                  v123[1] = 0;
-                  v123 += 2;
-                  goto LABEL_344;
+                  v133[1] = 0;
+                  v133 += 2;
+                  goto LABEL_383;
                 }
               }
             }
 
             else
             {
-              if (((v123 - v21) & 4) != 0)
+              if (((v133 - v21) & 4) != 0)
               {
-                if (v123 >= &v21[*(v9 + 104)])
+                if (v133 >= &v21[*(v9 + 104)])
                 {
-                  goto LABEL_338;
+                  goto LABEL_373;
                 }
 
-                *v123++ = 0;
+                *v133++ = 0;
               }
 
-              if (v123 < &v21[*(v9 + 104)])
+              if (v133 < &v21[*(v9 + 104)])
               {
                 v14 = 0;
-                *v123++ = v19 - (v31 & ~(v31 >> 31));
-                goto LABEL_341;
+                *v133++ = v19 - (v31 & ~(v31 >> 31));
+                goto LABEL_380;
               }
             }
 
-LABEL_338:
-            v130 = v8[150];
-            goto LABEL_339;
+LABEL_373:
+            v144 = *(v8 + 1200);
+            v145 = "tile";
+            if ((*(v8 + 16) & 0x400) == 0)
+            {
+              v145 = "strip";
+            }
+
+            v151 = 932;
+            if ((*(v8 + 16) & 0x400) == 0)
+            {
+              v151 = 884;
+            }
+
+            v147 = *(v8 + v151);
+            goto LABEL_378;
           }
 
           v13 = 12;
@@ -4219,119 +2557,143 @@ LABEL_176:
           if (v90 != 12)
           {
 LABEL_205:
-            v135 = *(v9 + 152);
-            v100 = v21;
-            v136 = v20;
-            v101 = v9;
-            v102 = v85;
-            v103 = v11;
-            TIFFErrorExtR(a1, "Fax3Decode2D", "Bad code word at line %u of %s %u (x %u)", v19, v11, a6, a7, a8, v135);
-            v11 = v103;
-            v85 = v102;
-            v9 = v101;
-            v20 = v136;
-            v21 = v100;
-            v19 = v143;
-            v104 = 0;
-            goto LABEL_210;
-          }
-
-LABEL_209:
-          v104 = 1;
-LABEL_210:
-          v137 = v104;
-          if (i)
-          {
-            if (v85 >= &v21[*(v9 + 104)])
+            v100 = "tile";
+            if ((*(a1 + 16) & 0x400) == 0)
             {
-              goto LABEL_316;
+              v100 = "strip";
             }
 
-            *v85++ = i;
-          }
+            v101 = 932;
+            if ((*(a1 + 16) & 0x400) == 0)
+            {
+              v101 = 884;
+            }
 
-          v35 = v85;
+            v153 = *(v9 + 152);
+            v102 = v21;
+            v154 = v20;
+            v103 = v9;
+            v104 = v85;
+            v105 = v11;
+            TIFFErrorExtR(a1, "Fax3Decode2D", "Bad code word at line %u of %s %u (x %u)", v153, v100, *(a1 + v101), v31);
+            v11 = v105;
+            v85 = v104;
+            v9 = v103;
+            v20 = v154;
+            v21 = v102;
+            v19 = v161;
+            v106 = 0;
 LABEL_214:
-          v139 = v11;
-          v8 = a1;
-          if (v31 == v19)
-          {
-            goto LABEL_263;
-          }
-
-          v106 = "Premature EOL";
-          if (v31 >= v19)
-          {
-            v106 = "Line length mismatch";
-          }
-
-          TIFFWarningExtR(a1, "Fax3Decode2D", "%s at line %u of %s %u (got %u, expected %u)", v19, v11, a6, a7, a8, v106);
-          v19 = v143;
-          v107 = v31 > v143;
-          if (v31 > v143 && v35 > v21)
-          {
-            v108 = v35 - 1;
-            v109 = v35 - 1;
-            do
+            v155 = v106;
+            if (i)
             {
-              v110 = *v109--;
-              LODWORD(v31) = v31 - v110;
-              v107 = v31 > v143;
-              v111 = v31 > v143 && v108 > v21;
-              v108 = v109;
-            }
-
-            while (v111);
-LABEL_252:
-            v35 = v109 + 1;
-          }
-
-LABEL_253:
-          if (v31 >= v19)
-          {
-            if (!v107)
-            {
-              goto LABEL_263;
-            }
-
-            v118 = v141;
-            if (v35 < &v21[*(v9 + 104)])
-            {
-              *v35 = v19;
-              if (v35 + 1 < &v21[*(v9 + 104)])
+              if (v85 >= &v21[*(v9 + 104)])
               {
-                v35[1] = 0;
-                v35 += 2;
-                goto LABEL_264;
+                goto LABEL_347;
+              }
+
+              *v85++ = i;
+            }
+
+            v35 = v85;
+LABEL_218:
+            v157 = v11;
+            v8 = a1;
+            if (v31 == v19)
+            {
+              goto LABEL_282;
+            }
+
+            v108 = "tile";
+            if ((*(a1 + 16) & 0x400) == 0)
+            {
+              v108 = "strip";
+            }
+
+            v109 = 932;
+            if ((*(a1 + 16) & 0x400) == 0)
+            {
+              v109 = 884;
+            }
+
+            v110 = "Premature EOL";
+            if (v31 >= v19)
+            {
+              v110 = "Line length mismatch";
+            }
+
+            TIFFWarningExtR(a1, "Fax3Decode2D", "%s at line %u of %s %u (got %u, expected %u)", v110, *(v9 + 152), v108, *(a1 + v109), v31, v19);
+            v19 = v161;
+            v111 = v31 > v161;
+            if (v31 > v161 && v35 > v21)
+            {
+              v112 = v35 - 1;
+              v113 = v35 - 1;
+              do
+              {
+                v114 = *v113--;
+                v31 -= v114;
+                v111 = v31 > v161;
+                v115 = v31 > v161 && v112 > v21;
+                v112 = v113;
+              }
+
+              while (v115);
+LABEL_271:
+              v35 = v113 + 1;
+            }
+
+LABEL_272:
+            if (v31 >= v19)
+            {
+              if (!v111)
+              {
+                goto LABEL_282;
+              }
+
+              v126 = v159;
+              if (v35 < &v21[*(v9 + 104)])
+              {
+                *v35 = v19;
+                if (v35 + 1 < &v21[*(v9 + 104)])
+                {
+                  v35[1] = 0;
+                  v35 += 2;
+                  goto LABEL_283;
+                }
               }
             }
-          }
 
-          else if (((v35 - v21) & 4) != 0)
-          {
-            if (v35 < &v21[*(v9 + 104)])
+            else if (((v35 - v21) & 4) != 0)
             {
-              *v35++ = 0;
-              goto LABEL_257;
+              if (v35 < &v21[*(v9 + 104)])
+              {
+                *v35++ = 0;
+                goto LABEL_276;
+              }
             }
-          }
 
-          else
-          {
-LABEL_257:
-            if (v35 < &v21[*(v9 + 104)])
+            else
             {
-              *v35++ = v19 - (v31 & ~(v31 >> 31));
-              goto LABEL_263;
+LABEL_276:
+              if (v35 < &v21[*(v9 + 104)])
+              {
+                *v35++ = v19 - (v31 & ~(v31 >> 31));
+                goto LABEL_282;
+              }
             }
+
+            goto LABEL_373;
           }
 
-          goto LABEL_338;
+LABEL_213:
+          v106 = 1;
+          goto LABEL_214;
         }
 
 LABEL_180:
         v91 = *(v88 + 1);
-        v31 = (v91 + v31);
+        v31 += v91;
       }
 
       if (v90 == 9)
@@ -4346,17 +2708,17 @@ LABEL_180:
 
       if (v85 >= &v21[*(v9 + 104)])
       {
-        goto LABEL_316;
+        goto LABEL_347;
       }
 
       v92 = *(v88 + 1);
       v93 = v92 + i;
       *v85 = v92 + i;
       v35 = v85 + 1;
-      v31 = (v92 + v31);
+      v31 += v92;
       if (v31 >= v19)
       {
-        goto LABEL_273;
+        goto LABEL_292;
       }
 
       i = 0;
@@ -4371,7 +2733,7 @@ LABEL_180:
         {
           if (!v13)
           {
-            goto LABEL_299;
+            goto LABEL_322;
           }
 
           v13 = 13;
@@ -4411,7 +2773,7 @@ LABEL_195:
         if ((v97 - 10) < 2)
         {
           v98 = *(v95 + 1);
-          v31 = (v98 + v31);
+          v31 += v98;
           i += v98;
           continue;
         }
@@ -4422,35 +2784,35 @@ LABEL_195:
       if (v97 == 12)
       {
         ++v85;
-        goto LABEL_209;
+        goto LABEL_213;
       }
 
       if (v97 != 8)
       {
-        v138 = v85 + 1;
-        v105 = v11;
-        Fax3Unexpected("Fax3Decode2D", a1, *(v9 + 152), v31, v11, a6, a7, a8);
-        v11 = v105;
-        v19 = v143;
-        v104 = 0;
-        v85 = v138;
-        goto LABEL_210;
+        v156 = v85 + 1;
+        v107 = v11;
+        Fax3Unexpected("Fax3Decode2D", a1, *(v9 + 152), v31);
+        v11 = v107;
+        v19 = v161;
+        v106 = 0;
+        v85 = v156;
+        goto LABEL_214;
       }
 
       if (v35 >= &v21[*(v9 + 104)])
       {
-        goto LABEL_316;
+        goto LABEL_347;
       }
 
       v99 = *(v95 + 1);
       v35 = v85 + 2;
       v85[1] = v99 + i;
-      v31 = (v99 + v31);
+      v31 += v99;
       if (v31 >= v19)
       {
-LABEL_273:
-        v137 = 0;
-        goto LABEL_214;
+LABEL_292:
+        v155 = 0;
+        goto LABEL_218;
       }
 
       if ((v99 + i) | v93)
@@ -4462,10 +2824,10 @@ LABEL_273:
 
   if (v19 < 1)
   {
-    v137 = 0;
-    LODWORD(v31) = 0;
+    v155 = 0;
+    v31 = 0;
     v35 = v21;
-    goto LABEL_242;
+    goto LABEL_257;
   }
 
   v29 = 0;
@@ -4480,7 +2842,7 @@ LABEL_273:
     v36 = *(v9 + 104);
     if (v35 >= &v21[v36])
     {
-      goto LABEL_316;
+      goto LABEL_347;
     }
 
     if (v13 <= 6)
@@ -4489,7 +2851,7 @@ LABEL_273:
       {
         if (!v13)
         {
-          goto LABEL_313;
+          goto LABEL_340;
         }
 
         v13 = 7;
@@ -4523,10 +2885,10 @@ LABEL_273:
               {
                 if (v46 >= v45)
                 {
-                  goto LABEL_316;
+                  goto LABEL_347;
                 }
 
-                LODWORD(v33) = *(v46 - 1) + v33 + *v46;
+                v33 += *(v46 - 1) + *v46;
                 v46 += 2;
               }
 
@@ -4539,28 +2901,28 @@ LABEL_273:
             {
               v48 = v33 + v29 - v47;
               *v35++ = v48 + j;
-              v31 = (v48 + v31);
+              v31 += v48;
               v49 = *--v34;
-              v33 = (v33 - v49);
+              v33 -= v49;
               goto LABEL_66;
             }
 
             break;
           case 6u:
-            v140 = v11;
+            v158 = v11;
             *v35++ = v19 - v31;
-            Fax3Extension("Fax3Decode2D", a1, *(v9 + 152), v31, v11, a6, a7, a8);
-            goto LABEL_236;
+            Fax3Extension("Fax3Decode2D", a1, *(v9 + 152), v31);
+            goto LABEL_251;
           case 0xCu:
             *v35++ = v19 - v31;
-            v140 = v11;
+            v158 = v11;
             if (v13 <= 3)
             {
               if (v22 >= v18)
               {
                 if (!v13)
                 {
-                  goto LABEL_313;
+                  goto LABEL_340;
                 }
 
                 v13 = 4;
@@ -4568,24 +2930,24 @@ LABEL_273:
 
               else
               {
-                v121 = *v22++;
-                v12 |= *(v20 + v121) << v13;
+                v129 = *v22++;
+                v12 |= *(v20 + v129) << v13;
                 v13 += 8;
               }
             }
 
             if ((v12 & 0xF) != 0)
             {
-              Fax3Unexpected("Fax3Decode2D", a1, *(v9 + 152), v31, v11, a6, a7, a8);
+              Fax3Unexpected("Fax3Decode2D", a1, *(v9 + 152), v31);
             }
 
             v13 -= 4;
             v12 >>= 4;
-            v137 = 1;
-            goto LABEL_237;
+            v155 = 1;
+            goto LABEL_252;
         }
 
-        goto LABEL_284;
+        goto LABEL_303;
       }
 
       if (v35 != v21 && v33 <= v31)
@@ -4596,10 +2958,10 @@ LABEL_273:
         {
           if (v51 >= v50)
           {
-            goto LABEL_316;
+            goto LABEL_347;
           }
 
-          LODWORD(v33) = *(v51 - 1) + v33 + *v51;
+          v33 += *(v51 - 1) + *v51;
           v51 += 2;
         }
 
@@ -4611,11 +2973,11 @@ LABEL_273:
       *v35 = j + v29 + v52 + v33;
       if (v34 >= &v32[*(v9 + 104)])
       {
-        goto LABEL_316;
+        goto LABEL_347;
       }
 
       j = 0;
-      v31 = (v52 + v33);
+      v31 = v52 + v33;
       ++v35;
       v53 = *v34++;
       v43 = v53;
@@ -4631,10 +2993,10 @@ LABEL_273:
         {
           if (v65 >= &v32[v36])
           {
-            goto LABEL_316;
+            goto LABEL_347;
           }
 
-          LODWORD(v33) = *(v65 - 1) + v33 + *v65;
+          v33 += *(v65 - 1) + *v65;
           v65 += 2;
         }
 
@@ -4644,15 +3006,15 @@ LABEL_273:
 
       if (v34 + 1 >= &v32[v36])
       {
-        goto LABEL_316;
+        goto LABEL_347;
       }
 
       v66 = *v34;
       v67 = v34[1];
       v34 += 2;
       v31 = v66 + v33;
-      j += v29 + v31;
-      v33 = v31 + v67;
+      j += v29 + v66 + v33;
+      v33 += v66 + v67;
       goto LABEL_113;
     }
 
@@ -4663,7 +3025,7 @@ LABEL_273:
 
     if (v40 != 3)
     {
-      goto LABEL_284;
+      goto LABEL_303;
     }
 
     if (v35 != v21 && v33 <= v31)
@@ -4672,7 +3034,7 @@ LABEL_273:
       v42 = v34 + 1;
       while (v42 < v41)
       {
-        v33 = *(v42 - 1) + v33 + *v42;
+        v33 += *(v42 - 1) + *v42;
         v42 += 2;
         if (v33 > v31)
         {
@@ -4681,16 +3043,29 @@ LABEL_273:
         }
       }
 
-      goto LABEL_316;
+      goto LABEL_347;
     }
 
 LABEL_54:
     *v35 = j + v29 + v33;
     if (v34 >= &v32[*(v9 + 104)])
     {
-LABEL_316:
-      v130 = a1[150];
-      goto LABEL_339;
+LABEL_347:
+      v144 = *(a1 + 1200);
+      v145 = "tile";
+      if ((*(a1 + 16) & 0x400) == 0)
+      {
+        v145 = "strip";
+      }
+
+      v146 = 932;
+      if ((*(a1 + 16) & 0x400) == 0)
+      {
+        v146 = 884;
+      }
+
+      v147 = *(a1 + v146);
+      goto LABEL_378;
     }
 
     j = 0;
@@ -4699,7 +3074,7 @@ LABEL_316:
     v43 = v44;
     v31 = v33;
 LABEL_75:
-    v33 = (v43 + v33);
+    v33 += v43;
 LABEL_113:
     v29 = -v31;
     if (v31 >= v19)
@@ -4714,7 +3089,7 @@ LABEL_113:
             {
               if (!v13)
               {
-                goto LABEL_313;
+                goto LABEL_340;
               }
 
               v13 = 1;
@@ -4722,18 +3097,18 @@ LABEL_113:
 
             else
             {
-              v112 = *v22++;
-              v12 |= *(v20 + v112) << v13;
+              v116 = *v22++;
+              v12 |= *(v20 + v116) << v13;
               v13 += 8;
             }
           }
 
           if ((v12 & 1) == 0)
           {
-LABEL_284:
-            v140 = v11;
-            Fax3Unexpected("Fax3Decode2D", a1, *(v9 + 152), v31, v11, a6, a7, a8);
-            goto LABEL_236;
+LABEL_303:
+            v158 = v11;
+            Fax3Unexpected("Fax3Decode2D", a1, *(v9 + 152), v31);
+            goto LABEL_251;
           }
 
           --v13;
@@ -4742,21 +3117,21 @@ LABEL_284:
 
         if (v35 >= &v21[*(v9 + 104)])
         {
-          goto LABEL_316;
+          goto LABEL_347;
         }
 
-        v137 = 0;
-LABEL_239:
+        v155 = 0;
+LABEL_254:
         *v35++ = j;
       }
 
       else
       {
-        v137 = 0;
+        v155 = 0;
       }
 
       v8 = a1;
-      goto LABEL_242;
+      goto LABEL_257;
     }
   }
 
@@ -4773,7 +3148,7 @@ LABEL_239:
       {
         if (!v13)
         {
-          goto LABEL_313;
+          goto LABEL_340;
         }
 
         v13 = 13;
@@ -4814,16 +3189,28 @@ LABEL_103:
       {
         if (v63 != 8)
         {
-          v140 = v11;
-LABEL_232:
-          v113 = a1;
-          goto LABEL_235;
+          v158 = v11;
+LABEL_240:
+          v117 = a1;
+          v118 = "tile";
+          if ((*(a1 + 16) & 0x400) == 0)
+          {
+            v118 = "strip";
+          }
+
+          v119 = 932;
+          if ((*(a1 + 16) & 0x400) == 0)
+          {
+            v119 = 884;
+          }
+
+          goto LABEL_250;
         }
 
         v75 = *(v61 + 1);
         *v35 = v75 + j;
         v69 = v35 + 1;
-        v31 = (v75 + v31);
+        v31 += v75;
         for (j = 0; ; j += v80)
         {
           if (v13 > 11)
@@ -4835,74 +3222,86 @@ LABEL_232:
           {
             if (!v13)
             {
-LABEL_312:
+LABEL_339:
               v35 = v69;
-LABEL_313:
-              TIFFWarningExtR(a1, "Fax3Decode2D", "Premature EOF at line %u of %s %u (x %u)", v19, v11, a6, a7, a8, *(v9 + 152));
+LABEL_340:
+              v142 = "tile";
+              if ((*(a1 + 16) & 0x400) == 0)
+              {
+                v142 = "strip";
+              }
+
+              v143 = 932;
+              if ((*(a1 + 16) & 0x400) == 0)
+              {
+                v143 = 884;
+              }
+
+              TIFFWarningExtR(a1, "Fax3Decode2D", "Premature EOF at line %u of %s %u (x %u)", *(v9 + 152), v142, *(a1 + v143), v31);
               if (j)
               {
-                v19 = v143;
+                v19 = v161;
                 if (v35 >= &v21[*(v9 + 104)])
                 {
-                  goto LABEL_316;
+                  goto LABEL_347;
                 }
 
                 *v35 = j;
-                v123 = v35 + 1;
+                v133 = v35 + 1;
               }
 
               else
               {
-                v123 = v35;
-                LODWORD(v19) = v143;
+                v133 = v35;
+                LODWORD(v19) = v161;
               }
 
               v8 = a1;
               if (v31 != v19)
               {
-                v124 = v123;
-                Fax3BadLength("Fax3Decode2D", a1, *(v9 + 152), v31, v143, a6, a7, a8);
-                v19 = v143;
-                v125 = v31 > v143;
-                if (v31 > v143)
+                v136 = v133;
+                Fax3BadLength("Fax3Decode2D", a1, *(v9 + 152), v31, v161);
+                v19 = v161;
+                v137 = v31 > v161;
+                if (v31 > v161)
                 {
-                  v123 = v124;
-                  if (v124 > v21)
+                  v133 = v136;
+                  if (v136 > v21)
                   {
-                    v131 = v124 - 1;
-                    v127 = v124 - 1;
+                    v148 = v136 - 1;
+                    v139 = v136 - 1;
                     do
                     {
-                      v132 = *v127--;
-                      LODWORD(v31) = v31 - v132;
-                      v125 = v31 > v143;
-                      v133 = v31 > v143 && v131 > v21;
-                      v131 = v127;
+                      v149 = *v139--;
+                      v31 -= v149;
+                      v137 = v31 > v161;
+                      v150 = v31 > v161 && v148 > v21;
+                      v148 = v139;
                     }
 
-                    while (v133);
-                    goto LABEL_326;
+                    while (v150);
+                    goto LABEL_361;
                   }
 
-                  goto LABEL_328;
+                  goto LABEL_363;
                 }
 
-LABEL_327:
-                v123 = v124;
-                goto LABEL_328;
+LABEL_362:
+                v133 = v136;
+                goto LABEL_363;
               }
 
-LABEL_340:
+LABEL_379:
               v14 = 0;
-LABEL_341:
-              a2 = v141;
-LABEL_344:
-              (*(v9 + 88))(a2, v21, v123);
+LABEL_380:
+              a2 = v159;
+LABEL_383:
+              (*(v9 + 88))(a2, v21, v133);
               *(v9 + 72) = v12;
               *(v9 + 76) = 0;
               *(v9 + 80) = v14;
-              v8[145] += v8[144] - v22;
-              v8[144] = v22;
+              *(v8 + 1160) += *(v8 + 1152) - v22;
+              *(v8 + 1152) = v22;
               return 0xFFFFFFFFLL;
             }
 
@@ -4947,90 +3346,114 @@ LABEL_141:
               goto LABEL_150;
             }
 
-            v140 = v11;
+            v158 = v11;
             ++v35;
-LABEL_234:
-            v113 = a1;
-LABEL_235:
-            TIFFErrorExtR(v113, "Fax3Decode2D", "Bad code word at line %u of %s %u (x %u)", v19, v11, a6, a7, a8, *(v9 + 152));
-LABEL_236:
-            v137 = 0;
-LABEL_237:
-            v11 = v140;
+LABEL_246:
+            v117 = a1;
+            v118 = "tile";
+            if ((*(a1 + 16) & 0x400) == 0)
+            {
+              v118 = "strip";
+            }
+
+            v119 = 932;
+            if ((*(a1 + 16) & 0x400) == 0)
+            {
+              v119 = 884;
+            }
+
+LABEL_250:
+            TIFFErrorExtR(v117, "Fax3Decode2D", "Bad code word at line %u of %s %u (x %u)", *(v9 + 152), v118, *(a1 + v119), v31);
+LABEL_251:
+            v155 = 0;
+LABEL_252:
+            v11 = v158;
             if (j)
             {
-              v19 = v143;
+              v19 = v161;
               if (v35 < &v21[*(v9 + 104)])
               {
-                goto LABEL_239;
+                goto LABEL_254;
               }
 
-              goto LABEL_316;
+              goto LABEL_347;
             }
 
             v8 = a1;
-            v19 = v143;
-LABEL_242:
-            v139 = v11;
+            LODWORD(v19) = v161;
+LABEL_257:
+            v157 = v11;
             if (v31 != v19)
             {
-              v114 = "Premature EOL";
+              v120 = "tile";
+              if ((*(v8 + 16) & 0x400) == 0)
+              {
+                v120 = "strip";
+              }
+
+              v121 = 932;
+              if ((*(v8 + 16) & 0x400) == 0)
+              {
+                v121 = 884;
+              }
+
+              v122 = "Premature EOL";
               if (v31 >= v19)
               {
-                v114 = "Line length mismatch";
+                v122 = "Line length mismatch";
               }
 
-              TIFFWarningExtR(v8, "Fax3Decode2D", "%s at line %u of %s %u (got %u, expected %u)", v19, v11, a6, a7, a8, v114);
-              v19 = v143;
-              v107 = v31 > v143;
-              if (v31 > v143 && v35 > v21)
+              TIFFWarningExtR(v8, "Fax3Decode2D", "%s at line %u of %s %u (got %u, expected %u)", v122, *(v9 + 152), v120, *(v8 + v121), v31, v19);
+              v19 = v161;
+              v111 = v31 > v161;
+              if (v31 > v161 && v35 > v21)
               {
-                v115 = v35 - 1;
-                v109 = v35 - 1;
+                v123 = v35 - 1;
+                v113 = v35 - 1;
                 do
                 {
-                  v116 = *v109--;
-                  LODWORD(v31) = v31 - v116;
-                  v107 = v31 > v143;
-                  v117 = v31 > v143 && v115 > v21;
-                  v115 = v109;
+                  v124 = *v113--;
+                  v31 -= v124;
+                  v111 = v31 > v161;
+                  v125 = v31 > v161 && v123 > v21;
+                  v123 = v113;
                 }
 
-                while (v117);
-                goto LABEL_252;
+                while (v125);
+                goto LABEL_271;
               }
 
-              goto LABEL_253;
+              goto LABEL_272;
             }
 
-LABEL_263:
-            v118 = v141;
-LABEL_264:
-            (*(v9 + 88))(v118, v21, v35);
+LABEL_282:
+            v126 = v159;
+LABEL_283:
+            (*(v9 + 88))(v126, v21, v35);
             if (v35 < &v21[*(v9 + 104)])
             {
               *v35 = 0;
             }
 
-            v119 = *(v9 + 112);
-            *(v9 + 112) = vextq_s8(v119, v119, 8uLL);
-            v120 = *(v9 + 8);
-            a2 = v118 + v120;
+            v127 = *(v9 + 112);
+            *(v9 + 112) = vextq_s8(v127, v127, 8uLL);
+            v128 = *(v9 + 8);
+            a2 = v126 + v128;
             ++*(v9 + 152);
-            v21 = v119.i64[0];
-            v11 = v139 - v120;
-            v19 = v143;
-            v14 = v137;
-            if (v139 <= v120)
+            v21 = v127.i64[0];
+            v11 = v157 - v128;
+            v19 = v161;
+            v14 = v155;
+            if (v157 <= v128)
             {
-              v15 = v8[144];
-              v16 = v8[145];
-LABEL_289:
+              v15 = *(v8 + 1152);
+              v16 = *(v8 + 1160);
+LABEL_308:
               *(v9 + 72) = v12;
               *(v9 + 76) = v13;
               *(v9 + 80) = v14;
-              v8[145] = v15 - v22 + v16;
-              v8[144] = v22;
+              *(v8 + 1160) = v15 - v22 + v16;
+              *(v8 + 1152) = v22;
               return 1;
             }
 
@@ -5038,12 +3461,12 @@ LABEL_289:
           }
 
           v80 = *(v71 + 1);
-          v31 = (v80 + v31);
+          v31 += v80;
         }
       }
 
       v64 = *(v61 + 1);
-      v31 = (v64 + v31);
+      v31 += v64;
       j += v64;
     }
   }
@@ -5059,7 +3482,7 @@ LABEL_289:
     {
       if (!v13)
       {
-        goto LABEL_313;
+        goto LABEL_340;
       }
 
       v13 = 12;
@@ -5102,20 +3525,20 @@ LABEL_87:
     }
 
     v59 = *(v55 + 1);
-    v31 = (v59 + v31);
+    v31 += v59;
     j += v59;
   }
 
   if (v57 != 7)
   {
-    v140 = v11;
-    goto LABEL_234;
+    v158 = v11;
+    goto LABEL_246;
   }
 
   v68 = *(v55 + 1);
   *v35 = v68 + j;
   v69 = v35 + 1;
-  v31 = (v68 + v31);
+  v31 += v68;
   j = 0;
   while (2)
   {
@@ -5128,7 +3551,7 @@ LABEL_87:
     {
       if (!v13)
       {
-        goto LABEL_312;
+        goto LABEL_339;
       }
 
       v13 = 13;
@@ -5168,7 +3591,7 @@ LABEL_127:
     if ((v73 - 10) < 2)
     {
       v74 = *(v71 + 1);
-      v31 = (v74 + v31);
+      v31 += v74;
       j += v74;
       continue;
     }
@@ -5178,20 +3601,20 @@ LABEL_127:
 
   if (v73 != 8)
   {
-    v140 = v11;
+    v158 = v11;
     ++v35;
-    goto LABEL_232;
+    goto LABEL_240;
   }
 
 LABEL_150:
   if (v69 >= &v21[*(v9 + 104)])
   {
-    goto LABEL_316;
+    goto LABEL_347;
   }
 
   v81 = *(v71 + 1);
   v35[1] = v81 + j;
-  v31 = (v81 + v31);
+  v31 += v81;
   v35 += 2;
   if (v35 == v21 || (v33 <= v31 ? (v82 = v33 < v19) : (v82 = 0), !v82))
   {
@@ -5203,7 +3626,7 @@ LABEL_66:
   v83 = v34 + 1;
   while (v83 < &v32[*(v9 + 104)])
   {
-    v33 = *(v83 - 1) + v33 + *v83;
+    v33 += *(v83 - 1) + *v83;
     v83 += 2;
     if (v33 > v31 || v33 >= v19)
     {
@@ -5213,115 +3636,186 @@ LABEL_66:
     }
   }
 
-  v130 = a1[150];
-LABEL_339:
-  TIFFErrorExt(v130, "Fax3Decode2D", "Buffer overflow at line %u of %s %u", v19, v11, a6, a7, a8, *(v9 + 152));
+  v144 = *(a1 + 1200);
+  v145 = "tile";
+  if ((*(a1 + 16) & 0x400) == 0)
+  {
+    v145 = "strip";
+  }
+
+  v152 = 932;
+  if ((*(a1 + 16) & 0x400) == 0)
+  {
+    v152 = 884;
+  }
+
+  v147 = *(a1 + v152);
+LABEL_378:
+  TIFFErrorExt(v144, "Fax3Decode2D", "Buffer overflow at line %u of %s %u", v19, v11, a6, a7, a8, *(v9 + 152), v145, v147);
   return 0xFFFFFFFFLL;
 }
 
-uint64_t Fax3BadLength(const char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t Fax3Unexpected(uint64_t a1, uint64_t a2, int a3, int a4)
 {
-  v8 = "Line length mismatch";
-  if (a4 < a5)
+  if ((*(a2 + 16) & 0x400) != 0)
   {
-    v8 = "Premature EOL";
+    v4 = "tile";
   }
 
-  return TIFFWarningExtR(a2, a1, "%s at line %u of %s %u (got %u, expected %u)", a4, a5, a6, a7, a8, v8);
+  else
+  {
+    v4 = "strip";
+  }
+
+  v5 = 932;
+  if ((*(a2 + 16) & 0x400) == 0)
+  {
+    v5 = 884;
+  }
+
+  return TIFFErrorExtR(a2, a1, "Bad code word at line %u of %s %u (x %u)", a3, v4, *(a2 + v5), a4);
 }
 
-uint64_t Fax3Encode1DRow(void *a1, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t Fax3BadLength(const char *a1, uint64_t a2, int a3, unsigned int a4, unsigned int a5)
 {
-  v11 = 0;
-  v48 = a1[137];
+  if ((*(a2 + 16) & 0x400) != 0)
+  {
+    v5 = "tile";
+  }
+
+  else
+  {
+    v5 = "strip";
+  }
+
+  v6 = 932;
+  if ((*(a2 + 16) & 0x400) == 0)
+  {
+    v6 = 884;
+  }
+
+  v7 = "Line length mismatch";
+  if (a4 < a5)
+  {
+    v7 = "Premature EOL";
+  }
+
+  return TIFFWarningExtR(a2, a1, "%s at line %u of %s %u (got %u, expected %u)", v7, a3, v5, *(a2 + v6), a4, a5);
+}
+
+uint64_t Fax3Extension(uint64_t a1, uint64_t a2, int a3, int a4)
+{
+  if ((*(a2 + 16) & 0x400) != 0)
+  {
+    v4 = "tile";
+  }
+
+  else
+  {
+    v4 = "strip";
+  }
+
+  v5 = 932;
+  if ((*(a2 + 16) & 0x400) == 0)
+  {
+    v5 = 884;
+  }
+
+  return TIFFErrorExtR(a2, a1, "Uncompressed data (not supported) at line %u of %s %u (x %u)", a3, v4, *(a2 + v5), a4);
+}
+
+uint64_t Fax3Encode1DRow(void *a1, uint64_t a2, unsigned int a3)
+{
+  v6 = 0;
+  v41 = a1[137];
   do
   {
-    v12 = a3 - v11;
-    if ((a3 - v11) < 1)
+    v7 = a3 - v6;
+    if ((a3 - v6) < 1)
     {
-      v16 = 0;
+      v11 = 0;
       goto LABEL_39;
     }
 
-    v13 = (a2 + (v11 >> 3));
-    v14 = v11 & 7;
-    if ((v11 & 7) != 0)
+    v8 = (a2 + (v6 >> 3));
+    v9 = v6 & 7;
+    if ((v6 & 7) != 0)
     {
-      v15 = zeroruns[(*v13 << v14) & 0xFELL];
-      if (8 - v14 < v15)
+      v10 = zeroruns[(*v8 << v9) & 0xFELL];
+      if (8 - v9 < v10)
       {
-        v15 = 8 - v14;
+        v10 = 8 - v9;
       }
 
-      if (v15 >= v12)
+      if (v10 >= v7)
       {
-        v16 = v12;
+        v11 = a3 - v6;
       }
 
       else
       {
-        v16 = v15;
+        v11 = v10;
       }
 
-      if ((v16 + v14) < 8)
+      if ((v11 + v9) < 8)
       {
         goto LABEL_39;
       }
 
-      v12 -= v16;
-      ++v13;
+      v7 -= v11;
+      ++v8;
     }
 
     else
     {
-      v16 = 0;
+      v11 = 0;
     }
 
-    if (v12 < 128)
+    if (v7 < 128)
     {
-      v17 = v13;
+      v12 = v8;
       goto LABEL_26;
     }
 
-    if ((v13 & 7) != 0)
+    if ((v8 & 7) != 0)
     {
-      v17 = &v13[-(v13 & 7) + 8];
-      v18 = -v16;
-      v19 = v13 + 1;
+      v12 = &v8[-(v8 & 7) + 8];
+      v13 = -v11;
+      v14 = v8 + 1;
       do
       {
-        if (*v13)
+        if (*v8)
         {
-          v24 = zeroruns[*v13];
+          v19 = zeroruns[*v8];
           goto LABEL_38;
         }
 
-        v12 -= 8;
-        ++v13;
-        v18 -= 8;
+        v7 -= 8;
+        ++v8;
+        v13 -= 8;
       }
 
-      while ((v19++ & 7));
-      v16 = -v18;
-      if (v12 + 8 > 71)
+      while ((v14++ & 7));
+      v11 = -v13;
+      if (v7 + 8 > 71)
       {
         goto LABEL_22;
       }
 
 LABEL_26:
-      v21 = v12;
-      if (v12 < 8)
+      v16 = v7;
+      if (v7 < 8)
       {
 LABEL_32:
-        if (v12 >= 1)
+        if (v7 >= 1)
         {
-          v23 = zeroruns[*v17];
-          if (v12 >= v23)
+          v18 = zeroruns[*v12];
+          if (v7 >= v18)
           {
-            v12 = v23;
+            v7 = v18;
           }
 
-          v16 = (v12 + v16);
+          v11 += v7;
         }
 
         goto LABEL_39;
@@ -5330,141 +3824,141 @@ LABEL_32:
       goto LABEL_27;
     }
 
-    v17 = v13;
+    v12 = v8;
 LABEL_22:
-    v21 = v12;
-    while (!*v17)
+    v16 = v7;
+    while (!*v12)
     {
-      v16 = (v16 + 64);
-      v12 = v21 - 64;
-      ++v17;
-      v22 = v21 <= 127;
-      v21 -= 64;
-      if (v22)
+      v11 += 64;
+      v7 = v16 - 64;
+      ++v12;
+      v17 = v16 <= 127;
+      v16 -= 64;
+      if (v17)
       {
         goto LABEL_26;
       }
     }
 
 LABEL_27:
-    v18 = -v16;
-    while (!*v17)
+    v13 = -v11;
+    while (!*v12)
     {
-      v12 = v21 - 8;
-      v17 = (v17 + 1);
-      v18 -= 8;
-      v22 = v21 <= 15;
-      v21 -= 8;
-      if (v22)
+      v7 = v16 - 8;
+      v12 = (v12 + 1);
+      v13 -= 8;
+      v17 = v16 <= 15;
+      v16 -= 8;
+      if (v17)
       {
-        v16 = -v18;
+        v11 = -v13;
         goto LABEL_32;
       }
     }
 
-    v24 = zeroruns[*v17];
+    v19 = zeroruns[*v12];
 LABEL_38:
-    v16 = (v24 - v18);
+    v11 = v19 - v13;
 LABEL_39:
-    result = putspan(a1, v16, L"\b5", a4, a5, a6, a7, a8);
+    result = putspan(a1, v11, L"\b5");
     if (!result)
     {
       return result;
     }
 
-    v28 = v16 + v11;
-    v29 = a3 - v28;
-    if (a3 <= v28)
+    v21 = v11 + v6;
+    v22 = a3 - v21;
+    if (a3 <= v21)
     {
       break;
     }
 
-    if (v29 < 1)
+    if (v22 < 1)
     {
-      v33 = 0;
+      v26 = 0;
       goto LABEL_78;
     }
 
-    v30 = (a2 + (v28 >> 3));
-    v31 = v28 & 7;
-    if ((v28 & 7) != 0)
+    v23 = (a2 + (v21 >> 3));
+    v24 = v21 & 7;
+    if ((v21 & 7) != 0)
     {
-      v32 = oneruns[(*v30 << v31) & 0xFELL];
-      if (8 - v31 < v32)
+      v25 = oneruns[(*v23 << v24) & 0xFELL];
+      if (8 - v24 < v25)
       {
-        v32 = 8 - v31;
+        v25 = 8 - v24;
       }
 
-      if (v32 >= v29)
+      if (v25 >= v22)
       {
-        v33 = v29;
+        v26 = a3 - v21;
       }
 
       else
       {
-        v33 = v32;
+        v26 = v25;
       }
 
-      if ((v33 + v31) < 8)
+      if ((v26 + v24) < 8)
       {
         goto LABEL_78;
       }
 
-      v29 -= v33;
-      ++v30;
+      v22 -= v26;
+      ++v23;
     }
 
     else
     {
-      v33 = 0;
+      v26 = 0;
     }
 
-    if (v29 < 128)
+    if (v22 < 128)
     {
-      v34 = v30;
+      v27 = v23;
       goto LABEL_65;
     }
 
-    if ((v30 & 7) != 0)
+    if ((v23 & 7) != 0)
     {
-      v34 = &v30[-(v30 & 7) + 8];
-      v35 = -v33;
-      v36 = v30 + 1;
+      v27 = &v23[-(v23 & 7) + 8];
+      v28 = -v26;
+      v29 = v23 + 1;
       do
       {
-        v37 = *v30;
-        if (v37 != 255)
+        v30 = *v23;
+        if (v30 != 255)
         {
-          v42 = oneruns[v37];
+          v35 = oneruns[v30];
           goto LABEL_77;
         }
 
-        v29 -= 8;
-        ++v30;
-        v35 -= 8;
+        v22 -= 8;
+        ++v23;
+        v28 -= 8;
       }
 
-      while ((v36++ & 7));
-      v33 = -v35;
-      if (v29 + 8 > 71)
+      while ((v29++ & 7));
+      v26 = -v28;
+      if (v22 + 8 > 71)
       {
         goto LABEL_61;
       }
 
 LABEL_65:
-      v39 = v29;
-      if (v29 < 8)
+      v32 = v22;
+      if (v22 < 8)
       {
 LABEL_71:
-        if (v29 >= 1)
+        if (v22 >= 1)
         {
-          v41 = oneruns[*v34];
-          if (v29 >= v41)
+          v34 = oneruns[*v27];
+          if (v22 >= v34)
           {
-            v29 = v41;
+            v22 = v34;
           }
 
-          v33 = (v29 + v33);
+          v26 += v22;
         }
 
         goto LABEL_78;
@@ -5473,113 +3967,112 @@ LABEL_71:
       goto LABEL_66;
     }
 
-    v34 = v30;
+    v27 = v23;
 LABEL_61:
-    v39 = v29;
-    while (*v34 == -1)
+    v32 = v22;
+    while (*v27 == -1)
     {
-      v33 = (v33 + 64);
-      v29 = v39 - 64;
-      v34 += 8;
-      v22 = v39 <= 127;
-      v39 -= 64;
-      if (v22)
+      v26 += 64;
+      v22 = v32 - 64;
+      v27 += 8;
+      v17 = v32 <= 127;
+      v32 -= 64;
+      if (v17)
       {
         goto LABEL_65;
       }
     }
 
 LABEL_66:
-    v35 = -v33;
+    v28 = -v26;
     while (1)
     {
-      v40 = *v34;
-      if (v40 != 255)
+      v33 = *v27;
+      if (v33 != 255)
       {
         break;
       }
 
-      v29 = v39 - 8;
-      ++v34;
-      v35 -= 8;
-      v22 = v39 <= 15;
-      v39 -= 8;
-      if (v22)
+      v22 = v32 - 8;
+      ++v27;
+      v28 -= 8;
+      v17 = v32 <= 15;
+      v32 -= 8;
+      if (v17)
       {
-        v33 = -v35;
+        v26 = -v28;
         goto LABEL_71;
       }
     }
 
-    v42 = oneruns[v40];
+    v35 = oneruns[v33];
 LABEL_77:
-    v33 = (v42 - v35);
+    v26 = v35 - v28;
 LABEL_78:
-    result = putspan(a1, v33, &TIFFFaxBlackCodes, a4, a5, a6, a7, a8);
+    result = putspan(a1, v26, &TIFFFaxBlackCodes);
     if (!result)
     {
       return result;
     }
 
-    v11 = v33 + v28;
+    v6 = v26 + v21;
   }
 
-  while (v11 < a3);
-  v43 = v48[1];
-  if ((v43 & 0xC) == 0)
+  while (v6 < a3);
+  v36 = v41[1];
+  if ((v36 & 0xC) == 0)
   {
     return 1;
   }
 
-  if (v48[19] == 8)
+  if (v41[19] == 8)
   {
 LABEL_85:
-    if ((v43 & 8) != 0)
+    if ((v36 & 8) != 0)
     {
-      v46 = a1[144];
-      if (v46)
+      v39 = a1[144];
+      if (v39)
       {
         if (a1[145] >= a1[141])
         {
-          result = TIFFFlushData1(a1, v26, v27, a4, a5, a6, a7, a8);
+          result = TIFFFlushData1(a1);
           if (!result)
           {
             return result;
           }
 
-          v46 = a1[144];
+          v39 = a1[144];
         }
 
-        v47 = v48[18];
-        a1[144] = v46 + 1;
-        *v46 = v47;
+        v40 = v41[18];
+        a1[144] = v39 + 1;
+        *v39 = v40;
         ++a1[145];
-        *(v48 + 9) = 0x800000000;
+        *(v41 + 9) = 0x800000000;
       }
     }
 
     return 1;
   }
 
-  if (a1[145] < a1[141] || (result = TIFFFlushData1(a1, v26, v27, a4, a5, a6, a7, a8), result))
+  if (a1[145] < a1[141] || (result = TIFFFlushData1(a1), result))
   {
-    v44 = v48[18];
-    v45 = a1[144];
-    a1[144] = v45 + 1;
-    *v45 = v44;
+    v37 = v41[18];
+    v38 = a1[144];
+    a1[144] = v38 + 1;
+    *v38 = v37;
     ++a1[145];
-    *(v48 + 9) = 0x800000000;
-    v43 = v48[1];
+    *(v41 + 9) = 0x800000000;
+    v36 = v41[1];
     goto LABEL_85;
   }
 
   return result;
 }
 
-uint64_t Fax3Encode2DRow(void *a1, char *a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t Fax3Encode2DRow(void *a1, char *a2, char *a3, unsigned int a4)
 {
-  v8 = a4;
-  v12 = 0;
+  v8 = 0;
   if (a4 < 1 || *a2 < 0)
   {
     goto LABEL_29;
@@ -5587,27 +4080,27 @@ uint64_t Fax3Encode2DRow(void *a1, char *a2, char *a3, uint64_t a4, uint64_t a5,
 
   if (a4 < 0x80)
   {
-    v12 = 0;
-    v13 = a2;
-    v18 = a4;
+    v8 = 0;
+    v9 = a2;
+    v14 = a4;
   }
 
   else
   {
-    v12 = 0;
+    v8 = 0;
     if ((a2 & 7) == 0)
     {
-      v13 = a2;
-      v17 = a4;
+      v9 = a2;
+      v13 = a4;
 LABEL_13:
-      while (!*v13)
+      while (!*v9)
       {
-        v12 += 64;
-        v18 = v17 - 64;
-        v13 += 8;
-        v19 = v17 <= 127;
-        v17 -= 64;
-        if (v19)
+        v8 += 64;
+        v14 = v13 - 64;
+        v9 += 8;
+        v15 = v13 <= 127;
+        v13 -= 64;
+        if (v15)
         {
           goto LABEL_16;
         }
@@ -5616,160 +4109,160 @@ LABEL_13:
       goto LABEL_17;
     }
 
-    v13 = &a2[-(a2 & 7) + 8];
-    v14 = a2 + 1;
-    v15 = a2;
+    v9 = &a2[-(a2 & 7) + 8];
+    v10 = a2 + 1;
+    v11 = a2;
     do
     {
-      if (*v15)
+      if (*v11)
       {
-        v21 = zeroruns[*v15];
+        v17 = zeroruns[*v11];
         goto LABEL_28;
       }
 
-      v12 += 8;
-      ++v15;
-      v16 = (v14++ & 7) == 0;
+      v8 += 8;
+      ++v11;
+      v12 = (v10++ & 7) == 0;
     }
 
-    while (!v16);
-    v17 = a4 - v12;
-    v18 = a4 - v12;
-    if ((a4 - v12 + 8) > 71)
+    while (!v12);
+    v13 = a4 - v8;
+    v14 = a4 - v8;
+    if ((a4 - v8 + 8) > 71)
     {
       goto LABEL_13;
     }
   }
 
 LABEL_16:
-  v17 = v18;
-  if (v18 >= 8)
+  v13 = v14;
+  if (v14 >= 8)
   {
 LABEL_17:
-    v20 = -v12;
-    while (!*v13)
+    v16 = -v8;
+    while (!*v9)
     {
-      v18 = v17 - 8;
-      ++v13;
-      v20 -= 8;
-      v19 = v17 <= 15;
-      v17 -= 8;
-      if (v19)
+      v14 = v13 - 8;
+      ++v9;
+      v16 -= 8;
+      v15 = v13 <= 15;
+      v13 -= 8;
+      if (v15)
       {
-        v12 = -v20;
+        v8 = -v16;
         goto LABEL_22;
       }
     }
 
-    v12 = zeroruns[*v13] - v20;
+    v8 = zeroruns[*v9] - v16;
     goto LABEL_29;
   }
 
 LABEL_22:
-  if (v18 >= 1)
+  if (v14 >= 1)
   {
-    v21 = zeroruns[*v13];
-    if (v18 < v21)
+    v17 = zeroruns[*v9];
+    if (v14 < v17)
     {
-      v21 = v18;
+      v17 = v14;
     }
 
 LABEL_28:
-    v12 += v21;
+    v8 += v17;
   }
 
 LABEL_29:
-  v22 = 0;
+  v18 = 0;
   if (a4 >= 1 && (*a3 & 0x80000000) == 0)
   {
     if (a4 < 0x80)
     {
-      v22 = 0;
-      v23 = a3;
-      v27 = a4;
+      v18 = 0;
+      v19 = a3;
+      v23 = a4;
     }
 
     else
     {
-      v22 = 0;
+      v18 = 0;
       if ((a3 & 7) == 0)
       {
-        v23 = a3;
-        v26 = a4;
+        v19 = a3;
+        v22 = a4;
 LABEL_41:
-        while (!*v23)
+        while (!*v19)
         {
-          v22 += 64;
-          v27 = v26 - 64;
-          v23 += 8;
-          v19 = v26 <= 127;
-          v26 -= 64;
-          if (v19)
+          v18 += 64;
+          v23 = v22 - 64;
+          v19 += 8;
+          v15 = v22 <= 127;
+          v22 -= 64;
+          if (v15)
           {
             goto LABEL_44;
           }
         }
 
 LABEL_45:
-        v28 = -v22;
-        while (!*v23)
+        v24 = -v18;
+        while (!*v19)
         {
-          v27 = v26 - 8;
-          ++v23;
-          v28 -= 8;
-          v19 = v26 <= 15;
-          v26 -= 8;
-          if (v19)
+          v23 = v22 - 8;
+          ++v19;
+          v24 -= 8;
+          v15 = v22 <= 15;
+          v22 -= 8;
+          if (v15)
           {
-            v22 = -v28;
+            v18 = -v24;
             goto LABEL_50;
           }
         }
 
-        v22 = zeroruns[*v23] - v28;
+        v18 = zeroruns[*v19] - v24;
         goto LABEL_57;
       }
 
-      v23 = &a3[-(a3 & 7) + 8];
-      v24 = a3 + 1;
-      v25 = a3;
+      v19 = &a3[-(a3 & 7) + 8];
+      v20 = a3 + 1;
+      v21 = a3;
       do
       {
-        if (*v25)
+        if (*v21)
         {
-          v29 = zeroruns[*v25];
+          v25 = zeroruns[*v21];
           goto LABEL_56;
         }
 
-        v22 += 8;
-        ++v25;
-        v16 = (v24++ & 7) == 0;
+        v18 += 8;
+        ++v21;
+        v12 = (v20++ & 7) == 0;
       }
 
-      while (!v16);
-      v26 = a4 - v22;
-      v27 = a4 - v22;
-      if ((a4 - v22 + 8) > 71)
+      while (!v12);
+      v22 = a4 - v18;
+      v23 = a4 - v18;
+      if ((a4 - v18 + 8) > 71)
       {
         goto LABEL_41;
       }
     }
 
 LABEL_44:
-    v26 = v27;
-    if (v27 < 8)
+    v22 = v23;
+    if (v23 < 8)
     {
 LABEL_50:
-      if (v27 >= 1)
+      if (v23 >= 1)
       {
-        v29 = zeroruns[*v23];
-        if (v27 < v29)
+        v25 = zeroruns[*v19];
+        if (v23 < v25)
         {
-          v29 = v27;
+          v25 = v23;
         }
 
 LABEL_56:
-        v22 += v29;
+        v18 += v25;
       }
 
       goto LABEL_57;
@@ -5779,293 +4272,293 @@ LABEL_56:
   }
 
 LABEL_57:
-  v30 = 0;
+  v26 = 0;
   while (1)
   {
-    v31 = v8;
-    v32 = v8 - v22;
-    if (v8 <= v22)
+    v27 = a4;
+    v28 = a4 - v18;
+    if (a4 <= v18)
     {
       goto LABEL_130;
     }
 
-    v33 = v22 & 7;
-    v34 = &a3[v22 >> 3];
-    if ((a3[v22 >> 3] >> (v22 & 7 ^ 7)))
+    v29 = v18 & 7;
+    v30 = &a3[v18 >> 3];
+    if ((a3[v18 >> 3] >> (v18 & 7 ^ 7)))
     {
-      if (v32 < 1)
+      if (v28 < 1)
       {
         goto LABEL_76;
       }
 
-      if ((v22 & 7) != 0)
+      if ((v18 & 7) != 0)
       {
-        v35 = oneruns[(*v34 << v33) & 0xFELL];
-        if (8 - v33 < v35)
+        v31 = oneruns[(*v30 << v29) & 0xFELL];
+        if (8 - v29 < v31)
         {
-          v35 = 8 - v33;
+          v31 = 8 - v29;
         }
 
-        if (v35 >= v32)
+        if (v31 >= v28)
         {
-          v35 = v8 - v22;
+          v31 = a4 - v18;
         }
 
-        if (v35 + v33 < 8)
+        if (v31 + v29 < 8)
         {
           goto LABEL_129;
         }
 
-        v32 -= v35;
-        ++v34;
+        v28 -= v31;
+        ++v30;
       }
 
       else
       {
-        v35 = 0;
+        v31 = 0;
       }
 
-      if (v32 < 128)
+      if (v28 < 128)
       {
-        v36 = v34;
+        v32 = v30;
         goto LABEL_100;
       }
 
-      if ((v34 & 7) != 0)
+      if ((v30 & 7) != 0)
       {
-        v36 = &v34[-(v34 & 7) + 8];
-        v37 = -v35;
-        v38 = v34 + 1;
+        v32 = &v30[-(v30 & 7) + 8];
+        v33 = -v31;
+        v34 = v30 + 1;
         do
         {
-          v39 = *v34;
-          if (v39 != 255)
+          v35 = *v30;
+          if (v35 != 255)
           {
-            v47 = oneruns[v39];
+            v43 = oneruns[v35];
             goto LABEL_128;
           }
 
-          v32 -= 8;
-          ++v34;
-          v37 -= 8;
+          v28 -= 8;
+          ++v30;
+          v33 -= 8;
         }
 
-        while ((v38++ & 7));
-        v35 = -v37;
-        if (v32 + 8 > 71)
+        while ((v34++ & 7));
+        v31 = -v33;
+        if (v28 + 8 > 71)
         {
           goto LABEL_96;
         }
 
 LABEL_100:
-        v44 = v32;
-        if (v32 >= 8)
+        v40 = v28;
+        if (v28 >= 8)
         {
           goto LABEL_101;
         }
 
 LABEL_106:
-        if (v32 >= 1)
+        if (v28 >= 1)
         {
-          v46 = oneruns[*v36];
+          v42 = oneruns[*v32];
 LABEL_123:
-          if (v32 >= v46)
+          if (v28 >= v42)
           {
-            v32 = v46;
+            v28 = v42;
           }
 
-          v35 += v32;
+          v31 += v28;
           goto LABEL_129;
         }
 
         goto LABEL_129;
       }
 
-      v36 = v34;
+      v32 = v30;
 LABEL_96:
-      v44 = v32;
-      while (*v36 == -1)
+      v40 = v28;
+      while (*v32 == -1)
       {
-        v35 += 64;
-        v32 = v44 - 64;
-        v36 += 8;
-        v19 = v44 <= 127;
-        v44 -= 64;
-        if (v19)
+        v31 += 64;
+        v28 = v40 - 64;
+        v32 += 8;
+        v15 = v40 <= 127;
+        v40 -= 64;
+        if (v15)
         {
           goto LABEL_100;
         }
       }
 
 LABEL_101:
-      v37 = -v35;
+      v33 = -v31;
       while (1)
       {
-        v45 = *v36;
-        if (v45 != 255)
+        v41 = *v32;
+        if (v41 != 255)
         {
           break;
         }
 
-        v32 = v44 - 8;
-        ++v36;
-        v37 -= 8;
-        v19 = v44 <= 15;
-        v44 -= 8;
-        if (v19)
+        v28 = v40 - 8;
+        ++v32;
+        v33 -= 8;
+        v15 = v40 <= 15;
+        v40 -= 8;
+        if (v15)
         {
-          v35 = -v37;
+          v31 = -v33;
           goto LABEL_106;
         }
       }
 
-      v47 = oneruns[v45];
+      v43 = oneruns[v41];
 LABEL_128:
-      v35 = v47 - v37;
+      v31 = v43 - v33;
       goto LABEL_129;
     }
 
-    if (v32 < 1)
+    if (v28 < 1)
     {
 LABEL_76:
-      v35 = 0;
+      v31 = 0;
       goto LABEL_129;
     }
 
-    if ((v22 & 7) != 0)
+    if ((v18 & 7) != 0)
     {
-      v35 = zeroruns[(*v34 << v33) & 0xFELL];
-      if (8 - v33 < v35)
+      v31 = zeroruns[(*v30 << v29) & 0xFELL];
+      if (8 - v29 < v31)
       {
-        v35 = 8 - v33;
+        v31 = 8 - v29;
       }
 
-      if (v35 >= v32)
+      if (v31 >= v28)
       {
-        v35 = v8 - v22;
+        v31 = a4 - v18;
       }
 
-      if (v35 + v33 < 8)
+      if (v31 + v29 < 8)
       {
         goto LABEL_129;
       }
 
-      v32 -= v35;
-      ++v34;
+      v28 -= v31;
+      ++v30;
     }
 
     else
     {
-      v35 = 0;
+      v31 = 0;
     }
 
-    if (v32 < 128)
+    if (v28 < 128)
     {
-      v41 = v34;
+      v37 = v30;
     }
 
     else
     {
-      if ((v34 & 7) == 0)
+      if ((v30 & 7) == 0)
       {
-        v41 = v34;
+        v37 = v30;
 LABEL_111:
-        v48 = v32;
-        while (!*v41)
+        v44 = v28;
+        while (!*v37)
         {
-          v35 += 64;
-          v32 = v48 - 64;
-          v41 += 8;
-          v19 = v48 <= 127;
-          v48 -= 64;
-          if (v19)
+          v31 += 64;
+          v28 = v44 - 64;
+          v37 += 8;
+          v15 = v44 <= 127;
+          v44 -= 64;
+          if (v15)
           {
             goto LABEL_115;
           }
         }
 
 LABEL_116:
-        v37 = -v35;
-        while (!*v41)
+        v33 = -v31;
+        while (!*v37)
         {
-          v32 = v48 - 8;
-          ++v41;
-          v37 -= 8;
-          v19 = v48 <= 15;
-          v48 -= 8;
-          if (v19)
+          v28 = v44 - 8;
+          ++v37;
+          v33 -= 8;
+          v15 = v44 <= 15;
+          v44 -= 8;
+          if (v15)
           {
-            v35 = -v37;
+            v31 = -v33;
             goto LABEL_121;
           }
         }
 
-        v47 = zeroruns[*v41];
+        v43 = zeroruns[*v37];
         goto LABEL_128;
       }
 
-      v41 = &v34[-(v34 & 7) + 8];
-      v37 = -v35;
-      v42 = v34 + 1;
+      v37 = &v30[-(v30 & 7) + 8];
+      v33 = -v31;
+      v38 = v30 + 1;
       do
       {
-        if (*v34)
+        if (*v30)
         {
-          v47 = zeroruns[*v34];
+          v43 = zeroruns[*v30];
           goto LABEL_128;
         }
 
-        v32 -= 8;
-        ++v34;
-        v37 -= 8;
+        v28 -= 8;
+        ++v30;
+        v33 -= 8;
       }
 
-      while ((v42++ & 7));
-      v35 = -v37;
-      if (v32 + 8 > 71)
+      while ((v38++ & 7));
+      v31 = -v33;
+      if (v28 + 8 > 71)
       {
         goto LABEL_111;
       }
     }
 
 LABEL_115:
-    v48 = v32;
-    if (v32 >= 8)
+    v44 = v28;
+    if (v28 >= 8)
     {
       goto LABEL_116;
     }
 
 LABEL_121:
-    if (v32 >= 1)
+    if (v28 >= 1)
     {
-      v46 = zeroruns[*v41];
+      v42 = zeroruns[*v37];
       goto LABEL_123;
     }
 
 LABEL_129:
-    v31 = v35 + v22;
+    v27 = v31 + v18;
 LABEL_130:
-    if (v31 < v12)
+    if (v27 < v8)
     {
-      result = Fax3PutBits(a1, 1, 4, a4, a5, a6, a7, a8);
+      result = Fax3PutBits(a1, 1u, 4u);
       goto LABEL_219;
     }
 
-    v50 = v22 - v12;
-    if (v22 >= v12 && v50 < 4)
+    v46 = v18 - v8;
+    if (v18 >= v8 && v46 < 4)
     {
       goto LABEL_134;
     }
 
-    if (v22 < v12)
+    if (v18 < v8)
     {
-      v51 = v12 - v22;
-      if (v51 < 4)
+      v47 = v8 - v18;
+      if (v47 < 4)
       {
-        v50 = -v51;
+        v46 = -v47;
 LABEL_134:
-        result = Fax3PutBits(a1, vcodes[3 * v50 + 10], vcodes[3 * v50 + 9], a4, a5, a6, a7, a8);
-        v30 = v12;
+        result = Fax3PutBits(a1, vcodes[3 * v46 + 10], vcodes[3 * v46 + 9]);
+        v26 = v8;
         if (!result)
         {
           return result;
@@ -6075,62 +4568,62 @@ LABEL_134:
       }
     }
 
-    v31 = v8;
-    v52 = v8 - v12;
-    if (v8 > v12)
+    v27 = a4;
+    v48 = a4 - v8;
+    if (a4 > v8)
     {
-      v53 = v12 & 7;
-      v54 = &a2[v12 >> 3];
-      if ((a2[v12 >> 3] >> (v12 & 7 ^ 7)))
+      v49 = v8 & 7;
+      v50 = &a2[v8 >> 3];
+      if ((a2[v8 >> 3] >> (v8 & 7 ^ 7)))
       {
-        if (v52 >= 1)
+        if (v48 >= 1)
         {
-          if ((v12 & 7) != 0)
+          if ((v8 & 7) != 0)
           {
-            v55 = oneruns[(*v54 << v53) & 0xFELL];
-            if (8 - v53 < v55)
+            v51 = oneruns[(*v50 << v49) & 0xFELL];
+            if (8 - v49 < v51)
             {
-              v55 = 8 - v53;
+              v51 = 8 - v49;
             }
 
-            if (v55 >= v52)
+            if (v51 >= v48)
             {
-              v55 = v8 - v12;
+              v51 = a4 - v8;
             }
 
-            if (v55 + v53 >= 8)
+            if (v51 + v49 >= 8)
             {
-              v52 -= v55;
-              ++v54;
+              v48 -= v51;
+              ++v50;
               goto LABEL_159;
             }
 
 LABEL_210:
-            v31 = v55 + v12;
+            v27 = v51 + v8;
             goto LABEL_211;
           }
 
-          v55 = 0;
+          v51 = 0;
 LABEL_159:
-          if (v52 < 128)
+          if (v48 < 128)
           {
-            v56 = v54;
+            v52 = v50;
             goto LABEL_181;
           }
 
-          if ((v54 & 7) == 0)
+          if ((v50 & 7) == 0)
           {
-            v56 = v54;
+            v52 = v50;
 LABEL_177:
-            v64 = v52;
-            while (*v56 == -1)
+            v60 = v48;
+            while (*v52 == -1)
             {
-              v55 += 64;
-              v52 = v64 - 64;
-              v56 += 8;
-              v19 = v64 <= 127;
-              v64 -= 64;
-              if (v19)
+              v51 += 64;
+              v48 = v60 - 64;
+              v52 += 8;
+              v15 = v60 <= 127;
+              v60 -= 64;
+              if (v15)
               {
                 goto LABEL_181;
               }
@@ -6139,157 +4632,157 @@ LABEL_177:
             goto LABEL_182;
           }
 
-          v56 = &v54[-(v54 & 7) + 8];
-          v57 = -v55;
-          v58 = v54 + 1;
+          v52 = &v50[-(v50 & 7) + 8];
+          v53 = -v51;
+          v54 = v50 + 1;
           do
           {
-            v59 = *v54;
-            if (v59 != 255)
+            v55 = *v50;
+            if (v55 != 255)
             {
-              v67 = oneruns[v59];
+              v63 = oneruns[v55];
               goto LABEL_209;
             }
 
-            v52 -= 8;
-            ++v54;
-            v57 -= 8;
+            v48 -= 8;
+            ++v50;
+            v53 -= 8;
           }
 
-          while ((v58++ & 7));
-          v55 = -v57;
-          if (v52 + 8 > 71)
+          while ((v54++ & 7));
+          v51 = -v53;
+          if (v48 + 8 > 71)
           {
             goto LABEL_177;
           }
 
 LABEL_181:
-          v64 = v52;
-          if (v52 >= 8)
+          v60 = v48;
+          if (v48 >= 8)
           {
 LABEL_182:
-            v57 = -v55;
+            v53 = -v51;
             while (1)
             {
-              v65 = *v56;
-              if (v65 != 255)
+              v61 = *v52;
+              if (v61 != 255)
               {
                 break;
               }
 
-              v52 = v64 - 8;
-              ++v56;
-              v57 -= 8;
-              v19 = v64 <= 15;
-              v64 -= 8;
-              if (v19)
+              v48 = v60 - 8;
+              ++v52;
+              v53 -= 8;
+              v15 = v60 <= 15;
+              v60 -= 8;
+              if (v15)
               {
-                v55 = -v57;
+                v51 = -v53;
                 goto LABEL_187;
               }
             }
 
-            v67 = oneruns[v65];
+            v63 = oneruns[v61];
 LABEL_209:
-            v55 = v67 - v57;
+            v51 = v63 - v53;
             goto LABEL_210;
           }
 
 LABEL_187:
-          if (v52 < 1)
+          if (v48 < 1)
           {
             goto LABEL_210;
           }
 
-          v66 = oneruns[*v56];
+          v62 = oneruns[*v52];
 LABEL_204:
-          if (v52 >= v66)
+          if (v48 >= v62)
           {
-            v52 = v66;
+            v48 = v62;
           }
 
-          v55 += v52;
+          v51 += v48;
           goto LABEL_210;
         }
 
 LABEL_157:
-        v55 = 0;
+        v51 = 0;
         goto LABEL_210;
       }
 
-      if (v52 < 1)
+      if (v48 < 1)
       {
         goto LABEL_157;
       }
 
-      if ((v12 & 7) != 0)
+      if ((v8 & 7) != 0)
       {
-        v55 = zeroruns[(*v54 << v53) & 0xFELL];
-        if (8 - v53 < v55)
+        v51 = zeroruns[(*v50 << v49) & 0xFELL];
+        if (8 - v49 < v51)
         {
-          v55 = 8 - v53;
+          v51 = 8 - v49;
         }
 
-        if (v55 >= v52)
+        if (v51 >= v48)
         {
-          v55 = v8 - v12;
+          v51 = a4 - v8;
         }
 
-        if (v55 + v53 < 8)
+        if (v51 + v49 < 8)
         {
           goto LABEL_210;
         }
 
-        v52 -= v55;
-        ++v54;
+        v48 -= v51;
+        ++v50;
       }
 
       else
       {
-        v55 = 0;
+        v51 = 0;
       }
 
-      if (v52 < 128)
+      if (v48 < 128)
       {
-        v61 = v54;
+        v57 = v50;
 LABEL_196:
-        v68 = v52;
-        if (v52 < 8)
+        v64 = v48;
+        if (v48 < 8)
         {
 LABEL_202:
-          if (v52 < 1)
+          if (v48 < 1)
           {
             goto LABEL_210;
           }
 
-          v66 = zeroruns[*v61];
+          v62 = zeroruns[*v57];
           goto LABEL_204;
         }
       }
 
       else
       {
-        if ((v54 & 7) != 0)
+        if ((v50 & 7) != 0)
         {
-          v61 = &v54[-(v54 & 7) + 8];
-          v57 = -v55;
-          v62 = v54 + 1;
+          v57 = &v50[-(v50 & 7) + 8];
+          v53 = -v51;
+          v58 = v50 + 1;
           do
           {
-            if (*v54)
+            if (*v50)
             {
-              v67 = zeroruns[*v54];
+              v63 = zeroruns[*v50];
               goto LABEL_209;
             }
 
-            v52 -= 8;
-            ++v54;
-            v57 -= 8;
+            v48 -= 8;
+            ++v50;
+            v53 -= 8;
           }
 
-          while ((v62++ & 7));
-          v55 = -v57;
-          if (v52 + 8 > 71)
+          while ((v58++ & 7));
+          v51 = -v53;
+          if (v48 + 8 > 71)
           {
             goto LABEL_192;
           }
@@ -6297,1022 +4790,1022 @@ LABEL_202:
           goto LABEL_196;
         }
 
-        v61 = v54;
+        v57 = v50;
 LABEL_192:
-        v68 = v52;
-        while (!*v61)
+        v64 = v48;
+        while (!*v57)
         {
-          v55 += 64;
-          v52 = v68 - 64;
-          v61 += 8;
-          v19 = v68 <= 127;
-          v68 -= 64;
-          if (v19)
+          v51 += 64;
+          v48 = v64 - 64;
+          v57 += 8;
+          v15 = v64 <= 127;
+          v64 -= 64;
+          if (v15)
           {
             goto LABEL_196;
           }
         }
       }
 
-      v57 = -v55;
-      while (!*v61)
+      v53 = -v51;
+      while (!*v57)
       {
-        v52 = v68 - 8;
-        ++v61;
-        v57 -= 8;
-        v19 = v68 <= 15;
-        v68 -= 8;
-        if (v19)
+        v48 = v64 - 8;
+        ++v57;
+        v53 -= 8;
+        v15 = v64 <= 15;
+        v64 -= 8;
+        if (v15)
         {
-          v55 = -v57;
+          v51 = -v53;
           goto LABEL_202;
         }
       }
 
-      v67 = zeroruns[*v61];
+      v63 = zeroruns[*v57];
       goto LABEL_209;
     }
 
 LABEL_211:
-    result = Fax3PutBits(a1, 1, 3, a4, a5, a6, a7, a8);
+    result = Fax3PutBits(a1, 1u, 3u);
     if (!result)
     {
       return result;
     }
 
-    if (v30 + v12 && ((a2[v30 >> 3] >> (~v30 & 7)) & 1) != 0)
+    if (v26 + v8 && ((a2[v26 >> 3] >> (~v26 & 7)) & 1) != 0)
     {
-      result = putspan(a1, v12 - v30, &TIFFFaxBlackCodes, v69, v70, v71, v72, v73);
+      result = putspan(a1, v8 - v26, &TIFFFaxBlackCodes);
       if (!result)
       {
         return result;
       }
 
-      v79 = v31 - v12;
-      v80 = a1;
-      v81 = L"\b5";
+      v65 = v27 - v8;
+      v66 = a1;
+      v67 = L"\b5";
     }
 
     else
     {
-      result = putspan(a1, v12 - v30, L"\b5", v69, v70, v71, v72, v73);
+      result = putspan(a1, v8 - v26, L"\b5");
       if (!result)
       {
         return result;
       }
 
-      v79 = v31 - v12;
-      v80 = a1;
-      v81 = &TIFFFaxBlackCodes;
+      v65 = v27 - v8;
+      v66 = a1;
+      v67 = &TIFFFaxBlackCodes;
     }
 
-    result = putspan(v80, v79, v81, v74, v75, v76, v77, v78);
+    result = putspan(v66, v65, v67);
 LABEL_219:
-    v30 = v31;
+    v26 = v27;
     if (!result)
     {
       return result;
     }
 
 LABEL_220:
-    v82 = v8 - v30;
-    if (v8 <= v30)
+    v68 = a4 - v26;
+    if (a4 <= v26)
     {
       return 1;
     }
 
-    v83 = v30 & 7;
-    v84 = v30 >> 3;
-    v85 = &a2[v30 >> 3];
-    v86 = (1 << (v30 & 7 ^ 7)) & a2[v30 >> 3];
-    if (v86)
+    v69 = v26 & 7;
+    v70 = v26 >> 3;
+    v71 = &a2[v26 >> 3];
+    v72 = (1 << (v26 & 7 ^ 7)) & a2[v26 >> 3];
+    if (v72)
     {
-      if (v82 < 1)
+      if (v68 < 1)
       {
-        v87 = 0;
+        v73 = 0;
 LABEL_239:
-        v12 = v87 + v30;
+        v8 = v73 + v26;
 LABEL_295:
-        if (v82 < 1)
+        if (v68 < 1)
         {
-          v103 = 0;
+          v89 = 0;
 LABEL_312:
-          v105 = v103 + v30;
+          v91 = v89 + v26;
           goto LABEL_368;
         }
 
-        v102 = &a3[v84];
-        if ((v30 & 7) != 0)
+        v88 = &a3[v70];
+        if ((v26 & 7) != 0)
         {
-          v103 = zeroruns[(*v102 << v83) & 0xFELL];
-          if (8 - v83 < v103)
+          v89 = zeroruns[(*v88 << v69) & 0xFELL];
+          if (8 - v69 < v89)
           {
-            v103 = 8 - v83;
+            v89 = 8 - v69;
           }
 
-          if (v103 >= v82)
+          if (v89 >= v68)
           {
-            v103 = v8 - v30;
+            v89 = a4 - v26;
           }
 
-          if (v103 + v83 < 8)
+          if (v89 + v69 < 8)
           {
             goto LABEL_312;
           }
 
-          v82 -= v103;
-          ++v102;
+          v68 -= v89;
+          ++v88;
         }
 
         else
         {
-          v103 = 0;
+          v89 = 0;
         }
 
-        if (v82 < 128)
+        if (v68 < 128)
         {
-          v106 = v102;
+          v92 = v88;
         }
 
         else
         {
-          if ((v102 & 7) == 0)
+          if ((v88 & 7) == 0)
           {
-            v106 = v102;
+            v92 = v88;
 LABEL_334:
-            v114 = v82;
-            while (!*v106)
+            v100 = v68;
+            while (!*v92)
             {
-              v103 += 64;
-              v82 = v114 - 64;
-              v106 += 8;
-              v19 = v114 <= 127;
-              v114 -= 64;
-              if (v19)
+              v89 += 64;
+              v68 = v100 - 64;
+              v92 += 8;
+              v15 = v100 <= 127;
+              v100 -= 64;
+              if (v15)
               {
                 goto LABEL_338;
               }
             }
 
 LABEL_339:
-            v107 = -v103;
-            while (!*v106)
+            v93 = -v89;
+            while (!*v92)
             {
-              v82 = v114 - 8;
-              ++v106;
-              v107 -= 8;
-              v19 = v114 <= 15;
-              v114 -= 8;
-              if (v19)
+              v68 = v100 - 8;
+              ++v92;
+              v93 -= 8;
+              v15 = v100 <= 15;
+              v100 -= 8;
+              if (v15)
               {
-                v103 = -v107;
+                v89 = -v93;
                 goto LABEL_344;
               }
             }
 
-            v116 = zeroruns[*v106];
+            v102 = zeroruns[*v92];
             goto LABEL_366;
           }
 
-          v106 = &v102[-(v102 & 7) + 8];
-          v107 = -v103;
-          v108 = v102 + 1;
+          v92 = &v88[-(v88 & 7) + 8];
+          v93 = -v89;
+          v94 = v88 + 1;
           do
           {
-            if (*v102)
+            if (*v88)
             {
-              v116 = zeroruns[*v102];
+              v102 = zeroruns[*v88];
               goto LABEL_366;
             }
 
-            v82 -= 8;
-            ++v102;
-            v107 -= 8;
+            v68 -= 8;
+            ++v88;
+            v93 -= 8;
           }
 
-          while ((v108++ & 7));
-          v103 = -v107;
-          if (v82 + 8 > 71)
+          while ((v94++ & 7));
+          v89 = -v93;
+          if (v68 + 8 > 71)
           {
             goto LABEL_334;
           }
         }
 
 LABEL_338:
-        v114 = v82;
-        if (v82 >= 8)
+        v100 = v68;
+        if (v68 >= 8)
         {
           goto LABEL_339;
         }
 
 LABEL_344:
-        if (v82 < 1)
+        if (v68 < 1)
         {
           goto LABEL_367;
         }
 
-        v115 = zeroruns[*v106];
+        v101 = zeroruns[*v92];
         goto LABEL_361;
       }
 
-      if ((v30 & 7) != 0)
+      if ((v26 & 7) != 0)
       {
-        v87 = oneruns[(*v85 << v83) & 0xFELL];
-        if (8 - v83 < v87)
+        v73 = oneruns[(*v71 << v69) & 0xFELL];
+        if (8 - v69 < v73)
         {
-          v87 = 8 - v83;
+          v73 = 8 - v69;
         }
 
-        if (v87 >= v82)
+        if (v73 >= v68)
         {
-          v87 = v8 - v30;
+          v73 = a4 - v26;
         }
 
-        if (v87 + v83 < 8)
+        if (v73 + v69 < 8)
         {
           goto LABEL_239;
         }
 
-        v88 = v82 - v87;
-        ++v85;
+        v74 = v68 - v73;
+        ++v71;
       }
 
       else
       {
-        v87 = 0;
-        v88 = v8 - v30;
+        v73 = 0;
+        v74 = a4 - v26;
       }
 
-      if (v88 < 128)
+      if (v74 < 128)
       {
-        v89 = v85;
+        v75 = v71;
       }
 
       else
       {
-        if ((v85 & 7) == 0)
+        if ((v71 & 7) == 0)
         {
-          v89 = v85;
+          v75 = v71;
 LABEL_261:
-          v97 = v88;
-          while (*v89 == -1)
+          v83 = v74;
+          while (*v75 == -1)
           {
-            v87 += 64;
-            v88 = v97 - 64;
-            v89 += 8;
-            v19 = v97 <= 127;
-            v97 -= 64;
-            if (v19)
+            v73 += 64;
+            v74 = v83 - 64;
+            v75 += 8;
+            v15 = v83 <= 127;
+            v83 -= 64;
+            if (v15)
             {
               goto LABEL_265;
             }
           }
 
 LABEL_266:
-          v90 = -v87;
+          v76 = -v73;
           while (1)
           {
-            v98 = *v89;
-            if (v98 != 255)
+            v84 = *v75;
+            if (v84 != 255)
             {
               break;
             }
 
-            v88 = v97 - 8;
-            ++v89;
-            v90 -= 8;
-            v19 = v97 <= 15;
-            v97 -= 8;
-            if (v19)
+            v74 = v83 - 8;
+            ++v75;
+            v76 -= 8;
+            v15 = v83 <= 15;
+            v83 -= 8;
+            if (v15)
             {
-              v87 = -v90;
+              v73 = -v76;
               goto LABEL_271;
             }
           }
 
-          v100 = oneruns[v98];
+          v86 = oneruns[v84];
           goto LABEL_293;
         }
 
-        v89 = &v85[-(v85 & 7) + 8];
-        v90 = -v87;
-        v91 = v85 + 1;
+        v75 = &v71[-(v71 & 7) + 8];
+        v76 = -v73;
+        v77 = v71 + 1;
         do
         {
-          v92 = *v85;
-          if (v92 != 255)
+          v78 = *v71;
+          if (v78 != 255)
           {
-            v100 = oneruns[v92];
+            v86 = oneruns[v78];
             goto LABEL_293;
           }
 
-          v88 -= 8;
-          ++v85;
-          v90 -= 8;
+          v74 -= 8;
+          ++v71;
+          v76 -= 8;
         }
 
-        while ((v91++ & 7));
-        v87 = -v90;
-        if (v88 + 8 > 71)
+        while ((v77++ & 7));
+        v73 = -v76;
+        if (v74 + 8 > 71)
         {
           goto LABEL_261;
         }
       }
 
 LABEL_265:
-      v97 = v88;
-      if (v88 >= 8)
+      v83 = v74;
+      if (v74 >= 8)
       {
         goto LABEL_266;
       }
 
 LABEL_271:
-      if (v88 < 1)
+      if (v74 < 1)
       {
         goto LABEL_294;
       }
 
-      v99 = oneruns[*v89];
+      v85 = oneruns[*v75];
     }
 
     else
     {
-      if (v82 < 1)
+      if (v68 < 1)
       {
-        v87 = 0;
+        v73 = 0;
 LABEL_249:
-        v12 = v87 + v30;
+        v8 = v73 + v26;
         goto LABEL_303;
       }
 
-      if ((v30 & 7) != 0)
+      if ((v26 & 7) != 0)
       {
-        v87 = zeroruns[(*v85 << v83) & 0xFELL];
-        if (8 - v83 < v87)
+        v73 = zeroruns[(*v71 << v69) & 0xFELL];
+        if (8 - v69 < v73)
         {
-          v87 = 8 - v83;
+          v73 = 8 - v69;
         }
 
-        if (v87 >= v82)
+        if (v73 >= v68)
         {
-          v87 = v8 - v30;
+          v73 = a4 - v26;
         }
 
-        if (v87 + v83 < 8)
+        if (v73 + v69 < 8)
         {
           goto LABEL_249;
         }
 
-        v88 = v82 - v87;
-        ++v85;
+        v74 = v68 - v73;
+        ++v71;
       }
 
       else
       {
-        v87 = 0;
-        v88 = v8 - v30;
+        v73 = 0;
+        v74 = a4 - v26;
       }
 
-      if (v88 < 128)
+      if (v74 < 128)
       {
-        v94 = v85;
+        v80 = v71;
       }
 
       else
       {
-        if ((v85 & 7) == 0)
+        if ((v71 & 7) == 0)
         {
-          v94 = v85;
+          v80 = v71;
 LABEL_276:
-          v101 = v88;
-          while (!*v94)
+          v87 = v74;
+          while (!*v80)
           {
-            v87 += 64;
-            v88 = v101 - 64;
-            v94 += 8;
-            v19 = v101 <= 127;
-            v101 -= 64;
-            if (v19)
+            v73 += 64;
+            v74 = v87 - 64;
+            v80 += 8;
+            v15 = v87 <= 127;
+            v87 -= 64;
+            if (v15)
             {
               goto LABEL_280;
             }
           }
 
 LABEL_281:
-          v90 = -v87;
-          while (!*v94)
+          v76 = -v73;
+          while (!*v80)
           {
-            v88 = v101 - 8;
-            ++v94;
-            v90 -= 8;
-            v19 = v101 <= 15;
-            v101 -= 8;
-            if (v19)
+            v74 = v87 - 8;
+            ++v80;
+            v76 -= 8;
+            v15 = v87 <= 15;
+            v87 -= 8;
+            if (v15)
             {
-              v87 = -v90;
+              v73 = -v76;
               goto LABEL_286;
             }
           }
 
-          v100 = zeroruns[*v94];
+          v86 = zeroruns[*v80];
 LABEL_293:
-          v87 = v100 - v90;
+          v73 = v86 - v76;
           goto LABEL_294;
         }
 
-        v94 = &v85[-(v85 & 7) + 8];
-        v90 = -v87;
-        v95 = v85 + 1;
+        v80 = &v71[-(v71 & 7) + 8];
+        v76 = -v73;
+        v81 = v71 + 1;
         do
         {
-          if (*v85)
+          if (*v71)
           {
-            v100 = zeroruns[*v85];
+            v86 = zeroruns[*v71];
             goto LABEL_293;
           }
 
-          v88 -= 8;
-          ++v85;
-          v90 -= 8;
+          v74 -= 8;
+          ++v71;
+          v76 -= 8;
         }
 
-        while ((v95++ & 7));
-        v87 = -v90;
-        if (v88 + 8 > 71)
+        while ((v81++ & 7));
+        v73 = -v76;
+        if (v74 + 8 > 71)
         {
           goto LABEL_276;
         }
       }
 
 LABEL_280:
-      v101 = v88;
-      if (v88 >= 8)
+      v87 = v74;
+      if (v74 >= 8)
       {
         goto LABEL_281;
       }
 
 LABEL_286:
-      if (v88 < 1)
+      if (v74 < 1)
       {
         goto LABEL_294;
       }
 
-      v99 = zeroruns[*v94];
+      v85 = zeroruns[*v80];
     }
 
-    if (v88 < v99)
+    if (v74 < v85)
     {
-      v99 = v88;
+      v85 = v74;
     }
 
-    v87 += v99;
+    v73 += v85;
 LABEL_294:
-    v12 = v87 + v30;
-    if (v86)
+    v8 = v73 + v26;
+    if (v72)
     {
       goto LABEL_295;
     }
 
 LABEL_303:
-    if (v82 < 1)
+    if (v68 < 1)
     {
-      v103 = 0;
+      v89 = 0;
 LABEL_322:
-      v105 = v103 + v30;
+      v91 = v89 + v26;
 LABEL_376:
-      v119 = v8 - v105;
-      if ((v8 - v105) < 1)
+      v105 = a4 - v91;
+      if ((a4 - v91) < 1)
       {
 LABEL_384:
-        v122 = 0;
+        v108 = 0;
         goto LABEL_437;
       }
 
-      v123 = &a3[v105 >> 3];
-      v124 = v105 & 7;
-      if ((v105 & 7) == 0)
+      v109 = &a3[v91 >> 3];
+      v110 = v91 & 7;
+      if ((v91 & 7) == 0)
       {
-        v122 = 0;
+        v108 = 0;
 LABEL_395:
-        if (v119 < 128)
+        if (v105 < 128)
         {
-          v130 = v123;
+          v116 = v109;
         }
 
         else
         {
-          if ((v123 & 7) == 0)
+          if ((v109 & 7) == 0)
           {
-            v130 = v123;
+            v116 = v109;
 LABEL_419:
-            v137 = v119;
-            while (!*v130)
+            v123 = v105;
+            while (!*v116)
             {
-              v122 += 64;
-              v119 = v137 - 64;
-              v130 += 8;
-              v19 = v137 <= 127;
-              v137 -= 64;
-              if (v19)
+              v108 += 64;
+              v105 = v123 - 64;
+              v116 += 8;
+              v15 = v123 <= 127;
+              v123 -= 64;
+              if (v15)
               {
                 goto LABEL_423;
               }
             }
 
 LABEL_424:
-            v126 = -v122;
-            while (!*v130)
+            v112 = -v108;
+            while (!*v116)
             {
-              v119 = v137 - 8;
-              ++v130;
-              v126 -= 8;
-              v19 = v137 <= 15;
-              v137 -= 8;
-              if (v19)
+              v105 = v123 - 8;
+              ++v116;
+              v112 -= 8;
+              v15 = v123 <= 15;
+              v123 -= 8;
+              if (v15)
               {
-                v122 = -v126;
+                v108 = -v112;
                 goto LABEL_429;
               }
             }
 
-            v136 = zeroruns[*v130];
+            v122 = zeroruns[*v116];
 LABEL_436:
-            v122 = v136 - v126;
+            v108 = v122 - v112;
             goto LABEL_437;
           }
 
-          v130 = &v123[-(v123 & 7) + 8];
-          v126 = -v122;
-          v131 = v123 + 1;
+          v116 = &v109[-(v109 & 7) + 8];
+          v112 = -v108;
+          v117 = v109 + 1;
           do
           {
-            if (*v123)
+            if (*v109)
             {
-              v136 = zeroruns[*v123];
+              v122 = zeroruns[*v109];
               goto LABEL_436;
             }
 
-            v119 -= 8;
-            ++v123;
-            v126 -= 8;
+            v105 -= 8;
+            ++v109;
+            v112 -= 8;
           }
 
-          while ((v131++ & 7));
-          v122 = -v126;
-          if (v119 + 8 > 71)
+          while ((v117++ & 7));
+          v108 = -v112;
+          if (v105 + 8 > 71)
           {
             goto LABEL_419;
           }
         }
 
 LABEL_423:
-        v137 = v119;
-        if (v119 >= 8)
+        v123 = v105;
+        if (v105 >= 8)
         {
           goto LABEL_424;
         }
 
 LABEL_429:
-        if (v119 < 1)
+        if (v105 < 1)
         {
           goto LABEL_437;
         }
 
-        v135 = zeroruns[*v130];
+        v121 = zeroruns[*v116];
 LABEL_431:
-        if (v119 >= v135)
+        if (v105 >= v121)
         {
-          v119 = v135;
+          v105 = v121;
         }
 
-        v122 += v119;
+        v108 += v105;
         goto LABEL_437;
       }
 
-      v122 = zeroruns[(*v123 << v124) & 0xFELL];
-      if (8 - v124 < v122)
+      v108 = zeroruns[(*v109 << v110) & 0xFELL];
+      if (8 - v110 < v108)
       {
-        v122 = 8 - v124;
+        v108 = 8 - v110;
       }
 
-      if (v122 >= v119)
+      if (v108 >= v105)
       {
-        v122 = v8 - v105;
+        v108 = a4 - v91;
       }
 
-      if (v122 + v124 >= 8)
+      if (v108 + v110 >= 8)
       {
-        v119 -= v122;
-        ++v123;
+        v105 -= v108;
+        ++v109;
         goto LABEL_395;
       }
 
       goto LABEL_437;
     }
 
-    v104 = &a3[v84];
-    if ((v30 & 7) != 0)
+    v90 = &a3[v70];
+    if ((v26 & 7) != 0)
     {
-      v103 = oneruns[(*v104 << v83) & 0xFELL];
-      if (8 - v83 < v103)
+      v89 = oneruns[(*v90 << v69) & 0xFELL];
+      if (8 - v69 < v89)
       {
-        v103 = 8 - v83;
+        v89 = 8 - v69;
       }
 
-      if (v103 >= v82)
+      if (v89 >= v68)
       {
-        v103 = v8 - v30;
+        v89 = a4 - v26;
       }
 
-      if (v103 + v83 < 8)
+      if (v89 + v69 < 8)
       {
         goto LABEL_322;
       }
 
-      v82 -= v103;
-      ++v104;
+      v68 -= v89;
+      ++v90;
     }
 
     else
     {
-      v103 = 0;
+      v89 = 0;
     }
 
-    if (v82 < 128)
+    if (v68 < 128)
     {
-      v110 = v104;
+      v96 = v90;
     }
 
     else
     {
-      if ((v104 & 7) == 0)
+      if ((v90 & 7) == 0)
       {
-        v110 = v104;
+        v96 = v90;
 LABEL_349:
-        v117 = v82;
-        while (*v110 == -1)
+        v103 = v68;
+        while (*v96 == -1)
         {
-          v103 += 64;
-          v82 = v117 - 64;
-          v110 += 8;
-          v19 = v117 <= 127;
-          v117 -= 64;
-          if (v19)
+          v89 += 64;
+          v68 = v103 - 64;
+          v96 += 8;
+          v15 = v103 <= 127;
+          v103 -= 64;
+          if (v15)
           {
             goto LABEL_353;
           }
         }
 
 LABEL_354:
-        v107 = -v103;
+        v93 = -v89;
         while (1)
         {
-          v118 = *v110;
-          if (v118 != 255)
+          v104 = *v96;
+          if (v104 != 255)
           {
             break;
           }
 
-          v82 = v117 - 8;
-          ++v110;
-          v107 -= 8;
-          v19 = v117 <= 15;
-          v117 -= 8;
-          if (v19)
+          v68 = v103 - 8;
+          ++v96;
+          v93 -= 8;
+          v15 = v103 <= 15;
+          v103 -= 8;
+          if (v15)
           {
-            v103 = -v107;
+            v89 = -v93;
             goto LABEL_359;
           }
         }
 
-        v116 = oneruns[v118];
+        v102 = oneruns[v104];
 LABEL_366:
-        v103 = v116 - v107;
+        v89 = v102 - v93;
         goto LABEL_367;
       }
 
-      v110 = &v104[-(v104 & 7) + 8];
-      v107 = -v103;
-      v111 = (v104 + 1);
+      v96 = &v90[-(v90 & 7) + 8];
+      v93 = -v89;
+      v97 = v90 + 1;
       do
       {
-        v112 = *v104;
-        if (v112 != 255)
+        v98 = *v90;
+        if (v98 != 255)
         {
-          v116 = oneruns[v112];
+          v102 = oneruns[v98];
           goto LABEL_366;
         }
 
-        v82 -= 8;
-        ++v104;
-        v107 -= 8;
+        v68 -= 8;
+        ++v90;
+        v93 -= 8;
       }
 
-      while ((v111++ & 7));
-      v103 = -v107;
-      if (v82 + 8 > 71)
+      while ((v97++ & 7));
+      v89 = -v93;
+      if (v68 + 8 > 71)
       {
         goto LABEL_349;
       }
     }
 
 LABEL_353:
-    v117 = v82;
-    if (v82 >= 8)
+    v103 = v68;
+    if (v68 >= 8)
     {
       goto LABEL_354;
     }
 
 LABEL_359:
-    if (v82 < 1)
+    if (v68 < 1)
     {
       goto LABEL_367;
     }
 
-    v115 = oneruns[*v110];
+    v101 = oneruns[*v96];
 LABEL_361:
-    if (v82 >= v115)
+    if (v68 >= v101)
     {
-      v82 = v115;
+      v68 = v101;
     }
 
-    v103 += v82;
+    v89 += v68;
 LABEL_367:
-    v105 = v103 + v30;
-    if (!v86)
+    v91 = v89 + v26;
+    if (!v72)
     {
       goto LABEL_376;
     }
 
 LABEL_368:
-    v119 = v8 - v105;
-    if ((v8 - v105) < 1)
+    v105 = a4 - v91;
+    if ((a4 - v91) < 1)
     {
       goto LABEL_384;
     }
 
-    v120 = &a3[v105 >> 3];
-    v121 = v105 & 7;
-    if ((v105 & 7) == 0)
+    v106 = &a3[v91 >> 3];
+    v107 = v91 & 7;
+    if ((v91 & 7) == 0)
     {
-      v122 = 0;
+      v108 = 0;
       goto LABEL_386;
     }
 
-    v122 = oneruns[(*v120 << v121) & 0xFELL];
-    if (8 - v121 < v122)
+    v108 = oneruns[(*v106 << v107) & 0xFELL];
+    if (8 - v107 < v108)
     {
-      v122 = 8 - v121;
+      v108 = 8 - v107;
     }
 
-    if (v122 >= v119)
+    if (v108 >= v105)
     {
-      v122 = v8 - v105;
+      v108 = a4 - v91;
     }
 
-    if (v122 + v121 >= 8)
+    if (v108 + v107 >= 8)
     {
-      v119 -= v122;
-      ++v120;
+      v105 -= v108;
+      ++v106;
 LABEL_386:
-      if (v119 < 128)
+      if (v105 < 128)
       {
-        v125 = v120;
+        v111 = v106;
       }
 
       else
       {
-        if ((v120 & 7) == 0)
+        if ((v106 & 7) == 0)
         {
-          v125 = v120;
+          v111 = v106;
 LABEL_404:
-          v133 = v119;
-          while (*v125 == -1)
+          v119 = v105;
+          while (*v111 == -1)
           {
-            v122 += 64;
-            v119 = v133 - 64;
-            v125 += 8;
-            v19 = v133 <= 127;
-            v133 -= 64;
-            if (v19)
+            v108 += 64;
+            v105 = v119 - 64;
+            v111 += 8;
+            v15 = v119 <= 127;
+            v119 -= 64;
+            if (v15)
             {
               goto LABEL_408;
             }
           }
 
 LABEL_409:
-          v126 = -v122;
+          v112 = -v108;
           while (1)
           {
-            v134 = *v125;
-            if (v134 != 255)
+            v120 = *v111;
+            if (v120 != 255)
             {
               break;
             }
 
-            v119 = v133 - 8;
-            ++v125;
-            v126 -= 8;
-            v19 = v133 <= 15;
-            v133 -= 8;
-            if (v19)
+            v105 = v119 - 8;
+            ++v111;
+            v112 -= 8;
+            v15 = v119 <= 15;
+            v119 -= 8;
+            if (v15)
             {
-              v122 = -v126;
+              v108 = -v112;
               goto LABEL_414;
             }
           }
 
-          v136 = oneruns[v134];
+          v122 = oneruns[v120];
           goto LABEL_436;
         }
 
-        v125 = &v120[-(v120 & 7) + 8];
-        v126 = -v122;
-        v127 = (v120 + 1);
+        v111 = &v106[-(v106 & 7) + 8];
+        v112 = -v108;
+        v113 = v106 + 1;
         do
         {
-          v128 = *v120;
-          if (v128 != 255)
+          v114 = *v106;
+          if (v114 != 255)
           {
-            v136 = oneruns[v128];
+            v122 = oneruns[v114];
             goto LABEL_436;
           }
 
-          v119 -= 8;
-          ++v120;
-          v126 -= 8;
+          v105 -= 8;
+          ++v106;
+          v112 -= 8;
         }
 
-        while ((v127++ & 7));
-        v122 = -v126;
-        if (v119 + 8 > 71)
+        while ((v113++ & 7));
+        v108 = -v112;
+        if (v105 + 8 > 71)
         {
           goto LABEL_404;
         }
       }
 
 LABEL_408:
-      v133 = v119;
-      if (v119 >= 8)
+      v119 = v105;
+      if (v105 >= 8)
       {
         goto LABEL_409;
       }
 
 LABEL_414:
-      if (v119 < 1)
+      if (v105 < 1)
       {
         goto LABEL_437;
       }
 
-      v135 = oneruns[*v125];
+      v121 = oneruns[*v111];
       goto LABEL_431;
     }
 
 LABEL_437:
-    v22 = v122 + v105;
+    v18 = v108 + v91;
   }
 }
 
-uint64_t putspan(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t putspan(void *a1, int a2, uint64_t a3)
 {
-  v9 = a2;
-  v11 = a1[137];
-  v12 = *(v11 + 72);
-  v13 = *(v11 + 76);
+  v4 = a2;
+  v6 = a1[137];
+  v7 = *(v6 + 72);
+  v8 = *(v6 + 76);
   if (a2 < 2624)
   {
 LABEL_14:
-    if (v9 >= 64)
+    if (v4 >= 64)
     {
-      v21 = a3 + 6 * (v9 >> 6);
-      if ((v9 & 0x7FFFFFC0) != *(v21 + 382))
+      v16 = a3 + 6 * (v4 >> 6);
+      if ((v4 & 0x7FFFFFC0) != *(v16 + 382))
       {
         putspan_cold_2();
       }
 
-      v22 = *(v21 + 380);
-      v23 = *(v21 + 378);
-      if (v13 < v23)
+      v17 = *(v16 + 380);
+      v18 = *(v16 + 378);
+      if (v8 < v18)
       {
-        v24 = a1[145];
-        v25 = v12;
+        v19 = a1[145];
+        v20 = v7;
         while (1)
         {
-          if (v24 >= a1[141])
+          if (v19 >= a1[141])
           {
-            result = TIFFFlushData1(a1, a2, a3, a4, a5, a6, a7, a8);
+            result = TIFFFlushData1(a1);
             if (!result)
             {
               return result;
             }
           }
 
-          v12 = 0;
-          v23 -= v13;
-          v26 = a1[144];
-          a1[144] = v26 + 1;
-          *v26 = (v22 >> v23) | v25;
-          v24 = a1[145] + 1;
-          a1[145] = v24;
-          v13 = 8;
-          v25 = 0;
-          if (v23 <= 8)
+          v7 = 0;
+          v18 -= v8;
+          v21 = a1[144];
+          a1[144] = v21 + 1;
+          *v21 = (v17 >> v18) | v20;
+          v19 = a1[145] + 1;
+          a1[145] = v19;
+          v8 = 8;
+          v20 = 0;
+          if (v18 <= 8)
           {
             goto LABEL_23;
           }
         }
       }
 
-      if (v23 >= 9)
+      if (v18 >= 9)
       {
         putspan_cold_3();
       }
 
 LABEL_23:
-      v13 -= v23;
-      v12 |= (_msbmask[v23] & v22) << v13;
-      if (!v13)
+      v8 -= v18;
+      v7 |= (_msbmask[v18] & v17) << v8;
+      if (!v8)
       {
         if (a1[145] >= a1[141])
         {
-          result = TIFFFlushData1(a1, a2, a3, a4, a5, a6, a7, a8);
+          result = TIFFFlushData1(a1);
           if (!result)
           {
             return result;
           }
         }
 
-        v27 = a1[144];
-        a1[144] = v27 + 1;
-        *v27 = v12;
+        v22 = a1[144];
+        a1[144] = v22 + 1;
+        *v22 = v7;
         ++a1[145];
-        v13 = 8;
-        v12 = 0;
+        v8 = 8;
+        v7 = 0;
       }
 
-      v9 -= *(v21 + 382);
+      v4 -= *(v16 + 382);
     }
 
-    v28 = (a3 + 6 * v9);
-    v29 = v28[1];
-    v30 = *v28;
-    if (v13 >= v30)
+    v23 = (a3 + 6 * v4);
+    v24 = v23[1];
+    v25 = *v23;
+    if (v8 >= v25)
     {
-      if (v30 >= 9)
+      if (v25 >= 9)
       {
         putspan_cold_4();
       }
 
 LABEL_35:
-      v34 = v13 - v30;
-      v35 = ((_msbmask[v30] & v29) << (v13 - v30)) | v12;
-      if (v13 == v30)
+      v29 = v8 - v25;
+      v30 = ((_msbmask[v25] & v24) << (v8 - v25)) | v7;
+      if (v8 == v25)
       {
         if (a1[145] >= a1[141])
         {
-          result = TIFFFlushData1(a1, a2, a3, a4, a5, a6, a7, a8);
+          result = TIFFFlushData1(a1);
           if (!result)
           {
             return result;
           }
         }
 
-        v36 = a1[144];
-        a1[144] = v36 + 1;
-        *v36 = v35;
+        v31 = a1[144];
+        a1[144] = v31 + 1;
+        *v31 = v30;
         ++a1[145];
-        v34 = 8;
-        v35 = 0;
+        v29 = 8;
+        v30 = 0;
       }
 
-      *(v11 + 72) = v35;
-      *(v11 + 76) = v34;
+      *(v6 + 72) = v30;
+      *(v6 + 76) = v29;
       return 1;
     }
 
-    v31 = a1[145];
-    v32 = v12;
+    v26 = a1[145];
+    v27 = v7;
     while (1)
     {
-      if (v31 >= a1[141])
+      if (v26 >= a1[141])
       {
-        result = TIFFFlushData1(a1, a2, a3, a4, a5, a6, a7, a8);
+        result = TIFFFlushData1(a1);
         if (!result)
         {
           break;
         }
       }
 
-      v12 = 0;
-      v30 -= v13;
-      v33 = a1[144];
-      a1[144] = v33 + 1;
-      *v33 = (v29 >> v30) | v32;
-      v31 = a1[145] + 1;
-      a1[145] = v31;
-      v13 = 8;
-      v32 = 0;
-      if (v30 <= 8)
+      v7 = 0;
+      v25 -= v8;
+      v28 = a1[144];
+      a1[144] = v28 + 1;
+      *v28 = (v24 >> v25) | v27;
+      v26 = a1[145] + 1;
+      a1[145] = v26;
+      v8 = 8;
+      v27 = 0;
+      if (v25 <= 8)
       {
         goto LABEL_35;
       }
@@ -7323,70 +5816,70 @@ LABEL_35:
   {
     while (1)
     {
-      v14 = *(a3 + 620);
-      v15 = *(a3 + 618);
-      if (v13 < v15)
+      v9 = *(a3 + 620);
+      v10 = *(a3 + 618);
+      if (v8 < v10)
       {
         break;
       }
 
-      if (v15 >= 9)
+      if (v10 >= 9)
       {
         putspan_cold_1();
       }
 
 LABEL_9:
-      v13 -= v15;
-      v12 |= (_msbmask[v15] & v14) << v13;
-      if (!v13)
+      v8 -= v10;
+      v7 |= (_msbmask[v10] & v9) << v8;
+      if (!v8)
       {
         if (a1[145] >= a1[141])
         {
-          result = TIFFFlushData1(a1, a2, a3, a4, a5, a6, a7, a8);
+          result = TIFFFlushData1(a1);
           if (!result)
           {
             return result;
           }
         }
 
-        v20 = a1[144];
-        a1[144] = v20 + 1;
-        *v20 = v12;
+        v15 = a1[144];
+        a1[144] = v15 + 1;
+        *v15 = v7;
         ++a1[145];
-        v13 = 8;
-        v12 = 0;
+        v8 = 8;
+        v7 = 0;
       }
 
-      v9 -= *(a3 + 622);
-      if (v9 <= 2623)
+      v4 -= *(a3 + 622);
+      if (v4 <= 2623)
       {
         goto LABEL_14;
       }
     }
 
-    v16 = a1[145];
-    v17 = v12;
+    v11 = a1[145];
+    v12 = v7;
     while (1)
     {
-      if (v16 >= a1[141])
+      if (v11 >= a1[141])
       {
-        result = TIFFFlushData1(a1, a2, a3, a4, a5, a6, a7, a8);
+        result = TIFFFlushData1(a1);
         if (!result)
         {
           break;
         }
       }
 
+      v7 = 0;
+      v10 -= v8;
+      v14 = a1[144];
+      a1[144] = v14 + 1;
+      *v14 = (v9 >> v10) | v12;
+      v11 = a1[145] + 1;
+      a1[145] = v11;
+      v8 = 8;
       v12 = 0;
-      v15 -= v13;
-      v19 = a1[144];
-      a1[144] = v19 + 1;
-      *v19 = (v14 >> v15) | v17;
-      v16 = a1[145] + 1;
-      a1[145] = v16;
-      v13 = 8;
-      v17 = 0;
-      if (v15 <= 8)
+      if (v10 <= 8)
       {
         goto LABEL_9;
       }
@@ -7396,14 +5889,13 @@ LABEL_9:
   return result;
 }
 
-uint64_t Fax3PutBits(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t Fax3PutBits(void *a1, unsigned int a2, unsigned int a3)
 {
-  v8 = a3;
-  v9 = a2;
-  v11 = a1[137];
-  v12 = *(v11 + 72);
-  v13 = *(v11 + 76);
-  if (v13 >= a3)
+  v3 = a3;
+  v6 = a1[137];
+  v7 = *(v6 + 72);
+  v8 = *(v6 + 76);
+  if (v8 >= a3)
   {
     if (a3 >= 9)
     {
@@ -7411,56 +5903,56 @@ uint64_t Fax3PutBits(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a
     }
 
 LABEL_8:
-    v19 = v13 - v8;
-    v18 = v13 == v8;
-    v20 = ((_msbmask[v8] & v9) << (v13 - v8)) | v12;
-    if (v18)
+    v14 = v8 - v3;
+    v13 = v8 == v3;
+    v15 = ((_msbmask[v3] & a2) << (v8 - v3)) | v7;
+    if (v13)
     {
       if (a1[145] >= a1[141])
       {
-        result = TIFFFlushData1(a1, a2, a3, a4, a5, a6, a7, a8);
+        result = TIFFFlushData1(a1);
         if (!result)
         {
           return result;
         }
       }
 
-      v21 = a1[144];
-      a1[144] = v21 + 1;
-      *v21 = v20;
+      v16 = a1[144];
+      a1[144] = v16 + 1;
+      *v16 = v15;
       ++a1[145];
-      v19 = 8;
-      v20 = 0;
+      v14 = 8;
+      v15 = 0;
     }
 
-    *(v11 + 72) = v20;
-    *(v11 + 76) = v19;
+    *(v6 + 72) = v15;
+    *(v6 + 76) = v14;
     return 1;
   }
 
-  v14 = a1[145];
-  v15 = *(v11 + 72);
+  v9 = a1[145];
+  v10 = *(v6 + 72);
   while (1)
   {
-    if (v14 >= a1[141])
+    if (v9 >= a1[141])
     {
-      result = TIFFFlushData1(a1, a2, a3, a4, a5, a6, a7, a8);
+      result = TIFFFlushData1(a1);
       if (!result)
       {
         return result;
       }
     }
 
-    v12 = 0;
-    v8 -= v13;
-    v17 = a1[144];
-    a1[144] = v17 + 1;
-    *v17 = (v9 >> v8) | v15;
-    v14 = a1[145] + 1;
-    a1[145] = v14;
-    v13 = 8;
-    LOBYTE(v15) = 0;
-    if (v8 <= 8)
+    v7 = 0;
+    v3 -= v8;
+    v12 = a1[144];
+    a1[144] = v12 + 1;
+    *v12 = (a2 >> v3) | v10;
+    v9 = a1[145] + 1;
+    a1[145] = v9;
+    v8 = 8;
+    LOBYTE(v10) = 0;
+    if (v3 <= 8)
     {
       goto LABEL_8;
     }
@@ -7662,7 +6154,7 @@ LABEL_38:
   return 0;
 }
 
-uint64_t __IIOProcessEvent_block_invoke(uint64_t a1)
+uint64_t __IIOProcessEvent_block_invoke(uint64_t a1, unsigned int *a2)
 {
   IIOXPCLog("⬅️ XPC_READPLUGIN_IDENTIFY [%lld]\n", *(a1 + 32));
 
@@ -7697,21 +6189,12 @@ uint64_t __IIOProcessEvent_block_invoke_5(uint64_t a1)
   return kdebug_trace();
 }
 
-void UpdateRunningInXPCService()
+void UpdateRunningInXPCService(uint64_t result, uint64_t a2)
 {
   if (UpdateRunningInXPCService::onceToken != -1)
   {
     UpdateRunningInXPCService_cold_1();
   }
-}
-
-void IIO_Reader_ASTC::createReadPlugin()
-{
-  operator new();
-}
-
-{
-  operator new();
 }
 
 uint64_t IIO_Reader_ASTC::updateSourceProperties(__CFString ***this, IIOImageReadSession *a2, IIODictionary *a3, IIODictionary *a4, IIODictionary *a5, CGImageSourceStatus *a6)
@@ -7846,18 +6329,18 @@ uint64_t IIO_ConvertIOSurfaceToIOSurface(__IOSurface *a1, __IOSurface *a2)
   v6 = IIOCreatePixelBufferWithIOSurfaceAndOptions(a2);
   if (v6)
   {
-    v7 = v6;
-    v8 = IIO_ConvertPixelBufferToPixelBuffer(v5, v6);
-    gFunc_CVPixelBufferRelease(v7);
+    v8 = v6;
+    v9 = IIO_ConvertPixelBufferToPixelBuffer(v5, v6);
+    gFunc_CVPixelBufferRelease(v8, v10);
   }
 
   else
   {
-    v8 = 4294967292;
+    v9 = 4294967292;
   }
 
-  gFunc_CVPixelBufferRelease(v5);
-  return v8;
+  gFunc_CVPixelBufferRelease(v5, v7);
+  return v9;
 }
 
 uint64_t IIO_ConvertPixelBufferToPixelBuffer(uint64_t a1, uint64_t a2)
@@ -7875,32 +6358,30 @@ uint64_t IIO_ConvertPixelBufferToPixelBuffer(uint64_t a1, uint64_t a2)
 
 uint64_t IIOCreatePixelBuffer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v12 = 0;
-  IIO_LoadJPEGSymbols();
-  v8 = gFunc_CVPixelBufferCreate(*MEMORY[0x1E695E480], a1, a2, a3, *(a4 + 8), &v12);
+  v10 = 0;
+  IIO_LoadJPEGSymbols(a1, a2);
+  v8 = gFunc_CVPixelBufferCreate(*MEMORY[0x1E695E480], a1, a2, a3, *(a4 + 8), &v10);
   if (v8)
   {
-    v9 = v8;
-    v10 = IIOCMErrorString(v8);
-    _cg_jpeg_mem_term("IIOCreatePixelBuffer", 94, "*** ERROR: CVPixelBufferCreate failed with: %d  (%s)\n", v9, v10);
+    IIOCMErrorString(v8);
+    _cg_jpeg_mem_term("IIOCreatePixelBuffer", 94, "*** ERROR: CVPixelBufferCreate failed with: %d  (%s)\n");
   }
 
-  return v12;
+  return v10;
 }
 
 uint64_t IIOCreatePixelBufferWithBuffer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v17 = 0;
-  IIO_LoadJPEGSymbols();
-  v13 = gFunc_CVPixelBufferCreateWithBytes(*MEMORY[0x1E695E480], a1, a2, a4, a5, a3, IIOPixelBufferReleaseBytesCallback, 0, *(a7 + 8), &v17);
+  v15 = 0;
+  IIO_LoadJPEGSymbols(a1, a2);
+  v13 = gFunc_CVPixelBufferCreateWithBytes(*MEMORY[0x1E695E480], a1, a2, a4, a5, a3, IIOPixelBufferReleaseBytesCallback, 0, *(a7 + 8), &v15);
   if (v13)
   {
-    v14 = v13;
-    v15 = IIOCMErrorString(v13);
-    _cg_jpeg_mem_term("IIOCreatePixelBufferWithBuffer", 126, "*** ERROR: CVPixelBufferCreate failed with: %d  (%s)\n", v14, v15);
+    IIOCMErrorString(v13);
+    _cg_jpeg_mem_term("IIOCreatePixelBufferWithBuffer", 126, "*** ERROR: CVPixelBufferCreate failed with: %d  (%s)\n");
   }
 
-  return v17;
+  return v15;
 }
 
 uint64_t IIOPixelBufferGetAlpha(uint64_t a1)
@@ -8222,7 +6703,7 @@ uint64_t ImageIOTempDirPath()
   return result;
 }
 
-uint64_t IIO_HardwareEncoderDefaultValue()
+uint64_t IIO_HardwareEncoderDefaultValue(uint64_t a1, uint64_t a2)
 {
   if (IIO_HardwareEncoderDefaultValue::onceToken != -1)
   {
@@ -8232,9 +6713,9 @@ uint64_t IIO_HardwareEncoderDefaultValue()
   return IIO_HardwareEncoderDefaultValue::hwEncoderDefaultValue;
 }
 
-void sub_186048CCC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_186048CCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IIONumber::~IIONumber(va);
   _Unwind_Resume(a1);
 }
@@ -8299,7 +6780,7 @@ void __CGGetImageIOVersion_block_invoke()
   }
 }
 
-void sub_186048E2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
+void sub_186048E2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
 {
   IIOString::~IIOString(&a11);
   if (a19 < 0)
@@ -8310,11 +6791,11 @@ void sub_186048E2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void TIFFCleanup(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void TIFFCleanup(uint64_t a1)
 {
   if (*(a1 + 12))
   {
-    TIFFFlush(a1, a2, a3, a4, a5, a6, a7, a8);
+    TIFFFlush(a1);
   }
 
   (*(a1 + 1072))(a1);
@@ -8322,21 +6803,21 @@ void TIFFCleanup(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5
   _TIFFCleanupIFDOffsetAndNumberMaps(a1);
   while (1)
   {
-    v14 = *(a1 + 1304);
-    if (!v14)
+    v2 = *(a1 + 1304);
+    if (!v2)
     {
       break;
     }
 
-    *(a1 + 1304) = *v14;
-    free(v14[2]);
-    free(v14);
+    *(a1 + 1304) = *v2;
+    free(v2[2]);
+    free(v2);
   }
 
-  v15 = *(a1 + 1120);
-  if (v15 && (*(a1 + 17) & 2) != 0)
+  v3 = *(a1 + 1120);
+  if (v3 && (*(a1 + 17) & 2) != 0)
   {
-    free(v15);
+    free(v3);
   }
 
   if ((*(a1 + 17) & 8) != 0)
@@ -8346,50 +6827,50 @@ void TIFFCleanup(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5
 
   if (*(a1 + 1256) && *(a1 + 1264))
   {
-    v16 = 0;
-    v17 = 1;
+    v4 = 0;
+    v5 = 1;
     do
     {
-      v18 = *(*(a1 + 1256) + 8 * v16);
-      if (*(v18 + 32) && *(v18 + 24) == 65 && TIFFFieldIsAnonymous(v18))
+      v6 = *(*(a1 + 1256) + 8 * v4);
+      if (*(v6 + 32) && *(v6 + 24) == 65 && TIFFFieldIsAnonymous(v6))
       {
-        free(*(v18 + 32));
-        free(v18);
+        free(*(v6 + 32));
+        free(v6);
       }
 
-      v16 = v17;
-      v19 = *(a1 + 1264) > v17++;
+      v4 = v5;
+      v7 = *(a1 + 1264) > v5++;
     }
 
-    while (v19);
+    while (v7);
     free(*(a1 + 1256));
   }
 
-  v20 = *(a1 + 1320);
-  if (v20)
+  v8 = *(a1 + 1320);
+  if (v8)
   {
-    v21 = 0;
-    v22 = 1;
+    v9 = 0;
+    v10 = 1;
     do
     {
-      v23 = *(a1 + 1312) + 24 * v21;
-      if (*(v23 + 4))
+      v11 = *(a1 + 1312) + 24 * v9;
+      if (*(v11 + 4))
       {
-        free(*(v23 + 16));
-        v20 = *(a1 + 1320);
+        free(*(v11 + 16));
+        v8 = *(a1 + 1320);
       }
 
-      v21 = v22;
-      v19 = v20 > v22++;
+      v9 = v10;
+      v7 = v8 > v10++;
     }
 
-    while (v19);
+    while (v7);
     free(*(a1 + 1312));
   }
 
   if (*(a1 + 1376))
   {
-    TIFFErrorExtR(a1, "TIFFCleanup", "tif_cur_cumulated_mem_alloc = %llu whereas it should be 0", v9, v10, v11, v12, v13, *(a1 + 1376));
+    TIFFErrorExtR(a1, "TIFFCleanup", "tif_cur_cumulated_mem_alloc = %llu whereas it should be 0", *(a1 + 1376));
   }
 
   free(a1);
@@ -8412,21 +6893,21 @@ void _TIFFCleanupIFDOffsetAndNumberMaps(uint64_t a1)
   }
 }
 
-uint64_t _cg_TIFFClose(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _cg_TIFFClose(uint64_t result)
 {
   if (result)
   {
-    v9 = *(result + 1232);
-    v8 = *(result + 1200);
-    TIFFCleanup(result, v9, a3, a4, a5, a6, a7, a8);
+    v2 = *(result + 1232);
+    v1 = *(result + 1200);
+    TIFFCleanup(result);
 
-    return v9(v8);
+    return v2(v1);
   }
 
   return result;
 }
 
-__int128 *GetPBMLookupTable(void)
+__int128 *GetPBMLookupTable(uint64_t a1, uint64_t a2)
 {
   if (GetPBMLookupTable(void)::onceToken != -1)
   {
@@ -8740,17 +7221,17 @@ void (**png_write_cHRM_fixed(void (**a1)(void), unsigned int *a2))(void)
   v5 = 0u;
   v6 = 0u;
   png_save_int_32(&v5, a2[6]);
-  png_save_int_32(&v5 + 4, a2[7]);
-  png_save_int_32(&v5 + 8, *a2);
-  png_save_int_32(&v5 | 0xC, a2[1]);
+  png_save_int_32(&v5 + 1, a2[7]);
+  png_save_int_32(&v5 + 2, *a2);
+  png_save_int_32((&v5 | 0xC), a2[1]);
   png_save_int_32(&v6, a2[2]);
-  png_save_int_32(&v6 + 4, a2[3]);
-  png_save_int_32(&v6 + 8, a2[4]);
-  png_save_int_32(&v6 + 12, a2[5]);
+  png_save_int_32(&v6 + 1, a2[3]);
+  png_save_int_32(&v6 + 2, a2[4]);
+  png_save_int_32(&v6 + 3, a2[5]);
   return _cg_png_write_complete_chunk(a1, 1665684045, &v5, 0x20uLL);
 }
 
-void (**png_write_tRNS(void (**result)(void), Bytef *a2, unint64_t a3, unsigned __int16 *a4, unsigned int a5, int a6))(void)
+void (**png_write_tRNS(void (**result)(void), Bytef *a2, Bytef *a3, unsigned __int16 *a4, int a5, int a6))(void)
 {
   v17 = 0;
   v16 = 0;
@@ -8912,7 +7393,7 @@ uint64_t png_write_hIST(uint64_t a1, unsigned __int16 *a2, int a3)
   }
 }
 
-uint64_t png_write_tEXt(void (**a1)(void), unsigned __int8 *a2, uint64_t a3, char *a4)
+uint64_t png_write_tEXt(void (**a1)(void), char *a2, uint64_t a3, char *a4)
 {
   v14[1] = *MEMORY[0x1E69E9840];
   memset(v13, 0, sizeof(v13));
@@ -8966,7 +7447,7 @@ LABEL_15:
   return _cg_png_write_chunk_end(a1);
 }
 
-uint64_t png_write_zTXt(uint64_t a1, unsigned __int8 *a2, uint64_t a3, char *a4, int a5)
+uint64_t png_write_zTXt(uint64_t a1, char *a2, uint64_t a3, char *a4, int a5)
 {
   *&v22[7] = *MEMORY[0x1E69E9840];
   bzero(v19, 0x418uLL);
@@ -9030,7 +7511,7 @@ LABEL_23:
   return png_write_tEXt(a1, a2, a3, a4);
 }
 
-uint64_t png_write_iTXt(uint64_t a1, int a2, unsigned __int8 *a3, uint64_t a4, char *a5, char *a6, char *a7)
+uint64_t png_write_iTXt(uint64_t a1, int a2, char *a3, uint64_t a4, char *a5, char *a6, char *a7)
 {
   *&v38[6] = *MEMORY[0x1E69E9840];
   v37 = 0;
@@ -9209,6 +7690,8 @@ LABEL_18:
 void (**png_write_oFFs(void (**a1)(void), uint64_t a2, uint64_t a3, int a4))(void)
 {
   v4 = a4;
+  v5 = a3;
+  v6 = a2;
   v11 = *MEMORY[0x1E69E9840];
   if (a4 >= 2)
   {
@@ -9217,13 +7700,13 @@ void (**png_write_oFFs(void (**a1)(void), uint64_t a2, uint64_t a3, int a4))(voi
 
   v10 = 0;
   v9 = 0;
-  png_save_int_32(&v9, a2);
-  png_save_int_32(&v9 + 4, a3);
+  png_save_int_32(&v9, v6);
+  png_save_int_32(&v9 + 1, v5);
   v10 = v4;
   return _cg_png_write_complete_chunk(a1, 1866876531, &v9, 9uLL);
 }
 
-uint64_t png_write_pCAL(void (**a1)(void), unsigned __int8 *a2, unsigned int a3, unsigned int a4, int a5, int a6, const char *a7, Bytef **a8)
+uint64_t png_write_pCAL(void (**a1)(void), char *a2, unsigned int a3, unsigned int a4, int a5, unsigned int a6, char *a7, Bytef **a8)
 {
   v46 = *MEMORY[0x1E69E9840];
   if (a5 >= 4)
@@ -9276,7 +7759,7 @@ LABEL_32:
 
   v23 = a6;
   v41 = a6;
-  v24 = (a6 - 1);
+  v24 = a6 - 1;
   if (a6 >= 1)
   {
     v25 = a6;
@@ -9310,7 +7793,7 @@ LABEL_32:
 
 LABEL_18:
   _cg_png_write_chunk_header(a1, 1883455820, v19);
-  if (v42 > 0x50 || (_cg_png_write_chunk_data(a1, v43, v42), png_save_int_32(&v44, v36), png_save_int_32(&v44 + 4, v37), LOBYTE(v45) = v38, HIBYTE(v45) = v41, _cg_png_write_chunk_data(a1, &v44, 10), v32 = strlen(__s) + 1, &__s[v32] < __s) || v39 > v32)
+  if (v42 > 0x50 || (_cg_png_write_chunk_data(a1, v43, v42), png_save_int_32(&v44, v36), png_save_int_32(&v44 + 1, v37), LOBYTE(v45) = v38, HIBYTE(v45) = v41, _cg_png_write_chunk_data(a1, &v44, 10), v32 = strlen(__s) + 1, &__s[v32] < __s) || v39 > v32)
   {
 LABEL_29:
     __break(0x5519u);
@@ -9786,15 +8269,15 @@ LABEL_30:
   v9 = result;
   *v5 = 2;
   CPUCapabilities = AppleGetCPUCapabilities();
-  v11 = v9[42];
-  v12 = v9[40];
+  v11 = v9[21].u64[0];
+  v12 = v9[20].u64[0];
   if (a4 == 4 && (CPUCapabilities & 0x100) != 0)
   {
     result = (v11 + 1);
     v13 = (v12 + 1);
     if (v5 + 1 >= v5 && result >= v11 && v13 >= v12)
     {
-      return png_write_filter_row_up_neon(result, v9[43], (v5 + 1), v4, v13, v9[41], a2);
+      return png_write_filter_row_up_neon(result, v9[21].u64[1], (v5 + 1), v4, v13, v9[20].u64[1], a2);
     }
 
     goto LABEL_30;
@@ -9803,9 +8286,9 @@ LABEL_30:
   result = 0;
   if (a2)
   {
-    v16 = v9[43];
+    v16 = v9[21].u64[1];
     v17 = (v12 + 1);
-    v18 = v9[41];
+    v18 = v9[20].u64[1];
     v19 = (v5 + 1);
     v20 = (v11 + 1);
     v21 = a2 - 1;
@@ -9840,4 +8323,1508 @@ LABEL_30:
   }
 
   return result;
+}
+
+uint64_t png_write_reset(uint64_t result)
+{
+  *(result + 308) = 0;
+  *(result + 429) = 0;
+  *(result + 76) &= ~4u;
+  return result;
+}
+
+uint64_t png_write_reinit(uint64_t a1, char *a2, unsigned int a3, unsigned int a4)
+{
+  v7 = *(a1 + 928);
+  if (*(a1 + 964))
+  {
+    if (v7 < a3)
+    {
+      goto LABEL_10;
+    }
+  }
+
+  else if (v7 != a3 || *(a1 + 932) != a4)
+  {
+    v12 = "width and/or height in the first frame's fcTL don't match the ones in IHDR";
+LABEL_12:
+    _cg_png_error(a1, v12);
+  }
+
+  if (*(a1 + 932) < a4)
+  {
+LABEL_10:
+    v12 = "width and/or height for a frame greater thanthe ones in IHDR";
+    goto LABEL_12;
+  }
+
+  result = _cg_png_set_IHDR(a1, a2, a3, a4, a2[44], a2[45], a2[48], a2[46], a2[47]);
+  *(a1 + 280) = a3;
+  *(a1 + 284) = a4;
+  v9 = *(a1 + 434);
+  v10 = v9 >= 8;
+  v11 = (v9 >> 3) * a3;
+  if (!v10)
+  {
+    v11 = (*(a1 + 434) * a3 + 7) >> 3;
+  }
+
+  *(a1 + 296) = v11;
+  *(a1 + 292) = a3;
+  return result;
+}
+
+uint64_t _cg_TIFFReadScanline(uint64_t a1, void *a2, unsigned int a3, uint64_t a4)
+{
+  if (!TIFFCheckRead(a1, 0))
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  if (*(a1 + 92) <= a3)
+  {
+    TIFFErrorExtR(a1, *a1, "%u: Row out of range, max %u");
+LABEL_7:
+    v16 = _cg_TIFFScanlineSize(a1, v15, v8, v9, v10, v11, v12, v13);
+    bzero(a2, v16);
+    return 0xFFFFFFFFLL;
+  }
+
+  if (*(a1 + 170) == 2)
+  {
+    if (*(a1 + 130) <= a4)
+    {
+      TIFFErrorExtR(a1, *a1, "%hu: Sample out of range, max %hu");
+      goto LABEL_7;
+    }
+
+    v14 = a3 / *(a1 + 132) + *(a1 + 224) * a4;
+  }
+
+  else
+  {
+    v14 = a3 / *(a1 + 132);
+  }
+
+  if (v14 != *(a1 + 884) && !TIFFFillStrip(a1, v14, v8, v9, v10, v11, v12, v13))
+  {
+    goto LABEL_7;
+  }
+
+  if (*(a1 + 876) > a3)
+  {
+    if (!*(a1 + 1136))
+    {
+      goto LABEL_31;
+    }
+
+    if ((*(a1 + 1128) & 0x8000000000000000) != 0)
+    {
+      *(a1 + 884) = -1;
+      if ((*(a1 + 17) & 2) == 0)
+      {
+        TIFFErrorExtR(a1, "TIFFFillStripPartial", "Data buffer too small to hold part of strip %d");
+        goto LABEL_7;
+      }
+    }
+
+    *(a1 + 1136) = 0;
+    *(a1 + 1144) = 0;
+    v19 = TIFFGetStrileOffset(a1, v14, v8, v9, v10, v11, v12);
+    if (!_TIFFSeekOK(a1, *(a1 + 1136) + *(a1 + 1144) + v19))
+    {
+      TIFFErrorExtR(a1, "TIFFFillStripPartial", "Seek error at scanline %u, strip %d");
+      goto LABEL_7;
+    }
+
+    v25 = *(a1 + 1128) & ~(*(a1 + 1128) >> 63);
+    if (v25 > TIFFGetStrileByteCount(a1, v14, v20, v21, v22, v23, v24) - (*(a1 + 1136) + *(a1 + 1144)))
+    {
+      v25 = TIFFGetStrileByteCount(a1, v14, v26, v27, v28, v29, v30) - (*(a1 + 1136) + *(a1 + 1144));
+    }
+
+    if ((*(a1 + 18) & 0x80) != 0)
+    {
+      _cg_TIFFReadScanline_cold_1();
+    }
+
+    if (!TIFFReadAndRealloc(a1, v25, 0, 1, 0, "TIFFFillStripPartial"))
+    {
+      goto LABEL_7;
+    }
+
+    *(a1 + 1136) += *(a1 + 1144);
+    *(a1 + 1144) = v25;
+    *(a1 + 1160) = v25;
+    v31 = *(a1 + 1120);
+    *(a1 + 1152) = v31;
+    v32 = *(a1 + 16);
+    if ((v32 & (*(a1 + 126) | 0x100)) == 0)
+    {
+      if ((v32 & 0x800000) != 0)
+      {
+        _cg_TIFFReadScanline_cold_2();
+      }
+
+      TIFFReverseBits(v31, v25);
+    }
+
+    if (*(a1 + 120) == 7 && (v33 = *(a1 + 1160), v33 < TIFFGetStrileByteCount(a1, v14, v8, v9, v10, v11, v12)) && TIFFJPEGIsFullStripRequired(a1))
+    {
+      v34 = TIFFFillStrip(a1, v14, v8, v9, v10, v11, v12, v13);
+    }
+
+    else
+    {
+LABEL_31:
+      v34 = TIFFStartStrip(a1, v14, v8, v9, v10, v11, v12, v13);
+    }
+
+    if (!v34)
+    {
+      goto LABEL_7;
+    }
+  }
+
+  v35 = *(a1 + 876);
+  if (a3 != v35)
+  {
+    if (!(*(a1 + 1064))(a1, a3 - v35))
+    {
+      goto LABEL_7;
+    }
+
+    *(a1 + 876) = a3;
+  }
+
+  v36 = (*(a1 + 1008))(a1, a2, *(a1 + 1104), a4);
+  *(a1 + 876) = a3 + 1;
+  v17 = 0xFFFFFFFFLL;
+  if (v36)
+  {
+    v37 = v36;
+    (*(a1 + 1248))(a1, a2, *(a1 + 1104));
+    if (v37 < 1)
+    {
+      return 0xFFFFFFFFLL;
+    }
+
+    else
+    {
+      return 1;
+    }
+  }
+
+  return v17;
+}
+
+uint64_t TIFFCheckRead(uint64_t a1, int a2)
+{
+  if (*(a1 + 12) == 1)
+  {
+    TIFFErrorExtR(a1, *a1, "File not open for reading");
+  }
+
+  else
+  {
+    if (((*(a1 + 16) >> 10) & 1) == a2)
+    {
+      return 1;
+    }
+
+    if (a2)
+    {
+      v3 = "Can not read tiles from a striped image";
+    }
+
+    else
+    {
+      v3 = "Can not read scanlines from a tiled image";
+    }
+
+    TIFFErrorExtR(a1, *a1, v3);
+  }
+
+  return 0;
+}
+
+size_t _cg_TIFFReadEncodedStrip(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
+{
+  v18 = 0;
+  StripSize = TIFFReadEncodedStripGetStripSize(a1, a2, &v18);
+  v15 = StripSize;
+  if (StripSize != -1)
+  {
+    if (a4 == -1 || StripSize > a4 || *(a1 + 120) != 1 || (*(a1 + 17) & 0x208) != 0)
+    {
+      if (StripSize >= a4)
+      {
+        v16 = a4;
+      }
+
+      else
+      {
+        v16 = StripSize;
+      }
+
+      if (a4 != -1)
+      {
+        v15 = v16;
+      }
+
+      if (TIFFFillStrip(a1, a2, v9, v10, v11, v12, v13, v14))
+      {
+        if ((*(a1 + 1024))(a1, a3, v15, v18) >= 1)
+        {
+LABEL_13:
+          (*(a1 + 1248))(a1, a3, v15);
+          return v15;
+        }
+      }
+
+      else
+      {
+        bzero(a3, v15);
+      }
+    }
+
+    else if (TIFFReadRawStrip1(a1, a2, a3, StripSize, "TIFFReadEncodedStrip", v12, v13) == StripSize)
+    {
+      if ((*(a1 + 16) & (*(a1 + 126) | 0x100)) == 0)
+      {
+        TIFFReverseBits(a3, v15);
+      }
+
+      goto LABEL_13;
+    }
+
+    return -1;
+  }
+
+  return v15;
+}
+
+uint64_t TIFFReadEncodedStripGetStripSize(_DWORD *a1, unsigned int a2, _WORD *a3)
+{
+  if (!TIFFCheckRead(a1, 0))
+  {
+    return -1;
+  }
+
+  if (a1[57] <= a2)
+  {
+    TIFFErrorExtR(a1, "TIFFReadEncodedStrip", "%u: Strip out of range, max %u");
+    return -1;
+  }
+
+  v12 = a1[33];
+  v13 = a1[23];
+  if (v12 >= v13)
+  {
+    v12 = a1[23];
+  }
+
+  if (!v12)
+  {
+    TIFFErrorExtR(a1, "TIFFReadEncodedStrip", "rowsperstrip is zero");
+    return -1;
+  }
+
+  v14 = v13 / v12;
+  if (v13 % v12)
+  {
+    ++v14;
+  }
+
+  v15 = a2 / v14;
+  v16 = a2 % v14;
+  if (a3)
+  {
+    *a3 = v15;
+  }
+
+  v17 = v13 - v16 * v12;
+  if (v17 >= v12)
+  {
+    v18 = v12;
+  }
+
+  else
+  {
+    v18 = v17;
+  }
+
+  result = TIFFVStripSize(a1, v18, v6, v7, v8, v9, v10, v11);
+  if (!result)
+  {
+    return -1;
+  }
+
+  return result;
+}
+
+size_t TIFFReadRawStrip1(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  v7 = *(a1 + 16);
+  if ((v7 & 0x20000) != 0)
+  {
+    TIFFReadRawStrip1_cold_1();
+  }
+
+  v9 = a4;
+  v13 = TIFFGetStrileOffset(a1, a2, a3, a4, a5, a6, a7);
+  if ((v7 & 0x800) != 0)
+  {
+    if (v13 < 0)
+    {
+      v19 = 0;
+      v23 = 0;
+    }
+
+    else
+    {
+      v19 = TIFFGetStrileOffset(a1, a2, v14, v15, v16, v17, v18);
+      v20 = *(a1 + 1176);
+      if ((v19 + v9) <= v20)
+      {
+        v21 = v9;
+      }
+
+      else
+      {
+        v21 = v20 - v19;
+      }
+
+      if (v19 <= (v9 ^ 0x7FFFFFFFFFFFFFFFLL))
+      {
+        v22 = v21;
+      }
+
+      else
+      {
+        v22 = 0;
+      }
+
+      if (v20 >= v19)
+      {
+        v23 = v22;
+      }
+
+      else
+      {
+        v23 = 0;
+      }
+    }
+
+    if (v23 != v9)
+    {
+      TIFFErrorExtR(a1, a5, "Read error at scanline %u, strip %u; got %lld bytes, expected %lld");
+      return -1;
+    }
+
+    _TIFFmemcpy(a3, (*(a1 + 1168) + v19), v9);
+  }
+
+  else
+  {
+    if (!_TIFFSeekOK(a1, v13))
+    {
+      TIFFErrorExtR(a1, a5, "Seek error at scanline %u, strip %u");
+      return -1;
+    }
+
+    if ((*(a1 + 1208))(*(a1 + 1200), a3, v9) != v9)
+    {
+      TIFFErrorExtR(a1, a5, "Read error at scanline %u; got %lld bytes, expected %lld");
+      return -1;
+    }
+  }
+
+  return v9;
+}
+
+uint64_t TIFFFillStrip(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  if ((*(a1 + 18) & 2) == 0)
+  {
+    v10 = TIFFGetStrileByteCount(a1, a2, a3, a4, a5, a6, a7);
+    v18 = v10;
+    if (v10 <= 0)
+    {
+      TIFFErrorExtR(a1, "TIFFFillStrip", "Invalid strip byte count %llu, strip %u");
+      return 0;
+    }
+
+    if (v10 > 0x100000)
+    {
+      v19 = _cg_TIFFStripSize(a1, v11, v12, v13, v14, v15, v16, v17);
+      if (v19)
+      {
+        if (v19 < (v18 - 4096) / 0xAuLL)
+        {
+          v20 = 10 * v19 + 4096;
+          TIFFErrorExtR(a1, "TIFFFillStrip", "Too large strip byte count %llu, strip %u. Limiting to %llu", v18, a2, v20);
+          v18 = v20;
+        }
+      }
+    }
+
+    v21 = *(a1 + 16);
+    if ((v21 & 0x800) != 0)
+    {
+      v23 = *(a1 + 1176);
+      if (v18 > v23 || (v24 = TIFFGetStrileOffset(a1, a2, v12, v13, v14, v15, v16), v23 = *(a1 + 1176), v24 > v23 - v18))
+      {
+        v25 = TIFFGetStrileOffset(a1, a2, v12, v13, v14, v15, v16);
+        TIFFErrorExtR(a1, "TIFFFillStrip", "Read error on strip %u; got %llu bytes, expected %llu", a2, v23 - v25, v18);
+        *(a1 + 884) = -1;
+        return 0;
+      }
+
+      v21 = *(a1 + 16);
+      if ((v21 & 0x800) != 0 && (v21 & (*(a1 + 126) | 0x100)) != 0)
+      {
+        if ((v21 & 0x200) != 0)
+        {
+          v28 = *(a1 + 1120);
+          if (v28)
+          {
+            free(v28);
+            *(a1 + 1120) = 0;
+            v21 = *(a1 + 16);
+          }
+        }
+
+        *(a1 + 16) = v21 & 0xFFFFFDFF;
+        *(a1 + 1128) = v18;
+        v29 = *(a1 + 1168);
+        *(a1 + 1120) = v29 + TIFFGetStrileOffset(a1, a2, v12, v13, v14, v15, v16);
+        *(a1 + 1136) = 0;
+        *(a1 + 1144) = v18;
+        *(a1 + 16) |= 0x800000u;
+        goto LABEL_33;
+      }
+    }
+
+    v22 = *(a1 + 1128);
+    if (v18 > v22)
+    {
+      *(a1 + 884) = -1;
+      if ((v21 & 0x200) == 0)
+      {
+        TIFFErrorExtR(a1, "TIFFFillStrip", "Data buffer too small to hold strip %u");
+        return 0;
+      }
+    }
+
+    if ((v21 & 0x800000) != 0)
+    {
+      v22 = 0;
+      *(a1 + 884) = -1;
+      v21 &= ~0x800000u;
+      *(a1 + 1120) = 0u;
+      *(a1 + 16) = v21;
+    }
+
+    if ((v21 & 0x800) != 0)
+    {
+      if (v18 > v22 && !TIFFReadBufferSetup(a1, 0, v18))
+      {
+        return 0;
+      }
+
+      v26 = TIFFReadRawStrip1(a1, a2, *(a1 + 1120), v18, "TIFFFillStrip", v15, v16);
+    }
+
+    else
+    {
+      v26 = TIFFReadRawStripOrTile2(a1, a2, 1, v18, "TIFFFillStrip", v15, v16);
+    }
+
+    if (v26 != v18)
+    {
+      return 0;
+    }
+
+    *(a1 + 1136) = 0;
+    *(a1 + 1144) = v18;
+    if ((*(a1 + 16) & (*(a1 + 126) | 0x100)) == 0)
+    {
+      TIFFReverseBits(*(a1 + 1120), v18);
+    }
+  }
+
+LABEL_33:
+
+  return TIFFStartStrip(a1, a2, a3, a4, a5, a6, a7, a8);
+}
+
+size_t _TIFFReadEncodedStripAndAllocBuffer(uint64_t a1, uint64_t a2, void *a3, size_t a4, uint64_t a5)
+{
+  v9 = *a3;
+  if (!v9)
+  {
+    v23 = 0;
+    StripSize = TIFFReadEncodedStripGetStripSize(a1, a2, &v23);
+    if (StripSize != -1)
+    {
+      v19 = StripSize >= a5 ? a5 : StripSize;
+      v20 = a5 == -1 ? StripSize : v19;
+      if (TIFFFillStrip(a1, a2, v13, v14, v15, v16, v17, v18))
+      {
+        v21 = malloc_type_malloc(a4, 0x50A56378uLL);
+        *a3 = v21;
+        if (v21)
+        {
+          _TIFFmemset(v21, 0, a4);
+          if ((*(a1 + 1024))(a1, *a3, v20, v23) >= 1)
+          {
+            (*(a1 + 1248))(a1, *a3, v20);
+            return v20;
+          }
+        }
+
+        else
+        {
+          v22 = TIFFFileName(a1);
+          TIFFErrorExtR(a1, v22, "No space for strip buffer");
+        }
+      }
+    }
+
+    return -1;
+  }
+
+  return _cg_TIFFReadEncodedStrip(a1, a2, v9, a5);
+}
+
+uint64_t TIFFReadBufferSetup(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 16);
+  if ((v3 & 0x20000) != 0)
+  {
+    TIFFReadBufferSetup_cold_1();
+  }
+
+  *(a1 + 16) = v3 & 0xFF7DFFFF;
+  v7 = *(a1 + 1120);
+  if (v7)
+  {
+    if ((v3 & 0x200) != 0)
+    {
+      free(v7);
+    }
+
+    *(a1 + 1120) = 0;
+    *(a1 + 1128) = 0;
+  }
+
+  if (a2)
+  {
+    *(a1 + 1128) = a3;
+    *(a1 + 1120) = a2;
+    *(a1 + 16) &= ~0x200u;
+    return 1;
+  }
+
+  else
+  {
+    v10 = (a3 + 1023) & 0xFFFFFFFFFFFFFC00;
+    *(a1 + 1128) = v10;
+    if (v10)
+    {
+      v8 = 1;
+      v11 = malloc_type_calloc(1uLL, v10, 0x100004077774924uLL);
+      *(a1 + 1120) = v11;
+      *(a1 + 16) |= 0x200u;
+      if (!v11)
+      {
+        TIFFErrorExtR(a1, "TIFFReadBufferSetup", "No space for data buffer at scanline %u", *(a1 + 876));
+        v8 = 0;
+        *(a1 + 1128) = 0;
+      }
+    }
+
+    else
+    {
+      TIFFErrorExtR(a1, "TIFFReadBufferSetup", "Invalid buffer size");
+      return 0;
+    }
+  }
+
+  return v8;
+}
+
+uint64_t TIFFReadRawStripOrTile2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  v7 = *(a1 + 16);
+  if ((v7 & 0x800) != 0)
+  {
+    TIFFReadRawStripOrTile2_cold_1();
+  }
+
+  if ((v7 & 0x20000) != 0)
+  {
+    TIFFReadRawStripOrTile2_cold_2();
+  }
+
+  v10 = a3;
+  v13 = TIFFGetStrileOffset(a1, a2, a3, a4, a5, a6, a7);
+  if (_TIFFSeekOK(a1, v13))
+  {
+    if (TIFFReadAndRealloc(a1, a4, 0, v10, a2, a5))
+    {
+      return a4;
+    }
+
+    else
+    {
+      return -1;
+    }
+  }
+
+  else
+  {
+    if (v10)
+    {
+      TIFFErrorExtR(a1, a5, "Seek error at scanline %u, strip %u");
+    }
+
+    else
+    {
+      TIFFErrorExtR(a1, a5, "Seek error at row %u, col %u, tile %u");
+    }
+
+    return -1;
+  }
+}
+
+uint64_t TIFFStartStrip(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v10 = *(a1 + 16);
+  if ((v10 & 0x20) == 0)
+  {
+    result = (*(a1 + 960))(a1, a2, a3, a4, a5, a6, a7, a8);
+    if (!result)
+    {
+      return result;
+    }
+
+    v10 = *(a1 + 16) | 0x20;
+    *(a1 + 16) = v10;
+  }
+
+  *(a1 + 884) = a2;
+  v12 = *(a1 + 224);
+  if (v12)
+  {
+    *(a1 + 876) = *(a1 + 132) * (a2 % v12);
+    *(a1 + 16) = v10 & 0xFFEFFFFF;
+    if ((v10 & 0x20000) != 0)
+    {
+      *(a1 + 1152) = 0u;
+    }
+
+    else
+    {
+      *(a1 + 1152) = *(a1 + 1120);
+      v13 = *(a1 + 1144);
+      if (v13 < 1)
+      {
+        *(a1 + 1160) = TIFFGetStrileByteCount(a1, a2, a3, a4, a5, a6, a7);
+        v12 = *(a1 + 224);
+      }
+
+      else
+      {
+        *(a1 + 1160) = v13;
+      }
+    }
+
+    result = (*(a1 + 968))(a1, (a2 / v12), a3, a4, a5, a6, a7, a8);
+    if (result)
+    {
+      return 1;
+    }
+
+    else
+    {
+      *(a1 + 884) = -1;
+    }
+  }
+
+  else
+  {
+    TIFFErrorExt(*(a1 + 1200), "TIFFStartStrip", "Zero strips per image", a4, a5, a6, a7, a8);
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t _cg_TIFFReadTileWithSize(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  v9 = a5;
+  v10 = a4;
+  if (!TIFFCheckRead(a1, 1) || !TIFFCheckTile(a1, v10, v9, a6, a7))
+  {
+    return -1;
+  }
+
+  v14 = _cg_TIFFComputeTile(a1, v10, v9, a6, a7);
+
+  return TIFFReadEncodedTile(a1, v14, a2, a3);
+}
+
+uint64_t TIFFReadEncodedTile(uint64_t a1, uint64_t a2, unsigned __int8 *a3, int64_t a4)
+{
+  v8 = *(a1 + 936);
+  if (!TIFFCheckRead(a1, 1))
+  {
+    return -1;
+  }
+
+  v14 = *(a1 + 228);
+  if (v14 <= a2)
+  {
+    TIFFErrorExtR(a1, "TIFFReadEncodedTile", "%u: Tile out of range, max %u", a2, v14);
+    return -1;
+  }
+
+  if (a4 != -1 && *(a1 + 120) == 1 && v8 <= a4 && (*(a1 + 17) & 0x208) == 0)
+  {
+    if (TIFFReadRawTile1(a1, a2, a3, v8, "TIFFReadEncodedTile", v12, v13) == v8)
+    {
+      if ((*(a1 + 16) & (*(a1 + 126) | 0x100)) == 0)
+      {
+        TIFFReverseBits(a3, v8);
+      }
+
+      goto LABEL_14;
+    }
+
+    return -1;
+  }
+
+  if (v8 >= a4)
+  {
+    v15 = a4;
+  }
+
+  else
+  {
+    v15 = v8;
+  }
+
+  if (a4 != -1)
+  {
+    v8 = v15;
+  }
+
+  if (!TIFFFillTile(a1, a2, v9, v10, v11, v12, v13))
+  {
+    bzero(a3, v8);
+    return -1;
+  }
+
+  if (!(*(a1 + 1040))(a1, a3, v8, (a2 / *(a1 + 224))))
+  {
+    return -1;
+  }
+
+LABEL_14:
+  (*(a1 + 1248))(a1, a3, v8);
+  return v8;
+}
+
+size_t TIFFReadRawTile1(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  v7 = *(a1 + 16);
+  if ((v7 & 0x20000) != 0)
+  {
+    TIFFReadRawTile1_cold_1();
+  }
+
+  v9 = a4;
+  v18 = TIFFGetStrileOffset(a1, a2, a3, a4, a5, a6, a7);
+  if ((v7 & 0x800) != 0)
+  {
+    if (TIFFGetStrileOffset(a1, a2, v13, v14, v15, v16, v17) < 0 || (v19 = *(a1 + 1176), v20 = v19 - v18, v19 < v18))
+    {
+      v20 = 0;
+    }
+
+    else if ((v9 & 0x8000000000000000) == 0 && (v18 & 0x8000000000000000) == 0 && (v18 + v9) <= v19)
+    {
+      goto LABEL_16;
+    }
+
+    if (v20 != v9)
+    {
+      TIFFErrorExtR(a1, a5, "Read error at row %u, col %u, tile %u; got %lld bytes, expected %lld");
+      return -1;
+    }
+
+LABEL_16:
+    _TIFFmemcpy(a3, (*(a1 + 1168) + v18), v9);
+    return v9;
+  }
+
+  if (!_TIFFSeekOK(a1, v18))
+  {
+    TIFFErrorExtR(a1, a5, "Seek error at row %u, col %u, tile %u");
+    return -1;
+  }
+
+  if ((*(a1 + 1208))(*(a1 + 1200), a3, v9) != v9)
+  {
+    TIFFErrorExtR(a1, a5, "Read error at row %u, col %u; got %lld bytes, expected %lld");
+    return -1;
+  }
+
+  return v9;
+}
+
+uint64_t TIFFFillTile(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  if ((*(a1 + 18) & 2) == 0)
+  {
+    v9 = TIFFGetStrileByteCount(a1, a2, a3, a4, a5, a6, a7);
+    v17 = v9;
+    if (v9 <= 0)
+    {
+      TIFFErrorExtR(a1, "TIFFFillTile", "%llu: Invalid tile byte count, tile %u");
+      return 0;
+    }
+
+    if (v9 > 0x100000)
+    {
+      v18 = _cg_TIFFTileSize(a1, v10, v11, v12, v13, v14, v15, v16);
+      if (v18)
+      {
+        if (v18 < (v17 - 4096) / 0xAuLL)
+        {
+          v19 = 10 * v18 + 4096;
+          TIFFErrorExtR(a1, "TIFFFillTile", "Too large tile byte count %llu, tile %u. Limiting to %llu", v17, a2, v19);
+          v17 = v19;
+        }
+      }
+    }
+
+    v20 = *(a1 + 16);
+    if ((v20 & 0x800) != 0)
+    {
+      if (v17 > *(a1 + 1176) || TIFFGetStrileOffset(a1, a2, v11, v12, v13, v14, v15) > (*(a1 + 1176) - v17))
+      {
+        *(a1 + 932) = -1;
+        return 0;
+      }
+
+      v20 = *(a1 + 16);
+      if ((v20 & 0x800) != 0 && (v20 & (*(a1 + 126) | 0x100)) != 0)
+      {
+        if ((v20 & 0x200) != 0)
+        {
+          v28 = *(a1 + 1120);
+          if (v28)
+          {
+            free(v28);
+            *(a1 + 1120) = 0;
+            v20 = *(a1 + 16);
+          }
+        }
+
+        *(a1 + 16) = v20 & 0xFFFFFDFF;
+        *(a1 + 1128) = v17;
+        v29 = *(a1 + 1168);
+        *(a1 + 1120) = v29 + TIFFGetStrileOffset(a1, a2, v22, v23, v24, v14, v15);
+        *(a1 + 1136) = 0;
+        *(a1 + 1144) = v17;
+        *(a1 + 16) |= 0x800000u;
+        goto LABEL_34;
+      }
+    }
+
+    v21 = *(a1 + 1128);
+    if (v17 > v21)
+    {
+      *(a1 + 932) = -1;
+      if ((v20 & 0x200) == 0)
+      {
+        TIFFErrorExtR(a1, "TIFFFillTile", "Data buffer too small to hold tile %u");
+        return 0;
+      }
+    }
+
+    if ((v20 & 0x800000) != 0)
+    {
+      v21 = 0;
+      *(a1 + 932) = -1;
+      v20 &= ~0x800000u;
+      *(a1 + 1120) = 0u;
+      *(a1 + 16) = v20;
+    }
+
+    if ((v20 & 0x800) != 0)
+    {
+      if (v17 > v21 && !TIFFReadBufferSetup(a1, 0, v17))
+      {
+        return 0;
+      }
+
+      v25 = TIFFReadRawTile1(a1, a2, *(a1 + 1120), v17, "TIFFFillTile", v14, v15);
+    }
+
+    else
+    {
+      v25 = TIFFReadRawStripOrTile2(a1, a2, 0, v17, "TIFFFillTile", v14, v15);
+    }
+
+    if (v25 != v17)
+    {
+      return 0;
+    }
+
+    *(a1 + 1136) = 0;
+    *(a1 + 1144) = v17;
+    v26 = *(a1 + 1120);
+    if (v26 && (*(a1 + 16) & (*(a1 + 126) | 0x100)) == 0)
+    {
+      TIFFReverseBits(v26, v17);
+    }
+  }
+
+LABEL_34:
+
+  return TIFFStartTile(a1, a2, a3, a4, a5, a6, a7);
+}
+
+uint64_t _TIFFReadTileAndAllocBuffer(uint64_t a1, unsigned __int8 **a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  v9 = a5;
+  v10 = a4;
+  if (!TIFFCheckRead(a1, 1) || !TIFFCheckTile(a1, v10, v9, a6, a7))
+  {
+    return -1;
+  }
+
+  v14 = _cg_TIFFComputeTile(a1, v10, v9, a6, a7);
+
+  return _TIFFReadEncodedTileAndAllocBuffer(a1, v14, a2, a3, -1);
+}
+
+uint64_t _TIFFReadEncodedTileAndAllocBuffer(uint64_t a1, uint64_t a2, unsigned __int8 **a3, int64_t a4, int64_t a5)
+{
+  v9 = *a3;
+  if (!v9)
+  {
+    v12 = *(a1 + 936);
+    if (!TIFFCheckRead(a1, 1))
+    {
+      return -1;
+    }
+
+    if (*(a1 + 228) <= a2)
+    {
+      TIFFErrorExtR(a1, "_TIFFReadEncodedTileAndAllocBuffer", "%u: Tile out of range, max %u");
+      return -1;
+    }
+
+    if (!TIFFFillTile(a1, a2, v13, v14, v15, v16, v17))
+    {
+      return -1;
+    }
+
+    v18 = *(a1 + 120);
+    switch(v18)
+    {
+      case 50002:
+        if (*(a1 + 170) == 1)
+        {
+          v21 = 25000 * *(a1 + 130);
+        }
+
+        else
+        {
+          v21 = 25000;
+        }
+
+        break;
+      case 50000:
+        v21 = 33000;
+        break;
+      case 1:
+        if (*(a1 + 1128) != v12)
+        {
+          v19 = TIFFFileName(a1);
+          TIFFErrorExtR(a1, v19, "Invalid tile byte count for tile %u. Expected %llu, got %llu");
+          return -1;
+        }
+
+        goto LABEL_26;
+      default:
+        v22 = v18 == 34925;
+        v21 = 1000;
+        if (v22)
+        {
+          v21 = 7000;
+        }
+
+        break;
+    }
+
+    if (a4 >= 100000001 && *(a1 + 1128) < v12 / v21)
+    {
+      v23 = TIFFFileName(a1);
+      TIFFErrorExtR(a1, v23, "Likely invalid tile byte count for tile %u. Uncompressed tile size is %llu, compressed one is %llu");
+      return -1;
+    }
+
+LABEL_26:
+    v24 = malloc_type_malloc(a4, 0x8AEEE98uLL);
+    *a3 = v24;
+    if (v24)
+    {
+      _TIFFmemset(v24, 0, a4);
+      if (v12 >= a5)
+      {
+        v25 = a5;
+      }
+
+      else
+      {
+        v25 = v12;
+      }
+
+      if (a5 == -1)
+      {
+        v20 = v12;
+      }
+
+      else
+      {
+        v20 = v25;
+      }
+
+      if ((*(a1 + 1040))(a1, *a3, v20, (a2 / *(a1 + 224))))
+      {
+        (*(a1 + 1248))(a1, *a3, v20);
+        return v20;
+      }
+    }
+
+    else
+    {
+      v26 = TIFFFileName(a1);
+      TIFFErrorExtR(a1, v26, "No space for tile buffer");
+    }
+
+    return -1;
+  }
+
+  return TIFFReadEncodedTile(a1, a2, v9, a5);
+}
+
+uint64_t TIFFStartTile(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  v9 = *(a1 + 16);
+  if ((v9 & 0x20) == 0)
+  {
+    if (!(*(a1 + 960))(a1))
+    {
+      return 0;
+    }
+
+    v9 = *(a1 + 16) | 0x20;
+    *(a1 + 16) = v9;
+  }
+
+  *(a1 + 932) = a2;
+  v10 = *(a1 + 100);
+  if (!v10)
+  {
+    TIFFErrorExtR(a1, "TIFFStartTile", "Zero tilewidth");
+    return 0;
+  }
+
+  v11 = *(a1 + 88);
+  if (v11 >= -v10 || (v12 = v10 + v11 - 1, v10 > v12) || (v13 = a2 % (v12 / v10), v14 = *(a1 + 104), *(a1 + 876) = v14 * v13, v15 = *(a1 + 92), v15 >= -v14) || (v16 = v14 + v15 - 1, v14 > v16))
+  {
+    TIFFErrorExtR(a1, "TIFFStartTile", "Zero tiles");
+    return 0;
+  }
+
+  *(a1 + 928) = a2 % (v16 / v14) * v10;
+  *(a1 + 16) = v9 & 0xFFEFFFFF;
+  if ((v9 & 0x20000) != 0)
+  {
+    *(a1 + 1152) = 0u;
+  }
+
+  else
+  {
+    *(a1 + 1152) = *(a1 + 1120);
+    v18 = *(a1 + 1144);
+    if (v18 < 1)
+    {
+      *(a1 + 1160) = TIFFGetStrileByteCount(a1, a2, a3, a4, a5, a6, a7);
+    }
+
+    else
+    {
+      *(a1 + 1160) = v18;
+    }
+  }
+
+  v19 = *(a1 + 968);
+  v20 = (a2 / *(a1 + 224));
+
+  return v19(a1, v20);
+}
+
+uint64_t _TIFFSwab16BitData(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (a3)
+  {
+    _TIFFSwab16BitData_cold_1();
+  }
+
+  return TIFFSwabArrayOfShort(a2, a3 >> 1);
+}
+
+uint64_t _TIFFSwab24BitData(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (a3 != 3 * (a3 / 3))
+  {
+    _TIFFSwab24BitData_cold_1();
+  }
+
+  return TIFFSwabArrayOfTriples(a2, a3 / 3);
+}
+
+__int32 *_TIFFSwab32BitData(uint64_t a1, __int32 *a2, uint64_t a3, uint8x8_t a4)
+{
+  if ((a3 & 3) != 0)
+  {
+    _TIFFSwab32BitData_cold_1();
+  }
+
+  return TIFFSwabArrayOfLong(a2, a3 >> 2, a4);
+}
+
+int8x8_t *_TIFFSwab64BitData(uint64_t a1, int8x8_t *a2, uint64_t a3)
+{
+  if ((a3 & 7) != 0)
+  {
+    _TIFFSwab64BitData_cold_1();
+  }
+
+  return TIFFSwabArrayOfLong8(a2, a3 >> 3);
+}
+
+uint64_t TIFFReadAndRealloc(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6)
+{
+  v9 = 0;
+  v10 = a3 + a2;
+  v11 = a1 + 1120;
+  v12 = 0x100000;
+  do
+  {
+    if (a2 <= v9)
+    {
+      return 1;
+    }
+
+    v14 = v12 < 1048576000 && a2 - v9 >= v12;
+    v15 = *(a1 + 1128);
+    v16 = v10 > v15;
+    if (v14 && v16)
+    {
+      v17 = 10 * v12;
+    }
+
+    else
+    {
+      v17 = v12;
+    }
+
+    if (v14 && v16)
+    {
+      v18 = v12;
+    }
+
+    else
+    {
+      v18 = a2 - v9;
+    }
+
+    v19 = v9 + a3 + v18;
+    if (v19 <= v15)
+    {
+      result = *v11;
+      if (!*v11)
+      {
+        return result;
+      }
+    }
+
+    else
+    {
+      if ((*(a1 + 17) & 2) == 0)
+      {
+        TIFFReadAndRealloc_cold_1();
+      }
+
+      v20 = (v19 + 1023) & 0xFFFFFFFFFFFFFC00;
+      *(a1 + 1128) = v20;
+      if (!v20)
+      {
+        TIFFErrorExtR(a1, a6, "Invalid buffer size");
+        return 0;
+      }
+
+      result = malloc_type_realloc(*v11, v20, 0x100004077774924uLL);
+      if (!result)
+      {
+        TIFFErrorExtR(a1, a6, "No space for data buffer at scanline %u", *(a1 + 876));
+        free(*(a1 + 1120));
+        result = 0;
+        *v11 = 0;
+        *(v11 + 8) = 0;
+        return result;
+      }
+
+      *v11 = result;
+    }
+
+    v22 = (*(a1 + 1208))(*(a1 + 1200), result + a3 + v9, v18);
+    v9 += v22;
+    v12 = v17;
+  }
+
+  while (v22 == v18);
+  bzero((*(a1 + 1120) + a3 + v9), *(a1 + 1128) - a3 - v9);
+  if (a4)
+  {
+    TIFFErrorExtR(a1, a6, "Read error at scanline %u; got %lld bytes, expected %lld");
+  }
+
+  else
+  {
+    TIFFErrorExtR(a1, a6, "Read error at row %u, col %u, tile %u; got %lld bytes, expected %lld");
+  }
+
+  return 0;
+}
+
+void IIO_Reader_WebP::~IIO_Reader_WebP(IIO_Reader_WebP *this, uint64_t a2, const char *a3)
+{
+  _cg_jpeg_mem_term(this, a2, a3);
+
+  JUMPOUT(0x186602850);
+}
+
+uint64_t IIO_Reader_WebP::validateVP8_VP8L(IIO_Reader_WebP *this, IIOScanner *a2, unsigned int a3, int a4)
+{
+  v4 = *(a2 + 3);
+  if (v4 + a3 - 8 > *(a2 + 2))
+  {
+    IIO_Reader_WebP::validateVP8_VP8L();
+    return 1;
+  }
+
+  v13 = 0;
+  memset(v12, 0, sizeof(v12));
+  WebPGetFeaturesInternal(*(a2 + 1) + v4 - 8, a3, v12, 521);
+  if (*(this + 116) == 1)
+  {
+    ++*(this + (a4 != 1448097824) + 22);
+    if (a4 == 1448097868 && *(this + 117) == 1)
+    {
+      _cg_jpeg_mem_term("validateVP8_VP8L", 90, "ERROR: VP8L and ALPH sub-chunks in ANMF are not allowed\n");
+      v7 = 0;
+    }
+
+    else
+    {
+      v7 = 1;
+    }
+
+    if (*&v12[0] != *(this + 108))
+    {
+      _cg_jpeg_mem_term("validateVP8_VP8L", 95, "ERROR: frame size VP8/VP8L sub-chunk does not match ANMF header frame size\n");
+      v11 = *(this + 119);
+      v10 = this + 119;
+      if ((v11 & 1) == 0)
+      {
+LABEL_19:
+        result = 0;
+        *v10 = 1;
+        return result;
+      }
+
+LABEL_18:
+      _cg_jpeg_mem_term("validateVP8_VP8L", 101, "ERROR: more than one VP8/VP8L chunks in ANMF are not allowed\n");
+      goto LABEL_19;
+    }
+
+    if (*(this + 119))
+    {
+      v10 = this + 119;
+      goto LABEL_18;
+    }
+
+    *(this + 119) = 1;
+    if (v7)
+    {
+      goto LABEL_24;
+    }
+
+    return 0;
+  }
+
+  if (*(this + 13) || *(this + 14))
+  {
+    _cg_jpeg_mem_term("validateVP8_VP8L", 111, "*** ERROR: multiple VP8/VP8L chunks not allowed\n");
+    v8 = 0;
+  }
+
+  else
+  {
+    v8 = 1;
+  }
+
+  if (*(this + 17) || *(this + 18))
+  {
+    _cg_jpeg_mem_term("validateVP8_VP8L", 117, "*** ERROR: VP8/VP8L and ANIM/ANMF chunks are not allowed\n");
+    return 0;
+  }
+
+  if (!v8)
+  {
+    return 0;
+  }
+
+LABEL_24:
+  ++*(this + 26);
+  return 1;
+}
+
+uint64_t IIO_Reader_WebP::validateALPH(IIO_Reader_WebP *this, IIOScanner *a2)
+{
+  if (*(this + 116) == 1)
+  {
+    ++*(this + 24);
+    v3 = *(this + 118);
+    if (v3 == 1)
+    {
+      _cg_jpeg_mem_term("validateALPH", 153, "*** ERROR: more than one ALPH sub-chunks in an ANMF chunk\n");
+    }
+
+    *(this + 118) = 1;
+    if (*(this + 119) == 1)
+    {
+      v4 = "*** ERROR: ALPHA sub-chunk detected after VP8 sub-chunk in an ANMF chunk\n";
+      v5 = 160;
+LABEL_15:
+      _cg_jpeg_mem_term("validateALPH", v5, v4);
+      return 0;
+    }
+
+    return v3 ^ 1u;
+  }
+
+  else
+  {
+    if (*(this + 17) || *(this + 18))
+    {
+      _cg_jpeg_mem_term("validateALPH", 168, "*** ERROR: ALPHA chunk and ANIM/ANMF chunk are both detected\n");
+      result = 0;
+    }
+
+    else
+    {
+      result = 1;
+    }
+
+    if (!*(this + 15))
+    {
+      _cg_jpeg_mem_term("validateALPH", 173, "*** ERROR: ALPHA chunk detected before VP8X chunk\n");
+      result = 0;
+    }
+
+    if (*(this + 13))
+    {
+      _cg_jpeg_mem_term("validateALPH", 178, "*** ERROR: ALPHA chunk detected after VP8 chunk\n");
+      result = 0;
+    }
+
+    if (*(this + 16))
+    {
+      v4 = "*** ERROR: Multiple ALPHA chunks detected\n";
+      v5 = 183;
+      goto LABEL_15;
+    }
+  }
+
+  return result;
+}
+
+uint64_t IIO_Reader_WebP::validateANMF(IIO_Reader_WebP *this, IIOScanner *a2, unsigned int a3)
+{
+  v6 = *(this + 116);
+  if (v6 == 1)
+  {
+    _cg_jpeg_mem_term("validateANMF", 211, "ERROR: nested ANMF chunks are not allowed\n");
+  }
+
+  if (*(this + 17))
+  {
+    v7 = v6 ^ 1u;
+  }
+
+  else
+  {
+    _cg_jpeg_mem_term("validateANMF", 216, "*** ERROR: ANMF without ANIM are not allowed\n");
+    v7 = 0;
+  }
+
+  if (a3 > 0x10)
+  {
+    IIOScanner::getVal24(a2);
+    IIOScanner::getVal24(a2);
+    *(this + 27) = IIOScanner::getVal24(a2) + 1;
+    *(this + 28) = IIOScanner::getVal24(a2) + 1;
+    IIOScanner::getVal24(a2);
+    *(this + 11) = 0;
+    *(this + 24) = 0;
+    *(this + 59) = 0;
+  }
+
+  else
+  {
+    _cg_jpeg_mem_term("validateANMF", 232, "*** ERROR: ANMF chunk size too small (%d)\n");
+    v7 = 0;
+  }
+
+  *(this + 116) = 1;
+  return v7;
+}
+
+BOOL IIO_Reader_WebP::validateICCP(IIO_Reader_WebP *this, IIOScanner *a2)
+{
+  v3 = *(this + 15);
+  v4 = v3 != 0;
+  if (!v3)
+  {
+    _cg_jpeg_mem_term("validateICCP", 260, "*** ERROR: ICCP chunk detected before VP8X chunk.");
+  }
+
+  if (*(this + 13) || *(this + 14) || *(this + 17))
+  {
+    _cg_jpeg_mem_term("validateICCP", 267, "*** ERROR: ICCP chunk detected after image data.");
+    return 0;
+  }
+
+  return v4;
 }

@@ -3,6 +3,11 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)newAdviceAsString:(int)string;
+- (id)newAdviceCauseAsString:(int)string;
+- (id)previousAdviceAsString:(int)string;
+- (id)previousAdviceCauseAsString:(int)string;
+- (id)previousAdviceInitialCauseAsString:(int)string;
 - (int)StringAsNewAdvice:(id)advice;
 - (int)StringAsNewAdviceCause:(id)cause;
 - (int)StringAsPreviousAdvice:(id)advice;
@@ -81,6 +86,21 @@
   *&self->_has = *&self->_has & 0xFDFF | v3;
 }
 
+- (id)previousAdviceAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27898EF68[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsPreviousAdvice:(id)advice
 {
   adviceCopy = advice;
@@ -143,6 +163,90 @@
   }
 
   *&self->_has = *&self->_has & 0xFBFF | v3;
+}
+
+- (id)previousAdviceCauseAsString:(int)string
+{
+  if (string <= 15)
+  {
+    if (string > 3)
+    {
+      if (string == 4)
+      {
+        v4 = @"HighInterfaceUse";
+
+        return v4;
+      }
+
+      if (string == 8)
+      {
+        v4 = @"MediaserverdAssetDownload";
+
+        return v4;
+      }
+    }
+
+    else
+    {
+      if (string == 1)
+      {
+        v4 = @"LargeTransfer";
+
+        return v4;
+      }
+
+      if (string == 2)
+      {
+        v4 = @"AVFlow";
+
+        return v4;
+      }
+    }
+
+LABEL_40:
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+
+    return v4;
+  }
+
+  if (string <= 63)
+  {
+    if (string == 16)
+    {
+      v4 = @"SceenOnDefault";
+
+      return v4;
+    }
+
+    if (string == 32)
+    {
+      v4 = @"SceenDarkDefault";
+
+      return v4;
+    }
+
+    goto LABEL_40;
+  }
+
+  switch(string)
+  {
+    case 64:
+      v4 = @"SceenLockedDefault";
+
+      break;
+    case 128:
+      v4 = @"AdminOverride";
+
+      break;
+    case 256:
+      v4 = @"BackgroundTransfer";
+
+      return v4;
+    default:
+      goto LABEL_40;
+  }
+
+  return v4;
 }
 
 - (int)StringAsPreviousAdviceCause:(id)cause
@@ -259,6 +363,17 @@
   *&self->_has = *&self->_has & 0xFF7F | v3;
 }
 
+- (id)newAdviceAsString:(int)string
+{
+  if (string < 5)
+  {
+    return off_27898EF68[string];
+  }
+
+  [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  return objc_claimAutoreleasedReturnValue();
+}
+
 - (int)StringAsNewAdvice:(id)advice
 {
   adviceCopy = advice;
@@ -321,6 +436,67 @@
   }
 
   *&self->_has = *&self->_has & 0xFEFF | v3;
+}
+
+- (id)newAdviceCauseAsString:(int)string
+{
+  if (string <= 15)
+  {
+    if (string > 3)
+    {
+      if (string == 4)
+      {
+        return @"HighInterfaceUse";
+      }
+
+      if (string == 8)
+      {
+        return @"MediaserverdAssetDownload";
+      }
+    }
+
+    else
+    {
+      if (string == 1)
+      {
+        return @"LargeTransfer";
+      }
+
+      if (string == 2)
+      {
+        return @"AVFlow";
+      }
+    }
+  }
+
+  else if (string <= 63)
+  {
+    if (string == 16)
+    {
+      return @"SceenOnDefault";
+    }
+
+    if (string == 32)
+    {
+      return @"SceenDarkDefault";
+    }
+  }
+
+  else
+  {
+    switch(string)
+    {
+      case 64:
+        return @"SceenLockedDefault";
+      case 128:
+        return @"AdminOverride";
+      case 256:
+        return @"BackgroundTransfer";
+    }
+  }
+
+  [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  return objc_claimAutoreleasedReturnValue();
 }
 
 - (int)StringAsNewAdviceCause:(id)cause
@@ -548,6 +724,90 @@
   *&self->_has = *&self->_has & 0xF7FF | v3;
 }
 
+- (id)previousAdviceInitialCauseAsString:(int)string
+{
+  if (string <= 15)
+  {
+    if (string > 3)
+    {
+      if (string == 4)
+      {
+        v4 = @"HighInterfaceUse";
+
+        return v4;
+      }
+
+      if (string == 8)
+      {
+        v4 = @"MediaserverdAssetDownload";
+
+        return v4;
+      }
+    }
+
+    else
+    {
+      if (string == 1)
+      {
+        v4 = @"LargeTransfer";
+
+        return v4;
+      }
+
+      if (string == 2)
+      {
+        v4 = @"AVFlow";
+
+        return v4;
+      }
+    }
+
+LABEL_40:
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+
+    return v4;
+  }
+
+  if (string <= 63)
+  {
+    if (string == 16)
+    {
+      v4 = @"SceenOnDefault";
+
+      return v4;
+    }
+
+    if (string == 32)
+    {
+      v4 = @"SceenDarkDefault";
+
+      return v4;
+    }
+
+    goto LABEL_40;
+  }
+
+  switch(string)
+  {
+    case 64:
+      v4 = @"SceenLockedDefault";
+
+      break;
+    case 128:
+      v4 = @"AdminOverride";
+
+      break;
+    case 256:
+      v4 = @"BackgroundTransfer";
+
+      return v4;
+    default:
+      goto LABEL_40;
+  }
+
+  return v4;
+}
+
 - (int)StringAsPreviousAdviceInitialCause:(id)cause
 {
   causeCopy = cause;
@@ -618,7 +878,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   has = self->_has;
   if ((has & 0x10) != 0)
@@ -752,8 +1012,8 @@ LABEL_5:
   }
 
 LABEL_88:
-  v28 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_previousAdviceDuration];
-  [dictionary setObject:v28 forKey:@"previousAdviceDuration"];
+  v27 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_previousAdviceDuration];
+  [dictionary setObject:v27 forKey:@"previousAdviceDuration"];
 
   has = self->_has;
   if ((has & 1) == 0)
@@ -768,8 +1028,8 @@ LABEL_6:
   }
 
 LABEL_89:
-  v29 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_dlPriorThroughputBytesPerSec];
-  [dictionary setObject:v29 forKey:@"dlPriorThroughputBytesPerSec"];
+  v28 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_dlPriorThroughputBytesPerSec];
+  [dictionary setObject:v28 forKey:@"dlPriorThroughputBytesPerSec"];
 
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -784,8 +1044,8 @@ LABEL_7:
   }
 
 LABEL_90:
-  v30 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_ulPriorThroughputBytesPerSec];
-  [dictionary setObject:v30 forKey:@"ulPriorThroughputBytesPerSec"];
+  v29 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_ulPriorThroughputBytesPerSec];
+  [dictionary setObject:v29 forKey:@"ulPriorThroughputBytesPerSec"];
 
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -803,15 +1063,15 @@ LABEL_91:
   newAdvice = self->_newAdvice;
   if (newAdvice >= 5)
   {
-    v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", self->_newAdvice];
+    v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", self->_newAdvice];
   }
 
   else
   {
-    v32 = off_27898EF68[newAdvice];
+    v31 = off_27898EF68[newAdvice];
   }
 
-  [dictionary setObject:v32 forKey:@"newAdvice"];
+  [dictionary setObject:v31 forKey:@"newAdvice"];
 
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -833,13 +1093,13 @@ LABEL_95:
     {
       if (newAdviceCause == 4)
       {
-        v34 = @"HighInterfaceUse";
+        v33 = @"HighInterfaceUse";
         goto LABEL_117;
       }
 
       if (newAdviceCause == 8)
       {
-        v34 = @"MediaserverdAssetDownload";
+        v33 = @"MediaserverdAssetDownload";
         goto LABEL_117;
       }
     }
@@ -848,13 +1108,13 @@ LABEL_95:
     {
       if (newAdviceCause == 1)
       {
-        v34 = @"LargeTransfer";
+        v33 = @"LargeTransfer";
         goto LABEL_117;
       }
 
       if (newAdviceCause == 2)
       {
-        v34 = @"AVFlow";
+        v33 = @"AVFlow";
         goto LABEL_117;
       }
     }
@@ -864,13 +1124,13 @@ LABEL_95:
   {
     if (newAdviceCause == 16)
     {
-      v34 = @"SceenOnDefault";
+      v33 = @"SceenOnDefault";
       goto LABEL_117;
     }
 
     if (newAdviceCause == 32)
     {
-      v34 = @"SceenDarkDefault";
+      v33 = @"SceenDarkDefault";
       goto LABEL_117;
     }
   }
@@ -880,20 +1140,20 @@ LABEL_95:
     switch(newAdviceCause)
     {
       case 64:
-        v34 = @"SceenLockedDefault";
+        v33 = @"SceenLockedDefault";
         goto LABEL_117;
       case 128:
-        v34 = @"AdminOverride";
+        v33 = @"AdminOverride";
         goto LABEL_117;
       case 256:
-        v34 = @"BackgroundTransfer";
+        v33 = @"BackgroundTransfer";
         goto LABEL_117;
     }
   }
 
-  v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", self->_newAdviceCause];
+  v33 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", self->_newAdviceCause];
 LABEL_117:
-  [dictionary setObject:v34 forKey:@"newAdviceCause"];
+  [dictionary setObject:v33 forKey:@"newAdviceCause"];
 
   has = self->_has;
   if ((has & 4) == 0)
@@ -908,8 +1168,8 @@ LABEL_10:
   }
 
 LABEL_118:
-  v35 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_newAdviceAdditionalFlags];
-  [dictionary setObject:v35 forKey:@"newAdviceAdditionalFlags"];
+  v34 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_newAdviceAdditionalFlags];
+  [dictionary setObject:v34 forKey:@"newAdviceAdditionalFlags"];
 
   has = self->_has;
   if ((has & 2) == 0)
@@ -924,8 +1184,8 @@ LABEL_11:
   }
 
 LABEL_119:
-  v36 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_dlSubsequentThroughputBytesPerSec];
-  [dictionary setObject:v36 forKey:@"dlSubsequentThroughputBytesPerSec"];
+  v35 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_dlSubsequentThroughputBytesPerSec];
+  [dictionary setObject:v35 forKey:@"dlSubsequentThroughputBytesPerSec"];
 
   if ((*&self->_has & 0x40) != 0)
   {
@@ -944,30 +1204,30 @@ LABEL_13:
   if ([(NSMutableArray *)self->_oldAdvicePartipants count])
   {
     v7 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_oldAdvicePartipants, "count")}];
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
     v8 = self->_oldAdvicePartipants;
-    v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v37 objects:v41 count:16];
+    v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v36 objects:v40 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v38;
+      v11 = *v37;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v38 != v11)
+          if (*v37 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          dictionaryRepresentation = [*(*(&v37 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v36 + 1) + 8 * i) dictionaryRepresentation];
           [v7 addObject:dictionaryRepresentation];
         }
 
-        v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v37 objects:v41 count:16];
+        v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v36 objects:v40 count:16];
       }
 
       while (v10);
@@ -1111,19 +1371,17 @@ LABEL_28:
   }
 
 LABEL_83:
-  v26 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   toCopy = to;
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x200) == 0)
@@ -1143,7 +1401,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  previousAdvice = self->_previousAdvice;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -1158,7 +1415,6 @@ LABEL_4:
   }
 
 LABEL_36:
-  previousAdviceCause = self->_previousAdviceCause;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -1173,7 +1429,6 @@ LABEL_5:
   }
 
 LABEL_37:
-  previousAdviceDuration = self->_previousAdviceDuration;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -1188,7 +1443,6 @@ LABEL_6:
   }
 
 LABEL_38:
-  dlPriorThroughputBytesPerSec = self->_dlPriorThroughputBytesPerSec;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -1203,7 +1457,6 @@ LABEL_7:
   }
 
 LABEL_39:
-  ulPriorThroughputBytesPerSec = self->_ulPriorThroughputBytesPerSec;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -1218,7 +1471,6 @@ LABEL_8:
   }
 
 LABEL_40:
-  newAdvice = self->_newAdvice;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -1233,7 +1485,6 @@ LABEL_9:
   }
 
 LABEL_41:
-  newAdviceCause = self->_newAdviceCause;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -1248,7 +1499,6 @@ LABEL_10:
   }
 
 LABEL_42:
-  newAdviceAdditionalFlags = self->_newAdviceAdditionalFlags;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -1263,84 +1513,79 @@ LABEL_11:
   }
 
 LABEL_43:
-  dlSubsequentThroughputBytesPerSec = self->_dlSubsequentThroughputBytesPerSec;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_12:
-    ulSubsequentThroughputBytesPerSec = self->_ulSubsequentThroughputBytesPerSec;
     PBDataWriterWriteUint64Field();
   }
 
 LABEL_13:
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
-  v41 = 0u;
-  v7 = self->_adviceInitiatingNames;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v40 objects:v45 count:16];
-  if (v8)
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v6 = self->_adviceInitiatingNames;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v41;
+    v8 = v7;
+    v9 = *v22;
     do
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v41 != v10)
+        if (*v22 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v40 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v40 objects:v45 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
-  v37 = 0u;
-  v13 = self->_oldAdvicePartipants;
-  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v36 objects:v44 count:16];
-  if (v14)
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v11 = self->_oldAdvicePartipants;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  if (v12)
   {
-    v15 = v14;
-    v16 = *v37;
+    v13 = v12;
+    v14 = *v18;
     do
     {
-      for (j = 0; j != v15; ++j)
+      for (j = 0; j != v13; ++j)
       {
-        if (*v37 != v16)
+        if (*v18 != v14)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v11);
         }
 
-        v18 = *(*(&v36 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v36 objects:v44 count:16];
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
-    while (v15);
+    while (v13);
   }
 
-  v19 = self->_has;
-  if ((v19 & 0x4000) != 0)
+  v16 = self->_has;
+  if ((v16 & 0x4000) != 0)
   {
-    previousScreenIsDark = self->_previousScreenIsDark;
     PBDataWriterWriteBOOLField();
-    v19 = self->_has;
-    if ((v19 & 0x8000) == 0)
+    v16 = self->_has;
+    if ((v16 & 0x8000) == 0)
     {
 LABEL_29:
-      if ((v19 & 0x1000) == 0)
+      if ((v16 & 0x1000) == 0)
       {
         goto LABEL_30;
       }
@@ -1354,19 +1599,17 @@ LABEL_29:
     goto LABEL_29;
   }
 
-  previousScreenIsLocked = self->_previousScreenIsLocked;
   PBDataWriterWriteBOOLField();
-  v19 = self->_has;
-  if ((v19 & 0x1000) == 0)
+  v16 = self->_has;
+  if ((v16 & 0x1000) == 0)
   {
 LABEL_30:
-    if ((v19 & 0x2000) == 0)
+    if ((v16 & 0x2000) == 0)
     {
       goto LABEL_31;
     }
 
 LABEL_48:
-    newScreenIsLocked = self->_newScreenIsLocked;
     PBDataWriterWriteBOOLField();
     if ((*&self->_has & 0x800) == 0)
     {
@@ -1377,25 +1620,21 @@ LABEL_48:
   }
 
 LABEL_47:
-  newScreenIsDark = self->_newScreenIsDark;
   PBDataWriterWriteBOOLField();
-  v19 = self->_has;
-  if ((v19 & 0x2000) != 0)
+  v16 = self->_has;
+  if ((v16 & 0x2000) != 0)
   {
     goto LABEL_48;
   }
 
 LABEL_31:
-  if ((v19 & 0x800) != 0)
+  if ((v16 & 0x800) != 0)
   {
 LABEL_32:
-    previousAdviceInitialCause = self->_previousAdviceInitialCause;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_33:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -1652,7 +1891,7 @@ LABEL_27:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   has = self->_has;
@@ -1808,59 +2047,59 @@ LABEL_12:
   }
 
 LABEL_13:
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v8 = self->_adviceInitiatingNames;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v28;
+    v11 = *v27;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v28 != v11)
+        if (*v27 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [*(*(&v27 + 1) + 8 * i) copyWithZone:zone];
+        v13 = [*(*(&v26 + 1) + 8 * i) copyWithZone:zone];
         [v6 addAdviceInitiatingNames:v13];
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
     while (v10);
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v14 = self->_oldAdvicePartipants;
-  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v24;
+    v17 = *v23;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v24 != v17)
+        if (*v23 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = [*(*(&v23 + 1) + 8 * j) copyWithZone:{zone, v23}];
+        v19 = [*(*(&v22 + 1) + 8 * j) copyWithZone:{zone, v22}];
         [v6 addOldAdvicePartipants:v19];
       }
 
-      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
     while (v16);
@@ -1905,7 +2144,7 @@ LABEL_48:
     *(v6 + 104) |= 0x2000u;
     if ((*&self->_has & 0x800) == 0)
     {
-      goto LABEL_33;
+      return v6;
     }
 
     goto LABEL_32;
@@ -1928,8 +2167,6 @@ LABEL_32:
     *(v6 + 104) |= 0x800u;
   }
 
-LABEL_33:
-  v21 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -2108,7 +2345,6 @@ LABEL_33:
       goto LABEL_97;
     }
 
-    v10 = *(equalCopy + 102);
     if (self->_previousScreenIsDark)
     {
       if ((*(equalCopy + 102) & 1) == 0)
@@ -2135,7 +2371,6 @@ LABEL_33:
       goto LABEL_97;
     }
 
-    v11 = *(equalCopy + 103);
     if (self->_previousScreenIsLocked)
     {
       if ((*(equalCopy + 103) & 1) == 0)
@@ -2162,7 +2397,6 @@ LABEL_33:
       goto LABEL_97;
     }
 
-    v12 = *(equalCopy + 100);
     if (self->_newScreenIsDark)
     {
       if ((*(equalCopy + 100) & 1) == 0)
@@ -2199,7 +2433,6 @@ LABEL_97:
     goto LABEL_97;
   }
 
-  v13 = *(equalCopy + 101);
   if (self->_newScreenIsLocked)
   {
     if ((*(equalCopy + 101) & 1) == 0)
@@ -2455,7 +2688,7 @@ LABEL_29:
 
 - (void)mergeFrom:(id)from
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   v5 = fromCopy;
   v6 = *(fromCopy + 52);
@@ -2611,57 +2844,57 @@ LABEL_12:
   }
 
 LABEL_13:
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v7 = *(fromCopy + 8);
-  v8 = [v7 countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v24;
+    v10 = *v23;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v24 != v10)
+        if (*v23 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(AWDSymptomsCellularSDMAdviceChange *)self addAdviceInitiatingNames:*(*(&v23 + 1) + 8 * i)];
+        [(AWDSymptomsCellularSDMAdviceChange *)self addAdviceInitiatingNames:*(*(&v22 + 1) + 8 * i)];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v9);
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v12 = *(v5 + 10);
-  v13 = [v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v20;
+    v15 = *v19;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v20 != v15)
+        if (*v19 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        [(AWDSymptomsCellularSDMAdviceChange *)self addOldAdvicePartipants:*(*(&v19 + 1) + 8 * j), v19];
+        [(AWDSymptomsCellularSDMAdviceChange *)self addOldAdvicePartipants:*(*(&v18 + 1) + 8 * j), v18];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v14);
@@ -2730,8 +2963,6 @@ LABEL_32:
   }
 
 LABEL_33:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 @end

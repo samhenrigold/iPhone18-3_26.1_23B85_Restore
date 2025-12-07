@@ -250,9 +250,9 @@ LABEL_89:
           goto LABEL_90;
         }
 
-        v17 = [(NSString *)v14 isEqualToString:v15];
+        isEqualToString = objc_msgSend_isEqualToString_(v14);
 
-        if (!v17)
+        if (!isEqualToString)
         {
           LOBYTE(v10) = 0;
 LABEL_91:
@@ -281,7 +281,7 @@ LABEL_88:
           goto LABEL_89;
         }
 
-        v22 = [(NSString *)v20 isEqualToString:v21];
+        v22 = objc_msgSend_isEqualToString_(v20);
 
         if (!v22)
         {
@@ -312,7 +312,7 @@ LABEL_87:
           goto LABEL_88;
         }
 
-        v27 = [(NSString *)v25 isEqualToString:v26];
+        v27 = objc_msgSend_isEqualToString_(v25);
 
         if (!v27)
         {
@@ -341,7 +341,7 @@ LABEL_86:
           goto LABEL_87;
         }
 
-        v32 = [(NSString *)v30 isEqualToString:v31];
+        v32 = objc_msgSend_isEqualToString_(v30);
 
         if (!v32)
         {
@@ -370,7 +370,7 @@ LABEL_85:
           goto LABEL_86;
         }
 
-        v10 = [(NSString *)v35 isEqualToString:v36];
+        v10 = objc_msgSend_isEqualToString_(v35);
 
         if (!v10)
         {
@@ -400,7 +400,7 @@ LABEL_83:
           goto LABEL_84;
         }
 
-        v10 = [(NSString *)v41 isEqualToString:v40];
+        v10 = objc_msgSend_isEqualToString_(v41);
 
         if (!v10)
         {
@@ -429,7 +429,7 @@ LABEL_83:
         }
 
         v48 = v45;
-        v69 = [(NSString *)v46 isEqualToString:v45];
+        v69 = objc_msgSend_isEqualToString_(v46);
 
         if (!v69)
         {
@@ -461,7 +461,7 @@ LABEL_84:
         }
 
         v55 = v52;
-        LODWORD(v67) = [(NSString *)v53 isEqualToString:v52];
+        LODWORD(v67) = objc_msgSend_isEqualToString_(v53);
 
         if (!v67)
         {

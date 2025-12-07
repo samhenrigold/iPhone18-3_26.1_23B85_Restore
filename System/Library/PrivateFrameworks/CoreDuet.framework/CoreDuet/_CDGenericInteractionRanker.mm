@@ -52,7 +52,7 @@
 
 - (id)rankInteraction:(id)interaction
 {
-  v83 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   interactionCopy = interaction;
   startDate = [interactionCopy startDate];
   endDate = [interactionCopy endDate];
@@ -94,10 +94,10 @@
   v17 = exp(-(v16 * v16));
   timeOfDayWeight = self->_timeOfDayWeight;
   v18 = v12 / self->_timeOfDayHalfLife;
-  v69 = exp(-(v18 * v18));
+  v68 = exp(-(v18 * v18));
   timeOfWeekWeight = self->_timeOfWeekWeight;
   v19 = v14 / self->_timeOfWeekHalfLife;
-  v71 = exp(-(v19 * v19));
+  v70 = exp(-(v19 * v19));
   v20 = 1.0;
   outgoingWeight = 1.0;
   if ([interactionCopy direction])
@@ -124,27 +124,27 @@
   if (seedContacts && [(NSArray *)seedContacts count])
   {
     selfCopy = self;
-    v79 = 0u;
-    v80 = 0u;
-    v77 = 0u;
     v78 = 0u;
+    v79 = 0u;
+    v76 = 0u;
+    v77 = 0u;
     v28 = self->_seedContacts;
-    v29 = [(NSArray *)v28 countByEnumeratingWithState:&v77 objects:v82 count:16];
+    v29 = [(NSArray *)v28 countByEnumeratingWithState:&v76 objects:v81 count:16];
     if (v29)
     {
       v30 = v29;
       v31 = 0;
-      v32 = *v78;
+      v32 = *v77;
       while (1)
       {
         for (i = 0; i != v30; ++i)
         {
-          if (*v78 != v32)
+          if (*v77 != v32)
           {
             objc_enumerationMutation(v28);
           }
 
-          v34 = *(*(&v77 + 1) + 8 * i);
+          v34 = *(*(&v76 + 1) + 8 * i);
           sender = [interactionCopy sender];
           if ([sender mayRepresentSamePersonAs:v34])
           {
@@ -164,7 +164,7 @@
           ++v31;
         }
 
-        v30 = [(NSArray *)v28 countByEnumeratingWithState:&v77 objects:v82 count:16];
+        v30 = [(NSArray *)v28 countByEnumeratingWithState:&v76 objects:v81 count:16];
         if (!v30)
         {
           goto LABEL_30;
@@ -185,8 +185,8 @@ LABEL_30:
     v27 = selfCopy->_socialWeight * v31;
   }
 
-  v67 = outgoingWeight;
-  v68 = v12;
+  v66 = outgoingWeight;
+  v67 = v12;
   if (self->_referenceLocationUUID && ([interactionCopy locationUUID], (v39 = objc_claimAutoreleasedReturnValue()) != 0))
   {
     v40 = v39;
@@ -209,31 +209,31 @@ LABEL_30:
   v44 = 1.0;
   if (referenceKeywords && -[NSSet count](referenceKeywords, "count") && ([interactionCopy keywords], v45 = objc_claimAutoreleasedReturnValue(), v46 = objc_msgSend(v45, "count"), v45, v46))
   {
-    v75 = 0u;
-    v76 = 0u;
-    v73 = 0u;
     v74 = 0u;
+    v75 = 0u;
+    v72 = 0u;
+    v73 = 0u;
     keywords = [interactionCopy keywords];
-    v48 = [keywords countByEnumeratingWithState:&v73 objects:v81 count:16];
+    v48 = [keywords countByEnumeratingWithState:&v72 objects:v80 count:16];
     if (v48)
     {
       v49 = v48;
       v50 = v20;
       v51 = 0;
-      v52 = *v74;
+      v52 = *v73;
       do
       {
         for (j = 0; j != v49; ++j)
         {
-          if (*v74 != v52)
+          if (*v73 != v52)
           {
             objc_enumerationMutation(keywords);
           }
 
-          v51 += [(NSSet *)self->_referenceKeywords containsObject:*(*(&v73 + 1) + 8 * j), selfCopy];
+          v51 += [(NSSet *)self->_referenceKeywords containsObject:*(*(&v72 + 1) + 8 * j), selfCopy];
         }
 
-        v49 = [keywords countByEnumeratingWithState:&v73 objects:v81 count:16];
+        v49 = [keywords countByEnumeratingWithState:&v72 objects:v80 count:16];
       }
 
       while (v49);
@@ -260,7 +260,7 @@ LABEL_30:
   v54 = 1;
 LABEL_53:
   v55 = timeWeight * v17;
-  v56 = timeOfDayWeight * v69;
+  v56 = timeOfDayWeight * v68;
   v57 = locationWeight * v44;
   c = self->_c;
   v59 = [MEMORY[0x1E695DFA8] set];
@@ -271,9 +271,9 @@ LABEL_53:
   }
 
   v61 = v27 * v57;
-  if (v68 <= 7200.0 && v56 > 0.0)
+  if (v67 <= 7200.0 && v56 > 0.0)
   {
-    [v60 addObject:{&unk_1F05EE8F8, v68}];
+    [v60 addObject:{&unk_1F05EE8F8, v67}];
   }
 
   v62 = self->_seedContacts;
@@ -282,7 +282,7 @@ LABEL_53:
     [v60 addObject:&unk_1F05EE910];
   }
 
-  v63 = v55 + v56 + timeOfWeekWeight * v71 + c;
+  v63 = v55 + v56 + timeOfWeekWeight * v70 + c;
   if (v42)
   {
     [v60 addObject:&unk_1F05EE928];
@@ -294,11 +294,10 @@ LABEL_53:
   }
 
   v38 = objc_opt_new();
-  [v38 setScore:v63 * (v50 * (v67 * v61))];
+  [v38 setScore:v63 * (v50 * (v66 * v61))];
   [v38 setReasons:v60];
 
 LABEL_67:
-  v64 = *MEMORY[0x1E69E9840];
 
   return v38;
 }
@@ -325,7 +324,7 @@ LABEL_67:
 
 - (double)rankContact:(id)contact
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   contactCopy = contact;
   contactPrefix = self->_contactPrefix;
   if (!contactPrefix || !-[NSString length](contactPrefix, "length") || (v6 = 0.0, [contactCopy mayContainPrefix:self->_contactPrefix]))
@@ -341,30 +340,30 @@ LABEL_67:
         lowercaseString = [displayName2 lowercaseString];
         v10 = [lowercaseString componentsSeparatedByString:@" "];
 
-        v21 = 0u;
-        v22 = 0u;
-        v19 = 0u;
         v20 = 0u;
+        v21 = 0u;
+        v18 = 0u;
+        v19 = 0u;
         v11 = v10;
-        v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v12)
         {
           v13 = v12;
           v14 = 0;
-          v15 = *v20;
+          v15 = *v19;
           do
           {
             for (i = 0; i != v13; ++i)
             {
-              if (*v20 != v15)
+              if (*v19 != v15)
               {
                 objc_enumerationMutation(v11);
               }
 
-              v14 += [(NSSet *)self->_referenceKeywords containsObject:*(*(&v19 + 1) + 8 * i), v19];
+              v14 += [(NSSet *)self->_referenceKeywords containsObject:*(*(&v18 + 1) + 8 * i), v18];
             }
 
-            v13 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+            v13 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
           }
 
           while (v13);
@@ -387,7 +386,6 @@ LABEL_67:
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -396,21 +394,8 @@ LABEL_67:
   allowedCopy = allowed;
   v5 = allowedCopy;
   allowedPersonIdType = self->_allowedPersonIdType;
-  if (allowedPersonIdType)
+  if (allowedPersonIdType && ([MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(allowedCopy, "personIdType")}], v7 = objc_claimAutoreleasedReturnValue(), v8 = -[NSSet containsObject:](allowedPersonIdType, "containsObject:", v7), v7, !v8) || (allowedIdentifiers = self->_allowedIdentifiers) != 0 && (objc_msgSend(v5, "identifier"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSSet containsObject:](allowedIdentifiers, "containsObject:", v10), v10, !v11))
   {
-    v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(allowedCopy, "personIdType")}];
-    v8 = [(NSSet *)allowedPersonIdType containsObject:v7];
-
-    if (!v8)
-    {
-      goto LABEL_7;
-    }
-  }
-
-  allowedIdentifiers = self->_allowedIdentifiers;
-  if (allowedIdentifiers && ([v5 identifier], v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSSet containsObject:](allowedIdentifiers, "containsObject:", v10), v10, !v11))
-  {
-LABEL_7:
     v14 = 0;
   }
 

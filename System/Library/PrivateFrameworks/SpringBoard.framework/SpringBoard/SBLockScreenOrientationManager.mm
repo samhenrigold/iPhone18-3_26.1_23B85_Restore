@@ -244,7 +244,7 @@ LABEL_18:
       v9 = BKLogOrientationDevice();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        *v13 = 0;
+        v13[0] = 0;
         _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Not updating SpringBoard's device orientation for unlock in an ambiguous orientation as we locked too recently", v13, 2u);
       }
 

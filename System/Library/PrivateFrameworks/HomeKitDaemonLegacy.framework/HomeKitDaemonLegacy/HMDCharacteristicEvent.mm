@@ -33,7 +33,7 @@
 
 - (void)_transactionObjectUpdated:(id)updated newValues:(id)values message:(id)message
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   valuesCopy = values;
   messageCopy = message;
@@ -43,9 +43,9 @@
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     v14 = HMFGetLogIdentifier();
-    v26 = 138543362;
-    v27 = v14;
-    _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Handling transaction updated", &v26, 0xCu);
+    v25 = 138543362;
+    v26 = v14;
+    _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Handling transaction updated", &v25, 0xCu);
   }
 
   objc_autoreleasePoolPop(v11);
@@ -94,8 +94,6 @@
       [messageCopy respondWithSuccess];
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (id)modelObjectWithChangeType:(unint64_t)type
@@ -142,11 +140,11 @@
 
 - (HMDCharacteristicEvent)initWithCoder:(id)coder
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v11.receiver = self;
-  v11.super_class = HMDCharacteristicEvent;
-  v5 = [(HMDCharacteristicEventBase *)&v11 initWithCoder:coderCopy];
+  v10.receiver = self;
+  v10.super_class = HMDCharacteristicEvent;
+  v5 = [(HMDCharacteristicEventBase *)&v10 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = allowedCharValueTypes();
@@ -155,7 +153,6 @@
     v5->_eventValue = v7;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -177,7 +174,7 @@
   eventValue = [(HMDCharacteristicEvent *)self eventValue];
   [v5 setObject:eventValue forKeyedSubscript:*MEMORY[0x277CD21B8]];
 
-  v7 = [v5 copy];
+  v7 = objc_msgSend_copy(v5);
 
   return v7;
 }
@@ -212,7 +209,7 @@
 
 - (BOOL)_compareEventValue:(id)value
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   eventValue = [(HMDCharacteristicEvent *)self eventValue];
 
@@ -233,24 +230,23 @@
     {
       v13 = HMFGetLogIdentifier();
       characteristic2 = [(HMDCharacteristicEventBase *)selfCopy characteristic];
-      v17 = 138543618;
-      v18 = v13;
-      v19 = 2112;
-      v20 = characteristic2;
-      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Characteristic %@ changed value due to any change, evaluating trigger", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v13;
+      v18 = 2112;
+      v19 = characteristic2;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Characteristic %@ changed value due to any change, evaluating trigger", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
     bOOLValue = 1;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return bOOLValue;
 }
 
 - (BOOL)_evaluateNewValue:(id)value
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   previousValue = [(HMDCharacteristicEventBase *)self previousValue];
   if (valueCopy && [(HMDCharacteristicEvent *)self _compareEventValue:valueCopy])
@@ -280,32 +276,31 @@
   {
     v12 = HMFGetLogIdentifier();
     HMFBooleanToString();
-    v13 = v20 = valueCopy;
+    v13 = v19 = valueCopy;
     characteristic2 = [(HMDCharacteristicEventBase *)selfCopy characteristic];
     value = [characteristic2 value];
     [(HMDCharacteristicEvent *)selfCopy eventValue];
-    v16 = v21 = bOOLValue;
+    v16 = v20 = bOOLValue;
     characteristic3 = [(HMDCharacteristicEventBase *)selfCopy characteristic];
     *buf = 138544642;
-    v23 = v12;
-    v24 = 2112;
-    v25 = v13;
-    v26 = 2112;
-    v27 = previousValue;
-    v28 = 2112;
-    v29 = value;
-    v30 = 2112;
-    v31 = v16;
-    v32 = 2112;
-    v33 = characteristic3;
+    v22 = v12;
+    v23 = 2112;
+    v24 = v13;
+    v25 = 2112;
+    v26 = previousValue;
+    v27 = 2112;
+    v28 = value;
+    v29 = 2112;
+    v30 = v16;
+    v31 = 2112;
+    v32 = characteristic3;
     _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Evaluated event, should fire: %@, previous value: %@, current value: %@, event monitor value: %@, %@", buf, 0x3Eu);
 
-    bOOLValue = v21;
-    valueCopy = v20;
+    bOOLValue = v20;
+    valueCopy = v19;
   }
 
   objc_autoreleasePoolPop(v9);
-  v18 = *MEMORY[0x277D85DE8];
   return bOOLValue;
 }
 
@@ -350,7 +345,7 @@
 
 void __47__HMDCharacteristicEvent__handleUpdateRequest___block_invoke(uint64_t a1, void *a2)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
   if (v3)
@@ -363,9 +358,9 @@ void __47__HMDCharacteristicEvent__handleUpdateRequest___block_invoke(uint64_t a
     v5 = *(a1 + 40);
     if (v5)
     {
-      v8 = *MEMORY[0x277CD21B8];
-      v9[0] = v5;
-      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+      v7 = *MEMORY[0x277CD21B8];
+      v8[0] = v5;
+      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
       [v4 respondWithPayload:v6];
     }
 
@@ -374,8 +369,6 @@ void __47__HMDCharacteristicEvent__handleUpdateRequest___block_invoke(uint64_t a
       [*(a1 + 32) respondWithPayload:0];
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)emptyModelObject
@@ -431,12 +424,11 @@ void __47__HMDCharacteristicEvent__handleUpdateRequest___block_invoke(uint64_t a
 
 uint64_t __37__HMDCharacteristicEvent_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_149661;
-  logCategory__hmf_once_v1_149661 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_149661;
+  logCategory__hmf_once_v1_149661 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

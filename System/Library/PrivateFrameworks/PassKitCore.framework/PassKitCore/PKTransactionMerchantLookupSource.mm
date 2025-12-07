@@ -37,7 +37,7 @@
   }
 
   merchant = [(PKPaymentTransaction *)self->_transaction merchant];
-  v6 = objc_alloc_init(getMKWalletMerchantLookupRequestClass[0]());
+  v6 = objc_alloc_init(getMKWalletMerchantLookupRequestClass());
   [v6 setTransactionType:v4];
   transactionDate = [(PKPaymentTransaction *)self->_transaction transactionDate];
   [v6 setTransactionDate:transactionDate];

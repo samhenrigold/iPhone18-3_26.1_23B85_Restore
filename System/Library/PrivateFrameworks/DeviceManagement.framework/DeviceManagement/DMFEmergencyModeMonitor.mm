@@ -122,7 +122,7 @@ uint64_t __40__DMFEmergencyModeMonitor_sharedMonitor__block_invoke()
 void __56__DMFEmergencyModeMonitor_enableEmergencyModeWithError___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = DMFEmergencyModeLog();
+  v4 = DMFEmergencyModeLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __56__DMFEmergencyModeMonitor_enableEmergencyModeWithError___block_invoke_cold_1();
@@ -136,7 +136,7 @@ void __56__DMFEmergencyModeMonitor_enableEmergencyModeWithError___block_invoke(u
 void __56__DMFEmergencyModeMonitor_enableEmergencyModeWithError___block_invoke_62(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = DMFEmergencyModeLog();
+  v4 = DMFEmergencyModeLog(v3);
   v5 = v4;
   if (v3)
   {
@@ -195,7 +195,7 @@ void __56__DMFEmergencyModeMonitor_enableEmergencyModeWithError___block_invoke_6
 void __68__DMFEmergencyModeMonitor_enableEmergencyModeForDuration_withError___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = DMFEmergencyModeLog();
+  v4 = DMFEmergencyModeLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __56__DMFEmergencyModeMonitor_enableEmergencyModeWithError___block_invoke_cold_1();
@@ -208,9 +208,9 @@ void __68__DMFEmergencyModeMonitor_enableEmergencyModeForDuration_withError___bl
 
 void __68__DMFEmergencyModeMonitor_enableEmergencyModeForDuration_withError___block_invoke_63(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = DMFEmergencyModeLog();
+  v4 = DMFEmergencyModeLog(v3);
   v5 = v4;
   if (v3)
   {
@@ -228,12 +228,10 @@ void __68__DMFEmergencyModeMonitor_enableEmergencyModeForDuration_withError___bl
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(a1 + 40);
-    v10 = 134217984;
-    v11 = v8;
-    _os_log_impl(&dword_1DBFFF000, v5, OS_LOG_TYPE_DEFAULT, "Emergency Mode enabled for duration %f", &v10, 0xCu);
+    v9 = 134217984;
+    v10 = v8;
+    _os_log_impl(&dword_1DBFFF000, v5, OS_LOG_TYPE_DEFAULT, "Emergency Mode enabled for duration %f", &v9, 0xCu);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)disableEmergencyModeWithError:(id *)error
@@ -272,7 +270,7 @@ void __68__DMFEmergencyModeMonitor_enableEmergencyModeForDuration_withError___bl
 void __57__DMFEmergencyModeMonitor_disableEmergencyModeWithError___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = DMFEmergencyModeLog();
+  v4 = DMFEmergencyModeLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __56__DMFEmergencyModeMonitor_enableEmergencyModeWithError___block_invoke_cold_1();
@@ -286,7 +284,7 @@ void __57__DMFEmergencyModeMonitor_disableEmergencyModeWithError___block_invoke(
 void __57__DMFEmergencyModeMonitor_disableEmergencyModeWithError___block_invoke_64(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = DMFEmergencyModeLog();
+  v4 = DMFEmergencyModeLog(v3);
   v5 = v4;
   if (v3)
   {
@@ -353,7 +351,7 @@ void __57__DMFEmergencyModeMonitor_disableEmergencyModeWithError___block_invoke_
 void __56__DMFEmergencyModeMonitor_emergencyModeStatusWithError___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = DMFEmergencyModeLog();
+  v4 = DMFEmergencyModeLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __56__DMFEmergencyModeMonitor_enableEmergencyModeWithError___block_invoke_cold_1();
@@ -366,77 +364,76 @@ void __56__DMFEmergencyModeMonitor_emergencyModeStatusWithError___block_invoke(u
 
 void __56__DMFEmergencyModeMonitor_emergencyModeStatusWithError___block_invoke_65(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v5)
   {
-    v7 = v5;
-    [v7 doubleValue];
-    if (v8 <= 0.0)
+    v8 = v5;
+    v9 = [v8 doubleValue];
+    if (v10 <= 0.0)
     {
-      [v7 doubleValue];
-      v14 = v13;
-      v9 = DMFEmergencyModeLog();
-      v15 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-      if (v14 >= 0.0)
+      v15 = [v8 doubleValue];
+      v17 = v16;
+      v11 = DMFEmergencyModeLog(v15);
+      v18 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+      if (v17 >= 0.0)
       {
-        if (v15)
+        if (v18)
         {
-          LOWORD(v22) = 0;
-          v10 = "Emergency Mode is disabled";
-          v16 = v9;
-          v17 = 2;
+          LOWORD(v24) = 0;
+          v12 = "Emergency Mode is disabled";
+          v19 = v11;
+          v20 = 2;
           goto LABEL_14;
         }
       }
 
-      else if (v15)
+      else if (v18)
       {
-        v22 = 138543362;
-        v23 = v7;
-        v10 = "Emergency Mode was disabled %{public}@ seconds ago";
+        v24 = 138543362;
+        v25 = v8;
+        v12 = "Emergency Mode was disabled %{public}@ seconds ago";
         goto LABEL_11;
       }
     }
 
     else
     {
-      v9 = DMFEmergencyModeLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = DMFEmergencyModeLog(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = 138543362;
-        v23 = v7;
-        v10 = "Emergency Mode is enabled for %{public}@ more seconds";
+        v24 = 138543362;
+        v25 = v8;
+        v12 = "Emergency Mode is enabled for %{public}@ more seconds";
 LABEL_11:
-        v16 = v9;
-        v17 = 12;
+        v19 = v11;
+        v20 = 12;
 LABEL_14:
-        _os_log_impl(&dword_1DBFFF000, v16, OS_LOG_TYPE_DEFAULT, v10, &v22, v17);
+        _os_log_impl(&dword_1DBFFF000, v19, OS_LOG_TYPE_DEFAULT, v12, &v24, v20);
       }
     }
 
-    v11 = 40;
-    v12 = v7;
+    v13 = 40;
+    v14 = v8;
     goto LABEL_16;
   }
 
-  v7 = DMFEmergencyModeLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = DMFEmergencyModeLog(v6);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     __56__DMFEmergencyModeMonitor_emergencyModeStatusWithError___block_invoke_65_cold_1();
   }
 
-  v11 = 32;
-  v12 = v6;
+  v13 = 32;
+  v14 = v7;
 LABEL_16:
 
-  v18 = *(*(a1 + v11) + 8);
-  v19 = v12;
-  v20 = *(v18 + 40);
-  *(v18 + 40) = v19;
-
-  v21 = *MEMORY[0x1E69E9840];
+  v21 = *(*(a1 + v13) + 8);
+  v22 = v14;
+  v23 = *(v21 + 40);
+  *(v21 + 40) = v22;
 }
 
 - (void)emergencyModeStatusWithCompletionHandler:(id)handler
@@ -463,7 +460,7 @@ LABEL_16:
 void __68__DMFEmergencyModeMonitor_emergencyModeStatusWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = DMFEmergencyModeLog();
+  v4 = DMFEmergencyModeLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __56__DMFEmergencyModeMonitor_enableEmergencyModeWithError___block_invoke_cold_1();
@@ -474,114 +471,80 @@ void __68__DMFEmergencyModeMonitor_emergencyModeStatusWithCompletionHandler___bl
 
 void __68__DMFEmergencyModeMonitor_emergencyModeStatusWithCompletionHandler___block_invoke_67(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v5)
   {
-    v7 = v5;
-    [v7 doubleValue];
-    if (v8 <= 0.0)
+    v8 = v5;
+    v9 = [v8 doubleValue];
+    if (v10 <= 0.0)
     {
-      [v7 doubleValue];
-      v13 = v12;
-      v9 = DMFEmergencyModeLog();
-      v14 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-      if (v13 >= 0.0)
+      v14 = [v8 doubleValue];
+      v16 = v15;
+      v11 = DMFEmergencyModeLog(v14);
+      v17 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+      if (v16 >= 0.0)
       {
-        if (v14)
+        if (v17)
         {
-          LOWORD(v18) = 0;
-          v10 = "Emergency Mode is disabled";
-          v15 = v9;
-          v16 = 2;
+          LOWORD(v20) = 0;
+          v12 = "Emergency Mode is disabled";
+          v18 = v11;
+          v19 = 2;
           goto LABEL_14;
         }
       }
 
-      else if (v14)
+      else if (v17)
       {
-        v18 = 138543362;
-        v19 = v7;
-        v10 = "Emergency Mode was disabled %{public}@ seconds ago";
+        v20 = 138543362;
+        v21 = v8;
+        v12 = "Emergency Mode was disabled %{public}@ seconds ago";
         goto LABEL_11;
       }
     }
 
     else
     {
-      v9 = DMFEmergencyModeLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = DMFEmergencyModeLog(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = 138543362;
-        v19 = v7;
-        v10 = "Emergency Mode is enabled for %{public}@ more seconds";
+        v20 = 138543362;
+        v21 = v8;
+        v12 = "Emergency Mode is enabled for %{public}@ more seconds";
 LABEL_11:
-        v15 = v9;
-        v16 = 12;
+        v18 = v11;
+        v19 = 12;
 LABEL_14:
-        _os_log_impl(&dword_1DBFFF000, v15, OS_LOG_TYPE_DEFAULT, v10, &v18, v16);
+        _os_log_impl(&dword_1DBFFF000, v18, OS_LOG_TYPE_DEFAULT, v12, &v20, v19);
       }
     }
 
-    (*(*(a1 + 32) + 16))(*(a1 + 32), v7);
+    (*(*(a1 + 32) + 16))(*(a1 + 32), v8);
     goto LABEL_16;
   }
 
-  v11 = DMFEmergencyModeLog();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v13 = DMFEmergencyModeLog(v6);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     __56__DMFEmergencyModeMonitor_emergencyModeStatusWithError___block_invoke_65_cold_1();
   }
 
   (*(*(a1 + 32) + 16))(*(a1 + 32), 0);
 LABEL_16:
-
-  v17 = *MEMORY[0x1E69E9840];
-}
-
-void __56__DMFEmergencyModeMonitor_enableEmergencyModeWithError___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1DBFFF000, v0, v1, "Could not create Emergency Mode proxy: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __56__DMFEmergencyModeMonitor_enableEmergencyModeWithError___block_invoke_62_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1DBFFF000, v0, v1, "Failed to enabled Emergency Mode: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __68__DMFEmergencyModeMonitor_enableEmergencyModeForDuration_withError___block_invoke_63_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 40);
-  v5 = 134218242;
-  v6 = v3;
-  v7 = 2114;
-  v8 = a2;
-  _os_log_error_impl(&dword_1DBFFF000, log, OS_LOG_TYPE_ERROR, "Failed to enabled Emergency Mode for duration %f: %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-void __57__DMFEmergencyModeMonitor_disableEmergencyModeWithError___block_invoke_64_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1DBFFF000, v0, v1, "Failed to disable Emergency Mode: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __56__DMFEmergencyModeMonitor_emergencyModeStatusWithError___block_invoke_65_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1DBFFF000, v0, v1, "Failed to fetch Emergency Mode status: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v4 = 134218242;
+  v5 = v3;
+  v6 = 2114;
+  v7 = a2;
+  _os_log_error_impl(&dword_1DBFFF000, log, OS_LOG_TYPE_ERROR, "Failed to enabled Emergency Mode for duration %f: %{public}@", &v4, 0x16u);
 }
 
 @end

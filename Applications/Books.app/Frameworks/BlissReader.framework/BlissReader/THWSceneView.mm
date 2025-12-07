@@ -132,7 +132,7 @@
     [(SCNNode *)v12 setName:@"THRotationGroupName"];
     *&v14 = v8;
     [(SCNNode *)v12 setPosition:v17, v16, v14];
-    [v4 worldTransform];
+    objc_msgSend_worldTransform(v4);
     *&v19 = vsub_f32(*&v19, __PAIR64__(LODWORD(v16), LODWORD(v17)));
     *(&v19 + 2) = *(&v19 + 2) - v8;
     v18[0] = v18[4];

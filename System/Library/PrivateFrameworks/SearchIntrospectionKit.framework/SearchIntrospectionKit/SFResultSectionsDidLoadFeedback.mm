@@ -61,18 +61,16 @@
 {
   if (*(self + OBJC_IVAR___SFResultSectionsDidLoadFeedback_queryIdentifier + 8))
   {
-    v2 = *(self + OBJC_IVAR___SFResultSectionsDidLoadFeedback_queryIdentifier);
-    v3 = *(self + OBJC_IVAR___SFResultSectionsDidLoadFeedback_queryIdentifier + 8);
 
-    v4 = sub_264E899B4();
+    v2 = sub_264E899B4();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (void)setQueryIdentifier:(id)identifier
@@ -89,7 +87,6 @@
   }
 
   v6 = (self + OBJC_IVAR___SFResultSectionsDidLoadFeedback_queryIdentifier);
-  v7 = *(self + OBJC_IVAR___SFResultSectionsDidLoadFeedback_queryIdentifier + 8);
   *v6 = v4;
   v6[1] = v5;
 }

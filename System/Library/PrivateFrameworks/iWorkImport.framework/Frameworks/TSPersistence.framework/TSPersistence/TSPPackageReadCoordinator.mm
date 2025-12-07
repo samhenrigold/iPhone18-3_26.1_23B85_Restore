@@ -31,6 +31,8 @@
 - (void)readExternalReferenceComponentIfNeededAsyncForObjectIdentifier:(int64_t)identifier componentIdentifier:(int64_t)componentIdentifier isWeak:(BOOL)weak fromComponent:(id)component;
 - (void)readPackageMetadataWithComponent:(id)component completionQueue:(id)queue completion:(id)completion;
 - (void)readRootObjectWithCompletionQueue:(id)queue completion:(id)completion;
+- (void)reader:(id)reader didFindExternalReferenceToObjectIdentifier:(int64_t)identifier componentIdentifier:(int64_t)componentIdentifier isWeak:(BOOL)weak allowUnknownObject:(BOOL)object objectClass:(Class)class objectProtocol:(id)protocol fromParentObject:(id)self0 completion:(id)self1;
+- (void)reader:(id)reader didFindExternalRepeatedReference:(id)reference isWeak:(BOOL)weak allowUnknownObject:(BOOL)object objectClass:(Class)class objectProtocol:(id)protocol fromParentObject:(id)parentObject completion:(id)self0;
 - (void)reader:(id)reader didResetObjectIdentifierForObject:(id)object originalObjectIdentifier:(int64_t)identifier;
 - (void)reader:(id)reader didResetObjectUUID:(id)d forObjectIdentifier:(int64_t)identifier originalObjectUUID:(id)iD;
 - (void)tearDown;
@@ -293,16 +295,17 @@
   asyncCopy = async;
   if (!asyncCopy)
   {
-    v6 = MEMORY[0x277D81150];
-    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "[TSPPackageReadCoordinator readComponentIfNeededAsync:]");
-    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageReadCoordinator.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v10, v7, v9, 491, 0, "Invalid parameter not satisfying: %{public}s", "component");
+    v7 = MEMORY[0x277D81150];
+    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSPPackageReadCoordinator readComponentIfNeededAsync:]");
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageReadCoordinator.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v11, v8, v10, 491, 0, "Invalid parameter not satisfying: %{public}s", "component");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v11, v12);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13);
   }
 
-  objc_msgSend_identifier(asyncCopy, v3, v4);
-  sub_276A51254();
+  v16 = objc_msgSend_identifier(asyncCopy, v4, v5);
+  v15 = 1;
+  sub_276A51254(&self->_readIdentifiers, &v16, &v15);
 }
 
 - (void)readComponentAsync:(id)async
@@ -510,9 +513,9 @@
 
   if (!v5)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d New object UUID should not be nil.", "[TSPPackageReadCoordinator newObjectUUIDForObjectIdentifier:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageReadCoordinator.mm", 807);
     v7 = MEMORY[0x277D81150];
-    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[TSPPackageReadCoordinator newObjectUUIDForObjectIdentifier:]", "[TSPPackageReadCoordinator newObjectUUIDForObjectIdentifier:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageReadCoordinator.mm", 807);
+    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[TSPPackageReadCoordinator newObjectUUIDForObjectIdentifier:]");
     v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageReadCoordinator.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v12, v9, v11, 807, 1, "New object UUID should not be nil.");
 
@@ -775,9 +778,9 @@ LABEL_31:
   {
     if (!self->_persistedUUIDMap)
     {
-      TSUSetCrashReporterInfo();
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d invalid nil value for '%{public}s'", "[TSPPackageReadCoordinator updateObjectContextForSuccessfulRead]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageReadCoordinator.mm", 967, "_persistedUUIDMap");
       v11 = MEMORY[0x277D81150];
-      v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "[TSPPackageReadCoordinator updateObjectContextForSuccessfulRead]", "[TSPPackageReadCoordinator updateObjectContextForSuccessfulRead]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageReadCoordinator.mm", 967, "_persistedUUIDMap");
+      v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "[TSPPackageReadCoordinator updateObjectContextForSuccessfulRead]");
       v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageReadCoordinator.mm");
       objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v15, v17, v14, 967, 1, "invalid nil value for '%{public}s'", "_persistedUUIDMap");
 
@@ -821,82 +824,75 @@ LABEL_31:
 
 - (void)prepareForDocumentUpgradeWithModeImpl:(int64_t)impl
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   if (impl == 1)
   {
-    v13 = atomic_load(&self->_upgradeMode);
-    if (v13 == 2)
+    v12 = atomic_load(&self->_upgradeMode);
+    if (v12 == 2)
     {
-LABEL_18:
-      v32 = *MEMORY[0x277D85DE8];
       return;
     }
+  }
 
-LABEL_7:
-    if (atomic_exchange(&self->_upgradeMode, impl) != impl)
+  else if (!impl)
+  {
+    v4 = MEMORY[0x277D81150];
+    v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSPPackageReadCoordinator prepareForDocumentUpgradeWithModeImpl:]");
+    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageReadCoordinator.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v8, v5, v7, 1001, 0, "Should not attempt to upgrade the document without a mode.");
+
+    v11 = MEMORY[0x277D81150];
+
+    objc_msgSend_logBacktraceThrottled(v11, v9, v10);
+    return;
+  }
+
+  if (atomic_exchange(&self->_upgradeMode, impl) != impl)
+  {
+    if (self->_componentsToUpgrade)
     {
-      if (self->_componentsToUpgrade)
-      {
-        v14 = MEMORY[0x277D81150];
-        v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSPPackageReadCoordinator prepareForDocumentUpgradeWithModeImpl:]");
-        v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageReadCoordinator.mm");
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v14, v18, v15, v17, 1014, 0, "expected nil value for '%{public}s'", "_componentsToUpgrade");
+      v13 = MEMORY[0x277D81150];
+      v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSPPackageReadCoordinator prepareForDocumentUpgradeWithModeImpl:]");
+      v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageReadCoordinator.mm");
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v13, v17, v14, v16, 1014, 0, "expected nil value for '%{public}s'", "_componentsToUpgrade");
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v19, v20);
-      }
-
-      v21 = objc_msgSend_p_allComponentsInPackage(self, a2, impl);
-      v24 = objc_msgSend_copy(v21, v22, v23);
-      componentsToUpgrade = self->_componentsToUpgrade;
-      self->_componentsToUpgrade = v24;
-
-      v35 = 0u;
-      v36 = 0u;
-      v33 = 0u;
-      v34 = 0u;
-      v26 = self->_componentsToUpgrade;
-      v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v27, &v33, v37, 16);
-      if (v29)
-      {
-        v30 = *v34;
-        do
-        {
-          v31 = 0;
-          do
-          {
-            if (*v34 != v30)
-            {
-              objc_enumerationMutation(v26);
-            }
-
-            objc_msgSend_readComponentIfNeededAsync_(self, v28, *(*(&v33 + 1) + 8 * v31++));
-          }
-
-          while (v29 != v31);
-          v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v28, &v33, v37, 16);
-        }
-
-        while (v29);
-      }
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v18, v19);
     }
 
-    goto LABEL_18;
+    v20 = objc_msgSend_p_allComponentsInPackage(self, a2, impl);
+    v23 = objc_msgSend_copy(v20, v21, v22);
+    componentsToUpgrade = self->_componentsToUpgrade;
+    self->_componentsToUpgrade = v23;
+
+    v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v25 = self->_componentsToUpgrade;
+    v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v26, &v31, v35, 16);
+    if (v28)
+    {
+      v29 = *v32;
+      do
+      {
+        v30 = 0;
+        do
+        {
+          if (*v32 != v29)
+          {
+            objc_enumerationMutation(v25);
+          }
+
+          objc_msgSend_readComponentIfNeededAsync_(self, v27, *(*(&v31 + 1) + 8 * v30++));
+        }
+
+        while (v28 != v30);
+        v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v27, &v31, v35, 16);
+      }
+
+      while (v28);
+    }
   }
-
-  if (impl)
-  {
-    goto LABEL_7;
-  }
-
-  v4 = MEMORY[0x277D81150];
-  v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSPPackageReadCoordinator prepareForDocumentUpgradeWithModeImpl:]");
-  v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageReadCoordinator.mm");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v8, v5, v7, 1001, 0, "Should not attempt to upgrade the document without a mode.");
-
-  v11 = MEMORY[0x277D81150];
-  v12 = *MEMORY[0x277D85DE8];
-
-  objc_msgSend_logBacktraceThrottled(v11, v9, v10);
 }
 
 - (id)p_allComponentsInPackage
@@ -918,30 +914,30 @@ LABEL_7:
 
 - (id)p_allDataInPackage
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   WeakRetained = objc_loadWeakRetained(&self->_context);
   v7 = objc_msgSend_dataManager(WeakRetained, v5, v6, 0);
   v10 = objc_msgSend_allData(v7, v8, v9);
 
-  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v23, v27, 16);
+  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v22, v26, 16);
   if (v14)
   {
-    v15 = *v24;
+    v15 = *v23;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v24 != v15)
+        if (*v23 != v15)
         {
           objc_enumerationMutation(v10);
         }
 
-        v17 = *(*(&v23 + 1) + 8 * i);
+        v17 = *(*(&v22 + 1) + 8 * i);
         v18 = objc_msgSend_storage(v17, v12, v13);
         v20 = objc_msgSend_isInPackage_(v18, v19, self->_package);
 
@@ -951,13 +947,11 @@ LABEL_7:
         }
       }
 
-      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v12, &v23, v27, 16);
+      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v12, &v22, v26, 16);
     }
 
     while (v14);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -977,7 +971,7 @@ LABEL_7:
     v10 = 0;
   }
 
-  v62 = v10;
+  v61 = v10;
   if ((optionsCopy & 0xE) == 2)
   {
     if (objc_msgSend_packageType(self->_package, v8, v9) != 2)
@@ -999,17 +993,17 @@ LABEL_6:
 
   v15 = 1;
 LABEL_9:
-  v76[0] = 0;
-  v76[1] = v76;
-  v76[2] = 0x2020000000;
-  v77 = 1;
+  v75[0] = 0;
+  v75[1] = v75;
+  v75[2] = 0x2020000000;
+  v76 = 1;
   v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v74[0] = 0;
-  v74[1] = v74;
-  v74[2] = 0x3032000000;
-  v74[3] = sub_276A6E490;
-  v74[4] = sub_276A6E4A0;
-  v75 = 0;
+  v73[0] = 0;
+  v73[1] = v73;
+  v73[2] = 0x3032000000;
+  v73[3] = sub_276A6E490;
+  v73[4] = sub_276A6E4A0;
+  v74 = 0;
   if (objc_msgSend_packageIdentifier(self->_package, v20, v21) == 1)
   {
     if (!self->_metadataObject)
@@ -1018,10 +1012,10 @@ LABEL_9:
       if (v25 >= 0xA000200000003)
       {
         v26 = MEMORY[0x277D81150];
-        v61 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "[TSPPackageReadCoordinator validateDocumentWithOptions:timing:completion:]");
-        v60 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageReadCoordinator.mm");
+        v60 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "[TSPPackageReadCoordinator validateDocumentWithOptions:timing:completion:]");
+        v59 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageReadCoordinator.mm");
         v29 = NSStringFromTSPVersion(v25, v28);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v26, v30, v61, v60, 1069, 0, "Document metadata is expected for documents with file format version %{public}@", v29);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v26, v30, v60, v59, 1069, 0, "Document metadata is expected for documents with file format version %{public}@", v29);
 
         objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v31, v32);
       }
@@ -1034,15 +1028,14 @@ LABEL_9:
     }
 
     objc_opt_class();
-    v38 = self->_metadataObject;
-    v39 = TSUDynamicCast();
-    if (!v39)
+    v38 = TSUDynamicCast();
+    if (!v38)
     {
-      TSUSetCrashReporterInfo();
-      v40 = MEMORY[0x277D81150];
-      v42 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v41, "[TSPPackageReadCoordinator validateDocumentWithOptions:timing:completion:]", "[TSPPackageReadCoordinator validateDocumentWithOptions:timing:completion:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageReadCoordinator.mm", 1074, "documentMetadata");
-      v44 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v43, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageReadCoordinator.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v40, v45, v42, v44, 1074, 1, "invalid nil value for '%{public}s'", "documentMetadata");
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d invalid nil value for '%{public}s'", "[TSPPackageReadCoordinator validateDocumentWithOptions:timing:completion:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageReadCoordinator.mm", 1074, "documentMetadata");
+      v39 = MEMORY[0x277D81150];
+      v41 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v40, "[TSPPackageReadCoordinator validateDocumentWithOptions:timing:completion:]");
+      v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v42, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageReadCoordinator.mm");
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v39, v44, v41, v43, 1074, 1, "invalid nil value for '%{public}s'", "documentMetadata");
 
       TSUCrashBreakpoint();
       abort();
@@ -1051,18 +1044,18 @@ LABEL_9:
 
   else
   {
-    v46 = objc_loadWeakRetained(&self->_context);
-    v39 = objc_msgSend_documentMetadata(v46, v47, v48);
+    v45 = objc_loadWeakRetained(&self->_context);
+    v38 = objc_msgSend_documentMetadata(v45, v46, v47);
 
-    if (!v39)
+    if (!v38)
     {
-      v50 = MEMORY[0x277D81150];
-      v51 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v49, "[TSPPackageReadCoordinator validateDocumentWithOptions:timing:completion:]");
-      v53 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v52, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageReadCoordinator.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v50, v54, v51, v53, 1077, 0, "Document metadata should have been populated.");
+      v49 = MEMORY[0x277D81150];
+      v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v48, "[TSPPackageReadCoordinator validateDocumentWithOptions:timing:completion:]");
+      v52 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v51, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPPackageReadCoordinator.mm");
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v49, v53, v50, v52, 1077, 0, "Document metadata should have been populated.");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v55, v56);
-      v39 = 0;
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v54, v55);
+      v38 = 0;
     }
   }
 
@@ -1071,24 +1064,24 @@ LABEL_9:
   block[1] = 3221225472;
   block[2] = sub_276A70330;
   block[3] = &unk_27A6E5830;
-  v71 = optionsCopy & 1;
-  block[4] = v62;
+  v70 = optionsCopy & 1;
+  block[4] = v61;
   block[5] = self;
-  v68 = v76;
-  v69 = v74;
-  v72 = v15;
+  v67 = v75;
+  v68 = v73;
+  v71 = v15;
   timingCopy = timing;
   block[6] = v14;
-  v65 = v39;
-  v73 = (optionsCopy & 8) != 0;
-  v66 = v19;
-  v67 = completionCopy;
-  v58 = completionCopy;
-  v59 = v39;
+  v64 = v38;
+  v72 = (optionsCopy & 8) != 0;
+  v65 = v19;
+  v66 = completionCopy;
+  v57 = completionCopy;
+  v58 = v38;
   dispatch_async(componentQueue, block);
 
-  _Block_object_dispose(v74, 8);
-  _Block_object_dispose(v76, 8);
+  _Block_object_dispose(v73, 8);
+  _Block_object_dispose(v75, 8);
 }
 
 - (BOOL)p_validateComponent:(id)component error:(id *)error
@@ -1287,6 +1280,64 @@ LABEL_13:
   v10 = objc_msgSend_dataForIdentifier_(v8, v9, identifier);
 
   return v10;
+}
+
+- (void)reader:(id)reader didFindExternalReferenceToObjectIdentifier:(int64_t)identifier componentIdentifier:(int64_t)componentIdentifier isWeak:(BOOL)weak allowUnknownObject:(BOOL)object objectClass:(Class)class objectProtocol:(id)protocol fromParentObject:(id)self0 completion:(id)self1
+{
+  objectCopy = object;
+  weakCopy = weak;
+  protocolCopy = protocol;
+  completionCopy = completion;
+  v22 = objc_msgSend_component(reader, v20, v21);
+  objc_msgSend_readExternalReferenceComponentIfNeededAsyncForObjectIdentifier_componentIdentifier_isWeak_fromComponent_(self, v23, identifier, componentIdentifier, weakCopy, v22);
+
+  v24.receiver = self;
+  v24.super_class = TSPPackageReadCoordinator;
+  [(TSPReadCoordinatorBase *)&v24 reader:reader didFindExternalReferenceToObjectIdentifier:identifier componentIdentifier:componentIdentifier isWeak:weakCopy allowUnknownObject:objectCopy objectClass:class objectProtocol:protocolCopy fromParentObject:parentObject completion:completionCopy];
+}
+
+- (void)reader:(id)reader didFindExternalRepeatedReference:(id)reference isWeak:(BOOL)weak allowUnknownObject:(BOOL)object objectClass:(Class)class objectProtocol:(id)protocol fromParentObject:(id)parentObject completion:(id)self0
+{
+  objectCopy = object;
+  weakCopy = weak;
+  v41 = *MEMORY[0x277D85DE8];
+  referenceCopy = reference;
+  protocolCopy = protocol;
+  completionCopy = completion;
+  v17 = objc_msgSend_component(reader, v15, v16);
+  v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v18 = referenceCopy;
+  v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v19, &v36, v40, 16);
+  if (v22)
+  {
+    v23 = *v37;
+    do
+    {
+      for (i = 0; i != v22; ++i)
+      {
+        if (*v37 != v23)
+        {
+          objc_enumerationMutation(v18);
+        }
+
+        v25 = *(*(&v36 + 1) + 8 * i);
+        v26 = objc_msgSend_objectIdentifier(v25, v20, v21);
+        v29 = objc_msgSend_componentIdentifier(v25, v27, v28);
+        objc_msgSend_readExternalReferenceComponentIfNeededAsyncForObjectIdentifier_componentIdentifier_isWeak_fromComponent_(self, v30, v26, v29, weakCopy, v17);
+      }
+
+      v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v20, &v36, v40, 16);
+    }
+
+    while (v22);
+  }
+
+  v35.receiver = self;
+  v35.super_class = TSPPackageReadCoordinator;
+  [(TSPReadCoordinatorBase *)&v35 reader:reader didFindExternalRepeatedReference:v18 isWeak:weakCopy allowUnknownObject:objectCopy objectClass:class objectProtocol:protocolCopy fromParentObject:parentObject completion:completionCopy];
 }
 
 - (void)reader:(id)reader didResetObjectIdentifierForObject:(id)object originalObjectIdentifier:(int64_t)identifier

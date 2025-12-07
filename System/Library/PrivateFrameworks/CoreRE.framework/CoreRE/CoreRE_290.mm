@@ -1,1707 +1,1124 @@
-void REMaterialDefinitionAssetGetParametersDictionary(uint64_t a1, void *a2, void *a3, void *a4)
+uint64_t tessellateTriangleRecursive(uint64_t a1, float32x4_t *a2, unsigned int *a3, float32x4_t *a4)
 {
-  v7 = a2;
-  v8 = a3;
-  v9 = a4;
-  re::AssetAPIHelper::assetHandleCreate(a1, v13);
-  v10 = re::AssetHandle::blockUntilLoaded<re::MaterialDefinitionAsset>(v13);
-  getValidMaterialDefinitionFromDefinitionAsset(&v12, v10);
-  v11 = v12;
-  if (v12)
+  ++*(a1 + 52);
+  result = physx::Gu::intersectTriangleBox_Unsafe((a1 + 24), (a1 + 36), a2, a3, a4);
+  if (!result)
   {
-    appendKeySet(v10 + 2424, v7);
-    appendKeySet(v10 + 2448, v7);
-    appendKeySet(v10 + 2400, v8);
-    buildConstantDictionaryFromParameters(v10 + 2376, v11 + 248, v9);
+    return result;
   }
 
-  re::AssetHandle::~AssetHandle(v13);
-}
-
-uint64_t REMaterialDefinitionAssetGetParameterDisplayName(uint64_t a1, char *a2)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v15);
-  v3 = re::AssetHandle::blockUntilLoaded<re::MaterialDefinitionAsset>(v15);
-  if (v3)
+  v9 = *a3;
+  *&v10 = a2->i64[0];
+  v11 = a2->f32[2];
+  *&v12 = *(a3 + 1);
+  LODWORD(v13) = HIDWORD(a2->i64[0]);
+  v14 = *a4->f32;
+  LODWORD(v15) = HIDWORD(a4->i64[0]);
+  v16 = a4->f32[2];
+  v17 = vsub_f32(*a4->f32, *a2->f32).f32[0];
+  v18 = *(a1 + 48);
+  v19 = (((((v13 - *&v12) * (v13 - *&v12)) + ((COERCE_FLOAT(a2->i64[0]) - *a3) * (COERCE_FLOAT(a2->i64[0]) - *a3))) + ((v11 - *(&v12 + 1)) * (v11 - *(&v12 + 1)))) > v18) | (2 * (((((*&v12 - v15) * (*&v12 - v15)) + ((*a3 - COERCE_FLOAT(a4->i64[0])) * (*a3 - COERCE_FLOAT(a4->i64[0])))) + ((*(&v12 + 1) - v16) * (*(&v12 + 1) - v16))) > v18)) | (4 * (((((v15 - v13) * (v15 - v13)) + (v17 * v17)) + ((v16 - v11) * (v16 - v11))) > v18));
+  v20 = *a3;
+  *v41.f32 = vmul_f32(vadd_f32(*a2->f32, *a3), 0x3F0000003F000000);
+  v41.f32[2] = (v11 + *(&v12 + 1)) * 0.5;
+  *v40.f32 = vmul_f32(vadd_f32(v20, v14), 0x3F0000003F000000);
+  v40.f32[2] = (*(&v12 + 1) + v16) * 0.5;
+  *v39.f32 = vmul_f32(vadd_f32(*&v10, v14), 0x3F0000003F000000);
+  v39.f32[2] = (v11 + v16) * 0.5;
+  if (v19 > 3)
   {
-    v4 = *(v3 + 744);
-    if (v4)
+    if (v19 > 5)
     {
-      v5 = (v4 + 8);
-    }
-
-    if (a2)
-    {
-      v6 = *a2;
-      if (*a2)
+      if (v19 != 6)
       {
-        v7 = a2[1];
-        if (v7)
-        {
-          v8 = (a2 + 2);
-          do
-          {
-            v6 = 31 * v6 + v7;
-            v9 = *v8++;
-            v7 = v9;
-          }
-
-          while (v9);
-        }
-
-        v6 &= ~0x8000000000000000;
-      }
-    }
-
-    else
-    {
-      v6 = 0x7FFFFFFFFFFFFFFFLL;
-    }
-
-    v14 = v6;
-    v11 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v6 ^ (v6 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v6 ^ (v6 >> 30))) >> 27));
-    re::HashTable<unsigned long,re::Pair<re::FixedArray<unsigned int>,signed char,true>,re::PrecalculatedHash,re::EqualTo<unsigned long>,false,false>::findEntry<unsigned long>(v4 + 1376, &v14, v11 ^ (v11 >> 31), v16);
-    if (v17 == 0x7FFFFFFF)
-    {
-      v10 = 0;
-      if (!v4)
-      {
-        goto LABEL_19;
-      }
-    }
-
-    else
-    {
-      v12 = *(v4 + 1392) + 48 * v17;
-      if (*(v12 + 24))
-      {
-        v10 = *(v12 + 32);
+        tessellateTriangleRecursive(a1, a2, &v41, &v39);
+        tessellateTriangleRecursive(a1, &v41, a3, &v40);
+        tessellateTriangleRecursive(a1, &v39, &v40, a4);
+        v32 = &v41;
+        v33 = &v40;
+        v30 = &v39;
+        v31 = a1;
+        return tessellateTriangleRecursive(v31, v32, v33, v30);
       }
 
-      else
-      {
-        v10 = v12 + 25;
-      }
-    }
-  }
-
-  else
-  {
-    v10 = 0;
-  }
-
-LABEL_19:
-  re::AssetHandle::~AssetHandle(v15);
-  return v10;
-}
-
-void REMaterialAssetGetParametersDictionary(uint64_t a1, void *a2, void *a3, void *a4)
-{
-  v7 = a2;
-  v8 = a3;
-  v9 = a4;
-  re::AssetAPIHelper::assetHandleCreate(a1, &v18);
-  if (!v19)
-  {
-    re::MaterialDefinitionAsset::assetType(v10);
-    goto LABEL_10;
-  }
-
-  v11 = *(v19 + 280);
-  if (v11 != re::MaterialDefinitionAsset::assetType(v10))
-  {
-LABEL_10:
-    v16 = re::AssetHandle::blockUntilLoaded<re::MaterialAsset>(&v18);
-    if (!v16)
-    {
-      goto LABEL_14;
-    }
-
-    v15 = *(*(v16 + 1776) + 16);
-    v14 = re::AssetHandle::blockUntilLoaded<re::MaterialDefinitionAsset>((v16 + 40));
-    goto LABEL_12;
-  }
-
-  if (CoreRELog::onceToken != -1)
-  {
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v12 = CoreRELog::log;
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
-  {
-    *v17 = 0;
-    _os_log_fault_impl(&dword_1E1C61000, v12, OS_LOG_TYPE_FAULT, "WARNING: REMaterialAssetGetParametersDictionary only takes MaterialAsset objects; if you have a MaterialDefinitionAsset, use REMaterialDefinitionAssetGetParametersDictionary instead.", v17, 2u);
-  }
-
-  v13 = re::AssetHandle::blockUntilLoaded<re::MaterialDefinitionAsset>(&v18);
-  if (v13)
-  {
-    v14 = v13;
-    v15 = *(v13 + 744);
-LABEL_12:
-    if (*(v15 + 120))
-    {
-      appendKeySet(v14 + 2424, v7);
-      appendKeySet(v14 + 2448, v7);
-      appendKeySet(v14 + 2400, v8);
-      buildConstantDictionaryFromParameters(v14 + 2376, v15 + 248, v9);
-    }
-  }
-
-LABEL_14:
-  re::AssetHandle::~AssetHandle(&v18);
-}
-
-void REMaterialDefinitionAssetGetParameterKeys(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  re::AssetAPIHelper::assetHandleCreate(a1, v7);
-  v4 = re::AssetHandle::blockUntilLoaded<re::MaterialDefinitionAsset>(v7);
-  getValidMaterialDefinitionFromDefinitionAsset(&v6, v4);
-  v5 = v6;
-  if (v6)
-  {
-    appendKeySet(v4 + 2424, v3);
-    appendKeySet(v4 + 2448, v3);
-    appendKeySet(v4 + 2400, v3);
-    appendKeySet(v4 + 2472, v3);
-    appendKeySet(v4 + 2376, v3);
-  }
-
-  re::AssetHandle::~AssetHandle(v7);
-}
-
-void REMaterialAssetGetMaterialParameterBlockKeys(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  re::AssetAPIHelper::assetHandleCreate(a1, v26);
-  v4 = re::AssetHandle::blockUntilLoaded<re::MaterialAsset>(v26);
-  if (v4)
-  {
-    v5 = v4;
-    v6 = v3;
-    v7 = *(v5 + 192);
-    if (v7)
-    {
-      v8 = 0;
-      v9 = *(v5 + 176);
-      while (1)
-      {
-        v10 = *v9;
-        v9 += 22;
-        if (v10 < 0)
-        {
-          break;
-        }
-
-        if (v7 == ++v8)
-        {
-          LODWORD(v8) = *(v5 + 192);
-          break;
-        }
-      }
-    }
-
-    else
-    {
-      LODWORD(v8) = 0;
-    }
-
-    if (v8 != v7)
-    {
-      v11 = *(v5 + 176);
-      do
-      {
-        v12 = v11 + 88 * v8;
-        if (*(v12 + 16))
-        {
-          v13 = *(v12 + 24);
-        }
-
-        else
-        {
-          v13 = v12 + 17;
-        }
-
-        v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v13];
-        [v6 addObject:v14];
-
-        if (*(v5 + 192) <= (v8 + 1))
-        {
-          v15 = v8 + 1;
-        }
-
-        else
-        {
-          v15 = *(v5 + 192);
-        }
-
-        v11 = *(v5 + 176);
-        while (v15 - 1 != v8)
-        {
-          LODWORD(v8) = v8 + 1;
-          if ((*(v11 + 88 * v8) & 0x80000000) != 0)
-          {
-            goto LABEL_21;
-          }
-        }
-
-        LODWORD(v8) = v15;
-LABEL_21:
-        ;
-      }
-
-      while (v8 != v7);
-    }
-
-    v16 = v6;
-    v17 = *(v5 + 240);
-    if (v17)
-    {
-      v18 = 0;
-      v19 = *(v5 + 224);
-      while (1)
-      {
-        v20 = *v19;
-        v19 += 40;
-        if (v20 < 0)
-        {
-          break;
-        }
-
-        if (v17 == ++v18)
-        {
-          LODWORD(v18) = *(v5 + 240);
-          break;
-        }
-      }
-    }
-
-    else
-    {
-      LODWORD(v18) = 0;
-    }
-
-    if (v18 != v17)
-    {
-      v21 = *(v5 + 224);
-      do
-      {
-        v22 = v21 + 160 * v18;
-        if (*(v22 + 16))
-        {
-          v23 = *(v22 + 24);
-        }
-
-        else
-        {
-          v23 = v22 + 17;
-        }
-
-        v24 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v23];
-        [v16 addObject:v24];
-
-        if (*(v5 + 240) <= (v18 + 1))
-        {
-          v25 = v18 + 1;
-        }
-
-        else
-        {
-          v25 = *(v5 + 240);
-        }
-
-        v21 = *(v5 + 224);
-        while (v25 - 1 != v18)
-        {
-          LODWORD(v18) = v18 + 1;
-          if ((*(v21 + 160 * v18) & 0x80000000) != 0)
-          {
-            goto LABEL_41;
-          }
-        }
-
-        LODWORD(v18) = v25;
-LABEL_41:
-        ;
-      }
-
-      while (v18 != v17);
-    }
-
-    buildKeySetFromParameters<re::DynamicString>(v5 + 112, v16);
-    buildKeySetFromParameters<re::DynamicString>(v5 + 64, v16);
-  }
-
-  re::AssetHandle::~AssetHandle(v26);
-}
-
-void buildKeySetFromParameters<re::DynamicString>(uint64_t a1, void *a2)
-{
-  v12 = a2;
-  v3 = *(a1 + 32);
-  if (v3)
-  {
-    v4 = 0;
-    v5 = *(a1 + 16);
-    while (1)
-    {
-      v6 = *v5;
-      v5 += 20;
-      if (v6 < 0)
-      {
-        break;
-      }
-
-      if (v3 == ++v4)
-      {
-        LODWORD(v4) = *(a1 + 32);
-        break;
-      }
-    }
-  }
-
-  else
-  {
-    LODWORD(v4) = 0;
-  }
-
-  if (v4 != v3)
-  {
-    v7 = *(a1 + 16);
-    do
-    {
-      v8 = v7 + 80 * v4;
-      if (*(v8 + 16))
-      {
-        v9 = *(v8 + 24);
-      }
-
-      else
-      {
-        v9 = v8 + 17;
-      }
-
-      v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v9];
-      [v12 addObject:v10];
-
-      if (*(a1 + 32) <= (v4 + 1))
-      {
-        v11 = v4 + 1;
-      }
-
-      else
-      {
-        v11 = *(a1 + 32);
-      }
-
-      v7 = *(a1 + 16);
-      while (v11 - 1 != v4)
-      {
-        LODWORD(v4) = v4 + 1;
-        if ((*(v7 + 80 * v4) & 0x80000000) != 0)
-        {
-          goto LABEL_20;
-        }
-      }
-
-      LODWORD(v4) = v11;
-LABEL_20:
-      ;
-    }
-
-    while (v4 != v3);
-  }
-}
-
-uint64_t REMaterialAssetGetMaterialDefinition(uint64_t a1)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v5);
-  v1 = re::AssetHandle::blockUntilLoaded<re::MaterialAsset>(v5);
-  if (v1)
-  {
-    re::AssetHandle::AssetHandle(v4, (v1 + 40));
-    re::AssetHandle::loadNow(v4[1], 0);
-    v2 = v4[0];
-    re::AssetHandle::~AssetHandle(v4);
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(v5);
-  return v2;
-}
-
-uint64_t REMaterialAssetGetFunctionLinkCount(uint64_t a1)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v4);
-  v1 = re::AssetHandle::blockUntilLoaded<re::MaterialAsset>(v4);
-  if (v1)
-  {
-    v2 = *(v1 + 392);
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(v4);
-  return v2;
-}
-
-uint64_t REMaterialAssetGetFunctionLinkAtIndex(uint64_t a1, unint64_t a2)
-{
-  v21 = *MEMORY[0x1E69E9840];
-  re::AssetAPIHelper::assetHandleCreate(a1, v7);
-  v3 = re::AssetHandle::blockUntilLoaded<re::MaterialAsset>(v7);
-  if (v3)
-  {
-    v4 = *(v3 + 392);
-    if (v4 <= a2)
-    {
-      v7[3] = 0;
-      v19 = 0u;
-      v20 = 0u;
-      v17 = 0u;
-      v18 = 0u;
-      v16 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      v8 = 136315906;
-      v9 = "operator[]";
-      v10 = 1024;
-      v11 = 797;
-      v12 = 2048;
-      v13 = a2;
-      v14 = 2048;
-      v15 = v4;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v5 = *(v3 + 408) + 272 * a2;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(v7);
-  return v5;
-}
-
-id REFunctionLinkGetConstantValues(uint64_t a1)
-{
-  v2 = objc_alloc_init(MEMORY[0x1E6974060]);
-  v3 = *(a1 + 216);
-  if (v3)
-  {
-    v4 = 0;
-    v5 = *(a1 + 200);
-    while (1)
-    {
-      v6 = *v5;
-      v5 += 16;
-      if (v6 < 0)
-      {
-        break;
-      }
-
-      if (v3 == ++v4)
-      {
-        LODWORD(v4) = *(a1 + 216);
-        break;
-      }
-    }
-  }
-
-  else
-  {
-    LODWORD(v4) = 0;
-  }
-
-  while (v4 != v3)
-  {
-    v7 = *(a1 + 200) + (v4 << 6);
-    v10 = *(v7 + 40);
-    v8 = v7 + 40;
-    v9 = v10;
-    if (*(a1 + 248) <= v10)
-    {
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v11 = v8 - 32;
-    v12 = *(a1 + 264);
-    v13 = *(v8 + 8);
-    v14 = objc_alloc(MEMORY[0x1E696AEC0]);
-    if (*(v11 + 8))
-    {
-      v15 = *(v11 + 16);
-    }
-
-    else
-    {
-      v15 = v11 + 9;
-    }
-
-    v16 = [v14 initWithUTF8String:v15];
-    [v2 setConstantValue:v12 + v9 type:v13 withName:v16];
-
-    v17 = *(a1 + 216);
-    if (v17 <= v4 + 1)
-    {
-      v17 = v4 + 1;
-    }
-
-    while (v17 - 1 != v4)
-    {
-      LODWORD(v4) = v4 + 1;
-      if ((*(*(a1 + 200) + (v4 << 6)) & 0x80000000) != 0)
-      {
-        goto LABEL_19;
-      }
-    }
-
-    LODWORD(v4) = v17;
-LABEL_19:
-    ;
-  }
-
-  return v2;
-}
-
-uint64_t REFunctionLinkCopyShaderFunctionName(uint64_t a1)
-{
-  if (*(a1 + 16))
-  {
-    v1 = *(a1 + 24);
-  }
-
-  else
-  {
-    v1 = a1 + 17;
-  }
-
-  return [MEMORY[0x1E696AEC0] stringWithUTF8String:v1];
-}
-
-uint64_t REFunctionLinkCopyLinkedFunctionName(uint64_t a1)
-{
-  if (*(a1 + 48))
-  {
-    v1 = *(a1 + 56);
-  }
-
-  else
-  {
-    v1 = a1 + 49;
-  }
-
-  return [MEMORY[0x1E696AEC0] stringWithUTF8String:v1];
-}
-
-uint64_t REFunctionLinkGetLinkedShaderAPIAtIndex(uint64_t a1, unint64_t a2)
-{
-  if (*(a1 + 112) <= a2)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  return *(*(a1 + 128) + 4 * a2);
-}
-
-id REFunctionLinkCopyFunctionConstantDictionary(uint64_t a1)
-{
-  if (*(a1 + 164))
-  {
-    v2 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:*(a1 + 164)];
-    v3 = *(a1 + 168);
-    if (v3)
-    {
-      v4 = 0;
-      v5 = *(a1 + 152);
-      while (1)
-      {
-        v6 = *v5;
-        v5 += 20;
-        if (v6 < 0)
-        {
-          break;
-        }
-
-        if (v3 == ++v4)
-        {
-          LODWORD(v4) = *(a1 + 168);
-          break;
-        }
-      }
-    }
-
-    else
-    {
-      LODWORD(v4) = 0;
-    }
-
-    while (v4 != v3)
-    {
-      v7 = *(a1 + 152) + 80 * v4;
-      if (*(v7 + 48))
-      {
-        v8 = *(v7 + 56);
-      }
-
-      else
-      {
-        v8 = v7 + 49;
-      }
-
-      v9 = v7 + 8;
-      v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v8];
-      if (*(v9 + 8))
-      {
-        v11 = *(v9 + 16);
-      }
-
-      else
-      {
-        v11 = v9 + 9;
-      }
-
-      v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v11];
-      [v2 setObject:v10 forKey:v12];
-
-      v13 = *(a1 + 168);
-      if (v13 <= v4 + 1)
-      {
-        v13 = v4 + 1;
-      }
-
-      while (v13 - 1 != v4)
-      {
-        LODWORD(v4) = v4 + 1;
-        if ((*(*(a1 + 152) + 80 * v4) & 0x80000000) != 0)
-        {
-          goto LABEL_22;
-        }
-      }
-
-      LODWORD(v4) = v13;
-LABEL_22:
-      ;
-    }
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  return v2;
-}
-
-uint64_t REMaterialDefinitionAssetGetOverriddenMaterialDefinition(uint64_t a1)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, &v7);
-  if (!v8)
-  {
-    re::MaterialDefinitionAsset::assetType(v1);
-LABEL_6:
-    v4 = 0;
-    goto LABEL_7;
-  }
-
-  v2 = *(v8 + 280);
-  if (v2 != re::MaterialDefinitionAsset::assetType(v1))
-  {
-    goto LABEL_6;
-  }
-
-  v3 = re::AssetHandle::blockUntilLoaded<re::MaterialDefinitionAsset>(&v7);
-  if (!v3)
-  {
-    goto LABEL_6;
-  }
-
-  re::AssetHandle::AssetHandle(v6, (v3 + 128));
-  v4 = v6[0];
-  re::AssetHandle::~AssetHandle(v6);
-LABEL_7:
-  re::AssetHandle::~AssetHandle(&v7);
-  return v4;
-}
-
-void REMaterialAssetSetTextureBinding(uint64_t a1, const char *a2, char *a3, uint64_t a4)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, &v9);
-  ++*(v10 + 276);
-  v7 = re::AssetHandle::blockUntilLoaded<re::MaterialAsset>(&v9);
-  if (v7)
-  {
-    re::MaterialParameterBlock::setBinding(*(v7 + 1784), a2, a3, a4, 2, v8);
-    v8[0] = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(&v9);
-}
-
-void REMaterialAssetSetBufferBinding(uint64_t a1, const char *a2, char *a3, uint64_t a4)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, &v9);
-  ++*(v10 + 276);
-  v7 = re::AssetHandle::blockUntilLoaded<re::MaterialAsset>(&v9);
-  if (v7)
-  {
-    re::MaterialParameterBlock::setBinding(*(v7 + 1784), a2, a3, a4, 3, v8);
-    v8[0] = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(&v9);
-}
-
-void REMaterialAssetSetSamplerBinding(uint64_t a1, const char *a2, char *a3, uint64_t a4)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, &v9);
-  ++*(v10 + 276);
-  v7 = re::AssetHandle::blockUntilLoaded<re::MaterialAsset>(&v9);
-  if (v7)
-  {
-    re::MaterialParameterBlock::setBinding(*(v7 + 1784), a2, a3, a4, 4, v8);
-    v8[0] = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(&v9);
-}
-
-CFStringRef REMaterialAssetCopyTextureBindingStructName(uint64_t a1, char *a2)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v32);
-  v3 = re::AssetHandle::blockUntilLoaded<re::MaterialAsset>(v32);
-  if (v3)
-  {
-    v4 = v3;
-    re::MaterialParameterBlock::handle(*(v3 + 1784), a2, &v29);
-    v5 = BYTE4(v30);
-    if ((BYTE4(v30) & 7) != 0)
-    {
-      isParameterType = re::MaterialParameterHandle::isParameterType(&v29, 64);
-      if ((v5 & 0x10) != 0 && isParameterType)
-      {
-        re::MaterialParameterBlock::bindingValue(*(v4 + 1784), &v29, &v26);
-LABEL_18:
-        v12 = CFStringCreateWithCString(0, re::s_materialTableIDMappings[BYTE8(v27)], 0x8000100u);
-        goto LABEL_34;
-      }
-    }
-
-    v7 = *(v4 + 1776);
-    if (a2)
-    {
-      v8 = *a2;
-      if (*a2)
-      {
-        v9 = a2[1];
-        if (v9)
-        {
-          v10 = (a2 + 2);
-          do
-          {
-            v8 = 31 * v8 + v9;
-            v11 = *v10++;
-            v9 = v11;
-          }
-
-          while (v11);
-        }
-
-        v8 &= ~0x8000000000000000;
-      }
-    }
-
-    else
-    {
-      v8 = 0x7FFFFFFFFFFFFFFFLL;
-    }
-
-    v25 = v8;
-    re::MaterialParameterTable::handle((v7 + 304), &v25, &v26);
-    v29 = v26;
-    v30 = v27;
-    v31 = v28;
-    v25 = 0;
-    v13 = BYTE4(v27);
-    if ((BYTE4(v27) & 7) != 0)
-    {
-      v14 = re::MaterialParameterHandle::isParameterType(&v29, 64);
-      if ((v13 & 0x10) != 0 && v14)
-      {
-        re::MaterialParameterTable::bindingValue((*(v4 + 1776) + 304), &v29, &v26);
-        goto LABEL_18;
-      }
-    }
-
-    v15 = *(*(v4 + 1776) + 16);
-    if (v15)
-    {
-      v16 = (v15 + 8);
-    }
-
-    if (a2)
-    {
-      v17 = *a2;
-      if (*a2)
-      {
-        v18 = a2[1];
-        if (v18)
-        {
-          v19 = (a2 + 2);
-          do
-          {
-            v17 = 31 * v17 + v18;
-            v20 = *v19++;
-            v18 = v20;
-          }
-
-          while (v20);
-        }
-
-        v17 &= ~0x8000000000000000;
-      }
-    }
-
-    else
-    {
-      v17 = 0x7FFFFFFFFFFFFFFFLL;
-    }
-
-    v24 = v17;
-    re::MaterialParameterTable::handle((v15 + 248), &v24, &v26);
-    v29 = v26;
-    v31 = v28;
-    v30 = v27;
-    v24 = 0;
-    v21 = BYTE4(v27);
-    if ((BYTE4(v27) & 7) == 0)
-    {
-      v12 = 0;
-      if (!v15)
-      {
-        goto LABEL_34;
-      }
-
-      goto LABEL_33;
-    }
-
-    v22 = re::MaterialParameterHandle::isParameterType(&v29, 64);
-    v12 = 0;
-    if ((v21 & 0x10) != 0 && v22)
-    {
-      re::MaterialParameterTable::bindingValue((v15 + 248), &v29, &v26);
-      v12 = CFStringCreateWithCString(0, re::s_materialTableIDMappings[BYTE8(v27)], 0x8000100u);
-    }
-
-    if (v15)
-    {
-LABEL_33:
-    }
-  }
-
-  else
-  {
-    v12 = 0;
-  }
-
-LABEL_34:
-  re::AssetHandle::~AssetHandle(v32);
-  return v12;
-}
-
-CFStringRef REMaterialAssetCopyTextureBindingMemberName(uint64_t a1, char *a2)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v31);
-  v3 = re::AssetHandle::blockUntilLoaded<re::MaterialAsset>(v31);
-  if (!v3)
-  {
-    goto LABEL_25;
-  }
-
-  v4 = v3;
-  v5 = *(v3 + 1776);
-  if (a2)
-  {
-    v6 = *a2;
-    if (*a2)
-    {
-      v7 = a2[1];
-      if (v7)
-      {
-        v8 = (a2 + 2);
-        do
-        {
-          v6 = 31 * v6 + v7;
-          v9 = *v8++;
-          v7 = v9;
-        }
-
-        while (v9);
-      }
-
-      v6 &= ~0x8000000000000000;
-    }
-  }
-
-  else
-  {
-    v6 = 0x7FFFFFFFFFFFFFFFLL;
-  }
-
-  v27 = v6;
-  re::MaterialParameterTable::handle((v5 + 304), &v27, &v28);
-  v27 = 0;
-  v10 = BYTE4(v29);
-  if ((BYTE4(v29) & 7) != 0)
-  {
-    isParameterType = re::MaterialParameterHandle::isParameterType(&v28, 64);
-    if ((v10 & 0x10) != 0 && isParameterType)
-    {
-      v12 = re::HashTable<re::DynamicString,re::DynamicArray<re::SharedPtr<re::AssetDescriptorBase const>>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::tryGet<void>(v4 + 1880, a2);
-      if (v12)
-      {
-        goto LABEL_24;
-      }
-    }
-  }
-
-  v13 = *(*(v4 + 1776) + 16);
-  if (a2)
-  {
-    v14 = *a2;
-    if (*a2)
-    {
-      v15 = a2[1];
-      if (v15)
-      {
-        v16 = (a2 + 2);
-        do
-        {
-          v14 = 31 * v14 + v15;
-          v17 = *v16++;
-          v15 = v17;
-        }
-
-        while (v17);
-      }
-
-      v14 &= ~0x8000000000000000;
-    }
-  }
-
-  else
-  {
-    v14 = 0x7FFFFFFFFFFFFFFFLL;
-  }
-
-  v23 = v14;
-  re::MaterialParameterTable::handle((v13 + 248), &v23, &v24);
-  v28 = v24;
-  v29 = v25;
-  v30 = v26;
-  v23 = 0;
-  v18 = BYTE4(v25);
-  if ((BYTE4(v25) & 7) == 0)
-  {
-LABEL_25:
-    v20 = 0;
-    goto LABEL_26;
-  }
-
-  v19 = re::MaterialParameterHandle::isParameterType(&v28, 64);
-  v20 = 0;
-  if ((v18 & 0x10) != 0 && v19)
-  {
-    v21 = re::AssetHandle::blockUntilLoaded<re::MaterialDefinitionAsset>((v4 + 40));
-    v12 = re::HashTable<re::DynamicString,re::DynamicArray<re::SharedPtr<re::AssetDescriptorBase const>>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::tryGet<void>(v21 + 2328, a2);
-    if (v12)
-    {
-LABEL_24:
-      v20 = CFStringCreateWithCString(0, *(v12 + 32), 0x8000100u);
-      goto LABEL_26;
-    }
-
-    goto LABEL_25;
-  }
-
-LABEL_26:
-  re::AssetHandle::~AssetHandle(v31);
-  return v20;
-}
-
-CFStringRef REMaterialAssetCopyBufferBindingStructName(uint64_t a1, char *a2)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v31);
-  v3 = re::AssetHandle::blockUntilLoaded<re::MaterialAsset>(v31);
-  if (!v3)
-  {
-    goto LABEL_25;
-  }
-
-  v4 = v3;
-  v5 = *(v3 + 1776);
-  if (a2)
-  {
-    v6 = *a2;
-    if (*a2)
-    {
-      v7 = a2[1];
-      if (v7)
-      {
-        v8 = (a2 + 2);
-        do
-        {
-          v6 = 31 * v6 + v7;
-          v9 = *v8++;
-          v7 = v9;
-        }
-
-        while (v9);
-      }
-
-      v6 &= ~0x8000000000000000;
-    }
-  }
-
-  else
-  {
-    v6 = 0x7FFFFFFFFFFFFFFFLL;
-  }
-
-  v27 = v6;
-  re::MaterialParameterTable::handle((v5 + 304), &v27, &v28);
-  v27 = 0;
-  v10 = BYTE4(v29);
-  if ((BYTE4(v29) & 7) != 0)
-  {
-    isParameterType = re::MaterialParameterHandle::isParameterType(&v28, 128);
-    if ((v10 & 0x10) != 0 && isParameterType)
-    {
-      v12 = re::HashTable<re::DynamicString,re::DynamicArray<re::SharedPtr<re::AssetDescriptorBase const>>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::tryGet<void>(v4 + 1880, a2);
-      if (v12)
-      {
-        goto LABEL_24;
-      }
-    }
-  }
-
-  v13 = *(*(v4 + 1776) + 16);
-  if (a2)
-  {
-    v14 = *a2;
-    if (*a2)
-    {
-      v15 = a2[1];
-      if (v15)
-      {
-        v16 = (a2 + 2);
-        do
-        {
-          v14 = 31 * v14 + v15;
-          v17 = *v16++;
-          v15 = v17;
-        }
-
-        while (v17);
-      }
-
-      v14 &= ~0x8000000000000000;
-    }
-  }
-
-  else
-  {
-    v14 = 0x7FFFFFFFFFFFFFFFLL;
-  }
-
-  v23 = v14;
-  re::MaterialParameterTable::handle((v13 + 248), &v23, &v24);
-  v28 = v24;
-  v29 = v25;
-  v30 = v26;
-  v23 = 0;
-  v18 = BYTE4(v25);
-  if ((BYTE4(v25) & 7) == 0)
-  {
-LABEL_25:
-    v20 = 0;
-    goto LABEL_26;
-  }
-
-  v19 = re::MaterialParameterHandle::isParameterType(&v28, 128);
-  v20 = 0;
-  if ((v18 & 0x10) != 0 && v19)
-  {
-    v21 = re::AssetHandle::blockUntilLoaded<re::MaterialDefinitionAsset>((v4 + 40));
-    v12 = re::HashTable<re::DynamicString,re::DynamicArray<re::SharedPtr<re::AssetDescriptorBase const>>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::tryGet<void>(v21 + 2328, a2);
-    if (v12)
-    {
-LABEL_24:
-      v20 = CFStringCreateWithCString(0, re::s_materialTableIDMappings[*(v12 + 16)], 0x8000100u);
-      goto LABEL_26;
-    }
-
-    goto LABEL_25;
-  }
-
-LABEL_26:
-  re::AssetHandle::~AssetHandle(v31);
-  return v20;
-}
-
-CFStringRef REMaterialAssetCopyBufferBindingMemberName(uint64_t a1, char *a2)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v31);
-  v3 = re::AssetHandle::blockUntilLoaded<re::MaterialAsset>(v31);
-  if (!v3)
-  {
-    goto LABEL_25;
-  }
-
-  v4 = v3;
-  v5 = *(v3 + 1776);
-  if (a2)
-  {
-    v6 = *a2;
-    if (*a2)
-    {
-      v7 = a2[1];
-      if (v7)
-      {
-        v8 = (a2 + 2);
-        do
-        {
-          v6 = 31 * v6 + v7;
-          v9 = *v8++;
-          v7 = v9;
-        }
-
-        while (v9);
-      }
-
-      v6 &= ~0x8000000000000000;
-    }
-  }
-
-  else
-  {
-    v6 = 0x7FFFFFFFFFFFFFFFLL;
-  }
-
-  v27 = v6;
-  re::MaterialParameterTable::handle((v5 + 304), &v27, &v28);
-  v27 = 0;
-  v10 = BYTE4(v29);
-  if ((BYTE4(v29) & 7) != 0)
-  {
-    isParameterType = re::MaterialParameterHandle::isParameterType(&v28, 128);
-    if ((v10 & 0x10) != 0 && isParameterType)
-    {
-      v12 = re::HashTable<re::DynamicString,re::DynamicArray<re::SharedPtr<re::AssetDescriptorBase const>>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::tryGet<void>(v4 + 1880, a2);
-      if (v12)
-      {
-        goto LABEL_24;
-      }
-    }
-  }
-
-  v13 = *(*(v4 + 1776) + 16);
-  if (a2)
-  {
-    v14 = *a2;
-    if (*a2)
-    {
-      v15 = a2[1];
-      if (v15)
-      {
-        v16 = (a2 + 2);
-        do
-        {
-          v14 = 31 * v14 + v15;
-          v17 = *v16++;
-          v15 = v17;
-        }
-
-        while (v17);
-      }
-
-      v14 &= ~0x8000000000000000;
-    }
-  }
-
-  else
-  {
-    v14 = 0x7FFFFFFFFFFFFFFFLL;
-  }
-
-  v23 = v14;
-  re::MaterialParameterTable::handle((v13 + 248), &v23, &v24);
-  v28 = v24;
-  v29 = v25;
-  v30 = v26;
-  v23 = 0;
-  v18 = BYTE4(v25);
-  if ((BYTE4(v25) & 7) == 0)
-  {
-LABEL_25:
-    v20 = 0;
-    goto LABEL_26;
-  }
-
-  v19 = re::MaterialParameterHandle::isParameterType(&v28, 128);
-  v20 = 0;
-  if ((v18 & 0x10) != 0 && v19)
-  {
-    v21 = re::AssetHandle::blockUntilLoaded<re::MaterialDefinitionAsset>((v4 + 40));
-    v12 = re::HashTable<re::DynamicString,re::DynamicArray<re::SharedPtr<re::AssetDescriptorBase const>>,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::tryGet<void>(v21 + 2328, a2);
-    if (v12)
-    {
-LABEL_24:
-      v20 = CFStringCreateWithCString(0, *(v12 + 32), 0x8000100u);
-      goto LABEL_26;
-    }
-
-    goto LABEL_25;
-  }
-
-LABEL_26:
-  re::AssetHandle::~AssetHandle(v31);
-  return v20;
-}
-
-id REMaterialCreateDefaultSamplerDescriptor()
-{
-  v3 = 1;
-  v6 = 0;
-  v9 = 0u;
-  v4 = 0x200000002;
-  v5 = 2;
-  v7 = 0x100000001;
-  v8 = 2;
-  DWORD2(v9) = 2139095040;
-  v10 = 1;
-  re::MaterialSamplerData::makeDescriptor(&v3, &v11);
-  v0 = v11;
-  v1 = v0;
-  if (v0)
-  {
-  }
-
-  return v1;
-}
-
-BOOL REMaterialAssetTechniqueHasVariation(uint64_t a1, unint64_t a2, const char *a3, uint64_t a4)
-{
-  v36 = *MEMORY[0x1E69E9840];
-  re::AssetAPIHelper::assetHandleCreate(a1, v26);
-  v7 = re::AssetHandle::blockUntilLoaded<re::MaterialAsset>(v26);
-  if (!v7)
-  {
-    goto LABEL_24;
-  }
-
-  v8 = *(v7 + 1776);
-  if (!*(v8 + 24))
-  {
-    goto LABEL_24;
-  }
-
-  v9 = *(*(v8 + 32) + 4 * (a2 % *(v8 + 48)));
-  if (v9 == 0x7FFFFFFF)
-  {
-    goto LABEL_24;
-  }
-
-  v10 = *(v8 + 40);
-  while (*(v10 + 48 * v9 + 8) != a2)
-  {
-    v9 = *(v10 + 48 * v9) & 0x7FFFFFFF;
-    if (v9 == 0x7FFFFFFF)
-    {
+      tessellateTriangleRecursive(a1, a2, a3, &v40);
+      tessellateTriangleRecursive(a1, a2, &v40, &v39);
+      v32 = &v39;
+      v33 = &v40;
+      v31 = a1;
       goto LABEL_24;
     }
+
+    if (v19 == 4)
+    {
+      tessellateTriangleRecursive(a1, a2, a3, &v39);
+      v30 = &v39;
+      v31 = a1;
+      v32 = a3;
+      v33 = a4;
+      return tessellateTriangleRecursive(v31, v32, v33, v30);
+    }
+
+    tessellateTriangleRecursive(a1, a2, &v41, &v39);
+    tessellateTriangleRecursive(a1, &v41, a3, &v39);
+    v32 = &v39;
+LABEL_23:
+    v31 = a1;
+    v33 = a3;
+LABEL_24:
+    v30 = a4;
+    return tessellateTriangleRecursive(v31, v32, v33, v30);
   }
 
-  v11 = v10 + 48 * v9;
-  v12 = *(v11 + 24);
-  if (v12)
+  if (v19 > 1)
   {
-    v13 = *(v11 + 32);
-    v14 = &v13[v12];
-    while (1)
+    if (v19 != 2)
     {
-      v15 = *v13;
-      v16 = *(v8 + 80);
-      if (v16 <= v15)
-      {
-        v26[3] = 0;
-        memset(v35, 0, sizeof(v35));
-        v25 = v16;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v27 = 136315906;
-        v28 = "operator[]";
-        v29 = 1024;
-        v30 = 476;
-        v31 = 2048;
-        v32 = v15;
-        v33 = 2048;
-        v34 = v25;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-      }
+      tessellateTriangleRecursive(a1, a2, &v41, &v40);
+      tessellateTriangleRecursive(a1, a2, &v40, a4);
+      v32 = &v41;
+      v30 = &v40;
+      v31 = a1;
+      v33 = a3;
+      return tessellateTriangleRecursive(v31, v32, v33, v30);
+    }
 
-      v17 = *(*(v8 + 88) + 40 * v15);
-      if (*(v17 + 40) == 1)
+    tessellateTriangleRecursive(a1, a2, a3, &v40);
+    v33 = &v40;
+    v31 = a1;
+    v32 = a2;
+    goto LABEL_24;
+  }
+
+  if (v19)
+  {
+    tessellateTriangleRecursive(a1, a2, &v41, a4);
+    v32 = &v41;
+    goto LABEL_23;
+  }
+
+  v21 = *(a1 + 8);
+  v22 = *(v21 + 8);
+  v23 = *(v21 + 12) & 0x7FFFFFFF;
+  v24 = v22 + 1;
+  v25 = v22 + 2;
+  if (v22 + 2 > v23)
+  {
+    v26 = 2 * *(v21 + 12);
+    if (!v23)
+    {
+      v26 = 2;
+    }
+
+    if (v25 <= v26)
+    {
+      v27 = v26;
+    }
+
+    else
+    {
+      v27 = v25;
+    }
+
+    v37 = v12;
+    v38 = v10;
+    v35 = v14;
+    v36 = v9;
+    v34 = v11;
+    physx::shdfnd::Array<physx::PxTriangle,physx::shdfnd::ReflectionAllocator<physx::PxTriangle>>::recreate(*(a1 + 8), v27);
+    v11 = v34;
+    v14 = v35;
+    v9 = v36;
+    *&v12 = v37;
+    *&v10 = v38;
+    v22 = *(v21 + 8);
+  }
+
+  v28 = *v21 + 36 * v22;
+  *(v21 + 8) = v24;
+  *(&v10 + 1) = __PAIR64__(v9, LODWORD(v11));
+  *(&v12 + 1) = v14;
+  *v28 = v10;
+  *(v28 + 16) = v12;
+  *(v28 + 32) = v16;
+  result = *(a1 + 16);
+  v29 = *(result + 8);
+  if ((*(result + 12) & 0x7FFFFFFFu) <= v29)
+  {
+    result = physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>>::growAndPushBack(result, (a1 + 4));
+  }
+
+  else
+  {
+    *(*result + 4 * v29) = *(a1 + 4);
+    ++*(result + 8);
+  }
+
+  ++*a1;
+  return result;
+}
+
+uint64_t physx::shdfnd::Array<physx::PxTriangle,physx::shdfnd::ReflectionAllocator<physx::PxTriangle>>::recreate(uint64_t *a1, uint64_t a2)
+{
+  v2 = a2;
+  v4 = 36 * a2;
+  v5 = physx::shdfnd::Foundation::mInstance;
+  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance, a2))
+  {
+    v6 = "static const char *physx::shdfnd::ReflectionAllocator<physx::PxTriangle>::getName() [T = physx::PxTriangle]";
+  }
+
+  else
+  {
+    v6 = "<allocation names disabled>";
+  }
+
+  result = (*(*(v5 + 24) + 16))(v5 + 24, v4, v6, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
+  v8 = result;
+  v9 = *(a1 + 2);
+  v10 = *a1;
+  if (v9)
+  {
+    v11 = result + 36 * v9;
+    v12 = *a1;
+    v13 = result;
+    do
+    {
+      *v13 = *v12;
+      *(v13 + 8) = *(v12 + 8);
+      *(v13 + 16) = *(v12 + 16);
+      *(v13 + 24) = *(v12 + 24);
+      *(v13 + 32) = *(v12 + 32);
+      v13 += 36;
+      v12 += 36;
+    }
+
+    while (v13 < v11);
+  }
+
+  if ((*(a1 + 3) & 0x80000000) == 0 && v10)
+  {
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  *a1 = v8;
+  *(a1 + 3) = v2;
+  return result;
+}
+
+uint64_t createInvisibleWalls(float *a1, float *a2, uint64_t a3, uint64_t a4)
+{
+  v14 = a1[11];
+  if (v14 == 0.0)
+  {
+    return 0;
+  }
+
+  v118 = v13;
+  v119 = v12;
+  v120 = v11;
+  v121 = v10;
+  v122 = v9;
+  v123 = v8;
+  v124 = v7;
+  v125 = v6;
+  v126 = v4;
+  v127 = v5;
+  v20 = *a2;
+  v19 = a2[1];
+  v21 = a2[2];
+  v22 = a2[3];
+  v23 = v22 - *a2;
+  v24 = a2[4];
+  v25 = a2[5];
+  v26 = a2[7];
+  v27 = a2[6] - *a2;
+  v28 = a2[8];
+  v29 = ((v24 - v19) * (v28 - v21)) - ((v25 - v21) * (v26 - v19));
+  v30 = ((v25 - v21) * v27) - (v23 * (v28 - v21));
+  v31 = (v23 * (v26 - v19)) - ((v24 - v19) * v27);
+  v32 = sqrtf(((v30 * v30) + (v29 * v29)) + (v31 * v31));
+  if (v32 > 0.0)
+  {
+    v33 = 1.0 / v32;
+    v29 = v29 * v33;
+    v30 = v30 * v33;
+    v31 = v31 * v33;
+  }
+
+  v34 = a1[5];
+  v35 = a1[6];
+  v36 = (v30 * v35) + (v29 * v34);
+  v37 = a1[7];
+  v38 = v36 + (v31 * v37);
+  if (v38 < 0.0 || v38 >= a1[8])
+  {
+    return 0;
+  }
+
+  v40 = v14 * v34;
+  v41 = v14 * v35;
+  v42 = v14 * v37;
+  v114 = v20 + (v14 * v34);
+  v115 = v21 + (v14 * v37);
+  v116 = v19 + (v14 * v35);
+  v43 = *(a3 + 8);
+  v44 = *(a3 + 12) & 0x7FFFFFFF;
+  v45 = v43 + 1;
+  v46 = v43 + 2;
+  v111 = a2[6];
+  v109 = a2[7];
+  v107 = a2[8];
+  if (v43 + 2 <= v44)
+  {
+    v50 = *(a3 + 8);
+  }
+
+  else
+  {
+    if (v44)
+    {
+      v47 = 2 * *(a3 + 12);
+    }
+
+    else
+    {
+      v47 = 2;
+    }
+
+    if (v46 <= v47)
+    {
+      v48 = v47;
+    }
+
+    else
+    {
+      v48 = v46;
+    }
+
+    v106 = v14 * v35;
+    v49 = v14 * v37;
+    physx::shdfnd::Array<physx::PxTriangle,physx::shdfnd::ReflectionAllocator<physx::PxTriangle>>::recreate(a3, v48);
+    v42 = v49;
+    v41 = v106;
+    v50 = *(a3 + 8);
+    v44 = *(a3 + 12) & 0x7FFFFFFF;
+  }
+
+  v51 = v22 + v40;
+  v52 = v25 + v42;
+  v53 = v24 + v41;
+  v54 = *a3;
+  *(a3 + 8) = v45;
+  v55 = (v54 + 36 * v50);
+  *v55 = v20;
+  v55[1] = v19;
+  v55[2] = v21;
+  v55[3] = v22;
+  v55[4] = v24;
+  v55[5] = v25;
+  v55[6] = v114;
+  v55[7] = v116;
+  v55[8] = v115;
+  v56 = *(a2 + 3);
+  v57 = *(a2 + 5);
+  v58 = v43 + 3;
+  if (v43 + 3 > v44)
+  {
+    if (v44)
+    {
+      v59 = 2 * v44;
+    }
+
+    else
+    {
+      v59 = 2;
+    }
+
+    if (v58 <= v59)
+    {
+      v60 = v59;
+    }
+
+    else
+    {
+      v60 = v58;
+    }
+
+    v61 = v52;
+    v62 = v22 + v40;
+    v63 = v53;
+    v64 = v42;
+    physx::shdfnd::Array<physx::PxTriangle,physx::shdfnd::ReflectionAllocator<physx::PxTriangle>>::recreate(a3, v60);
+    v42 = v64;
+    v53 = v63;
+    v51 = v62;
+    v52 = v61;
+    v54 = *a3;
+    v45 = *(a3 + 8);
+    v44 = *(a3 + 12) & 0x7FFFFFFF;
+  }
+
+  v65 = v109 + v41;
+  v66 = v111 + v40;
+  v67 = v107 + v42;
+  *(a3 + 8) = v46;
+  v68 = v54 + 36 * v45;
+  v70 = v114;
+  v69 = v115;
+  *v68 = v114;
+  *(v68 + 4) = v116;
+  *(v68 + 8) = v115;
+  *(v68 + 12) = v56;
+  *(v68 + 20) = v57;
+  *(v68 + 24) = v51;
+  *(v68 + 28) = v53;
+  *(v68 + 32) = v52;
+  v71 = *(a2 + 3);
+  v72 = *(a2 + 5);
+  v73 = v43 + 4;
+  if (v43 + 4 > v44)
+  {
+    if (v44)
+    {
+      v74 = 2 * v44;
+    }
+
+    else
+    {
+      v74 = 2;
+    }
+
+    if (v73 <= v74)
+    {
+      v75 = v74;
+    }
+
+    else
+    {
+      v75 = v73;
+    }
+
+    v76 = v66;
+    v77 = v107 + v42;
+    v78 = v65;
+    v79 = v52;
+    v80 = v51;
+    v81 = v53;
+    v82 = *(a2 + 5);
+    physx::shdfnd::Array<physx::PxTriangle,physx::shdfnd::ReflectionAllocator<physx::PxTriangle>>::recreate(a3, v75);
+    v72 = v82;
+    v53 = v81;
+    v51 = v80;
+    v52 = v79;
+    v65 = v78;
+    v67 = v77;
+    v66 = v76;
+    v70 = v114;
+    v69 = v115;
+    v54 = *a3;
+    v46 = *(a3 + 8);
+    v44 = *(a3 + 12) & 0x7FFFFFFF;
+  }
+
+  *(a3 + 8) = v58;
+  v83 = v54 + 36 * v46;
+  *v83 = v51;
+  *(v83 + 4) = v53;
+  *(v83 + 8) = v52;
+  *(v83 + 12) = v71;
+  *(v83 + 20) = v72;
+  *(v83 + 24) = v66;
+  *(v83 + 28) = v65;
+  *(v83 + 32) = v67;
+  v84 = *(a2 + 3);
+  v85 = *(a2 + 7);
+  v86 = v43 + 5;
+  if (v43 + 5 > v44)
+  {
+    if (v44)
+    {
+      v87 = 2 * v44;
+    }
+
+    else
+    {
+      v87 = 2;
+    }
+
+    if (v86 <= v87)
+    {
+      v88 = v87;
+    }
+
+    else
+    {
+      v88 = v86;
+    }
+
+    v112 = *(a2 + 3);
+    physx::shdfnd::Array<physx::PxTriangle,physx::shdfnd::ReflectionAllocator<physx::PxTriangle>>::recreate(a3, v88);
+    v84 = v112;
+    v54 = *a3;
+    v58 = *(a3 + 8);
+    v44 = *(a3 + 12) & 0x7FFFFFFF;
+  }
+
+  v89 = v54 + 36 * v58;
+  *(a3 + 8) = v73;
+  *v89 = v66;
+  *(v89 + 4) = v65;
+  *(v89 + 8) = v67;
+  *(v89 + 12) = v84;
+  *(v89 + 28) = v85;
+  *&v90 = *(a2 + 3);
+  v91 = *(a2 + 8);
+  v92 = *a2;
+  v93 = *(a2 + 1);
+  v94 = v43 + 6;
+  if (v43 + 6 > v44)
+  {
+    if (v44)
+    {
+      v95 = 2 * v44;
+    }
+
+    else
+    {
+      v95 = 2;
+    }
+
+    if (v94 <= v95)
+    {
+      v96 = v95;
+    }
+
+    else
+    {
+      v96 = v94;
+    }
+
+    v110 = *a2;
+    v113 = *(a2 + 3);
+    v108 = *(a2 + 8);
+    physx::shdfnd::Array<physx::PxTriangle,physx::shdfnd::ReflectionAllocator<physx::PxTriangle>>::recreate(a3, v96);
+    v91 = v108;
+    v92 = v110;
+    *&v90 = v113;
+    v54 = *a3;
+    v73 = *(a3 + 8);
+    v44 = *(a3 + 12) & 0x7FFFFFFF;
+  }
+
+  v97 = v54 + 36 * v73;
+  *(a3 + 8) = v86;
+  *v97 = v70;
+  *(v97 + 4) = v116;
+  *(v97 + 8) = v69;
+  *(&v90 + 1) = __PAIR64__(v92, v91);
+  *(v97 + 12) = v90;
+  *(v97 + 28) = v93;
+  v98 = *(a2 + 3);
+  v99 = *(a2 + 8);
+  v100 = v43 + 7;
+  if (v43 + 7 > v44)
+  {
+    if (v44)
+    {
+      v101 = 2 * v44;
+    }
+
+    else
+    {
+      v101 = 2;
+    }
+
+    if (v100 <= v101)
+    {
+      v102 = v101;
+    }
+
+    else
+    {
+      v102 = v100;
+    }
+
+    physx::shdfnd::Array<physx::PxTriangle,physx::shdfnd::ReflectionAllocator<physx::PxTriangle>>::recreate(a3, v102);
+    v54 = *a3;
+    v86 = *(a3 + 8);
+  }
+
+  *(a3 + 8) = v94;
+  v103 = v54 + 36 * v86;
+  *v103 = v70;
+  *(v103 + 4) = v116;
+  *(v103 + 8) = v69;
+  *(v103 + 12) = v66;
+  *(v103 + 16) = v65;
+  *(v103 + 20) = v67;
+  *(v103 + 24) = v98;
+  *(v103 + 32) = v99;
+  v117 = -1;
+  v104 = 6;
+  do
+  {
+    v105 = *(a4 + 8);
+    if ((*(a4 + 12) & 0x7FFFFFFFu) <= v105)
+    {
+      physx::shdfnd::Array<unsigned int,physx::shdfnd::ReflectionAllocator<unsigned int>>::growAndPushBack(a4, &v117);
+    }
+
+    else
+    {
+      *(*a4 + 4 * v105) = v117;
+      ++*(a4 + 8);
+    }
+
+    --v104;
+  }
+
+  while (v104);
+  return 6;
+}
+
+float *fixDir(float *result, float *a2, float *a3)
+{
+  v3 = a2[1];
+  v4 = a3[1];
+  v5 = a2[2];
+  v6 = a3[2];
+  v7 = ((v3 * v4) + (*a2 * *a3)) + (v5 * v6);
+  v8 = *a2 - (*a3 * v7);
+  v9 = v3 - (v4 * v7);
+  v10 = v5 - (v6 * v7);
+  v11 = ((v9 * v9) + (v8 * v8)) + (v10 * v10);
+  v12 = 0.0;
+  v13 = 0.0;
+  v14 = 0.0;
+  if (v11 > 0.0)
+  {
+    v15 = 1.0 / sqrtf(v11);
+    v12 = v8 * v15;
+    v13 = v9 * v15;
+    v14 = v10 * v15;
+  }
+
+  *result = v12;
+  result[1] = v13;
+  result[2] = v14;
+  return result;
+}
+
+uint64_t physx::shdfnd::Array<physx::PxExtendedBox,physx::shdfnd::ReflectionAllocator<physx::PxExtendedBox>>::growAndPushBack(uint64_t result, __int128 *a2)
+{
+  v3 = result;
+  v4 = *(result + 12);
+  if ((v4 & 0x7FFFFFFF) != 0)
+  {
+    v5 = 2 * v4;
+  }
+
+  else
+  {
+    v5 = 1;
+  }
+
+  if (v5)
+  {
+    v6 = physx::shdfnd::Foundation::mInstance;
+    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
+    {
+      v7 = "static const char *physx::shdfnd::ReflectionAllocator<physx::PxExtendedBox>::getName() [T = physx::PxExtendedBox]";
+    }
+
+    else
+    {
+      v7 = "<allocation names disabled>";
+    }
+
+    result = (*(*(v6 + 24) + 16))(v6 + 24, 56 * v5, v7, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
+    v8 = result;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  v9 = *(v3 + 8);
+  if (v9)
+  {
+    v10 = v8 + 56 * v9;
+    v11 = *v3;
+    v12 = v8;
+    do
+    {
+      v13 = *v11;
+      *(v12 + 16) = *(v11 + 2);
+      *v12 = v13;
+      *(v12 + 24) = *(v11 + 24);
+      *(v12 + 40) = *(v11 + 5);
+      *(v12 + 48) = *(v11 + 12);
+      v12 += 56;
+      v11 = (v11 + 56);
+    }
+
+    while (v12 < v10);
+    v14 = *(v3 + 8);
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  v15 = v8 + 56 * v14;
+  v16 = *a2;
+  *(v15 + 16) = *(a2 + 2);
+  *v15 = v16;
+  *(v15 + 24) = *(a2 + 24);
+  *(v15 + 40) = *(a2 + 5);
+  *(v15 + 48) = *(a2 + 12);
+  if ((*(v3 + 12) & 0x80000000) == 0 && *v3)
+  {
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  *v3 = v8;
+  ++*(v3 + 8);
+  *(v3 + 12) = v5;
+  return result;
+}
+
+uint64_t physx::shdfnd::Array<void const*,physx::shdfnd::ReflectionAllocator<void const*>>::growAndPushBack(uint64_t result, void *a2)
+{
+  v3 = result;
+  v4 = *(result + 12);
+  if ((v4 & 0x7FFFFFFF) != 0)
+  {
+    v5 = 2 * v4;
+  }
+
+  else
+  {
+    v5 = 1;
+  }
+
+  if (v5)
+  {
+    v6 = physx::shdfnd::Foundation::mInstance;
+    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
+    {
+      v7 = "static const char *physx::shdfnd::ReflectionAllocator<const void *>::getName() [T = const void *]";
+    }
+
+    else
+    {
+      v7 = "<allocation names disabled>";
+    }
+
+    result = (*(*(v6 + 24) + 16))(v6 + 24, 8 * v5, v7, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
+    v8 = result;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  v9 = *(v3 + 8);
+  v10 = (v8 + 8 * v9);
+  if (v9)
+  {
+    v11 = *v3;
+    v12 = v8;
+    do
+    {
+      v13 = *v11++;
+      *v12++ = v13;
+    }
+
+    while (v12 < v10);
+  }
+
+  *v10 = *a2;
+  if ((*(v3 + 12) & 0x80000000) == 0 && *v3)
+  {
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+    LODWORD(v9) = *(v3 + 8);
+  }
+
+  *v3 = v8;
+  *(v3 + 8) = v9 + 1;
+  *(v3 + 12) = v5;
+  return result;
+}
+
+uint64_t physx::shdfnd::Array<physx::PxExtendedCapsule,physx::shdfnd::ReflectionAllocator<physx::PxExtendedCapsule>>::growAndPushBack(uint64_t result, __int128 *a2)
+{
+  v3 = result;
+  v4 = *(result + 12);
+  if ((v4 & 0x7FFFFFFF) != 0)
+  {
+    v5 = 2 * v4;
+  }
+
+  else
+  {
+    v5 = 1;
+  }
+
+  if (v5)
+  {
+    v6 = physx::shdfnd::Foundation::mInstance;
+    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
+    {
+      v7 = "static const char *physx::shdfnd::ReflectionAllocator<physx::PxExtendedCapsule>::getName() [T = physx::PxExtendedCapsule]";
+    }
+
+    else
+    {
+      v7 = "<allocation names disabled>";
+    }
+
+    result = (*(*(v6 + 24) + 16))(v6 + 24, 56 * v5, v7, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
+    v8 = result;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  v9 = *(v3 + 8);
+  if (v9)
+  {
+    v10 = v8 + 56 * v9;
+    v11 = *v3;
+    v12 = v8;
+    do
+    {
+      v13 = *v11;
+      v14 = v11[1];
+      v15 = v11[2];
+      *(v12 + 48) = *(v11 + 6);
+      *(v12 + 16) = v14;
+      *(v12 + 32) = v15;
+      *v12 = v13;
+      v12 += 56;
+      v11 = (v11 + 56);
+    }
+
+    while (v12 < v10);
+    v16 = *(v3 + 8);
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  v17 = v8 + 56 * v16;
+  v18 = *a2;
+  v19 = a2[1];
+  v20 = a2[2];
+  *(v17 + 48) = *(a2 + 6);
+  *(v17 + 16) = v19;
+  *(v17 + 32) = v20;
+  *v17 = v18;
+  if ((*(v3 + 12) & 0x80000000) == 0 && *v3)
+  {
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  *v3 = v8;
+  ++*(v3 + 8);
+  *(v3 + 12) = v5;
+  return result;
+}
+
+void *physx::shdfnd::internal::HashBase<physx::shdfnd::Pair<physx::PxBase const* const,physx::Cct::ObservedRefCounter>,physx::PxBase const*,physx::shdfnd::Hash<physx::PxBase const*>,physx::shdfnd::internal::HashMapBase<physx::PxBase const*,physx::Cct::ObservedRefCounter,physx::shdfnd::Hash<physx::PxBase const*>,physx::shdfnd::NonTrackingAllocator>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::reserveInternal(uint64_t a1, unsigned int a2)
+{
+  v2 = a2;
+  if ((a2 ^ (a2 - 1)) <= a2 - 1)
+  {
+    v4 = a2 | (a2 >> 1) | ((a2 | (a2 >> 1)) >> 2);
+    v5 = v4 | (v4 >> 4) | ((v4 | (v4 >> 4)) >> 8);
+    v2 = (v5 | HIWORD(v5)) + 1;
+  }
+
+  v6 = *(a1 + 32);
+  v7 = (*(a1 + 40) * v2);
+  v8 = ((-4 * (v2 + v7)) & 0xC) + 4 * (v2 + v7);
+  if (v8 + 16 * v7)
+  {
+    v9 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, v8 + 16 * v7, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsHashInternals.h", 372);
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  v10 = &v9[4 * v2];
+  result = memset(v9, 255, 4 * v2);
+  if (*(a1 + 52))
+  {
+    v12 = 0;
+    v13 = &v9[v8 + 8];
+    v14 = (*(a1 + 8) + 8);
+    do
+    {
+      v15 = *(v14 - 1);
+      v16 = (~(v15 << 32) + v15) ^ ((~(v15 << 32) + v15) >> 22);
+      v17 = 9 * ((v16 + ~(v16 << 13)) ^ ((v16 + ~(v16 << 13)) >> 8));
+      v18 = (v17 ^ (v17 >> 15)) + ~((v17 ^ (v17 >> 15)) << 27);
+      LODWORD(v18) = (v2 - 1) & ((v18 >> 31) ^ v18);
+      *&v10[4 * v12] = *&v9[4 * v18];
+      *&v9[4 * v18] = v12;
+      *(v13 - 1) = v15;
+      v19 = *v14;
+      v14 += 4;
+      *v13 = v19;
+      v13 += 16;
+      ++v12;
+    }
+
+    while (v12 < *(a1 + 52));
+  }
+
+  if (*a1)
+  {
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  *(a1 + 16) = v10;
+  *(a1 + 24) = v9;
+  *a1 = v9;
+  *(a1 + 8) = &v9[v8];
+  *(a1 + 32) = v7;
+  *(a1 + 36) = v2;
+  if (*(a1 + 44) == -1)
+  {
+    *(a1 + 44) = v6;
+  }
+
+  return result;
+}
+
+uint64_t physx::shdfnd::Array<physx::Cct::Controller *,physx::shdfnd::ReflectionAllocator<physx::Cct::Controller *>>::growAndPushBack(uint64_t result, void *a2)
+{
+  v3 = result;
+  v4 = *(result + 12);
+  if ((v4 & 0x7FFFFFFF) != 0)
+  {
+    v5 = 2 * v4;
+  }
+
+  else
+  {
+    v5 = 1;
+  }
+
+  if (v5)
+  {
+    v6 = physx::shdfnd::Foundation::mInstance;
+    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
+    {
+      v7 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Cct::Controller *>::getName() [T = physx::Cct::Controller *]";
+    }
+
+    else
+    {
+      v7 = "<allocation names disabled>";
+    }
+
+    result = (*(*(v6 + 24) + 16))(v6 + 24, 8 * v5, v7, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
+    v8 = result;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  v9 = *(v3 + 8);
+  v10 = (v8 + 8 * v9);
+  if (v9)
+  {
+    v11 = *v3;
+    v12 = v8;
+    do
+    {
+      v13 = *v11++;
+      *v12++ = v13;
+    }
+
+    while (v12 < v10);
+  }
+
+  *v10 = *a2;
+  if ((*(v3 + 12) & 0x80000000) == 0 && *v3)
+  {
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+    LODWORD(v9) = *(v3 + 8);
+  }
+
+  *v3 = v8;
+  *(v3 + 8) = v9 + 1;
+  *(v3 + 12) = v5;
+  return result;
+}
+
+uint64_t physx::shdfnd::internal::HashBase<physx::shdfnd::Pair<physx::PxBase const* const,physx::Cct::ObservedRefCounter>,physx::PxBase const*,physx::shdfnd::Hash<physx::PxBase const*>,physx::shdfnd::internal::HashMapBase<physx::PxBase const*,physx::Cct::ObservedRefCounter,physx::shdfnd::Hash<physx::PxBase const*>,physx::shdfnd::NonTrackingAllocator>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::create(int32x2_t *a1, void *a2, _BYTE *a3)
+{
+  v5 = a1[4].u32[1];
+  if (!v5)
+  {
+    v9 = 0;
+    goto LABEL_8;
+  }
+
+  v6 = ~(*a2 << 32) + *a2;
+  v7 = 9 * (((v6 ^ (v6 >> 22)) + ~((v6 ^ (v6 >> 22)) << 13)) ^ (((v6 ^ (v6 >> 22)) + ~((v6 ^ (v6 >> 22)) << 13)) >> 8));
+  v8 = (v7 ^ (v7 >> 15)) + ~((v7 ^ (v7 >> 15)) << 27);
+  v9 = (v5 - 1) & ((v8 >> 31) ^ v8);
+  v10 = *(*&a1[3] + 4 * v9);
+  if (v10 == -1)
+  {
+LABEL_8:
+    *a3 = 0;
+    if (a1[6].i32[1] == a1[4].i32[0])
+    {
+      if (v5)
       {
-        v18 = v17 + 48;
+        v12 = 2 * v5;
       }
 
       else
       {
-        v18 = *v17 + 8;
+        v12 = 16;
       }
 
-      re::FixedArray<re::FunctionConstantsEnumerator::PermutationLayer>::FixedArray(v35, v18);
-      *(&v35[1] + 8) = *(v18 + 24);
-      if (re::FunctionConstantsEnumerator::hasMatchingValueInLayer(v35, a3, a4))
+      if (v5 < v12)
       {
-        v23 = 1;
-        goto LABEL_27;
+        physx::shdfnd::internal::HashBase<physx::shdfnd::Pair<physx::PxBase const* const,physx::Cct::ObservedRefCounter>,physx::PxBase const*,physx::shdfnd::Hash<physx::PxBase const*>,physx::shdfnd::internal::HashMapBase<physx::PxBase const*,physx::Cct::ObservedRefCounter,physx::shdfnd::Hash<physx::PxBase const*>,physx::shdfnd::NonTrackingAllocator>::GetKey,physx::shdfnd::NonTrackingAllocator,true>::reserveInternal(a1, v12);
+        v5 = a1[4].u32[1];
       }
 
-      v19 = *(v17 + 24);
-      if (v19)
-      {
-        break;
-      }
-
-LABEL_22:
-      re::FixedArray<re::FunctionConstantsEnumerator::PermutationLayer>::deinit(v35);
-      v23 = 0;
-      if (++v13 == v14)
-      {
-        goto LABEL_25;
-      }
+      v13 = ~(*a2 << 32) + *a2;
+      v14 = 9 * (((v13 ^ (v13 >> 22)) + ~((v13 ^ (v13 >> 22)) << 13)) ^ (((v13 ^ (v13 >> 22)) + ~((v13 ^ (v13 >> 22)) << 13)) >> 8));
+      v15 = (v14 ^ (v14 >> 15)) + ~((v14 ^ (v14 >> 15)) << 27);
+      v9 = (v5 - 1) & ((v15 >> 31) ^ v15);
     }
 
-    v20 = (*(v17 + 32) + 36);
-    v21 = 104 * v19;
-    while (1)
+    v16 = a1[5].u32[1];
+    a1[5].i32[1] = v16 + 1;
+    v17 = a1[3];
+    v18 = a1[1];
+    *(*&a1[2] + 4 * v16) = *(*&v17 + 4 * v9);
+    *(*&v17 + 4 * v9) = v16;
+    a1[6] = vadd_s32(a1[6], 0x100000001);
+    return *&v18 + 16 * v16;
+  }
+
+  v11 = a1[1];
+  while (*(*&v11 + 16 * v10) != *a2)
+  {
+    v10 = *(*&a1[2] + 4 * v10);
+    if (v10 == -1)
     {
-      v22 = (*(v20 - 28) & 1) != 0 ? *(v20 - 20) : v20 - 27;
-      if (!strcmp(v22, a3))
-      {
-        break;
-      }
-
-      v20 += 13;
-      v21 -= 104;
-      if (!v21)
-      {
-        goto LABEL_22;
-      }
+      goto LABEL_8;
     }
+  }
 
-    v23 = *v20 == a4;
-LABEL_27:
-    re::FixedArray<re::FunctionConstantsEnumerator::PermutationLayer>::deinit(v35);
+  result = *&v11 + 16 * v10;
+  *a3 = 1;
+  return result;
+}
+
+uint64_t physx::shdfnd::Array<physx::Cct::ObstacleContext *,physx::shdfnd::ReflectionAllocator<physx::Cct::ObstacleContext *>>::growAndPushBack(uint64_t result, void *a2)
+{
+  v3 = result;
+  v4 = *(result + 12);
+  if ((v4 & 0x7FFFFFFF) != 0)
+  {
+    v5 = 2 * v4;
   }
 
   else
   {
-LABEL_24:
-    v23 = 0;
+    v5 = 1;
   }
 
-LABEL_25:
-  re::AssetHandle::~AssetHandle(v26);
-  return v23;
-}
-
-BOOL REMaterialDefinitionAssetHasTechniqueWithHash(uint64_t a1, unint64_t a2)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v11);
-  v3 = re::AssetHandle::blockUntilLoaded<re::MaterialDefinitionAsset>(v11);
-  if (v3)
-  {
-    v4 = *(v3 + 744);
-    if (v4)
-    {
-      v5 = (v4 + 8);
-    }
-
-    if (!*(v4 + 136) || (v6 = *(*(v4 + 144) + 4 * (a2 % *(v4 + 160))), v6 == 0x7FFFFFFF))
-    {
-      v7 = 0;
-LABEL_14:
-
-      goto LABEL_15;
-    }
-
-    v8 = *(v4 + 152);
-    v9 = 0x7FFFFFFFLL;
-    while (*(v8 + 48 * v6 + 8) != a2)
-    {
-      v6 = *(v8 + 48 * v6) & 0x7FFFFFFF;
-      if (v6 == 0x7FFFFFFF)
-      {
-        goto LABEL_13;
-      }
-    }
-
-    v9 = v6;
-LABEL_13:
-    v7 = v9 != 0x7FFFFFFF;
-    if (v4)
-    {
-      goto LABEL_14;
-    }
-  }
-
-  else
-  {
-    v7 = 0;
-  }
-
-LABEL_15:
-  re::AssetHandle::~AssetHandle(v11);
-  return v7;
-}
-
-BOOL REMaterialDefinitionAssetHasPassTechniqueMappingWithName(uint64_t a1, const char *a2)
-{
-  v14[2] = *MEMORY[0x1E69E9840];
-  re::AssetAPIHelper::assetHandleCreate(a1, v13);
-  v3 = re::AssetHandle::blockUntilLoaded<re::MaterialDefinitionAsset>(v13);
-  if (v3 && (v4 = v3, (v5 = *(v3 + 744)) != 0) && ((v6 = strlen(a2)) == 0 ? (v7 = 0) : (MurmurHash3_x64_128(a2, v6, 0, v14), v7 = (v14[1] + (v14[0] << 6) + (v14[0] >> 2) - 0x61C8864680B583E9) ^ v14[0], v5 = *(v4 + 744)), *(v5 + 16) && (v8 = *(*(v5 + 24) + 4 * (v7 % *(v5 + 40))), v8 != 0x7FFFFFFF)))
-  {
-    v11 = *(v5 + 32);
-    v12 = 0x7FFFFFFFLL;
-    while (*(v11 + 24 * v8 + 8) != v7)
-    {
-      v8 = *(v11 + 24 * v8) & 0x7FFFFFFF;
-      if (v8 == 0x7FFFFFFF)
-      {
-        goto LABEL_15;
-      }
-    }
-
-    v12 = v8;
-LABEL_15:
-    v9 = v12 != 0x7FFFFFFF;
-  }
-
-  else
-  {
-    v9 = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(v13);
-  return v9;
-}
-
-uint64_t REMaterialAssetGetValidPassTechniqueMapping(uint64_t a1, const char *a2, unint64_t *a3)
-{
-  v22[2] = *MEMORY[0x1E69E9840];
-  re::AssetAPIHelper::assetHandleCreate(a1, v21);
-  v5 = re::AssetHandle::blockUntilLoaded<re::MaterialAsset>(v21);
   if (v5)
   {
-    v6 = v5;
-    v7 = strlen(a2);
-    if (v7)
+    v6 = physx::shdfnd::Foundation::mInstance;
+    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
     {
-      MurmurHash3_x64_128(a2, v7, 0, v22);
-      v8 = (v22[1] + (v22[0] << 6) + (v22[0] >> 2) - 0x61C8864680B583E9) ^ v22[0];
+      v7 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Cct::ObstacleContext *>::getName() [T = physx::Cct::ObstacleContext *]";
     }
 
     else
     {
-      v8 = 0;
+      v7 = "<allocation names disabled>";
     }
 
-    v10 = *(v6[222] + 16);
-    if (v10)
-    {
-      v11 = (v10 + 8);
-    }
+    result = (*(*(v6 + 24) + 16))(v6 + 24, 8 * v5, v7, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
+    v8 = result;
+  }
 
-    v12 = v6[5];
-    v13 = v6[223];
-    if (re::MaterialParameterTable::kDefaultNameHash(void)::once != -1)
-    {
-      dispatch_once(&re::MaterialParameterTable::kDefaultNameHash(void)::once, &__block_literal_global_35);
-    }
+  else
+  {
+    v8 = 0;
+  }
 
-    PassTechniqueMapping = re::MaterialParameterBlock::tryGetPassTechniqueMapping(v13, v8, re::MaterialParameterTable::kDefaultNameHash(void)::_kDefaultNameHash);
-    if (PassTechniqueMapping)
-    {
-      v15 = PassTechniqueMapping;
-      if (REMaterialDefinitionAssetHasTechniqueWithHash(v12, *PassTechniqueMapping))
-      {
-        goto LABEL_16;
-      }
-    }
-
-    v16 = v6[222];
-    if (re::MaterialParameterTable::kDefaultNameHash(void)::once != -1)
-    {
-      dispatch_once(&re::MaterialParameterTable::kDefaultNameHash(void)::once, &__block_literal_global_35);
-    }
-
-    v17 = re::MaterialParameterTable::tryGetPassTechniqueMapping((v16 + 304), v8, re::MaterialParameterTable::kDefaultNameHash(void)::_kDefaultNameHash);
-    if (v17)
-    {
-      v15 = v17;
-      if (REMaterialDefinitionAssetHasTechniqueWithHash(v12, *v17))
-      {
-LABEL_16:
-        *a3 = *v15;
-        v9 = 1;
-        if (!v10)
-        {
-          goto LABEL_22;
-        }
-
-        goto LABEL_21;
-      }
-    }
-
-    if (!*(v10 + 16) || (v18 = *(*(v10 + 24) + 4 * (v8 % *(v10 + 40))), v18 == 0x7FFFFFFF))
-    {
-      v9 = 0;
-LABEL_21:
-
-      goto LABEL_22;
-    }
-
-    v20 = *(v10 + 32);
+  v9 = *(v3 + 8);
+  v10 = (v8 + 8 * v9);
+  if (v9)
+  {
+    v11 = *v3;
+    v12 = v8;
     do
     {
-      if (*(v20 + 24 * v18 + 8) == v8)
-      {
-        *a3 = *(v20 + 24 * v18 + 16);
-        v9 = 1;
-        goto LABEL_21;
-      }
-
-      v18 = *(v20 + 24 * v18) & 0x7FFFFFFF;
+      v13 = *v11++;
+      *v12++ = v13;
     }
 
-    while (v18 != 0x7FFFFFFF);
-    v9 = 0;
-    if (v10)
-    {
-      goto LABEL_21;
-    }
+    while (v12 < v10);
   }
 
-  else
+  *v10 = *a2;
+  if ((*(v3 + 12) & 0x80000000) == 0 && *v3)
   {
-    v9 = 0;
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+    LODWORD(v9) = *(v3 + 8);
   }
 
-LABEL_22:
-  re::AssetHandle::~AssetHandle(v21);
-  return v9;
+  *v3 = v8;
+  *(v3 + 8) = v9 + 1;
+  *(v3 + 12) = v5;
+  return result;
 }
 
-const char *REMaterialAssetGetName(uint64_t a1)
+uint64_t physx::shdfnd::Array<void const*,physx::shdfnd::ReflectionAllocator<void const*>>::recreate(uint64_t result, unsigned int a2)
 {
-  re::AssetAPIHelper::assetHandleCreate(a1, v4);
-  re::AssetHandle::loadNow(v4[1], 0);
-  v1 = re::AssetHandle::blockUntilLoaded<re::MaterialAsset>(v4);
-  if (v1)
+  v3 = result;
+  if (a2)
   {
-    v2 = *(*(v1 + 1776) + 1432);
-  }
-
-  else
-  {
-    v2 = "";
-  }
-
-  re::AssetHandle::~AssetHandle(v4);
-  return v2;
-}
-
-uint64_t REMaterialAssetGetSourceName(uint64_t a1)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v6);
-  re::AssetHandle::loadNow(v6[1], 0);
-  v1 = re::AssetHandle::blockUntilLoaded<re::MaterialAsset>(v6);
-  if (!v1)
-  {
-    goto LABEL_7;
-  }
-
-  v2 = *(v1 + 16);
-  v3 = v2 >> 1;
-  if ((v2 & 1) == 0)
-  {
-    v3 = v2 >> 1;
-  }
-
-  if (v3)
-  {
-    if (v2)
+    v4 = physx::shdfnd::Foundation::mInstance;
+    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
     {
-      v4 = *(v1 + 24);
+      v5 = "static const char *physx::shdfnd::ReflectionAllocator<const void *>::getName() [T = const void *]";
     }
 
     else
     {
-      v4 = v1 + 17;
-    }
-  }
-
-  else
-  {
-LABEL_7:
-    v4 = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(v6);
-  return v4;
-}
-
-CFStringRef REMaterialAssetGetFunctionConstant(uint64_t a1, char *a2)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v8);
-  v3 = re::AssetHandle::blockUntilLoaded<re::MaterialAsset>(v8);
-  if (v3 && (v4 = re::HashTable<re::DynamicString,re::DynamicString,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,true,false>::tryGet<void>(v3 + 304, a2)) != 0)
-  {
-    if (*(v4 + 8))
-    {
-      v5 = *(v4 + 16);
+      v5 = "<allocation names disabled>";
     }
 
-    else
-    {
-      v5 = (v4 + 9);
-    }
-
-    v6 = CFStringCreateWithCString(0, v5, 0x8000100u);
+    result = (*(*(v4 + 24) + 16))(v4 + 24, 8 * a2, v5, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
+    v6 = result;
   }
 
   else
@@ -1709,6748 +1126,1028 @@ CFStringRef REMaterialAssetGetFunctionConstant(uint64_t a1, char *a2)
     v6 = 0;
   }
 
-  re::AssetHandle::~AssetHandle(v8);
-  return v6;
-}
-
-uint64_t REMaterialAssetGetCullMode(uint64_t a1, void *a2)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v6);
-  v3 = re::AssetHandle::blockUntilLoaded<re::MaterialAsset>(v6);
-  if (v3 && *(v3 + 354) == 1)
+  v7 = *(v3 + 8);
+  v8 = *v3;
+  if (v7)
   {
-    *a2 = *(v3 + 355);
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(v6);
-  return v4;
-}
-
-uint64_t REMaterialAssetGetType(uint64_t a1)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v4);
-  v1 = re::AssetHandle::loadedAsset<re::MaterialAsset>(v4);
-  if (v1)
-  {
-    v2 = *(v1 + 1842);
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(v4);
-  return v2;
-}
-
-uint64_t REMaterialAssetGetFeatureFlags(uint64_t a1)
-{
-  re::AssetAPIHelper::assetHandleCreate(a1, v4);
-  v1 = re::AssetHandle::loadedAsset<re::MaterialAsset>(v4);
-  if (v1)
-  {
-    v2 = *(v1 + 1840);
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(v4);
-  return v2;
-}
-
-void *REMaterialAssetCopyShaderGraphParameterNames(uint64_t a1)
-{
-  if (!a1)
-  {
-    return 0;
-  }
-
-  re::AssetAPIHelper::assetHandleCreate(a1, v13);
-  v1 = re::AssetHandle::loadedAsset<re::MaterialAsset>(v13);
-  if (v1)
-  {
-    v2 = *(v1 + 1968);
-    if (v2)
-    {
-      v3 = (v2 + 8);
-      re::sg::CachedCompilationMaterial::getPublicUniforms(v2, &v10);
-    }
-
-    else
-    {
-      re::sg::CachedCompilationMaterial::getPublicUniforms(0, &v10);
-    }
-
-    v5 = objc_alloc(MEMORY[0x1E695DF70]);
-    v4 = [v5 initWithCapacity:v11];
-    if (v11)
-    {
-      v6 = v12;
-      v7 = 8 * v11;
-      do
-      {
-        v8 = *v6++;
-        [v4 addObject:v8];
-        v7 -= 8;
-      }
-
-      while (v7);
-    }
-
-    re::FixedArray<NS::SharedPtr<MTL::ArgumentEncoder>>::deinit(&v10);
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(v13);
-  return v4;
-}
-
-void *REMaterialAssetCopyVisibleShaderGraphParameterNames(uint64_t a1)
-{
-  if (!a1)
-  {
-    return 0;
-  }
-
-  re::AssetAPIHelper::assetHandleCreate(a1, v13);
-  v1 = re::AssetHandle::loadedAsset<re::MaterialAsset>(v13);
-  if (v1)
-  {
-    v2 = *(v1 + 1968);
-    if (v2)
-    {
-      v3 = (v2 + 8);
-      re::sg::CachedCompilationMaterial::getPublicUniforms(v2, &v10);
-    }
-
-    else
-    {
-      re::sg::CachedCompilationMaterial::getPublicUniforms(0, &v10);
-    }
-
-    v5 = objc_alloc(MEMORY[0x1E695DF70]);
-    v4 = [v5 initWithCapacity:v11];
-    if (v11)
-    {
-      v6 = v12;
-      v7 = 8 * v11;
-      do
-      {
-        v8 = *v6++;
-        [v4 addObject:v8];
-        v7 -= 8;
-      }
-
-      while (v7);
-    }
-
-    re::FixedArray<NS::SharedPtr<MTL::ArgumentEncoder>>::deinit(&v10);
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(v13);
-  return v4;
-}
-
-uint64_t REMaterialAssetIsVisibleShaderGraphParameter(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  if (a1)
-  {
-    re::AssetAPIHelper::assetHandleCreate(a1, v15);
-    v4 = re::AssetHandle::loadedAsset<re::MaterialAsset>(v15);
-    if (v4)
-    {
-      v5 = *(v4 + 1968);
-      if (v5)
-      {
-        v6 = (v5 + 8);
-        re::sg::CachedCompilationMaterial::getPublicUniforms(v5, &v12);
-      }
-
-      else
-      {
-        re::sg::CachedCompilationMaterial::getPublicUniforms(0, &v12);
-      }
-
-      if (v13)
-      {
-        v7 = v14;
-        v8 = 8 * v13 - 8;
-        do
-        {
-          v9 = *v7++;
-          a1 = [v9 isEqualToString_];
-          if (a1)
-          {
-            break;
-          }
-
-          v10 = v8;
-          v8 -= 8;
-        }
-
-        while (v10);
-      }
-
-      else
-      {
-        a1 = 0;
-      }
-
-      re::FixedArray<NS::SharedPtr<MTL::ArgumentEncoder>>::deinit(&v12);
-    }
-
-    else
-    {
-      a1 = 0;
-    }
-
-    re::AssetHandle::~AssetHandle(v15);
-  }
-
-  return a1;
-}
-
-id REMaterialAssetGetGeomFlattenedCustomParamNames(uint64_t a1)
-{
-  if (a1)
-  {
-    re::AssetAPIHelper::assetHandleCreate(a1, v5);
-    v1 = re::AssetHandle::loadedAsset<re::MaterialAsset>(v5);
-    if (v1)
-    {
-      v2 = *(v1 + 1848);
-      v3 = v2;
-      if (v2)
-      {
-      }
-    }
-
-    else
-    {
-      v3 = 0;
-    }
-
-    re::AssetHandle::~AssetHandle(v5);
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  return v3;
-}
-
-id REMaterialAssetGetSurfFlattenedCustomParamNames(uint64_t a1)
-{
-  if (a1)
-  {
-    re::AssetAPIHelper::assetHandleCreate(a1, v5);
-    v1 = re::AssetHandle::loadedAsset<re::MaterialAsset>(v5);
-    if (v1)
-    {
-      v2 = *(v1 + 1856);
-      v3 = v2;
-      if (v2)
-      {
-      }
-    }
-
-    else
-    {
-      v3 = 0;
-    }
-
-    re::AssetHandle::~AssetHandle(v5);
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  return v3;
-}
-
-id REMaterialAssetGetGeometryModifierCustomParamsName(uint64_t a1)
-{
-  if (a1)
-  {
-    re::AssetAPIHelper::assetHandleCreate(a1, v5);
-    v1 = re::AssetHandle::loadedAsset<re::MaterialAsset>(v5);
-    if (v1)
-    {
-      v2 = *(v1 + 1864);
-      v3 = v2;
-      if (v2)
-      {
-      }
-    }
-
-    else
-    {
-      v3 = 0;
-    }
-
-    re::AssetHandle::~AssetHandle(v5);
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  return v3;
-}
-
-id REMaterialAssetGetSurfaceShaderCustomParamsName(uint64_t a1)
-{
-  if (a1)
-  {
-    re::AssetAPIHelper::assetHandleCreate(a1, v5);
-    v1 = re::AssetHandle::loadedAsset<re::MaterialAsset>(v5);
-    if (v1)
-    {
-      v2 = *(v1 + 1872);
-      v3 = v2;
-      if (v2)
-      {
-      }
-    }
-
-    else
-    {
-      v3 = 0;
-    }
-
-    re::AssetHandle::~AssetHandle(v5);
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  return v3;
-}
-
-BOOL REMaterialAssetHasGeometryModifierCustomParamsName(uint64_t a1)
-{
-  if (!a1)
-  {
-    return 0;
-  }
-
-  re::AssetAPIHelper::assetHandleCreate(a1, v5);
-  v1 = re::AssetHandle::loadedAsset<re::MaterialAsset>(v5);
-  if (v1)
-  {
-    v2 = *(v1 + 1864);
-    v3 = v2 != 0;
-    if (v2)
-    {
-
-      v3 = 1;
-    }
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(v5);
-  return v3;
-}
-
-BOOL REMaterialAssetHasSurfaceShaderCustomParamsName(uint64_t a1)
-{
-  if (!a1)
-  {
-    return 0;
-  }
-
-  re::AssetAPIHelper::assetHandleCreate(a1, v5);
-  v1 = re::AssetHandle::loadedAsset<re::MaterialAsset>(v5);
-  if (v1)
-  {
-    v2 = *(v1 + 1872);
-    v3 = v2 != 0;
-    if (v2)
-    {
-
-      v3 = 1;
-    }
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(v5);
-  return v3;
-}
-
-uint64_t REMaterialAssetGetByteSizeOfSGUniforms(uint64_t a1)
-{
-  if (!a1)
-  {
-    return 0;
-  }
-
-  re::AssetAPIHelper::assetHandleCreate(a1, v7);
-  v1 = re::AssetHandle::loadedAsset<re::MaterialAsset>(v7);
-  if (v1)
-  {
-    v2 = *(v1 + 1968);
-    if (v2)
-    {
-      v3 = (v2 + 8);
-      CustomUniformsArgument = re::sg::CachedCompilationMaterial::getCustomUniformsArgument(v2);
-    }
-
-    else
-    {
-      CustomUniformsArgument = re::sg::CachedCompilationMaterial::getCustomUniformsArgument(0);
-    }
-
-    v5 = *(CustomUniformsArgument + 7);
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  re::AssetHandle::~AssetHandle(v7);
-  return v5;
-}
-
-uint64_t REMaterialAssetGetByteOffsetForSGUniform(uint64_t a1, const char *a2)
-{
-  if (!a1)
-  {
-    return -1;
-  }
-
-  re::AssetAPIHelper::assetHandleCreate(a1, v12);
-  v3 = re::AssetHandle::loadedAsset<re::MaterialAsset>(v12);
-  if (!v3)
-  {
-    goto LABEL_11;
-  }
-
-  v4 = *(v3 + 1968);
-  if (v4)
-  {
-    v5 = (v4 + 8);
-    CustomUniformsArgument = re::sg::CachedCompilationMaterial::getCustomUniformsArgument(v4);
-  }
-
-  else
-  {
-    CustomUniformsArgument = re::sg::CachedCompilationMaterial::getCustomUniformsArgument(0);
-  }
-
-  v8 = *(CustomUniformsArgument + 9);
-  if (v8)
-  {
-    v9 = (*(CustomUniformsArgument + 10) + 24);
-    v10 = 80 * v8;
-    while (strcmp(*v9, a2))
-    {
-      v9 += 10;
-      v10 -= 80;
-      if (!v10)
-      {
-        goto LABEL_11;
-      }
-    }
-
-    v7 = *(v9 - 6);
-  }
-
-  else
-  {
-LABEL_11:
-    v7 = -1;
-  }
-
-  re::AssetHandle::~AssetHandle(v12);
-  return v7;
-}
-
-uint64_t REMaterialAssetGetByteOffsetForSGUniformHandle(uint64_t a1, uint64_t a2)
-{
-  if (!a1)
-  {
-    return -1;
-  }
-
-  re::AssetAPIHelper::assetHandleCreate(a1, v13);
-  v3 = re::AssetHandle::loadedAsset<re::MaterialAsset>(v13);
-  if (!v3)
-  {
-    goto LABEL_11;
-  }
-
-  v4 = *(v3 + 1968);
-  if (v4)
-  {
-    v5 = (v4 + 8);
-    CustomUniformsArgument = re::sg::CachedCompilationMaterial::getCustomUniformsArgument(v4);
-  }
-
-  else
-  {
-    CustomUniformsArgument = re::sg::CachedCompilationMaterial::getCustomUniformsArgument(0);
-  }
-
-  v8 = *(CustomUniformsArgument + 9);
-  if (v8)
-  {
-    v9 = *(a2 + 32);
-    v10 = (*(CustomUniformsArgument + 10) + 24);
-    v11 = 80 * v8;
-    while (strcmp(*v10, (v9 + 3)))
-    {
-      v10 += 10;
-      v11 -= 80;
-      if (!v11)
-      {
-        goto LABEL_11;
-      }
-    }
-
-    v7 = *(v10 - 6);
-  }
-
-  else
-  {
-LABEL_11:
-    v7 = -1;
-  }
-
-  re::AssetHandle::~AssetHandle(v13);
-  return v7;
-}
-
-id REMaterialAssetGetShaderGraphArchive(uint64_t a1)
-{
-  if (a1)
-  {
-    re::AssetAPIHelper::assetHandleCreate(a1, v4);
-    v1 = re::AssetHandle::loadedAsset<re::ShaderGraphAsset>(v4);
-    if (v1)
-    {
-      v2 = *(v1 + 40);
-    }
-
-    else
-    {
-      v2 = 0;
-    }
-
-    re::AssetHandle::~AssetHandle(v4);
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  return v2;
-}
-
-uint64_t re::AssetHandle::loadedAsset<re::ShaderGraphAsset>(re::ShaderGraphAsset *a1)
-{
-  if (!*(a1 + 1))
-  {
-    return 0;
-  }
-
-  v2 = re::ShaderGraphAsset::assetType(a1);
-
-  return re::AssetHandle::assetWithType(a1, v2, 1);
-}
-
-void REMaterialAssetHarvestPerformanceStatsForTechnique(uint64_t a1, uint64_t a2, const char *a3, int a4, void *a5, void *a6, void *a7)
-{
-  v66 = *MEMORY[0x1E69E9840];
-  v13 = a5;
-  v14 = a6;
-  v15 = a7;
-  v16 = v14;
-  re::AssetAPIHelper::assetHandleCreate(a1, v51);
-  v17 = re::AssetHandle::loadedAsset<re::MaterialAsset>(v51);
-  if (v17)
-  {
-    v18 = *(a2 + 112);
-    if (v18)
-    {
-      v19 = v17;
-      v20 = *(v17 + 222);
-      v21 = strlen(a3);
-      if (v21)
-      {
-        MurmurHash3_x64_128(a3, v21, 0, &buf);
-        v22 = (*(&buf + 1) + (buf << 6) + (buf >> 2) - 0x61C8864680B583E9) ^ buf;
-      }
-
-      else
-      {
-        v22 = 0;
-      }
-
-      if (!*(v20 + 24) || (v26 = *(*(v20 + 32) + 4 * (v22 % *(v20 + 48))), v26 == 0x7FFFFFFF))
-      {
-LABEL_17:
-        v45[0] = MEMORY[0x1E69E9820];
-        v45[1] = 3221225472;
-        v45[2] = __REMaterialAssetHarvestPerformanceStatsForTechnique_block_invoke_2;
-        v45[3] = &unk_1E8722F78;
-        v46 = v15;
-        dispatch_async(v13, v45);
-        v24 = v46;
-        goto LABEL_18;
-      }
-
-      v27 = *(v20 + 40);
-      while (*(v27 + 48 * v26 + 8) != v22)
-      {
-        v26 = *(v27 + 48 * v26) & 0x7FFFFFFF;
-        if (v26 == 0x7FFFFFFF)
-        {
-          goto LABEL_17;
-        }
-      }
-
-      v28 = v27 + 48 * v26;
-      if (*(v28 + 24))
-      {
-        v29 = *(v19 + 222);
-        v19 = **(v28 + 32);
-        v20 = *(v29 + 80);
-        if (v20 > v19)
-        {
-          v30 = (*(v29 + 88) + 40 * v19);
-          v31 = *v30;
-          v32 = **v30;
-          if (a4)
-          {
-            FallbackVariant = re::MaterialTechnique::tryGetFallbackVariant(v31);
-          }
-
-          else
-          {
-            FallbackVariant = re::MaterialTechnique::getOrCreateTechniqueVariant(v31, 0, 0);
-          }
-
-          v34 = FallbackVariant;
-          if (FallbackVariant)
-          {
-            atomic_load((FallbackVariant + 17));
-            *&buf = 0;
-            *(&buf + 1) = FallbackVariant;
-            *&v62 = a2;
-            atomic_store(2u, (FallbackVariant + 17));
-            re::dispatchMaterialPipelineDataCompilation(&buf);
-            v35[0] = MEMORY[0x1E69E9820];
-            v35[1] = 3321888768;
-            v35[2] = __REMaterialAssetHarvestPerformanceStatsForTechnique_block_invoke_42;
-            v35[3] = &unk_1F5D2DDB0;
-            v37 = v34;
-            v36 = v15;
-            v38 = v32;
-            v39 = a2;
-            v40 = v30;
-            v41 = v18;
-            v42 = v16;
-            dispatch_async(v13, v35);
-            if (v42)
-            {
-
-              v42 = 0;
-            }
-
-            v24 = v36;
-          }
-
-          else
-          {
-            v43[0] = MEMORY[0x1E69E9820];
-            v43[1] = 3221225472;
-            v43[2] = __REMaterialAssetHarvestPerformanceStatsForTechnique_block_invoke_41;
-            v43[3] = &unk_1E8722F78;
-            v44 = v15;
-            dispatch_async(v13, v43);
-            v24 = v44;
-          }
-
-          goto LABEL_18;
-        }
-      }
-
-      else
-      {
-        v52 = 0;
-        v64 = 0u;
-        v65 = 0u;
-        v62 = 0u;
-        v63 = 0u;
-        buf = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v53 = 136315906;
-        v54 = "operator[]";
-        v55 = 1024;
-        v56 = 476;
-        v57 = 2048;
-        v58 = 0;
-        v59 = 2048;
-        v60 = 0;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-      }
-
-      v52 = 0;
-      v64 = 0u;
-      v65 = 0u;
-      v62 = 0u;
-      v63 = 0u;
-      buf = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      v53 = 136315906;
-      v54 = "operator[]";
-      v55 = 1024;
-      v56 = 476;
-      v57 = 2048;
-      v58 = v19;
-      v59 = 2048;
-      v60 = v20;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    v25 = *re::graphicsLogObjects(v17);
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
-    {
-      LOWORD(buf) = 0;
-      _os_log_error_impl(&dword_1E1C61000, v25, OS_LOG_TYPE_ERROR, "Unable to harvest material performance stats - engine does not have local rendering capabilities!", &buf, 2u);
-    }
-
-    v47[0] = MEMORY[0x1E69E9820];
-    v47[1] = 3221225472;
-    v47[2] = __REMaterialAssetHarvestPerformanceStatsForTechnique_block_invoke_40;
-    v47[3] = &unk_1E8722F78;
-    v48 = v15;
-    dispatch_async(v13, v47);
-    v24 = v48;
-  }
-
-  else
-  {
-    v23 = *re::graphicsLogObjects(0);
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
-    {
-      LOWORD(buf) = 0;
-      _os_log_error_impl(&dword_1E1C61000, v23, OS_LOG_TYPE_ERROR, "Unable to harvest material performance stats - asset was not loaded!", &buf, 2u);
-    }
-
-    block[0] = MEMORY[0x1E69E9820];
-    block[1] = 3221225472;
-    block[2] = __REMaterialAssetHarvestPerformanceStatsForTechnique_block_invoke;
-    block[3] = &unk_1E8722F78;
-    v50 = v15;
-    dispatch_async(v13, block);
-    v24 = v50;
-  }
-
-LABEL_18:
-
-  re::AssetHandle::~AssetHandle(v51);
-  if (v16)
-  {
-  }
-}
-
-uint64_t __REMaterialAssetHarvestPerformanceStatsForTechnique_block_invoke_2(re *a1)
-{
-  v2 = *re::graphicsLogObjects(a1);
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
-  {
-    *v4 = 0;
-    _os_log_error_impl(&dword_1E1C61000, v2, OS_LOG_TYPE_ERROR, "Unable to harvest material performance stats - unable to find technique!", v4, 2u);
-  }
-
-  return (*(*(a1 + 4) + 16))();
-}
-
-uint64_t __REMaterialAssetHarvestPerformanceStatsForTechnique_block_invoke_41(re *a1)
-{
-  v2 = *re::graphicsLogObjects(a1);
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
-  {
-    *v4 = 0;
-    _os_log_error_impl(&dword_1E1C61000, v2, OS_LOG_TYPE_ERROR, "Unable to harvest material performance stats - unable to find technique variant!", v4, 2u);
-  }
-
-  return (*(*(a1 + 4) + 16))();
-}
-
-void *__REMaterialAssetHarvestPerformanceStatsForTechnique_block_invoke_42(re *a1)
-{
-  v1 = a1;
-  v2 = atomic_load((*(a1 + 5) + 17));
-  if (v2 == 2)
-  {
-    v3 = (*(a1 + 5) + 17);
+    v9 = v6 + 8 * v7;
+    v10 = v6;
     do
     {
-      a1 = __ulock_wait();
-      v4 = atomic_load(v3);
+      v11 = *v8++;
+      *v10++ = v11;
     }
 
-    while (v4 == 2);
-    v2 = atomic_load((*(v1 + 5) + 17));
+    while (v10 < v9);
+    v8 = *v3;
   }
 
-  if (v2 != 1)
+  if ((*(v3 + 12) & 0x80000000) == 0 && v8)
   {
-    v5 = *re::graphicsLogObjects(a1);
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  *v3 = v6;
+  *(v3 + 12) = a2;
+  return result;
+}
+
+uint64_t physx::shdfnd::Array<physx::PxExtendedBox,physx::shdfnd::ReflectionAllocator<physx::PxExtendedBox>>::recreate(uint64_t result, unsigned int a2)
+{
+  v3 = result;
+  if (a2)
+  {
+    v4 = physx::shdfnd::Foundation::mInstance;
+    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
     {
-      *buf = 0;
-      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Unable to harvest material performance stats - pipeline data compilation failed!", buf, 2u);
+      v5 = "static const char *physx::shdfnd::ReflectionAllocator<physx::PxExtendedBox>::getName() [T = physx::PxExtendedBox]";
     }
 
-    (*(*(v1 + 4) + 16))();
-  }
-
-  v6 = *(v1 + 7);
-  v7 = *(v6 + 48);
-  v25 = *(**(v1 + 8) + 32);
-  v26 = *(**(v1 + 8) + 24);
-  re::makeRenderTargetInfoPrediction(**(v1 + 6), v7 + 536, v7 + 584, v7 + 632, v7 + 680, v7 + 728, v7 + 776, *(v6 + 372), v58);
-  re::FixedArray<re::AttributeArgument>::FixedArray(v57, *(*(*(v1 + 5) + 8) + 16) + 264);
-  v8 = re::FixedArray<re::AttributeArgument>::FixedArray(v53, v57);
-  v9 = *(v1 + 6);
-  v10 = *(*(*(*(v1 + 5) + 8) + 16) + 312);
-  *buf = *(*(*(*(v1 + 5) + 8) + 16) + 296);
-  v52 = v10;
-  re::makeAttributeResolutionsPrediction(v8, buf, *(v9 + 2844), &v54);
-  re::FixedArray<re::AttributeArgument>::deinit(v53);
-  re::FixedArray<re::AttributeArgument>::FixedArray(v50, v57);
-  v49 = 0u;
-  v47 = 0u;
-  memset(v48, 0, sizeof(v48));
-  DWORD1(v49) = 0x7FFFFFFF;
-  memset(v46, 0, sizeof(v46));
-  DWORD1(v47) = 0x7FFFFFFF;
-  re::makeAttributeTablePrediction(v50, v48, v46, buf);
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(v46);
-  re::HashTable<re::StringID,re::DataArrayHandle<re::RigGraphOperatorDefinition>,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::deinit(v48);
-  re::FixedArray<re::AttributeArgument>::deinit(v50);
-  v11 = *(v1 + 9);
-  v12 = *(v1 + 7);
-  v29[0] = v11 + 48;
-  v29[1] = v12;
-  v29[2] = v11;
-  v29[3] = v58;
-  v13 = *(v1 + 5);
-  v14 = *(v13 + 8);
-  v30 = v14;
-  if (v14)
-  {
-    v15 = (v14 + 8);
-    v13 = *(v1 + 5);
-  }
-
-  v31 = *(v1 + 6);
-  v16 = *(*v13 + 8);
-  if (v16)
-  {
-    v16 = *(v16 + 1432);
-  }
-
-  v32 = v16;
-  v33 = *(v13 + 16);
-  v34 = 0;
-  v35 = buf;
-  v36 = v56;
-  v37 = v55;
-  v38 = 3;
-  v39 = 0;
-  v40 = 0;
-  v41 = "";
-  v42 = "";
-  v43 = "";
-  v44 = 0;
-  v45 = *(v1 + 10);
-  v17 = re::compileCachedPipelineStateAsync(v29, 0, 1, &v28);
-  v18 = atomic_load((v28 + 208));
-  if (v18 == 1)
-  {
-    v19 = (v28 + 208);
-    do
+    else
     {
-      v17 = __ulock_wait();
-      v20 = atomic_load(v19);
+      v5 = "<allocation names disabled>";
     }
 
-    while (v20 == 1);
-    v18 = atomic_load((v28 + 208));
-  }
-
-  if (v18 == 2)
-  {
-    v21 = *re::graphicsLogObjects(v17);
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
-    {
-      *v27 = 0;
-      _os_log_error_impl(&dword_1E1C61000, v21, OS_LOG_TYPE_ERROR, "Unable to harvest material performance stats - pipeline state object compilation failed!", v27, 2u);
-    }
-
-    (*(*(v1 + 4) + 16))(*(v1 + 4), 0);
-  }
-
-  v22 = *(v28 + 200);
-  v23 = [v22 performanceStatistics];
-
-  *(v28 + 200) = 0;
-  (*(*(v1 + 4) + 16))();
-
-  if (v28)
-  {
-  }
-
-  if (v45)
-  {
-
-    v45 = 0;
-  }
-
-  if (v30)
-  {
-  }
-
-  re::AttributeTable::~AttributeTable(buf);
-  if (v54 && v55)
-  {
-    (*(*v54 + 40))();
-  }
-
-  return re::FixedArray<re::AttributeArgument>::deinit(v57);
-}
-
-id __copy_helper_block_a8_80c42_ZTSN2NS9SharedPtrIN3MTL13BinaryArchiveEEE(uint64_t a1, uint64_t a2)
-{
-  result = *(a2 + 80);
-  *(a1 + 80) = result;
-  return result;
-}
-
-void __destroy_helper_block_a8_80c42_ZTSN2NS9SharedPtrIN3MTL13BinaryArchiveEEE(uint64_t a1)
-{
-  v2 = *(a1 + 80);
-  if (v2)
-  {
-
-    *(a1 + 80) = 0;
-  }
-}
-
-void *REAcousticAdjustmentsComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::AcousticAdjustmentsComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType;
-}
-
-uint64_t REFrameStatisticsHUDIsOverlayEnabled(uint64_t a1)
-{
-  if (*(a1 + 204) == 1)
-  {
-    v1 = *(a1 + 17) ^ 1;
-  }
-
-  else
-  {
-    v1 = 0;
-  }
-
-  return v1 & 1;
-}
-
-const char *REFrameStatisticsHUDGetStatisticsForOption(re::FrameProfiler *a1, int a2)
-{
-  if (re::FrameProfiler::totalNumberOfFlags(a1, a2) != 1)
-  {
-    return "";
-  }
-
-  StatisticOutputForOption = re::FrameProfiler::getStatisticOutputForOption(a1, a2, 0);
-  if (*(StatisticOutputForOption + 8))
-  {
-    return *(StatisticOutputForOption + 2);
-  }
-
-  else
-  {
-    return StatisticOutputForOption + 9;
-  }
-}
-
-void *REClippingBoxComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::ClippingBoxComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType;
-}
-
-uint64_t REClippingBoxComponentSetLocalBounds(uint64_t this, __n128 a2, __n128 a3)
-{
-  *(this + 32) = a2;
-  *(this + 48) = a3;
-  return re::ecs2::Component::enqueueMarkDirty(this);
-}
-
-uint64_t REEventBusSubscribe(re *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v13[5] = *MEMORY[0x1E69E9840];
-  v10 = re::globalAllocators(a1)[2];
-  v13[2] = a5;
-  v13[3] = v10;
-  v13[0] = &unk_1F5D2DE00;
-  v13[1] = a4;
-  v13[4] = v13;
-  v11 = re::EventBus::subscribe(a1, a2, a3, v13, 0, 0);
-  re::FunctionBase<24ul,REEventHandlerResult ()(void *,void const*)>::destroyCallable(v13);
-  return v11;
-}
-
-uint64_t REEventBusSubscribeBlock(re::EventBus *a1, uint64_t a2, uint64_t a3, void *a4)
-{
-  v11[5] = *MEMORY[0x1E69E9840];
-  v7 = a4;
-  v11[3] = re::globalAllocators(v7)[2];
-  v11[0] = &unk_1F5D2DE58;
-  v8 = _Block_copy(v7);
-
-  v11[1] = v8;
-  v11[4] = v11;
-  v9 = re::EventBus::subscribe(a1, a2, a3, v11, 0, 0);
-  re::FunctionBase<24ul,REEventHandlerResult ()(void *,void const*)>::destroyCallable(v11);
-  return v9;
-}
-
-uint64_t REEventBusSubscribeWithMatch(re::EventBus *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5)
-{
-  v13[5] = *MEMORY[0x1E69E9840];
-  v9 = a4;
-  v13[3] = re::globalAllocators(v9)[2];
-  v13[0] = &unk_1F5D2DE58;
-  v10 = _Block_copy(v9);
-
-  v13[1] = v10;
-  v13[4] = v13;
-  v11 = re::EventBus::subscribe(a1, a2, a3, v13, a5, 0);
-  re::FunctionBase<24ul,REEventHandlerResult ()(void *,void const*)>::destroyCallable(v13);
-  return v11;
-}
-
-uint64_t REAnimationDidStartEventSubscribe(re *a1, const char *a2, uint64_t a3, uint64_t a4)
-{
-  TypeId = re::EventBus::getTypeId("REAnimationDidStartEvent", a2);
-
-  return REEventBusSubscribe(a1, TypeId, a2, a3, a4);
-}
-
-uint64_t REAnimationDidCompleteEventSubscribe(re *a1, const char *a2, uint64_t a3, uint64_t a4)
-{
-  TypeId = re::EventBus::getTypeId("REAnimationDidCompleteEvent", a2);
-
-  return REEventBusSubscribe(a1, TypeId, a2, a3, a4);
-}
-
-uint64_t REAnimationDidLoopEventSubscribe(re *a1, const char *a2, uint64_t a3, uint64_t a4)
-{
-  TypeId = re::EventBus::getTypeId("REAnimationDidLoopEvent", a2);
-
-  return REEventBusSubscribe(a1, TypeId, a2, a3, a4);
-}
-
-uint64_t REAnimationDidTerminateEventSubscribe(re *a1, const char *a2, uint64_t a3, uint64_t a4)
-{
-  TypeId = re::EventBus::getTypeId("REAnimationDidTerminateEvent", a2);
-
-  return REEventBusSubscribe(a1, TypeId, a2, a3, a4);
-}
-
-uint64_t REAnimationStartEventSubscribe(re *a1, const char *a2, uint64_t a3, uint64_t a4)
-{
-  TypeId = re::EventBus::getTypeId("REAnimationStartEvent", a2);
-
-  return REEventBusSubscribe(a1, TypeId, a2, a3, a4);
-}
-
-uint64_t REAnimationCompleteEventSubscribe(re *a1, const char *a2, uint64_t a3, uint64_t a4)
-{
-  TypeId = re::EventBus::getTypeId("REAnimationCompleteEvent", a2);
-
-  return REEventBusSubscribe(a1, TypeId, a2, a3, a4);
-}
-
-uint64_t REAnimationLoopEventSubscribe(re *a1, const char *a2, uint64_t a3, uint64_t a4)
-{
-  TypeId = re::EventBus::getTypeId("REAnimationLoopEvent", a2);
-
-  return REEventBusSubscribe(a1, TypeId, a2, a3, a4);
-}
-
-uint64_t REAnimationTerminateEventSubscribe(re *a1, const char *a2, uint64_t a3, uint64_t a4)
-{
-  TypeId = re::EventBus::getTypeId("REAnimationTerminateEvent", a2);
-
-  return REEventBusSubscribe(a1, TypeId, a2, a3, a4);
-}
-
-uint64_t REAudioPlayerDidChangeStateEventSubscribe(re *a1, const char *a2, uint64_t a3, uint64_t a4)
-{
-  TypeId = re::EventBus::getTypeId("REAudioPlayerDidChangeStateEvent", a2);
-
-  return REEventBusSubscribe(a1, TypeId, a2, a3, a4);
-}
-
-uint64_t REAudioPlayerDidCompleteEventSubscribe(re *a1, const char *a2, uint64_t a3, uint64_t a4)
-{
-  TypeId = re::EventBus::getTypeId("REAudioPlayerDidCompleteEvent", a2);
-
-  return REEventBusSubscribe(a1, TypeId, a2, a3, a4);
-}
-
-uint64_t REAudioPlayerDidCreateAudioUnitEventSubscribe(re *a1, const char *a2, uint64_t a3, uint64_t a4)
-{
-  TypeId = re::EventBus::getTypeId("REAudioPlayerDidCreateAudioUnitEvent", a2);
-
-  return REEventBusSubscribe(a1, TypeId, a2, a3, a4);
-}
-
-uint64_t REAudioPlayerDidPrepareAudioUnitEventSubscribe(re *a1, const char *a2, uint64_t a3, uint64_t a4)
-{
-  TypeId = re::EventBus::getTypeId("REAudioPlayerDidPrepareAudioUnitEvent", a2);
-
-  return REEventBusSubscribe(a1, TypeId, a2, a3, a4);
-}
-
-uint64_t REAudioPlayerDidThrowErrorEventSubscribe(re *a1, const char *a2, uint64_t a3, uint64_t a4)
-{
-  TypeId = re::EventBus::getTypeId("REAudioPlayerDidThrowErrorEvent", a2);
-
-  return REEventBusSubscribe(a1, TypeId, a2, a3, a4);
-}
-
-uint64_t REEngineDoUpdateEventSubscribe(re *a1, char *a2, uint64_t a3, uint64_t a4)
-{
-  TypeId = re::EventBus::getTypeId("REEngineDoUpdateEvent", a2);
-  v9 = REEventBusSubscribe(a1, TypeId, a2, a3, a4);
-  re::Engine::updateRaiseUpdateEventScheduleState(a2);
-  return v9;
-}
-
-uint64_t REEngineDoRenderEventSubscribe(re *a1, const char *a2, uint64_t a3, uint64_t a4)
-{
-  TypeId = re::EventBus::getTypeId("REEngineDoRenderEvent", a2);
-
-  return REEventBusSubscribe(a1, TypeId, a2, a3, a4);
-}
-
-uint64_t RECollisionDidStartEventSubscribe(re *a1, const char *a2, uint64_t a3, uint64_t a4)
-{
-  TypeId = re::EventBus::getTypeId("RECollisionDidStartEvent", a2);
-
-  return REEventBusSubscribe(a1, TypeId, a2, a3, a4);
-}
-
-uint64_t RECollisionDidUpdateEventSubscribe(re *a1, const char *a2, uint64_t a3, uint64_t a4)
-{
-  TypeId = re::EventBus::getTypeId("RECollisionDidUpdateEvent", a2);
-
-  return REEventBusSubscribe(a1, TypeId, a2, a3, a4);
-}
-
-uint64_t RECollisionDidStopEventSubscribe(re *a1, const char *a2, uint64_t a3, uint64_t a4)
-{
-  TypeId = re::EventBus::getTypeId("RECollisionDidStopEvent", a2);
-
-  return REEventBusSubscribe(a1, TypeId, a2, a3, a4);
-}
-
-uint64_t RECollisionStartEventSubscribe(re *a1, const char *a2, uint64_t a3, uint64_t a4)
-{
-  TypeId = re::EventBus::getTypeId("RECollisionStartEvent", a2);
-
-  return REEventBusSubscribe(a1, TypeId, a2, a3, a4);
-}
-
-uint64_t RECollisionUpdateEventSubscribe(re *a1, const char *a2, uint64_t a3, uint64_t a4)
-{
-  TypeId = re::EventBus::getTypeId("RECollisionUpdateEvent", a2);
-
-  return REEventBusSubscribe(a1, TypeId, a2, a3, a4);
-}
-
-uint64_t RECollisionStopEventSubscribe(re *a1, const char *a2, uint64_t a3, uint64_t a4)
-{
-  TypeId = re::EventBus::getTypeId("RECollisionStopEvent", a2);
-
-  return REEventBusSubscribe(a1, TypeId, a2, a3, a4);
-}
-
-uint64_t REMotionStateDidChangeEventSubscribe(re *a1, const char *a2, uint64_t a3, uint64_t a4)
-{
-  TypeId = re::EventBus::getTypeId("REMotionStateDidChangeEvent", a2);
-
-  return REEventBusSubscribe(a1, TypeId, a2, a3, a4);
-}
-
-uint64_t re::internal::Callable<REEventBusSubscribe::$_0,REEventHandlerResult ()(void *,void const*)>::cloneInto(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_1F5D2DE00;
-  *(a2 + 8) = *(a1 + 8);
-  return a2;
-}
-
-uint64_t re::internal::Callable<REEventBusSubscribe::$_0,REEventHandlerResult ()(void *,void const*)>::moveInto(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_1F5D2DE00;
-  *(a2 + 8) = *(a1 + 8);
-  return a2;
-}
-
-void re::internal::Callable<REEventHandlerResult({block_pointer} {__strong})(void *,void const*),REEventHandlerResult ()(void *,void const*)>::~Callable(uint64_t a1)
-{
-
-  JUMPOUT(0x1E6906520);
-}
-
-void *re::internal::Callable<REEventHandlerResult({block_pointer} {__strong})(void *,void const*),REEventHandlerResult ()(void *,void const*)>::cloneInto(uint64_t a1, void *a2)
-{
-  *a2 = &unk_1F5D2DE58;
-  a2[1] = _Block_copy(*(a1 + 8));
-  return a2;
-}
-
-void *re::internal::Callable<REEventHandlerResult({block_pointer} {__strong})(void *,void const*),REEventHandlerResult ()(void *,void const*)>::moveInto(uint64_t a1, void *a2)
-{
-  *a2 = &unk_1F5D2DE58;
-  a2[1] = _Block_copy(*(a1 + 8));
-  return a2;
-}
-
-void *REVideoPlayerComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::VideoPlayerComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType;
-}
-
-uint64_t REVideoPlayerComponentGetVideoAsset(uint64_t result)
-{
-  if (result)
-  {
-    return *(result + 40);
-  }
-
-  return result;
-}
-
-void REVideoPlayerComponentSetVideoAsset(re *a1, uint64_t a2)
-{
-  if (a1)
-  {
-    if (a2)
-    {
-      re::AssetAPIHelper::assetHandleCreate(a2, v4);
-      re::AssetHandle::AssetHandle(v3, v4);
-      re::ecs2::VideoPlayerComponent::setVideoAsset(a1, v3);
-      re::AssetHandle::~AssetHandle(v3);
-      re::AssetHandle::~AssetHandle(v4);
-    }
-  }
-}
-
-uint64_t REVideoPlayerComponentGetGuid(uint64_t result)
-{
-  if (result)
-  {
-    return *(result + 88);
-  }
-
-  return result;
-}
-
-uint64_t REVideoPlayerComponentSetGuid(uint64_t result, uint64_t a2)
-{
-  if (result)
-  {
-    *(result + 88) = a2;
-  }
-
-  return result;
-}
-
-uint64_t REVideoPlayerComponentSetScreenRoundedCornerEnabled(uint64_t result, char a2)
-{
-  if (result)
-  {
-    *(result + 97) = a2;
-  }
-
-  return result;
-}
-
-uint64_t REVideoPlayerComponentGetScreenRoundedCornerEnabled(uint64_t a1)
-{
-  if (a1)
-  {
-    v1 = *(a1 + 97);
-  }
-
-  else
-  {
-    v1 = 0;
-  }
-
-  return v1 & 1;
-}
-
-uint64_t REVideoPlayerComponentSetScaleRoundedCornerEnabled(uint64_t a1, char a2)
-{
-  if (a1)
-  {
-    *(a1 + 199) = a2;
-    return RENetworkMarkComponentDirty(a1);
-  }
-
-  return a1;
-}
-
-uint64_t REVideoPlayerComponentGetScaleRoundedCornerEnabled(uint64_t a1)
-{
-  if (a1)
-  {
-    v1 = *(a1 + 199);
-  }
-
-  else
-  {
-    v1 = 0;
-  }
-
-  return v1 & 1;
-}
-
-uint64_t REVideoPlayerComponentSetScreenAspectRatioAnimationEnabled(uint64_t result, char a2)
-{
-  if (result)
-  {
-    *(result + 98) = a2;
-  }
-
-  return result;
-}
-
-uint64_t REVideoPlayerComponentGetScreenAspectRatioAnimationEnabled(uint64_t a1)
-{
-  if (a1)
-  {
-    v1 = *(a1 + 98);
-  }
-
-  else
-  {
-    v1 = 0;
-  }
-
-  return v1 & 1;
-}
-
-uint64_t REVideoPlayerComponentSetScreenDeferAspectRatioTransitionToApp(uint64_t result, char a2)
-{
-  if (result)
-  {
-    *(result + 99) = a2;
-  }
-
-  return result;
-}
-
-uint64_t REVideoPlayerComponentGetScreenDeferAspectRatioTransitionToApp(uint64_t a1)
-{
-  if (a1)
-  {
-    v1 = *(a1 + 99);
-  }
-
-  else
-  {
-    v1 = 0;
-  }
-
-  return v1 & 1;
-}
-
-uint64_t REVideoPlayerComponentGetEnableReflections(uint64_t a1)
-{
-  if (a1)
-  {
-    v1 = *(a1 + 96);
-  }
-
-  else
-  {
-    v1 = 0;
-  }
-
-  return v1 & 1;
-}
-
-uint64_t REVideoPlayerComponentSetEnableReflections(uint64_t result, char a2)
-{
-  if (result)
-  {
-    *(result + 96) = a2;
-  }
-
-  return result;
-}
-
-uint64_t REVideoPlayerComponentEnableReflections(uint64_t result, char a2)
-{
-  if (result)
-  {
-    *(result + 96) = a2;
-  }
-
-  return result;
-}
-
-uint64_t REVideoPlayerComponentGetPreferredViewingMode(uint64_t a1)
-{
-  if (a1)
-  {
-    return *(a1 + 176);
-  }
-
-  else
-  {
-    return 1;
-  }
-}
-
-uint64_t REVideoPlayerComponentGetDesiredViewingMode(uint64_t a1)
-{
-  if (a1)
-  {
-    return *(a1 + 176);
-  }
-
-  else
-  {
-    return 1;
-  }
-}
-
-uint64_t REVideoPlayerComponentSetPreferredViewingMode(uint64_t result, int a2)
-{
-  if (result)
-  {
-    if (*(result + 176) != a2)
-    {
-      *(result + 176) = a2;
-    }
-  }
-
-  return result;
-}
-
-uint64_t REVideoPlayerComponentSetDesiredViewingMode(uint64_t result, int a2)
-{
-  if (result)
-  {
-    if (*(result + 176) != a2)
-    {
-      *(result + 176) = a2;
-    }
-  }
-
-  return result;
-}
-
-void REVideoPlayerComponentSetDesiredSpatialVideoMode(uint64_t a1, uint64_t a2)
-{
-  v2 = a2;
-  v3 = re::ecs2::ComponentImpl<re::ecs2::VideoPlayerComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)2>::safeCast(a1, a2);
-
-  re::ecs2::VideoPlayerComponent::setDesiredSpatialVideoMode(v3, v2);
-}
-
-re::ecs2::NetworkComponent *REVideoPlayerComponentDumpHDRFrameAtTimeStamp(re::ecs2::NetworkComponent *result, CMTime *a2, CMTime *a3, const char *a4)
-{
-  if (result)
-  {
+    result = (*(*(v4 + 24) + 16))(v4 + 24, 56 * a2, v5, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
     v6 = result;
-    v10 = *a2;
-    Seconds = CMTimeGetSeconds(&v10);
-    v10 = *a3;
-    v9 = CMTimeGetSeconds(&v10);
-    if (a4)
-    {
-      if (Seconds >= 0.0 && v9 >= 0.0)
-      {
-        *(v6 + 112) = 1;
-        *(v6 + 120) = Seconds;
-        *(v6 + 128) = v9;
-        re::DynamicString::operator=((v6 + 144), &v10);
-        if (v10.value)
-        {
-          if (v10.timescale)
-          {
-            (*(*v10.value + 40))();
-          }
-        }
-      }
-    }
-
-    return RENetworkMarkComponentDirty(v6);
-  }
-
-  return result;
-}
-
-void REVideoPlayerComponentPreloadVideoAsset(re::AssetManager *a1, re::ecs2::VideoPlayerComponent *this)
-{
-  if (a1)
-  {
-    if (this)
-    {
-      re::ecs2::VideoPlayerComponent::preloadVideoAsset(this, a1);
-    }
-  }
-}
-
-uint64_t REVideoPlayerComponentSetLowLatencyEnabled(uint64_t result, char a2)
-{
-  if (result)
-  {
-    *(result + 184) = a2;
-  }
-
-  return result;
-}
-
-uint64_t REVideoPlayerComponentGetLowLatencyEnabled(uint64_t a1)
-{
-  if (a1)
-  {
-    v1 = *(a1 + 184);
   }
 
   else
   {
-    v1 = 0;
+    v6 = 0;
   }
 
-  return v1 & 1;
-}
-
-uint64_t REVideoPlayerComponentSetScreenWrapTheta(uint64_t result, float a2)
-{
-  if (result)
+  v7 = *(v3 + 8);
+  v8 = *v3;
+  if (v7)
   {
-    *(result + 188) = a2;
-  }
-
-  return result;
-}
-
-double REVideoPlayerComponentGetScreenWrapTheta(uint64_t a1)
-{
-  if (!a1)
-  {
-    return 0.0;
-  }
-
-  LODWORD(result) = *(a1 + 188);
-  return result;
-}
-
-uint64_t REVideoPlayerComponentSetScreenWrapPostive(uint64_t result, char a2)
-{
-  if (result)
-  {
-    *(result + 196) = a2;
-  }
-
-  return result;
-}
-
-uint64_t REVideoPlayerComponentGetScreenWrapPostive(uint64_t a1)
-{
-  if (a1)
-  {
-    v1 = *(a1 + 196);
-  }
-
-  else
-  {
-    v1 = 0;
-  }
-
-  return v1 & 1;
-}
-
-uint64_t REVideoPlayerComponentSetScreenWrapAnimation(uint64_t result, char a2)
-{
-  if (result)
-  {
-    *(result + 197) = a2;
-  }
-
-  return result;
-}
-
-uint64_t REVideoPlayerComponentGetScreenWrapAnimation(uint64_t a1)
-{
-  if (a1)
-  {
-    v1 = *(a1 + 197);
-  }
-
-  else
-  {
-    v1 = 0;
-  }
-
-  return v1 & 1;
-}
-
-uint64_t REVideoPlayerComponentStartBlurVideoFadeIn(uint64_t result, float a2, float a3)
-{
-  if (result)
-  {
-    *(result + 100) = a2;
-    *(result + 104) = a3;
-    *(result + 108) = 1;
-  }
-
-  return result;
-}
-
-uint64_t REVideoPlayerComponentStartBlurVideoFadeOut(uint64_t result)
-{
-  if (result)
-  {
-    *(result + 108) = 2;
-  }
-
-  return result;
-}
-
-uint64_t REVideoPlayerComponentSetUsesCurvedUIStyleSystemTreatments(uint64_t result, char a2)
-{
-  if (result)
-  {
-    *(result + 198) = a2;
-  }
-
-  return result;
-}
-
-uint64_t REVideoPlayerComponentGetUsesCurvedUIStyleSystemTreatments(uint64_t a1)
-{
-  if (a1)
-  {
-    v1 = *(a1 + 198);
-  }
-
-  else
-  {
-    v1 = 0;
-  }
-
-  return v1 & 1;
-}
-
-void REVideoPlayerComponentSetMipMapBias(uint64_t a1, float a2)
-{
-  re::AssetHandle::AssetHandle(v4, (a1 + 40));
-  v3 = re::AssetHandle::blockUntilLoaded<re::VideoAsset>(v4);
-  if (v3)
-  {
-    *(**(v3 + 216) + 14732) = a2;
-  }
-
-  re::AssetHandle::~AssetHandle(v4);
-}
-
-float REVideoPlayerComponentGetMipMapBias(uint64_t a1)
-{
-  re::AssetHandle::AssetHandle(v4, (a1 + 40));
-  v1 = re::AssetHandle::blockUntilLoaded<re::VideoAsset>(v4);
-  if (v1)
-  {
-    v2 = *(**(v1 + 216) + 14732);
-  }
-
-  else
-  {
-    v2 = -1.0;
-  }
-
-  re::AssetHandle::~AssetHandle(v4);
-  return v2;
-}
-
-uint64_t re::ecs2::ComponentImpl<re::ecs2::VideoPlayerComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)2>::safeCast(uint64_t a1, uint64_t a2)
-{
-  if (a1)
-  {
-    v2 = a1;
-    v3 = &re::ecs2::ComponentImpl<re::ecs2::PrimitiveBoxComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType;
-    if ((*(*a1 + 40))(a1) == re::ecs2::ComponentImpl<re::ecs2::VideoPlayerComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)0,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType)
-    {
-      return v2;
-    }
-  }
-
-  else
-  {
-    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) component must not be null.", "component", "safeCast", 97);
-    _os_crash();
-    __break(1u);
-  }
-
-  (*(*v2 + 40))(v2);
-  v5 = *(v3[14] + 4);
-  v6 = (*(*v2 + 40))(v2);
-  re::internal::assertLog(6, v7, "assertion failure: '%s' (%s:line %i) Component is wrong type. Expected type: %s, but got: %s", "&reinterpret_cast<Derived *>(component)->componentType() == &Derived::classComponentType()", "safeCast", 101, v5, *(v6 + 32));
-  result = _os_crash();
-  __break(1u);
-  return result;
-}
-
-void *RECameraViewDescriptorsComponentGetComponentType()
-{
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
-  {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
-
-  return re::ecs2::ComponentImpl<re::ecs2::CameraViewDescriptorsComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)2>::s_componentType;
-}
-
-uint64_t RECameraViewDescriptorsComponentSetViewMode(re::ecs2::CameraViewDescriptorsComponent *a1, re::ecs2::CameraViewDescriptorsComponent *a2, unsigned int a3)
-{
-  ViewDescriptor = re::ecs2::CameraViewDescriptorsComponent::tryGetViewDescriptor(a1, a2);
-  if (a3 >= 3)
-  {
-    re::internal::assertLog(4, v6, "assertion failure: '%s' (%s:line %i) Invalid View Mode set, options are kREViewModeMono, kREViewModeSinglePass or kREViewModeDualPass", "!Unreachable code", "RECameraViewDescriptorsComponentSetViewMode", 35);
-    result = _os_crash();
-    __break(1u);
-  }
-
-  else
-  {
-    *(ViewDescriptor + 200) = a3;
-
-    return re::ecs2::Component::enqueueMarkDirty(a1);
-  }
-
-  return result;
-}
-
-uint64_t RECameraViewDescriptorsComponentGetViewMode(re::ecs2::CameraViewDescriptorsComponent *a1, re::ecs2::CameraViewDescriptorsComponent *a2)
-{
-  result = *(re::ecs2::CameraViewDescriptorsComponent::tryGetViewDescriptor(a1, a2) + 200);
-  if (result >= 3)
-  {
-    re::internal::assertLog(4, v3, "assertion failure: '%s' (%s:line %i) Invalid View Mode on camera, supported options are ViewMode::kMono, ViewMode::kSinglePass or ViewMode::kDualPass", "!Unreachable code", "RECameraViewDescriptorsComponentGetViewMode", 61);
-    result = _os_crash();
-    __break(1u);
-  }
-
-  return result;
-}
-
-uint64_t RECameraViewDescriptorsComponentClearCameraViewDescriptors(uint64_t a1)
-{
-  re::DynamicArray<re::ecs2::CameraViewDescriptor>::clear((a1 + 240));
-
-  return re::ecs2::Component::enqueueMarkDirty(a1);
-}
-
-uint64_t RECameraViewDescriptorsComponentAddViewDescriptor(void *a1)
-{
-  v68 = *MEMORY[0x1E69E9840];
-  v12 = 0;
-  v13 = xmmword_1E30474D0;
-  v15 = 117440767;
-  v28 = xmmword_1E311E8B0;
-  memset(v11, 0, sizeof(v11));
-  v14 = 0;
-  v16 = -1;
-  v17 = 0;
-  v18 = 0u;
-  v19 = 0;
-  v26 = 0;
-  v27 = 0;
-  v20 = 0u;
-  v21 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v22 = 0;
-  v25 = 0;
-  v29 = unk_1E311E8C0;
-  v30 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v2 = re::globalAllocators(a1);
-  v3 = (*(*v2[2] + 32))(v2[2], 272, 8);
-  *v3 = 0u;
-  *(v3 + 1) = 0u;
-  *(v3 + 2) = 0u;
-  *(v3 + 3) = 0u;
-  *(v3 + 4) = 0u;
-  *(v3 + 5) = 0u;
-  *(v3 + 6) = 0u;
-  *(v3 + 7) = 0u;
-  *(v3 + 8) = 0u;
-  *(v3 + 9) = 0u;
-  *(v3 + 10) = 0u;
-  *(v3 + 11) = 0u;
-  *(v3 + 12) = 0u;
-  *(v3 + 13) = 0u;
-  *(v3 + 14) = 0u;
-  *(v3 + 15) = 0u;
-  *(v3 + 16) = 0u;
-  v34 = v3;
-  v35 = -1;
-  v36 = 1;
-  v37 = 0;
-  v38 = re::globalAllocators(v3)[2];
-  v39 = 0;
-  v8 = 0u;
-  v9 = 0u;
-  v7 = 0u;
-  re::Pose<float>::Pose(v10, 0, 0, &v7);
-  v40 = v10[0];
-  v41 = v10[1];
-  v8 = 0u;
-  v9 = 0u;
-  v7 = 0u;
-  re::Pose<float>::Pose(v6, 0, 0, &v7);
-  v42 = v6[0];
-  v43 = v6[1];
-  v44 = 0;
-  v45 = xmmword_1E308B7C0;
-  v46 = 0xBDCCCCCD3DCCCCCDLL;
-  v47 = 0;
-  v48 = xmmword_1E30476A0;
-  v49 = 1;
-  v50 = 0;
-  v51 = 0;
-  v52 = 0;
-  v53 = 0;
-  v54 = 0;
-  v55 = xmmword_1E308B7C0;
-  v56 = 0xBDCCCCCD3DCCCCCDLL;
-  v57 = 0;
-  v58 = xmmword_1E30476A0;
-  v59 = 1;
-  v60 = 0;
-  v61 = 0;
-  v62 = 0;
-  v63 = 0;
-  v67 = 0;
-  v66 = 0;
-  v65 = 0;
-  v64 = 0u;
-  re::DynamicArray<re::ecs2::CameraViewDescriptor>::add((a1 + 30), v11);
-  v4 = a1[32];
-  re::ecs2::Component::enqueueMarkDirty(a1);
-  re::ecs2::CameraViewDescriptor::~CameraViewDescriptor(v11);
-  return v4 + 0xFFFF;
-}
-
-uint64_t RECameraViewDescriptorsComponentCameraViewDescriptorGetSpecifyCommandAtIndexLane(re::ecs2::CameraViewDescriptorsComponent *a1, re::ecs2::CameraViewDescriptorsComponent *a2, unsigned int a3)
-{
-  ViewDescriptor = re::ecs2::CameraViewDescriptorsComponent::tryGetViewDescriptor(a1, a2);
-  if (*(ViewDescriptor + 928) <= a3)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  v5 = *(ViewDescriptor + 944) + 136 * a3;
-  if (*(v5 + 8))
-  {
-    v6 = *(v5 + 16);
-  }
-
-  else
-  {
-    v6 = v5 + 9;
-  }
-
-  v7 = MEMORY[0x1E696AEC0];
-
-  return [v7 stringWithUTF8String:v6];
-}
-
-uint64_t RECameraViewDescriptorsComponentCameraViewDescriptorGetSpecifyCommandAtIndexRenderTarget(re::ecs2::CameraViewDescriptorsComponent *a1, re::ecs2::CameraViewDescriptorsComponent *a2, unsigned int a3, unsigned int a4)
-{
-  ViewDescriptor = re::ecs2::CameraViewDescriptorsComponent::tryGetViewDescriptor(a1, a2);
-  if (*(ViewDescriptor + 928) <= a3)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  return *(*(ViewDescriptor + 944) + 136 * a3 + 24 * a4 + 32);
-}
-
-uint64_t RECameraViewDescriptorsComponentCameraViewDescriptorGetSpecifyCommandAtIndexRenderLayer(re::ecs2::CameraViewDescriptorsComponent *a1, re::ecs2::CameraViewDescriptorsComponent *a2, unsigned int a3, unsigned int a4)
-{
-  ViewDescriptor = re::ecs2::CameraViewDescriptorsComponent::tryGetViewDescriptor(a1, a2);
-  if (*(ViewDescriptor + 928) <= a3)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  return *(*(ViewDescriptor + 944) + 136 * a3 + 4 * a4 + 80);
-}
-
-id RECameraViewDescriptorsComponentCameraViewDescriptorGetSpecifyCommandAtIndexTexture(re::ecs2::CameraViewDescriptorsComponent *a1, re::ecs2::CameraViewDescriptorsComponent *a2, unsigned int a3, unsigned int a4)
-{
-  ViewDescriptor = re::ecs2::CameraViewDescriptorsComponent::tryGetViewDescriptor(a1, a2);
-  if (*(ViewDescriptor + 928) <= a3)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  v7 = *(*(ViewDescriptor + 944) + 136 * a3 + 8 * a4 + 88);
-
-  return v7;
-}
-
-id RECameraViewDescriptorsComponentCameraViewDescriptorGetSpecifyCommandAtIndexTextureDescriptor(re::ecs2::CameraViewDescriptorsComponent *a1, re::ecs2::CameraViewDescriptorsComponent *a2, unsigned int a3, unsigned int a4)
-{
-  ViewDescriptor = re::ecs2::CameraViewDescriptorsComponent::tryGetViewDescriptor(a1, a2);
-  if (*(ViewDescriptor + 928) <= a3)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  v7 = *(*(ViewDescriptor + 944) + 136 * a3 + 8 * a4 + 104);
-
-  return v7;
-}
-
-uint64_t RECameraViewDescriptorsComponentCameraViewDescriptorGetScopeName(_anonymous_namespace_ *a1, re::ecs2::CameraViewDescriptorsComponent *a2)
-{
-  v4 = MEMORY[0x1E696AEC0];
-  if (v9)
-  {
-    v5 = *&v10[7];
-  }
-
-  else
-  {
-    v5 = v10;
-  }
-
-  v6 = [v4 stringWithUTF8String:v5];
-  if (v8 && (v9 & 1) != 0)
-  {
-    (*(*v8 + 40))();
-  }
-
-  return v6;
-}
-
-uint64_t RECameraViewDescriptorsComponentCameraViewDescriptorCopySettingStruct(re::ecs2::CameraViewDescriptorsComponent *a1, re::ecs2::CameraViewDescriptorsComponent *a2)
-{
-  v71 = *MEMORY[0x1E69E9840];
-  ViewDescriptor = re::ecs2::CameraViewDescriptorsComponent::tryGetViewDescriptor(a1, a2);
-  v3 = re::globalAllocators(ViewDescriptor);
-  v4 = (*(*v3[2] + 32))(v3[2], 928, 8);
-  v5 = re::RuntimeRenderGraphDataStruct::RuntimeRenderGraphDataStruct(v4, "CameraData");
-  re::RuntimeRenderGraphDataStruct::setOrAddValueOfType<BOOL>(v5, "disableAA", *(ViewDescriptor + 24));
-  re::RuntimeRenderGraphDataStruct::setOrAddValueOfType<BOOL>(v4, "enableUnwarp", *(ViewDescriptor + 26));
-  re::RuntimeRenderGraphDataStruct::setOrAddValueOfType<BOOL>(v4, "disableTonemapping", *(ViewDescriptor + 25));
-  re::RuntimeRenderGraphDataStruct::setOrAddValueOfType<BOOL>(v4, "forceHidePassthroughFeed", *(ViewDescriptor + 28));
-  re::RuntimeRenderGraphDataStruct::setOrAddValueOfType<BOOL>(v4, "disableDebugDraw", *(ViewDescriptor + 27));
-  re::RuntimeRenderGraphDataStruct::setOrAddValueOfType<BOOL>(v4, "disableSceneRenderGraphFileProviders", *(ViewDescriptor + 29));
-  re::RuntimeRenderGraphDataStruct::setOrAddValueOfType<BOOL>(v4, "loadColor", *(ViewDescriptor + 30));
-  re::RuntimeRenderGraphDataStruct::setOrAddValueOfType<BOOL>(v4, "skipManagedForceClear", *(ViewDescriptor + 32));
-  re::RuntimeRenderGraphDataStruct::setOrAddValueOfType<re::Vector4<float>>(v4, "clearColor", *(ViewDescriptor + 48), *(ViewDescriptor + 56));
-  re::RuntimeRenderGraphDataStruct::setOrAddValueOfType<float>(v4, "clearDepth", *(ViewDescriptor + 64));
-  re::RuntimeRenderGraphDataStruct::setOrAddValueOfType<unsigned char>(v4, "stencilMask", *(ViewDescriptor + 68));
-  re::RuntimeRenderGraphDataStruct::setOrAddValueOfType<unsigned char>(v4, "stencilReference", *(ViewDescriptor + 69));
-  v57 = *(ViewDescriptor + 70);
-  {
-    goto LABEL_62;
-  }
-
-  while (1)
-  {
-    v7 = re::introspect<re::mtl::StencilOperation>(BOOL)::info;
-    v8 = *(re::introspect<re::mtl::StencilOperation>(BOOL)::info + 4);
-    v58 = 0x3B329D0E99C91B0BLL;
-    __src = v57;
-    v9 = re::SmallHashTable<re::WeakStringID,re::IntrospectionMember,8ul,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false>::tryGet(v4 + 24, &v58);
-    if (v9)
-    {
-      v10 = v9;
-      {
-        re::introspect<re::mtl::StencilOperation>(BOOL)::info = re::mtl::introspect_StencilOperation(0, v53);
-      }
-
-      if (re::introspect<re::mtl::StencilOperation>(BOOL)::info == *(v10 + 16))
-      {
-        v11 = *(v10 + 36);
-        v12 = *(v4 + 752);
-        if (v12 <= v11)
-        {
-          *v63 = 0;
-          v69 = 0u;
-          v70 = 0u;
-          v67 = 0u;
-          v68 = 0u;
-          buf = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          v60 = 136315906;
-          *v61 = "operator[]";
-          *&v61[8] = 1024;
-          *&v61[10] = 858;
-          *&v61[14] = 2048;
-          *&v61[16] = v11;
-          *&v61[24] = 2048;
-          *&v61[26] = v12;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-          goto LABEL_61;
-        }
-
-        if (*(v4 + 760))
-        {
-          v13 = v4 + 768;
-        }
-
-        else
-        {
-          v13 = *(v4 + 776);
-        }
-
-        memcpy((v13 + v11), &__src, *(re::introspect<re::mtl::StencilOperation>(BOOL)::info + 5));
-      }
-    }
-
-    else if (v8 <= 9 && ((0x301u >> v8) & 1) != 0)
-    {
-      v14 = re::globalAllocators(0);
-      v15 = (*(*v14[2] + 32))(v14[2], 17, 0);
-      strcpy(v15, "stencilOperation");
-      re::IntrospectionMember::IntrospectionMember(&v60);
-      *&v61[4] = v15;
-      v16 = *(v4 + 752);
-      v17 = (v16 + v7[6] - 1) & -v7[6];
-      v18 = v17 - v16;
-      if (v17 > v16)
-      {
-        do
-        {
-          LOBYTE(buf) = 0;
-          re::DynamicOverflowArray<char,128ul>::add(v4 + 744, &buf);
-          --v18;
-        }
-
-        while (v18);
-      }
-
-      v19 = *&v61[12];
-      *&v61[12] = v7;
-      buf = v19;
-      re::SerializedReference<re::IntrospectionBase const*>::reset(&buf);
-      v20 = *(v4 + 752);
-      *&v61[32] = v20;
-      v60 = 1;
-      v21 = v20;
-      v22 = (v7[5] + v7[6] - 1) & -v7[6];
-      if (!v22)
-      {
-        goto LABEL_70;
-      }
-
-      do
-      {
-        LOBYTE(buf) = 0;
-        v23 = re::DynamicOverflowArray<char,128ul>::add(v4 + 744, &buf);
-        --v22;
-      }
-
-      while (v22);
-      v21 = *(v4 + 752);
-      if (v21 <= v20)
-      {
-LABEL_70:
-        v58 = 0;
-        v69 = 0u;
-        v70 = 0u;
-        v67 = 0u;
-        v68 = 0u;
-        buf = 0u;
-        v55 = v21;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        *v63 = 136315906;
-        *&v63[4] = "operator[]";
-        *&v63[12] = 1024;
-        *&v63[14] = 858;
-        *&v63[18] = 2048;
-        *&v63[20] = v20;
-        v64 = 2048;
-        v65 = v55;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-        goto LABEL_71;
-      }
-
-      v24 = (*(v4 + 760) & 1) != 0 ? v4 + 768 : *(v4 + 776);
-      *&v68 = 0;
-      buf = 0u;
-      v67 = 0u;
-      *v63 = re::globalAllocators(v23)[2];
-      *&v63[8] = 0;
-      *&v63[16] = &buf;
-      if (v15)
-      {
-        v26 = *v15;
-        if (*v15)
-        {
-          v27 = v15[1];
-          if (v27)
-          {
-            v28 = (v15 + 2);
-            do
-            {
-              v26 = 31 * v26 + v27;
-              v29 = *v28++;
-              v27 = v29;
-            }
-
-            while (v29);
-          }
-
-          v26 &= ~0x8000000000000000;
-        }
-      }
-
-      else
-      {
-        v26 = 0x7FFFFFFFFFFFFFFFLL;
-      }
-
-      *&buf = v26;
-      re::SmallHashTable<re::WeakStringID,re::IntrospectionMember,8ul,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false>::add(v4 + 24, &buf, &v60, 0);
-      re::SerializedReference<re::IntrospectionBase const*>::reset(v62);
-      re::SerializedReference<re::IntrospectionBase const*>::reset(&v61[12]);
-    }
-
-    else
-    {
-      v25 = *re::graphicsLogObjects(0);
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
-      {
-        LODWORD(buf) = 136315138;
-        *(&buf + 4) = "stencilOperation";
-        _os_log_impl(&dword_1E1C61000, v25, OS_LOG_TYPE_DEFAULT, "Attempted to add a non-basic type to RuntimeRenderGraphData: %s", &buf, 0xCu);
-      }
-    }
-
-    v57 = *(ViewDescriptor + 71);
-    {
-      re::introspect<re::mtl::CompareFunction>(BOOL)::info = re::mtl::introspect_CompareFunction(0, v52);
-    }
-
-    v30 = re::introspect<re::mtl::CompareFunction>(BOOL)::info;
-    v31 = *(re::introspect<re::mtl::CompareFunction>(BOOL)::info + 4);
-    v58 = 0x51F9ECF944B29B89;
-    __src = v57;
-    v32 = re::SmallHashTable<re::WeakStringID,re::IntrospectionMember,8ul,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false>::tryGet(v4 + 24, &v58);
-    if (!v32)
-    {
-      break;
-    }
-
-    v33 = v32;
-    {
-      re::introspect<re::mtl::CompareFunction>(BOOL)::info = re::mtl::introspect_CompareFunction(0, v54);
-    }
-
-    if (re::introspect<re::mtl::CompareFunction>(BOOL)::info != *(v33 + 16))
-    {
-      goto LABEL_59;
-    }
-
-    v11 = *(v33 + 36);
-    v12 = *(v4 + 752);
-    if (v12 > v11)
-    {
-      if (*(v4 + 760))
-      {
-        v34 = v4 + 768;
-      }
-
-      else
-      {
-        v34 = *(v4 + 776);
-      }
-
-      memcpy((v34 + v11), &__src, *(re::introspect<re::mtl::CompareFunction>(BOOL)::info + 5));
-LABEL_59:
-      re::RuntimeRenderGraphDataStruct::setOrAddValueOfType<unsigned int>(v4, "stencilOperationUint", *(ViewDescriptor + 70));
-      re::RuntimeRenderGraphDataStruct::setOrAddValueOfType<unsigned int>(v4, "meshSceneFilterMask", *(ViewDescriptor + 72));
-      return v4;
-    }
-
-LABEL_61:
-    *v63 = 0;
-    v69 = 0u;
-    v70 = 0u;
-    v67 = 0u;
-    v68 = 0u;
-    buf = 0u;
-    ViewDescriptor = MEMORY[0x1E69E9C10];
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v60 = 136315906;
-    *v61 = "operator[]";
-    *&v61[8] = 1024;
-    *&v61[10] = 858;
-    *&v61[14] = 2048;
-    *&v61[16] = v11;
-    *&v61[24] = 2048;
-    *&v61[26] = v12;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_62:
-    {
-      re::introspect<re::mtl::StencilOperation>(BOOL)::info = re::mtl::introspect_StencilOperation(0, v51);
-    }
-  }
-
-  if (v31 > 9 || ((0x301u >> v31) & 1) == 0)
-  {
-    v45 = *re::graphicsLogObjects(0);
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
-    {
-      LODWORD(buf) = 136315138;
-      *(&buf + 4) = "stencilCompare";
-      _os_log_impl(&dword_1E1C61000, v45, OS_LOG_TYPE_DEFAULT, "Attempted to add a non-basic type to RuntimeRenderGraphData: %s", &buf, 0xCu);
-    }
-
-    goto LABEL_59;
-  }
-
-  v35 = re::globalAllocators(0);
-  v36 = (*(*v35[2] + 32))(v35[2], 15, 0);
-  strcpy(v36, "stencilCompare");
-  re::IntrospectionMember::IntrospectionMember(&v60);
-  *&v61[4] = v36;
-  v37 = *(v4 + 752);
-  v38 = (v37 + v30[6] - 1) & -v30[6];
-  v39 = v38 - v37;
-  if (v38 > v37)
-  {
+    v9 = v6 + 56 * v7;
+    v10 = v6;
     do
     {
-      LOBYTE(buf) = 0;
-      re::DynamicOverflowArray<char,128ul>::add(v4 + 744, &buf);
-      --v39;
+      v11 = *v8;
+      *(v10 + 16) = *(v8 + 2);
+      *v10 = v11;
+      *(v10 + 24) = *(v8 + 24);
+      *(v10 + 40) = *(v8 + 5);
+      *(v10 + 48) = *(v8 + 12);
+      v10 += 56;
+      v8 = (v8 + 56);
     }
 
-    while (v39);
+    while (v10 < v9);
+    v8 = *v3;
   }
 
-  v40 = *&v61[12];
-  *&v61[12] = v30;
-  buf = v40;
-  re::SerializedReference<re::IntrospectionBase const*>::reset(&buf);
-  v20 = *(v4 + 752);
-  *&v61[32] = v20;
-  v60 = 1;
-  v41 = v20;
-  v42 = (v30[5] + v30[6] - 1) & -v30[6];
-  if (v42)
+  if ((*(v3 + 12) & 0x80000000) == 0 && v8)
   {
-    do
-    {
-      LOBYTE(buf) = 0;
-      v43 = re::DynamicOverflowArray<char,128ul>::add(v4 + 744, &buf);
-      --v42;
-    }
-
-    while (v42);
-    v41 = *(v4 + 752);
-    if (v41 > v20)
-    {
-      if (*(v4 + 760))
-      {
-        v44 = v4 + 768;
-      }
-
-      else
-      {
-        v44 = *(v4 + 776);
-      }
-
-      *&v68 = 0;
-      buf = 0u;
-      v67 = 0u;
-      *v63 = re::globalAllocators(v43)[2];
-      *&v63[8] = 0;
-      *&v63[16] = &buf;
-      if (v36)
-      {
-        v46 = *v36;
-        if (*v36)
-        {
-          v47 = v36[1];
-          if (v47)
-          {
-            v48 = (v36 + 2);
-            do
-            {
-              v46 = 31 * v46 + v47;
-              v49 = *v48++;
-              v47 = v49;
-            }
-
-            while (v49);
-          }
-
-          v46 &= ~0x8000000000000000;
-        }
-      }
-
-      else
-      {
-        v46 = 0x7FFFFFFFFFFFFFFFLL;
-      }
-
-      *&buf = v46;
-      re::SmallHashTable<re::WeakStringID,re::IntrospectionMember,8ul,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false>::add(v4 + 24, &buf, &v60, 0);
-      re::SerializedReference<re::IntrospectionBase const*>::reset(v62);
-      re::SerializedReference<re::IntrospectionBase const*>::reset(&v61[12]);
-      goto LABEL_59;
-    }
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
   }
 
-LABEL_71:
-  v58 = 0;
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
-  v68 = 0u;
-  buf = 0u;
-  v56 = v41;
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  *v63 = 136315906;
-  *&v63[4] = "operator[]";
-  *&v63[12] = 1024;
-  *&v63[14] = 858;
-  *&v63[18] = 2048;
-  *&v63[20] = v20;
-  v64 = 2048;
-  v65 = v56;
-  _os_log_send_and_compose_impl();
-  result = _os_crash_msg();
-  __break(1u);
+  *v3 = v6;
+  *(v3 + 12) = a2;
   return result;
 }
 
-void re::RuntimeRenderGraphDataStruct::setOrAddValueOfType<unsigned char>(uint64_t a1, char *a2, char a3)
+uint64_t physx::shdfnd::Array<physx::PxExtendedCapsule,physx::shdfnd::ReflectionAllocator<physx::PxExtendedCapsule>>::recreate(uint64_t result, unsigned int a2)
 {
-  v48 = *MEMORY[0x1E69E9840];
-  v34 = a3;
-  {
-    goto LABEL_38;
-  }
-
-  while (1)
-  {
-    v5 = re::introspect<unsigned char>(BOOL)::info;
-    v6 = *(re::introspect<unsigned char>(BOOL)::info + 4);
-    if (a2)
-    {
-      v7 = *a2;
-      if (*a2)
-      {
-        v8 = a2[1];
-        if (v8)
-        {
-          v9 = (a2 + 2);
-          do
-          {
-            v7 = 31 * v7 + v8;
-            v10 = *v9++;
-            v8 = v10;
-          }
-
-          while (v10);
-        }
-
-        v7 &= ~0x8000000000000000;
-      }
-    }
-
-    else
-    {
-      v7 = 0x7FFFFFFFFFFFFFFFLL;
-    }
-
-    v35 = v7;
-    __src = v34;
-    v11 = re::SmallHashTable<re::WeakStringID,re::IntrospectionMember,8ul,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false>::tryGet(a1 + 24, &v35);
-    if (!v11)
-    {
-      break;
-    }
-
-    v12 = v11;
-    {
-      re::introspect<unsigned char>(BOOL)::info = re::introspect_uint8_t(0, v33);
-    }
-
-    if (re::introspect<unsigned char>(BOOL)::info != *(v12 + 16))
-    {
-      return;
-    }
-
-    v13 = *(v12 + 36);
-    a2 = *(a1 + 752);
-    if (a2 > v13)
-    {
-      if (*(a1 + 760))
-      {
-        v14 = a1 + 768;
-      }
-
-      else
-      {
-        v14 = *(a1 + 776);
-      }
-
-      memcpy((v14 + v13), &__src, *(re::introspect<unsigned char>(BOOL)::info + 5));
-      return;
-    }
-
-    *v40 = 0;
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
-    v45 = 0u;
-    buf = 0u;
-    a1 = MEMORY[0x1E69E9C10];
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v37 = 136315906;
-    *v38 = "operator[]";
-    *&v38[8] = 1024;
-    *&v38[10] = 858;
-    *&v38[14] = 2048;
-    *&v38[16] = v13;
-    *&v38[24] = 2048;
-    *&v38[26] = a2;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_38:
-    {
-      re::introspect<unsigned char>(BOOL)::info = re::introspect_uint8_t(0, v32);
-    }
-  }
-
-  if (((v6 < 0xA) & (0x301u >> v6)) != 0)
-  {
-    v15 = strlen(a2);
-    v16 = re::globalAllocators(v15);
-    v17 = (*(*v16[2] + 32))(v16[2], v15 + 1, 0);
-    strcpy(v17, a2);
-    re::IntrospectionMember::IntrospectionMember(&v37);
-    *&v38[4] = v17;
-    v18 = *(a1 + 752);
-    v19 = (v18 + v5[6] - 1) & -v5[6];
-    v20 = v19 - v18;
-    if (v19 > v18)
-    {
-      do
-      {
-        LOBYTE(buf) = 0;
-        re::DynamicOverflowArray<char,128ul>::add(a1 + 744, &buf);
-        --v20;
-      }
-
-      while (v20);
-    }
-
-    v21 = *&v38[12];
-    *&v38[12] = v5;
-    buf = v21;
-    re::SerializedReference<re::IntrospectionBase const*>::reset(&buf);
-    v22 = *(a1 + 752);
-    *&v38[32] = v22;
-    v37 = 1;
-    v23 = v22;
-    v24 = (v5[5] + v5[6] - 1) & -v5[6];
-    if (!v24)
-    {
-      goto LABEL_42;
-    }
-
-    do
-    {
-      LOBYTE(buf) = 0;
-      v25 = re::DynamicOverflowArray<char,128ul>::add(a1 + 744, &buf);
-      --v24;
-    }
-
-    while (v24);
-    v23 = *(a1 + 752);
-    if (v23 > v22)
-    {
-      if (*(a1 + 760))
-      {
-        v26 = a1 + 768;
-      }
-
-      else
-      {
-        v26 = *(a1 + 776);
-      }
-
-      *&v45 = 0;
-      buf = 0u;
-      v44 = 0u;
-      *v40 = re::globalAllocators(v25)[2];
-      *&v40[8] = 0;
-      *&v40[16] = &buf;
-      if (v17)
-      {
-        v28 = *v17;
-        if (*v17)
-        {
-          v29 = v17[1];
-          if (v29)
-          {
-            v30 = (v17 + 2);
-            do
-            {
-              v28 = 31 * v28 + v29;
-              v31 = *v30++;
-              v29 = v31;
-            }
-
-            while (v31);
-          }
-
-          v28 &= ~0x8000000000000000;
-        }
-      }
-
-      else
-      {
-        v28 = 0x7FFFFFFFFFFFFFFFLL;
-      }
-
-      *&buf = v28;
-      re::SmallHashTable<re::WeakStringID,re::IntrospectionMember,8ul,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false>::add(a1 + 24, &buf, &v37, 0);
-      re::SerializedReference<re::IntrospectionBase const*>::reset(&v39);
-      re::SerializedReference<re::IntrospectionBase const*>::reset(&v38[12]);
-    }
-
-    else
-    {
-LABEL_42:
-      v35 = 0;
-      v46 = 0u;
-      v47 = 0u;
-      v44 = 0u;
-      v45 = 0u;
-      buf = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v40 = 136315906;
-      *&v40[4] = "operator[]";
-      *&v40[12] = 1024;
-      *&v40[14] = 858;
-      *&v40[18] = 2048;
-      *&v40[20] = v22;
-      v41 = 2048;
-      v42 = v23;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-  }
-
-  else
-  {
-    v27 = *re::graphicsLogObjects(0);
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
-    {
-      LODWORD(buf) = 136315138;
-      *(&buf + 4) = a2;
-      _os_log_impl(&dword_1E1C61000, v27, OS_LOG_TYPE_DEFAULT, "Attempted to add a non-basic type to RuntimeRenderGraphData: %s", &buf, 0xCu);
-    }
-  }
-}
-
-void re::RuntimeRenderGraphDataStruct::setOrAddValueOfType<unsigned int>(uint64_t a1, char *a2, int a3)
-{
-  v46 = *MEMORY[0x1E69E9840];
-  v36 = a3;
-  {
-    re::introspect<unsigned int>(BOOL)::info = re::introspect_uint32_t(0, v29);
-  }
-
-  v5 = re::introspect<unsigned int>(BOOL)::info;
-  v6 = *(re::introspect<unsigned int>(BOOL)::info + 4);
+  v3 = result;
   if (a2)
   {
-    v7 = *a2;
-    if (*a2)
+    v4 = physx::shdfnd::Foundation::mInstance;
+    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
     {
-      v8 = a2[1];
-      if (v8)
-      {
-        v9 = (a2 + 2);
-        do
-        {
-          v7 = 31 * v7 + v8;
-          v10 = *v9++;
-          v8 = v10;
-        }
-
-        while (v10);
-      }
-
-      v7 &= ~0x8000000000000000;
-    }
-  }
-
-  else
-  {
-    v7 = 0x7FFFFFFFFFFFFFFFLL;
-  }
-
-  *&buf = v7;
-  v11 = re::RuntimeRenderGraphDataStruct::setValueOfType<unsigned int>(a1, &buf, v36);
-  if (!v11)
-  {
-    if (((v6 < 0xA) & (0x301u >> v6)) != 0)
-    {
-      v12 = strlen(a2);
-      v13 = re::globalAllocators(v12);
-      v14 = (*(*v13[2] + 32))(v13[2], v12 + 1, 0);
-      strcpy(v14, a2);
-      re::IntrospectionMember::IntrospectionMember(&v31);
-      v32 = v14;
-      v15 = *(a1 + 752);
-      v16 = (v15 + v5[6] - 1) & -v5[6];
-      v17 = v16 - v15;
-      if (v16 > v15)
-      {
-        do
-        {
-          LOBYTE(buf) = 0;
-          re::DynamicOverflowArray<char,128ul>::add(a1 + 744, &buf);
-          --v17;
-        }
-
-        while (v17);
-      }
-
-      v18 = v33;
-      v33 = v5;
-      buf = v18;
-      re::SerializedReference<re::IntrospectionBase const*>::reset(&buf);
-      v19 = *(a1 + 752);
-      v34 = v19;
-      v31 = 1;
-      v20 = v19;
-      v21 = (v5[5] + v5[6] - 1) & -v5[6];
-      if (!v21)
-      {
-        goto LABEL_32;
-      }
-
-      do
-      {
-        LOBYTE(buf) = 0;
-        v22 = re::DynamicOverflowArray<char,128ul>::add(a1 + 744, &buf);
-        --v21;
-      }
-
-      while (v21);
-      v20 = *(a1 + 752);
-      if (v20 > v19)
-      {
-        if (*(a1 + 760))
-        {
-          v23 = a1 + 768;
-        }
-
-        else
-        {
-          v23 = *(a1 + 776);
-        }
-
-        *&v43 = 0;
-        buf = 0u;
-        v42 = 0u;
-        *v38 = re::globalAllocators(v22)[2];
-        *&v38[8] = 0;
-        *&v38[16] = &buf;
-        if (v14)
-        {
-          v25 = *v14;
-          if (*v14)
-          {
-            v26 = v14[1];
-            if (v26)
-            {
-              v27 = (v14 + 2);
-              do
-              {
-                v25 = 31 * v25 + v26;
-                v28 = *v27++;
-                v26 = v28;
-              }
-
-              while (v28);
-            }
-
-            v25 &= ~0x8000000000000000;
-          }
-        }
-
-        else
-        {
-          v25 = 0x7FFFFFFFFFFFFFFFLL;
-        }
-
-        *&buf = v25;
-        re::SmallHashTable<re::WeakStringID,re::IntrospectionMember,8ul,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false>::add(a1 + 24, &buf, &v31, 0);
-        re::SerializedReference<re::IntrospectionBase const*>::reset(&v35);
-        re::SerializedReference<re::IntrospectionBase const*>::reset(&v33);
-      }
-
-      else
-      {
-LABEL_32:
-        v37 = 0;
-        v44 = 0u;
-        v45 = 0u;
-        v42 = 0u;
-        v43 = 0u;
-        buf = 0u;
-        v30 = v20;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        *v38 = 136315906;
-        *&v38[4] = "operator[]";
-        *&v38[12] = 1024;
-        *&v38[14] = 858;
-        *&v38[18] = 2048;
-        *&v38[20] = v19;
-        v39 = 2048;
-        v40 = v30;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-      }
+      v5 = "static const char *physx::shdfnd::ReflectionAllocator<physx::PxExtendedCapsule>::getName() [T = physx::PxExtendedCapsule]";
     }
 
     else
     {
-      v24 = *re::graphicsLogObjects(v11);
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
-      {
-        LODWORD(buf) = 136315138;
-        *(&buf + 4) = a2;
-        _os_log_impl(&dword_1E1C61000, v24, OS_LOG_TYPE_DEFAULT, "Attempted to add a non-basic type to RuntimeRenderGraphData: %s", &buf, 0xCu);
-      }
+      v5 = "<allocation names disabled>";
     }
-  }
-}
 
-uint64_t RECameraViewDescriptorsComponentCameraViewDescriptorSetSettingStruct(re::ecs2::CameraViewDescriptorsComponent *a1, re::ecs2::CameraViewDescriptorsComponent *a2, const re::RuntimeRenderGraphDataStruct *a3)
-{
-  ViewDescriptor = re::ecs2::CameraViewDescriptorsComponent::tryGetViewDescriptor(a1, a2);
-  result = re::ecs2::CameraViewDescriptor::updateWithSettings(ViewDescriptor, a3);
-  if (result)
+    result = (*(*(v4 + 24) + 16))(v4 + 24, 56 * a2, v5, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
+    v6 = result;
+  }
+
+  else
   {
-    result = re::ecs2::Component::enqueueMarkDirty(a1);
-    v7 = *(a1 + 2);
-    if (v7)
-    {
-      do
-      {
-        v8 = v7;
-        v7 = *(v7 + 32);
-      }
-
-      while (v7);
-      v9 = *(v8 + 24);
-      if (v9)
-      {
-        result = *(v9 + 56);
-        if (result)
-        {
-          v10 = (*(*result + 32))(result);
-          result = re::ServiceLocator::serviceOrNull<re::FrameAnalysisService>(v10);
-          if (result)
-          {
-            v11 = result;
-            result = (*(*result + 168))(result);
-            if (result)
-            {
-              v12 = *(*v11 + 160);
-
-              return v12(v11, 1);
-            }
-          }
-        }
-      }
-    }
+    v6 = 0;
   }
 
+  v7 = *(v3 + 8);
+  v8 = *v3;
+  if (v7)
+  {
+    v9 = v6 + 56 * v7;
+    v10 = v6;
+    do
+    {
+      v11 = *v8;
+      v12 = v8[1];
+      v13 = v8[2];
+      *(v10 + 48) = *(v8 + 6);
+      *(v10 + 16) = v12;
+      *(v10 + 32) = v13;
+      *v10 = v11;
+      v10 += 56;
+      v8 = (v8 + 56);
+    }
+
+    while (v10 < v9);
+    v8 = *v3;
+  }
+
+  if ((*(v3 + 12) & 0x80000000) == 0 && v8)
+  {
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  *v3 = v6;
+  *(v3 + 12) = a2;
   return result;
 }
 
-uint64_t RECameraViewDescriptorsComponentCameraViewDescriptorSetRenderGraph(re::ecs2::CameraViewDescriptorsComponent *a1, re::ecs2::CameraViewDescriptorsComponent *a2, uint64_t a3)
+physx::Cct::HandleManager *physx::Cct::HandleManager::HandleManager(physx::Cct::HandleManager *this)
 {
-  ViewDescriptor = re::ecs2::CameraViewDescriptorsComponent::tryGetViewDescriptor(a1, a2);
-  re::AssetAPIHelper::assetHandleCreate(a3, &v11);
-  v6 = v11;
-  v7 = ViewDescriptor[1];
-  v8 = ViewDescriptor[2];
-  ViewDescriptor[1] = v12;
-  v12 = v7;
-  v9 = *ViewDescriptor;
-  *ViewDescriptor = v6;
-  ViewDescriptor[2] = v13;
-  v11 = v9;
-  v13 = v8;
-  re::AssetHandle::~AssetHandle(&v11);
-  return re::ecs2::Component::enqueueMarkDirty(a1);
-}
-
-uint64_t RECameraViewDescriptorsComponentCameraViewDescriptorClearPickupScopeLanes(re::ecs2::CameraViewDescriptorsComponent *a1, re::ecs2::CameraViewDescriptorsComponent *a2)
-{
-  ViewDescriptor = re::ecs2::CameraViewDescriptorsComponent::tryGetViewDescriptor(a1, a2);
-  re::DynamicArray<re::ecs2::ScopeLanePair>::clear(ViewDescriptor + 80);
-
-  return re::ecs2::Component::enqueueMarkDirty(a1);
-}
-
-uint64_t RECameraViewDescriptorsComponentCameraViewDescriptorAddPickupScopeLane(re::ecs2::CameraViewDescriptorsComponent *a1, re::ecs2::CameraViewDescriptorsComponent *a2, const char *a3, const char *a4)
-{
-  ViewDescriptor = re::ecs2::CameraViewDescriptorsComponent::tryGetViewDescriptor(a1, a2);
-  *(&v17 + 1) = 0;
-  v18 = 0uLL;
-  v10 = re::DynamicString::setCapacity(&v17, 0);
-  *(&v19 + 1) = 0;
-  v20 = 0uLL;
-  re::DynamicString::setCapacity(&v19, 0);
-  re::DynamicString::operator=(&v17, &v15);
-  re::DynamicString::operator=(&v19, &v13);
-  v11.n128_f64[0] = re::DynamicArray<re::ecs2::ScopeLanePair>::add((ViewDescriptor + 80), &v17);
-  if (v19)
+  *(this + 10) = 0;
+  *(this + 1) = 0x200000000;
+  *this = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 16, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcharacterkinematic/src/CctObstacleContext.cpp", 44);
+  v2 = *(this + 3);
+  if (!v2)
   {
-    if (BYTE8(v19))
-    {
-      (*(*v19 + 40))(v11.n128_f64[0]);
-    }
-
-    v11 = 0uLL;
-    v19 = 0u;
-    v20 = 0u;
+    *(this + 2) = 0;
+    goto LABEL_6;
   }
 
-  if (v17)
+  v3 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 2 * v2, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcharacterkinematic/src/CctObstacleContext.cpp", 45);
+  v4 = *(this + 3);
+  *(this + 2) = v3;
+  if (!v4)
   {
-    if (BYTE8(v17))
-    {
-      (*(*v17 + 40))(v11);
-    }
-
-    v11 = 0uLL;
-    v17 = 0u;
-    v18 = 0u;
-  }
-
-  if (v13 && (v14 & 1) != 0)
-  {
-    (*(*v13 + 40))(v11);
-  }
-
-  if (v15 && (v16 & 1) != 0)
-  {
-    (*(*v15 + 40))(v11);
-  }
-
-  return re::ecs2::Component::enqueueMarkDirty(a1);
-}
-
-float RECameraViewDescriptorsComponentCameraViewDescriptorGetViewport(re::ecs2::CameraViewDescriptorsComponent *a1, re::ecs2::CameraViewDescriptorsComponent *a2, unsigned int a3)
-{
-  ViewDescriptor = re::ecs2::CameraViewDescriptorsComponent::tryGetViewDescriptor(a1, a2);
-  v5 = 220;
-  if (a3 < 2)
-  {
-    v5 = 204;
-  }
-
-  return *(ViewDescriptor + v5);
-}
-
-uint64_t RECameraViewDescriptorsComponentCameraViewDescriptorSetViewport(re::ecs2::CameraViewDescriptorsComponent *a1, re::ecs2::CameraViewDescriptorsComponent *a2, unsigned int a3, float a4, float a5, float a6, float a7)
-{
-  ViewDescriptor = re::ecs2::CameraViewDescriptorsComponent::tryGetViewDescriptor(a1, a2);
-  v14 = 220;
-  if (a3 < 2)
-  {
-    v14 = 204;
-  }
-
-  v15 = (ViewDescriptor + v14);
-  *v15 = a4;
-  v15[1] = a5;
-  v15[2] = a6;
-  v15[3] = a7;
-
-  return re::ecs2::Component::enqueueMarkDirty(a1);
-}
-
-uint64_t RECameraViewDescriptorsComponentClearSpecifyCommands(re::ecs2::CameraViewDescriptorsComponent *a1, re::ecs2::CameraViewDescriptorsComponent *a2)
-{
-  re::ecs2::CameraViewDescriptorsComponent::clearSpecifyCommands(a1, a2);
-
-  return re::ecs2::Component::enqueueMarkDirty(a1);
-}
-
-uint64_t RECameraViewDescriptorsComponentAddSpecifyCommandFromTarget(re::ecs2::CameraViewDescriptorsComponent *a1, re::ecs2::CameraViewDescriptorsComponent *a2, const char *a3, uint64_t a4, unsigned int a5)
-{
-  ViewDescriptor = re::ecs2::CameraViewDescriptorsComponent::tryGetViewDescriptor(a1, a2);
-  SpecifyByLane = re::ecs2::CameraViewDescriptor::tryGetSpecifyByLane(ViewDescriptor, a3);
-  v12 = re::ecs2::Component::enqueueMarkDirty(a1);
-  if (SpecifyByLane)
-  {
-    if (a5 >= 2)
-    {
-      if (a5 != 2)
-      {
-        return 1;
-      }
-
-      re::AssetAPIHelper::assetHandleCreate(a4, &v38);
-      v18 = *(SpecifyByLane + 56);
-      *(SpecifyByLane + 56) = v38;
-      v38 = v18;
-      v14 = *(SpecifyByLane + 72);
-      *(SpecifyByLane + 72) = v39;
-    }
-
-    else
-    {
-      re::AssetAPIHelper::assetHandleCreate(a4, &v38);
-      v13 = *(SpecifyByLane + 32);
-      *(SpecifyByLane + 32) = v38;
-      v38 = v13;
-      v14 = *(SpecifyByLane + 48);
-      *(SpecifyByLane + 48) = v39;
-    }
-
-    v39 = v14;
-    re::AssetHandle::~AssetHandle(&v38);
-    return 1;
-  }
-
-  *(&v38 + 1) = 0;
-  v39 = 0;
-  v40 = 0;
-  re::DynamicString::setCapacity(&v38, 0);
-  memset(v42, 0, sizeof(v42));
-  v41 = 0u;
-  v43 = -1;
-  v44 = 0u;
-  memset(v45, 0, 28);
-  v15 = strlen(a3);
-  *&v46 = a3;
-  *(&v46 + 1) = v15;
-  re::DynamicString::operator=(&v38, &v46);
-  if (a5 < 2)
-  {
-    re::AssetAPIHelper::assetHandleCreate(a4, &v46);
-    v16 = v41;
-    v41 = v46;
-    v46 = v16;
-    v17 = *&v42[0];
-    *&v42[0] = v47;
-LABEL_13:
-    v47 = v17;
-    re::AssetHandle::~AssetHandle(&v46);
-    goto LABEL_14;
-  }
-
-  if (a5 == 2)
-  {
-    re::AssetAPIHelper::assetHandleCreate(a4, &v46);
-    v21 = *(v42 + 8);
-    *(v42 + 8) = v46;
-    v46 = v21;
-    v17 = *(&v42[1] + 1);
-    *(&v42[1] + 1) = v47;
-    goto LABEL_13;
-  }
-
-LABEL_14:
-  re::DynamicString::DynamicString(&v34, &v38);
-  for (i = 32; i != 80; i += 24)
-  {
-    re::AssetHandle::AssetHandle((&v34 + i), (&v38 + i));
-  }
-
-  v35 = v43;
-  for (j = 11; j != 13; ++j)
-  {
-    v34.n128_u64[j] = *(&v38 + j * 8);
-  }
-
-  do
-  {
-    v34.n128_u64[j] = *(&v38 + j * 8);
-    ++j;
-  }
-
-  while (j != 15);
-  v36 = v45[2];
-  v37 = v45[3];
-  v19 = re::ecs2::CameraViewDescriptorsComponent::addSpecifyCommand(a1, a2, &v34);
-  for (k = 14; k != 12; --k)
-  {
-    v25 = v34.n128_u64[k];
-    if (v25)
-    {
-
-      v34.n128_u64[k] = 0;
-    }
-  }
-
-  do
-  {
-    v26 = v34.n128_u64[k];
-    if (v26)
-    {
-
-      v34.n128_u64[k] = 0;
-    }
-
-    --k;
-  }
-
-  while (k != 10);
-  for (m = 56; m != 8; m -= 24)
-  {
-    re::AssetHandle::~AssetHandle((&v34 + m));
-  }
-
-  if (v34.n128_u64[0])
-  {
-    if (v34.n128_u8[8])
-    {
-      (*(*v34.n128_u64[0] + 40))();
-    }
-
-    memset(&v34, 0, 32);
-  }
-
-  for (n = 112; n != 96; n -= 8)
-  {
-    v29 = *(&v38 + n);
-    if (v29)
-    {
-
-      *(&v38 + n) = 0;
-    }
-  }
-
-  do
-  {
-    v30 = *(&v38 + n);
-    if (v30)
-    {
-
-      *(&v38 + n) = 0;
-    }
-
-    n -= 8;
-  }
-
-  while (n != 80);
-  for (ii = 56; ii != 8; ii -= 24)
-  {
-    re::AssetHandle::~AssetHandle((&v38 + ii));
-  }
-
-  if (v38 && (BYTE8(v38) & 1) != 0)
-  {
-    (*(*v38 + 40))(v38, v39, v32, v33);
-  }
-
-  return v19;
-}
-
-uint64_t RECameraViewDescriptorsComponentAddSpecifyCommandFromLayer(re::ecs2::CameraViewDescriptorsComponent *a1, re::ecs2::CameraViewDescriptorsComponent *a2, const char *a3, int a4, unsigned int a5)
-{
-  ViewDescriptor = re::ecs2::CameraViewDescriptorsComponent::tryGetViewDescriptor(a1, a2);
-  SpecifyByLane = re::ecs2::CameraViewDescriptor::tryGetSpecifyByLane(ViewDescriptor, a3);
-  v12 = re::ecs2::Component::enqueueMarkDirty(a1);
-  if (SpecifyByLane)
-  {
-    if (a5 >= 2)
-    {
-      if (a5 == 2)
-      {
-        *(SpecifyByLane + 84) = a4;
-      }
-    }
-
-    else
-    {
-      *(SpecifyByLane + 80) = a4;
-    }
-
-    return 1;
-  }
-
-  else
-  {
-    v33 = 0;
-    v34 = 0;
-    v35 = 0;
-    re::DynamicString::setCapacity(&v32, 0);
-    v37 = 0u;
-    v38 = 0u;
-    v36 = 0u;
-    v39 = -1;
-    v40 = 0u;
-    memset(v41, 0, 28);
-    v13 = strlen(a3);
-    v42[0] = a3;
-    v42[1] = v13;
-    re::DynamicString::operator=(&v32, v42);
-    if (a5 >= 2)
-    {
-      if (a5 == 2)
-      {
-        HIDWORD(v39) = a4;
-      }
-    }
-
-    else
-    {
-      LODWORD(v39) = a4;
-    }
-
-    re::DynamicString::DynamicString(&v28, &v32);
-    for (i = 4; i != 10; i += 3)
-    {
-      re::AssetHandle::AssetHandle((&v28 + i * 8), &(&v32)[i]);
-    }
-
-    v29 = v39;
-    for (j = 11; j != 13; ++j)
-    {
-      v28.n128_u64[j] = (&v32)[j];
-    }
-
-    do
-    {
-      v28.n128_u64[j] = (&v32)[j];
-      ++j;
-    }
-
-    while (j != 15);
-    v30 = v41[2];
-    v31 = v41[3];
-    v14 = re::ecs2::CameraViewDescriptorsComponent::addSpecifyCommand(a1, a2, &v28);
-    for (k = 14; k != 12; --k)
-    {
-      v19 = v28.n128_u64[k];
-      if (v19)
-      {
-
-        v28.n128_u64[k] = 0;
-      }
-    }
-
-    do
-    {
-      v20 = v28.n128_u64[k];
-      if (v20)
-      {
-
-        v28.n128_u64[k] = 0;
-      }
-
-      --k;
-    }
-
-    while (k != 10);
-    for (m = 56; m != 8; m -= 24)
-    {
-      re::AssetHandle::~AssetHandle((&v28 + m));
-    }
-
-    if (v28.n128_u64[0])
-    {
-      if (v28.n128_u8[8])
-      {
-        (*(*v28.n128_u64[0] + 40))();
-      }
-
-      memset(&v28, 0, 32);
-    }
-
-    for (n = 14; n != 12; --n)
-    {
-      v23 = (&v32)[n];
-      if (v23)
-      {
-
-        (&v32)[n] = 0;
-      }
-    }
-
-    do
-    {
-      v24 = (&v32)[n];
-      if (v24)
-      {
-
-        (&v32)[n] = 0;
-      }
-
-      --n;
-    }
-
-    while (n != 10);
-    for (ii = 7; ii != 1; ii -= 3)
-    {
-      re::AssetHandle::~AssetHandle(&(&v32)[ii]);
-    }
-
-    if (v32 && (v33 & 1) != 0)
-    {
-      (*(*v32 + 40))(v32, v34, v26, v27);
-    }
-  }
-
-  return v14;
-}
-
-BOOL RECameraViewDescriptorsComponentAddSpecifyCommandFromTexture(re::ecs2::CameraViewDescriptorsComponent *a1, re::ecs2::CameraViewDescriptorsComponent *a2, const char *a3, void *a4, unsigned int a5)
-{
-  v9 = a4;
-  ViewDescriptor = re::ecs2::CameraViewDescriptorsComponent::tryGetViewDescriptor(a1, a2);
-  SpecifyByLane = re::ecs2::CameraViewDescriptor::tryGetSpecifyByLane(ViewDescriptor, a3);
-  v12 = re::ecs2::Component::enqueueMarkDirty(a1);
-  if (SpecifyByLane)
-  {
-    v47 = v9;
-    v13 = v9;
-    v14 = v9;
-    if (a5 <= 2)
-    {
-      NS::SharedPtr<MTL::Buffer>::operator=((SpecifyByLane + *&aX_3[8 * a5]), &v47);
-      v14 = v47;
-    }
-
-    if (v14)
-    {
-
-      v47 = 0;
-    }
-
-    v15 = 1;
+LABEL_6:
+    v8 = 0;
+    v7 = 0;
+    *(this + 3) = 0;
     goto LABEL_7;
   }
 
-  v17 = v46;
-  v39 = 0;
-  v40 = 0;
-  v41 = 0;
-  re::DynamicString::setCapacity(&v38, 0);
-  v43 = 0u;
-  v44 = 0u;
-  v42 = 0u;
-  v45 = -1;
-  memset(v46, 0, 44);
-  v18 = strlen(a3);
-  v48[0] = a3;
-  v48[1] = v18;
-  re::DynamicString::operator=(&v38, v48);
-  v37 = v9;
-  v19 = v9;
-  if (a5 < 2)
-  {
-    goto LABEL_11;
-  }
-
-  v20 = v9;
-  if (a5 == 2)
-  {
-    v17 = v46 + 1;
-LABEL_11:
-    NS::SharedPtr<MTL::Buffer>::operator=(v17, &v37);
-    v20 = v37;
-  }
-
-  if (v20)
-  {
-
-    v37 = 0;
-  }
-
-  re::DynamicString::DynamicString(&v33, &v38);
-  for (i = 4; i != 10; i += 3)
-  {
-    re::AssetHandle::AssetHandle((&v33 + i * 8), &(&v38)[i]);
-  }
-
-  v34 = v45;
-  for (j = 11; j != 13; ++j)
-  {
-    v33.n128_u64[j] = (&v38)[j];
-  }
-
-  do
-  {
-    v33.n128_u64[j] = (&v38)[j];
-    ++j;
-  }
-
-  while (j != 15);
-  v35 = *&v46[2];
-  v36 = DWORD2(v46[2]);
-  v15 = re::ecs2::CameraViewDescriptorsComponent::addSpecifyCommand(a1, a2, &v33);
-  for (k = 14; k != 12; --k)
-  {
-    v24 = v33.n128_u64[k];
-    if (v24)
-    {
-
-      v33.n128_u64[k] = 0;
-    }
-  }
-
-  do
-  {
-    v25 = v33.n128_u64[k];
-    if (v25)
-    {
-
-      v33.n128_u64[k] = 0;
-    }
-
-    --k;
-  }
-
-  while (k != 10);
-  for (m = 56; m != 8; m -= 24)
-  {
-    re::AssetHandle::~AssetHandle((&v33 + m));
-  }
-
-  if (v33.n128_u64[0])
-  {
-    if (v33.n128_u8[8])
-    {
-      (*(*v33.n128_u64[0] + 40))();
-    }
-
-    memset(&v33, 0, 32);
-  }
-
-  for (n = 14; n != 12; --n)
-  {
-    v28 = (&v38)[n];
-    if (v28)
-    {
-
-      (&v38)[n] = 0;
-    }
-  }
-
-  do
-  {
-    v29 = (&v38)[n];
-    if (v29)
-    {
-
-      (&v38)[n] = 0;
-    }
-
-    --n;
-  }
-
-  while (n != 10);
-  for (ii = 7; ii != 1; ii -= 3)
-  {
-    re::AssetHandle::~AssetHandle(&(&v38)[ii]);
-  }
-
-  if (v38 && (v39 & 1) != 0)
-  {
-    (*(*v38 + 40))(v38, v40, v31, v32);
-  }
-
-LABEL_7:
-
-  return v15;
-}
-
-BOOL RECameraViewDescriptorsComponentAddSpecifyCommandFromTextureDescriptor(re::ecs2::CameraViewDescriptorsComponent *a1, re::ecs2::CameraViewDescriptorsComponent *a2, const char *a3, void *a4, unsigned int a5)
-{
-  v9 = a4;
-  ViewDescriptor = re::ecs2::CameraViewDescriptorsComponent::tryGetViewDescriptor(a1, a2);
-  SpecifyByLane = re::ecs2::CameraViewDescriptor::tryGetSpecifyByLane(ViewDescriptor, a3);
-  v12 = re::ecs2::Component::enqueueMarkDirty(a1);
-  if (SpecifyByLane)
-  {
-    v48 = v9;
-    v13 = v9;
-    v14 = v9;
-    if (a5 <= 2)
-    {
-      NS::SharedPtr<MTL::Buffer>::operator=((SpecifyByLane + *&aH[8 * a5]), &v48);
-      v14 = v48;
-    }
-
-    if (v14)
-    {
-
-      v48 = 0;
-    }
-
-    v15 = 1;
-    goto LABEL_7;
-  }
-
-  v39 = 0;
-  v40 = 0;
-  v41 = 0;
-  re::DynamicString::setCapacity(&v38, 0);
-  v43 = 0u;
-  v44 = 0u;
-  v42 = 0u;
-  v45 = -1;
-  v46 = 0u;
-  memset(v47, 0, 28);
-  v17 = strlen(a3);
-  v49[0] = a3;
-  v49[1] = v17;
-  re::DynamicString::operator=(&v38, v49);
-  v37 = v9;
-  v18 = v9;
-  if (a5 < 2)
-  {
-    v19 = v47;
-LABEL_12:
-    NS::SharedPtr<MTL::Buffer>::operator=(v19, &v37);
-    v20 = v37;
-    goto LABEL_13;
-  }
-
-  v20 = v9;
-  if (a5 == 2)
-  {
-    v19 = &v47[1];
-    goto LABEL_12;
-  }
-
-LABEL_13:
-  if (v20)
-  {
-
-    v37 = 0;
-  }
-
-  re::DynamicString::DynamicString(&v33, &v38);
-  for (i = 4; i != 10; i += 3)
-  {
-    re::AssetHandle::AssetHandle((&v33 + i * 8), &(&v38)[i]);
-  }
-
-  v34 = v45;
-  for (j = 11; j != 13; ++j)
-  {
-    v33.n128_u64[j] = (&v38)[j];
-  }
-
-  do
-  {
-    v33.n128_u64[j] = (&v38)[j];
-    ++j;
-  }
-
-  while (j != 15);
-  v35 = v47[2];
-  v36 = v47[3];
-  v15 = re::ecs2::CameraViewDescriptorsComponent::addSpecifyCommand(a1, a2, &v33);
-  for (k = 14; k != 12; --k)
-  {
-    v24 = v33.n128_u64[k];
-    if (v24)
-    {
-
-      v33.n128_u64[k] = 0;
-    }
-  }
-
-  do
-  {
-    v25 = v33.n128_u64[k];
-    if (v25)
-    {
-
-      v33.n128_u64[k] = 0;
-    }
-
-    --k;
-  }
-
-  while (k != 10);
-  for (m = 56; m != 8; m -= 24)
-  {
-    re::AssetHandle::~AssetHandle((&v33 + m));
-  }
-
-  if (v33.n128_u64[0])
-  {
-    if (v33.n128_u8[8])
-    {
-      (*(*v33.n128_u64[0] + 40))();
-    }
-
-    memset(&v33, 0, 32);
-  }
-
-  for (n = 14; n != 12; --n)
-  {
-    v28 = (&v38)[n];
-    if (v28)
-    {
-
-      (&v38)[n] = 0;
-    }
-  }
-
-  do
-  {
-    v29 = (&v38)[n];
-    if (v29)
-    {
-
-      (&v38)[n] = 0;
-    }
-
-    --n;
-  }
-
-  while (n != 10);
-  for (ii = 7; ii != 1; ii -= 3)
-  {
-    re::AssetHandle::~AssetHandle(&(&v38)[ii]);
-  }
-
-  if (v38 && (v39 & 1) != 0)
-  {
-    (*(*v38 + 40))(v38, v40, v31, v32);
-  }
-
-LABEL_7:
-
-  return v15;
-}
-
-void RECameraViewDescriptorsComponentSnapshotNextFrame(re *a1, void *a2, void *a3)
-{
-  v14[5] = *MEMORY[0x1E69E9840];
-  v5 = a2;
-  v13 = 0;
-  v14[0] = v5;
-  memset(v11, 0, sizeof(v11));
-  v12 = 0;
-  v6 = a3;
-  v7 = v5;
-  re::DynamicArray<re::SharedPtr<re::AssetDescriptorBase>>::add(v11, v14);
-  if (v14[0])
-  {
-  }
-
-  re::DynamicArray<NS::SharedPtr<MTL::Texture>>::DynamicArray(v10, v11);
-  v8 = _Block_copy(v6);
-
-  v14[3] = re::globalAllocators(v9)[2];
-  v14[4] = v14;
-  v14[0] = &unk_1F5D2DEB0;
-  v14[1] = v8;
-  re::ecs2::CameraViewDescriptorsComponent::snapshot(a1, v10, v14);
-  re::FunctionBase<24ul,void ()(re::FrameCount const&)>::destroyCallable(v14);
-  re::DynamicArray<NS::SharedPtr<MTL::SamplerState>>::deinit(v10);
-  re::ecs2::Component::enqueueMarkDirty(a1);
-  re::DynamicArray<NS::SharedPtr<MTL::SamplerState>>::deinit(v11);
-}
-
-void RECameraViewDescriptorsComponentSnapshotNextFrameWithSettings(re *a1, void *a2, const re::RuntimeRenderGraphDataStruct *a3, void *a4)
-{
-  v16[5] = *MEMORY[0x1E69E9840];
-  v7 = a2;
-  v15 = 0;
-  v16[0] = v7;
-  memset(v13, 0, sizeof(v13));
-  v14 = 0;
-  v8 = a4;
-  v9 = v7;
-  re::DynamicArray<re::SharedPtr<re::AssetDescriptorBase>>::add(v13, v16);
-  if (v16[0])
-  {
-  }
-
-  re::DynamicArray<NS::SharedPtr<MTL::Texture>>::DynamicArray(v12, v13);
-  v10 = _Block_copy(v8);
-
-  v16[3] = re::globalAllocators(v11)[2];
-  v16[4] = v16;
-  v16[0] = &unk_1F5D2DF08;
-  v16[1] = v10;
-  re::ecs2::CameraViewDescriptorsComponent::snapshotWithSettings(a1, v12, a3, v16);
-  re::FunctionBase<24ul,void ()(re::FrameCount const&)>::destroyCallable(v16);
-  re::DynamicArray<NS::SharedPtr<MTL::SamplerState>>::deinit(v12);
-  re::ecs2::Component::enqueueMarkDirty(a1);
-  re::DynamicArray<NS::SharedPtr<MTL::SamplerState>>::deinit(v13);
-}
-
-uint64_t RECameraViewDescriptorsComponentSnapshotNextFrameWithSettingsAndReturnHandle(re *a1, void *a2, const re::RuntimeRenderGraphDataStruct *a3, void *a4)
-{
-  v18[5] = *MEMORY[0x1E69E9840];
-  v7 = a2;
-  v17 = 0;
-  v18[0] = v7;
-  memset(v15, 0, sizeof(v15));
-  v16 = 0;
-  v8 = a4;
-  v9 = v7;
-  re::DynamicArray<re::SharedPtr<re::AssetDescriptorBase>>::add(v15, v18);
-  if (v18[0])
-  {
-  }
-
-  re::DynamicArray<NS::SharedPtr<MTL::Texture>>::DynamicArray(v14, v15);
-  v10 = _Block_copy(v8);
-
-  v18[3] = re::globalAllocators(v11)[2];
-  v18[4] = v18;
-  v18[0] = &unk_1F5D2DF60;
-  v18[1] = v10;
-  v12 = re::ecs2::CameraViewDescriptorsComponent::snapshotWithSettings(a1, v14, a3, v18);
-  re::FunctionBase<24ul,void ()(re::FrameCount const&)>::destroyCallable(v18);
-  re::DynamicArray<NS::SharedPtr<MTL::SamplerState>>::deinit(v14);
-  re::ecs2::Component::enqueueMarkDirty(a1);
-  re::DynamicArray<NS::SharedPtr<MTL::SamplerState>>::deinit(v15);
-
-  return v12;
-}
-
-uint64_t RECameraViewDescriptorsComponentSelectionNextFrameWithSettingsAndReturnHandle(re *a1, uint64_t a2, __int128 *a3, unint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, unint64_t a17, const re::RuntimeRenderGraphDataStruct *a18, void *a19)
-{
-  v164[5] = *MEMORY[0x1E69E9840];
-  aBlock = a19;
-  re::AssetAPIHelper::assetHandleCreate(a2, v163);
-  v162 = 0;
-  v159 = 0;
-  v160 = 0;
-  v161 = 0;
-  v25 = re::DynamicArray<re::AABB>::setCapacity(&v158, a4);
-  v26 = ++v161;
-  if (a4)
-  {
-    v27 = v160;
-    do
-    {
-      v28 = a3[1];
-      v155 = *a3;
-      v156 = v28;
-      if (v27 >= v159)
-      {
-        v29 = v27 + 1;
-        if (v159 < v27 + 1)
-        {
-          if (v158)
-          {
-            v30 = 2 * v159;
-            if (!v159)
-            {
-              v30 = 8;
-            }
-
-            if (v30 <= v29)
-            {
-              v31 = v27 + 1;
-            }
-
-            else
-            {
-              v31 = v30;
-            }
-
-            v25 = re::DynamicArray<re::AABB>::setCapacity(&v158, v31);
-            v26 = v161;
-          }
-
-          else
-          {
-            v25 = re::DynamicArray<re::AABB>::setCapacity(&v158, v29);
-            v26 = v161 + 1;
-          }
-        }
-
-        v27 = v160;
-      }
-
-      v32 = &v162[32 * v27];
-      v33 = v156;
-      *v32 = v155;
-      *(v32 + 1) = v33;
-      v160 = ++v27;
-      v161 = ++v26;
-      a3 += 2;
-      --a4;
-    }
-
-    while (a4);
-  }
-
-  v157 = 0;
-  *&v156 = 0;
-  *(&v155 + 1) = 0;
-  DWORD2(v156) = 0;
-  v34 = re::DynamicArray<re::Projection>::setCapacity(&v155, a6);
-  v35 = ++DWORD2(v156);
-  if (a6)
-  {
-    v36 = v156;
-    v37 = (a5 + 28);
-    do
-    {
-      v38 = *(v37 - 7);
-      v39 = *(v37 - 24);
-      v40 = *(v37 - 1);
-      v41 = *v37;
-      v42 = *(v37 + 4);
-      v43 = *(v37 + 5);
-      v44 = *(v37 + 28);
-      if (v36 >= *(&v155 + 1))
-      {
-        v45 = v36 + 1;
-        if (*(&v155 + 1) < v36 + 1)
-        {
-          v100 = *(v37 + 4);
-          v101 = *(v37 - 24);
-          if (v155)
-          {
-            v46 = 2 * *(&v155 + 1);
-            if (!*(&v155 + 1))
-            {
-              v46 = 8;
-            }
-
-            if (v46 <= v45)
-            {
-              v47 = v36 + 1;
-            }
-
-            else
-            {
-              v47 = v46;
-            }
-
-            v34 = re::DynamicArray<re::Projection>::setCapacity(&v155, v47);
-            v35 = DWORD2(v156);
-          }
-
-          else
-          {
-            v34 = re::DynamicArray<re::Projection>::setCapacity(&v155, v45);
-            v35 = DWORD2(v156) + 1;
-          }
-
-          v42 = v100;
-          v39 = v101;
-        }
-
-        v36 = v156;
-      }
-
-      v48 = &v157[15 * v36];
-      *v48 = v38;
-      *(v48 + 4) = v39;
-      *(v48 + 20) = v40;
-      *(v48 + 28) = v41;
-      v48[2] = v42;
-      *(v48 + 12) = v43;
-      *(v48 + 7) = v44;
-      *(v48 + 32) = 0;
-      *(v48 + 80) = 0;
-      *(v48 + 160) = 0;
-      *&v156 = ++v36;
-      DWORD2(v156) = ++v35;
-      v37 += 64;
-      --a6;
-    }
-
-    while (a6);
-  }
-
-  v154 = 0;
-  v152[2] = 0;
-  v152[1] = 0;
-  v153 = 0;
-  v49 = re::DynamicArray<re::SharedPtr<re::ecs2::Entity>>::setCapacity(v152, a17);
-  ++v153;
-  v151 = 0;
-  v149[2] = 0;
-  v149[1] = 0;
-  v150 = 0;
-  v50 = re::DynamicArray<re::SharedPtr<re::ecs2::Entity>>::setCapacity(v149, a17);
-  ++v150;
-  v148 = 0;
-  v146[2] = 0;
-  v146[1] = 0;
-  v147 = 0;
-  v51 = re::DynamicArray<re::SharedPtr<re::ecs2::Entity>>::setCapacity(v146, a17);
-  ++v147;
-  v145 = 0;
-  v143[2] = 0;
-  v143[1] = 0;
-  v144 = 0;
-  v52 = re::DynamicArray<re::SharedPtr<re::ecs2::Entity>>::setCapacity(v143, a17);
-  ++v144;
-  v142 = 0;
-  v140[2] = 0;
-  v140[1] = 0;
-  v141 = 0;
-  v53 = re::DynamicArray<re::SharedPtr<re::ecs2::Entity>>::setCapacity(v140, a17);
-  ++v141;
-  v139 = 0;
-  v137[2] = 0;
-  v137[1] = 0;
-  v138 = 0;
-  v54 = re::DynamicArray<re::SharedPtr<re::ecs2::Entity>>::setCapacity(v137, a17);
-  ++v138;
-  v136 = 0;
-  v134[2] = 0;
-  v134[1] = 0;
-  v135 = 0;
-  v55 = re::DynamicArray<re::SharedPtr<re::ecs2::Entity>>::setCapacity(v134, a17);
-  ++v135;
-  v133 = 0;
-  v131[2] = 0;
-  v131[1] = 0;
-  v132 = 0;
-  v56 = re::DynamicArray<re::SharedPtr<re::ecs2::Entity>>::setCapacity(v131, a17);
-  ++v132;
-  v130 = 0;
-  v128[2] = 0;
-  v128[1] = 0;
-  v129 = 0;
-  v57 = re::DynamicArray<re::SharedPtr<re::ecs2::Entity>>::setCapacity(v128, a17);
-  ++v129;
-  v127 = 0;
-  v125[2] = 0;
-  v125[1] = 0;
-  v126 = 0;
-  re::DynamicArray<re::SharedPtr<re::ecs2::Entity>>::setCapacity(v125, a17);
-  ++v126;
-  if (a17)
-  {
-    for (i = 0; i != a17; ++i)
-    {
-      v164[0] = *(a7 + 8 * i);
-      v59 = v164[0];
-      re::DynamicArray<re::SharedPtr<re::AssetDescriptorBase>>::add(v152, v164);
-      if (v164[0])
-      {
-      }
-
-      v164[0] = *(a8 + 8 * i);
-      v60 = v164[0];
-      re::DynamicArray<re::SharedPtr<re::AssetDescriptorBase>>::add(v149, v164);
-      if (v164[0])
-      {
-      }
-
-      v164[0] = *(a9 + 8 * i);
-      v61 = v164[0];
-      re::DynamicArray<re::SharedPtr<re::AssetDescriptorBase>>::add(v146, v164);
-      if (v164[0])
-      {
-      }
-
-      v164[0] = *(a10 + 8 * i);
-      v62 = v164[0];
-      re::DynamicArray<re::SharedPtr<re::AssetDescriptorBase>>::add(v143, v164);
-      if (v164[0])
-      {
-      }
-
-      v164[0] = *(a11 + 8 * i);
-      v63 = v164[0];
-      re::DynamicArray<re::SharedPtr<re::AssetDescriptorBase>>::add(v140, v164);
-      if (v164[0])
-      {
-      }
-
-      v164[0] = *(a12 + 8 * i);
-      v64 = v164[0];
-      re::DynamicArray<re::SharedPtr<re::AssetDescriptorBase>>::add(v137, v164);
-      if (v164[0])
-      {
-      }
-
-      v164[0] = *(a13 + 8 * i);
-      v65 = v164[0];
-      re::DynamicArray<re::SharedPtr<re::AssetDescriptorBase>>::add(v134, v164);
-      if (v164[0])
-      {
-      }
-
-      v164[0] = *(a14 + 8 * i);
-      v66 = v164[0];
-      re::DynamicArray<re::SharedPtr<re::AssetDescriptorBase>>::add(v131, v164);
-      if (v164[0])
-      {
-      }
-
-      v164[0] = *(a15 + 8 * i);
-      v67 = v164[0];
-      re::DynamicArray<re::SharedPtr<re::AssetDescriptorBase>>::add(v128, v164);
-      if (v164[0])
-      {
-      }
-
-      v164[0] = *(a16 + 8 * i);
-      v68 = v164[0];
-      re::DynamicArray<re::SharedPtr<re::AssetDescriptorBase>>::add(v125, v164);
-      if (v164[0])
-      {
-      }
-    }
-  }
-
-  re::AssetHandle::AssetHandle(v124, v163);
-  __dst = 0;
-  v121 = 0;
-  v119 = 0;
-  v120 = 0;
-  v122 = 0;
-  v69 = v158;
-  if (v158)
-  {
-    v70 = v160;
-    v119 = v158;
-    re::DynamicArray<re::AABB>::setCapacity(&v119, v160);
-    ++v122;
-    if (v70 >= v121)
-    {
-      re::DynamicArray<re::AABB>::setCapacity(&v119, v70);
-      v71 = v121;
-      v72 = __dst;
-      v73 = v162;
-      if (v121)
-      {
-        memmove(__dst, v162, 32 * v121);
-      }
-
-      memcpy(&v72[32 * v71], &v73[32 * v71], 32 * (v70 - v71));
-    }
-
-    else if (v70)
-    {
-      memmove(__dst, v162, 32 * v70);
-    }
-
-    v121 = v70;
-  }
-
-  v118 = 0;
-  v116 = 0;
-  v114 = 0;
-  v115 = 0;
-  v117 = 0;
-  v74 = v155;
-  if (v155)
-  {
-    v75 = v156;
-    v114 = v155;
-    re::DynamicArray<re::Projection>::setCapacity(&v114, v156);
-    ++v117;
-    if (v75 >= v116)
-    {
-      re::DynamicArray<re::Projection>::setCapacity(&v114, v75);
-      v76 = v157;
-      v77 = v116;
-      v78 = v118;
-      std::__copy_impl::operator()[abi:nn200100]<re::Projection *,re::Projection *,re::Projection *>(v157, &v157[15 * v116], v118);
-      if (v77 != v75)
-      {
-        v79 = 240 * v77 + 96;
-        v80 = v78 + v79;
-        v81 = v76 + v79;
-        do
-        {
-          *(v80 - 96) = *(v81 - 6);
-          v82 = *(v81 - 5);
-          v83 = *(v81 - 4);
-          v84 = *(v81 - 3);
-          *(v80 - 32) = *(v81 - 16);
-          *(v80 - 64) = v83;
-          *(v80 - 48) = v84;
-          *(v80 - 80) = v82;
-          v85 = *(v81 - 16);
-          *(v80 - 16) = v85;
-          if (v85 == 1)
-          {
-            v86 = *v81;
-            v87 = *(v81 + 1);
-            v88 = *(v81 + 3);
-            *(v80 + 32) = *(v81 + 2);
-            *(v80 + 48) = v88;
-            *v80 = v86;
-            *(v80 + 16) = v87;
-          }
-
-          v89 = v81 - 96;
-          v90 = v81[64];
-          *(v80 + 64) = v90;
-          if (v90 == 1)
-          {
-            v91 = *(v81 + 5);
-            v92 = *(v81 + 6);
-            v93 = *(v81 + 8);
-            *(v80 + 112) = *(v81 + 7);
-            *(v80 + 128) = v93;
-            *(v80 + 80) = v91;
-            *(v80 + 96) = v92;
-          }
-
-          v80 += 240;
-          v81 += 240;
-        }
-
-        while (v89 + 240 != &v76[15 * v75]);
-      }
-    }
-
-    else
-    {
-      std::__copy_impl::operator()[abi:nn200100]<re::Projection *,re::Projection *,re::Projection *>(v157, &v157[15 * v75], v118);
-    }
-
-    v116 = v75;
-  }
-
-  re::DynamicArray<NS::SharedPtr<MTL::Texture>>::DynamicArray(v113, v152);
-  re::DynamicArray<NS::SharedPtr<MTL::Texture>>::DynamicArray(v112, v149);
-  re::DynamicArray<NS::SharedPtr<MTL::Texture>>::DynamicArray(v111, v146);
-  re::DynamicArray<NS::SharedPtr<MTL::Texture>>::DynamicArray(v110, v143);
-  re::DynamicArray<NS::SharedPtr<MTL::Texture>>::DynamicArray(v109, v140);
-  re::DynamicArray<NS::SharedPtr<MTL::Texture>>::DynamicArray(v108, v137);
-  re::DynamicArray<NS::SharedPtr<MTL::Texture>>::DynamicArray(v107, v134);
-  re::DynamicArray<NS::SharedPtr<MTL::Texture>>::DynamicArray(v106, v131);
-  re::DynamicArray<NS::SharedPtr<MTL::Texture>>::DynamicArray(v105, v128);
-  re::DynamicArray<NS::SharedPtr<MTL::Texture>>::DynamicArray(v104, v125);
-  v94 = _Block_copy(aBlock);
-  v95 = re::globalAllocators(v94)[2];
-  v164[0] = &unk_1F5D2DFB8;
-  v164[1] = v94;
-  v164[3] = v95;
-  v164[4] = v164;
-  v96 = re::ecs2::CameraViewDescriptorsComponent::selectionWithSettings(a1, v124, &v119, &v114, v113, v112, v111, v110, v109, v108, v107, v106, v105, v104, a18, v164);
-  re::FunctionBase<24ul,void ()(re::FrameCount const&)>::destroyCallable(v164);
-  re::DynamicArray<NS::SharedPtr<MTL::SamplerState>>::deinit(v104);
-  re::DynamicArray<NS::SharedPtr<MTL::SamplerState>>::deinit(v105);
-  re::DynamicArray<NS::SharedPtr<MTL::SamplerState>>::deinit(v106);
-  re::DynamicArray<NS::SharedPtr<MTL::SamplerState>>::deinit(v107);
-  re::DynamicArray<NS::SharedPtr<MTL::SamplerState>>::deinit(v108);
-  re::DynamicArray<NS::SharedPtr<MTL::SamplerState>>::deinit(v109);
-  re::DynamicArray<NS::SharedPtr<MTL::SamplerState>>::deinit(v110);
-  re::DynamicArray<NS::SharedPtr<MTL::SamplerState>>::deinit(v111);
-  re::DynamicArray<NS::SharedPtr<MTL::SamplerState>>::deinit(v112);
-  re::DynamicArray<NS::SharedPtr<MTL::SamplerState>>::deinit(v113);
-  if (v114)
-  {
-    if (v118)
-    {
-      (*(*v114 + 40))();
-    }
-
-    v118 = 0;
-    v116 = 0;
-    v114 = 0;
-    v115 = 0;
-    ++v117;
-  }
-
-  if (v119)
-  {
-    if (__dst)
-    {
-      (*(*v119 + 40))();
-    }
-
-    __dst = 0;
-    v121 = 0;
-    v119 = 0;
-    v120 = 0;
-    ++v122;
-  }
-
-  re::AssetHandle::~AssetHandle(v124);
-  re::ecs2::Component::enqueueMarkDirty(a1);
-  re::DynamicArray<NS::SharedPtr<MTL::SamplerState>>::deinit(v125);
-  re::DynamicArray<NS::SharedPtr<MTL::SamplerState>>::deinit(v128);
-  re::DynamicArray<NS::SharedPtr<MTL::SamplerState>>::deinit(v131);
-  re::DynamicArray<NS::SharedPtr<MTL::SamplerState>>::deinit(v134);
-  re::DynamicArray<NS::SharedPtr<MTL::SamplerState>>::deinit(v137);
-  re::DynamicArray<NS::SharedPtr<MTL::SamplerState>>::deinit(v140);
-  re::DynamicArray<NS::SharedPtr<MTL::SamplerState>>::deinit(v143);
-  re::DynamicArray<NS::SharedPtr<MTL::SamplerState>>::deinit(v146);
-  re::DynamicArray<NS::SharedPtr<MTL::SamplerState>>::deinit(v149);
-  re::DynamicArray<NS::SharedPtr<MTL::SamplerState>>::deinit(v152);
-  if (v74 && v157)
-  {
-    (*(*v74 + 40))(v74);
-  }
-
-  if (v69 && v162)
-  {
-    (*(*v69 + 40))(v69);
-  }
-
-  re::AssetHandle::~AssetHandle(v163);
-
-  return v96;
-}
-
-void RECameraViewDescriptorsComponentSetRasterizationRateMap(re::ecs2::CameraViewDescriptorsComponent *a1, re::ecs2::CameraViewDescriptorsComponent *a2, void *a3, unsigned int a4)
-{
-  v7 = a3;
-  ViewDescriptor = re::ecs2::CameraViewDescriptorsComponent::tryGetViewDescriptor(a1, a2);
-  if (a4 >= 2)
-  {
-    if (a4 != 2)
-    {
-      goto LABEL_7;
-    }
-
-    v12 = v7;
-    v11 = v7;
-    v10 = (ViewDescriptor + 248);
-  }
-
-  else
-  {
-    v12 = v7;
-    v9 = v7;
-    v10 = (ViewDescriptor + 240);
-  }
-
-  NS::SharedPtr<MTL::Texture>::operator=(v10, &v12);
-  if (v12)
-  {
-  }
-
-LABEL_7:
-  re::ecs2::Component::enqueueMarkDirty(a1);
-}
-
-void RECameraViewDescriptorsComponentSetRenderCommandEncoder(re::ecs2::CameraViewDescriptorsComponent *a1, re::ecs2::CameraViewDescriptorsComponent *a2, void *a3, void *a4)
-{
-  v12 = a4;
-  v7 = a3;
-  ViewDescriptor = re::ecs2::CameraViewDescriptorsComponent::tryGetViewDescriptor(a1, a2);
-  re::ObjCObject::operator=((ViewDescriptor + 296), v7);
-  re::mtl::RenderEncoderImpCache::build(*(ViewDescriptor + 304), *(ViewDescriptor + 296));
-
-  v9 = v12;
-  v10 = v12;
-  v11 = *(ViewDescriptor + 288);
-  if (v11 == v12)
-  {
-  }
-
-  else
-  {
-    if (v11)
-    {
-
-      v10 = v12;
-    }
-
-    *(ViewDescriptor + 288) = v10;
-  }
-
-  if (!*(ViewDescriptor + 296))
-  {
-
-    *(ViewDescriptor + 288) = 0;
-  }
-
-  re::ecs2::Component::enqueueMarkDirty(a1);
-}
-
-uint64_t RECameraViewDescriptorsComponentSetRenderCommandEncoderCommandMask(re::ecs2::CameraViewDescriptorsComponent *a1, re::ecs2::CameraViewDescriptorsComponent *a2, uint64_t a3)
-{
-  *(re::ecs2::CameraViewDescriptorsComponent::tryGetViewDescriptor(a1, a2) + 312) = a3;
-
-  return re::ecs2::Component::enqueueMarkDirty(a1);
-}
-
-uint64_t RECameraViewDescriptorsComponentSetForceWaitOnPipelineCompilation(re::ecs2::CameraViewDescriptorsComponent *a1, re::ecs2::CameraViewDescriptorsComponent *a2, char a3)
-{
-  *(re::ecs2::CameraViewDescriptorsComponent::tryGetViewDescriptor(a1, a2) + 321) = a3;
-
-  return re::ecs2::Component::enqueueMarkDirty(a1);
-}
-
-uint64_t RECameraViewDescriptorsComponentSetFallbackRenderingMode(re::ecs2::CameraViewDescriptorsComponent *a1, re::ecs2::CameraViewDescriptorsComponent *a2, char a3)
-{
-  *(re::ecs2::CameraViewDescriptorsComponent::tryGetViewDescriptor(a1, a2) + 322) = a3;
-
-  return re::ecs2::Component::enqueueMarkDirty(a1);
-}
-
-void re::RuntimeRenderGraphDataStruct::setOrAddValueOfType<BOOL>(uint64_t a1, char *a2, char a3)
-{
-  v46 = *MEMORY[0x1E69E9840];
-  v36 = a3;
-  {
-    re::introspect<BOOL>(BOOL)::info = re::introspect_BOOL(0, v29);
-  }
-
-  v5 = re::introspect<BOOL>(BOOL)::info;
-  v6 = *(re::introspect<BOOL>(BOOL)::info + 4);
-  if (a2)
-  {
-    v7 = *a2;
-    if (*a2)
-    {
-      v8 = a2[1];
-      if (v8)
-      {
-        v9 = (a2 + 2);
-        do
-        {
-          v7 = 31 * v7 + v8;
-          v10 = *v9++;
-          v8 = v10;
-        }
-
-        while (v10);
-      }
-
-      v7 &= ~0x8000000000000000;
-    }
-  }
-
-  else
-  {
-    v7 = 0x7FFFFFFFFFFFFFFFLL;
-  }
-
-  *&buf = v7;
-  v11 = re::RuntimeRenderGraphDataStruct::setValueOfType<BOOL>(a1, &buf, v36);
-  if (!v11)
-  {
-    if (((v6 < 0xA) & (0x301u >> v6)) != 0)
-    {
-      v12 = strlen(a2);
-      v13 = re::globalAllocators(v12);
-      v14 = (*(*v13[2] + 32))(v13[2], v12 + 1, 0);
-      strcpy(v14, a2);
-      re::IntrospectionMember::IntrospectionMember(&v31);
-      v32 = v14;
-      v15 = *(a1 + 752);
-      v16 = (v15 + v5[6] - 1) & -v5[6];
-      v17 = v16 - v15;
-      if (v16 > v15)
-      {
-        do
-        {
-          LOBYTE(buf) = 0;
-          re::DynamicOverflowArray<char,128ul>::add(a1 + 744, &buf);
-          --v17;
-        }
-
-        while (v17);
-      }
-
-      v18 = v33;
-      v33 = v5;
-      buf = v18;
-      re::SerializedReference<re::IntrospectionBase const*>::reset(&buf);
-      v19 = *(a1 + 752);
-      v34 = v19;
-      v31 = 1;
-      v20 = v19;
-      v21 = (v5[5] + v5[6] - 1) & -v5[6];
-      if (!v21)
-      {
-        goto LABEL_32;
-      }
-
-      do
-      {
-        LOBYTE(buf) = 0;
-        v22 = re::DynamicOverflowArray<char,128ul>::add(a1 + 744, &buf);
-        --v21;
-      }
-
-      while (v21);
-      v20 = *(a1 + 752);
-      if (v20 > v19)
-      {
-        if (*(a1 + 760))
-        {
-          v23 = a1 + 768;
-        }
-
-        else
-        {
-          v23 = *(a1 + 776);
-        }
-
-        *&v43 = 0;
-        buf = 0u;
-        v42 = 0u;
-        *v38 = re::globalAllocators(v22)[2];
-        *&v38[8] = 0;
-        *&v38[16] = &buf;
-        if (v14)
-        {
-          v25 = *v14;
-          if (*v14)
-          {
-            v26 = v14[1];
-            if (v26)
-            {
-              v27 = (v14 + 2);
-              do
-              {
-                v25 = 31 * v25 + v26;
-                v28 = *v27++;
-                v26 = v28;
-              }
-
-              while (v28);
-            }
-
-            v25 &= ~0x8000000000000000;
-          }
-        }
-
-        else
-        {
-          v25 = 0x7FFFFFFFFFFFFFFFLL;
-        }
-
-        *&buf = v25;
-        re::SmallHashTable<re::WeakStringID,re::IntrospectionMember,8ul,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false>::add(a1 + 24, &buf, &v31, 0);
-        re::SerializedReference<re::IntrospectionBase const*>::reset(&v35);
-        re::SerializedReference<re::IntrospectionBase const*>::reset(&v33);
-      }
-
-      else
-      {
-LABEL_32:
-        v37 = 0;
-        v44 = 0u;
-        v45 = 0u;
-        v42 = 0u;
-        v43 = 0u;
-        buf = 0u;
-        v30 = v20;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        *v38 = 136315906;
-        *&v38[4] = "operator[]";
-        *&v38[12] = 1024;
-        *&v38[14] = 858;
-        *&v38[18] = 2048;
-        *&v38[20] = v19;
-        v39 = 2048;
-        v40 = v30;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-      }
-    }
-
-    else
-    {
-      v24 = *re::graphicsLogObjects(v11);
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
-      {
-        LODWORD(buf) = 136315138;
-        *(&buf + 4) = a2;
-        _os_log_impl(&dword_1E1C61000, v24, OS_LOG_TYPE_DEFAULT, "Attempted to add a non-basic type to RuntimeRenderGraphData: %s", &buf, 0xCu);
-      }
-    }
-  }
-}
-
-_anonymous_namespace_ *re::DynamicOverflowArray<char,128ul>::add(uint64_t a1, _BYTE *a2)
-{
-  result = re::DynamicOverflowArray<char,128ul>::ensureCapacity(a1);
-  if (*(a1 + 16))
-  {
-    v5 = a1 + 24;
-  }
-
-  else
-  {
-    v5 = *(a1 + 32);
-  }
-
-  *(v5 + (*(a1 + 8))++) = *a2;
-  *(a1 + 16) += 2;
-  return result;
-}
-
-BOOL re::RuntimeRenderGraphDataStruct::setValueOfType<BOOL>(uint64_t a1, void *a2, char a3)
-{
-  v30 = *MEMORY[0x1E69E9840];
-  __src = a3;
-  v4 = re::SmallHashTable<re::WeakStringID,re::IntrospectionMember,8ul,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false>::tryGet(a1 + 24, a2);
-  if (v4)
-  {
-    v5 = &unk_1EE187000;
-    {
-      v5 = &unk_1EE187000;
-      if (v13)
-      {
-        re::introspect<BOOL>(BOOL)::info = re::introspect_BOOL(0, v14);
-        v5 = &unk_1EE187000;
-      }
-    }
-
-    v6 = v5[42];
-    if (v6 == *(v4 + 16))
-    {
-      v7 = *(v4 + 36);
-      v8 = *(a1 + 752);
-      if (v8 <= v7)
-      {
-        v16 = 0;
-        v28 = 0u;
-        v29 = 0u;
-        v26 = 0u;
-        v27 = 0u;
-        v25 = 0u;
-        v11 = v7;
-        v12 = v8;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v17 = 136315906;
-        v18 = "operator[]";
-        v19 = 1024;
-        v20 = 858;
-        v21 = 2048;
-        v22 = v11;
-        v23 = 2048;
-        v24 = v12;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-      }
-
-      if (*(a1 + 760))
-      {
-        v9 = a1 + 768;
-      }
-
-      else
-      {
-        v9 = *(a1 + 776);
-      }
-
-      memcpy((v9 + v7), &__src, *(v6 + 20));
-    }
-  }
-
-  return v4 != 0;
-}
-
-_anonymous_namespace_ *re::DynamicOverflowArray<char,128ul>::ensureCapacity(_anonymous_namespace_ *result)
-{
-  v1 = result;
-  if (*result)
-  {
-    v2 = *(result + 1);
-    if (*(result + 16))
-    {
-      v3 = 128;
-    }
-
-    else
-    {
-      v3 = *(result + 3);
-    }
-
-    if (v2 >= v3)
-    {
-
-      return re::DynamicOverflowArray<char,128ul>::growCapacity(result, v2 + 1);
-    }
-  }
-
-  else
-  {
-    v4 = *(v1 + 1);
-    result = re::DynamicOverflowArray<char,128ul>::setCapacity(v1, v4 + 1);
-    *(v1 + 4) += 2;
-  }
-
-  return result;
-}
-
-_anonymous_namespace_ *re::DynamicOverflowArray<char,128ul>::growCapacity(_anonymous_namespace_ *result, unint64_t a2)
-{
-  v2 = a2;
-  v3 = result;
-  if (!*result)
-  {
-    result = re::DynamicOverflowArray<char,128ul>::setCapacity(v3, v2);
-    *(v3 + 4) += 2;
-    return result;
-  }
-
-  if (*(result + 16))
-  {
-    if (a2 <= 0x80)
-    {
-      return result;
-    }
-
-    v5 = 256;
-  }
-
-  else
-  {
-    v4 = *(result + 3);
-    if (v4 >= a2)
-    {
-      return result;
-    }
-
-    v5 = 2 * v4;
-  }
-
-  if (v5 > a2)
-  {
-    a2 = v5;
-  }
-
-  return re::DynamicOverflowArray<char,128ul>::setCapacity(result, a2);
-}
-
-void *re::DynamicOverflowArray<char,128ul>::setCapacity(void *result, unint64_t a2)
-{
-  v3 = result;
-  v4 = *result;
-  if (a2 && !v4)
-  {
-    result = re::DynamicOverflowArray<char,128ul>::setCapacity(v3, a2);
-    v5 = *(v3 + 4) + 2;
-LABEL_4:
-    *(v3 + 4) = v5;
-    return result;
-  }
-
-  v6 = *(result + 4);
+  v5 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 2 * v4, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcharacterkinematic/src/CctObstacleContext.cpp", 46);
+  v6 = *(this + 3);
+  *(this + 3) = v5;
   if (v6)
   {
-    v7 = 128;
+    v7 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 2 * v6, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcharacterkinematic/src/CctObstacleContext.cpp", 47);
+    v8 = (2 * *(this + 3));
   }
 
   else
   {
-    v7 = result[3];
+    v8 = 0;
+    v7 = 0;
   }
 
-  if (v7 != a2)
-  {
-    v8 = result[1];
-    if (v8 <= a2 && (a2 > 0x80 || (v6 & 1) == 0))
-    {
-      if (a2 < 0x81)
-      {
-        v13 = result + 3;
-        v14 = v3[4];
-        if (v6)
-        {
-          v15 = v3 + 3;
-        }
-
-        else
-        {
-          v15 = v3[4];
-        }
-
-        memcpy(v13, v15, v8);
-        result = (*(*v4 + 40))(v4, v14);
-        v5 = *(v3 + 4) | 1;
-        goto LABEL_4;
-      }
-
-      v9 = (*(*v4 + 32))(*result, a2, 1);
-      if (v9)
-      {
-        v11 = v9;
-        if (v3[2])
-        {
-          v12 = v3 + 3;
-        }
-
-        else
-        {
-          v12 = v3[4];
-        }
-
-        result = memcpy(v9, v12, v3[1]);
-        v16 = *(v3 + 4);
-        if ((v16 & 1) == 0)
-        {
-          result = (*(**v3 + 40))(*v3, v3[4]);
-          v16 = *(v3 + 4);
-        }
-
-        *(v3 + 4) = v16 & 0xFFFFFFFE;
-        v3[3] = a2;
-        v3[4] = v11;
-      }
-
-      else
-      {
-        re::internal::assertLog(6, v10, "assertion failure: '%s' (%s:line %i) DynamicOverflowArray<T, N> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 650, a2, *(*v3 + 8));
-        result = _os_crash();
-        __break(1u);
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t re::SmallHashTable<re::WeakStringID,re::IntrospectionMember,8ul,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false>::add(uint64_t result, void *a2, uint64_t a3, unsigned int a4)
-{
-  v7 = result;
-  v8 = *(result + 700);
-  if (v8)
-  {
-    if (a4 - 2 < 2)
-    {
-LABEL_23:
-
-      return re::HashTable<re::WeakStringID,re::IntrospectionMember,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false,false>::addOrReplace(v7 + 672, a2, a3);
-    }
-
-    if (a4 == 1)
-    {
-      goto LABEL_35;
-    }
-
-    if (!a4)
-    {
-LABEL_32:
-      v27 = v7 + 672;
-      v28 = a2;
-      v29 = a3;
-
-      return re::HashTable<re::WeakStringID,re::IntrospectionMember,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false,false>::add(v27, v28, v29);
-    }
-  }
-
-  v10 = (result + 16);
-  v9 = *(result + 16);
-  v11 = 80 * v9;
-  if (!v9)
-  {
-LABEL_9:
-    if (v8)
-    {
-      v14 = v8;
-    }
-
-    else
-    {
-      v14 = v9;
-    }
-
-    if (v14 <= 7)
-    {
-      v30 = *a2;
-      v31 = *a3;
-      v15 = *(a3 + 24);
-      v16 = *(a3 + 32);
-      *(a3 + 24) = 0;
-      v32 = *(a3 + 8);
-      v33 = v15;
-      v34 = v16;
-      v35 = *(a3 + 40);
-      v17 = *(a3 + 48);
-      *(a3 + 56) = 0;
-      v36 = v17;
-      v37 = *(a3 + 64);
-      re::DynamicInlineArray<re::KeyValuePair<re::WeakStringID,re::IntrospectionMember>,8ul>::add((v7 + 16), &v30);
-      re::SerializedReference<re::IntrospectionBase const*>::reset(&v36);
-      re::SerializedReference<re::IntrospectionBase const*>::reset(&v32 + 8);
-      if (*v10)
-      {
-        return v7 + 80 * (*v10 - 1) + 40;
-      }
-
-      re::internal::assertLog(6, v18, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < m_size", "operator[]", 381, *v10 - 1, 0);
-      result = _os_crash();
-      __break(1u);
-      return result;
-    }
-
-    if (!*(v7 + 672))
-    {
-      v19 = *v7;
-      if (!*v7)
-      {
-      }
-
-      re::HashTable<re::StringID,re::RigDataTypeClass,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::init(v7 + 672, v19, 16);
-      v9 = *v10;
-      v11 = 80 * *v10;
-    }
-
-    if (v9)
-    {
-      v20 = v7 + v11 + 32;
-      v21 = (v7 + 32);
-      do
-      {
-        re::HashTable<re::WeakStringID,re::IntrospectionMember,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false,false>::add(v7 + 672, v21, (v21 + 1));
-        v21 += 10;
-      }
-
-      while (v21 != v20);
-    }
-
-    re::DynamicInlineArray<re::KeyValuePair<re::WeakStringID,re::IntrospectionMember>,8ul>::clear((v7 + 16));
-    if (a4 - 2 < 2)
-    {
-      goto LABEL_23;
-    }
-
-    if (!a4)
-    {
-      goto LABEL_32;
-    }
-
-LABEL_35:
-    v27 = v7 + 672;
-    v28 = a2;
-    v29 = a3;
-
-    return re::HashTable<re::WeakStringID,re::IntrospectionMember,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false,false>::add(v27, v28, v29);
-  }
-
-  v12 = result + 56;
-  v13 = 80 * v9;
-  while (*(v12 - 24) != *a2)
-  {
-    v12 += 80;
-    v13 -= 80;
-    if (!v13)
-    {
-      goto LABEL_9;
-    }
-  }
-
-  result = v12 - 16;
-  if (a4 >= 2)
-  {
-    if (a4 == 2 || a4 == 3)
-    {
-      *(v12 - 16) = *a3;
-      *(v12 - 8) = *(a3 + 8);
-      v22 = *(v12 + 8);
-      *(v12 + 8) = *(a3 + 24);
-      *(a3 + 24) = v22;
-      v23 = *v12;
-      *v12 = *(a3 + 16);
-      *(a3 + 16) = v23;
-      v24 = *(a3 + 32);
-      *(v12 + 24) = *(a3 + 40);
-      *(v12 + 16) = v24;
-      v25 = *(v12 + 40);
-      *(v12 + 40) = *(a3 + 56);
-      *(a3 + 56) = v25;
-      v26 = *(v12 + 32);
-      *(v12 + 32) = *(a3 + 48);
-      *(a3 + 48) = v26;
-      *(v12 + 48) = *(a3 + 64);
-      ++*(v7 + 8);
-      return result;
-    }
-
-    goto LABEL_9;
-  }
-
-  return result;
-}
-
-uint64_t re::HashTable<re::WeakStringID,re::IntrospectionMember,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false,false>::add(uint64_t a1, void *a2, uint64_t a3)
-{
-  v8 = 0;
-  v9 = 0;
-  v10 = 0;
-  v6 = 0xBF58476D1CE4E5B9 * (*a2 ^ (*a2 >> 30));
-  re::HashTable<unsigned long,re::ecs2::VFXREBinding,re::Hash<unsigned long>,re::EqualTo<unsigned long>,true,false>::findEntry<unsigned long>(a1, a2, (0x94D049BB133111EBLL * (v6 ^ (v6 >> 27))) ^ ((0x94D049BB133111EBLL * (v6 ^ (v6 >> 27))) >> 31), &v8);
-  if (HIDWORD(v9) == 0x7FFFFFFF)
-  {
-    return re::HashTable<re::WeakStringID,re::IntrospectionMember,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false,false>::addInternal<re::WeakStringID const&,re::IntrospectionMember>(a1, &v8, a2, a3);
-  }
-
-  else
-  {
-    return *(a1 + 16) + 88 * HIDWORD(v9) + 16;
-  }
-}
-
-uint64_t re::HashTable<re::WeakStringID,re::IntrospectionMember,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false,false>::addOrReplace(uint64_t a1, void *a2, uint64_t a3)
-{
-  v15 = 0;
-  v16 = 0;
-  v17 = 0;
-  v6 = 0xBF58476D1CE4E5B9 * (*a2 ^ (*a2 >> 30));
-  re::HashTable<unsigned long,re::ecs2::VFXREBinding,re::Hash<unsigned long>,re::EqualTo<unsigned long>,true,false>::findEntry<unsigned long>(a1, a2, (0x94D049BB133111EBLL * (v6 ^ (v6 >> 27))) ^ ((0x94D049BB133111EBLL * (v6 ^ (v6 >> 27))) >> 31), &v15);
-  v7 = HIDWORD(v16);
-  if (HIDWORD(v16) == 0x7FFFFFFF)
-  {
-    return re::HashTable<re::WeakStringID,re::IntrospectionMember,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false,false>::addInternal<re::WeakStringID const&,re::IntrospectionMember>(a1, &v15, a2, a3);
-  }
-
-  ++*(a1 + 40);
-  v9 = *(a1 + 16) + 88 * v7;
-  *(v9 + 16) = *a3;
-  result = v9 + 16;
-  *(result + 8) = *(a3 + 8);
-  v10 = *(result + 24);
-  *(result + 24) = *(a3 + 24);
-  *(a3 + 24) = v10;
-  v11 = *(result + 16);
-  *(result + 16) = *(a3 + 16);
-  *(a3 + 16) = v11;
-  v12 = *(a3 + 32);
-  *(result + 40) = *(a3 + 40);
-  *(result + 32) = v12;
-  v13 = *(result + 56);
-  *(result + 56) = *(a3 + 56);
-  *(a3 + 56) = v13;
-  v14 = *(result + 48);
-  *(result + 48) = *(a3 + 48);
-  *(a3 + 48) = v14;
-  *(result + 64) = *(a3 + 64);
-  return result;
-}
-
-uint64_t re::DynamicInlineArray<re::KeyValuePair<re::WeakStringID,re::IntrospectionMember>,8ul>::add(uint64_t *a1, uint64_t a2)
-{
-  result = re::DynamicInlineArray<unsigned long long,8ul>::ensureCapacity(a1, a2);
-  if (result)
-  {
-    v5 = *a1;
-    v6 = &a1[10 * *a1];
-    v6[2] = *a2;
-    *(v6 + 6) = *(a2 + 8);
-    v6[4] = *(a2 + 16);
-    v6[6] = 0;
-    v6[6] = *(a2 + 32);
-    *(a2 + 32) = 0;
-    v7 = v6[5];
-    v6[5] = *(a2 + 24);
-    *(a2 + 24) = v7;
-    v8 = *(a2 + 40);
-    *(v6 + 16) = *(a2 + 48);
-    v6[7] = v8;
-    v6[10] = 0;
-    v6[10] = *(a2 + 64);
-    *(a2 + 64) = 0;
-    v9 = v6[9];
-    v6[9] = *(a2 + 56);
-    *(a2 + 56) = v9;
-    *(v6 + 22) = *(a2 + 72);
-    *a1 = v5 + 1;
-    ++*(a1 + 2);
-  }
-
-  return result;
-}
-
-void *re::DynamicInlineArray<re::KeyValuePair<re::WeakStringID,re::IntrospectionMember>,8ul>::clear(void *result)
-{
-  v1 = result;
-  if (*result)
-  {
-    v2 = 80 * *result;
-    v3 = (result + 5);
-    do
-    {
-      re::SerializedReference<re::IntrospectionBase const*>::reset(v3 + 32);
-      result = re::SerializedReference<re::IntrospectionBase const*>::reset(v3);
-      *(v3 - 24) = 0;
-      v3 += 80;
-      v2 -= 80;
-    }
-
-    while (v2);
-  }
-
-  *v1 = 0;
-  ++*(v1 + 2);
-  return result;
-}
-
-uint64_t re::HashTable<re::WeakStringID,re::IntrospectionMember,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false,false>::addInternal<re::WeakStringID const&,re::IntrospectionMember>(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
-{
-  v7 = re::HashTable<re::WeakStringID,re::IntrospectionMember,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false,false>::allocEntry(a1, *(a2 + 8), *a2);
-  *(v7 + 16) = *a4;
-  result = v7 + 16;
-  *(result - 8) = *a3;
-  *(result + 8) = *(a4 + 8);
-  *(result + 24) = 0;
-  *(result + 24) = *(a4 + 24);
-  *(a4 + 24) = 0;
-  v9 = *(result + 16);
-  *(result + 16) = *(a4 + 16);
-  *(a4 + 16) = v9;
-  LODWORD(v9) = *(a4 + 40);
-  *(result + 32) = *(a4 + 32);
-  *(result + 40) = v9;
-  *(result + 56) = 0;
-  *(result + 56) = *(a4 + 56);
-  *(a4 + 56) = 0;
-  v10 = *(result + 48);
-  *(result + 48) = *(a4 + 48);
-  *(a4 + 48) = v10;
-  *(result + 64) = *(a4 + 64);
-  ++*(a1 + 40);
-  return result;
-}
-
-uint64_t re::HashTable<re::WeakStringID,re::IntrospectionMember,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false,false>::allocEntry(uint64_t a1, unsigned int a2, unint64_t a3)
-{
-  v4 = *(a1 + 36);
-  if (v4 == 0x7FFFFFFF)
-  {
-    v4 = *(a1 + 32);
-    v5 = v4;
-    if (v4 == *(a1 + 24))
-    {
-      re::HashTable<re::WeakStringID,re::IntrospectionMember,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false,false>::setCapacity(a1, 2 * *(a1 + 28));
-      a2 = a3 % *(a1 + 24);
-      v5 = *(a1 + 32);
-    }
-
-    *(a1 + 32) = v5 + 1;
-    v7 = *(a1 + 16);
-    v8 = *(v7 + 88 * v4);
-  }
-
-  else
-  {
-    v7 = *(a1 + 16);
-    v8 = *(v7 + 88 * v4);
-    *(a1 + 36) = v8 & 0x7FFFFFFF;
-  }
-
-  v9 = 88 * v4;
-  *(v7 + v9) = v8 | 0x80000000;
-  v10 = *(a1 + 8);
-  *(v7 + v9) = *(v10 + 4 * a2) | 0x80000000;
-  *(v10 + 4 * a2) = v4;
-  ++*(a1 + 28);
-  return v7 + 88 * v4;
-}
-
-void re::HashTable<re::WeakStringID,re::IntrospectionMember,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false,false>::setCapacity(uint64_t a1, unsigned int a2)
-{
-  v4 = *a1;
-  if (*a1)
-  {
-    if (a2 && *(a1 + 24) != a2 && *(a1 + 28) <= a2)
-    {
-      memset(v9, 0, 36);
-      *&v9[36] = 0x7FFFFFFFLL;
-      re::HashTable<re::StringID,re::RigDataTypeClass,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::init(v9, v4, a2);
-      v5 = *v9;
-      *v9 = *a1;
-      *a1 = v5;
-      v6 = *&v9[16];
-      *&v9[16] = *(a1 + 16);
-      *(a1 + 16) = v6;
-      v7 = *&v9[24];
-      *&v9[24] = *(a1 + 24);
-      *(a1 + 24) = v7;
-      ++*&v9[40];
-      re::HashTable<re::WeakStringID,re::IntrospectionMember,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false,false>::move(a1, v9);
-      re::HashTable<re::WeakStringID,re::IntrospectionMember,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false,false>::deinit(v9);
-    }
-  }
-
-  else
-  {
-    if (a2)
-    {
-      v8 = a2;
-    }
-
-    else
-    {
-      v8 = 3;
-    }
-  }
-}
-
-uint64_t re::HashTable<re::WeakStringID,re::IntrospectionMember,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false,false>::move(uint64_t result, uint64_t a2)
-{
-  v2 = *(a2 + 32);
-  if (v2)
-  {
-    v4 = result;
-    v5 = 0;
-    v6 = 80;
-    do
-    {
-      v7 = *(a2 + 16) + v6;
-      if ((*(v7 - 80) & 0x80000000) != 0)
-      {
-        v8 = 0xBF58476D1CE4E5B9 * (*(v7 - 72) ^ (*(v7 - 72) >> 30));
-        result = re::HashTable<re::WeakStringID,re::IntrospectionMember,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false,false>::allocEntry(v4, ((0x94D049BB133111EBLL * (v8 ^ (v8 >> 27))) ^ ((0x94D049BB133111EBLL * (v8 ^ (v8 >> 27))) >> 31)) % *(v4 + 24));
-        v9 = (*(a2 + 16) + v6);
-        *(result + 8) = *(v9 - 9);
-        *(result + 16) = *(v9 - 16);
-        *(result + 24) = *(v9 - 7);
-        *(result + 40) = 0;
-        *(result + 40) = *(v9 - 5);
-        *(v9 - 5) = 0;
-        v10 = *(result + 32);
-        *(result + 32) = *(v9 - 6);
-        *(v9 - 6) = v10;
-        LODWORD(v10) = *(v9 - 6);
-        *(result + 48) = *(v9 - 4);
-        *(result + 56) = v10;
-        *(result + 72) = 0;
-        *(result + 72) = *(v9 - 1);
-        *(v9 - 1) = 0;
-        v11 = *(result + 64);
-        *(result + 64) = *(v9 - 2);
-        *(v9 - 2) = v11;
-        *(result + 80) = *v9;
-        v2 = *(a2 + 32);
-      }
-
-      ++v5;
-      v6 += 88;
-    }
-
-    while (v5 < v2);
-  }
-
-  return result;
-}
-
-double re::HashTable<re::WeakStringID,re::IntrospectionMember,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false,false>::deinit(uint64_t *a1)
-{
-  v2 = *a1;
-  if (v2)
-  {
-    if (*(a1 + 8))
-    {
-      v3 = 0;
-      v4 = 0;
-      do
-      {
-        re::HashTable<re::WeakStringID,re::IntrospectionMember,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false,false>::EntryBase::free(a1[2] + v3);
-        ++v4;
-        v3 += 88;
-      }
-
-      while (v4 < *(a1 + 8));
-      v2 = *a1;
-    }
-
-    (*(*v2 + 40))(v2, a1[1]);
-    *(a1 + 8) = 0;
-    *a1 = 0u;
-    *(a1 + 1) = 0u;
-    *&result = 0x7FFFFFFFLL;
-    *(a1 + 36) = 0x7FFFFFFFLL;
-  }
-
-  return result;
-}
-
-uint64_t re::HashTable<re::WeakStringID,re::IntrospectionMember,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false,false>::EntryBase::free(uint64_t result)
-{
-  if ((*result & 0x80000000) != 0)
-  {
-    v2 = result;
-    *result &= ~0x80000000;
-    *(result + 8) = 0;
-    re::SerializedReference<re::IntrospectionBase const*>::reset(result + 64);
-
-    return re::SerializedReference<re::IntrospectionBase const*>::reset(v2 + 32);
-  }
-
-  return result;
-}
-
-void re::RuntimeRenderGraphDataStruct::setOrAddValueOfType<re::Vector4<float>>(uint64_t a1, char *a2, uint64_t a3, uint64_t a4)
-{
-  v47 = *MEMORY[0x1E69E9840];
-  v36 = a3;
-  v37 = a4;
-  {
-    re::introspect<re::Vector4<float>>(BOOL)::info = re::introspect_Vector4F(0);
-  }
-
-  v6 = re::introspect<re::Vector4<float>>(BOOL)::info;
-  v7 = *(re::introspect<re::Vector4<float>>(BOOL)::info + 4);
-  if (a2)
-  {
-    v8 = *a2;
-    if (*a2)
-    {
-      v9 = a2[1];
-      if (v9)
-      {
-        v10 = (a2 + 2);
-        do
-        {
-          v8 = 31 * v8 + v9;
-          v11 = *v10++;
-          v9 = v11;
-        }
-
-        while (v11);
-      }
-
-      v8 &= ~0x8000000000000000;
-    }
-  }
-
-  else
-  {
-    v8 = 0x7FFFFFFFFFFFFFFFLL;
-  }
-
-  *&buf = v8;
-  v12 = re::RuntimeRenderGraphDataStruct::setValueOfType<re::Vector4<float>>(a1, &buf, v36, v37);
-  if (!v12)
-  {
-    if (((v7 < 0xA) & (0x301u >> v7)) != 0)
-    {
-      v13 = strlen(a2);
-      v14 = re::globalAllocators(v13);
-      v15 = (*(*v14[2] + 32))(v14[2], v13 + 1, 0);
-      strcpy(v15, a2);
-      re::IntrospectionMember::IntrospectionMember(&v31);
-      v32 = v15;
-      v16 = *(a1 + 752);
-      v17 = (v16 + v6[6] - 1) & -v6[6];
-      v18 = v17 - v16;
-      if (v17 > v16)
-      {
-        do
-        {
-          LOBYTE(buf) = 0;
-          re::DynamicOverflowArray<char,128ul>::add(a1 + 744, &buf);
-          --v18;
-        }
-
-        while (v18);
-      }
-
-      v19 = v33;
-      v33 = v6;
-      buf = v19;
-      re::SerializedReference<re::IntrospectionBase const*>::reset(&buf);
-      v20 = *(a1 + 752);
-      v34 = v20;
-      v31 = 1;
-      v21 = v20;
-      v22 = (v6[5] + v6[6] - 1) & -v6[6];
-      if (!v22)
-      {
-        goto LABEL_32;
-      }
-
-      do
-      {
-        LOBYTE(buf) = 0;
-        v23 = re::DynamicOverflowArray<char,128ul>::add(a1 + 744, &buf);
-        --v22;
-      }
-
-      while (v22);
-      v21 = *(a1 + 752);
-      if (v21 > v20)
-      {
-        if (*(a1 + 760))
-        {
-          v24 = a1 + 768;
-        }
-
-        else
-        {
-          v24 = *(a1 + 776);
-        }
-
-        *&v44 = 0;
-        buf = 0u;
-        v43 = 0u;
-        *v39 = re::globalAllocators(v23)[2];
-        *&v39[8] = 0;
-        *&v39[16] = &buf;
-        if (v15)
-        {
-          v26 = *v15;
-          if (*v15)
-          {
-            v27 = v15[1];
-            if (v27)
-            {
-              v28 = (v15 + 2);
-              do
-              {
-                v26 = 31 * v26 + v27;
-                v29 = *v28++;
-                v27 = v29;
-              }
-
-              while (v29);
-            }
-
-            v26 &= ~0x8000000000000000;
-          }
-        }
-
-        else
-        {
-          v26 = 0x7FFFFFFFFFFFFFFFLL;
-        }
-
-        *&buf = v26;
-        re::SmallHashTable<re::WeakStringID,re::IntrospectionMember,8ul,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false>::add(a1 + 24, &buf, &v31, 0);
-        re::SerializedReference<re::IntrospectionBase const*>::reset(&v35);
-        re::SerializedReference<re::IntrospectionBase const*>::reset(&v33);
-      }
-
-      else
-      {
-LABEL_32:
-        v38 = 0;
-        v45 = 0u;
-        v46 = 0u;
-        v43 = 0u;
-        v44 = 0u;
-        buf = 0u;
-        v30 = v21;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        *v39 = 136315906;
-        *&v39[4] = "operator[]";
-        *&v39[12] = 1024;
-        *&v39[14] = 858;
-        *&v39[18] = 2048;
-        *&v39[20] = v20;
-        v40 = 2048;
-        v41 = v30;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-      }
-    }
-
-    else
-    {
-      v25 = *re::graphicsLogObjects(v12);
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
-      {
-        LODWORD(buf) = 136315138;
-        *(&buf + 4) = a2;
-        _os_log_impl(&dword_1E1C61000, v25, OS_LOG_TYPE_DEFAULT, "Attempted to add a non-basic type to RuntimeRenderGraphData: %s", &buf, 0xCu);
-      }
-    }
-  }
-}
-
-BOOL re::RuntimeRenderGraphDataStruct::setValueOfType<re::Vector4<float>>(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
-{
-  v29 = *MEMORY[0x1E69E9840];
-  __src[0] = a3;
-  __src[1] = a4;
-  v5 = re::SmallHashTable<re::WeakStringID,re::IntrospectionMember,8ul,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false>::tryGet(a1 + 24, a2);
-  if (v5)
-  {
-    v6 = &unk_1EE187000;
-    {
-      v6 = &unk_1EE187000;
-      if (v14)
-      {
-        re::introspect<re::Vector4<float>>(BOOL)::info = re::introspect_Vector4F(0);
-        v6 = &unk_1EE187000;
-      }
-    }
-
-    v7 = v6[46];
-    if (v7 == *(v5 + 16))
-    {
-      v8 = *(v5 + 36);
-      v9 = *(a1 + 752);
-      if (v9 <= v8)
-      {
-        __src[3] = 0;
-        v27 = 0u;
-        v28 = 0u;
-        v25 = 0u;
-        v26 = 0u;
-        v24 = 0u;
-        v12 = v8;
-        v13 = v9;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v16 = 136315906;
-        v17 = "operator[]";
-        v18 = 1024;
-        v19 = 858;
-        v20 = 2048;
-        v21 = v12;
-        v22 = 2048;
-        v23 = v13;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-      }
-
-      if (*(a1 + 760))
-      {
-        v10 = a1 + 768;
-      }
-
-      else
-      {
-        v10 = *(a1 + 776);
-      }
-
-      memcpy((v10 + v8), __src, *(v7 + 20));
-    }
-  }
-
-  return v5 != 0;
-}
-
-void re::RuntimeRenderGraphDataStruct::setOrAddValueOfType<float>(uint64_t a1, char *a2, float a3)
-{
-  v46 = *MEMORY[0x1E69E9840];
-  v36 = a3;
-  {
-    re::introspect<float>(BOOL)::info = re::introspect_float(0, v29);
-  }
-
-  v5 = re::introspect<float>(BOOL)::info;
-  v6 = *(re::introspect<float>(BOOL)::info + 4);
-  if (a2)
-  {
-    v7 = *a2;
-    if (*a2)
-    {
-      v8 = a2[1];
-      if (v8)
-      {
-        v9 = (a2 + 2);
-        do
-        {
-          v7 = 31 * v7 + v8;
-          v10 = *v9++;
-          v8 = v10;
-        }
-
-        while (v10);
-      }
-
-      v7 &= ~0x8000000000000000;
-    }
-  }
-
-  else
-  {
-    v7 = 0x7FFFFFFFFFFFFFFFLL;
-  }
-
-  *&buf = v7;
-  v11 = re::RuntimeRenderGraphDataStruct::setValueOfType<float>(a1, &buf, v36);
-  if (!v11)
-  {
-    if (((v6 < 0xA) & (0x301u >> v6)) != 0)
-    {
-      v12 = strlen(a2);
-      v13 = re::globalAllocators(v12);
-      v14 = (*(*v13[2] + 32))(v13[2], v12 + 1, 0);
-      strcpy(v14, a2);
-      re::IntrospectionMember::IntrospectionMember(&v31);
-      v32 = v14;
-      v15 = *(a1 + 752);
-      v16 = (v15 + v5[6] - 1) & -v5[6];
-      v17 = v16 - v15;
-      if (v16 > v15)
-      {
-        do
-        {
-          LOBYTE(buf) = 0;
-          re::DynamicOverflowArray<char,128ul>::add(a1 + 744, &buf);
-          --v17;
-        }
-
-        while (v17);
-      }
-
-      v18 = v33;
-      v33 = v5;
-      buf = v18;
-      re::SerializedReference<re::IntrospectionBase const*>::reset(&buf);
-      v19 = *(a1 + 752);
-      v34 = v19;
-      v31 = 1;
-      v20 = v19;
-      v21 = (v5[5] + v5[6] - 1) & -v5[6];
-      if (!v21)
-      {
-        goto LABEL_32;
-      }
-
-      do
-      {
-        LOBYTE(buf) = 0;
-        v22 = re::DynamicOverflowArray<char,128ul>::add(a1 + 744, &buf);
-        --v21;
-      }
-
-      while (v21);
-      v20 = *(a1 + 752);
-      if (v20 > v19)
-      {
-        if (*(a1 + 760))
-        {
-          v23 = a1 + 768;
-        }
-
-        else
-        {
-          v23 = *(a1 + 776);
-        }
-
-        *&v43 = 0;
-        buf = 0u;
-        v42 = 0u;
-        *v38 = re::globalAllocators(v22)[2];
-        *&v38[8] = 0;
-        *&v38[16] = &buf;
-        if (v14)
-        {
-          v25 = *v14;
-          if (*v14)
-          {
-            v26 = v14[1];
-            if (v26)
-            {
-              v27 = (v14 + 2);
-              do
-              {
-                v25 = 31 * v25 + v26;
-                v28 = *v27++;
-                v26 = v28;
-              }
-
-              while (v28);
-            }
-
-            v25 &= ~0x8000000000000000;
-          }
-        }
-
-        else
-        {
-          v25 = 0x7FFFFFFFFFFFFFFFLL;
-        }
-
-        *&buf = v25;
-        re::SmallHashTable<re::WeakStringID,re::IntrospectionMember,8ul,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false>::add(a1 + 24, &buf, &v31, 0);
-        re::SerializedReference<re::IntrospectionBase const*>::reset(&v35);
-        re::SerializedReference<re::IntrospectionBase const*>::reset(&v33);
-      }
-
-      else
-      {
-LABEL_32:
-        v37 = 0;
-        v44 = 0u;
-        v45 = 0u;
-        v42 = 0u;
-        v43 = 0u;
-        buf = 0u;
-        v30 = v20;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        *v38 = 136315906;
-        *&v38[4] = "operator[]";
-        *&v38[12] = 1024;
-        *&v38[14] = 858;
-        *&v38[18] = 2048;
-        *&v38[20] = v19;
-        v39 = 2048;
-        v40 = v30;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-      }
-    }
-
-    else
-    {
-      v24 = *re::graphicsLogObjects(v11);
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
-      {
-        LODWORD(buf) = 136315138;
-        *(&buf + 4) = a2;
-        _os_log_impl(&dword_1E1C61000, v24, OS_LOG_TYPE_DEFAULT, "Attempted to add a non-basic type to RuntimeRenderGraphData: %s", &buf, 0xCu);
-      }
-    }
-  }
-}
-
-BOOL re::RuntimeRenderGraphDataStruct::setValueOfType<float>(uint64_t a1, void *a2, float a3)
-{
-  v30 = *MEMORY[0x1E69E9840];
-  __src = a3;
-  v4 = re::SmallHashTable<re::WeakStringID,re::IntrospectionMember,8ul,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false>::tryGet(a1 + 24, a2);
-  if (v4)
-  {
-    v5 = &unk_1EE187000;
-    {
-      v5 = &unk_1EE187000;
-      if (v13)
-      {
-        re::introspect<float>(BOOL)::info = re::introspect_float(0, v14);
-        v5 = &unk_1EE187000;
-      }
-    }
-
-    v6 = v5[40];
-    if (v6 == *(v4 + 16))
-    {
-      v7 = *(v4 + 36);
-      v8 = *(a1 + 752);
-      if (v8 <= v7)
-      {
-        v16 = 0;
-        v28 = 0u;
-        v29 = 0u;
-        v26 = 0u;
-        v27 = 0u;
-        v25 = 0u;
-        v11 = v7;
-        v12 = v8;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v17 = 136315906;
-        v18 = "operator[]";
-        v19 = 1024;
-        v20 = 858;
-        v21 = 2048;
-        v22 = v11;
-        v23 = 2048;
-        v24 = v12;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-      }
-
-      if (*(a1 + 760))
-      {
-        v9 = a1 + 768;
-      }
-
-      else
-      {
-        v9 = *(a1 + 776);
-      }
-
-      memcpy((v9 + v7), &__src, *(v6 + 20));
-    }
-  }
-
-  return v4 != 0;
-}
-
-void re::internal::Callable<RECameraViewDescriptorsComponentSnapshotNextFrame::$_0,void ()(re::FrameCount const&)>::~Callable(uint64_t a1)
-{
-
-  JUMPOUT(0x1E6906520);
-}
-
-void *re::internal::Callable<RECameraViewDescriptorsComponentSnapshotNextFrame::$_0,void ()(re::FrameCount const&)>::cloneInto(uint64_t a1, void *a2)
-{
-  *a2 = &unk_1F5D2DEB0;
-  a2[1] = _Block_copy(*(a1 + 8));
-  return a2;
-}
-
-void *re::internal::Callable<RECameraViewDescriptorsComponentSnapshotNextFrame::$_0,void ()(re::FrameCount const&)>::moveInto(uint64_t a1, void *a2)
-{
-  v2 = *(a1 + 8);
-  *(a1 + 8) = 0;
-  *a2 = &unk_1F5D2DEB0;
-  a2[1] = v2;
-  return a2;
-}
-
-void re::internal::Callable<RECameraViewDescriptorsComponentSnapshotNextFrameWithSettings::$_0,void ()(re::FrameCount const&)>::~Callable(uint64_t a1)
-{
-
-  JUMPOUT(0x1E6906520);
-}
-
-void *re::internal::Callable<RECameraViewDescriptorsComponentSnapshotNextFrameWithSettings::$_0,void ()(re::FrameCount const&)>::cloneInto(uint64_t a1, void *a2)
-{
-  *a2 = &unk_1F5D2DF08;
-  a2[1] = _Block_copy(*(a1 + 8));
-  return a2;
-}
-
-void *re::internal::Callable<RECameraViewDescriptorsComponentSnapshotNextFrameWithSettings::$_0,void ()(re::FrameCount const&)>::moveInto(uint64_t a1, void *a2)
-{
-  v2 = *(a1 + 8);
-  *(a1 + 8) = 0;
-  *a2 = &unk_1F5D2DF08;
-  a2[1] = v2;
-  return a2;
-}
-
-void re::internal::Callable<RECameraViewDescriptorsComponentSnapshotNextFrameWithSettingsAndReturnHandle::$_0,void ()(re::FrameCount const&)>::~Callable(uint64_t a1)
-{
-
-  JUMPOUT(0x1E6906520);
-}
-
-void *re::internal::Callable<RECameraViewDescriptorsComponentSnapshotNextFrameWithSettingsAndReturnHandle::$_0,void ()(re::FrameCount const&)>::cloneInto(uint64_t a1, void *a2)
-{
-  *a2 = &unk_1F5D2DF60;
-  a2[1] = _Block_copy(*(a1 + 8));
-  return a2;
-}
-
-void *re::internal::Callable<RECameraViewDescriptorsComponentSnapshotNextFrameWithSettingsAndReturnHandle::$_0,void ()(re::FrameCount const&)>::moveInto(uint64_t a1, void *a2)
-{
-  v2 = *(a1 + 8);
-  *(a1 + 8) = 0;
-  *a2 = &unk_1F5D2DF60;
-  a2[1] = v2;
-  return a2;
-}
-
-void re::internal::Callable<RECameraViewDescriptorsComponentSelectionNextFrameWithSettingsAndReturnHandle::$_0,void ()(re::FrameCount const&)>::~Callable(uint64_t a1)
-{
-
-  JUMPOUT(0x1E6906520);
-}
-
-void *re::internal::Callable<RECameraViewDescriptorsComponentSelectionNextFrameWithSettingsAndReturnHandle::$_0,void ()(re::FrameCount const&)>::cloneInto(uint64_t a1, void *a2)
-{
-  *a2 = &unk_1F5D2DFB8;
-  a2[1] = _Block_copy(*(a1 + 8));
-  return a2;
-}
-
-void *re::internal::Callable<RECameraViewDescriptorsComponentSelectionNextFrameWithSettingsAndReturnHandle::$_0,void ()(re::FrameCount const&)>::moveInto(uint64_t a1, void *a2)
-{
-  v2 = *(a1 + 8);
-  *(a1 + 8) = 0;
-  *a2 = &unk_1F5D2DFB8;
-  a2[1] = v2;
-  return a2;
-}
-
-BOOL re::RuntimeRenderGraphDataStruct::setValueOfType<unsigned int>(uint64_t a1, void *a2, int a3)
-{
-  v30 = *MEMORY[0x1E69E9840];
-  __src = a3;
-  v4 = re::SmallHashTable<re::WeakStringID,re::IntrospectionMember,8ul,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false>::tryGet(a1 + 24, a2);
-  if (v4)
-  {
-    v5 = &unk_1EE187000;
-    {
-      v5 = &unk_1EE187000;
-      if (v13)
-      {
-        re::introspect<unsigned int>(BOOL)::info = re::introspect_uint32_t(0, v14);
-        v5 = &unk_1EE187000;
-      }
-    }
-
-    v6 = v5[37];
-    if (v6 == *(v4 + 16))
-    {
-      v7 = *(v4 + 36);
-      v8 = *(a1 + 752);
-      if (v8 <= v7)
-      {
-        v16 = 0;
-        v28 = 0u;
-        v29 = 0u;
-        v26 = 0u;
-        v27 = 0u;
-        v25 = 0u;
-        v11 = v7;
-        v12 = v8;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v17 = 136315906;
-        v18 = "operator[]";
-        v19 = 1024;
-        v20 = 858;
-        v21 = 2048;
-        v22 = v11;
-        v23 = 2048;
-        v24 = v12;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-      }
-
-      if (*(a1 + 760))
-      {
-        v9 = a1 + 768;
-      }
-
-      else
-      {
-        v9 = *(a1 + 776);
-      }
-
-      memcpy((v9 + v7), &__src, *(v6 + 20));
-    }
-  }
-
-  return v4 != 0;
-}
-
-re::RuntimeRenderGraphDataStruct *re::RuntimeRenderGraphDataStruct::RuntimeRenderGraphDataStruct(re::RuntimeRenderGraphDataStruct *this, const char *a2)
-{
-  ArcSharedObject::ArcSharedObject(this, 0);
-  *(this + 3) = 0;
-  *this = &unk_1F5D2E010;
-  *(this + 8) = 0;
-  *(this + 5) = 0;
-  *(this + 12) = 0;
-  *(this + 696) = 0u;
-  *(this + 712) = 0u;
-  *(this + 182) = 0;
-  *(this + 732) = 0x7FFFFFFFLL;
-  *(this + 744) = 0u;
-  *(this + 190) = 1;
-  *(this + 48) = 0u;
+LABEL_7:
+  *(this + 4) = v7;
+  memset(*(this + 2), 255, v8);
+  memset(*(this + 3), 255, (2 * *(this + 3)));
+  bzero(*(this + 4), (2 * *(this + 3)));
   return this;
 }
 
-void re::RuntimeRenderGraphDataStruct::~RuntimeRenderGraphDataStruct(re::RuntimeRenderGraphDataStruct *this)
+void *physx::Cct::HandleManager::SetupLists(void *this, void **a2, unsigned __int16 *a3, unsigned __int16 *a4, unsigned __int16 *a5)
 {
-  re::RuntimeRenderGraphDataStruct::~RuntimeRenderGraphDataStruct(this);
+  v9 = this;
+  if (this[4])
+  {
+    this = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
 
-  JUMPOUT(0x1E6906520);
+  v9[4] = 0;
+  if (v9[3])
+  {
+    this = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v9[3] = 0;
+  if (v9[2])
+  {
+    this = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  v9[2] = 0;
+  if (*v9)
+  {
+    this = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
+
+  *v9 = a2;
+  v9[2] = a3;
+  v9[3] = a4;
+  v9[4] = a5;
+  return this;
 }
 
+uint64_t physx::Cct::HandleManager::Add(physx::Cct::HandleManager *this, void *a2)
 {
-  *this = &unk_1F5D2E010;
-  v2 = this + 24;
-  re::RuntimeRenderGraphDataStruct::deinit(this);
-  re::DynamicString::deinit((this + 896));
-  re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(this + 744);
-  re::SmallHashTable<re::WeakStringID,re::IntrospectionMember,8ul,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false>::~SmallHashTable(v2);
-  *this = &unk_1F5CCF868;
-  objc_destructInstance(this + 8);
-}
-
-uint64_t re::RuntimeRenderGraphDataStruct::deinit(re::RuntimeRenderGraphDataStruct *this)
-{
-  v3 = this;
-  v4 = *(this + 181);
-  if (!v4)
+  v4 = *(this + 10);
+  if (v4)
   {
-    v5 = this + 56;
-    v8 = this + 80 * *(this + 5) + 56;
-    goto LABEL_10;
+    v5 = *(this + 2);
+    v6 = *(*(this + 3) + 2 * v5);
+    *(*this + 8 * v5) = a2;
+    *(this + 2) = v5 + 1;
+    *(*(this + 2) + 2 * v6) = v5;
+    *(this + 10) = v4 - 1;
+    return v6 | (*(*(this + 4) + 2 * v6) << 16);
   }
 
-  v5 = this + 696;
-  v1 = *(this + 182);
-  if (v1)
+  v8 = *(this + 2);
+  if (v8 == *(this + 3))
   {
-    v2 = 0;
-    v6 = *(this + 89);
-    while (1)
+    v9 = 2 * v8;
+    if (2 * v8 >= 0xFFFF)
     {
-      v7 = *v6;
-      v6 += 22;
-      if (v7 < 0)
-      {
-        break;
-      }
-
-      if (v1 == ++v2)
-      {
-        LODWORD(v2) = *(this + 182);
-        break;
-      }
-    }
-  }
-
-  else
-  {
-    LODWORD(v2) = 0;
-  }
-
-  v8 = this + 696;
-LABEL_10:
-  while (v4)
-  {
-    if (v1 == v2)
-    {
-      goto LABEL_25;
+      v10 = 0xFFFF;
     }
 
-    v9 = *(v5 + 2) + 88 * v2 + 16;
-LABEL_15:
-    v10 = *(v9 + 8);
-    if (v10)
+    else
     {
-      v11 = re::globalAllocators(this);
-      this = (*(*v11[2] + 40))(v11[2], v10);
+      v10 = 2 * v8;
     }
 
-    *(v9 + 8) = 0;
-    if (v4)
+    *(this + 3) = v10;
+    if (v9)
     {
-      v12 = v2 + 1;
-      if (*(v5 + 8) <= (v2 + 1))
+      v11 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 8 * v10, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcharacterkinematic/src/CctObstacleContext.cpp", 94);
+      v10 = *(this + 3);
+      if (v10)
       {
-        LODWORD(v2) = v2 + 1;
-      }
-
-      else
-      {
-        LODWORD(v2) = *(v5 + 8);
-      }
-
-      while (v2 != v12)
-      {
-        v13 = v12;
-        v14 = *(*(v5 + 2) + 88 * v12++);
-        if (v14 < 0)
-        {
-          LODWORD(v2) = v13;
-          goto LABEL_10;
-        }
+        goto LABEL_9;
       }
     }
 
     else
     {
-      v5 += 80;
-    }
-  }
-
-  if (v5 != v8)
-  {
-    v9 = (v5 + 8);
-    goto LABEL_15;
-  }
-
-LABEL_25:
-  re::DynamicInlineArray<re::KeyValuePair<re::WeakStringID,re::IntrospectionMember>,8ul>::clear(v3 + 5);
-  re::HashTable<re::WeakStringID,re::IntrospectionMember,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false,false>::deinit(v3 + 87);
-  *(v3 + 3) = 0;
-  *(v3 + 8) = 0;
-
-  return re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(v3 + 744);
-}
-
-uint64_t re::SmallHashTable<re::WeakStringID,re::IntrospectionMember,8ul,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false>::~SmallHashTable(uint64_t a1)
-{
-  re::DynamicInlineArray<re::KeyValuePair<re::WeakStringID,re::IntrospectionMember>,8ul>::clear((a1 + 16));
-  re::HashTable<re::WeakStringID,re::IntrospectionMember,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false,false>::deinit((a1 + 672));
-  *a1 = 0;
-  *(a1 + 8) = 0;
-  re::HashTable<re::WeakStringID,re::IntrospectionMember,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,false,false>::deinit((a1 + 672));
-  re::DynamicInlineArray<re::KeyValuePair<re::WeakStringID,re::IntrospectionMember>,8ul>::clear((a1 + 16));
-  return a1;
-}
-
-uint64_t re::DynamicArray<NS::SharedPtr<MTL::Texture>>::DynamicArray(uint64_t a1, uint64_t *a2)
-{
-  *(a1 + 32) = 0;
-  *(a1 + 8) = 0;
-  *(a1 + 16) = 0;
-  *a1 = 0;
-  *(a1 + 24) = 0;
-  v3 = *a2;
-  if (*a2)
-  {
-    v5 = a2[2];
-    *a1 = v3;
-    re::DynamicArray<re::SharedPtr<re::ecs2::Entity>>::setCapacity(a1, v5);
-    ++*(a1 + 24);
-    v6 = a2[2];
-    v7 = *(a1 + 16);
-    if (v6 >= v7)
-    {
-      re::DynamicArray<re::SharedPtr<re::ecs2::Entity>>::setCapacity(a1, a2[2]);
-      v13 = a2[4];
-      v14 = *(a1 + 16);
-      v15 = *(a1 + 32);
-      if (v14)
+      v11 = 0;
+      if (v10)
       {
-        v16 = 8 * v14;
-        do
+LABEL_9:
+        v12 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 2 * v10, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcharacterkinematic/src/CctObstacleContext.cpp", 95);
+        v13 = *(this + 3);
+        if (v13)
         {
-          NS::SharedPtr<MTL::Buffer>::operator=(v15++, v13++);
-          v16 -= 8;
-        }
-
-        while (v16);
-        v15 = *(a1 + 32);
-        v14 = *(a1 + 16);
-        v13 = a2[4];
-      }
-
-      if (v14 != v6)
-      {
-        v17 = &v13[v14];
-        v18 = &v15[v14];
-        v19 = 8 * v6 - 8 * v14;
-        do
-        {
-          v20 = *v17++;
-          *v18++ = v20;
-          v19 -= 8;
-        }
-
-        while (v19);
-      }
-    }
-
-    else
-    {
-      v8 = *(a1 + 32);
-      if (v6)
-      {
-        v9 = a2[4];
-        v10 = 8 * v6;
-        do
-        {
-          NS::SharedPtr<MTL::Buffer>::operator=(v8++, v9++);
-          v10 -= 8;
-        }
-
-        while (v10);
-        v8 = *(a1 + 32);
-        v7 = *(a1 + 16);
-      }
-
-      if (v6 != v7)
-      {
-        v11 = &v8[v6];
-        v12 = 8 * v7 - 8 * v6;
-        do
-        {
-          if (*v11)
+          v14 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 2 * v13, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcharacterkinematic/src/CctObstacleContext.cpp", 96);
+          v15 = *(this + 3);
+          if (v15)
           {
-
-            *v11 = 0;
-          }
-
-          ++v11;
-          v12 -= 8;
-        }
-
-        while (v12);
-      }
-    }
-
-    *(a1 + 16) = v6;
-  }
-
-  return a1;
-}
-
-void *re::DynamicArray<re::Projection>::setCapacity(void *result, unint64_t a2)
-{
-  v3 = result[1];
-  if (v3 != a2)
-  {
-    v5 = result;
-    if (result[2] <= a2)
-    {
-      result = *result;
-      if (!*v5)
-      {
-        result = re::DynamicArray<re::Projection>::setCapacity(v5, a2);
-        ++*(v5 + 6);
-        return result;
-      }
-
-      if (a2)
-      {
-        if (is_mul_ok(a2, 0xF0uLL))
-        {
-          v2 = 240 * a2;
-          result = (*(*result + 32))(result, 240 * a2, 16);
-          if (result)
-          {
-            v7 = result;
-            if (!v5[1])
-            {
-              goto LABEL_20;
-            }
-
-            goto LABEL_11;
+            v16 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 2 * v15, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxcharacterkinematic/src/CctObstacleContext.cpp", 97);
+LABEL_16:
+            memcpy(v11, *this, (8 * *(this + 2)));
+            memcpy(v12, *(this + 2), (2 * *(this + 2)));
+            memcpy(v14, *(this + 3), (2 * *(this + 2)));
+            memcpy(v16, *(this + 4), (2 * *(this + 2)));
+            memset(&v12[2 * *(this + 2)], 255, (2 * (*(this + 3) - *(this + 2))));
+            memset(&v14[2 * *(this + 2)], 255, (2 * (*(this + 3) - *(this + 2))));
+            bzero(&v16[2 * *(this + 2)], (2 * (*(this + 3) - *(this + 2))));
+            physx::Cct::HandleManager::SetupLists(this, v11, v12, v14, v16);
+            v8 = *(this + 2);
+            goto LABEL_17;
           }
         }
 
         else
         {
-          re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicArray<T>::setCapacity(). Element size = %zu, capacity = %zu", "!overflow", "setCapacity", 615, 240, a2);
-          _os_crash();
-          __break(1u);
+          v14 = 0;
         }
 
-        re::internal::assertLog(6, v6, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, v2, *(*v5 + 8));
-        result = _os_crash();
-        __break(1u);
-        return result;
+LABEL_15:
+        v16 = 0;
+        goto LABEL_16;
       }
-
-      v7 = 0;
-      if (!v3)
-      {
-LABEL_20:
-        v5[4] = v7;
-        v5[1] = a2;
-        return result;
-      }
-
-LABEL_11:
-      v8 = v5[4];
-      v9 = v5[2];
-      if (v9)
-      {
-        v10 = (v8 + 240 * v9);
-        v11 = v7 + 12;
-        v12 = (v8 + 96);
-        do
-        {
-          *(v11 - 6) = *(v12 - 6);
-          v13 = *(v12 - 5);
-          v14 = *(v12 - 4);
-          v15 = *(v12 - 3);
-          *(v11 - 16) = *(v12 - 16);
-          *(v11 - 4) = v14;
-          *(v11 - 3) = v15;
-          *(v11 - 5) = v13;
-          v16 = *(v12 - 16);
-          *(v11 - 16) = v16;
-          if (v16 == 1)
-          {
-            v17 = *v12;
-            v18 = v12[1];
-            v19 = v12[3];
-            *(v11 + 2) = v12[2];
-            *(v11 + 3) = v19;
-            *v11 = v17;
-            *(v11 + 1) = v18;
-          }
-
-          v20 = v12 - 6;
-          v21 = *(v12 + 64);
-          *(v11 + 64) = v21;
-          if (v21 == 1)
-          {
-            v22 = v12[5];
-            v23 = v12[6];
-            v24 = v12[8];
-            *(v11 + 7) = v12[7];
-            *(v11 + 8) = v24;
-            *(v11 + 5) = v22;
-            *(v11 + 6) = v23;
-          }
-
-          v11 += 30;
-          v12 += 15;
-        }
-
-        while (v20 + 15 != v10);
-        v8 = v5[4];
-      }
-
-      result = (*(**v5 + 40))(*v5, v8);
-      goto LABEL_20;
     }
+
+    v14 = 0;
+    v12 = 0;
+    goto LABEL_15;
   }
 
-  return result;
+LABEL_17:
+  *(*this + 8 * v8) = a2;
+  v17 = *(this + 3);
+  *(*(this + 2) + 2 * v8) = v8;
+  *(v17 + 2 * v8) = v8;
+  *(this + 2) = v8 + 1;
+  return v8 | (*(*(this + 4) + 2 * v8) << 16);
 }
 
-__int128 *std::__copy_impl::operator()[abi:nn200100]<re::Projection *,re::Projection *,re::Projection *>(__int128 *result, __int128 *a2, uint64_t a3)
+uint64_t *physx::Cct::HandleManager::Remove(uint64_t *this, unsigned int a2)
 {
-  if (result != a2)
+  v2 = *(this + 3);
+  if (a2 < v2)
   {
-    v3 = result + 6;
-    v4 = a3 + 96;
-    do
+    v3 = *(this[2] + 2 * a2);
+    if (v3 != 0xFFFF && v2 > v3)
     {
-      *(v4 - 96) = *(v3 - 6);
-      v5 = *(v3 - 5);
-      v6 = *(v3 - 4);
-      v7 = *(v3 - 3);
-      *(v4 - 32) = *(v3 - 16);
-      *(v4 - 64) = v6;
-      *(v4 - 48) = v7;
-      *(v4 - 80) = v5;
-      if (*(v4 - 16))
+      v5 = *(this + 2);
+      if (v5)
       {
-        if ((*(v3 - 1) & 1) == 0)
+        if (*(this[4] + 2 * a2) == HIWORD(a2))
         {
-          *(v4 - 16) = 0;
-          goto LABEL_9;
+          v6 = *this;
+          v7 = v5 - 1;
+          *(this + 2) = v7;
+          *(v6 + 8 * v3) = *(v6 + 8 * v7);
+          v8 = this[2];
+          v9 = this[3];
+          *(v8 + 2 * *(v9 + 2 * v7)) = v3;
+          *(v9 + 2 * v3) = *(v9 + 2 * v7);
+          *(v9 + 2 * v7) = a2;
+          *(v8 + 2 * a2) = -1;
+          ++*(this + 10);
+          ++*(this[4] + 2 * a2);
         }
       }
-
-      else
-      {
-        if ((*(v3 - 1) & 1) == 0)
-        {
-          goto LABEL_9;
-        }
-
-        *(v4 - 16) = 1;
-      }
-
-      v8 = *v3;
-      v9 = v3[1];
-      v10 = v3[3];
-      *(v4 + 32) = v3[2];
-      *(v4 + 48) = v10;
-      *v4 = v8;
-      *(v4 + 16) = v9;
-LABEL_9:
-      v11 = v3 - 6;
-      if (*(v4 + 64))
-      {
-        if (v3[4])
-        {
-          goto LABEL_14;
-        }
-
-        *(v4 + 64) = 0;
-      }
-
-      else if (v3[4])
-      {
-        *(v4 + 64) = 1;
-LABEL_14:
-        v12 = v3[5];
-        v13 = v3[6];
-        v14 = v3[8];
-        *(v4 + 112) = v3[7];
-        *(v4 + 128) = v14;
-        *(v4 + 80) = v12;
-        *(v4 + 96) = v13;
-      }
-
-      v3 += 15;
-      v4 += 240;
     }
-
-    while (v11 + 15 != a2);
   }
 
+  return this;
+}
+
+void physx::Cct::ObstacleContext::~ObstacleContext(physx::Cct::ObstacleContext *this)
+{
+  *this = &unk_1F5D27C50;
+  physx::Cct::HandleManager::SetupLists(this + 5, 0, 0, 0, 0);
+  v2 = *(this + 9);
+  if ((v2 & 0x80000000) == 0 && (v2 & 0x7FFFFFFF) != 0 && *(this + 3) != 0)
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+  }
+
+  v4 = *(this + 5);
+  if ((v4 & 0x80000000) == 0 && (v4 & 0x7FFFFFFF) != 0 && *(this + 1) != 0)
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+  }
+}
+
+{
+  physx::Cct::ObstacleContext::~ObstacleContext(this);
+  if (v1)
+  {
+    v2 = *(*(physx::shdfnd::Foundation::mInstance + 24) + 24);
+
+    v2();
+  }
+}
+
+uint64_t physx::Cct::ObstacleContext::addObstacle(uint64_t a1, __int128 *a2)
+{
+  if (*a2 == 2)
+  {
+    v17 = physx::Cct::HandleManager::Add((a1 + 40), ((*(a1 + 32) << 16) | 3));
+    v5 = v17;
+    v28 = v17;
+    v18 = a2[1];
+    v29 = *a2;
+    v30 = v18;
+    v31 = *(a2 + 4);
+    v19 = *(a2 + 10);
+    v20 = *(a2 + 11);
+    v32 = v19;
+    v33 = v20;
+    v21 = *(a2 + 12);
+    v22 = *(a2 + 13);
+    v34 = v21;
+    v35 = v22;
+    v23 = *(a2 + 7);
+    v24 = *(a1 + 32);
+    v25 = *(a1 + 36) & 0x7FFFFFFF;
+    v36 = v23;
+    if (v25 <= v24)
+    {
+      physx::shdfnd::Array<physx::Cct::ObstacleContext::InternalCapsuleObstacle,physx::shdfnd::ReflectionAllocator<physx::Cct::ObstacleContext::InternalCapsuleObstacle>>::growAndPushBack(a1 + 24, &v28);
+    }
+
+    else
+    {
+      v26 = *(a1 + 24) + 72 * v24;
+      *v26 = v17;
+      *(v26 + 8) = v29;
+      *(v26 + 24) = v30;
+      *(v26 + 40) = v31;
+      *(v26 + 48) = v19;
+      *(v26 + 52) = v20;
+      *(v26 + 56) = v21;
+      *(v26 + 60) = v22;
+      *(v26 + 64) = v23;
+      ++*(a1 + 32);
+    }
+
+    goto LABEL_10;
+  }
+
+  if (*a2 == 3)
+  {
+    v4 = physx::Cct::HandleManager::Add((a1 + 40), ((*(a1 + 16) << 16) | 4));
+    v5 = v4;
+    v28 = v4;
+    v6 = a2[1];
+    v29 = *a2;
+    v30 = v6;
+    v31 = *(a2 + 4);
+    v7 = *(a2 + 10);
+    v8 = *(a2 + 11);
+    v32 = v7;
+    v33 = v8;
+    v9 = *(a2 + 12);
+    v10 = *(a2 + 13);
+    v34 = v9;
+    v35 = v10;
+    v11 = *(a2 + 14);
+    v12 = *(a2 + 15);
+    v36 = __PAIR64__(v12, v11);
+    v13 = *(a2 + 16);
+    v14 = *(a1 + 16);
+    v15 = *(a1 + 20) & 0x7FFFFFFF;
+    v37 = v13;
+    if (v15 <= v14)
+    {
+      physx::shdfnd::Array<physx::Cct::ObstacleContext::InternalBoxObstacle,physx::shdfnd::ReflectionAllocator<physx::Cct::ObstacleContext::InternalBoxObstacle>>::growAndPushBack(a1 + 8, &v28);
+    }
+
+    else
+    {
+      v16 = *(a1 + 8) + 80 * v14;
+      *v16 = v4;
+      *(v16 + 8) = v29;
+      *(v16 + 24) = v30;
+      *(v16 + 40) = v31;
+      *(v16 + 48) = v7;
+      *(v16 + 52) = v8;
+      *(v16 + 56) = v9;
+      *(v16 + 60) = v10;
+      *(v16 + 64) = v11;
+      *(v16 + 68) = v12;
+      *(v16 + 72) = v13;
+      ++*(a1 + 16);
+    }
+
+LABEL_10:
+    physx::Cct::CharacterControllerManager::onObstacleAdded(*(a1 + 88), v5, a1);
+    return v5;
+  }
+
+  return 0xFFFFFFFFLL;
+}
+
+uint64_t physx::Cct::ObstacleContext::removeObstacle(physx::Cct::ObstacleContext *this, unsigned int a2)
+{
+  v2 = *(this + 13);
+  if (a2 >= v2)
+  {
+    return 0;
+  }
+
+  v4 = *(*(this + 7) + 2 * a2);
+  if (v4 == 0xFFFF || v2 <= v4)
+  {
+    return 0;
+  }
+
+  if (*(*(this + 9) + 2 * a2) != HIWORD(a2))
+  {
+    return 0;
+  }
+
+  v7 = *(*(this + 5) + 8 * *(*(this + 7) + 2 * a2));
+  if (!v7)
+  {
+    return 0;
+  }
+
+  if (*(*(this + 5) + 8 * *(*(this + 7) + 2 * a2)) == 3)
+  {
+    v20 = *(this + 8);
+    if (WORD1(v7) < v20)
+    {
+      physx::Cct::HandleManager::Remove(this + 5, a2);
+      v21 = *(this + 3);
+      if (v20 - 1 != WORD1(v7))
+      {
+        v22 = *(v21 + 72 * (v20 - 1));
+        v23 = *(this + 13);
+        if (*(v21 + 72 * (v20 - 1)) < v23)
+        {
+          v24 = *(*(this + 7) + 2 * v22);
+          v25 = v24 != 0xFFFF && v23 > v24;
+          if (v25 && *(*(this + 9) + 2 * v22) == HIWORD(*(v21 + 72 * (v20 - 1))))
+          {
+            *(*(this + 5) + 8 * *(*(this + 7) + 2 * v22)) = v7;
+            v21 = *(this + 3);
+          }
+        }
+      }
+
+      v26 = *(this + 8) - 1;
+      *(this + 8) = v26;
+      v27 = v21 + 72 * v26;
+      v28 = v21 + 72 * WORD1(v7);
+      *v28 = *v27;
+      v29 = *(v27 + 40);
+      v30 = *(v27 + 24);
+      *(v28 + 8) = *(v27 + 8);
+      *(v28 + 24) = v30;
+      *(v28 + 40) = v29;
+      *(v28 + 48) = *(v27 + 48);
+      *(v28 + 64) = *(v27 + 64);
+      goto LABEL_34;
+    }
+
+    return 0;
+  }
+
+  if (*(*(this + 5) + 8 * *(*(this + 7) + 2 * a2)) != 4)
+  {
+    return 0;
+  }
+
+  v8 = *(this + 4);
+  if (WORD1(v7) >= v8)
+  {
+    return 0;
+  }
+
+  physx::Cct::HandleManager::Remove(this + 5, a2);
+  v9 = *(this + 1);
+  if (v8 - 1 != WORD1(v7))
+  {
+    v10 = *(v9 + 80 * (v8 - 1));
+    v11 = *(this + 13);
+    if (*(v9 + 80 * (v8 - 1)) < v11)
+    {
+      v12 = *(*(this + 7) + 2 * v10);
+      v13 = v12 != 0xFFFF && v11 > v12;
+      if (v13 && *(*(this + 9) + 2 * v10) == HIWORD(*(v9 + 80 * (v8 - 1))))
+      {
+        *(*(this + 5) + 8 * *(*(this + 7) + 2 * v10)) = v7;
+        v9 = *(this + 1);
+      }
+    }
+  }
+
+  v14 = *(this + 4) - 1;
+  *(this + 4) = v14;
+  v15 = v9 + 80 * v14;
+  v16 = v9 + 80 * WORD1(v7);
+  *v16 = *v15;
+  v17 = *(v15 + 40);
+  v18 = *(v15 + 24);
+  *(v16 + 8) = *(v15 + 8);
+  *(v16 + 24) = v18;
+  *(v16 + 40) = v17;
+  *(v16 + 48) = *(v15 + 48);
+  *(v16 + 64) = *(v15 + 64);
+  *(v16 + 72) = *(v15 + 72);
+LABEL_34:
+  v31 = *(this + 11);
+  v32 = *(v31 + 112);
+  if (!v32)
+  {
+    return 1;
+  }
+
+  v33 = *(v31 + 104);
+  result = 1;
+  do
+  {
+    if (*(*v33 + 320) == a2)
+    {
+      *(*v33 + 320) = -1;
+    }
+
+    v33 += 8;
+    --v32;
+  }
+
+  while (v32);
   return result;
 }
 
-void *REPortalCrossingFlagsComponentGetComponentType()
+uint64_t physx::Cct::ObstacleContext::updateObstacle(uint64_t a1, unsigned int a2, __int128 *a3)
 {
-  if (re::ecs2::dispatchOnceInitECSComponents(void)::onceToken != -1)
+  v3 = *(a1 + 52);
+  if (a2 < v3)
   {
-    dispatch_once(&re::ecs2::dispatchOnceInitECSComponents(void)::onceToken, &__block_literal_global_17);
-  }
+    v4 = *(*(a1 + 56) + 2 * a2);
+    if (v4 != 0xFFFF && v3 > v4 && *(*(a1 + 72) + 2 * a2) == HIWORD(a2))
+    {
+      v6 = *(*(a1 + 40) + 8 * *(*(a1 + 56) + 2 * a2));
+      if (v6)
+      {
+        if (*(*(a1 + 40) + 8 * *(*(a1 + 56) + 2 * a2)) - 1 == *a3)
+        {
+          v7 = WORD1(v6);
+          if (v6 == 3)
+          {
+            if (v7 < *(a1 + 32))
+            {
+              v11 = *(a1 + 24) + 72 * v7;
+              v12 = *a3;
+              v13 = a3[1];
+              *(v11 + 40) = *(a3 + 4);
+              *(v11 + 24) = v13;
+              *(v11 + 8) = v12;
+              *(v11 + 48) = *(a3 + 40);
+              *(v11 + 64) = *(a3 + 7);
+              goto LABEL_16;
+            }
+          }
 
-  return re::ecs2::ComponentImpl<re::ecs2::PortalCrossingFlagsComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType;
-}
-
-void REVertexCacheComponentSetVertexCacheCount(uint64_t a1, unint64_t a2)
-{
-  re::DynamicArray<re::AssetHandle>::resize(a1 + 32, a2);
-  re::DynamicArray<float>::resize(a1 + 72, a2);
-  if (*(a1 + 128) > a2)
-  {
-
-    re::DynamicArray<re::Optional<BOOL>>::resize((a1 + 112), a2);
-  }
-}
-
-uint64_t REVertexCacheComponentGetVertexCache(uint64_t a1, unint64_t a2)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 48);
-  if (v3 > a2)
-  {
-    return *(*(a1 + 64) + 24 * a2);
-  }
-
-  if (CoreRELog::onceToken != -1)
-  {
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v5 = CoreRELog::log;
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-  {
-    v6 = 134218240;
-    v7 = a2;
-    v8 = 2048;
-    v9 = v3;
-    _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Invalid vertex cache index (%zu), vertex cache count: %zu", &v6, 0x16u);
+          else if (v6 == 4 && v7 < *(a1 + 16))
+          {
+            v8 = *(a1 + 8) + 80 * v7;
+            v9 = *a3;
+            v10 = a3[1];
+            *(v8 + 40) = *(a3 + 4);
+            *(v8 + 24) = v10;
+            *(v8 + 8) = v9;
+            *(v8 + 48) = *(a3 + 40);
+            *(v8 + 64) = *(a3 + 7);
+            *(v8 + 72) = *(a3 + 16);
+LABEL_16:
+            physx::Cct::CharacterControllerManager::onObstacleUpdated(*(a1 + 88), a2, a1);
+            return 1;
+          }
+        }
+      }
+    }
   }
 
   return 0;
 }
 
-BOOL REVertexCacheComponentSetVertexCache(uint64_t a1, unint64_t a2, uint64_t a3)
+uint64_t physx::Cct::ObstacleContext::getObstacle(physx::Cct::ObstacleContext *this, unsigned int a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v4 = *(a1 + 48);
-  if (v4 > a2)
+  v2 = *(this + 4);
+  v3 = a2 >= v2;
+  v4 = a2 - v2;
+  if (!v3)
   {
-    re::AssetAPIHelper::assetHandleCreate(a3, &v13);
-    v6 = *(a1 + 48);
-    if (v6 > a2)
+    v5 = *(this + 1) + 80 * a2;
+    return v5 + 8;
+  }
+
+  if (v4 < *(this + 8))
+  {
+    v5 = *(this + 3) + 72 * v4;
+    return v5 + 8;
+  }
+
+  return 0;
+}
+
+unint64_t physx::Cct::ObstacleContext::getObstacleByHandle(physx::Cct::ObstacleContext *this, unsigned int a2)
+{
+  v2 = *(this + 13);
+  if (a2 < v2)
+  {
+    v3 = *(*(this + 7) + 2 * a2);
+    if (v3 != 0xFFFF && v2 > v3 && *(*(this + 9) + 2 * a2) == HIWORD(a2))
     {
-      v7 = (*(a1 + 64) + 24 * a2);
-      v8 = v7[1];
-      v7[1] = v14;
-      v14 = v8;
-      v9 = *v7;
-      *v7 = 0;
-      *v7 = v13;
-      v13 = v9;
-      v10 = v7[2];
-      v7[2] = v15;
-      v15 = v10;
-      re::AssetHandle::~AssetHandle(&v13);
-      return v4 > a2;
+      v5 = *(*(this + 5) + 8 * *(*(this + 7) + 2 * a2));
+      if (v5)
+      {
+        v6 = WORD1(v5);
+        if (v5 == 3)
+        {
+          if (WORD1(v5) < *(this + 8))
+          {
+            v7 = *(this + 3);
+            v8 = 72;
+            return v7 + v6 * v8 + 8;
+          }
+        }
+
+        else if (v5 == 4 && WORD1(v5) < *(this + 4))
+        {
+          v7 = *(this + 1);
+          v8 = 80;
+          return v7 + v6 * v8 + 8;
+        }
+      }
+    }
+  }
+
+  return 0;
+}
+
+uint64_t physx::Cct::ObstacleContext::raycastSingle(uint64_t a1, uint64_t a2, float32x2_t *a3, float32x2_t *a4, _DWORD *a5, __n128 a6)
+{
+  v8 = a6.n128_u32[0];
+  v37 = 0uLL;
+  v38 = -1;
+  v39 = 0;
+  v41 = 0;
+  v40 = 0uLL;
+  *v42 = 2139095039;
+  *&v42[8] = 0;
+  v11 = *(a1 + 16);
+  if (v11)
+  {
+    v12 = 0;
+    v13 = 0;
+    v14 = off_1EE185D68[0];
+    v15 = 80 * v11;
+    v16 = 3.4028e38;
+    do
+    {
+      v17 = *(a1 + 8) + v12;
+      v18 = *(v17 + 72);
+      v34 = 3;
+      v35 = *(v17 + 64);
+      v36 = v18;
+      *&v19 = *(v17 + 40);
+      v31 = *(v17 + 48);
+      v32 = vcvt_f32_f64(*(v17 + 24));
+      v33 = v19;
+      v30 = 0;
+      if ((v14)(&v34, &v31, a3, a4, &v30, *&v8, 1, &v37))
+      {
+        v20 = *v42;
+        if (*v42 < v16)
+        {
+          v13 = v17 + 8;
+          *a2 = v37;
+          *(a2 + 16) = v38;
+          *(a2 + 20) = v39;
+          *(a2 + 24) = v40;
+          *(a2 + 40) = v41;
+          *(a2 + 48) = v20;
+          *(a2 + 52) = *&v42[4];
+          *a5 = *(*(a1 + 8) + v12);
+          v16 = v20;
+        }
+      }
+
+      v12 += 80;
     }
 
-    v16 = 0;
-    memset(buf, 0, sizeof(buf));
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v17 = 136315906;
-    v18 = "operator[]";
-    v19 = 1024;
-    v20 = 789;
-    v21 = 2048;
-    v22 = a2;
-    v23 = 2048;
-    v24 = v6;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
+    while (v15 != v12);
+  }
+
+  else
+  {
+    v13 = 0;
+    v16 = 3.4028e38;
+  }
+
+  v21 = *(a1 + 32);
+  if (v21)
+  {
+    v22 = 0;
+    v23 = off_1EE185D60[0];
+    v24 = 72 * v21;
+    do
+    {
+      v25 = *(a1 + 24) + v22;
+      v34 = 2;
+      v35 = vrev64_s32(*(v25 + 64));
+      a6.n128_u64[0] = *(v25 + 40);
+      a6.n128_f32[0] = a6.n128_f64[0];
+      v31 = *(v25 + 48);
+      v32 = vcvt_f32_f64(*(v25 + 24));
+      v33 = a6.n128_u32[0];
+      v30 = 0;
+      a6.n128_u32[0] = v8;
+      (v23)(&v34, &v31, a3, a4, &v30, a6, 1, &v37);
+      if (v26)
+      {
+        v27 = *v42;
+        if (*v42 < v16)
+        {
+          v13 = v25 + 8;
+          *a2 = v37;
+          *(a2 + 16) = v38;
+          *(a2 + 20) = v39;
+          *(a2 + 24) = v40;
+          *(a2 + 40) = v41;
+          *(a2 + 48) = v27;
+          *(a2 + 52) = *&v42[4];
+          *a5 = *(*(a1 + 24) + v22);
+          v16 = v27;
+        }
+      }
+
+      v22 += 72;
+    }
+
+    while (v24 != v22);
+  }
+
+  return v13;
+}
+
+uint64_t physx::Cct::ObstacleContext::raycastSingle(uint64_t a1, uint64_t a2, unsigned int *a3, float32x2_t *a4, float32x2_t *a5, float a6)
+{
+  v8 = *a3;
+  v9 = *a3;
+  v10 = *(a1 + 52);
+  if (v9 >= v10)
+  {
+    return 0;
+  }
+
+  v27 = v6;
+  v28 = v7;
+  v11 = *(*(a1 + 56) + 2 * v9);
+  v12 = v11 != 0xFFFF && v10 > v11;
+  if (v12 && *(*(a1 + 72) + 2 * v9) == HIWORD(v8) && (v13 = *(*(a1 + 40) + 8 * *(*(a1 + 56) + 2 * v9))) != 0 && ((v14 = WORD1(v13), *(*(a1 + 40) + 8 * *(*(a1 + 56) + 2 * v9)) != 4) ? (v15 = *(a1 + 24) + 72 * v14, v16 = off_1EE185D60[0], v24 = 2, v25 = vrev64_s32(*(v15 + 64))) : (v15 = *(a1 + 8) + 80 * v14, v16 = off_1EE185D68[0], v17 = *(v15 + 72), v24 = 3, v25 = *(v15 + 64), v26 = v17), v19 = *(v15 + 40), v21 = *(v15 + 48), v22 = vcvt_f32_f64(*(v15 + 24)), v23 = v19, v20 = 0, (v16)(&v24, &v21, a4, a5, &v20, a6, 1, a2)))
+  {
+    return v15 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t physx::Cct::ObstacleContext::onOriginShift(uint64_t result, float32x2_t *a2)
+{
+  v2 = *(result + 16);
+  if (v2)
+  {
+    v3 = vcvtq_f64_f32(*a2);
+    v4 = a2[1].f32[0];
+    v5 = (*(result + 8) + 40);
+    do
+    {
+      *(v5 - 1) = vsubq_f64(*(v5 - 2), v3);
+      *v5 = *v5 - v4;
+      v5 += 10;
+      --v2;
+    }
+
+    while (v2);
+  }
+
+  v6 = *(result + 32);
+  if (v6)
+  {
+    v7 = vcvtq_f64_f32(*a2);
+    v8 = a2[1].f32[0];
+    v9 = (*(result + 24) + 40);
+    do
+    {
+      *(v9 - 1) = vsubq_f64(*(v9 - 2), v7);
+      *v9 = *v9 - v8;
+      v9 += 9;
+      --v6;
+    }
+
+    while (v6);
+  }
+
+  return result;
+}
+
+uint64_t physx::Cct::SweptBox::computeTemporalBox(uint64_t a1, uint64_t a2, uint64_t a3, float64x2_t *a4, float32x2_t *a5, __n128 a6, __n128 a7, __n128 a8, __n128 a9)
+{
+  a6.n128_u32[0] = *(a1 + 48);
+  if (*(a1 + 44) > a6.n128_f32[0])
+  {
+    a6.n128_u32[0] = *(a1 + 44);
+  }
+
+  return physx::Cct::computeTemporalBox(a3, (a2 + 300), a4, a5, a6.n128_f64[0], *(a1 + 40) + *(a1 + 40), *(a2 + 316), *(a2 + 328));
+}
+
+uint64_t physx::Cct::computeTemporalBox(uint64_t result, float32x2_t *a2, float64x2_t *a3, float32x2_t *a4, double a5, float a6, float a7, float a8)
+{
+  *&a5 = *&a5 + a7;
+  v8 = a6 * 0.5;
+  v9 = a2[1].f32[0];
+  v10 = a3[1].f64[0];
+  v11 = (*&a5 + (fabsf(v9) * v8));
+  v12 = v10 + v11;
+  v13 = v10 + a4[1].f32[0];
+  v14 = v13 - v11;
+  v15 = v13 + v11;
+  v16 = *a3;
+  v17 = vcvtq_f64_f32(vmla_n_f32(vdup_lane_s32(*&a5, 0), vabs_f32(*a2), v8));
+  v18 = vsubq_f64(*a3, v17);
+  v19 = vaddq_f64(*a3, vcvtq_f64_f32(*a4));
+  v20 = vsubq_f64(v19, v17);
+  v21 = vbslq_s8(vcgtq_f64(v18, v20), v20, v18);
+  if (v10 - v11 <= v14)
+  {
+    v22 = v10 - v11;
+  }
+
+  else
+  {
+    v22 = v14;
+  }
+
+  v23 = vaddq_f64(v16, v17);
+  v24 = vaddq_f64(v19, v17);
+  v25 = vbslq_s8(vcgtq_f64(v24, v23), v24, v23);
+  if (v12 < v15)
+  {
+    v12 = v15;
+  }
+
+  if (a8 == 0.0)
+  {
     goto LABEL_10;
   }
 
-  if (CoreRELog::onceToken != -1)
+  v26 = vmul_n_f32(*a2, a8);
+  v27 = v10 - (v9 * a8);
+  v28 = v27 - v11;
+  v29 = v27 + v11;
+  v30 = vsubq_f64(v16, vcvtq_f64_f32(v26));
+  v31 = vsubq_f64(v30, v17);
+  v21 = vbslq_s8(vcgtq_f64(v21, v31), v31, v21);
+  if (v22 > v28)
+  {
+    v22 = v28;
+  }
+
+  v32 = vaddq_f64(v30, v17);
+  v25 = vbslq_s8(vcgtq_f64(v32, v25), v32, v25);
+  if (v12 >= v29)
   {
 LABEL_10:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+    v29 = v12;
   }
 
-  v11 = CoreRELog::log;
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-  {
-    LODWORD(buf[0]) = 134218240;
-    *(buf + 4) = a2;
-    WORD6(buf[0]) = 2048;
-    *(buf + 14) = v4;
-    _os_log_error_impl(&dword_1E1C61000, v11, OS_LOG_TYPE_ERROR, "Invalid vertex cache index (%zu), vertex cache count: %zu", buf, 0x16u);
-  }
-
-  return v4 > a2;
+  *result = v21;
+  *(result + 16) = v22;
+  *(result + 24) = v25;
+  *(result + 40) = v29;
+  return result;
 }
 
-float REVertexCacheComponentGetBaseTime(uint64_t a1, unint64_t a2)
+uint64_t physx::shdfnd::Array<physx::Cct::ObstacleContext::InternalBoxObstacle,physx::shdfnd::ReflectionAllocator<physx::Cct::ObstacleContext::InternalBoxObstacle>>::growAndPushBack(uint64_t result, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 88);
-  if (v3 > a2)
+  v3 = result;
+  v4 = *(result + 12);
+  if ((v4 & 0x7FFFFFFF) != 0)
   {
-    return *(*(a1 + 104) + 4 * a2);
-  }
-
-  if (CoreRELog::onceToken != -1)
-  {
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v5 = CoreRELog::log;
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-  {
-    v6 = 134218240;
-    v7 = a2;
-    v8 = 2048;
-    v9 = v3;
-    _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Invalid vertex cache index (%zu), vertex cache count: %zu", &v6, 0x16u);
-  }
-
-  return 3.4028e38;
-}
-
-BOOL REVertexCacheComponentSetBaseTime(uint64_t a1, unint64_t a2, float a3)
-{
-  v11 = *MEMORY[0x1E69E9840];
-  v4 = *(a1 + 88);
-  if (v4 <= a2)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v5 = CoreRELog::log;
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      v7 = 134218240;
-      v8 = a2;
-      v9 = 2048;
-      v10 = v4;
-      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Invalid vertex cache index (%zu), vertex cache count: %zu", &v7, 0x16u);
-    }
+    v5 = 2 * v4;
   }
 
   else
   {
-    *(*(a1 + 104) + 4 * a2) = a3;
+    v5 = 1;
   }
 
-  return v4 > a2;
-}
-
-uint64_t REVertexCacheComponentIsAnimating(re::ecs2::VertexCacheComponent *a1, unint64_t a2)
-{
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 11);
-  if (v3 <= a2)
+  if (v5)
   {
-    if (CoreRELog::onceToken != -1)
+    v6 = physx::shdfnd::Foundation::mInstance;
+    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
     {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v7 = CoreRELog::log;
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-    {
-      v8 = 134218240;
-      v9 = a2;
-      v10 = 2048;
-      v11 = v3;
-      _os_log_error_impl(&dword_1E1C61000, v7, OS_LOG_TYPE_ERROR, "Invalid vertex cache index (%zu), vertex cache count: %zu", &v8, 0x16u);
-    }
-
-    return 0;
-  }
-
-  re::ecs2::VertexCacheComponent::initializeBindPoint(a1, a2);
-  if (*(a1 + 21) <= a2)
-  {
-    return 0;
-  }
-
-  v5 = (*(a1 + 23) + 48 * a2);
-
-  return re::BindPoint::isOverridden(v5);
-}
-
-float REVertexCacheComponentGetAnimatedTime(re::ecs2::VertexCacheComponent *a1, unint64_t a2)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 11);
-  if (v3 <= a2)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v7 = CoreRELog::log;
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-    {
-      LODWORD(buf[0]) = 134218240;
-      *(buf + 4) = a2;
-      WORD6(buf[0]) = 2048;
-      *(buf + 14) = v3;
-      _os_log_error_impl(&dword_1E1C61000, v7, OS_LOG_TYPE_ERROR, "Invalid vertex cache index (%zu), vertex cache count: %zu", buf, 0x16u);
-    }
-
-    return 3.4028e38;
-  }
-
-  else
-  {
-    re::ecs2::VertexCacheComponent::initializeBindPoint(a1, a2);
-    if (*(a1 + 21) > a2 && (v5 = (*(a1 + 23) + 48 * a2), *(v5 + 3)))
-    {
-      v6 = re::BindPoint::valueUntyped(v5);
+      v7 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Cct::ObstacleContext::InternalBoxObstacle>::getName() [T = physx::Cct::ObstacleContext::InternalBoxObstacle]";
     }
 
     else
     {
-      if (*(a1 + 11) <= a2)
-      {
-        memset(buf, 0, sizeof(buf));
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-      }
-
-      v6 = *(a1 + 13) + 4 * a2;
+      v7 = "<allocation names disabled>";
     }
 
-    return *v6;
-  }
-}
-
-uint64_t REVertexCacheComponentIsInterpolationOverridden(void *a1, unint64_t a2)
-{
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = a1[6];
-  if (v3 <= a2)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v5 = CoreRELog::log;
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      v7 = 134218240;
-      v8 = a2;
-      v9 = 2048;
-      v10 = v3;
-      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Invalid vertex cache index (%zu), vertex cache count: %zu", &v7, 0x16u);
-    }
-
-    goto LABEL_9;
+    result = (*(*(v6 + 24) + 16))(v6 + 24, 80 * v5, v7, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
+    v8 = result;
   }
 
-  if (a1[16] <= a2)
+  else
   {
-LABEL_9:
-    v4 = 0;
-    return v4 & 1;
+    v8 = 0;
   }
 
-  v4 = *(a1[18] + 2 * a2);
-  return v4 & 1;
-}
-
-uint64_t REVertexCacheComponentGetInterpolationOverride(void *a1, unint64_t a2)
-{
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = a1[6];
-  if (v3 <= a2)
+  v9 = *(v3 + 8);
+  if (v9)
   {
-    if (CoreRELog::onceToken != -1)
+    v10 = v8 + 80 * v9;
+    v11 = *v3;
+    v12 = v8;
+    do
     {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
+      *v12 = *v11;
+      v13 = *(v11 + 8);
+      v14 = *(v11 + 24);
+      *(v12 + 40) = *(v11 + 40);
+      *(v12 + 24) = v14;
+      *(v12 + 8) = v13;
+      *(v12 + 48) = *(v11 + 48);
+      *(v12 + 64) = *(v11 + 64);
+      *(v12 + 72) = *(v11 + 72);
+      v12 += 80;
+      v11 += 80;
     }
 
-    v6 = CoreRELog::log;
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-    {
-      v8 = 134218240;
-      v9 = a2;
-      v10 = 2048;
-      v11 = v3;
-      _os_log_error_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_ERROR, "Invalid vertex cache index (%zu), vertex cache count: %zu", &v8, 0x16u);
-    }
-
-    goto LABEL_10;
-  }
-
-  if (a1[16] <= a2 || (v4 = (a1[18] + 2 * a2), *v4 != 1))
-  {
-LABEL_10:
-    v5 = 0;
-    return v5 & 1;
-  }
-
-  v5 = v4[1];
-  return v5 & 1;
-}
-
-BOOL REVertexCacheComponentSetInterpolationOverride(void *a1, unint64_t a2, char a3)
-{
-  v12 = *MEMORY[0x1E69E9840];
-  v4 = a1[6];
-  if (v4 > a2)
-  {
-    v7 = a1[16];
-    if (v7 <= a2)
-    {
-      re::DynamicArray<re::Optional<BOOL>>::resize(a1 + 14, v4);
-      v7 = a1[16];
-    }
-
-    if (v7 > a2)
-    {
-      v8 = (a1[18] + 2 * a2);
-      if ((*v8 & 1) == 0)
-      {
-        *v8 = 1;
-      }
-
-      v8[1] = a3;
-      return v4 > a2;
-    }
-
-    memset(buf, 0, sizeof(buf));
-    v4 = MEMORY[0x1E69E9C10];
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_14;
-  }
-
-  if (CoreRELog::onceToken != -1)
-  {
-LABEL_14:
-    dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-  }
-
-  v9 = CoreRELog::log;
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-  {
-    LODWORD(buf[0]) = 134218240;
-    *(buf + 4) = a2;
-    WORD6(buf[0]) = 2048;
-    *(buf + 14) = v4;
-    _os_log_error_impl(&dword_1E1C61000, v9, OS_LOG_TYPE_ERROR, "Invalid vertex cache index (%zu), vertex cache count: %zu", buf, 0x16u);
-  }
-
-  return v4 > a2;
-}
-
-BOOL REVertexCacheComponentDisableInterpolationOverride(void *a1, unint64_t a2)
-{
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = a1[6];
-  if (v3 <= a2)
-  {
-    if (CoreRELog::onceToken != -1)
-    {
-      dispatch_once(&CoreRELog::onceToken, &__block_literal_global_74);
-    }
-
-    v5 = CoreRELog::log;
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      v7 = 134218240;
-      v8 = a2;
-      v9 = 2048;
-      v10 = v3;
-      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "Invalid vertex cache index (%zu), vertex cache count: %zu", &v7, 0x16u);
-    }
-  }
-
-  else if (a1[16] > a2)
-  {
-    v4 = (a1[18] + 2 * a2);
-    if (*v4 == 1)
-    {
-      *v4 = 0;
-    }
-  }
-
-  return v3 > a2;
-}
-
-uint64_t re::internal::RERealityRendererSceneGroup::RERealityRendererSceneGroup(uint64_t a1, uint64_t a2, unsigned __int8 *a3)
-{
-  ArcSharedObject::ArcSharedObject(a1, 0);
-  *(a1 + 24) = a2;
-  *a1 = &unk_1F5D2E058;
-  v6 = (*(*a2 + 264))(a2);
-  *(a1 + 32) = v6;
-  re::ecs2::ComponentHelper::addRealityRendererDefaultSystems(*(a1 + 24), v6, a3);
-  return a1;
-}
-
-void re::internal::RERealityRendererSceneGroup::~RERealityRendererSceneGroup(re::internal::RERealityRendererSceneGroup *this)
-{
-  *this = &unk_1F5D2E058;
-  (*(**(this + 3) + 272))(*(this + 3), *(this + 4));
-  *this = &unk_1F5CCF868;
-  objc_destructInstance(this + 8);
-}
-
-{
-  *this = &unk_1F5D2E058;
-  (*(**(this + 3) + 272))(*(this + 3), *(this + 4));
-  *this = &unk_1F5CCF868;
-  objc_destructInstance(this + 8);
-
-  JUMPOUT(0x1E6906520);
-}
-
-re::TextureImportOperation *RETextureImportOperationCreateWithBundleResource(void *a1, void *a2, void *a3, uint64_t a4)
-{
-  v7 = a1;
-  v8 = a2;
-  v9 = a3;
-  v10 = [v7 URLForResource:v8 withExtension:v9];
-  v11 = v10;
-  if (v10)
-  {
-    v12 = re::globalAllocators(v10);
-    v13 = (*(*v12[2] + 32))(v12[2], 280, 8);
-    v14 = *(re::ServiceLocator::serviceOrNull<re::AssetService>(a4) + 2176);
-    re::FileTextureProvider::FileTextureProvider(v13, &v26, v14, [(re *)v11 fileSystemRepresentation]);
-
-    v16 = [v7 bundleIdentifier];
-    v17 = [v16 UTF8String];
-    v18 = strlen(v17);
-    v26 = v17;
-    v27 = v18;
-    re::DynamicString::operator=((v15 + 152), &v26);
-
-    v19 = [v8 UTF8String];
-    v20 = strlen(v19);
-    v26 = v19;
-    v27 = v20;
-    re::DynamicString::operator=((v15 + 184), &v26);
-    if (v9)
-    {
-      v21 = [v9 UTF8String];
-      if (*(v15 + 24))
-      {
-        v22 = *(v15 + 25);
-      }
-
-      else
-      {
-        v22 = v15 + 193;
-      }
-
-      v23 = strrchr(v22, 46);
-      if (!v23 || strcmp(v23 + 1, v21))
-      {
-        re::DynamicString::append((v15 + 184), ".", 1uLL);
-        v24 = strlen(v21);
-        re::DynamicString::append((v15 + 184), v21, v24);
-      }
-    }
+    while (v12 < v10);
+    v15 = *(v3 + 8);
   }
 
   else
@@ -8458,1387 +2155,8424 @@ re::TextureImportOperation *RETextureImportOperationCreateWithBundleResource(voi
     v15 = 0;
   }
 
-  return v15;
-}
-
-void anonymous namespace::getServiceLocationImageImportContext(uint64_t a1, uint64_t a2)
-{
-  v4 = re::ServiceLocator::serviceOrNull<re::ImportGraphicsResources>(a2);
-  re::ImportGraphicsContext::ImportGraphicsContext(a1, v4);
-  if (*(re::ServiceLocator::serviceOrNull<re::AssetService>(a2) + 2216) == 1)
+  v16 = v8 + 80 * v15;
+  *v16 = *a2;
+  v17 = *(a2 + 8);
+  v18 = *(a2 + 24);
+  *(v16 + 40) = *(a2 + 40);
+  *(v16 + 24) = v18;
+  *(v16 + 8) = v17;
+  *(v16 + 48) = *(a2 + 48);
+  *(v16 + 64) = *(a2 + 64);
+  *(v16 + 72) = *(a2 + 72);
+  if ((*(v3 + 12) & 0x80000000) == 0 && *v3)
   {
-    v5 = *(a1 + 16) | (*(a1 + 18) << 16);
-    if (*(a1 + 19) == 1)
-    {
-      v6 = *(a1 + 20);
-    }
-
-    else
-    {
-      v6 = 0;
-    }
-
-    v7 = *(v4 + 19);
-    objc_storeStrong(a1, 0);
-    v8 = *(a1 + 8);
-    *(a1 + 8) = 0;
-
-    *(a1 + 18) = BYTE2(v5);
-    *(a1 + 16) = v5;
-    if ((*(a1 + 19) & 1) == 0)
-    {
-      *(a1 + 19) = 1;
-    }
-
-    *(a1 + 20) = v6;
-    *(a1 + 21) = v7;
-    *(a1 + 24) = 0;
-  }
-}
-
-re::TextureImportOperation *anonymous namespace::newTextureImportOperation(uint64_t a1, re::TextureProvider *a2)
-{
-  v3 = re::ServiceLocator::serviceOrNull<re::AssetService>(a1);
-  v4 = re::globalAllocators(v3);
-  v5 = (*(*v4[2] + 32))(v4[2], 560, 8);
-
-  return re::TextureImportOperation::TextureImportOperation(v5, a2, 1, v3);
-}
-
-re::TextureImportOperation *RETextureImportOperationCreateWithURL(void *a1, uint64_t a2)
-{
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = a1;
-  v4 = [v3 isFileURL];
-  if ((v4 & 1) == 0)
-  {
-    v5 = *re::pipelineLogObjects(v4);
-    v4 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
-    if (v4)
-    {
-      LODWORD(v11[0]) = 138412290;
-      *(v11 + 4) = v3;
-      _os_log_error_impl(&dword_1E1C61000, v5, OS_LOG_TYPE_ERROR, "URL passed to RETextureImportOperationCreateWithURL must be a file URL: %@", v11, 0xCu);
-    }
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
   }
 
-  v6 = re::globalAllocators(v4);
-  v7 = (*(*v6[2] + 32))(v6[2], 280, 8);
-  v8 = *(re::ServiceLocator::serviceOrNull<re::AssetService>(a2) + 2176);
-  re::FileTextureProvider::FileTextureProvider(v7, v11, v8, [v3 fileSystemRepresentation]);
-
-  return v9;
+  *v3 = v8;
+  ++*(v3 + 8);
+  *(v3 + 12) = v5;
+  return result;
 }
 
-re::TextureImportOperation *RETextureImportOperationCreateWithData(re *a1, uint64_t a2)
+uint64_t physx::shdfnd::Array<physx::Cct::ObstacleContext::InternalCapsuleObstacle,physx::shdfnd::ReflectionAllocator<physx::Cct::ObstacleContext::InternalCapsuleObstacle>>::growAndPushBack(uint64_t result, uint64_t a2)
 {
-  v8 = a1;
-  v3 = re::globalAllocators(a1);
-  v4 = (*(*v3[2] + 32))(v3[2], 264, 8);
-  v5 = re::ServiceLocator::serviceOrNull<re::AssetService>(a2);
-  re::DataTextureProvider::DataTextureProvider(v4, v7, *(v5 + 2176), &v8, 0);
-}
-
-re::TextureImportOperation *RETextureImportOperationCreateWithSourceDataProvider(char *a1, uint64_t a2)
-{
-  v3 = a1;
-  v10 = a1;
-  if (a1)
+  v3 = result;
+  v4 = *(result + 12);
+  if ((v4 & 0x7FFFFFFF) != 0)
   {
-    a1 = a1 + 8;
-  }
-
-  v4 = re::globalAllocators(a1);
-  v5 = (*(*v4[2] + 32))(v4[2], 384, 8);
-  v6 = re::ServiceLocator::serviceOrNull<re::AssetService>(a2);
-  re::StreamSourceTextureProvider::StreamSourceTextureProvider(v5, v9, *(v6 + 2176), &v10);
-
-  if (v3)
-  {
-  }
-
-  return v7;
-}
-
-void RETextureImportOperationSetDoneWithSourceCallback(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v4 = *(a1 + 544);
-  v5 = _Block_copy(v3);
-
-  v6 = *(v4 + 176);
-  *(v4 + 176) = v5;
-}
-
-void anonymous namespace::assertNotRun(re *a1)
-{
-  if (a1)
-  {
-    v1 = *re::pipelineLogObjects(a1);
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
-    {
-      *v2 = 0;
-      _os_log_impl(&dword_1E1C61000, v1, OS_LOG_TYPE_DEFAULT, "Modifying options after RETextureImportOperationRef was run has no effect", v2, 2u);
-    }
-  }
-}
-
-re::TextureImportOperation *RETextureImportOperationCreateWithCGImage(re *a1, uint64_t a2)
-{
-  v4 = re::globalAllocators(a1);
-  v5 = (*(*v4[2] + 32))(v4[2], 256, 8);
-  v6 = re::ServiceLocator::serviceOrNull<re::AssetService>(a2);
-  re::TextureProvider::TextureProvider(v5, v8, *(v6 + 2176));
-  *v5 = &unk_1F5D0B448;
-  *(v5 + 31) = a1;
-  CGImageRetain(a1);
-}
-
-re::TextureImportOperation *RETextureImportOperationCreateFromImageArray(void *a1, uint64_t a2, int a3, char *a4)
-{
-  v7 = a1;
-  v8 = [v7 count];
-  v9 = v8;
-  v34 = 0;
-  v31 = 0;
-  v32 = 0;
-  v33 = 0;
-  v10 = v8;
-  re::DynamicArray<float *>::setCapacity(&v30, v10);
-  ++v33;
-  if (v9 >= 1)
-  {
-    v11 = 0;
-    v12 = v9 & 0x7FFFFFFF;
-    do
-    {
-      v13 = [v7 objectAtIndexedSubscript:v11];
-      v14 = v32;
-      if (v32 >= v31)
-      {
-        re::DynamicArray<float *>::growCapacity(&v30, v32 + 1);
-        v14 = v32;
-      }
-
-      *(v34 + v14) = v13;
-      v32 = v14 + 1;
-      ++v33;
-
-      ++v11;
-    }
-
-    while (v12 != v11);
-  }
-
-  re::internal::ensureImageArrayConsistency(v34, v32, a3, v26);
-  if (v26[0])
-  {
-    v16 = re::globalAllocators(v15);
-    v17 = (*(*v16[2] + 32))(v16[2], 288, 8);
-    v18 = *(re::ServiceLocator::serviceOrNull<re::AssetService>(a2) + 2176);
-    re::DynamicArray<char const*>::DynamicArray(v22, &v30);
-    re::CGImageArrayTextureProvider::CGImageArrayTextureProvider(v17, v25, v18, v22, a3);
-    if (v22[0])
-    {
-      if (v24)
-      {
-        (*(*v22[0] + 40))();
-      }
-
-      v24 = 0;
-      memset(v22, 0, sizeof(v22));
-      ++v23;
-    }
+    v5 = 2 * v4;
   }
 
   else
   {
-    if (v28)
-    {
-      v20 = *&v29[7];
-    }
-
-    else
-    {
-      v20 = v29;
-    }
-
-    re::CoreREAssetUtils::logAndSetErrorFromString(v20, a4, @"REPipelineErrorDomain", 0x64);
-    v19 = 0;
+    v5 = 1;
   }
 
-  if (v26[0] & 1) == 0 && v27 && (v28)
-  {
-    (*(*v27 + 40))();
-  }
-
-  if (v30 && v34)
-  {
-    (*(*v30 + 40))();
-  }
-
-  return v19;
-}
-
-re::TextureImportOperation *RETextureImportOperationCreateFromImageSourceArray(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v26 = a4;
-  v6 = a1;
-  v7 = [v6 count];
-  v8 = v7;
-  v31 = 0;
-  v29 = 0uLL;
-  v30 = 0;
-  v9 = v7;
-  v10 = re::DynamicArray<re::ImageSourceAndIndex>::setCapacity(&v28, v9);
-  ++v30;
-  if (v8 >= 1)
-  {
-    v11 = 0;
-    v12 = v8 & 0x7FFFFFFF;
-    do
-    {
-      v13 = [v6 objectAtIndexedSubscript:{v11, v26}];
-      v14 = v13;
-      v15 = *(a2 + 4 * v11);
-      if (v13)
-      {
-        v13 = CFRetain(v13);
-      }
-
-      v16 = *(&v29 + 1);
-      if (*(&v29 + 1) >= v29)
-      {
-        v17 = *(&v29 + 1) + 1;
-        if (v29 < *(&v29 + 1) + 1)
-        {
-          if (v28)
-          {
-            v18 = 2 * v29;
-            if (!v29)
-            {
-              v18 = 8;
-            }
-
-            if (v18 <= v17)
-            {
-              v19 = *(&v29 + 1) + 1;
-            }
-
-            else
-            {
-              v19 = v18;
-            }
-
-            re::DynamicArray<re::ImageSourceAndIndex>::setCapacity(&v28, v19);
-          }
-
-          else
-          {
-            re::DynamicArray<re::ImageSourceAndIndex>::setCapacity(&v28, v17);
-            ++v30;
-          }
-        }
-
-        v16 = *(&v29 + 1);
-      }
-
-      v20 = (v31 + 16 * v16);
-      *v20 = v14;
-      v20[1] = v15;
-      *(&v29 + 1) = v16 + 1;
-      ++v30;
-
-      ++v11;
-    }
-
-    while (v12 != v11);
-  }
-
-  v21 = re::globalAllocators(v10);
-  v22 = (*(*v21[2] + 32))(v21[2], 288, 8);
-  v23 = re::ServiceLocator::serviceOrNull<re::AssetService>(a3);
-  re::TextureProvider::TextureProvider(v22, v27, *(v23 + 2176));
-  *v22 = &unk_1F5D0B548;
-  *(v22 + 244) = v26;
-  *(v22 + 248) = v28;
-  *(v22 + 256) = v29;
-  v28 = 0;
-  v29 = 0uLL;
-  *(v22 + 280) = v31;
-  v31 = 0;
-  ++v30;
-  *(v22 + 272) = 1;
-
-  re::DynamicArray<re::ImageSourceAndIndex>::deinit(&v28);
-
-  return v24;
-}
-
-uint64_t RETextureImportOperationCreateAssetData(uint64_t a1, void *a2)
-{
-  {
-    return 0;
-  }
-
-  *(a1 + 112) = 3;
-  re::make::shared::object<re::TextureAssetData,re::TextureAssetData>((a1 + 216), &v4);
-  return v4;
-}
-
-uint64_t anonymous namespace::moveToCreateState(uint64_t a1, void *a2)
-{
-  v21 = *MEMORY[0x1E69E9840];
-  v4 = *(a1 + 544);
-  v5 = *(v4 + 112);
-  v6 = v5;
   if (v5)
   {
-    if ((*(v4 + 104) - 3) >= 2)
+    v6 = physx::shdfnd::Foundation::mInstance;
+    if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
     {
-      v7 = *re::pipelineLogObjects(v6);
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 138412290;
-        *&buf[4] = v5;
-        _os_log_impl(&dword_1E1C61000, v7, OS_LOG_TYPE_DEFAULT, "Color Space %@ was set for texture without valid texture semantics.", buf, 0xCu);
-      }
-    }
-  }
-
-  v8 = *(a1 + 112);
-  if (!v8)
-  {
-    result = RETextureImportOperationRun(a1, a2);
-    if (!result)
-    {
-      return result;
+      v7 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Cct::ObstacleContext::InternalCapsuleObstacle>::getName() [T = physx::Cct::ObstacleContext::InternalCapsuleObstacle]";
     }
 
-    v8 = *(a1 + 112);
-  }
-
-  if (v8 == 1)
-  {
-    *(a1 + 112) = 2;
-    isValid = re::TextureData::isValid((a1 + 240));
-    result = 1;
-    if ((isValid & 1) == 0 && !*(a1 + 512))
+    else
     {
-      v11 = *(a1 + 544);
-      if (*(v11 + 16))
-      {
-        v12 = *(v11 + 24);
-      }
-
-      else
-      {
-        v12 = v11 + 17;
-      }
-
-      re::DynamicString::format("Failed to create valid texture data from %s", buf, v12);
-      if (buf[8])
-      {
-        v16 = v20;
-      }
-
-      else
-      {
-        v16 = &buf[9];
-      }
-
-      re::WrappedError::make(@"REPipelineErrorDomain", 5, v16, &v18);
-      v17 = v18;
-      *a2 = v17;
-      CFRetain(v17);
-
-      if (*buf)
-      {
-        if (buf[8])
-        {
-          (*(**buf + 40))();
-        }
-      }
-
-      return 1;
+      v7 = "<allocation names disabled>";
     }
+
+    result = (*(*(v6 + 24) + 16))(v6 + 24, 72 * v5, v7, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/foundation/include/PsArray.h", 553);
+    v8 = result;
   }
 
   else
   {
-    v13 = *(a1 + 544);
-    if (*(v13 + 16))
+    v8 = 0;
+  }
+
+  v9 = *(v3 + 8);
+  if (v9)
+  {
+    v10 = v8 + 72 * v9;
+    v11 = *v3;
+    v12 = v8;
+    do
     {
-      v14 = *(v13 + 24);
+      *v12 = *v11;
+      v13 = *(v11 + 8);
+      v14 = *(v11 + 24);
+      *(v12 + 40) = *(v11 + 40);
+      *(v12 + 24) = v14;
+      *(v12 + 8) = v13;
+      *(v12 + 48) = *(v11 + 48);
+      *(v12 + 64) = *(v11 + 64);
+      v12 += 72;
+      v11 += 72;
     }
 
-    else
-    {
-      v14 = v13 + 17;
-    }
+    while (v12 < v10);
+    v15 = *(v3 + 8);
+  }
 
-    re::DynamicString::format("Failed to create valid texture data from %s", buf, v14);
-    if (buf[8])
-    {
-      v15 = v20;
-    }
+  else
+  {
+    v15 = 0;
+  }
 
-    else
-    {
-      v15 = &buf[9];
-    }
+  v16 = v8 + 72 * v15;
+  *v16 = *a2;
+  v17 = *(a2 + 8);
+  v18 = *(a2 + 24);
+  *(v16 + 40) = *(a2 + 40);
+  *(v16 + 24) = v18;
+  *(v16 + 8) = v17;
+  *(v16 + 48) = *(a2 + 48);
+  *(v16 + 64) = *(a2 + 64);
+  if ((*(v3 + 12) & 0x80000000) == 0 && *v3)
+  {
+    result = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))(physx::shdfnd::Foundation::mInstance + 24);
+  }
 
-    re::WrappedError::make(@"REPipelineErrorDomain", 5, v15, &v18);
-    *a2 = v18;
+  *v3 = v8;
+  ++*(v3 + 8);
+  *(v3 + 12) = v5;
+  return result;
+}
 
-    if (*buf && (buf[8] & 1) != 0)
-    {
-      (*(**buf + 40))();
-    }
+void *physx::PxD6JointCreate(uint64_t a1, uint64_t a2, float32x4_t *a3, uint64_t a4, float32x4_t *a5)
+{
+  v10 = physx::shdfnd::Foundation::mInstance;
+  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
+  {
+    v11 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Ext::D6Joint>::getName() [T = physx::Ext::D6Joint]";
+  }
 
+  else
+  {
+    v11 = "<allocation names disabled>";
+  }
+
+  v12 = (*(*(v10 + 24) + 16))(v10 + 24, 120, v11, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxextensions/src/ExtD6Joint.cpp", 49);
+  v13 = (*(*a1 + 40))(a1);
+  physx::Ext::D6Joint::D6Joint(v12, v13, a2, a3, a4, a5);
+  v14 = (*(*a1 + 216))(a1, a2, a4, v12 + 3, &physx::Ext::D6Joint::sShaders, 480);
+  v12[12] = v14;
+  if (!v14)
+  {
+    (*(*v12 + 32))(v12);
     return 0;
+  }
+
+  return v12;
+}
+
+uint64_t physx::Ext::D6Joint::D6Joint(uint64_t a1, float *a2, uint64_t a3, float32x4_t *a4, uint64_t a5, float32x4_t *a6)
+{
+  *(a1 + 8) = 196869;
+  *a1 = &unk_1F5D280D0;
+  *(a1 + 24) = &unk_1F5D282E8;
+  *(a1 + 32) = 0;
+  *(a1 + 96) = 0;
+  *(a1 + 16) = 0;
+  v12 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, 480, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxextensions/src/ExtJoint.h", 454);
+  _Q0 = *a4;
+  _Q1 = vmulq_f32(_Q0, _Q0);
+  _S2 = a4->i64[1];
+  __asm { FMLA            S1, S2, V0.S[2] }
+
+  _S2 = HIDWORD(*a4);
+  __asm { FMLA            S1, S2, V0.S[3] }
+
+  _Q1.f32[0] = sqrtf(_Q1.f32[0]);
+  v21 = a4[1].i32[2];
+  v22 = vdivq_f32(*a4, vdupq_lane_s32(*_Q1.f32, 0));
+  _Q1.i64[0] = a4[1].i64[0];
+  *(a1 + 40) = v22;
+  *(a1 + 56) = _Q1.i64[0];
+  *(a1 + 64) = v21;
+  v22.i32[0] = a6[1].i32[2];
+  _Q1 = *a6;
+  _Q2 = vmulq_f32(_Q1, _Q1);
+  _S3 = a6->i64[1];
+  __asm { FMLA            S2, S3, V1.S[2] }
+
+  _S3 = HIDWORD(*a6);
+  __asm { FMLA            S2, S3, V1.S[3] }
+
+  _Q2.f32[0] = sqrtf(_Q2.f32[0]);
+  v27 = a6[1].i64[0];
+  *(a1 + 68) = vdivq_f32(*a6, vdupq_lane_s32(*_Q2.f32, 0));
+  *(a1 + 84) = v27;
+  *(a1 + 92) = v22.i32[0];
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v66, a3);
+  v28 = v68;
+  v29 = (a4[1].f32[0] - v70) + (a4[1].f32[0] - v70);
+  v30 = (a4[1].f32[1] - v71) + (a4[1].f32[1] - v71);
+  v31 = (a4[1].f32[2] - v72) + (a4[1].f32[2] - v72);
+  v32 = (v69 * v69) + -0.5;
+  v33 = (-(v67 * v30) - (v66 * v29)) - (v68 * v31);
+  v34 = ((v69 * ((v68 * v30) - (v67 * v31))) + (v29 * v32)) - (v66 * v33);
+  v35 = (v69 * ((v66 * v31) - (v68 * v29))) + (v30 * v32);
+  v36 = (v69 * ((v67 * v29) - (v66 * v30))) + (v31 * v32);
+  v38 = a4->f32[2];
+  v37 = a4->f32[3];
+  v39 = a4->f32[1];
+  v40 = (((v69 * v39) - (v67 * v37)) - (v68 * a4->f32[0])) + (v38 * v66);
+  v41 = (((v69 * v38) - (v68 * v37)) - (v66 * v39)) + (a4->f32[0] * v67);
+  v42 = v35 - (v67 * v33);
+  v43 = (((v66 * a4->f32[0]) + (v69 * v37)) + (v67 * v39)) + (v68 * v38);
+  *(v12 + 16) = (((v69 * a4->f32[0]) - (v66 * v37)) - (v67 * v38)) + (v39 * v68);
+  *(v12 + 20) = v40;
+  *(v12 + 24) = v41;
+  *(v12 + 28) = v43;
+  *(v12 + 32) = v34;
+  *(v12 + 36) = v42;
+  *(v12 + 40) = v36 - (v28 * v33);
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v66, a5);
+  v44 = (a6[1].f32[0] - v70) + (a6[1].f32[0] - v70);
+  v45 = (a6[1].f32[1] - v71) + (a6[1].f32[1] - v71);
+  v46 = (a6[1].f32[2] - v72) + (a6[1].f32[2] - v72);
+  v47 = (v69 * v69) + -0.5;
+  v48 = (-(v67 * v45) - (v66 * v44)) - (v68 * v46);
+  v49 = ((v69 * ((v68 * v45) - (v67 * v46))) + (v44 * v47)) - (v66 * v48);
+  v50 = ((v69 * ((v66 * v46) - (v68 * v44))) + (v45 * v47)) - (v67 * v48);
+  v51 = ((v69 * ((v67 * v44) - (v66 * v45))) + (v46 * v47)) - (v68 * v48);
+  v53 = a6->f32[2];
+  v52 = a6->f32[3];
+  v54 = a6->f32[1];
+  v55 = (((v69 * v54) - (v67 * v52)) - (v68 * a6->f32[0])) + (v53 * v66);
+  v56 = (((v69 * v53) - (v68 * v52)) - (v66 * v54)) + (a6->f32[0] * v67);
+  v57 = (((v66 * a6->f32[0]) + (v69 * v52)) + (v67 * v54)) + (v68 * v53);
+  *(v12 + 44) = (((v69 * a6->f32[0]) - (v66 * v52)) - (v67 * v53)) + (v54 * v68);
+  *(v12 + 48) = v55;
+  *(v12 + 52) = v56;
+  *(v12 + 56) = v57;
+  *(v12 + 60) = v49;
+  *(v12 + 64) = v50;
+  *(v12 + 68) = v51;
+  __asm { FMOV            V0.4S, #1.0 }
+
+  *v12 = _Q0;
+  *(a1 + 104) = v12;
+  *a1 = &unk_1F5D27D88;
+  *(a1 + 24) = &unk_1F5D27FB0;
+  *(a1 + 112) = 1;
+  *(v12 + 80) = 0;
+  *(v12 + 88) = 0;
+  *(v12 + 96) = 0;
+  *(v12 + 212) = 0x3F00000000000000;
+  *(v12 + 220) = 0;
+  *(v12 + 228) = xmmword_1E3118980;
+  *(v12 + 244) = 1056964608;
+  *(v12 + 248) = 0;
+  *(v12 + 256) = xmmword_1E3118990;
+  *(v12 + 272) = 1056964608;
+  *(v12 + 276) = 0;
+  *(v12 + 284) = xmmword_1E31189A0;
+  *(v12 + 300) = 1070141403;
+  *&_Q0 = *a2 * 0.01;
+  *(v12 + 104) = 0;
+  *(v12 + 112) = 0;
+  *(v12 + 120) = _Q0;
+  *(v12 + 124) = 2139095039;
+  *&_Q0 = *a2;
+  *(v12 + 464) = *a2 * 0.000001;
+  *(v12 + 128) = 0;
+  *(v12 + 132) = *&_Q0 + *&_Q0;
+  *(v12 + 136) = 0;
+  *(v12 + 144) = fminf(*&_Q0 * 0.01, 1.1116e38);
+  *(v12 + 148) = 0xFEAAAAAA7EAAAAAALL;
+  v59 = fminf(*a2 * 0.01, 1.1116e38);
+  v60 = *a2 + *a2;
+  *(v12 + 156) = 0;
+  *(v12 + 160) = v60;
+  *(v12 + 164) = 0;
+  *(v12 + 172) = v59;
+  *(v12 + 176) = 0xFEAAAAAA7EAAAAAALL;
+  v61 = fminf(*a2 * 0.01, 1.1116e38);
+  v62 = *a2 + *a2;
+  *(v12 + 184) = 0;
+  *(v12 + 188) = v62;
+  *(v12 + 192) = 0;
+  *(v12 + 200) = v61;
+  *(v12 + 204) = 0xFEAAAAAA7EAAAAAALL;
+  v63 = v12 + 316;
+  v64 = 6;
+  do
+  {
+    *(v63 - 12) = 0;
+    *(v63 - 4) = 2139095039;
+    v63 += 16;
+    --v64;
+  }
+
+  while (v64);
+  *(v12 + 400) = xmmword_1E30474D0;
+  *(v12 + 416) = 0u;
+  *(v12 + 432) = 0u;
+  *(v12 + 448) = 0;
+  *(v12 + 468) = 0x40490FDB501502F9;
+  *(v12 + 476) = 0;
+  return a1;
+}
+
+uint64_t physx::Ext::D6Joint::setMotion(uint64_t a1, unsigned int a2, int a3)
+{
+  v3 = *(a1 + 96);
+  *(*(a1 + 104) + 4 * a2 + 80) = a3;
+  *(a1 + 112) = 1;
+  return (*(*v3 + 72))(v3);
+}
+
+float physx::Ext::D6Joint::getTwistAngle(physx::Ext::D6Joint *this)
+{
+  (*(*this + 80))(v7);
+  v1 = 1.0;
+  if (v7[0] == 0.0)
+  {
+    v4 = 0;
+    v3 = 1.0;
+  }
+
+  else
+  {
+    v2 = sqrtf(((v7[0] * v7[0]) + 0.0) + (v8 * v8));
+    v3 = v8 / v2;
+    v4 = (v7[0] / v2) < 0.0;
+  }
+
+  if (v3 < -1.0)
+  {
+    v3 = -1.0;
+  }
+
+  if (v3 <= 1.0)
+  {
+    v1 = v3;
+  }
+
+  v5 = acosf(v1);
+  result = v5 + v5;
+  if (v4)
+  {
+    return -result;
   }
 
   return result;
 }
 
-re::TextureImportOperation *RETextureImportOperationCreateWithCGImageSource(re *a1, uint64_t a2)
+float physx::Ext::D6Joint::getSwingYAngle(physx::Ext::D6Joint *this)
 {
-  v4 = re::globalAllocators(a1);
-  v5 = (*(*v4[2] + 32))(v4[2], 256, 8);
-  v6 = re::ServiceLocator::serviceOrNull<re::AssetService>(a2);
-  re::TextureProvider::TextureProvider(v5, v8, *(v6 + 2176));
-  *v5 = &unk_1F5D0B3C8;
-  *(v5 + 31) = a1;
-  CFRetain(a1);
-}
-
-CFStringRef RETextureImportOperationCopyTextureAssetPath(uint64_t a1)
-{
-  v2 = *MEMORY[0x1E695E480];
-  v3 = *(a1 + 40);
-  v9 = 0;
-  v10 = 0;
-  v7 = v3;
-  v8 = 0;
-  re::DynamicString::setCapacity(&v7, 0);
-  re::AssetPath::fullAssetPath((a1 + 32), &v7);
-  if (v8)
+  (*(*this + 80))(&v9);
+  if (*&v9 == 0.0)
   {
-    v4 = v9;
+    v2 = 0.0;
+    v3 = 0.0;
+    v4 = 1.0;
   }
 
   else
   {
-    v4 = &v8 + 1;
+    v1 = sqrtf(((*&v9 * *&v9) + 0.0) + (v11 * v11));
+    v2 = *&v9 / v1;
+    v3 = 0.0 / v1;
+    v4 = v11 / v1;
   }
 
-  v5 = CFStringCreateWithCString(v2, v4, 0x8000100u);
-  if (v7 && (v8 & 1) != 0)
+  v5 = (((*&v9 * v2) + (v11 * v4)) + (*(&v9 + 1) * v3)) + (v10 * v3);
+  v6 = -((((*(&v9 + 1) * v4) - (v11 * v3)) - (v10 * v2)) + (v3 * *&v9));
+  v7 = -v5;
+  if (v5 >= 0.0)
   {
-    (*(*v7 + 40))();
+    v7 = (((*&v9 * v2) + (v11 * v4)) + (*(&v9 + 1) * v3)) + (v10 * v3);
+    v6 = (((*(&v9 + 1) * v4) - (v11 * v3)) - (v10 * v2)) + (v3 * *&v9);
   }
 
-  return v5;
+  return atan2f(v6, v7 + 1.0) * 4.0;
 }
 
-uint64_t RETextureImportOperationGetImageUTType(uint64_t a1, const re::TextureProvider *a2)
+float physx::Ext::D6Joint::getSwingZAngle(physx::Ext::D6Joint *this)
 {
-  v2 = *(a1 + 544);
-  re::TextureProvider::lazyFetchProperties(v2, a2);
-  return *(v2 + 232);
-}
-
-CFDictionaryRef RETextureImportOperationCopyImageProperties(uint64_t a1, const re::TextureProvider *a2)
-{
-  v2 = *(a1 + 544);
-  re::TextureProvider::lazyFetchProperties(v2, a2);
-  v3 = *(v2 + 216);
-  if (!v3)
+  (*(*this + 80))(&v9);
+  if (*&v9 == 0.0)
   {
-    return 0;
-  }
-
-  v4 = *MEMORY[0x1E695E480];
-
-  return CFDictionaryCreateCopy(v4, v3);
-}
-
-id RETextureImportOperationCopyTextureDescriptor(uint64_t a1)
-{
-  v2 = *(a1 + 544);
-  re::TextureProvider::lazyFetchProperties(v2, v3);
-  v4 = v2[28];
-  v5 = [v4 copy];
-  if (v4)
-  {
-  }
-
-  return v5;
-}
-
-id RETextureImportOperationCopyTextureDescriptorTemplate(uint64_t a1)
-{
-  v2 = [*(*(a1 + 544) + 40) copy];
-
-  return v2;
-}
-
-void RETextureImportOperationSetTextureDescriptorTemplate(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v4 = *(a1 + 544);
-  v5 = [v3 copy];
-
-  v6 = v5;
-  re::TextureProvider::setTemplateDescriptor(v4, &v6, 0);
-  if (v6)
-  {
-  }
-}
-
-void RETextureImportOperationSetPixelFormatMode(uint64_t a1, int a2)
-{
-  v4 = *(a1 + 544);
-  v5 = *(v4 + 64);
-  v6[0] = *(v4 + 48);
-  v6[1] = v5;
-  v7[0] = *(v4 + 80);
-  *(v7 + 12) = *(v4 + 92);
-  v8 = *(v4 + 112);
-  v9 = *(v4 + 120);
-  v10 = *(v4 + 136);
-  re::FixedArray<short>::FixedArray(&v11, (v4 + 144));
-  v14 = *(v4 + 168);
-  LODWORD(v6[0]) = a2;
-  re::TextureProvider::setOptions(v4, v6);
-  if (v11)
-  {
-    if (v12)
-    {
-      (*(*v11 + 40))();
-      v12 = 0;
-      v13 = 0;
-    }
-
-    v11 = 0;
-  }
-}
-
-void RETextureImportOperationSetDimensionsMode(uint64_t a1, int a2)
-{
-  v4 = a2 == 1;
-  v5 = *(a1 + 544);
-  v6 = *(v5 + 64);
-  v7[0] = *(v5 + 48);
-  v7[1] = v6;
-  v8[0] = *(v5 + 80);
-  *(v8 + 12) = *(v5 + 92);
-  v9 = *(v5 + 112);
-  v10 = *(v5 + 120);
-  v11 = *(v5 + 136);
-  re::FixedArray<short>::FixedArray(&v12, (v5 + 144));
-  v15 = *(v5 + 168);
-  DWORD2(v7[0]) = v4;
-  re::TextureProvider::setOptions(v5, v7);
-  if (v12)
-  {
-    if (v13)
-    {
-      (*(*v12 + 40))(v12);
-      v13 = 0;
-      v14 = 0;
-    }
-
-    v12 = 0;
-  }
-}
-
-void RETextureImportOperationSetDownsampleFactor(uint64_t a1, int a2)
-{
-  v4 = *(a1 + 544);
-  v5 = *(v4 + 64);
-  v6 = *(v4 + 48);
-  v7 = v5;
-  v8[0] = *(v4 + 80);
-  *(v8 + 12) = *(v4 + 92);
-  v9 = *(v4 + 112);
-  v10 = *(v4 + 120);
-  v11 = *(v4 + 136);
-  re::FixedArray<short>::FixedArray(&v12, (v4 + 144));
-  v15 = *(v4 + 168);
-  LODWORD(v7) = a2;
-  re::TextureProvider::setOptions(v4, &v6);
-  if (v12)
-  {
-    if (v13)
-    {
-      (*(*v12 + 40))(v12, v14);
-      v13 = 0;
-      v14 = 0;
-    }
-
-    v12 = 0;
-  }
-}
-
-void RETextureImportOperationSetMipmapMode(uint64_t a1, int a2)
-{
-  v4 = *(a1 + 544);
-  v5 = *(v4 + 64);
-  v12 = *(v4 + 48);
-  v13 = v5;
-  v14[0] = *(v4 + 80);
-  *(v14 + 12) = *(v4 + 92);
-  v15 = *(v4 + 112);
-  v16 = *(v4 + 120);
-  v17 = *(v4 + 136);
-  re::FixedArray<short>::FixedArray(&v18, (v4 + 144));
-  v21 = *(v4 + 168);
-  DWORD1(v13) = a2;
-  re::TextureProvider::setOptions(v4, &v12);
-  if (v18)
-  {
-    if (v19)
-    {
-      (*(*v18 + 40))(v18, v20, v6, v7, v8, v9, v10, v11, v12, *(&v12 + 1), v13, *(&v13 + 1));
-      v19 = 0;
-      v20 = 0;
-    }
-
-    v18 = 0;
-  }
-}
-
-void RETextureImportOperationSetCompressionType(uint64_t a1, int a2)
-{
-  v4 = *(a1 + 544);
-  v5 = *(v4 + 64);
-  v7 = *(v4 + 48);
-  v8 = v5;
-  v9[0] = *(v4 + 80);
-  *(v9 + 12) = *(v4 + 92);
-  v10 = *(v4 + 112);
-  v11 = *(v4 + 120);
-  v12 = *(v4 + 136);
-  re::FixedArray<short>::FixedArray(&v13, (v4 + 144));
-  v16 = *(v4 + 168);
-  DWORD2(v8) = a2;
-  re::TextureProvider::setOptions(v4, &v7);
-  if (v13)
-  {
-    if (v14)
-    {
-      (*(*v13 + 40))(v13, v15, v6);
-      v14 = 0;
-      v15 = 0;
-    }
-
-    v13 = 0;
-  }
-}
-
-uint64_t RETextureImportOperationSetASTCCompressionOptions(uint64_t a1, re::CoreREAssetUtils *a2, char *a3)
-{
-  re::CoreREAssetUtils::textureASTCCompressionOptions(a2, 1, v22);
-  v6 = v22[0];
-  if (v22[0])
-  {
-    v7 = *(a1 + 544);
-    v8 = *(v7 + 64);
-    v13 = *(v7 + 48);
-    *v14 = v8;
-    *&v14[16] = *(v7 + 80);
-    *&v14[28] = *(v7 + 92);
-    v15 = *(v7 + 112);
-    v16 = *(v7 + 120);
-    v17 = *(v7 + 136);
-    re::FixedArray<short>::FixedArray(&v18, (v7 + 144));
-    v21 = *(v7 + 168);
-    *&v14[8] = 4;
-    *&v14[12] = v23;
-    re::TextureProvider::setOptions(v7, &v13);
-    if (v18)
-    {
-      if (v19)
-      {
-        (*(*v18 + 40))(v18, v20, v9);
-        v19 = 0;
-        v20 = 0;
-      }
-
-      v18 = 0;
-    }
+    v2 = 0.0;
+    v3 = 0.0;
+    v4 = 1.0;
   }
 
   else
   {
-    if (BYTE8(v23))
-    {
-      v11 = v24;
-    }
-
-    else
-    {
-      v11 = (&v23 + 9);
-    }
-
-    re::CoreREAssetUtils::logAndSetErrorFromString(v11, a3, @"REPipelineErrorDomain", 0x64);
+    v1 = sqrtf(((*&v9 * *&v9) + 0.0) + (v11 * v11));
+    v2 = *&v9 / v1;
+    v3 = 0.0 / v1;
+    v4 = v11 / v1;
   }
 
-  if (v22[0] & 1) == 0 && v23 && (BYTE8(v23))
+  v5 = (((*&v9 * v2) + (v11 * v4)) + (*(&v9 + 1) * v3)) + (v10 * v3);
+  v6 = -((((v10 * v4) - (v11 * v3)) - (*&v9 * v3)) + (v2 * *(&v9 + 1)));
+  v7 = -v5;
+  if (v5 >= 0.0)
   {
-    (*(*v23 + 40))(v23, v24, v10);
+    v7 = (((*&v9 * v2) + (v11 * v4)) + (*(&v9 + 1) * v3)) + (v10 * v3);
+    v6 = (((v10 * v4) - (v11 * v3)) - (*&v9 * v3)) + (v2 * *(&v9 + 1));
   }
 
-  return v6;
+  return atan2f(v6, v7 + 1.0) * 4.0;
 }
 
-re::DynamicString *RETextureImportOperationSetAssetResourceName(uint64_t a1, const char *a2)
+float physx::Ext::D6Joint::getDrive@<S0>(uint64_t a1@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
 {
-  v5[0] = a2;
-  v5[1] = strlen(a2);
-  return re::DynamicString::operator=((a1 + 120), v5);
+  v3 = *(a1 + 104) + 16 * a2;
+  *a3 = *(v3 + 304);
+  result = *(v3 + 312);
+  *(a3 + 8) = result;
+  *(a3 + 12) = *(v3 + 316);
+  return result;
 }
 
-re::DynamicString *RETextureImportOperationSetLabel(uint64_t a1, const char *a2)
+uint64_t physx::Ext::D6Joint::setDrive(uint64_t a1, unsigned int a2, uint64_t a3)
 {
-  v4 = *(a1 + 544);
-  v6[0] = a2;
-  v6[1] = strlen(a2);
-  return re::DynamicString::operator=((v4 + 8), v6);
+  v3 = *(a1 + 104) + 16 * a2;
+  *(v3 + 304) = *a3;
+  *(v3 + 312) = *(a3 + 8);
+  *(v3 + 316) = *(a3 + 12);
+  *(a1 + 112) = 1;
+  return (*(**(a1 + 96) + 72))();
 }
 
-CFTypeRef RETextureImportOperationGetLabel(uint64_t a1)
+uint64_t physx::Ext::D6Joint::setDistanceLimit(uint64_t a1, __int128 *a2)
 {
-  v2 = *(a1 + 544);
-  if (*(v2 + 16))
+  v2 = *(a1 + 104);
+  v3 = *a2;
+  *(v2 + 120) = *(a2 + 2);
+  *(v2 + 104) = v3;
+  v5 = a1 + 96;
+  v4 = *(a1 + 96);
+  *(*(v5 + 8) + 476) = 1;
+  return (*(*v4 + 72))();
+}
+
+double physx::Ext::D6Joint::getDistanceLimit@<D0>(physx::Ext::D6Joint *this@<X0>, uint64_t a2@<X8>)
+{
+  v2 = *(this + 13);
+  *a2 = *(v2 + 104);
+  result = *(v2 + 120);
+  *(a2 + 16) = result;
+  return result;
+}
+
+uint64_t physx::Ext::D6Joint::setLinearLimit(uint64_t result, int a2, __int128 *a3)
+{
+  v3 = *(result + 104);
+  if (a2 == 2)
   {
-    v3 = *(v2 + 24);
+    v6 = *a3;
+    *(v3 + 196) = *(a3 + 12);
+    *(v3 + 184) = v6;
+  }
+
+  else if (a2 == 1)
+  {
+    v5 = *a3;
+    *(v3 + 168) = *(a3 + 12);
+    *(v3 + 156) = v5;
   }
 
   else
-  {
-    v3 = (v2 + 17);
-  }
-
-  v4 = CFStringCreateWithCString(0, v3, 0x8000100u);
-
-  return CFAutorelease(v4);
-}
-
-void RETextureImportOperationSetSemantic(uint64_t a1, int a2)
-{
-  v4 = *(a1 + 544);
-  v5 = *(v4 + 64);
-  v6[0] = *(v4 + 48);
-  v6[1] = v5;
-  *v7 = *(v4 + 80);
-  *&v7[12] = *(v4 + 92);
-  v8 = *(v4 + 112);
-  v9 = *(v4 + 120);
-  v10 = *(v4 + 136);
-  re::FixedArray<short>::FixedArray(&v11, (v4 + 144));
-  v14 = *(v4 + 168);
-  *&v7[24] = a2;
-  if (a2 == 6)
-  {
-    if (LODWORD(v6[0]) == 2)
-    {
-      LODWORD(v6[0]) = 0;
-    }
-
-    if (DWORD1(v6[0]) == 3)
-    {
-      DWORD1(v6[0]) = 0;
-    }
-  }
-
-  else
-  {
-    *&v6[0] = 0x300000002;
-  }
-
-  re::TextureProvider::setOptions(v4, v6);
-  if (v11)
-  {
-    if (v12)
-    {
-      (*(*v11 + 40))();
-      v12 = 0;
-      v13 = 0;
-    }
-
-    v11 = 0;
-  }
-}
-
-void RETextureImportOperationSetReduceMemoryPeak(uint64_t a1, char a2)
-{
-  v4 = *(a1 + 544);
-  v5 = *(v4 + 64);
-  v12 = *(v4 + 48);
-  v13 = v5;
-  v14[0] = *(v4 + 80);
-  *(v14 + 12) = *(v4 + 92);
-  v15 = *(v4 + 112);
-  v16 = *(v4 + 120);
-  v17 = *(v4 + 136);
-  re::FixedArray<short>::FixedArray(&v18, (v4 + 144));
-  v21 = a2;
-  re::TextureProvider::setOptions(v4, &v12);
-  if (v18)
-  {
-    if (v19)
-    {
-      (*(*v18 + 40))(v18, v20, v6, v7, v8, v9, v10, v11, v12, *(&v12 + 1), v13, *(&v13 + 1));
-      v19 = 0;
-      v20 = 0;
-    }
-
-    v18 = 0;
-  }
-}
-
-void RETextureImportOperationSetColorSpaceName(uint64_t a1, __CFString *a2)
-{
-  v4 = *(a1 + 544);
-  v5 = *(v4 + 64);
-  v12 = *(v4 + 48);
-  v13 = v5;
-  v14[0] = *(v4 + 80);
-  *(v14 + 12) = *(v4 + 92);
-  v15 = *(v4 + 112);
-  v16 = *(v4 + 120);
-  v17 = *(v4 + 136);
-  re::FixedArray<short>::FixedArray(&v18, (v4 + 144));
-  v21 = *(v4 + 168);
-  re::TextureFromImageOptions::setColorSpace(&v12, a2);
-  re::TextureProvider::setOptions(v4, &v12);
-  if (v18)
-  {
-    if (v19)
-    {
-      (*(*v18 + 40))(v18, v20, v6, v7, v8, v9, v10, v11, v12, *(&v12 + 1), v13, *(&v13 + 1));
-      v19 = 0;
-      v20 = 0;
-    }
-
-    v18 = 0;
-  }
-}
-
-uint64_t RETextureImportOperationSetOptionsFromJSON(uint64_t a1, uint64_t a2, char *a3)
-{
-  v12 = *MEMORY[0x1E69E9840];
-  v8 = a2;
-  re::parseTextureFromImageOptions(&v8, v9);
-  v5 = v9[0];
-  if (v9[0])
-  {
-    re::TextureProvider::setOptions(*(a1 + 544), v10);
-  }
-
-  else
-  {
-    if (v10[8])
-    {
-      v6 = *&v11[7];
-    }
-
-    else
-    {
-      v6 = v11;
-    }
-
-    re::CoreREAssetUtils::logAndSetErrorFromString(v6, a3, @"REPipelineErrorDomain", 0x64);
-  }
-
-  re::Result<re::TextureFromImageOptions,re::DynamicString>::~Result(v9);
-  return v5;
-}
-
-uint64_t RETextureImportOperationRun(uint64_t a1, void *a2)
-{
-  if (*(a1 + 32) || *(a1 + 112))
   {
     if (a2)
     {
-      v4 = *(a1 + 544);
-      if (*(v4 + 16))
-      {
-        v5 = *(v4 + 24);
-      }
-
-      else
-      {
-        v5 = v4 + 17;
-      }
-
-      re::DynamicString::format("Failed to import data from %s: operation unsupported in current state", &v44, v5);
-      if (v45)
-      {
-        v6 = v46[0];
-      }
-
-      else
-      {
-        v6 = &v45 + 1;
-      }
-
-      v7 = 4;
-LABEL_11:
-      re::WrappedError::make(@"REPipelineErrorDomain", v7, v6, &v32);
-      v8 = v32;
-      *a2 = v8;
-      CFRetain(v8);
-
-      if (v44 && (v45 & 1) != 0)
-      {
-        (*(*v44 + 40))();
-      }
-
-      return 0;
+      return result;
     }
 
-    return 0;
+    v4 = *a3;
+    *(v3 + 140) = *(a3 + 12);
+    *(v3 + 128) = v4;
   }
 
-  v11 = *(a1 + 160);
-  if (v11)
-  {
-    v12 = v11 >> 1;
-  }
-
-  else
-  {
-    v12 = v11 >> 1;
-  }
-
-  if (v12)
-  {
-    re::TextureAssetProvider::makeDescriptor((a1 + 152), (a1 + 184), (*(a1 + 544) + 48), &v44);
-    re::DynamicString::operator=((a1 + 368), &v44);
-    re::DynamicArray<re::internal::DeferredUnregister *>::operator=(a1 + 400, &v47);
-    re::DynamicArray<re::internal::DeferredUnregister *>::operator=(a1 + 440, v52);
-    re::DynamicString::operator=((a1 + 480), v55);
-    if (v55[0])
-    {
-      if (v55[1])
-      {
-        (*(*v55[0] + 40))();
-      }
-
-      memset(v55, 0, 32);
-    }
-
-    if (v52[0])
-    {
-      if (v54)
-      {
-        (*(*v52[0] + 40))();
-      }
-
-      v54 = 0;
-      memset(v52, 0, sizeof(v52));
-      ++v53;
-    }
-
-    if (v47)
-    {
-      if (v51)
-      {
-        (*(*v47 + 40))();
-      }
-
-      v51 = 0;
-      v48 = 0;
-      v49 = 0;
-      v47 = 0;
-      ++v50;
-    }
-
-    if (v44 && (v45 & 1) != 0)
-    {
-      (*(*v44 + 40))();
-    }
-
-    v13 = *(a1 + 24);
-    os_unfair_lock_lock(v13 + 32);
-    re::AssetManager::assetHandle_assetTablesLocked(&v32, v13, (a1 + 368));
-    os_unfair_lock_unlock(v13 + 32);
-    if (v33 && (v14 = atomic_load((v33 + 896)), v14 == 2) && (*(v33 + 256) & 1) == 0)
-    {
-      *(a1 + 512) = 0;
-      re::AssetHandle::operator=(a1 + 520, &v32);
-    }
-
-    else
-    {
-      if (*(a1 + 376))
-      {
-        v15 = *(a1 + 384);
-      }
-
-      else
-      {
-        v15 = (a1 + 377);
-      }
-
-      ProviderForScheme = re::AssetProviderRegistry::tryGetProviderForScheme(*(*(a1 + 24) + 1904), v15);
-      *&v22 = &unk_1F5CB96F0;
-      BYTE8(v22) = 1;
-      HIDWORD(v22) = 0;
-      (*(*ProviderForScheme + 40))(&v44);
-      if (v44 == 1)
-      {
-        v17 = v48;
-        *(a1 + 512) = v48;
-        std::__variant_detail::__assignment<std::__variant_detail::__traits<NS::SharedPtr<MTL::Texture>,re::SharedPtr<re::CPUTexture>>>::__generic_assign[abi:nn200100]<std::__variant_detail::__copy_assignment<std::__variant_detail::__traits<NS::SharedPtr<MTL::Texture>,re::SharedPtr<re::CPUTexture>>,(std::__variant_detail::_Trait)1> const&>(a1 + 240, v17 + 112);
-        re::SharedPtr<re::SkeletalPoseJointDefinition>::reset((a1 + 360), v49);
-        re::AssetHandle::operator=(a1 + 520, &v32);
-        if (v44)
-        {
-          if (v49)
-          {
-
-            v49 = 0;
-          }
-        }
-      }
-
-      re::DynamicString::deinit(&v45);
-    }
-
-    re::AssetHandle::~AssetHandle(&v32);
-  }
-
-  else
-  {
-    re::TextureAssetLoader::createTextureAssetDataFromProvider(*(a1 + 544), &v44);
-    if (v44 == 1)
-    {
-      v31 = 0;
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
-      v24 = 0u;
-      v22 = 0u;
-      re::TextureAssetData::TextureAssetData(&v22);
-      re::TextureAssetData::TextureAssetData(&v32, &v45);
-      re::TextureAssetData::operator=(&v45, &v22);
-      re::TextureAssetData::operator=(a1 + 216, &v32);
-      v32 = &unk_1F5CC40A0;
-      if (v43)
-      {
-
-        v43 = 0;
-      }
-
-      if (v38)
-      {
-        if (v42)
-        {
-          (*(*v38 + 40))();
-        }
-
-        v42 = 0;
-        v39 = 0;
-        v40 = 0;
-        v38 = 0;
-        ++v41;
-      }
-
-      if (v36)
-      {
-
-        v36 = 0;
-      }
-
-      if (v35 != -1)
-      {
-        (off_1F5D2E090[v35])(&v56, &v34);
-      }
-
-      v35 = -1;
-      v32 = &unk_1F5CCF868;
-      objc_destructInstance(&v33);
-      *&v22 = &unk_1F5CC40A0;
-      if (v31)
-      {
-
-        v31 = 0;
-      }
-
-      if (v28)
-      {
-        if (v30)
-        {
-          (*(*v28 + 40))();
-        }
-
-        *&v30 = 0;
-        *&v29 = 0;
-        v28 = 0uLL;
-        ++DWORD2(v29);
-      }
-
-      if (v27)
-      {
-
-        *&v27 = 0;
-      }
-
-      if (v24 != -1)
-      {
-        (off_1F5D2E090[v24])(&v56, &v23 + 8);
-      }
-
-      LODWORD(v24) = -1;
-      *&v22 = &unk_1F5CCF868;
-      objc_destructInstance(&v22 + 8);
-    }
-
-    else
-    {
-      v32 = 0;
-      LODWORD(v33) = 0;
-      std::__variant_detail::__assignment<std::__variant_detail::__traits<NS::SharedPtr<MTL::Texture>,re::SharedPtr<re::CPUTexture>>>::__generic_assign[abi:nn200100]<std::__variant_detail::__move_assignment<std::__variant_detail::__traits<NS::SharedPtr<MTL::Texture>,re::SharedPtr<re::CPUTexture>>,(std::__variant_detail::_Trait)1>>(a1 + 240, &v32);
-      if (v33 != -1)
-      {
-        (off_1F5D2E090[v33])(&v22, &v32);
-      }
-
-      if (v46[0])
-      {
-        v18 = v46[1];
-      }
-
-      else
-      {
-        v18 = v46 + 1;
-      }
-
-      re::WrappedError::make(@"REPipelineErrorDomain", 5, v18, &v32);
-      if (a2)
-      {
-        v19 = v32;
-        *a2 = v19;
-        CFRetain(v19);
-      }
-    }
-
-    if (v44 == 1)
-    {
-      (*v45)(&v45);
-    }
-
-    else if (v45 && (v46[0] & 1) != 0)
-    {
-      (*(*v45 + 40))();
-    }
-  }
-
-  v9 = 1;
-  *(a1 + 112) = 1;
-  if ((re::TextureData::isValid((a1 + 240)) & 1) == 0 && !*(a1 + 512) && !*(a1 + 528))
-  {
-    if (a2 && !*a2)
-    {
-      v20 = *(a1 + 544);
-      if (*(v20 + 16))
-      {
-        v21 = *(v20 + 24);
-      }
-
-      else
-      {
-        v21 = v20 + 17;
-      }
-
-      re::DynamicString::format("Failed to create valid texture data from %s", &v44, v21);
-      if (v45)
-      {
-        v6 = v46[0];
-      }
-
-      else
-      {
-        v6 = &v45 + 1;
-      }
-
-      v7 = 5;
-      goto LABEL_11;
-    }
-
-    return 0;
-  }
-
-  return v9;
+  *(v3 + 477) = 1;
+  return (*(**(result + 96) + 72))();
 }
 
-uint64_t RETextureImportOperationCreateAsset(uint64_t a1, int a2, void *a3)
+uint64_t physx::Ext::D6Joint::getLinearLimit@<X0>(uint64_t result@<X0>, int a2@<W1>, uint64_t a3@<X8>)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v3 = *(result + 104);
+  switch(a2)
+  {
+    case 2:
+      *a3 = *(v3 + 184);
+      *(a3 + 16) = *(v3 + 200);
+      v4 = *(v3 + 204);
+      goto LABEL_7;
+    case 1:
+      *a3 = *(v3 + 156);
+      *(a3 + 16) = *(v3 + 172);
+      v4 = *(v3 + 176);
+      goto LABEL_7;
+    case 0:
+      *a3 = *(v3 + 128);
+      *(a3 + 16) = *(v3 + 144);
+      v4 = *(v3 + 148);
+LABEL_7:
+      *(a3 + 20) = v4;
+      return result;
+  }
+
+  *a3 = 0;
+  *(a3 + 8) = 0;
+  *(a3 + 24) = 0;
+  *(a3 + 16) = 0;
+  *(a3 + 4) = 0x40000000;
+  return result;
+}
+
+float physx::Ext::D6Joint::getTwistLimit@<S0>(physx::Ext::D6Joint *this@<X0>, uint64_t a2@<X8>)
+{
+  v2 = *(this + 13);
+  *a2 = *(v2 + 212);
+  result = *(v2 + 228);
+  *(a2 + 16) = result;
+  *(a2 + 20) = *(v2 + 232);
+  return result;
+}
+
+uint64_t physx::Ext::D6Joint::setTwistLimit(uint64_t a1, __int128 *a2)
+{
+  v2 = *(a1 + 104);
+  v3 = *a2;
+  *(v2 + 224) = *(a2 + 12);
+  *(v2 + 212) = v3;
+  return (*(**(a1 + 96) + 72))();
+}
+
+__n128 physx::Ext::D6Joint::getPyramidSwingLimit@<Q0>(physx::Ext::D6Joint *this@<X0>, uint64_t a2@<X8>)
+{
+  v2 = *(this + 13);
+  *a2 = *(v2 + 268);
+  *(a2 + 16) = *(v2 + 284);
+  result = *(v2 + 288);
+  *(a2 + 20) = result;
+  return result;
+}
+
+uint64_t physx::Ext::D6Joint::setPyramidSwingLimit(uint64_t a1, __int128 *a2)
+{
+  v2 = *(a1 + 104);
+  v3 = *a2;
+  v4 = a2[1];
+  *(v2 + 300) = *(a2 + 8);
+  *(v2 + 268) = v3;
+  *(v2 + 284) = v4;
+  *(*(a1 + 104) + 478) = 256;
+  return (*(**(a1 + 96) + 72))();
+}
+
+float physx::Ext::D6Joint::getSwingLimit@<S0>(physx::Ext::D6Joint *this@<X0>, uint64_t a2@<X8>)
+{
+  v2 = *(this + 13);
+  *a2 = *(v2 + 240);
+  result = *(v2 + 256);
+  *(a2 + 16) = result;
+  *(a2 + 20) = *(v2 + 260);
+  return result;
+}
+
+uint64_t physx::Ext::D6Joint::setSwingLimit(uint64_t a1, __int128 *a2)
+{
+  v2 = *(a1 + 104);
+  v3 = *a2;
+  *(v2 + 252) = *(a2 + 12);
+  *(v2 + 240) = v3;
+  *(*(a1 + 104) + 478) = 1;
+  return (*(**(a1 + 96) + 72))();
+}
+
+float physx::Ext::D6Joint::getDrivePosition@<S0>(physx::Ext::D6Joint *this@<X0>, uint64_t a2@<X8>)
+{
+  v2 = *(this + 13);
+  *a2 = *(v2 + 400);
+  *(a2 + 16) = *(v2 + 416);
+  result = *(v2 + 424);
+  *(a2 + 24) = result;
+  return result;
+}
+
+uint64_t physx::Ext::D6Joint::setDrivePosition(uint64_t a1, float32x4_t *a2, int a3)
+{
+  v4 = a2[1].i32[2];
+  _Q1 = *a2;
+  _Q2 = vmulq_f32(_Q1, _Q1);
+  _S3 = a2->i64[1];
+  __asm { FMLA            S2, S3, V1.S[2] }
+
+  _S3 = HIDWORD(*a2);
+  __asm { FMLA            S2, S3, V1.S[3] }
+
+  _Q2.f32[0] = sqrtf(_Q2.f32[0]);
+  v13 = *(a1 + 104);
+  v14 = a2[1].i64[0];
+  v13[25] = vdivq_f32(*a2, vdupq_lane_s32(*_Q2.f32, 0));
+  v13[26].i64[0] = v14;
+  v13[26].i32[2] = v4;
+  if (a3)
+  {
+    physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::wakeUpActors(*(a1 + 96));
+  }
+
+  v15 = *(**(a1 + 96) + 72);
+
+  return v15();
+}
+
+void *physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::wakeUpActors(uint64_t a1)
+{
+  v12[1] = *MEMORY[0x1E69E9840];
+  v11 = 0;
+  v12[0] = 0;
+  v1 = &v11;
+  (*(*a1 + 56))(a1, &v11, v12);
+  v2 = 1;
+  do
+  {
+    v3 = v2;
+    result = *v1;
+    if (*v1)
+    {
+      result = (*(*result + 56))(result);
+      if (result)
+      {
+        result = (*(**v1 + 48))();
+        if (result == 1)
+        {
+          v5 = *v1;
+          result = (*(*v5 + 432))(&v10, v5);
+          if ((v10 & 1) == 0)
+          {
+            v6 = (*(*v5 + 56))(v5);
+            v7 = (*(*v6 + 880))(v6);
+            v8 = (*(*v5 + 584))(v5);
+            result = (*(*v5 + 512))(v5);
+            if (v8 < v7 || result != 0)
+            {
+              if (v8 >= v7)
+              {
+                v7 = v8;
+              }
+
+              (*(*v5 + 592))(v5);
+              result = (*(*v5 + 576))(v5, v7);
+            }
+          }
+        }
+      }
+    }
+
+    v2 = 0;
+    v1 = v12;
+  }
+
+  while ((v3 & 1) != 0);
+  return result;
+}
+
+float physx::Ext::D6Joint::getDriveVelocity(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 104);
+  *a2 = *(v3 + 428);
+  *(a2 + 8) = *(v3 + 436);
+  *a3 = *(v3 + 440);
+  result = *(v3 + 448);
+  *(a3 + 8) = result;
+  return result;
+}
+
+uint64_t physx::Ext::D6Joint::setDriveVelocity(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+{
+  v5 = *(a1 + 104);
+  *(v5 + 428) = *a2;
+  *(v5 + 436) = *(a2 + 8);
+  *(v5 + 440) = *a3;
+  *(v5 + 448) = *(a3 + 8);
+  if (a4)
+  {
+    physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::wakeUpActors(*(a1 + 96));
+  }
+
+  v6 = *(**(a1 + 96) + 72);
+
+  return v6();
+}
+
+uint64_t physx::Ext::D6Joint::setProjectionAngularTolerance(physx::Ext::D6Joint *this, float a2)
+{
+  v2 = this + 96;
+  v3 = *(this + 12);
+  *(*(v2 + 1) + 472) = a2;
+  return (*(*v3 + 72))();
+}
+
+uint64_t physx::Ext::D6Joint::setProjectionLinearTolerance(physx::Ext::D6Joint *this, float a2)
+{
+  v2 = this + 96;
+  v3 = *(this + 12);
+  *(*(v2 + 1) + 468) = a2;
+  return (*(*v3 + 72))();
+}
+
+uint64_t physx::Ext::D6Joint::prepareData(physx::Ext::D6Joint *this)
+{
+  result = *(this + 13);
+  if (*(this + 112) == 1)
+  {
+    v3 = 0;
+    v4 = 0;
+    v5 = 0;
+    *(this + 112) = 0;
+    *(result + 456) = 0;
+    v6 = (result + 80);
+    *(result + 452) = 0;
+    do
+    {
+      v7 = v6[v5];
+      if (v7)
+      {
+        if (v7 == 1)
+        {
+          v3 |= 1 << v5;
+          *(result + 456) = v3;
+        }
+      }
+
+      else
+      {
+        v4 |= 1 << v5;
+        *(result + 452) = v4;
+      }
+
+      ++v5;
+    }
+
+    while (v5 != 6);
+    v8 = *(result + 304) == 0.0 && *(result + 308) == 0.0;
+    v9 = 0;
+    if (!v8 && *v6)
+    {
+      v9 = 1;
+      *(result + 460) = 1;
+    }
+
+    if ((*(result + 320) != 0.0 || *(result + 324) != 0.0) && *(result + 84))
+    {
+      v9 |= 2u;
+      *(result + 460) = v9;
+    }
+
+    if ((*(result + 336) != 0.0 || *(result + 340) != 0.0) && *(result + 88))
+    {
+      v9 |= 4u;
+      *(result + 460) = v9;
+    }
+
+    v10 = *(result + 96);
+    v11 = v10 == 0;
+    if (*(result + 384) == 0.0)
+    {
+      v11 = *(result + 388) == 0.0 || v10 == 0;
+    }
+
+    v13 = *(result + 100);
+    v14 = *(result + 92);
+    if (!v11 && v13 && v14)
+    {
+      v15 = v9 | 0x20;
+LABEL_43:
+      *(result + 460) = v15;
+      return result;
+    }
+
+    if (*(result + 368) != 0.0 || *(result + 372) != 0.0)
+    {
+      if (v14)
+      {
+        v9 |= 0x10u;
+        *(result + 460) = v9;
+      }
+    }
+
+    v16 = v10 | v13;
+    if (*(result + 352) != 0.0)
+    {
+      if (!v16)
+      {
+        return result;
+      }
+
+LABEL_42:
+      v15 = v9 | 8;
+      goto LABEL_43;
+    }
+
+    v17 = v16 == 0;
+    if (*(result + 356) != 0.0 && !v17)
+    {
+      goto LABEL_42;
+    }
+  }
+
+  return result;
+}
+
+uint64_t physx::Ext::D6Joint::exportExtraData(uint64_t a1, uint64_t a2)
+{
+  if (*(a1 + 104))
+  {
+    (*(*a2 + 24))(a2, 16);
+    (*(*a2 + 16))(a2, *(a1 + 104), 480);
+  }
+
+  v4 = *(a1 + 32);
+  v5 = *(*a2 + 32);
+
+  return v5(a2, v4);
+}
+
+float project(float *a1, float *a2, float *a3, BOOL *a4, float a5)
+{
+  v7 = *a2;
+  v6 = a2[1];
+  v8 = a2[2];
+  v9 = a3[1];
+  v10 = a3[2];
+  v11 = ((v6 * v9) + (*a2 * *a3)) + (v8 * v10);
+  if (fabsf(v11) >= 0.000001)
+  {
+    v17 = *a3 * v11;
+    v18 = v9 * v11;
+    v19 = v10 * v11;
+    v12 = a2[3];
+    v20 = sqrtf((((v18 * v18) + (v17 * v17)) + (v19 * v19)) + (v12 * v12));
+    v14 = v17 / v20;
+    v15 = v18 / v20;
+    v16 = v19 / v20;
+    v13 = v12 / v20;
+  }
+
+  else
+  {
+    v12 = a2[3];
+    v13 = 1.0;
+    v14 = 0.0;
+    v15 = 0.0;
+    v16 = 0.0;
+  }
+
+  v30[0] = (((v7 * v13) - (v12 * v14)) - (v6 * v16)) + (v15 * v8);
+  v30[1] = (((v6 * v13) - (v12 * v15)) - (v8 * v14)) + (v16 * v7);
+  v30[2] = (((v8 * v13) - (v12 * v16)) - (v7 * v15)) + (v14 * v6);
+  v30[3] = (((v7 * v14) + (v12 * v13)) + (v6 * v15)) + (v8 * v16);
+  truncate(&v26, v30, a4, a5);
+  v21 = v28;
+  v22 = (((v13 * v27) + (v29 * v15)) + (v28 * v14)) - (v16 * v26);
+  v23 = (((v13 * v28) + (v29 * v16)) + (v26 * v15)) - (v14 * v27);
+  v24 = ((v29 * v13) - (v26 * v14)) - (v27 * v15);
+  *a1 = (((v13 * v26) + (v29 * v14)) + (v27 * v16)) - (v15 * v28);
+  a1[1] = v22;
+  result = v24 - (v21 * v16);
+  a1[2] = v23;
+  a1[3] = result;
+  return result;
+}
+
+uint64_t truncate(uint64_t result, uint64_t a2, BOOL *a3, float a4)
+{
+  v4 = *(a2 + 12);
+  v5 = *a2;
+  if (v4 >= 0.0)
+  {
+    _D2 = *(a2 + 4);
+  }
+
+  else
+  {
+    v5 = -v5;
+    _D2 = vneg_f32(*(a2 + 4));
+    v4 = -v4;
+  }
+
+  *a3 = v4 < a4;
+  if (v4 < a4)
+  {
+    _S4 = _D2.i32[1];
+    __asm { FMLA            S3, S4, V2.S[1] }
+
+    if (_S3 <= 0.0)
+    {
+      v15 = 0;
+      v14 = 0.0;
+    }
+
+    else
+    {
+      v13 = 1.0 / sqrtf(_S3);
+      v14 = v5 * v13;
+      v15 = vmul_n_f32(_D2, v13);
+    }
+
+    v16 = sqrtf(1.0 - (a4 * a4));
+    v5 = v16 * v14;
+    _D2 = vmul_n_f32(v15, v16);
+  }
+
+  else
+  {
+    a4 = v4;
+  }
+
+  *result = v5;
+  *(result + 4) = _D2;
+  *(result + 12) = a4;
+  return result;
+}
+
+uint64_t D6JointSolverPrep(uint64_t a1, float32x2_t *a2, uint64_t a3, __int128 *a4, uint64_t a5, float32x2_t *a6, float32x2_t *a7, int a8, double d0_0, double d1_0, double a11, double a12, double a13, double a14, int8x16_t a15, int8x16_t a16, float32x2_t *a9, float32x2_t *a10)
+{
+  v319 = *MEMORY[0x1E69E9840];
+  physx::Ext::joint::ConstraintHelper::ConstraintHelper(&v292, a1, a4, &v304, &v298, a2, a5, a6, d0_0, d1_0, a11, a12, a13, a14, a15, a16, a7);
+  v25 = *(a5 + 460);
+  v26 = v304;
+  v27 = v299;
+  if (a8)
+  {
+    v29 = v305;
+    v28 = v306;
+    v30 = v307;
+    v31 = v300;
+    v33 = v298.f32[1];
+    v32 = v298.f32[0];
+  }
+
+  else
+  {
+    v33 = v298.f32[1];
+    v32 = v298.f32[0];
+    v29 = v305;
+    v28 = v306;
+    v30 = v307;
+    v31 = v300;
+    if (((((v305 * v298.f32[1]) + (v304 * v298.f32[0])) + (v306 * v299)) + (v307 * v300)) < 0.0)
+    {
+      v32 = -v298.f32[0];
+      v33 = -v298.f32[1];
+      v27 = -v299;
+      v298.f32[0] = -v298.f32[0];
+      v298.f32[1] = -v298.f32[1];
+      v31 = -v300;
+      v299 = -v299;
+      v300 = -v300;
+    }
+  }
+
+  v34 = *(a5 + 452);
+  v35 = *(a5 + 456);
+  v36 = (v301 - v308) + (v301 - v308);
+  v37 = (v302 - v309) + (v302 - v309);
+  v38 = (v303 - v310) + (v303 - v310);
+  v39 = (v30 * v30) + -0.5;
+  v40 = (-(v29 * v37) - (v304 * v36)) - (v28 * v38);
+  v41 = ((v30 * ((v28 * v37) - (v29 * v38))) + (v36 * v39)) - (v304 * v40);
+  v42 = ((v30 * ((v304 * v38) - (v28 * v36))) + (v37 * v39)) - (v29 * v40);
+  v43 = ((v30 * ((v29 * v36) - (v304 * v37))) + (v38 * v39)) - (v28 * v40);
+  v44 = (((v30 * v32) - (v304 * v31)) - (v29 * v27)) + (v33 * v28);
+  v45 = (((v30 * v33) - (v29 * v31)) - (v28 * v32)) + (v27 * v304);
+  v46 = (((v30 * v27) - (v28 * v31)) - (v304 * v33)) + (v32 * v29);
+  v47 = (((v304 * v32) + (v30 * v31)) + (v29 * v33)) + (v28 * v27);
+  v288[0] = v44;
+  v288[1] = v45;
+  v288[2] = v46;
+  v288[3] = v47;
+  v289 = v41;
+  v290 = v42;
+  v291 = v43;
+  v48 = v29 * (v29 + v29);
+  v49 = v28 * (v28 + v28);
+  v50 = (v304 + v304) * v29;
+  v51 = (v304 + v304) * v28;
+  v52 = (v304 + v304) * v30;
+  v53 = v28 * (v29 + v29);
+  v54 = v30 * (v29 + v29);
+  v55 = v30 * (v28 + v28);
+  v282[0] = (1.0 - v48) - v49;
+  v282[1] = v50 + v55;
+  v56 = 1.0 - (v304 * (v304 + v304));
+  v283 = v51 - v54;
+  v284.f32[0] = v50 - v55;
+  v284.f32[1] = v56 - v49;
+  v285 = v52 + v53;
+  v286.f32[0] = v51 + v54;
+  v286.f32[1] = v53 - v52;
+  v287 = v56 - v48;
+  v57 = v32 + v32;
+  v58 = v33 * (v33 + v33);
+  v59 = v27 * (v27 + v27);
+  v60 = v33 * (v32 + v32);
+  v61 = v27 * (v32 + v32);
+  v62 = (v33 + v33) * v31;
+  v63 = v31 * (v27 + v27);
+  if ((v25 & 7) != 0)
+  {
+    v64 = 0;
+    v65 = 0;
+    v66 = a5 + 304;
+    *&v67 = *(a5 + 420) - v42;
+    *&v68 = *(a5 + 424) - v43;
+    *&v316 = *(a5 + 416) - v41;
+    *(&v316 + 4) = __PAIR64__(v68, v67);
+    v69 = v293;
+    v70 = &v283;
+    do
+    {
+      if ((v25 >> v64))
+      {
+        v71 = -*(a5 + v65 + 428);
+        v293 = v69 + 80;
+        *(v69 + 78) = 0;
+        v72 = *(v70 - 2);
+        *&_Q10 = v72;
+        *(&_Q10 + 2) = *v70;
+        HIDWORD(_Q10) = *(&v316 + v65);
+        *(v69 + 32) = v72;
+        *(v69 + 40) = DWORD2(_Q10);
+        *v69 = _Q10;
+        LODWORD(_Q10) = v295;
+        _V12.S[1] = v294.i32[1];
+        __asm { FMLA            S11, S22, V12.S[1] }
+
+        v80 = vdup_lane_s32(v72, 0);
+        v80.i32[0] = DWORD2(_Q10);
+        *&_Q10 = vzip1_s32(*&_Q10, v294);
+        v81 = vmla_f32(vmul_f32(v80, vneg_f32(v294)), v72, *&_Q10);
+        *(v69 + 16) = _S11;
+        *(v69 + 20) = v81;
+        LODWORD(_Q10) = v297;
+        _V12.S[1] = v296.i32[1];
+        __asm { FMLA            S11, S22, V12.S[1] }
+
+        v84 = vmla_f32(vmul_f32(v80, vneg_f32(v296)), v72, vzip1_s32(*&_Q10, v296));
+        *(v69 + 48) = _S11;
+        *(v69 + 52) = v84;
+        *(v69 + 28) = v71;
+        if (*(a5 + 4 * v65 + 316))
+        {
+          v85 = 35;
+        }
+
+        else
+        {
+          v85 = 33;
+        }
+
+        *(v69 + 76) |= v85;
+        *(v69 + 64) = *v66;
+        *(v69 + 68) = *(v66 + 4);
+        v86 = *(v66 + 8);
+        *(v69 + 44) = -v86;
+        *(v69 + 60) = v86;
+        v69 += 80;
+      }
+
+      v65 += 4;
+      ++v64;
+      v66 += 16;
+      v70 += 3;
+    }
+
+    while (v65 != 12);
+  }
+
+  v87 = (1.0 - v58) - v59;
+  v88 = v63 + v60;
+  v89 = v61 - v62;
+  if ((v25 & 0x38) != 0)
+  {
+    v90 = *(a5 + 400);
+    v91 = *(a5 + 404);
+    v92 = *(a5 + 408);
+    v93 = *(a5 + 412);
+    if (((((v45 * v91) + (v44 * v90)) + (v46 * v92)) + (v47 * v93)) <= 0.0)
+    {
+      v90 = -v90;
+      v91 = -v91;
+      v92 = -v92;
+      v93 = -v93;
+    }
+
+    v94 = (((v93 * v44) - (v90 * v47)) - (v91 * v46)) + (v45 * v92);
+    v95 = (((v93 * v45) - (v91 * v47)) - (v92 * v44)) + (v46 * v90);
+    v96 = (((v93 * v46) - (v92 * v47)) - (v90 * v45)) + (v44 * v91);
+    if ((v25 & 0x20) != 0)
+    {
+      v275 = v63 + v60;
+      v122 = *(a5 + 440) + *(a5 + 440);
+      v123 = *(a5 + 444) + *(a5 + 444);
+      v124 = *(a5 + 448) + *(a5 + 448);
+      v125 = ((v29 * v123) + (v26 * v122)) + (v28 * v124);
+      v126 = (v30 * ((v123 * -v28) + (v29 * v124))) + (v122 * v39);
+      v127 = (v30 * ((v124 * -v26) + (v28 * v122))) + (v123 * v39);
+      v128 = (v30 * ((v122 * -v29) + (v26 * v123))) + (v124 * v39);
+      v316 = xmmword_1E3047670;
+      v317 = xmmword_1E3047670;
+      v318 = 1.0;
+      if (*(a5 + 384) != 0.0)
+      {
+        v270 = v89;
+        v129 = (((v26 * v93) + (v30 * v90)) + (v29 * v92)) + (-v91 * v28);
+        v130 = (((v29 * v93) + (v30 * v91)) + (v28 * v90)) + (-v92 * v26);
+        v131 = (((v28 * v93) + (v30 * v92)) + (v26 * v91)) + (-v90 * v29);
+        v132 = (((v90 * -v26) + (v30 * v93)) + (-v29 * v91)) + (-v28 * v92);
+        v133 = (v32 * v132) + (v31 * v129);
+        v134 = (v33 * v132) + (v31 * v130);
+        v135 = (v27 * v132) + (v31 * v131);
+        v136 = v31 * v132;
+        v137 = v33 * v130;
+        v138 = ((v33 * v130) + (v129 * v32)) + (v131 * v27);
+        v139 = v32 * v129;
+        v140 = (v32 * v130) + (v33 * v129);
+        v141 = (v32 * v131) + (v27 * v129);
+        v142 = ((v139 + v139) + (v136 - v138)) * 0.5;
+        *&v316 = v142;
+        *(&v316 + 1) = (v140 + v135) * 0.5;
+        v143 = (v33 * v131) + (v27 * v130);
+        v144 = ((v137 + v137) + (v136 - v138)) * 0.5;
+        *(&v316 + 2) = (v141 - v134) * 0.5;
+        *(&v316 + 3) = (v140 - v135) * 0.5;
+        *&v317 = v144;
+        *(&v317 + 1) = (v133 + v143) * 0.5;
+        v145 = (((v27 * v131) + (v27 * v131)) + (v136 - v138)) * 0.5;
+        *(&v317 + 2) = (v134 + v141) * 0.5;
+        *(&v317 + 3) = (v143 - v133) * 0.5;
+        v318 = v145;
+        v146 = v136 + v138;
+        v89 = v270;
+        if (v146 == 0.0)
+        {
+          *&v316 = v142 + 0.00000011921;
+          *&v317 = v144 + 0.00000011921;
+          v318 = v145 + 0.00000011921;
+        }
+      }
+
+      v147 = 0;
+      v148 = v293;
+      v149 = -(v128 + (v28 * v125));
+      v150 = &v316 + 2;
+      v151 = &v314;
+      do
+      {
+        v152 = v148 + v147;
+        *&v153 = *(v150 - 1);
+        v154 = *v150;
+        v150 += 3;
+        v155 = v154;
+        v156 = (vmuls_lane_f32(-(v127 + (v29 * v125)), *&v153, 1) + (*&v153 * -(v126 + (v26 * v125)))) + (v154 * v149);
+        v314 = __PAIR64__(LODWORD(v95), LODWORD(v94));
+        v315 = v96;
+        v157 = v151->f32[0];
+        v151 = (v151 + 4);
+        *(v152 + 78) = 258;
+        *v152 = 0;
+        *(v152 + 8) = 0;
+        *(v152 + 16) = v153;
+        *(v152 + 32) = 0;
+        *(v152 + 40) = 0;
+        *(v152 + 12) = -v157;
+        v158 = *(v148 + v147 + 76);
+        *(v152 + 24) = v155;
+        *(v152 + 28) = v156;
+        if (*(a5 + 396))
+        {
+          v159 = 35;
+        }
+
+        else
+        {
+          v159 = 33;
+        }
+
+        *(v152 + 76) = v158 | v159 | 0x40;
+        *(v152 + 64) = *(a5 + 384);
+        *(v152 + 68) = *(a5 + 388);
+        v160 = *(a5 + 392);
+        *(&v153 + 1) = __PAIR64__(LODWORD(v160), LODWORD(v155));
+        *(v152 + 44) = -v160;
+        *(v152 + 48) = v153;
+        v147 += 80;
+      }
+
+      while (v147 != 240);
+      v293 = v148 + 240;
+      v88 = v275;
+    }
+
+    else
+    {
+      if ((v25 & 0x10) != 0)
+      {
+        v97 = *(a5 + 440);
+        v98 = v293;
+        v293 += 80;
+        *(v98 + 78) = 0;
+        *v98 = 0;
+        *(v98 + 8) = 0;
+        *(v98 + 20) = v88;
+        *(v98 + 24) = v89;
+        *(v98 + 32) = 0;
+        *(v98 + 40) = 0;
+        *(v98 + 48) = v87;
+        *(v98 + 52) = v88;
+        *(v98 + 56) = v89;
+        *(v98 + 12) = v94 * -2.0;
+        *(v98 + 16) = v87;
+        v99 = *(v98 + 76);
+        *(v98 + 28) = v97;
+        if (*(a5 + 380))
+        {
+          v100 = 35;
+        }
+
+        else
+        {
+          v100 = 33;
+        }
+
+        *(v98 + 76) = v99 | v100 | 0x40;
+        *(v98 + 64) = *(a5 + 368);
+        *(v98 + 68) = *(a5 + 372);
+        v101 = *(a5 + 376);
+        *(v98 + 44) = -v101;
+        *(v98 + 60) = v101;
+      }
+
+      if ((v25 & 8) != 0)
+      {
+        v102 = v31 * v57;
+        v103 = v27 * (v33 + v33);
+        v104 = 1.0 - (v32 * v57);
+        v105 = (((v44 * v90) + (v93 * v47)) + (v91 * v45)) + (v92 * v46);
+        v106 = (v105 * v105) + -0.5;
+        v107 = ((v95 * 0.0) + (v94 * 2.0)) + (v96 * 0.0);
+        if ((v34 & 0x10) == 0)
+        {
+          v108 = v60 - v63;
+          v109 = *(a5 + 444);
+          v110 = v293;
+          v293 += 80;
+          *(v110 + 78) = 0;
+          *v110 = 0;
+          *(v110 + 8) = 0;
+          *(v110 + 20) = v104 - v59;
+          *(v110 + 24) = v103 + v102;
+          *(v110 + 32) = 0;
+          *(v110 + 40) = 0;
+          *(v110 + 48) = v108;
+          *(v110 + 52) = v104 - v59;
+          *(v110 + 56) = v103 + v102;
+          *(v110 + 12) = ((v105 * ((v95 * -2.0) + (v94 * 0.0))) + (v106 * 0.0)) + (v96 * v107);
+          *(v110 + 16) = v108;
+          v111 = *(v110 + 76);
+          *(v110 + 28) = v109;
+          if (*(a5 + 364))
+          {
+            v112 = 35;
+          }
+
+          else
+          {
+            v112 = 33;
+          }
+
+          *(v110 + 76) = v111 | v112 | 0x40;
+          *(v110 + 64) = *(a5 + 352);
+          *(v110 + 68) = *(a5 + 356);
+          v113 = *(a5 + 360);
+          *(v110 + 44) = -v113;
+          *(v110 + 60) = v113;
+        }
+
+        if ((v34 & 0x20) == 0)
+        {
+          v114 = v103 - v102;
+          v115 = v104 - v58;
+          v116 = ((v105 * ((v94 * -0.0) + (v96 * 2.0))) + (v106 * 0.0)) + (v95 * v107);
+          v117 = *(a5 + 448);
+          v118 = v293;
+          v293 += 80;
+          *(v118 + 78) = 0;
+          *v118 = 0;
+          *(v118 + 8) = 0;
+          *(v118 + 20) = v114;
+          *(v118 + 24) = v115;
+          *(v118 + 32) = 0;
+          *(v118 + 40) = 0;
+          *(v118 + 48) = v62 + v61;
+          *(v118 + 52) = v114;
+          *(v118 + 56) = v115;
+          *(v118 + 12) = -v116;
+          *(v118 + 16) = v62 + v61;
+          v119 = *(v118 + 76);
+          *(v118 + 28) = v117;
+          if (*(a5 + 364))
+          {
+            v120 = 35;
+          }
+
+          else
+          {
+            v120 = 33;
+          }
+
+          *(v118 + 76) = v119 | v120 | 0x40;
+          *(v118 + 64) = *(a5 + 352);
+          *(v118 + 68) = *(a5 + 356);
+          v121 = *(a5 + 360);
+          *(v118 + 44) = -v121;
+          *(v118 + 60) = v121;
+        }
+      }
+    }
+  }
+
+  if ((v35 & 0x38) != 0)
+  {
+    if (v44 == 0.0)
+    {
+      v164 = 1.0;
+      v162 = 0.0;
+      v163 = 0.0;
+    }
+
+    else
+    {
+      v161 = sqrtf(((v44 * v44) + 0.0) + (v47 * v47));
+      v162 = v44 / v161;
+      v163 = 0.0 / v161;
+      v164 = v47 / v161;
+    }
+
+    *&v165 = (((v44 * v164) - (v47 * v162)) - (v45 * v163)) + (v163 * v46);
+    v166 = (((v45 * v164) - (v47 * v163)) - (v46 * v162)) + (v163 * v44);
+    *&v167 = (((v46 * v164) - (v47 * v163)) - (v44 * v163)) + (v162 * v45);
+    v168 = (((v44 * v162) + (v47 * v164)) + (v45 * v163)) + (v46 * v163);
+    *&v316 = __PAIR64__(LODWORD(v166), v165);
+    *(&v316 + 1) = __PAIR64__(LODWORD(v168), v167);
+    if ((~v35 & 0x30) == 0)
+    {
+      if (*(a5 + 478) == 1)
+      {
+        v169 = *(a5 + 252) <= 0.0 && *(a5 + 248) <= 0.0 ? *(a5 + 256) : 0;
+        v313 = 0;
+        v311 = *(a5 + 260);
+        v312 = v169;
+        if (physx::Cm::ConeLimitHelperTanLess::getLimit(&v311, &v316, &v314, &v313))
+        {
+          v172 = v306;
+          v173 = (v307 * v307) + -0.5;
+          v174 = (((v314.f32[1] + v314.f32[1]) * v305) + (v304 * (v314.f32[0] + v314.f32[0]))) + (v306 * (v315 + v315));
+          v175 = ((v307 * ((v305 * (v315 + v315)) - (v306 * (v314.f32[1] + v314.f32[1])))) + ((v314.f32[0] + v314.f32[0]) * v173)) + (v304 * v174);
+          v176 = ((v307 * ((v306 * (v314.f32[0] + v314.f32[0])) - (v304 * (v315 + v315)))) + ((v314.f32[1] + v314.f32[1]) * v173)) + (v305 * v174);
+          v177 = (v307 * ((v304 * (v314.f32[1] + v314.f32[1])) - (v305 * (v314.f32[0] + v314.f32[0])))) + ((v315 + v315) * v173);
+          v178 = v313;
+          v179 = v293;
+          v293 += 80;
+          *(v179 + 78) = 0;
+          *v179 = 0;
+          v180 = v177 + (v172 * v174);
+          *(v179 + 8) = 0;
+          *(v179 + 20) = v176;
+          *(v179 + 24) = v180;
+          *(v179 + 32) = 0;
+          *(v179 + 40) = 0;
+          *(v179 + 48) = v175;
+          *(v179 + 52) = v176;
+          *(v179 + 56) = v180;
+          *(v179 + 12) = v178;
+          *(v179 + 16) = v175;
+          *(v179 + 76) |= 0x40u;
+          physx::Ext::joint::ConstraintHelper::addLimit(&v292, v179, a5 + 240);
+        }
+      }
+
+      if (*(a5 + 479) != 1)
+      {
+        goto LABEL_69;
+      }
+
+      v170 = a5;
+      v171 = 1;
+      goto LABEL_68;
+    }
+
+    if ((v35 & 0x10) == 0)
+    {
+      goto LABEL_52;
+    }
+
+    if ((v34 & 0x20) != 0)
+    {
+      if (*(a5 + 479))
+      {
+        setupPyramidSwingLimits(&v292, a5, &v316, &v304, 1, 0);
+        goto LABEL_52;
+      }
+
+      v279 = *(a5 + 260);
+      v221 = atan2f(v166, v168 + 1.0) * 4.0;
+      if (*(a5 + 252) <= 0.0 && *(a5 + 248) <= 0.0)
+      {
+        v222 = *(a5 + 256);
+      }
+
+      else
+      {
+        v222 = 0.0;
+      }
+
+      v262 = v279;
+      if ((v222 - v279) > v221)
+      {
+        v263 = -v285;
+        v264 = v293;
+        v293 += 80;
+        *(v264 + 78) = 0;
+        *v264 = 0;
+        *(v264 + 8) = 0;
+        v265 = vneg_f32(v284);
+        *(v264 + 16) = v265;
+        *(v264 + 24) = v263;
+        *(v264 + 32) = 0;
+        *(v264 + 40) = 0;
+        *(v264 + 48) = v265;
+        *(v264 + 56) = v263;
+        *(v264 + 12) = -(-v279 - v221);
+        *(v264 + 76) |= 0x40u;
+        physx::Ext::joint::ConstraintHelper::addLimit(&v292, v264, a5 + 240);
+        v262 = v279;
+      }
+
+      if ((v262 - v222) < v221)
+      {
+        v256 = v262 - v221;
+        v257 = v293;
+        v293 += 80;
+        *(v257 + 78) = 0;
+        *v257 = 0;
+        *(v257 + 8) = 0;
+        v215 = v284.f32[1];
+        v214 = v284.f32[0];
+        v216 = v285;
+        goto LABEL_156;
+      }
+    }
+
+    else
+    {
+      if (*(a5 + 479))
+      {
+        physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxextensions/src/ExtD6Joint.cpp", 1005, "D6JointSolverPrep: invalid joint setup. Double pyramid mode not supported.", v22, v23, v24);
+        goto LABEL_52;
+      }
+
+      v206 = (v287 * v87) - (v286.f32[0] * v89);
+      v207 = (v286.f32[0] * v88) - (v286.f32[1] * v87);
+      v208 = ((v88 * v286.f32[1]) + (v286.f32[0] * v87)) + (v287 * v89);
+      v209 = -v208;
+      v272 = (v286.f32[1] * v89) - (v287 * v88);
+      v277 = *(a5 + 260);
+      if (v208 > 1.0)
+      {
+        v209 = -1.0;
+      }
+
+      if (v209 > 1.0)
+      {
+        v209 = 1.0;
+      }
+
+      v210 = asinf(v209);
+      v211 = v206;
+      v212 = v210;
+      v213 = ((v211 * v211) + (v272 * v272)) + (v207 * v207);
+      v214 = 0.0;
+      v215 = 0.0;
+      v216 = 0.0;
+      if (v213 > 0.0)
+      {
+        v217 = 1.0 / sqrtf(v213);
+        v214 = v272 * v217;
+        v215 = v211 * v217;
+        v216 = v207 * v217;
+      }
+
+      if (*(a5 + 252) <= 0.0 && *(a5 + 248) <= 0.0)
+      {
+        v218 = *(a5 + 256);
+      }
+
+      else
+      {
+        v218 = 0.0;
+      }
+
+      v254 = v277;
+      if ((v218 - v277) > v212)
+      {
+        v255 = v293;
+        v267 = v218;
+        v269 = v216;
+        v293 += 80;
+        v274 = v215;
+        v281 = v214;
+        *(v255 + 78) = 0;
+        *v255 = 0;
+        *(v255 + 8) = 0;
+        *(v255 + 20) = -v215;
+        *(v255 + 24) = -v216;
+        *(v255 + 32) = 0;
+        *(v255 + 40) = 0;
+        *(v255 + 48) = -v214;
+        *(v255 + 52) = -v215;
+        *(v255 + 56) = -v216;
+        *(v255 + 12) = -(-v254 - v212);
+        *(v255 + 16) = -v214;
+        *(v255 + 76) |= 0x40u;
+        physx::Ext::joint::ConstraintHelper::addLimit(&v292, v255, a5 + 240);
+        v218 = v267;
+        v216 = v269;
+        v215 = v274;
+        v214 = v281;
+      }
+
+      if ((v254 - v218) < v212)
+      {
+        v256 = v254 - v212;
+        v257 = v293;
+        v293 += 80;
+        *(v257 + 78) = 0;
+        *v257 = 0;
+        *(v257 + 8) = 0;
+LABEL_156:
+        *(v257 + 20) = v215;
+        *(v257 + 24) = v216;
+        *(v257 + 32) = 0;
+        *(v257 + 40) = 0;
+        *(v257 + 48) = v214;
+        *(v257 + 52) = v215;
+        *(v257 + 56) = v216;
+        *(v257 + 12) = v256;
+        *(v257 + 16) = v214;
+        *(v257 + 76) |= 0x40u;
+        physx::Ext::joint::ConstraintHelper::addLimit(&v292, v257, a5 + 240);
+      }
+    }
+
+LABEL_52:
+    if ((v35 & 0x20) == 0)
+    {
+      goto LABEL_69;
+    }
+
+    if ((v34 & 0x10) != 0)
+    {
+      if (*(a5 + 479))
+      {
+        v170 = a5;
+        v171 = 0;
+LABEL_68:
+        setupPyramidSwingLimits(&v292, v170, &v316, &v304, v171, 1);
+        goto LABEL_69;
+      }
+
+      v278 = *(a5 + 264);
+      v219 = atan2f(*(&v316 + 2), *(&v316 + 3) + 1.0) * 4.0;
+      if (*(a5 + 252) <= 0.0 && *(a5 + 248) <= 0.0)
+      {
+        v220 = *(a5 + 256);
+      }
+
+      else
+      {
+        v220 = 0.0;
+      }
+
+      v258 = v278;
+      if ((v220 - v278) > v219)
+      {
+        v259 = -v287;
+        v260 = v293;
+        v293 += 80;
+        *(v260 + 78) = 0;
+        *v260 = 0;
+        *(v260 + 8) = 0;
+        v261 = vneg_f32(v286);
+        *(v260 + 16) = v261;
+        *(v260 + 24) = v259;
+        *(v260 + 32) = 0;
+        *(v260 + 40) = 0;
+        *(v260 + 48) = v261;
+        *(v260 + 56) = v259;
+        *(v260 + 12) = -(-v278 - v219);
+        *(v260 + 76) |= 0x40u;
+        physx::Ext::joint::ConstraintHelper::addLimit(&v292, v260, a5 + 240);
+        v258 = v278;
+      }
+
+      if ((v258 - v220) >= v219)
+      {
+        goto LABEL_69;
+      }
+
+      v252 = v258 - v219;
+      v253 = v293;
+      v293 += 80;
+      *(v253 + 78) = 0;
+      *v253 = 0;
+      *(v253 + 8) = 0;
+      v202 = v286.f32[1];
+      v201 = v286.f32[0];
+      v203 = v287;
+    }
+
+    else
+    {
+      if (*(a5 + 479))
+      {
+        physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 8, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxextensions/src/ExtD6Joint.cpp", 1021, "D6JointSolverPrep: invalid joint setup. Double pyramid mode not supported.", v22, v23, v24);
+        goto LABEL_69;
+      }
+
+      v194 = (v285 * v87) - (v284.f32[0] * v89);
+      v195 = (v284.f32[0] * v88) - (v284.f32[1] * v87);
+      v196 = ((v88 * v284.f32[1]) + (v284.f32[0] * v87)) + (v285 * v89);
+      v271 = (v284.f32[1] * v89) - (v285 * v88);
+      v276 = *(a5 + 264);
+      if (v196 < -1.0)
+      {
+        v196 = -1.0;
+      }
+
+      if (v196 > 1.0)
+      {
+        v196 = 1.0;
+      }
+
+      v197 = asinf(v196);
+      v198 = v194;
+      v199 = v197;
+      v200 = ((v198 * v198) + (v271 * v271)) + (v195 * v195);
+      v201 = 0.0;
+      v202 = 0.0;
+      v203 = 0.0;
+      if (v200 > 0.0)
+      {
+        v204 = 1.0 / sqrtf(v200);
+        v201 = -(v271 * v204);
+        v202 = -(v198 * v204);
+        v203 = -(v195 * v204);
+      }
+
+      if (*(a5 + 252) <= 0.0 && *(a5 + 248) <= 0.0)
+      {
+        v205 = *(a5 + 256);
+      }
+
+      else
+      {
+        v205 = 0.0;
+      }
+
+      v250 = v276;
+      if ((v205 - v276) > v199)
+      {
+        v251 = v293;
+        v266 = v205;
+        v268 = v203;
+        v293 += 80;
+        v273 = v202;
+        v280 = v201;
+        *(v251 + 78) = 0;
+        *v251 = 0;
+        *(v251 + 8) = 0;
+        *(v251 + 20) = -v202;
+        *(v251 + 24) = -v203;
+        *(v251 + 32) = 0;
+        *(v251 + 40) = 0;
+        *(v251 + 48) = -v201;
+        *(v251 + 52) = -v202;
+        *(v251 + 56) = -v203;
+        *(v251 + 12) = -(-v250 - v199);
+        *(v251 + 16) = -v201;
+        *(v251 + 76) |= 0x40u;
+        physx::Ext::joint::ConstraintHelper::addLimit(&v292, v251, a5 + 240);
+        v205 = v266;
+        v203 = v268;
+        v202 = v273;
+        v201 = v280;
+      }
+
+      if ((v250 - v205) >= v199)
+      {
+        goto LABEL_69;
+      }
+
+      v252 = v250 - v199;
+      v253 = v293;
+      v293 += 80;
+      *(v253 + 78) = 0;
+      *v253 = 0;
+      *(v253 + 8) = 0;
+    }
+
+    *(v253 + 20) = v202;
+    *(v253 + 24) = v203;
+    *(v253 + 32) = 0;
+    *(v253 + 40) = 0;
+    *(v253 + 48) = v201;
+    *(v253 + 52) = v202;
+    *(v253 + 56) = v203;
+    *(v253 + 12) = v252;
+    *(v253 + 16) = v201;
+    *(v253 + 76) |= 0x40u;
+    physx::Ext::joint::ConstraintHelper::addLimit(&v292, v253, a5 + 240);
+LABEL_69:
+    if ((v35 & 8) != 0)
+    {
+      v181 = sqrtf((((v163 * v163) + (v162 * v162)) + (v163 * v163)) + (v164 * v164));
+      if (v181 != 0.0)
+      {
+        v162 = v162 / v181;
+        v164 = v164 / v181;
+      }
+
+      v182 = -1.0;
+      if (v164 >= -1.0)
+      {
+        v182 = v164;
+      }
+
+      if (v182 > 1.0)
+      {
+        v182 = 1.0;
+      }
+
+      v183 = acosf(v182);
+      v184 = v183 + v183;
+      if (v162 >= 0.0)
+      {
+        v185 = v184;
+      }
+
+      else
+      {
+        v185 = -v184;
+      }
+
+      v186 = *(a5 + 236);
+      if (*(a5 + 224) <= 0.0 && *(a5 + 220) <= 0.0)
+      {
+        v187 = *(a5 + 228);
+      }
+
+      else
+      {
+        v187 = 0.0;
+      }
+
+      v188 = *(a5 + 232);
+      if ((v186 + v187) > v185)
+      {
+        v189 = v293;
+        v293 += 80;
+        *(v189 + 78) = 0;
+        *v189 = 0;
+        *(v189 + 8) = 0;
+        *(v189 + 20) = -v88;
+        *(v189 + 24) = -v89;
+        *(v189 + 32) = 0;
+        *(v189 + 40) = 0;
+        *(v189 + 48) = -v87;
+        *(v189 + 52) = -v88;
+        *(v189 + 56) = -v89;
+        *(v189 + 12) = -(v186 - v185);
+        *(v189 + 16) = -v87;
+        *(v189 + 76) |= 0x40u;
+        physx::Ext::joint::ConstraintHelper::addLimit(&v292, v189, a5 + 212);
+      }
+
+      if ((v188 - v187) < v185)
+      {
+        v190 = v293;
+        v293 += 80;
+        *(v190 + 78) = 0;
+        *v190 = 0;
+        *(v190 + 8) = 0;
+        *(v190 + 20) = v88;
+        *(v190 + 24) = v89;
+        *(v190 + 32) = 0;
+        *(v190 + 40) = 0;
+        *(v190 + 48) = v87;
+        *(v190 + 52) = v88;
+        *(v190 + 56) = v89;
+        *(v190 + 12) = v188 - v185;
+        *(v190 + 16) = v87;
+        *(v190 + 76) |= 0x40u;
+        physx::Ext::joint::ConstraintHelper::addLimit(&v292, v190, a5 + 212);
+      }
+    }
+  }
+
+  if ((v35 & 7) != 0)
+  {
+    if (*(a5 + 476) == 1)
+    {
+      v191 = computeLimitedDistance(*(a5 + 456), v288, v282, &v316);
+      if (v191 > *(a5 + 464))
+      {
+        v192.i32[0] = *(a5 + 124);
+        if (*(a5 + 116) <= 0.0 && *(a5 + 112) <= 0.0)
+        {
+          v193 = *(a5 + 120);
+        }
+
+        else
+        {
+          v193 = 0.0;
+        }
+
+        if ((v191 + v193) > *v192.i32)
+        {
+          v223 = vmul_n_f32(*&v316, 1.0 / v191);
+          _S2 = (1.0 / v191) * *(&v316 + 2);
+          v225 = *v192.i32 - v191;
+          v226 = v293;
+          v293 += 80;
+          *(v226 + 78) = 0;
+          *v226 = v223;
+          *(v226 + 8) = _S2;
+          v192.i32[0] = v295;
+          _V5.S[1] = v294.i32[1];
+          __asm { FMLA            S4, S2, V5.S[1] }
+
+          v229 = vdup_lane_s32(v223, 0);
+          v229.f32[0] = _S2;
+          v230 = vzip1_s32(v192, v294);
+          v231 = vmla_f32(vmul_f32(v229, vneg_f32(v294)), v223, v230);
+          *(v226 + 16) = _S4;
+          *(v226 + 20) = v231;
+          *(v226 + 32) = v223;
+          *(v226 + 40) = _S2;
+          v230.i32[0] = v297;
+          _V5.S[1] = v296.i32[1];
+          __asm { FMLA            S4, S2, V5.S[1] }
+
+          v234 = vmla_f32(vmul_f32(v229, vneg_f32(v296)), v223, vzip1_s32(v230, v296));
+          *(v226 + 48) = _S4;
+          *(v226 + 52) = v234;
+          *(v226 + 12) = v225;
+          physx::Ext::joint::ConstraintHelper::addLimit(&v292, v226, a5 + 104);
+        }
+      }
+    }
+
+    if (*(a5 + 477) == 1)
+    {
+      if ((v35 & 1) != 0 && *(a5 + 152) <= *(a5 + 148))
+      {
+        setupLinearLimit(&v292, (a5 + 128), v282, v289);
+      }
+
+      if ((v35 & 2) != 0 && *(a5 + 180) <= *(a5 + 176))
+      {
+        setupLinearLimit(&v292, (a5 + 156), &v284, v290);
+      }
+
+      if ((v35 & 4) != 0 && *(a5 + 208) <= *(a5 + 204))
+      {
+        setupLinearLimit(&v292, (a5 + 184), &v286, v291);
+      }
+    }
+  }
+
+  if ((v34 & 0x38) == 0x20)
+  {
+    v34 &= 0xFFFFFFC7;
+    v241 = v285;
+    v242 = (v88 * v285) - (v89 * v284.f32[1]);
+    v243 = (v89 * v284.f32[0]) - (v87 * v285);
+    v244 = (v87 * v284.f32[1]) - (v88 * v284.f32[0]);
+    v245 = (v88 * v284.f32[1]) + (v87 * v284.f32[0]);
+    v246 = v293;
+    v293 += 80;
+    *(v246 + 78) = 2048;
+    *v246 = 0;
+    *(v246 + 8) = 0;
+    *(v246 + 20) = v243;
+    *(v246 + 24) = v244;
+    *(v246 + 32) = 0;
+    *(v246 + 40) = 0;
+    *(v246 + 48) = v242;
+    *(v246 + 52) = v243;
+    *(v246 + 56) = v244;
+    *(v246 + 12) = -(v245 + (v89 * v241));
+    *(v246 + 16) = v242;
+    *(v246 + 76) |= 0x50u;
+  }
+
+  else if ((v34 & 0x38) == 0x10)
+  {
+    v235 = v287;
+    v236 = (v88 * v287) - (v89 * v286.f32[1]);
+    v237 = (v89 * v286.f32[0]) - (v87 * v287);
+    v238 = (v87 * v286.f32[1]) - (v88 * v286.f32[0]);
+    v239 = (v88 * v286.f32[1]) + (v87 * v286.f32[0]);
+    v240 = v293;
+    v293 += 80;
+    *(v240 + 78) = 2048;
+    *v240 = 0;
+    *(v240 + 8) = 0;
+    *(v240 + 20) = v237;
+    *(v240 + 24) = v238;
+    *(v240 + 32) = 0;
+    *(v240 + 40) = 0;
+    *(v240 + 48) = v236;
+    *(v240 + 52) = v237;
+    *(v240 + 56) = v238;
+    *(v240 + 12) = -(v239 + (v89 * v235));
+    *(v240 + 16) = v236;
+    *(v240 + 76) |= 0x50u;
+    v34 &= 0xFFFFFFC7;
+  }
+
+  physx::Ext::joint::ConstraintHelper::prepareLockedAxes(&v292, &v304, &v298, &v289, v34 & 7, v34 >> 3, &v316, &v314);
+  v247 = *(&v316 + 2) + a6[3].f32[0];
+  *a9 = vadd_f32(*&v316, a6[2]);
+  a9[1].f32[0] = v247;
+  v248 = v315 + a7[3].f32[0];
+  *a10 = vadd_f32(v314, a7[2]);
+  a10[1].f32[0] = v248;
+  return -858993459 * ((v293 - v292) >> 4);
+}
+
+void D6JointProject(uint64_t a1, float *a2, float *a3, int a4, double a5, double a6, double a7, double a8, double a9, double a10, int8x16_t a11, int8x16_t a12)
+{
+  physx::Ext::joint::computeJointFrames(&v149, &v142, a1, a2, a3, a5, a6, a7, a8, a9, a10, a11, a12);
+  v16 = v149;
+  v17 = v150;
+  v19 = v151;
+  v18 = v152;
+  v122 = v153;
+  v123 = v146;
+  v20 = (v146 - v122) + (v146 - v122);
+  v21 = (v147 - v154) + (v147 - v154);
+  v22 = (v148 - v155) + (v148 - v155);
+  v23 = (v18 * v18) + -0.5;
+  v24 = (-(v150 * v21) - (v149 * v20)) - (v151 * v22);
+  v25 = ((v152 * ((v151 * v21) - (v150 * v22))) + (v20 * v23)) - (v149 * v24);
+  v26 = ((v152 * ((v149 * v22) - (v151 * v20))) + (v21 * v23)) - (v150 * v24);
+  v121 = v23;
+  v27 = ((v152 * ((v150 * v20) - (v149 * v21))) + (v22 * v23)) - (v151 * v24);
+  v28 = (((v152 * v142) - (v149 * v145)) - (v150 * v144)) + (v143 * v151);
+  v29 = (((v152 * v143) - (v150 * v145)) - (v151 * v142)) + (v144 * v149);
+  v30 = (((v152 * v144) - (v151 * v145)) - (v149 * v143)) + (v142 * v150);
+  v124 = v142;
+  v125 = v143;
+  v126 = v145;
+  v127 = v144;
+  v31 = (((v149 * v142) + (v152 * v145)) + (v150 * v143)) + (v151 * v144);
+  v141[0] = v28;
+  v141[1] = v29;
+  v141[2] = v30;
+  v141[3] = v31;
+  v141[4] = v25;
+  v141[5] = v26;
+  v141[6] = v27;
+  v32 = *(a1 + 452);
+  v134 = v26;
+  v135 = v25;
+  if (v32)
+  {
+    v33 = v25;
+  }
+
+  else
+  {
+    v33 = 0.0;
+  }
+
+  if ((v32 & 2) == 0)
+  {
+    v26 = 0.0;
+  }
+
+  v133 = v27;
+  if ((v32 & 4) != 0)
+  {
+    v34 = v27;
+  }
+
+  else
+  {
+    v34 = 0.0;
+  }
+
+  v35 = *(a1 + 468);
+  v36 = ((v26 * v26) + (v33 * v33)) + (v34 * v34);
+  v136 = v35 * v35;
+  v37 = v33;
+  v38 = v26;
+  v39 = v34;
+  if (v36 > (v35 * v35))
+  {
+    v40 = 1.0 / sqrtf(v36);
+    v37 = v35 * (v33 * v40);
+    v38 = v35 * (v26 * v40);
+    v39 = v35 * (v34 * v40);
+  }
+
+  v137 = ((v26 * v26) + (v33 * v33)) + (v34 * v34);
+  v138 = v33;
+  v128 = v39;
+  v129 = v38;
+  v130 = v37;
+  v131 = v34;
+  v132 = v26;
+  v41 = v32 >> 3;
+  v42 = cosf(*(a1 + 472) * 0.5);
+  v140 = 0;
+  if (v41 <= 3)
+  {
+    if (v41 <= 1)
+    {
+      if (v41 >= 2)
+      {
+        goto LABEL_27;
+      }
+
+      goto LABEL_20;
+    }
+
+    if (v41 != 2)
+    {
+      v156 = 0;
+      v157 = 1065353216;
+LABEL_26:
+      project(&v139, v141, &v156, &v140, v42);
+      goto LABEL_28;
+    }
+
+LABEL_20:
+    *&v139 = __PAIR64__(LODWORD(v29), LODWORD(v28));
+    *(&v139 + 1) = __PAIR64__(LODWORD(v31), LODWORD(v30));
+    goto LABEL_28;
+  }
+
+  if (v41 <= 5)
+  {
+    if (v41 == 4)
+    {
+      goto LABEL_20;
+    }
+
+    v43 = 0x3F80000000000000;
+LABEL_25:
+    v156 = v43;
+    v157 = 0;
+    goto LABEL_26;
+  }
+
+  if (v41 == 6)
+  {
+    v43 = 1065353216;
+    goto LABEL_25;
+  }
+
+  if (v41 != 7)
+  {
+LABEL_27:
+    v139 = xmmword_1E30474D0;
+    goto LABEL_28;
+  }
+
+  truncate(&v139, v141, &v140, v42);
+LABEL_28:
+  if (v137 > v136 || v140)
+  {
+    v44 = (v135 - v138) + v130;
+    v45 = (v134 - v132) + v129;
+    v46 = (v133 - v131) + v128;
+    if (a4)
+    {
+      v47 = *(a1 + 60) * -2.0;
+      v48 = *(a1 + 64) * -2.0;
+      v49 = *(a1 + 68) * -2.0;
+      v51 = *(a1 + 52);
+      v50 = *(a1 + 56);
+      v52 = (v50 * v50) + -0.5;
+      v53 = *(a1 + 44);
+      v54 = *(a1 + 48);
+      v55 = ((v48 * v54) + (v53 * v47)) + (v51 * v49);
+      v56 = ((v47 * v52) - (((v54 * v49) - (v51 * v48)) * v50)) + (v53 * v55);
+      v57 = ((v48 * v52) - (((v51 * v47) - (v53 * v49)) * v50)) + (v54 * v55);
+      v58 = ((v49 * v52) - (((v53 * v48) - (v54 * v47)) * v50)) + (v51 * v55);
+      v59 = v56 + v56;
+      v60 = v58 + v58;
+      v61 = (*(&v139 + 3) * *(&v139 + 3)) + -0.5;
+      v62 = ((*(&v139 + 1) * (v57 + v57)) + (*&v139 * (v56 + v56))) + (*(&v139 + 2) * v60);
+      v63 = ((*(&v139 + 3) * ((*(&v139 + 1) * v60) - (*(&v139 + 2) * (v57 + v57)))) + ((v56 + v56) * v61)) + (*&v139 * v62);
+      v64 = ((*(&v139 + 3) * ((*(&v139 + 2) * (v56 + v56)) - (*&v139 * v60))) + ((v57 + v57) * v61)) + (*(&v139 + 1) * v62);
+      v65 = v46 + (((*(&v139 + 3) * ((*&v139 * (v57 + v57)) - (*(&v139 + 1) * v59))) + (v60 * v61)) + (*(&v139 + 2) * v62));
+      v66 = (((*&v139 * v50) - (*(&v139 + 3) * v53)) - (*(&v139 + 1) * v51)) + (v54 * *(&v139 + 2));
+      v67 = (((*(&v139 + 1) * v50) - (*(&v139 + 3) * v54)) - (*(&v139 + 2) * v53)) + (v51 * *&v139);
+      v68 = (((*(&v139 + 2) * v50) - (*(&v139 + 3) * v51)) - (*&v139 * v54)) + (v53 * *(&v139 + 1));
+      v69 = (((*&v139 * v53) + (*(&v139 + 3) * v50)) + (*(&v139 + 1) * v54)) + (*(&v139 + 2) * v51);
+      v70 = (v44 + v63) + (v44 + v63);
+      v71 = (v45 + v64) + (v45 + v64);
+      v72 = v65 + v65;
+      v73 = ((v17 * v71) + (v16 * v70)) + (v19 * (v65 + v65));
+      v74 = ((v18 * ((v71 * -v19) + (v17 * v72))) + (v70 * v121)) + (v16 * v73);
+      v75 = ((v18 * ((v72 * -v16) + (v19 * v70))) + (v71 * v121)) + (v17 * v73);
+      v76 = ((v18 * ((v70 * -v17) + (v16 * v71))) + (v72 * v121)) + (v19 * v73);
+      v77 = v122 + v74;
+      v78 = v154 + v75;
+      v79 = v155 + v76;
+      v80 = (((v16 * v69) + (v18 * v66)) + (v17 * v68)) - (v67 * v19);
+      v81 = (((v17 * v69) + (v18 * v67)) + (v19 * v66)) - (v68 * v16);
+      v82 = (((v19 * v69) + (v18 * v68)) + (v16 * v67)) - (v66 * v17);
+      v83 = (((v66 * -v16) + (v18 * v69)) + (-v17 * v67)) + (-v19 * v68);
+      *a3 = v80;
+      a3[1] = v81;
+      a3[2] = v82;
+      a3[3] = v83;
+      a3[4] = v77;
+      a3[5] = v78;
+      a3[6] = v79;
+      v84 = sqrtf((((v81 * v81) + (v80 * v80)) + (v82 * v82)) + (v83 * v83));
+      if (v84 != 0.0)
+      {
+        *a3 = v80 / v84;
+        a3[1] = v81 / v84;
+        a3[2] = v82 / v84;
+        a3[3] = v83 / v84;
+      }
+    }
+
+    else
+    {
+      v85 = *(a1 + 32) * -2.0;
+      v86 = *(a1 + 36) * -2.0;
+      v87 = *(a1 + 40) * -2.0;
+      v89 = *(a1 + 24);
+      v88 = *(a1 + 28);
+      v90 = (v88 * v88) + -0.5;
+      v91 = *(a1 + 16);
+      v92 = *(a1 + 20);
+      v93 = ((v86 * v92) + (v91 * v85)) + (v89 * v87);
+      v94 = ((v85 * v90) - (((v92 * v87) - (v89 * v86)) * v88)) + (v91 * v93);
+      v95 = ((v86 * v90) - (((v89 * v85) - (v91 * v87)) * v88)) + (v92 * v93);
+      v96 = (((v87 * v90) - (((v91 * v86) - (v92 * v85)) * v88)) + (v89 * v93)) - v46;
+      v97 = (v94 - v44) + (v94 - v44);
+      v98 = (v95 - v45) + (v95 - v45);
+      v99 = v96 + v96;
+      v100 = (*(&v139 + 3) * *(&v139 + 3)) + -0.5;
+      v101 = (-(*(&v139 + 1) * v98) - (*&v139 * v97)) - (*(&v139 + 2) * v99);
+      v102 = ((*(&v139 + 3) * ((*(&v139 + 2) * v98) - (*(&v139 + 1) * v99))) + (v97 * v100)) - (*&v139 * v101);
+      v103 = ((*(&v139 + 3) * ((*&v139 * v99) - (*(&v139 + 2) * v97))) + (v98 * v100)) - (*(&v139 + 1) * v101);
+      v104 = ((*(&v139 + 3) * ((*(&v139 + 1) * v97) - (*&v139 * v98))) + (v99 * v100)) - (*(&v139 + 2) * v101);
+      v105 = ((-(*&v139 * v88) - (*(&v139 + 3) * v91)) + (*(&v139 + 1) * v89)) - (v92 * *(&v139 + 2));
+      v106 = ((-(*(&v139 + 1) * v88) - (*(&v139 + 3) * v92)) + (*(&v139 + 2) * v91)) - (v89 * *&v139);
+      v107 = ((-(*(&v139 + 2) * v88) - (*(&v139 + 3) * v89)) + (*&v139 * v92)) - (v91 * *(&v139 + 1));
+      v108 = (((*(&v139 + 3) * v88) - (v91 * *&v139)) - (*(&v139 + 1) * v92)) - (*(&v139 + 2) * v89);
+      v109 = (v126 * v126) + -0.5;
+      v110 = ((v125 * (v103 + v103)) + (v124 * (v102 + v102))) + (v127 * (v104 + v104));
+      v111 = ((v126 * ((v127 * (v102 + v102)) - (v124 * (v104 + v104)))) + ((v103 + v103) * v109)) + (v125 * v110);
+      v112 = ((v126 * ((v124 * (v103 + v103)) - (v125 * (v102 + v102)))) + ((v104 + v104) * v109)) + (v127 * v110);
+      v113 = v123 + (((v126 * ((v125 * (v104 + v104)) - (v127 * (v103 + v103)))) + ((v102 + v102) * v109)) + (v124 * v110));
+      v114 = v147 + v111;
+      v115 = v148 + v112;
+      v116 = (((v124 * v108) + (v126 * v105)) + (v125 * v107)) - (v106 * v127);
+      v117 = (((v125 * v108) + (v126 * v106)) + (v127 * v105)) - (v107 * v124);
+      v118 = (((v127 * v108) + (v126 * v107)) + (v124 * v106)) - (v105 * v125);
+      v119 = (((v126 * v108) - (v124 * v105)) - (v125 * v106)) - (v127 * v107);
+      *a2 = v116;
+      a2[1] = v117;
+      a2[2] = v118;
+      a2[3] = v119;
+      a2[4] = v113;
+      a2[5] = v114;
+      a2[6] = v115;
+      v120 = sqrtf((((v117 * v117) + (v116 * v116)) + (v118 * v118)) + (v119 * v119));
+      if (v120 != 0.0)
+      {
+        *a2 = v116 / v120;
+        a2[1] = v117 / v120;
+        a2[2] = v118 / v120;
+        a2[3] = v119 / v120;
+      }
+    }
+  }
+}
+
+void D6JointVisualize(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, double a6, double a7, double a8, double a9, double a10, double a11, int8x16_t a12, int8x16_t a13)
+{
+  *v16.i32 = physx::Ext::joint::computeJointFrames(v208, &v201, a2, a3, a4, a6, a7, a8, a9, a10, a11, a12, a13);
+  if (a5)
+  {
+    (*(*a1 + 16))(a1, v208, &v201, *v16.i32);
+  }
+
+  if ((a5 & 2) == 0)
+  {
+    return;
+  }
+
+  v20 = *v208;
+  v21 = *&v208[8];
+  v22 = (v205 - v210.f32[0]) + (v205 - v210.f32[0]);
+  v23 = (v206 - v210.f32[1]) + (v206 - v210.f32[1]);
+  v24 = (v207 - v211) + (v207 - v211);
+  v25 = (v209 * v209) + -0.5;
+  v26 = (-(*&v208[4] * v23) - (*v208 * v22)) - (*&v208[8] * v24);
+  v27 = ((v209 * ((*&v208[8] * v23) - (*&v208[4] * v24))) + (v22 * v25)) - (*v208 * v26);
+  v28 = ((v209 * ((*v208 * v24) - (*&v208[8] * v22))) + (v23 * v25)) - (*&v208[4] * v26);
+  v29 = ((v209 * ((*&v208[4] * v22) - (*v208 * v23))) + (v24 * v25)) - (*&v208[8] * v26);
+  v31 = v203;
+  v30 = v204;
+  v33 = v201;
+  v32 = v202;
+  v194 = (((v209 * v201) - (*v208 * v204)) - (*&v208[4] * v203)) + (v202 * *&v208[8]);
+  v195 = (((v209 * v202) - (*&v208[4] * v204)) - (*&v208[8] * v201)) + (v203 * *v208);
+  v196 = (((v209 * v203) - (*&v208[8] * v204)) - (*v208 * v202)) + (v201 * *&v208[4]);
+  v197 = (((*v208 * v201) + (v209 * v204)) + (*&v208[4] * v202)) + (*&v208[8] * v203);
+  v198 = v27;
+  v199 = v28;
+  v200 = v29;
+  v34 = v20 + v20;
+  v35 = v20 * (v20 + v20);
+  v36 = *&v208[4] * (*&v208[4] + *&v208[4]);
+  v37 = v21 * (v21 + v21);
+  v38 = (v20 + v20) * *&v208[4];
+  v39 = v34 * *&v208[8];
+  v40 = v34 * v209;
+  v41 = (*&v208[4] + *&v208[4]) * *&v208[8];
+  v42 = (*&v208[4] + *&v208[4]) * v209;
+  v43 = (v21 + v21) * v209;
+  v44 = (1.0 - v36) - v37;
+  v45 = v38 + v43;
+  v46 = v39 - v42;
+  v187[0] = v44;
+  v187[1] = v38 + v43;
+  v47 = v38 - v43;
+  v48 = 1.0 - v35;
+  v49 = (1.0 - v35) - v37;
+  v50 = v41 + v40;
+  v187[2] = v39 - v42;
+  v188 = v47;
+  v189 = v49;
+  v190 = v41 + v40;
+  v51 = v39 + v42;
+  v52 = v41 - v40;
+  v53 = v48 - v36;
+  v191 = v39 + v42;
+  v192 = v41 - v40;
+  v193 = v53;
+  if (*(a2 + 477) == 1)
+  {
+    v54 = *(a2 + 456);
+    if (v54 <= 3)
+    {
+      switch(v54)
+      {
+        case 1:
+          v61 = v187;
+          v62 = (a2 + 128);
+          v63 = a1;
+          goto LABEL_23;
+        case 2:
+          v61 = &v188;
+          v62 = (a2 + 156);
+          v63 = a1;
+          v27 = v28;
+          goto LABEL_23;
+        case 3:
+          v55 = v187;
+          v56 = (a2 + 128);
+          v57 = &v188;
+          v58 = (a2 + 156);
+          v59 = a1;
+          v29 = v28;
+          goto LABEL_21;
+      }
+    }
+
+    else
+    {
+      if (v54 <= 5)
+      {
+        if (v54 != 4)
+        {
+          v55 = v187;
+          v56 = (a2 + 128);
+          v57 = &v191;
+          v58 = (a2 + 184);
+          v59 = a1;
+LABEL_21:
+          visualizeQuad(v59, &v210, v55, v56, v57, v58, v27, v29);
+          goto LABEL_52;
+        }
+
+        v61 = &v191;
+        v62 = (a2 + 184);
+        v63 = a1;
+        v27 = v29;
+LABEL_23:
+        visualizeLine(v63, &v210, v61, v62, v27);
+        goto LABEL_52;
+      }
+
+      if (v54 == 6)
+      {
+        v55 = &v188;
+        v56 = (a2 + 156);
+        v57 = &v191;
+        v58 = (a2 + 184);
+        v59 = a1;
+        v27 = v28;
+        goto LABEL_21;
+      }
+
+      if (v54 == 7)
+      {
+        if (*(a2 + 140) <= 0.0 && *(a2 + 136) <= 0.0)
+        {
+          v60 = *(a2 + 144);
+        }
+
+        else
+        {
+          v60 = 0.0;
+        }
+
+        if (*(a2 + 168) <= 0.0 && *(a2 + 164) <= 0.0)
+        {
+          v64 = *(a2 + 172);
+        }
+
+        else
+        {
+          v64 = 0.0;
+        }
+
+        v65 = *(a2 + 148);
+        v66 = *(a2 + 152);
+        v67 = *(a2 + 176);
+        v68 = *(a2 + 180);
+        if (*(a2 + 196) <= 0.0 && *(a2 + 192) <= 0.0)
+        {
+          v69 = *(a2 + 200);
+        }
+
+        else
+        {
+          v69 = 0.0;
+        }
+
+        v70 = v64 + v68;
+        v71 = v67 - v64;
+        v72 = *(a2 + 204);
+        v73 = *(a2 + 208);
+        if ((v72 - v69) >= v29 && (v69 + v73) <= v29 && v71 >= v28 && (v65 - v60) >= v27 && v70 <= v28 && (v60 + v66) <= v27)
+        {
+          v79 = 0xFFFFFFLL;
+        }
+
+        else
+        {
+          v79 = 16711680;
+        }
+
+        v80 = v44 * v66;
+        v81 = v45 * v66;
+        v82 = v46 * v66;
+        v83 = v44 * v65;
+        v84 = v45 * v65;
+        v85 = v46 * v65;
+        v86 = v47 * v68;
+        v87 = v49 * v68;
+        v88 = v50 * v68;
+        v89 = v47 * v67;
+        v90 = v49 * v67;
+        v91 = v50 * v67;
+        v92 = v51 * v73;
+        v93 = v52 * v73;
+        v94 = v53 * v73;
+        v95 = v51 * v72;
+        v96 = v52 * v72;
+        v97 = v53 * v72;
+        v98 = v210.f32[0] + v80;
+        v99 = v210.f32[1] + v81;
+        v100 = v211 + v82;
+        v101 = v98 + v86;
+        v102 = v99 + v87;
+        v103 = v100 + v88;
+        *&v180 = (v98 + v86) + v92;
+        *(&v180 + 1) = (v99 + v87) + v93;
+        *(&v180 + 2) = (v100 + v88) + v94;
+        v104 = v210.f32[0] + v83;
+        v105 = v210.f32[1] + v84;
+        v106 = v211 + v85;
+        v107 = v104 + v86;
+        v108 = v105 + v87;
+        v109 = v106 + v88;
+        *&v177 = (v104 + v86) + v92;
+        *(&v177 + 1) = (v105 + v87) + v93;
+        *(&v177 + 2) = (v106 + v88) + v94;
+        v110 = v104 + v89;
+        v111 = v105 + v90;
+        v112 = v106 + v91;
+        v174.f32[0] = v110 + v92;
+        v174.f32[1] = v111 + v93;
+        v174.f32[2] = v112 + v94;
+        v113 = v98 + v89;
+        v114 = v99 + v90;
+        v115 = v100 + v91;
+        v212.f32[0] = v113 + v92;
+        v212.f32[1] = v114 + v93;
+        v212.f32[2] = v115 + v94;
+        v183 = v101 + v95;
+        v184 = v102 + v96;
+        v185 = v103 + v97;
+        v215[0] = v107 + v95;
+        v215[1] = v108 + v96;
+        v215[2] = v109 + v97;
+        v214[0] = v110 + v95;
+        v214[1] = v111 + v96;
+        v214[2] = v112 + v97;
+        v213[0] = v113 + v95;
+        v213[1] = v114 + v96;
+        v213[2] = v115 + v97;
+        (*(*a1 + 56))(a1, &v180, &v177, v79);
+        (*(*a1 + 56))(a1, &v177, &v174, v79);
+        (*(*a1 + 56))(a1, &v174, &v212, v79);
+        (*(*a1 + 56))(a1, &v212, &v180, v79);
+        (*(*a1 + 56))(a1, &v183, v215, v79);
+        (*(*a1 + 56))(a1, v215, v214, v79);
+        (*(*a1 + 56))(a1, v214, v213, v79);
+        (*(*a1 + 56))(a1, v213, &v183, v79);
+        (*(*a1 + 56))(a1, &v180, &v183, v79);
+        (*(*a1 + 56))(a1, &v177, v215, v79);
+        (*(*a1 + 56))(a1, &v174, v214, v79);
+        (*(*a1 + 56))(a1, &v212, v213, v79);
+      }
+    }
+  }
+
+LABEL_52:
+  if (*(a2 + 476) == 1)
+  {
+    *v16.i32 = computeLimitedDistance(*(a2 + 456), &v194, v187, &v180);
+    if (*v16.i32 > *(a2 + 464))
+    {
+      if (*v16.i32 <= *(a2 + 124))
+      {
+        v116 = 65280;
+      }
+
+      else
+      {
+        v116 = 16711680;
+      }
+
+      (*(*a1 + 56))(a1, &v210, &v205, v116);
+    }
+  }
+
+  v19.n128_f32[0] = v197;
+  if (v194 == 0.0)
+  {
+    v16.i32[0] = 1.0;
+    v118 = 0.0;
+    v17 = 0.0;
+  }
+
+  else
+  {
+    v16.i32[1] = 0;
+    v117 = sqrtf(((v194 * v194) + 0.0) + (v197 * v197));
+    v118 = v194 / v117;
+    *&v17 = 0.0 / v117;
+    *v16.i32 = v197 / v117;
+  }
+
+  v119 = (((*v16.i32 * v195) - (v197 * *&v17)) - (v196 * v118)) + (*&v17 * v194);
+  v120 = (((*v16.i32 * v196) - (v197 * *&v17)) - (v194 * *&v17)) + (v118 * v195);
+  v18.n128_f32[0] = ((v194 * v118) + (v197 * *v16.i32)) + (v195 * *&v17);
+  v121 = v18.n128_f32[0] + (v196 * *&v17);
+  v183 = (((v194 * *v16.i32) - (v197 * v118)) - (v195 * *&v17)) + (*&v17 * v196);
+  v184 = v119;
+  v185 = v120;
+  v186 = v121;
+  v122 = *(a2 + 456);
+  if ((v122 & 8) != 0)
+  {
+    v123 = sqrtf((((*&v17 * *&v17) + (v118 * v118)) + (*&v17 * *&v17)) + (*v16.i32 * *v16.i32));
+    if (v123 != 0.0)
+    {
+      v118 = v118 / v123;
+      *v16.i32 = *v16.i32 / v123;
+    }
+
+    if (*v16.i32 < -1.0)
+    {
+      *v16.i32 = -1.0;
+    }
+
+    if (*v16.i32 > 1.0)
+    {
+      *v16.i32 = 1.0;
+    }
+
+    v124 = acosf(*v16.i32);
+    v125 = v124 + v124;
+    if (v118 >= 0.0)
+    {
+      v126 = v125;
+    }
+
+    else
+    {
+      v126 = -v125;
+    }
+
+    if (*(a2 + 224) <= 0.0 && *(a2 + 220) <= 0.0)
+    {
+      v127 = *(a2 + 228);
+    }
+
+    else
+    {
+      v127 = 0.0;
+    }
+
+    v128 = (*(a2 + 236) + v127) > v126 || (*(a2 + 232) - v127) < v126;
+    (*(*a1 + 32))(a1, v208, v128);
+    v122 = *(a2 + 456);
+  }
+
+  if ((~v122 & 0x30) != 0)
+  {
+    if (((v122 >> 5) & 1) == (v122 & 0x10) >> 4)
+    {
+      return;
+    }
+
+    v129 = (v33 + v33) * v31;
+    v130 = v30 * (v32 + v32);
+    v18.n128_f32[0] = v30 * (v31 + v31);
+    v19.n128_f32[0] = 1.0 - (v32 * (v32 + v32));
+    v131 = v19.n128_f32[0] - (v31 * (v31 + v31));
+    v132 = ((v33 + v33) * v32) + v18.n128_f32[0];
+    v133 = v129 - v130;
+    v16.i64[1] = 0x3F3504F3BF3504F3;
+    v180 = xmmword_1E31189B0;
+    v16.i64[0] = 0;
+    v181 = 0;
+    v182 = 0;
+    v17 = 0.000320729567;
+    v177 = xmmword_1E31189C0;
+    v178 = 0;
+    v179 = 0;
+    v134 = *(a2 + 452);
+    if ((v122 & 0x10) != 0)
+    {
+      if ((v134 & 0x20) == 0)
+      {
+        if (*(a2 + 479))
+        {
+          return;
+        }
+
+        v18.n128_u32[0] = *&v208[8];
+        *v16.i32 = (v209 * v209) + -0.5;
+        v141 = (vmuls_lane_f32(0.0, *v208, 1) + (*v208 * 0.0)) + (*&v208[8] * 0.0);
+        v142 = vmla_n_f32(vmla_n_f32(vmul_n_f32(vmla_f32(vmul_f32(vzip1_s32(v18.n128_u64[0], *v208), 0x8000000080000000), 0, *&v208[4]), v209), 0, *v16.i32), *v208, v141);
+        *v16.i32 = ((v209 * (vmuls_lane_f32(-0.0, *v208, 1) + (*v208 * 0.0))) + (*v16.i32 * 0.0)) + (*&v208[8] * v141);
+        v143 = vadd_f32(v210, v142);
+        v144 = v211 + *v16.i32;
+        physx::PxQuat::operator*(v208, &v177, &v212, v16, v18);
+        v174 = v212;
+        v175 = v143;
+        v176 = v144;
+        v139 = ((v132 * v192) + (v191 * v131)) + (v193 * v133);
+        v140 = *(a2 + 260);
+LABEL_92:
+        visualizeDoubleCone(a1, a2, &v174, v139, v140);
+        return;
+      }
+
+      if (*(a2 + 479))
+      {
+        v155 = a1;
+        v156 = a2;
+        v157 = 1;
+        v158 = 0;
+        goto LABEL_98;
+      }
+
+      v18.n128_u32[0] = *&v208[8];
+      *v16.i32 = (v209 * v209) + -0.5;
+      v167 = (vmuls_lane_f32(0.0, *v208, 1) + (*v208 * 0.0)) + (*&v208[8] * 0.0);
+      v168 = vmla_n_f32(vmla_n_f32(vmul_n_f32(vmla_f32(vmul_f32(vzip1_s32(v18.n128_u64[0], *v208), 0x8000000080000000), 0, *&v208[4]), v209), 0, *v16.i32), *v208, v167);
+      *v16.i32 = ((v209 * (vmuls_lane_f32(-0.0, *v208, 1) + (*v208 * 0.0))) + (*v16.i32 * 0.0)) + (*&v208[8] * v167);
+      v169 = vadd_f32(v210, v168);
+      v170 = v211 + *v16.i32;
+      physx::PxQuat::operator*(v208, &v180, &v212, v16, v18);
+      v174 = v212;
+      v175 = v169;
+      v176 = v170;
+      v163 = *(a2 + 260);
+      v164 = *(a2 + 256);
+      v165 = a1;
+      v166 = v119;
+    }
+
+    else
+    {
+      if ((v134 & 0x10) == 0)
+      {
+        if (*(a2 + 479))
+        {
+          return;
+        }
+
+        v18.n128_u32[0] = *&v208[8];
+        *v16.i32 = (v209 * v209) + -0.5;
+        v135 = (vmuls_lane_f32(0.0, *v208, 1) + (*v208 * 0.0)) + (*&v208[8] * 0.0);
+        v136 = vmla_n_f32(vmla_n_f32(vmul_n_f32(vmla_f32(vmul_f32(vzip1_s32(v18.n128_u64[0], *v208), 0x8000000080000000), 0, *&v208[4]), v209), 0, *v16.i32), *v208, v135);
+        *v16.i32 = ((v209 * (vmuls_lane_f32(-0.0, *v208, 1) + (*v208 * 0.0))) + (*v16.i32 * 0.0)) + (*&v208[8] * v135);
+        v137 = vadd_f32(v210, v136);
+        v138 = v211 + *v16.i32;
+        physx::PxQuat::operator*(v208, &v180, &v212, v16, v18);
+        v174 = v212;
+        v175 = v137;
+        v176 = v138;
+        v139 = ((v132 * v189) + (v188 * v131)) + (v190 * v133);
+        v140 = *(a2 + 264);
+        goto LABEL_92;
+      }
+
+      if (*(a2 + 479))
+      {
+        v155 = a1;
+        v156 = a2;
+        v157 = 0;
+        goto LABEL_97;
+      }
+
+      v18.n128_u32[0] = *&v208[8];
+      *v16.i32 = (v209 * v209) + -0.5;
+      v159 = (vmuls_lane_f32(0.0, *v208, 1) + (*v208 * 0.0)) + (*&v208[8] * 0.0);
+      v160 = vmla_n_f32(vmla_n_f32(vmul_n_f32(vmla_f32(vmul_f32(vzip1_s32(v18.n128_u64[0], *v208), 0x8000000080000000), 0, *&v208[4]), v209), 0, *v16.i32), *v208, v159);
+      *v16.i32 = ((v209 * (vmuls_lane_f32(-0.0, *v208, 1) + (*v208 * 0.0))) + (*v16.i32 * 0.0)) + (*&v208[8] * v159);
+      v161 = vadd_f32(v210, v160);
+      v162 = v211 + *v16.i32;
+      physx::PxQuat::operator*(v208, &v177, &v212, v16, v18);
+      v174 = v212;
+      v175 = v161;
+      v176 = v162;
+      v163 = *(a2 + 264);
+      v164 = *(a2 + 256);
+      v165 = a1;
+      v166 = v120;
+    }
+
+    visualizeAngularLimit(v165, &v174, v164, v166, v121, v163);
+    return;
+  }
+
+  if (*(a2 + 478) == 1)
+  {
+    if (*(a2 + 252) <= 0.0 && *(a2 + 248) <= 0.0)
+    {
+      v16.i32[0] = *(a2 + 256);
+    }
+
+    else
+    {
+      v16.i64[0] = 0;
+    }
+
+    v171 = *v16.i8;
+    v145 = v121 + 1.0;
+    v172 = atan2f(v120, v145);
+    v146.f32[0] = atan2f(v119, v145);
+    v146.f32[1] = v172;
+    __asm { FMOV            V1.2S, #4.0 }
+
+    v151 = vmul_f32(v146, _D1);
+    v173 = *(a2 + 260);
+    v152 = tanf(vmuls_lane_f32(0.25, v173, 1));
+    v153.n128_u32[0] = tanf(0.25 * v173.f32[0]);
+    v154 = vdiv_f32(vadd_f32(vdup_lane_s32(v171, 0), vabs_f32(v151)), v173);
+    (*(*a1 + 40))(a1, v208, vaddv_f32(vmul_f32(v154, v154)) > 1.0, v152, v153);
+  }
+
+  if (*(a2 + 479) == 1)
+  {
+    v155 = a1;
+    v156 = a2;
+    v157 = 1;
+LABEL_97:
+    v158 = 1;
+LABEL_98:
+    drawPyramid(v155, v156, v208, &v183, v157, v158, *v16.i64, v17, v18, v19);
+  }
+}
+
+void physx::PxDefaultErrorCallback::reportError(uint64_t a1, int a2, const char *a3, const char *a4, int a5)
+{
+  v9 = *MEMORY[0x1E69E9840];
+  if (a2 > 7)
+  {
+    if (a2 <= 31)
+    {
+      if (a2 == 8)
+      {
+        v6 = "invalid operation";
+      }
+
+      else
+      {
+        if (a2 != 16)
+        {
+          return;
+        }
+
+        v6 = "out of memory";
+      }
+    }
+
+    else
+    {
+      switch(a2)
+      {
+        case 32:
+          v6 = "internal error";
+          break;
+        case 64:
+          v6 = "abort";
+          break;
+        case 128:
+          v6 = "performance warning";
+          break;
+        default:
+          return;
+      }
+    }
+  }
+
+  else if (a2 <= 0)
+  {
+    if (a2 == -1)
+    {
+      v6 = "unknown error";
+    }
+
+    else
+    {
+      if (a2)
+      {
+        return;
+      }
+
+      v6 = "no error";
+    }
+  }
+
+  else
+  {
+    switch(a2)
+    {
+      case 1:
+        v6 = "info";
+        break;
+      case 2:
+        v6 = "warning";
+        break;
+      case 4:
+        v6 = "invalid parameter";
+        break;
+      default:
+        return;
+    }
+  }
+
+  sprintf(v8, "%s (%d) : %s : %s\n", a4, a5, v6, a3);
+  puts(v8);
+  if (a2 == 64)
+  {
+    while (1)
+    {
+      puts(v8);
+      __rmtp = xmmword_1E3058110;
+        ;
+      }
+    }
+  }
+}
+
+void physx::Ext::D6Joint::~D6Joint(physx::Ext::D6Joint *this)
+{
+  if (physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::~Joint(this))
+  {
+    v1 = *(*(physx::shdfnd::Foundation::mInstance + 24) + 24);
+
+    v1();
+  }
+}
+
+BOOL physx::PxD6Joint::isKindOf(physx::PxD6Joint *this, const char *a2)
+{
+  if (!strcmp("PxD6Joint", a2))
+  {
+    return 1;
+  }
+
+  return physx::PxJoint::isKindOf(this, a2);
+}
+
+uint64_t physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::setActors(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  (*(**(a1 + 96) + 64))(*(a1 + 96));
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v41, a2);
+  v6 = v43;
+  v7 = (*(a1 + 56) - v45) + (*(a1 + 56) - v45);
+  v8 = (*(a1 + 60) - v46) + (*(a1 + 60) - v46);
+  v9 = (*(a1 + 64) - v47) + (*(a1 + 64) - v47);
+  v10 = (v44 * v44) + -0.5;
+  v11 = (-(v42 * v8) - (v41 * v7)) - (v43 * v9);
+  v12 = ((v44 * ((v43 * v8) - (v42 * v9))) + (v7 * v10)) - (v41 * v11);
+  v13 = (v44 * ((v41 * v9) - (v43 * v7))) + (v8 * v10);
+  v14 = (v44 * ((v42 * v7) - (v41 * v8))) + (v9 * v10);
+  v16 = *(a1 + 48);
+  v15 = *(a1 + 52);
+  v17 = *(a1 + 40);
+  v18 = *(a1 + 44);
+  v19 = (((v44 * v18) - (v42 * v15)) - (v43 * v17)) + (v16 * v41);
+  v20 = (((v44 * v16) - (v43 * v15)) - (v41 * v18)) + (v17 * v42);
+  v21 = v13 - (v42 * v11);
+  v22 = (((v41 * v17) + (v44 * v15)) + (v42 * v18)) + (v43 * v16);
+  v23 = *(a1 + 104);
+  v23[4] = (((v44 * v17) - (v41 * v15)) - (v42 * v16)) + (v18 * v43);
+  v23[5] = v19;
+  v23[6] = v20;
+  v23[7] = v22;
+  v23[8] = v12;
+  v23[9] = v21;
+  v23[10] = v14 - (v6 * v11);
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v41, a3);
+  v24 = (*(a1 + 84) - v45) + (*(a1 + 84) - v45);
+  v25 = (*(a1 + 88) - v46) + (*(a1 + 88) - v46);
+  v26 = (*(a1 + 92) - v47) + (*(a1 + 92) - v47);
+  v27 = (v44 * v44) + -0.5;
+  v28 = (-(v42 * v25) - (v41 * v24)) - (v43 * v26);
+  v29 = ((v44 * ((v43 * v25) - (v42 * v26))) + (v24 * v27)) - (v41 * v28);
+  v30 = ((v44 * ((v41 * v26) - (v43 * v24))) + (v25 * v27)) - (v42 * v28);
+  v31 = ((v44 * ((v42 * v24) - (v41 * v25))) + (v26 * v27)) - (v43 * v28);
+  v33 = *(a1 + 76);
+  v32 = *(a1 + 80);
+  v34 = *(a1 + 68);
+  v35 = *(a1 + 72);
+  v36 = (((v44 * v35) - (v42 * v32)) - (v43 * v34)) + (v33 * v41);
+  v37 = (((v44 * v33) - (v43 * v32)) - (v41 * v35)) + (v34 * v42);
+  v38 = (((v41 * v34) + (v44 * v32)) + (v42 * v35)) + (v43 * v33);
+  v39 = *(a1 + 104);
+  v39[11] = (((v44 * v34) - (v41 * v32)) - (v42 * v33)) + (v35 * v43);
+  v39[12] = v36;
+  v39[13] = v37;
+  v39[14] = v38;
+  v39[15] = v29;
+  v39[16] = v30;
+  v39[17] = v31;
+  return (*(**(a1 + 96) + 72))(*(a1 + 96));
+}
+
+uint64_t physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getActors(uint64_t a1, void *a2, void *a3)
+{
+  result = *(a1 + 96);
+  if (result)
+  {
+    return (*(*result + 56))(result, a2, a3);
+  }
+
+  *a2 = 0;
+  *a3 = 0;
+  return result;
+}
+
+uint64_t physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::setLocalPose(uint64_t a1, unsigned int a2, float *a3)
+{
+  v40[1] = *MEMORY[0x1E69E9840];
+  v5 = a3[1];
+  v6 = a3[2];
+  v7 = a3[3];
+  v8 = sqrtf((((v5 * v5) + (*a3 * *a3)) + (v6 * v6)) + (v7 * v7));
+  v9 = *a3 / v8;
+  v10 = v5 / v8;
+  v11 = v6 / v8;
+  v12 = v7 / v8;
+  v13 = a3[4];
+  v14 = a3[5];
+  v15 = a3[6];
+  v16 = 28 * a2;
+  v17 = (a1 + v16);
+  v17[10] = v9;
+  v17[11] = v5 / v8;
+  v17[12] = v6 / v8;
+  v17[13] = v7 / v8;
+  v17[14] = v13;
+  v17[15] = v14;
+  v17[16] = v15;
+  v39 = 0;
+  v40[0] = 0;
+  (*(**(a1 + 96) + 56))(*(a1 + 96), &v39, v40);
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v32, v40[a2 - 1]);
+  v18 = (v13 - v36) + (v13 - v36);
+  v19 = (v14 - v37) + (v14 - v37);
+  v20 = (v15 - v38) + (v15 - v38);
+  v21 = (v35 * v35) + -0.5;
+  v22 = (-(v33 * v19) - (v32 * v18)) - (v34 * v20);
+  v23 = ((v35 * ((v34 * v19) - (v33 * v20))) + (v18 * v21)) - (v32 * v22);
+  v24 = ((v35 * ((v32 * v20) - (v34 * v18))) + (v19 * v21)) - (v33 * v22);
+  v25 = ((v35 * ((v33 * v18) - (v32 * v19))) + (v20 * v21)) - (v34 * v22);
+  v26 = (((v35 * v10) - (v33 * v12)) - (v34 * v9)) + (v11 * v32);
+  v27 = (((v35 * v11) - (v34 * v12)) - (v32 * v10)) + (v9 * v33);
+  v28 = (((v9 * v32) + (v35 * v12)) + (v33 * v10)) + (v34 * v11);
+  v29 = *(a1 + 96);
+  v30 = (*(a1 + 104) + v16);
+  v30[4] = (((v35 * v9) - (v32 * v12)) - (v33 * v11)) + (v10 * v34);
+  v30[5] = v26;
+  v30[6] = v27;
+  v30[7] = v28;
+  v30[8] = v23;
+  v30[9] = v24;
+  v30[10] = v25;
+  return (*(*v29 + 72))(v29);
+}
+
+float physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getLocalPose@<S0>(uint64_t a1@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
+{
+  v3 = a1 + 28 * a2;
+  *a3 = *(v3 + 40);
+  *(a3 + 16) = *(v3 + 56);
+  result = *(v3 + 64);
+  *(a3 + 24) = result;
+  return result;
+}
+
+float physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getRelativeTransform@<S0>(uint64_t a1@<X0>, float *a2@<X8>)
+{
+  v72 = 0;
+  v73 = 0;
+  (*(**(a1 + 96) + 56))(*(a1 + 96), &v73, &v72);
+  v4 = 1.0;
+  v5 = 0.0;
+  v6 = 0.0;
+  v7 = 0.0;
+  v8 = 0.0;
+  v9 = 0.0;
+  v10 = 0.0;
+  v11 = 0.0;
+  v12 = 1.0;
+  if (v73)
+  {
+    (*(*v73 + 152))(&v66);
+    v5 = 0.0;
+    v4 = 1.0;
+    v10 = *(&v66 + 1);
+    v11 = *&v66;
+    v9 = v67;
+    v12 = v68;
+    v8 = v69;
+    v7 = v70;
+    v6 = v71;
+  }
+
+  v13 = *(a1 + 56);
+  v14 = *(a1 + 60);
+  v15 = *(a1 + 64);
+  v16 = *(a1 + 48);
+  v17 = *(a1 + 52);
+  v18 = 0.0;
+  v19 = 0.0;
+  v20 = 0.0;
+  v21 = *(a1 + 40);
+  v22 = *(a1 + 44);
+  v23 = 0.0;
+  v24 = 0.0;
+  if (v72)
+  {
+    v64 = v7;
+    v65 = v8;
+    v62 = *(a1 + 56);
+    v63 = v6;
+    v60 = *(a1 + 64);
+    v61 = *(a1 + 60);
+    (*(*v72 + 152))(&v66);
+    v15 = v60;
+    v14 = v61;
+    v13 = v62;
+    v6 = v63;
+    v7 = v64;
+    v8 = v65;
+    v23 = *(&v66 + 1);
+    v24 = *&v66;
+    v20 = v67;
+    v4 = v68;
+    v19 = v69;
+    v18 = v70;
+    v5 = v71;
+  }
+
+  v25 = (((v12 * v17) - (v11 * v21)) - (v10 * v22)) - (v9 * v16);
+  v26 = (((v9 * v17) + (v12 * v16)) + (v11 * v22)) - (v21 * v10);
+  v27 = (((v10 * v17) + (v12 * v22)) + (v9 * v21)) - (v16 * v11);
+  v28 = (((v11 * v17) + (v12 * v21)) + (v10 * v16)) - (v22 * v9);
+  v29 = v15 + v15;
+  v30 = v14 + v14;
+  v31 = ((v10 * (v14 + v14)) + (v11 * (v13 + v13))) + (v9 * v29);
+  v32 = (v12 * v12) + -0.5;
+  v33 = v6 + (((v12 * ((v11 * (v14 + v14)) - (v10 * (v13 + v13)))) + (v29 * v32)) + (v9 * v31));
+  v34 = v7 + (((v12 * ((v9 * (v13 + v13)) - (v11 * v29))) + (v30 * v32)) + (v10 * v31));
+  v35 = v8 + (((v12 * ((v10 * v29) - (v9 * v30))) + ((v13 + v13) * v32)) + (v11 * v31));
+  v36 = *(a1 + 84) + *(a1 + 84);
+  v37 = *(a1 + 88) + *(a1 + 88);
+  v38 = *(a1 + 92) + *(a1 + 92);
+  v39 = (v4 * v4) + -0.5;
+  v40 = ((v23 * v37) + (v24 * v36)) + (v20 * v38);
+  v41 = v19 + (((v4 * ((v23 * v38) - (v20 * v37))) + (v36 * v39)) + (v24 * v40));
+  v42 = v18 + (((v4 * ((v20 * v36) - (v24 * v38))) + (v37 * v39)) + (v23 * v40));
+  v43 = v5 + (((v4 * ((v24 * v37) - (v23 * v36))) + (v38 * v39)) + (v20 * v40));
+  v45 = *(a1 + 76);
+  v44 = *(a1 + 80);
+  v46 = *(a1 + 68);
+  v47 = *(a1 + 72);
+  v48 = (((v24 * v44) + (v4 * v46)) + (v23 * v45)) - (v47 * v20);
+  v49 = (((v23 * v44) + (v4 * v47)) + (v20 * v46)) - (v45 * v24);
+  v50 = (((v20 * v44) + (v4 * v45)) + (v24 * v47)) - (v46 * v23);
+  v51 = (((v4 * v44) - (v24 * v46)) - (v23 * v47)) - (v20 * v45);
+  v52 = (v41 - v35) + (v41 - v35);
+  v53 = (v42 - v34) + (v42 - v34);
+  v54 = (v43 - v33) + (v43 - v33);
+  v55 = (v25 * v25) + -0.5;
+  v56 = (-(v27 * v53) - (v28 * v52)) - (v26 * v54);
+  v57 = ((v25 * ((v26 * v53) - (v27 * v54))) + (v52 * v55)) - (v28 * v56);
+  v58 = ((v25 * ((v28 * v54) - (v26 * v52))) + (v53 * v55)) - (v27 * v56);
+  *a2 = (((v25 * v48) - (v28 * v51)) - (v27 * v50)) + (v49 * v26);
+  a2[1] = (((v25 * v49) - (v27 * v51)) - (v26 * v48)) + (v50 * v28);
+  a2[2] = (((v25 * v50) - (v26 * v51)) - (v28 * v49)) + (v48 * v27);
+  a2[3] = (((v28 * v48) + (v25 * v51)) + (v27 * v49)) + (v26 * v50);
+  result = ((v25 * ((v27 * v52) - (v28 * v53))) + (v54 * v55)) - (v26 * v56);
+  a2[4] = v57;
+  a2[5] = v58;
+  a2[6] = result;
+  return result;
+}
+
+float physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getRelativeLinearVelocity@<S0>(uint64_t a1@<X0>, float *a2@<X8>)
+{
+  v51 = 0;
+  v52 = 0;
+  (*(**(a1 + 96) + 56))(*(a1 + 96), &v52, &v51);
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v36, v52);
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v32, v51);
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getActorVelocity(v52, v50, &v47);
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getActorVelocity(v51, v46, &v43);
+  v4 = *(a1 + 56) + *(a1 + 56);
+  v5 = *(a1 + 60) + *(a1 + 60);
+  v6 = *(a1 + 64) + *(a1 + 64);
+  v7 = (v39 * v39) + -0.5;
+  v8 = ((v5 * v37) + (v36 * v4)) + (v38 * v6);
+  v9 = ((v39 * ((v37 * v6) - (v38 * v5))) + (v4 * v7)) + (v36 * v8);
+  v10 = ((v39 * ((v38 * v4) - (v36 * v6))) + (v5 * v7)) + (v37 * v8);
+  v11 = ((v39 * ((v36 * v5) - (v37 * v4))) + (v6 * v7)) + (v38 * v8);
+  v12 = *(a1 + 84) + *(a1 + 84);
+  v13 = *(a1 + 88) + *(a1 + 88);
+  v14 = *(a1 + 92) + *(a1 + 92);
+  v15 = (v35 * v35) + -0.5;
+  v16 = ((v13 * v33) + (v32 * v12)) + (v34 * v14);
+  v17 = ((v35 * ((v33 * v14) - (v34 * v13))) + (v12 * v15)) + (v32 * v16);
+  v18 = ((v35 * ((v34 * v12) - (v32 * v14))) + (v13 * v15)) + (v33 * v16);
+  v19 = ((v35 * ((v32 * v13) - (v33 * v12))) + (v14 * v15)) + (v34 * v16);
+  v20 = (v48 * v11) - (v49 * v10);
+  v21 = (v49 * v9) - (v47 * v11);
+  v22 = (v47 * v10) - (v48 * v9);
+  v23 = (((v46[0] - ((v44 * v19) - (v45 * v18))) - v50[0]) + v20) - v40;
+  v24 = (((v46[1] - ((v45 * v17) - (v43 * v19))) - v50[1]) + v21) - v41;
+  v25 = (((v46[2] - ((v43 * v18) - (v44 * v17))) - v50[2]) + v22) - v42;
+  v26 = v23 + v23;
+  v27 = v24 + v24;
+  v28 = v25 + v25;
+  v29 = ((v37 * v27) + (v36 * v26)) + (v38 * v28);
+  v30 = ((v27 * v7) - (((v38 * v26) - (v36 * v28)) * v39)) + (v37 * v29);
+  result = ((v28 * v7) - (((v36 * v27) - (v37 * v26)) * v39)) + (v38 * v29);
+  *a2 = ((v26 * v7) - (((v37 * v28) - (v38 * v27)) * v39)) + (v36 * v29);
+  a2[1] = v30;
+  a2[2] = result;
+  return result;
+}
+
+float32_t physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getRelativeAngularVelocity@<S0>(uint64_t a1@<X0>, float32x2_t *a2@<X8>)
+{
+  v21 = 0;
+  v22 = 0;
+  (*(**(a1 + 96) + 56))(*(a1 + 96), &v22, &v21);
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(v11, v22);
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getActorVelocity(v22, v20, &v18);
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getActorVelocity(v21, v17, &v15);
+  v3 = ((v16 - v19) - v14) + ((v16 - v19) - v14);
+  v4.i32[0] = *&v11[8];
+  v5 = (v12 * v12) + -0.5;
+  v6 = vsub_f32(vsub_f32(v15, v18), v13);
+  v7 = vadd_f32(v6, v6);
+  v8 = (vmuls_lane_f32(*&v7.i32[1], *v11, 1) + (*v11 * *v7.i32)) + (*&v11[8] * v3);
+  v9.i32[0] = vdup_lane_s32(v7, 1).u32[0];
+  v9.f32[1] = v3;
+  result = ((v3 * v5) - (((-*&v11[4] * *v7.i32) + (*v11 * *&v7.i32[1])) * v12)) + (*&v11[8] * v8);
+  *a2 = vmla_n_f32(vmla_n_f32(vmul_n_f32(vneg_f32(vmla_f32(vmul_f32(v9, vneg_f32(vzip1_s32(v4, *v11))), vext_s8(v9, v7, 4uLL), *&v11[4])), v12), v7, v5), *v11, v8);
+  a2[1].f32[0] = result;
+  return result;
+}
+
+uint64_t physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::setConstraintFlags(uint64_t a1, __int16 *a2)
+{
+  v2 = *(a1 + 96);
+  v4 = *a2;
+  return (*(*v2 + 80))(v2, &v4);
+}
+
+uint64_t physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::setInvMassScale0(uint64_t a1, float a2)
+{
+  v2 = a1 + 96;
+  v3 = *(a1 + 96);
+  **(v2 + 8) = a2;
+  return (*(*v3 + 72))();
+}
+
+uint64_t physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::setInvInertiaScale0(uint64_t a1, float a2)
+{
+  v2 = a1 + 96;
+  v3 = *(a1 + 96);
+  *(*(v2 + 8) + 4) = a2;
+  return (*(*v3 + 72))();
+}
+
+uint64_t physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::setInvMassScale1(uint64_t a1, float a2)
+{
+  v2 = a1 + 96;
+  v3 = *(a1 + 96);
+  *(*(v2 + 8) + 8) = a2;
+  return (*(*v3 + 72))();
+}
+
+uint64_t physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::setInvInertiaScale1(uint64_t a1, float a2)
+{
+  v2 = a1 + 96;
+  v3 = *(a1 + 96);
+  *(*(v2 + 8) + 12) = a2;
+  return (*(*v3 + 72))();
+}
+
+uint64_t physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getScene(uint64_t a1)
+{
+  result = *(a1 + 96);
+  if (result)
+  {
+    return (*(*result + 48))();
+  }
+
+  return result;
+}
+
+uint64_t physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::requiresObjects(uint64_t a1, uint64_t a2)
+{
+  (*(*a2 + 16))(a2, *(a1 + 96));
+  v5 = 0;
+  v6 = 0;
+  result = (*(**(a1 + 96) + 56))(*(a1 + 96), &v6, &v5);
+  if (v6)
+  {
+    result = (*(*a2 + 16))(a2);
+  }
+
+  if (v5)
+  {
+    return (*(*a2 + 16))(a2);
+  }
+
+  return result;
+}
+
+uint64_t physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::onComShift(uint64_t a1, unsigned int a2)
+{
+  v31[1] = *MEMORY[0x1E69E9840];
+  v30 = 0;
+  v31[0] = 0;
+  (*(**(a1 + 96) + 56))(*(a1 + 96), &v30, v31);
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v23, v31[a2 - 1]);
+  v4 = 28 * a2;
+  v5 = (*(a1 + v4 + 56) - v27) + (*(a1 + v4 + 56) - v27);
+  v6 = (*(a1 + v4 + 60) - v28) + (*(a1 + v4 + 60) - v28);
+  v7 = (*(a1 + v4 + 64) - v29) + (*(a1 + v4 + 64) - v29);
+  v8 = (v26 * v26) + -0.5;
+  v9 = (-(v24 * v6) - (v23 * v5)) - (v25 * v7);
+  v10 = ((v26 * ((v25 * v6) - (v24 * v7))) + (v5 * v8)) - (v23 * v9);
+  v11 = ((v26 * ((v23 * v7) - (v25 * v5))) + (v6 * v8)) - (v24 * v9);
+  v12 = ((v26 * ((v24 * v5) - (v23 * v6))) + (v7 * v8)) - (v25 * v9);
+  v14 = *(a1 + v4 + 48);
+  v13 = *(a1 + v4 + 52);
+  v15 = *(a1 + v4 + 40);
+  v16 = *(a1 + v4 + 44);
+  v17 = (((v26 * v16) - (v24 * v13)) - (v25 * v15)) + (v14 * v23);
+  v18 = (((v26 * v14) - (v25 * v13)) - (v23 * v16)) + (v15 * v24);
+  v19 = (((v23 * v15) + (v26 * v13)) + (v24 * v16)) + (v25 * v14);
+  v20 = *(a1 + 96);
+  v21 = (*(a1 + 104) + v4);
+  v21[4] = (((v26 * v15) - (v23 * v13)) - (v24 * v14)) + (v16 * v25);
+  v21[5] = v17;
+  v21[6] = v18;
+  v21[7] = v19;
+  v21[8] = v10;
+  v21[9] = v11;
+  v21[10] = v12;
+  return (*(*v20 + 72))(v20);
+}
+
+uint64_t physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::onOriginShift(uint64_t a1, float *a2)
+{
+  v16[1] = *MEMORY[0x1E69E9840];
+  v15 = 0;
+  v16[0] = 0;
+  result = (*(**(a1 + 96) + 56))(*(a1 + 96), &v15, v16);
+  if (v15)
+  {
+    if (v16[0])
+    {
+      return result;
+    }
+
+    v5 = 68;
+    v6 = 64;
+    v7 = 60;
+    v8 = 92;
+    v9 = 88;
+    v10 = 84;
+  }
+
+  else
+  {
+    v5 = 40;
+    v6 = 36;
+    v7 = 32;
+    v8 = 64;
+    v9 = 60;
+    v10 = 56;
+  }
+
+  v11 = a2[1];
+  *(a1 + v10) = *(a1 + v10) - *a2;
+  *(a1 + v9) = *(a1 + v9) - v11;
+  *(a1 + v8) = *(a1 + v8) - a2[2];
+  v12 = *(a1 + 96);
+  v13 = *(a1 + 104);
+  v14 = a2[1];
+  *(v13 + v7) = *(v13 + v7) - *a2;
+  *(v13 + v6) = *(v13 + v6) - v14;
+  *(v13 + v5) = *(v13 + v5) - a2[2];
+  return (*(*v12 + 72))(v12);
+}
+
+uint64_t physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::onConstraintRelease(void *a1)
+{
+  if (a1[13])
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+  }
+
+  a1[13] = 0;
+  v2 = *(*a1 + 32);
+
+  return v2(a1);
+}
+
+uint64_t non-virtual thunk tophysx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getExternalReference(uint64_t a1, _DWORD *a2)
+{
+  result = a1 - 24;
+  *a2 = 0;
+  return result;
+}
+
+void non-virtual thunk tophysx::Ext::D6Joint::~D6Joint(physx::Ext::D6Joint *this)
+{
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::~Joint(this - 24);
+}
+
+{
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::~Joint(this - 24);
+  v1 = *(*(physx::shdfnd::Foundation::mInstance + 24) + 24);
+
+  v1();
+}
+
+void setupPyramidSwingLimits(uint64_t a1, float *a2, float *a3, float *a4, int a5, int a6)
+{
+  v10 = a4[1];
+  v12 = a3[2];
+  v11 = a3[3];
+  v13 = a3[1];
+  v15 = a4[2];
+  v14 = a4[3];
+  v16 = (((v11 * *a4) + (v14 * *a3)) + (v10 * v12)) - (v13 * v15);
+  v17 = (((v11 * v10) + (v14 * v13)) + (v15 * *a3)) - (v12 * *a4);
+  v18 = (((v11 * v15) + (v14 * v12)) + (*a4 * v13)) - (*a3 * v10);
+  v19 = (((v14 * v11) - (*a4 * *a3)) - (v10 * v13)) - (v15 * v12);
+  if (a5)
+  {
+    v20 = atan2f(v13, v11 + 1.0) * 4.0;
+    v21 = a2[72];
+    v22 = v19 + v19;
+    if (a2[70] <= 0.0 && a2[69] <= 0.0)
+    {
+      v23 = a2[71];
+    }
+
+    else
+    {
+      v23 = 0.0;
+    }
+
+    v24 = a2[73];
+    v25 = (v16 * (v17 + v17)) - (v18 * v22);
+    v26 = ((v19 * (v19 + v19)) + -1.0) + (v17 * (v17 + v17));
+    v27 = ((v17 + v17) * v18) + (v16 * v22);
+    if ((v21 + v23) > v20)
+    {
+      v28 = *(a1 + 8);
+      *(a1 + 8) = v28 + 80;
+      v42 = (v16 * (v17 + v17)) - (v18 * v22);
+      *(v28 + 78) = 0;
+      *v28 = 0;
+      *(v28 + 8) = 0;
+      *(v28 + 20) = -v26;
+      *(v28 + 24) = -v27;
+      *(v28 + 32) = 0;
+      *(v28 + 40) = 0;
+      *(v28 + 48) = -v25;
+      *(v28 + 52) = -v26;
+      *(v28 + 56) = -v27;
+      *(v28 + 12) = -(v21 - v20);
+      *(v28 + 16) = -v25;
+      *(v28 + 76) |= 0x40u;
+      physx::Ext::joint::ConstraintHelper::addLimit(a1, v28, (a2 + 67));
+      v26 = ((v19 * (v19 + v19)) + -1.0) + (v17 * (v17 + v17));
+      v25 = v42;
+    }
+
+    if ((v24 - v23) < v20)
+    {
+      v29 = *(a1 + 8);
+      *(a1 + 8) = v29 + 80;
+      *(v29 + 78) = 0;
+      *v29 = 0;
+      *(v29 + 8) = 0;
+      *(v29 + 20) = v26;
+      *(v29 + 24) = v27;
+      *(v29 + 32) = 0;
+      *(v29 + 40) = 0;
+      *(v29 + 48) = v25;
+      *(v29 + 52) = v26;
+      *(v29 + 56) = v27;
+      *(v29 + 12) = v24 - v20;
+      *(v29 + 16) = v25;
+      *(v29 + 76) |= 0x40u;
+      physx::Ext::joint::ConstraintHelper::addLimit(a1, v29, (a2 + 67));
+    }
+  }
+
+  if (a6)
+  {
+    v30 = atan2f(a3[2], a3[3] + 1.0) * 4.0;
+    v31 = a2[74];
+    v32 = v19 + v19;
+    v33 = v17 * (v18 + v18);
+    v34 = (v19 * (v19 + v19)) + -1.0;
+    if (a2[70] <= 0.0 && a2[69] <= 0.0)
+    {
+      v35 = a2[71];
+    }
+
+    else
+    {
+      v35 = 0.0;
+    }
+
+    v36 = a2[75];
+    v37 = (v16 * (v18 + v18)) + (v17 * v32);
+    v38 = v33 - (v16 * v32);
+    v39 = v34 + (v18 * (v18 + v18));
+    if ((v31 + v35) > v30)
+    {
+      v40 = *(a1 + 8);
+      *(a1 + 8) = v40 + 80;
+      *(v40 + 78) = 0;
+      *v40 = 0;
+      *(v40 + 8) = 0;
+      *(v40 + 20) = -v38;
+      *(v40 + 24) = -v39;
+      *(v40 + 32) = 0;
+      *(v40 + 40) = 0;
+      *(v40 + 48) = -v37;
+      *(v40 + 52) = -v38;
+      *(v40 + 56) = -v39;
+      *(v40 + 12) = -(v31 - v30);
+      *(v40 + 16) = -v37;
+      *(v40 + 76) |= 0x40u;
+      physx::Ext::joint::ConstraintHelper::addLimit(a1, v40, (a2 + 67));
+    }
+
+    if ((v36 - v35) < v30)
+    {
+      v41 = *(a1 + 8);
+      *(a1 + 8) = v41 + 80;
+      *(v41 + 78) = 0;
+      *v41 = 0;
+      *(v41 + 8) = 0;
+      *(v41 + 20) = v38;
+      *(v41 + 24) = v39;
+      *(v41 + 32) = 0;
+      *(v41 + 40) = 0;
+      *(v41 + 48) = v37;
+      *(v41 + 52) = v38;
+      *(v41 + 56) = v39;
+      *(v41 + 12) = v36 - v30;
+      *(v41 + 16) = v37;
+      *(v41 + 76) |= 0x40u;
+
+      physx::Ext::joint::ConstraintHelper::addLimit(a1, v41, (a2 + 67));
+    }
+  }
+}
+
+float computeLimitedDistance(unsigned int a1, uint64_t a2, uint64_t a3, float32x2_t *a4)
+{
+  v4 = 0;
+  v5 = (a3 + 8);
+  v6 = 0;
+  v7 = 0.0;
+  do
+  {
+    if ((a1 >> v4))
+    {
+      v8 = *(a2 + 16 + 4 * v4);
+      v6 = vadd_f32(v6, vmul_n_f32(*(v5 - 2), v8));
+      v7 = v7 + (v8 * *v5);
+    }
+
+    ++v4;
+    v5 += 3;
+  }
+
+  while (v4 != 3);
+  *a4 = v6;
+  a4[1].f32[0] = v7;
+  return sqrtf((COERCE_FLOAT(vmul_f32(v6, v6).i32[1]) + (v6.f32[0] * v6.f32[0])) + (v7 * v7));
+}
+
+void setupLinearLimit(uint64_t result, float *a2, uint64_t a3, float a4)
+{
+  v8 = a2[5];
+  v9 = a2[3];
+  if (v9 <= 0.0 && a2[2] <= 0.0)
+  {
+    v10 = a2[4];
+  }
+
+  else
+  {
+    v10 = 0.0;
+  }
+
+  if ((v10 + a4) > v8)
+  {
+    v11 = *(result + 8);
+    *(result + 8) = v11 + 80;
+    v12 = *a3;
+    *v11 = *a3;
+    v13 = *(result + 16);
+    v14 = *(a3 + 4);
+    *(v11 + 4) = v14;
+    v15 = *(result + 20);
+    v16.i32[0] = vdup_lane_s32(v15, 1).u32[0];
+    *(v11 + 78) = 0;
+    v16.f32[1] = v13;
+    v17.i32[0] = vdup_lane_s32(v14, 1).u32[0];
+    v17.f32[1] = v12;
+    *(v11 + 16) = vmla_f32(vmul_f32(v14, vneg_f32(v16)), v17, v15);
+    *(v11 + 24) = (v13 * *v14.i32) - (*v15.i32 * v12);
+    v18 = *a3;
+    *(v11 + 32) = *a3;
+    v19 = *(result + 28);
+    v20 = *(a3 + 4);
+    *(v11 + 36) = v20;
+    v21 = *(result + 32);
+    v16.i32[0] = vdup_lane_s32(v21, 1).u32[0];
+    v16.f32[1] = v19;
+    v17.i32[0] = vdup_lane_s32(v20, 1).u32[0];
+    v17.f32[1] = v18;
+    *(v11 + 48) = vmla_f32(vmul_f32(v20, vneg_f32(v16)), v17, v21);
+    *(v11 + 56) = (v19 * *v20.i32) - (*v21.i32 * v18);
+    *(v11 + 12) = v8 - a4;
+    physx::Ext::joint::ConstraintHelper::addLimit(result, v11, a2);
+    v9 = a2[3];
+  }
+
+  v22 = a2[6];
+  if (v9 <= 0.0 && a2[2] <= 0.0)
+  {
+    v23 = a2[4];
+  }
+
+  else
+  {
+    v23 = 0.0;
+  }
+
+  if ((v23 - a4) > -v22)
+  {
+    v24 = *a3;
+    v25 = *(a3 + 4);
+    v26 = *(a3 + 8);
+    v27 = -*a3;
+    v28 = *(result + 8);
+    *(result + 8) = v28 + 80;
+    *(v28 + 78) = 0;
+    *v28 = v27;
+    *(v28 + 4) = -v25;
+    *(v28 + 8) = -v26;
+    v30 = *(result + 20);
+    v29 = *(result + 24);
+    v31 = *(result + 16);
+    *(v28 + 16) = (v25 * v29) + (v30 * -v26);
+    *(v28 + 20) = (v26 * v31) + (v29 * v27);
+    *(v28 + 24) = (v24 * v30) + (v31 * -v25);
+    *(v28 + 32) = v27;
+    *(v28 + 36) = -v25;
+    *(v28 + 40) = -v26;
+    v33 = *(result + 32);
+    v32 = *(result + 36);
+    v34 = *(result + 28);
+    *(v28 + 48) = (v25 * v32) + (v33 * -v26);
+    *(v28 + 52) = (v26 * v34) + (v32 * v27);
+    *(v28 + 56) = (v24 * v33) + (v34 * -v25);
+    *(v28 + 12) = a4 - v22;
+
+    physx::Ext::joint::ConstraintHelper::addLimit(result, v28, a2);
+  }
+}
+
+uint64_t physx::Ext::joint::ConstraintHelper::prepareLockedAxes(uint64_t result, float *a2, float *a3, float *a4, int a5, int a6, float *a7, float *a8)
+{
+  v8 = *(result + 8);
+  v9 = *(result + 16);
+  v10 = *(result + 20);
+  v12 = *(result + 24);
+  v11 = *(result + 28);
+  v13 = *(result + 32);
+  v14 = *(result + 36);
+  if (!a5)
+  {
+    v45 = *(result + 8);
+    goto LABEL_16;
+  }
+
+  v15 = *a2;
+  v16 = a2[1];
+  v17 = a2[2];
+  v18 = a2[3];
+  v19 = v15 + v15;
+  v20 = v16 + v16;
+  v21 = v15 * (v15 + v15);
+  v22 = v16 * (v16 + v16);
+  v23 = v17 * (v17 + v17);
+  v24 = v19 * v16;
+  v25 = v19 * v17;
+  v26 = v19 * v18;
+  v27 = v20 * v17;
+  v28 = v20 * v18;
+  v29 = (v17 + v17) * v18;
+  v30 = (1.0 - v22) - v23;
+  v31 = v24 + v29;
+  v32 = v25 - v28;
+  v33 = 1.0 - v21;
+  v34 = 0.0;
+  v35 = 0.0;
+  v36 = 0.0;
+  if (a5)
+  {
+    v34 = 0.0 - (v30 * *a4);
+    v35 = 0.0 - (v31 * *a4);
+    v36 = 0.0 - (v32 * *a4);
+  }
+
+  v37 = v24 - v29;
+  v38 = v33 - v23;
+  v39 = v27 + v26;
+  if ((a5 & 2) != 0)
+  {
+    v40 = a4[1];
+    v34 = v34 - (v37 * v40);
+    v35 = v35 - (v38 * v40);
+    v36 = v36 - (v39 * v40);
+  }
+
+  v41 = v25 + v28;
+  v42 = v27 - v26;
+  v43 = v33 - v22;
+  if ((a5 & 4) != 0)
+  {
+    v44 = a4[2];
+    v34 = v34 - (v41 * v44);
+    v35 = v35 - (v42 * v44);
+    v36 = v36 - (v43 * v44);
+  }
+
+  v9 = v9 + v34;
+  v10 = v10 + v35;
+  v12 = v12 + v36;
+  v45 = *(result + 8);
+  if ((a5 & 1) == 0)
+  {
+    if ((a5 & 2) == 0)
+    {
+      goto LABEL_10;
+    }
+
+LABEL_14:
+    v47 = -a4[1];
+    *(v45 + 78) = 2048;
+    *v45 = v37;
+    *(v45 + 4) = v38;
+    *(v45 + 16) = (v10 * v39) - (v12 * v38);
+    *(v45 + 20) = (v12 * v37) - (v9 * v39);
+    *(v45 + 24) = (v9 * v38) - (v10 * v37);
+    *(v45 + 32) = v37;
+    *(v45 + 36) = v38;
+    *(v45 + 40) = v39;
+    *(v45 + 48) = (v13 * v39) - (v14 * v38);
+    *(v45 + 52) = (v14 * v37) - (v11 * v39);
+    *(v45 + 56) = (v11 * v38) - (v13 * v37);
+    *(v45 + 8) = v39;
+    *(v45 + 12) = v47;
+    v45 += 80;
+    if ((a5 & 4) == 0)
+    {
+      goto LABEL_16;
+    }
+
+    goto LABEL_15;
+  }
+
+  v46 = -*a4;
+  v45 = v8 + 80;
+  *(v8 + 78) = 2048;
+  *v8 = v30;
+  *(v8 + 4) = v31;
+  *(v8 + 16) = (v10 * v32) - (v12 * v31);
+  *(v8 + 20) = (v12 * v30) - (v9 * v32);
+  *(v8 + 24) = (v9 * v31) - (v10 * v30);
+  *(v8 + 32) = v30;
+  *(v8 + 36) = v31;
+  *(v8 + 40) = v32;
+  *(v8 + 48) = (v13 * v32) - (v14 * v31);
+  *(v8 + 52) = (v14 * v30) - (v11 * v32);
+  *(v8 + 56) = (v11 * v31) - (v13 * v30);
+  *(v8 + 8) = v32;
+  *(v8 + 12) = v46;
+  if ((a5 & 2) != 0)
+  {
+    goto LABEL_14;
+  }
+
+LABEL_10:
+  if ((a5 & 4) != 0)
+  {
+LABEL_15:
+    v48 = -a4[2];
+    *(v45 + 78) = 2048;
+    *v45 = v41;
+    *(v45 + 4) = v42;
+    *(v45 + 16) = (v10 * v43) - (v12 * v42);
+    *(v45 + 20) = (v12 * v41) - (v9 * v43);
+    *(v45 + 24) = (v9 * v42) - (v10 * v41);
+    *(v45 + 32) = v41;
+    *(v45 + 36) = v42;
+    *(v45 + 40) = v43;
+    *(v45 + 48) = (v13 * v43) - (v14 * v42);
+    *(v45 + 52) = (v14 * v41) - (v11 * v43);
+    *(v45 + 56) = (v11 * v42) - (v13 * v41);
+    *(v45 + 8) = v43;
+    *(v45 + 12) = v48;
+    v45 += 80;
+  }
+
+LABEL_16:
+  if (a6)
+  {
+    v50 = *a2;
+    v49 = a2[1];
+    v51 = a2[2];
+    v52 = a2[3];
+    v54 = a3[2];
+    v53 = a3[3];
+    v55 = *a3;
+    v56 = a3[1];
+    v57 = v52 * *a3;
+    v58 = *a2 * v53;
+    v59 = (v49 * v53) + (v52 * v56);
+    v60 = (v51 * v53) + (v52 * v54);
+    v61 = ((v49 * v56) + (*a2 * *a3)) + (v51 * v54);
+    v62 = (v52 * v53) - v61;
+    v63 = (v49 * *a3) + (*a2 * v56);
+    v64 = (v51 * *a3) + (*a2 * v54);
+    v65 = (v52 * v53) + v61;
+    v66 = ((((v49 * v56) + (v49 * v56)) + v62) * 0.5) + 0.00000011921;
+    v67 = ((((v51 * v54) + (v51 * v54)) + v62) * 0.5) + 0.00000011921;
+    if (v65 != 0.0)
+    {
+      v67 = (((v51 * v54) + (v51 * v54)) + v62) * 0.5;
+      v66 = (((v49 * v56) + (v49 * v56)) + v62) * 0.5;
+    }
+
+    if (a6)
+    {
+      v68 = (((v50 * v55) + (v50 * v55)) + v62) * 0.5;
+      if (v65 == 0.0)
+      {
+        v68 = v68 + 0.00000011921;
+      }
+
+      v69 = (v64 - v59) * 0.5;
+      v70 = (v60 + v63) * 0.5;
+      *(v45 + 78) = 2048;
+      *v45 = 0;
+      *(v45 + 8) = 0;
+      *(v45 + 20) = v70;
+      *(v45 + 24) = v69;
+      *(v45 + 32) = 0;
+      *(v45 + 40) = 0;
+      *(v45 + 48) = v68;
+      *(v45 + 52) = v70;
+      *(v45 + 56) = v69;
+      *(v45 + 12) = -((((v53 * -v50) + (v52 * v55)) + (-v49 * v54)) + (v56 * v51));
+      *(v45 + 16) = v68;
+      *(v45 + 76) |= 0x40u;
+      v45 += 80;
+    }
+
+    v71 = v57 + v58;
+    v72 = (v49 * v54) + (v51 * v56);
+    if ((a6 & 2) != 0)
+    {
+      v73 = (v63 - v60) * 0.5;
+      v74 = (v71 + v72) * 0.5;
+      *(v45 + 78) = 2048;
+      *v45 = 0;
+      *(v45 + 8) = 0;
+      *(v45 + 20) = v66;
+      *(v45 + 24) = v74;
+      *(v45 + 32) = 0;
+      *(v45 + 40) = 0;
+      *(v45 + 48) = v73;
+      *(v45 + 52) = v66;
+      *(v45 + 56) = v74;
+      *(v45 + 12) = -((((v52 * v56) - (v49 * v53)) - (v51 * v55)) + (v54 * v50));
+      *(v45 + 16) = v73;
+      *(v45 + 76) |= 0x40u;
+      v45 += 80;
+    }
+
+    if ((a6 & 4) != 0)
+    {
+      v75 = (((v52 * v54) - (v51 * v53)) - (v50 * v56)) + (v55 * v49);
+      v76 = (v64 + v59) * 0.5;
+      v77 = (v72 - v71) * 0.5;
+      *(v45 + 78) = 2048;
+      *v45 = 0;
+      *(v45 + 8) = 0;
+      *(v45 + 20) = v77;
+      *(v45 + 24) = v67;
+      *(v45 + 32) = 0;
+      *(v45 + 40) = 0;
+      *(v45 + 48) = v76;
+      *(v45 + 52) = v77;
+      *(v45 + 56) = v67;
+      *(v45 + 12) = -v75;
+      *(v45 + 16) = v76;
+      *(v45 + 76) |= 0x40u;
+      v45 += 80;
+    }
+  }
+
+  *a7 = v9;
+  a7[1] = v10;
+  a7[2] = v12;
+  *a8 = v11;
+  a8[1] = v13;
+  a8[2] = v14;
+  while (v8 < v45)
+  {
+    *(v8 + 76) |= 0x10u;
+    v8 += 80;
+  }
+
+  *(result + 8) = v45;
+  return result;
+}
+
+uint64_t physx::Ext::joint::ConstraintHelper::ConstraintHelper(uint64_t a1, uint64_t a2, __int128 *a3, uint64_t a4, float32x2_t *a5, float32x2_t *a6, __int128 *a7, float32x2_t *a8, double d0_0, double a10, double a11, double a12, double a13, double a14, int8x16_t a15, int8x16_t a16, float32x2_t *a9)
+{
+  *a1 = a2;
+  *(a1 + 8) = a2;
+  v22 = *a7;
+  *a3 = *a7;
+  physx::Ext::joint::computeJointFrames(a4, a5, a7, a8, a9, *&v22, a10, a11, a12, a13, a14, a15, a16);
+  v23 = a5[3].f32[0] - a8[3].f32[0];
+  *a6 = vsub_f32(a5[2], a8[2]);
+  a6[1].f32[0] = v23;
+  v24 = a5[3].f32[0] - a8[3].f32[0];
+  *(a1 + 16) = vsub_f32(a5[2], a8[2]);
+  *(a1 + 24) = v24;
+  v25 = a5[3].f32[0] - a9[3].f32[0];
+  *(a1 + 28) = vsub_f32(a5[2], a9[2]);
+  *(a1 + 36) = v25;
+  *(a1 + 40) = *(a4 + 16);
+  *(a1 + 48) = *(a4 + 24);
+  *(a1 + 52) = a5[2];
+  *(a1 + 60) = a5[3].i32[0];
+  return a1;
+}
+
+float physx::Ext::joint::computeJointFrames(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, double a6, double a7, double a8, double a9, double a10, double a11, int8x16_t a12, int8x16_t _Q7)
+{
+  _S2 = *(a3 + 32) + *(a3 + 32);
+  v15 = *(a3 + 36) + *(a3 + 36);
+  _S4 = *(a3 + 40) + *(a3 + 40);
+  v17 = *(a4 + 12);
+  *a12.i32 = (v17 * v17) + -0.5;
+  _Q7.i32[0] = *a4;
+  _Q16.i64[0] = *(a4 + 4);
+  __asm
+  {
+    FMLA            S17, S4, V16.S[1]
+    FMLA            S19, S2, V16.S[1]
+    FMLA            S21, S17, V16.S[1]
+  }
+
+  v25 = *(a4 + 20) + (((v17 * _S19) + (v15 * *a12.i32)) + (*_Q16.i32 * _S17));
+  v26 = *(a4 + 24) + _S21;
+  v27 = *(a3 + 16);
+  v28 = v27;
+  v28.i32[3] = _Q16.i32[1];
+  v29 = *(a4 + 16) + (((v17 * (vmuls_lane_f32(v15, vnegq_f32(v28), 3) + (*_Q16.i32 * _S4))) + (_S2 * *a12.i32)) + (*a4 * _S17));
+  v30 = vextq_s8(vextq_s8(_Q7, _Q7, 4uLL), _Q16, 0xCuLL);
+  v30.f32[3] = -*a4;
+  _Q3 = vmlaq_n_f32(vmulq_f32(vextq_s8(vdupq_laneq_s32(v27, 3), v27, 4uLL), v30), v27, v17);
+  v30.f32[3] = -*_Q16.i32;
+  _Q16.i32[2] = *a4;
+  _Q16.i32[3] = *(a3 + 24);
+  v32 = vmlsq_f32(vmlaq_f32(vuzp2q_s32(vextq_s8(_Q3, _Q3, 4uLL), _Q3), vextq_s8(vextq_s8(v27, v27, 0xCuLL), v27, 8uLL), v30), _Q16, v28);
+  *a1 = vzip2q_s32(vzip1q_s32(v32, vextq_s8(v32, v32, 0xCuLL)), v32);
+  *(a1 + 16) = v29;
+  *(a1 + 20) = v25;
+  *(a1 + 24) = v26;
+  *_Q3.i32 = *(a3 + 60) + *(a3 + 60);
+  v30.f32[0] = *(a3 + 64) + *(a3 + 64);
+  _S5 = *(a3 + 68) + *(a3 + 68);
+  v32.i32[0] = *(a5 + 12);
+  v34 = *(a5 + 16);
+  v35 = (*v32.i32 * *v32.i32) + -0.5;
+  a12.i32[0] = *a5;
+  _Q7.i64[0] = *(a5 + 4);
+  __asm
+  {
+    FMLA            S16, S5, V7.S[1]
+    FMLA            S18, S3, V7.S[1]
+    FMLA            S20, S16, V7.S[1]
+  }
+
+  v39 = *(a5 + 20) + (((*v32.i32 * _S18) + (v30.f32[0] * v35)) + (*_Q7.i32 * _S16));
+  v40 = *(a3 + 44);
+  v41 = v40;
+  v41.i32[3] = _Q7.i32[1];
+  v42 = *(a5 + 24) + _S20;
+  v43 = ((*v32.i32 * (vmuls_lane_f32(v30.f32[0], vnegq_f32(v41), 3) + (*_Q7.i32 * _S5))) + (*_Q3.i32 * v35)) + (*a5 * _S16);
+  v44 = vextq_s8(vextq_s8(a12, a12, 4uLL), _Q7, 0xCuLL);
+  v44.f32[3] = -*a5;
+  v45 = vmlaq_n_f32(vmulq_f32(vextq_s8(vdupq_laneq_s32(v40, 3), v40, 4uLL), v44), v40, *v32.i32);
+  v44.f32[3] = -*_Q7.i32;
+  _Q7.i32[2] = *a5;
+  _Q7.i32[3] = *(a3 + 52);
+  v46 = vmlsq_f32(vmlaq_f32(vuzp2q_s32(vextq_s8(v45, v45, 4uLL), v45), vextq_s8(vextq_s8(v40, v40, 0xCuLL), v40, 8uLL), v44), _Q7, v41);
+  *a2 = vzip2q_s32(vzip1q_s32(v46, vextq_s8(v46, v46, 0xCuLL)), v46);
+  result = v34 + v43;
+  *(a2 + 16) = result;
+  *(a2 + 20) = v39;
+  *(a2 + 24) = v42;
+  return result;
+}
+
+BOOL physx::Cm::ConeLimitHelperTanLess::getLimit(float32x2_t *a1, float *a2, float *a3, float *a4)
+{
+  v7 = a2[2];
+  v8 = a2[3];
+  v10 = *a2;
+  v9 = a2[1];
+  v67 = atan2f(v9, v8 + 1.0);
+  v11 = __PAIR64__(COERCE_UNSIGNED_INT(atan2f(v7, v8 + 1.0)), LODWORD(v67));
+  v12 = a1 + 1;
+  __asm { FMOV            V0.2S, #4.0 }
+
+  v18 = vmul_f32(v11, _D0);
+  v19 = vabs_f32(v18);
+  v20 = vld1_dup_f32(v12);
+  v21 = *a1;
+  v22 = vdiv_f32(vadd_f32(v19, v20), *a1);
+  v23 = vaddv_f32(vmul_f32(v22, v22));
+  if (v23 > 1.0)
+  {
+    v24 = v10 + v10;
+    v25 = ((v8 * (v8 + v8)) + -1.0) + (v10 * (v10 + v10));
+    v26 = ((v10 + v10) * v9) + (v7 * (v8 + v8));
+    v66 = (v24 * v7) - (v9 * (v8 + v8));
+    v68 = v25;
+    if (v21.f32[0] >= v21.f32[1])
+    {
+      if (v19.f32[1] < 0.000001)
+      {
+        if (v18.f32[0] <= 0.0)
+        {
+          v28.f32[0] = -v21.f32[0];
+        }
+
+        else
+        {
+          v28.i32[0] = *a1;
+        }
+
+        v27 = 0.0;
+        goto LABEL_20;
+      }
+    }
+
+    else if (v19.f32[0] < 0.000001)
+    {
+      if (v18.f32[1] <= 0.0)
+      {
+        v27 = -v21.f32[1];
+      }
+
+      else
+      {
+        LODWORD(v27) = HIDWORD(*a1);
+      }
+
+      v28.i32[0] = 0;
+LABEL_20:
+      v42 = v28.f32[0] / vmul_f32(v21, v21).f32[0];
+      v43 = v27 / (v21.f32[1] * v21.f32[1]);
+      v44 = tanf(v28.f32[0] * 0.25);
+      v45 = tanf(v27 * 0.25);
+      v46 = (v44 * v44) + (v45 * v45);
+      v47 = 1.0 - v46;
+      v48 = 1.0 / (v46 + 1.0);
+      v49 = (v47 + v47) * (v48 * v48);
+      v50 = v45 + v45;
+      v51 = (v45 + v45) * v49;
+      v52 = (v44 * -2.0) * v49;
+      v53 = ((1.0 - v46) * v49) + -1.0;
+      v54 = ((v42 * v44) + 0.0) + (v45 * v43);
+      v55 = v48 * (((3.0 - v46) * (v54 * -4.0)) * (v48 * v48));
+      v56 = (v47 * v55) - ((v54 + v54) * v49);
+      v57 = ((v43 + v43) * v49) + (v50 * v55);
+      v58 = ((v44 * -2.0) * v55) - ((v42 + v42) * v49);
+      v59 = (v52 * v56) - (v53 * v58);
+      v60 = (v53 * v57) - (v51 * v56);
+      v61 = 1.0 / sqrtf(((v57 * v57) + (v56 * v56)) + (v58 * v58));
+      v62 = ((v51 * v58) - (v52 * v57)) * v61;
+      v63 = v59 * v61;
+      v64 = v60 * v61;
+      *a3 = v62;
+      a3[1] = v63;
+      a3[2] = v64;
+      *a4 = ((v26 * ((v52 * v62) - (v53 * v64))) + (((v51 * v64) - (v52 * v63)) * v68)) + (((v53 * v63) - (v51 * v62)) * v66);
+      return v23 > 1.0;
+    }
+
+    v29 = vmul_f32(v21, v21);
+    v30 = vmul_f32(v19, v21);
+    v31 = vsub_f32(v30, v29);
+    if (*v31.i32 <= *&v31.i32[1])
+    {
+      v31.i32[0] = v31.i32[1];
+    }
+
+    v32 = 20;
+    __asm { FMOV            V6.2S, #1.0 }
+
+    while (1)
+    {
+      _D18 = vdiv_f32(_D6, vadd_f32(v29, vdup_lane_s32(v31, 0)));
+      v35 = vmul_f32(v30, _D18);
+      v36 = vmul_f32(v35, v35);
+      v37 = vaddv_f32(v36) + -1.0;
+      if (v37 < 0.0001)
+      {
+        break;
+      }
+
+      _S21 = v36.i32[1];
+      __asm { FMLA            S20, S21, V18.S[1] }
+
+      *v31.i32 = *v31.i32 + (v37 / (_S20 + _S20));
+      if (!--v32)
+      {
+        v40 = vmul_f32(vmul_f32(v18, v29), _D18);
+        v28 = vdiv_f32(v40, v21);
+        v41 = 1.0 / sqrtf(vaddv_f32(vmul_f32(v28, v28)));
+        v28.f32[0] = v41 * v40.f32[0];
+        v27 = vmuls_lane_f32(v41, v40, 1);
+        goto LABEL_20;
+      }
+    }
+
+    v28 = vmul_f32(vmul_f32(v18, v29), _D18);
+    v27 = v28.f32[1];
+    goto LABEL_20;
+  }
+
+  return v23 > 1.0;
+}
+
+void physx::Ext::joint::ConstraintHelper::addLimit(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a2 + 76);
+  v4 = *(a3 + 8);
+  if (*(a3 + 12) > 0.0 || v4 > 0.0)
+  {
+    v6 = v3 | 0x11;
+    *(a2 + 64) = v4;
+    *(a2 + 68) = *(a3 + 12);
+  }
+
+  else
+  {
+    *(a2 + 78) = 2049;
+    *(a2 + 64) = *a3;
+    *(a2 + 68) = *(a3 + 4);
+    if (*(a2 + 12) <= 0.0)
+    {
+      v5 = 16;
+    }
+
+    else
+    {
+      v5 = 24;
+    }
+
+    v6 = v5 | v3;
+    if (*a3 > 0.0)
+    {
+      v6 |= 4u;
+    }
+  }
+
+  *(a2 + 76) = v6;
+  *(a2 + 44) = 0;
+}
+
+uint64_t visualizeLine(uint64_t a1, float32x2_t *a2, float32x2_t *a3, float *a4, float a5)
+{
+  if (a4[3] <= 0.0 && a4[2] <= 0.0)
+  {
+    v7 = a4[4];
+  }
+
+  else
+  {
+    v7 = 0.0;
+  }
+
+  v21 = v5;
+  v22 = v6;
+  v9 = a4[5];
+  v8 = a4[6];
+  v10 = (v9 - v7) >= a5 && (v7 + v8) <= a5;
+  v11 = a3[1].f32[0];
+  v12 = a2[1].f32[0];
+  v13 = *a3;
+  v14 = *a2;
+  v19 = vadd_f32(vmul_n_f32(*a3, v8), *a2);
+  v20 = (v8 * v11) + v12;
+  v17 = vadd_f32(vmul_n_f32(v13, v9), v14);
+  v18 = (v9 * v11) + v12;
+  if (v10)
+  {
+    v15 = 0xFFFFFFLL;
+  }
+
+  else
+  {
+    v15 = 16711680;
+  }
+
+  return (*(*a1 + 56))(a1, &v19, &v17, v15);
+}
+
+uint64_t visualizeQuad(uint64_t a1, float *a2, float *a3, float *a4, float *a5, float *a6, float a7, float a8)
+{
+  if (a4[3] <= 0.0 && a4[2] <= 0.0)
+  {
+    v9 = a4[4];
+  }
+
+  else
+  {
+    v9 = 0.0;
+  }
+
+  v10 = a4[5];
+  v11 = a4[6];
+  if (a6[3] <= 0.0 && a6[2] <= 0.0)
+  {
+    v12 = a6[4];
+  }
+
+  else
+  {
+    v12 = 0.0;
+  }
+
+  v13 = v9 + v11;
+  v14 = v10 - v9;
+  v15 = a6[5];
+  v16 = a6[6];
+  if ((v15 - v12) >= a8 && v14 >= a7 && (v12 + v16) <= a8 && v13 <= a7)
+  {
+    v20 = 0xFFFFFFLL;
+  }
+
+  else
+  {
+    v20 = 16711680;
+  }
+
+  v21 = a3[1];
+  v22 = v11 * *a3;
+  v23 = v11 * v21;
+  v24 = a3[2];
+  v25 = v11 * v24;
+  v26 = v10 * *a3;
+  v27 = v10 * v21;
+  v28 = v10 * v24;
+  v29 = a5[1];
+  v30 = v16 * *a5;
+  v31 = v16 * v29;
+  v32 = a5[2];
+  v33 = v16 * v32;
+  v34 = v15 * *a5;
+  v35 = v15 * v29;
+  v36 = v15 * v32;
+  v37 = *a2;
+  v38 = a2[1];
+  v39 = v22 + *a2;
+  v40 = v23 + v38;
+  v41 = a2[2];
+  v42 = v25 + v41;
+  v50[0] = v30 + v39;
+  v50[1] = v31 + v40;
+  v50[2] = v33 + v42;
+  v43 = v26 + v37;
+  v44 = v27 + v38;
+  v45 = v28 + v41;
+  v49[0] = v30 + v43;
+  v49[1] = v31 + v44;
+  v49[2] = v33 + v45;
+  v48[0] = v34 + v43;
+  v48[1] = v35 + v44;
+  v48[2] = v36 + v45;
+  v47[0] = v34 + v39;
+  v47[1] = v35 + v40;
+  v47[2] = v36 + v42;
+  (*(*a1 + 56))(a1, v50, v49, v20);
+  (*(*a1 + 56))(a1, v49, v48, v20);
+  (*(*a1 + 56))(a1, v48, v47, v20);
+  return (*(*a1 + 56))(a1, v47, v50, v20);
+}
+
+uint64_t drawPyramid(uint64_t a1, float *a2, float32x2_t *a3, float *a4, int a5, char a6, double a7, double a8, __n128 a9, __n128 a10)
+{
+  if (a5)
+  {
+    v15 = atan2f(a4[1], a4[3] + 1.0) * 4.0;
+    if (a2[70] <= 0.0 && a2[69] <= 0.0)
+    {
+      v16 = a2[71];
+    }
+
+    else
+    {
+      v16 = 0.0;
+    }
+
+    v17 = (a2[72] + v16) > v15;
+    if ((a2[73] - v16) < v15)
+    {
+      v17 = 1;
+    }
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  if (a6)
+  {
+    v18 = atan2f(a4[2], a4[3] + 1.0) * 4.0;
+    v19 = a2[74];
+    v20 = a2[75];
+    if (a2[70] <= 0.0 && a2[69] <= 0.0)
+    {
+      v21 = a2[71];
+    }
+
+    else
+    {
+      v21 = 0.0;
+    }
+
+    v22 = (v19 + v21) > v18;
+    if ((v20 - v21) < v18)
+    {
+      v22 = 1;
+    }
+  }
+
+  else
+  {
+    v22 = 0;
+    v19 = a2[74];
+    v20 = a2[75];
+  }
+
+  if (v17 || v22)
+  {
+    v23 = 4294901760;
+  }
+
+  else
+  {
+    v23 = 4286611584;
+  }
+
+  drawPyramid(physx::PxConstraintVisualizer &,physx::Ext::D6JointData const&,physx::PxTransform const&,physx::PxQuat const&,BOOL,BOOL)::Local::drawArc(a1, a3, v23, a2[72], a2[72], v19, v20);
+  drawPyramid(physx::PxConstraintVisualizer &,physx::Ext::D6JointData const&,physx::PxTransform const&,physx::PxQuat const&,BOOL,BOOL)::Local::drawArc(a1, a3, v23, a2[73], a2[73], a2[74], a2[75]);
+  drawPyramid(physx::PxConstraintVisualizer &,physx::Ext::D6JointData const&,physx::PxTransform const&,physx::PxQuat const&,BOOL,BOOL)::Local::drawArc(a1, a3, v23, a2[72], a2[73], a2[74], a2[74]);
+  v24 = a2[72];
+  v25 = a2[73];
+  v26 = a2[75];
+
+  return drawPyramid(physx::PxConstraintVisualizer &,physx::Ext::D6JointData const&,physx::PxTransform const&,physx::PxQuat const&,BOOL,BOOL)::Local::drawArc(a1, a3, v23, v24, v25, v26, v26);
+}
+
+uint64_t visualizeAngularLimit(uint64_t a1, uint64_t a2, float a3, float a4, float a5, float a6)
+{
+  v9 = fabsf(atan2f(a4, a5 + 1.0) * 4.0) > (a6 - a3);
+  v11 = *(*a1 + 32);
+  v12.n128_f32[0] = a6;
+
+  v10.n128_f32[0] = -a6;
+  return v11(a1, a2, v9, v10, v12);
+}
+
+uint64_t visualizeDoubleCone(uint64_t a1, float *a2, uint64_t a3, float a4, float a5)
+{
+  if (a2[63] <= 0.0 && a2[62] <= 0.0)
+  {
+    v8 = a2[64];
+  }
+
+  else
+  {
+    v8 = 0.0;
+  }
+
+  if (a4 < -1.0)
+  {
+    a4 = -1.0;
+  }
+
+  if (a4 > 1.0)
+  {
+    a4 = 1.0;
+  }
+
+  v9.n128_f32[0] = asinf(a4);
+  v10 = (v8 - a5) > v9.n128_f32[0] || (a5 - v8) < v9.n128_f32[0];
+  v11 = *(*a1 + 48);
+  v9.n128_f32[0] = a5;
+
+  return v11(a1, a3, v10, v9);
+}
+
+uint64_t drawPyramid(physx::PxConstraintVisualizer &,physx::Ext::D6JointData const&,physx::PxTransform const&,physx::PxQuat const&,BOOL,BOOL)::Local::drawArc(uint64_t a1, float32x2_t *a2, uint64_t a3, float a4, float a5, float a6, float a7)
+{
+  v14 = 0;
+  v36 = 0;
+  v37 = 0;
+  do
+  {
+    v15 = v14 / 7.0;
+    v16 = ((1.0 - v15) * a4) + (v15 * a5);
+    v17 = __sincosf_stret(((1.0 - v15) * a6) + (v15 * a7));
+    v18 = __sincosf_stret(v16);
+    *v19.i32 = v18.__cosval * 0.0;
+    *v20.i32 = v18.__sinval * -0.0;
+    v21 = (((v18.__cosval * 0.0) + 0.0) - v18.__sinval) + ((v18.__cosval + ((v18.__sinval * 0.0) + 0.0)) * 0.0);
+    v22 = v21 + v21;
+    v23.i32[0] = a2[1].i32[0];
+    v24 = a2[1].f32[1];
+    v25 = (v24 * v24) + -0.5;
+    v26 = vmul_f32(__PAIR64__(LODWORD(v17.__sinval), LODWORD(v17.__cosval)), COERCE_FLOAT32X2_T(-0.0));
+    v27 = vrev64_s32(v26);
+    v28 = vadd_f32(vdup_lane_s32(v20, 0), vadd_f32(vmul_n_f32(__PAIR64__(LODWORD(v17.__sinval), LODWORD(v17.__cosval)), v18.__cosval), v27));
+    *v20.i32 = *v26.i32 - v17.__sinval;
+    *&v20.i32[1] = v17.__cosval + (v17.__sinval * 0.0);
+    v29 = vadd_f32(vmul_f32(vadd_f32(vdup_lane_s32(v19, 0), vadd_f32(vmul_n_f32(__PAIR64__(LODWORD(v17.__sinval), LODWORD(v17.__cosval)), v18.__sinval), v27)), 0), vadd_f32(v28, vmul_f32(vadd_f32(v20, 0), 0)));
+    v30 = vadd_f32(v29, v29);
+    v19.i32[0] = HIDWORD(*a2);
+    v31 = (vmuls_lane_f32(*v19.i32, v30, 1) + (COERCE_FLOAT(*a2) * *v30.i32)) + (*v23.i32 * v22);
+    v27.i32[0] = vdup_lane_s32(v30, 1).u32[0];
+    v27.f32[1] = v22;
+    v32 = vadd_f32(a2[2], vmla_n_f32(vmla_n_f32(vmul_n_f32(vmla_f32(vmul_f32(v27, vneg_f32(vzip1_s32(v23, *a2))), vext_s8(v27, v30, 4uLL), *(a2 + 4)), v24), v30, v25), *a2, v31));
+    *v30.i32 = a2[3].f32[0] + (((v24 * ((-*v19.i32 * *v30.i32) + (COERCE_FLOAT(*a2) * *&v30.i32[1]))) + (v22 * v25)) + (*v23.i32 * v31));
+    v34 = v32;
+    v35 = v30.i32[0];
+    result = (*(*a1 + 56))(a1, a2 + 2, &v34, a3);
+    if (v14)
+    {
+      result = (*(*a1 + 56))(a1, &v36, &v34, a3);
+    }
+
+    v36 = v34;
+    v37 = v35;
+    ++v14;
+  }
+
+  while (v14 != 8);
+  return result;
+}
+
+uint64_t physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::~Joint(uint64_t a1)
+{
+  *a1 = &unk_1F5D280D0;
+  *(a1 + 24) = &unk_1F5D282E8;
+  if (*(a1 + 10))
+  {
+    if (*(a1 + 104))
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+    }
+
+    *(a1 + 104) = 0;
+  }
+
+  return a1;
+}
+
+uint64_t physx::shdfnd::ReflectionAllocator<physx::PxShape *>::allocate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if (!a2)
   {
     return 0;
   }
 
-  v6 = *(a1 + 24);
-  v35 = 0uLL;
-  v36 = 0;
-  v7 = *(a1 + 160);
-  if (v7)
+  v7 = physx::shdfnd::Foundation::mInstance;
+  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
   {
-    v8 = v7 >> 1;
+    v8 = "static const char *physx::shdfnd::ReflectionAllocator<physx::PxShape *>::getName() [T = physx::PxShape *]";
   }
 
   else
   {
-    v8 = v7 >> 1;
+    v8 = "<allocation names disabled>";
   }
 
-  if (v8)
+  v9 = *(*(v7 + 24) + 16);
+
+  return v9(v7 + 24, a2, v8, a3, a4);
+}
+
+float physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(float *a1, uint64_t a2)
+{
+  if (a2)
   {
-    (*(*v6 + 40))(buf, v6, a1 + 368);
-    v9 = v35;
-    v35 = *buf;
-    *buf = v9;
-    v10 = v36;
-    v36 = *&buf[16];
-    *&buf[16] = v10;
-    re::AssetHandle::~AssetHandle(buf);
-    if (*(a1 + 512))
+    if ((*(*a2 + 48))(a2) == 1 || (*(*a2 + 48))(a2) == 2)
     {
-      if (*(&v35 + 1) && (v12 = atomic_load((*(&v35 + 1) + 896)), v12 == 2) && (*(*(&v35 + 1) + 256) & 1) == 0)
-      {
-        v26 = *re::assetsLogObjects(v11);
-        v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
-        if (v27)
-        {
-          if (*(a1 + 192))
-          {
-            v28 = *(a1 + 200);
-          }
+      v4 = *(*a2 + 224);
 
-          else
-          {
-            v28 = a1 + 193;
-          }
-
-          v29 = v26;
-          v30 = re::AssetHandle::assetInfo(&v35);
-          if (v30[17])
-          {
-            v31 = v30[18];
-          }
-
-          else
-          {
-            v31 = v30 + 137;
-          }
-
-          *buf = 136315394;
-          *&buf[4] = v28;
-          *&buf[12] = 2080;
-          *&buf[14] = v31;
-          _os_log_impl(&dword_1E1C61000, v29, OS_LOG_TYPE_DEFAULT, "RETextureImportOperationCreateAsset: ignoring m_textureAsset, asset is already loaded and is not mutated: %s, %s", buf, 0x16u);
-        }
-
-        if (*(a1 + 512))
-        {
-          v32 = *(a1 + 24);
-          v33 = re::TextureAsset::assetType(v27);
-          v34 = re::AssetManager::assetLoaderWithAssetType(v32, v33);
-          (*(*v34 + 16))(v34, *(a1 + 512));
-        }
-      }
-
-      else
-      {
-        (*(*v6 + 200))(v6, *(a1 + 512), &v35, 0, 0);
-        re::SharedPtr<re::SkeletalPoseJointDefinition>::reset((*(&v35 + 1) + 264), *(a1 + 360));
-      }
-    }
-
-    *(a1 + 512) = 0;
-  }
-
-  else
-  {
-    TextureAsset = re::TextureAsset::makeTextureAsset((*(a1 + 544) + 184), a1 + 240, a1 + 256, *(*(a1 + 360) + 88), *(*(a1 + 360) + 56));
-    v14 = TextureAsset;
-    v15 = *(a1 + 128);
-    if (v15)
-    {
-      v16 = v15 >> 1;
+      v4(a2);
     }
 
     else
     {
-      v16 = v15 >> 1;
+      (*(*a2 + 152))(&v15, a2);
+      v7 = v16;
+      v6 = v17;
+      v8 = (v6 * v6) + -0.5;
+      v9 = (((v19 * -2.0) * *(&v15 + 1)) + (*&v15 * (v18 * -2.0))) + (v16 * (v20 * -2.0));
+      v10 = -v16;
+      v11 = (((v18 * -2.0) * v8) - (((*(&v15 + 1) * (v20 * -2.0)) - (v16 * (v19 * -2.0))) * v17)) + (*&v15 * v9);
+      v12 = (((v19 * -2.0) * v8) - (((v16 * (v18 * -2.0)) - (*&v15 * (v20 * -2.0))) * v17)) + (*(&v15 + 1) * v9);
+      v13 = -*(&v15 + 1);
+      v14 = ((v20 * -2.0) * v8) - (((*&v15 * (v19 * -2.0)) - (*(&v15 + 1) * (v18 * -2.0))) * v17);
+      *a1 = -*&v15;
+      a1[1] = v13;
+      a1[2] = v10;
+      a1[3] = v6;
+      result = v14 + (v7 * v9);
+      a1[4] = v11;
+      a1[5] = v12;
+      a1[6] = result;
     }
-
-    if (v16)
-    {
-      v17 = *(a1 + 24);
-      v18 = re::TextureAsset::assetType(TextureAsset);
-      if (*(a1 + 128))
-      {
-        v19 = *(a1 + 136);
-      }
-
-      else
-      {
-        v19 = (a1 + 129);
-      }
-
-      re::AssetManager::createOrUpdateAssetEntryForNamedAssetDescriptor(v17, v14, v18, v19, 0, 0, 0, buf);
-    }
-
-    else
-    {
-      v20 = re::TextureAsset::assetType(TextureAsset);
-      if (a2)
-      {
-        (*(*v6 + 424))(buf, v6, v14, v20, 1, 0, 0);
-      }
-
-      else
-      {
-        (*(*v6 + 424))(buf, v6, v14, v20, 0, 0, 0);
-      }
-    }
-
-    v21 = v35;
-    v35 = *buf;
-    *buf = v21;
-    v22 = v36;
-    v36 = *&buf[16];
-    *&buf[16] = v22;
-    re::AssetHandle::~AssetHandle(buf);
-    v23 = *(a1 + 360);
-    if (v23)
-    {
-      re::SharedPtr<re::SkeletalPoseJointDefinition>::reset((*(&v35 + 1) + 264), v23);
-    }
-  }
-
-  if (*(&v35 + 1))
-  {
-    v5 = v35;
-    v24 = (v35 + 8);
   }
 
   else
   {
-    v5 = 0;
+    result = 0.0;
+    *a1 = xmmword_1E30474D0;
+    *(a1 + 2) = 0;
+    a1[6] = 0.0;
   }
 
-  re::AssetHandle::~AssetHandle(&v35);
-  return v5;
+  return result;
+}
+
+float physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getActorVelocity(_WORD *a1, uint64_t a2, uint64_t a3)
+{
+  if (a1 && a1[4] != 6)
+  {
+    (*(*a1 + 312))(&v7, a1);
+    *a2 = v7;
+    *(a2 + 8) = v8;
+    (*(*a1 + 328))(&v7, a1);
+    *a3 = v7;
+    result = v8;
+    *(a3 + 8) = v8;
+  }
+
+  else
+  {
+    result = 0.0;
+    *a3 = 0;
+    *(a3 + 8) = 0;
+    *a2 = 0;
+    *(a2 + 8) = 0;
+  }
+
+  return result;
+}
+
+void physx::PxDefaultMemoryOutputStream::~PxDefaultMemoryOutputStream(physx::PxDefaultMemoryOutputStream *this)
+{
+  *this = &unk_1F5D28378;
+  if (*(this + 2))
+  {
+    (*(**(this + 1) + 24))(*(this + 1));
+  }
+}
+
+{
+  *this = &unk_1F5D28378;
+  if (*(this + 2))
+  {
+    (*(**(this + 1) + 24))(*(this + 1));
+  }
+
+  JUMPOUT(0x1E6906520);
+}
+
+uint64_t physx::PxDefaultMemoryOutputStream::write(physx::PxDefaultMemoryOutputStream *this, const void *a2, uint64_t a3)
+{
+  v6 = *(this + 6);
+  if ((v6 + a3) <= *(this + 7))
+  {
+    v11 = *(this + 2);
+  }
+
+  else
+  {
+    v7 = (v6 + a3) | ((v6 + a3) >> 1) | (((v6 + a3) | ((v6 + a3) >> 1)) >> 2);
+    v8 = v7 | (v7 >> 4) | ((v7 | (v7 >> 4)) >> 8);
+    v9 = v8 | HIWORD(v8);
+    if ((v9 + 1) > 0x1000)
+    {
+      v10 = v9 + 1;
+    }
+
+    else
+    {
+      v10 = 4096;
+    }
+
+    *(this + 7) = v10;
+    v11 = (*(**(this + 1) + 16))(*(this + 1));
+    memcpy(v11, *(this + 2), *(this + 6));
+    if (*(this + 2))
+    {
+      (*(**(this + 1) + 24))(*(this + 1));
+    }
+
+    *(this + 2) = v11;
+    v6 = *(this + 6);
+  }
+
+  memcpy(&v11[v6], a2, a3);
+  *(this + 6) += a3;
+  return a3;
+}
+
+size_t physx::PxDefaultMemoryInputData::read(physx::PxDefaultMemoryInputData *this, void *__dst, unsigned int a3)
+{
+  v4 = *(this + 6);
+  v5 = *(this + 2) - v4;
+  if (a3 >= v5)
+  {
+    v6 = v5;
+  }
+
+  else
+  {
+    v6 = a3;
+  }
+
+  memcpy(__dst, (*(this + 2) + v4), v6);
+  *(this + 6) += v6;
+  return v6;
+}
+
+uint64_t physx::PxDefaultMemoryInputData::seek(uint64_t this, unsigned int a2)
+{
+  v2 = *(this + 8);
+  if (v2 >= a2)
+  {
+    v2 = a2;
+  }
+
+  *(this + 24) = v2;
+  return this;
+}
+
+void *physx::PxDistanceJointCreate(uint64_t a1, uint64_t a2, float32x4_t *a3, uint64_t a4, float32x4_t *a5)
+{
+  v10 = physx::shdfnd::Foundation::mInstance;
+  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
+  {
+    v11 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Ext::DistanceJoint>::getName() [T = physx::Ext::DistanceJoint]";
+  }
+
+  else
+  {
+    v11 = "<allocation names disabled>";
+  }
+
+  v12 = (*(*(v10 + 24) + 16))(v10 + 24, 112, v11, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxextensions/src/ExtDistanceJoint.cpp", 45);
+  v13 = (*(*a1 + 40))(a1);
+  v14 = physx::Ext::DistanceJoint::DistanceJoint(v12, v13, a2, a3, a4, a5);
+  v15 = (*(*a1 + 216))(a1, a2, a4, v12 + 3, &physx::Ext::DistanceJoint::sShaders, 112, v14);
+  v12[12] = v15;
+  if (!v15)
+  {
+    (*(*v12 + 32))(v12);
+    return 0;
+  }
+
+  return v12;
+}
+
+uint64_t physx::Ext::DistanceJoint::setMinDistance(physx::Ext::DistanceJoint *this, float a2)
+{
+  v2 = this + 96;
+  v3 = *(this + 12);
+  *(*(v2 + 1) + 80) = a2;
+  return (*(*v3 + 72))();
+}
+
+uint64_t physx::Ext::DistanceJoint::setMaxDistance(physx::Ext::DistanceJoint *this, float a2)
+{
+  v2 = this + 96;
+  v3 = *(this + 12);
+  *(*(v2 + 1) + 84) = a2;
+  return (*(*v3 + 72))();
+}
+
+uint64_t physx::Ext::DistanceJoint::setTolerance(physx::Ext::DistanceJoint *this, float a2)
+{
+  v2 = this + 96;
+  v3 = *(this + 12);
+  *(*(v2 + 1) + 88) = a2;
+  return (*(*v3 + 72))();
+}
+
+uint64_t physx::Ext::DistanceJoint::setStiffness(physx::Ext::DistanceJoint *this, float a2)
+{
+  v2 = this + 96;
+  v3 = *(this + 12);
+  *(*(v2 + 1) + 92) = a2;
+  return (*(*v3 + 72))();
+}
+
+uint64_t physx::Ext::DistanceJoint::setDamping(physx::Ext::DistanceJoint *this, float a2)
+{
+  v2 = this + 96;
+  v3 = *(this + 12);
+  *(*(v2 + 1) + 96) = a2;
+  return (*(*v3 + 72))();
+}
+
+uint64_t physx::Ext::DistanceJoint::setDistanceJointFlags(uint64_t a1, _WORD *a2)
+{
+  v3 = a1 + 96;
+  v2 = *(a1 + 96);
+  *(*(v3 + 8) + 100) = *a2;
+  return (*(*v2 + 72))();
+}
+
+uint64_t physx::Ext::DistanceJoint::setDistanceJointFlag(uint64_t a1, __int16 a2, int a3)
+{
+  v3 = *(a1 + 104);
+  if (a3)
+  {
+    v4 = *(v3 + 100) | a2;
+  }
+
+  else
+  {
+    v4 = *(v3 + 100) & ~a2;
+  }
+
+  *(v3 + 100) = v4;
+  return (*(**(a1 + 96) + 72))();
+}
+
+uint64_t physx::Ext::DistanceJoint::exportExtraData(uint64_t a1, uint64_t a2)
+{
+  if (*(a1 + 104))
+  {
+    (*(*a2 + 24))(a2, 16);
+    (*(*a2 + 16))(a2, *(a1 + 104), 112);
+  }
+
+  v4 = *(a1 + 32);
+  v5 = *(*a2 + 32);
+
+  return v5(a2, v4);
+}
+
+uint64_t DistanceJointSolverPrep(uint64_t a1, float32x2_t *a2, uint64_t a3, __int128 *a4, uint64_t a5, float32x2_t *a6, float32x2_t *a7, uint64_t a8, double d0_0, double d1_0, double a11, double a12, double a13, double a14, int8x16_t a15, int8x16_t a16, float *a9, float *a10)
+{
+  physx::Ext::joint::ConstraintHelper::ConstraintHelper(v45, a1, a4, v56, v52, a2, a5, a6, d0_0, d1_0, a11, a12, a13, a14, a15, a16, a7);
+  v20 = v53;
+  v21 = v54;
+  *a9 = v53;
+  a9[1] = v21;
+  v22 = v55;
+  a9[2] = v55;
+  v23 = v58;
+  v24 = v57 - v20;
+  *a10 = v20;
+  a10[1] = v21;
+  a10[2] = v22;
+  v25 = v23 - v21;
+  v26 = v59 - v22;
+  v27 = sqrtf(((v25 * v25) + (v24 * v24)) + (v26 * v26));
+  if (v27 > 0.0)
+  {
+    v24 = v24 * (1.0 / v27);
+    v25 = v25 * (1.0 / v27);
+    v26 = v26 * (1.0 / v27);
+  }
+
+  v28 = *(a5 + 100);
+  if (v27 < 0.00000011921)
+  {
+    v24 = 1.0;
+    v25 = 0.0;
+    v26 = 0.0;
+  }
+
+  v29 = v49;
+  v30 = (v47 * v26) - (v48 * v25);
+  v31 = (v48 * v24) - (v46 * v26);
+  v32 = (v46 * v25) - (v47 * v24);
+  v33 = (v50 * v26) - (v51 * v25);
+  v34 = (v51 * v24) - (v49 * v26);
+  v35 = -(v50 * v24);
+  *(a1 + 76) = 16;
+  *a1 = v24;
+  *(a1 + 4) = v25;
+  *(a1 + 8) = v26;
+  v36 = v35 + (v29 * v25);
+  *(a1 + 16) = v30;
+  *(a1 + 20) = v31;
+  *(a1 + 24) = v32;
+  *(a1 + 32) = v24;
+  *(a1 + 36) = v25;
+  *(a1 + 40) = v26;
+  *(a1 + 48) = v33;
+  *(a1 + 52) = v34;
+  *(a1 + 56) = v36;
+  if ((v28 & 8) != 0)
+  {
+    *(a1 + 76) = 17;
+    *(a1 + 64) = *(a5 + 92);
+    *(a1 + 68) = *(a5 + 96);
+    v37 = 25;
+  }
+
+  else
+  {
+    v37 = 24;
+  }
+
+  v39 = *(a5 + 80);
+  v38 = *(a5 + 84);
+  if (v39 == v38 && (v28 & 6) == 6)
+  {
+    v40 = v27 - v38;
+    v41 = *(a5 + 88);
+    if (v40 <= v41)
+    {
+      v42 = 0.0;
+      if (v40 < -v41)
+      {
+        v42 = v40 + v41;
+      }
+    }
+
+    else
+    {
+      v42 = v40 - v41;
+    }
+
+    *(a1 + 12) = v42;
+    return 1;
+  }
+
+  if ((v28 & 2) == 0)
+  {
+    if ((v28 & 4) != 0)
+    {
+      if (v27 >= v39)
+      {
+        result = 0;
+        *(a1 + 12) = v27 - v39;
+        *(a1 + 44) = 0;
+        *(a1 + 60) = 2139095039;
+LABEL_24:
+        *(a1 + 76) = v37;
+        return result;
+      }
+
+LABEL_26:
+      *(a1 + 12) = (v27 - v39) + *(a5 + 88);
+      *(a1 + 44) = 0;
+    }
+
+    return 1;
+  }
+
+  if (v27 > v38)
+  {
+    *(a1 + 12) = (v27 - v38) - *(a5 + 88);
+    *(a1 + 60) = 0;
+    return 1;
+  }
+
+  if ((v28 & 4) == 0)
+  {
+    result = 0;
+    *(a1 + 12) = v27 - v38;
+    *(a1 + 44) = -8388609;
+    *(a1 + 60) = 0;
+    goto LABEL_24;
+  }
+
+  if (v27 < v39)
+  {
+    goto LABEL_26;
+  }
+
+  *(a1 + 12) = v27 - v39;
+  *(a1 + 44) = 0;
+  *(a1 + 60) = 2139095039;
+  *(a1 + 76) = v37;
+  *(a1 + 80) = v24;
+  *(a1 + 84) = v25;
+  *(a1 + 88) = v26;
+  *(a1 + 96) = v30;
+  *(a1 + 100) = v31;
+  *(a1 + 104) = v32;
+  *(a1 + 112) = v24;
+  *(a1 + 116) = v25;
+  *(a1 + 120) = v26;
+  *(a1 + 128) = v33;
+  *(a1 + 132) = v34;
+  *(a1 + 136) = v36;
+  if ((*(a5 + 100) & 8) != 0)
+  {
+    *(a1 + 144) = *(a5 + 92);
+    *(a1 + 148) = *(a5 + 96);
+    v38 = *(a5 + 84);
+    v44 = 25;
+  }
+
+  else
+  {
+    v44 = 24;
+  }
+
+  *(a1 + 92) = v27 - v38;
+  *(a1 + 124) = -8388609;
+  *(a1 + 140) = 0;
+  *(a1 + 156) = v44;
+  return 2;
+}
+
+void DistanceJointVisualize(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, double a6, double a7, double a8, double a9, double a10, double a11, int8x16_t a12, int8x16_t a13)
+{
+  v16 = physx::Ext::joint::computeJointFrames(v24, v20, a2, a3, a4, a6, a7, a8, a9, a10, a11, a12, a13);
+  if (a5)
+  {
+    (*(*a1 + 16))(a1, v24, v20, v16);
+  }
+
+  if ((a5 & 2) != 0)
+  {
+    v17 = *(a2 + 100);
+    if ((v17 & 6) != 0)
+    {
+      v18 = sqrtf((((v22 - v26) * (v22 - v26)) + ((v21 - v25) * (v21 - v25))) + ((v23 - v27) * (v23 - v27)));
+      if ((v17 & 2) != 0 && v18 > *(a2 + 84))
+      {
+        v19 = 16711680;
+      }
+
+      else
+      {
+        v19 = 65280;
+      }
+
+      if ((v17 & 4) != 0 && v18 < *(a2 + 80))
+      {
+        v19 = 255;
+      }
+
+      (*(*a1 + 56))(a1, &v25, &v21, v19);
+    }
+  }
+}
+
+void *physx::PxFixedJointCreate(uint64_t a1, uint64_t a2, float32x4_t *a3, uint64_t a4, float32x4_t *a5)
+{
+  v10 = physx::shdfnd::Foundation::mInstance;
+  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
+  {
+    v11 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Ext::FixedJoint>::getName() [T = physx::Ext::FixedJoint]";
+  }
+
+  else
+  {
+    v11 = "<allocation names disabled>";
+  }
+
+  v12 = (*(*(v10 + 24) + 16))(v10 + 24, 112, v11, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxextensions/src/ExtFixedJoint.cpp", 45);
+  (*(*a1 + 40))(a1);
+  v15 = 3;
+  physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::Joint(v12, 259, &v15, a2, a3, a4, a5, 0x60u);
+  *v12 = &unk_1F5D286F8;
+  v12[3] = &unk_1F5D28878;
+  *(v12[13] + 80) = 0x40490FDB501502F9;
+  v13 = (*(*a1 + 216))(a1, a2, a4);
+  v12[12] = v13;
+  if (!v13)
+  {
+    (*(*v12 + 32))(v12);
+    return 0;
+  }
+
+  return v12;
+}
+
+uint64_t physx::Ext::FixedJoint::setProjectionLinearTolerance(physx::Ext::FixedJoint *this, float a2)
+{
+  v2 = this + 96;
+  v3 = *(this + 12);
+  *(*(v2 + 1) + 80) = a2;
+  return (*(*v3 + 72))();
+}
+
+uint64_t physx::Ext::FixedJoint::setProjectionAngularTolerance(physx::Ext::FixedJoint *this, float a2)
+{
+  v2 = this + 96;
+  v3 = *(this + 12);
+  *(*(v2 + 1) + 84) = a2;
+  return (*(*v3 + 72))();
+}
+
+uint64_t physx::Ext::FixedJoint::exportExtraData(uint64_t a1, uint64_t a2)
+{
+  if (*(a1 + 104))
+  {
+    (*(*a2 + 24))(a2, 16);
+    (*(*a2 + 16))(a2, *(a1 + 104), 96);
+  }
+
+  v4 = *(a1 + 32);
+  v5 = *(*a2 + 32);
+
+  return v5(a2, v4);
+}
+
+uint64_t FixedJointSolverPrep(uint64_t a1, float32x2_t *a2, uint64_t a3, __int128 *a4, __int128 *a5, float32x2_t *a6, float32x2_t *a7, uint64_t a8, double d0_0, double d1_0, double a11, double a12, double a13, double a14, int8x16_t a15, int8x16_t a16, float32x2_t *a9, float32x2_t *a10)
+{
+  physx::Ext::joint::ConstraintHelper::ConstraintHelper(v47, a1, a4, &v51, &v48, a2, a5, a6, d0_0, d1_0, a11, a12, a13, a14, a15, a16, a7);
+  _S0 = v51.i32[0];
+  *_D1.i32 = v52;
+  _S2 = v53;
+  _V4.D[1] = v48.i64[1];
+  __asm
+  {
+    FMLA            S5, S1, V4.S[2]
+    FMLA            S5, S2, V4.S[3]
+  }
+
+  if (_S5 < 0.0)
+  {
+    v48 = vnegq_f32(v48);
+  }
+
+  v30 = (v50 - v55) + (v50 - v55);
+  v31 = (v53 * v53) + -0.5;
+  v32 = vsub_f32(v49, v54);
+  _D16 = vadd_f32(v32, v32);
+  v34 = (vmuls_lane_f32(*&v51.i32[1], _D16, 1) + (*v51.i32 * *_D16.i32)) + (v52 * v30);
+  v35.i32[0] = vdup_lane_s32(_D16, 1).u32[0];
+  v35.f32[1] = v30;
+  v36 = vdup_lane_s32(_D1, 0);
+  v36.i32[0] = v51.i32[1];
+  __asm { FMLA            S7, S0, V16.S[1] }
+
+  v41 = vmla_n_f32(vmla_n_f32(vmul_n_f32(vneg_f32(vmla_f32(vmul_f32(v35, vneg_f32(vzip1_s32(_D1, v51))), vext_s8(v35, _D16, 4uLL), v36)), v53), _D16, v31), v51, v34);
+  v42 = ((v30 * v31) - (_S7 * v53)) + (v52 * v34);
+  physx::Ext::joint::ConstraintHelper::prepareLockedAxes(v47, &v51, v48.f32, &v41, 7, 7, &v45, &v43);
+  v38 = v46 + a6[3].f32[0];
+  *a9 = vadd_f32(v45, a6[2]);
+  a9[1].f32[0] = v38;
+  v39 = v44 + a7[3].f32[0];
+  *a10 = vadd_f32(v43, a7[2]);
+  a10[1].f32[0] = v39;
+  return -858993459 * ((v47[1] - v47[0]) >> 4);
+}
+
+void FixedJointProject(float *a1, float *a2, float *a3, int a4, double a5, double a6, double a7, double a8, double a9, double a10, int8x16_t a11, int8x16_t a12)
+{
+  physx::Ext::joint::computeDerived(a1, a2, a3, &v132, &v125, &v119, 1, a5, a6, a7, a8, a9, a10, a11, a12);
+  v16 = a1[20];
+  v18 = v122;
+  v17 = v123;
+  v19 = v124;
+  v20 = ((v17 * v17) + (v18 * v18)) + (v19 * v19);
+  v21 = v16 * v16;
+  if (v20 > (v16 * v16))
+  {
+    v22 = 1.0 / sqrtf(v20);
+    v18 = v16 * (v122 * v22);
+    v17 = v16 * (v123 * v22);
+    v19 = v16 * (v124 * v22);
+  }
+
+  v24 = __sincosf_stret(a1[21] * 0.5);
+  if (v24.__sinval > 0.9999)
+  {
+    v25 = v119;
+    _D2 = v120;
+    v23.f32[0] = v121;
+    goto LABEL_9;
+  }
+
+  v23.f32[0] = v121;
+  _D2 = v120;
+  _D5 = vbsl_s8(vdup_lane_s32(vmvn_s8(vcge_f32(v23, 0)), 0), vneg_f32(v120), v120);
+  v25 = v119;
+  v28 = -v119;
+  if (v121 >= 0.0)
+  {
+    v28 = v119;
+  }
+
+  _S16 = _D5.i32[1];
+  __asm { FMLA            S7, S16, V5.S[1] }
+
+  if (_S7 <= (v24.__sinval * v24.__sinval))
+  {
+LABEL_9:
+    if (v20 <= v21)
+    {
+      return;
+    }
+
+    goto LABEL_10;
+  }
+
+  v35 = 1.0 / sqrtf(_S7);
+  v25 = (v24.__sinval * v28) * v35;
+  _D2 = vmul_n_f32(vmul_n_f32(_D5, v24.__sinval), v35);
+  v23.i32[0] = LODWORD(v24.__cosval);
+LABEL_10:
+  if (a4)
+  {
+    v36 = a1[15] * -2.0;
+    v37 = a1[16] * -2.0;
+    v38 = a1[17] * -2.0;
+    _S5 = a1[13];
+    v39 = a1[14];
+    v41 = (v39 * v39) + -0.5;
+    _S7 = a1[11];
+    _S6 = a1[12];
+    v44 = ((v37 * _S6) + (_S7 * v36)) + (_S5 * v38);
+    v45 = ((v36 * v41) - (((_S6 * v38) - (_S5 * v37)) * v39)) + (_S7 * v44);
+    v46 = ((v37 * v41) - (((_S5 * v36) - (_S7 * v38)) * v39)) + (_S6 * v44);
+    v47 = ((v38 * v41) - (((_S7 * v37) - (_S6 * v36)) * v39)) + (_S5 * v44);
+    _S17 = v45 + v45;
+    v49 = v46 + v46;
+    _S16 = v47 + v47;
+    v51 = (v23.f32[0] * v23.f32[0]) + -0.5;
+    __asm { FMLA            S20, S16, V2.S[1] }
+
+    v53 = ((v23.f32[0] * ((_D2.f32[0] * _S16) - (_D2.f32[1] * (v46 + v46)))) + ((v45 + v45) * v51)) + (v25 * _S20);
+    __asm
+    {
+      FMLA            S22, S17, V2.S[1]
+      FMLA            S16, S20, V2.S[1]
+    }
+
+    v56 = v18 + v53;
+    v57 = v17 + (((v23.f32[0] * _S22) + (v49 * v51)) + (_D2.f32[0] * _S20));
+    v58 = v19 + _S16;
+    __asm
+    {
+      FMLA            S16, S6, V2.S[1]
+      FMLS            S20, S7, V2.S[1]
+    }
+
+    v61 = _S20 + (_S5 * v25);
+    v62 = ((vmuls_lane_f32(v39, _D2, 1) - (v23.f32[0] * _S5)) - (v25 * _S6)) + (_S7 * _D2.f32[0]);
+    __asm { FMLA            S3, S5, V2.S[1] }
+
+    v64 = v57 + v57;
+    v65 = v58 + v58;
+    v66 = (v135 * v135) + -0.5;
+    v67 = ((v133 * (v57 + v57)) + (v132 * (v56 + v56))) + (v134 * (v58 + v58));
+    v68 = ((v135 * ((v133 * (v58 + v58)) - (v134 * v64))) + ((v56 + v56) * v66)) + (v132 * v67);
+    v69 = ((v135 * ((v134 * (v56 + v56)) - (v132 * v65))) + (v64 * v66)) + (v133 * v67);
+    v70 = ((v135 * ((v132 * v64) - (v133 * (v56 + v56)))) + (v65 * v66)) + (v134 * v67);
+    v71 = v136 + v68;
+    v72 = v137 + v69;
+    v73 = v138 + v70;
+    v74 = (((_S3 * v132) + (v135 * _S16)) + (v133 * v62)) - (v61 * v134);
+    v75 = (((_S3 * v133) + (v135 * v61)) + (v134 * _S16)) - (v62 * v132);
+    v76 = (((_S3 * v134) + (v135 * v62)) + (v132 * v61)) - (_S16 * v133);
+    v77 = (((v135 * _S3) - (v132 * _S16)) - (v133 * v61)) - (v134 * v62);
+    *a3 = v74;
+    a3[1] = v75;
+    a3[2] = v76;
+    a3[3] = v77;
+    a3[4] = v71;
+    a3[5] = v72;
+    a3[6] = v73;
+    v78 = sqrtf((((v75 * v75) + (v74 * v74)) + (v76 * v76)) + (v77 * v77));
+    if (v78 != 0.0)
+    {
+      *a3 = v74 / v78;
+      a3[1] = v75 / v78;
+      a3[2] = v76 / v78;
+      a3[3] = v77 / v78;
+    }
+  }
+
+  else
+  {
+    v79 = a1[8] * -2.0;
+    v80 = a1[9] * -2.0;
+    v81 = a1[10] * -2.0;
+    _S5 = a1[6];
+    v82 = a1[7];
+    v84 = (v82 * v82) + -0.5;
+    _S7 = a1[4];
+    _S6 = a1[5];
+    v87 = ((v80 * _S6) + (_S7 * v79)) + (_S5 * v81);
+    v88 = ((v79 * v84) - (((_S6 * v81) - (_S5 * v80)) * v82)) + (_S7 * v87);
+    v89 = ((v80 * v84) - (((_S5 * v79) - (_S7 * v81)) * v82)) + (_S6 * v87);
+    v90 = ((v81 * v84) - (((_S7 * v80) - (_S6 * v79)) * v82)) + (_S5 * v87);
+    _S18 = (v88 - v18) + (v88 - v18);
+    v92 = (v89 - v17) + (v89 - v17);
+    _S16 = (v90 - v19) + (v90 - v19);
+    v94 = (v23.f32[0] * v23.f32[0]) + -0.5;
+    __asm { FMLS            S21, S16, V2.S[1] }
+
+    v96 = ((v23.f32[0] * (vmuls_lane_f32(v92, _D2, 1) - (_S16 * _D2.f32[0]))) + (_S18 * v94)) - (v25 * _S21);
+    __asm { FMLS            S23, S18, V2.S[1] }
+
+    v98 = ((v23.f32[0] * _S23) + (v92 * v94)) - (_S21 * _D2.f32[0]);
+    __asm
+    {
+      FMLS            S18, S21, V2.S[1]
+      FMLS            S16, S6, V2.S[1]
+      FMLA            S19, S7, V2.S[1]
+    }
+
+    v102 = _S19 - (_S5 * v25);
+    v103 = ((-(_D2.f32[1] * v82) - (v23.f32[0] * _S5)) + (v25 * _S6)) - (_S7 * _D2.f32[0]);
+    __asm { FMLS            S3, S5, V2.S[1] }
+
+    v105 = v96 + v96;
+    v106 = (v128 * v128) + -0.5;
+    v107 = ((v126 * (v98 + v98)) + (v125 * (v96 + v96))) + (v127 * (_S18 + _S18));
+    v108 = ((v128 * ((v126 * (_S18 + _S18)) - (v127 * (v98 + v98)))) + ((v96 + v96) * v106)) + (v125 * v107);
+    v109 = ((v128 * ((v127 * (v96 + v96)) - (v125 * (_S18 + _S18)))) + ((v98 + v98) * v106)) + (v126 * v107);
+    v110 = ((v128 * ((v125 * (v98 + v98)) - (v126 * v105))) + ((_S18 + _S18) * v106)) + (v127 * v107);
+    v111 = v129 + v108;
+    v112 = v130 + v109;
+    v113 = v131 + v110;
+    v114 = (((_S3 * v125) + (v128 * _S16)) + (v126 * v103)) - (v102 * v127);
+    v115 = (((_S3 * v126) + (v128 * v102)) + (v127 * _S16)) - (v103 * v125);
+    v116 = (((_S3 * v127) + (v128 * v103)) + (v125 * v102)) - (_S16 * v126);
+    v117 = (((v128 * _S3) - (v125 * _S16)) - (v126 * v102)) - (v127 * v103);
+    *a2 = v114;
+    a2[1] = v115;
+    a2[2] = v116;
+    a2[3] = v117;
+    a2[4] = v111;
+    a2[5] = v112;
+    a2[6] = v113;
+    v118 = sqrtf((((v115 * v115) + (v114 * v114)) + (v116 * v116)) + (v117 * v117));
+    if (v118 != 0.0)
+    {
+      *a2 = v114 / v118;
+      a2[1] = v115 / v118;
+      a2[2] = v116 / v118;
+      a2[3] = v117 / v118;
+    }
+  }
+}
+
+uint64_t FixedJointVisualize(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, char a5, double a6, double a7, double a8, double a9, double a10, double a11, int8x16_t a12, int8x16_t a13)
+{
+  if (a5)
+  {
+    v13 = result;
+    v14 = physx::Ext::joint::computeJointFrames(v16, v15, a2, a3, a4, a6, a7, a8, a9, a10, a11, a12, a13);
+    return (*(*v13 + 16))(v13, v16, v15, v14);
+  }
+
+  return result;
+}
+
+void physx::Ext::DistanceJoint::~DistanceJoint(physx::Ext::DistanceJoint *this)
+{
+  if (physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::~Joint(this))
+  {
+    v1 = *(*(physx::shdfnd::Foundation::mInstance + 24) + 24);
+
+    v1();
+  }
+}
+
+BOOL physx::PxDistanceJoint::isKindOf(physx::PxDistanceJoint *this, const char *a2)
+{
+  if (!strcmp("PxDistanceJoint", a2))
+  {
+    return 1;
+  }
+
+  return physx::PxJoint::isKindOf(this, a2);
+}
+
+uint64_t physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::setActors(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  (*(**(a1 + 96) + 64))(*(a1 + 96));
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v41, a2);
+  v6 = v43;
+  v7 = (*(a1 + 56) - v45) + (*(a1 + 56) - v45);
+  v8 = (*(a1 + 60) - v46) + (*(a1 + 60) - v46);
+  v9 = (*(a1 + 64) - v47) + (*(a1 + 64) - v47);
+  v10 = (v44 * v44) + -0.5;
+  v11 = (-(v42 * v8) - (v41 * v7)) - (v43 * v9);
+  v12 = ((v44 * ((v43 * v8) - (v42 * v9))) + (v7 * v10)) - (v41 * v11);
+  v13 = (v44 * ((v41 * v9) - (v43 * v7))) + (v8 * v10);
+  v14 = (v44 * ((v42 * v7) - (v41 * v8))) + (v9 * v10);
+  v16 = *(a1 + 48);
+  v15 = *(a1 + 52);
+  v17 = *(a1 + 40);
+  v18 = *(a1 + 44);
+  v19 = (((v44 * v18) - (v42 * v15)) - (v43 * v17)) + (v16 * v41);
+  v20 = (((v44 * v16) - (v43 * v15)) - (v41 * v18)) + (v17 * v42);
+  v21 = v13 - (v42 * v11);
+  v22 = (((v41 * v17) + (v44 * v15)) + (v42 * v18)) + (v43 * v16);
+  v23 = *(a1 + 104);
+  v23[4] = (((v44 * v17) - (v41 * v15)) - (v42 * v16)) + (v18 * v43);
+  v23[5] = v19;
+  v23[6] = v20;
+  v23[7] = v22;
+  v23[8] = v12;
+  v23[9] = v21;
+  v23[10] = v14 - (v6 * v11);
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v41, a3);
+  v24 = (*(a1 + 84) - v45) + (*(a1 + 84) - v45);
+  v25 = (*(a1 + 88) - v46) + (*(a1 + 88) - v46);
+  v26 = (*(a1 + 92) - v47) + (*(a1 + 92) - v47);
+  v27 = (v44 * v44) + -0.5;
+  v28 = (-(v42 * v25) - (v41 * v24)) - (v43 * v26);
+  v29 = ((v44 * ((v43 * v25) - (v42 * v26))) + (v24 * v27)) - (v41 * v28);
+  v30 = ((v44 * ((v41 * v26) - (v43 * v24))) + (v25 * v27)) - (v42 * v28);
+  v31 = ((v44 * ((v42 * v24) - (v41 * v25))) + (v26 * v27)) - (v43 * v28);
+  v33 = *(a1 + 76);
+  v32 = *(a1 + 80);
+  v34 = *(a1 + 68);
+  v35 = *(a1 + 72);
+  v36 = (((v44 * v35) - (v42 * v32)) - (v43 * v34)) + (v33 * v41);
+  v37 = (((v44 * v33) - (v43 * v32)) - (v41 * v35)) + (v34 * v42);
+  v38 = (((v41 * v34) + (v44 * v32)) + (v42 * v35)) + (v43 * v33);
+  v39 = *(a1 + 104);
+  v39[11] = (((v44 * v34) - (v41 * v32)) - (v42 * v33)) + (v35 * v43);
+  v39[12] = v36;
+  v39[13] = v37;
+  v39[14] = v38;
+  v39[15] = v29;
+  v39[16] = v30;
+  v39[17] = v31;
+  return (*(**(a1 + 96) + 72))(*(a1 + 96));
+}
+
+uint64_t physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::getActors(uint64_t a1, void *a2, void *a3)
+{
+  result = *(a1 + 96);
+  if (result)
+  {
+    return (*(*result + 56))(result, a2, a3);
+  }
+
+  *a2 = 0;
+  *a3 = 0;
+  return result;
+}
+
+uint64_t physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::setLocalPose(uint64_t a1, unsigned int a2, float *a3)
+{
+  v40[1] = *MEMORY[0x1E69E9840];
+  v5 = a3[1];
+  v6 = a3[2];
+  v7 = a3[3];
+  v8 = sqrtf((((v5 * v5) + (*a3 * *a3)) + (v6 * v6)) + (v7 * v7));
+  v9 = *a3 / v8;
+  v10 = v5 / v8;
+  v11 = v6 / v8;
+  v12 = v7 / v8;
+  v13 = a3[4];
+  v14 = a3[5];
+  v15 = a3[6];
+  v16 = 28 * a2;
+  v17 = (a1 + v16);
+  v17[10] = v9;
+  v17[11] = v5 / v8;
+  v17[12] = v6 / v8;
+  v17[13] = v7 / v8;
+  v17[14] = v13;
+  v17[15] = v14;
+  v17[16] = v15;
+  v39 = 0;
+  v40[0] = 0;
+  (*(**(a1 + 96) + 56))(*(a1 + 96), &v39, v40);
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v32, v40[a2 - 1]);
+  v18 = (v13 - v36) + (v13 - v36);
+  v19 = (v14 - v37) + (v14 - v37);
+  v20 = (v15 - v38) + (v15 - v38);
+  v21 = (v35 * v35) + -0.5;
+  v22 = (-(v33 * v19) - (v32 * v18)) - (v34 * v20);
+  v23 = ((v35 * ((v34 * v19) - (v33 * v20))) + (v18 * v21)) - (v32 * v22);
+  v24 = ((v35 * ((v32 * v20) - (v34 * v18))) + (v19 * v21)) - (v33 * v22);
+  v25 = ((v35 * ((v33 * v18) - (v32 * v19))) + (v20 * v21)) - (v34 * v22);
+  v26 = (((v35 * v10) - (v33 * v12)) - (v34 * v9)) + (v11 * v32);
+  v27 = (((v35 * v11) - (v34 * v12)) - (v32 * v10)) + (v9 * v33);
+  v28 = (((v9 * v32) + (v35 * v12)) + (v33 * v10)) + (v34 * v11);
+  v29 = *(a1 + 96);
+  v30 = (*(a1 + 104) + v16);
+  v30[4] = (((v35 * v9) - (v32 * v12)) - (v33 * v11)) + (v10 * v34);
+  v30[5] = v26;
+  v30[6] = v27;
+  v30[7] = v28;
+  v30[8] = v23;
+  v30[9] = v24;
+  v30[10] = v25;
+  return (*(*v29 + 72))(v29);
+}
+
+float physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::getLocalPose@<S0>(uint64_t a1@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
+{
+  v3 = a1 + 28 * a2;
+  *a3 = *(v3 + 40);
+  *(a3 + 16) = *(v3 + 56);
+  result = *(v3 + 64);
+  *(a3 + 24) = result;
+  return result;
+}
+
+float physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::getRelativeTransform@<S0>(uint64_t a1@<X0>, float *a2@<X8>)
+{
+  v72 = 0;
+  v73 = 0;
+  (*(**(a1 + 96) + 56))(*(a1 + 96), &v73, &v72);
+  v4 = 1.0;
+  v5 = 0.0;
+  v6 = 0.0;
+  v7 = 0.0;
+  v8 = 0.0;
+  v9 = 0.0;
+  v10 = 0.0;
+  v11 = 0.0;
+  v12 = 1.0;
+  if (v73)
+  {
+    (*(*v73 + 152))(&v66);
+    v5 = 0.0;
+    v4 = 1.0;
+    v10 = *(&v66 + 1);
+    v11 = *&v66;
+    v9 = v67;
+    v12 = v68;
+    v8 = v69;
+    v7 = v70;
+    v6 = v71;
+  }
+
+  v13 = *(a1 + 56);
+  v14 = *(a1 + 60);
+  v15 = *(a1 + 64);
+  v16 = *(a1 + 48);
+  v17 = *(a1 + 52);
+  v18 = 0.0;
+  v19 = 0.0;
+  v20 = 0.0;
+  v21 = *(a1 + 40);
+  v22 = *(a1 + 44);
+  v23 = 0.0;
+  v24 = 0.0;
+  if (v72)
+  {
+    v64 = v7;
+    v65 = v8;
+    v62 = *(a1 + 56);
+    v63 = v6;
+    v60 = *(a1 + 64);
+    v61 = *(a1 + 60);
+    (*(*v72 + 152))(&v66);
+    v15 = v60;
+    v14 = v61;
+    v13 = v62;
+    v6 = v63;
+    v7 = v64;
+    v8 = v65;
+    v23 = *(&v66 + 1);
+    v24 = *&v66;
+    v20 = v67;
+    v4 = v68;
+    v19 = v69;
+    v18 = v70;
+    v5 = v71;
+  }
+
+  v25 = (((v12 * v17) - (v11 * v21)) - (v10 * v22)) - (v9 * v16);
+  v26 = (((v9 * v17) + (v12 * v16)) + (v11 * v22)) - (v21 * v10);
+  v27 = (((v10 * v17) + (v12 * v22)) + (v9 * v21)) - (v16 * v11);
+  v28 = (((v11 * v17) + (v12 * v21)) + (v10 * v16)) - (v22 * v9);
+  v29 = v15 + v15;
+  v30 = v14 + v14;
+  v31 = ((v10 * (v14 + v14)) + (v11 * (v13 + v13))) + (v9 * v29);
+  v32 = (v12 * v12) + -0.5;
+  v33 = v6 + (((v12 * ((v11 * (v14 + v14)) - (v10 * (v13 + v13)))) + (v29 * v32)) + (v9 * v31));
+  v34 = v7 + (((v12 * ((v9 * (v13 + v13)) - (v11 * v29))) + (v30 * v32)) + (v10 * v31));
+  v35 = v8 + (((v12 * ((v10 * v29) - (v9 * v30))) + ((v13 + v13) * v32)) + (v11 * v31));
+  v36 = *(a1 + 84) + *(a1 + 84);
+  v37 = *(a1 + 88) + *(a1 + 88);
+  v38 = *(a1 + 92) + *(a1 + 92);
+  v39 = (v4 * v4) + -0.5;
+  v40 = ((v23 * v37) + (v24 * v36)) + (v20 * v38);
+  v41 = v19 + (((v4 * ((v23 * v38) - (v20 * v37))) + (v36 * v39)) + (v24 * v40));
+  v42 = v18 + (((v4 * ((v20 * v36) - (v24 * v38))) + (v37 * v39)) + (v23 * v40));
+  v43 = v5 + (((v4 * ((v24 * v37) - (v23 * v36))) + (v38 * v39)) + (v20 * v40));
+  v45 = *(a1 + 76);
+  v44 = *(a1 + 80);
+  v46 = *(a1 + 68);
+  v47 = *(a1 + 72);
+  v48 = (((v24 * v44) + (v4 * v46)) + (v23 * v45)) - (v47 * v20);
+  v49 = (((v23 * v44) + (v4 * v47)) + (v20 * v46)) - (v45 * v24);
+  v50 = (((v20 * v44) + (v4 * v45)) + (v24 * v47)) - (v46 * v23);
+  v51 = (((v4 * v44) - (v24 * v46)) - (v23 * v47)) - (v20 * v45);
+  v52 = (v41 - v35) + (v41 - v35);
+  v53 = (v42 - v34) + (v42 - v34);
+  v54 = (v43 - v33) + (v43 - v33);
+  v55 = (v25 * v25) + -0.5;
+  v56 = (-(v27 * v53) - (v28 * v52)) - (v26 * v54);
+  v57 = ((v25 * ((v26 * v53) - (v27 * v54))) + (v52 * v55)) - (v28 * v56);
+  v58 = ((v25 * ((v28 * v54) - (v26 * v52))) + (v53 * v55)) - (v27 * v56);
+  *a2 = (((v25 * v48) - (v28 * v51)) - (v27 * v50)) + (v49 * v26);
+  a2[1] = (((v25 * v49) - (v27 * v51)) - (v26 * v48)) + (v50 * v28);
+  a2[2] = (((v25 * v50) - (v26 * v51)) - (v28 * v49)) + (v48 * v27);
+  a2[3] = (((v28 * v48) + (v25 * v51)) + (v27 * v49)) + (v26 * v50);
+  result = ((v25 * ((v27 * v52) - (v28 * v53))) + (v54 * v55)) - (v26 * v56);
+  a2[4] = v57;
+  a2[5] = v58;
+  a2[6] = result;
+  return result;
+}
+
+float physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::getRelativeLinearVelocity@<S0>(uint64_t a1@<X0>, float *a2@<X8>)
+{
+  v51 = 0;
+  v52 = 0;
+  (*(**(a1 + 96) + 56))(*(a1 + 96), &v52, &v51);
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v36, v52);
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v32, v51);
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getActorVelocity(v52, v50, &v47);
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getActorVelocity(v51, v46, &v43);
+  v4 = *(a1 + 56) + *(a1 + 56);
+  v5 = *(a1 + 60) + *(a1 + 60);
+  v6 = *(a1 + 64) + *(a1 + 64);
+  v7 = (v39 * v39) + -0.5;
+  v8 = ((v5 * v37) + (v36 * v4)) + (v38 * v6);
+  v9 = ((v39 * ((v37 * v6) - (v38 * v5))) + (v4 * v7)) + (v36 * v8);
+  v10 = ((v39 * ((v38 * v4) - (v36 * v6))) + (v5 * v7)) + (v37 * v8);
+  v11 = ((v39 * ((v36 * v5) - (v37 * v4))) + (v6 * v7)) + (v38 * v8);
+  v12 = *(a1 + 84) + *(a1 + 84);
+  v13 = *(a1 + 88) + *(a1 + 88);
+  v14 = *(a1 + 92) + *(a1 + 92);
+  v15 = (v35 * v35) + -0.5;
+  v16 = ((v13 * v33) + (v32 * v12)) + (v34 * v14);
+  v17 = ((v35 * ((v33 * v14) - (v34 * v13))) + (v12 * v15)) + (v32 * v16);
+  v18 = ((v35 * ((v34 * v12) - (v32 * v14))) + (v13 * v15)) + (v33 * v16);
+  v19 = ((v35 * ((v32 * v13) - (v33 * v12))) + (v14 * v15)) + (v34 * v16);
+  v20 = (v48 * v11) - (v49 * v10);
+  v21 = (v49 * v9) - (v47 * v11);
+  v22 = (v47 * v10) - (v48 * v9);
+  v23 = (((v46[0] - ((v44 * v19) - (v45 * v18))) - v50[0]) + v20) - v40;
+  v24 = (((v46[1] - ((v45 * v17) - (v43 * v19))) - v50[1]) + v21) - v41;
+  v25 = (((v46[2] - ((v43 * v18) - (v44 * v17))) - v50[2]) + v22) - v42;
+  v26 = v23 + v23;
+  v27 = v24 + v24;
+  v28 = v25 + v25;
+  v29 = ((v37 * v27) + (v36 * v26)) + (v38 * v28);
+  v30 = ((v27 * v7) - (((v38 * v26) - (v36 * v28)) * v39)) + (v37 * v29);
+  result = ((v28 * v7) - (((v36 * v27) - (v37 * v26)) * v39)) + (v38 * v29);
+  *a2 = ((v26 * v7) - (((v37 * v28) - (v38 * v27)) * v39)) + (v36 * v29);
+  a2[1] = v30;
+  a2[2] = result;
+  return result;
+}
+
+float32_t physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::getRelativeAngularVelocity@<S0>(uint64_t a1@<X0>, float32x2_t *a2@<X8>)
+{
+  v21 = 0;
+  v22 = 0;
+  (*(**(a1 + 96) + 56))(*(a1 + 96), &v22, &v21);
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(v11, v22);
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getActorVelocity(v22, v20, &v18);
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getActorVelocity(v21, v17, &v15);
+  v3 = ((v16 - v19) - v14) + ((v16 - v19) - v14);
+  v4.i32[0] = *&v11[8];
+  v5 = (v12 * v12) + -0.5;
+  v6 = vsub_f32(vsub_f32(v15, v18), v13);
+  v7 = vadd_f32(v6, v6);
+  v8 = (vmuls_lane_f32(*&v7.i32[1], *v11, 1) + (*v11 * *v7.i32)) + (*&v11[8] * v3);
+  v9.i32[0] = vdup_lane_s32(v7, 1).u32[0];
+  v9.f32[1] = v3;
+  result = ((v3 * v5) - (((-*&v11[4] * *v7.i32) + (*v11 * *&v7.i32[1])) * v12)) + (*&v11[8] * v8);
+  *a2 = vmla_n_f32(vmla_n_f32(vmul_n_f32(vneg_f32(vmla_f32(vmul_f32(v9, vneg_f32(vzip1_s32(v4, *v11))), vext_s8(v9, v7, 4uLL), *&v11[4])), v12), v7, v5), *v11, v8);
+  a2[1].f32[0] = result;
+  return result;
+}
+
+uint64_t physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::setConstraintFlags(uint64_t a1, __int16 *a2)
+{
+  v2 = *(a1 + 96);
+  v4 = *a2;
+  return (*(*v2 + 80))(v2, &v4);
+}
+
+uint64_t physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::setInvMassScale0(uint64_t a1, float a2)
+{
+  v2 = a1 + 96;
+  v3 = *(a1 + 96);
+  **(v2 + 8) = a2;
+  return (*(*v3 + 72))();
+}
+
+uint64_t physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::setInvInertiaScale0(uint64_t a1, float a2)
+{
+  v2 = a1 + 96;
+  v3 = *(a1 + 96);
+  *(*(v2 + 8) + 4) = a2;
+  return (*(*v3 + 72))();
+}
+
+uint64_t physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::setInvMassScale1(uint64_t a1, float a2)
+{
+  v2 = a1 + 96;
+  v3 = *(a1 + 96);
+  *(*(v2 + 8) + 8) = a2;
+  return (*(*v3 + 72))();
+}
+
+uint64_t physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::setInvInertiaScale1(uint64_t a1, float a2)
+{
+  v2 = a1 + 96;
+  v3 = *(a1 + 96);
+  *(*(v2 + 8) + 12) = a2;
+  return (*(*v3 + 72))();
+}
+
+uint64_t physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::getScene(uint64_t a1)
+{
+  result = *(a1 + 96);
+  if (result)
+  {
+    return (*(*result + 48))();
+  }
+
+  return result;
+}
+
+uint64_t physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::requiresObjects(uint64_t a1, uint64_t a2)
+{
+  (*(*a2 + 16))(a2, *(a1 + 96));
+  v5 = 0;
+  v6 = 0;
+  result = (*(**(a1 + 96) + 56))(*(a1 + 96), &v6, &v5);
+  if (v6)
+  {
+    result = (*(*a2 + 16))(a2);
+  }
+
+  if (v5)
+  {
+    return (*(*a2 + 16))(a2);
+  }
+
+  return result;
+}
+
+uint64_t physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::onComShift(uint64_t a1, unsigned int a2)
+{
+  v31[1] = *MEMORY[0x1E69E9840];
+  v30 = 0;
+  v31[0] = 0;
+  (*(**(a1 + 96) + 56))(*(a1 + 96), &v30, v31);
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v23, v31[a2 - 1]);
+  v4 = 28 * a2;
+  v5 = (*(a1 + v4 + 56) - v27) + (*(a1 + v4 + 56) - v27);
+  v6 = (*(a1 + v4 + 60) - v28) + (*(a1 + v4 + 60) - v28);
+  v7 = (*(a1 + v4 + 64) - v29) + (*(a1 + v4 + 64) - v29);
+  v8 = (v26 * v26) + -0.5;
+  v9 = (-(v24 * v6) - (v23 * v5)) - (v25 * v7);
+  v10 = ((v26 * ((v25 * v6) - (v24 * v7))) + (v5 * v8)) - (v23 * v9);
+  v11 = ((v26 * ((v23 * v7) - (v25 * v5))) + (v6 * v8)) - (v24 * v9);
+  v12 = ((v26 * ((v24 * v5) - (v23 * v6))) + (v7 * v8)) - (v25 * v9);
+  v14 = *(a1 + v4 + 48);
+  v13 = *(a1 + v4 + 52);
+  v15 = *(a1 + v4 + 40);
+  v16 = *(a1 + v4 + 44);
+  v17 = (((v26 * v16) - (v24 * v13)) - (v25 * v15)) + (v14 * v23);
+  v18 = (((v26 * v14) - (v25 * v13)) - (v23 * v16)) + (v15 * v24);
+  v19 = (((v23 * v15) + (v26 * v13)) + (v24 * v16)) + (v25 * v14);
+  v20 = *(a1 + 96);
+  v21 = (*(a1 + 104) + v4);
+  v21[4] = (((v26 * v15) - (v23 * v13)) - (v24 * v14)) + (v16 * v25);
+  v21[5] = v17;
+  v21[6] = v18;
+  v21[7] = v19;
+  v21[8] = v10;
+  v21[9] = v11;
+  v21[10] = v12;
+  return (*(*v20 + 72))(v20);
+}
+
+uint64_t physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::onOriginShift(uint64_t a1, float *a2)
+{
+  v16[1] = *MEMORY[0x1E69E9840];
+  v15 = 0;
+  v16[0] = 0;
+  result = (*(**(a1 + 96) + 56))(*(a1 + 96), &v15, v16);
+  if (v15)
+  {
+    if (v16[0])
+    {
+      return result;
+    }
+
+    v5 = 68;
+    v6 = 64;
+    v7 = 60;
+    v8 = 92;
+    v9 = 88;
+    v10 = 84;
+  }
+
+  else
+  {
+    v5 = 40;
+    v6 = 36;
+    v7 = 32;
+    v8 = 64;
+    v9 = 60;
+    v10 = 56;
+  }
+
+  v11 = a2[1];
+  *(a1 + v10) = *(a1 + v10) - *a2;
+  *(a1 + v9) = *(a1 + v9) - v11;
+  *(a1 + v8) = *(a1 + v8) - a2[2];
+  v12 = *(a1 + 96);
+  v13 = *(a1 + 104);
+  v14 = a2[1];
+  *(v13 + v7) = *(v13 + v7) - *a2;
+  *(v13 + v6) = *(v13 + v6) - v14;
+  *(v13 + v5) = *(v13 + v5) - a2[2];
+  return (*(*v12 + 72))(v12);
+}
+
+uint64_t physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::onConstraintRelease(void *a1)
+{
+  if (a1[13])
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+  }
+
+  a1[13] = 0;
+  v2 = *(*a1 + 32);
+
+  return v2(a1);
+}
+
+uint64_t non-virtual thunk tophysx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::getExternalReference(uint64_t a1, _DWORD *a2)
+{
+  result = a1 - 24;
+  *a2 = 0;
+  return result;
+}
+
+void non-virtual thunk tophysx::Ext::DistanceJoint::~DistanceJoint(physx::Ext::DistanceJoint *this)
+{
+  physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::~Joint(this - 24);
+}
+
+{
+  physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::~Joint(this - 24);
+  v1 = *(*(physx::shdfnd::Foundation::mInstance + 24) + 24);
+
+  v1();
+}
+
+void physx::Ext::FixedJoint::~FixedJoint(physx::Ext::FixedJoint *this)
+{
+  if (physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::~Joint(this))
+  {
+    v1 = *(*(physx::shdfnd::Foundation::mInstance + 24) + 24);
+
+    v1();
+  }
+}
+
+BOOL physx::PxFixedJoint::isKindOf(physx::PxFixedJoint *this, const char *a2)
+{
+  if (!strcmp("PxFixedJoint", a2))
+  {
+    return 1;
+  }
+
+  return physx::PxJoint::isKindOf(this, a2);
+}
+
+uint64_t physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::setActors(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  (*(**(a1 + 96) + 64))(*(a1 + 96));
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v41, a2);
+  v6 = v43;
+  v7 = (*(a1 + 56) - v45) + (*(a1 + 56) - v45);
+  v8 = (*(a1 + 60) - v46) + (*(a1 + 60) - v46);
+  v9 = (*(a1 + 64) - v47) + (*(a1 + 64) - v47);
+  v10 = (v44 * v44) + -0.5;
+  v11 = (-(v42 * v8) - (v41 * v7)) - (v43 * v9);
+  v12 = ((v44 * ((v43 * v8) - (v42 * v9))) + (v7 * v10)) - (v41 * v11);
+  v13 = (v44 * ((v41 * v9) - (v43 * v7))) + (v8 * v10);
+  v14 = (v44 * ((v42 * v7) - (v41 * v8))) + (v9 * v10);
+  v16 = *(a1 + 48);
+  v15 = *(a1 + 52);
+  v17 = *(a1 + 40);
+  v18 = *(a1 + 44);
+  v19 = (((v44 * v18) - (v42 * v15)) - (v43 * v17)) + (v16 * v41);
+  v20 = (((v44 * v16) - (v43 * v15)) - (v41 * v18)) + (v17 * v42);
+  v21 = v13 - (v42 * v11);
+  v22 = (((v41 * v17) + (v44 * v15)) + (v42 * v18)) + (v43 * v16);
+  v23 = *(a1 + 104);
+  v23[4] = (((v44 * v17) - (v41 * v15)) - (v42 * v16)) + (v18 * v43);
+  v23[5] = v19;
+  v23[6] = v20;
+  v23[7] = v22;
+  v23[8] = v12;
+  v23[9] = v21;
+  v23[10] = v14 - (v6 * v11);
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v41, a3);
+  v24 = (*(a1 + 84) - v45) + (*(a1 + 84) - v45);
+  v25 = (*(a1 + 88) - v46) + (*(a1 + 88) - v46);
+  v26 = (*(a1 + 92) - v47) + (*(a1 + 92) - v47);
+  v27 = (v44 * v44) + -0.5;
+  v28 = (-(v42 * v25) - (v41 * v24)) - (v43 * v26);
+  v29 = ((v44 * ((v43 * v25) - (v42 * v26))) + (v24 * v27)) - (v41 * v28);
+  v30 = ((v44 * ((v41 * v26) - (v43 * v24))) + (v25 * v27)) - (v42 * v28);
+  v31 = ((v44 * ((v42 * v24) - (v41 * v25))) + (v26 * v27)) - (v43 * v28);
+  v33 = *(a1 + 76);
+  v32 = *(a1 + 80);
+  v34 = *(a1 + 68);
+  v35 = *(a1 + 72);
+  v36 = (((v44 * v35) - (v42 * v32)) - (v43 * v34)) + (v33 * v41);
+  v37 = (((v44 * v33) - (v43 * v32)) - (v41 * v35)) + (v34 * v42);
+  v38 = (((v41 * v34) + (v44 * v32)) + (v42 * v35)) + (v43 * v33);
+  v39 = *(a1 + 104);
+  v39[11] = (((v44 * v34) - (v41 * v32)) - (v42 * v33)) + (v35 * v43);
+  v39[12] = v36;
+  v39[13] = v37;
+  v39[14] = v38;
+  v39[15] = v29;
+  v39[16] = v30;
+  v39[17] = v31;
+  return (*(**(a1 + 96) + 72))(*(a1 + 96));
+}
+
+uint64_t physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::getActors(uint64_t a1, void *a2, void *a3)
+{
+  result = *(a1 + 96);
+  if (result)
+  {
+    return (*(*result + 56))(result, a2, a3);
+  }
+
+  *a2 = 0;
+  *a3 = 0;
+  return result;
+}
+
+uint64_t physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::setLocalPose(uint64_t a1, unsigned int a2, float *a3)
+{
+  v40[1] = *MEMORY[0x1E69E9840];
+  v5 = a3[1];
+  v6 = a3[2];
+  v7 = a3[3];
+  v8 = sqrtf((((v5 * v5) + (*a3 * *a3)) + (v6 * v6)) + (v7 * v7));
+  v9 = *a3 / v8;
+  v10 = v5 / v8;
+  v11 = v6 / v8;
+  v12 = v7 / v8;
+  v13 = a3[4];
+  v14 = a3[5];
+  v15 = a3[6];
+  v16 = 28 * a2;
+  v17 = (a1 + v16);
+  v17[10] = v9;
+  v17[11] = v5 / v8;
+  v17[12] = v6 / v8;
+  v17[13] = v7 / v8;
+  v17[14] = v13;
+  v17[15] = v14;
+  v17[16] = v15;
+  v39 = 0;
+  v40[0] = 0;
+  (*(**(a1 + 96) + 56))(*(a1 + 96), &v39, v40);
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v32, v40[a2 - 1]);
+  v18 = (v13 - v36) + (v13 - v36);
+  v19 = (v14 - v37) + (v14 - v37);
+  v20 = (v15 - v38) + (v15 - v38);
+  v21 = (v35 * v35) + -0.5;
+  v22 = (-(v33 * v19) - (v32 * v18)) - (v34 * v20);
+  v23 = ((v35 * ((v34 * v19) - (v33 * v20))) + (v18 * v21)) - (v32 * v22);
+  v24 = ((v35 * ((v32 * v20) - (v34 * v18))) + (v19 * v21)) - (v33 * v22);
+  v25 = ((v35 * ((v33 * v18) - (v32 * v19))) + (v20 * v21)) - (v34 * v22);
+  v26 = (((v35 * v10) - (v33 * v12)) - (v34 * v9)) + (v11 * v32);
+  v27 = (((v35 * v11) - (v34 * v12)) - (v32 * v10)) + (v9 * v33);
+  v28 = (((v9 * v32) + (v35 * v12)) + (v33 * v10)) + (v34 * v11);
+  v29 = *(a1 + 96);
+  v30 = (*(a1 + 104) + v16);
+  v30[4] = (((v35 * v9) - (v32 * v12)) - (v33 * v11)) + (v10 * v34);
+  v30[5] = v26;
+  v30[6] = v27;
+  v30[7] = v28;
+  v30[8] = v23;
+  v30[9] = v24;
+  v30[10] = v25;
+  return (*(*v29 + 72))(v29);
+}
+
+float physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::getLocalPose@<S0>(uint64_t a1@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
+{
+  v3 = a1 + 28 * a2;
+  *a3 = *(v3 + 40);
+  *(a3 + 16) = *(v3 + 56);
+  result = *(v3 + 64);
+  *(a3 + 24) = result;
+  return result;
+}
+
+float physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::getRelativeTransform@<S0>(uint64_t a1@<X0>, float *a2@<X8>)
+{
+  v72 = 0;
+  v73 = 0;
+  (*(**(a1 + 96) + 56))(*(a1 + 96), &v73, &v72);
+  v4 = 1.0;
+  v5 = 0.0;
+  v6 = 0.0;
+  v7 = 0.0;
+  v8 = 0.0;
+  v9 = 0.0;
+  v10 = 0.0;
+  v11 = 0.0;
+  v12 = 1.0;
+  if (v73)
+  {
+    (*(*v73 + 152))(&v66);
+    v5 = 0.0;
+    v4 = 1.0;
+    v10 = *(&v66 + 1);
+    v11 = *&v66;
+    v9 = v67;
+    v12 = v68;
+    v8 = v69;
+    v7 = v70;
+    v6 = v71;
+  }
+
+  v13 = *(a1 + 56);
+  v14 = *(a1 + 60);
+  v15 = *(a1 + 64);
+  v16 = *(a1 + 48);
+  v17 = *(a1 + 52);
+  v18 = 0.0;
+  v19 = 0.0;
+  v20 = 0.0;
+  v21 = *(a1 + 40);
+  v22 = *(a1 + 44);
+  v23 = 0.0;
+  v24 = 0.0;
+  if (v72)
+  {
+    v64 = v7;
+    v65 = v8;
+    v62 = *(a1 + 56);
+    v63 = v6;
+    v60 = *(a1 + 64);
+    v61 = *(a1 + 60);
+    (*(*v72 + 152))(&v66);
+    v15 = v60;
+    v14 = v61;
+    v13 = v62;
+    v6 = v63;
+    v7 = v64;
+    v8 = v65;
+    v23 = *(&v66 + 1);
+    v24 = *&v66;
+    v20 = v67;
+    v4 = v68;
+    v19 = v69;
+    v18 = v70;
+    v5 = v71;
+  }
+
+  v25 = (((v12 * v17) - (v11 * v21)) - (v10 * v22)) - (v9 * v16);
+  v26 = (((v9 * v17) + (v12 * v16)) + (v11 * v22)) - (v21 * v10);
+  v27 = (((v10 * v17) + (v12 * v22)) + (v9 * v21)) - (v16 * v11);
+  v28 = (((v11 * v17) + (v12 * v21)) + (v10 * v16)) - (v22 * v9);
+  v29 = v15 + v15;
+  v30 = v14 + v14;
+  v31 = ((v10 * (v14 + v14)) + (v11 * (v13 + v13))) + (v9 * v29);
+  v32 = (v12 * v12) + -0.5;
+  v33 = v6 + (((v12 * ((v11 * (v14 + v14)) - (v10 * (v13 + v13)))) + (v29 * v32)) + (v9 * v31));
+  v34 = v7 + (((v12 * ((v9 * (v13 + v13)) - (v11 * v29))) + (v30 * v32)) + (v10 * v31));
+  v35 = v8 + (((v12 * ((v10 * v29) - (v9 * v30))) + ((v13 + v13) * v32)) + (v11 * v31));
+  v36 = *(a1 + 84) + *(a1 + 84);
+  v37 = *(a1 + 88) + *(a1 + 88);
+  v38 = *(a1 + 92) + *(a1 + 92);
+  v39 = (v4 * v4) + -0.5;
+  v40 = ((v23 * v37) + (v24 * v36)) + (v20 * v38);
+  v41 = v19 + (((v4 * ((v23 * v38) - (v20 * v37))) + (v36 * v39)) + (v24 * v40));
+  v42 = v18 + (((v4 * ((v20 * v36) - (v24 * v38))) + (v37 * v39)) + (v23 * v40));
+  v43 = v5 + (((v4 * ((v24 * v37) - (v23 * v36))) + (v38 * v39)) + (v20 * v40));
+  v45 = *(a1 + 76);
+  v44 = *(a1 + 80);
+  v46 = *(a1 + 68);
+  v47 = *(a1 + 72);
+  v48 = (((v24 * v44) + (v4 * v46)) + (v23 * v45)) - (v47 * v20);
+  v49 = (((v23 * v44) + (v4 * v47)) + (v20 * v46)) - (v45 * v24);
+  v50 = (((v20 * v44) + (v4 * v45)) + (v24 * v47)) - (v46 * v23);
+  v51 = (((v4 * v44) - (v24 * v46)) - (v23 * v47)) - (v20 * v45);
+  v52 = (v41 - v35) + (v41 - v35);
+  v53 = (v42 - v34) + (v42 - v34);
+  v54 = (v43 - v33) + (v43 - v33);
+  v55 = (v25 * v25) + -0.5;
+  v56 = (-(v27 * v53) - (v28 * v52)) - (v26 * v54);
+  v57 = ((v25 * ((v26 * v53) - (v27 * v54))) + (v52 * v55)) - (v28 * v56);
+  v58 = ((v25 * ((v28 * v54) - (v26 * v52))) + (v53 * v55)) - (v27 * v56);
+  *a2 = (((v25 * v48) - (v28 * v51)) - (v27 * v50)) + (v49 * v26);
+  a2[1] = (((v25 * v49) - (v27 * v51)) - (v26 * v48)) + (v50 * v28);
+  a2[2] = (((v25 * v50) - (v26 * v51)) - (v28 * v49)) + (v48 * v27);
+  a2[3] = (((v28 * v48) + (v25 * v51)) + (v27 * v49)) + (v26 * v50);
+  result = ((v25 * ((v27 * v52) - (v28 * v53))) + (v54 * v55)) - (v26 * v56);
+  a2[4] = v57;
+  a2[5] = v58;
+  a2[6] = result;
+  return result;
+}
+
+float physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::getRelativeLinearVelocity@<S0>(uint64_t a1@<X0>, float *a2@<X8>)
+{
+  v51 = 0;
+  v52 = 0;
+  (*(**(a1 + 96) + 56))(*(a1 + 96), &v52, &v51);
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v36, v52);
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v32, v51);
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getActorVelocity(v52, v50, &v47);
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getActorVelocity(v51, v46, &v43);
+  v4 = *(a1 + 56) + *(a1 + 56);
+  v5 = *(a1 + 60) + *(a1 + 60);
+  v6 = *(a1 + 64) + *(a1 + 64);
+  v7 = (v39 * v39) + -0.5;
+  v8 = ((v5 * v37) + (v36 * v4)) + (v38 * v6);
+  v9 = ((v39 * ((v37 * v6) - (v38 * v5))) + (v4 * v7)) + (v36 * v8);
+  v10 = ((v39 * ((v38 * v4) - (v36 * v6))) + (v5 * v7)) + (v37 * v8);
+  v11 = ((v39 * ((v36 * v5) - (v37 * v4))) + (v6 * v7)) + (v38 * v8);
+  v12 = *(a1 + 84) + *(a1 + 84);
+  v13 = *(a1 + 88) + *(a1 + 88);
+  v14 = *(a1 + 92) + *(a1 + 92);
+  v15 = (v35 * v35) + -0.5;
+  v16 = ((v13 * v33) + (v32 * v12)) + (v34 * v14);
+  v17 = ((v35 * ((v33 * v14) - (v34 * v13))) + (v12 * v15)) + (v32 * v16);
+  v18 = ((v35 * ((v34 * v12) - (v32 * v14))) + (v13 * v15)) + (v33 * v16);
+  v19 = ((v35 * ((v32 * v13) - (v33 * v12))) + (v14 * v15)) + (v34 * v16);
+  v20 = (v48 * v11) - (v49 * v10);
+  v21 = (v49 * v9) - (v47 * v11);
+  v22 = (v47 * v10) - (v48 * v9);
+  v23 = (((v46[0] - ((v44 * v19) - (v45 * v18))) - v50[0]) + v20) - v40;
+  v24 = (((v46[1] - ((v45 * v17) - (v43 * v19))) - v50[1]) + v21) - v41;
+  v25 = (((v46[2] - ((v43 * v18) - (v44 * v17))) - v50[2]) + v22) - v42;
+  v26 = v23 + v23;
+  v27 = v24 + v24;
+  v28 = v25 + v25;
+  v29 = ((v37 * v27) + (v36 * v26)) + (v38 * v28);
+  v30 = ((v27 * v7) - (((v38 * v26) - (v36 * v28)) * v39)) + (v37 * v29);
+  result = ((v28 * v7) - (((v36 * v27) - (v37 * v26)) * v39)) + (v38 * v29);
+  *a2 = ((v26 * v7) - (((v37 * v28) - (v38 * v27)) * v39)) + (v36 * v29);
+  a2[1] = v30;
+  a2[2] = result;
+  return result;
+}
+
+float32_t physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::getRelativeAngularVelocity@<S0>(uint64_t a1@<X0>, float32x2_t *a2@<X8>)
+{
+  v21 = 0;
+  v22 = 0;
+  (*(**(a1 + 96) + 56))(*(a1 + 96), &v22, &v21);
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(v11, v22);
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getActorVelocity(v22, v20, &v18);
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getActorVelocity(v21, v17, &v15);
+  v3 = ((v16 - v19) - v14) + ((v16 - v19) - v14);
+  v4.i32[0] = *&v11[8];
+  v5 = (v12 * v12) + -0.5;
+  v6 = vsub_f32(vsub_f32(v15, v18), v13);
+  v7 = vadd_f32(v6, v6);
+  v8 = (vmuls_lane_f32(*&v7.i32[1], *v11, 1) + (*v11 * *v7.i32)) + (*&v11[8] * v3);
+  v9.i32[0] = vdup_lane_s32(v7, 1).u32[0];
+  v9.f32[1] = v3;
+  result = ((v3 * v5) - (((-*&v11[4] * *v7.i32) + (*v11 * *&v7.i32[1])) * v12)) + (*&v11[8] * v8);
+  *a2 = vmla_n_f32(vmla_n_f32(vmul_n_f32(vneg_f32(vmla_f32(vmul_f32(v9, vneg_f32(vzip1_s32(v4, *v11))), vext_s8(v9, v7, 4uLL), *&v11[4])), v12), v7, v5), *v11, v8);
+  a2[1].f32[0] = result;
+  return result;
+}
+
+uint64_t physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::setConstraintFlags(uint64_t a1, __int16 *a2)
+{
+  v2 = *(a1 + 96);
+  v4 = *a2;
+  return (*(*v2 + 80))(v2, &v4);
+}
+
+uint64_t physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::setInvMassScale0(uint64_t a1, float a2)
+{
+  v2 = a1 + 96;
+  v3 = *(a1 + 96);
+  **(v2 + 8) = a2;
+  return (*(*v3 + 72))();
+}
+
+uint64_t physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::setInvInertiaScale0(uint64_t a1, float a2)
+{
+  v2 = a1 + 96;
+  v3 = *(a1 + 96);
+  *(*(v2 + 8) + 4) = a2;
+  return (*(*v3 + 72))();
+}
+
+uint64_t physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::setInvMassScale1(uint64_t a1, float a2)
+{
+  v2 = a1 + 96;
+  v3 = *(a1 + 96);
+  *(*(v2 + 8) + 8) = a2;
+  return (*(*v3 + 72))();
+}
+
+uint64_t physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::setInvInertiaScale1(uint64_t a1, float a2)
+{
+  v2 = a1 + 96;
+  v3 = *(a1 + 96);
+  *(*(v2 + 8) + 12) = a2;
+  return (*(*v3 + 72))();
+}
+
+uint64_t physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::getScene(uint64_t a1)
+{
+  result = *(a1 + 96);
+  if (result)
+  {
+    return (*(*result + 48))();
+  }
+
+  return result;
+}
+
+uint64_t physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::requiresObjects(uint64_t a1, uint64_t a2)
+{
+  (*(*a2 + 16))(a2, *(a1 + 96));
+  v5 = 0;
+  v6 = 0;
+  result = (*(**(a1 + 96) + 56))(*(a1 + 96), &v6, &v5);
+  if (v6)
+  {
+    result = (*(*a2 + 16))(a2);
+  }
+
+  if (v5)
+  {
+    return (*(*a2 + 16))(a2);
+  }
+
+  return result;
+}
+
+uint64_t physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::onComShift(uint64_t a1, unsigned int a2)
+{
+  v31[1] = *MEMORY[0x1E69E9840];
+  v30 = 0;
+  v31[0] = 0;
+  (*(**(a1 + 96) + 56))(*(a1 + 96), &v30, v31);
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v23, v31[a2 - 1]);
+  v4 = 28 * a2;
+  v5 = (*(a1 + v4 + 56) - v27) + (*(a1 + v4 + 56) - v27);
+  v6 = (*(a1 + v4 + 60) - v28) + (*(a1 + v4 + 60) - v28);
+  v7 = (*(a1 + v4 + 64) - v29) + (*(a1 + v4 + 64) - v29);
+  v8 = (v26 * v26) + -0.5;
+  v9 = (-(v24 * v6) - (v23 * v5)) - (v25 * v7);
+  v10 = ((v26 * ((v25 * v6) - (v24 * v7))) + (v5 * v8)) - (v23 * v9);
+  v11 = ((v26 * ((v23 * v7) - (v25 * v5))) + (v6 * v8)) - (v24 * v9);
+  v12 = ((v26 * ((v24 * v5) - (v23 * v6))) + (v7 * v8)) - (v25 * v9);
+  v14 = *(a1 + v4 + 48);
+  v13 = *(a1 + v4 + 52);
+  v15 = *(a1 + v4 + 40);
+  v16 = *(a1 + v4 + 44);
+  v17 = (((v26 * v16) - (v24 * v13)) - (v25 * v15)) + (v14 * v23);
+  v18 = (((v26 * v14) - (v25 * v13)) - (v23 * v16)) + (v15 * v24);
+  v19 = (((v23 * v15) + (v26 * v13)) + (v24 * v16)) + (v25 * v14);
+  v20 = *(a1 + 96);
+  v21 = (*(a1 + 104) + v4);
+  v21[4] = (((v26 * v15) - (v23 * v13)) - (v24 * v14)) + (v16 * v25);
+  v21[5] = v17;
+  v21[6] = v18;
+  v21[7] = v19;
+  v21[8] = v10;
+  v21[9] = v11;
+  v21[10] = v12;
+  return (*(*v20 + 72))(v20);
+}
+
+uint64_t physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::onOriginShift(uint64_t a1, float *a2)
+{
+  v16[1] = *MEMORY[0x1E69E9840];
+  v15 = 0;
+  v16[0] = 0;
+  result = (*(**(a1 + 96) + 56))(*(a1 + 96), &v15, v16);
+  if (v15)
+  {
+    if (v16[0])
+    {
+      return result;
+    }
+
+    v5 = 68;
+    v6 = 64;
+    v7 = 60;
+    v8 = 92;
+    v9 = 88;
+    v10 = 84;
+  }
+
+  else
+  {
+    v5 = 40;
+    v6 = 36;
+    v7 = 32;
+    v8 = 64;
+    v9 = 60;
+    v10 = 56;
+  }
+
+  v11 = a2[1];
+  *(a1 + v10) = *(a1 + v10) - *a2;
+  *(a1 + v9) = *(a1 + v9) - v11;
+  *(a1 + v8) = *(a1 + v8) - a2[2];
+  v12 = *(a1 + 96);
+  v13 = *(a1 + 104);
+  v14 = a2[1];
+  *(v13 + v7) = *(v13 + v7) - *a2;
+  *(v13 + v6) = *(v13 + v6) - v14;
+  *(v13 + v5) = *(v13 + v5) - a2[2];
+  return (*(*v12 + 72))(v12);
+}
+
+uint64_t physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::onConstraintRelease(void *a1)
+{
+  if (a1[13])
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+  }
+
+  a1[13] = 0;
+  v2 = *(*a1 + 32);
+
+  return v2(a1);
+}
+
+uint64_t non-virtual thunk tophysx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::getExternalReference(uint64_t a1, _DWORD *a2)
+{
+  result = a1 - 24;
+  *a2 = 0;
+  return result;
+}
+
+void non-virtual thunk tophysx::Ext::FixedJoint::~FixedJoint(physx::Ext::FixedJoint *this)
+{
+  physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::~Joint(this - 24);
+}
+
+{
+  physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::~Joint(this - 24);
+  v1 = *(*(physx::shdfnd::Foundation::mInstance + 24) + 24);
+
+  v1();
+}
+
+float physx::Ext::DistanceJoint::DistanceJoint(uint64_t a1, float *a2, uint64_t a3, float32x4_t *a4, uint64_t a5, float32x4_t *a6)
+{
+  v10 = 3;
+  v7 = physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::Joint(a1, 260, &v10, a3, a4, a5, a6, 0x70u);
+  *v7 = &unk_1F5D28448;
+  v7[3] = &unk_1F5D28618;
+  v8 = v7[13];
+  *(v8 + 92) = 0;
+  *(v8 + 80) = 0;
+  result = *a2 * 0.025;
+  *(v8 + 88) = result;
+  *(v8 + 100) = 2;
+  return result;
+}
+
+uint64_t physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::Joint(uint64_t a1, __int16 a2, __int16 *a3, uint64_t a4, float32x4_t *a5, uint64_t a6, float32x4_t *a7, unsigned int a8)
+{
+  v13 = *a3;
+  *(a1 + 8) = a2;
+  *(a1 + 10) = v13;
+  *a1 = &unk_1F5D28958;
+  *(a1 + 24) = &unk_1F5D28B18;
+  *(a1 + 32) = 0;
+  *(a1 + 96) = 0;
+  *(a1 + 16) = 0;
+  if (a8)
+  {
+    v14 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, a8, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxextensions/src/ExtJoint.h", 454);
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  v15 = a5[1].i32[2];
+  _Q1 = *a5;
+  _Q2 = vmulq_f32(_Q1, _Q1);
+  _S3 = a5->i64[1];
+  __asm { FMLA            S2, S3, V1.S[2] }
+
+  _S3 = HIDWORD(*a5);
+  __asm { FMLA            S2, S3, V1.S[3] }
+
+  _Q2.f32[0] = sqrtf(_Q2.f32[0]);
+  v24 = vdivq_f32(*a5, vdupq_lane_s32(*_Q2.f32, 0));
+  _Q2.i64[0] = a5[1].i64[0];
+  *(a1 + 40) = v24;
+  *(a1 + 56) = _Q2.i64[0];
+  *(a1 + 64) = v15;
+  _Q0 = *a7;
+  _Q1 = vmulq_f32(_Q0, _Q0);
+  _Q2.i32[0] = a7->i64[1];
+  __asm { FMLA            S1, S2, V0.S[2] }
+
+  _Q2.i32[0] = HIDWORD(*a7);
+  __asm { FMLA            S1, S2, V0.S[3] }
+
+  _Q1.f32[0] = sqrtf(_Q1.f32[0]);
+  _Q2.i32[0] = a7[1].i32[2];
+  v27 = a7[1].i64[0];
+  *(a1 + 68) = vdivq_f32(*a7, vdupq_lane_s32(*_Q1.f32, 0));
+  *(a1 + 84) = v27;
+  *(a1 + 92) = _Q2.i32[0];
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v61, a4);
+  v28 = v63;
+  v29 = (a5[1].f32[0] - v65) + (a5[1].f32[0] - v65);
+  v30 = (a5[1].f32[1] - v66) + (a5[1].f32[1] - v66);
+  v31 = (a5[1].f32[2] - v67) + (a5[1].f32[2] - v67);
+  v32 = (v64 * v64) + -0.5;
+  v33 = (-(v62 * v30) - (v61 * v29)) - (v63 * v31);
+  v34 = ((v64 * ((v63 * v30) - (v62 * v31))) + (v29 * v32)) - (v61 * v33);
+  v35 = (v64 * ((v61 * v31) - (v63 * v29))) + (v30 * v32);
+  v36 = (v64 * ((v62 * v29) - (v61 * v30))) + (v31 * v32);
+  v38 = a5->f32[2];
+  v37 = a5->f32[3];
+  v39 = a5->f32[1];
+  v40 = (((v64 * v39) - (v62 * v37)) - (v63 * a5->f32[0])) + (v38 * v61);
+  v41 = (((v64 * v38) - (v63 * v37)) - (v61 * v39)) + (a5->f32[0] * v62);
+  v42 = v35 - (v62 * v33);
+  v43 = (((v61 * a5->f32[0]) + (v64 * v37)) + (v62 * v39)) + (v63 * v38);
+  *(v14 + 16) = (((v64 * a5->f32[0]) - (v61 * v37)) - (v62 * v38)) + (v39 * v63);
+  *(v14 + 20) = v40;
+  *(v14 + 24) = v41;
+  *(v14 + 28) = v43;
+  *(v14 + 32) = v34;
+  *(v14 + 36) = v42;
+  *(v14 + 40) = v36 - (v28 * v33);
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v61, a6);
+  v44 = v63;
+  v45 = (a7[1].f32[0] - v65) + (a7[1].f32[0] - v65);
+  v46 = (a7[1].f32[1] - v66) + (a7[1].f32[1] - v66);
+  v47 = (a7[1].f32[2] - v67) + (a7[1].f32[2] - v67);
+  v48 = (v64 * v64) + -0.5;
+  v49 = (-(v62 * v46) - (v61 * v45)) - (v63 * v47);
+  v50 = ((v64 * ((v63 * v46) - (v62 * v47))) + (v45 * v48)) - (v61 * v49);
+  v51 = ((v64 * ((v61 * v47) - (v63 * v45))) + (v46 * v48)) - (v62 * v49);
+  v52 = ((v64 * ((v62 * v45) - (v61 * v46))) + (v47 * v48)) - (v63 * v49);
+  v54 = a7->f32[2];
+  v53 = a7->f32[3];
+  v55 = a7->f32[1];
+  v56 = (((v64 * v55) - (v62 * v53)) - (v63 * a7->f32[0])) + (v54 * v61);
+  v57 = (((v64 * v54) - (v63 * v53)) - (v61 * v55)) + (a7->f32[0] * v62);
+  v58 = ((v61 * a7->f32[0]) + (v64 * v53)) + (v62 * v55);
+  *(v14 + 44) = (((v64 * a7->f32[0]) - (v61 * v53)) - (v62 * v54)) + (v55 * v63);
+  *(v14 + 48) = v56;
+  *(v14 + 52) = v57;
+  *(v14 + 56) = v58 + (v44 * v54);
+  *(v14 + 60) = v50;
+  *(v14 + 64) = v51;
+  *(v14 + 68) = v52;
+  __asm { FMOV            V0.4S, #1.0 }
+
+  *v14 = _Q0;
+  *(a1 + 104) = v14;
+  return a1;
+}
+
+uint64_t physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::Joint(uint64_t a1, __int16 a2, __int16 *a3, uint64_t a4, float32x4_t *a5, uint64_t a6, float32x4_t *a7, unsigned int a8)
+{
+  v13 = *a3;
+  *(a1 + 8) = a2;
+  *(a1 + 10) = v13;
+  *a1 = &unk_1F5D28B80;
+  *(a1 + 24) = &unk_1F5D28CF0;
+  *(a1 + 32) = 0;
+  *(a1 + 96) = 0;
+  *(a1 + 16) = 0;
+  if (a8)
+  {
+    v14 = (*(*(physx::shdfnd::Foundation::mInstance + 24) + 16))(physx::shdfnd::Foundation::mInstance + 24, a8, "NonTrackedAlloc", "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxextensions/src/ExtJoint.h", 454);
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  v15 = a5[1].i32[2];
+  _Q1 = *a5;
+  _Q2 = vmulq_f32(_Q1, _Q1);
+  _S3 = a5->i64[1];
+  __asm { FMLA            S2, S3, V1.S[2] }
+
+  _S3 = HIDWORD(*a5);
+  __asm { FMLA            S2, S3, V1.S[3] }
+
+  _Q2.f32[0] = sqrtf(_Q2.f32[0]);
+  v24 = vdivq_f32(*a5, vdupq_lane_s32(*_Q2.f32, 0));
+  _Q2.i64[0] = a5[1].i64[0];
+  *(a1 + 40) = v24;
+  *(a1 + 56) = _Q2.i64[0];
+  *(a1 + 64) = v15;
+  _Q0 = *a7;
+  _Q1 = vmulq_f32(_Q0, _Q0);
+  _Q2.i32[0] = a7->i64[1];
+  __asm { FMLA            S1, S2, V0.S[2] }
+
+  _Q2.i32[0] = HIDWORD(*a7);
+  __asm { FMLA            S1, S2, V0.S[3] }
+
+  _Q1.f32[0] = sqrtf(_Q1.f32[0]);
+  _Q2.i32[0] = a7[1].i32[2];
+  v27 = a7[1].i64[0];
+  *(a1 + 68) = vdivq_f32(*a7, vdupq_lane_s32(*_Q1.f32, 0));
+  *(a1 + 84) = v27;
+  *(a1 + 92) = _Q2.i32[0];
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v61, a4);
+  v28 = v63;
+  v29 = (a5[1].f32[0] - v65) + (a5[1].f32[0] - v65);
+  v30 = (a5[1].f32[1] - v66) + (a5[1].f32[1] - v66);
+  v31 = (a5[1].f32[2] - v67) + (a5[1].f32[2] - v67);
+  v32 = (v64 * v64) + -0.5;
+  v33 = (-(v62 * v30) - (v61 * v29)) - (v63 * v31);
+  v34 = ((v64 * ((v63 * v30) - (v62 * v31))) + (v29 * v32)) - (v61 * v33);
+  v35 = (v64 * ((v61 * v31) - (v63 * v29))) + (v30 * v32);
+  v36 = (v64 * ((v62 * v29) - (v61 * v30))) + (v31 * v32);
+  v38 = a5->f32[2];
+  v37 = a5->f32[3];
+  v39 = a5->f32[1];
+  v40 = (((v64 * v39) - (v62 * v37)) - (v63 * a5->f32[0])) + (v38 * v61);
+  v41 = (((v64 * v38) - (v63 * v37)) - (v61 * v39)) + (a5->f32[0] * v62);
+  v42 = v35 - (v62 * v33);
+  v43 = (((v61 * a5->f32[0]) + (v64 * v37)) + (v62 * v39)) + (v63 * v38);
+  *(v14 + 16) = (((v64 * a5->f32[0]) - (v61 * v37)) - (v62 * v38)) + (v39 * v63);
+  *(v14 + 20) = v40;
+  *(v14 + 24) = v41;
+  *(v14 + 28) = v43;
+  *(v14 + 32) = v34;
+  *(v14 + 36) = v42;
+  *(v14 + 40) = v36 - (v28 * v33);
+  physx::Ext::Joint<physx::PxD6Joint,physx::PxD6JointGeneratedValues>::getCom(&v61, a6);
+  v44 = v63;
+  v45 = (a7[1].f32[0] - v65) + (a7[1].f32[0] - v65);
+  v46 = (a7[1].f32[1] - v66) + (a7[1].f32[1] - v66);
+  v47 = (a7[1].f32[2] - v67) + (a7[1].f32[2] - v67);
+  v48 = (v64 * v64) + -0.5;
+  v49 = (-(v62 * v46) - (v61 * v45)) - (v63 * v47);
+  v50 = ((v64 * ((v63 * v46) - (v62 * v47))) + (v45 * v48)) - (v61 * v49);
+  v51 = ((v64 * ((v61 * v47) - (v63 * v45))) + (v46 * v48)) - (v62 * v49);
+  v52 = ((v64 * ((v62 * v45) - (v61 * v46))) + (v47 * v48)) - (v63 * v49);
+  v54 = a7->f32[2];
+  v53 = a7->f32[3];
+  v55 = a7->f32[1];
+  v56 = (((v64 * v55) - (v62 * v53)) - (v63 * a7->f32[0])) + (v54 * v61);
+  v57 = (((v64 * v54) - (v63 * v53)) - (v61 * v55)) + (a7->f32[0] * v62);
+  v58 = ((v61 * a7->f32[0]) + (v64 * v53)) + (v62 * v55);
+  *(v14 + 44) = (((v64 * a7->f32[0]) - (v61 * v53)) - (v62 * v54)) + (v55 * v63);
+  *(v14 + 48) = v56;
+  *(v14 + 52) = v57;
+  *(v14 + 56) = v58 + (v44 * v54);
+  *(v14 + 60) = v50;
+  *(v14 + 64) = v51;
+  *(v14 + 68) = v52;
+  __asm { FMOV            V0.4S, #1.0 }
+
+  *v14 = _Q0;
+  *(a1 + 104) = v14;
+  return a1;
+}
+
+float physx::Ext::joint::computeDerived(uint64_t a1, uint64_t a2, uint64_t a3, float *a4, float *a5, float *a6, char a7, double a8, double a9, double a10, double a11, double a12, double a13, int8x16_t a14, int8x16_t a15)
+{
+  physx::Ext::joint::computeJointFrames(a4, a5, a1, a2, a3, a8, a9, a10, a11, a12, a13, a14, a15);
+  v19 = *a4;
+  v20 = *a5;
+  if (a7)
+  {
+    v22 = a5[1];
+    v21 = a5[2];
+    v23 = a5[3];
+    if (((((a4[1] * v22) + (v19 * v20)) + (a4[2] * v21)) + (a4[3] * v23)) < 0.0)
+    {
+      v20 = -v20;
+      v22 = -v22;
+      v21 = -v21;
+      v23 = -v23;
+      *a5 = v20;
+      a5[1] = v22;
+      a5[2] = v21;
+      a5[3] = v23;
+      v19 = *a4;
+    }
+  }
+
+  else
+  {
+    v21 = a5[2];
+    v23 = a5[3];
+    v22 = a5[1];
+  }
+
+  v24 = a4[1];
+  v25 = a4[2];
+  v26 = a4[3];
+  v27 = a5[4] - a4[4];
+  v28 = a5[5] - a4[5];
+  v29 = a5[6] - a4[6];
+  v30 = v27 + v27;
+  v31 = v28 + v28;
+  v32 = v29 + v29;
+  v33 = (v26 * v26) + -0.5;
+  v34 = (-(v24 * v31) - (v19 * v30)) - (v25 * v32);
+  *a6 = (((v26 * v20) - (v19 * v23)) - (v24 * v21)) + (v22 * v25);
+  a6[1] = (((v26 * v22) - (v24 * v23)) - (v25 * v20)) + (v21 * v19);
+  a6[2] = (((v26 * v21) - (v25 * v23)) - (v19 * v22)) + (v20 * v24);
+  a6[3] = (((v20 * v19) + (v26 * v23)) + (v24 * v22)) + (v25 * v21);
+  result = ((v26 * ((v24 * v30) - (v19 * v31))) + (v32 * v33)) - (v25 * v34);
+  a6[4] = ((v26 * ((v25 * v31) - (v24 * v32))) + (v30 * v33)) - (v19 * v34);
+  a6[5] = ((v26 * ((v19 * v32) - (v25 * v30))) + (v31 * v33)) - (v24 * v34);
+  a6[6] = result;
+  return result;
+}
+
+uint64_t physx::Ext::Joint<physx::PxDistanceJoint,physx::PxDistanceJointGeneratedValues>::~Joint(uint64_t a1)
+{
+  *a1 = &unk_1F5D28958;
+  *(a1 + 24) = &unk_1F5D28B18;
+  if (*(a1 + 10))
+  {
+    if (*(a1 + 104))
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+    }
+
+    *(a1 + 104) = 0;
+  }
+
+  return a1;
+}
+
+uint64_t physx::Ext::Joint<physx::PxFixedJoint,physx::PxFixedJointGeneratedValues>::~Joint(uint64_t a1)
+{
+  *a1 = &unk_1F5D28B80;
+  *(a1 + 24) = &unk_1F5D28CF0;
+  if (*(a1 + 10))
+  {
+    if (*(a1 + 104))
+    {
+      (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+    }
+
+    *(a1 + 104) = 0;
+  }
+
+  return a1;
+}
+
+void *physx::PxPrismaticJointCreate(uint64_t a1, uint64_t a2, float32x4_t *a3, uint64_t a4, float32x4_t *a5)
+{
+  v10 = physx::shdfnd::Foundation::mInstance;
+  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
+  {
+    v11 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Ext::PrismaticJoint>::getName() [T = physx::Ext::PrismaticJoint]";
+  }
+
+  else
+  {
+    v11 = "<allocation names disabled>";
+  }
+
+  v12 = (*(*(v10 + 24) + 16))(v10 + 24, 112, v11, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxextensions/src/ExtPrismaticJoint.cpp", 45);
+  v13 = (*(*a1 + 40))(a1);
+  v14 = physx::Ext::PrismaticJoint::PrismaticJoint(v12, v13, a2, a3, a4, a5);
+  v15 = (*(*a1 + 216))(a1, a2, a4, v12 + 3, &physx::Ext::PrismaticJoint::sShaders, 128, v14);
+  v12[12] = v15;
+  if (!v15)
+  {
+    (*(*v12 + 32))(v12);
+    return 0;
+  }
+
+  return v12;
+}
+
+uint64_t physx::Ext::PrismaticJoint::setProjectionAngularTolerance(physx::Ext::PrismaticJoint *this, float a2)
+{
+  v2 = this + 96;
+  v3 = *(this + 12);
+  *(*(v2 + 1) + 112) = a2;
+  return (*(*v3 + 72))();
+}
+
+uint64_t physx::Ext::PrismaticJoint::setProjectionLinearTolerance(physx::Ext::PrismaticJoint *this, float a2)
+{
+  v2 = this + 96;
+  v3 = *(this + 12);
+  *(*(v2 + 1) + 108) = a2;
+  return (*(*v3 + 72))();
+}
+
+uint64_t physx::Ext::PrismaticJoint::setPrismaticJointFlags(uint64_t a1, _WORD *a2)
+{
+  v3 = a1 + 96;
+  v2 = *(a1 + 96);
+  *(*(v3 + 8) + 116) = *a2;
+  return (*(*v2 + 72))();
+}
+
+uint64_t physx::Ext::PrismaticJoint::setPrismaticJointFlag(uint64_t a1, __int16 a2, int a3)
+{
+  v3 = *(a1 + 104);
+  if (a3)
+  {
+    v4 = *(v3 + 116) | a2;
+  }
+
+  else
+  {
+    v4 = *(v3 + 116) & ~a2;
+  }
+
+  *(v3 + 116) = v4;
+  return (*(**(a1 + 96) + 72))();
+}
+
+float physx::Ext::PrismaticJoint::getLimit@<S0>(physx::Ext::PrismaticJoint *this@<X0>, uint64_t a2@<X8>)
+{
+  v2 = *(this + 13);
+  *a2 = *(v2 + 80);
+  result = *(v2 + 96);
+  *(a2 + 16) = result;
+  *(a2 + 20) = *(v2 + 100);
+  return result;
+}
+
+uint64_t physx::Ext::PrismaticJoint::setLimit(uint64_t a1, __int128 *a2)
+{
+  v2 = *(a1 + 104);
+  v3 = *a2;
+  *(v2 + 92) = *(a2 + 12);
+  *(v2 + 80) = v3;
+  return (*(**(a1 + 96) + 72))();
+}
+
+uint64_t physx::Ext::PrismaticJoint::exportExtraData(uint64_t a1, uint64_t a2)
+{
+  if (*(a1 + 104))
+  {
+    (*(*a2 + 24))(a2, 16);
+    (*(*a2 + 16))(a2, *(a1 + 104), 128);
+  }
+
+  v4 = *(a1 + 32);
+  v5 = *(*a2 + 32);
+
+  return v5(a2, v4);
+}
+
+uint64_t PrismaticJointSolverPrep(uint64_t a1, float32x2_t *a2, uint64_t a3, __int128 *a4, uint64_t a5, float32x2_t *a6, float32x2_t *a7, uint64_t a8, double d0_0, double d1_0, double a11, double a12, double a13, double a14, int8x16_t a15, int8x16_t a16, float32x2_t *a9, float32x2_t *a10)
+{
+  physx::Ext::joint::ConstraintHelper::ConstraintHelper(&v75, a1, a4, &v86, &v83, a2, a5, a6, d0_0, d1_0, a11, a12, a13, a14, a15, a16, a7);
+  _S0 = v86.i32[0];
+  *_D1.i32 = v87;
+  _S2 = v88;
+  _V4.D[1] = v83.i64[1];
+  __asm
+  {
+    FMLA            S5, S1, V4.S[2]
+    FMLA            S5, S2, V4.S[3]
+  }
+
+  if (_S5 < 0.0)
+  {
+    v83 = vnegq_f32(v83);
+  }
+
+  v31 = *(a5 + 116);
+  v32 = (v31 & 2) != 0 && *(a5 + 104) >= *(a5 + 100);
+  v33 = (v85 - v90) + (v85 - v90);
+  v34 = (v88 * v88) + -0.5;
+  v35 = vsub_f32(v84, v89);
+  _D16 = vadd_f32(v35, v35);
+  v37.i32[0] = vdup_lane_s32(_D16, 1).u32[0];
+  v38 = (vmuls_lane_f32(*&v86.i32[1], _D16, 1) + (*v86.i32 * *_D16.i32)) + (v87 * v33);
+  v37.f32[1] = v33;
+  v39 = vdup_lane_s32(_D1, 0);
+  v39.i32[0] = v86.i32[1];
+  __asm { FMLA            S7, S0, V16.S[1] }
+
+  v73 = vmla_n_f32(vmla_n_f32(vmul_n_f32(vneg_f32(vmla_f32(vmul_f32(v37, vneg_f32(vzip1_s32(_D1, v86))), vext_s8(v37, _D16, 4uLL), v39)), v88), _D16, v34), v86, v38);
+  v74 = ((v33 * v34) - (_S7 * v88)) + (v87 * v38);
+  if (v32)
+  {
+    v41 = 7;
+  }
+
+  else
+  {
+    v41 = 6;
+  }
+
+  physx::Ext::joint::ConstraintHelper::prepareLockedAxes(&v75, &v86, v83.f32, &v73, v41, 7, &v71, &v69);
+  v42 = v72 + a6[3].f32[0];
+  *a9 = vadd_f32(v71, a6[2]);
+  a9[1].f32[0] = v42;
+  v43 = v70 + a7[3].f32[0];
+  *a10 = vadd_f32(v69, a7[2]);
+  a10[1].f32[0] = v43;
+  if ((v31 & 2) != 0 && !v32)
+  {
+    v44 = (v88 * v88) + -0.5;
+    v45 = 0.0;
+    v46 = ((*&v86.i32[1] * 0.0) + (*v86.i32 * 2.0)) + (v87 * 0.0);
+    v47 = (v88 * ((v87 * -0.0) + (*&v86.i32[1] * 0.0))) + (v44 * 2.0);
+    v48 = (v88 * ((*v86.i32 * -0.0) + (v87 * 2.0))) + (v44 * 0.0);
+    v49 = (v88 * ((*&v86.i32[1] * -2.0) + (*v86.i32 * 0.0))) + (v44 * 0.0);
+    v50 = v73.f32[0];
+    v51 = *(a5 + 100);
+    v52 = *(a5 + 92);
+    if (v52 <= 0.0 && *(a5 + 88) <= 0.0)
+    {
+      v45 = *(a5 + 96);
+    }
+
+    v53 = v47 + (*v86.i32 * v46);
+    v54 = v48 + (*&v86.i32[1] * v46);
+    v55 = v49 + (v87 * v46);
+    if ((v73.f32[0] + v45) > v51)
+    {
+      v56 = v76;
+      v76 += 80;
+      *(v56 + 78) = 0;
+      *v56 = v53;
+      *(v56 + 4) = v54;
+      *(v56 + 8) = v55;
+      v57 = (v79 * v53) - (v77 * v55);
+      v58 = (v77 * v54) - (v78 * v53);
+      *(v56 + 16) = (v78 * v55) - (v79 * v54);
+      *(v56 + 20) = v57;
+      *(v56 + 24) = v58;
+      *(v56 + 32) = v53;
+      *(v56 + 36) = v54;
+      *(v56 + 40) = v55;
+      v59 = (v82 * v53) - (v80 * v55);
+      v60 = (v80 * v54) - (v81 * v53);
+      *(v56 + 48) = (v81 * v55) - (v82 * v54);
+      *(v56 + 52) = v59;
+      *(v56 + 56) = v60;
+      *(v56 + 12) = v51 - v50;
+      physx::Ext::joint::ConstraintHelper::addLimit(&v75, v56, a5 + 80);
+      v52 = *(a5 + 92);
+    }
+
+    v61 = *(a5 + 104);
+    if (v52 <= 0.0 && *(a5 + 88) <= 0.0)
+    {
+      v62 = *(a5 + 96);
+    }
+
+    else
+    {
+      v62 = 0.0;
+    }
+
+    if ((v62 - v50) > -v61)
+    {
+      v63 = v76;
+      v76 += 80;
+      *(v63 + 78) = 0;
+      *v63 = -v53;
+      *(v63 + 4) = -v54;
+      *(v63 + 8) = -v55;
+      v64 = (v55 * v77) + (v79 * -v53);
+      v65 = (v53 * v78) + (v77 * -v54);
+      *(v63 + 16) = (v54 * v79) + (v78 * -v55);
+      *(v63 + 20) = v64;
+      *(v63 + 24) = v65;
+      *(v63 + 32) = -v53;
+      *(v63 + 36) = -v54;
+      *(v63 + 40) = -v55;
+      v66 = (v55 * v80) + (v82 * -v53);
+      v67 = (v53 * v81) + (v80 * -v54);
+      *(v63 + 48) = (v54 * v82) + (v81 * -v55);
+      *(v63 + 52) = v66;
+      *(v63 + 56) = v67;
+      *(v63 + 12) = v50 - v61;
+      physx::Ext::joint::ConstraintHelper::addLimit(&v75, v63, a5 + 80);
+    }
+  }
+
+  return -858993459 * ((v76 - v75) >> 4);
+}
+
+void PrismaticJointProject(float *a1, float *a2, float *a3, int a4, double a5, double a6, double a7, double a8, double a9, double a10, int8x16_t a11, int8x16_t a12)
+{
+  physx::Ext::joint::computeDerived(a1, a2, a3, &v130, &v123, &v117, 1, a5, a6, a7, a8, a9, a10, a11, a12);
+  v17 = v121;
+  v16 = v122;
+  v18 = a1[27];
+  v19 = (v17 * v17) + (v16 * v16);
+  v20 = v18 * v18;
+  if (v19 > (v18 * v18))
+  {
+    v21 = 1.0 / sqrtf(v19);
+    v17 = v18 * (v121 * v21);
+    v16 = v18 * (v122 * v21);
+  }
+
+  v23 = __sincosf_stret(a1[28] * 0.5);
+  if (v23.__sinval > 0.9999)
+  {
+    v24 = v117;
+    _D2 = v118;
+    v22.f32[0] = v119;
+    goto LABEL_9;
+  }
+
+  v22.f32[0] = v119;
+  _D2 = v118;
+  _D5 = vbsl_s8(vdup_lane_s32(vmvn_s8(vcge_f32(v22, 0)), 0), vneg_f32(v118), v118);
+  v24 = v117;
+  v27 = -v117;
+  if (v119 >= 0.0)
+  {
+    v27 = v117;
+  }
+
+  _S16 = _D5.i32[1];
+  __asm { FMLA            S7, S16, V5.S[1] }
+
+  if (_S7 <= (v23.__sinval * v23.__sinval))
+  {
+LABEL_9:
+    if (v19 <= v20)
+    {
+      return;
+    }
+
+    goto LABEL_10;
+  }
+
+  v34 = 1.0 / sqrtf(_S7);
+  v24 = (v23.__sinval * v27) * v34;
+  _D2 = vmul_n_f32(vmul_n_f32(_D5, v23.__sinval), v34);
+  v22.i32[0] = LODWORD(v23.__cosval);
+LABEL_10:
+  if (a4)
+  {
+    v35 = a1[15] * -2.0;
+    v36 = a1[16] * -2.0;
+    v37 = a1[17] * -2.0;
+    _S6 = a1[13];
+    v38 = a1[14];
+    v40 = (v38 * v38) + -0.5;
+    _S16 = a1[11];
+    _S7 = a1[12];
+    v43 = ((v36 * _S7) + (_S16 * v35)) + (_S6 * v37);
+    v44 = ((v35 * v40) - (((_S7 * v37) - (_S6 * v36)) * v38)) + (_S16 * v43);
+    v45 = ((v36 * v40) - (((_S6 * v35) - (_S16 * v37)) * v38)) + (_S7 * v43);
+    v46 = ((v37 * v40) - (((_S16 * v36) - (_S7 * v35)) * v38)) + (_S6 * v43);
+    _S18 = v44 + v44;
+    v48 = v45 + v45;
+    _S17 = v46 + v46;
+    v50 = (v22.f32[0] * v22.f32[0]) + -0.5;
+    __asm { FMLA            S21, S17, V2.S[1] }
+
+    v52 = ((v22.f32[0] * ((_D2.f32[0] * _S17) - (_D2.f32[1] * (v45 + v45)))) + ((v44 + v44) * v50)) + (v24 * _S21);
+    __asm { FMLA            S23, S18, V2.S[1] }
+
+    v54 = ((v22.f32[0] * _S23) + (v48 * v50)) + (_D2.f32[0] * _S21);
+    __asm
+    {
+      FMLA            S17, S21, V2.S[1]
+      FMLA            S0, S7, V2.S[1]
+      FMLS            S20, S16, V2.S[1]
+    }
+
+    v58 = _S20 + (_S6 * v24);
+    v59 = ((vmuls_lane_f32(v38, _D2, 1) - (v22.f32[0] * _S6)) - (v24 * _S7)) + (_S16 * _D2.f32[0]);
+    __asm { FMLA            S4, S6, V2.S[1] }
+
+    v61 = (v120 + v52) + (v120 + v52);
+    v62 = (v17 + v54) + (v17 + v54);
+    v63 = (v16 + _S17) + (v16 + _S17);
+    v64 = (v133 * v133) + -0.5;
+    v65 = ((v131 * v62) + (v130 * v61)) + (v132 * v63);
+    v66 = ((v133 * ((v131 * v63) - (v132 * v62))) + (v61 * v64)) + (v130 * v65);
+    v67 = ((v133 * ((v132 * v61) - (v130 * v63))) + (v62 * v64)) + (v131 * v65);
+    v68 = ((v133 * ((v130 * v62) - (v131 * v61))) + (v63 * v64)) + (v132 * v65);
+    v69 = v134 + v66;
+    v70 = v135 + v67;
+    v71 = v136 + v68;
+    v72 = (((_S4 * v130) + (v133 * _S0)) + (v131 * v59)) - (v58 * v132);
+    v73 = (((_S4 * v131) + (v133 * v58)) + (v132 * _S0)) - (v59 * v130);
+    v74 = (((_S4 * v132) + (v133 * v59)) + (v130 * v58)) - (_S0 * v131);
+    v75 = (((v133 * _S4) - (v130 * _S0)) - (v131 * v58)) - (v132 * v59);
+    *a3 = v72;
+    a3[1] = v73;
+    a3[2] = v74;
+    a3[3] = v75;
+    a3[4] = v69;
+    a3[5] = v70;
+    a3[6] = v71;
+    v76 = sqrtf((((v73 * v73) + (v72 * v72)) + (v74 * v74)) + (v75 * v75));
+    if (v76 != 0.0)
+    {
+      *a3 = v72 / v76;
+      a3[1] = v73 / v76;
+      a3[2] = v74 / v76;
+      a3[3] = v75 / v76;
+    }
+  }
+
+  else
+  {
+    v77 = a1[8] * -2.0;
+    v78 = a1[9] * -2.0;
+    v79 = a1[10] * -2.0;
+    _S6 = a1[6];
+    v80 = a1[7];
+    v82 = (v80 * v80) + -0.5;
+    _S16 = a1[4];
+    _S7 = a1[5];
+    v85 = ((v78 * _S7) + (_S16 * v77)) + (_S6 * v79);
+    v86 = ((v77 * v82) - (((_S7 * v79) - (_S6 * v78)) * v80)) + (_S16 * v85);
+    v87 = ((v78 * v82) - (((_S6 * v77) - (_S16 * v79)) * v80)) + (_S7 * v85);
+    v88 = ((v79 * v82) - (((_S16 * v78) - (_S7 * v77)) * v80)) + (_S6 * v85);
+    _S0 = (v86 - v120) + (v86 - v120);
+    v90 = (v87 - v17) + (v87 - v17);
+    _S17 = (v88 - v16) + (v88 - v16);
+    v92 = (v22.f32[0] * v22.f32[0]) + -0.5;
+    __asm { FMLS            S21, S17, V2.S[1] }
+
+    v94 = ((v22.f32[0] * (vmuls_lane_f32(v90, _D2, 1) - (_S17 * _D2.f32[0]))) + (_S0 * v92)) - (v24 * _S21);
+    __asm { FMLS            S23, S0, V2.S[1] }
+
+    v96 = ((v22.f32[0] * _S23) + (v90 * v92)) - (_S21 * _D2.f32[0]);
+    __asm
+    {
+      FMLS            S17, S21, V2.S[1]
+      FMLS            S0, S7, V2.S[1]
+      FMLA            S19, S16, V2.S[1]
+    }
+
+    v100 = _S19 - (_S6 * v24);
+    v101 = ((-(_D2.f32[1] * v80) - (v22.f32[0] * _S6)) + (v24 * _S7)) - (_S16 * _D2.f32[0]);
+    __asm { FMLS            S4, S6, V2.S[1] }
+
+    v103 = v94 + v94;
+    v104 = (v126 * v126) + -0.5;
+    v105 = ((v124 * (v96 + v96)) + (v123 * (v94 + v94))) + (v125 * (_S17 + _S17));
+    v106 = ((v126 * ((v124 * (_S17 + _S17)) - (v125 * (v96 + v96)))) + ((v94 + v94) * v104)) + (v123 * v105);
+    v107 = ((v126 * ((v125 * (v94 + v94)) - (v123 * (_S17 + _S17)))) + ((v96 + v96) * v104)) + (v124 * v105);
+    v108 = ((v126 * ((v123 * (v96 + v96)) - (v124 * v103))) + ((_S17 + _S17) * v104)) + (v125 * v105);
+    v109 = v127 + v106;
+    v110 = v128 + v107;
+    v111 = v129 + v108;
+    v112 = (((_S4 * v123) + (v126 * _S0)) + (v124 * v101)) - (v100 * v125);
+    v113 = (((_S4 * v124) + (v126 * v100)) + (v125 * _S0)) - (v101 * v123);
+    v114 = (((_S4 * v125) + (v126 * v101)) + (v123 * v100)) - (_S0 * v124);
+    v115 = (((v126 * _S4) - (v123 * _S0)) - (v124 * v100)) - (v125 * v101);
+    *a2 = v112;
+    a2[1] = v113;
+    a2[2] = v114;
+    a2[3] = v115;
+    a2[4] = v109;
+    a2[5] = v110;
+    a2[6] = v111;
+    v116 = sqrtf((((v113 * v113) + (v112 * v112)) + (v114 * v114)) + (v115 * v115));
+    if (v116 != 0.0)
+    {
+      *a2 = v112 / v116;
+      a2[1] = v113 / v116;
+      a2[2] = v114 / v116;
+      a2[3] = v115 / v116;
+    }
+  }
+}
+
+void PrismaticJointVisualize(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, double a6, double a7, double a8, double a9, double a10, double a11, int8x16_t a12, int8x16_t a13)
+{
+  v16 = physx::Ext::joint::computeJointFrames(&v23, v19, a2, a3, a4, a6, a7, a8, a9, a10, a11, a12, a13);
+  if (a5)
+  {
+    (*(*a1 + 16))(a1, &v23, v19, v16);
+  }
+
+  if ((a5 & 2) != 0 && (*(a2 + 116) & 2) != 0)
+  {
+    v17 = ((((v20 - v27) + (v20 - v27)) * ((v26 * v26) + -0.5)) - (((v24 * ((v22 - v29) + (v22 - v29))) - (v25 * ((v21 - v28) + (v21 - v28)))) * v26)) + (v23 * (((((v21 - v28) + (v21 - v28)) * v24) + (v23 * ((v20 - v27) + (v20 - v27)))) + (v25 * ((v22 - v29) + (v22 - v29)))));
+    v18 = 0.0;
+    if (*(a2 + 92) <= 0.0 && *(a2 + 88) <= 0.0)
+    {
+      v18 = *(a2 + 96);
+    }
+
+    (*(*a1 + 24))(a1, &v23, v19, v17 < (v18 + *(a2 + 104)));
+    (*(*a1 + 24))(a1, &v23, v19, v17 > (*(a2 + 100) - v18));
+  }
+}
+
+void *physx::PxRevoluteJointCreate(uint64_t a1, uint64_t a2, float32x4_t *a3, uint64_t a4, float32x4_t *a5)
+{
+  v10 = physx::shdfnd::Foundation::mInstance;
+  if ((*(*physx::shdfnd::Foundation::mInstance + 40))(physx::shdfnd::Foundation::mInstance))
+  {
+    v11 = "static const char *physx::shdfnd::ReflectionAllocator<physx::Ext::RevoluteJoint>::getName() [T = physx::Ext::RevoluteJoint]";
+  }
+
+  else
+  {
+    v11 = "<allocation names disabled>";
+  }
+
+  v12 = (*(*(v10 + 24) + 16))(v10 + 24, 112, v11, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxextensions/src/ExtRevoluteJoint.cpp", 45);
+  v13 = (*(*a1 + 40))(a1);
+  v14 = physx::Ext::RevoluteJoint::RevoluteJoint(v12, v13, a2, a3, a4, a5);
+  v15 = (*(*a1 + 216))(a1, a2, a4, v12 + 3, &physx::Ext::RevoluteJoint::sShaders, 144, v14);
+  v12[12] = v15;
+  if (!v15)
+  {
+    (*(*v12 + 32))(v12);
+    return 0;
+  }
+
+  return v12;
+}
+
+float physx::Ext::RevoluteJoint::getAngle(physx::Ext::RevoluteJoint *this)
+{
+  (*(*this + 80))(v7);
+  v1 = 1.0;
+  if (v7[0] == 0.0)
+  {
+    v4 = 0;
+    v3 = 1.0;
+  }
+
+  else
+  {
+    v2 = sqrtf(((v7[0] * v7[0]) + 0.0) + (v8 * v8));
+    v3 = v8 / v2;
+    v4 = (v7[0] / v2) < 0.0;
+  }
+
+  if (v3 < -1.0)
+  {
+    v3 = -1.0;
+  }
+
+  if (v3 <= 1.0)
+  {
+    v1 = v3;
+  }
+
+  v5 = acosf(v1);
+  result = v5 + v5;
+  if (v4)
+  {
+    return -result;
+  }
+
+  return result;
+}
+
+float physx::Ext::RevoluteJoint::getLimit@<S0>(physx::Ext::RevoluteJoint *this@<X0>, uint64_t a2@<X8>)
+{
+  v2 = *(this + 13);
+  *a2 = *(v2 + 92);
+  result = *(v2 + 108);
+  *(a2 + 16) = result;
+  *(a2 + 20) = *(v2 + 112);
+  return result;
+}
+
+uint64_t physx::Ext::RevoluteJoint::setLimit(uint64_t a1, __int128 *a2)
+{
+  v2 = *(a1 + 104);
+  v3 = *a2;
+  *(v2 + 104) = *(a2 + 12);
+  *(v2 + 92) = v3;
+  return (*(**(a1 + 96) + 72))();
+}
+
+uint64_t physx::Ext::RevoluteJoint::setDriveVelocity(physx::Ext::RevoluteJoint *this, float a2, int a3)
+{
+  v18[1] = *MEMORY[0x1E69E9840];
+  *(*(this + 13) + 80) = a2;
+  if (a3)
+  {
+    v4 = *(this + 12);
+    v17 = 0;
+    v18[0] = 0;
+    v5 = &v17;
+    (*(*v4 + 56))(v4, &v17, v18);
+    v6 = 1;
+    do
+    {
+      v7 = v6;
+      if (*v5)
+      {
+        if ((*(**v5 + 56))(*v5))
+        {
+          if ((*(**v5 + 48))() == 1)
+          {
+            v8 = *v5;
+            (*(*v8 + 432))(&v16, v8);
+            if ((v16 & 1) == 0)
+            {
+              v9 = (*(*v8 + 56))(v8);
+              v10 = (*(*v9 + 880))(v9);
+              v11 = (*(*v8 + 584))(v8);
+              v12 = (*(*v8 + 512))(v8);
+              if (v11 < v10 || v12 != 0)
+              {
+                if (v11 >= v10)
+                {
+                  v10 = v11;
+                }
+
+                (*(*v8 + 592))(v8);
+                (*(*v8 + 576))(v8, v10);
+              }
+            }
+          }
+        }
+      }
+
+      v6 = 0;
+      v5 = v18;
+    }
+
+    while ((v7 & 1) != 0);
+  }
+
+  v14 = *(**(this + 12) + 72);
+
+  return v14();
+}
+
+uint64_t physx::Ext::RevoluteJoint::setDriveForceLimit(physx::Ext::RevoluteJoint *this, float a2)
+{
+  v2 = this + 96;
+  v3 = *(this + 12);
+  *(*(v2 + 1) + 84) = a2;
+  return (*(*v3 + 72))();
+}
+
+uint64_t physx::Ext::RevoluteJoint::setDriveGearRatio(physx::Ext::RevoluteJoint *this, float a2)
+{
+  v2 = this + 96;
+  v3 = *(this + 12);
+  *(*(v2 + 1) + 88) = a2;
+  return (*(*v3 + 72))();
+}
+
+uint64_t physx::Ext::RevoluteJoint::setProjectionAngularTolerance(physx::Ext::RevoluteJoint *this, float a2)
+{
+  v2 = this + 96;
+  v3 = *(this + 12);
+  *(*(v2 + 1) + 124) = a2;
+  return (*(*v3 + 72))();
+}
+
+uint64_t physx::Ext::RevoluteJoint::setProjectionLinearTolerance(physx::Ext::RevoluteJoint *this, float a2)
+{
+  v2 = this + 96;
+  v3 = *(this + 12);
+  *(*(v2 + 1) + 120) = a2;
+  return (*(*v3 + 72))();
+}
+
+uint64_t physx::Ext::RevoluteJoint::setRevoluteJointFlag(uint64_t a1, __int16 a2, int a3)
+{
+  v3 = *(a1 + 104);
+  if (a3)
+  {
+    v4 = *(v3 + 128) | a2;
+  }
+
+  else
+  {
+    v4 = *(v3 + 128) & ~a2;
+  }
+
+  *(v3 + 128) = v4;
+  return (*(**(a1 + 96) + 72))();
+}
+
+uint64_t physx::Ext::RevoluteJoint::exportExtraData(uint64_t a1, uint64_t a2)
+{
+  if (*(a1 + 104))
+  {
+    (*(*a2 + 24))(a2, 16);
+    (*(*a2 + 16))(a2, *(a1 + 104), 144);
+  }
+
+  v4 = *(a1 + 32);
+  v5 = *(*a2 + 32);
+
+  return v5(a2, v4);
+}
+
+uint64_t RevoluteJointSolverPrep(uint64_t a1, float32x2_t *a2, uint64_t a3, __int128 *a4, uint64_t a5, float32x2_t *a6, float32x2_t *a7, int a8, double d0_0, double d1_0, double a11, double a12, double a13, double a14, int8x16_t a15, int8x16_t a16, float32x2_t *a9, float32x2_t *a10)
+{
+  physx::Ext::joint::ConstraintHelper::ConstraintHelper(&v77, a1, a4, &v82, &v79, a2, a5, a6, d0_0, d1_0, a11, a12, a13, a14, a15, a16, a7);
+  v22 = *(a5 + 128);
+  v23 = (v22 & 1) != 0 && *(a5 + 116) >= *(a5 + 112);
+  _S0 = v83;
+  if (a8)
+  {
+    _S2 = v84;
+    v26 = v82;
+  }
+
+  else
+  {
+    v26 = v82;
+    _V3.D[1] = v79.i64[1];
+    __asm { FMLA            S4, S0, V3.S[2] }
+
+    _S2 = v84;
+    __asm { FMLA            S4, S2, V3.S[3] }
+
+    if (_S4 < 0.0)
+    {
+      v79 = vnegq_f32(v79);
+    }
+  }
+
+  v34 = (v81 - v86) + (v81 - v86);
+  v35 = vdup_lane_s32(v26, 0);
+  v36 = (_S2 * _S2) + -0.5;
+  v35.f32[0] = v83;
+  v37 = vsub_f32(v80, v85);
+  v38 = vadd_f32(v37, v37);
+  v39 = (vmuls_lane_f32(*&v26.i32[1], v38, 1) + (*v26.i32 * *v38.i32)) + (v83 * v34);
+  v40.i32[0] = vdup_lane_s32(v38, 1).u32[0];
+  v40.f32[1] = v34;
+  v71 = vmla_n_f32(vmla_n_f32(vmul_n_f32(vneg_f32(vmla_f32(vmul_f32(v40, vneg_f32(v35)), vext_s8(v40, v38, 4uLL), vext_s8(v26, v35, 4uLL))), _S2), v38, v36), v26, v39);
+  v72 = ((v34 * v36) - (((-*&v26.i32[1] * *v38.i32) + (*v26.i32 * *&v38.i32[1])) * _S2)) + (v83 * v39);
+  if (v23)
+  {
+    v41 = 7;
+  }
+
+  else
+  {
+    v41 = 6;
+  }
+
+  physx::Ext::joint::ConstraintHelper::prepareLockedAxes(&v77, &v82, v79.f32, &v71, 7, v41, &v75, &v73);
+  v42 = v76 + a6[3].f32[0];
+  *a9 = vadd_f32(v75, a6[2]);
+  a9[1].f32[0] = v42;
+  v43 = v74 + a7[3].f32[0];
+  *a10 = vadd_f32(v73, a7[2]);
+  a10[1].f32[0] = v43;
+  if (!v23)
+  {
+    v45 = v83;
+    v44 = v84;
+    v46 = (v44 * v44) + -0.5;
+    v47 = v82;
+    v48 = ((*&v82.i32[1] * 0.0) + (*v82.i32 * 2.0)) + (v83 * 0.0);
+    v49 = ((v84 * ((v83 * -0.0) + (*&v82.i32[1] * 0.0))) + (v46 * 2.0)) + (*v82.i32 * v48);
+    v50 = ((v84 * ((*v82.i32 * -0.0) + (v83 * 2.0))) + (v46 * 0.0)) + (*&v82.i32[1] * v48);
+    v51 = ((v84 * ((*&v82.i32[1] * -2.0) + (*v82.i32 * 0.0))) + (v46 * 0.0)) + (v83 * v48);
+    v52 = *(a5 + 128);
+    if ((v52 & 2) != 0)
+    {
+      v53 = v78;
+      v78 += 80;
+      *(v53 + 78) = 0;
+      *v53 = 0;
+      *(v53 + 8) = 0;
+      *(v53 + 16) = -v49;
+      *(v53 + 20) = -v50;
+      *(v53 + 32) = 0;
+      *(v53 + 40) = 0;
+      v54 = *(a5 + 88);
+      v55 = -(v49 * v54);
+      *(v53 + 52) = -(v50 * v54);
+      *(v53 + 56) = -(v51 * v54);
+      v56 = *(a5 + 80);
+      v57 = *(a5 + 84);
+      *(v53 + 24) = -v51;
+      *(v53 + 28) = v56;
+      *(v53 + 44) = -v57;
+      *(v53 + 48) = v55;
+      *(v53 + 60) = v57;
+      v58 = *(v53 + 76);
+      if ((v52 & 4) != 0)
+      {
+        if (v56 > 0.0)
+        {
+          *(v53 + 44) = 0;
+        }
+
+        if (v56 < 0.0)
+        {
+          *(v53 + 60) = 0;
+        }
+      }
+
+      *(v53 + 76) = v58 | 0x60;
+    }
+
+    if (v22)
+    {
+      v59 = (((v79.f32[3] * -*v47.i32) + (v44 * v79.f32[0])) + (-*&v47.i32[1] * v79.f32[2])) + (v79.f32[1] * v45);
+      v60 = (((*v47.i32 * v79.f32[0]) + (v44 * v79.f32[3])) + (*&v47.i32[1] * v79.f32[1])) + (v45 * v79.f32[2]);
+      v61 = sqrtf(((v59 * v59) + 0.0) + (v60 * v60));
+      if (v61 != 0.0)
+      {
+        v59 = v59 / v61;
+        v60 = v60 / v61;
+      }
+
+      if (v60 < -1.0)
+      {
+        v60 = -1.0;
+      }
+
+      if (v60 > 1.0)
+      {
+        v60 = 1.0;
+      }
+
+      v62 = acosf(v60);
+      v63 = v62 + v62;
+      if (v59 >= 0.0)
+      {
+        v64 = v63;
+      }
+
+      else
+      {
+        v64 = -v63;
+      }
+
+      v65 = *(a5 + 116);
+      if (*(a5 + 104) <= 0.0 && *(a5 + 100) <= 0.0)
+      {
+        v66 = *(a5 + 108);
+      }
+
+      else
+      {
+        v66 = 0.0;
+      }
+
+      v67 = *(a5 + 112);
+      if ((v65 + v66) > v64)
+      {
+        v68 = v78;
+        v78 += 80;
+        *(v68 + 78) = 0;
+        *v68 = 0;
+        *(v68 + 8) = 0;
+        *(v68 + 20) = -v50;
+        *(v68 + 24) = -v51;
+        *(v68 + 32) = 0;
+        *(v68 + 40) = 0;
+        *(v68 + 48) = -v49;
+        *(v68 + 52) = -v50;
+        *(v68 + 56) = -v51;
+        *(v68 + 12) = -(v65 - v64);
+        *(v68 + 16) = -v49;
+        *(v68 + 76) |= 0x40u;
+        physx::Ext::joint::ConstraintHelper::addLimit(&v77, v68, a5 + 92);
+      }
+
+      if ((v67 - v66) < v64)
+      {
+        v69 = v78;
+        v78 += 80;
+        *(v69 + 78) = 0;
+        *v69 = 0;
+        *(v69 + 8) = 0;
+        *(v69 + 20) = v50;
+        *(v69 + 24) = v51;
+        *(v69 + 32) = 0;
+        *(v69 + 40) = 0;
+        *(v69 + 48) = v49;
+        *(v69 + 52) = v50;
+        *(v69 + 56) = v51;
+        *(v69 + 12) = v67 - v64;
+        *(v69 + 16) = v49;
+        *(v69 + 76) |= 0x40u;
+        physx::Ext::joint::ConstraintHelper::addLimit(&v77, v69, a5 + 92);
+      }
+    }
+  }
+
+  return -858993459 * ((v78 - v77) >> 4);
+}
+
+void RevoluteJointProject(float *a1, float *a2, float *a3, int a4, double a5, double a6, double a7, double a8, double a9, double a10, int8x16_t a11, int8x16_t a12)
+{
+  physx::Ext::joint::computeJointFrames(&v151, &v144, a1, a2, a3, a5, a6, a7, a8, a9, a10, a11, a12);
+  v16 = v153;
+  v130 = v155;
+  v131 = v148;
+  v128 = v156;
+  v129 = v149;
+  v126 = v150;
+  v127 = v157;
+  v17 = (v148 - v155) + (v148 - v155);
+  v18 = (v149 - v156) + (v149 - v156);
+  v19 = (v150 - v157) + (v150 - v157);
+  v20 = (v154 * v154) + -0.5;
+  v21 = (-(v152 * v18) - (v151 * v17)) - (v153 * v19);
+  v22 = ((v154 * ((v153 * v18) - (v152 * v19))) + (v17 * v20)) - (v151 * v21);
+  v23 = ((v154 * ((v151 * v19) - (v153 * v17))) + (v18 * v20)) - (v152 * v21);
+  v125 = v20;
+  v24 = ((v154 * ((v152 * v17) - (v151 * v18))) + (v19 * v20)) - (v153 * v21);
+  v25 = (((v154 * v144) - (v151 * v147)) - (v152 * v146)) + (v145 * v153);
+  v136 = v145;
+  v137 = v147;
+  v132 = v154;
+  v26 = a1[30];
+  v27 = ((v23 * v23) + (v22 * v22)) + (v24 * v24);
+  v142 = v26 * v26;
+  v143 = v27;
+  if (v27 > (v26 * v26))
+  {
+    v28 = 1.0 / sqrtf(v27);
+    v22 = v26 * (v22 * v28);
+    v23 = v26 * (v23 * v28);
+    v24 = v26 * (v24 * v28);
+  }
+
+  v134 = v151;
+  v135 = v144;
+  v29 = (((v154 * v145) - (v152 * v147)) - (v153 * v144)) + (v146 * v151);
+  v30 = (((v154 * v146) - (v153 * v147)) - (v151 * v145)) + (v144 * v152);
+  v31 = (((v151 * v144) + (v154 * v147)) + (v152 * v145)) + (v153 * v146);
+  v138 = v146;
+  v139 = v24;
+  v133 = v152;
+  v140 = v23;
+  v141 = v22;
+  if (v25 == 0.0)
+  {
+    v35 = 1.0;
+    v33 = 0.0;
+    v34 = 0.0;
+  }
+
+  else
+  {
+    v32 = sqrtf(((v25 * v25) + 0.0) + (v31 * v31));
+    v33 = v25 / v32;
+    v34 = 0.0 / v32;
+    v35 = v31 / v32;
+  }
+
+  v36 = (((v25 * v35) - (v31 * v33)) - (v29 * v34)) + (v34 * v30);
+  v37 = (((v29 * v35) - (v31 * v34)) - (v30 * v33)) + (v34 * v25);
+  v38 = (((v30 * v35) - (v31 * v34)) - (v25 * v34)) + (v33 * v29);
+  cosval = (((v25 * v33) + (v31 * v35)) + (v29 * v34)) + (v30 * v34);
+  v40 = __sincosf_stret(a1[31] * 0.5);
+  if (v40.__sinval > 0.9999)
+  {
+    goto LABEL_11;
+  }
+
+  v41 = -v36;
+  v42 = -v37;
+  v43 = -v38;
+  if (cosval >= 0.0)
+  {
+    v41 = v36;
+    v42 = v37;
+    v43 = v38;
+  }
+
+  v44 = ((v42 * v42) + (v41 * v41)) + (v43 * v43);
+  if (v44 <= (v40.__sinval * v40.__sinval))
+  {
+LABEL_11:
+    if (v143 <= v142)
+    {
+      return;
+    }
+  }
+
+  else
+  {
+    v45 = v40.__sinval * v43;
+    v46 = 1.0 / sqrtf(v44);
+    v36 = (v40.__sinval * v41) * v46;
+    v37 = (v40.__sinval * v42) * v46;
+    v38 = v45 * v46;
+    cosval = v40.__cosval;
+  }
+
+  v47 = (((v35 * v36) + (cosval * v33)) + (v37 * v34)) + (-v34 * v38);
+  v48 = (((v35 * v37) + (cosval * v34)) + (v38 * v33)) + (-v34 * v36);
+  v49 = (((v35 * v38) + (cosval * v34)) + (v36 * v34)) + (-v33 * v37);
+  v50 = (((cosval * v35) - (v36 * v33)) - (v37 * v34)) - (v38 * v34);
+  if (a4)
+  {
+    v51 = a1[15] * -2.0;
+    v52 = a1[16] * -2.0;
+    v53 = a1[17] * -2.0;
+    v55 = a1[13];
+    v54 = a1[14];
+    v56 = (v54 * v54) + -0.5;
+    v57 = a1[11];
+    v58 = a1[12];
+    v59 = ((v52 * v58) + (v57 * v51)) + (v55 * v53);
+    v60 = ((v51 * v56) - (((v58 * v53) - (v55 * v52)) * v54)) + (v57 * v59);
+    v61 = ((v52 * v56) - (((v55 * v51) - (v57 * v53)) * v54)) + (v58 * v59);
+    v62 = ((v53 * v56) - (((v57 * v52) - (v58 * v51)) * v54)) + (v55 * v59);
+    v63 = v60 + v60;
+    v64 = v62 + v62;
+    v65 = (v50 * v50) + -0.5;
+    v66 = ((v48 * (v61 + v61)) + (v47 * (v60 + v60))) + (v49 * v64);
+    v67 = ((v50 * ((v48 * v64) - (v49 * (v61 + v61)))) + ((v60 + v60) * v65)) + (v47 * v66);
+    v68 = ((v50 * ((v49 * (v60 + v60)) - (v47 * v64))) + ((v61 + v61) * v65)) + (v48 * v66);
+    v69 = ((v50 * ((v47 * (v61 + v61)) - (v48 * v63))) + (v64 * v65)) + (v49 * v66);
+    v70 = v141 + v67;
+    v71 = (((v47 * v54) - (v50 * v57)) - (v48 * v55)) + (v58 * v49);
+    v72 = (((v48 * v54) - (v50 * v58)) - (v49 * v57)) + (v55 * v47);
+    v73 = (((v49 * v54) - (v50 * v55)) - (v47 * v58)) + (v57 * v48);
+    v74 = (((v47 * v57) + (v50 * v54)) + (v48 * v58)) + (v49 * v55);
+    v75 = v70 + v70;
+    v76 = (v140 + v68) + (v140 + v68);
+    v77 = (v139 + v69) + (v139 + v69);
+    v78 = ((v133 * v76) + (v134 * (v70 + v70))) + (v16 * v77);
+    v79 = ((v132 * ((v76 * -v16) + (v133 * v77))) + ((v70 + v70) * v125)) + (v134 * v78);
+    v80 = ((v132 * ((v77 * -v134) + (v16 * (v70 + v70)))) + (v76 * v125)) + (v133 * v78);
+    v81 = ((v132 * ((v75 * -v133) + (v134 * v76))) + (v77 * v125)) + (v16 * v78);
+    v82 = v130 + v79;
+    v83 = v128 + v80;
+    v84 = v127 + v81;
+    v85 = (((v134 * v74) + (v132 * v71)) + (v133 * v73)) - (v72 * v16);
+    v86 = (((v133 * v74) + (v132 * v72)) + (v16 * v71)) - (v73 * v134);
+    v87 = (((v16 * v74) + (v132 * v73)) + (v134 * v72)) - (v71 * v133);
+    v88 = (((v71 * -v134) + (v132 * v74)) + (-v133 * v72)) + (-v16 * v73);
+    *a3 = v85;
+    a3[1] = v86;
+    a3[2] = v87;
+    a3[3] = v88;
+    a3[4] = v82;
+    a3[5] = v83;
+    a3[6] = v84;
+    v89 = sqrtf((((v86 * v86) + (v85 * v85)) + (v87 * v87)) + (v88 * v88));
+    if (v89 != 0.0)
+    {
+      *a3 = v85 / v89;
+      a3[1] = v86 / v89;
+      a3[2] = v87 / v89;
+      a3[3] = v88 / v89;
+    }
+  }
+
+  else
+  {
+    v90 = a1[8] * -2.0;
+    v91 = a1[9] * -2.0;
+    v92 = a1[10] * -2.0;
+    v94 = a1[6];
+    v93 = a1[7];
+    v95 = (v93 * v93) + -0.5;
+    v96 = a1[4];
+    v97 = a1[5];
+    v98 = ((v91 * v97) + (v96 * v90)) + (v94 * v92);
+    v99 = ((v90 * v95) - (((v97 * v92) - (v94 * v91)) * v93)) + (v96 * v98);
+    v100 = ((v91 * v95) - (((v94 * v90) - (v96 * v92)) * v93)) + (v97 * v98);
+    v101 = ((v92 * v95) - (((v96 * v91) - (v97 * v90)) * v93)) + (v94 * v98);
+    v102 = (v99 - v141) + (v99 - v141);
+    v103 = (v100 - v140) + (v100 - v140);
+    v104 = (v101 - v139) + (v101 - v139);
+    v105 = (v50 * v50) + -0.5;
+    v106 = (-(v48 * v103) - (v47 * v102)) - (v49 * v104);
+    v107 = ((v50 * ((v49 * v103) - (v48 * v104))) + (v102 * v105)) - (v47 * v106);
+    v108 = ((v50 * ((v47 * v104) - (v49 * v102))) + (v103 * v105)) - (v48 * v106);
+    v109 = ((v50 * ((v48 * v102) - (v47 * v103))) + (v104 * v105)) - (v49 * v106);
+    v110 = ((-(v47 * v93) - (v50 * v96)) + (v48 * v94)) - (v97 * v49);
+    v111 = ((-(v48 * v93) - (v50 * v97)) + (v49 * v96)) - (v94 * v47);
+    v112 = ((-(v49 * v93) - (v50 * v94)) + (v47 * v97)) - (v96 * v48);
+    v113 = (((v50 * v93) - (v96 * v47)) - (v48 * v97)) - (v49 * v94);
+    v114 = (v137 * v137) + -0.5;
+    v115 = ((v136 * (v108 + v108)) + (v135 * (v107 + v107))) + (v138 * (v109 + v109));
+    v116 = ((v137 * ((v138 * (v107 + v107)) - (v135 * (v109 + v109)))) + ((v108 + v108) * v114)) + (v136 * v115);
+    v117 = ((v137 * ((v135 * (v108 + v108)) - (v136 * (v107 + v107)))) + ((v109 + v109) * v114)) + (v138 * v115);
+    v118 = v131 + (((v137 * ((v136 * (v109 + v109)) - (v138 * (v108 + v108)))) + ((v107 + v107) * v114)) + (v135 * v115));
+    v119 = v126 + v117;
+    v120 = (((v135 * v113) + (v137 * v110)) + (v136 * v112)) - (v111 * v138);
+    v121 = (((v136 * v113) + (v137 * v111)) + (v138 * v110)) - (v112 * v135);
+    v122 = (((v138 * v113) + (v137 * v112)) + (v135 * v111)) - (v110 * v136);
+    v123 = (((v137 * v113) - (v135 * v110)) - (v136 * v111)) - (v138 * v112);
+    *a2 = v120;
+    a2[1] = v121;
+    a2[2] = v122;
+    a2[3] = v123;
+    a2[4] = v118;
+    a2[5] = v129 + v116;
+    a2[6] = v119;
+    v124 = sqrtf((((v121 * v121) + (v120 * v120)) + (v122 * v122)) + (v123 * v123));
+    if (v124 != 0.0)
+    {
+      *a2 = v120 / v124;
+      a2[1] = v121 / v124;
+      a2[2] = v122 / v124;
+      a2[3] = v123 / v124;
+    }
+  }
+}
+
+void RevoluteJointVisualize(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, double a6, double a7, double a8, double a9, double a10, double a11, int8x16_t a12, int8x16_t a13)
+{
+  v16 = physx::Ext::joint::computeJointFrames(&v29, &v25, a2, a3, a4, a6, a7, a8, a9, a10, a11, a12, a13);
+  if (a5)
+  {
+    (*(*a1 + 16))(a1, &v29, &v25, v16);
+  }
+
+  if (a5 & 2) != 0 && (*(a2 + 128))
+  {
+    v17 = (((v32 * v25) - (v29 * v28)) - (v30 * v27)) + (v26 * v31);
+    v18 = (((v29 * v25) + (v32 * v28)) + (v30 * v26)) + (v31 * v27);
+    v19 = sqrtf(((v17 * v17) + 0.0) + (v18 * v18));
+    if (v19 != 0.0)
+    {
+      v17 = v17 / v19;
+      v18 = v18 / v19;
+    }
+
+    if (v18 < -1.0)
+    {
+      v18 = -1.0;
+    }
+
+    if (v18 > 1.0)
+    {
+      v18 = 1.0;
+    }
+
+    v20 = acosf(v18);
+    v21 = v20 + v20;
+    if (v17 >= 0.0)
+    {
+      v22 = v21;
+    }
+
+    else
+    {
+      v22 = -v21;
+    }
+
+    if (*(a2 + 104) <= 0.0 && *(a2 + 100) <= 0.0)
+    {
+      v23 = *(a2 + 108);
+    }
+
+    else
+    {
+      v23 = 0.0;
+    }
+
+    v24 = (*(a2 + 116) + v23) > v22 || (*(a2 + 112) - v23) < v22;
+    (*(*a1 + 32))(a1, &v29, v24);
+  }
+}
+
+float physx::Ext::InertiaTensorComputer::translate(uint64_t a1, uint64_t a2, int8x16_t a3)
+{
+  a3.i32[0] = *a2;
+  v4 = *(a2 + 4);
+  if (*a2 != 0.0 || v4.f32[0] != 0.0 || v4.f32[1] != 0.0)
+  {
+    v5 = *(a1 + 36);
+    v6 = -v5;
+    v7 = *a3.i32 + v5;
+    a3.i64[0] = *(a1 + 40);
+    v8 = vextq_s8(vzip1q_s32(a3, a3), a3, 8uLL);
+    v9 = vdup_lane_s32(*a3.i8, 0);
+    v10 = vadd_f32(v4, *a3.i8);
+    if (v7 == 0.0 && *v10.i32 == 0.0 && *&v10.i32[1] == 0.0)
+    {
+      v11 = xmmword_1E3118C30;
+      v11.i32[0] = v8.i32[0];
+      v12 = vmulq_f32(v8, v11);
+      v13 = v12;
+      v13.i32[0] = 0;
+      v14 = v5 * v6;
+      v15 = a3;
+      v15.i32[2] = HIDWORD(*(a1 + 40));
+      v16 = vextq_s8(vzip1q_s32(v15, vzip1q_s32(0, v15)), v15, 4uLL);
+      v15.i32[0] = *(a1 + 36);
+      v15.i32[1] = v15.i32[0];
+      *&v15.i32[3] = -*a3.i32;
+      v17 = vmulq_f32(v16, v15);
+      v18 = vsubq_f32(v13, v12).f32[0];
+      v13.i32[2] = v17.i32[1];
+      v19 = vaddq_f32(v13, v12);
+      v19.f32[0] = v18;
+      v12.i32[0] = v17.i32[3];
+      v12.f32[1] = *a3.i32 * v5;
+      v12.f32[3] = *a3.i32 * v5;
+      v20 = vaddq_f32(v19, v12);
+      v21 = vdupq_laneq_s32(v17, 2);
+      v21.f32[1] = *a3.i32 * 0.0;
+      v22 = v18 + v14;
+      v21.f32[2] = v5 * -0.0;
+      v23 = v21;
+      v23.f32[3] = v14;
+      v21.i32[0] = v17.i32[0];
+      v21.i32[3] = 0;
+      v24 = vaddq_f32(vaddq_f32(v17, v23), v21);
+    }
+
+    else
+    {
+      *v3.f32 = vrev64_s32(v10);
+      v25 = vzip1q_s32(v3, vdupq_lane_s32(*v3.f32, 0));
+      v26 = xmmword_1E3118C30;
+      v27 = xmmword_1E3118C30;
+      v27.i32[0] = v8.i32[0];
+      v28 = vmulq_f32(v8, v27);
+      v27.f32[0] = v5 * v6;
+      v26.i32[0] = v25.i32[0];
+      v29 = vmulq_f32(v25, v26);
+      *&v30 = *v10.i32 * v7;
+      v31 = v28;
+      v31.i32[0] = 0;
+      v32 = v29;
+      v32.i32[0] = 0;
+      v33 = a3;
+      v33.i32[2] = HIDWORD(*(a1 + 40));
+      v34 = vextq_s8(vzip1q_s32(v33, vzip1q_s32(0, v33)), v33, 4uLL);
+      v33.i32[0] = *(a1 + 36);
+      v33.i32[1] = v33.i32[0];
+      v25.f32[0] = -(v7 * v7);
+      *&v33.i32[3] = -*a3.i32;
+      v35 = vmulq_f32(v34, v33);
+      v36 = vdupq_laneq_s32(v35, 2);
+      v37 = v7 * -0.0;
+      v36.f32[1] = *a3.i32 * 0.0;
+      v36.f32[2] = v5 * -0.0;
+      v38 = v36;
+      v38.i32[3] = v27.i32[0];
+      v36.i32[0] = v35.i32[0];
+      v36.i32[3] = 0;
+      v3.i64[1] = v3.i64[0];
+      v39 = vzip1q_s32(v3, v3);
+      v39.i32[0] = 0;
+      v3.f32[0] = v7;
+      v3.f32[1] = v7;
+      v3.f32[3] = -*v10.i32;
+      v40 = vaddq_f32(vaddq_f32(v35, v38), v36);
+      v41 = vmulq_f32(v39, v3);
+      v42 = vsubq_f32(v31, v28).f32[0];
+      v31.i32[2] = v35.i32[1];
+      v43 = vaddq_f32(v31, v28);
+      v43.f32[0] = v42;
+      v28.i32[0] = v35.i32[3];
+      v28.f32[1] = *a3.i32 * v5;
+      v28.f32[3] = *a3.i32 * v5;
+      v44 = vsubq_f32(v32, v29).f32[0];
+      v32.i32[2] = v41.i32[1];
+      v27.f32[0] = v42 + v27.f32[0];
+      v45 = vaddq_f32(v32, v29);
+      v45.f32[0] = v44;
+      v29.i64[0] = __PAIR64__(v30, v41.u32[3]);
+      v29.i32[3] = v30;
+      v46 = v44 + v25.f32[0];
+      v47 = vdupq_laneq_s32(v41, 2);
+      v47.f32[1] = *v10.i32 * 0.0;
+      v47.f32[2] = v37;
+      v48 = v47;
+      v48.i32[3] = v25.i32[0];
+      v47.i32[0] = v41.i32[0];
+      v47.i32[3] = 0;
+      v49 = vaddq_f32(vaddq_f32(v41, v48), v47);
+      v20 = vsubq_f32(vaddq_f32(v43, v28), vaddq_f32(v29, v45));
+      v22 = v27.f32[0] - v46;
+      v24 = vsubq_f32(v40, v49);
+    }
+
+    v50 = *(a1 + 48);
+    *a1 = vaddq_f32(vmulq_n_f32(v20, v50), *a1);
+    *(a1 + 16) = (v22 * v50) + *(a1 + 16);
+    *(a1 + 20) = vaddq_f32(vmulq_n_f32(v24, v50), *(a1 + 20));
+    v9.f32[0] = v5;
+    *(a1 + 36) = vadd_f32(v9, *a2);
+    *a3.i32 = *&a3.i32[1] + *(a2 + 8);
+    *(a1 + 44) = *a3.i32;
+  }
+
+  return *a3.i32;
+}
+
+uint64_t updateMassAndInertia(int a1, uint64_t a2, float *a3, unsigned int a4, float32x2_t *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v9 = a6;
+  v283 = *MEMORY[0x1E69E9840];
+  __asm { FMOV            V8.2S, #1.0 }
+
+  v254 = _D8;
+  v255 = 1.0;
+  v253 = xmmword_1E30474D0;
+  if (a5)
+  {
+    v20 = *a5;
+    v21 = a5[1].f32[0];
+  }
+
+  else
+  {
+    v20 = 0;
+    v21 = 0.0;
+  }
+
+  v247 = v20;
+  if (!a3 || !a4)
+  {
+    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxextensions/src/ExtRigidBodyExt.cpp", 288, "%s: No density specified, setting mass to 1 and inertia to (1,1,1)", a6, a7, a8, "PxRigidBodyExt::updateMassAndInertia");
+LABEL_64:
+    v194 = 0;
+    v193 = v247.i32[1];
+LABEL_65:
+    v195 = 1.0;
+    goto LABEL_66;
+  }
+
+  v252 = 0.0;
+  v250 = 0u;
+  v251 = 0u;
+  v248 = 0u;
+  v249 = 0u;
+  v280 = 1;
+  v282 = 0x1000000000;
+  v281 = &v277;
+  v22 = (*(*a2 + 184))(a2);
+  *v274 = 0;
+  physx::shdfnd::Array<physx::PxShape *,physx::shdfnd::InlineAllocator<128u,physx::shdfnd::ReflectionAllocator<physx::PxShape *>>>::resize(&v277, v22, v274);
+  v26 = (*(*a2 + 192))(a2, v281, v282, 0);
+  v244 = *a3;
+  if ((*a3 >> 23) == 255)
+  {
+    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxextensions/src/ExtRigidBodyExt.cpp", 128, "computeMassAndInertia: Provided mass or density has no valid value", v23, v24, v25);
+    v192 = 0;
+    goto LABEL_54;
+  }
+
+  v243 = v21;
+  if (!v282)
+  {
+    v29 = 0;
+    v31 = 0.0;
+    v26.n128_u64[0] = 0;
+    v245 = v26;
+    v30 = 0.0;
+    v246 = 0u;
+LABEL_49:
+    v191 = v245;
+    v249 = v248;
+    v250 = v246;
+    *&v251 = v30;
+    *(&v251 + 4) = v29;
+    v192 = 1;
+    *(&v251 + 3) = v31;
+    v252 = v245.n128_f32[0];
+    goto LABEL_53;
+  }
+
+  v242 = _D8;
+  v27 = 0;
+  v28 = 0;
+  v29 = 0;
+  v248 = 0u;
+  v8.i32[0] = 1.0;
+  v30 = 0.0;
+  v31 = 0.0;
+  v245 = 0u;
+  v246 = 0u;
+  while (1)
+  {
+    (*(**(v281 + v27) + 312))(v274);
+    if ((v274[0] & 1) == 0 && !v9)
+    {
+      goto LABEL_42;
+    }
+
+    if (a1)
+    {
+      if (v28 >= a4)
+      {
+        v188 = physx::shdfnd::Foundation::mInstance;
+        v189 = "computeMassAndInertia: Not enough mass/density values provided for all (simulation) shapes";
+        v190 = 153;
+        goto LABEL_52;
+      }
+
+      v244 = a3[v28];
+      if ((LODWORD(v244) >> 23) == 255)
+      {
+        break;
+      }
+    }
+
+    v32 = (*(**(v281 + v27) + 64))(*(v281 + v27));
+    if (v32 <= 2)
+    {
+      if (v32 > 0)
+      {
+        if (v32 != 2)
+        {
+          goto LABEL_45;
+        }
+
+        LODWORD(v261) = 2;
+        *(&v261 + 4) = 0;
+        (*(**(v281 + v27) + 104))(*(v281 + v27), &v261);
+        (*(**(v281 + v27) + 160))(&v265);
+        v71.i64[0] = *(&v261 + 4);
+        v73 = (3.1416 * *v71.i32) * *v71.i32;
+        *(&v276 + 3) = (((4.1888 * *v71.i32) * *v71.i32) * *v71.i32) + (v73 * (*(&v261 + 2) + *(&v261 + 2)));
+        __asm { FMOV            V3.2S, #3.0 }
+
+        v75 = vdiv_f32(vmul_f32(vmul_n_f32(*(&v261 + 4), vmuls_lane_f32(*(&v261 + 2), *(&v261 + 4), 1)), 0x4000000040800000), _D3);
+        _D3.f32[0] = (8.0 * vmul_f32(*v71.i8, vmul_f32(*v71.i8, *v71.i8)).f32[0]) / 15.0;
+        v76 = vmuls_lane_f32(*v71.i32, *v71.i8, 1);
+        v77 = v73 * (v75.f32[1] + (v75.f32[0] + (_D3.f32[0] + (((v76 * *(&v261 + 1)) * 3.0) * 0.5))));
+        *v71.i32 = v73 * (_D3.f32[0] + (v76 * *(&v261 + 1)));
+        v75.i32[0] = v265;
+        v78 = v266;
+        v79 = v75.f32[0] + v75.f32[0];
+        v80 = *&v78 * (*&v78 + *&v78);
+        v81 = *(&v266 + 1) * (*(&v266 + 1) + *(&v266 + 1));
+        v82 = (v75.f32[0] + v75.f32[0]) * *&v266;
+        v83.f32[0] = (v75.f32[0] + v75.f32[0]) * *(&v266 + 2);
+        _D3.f32[0] = (*(&v266 + 1) + *(&v266 + 1)) * *(&v266 + 2);
+        *&v84 = (*v8.i32 - v80) - v81;
+        *v85.i32 = v82 + _D3.f32[0];
+        v86 = ((v75.f32[0] + v75.f32[0]) * *(&v266 + 1)) - ((*&v78 + *&v78) * *(&v266 + 2));
+        *&v87 = v82 - _D3.f32[0];
+        v88 = *v8.i32 - (v75.f32[0] * (v75.f32[0] + v75.f32[0]));
+        v89.f32[0] = v88 - v81;
+        v90 = *v71.i32 * v86;
+        v91 = (*v71.i32 * *&v84) + (*&v87 * 0.0);
+        v92 = (*v71.i32 * *v85.i32) + (v89.f32[0] * 0.0);
+        *v71.i32 = (*&v84 * 0.0) + (*&v87 * 0.0);
+        v75.f32[0] = (*v85.i32 * 0.0) + (v89.f32[0] * 0.0);
+        v93.f32[0] = (v79 * *(&v266 + 1)) + ((*&v78 + *&v78) * *(&v266 + 2));
+        *v94.i32 = v88 - v80;
+        v95 = (v88 - v80) * 0.0;
+        v96.f32[0] = (*&v78 + *&v78) * *(&v266 + 1);
+        *v97.i32 = v96.f32[0] - v83.f32[0];
+        v98 = *v97.i32 * 0.0;
+        v96.f32[1] = (v96.f32[0] - v83.f32[0]) * 0.0;
+        v83.f32[1] = (*v85.i32 * 0.0) + (v89.f32[0] * v77);
+        *v99.i8 = vadd_f32(v96, *v83.f32);
+        v100.f32[0] = (*v97.i32 * 0.0) + v92;
+        v101 = v99;
+        *v101.i32 = (v93.f32[0] * 0.0) + v91;
+        *&v101.i32[2] = v95 + (v90 + (0.0 * *v99.i32));
+        v102 = v85;
+        *&v102.i32[1] = v95 + ((v86 * 0.0) + (v77 * *v99.i32));
+        v102.i32[3] = v100.i32[0];
+        v103 = v101;
+        v103.f32[3] = *v101.i32;
+        v104 = v102;
+        v104.f32[2] = *v101.i32;
+        v105 = (v86 * 0.0) + (0.0 * *v99.i32);
+        v106.i64[0] = __PAIR64__(v87, v84);
+        v106.i64[1] = __PAIR64__(v85.u32[0], v84);
+        v107 = vuzp2q_s32(v102, v102);
+        v108 = vextq_s8(v101, v99, 4uLL);
+        v107.f32[0] = (v93.f32[0] * 0.0) + ((*&v84 * 0.0) + (*&v87 * v77));
+        v108.f32[2] = v107.f32[0];
+        v107.f32[3] = v107.f32[0];
+        v100.i32[1] = v89.i32[0];
+        v100.f32[2] = v86;
+        v100.f32[3] = v86;
+        v109 = vmulq_f32(v104, v100);
+        v100.i64[0] = __PAIR64__(v84, v87);
+        v100.i64[1] = __PAIR64__(v89.u32[0], v87);
+        v89.i32[1] = v85.i32[0];
+        v89.i64[1] = v99.i64[0];
+        v110 = vaddq_f32(v109, vmulq_f32(v108, v89));
+        v109.f32[0] = (v93.f32[0] * v77) + *v71.i32;
+        v109.f32[1] = (*v97.i32 * v77) + v75.f32[0];
+        v109.i64[1] = __PAIR64__(v109.u32[0], v93.u32[0]);
+        v83.f32[0] = v109.f32[1];
+        v83.f32[1] = (*v94.i32 * v77) + v105;
+        v83.f32[2] = v109.f32[0];
+        v83.f32[3] = v109.f32[1];
+        v93.i32[1] = v93.i32[0];
+        v93.f32[2] = v83.f32[1];
+        v93.i32[3] = v97.i32[0];
+        *v111.f32 = vdup_lane_s32(v97, 0);
+        *&v111.u32[2] = vdup_lane_s32(v94, 0);
+        *v274 = vaddq_f32(vmulq_f32(v109, v93), vaddq_f32(vmulq_f32(v103, v106), vmulq_f32(v107, v100)));
+        *&v274[16] = vaddq_f32(vmulq_f32(v83, v111), v110);
+        v72 = v98 + v75.f32[0];
+        v275 = (*v94.i32 * v83.f32[1]) + ((v86 * (v95 + (v90 + (0.0 * *v99.i32)))) + (*&v102.i32[1] * *v99.i32));
+        *&v276 = (v93.f32[0] * 0.0) + *v71.i32;
+        *v71.i32 = v95 + v105;
+      }
+
+      else
+      {
+        if (v32)
+        {
+          if (v32 == -1)
+          {
+LABEL_45:
+            v188 = physx::shdfnd::Foundation::mInstance;
+            v189 = "computeMassAndInertia: Dynamic actor with illegal collision shapes";
+            v190 = 231;
+            goto LABEL_52;
+          }
+
+          goto LABEL_41;
+        }
+
+        *&v261 = 0;
+        (*(**(v281 + v27) + 96))(*(v281 + v27), &v261);
+        (*(**(v281 + v27) + 160))(&v265);
+        v36 = (*(&v261 + 1) * (*(&v261 + 1) * (*(&v261 + 1) * (*(&v261 + 1) * (*(&v261 + 1) * 4.1888))))) * 0.4;
+        *(&v276 + 3) = *(&v261 + 1) * (*(&v261 + 1) * (*(&v261 + 1) * 4.1888));
+        v71.i32[0] = v265;
+        v37 = *&v266;
+        v38 = *v71.i32 + *v71.i32;
+        v39 = v37 + v37;
+        v40 = v37 * (v37 + v37);
+        v41 = *(&v266 + 1) * (*(&v266 + 1) + *(&v266 + 1));
+        v42 = (*v71.i32 + *v71.i32) * *&v266;
+        v43.f32[0] = (*v71.i32 + *v71.i32) * *(&v266 + 2);
+        v44 = (*(&v266 + 1) + *(&v266 + 1)) * *(&v266 + 2);
+        *&v45 = (*v8.i32 - v40) - v41;
+        v46.f32[0] = v42 + v44;
+        v47 = ((*v71.i32 + *v71.i32) * *(&v266 + 1)) - (v39 * *(&v266 + 2));
+        *&v48 = v42 - v44;
+        v49 = *v8.i32 - (*v71.i32 * (*v71.i32 + *v71.i32));
+        v50.f32[0] = v49 - v41;
+        *v71.i32 = (*&v45 * 0.0) + (*&v48 * 0.0);
+        v51 = (v46.f32[0] * 0.0) + ((v49 - v41) * 0.0);
+        v52.f32[0] = (v38 * *(&v266 + 1)) + (v39 * *(&v266 + 2));
+        *v53.i32 = v49 - v40;
+        v54 = *v53.i32 * 0.0;
+        v55.f32[0] = v39 * *(&v266 + 1);
+        *v56.i32 = (v39 * *(&v266 + 1)) - v43.f32[0];
+        v57 = *v56.i32 * 0.0;
+        v55.f32[1] = *v56.i32 * 0.0;
+        v43.f32[1] = (v46.f32[0] * 0.0) + (v36 * v50.f32[0]);
+        *v8.i8 = vadd_f32(v55, v43);
+        v58 = (v47 * 0.0) + (0.0 * *v8.i32);
+        v59.f32[0] = (*v56.i32 * 0.0) + ((v36 * v46.f32[0]) + (v50.f32[0] * 0.0));
+        *&v60 = (*v53.i32 * 0.0) + ((v36 * v47) + (0.0 * *v8.i32));
+        v61 = v8;
+        *v61.i32 = (v52.f32[0] * 0.0) + ((v36 * *&v45) + (*&v48 * 0.0));
+        v61.i32[2] = v60;
+        v62 = v46;
+        v62.f32[1] = (*v53.i32 * 0.0) + ((v47 * 0.0) + (v36 * *v8.i32));
+        v62.f32[3] = v59.f32[0];
+        v63 = vuzp2q_s32(v62, v62);
+        v62.f32[2] = *v61.i32;
+        v64 = vextq_s8(v61, v8, 4uLL);
+        v61.i32[3] = v61.i32[0];
+        v59.i32[1] = v50.i32[0];
+        v59.f32[2] = v47;
+        v59.f32[3] = v47;
+        v65.i64[0] = __PAIR64__(v48, v45);
+        v65.i64[1] = __PAIR64__(v46.u32[0], v45);
+        v66 = vmulq_f32(v61, v65);
+        v63.f32[0] = (v52.f32[0] * 0.0) + ((*&v45 * 0.0) + (v36 * *&v48));
+        v63.f32[3] = v63.f32[0];
+        v64.f32[2] = v63.f32[0];
+        v67.i64[0] = __PAIR64__(v45, v48);
+        v67.i64[1] = __PAIR64__(v50.u32[0], v48);
+        v50.i32[1] = v46.i32[0];
+        v50.i64[1] = v8.i64[0];
+        v68 = v62.f32[1] * *v8.i32;
+        v8.i32[0] = 1.0;
+        *v61.i32 = (v36 * v52.f32[0]) + *v71.i32;
+        *&v61.i32[1] = (v36 * *v56.i32) + v51;
+        v61.i64[1] = __PAIR64__(v61.u32[0], v52.u32[0]);
+        v69 = vaddq_f32(v66, vmulq_f32(v63, v67));
+        v66.f32[0] = *&v61.i32[1];
+        v66.f32[1] = (v36 * *v53.i32) + v58;
+        v66.f32[2] = *v61.i32;
+        v66.f32[3] = *&v61.i32[1];
+        v52.i32[1] = v52.i32[0];
+        v52.f32[2] = v66.f32[1];
+        v52.i32[3] = v56.i32[0];
+        *v70.f32 = vdup_lane_s32(v56, 0);
+        *&v70.u32[2] = vdup_lane_s32(v53, 0);
+        *v274 = vaddq_f32(vmulq_f32(v61, v52), v69);
+        *&v274[16] = vaddq_f32(vmulq_f32(v66, v70), vaddq_f32(vmulq_f32(v62, v59), vmulq_f32(v64, v50)));
+        *v71.i32 = (v52.f32[0] * 0.0) + *v71.i32;
+        v72 = v57 + v51;
+        v275 = (*v53.i32 * v66.f32[1]) + ((v47 * *&v60) + v68);
+LABEL_34:
+        LODWORD(v276) = v71.i32[0];
+        *v71.i32 = v54 + v58;
+      }
+
+      *(&v276 + 4) = __PAIR64__(v71.u32[0], LODWORD(v72));
+      v152 = &v265;
+      goto LABEL_40;
+    }
+
+    if (v32 == 3)
+    {
+      v261 = 3uLL;
+      (*(**(v281 + v27) + 88))(*(v281 + v27), &v261);
+      (*(**(v281 + v27) + 160))(&v265);
+      if (*(&v261 + 1) == 0.0)
+      {
+        v116 = *v8.i32;
+      }
+
+      else
+      {
+        v116 = *(&v261 + 1);
+      }
+
+      if (*(&v261 + 2) != 0.0)
+      {
+        v116 = *(&v261 + 2) * v116;
+      }
+
+      if (*(&v261 + 3) != 0.0)
+      {
+        v116 = *(&v261 + 3) * v116;
+      }
+
+      v117 = v116 * 8.0;
+      v118 = ((*(&v261 + 2) * *(&v261 + 2)) + (*(&v261 + 3) * *(&v261 + 3))) * (v117 * 0.33333);
+      v119 = ((*(&v261 + 1) * *(&v261 + 1)) + (*(&v261 + 3) * *(&v261 + 3))) * (v117 * 0.33333);
+      v120 = ((*(&v261 + 1) * *(&v261 + 1)) + (*(&v261 + 2) * *(&v261 + 2))) * (v117 * 0.33333);
+      *(&v276 + 3) = v117;
+      v121 = *&v265;
+      v122 = *&v266;
+      *v112.i32 = v121 + v121;
+      *v113.i32 = v122 + v122;
+      *v115.i32 = v122 * (v122 + v122);
+      v123 = *(&v266 + 1) * (*(&v266 + 1) + *(&v266 + 1));
+      v124 = (v121 + v121) * *&v266;
+      v125.f32[0] = (v121 + v121) * *(&v266 + 2);
+      v126 = (*(&v266 + 1) + *(&v266 + 1)) * *(&v266 + 2);
+      *&v127 = (*v8.i32 - *v115.i32) - v123;
+      v114.f32[0] = v124 + v126;
+      v128 = ((v121 + v121) * *(&v266 + 1)) - (*v113.i32 * *(&v266 + 2));
+      *&v129 = v124 - v126;
+      v130 = *v8.i32 - (v121 * (v121 + v121));
+      v131.f32[0] = v130 - v123;
+      v132 = v118 * v128;
+      v133 = (v118 * *&v127) + (*&v129 * 0.0);
+      v134 = (v118 * v114.f32[0]) + (v131.f32[0] * 0.0);
+      v135 = (*&v127 * 0.0) + (*&v129 * 0.0);
+      v136 = (v114.f32[0] * 0.0) + (v131.f32[0] * 0.0);
+      v137.f32[0] = (*v112.i32 * *(&v266 + 1)) + (*v113.i32 * *(&v266 + 2));
+      *v112.i32 = v130 - *v115.i32;
+      v54 = (v130 - *v115.i32) * 0.0;
+      *v115.i32 = *v113.i32 * *(&v266 + 1);
+      *v113.i32 = (*v113.i32 * *(&v266 + 1)) - v125.f32[0];
+      v138 = *v113.i32 * 0.0;
+      *&v115.i32[1] = *v113.i32 * 0.0;
+      v125.f32[1] = (v114.f32[0] * 0.0) + (v119 * v131.f32[0]);
+      v139 = (v137.f32[0] * 0.0) + ((*&v127 * 0.0) + (v119 * *&v129));
+      *v115.i8 = vadd_f32(*v115.i8, v125);
+      v125.f32[0] = v132 + (0.0 * *v115.i32);
+      v140 = (v128 * 0.0) + (v119 * *v115.i32);
+      v58 = (v128 * 0.0) + (0.0 * *v115.i32);
+      v141.f32[0] = (*v113.i32 * 0.0) + v134;
+      v142 = v115;
+      *v142.i32 = (v137.f32[0] * 0.0) + v133;
+      *&v142.i32[2] = v54 + v125.f32[0];
+      v143 = v114;
+      v143.f32[1] = v54 + v140;
+      v143.i32[3] = v141.i32[0];
+      v144 = vextq_s8(v142, v115, 4uLL);
+      v142.i32[3] = v142.i32[0];
+      v8 = vuzp2q_s32(v143, v143);
+      v143.f32[2] = *v142.i32;
+      v141.i32[1] = v131.i32[0];
+      v141.f32[2] = v128;
+      v141.f32[3] = v128;
+      v145.i64[0] = __PAIR64__(v129, v127);
+      v145.i64[1] = __PAIR64__(v114.u32[0], v127);
+      *v8.i32 = v139;
+      v144.f32[2] = v139;
+      *&v8.i32[3] = v139;
+      v146 = vmulq_f32(v143, v141);
+      v141.i64[0] = __PAIR64__(v127, v129);
+      v141.i64[1] = __PAIR64__(v131.u32[0], v129);
+      v131.i32[1] = v114.i32[0];
+      v131.i64[1] = v115.i64[0];
+      v147 = vmulq_f32(v8, v141);
+      v8.i32[0] = 1.0;
+      v148 = (v54 + v140) * *v115.i32;
+      v149.f32[0] = (v120 * *v113.i32) + v136;
+      v149.f32[1] = (*v112.i32 * v120) + v58;
+      v149.f32[2] = (v120 * v137.f32[0]) + v135;
+      v149.f32[3] = v149.f32[0];
+      v150.f32[0] = v149.f32[2];
+      v150.f32[1] = v149.f32[0];
+      v150.i32[2] = v137.i32[0];
+      v150.f32[3] = v149.f32[2];
+      v137.i32[1] = v137.i32[0];
+      v137.f32[2] = v149.f32[1];
+      v137.i32[3] = v113.i32[0];
+      *v151.f32 = vdup_lane_s32(v113, 0);
+      *&v151.u32[2] = vdup_lane_s32(v112, 0);
+      *v274 = vaddq_f32(vmulq_f32(v150, v137), vaddq_f32(vmulq_f32(v142, v145), v147));
+      *&v274[16] = vaddq_f32(vmulq_f32(v149, v151), vaddq_f32(v146, vmulq_f32(v144, v131)));
+      *v71.i32 = (v137.f32[0] * 0.0) + v135;
+      v72 = v138 + v136;
+      v275 = (*v112.i32 * v149.f32[1]) + ((v128 * (v54 + v125.f32[0])) + v148);
+      goto LABEL_34;
+    }
+
+    if (v32 != 4)
+    {
+      if ((v32 - 5) < 3)
+      {
+        goto LABEL_45;
+      }
+
+      goto LABEL_41;
+    }
+
+    v266 = xmmword_1E304F3C0;
+    v265 = 4;
+    v267 = 0.0;
+    v268 = 0.0;
+    v269 = 1.0;
+    v270 = 0;
+    v271 = 1;
+    v272 = 0;
+    v273 = 0;
+    (*(**(v281 + v27) + 120))(*(v281 + v27), &v265);
+    v264 = 0.0;
+    (*(*v270 + 104))(v270, &v264, &v261, &v259);
+    if (*&v266 == *v8.i32 && *(&v266 + 1) == *v8.i32 && *(&v266 + 2) == *v8.i32)
+    {
+      v33 = v261;
+      v34 = v262;
+      v35 = v263;
+    }
+
+    else
+    {
+      v264 = ((*&v266 * *(&v266 + 1)) * *(&v266 + 2)) * v264;
+      v153 = (v269 * v269) + -0.5;
+      v154 = (((*(&v259 + 1) + *(&v259 + 1)) * v267) + (*(&v266 + 3) * (*&v259 + *&v259))) + (v268 * (v260 + v260));
+      v155 = ((v269 * ((v267 * (v260 + v260)) - (v268 * (*(&v259 + 1) + *(&v259 + 1))))) + ((*&v259 + *&v259) * v153)) + (*(&v266 + 3) * v154);
+      v156 = ((v269 * ((v268 * (*&v259 + *&v259)) - (*(&v266 + 3) * (v260 + v260)))) + ((*(&v259 + 1) + *(&v259 + 1)) * v153)) + (v267 * v154);
+      v157 = *(&v266 + 2) * (((v269 * ((*(&v266 + 3) * (*(&v259 + 1) + *(&v259 + 1))) - (v267 * (*&v259 + *&v259)))) + ((v260 + v260) * v153)) + (v268 * v154));
+      v158 = (*&v266 * v155) + (*&v266 * v155);
+      v159 = (*(&v266 + 1) * v156) + (*(&v266 + 1) * v156);
+      v160 = v157 + v157;
+      v161 = ((v267 * v159) + (*(&v266 + 3) * v158)) + (v268 * v160);
+      *&v259 = ((v158 * v153) - (((v267 * v160) - (v268 * v159)) * v269)) + (*(&v266 + 3) * v161);
+      *(&v259 + 1) = ((v159 * v153) - (((v268 * v158) - (*(&v266 + 3) * v160)) * v269)) + (v267 * v161);
+      v260 = ((v160 * v153) - (((*(&v266 + 3) * v159) - (v267 * v158)) * v269)) + (v268 * v161);
+      physx::PxMassProperties::scaleInertia(&v261, &v266 + 12, &v266, &v256);
+      v33 = v256;
+      v34 = v257;
+      v261 = v256;
+      v262 = v257;
+      v35 = v258;
+      v263 = v258;
+    }
+
+    *&v162 = v259;
+    *v274 = v33;
+    *&v274[16] = v34;
+    v275 = v35;
+    *(&v162 + 1) = __PAIR64__(LODWORD(v264), LODWORD(v260));
+    v276 = v162;
+    (*(**(v281 + v27) + 160))(&v256);
+    v163 = vadd_f32(*&v256, *&v256);
+    v164 = vadd_f32(*(&v256 + 8), *(&v256 + 8));
+    v165 = vrev64_s32(vmul_f32(*&v256, v163));
+    v166 = vmul_lane_f32(v163, *&v256, 1);
+    v167 = vmul_n_f32(*(&v256 + 8), v163.f32[0]);
+    v168 = vrev64_s32(vmul_lane_f32(*(&v256 + 8), v163, 1));
+    v169 = vmul_lane_f32(v164, *(&v256 + 8), 1);
+    *v71.i8 = vsub_f32(v167, v168);
+    v170 = vsub_f32(v166, v169);
+    v171 = vadd_f32(v166, v169);
+    v172 = vzip1_s32(v170, v171);
+    v173 = vsub_f32(v242, v165);
+    v174 = vsub_f32(v173, vdup_lane_s32(vmul_f32(*(&v256 + 8), v164), 0));
+    v175 = vadd_f32(v168, v167);
+    v176 = vsub_f32(v168, v167);
+    v177 = __PAIR64__(v176.u32[1], v175.u32[0]);
+    v178 = vsub_f32(vdup_lane_s32(v173, 1), v165);
+    v179 = vadd_f32(vadd_f32(vmul_f32(vrev64_s32(*v274), v172), vmul_f32(*v274, v174)), vmul_n_f32(__PAIR64__(v176.u32[1], v175.u32[0]), *&v274[8]));
+    v168.f32[0] = (vmul_f32(*v274, *v71.i8).f32[0] + vmuls_lane_f32(*&v274[4], v175, 1)) + (*&v274[8] * v178.f32[0]);
+    v180 = vadd_f32(vadd_f32(vmul_f32(v172, vrev64_s32(*&v274[12])), vmul_f32(v174, *&v274[12])), vmul_n_f32(__PAIR64__(v176.u32[1], v175.u32[0]), *&v274[20]));
+    *v173.i32 = (vmul_f32(*v71.i8, *&v274[12]).f32[0] + vmuls_lane_f32(v175.f32[1], *&v274[12], 1)) + (*&v274[20] * v178.f32[0]);
+    v181 = vadd_f32(vadd_f32(vmul_f32(v172, vrev64_s32(*&v274[24])), vmul_f32(v174, *&v274[24])), vmul_n_f32(__PAIR64__(v176.u32[1], v175.u32[0]), v275));
+    v182 = (vmul_f32(*v71.i8, *&v274[24]).f32[0] + vmuls_lane_f32(v175.f32[1], *&v274[24], 1)) + (v275 * v178.f32[0]);
+    v183 = vadd_f32(vadd_f32(vmul_f32(v174, v179), vmul_f32(v170, v180)), vmul_f32(v175, v181)).u32[0];
+    v184 = (vmuls_lane_f32(v174.f32[0], v179, 1) + vmuls_lane_f32(*v170.i32, v180, 1)) + vmuls_lane_f32(v175.f32[0], v181, 1);
+    *v170.i32 = ((v168.f32[0] * v174.f32[0]) + (*v173.i32 * *v170.i32)) + (v182 * v175.f32[0]);
+    v185 = vmuls_lane_f32(v180.f32[0], v175, 1);
+    v175.f32[0] = (v168.f32[0] * *v71.i32) + vmuls_lane_f32(*v173.i32, v175, 1);
+    *v274 = v183;
+    *&v274[4] = v184;
+    *&v274[12] = vadd_f32(vadd_f32(vmul_n_f32(v179, *v171.i32), vmul_lane_f32(v180, v174, 1)), vmul_lane_f32(v181, v176, 1));
+    *&v274[8] = v170.i32[0];
+    *&v274[20] = ((v168.f32[0] * *v171.i32) + vmuls_lane_f32(*v173.i32, v174, 1)) + vmuls_lane_f32(v182, v176, 1);
+    *&v274[24] = (vmul_f32(*v71.i8, v179).f32[0] + v185) + vmul_f32(v178, v181).f32[0];
+    *&v274[28] = (vmuls_lane_f32(*v71.i32, v179, 1) + vmuls_lane_f32(v175.f32[1], v180, 1)) + vmuls_lane_f32(v178.f32[0], v181, 1);
+    *v71.i8 = vmul_f32(*v71.i8, *&v276);
+    v164.f32[0] = vmuls_lane_f32(v175.f32[1], *&v276, 1);
+    *&v276 = vadd_f32(vadd_f32(vmul_f32(v172, vrev64_s32(*&v276)), vmul_f32(v174, *&v276)), vmul_n_f32(v177, *(&v276 + 2)));
+    *v71.i32 = (*v71.i32 + v164.f32[0]) + (*(&v276 + 2) * v178.f32[0]);
+    v275 = v175.f32[0] + (v182 * v178.f32[0]);
+    DWORD2(v276) = v71.i32[0];
+    v152 = &v256;
+LABEL_40:
+    physx::Ext::InertiaTensorComputer::translate(v274, (v152 + 4), v71);
+LABEL_41:
+    v186 = *v8.i32 / (v245.n128_f32[0] + (v244 * *(&v276 + 3)));
+    v29 = vmul_n_f32(vadd_f32(vmul_n_f32(v29, v245.n128_f32[0]), vmul_n_f32(*&v276, v244 * *(&v276 + 3))), v186);
+    v31 = v186 * ((v31 * v245.n128_f32[0]) + ((v244 * *(&v276 + 3)) * *(&v276 + 2)));
+    v248 = vaddq_f32(v248, vmulq_n_f32(*v274, v244));
+    v187 = v246;
+    v30 = v30 + (v244 * v275);
+    ++v28;
+    v187.n128_f32[0] = v245.n128_f32[0] + (v244 * *(&v276 + 3));
+    v245 = v187;
+    v246 = vaddq_f32(v246, vmulq_n_f32(*&v274[16], v244));
+LABEL_42:
+    if (++v27 >= v282)
+    {
+      goto LABEL_49;
+    }
+  }
+
+  v188 = physx::shdfnd::Foundation::mInstance;
+  v189 = "computeMassAndInertia: Provided mass or density has no valid value";
+  v190 = 146;
+LABEL_52:
+  physx::shdfnd::Foundation::error(v188, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxextensions/src/ExtRigidBodyExt.cpp", v190, v189, v23, v24, v25);
+  v192 = 0;
+LABEL_53:
+  v21 = v243;
+LABEL_54:
+  if ((v282 & 0x8000000000000000) == 0 && (v282 & 0x7FFFFFFF00000000) != 0 && v281 != &v277 && v281)
+  {
+    (*(*(physx::shdfnd::Foundation::mInstance + 24) + 24))();
+  }
+
+  if (!v192)
+  {
+    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 4, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxextensions/src/ExtRigidBodyExt.cpp", 280, "%s: Mass and inertia computation failed, setting mass to 1 and inertia to (1,1,1)", v23, v24, v25, "PxRigidBodyExt::updateMassAndInertia");
+    goto LABEL_64;
+  }
+
+  v193 = v247.i32[1];
+  if (v252 == 0.0)
+  {
+    v194 = 0;
+    goto LABEL_65;
+  }
+
+  if (a5)
+  {
+    *v191.i8 = vneg_f32(v247);
+    *&v277 = v191.i64[0];
+    *(&v277 + 2) = -v21;
+    physx::Ext::InertiaTensorComputer::translate(&v249, &v277, v191);
+  }
+
+  else
+  {
+    v21 = *(&v251 + 3);
+    *v191.i32 = -*(&v251 + 3);
+    v247 = *(&v251 + 4);
+    *&v277 = vneg_f32(*(&v251 + 4));
+    *(&v277 + 2) = -*(&v251 + 3);
+    physx::Ext::InertiaTensorComputer::translate(&v249, &v277, v191);
+    v193 = v247.i32[1];
+  }
+
+  v277 = v249;
+  v278 = v250;
+  v195 = v252;
+  v279 = v251;
+  physx::PxDiagonalize(&v277, &v253, v274);
+  v254 = *v274;
+  v255 = *&v274[8];
+  if (*v274 <= 0.0 || *&v274[4] <= 0.0 || *&v274[8] <= 0.0)
+  {
+    physx::shdfnd::Foundation::error(physx::shdfnd::Foundation::mInstance, 2, "/Library/Caches/com.apple.xbs/Sources/REKit/ThirdParty/PhysX/physx/source/physxextensions/src/ExtRigidBodyExt.cpp", 84, "%s: inertia tensor has negative components (ill-conditioned input expected). Approximation for inertia tensor will be used instead.", v197, v198, v199, "PxRigidBodyExt::updateMassAndInertia");
+    (*(*a2 + 80))(v274, a2, 1.01);
+    (*(*a2 + 152))(&v277, a2);
+    v200.f32[0] = v278.f32[2] * -2.0;
+    v201.i32[0] = DWORD2(v277);
+    v202 = (*(&v277 + 3) * *(&v277 + 3)) + -0.5;
+    v236 = vadd_f32(*v274, *&v274[12]);
+    v203 = vmul_f32(v236, 0x3F0000003F000000);
+    _S20 = ((*&v274[8] + *&v274[20]) * 0.5) + ((*&v274[8] + *&v274[20]) * 0.5);
+    v205 = -*(&v277 + 2) - *(&v277 + 2);
+    v206 = -(*(&v277 + 2) * v205);
+    v207 = vmul_f32(*v278.f32, 0xC0000000C0000000);
+    v208 = vrev64_s32(v207);
+    _D22 = vrev64_s32(*&v277);
+    v210 = (vmul_f32(v208, _D22).f32[0] + (*&v277 * *v207.i32)) + (*(&v277 + 2) * (v278.f32[2] * -2.0));
+    v211 = vneg_f32(_D22);
+    _D27 = vadd_f32(v203, v203);
+    v213 = vrev64_s32(_D27);
+    _S30 = _D27.i32[1];
+    _D31 = vmul_f32(v213, v211);
+    __asm { FMLS            S31, S27, V22.S[1] }
+
+    _D31.f32[0] = _D31.f32[0] - (*(&v277 + 2) * _S20);
+    v216.f32[0] = (_S20 * *&v277) - (*_D27.i32 * *(&v277 + 2));
+    __asm { FMLS            S27, S30, V22.S[1] }
+
+    v201.f32[1] = v278.f32[2] * -2.0;
+    v200.f32[1] = -*(&v277 + 2);
+    v217 = vmla_f32(vmul_f32(v200, vext_s8(v211, v208, 4uLL)), vzip2_s32(v208, *&v277), v201);
+    v201.f32[0] = *(&v277 + 3) * v205;
+    v218 = (*&v274[20] - *&v274[8]) * 0.5;
+    __asm { FMLS            S9, S20, V22.S[0] }
+
+    v216.i32[1] = _S9;
+    v220 = vadd_f32(vmla_n_f32(vmla_n_f32(vmul_n_f32(vneg_f32(v217), *(&v277 + 3)), v208, v202), _D22, v210), vmls_lane_f32(vmla_n_f32(vmul_n_f32(v216, *(&v277 + 3)), v213, v202), _D22, _D31, 0));
+    v221 = ((((v278.f32[2] * -2.0) * v202) - ((vmuls_n_f32(*v207.i32, v211.f32[0]) + (*&v277 * *&v207.i32[1])) * *(&v277 + 3))) + (*(&v277 + 2) * v210)) + (((*(&v277 + 3) * *_D27.i32) + (_S20 * v202)) - (*(&v277 + 2) * _D31.f32[0]));
+    v222 = vmul_f32(vsub_f32(*&v274[12], *v274), 0x3F0000003F000000);
+    v223 = vsub_f32(v211, _D22);
+    v224 = vmul_f32(v223, v211).f32[0];
+    v225 = vmuls_lane_f32(v211.f32[0], v223, 1);
+    v226 = vmul_n_f32(v223, -*(&v277 + 2));
+    v227 = vmul_n_f32(vrev64_s32(v223), *(&v277 + 3));
+    v211.f32[0] = (1.0 - v224) - v206;
+    v228.f32[0] = v225 + (*(&v277 + 3) * v205);
+    v229 = vmuls_lane_f32(*&v277, v223, 1) + 1.0;
+    v230.f32[0] = v229 - v206;
+    v231 = vsub_f32(v226, v227);
+    v232 = vadd_f32(v226, v227);
+    v228.i32[1] = v211.i32[0];
+    v230.f32[1] = v225 - v201.f32[0];
+    v233 = vmul_f32(vext_s8(v231, v232, 4uLL), v222);
+    v231.i32[1] = v232.i32[1];
+    v234 = vadd_f32(vadd_f32(vabs_f32(vmul_n_f32(v228, v222.f32[0])), vabs_f32(vmul_lane_f32(v230, v222, 1))), vabs_f32(vmul_n_f32(v231, v218)));
+    v233.f32[0] = vaddv_f32(vabs_f32(v233)) + fabsf((v229 - v224) * v218);
+    v235 = vmul_f32(vadd_f32(vadd_f32(v234, v220), vsub_f32(v234, v220)), 0x3F0000003F000000);
+    *v236.i32 = ((v233.f32[0] + v221) + (v233.f32[0] - v221)) * 0.5;
+    v237 = v235.f32[1];
+    if (v235.f32[1] == 0.0)
+    {
+      v237 = 1.0;
+    }
+
+    if (v235.f32[0] != 0.0)
+    {
+      v237 = v237 * v235.f32[0];
+    }
+
+    if (*v236.i32 != 0.0)
+    {
+      v237 = *v236.i32 * v237;
+    }
+
+    v238 = v237 * 8.0;
+    *v236.i32 = *v236.i32 * *v236.i32;
+    v239 = vmul_f32(v235, v235);
+    v240 = vmul_n_f32(vadd_f32(vdup_lane_s32(v236, 0), v239), v238 * 0.33333);
+    v239.f32[0] = vaddv_f32(v239) * (v238 * 0.33333);
+    v241 = v195 / v238;
+    v254 = vmul_n_f32(v240, v241);
+    v255 = v241 * v239.f32[0];
+    v253 = xmmword_1E30474D0;
+  }
+
+  v194 = 1;
+LABEL_66:
+  (*(*a2 + 232))(a2, v195);
+  (*(*a2 + 256))(a2, &v254);
+  v277 = v253;
+  v278.i64[0] = __PAIR64__(v193, v247.u32[0]);
+  v278.f32[2] = v21;
+  (*(*a2 + 216))(a2, &v277);
+  return v194;
 }

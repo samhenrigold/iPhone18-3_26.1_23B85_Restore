@@ -110,7 +110,7 @@ LABEL_5:
     self->_cloudPhotosEnabled = enabled;
     settingsSpecifiers = self->_settingsSpecifiers;
     self->_settingsSpecifiers = 0;
-    _objc_release_x1();
+    _objc_release_x1(self, settingsSpecifiers);
   }
 }
 
@@ -121,7 +121,7 @@ LABEL_5:
     self->_canEnableSharedLibrary = library;
     settingsSpecifiers = self->_settingsSpecifiers;
     self->_settingsSpecifiers = 0;
-    _objc_release_x1();
+    _objc_release_x1(self, settingsSpecifiers);
   }
 }
 

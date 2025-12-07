@@ -621,7 +621,7 @@ void __80__SFContentBlockerManager_reloadContentBlockerWithIdentifier_completion
 
 id __49__SFContentBlockerManager_SFPrivate___commonInit__block_invoke(uint64_t a1)
 {
-  v22[3] = *MEMORY[0x1E69E9840];
+  v23[3] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (*(v2 + 64) == 1)
   {
@@ -638,41 +638,41 @@ id __49__SFContentBlockerManager_SFPrivate___commonInit__block_invoke(uint64_t a
   }
 
   v4 = [*(v2 + 56) allKeys];
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __49__SFContentBlockerManager_SFPrivate___commonInit__block_invoke_133;
-  v19[3] = &unk_1E8490410;
-  v19[4] = *(a1 + 32);
-  v5 = [v4 safari_mapAndFilterObjectsUsingBlock:v19];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __49__SFContentBlockerManager_SFPrivate___commonInit__block_invoke_133;
+  v20[3] = &unk_1E8490410;
+  v20[4] = *(a1 + 32);
+  v5 = [v4 safari_mapAndFilterObjectsUsingBlock:v20];
 
-  v6 = *(*(a1 + 32) + 120);
-  if (!v6)
+  v7 = *(*(a1 + 32) + 120);
+  if (!v7)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXExtensions();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXExtensions(0, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __49__SFContentBlockerManager_SFPrivate___commonInit__block_invoke_cold_1(v7, v8, v9, v10, v11, v12, v13, v14);
+      __49__SFContentBlockerManager_SFPrivate___commonInit__block_invoke_cold_1(v8, v9, v10, v11, v12, v13, v14, v15);
     }
 
-    v6 = @"Unknown";
+    v7 = @"Unknown";
   }
 
-  v15 = *MEMORY[0x1E69C9290];
-  v21[0] = *MEMORY[0x1E69C9298];
-  v21[1] = v15;
-  v16 = MEMORY[0x1E695E0F0];
+  v16 = *MEMORY[0x1E69C9290];
+  v22[0] = *MEMORY[0x1E69C9298];
+  v22[1] = v16;
+  v17 = MEMORY[0x1E695E0F0];
   if (v5)
   {
-    v16 = v5;
+    v17 = v5;
   }
 
-  v22[0] = v6;
-  v22[1] = v16;
-  v21[2] = *MEMORY[0x1E69C92A0];
-  v22[2] = @"Content Blockers";
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:3];
+  v23[0] = v7;
+  v23[1] = v17;
+  v22[2] = *MEMORY[0x1E69C92A0];
+  v23[2] = @"Content Blockers";
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:3];
 
-  return v17;
+  return v18;
 }
 
 id __49__SFContentBlockerManager_SFPrivate___commonInit__block_invoke_133(uint64_t a1, void *a2)
@@ -1710,15 +1710,15 @@ LABEL_42:
 
 - (BOOL)extensionIsEnabled:(id)enabled
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   enabledCopy = enabled;
   if (self->_contentBlockerStateStoreRequiresReload)
   {
     v5 = WBS_LOG_CHANNEL_PREFIXContentBlockers();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v15) = 0;
-      _os_log_impl(&dword_1D4644000, v5, OS_LOG_TYPE_INFO, "Loading content blocker state from disk since it was changed from another process", &v15, 2u);
+      LOWORD(v17) = 0;
+      _os_log_impl(&dword_1D4644000, v5, OS_LOG_TYPE_INFO, "Loading content blocker state from disk since it was changed from another process", &v17, 2u);
     }
 
     [(SFContentBlockerManager *)self _loadContentBlockerStateFromDisk];
@@ -1738,12 +1738,12 @@ LABEL_42:
   {
     if (((v11 == 2) & v9) == 1)
     {
-      v12 = WBS_LOG_CHANNEL_PREFIXManagedExtensions();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v14 = WBS_LOG_CHANNEL_PREFIXManagedExtensions(v12, v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        v15 = 138477827;
-        v16 = v7;
-        _os_log_impl(&dword_1D4644000, v12, OS_LOG_TYPE_INFO, "Disabling content blocker %{private}@ due to managed extension configuration", &v15, 0xCu);
+        v17 = 138477827;
+        v18 = v7;
+        _os_log_impl(&dword_1D4644000, v14, OS_LOG_TYPE_INFO, "Disabling content blocker %{private}@ due to managed extension configuration", &v17, 0xCu);
       }
 
       [(SFContentBlockerManager *)self setExtension:enabledCopy isEnabled:0 byUserGesture:0];
@@ -1753,12 +1753,12 @@ LABEL_42:
 
   else
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXManagedExtensions();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v15 = WBS_LOG_CHANNEL_PREFIXManagedExtensions(v12, v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      v15 = 138477827;
-      v16 = v7;
-      _os_log_impl(&dword_1D4644000, v13, OS_LOG_TYPE_INFO, "Enabling content blocker %{private}@ due to managed extension configuration", &v15, 0xCu);
+      v17 = 138477827;
+      v18 = v7;
+      _os_log_impl(&dword_1D4644000, v15, OS_LOG_TYPE_INFO, "Enabling content blocker %{private}@ due to managed extension configuration", &v17, 0xCu);
     }
 
     v9 = 1;

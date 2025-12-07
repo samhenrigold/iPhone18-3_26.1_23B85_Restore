@@ -346,7 +346,7 @@ LABEL_2:
     v36 = [v6 appendTimeInterval:@"Remaining" withName:1 decomposeUnits:?];
 
     alarm7 = [(HUMobileTimerObject *)self timer];
-    [alarm7 duration];
+    objc_msgSend_duration(alarm7);
     v37 = [v6 appendTimeInterval:@"of" withName:1 decomposeUnits:?];
   }
 

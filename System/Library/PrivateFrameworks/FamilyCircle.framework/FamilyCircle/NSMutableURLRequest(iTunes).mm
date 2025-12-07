@@ -26,25 +26,26 @@
       v19 = 0;
       v11 = [MEMORY[0x1E696AE40] dataWithPropertyList:v10 format:100 options:0 error:&v19];
       v12 = v19;
+      v13 = v12;
       if (v11)
       {
-        v13 = [v11 base64EncodedStringWithOptions:0];
-        if (v13)
+        v14 = [v11 base64EncodedStringWithOptions:0];
+        if (v14)
         {
-          [self setValue:v13 forHTTPHeaderField:@"X-iTunes-LoggedIn-Data"];
+          [self setValue:v14 forHTTPHeaderField:@"X-iTunes-LoggedIn-Data"];
         }
       }
 
       else
       {
-        v13 = _FALogSystem();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v14 = _FALogSystem(v12);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v21 = v12;
+          v21 = v13;
           v22 = 2112;
           v23 = v10;
-          _os_log_impl(&dword_1B70B0000, v13, OS_LOG_TYPE_DEFAULT, "Couldn't serialize iTunes cookies with error: %@, cookies: %@", buf, 0x16u);
+          _os_log_impl(&dword_1B70B0000, v14, OS_LOG_TYPE_DEFAULT, "Couldn't serialize iTunes cookies with error: %@, cookies: %@", buf, 0x16u);
         }
       }
     }
@@ -55,13 +56,11 @@
       [self setValue:username forHTTPHeaderField:@"X-iTunes-AppleId"];
     }
 
-    v15 = MEMORY[0x1E698CBB8];
+    v16 = MEMORY[0x1E698CBB8];
     currentProcess = [MEMORY[0x1E698CAC8] currentProcess];
-    v17 = [v15 userAgentForProcessInfo:currentProcess];
-    [self setValue:v17 forHTTPHeaderField:@"X-iTunes-User-Agent"];
+    v18 = [v16 userAgentForProcessInfo:currentProcess];
+    [self setValue:v18 forHTTPHeaderField:@"X-iTunes-User-Agent"];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 @end

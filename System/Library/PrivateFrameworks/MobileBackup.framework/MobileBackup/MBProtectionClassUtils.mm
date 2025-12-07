@@ -2,6 +2,9 @@
 + (BOOL)canOpenWhenLocked:(unsigned __int8)locked;
 + (BOOL)isContentUnavailableDueToCxExpiration:(id)expiration error:(id *)error;
 + (BOOL)isProtected:(unsigned __int8)protected;
++ (BOOL)setWithFD:(int)d value:(unsigned __int8)value error:(id *)error;
++ (BOOL)setWithPath:(id)path value:(unsigned __int8)value error:(id *)error;
++ (BOOL)setWithPathFSR:(const char *)r value:(unsigned __int8)value error:(id *)error;
 + (int)_openRawEncryptedWithPathFSR:(const char *)r error:(id *)error;
 + (int)sqliteOpenFlagForProtectionClass:(unsigned __int8)class;
 + (unsigned)getWithFD:(int)d error:(id *)error;
@@ -27,7 +30,7 @@
       *buf = 67109120;
       v8 = protectedCopy;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_FAULT, "=pc= +isProtected: Invalid protection class: %d", buf, 8u);
-      _MBLog();
+      _MBLog(@"F ", "=pc= +isProtected: Invalid protection class: %d", protectedCopy);
     }
 
     LOBYTE(v4) = 1;
@@ -52,7 +55,7 @@
       *buf = 67109120;
       v8 = lockedCopy;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_FAULT, "=pc= +canOpenWhenLocked: Invalid protection class: %d", buf, 8u);
-      _MBLog();
+      _MBLog(@"F ", "=pc= +canOpenWhenLocked: Invalid protection class: %d", lockedCopy);
     }
 
     LOBYTE(v4) = 0;
@@ -117,6 +120,57 @@ LABEL_8:
   return v7;
 }
 
++ (BOOL)setWithPath:(id)path value:(unsigned __int8)value error:(id *)error
+{
+  valueCopy = value;
+  fileSystemRepresentation = [path fileSystemRepresentation];
+
+  return [MBProtectionClassUtils setWithPathFSR:fileSystemRepresentation value:valueCopy error:error];
+}
+
++ (BOOL)setWithPathFSR:(const char *)r value:(unsigned __int8)value error:(id *)error
+{
+  valueCopy = value;
+  v8 = open(r, 256);
+  if ((v8 & 0x80000000) != 0)
+  {
+    if (error)
+    {
+      if (r)
+      {
+        v12 = [NSString mb_stringWithFileSystemRepresentation:r];
+      }
+
+      else
+      {
+        v12 = @"(null)";
+      }
+
+      if (*__error() == 1 && ![MBProtectionClassUtils canOpenWhenLocked:valueCopy])
+      {
+        v13 = [MBError errorWithCode:208 path:v12 format:@"open error setting protection class (device locked?)"];
+      }
+
+      else
+      {
+        v13 = [MBError posixErrorWithPath:v12 format:@"open error setting protection class"];
+      }
+
+      *error = v13;
+    }
+
+    return 0;
+  }
+
+  else
+  {
+    v9 = v8;
+    v10 = [MBProtectionClassUtils setWithFD:v8 value:valueCopy error:error];
+    close(v9);
+    return v10;
+  }
+}
+
 + (int)_openRawEncryptedWithPathFSR:(const char *)r error:(id *)error
 {
   result = open_dprotected_np(r, 256, 0, 1, 0);
@@ -137,9 +191,7 @@ LABEL_8:
       WORD2(buf.st_ino) = 1024;
       *(&buf.st_ino + 6) = v7;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "=pc= open_dprotected_np failed at %s: %{errno}d", &buf, 0x12u);
-      rCopy = r;
-      v14 = v7;
-      _MBLog();
+      _MBLog(@"E ", "=pc= open_dprotected_np failed at %s: %{errno}d", r, v7);
     }
 
     if (v7 == 22)
@@ -165,7 +217,7 @@ LABEL_8:
       }
     }
 
-    v11 = [NSString mb_stringWithFileSystemRepresentation:r, rCopy, v14];
+    v11 = [NSString mb_stringWithFileSystemRepresentation:r];
     MBDiagnoseFile(v11, v7, "open_dprotected_np");
     v12 = MBGetDefaultLog();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
@@ -175,7 +227,7 @@ LABEL_8:
       WORD2(buf.st_ino) = 1024;
       *(&buf.st_ino + 6) = v7;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_FAULT, "=pc= open_dprotected_np failed at %@: %{errno}d", &buf, 0x12u);
-      _MBLog();
+      _MBLog(@"F ", "=pc= open_dprotected_np failed at %@: %{errno}d", v11, v7);
     }
 
     return -1;
@@ -200,6 +252,38 @@ LABEL_8:
   return v5;
 }
 
++ (BOOL)setWithFD:(int)d value:(unsigned __int8)value error:(id *)error
+{
+  valueCopy = value;
+  v7 = fcntl(d, 64, value);
+  v8 = v7;
+  if (error && v7)
+  {
+    if (*__error() == 1 && ![MBProtectionClassUtils canOpenWhenLocked:valueCopy])
+    {
+      v9 = [MBError errorWithCode:208 format:@"fcntl permission error setting protection class (device locked?)"];
+    }
+
+    else
+    {
+      if (valueCopy == 7)
+      {
+        [MBError posixErrorWithCode:240 format:@"fcntl error setting Cx protection class"];
+      }
+
+      else
+      {
+        [MBError posixErrorWithFormat:@"fcntl error setting protection class"];
+      }
+      v9 = ;
+    }
+
+    *error = v9;
+  }
+
+  return v8 == 0;
+}
+
 + (int)sqliteOpenFlagForProtectionClass:(unsigned __int8)class
 {
   classCopy = class;
@@ -214,7 +298,7 @@ LABEL_8:
     *buf = 67109120;
     v7 = classCopy;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "=pc= No SQLite open flag known for protection class: %d", buf, 8u);
-    _MBLog();
+    _MBLog(@"Df", "=pc= No SQLite open flag known for protection class: %d", classCopy);
   }
 
   return 0x400000;

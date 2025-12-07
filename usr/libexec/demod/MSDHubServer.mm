@@ -1,4 +1,5 @@
 @interface MSDHubServer
+- (MSDHubServer)initWithCellularAccess:(BOOL)access;
 - (id)taskInfoFromCommandRequest:(id)request;
 - (void)ack:(id)ack;
 - (void)closeConnection;
@@ -19,6 +20,24 @@
 
 @implementation MSDHubServer
 
+- (MSDHubServer)initWithCellularAccess:(BOOL)access
+{
+  accessCopy = access;
+  v8.receiver = self;
+  v8.super_class = MSDHubServer;
+  v4 = [(MSDHubServer *)&v8 init];
+  if (v4)
+  {
+    v5 = [(MSDSession *)[MSDHubSession alloc] initWithCellularAccess:accessCopy];
+    [(MSDServer *)v4 setSession:v5];
+
+    [(MSDHubServer *)v4 setHmacKey:@"hLw5ZITZVjvdLVwAaitNnOsFhl3rDVAtRmKXQuYfxGSJ0n65eotJ569TOz97xmD3s6"];
+    v6 = v4;
+  }
+
+  return v4;
+}
+
 - (void)closeConnection
 {
   session = [(MSDServer *)self session];
@@ -28,7 +47,7 @@
 - (void)enroll:(id)enroll
 {
   enrollCopy = enroll;
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(enrollCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315138;
@@ -43,7 +62,7 @@
 - (void)isEnrolled:(id)enrolled
 {
   enrolledCopy = enrolled;
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(enrolledCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315138;
@@ -57,7 +76,7 @@
 - (void)unenroll:(id)unenroll
 {
   unenrollCopy = unenroll;
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(unenrollCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315138;
@@ -71,7 +90,7 @@
 - (void)downloadManifest:(id)manifest
 {
   manifestCopy = manifest;
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(manifestCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315138;
@@ -85,7 +104,7 @@
 - (void)downloadIPACachingHub:(id)hub
 {
   hubCopy = hub;
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(hubCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315138;
@@ -99,7 +118,7 @@
 - (void)downloadIPAPreCachingHub:(id)hub
 {
   hubCopy = hub;
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(hubCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315138;
@@ -113,7 +132,7 @@
 - (void)getFileDownloadCredential:(id)credential
 {
   credentialCopy = credential;
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(credentialCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315138;
@@ -127,7 +146,7 @@
 - (void)getAccountSettings:(id)settings
 {
   settingsCopy = settings;
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(settingsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315138;
@@ -141,7 +160,7 @@
 - (void)getContinuitySettings:(id)settings
 {
   settingsCopy = settings;
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(settingsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315138;
@@ -155,7 +174,7 @@
 - (void)reportError:(id)error
 {
   errorCopy = error;
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(errorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315138;
@@ -169,7 +188,7 @@
 - (void)reportDone:(id)done
 {
   doneCopy = done;
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(doneCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315138;
@@ -183,7 +202,7 @@
 - (void)ping:(id)ping
 {
   pingCopy = ping;
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(pingCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315138;
@@ -197,7 +216,7 @@
 - (void)ack:(id)ack
 {
   ackCopy = ack;
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(ackCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315138;
@@ -211,7 +230,7 @@
 - (void)handleKVStore:(id)store
 {
   storeCopy = store;
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(storeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136315138;

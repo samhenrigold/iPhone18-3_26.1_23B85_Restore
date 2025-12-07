@@ -35,35 +35,35 @@
 
 - (BOOL)passesWithHomeObjects:(id)objects
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v5 = [objectsCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = [objectsCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(objectsCopy);
         }
 
-        hre_matchingTypes = [*(*(&v19 + 1) + 8 * i) hre_matchingTypes];
+        hre_matchingTypes = [*(*(&v18 + 1) + 8 * i) hre_matchingTypes];
         requiredType = [(HRERecommendableObjectTypeRule *)self requiredType];
         v12 = [hre_matchingTypes containsObject:requiredType];
 
         v7 += v12;
       }
 
-      v6 = [objectsCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v6 = [objectsCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v6);
@@ -77,7 +77,6 @@
   allowedCount = [(HRERecommendableObjectCountRule *)self allowedCount];
   v16 = v7 >= allowedCount && v7 - allowedCount < v14;
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

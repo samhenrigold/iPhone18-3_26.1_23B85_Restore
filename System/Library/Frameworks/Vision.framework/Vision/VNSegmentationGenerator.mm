@@ -57,32 +57,32 @@ void __64__VNSegmentationGenerator_configurationOptionKeysForDetectorKey__block_
   return v3;
 }
 
-void __50__VNSegmentationGenerator_requestKeyToRequestInfo__block_invoke()
+void __50__VNSegmentationGenerator_requestKeyToRequestInfo__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v15[4] = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  v14[0] = v1;
-  v2 = [[VNMultiDetectorOriginalRequestInfo alloc] initWithOriginatingRequestSpecifierProcessingOptionKey:@"VNSegmentationGeneratorProcessOption_PersonSegmentationDetectorOriginatingRequestSpecifier" originalRequestResultsIndex:0];
-  v15[0] = v2;
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v14[1] = v4;
-  v5 = [[VNMultiDetectorOriginalRequestInfo alloc] initWithOriginatingRequestSpecifierProcessingOptionKey:@"VNSegmentationGeneratorProcessOption_SkySegmentationDetectorOriginatingRequestSpecifier" originalRequestResultsIndex:1];
-  v15[1] = v5;
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  v14[2] = v7;
-  v8 = [[VNMultiDetectorOriginalRequestInfo alloc] initWithOriginatingRequestSpecifierProcessingOptionKey:@"VNSegmentationGeneratorProcessOption_HumanAttributesSegmentationDetectorOriginatingRequestSpecifier" originalRequestResultsIndex:2];
-  v15[2] = v8;
-  v9 = objc_opt_class();
-  v10 = NSStringFromClass(v9);
-  v14[3] = v10;
-  v11 = [[VNMultiDetectorOriginalRequestInfo alloc] initWithOriginatingRequestSpecifierProcessingOptionKey:@"VNSegmentationGeneratorProcessOption_GlassesSegmentationDetectorOriginatingRequestSpecifier" originalRequestResultsIndex:3];
-  v15[3] = v11;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:4];
-  v13 = +[VNSegmentationGenerator requestKeyToRequestInfo]::requestKeyToRequestInfo;
-  +[VNSegmentationGenerator requestKeyToRequestInfo]::requestKeyToRequestInfo = v12;
+  v17[4] = *MEMORY[0x1E69E9840];
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v16[0] = v3;
+  v4 = [[VNMultiDetectorOriginalRequestInfo alloc] initWithOriginatingRequestSpecifierProcessingOptionKey:@"VNSegmentationGeneratorProcessOption_PersonSegmentationDetectorOriginatingRequestSpecifier" originalRequestResultsIndex:0];
+  v17[0] = v4;
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  v16[1] = v6;
+  v7 = [[VNMultiDetectorOriginalRequestInfo alloc] initWithOriginatingRequestSpecifierProcessingOptionKey:@"VNSegmentationGeneratorProcessOption_SkySegmentationDetectorOriginatingRequestSpecifier" originalRequestResultsIndex:1];
+  v17[1] = v7;
+  v8 = objc_opt_class();
+  v9 = NSStringFromClass(v8);
+  v16[2] = v9;
+  v10 = [[VNMultiDetectorOriginalRequestInfo alloc] initWithOriginatingRequestSpecifierProcessingOptionKey:@"VNSegmentationGeneratorProcessOption_HumanAttributesSegmentationDetectorOriginatingRequestSpecifier" originalRequestResultsIndex:2];
+  v17[2] = v10;
+  v11 = objc_opt_class();
+  v12 = NSStringFromClass(v11);
+  v16[3] = v12;
+  v13 = [[VNMultiDetectorOriginalRequestInfo alloc] initWithOriginatingRequestSpecifierProcessingOptionKey:@"VNSegmentationGeneratorProcessOption_GlassesSegmentationDetectorOriginatingRequestSpecifier" originalRequestResultsIndex:3];
+  v17[3] = v13;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:4];
+  v15 = +[VNSegmentationGenerator requestKeyToRequestInfo]::requestKeyToRequestInfo;
+  +[VNSegmentationGenerator requestKeyToRequestInfo]::requestKeyToRequestInfo = v14;
 }
 
 + (id)requestInfoForRequest:(id)request
@@ -429,7 +429,7 @@ LABEL_21:
 
         v42 = *(*(a1 + 64) + 8);
         *&v46.a = v40 + 2;
-        std::__hash_table<std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},__CVBuffer *>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>((v42 + 48), v40 + 2)[3] = v41;
+        std::__hash_table<std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},__CVBuffer *>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},__CVBuffer *>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>((v42 + 48), v40 + 2, &v46)[3] = v41;
         v40 = *v40;
         if (!v40)
         {
@@ -688,7 +688,7 @@ id __125__VNSegmentationGenerator_processRegionOfInterest_croppedPixelBuffer_opt
   }
 
   v8 = *(a1 + 32);
-  if (v8 && ([v8 processLockedImageBuffer:*(a1 + 128) inputMaskObservation:v27 options:*(a1 + 40) qosClass:*(a1 + 136) error:a3], (v47 & 1) != 0))
+  if (v8 && (objc_msgSend_processLockedImageBuffer_inputMaskObservation_options_qosClass_error_(v8), (v47 & 1) != 0))
   {
     std::unordered_map<NSString * {__strong},__CVBuffer *>::unordered_map(&v38, v44);
     v43 = 1;
@@ -1028,7 +1028,7 @@ LABEL_29:
         v49 = 0u;
         v50 = 0u;
         v51 = 0;
-        v12 = std::__hash_table<std::__hash_value_type<NSString * {__strong},espresso_buffer_t>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},espresso_buffer_t>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},espresso_buffer_t>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},espresso_buffer_t>>>::__emplace_unique_key_args<NSString * {__strong},std::pair<NSString * {__strong},espresso_buffer_t>>(&self->_espressoMaskOutputBuffers.__table_.__bucket_list_.__ptr_, &v40);
+        v12 = std::__hash_table<std::__hash_value_type<NSString * {__strong},espresso_buffer_t>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},espresso_buffer_t>,std::hash<NSString * {__strong}>,std::equal_to<NSString * {__strong}>,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},espresso_buffer_t>,std::equal_to<NSString * {__strong}>,std::hash<NSString * {__strong}>,true>,std::allocator<std::__hash_value_type<NSString * {__strong},espresso_buffer_t>>>::__emplace_unique_key_args<NSString * {__strong},std::pair<NSString * {__strong},espresso_buffer_t>>(&self->_espressoMaskOutputBuffers.__table_.__bucket_list_.__ptr_, &v40, &v40);
 
         if (![(VNEspressoModelFileBasedDetector *)self bindBuffer:v12 + 3 toNetworkOutputBlobName:v12[2] error:error])
         {

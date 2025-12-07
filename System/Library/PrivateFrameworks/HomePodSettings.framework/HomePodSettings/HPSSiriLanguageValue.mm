@@ -51,11 +51,11 @@
 
 + (id)languagesFromVoices:(id)voices forLanguage:(id)language
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   voicesCopy = voices;
   languageCopy = language;
-  v27 = [voicesCopy count];
-  if (v27)
+  v26 = [voicesCopy count];
+  if (v26)
   {
     firstObject = [voicesCopy firstObject];
     languageCode = [firstObject languageCode];
@@ -63,23 +63,23 @@
     name = [firstObject name];
     v12 = [self languageDefaultWithRecognitionLanguage:languageCopy outputLanguage:languageCode gender:gender voiceName:name];
 
-    if (v27 == 1)
+    if (v26 == 1)
     {
-      v28[0] = v12;
-      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
+      v27[0] = v12;
+      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
     }
 
     else
     {
-      v14 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v27];
+      v14 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v26];
       [v14 addObject:v12];
       v15 = 1;
-      v26 = languageCopy;
+      v25 = languageCopy;
       do
       {
         v16 = firstObject;
         v17 = v12;
-        firstObject = [voicesCopy objectAtIndex:{v15, v26}];
+        firstObject = [voicesCopy objectAtIndex:{v15, v25}];
 
         v18 = [self alloc];
         [firstObject languageCode];
@@ -87,7 +87,7 @@
         v21 = v20 = voicesCopy;
         gender2 = [firstObject gender];
         name2 = [firstObject name];
-        v12 = [v18 initWithRecognitionLanguage:v26 outputLanguage:v21 gender:gender2 voiceName:name2];
+        v12 = [v18 initWithRecognitionLanguage:v25 outputLanguage:v21 gender:gender2 voiceName:name2];
 
         voicesCopy = v20;
         self = selfCopy;
@@ -95,10 +95,10 @@
         ++v15;
       }
 
-      while (v27 != v15);
+      while (v26 != v15);
       v13 = [v14 copy];
 
-      languageCopy = v26;
+      languageCopy = v25;
     }
   }
 
@@ -106,8 +106,6 @@
   {
     v13 = MEMORY[0x277CBEBF8];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -269,18 +267,8 @@
   recognitionLanguage = v5->_recognitionLanguage;
   v5->_recognitionLanguage = v6;
 
-  if (!v5->_recognitionLanguage)
+  if (!v5->_recognitionLanguage || ([coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"value.output"], v8 = objc_claimAutoreleasedReturnValue(), outputLanguage = v5->_outputLanguage, v5->_outputLanguage = v8, outputLanguage, !v5->_outputLanguage) || (objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"value.name"), v10 = objc_claimAutoreleasedReturnValue(), voiceName = v5->_voiceName, v5->_voiceName = v10, voiceName, !v5->_voiceName))
   {
-    goto LABEL_8;
-  }
-
-  v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"value.output"];
-  outputLanguage = v5->_outputLanguage;
-  v5->_outputLanguage = v8;
-
-  if (!v5->_outputLanguage || ([coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"value.name"], v10 = objc_claimAutoreleasedReturnValue(), voiceName = v5->_voiceName, v5->_voiceName = v10, voiceName, !v5->_voiceName))
-  {
-LABEL_8:
     v13 = 0;
     goto LABEL_9;
   }

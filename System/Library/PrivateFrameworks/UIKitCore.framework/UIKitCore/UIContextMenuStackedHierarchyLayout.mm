@@ -184,7 +184,7 @@ uint64_t __99___UIContextMenuStackedHierarchyLayout_navigateDownFromNode_toNode_
   return [v2 addSubview:v3];
 }
 
-uint64_t __99___UIContextMenuStackedHierarchyLayout_navigateDownFromNode_toNode_alongsideAnimations_completion___block_invoke_2(uint64_t a1)
+void *__99___UIContextMenuStackedHierarchyLayout_navigateDownFromNode_toNode_alongsideAnimations_completion___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) setShadowAlpha:0.0];
   if (*(a1 + 40))

@@ -43,13 +43,6 @@ void __38__ENLoggingPrefs_sharedENLoggingPrefs__block_invoke()
 
 - (void)setLoggingEntitledApp:(BOOL)app
 {
-  v4 = MEMORY[0x277CBED20];
-  if (!app)
-  {
-    v4 = MEMORY[0x277CBED18];
-  }
-
-  v5 = *v4;
   CFPrefs_SetValue();
 
   [(ENLoggingPrefs *)self loadLoggingPrefs];
@@ -72,25 +65,24 @@ void __38__ENLoggingPrefs_sharedENLoggingPrefs__block_invoke()
     v7 = 0;
   }
 
-  v9 = v7 || v6 != 0;
+  rpiLoggingEnabled = v7 || v6 != 0;
   if (!Int64)
   {
-    v9 = 0;
+    rpiLoggingEnabled = 0;
   }
 
   if (!v4)
   {
-    v9 = 0;
+    rpiLoggingEnabled = 0;
   }
 
-  self->_rpiLoggingEnabled = v9;
+  self->_rpiLoggingEnabled = rpiLoggingEnabled;
   if (gLogCategory__ENLoggingPrefs <= 50)
   {
     if (gLogCategory__ENLoggingPrefs != -1)
     {
 LABEL_16:
-      sensitiveLoggingEnabled = self->_sensitiveLoggingEnabled;
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory__ENLoggingPrefs, "[ENLoggingPrefs loadLoggingPrefs]", 50, "sensitiveLogging: %d, rpiLogging: %d, requireEntitlementAndProfileInternal: %d, appEntitled: %d, _sensitiveLoggingEnabled: %d, _rpiLoggingEnabled: %d", Int64 != 0, v4 != 0, v5 != 0, v6 != 0, self->_sensitiveLoggingEnabled, rpiLoggingEnabled);
       return;
     }
 

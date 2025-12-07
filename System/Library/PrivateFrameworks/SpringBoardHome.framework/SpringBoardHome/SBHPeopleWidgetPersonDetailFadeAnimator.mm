@@ -58,7 +58,7 @@ void __84__SBHPeopleWidgetPersonDetailFadeAnimator_prepareToAnimateFromEndpoint_
   [v4 setFrame:?];
   [v2 addSubview:v4];
   v5 = [*(a1 + 32) targetView];
-  [v4 bounds];
+  objc_msgSend_bounds(v4);
   [v5 setFrame:?];
   [v4 addSubview:v5];
   [*(a1 + 32) targetContentCornerRadius];

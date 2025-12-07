@@ -160,22 +160,23 @@ void __26__PHHIDEventMonitor_start__block_invoke_72(id a1, void *a2, void *a3, v
   v6 = IOHIDEventGetIntegerValue();
   v7 = [(PHHIDEventMonitor *)self stringFromIOHIDUsagePage:IntegerValue];
   v8 = [(PHHIDEventMonitor *)self stringFromIOHIDUsage:v5];
+  v9 = v8;
   if (v7)
   {
-    v9 = PHDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = PHDefaultLog(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 134219010;
-      v11 = IntegerValue;
-      v12 = 2048;
-      v13 = v5;
-      v14 = 2048;
-      v15 = v6;
-      v16 = 2112;
-      v17 = v7;
-      v18 = 2112;
-      v19 = v8;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%li - %li keyDown: %li (%@ - %@)", &v10, 0x34u);
+      v11 = 134219010;
+      v12 = IntegerValue;
+      v13 = 2048;
+      v14 = v5;
+      v15 = 2048;
+      v16 = v6;
+      v17 = 2112;
+      v18 = v7;
+      v19 = 2112;
+      v20 = v9;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%li - %li keyDown: %li (%@ - %@)", &v11, 0x34u);
     }
   }
 }

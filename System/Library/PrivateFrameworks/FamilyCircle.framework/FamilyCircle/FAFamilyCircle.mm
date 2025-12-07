@@ -107,10 +107,10 @@ void __32__FAFamilyCircle_pendingMembers__block_invoke(uint64_t a1)
 
             if (v12)
             {
-              v13 = [(FAFamilyMember *)v11 statusString];
-              v14 = [v13 isEqual:@"Pending"];
+              v14 = [(FAFamilyMember *)v11 statusString];
+              v15 = [v14 isEqual:@"Pending"];
 
-              if (v14)
+              if (v15)
               {
                 [v3 addObject:v11];
               }
@@ -118,12 +118,12 @@ void __32__FAFamilyCircle_pendingMembers__block_invoke(uint64_t a1)
 
             else
             {
-              v15 = _FALogSystem();
-              if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+              v16 = _FALogSystem(v13);
+              if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
                 v26 = v11;
-                _os_log_impl(&dword_1B70B0000, v15, OS_LOG_TYPE_DEFAULT, "No invite email, dropping %@", buf, 0xCu);
+                _os_log_impl(&dword_1B70B0000, v16, OS_LOG_TYPE_DEFAULT, "No invite email, dropping %@", buf, 0xCu);
               }
             }
           }
@@ -138,15 +138,14 @@ void __32__FAFamilyCircle_pendingMembers__block_invoke(uint64_t a1)
       v1 = v20;
     }
 
-    v16 = *(v1 + 32);
-    v17 = *(v16 + 48);
-    *(v16 + 48) = v3;
+    v17 = *(v1 + 32);
+    v18 = *(v17 + 48);
+    *(v17 + 48) = v3;
 
     v2 = *(*(v1 + 32) + 48);
   }
 
   objc_storeStrong((*(*(v1 + 40) + 8) + 40), v2);
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (id)pendingInvitesOnly
@@ -191,7 +190,7 @@ void __32__FAFamilyCircle_pendingMembers__block_invoke(uint64_t a1)
 void __25__FAFamilyCircle_invites__block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = v2[8];
   if (!v3)
@@ -203,27 +202,27 @@ void __25__FAFamilyCircle_invites__block_invoke(uint64_t a1)
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v29 = v1;
-      v33 = 0u;
-      v34 = 0u;
-      v31 = 0u;
+      v28 = v1;
       v32 = 0u;
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
       obj = v5;
-      v7 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v7 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v32;
+        v9 = *v31;
         do
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v32 != v9)
+            if (*v31 != v9)
             {
               objc_enumerationMutation(obj);
             }
 
-            v11 = *(*(&v31 + 1) + 8 * i);
+            v11 = *(*(&v30 + 1) + 8 * i);
             v12 = objc_alloc_init(FAFamilyInvite);
             v13 = [v11 objectForKeyedSubscript:@"invitee-last-name"];
             [(FAFamilyInvite *)v12 setOrganizerLastName:v13];
@@ -268,13 +267,13 @@ void __25__FAFamilyCircle_invites__block_invoke(uint64_t a1)
             [v6 addObject:v12];
           }
 
-          v8 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+          v8 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
         }
 
         while (v8);
       }
 
-      v1 = v29;
+      v1 = v28;
     }
 
     v25 = [v6 copy];
@@ -286,16 +285,15 @@ void __25__FAFamilyCircle_invites__block_invoke(uint64_t a1)
   }
 
   objc_storeStrong((*(*(v1 + 40) + 8) + 40), v3);
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (FAFamilyCircle)initWithServerResponse:(id)response
 {
-  v120 = *MEMORY[0x1E69E9840];
+  v122 = *MEMORY[0x1E69E9840];
   responseCopy = response;
-  v111.receiver = self;
-  v111.super_class = FAFamilyCircle;
-  v6 = [(FAFamilyCircle *)&v111 init];
+  v113.receiver = self;
+  v113.super_class = FAFamilyCircle;
+  v6 = [(FAFamilyCircle *)&v113 init];
   v7 = v6;
   if (v6)
   {
@@ -310,43 +308,43 @@ void __25__FAFamilyCircle_invites__block_invoke(uint64_t a1)
       v7->_familyID = v9;
     }
 
-    v98 = [objc_alloc(MEMORY[0x1E696AEB0]) initWithKey:@"memberSortOrder" ascending:1];
+    v100 = [objc_alloc(MEMORY[0x1E696AEB0]) initWithKey:@"memberSortOrder" ascending:1];
     v11 = [responseCopy objectForKeyedSubscript:@"family-members"];
     v12 = v11;
     if (v11 && [v11 count])
     {
       array = [MEMORY[0x1E695DF70] array];
-      v107 = 0u;
-      v108 = 0u;
       v109 = 0u;
       v110 = 0u;
+      v111 = 0u;
+      v112 = 0u;
       v14 = v12;
-      v15 = [v14 countByEnumeratingWithState:&v107 objects:v119 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v109 objects:v121 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v108;
+        v17 = *v110;
         do
         {
           for (i = 0; i != v16; ++i)
           {
-            if (*v108 != v17)
+            if (*v110 != v17)
             {
               objc_enumerationMutation(v14);
             }
 
-            v19 = [[FAFamilyMember alloc] initWithDictionaryRepresentation:*(*(&v107 + 1) + 8 * i)];
+            v19 = [[FAFamilyMember alloc] initWithDictionaryRepresentation:*(*(&v109 + 1) + 8 * i)];
             [array addObject:v19];
           }
 
-          v16 = [v14 countByEnumeratingWithState:&v107 objects:v119 count:16];
+          v16 = [v14 countByEnumeratingWithState:&v109 objects:v121 count:16];
         }
 
         while (v16);
       }
 
-      v118 = v98;
-      v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v118 count:1];
+      v120 = v100;
+      v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v120 count:1];
       [array sortUsingDescriptors:v20];
 
       v21 = [array copy];
@@ -354,70 +352,70 @@ void __25__FAFamilyCircle_invites__block_invoke(uint64_t a1)
       v7->_members = v21;
     }
 
-    v97 = v12;
+    v99 = v12;
     if (_os_feature_enabled_impl())
     {
       v23 = [responseCopy objectForKeyedSubscript:@"person-info"];
       v24 = objc_alloc_init(MEMORY[0x1E695DF90]);
       if (v23 && [v23 count])
       {
+        v107 = 0u;
+        v108 = 0u;
         v105 = 0u;
         v106 = 0u;
-        v103 = 0u;
-        v104 = 0u;
-        v96 = v23;
+        v98 = v23;
         v25 = v23;
-        v26 = [v25 countByEnumeratingWithState:&v103 objects:v117 count:16];
+        v26 = [v25 countByEnumeratingWithState:&v105 objects:v119 count:16];
         if (v26)
         {
           v27 = v26;
-          v28 = *v104;
+          v28 = *v106;
           do
           {
             for (j = 0; j != v27; ++j)
             {
-              if (*v104 != v28)
+              if (*v106 != v28)
               {
                 objc_enumerationMutation(v25);
               }
 
-              v30 = [[FAFamilyMember alloc] initWithDictionaryRepresentation:*(*(&v103 + 1) + 8 * j)];
+              v30 = [[FAFamilyMember alloc] initWithDictionaryRepresentation:*(*(&v105 + 1) + 8 * j)];
               dsid = [(FAFamilyMember *)v30 dsid];
               [v24 setObject:v30 forKeyedSubscript:dsid];
             }
 
-            v27 = [v25 countByEnumeratingWithState:&v103 objects:v117 count:16];
+            v27 = [v25 countByEnumeratingWithState:&v105 objects:v119 count:16];
           }
 
           while (v27);
         }
 
-        v23 = v96;
+        v23 = v98;
       }
 
+      v103 = 0u;
+      v104 = 0u;
       v101 = 0u;
       v102 = 0u;
-      v99 = 0u;
-      v100 = 0u;
       v32 = v7->_members;
-      v33 = [(NSArray *)v32 countByEnumeratingWithState:&v99 objects:v116 count:16];
+      v33 = [(NSArray *)v32 countByEnumeratingWithState:&v101 objects:v118 count:16];
       if (v33)
       {
         v34 = v33;
-        v35 = *v100;
+        v35 = *v102;
         do
         {
           for (k = 0; k != v34; ++k)
           {
-            if (*v100 != v35)
+            if (*v102 != v35)
             {
               objc_enumerationMutation(v32);
             }
 
-            [*(*(&v99 + 1) + 8 * k) finishWith:v24];
+            [*(*(&v101 + 1) + 8 * k) finishWith:v24];
           }
 
-          v34 = [(NSArray *)v32 countByEnumeratingWithState:&v99 objects:v116 count:16];
+          v34 = [(NSArray *)v32 countByEnumeratingWithState:&v101 objects:v118 count:16];
         }
 
         while (v34);
@@ -426,18 +424,19 @@ void __25__FAFamilyCircle_invites__block_invoke(uint64_t a1)
       if (![(NSArray *)v7->_members count])
       {
         v37 = [responseCopy objectForKeyedSubscript:@"member-guardian"];
+        v38 = v37;
         if (v37)
         {
-          v38 = _FALogSystem();
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+          v39 = _FALogSystem(v37);
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_1B70B0000, v38, OS_LOG_TYPE_DEFAULT, "Remote guardian key found", buf, 2u);
+            _os_log_impl(&dword_1B70B0000, v39, OS_LOG_TYPE_DEFAULT, "Remote guardian key found", buf, 2u);
           }
 
-          v39 = [[FAFamilyMember alloc] initWithDictionaryRepresentation:v37];
+          v40 = [[FAFamilyMember alloc] initWithDictionaryRepresentation:v38];
           remoteGuardianPerson = v7->_remoteGuardianPerson;
-          v7->_remoteGuardianPerson = v39;
+          v7->_remoteGuardianPerson = v40;
 
           [(FAFamilyMember *)v7->_remoteGuardianPerson finishWith:v24];
         }
@@ -447,52 +446,52 @@ void __25__FAFamilyCircle_invites__block_invoke(uint64_t a1)
 
       if (v23 && !remoteGuardian)
       {
-        v42 = _FALogSystem();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+        v44 = _FALogSystem(v43);
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
         {
-          [FAFamilyCircle initWithServerResponse:v42];
+          [FAFamilyCircle initWithServerResponse:v44];
         }
       }
     }
 
-    v43 = [responseCopy objectForKeyedSubscript:@"ck-handles"];
+    v45 = [responseCopy objectForKeyedSubscript:@"ck-handles"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v44 = [responseCopy objectForKeyedSubscript:@"ck-handles"];
+      v46 = [responseCopy objectForKeyedSubscript:@"ck-handles"];
     }
 
     else
     {
-      v44 = 0;
+      v46 = 0;
     }
 
-    v45 = [[FAFamilyCloudKitProperties alloc] initWithDictionaryRepresentation:v44];
+    v47 = [[FAFamilyCloudKitProperties alloc] initWithDictionaryRepresentation:v46];
     cloudKitProperties = v7->_cloudKitProperties;
-    v7->_cloudKitProperties = v45;
+    v7->_cloudKitProperties = v47;
 
-    v47 = [responseCopy objectForKeyedSubscript:@"family-recommendation-info"];
+    v49 = [responseCopy objectForKeyedSubscript:@"family-recommendation-info"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v48 = [responseCopy objectForKeyedSubscript:@"family-recommendation-info"];
+      v50 = [responseCopy objectForKeyedSubscript:@"family-recommendation-info"];
     }
 
     else
     {
-      v48 = 0;
+      v50 = 0;
     }
 
-    v49 = [[FAEligibilityRequirements alloc] initWithDictionaryRepresentation:v48];
+    v51 = [[FAEligibilityRequirements alloc] initWithDictionaryRepresentation:v50];
     eligibilityRequirements = v7->_eligibilityRequirements;
-    v7->_eligibilityRequirements = v49;
+    v7->_eligibilityRequirements = v51;
 
-    v51 = [responseCopy objectForKeyedSubscript:@"show-location-splash-screen"];
+    v53 = [responseCopy objectForKeyedSubscript:@"show-location-splash-screen"];
 
-    if (v51)
+    if (v53)
     {
-      v52 = [responseCopy objectForKeyedSubscript:@"show-location-splash-screen"];
-      v7->_showLocationSplashScreen = [v52 BOOLValue];
+      v54 = [responseCopy objectForKeyedSubscript:@"show-location-splash-screen"];
+      v7->_showLocationSplashScreen = [v54 BOOLValue];
     }
 
     else
@@ -500,89 +499,95 @@ void __25__FAFamilyCircle_invites__block_invoke(uint64_t a1)
       v7->_showLocationSplashScreen = 0;
     }
 
-    v53 = [responseCopy objectForKeyedSubscript:@"age-category"];
-    if ([v53 isEqualToString:@"ADULT"])
+    v55 = [responseCopy objectForKeyedSubscript:@"age-category"];
+    v56 = [v55 isEqualToString:@"ADULT"];
+    if (v56)
     {
       v7->_ageCategory = 0;
     }
 
     else
     {
-      if ([v53 isEqualToString:@"TEEN"])
+      v56 = [v55 isEqualToString:@"TEEN"];
+      if (v56)
       {
-        v54 = 1;
-      }
-
-      else if ([v53 isEqualToString:@"CHILD"])
-      {
-        v54 = 2;
+        v57 = 1;
       }
 
       else
       {
-        v54 = -1;
-      }
-
-      v7->_ageCategory = v54;
-    }
-
-    v55 = _FALogSystem();
-    if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
-    {
-      ageCategory = v7->_ageCategory;
-      *buf = 138412546;
-      v113 = v53;
-      v114 = 2048;
-      v115 = ageCategory;
-      _os_log_impl(&dword_1B70B0000, v55, OS_LOG_TYPE_DEFAULT, "Current user age category is %@, FAMemberType %ld", buf, 0x16u);
-    }
-
-    v57 = [responseCopy objectForKeyedSubscript:@"age-category-enum"];
-    intValue = [v57 intValue];
-
-    v7->_ageCategoryEnum = intValue;
-    v59 = [responseCopy objectForKey:@"family-meta-info"];
-    if (v59)
-    {
-      objc_opt_class();
-      if (objc_opt_isKindOfClass())
-      {
-        v60 = [v59 objectForKeyedSubscript:@"childCutOffAge"];
-        childCutOffAge = v7->_childCutOffAge;
-        v7->_childCutOffAge = v60;
-
-        v62 = [v59 objectForKeyedSubscript:@"add-member-enabled"];
-        v7->_canAddMembers = [v62 BOOLValue];
-
-        v63 = [v59 objectForKeyedSubscript:@"add-member-label"];
-        addMemberButtonLabel = v7->_addMemberButtonLabel;
-        v7->_addMemberButtonLabel = v63;
-
-        v65 = [v59 objectForKeyedSubscript:@"family-members-footer"];
-        familyMembersFooterLabel = v7->_familyMembersFooterLabel;
-        v7->_familyMembersFooterLabel = v65;
-
-        v67 = [v59 objectForKeyedSubscript:@"allowed-apple-subscriptions"];
-
-        if (v67)
+        v56 = [v55 isEqualToString:@"CHILD"];
+        if (v56)
         {
-          v68 = [v59 objectForKeyedSubscript:@"allowed-apple-subscriptions"];
+          v57 = 2;
         }
 
         else
         {
-          v68 = 0;
+          v57 = -1;
         }
+      }
 
-        allowedSubscriptions = v7->_allowedSubscriptions;
-        v7->_allowedSubscriptions = v68;
+      v7->_ageCategory = v57;
+    }
 
-        v70 = [v59 objectForKeyedSubscript:@"show-add-member-button"];
+    v58 = _FALogSystem(v56);
+    if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+    {
+      ageCategory = v7->_ageCategory;
+      *buf = 138412546;
+      v115 = v55;
+      v116 = 2048;
+      v117 = ageCategory;
+      _os_log_impl(&dword_1B70B0000, v58, OS_LOG_TYPE_DEFAULT, "Current user age category is %@, FAMemberType %ld", buf, 0x16u);
+    }
+
+    v60 = [responseCopy objectForKeyedSubscript:@"age-category-enum"];
+    intValue = [v60 intValue];
+
+    v7->_ageCategoryEnum = intValue;
+    v62 = [responseCopy objectForKey:@"family-meta-info"];
+    if (v62)
+    {
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        v63 = [v62 objectForKeyedSubscript:@"childCutOffAge"];
+        childCutOffAge = v7->_childCutOffAge;
+        v7->_childCutOffAge = v63;
+
+        v65 = [v62 objectForKeyedSubscript:@"add-member-enabled"];
+        v7->_canAddMembers = [v65 BOOLValue];
+
+        v66 = [v62 objectForKeyedSubscript:@"add-member-label"];
+        addMemberButtonLabel = v7->_addMemberButtonLabel;
+        v7->_addMemberButtonLabel = v66;
+
+        v68 = [v62 objectForKeyedSubscript:@"family-members-footer"];
+        familyMembersFooterLabel = v7->_familyMembersFooterLabel;
+        v7->_familyMembersFooterLabel = v68;
+
+        v70 = [v62 objectForKeyedSubscript:@"allowed-apple-subscriptions"];
 
         if (v70)
         {
-          v71 = [v59 objectForKeyedSubscript:@"show-add-member-button"];
-          v7->_showAddMemberButton = [v71 BOOLValue];
+          v71 = [v62 objectForKeyedSubscript:@"allowed-apple-subscriptions"];
+        }
+
+        else
+        {
+          v71 = 0;
+        }
+
+        allowedSubscriptions = v7->_allowedSubscriptions;
+        v7->_allowedSubscriptions = v71;
+
+        v73 = [v62 objectForKeyedSubscript:@"show-add-member-button"];
+
+        if (v73)
+        {
+          v74 = [v62 objectForKeyedSubscript:@"show-add-member-button"];
+          v7->_showAddMemberButton = [v74 BOOLValue];
         }
 
         else
@@ -590,12 +595,12 @@ void __25__FAFamilyCircle_invites__block_invoke(uint64_t a1)
           v7->_showAddMemberButton = 1;
         }
 
-        v72 = [v59 objectForKeyedSubscript:@"should-show-invites"];
+        v75 = [v62 objectForKeyedSubscript:@"should-show-invites"];
 
-        if (v72)
+        if (v75)
         {
-          v73 = [v59 objectForKeyedSubscript:@"should-show-invites"];
-          v7->_shouldShowInvites = [v73 BOOLValue];
+          v76 = [v62 objectForKeyedSubscript:@"should-show-invites"];
+          v7->_shouldShowInvites = [v76 BOOLValue];
         }
 
         else
@@ -603,12 +608,12 @@ void __25__FAFamilyCircle_invites__block_invoke(uint64_t a1)
           v7->_shouldShowInvites = 0;
         }
 
-        v74 = [v59 objectForKeyedSubscript:@"use-rui-pages"];
+        v77 = [v62 objectForKeyedSubscript:@"use-rui-pages"];
 
-        if (v74)
+        if (v77)
         {
-          v75 = [v59 objectForKeyedSubscript:@"use-rui-pages"];
-          v7->_showRUIPages = [v75 BOOLValue];
+          v78 = [v62 objectForKeyedSubscript:@"use-rui-pages"];
+          v7->_showRUIPages = [v78 BOOLValue];
         }
 
         else
@@ -616,12 +621,12 @@ void __25__FAFamilyCircle_invites__block_invoke(uint64_t a1)
           v7->_showRUIPages = 0;
         }
 
-        v76 = [v59 objectForKeyedSubscript:@"family-share-payment-enabled"];
+        v79 = [v62 objectForKeyedSubscript:@"family-share-payment-enabled"];
 
-        if (v76)
+        if (v79)
         {
-          v77 = [v59 objectForKeyedSubscript:@"family-share-payment-enabled"];
-          v7->_sharedPayementEnabled = [v77 BOOLValue];
+          v80 = [v62 objectForKeyedSubscript:@"family-share-payment-enabled"];
+          v7->_sharedPayementEnabled = [v80 BOOLValue];
         }
 
         else
@@ -629,85 +634,84 @@ void __25__FAFamilyCircle_invites__block_invoke(uint64_t a1)
           v7->_sharedPayementEnabled = 0;
         }
 
-        v78 = [v59 objectForKeyedSubscript:@"checklist-ranking-bucket-type"];
-
-        if (v78)
-        {
-          v79 = [v59 objectForKeyedSubscript:@"checklist-ranking-bucket-type"];
-          checklistRankingBucketType = v7->_checklistRankingBucketType;
-          v7->_checklistRankingBucketType = v79;
-        }
-
-        v81 = [v59 objectForKeyedSubscript:@"checklist-ranking-version"];
+        v81 = [v62 objectForKeyedSubscript:@"checklist-ranking-bucket-type"];
 
         if (v81)
         {
-          v82 = [v59 objectForKeyedSubscript:@"checklist-ranking-version"];
-          checklistRankingVersion = v7->_checklistRankingVersion;
-          v7->_checklistRankingVersion = v82;
+          v82 = [v62 objectForKeyedSubscript:@"checklist-ranking-bucket-type"];
+          checklistRankingBucketType = v7->_checklistRankingBucketType;
+          v7->_checklistRankingBucketType = v82;
         }
 
-        v7->_shouldBadgeOrganizer = 1;
-        v84 = [v59 objectForKeyedSubscript:@"is-badging-disabled-organizer"];
+        v84 = [v62 objectForKeyedSubscript:@"checklist-ranking-version"];
 
         if (v84)
         {
-          v85 = [v59 objectForKeyedSubscript:@"is-badging-disabled-organizer"];
-          v7->_shouldBadgeOrganizer = [v85 BOOLValue] ^ 1;
+          v85 = [v62 objectForKeyedSubscript:@"checklist-ranking-version"];
+          checklistRankingVersion = v7->_checklistRankingVersion;
+          v7->_checklistRankingVersion = v85;
+        }
+
+        v7->_shouldBadgeOrganizer = 1;
+        v87 = [v62 objectForKeyedSubscript:@"is-badging-disabled-organizer"];
+
+        if (v87)
+        {
+          v88 = [v62 objectForKeyedSubscript:@"is-badging-disabled-organizer"];
+          v7->_shouldBadgeOrganizer = [v88 BOOLValue] ^ 1;
         }
 
         v7->_shouldBadgeInvitee = 1;
-        v86 = [v59 objectForKeyedSubscript:@"is-badging-disabled-invitee"];
+        v89 = [v62 objectForKeyedSubscript:@"is-badging-disabled-invitee"];
 
-        if (v86)
+        if (v89)
         {
-          v87 = [v59 objectForKeyedSubscript:@"is-badging-disabled-invitee"];
-          v7->_shouldBadgeInvitee = [v87 BOOLValue] ^ 1;
+          v90 = [v62 objectForKeyedSubscript:@"is-badging-disabled-invitee"];
+          v7->_shouldBadgeInvitee = [v90 BOOLValue] ^ 1;
         }
       }
     }
 
-    v88 = [responseCopy objectForKey:@"child-bot-details"];
-    if (v88)
+    v91 = [responseCopy objectForKey:@"child-bot-details"];
+    if (v91)
     {
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v89 = [v88 objectForKey:@"allowListed-parents"];
-        if (v89)
+        v92 = [v91 objectForKey:@"allowListed-parents"];
+        if (v92)
         {
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            objc_storeStrong(&v7->_childBotAllowlistedParents, v89);
+            objc_storeStrong(&v7->_childBotAllowlistedParents, v92);
           }
         }
 
-        v90 = [v88 objectForKey:@"allowListed-child"];
-        if (v90)
+        v93 = [v91 objectForKey:@"allowListed-child"];
+        if (v93)
         {
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            objc_storeStrong(&v7->_parentAllowlistedChildBots, v90);
+            objc_storeStrong(&v7->_parentAllowlistedChildBots, v93);
           }
         }
       }
     }
 
-    v91 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v92 = dispatch_queue_create("com.apple.family.familyCircle", v91);
+    v94 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v95 = dispatch_queue_create("com.apple.family.familyCircle", v94);
     processingQueue = v7->_processingQueue;
-    v7->_processingQueue = v92;
+    v7->_processingQueue = v95;
   }
 
-  v94 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (FAFamilyMember)remoteGuardian
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   remoteGuardianPerson = self->_remoteGuardianPerson;
   if (remoteGuardianPerson)
   {
@@ -716,26 +720,26 @@ void __25__FAFamilyCircle_invites__block_invoke(uint64_t a1)
 
   else
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v4 = self->_members;
-    v5 = [(NSArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v5 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v15;
+      v7 = *v14;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v14 + 1) + 8 * i);
+          v9 = *(*(&v13 + 1) + 8 * i);
           if ([v9 isMe])
           {
             remoteChildren = [v9 remoteChildren];
@@ -750,7 +754,7 @@ void __25__FAFamilyCircle_invites__block_invoke(uint64_t a1)
           }
         }
 
-        v6 = [(NSArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v6 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v6)
         {
           continue;
@@ -764,35 +768,34 @@ void __25__FAFamilyCircle_invites__block_invoke(uint64_t a1)
   }
 
 LABEL_14:
-  v12 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (BOOL)anyChildHasRemoteGuardians
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (_os_feature_enabled_impl())
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v3 = self->_members;
-    v4 = [(NSArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v4 = [(NSArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v4)
     {
-      v5 = *v12;
+      v5 = *v11;
       while (2)
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v12 != v5)
+          if (*v11 != v5)
           {
             objc_enumerationMutation(v3);
           }
 
-          remoteGuardians = [*(*(&v11 + 1) + 8 * i) remoteGuardians];
+          remoteGuardians = [*(*(&v10 + 1) + 8 * i) remoteGuardians];
           v8 = [remoteGuardians count];
 
           if (v8)
@@ -802,7 +805,7 @@ LABEL_14:
           }
         }
 
-        v4 = [(NSArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v4 = [(NSArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
         if (v4)
         {
           continue;
@@ -820,7 +823,6 @@ LABEL_13:
     LOBYTE(v4) = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -919,57 +921,57 @@ void __32__FAFamilyCircle_memberForDSID___block_invoke(uint64_t a1, void *a2, ui
 
 - (id)memberForPhoneNumber:(id)number
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   numberCopy = number;
   v5 = [objc_alloc(MEMORY[0x1E695CF50]) initWithStringValue:numberCopy];
   fullyQualifiedDigits = [v5 fullyQualifiedDigits];
 
   if (fullyQualifiedDigits)
   {
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     members = [(FAFamilyCircle *)self members];
-    v24 = [members countByEnumeratingWithState:&v30 objects:v35 count:16];
-    if (v24)
+    v23 = [members countByEnumeratingWithState:&v29 objects:v34 count:16];
+    if (v23)
     {
-      v8 = *v31;
-      v25 = members;
-      v23 = *v31;
+      v8 = *v30;
+      v24 = members;
+      v22 = *v30;
       do
       {
-        for (i = 0; i != v24; ++i)
+        for (i = 0; i != v23; ++i)
         {
-          if (*v31 != v8)
+          if (*v30 != v8)
           {
             objc_enumerationMutation(members);
           }
 
-          v10 = *(*(&v30 + 1) + 8 * i);
+          v10 = *(*(&v29 + 1) + 8 * i);
           memberPhoneNumbers = [v10 memberPhoneNumbers];
           v12 = [memberPhoneNumbers componentsSeparatedByString:{@", "}];
 
-          v28 = 0u;
-          v29 = 0u;
-          v26 = 0u;
           v27 = 0u;
+          v28 = 0u;
+          v25 = 0u;
+          v26 = 0u;
           v13 = v12;
-          v14 = [v13 countByEnumeratingWithState:&v26 objects:v34 count:16];
+          v14 = [v13 countByEnumeratingWithState:&v25 objects:v33 count:16];
           if (v14)
           {
             v15 = v14;
-            v16 = *v27;
+            v16 = *v26;
             while (2)
             {
               for (j = 0; j != v15; ++j)
               {
-                if (*v27 != v16)
+                if (*v26 != v16)
                 {
                   objc_enumerationMutation(v13);
                 }
 
-                v18 = *(*(&v26 + 1) + 8 * j);
+                v18 = *(*(&v25 + 1) + 8 * j);
                 if ([v18 length])
                 {
                   v19 = [objc_alloc(MEMORY[0x1E695CF50]) initWithStringValue:v18];
@@ -977,13 +979,13 @@ void __32__FAFamilyCircle_memberForDSID___block_invoke(uint64_t a1, void *a2, ui
                   {
                     v20 = v10;
 
-                    members = v25;
+                    members = v24;
                     goto LABEL_23;
                   }
                 }
               }
 
-              v15 = [v13 countByEnumeratingWithState:&v26 objects:v34 count:16];
+              v15 = [v13 countByEnumeratingWithState:&v25 objects:v33 count:16];
               if (v15)
               {
                 continue;
@@ -993,15 +995,15 @@ void __32__FAFamilyCircle_memberForDSID___block_invoke(uint64_t a1, void *a2, ui
             }
           }
 
-          members = v25;
-          v8 = v23;
+          members = v24;
+          v8 = v22;
         }
 
         v20 = 0;
-        v24 = [v25 countByEnumeratingWithState:&v30 objects:v35 count:16];
+        v23 = [v24 countByEnumeratingWithState:&v29 objects:v34 count:16];
       }
 
-      while (v24);
+      while (v23);
     }
 
     else
@@ -1017,43 +1019,41 @@ LABEL_23:
     v20 = 0;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return v20;
 }
 
 - (NSArray)firstNames
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   members = [(FAFamilyCircle *)self members];
   v4 = [members count];
 
   if (v4)
   {
     v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     members2 = [(FAFamilyCircle *)self members];
-    v7 = [members2 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v7 = [members2 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (!v7)
     {
       goto LABEL_16;
     }
 
     v8 = v7;
-    v9 = *v21;
+    v9 = *v20;
     while (1)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(members2);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * i);
+        v11 = *(*(&v19 + 1) + 8 * i);
         if (([v11 isMe] & 1) == 0)
         {
           contact = [v11 contact];
@@ -1079,7 +1079,7 @@ LABEL_12:
         }
       }
 
-      v8 = [members2 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [members2 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (!v8)
       {
 LABEL_16:
@@ -1092,7 +1092,6 @@ LABEL_16:
 
   v17 = 0;
 LABEL_18:
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -1129,7 +1128,7 @@ uint64_t __36__FAFamilyCircle_pendingInvitesOnly__block_invoke(uint64_t a1, void
 
 void __46__FAFamilyCircle_pendingMembersWithAllStatues__block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 56);
   if (!v2)
   {
@@ -1140,36 +1139,36 @@ void __46__FAFamilyCircle_pendingMembersWithAllStatues__block_invoke(uint64_t a1
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v19 = 0u;
-      v20 = 0u;
-      v17 = 0u;
       v18 = 0u;
+      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
       v6 = v5;
-      v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v18;
+        v9 = *v17;
         do
         {
           v10 = 0;
           do
           {
-            if (*v18 != v9)
+            if (*v17 != v9)
             {
               objc_enumerationMutation(v6);
             }
 
-            v11 = *(*(&v17 + 1) + 8 * v10);
+            v11 = *(*(&v16 + 1) + 8 * v10);
             v12 = [FAFamilyMember alloc];
-            v13 = [(FAFamilyMember *)v12 initWithDictionaryRepresentation:v11, v17];
+            v13 = [(FAFamilyMember *)v12 initWithDictionaryRepresentation:v11, v16];
             [v3 addObject:v13];
 
             ++v10;
           }
 
           while (v8 != v10);
-          v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+          v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
         }
 
         while (v8);
@@ -1184,7 +1183,6 @@ void __46__FAFamilyCircle_pendingMembersWithAllStatues__block_invoke(uint64_t a1
   }
 
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), v2);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (FAFamilyMember)me
@@ -1257,33 +1255,33 @@ void __20__FAFamilyCircle_me__block_invoke_2(uint64_t a1, void *a2, uint64_t a3,
 
 - (BOOL)familyHasU13Member
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = self->_members;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) isChildAccount])
+        if ([*(*(&v7 + 1) + 8 * i) isChildAccount])
         {
           LOBYTE(v3) = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -1295,7 +1293,6 @@ void __20__FAFamilyCircle_me__block_invoke_2(uint64_t a1, void *a2, uint64_t a3,
 
 LABEL_11:
 
-  v6 = *MEMORY[0x1E69E9840];
   return v3;
 }
 

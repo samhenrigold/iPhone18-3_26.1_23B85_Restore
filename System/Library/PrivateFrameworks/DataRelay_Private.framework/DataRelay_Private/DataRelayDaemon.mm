@@ -42,10 +42,7 @@ uint64_t __42__DataRelayDaemon_sharedDataRelayInstance__block_invoke()
 
 uint64_t __27__DataRelayDaemon_activate__block_invoke(uint64_t a1)
 {
-  v2 = objc_alloc_init(DRServerManager);
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 16);
-  *(v3 + 16) = v2;
+  *(*(a1 + 32) + 16) = objc_alloc_init(DRServerManager);
 
   return MEMORY[0x2821F96F8]();
 }

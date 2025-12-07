@@ -10,7 +10,7 @@
 {
   keyCopy = key;
   v5 = keyCopy;
-  if (self->_shouldAnimateVariantWeight && ([keyCopy isEqualToString:@"variantWeight"] & 1) != 0)
+  if (self->_shouldAnimateVariantWeight && (objc_msgSend_isEqualToString_(keyCopy) & 1) != 0)
   {
     v6 = 1;
   }
@@ -31,7 +31,7 @@
   font = [(UILabel *)self font];
   familyName = [font familyName];
   familyName2 = [fontCopy familyName];
-  if ([familyName isEqualToString:familyName2])
+  if (objc_msgSend_isEqualToString_(familyName))
   {
     [font pointSize];
     v9 = v8;

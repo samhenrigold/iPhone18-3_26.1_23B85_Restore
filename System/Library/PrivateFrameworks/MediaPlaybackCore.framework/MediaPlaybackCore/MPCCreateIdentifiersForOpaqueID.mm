@@ -75,11 +75,11 @@ void ___MPCCreateIdentifiersForOpaqueID_block_invoke_5(uint64_t a1, void *a2)
   [v3 setSubscriptionAdamID:{objc_msgSend(v2, "longLongValue")}];
 }
 
-uint64_t ___MPCCreateIdentifiersForOpaqueID_block_invoke_6(uint64_t result, void *a2)
+void *___MPCCreateIdentifiersForOpaqueID_block_invoke_6(void *result, void *a2)
 {
   if (*(result + 40) == 1)
   {
-    return [a2 setCloudAlbumID:*(result + 32)];
+    return [a2 setCloudAlbumID:result[4]];
   }
 
   return result;

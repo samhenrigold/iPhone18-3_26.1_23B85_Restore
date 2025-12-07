@@ -12,7 +12,7 @@
 
 - (void)disposeSSID:(unint64_t)d
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (kSystemSoundClientLogSubsystem)
   {
     v5 = *kSystemSoundClientLogSubsystem;
@@ -30,29 +30,28 @@
 
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v8 = 136315650;
-    v9 = "SSCoreHapticsPlayer.mm";
-    v10 = 1024;
-    v11 = 105;
-    v12 = 2048;
+    v7 = 136315650;
+    v8 = "SSCoreHapticsPlayer.mm";
+    v9 = 1024;
+    v10 = 105;
+    v11 = 2048;
     dCopy = d;
-    _os_log_impl(&dword_1B9A08000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d disposing SSID %ld and its SSCoreHapticsPlayer", &v8, 0x1Cu);
+    _os_log_impl(&dword_1B9A08000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d disposing SSID %ld and its SSCoreHapticsPlayer", &v7, 0x1Cu);
   }
 
 LABEL_8:
   [(SSCoreHapticsInfo *)self unregisterSSID:d];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)getPlayerForSSID:(unint64_t)d
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy__3676;
-  v18 = __Block_byref_object_dispose__3677;
-  v19 = 0;
+  v25 = *MEMORY[0x1E69E9840];
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy__3676;
+  v17 = __Block_byref_object_dispose__3677;
+  v18 = 0;
   fObj = self->_SSIDMapQueue.fObj.fObj;
   v6 = applesauce::dispatch::v1::queue::operator*(fObj);
   block[0] = MEMORY[0x1E69E9820];
@@ -60,11 +59,11 @@ LABEL_8:
   block[2] = __38__SSCoreHapticsInfo_getPlayerForSSID___block_invoke;
   block[3] = &unk_1E7ECEA68;
   block[4] = self;
-  block[5] = &v14;
+  block[5] = &v13;
   block[6] = d;
   dispatch_sync(v6, block);
 
-  v7 = v15[5];
+  v7 = v14[5];
   if (v7)
   {
     v8 = v7;
@@ -89,18 +88,16 @@ LABEL_8:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315650;
-    v21 = "SSCoreHapticsPlayer.mm";
-    v22 = 1024;
-    v23 = 97;
-    v24 = 2048;
+    v20 = "SSCoreHapticsPlayer.mm";
+    v21 = 1024;
+    v22 = 97;
+    v23 = 2048;
     dCopy = d;
     _os_log_impl(&dword_1B9A08000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d No player associated with SSID %ld", buf, 0x1Cu);
   }
 
 LABEL_10:
-  _Block_object_dispose(&v14, 8);
-
-  v11 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v13, 8);
 
   return v7;
 }
@@ -117,7 +114,7 @@ void __38__SSCoreHapticsInfo_getPlayerForSSID___block_invoke(void *a1)
 
 - (unint64_t)generateNewSSIDForPlayer:(id)player
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   playerCopy = player;
   if (playerCopy)
   {
@@ -144,11 +141,11 @@ void __38__SSCoreHapticsInfo_getPlayerForSSID___block_invoke(void *a1)
 
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315394;
-      v10 = "SSCoreHapticsPlayer.mm";
-      v11 = 1024;
-      v12 = 77;
-      _os_log_impl(&dword_1B9A08000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d SSCoreHapticsPlayer invalid!", &v9, 0x12u);
+      v8 = 136315394;
+      v9 = "SSCoreHapticsPlayer.mm";
+      v10 = 1024;
+      v11 = 77;
+      _os_log_impl(&dword_1B9A08000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d SSCoreHapticsPlayer invalid!", &v8, 0x12u);
     }
 
     v5 = 0;
@@ -156,7 +153,6 @@ void __38__SSCoreHapticsInfo_getPlayerForSSID___block_invoke(void *a1)
 
 LABEL_10:
 
-  v7 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -182,7 +178,7 @@ void __36__SSCoreHapticsInfo_unregisterSSID___block_invoke(uint64_t a1)
 
 - (void)registerSSID:(unint64_t)d withPlayer:(id)player
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   playerCopy = player;
   if (kSystemSoundClientLogSubsystem)
   {
@@ -202,13 +198,13 @@ void __36__SSCoreHapticsInfo_unregisterSSID___block_invoke(uint64_t a1)
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315906;
-    v16 = "SSCoreHapticsPlayer.mm";
-    v17 = 1024;
-    v18 = 61;
-    v19 = 2048;
+    v15 = "SSCoreHapticsPlayer.mm";
+    v16 = 1024;
+    v17 = 61;
+    v18 = 2048;
     dCopy = d;
-    v21 = 2048;
-    v22 = playerCopy;
+    v20 = 2048;
+    v21 = playerCopy;
     _os_log_impl(&dword_1B9A08000, v7, OS_LOG_TYPE_DEBUG, "%25s:%-5d registering SSID %ld <-> SSCoreHapticsPlayer %p", buf, 0x26u);
   }
 
@@ -221,12 +217,10 @@ LABEL_8:
   block[2] = __45__SSCoreHapticsInfo_registerSSID_withPlayer___block_invoke;
   block[3] = &unk_1E7ECEA40;
   block[4] = self;
-  v13 = playerCopy;
+  v12 = playerCopy;
   dCopy2 = d;
   v10 = playerCopy;
   dispatch_barrier_async(fObj, block);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __45__SSCoreHapticsInfo_registerSSID_withPlayer___block_invoke(void *a1)

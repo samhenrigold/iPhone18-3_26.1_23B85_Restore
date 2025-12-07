@@ -42,7 +42,7 @@
   v7 = v6;
 
   v8 = [[SBTimerEventSwitcherEventResponse alloc] initWithDelay:0 validator:@"Pulse" reason:v7];
-  v9 = SBAppendSwitcherModifierResponse(v8, transitionWillUpdate);
+  v9 = SBAppendSwitcherModifierResponse();
 
   return v9;
 }
@@ -60,7 +60,7 @@
   {
     self->_shouldScaleIn = 0;
     v7 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:4 updateMode:3];
-    v8 = SBAppendSwitcherModifierResponse(v7, v5);
+    v8 = SBAppendSwitcherModifierResponse();
 
     v5 = v8;
   }

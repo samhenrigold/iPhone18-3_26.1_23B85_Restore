@@ -64,34 +64,7 @@
   }
 
   v6 = v5;
-  if (!v6)
-  {
-    goto LABEL_9;
-  }
-
-  uuid = [(MTSDeviceSetupDevicePredicate *)self uuid];
-  uuid2 = [v6 uuid];
-  v9 = HMFEqualObjects();
-
-  if (!v9)
-  {
-    goto LABEL_9;
-  }
-
-  serialNumber = [(MTSDeviceSetupDevicePredicate *)self serialNumber];
-  serialNumber2 = [v6 serialNumber];
-  v12 = HMFEqualObjects();
-
-  if (!v12)
-  {
-    goto LABEL_9;
-  }
-
-  vendorID = [(MTSDeviceSetupDevicePredicate *)self vendorID];
-  vendorID2 = [v6 vendorID];
-  v15 = HMFEqualObjects();
-
-  if (v15)
+  if (v6 && (-[MTSDeviceSetupDevicePredicate uuid](self, "uuid"), v7 = objc_claimAutoreleasedReturnValue(), [v6 uuid], v8 = objc_claimAutoreleasedReturnValue(), v9 = HMFEqualObjects(), v8, v7, v9) && (-[MTSDeviceSetupDevicePredicate serialNumber](self, "serialNumber"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "serialNumber"), v11 = objc_claimAutoreleasedReturnValue(), v12 = HMFEqualObjects(), v11, v10, v12) && (-[MTSDeviceSetupDevicePredicate vendorID](self, "vendorID"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "vendorID"), v14 = objc_claimAutoreleasedReturnValue(), v15 = HMFEqualObjects(), v14, v13, v15))
   {
     productID = [(MTSDeviceSetupDevicePredicate *)self productID];
     productID2 = [v6 productID];
@@ -100,7 +73,6 @@
 
   else
   {
-LABEL_9:
     v18 = 0;
   }
 

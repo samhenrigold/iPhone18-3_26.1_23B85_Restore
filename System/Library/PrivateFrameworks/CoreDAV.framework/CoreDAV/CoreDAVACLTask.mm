@@ -47,32 +47,32 @@
 
 - (id)requestBody
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(CoreDAVXMLData);
   [(CoreDAVXMLData *)v3 startElement:@"acl" inNamespace:@"DAV:" withAttributeNamesAndValues:0];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   accessControlEntities = [(CoreDAVACLTask *)self accessControlEntities];
-  v5 = [accessControlEntities countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [accessControlEntities countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(accessControlEntities);
         }
 
-        [*(*(&v12 + 1) + 8 * i) write:v3];
+        [*(*(&v11 + 1) + 8 * i) write:v3];
       }
 
-      v6 = [accessControlEntities countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [accessControlEntities countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
@@ -81,14 +81,12 @@
   [(CoreDAVXMLData *)v3 endElement:@"acl" inNamespace:@"DAV:"];
   data = [(CoreDAVXMLData *)v3 data];
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return data;
 }
 
 - (void)finishCoreDAVTaskWithError:(id)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = errorCopy;
   if (errorCopy)
@@ -106,8 +104,8 @@
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
           *buf = 138543362;
-          v24 = objc_opt_class();
-          v11 = v24;
+          v23 = objc_opt_class();
+          v11 = v23;
           v12 = "%{public}@ cancelled";
           v13 = v10;
           v14 = OS_LOG_TYPE_INFO;
@@ -128,10 +126,10 @@ LABEL_9:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
-        v24 = objc_opt_class();
-        v25 = 2112;
-        v26 = v5;
-        v11 = v24;
+        v23 = objc_opt_class();
+        v24 = 2112;
+        v25 = v5;
+        v11 = v23;
         v12 = "%{public}@ failed: %@";
         v13 = v16;
         v14 = OS_LOG_TYPE_DEFAULT;
@@ -157,11 +155,9 @@ LABEL_10:
     [(CoreDAVTask *)self setDelegate:0];
   }
 
-  v22.receiver = self;
-  v22.super_class = CoreDAVACLTask;
-  [(CoreDAVTask *)&v22 finishCoreDAVTaskWithError:v5];
-
-  v21 = *MEMORY[0x277D85DE8];
+  v21.receiver = self;
+  v21.super_class = CoreDAVACLTask;
+  [(CoreDAVTask *)&v21 finishCoreDAVTaskWithError:v5];
 }
 
 @end

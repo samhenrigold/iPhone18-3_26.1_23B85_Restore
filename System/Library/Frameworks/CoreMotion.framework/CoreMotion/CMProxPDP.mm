@@ -1,5 +1,6 @@
 @interface CMProxPDP
 - (CMProxPDP)initWithCoder:(id)coder;
+- (CMProxPDP)initWithTimestamp:(double)timestamp intensity:(float)intensity intensityCalDelta:(float)delta intensityBaselineDelta:(float)baselineDelta ambient:(float)ambient pocketProbability:(float)probability baselineConfidence:(float)confidence rxNtcC:(float)self0 scanFlags:(BOOL)self1 pocketFlag:(BOOL)self2;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (void)dealloc;
@@ -7,6 +8,47 @@
 @end
 
 @implementation CMProxPDP
+
+- (CMProxPDP)initWithTimestamp:(double)timestamp intensity:(float)intensity intensityCalDelta:(float)delta intensityBaselineDelta:(float)baselineDelta ambient:(float)ambient pocketProbability:(float)probability baselineConfidence:(float)confidence rxNtcC:(float)self0 scanFlags:(BOOL)self1 pocketFlag:(BOOL)self2
+{
+  flagCopy = flag;
+  flagsCopy = flags;
+  v59.receiver = self;
+  v59.super_class = CMProxPDP;
+  v22 = [(CMProxPDP *)&v59 init];
+  if (v22)
+  {
+    v23 = objc_alloc(MEMORY[0x1E696AD98]);
+    v22->fTimestamp = objc_msgSend_initWithDouble_(v23, v24, v25, timestamp);
+    v26 = objc_alloc(MEMORY[0x1E696AD98]);
+    *&v27 = intensity;
+    v22->fIntensity = objc_msgSend_initWithFloat_(v26, v28, v29, v27);
+    v30 = objc_alloc(MEMORY[0x1E696AD98]);
+    *&v31 = delta;
+    v22->fIntensityCalDelta = objc_msgSend_initWithFloat_(v30, v32, v33, v31);
+    v34 = objc_alloc(MEMORY[0x1E696AD98]);
+    *&v35 = baselineDelta;
+    v22->fIntensityBaselineDelta = objc_msgSend_initWithFloat_(v34, v36, v37, v35);
+    v38 = objc_alloc(MEMORY[0x1E696AD98]);
+    *&v39 = ambient;
+    v22->fAmbient = objc_msgSend_initWithFloat_(v38, v40, v41, v39);
+    v42 = objc_alloc(MEMORY[0x1E696AD98]);
+    *&v43 = probability;
+    v22->fPocketProbability = objc_msgSend_initWithFloat_(v42, v44, v45, v43);
+    v46 = objc_alloc(MEMORY[0x1E696AD98]);
+    *&v47 = confidence;
+    v22->fBaselineConfidence = objc_msgSend_initWithFloat_(v46, v48, v49, v47);
+    v50 = objc_alloc(MEMORY[0x1E696AD98]);
+    *&v51 = c;
+    v22->fRxNtcC = objc_msgSend_initWithFloat_(v50, v52, v53, v51);
+    v54 = objc_alloc(MEMORY[0x1E696AD98]);
+    v22->fScanFlags = objc_msgSend_initWithBool_(v54, v55, flagsCopy);
+    v56 = objc_alloc(MEMORY[0x1E696AD98]);
+    v22->fPocketFlag = objc_msgSend_initWithBool_(v56, v57, flagCopy);
+  }
+
+  return v22;
+}
 
 - (CMProxPDP)initWithCoder:(id)coder
 {

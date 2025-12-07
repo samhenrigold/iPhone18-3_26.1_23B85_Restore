@@ -18,10 +18,10 @@
 
 - (COIDSServerBag)init
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v15.receiver = self;
-  v15.super_class = COIDSServerBag;
-  v2 = [(COIDSServerBag *)&v15 init];
+  v19 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = COIDSServerBag;
+  v2 = [(COIDSServerBag *)&v14 init];
   v3 = v2;
   if (v2)
   {
@@ -54,14 +54,13 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v17 = v11;
-      v18 = 2048;
-      v19 = 0x403E000000000000;
+      v16 = v11;
+      v17 = 2048;
+      v18 = 0x403E000000000000;
       _os_log_impl(&dword_244378000, v12, OS_LOG_TYPE_DEFAULT, "Initializing using key suffix %@ with initial timer interval of %fs", buf, 0x16u);
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -86,7 +85,7 @@ uint64_t __27__COIDSServerBag_configure__block_invoke(uint64_t a1)
 
 - (void)_onqueue_updateCachedValuesWithServerValues
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dispatchQueue = [(COIDSServerBag *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
 
@@ -97,13 +96,13 @@ uint64_t __27__COIDSServerBag_configure__block_invoke(uint64_t a1)
     v7 = COCoreLogForCategory(21);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 134218498;
+      v13 = 134218498;
       selfCopy3 = self;
-      v16 = 2112;
-      v17 = isFastFoldEnabled;
-      v18 = 2112;
-      v19 = v4;
-      _os_log_impl(&dword_244378000, v7, OS_LOG_TYPE_DEFAULT, "%p Updating fast fold enabled from %@ to %@", &v14, 0x20u);
+      v15 = 2112;
+      v16 = isFastFoldEnabled;
+      v17 = 2112;
+      v18 = v4;
+      _os_log_impl(&dword_244378000, v7, OS_LOG_TYPE_DEFAULT, "%p Updating fast fold enabled from %@ to %@", &v13, 0x20u);
     }
 
     [(COIDSServerBag *)self setFastFoldEnabled:v4];
@@ -122,13 +121,13 @@ uint64_t __27__COIDSServerBag_configure__block_invoke(uint64_t a1)
     v10 = COCoreLogForCategory(21);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 134218498;
+      v13 = 134218498;
       selfCopy3 = self;
-      v16 = 2112;
-      v17 = isIPDiffingEnabled;
-      v18 = 2112;
-      v19 = v8;
-      _os_log_impl(&dword_244378000, v10, OS_LOG_TYPE_DEFAULT, "%p Updating ip diffing enabled from %@ to %@", &v14, 0x20u);
+      v15 = 2112;
+      v16 = isIPDiffingEnabled;
+      v17 = 2112;
+      v18 = v8;
+      _os_log_impl(&dword_244378000, v10, OS_LOG_TYPE_DEFAULT, "%p Updating ip diffing enabled from %@ to %@", &v13, 0x20u);
     }
 
     [(COIDSServerBag *)self setIpDiffing:v8];
@@ -142,9 +141,9 @@ uint64_t __27__COIDSServerBag_configure__block_invoke(uint64_t a1)
   v11 = COCoreLogForCategory(21);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 134217984;
+    v13 = 134217984;
     selfCopy3 = self;
-    _os_log_impl(&dword_244378000, v11, OS_LOG_TYPE_DEFAULT, "%p Notifying delegate of server bag update", &v14, 0xCu);
+    _os_log_impl(&dword_244378000, v11, OS_LOG_TYPE_DEFAULT, "%p Notifying delegate of server bag update", &v13, 0xCu);
   }
 
   delegate = [(COIDSServerBag *)self delegate];
@@ -154,7 +153,6 @@ uint64_t __27__COIDSServerBag_configure__block_invoke(uint64_t a1)
   }
 
 LABEL_19:
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_onqueue_serverBagNumberValueForKey:(id)key
@@ -181,7 +179,7 @@ LABEL_19:
 
 - (id)_onqueue_serverBagValueForKey:(id)key
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   dispatchQueue = [(COIDSServerBag *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
@@ -206,16 +204,14 @@ LABEL_19:
   v11 = COCoreLogForCategory(21);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 134218498;
+    v13 = 134218498;
     selfCopy = self;
-    v16 = 2112;
-    v17 = v9;
-    v18 = 2112;
-    v19 = v7;
-    _os_log_impl(&dword_244378000, v11, OS_LOG_TYPE_DEFAULT, "%p serverBagValueForKey %@ returned %@", &v14, 0x20u);
+    v15 = 2112;
+    v16 = v9;
+    v17 = 2112;
+    v18 = v7;
+    _os_log_impl(&dword_244378000, v11, OS_LOG_TYPE_DEFAULT, "%p serverBagValueForKey %@ returned %@", &v13, 0x20u);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -259,16 +255,16 @@ void __41__COIDSServerBag__onqueue_configureTimer__block_invoke(uint64_t a1)
 
 - (void)_onqueue_timerFired
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   dispatchQueue = [(COIDSServerBag *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
 
   v4 = COCoreLogForCategory(21);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 134217984;
+    v10 = 134217984;
     selfCopy = self;
-    _os_log_impl(&dword_244378000, v4, OS_LOG_TYPE_DEFAULT, "%p Server bag refresh timer fired", &v11, 0xCu);
+    _os_log_impl(&dword_244378000, v4, OS_LOG_TYPE_DEFAULT, "%p Server bag refresh timer fired", &v10, 0xCu);
   }
 
   [(COIDSServerBag *)self _onqueue_updateCachedValuesWithServerValues];
@@ -288,8 +284,6 @@ void __41__COIDSServerBag__onqueue_configureTimer__block_invoke(uint64_t a1)
   refreshTimer = [(COIDSServerBag *)self refreshTimer];
   v9 = dispatch_time(0, v7);
   dispatch_source_set_timer(refreshTimer, v9, 0xFFFFFFFFFFFFFFFFLL, 0x3B9ACA00uLL);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_withLock:(id)lock

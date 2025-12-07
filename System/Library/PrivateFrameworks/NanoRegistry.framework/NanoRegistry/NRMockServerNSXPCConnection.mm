@@ -249,17 +249,15 @@ uint64_t __54__NRMockServerNSXPCConnection_remoteObjectProxyAsync___block_invoke
 
 void __65__NRMockServerNSXPCConnection_remoteObjectProxyWithErrorHandler___block_invoke(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   v2 = MEMORY[0x1E696ABC0];
   v3 = *MEMORY[0x1E696A250];
-  v7 = *MEMORY[0x1E696A578];
-  v8[0] = @"NSXPCConnectionInvalid: Did mock client stop running?";
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = *MEMORY[0x1E696A578];
+  v7[0] = @"NSXPCConnectionInvalid: Did mock client stop running?";
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v5 = [v2 errorWithDomain:v3 code:4099 userInfo:v4];
   (*(v1 + 16))(v1, v5);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)synchronousRemoteObjectProxyWithErrorHandler:(id)handler
@@ -294,17 +292,15 @@ void __65__NRMockServerNSXPCConnection_remoteObjectProxyWithErrorHandler___block
 
 void __76__NRMockServerNSXPCConnection_synchronousRemoteObjectProxyWithErrorHandler___block_invoke(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   v2 = MEMORY[0x1E696ABC0];
   v3 = *MEMORY[0x1E696A250];
-  v7 = *MEMORY[0x1E696A578];
-  v8[0] = @"NSXPCConnectionInvalid: Did mock client stop running?";
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = *MEMORY[0x1E696A578];
+  v7[0] = @"NSXPCConnectionInvalid: Did mock client stop running?";
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v5 = [v2 errorWithDomain:v3 code:4099 userInfo:v4];
   (*(v1 + 16))(v1, v5);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidate

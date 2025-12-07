@@ -188,7 +188,7 @@ LABEL_12:
     v12 = v11;
     v14 = v13;
     v16 = v15;
-    [currentLayoutInfo additionalContentTransform];
+    objc_msgSend_additionalContentTransform(currentLayoutInfo);
     v113.origin.x = v10;
     v113.origin.y = v12;
     v113.size.width = v14;
@@ -275,7 +275,7 @@ LABEL_12:
     v41 = v40;
     v43 = v42;
     v45 = v44;
-    [currentLayoutInfo additionalContentTransform];
+    objc_msgSend_additionalContentTransform(currentLayoutInfo);
     v118.origin.x = v39;
     v118.origin.y = v41;
     v118.size.width = v43;
@@ -293,7 +293,7 @@ LABEL_12:
     v50 = v49;
     v52 = v51;
     v54 = v53;
-    [currentLayoutInfo additionalContentTransform];
+    objc_msgSend_additionalContentTransform(currentLayoutInfo);
     v120.origin.x = v48;
     v120.origin.y = v50;
     v120.size.width = v52;
@@ -335,10 +335,10 @@ LABEL_12:
       v68 = v67;
       v70 = v69;
       memset(&v112, 0, sizeof(v112));
-      [currentLayoutInfo adaptiveLayoutTransform];
+      objc_msgSend_adaptiveLayoutTransform(currentLayoutInfo);
       CGAffineTransformInvert(&v112, &v111);
       memset(&v111, 0, sizeof(v111));
-      [currentLayoutInfo additionalContentTransform];
+      objc_msgSend_additionalContentTransform(currentLayoutInfo);
       t1 = v112;
       CGAffineTransformConcat(&v111, &v110, &t1);
       v110 = v111;
@@ -384,7 +384,7 @@ LABEL_12:
       v82 = v81;
       v84 = v83;
       v86 = v85;
-      [currentLayoutInfo additionalContentTransform];
+      objc_msgSend_additionalContentTransform(currentLayoutInfo);
       v126.origin.x = v80;
       v126.origin.y = v82;
       v126.size.width = v84;
@@ -416,7 +416,7 @@ LABEL_29:
       v92 = v91;
       v94 = v93;
       v96 = v95;
-      [currentLayoutInfo additionalContentTransform];
+      objc_msgSend_additionalContentTransform(currentLayoutInfo);
       v128.origin.x = v90;
       v128.origin.y = v92;
       v128.size.width = v94;
@@ -440,7 +440,7 @@ LABEL_30:
     [layer4 setOpacity:v102];
   }
 
-  [currentLayoutInfo additionalTransform];
+  objc_msgSend_additionalTransform(currentLayoutInfo);
   v112 = v105;
   [(PUParallaxImageLayerView *)self setTransform:&v112];
   PXRectWithSize();
@@ -653,7 +653,7 @@ void __66__PUParallaxImageLayerView__updateParallaxBackfillLayerProperties__bloc
   [v4 performWithoutAnimation:v6];
 }
 
-uint64_t __63__PUParallaxImageLayerView__updateParallaxImageLayerProperties__block_invoke(uint64_t a1)
+void *__63__PUParallaxImageLayerView__updateParallaxImageLayerProperties__block_invoke(uint64_t a1)
 {
   v2 = *(*(a1 + 32) + 448);
   if (!v2)

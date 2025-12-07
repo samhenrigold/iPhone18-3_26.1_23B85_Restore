@@ -1,4 +1,5 @@
 @interface TISKCandidateAcceptEvent
+- (id)init:(id)init emojiSearchMode:(BOOL)mode order:(int64_t)order wordBucketCategory:(id)category isAutocorrection:(BOOL)autocorrection;
 - (void)reportToSession:(id)session;
 @end
 
@@ -124,9 +125,9 @@ LABEL_13:
   }
 
   wordBucketCategory2 = [(TISKCandidateAcceptEvent *)self wordBucketCategory];
-  v10 = [wordBucketCategory2 isEqualToString:@"absolutistWord"];
+  isEqualToString = objc_msgSend_isEqualToString_(wordBucketCategory2);
 
-  if (v10)
+  if (isEqualToString)
   {
     v11 = &kTISKtotalAbsolutistWords;
   }
@@ -134,7 +135,7 @@ LABEL_13:
   else
   {
     wordBucketCategory3 = [(TISKCandidateAcceptEvent *)self wordBucketCategory];
-    v13 = [wordBucketCategory3 isEqualToString:@"downWord"];
+    v13 = objc_msgSend_isEqualToString_(wordBucketCategory3);
 
     if (v13)
     {
@@ -144,7 +145,7 @@ LABEL_13:
     else
     {
       wordBucketCategory4 = [(TISKCandidateAcceptEvent *)self wordBucketCategory];
-      v15 = [wordBucketCategory4 isEqualToString:@"deathWord"];
+      v15 = objc_msgSend_isEqualToString_(wordBucketCategory4);
 
       if (v15)
       {
@@ -154,7 +155,7 @@ LABEL_13:
       else
       {
         wordBucketCategory5 = [(TISKCandidateAcceptEvent *)self wordBucketCategory];
-        v17 = [wordBucketCategory5 isEqualToString:@"anxietyWord"];
+        v17 = objc_msgSend_isEqualToString_(wordBucketCategory5);
 
         if (v17)
         {
@@ -164,7 +165,7 @@ LABEL_13:
         else
         {
           wordBucketCategory6 = [(TISKCandidateAcceptEvent *)self wordBucketCategory];
-          v19 = [wordBucketCategory6 isEqualToString:@"angerWord"];
+          v19 = objc_msgSend_isEqualToString_(wordBucketCategory6);
 
           if (v19)
           {
@@ -174,7 +175,7 @@ LABEL_13:
           else
           {
             wordBucketCategory7 = [(TISKCandidateAcceptEvent *)self wordBucketCategory];
-            v21 = [wordBucketCategory7 isEqualToString:@"healthFeelingWord"];
+            v21 = objc_msgSend_isEqualToString_(wordBucketCategory7);
 
             if (v21)
             {
@@ -184,7 +185,7 @@ LABEL_13:
             else
             {
               wordBucketCategory8 = [(TISKCandidateAcceptEvent *)self wordBucketCategory];
-              v23 = [wordBucketCategory8 isEqualToString:@"positiveWord"];
+              v23 = objc_msgSend_isEqualToString_(wordBucketCategory8);
 
               v5 = sessionCopy;
               if (!v23)
@@ -205,6 +206,25 @@ LABEL_13:
 LABEL_37:
 
   MEMORY[0x2821F96F8](v4, v5);
+}
+
+- (id)init:(id)init emojiSearchMode:(BOOL)mode order:(int64_t)order wordBucketCategory:(id)category isAutocorrection:(BOOL)autocorrection
+{
+  modeCopy = mode;
+  initCopy = init;
+  categoryCopy = category;
+  v18.receiver = self;
+  v18.super_class = TISKCandidateAcceptEvent;
+  v15 = [(TISKEvent *)&v18 init:7 emojiSearchMode:modeCopy order:order];
+  v16 = v15;
+  if (v15)
+  {
+    objc_storeStrong(v15 + 5, init);
+    objc_storeStrong(v16 + 6, category);
+    *(v16 + 32) = autocorrection;
+  }
+
+  return v16;
 }
 
 @end

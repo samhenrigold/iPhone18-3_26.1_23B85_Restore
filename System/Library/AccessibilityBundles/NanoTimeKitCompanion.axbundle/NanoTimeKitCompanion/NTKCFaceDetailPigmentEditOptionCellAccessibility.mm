@@ -101,17 +101,17 @@
   pathCopy = path;
   [cellCopy _accessibilityRemoveValueForKey:@"AXNTKEditOption"];
   [cellCopy setAccessibilityLabel:0];
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__4;
-  v19 = __Block_byref_object_dispose__4;
-  v20 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__4;
+  v18 = __Block_byref_object_dispose__4;
+  v19 = 0;
   v8 = pathCopy;
   AXPerformSafeBlock();
-  v9 = v16[5];
+  v9 = v15[5];
 
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v14, 8);
   v10 = [(NTKCFaceDetailPigmentEditOptionCellAccessibility *)self safeValueForKey:@"_dividerImage"];
 
   if (v9 != v10)
@@ -120,32 +120,31 @@
 
     if (v9 == v11)
     {
-      v13 = accessibilityCompanionLocalizedString(@"color.add.button");
-      [cellCopy setAccessibilityLabel:v13];
+      v12 = accessibilityCompanionLocalizedString(@"color.add.button");
+      [cellCopy setAccessibilityLabel:v12];
     }
 
     else
     {
-      v15 = 0;
-      v16 = &v15;
-      v17 = 0x2020000000;
-      v18 = 0;
-      v14 = v8;
+      v14 = 0;
+      v15 = &v14;
+      v16 = 0x2020000000;
+      v17 = 0;
+      v13 = v8;
       AXPerformSafeBlock();
-      v12 = v16[3];
 
-      _Block_object_dispose(&v15, 8);
-      v15 = 0;
-      v16 = &v15;
-      v17 = 0x3032000000;
-      v18 = __Block_byref_object_copy__4;
-      v19 = __Block_byref_object_dispose__4;
-      v20 = 0;
+      _Block_object_dispose(&v14, 8);
+      v14 = 0;
+      v15 = &v14;
+      v16 = 0x3032000000;
+      v17 = __Block_byref_object_copy__4;
+      v18 = __Block_byref_object_dispose__4;
+      v19 = 0;
       AXPerformSafeBlock();
-      v13 = v16[5];
-      _Block_object_dispose(&v15, 8);
+      v12 = v15[5];
+      _Block_object_dispose(&v14, 8);
 
-      [cellCopy _accessibilitySetRetainedValue:v13 forKey:@"AXNTKEditOption"];
+      [cellCopy _accessibilitySetRetainedValue:v12 forKey:@"AXNTKEditOption"];
     }
   }
 
@@ -154,10 +153,7 @@
 
 uint64_t __80__NTKCFaceDetailPigmentEditOptionCellAccessibility__axAnnotateCell_atIndexPath___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _imageForIndexPath:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _imageForIndexPath:*(a1 + 40)];
 
   return _objc_release_x1();
 }
@@ -171,10 +167,7 @@ id __80__NTKCFaceDetailPigmentEditOptionCellAccessibility__axAnnotateCell_atInde
 
 uint64_t __80__NTKCFaceDetailPigmentEditOptionCellAccessibility__axAnnotateCell_atIndexPath___block_invoke_3(uint64_t a1)
 {
-  v2 = [*(a1 + 32) optionAtIndex:*(a1 + 48)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) optionAtIndex:*(a1 + 48)];
 
   return _objc_release_x1();
 }

@@ -29,7 +29,7 @@
   return v8;
 }
 
-uint64_t __69__TPSAppStoreRegionValidation_hasStoreFrontRegionPrefix_fromRegions___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__69__TPSAppStoreRegionValidation_hasStoreFrontRegionPrefix_fromRegions___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) hasPrefix:a2];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -39,7 +39,7 @@ uint64_t __69__TPSAppStoreRegionValidation_hasStoreFrontRegionPrefix_fromRegions
 
 - (void)validateWithCompletion:(id)completion
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   targetRegions = [(TPSRegionsValidation *)self targetRegions];
   if ([targetRegions count])
@@ -81,23 +81,23 @@ LABEL_4:
     targeting = [MEMORY[0x277D71778] targeting];
     if (os_log_type_enabled(targeting, OS_LOG_TYPE_DEBUG))
     {
-      v21 = objc_opt_class();
-      v22 = v21;
+      v20 = objc_opt_class();
+      v21 = v20;
       targetRegions4 = [(TPSRegionsValidation *)self targetRegions];
-      v24 = [targetRegions4 componentsJoinedByString:{@", "}];
+      v23 = [targetRegions4 componentsJoinedByString:{@", "}];
       excludeRegions3 = [(TPSRegionsValidation *)self excludeRegions];
-      v26 = [excludeRegions3 componentsJoinedByString:{@", "}];
-      v27 = 138413314;
-      v28 = v21;
-      v29 = 2112;
-      v30 = getCurrentState;
-      v31 = 2112;
-      v32 = v24;
-      v33 = 2112;
-      v34 = v26;
-      v35 = 1024;
-      v36 = v18;
-      _os_log_debug_impl(&dword_232D6F000, targeting, OS_LOG_TYPE_DEBUG, "%@ - checking appstore region: %@, target regions: %@, exclude regions: %@. Valid: %d", &v27, 0x30u);
+      v25 = [excludeRegions3 componentsJoinedByString:{@", "}];
+      v26 = 138413314;
+      v27 = v20;
+      v28 = 2112;
+      v29 = getCurrentState;
+      v30 = 2112;
+      v31 = v23;
+      v32 = 2112;
+      v33 = v25;
+      v34 = 1024;
+      v35 = v18;
+      _os_log_debug_impl(&dword_232D6F000, targeting, OS_LOG_TYPE_DEBUG, "%@ - checking appstore region: %@, target regions: %@, exclude regions: %@. Valid: %d", &v26, 0x30u);
     }
 
     goto LABEL_13;
@@ -121,7 +121,6 @@ LABEL_4:
 LABEL_13:
 
   completionCopy[2](completionCopy, v18, 0);
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getCurrentState
@@ -156,13 +155,11 @@ LABEL_13:
 
 - (void)validateWithCompletion:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v5 = 138412290;
-  v6 = objc_opt_class();
-  v3 = v6;
-  _os_log_debug_impl(&dword_232D6F000, a2, OS_LOG_TYPE_DEBUG, "%@ - neither target nor exclude appstore region(s) is specified.", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = objc_opt_class();
+  v3 = v5;
+  _os_log_debug_impl(&dword_232D6F000, a2, OS_LOG_TYPE_DEBUG, "%@ - neither target nor exclude appstore region(s) is specified.", &v4, 0xCu);
 }
 
 @end

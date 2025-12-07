@@ -42,7 +42,7 @@
 
 void __29__TRISubjectProvider_subject__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3[1];
   if (!v4)
@@ -57,9 +57,9 @@ void __29__TRISubjectProvider_subject__block_invoke(uint64_t a1, void *a2)
     v5 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315138;
-      v11 = "com.apple.triald.wake";
-      _os_log_impl(&dword_22EA6B000, v5, OS_LOG_TYPE_DEFAULT, "Unable to deserialize subject. Posting %s", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = "com.apple.triald.wake";
+      _os_log_impl(&dword_22EA6B000, v5, OS_LOG_TYPE_DEFAULT, "Unable to deserialize subject. Posting %s", &v9, 0xCu);
     }
 
     v6 = notify_post("com.apple.triald.wake");
@@ -69,16 +69,14 @@ void __29__TRISubjectProvider_subject__block_invoke(uint64_t a1, void *a2)
       v8 = TRILogCategory_ClientFramework();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v10 = 136315394;
-        v11 = "com.apple.triald.wake";
-        v12 = 2048;
-        v13 = v7;
-        _os_log_error_impl(&dword_22EA6B000, v8, OS_LOG_TYPE_ERROR, "failed to post %s: %lu", &v10, 0x16u);
+        v9 = 136315394;
+        v10 = "com.apple.triald.wake";
+        v11 = 2048;
+        v12 = v7;
+        _os_log_error_impl(&dword_22EA6B000, v8, OS_LOG_TYPE_ERROR, "failed to post %s: %lu", &v9, 0x16u);
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (id)defaultProviderWithPaths:(id)paths
@@ -184,42 +182,42 @@ void __29__TRISubjectProvider_subject__block_invoke(uint64_t a1, void *a2)
 
 - (BOOL)loadUsingGuardedData:(id)data
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   if ([defaultManager isReadableFileAtPath:self->_path])
   {
     path = self->_path;
-    v23 = 0;
-    v7 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:path options:2 error:&v23];
-    v8 = v23;
+    v22 = 0;
+    v7 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:path options:2 error:&v22];
+    v8 = v22;
     v9 = v8;
     if (v7)
     {
 
-      v22 = 0;
-      v10 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v7 error:&v22];
-      v9 = v22;
+      v21 = 0;
+      v10 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v7 error:&v21];
+      v9 = v21;
       if (v10 && ([(TRISubjectProvider *)self decodeWithCoder:v10 guardedData:dataCopy], !v9))
       {
-        if (![*(dataCopy + 1) hasDeviceId] || (objc_msgSend(*(dataCopy + 1), "deviceId"), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "length"), v15, v16 > 7))
+        if (![*(dataCopy + 1) hasDeviceId] || (objc_msgSend(*(dataCopy + 1), "deviceId"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "length"), v14, v15 > 7))
         {
           v9 = 0;
           v12 = 1;
           goto LABEL_12;
         }
 
-        v17 = TRILogCategory_ClientFramework();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+        v16 = TRILogCategory_ClientFramework();
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
         {
           deviceId = [*(dataCopy + 1) deviceId];
-          v21 = [deviceId length];
+          v20 = [deviceId length];
           *buf = 134217984;
-          v25 = v21;
-          _os_log_fault_impl(&dword_22EA6B000, v17, OS_LOG_TYPE_FAULT, "rejecting deserialized subject due to unreasonably short deviceId of length %tu", buf, 0xCu);
+          v24 = v20;
+          _os_log_fault_impl(&dword_22EA6B000, v16, OS_LOG_TYPE_FAULT, "rejecting deserialized subject due to unreasonably short deviceId of length %tu", buf, 0xCu);
         }
 
-        v18 = *(dataCopy + 1);
+        v17 = *(dataCopy + 1);
         *(dataCopy + 1) = 0;
 
         v11 = *(dataCopy + 2);
@@ -232,7 +230,7 @@ void __29__TRISubjectProvider_subject__block_invoke(uint64_t a1, void *a2)
         if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v25 = v9;
+          v24 = v9;
           _os_log_error_impl(&dword_22EA6B000, v11, OS_LOG_TYPE_ERROR, "failed to decode subject from data -- %@", buf, 0xCu);
         }
       }
@@ -243,11 +241,11 @@ void __29__TRISubjectProvider_subject__block_invoke(uint64_t a1, void *a2)
       v10 = TRILogCategory_ClientFramework();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v19 = self->_path;
+        v18 = self->_path;
         *buf = 138412546;
-        v25 = v19;
-        v26 = 2112;
-        v27 = v9;
+        v24 = v18;
+        v25 = 2112;
+        v26 = v9;
         _os_log_error_impl(&dword_22EA6B000, v10, OS_LOG_TYPE_ERROR, "failed to read subject data from file %@ -- %@", buf, 0x16u);
       }
     }
@@ -261,7 +259,6 @@ LABEL_12:
   v12 = 0;
 LABEL_13:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -286,7 +283,7 @@ LABEL_13:
 
 void __26__TRISubjectProvider_save__block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAAB0];
   v4 = a2;
   v5 = [[v3 alloc] initRequiringSecureCoding:1];
@@ -297,9 +294,9 @@ void __26__TRISubjectProvider_save__block_invoke(uint64_t a1, void *a2)
   {
     v7 = [MEMORY[0x277CCAA00] defaultManager];
     v8 = *(*(a1 + 32) + 8);
-    v21 = 0;
-    v9 = [v7 triCreateDirectoryForPath:v8 isDirectory:0 error:&v21];
-    v10 = v21;
+    v20 = 0;
+    v9 = [v7 triCreateDirectoryForPath:v8 isDirectory:0 error:&v20];
+    v10 = v20;
 
     if (v9)
     {
@@ -314,9 +311,9 @@ void __26__TRISubjectProvider_save__block_invoke(uint64_t a1, void *a2)
     if (v11)
     {
       v16 = *(*(a1 + 32) + 8);
-      v20 = 0;
-      v17 = [v6 writeToFile:v16 options:1 error:&v20];
-      v10 = v20;
+      v19 = 0;
+      v17 = [v6 writeToFile:v16 options:1 error:&v19];
+      v10 = v19;
       if (v17)
       {
 LABEL_14:
@@ -327,11 +324,11 @@ LABEL_14:
       v12 = TRILogCategory_ClientFramework();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v19 = *(*(a1 + 32) + 8);
+        v18 = *(*(a1 + 32) + 8);
         *buf = 138412546;
-        v23 = v19;
-        v24 = 2112;
-        v25 = v10;
+        v22 = v18;
+        v23 = 2112;
+        v24 = v10;
         v14 = "failed to write subject data to file %@ -- %@";
         goto LABEL_17;
       }
@@ -344,9 +341,9 @@ LABEL_14:
       {
         v13 = *(*(a1 + 32) + 8);
         *buf = 138412546;
-        v23 = v13;
-        v24 = 2112;
-        v25 = v10;
+        v22 = v13;
+        v23 = 2112;
+        v24 = v10;
         v14 = "failed to create directory for file %@ -- %@";
 LABEL_17:
         _os_log_error_impl(&dword_22EA6B000, v12, OS_LOG_TYPE_ERROR, v14, buf, 0x16u);
@@ -361,14 +358,12 @@ LABEL_17:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v23 = 0;
+    v22 = 0;
     _os_log_error_impl(&dword_22EA6B000, v15, OS_LOG_TYPE_ERROR, "failed to encode subject -- %@", buf, 0xCu);
   }
 
   *(*(*(a1 + 40) + 8) + 24) = 0;
 LABEL_15:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)subjectWithProjectId:(int)id

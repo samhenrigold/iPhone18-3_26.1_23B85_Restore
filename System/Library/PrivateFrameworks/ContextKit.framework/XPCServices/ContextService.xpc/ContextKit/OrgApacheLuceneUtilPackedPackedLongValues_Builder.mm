@@ -6,6 +6,7 @@
 - (void)dealloc;
 - (void)finish;
 - (void)growWithInt:(int)int;
+- (void)packWithLongArray:(id)array withInt:(int)int withInt:(int)withInt withFloat:(float)float;
 @end
 
 @implementation OrgApacheLuceneUtilPackedPackedLongValues_Builder
@@ -121,13 +122,106 @@ LABEL_6:
   return result;
 }
 
+- (void)packWithLongArray:(id)array withInt:(int)int withInt:(int)withInt withFloat:(float)float
+{
+  if (!array)
+  {
+    goto LABEL_27;
+  }
+
+  v11 = *&int;
+  v14 = *(array + 2);
+  if (v14 < 1)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v14, 0);
+  }
+
+  v15 = *(array + 2);
+  v16 = v15;
+  if (int > 1)
+  {
+    v17 = 1;
+    do
+    {
+      v18 = *(array + 2);
+      if (v17 >= v18)
+      {
+        IOSArray_throwOutOfBoundsWithMsg(v18, v17);
+      }
+
+      v15 = JavaLangMath_minWithLong_withLong_(v15, *(array + v17 + 2));
+      v19 = *(array + 2);
+      if (v17 >= v19)
+      {
+        IOSArray_throwOutOfBoundsWithMsg(v19, v17);
+      }
+
+      v16 = JavaLangMath_maxWithLong_withLong_(v16, *(array + v17++ + 2));
+    }
+
+    while (v11 != v17);
+  }
+
+  if (!(v15 | v16))
+  {
+    values = self->values_;
+    if (values)
+    {
+      v21 = new_OrgApacheLuceneUtilPackedPackedInts_NullReader_initWithInt_(v11);
+
+      IOSObjectArray_SetAndConsume(values, withInt, v21);
+      return;
+    }
+
+    goto LABEL_27;
+  }
+
+  if (v15 < 0)
+  {
+    v22 = 64;
+  }
+
+  else
+  {
+    v22 = OrgApacheLuceneUtilPackedPackedInts_bitsRequiredWithLong_(v16, a2, array, *&int, *&withInt, v6, v7, v8);
+  }
+
+  MutableWithInt_withInt_withFloat = OrgApacheLuceneUtilPackedPackedInts_getMutableWithInt_withInt_withFloat_(v11, v22, float);
+  v24 = MutableWithInt_withInt_withFloat;
+  if (v11 >= 1)
+  {
+    if (!MutableWithInt_withInt_withFloat)
+    {
+      goto LABEL_27;
+    }
+
+    v25 = 0;
+    do
+    {
+      LODWORD(v25) = [v24 setWithInt:v25 withLongArray:array withInt:v25 withInt:(v11 - v25)] + v25;
+    }
+
+    while (v25 < v11);
+  }
+
+  v26 = self->values_;
+  if (!v26)
+  {
+LABEL_27:
+    JreThrowNullPointerException();
+  }
+
+  IOSObjectArray_Set(v26, withInt, v24);
+}
+
 - (void)growWithInt:(int)int
 {
+  v3 = *&int;
   p_values = &self->values_;
   v5 = OrgApacheLuceneUtilRamUsageEstimator_shallowSizeOfWithNSObjectArray_(self->values_);
   v6 = *p_values;
   p_values[1] = (p_values[1] - v5);
-  v7 = JavaUtilArrays_copyOfWithNSObjectArray_withInt_(v6, int);
+  v7 = JavaUtilArrays_copyOfWithNSObjectArray_withInt_(v6, v3);
   JreStrongAssign(p_values, v7);
   p_values[1] = (p_values[1] + OrgApacheLuceneUtilRamUsageEstimator_shallowSizeOfWithNSObjectArray_(*p_values));
 }

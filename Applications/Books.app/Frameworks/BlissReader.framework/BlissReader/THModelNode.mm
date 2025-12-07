@@ -338,7 +338,7 @@ LABEL_2:
 
 - (id)pageNumberStringForAbsolutePageIndex:(unint64_t)index presentationType:(id)type
 {
-  v7 = [THBundle() localizedStringForKey:@"-" value:&stru_471858 table:0];
+  v7 = [THBundle(self a2)];
   v8 = [(THModelNode *)self relativePageIndexForAbsolutePageIndex:index forPresentationType:type];
   if (v8 == 0x7FFFFFFFFFFFFFFFLL || (v9 = [(THModelNode *)self contentNodeForRelativePageIndex:v8 forPresentationType:type]) == 0)
   {

@@ -44,12 +44,13 @@ id __53__MFMessageDisplayMetricsRegular_headerBottomPadding__block_invoke()
   return v1;
 }
 
-uint64_t __53__MFMessageDisplayMetricsRegular_headerBottomPadding__block_invoke_2(uint64_t a1)
+double __53__MFMessageDisplayMetricsRegular_headerBottomPadding__block_invoke_2(uint64_t a1)
 {
   [*(a1 + 32) _scaledValueForValue:56.0];
   [*(a1 + 32) lineHeight];
 
-  return UIRoundToViewScale();
+  UIRoundToViewScale();
+  return result;
 }
 
 @end

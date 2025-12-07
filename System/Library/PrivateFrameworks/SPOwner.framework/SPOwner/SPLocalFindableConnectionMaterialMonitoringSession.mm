@@ -36,13 +36,13 @@
 
 - (void)interruptionHandler:(id)handler
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v5 = LogCategory_LocalFindableConnectionMaterialMonitoring();
+  v5 = LogCategory_LocalFindableConnectionMaterialMonitoring(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v11 = handlerCopy;
+    v10 = handlerCopy;
     _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "SPLocalFindableConnectionMaterialMonitoring: interruptionHandler %@", buf, 0xCu);
   }
 
@@ -58,8 +58,6 @@
     block[4] = self;
     dispatch_sync(callbackQueue, block);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __74__SPLocalFindableConnectionMaterialMonitoringSession_interruptionHandler___block_invoke(uint64_t a1)
@@ -70,13 +68,13 @@ void __74__SPLocalFindableConnectionMaterialMonitoringSession_interruptionHandle
 
 - (void)invalidationHandler:(id)handler
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v5 = LogCategory_LocalFindableConnectionMaterialMonitoring();
+  v5 = LogCategory_LocalFindableConnectionMaterialMonitoring(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v11 = handlerCopy;
+    v10 = handlerCopy;
     _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "SPLocalFindableConnectionMaterialMonitoring: invalidationHandler %@", buf, 0xCu);
   }
 
@@ -93,8 +91,6 @@ void __74__SPLocalFindableConnectionMaterialMonitoringSession_interruptionHandle
     block[4] = self;
     dispatch_sync(callbackQueue, block);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __74__SPLocalFindableConnectionMaterialMonitoringSession_invalidationHandler___block_invoke(uint64_t a1)
@@ -146,14 +142,14 @@ void __74__SPLocalFindableConnectionMaterialMonitoringSession_invalidationHandle
     v14 = [v12 initWithServiceDescription:serviceDescription2];
     [(SPLocalFindableConnectionMaterialMonitoringSession *)self setSession:v14];
 
-    v15 = LogCategory_LocalFindableConnectionMaterialMonitoring();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = LogCategory_LocalFindableConnectionMaterialMonitoring(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       serviceDescription3 = [(SPLocalFindableConnectionMaterialMonitoringSession *)self serviceDescription];
       machService = [serviceDescription3 machService];
       LODWORD(location[0]) = 138412290;
       *(location + 4) = machService;
-      _os_log_impl(&dword_2643D0000, v15, OS_LOG_TYPE_DEFAULT, "SPLocalFindableConnectionMaterialMonitoring: Establishing XPC connection to %@", location, 0xCu);
+      _os_log_impl(&dword_2643D0000, v16, OS_LOG_TYPE_DEFAULT, "SPLocalFindableConnectionMaterialMonitoring: Establishing XPC connection to %@", location, 0xCu);
     }
 
     session2 = [(SPLocalFindableConnectionMaterialMonitoringSession *)self session];
@@ -162,8 +158,6 @@ void __74__SPLocalFindableConnectionMaterialMonitoringSession_invalidationHandle
 
   session3 = [(SPLocalFindableConnectionMaterialMonitoringSession *)self session];
   proxy = [session3 proxy];
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return proxy;
 }
@@ -235,7 +229,7 @@ uint64_t __69__SPLocalFindableConnectionMaterialMonitoringSession_remoteInterfac
 
 void __115__SPLocalFindableConnectionMaterialMonitoringSession_startLocalFindableConnectionMaterialMonitoringWithCompletion___block_invoke(uint64_t a1)
 {
-  v2 = LogCategory_LocalFindableConnectionMaterialMonitoring();
+  v2 = LogCategory_LocalFindableConnectionMaterialMonitoring(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -267,7 +261,7 @@ void __115__SPLocalFindableConnectionMaterialMonitoringSession_startLocalFindabl
 void __115__SPLocalFindableConnectionMaterialMonitoringSession_startLocalFindableConnectionMaterialMonitoringWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = LogCategory_LocalFindableConnectionMaterialMonitoring();
+  v4 = LogCategory_LocalFindableConnectionMaterialMonitoring(v3);
   v5 = v4;
   if (v3)
   {
@@ -301,7 +295,7 @@ void __115__SPLocalFindableConnectionMaterialMonitoringSession_startLocalFindabl
 
 void __114__SPLocalFindableConnectionMaterialMonitoringSession_stopLocalFindableConnectionMaterialMonitoringWithCompletion___block_invoke(uint64_t a1)
 {
-  v2 = LogCategory_LocalFindableConnectionMaterialMonitoring();
+  v2 = LogCategory_LocalFindableConnectionMaterialMonitoring(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -333,7 +327,7 @@ void __114__SPLocalFindableConnectionMaterialMonitoringSession_stopLocalFindable
 void __114__SPLocalFindableConnectionMaterialMonitoringSession_stopLocalFindableConnectionMaterialMonitoringWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = LogCategory_LocalFindableConnectionMaterialMonitoring();
+  v4 = LogCategory_LocalFindableConnectionMaterialMonitoring(v3);
   v5 = v4;
   if (v3)
   {
@@ -370,13 +364,13 @@ void __114__SPLocalFindableConnectionMaterialMonitoringSession_stopLocalFindable
 
 void __116__SPLocalFindableConnectionMaterialMonitoringSession_peripheralConnectionMaterialForAccessoryIdentifier_completion___block_invoke(id *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = LogCategory_OwnerSession();
+  v11 = *MEMORY[0x277D85DE8];
+  v2 = LogCategory_OwnerSession(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [a1[4] UUIDString];
     *buf = 138412290;
-    v11 = v3;
+    v10 = v3;
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "peripheralConnectionMaterial for %@", buf, 0xCu);
   }
 
@@ -386,14 +380,13 @@ void __116__SPLocalFindableConnectionMaterialMonitoringSession_peripheralConnect
   block[1] = 3221225472;
   block[2] = __116__SPLocalFindableConnectionMaterialMonitoringSession_peripheralConnectionMaterialForAccessoryIdentifier_completion___block_invoke_68;
   block[3] = &unk_279B58BA8;
-  objc_copyWeak(&v9, buf);
-  v7 = a1[4];
-  v8 = a1[6];
+  objc_copyWeak(&v8, buf);
+  v6 = a1[4];
+  v7 = a1[6];
   dispatch_async(v4, block);
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v8);
   objc_destroyWeak(buf);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __116__SPLocalFindableConnectionMaterialMonitoringSession_peripheralConnectionMaterialForAccessoryIdentifier_completion___block_invoke_68(uint64_t a1)
@@ -428,20 +421,18 @@ void __111__SPLocalFindableConnectionMaterialMonitoringSession_updatedConnection
 
 void __115__SPLocalFindableConnectionMaterialMonitoringSession_startLocalFindableConnectionMaterialMonitoringWithCompletion___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2643D0000, a2, OS_LOG_TYPE_ERROR, "[SPLocalFindableConnectionMaterialMonitoringSession start] completion. Error - %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2643D0000, a2, OS_LOG_TYPE_ERROR, "[SPLocalFindableConnectionMaterialMonitoringSession start] completion. Error - %@", &v2, 0xCu);
 }
 
 void __114__SPLocalFindableConnectionMaterialMonitoringSession_stopLocalFindableConnectionMaterialMonitoringWithCompletion___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2643D0000, a2, OS_LOG_TYPE_ERROR, "[SPLocalFindableConnectionMaterialMonitoringSession stop] completion. Error - %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2643D0000, a2, OS_LOG_TYPE_ERROR, "[SPLocalFindableConnectionMaterialMonitoringSession stop] completion. Error - %@", &v2, 0xCu);
 }
 
 @end

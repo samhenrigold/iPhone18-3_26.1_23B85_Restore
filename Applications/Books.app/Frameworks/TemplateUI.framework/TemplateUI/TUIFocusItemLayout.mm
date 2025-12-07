@@ -8,7 +8,7 @@
 
 - (id)collectLinkEntities
 {
-  v2 = [(TUILayout *)self box];
+  v2 = objc_msgSend_box(self, a2);
   linkEntities = [v2 linkEntities];
 
   return linkEntities;
@@ -22,13 +22,13 @@
   }
 
   v5 = [context renderModelForContainerLayout:self kind:6];
-  v15 = [(TUILayout *)self box];
+  v15 = objc_msgSend_box(self);
   identifier = [v15 identifier];
-  v7 = [(TUILayout *)self box];
+  v7 = objc_msgSend_box(self);
   focusStyle = [v7 focusStyle];
-  v9 = [(TUILayout *)self box];
+  v9 = objc_msgSend_box(self);
   actionHandler = [v9 actionHandler];
-  v11 = [(TUILayout *)self box];
+  v11 = objc_msgSend_box(self);
   linkEntities = [v11 linkEntities];
   v13 = [TUIFocusContainerView renderModelWithSubviewsModel:v5 identifier:identifier focusStyle:focusStyle actionHandler:actionHandler linkEntities:linkEntities];
 
@@ -44,7 +44,7 @@
   y = v5;
   width = v7;
   height = v9;
-  v11 = [(TUILayout *)self box];
+  v11 = objc_msgSend_box(self);
   focusStyle = [v11 focusStyle];
 
   if (focusStyle)

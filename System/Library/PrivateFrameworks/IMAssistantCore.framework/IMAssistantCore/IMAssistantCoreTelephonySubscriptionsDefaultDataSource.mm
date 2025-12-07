@@ -67,7 +67,7 @@
 
 - (id)subscriptionContextForSenderIdentity:(id)identity
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   accountUUID = [identity accountUUID];
   uUIDString = [accountUUID UUIDString];
 
@@ -75,25 +75,25 @@
   ctSubscriptionInfo = [mEMORY[0x277D1A908] ctSubscriptionInfo];
   subscriptions = [ctSubscriptionInfo subscriptions];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v8 = subscriptions;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
-    v10 = *v18;
+    v10 = *v17;
     while (2)
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
+        v12 = *(*(&v16 + 1) + 8 * i);
         labelID = [v12 labelID];
         v14 = [uUIDString isEqualToString:labelID];
 
@@ -104,7 +104,7 @@
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v9)
       {
         continue;
@@ -115,8 +115,6 @@
   }
 
 LABEL_11:
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

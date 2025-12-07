@@ -37,7 +37,7 @@ void __47__DNDSDateIntervalLifetimeMonitor_setDelegate___block_invoke(uint64_t a
 
 - (id)updateForModeAssertions:(id)assertions date:(id)date
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   assertionsCopy = assertions;
   dateCopy = date;
   queue = [(DNDSBaseLifetimeMonitor *)self queue];
@@ -47,7 +47,7 @@ void __47__DNDSDateIntervalLifetimeMonitor_setDelegate___block_invoke(uint64_t a
   if (os_log_type_enabled(DNDSLogDateIntervalLifetimeMonitor, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v47 = dateCopy;
+    v46 = dateCopy;
     _os_log_impl(&dword_24912E000, v9, OS_LOG_TYPE_DEFAULT, "Refreshing monitor, date=%{public}@", buf, 0xCu);
   }
 
@@ -55,26 +55,26 @@ void __47__DNDSDateIntervalLifetimeMonitor_setDelegate___block_invoke(uint64_t a
   distantFuture = [MEMORY[0x277CBEAA8] distantFuture];
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   v11 = assertionsCopy;
-  v12 = [v11 countByEnumeratingWithState:&v41 objects:v45 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v40 objects:v44 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v42;
+    v14 = *v41;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v42 != v14)
+        if (*v41 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v41 + 1) + 8 * i);
+        v16 = *(*(&v40 + 1) + 8 * i);
         details = [v16 details];
         lifetime = [details lifetime];
 
@@ -115,7 +115,7 @@ void __47__DNDSDateIntervalLifetimeMonitor_setDelegate___block_invoke(uint64_t a
 LABEL_16:
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v41 objects:v45 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v40 objects:v44 count:16];
     }
 
     while (v13);
@@ -133,7 +133,7 @@ LABEL_16:
     {
       lifetimeTimerFireDate = selfCopy->_lifetimeTimerFireDate;
       *buf = 138543362;
-      v47 = lifetimeTimerFireDate;
+      v46 = lifetimeTimerFireDate;
       _os_log_impl(&dword_24912E000, v29, OS_LOG_TYPE_DEFAULT, "Invalidating existing timer; fireDate=%{public}@", buf, 0xCu);
     }
 
@@ -150,7 +150,7 @@ LABEL_16:
     if (os_log_type_enabled(DNDSLogDateIntervalLifetimeMonitor, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v47 = distantFuture;
+      v46 = distantFuture;
       _os_log_impl(&dword_24912E000, v33, OS_LOG_TYPE_DEFAULT, "Scheduling timer; nextUpdateDate=%{public}@", buf, 0xCu);
     }
 
@@ -161,8 +161,6 @@ LABEL_16:
   }
 
   v35 = [[DNDSLifetimeMonitorResult alloc] initWithActiveUUIDs:array expiredUUIDs:array2];
-
-  v36 = *MEMORY[0x277D85DE8];
 
   return v35;
 }

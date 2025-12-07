@@ -4,12 +4,12 @@
 - (BWRenderList)initWithAnimationSupported:(BOOL)supported affectsMetadata:(BOOL)metadata;
 - (BWRenderList)initWithResourceProvider:(id)provider originalFilters:(id)filters processedFilters:(id)processedFilters optimizationStrategy:(signed __int16)strategy stillImageSettings:(id)settings;
 - (NSString)description;
-- (uint64_t)_appendBatchRendererFromProvider:(void *)provider toRendererList:(void *)list parameterList:(uint64_t)parameterList withContext:;
 - (uint64_t)_appendSingleRendererOfType:(uint64_t)type forFilter:(void *)filter fromProvider:(void *)provider toRendererList:(void *)list parameterList:(uint64_t)parameterList withContext:;
-- (uint64_t)_continueOptimizingRendererList:(void *)list parameterList:(id)parameterList withFilter:(void *)filter fromProvider:(id *)provider context:;
-- (uint64_t)_finishOptimizingRendererList:(void *)list parameterList:(void *)parameterList fromProvider:(unsigned __int16 *)provider context:(void *)context stillImageSettings:;
 - (uint64_t)_shouldStreamingSDOFRendererConsumeFilter:(uint64_t)filter;
 - (uint64_t)_shouldUseMetalRendererForFilterWithName:(uint64_t)name;
+- (void)_appendBatchRendererFromProvider:(void *)provider toRendererList:(void *)list parameterList:(uint64_t)parameterList withContext:;
+- (void)_continueOptimizingRendererList:(void *)list parameterList:(id)parameterList withFilter:(void *)filter fromProvider:(id *)provider context:;
+- (void)_finishOptimizingRendererList:(void *)list parameterList:(void *)parameterList fromProvider:(unsigned __int16 *)provider context:(void *)context stillImageSettings:;
 - (void)dealloc;
 - (void)prepareWithParameters:(id)parameters forInputVideoFormat:(id)format inputMediaPropertiesByAttachedMediaKey:(id)key;
 - (void)setPrepared:(BOOL)prepared;
@@ -243,7 +243,7 @@
   return v12;
 }
 
-- (uint64_t)_continueOptimizingRendererList:(void *)list parameterList:(id)parameterList withFilter:(void *)filter fromProvider:(id *)provider context:
+- (void)_continueOptimizingRendererList:(void *)list parameterList:(id)parameterList withFilter:(void *)filter fromProvider:(id *)provider context:
 {
   if (!result)
   {
@@ -252,10 +252,10 @@
 
   v11 = result;
   name = [parameterList name];
-  shallowDepthOfFieldFilterName = [objc_opt_class() shallowDepthOfFieldFilterName];
-  v14 = [name isEqualToString:@"CIDepthEffectMakeBlurMap"];
-  v15 = [name isEqualToString:shallowDepthOfFieldFilterName];
-  v16 = [BWRenderList _shouldUseMetalRendererForFilterWithName:v11];
+  [objc_opt_class() shallowDepthOfFieldFilterName];
+  isEqualToString = objc_msgSend_isEqualToString_(name);
+  v14 = objc_msgSend_isEqualToString_(name);
+  v15 = [BWRenderList _shouldUseMetalRendererForFilterWithName:v11];
   if (!*(provider + 24))
   {
     if ([BWRenderList _shouldStreamingSDOFRendererConsumeFilter:v11])
@@ -272,31 +272,31 @@
     [(BWRenderList *)v11 _appendBatchRendererFromProvider:filter toRendererList:a2 parameterList:list withContext:provider];
   }
 
-  if ((v15 | v14))
+  if ((v14 | isEqualToString))
   {
     result = [(BWRenderList *)v11 _appendBatchRendererFromProvider:filter toRendererList:a2 parameterList:list withContext:provider];
-    v17 = *provider;
-    if (v17 <= 1)
+    v16 = *provider;
+    if (v16 <= 1)
     {
       if (*provider)
       {
-        if (v17 != 1)
+        if (v16 != 1)
         {
           return result;
         }
 
         provider[7] = parameterList;
-        v18 = v11;
-        v19 = 1;
+        v17 = v11;
+        v18 = 1;
         goto LABEL_29;
       }
 
       return [BWRenderList _continueOptimizingRendererList:provider parameterList:parameterList withFilter:? fromProvider:? context:?];
     }
 
-    if (v17 != 2)
+    if (v16 != 2)
     {
-      if (v17 != 4)
+      if (v16 != 4)
       {
         return result;
       }
@@ -304,33 +304,33 @@
       return [BWRenderList _continueOptimizingRendererList:provider parameterList:parameterList withFilter:? fromProvider:? context:?];
     }
 
-    if (([objc_msgSend(parameterList "name")] & 1) == 0)
+    if ((objc_msgSend_isEqualToString_([parameterList name]) & 1) == 0)
     {
       objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:objc_msgSend(MEMORY[0x1E696AEC0] userInfo:{"stringWithFormat:", @"CIFilter must be of type CIDepthEffectMakeBlurMap.  Received: %@.", objc_msgSend(parameterList, "name")), 0}]);
     }
 
-    v18 = v11;
-    v19 = 3;
+    v17 = v11;
+    v18 = 3;
 LABEL_29:
 
-    return [(BWRenderList *)v18 _appendSingleRendererOfType:v19 forFilter:parameterList fromProvider:filter toRendererList:a2 parameterList:list withContext:provider];
+    return [(BWRenderList *)v17 _appendSingleRendererOfType:v18 forFilter:parameterList fromProvider:filter toRendererList:a2 parameterList:list withContext:provider];
   }
 
-  v20 = *(provider + 24);
-  if (v16)
+  v19 = *(provider + 24);
+  if (v15)
   {
-    if (v20 != 5)
+    if (v19 != 5)
     {
       [(BWRenderList *)v11 _appendBatchRendererFromProvider:filter toRendererList:a2 parameterList:list withContext:provider];
       *(provider + 24) = 5;
     }
 
-    v18 = v11;
-    v19 = 5;
+    v17 = v11;
+    v18 = 5;
     goto LABEL_29;
   }
 
-  if (v20 != 4)
+  if (v19 != 4)
   {
     [(BWRenderList *)v11 _appendBatchRendererFromProvider:filter toRendererList:a2 parameterList:list withContext:provider];
     *(provider + 24) = 4;
@@ -460,7 +460,7 @@ LABEL_29:
   }
 }
 
-- (uint64_t)_appendBatchRendererFromProvider:(void *)provider toRendererList:(void *)list parameterList:(uint64_t)parameterList withContext:
+- (void)_appendBatchRendererFromProvider:(void *)provider toRendererList:(void *)list parameterList:(uint64_t)parameterList withContext:
 {
   if (result)
   {
@@ -557,7 +557,7 @@ LABEL_29:
   return p_rendererList != 0;
 }
 
-- (uint64_t)_finishOptimizingRendererList:(void *)list parameterList:(void *)parameterList fromProvider:(unsigned __int16 *)provider context:(void *)context stillImageSettings:
+- (void)_finishOptimizingRendererList:(void *)list parameterList:(void *)parameterList fromProvider:(unsigned __int16 *)provider context:(void *)context stillImageSettings:
 {
   if (result)
   {
@@ -589,90 +589,90 @@ LABEL_29:
 {
   if (name)
   {
-    NSClassFromString(&cfstr_Ciphotoeffect.isa);
-    v1 = OUTLINED_FUNCTION_2_85();
-    NSClassFromString(&cfstr_Ciphotoeffect3_1.isa);
-    v2 = OUTLINED_FUNCTION_2_85();
-    NSClassFromString(&cfstr_Cicolorcubewit.isa);
-    if (OUTLINED_FUNCTION_2_85())
+    v1 = NSClassFromString(&cfstr_Ciphotoeffect.isa);
+    v2 = OUTLINED_FUNCTION_2_85(v1);
+    v3 = NSClassFromString(&cfstr_Ciphotoeffect3_1.isa);
+    v4 = OUTLINED_FUNCTION_2_85(v3);
+    v5 = NSClassFromString(&cfstr_Cicolorcubewit.isa);
+    if (OUTLINED_FUNCTION_2_85(v5))
     {
-      v3 = 1;
+      v6 = 1;
     }
 
     else
     {
-      NSClassFromString(&cfstr_Cicolorcubesmi.isa);
-      v3 = OUTLINED_FUNCTION_2_85();
+      v7 = NSClassFromString(&cfstr_Cicolorcubesmi.isa);
+      v6 = OUTLINED_FUNCTION_2_85(v7);
     }
 
-    if (v1)
+    if (v2)
     {
-      v4 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v4 = v2 | v3;
+      v8 = v4 | v6;
     }
   }
 
   else
   {
-    v4 = 0;
+    v8 = 0;
   }
 
-  return v4 & 1;
+  return v8 & 1;
 }
 
 - (uint64_t)_shouldStreamingSDOFRendererConsumeFilter:(uint64_t)filter
 {
   if (filter)
   {
-    NSClassFromString(&cfstr_Ciphotoeffect.isa);
-    v1 = OUTLINED_FUNCTION_0_85();
-    NSClassFromString(&cfstr_Ciphotoeffect3_1.isa);
-    v2 = OUTLINED_FUNCTION_0_85();
-    NSClassFromString(&cfstr_Ciportraiteffe_8.isa);
-    if (OUTLINED_FUNCTION_0_85())
+    v1 = NSClassFromString(&cfstr_Ciphotoeffect.isa);
+    v2 = OUTLINED_FUNCTION_0_85(v1);
+    v3 = NSClassFromString(&cfstr_Ciphotoeffect3_1.isa);
+    v4 = OUTLINED_FUNCTION_0_85(v3);
+    v5 = NSClassFromString(&cfstr_Ciportraiteffe_8.isa);
+    if (OUTLINED_FUNCTION_0_85(v5))
     {
-      v3 = 1;
+      v6 = 1;
     }
 
     else
     {
-      NSClassFromString(&cfstr_Ciportraiteffe_9.isa);
-      v3 = OUTLINED_FUNCTION_0_85();
+      v7 = NSClassFromString(&cfstr_Ciportraiteffe_9.isa);
+      v6 = OUTLINED_FUNCTION_0_85(v7);
     }
 
-    NSClassFromString(&cfstr_Cicolorcubewit.isa);
-    if (OUTLINED_FUNCTION_0_85())
+    v8 = NSClassFromString(&cfstr_Cicolorcubewit.isa);
+    if (OUTLINED_FUNCTION_0_85(v8))
     {
-      v4 = 1;
-    }
-
-    else
-    {
-      NSClassFromString(&cfstr_Cicolorcubesmi.isa);
-      v4 = OUTLINED_FUNCTION_0_85();
-    }
-
-    if ((v1 | v2))
-    {
-      v5 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v5 = v3 | v4;
+      v10 = NSClassFromString(&cfstr_Cicolorcubesmi.isa);
+      v9 = OUTLINED_FUNCTION_0_85(v10);
+    }
+
+    if ((v2 | v4))
+    {
+      v11 = 1;
+    }
+
+    else
+    {
+      v11 = v6 | v9;
     }
   }
 
   else
   {
-    v5 = 0;
+    v11 = 0;
   }
 
-  return v5 & 1;
+  return v11 & 1;
 }
 
 - (uint64_t)_appendSingleRendererOfType:(uint64_t)type forFilter:(void *)filter fromProvider:(void *)provider toRendererList:(void *)list parameterList:(uint64_t)parameterList withContext:
@@ -755,7 +755,7 @@ LABEL_29:
   return result;
 }
 
-- (uint64_t)_continueOptimizingRendererList:(uint64_t)a3 parameterList:withFilter:fromProvider:context:.cold.1(_WORD *a1, uint64_t a2, uint64_t a3)
+- (void)_continueOptimizingRendererList:(uint64_t)a3 parameterList:withFilter:fromProvider:context:.cold.1(_WORD *a1, uint64_t a2, uint64_t a3)
 {
   *a1 = 0;
   result = [*(a2 + 40) addObject:?];

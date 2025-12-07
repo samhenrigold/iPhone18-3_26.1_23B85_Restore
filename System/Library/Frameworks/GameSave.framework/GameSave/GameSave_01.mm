@@ -1,143 +1,18 @@
-uint64_t specialized GameSaveSyncedDirectory.checkForConflicts(_:_:)()
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(*v0 + 496);
-  v2 = *(*v0 + 488);
-  v6 = *v0;
-
-  v3 = *MEMORY[0x277D85DE8];
-
-  return MEMORY[0x2822009F8](specialized GameSaveSyncedDirectory.checkForConflicts(_:_:), 0, 0);
-}
-
-id specialized static GameSaveSyncedDirectory.shouldDismissSignedOutError()()
-{
-  v0 = [objc_opt_self() standardUserDefaults];
-  v1 = MEMORY[0x23EE6B6E0](0xD000000000000041, 0x800000023898BDF0);
-  v2 = [v0 BOOLForKey_];
-
-  if (one-time initialization token for common != -1)
-  {
-    swift_once();
-  }
-
-  v3 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v3, static Logger.common);
-  v4 = Logger.logObject.getter();
-  v5 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v4, v5))
-  {
-    v6 = swift_slowAlloc();
-    *v6 = 67109120;
-    *(v6 + 4) = v2;
-    _os_log_impl(&dword_238952000, v4, v5, "Did show iCloud Drive signed out error before: %{BOOL}d", v6, 8u);
-    MEMORY[0x23EE6C260](v6, -1, -1);
-  }
-
-  return v2;
-}
-
-uint64_t partial apply for closure #1 in GameSaveSyncedDirectory.drawStateUI(window:)(uint64_t a1)
-{
-  v4 = v1[2];
-  v5 = v1[3];
-  v6 = v1[4];
-  v7 = v1[5];
-  v8 = v1[6];
-  v9 = swift_task_alloc();
-  *(v2 + 16) = v9;
-  *v9 = v2;
-  v9[1] = GameSaveSyncedDirectory.finishSyncing();
-
-  return closure #1 in GameSaveSyncedDirectory.drawStateUI(window:)(a1, v4, v5, v6, v7, v8);
-}
-
-void partial apply for closure #1 in GameSaveSyncedDirectory.showUI(window:)()
-{
-  v1 = *(v0 + 24);
-  v2 = *(v0 + 16);
-  GameSaveSyncedDirectory.drawStateUI(window:)(v1);
-}
-
-uint64_t outlined consume of (@escaping @callee_guaranteed (@in_guaranteed GameSaveSyncedDirectory.State) -> ())?(uint64_t result)
-{
-  if (result)
-  {
-  }
-
-  return result;
-}
-
-void partial apply for closure #1 in GameSaveSyncedDirectory.lastResponse.setter()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  v3 = *(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__lastResponse);
-  *(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__lastResponse) = v2;
-  v4 = v2;
-}
-
-uint64_t partial apply for closure #1 in GameSaveSyncedDirectory.accountSigningInObserver.setter()
-{
-  return partial apply for closure #1 in GameSaveSyncedDirectory.accountSigningInObserver.setter();
-}
-
-{
-  v1 = *(v0 + 16);
-  v2 = *(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__accountSigningInObserver);
-  *(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__accountSigningInObserver) = *(v0 + 24);
-  swift_unknownObjectRetain();
-  return swift_unknownObjectRelease();
-}
-
-void specialized GameSaveSyncedDirectory._customizeAlert<A>(_:with:)(void *a1, uint64_t a2)
-{
-  v4 = type metadata accessor for UIHostingControllerSizingOptions();
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v6 = *(a2 + 16);
-  v13 = *a2;
-  v14 = v6;
-  v15 = *(a2 + 32);
-  v16 = *(a2 + 48);
-  objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19UIHostingControllerCy8GameSave18ConflictScrollViewVGMd, &_s7SwiftUI19UIHostingControllerCy8GameSave18ConflictScrollViewVGMR));
-  outlined init with copy of ConflictScrollView(a2, v12);
-  v7 = UIHostingController.init(rootView:)();
-  static UIHostingControllerSizingOptions.preferredContentSize.getter();
-  dispatch thunk of UIHostingController.sizingOptions.setter();
-  v8 = v7;
-  v9 = [v8 view];
-  if (v9)
-  {
-    v10 = v9;
-    v11 = [objc_opt_self() clearColor];
-    [v10 setBackgroundColor_];
-
-    [a1 setContentViewController_];
-  }
-
-  else
-  {
-    __break(1u);
-  }
-}
-
 void specialized GameSaveSyncedDirectory._customizeAlert<A>(_:with:)(void *a1)
 {
   v2 = type metadata accessor for UIHostingControllerSizingOptions();
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v4 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19UIHostingControllerCy8GameSave11SpinnerViewVGMd, &_s7SwiftUI19UIHostingControllerCy8GameSave11SpinnerViewVGMR));
-  v5 = UIHostingController.init(rootView:)();
+  v3 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19UIHostingControllerCy8GameSave11SpinnerViewVGMd, &_s7SwiftUI19UIHostingControllerCy8GameSave11SpinnerViewVGMR));
+  v4 = UIHostingController.init(rootView:)();
   static UIHostingControllerSizingOptions.preferredContentSize.getter();
   dispatch thunk of UIHostingController.sizingOptions.setter();
-  v6 = v5;
-  v7 = [v6 view];
-  if (v7)
+  v5 = v4;
+  v6 = [v5 view];
+  if (v6)
   {
-    v8 = v7;
-    v9 = [objc_opt_self() clearColor];
-    [v8 setBackgroundColor_];
+    v7 = v6;
+    v8 = [objc_opt_self() clearColor];
+    [v7 setBackgroundColor_];
 
     [a1 setContentViewController_];
   }
@@ -166,59 +41,52 @@ LABEL_20:
       swift_once();
     }
 
-    v2 = static GameSaveSyncedDirectory.loadedDirectorys;
-    v3 = static GameSaveSyncedDirectory.loadedDirectorys + 64;
-    v4 = 1 << *(static GameSaveSyncedDirectory.loadedDirectorys + 32);
-    v5 = -1;
-    if (v4 < 64)
+    v2 = static GameSaveSyncedDirectory.loadedDirectorys + 64;
+    v3 = 1 << *(static GameSaveSyncedDirectory.loadedDirectorys + 32);
+    v4 = -1;
+    if (v3 < 64)
     {
-      v5 = ~(-1 << v4);
+      v4 = ~(-1 << v3);
     }
 
-    v6 = v5 & *(static GameSaveSyncedDirectory.loadedDirectorys + 8);
-    v7 = (v4 + 63) >> 6;
+    v5 = v4 & *(static GameSaveSyncedDirectory.loadedDirectorys + 8);
+    v6 = (v3 + 63) >> 6;
 
-    v8 = 0;
-    if (v6)
+    v7 = 0;
+    if (v5)
     {
-      while (1)
-      {
-        v9 = v8;
-LABEL_13:
-        v10 = __clz(__rbit64(v6));
-        v6 &= v6 - 1;
-        v11 = *(v2[7] + ((v9 << 9) | (8 * v10)));
-
-        GameSaveSyncedDirectory.close()();
-
-        if (!v6)
-        {
-          goto LABEL_9;
-        }
-      }
+      goto LABEL_13;
     }
 
     while (1)
     {
-LABEL_9:
-      v9 = v8 + 1;
-      if (__OFADD__(v8, 1))
+      v8 = v7 + 1;
+      if (__OFADD__(v7, 1))
       {
         __break(1u);
         goto LABEL_20;
       }
 
-      if (v9 >= v7)
+      if (v8 >= v6)
       {
         break;
       }
 
-      v6 = *&v3[8 * v9];
-      ++v8;
-      if (v6)
+      v5 = *&v2[8 * v8];
+      ++v7;
+      if (v5)
       {
-        v8 = v9;
-        goto LABEL_13;
+        v7 = v8;
+        do
+        {
+LABEL_13:
+          v5 &= v5 - 1;
+
+          GameSaveSyncedDirectory.close()();
+        }
+
+        while (v5);
+        continue;
       }
     }
 
@@ -230,25 +98,20 @@ LABEL_9:
 
 uint64_t specialized static GameSaveSyncedDirectory.cleanupDirectory(containerIdentifier:)(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2[3] = a1;
   v2[4] = a2;
-  v3 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   v2[5] = swift_task_alloc();
-  v4 = type metadata accessor for URL();
-  v2[6] = v4;
-  v5 = *(v4 - 8);
-  v2[7] = v5;
-  v6 = *(v5 + 64) + 15;
+  v3 = type metadata accessor for URL();
+  v2[6] = v3;
+  v2[7] = *(v3 - 8);
   v2[8] = swift_task_alloc();
-  v7 = *MEMORY[0x277D85DE8];
 
   return MEMORY[0x2822009F8](specialized static GameSaveSyncedDirectory.cleanupDirectory(containerIdentifier:), 0, 0);
 }
 
 uint64_t specialized static GameSaveSyncedDirectory.cleanupDirectory(containerIdentifier:)()
 {
-  v23 = *MEMORY[0x277D85DE8];
   if (os_variant_has_internal_content())
   {
     v1 = specialized static GameSaveSyncedDirectory._resolveContainerIdentifier(_:)(v0[3], v0[4]);
@@ -273,17 +136,14 @@ uint64_t specialized static GameSaveSyncedDirectory.cleanupDirectory(containerId
         MEMORY[0x23EE6C260](v8, -1, -1);
       }
 
-      v9 = type metadata accessor for GameSaveSyncedDirectory(0);
-      v10 = *(v9 + 48);
-      v11 = *(v9 + 52);
+      type metadata accessor for GameSaveSyncedDirectory(0);
       swift_allocObject();
       v0[9] = GameSaveSyncedDirectory.init(containerIdentifier:)(v3, v4);
       GameSaveSyncedDirectory.startSyncing(mode:)(255);
-      v12 = swift_task_alloc();
-      v0[10] = v12;
-      *v12 = v0;
-      v12[1] = specialized static GameSaveSyncedDirectory.cleanupDirectory(containerIdentifier:);
-      v13 = *MEMORY[0x277D85DE8];
+      v9 = swift_task_alloc();
+      v0[10] = v9;
+      *v9 = v0;
+      v9[1] = specialized static GameSaveSyncedDirectory.cleanupDirectory(containerIdentifier:);
 
       return GameSaveSyncedDirectory._waitForDirectorySync(ui:)(0);
     }
@@ -293,93 +153,76 @@ uint64_t specialized static GameSaveSyncedDirectory.cleanupDirectory(containerId
       swift_once();
     }
 
-    v15 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v15, static Logger.common);
-    v16 = Logger.logObject.getter();
-    v17 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v16, v17))
+    v11 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v11, static Logger.common);
+    v12 = Logger.logObject.getter();
+    v13 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v12, v13))
     {
-      v18 = swift_slowAlloc();
-      *v18 = 0;
-      _os_log_impl(&dword_238952000, v16, v17, "Can't request Game Synced Directory without a valid containerIdentifier", v18, 2u);
-      MEMORY[0x23EE6C260](v18, -1, -1);
+      v14 = swift_slowAlloc();
+      *v14 = 0;
+      _os_log_impl(&dword_238952000, v12, v13, "Can't request Game Synced Directory without a valid containerIdentifier", v14, 2u);
+      MEMORY[0x23EE6C260](v14, -1, -1);
     }
   }
 
-  v19 = v0[8];
-  v20 = v0[5];
+  v15 = v0[1];
 
-  v21 = v0[1];
-  v22 = *MEMORY[0x277D85DE8];
-
-  return v21();
+  return v15();
 }
 
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(*v0 + 80);
-  v5 = *v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 
   return MEMORY[0x2822009F8](specialized static GameSaveSyncedDirectory.cleanupDirectory(containerIdentifier:), 0, 0);
 }
 
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v1 = v0[9];
-  v2 = v0[6];
-  v3 = v0[7];
-  v4 = v0[5];
+  v1 = v0[6];
+  v2 = v0[7];
+  v3 = v0[5];
   GameSaveSyncedDirectory.close()();
-  GameSaveSyncedDirectory.getLocalURL()(v4);
-  if ((*(v3 + 48))(v4, 1, v2) == 1)
+  GameSaveSyncedDirectory.getLocalURL()(v3);
+  if ((*(v2 + 48))(v3, 1, v1) == 1)
   {
-    v5 = v0[9];
-    v6 = v0[5];
+    v4 = v0[5];
 
-    outlined destroy of URL?(v6, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    outlined destroy of URL?(v4, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   }
 
   else
   {
     (*(v0[7] + 32))(v0[8], v0[5], v0[6]);
-    v7 = [objc_opt_self() defaultManager];
-    URL._bridgeToObjectiveC()(v8);
-    v10 = v9;
+    v5 = [objc_opt_self() defaultManager];
+    URL._bridgeToObjectiveC()(v6);
+    v8 = v7;
     v0[2] = 0;
-    v11 = [v7 removeItemAtURL:v9 error:v0 + 2];
+    v9 = [v5 removeItemAtURL:v7 error:v0 + 2];
 
-    v12 = v0[2];
-    v13 = v0[9];
-    v15 = v0[7];
-    v14 = v0[8];
-    v16 = v0[6];
-    if (v11)
+    v10 = v0[2];
+    v12 = v0[7];
+    v11 = v0[8];
+    v13 = v0[6];
+    if (v9)
     {
-      v17 = *(v15 + 8);
-      v18 = v12;
-      v17(v14, v16);
+      v14 = *(v12 + 8);
+      v15 = v10;
+      v14(v11, v13);
     }
 
     else
     {
-      v19 = v12;
-      v20 = _convertNSErrorToError(_:)();
+      v16 = v10;
+      v17 = _convertNSErrorToError(_:)();
 
       swift_willThrow();
 
-      (*(v15 + 8))(v14, v16);
+      (*(v12 + 8))(v11, v13);
     }
   }
 
-  v21 = v0[8];
-  v22 = v0[5];
+  v18 = v0[1];
 
-  v23 = v0[1];
-  v24 = *MEMORY[0x277D85DE8];
-
-  return v23();
+  return v18();
 }
 
 uint64_t sub_23896D9B0@<X0>(void *a1@<X0>, void *a2@<X8>)
@@ -395,7 +238,6 @@ uint64_t sub_23896D9CC(uint64_t *a1, void *a2)
   v3 = *a1;
   v2 = a1[1];
   v4 = (*a2 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localizedNameOfSavingComputer);
-  v5 = v4[1];
   *v4 = v3;
   v4[1] = v2;
 }
@@ -410,24 +252,20 @@ uint64_t sub_23896DA1C@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
   return v6(a2, v3 + v4, v5);
 }
 
-void type metadata completion function for GameSaveSyncedDirectory()
+void type metadata completion function for GameSaveSyncedDirectory(uint64_t a1)
 {
-  v0 = type metadata accessor for GameSaveSyncedDirectory.State(319);
+  type metadata accessor for GameSaveSyncedDirectory.State(319);
   if (v1 <= 0x3F)
   {
-    v8 = *(v0 - 8) + 64;
     type metadata accessor for CheckedContinuation<(), Never>?(319, &lazy cache variable for type metadata for CheckedContinuation<(), Never>?, &_sScCyyts5NeverOGMd, &_sScCyyts5NeverOGMR, MEMORY[0x277D83D88]);
-    if (v3 <= 0x3F)
+    if (v2 <= 0x3F)
     {
-      v9 = *(v2 - 8) + 64;
       type metadata accessor for GameSaveSyncedDirectory.State?(319, &lazy cache variable for type metadata for GameSaveSyncedDirectory.State?, type metadata accessor for GameSaveSyncedDirectory.State, MEMORY[0x277D83D88]);
-      if (v5 <= 0x3F)
+      if (v3 <= 0x3F)
       {
-        v10 = *(v4 - 8) + 64;
-        v6 = type metadata accessor for ObservationRegistrar();
-        if (v7 <= 0x3F)
+        type metadata accessor for ObservationRegistrar();
+        if (v4 <= 0x3F)
         {
-          v11 = *(v6 - 8) + 64;
           swift_updateClassMetadata2();
         }
       }
@@ -437,76 +275,66 @@ void type metadata completion function for GameSaveSyncedDirectory()
 
 uint64_t dispatch thunk of GameSaveSyncedDirectory.triggerPendingUpload()()
 {
-  v2 = *(*v0 + 832);
-  v6 = (v2 + *v2);
-  v3 = v2[1];
-  v4 = swift_task_alloc();
-  *(v1 + 16) = v4;
-  *v4 = v1;
-  v4[1] = dispatch thunk of GameSaveSyncedDirectory.triggerPendingUpload();
+  v4 = (*(*v0 + 832) + **(*v0 + 832));
+  v2 = swift_task_alloc();
+  *(v1 + 16) = v2;
+  *v2 = v1;
+  v2[1] = dispatch thunk of GameSaveSyncedDirectory.triggerPendingUpload();
 
-  return v6();
+  return v4();
 }
 
 uint64_t dispatch thunk of GameSaveSyncedDirectory.triggerPendingUpload()(uint64_t a1)
 {
-  v3 = *(*v1 + 16);
-  v6 = *v1;
+  v5 = *v1;
 
-  v4 = *(v6 + 8);
+  v3 = *(v5 + 8);
 
-  return v4(a1);
+  return v3(a1);
 }
 
 uint64_t dispatch thunk of GameSaveSyncedDirectory.finishSyncing(statusDisplay:)(uint64_t a1)
 {
-  v4 = *(*v1 + 1168);
-  v8 = (v4 + *v4);
-  v5 = v4[1];
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = GameSaveSyncedDirectory.finishSyncing();
+  v6 = (*(*v1 + 1168) + **(*v1 + 1168));
+  v4 = swift_task_alloc();
+  *(v2 + 16) = v4;
+  *v4 = v2;
+  v4[1] = GameSaveSyncedDirectory.finishSyncing();
 
-  return v8(a1);
+  return v6(a1);
 }
 
 uint64_t dispatch thunk of GameSaveSyncedDirectory.finishSyncing()()
 {
-  v2 = *(*v0 + 1184);
-  v6 = (v2 + *v2);
-  v3 = v2[1];
-  v4 = swift_task_alloc();
-  *(v1 + 16) = v4;
-  *v4 = v1;
-  v4[1] = GameSaveSyncedDirectory.finishSyncing();
+  v4 = (*(*v0 + 1184) + **(*v0 + 1184));
+  v2 = swift_task_alloc();
+  *(v1 + 16) = v2;
+  *v2 = v1;
+  v2[1] = GameSaveSyncedDirectory.finishSyncing();
 
-  return v6();
+  return v4();
 }
 
 uint64_t dispatch thunk of static GameSaveSyncedDirectory.cleanupDirectory(containerIdentifier:)(uint64_t a1, uint64_t a2)
 {
-  v9 = (*(v2 + 1216) + **(v2 + 1216));
-  v6 = *(*(v2 + 1216) + 4);
-  v7 = swift_task_alloc();
-  *(v3 + 16) = v7;
-  *v7 = v3;
-  v7[1] = static GameSaveSyncedDirectory.cleanupDirectory(containerIdentifier:);
+  v8 = (*(v2 + 1216) + **(v2 + 1216));
+  v6 = swift_task_alloc();
+  *(v3 + 16) = v6;
+  *v6 = v3;
+  v6[1] = static GameSaveSyncedDirectory.cleanupDirectory(containerIdentifier:);
 
-  return v9(a1, a2);
+  return v8(a1, a2);
 }
 
 uint64_t dispatch thunk of GameSaveSyncedDirectory.runBlockWithDirectoryURL(_:)(uint64_t a1, uint64_t a2)
 {
-  v6 = *(*v2 + 1224);
-  v10 = (v6 + *v6);
-  v7 = v6[1];
-  v8 = swift_task_alloc();
-  *(v3 + 16) = v8;
-  *v8 = v3;
-  v8[1] = static GameSaveSyncedDirectory.cleanupDirectory(containerIdentifier:);
+  v8 = (*(*v2 + 1224) + **(*v2 + 1224));
+  v6 = swift_task_alloc();
+  *(v3 + 16) = v6;
+  *v6 = v3;
+  v6[1] = static GameSaveSyncedDirectory.cleanupDirectory(containerIdentifier:);
 
-  return v10(a1, a2);
+  return v8(a1, a2);
 }
 
 uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, uint64_t *a2)
@@ -514,7 +342,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -522,16 +349,16 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   return result;
 }
 
-void type metadata completion function for GameSaveSyncedDirectory.State()
+void type metadata completion function for GameSaveSyncedDirectory.State(uint64_t a1)
 {
   type metadata accessor for URL();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for (versions: [GameSaveSyncedDirectory.Version])();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for Error();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
       }
@@ -576,27 +403,24 @@ unint64_t type metadata accessor for Error()
   return result;
 }
 
-void type metadata completion function for GameSaveSyncedDirectory.Version()
+void type metadata completion function for GameSaveSyncedDirectory.Version(uint64_t a1)
 {
-  v0 = type metadata accessor for URL();
+  type metadata accessor for URL();
   if (v1 <= 0x3F)
   {
-    v6 = *(v0 - 8) + 64;
     type metadata accessor for GameSaveSyncedDirectory.State?(319, &lazy cache variable for type metadata for URL?, MEMORY[0x277CC9260], MEMORY[0x277D83D88]);
-    if (v3 <= 0x3F)
+    if (v2 <= 0x3F)
     {
-      v7 = *(v2 - 8) + 64;
-      v4 = type metadata accessor for Date();
-      if (v5 <= 0x3F)
+      type metadata accessor for Date();
+      if (v3 <= 0x3F)
       {
-        v8 = *(v4 - 8) + 64;
         swift_updateClassMetadata2();
       }
     }
   }
 }
 
-uint64_t type metadata accessor for GameSaveSyncedDirectory(uint64_t a1, uint64_t *a2)
+uint64_t type metadata accessor for GameSaveSyncedDirectory(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -607,16 +431,14 @@ uint64_t type metadata accessor for GameSaveSyncedDirectory(uint64_t a1, uint64_
   return result;
 }
 
-void type metadata completion function for GameSaveSyncedDirectory.StateObserver()
+void type metadata completion function for GameSaveSyncedDirectory.StateObserver(uint64_t a1)
 {
   type metadata accessor for CheckedContinuation<(), Never>?(319, &lazy cache variable for type metadata for Published<GameSaveSyncedDirectory.Version?>, &_s8GameSave0aB15SyncedDirectoryC7VersionCSgMd, &_s8GameSave0aB15SyncedDirectoryC7VersionCSgMR, MEMORY[0x277CBCED0]);
   if (v1 <= 0x3F)
   {
-    v4 = *(v0 - 8) + 64;
     type metadata accessor for CheckedContinuation<(), Never>?(319, &lazy cache variable for type metadata for Published<UIAlertController?>, &_sSo17UIAlertControllerCSgMd, &_sSo17UIAlertControllerCSgMR, MEMORY[0x277CBCED0]);
-    if (v3 <= 0x3F)
+    if (v2 <= 0x3F)
     {
-      v5 = *(v2 - 8) + 64;
       swift_updateClassMetadata2();
     }
   }
@@ -635,10 +457,8 @@ void type metadata accessor for CheckedContinuation<(), Never>?(uint64_t a1, uni
   }
 }
 
-uint64_t sub_23896EBD8(uint64_t *a1)
+uint64_t sub_23896EBD8(void *a1)
 {
-  v1 = *a1;
-  v2 = a1[1];
   type metadata accessor for ModifiedContent();
   lazy protocol witness table accessor for type GameSaveLoadingViewModifier and conformance GameSaveLoadingViewModifier();
   return swift_getWitnessTable();
@@ -820,21 +640,19 @@ LABEL_20:
 
 uint64_t sub_23896EE60()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
 
 uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRSb_TG5TA(uint64_t a1)
 {
-  v5 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = GameSaveSyncedDirectory.finishSyncing();
+  v4 = *(v1 + 16);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = GameSaveSyncedDirectory.finishSyncing();
 
-  return _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRSb_TG5(a1, v5);
+  return _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRSb_TG5(a1, v4);
 }
 
 double partial apply for closure #1 in GameSaveSyncedDirectory.showSyncAlertAfterTimeHeuristic.setter()
@@ -844,12 +662,11 @@ double partial apply for closure #1 in GameSaveSyncedDirectory.showSyncAlertAfte
   return result;
 }
 
-void sub_23896F0AC(id *a1, uint64_t *a2)
+void sub_23896F0AC(id *a1)
 {
+  v1 = *a1;
   v2 = *a1;
-  v3 = *a2;
-  v4 = *a1;
-  GameSaveSyncedDirectory.alert.setter(v2);
+  GameSaveSyncedDirectory.alert.setter(v1);
 }
 
 void partial apply for closure #1 in GameSaveSyncedDirectory.alert.setter()
@@ -861,12 +678,11 @@ void partial apply for closure #1 in GameSaveSyncedDirectory.alert.setter()
   v4 = v2;
 }
 
-void sub_23896F144(id *a1, uint64_t *a2)
+void sub_23896F144(id *a1)
 {
+  v1 = *a1;
   v2 = *a1;
-  v3 = *a2;
-  v4 = *a1;
-  GameSaveSyncedDirectory.window.setter(v2);
+  GameSaveSyncedDirectory.window.setter(v1);
 }
 
 void partial apply for closure #1 in GameSaveSyncedDirectory.window.setter()
@@ -884,18 +700,11 @@ uint64_t partial apply for closure #1 in GameSaveSyncedDirectory.stateObserver.s
 }
 
 {
-  v1 = *(v0 + 16);
-  v2 = *(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__stateObserver);
-  *(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__stateObserver) = *(v0 + 24);
+  *(*(v0 + 16) + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__stateObserver) = *(v0 + 24);
 }
 
 uint64_t sub_23896F214()
 {
-  v1 = v0[2];
-
-  v2 = v0[3];
-
-  v3 = v0[5];
 
   return MEMORY[0x2821FE8E8](v0, 48, 7);
 }
@@ -909,9 +718,7 @@ uint64_t block_copy_helper(uint64_t a1, uint64_t a2)
 
 uint64_t sub_23896F290()
 {
-  v1 = *(v0 + 16);
 
-  v2 = *(v0 + 24);
   swift_unknownObjectRelease();
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
@@ -919,11 +726,8 @@ uint64_t sub_23896F290()
 
 uint64_t sub_23896F32C()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 32);
 
-  v3 = *(v0 + 48);
   swift_unknownObjectRelease();
 
   return MEMORY[0x2821FE8E8](v0, 56, 7);
@@ -935,11 +739,10 @@ uint64_t partial apply for closure #1 in closure #2 in GameSaveSyncedDirectory.s
   v5 = v1[3];
   v6 = v1[4];
   v7 = v1[5];
-  v8 = v1[6];
-  v9 = swift_task_alloc();
-  *(v2 + 16) = v9;
-  *v9 = v2;
-  v9[1] = GameSaveSyncedDirectory.finishSyncing();
+  v8 = swift_task_alloc();
+  *(v2 + 16) = v8;
+  *v8 = v2;
+  v8[1] = GameSaveSyncedDirectory.finishSyncing();
 
   return closure #1 in closure #2 in GameSaveSyncedDirectory.startSyncing(mode:)(a1, v4, v5, v6, v7);
 }
@@ -962,17 +765,15 @@ uint64_t partial apply for closure #1 in GameSaveSyncedDirectory.containerIdenti
 {
   v1 = v0[4];
   v2 = (v0[2] + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__containerIdentifier);
-  v3 = v2[1];
   *v2 = v0[3];
   v2[1] = v1;
 }
 
-void sub_23896F5A0(id *a1, uint64_t *a2)
+void sub_23896F5A0(id *a1)
 {
+  v1 = *a1;
   v2 = *a1;
-  v3 = *a2;
-  v4 = *a1;
-  GameSaveSyncedDirectory.remoteProgressObserver.setter(v2);
+  GameSaveSyncedDirectory.remoteProgressObserver.setter(v1);
 }
 
 void partial apply for closure #1 in GameSaveSyncedDirectory.remoteProgressObserver.setter()
@@ -1039,7 +840,6 @@ uint64_t partial apply for closure #1 in GameSaveSyncedDirectory.waitWithUI()(ui
 
 uint64_t objectdestroy_24Tm(uint64_t a1)
 {
-  v3 = *(v1 + 16);
 
   return MEMORY[0x2821FE8E8](v1, a1, 7);
 }
@@ -1059,9 +859,7 @@ uint64_t partial apply for closure #1 in closure #4 in closure #1 in GameSaveSyn
 
 uint64_t objectdestroyTm()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 32);
 
   return MEMORY[0x2821FE8E8](v0, 40, 7);
 }
@@ -1079,7 +877,7 @@ uint64_t partial apply for closure #1 in closure #6 in closure #1 in GameSaveSyn
   return closure #1 in closure #6 in closure #1 in GameSaveSyncedDirectory.drawStateUI(window:)(a1, v4, v5, v6);
 }
 
-uint64_t lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](unint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -1094,23 +892,20 @@ uint64_t lazy protocol witness table accessor for type [DispatchWorkItemFlags] a
 
 uint64_t objectdestroy_20Tm()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 32);
 
   return MEMORY[0x2821FE8E8](v0, 56, 7);
 }
 
 uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TA(uint64_t a1)
 {
-  v5 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = GameSaveSyncedDirectory.finishSyncing();
+  v4 = *(v1 + 16);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = GameSaveSyncedDirectory.finishSyncing();
 
-  return _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5(a1, v5);
+  return _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5(a1, v4);
 }
 
 uint64_t outlined destroy of URL?(uint64_t a1, uint64_t *a2, uint64_t *a3)
@@ -1120,12 +915,11 @@ uint64_t outlined destroy of URL?(uint64_t a1, uint64_t *a2, uint64_t *a3)
   return a1;
 }
 
-uint64_t type metadata accessor for UIAlertController(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t type metadata accessor for UIAlertController(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -1254,13 +1048,13 @@ uint64_t GSSyncedDirectoryState.error.getter()
   }
 }
 
-uint64_t GSSyncedDirectoryState.init(_:)(uint64_t result)
+unint64_t GSSyncedDirectoryState.init(_:)(unint64_t result)
 {
   v1 = result;
-  v9 = MEMORY[0x277D84F90];
+  v8 = MEMORY[0x277D84F90];
   if (result >> 62)
   {
-    if (result >= 0)
+    if ((result & 0x8000000000000000) == 0)
     {
       result &= 0xFFFFFFFFFFFFFF8uLL;
     }
@@ -1305,9 +1099,8 @@ LABEL_12:
 
       [objc_allocWithZone(GSSyncedDirectoryVersion) initWithVersion_];
       MEMORY[0x23EE6B780]();
-      if (*((v9 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v9 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+      if (*((v8 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v8 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
       {
-        v8 = *((v9 & 0xFFFFFFFFFFFFFF8) + 0x10);
         specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
       }
 
@@ -1374,8 +1167,6 @@ uint64_t closure #1 in static GSSyncedDirectory.cleanupDirectory(forContainerIde
 
 uint64_t closure #1 in static GSSyncedDirectory.cleanupDirectory(forContainerIdentifier:)()
 {
-  v1 = *(*v0 + 24);
-  v3 = *v0;
 
   return MEMORY[0x2822009F8](closure #1 in static GSSyncedDirectory.cleanupDirectory(forContainerIdentifier:), 0, 0);
 }
@@ -1410,22 +1201,20 @@ uint64_t @objc closure #1 in GSSyncedDirectory.finishSyncing()()
 
 {
   v1 = *v0;
-  v2 = *(*v0 + 40);
-  v3 = *(*v0 + 32);
-  v4 = *(*v0 + 24);
-  v5 = *(*v0 + 16);
-  v6 = *v0;
+  v2 = *(*v0 + 24);
+  v3 = *(*v0 + 16);
+  v4 = *v0;
 
-  if (v4)
+  if (v2)
   {
-    v7 = *(v1 + 24);
-    v7[2](v7);
-    _Block_release(v7);
+    v5 = *(v1 + 24);
+    v5[2](v5);
+    _Block_release(v5);
   }
 
-  v8 = *(v6 + 8);
+  v6 = *(v4 + 8);
 
-  return v8();
+  return v6();
 }
 
 uint64_t @objc closure #1 in GSSyncedDirectory.triggerPendingUpload()(const void *a1, void *a2)
@@ -1452,22 +1241,20 @@ uint64_t @objc closure #1 in GSSyncedDirectory.triggerPendingUpload()()
 uint64_t @objc closure #1 in GSSyncedDirectory.triggerPendingUpload()(char a1)
 {
   v3 = *v1;
-  v4 = *(*v1 + 40);
-  v5 = *(*v1 + 32);
-  v6 = *(*v1 + 24);
-  v7 = *(*v1 + 16);
-  v8 = *v1;
+  v4 = *(*v1 + 24);
+  v5 = *(*v1 + 16);
+  v6 = *v1;
 
-  if (v6)
+  if (v4)
   {
-    v9 = *(v3 + 24);
-    v9[2](v9, a1 & 1);
-    _Block_release(v9);
+    v7 = *(v3 + 24);
+    v7[2](v7, a1 & 1);
+    _Block_release(v7);
   }
 
-  v10 = *(v8 + 8);
+  v8 = *(v6 + 8);
 
-  return v10();
+  return v8();
 }
 
 uint64_t @objc closure #1 in GSSyncedDirectory.finishSyncing(_:)(void *a1, void *aBlock, void *a3)
@@ -1496,49 +1283,45 @@ uint64_t @objc closure #1 in GSSyncedDirectory.finishSyncing(_:)()
 
 {
   v1 = *v0;
-  v2 = *(*v0 + 48);
-  v3 = *(*v0 + 40);
-  v4 = *(*v0 + 32);
-  v5 = *(*v0 + 24);
-  v6 = *(*v0 + 16);
-  v7 = *v0;
+  v2 = *(*v0 + 32);
+  v3 = *(*v0 + 24);
+  v4 = *(*v0 + 16);
+  v5 = *v0;
 
-  if (v4)
+  if (v2)
   {
-    v8 = *(v1 + 32);
-    v8[2](v8);
-    _Block_release(v8);
+    v6 = *(v1 + 32);
+    v6[2](v6);
+    _Block_release(v6);
   }
 
-  v9 = *(v7 + 8);
+  v7 = *(v5 + 8);
 
-  return v9();
+  return v7();
 }
 
 id GSSyncedDirectory.directoryState.getter()
 {
   v1 = type metadata accessor for URL();
   v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
-  v4 = MEMORY[0x28223BE20](v1);
-  v6 = &v27 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v4);
-  v8 = &v27 - v7;
-  v9 = type metadata accessor for GameSaveSyncedDirectory.State(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9);
-  v12 = (&v27 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v13 = *(v0 + OBJC_IVAR___GSSyncedDirectory_directory);
-  v14 = *(v13 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock);
+  v3 = MEMORY[0x28223BE20](v1);
+  v5 = &v25 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v3);
+  v7 = &v25 - v6;
+  v8 = type metadata accessor for GameSaveSyncedDirectory.State(0);
+  MEMORY[0x28223BE20](v8);
+  v10 = (&v25 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v11 = *(v0 + OBJC_IVAR___GSSyncedDirectory_directory);
+  v12 = *(v11 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock);
 
-  [v14 lock];
+  [v12 lock];
   swift_getKeyPath();
-  v29[0] = v13;
+  v27[0] = v11;
   lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory();
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  outlined init with copy of GameSaveSyncedDirectory.State(v13 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state, v12);
-  [v14 unlock];
+  outlined init with copy of GameSaveSyncedDirectory.State(v11 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state, v10);
+  [v12 unlock];
 
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload <= 2)
@@ -1547,33 +1330,33 @@ id GSSyncedDirectory.directoryState.getter()
     {
       if (EnumCaseMultiPayload == 1)
       {
-        (*(v2 + 32))(v8, v12, v1);
-        v18 = objc_allocWithZone(GSSyncedDirectoryState);
-        (*(v2 + 16))(v6, v8, v1);
-        v19 = [v18 initWithId:_bridgeAnythingNonVerbatimToObjectiveC<A>(_:)() syncState:1];
+        (*(v2 + 32))(v7, v10, v1);
+        v16 = objc_allocWithZone(GSSyncedDirectoryState);
+        (*(v2 + 16))(v5, v7, v1);
+        v17 = [v16 initWithId:_bridgeAnythingNonVerbatimToObjectiveC<A>(_:)() syncState:1];
       }
 
       else
       {
-        (*(v2 + 32))(v8, v12, v1);
-        v21 = objc_allocWithZone(GSSyncedDirectoryState);
-        (*(v2 + 16))(v6, v8, v1);
-        v19 = [v21 initWithId:_bridgeAnythingNonVerbatimToObjectiveC<A>(_:)() syncState:2];
+        (*(v2 + 32))(v7, v10, v1);
+        v19 = objc_allocWithZone(GSSyncedDirectoryState);
+        (*(v2 + 16))(v5, v7, v1);
+        v17 = [v19 initWithId:_bridgeAnythingNonVerbatimToObjectiveC<A>(_:)() syncState:2];
       }
     }
 
     else
     {
-      (*(v2 + 32))(v8, v12, v1);
-      v20 = objc_allocWithZone(GSSyncedDirectoryState);
-      (*(v2 + 16))(v6, v8, v1);
-      v19 = [v20 initWithId:_bridgeAnythingNonVerbatimToObjectiveC<A>(_:)() syncState:0];
+      (*(v2 + 32))(v7, v10, v1);
+      v18 = objc_allocWithZone(GSSyncedDirectoryState);
+      (*(v2 + 16))(v5, v7, v1);
+      v17 = [v18 initWithId:_bridgeAnythingNonVerbatimToObjectiveC<A>(_:)() syncState:0];
     }
 
-    v22 = v19;
+    v20 = v17;
     swift_unknownObjectRelease();
-    (*(v2 + 8))(v8, v1);
-    return v22;
+    (*(v2 + 8))(v7, v1);
+    return v20;
   }
 
   else if (EnumCaseMultiPayload > 4)
@@ -1591,27 +1374,27 @@ id GSSyncedDirectory.directoryState.getter()
 
   else
   {
-    v16 = *v12;
+    v14 = *v10;
     if (EnumCaseMultiPayload == 3)
     {
       type metadata accessor for GSSyncedDirectoryState(EnumCaseMultiPayload);
-      return GSSyncedDirectoryState.init(_:)(v16);
+      return GSSyncedDirectoryState.init(_:)(v14);
     }
 
     else
     {
       swift_getErrorValue();
-      v23 = v28;
-      v29[3] = v28;
-      __swift_allocate_boxed_opaque_existential_0(v29);
-      (*(*(v23 - 8) + 16))();
-      v24 = objc_allocWithZone(GSSyncedDirectoryState);
-      v25 = _bridgeAnythingToObjectiveC<A>(_:)();
-      __swift_destroy_boxed_opaque_existential_0(v29);
-      v26 = [v24 initWithId:v25 syncState:5];
+      v21 = v26;
+      v27[3] = v26;
+      __swift_allocate_boxed_opaque_existential_0(v27);
+      (*(*(v21 - 8) + 16))();
+      v22 = objc_allocWithZone(GSSyncedDirectoryState);
+      v23 = _bridgeAnythingToObjectiveC<A>(_:)();
+      __swift_destroy_boxed_opaque_existential_0(v27);
+      v24 = [v22 initWithId:v23 syncState:5];
       swift_unknownObjectRelease();
 
-      return v26;
+      return v24;
     }
   }
 }
@@ -1671,28 +1454,26 @@ uint64_t _sIeghH_IeAgH_TRTA()
 {
   v2 = v0[2];
   v3 = v0[3];
-  v5 = v0[4];
-  v4 = v0[5];
-  v6 = swift_task_alloc();
-  *(v1 + 16) = v6;
-  *v6 = v1;
-  v6[1] = GameSaveSyncedDirectory.finishSyncing();
+  v4 = v0[4];
+  v5 = swift_task_alloc();
+  *(v1 + 16) = v5;
+  *v5 = v1;
+  v5[1] = GameSaveSyncedDirectory.finishSyncing();
 
-  return _sIeghH_IeAgH_TR(v2, v3, v5);
+  return _sIeghH_IeAgH_TR(v2, v3, v4);
 }
 
 uint64_t _sIeAgH_ytIeAgHr_TRTA(uint64_t a1)
 {
   v4 = v1[2];
   v5 = v1[3];
-  v7 = v1[4];
-  v6 = v1[5];
-  v8 = swift_task_alloc();
-  *(v2 + 16) = v8;
-  *v8 = v2;
-  v8[1] = GameSaveSyncedDirectory.finishSyncing();
+  v6 = v1[4];
+  v7 = swift_task_alloc();
+  *(v2 + 16) = v7;
+  *v7 = v2;
+  v7[1] = GameSaveSyncedDirectory.finishSyncing();
 
-  return _sIeAgH_ytIeAgHr_TR(a1, v4, v5, v7);
+  return _sIeAgH_ytIeAgHr_TR(a1, v4, v5, v6);
 }
 
 uint64_t partial apply for @objc closure #1 in GSSyncedDirectory.triggerPendingUpload()()
@@ -1711,14 +1492,13 @@ uint64_t _sIeAgH_ytIeAgHr_TRTA_30(uint64_t a1)
 {
   v4 = v1[2];
   v5 = v1[3];
-  v7 = v1[4];
-  v6 = v1[5];
-  v8 = swift_task_alloc();
-  *(v2 + 16) = v8;
-  *v8 = v2;
-  v8[1] = static GameSaveSyncedDirectory.cleanupDirectory(containerIdentifier:);
+  v6 = v1[4];
+  v7 = swift_task_alloc();
+  *(v2 + 16) = v7;
+  *v7 = v2;
+  v7[1] = static GameSaveSyncedDirectory.cleanupDirectory(containerIdentifier:);
 
-  return _sIeAgH_ytIeAgHr_TR(a1, v4, v5, v7);
+  return _sIeAgH_ytIeAgHr_TR(a1, v4, v5, v6);
 }
 
 uint64_t objectdestroy_19Tm()
@@ -1742,18 +1522,14 @@ uint64_t partial apply for @objc closure #1 in GSSyncedDirectory.finishSyncing()
 
 uint64_t objectdestroy_10Tm()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 40);
 
   return MEMORY[0x2821FE8E8](v0, 48, 7);
 }
 
 uint64_t sub_238972F00()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 40);
 
   return MEMORY[0x2821FE8E8](v0, 56, 7);
 }
@@ -1826,14 +1602,14 @@ id GameSaveLoadingViewModifier.WindowReaderViewRepresentable.WindowReaderView.in
   return v5;
 }
 
-id GameSaveLoadingViewModifier.WindowReaderViewRepresentable.WindowReaderView.__deallocating_deinit()
+id GameSaveLoadingViewModifier.WindowReaderViewRepresentable.WindowReaderView.__deallocating_deinit(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for GameSaveLoadingViewModifier.WindowReaderViewRepresentable.WindowReaderView();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for GameSaveLoadingViewModifier.WindowReaderViewRepresentable.WindowReaderView();
+  return objc_msgSendSuper2(&v3, sel_dealloc);
 }
 
-uint64_t get_enum_tag_for_layout_string_Ieg_Sg(uint64_t *a1)
+uint64_t get_enum_tag_for_layout_string_Ieg_Sg(unint64_t *a1)
 {
   v1 = *a1;
   if (*a1 >= 0xFFFFFFFF)
@@ -1947,7 +1723,7 @@ uint64_t protocol witness for static View._makeViewList(view:inputs:) in conform
   return MEMORY[0x28212E358](a1, a2, a3, v6);
 }
 
-void protocol witness for View.body.getter in conformance GameSaveLoadingViewModifier.WindowReaderViewRepresentable()
+void protocol witness for View.body.getter in conformance GameSaveLoadingViewModifier.WindowReaderViewRepresentable(uint64_t a1)
 {
   lazy protocol witness table accessor for type GameSaveLoadingViewModifier.WindowReaderViewRepresentable and conformance GameSaveLoadingViewModifier.WindowReaderViewRepresentable();
   UIViewRepresentable.body.getter();
@@ -1956,131 +1732,128 @@ void protocol witness for View.body.getter in conformance GameSaveLoadingViewMod
 
 uint64_t closure #1 in GameSaveLoadingViewModifier.body(content:)@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
-  v48 = a2;
-  v59 = a3;
+  v46 = a2;
+  v57 = a3;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___Sbyqd___qd__tctSQRd__lFQOyAA01_C16Modifier_ContentVy8GameSave0jk7LoadingcH0VG_AI0jK15SyncedDirectoryCSgQo_Md, &_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___Sbyqd___qd__tctSQRd__lFQOyAA01_C16Modifier_ContentVy8GameSave0jk7LoadingcH0VG_AI0jK15SyncedDirectoryCSgQo_MR);
-  v54 = *(v4 - 8);
-  v55 = v4;
-  v5 = *(v54 + 64);
+  v52 = *(v4 - 8);
+  v53 = v4;
   MEMORY[0x28223BE20](v4);
-  v7 = &v43 - v6;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___Sbyqd___qd__tctSQRd__lFQOyAcAEAdeF_Qrqd___Sbyqd___qd__tctSQRd__lFQOyAA01_C16Modifier_ContentVy8GameSave0jk7LoadingcH0VG_AI0jK15SyncedDirectoryCSgQo__So8UIWindowCSgQo_Md, &_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___Sbyqd___qd__tctSQRd__lFQOyAcAEAdeF_Qrqd___Sbyqd___qd__tctSQRd__lFQOyAA01_C16Modifier_ContentVy8GameSave0jk7LoadingcH0VG_AI0jK15SyncedDirectoryCSgQo__So8UIWindowCSgQo_MR);
-  v57 = *(v8 - 8);
-  v58 = v8;
-  v9 = *(v57 + 64);
-  v10 = MEMORY[0x28223BE20](v8);
-  v56 = &v43 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v10);
-  v53 = &v43 - v12;
+  v6 = &v41 - v5;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___Sbyqd___qd__tctSQRd__lFQOyAcAEAdeF_Qrqd___Sbyqd___qd__tctSQRd__lFQOyAA01_C16Modifier_ContentVy8GameSave0jk7LoadingcH0VG_AI0jK15SyncedDirectoryCSgQo__So8UIWindowCSgQo_Md, &_s7SwiftUI4ViewPAAE8onChange2of7initial_Qrqd___Sbyqd___qd__tctSQRd__lFQOyAcAEAdeF_Qrqd___Sbyqd___qd__tctSQRd__lFQOyAA01_C16Modifier_ContentVy8GameSave0jk7LoadingcH0VG_AI0jK15SyncedDirectoryCSgQo__So8UIWindowCSgQo_MR);
+  v55 = *(v7 - 8);
+  v56 = v7;
+  v8 = MEMORY[0x28223BE20](v7);
+  v54 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v8);
+  v51 = &v41 - v10;
   type metadata accessor for MainActor();
-  v52 = static MainActor.shared.getter();
+  v50 = static MainActor.shared.getter();
   dispatch thunk of Actor.unownedExecutor.getter();
   if ((swift_task_isCurrentExecutor() & 1) == 0)
   {
     swift_task_reportUnexpectedExecutor();
   }
 
-  v14 = a1[1];
-  v65[0] = *a1;
-  v13 = v65[0];
-  v65[1] = v14;
-  v47 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySo8UIWindowCSgGMd, &_s7SwiftUI5StateVySo8UIWindowCSgGMR);
+  v12 = a1[1];
+  v63[0] = *a1;
+  v11 = v63[0];
+  v63[1] = v12;
+  v45 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySo8UIWindowCSgGMd, &_s7SwiftUI5StateVySo8UIWindowCSgGMR);
   State.projectedValue.getter();
-  v50 = v61;
-  v51 = v60;
-  v49 = v62;
-  v16 = a1[3];
-  v17 = a1[4];
-  v60 = a1[2];
-  v15 = v60;
-  v61 = v16;
-  v45 = v16;
-  v62 = v17;
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7BindingVy8GameSave0dE15SyncedDirectoryCSgGMd, &_s7SwiftUI7BindingVy8GameSave0dE15SyncedDirectoryCSgGMR);
-  MEMORY[0x23EE6B5C0](v65, v18);
-  v46 = v65[0];
-  v60 = v65[0];
-  v67 = v17;
-  v68[0] = v13;
-  v65[0] = v14;
-  v66 = v15;
-  v20 = a1[6];
-  v44 = a1[5];
-  v19 = v44;
-  v43 = v20;
-  v21 = swift_allocObject();
-  v22 = *(a1 + 1);
-  *(v21 + 16) = *a1;
-  *(v21 + 32) = v22;
-  *(v21 + 48) = *(a1 + 2);
-  *(v21 + 64) = a1[6];
-  outlined init with copy of URL?(v68, &v64, &_sSo8UIWindowCSgMd, &_sSo8UIWindowCSgMR);
-  outlined init with copy of URL?(v65, &v64, &_s7SwiftUI11AnyLocationCySo8UIWindowCSgGSgMd, &_s7SwiftUI11AnyLocationCySo8UIWindowCSgGSgMR);
-  outlined init with copy of Transaction(&v66, &v64);
+  v48 = v59;
+  v49 = v58;
+  v47 = v60;
+  v14 = a1[3];
+  v15 = a1[4];
+  v58 = a1[2];
+  v13 = v58;
+  v59 = v14;
+  v43 = v14;
+  v60 = v15;
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7BindingVy8GameSave0dE15SyncedDirectoryCSgGMd, &_s7SwiftUI7BindingVy8GameSave0dE15SyncedDirectoryCSgGMR);
+  MEMORY[0x23EE6B5C0](v63, v16);
+  v44 = v63[0];
+  v58 = v63[0];
+  v65 = v15;
+  v66[0] = v11;
+  v63[0] = v12;
+  v64 = v13;
+  v18 = a1[6];
+  v42 = a1[5];
+  v17 = v42;
+  v41 = v18;
+  v19 = swift_allocObject();
+  v20 = *(a1 + 1);
+  *(v19 + 16) = *a1;
+  *(v19 + 32) = v20;
+  *(v19 + 48) = *(a1 + 2);
+  *(v19 + 64) = a1[6];
+  outlined init with copy of URL?(v66, &v62, &_sSo8UIWindowCSgMd, &_sSo8UIWindowCSgMR);
+  outlined init with copy of URL?(v63, &v62, &_s7SwiftUI11AnyLocationCySo8UIWindowCSgGSgMd, &_s7SwiftUI11AnyLocationCySo8UIWindowCSgGSgMR);
+  outlined init with copy of Transaction(&v64, &v62);
 
-  outlined init with copy of URL?(&v67, &v64, &_s8GameSave0aB15SyncedDirectoryCSgMd, &_s8GameSave0aB15SyncedDirectoryCSgMR);
-  outlined copy of (@escaping @callee_guaranteed () -> ())?(v19);
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI21_ViewModifier_ContentVy8GameSave0fg7LoadingcD0VGMd, &_s7SwiftUI21_ViewModifier_ContentVy8GameSave0fg7LoadingcD0VGMR);
-  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8GameSave0aB15SyncedDirectoryCSgMd, &_s8GameSave0aB15SyncedDirectoryCSgMR);
-  v25 = lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type _ViewModifier_Content<GameSaveLoadingViewModifier> and conformance _ViewModifier_Content<A>, &_s7SwiftUI21_ViewModifier_ContentVy8GameSave0fg7LoadingcD0VGMd, &_s7SwiftUI21_ViewModifier_ContentVy8GameSave0fg7LoadingcD0VGMR);
-  v26 = lazy protocol witness table accessor for type GameSaveSyncedDirectory? and conformance <A> A?();
+  outlined init with copy of URL?(&v65, &v62, &_s8GameSave0aB15SyncedDirectoryCSgMd, &_s8GameSave0aB15SyncedDirectoryCSgMR);
+  outlined copy of (@escaping @callee_guaranteed () -> ())?(v17, v18);
+  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI21_ViewModifier_ContentVy8GameSave0fg7LoadingcD0VGMd, &_s7SwiftUI21_ViewModifier_ContentVy8GameSave0fg7LoadingcD0VGMR);
+  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8GameSave0aB15SyncedDirectoryCSgMd, &_s8GameSave0aB15SyncedDirectoryCSgMR);
+  v23 = lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type _ViewModifier_Content<GameSaveLoadingViewModifier> and conformance _ViewModifier_Content<A>, &_s7SwiftUI21_ViewModifier_ContentVy8GameSave0fg7LoadingcD0VGMd, &_s7SwiftUI21_ViewModifier_ContentVy8GameSave0fg7LoadingcD0VGMR, MEMORY[0x277CE04B0]);
+  v24 = lazy protocol witness table accessor for type GameSaveSyncedDirectory? and conformance <A> A?();
   View.onChange<A>(of:initial:_:)();
 
-  v60 = v13;
-  v61 = v14;
+  v58 = v11;
+  v59 = v12;
   State.wrappedValue.getter();
-  v27 = v64;
-  v28 = swift_allocObject();
-  v29 = *(a1 + 1);
-  *(v28 + 16) = *a1;
-  *(v28 + 32) = v29;
-  *(v28 + 48) = *(a1 + 2);
-  *(v28 + 64) = a1[6];
-  outlined init with copy of URL?(v68, &v60, &_sSo8UIWindowCSgMd, &_sSo8UIWindowCSgMR);
-  outlined init with copy of URL?(v65, &v60, &_s7SwiftUI11AnyLocationCySo8UIWindowCSgGSgMd, &_s7SwiftUI11AnyLocationCySo8UIWindowCSgGSgMR);
-  outlined init with copy of Transaction(&v66, &v60);
+  v25 = v62;
+  v26 = swift_allocObject();
+  v27 = *(a1 + 1);
+  *(v26 + 16) = *a1;
+  *(v26 + 32) = v27;
+  *(v26 + 48) = *(a1 + 2);
+  *(v26 + 64) = a1[6];
+  outlined init with copy of URL?(v66, &v58, &_sSo8UIWindowCSgMd, &_sSo8UIWindowCSgMR);
+  outlined init with copy of URL?(v63, &v58, &_s7SwiftUI11AnyLocationCySo8UIWindowCSgGSgMd, &_s7SwiftUI11AnyLocationCySo8UIWindowCSgGSgMR);
+  outlined init with copy of Transaction(&v64, &v58);
 
-  outlined init with copy of URL?(&v67, &v60, &_s8GameSave0aB15SyncedDirectoryCSgMd, &_s8GameSave0aB15SyncedDirectoryCSgMR);
-  outlined copy of (@escaping @callee_guaranteed () -> ())?(v44);
+  outlined init with copy of URL?(&v65, &v58, &_s8GameSave0aB15SyncedDirectoryCSgMd, &_s8GameSave0aB15SyncedDirectoryCSgMR);
+  outlined copy of (@escaping @callee_guaranteed () -> ())?(v42, v41);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8UIWindowCSgMd, &_sSo8UIWindowCSgMR);
+  v58 = v21;
+  v59 = v22;
   v60 = v23;
   v61 = v24;
-  v62 = v25;
-  v63 = v26;
   swift_getOpaqueTypeConformance2();
   lazy protocol witness table accessor for type UIWindow? and conformance <A> A?();
-  v30 = v53;
-  v31 = v55;
+  v28 = v51;
+  v29 = v53;
   View.onChange<A>(of:initial:_:)();
 
-  (*(v54 + 8))(v7, v31);
+  (*(v52 + 8))(v6, v29);
+  v31 = v54;
+  v30 = v55;
+  v32 = *(v55 + 16);
   v33 = v56;
-  v32 = v57;
-  v34 = *(v57 + 16);
-  v35 = v58;
-  v34(v56, v30, v58);
-  v36 = v59;
-  v37 = v50;
-  *v59 = v51;
-  v36[1] = v37;
-  v38 = v49;
-  v36[2] = v49;
-  v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8GameSave0aB19LoadingViewModifierV012WindowReaderD13RepresentableV_7SwiftUI0D0PAFE8onChange2of7initial_Qrqd___Sbyqd___qd__tctSQRd__lFQOyAhFEAijK_Qrqd___Sbyqd___qd__tctSQRd__lFQOyAF01_dE8_ContentVyACG_AA0aB15SyncedDirectoryCSgQo__So8UIWindowCSgQo_tMd, &_s8GameSave0aB19LoadingViewModifierV012WindowReaderD13RepresentableV_7SwiftUI0D0PAFE8onChange2of7initial_Qrqd___Sbyqd___qd__tctSQRd__lFQOyAhFEAijK_Qrqd___Sbyqd___qd__tctSQRd__lFQOyAF01_dE8_ContentVyACG_AA0aB15SyncedDirectoryCSgQo__So8UIWindowCSgQo_tMR);
-  v34(v36 + *(v39 + 48), v33, v35);
-  v40 = *(v32 + 8);
+  v32(v54, v28, v56);
+  v34 = v57;
+  v35 = v48;
+  *v57 = v49;
+  v34[1] = v35;
+  v36 = v47;
+  v34[2] = v47;
+  v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8GameSave0aB19LoadingViewModifierV012WindowReaderD13RepresentableV_7SwiftUI0D0PAFE8onChange2of7initial_Qrqd___Sbyqd___qd__tctSQRd__lFQOyAhFEAijK_Qrqd___Sbyqd___qd__tctSQRd__lFQOyAF01_dE8_ContentVyACG_AA0aB15SyncedDirectoryCSgQo__So8UIWindowCSgQo_tMd, &_s8GameSave0aB19LoadingViewModifierV012WindowReaderD13RepresentableV_7SwiftUI0D0PAFE8onChange2of7initial_Qrqd___Sbyqd___qd__tctSQRd__lFQOyAhFEAijK_Qrqd___Sbyqd___qd__tctSQRd__lFQOyAF01_dE8_ContentVyACG_AA0aB15SyncedDirectoryCSgQo__So8UIWindowCSgQo_tMR);
+  v32(v34 + *(v37 + 48), v31, v33);
+  v38 = *(v30 + 8);
 
-  v41 = v38;
-  v40(v30, v35);
-  v40(v33, v35);
+  v39 = v36;
+  v38(v28, v33);
+  v38(v31, v33);
 }
 
 uint64_t closure #1 in closure #1 in GameSaveLoadingViewModifier.body(content:)(uint64_t a1, uint64_t *a2, void *a3)
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v22[-v7];
-  v9 = *a2;
+  v7 = &v20[-v6];
+  v8 = *a2;
   type metadata accessor for MainActor();
   static MainActor.shared.getter();
   dispatch thunk of Actor.unownedExecutor.getter();
@@ -2089,47 +1862,46 @@ uint64_t closure #1 in closure #1 in GameSaveLoadingViewModifier.body(content:)(
     swift_task_reportUnexpectedExecutor();
   }
 
-  if (v9)
+  if (v8)
   {
-    v10 = *a3;
-    v11 = a3[1];
-    v23[0] = *a3;
-    v23[1] = v11;
+    v9 = *a3;
+    v10 = a3[1];
+    v21[0] = *a3;
+    v21[1] = v10;
 
     __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySo8UIWindowCSgGMd, &_s7SwiftUI5StateVySo8UIWindowCSgGMR);
     State.wrappedValue.getter();
-    v12 = v26;
-    if (v26)
+    v11 = v24;
+    if (v24)
     {
-      v13 = type metadata accessor for TaskPriority();
-      (*(*(v13 - 8) + 56))(v8, 1, 1, v13);
-      v23[0] = v11;
-      v14 = a3[3];
-      v25 = a3[2];
-      v26 = v10;
-      v15 = a3[5];
-      v24 = a3[4];
-      v16 = a3[6];
+      v12 = type metadata accessor for TaskPriority();
+      (*(*(v12 - 8) + 56))(v7, 1, 1, v12);
+      v21[0] = v10;
+      v23 = a3[2];
+      v24 = v9;
+      v13 = a3[5];
+      v22 = a3[4];
+      v14 = a3[6];
 
-      v17 = v12;
-      outlined init with copy of URL?(&v26, v22, &_sSo8UIWindowCSgMd, &_sSo8UIWindowCSgMR);
-      outlined init with copy of URL?(v23, v22, &_s7SwiftUI11AnyLocationCySo8UIWindowCSgGSgMd, &_s7SwiftUI11AnyLocationCySo8UIWindowCSgGSgMR);
-      outlined init with copy of Transaction(&v25, v22);
+      v15 = v11;
+      outlined init with copy of URL?(&v24, v20, &_sSo8UIWindowCSgMd, &_sSo8UIWindowCSgMR);
+      outlined init with copy of URL?(v21, v20, &_s7SwiftUI11AnyLocationCySo8UIWindowCSgGSgMd, &_s7SwiftUI11AnyLocationCySo8UIWindowCSgGSgMR);
+      outlined init with copy of Transaction(&v23, v20);
 
-      outlined init with copy of URL?(&v24, v22, &_s8GameSave0aB15SyncedDirectoryCSgMd, &_s8GameSave0aB15SyncedDirectoryCSgMR);
-      outlined copy of (@escaping @callee_guaranteed () -> ())?(v15);
-      v18 = static MainActor.shared.getter();
-      v19 = swift_allocObject();
-      *(v19 + 16) = v18;
-      *(v19 + 24) = MEMORY[0x277D85700];
-      *(v19 + 32) = v9;
-      *(v19 + 40) = v17;
-      v20 = *(a3 + 1);
-      *(v19 + 48) = *a3;
-      *(v19 + 64) = v20;
-      *(v19 + 80) = *(a3 + 2);
-      *(v19 + 96) = a3[6];
-      _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v8, &async function pointer to partial apply for closure #1 in closure #1 in closure #1 in GameSaveLoadingViewModifier.body(content:), v19);
+      outlined init with copy of URL?(&v22, v20, &_s8GameSave0aB15SyncedDirectoryCSgMd, &_s8GameSave0aB15SyncedDirectoryCSgMR);
+      outlined copy of (@escaping @callee_guaranteed () -> ())?(v13, v14);
+      v16 = static MainActor.shared.getter();
+      v17 = swift_allocObject();
+      *(v17 + 16) = v16;
+      *(v17 + 24) = MEMORY[0x277D85700];
+      *(v17 + 32) = v8;
+      *(v17 + 40) = v15;
+      v18 = *(a3 + 1);
+      *(v17 + 48) = *a3;
+      *(v17 + 64) = v18;
+      *(v17 + 80) = *(a3 + 2);
+      *(v17 + 96) = a3[6];
+      _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v7, &async function pointer to partial apply for closure #1 in closure #1 in closure #1 in GameSaveLoadingViewModifier.body(content:), v17);
     }
 
     else
@@ -2153,99 +1925,93 @@ uint64_t closure #1 in closure #1 in closure #1 in GameSaveLoadingViewModifier.b
 
 uint64_t closure #1 in closure #1 in closure #1 in GameSaveLoadingViewModifier.body(content:)()
 {
-  v1 = *(*v0 + 40);
-  v2 = *(*v0 + 32);
-  v3 = *(*v0 + 24);
-  v7 = *v0;
 
-  v5 = dispatch thunk of Actor.unownedExecutor.getter();
+  v1 = dispatch thunk of Actor.unownedExecutor.getter();
 
-  return MEMORY[0x2822009F8](closure #1 in closure #1 in closure #1 in GameSaveLoadingViewModifier.body(content:), v5, v4);
+  return MEMORY[0x2822009F8](closure #1 in closure #1 in closure #1 in GameSaveLoadingViewModifier.body(content:), v1, v0);
 }
 
 {
-  v1 = v0[4];
-  v2 = v0[2];
+  v1 = *(v0 + 16);
 
-  v3 = *(v2 + 40);
-  if (v3)
+  v2 = *(v1 + 40);
+  if (v2)
   {
-    v4 = *(v0[2] + 48);
+    v3 = *(*(v0 + 16) + 48);
 
-    v3(v5);
-    outlined consume of (@escaping @callee_guaranteed (@in_guaranteed GameSaveSyncedDirectory.State) -> ())?(v3);
+    v2(v4);
+    outlined consume of (@escaping @callee_guaranteed (@in_guaranteed GameSaveSyncedDirectory.State) -> ())?(v2, v3);
   }
 
-  v6 = v0[1];
+  v5 = *(v0 + 8);
 
-  return v6();
+  return v5();
 }
 
 void closure #2 in closure #1 in GameSaveLoadingViewModifier.body(content:)(uint64_t *a1, void **a2, void *a3)
 {
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v7 = *(*(v6 - 8) + 64);
   MEMORY[0x28223BE20](v6 - 8);
-  v9 = &v28[-v8 - 8];
-  v10 = *a1;
-  v11 = *a2;
+  v8 = &v27[-v7 - 8];
+  v9 = *a1;
+  v10 = *a2;
   type metadata accessor for MainActor();
   static MainActor.shared.getter();
-  v12 = MEMORY[0x277D85700];
+  v11 = MEMORY[0x277D85700];
   dispatch thunk of Actor.unownedExecutor.getter();
   if ((swift_task_isCurrentExecutor() & 1) == 0)
   {
     swift_task_reportUnexpectedExecutor();
   }
 
-  if (v10 || !v11)
+  if (v9 || !v10)
   {
   }
 
   else
   {
-    v14 = a3[2];
-    v13 = a3[3];
-    v15 = a3[4];
-    v29[0] = v14;
-    v29[1] = v13;
-    v27 = v13;
-    v29[2] = v15;
-    v16 = v11;
-    v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7BindingVy8GameSave0dE15SyncedDirectoryCSgGMd, &_s7SwiftUI7BindingVy8GameSave0dE15SyncedDirectoryCSgGMR);
-    MEMORY[0x23EE6B5C0](&v32, v17);
-    v18 = v32;
-    if (v32)
+    v13 = a3[2];
+    v12 = a3[3];
+    v14 = a3[4];
+    v28[0] = v13;
+    v28[1] = v12;
+    v26 = v12;
+    v28[2] = v14;
+    v15 = v10;
+    v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7BindingVy8GameSave0dE15SyncedDirectoryCSgGMd, &_s7SwiftUI7BindingVy8GameSave0dE15SyncedDirectoryCSgGMR);
+    MEMORY[0x23EE6B5C0](&v31, v16);
+    v17 = v31;
+    if (v31)
     {
-      v19 = type metadata accessor for TaskPriority();
-      (*(*(v19 - 8) + 56))(v9, 1, 1, v19);
-      v20 = *a3;
-      v30 = a3[1];
-      v31 = v20;
-      v32 = v14;
-      v29[0] = v15;
-      v21 = a3[5];
-      v22 = a3[6];
-      v23 = v16;
+      v18 = type metadata accessor for TaskPriority();
+      (*(*(v18 - 8) + 56))(v8, 1, 1, v18);
+      v19 = *a3;
+      v29 = a3[1];
+      v30 = v19;
+      v31 = v13;
+      v28[0] = v14;
+      v20 = a3[5];
+      v21 = a3[6];
+      v22 = v15;
 
-      outlined init with copy of URL?(&v31, v28, &_sSo8UIWindowCSgMd, &_sSo8UIWindowCSgMR);
-      outlined init with copy of URL?(&v30, v28, &_s7SwiftUI11AnyLocationCySo8UIWindowCSgGSgMd, &_s7SwiftUI11AnyLocationCySo8UIWindowCSgGSgMR);
-      outlined init with copy of Transaction(&v32, v28);
+      outlined init with copy of URL?(&v30, v27, &_sSo8UIWindowCSgMd, &_sSo8UIWindowCSgMR);
+      outlined init with copy of URL?(&v29, v27, &_s7SwiftUI11AnyLocationCySo8UIWindowCSgGSgMd, &_s7SwiftUI11AnyLocationCySo8UIWindowCSgGSgMR);
+      outlined init with copy of Transaction(&v31, v27);
 
-      outlined init with copy of URL?(v29, v28, &_s8GameSave0aB15SyncedDirectoryCSgMd, &_s8GameSave0aB15SyncedDirectoryCSgMR);
-      outlined copy of (@escaping @callee_guaranteed () -> ())?(v21);
-      v24 = static MainActor.shared.getter();
-      v25 = swift_allocObject();
-      *(v25 + 16) = v24;
-      *(v25 + 24) = v12;
-      *(v25 + 32) = v18;
-      *(v25 + 40) = v23;
-      v26 = *(a3 + 1);
-      *(v25 + 48) = *a3;
-      *(v25 + 64) = v26;
-      *(v25 + 80) = *(a3 + 2);
-      *(v25 + 96) = a3[6];
-      _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v9, &async function pointer to partial apply for closure #1 in closure #2 in closure #1 in GameSaveLoadingViewModifier.body(content:), v25);
+      outlined init with copy of URL?(v28, v27, &_s8GameSave0aB15SyncedDirectoryCSgMd, &_s8GameSave0aB15SyncedDirectoryCSgMR);
+      outlined copy of (@escaping @callee_guaranteed () -> ())?(v20, v21);
+      v23 = static MainActor.shared.getter();
+      v24 = swift_allocObject();
+      *(v24 + 16) = v23;
+      *(v24 + 24) = v11;
+      *(v24 + 32) = v17;
+      *(v24 + 40) = v22;
+      v25 = *(a3 + 1);
+      *(v24 + 48) = *a3;
+      *(v24 + 64) = v25;
+      *(v24 + 80) = *(a3 + 2);
+      *(v24 + 96) = a3[6];
+      _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v8, &async function pointer to partial apply for closure #1 in closure #2 in closure #1 in GameSaveLoadingViewModifier.body(content:), v24);
     }
 
     else
@@ -2269,30 +2035,26 @@ uint64_t closure #1 in closure #2 in closure #1 in GameSaveLoadingViewModifier.b
 
 uint64_t closure #1 in closure #2 in closure #1 in GameSaveLoadingViewModifier.body(content:)()
 {
-  v1 = *(*v0 + 40);
-  v2 = *(*v0 + 32);
-  v3 = *(*v0 + 24);
-  v7 = *v0;
 
-  v5 = dispatch thunk of Actor.unownedExecutor.getter();
+  v1 = dispatch thunk of Actor.unownedExecutor.getter();
 
-  return MEMORY[0x2822009F8](closure #1 in closure #2 in closure #1 in GameSaveLoadingViewModifier.body(content:), v5, v4);
+  return MEMORY[0x2822009F8](closure #1 in closure #2 in closure #1 in GameSaveLoadingViewModifier.body(content:), v1, v0);
 }
 
-uint64_t protocol witness for ViewModifier.body(content:) in conformance GameSaveLoadingViewModifier@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+uint64_t protocol witness for ViewModifier.body(content:) in conformance GameSaveLoadingViewModifier@<X0>(uint64_t a1@<X0>, uint64_t *a8@<X8>)
 {
-  v5 = *(v2 + 16);
-  v9[0] = *v2;
-  v9[1] = v5;
-  v9[2] = *(v2 + 32);
-  v10 = *(v2 + 48);
-  *a2 = static Alignment.center.getter();
-  a2[1] = v6;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_ZStackLayoutVAA05TupleD0Vy8GameSave0ij7LoadingD8ModifierV012WindowReaderD13RepresentableV_AA0D0PAAE8onChange2of7initial_Qrqd___Sbyqd___qd__tctSQRd__lFQOyApAEAqrS_Qrqd___Sbyqd___qd__tctSQRd__lFQOyAA01_dL8_ContentVyALG_AJ0iJ15SyncedDirectoryCSgQo__So8UIWindowCSgQo_tGGMd, &_s7SwiftUI13_VariadicViewO4TreeVy_AA13_ZStackLayoutVAA05TupleD0Vy8GameSave0ij7LoadingD8ModifierV012WindowReaderD13RepresentableV_AA0D0PAAE8onChange2of7initial_Qrqd___Sbyqd___qd__tctSQRd__lFQOyApAEAqrS_Qrqd___Sbyqd___qd__tctSQRd__lFQOyAA01_dL8_ContentVyALG_AJ0iJ15SyncedDirectoryCSgQo__So8UIWindowCSgQo_tGGMR);
-  return closure #1 in GameSaveLoadingViewModifier.body(content:)(v9, a1, (a2 + *(v7 + 44)));
+  v11 = *(v8 + 16);
+  v15[0] = *v8;
+  v15[1] = v11;
+  v15[2] = *(v8 + 32);
+  v16 = *(v8 + 48);
+  *a8 = static Alignment.center.getter();
+  a8[1] = v12;
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_ZStackLayoutVAA05TupleD0Vy8GameSave0ij7LoadingD8ModifierV012WindowReaderD13RepresentableV_AA0D0PAAE8onChange2of7initial_Qrqd___Sbyqd___qd__tctSQRd__lFQOyApAEAqrS_Qrqd___Sbyqd___qd__tctSQRd__lFQOyAA01_dL8_ContentVyALG_AJ0iJ15SyncedDirectoryCSgQo__So8UIWindowCSgQo_tGGMd, &_s7SwiftUI13_VariadicViewO4TreeVy_AA13_ZStackLayoutVAA05TupleD0Vy8GameSave0ij7LoadingD8ModifierV012WindowReaderD13RepresentableV_AA0D0PAAE8onChange2of7initial_Qrqd___Sbyqd___qd__tctSQRd__lFQOyApAEAqrS_Qrqd___Sbyqd___qd__tctSQRd__lFQOyAA01_dL8_ContentVyALG_AJ0iJ15SyncedDirectoryCSgQo__So8UIWindowCSgQo_tGGMR);
+  return closure #1 in GameSaveLoadingViewModifier.body(content:)(v15, a1, (a8 + *(v13 + 44)));
 }
 
-uint64_t outlined copy of (@escaping @callee_guaranteed () -> ())?(uint64_t result)
+uint64_t outlined copy of (@escaping @callee_guaranteed () -> ())?(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -2307,7 +2069,7 @@ unint64_t lazy protocol witness table accessor for type GameSaveSyncedDirectory?
   if (!lazy protocol witness table cache variable for type GameSaveSyncedDirectory? and conformance <A> A?)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s8GameSave0aB15SyncedDirectoryCSgMd, &_s8GameSave0aB15SyncedDirectoryCSgMR);
-    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type GameSaveSyncedDirectory? and conformance <A> A?);
   }
@@ -2317,17 +2079,9 @@ unint64_t lazy protocol witness table accessor for type GameSaveSyncedDirectory?
 
 uint64_t objectdestroyTm_0()
 {
-  v1 = *(v0 + 24);
-
-  v2 = *(v0 + 32);
-
-  v3 = *(v0 + 40);
-
-  v4 = *(v0 + 48);
 
   if (*(v0 + 56))
   {
-    v5 = *(v0 + 64);
   }
 
   return MEMORY[0x2821FE8E8](v0, 72, 7);
@@ -2339,7 +2093,7 @@ unint64_t lazy protocol witness table accessor for type UIWindow? and conformanc
   if (!lazy protocol witness table cache variable for type UIWindow? and conformance <A> A?)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSo8UIWindowCSgMd, &_sSo8UIWindowCSgMR);
-    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type UIWindow and conformance NSObject, type metadata accessor for UIWindow);
+    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type UIWindow and conformance NSObject, type metadata accessor for UIWindow, MEMORY[0x277D85380]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type UIWindow? and conformance <A> A?);
   }
@@ -2376,21 +2130,10 @@ uint64_t partial apply for closure #1 in closure #2 in closure #1 in GameSaveLoa
 
 uint64_t objectdestroy_10Tm_0()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 32);
-
-  v3 = *(v0 + 56);
-
-  v4 = *(v0 + 64);
-
-  v5 = *(v0 + 72);
-
-  v6 = *(v0 + 80);
 
   if (*(v0 + 88))
   {
-    v7 = *(v0 + 96);
   }
 
   return MEMORY[0x2821FE8E8](v0, 104, 7);
@@ -2581,27 +2324,23 @@ uint64_t closure #1 in ConflictButton.body.getter@<X0>(void *a1@<X0>, uint64_t a
 
 uint64_t closure #1 in closure #1 in ConflictButton.body.getter@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
-  v91 = a2;
-  v93 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE4boldyQrSbFQOyACyACyAA6SpacerVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingI0VGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE4boldyQrSbFQOyACyACyAA6SpacerVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingI0VGMR);
-  v3 = *(*(v93 - 8) + 64);
-  MEMORY[0x28223BE20](v93);
-  v5 = &v77[-v4];
-  v84 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAA4ViewPAAE4boldyQrSbFQOyAGyAGyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingK0VGAGyAiAEAJyQrSbFQOyAGyAGyAA6SpacerVANGAUG_Qo_AYG_GMd, &_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAA4ViewPAAE4boldyQrSbFQOyAGyAGyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingK0VGAGyAiAEAJyQrSbFQOyAGyAGyAA6SpacerVANGAUG_Qo_AYG_GMR);
-  v6 = *(*(v84 - 8) + 64);
-  MEMORY[0x28223BE20](v84);
-  v86 = &v77[-v7];
-  v85 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE4boldyQrSbFQOyACyACyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingI0VGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE4boldyQrSbFQOyACyACyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingI0VGMR);
-  v8 = *(*(v85 - 8) + 64);
-  MEMORY[0x28223BE20](v85);
-  v10 = &v77[-v9];
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA4ViewPAAE4boldyQrSbFQOyAEyAEyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingJ0VGAEyAgAEAHyQrSbFQOyAEyAEyAA6SpacerVALGASG_Qo_AWGGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA4ViewPAAE4boldyQrSbFQOyAEyAEyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingJ0VGAEyAgAEAHyQrSbFQOyAEyAEyAA6SpacerVALGASG_Qo_AWGGMR);
-  v12 = *(*(v11 - 8) + 64);
-  v13 = MEMORY[0x28223BE20](v11 - 8);
-  v94 = &v77[-((v14 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x28223BE20](v13);
-  v16 = &v77[-v15];
+  v87 = a2;
+  v89 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE4boldyQrSbFQOyACyACyAA6SpacerVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingI0VGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE4boldyQrSbFQOyACyACyAA6SpacerVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingI0VGMR);
+  MEMORY[0x28223BE20](v89);
+  v4 = &v73[-v3];
+  v80 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAA4ViewPAAE4boldyQrSbFQOyAGyAGyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingK0VGAGyAiAEAJyQrSbFQOyAGyAGyAA6SpacerVANGAUG_Qo_AYG_GMd, &_s7SwiftUI19_ConditionalContentV7StorageOyAA08ModifiedD0VyAA4ViewPAAE4boldyQrSbFQOyAGyAGyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingK0VGAGyAiAEAJyQrSbFQOyAGyAGyAA6SpacerVANGAUG_Qo_AYG_GMR);
+  MEMORY[0x28223BE20](v80);
+  v82 = &v73[-v5];
+  v81 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE4boldyQrSbFQOyACyACyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingI0VGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE4boldyQrSbFQOyACyACyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingI0VGMR);
+  MEMORY[0x28223BE20](v81);
+  v7 = &v73[-v6];
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA4ViewPAAE4boldyQrSbFQOyAEyAEyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingJ0VGAEyAgAEAHyQrSbFQOyAEyAEyAA6SpacerVALGASG_Qo_AWGGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA4ViewPAAE4boldyQrSbFQOyAEyAEyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingJ0VGAEyAgAEAHyQrSbFQOyAEyAEyAA6SpacerVALGASG_Qo_AWGGMR);
+  v9 = MEMORY[0x28223BE20](v8 - 8);
+  v90 = &v73[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x28223BE20](v9);
+  v12 = &v73[-v11];
   type metadata accessor for MainActor();
-  v92 = static MainActor.shared.getter();
+  v88 = static MainActor.shared.getter();
   dispatch thunk of Actor.unownedExecutor.getter();
   if ((swift_task_isCurrentExecutor() & 1) == 0)
   {
@@ -2610,422 +2349,411 @@ uint64_t closure #1 in closure #1 in ConflictButton.body.getter@<X0>(void *a1@<X
 
   static Alignment.center.getter();
   _FrameLayout.init(width:height:alignment:)();
-  v89 = v120;
-  v90 = v118;
-  v87 = v123;
-  v88 = v122;
-  v117 = 1;
-  v116 = v119;
-  v115 = v121;
-  if (*(a1 + *(type metadata accessor for ConflictButton() + 32)) == 1)
+  v85 = v116;
+  v86 = v114;
+  v83 = v119;
+  v84 = v118;
+  v113 = 1;
+  v112 = v115;
+  v111 = v117;
+  if (*(a1 + *(type metadata accessor for ConflictButton(0) + 32)) == 1)
   {
-    v81 = Image.init(systemName:)();
+    v77 = Image.init(systemName:)();
     static Alignment.center.getter();
     _FrameLayout.init(width:height:alignment:)();
-    v17 = v124;
-    v18 = v125;
-    v19 = a1;
-    v20 = v126;
-    v21 = v16;
-    v22 = v127;
-    v82 = v10;
-    v23 = v128;
-    v24 = v129;
-    v25 = static Font.subheadline.getter();
+    v13 = v120;
+    v14 = v121;
+    v15 = a1;
+    v16 = v122;
+    v17 = v12;
+    v18 = v123;
+    v78 = v7;
+    v19 = v124;
+    v20 = v125;
+    v21 = static Font.subheadline.getter();
     KeyPath = swift_getKeyPath();
-    LOBYTE(v111[0]) = v18;
-    LOBYTE(v104) = v22;
-    *&v106 = v81;
-    *(&v106 + 1) = v17;
-    LOBYTE(v107[0]) = v18;
-    *(&v107[0] + 1) = v20;
-    a1 = v19;
-    LOBYTE(v107[1]) = v22;
-    v16 = v21;
-    *(&v107[1] + 1) = v23;
-    *&v107[2] = v24;
-    *(&v107[2] + 1) = KeyPath;
-    *&v107[3] = v25;
+    LOBYTE(v107[0]) = v14;
+    LOBYTE(v100) = v18;
+    *&v102 = v77;
+    *(&v102 + 1) = v13;
+    LOBYTE(v103[0]) = v14;
+    *(&v103[0] + 1) = v16;
+    a1 = v15;
+    LOBYTE(v103[1]) = v18;
+    v12 = v17;
+    *(&v103[1] + 1) = v19;
+    *&v103[2] = v20;
+    *(&v103[2] + 1) = KeyPath;
+    *&v103[3] = v21;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMd, &_s7SwiftUI15ModifiedContentVyACyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMR);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Image, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>> and conformance <> ModifiedContent<A, B>();
-    v27 = v82;
+    v23 = v78;
     View.bold(_:)();
-    *&v109[16] = v107[1];
-    *&v109[32] = v107[2];
-    *&v109[48] = *&v107[3];
-    v108 = v106;
-    *v109 = v107[0];
-    outlined destroy of URL?(&v108, &_s7SwiftUI15ModifiedContentVyACyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMd, &_s7SwiftUI15ModifiedContentVyACyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMR);
-    LOBYTE(v21) = static Edge.Set.leading.getter();
+    *&v105[16] = v103[1];
+    *&v105[32] = v103[2];
+    *&v105[48] = *&v103[3];
+    v104 = v102;
+    *v105 = v103[0];
+    outlined destroy of URL?(&v104, &_s7SwiftUI15ModifiedContentVyACyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMd, &_s7SwiftUI15ModifiedContentVyACyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMR);
+    LOBYTE(v17) = static Edge.Set.leading.getter();
     EdgeInsets.init(_all:)();
-    v28 = v86;
-    v29 = v27 + *(v85 + 36);
-    *v29 = v21;
-    *(v29 + 8) = v30;
-    *(v29 + 16) = v31;
-    *(v29 + 24) = v32;
-    *(v29 + 32) = v33;
-    *(v29 + 40) = 0;
-    outlined init with copy of URL?(v27, v28, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE4boldyQrSbFQOyACyACyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingI0VGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE4boldyQrSbFQOyACyACyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingI0VGMR);
+    v24 = v82;
+    v25 = v23 + *(v81 + 36);
+    *v25 = v17;
+    *(v25 + 8) = v26;
+    *(v25 + 16) = v27;
+    *(v25 + 24) = v28;
+    *(v25 + 32) = v29;
+    *(v25 + 40) = 0;
+    outlined init with copy of URL?(v23, v24, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE4boldyQrSbFQOyACyACyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingI0VGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE4boldyQrSbFQOyACyACyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingI0VGMR);
     swift_storeEnumTagMultiPayload();
     lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of View.bold(_:)>>.0, _PaddingLayout> and conformance <> ModifiedContent<A, B>();
     lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of View.bold(_:)>>.0, _PaddingLayout> and conformance <> ModifiedContent<A, B>();
     _ConditionalContent<>.init(storage:)();
-    v34 = v27;
-    v35 = &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE4boldyQrSbFQOyACyACyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingI0VGMd;
-    v36 = &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE4boldyQrSbFQOyACyACyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingI0VGMR;
+    v30 = v23;
+    v31 = &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE4boldyQrSbFQOyACyACyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingI0VGMd;
+    v32 = &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE4boldyQrSbFQOyACyACyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingI0VGMR;
   }
 
   else
   {
     static Alignment.center.getter();
     _FrameLayout.init(width:height:alignment:)();
-    v37 = v124;
-    v38 = v126;
-    v39 = v128;
-    v40 = v129;
-    LOBYTE(v111[0]) = 1;
-    LOBYTE(v104) = v125;
-    LOBYTE(v102[0]) = v127;
-    v41 = static Font.subheadline.getter();
-    v42 = swift_getKeyPath();
-    *&v106 = 0;
-    BYTE8(v106) = v111[0];
-    *&v107[0] = v37;
-    BYTE8(v107[0]) = v104;
-    *&v107[1] = v38;
-    BYTE8(v107[1]) = v102[0];
-    *&v107[2] = v39;
-    *(&v107[2] + 1) = v40;
-    *&v107[3] = v42;
-    *(&v107[3] + 1) = v41;
+    v33 = v120;
+    v34 = v122;
+    v35 = v124;
+    v36 = v125;
+    LOBYTE(v107[0]) = 1;
+    LOBYTE(v100) = v121;
+    LOBYTE(v98[0]) = v123;
+    v37 = static Font.subheadline.getter();
+    v38 = swift_getKeyPath();
+    *&v102 = 0;
+    BYTE8(v102) = v107[0];
+    *&v103[0] = v33;
+    BYTE8(v103[0]) = v100;
+    *&v103[1] = v34;
+    BYTE8(v103[1]) = v98[0];
+    *&v103[2] = v35;
+    *(&v103[2] + 1) = v36;
+    *&v103[3] = v38;
+    *(&v103[3] + 1) = v37;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6SpacerVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6SpacerVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMR);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Spacer, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>> and conformance <> ModifiedContent<A, B>();
     View.bold(_:)();
-    *&v109[16] = v107[1];
-    *&v109[32] = v107[2];
-    *&v109[48] = v107[3];
-    v108 = v106;
-    *v109 = v107[0];
-    outlined destroy of URL?(&v108, &_s7SwiftUI15ModifiedContentVyACyAA6SpacerVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6SpacerVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMR);
-    LOBYTE(v41) = static Edge.Set.leading.getter();
+    *&v105[16] = v103[1];
+    *&v105[32] = v103[2];
+    *&v105[48] = v103[3];
+    v104 = v102;
+    *v105 = v103[0];
+    outlined destroy of URL?(&v104, &_s7SwiftUI15ModifiedContentVyACyAA6SpacerVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6SpacerVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMR);
+    LOBYTE(v37) = static Edge.Set.leading.getter();
     EdgeInsets.init(_all:)();
-    v43 = &v5[*(v93 + 36)];
-    *v43 = v41;
-    *(v43 + 1) = v44;
-    *(v43 + 2) = v45;
-    *(v43 + 3) = v46;
-    *(v43 + 4) = v47;
-    v43[40] = 0;
-    outlined init with copy of URL?(v5, v86, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE4boldyQrSbFQOyACyACyAA6SpacerVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingI0VGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE4boldyQrSbFQOyACyACyAA6SpacerVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingI0VGMR);
+    v39 = &v4[*(v89 + 36)];
+    *v39 = v37;
+    *(v39 + 1) = v40;
+    *(v39 + 2) = v41;
+    *(v39 + 3) = v42;
+    *(v39 + 4) = v43;
+    v39[40] = 0;
+    outlined init with copy of URL?(v4, v82, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE4boldyQrSbFQOyACyACyAA6SpacerVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingI0VGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE4boldyQrSbFQOyACyACyAA6SpacerVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingI0VGMR);
     swift_storeEnumTagMultiPayload();
     lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of View.bold(_:)>>.0, _PaddingLayout> and conformance <> ModifiedContent<A, B>();
     lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of View.bold(_:)>>.0, _PaddingLayout> and conformance <> ModifiedContent<A, B>();
     _ConditionalContent<>.init(storage:)();
-    v34 = v5;
-    v35 = &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE4boldyQrSbFQOyACyACyAA6SpacerVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingI0VGMd;
-    v36 = &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE4boldyQrSbFQOyACyACyAA6SpacerVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingI0VGMR;
+    v30 = v4;
+    v31 = &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE4boldyQrSbFQOyACyACyAA6SpacerVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingI0VGMd;
+    v32 = &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE4boldyQrSbFQOyACyACyAA6SpacerVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingI0VGMR;
   }
 
-  outlined destroy of URL?(v34, v35, v36);
-  v83 = v16;
+  outlined destroy of URL?(v30, v31, v32);
+  v79 = v12;
   static Alignment.center.getter();
   _FrameLayout.init(width:height:alignment:)();
-  v85 = v132;
-  v86 = v130;
-  v84 = v134;
-  v82 = v135;
-  v101 = 1;
-  v100 = v131;
-  v99 = v133;
-  v48 = *a1;
-  v49 = a1[1];
+  v81 = v128;
+  v82 = v126;
+  v80 = v130;
+  v78 = v131;
+  v97 = 1;
+  v96 = v127;
+  v95 = v129;
 
-  v81 = Image.init(_internalSystemName:)();
-  v80 = static Font.title2.getter();
-  v93 = swift_getKeyPath();
+  v77 = Image.init(_internalSystemName:)();
+  v76 = static Font.title2.getter();
+  v89 = swift_getKeyPath();
   static Alignment.center.getter();
   _FrameLayout.init(width:height:alignment:)();
-  v79 = static HorizontalAlignment.leading.getter();
-  LOBYTE(v108) = 1;
-  closure #1 in closure #1 in closure #1 in ConflictButton.body.getter(a1, v102);
-  *&v98[23] = v102[1];
-  *&v98[39] = v102[2];
-  *&v98[55] = v102[3];
-  v98[71] = v103;
-  *&v98[7] = v102[0];
-  v78 = v108;
-  LOBYTE(v48) = v117;
-  v50 = v116;
-  v51 = v115;
-  v52 = v94;
-  outlined init with copy of URL?(v16, v94, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA4ViewPAAE4boldyQrSbFQOyAEyAEyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingJ0VGAEyAgAEAHyQrSbFQOyAEyAEyAA6SpacerVALGASG_Qo_AWGGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA4ViewPAAE4boldyQrSbFQOyAEyAEyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingJ0VGAEyAgAEAHyQrSbFQOyAEyAEyAA6SpacerVALGASG_Qo_AWGGMR);
-  LOBYTE(v49) = v101;
-  v53 = v100;
-  v54 = v99;
-  v55 = v90;
-  v56 = v91;
-  *v91 = 0;
-  *(v56 + 8) = v48;
-  v56[2] = v55;
-  *(v56 + 24) = v50;
-  v57 = v88;
-  v56[4] = v89;
-  *(v56 + 40) = v51;
-  v58 = v87;
-  v56[6] = v57;
-  v56[7] = v58;
-  v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6SpacerVAA12_FrameLayoutVG_AA012_ConditionalD0VyACyAA4ViewPAAE4boldyQrSbFQOyACyACyAA5ImageVAGGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingG0VGACyAlAEAMyQrSbFQOyACyAhVG_Qo_AZGGAhCyACyAoVGAGGAA6VStackVyAA05TupleI0VyAA4TextV_AJyA11_A11_GtGGAEtMd, &_s7SwiftUI15ModifiedContentVyAA6SpacerVAA12_FrameLayoutVG_AA012_ConditionalD0VyACyAA4ViewPAAE4boldyQrSbFQOyACyACyAA5ImageVAGGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingG0VGACyAlAEAMyQrSbFQOyACyAhVG_Qo_AZGGAhCyACyAoVGAGGAA6VStackVyAA05TupleI0VyAA4TextV_AJyA11_A11_GtGGAEtMR);
-  outlined init with copy of URL?(v52, v56 + v59[12], &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA4ViewPAAE4boldyQrSbFQOyAEyAEyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingJ0VGAEyAgAEAHyQrSbFQOyAEyAEyAA6SpacerVALGASG_Qo_AWGGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA4ViewPAAE4boldyQrSbFQOyAEyAEyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingJ0VGAEyAgAEAHyQrSbFQOyAEyAEyAA6SpacerVALGASG_Qo_AWGGMR);
-  v60 = v56 + v59[16];
-  *v60 = 0;
-  v60[8] = v49;
-  v61 = v85;
-  *(v60 + 2) = v86;
-  v60[24] = v53;
-  *(v60 + 4) = v61;
-  v60[40] = v54;
-  v63 = v81;
-  v62 = v82;
-  *(v60 + 6) = v84;
-  *(v60 + 7) = v62;
-  v64 = v56 + v59[20];
-  *&v104 = v63;
-  *(&v104 + 1) = v93;
-  v65 = v80;
-  *v105 = v80;
-  *&v105[8] = v95;
-  *&v105[24] = v96;
-  *&v105[40] = v97;
-  v66 = *&v105[32];
-  *(v64 + 2) = *&v105[16];
-  *(v64 + 3) = v66;
-  *(v64 + 8) = *&v105[48];
-  v67 = *v105;
-  *v64 = v104;
-  *(v64 + 1) = v67;
-  v68 = (v56 + v59[24]);
-  v69 = v79;
-  v106 = v79;
-  v70 = v78;
-  LOBYTE(v107[0]) = v78;
-  *(v107 + 1) = *v98;
-  *(&v107[4] + 1) = *&v98[64];
-  *(&v107[3] + 1) = *&v98[48];
-  *(&v107[2] + 1) = *&v98[32];
-  *(&v107[1] + 1) = *&v98[16];
-  v71 = v107[0];
-  *v68 = v79;
-  v68[1] = v71;
-  v72 = v107[1];
-  v73 = v107[2];
-  v74 = v107[3];
-  *(v68 + 73) = *(&v107[3] + 9);
-  v68[3] = v73;
-  v68[4] = v74;
-  v68[2] = v72;
-  v75 = v56 + v59[28];
-  *v75 = 0;
-  v75[8] = 1;
-  outlined init with copy of URL?(&v104, &v108, &_s7SwiftUI15ModifiedContentVyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA12_FrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA12_FrameLayoutVGMR);
-  outlined init with copy of URL?(&v106, &v108, &_s7SwiftUI6VStackVyAA9TupleViewVyAA4TextV_AA19_ConditionalContentVyA2GGtGGMd, &_s7SwiftUI6VStackVyAA9TupleViewVyAA4TextV_AA19_ConditionalContentVyA2GGtGGMR);
-  outlined destroy of URL?(v83, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA4ViewPAAE4boldyQrSbFQOyAEyAEyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingJ0VGAEyAgAEAHyQrSbFQOyAEyAEyAA6SpacerVALGASG_Qo_AWGGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA4ViewPAAE4boldyQrSbFQOyAEyAEyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingJ0VGAEyAgAEAHyQrSbFQOyAEyAEyAA6SpacerVALGASG_Qo_AWGGMR);
-  v108 = v69;
-  v109[0] = v70;
-  *&v109[17] = *&v98[16];
-  *&v109[33] = *&v98[32];
-  *&v109[49] = *&v98[48];
-  v110 = *&v98[64];
-  *&v109[1] = *v98;
-  outlined destroy of URL?(&v108, &_s7SwiftUI6VStackVyAA9TupleViewVyAA4TextV_AA19_ConditionalContentVyA2GGtGGMd, &_s7SwiftUI6VStackVyAA9TupleViewVyAA4TextV_AA19_ConditionalContentVyA2GGtGGMR);
-  v111[0] = v63;
-  v111[1] = v93;
-  v111[2] = v65;
-  v112 = v95;
-  v113 = v96;
-  v114 = v97;
-  outlined destroy of URL?(v111, &_s7SwiftUI15ModifiedContentVyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA12_FrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA12_FrameLayoutVGMR);
-  outlined destroy of URL?(v94, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA4ViewPAAE4boldyQrSbFQOyAEyAEyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingJ0VGAEyAgAEAHyQrSbFQOyAEyAEyAA6SpacerVALGASG_Qo_AWGGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA4ViewPAAE4boldyQrSbFQOyAEyAEyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingJ0VGAEyAgAEAHyQrSbFQOyAEyAEyAA6SpacerVALGASG_Qo_AWGGMR);
+  v75 = static HorizontalAlignment.leading.getter();
+  LOBYTE(v104) = 1;
+  closure #1 in closure #1 in closure #1 in ConflictButton.body.getter(a1, v98);
+  *&v94[23] = v98[1];
+  *&v94[39] = v98[2];
+  *&v94[55] = v98[3];
+  v94[71] = v99;
+  *&v94[7] = v98[0];
+  v74 = v104;
+  v44 = v113;
+  v45 = v112;
+  v46 = v111;
+  v47 = v90;
+  outlined init with copy of URL?(v12, v90, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA4ViewPAAE4boldyQrSbFQOyAEyAEyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingJ0VGAEyAgAEAHyQrSbFQOyAEyAEyAA6SpacerVALGASG_Qo_AWGGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA4ViewPAAE4boldyQrSbFQOyAEyAEyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingJ0VGAEyAgAEAHyQrSbFQOyAEyAEyAA6SpacerVALGASG_Qo_AWGGMR);
+  v48 = v97;
+  v49 = v96;
+  v50 = v95;
+  v51 = v86;
+  v52 = v87;
+  *v87 = 0;
+  *(v52 + 8) = v44;
+  v52[2] = v51;
+  *(v52 + 24) = v45;
+  v53 = v84;
+  v52[4] = v85;
+  *(v52 + 40) = v46;
+  v54 = v83;
+  v52[6] = v53;
+  v52[7] = v54;
+  v55 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6SpacerVAA12_FrameLayoutVG_AA012_ConditionalD0VyACyAA4ViewPAAE4boldyQrSbFQOyACyACyAA5ImageVAGGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingG0VGACyAlAEAMyQrSbFQOyACyAhVG_Qo_AZGGAhCyACyAoVGAGGAA6VStackVyAA05TupleI0VyAA4TextV_AJyA11_A11_GtGGAEtMd, &_s7SwiftUI15ModifiedContentVyAA6SpacerVAA12_FrameLayoutVG_AA012_ConditionalD0VyACyAA4ViewPAAE4boldyQrSbFQOyACyACyAA5ImageVAGGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingG0VGACyAlAEAMyQrSbFQOyACyAhVG_Qo_AZGGAhCyACyAoVGAGGAA6VStackVyAA05TupleI0VyAA4TextV_AJyA11_A11_GtGGAEtMR);
+  outlined init with copy of URL?(v47, v52 + v55[12], &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA4ViewPAAE4boldyQrSbFQOyAEyAEyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingJ0VGAEyAgAEAHyQrSbFQOyAEyAEyAA6SpacerVALGASG_Qo_AWGGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA4ViewPAAE4boldyQrSbFQOyAEyAEyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingJ0VGAEyAgAEAHyQrSbFQOyAEyAEyAA6SpacerVALGASG_Qo_AWGGMR);
+  v56 = v52 + v55[16];
+  *v56 = 0;
+  v56[8] = v48;
+  v57 = v81;
+  *(v56 + 2) = v82;
+  v56[24] = v49;
+  *(v56 + 4) = v57;
+  v56[40] = v50;
+  v59 = v77;
+  v58 = v78;
+  *(v56 + 6) = v80;
+  *(v56 + 7) = v58;
+  v60 = v52 + v55[20];
+  *&v100 = v59;
+  *(&v100 + 1) = v89;
+  v61 = v76;
+  *v101 = v76;
+  *&v101[8] = v91;
+  *&v101[24] = v92;
+  *&v101[40] = v93;
+  v62 = *&v101[32];
+  *(v60 + 2) = *&v101[16];
+  *(v60 + 3) = v62;
+  *(v60 + 8) = *&v101[48];
+  v63 = *v101;
+  *v60 = v100;
+  *(v60 + 1) = v63;
+  v64 = (v52 + v55[24]);
+  v65 = v75;
+  v102 = v75;
+  v66 = v74;
+  LOBYTE(v103[0]) = v74;
+  *(v103 + 1) = *v94;
+  *(&v103[4] + 1) = *&v94[64];
+  *(&v103[3] + 1) = *&v94[48];
+  *(&v103[2] + 1) = *&v94[32];
+  *(&v103[1] + 1) = *&v94[16];
+  v67 = v103[0];
+  *v64 = v75;
+  v64[1] = v67;
+  v68 = v103[1];
+  v69 = v103[2];
+  v70 = v103[3];
+  *(v64 + 73) = *(&v103[3] + 9);
+  v64[3] = v69;
+  v64[4] = v70;
+  v64[2] = v68;
+  v71 = v52 + v55[28];
+  *v71 = 0;
+  v71[8] = 1;
+  outlined init with copy of URL?(&v100, &v104, &_s7SwiftUI15ModifiedContentVyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA12_FrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA12_FrameLayoutVGMR);
+  outlined init with copy of URL?(&v102, &v104, &_s7SwiftUI6VStackVyAA9TupleViewVyAA4TextV_AA19_ConditionalContentVyA2GGtGGMd, &_s7SwiftUI6VStackVyAA9TupleViewVyAA4TextV_AA19_ConditionalContentVyA2GGtGGMR);
+  outlined destroy of URL?(v79, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA4ViewPAAE4boldyQrSbFQOyAEyAEyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingJ0VGAEyAgAEAHyQrSbFQOyAEyAEyAA6SpacerVALGASG_Qo_AWGGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA4ViewPAAE4boldyQrSbFQOyAEyAEyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingJ0VGAEyAgAEAHyQrSbFQOyAEyAEyAA6SpacerVALGASG_Qo_AWGGMR);
+  v104 = v65;
+  v105[0] = v66;
+  *&v105[17] = *&v94[16];
+  *&v105[33] = *&v94[32];
+  *&v105[49] = *&v94[48];
+  v106 = *&v94[64];
+  *&v105[1] = *v94;
+  outlined destroy of URL?(&v104, &_s7SwiftUI6VStackVyAA9TupleViewVyAA4TextV_AA19_ConditionalContentVyA2GGtGGMd, &_s7SwiftUI6VStackVyAA9TupleViewVyAA4TextV_AA19_ConditionalContentVyA2GGtGGMR);
+  v107[0] = v59;
+  v107[1] = v89;
+  v107[2] = v61;
+  v108 = v91;
+  v109 = v92;
+  v110 = v93;
+  outlined destroy of URL?(v107, &_s7SwiftUI15ModifiedContentVyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA12_FrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyACyAA5ImageVAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGAA12_FrameLayoutVGMR);
+  outlined destroy of URL?(v90, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA4ViewPAAE4boldyQrSbFQOyAEyAEyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingJ0VGAEyAgAEAHyQrSbFQOyAEyAEyAA6SpacerVALGASG_Qo_AWGGMd, &_s7SwiftUI19_ConditionalContentVyAA08ModifiedD0VyAA4ViewPAAE4boldyQrSbFQOyAEyAEyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingJ0VGAEyAgAEAHyQrSbFQOyAEyAEyAA6SpacerVALGASG_Qo_AWGGMR);
 }
 
 uint64_t closure #1 in closure #1 in closure #1 in ConflictButton.body.getter@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
-  v83 = a2;
+  v81 = a2;
   v3 = type metadata accessor for LocalizedStringKey.StringInterpolation();
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v75[2] = v75 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  *&v78 = type metadata accessor for Calendar();
-  *&v77 = *(v78 - 8);
-  v6 = *(v77 + 64);
-  MEMORY[0x28223BE20](v78);
-  v76 = v75 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v73[2] = v73 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  *&v76 = type metadata accessor for Calendar();
+  *&v75 = *(v76 - 8);
+  MEMORY[0x28223BE20](v76);
+  v74 = v73 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for MainActor();
-  v82 = static MainActor.shared.getter();
+  v80 = static MainActor.shared.getter();
   dispatch thunk of Actor.unownedExecutor.getter();
   if ((swift_task_isCurrentExecutor() & 1) == 0)
   {
     swift_task_reportUnexpectedExecutor();
   }
 
-  v8 = *(a1 + 24);
-  *&v89 = *(a1 + 16);
-  *(&v89 + 1) = v8;
-  v9 = lazy protocol witness table accessor for type String and conformance String();
+  v6 = *(a1 + 24);
+  *&v87 = *(a1 + 16);
+  *(&v87 + 1) = v6;
+  v7 = lazy protocol witness table accessor for type String and conformance String();
 
-  v75[1] = v9;
-  v10 = Text.init<A>(_:)();
+  v73[1] = v7;
+  v8 = Text.init<A>(_:)();
+  v10 = v9;
   v12 = v11;
-  v14 = v13;
   static Font.footnote.getter();
-  v15 = Text.font(_:)();
+  v13 = Text.font(_:)();
+  v15 = v14;
   v17 = v16;
-  v19 = v18;
 
-  outlined consume of Text.Storage(v10, v12, v14 & 1);
+  outlined consume of Text.Storage(v8, v10, v12 & 1);
 
   static Font.Weight.bold.getter();
-  v80 = Text.fontWeight(_:)();
-  v81 = v20;
-  v22 = v21;
-  v79 = v23;
-  outlined consume of Text.Storage(v15, v17, v19 & 1);
+  v78 = Text.fontWeight(_:)();
+  v79 = v18;
+  v20 = v19;
+  v77 = v21;
+  outlined consume of Text.Storage(v13, v15, v17 & 1);
 
-  v24 = v76;
+  v22 = v74;
   static Calendar.current.getter();
-  LODWORD(v12) = *(type metadata accessor for ConflictButton() + 24);
-  v25 = Calendar.isDateInToday(_:)();
-  (*(v77 + 8))(v24, v78);
-  if (v25)
+  type metadata accessor for ConflictButton(0);
+  v23 = Calendar.isDateInToday(_:)();
+  (*(v75 + 8))(v22, v76);
+  if (v23)
   {
     LocalizedStringKey.StringInterpolation.init(literalCapacity:interpolationCount:)();
-    v26._countAndFlagsBits = 0x7461207961646F54;
-    v26._object = 0xE900000000000020;
-    LocalizedStringKey.StringInterpolation.appendLiteral(_:)(v26);
-    v27 = objc_opt_self();
+    v24._countAndFlagsBits = 0x7461207961646F54;
+    v24._object = 0xE900000000000020;
+    LocalizedStringKey.StringInterpolation.appendLiteral(_:)(v24);
+    v25 = objc_opt_self();
     isa = Date._bridgeToObjectiveC()().super.isa;
-    v29 = [v27 localizedStringFromDate:isa dateStyle:0 timeStyle:1];
+    v27 = [v25 localizedStringFromDate:isa dateStyle:0 timeStyle:1];
 
-    v30 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v32 = v31;
+    v28 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v30 = v29;
 
-    v33._countAndFlagsBits = v30;
-    v33._object = v32;
-    LocalizedStringKey.StringInterpolation.appendInterpolation(_:)(v33);
+    v31._countAndFlagsBits = v28;
+    v31._object = v30;
+    LocalizedStringKey.StringInterpolation.appendInterpolation(_:)(v31);
 
-    v34._countAndFlagsBits = 0;
-    v34._object = 0xE000000000000000;
-    LocalizedStringKey.StringInterpolation.appendLiteral(_:)(v34);
+    v32._countAndFlagsBits = 0;
+    v32._object = 0xE000000000000000;
+    LocalizedStringKey.StringInterpolation.appendLiteral(_:)(v32);
     LocalizedStringKey.init(stringInterpolation:)();
     if (one-time initialization token for bundleForGameSave != -1)
     {
       swift_once();
     }
 
-    v35 = static GameSaveSyncedDirectory.bundleForGameSave;
-    v36 = Text.init(_:tableName:bundle:comment:)();
+    v33 = static GameSaveSyncedDirectory.bundleForGameSave;
+    v34 = Text.init(_:tableName:bundle:comment:)();
+    v36 = v35;
     v38 = v37;
-    v40 = v39;
     static Font.caption.getter();
-    v41 = Text.font(_:)();
+    v39 = Text.font(_:)();
+    v41 = v40;
     v43 = v42;
     v45 = v44;
-    v47 = v46;
 
-    outlined consume of Text.Storage(v36, v38, v40 & 1);
+    outlined consume of Text.Storage(v34, v36, v38 & 1);
 
-    v84 = v41;
-    v85 = v43;
-    v86 = v45 & 1;
-    v87 = v47;
-    v88 = 0;
+    v82 = v39;
+    v83 = v41;
+    v84 = v43 & 1;
+    v85 = v45;
+    v86 = 0;
   }
 
   else
   {
-    v48 = objc_opt_self();
-    v49 = Date._bridgeToObjectiveC()().super.isa;
-    v50 = [v48 localizedStringFromDate:v49 dateStyle:2 timeStyle:1];
+    v46 = objc_opt_self();
+    v47 = Date._bridgeToObjectiveC()().super.isa;
+    v48 = [v46 localizedStringFromDate:v47 dateStyle:2 timeStyle:1];
 
-    v51 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v53 = v52;
+    v49 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v51 = v50;
 
-    *&v89 = v51;
-    *(&v89 + 1) = v53;
-    v54 = Text.init<A>(_:)();
-    v56 = v55;
-    LOBYTE(v53) = v57;
+    *&v87 = v49;
+    *(&v87 + 1) = v51;
+    v52 = Text.init<A>(_:)();
+    v54 = v53;
+    LOBYTE(v51) = v55;
     static Font.caption.getter();
-    v58 = Text.font(_:)();
+    v56 = Text.font(_:)();
+    v58 = v57;
     v60 = v59;
     v62 = v61;
-    v64 = v63;
 
-    outlined consume of Text.Storage(v54, v56, v53 & 1);
+    outlined consume of Text.Storage(v52, v54, v51 & 1);
 
-    v84 = v58;
-    v85 = v60;
-    v86 = v62 & 1;
-    v87 = v64;
-    v88 = 1;
+    v82 = v56;
+    v83 = v58;
+    v84 = v60 & 1;
+    v85 = v62;
+    v86 = 1;
   }
 
   _ConditionalContent<>.init(storage:)();
+  v63 = v87;
+  v64 = v88;
   v65 = v89;
-  v66 = v90;
-  v67 = v91;
-  v77 = v89;
-  v78 = v90;
-  v68 = v79 & 1;
-  LOBYTE(v89) = v79 & 1;
-  LOBYTE(v84) = v91;
-  v69 = v83;
-  v71 = v80;
-  v70 = v81;
-  *v83 = v80;
-  v69[1] = v22;
-  *(v69 + 16) = v68;
-  v69[3] = v70;
-  *(v69 + 2) = v65;
-  *(v69 + 3) = v66;
-  *(v69 + 64) = v67;
-  outlined copy of Text.Storage(v71, v22, v68);
+  v75 = v87;
+  v76 = v88;
+  v66 = v77 & 1;
+  LOBYTE(v87) = v77 & 1;
+  LOBYTE(v82) = v89;
+  v67 = v81;
+  v69 = v78;
+  v68 = v79;
+  *v81 = v78;
+  v67[1] = v20;
+  *(v67 + 16) = v66;
+  v67[3] = v68;
+  *(v67 + 2) = v63;
+  *(v67 + 3) = v64;
+  *(v67 + 64) = v65;
+  outlined copy of Text.Storage(v69, v20, v66);
 
-  v72 = v77;
-  v73 = v78;
-  outlined copy of _ConditionalContent<Text, Text>.Storage(v77, *(&v77 + 1), v78);
-  outlined consume of _ConditionalContent<Text, Text>.Storage(v72, *(&v72 + 1), v73);
-  outlined consume of Text.Storage(v71, v22, v68);
+  v70 = v75;
+  v71 = v76;
+  outlined copy of _ConditionalContent<Text, Text>.Storage(v75, *(&v75 + 1), v76, *(&v76 + 1));
+  outlined consume of _ConditionalContent<Text, Text>.Storage(v70, *(&v70 + 1), v71, *(&v71 + 1));
+  outlined consume of Text.Storage(v69, v20, v66);
 }
 
 uint64_t protocol witness for View.body.getter in conformance ConflictButton(uint64_t a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyACyAA6HStackVyAA9TupleViewVyACyAA6SpacerVAA12_FrameLayoutVG_AA012_ConditionalD0VyACyAA0H0PAAE4boldyQrSbFQOyACyACyAA5ImageVAMGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingK0VGACyArAEASyQrSbFQOyACyANA0_G_Qo_A4_GGAnCyACyAUA0_GAMGAA6VStackVyAIyAA4TextV_APyA15_A15_GtGGAKtGGAA01_d5ShapeR0VyAA9RectangleVGGGAMGAA016_ForegroundStyleR0VyAA012HierarchicalwZ0VGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyACyAA6HStackVyAA9TupleViewVyACyAA6SpacerVAA12_FrameLayoutVG_AA012_ConditionalD0VyACyAA0H0PAAE4boldyQrSbFQOyACyACyAA5ImageVAMGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingK0VGACyArAEASyQrSbFQOyACyANA0_G_Qo_A4_GGAnCyACyAUA0_GAMGAA6VStackVyAIyAA4TextV_APyA15_A15_GtGGAKtGGAA01_d5ShapeR0VyAA9RectangleVGGGAMGAA016_ForegroundStyleR0VyAA012HierarchicalwZ0VGGMR);
-  v4 = *(*(v3 - 8) + 64);
-  MEMORY[0x28223BE20](v3);
-  v6 = &v16[-v5];
-  v7 = (v1 + *(a1 + 36));
-  v8 = *v7;
-  v9 = v7[1];
-  v17 = v1;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyACyAA6HStackVyAA9TupleViewVyACyAA6SpacerVAA12_FrameLayoutVG_AA012_ConditionalD0VyACyAA0H0PAAE4boldyQrSbFQOyACyACyAA5ImageVAMGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingK0VGACyArAEASyQrSbFQOyACyANA0_G_Qo_A4_GGAnCyACyAUA0_GAMGAA6VStackVyAIyAA4TextV_APyA15_A15_GtGGAKtGGAA01_d5ShapeR0VyAA9RectangleVGGGAMGAA016_ForegroundStyleR0VyAA012HierarchicalwZ0VGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyACyAA6HStackVyAA9TupleViewVyACyAA6SpacerVAA12_FrameLayoutVG_AA012_ConditionalD0VyACyAA0H0PAAE4boldyQrSbFQOyACyACyAA5ImageVAMGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingK0VGACyArAEASyQrSbFQOyACyANA0_G_Qo_A4_GGAnCyACyAUA0_GAMGAA6VStackVyAIyAA4TextV_APyA15_A15_GtGGAKtGGAA01_d5ShapeR0VyAA9RectangleVGGGAMGAA016_ForegroundStyleR0VyAA012HierarchicalwZ0VGGMR);
+  MEMORY[0x28223BE20](v2);
+  v4 = &v8[-v3];
+  v9 = v1;
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyACyAA6SpacerVAA12_FrameLayoutVG_AA012_ConditionalD0VyACyAA0G0PAAE4boldyQrSbFQOyACyACyAA5ImageVAKGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingJ0VGACyApAEAQyQrSbFQOyACyAlZG_Qo_A2_GGAlCyACyAsZGAKGAA6VStackVyAGyAA4TextV_ANyA13_A13_GtGGAItGGAA01_d5ShapeQ0VyAA9RectangleVGGMd, &_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyACyAA6SpacerVAA12_FrameLayoutVG_AA012_ConditionalD0VyACyAA0G0PAAE4boldyQrSbFQOyACyACyAA5ImageVAKGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingJ0VGACyApAEAQyQrSbFQOyACyAlZG_Qo_A2_GGAlCyACyAsZGAKGAA6VStackVyAGyAA4TextV_ANyA13_A13_GtGGAItGGAA01_d5ShapeQ0VyAA9RectangleVGGMR);
   lazy protocol witness table accessor for type ModifiedContent<HStack<TupleView<(ModifiedContent<Spacer, _FrameLayout>, _ConditionalContent<ModifiedContent<<<opaque return type of View.bold(_:)>>.0, _PaddingLayout>, ModifiedContent<<<opaque return type of View.bold(_:)>>.0, _PaddingLayout>>, ModifiedContent<Spacer, _FrameLayout>, ModifiedContent<ModifiedContent<Image, _EnvironmentKeyWritingModifier<Font?>>, _FrameLayout>, VStack<TupleView<(Text, _ConditionalContent<Text, Text>)>>, Spacer)>>, _ContentShapeModifier<Rectangle>> and conformance <> ModifiedContent<A, B>();
   Button.init(action:label:)();
   static Alignment.center.getter();
   _FrameLayout.init(width:height:alignment:)();
-  v10 = &v6[*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6ButtonVyACyAA6HStackVyAA9TupleViewVyACyAA6SpacerVAA12_FrameLayoutVG_AA012_ConditionalD0VyACyAA0H0PAAE4boldyQrSbFQOyACyACyAA5ImageVAMGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingK0VGACyArAEASyQrSbFQOyACyANA0_G_Qo_A4_GGAnCyACyAUA0_GAMGAA6VStackVyAIyAA4TextV_APyA15_A15_GtGGAKtGGAA01_d5ShapeR0VyAA9RectangleVGGGAMGMd, &_s7SwiftUI15ModifiedContentVyAA6ButtonVyACyAA6HStackVyAA9TupleViewVyACyAA6SpacerVAA12_FrameLayoutVG_AA012_ConditionalD0VyACyAA0H0PAAE4boldyQrSbFQOyACyACyAA5ImageVAMGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingK0VGACyArAEASyQrSbFQOyACyANA0_G_Qo_A4_GGAnCyACyAUA0_GAMGAA6VStackVyAIyAA4TextV_APyA15_A15_GtGGAKtGGAA01_d5ShapeR0VyAA9RectangleVGGGAMGMR) + 36)];
-  v11 = v19;
-  *v10 = v18;
-  v10[1] = v11;
-  v10[2] = v20;
-  *&v6[*(v3 + 36)] = static HierarchicalShapeStyle.primary.getter();
-  v12 = (v1 + *(a1 + 28));
-  v13 = *v12;
-  v14 = v12[1];
+  v5 = &v4[*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6ButtonVyACyAA6HStackVyAA9TupleViewVyACyAA6SpacerVAA12_FrameLayoutVG_AA012_ConditionalD0VyACyAA0H0PAAE4boldyQrSbFQOyACyACyAA5ImageVAMGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingK0VGACyArAEASyQrSbFQOyACyANA0_G_Qo_A4_GGAnCyACyAUA0_GAMGAA6VStackVyAIyAA4TextV_APyA15_A15_GtGGAKtGGAA01_d5ShapeR0VyAA9RectangleVGGGAMGMd, &_s7SwiftUI15ModifiedContentVyAA6ButtonVyACyAA6HStackVyAA9TupleViewVyACyAA6SpacerVAA12_FrameLayoutVG_AA012_ConditionalD0VyACyAA0H0PAAE4boldyQrSbFQOyACyACyAA5ImageVAMGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingK0VGACyArAEASyQrSbFQOyACyANA0_G_Qo_A4_GGAnCyACyAUA0_GAMGAA6VStackVyAIyAA4TextV_APyA15_A15_GtGGAKtGGAA01_d5ShapeR0VyAA9RectangleVGGGAMGMR) + 36)];
+  v6 = v11;
+  *v5 = v10;
+  v5[1] = v6;
+  v5[2] = v12;
+  *&v4[*(v2 + 36)] = static HierarchicalShapeStyle.primary.getter();
   lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Button<ModifiedContent<HStack<TupleView<(ModifiedContent<Spacer, _FrameLayout>, _ConditionalContent<ModifiedContent<<<opaque return type of View.bold(_:)>>.0, _PaddingLayout>, ModifiedContent<<<opaque return type of View.bold(_:)>>.0, _PaddingLayout>>, ModifiedContent<Spacer, _FrameLayout>, ModifiedContent<ModifiedContent<Image, _EnvironmentKeyWritingModifier<Font?>>, _FrameLayout>, VStack<TupleView<(Text, _ConditionalContent<Text, Text>)>>, Spacer)>>, _ContentShapeModifier<Rectangle>>>, _FrameLayout>, _ForegroundStyleModifier<HierarchicalShapeStyle>> and conformance <> ModifiedContent<A, B>();
   View.accessibilityIdentifier(_:)();
-  return outlined destroy of URL?(v6, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyACyAA6HStackVyAA9TupleViewVyACyAA6SpacerVAA12_FrameLayoutVG_AA012_ConditionalD0VyACyAA0H0PAAE4boldyQrSbFQOyACyACyAA5ImageVAMGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingK0VGACyArAEASyQrSbFQOyACyANA0_G_Qo_A4_GGAnCyACyAUA0_GAMGAA6VStackVyAIyAA4TextV_APyA15_A15_GtGGAKtGGAA01_d5ShapeR0VyAA9RectangleVGGGAMGAA016_ForegroundStyleR0VyAA012HierarchicalwZ0VGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyACyAA6HStackVyAA9TupleViewVyACyAA6SpacerVAA12_FrameLayoutVG_AA012_ConditionalD0VyACyAA0H0PAAE4boldyQrSbFQOyACyACyAA5ImageVAMGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingK0VGACyArAEASyQrSbFQOyACyANA0_G_Qo_A4_GGAnCyACyAUA0_GAMGAA6VStackVyAIyAA4TextV_APyA15_A15_GtGGAKtGGAA01_d5ShapeR0VyAA9RectangleVGGGAMGAA016_ForegroundStyleR0VyAA012HierarchicalwZ0VGGMR);
+  return outlined destroy of URL?(v4, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyACyAA6HStackVyAA9TupleViewVyACyAA6SpacerVAA12_FrameLayoutVG_AA012_ConditionalD0VyACyAA0H0PAAE4boldyQrSbFQOyACyACyAA5ImageVAMGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingK0VGACyArAEASyQrSbFQOyACyANA0_G_Qo_A4_GGAnCyACyAUA0_GAMGAA6VStackVyAIyAA4TextV_APyA15_A15_GtGGAKtGGAA01_d5ShapeR0VyAA9RectangleVGGGAMGAA016_ForegroundStyleR0VyAA012HierarchicalwZ0VGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyACyAA6HStackVyAA9TupleViewVyACyAA6SpacerVAA12_FrameLayoutVG_AA012_ConditionalD0VyACyAA0H0PAAE4boldyQrSbFQOyACyACyAA5ImageVAMGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingK0VGACyArAEASyQrSbFQOyACyANA0_G_Qo_A4_GGAnCyACyAUA0_GAMGAA6VStackVyAIyAA4TextV_APyA15_A15_GtGGAKtGGAA01_d5ShapeR0VyAA9RectangleVGGGAMGAA016_ForegroundStyleR0VyAA012HierarchicalwZ0VGGMR);
 }
 
 uint64_t ConflictScrollView.body.getter@<X0>(uint64_t a1@<X8>)
@@ -3033,10 +2761,10 @@ uint64_t ConflictScrollView.body.getter@<X0>(uint64_t a1@<X8>)
   *a1 = static HorizontalAlignment.center.getter();
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
-  v3 = a1 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_VStackLayoutVAA7ForEachVySay8GameSave0jK15SyncedDirectoryC7VersionCG10Foundation3URLVAA05TupleD0VyAA0D0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonS0Rd__lFQOyAJ08ConflictU0V_AA05PlainuS0VQo__AA7DividerVSgtGGGMd, &_s7SwiftUI13_VariadicViewO4TreeVy_AA13_VStackLayoutVAA7ForEachVySay8GameSave0jK15SyncedDirectoryC7VersionCG10Foundation3URLVAA05TupleD0VyAA0D0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonS0Rd__lFQOyAJ08ConflictU0V_AA05PlainuS0VQo__AA7DividerVSgtGGGMR) + 44);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_VStackLayoutVAA7ForEachVySay8GameSave0jK15SyncedDirectoryC7VersionCG10Foundation3URLVAA05TupleD0VyAA0D0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonS0Rd__lFQOyAJ08ConflictU0V_AA05PlainuS0VQo__AA7DividerVSgtGGGMd, &_s7SwiftUI13_VariadicViewO4TreeVy_AA13_VStackLayoutVAA7ForEachVySay8GameSave0jK15SyncedDirectoryC7VersionCG10Foundation3URLVAA05TupleD0VyAA0D0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonS0Rd__lFQOyAJ08ConflictU0V_AA05PlainuS0VQo__AA7DividerVSgtGGGMR);
   closure #1 in ConflictScrollView.body.getter(v1);
-  v4 = static Alignment.center.getter();
-  v6 = v5;
+  v3 = static Alignment.center.getter();
+  v5 = v4;
   type metadata accessor for MainActor();
   static MainActor.shared.getter();
   dispatch thunk of Actor.unownedExecutor.getter();
@@ -3046,35 +2774,35 @@ uint64_t ConflictScrollView.body.getter@<X0>(uint64_t a1@<X8>)
   }
 
   static Color.gray.getter();
-  v7 = Color.opacity(_:)();
+  v6 = Color.opacity(_:)();
 
-  v8 = (a1 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6VStackVyAA7ForEachVySay8GameSave0hI15SyncedDirectoryC7VersionCG10Foundation3URLVAA9TupleViewVyAA0P0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonR0Rd__lFQOyAH08ConflictT0V_AA05PlaintR0VQo__AA7DividerVSgtGGGAA19_BackgroundModifierVyAA5ColorVGGMd, &_s7SwiftUI15ModifiedContentVyAA6VStackVyAA7ForEachVySay8GameSave0hI15SyncedDirectoryC7VersionCG10Foundation3URLVAA9TupleViewVyAA0P0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonR0Rd__lFQOyAH08ConflictT0V_AA05PlaintR0VQo__AA7DividerVSgtGGGAA19_BackgroundModifierVyAA5ColorVGGMR) + 36));
-  *v8 = v7;
-  v8[1] = v4;
-  v8[2] = v6;
-  v9 = (a1 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA7ForEachVySay8GameSave0hI15SyncedDirectoryC7VersionCG10Foundation3URLVAA9TupleViewVyAA0P0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonR0Rd__lFQOyAH08ConflictT0V_AA05PlaintR0VQo__AA7DividerVSgtGGGAA19_BackgroundModifierVyAA5ColorVGGAA11_ClipEffectVyAA16RoundedRectangleVGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA7ForEachVySay8GameSave0hI15SyncedDirectoryC7VersionCG10Foundation3URLVAA9TupleViewVyAA0P0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonR0Rd__lFQOyAH08ConflictT0V_AA05PlaintR0VQo__AA7DividerVSgtGGGAA19_BackgroundModifierVyAA5ColorVGGAA11_ClipEffectVyAA16RoundedRectangleVGGMR) + 36));
-  v10 = *(type metadata accessor for RoundedRectangle() + 20);
-  v11 = *MEMORY[0x277CE0118];
-  v12 = type metadata accessor for RoundedCornerStyle();
-  (*(*(v12 - 8) + 104))(&v9[v10], v11, v12);
+  v7 = (a1 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6VStackVyAA7ForEachVySay8GameSave0hI15SyncedDirectoryC7VersionCG10Foundation3URLVAA9TupleViewVyAA0P0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonR0Rd__lFQOyAH08ConflictT0V_AA05PlaintR0VQo__AA7DividerVSgtGGGAA19_BackgroundModifierVyAA5ColorVGGMd, &_s7SwiftUI15ModifiedContentVyAA6VStackVyAA7ForEachVySay8GameSave0hI15SyncedDirectoryC7VersionCG10Foundation3URLVAA9TupleViewVyAA0P0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonR0Rd__lFQOyAH08ConflictT0V_AA05PlaintR0VQo__AA7DividerVSgtGGGAA19_BackgroundModifierVyAA5ColorVGGMR) + 36));
+  *v7 = v6;
+  v7[1] = v3;
+  v7[2] = v5;
+  v8 = (a1 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA7ForEachVySay8GameSave0hI15SyncedDirectoryC7VersionCG10Foundation3URLVAA9TupleViewVyAA0P0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonR0Rd__lFQOyAH08ConflictT0V_AA05PlaintR0VQo__AA7DividerVSgtGGGAA19_BackgroundModifierVyAA5ColorVGGAA11_ClipEffectVyAA16RoundedRectangleVGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA7ForEachVySay8GameSave0hI15SyncedDirectoryC7VersionCG10Foundation3URLVAA9TupleViewVyAA0P0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonR0Rd__lFQOyAH08ConflictT0V_AA05PlaintR0VQo__AA7DividerVSgtGGGAA19_BackgroundModifierVyAA5ColorVGGAA11_ClipEffectVyAA16RoundedRectangleVGGMR) + 36));
+  v9 = *(type metadata accessor for RoundedRectangle() + 20);
+  v10 = *MEMORY[0x277CE0118];
+  v11 = type metadata accessor for RoundedCornerStyle();
+  (*(*(v11 - 8) + 104))(&v8[v9], v10, v11);
   __asm { FMOV            V0.2D, #10.0 }
 
-  *v9 = _Q0;
-  *&v9[*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11_ClipEffectVyAA16RoundedRectangleVGMd, &_s7SwiftUI11_ClipEffectVyAA16RoundedRectangleVGMR) + 36)] = 256;
-  LOBYTE(v11) = static Edge.Set.horizontal.getter();
+  *v8 = _Q0;
+  *&v8[*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11_ClipEffectVyAA16RoundedRectangleVGMd, &_s7SwiftUI11_ClipEffectVyAA16RoundedRectangleVGMR) + 36)] = 256;
+  LOBYTE(v10) = static Edge.Set.horizontal.getter();
   EdgeInsets.init(_all:)();
-  v19 = v18;
-  v21 = v20;
-  v23 = v22;
-  v25 = v24;
+  v18 = v17;
+  v20 = v19;
+  v22 = v21;
+  v24 = v23;
   result = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyAA6VStackVyAA7ForEachVySay8GameSave0hI15SyncedDirectoryC7VersionCG10Foundation3URLVAA9TupleViewVyAA0P0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonR0Rd__lFQOyAH08ConflictT0V_AA05PlaintR0VQo__AA7DividerVSgtGGGAA19_BackgroundModifierVyAA5ColorVGGAA11_ClipEffectVyAA16RoundedRectangleVGGAA14_PaddingLayoutVGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA6VStackVyAA7ForEachVySay8GameSave0hI15SyncedDirectoryC7VersionCG10Foundation3URLVAA9TupleViewVyAA0P0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonR0Rd__lFQOyAH08ConflictT0V_AA05PlaintR0VQo__AA7DividerVSgtGGGAA19_BackgroundModifierVyAA5ColorVGGAA11_ClipEffectVyAA16RoundedRectangleVGGAA14_PaddingLayoutVGMR);
-  v27 = a1 + *(result + 36);
-  *v27 = v11;
-  *(v27 + 8) = v19;
-  *(v27 + 16) = v21;
-  *(v27 + 24) = v23;
-  *(v27 + 32) = v25;
-  *(v27 + 40) = 0;
+  v26 = a1 + *(result + 36);
+  *v26 = v10;
+  *(v26 + 8) = v18;
+  *(v26 + 16) = v20;
+  *(v26 + 24) = v22;
+  *(v26 + 32) = v24;
+  *(v26 + 40) = 0;
   return result;
 }
 
@@ -3101,317 +2829,306 @@ uint64_t closure #1 in ConflictScrollView.body.getter(uint64_t a1)
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8GameSave0aB15SyncedDirectoryC7VersionCGMd, &_sSay8GameSave0aB15SyncedDirectoryC7VersionCGMR);
   type metadata accessor for URL();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVyAA0D0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonF0Rd__lFQOy8GameSave08ConflictH0V_AA05PlainhF0VQo__AA7DividerVSgtGMd, &_s7SwiftUI9TupleViewVyAA0D0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonF0Rd__lFQOy8GameSave08ConflictH0V_AA05PlainhF0VQo__AA7DividerVSgtGMR);
-  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [GameSaveSyncedDirectory.Version] and conformance [A], &_sSay8GameSave0aB15SyncedDirectoryC7VersionCGMd, &_sSay8GameSave0aB15SyncedDirectoryC7VersionCGMR);
-  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type TupleView<(<<opaque return type of View.buttonStyle<A>(_:)>>.0, Divider?)> and conformance TupleView<A>, &_s7SwiftUI9TupleViewVyAA0D0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonF0Rd__lFQOy8GameSave08ConflictH0V_AA05PlainhF0VQo__AA7DividerVSgtGMd, &_s7SwiftUI9TupleViewVyAA0D0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonF0Rd__lFQOy8GameSave08ConflictH0V_AA05PlainhF0VQo__AA7DividerVSgtGMR);
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory.Version and conformance GameSaveSyncedDirectory.Version, type metadata accessor for GameSaveSyncedDirectory.Version);
+  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [GameSaveSyncedDirectory.Version] and conformance [A], &_sSay8GameSave0aB15SyncedDirectoryC7VersionCGMd, &_sSay8GameSave0aB15SyncedDirectoryC7VersionCGMR, MEMORY[0x277D83980]);
+  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type TupleView<(<<opaque return type of View.buttonStyle<A>(_:)>>.0, Divider?)> and conformance TupleView<A>, &_s7SwiftUI9TupleViewVyAA0D0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonF0Rd__lFQOy8GameSave08ConflictH0V_AA05PlainhF0VQo__AA7DividerVSgtGMd, &_s7SwiftUI9TupleViewVyAA0D0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonF0Rd__lFQOy8GameSave08ConflictH0V_AA05PlainhF0VQo__AA7DividerVSgtGMR, MEMORY[0x277CE14C0]);
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory.Version and conformance GameSaveSyncedDirectory.Version, type metadata accessor for GameSaveSyncedDirectory.Version, &protocol conformance descriptor for GameSaveSyncedDirectory.Version);
   ForEach<>.init(_:content:)();
 }
 
-unint64_t closure #1 in closure #1 in ConflictScrollView.body.getter@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
+unint64_t closure #1 in closure #1 in ConflictScrollView.body.getter@<X0>(uint64_t *a1@<X0>, _OWORD *a2@<X1>, char *a3@<X8>)
 {
-  v146 = a2;
-  v129 = a3;
-  v128 = type metadata accessor for Divider();
-  v127 = *(v128 - 8);
-  v4 = *(v127 + 64);
-  MEMORY[0x28223BE20](v128);
-  v119 = &v112 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for URL();
-  v7 = *(v6 - 8);
-  v147 = v6;
-  v148 = v7;
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v6);
-  v112 = &v112 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v120 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSg_ADtMd, &_s10Foundation3URLVSg_ADtMR);
-  v10 = *(*(v120 - 8) + 64);
-  MEMORY[0x28223BE20](v120);
-  v144 = &v112 - v11;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7DividerVSgMd, &_s7SwiftUI7DividerVSgMR);
-  v13 = *(*(v12 - 8) + 64);
-  v14 = MEMORY[0x28223BE20](v12 - 8);
-  v126 = &v112 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v14);
-  v125 = &v112 - v16;
-  v17 = type metadata accessor for PlainButtonStyle();
-  v140 = *(v17 - 8);
-  v141 = v17;
-  v18 = *(v140 + 64);
-  MEMORY[0x28223BE20](v17);
-  v139 = &v112 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v118 = type metadata accessor for Date.ISO8601FormatStyle();
-  v117 = *(v118 - 8);
-  v20 = *(v117 + 64);
-  MEMORY[0x28223BE20](v118);
-  v116 = &v112 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v23 = *(*(v22 - 8) + 64);
-  v24 = MEMORY[0x28223BE20](v22 - 8);
-  v113 = &v112 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v134 = a2;
+  v117 = a3;
+  v116 = type metadata accessor for Divider();
+  v115 = *(v116 - 8);
+  MEMORY[0x28223BE20](v116);
+  v107 = &v100 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for URL();
+  v6 = *(v5 - 8);
+  v135 = v5;
+  v136 = v6;
+  MEMORY[0x28223BE20](v5);
+  v100 = &v100 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v108 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSg_ADtMd, &_s10Foundation3URLVSg_ADtMR);
+  MEMORY[0x28223BE20](v108);
+  v132 = &v100 - v8;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7DividerVSgMd, &_s7SwiftUI7DividerVSgMR);
+  v10 = MEMORY[0x28223BE20](v9 - 8);
+  v114 = &v100 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v10);
+  v113 = &v100 - v12;
+  v13 = type metadata accessor for PlainButtonStyle();
+  v128 = *(v13 - 8);
+  v129 = v13;
+  MEMORY[0x28223BE20](v13);
+  v127 = &v100 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v106 = type metadata accessor for Date.ISO8601FormatStyle();
+  v105 = *(v106 - 8);
+  MEMORY[0x28223BE20](v106);
+  v104 = &v100 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  v17 = MEMORY[0x28223BE20](v16 - 8);
+  v101 = &v100 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = MEMORY[0x28223BE20](v17);
+  v130 = &v100 - v20;
+  v21 = MEMORY[0x28223BE20](v19);
+  v131 = &v100 - v22;
+  MEMORY[0x28223BE20](v21);
+  v120 = &v100 - v23;
+  v24 = type metadata accessor for Date();
+  v25 = *(v24 - 8);
   v26 = MEMORY[0x28223BE20](v24);
-  v142 = &v112 - v27;
-  v28 = MEMORY[0x28223BE20](v26);
-  v143 = &v112 - v29;
-  MEMORY[0x28223BE20](v28);
-  v132 = &v112 - v30;
-  v31 = type metadata accessor for Date();
-  v32 = *(v31 - 8);
-  v33 = *(v32 + 64);
-  v34 = MEMORY[0x28223BE20](v31);
-  v115 = &v112 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v34);
-  v37 = &v112 - v36;
-  v136 = type metadata accessor for ConflictButton();
-  v38 = *(*(v136 - 8) + 64);
-  MEMORY[0x28223BE20](v136);
-  v40 = &v112 - ((v39 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v124 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA015PrimitiveButtonE0Rd__lFQOy8GameSave08ConflictG0V_AA05PlaingE0VQo_Md, &_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA015PrimitiveButtonE0Rd__lFQOy8GameSave08ConflictG0V_AA05PlaingE0VQo_MR);
-  v123 = *(v124 - 8);
-  v41 = *(v123 + 64);
-  v42 = MEMORY[0x28223BE20](v124);
-  v122 = &v112 - ((v43 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v42);
-  v145 = &v112 - v44;
-  v45 = *a1;
+  v103 = &v100 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v26);
+  v29 = &v100 - v28;
+  v124 = type metadata accessor for ConflictButton(0);
+  MEMORY[0x28223BE20](v124);
+  v31 = &v100 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v112 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA015PrimitiveButtonE0Rd__lFQOy8GameSave08ConflictG0V_AA05PlaingE0VQo_Md, &_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA015PrimitiveButtonE0Rd__lFQOy8GameSave08ConflictG0V_AA05PlaingE0VQo_MR);
+  v111 = *(v112 - 8);
+  v32 = MEMORY[0x28223BE20](v112);
+  v110 = &v100 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v32);
+  v133 = &v100 - v34;
+  v35 = *a1;
   type metadata accessor for MainActor();
-  v121 = static MainActor.shared.getter();
+  v109 = static MainActor.shared.getter();
   dispatch thunk of Actor.unownedExecutor.getter();
   if ((swift_task_isCurrentExecutor() & 1) == 0)
   {
     swift_task_reportUnexpectedExecutor();
   }
 
-  v46 = *(v45 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_computerSymbol + 8);
-  v133 = *(v45 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_computerSymbol);
-  v47 = *(v45 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localizedNameOfSavingComputer + 8);
-  v130 = *(v45 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localizedNameOfSavingComputer);
-  v48 = OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate;
-  v49 = *(v32 + 16);
-  v135 = v37;
-  v114 = v49;
-  v49(v37, v45 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate, v31);
-  v50 = v132;
-  outlined init with copy of URL?(v45 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localURL, v132, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v137 = *(v148 + 48);
-  v138 = v148 + 48;
-  v51 = v137(v50, 1, v147);
-  v134 = v46;
+  v36 = *(v35 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_computerSymbol + 8);
+  v121 = *(v35 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_computerSymbol);
+  v37 = *(v35 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localizedNameOfSavingComputer + 8);
+  v118 = *(v35 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localizedNameOfSavingComputer);
+  v38 = OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate;
+  v39 = *(v25 + 16);
+  v123 = v29;
+  v102 = v39;
+  v39(v29, v35 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate, v24);
+  v40 = v120;
+  outlined init with copy of URL?(v35 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localURL, v120, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  v125 = *(v136 + 48);
+  v126 = v136 + 48;
+  v41 = v125(v40, 1, v135);
+  v122 = v36;
 
-  v131 = v47;
+  v119 = v37;
 
-  outlined destroy of URL?(v50, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  if (v51 == 1)
+  outlined destroy of URL?(v40, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  if (v41 == 1)
   {
-    v52 = v115;
-    v114(v115, v45 + v48, v31);
-    v53 = v116;
-    default argument 0 of Date.ISO8601Format(_:)(v116);
-    v54 = Date.ISO8601Format(_:)();
-    v132 = v55;
-    (*(v117 + 8))(v53, v118);
-    v56 = v32;
-    v57 = v52;
-    v58 = v31;
-    (*(v32 + 8))(v57, v31);
+    v42 = v103;
+    v102(v103, v35 + v38, v24);
+    v43 = v104;
+    default argument 0 of Date.ISO8601Format(_:)(v104);
+    v44 = Date.ISO8601Format(_:)();
+    v120 = v45;
+    (*(v105 + 8))(v43, v106);
+    v46 = v25;
+    v47 = v42;
+    v48 = v24;
+    (*(v25 + 8))(v47, v24);
   }
 
   else
   {
-    v56 = v32;
-    v58 = v31;
-    v132 = 0xE500000000000000;
-    v54 = 0x6C61636F6CLL;
+    v46 = v25;
+    v48 = v24;
+    v120 = 0xE500000000000000;
+    v44 = 0x6C61636F6CLL;
   }
 
-  v59 = v45;
-  v60 = *(v146 + 8);
+  v49 = v35;
   swift_getKeyPath();
   swift_getKeyPath();
   static Published.subscript.getter();
 
-  v61 = v150;
-  v62 = v143;
-  if (v150)
+  v50 = v138;
+  v51 = v131;
+  if (v138)
   {
 
-    v63 = v59 == v61;
+    v52 = v49 == v50;
   }
 
   else
   {
-    v63 = 0;
+    v52 = 0;
   }
 
-  v64 = v58;
-  v65 = swift_allocObject();
-  v66 = v146;
-  v67 = *(v146 + 16);
-  *(v65 + 16) = *v146;
-  *(v65 + 32) = v67;
-  *(v65 + 48) = *(v66 + 32);
-  *(v65 + 64) = *(v66 + 48);
-  *(v65 + 72) = v59;
-  v68 = v134;
-  *v40 = v133;
-  *(v40 + 1) = v68;
-  v69 = v131;
-  *(v40 + 2) = v130;
-  *(v40 + 3) = v69;
-  v70 = v136;
-  (*(v56 + 32))(&v40[*(v136 + 24)], v135, v64);
-  v71 = &v40[v70[7]];
-  v72 = v132;
-  *v71 = v54;
-  v71[1] = v72;
-  v40[v70[8]] = v63;
-  v73 = &v40[v70[9]];
-  *v73 = partial apply for closure #1 in closure #1 in closure #1 in ConflictScrollView.body.getter;
-  v73[1] = v65;
-  outlined init with copy of ConflictScrollView(v66, &v150);
+  v53 = v48;
+  v54 = swift_allocObject();
+  v55 = v134;
+  v56 = v134[1];
+  *(v54 + 16) = *v134;
+  *(v54 + 32) = v56;
+  *(v54 + 48) = *(v55 + 32);
+  *(v54 + 64) = *(v55 + 48);
+  *(v54 + 72) = v49;
+  v57 = v122;
+  *v31 = v121;
+  *(v31 + 1) = v57;
+  v58 = v119;
+  *(v31 + 2) = v118;
+  *(v31 + 3) = v58;
+  v59 = v124;
+  (*(v46 + 32))(&v31[*(v124 + 24)], v123, v53);
+  v60 = &v31[v59[7]];
+  v61 = v120;
+  *v60 = v44;
+  v60[1] = v61;
+  v31[v59[8]] = v52;
+  v62 = &v31[v59[9]];
+  *v62 = partial apply for closure #1 in closure #1 in closure #1 in ConflictScrollView.body.getter;
+  v62[1] = v54;
+  outlined init with copy of ConflictScrollView(v55, &v138);
 
-  v74 = v139;
+  v63 = v127;
   PlainButtonStyle.init()();
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type ConflictButton and conformance ConflictButton, type metadata accessor for ConflictButton);
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type PlainButtonStyle and conformance PlainButtonStyle, MEMORY[0x277CDDB18]);
-  v75 = v141;
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type ConflictButton and conformance ConflictButton, type metadata accessor for ConflictButton, &protocol conformance descriptor for ConflictButton);
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type PlainButtonStyle and conformance PlainButtonStyle, MEMORY[0x277CDDB18], MEMORY[0x277CDDB08]);
+  v64 = v129;
   View.buttonStyle<A>(_:)();
-  (*(v140 + 8))(v74, v75);
-  outlined destroy of ConflictButton(v40);
-  v76 = v62;
+  (*(v128 + 8))(v63, v64);
+  outlined destroy of ConflictButton(v31);
+  v65 = v51;
   GameSaveSyncedDirectory.Version.url.getter();
-  v77 = v147;
-  v78 = *(v148 + 56);
-  v78(v62, 0, 1, v147);
-  v150 = *(v66 + 16);
+  v66 = v135;
+  v67 = *(v136 + 56);
+  v67(v51, 0, 1, v135);
+  v138 = *(v55 + 16);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI5StateVySay8GameSave0dE15SyncedDirectoryC7VersionCGGMd, &_s7SwiftUI5StateVySay8GameSave0dE15SyncedDirectoryC7VersionCGGMR);
   State.wrappedValue.getter();
-  v79 = v149;
-  if (v149 >> 62)
+  v68 = v137;
+  if (v137 >> 62)
   {
-    if (v149 < 0)
+    if (v137 < 0)
     {
-      v111 = v149;
+      v99 = v137;
     }
 
     else
     {
-      v111 = v149 & 0xFFFFFFFFFFFFFF8;
+      v99 = v137 & 0xFFFFFFFFFFFFFF8;
     }
 
-    v80 = MEMORY[0x23EE6BAE0](v111);
+    v69 = MEMORY[0x23EE6BAE0](v99);
   }
 
   else
   {
-    v80 = *((v149 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v69 = *((v137 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
 
-  v81 = v144;
-  v82 = v142;
-  v83 = v137;
-  if (!v80)
+  v70 = v132;
+  v71 = v130;
+  v72 = v125;
+  if (!v69)
   {
 
-    v87 = 1;
+    v75 = 1;
 LABEL_19:
-    v78(v82, v87, 1, v77);
-    v88 = *(v120 + 48);
-    outlined init with copy of URL?(v76, v81, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-    outlined init with copy of URL?(v82, v81 + v88, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-    if (v83(v81, 1, v77) == 1)
+    v67(v71, v75, 1, v66);
+    v76 = *(v108 + 48);
+    outlined init with copy of URL?(v65, v70, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    outlined init with copy of URL?(v71, v70 + v76, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    if (v72(v70, 1, v66) == 1)
     {
-      outlined destroy of URL?(v82, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-      outlined destroy of URL?(v76, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-      if (v83(v81 + v88, 1, v77) == 1)
+      outlined destroy of URL?(v71, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+      outlined destroy of URL?(v65, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+      if (v72(v70 + v76, 1, v66) == 1)
       {
-        outlined destroy of URL?(v81, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-        v89 = 1;
-        v90 = v128;
-        v91 = v127;
+        outlined destroy of URL?(v70, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+        v77 = 1;
+        v78 = v116;
+        v79 = v115;
 LABEL_28:
-        v94 = v125;
+        v82 = v113;
         goto LABEL_29;
       }
     }
 
     else
     {
-      v92 = v113;
-      outlined init with copy of URL?(v81, v113, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-      if (v83(v81 + v88, 1, v77) != 1)
+      v80 = v101;
+      outlined init with copy of URL?(v70, v101, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+      if (v72(v70 + v76, 1, v66) != 1)
       {
-        v96 = v148;
-        v97 = v81 + v88;
-        v98 = v112;
-        (*(v148 + 32))(v112, v97, v77);
-        lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260]);
-        v99 = dispatch thunk of static Equatable.== infix(_:_:)();
-        v100 = *(v96 + 8);
-        v100(v98, v77);
-        outlined destroy of URL?(v82, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-        outlined destroy of URL?(v76, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-        v100(v92, v77);
-        outlined destroy of URL?(v81, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-        v91 = v127;
-        if (v99)
+        v84 = v136;
+        v85 = v70 + v76;
+        v86 = v100;
+        (*(v136 + 32))(v100, v85, v66);
+        lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260], MEMORY[0x277CC9278]);
+        v87 = dispatch thunk of static Equatable.== infix(_:_:)();
+        v88 = *(v84 + 8);
+        v88(v86, v66);
+        outlined destroy of URL?(v71, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+        outlined destroy of URL?(v65, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+        v88(v80, v66);
+        outlined destroy of URL?(v70, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+        v79 = v115;
+        if (v87)
         {
-          v89 = 1;
-          v90 = v128;
+          v77 = 1;
+          v78 = v116;
           goto LABEL_28;
         }
 
 LABEL_25:
-        v93 = v119;
+        v81 = v107;
         Divider.init()();
-        v94 = v125;
-        v95 = v93;
-        v90 = v128;
-        (*(v91 + 32))(v125, v95, v128);
-        v89 = 0;
+        v82 = v113;
+        v83 = v81;
+        v78 = v116;
+        (*(v79 + 32))(v113, v83, v116);
+        v77 = 0;
 LABEL_29:
-        (*(v91 + 56))(v94, v89, 1, v90);
-        v101 = v123;
-        v102 = *(v123 + 16);
-        v103 = v122;
-        v104 = v145;
-        v105 = v124;
-        v102(v122, v145, v124);
-        v106 = v94;
-        v107 = v126;
-        outlined init with copy of URL?(v94, v126, &_s7SwiftUI7DividerVSgMd, &_s7SwiftUI7DividerVSgMR);
-        v108 = v129;
-        v102(v129, v103, v105);
-        v109 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA015PrimitiveButtonE0Rd__lFQOy8GameSave08ConflictG0V_AA05PlaingE0VQo__AA7DividerVSgtMd, &_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA015PrimitiveButtonE0Rd__lFQOy8GameSave08ConflictG0V_AA05PlaingE0VQo__AA7DividerVSgtMR);
-        outlined init with copy of URL?(v107, &v108[*(v109 + 48)], &_s7SwiftUI7DividerVSgMd, &_s7SwiftUI7DividerVSgMR);
-        outlined destroy of URL?(v106, &_s7SwiftUI7DividerVSgMd, &_s7SwiftUI7DividerVSgMR);
-        v110 = *(v101 + 8);
-        v110(v104, v105);
-        outlined destroy of URL?(v107, &_s7SwiftUI7DividerVSgMd, &_s7SwiftUI7DividerVSgMR);
-        v110(v103, v105);
+        (*(v79 + 56))(v82, v77, 1, v78);
+        v89 = v111;
+        v90 = *(v111 + 16);
+        v91 = v110;
+        v92 = v133;
+        v93 = v112;
+        v90(v110, v133, v112);
+        v94 = v82;
+        v95 = v114;
+        outlined init with copy of URL?(v82, v114, &_s7SwiftUI7DividerVSgMd, &_s7SwiftUI7DividerVSgMR);
+        v96 = v117;
+        v90(v117, v91, v93);
+        v97 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA015PrimitiveButtonE0Rd__lFQOy8GameSave08ConflictG0V_AA05PlaingE0VQo__AA7DividerVSgtMd, &_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA015PrimitiveButtonE0Rd__lFQOy8GameSave08ConflictG0V_AA05PlaingE0VQo__AA7DividerVSgtMR);
+        outlined init with copy of URL?(v95, &v96[*(v97 + 48)], &_s7SwiftUI7DividerVSgMd, &_s7SwiftUI7DividerVSgMR);
+        outlined destroy of URL?(v94, &_s7SwiftUI7DividerVSgMd, &_s7SwiftUI7DividerVSgMR);
+        v98 = *(v89 + 8);
+        v98(v92, v93);
+        outlined destroy of URL?(v95, &_s7SwiftUI7DividerVSgMd, &_s7SwiftUI7DividerVSgMR);
+        v98(v91, v93);
       }
 
-      outlined destroy of URL?(v82, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-      outlined destroy of URL?(v76, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-      (*(v148 + 8))(v92, v77);
+      outlined destroy of URL?(v71, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+      outlined destroy of URL?(v65, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+      (*(v136 + 8))(v80, v66);
     }
 
-    outlined destroy of URL?(v81, &_s10Foundation3URLVSg_ADtMd, &_s10Foundation3URLVSg_ADtMR);
-    v91 = v127;
+    outlined destroy of URL?(v70, &_s10Foundation3URLVSg_ADtMd, &_s10Foundation3URLVSg_ADtMR);
+    v79 = v115;
     goto LABEL_25;
   }
 
-  v84 = __OFSUB__(v80, 1);
-  result = v80 - 1;
-  if (v84)
+  v73 = __OFSUB__(v69, 1);
+  result = v69 - 1;
+  if (v73)
   {
     __break(1u);
     goto LABEL_35;
   }
 
-  if ((v79 & 0xC000000000000001) != 0)
+  if ((v68 & 0xC000000000000001) != 0)
   {
 LABEL_35:
-    MEMORY[0x23EE6BA40](result, v79);
+    MEMORY[0x23EE6BA40](result, v68);
     goto LABEL_17;
   }
 
@@ -3420,15 +3137,14 @@ LABEL_35:
     __break(1u);
   }
 
-  else if (result < *((v79 & 0xFFFFFFFFFFFFFF8) + 0x10))
+  else if (result < *((v68 & 0xFFFFFFFFFFFFFF8) + 0x10))
   {
-    v86 = *(v79 + 8 * result + 32);
 
 LABEL_17:
 
     GameSaveSyncedDirectory.Version.url.getter();
 
-    v87 = 0;
+    v75 = 0;
     goto LABEL_19;
   }
 
@@ -3438,44 +3154,38 @@ LABEL_17:
 
 uint64_t default argument 0 of Date.ISO8601Format(_:)@<X0>(uint64_t a1@<X8>)
 {
-  v32 = a1;
+  v26 = a1;
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8TimeZoneVSgMd, &_s10Foundation8TimeZoneVSgMR);
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x28223BE20](v1 - 8);
-  v35 = &v30 - v3;
-  v34 = type metadata accessor for TimeZone();
-  v4 = *(v34 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20](v34);
-  v31 = &v30 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v33 = type metadata accessor for Date.ISO8601FormatStyle.TimeZoneSeparator();
-  v7 = *(v33 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v33);
-  v10 = &v30 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = type metadata accessor for Date.ISO8601FormatStyle.TimeSeparator();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  MEMORY[0x28223BE20](v11);
-  v15 = &v30 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = type metadata accessor for Date.ISO8601FormatStyle.DateTimeSeparator();
-  v17 = *(v16 - 8);
-  v18 = *(v17 + 64);
+  v29 = &v24 - v2;
+  v28 = type metadata accessor for TimeZone();
+  v3 = *(v28 - 8);
+  MEMORY[0x28223BE20](v28);
+  v25 = &v24 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v27 = type metadata accessor for Date.ISO8601FormatStyle.TimeZoneSeparator();
+  v5 = *(v27 - 8);
+  MEMORY[0x28223BE20](v27);
+  v7 = &v24 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = type metadata accessor for Date.ISO8601FormatStyle.TimeSeparator();
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = &v24 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Date.ISO8601FormatStyle.DateTimeSeparator();
+  v13 = *(v12 - 8);
+  MEMORY[0x28223BE20](v12);
+  v15 = &v24 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = type metadata accessor for Date.ISO8601FormatStyle.DateSeparator();
   MEMORY[0x28223BE20](v16);
-  v20 = &v30 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = type metadata accessor for Date.ISO8601FormatStyle.DateSeparator();
-  v22 = *(*(v21 - 8) + 64);
-  MEMORY[0x28223BE20](v21);
-  (*(v24 + 104))(&v30 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0), *MEMORY[0x277CC9460]);
-  v25 = v16;
-  v26 = v34;
-  (*(v17 + 104))(v20, *MEMORY[0x277CC9458], v25);
-  v27 = v10;
-  v28 = v35;
-  (*(v12 + 104))(v15, *MEMORY[0x277CC9468], v11);
-  (*(v7 + 104))(v27, *MEMORY[0x277CC9480], v33);
+  (*(v18 + 104))(&v24 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0), *MEMORY[0x277CC9460]);
+  v19 = v12;
+  v20 = v28;
+  (*(v13 + 104))(v15, *MEMORY[0x277CC9458], v19);
+  v21 = v7;
+  v22 = v29;
+  (*(v9 + 104))(v11, *MEMORY[0x277CC9468], v8);
+  (*(v5 + 104))(v21, *MEMORY[0x277CC9480], v27);
   TimeZone.init(secondsFromGMT:)();
-  result = (*(v4 + 48))(v28, 1, v26);
+  result = (*(v3 + 48))(v22, 1, v20);
   if (result == 1)
   {
     __break(1u);
@@ -3483,7 +3193,7 @@ uint64_t default argument 0 of Date.ISO8601Format(_:)@<X0>(uint64_t a1@<X8>)
 
   else
   {
-    (*(v4 + 32))(v31, v28, v26);
+    (*(v3 + 32))(v25, v22, v20);
     return Date.ISO8601FormatStyle.init(dateSeparator:dateTimeSeparator:timeSeparator:timeZoneSeparator:includingFractionalSeconds:timeZone:)();
   }
 
@@ -3502,56 +3212,36 @@ uint64_t closure #1 in closure #1 in closure #1 in ConflictScrollView.body.gette
   return static Published.subscript.setter();
 }
 
-uint64_t protocol witness for View.body.getter in conformance ConflictScrollView@<X0>(uint64_t a1@<X8>)
-{
-  v3 = *v1;
-  v4 = v1[1];
-  v5 = v1[2];
-  v6 = *(v1 + 6);
-  return ConflictScrollView.body.getter(a1);
-}
-
 uint64_t protocol witness for View.body.getter in conformance SpinnerView@<X0>(uint64_t a1@<X8>)
 {
   v2 = type metadata accessor for CircularProgressViewStyle();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = &v17 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI12ProgressViewVyAA05EmptyD0VAEGMd, &_s7SwiftUI12ProgressViewVyAA05EmptyD0VAEGMR);
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
-  v11 = &v17 - v10;
+  v5 = &v15 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI12ProgressViewVyAA05EmptyD0VAEGMd, &_s7SwiftUI12ProgressViewVyAA05EmptyD0VAEGMR);
+  v7 = *(v6 - 8);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v15 - v8;
   ProgressView<>.init<>()();
   static Color.gray.getter();
   CircularProgressViewStyle.init(tint:)();
-  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type ProgressView<EmptyView, EmptyView> and conformance ProgressView<A, B>, &_s7SwiftUI12ProgressViewVyAA05EmptyD0VAEGMd, &_s7SwiftUI12ProgressViewVyAA05EmptyD0VAEGMR);
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type CircularProgressViewStyle and conformance CircularProgressViewStyle, MEMORY[0x277CDE330]);
+  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type ProgressView<EmptyView, EmptyView> and conformance ProgressView<A, B>, &_s7SwiftUI12ProgressViewVyAA05EmptyD0VAEGMd, &_s7SwiftUI12ProgressViewVyAA05EmptyD0VAEGMR, MEMORY[0x277CDD7F8]);
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type CircularProgressViewStyle and conformance CircularProgressViewStyle, MEMORY[0x277CDE330], MEMORY[0x277CDE318]);
   View.progressViewStyle<A>(_:)();
-  (*(v3 + 8))(v6, v2);
-  (*(v8 + 8))(v11, v7);
-  v12 = (a1 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE08progressE5StyleyQrqd__AA08ProgresseG0Rd__lFQOyAA0hE0VyAA05EmptyE0VAKG_AA08CircularheG0VQo_AA30_EnvironmentKeyWritingModifierVyAA11ControlSizeOGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE08progressE5StyleyQrqd__AA08ProgresseG0Rd__lFQOyAA0hE0VyAA05EmptyE0VAKG_AA08CircularheG0VQo_AA30_EnvironmentKeyWritingModifierVyAA11ControlSizeOGGMR) + 36));
-  v13 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA11ControlSizeOGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA11ControlSizeOGMR) + 28);
-  v14 = *MEMORY[0x277CDF420];
-  v15 = type metadata accessor for ControlSize();
-  (*(*(v15 - 8) + 104))(v12 + v13, v14, v15);
+  (*(v3 + 8))(v5, v2);
+  (*(v7 + 8))(v9, v6);
+  v10 = (a1 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE08progressE5StyleyQrqd__AA08ProgresseG0Rd__lFQOyAA0hE0VyAA05EmptyE0VAKG_AA08CircularheG0VQo_AA30_EnvironmentKeyWritingModifierVyAA11ControlSizeOGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE08progressE5StyleyQrqd__AA08ProgresseG0Rd__lFQOyAA0hE0VyAA05EmptyE0VAKG_AA08CircularheG0VQo_AA30_EnvironmentKeyWritingModifierVyAA11ControlSizeOGGMR) + 36));
+  v11 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA11ControlSizeOGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA11ControlSizeOGMR) + 28);
+  v12 = *MEMORY[0x277CDF420];
+  v13 = type metadata accessor for ControlSize();
+  (*(*(v13 - 8) + 104))(&v10[v11], v12, v13);
   result = swift_getKeyPath();
-  *v12 = result;
+  *v10 = result;
   return result;
 }
 
 uint64_t sub_238977D60()
 {
-  v1 = *(v0 + 24);
-
-  v2 = *(v0 + 32);
-
-  v3 = *(v0 + 40);
-
-  v4 = *(v0 + 48);
-
-  v5 = *(v0 + 56);
 
   return MEMORY[0x2821FE8E8](v0, 72, 7);
 }
@@ -3559,14 +3249,13 @@ uint64_t sub_238977D60()
 uint64_t key path setter for EnvironmentValues.controlSize : EnvironmentValues, serialized(uint64_t a1)
 {
   v2 = type metadata accessor for ControlSize();
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2);
-  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v6 + 16))(v5, a1);
-  return MEMORY[0x23EE6B200](v5);
+  v4 = &v7 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v5 + 16))(v4, a1);
+  return MEMORY[0x23EE6B200](v4);
 }
 
-uint64_t type metadata accessor for ConflictButton()
+uint64_t type metadata accessor for ConflictButton(uint64_t a1)
 {
   result = type metadata singleton initialization cache for ConflictButton;
   if (!type metadata singleton initialization cache for ConflictButton)
@@ -3579,24 +3268,13 @@ uint64_t type metadata accessor for ConflictButton()
 
 uint64_t sub_238977EE4()
 {
-  v1 = *(v0 + 24);
-
-  v2 = *(v0 + 32);
-
-  v3 = *(v0 + 40);
-
-  v4 = *(v0 + 48);
-
-  v5 = *(v0 + 56);
-
-  v6 = *(v0 + 72);
 
   return MEMORY[0x2821FE8E8](v0, 80, 7);
 }
 
 uint64_t outlined destroy of ConflictButton(uint64_t a1)
 {
-  v2 = type metadata accessor for ConflictButton();
+  v2 = type metadata accessor for ConflictButton(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -3644,13 +3322,13 @@ uint64_t sub_238978104(uint64_t result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-unint64_t type metadata completion function for ConflictButton()
+uint64_t type metadata completion function for ConflictButton(uint64_t a1)
 {
   result = type metadata accessor for Date();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = type metadata accessor for ()();
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
       return 0;
@@ -3693,7 +3371,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA7ForEachVySay8GameSave0hI15SyncedDirectoryC7VersionCG10Foundation3URLVAA9TupleViewVyAA0P0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonR0Rd__lFQOyAH08ConflictT0V_AA05PlaintR0VQo__AA7DividerVSgtGGGAA19_BackgroundModifierVyAA5ColorVGGAA11_ClipEffectVyAA16RoundedRectangleVGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6VStackVyAA7ForEachVySay8GameSave0hI15SyncedDirectoryC7VersionCG10Foundation3URLVAA9TupleViewVyAA0P0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonR0Rd__lFQOyAH08ConflictT0V_AA05PlaintR0VQo__AA7DividerVSgtGGGAA19_BackgroundModifierVyAA5ColorVGGAA11_ClipEffectVyAA16RoundedRectangleVGGMR);
     lazy protocol witness table accessor for type ModifiedContent<VStack<ForEach<[GameSaveSyncedDirectory.Version], URL, TupleView<(<<opaque return type of View.buttonStyle<A>(_:)>>.0, Divider?)>>>, _BackgroundModifier<Color>> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type _ClipEffect<RoundedRectangle> and conformance _ClipEffect<A>, &_s7SwiftUI11_ClipEffectVyAA16RoundedRectangleVGMd, &_s7SwiftUI11_ClipEffectVyAA16RoundedRectangleVGMR);
+    lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type _ClipEffect<RoundedRectangle> and conformance _ClipEffect<A>, &_s7SwiftUI11_ClipEffectVyAA16RoundedRectangleVGMd, &_s7SwiftUI11_ClipEffectVyAA16RoundedRectangleVGMR, MEMORY[0x277CDF4F0]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<VStack<ForEach<[GameSaveSyncedDirectory.Version], URL, TupleView<(<<opaque return type of View.buttonStyle<A>(_:)>>.0, Divider?)>>>, _BackgroundModifier<Color>>, _ClipEffect<RoundedRectangle>> and conformance <> ModifiedContent<A, B>);
   }
@@ -3707,8 +3385,8 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<VStack<F
   if (!lazy protocol witness table cache variable for type ModifiedContent<VStack<ForEach<[GameSaveSyncedDirectory.Version], URL, TupleView<(<<opaque return type of View.buttonStyle<A>(_:)>>.0, Divider?)>>>, _BackgroundModifier<Color>> and conformance <> ModifiedContent<A, B>)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA6VStackVyAA7ForEachVySay8GameSave0hI15SyncedDirectoryC7VersionCG10Foundation3URLVAA9TupleViewVyAA0P0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonR0Rd__lFQOyAH08ConflictT0V_AA05PlaintR0VQo__AA7DividerVSgtGGGAA19_BackgroundModifierVyAA5ColorVGGMd, &_s7SwiftUI15ModifiedContentVyAA6VStackVyAA7ForEachVySay8GameSave0hI15SyncedDirectoryC7VersionCG10Foundation3URLVAA9TupleViewVyAA0P0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonR0Rd__lFQOyAH08ConflictT0V_AA05PlaintR0VQo__AA7DividerVSgtGGGAA19_BackgroundModifierVyAA5ColorVGGMR);
-    lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type VStack<ForEach<[GameSaveSyncedDirectory.Version], URL, TupleView<(<<opaque return type of View.buttonStyle<A>(_:)>>.0, Divider?)>>> and conformance VStack<A>, &_s7SwiftUI6VStackVyAA7ForEachVySay8GameSave0fG15SyncedDirectoryC7VersionCG10Foundation3URLVAA9TupleViewVyAA0N0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonP0Rd__lFQOyAF08ConflictR0V_AA05PlainrP0VQo__AA7DividerVSgtGGGMd, &_s7SwiftUI6VStackVyAA7ForEachVySay8GameSave0fG15SyncedDirectoryC7VersionCG10Foundation3URLVAA9TupleViewVyAA0N0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonP0Rd__lFQOyAF08ConflictR0V_AA05PlainrP0VQo__AA7DividerVSgtGGGMR);
-    lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type _BackgroundModifier<Color> and conformance _BackgroundModifier<A>, &_s7SwiftUI19_BackgroundModifierVyAA5ColorVGMd, &_s7SwiftUI19_BackgroundModifierVyAA5ColorVGMR);
+    lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type VStack<ForEach<[GameSaveSyncedDirectory.Version], URL, TupleView<(<<opaque return type of View.buttonStyle<A>(_:)>>.0, Divider?)>>> and conformance VStack<A>, &_s7SwiftUI6VStackVyAA7ForEachVySay8GameSave0fG15SyncedDirectoryC7VersionCG10Foundation3URLVAA9TupleViewVyAA0N0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonP0Rd__lFQOyAF08ConflictR0V_AA05PlainrP0VQo__AA7DividerVSgtGGGMd, &_s7SwiftUI6VStackVyAA7ForEachVySay8GameSave0fG15SyncedDirectoryC7VersionCG10Foundation3URLVAA9TupleViewVyAA0N0PAAE11buttonStyleyQrqd__AA015PrimitiveButtonP0Rd__lFQOyAF08ConflictR0V_AA05PlainrP0VQo__AA7DividerVSgtGGGMR, MEMORY[0x277CE1198]);
+    lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type _BackgroundModifier<Color> and conformance _BackgroundModifier<A>, &_s7SwiftUI19_BackgroundModifierVyAA5ColorVGMd, &_s7SwiftUI19_BackgroundModifierVyAA5ColorVGMR, MEMORY[0x277CE0328]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<VStack<ForEach<[GameSaveSyncedDirectory.Version], URL, TupleView<(<<opaque return type of View.buttonStyle<A>(_:)>>.0, Divider?)>>>, _BackgroundModifier<Color>> and conformance <> ModifiedContent<A, B>);
   }
@@ -3724,10 +3402,10 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<<<opaque
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE08progressE5StyleyQrqd__AA08ProgresseG0Rd__lFQOyAA0hE0VyAA05EmptyE0VAKG_AA08CircularheG0VQo_AA30_EnvironmentKeyWritingModifierVyAA11ControlSizeOGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE08progressE5StyleyQrqd__AA08ProgresseG0Rd__lFQOyAA0hE0VyAA05EmptyE0VAKG_AA08CircularheG0VQo_AA30_EnvironmentKeyWritingModifierVyAA11ControlSizeOGGMR);
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI12ProgressViewVyAA05EmptyD0VAEGMd, &_s7SwiftUI12ProgressViewVyAA05EmptyD0VAEGMR);
     type metadata accessor for CircularProgressViewStyle();
-    lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type ProgressView<EmptyView, EmptyView> and conformance ProgressView<A, B>, &_s7SwiftUI12ProgressViewVyAA05EmptyD0VAEGMd, &_s7SwiftUI12ProgressViewVyAA05EmptyD0VAEGMR);
-    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type CircularProgressViewStyle and conformance CircularProgressViewStyle, MEMORY[0x277CDE330]);
+    lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type ProgressView<EmptyView, EmptyView> and conformance ProgressView<A, B>, &_s7SwiftUI12ProgressViewVyAA05EmptyD0VAEGMd, &_s7SwiftUI12ProgressViewVyAA05EmptyD0VAEGMR, MEMORY[0x277CDD7F8]);
+    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type CircularProgressViewStyle and conformance CircularProgressViewStyle, MEMORY[0x277CDE330], MEMORY[0x277CDE318]);
     swift_getOpaqueTypeConformance2();
-    lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<ControlSize> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA11ControlSizeOGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA11ControlSizeOGMR);
+    lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<ControlSize> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA11ControlSizeOGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA11ControlSizeOGMR, MEMORY[0x277CE0868]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.progressViewStyle<A>(_:)>>.0, _EnvironmentKeyWritingModifier<ControlSize>> and conformance <> ModifiedContent<A, B>);
   }
@@ -3741,8 +3419,8 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<HStack<T
   if (!lazy protocol witness table cache variable for type ModifiedContent<HStack<TupleView<(ModifiedContent<Spacer, _FrameLayout>, _ConditionalContent<ModifiedContent<<<opaque return type of View.bold(_:)>>.0, _PaddingLayout>, ModifiedContent<<<opaque return type of View.bold(_:)>>.0, _PaddingLayout>>, ModifiedContent<Spacer, _FrameLayout>, ModifiedContent<ModifiedContent<Image, _EnvironmentKeyWritingModifier<Font?>>, _FrameLayout>, VStack<TupleView<(Text, _ConditionalContent<Text, Text>)>>, Spacer)>>, _ContentShapeModifier<Rectangle>> and conformance <> ModifiedContent<A, B>)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyACyAA6SpacerVAA12_FrameLayoutVG_AA012_ConditionalD0VyACyAA0G0PAAE4boldyQrSbFQOyACyACyAA5ImageVAKGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingJ0VGACyApAEAQyQrSbFQOyACyAlZG_Qo_A2_GGAlCyACyAsZGAKGAA6VStackVyAGyAA4TextV_ANyA13_A13_GtGGAItGGAA01_d5ShapeQ0VyAA9RectangleVGGMd, &_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyACyAA6SpacerVAA12_FrameLayoutVG_AA012_ConditionalD0VyACyAA0G0PAAE4boldyQrSbFQOyACyACyAA5ImageVAKGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingJ0VGACyApAEAQyQrSbFQOyACyAlZG_Qo_A2_GGAlCyACyAsZGAKGAA6VStackVyAGyAA4TextV_ANyA13_A13_GtGGAItGGAA01_d5ShapeQ0VyAA9RectangleVGGMR);
-    lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type HStack<TupleView<(ModifiedContent<Spacer, _FrameLayout>, _ConditionalContent<ModifiedContent<<<opaque return type of View.bold(_:)>>.0, _PaddingLayout>, ModifiedContent<<<opaque return type of View.bold(_:)>>.0, _PaddingLayout>>, ModifiedContent<Spacer, _FrameLayout>, ModifiedContent<ModifiedContent<Image, _EnvironmentKeyWritingModifier<Font?>>, _FrameLayout>, VStack<TupleView<(Text, _ConditionalContent<Text, Text>)>>, Spacer)>> and conformance HStack<A>, &_s7SwiftUI6HStackVyAA9TupleViewVyAA15ModifiedContentVyAA6SpacerVAA12_FrameLayoutVG_AA012_ConditionalG0VyAGyAA0E0PAAE4boldyQrSbFQOyAGyAGyAA5ImageVAKGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingJ0VGAGyApAEAQyQrSbFQOyAGyAlZG_Qo_A2_GGAlGyAGyAsZGAKGAA6VStackVyAEyAA4TextV_ANyA13_A13_GtGGAItGGMd, &_s7SwiftUI6HStackVyAA9TupleViewVyAA15ModifiedContentVyAA6SpacerVAA12_FrameLayoutVG_AA012_ConditionalG0VyAGyAA0E0PAAE4boldyQrSbFQOyAGyAGyAA5ImageVAKGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingJ0VGAGyApAEAQyQrSbFQOyAGyAlZG_Qo_A2_GGAlGyAGyAsZGAKGAA6VStackVyAEyAA4TextV_ANyA13_A13_GtGGAItGGMR);
-    lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type _ContentShapeModifier<Rectangle> and conformance _ContentShapeModifier<A>, &_s7SwiftUI21_ContentShapeModifierVyAA9RectangleVGMd, &_s7SwiftUI21_ContentShapeModifierVyAA9RectangleVGMR);
+    lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type HStack<TupleView<(ModifiedContent<Spacer, _FrameLayout>, _ConditionalContent<ModifiedContent<<<opaque return type of View.bold(_:)>>.0, _PaddingLayout>, ModifiedContent<<<opaque return type of View.bold(_:)>>.0, _PaddingLayout>>, ModifiedContent<Spacer, _FrameLayout>, ModifiedContent<ModifiedContent<Image, _EnvironmentKeyWritingModifier<Font?>>, _FrameLayout>, VStack<TupleView<(Text, _ConditionalContent<Text, Text>)>>, Spacer)>> and conformance HStack<A>, &_s7SwiftUI6HStackVyAA9TupleViewVyAA15ModifiedContentVyAA6SpacerVAA12_FrameLayoutVG_AA012_ConditionalG0VyAGyAA0E0PAAE4boldyQrSbFQOyAGyAGyAA5ImageVAKGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingJ0VGAGyApAEAQyQrSbFQOyAGyAlZG_Qo_A2_GGAlGyAGyAsZGAKGAA6VStackVyAEyAA4TextV_ANyA13_A13_GtGGAItGGMd, &_s7SwiftUI6HStackVyAA9TupleViewVyAA15ModifiedContentVyAA6SpacerVAA12_FrameLayoutVG_AA012_ConditionalG0VyAGyAA0E0PAAE4boldyQrSbFQOyAGyAGyAA5ImageVAKGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingJ0VGAGyApAEAQyQrSbFQOyAGyAlZG_Qo_A2_GGAlGyAGyAsZGAKGAA6VStackVyAEyAA4TextV_ANyA13_A13_GtGGAItGGMR, MEMORY[0x277CE1138]);
+    lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type _ContentShapeModifier<Rectangle> and conformance _ContentShapeModifier<A>, &_s7SwiftUI21_ContentShapeModifierVyAA9RectangleVGMd, &_s7SwiftUI21_ContentShapeModifierVyAA9RectangleVGMR, MEMORY[0x277CE0470]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<HStack<TupleView<(ModifiedContent<Spacer, _FrameLayout>, _ConditionalContent<ModifiedContent<<<opaque return type of View.bold(_:)>>.0, _PaddingLayout>, ModifiedContent<<<opaque return type of View.bold(_:)>>.0, _PaddingLayout>>, ModifiedContent<Spacer, _FrameLayout>, ModifiedContent<ModifiedContent<Image, _EnvironmentKeyWritingModifier<Font?>>, _FrameLayout>, VStack<TupleView<(Text, _ConditionalContent<Text, Text>)>>, Spacer)>>, _ContentShapeModifier<Rectangle>> and conformance <> ModifiedContent<A, B>);
   }
@@ -3757,7 +3435,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyACyAA6HStackVyAA9TupleViewVyACyAA6SpacerVAA12_FrameLayoutVG_AA012_ConditionalD0VyACyAA0H0PAAE4boldyQrSbFQOyACyACyAA5ImageVAMGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingK0VGACyArAEASyQrSbFQOyACyANA0_G_Qo_A4_GGAnCyACyAUA0_GAMGAA6VStackVyAIyAA4TextV_APyA15_A15_GtGGAKtGGAA01_d5ShapeR0VyAA9RectangleVGGGAMGAA016_ForegroundStyleR0VyAA012HierarchicalwZ0VGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6ButtonVyACyAA6HStackVyAA9TupleViewVyACyAA6SpacerVAA12_FrameLayoutVG_AA012_ConditionalD0VyACyAA0H0PAAE4boldyQrSbFQOyACyACyAA5ImageVAMGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingK0VGACyArAEASyQrSbFQOyACyANA0_G_Qo_A4_GGAnCyACyAUA0_GAMGAA6VStackVyAIyAA4TextV_APyA15_A15_GtGGAKtGGAA01_d5ShapeR0VyAA9RectangleVGGGAMGAA016_ForegroundStyleR0VyAA012HierarchicalwZ0VGGMR);
     lazy protocol witness table accessor for type ModifiedContent<Button<ModifiedContent<HStack<TupleView<(ModifiedContent<Spacer, _FrameLayout>, _ConditionalContent<ModifiedContent<<<opaque return type of View.bold(_:)>>.0, _PaddingLayout>, ModifiedContent<<<opaque return type of View.bold(_:)>>.0, _PaddingLayout>>, ModifiedContent<Spacer, _FrameLayout>, ModifiedContent<ModifiedContent<Image, _EnvironmentKeyWritingModifier<Font?>>, _FrameLayout>, VStack<TupleView<(Text, _ConditionalContent<Text, Text>)>>, Spacer)>>, _ContentShapeModifier<Rectangle>>>, _FrameLayout> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type _ForegroundStyleModifier<HierarchicalShapeStyle> and conformance _ForegroundStyleModifier<A>, &_s7SwiftUI24_ForegroundStyleModifierVyAA017HierarchicalShapeD0VGMd, &_s7SwiftUI24_ForegroundStyleModifierVyAA017HierarchicalShapeD0VGMR);
+    lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type _ForegroundStyleModifier<HierarchicalShapeStyle> and conformance _ForegroundStyleModifier<A>, &_s7SwiftUI24_ForegroundStyleModifierVyAA017HierarchicalShapeD0VGMd, &_s7SwiftUI24_ForegroundStyleModifierVyAA017HierarchicalShapeD0VGMR, MEMORY[0x277CE0740]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Button<ModifiedContent<HStack<TupleView<(ModifiedContent<Spacer, _FrameLayout>, _ConditionalContent<ModifiedContent<<<opaque return type of View.bold(_:)>>.0, _PaddingLayout>, ModifiedContent<<<opaque return type of View.bold(_:)>>.0, _PaddingLayout>>, ModifiedContent<Spacer, _FrameLayout>, ModifiedContent<ModifiedContent<Image, _EnvironmentKeyWritingModifier<Font?>>, _FrameLayout>, VStack<TupleView<(Text, _ConditionalContent<Text, Text>)>>, Spacer)>>, _ContentShapeModifier<Rectangle>>>, _FrameLayout>, _ForegroundStyleModifier<HierarchicalShapeStyle>> and conformance <> ModifiedContent<A, B>);
   }
@@ -3771,7 +3449,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Button<M
   if (!lazy protocol witness table cache variable for type ModifiedContent<Button<ModifiedContent<HStack<TupleView<(ModifiedContent<Spacer, _FrameLayout>, _ConditionalContent<ModifiedContent<<<opaque return type of View.bold(_:)>>.0, _PaddingLayout>, ModifiedContent<<<opaque return type of View.bold(_:)>>.0, _PaddingLayout>>, ModifiedContent<Spacer, _FrameLayout>, ModifiedContent<ModifiedContent<Image, _EnvironmentKeyWritingModifier<Font?>>, _FrameLayout>, VStack<TupleView<(Text, _ConditionalContent<Text, Text>)>>, Spacer)>>, _ContentShapeModifier<Rectangle>>>, _FrameLayout> and conformance <> ModifiedContent<A, B>)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA6ButtonVyACyAA6HStackVyAA9TupleViewVyACyAA6SpacerVAA12_FrameLayoutVG_AA012_ConditionalD0VyACyAA0H0PAAE4boldyQrSbFQOyACyACyAA5ImageVAMGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingK0VGACyArAEASyQrSbFQOyACyANA0_G_Qo_A4_GGAnCyACyAUA0_GAMGAA6VStackVyAIyAA4TextV_APyA15_A15_GtGGAKtGGAA01_d5ShapeR0VyAA9RectangleVGGGAMGMd, &_s7SwiftUI15ModifiedContentVyAA6ButtonVyACyAA6HStackVyAA9TupleViewVyACyAA6SpacerVAA12_FrameLayoutVG_AA012_ConditionalD0VyACyAA0H0PAAE4boldyQrSbFQOyACyACyAA5ImageVAMGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingK0VGACyArAEASyQrSbFQOyACyANA0_G_Qo_A4_GGAnCyACyAUA0_GAMGAA6VStackVyAIyAA4TextV_APyA15_A15_GtGGAKtGGAA01_d5ShapeR0VyAA9RectangleVGGGAMGMR);
-    lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type Button<ModifiedContent<HStack<TupleView<(ModifiedContent<Spacer, _FrameLayout>, _ConditionalContent<ModifiedContent<<<opaque return type of View.bold(_:)>>.0, _PaddingLayout>, ModifiedContent<<<opaque return type of View.bold(_:)>>.0, _PaddingLayout>>, ModifiedContent<Spacer, _FrameLayout>, ModifiedContent<ModifiedContent<Image, _EnvironmentKeyWritingModifier<Font?>>, _FrameLayout>, VStack<TupleView<(Text, _ConditionalContent<Text, Text>)>>, Spacer)>>, _ContentShapeModifier<Rectangle>>> and conformance Button<A>, &_s7SwiftUI6ButtonVyAA15ModifiedContentVyAA6HStackVyAA9TupleViewVyAEyAA6SpacerVAA12_FrameLayoutVG_AA012_ConditionalE0VyAEyAA0H0PAAE4boldyQrSbFQOyAEyAEyAA5ImageVAMGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingK0VGAEyArAEASyQrSbFQOyAEyANA0_G_Qo_A4_GGAnEyAEyAUA0_GAMGAA6VStackVyAIyAA4TextV_APyA15_A15_GtGGAKtGGAA01_e5ShapeR0VyAA9RectangleVGGGMd, &_s7SwiftUI6ButtonVyAA15ModifiedContentVyAA6HStackVyAA9TupleViewVyAEyAA6SpacerVAA12_FrameLayoutVG_AA012_ConditionalE0VyAEyAA0H0PAAE4boldyQrSbFQOyAEyAEyAA5ImageVAMGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingK0VGAEyArAEASyQrSbFQOyAEyANA0_G_Qo_A4_GGAnEyAEyAUA0_GAMGAA6VStackVyAIyAA4TextV_APyA15_A15_GtGGAKtGGAA01_e5ShapeR0VyAA9RectangleVGGGMR);
+    lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type Button<ModifiedContent<HStack<TupleView<(ModifiedContent<Spacer, _FrameLayout>, _ConditionalContent<ModifiedContent<<<opaque return type of View.bold(_:)>>.0, _PaddingLayout>, ModifiedContent<<<opaque return type of View.bold(_:)>>.0, _PaddingLayout>>, ModifiedContent<Spacer, _FrameLayout>, ModifiedContent<ModifiedContent<Image, _EnvironmentKeyWritingModifier<Font?>>, _FrameLayout>, VStack<TupleView<(Text, _ConditionalContent<Text, Text>)>>, Spacer)>>, _ContentShapeModifier<Rectangle>>> and conformance Button<A>, &_s7SwiftUI6ButtonVyAA15ModifiedContentVyAA6HStackVyAA9TupleViewVyAEyAA6SpacerVAA12_FrameLayoutVG_AA012_ConditionalE0VyAEyAA0H0PAAE4boldyQrSbFQOyAEyAEyAA5ImageVAMGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingK0VGAEyArAEASyQrSbFQOyAEyANA0_G_Qo_A4_GGAnEyAEyAUA0_GAMGAA6VStackVyAIyAA4TextV_APyA15_A15_GtGGAKtGGAA01_e5ShapeR0VyAA9RectangleVGGGMd, &_s7SwiftUI6ButtonVyAA15ModifiedContentVyAA6HStackVyAA9TupleViewVyAEyAA6SpacerVAA12_FrameLayoutVG_AA012_ConditionalE0VyAEyAA0H0PAAE4boldyQrSbFQOyAEyAEyAA5ImageVAMGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingK0VGAEyArAEASyQrSbFQOyAEyANA0_G_Qo_A4_GGAnEyAEyAUA0_GAMGAA6VStackVyAIyAA4TextV_APyA15_A15_GtGGAKtGGAA01_e5ShapeR0VyAA9RectangleVGGGMR, MEMORY[0x277CDF028]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<Button<ModifiedContent<HStack<TupleView<(ModifiedContent<Spacer, _FrameLayout>, _ConditionalContent<ModifiedContent<<<opaque return type of View.bold(_:)>>.0, _PaddingLayout>, ModifiedContent<<<opaque return type of View.bold(_:)>>.0, _PaddingLayout>>, ModifiedContent<Spacer, _FrameLayout>, ModifiedContent<ModifiedContent<Image, _EnvironmentKeyWritingModifier<Font?>>, _FrameLayout>, VStack<TupleView<(Text, _ConditionalContent<Text, Text>)>>, Spacer)>>, _ContentShapeModifier<Rectangle>>>, _FrameLayout> and conformance <> ModifiedContent<A, B>);
   }
@@ -3786,13 +3464,6 @@ uint64_t sub_2389788BC@<X0>(uint64_t *a1@<X8>)
   return result;
 }
 
-uint64_t sub_2389788E8(uint64_t *a1)
-{
-  v1 = *a1;
-
-  return EnvironmentValues.font.setter();
-}
-
 unint64_t lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Spacer, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>> and conformance <> ModifiedContent<A, B>()
 {
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Spacer, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>> and conformance <> ModifiedContent<A, B>;
@@ -3800,7 +3471,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA6SpacerVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMd, &_s7SwiftUI15ModifiedContentVyACyAA6SpacerVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMR);
     lazy protocol witness table accessor for type ModifiedContent<Spacer, _FrameLayout> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<Spacer, _FrameLayout> and conformance <> ModifiedContent<A, B>, &_s7SwiftUI15ModifiedContentVyAA6SpacerVAA12_FrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyAA6SpacerVAA12_FrameLayoutVGMR);
-    lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<Font?> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA4FontVSgGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA4FontVSgGMR);
+    lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<Font?> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA4FontVSgGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA4FontVSgGMR, MEMORY[0x277CE0868]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Spacer, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>> and conformance <> ModifiedContent<A, B>);
   }
@@ -3846,7 +3517,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMd, &_s7SwiftUI15ModifiedContentVyACyAA5ImageVAA12_FrameLayoutVGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGGMR);
     lazy protocol witness table accessor for type ModifiedContent<Spacer, _FrameLayout> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<Image, _FrameLayout> and conformance <> ModifiedContent<A, B>, &_s7SwiftUI15ModifiedContentVyAA5ImageVAA12_FrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyAA5ImageVAA12_FrameLayoutVGMR);
-    lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<Font?> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA4FontVSgGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA4FontVSgGMR);
+    lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<Font?> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA4FontVSgGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA4FontVSgGMR, MEMORY[0x277CE0868]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Image, _FrameLayout>, _EnvironmentKeyWritingModifier<Font?>> and conformance <> ModifiedContent<A, B>);
   }
@@ -3912,12 +3583,12 @@ uint64_t outlined copy of Text.Storage(uint64_t a1, uint64_t a2, char a3)
   }
 }
 
-uint64_t outlined copy of _ConditionalContent<Text, Text>.Storage(uint64_t a1, uint64_t a2, char a3)
+uint64_t outlined copy of _ConditionalContent<Text, Text>.Storage(uint64_t a1, uint64_t a2, char a3, uint64_t a4)
 {
   outlined copy of Text.Storage(a1, a2, a3 & 1);
 }
 
-uint64_t outlined consume of _ConditionalContent<Text, Text>.Storage(uint64_t a1, uint64_t a2, char a3)
+uint64_t outlined consume of _ConditionalContent<Text, Text>.Storage(uint64_t a1, uint64_t a2, char a3, uint64_t a4)
 {
   outlined consume of Text.Storage(a1, a2, a3 & 1);
 }
@@ -3929,7 +3600,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACyAA6ButtonVyACyAA6HStackVyAA9TupleViewVyACyAA6SpacerVAA12_FrameLayoutVG_AA012_ConditionalD0VyACyAA0H0PAAE4boldyQrSbFQOyACyACyAA5ImageVAMGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingK0VGACyArAEASyQrSbFQOyACyANA0_G_Qo_A4_GGAnCyACyAUA0_GAMGAA6VStackVyAIyAA4TextV_APyA15_A15_GtGGAKtGGAA01_d5ShapeR0VyAA9RectangleVGGGAMGAA016_ForegroundStyleR0VyAA012HierarchicalwZ0VGGAA023AccessibilityAttachmentR0VGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA6ButtonVyACyAA6HStackVyAA9TupleViewVyACyAA6SpacerVAA12_FrameLayoutVG_AA012_ConditionalD0VyACyAA0H0PAAE4boldyQrSbFQOyACyACyAA5ImageVAMGAA30_EnvironmentKeyWritingModifierVyAA4FontVSgGG_Qo_AA08_PaddingK0VGACyArAEASyQrSbFQOyACyANA0_G_Qo_A4_GGAnCyACyAUA0_GAMGAA6VStackVyAIyAA4TextV_APyA15_A15_GtGGAKtGGAA01_d5ShapeR0VyAA9RectangleVGGGAMGAA016_ForegroundStyleR0VyAA012HierarchicalwZ0VGGAA023AccessibilityAttachmentR0VGMR);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Button<ModifiedContent<HStack<TupleView<(ModifiedContent<Spacer, _FrameLayout>, _ConditionalContent<ModifiedContent<<<opaque return type of View.bold(_:)>>.0, _PaddingLayout>, ModifiedContent<<<opaque return type of View.bold(_:)>>.0, _PaddingLayout>>, ModifiedContent<Spacer, _FrameLayout>, ModifiedContent<ModifiedContent<Image, _EnvironmentKeyWritingModifier<Font?>>, _FrameLayout>, VStack<TupleView<(Text, _ConditionalContent<Text, Text>)>>, Spacer)>>, _ContentShapeModifier<Rectangle>>>, _FrameLayout>, _ForegroundStyleModifier<HierarchicalShapeStyle>> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type AccessibilityAttachmentModifier and conformance AccessibilityAttachmentModifier, MEMORY[0x277CDE470]);
+    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type AccessibilityAttachmentModifier and conformance AccessibilityAttachmentModifier, MEMORY[0x277CDE470], MEMORY[0x277CDE458]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<Button<ModifiedContent<HStack<TupleView<(ModifiedContent<Spacer, _FrameLayout>, _ConditionalContent<ModifiedContent<<<opaque return type of View.bold(_:)>>.0, _PaddingLayout>, ModifiedContent<<<opaque return type of View.bold(_:)>>.0, _PaddingLayout>>, ModifiedContent<Spacer, _FrameLayout>, ModifiedContent<ModifiedContent<Image, _EnvironmentKeyWritingModifier<Font?>>, _FrameLayout>, VStack<TupleView<(Text, _ConditionalContent<Text, Text>)>>, Spacer)>>, _ContentShapeModifier<Rectangle>>>, _FrameLayout>, _ForegroundStyleModifier<HierarchicalShapeStyle>>, AccessibilityAttachmentModifier> and conformance <> ModifiedContent<A, B>);
   }
@@ -3954,149 +3625,145 @@ Swift::Void __swiftcall BundleUpdatesWaiter.initMetadataQuery()()
   v1 = v0;
   v2 = type metadata accessor for URL();
   v3 = *(v2 - 8);
-  v4 = v3[8];
   MEMORY[0x28223BE20](v2);
-  v6 = v55 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = v51 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (one-time initialization token for common != -1)
   {
     swift_once();
   }
 
-  v7 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v7, static Logger.common);
+  v6 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v6, static Logger.common);
 
-  v8 = Logger.logObject.getter();
-  v9 = static os_log_type_t.default.getter();
+  v7 = Logger.logObject.getter();
+  v8 = static os_log_type_t.default.getter();
 
-  v10 = &OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__continuation;
-  if (os_log_type_enabled(v8, v9))
+  v9 = &OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__continuation;
+  if (os_log_type_enabled(v7, v8))
   {
+    v10 = swift_slowAlloc();
     v11 = swift_slowAlloc();
-    v12 = swift_slowAlloc();
-    v57 = v12;
-    *v11 = 136315138;
-    v58 = v3[2];
-    v59 = v12;
-    v13 = (v3 + 2) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
-    v58(v6, v1 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_bundleURL, v2);
-    lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260]);
-    v14 = dispatch thunk of CustomStringConvertible.description.getter();
-    v15 = v1;
-    v16 = v2;
-    v17 = v3;
-    v19 = v18;
-    (v17[1])(v6, v16);
-    v20 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v19, &v59);
-    v3 = v17;
-    v2 = v16;
-    v1 = v15;
+    v53 = v11;
+    *v10 = 136315138;
+    v54 = *(v3 + 16);
+    v55 = v11;
+    v12 = (v3 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+    v54(v5, v1 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_bundleURL, v2);
+    lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260], MEMORY[0x277CC9290]);
+    v13 = dispatch thunk of CustomStringConvertible.description.getter();
+    v14 = v1;
+    v15 = v2;
+    v16 = v3;
+    v18 = v17;
+    (*(v16 + 8))(v5, v15);
+    v19 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v13, v18, &v55);
+    v3 = v16;
+    v2 = v15;
+    v1 = v14;
 
-    *(v11 + 4) = v20;
-    v10 = &OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__continuation;
-    _os_log_impl(&dword_238952000, v8, v9, "Initializing metadata query for %s", v11, 0xCu);
-    v21 = v57;
-    __swift_destroy_boxed_opaque_existential_0(v57);
-    MEMORY[0x23EE6C260](v21, -1, -1);
-    MEMORY[0x23EE6C260](v11, -1, -1);
+    *(v10 + 4) = v19;
+    v9 = &OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__continuation;
+    _os_log_impl(&dword_238952000, v7, v8, "Initializing metadata query for %s", v10, 0xCu);
+    v20 = v53;
+    __swift_destroy_boxed_opaque_existential_0(v53);
+    MEMORY[0x23EE6C260](v20, -1, -1);
+    MEMORY[0x23EE6C260](v10, -1, -1);
   }
 
   else
   {
 
-    v58 = v3[2];
-    v13 = (v3 + 2) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+    v54 = *(v3 + 16);
+    v12 = (v3 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
   }
 
-  v56 = v10[173];
-  v58(v6, v1 + v56, v2);
-  URL._bridgeToObjectiveC()(v22);
-  v24 = v23;
-  v57 = v3[1];
-  (v57)(v6, v2);
-  v25 = [v24 br_containerID];
+  v52 = v9[173];
+  v54(v5, v1 + v52, v2);
+  URL._bridgeToObjectiveC()(v21);
+  v23 = v22;
+  v53 = *(v3 + 8);
+  (v53)(v5, v2);
+  v24 = [v23 br_containerID];
 
-  if (v25)
+  if (v24)
   {
-    v26 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v28 = v27;
+    v25 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v27 = v26;
   }
 
   else
   {
-    v26 = 0;
-    v28 = 0;
+    v25 = 0;
+    v27 = 0;
   }
 
-  v29 = [objc_allocWithZone(MEMORY[0x277CCAB28]) init];
-  v30 = *(v1 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_metadataQuery);
-  *(v1 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_metadataQuery) = v29;
-  v31 = v29;
+  v28 = [objc_allocWithZone(MEMORY[0x277CCAB28]) init];
+  v29 = *(v1 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_metadataQuery);
+  *(v1 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_metadataQuery) = v28;
+  v30 = v28;
 
-  if (v31)
+  if (v30)
   {
-    if (v28)
+    if (v27)
     {
       __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd, &_ss23_ContiguousArrayStorageCyypGMR);
-      v32 = swift_allocObject();
-      *(v32 + 16) = xmmword_2389886B0;
-      v33 = MEMORY[0x277D837D0];
-      *(v32 + 56) = MEMORY[0x277D837D0];
-      *(v32 + 32) = v26;
-      *(v32 + 40) = v28;
-      v34 = *MEMORY[0x277CCA4F8];
-      v35 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      *(v32 + 88) = v33;
-      *(v32 + 64) = v35;
-      *(v32 + 72) = v36;
+      v31 = swift_allocObject();
+      *(v31 + 16) = xmmword_2389886B0;
+      v32 = MEMORY[0x277D837D0];
+      *(v31 + 56) = MEMORY[0x277D837D0];
+      *(v31 + 32) = v25;
+      *(v31 + 40) = v27;
+      v33 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      *(v31 + 88) = v32;
+      *(v31 + 64) = v33;
+      *(v31 + 72) = v34;
       isa = Array._bridgeToObjectiveC()().super.isa;
 
-      [v31 setSearchScopes_];
+      [v30 setSearchScopes_];
 
-      v38 = type metadata accessor for UIAlertController(0, &lazy cache variable for type metadata for NSPredicate, 0x277CCAC30);
-      v55[2] = "itemGatheredWithUploadingStatus";
-      v55[3] = v38;
+      v36 = type metadata accessor for UIAlertController(0, &lazy cache variable for type metadata for NSPredicate, 0x277CCAC30);
+      v51[2] = "itemGatheredWithUploadingStatus";
+      v51[3] = v36;
       __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd, &_ss23_ContiguousArrayStorageCys7CVarArg_pGMR);
-      v39 = swift_allocObject();
-      *(v39 + 16) = xmmword_2389886C0;
-      v40 = *MEMORY[0x277CCA4B8];
-      v41 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v55[1] = v13;
-      v43 = v42;
-      *(v39 + 56) = v33;
-      v44 = lazy protocol witness table accessor for type String and conformance String();
-      *(v39 + 32) = v41;
-      *(v39 + 40) = v43;
-      *(v39 + 96) = v33;
-      *(v39 + 104) = v44;
-      *(v39 + 64) = v44;
-      *(v39 + 72) = 0xD000000000000019;
-      *(v39 + 80) = 0x800000023898CAA0;
-      v45 = *MEMORY[0x277CCA4D0];
-      v46 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      *(v39 + 136) = v33;
-      *(v39 + 144) = v44;
-      *(v39 + 112) = v46;
-      *(v39 + 120) = v47;
-      v58(v6, v1 + v56, v2);
-      v48 = URL.lastPathComponent.getter();
-      v50 = v49;
-      (v57)(v6, v2);
-      *(v39 + 176) = v33;
-      *(v39 + 184) = v44;
-      *(v39 + 152) = v48;
-      *(v39 + 160) = v50;
-      v51 = NSPredicate.init(format:_:)();
-      [v31 setPredicate_];
+      v37 = swift_allocObject();
+      *(v37 + 16) = xmmword_2389886C0;
+      v38 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v51[1] = v12;
+      v40 = v39;
+      *(v37 + 56) = v32;
+      v41 = lazy protocol witness table accessor for type String and conformance String();
+      *(v37 + 32) = v38;
+      *(v37 + 40) = v40;
+      *(v37 + 96) = v32;
+      *(v37 + 104) = v41;
+      *(v37 + 64) = v41;
+      *(v37 + 72) = 0xD000000000000019;
+      *(v37 + 80) = 0x800000023898CAA0;
+      v42 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      *(v37 + 136) = v32;
+      *(v37 + 144) = v41;
+      *(v37 + 112) = v42;
+      *(v37 + 120) = v43;
+      v54(v5, v1 + v52, v2);
+      v44 = URL.lastPathComponent.getter();
+      v46 = v45;
+      (v53)(v5, v2);
+      *(v37 + 176) = v32;
+      *(v37 + 184) = v41;
+      *(v37 + 152) = v44;
+      *(v37 + 160) = v46;
+      v47 = NSPredicate.init(format:_:)();
+      [v30 setPredicate_];
 
-      [v31 setOperationQueue_];
-      v52 = objc_opt_self();
-      v53 = [v52 defaultCenter];
-      [v53 addObserver:v1 selector:sel_finishedGatheringWithNotification_ name:*MEMORY[0x277CCA4E8] object:v31];
+      [v30 setOperationQueue_];
+      v48 = objc_opt_self();
+      v49 = [v48 defaultCenter];
+      [v49 addObserver:v1 selector:sel_finishedGatheringWithNotification_ name:*MEMORY[0x277CCA4E8] object:v30];
 
-      v54 = [v52 defaultCenter];
-      [v54 addObserver:v1 selector:sel_receivedUpdatesWithNotification_ name:*MEMORY[0x277CCA4F0] object:v31];
+      v50 = [v48 defaultCenter];
+      [v50 addObserver:v1 selector:sel_receivedUpdatesWithNotification_ name:*MEMORY[0x277CCA4F0] object:v30];
 
-      [v31 startQuery];
+      [v30 startQuery];
     }
   }
 
@@ -4138,85 +3805,82 @@ uint64_t BundleUpdatesWaiter.init(bundleURL:)(uint64_t a1)
 void closure #1 in BundleUpdatesWaiter.invalidate()(uint64_t a1)
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo14NSMetadataItemC_GMd, &_sScS12ContinuationVySo14NSMetadataItemC_GMR);
-  v39 = *(v2 - 8);
-  v3 = *(v39 + 64);
+  v36 = *(v2 - 8);
   MEMORY[0x28223BE20](v2);
-  v36 = &v33 - v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo14NSMetadataItemC_GSgMd, &_sScS12ContinuationVySo14NSMetadataItemC_GSgMR);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v33 - v7;
-  v9 = type metadata accessor for URL();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = &v33 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = *(a1 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_metadataQuery);
-  if (v14)
+  v33 = &v30 - v3;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo14NSMetadataItemC_GSgMd, &_sScS12ContinuationVySo14NSMetadataItemC_GSgMR);
+  MEMORY[0x28223BE20](v4 - 8);
+  v6 = &v30 - v5;
+  v7 = type metadata accessor for URL();
+  v8 = *(v7 - 8);
+  MEMORY[0x28223BE20](v7);
+  v10 = &v30 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = *(a1 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_metadataQuery);
+  if (v11)
   {
-    v38 = OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_metadataQuery;
-    v15 = one-time initialization token for common;
-    v37 = v14;
-    if (v15 != -1)
+    v35 = OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_metadataQuery;
+    v12 = one-time initialization token for common;
+    v34 = v11;
+    if (v12 != -1)
     {
       swift_once();
     }
 
-    v16 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v16, static Logger.common);
+    v13 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v13, static Logger.common);
 
-    v17 = Logger.logObject.getter();
-    v18 = static os_log_type_t.default.getter();
+    v14 = Logger.logObject.getter();
+    v15 = static os_log_type_t.default.getter();
 
-    if (os_log_type_enabled(v17, v18))
+    if (os_log_type_enabled(v14, v15))
     {
-      v19 = swift_slowAlloc();
-      v35 = v2;
-      v20 = v19;
-      v33 = v19;
-      v34 = swift_slowAlloc();
-      v40 = v34;
-      *v20 = 136315138;
-      v21 = v10;
-      (*(v10 + 16))(v13, a1 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_bundleURL, v9);
-      lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260]);
-      v22 = dispatch thunk of CustomStringConvertible.description.getter();
-      v24 = v23;
-      (*(v21 + 8))(v13, v9);
-      v25 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22, v24, &v40);
+      v16 = swift_slowAlloc();
+      v32 = v2;
+      v17 = v16;
+      v30 = v16;
+      v31 = swift_slowAlloc();
+      v37 = v31;
+      *v17 = 136315138;
+      v18 = v8;
+      (*(v8 + 16))(v10, a1 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_bundleURL, v7);
+      lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260], MEMORY[0x277CC9290]);
+      v19 = dispatch thunk of CustomStringConvertible.description.getter();
+      v21 = v20;
+      (*(v18 + 8))(v10, v7);
+      v22 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v19, v21, &v37);
 
-      v26 = v33;
-      *(v33 + 4) = v25;
-      v27 = v26;
-      _os_log_impl(&dword_238952000, v17, v18, "Stopping metadata query for %s", v26, 0xCu);
-      v28 = v34;
-      __swift_destroy_boxed_opaque_existential_0(v34);
-      MEMORY[0x23EE6C260](v28, -1, -1);
-      v2 = v35;
-      MEMORY[0x23EE6C260](v27, -1, -1);
+      v23 = v30;
+      *(v30 + 4) = v22;
+      v24 = v23;
+      _os_log_impl(&dword_238952000, v14, v15, "Stopping metadata query for %s", v23, 0xCu);
+      v25 = v31;
+      __swift_destroy_boxed_opaque_existential_0(v31);
+      MEMORY[0x23EE6C260](v25, -1, -1);
+      v2 = v32;
+      MEMORY[0x23EE6C260](v24, -1, -1);
     }
 
-    outlined init with copy of URL?(a1 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_updateStreamContinuation, v8, &_sScS12ContinuationVySo14NSMetadataItemC_GSgMd, &_sScS12ContinuationVySo14NSMetadataItemC_GSgMR);
-    if ((*(v39 + 48))(v8, 1, v2))
+    outlined init with copy of URL?(a1 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_updateStreamContinuation, v6, &_sScS12ContinuationVySo14NSMetadataItemC_GSgMd, &_sScS12ContinuationVySo14NSMetadataItemC_GSgMR);
+    if ((*(v36 + 48))(v6, 1, v2))
     {
-      outlined destroy of URL?(v8, &_sScS12ContinuationVySo14NSMetadataItemC_GSgMd, &_sScS12ContinuationVySo14NSMetadataItemC_GSgMR);
+      outlined destroy of URL?(v6, &_sScS12ContinuationVySo14NSMetadataItemC_GSgMd, &_sScS12ContinuationVySo14NSMetadataItemC_GSgMR);
     }
 
     else
     {
-      v29 = v39;
-      v30 = v36;
-      (*(v39 + 16))(v36, v8, v2);
-      outlined destroy of URL?(v8, &_sScS12ContinuationVySo14NSMetadataItemC_GSgMd, &_sScS12ContinuationVySo14NSMetadataItemC_GSgMR);
+      v26 = v36;
+      v27 = v33;
+      (*(v36 + 16))(v33, v6, v2);
+      outlined destroy of URL?(v6, &_sScS12ContinuationVySo14NSMetadataItemC_GSgMd, &_sScS12ContinuationVySo14NSMetadataItemC_GSgMR);
       AsyncStream.Continuation.finish()();
-      (*(v29 + 8))(v30, v2);
+      (*(v26 + 8))(v27, v2);
     }
 
-    v31 = v37;
-    [v37 stopQuery];
+    v28 = v34;
+    [v34 stopQuery];
 
-    v32 = *(a1 + v38);
-    *(a1 + v38) = 0;
+    v29 = *(a1 + v35);
+    *(a1 + v35) = 0;
   }
 }
 
@@ -4246,7 +3910,7 @@ uint64_t BundleUpdatesWaiter.__deallocating_deinit()
   return MEMORY[0x2821FE8D8](v0, v1, v2);
 }
 
-uint64_t type metadata accessor for BundleUpdatesWaiter()
+uint64_t type metadata accessor for BundleUpdatesWaiter(uint64_t a1)
 {
   result = type metadata singleton initialization cache for BundleUpdatesWaiter;
   if (!type metadata singleton initialization cache for BundleUpdatesWaiter)
@@ -4262,125 +3926,123 @@ uint64_t BundleUpdatesWaiter.isItemUploading(item:)(void *a1)
   v2 = v1;
   v4 = type metadata accessor for URL();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v71 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v69 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
-  v9 = swift_allocObject();
-  *(v9 + 16) = xmmword_2389886B0;
-  v10 = *MEMORY[0x277CCA538];
-  *(v9 + 32) = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  *(v9 + 40) = v11;
-  v12 = *MEMORY[0x277CCA548];
-  *(v9 + 48) = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  *(v9 + 56) = v13;
+  v8 = swift_allocObject();
+  *(v8 + 16) = xmmword_2389886B0;
+  *(v8 + 32) = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  *(v8 + 40) = v9;
+  v10 = *MEMORY[0x277CCA548];
+  *(v8 + 48) = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  *(v8 + 56) = v11;
   isa = Array._bridgeToObjectiveC()().super.isa;
 
-  v15 = [a1 valuesForAttributes_];
+  v13 = [a1 valuesForAttributes_];
 
-  if (!v15)
+  if (!v13)
   {
     return 0;
   }
 
-  v74 = v8;
-  v75 = v5;
-  v16 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  v72 = v7;
+  v73 = v5;
+  v14 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (one-time initialization token for common != -1)
   {
     swift_once();
   }
 
-  v17 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v17, static Logger.common);
+  v15 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v15, static Logger.common);
 
-  v18 = Logger.logObject.getter();
-  v19 = static os_log_type_t.debug.getter();
+  v16 = Logger.logObject.getter();
+  v17 = static os_log_type_t.debug.getter();
 
-  if (os_log_type_enabled(v18, v19))
+  if (os_log_type_enabled(v16, v17))
   {
+    v18 = swift_slowAlloc();
+    v71 = v2;
+    v19 = v18;
     v20 = swift_slowAlloc();
-    v73 = v2;
-    v21 = v20;
-    v22 = swift_slowAlloc();
-    v72 = v12;
-    v23 = v4;
-    v24 = v22;
-    v77[0] = v22;
-    *v21 = 136315138;
-    v25 = Dictionary.description.getter();
-    v27 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v26, v77);
+    v70 = v10;
+    v21 = v4;
+    v22 = v20;
+    v75[0] = v20;
+    *v19 = 136315138;
+    v23 = Dictionary.description.getter();
+    v25 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v23, v24, v75);
 
-    *(v21 + 4) = v27;
-    _os_log_impl(&dword_238952000, v18, v19, "Item values: %s", v21, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v24);
-    v28 = v24;
-    v4 = v23;
-    MEMORY[0x23EE6C260](v28, -1, -1);
-    v29 = v21;
-    v2 = v73;
-    MEMORY[0x23EE6C260](v29, -1, -1);
+    *(v19 + 4) = v25;
+    _os_log_impl(&dword_238952000, v16, v17, "Item values: %s", v19, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v22);
+    v26 = v22;
+    v4 = v21;
+    MEMORY[0x23EE6C260](v26, -1, -1);
+    v27 = v19;
+    v2 = v71;
+    MEMORY[0x23EE6C260](v27, -1, -1);
   }
 
-  v30 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  if (!*(v16 + 16))
+  v28 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  if (!*(v14 + 16))
   {
 
     goto LABEL_13;
   }
 
-  v32 = specialized __RawDictionaryStorage.find<A>(_:)(v30, v31);
-  v34 = v33;
+  v30 = specialized __RawDictionaryStorage.find<A>(_:)(v28, v29);
+  v32 = v31;
 
-  if ((v34 & 1) == 0 || (outlined init with copy of Any(*(v16 + 56) + 32 * v32, v77), type metadata accessor for UIAlertController(0, &lazy cache variable for type metadata for NSNumber, 0x277CCABB0), (swift_dynamicCast() & 1) == 0))
+  if ((v32 & 1) == 0 || (outlined init with copy of Any(*(v14 + 56) + 32 * v30, v75), type metadata accessor for UIAlertController(0, &lazy cache variable for type metadata for NSNumber, 0x277CCABB0), (swift_dynamicCast() & 1) == 0))
   {
 LABEL_13:
-    v52 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    if (*(v16 + 16))
+    v50 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    if (*(v14 + 16))
     {
-      v54 = specialized __RawDictionaryStorage.find<A>(_:)(v52, v53);
-      v56 = v55;
+      v52 = specialized __RawDictionaryStorage.find<A>(_:)(v50, v51);
+      v54 = v53;
 
-      if (v56)
+      if (v54)
       {
-        outlined init with copy of Any(*(v16 + 56) + 32 * v54, v77);
+        outlined init with copy of Any(*(v14 + 56) + 32 * v52, v75);
 
         type metadata accessor for UIAlertController(0, &lazy cache variable for type metadata for NSError, 0x277CCA9B8);
         if (swift_dynamicCast())
         {
-          v57 = v76;
+          v55 = v74;
 
-          v58 = v57;
-          v59 = v2;
-          v38 = v58;
-          v39 = Logger.logObject.getter();
-          v40 = static os_log_type_t.debug.getter();
+          v56 = v55;
+          v57 = v2;
+          v36 = v56;
+          v37 = Logger.logObject.getter();
+          v38 = static os_log_type_t.debug.getter();
 
-          if (os_log_type_enabled(v39, v40))
+          if (os_log_type_enabled(v37, v38))
           {
-            v41 = swift_slowAlloc();
-            v60 = swift_slowAlloc();
-            v72 = v60;
-            v73 = swift_slowAlloc();
-            v77[0] = v73;
-            *v41 = 138412546;
-            *(v41 + 4) = v38;
-            *v60 = v38;
-            *(v41 + 12) = 2080;
-            v62 = v74;
-            v61 = v75;
-            (*(v75 + 16))(v74, v59 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_bundleURL, v4);
-            lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260]);
-            v63 = v4;
-            v46 = v38;
-            v64 = dispatch thunk of CustomStringConvertible.description.getter();
-            v66 = v65;
-            (*(v61 + 8))(v62, v63);
-            v67 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v64, v66, v77);
+            v39 = swift_slowAlloc();
+            v58 = swift_slowAlloc();
+            v70 = v58;
+            v71 = swift_slowAlloc();
+            v75[0] = v71;
+            *v39 = 138412546;
+            *(v39 + 4) = v36;
+            *v58 = v36;
+            *(v39 + 12) = 2080;
+            v60 = v72;
+            v59 = v73;
+            (*(v73 + 16))(v72, v57 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_bundleURL, v4);
+            lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260], MEMORY[0x277CC9290]);
+            v61 = v4;
+            v44 = v36;
+            v62 = dispatch thunk of CustomStringConvertible.description.getter();
+            v64 = v63;
+            (*(v59 + 8))(v60, v61);
+            v65 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v62, v64, v75);
 
-            *(v41 + 14) = v67;
-            v51 = "Upload in error: %@ for %s";
+            *(v39 + 14) = v65;
+            v49 = "Upload in error: %@ for %s";
             goto LABEL_18;
           }
 
@@ -4398,53 +4060,53 @@ LABEL_13:
     return 0;
   }
 
-  v35 = v76;
-  [v76 doubleValue];
-  if (v36 <= 0.0)
+  v33 = v74;
+  [v74 doubleValue];
+  if (v34 <= 0.0)
   {
 
     goto LABEL_13;
   }
 
-  v37 = v2;
-  v38 = v35;
+  v35 = v2;
+  v36 = v33;
 
-  v39 = Logger.logObject.getter();
-  v40 = static os_log_type_t.debug.getter();
+  v37 = Logger.logObject.getter();
+  v38 = static os_log_type_t.debug.getter();
 
-  if (os_log_type_enabled(v39, v40))
+  if (os_log_type_enabled(v37, v38))
   {
-    v41 = swift_slowAlloc();
-    v42 = swift_slowAlloc();
-    v72 = v42;
-    v73 = swift_slowAlloc();
-    v77[0] = v73;
-    *v41 = 138412546;
-    *(v41 + 4) = v38;
-    *v42 = v38;
-    *(v41 + 12) = 2080;
-    v44 = v74;
-    v43 = v75;
-    (*(v75 + 16))(v74, v37 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_bundleURL, v4);
-    lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260]);
-    v45 = v4;
-    v46 = v38;
-    v47 = dispatch thunk of CustomStringConvertible.description.getter();
-    v49 = v48;
-    (*(v43 + 8))(v44, v45);
-    v50 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v49, v77);
+    v39 = swift_slowAlloc();
+    v40 = swift_slowAlloc();
+    v70 = v40;
+    v71 = swift_slowAlloc();
+    v75[0] = v71;
+    *v39 = 138412546;
+    *(v39 + 4) = v36;
+    *v40 = v36;
+    *(v39 + 12) = 2080;
+    v42 = v72;
+    v41 = v73;
+    (*(v73 + 16))(v72, v35 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_bundleURL, v4);
+    lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260], MEMORY[0x277CC9290]);
+    v43 = v4;
+    v44 = v36;
+    v45 = dispatch thunk of CustomStringConvertible.description.getter();
+    v47 = v46;
+    (*(v41 + 8))(v42, v43);
+    v48 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v45, v47, v75);
 
-    *(v41 + 14) = v50;
-    v51 = "Upload in progress: %@ for %s";
+    *(v39 + 14) = v48;
+    v49 = "Upload in progress: %@ for %s";
 LABEL_18:
-    _os_log_impl(&dword_238952000, v39, v40, v51, v41, 0x16u);
-    v68 = v72;
-    outlined destroy of URL?(v72, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x23EE6C260](v68, -1, -1);
-    v69 = v73;
-    __swift_destroy_boxed_opaque_existential_0(v73);
-    MEMORY[0x23EE6C260](v69, -1, -1);
-    MEMORY[0x23EE6C260](v41, -1, -1);
+    _os_log_impl(&dword_238952000, v37, v38, v49, v39, 0x16u);
+    v66 = v70;
+    outlined destroy of URL?(v70, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    MEMORY[0x23EE6C260](v66, -1, -1);
+    v67 = v71;
+    __swift_destroy_boxed_opaque_existential_0(v71);
+    MEMORY[0x23EE6C260](v67, -1, -1);
+    MEMORY[0x23EE6C260](v39, -1, -1);
 
     return 1;
   }
@@ -4458,43 +4120,40 @@ uint64_t closure #1 in BundleUpdatesWaiter.finishedGathering(notification:)(uint
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySbs5NeverOGMd, &_sScCySbs5NeverOGMR);
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = &v52 - v5;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySbs5NeverOGSgMd, &_sScCySbs5NeverOGSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v52 - v9;
-  v11 = type metadata accessor for URL();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  result = MEMORY[0x28223BE20](v11);
-  v16 = &v52 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = *(a1 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_metadataQuery);
-  if (!v17)
+  v5 = &v49 - v4;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySbs5NeverOGSgMd, &_sScCySbs5NeverOGSgMR);
+  MEMORY[0x28223BE20](v6 - 8);
+  v8 = &v49 - v7;
+  v9 = type metadata accessor for URL();
+  v10 = *(v9 - 8);
+  result = MEMORY[0x28223BE20](v9);
+  v13 = &v49 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = *(a1 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_metadataQuery);
+  if (!v14)
   {
     return result;
   }
 
-  v56 = v16;
-  v61 = a1;
-  v58 = result;
-  v18 = v17;
-  [v18 disableUpdates];
-  v19 = [v18 results];
-  v20 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v53 = v13;
+  v58 = a1;
+  v55 = result;
+  v15 = v14;
+  [v15 disableUpdates];
+  v16 = [v15 results];
+  v17 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v21 = specialized _arrayConditionalCast<A, B>(_:)(v20);
+  v18 = specialized _arrayConditionalCast<A, B>(_:)(v17);
 
-  v57 = v12;
-  if (!v21)
+  v54 = v10;
+  if (!v18)
   {
     goto LABEL_15;
   }
 
-  if (!(v21 >> 62))
+  if (!(v18 >> 62))
   {
-    result = *((v21 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    result = *((v18 & 0xFFFFFFFFFFFFFF8) + 0x10);
     if (result)
     {
       goto LABEL_5;
@@ -4503,155 +4162,155 @@ uint64_t closure #1 in BundleUpdatesWaiter.finishedGathering(notification:)(uint
     goto LABEL_14;
   }
 
-  if (v21 >= 0)
+  if (v18 >= 0)
   {
-    v27 = v21 & 0xFFFFFFFFFFFFFF8;
+    v24 = v18 & 0xFFFFFFFFFFFFFF8;
   }
 
   else
   {
-    v27 = v21;
+    v24 = v18;
   }
 
-  result = MEMORY[0x23EE6BAE0](v27);
+  result = MEMORY[0x23EE6BAE0](v24);
   if (!result)
   {
 LABEL_14:
 
 LABEL_15:
-    [v18 enableUpdates];
+    [v15 enableUpdates];
 LABEL_16:
-    v59 = 0;
-    v25 = v61;
+    v56 = 0;
+    v22 = v58;
     goto LABEL_17;
   }
 
 LABEL_5:
-  if ((v21 & 0xC000000000000001) != 0)
+  if ((v18 & 0xC000000000000001) != 0)
   {
-    v22 = MEMORY[0x23EE6BA40](0, v21);
+    v19 = MEMORY[0x23EE6BA40](0, v18);
   }
 
   else
   {
-    if (!*((v21 & 0xFFFFFFFFFFFFFF8) + 0x10))
+    if (!*((v18 & 0xFFFFFFFFFFFFFF8) + 0x10))
     {
       __break(1u);
       return result;
     }
 
-    v22 = *(v21 + 32);
+    v19 = *(v18 + 32);
   }
 
-  v23 = v22;
+  v20 = v19;
 
-  [v18 enableUpdates];
-  if (!v23)
+  [v15 enableUpdates];
+  if (!v20)
   {
     goto LABEL_16;
   }
 
-  v24 = v23;
-  v25 = v61;
-  v26 = BundleUpdatesWaiter.isItemUploading(item:)(v24);
-  v59 = v24;
+  v21 = v20;
+  v22 = v58;
+  v23 = BundleUpdatesWaiter.isItemUploading(item:)(v21);
+  v56 = v21;
 
-  *(v25 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_itemGatheredWithUploadingStatus) = v26 & 1;
+  *(v22 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_itemGatheredWithUploadingStatus) = v23 & 1;
 LABEL_17:
-  v60 = v18;
-  v28 = OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_finishedGathering;
-  *(v25 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_finishedGathering) = 1;
+  v57 = v15;
+  v25 = OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_finishedGathering;
+  *(v22 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_finishedGathering) = 1;
   if (one-time initialization token for common != -1)
   {
     swift_once();
   }
 
-  v29 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v29, static Logger.common);
+  v26 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v26, static Logger.common);
 
-  v30 = Logger.logObject.getter();
-  v31 = static os_log_type_t.default.getter();
+  v27 = Logger.logObject.getter();
+  v28 = static os_log_type_t.default.getter();
 
-  if (os_log_type_enabled(v30, v31))
+  if (os_log_type_enabled(v27, v28))
   {
-    v32 = swift_slowAlloc();
-    v52 = v32;
-    v33 = swift_slowAlloc();
-    v55 = v2;
-    v53 = v33;
-    v62 = v33;
-    *v32 = 136315138;
-    v34 = v57;
-    v35 = *(v57 + 16);
-    v36 = v25 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_bundleURL;
-    v63 = v31;
-    v37 = v56;
-    v38 = v58;
-    v35(v56, v36, v58);
-    lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260]);
-    v39 = v28;
-    v40 = dispatch thunk of CustomStringConvertible.description.getter();
-    v54 = v10;
-    v41 = v6;
-    v42 = v3;
-    v44 = v43;
-    (*(v34 + 8))(v37, v38);
-    v45 = v40;
-    v28 = v39;
-    v46 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v45, v44, &v62);
-    v3 = v42;
-    v6 = v41;
-    v10 = v54;
+    v29 = swift_slowAlloc();
+    v49 = v29;
+    v30 = swift_slowAlloc();
+    v52 = v2;
+    v50 = v30;
+    v59 = v30;
+    *v29 = 136315138;
+    v31 = v54;
+    v32 = *(v54 + 16);
+    v33 = v22 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_bundleURL;
+    v60 = v28;
+    v34 = v53;
+    v35 = v55;
+    v32(v53, v33, v55);
+    lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260], MEMORY[0x277CC9290]);
+    v36 = v25;
+    v37 = dispatch thunk of CustomStringConvertible.description.getter();
+    v51 = v8;
+    v38 = v5;
+    v39 = v3;
+    v41 = v40;
+    (*(v31 + 8))(v34, v35);
+    v42 = v37;
+    v25 = v36;
+    v43 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v42, v41, &v59);
+    v3 = v39;
+    v5 = v38;
+    v8 = v51;
 
-    v47 = v52;
-    *(v52 + 1) = v46;
-    v25 = v61;
-    v48 = v47;
-    _os_log_impl(&dword_238952000, v30, v63, "Finished gathering %s", v47, 0xCu);
-    v49 = v53;
-    __swift_destroy_boxed_opaque_existential_0(v53);
-    v2 = v55;
-    MEMORY[0x23EE6C260](v49, -1, -1);
-    MEMORY[0x23EE6C260](v48, -1, -1);
+    v44 = v49;
+    *(v49 + 1) = v43;
+    v22 = v58;
+    v45 = v44;
+    _os_log_impl(&dword_238952000, v27, v60, "Finished gathering %s", v44, 0xCu);
+    v46 = v50;
+    __swift_destroy_boxed_opaque_existential_0(v50);
+    v2 = v52;
+    MEMORY[0x23EE6C260](v46, -1, -1);
+    MEMORY[0x23EE6C260](v45, -1, -1);
   }
 
-  v50 = v60;
-  v51 = OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_finishedGatheringContinuation;
-  outlined init with copy of URL?(v25 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_finishedGatheringContinuation, v10, &_sScCySbs5NeverOGSgMd, &_sScCySbs5NeverOGSgMR);
-  if ((*(v3 + 48))(v10, 1, v2))
+  v47 = v57;
+  v48 = OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_finishedGatheringContinuation;
+  outlined init with copy of URL?(v22 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_finishedGatheringContinuation, v8, &_sScCySbs5NeverOGSgMd, &_sScCySbs5NeverOGSgMR);
+  if ((*(v3 + 48))(v8, 1, v2))
   {
 
-    outlined destroy of URL?(v10, &_sScCySbs5NeverOGSgMd, &_sScCySbs5NeverOGSgMR);
+    outlined destroy of URL?(v8, &_sScCySbs5NeverOGSgMd, &_sScCySbs5NeverOGSgMR);
   }
 
   else
   {
-    (*(v3 + 16))(v6, v10, v2);
-    outlined destroy of URL?(v10, &_sScCySbs5NeverOGSgMd, &_sScCySbs5NeverOGSgMR);
-    v64 = *(v25 + v28);
+    (*(v3 + 16))(v5, v8, v2);
+    outlined destroy of URL?(v8, &_sScCySbs5NeverOGSgMd, &_sScCySbs5NeverOGSgMR);
+    v61 = *(v22 + v25);
     CheckedContinuation.resume(returning:)();
-    v25 = v61;
+    v22 = v58;
 
-    (*(v3 + 8))(v6, v2);
+    (*(v3 + 8))(v5, v2);
   }
 
-  outlined destroy of URL?(v25 + v51, &_sScCySbs5NeverOGSgMd, &_sScCySbs5NeverOGSgMR);
-  return (*(v3 + 56))(v25 + v51, 1, 1, v2);
+  outlined destroy of URL?(v22 + v48, &_sScCySbs5NeverOGSgMd, &_sScCySbs5NeverOGSgMR);
+  return (*(v3 + 56))(v22 + v48, 1, 1, v2);
 }
 
 uint64_t specialized _arrayConditionalCast<A, B>(_:)(uint64_t a1)
 {
-  v7 = MEMORY[0x277D84F90];
+  v6 = MEMORY[0x277D84F90];
   v2 = *(a1 + 16);
   specialized ContiguousArray.reserveCapacity(_:)();
   if (!v2)
   {
-    return v7;
+    return v6;
   }
 
   for (i = a1 + 32; ; i += 32)
   {
-    outlined init with copy of Any(i, v6);
+    outlined init with copy of Any(i, v5);
     type metadata accessor for UIAlertController(0, &lazy cache variable for type metadata for NSMetadataItem, 0x277CCAB20);
     if ((swift_dynamicCast() & 1) == 0)
     {
@@ -4659,13 +4318,12 @@ uint64_t specialized _arrayConditionalCast<A, B>(_:)(uint64_t a1)
     }
 
     specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-    v4 = *(v7 + 16);
     specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
     specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
     specialized ContiguousArray._endMutation()();
     if (!--v2)
     {
-      return v7;
+      return v6;
     }
   }
 
@@ -4676,90 +4334,86 @@ void closure #1 in BundleUpdatesWaiter.receivedUpdates(notification:)(uint64_t a
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo14NSMetadataItemC_GMd, &_sScS12ContinuationVySo14NSMetadataItemC_GMR);
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v57 = &v51 - v6;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo14NSMetadataItemC_GSgMd, &_sScS12ContinuationVySo14NSMetadataItemC_GSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v51 - v9;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV11YieldResultOySo14NSMetadataItemC__GSgMd, &_sScS12ContinuationV11YieldResultOySo14NSMetadataItemC__GSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x28223BE20](v11 - 8);
-  v14 = &v51 - v13;
-  v15 = type metadata accessor for URL();
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  MEMORY[0x28223BE20](v15);
-  v19 = &v51 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20 = *(a1 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_metadataQuery);
-  if (!v20)
+  v53 = &v47 - v5;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo14NSMetadataItemC_GSgMd, &_sScS12ContinuationVySo14NSMetadataItemC_GSgMR);
+  MEMORY[0x28223BE20](v6 - 8);
+  v8 = &v47 - v7;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV11YieldResultOySo14NSMetadataItemC__GSgMd, &_sScS12ContinuationV11YieldResultOySo14NSMetadataItemC__GSgMR);
+  MEMORY[0x28223BE20](v9 - 8);
+  v11 = &v47 - v10;
+  v12 = type metadata accessor for URL();
+  v13 = *(v12 - 8);
+  MEMORY[0x28223BE20](v12);
+  v15 = &v47 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = *(a1 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_metadataQuery);
+  if (!v16)
   {
     return;
   }
 
-  v56 = v10;
-  v54 = v14;
-  v21 = one-time initialization token for common;
-  v58 = v20;
-  if (v21 != -1)
+  v52 = v8;
+  v50 = v11;
+  v17 = one-time initialization token for common;
+  v54 = v16;
+  if (v17 != -1)
   {
     swift_once();
   }
 
-  v22 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v22, static Logger.common);
+  v18 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v18, static Logger.common);
 
-  v23 = a1;
-  v24 = Logger.logObject.getter();
-  v25 = static os_log_type_t.default.getter();
+  v19 = a1;
+  v20 = Logger.logObject.getter();
+  v21 = static os_log_type_t.default.getter();
 
-  v26 = os_log_type_enabled(v24, v25);
-  v55 = v23;
-  if (v26)
+  v22 = os_log_type_enabled(v20, v21);
+  v51 = v19;
+  if (v22)
   {
-    v27 = swift_slowAlloc();
-    v53 = v1;
+    v23 = swift_slowAlloc();
+    v49 = v1;
+    v24 = v23;
+    v47 = swift_slowAlloc();
+    v48 = v3;
+    v55 = v47;
+    *v24 = 136315138;
+    (*(v13 + 16))(v15, v19 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_bundleURL, v12);
+    lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260], MEMORY[0x277CC9290]);
+    v25 = dispatch thunk of CustomStringConvertible.description.getter();
+    v26 = v4;
     v28 = v27;
-    v51 = swift_slowAlloc();
-    v52 = v3;
-    v59 = v51;
-    *v28 = 136315138;
-    (*(v16 + 16))(v19, v23 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_bundleURL, v15);
-    lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260]);
-    v29 = dispatch thunk of CustomStringConvertible.description.getter();
-    v30 = v4;
-    v32 = v31;
-    (*(v16 + 8))(v19, v15);
-    v33 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v29, v32, &v59);
-    v4 = v30;
+    (*(v13 + 8))(v15, v12);
+    v29 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v28, &v55);
+    v4 = v26;
 
-    *(v28 + 4) = v33;
-    _os_log_impl(&dword_238952000, v24, v25, "Recieved Updates for %s", v28, 0xCu);
-    v34 = v51;
-    __swift_destroy_boxed_opaque_existential_0(v51);
-    v3 = v52;
-    MEMORY[0x23EE6C260](v34, -1, -1);
-    MEMORY[0x23EE6C260](v28, -1, -1);
+    *(v24 + 4) = v29;
+    _os_log_impl(&dword_238952000, v20, v21, "Recieved Updates for %s", v24, 0xCu);
+    v30 = v47;
+    __swift_destroy_boxed_opaque_existential_0(v47);
+    v3 = v48;
+    MEMORY[0x23EE6C260](v30, -1, -1);
+    MEMORY[0x23EE6C260](v24, -1, -1);
   }
 
-  v35 = v58;
-  [v58 disableUpdates];
-  v36 = [v35 results];
-  v37 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v31 = v54;
+  [v54 disableUpdates];
+  v32 = [v31 results];
+  v33 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v38 = specialized _arrayConditionalCast<A, B>(_:)(v37);
+  v34 = specialized _arrayConditionalCast<A, B>(_:)(v33);
 
-  if (!v38)
+  if (!v34)
   {
     goto LABEL_22;
   }
 
-  if (!(v38 >> 62))
+  if (!(v34 >> 62))
   {
-    v40 = v55;
-    v39 = v56;
-    if (*((v38 & 0xFFFFFFFFFFFFFF8) + 0x10))
+    v36 = v51;
+    v35 = v52;
+    if (*((v34 & 0xFFFFFFFFFFFFFF8) + 0x10))
     {
       goto LABEL_9;
     }
@@ -4767,116 +4421,112 @@ void closure #1 in BundleUpdatesWaiter.receivedUpdates(notification:)(uint64_t a
     goto LABEL_21;
   }
 
-  if (v38 >= 0)
+  if (v34 >= 0)
   {
-    v49 = v38 & 0xFFFFFFFFFFFFFF8;
+    v45 = v34 & 0xFFFFFFFFFFFFFF8;
   }
 
   else
   {
-    v49 = v38;
+    v45 = v34;
   }
 
-  v50 = MEMORY[0x23EE6BAE0](v49);
-  v40 = v55;
-  v39 = v56;
-  if (!v50)
+  v46 = MEMORY[0x23EE6BAE0](v45);
+  v36 = v51;
+  v35 = v52;
+  if (!v46)
   {
 LABEL_21:
 
 LABEL_22:
-    [v35 enableUpdates];
+    [v31 enableUpdates];
 LABEL_23:
 
     return;
   }
 
 LABEL_9:
-  if ((v38 & 0xC000000000000001) != 0)
+  if ((v34 & 0xC000000000000001) != 0)
   {
-    v41 = MEMORY[0x23EE6BA40](0, v38);
+    v37 = MEMORY[0x23EE6BA40](0, v34);
   }
 
   else
   {
-    if (!*((v38 & 0xFFFFFFFFFFFFFF8) + 0x10))
+    if (!*((v34 & 0xFFFFFFFFFFFFFF8) + 0x10))
     {
       __break(1u);
       return;
     }
 
-    v41 = *(v38 + 32);
+    v37 = *(v34 + 32);
   }
 
-  v42 = v41;
+  v38 = v37;
 
-  [v35 enableUpdates];
-  if (!v42)
+  [v31 enableUpdates];
+  if (!v38)
   {
     goto LABEL_23;
   }
 
-  outlined init with copy of URL?(v40 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_updateStreamContinuation, v39, &_sScS12ContinuationVySo14NSMetadataItemC_GSgMd, &_sScS12ContinuationVySo14NSMetadataItemC_GSgMR);
-  if ((*(v4 + 48))(v39, 1, v3))
+  outlined init with copy of URL?(v36 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_updateStreamContinuation, v35, &_sScS12ContinuationVySo14NSMetadataItemC_GSgMd, &_sScS12ContinuationVySo14NSMetadataItemC_GSgMR);
+  if ((*(v4 + 48))(v35, 1, v3))
   {
 
-    outlined destroy of URL?(v39, &_sScS12ContinuationVySo14NSMetadataItemC_GSgMd, &_sScS12ContinuationVySo14NSMetadataItemC_GSgMR);
-    v43 = 1;
-    v44 = v54;
+    outlined destroy of URL?(v35, &_sScS12ContinuationVySo14NSMetadataItemC_GSgMd, &_sScS12ContinuationVySo14NSMetadataItemC_GSgMR);
+    v39 = 1;
+    v40 = v50;
   }
 
   else
   {
-    v45 = v57;
-    (*(v4 + 16))(v57, v39, v3);
-    v46 = v42;
-    outlined destroy of URL?(v39, &_sScS12ContinuationVySo14NSMetadataItemC_GSgMd, &_sScS12ContinuationVySo14NSMetadataItemC_GSgMR);
-    v59 = v46;
-    v47 = v46;
-    v44 = v54;
+    v41 = v53;
+    (*(v4 + 16))(v53, v35, v3);
+    v42 = v38;
+    outlined destroy of URL?(v35, &_sScS12ContinuationVySo14NSMetadataItemC_GSgMd, &_sScS12ContinuationVySo14NSMetadataItemC_GSgMR);
+    v55 = v42;
+    v43 = v42;
+    v40 = v50;
     AsyncStream.Continuation.yield(_:)();
 
-    (*(v4 + 8))(v45, v3);
-    v43 = 0;
+    (*(v4 + 8))(v41, v3);
+    v39 = 0;
   }
 
-  v48 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV11YieldResultOySo14NSMetadataItemC__GMd, &_sScS12ContinuationV11YieldResultOySo14NSMetadataItemC__GMR);
-  (*(*(v48 - 8) + 56))(v44, v43, 1, v48);
-  outlined destroy of URL?(v44, &_sScS12ContinuationV11YieldResultOySo14NSMetadataItemC__GSgMd, &_sScS12ContinuationV11YieldResultOySo14NSMetadataItemC__GSgMR);
+  v44 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV11YieldResultOySo14NSMetadataItemC__GMd, &_sScS12ContinuationV11YieldResultOySo14NSMetadataItemC__GMR);
+  (*(*(v44 - 8) + 56))(v40, v39, 1, v44);
+  outlined destroy of URL?(v40, &_sScS12ContinuationV11YieldResultOySo14NSMetadataItemC__GSgMd, &_sScS12ContinuationV11YieldResultOySo14NSMetadataItemC__GSgMR);
 }
 
 uint64_t @objc BundleUpdatesWaiter.finishedGathering(notification:)(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t))
 {
   v6 = type metadata accessor for Notification();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Notification._unconditionallyBridgeFromObjectiveC(_:)();
-  v11 = *(a1 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_lock);
+  v10 = *(a1 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_lock);
 
-  v12 = v11;
-  [v12 lock];
+  v11 = v10;
+  [v11 lock];
   a4(a1);
-  [v12 unlock];
+  [v11 unlock];
 
-  return (*(v7 + 8))(v10, v6);
+  return (*(v7 + 8))(v9, v6);
 }
 
-void type metadata completion function for BundleUpdatesWaiter()
+void type metadata completion function for BundleUpdatesWaiter(uint64_t a1)
 {
-  v0 = type metadata accessor for URL();
+  type metadata accessor for URL();
   if (v1 <= 0x3F)
   {
-    v6 = *(v0 - 8) + 64;
     type metadata accessor for CheckedContinuation<Bool, Never>?(319, &lazy cache variable for type metadata for CheckedContinuation<Bool, Never>?, &_sScCySbs5NeverOGMd, &_sScCySbs5NeverOGMR);
-    if (v3 <= 0x3F)
+    if (v2 <= 0x3F)
     {
-      v7 = *(v2 - 8) + 64;
       type metadata accessor for CheckedContinuation<Bool, Never>?(319, &lazy cache variable for type metadata for AsyncStream<NSMetadataItem>.Continuation?, &_sScS12ContinuationVySo14NSMetadataItemC_GMd, &_sScS12ContinuationVySo14NSMetadataItemC_GMR);
-      if (v5 <= 0x3F)
+      if (v3 <= 0x3F)
       {
-        v8 = *(v4 - 8) + 64;
         swift_updateClassMetadata2();
       }
     }
@@ -4890,9 +4540,7 @@ uint64_t closure #1 in BundleUpdatesWaiter.waitForGatherComplete(duration:)(uint
   v6[2] = a4;
   v7 = type metadata accessor for ContinuousClock();
   v6[5] = v7;
-  v8 = *(v7 - 8);
-  v6[6] = v8;
-  v9 = *(v8 + 64) + 15;
+  v6[6] = *(v7 - 8);
   v6[7] = swift_task_alloc();
 
   return MEMORY[0x2822009F8](closure #1 in BundleUpdatesWaiter.waitForGatherComplete(duration:), 0, 0);
@@ -4900,55 +4548,50 @@ uint64_t closure #1 in BundleUpdatesWaiter.waitForGatherComplete(duration:)(uint
 
 uint64_t closure #1 in BundleUpdatesWaiter.waitForGatherComplete(duration:)()
 {
-  v1 = v0[7];
   static Clock<>.continuous.getter();
-  v2 = swift_task_alloc();
-  v0[8] = v2;
-  *v2 = v0;
-  v2[1] = closure #1 in BundleUpdatesWaiter.waitForGatherComplete(duration:);
-  v3 = v0[7];
-  v5 = v0[2];
-  v4 = v0[3];
+  v1 = swift_task_alloc();
+  v0[8] = v1;
+  *v1 = v0;
+  v1[1] = closure #1 in BundleUpdatesWaiter.waitForGatherComplete(duration:);
+  v3 = v0[2];
+  v2 = v0[3];
 
-  return specialized Clock.sleep(for:tolerance:)(v5, v4, 0, 0, 1);
+  return specialized Clock.sleep(for:tolerance:)(v3, v2, 0, 0, 1);
 }
 
 {
   v2 = *v1;
-  v3 = *(*v1 + 64);
-  v4 = *v1;
   *(*v1 + 72) = v0;
 
-  v5 = v2[7];
-  v6 = v2[6];
-  v7 = v2[5];
+  v3 = v2[7];
+  v4 = v2[6];
+  v5 = v2[5];
   if (v0)
   {
 
-    (*(v6 + 8))(v5, v7);
-    v8 = closure #1 in BundleUpdatesWaiter.waitForGatherComplete(duration:);
+    (*(v4 + 8))(v3, v5);
+    v6 = closure #1 in BundleUpdatesWaiter.waitForGatherComplete(duration:);
   }
 
   else
   {
-    (*(v6 + 8))(v5, v7);
-    v8 = closure #1 in BundleUpdatesWaiter.waitForGatherComplete(duration:);
+    (*(v4 + 8))(v3, v5);
+    v6 = closure #1 in BundleUpdatesWaiter.waitForGatherComplete(duration:);
   }
 
-  return MEMORY[0x2822009F8](v8, 0, 0);
+  return MEMORY[0x2822009F8](v6, 0, 0);
 }
 
 {
-  v1 = v0[4];
+  v1 = *(v0 + 32);
   v2 = *(v1 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_lock);
   [v2 lock];
   closure #1 in closure #1 in BundleUpdatesWaiter.waitForGatherComplete(duration:)(v1);
-  v3 = v0[7];
   [v2 unlock];
 
-  v4 = v0[1];
+  v3 = *(v0 + 8);
 
-  return v4();
+  return v3();
 }
 
 id closure #1 in BundleUpdatesWaiter.waitForGatherComplete(duration:)()
@@ -4966,12 +4609,11 @@ id closure #1 in BundleUpdatesWaiter.waitForGatherComplete(duration:)()
 
   else
   {
-    v5 = v0[7];
     [v3 unlock];
 
-    v6 = v0[1];
+    v5 = v0[1];
 
-    return v6();
+    return v5();
   }
 }
 
@@ -4979,31 +4621,29 @@ uint64_t closure #1 in closure #1 in BundleUpdatesWaiter.waitForGatherComplete(d
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySbs5NeverOGMd, &_sScCySbs5NeverOGMR);
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = &v13 - v5;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySbs5NeverOGSgMd, &_sScCySbs5NeverOGSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v13 - v9;
-  v11 = OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_finishedGatheringContinuation;
-  outlined init with copy of URL?(a1 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_finishedGatheringContinuation, &v13 - v9, &_sScCySbs5NeverOGSgMd, &_sScCySbs5NeverOGSgMR);
-  if ((*(v3 + 48))(v10, 1, v2))
+  v5 = &v11 - v4;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySbs5NeverOGSgMd, &_sScCySbs5NeverOGSgMR);
+  MEMORY[0x28223BE20](v6 - 8);
+  v8 = &v11 - v7;
+  v9 = OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_finishedGatheringContinuation;
+  outlined init with copy of URL?(a1 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_finishedGatheringContinuation, &v11 - v7, &_sScCySbs5NeverOGSgMd, &_sScCySbs5NeverOGSgMR);
+  if ((*(v3 + 48))(v8, 1, v2))
   {
-    outlined destroy of URL?(v10, &_sScCySbs5NeverOGSgMd, &_sScCySbs5NeverOGSgMR);
+    outlined destroy of URL?(v8, &_sScCySbs5NeverOGSgMd, &_sScCySbs5NeverOGSgMR);
   }
 
   else
   {
-    (*(v3 + 16))(v6, v10, v2);
-    outlined destroy of URL?(v10, &_sScCySbs5NeverOGSgMd, &_sScCySbs5NeverOGSgMR);
-    v14 = *(a1 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_finishedGathering);
+    (*(v3 + 16))(v5, v8, v2);
+    outlined destroy of URL?(v8, &_sScCySbs5NeverOGSgMd, &_sScCySbs5NeverOGSgMR);
+    v12 = *(a1 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_finishedGathering);
     CheckedContinuation.resume(returning:)();
-    (*(v3 + 8))(v6, v2);
+    (*(v3 + 8))(v5, v2);
   }
 
-  outlined destroy of URL?(a1 + v11, &_sScCySbs5NeverOGSgMd, &_sScCySbs5NeverOGSgMR);
-  return (*(v3 + 56))(a1 + v11, 1, 1, v2);
+  outlined destroy of URL?(a1 + v9, &_sScCySbs5NeverOGSgMd, &_sScCySbs5NeverOGSgMR);
+  return (*(v3 + 56))(a1 + v9, 1, 1, v2);
 }
 
 void closure #2 in BundleUpdatesWaiter.waitForGatherComplete(duration:)(uint64_t a1, uint64_t a2)
@@ -5034,13 +4674,11 @@ uint64_t BundleUpdatesWaiter.waitForUploadToStart(duration:)(uint64_t a1, uint64
   v3[3] = a2;
   v3[4] = v2;
   v3[2] = a1;
-  v4 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   v3[5] = swift_task_alloc();
-  v5 = type metadata accessor for URL();
-  v3[6] = v5;
-  v6 = *(v5 - 8);
-  v3[7] = v6;
-  v7 = *(v6 + 64) + 15;
+  v4 = type metadata accessor for URL();
+  v3[6] = v4;
+  v3[7] = *(v4 - 8);
   v3[8] = swift_task_alloc();
 
   return MEMORY[0x2822009F8](BundleUpdatesWaiter.waitForUploadToStart(duration:), 0, 0);
@@ -5048,7 +4686,7 @@ uint64_t BundleUpdatesWaiter.waitForUploadToStart(duration:)(uint64_t a1, uint64
 
 uint64_t BundleUpdatesWaiter.waitForUploadToStart(duration:)()
 {
-  v34 = v0;
+  v30 = v0;
   v1 = v0[4];
   if (*(v1 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_itemGatheredWithUploadingStatus) == 1)
   {
@@ -5057,12 +4695,9 @@ uint64_t BundleUpdatesWaiter.waitForUploadToStart(duration:)()
     closure #1 in BundleUpdatesWaiter.invalidate()(v1);
     [v2 unlock];
 
-    v28 = v0[8];
-    v29 = v0[5];
+    v27 = v0[1];
 
-    v30 = v0[1];
-
-    return v30(0);
+    return v27(0);
   }
 
   else
@@ -5070,7 +4705,6 @@ uint64_t BundleUpdatesWaiter.waitForUploadToStart(duration:)()
     if (one-time initialization token for common != -1)
     {
       swift_once();
-      v31 = v0[4];
     }
 
     v3 = type metadata accessor for Logger();
@@ -5087,14 +4721,14 @@ uint64_t BundleUpdatesWaiter.waitForUploadToStart(duration:)()
       v9 = v0[4];
       v10 = swift_slowAlloc();
       v11 = swift_slowAlloc();
-      v33 = v11;
+      v29 = v11;
       *v10 = 136315138;
       (*(v7 + 16))(v6, v9 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_bundleURL, v8);
-      lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260]);
+      lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260], MEMORY[0x277CC9290]);
       v12 = dispatch thunk of CustomStringConvertible.description.getter();
       v14 = v13;
       (*(v7 + 8))(v6, v8);
-      v15 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v12, v14, &v33);
+      v15 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v12, v14, &v29);
 
       *(v10 + 4) = v15;
       _os_log_impl(&dword_238952000, v4, v5, "Wait for upload to start at %s", v10, 0xCu);
@@ -5127,34 +4761,28 @@ uint64_t BundleUpdatesWaiter.waitForUploadToStart(duration:)()
 
     v24 = _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCSb_Tt2g5(0, 0, v17, &async function pointer to partial apply for closure #2 in BundleUpdatesWaiter.waitForUploadToStart(duration:), v23);
     v0[9] = v24;
-    v25 = *(MEMORY[0x277D857E0] + 4);
-    v26 = swift_task_alloc();
-    v0[10] = v26;
-    *v26 = v0;
-    v26[1] = BundleUpdatesWaiter.waitForUploadToStart(duration:);
-    v27 = MEMORY[0x277D839B0];
+    v25 = swift_task_alloc();
+    v0[10] = v25;
+    *v25 = v0;
+    v25[1] = BundleUpdatesWaiter.waitForUploadToStart(duration:);
+    v26 = MEMORY[0x277D839B0];
 
-    return MEMORY[0x282200460](v0 + 11, v24, v27);
+    return MEMORY[0x282200460](v0 + 11, v24, v26);
   }
 }
 
 {
-  v1 = *(*v0 + 80);
-  v3 = *v0;
 
   return MEMORY[0x2822009F8](BundleUpdatesWaiter.waitForUploadToStart(duration:), 0, 0);
 }
 
 {
-  v1 = *(v0 + 72);
 
-  v2 = *(v0 + 88);
-  v3 = *(v0 + 64);
-  v4 = *(v0 + 40);
+  v1 = *(v0 + 88);
 
-  v5 = *(v0 + 8);
+  v2 = *(v0 + 8);
 
-  return v5(v2);
+  return v2(v1);
 }
 
 void type metadata accessor for CheckedContinuation<Bool, Never>?(uint64_t a1, unint64_t *a2, uint64_t *a3, uint64_t *a4)
@@ -5177,9 +4805,7 @@ uint64_t closure #1 in BundleUpdatesWaiter.waitForUploadToStart(duration:)(uint6
   v6[2] = a4;
   v7 = type metadata accessor for ContinuousClock();
   v6[5] = v7;
-  v8 = *(v7 - 8);
-  v6[6] = v8;
-  v9 = *(v8 + 64) + 15;
+  v6[6] = *(v7 - 8);
   v6[7] = swift_task_alloc();
 
   return MEMORY[0x2822009F8](closure #1 in BundleUpdatesWaiter.waitForUploadToStart(duration:), 0, 0);
@@ -5187,55 +4813,50 @@ uint64_t closure #1 in BundleUpdatesWaiter.waitForUploadToStart(duration:)(uint6
 
 uint64_t closure #1 in BundleUpdatesWaiter.waitForUploadToStart(duration:)()
 {
-  v1 = v0[7];
   static Clock<>.continuous.getter();
-  v2 = swift_task_alloc();
-  v0[8] = v2;
-  *v2 = v0;
-  v2[1] = closure #1 in BundleUpdatesWaiter.waitForUploadToStart(duration:);
-  v3 = v0[7];
-  v5 = v0[2];
-  v4 = v0[3];
+  v1 = swift_task_alloc();
+  v0[8] = v1;
+  *v1 = v0;
+  v1[1] = closure #1 in BundleUpdatesWaiter.waitForUploadToStart(duration:);
+  v3 = v0[2];
+  v2 = v0[3];
 
-  return specialized Clock.sleep(for:tolerance:)(v5, v4, 0, 0, 1);
+  return specialized Clock.sleep(for:tolerance:)(v3, v2, 0, 0, 1);
 }
 
 {
   v2 = *v1;
-  v3 = *(*v1 + 64);
-  v4 = *v1;
   *(*v1 + 72) = v0;
 
-  v5 = v2[7];
-  v6 = v2[6];
-  v7 = v2[5];
+  v3 = v2[7];
+  v4 = v2[6];
+  v5 = v2[5];
   if (v0)
   {
 
-    (*(v6 + 8))(v5, v7);
-    v8 = closure #1 in BundleUpdatesWaiter.waitForUploadToStart(duration:);
+    (*(v4 + 8))(v3, v5);
+    v6 = closure #1 in BundleUpdatesWaiter.waitForUploadToStart(duration:);
   }
 
   else
   {
-    (*(v6 + 8))(v5, v7);
-    v8 = closure #1 in BundleUpdatesWaiter.waitForUploadToStart(duration:);
+    (*(v4 + 8))(v3, v5);
+    v6 = closure #1 in BundleUpdatesWaiter.waitForUploadToStart(duration:);
   }
 
-  return MEMORY[0x2822009F8](v8, 0, 0);
+  return MEMORY[0x2822009F8](v6, 0, 0);
 }
 
 {
-  v1 = v0[4];
+  v1 = *(v0 + 32);
   v2 = *(v1 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_lock);
   [v2 lock];
   closure #1 in BundleUpdatesWaiter.invalidate()(v1);
-  v3 = v0[7];
   [v2 unlock];
 
-  v4 = v0[1];
+  v3 = *(v0 + 8);
 
-  return v4();
+  return v3();
 }
 
 id closure #1 in BundleUpdatesWaiter.waitForUploadToStart(duration:)()
@@ -5253,12 +4874,11 @@ id closure #1 in BundleUpdatesWaiter.waitForUploadToStart(duration:)()
 
   else
   {
-    v5 = v0[7];
     [v3 unlock];
 
-    v6 = v0[1];
+    v5 = v0[1];
 
-    return v6();
+    return v5();
   }
 }
 
@@ -5268,21 +4888,15 @@ uint64_t closure #2 in BundleUpdatesWaiter.waitForUploadToStart(duration:)(uint6
   v4[4] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV15BufferingPolicyOySo14NSMetadataItemC__GMd, &_sScS12ContinuationV15BufferingPolicyOySo14NSMetadataItemC__GMR);
   v4[5] = v5;
-  v6 = *(v5 - 8);
-  v4[6] = v6;
-  v7 = *(v6 + 64) + 15;
+  v4[6] = *(v5 - 8);
   v4[7] = swift_task_alloc();
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSySo14NSMetadataItemCGMd, &_sScSySo14NSMetadataItemCGMR);
-  v4[8] = v8;
-  v9 = *(v8 - 8);
-  v4[9] = v9;
-  v10 = *(v9 + 64) + 15;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSySo14NSMetadataItemCGMd, &_sScSySo14NSMetadataItemCGMR);
+  v4[8] = v6;
+  v4[9] = *(v6 - 8);
   v4[10] = swift_task_alloc();
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo14NSMetadataItemC_GMd, &_sScS8IteratorVySo14NSMetadataItemC_GMR);
-  v4[11] = v11;
-  v12 = *(v11 - 8);
-  v4[12] = v12;
-  v13 = *(v12 + 64) + 15;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo14NSMetadataItemC_GMd, &_sScS8IteratorVySo14NSMetadataItemC_GMR);
+  v4[11] = v7;
+  v4[12] = *(v7 - 8);
   v4[13] = swift_task_alloc();
 
   return MEMORY[0x2822009F8](closure #2 in BundleUpdatesWaiter.waitForUploadToStart(duration:), 0, 0);
@@ -5290,33 +4904,27 @@ uint64_t closure #2 in BundleUpdatesWaiter.waitForUploadToStart(duration:)(uint6
 
 uint64_t closure #2 in BundleUpdatesWaiter.waitForUploadToStart(duration:)()
 {
-  v1 = v0[13];
-  v3 = v0[9];
-  v2 = v0[10];
-  v5 = v0[7];
-  v4 = v0[8];
-  v6 = v0[5];
-  v7 = v0[6];
-  v8 = v0[4];
+  v2 = v0[9];
+  v1 = v0[10];
+  v4 = v0[7];
+  v3 = v0[8];
+  v5 = v0[5];
+  v6 = v0[6];
   type metadata accessor for UIAlertController(0, &lazy cache variable for type metadata for NSMetadataItem, 0x277CCAB20);
-  (*(v7 + 104))(v5, *MEMORY[0x277D85778], v6);
+  (*(v6 + 104))(v4, *MEMORY[0x277D85778], v5);
   AsyncStream.init(_:bufferingPolicy:_:)();
   AsyncStream.makeAsyncIterator()();
-  (*(v3 + 8))(v2, v4);
-  v9 = *(MEMORY[0x277D85798] + 4);
-  v10 = swift_task_alloc();
-  v0[14] = v10;
-  *v10 = v0;
-  v10[1] = closure #2 in BundleUpdatesWaiter.waitForUploadToStart(duration:);
-  v11 = v0[13];
-  v12 = v0[11];
+  (*(v2 + 8))(v1, v3);
+  v7 = swift_task_alloc();
+  v0[14] = v7;
+  *v7 = v0;
+  v7[1] = closure #2 in BundleUpdatesWaiter.waitForUploadToStart(duration:);
+  v8 = v0[11];
 
-  return MEMORY[0x2822003E8](v0 + 2, 0, 0, v12);
+  return MEMORY[0x2822003E8](v0 + 2, 0, 0, v8);
 }
 
 {
-  v1 = *(*v0 + 112);
-  v3 = *v0;
 
   return MEMORY[0x2822009F8](closure #2 in BundleUpdatesWaiter.waitForUploadToStart(duration:), 0, 0);
 }
@@ -5325,41 +4933,36 @@ uint64_t closure #2 in BundleUpdatesWaiter.waitForUploadToStart(duration:)()
   v1 = *(v0 + 16);
   if (!v1)
   {
-    v9 = 0;
+    v6 = 0;
     goto LABEL_8;
   }
 
-  v2 = *(v0 + 32);
   if (BundleUpdatesWaiter.isItemUploading(item:)(*(v0 + 16)))
   {
-    v3 = *(v0 + 32);
-    v4 = *(v3 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_lock);
-    [v4 lock];
-    closure #1 in BundleUpdatesWaiter.invalidate()(v3);
-    [v4 unlock];
+    v2 = *(v0 + 32);
+    v3 = *(v2 + OBJC_IVAR____TtC8GameSave19BundleUpdatesWaiter_lock);
+    [v3 lock];
+    closure #1 in BundleUpdatesWaiter.invalidate()(v2);
+    [v3 unlock];
 
-    v9 = 1;
+    v6 = 1;
 LABEL_8:
-    v10 = *(v0 + 80);
-    v11 = *(v0 + 56);
-    v12 = *(v0 + 24);
+    v7 = *(v0 + 24);
     (*(*(v0 + 96) + 8))(*(v0 + 104), *(v0 + 88));
-    *v12 = v9;
+    *v7 = v6;
 
-    v13 = *(v0 + 8);
+    v8 = *(v0 + 8);
 
-    return v13();
+    return v8();
   }
 
-  v5 = *(MEMORY[0x277D85798] + 4);
-  v6 = swift_task_alloc();
-  *(v0 + 112) = v6;
-  *v6 = v0;
-  v6[1] = closure #2 in BundleUpdatesWaiter.waitForUploadToStart(duration:);
-  v7 = *(v0 + 104);
-  v8 = *(v0 + 88);
+  v4 = swift_task_alloc();
+  *(v0 + 112) = v4;
+  *v4 = v0;
+  v4[1] = closure #2 in BundleUpdatesWaiter.waitForUploadToStart(duration:);
+  v5 = *(v0 + 88);
 
-  return MEMORY[0x2822003E8](v0 + 16, 0, 0, v8);
+  return MEMORY[0x2822003E8](v0 + 16, 0, 0, v5);
 }
 
 uint64_t specialized Clock.sleep(for:tolerance:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
@@ -5367,9 +4970,7 @@ uint64_t specialized Clock.sleep(for:tolerance:)(uint64_t a1, uint64_t a2, uint6
   *(v6 + 56) = v5;
   v12 = type metadata accessor for ContinuousClock.Instant();
   *(v6 + 64) = v12;
-  v13 = *(v12 - 8);
-  *(v6 + 72) = v13;
-  v14 = *(v13 + 64) + 15;
+  *(v6 + 72) = *(v12 - 8);
   *(v6 + 80) = swift_task_alloc();
   *(v6 + 88) = swift_task_alloc();
   *(v6 + 40) = a1;
@@ -5384,40 +4985,34 @@ uint64_t specialized Clock.sleep(for:tolerance:)(uint64_t a1, uint64_t a2, uint6
 uint64_t specialized Clock.sleep(for:tolerance:)()
 {
   v1 = v0[10];
-  v2 = v0[11];
-  v3 = v0[8];
-  v4 = v0[9];
-  v5 = v0[7];
-  v6 = type metadata accessor for ContinuousClock();
-  v7 = lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type ContinuousClock and conformance ContinuousClock, MEMORY[0x277D85928]);
+  v2 = v0[8];
+  v3 = v0[9];
+  v4 = type metadata accessor for ContinuousClock();
+  v5 = lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type ContinuousClock and conformance ContinuousClock, MEMORY[0x277D85928], MEMORY[0x277D85930]);
   dispatch thunk of Clock.now.getter();
-  lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type ContinuousClock.Instant and conformance ContinuousClock.Instant, MEMORY[0x277D858F8]);
+  lazy protocol witness table accessor for type URL and conformance URL(&lazy protocol witness table cache variable for type ContinuousClock.Instant and conformance ContinuousClock.Instant, MEMORY[0x277D858F8], MEMORY[0x277D85920]);
   dispatch thunk of InstantProtocol.advanced(by:)();
-  v8 = *(v4 + 8);
-  v0[12] = v8;
-  v0[13] = (v4 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-  v8(v1, v3);
-  v9 = *(MEMORY[0x277D85A58] + 4);
-  v10 = swift_task_alloc();
-  v0[14] = v10;
-  *v10 = v0;
-  v10[1] = specialized Clock.sleep(for:tolerance:);
-  v11 = v0[11];
-  v12 = v0[7];
+  v6 = *(v3 + 8);
+  v0[12] = v6;
+  v0[13] = (v3 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+  v6(v1, v2);
+  v7 = swift_task_alloc();
+  v0[14] = v7;
+  *v7 = v0;
+  v7[1] = specialized Clock.sleep(for:tolerance:);
+  v8 = v0[11];
 
-  return MEMORY[0x2822008C8](v11, v0 + 2, v6, v7);
+  return MEMORY[0x2822008C8](v8, v0 + 2, v4, v5);
 }
 
 {
-  v2 = *(*v1 + 112);
-  v3 = *(*v1 + 104);
-  v4 = *(*v1 + 96);
-  v5 = *(*v1 + 88);
-  v6 = *(*v1 + 64);
-  v7 = *v1;
-  v7[15] = v0;
+  v2 = *(*v1 + 96);
+  v3 = *(*v1 + 88);
+  v4 = *(*v1 + 64);
+  v5 = *v1;
+  *(v5 + 120) = v0;
 
-  v4(v5, v6);
+  v2(v3, v4);
   if (v0)
   {
 
@@ -5426,30 +5021,23 @@ uint64_t specialized Clock.sleep(for:tolerance:)()
 
   else
   {
-    v9 = v7[10];
-    v8 = v7[11];
 
-    v10 = v7[1];
+    v6 = *(v5 + 8);
 
-    return v10();
+    return v6();
   }
 }
 
 {
-  v2 = v0[10];
-  v1 = v0[11];
 
-  v3 = v0[1];
-  v4 = v0[15];
+  v1 = *(v0 + 8);
 
-  return v3();
+  return v1();
 }
 
 uint64_t sub_23897D52C()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 48);
 
   return MEMORY[0x2821FE8E8](v0, 56, 7);
 }
@@ -5471,9 +5059,7 @@ uint64_t partial apply for closure #1 in BundleUpdatesWaiter.waitForUploadToStar
 
 uint64_t sub_23897D634()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 32);
 
   return MEMORY[0x2821FE8E8](v0, 40, 7);
 }
@@ -5491,7 +5077,7 @@ uint64_t partial apply for closure #2 in BundleUpdatesWaiter.waitForUploadToStar
   return closure #2 in BundleUpdatesWaiter.waitForUploadToStart(duration:)(a1, v4, v5, v6);
 }
 
-uint64_t lazy protocol witness table accessor for type URL and conformance URL(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type URL and conformance URL(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -5561,14 +5147,11 @@ unint64_t type metadata accessor for OS_os_log()
 
 uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -5602,11 +5185,11 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance GameSav
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance GameSaveError()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance GameSaveError(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  Hasher._combine(_:)(v1 + 1);
+  Hasher._combine(_:)(v2 + 1);
   return Hasher._finalize()();
 }
 
@@ -5650,11 +5233,11 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance GetSync
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance GetSyncedDirectoryMode()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance GetSyncedDirectoryMode(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MEMORY[0x23EE6BC50](v1);
+  MEMORY[0x23EE6BC50](v2);
   return Hasher._finalize()();
 }
 
@@ -5750,22 +5333,17 @@ uint64_t GameSyncedDirectoryResponse.description.getter()
   MEMORY[0x23EE6B750](v7, v8);
 
   MEMORY[0x23EE6B750](0xD000000000000018, 0x800000023898CCF0);
-  v13 = *(v1 + OBJC_IVAR___GameSyncedDirectoryResponse_lastEditorDeviceName);
-  v16 = *(v1 + OBJC_IVAR___GameSyncedDirectoryResponse_lastEditorDeviceName + 8);
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd, &_sSSSgMR);
   v9 = String.init<A>(describing:)();
   MEMORY[0x23EE6B750](v9);
 
   MEMORY[0x23EE6B750](0xD000000000000015, 0x800000023898CD10);
-  v14 = *(v1 + OBJC_IVAR___GameSyncedDirectoryResponse_numberOfConflicts);
-  LOBYTE(v16) = *(v1 + OBJC_IVAR___GameSyncedDirectoryResponse_numberOfConflicts + 8);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSiSgMd, &_sSiSgMR);
   v10 = String.init<A>(describing:)();
   MEMORY[0x23EE6B750](v10);
 
   MEMORY[0x23EE6B750](0x656369766564202CLL, 0xEB00000000203A73);
-  v15 = *(v1 + OBJC_IVAR___GameSyncedDirectoryResponse_devices);
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8GameSave10DeviceInfoCGSgMd, &_sSay8GameSave10DeviceInfoCGSgMR);
   v11 = String.init<A>(describing:)();
@@ -5774,7 +5352,7 @@ uint64_t GameSyncedDirectoryResponse.description.getter()
   return 0;
 }
 
-uint64_t type metadata accessor for GameSyncedDirectoryResponse()
+uint64_t type metadata accessor for GameSyncedDirectoryResponse(uint64_t a1)
 {
   result = type metadata singleton initialization cache for GameSyncedDirectoryResponse;
   if (!type metadata singleton initialization cache for GameSyncedDirectoryResponse)
@@ -5785,12 +5363,11 @@ uint64_t type metadata accessor for GameSyncedDirectoryResponse()
   return result;
 }
 
-uint64_t type metadata completion function for GameSyncedDirectoryResponse()
+uint64_t type metadata completion function for GameSyncedDirectoryResponse(uint64_t a1)
 {
   result = type metadata accessor for URL();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v2 = *(result - 8) + 64;
     result = swift_updateClassMetadata2();
     if (!result)
     {
@@ -5821,7 +5398,6 @@ uint64_t GameSyncedDirectoryRequest.description.getter()
 {
   _StringGuts.grow(_:)(33);
 
-  v5 = *(v0 + OBJC_IVAR___GameSyncedDirectoryRequest_mode);
   v1 = dispatch thunk of CustomStringConvertible.description.getter();
   MEMORY[0x23EE6B750](v1);
 
@@ -5834,11 +5410,11 @@ uint64_t GameSyncedDirectoryRequest.description.getter()
   return 0x203A65646F4DLL;
 }
 
-id GameSyncedDirectoryRequest.__deallocating_deinit()
+id GameSyncedDirectoryRequest.__deallocating_deinit(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for GameSyncedDirectoryRequest();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for GameSyncedDirectoryRequest();
+  return objc_msgSendSuper2(&v3, sel_dealloc);
 }
 
 Swift::Void __swiftcall DeviceInfo.encode(with:)(NSCoder with)
@@ -5952,13 +5528,12 @@ unint64_t lazy protocol witness table accessor for type Int32 and conformance In
 
 unint64_t specialized __RawDictionaryStorage.find<A>(_:)(uint64_t a1)
 {
-  v3 = *(v1 + 40);
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v4 = Hasher._finalize()();
+  v2 = Hasher._finalize()();
 
-  return specialized __RawDictionaryStorage.find<A>(_:hashValue:)(a1, v4);
+  return specialized __RawDictionaryStorage.find<A>(_:hashValue:)(a1, v2);
 }
 
 unint64_t specialized __RawDictionaryStorage.find<A>(_:hashValue:)(uint64_t a1, uint64_t a2)
@@ -5970,17 +5545,16 @@ unint64_t specialized __RawDictionaryStorage.find<A>(_:hashValue:)(uint64_t a1, 
     v5 = ~v3;
     while (1)
     {
-      v6 = *(*(v2 + 48) + 8 * v4);
-      v7 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v9 = v8;
-      if (v7 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v9 == v10)
+      v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v8 = v7;
+      if (v6 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v8 == v9)
       {
         break;
       }
 
-      v12 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v11 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-      if ((v12 & 1) == 0)
+      if ((v11 & 1) == 0)
       {
         v4 = (v4 + 1) & v5;
         if ((*(v2 + 64 + ((v4 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v4))
@@ -6193,9 +5767,8 @@ id specialized GameSyncedDirectoryResponse.init(coder:)(void *a1)
   ObjectType = swift_getObjectType();
   v5 = type metadata accessor for URL();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v34 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v33 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for UIAlertController(0, &lazy cache variable for type metadata for NSURL, 0x277CBEBC0);
   result = NSCoder.decodeObject<A>(of:forKey:)();
   if (!result)
@@ -6204,10 +5777,10 @@ id specialized GameSyncedDirectoryResponse.init(coder:)(void *a1)
     goto LABEL_20;
   }
 
-  v11 = result;
+  v10 = result;
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
 
-  (*(v6 + 32))(&v2[OBJC_IVAR___GameSyncedDirectoryResponse_directoryURL], v9, v5);
+  (*(v6 + 32))(&v2[OBJC_IVAR___GameSyncedDirectoryResponse_directoryURL], v8, v5);
   type metadata accessor for UIAlertController(0, &lazy cache variable for type metadata for NSSecurityScopedURLWrapper, 0x277CCAC90);
   result = NSCoder.decodeObject<A>(of:forKey:)();
   if (!result)
@@ -6220,67 +5793,67 @@ LABEL_21:
   }
 
   *&v2[OBJC_IVAR___GameSyncedDirectoryResponse_gameSavedDataFolderURL] = result;
-  v12 = MEMORY[0x23EE6B6E0](0x656E696C6E4F7369, 0xE800000000000000);
-  v13 = [a1 decodeBoolForKey_];
+  v11 = MEMORY[0x23EE6B6E0](0x656E696C6E4F7369, 0xE800000000000000);
+  v12 = [a1 decodeBoolForKey_];
 
-  v2[OBJC_IVAR___GameSyncedDirectoryResponse_isOnline] = v13;
-  v14 = MEMORY[0x23EE6B6E0](0xD000000000000014, 0x800000023898CB90);
-  v15 = [a1 containsValueForKey_];
+  v2[OBJC_IVAR___GameSyncedDirectoryResponse_isOnline] = v12;
+  v13 = MEMORY[0x23EE6B6E0](0xD000000000000014, 0x800000023898CB90);
+  v14 = [a1 containsValueForKey_];
 
-  if (v15)
+  if (v14)
   {
     type metadata accessor for UIAlertController(0, &lazy cache variable for type metadata for NSString, 0x277CCACA8);
-    v16 = NSCoder.decodeObject<A>(of:forKey:)();
-    if (v16)
+    v15 = NSCoder.decodeObject<A>(of:forKey:)();
+    if (v15)
     {
+      v33 = 0;
       v34 = 0;
-      v35 = 0;
-      v17 = v16;
+      v16 = v15;
       static String._conditionallyBridgeFromObjectiveC(_:result:)();
 
-      v19 = v34;
-      v18 = v35;
-      if (!v35)
+      v18 = v33;
+      v17 = v34;
+      if (!v34)
       {
-        v19 = 0;
+        v18 = 0;
       }
     }
 
     else
     {
-      v19 = 0;
       v18 = 0;
+      v17 = 0;
     }
 
-    v21 = &v2[OBJC_IVAR___GameSyncedDirectoryResponse_lastEditorDeviceName];
-    *v21 = v19;
-    v21[1] = v18;
-  }
-
-  else
-  {
     v20 = &v2[OBJC_IVAR___GameSyncedDirectoryResponse_lastEditorDeviceName];
-    *v20 = 0;
-    v20[1] = 0;
-  }
-
-  v22 = MEMORY[0x23EE6B6E0](0xD000000000000011, 0x800000023898CBB0);
-  v23 = [a1 containsValueForKey_];
-
-  if (v23)
-  {
-    v24 = MEMORY[0x23EE6B6E0](0xD000000000000011, 0x800000023898CBB0);
-    v25 = [a1 decodeIntegerForKey_];
+    *v20 = v18;
+    v20[1] = v17;
   }
 
   else
   {
-    v25 = 0;
+    v19 = &v2[OBJC_IVAR___GameSyncedDirectoryResponse_lastEditorDeviceName];
+    *v19 = 0;
+    v19[1] = 0;
   }
 
-  v26 = &v2[OBJC_IVAR___GameSyncedDirectoryResponse_numberOfConflicts];
-  *v26 = v25;
-  v26[8] = v23 ^ 1;
+  v21 = MEMORY[0x23EE6B6E0](0xD000000000000011, 0x800000023898CBB0);
+  v22 = [a1 containsValueForKey_];
+
+  if (v22)
+  {
+    v23 = MEMORY[0x23EE6B6E0](0xD000000000000011, 0x800000023898CBB0);
+    v24 = [a1 decodeIntegerForKey_];
+  }
+
+  else
+  {
+    v24 = 0;
+  }
+
+  v25 = &v2[OBJC_IVAR___GameSyncedDirectoryResponse_numberOfConflicts];
+  *v25 = v24;
+  v25[8] = v22 ^ 1;
   type metadata accessor for UIAlertController(0, &lazy cache variable for type metadata for NSString, 0x277CCACA8);
   result = NSCoder.decodeObject<A>(of:forKey:)();
   if (!result)
@@ -6288,31 +5861,31 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  v27 = result;
-  v28 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v30 = v29;
+  v26 = result;
+  v27 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v29 = v28;
 
-  v31 = &v2[OBJC_IVAR___GameSyncedDirectoryResponse_directorySandboxExtension];
-  *v31 = v28;
-  v31[1] = v30;
-  v32 = MEMORY[0x23EE6B6E0](0x73656369766564, 0xE700000000000000);
-  LODWORD(v28) = [a1 containsValueForKey_];
+  v30 = &v2[OBJC_IVAR___GameSyncedDirectoryResponse_directorySandboxExtension];
+  *v30 = v27;
+  v30[1] = v29;
+  v31 = MEMORY[0x23EE6B6E0](0x73656369766564, 0xE700000000000000);
+  LODWORD(v27) = [a1 containsValueForKey_];
 
-  if (v28)
+  if (v27)
   {
     type metadata accessor for DeviceInfo();
-    v33 = NSCoder.decodeArrayOfObjects<A>(ofClass:forKey:)();
+    v32 = NSCoder.decodeArrayOfObjects<A>(ofClass:forKey:)();
   }
 
   else
   {
-    v33 = 0;
+    v32 = 0;
   }
 
-  *&v2[OBJC_IVAR___GameSyncedDirectoryResponse_devices] = v33;
-  v36.receiver = v2;
-  v36.super_class = ObjectType;
-  return objc_msgSendSuper2(&v36, sel_init);
+  *&v2[OBJC_IVAR___GameSyncedDirectoryResponse_devices] = v32;
+  v35.receiver = v2;
+  v35.super_class = ObjectType;
+  return objc_msgSendSuper2(&v35, sel_init);
 }
 
 id specialized GameSyncedDirectoryRequest.init(coder:)(void *a1)
@@ -6579,9 +6152,8 @@ LABEL_20:
 uint64_t thunk for @escaping @callee_guaranteed () -> ()(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
 
-  v1(v3);
+  v1(v2);
 }
 
 id GameSyncedDirectoryHolder.init()()
@@ -6607,7 +6179,7 @@ id GameSyncedDirectoryHolder.init()()
   *&v0[OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_presentedItemOperationQueue] = v8;
   [v8 setMaxConcurrentOperationCount_];
   v11.receiver = v0;
-  v11.super_class = type metadata accessor for GameSyncedDirectoryHolder();
+  v11.super_class = type metadata accessor for GameSyncedDirectoryHolder(0);
   v9 = objc_msgSendSuper2(&v11, sel_init);
   GameSyncedDirectoryHolder.startMonitoringApplicationActivity()();
 
@@ -6619,11 +6191,11 @@ id GameSyncedDirectoryHolder.__deallocating_deinit()
   GameSyncedDirectoryHolder.stopMonitoringApplicationActivity()();
   GameSyncedDirectoryHolder.stopHoldingItem()();
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for GameSyncedDirectoryHolder();
+  v2.super_class = type metadata accessor for GameSyncedDirectoryHolder(0);
   return objc_msgSendSuper2(&v2, sel_dealloc);
 }
 
-uint64_t type metadata accessor for GameSyncedDirectoryHolder()
+uint64_t type metadata accessor for GameSyncedDirectoryHolder(uint64_t a1)
 {
   result = type metadata singleton initialization cache for GameSyncedDirectoryHolder;
   if (!type metadata singleton initialization cache for GameSyncedDirectoryHolder)
@@ -6722,167 +6294,160 @@ uint64_t @objc GameSyncedDirectoryHolder._willResignActiveNotification(notif:)(v
 {
   v6 = type metadata accessor for Notification();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Notification._unconditionallyBridgeFromObjectiveC(_:)();
-  v11 = a1;
+  v10 = a1;
   a4();
 
-  return (*(v7 + 8))(v10, v6);
+  return (*(v7 + 8))(v9, v6);
 }
 
 uint64_t closure #1 in GameSyncedDirectoryHolder.stopAccessingSecurityScopedResource()(uint64_t a1)
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = v13 - v4;
-  v6 = type metadata accessor for URL();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v6);
-  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_securityScopedURL;
-  outlined init with copy of URL?(a1 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_securityScopedURL, v5, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  if ((*(v7 + 48))(v5, 1, v6) == 1)
+  v4 = v11 - v3;
+  v5 = type metadata accessor for URL();
+  v6 = *(v5 - 8);
+  MEMORY[0x28223BE20](v5);
+  v8 = v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_securityScopedURL;
+  outlined init with copy of URL?(a1 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_securityScopedURL, v4, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  if ((*(v6 + 48))(v4, 1, v5) == 1)
   {
-    outlined destroy of URL?(v5, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    outlined destroy of URL?(v4, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   }
 
   else
   {
-    (*(v7 + 32))(v10, v5, v6);
+    (*(v6 + 32))(v8, v4, v5);
     if (*(a1 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_shouldStopAccessingSecurityScopedResource) == 1)
     {
       URL.stopAccessingSecurityScopedResource()();
     }
 
-    (*(v7 + 8))(v10, v6);
+    (*(v6 + 8))(v8, v5);
   }
 
-  outlined destroy of URL?(a1 + v11, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  return (*(v7 + 56))(a1 + v11, 1, 1, v6);
+  outlined destroy of URL?(a1 + v9, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  return (*(v6 + 56))(a1 + v9, 1, 1, v5);
 }
 
-uint64_t closure #1 in GameSyncedDirectoryHolder.startHoldingItem(at:)(uint64_t a1, char *a2)
+uint64_t closure #1 in GameSyncedDirectoryHolder.startHoldingItem(at:)(uint64_t a1, uint64_t a2)
 {
-  v54 = a2;
+  v50 = a2;
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v50 - v5;
-  v7 = type metadata accessor for URLResourceValues();
-  v55 = *(v7 - 8);
-  v56 = v7;
-  v8 = *(v55 + 64);
-  MEMORY[0x28223BE20](v7);
-  v10 = &v50 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = type metadata accessor for URL();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  MEMORY[0x28223BE20](v11);
-  v15 = &v50 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v17 = *(*(v16 - 8) + 64);
-  MEMORY[0x28223BE20](v16 - 8);
-  v19 = &v50 - v18;
-  v57 = OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_presentedItemURL;
-  v58 = a1;
-  outlined init with copy of URL?(a1 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_presentedItemURL, &v50 - v18, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  LODWORD(a1) = (*(v12 + 48))(v19, 1, v11);
-  result = outlined destroy of URL?(v19, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  v5 = &v46 - v4;
+  v6 = type metadata accessor for URLResourceValues();
+  v51 = *(v6 - 8);
+  v52 = v6;
+  MEMORY[0x28223BE20](v6);
+  v8 = &v46 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for URL();
+  v10 = *(v9 - 8);
+  MEMORY[0x28223BE20](v9);
+  v12 = &v46 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  MEMORY[0x28223BE20](v13 - 8);
+  v15 = &v46 - v14;
+  v53 = OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_presentedItemURL;
+  v54 = a1;
+  outlined init with copy of URL?(a1 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_presentedItemURL, &v46 - v14, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  LODWORD(a1) = (*(v10 + 48))(v15, 1, v9);
+  result = outlined destroy of URL?(v15, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   if (a1 == 1)
   {
-    v53 = v12;
-    v21 = *(v12 + 16);
-    v22 = v54;
-    v54 = (v12 + 16);
-    v52 = v21;
-    v21(v15, v22, v11);
+    v49 = v10;
+    v17 = *(v10 + 16);
+    v18 = v50;
+    v50 = v10 + 16;
+    v48 = v17;
+    v17(v12, v18, v9);
     URLResourceValues.init()();
     Date.init()();
-    v23 = type metadata accessor for Date();
-    (*(*(v23 - 8) + 56))(v6, 0, 1, v23);
+    v19 = type metadata accessor for Date();
+    (*(*(v19 - 8) + 56))(v5, 0, 1, v19);
     URLResourceValues.contentAccessDate.setter();
-    v24 = v59;
+    v20 = v55;
     URL.setResourceValues(_:)();
-    v25 = v24;
-    v26 = v11;
-    v27 = v15;
-    if (v24)
+    v21 = v20;
+    v22 = v9;
+    v23 = v12;
+    if (v20)
     {
 
-      v25 = 0;
+      v21 = 0;
     }
 
-    (*(v55 + 8))(v10, v56);
+    (*(v51 + 8))(v8, v52);
     if (one-time initialization token for common != -1)
     {
       swift_once();
     }
 
-    v28 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v28, static Logger.common);
-    v29 = Logger.logObject.getter();
-    v30 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v29, v30))
+    v24 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v24, static Logger.common);
+    v25 = Logger.logObject.getter();
+    v26 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v25, v26))
     {
-      v31 = swift_slowAlloc();
-      v59 = v25;
-      v32 = v31;
-      v33 = swift_slowAlloc();
-      v60 = v33;
-      *v32 = 136315138;
+      v27 = swift_slowAlloc();
+      v55 = v21;
+      v28 = v27;
+      v29 = swift_slowAlloc();
+      v56 = v29;
+      *v28 = 136315138;
       lazy protocol witness table accessor for type URL and conformance URL();
-      v34 = dispatch thunk of CustomStringConvertible.description.getter();
-      v36 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v34, v35, &v60);
+      v30 = dispatch thunk of CustomStringConvertible.description.getter();
+      v32 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v30, v31, &v56);
 
-      *(v32 + 4) = v36;
-      v27 = v15;
-      _os_log_impl(&dword_238952000, v29, v30, "Starting to hold item at %s", v32, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v33);
-      v37 = v33;
-      v26 = v11;
-      MEMORY[0x23EE6C260](v37, -1, -1);
-      MEMORY[0x23EE6C260](v32, -1, -1);
+      *(v28 + 4) = v32;
+      v23 = v12;
+      _os_log_impl(&dword_238952000, v25, v26, "Starting to hold item at %s", v28, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v29);
+      v33 = v29;
+      v22 = v9;
+      MEMORY[0x23EE6C260](v33, -1, -1);
+      MEMORY[0x23EE6C260](v28, -1, -1);
     }
 
-    v38 = v53;
-    v40 = v57;
-    v39 = v58;
-    outlined destroy of URL?(v58 + v57, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-    v52(v39 + v40, v27, v26);
-    (*(v38 + 56))(v39 + v40, 0, 1, v26);
+    v34 = v49;
+    v36 = v53;
+    v35 = v54;
+    outlined destroy of URL?(v54 + v53, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    v48(v35 + v36, v23, v22);
+    (*(v34 + 56))(v35 + v36, 0, 1, v22);
     [objc_opt_self() addFilePresenter_];
-    v41 = v27;
-    v42 = Logger.logObject.getter();
-    v43 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v42, v43))
+    v37 = v23;
+    v38 = Logger.logObject.getter();
+    v39 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v38, v39))
     {
-      v44 = swift_slowAlloc();
-      v45 = swift_slowAlloc();
-      v51 = v26;
-      v46 = v45;
-      v60 = v45;
-      *v44 = 136315138;
+      v40 = swift_slowAlloc();
+      v41 = swift_slowAlloc();
+      v47 = v22;
+      v42 = v41;
+      v56 = v41;
+      *v40 = 136315138;
       lazy protocol witness table accessor for type URL and conformance URL();
-      v47 = dispatch thunk of CustomStringConvertible.description.getter();
-      v49 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v48, &v60);
+      v43 = dispatch thunk of CustomStringConvertible.description.getter();
+      v45 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v43, v44, &v56);
 
-      *(v44 + 4) = v49;
-      _os_log_impl(&dword_238952000, v42, v43, "Started holding item at %s", v44, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v46);
-      MEMORY[0x23EE6C260](v46, -1, -1);
-      MEMORY[0x23EE6C260](v44, -1, -1);
+      *(v40 + 4) = v45;
+      _os_log_impl(&dword_238952000, v38, v39, "Started holding item at %s", v40, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v42);
+      MEMORY[0x23EE6C260](v42, -1, -1);
+      MEMORY[0x23EE6C260](v40, -1, -1);
 
-      return (*(v38 + 8))(v41, v51);
+      return (*(v34 + 8))(v37, v47);
     }
 
     else
     {
 
-      return (*(v38 + 8))(v41, v26);
+      return (*(v34 + 8))(v37, v22);
     }
   }
 
@@ -6893,140 +6458,138 @@ Swift::Void __swiftcall GameSyncedDirectoryHolder.stopHoldingItem()()
 {
   v1 = v0;
   v2 = type metadata accessor for URL();
-  v60 = *(v2 - 8);
-  v3 = v60;
-  v4 = *(v60 + 64);
-  v5 = MEMORY[0x28223BE20](v2);
-  v58 = &v52 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = MEMORY[0x28223BE20](v5);
-  v57 = &v52 - v8;
-  MEMORY[0x28223BE20](v7);
-  v59 = &v52 - v9;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v11 = *(*(v10 - 8) + 64);
-  v12 = MEMORY[0x28223BE20](v10 - 8);
-  v14 = &v52 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v12);
-  v16 = &v52 - v15;
-  v17 = *(v3 + 56);
-  v17(&v52 - v15, 1, 1, v2);
-  v18 = *(v1 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_lock);
-  [v18 lock];
-  outlined destroy of URL?(v16, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v19 = OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_presentedItemURL;
-  outlined init with take of URL?(v1 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_presentedItemURL, v16);
-  v17((v1 + v19), 1, 1, v2);
-  [v18 unlock];
-  [v18 lock];
-  v20 = *(v1 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_coordinationReaderCallers);
-  v21 = MEMORY[0x277D84F90];
+  v58 = *(v2 - 8);
+  v3 = v58;
+  v4 = MEMORY[0x28223BE20](v2);
+  v56 = &v50 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = MEMORY[0x28223BE20](v4);
+  v55 = &v50 - v7;
+  MEMORY[0x28223BE20](v6);
+  v57 = &v50 - v8;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  v10 = MEMORY[0x28223BE20](v9 - 8);
+  v12 = &v50 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v10);
+  v14 = &v50 - v13;
+  v15 = *(v3 + 56);
+  v15(&v50 - v13, 1, 1, v2);
+  v16 = *(v1 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_lock);
+  [v16 lock];
+  outlined destroy of URL?(v14, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  v17 = OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_presentedItemURL;
+  outlined init with take of URL?(v1 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_presentedItemURL, v14);
+  v15((v1 + v17), 1, 1, v2);
+  [v16 unlock];
+  [v16 lock];
+  v18 = *(v1 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_coordinationReaderCallers);
+  v19 = MEMORY[0x277D84F90];
   *(v1 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_coordinationReaderCallers) = MEMORY[0x277D84F90];
-  [v18 unlock];
-  specialized GameSyncedDirectoryHolder._drainCoordinationCallers(type:callers:wait:)(0x726564616572, 0xE600000000000000, v20, 0);
+  [v16 unlock];
+  specialized GameSyncedDirectoryHolder._drainCoordinationCallers(type:callers:wait:)(0x726564616572, 0xE600000000000000, v18, 0);
 
-  [v18 lock];
-  v22 = *(v1 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_coordinationWriterCallers);
-  *(v1 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_coordinationWriterCallers) = v21;
-  v23 = v60;
-  [v18 unlock];
-  specialized GameSyncedDirectoryHolder._drainCoordinationCallers(type:callers:wait:)(0x726574697277, 0xE600000000000000, v22, 0);
+  [v16 lock];
+  v20 = *(v1 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_coordinationWriterCallers);
+  *(v1 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_coordinationWriterCallers) = v19;
+  v21 = v58;
+  [v16 unlock];
+  specialized GameSyncedDirectoryHolder._drainCoordinationCallers(type:callers:wait:)(0x726574697277, 0xE600000000000000, v20, 0);
 
-  outlined init with copy of URL?(v16, v14, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  if ((*(v23 + 48))(v14, 1, v2) == 1)
+  outlined init with copy of URL?(v14, v12, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  if ((*(v21 + 48))(v12, 1, v2) == 1)
   {
-    outlined destroy of URL?(v16, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-    v24 = v14;
+    outlined destroy of URL?(v14, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    v22 = v12;
   }
 
   else
   {
-    v25 = v59;
-    (*(v23 + 32))(v59, v14, v2);
+    v23 = v57;
+    (*(v21 + 32))(v57, v12, v2);
     if (one-time initialization token for common != -1)
     {
       swift_once();
     }
 
-    v56 = v16;
-    v26 = type metadata accessor for Logger();
-    v27 = __swift_project_value_buffer(v26, static Logger.common);
-    v28 = v57;
-    v54 = *(v23 + 16);
-    v54(v57, v25, v2);
-    v55 = v27;
-    v29 = Logger.logObject.getter();
-    v30 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v29, v30))
+    v54 = v14;
+    v24 = type metadata accessor for Logger();
+    v25 = __swift_project_value_buffer(v24, static Logger.common);
+    v26 = v55;
+    v52 = *(v21 + 16);
+    v52(v55, v23, v2);
+    v53 = v25;
+    v27 = Logger.logObject.getter();
+    v28 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v27, v28))
     {
-      v31 = swift_slowAlloc();
-      v32 = v28;
-      v53 = swift_slowAlloc();
-      v61 = v53;
-      *v31 = 136315138;
+      v29 = swift_slowAlloc();
+      v30 = v26;
+      v51 = swift_slowAlloc();
+      v59 = v51;
+      *v29 = 136315138;
       lazy protocol witness table accessor for type URL and conformance URL();
-      v33 = dispatch thunk of CustomStringConvertible.description.getter();
-      v34 = v23;
-      v36 = v35;
-      v37 = *(v34 + 8);
-      v37(v32, v2);
-      v38 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v33, v36, &v61);
+      v31 = dispatch thunk of CustomStringConvertible.description.getter();
+      v32 = v21;
+      v34 = v33;
+      v35 = *(v32 + 8);
+      v35(v30, v2);
+      v36 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v31, v34, &v59);
 
-      *(v31 + 4) = v38;
-      _os_log_impl(&dword_238952000, v29, v30, "Stopping holding item at %s.", v31, 0xCu);
-      v39 = v53;
-      __swift_destroy_boxed_opaque_existential_0(v53);
-      MEMORY[0x23EE6C260](v39, -1, -1);
-      v40 = v31;
-      v25 = v59;
-      MEMORY[0x23EE6C260](v40, -1, -1);
+      *(v29 + 4) = v36;
+      _os_log_impl(&dword_238952000, v27, v28, "Stopping holding item at %s.", v29, 0xCu);
+      v37 = v51;
+      __swift_destroy_boxed_opaque_existential_0(v51);
+      MEMORY[0x23EE6C260](v37, -1, -1);
+      v38 = v29;
+      v23 = v57;
+      MEMORY[0x23EE6C260](v38, -1, -1);
     }
 
     else
     {
 
-      v37 = *(v23 + 8);
-      v37(v28, v2);
+      v35 = *(v21 + 8);
+      v35(v26, v2);
     }
 
-    v41 = v58;
+    v39 = v56;
     [objc_opt_self() removeFilePresenter_];
-    v54(v41, v25, v2);
-    v42 = Logger.logObject.getter();
-    v43 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v42, v43))
+    v52(v39, v23, v2);
+    v40 = Logger.logObject.getter();
+    v41 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v40, v41))
     {
-      v44 = v25;
-      v45 = swift_slowAlloc();
-      v46 = swift_slowAlloc();
-      v61 = v46;
-      *v45 = 136315138;
+      v42 = v23;
+      v43 = swift_slowAlloc();
+      v44 = swift_slowAlloc();
+      v59 = v44;
+      *v43 = 136315138;
       lazy protocol witness table accessor for type URL and conformance URL();
-      v47 = dispatch thunk of CustomStringConvertible.description.getter();
-      v48 = v41;
-      v50 = v49;
-      v37(v48, v2);
-      v51 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v50, &v61);
+      v45 = dispatch thunk of CustomStringConvertible.description.getter();
+      v46 = v39;
+      v48 = v47;
+      v35(v46, v2);
+      v49 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v45, v48, &v59);
 
-      *(v45 + 4) = v51;
-      _os_log_impl(&dword_238952000, v42, v43, "Stopped holding item at %s", v45, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v46);
-      MEMORY[0x23EE6C260](v46, -1, -1);
-      MEMORY[0x23EE6C260](v45, -1, -1);
+      *(v43 + 4) = v49;
+      _os_log_impl(&dword_238952000, v40, v41, "Stopped holding item at %s", v43, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v44);
+      MEMORY[0x23EE6C260](v44, -1, -1);
+      MEMORY[0x23EE6C260](v43, -1, -1);
 
-      v37(v44, v2);
+      v35(v42, v2);
     }
 
     else
     {
 
-      v37(v41, v2);
-      v37(v25, v2);
+      v35(v39, v2);
+      v35(v23, v2);
     }
 
-    v24 = v56;
+    v22 = v54;
   }
 
-  outlined destroy of URL?(v24, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  outlined destroy of URL?(v22, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
 }
 
 uint64_t GameSyncedDirectoryHolder.allowReaders(for:)(uint64_t a1, uint64_t a2)
@@ -7034,15 +6597,15 @@ uint64_t GameSyncedDirectoryHolder.allowReaders(for:)(uint64_t a1, uint64_t a2)
   v3[3] = a2;
   v3[4] = v2;
   v3[2] = a1;
-  v4 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   v3[5] = swift_task_alloc();
-  v5 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   v3[6] = swift_task_alloc();
-  v6 = type metadata accessor for URL();
-  v3[7] = v6;
-  v7 = *(v6 - 8);
-  v3[8] = v7;
-  v3[9] = *(v7 + 64);
+  v4 = type metadata accessor for URL();
+  v3[7] = v4;
+  v5 = *(v4 - 8);
+  v3[8] = v5;
+  v3[9] = *(v5 + 64);
   v3[10] = swift_task_alloc();
   v3[11] = swift_task_alloc();
 
@@ -7058,60 +6621,52 @@ uint64_t GameSyncedDirectoryHolder.allowReaders(for:)()
   if ((*(v2 + 48))(v3, 1, v1) == 1)
   {
     outlined destroy of URL?(v0[6], &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-    v5 = v0[10];
-    v4 = v0[11];
-    v7 = v0[5];
-    v6 = v0[6];
 
-    v8 = v0[1];
+    v4 = v0[1];
 
-    return v8(0);
+    return v4(0);
   }
 
   else
   {
-    v10 = v0[10];
-    v11 = v0[11];
-    v13 = v0[8];
-    v12 = v0[9];
-    v14 = v0[7];
-    v16 = v0[4];
-    v15 = v0[5];
-    v29 = v0[3];
-    v28 = v0[2];
-    v17 = *(v13 + 32);
-    v17(v11, v0[6], v14);
-    v18 = type metadata accessor for TaskPriority();
-    (*(*(v18 - 8) + 56))(v15, 1, 1, v18);
-    (*(v13 + 16))(v10, v11, v14);
-    v19 = (*(v13 + 80) + 32) & ~*(v13 + 80);
-    v20 = (v12 + v19 + 7) & 0xFFFFFFFFFFFFFFF8;
-    v21 = swift_allocObject();
-    *(v21 + 16) = 0;
-    *(v21 + 24) = 0;
-    v17(v21 + v19, v10, v14);
-    v22 = (v21 + v20);
-    *v22 = v28;
-    v22[1] = v29;
-    *(v21 + ((v20 + 23) & 0xFFFFFFFFFFFFFFF8)) = v16;
-    v23 = v16;
-    v24 = _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCSb_Tt2g5(0, 0, v15, &async function pointer to partial apply for closure #1 in GameSyncedDirectoryHolder.allowReaders(for:), v21);
-    v0[12] = v24;
-    v25 = *(MEMORY[0x277D857E0] + 4);
-    v26 = swift_task_alloc();
-    v0[13] = v26;
-    *v26 = v0;
-    v26[1] = GameSyncedDirectoryHolder.allowReaders(for:);
-    v27 = MEMORY[0x277D839B0];
+    v6 = v0[10];
+    v7 = v0[11];
+    v9 = v0[8];
+    v8 = v0[9];
+    v10 = v0[7];
+    v12 = v0[4];
+    v11 = v0[5];
+    v24 = v0[3];
+    v23 = v0[2];
+    v13 = *(v9 + 32);
+    v13(v7, v0[6], v10);
+    v14 = type metadata accessor for TaskPriority();
+    (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
+    (*(v9 + 16))(v6, v7, v10);
+    v15 = (*(v9 + 80) + 32) & ~*(v9 + 80);
+    v16 = (v8 + v15 + 7) & 0xFFFFFFFFFFFFFFF8;
+    v17 = swift_allocObject();
+    *(v17 + 16) = 0;
+    *(v17 + 24) = 0;
+    v13(v17 + v15, v6, v10);
+    v18 = (v17 + v16);
+    *v18 = v23;
+    v18[1] = v24;
+    *(v17 + ((v16 + 23) & 0xFFFFFFFFFFFFFFF8)) = v12;
+    v19 = v12;
+    v20 = _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCSb_Tt2g5(0, 0, v11, &async function pointer to partial apply for closure #1 in GameSyncedDirectoryHolder.allowReaders(for:), v17);
+    v0[12] = v20;
+    v21 = swift_task_alloc();
+    v0[13] = v21;
+    *v21 = v0;
+    v21[1] = GameSyncedDirectoryHolder.allowReaders(for:);
+    v22 = MEMORY[0x277D839B0];
 
-    return MEMORY[0x282200460](v0 + 14, v24, v27);
+    return MEMORY[0x282200460](v0 + 14, v20, v22);
   }
 }
 
 {
-  v1 = *(*v0 + 104);
-  v2 = *(*v0 + 96);
-  v4 = *v0;
 
   return MEMORY[0x2822009F8](GameSyncedDirectoryHolder.allowReaders(for:), 0, 0);
 }
@@ -7119,14 +6674,10 @@ uint64_t GameSyncedDirectoryHolder.allowReaders(for:)()
 {
   (*(*(v0 + 64) + 8))(*(v0 + 88), *(v0 + 56));
   v1 = *(v0 + 112);
-  v3 = *(v0 + 80);
-  v2 = *(v0 + 88);
-  v5 = *(v0 + 40);
-  v4 = *(v0 + 48);
 
-  v6 = *(v0 + 8);
+  v2 = *(v0 + 8);
 
-  return v6(v1);
+  return v2(v1);
 }
 
 uint64_t closure #1 in GameSyncedDirectoryHolder.allowReaders(for:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
@@ -7136,13 +6687,11 @@ uint64_t closure #1 in GameSyncedDirectoryHolder.allowReaders(for:)(uint64_t a1,
   v7[3] = a4;
   v7[4] = a5;
   v7[2] = a1;
-  v8 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   v7[7] = swift_task_alloc();
-  v9 = type metadata accessor for URL();
-  v7[8] = v9;
-  v10 = *(v9 - 8);
-  v7[9] = v10;
-  v11 = *(v10 + 64) + 15;
+  v8 = type metadata accessor for URL();
+  v7[8] = v8;
+  v7[9] = *(v8 - 8);
   v7[10] = swift_task_alloc();
 
   return MEMORY[0x2822009F8](closure #1 in GameSyncedDirectoryHolder.allowReaders(for:), 0, 0);
@@ -7155,36 +6704,31 @@ uint64_t closure #1 in GameSyncedDirectoryHolder.allowReaders(for:)()
   v4 = v0[4];
   v3 = v0[5];
   (*(v0[9] + 16))(v1, v0[3], v0[8]);
-  v5 = type metadata accessor for BundleUpdatesWaiter();
-  v6 = *(v5 + 48);
-  v7 = *(v5 + 52);
+  type metadata accessor for BundleUpdatesWaiter(0);
   swift_allocObject();
-  v8 = BundleUpdatesWaiter.init(bundleURL:)(v1);
-  v0[11] = v8;
-  v9 = type metadata accessor for TaskPriority();
-  (*(*(v9 - 8) + 56))(v2, 1, 1, v9);
-  v10 = swift_allocObject();
-  v10[2] = 0;
-  v10[3] = 0;
-  v10[4] = v4;
-  v10[5] = v3;
-  v10[6] = v8;
+  v5 = BundleUpdatesWaiter.init(bundleURL:)(v1);
+  v0[11] = v5;
+  v6 = type metadata accessor for TaskPriority();
+  (*(*(v6 - 8) + 56))(v2, 1, 1, v6);
+  v7 = swift_allocObject();
+  v7[2] = 0;
+  v7[3] = 0;
+  v7[4] = v4;
+  v7[5] = v3;
+  v7[6] = v5;
 
-  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v2, &async function pointer to partial apply for closure #1 in BundleUpdatesWaiter.waitForGatherComplete(duration:), v10);
+  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v2, &async function pointer to partial apply for closure #1 in BundleUpdatesWaiter.waitForGatherComplete(duration:), v7);
 
-  v11 = *(MEMORY[0x277D859E0] + 4);
-  v12 = swift_task_alloc();
-  v0[12] = v12;
-  *v12 = v0;
-  v12[1] = closure #1 in GameSyncedDirectoryHolder.allowReaders(for:);
-  v13 = MEMORY[0x277D839B0];
+  v8 = swift_task_alloc();
+  v0[12] = v8;
+  *v8 = v0;
+  v8[1] = closure #1 in GameSyncedDirectoryHolder.allowReaders(for:);
+  v9 = MEMORY[0x277D839B0];
 
-  return MEMORY[0x2822007B8](v0 + 15, 0, 0, 0xD000000000000020, 0x800000023898CF60, partial apply for closure #2 in BundleUpdatesWaiter.waitForGatherComplete(duration:), v8, v13);
+  return MEMORY[0x2822007B8](v0 + 15, 0, 0, 0xD000000000000020, 0x800000023898CF60, partial apply for closure #2 in BundleUpdatesWaiter.waitForGatherComplete(duration:), v5, v9);
 }
 
 {
-  v1 = *(*v0 + 96);
-  v3 = *v0;
 
   return MEMORY[0x2822009F8](closure #1 in GameSyncedDirectoryHolder.allowReaders(for:), 0, 0);
 }
@@ -7199,23 +6743,22 @@ uint64_t closure #1 in GameSyncedDirectoryHolder.allowReaders(for:)()
     *(v0 + 104) = v4;
     [v4 lock];
     closure #1 in closure #1 in GameSyncedDirectoryHolder.allowReaders(for:)(v3, v2, v1);
-    v15 = *(v0 + 48);
+    v11 = *(v0 + 48);
     [v4 unlock];
     [v4 lock];
-    v16 = *(v15 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_coordinationReaderCallers);
-    *(v15 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_coordinationReaderCallers) = MEMORY[0x277D84F90];
+    v12 = *(v11 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_coordinationReaderCallers);
+    *(v11 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_coordinationReaderCallers) = MEMORY[0x277D84F90];
     [v4 unlock];
-    specialized GameSyncedDirectoryHolder._drainCoordinationCallers(type:callers:wait:)(0x726564616572, 0xE600000000000000, v16, 1);
+    specialized GameSyncedDirectoryHolder._drainCoordinationCallers(type:callers:wait:)(0x726564616572, 0xE600000000000000, v12, 1);
 
-    v17 = swift_task_alloc();
-    *(v0 + 112) = v17;
-    *v17 = v0;
-    v17[1] = closure #1 in GameSyncedDirectoryHolder.allowReaders(for:);
-    v18 = *(v0 + 88);
-    v20 = *(v0 + 32);
-    v19 = *(v0 + 40);
+    v13 = swift_task_alloc();
+    *(v0 + 112) = v13;
+    *v13 = v0;
+    v13[1] = closure #1 in GameSyncedDirectoryHolder.allowReaders(for:);
+    v15 = *(v0 + 32);
+    v14 = *(v0 + 40);
 
-    return BundleUpdatesWaiter.waitForUploadToStart(duration:)(v20, v19);
+    return BundleUpdatesWaiter.waitForUploadToStart(duration:)(v15, v14);
   }
 
   else
@@ -7229,23 +6772,19 @@ uint64_t closure #1 in GameSyncedDirectoryHolder.allowReaders(for:)()
     __swift_project_value_buffer(v5, static Logger.common);
     v6 = Logger.logObject.getter();
     v7 = static os_log_type_t.default.getter();
-    v8 = os_log_type_enabled(v6, v7);
-    v9 = *(v0 + 88);
-    if (v8)
+    if (os_log_type_enabled(v6, v7))
     {
-      v10 = swift_slowAlloc();
-      *v10 = 0;
-      _os_log_impl(&dword_238952000, v6, v7, "Failed to wait for gather complete", v10, 2u);
-      MEMORY[0x23EE6C260](v10, -1, -1);
+      v8 = swift_slowAlloc();
+      *v8 = 0;
+      _os_log_impl(&dword_238952000, v6, v7, "Failed to wait for gather complete", v8, 2u);
+      MEMORY[0x23EE6C260](v8, -1, -1);
     }
 
-    v11 = *(v0 + 80);
-    v12 = *(v0 + 56);
     **(v0 + 16) = 0;
 
-    v13 = *(v0 + 8);
+    v9 = *(v0 + 8);
 
-    return v13();
+    return v9();
   }
 }
 
@@ -7274,23 +6813,18 @@ uint64_t closure #1 in GameSyncedDirectoryHolder.allowReaders(for:)()
 
   v7 = *(v0 + 121);
   v8 = *(v0 + 104);
-  v9 = *(v0 + 88);
 
   [v8 unlock];
 
-  v10 = *(v0 + 80);
-  v11 = *(v0 + 56);
   **(v0 + 16) = v7;
 
-  v12 = *(v0 + 8);
+  v9 = *(v0 + 8);
 
-  return v12();
+  return v9();
 }
 
 uint64_t closure #1 in GameSyncedDirectoryHolder.allowReaders(for:)(char a1)
 {
-  v2 = *(*v1 + 112);
-  v4 = *v1;
   *(*v1 + 121) = a1;
 
   return MEMORY[0x2822009F8](closure #1 in GameSyncedDirectoryHolder.allowReaders(for:), 0, 0);
@@ -7344,10 +6878,10 @@ uint64_t _sIeg_SgIeghg_xRi_zRi0_zlyytIsegr_SgytIeghnr_TR(uint64_t *a1, void (*a2
     v5 = 0;
   }
 
-  outlined copy of (@escaping @callee_guaranteed () -> ())?(v3);
+  outlined copy of (@escaping @callee_guaranteed () -> ())?(v3, v4);
   a2(v6, v5);
 
-  return outlined consume of (@escaping @callee_guaranteed (@in_guaranteed GameSaveSyncedDirectory.State) -> ())?(v6);
+  return outlined consume of (@escaping @callee_guaranteed (@in_guaranteed GameSaveSyncedDirectory.State) -> ())?(v6, v5);
 }
 
 void thunk for @escaping @callee_unowned @convention(block) @Sendable (@unowned (@escaping @callee_unowned @convention(block) () -> ())?) -> ()(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -7374,96 +6908,92 @@ void thunk for @escaping @callee_unowned @convention(block) @Sendable (@unowned 
 
 uint64_t closure #1 in GameSyncedDirectoryHolder.relinquishPresentedItem(toReader:)(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  v40 = a3;
-  v41 = a4;
-  v39 = a2;
+  v36 = a3;
+  v37 = a4;
+  v35 = a2;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v36 - v7;
-  v9 = type metadata accessor for URLResourceValues();
-  v37 = *(v9 - 8);
-  v38 = v9;
-  v10 = *(v37 + 64);
-  MEMORY[0x28223BE20](v9);
-  v12 = &v36 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13 - 8);
-  v16 = &v36 - v15;
-  v17 = type metadata accessor for URL();
-  v18 = *(v17 - 8);
-  v19 = *(v18 + 64);
-  MEMORY[0x28223BE20](v17);
-  v21 = &v36 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of URL?(a1 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_presentedItemURL, v16, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  if ((*(v18 + 48))(v16, 1, v17) == 1)
+  v7 = &v32 - v6;
+  v8 = type metadata accessor for URLResourceValues();
+  v33 = *(v8 - 8);
+  v34 = v8;
+  MEMORY[0x28223BE20](v8);
+  v10 = &v32 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  MEMORY[0x28223BE20](v11 - 8);
+  v13 = &v32 - v12;
+  v14 = type metadata accessor for URL();
+  v15 = *(v14 - 8);
+  MEMORY[0x28223BE20](v14);
+  v17 = &v32 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of URL?(a1 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_presentedItemURL, v13, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  if ((*(v15 + 48))(v13, 1, v14) == 1)
   {
-    result = outlined destroy of URL?(v16, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-    *v41 = 1;
+    result = outlined destroy of URL?(v13, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    *v37 = 1;
   }
 
   else
   {
-    v23 = v41;
-    (*(v18 + 32))(v21, v16, v17);
-    if (*(a1 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_isAppInBackground) & 1) != 0 || (v24 = a1, (*(a1 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_allowReaders)))
+    v19 = v37;
+    (*(v15 + 32))(v17, v13, v14);
+    if (*(a1 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_isAppInBackground) & 1) != 0 || (v20 = a1, (*(a1 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_allowReaders)))
     {
-      result = (*(v18 + 8))(v21, v17);
-      *v23 = 1;
+      result = (*(v15 + 8))(v17, v14);
+      *v19 = 1;
     }
 
     else
     {
       URLResourceValues.init()();
       Date.init()();
-      v25 = type metadata accessor for Date();
-      (*(*(v25 - 8) + 56))(v8, 0, 1, v25);
+      v21 = type metadata accessor for Date();
+      (*(*(v21 - 8) + 56))(v7, 0, 1, v21);
       URLResourceValues.contentModificationDate.setter();
       URLResourceValues.contentModificationDate.getter();
       URLResourceValues.contentAccessDate.setter();
-      v26 = v42;
+      v22 = v38;
       URL.setResourceValues(_:)();
-      if (v26)
+      if (v22)
       {
       }
 
-      v42 = 0;
-      (*(v37 + 8))(v12, v38);
-      v27 = swift_allocObject();
-      *(v27 + 16) = v39;
-      *(v27 + 24) = v40;
-      v28 = OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_coordinationReaderCallers;
-      v29 = *(v24 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_coordinationReaderCallers);
+      v38 = 0;
+      (*(v33 + 8))(v10, v34);
+      v23 = swift_allocObject();
+      *(v23 + 16) = v35;
+      *(v23 + 24) = v36;
+      v24 = OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_coordinationReaderCallers;
+      v25 = *(v20 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_coordinationReaderCallers);
 
       isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-      *(v24 + v28) = v29;
+      *(v20 + v24) = v25;
       if (isUniquelyReferenced_nonNull_native)
       {
-        v31 = v24;
+        v27 = v20;
       }
 
       else
       {
-        v29 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v29[2] + 1, 1, v29);
-        v31 = v24;
-        *(v24 + v28) = v29;
+        v25 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v25[2] + 1, 1, v25);
+        v27 = v20;
+        *(v20 + v24) = v25;
       }
 
-      v33 = v29[2];
-      v32 = v29[3];
-      if (v33 >= v32 >> 1)
+      v29 = v25[2];
+      v28 = v25[3];
+      if (v29 >= v28 >> 1)
       {
-        *(v31 + v28) = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v32 > 1), v33 + 1, 1, v29);
+        *(v27 + v24) = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v28 > 1), v29 + 1, 1, v25);
       }
 
-      result = (*(v18 + 8))(v21, v17);
-      v34 = *(v31 + v28);
-      *(v34 + 16) = v33 + 1;
-      v35 = v34 + 16 * v33;
-      *(v35 + 32) = _sIeg_SgIeghg_xRi_zRi0_zlyytIsegr_SgytIeghnr_TRTA;
-      *(v35 + 40) = v27;
-      *(v31 + v28) = v34;
+      result = (*(v15 + 8))(v17, v14);
+      v30 = *(v27 + v24);
+      *(v30 + 16) = v29 + 1;
+      v31 = v30 + 16 * v29;
+      *(v31 + 32) = _sIeg_SgIeghg_xRi_zRi0_zlyytIsegr_SgytIeghnr_TRTA;
+      *(v31 + 40) = v23;
+      *(v27 + v24) = v30;
     }
   }
 
@@ -7483,21 +7013,17 @@ void @objc GameSyncedDirectoryHolder.relinquishPresentedItem(toWriter:)(void *a1
 uint64_t GameSyncedDirectoryHolder.savePresentedItemChanges()()
 {
   v1[2] = v0;
-  v2 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v1[3] = swift_task_alloc();
-  v3 = type metadata accessor for URLResourceValues();
-  v1[4] = v3;
-  v4 = *(v3 - 8);
-  v1[5] = v4;
-  v5 = *(v4 + 64) + 15;
+  v2 = type metadata accessor for URLResourceValues();
+  v1[4] = v2;
+  v1[5] = *(v2 - 8);
   v1[6] = swift_task_alloc();
-  v6 = type metadata accessor for URL();
-  v1[7] = v6;
-  v7 = *(v6 - 8);
-  v1[8] = v7;
-  v8 = *(v7 + 64) + 15;
+  v3 = type metadata accessor for URL();
+  v1[7] = v3;
+  v1[8] = *(v3 - 8);
   v1[9] = swift_task_alloc();
-  v9 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   v1[10] = swift_task_alloc();
   v1[11] = swift_task_alloc();
 
@@ -7544,36 +7070,28 @@ uint64_t GameSyncedDirectoryHolder.savePresentedItemChanges()()
       MEMORY[0x23EE6C260](v12, -1, -1);
     }
 
-    v13 = v1[9];
-    v14 = v1[6];
-    v15 = v1[3];
+    v13 = v1[3];
 
     URLResourceValues.init()();
     Date.init()();
-    v16 = type metadata accessor for Date();
-    (*(*(v16 - 8) + 56))(v15, 0, 1, v16);
+    v14 = type metadata accessor for Date();
+    (*(*(v14 - 8) + 56))(v13, 0, 1, v14);
     URLResourceValues.contentModificationDate.setter();
     URLResourceValues.contentModificationDate.getter();
     URLResourceValues.contentAccessDate.setter();
     URL.setResourceValues(_:)();
-    v18 = v1[8];
-    v17 = v1[9];
-    v19 = v1[7];
+    v16 = v1[8];
+    v15 = v1[9];
+    v17 = v1[7];
     (*(v1[5] + 8))(v1[6], v1[4]);
-    (*(v18 + 8))(v17, v19);
+    (*(v16 + 8))(v15, v17);
   }
 
-  v20 = *v2;
-  v21 = v1[10];
-  v22 = v1[11];
-  v23 = v1[9];
-  v24 = v1[6];
-  v25 = v1[3];
-  outlined destroy of URL?(v20, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  outlined destroy of URL?(*v2, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
 
-  v26 = v1[1];
+  v18 = v1[1];
 
-  return v26();
+  return v18();
 }
 
 uint64_t @objc closure #1 in GameSyncedDirectoryHolder.savePresentedItemChanges()(const void *a1, void *a2)
@@ -7594,98 +7112,93 @@ uint64_t @objc closure #1 in GameSyncedDirectoryHolder.savePresentedItemChanges(
   v2 = v0;
   v4 = *v1;
   v3 = *v1;
-  v5 = *(*v1 + 32);
-  v6 = *(*v1 + 16);
-  v7 = *v1;
+  v5 = *(*v1 + 16);
+  v6 = *v1;
 
-  v8 = *(v3 + 24);
+  v7 = *(v3 + 24);
   if (v2)
   {
-    v9 = _convertErrorToNSError(_:)();
+    v8 = _convertErrorToNSError(_:)();
 
-    (*(v8 + 16))(v8, v9);
+    (*(v7 + 16))(v7, v8);
   }
 
   else
   {
-    (*(v8 + 16))(v8, 0);
+    (*(v7 + 16))(v7, 0);
   }
 
   _Block_release(*(v4 + 24));
-  v10 = *(v7 + 8);
+  v9 = *(v6 + 8);
 
-  return v10();
+  return v9();
 }
 
 Swift::Void __swiftcall GameSyncedDirectoryHolder.presentedItemDidGain(_:)(NSFileVersion a1)
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGSgMd, &_sScCyyts5NeverOGSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v22 - v6;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, &_sScCyyts5NeverOGMR);
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20](v8);
-  v12 = &v22 - v11;
+  v6 = &v20 - v5;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, &_sScCyyts5NeverOGMR);
+  v8 = *(v7 - 8);
+  MEMORY[0x28223BE20](v7);
+  v10 = &v20 - v9;
   if (one-time initialization token for common != -1)
   {
     swift_once();
   }
 
-  v13 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v13, static Logger.common);
-  v14 = a1.super.isa;
-  v15 = Logger.logObject.getter();
-  v16 = static os_log_type_t.default.getter();
+  v11 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v11, static Logger.common);
+  v12 = a1.super.isa;
+  v13 = Logger.logObject.getter();
+  v14 = static os_log_type_t.default.getter();
 
-  if (os_log_type_enabled(v15, v16))
+  if (os_log_type_enabled(v13, v14))
   {
-    v17 = swift_slowAlloc();
-    v18 = swift_slowAlloc();
-    *v17 = 138412290;
-    *(v17 + 4) = v14;
-    *v18 = v14;
-    v19 = v14;
-    _os_log_impl(&dword_238952000, v15, v16, "Item gained version %@", v17, 0xCu);
-    outlined destroy of URL?(v18, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x23EE6C260](v18, -1, -1);
-    MEMORY[0x23EE6C260](v17, -1, -1);
+    v15 = swift_slowAlloc();
+    v16 = swift_slowAlloc();
+    *v15 = 138412290;
+    *(v15 + 4) = v12;
+    *v16 = v12;
+    v17 = v12;
+    _os_log_impl(&dword_238952000, v13, v14, "Item gained version %@", v15, 0xCu);
+    outlined destroy of URL?(v16, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    MEMORY[0x23EE6C260](v16, -1, -1);
+    MEMORY[0x23EE6C260](v15, -1, -1);
   }
 
-  v20 = *(v2 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_lock);
-  [v20 lock];
-  v21 = OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_gainedVersionContinuation;
-  outlined init with copy of URL?(v2 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_gainedVersionContinuation, v7, &_sScCyyts5NeverOGSgMd, &_sScCyyts5NeverOGSgMR);
-  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  v18 = *(v2 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_lock);
+  [v18 lock];
+  v19 = OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_gainedVersionContinuation;
+  outlined init with copy of URL?(v2 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_gainedVersionContinuation, v6, &_sScCyyts5NeverOGSgMd, &_sScCyyts5NeverOGSgMR);
+  if ((*(v8 + 48))(v6, 1, v7) == 1)
   {
-    outlined destroy of URL?(v7, &_sScCyyts5NeverOGSgMd, &_sScCyyts5NeverOGSgMR);
+    outlined destroy of URL?(v6, &_sScCyyts5NeverOGSgMd, &_sScCyyts5NeverOGSgMR);
     *(v2 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_gainedVersionCalled) = 1;
   }
 
   else
   {
-    (*(v9 + 32))(v12, v7, v8);
+    (*(v8 + 32))(v10, v6, v7);
     CheckedContinuation.resume(returning:)();
-    (*(v9 + 8))(v12, v8);
+    (*(v8 + 8))(v10, v7);
   }
 
-  outlined destroy of URL?(v2 + v21, &_sScCyyts5NeverOGSgMd, &_sScCyyts5NeverOGSgMR);
-  (*(v9 + 56))(v2 + v21, 1, 1, v8);
-  [v20 unlock];
+  outlined destroy of URL?(v2 + v19, &_sScCyyts5NeverOGSgMd, &_sScCyyts5NeverOGSgMR);
+  (*(v8 + 56))(v2 + v19, 1, 1, v7);
+  [v18 unlock];
 }
 
-void type metadata completion function for GameSyncedDirectoryHolder()
+void type metadata completion function for GameSyncedDirectoryHolder(uint64_t a1)
 {
-  type metadata accessor for URL?();
+  type metadata accessor for URL?(319);
   if (v1 <= 0x3F)
   {
-    v4 = *(v0 - 8) + 64;
-    type metadata accessor for CheckedContinuation<(), Never>?();
-    if (v3 <= 0x3F)
+    type metadata accessor for CheckedContinuation<(), Never>?(319);
+    if (v2 <= 0x3F)
     {
-      v5 = *(v2 - 8) + 64;
       swift_updateClassMetadata2();
     }
   }
@@ -7720,37 +7233,37 @@ uint64_t GameSyncedDirectoryHolder.waitForGainedVersion()()
   v6 = swift_task_alloc();
   v0[3] = v6;
   *(v6 + 16) = v5;
-  v7 = *(MEMORY[0x277D859E0] + 4);
-  v8 = swift_task_alloc();
-  v0[4] = v8;
-  *v8 = v0;
-  v8[1] = GameSaveSyncedDirectory._waitForDirectorySync(ui:);
+  v7 = swift_task_alloc();
+  v0[4] = v7;
+  *v7 = v0;
+  v7[1] = GameSaveSyncedDirectory._waitForDirectorySync(ui:);
+  v8 = MEMORY[0x277D84F78] + 8;
 
-  return MEMORY[0x2822007B8]();
+  return MEMORY[0x2822007B8](v7, 0, 0, 0xD000000000000016, 0x800000023898CF40, partial apply for closure #1 in GameSyncedDirectoryHolder.waitForGainedVersion(), v6, v8);
 }
 
-void type metadata accessor for URL?()
+void type metadata accessor for URL?(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for URL?)
   {
     type metadata accessor for URL();
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for URL?);
+      atomic_store(v1, &lazy cache variable for type metadata for URL?);
     }
   }
 }
 
-void type metadata accessor for CheckedContinuation<(), Never>?()
+void type metadata accessor for CheckedContinuation<(), Never>?(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for CheckedContinuation<(), Never>?)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sScCyyts5NeverOGMd, &_sScCyyts5NeverOGMR);
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for CheckedContinuation<(), Never>?);
+      atomic_store(v1, &lazy cache variable for type metadata for CheckedContinuation<(), Never>?);
     }
   }
 }
@@ -7781,48 +7294,45 @@ id closure #1 in GameSyncedDirectoryHolder.waitForGainedVersion()(uint64_t a1, u
 
 uint64_t _sIeghH_IeAgH_TR(uint64_t a1, uint64_t a2, int *a3)
 {
-  v7 = (a3 + *a3);
-  v4 = a3[1];
-  v5 = swift_task_alloc();
-  *(v3 + 16) = v5;
-  *v5 = v3;
-  v5[1] = GameSaveSyncedDirectory.finishSyncing();
+  v6 = (a3 + *a3);
+  v4 = swift_task_alloc();
+  *(v3 + 16) = v4;
+  *v4 = v3;
+  v4[1] = GameSaveSyncedDirectory.finishSyncing();
 
-  return v7();
+  return v6();
 }
 
 uint64_t _sIeAgH_ytIeAgHr_TR(uint64_t a1, uint64_t a2, uint64_t a3, int *a4)
 {
-  v8 = (a4 + *a4);
-  v5 = a4[1];
-  v6 = swift_task_alloc();
-  *(v4 + 16) = v6;
-  *v6 = v4;
-  v6[1] = static GameSaveSyncedDirectory.cleanupDirectory(containerIdentifier:);
+  v7 = (a4 + *a4);
+  v5 = swift_task_alloc();
+  *(v4 + 16) = v5;
+  *v5 = v4;
+  v5[1] = static GameSaveSyncedDirectory.cleanupDirectory(containerIdentifier:);
 
-  return v8();
+  return v7();
 }
 
 uint64_t _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2gq5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v10 = *(*(v9 - 8) + 64);
   MEMORY[0x28223BE20](v9 - 8);
-  v12 = v25 - v11;
-  outlined init with copy of URL?(a3, v25 - v11, &_sScPSgMd, &_sScPSgMR);
-  v13 = type metadata accessor for TaskPriority();
-  v14 = *(v13 - 8);
-  if ((*(v14 + 48))(v12, 1, v13) == 1)
+  v11 = v23 - v10;
+  outlined init with copy of URL?(a3, v23 - v10, &_sScPSgMd, &_sScPSgMR);
+  v12 = type metadata accessor for TaskPriority();
+  v13 = *(v12 - 8);
+  if ((*(v13 + 48))(v11, 1, v12) == 1)
   {
-    outlined destroy of URL?(v12, &_sScPSgMd, &_sScPSgMR);
+    outlined destroy of URL?(v11, &_sScPSgMd, &_sScPSgMR);
     if (*(a5 + 16))
     {
       goto LABEL_3;
     }
 
 LABEL_7:
+    v14 = 0;
     v16 = 0;
-    v18 = 0;
     if (a2)
     {
       goto LABEL_4;
@@ -7832,62 +7342,61 @@ LABEL_7:
   }
 
   TaskPriority.rawValue.getter();
-  (*(v14 + 8))(v12, v13);
+  (*(v13 + 8))(v11, v12);
   if (!*(a5 + 16))
   {
     goto LABEL_7;
   }
 
 LABEL_3:
-  v15 = *(a5 + 24);
   swift_getObjectType();
   swift_unknownObjectRetain();
-  v16 = dispatch thunk of Actor.unownedExecutor.getter();
-  v18 = v17;
+  v14 = dispatch thunk of Actor.unownedExecutor.getter();
+  v16 = v15;
   swift_unknownObjectRelease();
   if (a2)
   {
 LABEL_4:
-    v19 = String.utf8CString.getter() + 32;
-    v20 = swift_allocObject();
-    *(v20 + 16) = a4;
-    *(v20 + 24) = a5;
+    v17 = String.utf8CString.getter() + 32;
+    v18 = swift_allocObject();
+    *(v18 + 16) = a4;
+    *(v18 + 24) = a5;
 
-    if (v18 | v16)
+    if (v16 | v14)
     {
-      v26[0] = 0;
-      v26[1] = 0;
-      v21 = v26;
-      v26[2] = v16;
-      v26[3] = v18;
+      v24[0] = 0;
+      v24[1] = 0;
+      v19 = v24;
+      v24[2] = v14;
+      v24[3] = v16;
     }
 
     else
     {
-      v21 = 0;
+      v19 = 0;
     }
 
-    v25[1] = 7;
-    v25[2] = v21;
-    v25[3] = v19;
-    v23 = swift_task_create();
+    v23[1] = 7;
+    v23[2] = v19;
+    v23[3] = v17;
+    v21 = swift_task_create();
 
     outlined destroy of URL?(a3, &_sScPSgMd, &_sScPSgMR);
 
-    return v23;
+    return v21;
   }
 
 LABEL_8:
   outlined destroy of URL?(a3, &_sScPSgMd, &_sScPSgMR);
-  v22 = swift_allocObject();
-  *(v22 + 16) = a4;
-  *(v22 + 24) = a5;
-  if (v18 | v16)
+  v20 = swift_allocObject();
+  *(v20 + 16) = a4;
+  *(v20 + 24) = a5;
+  if (v16 | v14)
   {
-    v26[4] = 0;
-    v26[5] = 0;
-    v26[6] = v16;
-    v26[7] = v18;
+    v24[4] = 0;
+    v24[5] = 0;
+    v24[6] = v14;
+    v24[7] = v16;
   }
 
   return swift_task_create();
@@ -7986,7 +7495,7 @@ void *closure #1 in serialize<A>(_:at:)(void *__src, uint64_t a2, void *__dst)
 
 void closure #1 in OSLogArguments.append(_:)(void **a1, void **a2, uint64_t a3, uint64_t (*a4)(void))
 {
-  v6 = a4();
+  v6 = (a4)(a1, a2, a3);
   v7 = *a1;
   *v7 = v6;
   *a1 = v7 + 1;
@@ -8016,15 +7525,15 @@ void specialized GameSyncedDirectoryHolder._drainCoordinationCallers(type:caller
   v9 = Logger.logObject.getter();
   v10 = static os_log_type_t.default.getter();
 
-  v24 = a1;
-  v25 = a4;
+  v23 = a1;
+  v24 = a4;
   if (os_log_type_enabled(v9, v10))
   {
     v11 = swift_slowAlloc();
     v12 = swift_slowAlloc();
-    v27[0] = v12;
+    v26[0] = v12;
     *v11 = 136315394;
-    *(v11 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a1, a2, v27);
+    *(v11 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a1, a2, v26);
     *(v11 + 12) = 2048;
     *(v11 + 14) = *(a3 + 16);
 
@@ -8050,48 +7559,47 @@ void specialized GameSyncedDirectoryHolder._drainCoordinationCallers(type:caller
     }
   }
 
-  v14 = (a3 + 40);
+  v14 = a3 + 40;
   do
   {
-    v16 = *(v14 - 1);
-    v15 = *v14;
+    v15 = *(v14 - 8);
 
     dispatch_group_enter(group);
+    v16 = swift_allocObject();
+    *(v16 + 16) = group;
     v17 = swift_allocObject();
-    *(v17 + 16) = group;
-    v18 = swift_allocObject();
-    *(v18 + 16) = partial apply for closure #1 in GameSyncedDirectoryHolder._drainCoordinationCallers(type:callers:wait:);
-    *(v18 + 24) = v17;
-    v27[0] = partial apply for thunk for @escaping @callee_guaranteed () -> ();
-    v27[1] = v18;
-    v19 = group;
+    *(v17 + 16) = partial apply for closure #1 in GameSyncedDirectoryHolder._drainCoordinationCallers(type:callers:wait:);
+    *(v17 + 24) = v16;
+    v26[0] = partial apply for thunk for @escaping @callee_guaranteed () -> ();
+    v26[1] = v17;
+    v18 = group;
 
-    v16(v27);
+    v15(v26);
 
-    v14 += 2;
+    v14 += 16;
     --v13;
   }
 
   while (v13);
 LABEL_9:
-  if (v25)
+  if (v24)
   {
     OS_dispatch_group.wait()();
 
-    v20 = Logger.logObject.getter();
-    v21 = static os_log_type_t.default.getter();
+    v19 = Logger.logObject.getter();
+    v20 = static os_log_type_t.default.getter();
 
-    if (os_log_type_enabled(v20, v21))
+    if (os_log_type_enabled(v19, v20))
     {
+      v21 = swift_slowAlloc();
       v22 = swift_slowAlloc();
-      v23 = swift_slowAlloc();
-      v27[0] = v23;
-      *v22 = 136315138;
-      *(v22 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v24, a2, v27);
-      _os_log_impl(&dword_238952000, v20, v21, "Finished draining %s coordination blocks", v22, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v23);
-      MEMORY[0x23EE6C260](v23, -1, -1);
+      v26[0] = v22;
+      *v21 = 136315138;
+      *(v21 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v23, a2, v26);
+      _os_log_impl(&dword_238952000, v19, v20, "Finished draining %s coordination blocks", v21, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v22);
       MEMORY[0x23EE6C260](v22, -1, -1);
+      MEMORY[0x23EE6C260](v21, -1, -1);
     }
   }
 }
@@ -8104,16 +7612,8 @@ uint64_t sub_238984A54()
 
 uint64_t sub_238984A94()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
-}
-
-uint64_t partial apply for thunk for @escaping @callee_guaranteed () -> ()()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return v1();
 }
 
 uint64_t sub_238984AF4()
@@ -8137,78 +7637,75 @@ uint64_t partial apply for @objc closure #1 in GameSyncedDirectoryHolder.savePre
 
 uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tgq5TA(uint64_t a1)
 {
-  v5 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = GameSaveSyncedDirectory.finishSyncing();
+  v4 = *(v1 + 16);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = GameSaveSyncedDirectory.finishSyncing();
 
-  return _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5(a1, v5);
+  return _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5(a1, v4);
 }
 
 uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tgq5TA_64(uint64_t a1)
 {
-  v5 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = static GameSaveSyncedDirectory.cleanupDirectory(containerIdentifier:);
+  v4 = *(v1 + 16);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = static GameSaveSyncedDirectory.cleanupDirectory(containerIdentifier:);
 
-  return _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5(a1, v5);
+  return _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5(a1, v4);
 }
 
 uint64_t specialized GameSyncedDirectoryHolder.relinquishPresentedItem(toWriter:)(uint64_t a1, void (**a2)(void, void))
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v20 - v6;
-  v8 = swift_allocObject();
-  *(v8 + 16) = a2;
-  v9 = *(a1 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_lock);
+  v6 = &v19 - v5;
+  v7 = swift_allocObject();
+  *(v7 + 16) = a2;
+  v8 = *(a1 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_lock);
   _Block_copy(a2);
-  [v9 lock];
-  outlined init with copy of URL?(a1 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_presentedItemURL, v7, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v10 = type metadata accessor for URL();
-  v11 = (*(*(v10 - 8) + 48))(v7, 1, v10);
-  outlined destroy of URL?(v7, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  if (v11 == 1)
+  [v8 lock];
+  outlined init with copy of URL?(a1 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_presentedItemURL, v6, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  v9 = type metadata accessor for URL();
+  v10 = (*(*(v9 - 8) + 48))(v6, 1, v9);
+  outlined destroy of URL?(v6, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  if (v10 == 1)
   {
-    [v9 unlock];
+    [v8 unlock];
     a2[2](a2, 0);
   }
 
   else
   {
-    v12 = swift_allocObject();
-    *(v12 + 16) = thunk for @escaping @callee_unowned @convention(block) @Sendable (@unowned (@escaping @callee_unowned @convention(block) () -> ())?) -> ()partial apply;
-    *(v12 + 24) = v8;
-    v13 = OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_coordinationWriterCallers;
-    v14 = *(a1 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_coordinationWriterCallers);
+    v11 = swift_allocObject();
+    *(v11 + 16) = thunk for @escaping @callee_unowned @convention(block) @Sendable (@unowned (@escaping @callee_unowned @convention(block) () -> ())?) -> ()partial apply;
+    *(v11 + 24) = v7;
+    v12 = OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_coordinationWriterCallers;
+    v13 = *(a1 + OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_coordinationWriterCallers);
 
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    *(a1 + v13) = v14;
+    *(a1 + v12) = v13;
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v14 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v14[2] + 1, 1, v14);
-      *(a1 + v13) = v14;
+      v13 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v13[2] + 1, 1, v13);
+      *(a1 + v12) = v13;
     }
 
-    v17 = v14[2];
-    v16 = v14[3];
-    if (v17 >= v16 >> 1)
+    v16 = v13[2];
+    v15 = v13[3];
+    if (v16 >= v15 >> 1)
     {
-      v14 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v16 > 1), v17 + 1, 1, v14);
+      v13 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v15 > 1), v16 + 1, 1, v13);
     }
 
-    v14[2] = v17 + 1;
-    v18 = &v14[2 * v17];
-    v18[4] = _sIeg_SgIeghg_xRi_zRi0_zlyytIsegr_SgytIeghnr_TRTA_86;
-    v18[5] = v12;
-    *(a1 + v13) = v14;
-    [v9 unlock];
+    v13[2] = v16 + 1;
+    v17 = &v13[2 * v16];
+    v17[4] = _sIeg_SgIeghg_xRi_zRi0_zlyytIsegr_SgytIeghnr_TRTA_86;
+    v17[5] = v11;
+    *(a1 + v12) = v13;
+    [v8 unlock];
   }
 }
 
@@ -8233,13 +7730,6 @@ uint64_t sub_2389850A8()
   _Block_release(*(v0 + 16));
 
   return MEMORY[0x2821FE8E8](v0, 24, 7);
-}
-
-uint64_t partial apply for thunk for @escaping @callee_guaranteed () -> (@out ())()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return v1();
 }
 
 uint64_t block_copy_helper_0(uint64_t a1, uint64_t a2)
@@ -8270,7 +7760,6 @@ uint64_t sub_238985210()
   v3 = *(v2 + 80);
   v4 = (v3 + 32) & ~v3;
   v5 = (((*(v2 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8) + 23) & 0xFFFFFFFFFFFFFFF8;
-  v6 = *(v0 + 16);
   swift_unknownObjectRelease();
   (*(v2 + 8))(v0 + v4, v1);
 
@@ -8300,9 +7789,7 @@ uint64_t partial apply for closure #1 in GameSyncedDirectoryHolder.allowReaders(
 
 uint64_t sub_238985434()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 48);
 
   return MEMORY[0x2821FE8E8](v0, 56, 7);
 }
@@ -8327,5 +7814,13 @@ Swift::String __swiftcall NSLocalizedString(_:tableName:bundle:value:comment:)(S
   v5 = MEMORY[0x28211C320](_._countAndFlagsBits, _._object, tableName.value._countAndFlagsBits, tableName.value._object, bundle.super.isa, value._countAndFlagsBits, value._object, comment._countAndFlagsBits);
   result._object = v6;
   result._countAndFlagsBits = v5;
+  return result;
+}
+
+Swift::String __swiftcall URL.path(percentEncoded:)(Swift::Bool percentEncoded)
+{
+  v1 = MEMORY[0x28211D098](percentEncoded);
+  result._object = v2;
+  result._countAndFlagsBits = v1;
   return result;
 }

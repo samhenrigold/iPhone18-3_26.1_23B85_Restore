@@ -40,14 +40,15 @@
   selfCopy = self;
 
   os_unfair_lock_lock((v8 + 32));
-  v12 = *(v8 + 16);
-  sub_100113B54(v12);
+  v13 = *(v8 + 16);
+  v12 = *(v8 + 24);
+  sub_100113B54(v13, v12);
   os_unfair_lock_unlock((v8 + 32));
 
-  if (v12)
+  if (v13)
   {
-    v12(v13);
-    sub_1000B2A4C(v12);
+    v13(v14);
+    sub_1000B2A4C(v13, v12);
   }
 }
 

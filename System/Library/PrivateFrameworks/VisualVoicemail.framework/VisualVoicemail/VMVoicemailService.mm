@@ -72,61 +72,61 @@
   queue = [(VMVoicemailService *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v4 = sub_100002784();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 136315394;
-    v33 = "";
-    v34 = 2080;
-    v35 = "";
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "#I %s%sInitializing Voicemail database", buf, 0x16u);
-  }
-
-  VMStoreInitializeLocked();
-  v5 = sub_100002784();
+  v5 = sub_100002784(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v33 = "";
-    v34 = 2080;
     v35 = "";
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I %s%sLoading services", buf, 0x16u);
+    v36 = 2080;
+    v37 = "";
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I %s%sInitializing Voicemail database", buf, 0x16u);
   }
 
-  v6 = objc_alloc_init(VMTranscriptionService);
-  transcriptionService = self->_transcriptionService;
-  self->_transcriptionService = v6;
+  v6 = VMStoreInitializeLocked();
+  v7 = sub_100002784(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315394;
+    v35 = "";
+    v36 = 2080;
+    v37 = "";
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "#I %s%sLoading services", buf, 0x16u);
+  }
 
-  v8 = [VMCarrierServicesController alloc];
-  v9 = self->_transcriptionService;
+  v8 = objc_alloc_init(VMTranscriptionService);
+  transcriptionService = self->_transcriptionService;
+  self->_transcriptionService = v8;
+
+  v10 = [VMCarrierServicesController alloc];
+  v11 = self->_transcriptionService;
   queue2 = [(VMVoicemailService *)self queue];
   telephonyClient = [(VMVoicemailService *)self telephonyClient];
-  v12 = [(VMCarrierServicesController *)v8 initWithTranscriptionService:v9 queue:queue2 telephonyClient:telephonyClient];
+  v14 = [(VMCarrierServicesController *)v10 initWithTranscriptionService:v11 queue:queue2 telephonyClient:telephonyClient];
   carrierServicesController = self->_carrierServicesController;
-  self->_carrierServicesController = v12;
+  self->_carrierServicesController = v14;
 
-  v14 = [VMDCarrierAccountDataSource alloc];
-  v15 = self->_carrierServicesController;
+  v16 = [VMDCarrierAccountDataSource alloc];
+  v17 = self->_carrierServicesController;
   queue3 = [(VMVoicemailService *)self queue];
   telephonyClient2 = [(VMVoicemailService *)self telephonyClient];
-  v18 = [(VMDCarrierAccountDataSource *)v14 initWithServicesController:v15 queue:queue3 telephonyClient:telephonyClient2];
+  v20 = [(VMDCarrierAccountDataSource *)v16 initWithServicesController:v17 queue:queue3 telephonyClient:telephonyClient2];
   carrierAccountDataSource = self->_carrierAccountDataSource;
-  self->_carrierAccountDataSource = v18;
+  self->_carrierAccountDataSource = v20;
 
-  v20 = [[VMDAccountManager alloc] initWithDataSource:self->_carrierAccountDataSource];
+  v22 = [[VMDAccountManager alloc] initWithDataSource:self->_carrierAccountDataSource];
   accountManager = self->_accountManager;
-  self->_accountManager = v20;
+  self->_accountManager = v22;
 
-  v22 = [VMDCarrierGreetingDataSource alloc];
-  v23 = self->_carrierServicesController;
+  v24 = [VMDCarrierGreetingDataSource alloc];
+  v25 = self->_carrierServicesController;
   telephonyClient3 = [(VMVoicemailService *)self telephonyClient];
-  v25 = [(VMDCarrierGreetingDataSource *)v22 initWithServicesController:v23 telephonyClient:telephonyClient3];
+  v27 = [(VMDCarrierGreetingDataSource *)v24 initWithServicesController:v25 telephonyClient:telephonyClient3];
   carrierGreetingDataSource = self->_carrierGreetingDataSource;
-  self->_carrierGreetingDataSource = v25;
+  self->_carrierGreetingDataSource = v27;
 
-  v27 = [[VMDGreetingManager alloc] initWithDataSource:self->_carrierGreetingDataSource];
+  v29 = [[VMDGreetingManager alloc] initWithDataSource:self->_carrierGreetingDataSource];
   greetingManager = self->_greetingManager;
-  self->_greetingManager = v27;
+  self->_greetingManager = v29;
 
   carrierServicesController = [(VMVoicemailService *)self carrierServicesController];
   [carrierServicesController start];
@@ -152,7 +152,7 @@
 
 - (void)startXpc
 {
-  v3 = sub_100002784();
+  v3 = sub_100002784(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315394;
@@ -179,133 +179,133 @@
 
   if (daemonListener != listenerCopy)
   {
-    v10 = sub_100002784();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_100002784(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v38 = "";
-      v39 = 2080;
       v40 = "";
-      v41 = 2112;
-      v42 = listenerCopy;
+      v41 = 2080;
+      v42 = "";
       v43 = 2112;
-      v44 = connectionCopy;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "#I %s%sAsked to accept a listener for an unknown type: %@, connection: %@", buf, 0x2Au);
+      v44 = listenerCopy;
+      v45 = 2112;
+      v46 = connectionCopy;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "#I %s%sAsked to accept a listener for an unknown type: %@, connection: %@", buf, 0x2Au);
     }
 
 LABEL_14:
-    v14 = 0;
+    v16 = 0;
     goto LABEL_15;
   }
 
-  v11 = [connectionCopy valueForEntitlement:@"com.apple.visualvoicemail.client"];
-  v10 = v11;
-  if (!v11 || ![v11 BOOLValue])
+  v12 = [connectionCopy valueForEntitlement:@"com.apple.visualvoicemail.client"];
+  v11 = v12;
+  if (!v12 || (v12 = [v12 BOOLValue], !v12))
   {
-    v16 = sub_100002784();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v18 = sub_100002784(v12);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v38 = "";
-      v39 = 2080;
       v40 = "";
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "#I %s%sClient connection was rejected because it was not entitled", buf, 0x16u);
+      v41 = 2080;
+      v42 = "";
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "#I %s%sClient connection was rejected because it was not entitled", buf, 0x16u);
     }
 
     goto LABEL_14;
   }
 
-  v12 = sub_100002784();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = sub_100002784(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v38 = "";
-    v39 = 2080;
     v40 = "";
-    v41 = 2112;
-    v42 = connectionCopy;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "#I %s%sAccepting new connection for Daemon XPC listener: %@", buf, 0x20u);
+    v41 = 2080;
+    v42 = "";
+    v43 = 2112;
+    v44 = connectionCopy;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "#I %s%sAccepting new connection for Daemon XPC listener: %@", buf, 0x20u);
   }
 
-  v36 = 0;
-  v13 = +[VMDaemon sharedDaemon];
-  v31 = [v13 unlock_if_needed:&v36];
+  v38 = 0;
+  v14 = +[VMDaemon sharedDaemon];
+  v33 = [v14 unlock_if_needed:&v38];
 
-  v14 = v31 == 0;
-  if (v31)
+  v16 = v33 == 0;
+  if (v33)
   {
-    v15 = sub_100002784();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = sub_100002784(v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v38 = "";
-      v39 = 2080;
       v40 = "";
-      v41 = 2112;
-      v42 = connectionCopy;
+      v41 = 2080;
+      v42 = "";
       v43 = 2112;
-      v44 = v31;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "#W %s%sFirst Unlock check failed. Unable to accept new connection: %@, err:%@", buf, 0x2Au);
+      v44 = connectionCopy;
+      v45 = 2112;
+      v46 = v33;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "#W %s%sFirst Unlock check failed. Unable to accept new connection: %@, err:%@", buf, 0x2Au);
     }
   }
 
   else
   {
-    if (v36 == 1)
+    if (v38 == 1)
     {
-      v18 = sub_100002784();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v20 = sub_100002784(v15);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v38 = "";
-        v39 = 2080;
         v40 = "";
-        v41 = 2112;
-        v42 = connectionCopy;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "#I %s%sdaemon was full started by %@", buf, 0x20u);
+        v41 = 2080;
+        v42 = "";
+        v43 = 2112;
+        v44 = connectionCopy;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "#I %s%sdaemon was full started by %@", buf, 0x20u);
       }
     }
 
-    v19 = +[VMClientWrapper voicemailClientXPCInterface];
-    [connectionCopy setRemoteObjectInterface:v19];
+    v21 = +[VMClientWrapper voicemailClientXPCInterface];
+    [connectionCopy setRemoteObjectInterface:v21];
 
-    v20 = +[VMClientWrapper voicemailServerXPCInterface];
-    [connectionCopy setExportedInterface:v20];
+    v22 = +[VMClientWrapper voicemailServerXPCInterface];
+    [connectionCopy setExportedInterface:v22];
 
-    v21 = [VMVoicemailServiceController alloc];
+    v23 = [VMVoicemailServiceController alloc];
     accountManager = [(VMVoicemailService *)self accountManager];
     greetingManager = [(VMVoicemailService *)self greetingManager];
     carrierServicesController = [(VMVoicemailService *)self carrierServicesController];
     transcriptionService = [(VMVoicemailService *)self transcriptionService];
     telephonyClient = [(VMVoicemailService *)self telephonyClient];
-    v26 = [(VMVoicemailServiceController *)v21 initWithConnection:connectionCopy accountManager:accountManager greetingManager:greetingManager carrierServicesController:carrierServicesController transcriptionService:transcriptionService telephonyClient:telephonyClient];
+    v28 = [(VMVoicemailServiceController *)v23 initWithConnection:connectionCopy accountManager:accountManager greetingManager:greetingManager carrierServicesController:carrierServicesController transcriptionService:transcriptionService telephonyClient:telephonyClient];
 
-    [connectionCopy setExportedObject:v26];
+    [connectionCopy setExportedObject:v28];
     clients = [(VMVoicemailService *)self clients];
-    [clients addObject:v26];
+    [clients addObject:v28];
 
     objc_initWeak(buf, self);
-    v32[0] = _NSConcreteStackBlock;
-    v32[1] = 3221225472;
-    v32[2] = sub_10003EE28;
-    v32[3] = &unk_1000EE608;
-    v32[4] = self;
-    v28 = connectionCopy;
-    v33 = v28;
-    objc_copyWeak(&v35, buf);
-    v15 = v26;
-    v34 = v15;
-    v29 = objc_retainBlock(v32);
-    [v28 setInvalidationHandler:v29];
-    [v28 setInterruptionHandler:v29];
-    [v28 resume];
+    v34[0] = _NSConcreteStackBlock;
+    v34[1] = 3221225472;
+    v34[2] = sub_10003EE28;
+    v34[3] = &unk_1000EE608;
+    v34[4] = self;
+    v30 = connectionCopy;
+    v35 = v30;
+    objc_copyWeak(&v37, buf);
+    v17 = v28;
+    v36 = v17;
+    v31 = objc_retainBlock(v34);
+    [v30 setInvalidationHandler:v31];
+    [v30 setInterruptionHandler:v31];
+    [v30 resume];
 
-    objc_destroyWeak(&v35);
+    objc_destroyWeak(&v37);
     objc_destroyWeak(buf);
   }
 
 LABEL_15:
-  return v14;
+  return v16;
 }
 
 - (id)findContextInfoWithAccountUUID:(id)d
@@ -365,34 +365,34 @@ LABEL_11:
 - (void)loadNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100002784();
+  v5 = sub_100002784(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     path = [notificationCopy path];
     *buf = 136315650;
-    v37 = "";
-    v38 = 2080;
     v39 = "";
-    v40 = 2112;
-    v41 = path;
+    v40 = 2080;
+    v41 = "";
+    v42 = 2112;
+    v43 = path;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#I %s%sReading notification file %@", buf, 0x20u);
   }
 
-  v35 = 0;
-  v7 = [[NSDictionary alloc] initWithContentsOfURL:notificationCopy error:&v35];
-  v8 = v35;
-  v9 = sub_100002784();
+  v37 = 0;
+  v7 = [[NSDictionary alloc] initWithContentsOfURL:notificationCopy error:&v37];
+  v8 = v37;
+  v9 = sub_100002784(v8);
   v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
   if (!v8)
   {
     if (v10)
     {
       *buf = 136315650;
-      v37 = "";
-      v38 = 2080;
       v39 = "";
-      v40 = 2112;
-      v41 = v7;
+      v40 = 2080;
+      v41 = "";
+      v42 = 2112;
+      v43 = v7;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "#I %s%sLoading notification %@", buf, 0x20u);
     }
 
@@ -407,115 +407,116 @@ LABEL_11:
     v13 = objc_opt_class();
     v14 = objc_opt_class();
     v15 = [NSSet setWithObjects:v12, v13, v14, objc_opt_class(), 0];
-    v34 = 0;
-    v16 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v15 fromData:path3 error:&v34];
-    v17 = v34;
+    v36 = 0;
+    v16 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v15 fromData:path3 error:&v36];
+    v17 = v36;
+    v18 = v17;
     if (v17)
     {
-      v18 = sub_100002784();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v19 = sub_100002784(v17);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v37 = "";
-        v38 = 2080;
         v39 = "";
-        v40 = 2112;
-        v41 = v17;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "#W %s%sError decoding data notification: %@", buf, 0x20u);
+        v40 = 2080;
+        v41 = "";
+        v42 = 2112;
+        v43 = v18;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "#W %s%sError decoding data notification: %@", buf, 0x20u);
       }
 
       goto LABEL_28;
     }
 
-    v18 = sub_100002784();
-    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+    v19 = sub_100002784(0);
+    v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
     if (v16)
     {
-      if (v19)
+      if (v20)
       {
         *buf = 136315650;
-        v37 = "";
-        v38 = 2080;
         v39 = "";
-        v40 = 2112;
-        v41 = v16;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "#I %s%sLoading notification info %@", buf, 0x20u);
+        v40 = 2080;
+        v41 = "";
+        v42 = 2112;
+        v43 = v16;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "#I %s%sLoading notification info %@", buf, 0x20u);
       }
 
-      v18 = [(VMVoicemailService *)self findContextInfoWithAccountUUID:v9];
-      log = sub_100002784();
-      v20 = os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT);
-      if (v18)
+      v19 = [(VMVoicemailService *)self findContextInfoWithAccountUUID:v9];
+      log = sub_100002784(v19);
+      v21 = os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT);
+      if (v19)
       {
-        v32 = v15;
-        if (v20)
+        v34 = v15;
+        if (v21)
         {
-          [v18 accountID];
-          v22 = v21 = v16;
+          [v19 accountID];
+          v23 = v22 = v16;
           *buf = 136316162;
-          v37 = "";
-          v38 = 2080;
           v39 = "";
-          v40 = 2112;
-          v41 = v18;
+          v40 = 2080;
+          v41 = "";
           v42 = 2112;
-          v43 = v22;
+          v43 = v19;
           v44 = 2112;
-          v45 = v9;
+          v45 = v23;
+          v46 = 2112;
+          v47 = v9;
           _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEFAULT, "#I %s%sLoading notification for subscription %@ with account %@, accountUUID %@", buf, 0x34u);
 
-          v16 = v21;
+          v16 = v22;
         }
 
-        v31 = v16;
-        v23 = [[NSMutableDictionary alloc] initWithDictionary:v16];
-        uuid = [v18 uuid];
+        v33 = v16;
+        v24 = [[NSMutableDictionary alloc] initWithDictionary:v16];
+        uuid = [v19 uuid];
         uUIDString = [uuid UUIDString];
-        [v23 setObject:uUIDString forKey:kCTIndicatorVoiceMailSubInstance];
+        [v24 setObject:uUIDString forKey:kCTIndicatorVoiceMailSubInstance];
 
-        v26 = sub_100002784();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        v28 = sub_100002784(v27);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315906;
-          v37 = "";
-          v38 = 2080;
           v39 = "";
-          v40 = 2112;
-          v41 = v23;
+          v40 = 2080;
+          v41 = "";
           v42 = 2112;
-          v43 = v18;
-          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "#I %s%sPosting notification %@ for subscription %@", buf, 0x2Au);
+          v43 = v24;
+          v44 = 2112;
+          v45 = v19;
+          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "#I %s%sPosting notification %@ for subscription %@", buf, 0x2Au);
         }
 
         selfCopy = self;
-        path2 = v23;
-        [(VMVoicemailService *)selfCopy executeHandlerForNotificationWithName:kCTIndicatorsVoiceMailNotification info:v23];
-        v16 = v31;
-        v15 = v32;
-        v17 = 0;
+        path2 = v24;
+        [(VMVoicemailService *)selfCopy executeHandlerForNotificationWithName:kCTIndicatorsVoiceMailNotification info:v24];
+        v16 = v33;
+        v15 = v34;
+        v18 = 0;
         goto LABEL_27;
       }
 
-      if (!v20)
+      if (!v21)
       {
         path2 = log;
         goto LABEL_27;
       }
 
       *buf = 136315650;
-      v37 = "";
-      v38 = 2080;
       v39 = "";
-      v40 = 2112;
-      v41 = v9;
-      v29 = "#W %s%sSubscription for accountUUID %@ not found";
+      v40 = 2080;
+      v41 = "";
+      v42 = 2112;
+      v43 = v9;
+      v31 = "#W %s%sSubscription for accountUUID %@ not found";
       path2 = log;
-      v30 = log;
+      v32 = log;
     }
 
     else
     {
-      if (!v19)
+      if (!v20)
       {
 LABEL_28:
 
@@ -524,16 +525,16 @@ LABEL_28:
 
       path2 = [notificationCopy path];
       *buf = 136315650;
-      v37 = "";
-      v38 = 2080;
       v39 = "";
-      v40 = 2112;
-      v41 = path2;
-      v29 = "#W %s%sInfo dictionary is nil for notification file at path %@";
-      v30 = v18;
+      v40 = 2080;
+      v41 = "";
+      v42 = 2112;
+      v43 = path2;
+      v31 = "#W %s%sInfo dictionary is nil for notification file at path %@";
+      v32 = v19;
     }
 
-    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, v29, buf, 0x20u);
+    _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, v31, buf, 0x20u);
 LABEL_27:
 
     goto LABEL_28;
@@ -543,13 +544,13 @@ LABEL_27:
   {
     path3 = [notificationCopy path];
     *buf = 136315906;
-    v37 = "";
-    v38 = 2080;
     v39 = "";
-    v40 = 2112;
-    v41 = path3;
+    v40 = 2080;
+    v41 = "";
     v42 = 2112;
-    v43 = v8;
+    v43 = path3;
+    v44 = 2112;
+    v45 = v8;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "#W %s%sCould not load notification file at path %@ due to error %@", buf, 0x2Au);
 LABEL_29:
   }
@@ -558,46 +559,46 @@ LABEL_29:
 - (void)removeNotification:(id)notification
 {
   notificationCopy = notification;
-  v4 = sub_100002784();
+  v4 = sub_100002784(notificationCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     path = [notificationCopy path];
     *buf = 136315650;
-    v13 = "";
-    v14 = 2080;
-    v15 = "";
-    v16 = 2112;
-    v17 = path;
+    v14 = "";
+    v15 = 2080;
+    v16 = "";
+    v17 = 2112;
+    v18 = path;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "#I %s%sRemoving notification file %@", buf, 0x20u);
   }
 
   v6 = +[NSFileManager defaultManager];
-  v11 = 0;
-  v7 = [v6 removeItemAtURL:notificationCopy error:&v11];
-  v8 = v11;
+  v12 = 0;
+  v7 = [v6 removeItemAtURL:notificationCopy error:&v12];
+  v8 = v12;
 
   if ((v7 & 1) == 0)
   {
-    v9 = sub_100002784();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100002784(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       path2 = [notificationCopy path];
       *buf = 136315906;
-      v13 = "";
-      v14 = 2080;
-      v15 = "";
-      v16 = 2112;
-      v17 = path2;
-      v18 = 2112;
-      v19 = v8;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "#W %s%sUnable to remove notification file %@ with error %@", buf, 0x2Au);
+      v14 = "";
+      v15 = 2080;
+      v16 = "";
+      v17 = 2112;
+      v18 = path2;
+      v19 = 2112;
+      v20 = v8;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "#W %s%sUnable to remove notification file %@ with error %@", buf, 0x2Au);
     }
   }
 }
 
 - (void)loadAllNotifications
 {
-  v3 = sub_100085730();
+  v3 = sub_100085730(self);
   path = [v3 path];
   v5 = +[NSFileManager defaultManager];
   path2 = [v3 path];
@@ -605,91 +606,91 @@ LABEL_29:
 
   if (v7)
   {
-    v8 = +[NSFileManager defaultManager];
-    v25 = 0;
-    v9 = [v8 contentsOfDirectoryAtURL:v3 includingPropertiesForKeys:0 options:1 error:&v25];
-    v10 = v25;
+    v9 = +[NSFileManager defaultManager];
+    v27 = 0;
+    v10 = [v9 contentsOfDirectoryAtURL:v3 includingPropertiesForKeys:0 options:1 error:&v27];
+    v11 = v27;
 
-    v11 = sub_100002784();
-    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-    if (v10)
+    v13 = sub_100002784(v12);
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+    if (v11)
     {
-      if (v12)
+      if (v14)
       {
         path3 = [v3 path];
         *buf = 136315906;
-        v28 = "";
-        v29 = 2080;
         v30 = "";
-        v31 = 2112;
-        v32 = path3;
+        v31 = 2080;
+        v32 = "";
         v33 = 2112;
-        v34 = v10;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "#W %s%sError while reading notification directory at path: %@ error: %@", buf, 0x2Au);
+        v34 = path3;
+        v35 = 2112;
+        v36 = v11;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "#W %s%sError while reading notification directory at path: %@ error: %@", buf, 0x2Au);
       }
     }
 
     else
     {
-      if (v12)
+      if (v14)
       {
-        v15 = [v9 count];
+        v17 = [v10 count];
         *buf = 136315906;
-        v28 = "";
-        v29 = 2080;
         v30 = "";
-        v31 = 2112;
-        v32 = path;
-        v33 = 2048;
-        v34 = v15;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "#I %s%sReading notification directory %@, %lu items", buf, 0x2Au);
+        v31 = 2080;
+        v32 = "";
+        v33 = 2112;
+        v34 = path;
+        v35 = 2048;
+        v36 = v17;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "#I %s%sReading notification directory %@, %lu items", buf, 0x2Au);
       }
 
+      v25 = 0u;
+      v26 = 0u;
       v23 = 0u;
       v24 = 0u;
-      v21 = 0u;
-      v22 = 0u;
-      v11 = v9;
-      v16 = [v11 countByEnumeratingWithState:&v21 objects:v26 count:16];
-      if (v16)
+      v13 = v10;
+      v18 = [v13 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      if (v18)
       {
-        v17 = v16;
-        v18 = *v22;
+        v19 = v18;
+        v20 = *v24;
         do
         {
-          for (i = 0; i != v17; i = i + 1)
+          for (i = 0; i != v19; i = i + 1)
           {
-            if (*v22 != v18)
+            if (*v24 != v20)
             {
-              objc_enumerationMutation(v11);
+              objc_enumerationMutation(v13);
             }
 
-            v20 = *(*(&v21 + 1) + 8 * i);
-            [(VMVoicemailService *)self loadNotification:v20, v21];
-            [(VMVoicemailService *)self removeNotification:v20];
+            v22 = *(*(&v23 + 1) + 8 * i);
+            [(VMVoicemailService *)self loadNotification:v22, v23];
+            [(VMVoicemailService *)self removeNotification:v22];
           }
 
-          v17 = [v11 countByEnumeratingWithState:&v21 objects:v26 count:16];
+          v19 = [v13 countByEnumeratingWithState:&v23 objects:v28 count:16];
         }
 
-        while (v17);
+        while (v19);
       }
     }
   }
 
   else
   {
-    v10 = sub_100002784();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_100002784(v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       path4 = [v3 path];
       *buf = 136315650;
-      v28 = "";
-      v29 = 2080;
       v30 = "";
-      v31 = 2112;
-      v32 = path4;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "#I %s%sNotification directory %@ does not exit", buf, 0x20u);
+      v31 = 2080;
+      v32 = "";
+      v33 = 2112;
+      v34 = path4;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "#I %s%sNotification directory %@ does not exit", buf, 0x20u);
     }
   }
 }

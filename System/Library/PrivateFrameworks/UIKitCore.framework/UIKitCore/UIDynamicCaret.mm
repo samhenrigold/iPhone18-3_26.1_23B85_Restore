@@ -152,9 +152,9 @@ void __33__UIDynamicCaret_backgroundImage__block_invoke(uint64_t a1)
 - (BOOL)isActive
 {
   v2 = UIKeyboardGetCurrentInputMode();
-  v3 = [v2 isEqualToString:@"intl_HWR"];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v3;
+  return isEqualToString;
 }
 
 - (void)setIsActive:(BOOL)active
@@ -303,9 +303,9 @@ void __33__UIDynamicCaret_backgroundImage__block_invoke(uint64_t a1)
 - (BOOL)isDeleteCandidate:(id)candidate
 {
   candidate = [candidate candidate];
-  v4 = [candidate isEqualToString:@"DELETE"];
+  isEqualToString = objc_msgSend_isEqualToString_(candidate);
 
-  return v4;
+  return isEqualToString;
 }
 
 - (void)setCandidates:(id)candidates inlineText:(id)text inlineRect:(CGRect)rect maxX:(double)x layout:(BOOL)layout

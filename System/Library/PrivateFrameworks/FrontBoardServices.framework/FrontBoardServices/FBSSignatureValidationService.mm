@@ -72,44 +72,45 @@
 
 - (unint64_t)_validateAppStoreApp:(id)app
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   appCopy = app;
   v5 = objc_alloc_init(getMISLaunchWarningDatabaseClass());
   executableURL = [appCopy executableURL];
-  v13 = 0;
-  v7 = [v5 queryForExecutableURL:executableURL withError:&v13];
-  v8 = v13;
+  v15 = 0;
+  v7 = [v5 queryForExecutableURL:executableURL withError:&v15];
+  v8 = v15;
+  v9 = v8;
   if (!v7)
   {
-    v11 = FBLogCommon();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = FBLogCommon(v8);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(FBSSignatureValidationService *)executableURL _validateAppStoreApp:v8, v11];
+      [(FBSSignatureValidationService *)executableURL _validateAppStoreApp:v9, v13];
     }
 
     goto LABEL_10;
   }
 
-  if (![v7 warningState] || (objc_msgSend(v7, "isUserOverridden") & 1) != 0)
+  if (![v7 warningState] || (v10 = objc_msgSend(v7, "isUserOverridden"), (v10 & 1) != 0))
   {
 LABEL_10:
-    v10 = 8;
+    v12 = 8;
     goto LABEL_11;
   }
 
-  v9 = FBLogCommon();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v11 = FBLogCommon(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v15 = executableURL;
-    _os_log_impl(&dword_1A2DBB000, v9, OS_LOG_TYPE_DEFAULT, "Blocking bundle with outstanding launch warning: %{public}@", buf, 0xCu);
+    v17 = executableURL;
+    _os_log_impl(&dword_1A2DBB000, v11, OS_LOG_TYPE_DEFAULT, "Blocking bundle with outstanding launch warning: %{public}@", buf, 0xCu);
   }
 
-  v10 = 2;
+  v12 = 2;
   [(FBSSignatureValidationService *)self _logTrustState:2 forApp:appCopy reason:@"Deny-Listed"];
 LABEL_11:
 
-  return v10;
+  return v12;
 }
 
 - (unint64_t)_validateNonAppStoreApp:(id)app
@@ -284,7 +285,7 @@ void __57__FBSSignatureValidationService__validateNonAppStoreApp___block_invoke_
   v18 = *MEMORY[0x1E69E9840];
   appCopy = app;
   reasonCopy = reason;
-  v9 = FBLogCommon();
+  v9 = FBLogCommon(reasonCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     bundleIdentifier = [appCopy bundleIdentifier];

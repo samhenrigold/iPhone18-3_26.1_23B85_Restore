@@ -34,34 +34,34 @@
 
 + (id)convertFromMatchingSpans:(id)spans
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   spansCopy = spans;
   if (spansCopy)
   {
     v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v6 = spansCopy;
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = [self convertFromMatchingSpan:{*(*(&v13 + 1) + 8 * i), v13}];
+          v10 = [self convertFromMatchingSpan:{*(*(&v12 + 1) + 8 * i), v12}];
           [v5 addObject:v10];
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -73,14 +73,12 @@
     v5 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 + (id)convertFromMatchingSpan:(id)span
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   spanCopy = span;
   if (spanCopy)
   {
@@ -95,29 +93,29 @@
     -[SIRINLUEXTERNALSpan setEndTokenIndex:](v4, "setEndTokenIndex:", [spanCopy endTokenIndex]);
     [spanCopy score];
     [(SIRINLUEXTERNALSpan *)v4 setScore:?];
-    usoGraph = [spanCopy usoGraph];
-    v8 = [SiriNLUExternalTypesUsoGraphConverter convertFromUsoGraph:usoGraph];
+    v7 = objc_msgSend_usoGraph(spanCopy);
+    v8 = [SiriNLUExternalTypesUsoGraphConverter convertFromUsoGraph:v7];
     [(SIRINLUEXTERNALSpan *)v4 setUsoGraph:v8];
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     matcherNames = [spanCopy matcherNames];
-    v10 = [matcherNames countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v10 = [matcherNames countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v10)
     {
-      v11 = *v18;
+      v11 = *v17;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(matcherNames);
           }
 
-          v13 = *(*(&v17 + 1) + 8 * i);
+          v13 = *(*(&v16 + 1) + 8 * i);
           if ([v13 intValue] == 1)
           {
             v14 = 1;
@@ -141,7 +139,7 @@
           [(SIRINLUEXTERNALSpan *)v4 addMatcherNames:v14];
         }
 
-        v10 = [matcherNames countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [matcherNames countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v10);
@@ -153,48 +151,44 @@
     v4 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 + (id)convertFromRepetitionResults:(id)results
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   resultsCopy = results;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if (resultsCopy)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v6 = resultsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = [self convertFromRepetitionResult:{*(*(&v13 + 1) + 8 * i), v13}];
+          v10 = [self convertFromRepetitionResult:{*(*(&v12 + 1) + 8 * i), v12}];
           [v5 addObject:v10];
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -219,41 +213,39 @@
 
 + (id)convertFromUserParses:(id)parses
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   parsesCopy = parses;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if (parsesCopy)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v6 = parsesCopy;
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = [self convertFromUserParse:{*(*(&v13 + 1) + 8 * i), v13}];
+          v10 = [self convertFromUserParse:{*(*(&v12 + 1) + 8 * i), v12}];
           [v5 addObject:v10];
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -326,34 +318,34 @@
 
 + (id)convertFromAsrOutputs:(id)outputs
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   outputsCopy = outputs;
   if (outputsCopy)
   {
     v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v6 = outputsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = [self convertFromAsrHypothesis:{*(*(&v13 + 1) + 8 * i), v13}];
+          v10 = [self convertFromAsrHypothesis:{*(*(&v12 + 1) + 8 * i), v12}];
           [v5 addObject:v10];
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -365,23 +357,21 @@
     v5 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 + (id)convertFromUUID:(id)d
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v4 = dCopy;
   if (dCopy)
   {
+    v9 = 0;
     v10 = 0;
-    v11 = 0;
-    [dCopy getUUIDBytes:&v10];
-    v6 = v10;
-    v5 = v11;
+    [dCopy getUUIDBytes:&v9];
+    v6 = v9;
+    v5 = v10;
     v7 = objc_alloc_init(SIRINLUEXTERNALUUID);
     [(SIRINLUEXTERNALUUID *)v7 setLowInt:v6];
     [(SIRINLUEXTERNALUUID *)v7 setHighInt:v5];
@@ -391,8 +381,6 @@
   {
     v7 = 0;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -433,34 +421,34 @@
 
 + (id)convertFromAsrTokens:(id)tokens
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   tokensCopy = tokens;
   if (tokensCopy)
   {
     v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v6 = tokensCopy;
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = [self convertFromAsrTokenInformation:{*(*(&v13 + 1) + 8 * i), v13}];
+          v10 = [self convertFromAsrTokenInformation:{*(*(&v12 + 1) + 8 * i), v12}];
           [v5 addObject:v10];
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -471,8 +459,6 @@
   {
     v5 = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -549,34 +535,34 @@
 
 + (id)convertFromTasks:(id)tasks
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   tasksCopy = tasks;
   if (tasksCopy)
   {
     v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v6 = tasksCopy;
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = [self convertFromTask:{*(*(&v13 + 1) + 8 * i), v13}];
+          v10 = [self convertFromTask:{*(*(&v12 + 1) + 8 * i), v12}];
           [v5 addObject:v10];
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -587,8 +573,6 @@
   {
     v5 = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -618,34 +602,34 @@
 
 + (id)convertFromEntityCandidates:(id)candidates
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   candidatesCopy = candidates;
   if (candidatesCopy)
   {
     v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v6 = candidatesCopy;
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = [self convertFromEntityCandidate:{*(*(&v13 + 1) + 8 * i), v13}];
+          v10 = [self convertFromEntityCandidate:{*(*(&v12 + 1) + 8 * i), v12}];
           [v5 addObject:v10];
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -656,8 +640,6 @@
   {
     v5 = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -725,34 +707,34 @@
 
 + (id)convertFromRRAnnotations:(id)annotations
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   annotationsCopy = annotations;
   if (annotationsCopy)
   {
     v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v6 = annotationsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = [self convertFromRRAnnotation:{*(*(&v13 + 1) + 8 * i), v13}];
+          v10 = [self convertFromRRAnnotation:{*(*(&v12 + 1) + 8 * i), v12}];
           [v5 addObject:v10];
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -763,8 +745,6 @@
   {
     v5 = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -825,7 +805,7 @@
 
 + (id)convertFromNluLegacyNLContext:(id)context
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   if (!contextCopy)
   {
@@ -843,31 +823,31 @@
   v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
   [(SIRINLUEXTERNALLegacyNLContext *)v5 setRenderedTexts:v7];
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   renderedTexts = [contextCopy renderedTexts];
-  v9 = [renderedTexts countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [renderedTexts countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(renderedTexts);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
+        v12 = *(*(&v18 + 1) + 8 * i);
         renderedTexts2 = [(SIRINLUEXTERNALLegacyNLContext *)v5 renderedTexts];
         v14 = [self convertFromString:v12];
         [renderedTexts2 addObject:v14];
       }
 
-      v9 = [renderedTexts countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [renderedTexts countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v9);
@@ -895,8 +875,6 @@ LABEL_16:
   }
 
 LABEL_17:
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -965,7 +943,7 @@ LABEL_13:
 
 + (id)convertFromNluTurnInput:(id)input
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   inputCopy = input;
   if (inputCopy)
   {
@@ -1009,9 +987,9 @@ LABEL_13:
         v20 = loggerContext(1);
         if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
         {
-          v23 = 136315138;
-          v24 = "+[SiriNLUExternalTypesConverter convertFromNluTurnInput:]";
-          _os_log_impl(&dword_1C8774000, v20, OS_LOG_TYPE_INFO, "%s [WARN]: The SIRINLUTurnInput contains multiple system dialog act, we are not converting them to SIRINLUEXTERNALTurnInput", &v23, 0xCu);
+          v22 = 136315138;
+          v23 = "+[SiriNLUExternalTypesConverter convertFromNluTurnInput:]";
+          _os_log_impl(&dword_1C8774000, v20, OS_LOG_TYPE_INFO, "%s [WARN]: The SIRINLUTurnInput contains multiple system dialog act, we are not converting them to SIRINLUEXTERNALTurnInput", &v22, 0xCu);
         }
       }
     }
@@ -1021,8 +999,6 @@ LABEL_13:
   {
     v5 = 0;
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -1081,7 +1057,7 @@ LABEL_13:
 
 + (id)convertFromNluRequest:(id)request
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   if (requestCopy)
   {
@@ -1095,29 +1071,29 @@ LABEL_13:
     [(SIRINLUEXTERNALCDMNluRequest *)v5 setCurrentTurnInput:v9];
 
     v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     previousTurnInputs = [requestCopy previousTurnInputs];
-    v12 = [previousTurnInputs countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v12 = [previousTurnInputs countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v12)
     {
-      v13 = *v19;
+      v13 = *v18;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v19 != v13)
+          if (*v18 != v13)
           {
             objc_enumerationMutation(previousTurnInputs);
           }
 
-          v15 = [self convertFromNluTurnInput:*(*(&v18 + 1) + 8 * i)];
+          v15 = [self convertFromNluTurnInput:*(*(&v17 + 1) + 8 * i)];
           [v10 addObject:v15];
         }
 
-        v12 = [previousTurnInputs countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v12 = [previousTurnInputs countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v12);
@@ -1130,8 +1106,6 @@ LABEL_13:
   {
     v5 = 0;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

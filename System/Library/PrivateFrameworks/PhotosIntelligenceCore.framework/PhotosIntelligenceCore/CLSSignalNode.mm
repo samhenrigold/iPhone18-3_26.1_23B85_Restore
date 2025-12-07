@@ -6,9 +6,37 @@
 - (BOOL)passesHighRecallWithSignal:(id)signal;
 - (BOOL)passesWithSignal:(id)signal;
 - (CLSSignalNode)initWithIdentifier:(unint64_t)identifier name:(id)name operatingPoint:(double)point highPrecisionOperatingPoint:(double)operatingPoint highRecallOperatingPoint:(double)recallOperatingPoint;
+- (id)signalInfoWithIsHierarchical:(BOOL)hierarchical;
 @end
 
 @implementation CLSSignalNode
+
+- (id)signalInfoWithIsHierarchical:(BOOL)hierarchical
+{
+  hierarchicalCopy = hierarchical;
+  v14[6] = *MEMORY[0x277D85DE8];
+  v13[0] = @"identifier";
+  v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_identifier];
+  name = self->_name;
+  v14[0] = v5;
+  v14[1] = name;
+  v13[1] = @"name";
+  v13[2] = @"operatingPoint";
+  v7 = [MEMORY[0x277CCABB0] numberWithDouble:self->_operatingPoint];
+  v14[2] = v7;
+  v13[3] = @"highPrecisionOperatingPoint";
+  v8 = [MEMORY[0x277CCABB0] numberWithDouble:self->_highPrecisionOperatingPoint];
+  v14[3] = v8;
+  v13[4] = @"highRecallOperatingPoint";
+  v9 = [MEMORY[0x277CCABB0] numberWithDouble:self->_highRecallOperatingPoint];
+  v14[4] = v9;
+  v13[5] = @"isHierarchical";
+  v10 = [MEMORY[0x277CCABB0] numberWithBool:hierarchicalCopy];
+  v14[5] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:6];
+
+  return v11;
+}
 
 - (BOOL)failsHighRecallWithSignal:(id)signal
 {

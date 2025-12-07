@@ -1155,7 +1155,7 @@ LABEL_7:
 {
   [a1 count];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_1CAB19000, v1, v2, "Warning: Currently no support for generating 'Time to Leave' travel message for travel sections with count: %lu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_2(&dword_1CAB19000, v1, v2, "Warning: Currently no support for generating 'Time to Leave' travel message for travel sections with count: %lu", v3, v4, v5, v6);
 }
 
 + (void)_travelAdvisoryDescriptionOfType:hypothesis:eta:location:.cold.1()
@@ -1169,14 +1169,14 @@ LABEL_7:
 {
   v1 = [MEMORY[0x1E6966B28] geoTransportTypeAsString:{objc_msgSend(a1, "transportType")}];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_1CAB19000, v2, v3, "Warning: Currently no support for generating 'Time to Leave' travel time message strings for the %@ transport type", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2(&dword_1CAB19000, v2, v3, "Warning: Currently no support for generating 'Time to Leave' travel time message strings for the %@ transport type", v4, v5, v6, v7);
 }
 
 + (void)travelTimeLeaveNowStringWithHypothesis:(void *)a1 eta:location:.cold.1(void *a1)
 {
   v1 = [MEMORY[0x1E6966B28] geoTransportTypeAsString:{objc_msgSend(a1, "transportType")}];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_1CAB19000, v2, v3, "Warning: Currently no support for generating 'Time to Leave' 'Leave now' message strings for the %@ transport type", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2(&dword_1CAB19000, v2, v3, "Warning: Currently no support for generating 'Time to Leave' 'Leave now' message strings for the %@ transport type", v4, v5, v6, v7);
 }
 
 @end

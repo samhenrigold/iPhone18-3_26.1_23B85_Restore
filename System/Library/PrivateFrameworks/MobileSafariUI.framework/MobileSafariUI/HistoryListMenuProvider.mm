@@ -20,7 +20,7 @@
 
 - (id)makeMenuElementsForPersona:(int64_t)persona
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA7DCF0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA7DCF0, &unk_215A96A70);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_215A96990;
   v5 = objc_opt_self();
@@ -39,7 +39,7 @@
   _Block_release(v7);
   *(v4 + 32) = elementWithUncachedProvider_;
 
-  sub_2159F7DA8(0, &unk_2811A25B0);
+  sub_2159F7DA8(0, &unk_2811A25B0, 0x277D75720);
   v10 = sub_215A705D0();
 
   return v10;

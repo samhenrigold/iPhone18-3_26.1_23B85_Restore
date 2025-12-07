@@ -56,7 +56,7 @@
   return result;
 }
 
-uint64_t __135__SBAppSwitcherScrollViewAccessibility__ax_adjustedContentOffsetForDifferentialScrollingToShowFocusItemWithInfo_proposedContentOffset___block_invoke(uint64_t a1)
+void *__135__SBAppSwitcherScrollViewAccessibility__ax_adjustedContentOffsetForDifferentialScrollingToShowFocusItemWithInfo_proposedContentOffset___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) contentOffsetForIndex:*(a1 + 48) alignment:2];
   v3 = *(*(a1 + 40) + 8);

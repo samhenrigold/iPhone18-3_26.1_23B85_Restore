@@ -56,25 +56,26 @@
 {
   if (!__transactionRef)
   {
-    v5 = 0;
-    v6 = &v5;
-    v7 = 0x2020000000;
+    v6 = 0;
+    v7 = &v6;
+    v8 = 0x2020000000;
     v2 = getBKSDisplayBrightnessTransactionCreateSymbolLoc_ptr;
-    v8 = getBKSDisplayBrightnessTransactionCreateSymbolLoc_ptr;
+    v9 = getBKSDisplayBrightnessTransactionCreateSymbolLoc_ptr;
     if (!getBKSDisplayBrightnessTransactionCreateSymbolLoc_ptr)
     {
       v3 = BackBoardServicesLibrary();
-      v6[3] = dlsym(v3, "BKSDisplayBrightnessTransactionCreate");
-      getBKSDisplayBrightnessTransactionCreateSymbolLoc_ptr = v6[3];
-      v2 = v6[3];
+      v7[3] = dlsym(v3, "BKSDisplayBrightnessTransactionCreate");
+      getBKSDisplayBrightnessTransactionCreateSymbolLoc_ptr = v7[3];
+      v2 = v7[3];
     }
 
-    _Block_object_dispose(&v5, 8);
+    _Block_object_dispose(&v6, 8);
     if (!v2)
     {
-      v4 = [PSContactsAuthorizationLevelController dealloc];
-      _Block_object_dispose(&v5, 8);
-      _Unwind_Resume(v4);
+      [PSContactsAuthorizationLevelController dealloc];
+      v5 = v4;
+      _Block_object_dispose(&v6, 8);
+      _Unwind_Resume(v5);
     }
 
     __transactionRef = v2(*MEMORY[0x1E695E480]);

@@ -28,14 +28,21 @@
 - (double)_scaleFactorForItems:(id)items spacing:(double)spacing dimension:(double)dimension maxWidth:(double)width;
 - (double)_shadowAlpha;
 - (double)_totalDimensionForItems:(id)items spacing:(double)spacing dimension:(double)dimension scaleFactor:(double)factor;
+- (id)_currentMorphTarget;
 - (id)_defaultUnselectedTintColorForDefaultTV;
 - (id)_effectiveUnselectedLabelTintColor;
 - (id)_effectiveUnselectedTabTintColorConsideringView:(id)view;
 - (id)_effectiveUnselectedTintColor;
 - (id)_glassGroupContainer;
+- (id)_hostedElements;
 - (id)_hostedElementsLayoutHandler;
+- (id)_morphAnimationsForHostedElementsDidEnd;
 - (id)_normalInheritedTintColor;
 - (id)_resolvedPresentationSourceItemForItem:(id *)item;
+- (id)_selectCollapseTabIfPossible;
+- (id)_setCurrentMorphTarget:(id *)result;
+- (id)_setHostedElements:(id *)result;
+- (id)_setHostedElementsLayoutHandler:(id *)result;
 - (id)_systemDefaultFocusGroupIdentifier;
 - (id)_traitCollectionForChildEnvironment:(id)environment;
 - (id)_viewsForMorphingToTarget:(id *)target;
@@ -46,15 +53,7 @@
 - (int64_t)_expectedInterfaceOrientation;
 - (int64_t)_focusedIndex;
 - (int64_t)_imageStyle;
-- (uint64_t)_currentMorphTarget;
-- (uint64_t)_hostedElements;
 - (uint64_t)_minimizeBehavior;
-- (uint64_t)_morphAnimationsForHostedElementsDidEnd;
-- (uint64_t)_performWhileIgnoringLock:(uint64_t)result;
-- (uint64_t)_selectCollapseTabIfPossible;
-- (uint64_t)_setCurrentMorphTarget:(uint64_t)result;
-- (uint64_t)_setHostedElements:(uint64_t)result;
-- (uint64_t)_setHostedElementsLayoutHandler:(uint64_t)result;
 - (uint64_t)_updateMorphTargetBlock;
 - (unint64_t)_edgesPropagatingSafeAreaInsetsToSubviews;
 - (void)_accessibilityButtonShapesParametersDidChange;
@@ -73,6 +72,7 @@
 - (void)_handleCurrentMorphTargetChange;
 - (void)_installDefaultAppearance;
 - (void)_makeCurrentButtonFirstResponder;
+- (void)_performWhileIgnoringLock:(void *)result;
 - (void)_populateArchivedSubviews:(id)subviews;
 - (void)_sendAction:(id)action withEvent:(id)event;
 - (void)_setBackdropViewLayerGroupName:(id)name;
@@ -449,7 +449,7 @@ LABEL_7:
 void __24__UITabBar__isPhotosApp__block_invoke()
 {
   v0 = _UIMainBundleIdentifier();
-  _MergedGlobals_21_1 = [v0 isEqualToString:@"com.apple.mobileslideshow"];
+  _MergedGlobals_21_1 = objc_msgSend_isEqualToString_(v0);
 }
 
 - (BOOL)_isMinimized
@@ -1058,7 +1058,7 @@ LABEL_6:
 
 + (void)_initializeForIdiom:(int64_t)idiom
 {
-  v40[1] = *MEMORY[0x1E69E9840];
+  v45[1] = *MEMORY[0x1E69E9840];
   if (idiom == 2 || idiom == 8)
   {
     if (objc_opt_class() != self)
@@ -1066,85 +1066,87 @@ LABEL_6:
       return;
     }
 
-    v28 = _UIAppearanceContainerForUserInterfaceIdiom();
-    v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v28 count:1];
-    v4 = [(UIView *)UITabBar appearanceWhenContainedInInstancesOfClasses:v3];
-    [v4 _setBarMetrics:3];
-    [v4 _setScrollsItems:1];
-    [v4 setItemPositioning:2];
-    [v4 setItemSpacing:70.0];
+    v31 = _UIAppearanceContainerForUserInterfaceIdiom(idiom);
+    v33 = v32;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v33 count:{1, v31}];
+    v7 = [(UIView *)UITabBar appearanceWhenContainedInInstancesOfClasses:v6];
+    [v7 _setBarMetrics:3];
+    [v7 _setScrollsItems:1];
+    [v7 setItemPositioning:2];
+    [v7 setItemSpacing:70.0];
     goto LABEL_10;
   }
 
   if (idiom == 3 && objc_opt_class() == self)
   {
-    v40[0] = _UIAppearanceContainerForUserInterfaceIdiom();
-    v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:1];
-    v4 = [(UIView *)UITabBar appearanceWhenContainedInInstancesOfClasses:v3];
-    v5 = objc_alloc_init(UIImage);
-    [v4 setBackgroundImage:v5];
+    v4 = _UIAppearanceContainerForUserInterfaceIdiom(3);
+    v45[0] = v5;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:{1, v4}];
+    v7 = [(UIView *)UITabBar appearanceWhenContainedInInstancesOfClasses:v6];
+    v8 = objc_alloc_init(UIImage);
+    [v7 setBackgroundImage:v8];
 
     if ((_UISolariumEnabled() & 1) == 0)
     {
-      v6 = +[UIColor _externalBarBackgroundColor];
-      v7 = [v6 colorWithAlphaComponent:0.8];
-      [v4 setBackgroundColor:v7];
+      v9 = +[UIColor _externalBarBackgroundColor];
+      v10 = [v9 colorWithAlphaComponent:0.8];
+      [v7 setBackgroundColor:v10];
 
-      v8 = [UIColorEffect colorEffectSaturate:1.5];
-      v9 = [UIBlurEffect effectWithBlurRadius:10.0];
-      v39[0] = v8;
-      v39[1] = v9;
-      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:2];
-      [v4 setBackgroundEffects:v10];
+      v11 = [UIColorEffect colorEffectSaturate:1.5];
+      v12 = [UIBlurEffect effectWithBlurRadius:10.0];
+      v44[0] = v11;
+      v44[1] = v12;
+      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:2];
+      [v7 setBackgroundEffects:v13];
     }
 
-    [v4 _setBarMetrics:1];
-    [v4 _setImageStyle:1];
-    [v4 _setShowsHighlightedState:1];
-    v11 = [(UIView *)UITabBarButton appearanceWhenContainedInInstancesOfClasses:v3];
-    v12 = +[UIColor _carSystemSecondaryColor];
-    [v11 _setContentTintColor:v12 forState:0];
+    [v7 _setBarMetrics:1];
+    [v7 _setImageStyle:1];
+    [v7 _setShowsHighlightedState:1];
+    v14 = [(UIView *)UITabBarButton appearanceWhenContainedInInstancesOfClasses:v6];
+    v15 = +[UIColor _carSystemSecondaryColor];
+    [v14 _setContentTintColor:v15 forState:0];
 
-    v13 = +[UIColor _carSystemFocusSecondaryColor];
-    [v11 _setContentTintColor:v13 forState:1];
+    v16 = +[UIColor _carSystemFocusSecondaryColor];
+    [v14 _setContentTintColor:v16 forState:1];
 
-    v14 = +[UIColor _carSystemFocusSecondaryColor];
-    [v11 _setContentTintColor:v14 forState:8];
+    v17 = +[UIColor _carSystemFocusSecondaryColor];
+    [v14 _setContentTintColor:v17 forState:8];
 
-    v15 = +[UIColor _carSystemFocusLabelColor];
-    [v11 _setContentTintColor:v15 forState:5];
+    v18 = +[UIColor _carSystemFocusLabelColor];
+    [v14 _setContentTintColor:v18 forState:5];
 
-    v16 = [(UIBarItem *)UITabBarItem appearanceWhenContainedInInstancesOfClasses:v3];
-    v37 = *off_1E70EC920;
-    v17 = v37;
-    v18 = +[UIColor _carSystemSecondaryColor];
-    v38 = v18;
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
-    [v16 setTitleTextAttributes:v19 forState:0];
+    v19 = [(UIBarItem *)UITabBarItem appearanceWhenContainedInInstancesOfClasses:v6];
+    v42 = *off_1E70EC920;
+    v20 = v42;
+    v21 = +[UIColor _carSystemSecondaryColor];
+    v43 = v21;
+    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+    [v19 setTitleTextAttributes:v22 forState:0];
 
-    v35 = v17;
-    v20 = +[UIColor _carSystemFocusColor];
+    v40 = v20;
+    v23 = +[UIColor _carSystemFocusColor];
+    v41 = v23;
+    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+    [v19 setTitleTextAttributes:v24 forState:4];
+
+    v38 = v20;
+    v25 = +[UIColor _carSystemFocusSecondaryColor];
+    v39 = v25;
+    v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+    [v19 setTitleTextAttributes:v26 forState:8];
+
     v36 = v20;
-    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
-    [v16 setTitleTextAttributes:v21 forState:4];
+    v27 = +[UIColor _carSystemFocusSecondaryColor];
+    v37 = v27;
+    v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+    [v19 setTitleTextAttributes:v28 forState:1];
 
-    v33 = v17;
-    v22 = +[UIColor _carSystemFocusSecondaryColor];
-    v34 = v22;
-    v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
-    [v16 setTitleTextAttributes:v23 forState:8];
-
-    v31 = v17;
-    v24 = +[UIColor _carSystemFocusSecondaryColor];
-    v32 = v24;
-    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
-    [v16 setTitleTextAttributes:v25 forState:1];
-
-    v29 = v17;
-    v26 = +[UIColor _carSystemFocusLabelColor];
-    v30 = v26;
-    v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
-    [v16 setTitleTextAttributes:v27 forState:5];
+    v34 = v20;
+    v29 = +[UIColor _carSystemFocusLabelColor];
+    v35 = v29;
+    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+    [v19 setTitleTextAttributes:v30 forState:5];
 
 LABEL_10:
   }
@@ -2174,9 +2176,9 @@ LABEL_8:
     {
       if (v16 && v17)
       {
-        v19 = [v16 isEqual:v17];
+        isEqual = objc_msgSend_isEqual_(v16);
 
-        if (v19)
+        if (isEqual)
         {
           goto LABEL_21;
         }
@@ -2194,9 +2196,9 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  v7 = [(UIBarAppearance *)v5 isEqual:v6];
+  v7 = objc_msgSend_isEqual_(v5, v6, v6);
 
-  if (!v7)
+  if ((v7 & 1) == 0)
   {
     goto LABEL_8;
   }
@@ -2259,9 +2261,9 @@ LABEL_8:
     {
       if (v16 && v17)
       {
-        v19 = [v16 isEqual:v17];
+        isEqual = objc_msgSend_isEqual_(v16);
 
-        if (v19)
+        if (isEqual)
         {
           goto LABEL_21;
         }
@@ -2279,9 +2281,9 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  v7 = [(UIBarAppearance *)v5 isEqual:v6];
+  v7 = objc_msgSend_isEqual_(v5, v6, v6);
 
-  if (!v7)
+  if ((v7 & 1) == 0)
   {
     goto LABEL_8;
   }
@@ -3444,7 +3446,7 @@ void __41__UITabBar__customizeWithAvailableItems___block_invoke_2(uint64_t a1)
   }
 }
 
-- (uint64_t)_performWhileIgnoringLock:(uint64_t)result
+- (void)_performWhileIgnoringLock:(void *)result
 {
   if (result)
   {
@@ -3460,31 +3462,31 @@ void __41__UITabBar__customizeWithAvailableItems___block_invoke_2(uint64_t a1)
   return result;
 }
 
-- (uint64_t)_hostedElements
+- (id)_hostedElements
 {
   if (result)
   {
-    return [*(result + 472) hostedElements];
+    return [result[59] hostedElements];
   }
 
   return result;
 }
 
-- (uint64_t)_setHostedElements:(uint64_t)result
+- (id)_setHostedElements:(id *)result
 {
   if (result)
   {
-    return [*(result + 472) setHostedElements:a2];
+    return [result[59] setHostedElements:a2];
   }
 
   return result;
 }
 
-- (uint64_t)_setHostedElementsLayoutHandler:(uint64_t)result
+- (id)_setHostedElementsLayoutHandler:(id *)result
 {
   if (result)
   {
-    return [*(result + 472) setHostedElementsLayoutHandler:a2];
+    return [result[59] setHostedElementsLayoutHandler:a2];
   }
 
   return result;
@@ -3512,22 +3514,22 @@ void __41__UITabBar__customizeWithAvailableItems___block_invoke_2(uint64_t a1)
   return target;
 }
 
-- (uint64_t)_currentMorphTarget
+- (id)_currentMorphTarget
 {
   if (result)
   {
-    return [*(result + 472) currentMorphTarget];
+    return [result[59] currentMorphTarget];
   }
 
   return result;
 }
 
-- (uint64_t)_setCurrentMorphTarget:(uint64_t)result
+- (id)_setCurrentMorphTarget:(id *)result
 {
   if (result)
   {
     v2 = result;
-    [*(result + 472) setCurrentMorphTarget:a2];
+    [result[59] setCurrentMorphTarget:a2];
 
     return [v2 _handleCurrentMorphTargetChange];
   }
@@ -3535,21 +3537,21 @@ void __41__UITabBar__customizeWithAvailableItems___block_invoke_2(uint64_t a1)
   return result;
 }
 
-- (uint64_t)_selectCollapseTabIfPossible
+- (id)_selectCollapseTabIfPossible
 {
   if (result)
   {
-    return [*(result + 472) selectCollapseTabIfPossible];
+    return [result[59] selectCollapseTabIfPossible];
   }
 
   return result;
 }
 
-- (uint64_t)_morphAnimationsForHostedElementsDidEnd
+- (id)_morphAnimationsForHostedElementsDidEnd
 {
   if (result)
   {
-    return [*(result + 472) morphAnimationsForHostedElementsDidEnd];
+    return [result[59] morphAnimationsForHostedElementsDidEnd];
   }
 
   return result;

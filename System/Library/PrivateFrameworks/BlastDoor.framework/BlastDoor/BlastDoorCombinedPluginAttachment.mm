@@ -23,21 +23,20 @@
 - (BlastDoorBalloonPluginPayloadWrapper)payload
 {
   v3 = type metadata accessor for BalloonPlugin.Payload(0);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = self + OBJC_IVAR___BlastDoorCombinedPluginAttachment_combinedPluginAttachment;
-  v8 = type metadata accessor for CombinedPluginAttachment();
-  sub_213FB568C(&v7[*(v8 + 20)], v6, type metadata accessor for BalloonPlugin.Payload);
-  v9 = type metadata accessor for _ObjCEnumBalloonPluginPayloadWrapper(0);
-  v10 = objc_allocWithZone(v9);
-  sub_213FB568C(v6, v10 + OBJC_IVAR___BlastDoorBalloonPluginPayloadWrapper_balloonPlugin_Payload, type metadata accessor for BalloonPlugin.Payload);
-  v13.receiver = v10;
-  v13.super_class = v9;
-  v11 = [(BlastDoorCombinedPluginAttachment *)&v13 init];
-  sub_213FB5844(v6, type metadata accessor for BalloonPlugin.Payload);
+  v5 = &v12 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = self + OBJC_IVAR___BlastDoorCombinedPluginAttachment_combinedPluginAttachment;
+  v7 = type metadata accessor for CombinedPluginAttachment(0);
+  sub_213FB568C(&v6[*(v7 + 20)], v5, type metadata accessor for BalloonPlugin.Payload);
+  v8 = type metadata accessor for _ObjCEnumBalloonPluginPayloadWrapper(0);
+  v9 = objc_allocWithZone(v8);
+  sub_213FB568C(v5, v9 + OBJC_IVAR___BlastDoorBalloonPluginPayloadWrapper_balloonPlugin_Payload, type metadata accessor for BalloonPlugin.Payload);
+  v12.receiver = v9;
+  v12.super_class = v8;
+  v10 = [(BlastDoorCombinedPluginAttachment *)&v12 init];
+  sub_213FB5844(v5, type metadata accessor for BalloonPlugin.Payload);
 
-  return v11;
+  return v10;
 }
 
 - (BlastDoorCombinedPluginAttachment)init

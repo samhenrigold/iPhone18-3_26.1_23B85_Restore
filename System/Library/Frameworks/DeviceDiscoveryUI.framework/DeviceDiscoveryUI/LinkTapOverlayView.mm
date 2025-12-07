@@ -8,7 +8,7 @@
 - (void)layoutSubviews
 {
   v7.receiver = self;
-  v7.super_class = type metadata accessor for LinkTapOverlayView();
+  v7.super_class = type metadata accessor for LinkTapOverlayView(0, a2);
   v2 = v7.receiver;
   [(LinkTapOverlayView *)&v7 layoutSubviews];
   v3 = *&v2[OBJC_IVAR____TtC17DeviceDiscoveryUIP33_84B88BC285F07FBED29E105A4C9FE90018LinkTapOverlayView_textContainer];
@@ -36,7 +36,7 @@
   *(&self->super.super.super.isa + OBJC_IVAR____TtC17DeviceDiscoveryUIP33_84B88BC285F07FBED29E105A4C9FE90018LinkTapOverlayView_textContainer) = 0;
   *(&self->super.super.super.isa + OBJC_IVAR____TtC17DeviceDiscoveryUIP33_84B88BC285F07FBED29E105A4C9FE90018LinkTapOverlayView_tappables) = 0;
   v8 = (&self->super.super.super.isa + OBJC_IVAR____TtC17DeviceDiscoveryUIP33_84B88BC285F07FBED29E105A4C9FE90018LinkTapOverlayView_text);
-  v9 = type metadata accessor for LinkTapOverlayView();
+  v9 = type metadata accessor for LinkTapOverlayView(0, a2);
   *v8 = 0;
   v8[1] = 0;
   v11.receiver = self;

@@ -159,7 +159,7 @@
   if (result)
   {
 
-    return [(CGAffineTransform *)result transform];
+    return objc_msgSend_transform(result);
   }
 
   else
@@ -420,7 +420,7 @@
   if (result)
   {
 
-    return [($3CC8671D27C23BF42ADDB32F2B5E48AE *)result preferredMediaChunkDuration];
+    return objc_msgSend_preferredMediaChunkDuration(result);
   }
 
   else

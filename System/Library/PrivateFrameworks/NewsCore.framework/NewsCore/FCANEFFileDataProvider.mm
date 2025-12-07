@@ -111,23 +111,22 @@
 
 - (NSString)filePath
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"the file path for an encrypted asset should not be accessed directly"];
-    v7 = 136315906;
-    v8 = "[FCANEFFileDataProvider filePath]";
-    v9 = 2080;
-    v10 = "FCANEFFileDataProvider.m";
-    v11 = 1024;
-    v12 = 100;
-    v13 = 2114;
-    v14 = v6;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v7, 0x26u);
+    v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"the file path for an encrypted asset should not be accessed directly"];
+    v6 = 136315906;
+    v7 = "[FCANEFFileDataProvider filePath]";
+    v8 = 2080;
+    v9 = "FCANEFFileDataProvider.m";
+    v10 = 1024;
+    v11 = 100;
+    v12 = 2114;
+    v13 = v5;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v6, 0x26u);
   }
 
   filePath = self->_filePath;
-  v4 = *MEMORY[0x1E69E9840];
 
   return filePath;
 }

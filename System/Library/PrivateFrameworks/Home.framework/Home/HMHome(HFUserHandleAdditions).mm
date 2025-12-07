@@ -38,7 +38,7 @@
 
 - (HFUserHandle)hf_handleForUser:()HFUserHandleAdditions
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = a3;
   currentUser = [self currentUser];
   v6 = [currentUser isEqual:v4];
@@ -57,15 +57,13 @@
     v8 = HFLogForCategory(0x4CuLL);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v14 = 138412290;
-      v15 = v4;
-      _os_log_error_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_ERROR, "Can't create HFUserHandle from HMUser because HMUser.userID is nil: %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = v4;
+      _os_log_error_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_ERROR, "Can't create HFUserHandle from HMUser because HMUser.userID is nil: %@", &v13, 0xCu);
     }
 
     v9 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

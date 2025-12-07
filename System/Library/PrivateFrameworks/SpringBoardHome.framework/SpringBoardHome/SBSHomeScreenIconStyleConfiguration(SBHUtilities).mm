@@ -1,7 +1,7 @@
 @interface SBSHomeScreenIconStyleConfiguration(SBHUtilities)
 - (SBHIconImageStyleConfiguration)sbh_iconImageStyleConfiguration;
-- (uint64_t)sbh_configurationType;
-- (uint64_t)sbh_configurationVariant;
+- (void)sbh_configurationType;
+- (void)sbh_configurationVariant;
 @end
 
 @implementation SBSHomeScreenIconStyleConfiguration(SBHUtilities)
@@ -18,23 +18,23 @@
   return v6;
 }
 
-- (uint64_t)sbh_configurationVariant
+- (void)sbh_configurationVariant
 {
   result = [self variant];
   if (result != 2)
   {
-    return result == 1;
+    return (result == 1);
   }
 
   return result;
 }
 
-- (uint64_t)sbh_configurationType
+- (void)sbh_configurationType
 {
   result = [self updatedConfigurationType];
   if (result != 2)
   {
-    return result == 1;
+    return (result == 1);
   }
 
   return result;

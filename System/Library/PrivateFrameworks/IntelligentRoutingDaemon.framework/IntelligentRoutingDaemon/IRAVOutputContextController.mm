@@ -131,7 +131,7 @@
 
 - (void)_didUpdateOutputDevice:(id)device
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   os_unfair_lock_lock(&self->_lock);
   outputContext = [(IRAVOutputContextController *)self outputContext];
@@ -144,42 +144,41 @@
     [(IRAVOutputContextController *)v7 _didUpdateOutputDevice:v8];
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   observers = [(IRAVOutputContextController *)self observers];
-  v10 = [observers countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v10 = [observers countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v10)
   {
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(observers);
         }
 
-        [*(*(&v14 + 1) + 8 * v12++) context:self didUpdateOutputDevice:v7];
+        [*(*(&v13 + 1) + 8 * v12++) context:self didUpdateOutputDevice:v7];
       }
 
       while (v10 != v12);
-      v10 = [observers countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [observers countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_didUpdatePredictedOutputDevice:(id)device
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   os_unfair_lock_lock(&self->_lock);
   outputContext = [(IRAVOutputContextController *)self outputContext];
@@ -192,37 +191,36 @@
     [(IRAVOutputContextController *)v7 _didUpdatePredictedOutputDevice:v8];
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   observers = [(IRAVOutputContextController *)self observers];
-  v10 = [observers countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v10 = [observers countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v10)
   {
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(observers);
         }
 
-        [*(*(&v14 + 1) + 8 * v12++) context:self didUpdatePredicatedOutputDevice:v7];
+        [*(*(&v13 + 1) + 8 * v12++) context:self didUpdatePredicatedOutputDevice:v7];
       }
 
       while (v10 != v12);
-      v10 = [observers countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [observers countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerForAVOutputContextOutputDeviceDidChangeNotification
@@ -284,20 +282,18 @@
 
 - (void)_didUpdateOutputDevice:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_25543D000, a2, OS_LOG_TYPE_DEBUG, "#output-context-controller, Output device has been updated: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_25543D000, a2, OS_LOG_TYPE_DEBUG, "#output-context-controller, Output device has been updated: %@", &v2, 0xCu);
 }
 
 - (void)_didUpdatePredictedOutputDevice:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_25543D000, a2, OS_LOG_TYPE_DEBUG, "#output-context-controller, Predicted output device has been updated: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_25543D000, a2, OS_LOG_TYPE_DEBUG, "#output-context-controller, Predicted output device has been updated: %@", &v2, 0xCu);
 }
 
 @end

@@ -18,53 +18,53 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v8.receiver = self;
-  v8.super_class = SBFloatingDockViewControllerAccessibility;
-  [(SBFloatingDockViewControllerAccessibility *)&v8 _accessibilityLoadAccessibilityInformation];
+  v9.receiver = self;
+  v9.super_class = SBFloatingDockViewControllerAccessibility;
+  [(SBFloatingDockViewControllerAccessibility *)&v9 _accessibilityLoadAccessibilityInformation];
   v3 = [(SBFloatingDockViewControllerAccessibility *)self safeValueForKey:@"view"];
-  v4 = AXSBHIconManagerFromSharedIconController();
-  v6[0] = MEMORY[0x29EDCA5F8];
-  v6[1] = 3221225472;
-  v6[2] = __87__SBFloatingDockViewControllerAccessibility__accessibilityLoadAccessibilityInformation__block_invoke;
-  v6[3] = &unk_29F300378;
-  v7 = v4;
-  v5 = v4;
-  [v3 setAccessibilityElementsHiddenBlock:v6];
+  v5 = AXSBHIconManagerFromSharedIconController(v3, v4);
+  v7[0] = MEMORY[0x29EDCA5F8];
+  v7[1] = 3221225472;
+  v7[2] = __87__SBFloatingDockViewControllerAccessibility__accessibilityLoadAccessibilityInformation__block_invoke;
+  v7[3] = &unk_29F300378;
+  v8 = v5;
+  v6 = v5;
+  [v3 setAccessibilityElementsHiddenBlock:v7];
 }
 
 - (void)dismissPresentedFolderAnimated:(BOOL)animated completion:(id)completion
 {
   animatedCopy = animated;
   completionCopy = completion;
-  [(SBFloatingDockViewControllerAccessibility *)self _axSetIsClosingFolder:1];
-  v7 = AXSBHIconManagerFromSharedIconController();
-  v23 = MEMORY[0x29EDCA5F8];
-  v24 = 3221225472;
-  v25 = __87__SBFloatingDockViewControllerAccessibility_dismissPresentedFolderAnimated_completion___block_invoke;
-  v26 = &unk_29F3001B8;
-  v27 = v7;
+  v7 = [(SBFloatingDockViewControllerAccessibility *)self _axSetIsClosingFolder:1];
+  v9 = AXSBHIconManagerFromSharedIconController(v7, v8);
+  v25 = MEMORY[0x29EDCA5F8];
+  v26 = 3221225472;
+  v27 = __87__SBFloatingDockViewControllerAccessibility_dismissPresentedFolderAnimated_completion___block_invoke;
+  v28 = &unk_29F3001B8;
+  v29 = v9;
   AXPerformSafeBlock();
-  v8 = [v27 safeValueForKey:@"openedFolder"];
-  v9 = [v8 safeValueForKey:@"displayName"];
-  v10 = [completionCopy copy];
+  v10 = [v29 safeValueForKey:@"openedFolder"];
+  v11 = [v10 safeValueForKey:@"displayName"];
+  v12 = [completionCopy copy];
 
-  v16[0] = MEMORY[0x29EDCA5F8];
-  v16[1] = 3221225472;
-  v16[2] = __87__SBFloatingDockViewControllerAccessibility_dismissPresentedFolderAnimated_completion___block_invoke_2;
-  v16[3] = &unk_29F3003A0;
-  v21 = v8 != 0;
-  v17 = v27;
+  v18[0] = MEMORY[0x29EDCA5F8];
+  v18[1] = 3221225472;
+  v18[2] = __87__SBFloatingDockViewControllerAccessibility_dismissPresentedFolderAnimated_completion___block_invoke_2;
+  v18[3] = &unk_29F3003A0;
+  v23 = v10 != 0;
+  v19 = v29;
   selfCopy = self;
-  v22 = animatedCopy;
-  v19 = v9;
-  v20 = v10;
-  v11 = v9;
-  v12 = v10;
-  v13 = v27;
-  v14 = MEMORY[0x29ED38BB0](v16);
-  v15.receiver = self;
-  v15.super_class = SBFloatingDockViewControllerAccessibility;
-  [(SBFloatingDockViewControllerAccessibility *)&v15 dismissPresentedFolderAnimated:animatedCopy completion:v14];
+  v24 = animatedCopy;
+  v21 = v11;
+  v22 = v12;
+  v13 = v11;
+  v14 = v12;
+  v15 = v29;
+  v16 = MEMORY[0x29ED38BB0](v18);
+  v17.receiver = self;
+  v17.super_class = SBFloatingDockViewControllerAccessibility;
+  [(SBFloatingDockViewControllerAccessibility *)&v17 dismissPresentedFolderAnimated:animatedCopy completion:v16];
 }
 
 void __87__SBFloatingDockViewControllerAccessibility_dismissPresentedFolderAnimated_completion___block_invoke_2(uint64_t a1, uint64_t a2)

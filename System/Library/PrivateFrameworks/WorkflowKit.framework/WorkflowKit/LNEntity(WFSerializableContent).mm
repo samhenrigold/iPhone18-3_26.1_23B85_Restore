@@ -7,28 +7,28 @@
 
 - (id)wfSerializedRepresentation
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   if ([self isTransient])
   {
-    v18[0] = @"typeIdentifier";
+    v17[0] = @"typeIdentifier";
     identifier = [self identifier];
     typeIdentifier = [identifier typeIdentifier];
-    v18[1] = @"instanceIdentifier";
-    v19[0] = typeIdentifier;
+    v17[1] = @"instanceIdentifier";
+    v18[0] = typeIdentifier;
     identifier2 = [self identifier];
     instanceIdentifier = [identifier2 instanceIdentifier];
-    v19[1] = instanceIdentifier;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
+    v18[1] = instanceIdentifier;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
 
     properties = [self properties];
     v8 = [properties if_compactMap:&__block_literal_global_65950];
 
     v9 = MEMORY[0x1E695DF90];
-    v16[0] = @"identifier";
-    v16[1] = @"properties";
-    v17[0] = v6;
-    v17[1] = v8;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
+    v15[0] = @"identifier";
+    v15[1] = @"properties";
+    v16[0] = v6;
+    v16[1] = v8;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
     v11 = [v9 dictionaryWithDictionary:v10];
 
     managedAccountIdentifier = [self managedAccountIdentifier];
@@ -42,8 +42,6 @@
   {
     v11 = MEMORY[0x1E695E0F8];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

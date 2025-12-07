@@ -40,7 +40,7 @@
     v10 = [NTKWhistlerAnalogFaceViewComplicationFactory alloc];
     device = [(NTKPoodleFaceView *)v9 device];
     sub_2D6F4(device, v15);
-    v12 = [v10 initWithFaceView:v9 dialDiameter:deviceCopy device:v15[0]];
+    v12 = [v10 initWithFaceView:v9 dialDiameter:deviceCopy device:*&v15[0].receiver];
 
     [v12 setUsesNarrowTopSlots:1];
     [(NTKPoodleFaceView *)v9 setComplicationFactory:v12];

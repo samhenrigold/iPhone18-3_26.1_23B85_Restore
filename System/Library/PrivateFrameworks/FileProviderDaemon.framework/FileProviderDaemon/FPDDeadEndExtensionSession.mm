@@ -1,6 +1,7 @@
 @interface FPDDeadEndExtensionSession
 - (FPDDeadEndExtensionSession)init;
 - (FPDDeadEndExtensionSession)initWithError:(id)error;
+- (id)existingFileProviderProxyWithTimeout:(double)timeout onlyAlreadyLifetimeExtended:(BOOL)extended pid:(int)pid;
 - (id)newFileProviderProxyWithTimeout:(double)timeout pid:(int)pid;
 @end
 
@@ -35,6 +36,13 @@
   }
 
   __assert_rtn("-[FPDDeadEndExtensionSession init]", "/Library/Caches/com.apple.xbs/Sources/FileProviderTools/fileproviderd/FPDExtensionSession.m", 1012, [v2 UTF8String]);
+}
+
+- (id)existingFileProviderProxyWithTimeout:(double)timeout onlyAlreadyLifetimeExtended:(BOOL)extended pid:(int)pid
+{
+  v5 = [(FPDDeadEndExtensionSession *)self newFileProviderProxyWithTimeout:*&pid pid:timeout];
+
+  return v5;
 }
 
 - (id)newFileProviderProxyWithTimeout:(double)timeout pid:(int)pid

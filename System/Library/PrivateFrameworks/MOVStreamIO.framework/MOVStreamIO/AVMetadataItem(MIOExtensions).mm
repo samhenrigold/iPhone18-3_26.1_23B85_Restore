@@ -276,7 +276,7 @@
 
 + (id)attachmentsMIOMetadataItemForDictionary:()MIOExtensions pts:error:
 {
-  v7 = [MOVStreamIOUtility plistFriendlyCopyOf:?];
+  v7 = [MOVStreamIOUtility plistFriendlyCopyOf:a3];
   v8 = [v7 mutableCopy];
 
   v9 = [v8 objectForKey:@"OriginalTimestampWhenWrittenToFile"];
@@ -479,7 +479,7 @@
 
 + (id)trackMetadataItemWithAdditionalCompressionProperties:()MIOExtensions error:
 {
-  v5 = [MOVStreamIOUtility plistFriendlyCopyOf:?];
+  v5 = [MOVStreamIOUtility plistFriendlyCopyOf:a3];
   v6 = [v5 mutableCopy];
 
   v7 = [MEMORY[0x277CCAC58] dataWithPropertyList:v6 format:200 options:0 error:a4];

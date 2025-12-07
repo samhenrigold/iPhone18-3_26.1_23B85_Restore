@@ -60,7 +60,7 @@ void __32__EDConversationPersistence_log__block_invoke(uint64_t a1)
 
 + (id)tablesAndForeignKeysToResolve:(id *)resolve associationsToResolve:(id *)toResolve
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   conversationsTableSchema = [self conversationsTableSchema];
   conversationIDMessageIDTableSchema = [self conversationIDMessageIDTableSchema];
   v9 = [conversationIDMessageIDTableSchema columnForName:@"conversation_id"];
@@ -69,46 +69,42 @@ void __32__EDConversationPersistence_log__block_invoke(uint64_t a1)
   v10 = MEMORY[0x1E695E0F0];
   *resolve = MEMORY[0x1E695E0F0];
   *toResolve = v10;
-  v14[0] = conversationsTableSchema;
-  v14[1] = conversationIDMessageIDTableSchema;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v13[0] = conversationsTableSchema;
+  v13[1] = conversationIDMessageIDTableSchema;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
 
   return v11;
 }
 
 + (EFSQLTableSchema)conversationsTableSchema
 {
-  v9[2] = *MEMORY[0x1E69E9840];
+  v8[2] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E699B958]);
   v3 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"flags" nullable:0 defaultValue:&unk_1F45E6628];
-  v9[0] = v3;
+  v8[0] = v3;
   v4 = [MEMORY[0x1E699B8D0] textColumnWithName:@"sync_key" collation:1 nullable:1];
-  v9[1] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
+  v8[1] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
   v6 = [v2 initWithName:@"conversations" rowIDType:2 rowIDAlias:@"conversation_id" columns:v5];
 
   [v6 addIndexForColumns:&unk_1F45E6E80];
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 + (EFSQLTableSchema)conversationIDMessageIDTableSchema
 {
-  v10[3] = *MEMORY[0x1E69E9840];
+  v9[3] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E699B958]);
   v3 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"conversation_id" nullable:0];
   v4 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"message_id" nullable:0 defaultValue:{&unk_1F45E6628, v3}];
-  v10[1] = v4;
+  v9[1] = v4;
   v5 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"date_sent" nullable:0 defaultValue:&unk_1F45E6628];
-  v10[2] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:3];
+  v9[2] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:3];
   v7 = [v2 initWithName:@"conversation_id_message_id" columns:v6 primaryKeyColumns:&unk_1F45E6E98];
 
   [v7 addIndexForColumns:&unk_1F45E6EB0];
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -249,28 +245,27 @@ void __59__EDConversationPersistence_syncedConversationIDsBySyncKey__block_invok
 
 uint64_t __63__EDConversationPersistence_messageIDsForConversationID_limit___block_invoke(void *a1, void *a2)
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v13[0] = @":conversation_id";
+  v12[0] = @":conversation_id";
   v4 = [MEMORY[0x1E696AD98] numberWithLongLong:a1[5]];
-  v13[1] = @":limit";
-  v14[0] = v4;
+  v12[1] = @":limit";
+  v13[0] = v4;
   v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a1[6]];
-  v14[1] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v13[1] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
 
   v7 = [v3 preparedStatementForQueryString:@"SELECT message_id FROM conversation_id_message_id WHERE conversation_id = :conversation_id ORDER BY date_sent DESC LIMIT :limit"];
-  v11 = 0;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __63__EDConversationPersistence_messageIDsForConversationID_limit___block_invoke_2;
-  v12[3] = &unk_1E8250418;
-  v12[4] = a1[4];
-  [v7 executeWithNamedBindings:v6 usingBlock:v12 error:&v11];
-  v8 = v11;
+  v10 = 0;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __63__EDConversationPersistence_messageIDsForConversationID_limit___block_invoke_2;
+  v11[3] = &unk_1E8250418;
+  v11[4] = a1[4];
+  [v7 executeWithNamedBindings:v6 usingBlock:v11 error:&v10];
+  v8 = v10;
   [v3 handleError:v8 message:@"Selecting message IDs for conversation ID"];
 
-  v9 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -374,24 +369,23 @@ void __57__EDConversationPersistence_conversationIDForMessageIDs___block_invoke_
 
 uint64_t __75__EDConversationPersistence_persistenceConversationFlagsForConversationID___block_invoke(uint64_t a1, void *a2)
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 preparedStatementForQueryString:@"SELECT flags FROM conversations WHERE conversations.conversation_id = :conversation_id"];
-  v12 = @":conversation_id";
+  v11 = @":conversation_id";
   v5 = [MEMORY[0x1E696AD98] numberWithLongLong:*(a1 + 40)];
-  v13[0] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
-  v10 = 0;
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __75__EDConversationPersistence_persistenceConversationFlagsForConversationID___block_invoke_2;
-  v11[3] = &unk_1E8250418;
-  v11[4] = *(a1 + 32);
-  [v4 executeWithNamedBindings:v6 usingBlock:v11 error:&v10];
-  v7 = v10;
+  v12[0] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v9 = 0;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __75__EDConversationPersistence_persistenceConversationFlagsForConversationID___block_invoke_2;
+  v10[3] = &unk_1E8250418;
+  v10[4] = *(a1 + 32);
+  [v4 executeWithNamedBindings:v6 usingBlock:v10 error:&v9];
+  v7 = v9;
 
   [v3 handleError:v7 message:@"Selecting flags for conversation ID"];
-  v8 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -426,16 +420,16 @@ void __75__EDConversationPersistence_persistenceConversationFlagsForConversation
 
 uint64_t __57__EDConversationPersistence_createConversationWithFlags___block_invoke(uint64_t a1, void *a2)
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 preparedStatementForQueryString:@"INSERT INTO conversations (flags) values (:flags)"];
-  v12 = @":flags";
+  v11 = @":flags";
   v5 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(a1 + 40)];
-  v13[0] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
-  v11 = 0;
-  v7 = [v4 executeWithNamedBindings:v6 usingBlock:0 error:&v11];
-  v8 = v11;
+  v12[0] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v10 = 0;
+  v7 = [v4 executeWithNamedBindings:v6 usingBlock:0 error:&v10];
+  v8 = v10;
 
   if ((v7 & 1) == 0)
   {
@@ -444,7 +438,6 @@ uint64_t __57__EDConversationPersistence_createConversationWithFlags___block_inv
 
   *(*(*(a1 + 32) + 8) + 24) = [v3 lastInsertedDatabaseID];
 
-  v9 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -465,35 +458,35 @@ uint64_t __57__EDConversationPersistence_createConversationWithFlags___block_inv
 
 - (void)setPersistenceConversationFlags:(unint64_t)flags forConversationIDs:(id)ds reason:(int64_t)reason
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
-  v19 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
+  v18 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   obj = dsCopy;
-  v8 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
-    v9 = *v21;
+    v9 = *v20;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * i);
+        v11 = *(*(&v19 + 1) + 8 * i);
         longLongValue = [v11 longLongValue];
         conversationManager = [(EDConversationPersistence *)self conversationManager];
         v14 = [conversationManager syncKeyForUpdatedConversation:longLongValue flags:flags];
 
         if (v14)
         {
-          [v19 setObject:v11 forKeyedSubscript:v14];
+          [v18 setObject:v11 forKeyedSubscript:v14];
         }
 
         if (!flags)
@@ -505,21 +498,19 @@ uint64_t __57__EDConversationPersistence_createConversationWithFlags___block_inv
         [(EDConversationPersistence *)self setPersistenceConversationFlags:flags syncKey:v14 forConversationID:longLongValue reason:reason];
       }
 
-      v8 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v8);
   }
 
   conversationManager2 = [(EDConversationPersistence *)self conversationManager];
-  [conversationManager2 setFlags:flags forConversations:v19];
-
-  v16 = *MEMORY[0x1E69E9840];
+  [conversationManager2 setFlags:flags forConversations:v18];
 }
 
 - (void)setPersistenceConversationFlags:(unint64_t)flags syncKey:(id)key forConversationID:(int64_t)d reason:(int64_t)reason
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   if (!d || *MEMORY[0x1E699A728] == d)
   {
@@ -531,8 +522,8 @@ uint64_t __57__EDConversationPersistence_createConversationWithFlags___block_inv
       *&buf[12] = 2048;
       *&buf[14] = flags;
       *&buf[22] = 2114;
-      v24 = keyCopy;
-      v25 = 2048;
+      v23 = keyCopy;
+      v24 = 2048;
       reasonCopy = reason;
       _os_log_fault_impl(&dword_1C61EF000, v15, OS_LOG_TYPE_FAULT, "Invalid conversation ID (%lld) when setting conversation flags (%llu) for sync key %{public}@ with reason: %lld", buf, 0x2Au);
     }
@@ -543,47 +534,45 @@ uint64_t __57__EDConversationPersistence_createConversationWithFlags___block_inv
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v24 = 0;
+    v23 = 0;
     v11 = objc_alloc_init(EDPersistenceDatabaseGenerationWindow);
     database = [(EDConversationPersistence *)self database];
     v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[EDConversationPersistence setPersistenceConversationFlags:syncKey:forConversationID:reason:]"];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __94__EDConversationPersistence_setPersistenceConversationFlags_syncKey_forConversationID_reason___block_invoke;
-    v17[3] = &unk_1E8251D08;
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __94__EDConversationPersistence_setPersistenceConversationFlags_syncKey_forConversationID_reason___block_invoke;
+    v16[3] = &unk_1E8251D08;
     v14 = v11;
-    v18 = v14;
-    v20 = buf;
+    v17 = v14;
+    v19 = buf;
     dCopy = d;
     flagsCopy = flags;
-    v19 = keyCopy;
-    [database __performWriteWithCaller:v13 usingBlock:v17];
+    v18 = keyCopy;
+    [database __performWriteWithCaller:v13 usingBlock:v16];
 
     [(EDConversationPersistence *)self _notifyOfFlagChangeForConversationID:d oldFlags:*(*&buf[8] + 24) newFlags:flags reason:reason generationWindow:v14];
     _Block_object_dispose(buf, 8);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __94__EDConversationPersistence_setPersistenceConversationFlags_syncKey_forConversationID_reason___block_invoke(uint64_t a1, void *a2)
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   [*(a1 + 32) insertGeneration:{objc_msgSend(v3, "transactionGeneration")}];
   v4 = [v3 preparedStatementForQueryString:@"SELECT flags FROM conversations WHERE conversation_id = :conversation_id LIMIT 1"];
-  v20 = @":conversation_id";
+  v19 = @":conversation_id";
   v5 = [MEMORY[0x1E696AD98] numberWithLongLong:*(a1 + 56)];
-  v21[0] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
-  v18 = 0;
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __94__EDConversationPersistence_setPersistenceConversationFlags_syncKey_forConversationID_reason___block_invoke_2;
-  v19[3] = &unk_1E8250418;
-  v19[4] = *(a1 + 48);
-  v7 = [v4 executeWithNamedBindings:v6 usingBlock:v19 error:&v18];
-  v8 = v18;
+  v20[0] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+  v17 = 0;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __94__EDConversationPersistence_setPersistenceConversationFlags_syncKey_forConversationID_reason___block_invoke_2;
+  v18[3] = &unk_1E8250418;
+  v18[4] = *(a1 + 48);
+  v7 = [v4 executeWithNamedBindings:v6 usingBlock:v18 error:&v17];
+  v8 = v17;
 
   if (v7)
   {
@@ -596,9 +585,9 @@ uint64_t __94__EDConversationPersistence_setPersistenceConversationFlags_syncKey
     v12 = [MEMORY[0x1E696AD98] numberWithLongLong:*(a1 + 56)];
     [v10 setObject:v12 forKeyedSubscript:@":conversation_id"];
 
-    v17 = v8;
-    v13 = [v9 executeWithNamedBindings:v10 usingBlock:0 error:&v17];
-    v14 = v17;
+    v16 = v8;
+    v13 = [v9 executeWithNamedBindings:v10 usingBlock:0 error:&v16];
+    v14 = v16;
 
     if ((v13 & 1) == 0)
     {
@@ -614,7 +603,6 @@ uint64_t __94__EDConversationPersistence_setPersistenceConversationFlags_syncKey
     v13 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -690,37 +678,35 @@ void __90__EDConversationPersistence_updateAssociationTableForMessagePersistentI
 
 - (void)updateAssociationTableForMessageIDs:(id)ds conversationID:(int64_t)d
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   dsCopy = ds;
-  v7 = [dsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v7 = [dsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v7)
   {
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(dsCopy);
         }
 
-        [(EDConversationPersistence *)self updateAssociationTableForMessageID:*(*(&v11 + 1) + 8 * v9++) dateSent:0 conversationID:d, v11];
+        [(EDConversationPersistence *)self updateAssociationTableForMessageID:*(*(&v10 + 1) + 8 * v9++) dateSent:0 conversationID:d, v10];
       }
 
       while (v7 != v9);
-      v7 = [dsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [dsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateAssociationTableForMessageID:(id)d dateSent:(id)sent conversationID:(int64_t)iD
@@ -743,31 +729,31 @@ void __90__EDConversationPersistence_updateAssociationTableForMessagePersistentI
 
 uint64_t __88__EDConversationPersistence_updateAssociationTableForMessageID_dateSent_conversationID___block_invoke(void *a1, void *a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 0;
   v4 = MEMORY[0x1E696AEC0];
   v5 = [MEMORY[0x1E696AD98] numberWithLongLong:a1[6]];
   v6 = [v4 stringWithFormat:@"SELECT conversation_id FROM conversations where conversation_id = %@", v5];
 
   v7 = [v3 preparedStatementForQueryString:v6];
-  v19 = 0;
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __88__EDConversationPersistence_updateAssociationTableForMessageID_dateSent_conversationID___block_invoke_2;
-  v20[3] = &unk_1E8250418;
-  v20[4] = &v21;
-  v8 = [v7 executeUsingBlock:v20 error:&v19];
-  v9 = v19;
+  v18 = 0;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __88__EDConversationPersistence_updateAssociationTableForMessageID_dateSent_conversationID___block_invoke_2;
+  v19[3] = &unk_1E8250418;
+  v19[4] = &v20;
+  v8 = [v7 executeUsingBlock:v19 error:&v18];
+  v9 = v18;
   if ((v8 & 1) == 0)
   {
     [v3 handleError:v9 message:@"Executing querying for conversation id"];
   }
 
-  if (*(v22 + 24) == 1)
+  if (*(v21 + 24) == 1)
   {
     v10 = [v3 preparedStatementForQueryString:{@"INSERT OR REPLACE INTO conversation_id_message_id (conversation_id, message_id, date_sent) VALUES (:conversation_id, :message_id, :date_sent)"}];
     v11 = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -776,9 +762,9 @@ uint64_t __88__EDConversationPersistence_updateAssociationTableForMessageID_date
     [v11 setObject:v12 forKeyedSubscript:@":conversation_id"];
 
     [v11 setObject:a1[5] forKeyedSubscript:@":date_sent"];
-    v18 = v9;
-    v13 = [v10 executeWithNamedBindings:v11 usingBlock:0 error:&v18];
-    v14 = v18;
+    v17 = v9;
+    v13 = [v10 executeWithNamedBindings:v11 usingBlock:0 error:&v17];
+    v14 = v17;
 
     if ((v13 & 1) == 0)
     {
@@ -799,8 +785,7 @@ uint64_t __88__EDConversationPersistence_updateAssociationTableForMessageID_date
     v14 = v9;
   }
 
-  _Block_object_dispose(&v21, 8);
-  v16 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v20, 8);
   return v13;
 }
 
@@ -831,63 +816,62 @@ uint64_t __88__EDConversationPersistence_updateAssociationTableForMessageID_date
 
 uint64_t __53__EDConversationPersistence_pruneConversationTables___block_invoke(uint64_t a1, void *a2)
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 preparedStatementForQueryString:@"DELETE FROM conversations WHERE conversation_id NOT IN (SELECT DISTINCT conversation_id from messages) AND (sync_key IS NULL AND conversation_id NOT IN (SELECT DISTINCT(conversation_id) FROM conversation_id_message_id WHERE date_sent > :older_than))"];;
-  v12 = @":older_than";
+  v11 = @":older_than";
   v5 = [MEMORY[0x1E696AD98] numberWithDouble:*(a1 + 32)];
-  v13[0] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
-  v11 = 0;
-  v7 = [v4 executeWithNamedBindings:v6 usingBlock:0 error:&v11];
-  v8 = v11;
+  v12[0] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v10 = 0;
+  v7 = [v4 executeWithNamedBindings:v6 usingBlock:0 error:&v10];
+  v8 = v10;
 
   if ((v7 & 1) == 0)
   {
     [v3 handleError:v8 message:@"Pruning conversations table"];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (void)clearConversationFlagsAndSyncKeyForConversationIDs:(id)ds
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
-  v19 = objc_alloc_init(EDPersistenceDatabaseGenerationWindow);
+  v18 = objc_alloc_init(EDPersistenceDatabaseGenerationWindow);
   database = [(EDConversationPersistence *)self database];
   v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[EDConversationPersistence clearConversationFlagsAndSyncKeyForConversationIDs:]"];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __80__EDConversationPersistence_clearConversationFlagsAndSyncKeyForConversationIDs___block_invoke;
-  v24[3] = &unk_1E8250328;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __80__EDConversationPersistence_clearConversationFlagsAndSyncKeyForConversationIDs___block_invoke;
+  v23[3] = &unk_1E8250328;
   v7 = dsCopy;
-  v25 = v7;
-  v8 = v19;
-  v26 = v8;
-  [database __performWriteWithCaller:v6 usingBlock:v24];
+  v24 = v7;
+  v8 = v18;
+  v25 = v8;
+  [database __performWriteWithCaller:v6 usingBlock:v23];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v20 objects:v29 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v19 objects:v28 count:16];
   if (v10)
   {
-    v11 = *v21;
+    v11 = *v20;
     v12 = *MEMORY[0x1E699A728];
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        longLongValue = [*(*(&v20 + 1) + 8 * i) longLongValue];
+        longLongValue = [*(*(&v19 + 1) + 8 * i) longLongValue];
         v15 = longLongValue;
         if (longLongValue)
         {
@@ -905,7 +889,7 @@ uint64_t __53__EDConversationPersistence_pruneConversationTables___block_invoke(
           if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
           {
             *buf = 134217984;
-            v28 = v15;
+            v27 = v15;
             _os_log_fault_impl(&dword_1C61EF000, v17, OS_LOG_TYPE_FAULT, "Invalid conversation ID (%lld) when clearing conversation flags", buf, 0xCu);
           }
         }
@@ -916,13 +900,11 @@ uint64_t __53__EDConversationPersistence_pruneConversationTables___block_invoke(
         }
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v20 objects:v29 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v19 objects:v28 count:16];
     }
 
     while (v10);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __80__EDConversationPersistence_clearConversationFlagsAndSyncKeyForConversationIDs___block_invoke(uint64_t a1, void *a2)
@@ -972,37 +954,35 @@ uint64_t __80__EDConversationPersistence_clearConversationFlagsAndSyncKeyForConv
 
 void __92__EDConversationPersistence__postChangeNotificationForConversationID_flags_oldFlags_reason___block_invoke(void *a1)
 {
-  v18[2] = *MEMORY[0x1E69E9840];
-  v17[0] = @"MessageConversationIsVIP";
+  v17[2] = *MEMORY[0x1E69E9840];
+  v16[0] = @"MessageConversationIsVIP";
   v2 = a1 + 5;
   v3 = [MEMORY[0x1E696AD98] numberWithBool:a1[5] & 1];
-  v17[1] = @"MessageConversationIsMuted";
-  v18[0] = v3;
+  v16[1] = @"MessageConversationIsMuted";
+  v17[0] = v3;
   v4 = [MEMORY[0x1E696AD98] numberWithBool:(*v2 >> 2) & 1];
-  v18[1] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v17[1] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
 
   v6 = [MEMORY[0x1E696AD88] defaultCenter];
   v7 = EDConversationFlagsChanged;
   v8 = a1[4];
-  v15[0] = @"EDConversationFlagsChangedConversationIDKey";
+  v14[0] = @"EDConversationFlagsChangedConversationIDKey";
   v9 = [MEMORY[0x1E696AD98] numberWithLongLong:a1[6]];
-  v16[0] = v9;
-  v16[1] = v5;
-  v15[1] = @"EDConversationFlagsChangesKey";
-  v15[2] = @"EDConversationFlagsKey";
+  v15[0] = v9;
+  v15[1] = v5;
+  v14[1] = @"EDConversationFlagsChangesKey";
+  v14[2] = @"EDConversationFlagsKey";
   v10 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:a1[5]];
-  v16[2] = v10;
-  v15[3] = @"EDConversationFlagsOldFlags";
+  v15[2] = v10;
+  v14[3] = @"EDConversationFlagsOldFlags";
   v11 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:a1[7]];
-  v16[3] = v11;
-  v15[4] = @"EDConversationFlagsReason";
+  v15[3] = v11;
+  v14[4] = @"EDConversationFlagsReason";
   v12 = [MEMORY[0x1E696AD98] numberWithInteger:a1[8]];
-  v16[4] = v12;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:5];
+  v15[4] = v12;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:5];
   [v6 postNotificationName:v7 object:v8 userInfo:v13];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)hasSubscribedConversations
@@ -1202,12 +1182,11 @@ void __85__EDConversationPersistence_flaggedConversationsChangedBetweenStartAnch
 
 void __57__EDConversationPersistence_conversationIDForMessageIDs___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Multiple conversations found for message_ids %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Multiple conversations found for message_ids %@", &v3, 0xCu);
 }
 
 void __88__EDConversationPersistence_updateAssociationTableForMessageID_dateSent_conversationID___block_invoke_cold_1(void *a1, uint8_t *buf, os_log_t log)

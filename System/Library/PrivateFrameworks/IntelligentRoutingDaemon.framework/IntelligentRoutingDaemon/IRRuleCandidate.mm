@@ -3,6 +3,7 @@
 - (BOOL)_isLastEventForCandidate:(id)candidate inPrerequisite:(id)prerequisite isOneOf:(id)of;
 - (BOOL)_proximityBLEValueForCandidate:(id)candidate withNearbyDeviceContainer:(id)container date:(id)date;
 - (BOOL)_proximityDecisionForCandidate:(id)candidate withNearbyDeviceContainer:(id)container date:(id)date;
+- (IRRuleCandidate)initWithAttributeKey:(id)key requireAllNodes:(BOOL)nodes;
 - (id)_activeRouteForCandidate:(id)candidate systemState:(id)state;
 - (id)_appleTVControlUserRejectedInLastDayWithoutPickerChoiceForCandidate:(id)candidate prerequisite:(id)prerequisite;
 - (id)_attributeValueForAttributeKey:(id)key prerequisite:(id)prerequisite withCandidate:(id)candidate nearbyDeviceContainer:(id)container systemState:(id)state date:(id)date;
@@ -24,6 +25,23 @@
 @end
 
 @implementation IRRuleCandidate
+
+- (IRRuleCandidate)initWithAttributeKey:(id)key requireAllNodes:(BOOL)nodes
+{
+  nodesCopy = nodes;
+  keyCopy = key;
+  v10.receiver = self;
+  v10.super_class = IRRuleCandidate;
+  v7 = [(IRRuleCandidate *)&v10 init];
+  v8 = v7;
+  if (v7)
+  {
+    [(IRRuleCandidate *)v7 setAttributeKey:keyCopy];
+    [(IRRuleCandidate *)v8 setRequireAllNodes:nodesCopy];
+  }
+
+  return v8;
+}
 
 - (id)executeRuleWithCandiatesContainer:(id)container systemStatus:(id)status historyContainer:(id)historyContainer miloPrediction:(id)prediction nearbyDeviceContainer:(id)deviceContainer date:(id)date
 {
@@ -138,41 +156,40 @@ void __125__IRRuleCandidate_executeRuleWithCandiatesContainer_systemStatus_histo
   candidateCopy = candidate;
   containerCopy = container;
   dateCopy = date;
-  v11 = [(IRRuleCandidate *)self _proximityLowestUwbRangeForCandidate:candidateCopy withNearbyDeviceContainer:containerCopy date:dateCopy];
-  v15 = v11 && (+[IRPreferences shared](IRPreferences, "shared"), v12 = objc_claimAutoreleasedReturnValue(), [v12 deviceRangeProximityThreshold], v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v11, "isLessThanOrEqualTo:", v13), v13, v12, (v14 & 1) != 0) || -[IRRuleCandidate _proximityBLEValueForCandidate:withNearbyDeviceContainer:date:](self, "_proximityBLEValueForCandidate:withNearbyDeviceContainer:date:", candidateCopy, containerCopy, dateCopy);
+  v15 = v11 && (+[IRPreferences shared](IRPreferences, "shared"), v12 = v11 = [(IRRuleCandidate *)self _proximityLowestUwbRangeForCandidate:candidateCopy withNearbyDeviceContainer:containerCopy date:dateCopy];
 
   return v15;
 }
 
 - (id)_proximityPrerequisiteValueForCandidatesContainer:(id)container withNearbyDeviceContainer:(id)deviceContainer date:(id)date
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   containerCopy = container;
   deviceContainerCopy = deviceContainer;
   dateCopy = date;
   v11 = objc_opt_new();
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v24 = containerCopy;
+  v23 = containerCopy;
   obj = [containerCopy candidates];
-  v12 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v12 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v12)
   {
     v13 = v12;
     v14 = 0;
-    v15 = *v27;
+    v15 = *v26;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v27 != v15)
+        if (*v26 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v26 + 1) + 8 * i);
+        v17 = *(*(&v25 + 1) + 8 * i);
         v18 = [(IRRuleCandidate *)self _proximityDecisionForCandidate:v17 withNearbyDeviceContainer:deviceContainerCopy date:dateCopy];
         v14 |= v18;
         v19 = [MEMORY[0x277CCABB0] numberWithBool:v18];
@@ -180,7 +197,7 @@ void __125__IRRuleCandidate_executeRuleWithCandiatesContainer_systemStatus_histo
         [v11 setObject:v19 forKeyedSubscript:candidateIdentifier];
       }
 
-      v13 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v13 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v13);
@@ -194,8 +211,6 @@ void __125__IRRuleCandidate_executeRuleWithCandiatesContainer_systemStatus_histo
   v21 = objc_opt_new();
   [v21 setAnyCandidateInProximity:v14 & 1];
   [v21 setProximityPerCandiate:v11];
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -251,28 +266,25 @@ void __125__IRRuleCandidate_executeRuleWithCandiatesContainer_systemStatus_histo
 
 void __113__IRRuleCandidate__shortestRangeProximityPrerequisiteValueForCandidatesContainer_withNearbyDeviceContainer_date___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = *(a1 + 40);
-  v5 = *(a1 + 48);
-  v15 = v3;
-  v6 = [*(a1 + 32) _proximityLowestUwbRangeForCandidate:? withNearbyDeviceContainer:? date:?];
-  if (v6)
+  v12 = a2;
+  v3 = [*(a1 + 32) _proximityLowestUwbRangeForCandidate:? withNearbyDeviceContainer:? date:?];
+  if (v3)
   {
-    v7 = +[IRPreferences shared];
-    v8 = [v7 deviceRangeProximityThreshold];
-    v9 = [v6 isLessThanOrEqualTo:v8];
+    v4 = +[IRPreferences shared];
+    v5 = [v4 deviceRangeProximityThreshold];
+    v6 = [v3 isLessThanOrEqualTo:v5];
 
-    *(*(*(a1 + 56) + 8) + 24) |= v9;
-    if (v9)
+    *(*(*(a1 + 56) + 8) + 24) |= v6;
+    if (v6)
     {
-      if (!*(*(*(a1 + 64) + 8) + 40) || ([v6 isLessThan:?] & 1) != 0 || objc_msgSend(v6, "isEqual:", *(*(*(a1 + 64) + 8) + 40)) && (objc_msgSend(v15, "nodes"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "count"), v13, v14 == 1))
+      if (!*(*(*(a1 + 64) + 8) + 40) || ([v3 isLessThan:?] & 1) != 0 || objc_msgSend(v3, "isEqual:", *(*(*(a1 + 64) + 8) + 40)) && (objc_msgSend(v12, "nodes"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "count"), v10, v11 == 1))
       {
-        v10 = [v15 candidateIdentifier];
-        v11 = *(*(a1 + 72) + 8);
-        v12 = *(v11 + 40);
-        *(v11 + 40) = v10;
+        v7 = [v12 candidateIdentifier];
+        v8 = *(*(a1 + 72) + 8);
+        v9 = *(v8 + 40);
+        *(v8 + 40) = v7;
 
-        objc_storeStrong((*(*(a1 + 64) + 8) + 40), v6);
+        objc_storeStrong((*(*(a1 + 64) + 8) + 40), v3);
       }
     }
   }
@@ -335,47 +347,44 @@ void __113__IRRuleCandidate__shortestRangeProximityPrerequisiteValueForCandidate
 
 void __165__IRRuleCandidate__shortestRangeWithHistoryOrSameICloudProximityPrerequisiteValueForCandidatesContainer_withNearbyDeviceContainer_historyContainer_systemState_date___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = *(a1 + 40);
-  v5 = *(a1 + 48);
-  v18 = v3;
-  v6 = [*(a1 + 32) _proximityLowestUwbRangeForCandidate:? withNearbyDeviceContainer:? date:?];
-  if (v6)
+  v15 = a2;
+  v3 = [*(a1 + 32) _proximityLowestUwbRangeForCandidate:? withNearbyDeviceContainer:? date:?];
+  if (v3)
   {
-    v7 = +[IRPreferences shared];
-    v8 = [v7 deviceRangeProximityThreshold];
-    if ([v6 isLessThanOrEqualTo:v8])
+    v4 = +[IRPreferences shared];
+    v5 = [v4 deviceRangeProximityThreshold];
+    if ([v3 isLessThanOrEqualTo:v5])
     {
-      v9 = *(a1 + 32);
-      v10 = [v18 candidateIdentifier];
-      if ([v9 _isCandidateIdentifier:v10 inHistory:*(a1 + 56)])
+      v6 = *(a1 + 32);
+      v7 = [v15 candidateIdentifier];
+      if ([v6 _isCandidateIdentifier:v7 inHistory:*(a1 + 56)])
       {
-        v11 = 1;
+        v8 = 1;
       }
 
       else
       {
-        v12 = [*(a1 + 32) _sameIcloudForCandidate:v18 systemState:*(a1 + 64)];
-        v11 = [v12 BOOLean];
+        v9 = [*(a1 + 32) _sameIcloudForCandidate:v15 systemState:*(a1 + 64)];
+        v8 = [v9 BOOLean];
       }
     }
 
     else
     {
-      v11 = 0;
+      v8 = 0;
     }
 
-    *(*(*(a1 + 72) + 8) + 24) |= v11;
-    if (v11)
+    *(*(*(a1 + 72) + 8) + 24) |= v8;
+    if (v8)
     {
-      if (!*(*(*(a1 + 80) + 8) + 40) || ([v6 isLessThan:?] & 1) != 0 || objc_msgSend(v6, "isEqual:", *(*(*(a1 + 80) + 8) + 40)) && (objc_msgSend(v18, "nodes"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "count"), v16, v17 == 1))
+      if (!*(*(*(a1 + 80) + 8) + 40) || ([v3 isLessThan:?] & 1) != 0 || objc_msgSend(v3, "isEqual:", *(*(*(a1 + 80) + 8) + 40)) && (objc_msgSend(v15, "nodes"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "count"), v13, v14 == 1))
       {
-        v13 = [v18 candidateIdentifier];
-        v14 = *(*(a1 + 88) + 8);
-        v15 = *(v14 + 40);
-        *(v14 + 40) = v13;
+        v10 = [v15 candidateIdentifier];
+        v11 = *(*(a1 + 88) + 8);
+        v12 = *(v11 + 40);
+        *(v11 + 40) = v10;
 
-        objc_storeStrong((*(*(a1 + 80) + 8) + 40), v6);
+        objc_storeStrong((*(*(a1 + 80) + 8) + 40), v3);
       }
     }
   }
@@ -502,7 +511,7 @@ uint64_t __52__IRRuleCandidate__isCandidateIdentifier_inHistory___block_invoke(u
 
 - (id)_proximityLowestUwbRangeForCandidate:(id)candidate withNearbyDeviceContainer:(id)container date:(id)date
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   candidateCopy = candidate;
   containerCopy = container;
   dateCopy = date;
@@ -510,31 +519,31 @@ uint64_t __52__IRRuleCandidate__isCandidateIdentifier_inHistory___block_invoke(u
   v12 = +[IRPreferences shared];
   nearbyDeviceMeasurmentExpityTimeSeconds = [v12 nearbyDeviceMeasurmentExpityTimeSeconds];
   [nearbyDeviceMeasurmentExpityTimeSeconds doubleValue];
-  v31 = dateCopy;
+  v30 = dateCopy;
   v15 = [v11 dateWithTimeInterval:dateCopy sinceDate:-v14];
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
-  v32 = candidateCopy;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v31 = candidateCopy;
   nodes = [candidateCopy nodes];
-  v17 = [nodes countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v17 = [nodes countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v17)
   {
     v18 = v17;
     v19 = 0;
-    v20 = *v34;
+    v20 = *v33;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v34 != v20)
+        if (*v33 != v20)
         {
           objc_enumerationMutation(nodes);
         }
 
-        v22 = [(IRRuleCandidate *)self _matchedDevicefromNode:*(*(&v33 + 1) + 8 * i) withNearbyDeviceContainer:containerCopy measurementExpiry:v15 isUwb:1];
+        v22 = [(IRRuleCandidate *)self _matchedDevicefromNode:*(*(&v32 + 1) + 8 * i) withNearbyDeviceContainer:containerCopy measurementExpiry:v15 isUwb:1];
         v23 = v22;
         if (v22)
         {
@@ -561,7 +570,7 @@ uint64_t __52__IRRuleCandidate__isCandidateIdentifier_inHistory___block_invoke(u
         }
       }
 
-      v18 = [nodes countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v18 = [nodes countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
     while (v18);
@@ -571,8 +580,6 @@ uint64_t __52__IRRuleCandidate__isCandidateIdentifier_inHistory___block_invoke(u
   {
     v19 = 0;
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -676,28 +683,28 @@ BOOL __92__IRRuleCandidate__matchedDevicefromNode_withNearbyDeviceContainer_meas
 
 - (BOOL)_proximityBLEValueForCandidate:(id)candidate withNearbyDeviceContainer:(id)container date:(id)date
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   containerCopy = container;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   nodes = [candidate nodes];
-  v9 = [nodes countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [nodes countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(nodes);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
+        v13 = *(*(&v18 + 1) + 8 * i);
         distantPast = [MEMORY[0x277CBEAA8] distantPast];
         v15 = [(IRRuleCandidate *)self _matchedDevicefromNode:v13 withNearbyDeviceContainer:containerCopy measurementExpiry:distantPast isUwb:0];
 
@@ -708,7 +715,7 @@ BOOL __92__IRRuleCandidate__matchedDevicefromNode_withNearbyDeviceContainer_meas
         }
       }
 
-      v10 = [nodes countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [nodes countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v10)
       {
         continue;
@@ -721,7 +728,6 @@ BOOL __92__IRRuleCandidate__matchedDevicefromNode_withNearbyDeviceContainer_meas
   v16 = 0;
 LABEL_11:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

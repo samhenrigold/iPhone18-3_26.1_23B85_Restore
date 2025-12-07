@@ -25,14 +25,14 @@
 - (id)newRenderModelCompatibleWithKind:(unint64_t)kind context:(id)context
 {
   contextCopy = context;
-  v7 = [(TUILayout *)self box];
+  v7 = objc_msgSend_box(self);
   viewState = [v7 viewState];
 
   v9 = 0;
   if (kind >= 4 && viewState)
   {
     v10 = objc_opt_new();
-    v11 = [(TUILayout *)self box];
+    v11 = objc_msgSend_box(self);
     pointerRefId = [v11 pointerRefId];
     v13 = pointerRefId;
     if (pointerRefId)
@@ -44,7 +44,7 @@
     {
       v15 = viewState;
       WeakRetained = objc_loadWeakRetained(&self->_moreChild);
-      v17 = [WeakRetained box];
+      v17 = objc_msgSend_box(WeakRetained);
       refId = [v17 refId];
 
       viewState = v15;
@@ -52,7 +52,7 @@
 
     v36 = refId;
 
-    v18 = [(TUILayout *)self box];
+    v18 = objc_msgSend_box(self);
     pointerStyle = [v18 pointerStyle];
     v20 = [TUIPointer pointerWithRefId:refId style:pointerStyle];
 
@@ -81,7 +81,7 @@
     v25 = viewState;
     v39 = v25;
     v26 = [(TUIElementActionTriggerHandler *)v24 initWithActionsData:v23 block:v38];
-    v27 = [(TUILayout *)self box];
+    v27 = objc_msgSend_box(self);
     [v27 identifier];
     v29 = v28 = viewState;
     LOWORD(v33) = 0;
@@ -101,24 +101,24 @@
 
 - ($E297CC25127479E857BE23A4F8632EA4)computeIntrinsicWidth
 {
-  expandableChild = [(TUIExpandableLayout *)self expandableChild];
-  validatedIntrinsicWidthConsideringSpecified = [expandableChild validatedIntrinsicWidthConsideringSpecified];
+  v3 = objc_msgSend_expandableChild(self, a3);
+  validatedIntrinsicWidthConsideringSpecified = [v3 validatedIntrinsicWidthConsideringSpecified];
 
   return validatedIntrinsicWidthConsideringSpecified;
 }
 
 - ($E297CC25127479E857BE23A4F8632EA4)computeIntrinsicHeight
 {
-  expandableChild = [(TUIExpandableLayout *)self expandableChild];
-  validatedIntrinsicHeightConsideringSpecified = [expandableChild validatedIntrinsicHeightConsideringSpecified];
+  v3 = objc_msgSend_expandableChild(self, a3);
+  validatedIntrinsicHeightConsideringSpecified = [v3 validatedIntrinsicHeightConsideringSpecified];
 
   return validatedIntrinsicHeightConsideringSpecified;
 }
 
 - (double)computedHeightAbovePivot
 {
-  expandableChild = [(TUIExpandableLayout *)self expandableChild];
-  [expandableChild computedHeightAbovePivot];
+  v2 = objc_msgSend_expandableChild(self, a2);
+  [v2 computedHeightAbovePivot];
   v4 = v3;
 
   return v4;
@@ -138,53 +138,53 @@
 - (void)computeLayout
 {
   _isExpanded = [(TUIExpandableLayout *)self _isExpanded];
-  expandableChild = [(TUIExpandableLayout *)self expandableChild];
+  v4 = objc_msgSend_expandableChild(self);
   v5 = _isExpanded ^ 1;
-  v6 = (expandableChild != 0) & (_isExpanded ^ 1);
+  v6 = (v4 != 0) & (_isExpanded ^ 1);
 
   if (v6 == 1)
   {
     moreChild = [(TUIExpandableLayout *)self moreChild];
-    [moreChild validateLayout];
+    objc_msgSend_validateLayout(moreChild);
 
     moreChild2 = [(TUIExpandableLayout *)self moreChild];
-    [moreChild2 computedTransformedSize];
+    objc_msgSend_computedTransformedSize(moreChild2);
     v10 = v9;
-    expandableChild2 = [(TUIExpandableLayout *)self expandableChild];
-    [expandableChild2 setExpandableMoreWidth:v10];
+    v11 = objc_msgSend_expandableChild(self);
+    [v11 setExpandableMoreWidth:v10];
   }
 
   [(TUILayout *)self flexedWidth];
   v13 = v12;
-  expandableChild3 = [(TUIExpandableLayout *)self expandableChild];
-  [expandableChild3 setFlexedWidth:v13];
+  v14 = objc_msgSend_expandableChild(self);
+  [v14 setFlexedWidth:v13];
 
   [(TUILayout *)self flexedHeight];
   v16 = v15;
-  expandableChild4 = [(TUIExpandableLayout *)self expandableChild];
-  [expandableChild4 setFlexedHeight:v16];
+  v17 = objc_msgSend_expandableChild(self);
+  [v17 setFlexedHeight:v16];
 
   [(TUILayout *)self computeWidth];
   v19 = v18;
-  expandableChild5 = [(TUIExpandableLayout *)self expandableChild];
-  [expandableChild5 setContainingWidth:v19];
+  v20 = objc_msgSend_expandableChild(self);
+  [v20 setContainingWidth:v19];
 
   [(TUILayout *)self containingHeight];
   [(TUILayout *)self containingHeight];
   v22 = v21;
-  expandableChild6 = [(TUIExpandableLayout *)self expandableChild];
-  [expandableChild6 setContainingHeight:v22];
+  v23 = objc_msgSend_expandableChild(self);
+  [v23 setContainingHeight:v22];
 
-  expandableChild7 = [(TUIExpandableLayout *)self expandableChild];
-  [expandableChild7 validateLayout];
+  v24 = objc_msgSend_expandableChild(self);
+  objc_msgSend_validateLayout(v24);
 
-  expandableChild8 = [(TUIExpandableLayout *)self expandableChild];
-  [expandableChild8 computedTransformedSize];
+  v25 = objc_msgSend_expandableChild(self);
+  objc_msgSend_computedTransformedSize(v25);
   v27 = v26;
   v29 = v28;
 
-  expandableChild9 = [(TUIExpandableLayout *)self expandableChild];
-  expandableContentIsTruncated = [expandableChild9 expandableContentIsTruncated];
+  v30 = objc_msgSend_expandableChild(self);
+  expandableContentIsTruncated = [v30 expandableContentIsTruncated];
 
   v32 = v5 & expandableContentIsTruncated;
   moreChild3 = [(TUIExpandableLayout *)self moreChild];
@@ -195,15 +195,15 @@
 
   if ((((v6 & v32) ^ 1) & 1) == 0)
   {
-    expandableChild10 = [(TUIExpandableLayout *)self expandableChild];
-    [expandableChild10 expandableMoreXOffset];
+    v35 = objc_msgSend_expandableChild(self);
+    [v35 expandableMoreXOffset];
     v37 = v36;
 
-    expandableChild11 = [(TUIExpandableLayout *)self expandableChild];
-    [expandableChild11 computedOrigin];
+    v38 = objc_msgSend_expandableChild(self);
+    [v38 computedOrigin];
     v40 = v39;
-    expandableChild12 = [(TUIExpandableLayout *)self expandableChild];
-    [expandableChild12 computedHeightAbovePivot];
+    v41 = objc_msgSend_expandableChild(self);
+    [v41 computedHeightAbovePivot];
     v43 = v40 + v42;
     moreChild4 = [(TUIExpandableLayout *)self moreChild];
     [moreChild4 computedHeightAbovePivot];
@@ -226,8 +226,8 @@ LABEL_8:
     if ((hidden & 1) == 0)
     {
       v52 = [TUIVStack alloc];
-      expandableChild13 = [(TUIExpandableLayout *)self expandableChild];
-      v58[0] = expandableChild13;
+      v53 = objc_msgSend_expandableChild(self);
+      v58[0] = v53;
       expandedContentChild4 = [(TUIExpandableLayout *)self expandedContentChild];
       v58[1] = expandedContentChild4;
       v55 = [NSArray arrayWithObjects:v58 count:2];
@@ -250,16 +250,16 @@ LABEL_9:
 
 - ($E297CC25127479E857BE23A4F8632EA4)computedContentWidth
 {
-  expandableChild = [(TUIExpandableLayout *)self expandableChild];
-  computedContentWidth = [expandableChild computedContentWidth];
+  v3 = objc_msgSend_expandableChild(self, a3);
+  computedContentWidth = [v3 computedContentWidth];
 
   return computedContentWidth;
 }
 
 - ($E297CC25127479E857BE23A4F8632EA4)computedContentHeight
 {
-  expandableChild = [(TUIExpandableLayout *)self expandableChild];
-  computedContentHeight = [expandableChild computedContentHeight];
+  v3 = objc_msgSend_expandableChild(self, a3);
+  computedContentHeight = [v3 computedContentHeight];
 
   return computedContentHeight;
 }
@@ -279,7 +279,7 @@ LABEL_9:
   layoutAncestor = [layoutCopy layoutAncestor];
   if (layoutAncestor == self)
   {
-    v9 = [layoutCopy box];
+    v9 = objc_msgSend_box(layoutCopy);
     if ([v9 role])
     {
       v8 = 0;
@@ -302,32 +302,32 @@ LABEL_9:
 
 - (id)effectiveGuideTop
 {
-  expandableChild = [(TUIExpandableLayout *)self expandableChild];
-  effectiveGuideTop = [expandableChild effectiveGuideTop];
+  v2 = objc_msgSend_expandableChild(self, a2);
+  effectiveGuideTop = [v2 effectiveGuideTop];
 
   return effectiveGuideTop;
 }
 
 - (id)effectiveGuideBottom
 {
-  expandableChild = [(TUIExpandableLayout *)self expandableChild];
-  effectiveGuideBottom = [expandableChild effectiveGuideBottom];
+  v2 = objc_msgSend_expandableChild(self, a2);
+  effectiveGuideBottom = [v2 effectiveGuideBottom];
 
   return effectiveGuideBottom;
 }
 
 - (id)effectiveGuideLeading
 {
-  expandableChild = [(TUIExpandableLayout *)self expandableChild];
-  effectiveGuideLeading = [expandableChild effectiveGuideLeading];
+  v2 = objc_msgSend_expandableChild(self, a2);
+  effectiveGuideLeading = [v2 effectiveGuideLeading];
 
   return effectiveGuideLeading;
 }
 
 - (id)effectiveGuideTrailing
 {
-  expandableChild = [(TUIExpandableLayout *)self expandableChild];
-  effectiveGuideTrailing = [expandableChild effectiveGuideTrailing];
+  v2 = objc_msgSend_expandableChild(self, a2);
+  effectiveGuideTrailing = [v2 effectiveGuideTrailing];
 
   return effectiveGuideTrailing;
 }
@@ -352,35 +352,35 @@ LABEL_9:
 {
   if (![(TUIExpandableLayout *)self didExamineChildren])
   {
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    children = [(TUILayout *)self children];
-    v4 = [children countByEnumeratingWithState:&v30 objects:v38 count:16];
+    v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v3 = objc_msgSend_children(self);
+    v4 = [v3 countByEnumeratingWithState:&v34 objects:v42 count:16];
     if (!v4)
     {
       goto LABEL_28;
     }
 
     v5 = v4;
-    v6 = *v31;
+    v6 = *v35;
     while (1)
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v31 != v6)
+        if (*v35 != v6)
         {
-          objc_enumerationMutation(children);
+          objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v30 + 1) + 8 * i);
-        v9 = [v8 box];
+        v8 = *(*(&v34 + 1) + 8 * i);
+        v9 = objc_msgSend_box(v8);
         role = [v9 role];
 
         if (role)
         {
-          v11 = [v8 box];
+          v11 = objc_msgSend_box(v8);
           role2 = [v11 role];
 
           if (role2 == &dword_0 + 2)
@@ -390,10 +390,10 @@ LABEL_9:
 
             if (WeakRetained)
             {
-              v15 = TUIDefaultLog();
-              if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+              v16 = TUIDefaultLog(v15);
+              if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
               {
-                sub_1998D4(v35, self);
+                sub_1998D4(v39, self);
               }
 
               goto LABEL_24;
@@ -402,8 +402,8 @@ LABEL_9:
 
           else
           {
-            v27 = [v8 box];
-            role3 = [v27 role];
+            v30 = objc_msgSend_box(v8);
+            role3 = [v30 role];
 
             if (role3 != &dword_4 + 1)
             {
@@ -411,14 +411,14 @@ LABEL_9:
             }
 
             v13 = 128;
-            v29 = objc_loadWeakRetained(&self->_moreChild);
+            v32 = objc_loadWeakRetained(&self->_moreChild);
 
-            if (v29)
+            if (v32)
             {
-              v15 = TUIDefaultLog();
-              if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+              v16 = TUIDefaultLog(v33);
+              if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
               {
-                sub_199878(v34, self);
+                sub_199878(v38, self);
               }
 
 LABEL_24:
@@ -429,33 +429,33 @@ LABEL_24:
           continue;
         }
 
-        v16 = objc_loadWeakRetained(&self->_expandableChild);
+        v17 = objc_loadWeakRetained(&self->_expandableChild);
 
-        if (v16)
+        if (v17)
         {
-          v17 = TUIDefaultLog();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v19 = TUIDefaultLog(v18);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
-            sub_199930(v37, self);
+            sub_199930(v41, self);
           }
         }
 
-        v18 = objc_opt_class();
-        v24 = TUIClassAndProtocolCast(v8, v18, 1, v19, v20, v21, v22, v23, &OBJC_PROTOCOL___TUIExpandableContentLayout);
-        objc_storeWeak(&self->_expandableChild, v24);
+        v20 = objc_opt_class();
+        v26 = TUIClassAndProtocolCast(v8, v20, 1, v21, v22, v23, v24, v25, &OBJC_PROTOCOL___TUIExpandableContentLayout);
+        objc_storeWeak(&self->_expandableChild, v26);
 
-        v25 = objc_loadWeakRetained(&self->_expandableChild);
-        if (!v25)
+        v27 = objc_loadWeakRetained(&self->_expandableChild);
+        if (!v27)
         {
-          v26 = TUIDefaultLog();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+          v29 = TUIDefaultLog(v28);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
           {
-            sub_19998C(v36, self);
+            sub_19998C(v40, self);
           }
         }
       }
 
-      v5 = [children countByEnumeratingWithState:&v30 objects:v38 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v34 objects:v42 count:16];
       if (!v5)
       {
 LABEL_28:
@@ -469,7 +469,7 @@ LABEL_28:
 
 - (BOOL)_isExpanded
 {
-  v2 = [(TUILayout *)self box];
+  v2 = objc_msgSend_box(self, a2);
   viewState = [v2 viewState];
   value = [viewState value];
   bOOLValue = [value BOOLValue];

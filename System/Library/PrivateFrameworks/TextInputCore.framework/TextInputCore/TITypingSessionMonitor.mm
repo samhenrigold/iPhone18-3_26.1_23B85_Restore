@@ -18,8 +18,10 @@
 - (void)addDrawInputWithSyllableCount:(unint64_t)count keyboardState:(id)state;
 - (void)addKeyInput:(id)input keyboardState:(id)state;
 - (void)addTouchEvent:(id)event;
+- (void)candidateAccepted:(id)accepted withInput:(id)input documentState:(id)state inputContext:(id)context inputStem:(id)stem predictionBarHit:(BOOL)hit useCandidateSelection:(BOOL)selection candidateIndex:(int64_t)self0 keyboardState:(id)self1;
 - (void)candidatesOffered:(id)offered keyboardState:(id)state;
 - (void)changingContextWithTrigger:(id)trigger;
+- (void)contextDidChange:(id)change wordDelete:(BOOL)delete cursorMoved:(BOOL)moved extendsPriorWord:(BOOL)word inWord:(id)inWord range:(_NSRange)range selectionLocation:(unint64_t)location keyboardState:(id)self0;
 - (void)endSessionWithInteractionObservers:(id)observers sessionParams:(id)params timestamp:(id)timestamp;
 - (void)layoutDidChange:(id)change keyboardState:(id)state;
 - (void)setClientID:(id)d keyboardState:(id)state;
@@ -42,7 +44,7 @@
 
 - (void)_loadInteractionObservers
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v4 = [TITypingSession alloc];
   locale = [(TITypingSessionMonitor *)self locale];
@@ -50,31 +52,31 @@
 
   [v3 addObject:v6];
   date = [MEMORY[0x277CBEAA8] date];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v8 = v3;
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       v12 = 0;
       do
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [*(*(&v16 + 1) + 8 * v12++) startSessionWithTimestamp:{date, v16}];
+        [*(*(&v15 + 1) + 8 * v12++) startSessionWithTimestamp:{date, v15}];
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
@@ -83,8 +85,6 @@
   v13 = [v8 copy];
   interactionObservers = self->_interactionObservers;
   self->_interactionObservers = v13;
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (TITypingDESRecordWriter)desRecordWriter
@@ -104,7 +104,7 @@
 
 - (id)observeSession:(id)session sessionParams:(id)params
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   [sessionCopy setSessionParams:params];
   featureUsageMetricsCache = [(TITypingSessionMonitor *)self featureUsageMetricsCache];
@@ -117,12 +117,12 @@
     goto LABEL_21;
   }
 
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x3032000000;
-  v38 = __Block_byref_object_copy__2019;
-  v39 = __Block_byref_object_dispose__2020;
-  v40 = os_transaction_create();
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = __Block_byref_object_copy__2019;
+  v38 = __Block_byref_object_dispose__2020;
+  v39 = os_transaction_create();
   v8 = [[TITypingSessionAligned alloc] initWithSession:sessionCopy];
   alignedEntries = [(TITypingSessionAligned *)v8 alignedEntries];
   if (![alignedEntries count])
@@ -144,44 +144,44 @@ LABEL_11:
   if (!usesDODMLLogging)
   {
 LABEL_12:
-    desRecordWriter = v36[5];
-    v36[5] = 0;
+    desRecordWriter = v35[5];
+    v35[5] = 0;
     goto LABEL_13;
   }
 
   desRecordWriter = [(TITypingSessionMonitor *)self desRecordWriter];
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __55__TITypingSessionMonitor_observeSession_sessionParams___block_invoke;
-  v34[3] = &unk_27872F598;
-  v34[4] = &v35;
-  [desRecordWriter storeAlignedSession:v8 completion:v34];
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __55__TITypingSessionMonitor_observeSession_sessionParams___block_invoke;
+  v33[3] = &unk_27872F598;
+  v33[4] = &v34;
+  [desRecordWriter storeAlignedSession:v8 completion:v33];
 LABEL_13:
 
   v16 = os_transaction_create();
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   v17 = self->_aggregatedEventObservers;
-  v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v30 objects:v41 count:16];
+  v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v29 objects:v40 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v31;
+    v20 = *v30;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v31 != v20)
+        if (*v30 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        [*(*(&v30 + 1) + 8 * i) sessionDidEnd:sessionCopy aligned:{v8, v30}];
+        [*(*(&v29 + 1) + 8 * i) sessionDidEnd:sessionCopy aligned:{v8, v29}];
       }
 
-      v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v30 objects:v41 count:16];
+      v19 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v29 objects:v40 count:16];
     }
 
     while (v19);
@@ -197,30 +197,26 @@ LABEL_13:
   date = [MEMORY[0x277CBEAA8] date];
   [userModel2 persistForDate:date];
 
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v34, 8);
 LABEL_21:
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 void __55__TITypingSessionMonitor_observeSession_sessionParams___block_invoke(uint64_t a1, void *a2, char a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if ((a3 & 1) == 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315138;
-    v10 = "[TITypingSessionMonitor observeSession:sessionParams:]_block_invoke";
-    _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s  failed to write DESRecord", &v9, 0xCu);
+    v8 = 136315138;
+    v9 = "[TITypingSessionMonitor observeSession:sessionParams:]_block_invoke";
+    _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s  failed to write DESRecord", &v8, 0xCu);
   }
 
   v6 = *(*(a1 + 32) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = 0;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_loadAggregatedEventObservers
@@ -334,35 +330,34 @@ void __55__TITypingSessionMonitor_observeSession_sessionParams___block_invoke(ui
 {
   if (self->_aggregatedEventObservers)
   {
-    workQueue = self->_workQueue;
     TIDispatchAsync();
   }
 }
 
 void __34__TITypingSessionMonitor_tearDown__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v1 = *(*(a1 + 32) + 96);
-  v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v9;
+    v4 = *v8;
     do
     {
       v5 = 0;
       do
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = *(*(&v8 + 1) + 8 * v5);
+        v6 = *(*(&v7 + 1) + 8 * v5);
         if (objc_opt_respondsToSelector())
         {
           [v6 tearDown];
@@ -372,13 +367,11 @@ void __34__TITypingSessionMonitor_tearDown__block_invoke(uint64_t a1)
       }
 
       while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v3);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endSessionWithInteractionObservers:(id)observers sessionParams:(id)params timestamp:(id)timestamp
@@ -387,49 +380,48 @@ void __34__TITypingSessionMonitor_tearDown__block_invoke(uint64_t a1)
   paramsCopy = params;
   timestampCopy = timestamp;
   objc_initWeak(&location, self);
-  workQueue = self->_workQueue;
-  objc_copyWeak(&v18, &location);
-  v15 = observersCopy;
-  v16 = timestampCopy;
-  v17 = paramsCopy;
-  v12 = paramsCopy;
-  v13 = timestampCopy;
+  objc_copyWeak(&v17, &location);
   v14 = observersCopy;
+  v15 = timestampCopy;
+  v16 = paramsCopy;
+  v11 = paramsCopy;
+  v12 = timestampCopy;
+  v13 = observersCopy;
   TIDispatchAsync();
 
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(&location);
 }
 
 void __85__TITypingSessionMonitor_endSessionWithInteractionObservers_sessionParams_timestamp___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   if (WeakRetained)
   {
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v3 = *(a1 + 32);
-    v4 = [v3 countByEnumeratingWithState:&v26 objects:v31 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v25 objects:v30 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v27;
+      v6 = *v26;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v27 != v6)
+          if (*v26 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          [*(*(&v26 + 1) + 8 * i) endSessionWithTimestamp:*(a1 + 40)];
+          [*(*(&v25 + 1) + 8 * i) endSessionWithTimestamp:*(a1 + 40)];
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v25 objects:v30 count:16];
       }
 
       while (v5);
@@ -442,8 +434,8 @@ void __85__TITypingSessionMonitor_endSessionWithInteractionObservers_sessionPara
 
     if (TI_IS_INTERNAL_INSTALL::is_internal_install)
     {
-      v21 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.keyboard"];
-      v8 = [v21 BOOLForKey:@"typingSessionNotificationsEnabled"];
+      v20 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.keyboard"];
+      v8 = [v20 BOOLForKey:@"typingSessionNotificationsEnabled"];
       if (TI_IS_INTERNAL_INSTALL::once_token != -1)
       {
         dispatch_once(&TI_IS_INTERNAL_INSTALL::once_token, &__block_literal_global_3815);
@@ -460,36 +452,36 @@ void __85__TITypingSessionMonitor_endSessionWithInteractionObservers_sessionPara
     else
     {
       v8 = 0;
-      v21 = 0;
+      v20 = 0;
     }
 
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v10 = *(a1 + 32);
-    v11 = [v10 countByEnumeratingWithState:&v22 objects:v30 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v21 objects:v29 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v23;
+      v13 = *v22;
       do
       {
         for (j = 0; j != v12; ++j)
         {
-          if (*v23 != v13)
+          if (*v22 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v22 + 1) + 8 * j);
+          v15 = *(*(&v21 + 1) + 8 * j);
           if (objc_opt_respondsToSelector())
           {
             [v15 analyzeSessionWithSessionParams:*(a1 + 48)];
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v21 objects:v29 count:16];
       }
 
       while (v12);
@@ -515,8 +507,6 @@ void __85__TITypingSessionMonitor_endSessionWithInteractionObservers_sessionPara
       [v19 queueCompletionHandler:&__block_literal_global_2038];
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __85__TITypingSessionMonitor_endSessionWithInteractionObservers_sessionParams_timestamp___block_invoke_2()
@@ -544,302 +534,364 @@ void __85__TITypingSessionMonitor_endSessionWithInteractionObservers_sessionPara
 
 - (void)setClientID:(id)d keyboardState:(id)state
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dCopy = d;
   stateCopy = state;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   currentInteractionObservers = [(TITypingSessionMonitor *)self currentInteractionObservers];
-  v9 = [currentInteractionObservers countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [currentInteractionObservers countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(currentInteractionObservers);
         }
 
-        [*(*(&v14 + 1) + 8 * v12++) setClientID:dCopy keyboardState:stateCopy];
+        [*(*(&v13 + 1) + 8 * v12++) setClientID:dCopy keyboardState:stateCopy];
       }
 
       while (v10 != v12);
-      v10 = [currentInteractionObservers countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [currentInteractionObservers countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
+}
 
-  v13 = *MEMORY[0x277D85DE8];
+- (void)contextDidChange:(id)change wordDelete:(BOOL)delete cursorMoved:(BOOL)moved extendsPriorWord:(BOOL)word inWord:(id)inWord range:(_NSRange)range selectionLocation:(unint64_t)location keyboardState:(id)self0
+{
+  wordCopy = word;
+  movedCopy = moved;
+  deleteCopy = delete;
+  v28 = *MEMORY[0x277D85DE8];
+  changeCopy = change;
+  inWordCopy = inWord;
+  stateCopy = state;
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  obj = [(TITypingSessionMonitor *)self currentInteractionObservers];
+  v16 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+  if (v16)
+  {
+    v17 = v16;
+    v18 = *v24;
+    do
+    {
+      for (i = 0; i != v17; ++i)
+      {
+        if (*v24 != v18)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        [*(*(&v23 + 1) + 8 * i) contextDidChange:changeCopy wordDelete:deleteCopy cursorMoved:movedCopy extendsPriorWord:wordCopy inWord:inWordCopy range:range.location selectionLocation:range.length keyboardState:{location, stateCopy}];
+      }
+
+      v17 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+    }
+
+    while (v17);
+  }
 }
 
 - (void)changingContextWithTrigger:(id)trigger
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   triggerCopy = trigger;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   currentInteractionObservers = [(TITypingSessionMonitor *)self currentInteractionObservers];
-  v6 = [currentInteractionObservers countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [currentInteractionObservers countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(currentInteractionObservers);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) changingContextWithTrigger:triggerCopy];
+        [*(*(&v10 + 1) + 8 * v9++) changingContextWithTrigger:triggerCopy];
       }
 
       while (v7 != v9);
-      v7 = [currentInteractionObservers countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [currentInteractionObservers countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
+}
 
-  v10 = *MEMORY[0x277D85DE8];
+- (void)candidateAccepted:(id)accepted withInput:(id)input documentState:(id)state inputContext:(id)context inputStem:(id)stem predictionBarHit:(BOOL)hit useCandidateSelection:(BOOL)selection candidateIndex:(int64_t)self0 keyboardState:(id)self1
+{
+  hitCopy = hit;
+  v34 = *MEMORY[0x277D85DE8];
+  acceptedCopy = accepted;
+  inputCopy = input;
+  stateCopy = state;
+  contextCopy = context;
+  stemCopy = stem;
+  keyboardStateCopy = keyboardState;
+  v29 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  obj = [(TITypingSessionMonitor *)self currentInteractionObservers];
+  v21 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  if (v21)
+  {
+    v22 = v21;
+    v23 = *v30;
+    do
+    {
+      for (i = 0; i != v22; ++i)
+      {
+        if (*v30 != v23)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        LOBYTE(v25) = selection;
+        [*(*(&v29 + 1) + 8 * i) candidateAccepted:acceptedCopy withInput:inputCopy documentState:stateCopy inputContext:contextCopy inputStem:stemCopy predictionBarHit:hitCopy useCandidateSelection:v25 candidateIndex:index keyboardState:keyboardStateCopy];
+      }
+
+      v22 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+    }
+
+    while (v22);
+  }
 }
 
 - (void)acceptingCandidateWithTrigger:(id)trigger
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   triggerCopy = trigger;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   currentInteractionObservers = [(TITypingSessionMonitor *)self currentInteractionObservers];
-  v6 = [currentInteractionObservers countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [currentInteractionObservers countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(currentInteractionObservers);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) acceptingCandidateWithTrigger:triggerCopy];
+        [*(*(&v10 + 1) + 8 * v9++) acceptingCandidateWithTrigger:triggerCopy];
       }
 
       while (v7 != v9);
-      v7 = [currentInteractionObservers countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [currentInteractionObservers countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)candidatesOffered:(id)offered keyboardState:(id)state
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   offeredCopy = offered;
   stateCopy = state;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   currentInteractionObservers = [(TITypingSessionMonitor *)self currentInteractionObservers];
-  v9 = [currentInteractionObservers countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [currentInteractionObservers countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(currentInteractionObservers);
         }
 
-        [*(*(&v14 + 1) + 8 * v12++) candidatesOffered:offeredCopy keyboardState:stateCopy];
+        [*(*(&v13 + 1) + 8 * v12++) candidatesOffered:offeredCopy keyboardState:stateCopy];
       }
 
       while (v10 != v12);
-      v10 = [currentInteractionObservers countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [currentInteractionObservers countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)layoutDidChange:(id)change keyboardState:(id)state
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   stateCopy = state;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   currentInteractionObservers = [(TITypingSessionMonitor *)self currentInteractionObservers];
-  v9 = [currentInteractionObservers countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [currentInteractionObservers countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(currentInteractionObservers);
         }
 
-        [*(*(&v14 + 1) + 8 * v12++) layoutDidChange:changeCopy keyboardState:stateCopy];
+        [*(*(&v13 + 1) + 8 * v12++) layoutDidChange:changeCopy keyboardState:stateCopy];
       }
 
       while (v10 != v12);
-      v10 = [currentInteractionObservers countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [currentInteractionObservers countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addTouchEvent:(id)event
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   eventCopy = event;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   currentInteractionObservers = [(TITypingSessionMonitor *)self currentInteractionObservers];
-  v6 = [currentInteractionObservers countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [currentInteractionObservers countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(currentInteractionObservers);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) addTouchEvent:eventCopy];
+        [*(*(&v10 + 1) + 8 * v9++) addTouchEvent:eventCopy];
       }
 
       while (v7 != v9);
-      v7 = [currentInteractionObservers countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [currentInteractionObservers countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addDrawInputWithSyllableCount:(unint64_t)count keyboardState:(id)state
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   stateCopy = state;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   currentInteractionObservers = [(TITypingSessionMonitor *)self currentInteractionObservers];
-  v8 = [currentInteractionObservers countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [currentInteractionObservers countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(currentInteractionObservers);
         }
 
-        [*(*(&v13 + 1) + 8 * v11++) addDrawInputWithSyllableCount:count keyboardState:stateCopy];
+        [*(*(&v12 + 1) + 8 * v11++) addDrawInputWithSyllableCount:count keyboardState:stateCopy];
       }
 
       while (v9 != v11);
-      v9 = [currentInteractionObservers countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [currentInteractionObservers countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addKeyInput:(id)input keyboardState:(id)state
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   stateCopy = state;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   currentInteractionObservers = [(TITypingSessionMonitor *)self currentInteractionObservers];
-  v9 = [currentInteractionObservers countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [currentInteractionObservers countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(currentInteractionObservers);
         }
 
-        [*(*(&v14 + 1) + 8 * v12++) addKeyInput:inputCopy keyboardState:stateCopy];
+        [*(*(&v13 + 1) + 8 * v12++) addKeyInput:inputCopy keyboardState:stateCopy];
       }
 
       while (v10 != v12);
-      v10 = [currentInteractionObservers countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [currentInteractionObservers countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (TITypingSessionMonitor)initWithConfig:(id)config metricDescriptorRegistry:(id)registry
@@ -895,9 +947,11 @@ void __85__TITypingSessionMonitor_endSessionWithInteractionObservers_sessionPara
 
 uint64_t __46__TITypingSessionMonitor_shouldRecordSession___block_invoke()
 {
-  shouldRecordSession__allowlistedAppIDs = [MEMORY[0x277CBEB98] setWithObjects:{@"com.apple.MobileSMS", @"com.apple.MobileMail", @"com.apple.mobilesafari", @"com.apple.mobilenotes", @"com.apple.Spotlight", @"com.apple.mobilecal", @"com.apple.Maps", 0}];
+  v0 = [MEMORY[0x277CBEB98] setWithObjects:{@"com.apple.MobileSMS", @"com.apple.MobileMail", @"com.apple.mobilesafari", @"com.apple.mobilenotes", @"com.apple.Spotlight", @"com.apple.mobilecal", @"com.apple.Maps", 0}];
+  v1 = shouldRecordSession__allowlistedAppIDs;
+  shouldRecordSession__allowlistedAppIDs = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

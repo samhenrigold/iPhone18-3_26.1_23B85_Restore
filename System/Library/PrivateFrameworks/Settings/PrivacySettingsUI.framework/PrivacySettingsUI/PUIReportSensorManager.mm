@@ -17,33 +17,33 @@
 
 + (id)localizedStringForCategory:(id)category
 {
-  v16[7] = *MEMORY[0x277D85DE8];
+  v15[7] = *MEMORY[0x277D85DE8];
   categoryCopy = category;
   v4 = *MEMORY[0x277D412B8];
-  v15[0] = *MEMORY[0x277D412A0];
-  v15[1] = v4;
-  v16[0] = @"LOCATION";
-  v16[1] = @"PHOTOS";
+  v14[0] = *MEMORY[0x277D412A0];
+  v14[1] = v4;
+  v15[0] = @"LOCATION";
+  v15[1] = @"PHOTOS";
   v5 = *MEMORY[0x277D412B0];
-  v15[2] = *MEMORY[0x277D41290];
-  v15[3] = v5;
-  v16[2] = @"CAMERA";
-  v16[3] = @"MICROPHONE";
+  v14[2] = *MEMORY[0x277D41290];
+  v14[3] = v5;
+  v15[2] = @"CAMERA";
+  v15[3] = @"MICROPHONE";
   v6 = *MEMORY[0x277D412A8];
-  v15[4] = *MEMORY[0x277D41298];
-  v15[5] = v6;
-  v16[4] = @"CONTACTS";
-  v16[5] = @"MEDIALIBRARY";
-  v15[6] = *MEMORY[0x277D412C0];
-  v16[6] = @"SCREEN_RECORDING";
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:7];
+  v14[4] = *MEMORY[0x277D41298];
+  v14[5] = v6;
+  v15[4] = @"CONTACTS";
+  v15[5] = @"MEDIALIBRARY";
+  v14[6] = *MEMORY[0x277D412C0];
+  v15[6] = @"SCREEN_RECORDING";
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:7];
   v8 = [v7 objectForKeyedSubscript:categoryCopy];
   v9 = PUI_LocalizedStringForAppReport(v8);
 
   v10 = v9;
   if (![v9 length])
   {
-    v11 = _PUILoggingFacility();
+    v11 = _PUILoggingFacility(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [(PUIReportSensorManager *)categoryCopy localizedStringForCategory:v11];
@@ -54,87 +54,82 @@
 
   v12 = v10;
 
-  v13 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 + (id)iconTypeIdentifierForCategory:(id)category
 {
   categoryCopy = category;
-  v4 = __56__PUIReportSensorManager_iconTypeIdentifierForCategory___block_invoke();
+  v4 = __56__PUIReportSensorManager_iconTypeIdentifierForCategory___block_invoke(categoryCopy);
   v5 = [v4 objectForKeyedSubscript:categoryCopy];
 
   return v5;
 }
 
-id __56__PUIReportSensorManager_iconTypeIdentifierForCategory___block_invoke()
+id __56__PUIReportSensorManager_iconTypeIdentifierForCategory___block_invoke(uint64_t a1)
 {
   if (PUIReportSensorManagerDataHasChangedNotification_block_invoke_na_once_token_8 != -1)
   {
     __56__PUIReportSensorManager_iconTypeIdentifierForCategory___block_invoke_cold_1();
   }
 
-  v1 = PUIReportSensorManagerDataHasChangedNotification_block_invoke_na_once_object_8;
+  v2 = PUIReportSensorManagerDataHasChangedNotification_block_invoke_na_once_object_8;
 
-  return v1;
+  return v2;
 }
 
 void __56__PUIReportSensorManager_iconTypeIdentifierForCategory___block_invoke_2()
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277D412B0];
-  v5[0] = *MEMORY[0x277D412A0];
-  v5[1] = v0;
-  v6[0] = @"com.apple.graphic-icon.location";
-  v6[1] = @"com.apple.graphic-icon.microphone-access";
+  v4[0] = *MEMORY[0x277D412A0];
+  v4[1] = v0;
+  v5[0] = @"com.apple.graphic-icon.location";
+  v5[1] = @"com.apple.graphic-icon.microphone-access";
   v1 = *MEMORY[0x277D41290];
-  v5[2] = *MEMORY[0x277D412C0];
-  v5[3] = v1;
-  v6[2] = @"com.apple.graphic-icon.screen-recording";
-  v6[3] = @"com.apple.graphic-icon.camera";
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:4];
+  v4[2] = *MEMORY[0x277D412C0];
+  v4[3] = v1;
+  v5[2] = @"com.apple.graphic-icon.screen-recording";
+  v5[3] = @"com.apple.graphic-icon.camera";
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:4];
   v3 = PUIReportSensorManagerDataHasChangedNotification_block_invoke_na_once_object_8;
   PUIReportSensorManagerDataHasChangedNotification_block_invoke_na_once_object_8 = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (id)applicationBundleIdentifierForCategory:(id)category
 {
   categoryCopy = category;
-  v4 = __65__PUIReportSensorManager_applicationBundleIdentifierForCategory___block_invoke();
+  v4 = __65__PUIReportSensorManager_applicationBundleIdentifierForCategory___block_invoke(categoryCopy);
   v5 = [v4 objectForKeyedSubscript:categoryCopy];
 
   return v5;
 }
 
-id __65__PUIReportSensorManager_applicationBundleIdentifierForCategory___block_invoke()
+id __65__PUIReportSensorManager_applicationBundleIdentifierForCategory___block_invoke(uint64_t a1)
 {
   if (PUIReportSensorManagerDataHasChangedNotification_block_invoke_2_na_once_token_9 != -1)
   {
     __65__PUIReportSensorManager_applicationBundleIdentifierForCategory___block_invoke_cold_1();
   }
 
-  v1 = PUIReportSensorManagerDataHasChangedNotification_block_invoke_2_na_once_object_9;
+  v2 = PUIReportSensorManagerDataHasChangedNotification_block_invoke_2_na_once_object_9;
 
-  return v1;
+  return v2;
 }
 
 void __65__PUIReportSensorManager_applicationBundleIdentifierForCategory___block_invoke_2()
 {
-  v5[3] = *MEMORY[0x277D85DE8];
+  v4[3] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277D412A8];
-  v4[0] = *MEMORY[0x277D41298];
-  v4[1] = v0;
-  v5[0] = @"com.apple.MobileAddressBook";
-  v5[1] = @"com.apple.Music";
-  v4[2] = *MEMORY[0x277D412B8];
-  v5[2] = @"com.apple.mobileslideshow";
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:3];
+  v3[0] = *MEMORY[0x277D41298];
+  v3[1] = v0;
+  v4[0] = @"com.apple.MobileAddressBook";
+  v4[1] = @"com.apple.Music";
+  v3[2] = *MEMORY[0x277D412B8];
+  v4[2] = @"com.apple.mobileslideshow";
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:3];
   v2 = PUIReportSensorManagerDataHasChangedNotification_block_invoke_2_na_once_object_9;
   PUIReportSensorManagerDataHasChangedNotification_block_invoke_2_na_once_object_9 = v1;
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_iconFromImage:(id)image
@@ -223,7 +218,7 @@ uint64_t __51__PUIReportSensorManager_reloadDataWithCompletion___block_invoke_2(
 - (id)loadAllEvents
 {
   v29 = *MEMORY[0x277D85DE8];
-  v2 = _PUILoggingFacility();
+  v2 = _PUILoggingFacility(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 136315138;
@@ -262,14 +257,14 @@ uint64_t __51__PUIReportSensorManager_reloadDataWithCompletion___block_invoke_2(
 
   if (v7)
   {
-    v8 = _PUILoggingFacility();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _PUILoggingFacility(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *v26 = 136315394;
       *&v26[4] = "[PUIReportSensorManager loadAllEvents]";
       *&v26[12] = 2112;
       *&v26[14] = v7;
-      _os_log_impl(&dword_2657FE000, v8, OS_LOG_TYPE_DEFAULT, "%s: Error when fetching access records, %@", v26, 0x16u);
+      _os_log_impl(&dword_2657FE000, v9, OS_LOG_TYPE_DEFAULT, "%s: Error when fetching access records, %@", v26, 0x16u);
     }
   }
 
@@ -280,47 +275,44 @@ uint64_t __51__PUIReportSensorManager_reloadDataWithCompletion___block_invoke_2(
     v15[2] = __39__PUIReportSensorManager_loadAllEvents__block_invoke_83;
     v15[3] = &unk_279BA2260;
     v15[4] = &buf;
-    v9 = [v6 sinkWithCompletion:&__block_literal_global_82 receiveInput:v15];
+    v10 = [v6 sinkWithCompletion:&__block_literal_global_82 receiveInput:v15];
   }
 
-  v10 = _PUILoggingFacility();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = _PUILoggingFacility(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = [*(*(&buf + 1) + 40) count];
+    v12 = [*(*(&buf + 1) + 40) count];
     *v26 = 136315394;
     *&v26[4] = "[PUIReportSensorManager loadAllEvents]";
     *&v26[12] = 2048;
-    *&v26[14] = v11;
-    _os_log_impl(&dword_2657FE000, v10, OS_LOG_TYPE_DEFAULT, "%s: Finished query for SFNetworkDomainTracker data: %lu items.", v26, 0x16u);
+    *&v26[14] = v12;
+    _os_log_impl(&dword_2657FE000, v11, OS_LOG_TYPE_DEFAULT, "%s: Finished query for SFNetworkDomainTracker data: %lu items.", v26, 0x16u);
   }
 
-  v12 = [*(*(&buf + 1) + 40) copy];
+  v13 = [*(*(&buf + 1) + 40) copy];
   _Block_object_dispose(&buf, 8);
 
-  v13 = *MEMORY[0x277D85DE8];
-
-  return v12;
+  return v13;
 }
 
 void __39__PUIReportSensorManager_loadAllEvents__block_invoke(uint64_t a1, void *a2)
 {
   v10 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  if ([v2 state])
+  v3 = [v2 state];
+  if (v3)
   {
-    v3 = _PUILoggingFacility();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = _PUILoggingFacility(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = [v2 error];
+      v5 = [v2 error];
       v6 = 136315394;
       v7 = "[PUIReportSensorManager loadAllEvents]_block_invoke";
       v8 = 2112;
-      v9 = v4;
-      _os_log_impl(&dword_2657FE000, v3, OS_LOG_TYPE_DEFAULT, "%s: Error when sinking access records, %@", &v6, 0x16u);
+      v9 = v5;
+      _os_log_impl(&dword_2657FE000, v4, OS_LOG_TYPE_DEFAULT, "%s: Error when sinking access records, %@", &v6, 0x16u);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)bundleIDsAndLatestDatesFromEvents:(id)events
@@ -351,29 +343,29 @@ void __39__PUIReportSensorManager_loadAllEvents__block_invoke(uint64_t a1, void 
 
         v11 = *(*(&v27 + 1) + 8 * i);
         objc_opt_class();
-        if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
+        if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass))
         {
           [v11 startTime];
-          v13 = v12;
+          v14 = v13;
           access = [v11 access];
           accessor = [access accessor];
           identifier = [accessor identifier];
-          v17 = [v4 objectForKeyedSubscript:identifier];
-          [v17 timeIntervalSinceReferenceDate];
-          v19 = v18;
+          v18 = [v4 objectForKeyedSubscript:identifier];
+          [v18 timeIntervalSinceReferenceDate];
+          v20 = v19;
 
-          if (v19 < v13)
+          if (v20 < v14)
           {
-            v20 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v13];
+            v21 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v14];
             accessor2 = [access accessor];
             identifier2 = [accessor2 identifier];
-            [v4 setObject:v20 forKeyedSubscript:identifier2];
+            [v4 setObject:v21 forKeyedSubscript:identifier2];
           }
         }
 
         else
         {
-          access = _PUILoggingFacility();
+          access = _PUILoggingFacility(isKindOfClass);
           if (os_log_type_enabled(access, OS_LOG_TYPE_DEFAULT))
           {
             *buf = v26;
@@ -391,10 +383,9 @@ void __39__PUIReportSensorManager_loadAllEvents__block_invoke(uint64_t a1, void 
     while (v8);
   }
 
-  v23 = [v4 copy];
-  v24 = *MEMORY[0x277D85DE8];
+  v24 = [v4 copy];
 
-  return v23;
+  return v24;
 }
 
 - (id)categoriesAndLatestDatesFromEvents:(id)events
@@ -425,27 +416,27 @@ void __39__PUIReportSensorManager_loadAllEvents__block_invoke(uint64_t a1, void 
 
         v11 = *(*(&v25 + 1) + 8 * i);
         objc_opt_class();
-        if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
+        if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass))
         {
           [v11 startTime];
-          v13 = v12;
+          v14 = v13;
           access = [v11 access];
           category = [access category];
-          v16 = [v4 objectForKeyedSubscript:category];
-          [v16 timeIntervalSinceReferenceDate];
-          v18 = v17;
+          v17 = [v4 objectForKeyedSubscript:category];
+          [v17 timeIntervalSinceReferenceDate];
+          v19 = v18;
 
-          if (v18 < v13)
+          if (v19 < v14)
           {
-            v19 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v13];
+            v20 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v14];
             category2 = [access category];
-            [v4 setObject:v19 forKeyedSubscript:category2];
+            [v4 setObject:v20 forKeyedSubscript:category2];
           }
         }
 
         else
         {
-          access = _PUILoggingFacility();
+          access = _PUILoggingFacility(isKindOfClass);
           if (os_log_type_enabled(access, OS_LOG_TYPE_DEFAULT))
           {
             *buf = v24;
@@ -463,10 +454,9 @@ void __39__PUIReportSensorManager_loadAllEvents__block_invoke(uint64_t a1, void 
     while (v8);
   }
 
-  v21 = [v4 copy];
-  v22 = *MEMORY[0x277D85DE8];
+  v22 = [v4 copy];
 
-  return v21;
+  return v22;
 }
 
 - (id)eventsFiltered:(id)filtered
@@ -480,39 +470,39 @@ void __39__PUIReportSensorManager_loadAllEvents__block_invoke(uint64_t a1, void 
 
 - (id)events:(id)events filtered:(id)filtered
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   filteredCopy = filtered;
   if (filteredCopy)
   {
     v7 = objc_opt_new();
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v8 = eventsCopy;
-    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v18;
+      v11 = *v17;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v17 + 1) + 8 * i);
+          v13 = *(*(&v16 + 1) + 8 * i);
           if (filteredCopy[2](filteredCopy, v13))
           {
-            [v7 addObject:{v13, v17}];
+            [v7 addObject:{v13, v16}];
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v10);
@@ -526,20 +516,17 @@ void __39__PUIReportSensorManager_loadAllEvents__block_invoke(uint64_t a1, void 
     v14 = eventsCopy;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 + (void)localizedStringForCategory:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "+[PUIReportSensorManager localizedStringForCategory:]";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_2657FE000, a2, OS_LOG_TYPE_ERROR, "%s: unknown category: %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "+[PUIReportSensorManager localizedStringForCategory:]";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_2657FE000, a2, OS_LOG_TYPE_ERROR, "%s: unknown category: %@", &v2, 0x16u);
 }
 
 @end

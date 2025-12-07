@@ -375,7 +375,6 @@ LABEL_12:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x80) == 0)
@@ -395,7 +394,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  txDutyCycle = self->_txDutyCycle;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -410,7 +408,6 @@ LABEL_4:
   }
 
 LABEL_36:
-  txPowerBackoff = self->_txPowerBackoff;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -425,7 +422,6 @@ LABEL_5:
   }
 
 LABEL_37:
-  numActiveChains = self->_numActiveChains;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -440,91 +436,83 @@ LABEL_6:
   }
 
 LABEL_38:
-  temperature = self->_temperature;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_7:
-    batteryVoltage = self->_batteryVoltage;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_8:
   if (self->_txDutyCycleBucketeds.count)
   {
-    v6 = 0;
+    v5 = 0;
     do
     {
-      v7 = self->_txDutyCycleBucketeds.list[v6];
       PBDataWriterWriteUint32Field();
-      ++v6;
+      ++v5;
     }
 
-    while (v6 < self->_txDutyCycleBucketeds.count);
+    while (v5 < self->_txDutyCycleBucketeds.count);
   }
 
   if (self->_txPowerBackoffBucketeds.count)
   {
-    v8 = 0;
+    v6 = 0;
     do
     {
-      v9 = self->_txPowerBackoffBucketeds.list[v8];
       PBDataWriterWriteInt32Field();
-      ++v8;
+      ++v6;
     }
 
-    while (v8 < self->_txPowerBackoffBucketeds.count);
+    while (v6 < self->_txPowerBackoffBucketeds.count);
   }
 
   if (self->_numActiveChainsBucketeds.count)
   {
-    v10 = 0;
+    v7 = 0;
     do
     {
-      v11 = self->_numActiveChainsBucketeds.list[v10];
       PBDataWriterWriteUint32Field();
-      ++v10;
+      ++v7;
     }
 
-    while (v10 < self->_numActiveChainsBucketeds.count);
+    while (v7 < self->_numActiveChainsBucketeds.count);
   }
 
   if (self->_temperatureBucketeds.count)
   {
-    v12 = 0;
+    v8 = 0;
     do
     {
-      v13 = self->_temperatureBucketeds.list[v12];
       PBDataWriterWriteInt32Field();
-      ++v12;
+      ++v8;
     }
 
-    while (v12 < self->_temperatureBucketeds.count);
+    while (v8 < self->_temperatureBucketeds.count);
   }
 
   if (self->_batteryVoltageBucketeds.count)
   {
-    v14 = 0;
+    v9 = 0;
     do
     {
-      v15 = self->_batteryVoltageBucketeds.list[v14];
       PBDataWriterWriteUint32Field();
-      ++v14;
+      ++v9;
     }
 
-    while (v14 < self->_batteryVoltageBucketeds.count);
+    while (v9 < self->_batteryVoltageBucketeds.count);
   }
 
-  v16 = self->_has;
-  if ((v16 & 8) != 0)
+  v10 = self->_has;
+  if ((v10 & 8) != 0)
   {
-    cltmIndex = self->_cltmIndex;
     PBDataWriterWriteUint32Field();
-    v16 = self->_has;
-    if ((v16 & 0x20) == 0)
+    v10 = self->_has;
+    if ((v10 & 0x20) == 0)
     {
 LABEL_25:
-      if ((v16 & 2) == 0)
+      if ((v10 & 2) == 0)
       {
         goto LABEL_27;
       }
@@ -533,46 +521,42 @@ LABEL_25:
     }
   }
 
-  else if ((v16 & 0x20) == 0)
+  else if ((v10 & 0x20) == 0)
   {
     goto LABEL_25;
   }
 
-  ppm = self->_ppm;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_26:
-    updateCount = self->_updateCount;
     PBDataWriterWriteUint64Field();
   }
 
 LABEL_27:
   if (self->_cltmIndexBucketeds.count)
   {
-    v18 = 0;
+    v11 = 0;
     do
     {
-      v19 = self->_cltmIndexBucketeds.list[v18];
       PBDataWriterWriteUint32Field();
-      ++v18;
+      ++v11;
     }
 
-    while (v18 < self->_cltmIndexBucketeds.count);
+    while (v11 < self->_cltmIndexBucketeds.count);
   }
 
   p_ppmBucketeds = &self->_ppmBucketeds;
   if (p_ppmBucketeds->count)
   {
-    v21 = 0;
+    v13 = 0;
     do
     {
-      v22 = p_ppmBucketeds->list[v21];
       PBDataWriterWriteUint32Field();
-      ++v21;
+      ++v13;
     }
 
-    while (v21 < p_ppmBucketeds->count);
+    while (v13 < p_ppmBucketeds->count);
   }
 }
 

@@ -477,17 +477,17 @@ uint64_t __23__VCMediaAnalyzer_stop__block_invoke(uint64_t a1)
   return [v2 reportMediaAnalyzerEnabled:v3 & 1];
 }
 
-void __VCMediaAnalyzer_PushSampleBuffer_block_invoke(uint64_t a1)
+void __VCMediaAnalyzer_PushSampleBuffer_block_invoke(uint64_t a1, uint64_t a2)
 {
   ++*(*(a1 + 32) + 64);
-  v2 = micro();
-  [*(*(a1 + 32) + 56) analyzeSampleBuffer:*(*(*(a1 + 40) + 8) + 24)];
-  *(*(a1 + 32) + 72) = micro() - v2 + *(*(a1 + 32) + 72);
-  v3 = *(*(*(a1 + 40) + 8) + 24);
-  if (v3)
+  v3 = micro(a1, a2);
+  v4 = [*(*(a1 + 32) + 56) analyzeSampleBuffer:*(*(*(a1 + 40) + 8) + 24)];
+  *(*(a1 + 32) + 72) = micro(v4, v5) - v3 + *(*(a1 + 32) + 72);
+  v6 = *(*(*(a1 + 40) + 8) + 24);
+  if (v6)
   {
 
-    CFRelease(v3);
+    CFRelease(v6);
   }
 }
 

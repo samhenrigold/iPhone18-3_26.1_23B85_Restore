@@ -114,7 +114,7 @@
 
 + (id)_localizationKeyForPOINode:(id)node
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   label = [nodeCopy label];
   v5 = localizationKeyForPOILabel(label);
@@ -125,38 +125,34 @@
 
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412290;
-      v11 = nodeCopy;
-      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Trying to localize node with unsupported label/domain: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = nodeCopy;
+      _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Trying to localize node with unsupported label/domain: %@", &v9, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 + (id)validPOILabels
 {
-  v6[14] = *MEMORY[0x277D85DE8];
-  v6[0] = @"Restaurant";
-  v6[1] = @"Nightlife";
-  v6[2] = @"Travel";
-  v6[3] = @"Culture";
-  v6[4] = @"Museum";
-  v6[5] = @"Entertainment";
-  v6[6] = @"AmusementPark";
-  v6[7] = @"Park";
-  v6[8] = @"Performance";
-  v6[9] = @"Stadium";
-  v6[10] = @"Activity";
-  v6[11] = @"Diving";
-  v6[12] = @"Hiking";
-  v6[13] = @"Hospital";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:14];
+  v5[14] = *MEMORY[0x277D85DE8];
+  v5[0] = @"Restaurant";
+  v5[1] = @"Nightlife";
+  v5[2] = @"Travel";
+  v5[3] = @"Culture";
+  v5[4] = @"Museum";
+  v5[5] = @"Entertainment";
+  v5[6] = @"AmusementPark";
+  v5[7] = @"Park";
+  v5[8] = @"Performance";
+  v5[9] = @"Stadium";
+  v5[10] = @"Activity";
+  v5[11] = @"Diving";
+  v5[12] = @"Hiking";
+  v5[13] = @"Hospital";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:14];
   v3 = [MEMORY[0x277CBEB98] setWithArray:v2];
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

@@ -1,5 +1,6 @@
 @interface UIAirDropNode
 + (id)TTRAirDropNode;
++ (id)nodeWithIdentifier:(id)identifier displayName:(id)name subtitle:(id)subtitle avatarImageSlotID:(unsigned int)d transportImageSlotID:(unsigned int)iD;
 + (id)nodeWithIdentifier:(id)identifier peopleSuggestion:(id)suggestion;
 + (id)nodeWithIdentifier:(id)identifier suggestionNode:(id)node;
 - (BOOL)isEqual:(id)equal;
@@ -26,6 +27,30 @@
   -[UIAirDropNode setIsPlaceholder:](v7, "setIsPlaceholder:", [suggestion isPlaceholder]);
 
   return v7;
+}
+
++ (id)nodeWithIdentifier:(id)identifier displayName:(id)name subtitle:(id)subtitle avatarImageSlotID:(unsigned int)d transportImageSlotID:(unsigned int)iD
+{
+  v7 = *&iD;
+  v8 = *&d;
+  subtitleCopy = subtitle;
+  nameCopy = name;
+  identifierCopy = identifier;
+  v14 = objc_alloc_init(UIAirDropNode);
+  [(UIAirDropNode *)v14 setIdentifier:identifierCopy];
+
+  [(UIAirDropNode *)v14 setDisplayName:nameCopy];
+  [(UIAirDropNode *)v14 setSubtitle:subtitleCopy];
+
+  [(UIAirDropNode *)v14 setAvatarImageSlotID:v8];
+  [(UIAirDropNode *)v14 setTransportImageSlotID:v7];
+  -[UIAirDropNode setMainLabelSlotID:](v14, "setMainLabelSlotID:", [nameCopy slotIdentifier]);
+  [nameCopy slotTextHeight];
+  v16 = v15;
+
+  [(UIAirDropNode *)v14 setMainLabelSlotHeight:v16];
+
+  return v14;
 }
 
 + (id)nodeWithIdentifier:(id)identifier peopleSuggestion:(id)suggestion
@@ -147,12 +172,13 @@
       }
     }
 
-    if ([(UIAirDropNode *)v6 isRestricted])
+    isRestricted = [(UIAirDropNode *)v6 isRestricted];
+    if (isRestricted)
     {
-      v28 = share_sheet_log();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
+      v29 = share_sheet_log(isRestricted);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
       {
-        sub_100131BC0(v6, v28);
+        sub_100131BC0(v6, v29);
       }
 
       v6 = 0;
@@ -453,27 +479,27 @@ LABEL_16:
 
     if (peopleSuggestion || (-[UIAirDropNode suggestionNode](self, "suggestionNode"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 loadIcon], v5, v6))
     {
-      v7 = (loadHandler)[2](loadHandler, self);
+      v8 = (loadHandler)[2](loadHandler, self);
     }
 
     else
     {
-      v8 = share_sheet_log();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = share_sheet_log(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        sub_100131C38(self, v8);
+        sub_100131C38(self, v9);
       }
 
-      v7 = 0;
+      v8 = 0;
     }
   }
 
   else
   {
-    v7 = 1;
+    v8 = 1;
   }
 
-  return v7;
+  return v8;
 }
 
 @end

@@ -12,7 +12,7 @@
 
 - (Class)collectionCellClassForItem:(id)item
 {
-  sub_20CECF940(0, &qword_28111FEA0);
+  sub_20CECF940(0, &qword_28111FEA0, 0x277D752A8);
 
   return swift_getObjCClassFromMetadata();
 }
@@ -67,7 +67,7 @@
     v8 = [(HFItemUpdating *)itemUpdater displayedItemsInSectionWithIdentifier:v7];
 
     swift_unknownObjectRelease();
-    sub_20CECF940(0, &qword_281120AC0);
+    sub_20CECF940(0, &qword_281120AC0, 0x277D14748);
     sub_20D567A78();
   }
 
@@ -75,7 +75,7 @@
   {
   }
 
-  sub_20CECF940(0, &qword_281120AC0);
+  sub_20CECF940(0, &qword_281120AC0, 0x277D14748);
   v9 = sub_20D567A58();
 
   return v9;

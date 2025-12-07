@@ -14,7 +14,7 @@
 - (BOOL)isUserInteractionEnabled
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for TTRIPinnedListsView();
+  v3.super_class = type metadata accessor for TTRIPinnedListsView(0);
   return [(TTRIPinnedListsView *)&v3 isUserInteractionEnabled];
 }
 
@@ -22,7 +22,7 @@
 {
   enabledCopy = enabled;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for TTRIPinnedListsView();
+  v5.super_class = type metadata accessor for TTRIPinnedListsView(0);
   v4 = v5.receiver;
   [(TTRIPinnedListsView *)&v5 setUserInteractionEnabled:enabledCopy];
   sub_100319198();
@@ -45,7 +45,7 @@
     if (view)
     {
       v6 = view;
-      type metadata accessor for TTRIPinnedListControl();
+      type metadata accessor for TTRIPinnedListControl(0);
       v7 = swift_dynamicCastClass();
       if (v7)
       {

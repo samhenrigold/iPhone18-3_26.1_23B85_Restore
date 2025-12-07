@@ -308,18 +308,18 @@ void __65__CNEmergencyContactAction_presentDisambiguationAlertWithSender___block
   v4 = getMIUIDisplayConfigurationClass_41771;
   dCopy = d;
   standardConfiguration = [(objc_class *)v4() standardConfiguration];
-  [standardConfiguration setEntryPoint:1];
-  v6 = objc_alloc(getMIUIMedicalIDViewControllerClass_41772());
+  v6 = [standardConfiguration setEntryPoint:1];
+  v7 = objc_alloc(getMIUIMedicalIDViewControllerClass_41772(v6));
   healthStoreManager = [(CNEmergencyContactAction *)self healthStoreManager];
   healthStore = [healthStoreManager healthStore];
-  v9 = [v6 initWithHealthStore:healthStore medicalIDData:dCopy displayConfiguration:standardConfiguration];
+  v10 = [v7 initWithHealthStore:healthStore medicalIDData:dCopy displayConfiguration:standardConfiguration];
 
-  v10 = [objc_alloc(MEMORY[0x1E69DCCD8]) initWithRootViewController:v9];
-  [(CNEmergencyContactAction *)self setMedicalIDNavigationController:v10];
+  v11 = [objc_alloc(MEMORY[0x1E69DCCD8]) initWithRootViewController:v10];
+  [(CNEmergencyContactAction *)self setMedicalIDNavigationController:v11];
 
-  v11 = [objc_alloc(MEMORY[0x1E69DC708]) initWithBarButtonSystemItem:0 target:self action:sel_dismissMedicalID];
-  navigationItem = [v9 navigationItem];
-  [navigationItem setRightBarButtonItem:v11];
+  v12 = [objc_alloc(MEMORY[0x1E69DC708]) initWithBarButtonSystemItem:0 target:self action:sel_dismissMedicalID];
+  navigationItem = [v10 navigationItem];
+  [navigationItem setRightBarButtonItem:v12];
 
   delegate = [(CNContactAction *)self delegate];
   medicalIDNavigationController = [(CNEmergencyContactAction *)self medicalIDNavigationController];

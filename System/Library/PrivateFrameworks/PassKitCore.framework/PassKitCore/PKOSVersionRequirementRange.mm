@@ -136,7 +136,7 @@
 
   if (v9 && v11)
   {
-    if ([classCopy isEqualToString:@"Watch"])
+    if (objc_msgSend_isEqualToString_(classCopy))
     {
       v12 = [(PKOSVersionRequirementRange *)self versionMeetsRequirements:requirementsCopy deviceClass:@"iPhone"];
     }

@@ -11,13 +11,13 @@
 
 - (MTRDeviceControllerStartupParams)initWithIPK:(NSData *)ipk fabricID:(NSNumber *)fabricID nocSigner:(id)nocSigner
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v8 = ipk;
   v9 = fabricID;
   v10 = nocSigner;
-  v23.receiver = self;
-  v23.super_class = MTRDeviceControllerStartupParams;
-  v11 = [(MTRDeviceControllerStartupParams *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = MTRDeviceControllerStartupParams;
+  v11 = [(MTRDeviceControllerStartupParams *)&v22 init];
   if (!v11)
   {
 LABEL_8:
@@ -32,14 +32,13 @@ LABEL_8:
     {
       unsignedLongLongValue = [(NSNumber *)v9 unsignedLongLongValue];
       *buf = 134217984;
-      v25 = unsignedLongLongValue;
+      v24 = unsignedLongLongValue;
       _os_log_impl(&dword_238DAE000, v19, OS_LOG_TYPE_ERROR, "%llu is not a valid fabric id to initialize a device controller with", buf, 0xCu);
     }
 
     if (sub_2393D5398(1u))
     {
-      [(NSNumber *)v9 unsignedLongLongValue];
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "%llu is not a valid fabric id to initialize a device controller with", [(NSNumber *)v9 unsignedLongLongValue]);
     }
 
     goto LABEL_8;
@@ -61,7 +60,6 @@ LABEL_8:
   v18 = v11;
 LABEL_9:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -212,7 +210,7 @@ LABEL_11:
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "Unexpected subclass of MTRDeviceControllerParameters");
     }
 
     v7 = 0;

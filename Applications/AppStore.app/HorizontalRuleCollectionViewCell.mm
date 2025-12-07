@@ -18,7 +18,7 @@
   v9 = type metadata accessor for HorizontalRule.Style();
   (*(*(v9 - 8) + 104))(self + v7, v8, v9);
   v10 = OBJC_IVAR____TtC8AppStore32HorizontalRuleCollectionViewCell_lineColor;
-  sub_100005744(0, &qword_100970180);
+  sub_100005744(0, &qword_100970180, UIColor_ptr);
   *(&self->super.super.super.super.super.isa + v10) = static UIColor.defaultLine.getter();
   result = _assertionFailure(_:_:file:line:flags:)();
   __break(1u);

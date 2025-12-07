@@ -8,7 +8,7 @@
 {
   *(&self->super.super.super.super.super.super.isa + OBJC_IVAR____TtC7Journal35FullScreenPodcastCollectionViewCell_podcastAsset) = 0;
   v4 = OBJC_IVAR____TtC7Journal35FullScreenPodcastCollectionViewCell_podcastView;
-  type metadata accessor for MediaAssetGridView();
+  type metadata accessor for MediaAssetGridView(0);
   *(&self->super.super.super.super.super.super.isa + v4) = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
   result = _assertionFailure(_:_:file:line:flags:)();
   __break(1u);

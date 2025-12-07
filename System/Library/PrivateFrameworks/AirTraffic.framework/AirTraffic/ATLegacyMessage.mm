@@ -167,7 +167,7 @@
 
 + (id)messageFromData:(id)data
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v4 = [MEMORY[0x277CCAC58] propertyListWithData:dataCopy options:0 format:0 error:0];
   if (v4)
@@ -180,15 +180,13 @@
     v6 = os_log_create("com.apple.amp.AirTraffic", "iTunesSync");
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138543362;
-      v10 = dataCopy;
-      _os_log_impl(&dword_23EC61000, v6, OS_LOG_TYPE_ERROR, "Couldn't create message, data %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = dataCopy;
+      _os_log_impl(&dword_23EC61000, v6, OS_LOG_TYPE_ERROR, "Couldn't create message, data %{public}@", &v8, 0xCu);
     }
 
     v5 = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

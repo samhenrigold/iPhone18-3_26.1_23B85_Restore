@@ -31,6 +31,7 @@
 - (NSMeasurement)temperatureMax;
 - (NSMeasurement)temperatureMin;
 - (unsigned)temperatureState;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -401,6 +402,143 @@
   v3 = temperatureMarkerHotCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x000000003000001D"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    temperatureCharacteristic = [(CAFBatteryTemperature *)self temperatureCharacteristic];
+    uniqueIdentifier2 = [temperatureCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      temperature = [(CAFBatteryTemperature *)self temperature];
+      [observers batteryTemperatureService:self didUpdateTemperature:temperature];
+LABEL_24:
+
+      goto LABEL_25;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x000000003000001E"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    temperatureStateCharacteristic = [(CAFBatteryTemperature *)self temperatureStateCharacteristic];
+    uniqueIdentifier4 = [temperatureStateCharacteristic uniqueIdentifier];
+    v18 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v18)
+    {
+      observers = [(CAFService *)self observers];
+      [observers batteryTemperatureService:self didUpdateTemperatureState:{-[CAFBatteryTemperature temperatureState](self, "temperatureState")}];
+      goto LABEL_25;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x0000000030000054"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    temperatureMinCharacteristic = [(CAFBatteryTemperature *)self temperatureMinCharacteristic];
+    uniqueIdentifier6 = [temperatureMinCharacteristic uniqueIdentifier];
+    v23 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v23)
+    {
+      observers = [(CAFService *)self observers];
+      temperature = [(CAFBatteryTemperature *)self temperatureMin];
+      [observers batteryTemperatureService:self didUpdateTemperatureMin:temperature];
+      goto LABEL_24;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType4 = [updateCopy characteristicType];
+  if ([characteristicType4 isEqual:@"0x0000000030000055"])
+  {
+    uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+    temperatureMaxCharacteristic = [(CAFBatteryTemperature *)self temperatureMaxCharacteristic];
+    uniqueIdentifier8 = [temperatureMaxCharacteristic uniqueIdentifier];
+    v28 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+    if (v28)
+    {
+      observers = [(CAFService *)self observers];
+      temperature = [(CAFBatteryTemperature *)self temperatureMax];
+      [observers batteryTemperatureService:self didUpdateTemperatureMax:temperature];
+      goto LABEL_24;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType5 = [updateCopy characteristicType];
+  if ([characteristicType5 isEqual:@"0x0000000030000056"])
+  {
+    uniqueIdentifier9 = [updateCopy uniqueIdentifier];
+    temperatureMarkerColdCharacteristic = [(CAFBatteryTemperature *)self temperatureMarkerColdCharacteristic];
+    uniqueIdentifier10 = [temperatureMarkerColdCharacteristic uniqueIdentifier];
+    v33 = [uniqueIdentifier9 isEqual:uniqueIdentifier10];
+
+    if (v33)
+    {
+      observers = [(CAFService *)self observers];
+      temperature = [(CAFBatteryTemperature *)self temperatureMarkerCold];
+      [observers batteryTemperatureService:self didUpdateTemperatureMarkerCold:temperature];
+      goto LABEL_24;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000030000057"])
+  {
+LABEL_25:
+
+    goto LABEL_26;
+  }
+
+  uniqueIdentifier11 = [updateCopy uniqueIdentifier];
+  temperatureMarkerHotCharacteristic = [(CAFBatteryTemperature *)self temperatureMarkerHotCharacteristic];
+  uniqueIdentifier12 = [temperatureMarkerHotCharacteristic uniqueIdentifier];
+  v37 = [uniqueIdentifier11 isEqual:uniqueIdentifier12];
+
+  if (v37)
+  {
+    observers = [(CAFService *)self observers];
+    temperature = [(CAFBatteryTemperature *)self temperatureMarkerHot];
+    [observers batteryTemperatureService:self didUpdateTemperatureMarkerHot:temperature];
+    goto LABEL_24;
+  }
+
+LABEL_26:
+  v38.receiver = self;
+  v38.super_class = CAFBatteryTemperature;
+  [(CAFService *)&v38 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForTemperature

@@ -167,7 +167,7 @@ LABEL_11:
   }
 }
 
-uint64_t __85__VUIMultiviewPlaybackInfo_waitForExternalPlaybackToBecomeType_forPlayer_completion___block_invoke(uint64_t a1)
+void *__85__VUIMultiviewPlaybackInfo_waitForExternalPlaybackToBecomeType_forPlayer_completion___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) externalPlaybackType];
   if (result == *(a1 + 56))
@@ -187,7 +187,7 @@ uint64_t __85__VUIMultiviewPlaybackInfo_waitForExternalPlaybackToBecomeType_forP
     result = *(a1 + 40);
     if (result)
     {
-      v8 = *(result + 16);
+      v8 = result[2];
 
       return v8();
     }

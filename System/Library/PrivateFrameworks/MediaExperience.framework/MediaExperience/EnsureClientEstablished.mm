@@ -78,7 +78,7 @@ uint64_t __routingContextRemoteXPC_EnsureClientEstablished_block_invoke_cold_1()
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1();
-  v0 = FigSignalErrorAtGM();
+  v0 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, v3, vars0);
   return OUTLINED_FUNCTION_11_4(v0);
 }
 
@@ -86,7 +86,7 @@ uint64_t __routingContextRemoteXPC_EnsureClientEstablished_block_invoke_cold_2()
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1();
-  v0 = FigSignalErrorAtGM();
+  v0 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, v3, vars0);
   return OUTLINED_FUNCTION_11_4(v0);
 }
 
@@ -94,7 +94,7 @@ uint64_t __routingContextRemoteXPC_EnsureClientEstablished_block_invoke_cold_3()
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1();
-  v0 = FigSignalErrorAtGM();
+  v0 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, v3, vars0);
   return OUTLINED_FUNCTION_11_4(v0);
 }
 

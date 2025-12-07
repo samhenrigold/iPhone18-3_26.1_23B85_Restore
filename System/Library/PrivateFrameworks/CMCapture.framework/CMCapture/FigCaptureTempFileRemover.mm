@@ -86,22 +86,22 @@ uint64_t __33__FigCaptureTempFileRemover_init__block_invoke(uint64_t a1)
 
 - (void)_removeStaleTempFilesInFolderURL:(id)l
 {
-  v69[0] = 0;
+  v68[0] = 0;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v6 = [defaultManager contentsOfDirectoryAtURL:l includingPropertiesForKeys:objc_msgSend(MEMORY[0x1E695DEC8] options:"array") error:{0, v69}];
-  if (!v69[0])
+  v6 = [defaultManager contentsOfDirectoryAtURL:l includingPropertiesForKeys:objc_msgSend(MEMORY[0x1E695DEC8] options:"array") error:{0, v68}];
+  if (!v68[0])
   {
     v7 = v6;
     v8 = [MEMORY[0x1E695DF00] now];
+    v64 = 0u;
     v65 = 0u;
     v66 = 0u;
     v67 = 0u;
-    v68 = 0u;
-    v16 = OUTLINED_FUNCTION_0_18(v8, v9, v10, v11, v12, v13, v14, v15, v35, v37, v39, v41, v42, v44, *v46, *&v46[8], *&v46[16], v47, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64);
+    v16 = OUTLINED_FUNCTION_0_18(v8, v9, v10, v11, v12, v13, v14, v15, v35, v37, v39, v41, v42, v44, *v46, *&v46[8], *&v46[16], v47, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63);
     if (v16)
     {
       v18 = v16;
-      v19 = *v66;
+      v19 = *v65;
       *&v17 = 136315394;
       v40 = v17;
       v43 = v8;
@@ -110,19 +110,19 @@ uint64_t __33__FigCaptureTempFileRemover_init__block_invoke(uint64_t a1)
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v66 != v19)
+          if (*v65 != v19)
           {
             objc_enumerationMutation(v7);
           }
 
-          v21 = *(*(&v65 + 1) + 8 * i);
-          v22 = [defaultManager attributesOfItemAtPath:objc_msgSend(v21 error:{"path", v36, v38), v69}];
-          if (!v69[0])
+          v21 = *(*(&v64 + 1) + 8 * i);
+          v22 = [defaultManager attributesOfItemAtPath:objc_msgSend(v21 error:{"path", v36, v38), v68}];
+          if (!v68[0])
           {
             v22 = [v8 timeIntervalSinceDate:{objc_msgSend(v22, "fileCreationDate")}];
             if (v30 >= self->_staleTimeSeconds)
             {
-              v22 = [defaultManager removeItemAtPath:objc_msgSend(v21 error:{"path"), v69}];
+              v22 = [defaultManager removeItemAtPath:objc_msgSend(v21 error:{"path"), v68}];
               if (v22)
               {
                 if (dword_1EB58DD80)
@@ -162,7 +162,7 @@ uint64_t __33__FigCaptureTempFileRemover_init__block_invoke(uint64_t a1)
           }
         }
 
-        v18 = OUTLINED_FUNCTION_0_18(v22, v23, v24, v25, v26, v27, v28, v29, v36, v38, v40, *(&v40 + 1), v43, selfCopy, *v46, *&v46[8], *&v46[16], v47, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64);
+        v18 = OUTLINED_FUNCTION_0_18(v22, v23, v24, v25, v26, v27, v28, v29, v36, v38, v40, *(&v40 + 1), v43, selfCopy, *v46, *&v46[8], *&v46[16], v47, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63);
       }
 
       while (v18);

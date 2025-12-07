@@ -1,10 +1,10 @@
 @interface WorkoutVoiceMomentAnalyticsEvent.AnalyticsKey:
-- (uint64_t)NSObject;
+- (double)NSObject;
 @end
 
 @implementation WorkoutVoiceMomentAnalyticsEvent.AnalyticsKey:
 
-- (uint64_t)NSObject
+- (double)NSObject
 {
   if (a3)
   {

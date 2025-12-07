@@ -8,7 +8,7 @@
 
 - (id)buildAdaptiveTileSectionFor:(id)for layoutEnvironment:(id)environment
 {
-  sub_20CECF940(0, &qword_281120AC0);
+  sub_20CECF940(0, &qword_281120AC0, 0x277D14748);
   v6 = sub_20D567A78();
   swift_unknownObjectRetain();
   selfCopy = self;

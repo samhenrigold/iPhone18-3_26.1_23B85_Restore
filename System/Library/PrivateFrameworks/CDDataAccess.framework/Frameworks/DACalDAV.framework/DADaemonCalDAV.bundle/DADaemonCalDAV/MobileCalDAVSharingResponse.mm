@@ -68,22 +68,22 @@
 - (void)_deleteSharingInvitationWithUID:(id)d
 {
   dCopy = d;
-  v86 = 0;
-  v87 = &v86;
-  v88 = 0x3032000000;
-  v89 = sub_7FBC;
-  v90 = sub_7FCC;
-  v91 = 0;
-  _remAccount = [(MobileCalDAVSharingResponse *)self _remAccount];
   v85 = 0;
-  v7 = [_remAccount fetchListsIncludingSpecialContainersWithError:&v85];
-  v8 = v85;
-  v84[0] = _NSConcreteStackBlock;
-  v84[1] = 3221225472;
-  v84[2] = sub_7FD4;
-  v84[3] = &unk_206D0;
-  v84[4] = &v86;
-  [v7 enumerateObjectsUsingBlock:v84];
+  v86 = &v85;
+  v87 = 0x3032000000;
+  v88 = sub_7FBC;
+  v89 = sub_7FCC;
+  v90 = 0;
+  _remAccount = [(MobileCalDAVSharingResponse *)self _remAccount];
+  v84 = 0;
+  v7 = [_remAccount fetchListsIncludingSpecialContainersWithError:&v84];
+  v8 = v84;
+  v83[0] = _NSConcreteStackBlock;
+  v83[1] = 3221225472;
+  v83[2] = sub_7FD4;
+  v83[3] = &unk_206D0;
+  v83[4] = &v85;
+  [v7 enumerateObjectsUsingBlock:v83];
 
   if (v8)
   {
@@ -95,19 +95,19 @@
       responseID = self->_responseID;
       localizedDescription = [v8 localizedDescription];
       *buf = 138413058;
-      v93 = accountID;
-      v94 = 2112;
-      v95 = dCopy;
-      v96 = 2112;
-      v97 = responseID;
-      v98 = 2112;
-      v99 = localizedDescription;
+      v92 = accountID;
+      v93 = 2112;
+      v94 = dCopy;
+      v95 = 2112;
+      v96 = responseID;
+      v97 = 2112;
+      v98 = localizedDescription;
       _os_log_impl(&dword_0, v9, v10, "MobileCalDAVSharingResponse: ERROR: Failed to fetch lists in account for _deleteSharingInvitationWithUID {accountID: %@, uid: %@, responseID: %@, error: %@}", buf, 0x2Au);
     }
 
 LABEL_4:
 
-    _Block_object_dispose(&v86, 8);
+    _Block_object_dispose(&v85, 8);
 LABEL_5:
     v14 = DALoggingwithCategory();
     v15 = _CPLog_to_os_log_type[5];
@@ -117,13 +117,13 @@ LABEL_5:
       calendarID = self->_calendarID;
       v18 = self->_responseID;
       *buf = 138413058;
-      v93 = dCopy;
-      v94 = 2112;
-      v95 = accountID2;
-      v96 = 2112;
-      v97 = calendarID;
-      v98 = 2112;
-      v99 = v18;
+      v92 = dCopy;
+      v93 = 2112;
+      v94 = accountID2;
+      v95 = 2112;
+      v96 = calendarID;
+      v97 = 2112;
+      v98 = v18;
       _os_log_impl(&dword_0, v14, v15, "MobileCalDAVSharingResponse: Didn't send a delete for the sharing invitation for _deleteSharingInvitationWithUID with {uid: %@, accountID: %@, calendarID: %@, responseID: %@}", buf, 0x2Au);
     }
 
@@ -131,7 +131,7 @@ LABEL_5:
     goto LABEL_8;
   }
 
-  if (!v87[5])
+  if (!v86[5])
   {
     v9 = DALoggingwithCategory();
     v43 = _CPLog_to_os_log_type[4];
@@ -140,95 +140,95 @@ LABEL_5:
       accountID3 = [(MobileCalDAVDaemonAccount *)self->_account accountID];
       v45 = self->_responseID;
       *buf = 138412802;
-      v93 = accountID3;
-      v94 = 2112;
-      v95 = dCopy;
-      v96 = 2112;
-      v97 = v45;
+      v92 = accountID3;
+      v93 = 2112;
+      v94 = dCopy;
+      v95 = 2112;
+      v96 = v45;
       _os_log_impl(&dword_0, v9, v43, "MobileCalDAVSharingResponse: LOOKATME: Failed to fetch the notification calendar for _deleteSharingInvitationWithUID {accountID: %@, uid: %@, responseID: %@}", buf, 0x20u);
     }
 
     goto LABEL_4;
   }
 
-  v78 = 0;
-  v79 = &v78;
-  v80 = 0x3032000000;
-  v81 = sub_7FBC;
-  v82 = sub_7FCC;
-  v83 = 0;
-  calDAVNotificationContext = [v87[5] calDAVNotificationContext];
+  v77 = 0;
+  v78 = &v77;
+  v79 = 0x3032000000;
+  v80 = sub_7FBC;
+  v81 = sub_7FCC;
+  v82 = 0;
+  calDAVNotificationContext = [v86[5] calDAVNotificationContext];
   calDAVNotifications = [calDAVNotificationContext calDAVNotifications];
-  v75[0] = _NSConcreteStackBlock;
-  v75[1] = 3221225472;
-  v75[2] = sub_804C;
-  v75[3] = &unk_206F8;
-  v66 = dCopy;
-  v76 = v66;
-  v77 = &v78;
-  [calDAVNotifications enumerateObjectsUsingBlock:v75];
+  v74[0] = _NSConcreteStackBlock;
+  v74[1] = 3221225472;
+  v74[2] = sub_804C;
+  v74[3] = &unk_206F8;
+  v65 = dCopy;
+  v75 = v65;
+  v76 = &v77;
+  [calDAVNotifications enumerateObjectsUsingBlock:v74];
 
-  if (v79[5])
+  if (v78[5])
   {
     v21 = DALoggingwithCategory();
     v22 = _CPLog_to_os_log_type[5];
     if (os_log_type_enabled(v21, v22))
     {
-      objectID = [v79[5] objectID];
+      objectID = [v78[5] objectID];
       accountID4 = [(MobileCalDAVDaemonAccount *)self->_account accountID];
       v25 = self->_calendarID;
       v26 = self->_responseID;
       *buf = 138413314;
-      v93 = v66;
-      v94 = 2112;
-      v95 = objectID;
-      v96 = 2112;
-      v97 = accountID4;
-      v98 = 2112;
-      v99 = v25;
-      v100 = 2112;
-      v101 = v26;
+      v92 = v65;
+      v93 = 2112;
+      v94 = objectID;
+      v95 = 2112;
+      v96 = accountID4;
+      v97 = 2112;
+      v98 = v25;
+      v99 = 2112;
+      v100 = v26;
       _os_log_impl(&dword_0, v21, v22, "MobileCalDAVSharingResponse: Matched invitation notification for _deleteSharingInvitationWithUID with {uid: %@, objectID: %@, accountID: %@, calendarID: %@, responseID: %@}", buf, 0x34u);
     }
 
-    externalIdentifier = [v79[5] externalIdentifier];
-    v68 = externalIdentifier != 0;
+    externalIdentifier = [v78[5] externalIdentifier];
+    v67 = externalIdentifier != 0;
     if (externalIdentifier)
     {
       mainPrincipal = [(MobileCalDAVDaemonAccount *)self->_account mainPrincipal];
       notificationCollectionURL = [mainPrincipal notificationCollectionURL];
       v30 = [externalIdentifier da_absoluteURLForChildLeastInfoRepresentationRelativeToParentURL:notificationCollectionURL];
 
-      v67 = [[CoreDAVDeleteTask alloc] initWithURL:v30];
-      objc_initWeak(&location, v67);
+      v66 = [[CoreDAVDeleteTask alloc] initWithURL:v30];
+      objc_initWeak(&location, v66);
       mainPrincipal2 = [(MobileCalDAVDaemonAccount *)self->_account mainPrincipal];
-      [v67 setAccountInfoProvider:mainPrincipal2];
+      [v66 setAccountInfoProvider:mainPrincipal2];
 
-      v70[0] = _NSConcreteStackBlock;
-      v70[1] = 3221225472;
-      v70[2] = sub_80E4;
-      v70[3] = &unk_20720;
+      v69[0] = _NSConcreteStackBlock;
+      v69[1] = 3221225472;
+      v69[2] = sub_80E4;
+      v69[3] = &unk_20720;
       v32 = v30;
-      v71 = v32;
-      objc_copyWeak(&v73, &location);
+      v70 = v32;
+      objc_copyWeak(&v72, &location);
       selfCopy = self;
-      [v67 setCompletionBlock:v70];
+      [v66 setCompletionBlock:v69];
       taskManager = [(MobileCalDAVSharingResponse *)self taskManager];
-      [taskManager submitQueuedCoreDAVTask:v67];
+      [taskManager submitQueuedCoreDAVTask:v66];
 
       rem_saveRequest = [(MobileCalDAVDaemonAccount *)self->_account rem_saveRequest];
-      v64 = [rem_saveRequest updateList:v87[5]];
-      calDAVNotificationContext2 = [v64 calDAVNotificationContext];
+      v63 = [rem_saveRequest updateList:v86[5]];
+      calDAVNotificationContext2 = [v63 calDAVNotificationContext];
       if (!calDAVNotificationContext2)
       {
-        v57 = +[NSAssertionHandler currentHandler];
-        [v57 handleFailureInMethod:a2 object:self file:@"MobileCalDAVSharingSupport.m" lineNumber:163 description:{@"Invalid parameter not satisfying: %@", @"notificationContext"}];
+        v56 = +[NSAssertionHandler currentHandler];
+        [v56 handleFailureInMethod:a2 object:self file:@"MobileCalDAVSharingSupport.m" lineNumber:163 description:{@"Invalid parameter not satisfying: %@", @"notificationContext"}];
       }
 
-      [calDAVNotificationContext2 removeCalDAVNotication:v79[5]];
-      v69 = 0;
-      v35 = [rem_saveRequest saveSynchronouslyWithError:&v69];
-      v36 = v69;
+      [calDAVNotificationContext2 removeCalDAVNotication:v78[5]];
+      v68 = 0;
+      v35 = [rem_saveRequest saveSynchronouslyWithError:&v68];
+      v36 = v68;
       if (v36)
       {
         v37 = 0;
@@ -244,24 +244,24 @@ LABEL_5:
         v38 = DALoggingwithCategory();
         if (os_log_type_enabled(v38, v22))
         {
-          v62 = v32;
-          objectID2 = [v79[5] objectID];
+          v61 = v32;
+          objectID2 = [v78[5] objectID];
           accountID5 = [(MobileCalDAVDaemonAccount *)self->_account accountID];
           v41 = self->_calendarID;
           v42 = self->_responseID;
           *buf = 138413314;
-          v93 = objectID2;
-          v94 = 2112;
-          v95 = v66;
-          v96 = 2112;
-          v97 = accountID5;
-          v98 = 2112;
-          v99 = v41;
-          v100 = 2112;
-          v101 = v42;
+          v92 = objectID2;
+          v93 = 2112;
+          v94 = v65;
+          v95 = 2112;
+          v96 = accountID5;
+          v97 = 2112;
+          v98 = v41;
+          v99 = 2112;
+          v100 = v42;
           _os_log_impl(&dword_0, v38, v22, "MobileCalDAVSharingResponse: Successfully removed invite notification at _deleteSharingInvitationWithUID: {objectID: %@, uid: %@, accountID: %@, calendarID: %@, responseID: %@}", buf, 0x34u);
 
-          v32 = v62;
+          v32 = v61;
         }
       }
 
@@ -271,32 +271,31 @@ LABEL_5:
         v54 = _CPLog_to_os_log_type[3];
         if (os_log_type_enabled(v38, v54))
         {
-          v63 = v32;
-          objectID3 = [v79[5] objectID];
+          v62 = v32;
+          objectID3 = [v78[5] objectID];
           accountID6 = [(MobileCalDAVDaemonAccount *)self->_account accountID];
-          v55 = self->_calendarID;
-          v58 = v55;
-          v59 = self->_responseID;
+          v57 = self->_calendarID;
+          v58 = self->_responseID;
           localizedDescription2 = [v36 localizedDescription];
           *buf = 138413570;
-          v93 = objectID3;
-          v94 = 2112;
-          v95 = v66;
-          v96 = 2112;
-          v97 = accountID6;
-          v98 = 2112;
-          v99 = v58;
-          v100 = 2112;
-          v101 = v59;
-          v102 = 2112;
-          v103 = localizedDescription2;
+          v92 = objectID3;
+          v93 = 2112;
+          v94 = v65;
+          v95 = 2112;
+          v96 = accountID6;
+          v97 = 2112;
+          v98 = v57;
+          v99 = 2112;
+          v100 = v58;
+          v101 = 2112;
+          v102 = localizedDescription2;
           _os_log_impl(&dword_0, v38, v54, "MobileCalDAVSharingResponse: ERROR: Remove invite notification failed when trying to _deleteSharingInvitationWithUID: {objectID: %@, uid: %@, accountID: %@, calendarID: %@, responseID: %@, error: %@}", buf, 0x3Eu);
 
-          v32 = v63;
+          v32 = v62;
         }
       }
 
-      objc_destroyWeak(&v73);
+      objc_destroyWeak(&v72);
       objc_destroyWeak(&location);
     }
 
@@ -310,13 +309,13 @@ LABEL_5:
         v52 = self->_calendarID;
         v53 = self->_responseID;
         *buf = 138413058;
-        v93 = v66;
-        v94 = 2112;
-        v95 = accountID7;
-        v96 = 2112;
-        v97 = v52;
-        v98 = 2112;
-        v99 = v53;
+        v92 = v65;
+        v93 = 2112;
+        v94 = accountID7;
+        v95 = 2112;
+        v96 = v52;
+        v97 = 2112;
+        v98 = v53;
         _os_log_impl(&dword_0, v32, v50, "MobileCalDAVSharingResponse: LOOKATME: Couldn't get an external ID from the invite notification for _deleteSharingInvitationWithUID with {uid: %@, accountID: %@, calendarID: %@, responseID: %@}", buf, 0x2Au);
       }
     }
@@ -332,23 +331,23 @@ LABEL_5:
       v48 = self->_calendarID;
       v49 = self->_responseID;
       *buf = 138413058;
-      v93 = v66;
-      v94 = 2112;
-      v95 = accountID8;
-      v96 = 2112;
-      v97 = v48;
-      v98 = 2112;
-      v99 = v49;
+      v92 = v65;
+      v93 = 2112;
+      v94 = accountID8;
+      v95 = 2112;
+      v96 = v48;
+      v97 = 2112;
+      v98 = v49;
       _os_log_impl(&dword_0, externalIdentifier, v46, "MobileCalDAVSharingResponse: LOOKATME: Couldn't find a sharing invite notification for _deleteSharingInvitationWithUID with {uid: %@, accountID: %@, calendarID: %@, responseID: %@}", buf, 0x2Au);
     }
 
-    v68 = 0;
+    v67 = 0;
   }
 
-  _Block_object_dispose(&v78, 8);
-  _Block_object_dispose(&v86, 8);
+  _Block_object_dispose(&v77, 8);
+  _Block_object_dispose(&v85, 8);
 
-  if (!v68)
+  if (!v67)
   {
     goto LABEL_5;
   }

@@ -17,19 +17,13 @@
 - (uint64_t)actionBlendingCacheId;
 - (uint64_t)actionConsumerSubType;
 - (uint64_t)actionSuggestionIds;
-- (uint64_t)actionSuggestionIdsCount;
 - (uint64_t)addActionSuggestionIds:(uint64_t)ids;
 - (uint64_t)addAppSuggestionIds:(uint64_t)ids;
 - (uint64_t)addDocumentSuggestionIds:(uint64_t)ids;
 - (uint64_t)appBlendingCacheId;
 - (uint64_t)appConsumerSubType;
 - (uint64_t)appSuggestionIds;
-- (uint64_t)appSuggestionIdsCount;
-- (uint64_t)clearActionSuggestionIds;
-- (uint64_t)clearAppSuggestionIds;
-- (uint64_t)clearDocumentSuggestionIds;
 - (uint64_t)documentSuggestionIds;
-- (uint64_t)documentSuggestionIdsCount;
 - (uint64_t)eventType;
 - (uint64_t)hasDate;
 - (uint64_t)hasEventType;
@@ -39,7 +33,13 @@
 - (uint64_t)setHasDate:(uint64_t)result;
 - (uint64_t)setHasEventType:(uint64_t)result;
 - (unint64_t)hash;
+- (void)actionSuggestionIdsCount;
+- (void)appSuggestionIdsCount;
+- (void)clearActionSuggestionIds;
+- (void)clearAppSuggestionIds;
+- (void)clearDocumentSuggestionIds;
 - (void)copyTo:(uint64_t)to;
+- (void)documentSuggestionIdsCount;
 - (void)mergeFrom:(uint64_t)from;
 - (void)setActionBlendingCacheId:(uint64_t)id;
 - (void)setActionConsumerSubType:(uint64_t)type;
@@ -779,7 +779,7 @@ LABEL_4:
   return result;
 }
 
-- (uint64_t)clearAppSuggestionIds
+- (void)clearAppSuggestionIds
 {
   if (result)
   {
@@ -813,7 +813,7 @@ LABEL_4:
   return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
-- (uint64_t)appSuggestionIdsCount
+- (void)appSuggestionIdsCount
 {
   if (result)
   {
@@ -834,7 +834,7 @@ LABEL_4:
   return index;
 }
 
-- (uint64_t)clearActionSuggestionIds
+- (void)clearActionSuggestionIds
 {
   if (result)
   {
@@ -868,7 +868,7 @@ LABEL_4:
   return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
-- (uint64_t)actionSuggestionIdsCount
+- (void)actionSuggestionIdsCount
 {
   if (result)
   {
@@ -899,7 +899,7 @@ LABEL_4:
   return result;
 }
 
-- (uint64_t)clearDocumentSuggestionIds
+- (void)clearDocumentSuggestionIds
 {
   if (result)
   {
@@ -933,7 +933,7 @@ LABEL_4:
   return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
-- (uint64_t)documentSuggestionIdsCount
+- (void)documentSuggestionIdsCount
 {
   if (result)
   {

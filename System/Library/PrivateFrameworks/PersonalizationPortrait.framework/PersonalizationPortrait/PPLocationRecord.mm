@@ -1,5 +1,6 @@
 @interface PPLocationRecord
 + (id)algorithmForName:(id)name;
++ (id)describeAlgorithm:(unsigned __int16)algorithm;
 + (id)sharedAmbiguousRecord;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToLocationRecord:(id)record;
@@ -354,57 +355,13 @@ LABEL_34:
   v24.receiver = self;
   v24.super_class = PPLocationRecord;
   v5 = [(PPLocationRecord *)&v24 init];
-  if (!v5)
+  if (!v5 || ([coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"uuid"], v6 = objc_claimAutoreleasedReturnValue(), uuid = v5->_uuid, v5->_uuid = v6, uuid, objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"loc"), v8 = objc_claimAutoreleasedReturnValue(), location = v5->_location, v5->_location = v8, location, objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"src"), v10 = objc_claimAutoreleasedReturnValue(), source = v5->_source, v5->_source = v10, source, v5->_algorithm = objc_msgSend(coderCopy, "decodeInt32ForKey:", @"alg"), objc_msgSend(coderCopy, "decodeFloatForKey:", @"iscr"), v5->_initialScore = v12, objc_msgSend(coderCopy, "decodeFloatForKey:", @"dr"), v5->_decayRate = v13, v5->_bucketizedSentimentScore = objc_msgSend(coderCopy, "decodeInt32ForKey:", @"bss"), v14 = objc_autoreleasePoolPush(), v15 = objc_alloc(MEMORY[0x1E695DFD8]), v16 = objc_opt_class(), v17 = objc_msgSend(v15, "initWithObjects:", v16, objc_opt_class(), 0), objc_autoreleasePoolPop(v14), objc_msgSend(coderCopy, "decodeObjectOfClasses:forKey:", v17, @"cne"), v18 = objc_claimAutoreleasedReturnValue(), contextualNamedEntities = v5->_contextualNamedEntities, v5->_contextualNamedEntities = v18, contextualNamedEntities, v17, objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"eob"), v20 = objc_claimAutoreleasedReturnValue(), extractionOsBuild = v5->_extractionOsBuild, v5->_extractionOsBuild = v20, extractionOsBuild, v5->_extractionAssetVersion = objc_msgSend(coderCopy, "decodeInt64ForKey:", @"eav"), v5->_uuid) && v5->_location && v5->_source)
   {
-    goto LABEL_5;
-  }
-
-  v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"uuid"];
-  uuid = v5->_uuid;
-  v5->_uuid = v6;
-
-  v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"loc"];
-  location = v5->_location;
-  v5->_location = v8;
-
-  v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"src"];
-  source = v5->_source;
-  v5->_source = v10;
-
-  v5->_algorithm = [coderCopy decodeInt32ForKey:@"alg"];
-  [coderCopy decodeFloatForKey:@"iscr"];
-  v5->_initialScore = v12;
-  [coderCopy decodeFloatForKey:@"dr"];
-  v5->_decayRate = v13;
-  v5->_bucketizedSentimentScore = [coderCopy decodeInt32ForKey:@"bss"];
-  v14 = objc_autoreleasePoolPush();
-  v15 = objc_alloc(MEMORY[0x1E695DFD8]);
-  v16 = objc_opt_class();
-  v17 = [v15 initWithObjects:{v16, objc_opt_class(), 0}];
-  objc_autoreleasePoolPop(v14);
-  v18 = [coderCopy decodeObjectOfClasses:v17 forKey:@"cne"];
-  contextualNamedEntities = v5->_contextualNamedEntities;
-  v5->_contextualNamedEntities = v18;
-
-  v20 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"eob"];
-  extractionOsBuild = v5->_extractionOsBuild;
-  v5->_extractionOsBuild = v20;
-
-  v5->_extractionAssetVersion = [coderCopy decodeInt64ForKey:@"eav"];
-  if (!v5->_uuid)
-  {
-    goto LABEL_6;
-  }
-
-  if (v5->_location && v5->_source)
-  {
-LABEL_5:
     v22 = v5;
   }
 
   else
   {
-LABEL_6:
     v22 = 0;
   }
 
@@ -435,34 +392,34 @@ LABEL_6:
 
 + (id)algorithmForName:(id)name
 {
-  v12[12] = *MEMORY[0x1E69E9840];
-  v11[0] = @"CoreNLP";
-  v11[1] = @"Lookup Hints";
-  v12[0] = &unk_1F1B46018;
-  v12[1] = &unk_1F1B46030;
-  v11[2] = @"Data Detectors";
-  v11[3] = @"Custom Tagger";
-  v12[2] = &unk_1F1B46048;
-  v12[3] = &unk_1F1B46060;
-  v11[4] = @"Core Routine";
-  v11[5] = @"NSUA Structured Location";
-  v12[4] = &unk_1F1B46078;
-  v12[5] = &unk_1F1B46090;
-  v11[6] = @"Trusted Location";
-  v11[7] = @"Maps Interaction";
-  v12[6] = &unk_1F1B460A8;
-  v12[7] = &unk_1F1B460C0;
-  v11[8] = @"EventKit Import";
-  v11[9] = @"Photos Knowledge Graph";
-  v12[8] = &unk_1F1B460D8;
-  v12[9] = &unk_1F1B460F0;
-  v11[10] = @"Augmented Gazetteer";
-  v11[11] = @"Knowledge Graph";
-  v12[10] = &unk_1F1B46108;
-  v12[11] = &unk_1F1B46120;
+  v11[12] = *MEMORY[0x1E69E9840];
+  v10[0] = @"CoreNLP";
+  v10[1] = @"Lookup Hints";
+  v11[0] = &unk_1F1B46018;
+  v11[1] = &unk_1F1B46030;
+  v10[2] = @"Data Detectors";
+  v10[3] = @"Custom Tagger";
+  v11[2] = &unk_1F1B46048;
+  v11[3] = &unk_1F1B46060;
+  v10[4] = @"Core Routine";
+  v10[5] = @"NSUA Structured Location";
+  v11[4] = &unk_1F1B46078;
+  v11[5] = &unk_1F1B46090;
+  v10[6] = @"Trusted Location";
+  v10[7] = @"Maps Interaction";
+  v11[6] = &unk_1F1B460A8;
+  v11[7] = &unk_1F1B460C0;
+  v10[8] = @"EventKit Import";
+  v10[9] = @"Photos Knowledge Graph";
+  v11[8] = &unk_1F1B460D8;
+  v11[9] = &unk_1F1B460F0;
+  v10[10] = @"Augmented Gazetteer";
+  v10[11] = @"Knowledge Graph";
+  v11[10] = &unk_1F1B46108;
+  v11[11] = &unk_1F1B46120;
   v3 = MEMORY[0x1E695DF20];
   nameCopy = name;
-  v5 = [v3 dictionaryWithObjects:v12 forKeys:v11 count:12];
+  v5 = [v3 dictionaryWithObjects:v11 forKeys:v10 count:12];
   v6 = [v5 objectForKeyedSubscript:nameCopy];
 
   if (v6)
@@ -477,8 +434,23 @@ LABEL_6:
 
   v8 = v7;
 
-  v9 = *MEMORY[0x1E69E9840];
   return v7;
+}
+
++ (id)describeAlgorithm:(unsigned __int16)algorithm
+{
+  if ((algorithm - 1) >= 0xC)
+  {
+    algorithm = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"unknown (%u)", algorithm];
+    _pas_stringBackedByUTF8CString = [algorithm _pas_stringBackedByUTF8CString];
+  }
+
+  else
+  {
+    _pas_stringBackedByUTF8CString = off_1E77F6C18[(algorithm - 1)];
+  }
+
+  return _pas_stringBackedByUTF8CString;
 }
 
 + (id)sharedAmbiguousRecord

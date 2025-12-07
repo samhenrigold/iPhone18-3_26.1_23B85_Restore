@@ -17,7 +17,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1005F0598();
+  sub_1005F0598(selfCopy);
 }
 
 - (_TtC5Music27LyricsSharingTransitionView)initWithFrame:(CGRect)frame

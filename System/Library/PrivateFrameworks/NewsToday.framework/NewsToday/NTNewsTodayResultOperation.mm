@@ -172,11 +172,11 @@
 
   if (!v11)
   {
-    v12 = NTSharedLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v13 = NTSharedLog(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      *v15 = 0;
-      _os_log_impl(&dword_25BF21000, v12, OS_LOG_TYPE_INFO, "no existing date for first refresh. setting to current date", v15, 2u);
+      *v16 = 0;
+      _os_log_impl(&dword_25BF21000, v13, OS_LOG_TYPE_INFO, "no existing date for first refresh. setting to current date", v16, 2u);
     }
 
     date = [MEMORY[0x277CBEAA8] date];
@@ -203,35 +203,34 @@
   else
   {
     v9 = v4;
-    v67 = 0;
-    v68 = &v67;
-    v69 = 0x3032000000;
-    v70 = __Block_byref_object_copy__0;
-    v71 = __Block_byref_object_dispose__0;
-    v72 = 0;
+    v68 = 0;
+    v69 = &v68;
+    v70 = 0x3032000000;
+    v71 = __Block_byref_object_copy__0;
+    v72 = __Block_byref_object_dispose__0;
+    v73 = 0;
     v10 = objc_alloc(MEMORY[0x277D31068]);
     v11 = FCURLForTodayPersonalizationUpdateStore();
     v12 = [v10 initWithFileURL:v11];
 
-    v13 = NTSharedLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 0;
-      _os_log_impl(&dword_25BF21000, v13, OS_LOG_TYPE_DEFAULT, "fetching personalization updates", buf, 2u);
-    }
-
-    v65[0] = MEMORY[0x277D85DD0];
-    v65[1] = 3221225472;
-    v65[2] = __46__NTNewsTodayResultOperation_performOperation__block_invoke;
-    v65[3] = &unk_2799830A0;
-    v65[4] = &v67;
-    [v12 readSyncWithAccessor:v65];
-    v14 = NTSharedLog();
-    v50 = operationInfo;
+    v14 = NTSharedLog(v13);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25BF21000, v14, OS_LOG_TYPE_DEFAULT, "proceeding, having fetched personalization updates", buf, 2u);
+      _os_log_impl(&dword_25BF21000, v14, OS_LOG_TYPE_DEFAULT, "fetching personalization updates", buf, 2u);
+    }
+
+    v66[0] = MEMORY[0x277D85DD0];
+    v66[1] = 3221225472;
+    v66[2] = __46__NTNewsTodayResultOperation_performOperation__block_invoke;
+    v66[3] = &unk_2799830A0;
+    v66[4] = &v68;
+    v15 = NTSharedLog([v12 readSyncWithAccessor:v66]);
+    v51 = operationInfo;
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_25BF21000, v15, OS_LOG_TYPE_DEFAULT, "proceeding, having fetched personalization updates", buf, 2u);
     }
 
     contentContext = [(NTTodayResultOperation *)self contentContext];
@@ -242,71 +241,71 @@
     privateData = [prefetchedContent privateData];
     personalizationTreatment = [appConfiguration personalizationTreatment];
     derivedPersonalizationData = [privateData derivedPersonalizationData];
-    v21 = derivedPersonalizationData;
+    v22 = derivedPersonalizationData;
     if (derivedPersonalizationData)
     {
-      v48 = derivedPersonalizationData;
+      v49 = derivedPersonalizationData;
     }
 
     else
     {
-      v22 = objc_alloc(MEMORY[0x277D30F40]);
-      v48 = [v22 initWithAggregates:MEMORY[0x277CBEC10] scoringType:0 decayRate:0.0];
+      v23 = objc_alloc(MEMORY[0x277D30F40]);
+      v49 = [v23 initWithAggregates:MEMORY[0x277CBEC10] scoringType:0 decayRate:0.0];
     }
 
-    v23 = [objc_alloc(MEMORY[0x277D31298]) initWithGenerator:v48];
-    [v23 processTodayPersonalizationUpdates:v68[5] withConfigurableValues:personalizationTreatment];
-    v24 = [todayConfig copy];
+    v24 = [objc_alloc(MEMORY[0x277D31298]) initWithGenerator:v49];
+    [v24 processTodayPersonalizationUpdates:v69[5] withConfigurableValues:personalizationTreatment];
+    v25 = [todayConfig copy];
     feldsparID = [appConfigurationManager feldsparID];
     currentTreatment = [appConfiguration currentTreatment];
     segmentSetIDs = [appConfigurationManager segmentSetIDs];
-    v40 = v24;
-    v41 = prefetchedContent;
-    v42 = v12;
+    v41 = v25;
+    v42 = prefetchedContent;
+    v43 = v12;
     treatmentIDs = [appConfigurationManager treatmentIDs];
     onboardingVersion = [privateData onboardingVersion];
-    v26 = NTSharedLog();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v27 = NTSharedLog(onboardingVersion);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25BF21000, v26, OS_LOG_TYPE_DEFAULT, "assembling queue descriptors", buf, 2u);
+      _os_log_impl(&dword_25BF21000, v27, OS_LOG_TYPE_DEFAULT, "assembling queue descriptors", buf, 2u);
     }
 
-    allowOnlyWatchEligibleSections = [v50 allowOnlyWatchEligibleSections];
-    respectsWidgetVisibleSectionsPerQueueLimit = [v50 respectsWidgetVisibleSectionsPerQueueLimit];
-    v51[0] = MEMORY[0x277D85DD0];
-    v51[1] = 3221225472;
-    v51[2] = __46__NTNewsTodayResultOperation_performOperation__block_invoke_36;
-    v51[3] = &unk_279983118;
-    v51[4] = self;
-    v27 = v23;
-    v52 = v27;
-    v36 = appConfigurationManager;
-    v53 = v36;
-    v28 = privateData;
-    v54 = v28;
-    v29 = appConfiguration;
+    allowOnlyWatchEligibleSections = [v51 allowOnlyWatchEligibleSections];
+    respectsWidgetVisibleSectionsPerQueueLimit = [v51 respectsWidgetVisibleSectionsPerQueueLimit];
+    v52[0] = MEMORY[0x277D85DD0];
+    v52[1] = 3221225472;
+    v52[2] = __46__NTNewsTodayResultOperation_performOperation__block_invoke_36;
+    v52[3] = &unk_279983118;
+    v52[4] = self;
+    v28 = v24;
+    v53 = v28;
+    v37 = appConfigurationManager;
+    v54 = v37;
+    v29 = privateData;
     v55 = v29;
-    v30 = todayConfig;
+    v30 = appConfiguration;
     v56 = v30;
-    v57 = v50;
-    v64 = v9;
-    v47 = contentContext;
-    v58 = v47;
-    v31 = feldsparID;
-    v59 = v31;
-    v32 = currentTreatment;
+    v31 = todayConfig;
+    v57 = v31;
+    v58 = v51;
+    v65 = v9;
+    v48 = contentContext;
+    v59 = v48;
+    v32 = feldsparID;
     v60 = v32;
-    v33 = segmentSetIDs;
+    v33 = currentTreatment;
     v61 = v33;
-    v34 = treatmentIDs;
+    v34 = segmentSetIDs;
     v62 = v34;
-    v35 = onboardingVersion;
+    v35 = treatmentIDs;
     v63 = v35;
-    [(NTNewsTodayResultOperation *)self _assembleQueueDescriptorsWithConfig:v30 allowOnlyWatchEligibleSections:allowOnlyWatchEligibleSections respectsWidgetVisibleSectionsLimit:respectsWidgetVisibleSectionsPerQueueLimit personalizationTreatment:personalizationTreatment aggregateStore:v27 appConfiguration:v29 todayData:v28 completion:v51];
+    v36 = onboardingVersion;
+    v64 = v36;
+    [(NTNewsTodayResultOperation *)self _assembleQueueDescriptorsWithConfig:v31 allowOnlyWatchEligibleSections:allowOnlyWatchEligibleSections respectsWidgetVisibleSectionsLimit:respectsWidgetVisibleSectionsPerQueueLimit personalizationTreatment:personalizationTreatment aggregateStore:v28 appConfiguration:v30 todayData:v29 completion:v52];
 
-    _Block_object_dispose(&v67, 8);
-    operationInfo = v50;
+    _Block_object_dispose(&v68, 8);
+    operationInfo = v51;
   }
 }
 
@@ -317,11 +316,11 @@ void __46__NTNewsTodayResultOperation_performOperation__block_invoke(uint64_t a1
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
 
-  v6 = NTSharedLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = NTSharedLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_25BF21000, v6, OS_LOG_TYPE_DEFAULT, "fetched personalization updates", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_25BF21000, v7, OS_LOG_TYPE_DEFAULT, "fetched personalization updates", v8, 2u);
   }
 }
 
@@ -329,7 +328,7 @@ void __46__NTNewsTodayResultOperation_performOperation__block_invoke_36(uint64_t
 {
   v5 = a2;
   v6 = a3;
-  v7 = NTSharedLog();
+  v7 = NTSharedLog(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -349,7 +348,7 @@ void __46__NTNewsTodayResultOperation_performOperation__block_invoke_36(uint64_t
 
     v11 = [objc_alloc(MEMORY[0x277D311E0]) initWithAppConfiguration:*(a1 + 64)];
     v12 = [objc_alloc(MEMORY[0x277D310E0]) initWithFeedPersonalizer:v10 functionProvider:v11];
-    v13 = NTSharedLog();
+    v13 = NTSharedLog(v12);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -382,7 +381,7 @@ void __46__NTNewsTodayResultOperation_performOperation__block_invoke_36(uint64_t
 
 void __46__NTNewsTodayResultOperation_performOperation__block_invoke_40(uint64_t a1)
 {
-  v2 = NTSharedLog();
+  v2 = NTSharedLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -421,7 +420,7 @@ void __46__NTNewsTodayResultOperation_performOperation__block_invoke_40(uint64_t
   v16 = v15;
   [*(a1 + 56) maxHeadlineScale];
   v18 = [(NTNewsTodayResultsContentFillAggregator *)v14 initWithAggregator:v13 minHeadlineScale:v16 maxHeadlineScale:v17];
-  v19 = NTSharedLog();
+  v19 = NTSharedLog(v18);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -457,7 +456,7 @@ void __46__NTNewsTodayResultOperation_performOperation__block_invoke_44(uint64_t
   v7 = a4;
   v8 = a3;
   v9 = a2;
-  v10 = NTSharedLog();
+  v10 = NTSharedLog(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -517,78 +516,79 @@ void __46__NTNewsTodayResultOperation_performOperation__block_invoke_44(uint64_t
     v27 = [v23 dateByAddingTimeInterval:v25];
     v28 = [MEMORY[0x277CBEAA8] date];
     v29 = [v28 fc_isEarlierThan:v27];
-    v30 = NTSharedLog();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+    v30 = v29;
+    v31 = NTSharedLog(v29);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
     {
       *buf = 67109890;
-      v51 = v29;
+      v51 = v30;
       v52 = 2114;
       v53 = v23;
       v54 = 2048;
       v55 = v26;
       v56 = 2114;
       v57 = v27;
-      _os_log_impl(&dword_25BF21000, v30, OS_LOG_TYPE_INFO, "in honeymoon: %d, determined from first refresh date of %{public}@, honeymoon duration of %lld, and honeymoon end of %{public}@", buf, 0x26u);
+      _os_log_impl(&dword_25BF21000, v31, OS_LOG_TYPE_INFO, "in honeymoon: %d, determined from first refresh date of %{public}@, honeymoon duration of %lld, and honeymoon end of %{public}@", buf, 0x26u);
     }
 
-    v31 = *(a1 + 48);
-    if (v29)
+    v32 = *(a1 + 48);
+    if (v30)
     {
       if (v20 == 1)
       {
-        [v14 setWidgetSystemReloadInterval:{objc_msgSend(v31, "smallWidgetSystemReloadIntervalHoneymoon")}];
-        v32 = [*(a1 + 48) smallWidgetSystemReloadJitterMaxHoneymoon];
+        [v14 setWidgetSystemReloadInterval:{objc_msgSend(v32, "smallWidgetSystemReloadIntervalHoneymoon")}];
+        v33 = [*(a1 + 48) smallWidgetSystemReloadJitterMaxHoneymoon];
       }
 
       else
       {
-        [v14 setWidgetSystemReloadInterval:{objc_msgSend(v31, "widgetSystemReloadIntervalHoneymoon")}];
-        v32 = [*(a1 + 48) widgetSystemReloadJitterMaxHoneymoon];
+        [v14 setWidgetSystemReloadInterval:{objc_msgSend(v32, "widgetSystemReloadIntervalHoneymoon")}];
+        v33 = [*(a1 + 48) widgetSystemReloadJitterMaxHoneymoon];
       }
     }
 
     else if (v20 == 1)
     {
-      [v14 setWidgetSystemReloadInterval:{objc_msgSend(v31, "smallWidgetSystemReloadInterval")}];
-      v32 = [*(a1 + 48) smallWidgetSystemReloadJitterMax];
+      [v14 setWidgetSystemReloadInterval:{objc_msgSend(v32, "smallWidgetSystemReloadInterval")}];
+      v33 = [*(a1 + 48) smallWidgetSystemReloadJitterMax];
     }
 
     else
     {
-      [v14 setWidgetSystemReloadInterval:{objc_msgSend(v31, "widgetSystemReloadInterval")}];
-      v32 = [*(a1 + 48) widgetSystemReloadJitterMax];
+      [v14 setWidgetSystemReloadInterval:{objc_msgSend(v32, "widgetSystemReloadInterval")}];
+      v33 = [*(a1 + 48) widgetSystemReloadJitterMax];
     }
 
     v13 = v48;
-    [v14 setWidgetSystemReloadJitterMax:v32];
+    [v14 setWidgetSystemReloadJitterMax:v33];
     [v11 setWidgetConfig:v14];
 
     v7 = v49;
   }
 
-  v33 = *(a1 + 64);
-  if (v33)
+  v34 = *(a1 + 64);
+  if (v34)
   {
-    v34 = v33;
+    v35 = v34;
   }
 
   else
   {
-    v35 = NewsCoreSensitiveUserDefaults();
-    v36 = *MEMORY[0x277D30D50];
-    v37 = [v35 stringForKey:*MEMORY[0x277D30D50]];
-    v38 = v37;
-    if (v37)
+    v36 = NewsCoreSensitiveUserDefaults();
+    v37 = *MEMORY[0x277D30D50];
+    v38 = [v36 stringForKey:*MEMORY[0x277D30D50]];
+    v39 = v38;
+    if (v38)
     {
-      v34 = v37;
+      v35 = v38;
     }
 
     else
     {
-      v39 = [MEMORY[0x277CCAD78] UUID];
-      v34 = [v39 UUIDString];
+      v40 = [MEMORY[0x277CCAD78] UUID];
+      v35 = [v40 UUIDString];
 
-      [v35 setObject:v34 forKey:v36];
+      [v36 setObject:v35 forKey:v37];
     }
   }
 
@@ -596,32 +596,30 @@ void __46__NTNewsTodayResultOperation_performOperation__block_invoke_44(uint64_t
   [v11 setAppConfigTreatmentID:*(a1 + 72)];
   [v11 setUserSegmentationSegmentSetIDs:*(a1 + 80)];
   [v11 setUserSegmentationTreatmentIDs:*(a1 + 88)];
-  v40 = [MEMORY[0x277CBEAF8] currentLocale];
-  [v11 setLocale:v40];
+  v41 = [MEMORY[0x277CBEAF8] currentLocale];
+  [v11 setLocale:v41];
 
-  [v11 setUserID:v34];
-  v41 = [*(a1 + 96) contentStoreFrontID];
-  [v11 setContentStoreFrontID:v41];
+  [v11 setUserID:v35];
+  v42 = [*(a1 + 96) contentStoreFrontID];
+  [v11 setContentStoreFrontID:v42];
 
-  v42 = [*(a1 + 96) contentEnvironment];
-  [v11 setContentEnvironment:v42];
+  v43 = [*(a1 + 96) contentEnvironment];
+  [v11 setContentEnvironment:v43];
 
-  v43 = [MEMORY[0x277D31140] sharedNetworkReachability];
-  [v11 setWifiReachable:{objc_msgSend(v43, "isNetworkReachableViaWiFi")}];
-  [v11 setCellularRadioAccessTechnology:{objc_msgSend(v43, "cellularRadioAccessTechnology")}];
-  [v11 setReachabilityStatus:{objc_msgSend(v43, "reachabilityStatus")}];
+  v44 = [MEMORY[0x277D31140] sharedNetworkReachability];
+  [v11 setWifiReachable:{objc_msgSend(v44, "isNetworkReachableViaWiFi")}];
+  [v11 setCellularRadioAccessTechnology:{objc_msgSend(v44, "cellularRadioAccessTechnology")}];
+  [v11 setReachabilityStatus:{objc_msgSend(v44, "reachabilityStatus")}];
   [v11 setOnboardingVersion:{objc_msgSend(*(a1 + 104), "integerValue")}];
-  v44 = [*(a1 + 112) bundleSubscription];
-  [v11 setIsBundleSubscriber:{objc_msgSend(v44, "subscriptionState") < 2}];
-
   v45 = [*(a1 + 112) bundleSubscription];
-  v46 = [v45 bundlePurchaseID];
-  [v11 setBundleIap:v46];
+  [v11 setIsBundleSubscriber:{objc_msgSend(v45, "subscriptionState") < 2}];
+
+  v46 = [*(a1 + 112) bundleSubscription];
+  v47 = [v46 bundlePurchaseID];
+  [v11 setBundleIap:v47];
 
   [*(a1 + 32) setResultFetchInfo:v11];
   [*(a1 + 32) finishedPerformingOperationWithError:v7];
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 - (void)operationWillFinishWithError:(id)error
@@ -681,7 +679,7 @@ LABEL_10:
 
 - (void)_assembleQueueDescriptorsWithConfig:(id)config allowOnlyWatchEligibleSections:(BOOL)sections respectsWidgetVisibleSectionsLimit:(BOOL)limit personalizationTreatment:(id)treatment aggregateStore:(id)store appConfiguration:(id)configuration todayData:(id)data completion:(id)self0
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   configCopy = config;
   treatmentCopy = treatment;
   storeCopy = store;
@@ -713,15 +711,15 @@ LABEL_6:
     [NTNewsTodayResultOperation _assembleQueueDescriptorsWithConfig:allowOnlyWatchEligibleSections:respectsWidgetVisibleSectionsLimit:personalizationTreatment:aggregateStore:appConfiguration:todayData:completion:];
   }
 
-  v48 = treatmentCopy;
+  v47 = treatmentCopy;
   if (!configurationCopy && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     [NTNewsTodayResultOperation _assembleQueueDescriptorsWithConfig:allowOnlyWatchEligibleSections:respectsWidgetVisibleSectionsLimit:personalizationTreatment:aggregateStore:appConfiguration:todayData:completion:];
   }
 
-  v43 = configurationCopy;
-  v46 = completionCopy;
-  v47 = storeCopy;
+  v42 = configurationCopy;
+  v45 = completionCopy;
+  v46 = storeCopy;
   if (!completionCopy && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     [NTNewsTodayResultOperation _assembleQueueDescriptorsWithConfig:allowOnlyWatchEligibleSections:respectsWidgetVisibleSectionsLimit:personalizationTreatment:aggregateStore:appConfiguration:todayData:completion:];
@@ -731,31 +729,31 @@ LABEL_6:
   v19 = [v18 BOOLForKey:*MEMORY[0x277D30C78]];
 
   v20 = MEMORY[0x277CBEA60];
-  v49 = configCopy;
+  v48 = configCopy;
   todayQueueConfigs = [configCopy todayQueueConfigs];
   v22 = [v20 arrayWithArray:todayQueueConfigs];
 
-  v66 = 0u;
-  v67 = 0u;
   v65 = 0u;
+  v66 = 0u;
   v64 = 0u;
+  v63 = 0u;
   obj = v22;
-  v23 = [obj countByEnumeratingWithState:&v64 objects:v68 count:16];
+  v23 = [obj countByEnumeratingWithState:&v63 objects:v67 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v65;
+    v25 = *v64;
     v26 = *MEMORY[0x277D30D70];
     do
     {
       for (i = 0; i != v24; ++i)
       {
-        if (*v65 != v25)
+        if (*v64 != v25)
         {
           objc_enumerationMutation(obj);
         }
 
-        v28 = *(*(&v64 + 1) + 8 * i);
+        v28 = *(*(&v63 + 1) + 8 * i);
         todaySectionConfigs = [v28 todaySectionConfigs];
         v30 = [todaySectionConfigs sortedArrayUsingComparator:&__block_literal_global_77];
         v31 = [v30 mutableCopy];
@@ -781,41 +779,39 @@ LABEL_6:
         }
 
         v37 = objc_opt_new();
-        v59[0] = MEMORY[0x277D85DD0];
-        v59[1] = 3221225472;
-        v59[2] = __210__NTNewsTodayResultOperation__assembleQueueDescriptorsWithConfig_allowOnlyWatchEligibleSections_respectsWidgetVisibleSectionsLimit_personalizationTreatment_aggregateStore_appConfiguration_todayData_completion___block_invoke_4;
-        v59[3] = &unk_2799831C0;
-        v62 = v19;
+        v58[0] = MEMORY[0x277D85DD0];
+        v58[1] = 3221225472;
+        v58[2] = __210__NTNewsTodayResultOperation__assembleQueueDescriptorsWithConfig_allowOnlyWatchEligibleSections_respectsWidgetVisibleSectionsLimit_personalizationTreatment_aggregateStore_appConfiguration_todayData_completion___block_invoke_4;
+        v58[3] = &unk_2799831C0;
+        v61 = v19;
         sectionsCopy = sections;
-        v60 = dataCopy;
-        v61 = v37;
+        v59 = dataCopy;
+        v60 = v37;
         v38 = v37;
-        [v31 enumerateObjectsUsingBlock:v59];
+        [v31 enumerateObjectsUsingBlock:v58];
         [v31 removeObjectsAtIndexes:v38];
         [v28 setTodaySectionConfigs:v31];
       }
 
-      v24 = [obj countByEnumeratingWithState:&v64 objects:v68 count:16];
+      v24 = [obj countByEnumeratingWithState:&v63 objects:v67 count:16];
     }
 
     while (v24);
   }
 
-  v53[0] = MEMORY[0x277D85DD0];
-  v53[1] = 3221225472;
-  v53[2] = __210__NTNewsTodayResultOperation__assembleQueueDescriptorsWithConfig_allowOnlyWatchEligibleSections_respectsWidgetVisibleSectionsLimit_personalizationTreatment_aggregateStore_appConfiguration_todayData_completion___block_invoke_5;
-  v53[3] = &unk_2799831E8;
-  v54 = v43;
-  v55 = dataCopy;
-  v57 = v19;
+  v52[0] = MEMORY[0x277D85DD0];
+  v52[1] = 3221225472;
+  v52[2] = __210__NTNewsTodayResultOperation__assembleQueueDescriptorsWithConfig_allowOnlyWatchEligibleSections_respectsWidgetVisibleSectionsLimit_personalizationTreatment_aggregateStore_appConfiguration_todayData_completion___block_invoke_5;
+  v52[3] = &unk_2799831E8;
+  v53 = v42;
+  v54 = dataCopy;
+  v56 = v19;
   limitCopy = limit;
   selfCopy = self;
   v39 = dataCopy;
-  v40 = v43;
-  v41 = [obj fc_arrayByTransformingWithBlock:v53];
-  (v46)[2](v46, v41, 0);
-
-  v42 = *MEMORY[0x277D85DE8];
+  v40 = v42;
+  v41 = [obj fc_arrayByTransformingWithBlock:v52];
+  (v45)[2](v45, v41, 0);
 }
 
 uint64_t __210__NTNewsTodayResultOperation__assembleQueueDescriptorsWithConfig_allowOnlyWatchEligibleSections_respectsWidgetVisibleSectionsLimit_personalizationTreatment_aggregateStore_appConfiguration_todayData_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -858,7 +854,7 @@ NTQueueConfigSectionQueueDescriptor *__210__NTNewsTodayResultOperation__assemble
 
 - (void)_fetchTodayResultsWithFetchHelper:(id)helper aggregator:(id)aggregator budgetInfo:(id)info appConfiguration:(id)configuration feedPersonalizer:(id)personalizer todayData:(id)data todayBanner:(id)banner completion:(id)self0
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   helperCopy = helper;
   aggregatorCopy = aggregator;
   infoCopy = info;
@@ -872,28 +868,28 @@ NTQueueConfigSectionQueueDescriptor *__210__NTNewsTodayResultOperation__assemble
     [NTNewsTodayResultOperation _fetchTodayResultsWithFetchHelper:aggregator:budgetInfo:appConfiguration:feedPersonalizer:todayData:todayBanner:completion:];
   }
 
-  v45 = dataCopy;
+  v44 = dataCopy;
   if (!completionCopy && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     [NTNewsTodayResultOperation _fetchTodayResultsWithFetchHelper:aggregator:budgetInfo:appConfiguration:feedPersonalizer:todayData:todayBanner:completion:];
   }
 
-  v43 = bannerCopy;
-  v47 = aggregatorCopy;
+  v42 = bannerCopy;
+  v46 = aggregatorCopy;
   sectionDescriptorsAtHeadsOfQueues = [helperCopy sectionDescriptorsAtHeadsOfQueues];
-  v24 = NTSharedLog();
+  v24 = NTSharedLog(sectionDescriptorsAtHeadsOfQueues);
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     shortOperationDescription = [(FCOperation *)self shortOperationDescription];
     v26 = [sectionDescriptorsAtHeadsOfQueues fc_arrayByTransformingWithBlock:&__block_literal_global_92];
     *buf = 138543618;
-    v60 = shortOperationDescription;
-    v61 = 2114;
-    v62 = v26;
+    v59 = shortOperationDescription;
+    v60 = 2114;
+    v61 = v26;
     _os_log_impl(&dword_25BF21000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@ will fetch today results with sections: %{public}@", buf, 0x16u);
   }
 
-  v44 = helperCopy;
+  v43 = helperCopy;
 
   if ([sectionDescriptorsAtHeadsOfQueues count])
   {
@@ -904,7 +900,7 @@ NTQueueConfigSectionQueueDescriptor *__210__NTNewsTodayResultOperation__assemble
     [distantFuture setContentContext:contentContext];
 
     [distantFuture setFeedPersonalizer:personalizerCopy];
-    v42 = prefetchedContent;
+    v41 = prefetchedContent;
     prefetchedHeldRecordsByType = [prefetchedContent prefetchedHeldRecordsByType];
     [distantFuture setTodayConfigOperationHeldRecordsByType:prefetchedHeldRecordsByType];
 
@@ -912,31 +908,31 @@ NTQueueConfigSectionQueueDescriptor *__210__NTNewsTodayResultOperation__assemble
     articleIDsToExclude = [(NTNewsTodayResultOperation *)self articleIDsToExclude];
     [distantFuture addArticleIDsToExclude:articleIDsToExclude];
 
-    v48[0] = MEMORY[0x277D85DD0];
-    v48[1] = 3221225472;
-    v48[2] = __153__NTNewsTodayResultOperation__fetchTodayResultsWithFetchHelper_aggregator_budgetInfo_appConfiguration_feedPersonalizer_todayData_todayBanner_completion___block_invoke_96;
-    v48[3] = &unk_2799832E8;
-    v58 = completionCopy;
-    v49 = sectionDescriptorsAtHeadsOfQueues;
+    v47[0] = MEMORY[0x277D85DD0];
+    v47[1] = 3221225472;
+    v47[2] = __153__NTNewsTodayResultOperation__fetchTodayResultsWithFetchHelper_aggregator_budgetInfo_appConfiguration_feedPersonalizer_todayData_todayBanner_completion___block_invoke_96;
+    v47[3] = &unk_2799832E8;
+    v57 = completionCopy;
+    v48 = sectionDescriptorsAtHeadsOfQueues;
     selfCopy = self;
     v32 = configurationCopy;
-    v33 = v45;
-    v51 = v45;
-    v52 = v47;
+    v33 = v44;
+    v50 = v44;
+    v51 = v46;
     v34 = infoCopy;
-    v53 = infoCopy;
-    v54 = v32;
-    v55 = personalizerCopy;
-    v35 = v43;
-    v56 = v43;
+    v52 = infoCopy;
+    v53 = v32;
+    v54 = personalizerCopy;
+    v35 = v42;
+    v55 = v42;
     v36 = completionCopy;
-    v37 = v44;
-    v57 = v44;
-    [distantFuture setCatchUpCompletionHandler:v48];
+    v37 = v43;
+    v56 = v43;
+    [distantFuture setCatchUpCompletionHandler:v47];
     [(FCOperation *)self associateChildOperation:distantFuture];
     [distantFuture start];
 
-    v38 = v58;
+    v38 = v57;
   }
 
   else
@@ -944,23 +940,21 @@ NTQueueConfigSectionQueueDescriptor *__210__NTNewsTodayResultOperation__assemble
     v39 = [NTTodayResults alloc];
     v40 = objc_opt_new();
     distantFuture = [MEMORY[0x277CBEAA8] distantFuture];
-    v42 = v40;
+    v41 = v40;
     v38 = [(NTTodayResults *)v39 initWithSourceIdentifier:@"news" sections:v40 expirationDate:distantFuture headlineScale:1.0];
     (*(completionCopy + 2))(completionCopy, v38, MEMORY[0x277CBEC10], 0);
     v32 = configurationCopy;
-    v33 = v45;
+    v33 = v44;
     v34 = infoCopy;
     v36 = completionCopy;
-    v35 = v43;
-    v37 = v44;
+    v35 = v42;
+    v37 = v43;
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 void __153__NTNewsTodayResultOperation__fetchTodayResultsWithFetchHelper_aggregator_budgetInfo_appConfiguration_feedPersonalizer_todayData_todayBanner_completion___block_invoke_96(uint64_t a1, void *a2, uint64_t a3)
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = v5;
   if (a3)
@@ -971,15 +965,15 @@ void __153__NTNewsTodayResultOperation__fetchTodayResultsWithFetchHelper_aggrega
   else
   {
     v7 = *(a1 + 32);
-    v58[0] = MEMORY[0x277D85DD0];
-    v58[1] = 3221225472;
-    v58[2] = __153__NTNewsTodayResultOperation__fetchTodayResultsWithFetchHelper_aggregator_budgetInfo_appConfiguration_feedPersonalizer_todayData_todayBanner_completion___block_invoke_2;
-    v58[3] = &unk_279983230;
+    v56[0] = MEMORY[0x277D85DD0];
+    v56[1] = 3221225472;
+    v56[2] = __153__NTNewsTodayResultOperation__fetchTodayResultsWithFetchHelper_aggregator_budgetInfo_appConfiguration_feedPersonalizer_todayData_todayBanner_completion___block_invoke_2;
+    v56[3] = &unk_279983230;
     v8 = v5;
     v9 = *(a1 + 40);
-    v59 = v8;
-    v60 = v9;
-    v10 = [v7 fc_dictionaryWithValueBlock:v58];
+    v57 = v8;
+    v58 = v9;
+    v10 = [v7 fc_dictionaryWithValueBlock:v56];
     if ([v8 isForYouEnabled])
     {
       v11 = [v8 forYouFetchInfo];
@@ -1000,144 +994,139 @@ void __153__NTNewsTodayResultOperation__fetchTodayResultsWithFetchHelper_aggrega
     v19 = [v16 aggregateSections:v17 itemsBySectionDescriptor:v18 budgetInfo:*(a1 + 64) todayData:v15];
 
     v20 = [v19 aggregatedItemsBySectionDescriptor];
-    v56[0] = MEMORY[0x277D85DD0];
-    v56[1] = 3221225472;
-    v56[2] = __153__NTNewsTodayResultOperation__fetchTodayResultsWithFetchHelper_aggregator_budgetInfo_appConfiguration_feedPersonalizer_todayData_todayBanner_completion___block_invoke_2_102;
-    v56[3] = &unk_279983278;
+    v54[0] = MEMORY[0x277D85DD0];
+    v54[1] = 3221225472;
+    v54[2] = __153__NTNewsTodayResultOperation__fetchTodayResultsWithFetchHelper_aggregator_budgetInfo_appConfiguration_feedPersonalizer_todayData_todayBanner_completion___block_invoke_2_102;
+    v54[3] = &unk_279983278;
     v21 = v10;
-    v57 = v21;
-    v53 = [v20 fc_dictionaryByTransformingValuesWithKeyAndValueBlock:v56];
+    v55 = v21;
+    v51 = [v20 fc_dictionaryByTransformingValuesWithKeyAndValueBlock:v54];
 
     v22 = [v19 unusedSectionDescriptors];
     v23 = [v22 count];
-    v24 = NTSharedLog();
+    v24 = NTSharedLog(v23);
     v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
     if (v23)
     {
       if (v25)
       {
         [*(a1 + 40) shortOperationDescription];
-        v26 = v51 = v15;
+        v26 = v49 = v15;
         v27 = v21;
         v28 = [v22 count];
         v29 = [v22 fc_arrayByTransformingWithBlock:&__block_literal_global_114];
         *buf = 138543874;
-        v62 = v26;
-        v63 = 2048;
-        v64 = v28;
+        v60 = v26;
+        v61 = 2048;
+        v62 = v28;
         v21 = v27;
-        v65 = 2114;
-        v66 = v29;
+        v63 = 2114;
+        v64 = v29;
         _os_log_impl(&dword_25BF21000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@ did fetch today results with %lu unused sections, will retry with sections removed: %{public}@", buf, 0x20u);
 
-        v15 = v51;
+        v15 = v49;
       }
 
       [*(a1 + 96) removeSectionDescriptors:v22];
-      v30 = *(a1 + 88);
-      [*(a1 + 40) _fetchTodayResultsWithFetchHelper:*(a1 + 96) aggregator:*(a1 + 56) budgetInfo:*(a1 + 64) appConfiguration:*(a1 + 72) feedPersonalizer:*(a1 + 80) todayData:*(a1 + 48) todayBanner:v30 completion:*(a1 + 104)];
+      [*(a1 + 40) _fetchTodayResultsWithFetchHelper:*(a1 + 96) aggregator:*(a1 + 56) budgetInfo:*(a1 + 64) appConfiguration:*(a1 + 72) feedPersonalizer:*(a1 + 80) todayData:*(a1 + 48) todayBanner:*(a1 + 88) completion:*(a1 + 104)];
     }
 
     else
     {
       if (v25)
       {
-        v31 = [*(a1 + 40) shortOperationDescription];
+        v30 = [*(a1 + 40) shortOperationDescription];
         *buf = 138543362;
-        v62 = v31;
+        v60 = v30;
         _os_log_impl(&dword_25BF21000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@ did fetch today results with no unused sections", buf, 0xCu);
       }
 
-      v32 = [v53 allKeys];
-      v54[0] = MEMORY[0x277D85DD0];
-      v54[1] = 3221225472;
-      v54[2] = __153__NTNewsTodayResultOperation__fetchTodayResultsWithFetchHelper_aggregator_budgetInfo_appConfiguration_feedPersonalizer_todayData_todayBanner_completion___block_invoke_104;
-      v54[3] = &unk_2799832A0;
-      v55 = *(a1 + 32);
-      v33 = [v32 sortedArrayUsingComparator:v54];
+      v31 = [v51 allKeys];
+      v52[0] = MEMORY[0x277D85DD0];
+      v52[1] = 3221225472;
+      v52[2] = __153__NTNewsTodayResultOperation__fetchTodayResultsWithFetchHelper_aggregator_budgetInfo_appConfiguration_feedPersonalizer_todayData_todayBanner_completion___block_invoke_104;
+      v52[3] = &unk_2799832A0;
+      v53 = *(a1 + 32);
+      v32 = [v31 sortedArrayUsingComparator:v52];
 
       [v19 headlineScale];
       [*(a1 + 40) setResultHeadlineScaleFactor:?];
       if (FCIsWidgetDebugInspectionEnabled())
       {
-        v34 = [*(a1 + 48) recentlyReadHistoryItems];
-        v35 = [v34 allValues];
-        v50 = [v35 fc_arrayByTransformingWithBlock:&__block_literal_global_109];
+        v33 = [*(a1 + 48) recentlyReadHistoryItems];
+        v34 = [v33 allValues];
+        v48 = [v34 fc_arrayByTransformingWithBlock:&__block_literal_global_109];
 
-        v36 = [*(a1 + 48) recentlySeenHistoryItems];
-        v47 = [v36 fc_arrayByTransformingWithBlock:&__block_literal_global_111];
+        v35 = [*(a1 + 48) recentlySeenHistoryItems];
+        v45 = [v35 fc_arrayByTransformingWithBlock:&__block_literal_global_111];
 
-        v37 = [NTWidgetDebugInspection alloc];
-        v48 = [v19 debugInspectionsBySectionDescriptor];
-        [v48 allValues];
-        v46 = v52 = v15;
+        v36 = [NTWidgetDebugInspection alloc];
+        v46 = [v19 debugInspectionsBySectionDescriptor];
+        [v46 allValues];
+        v44 = v50 = v15;
         [*(a1 + 48) mutedTagIDs];
-        v38 = v49 = v21;
-        v39 = [v38 allObjects];
+        v37 = v47 = v21;
+        v38 = [v37 allObjects];
         [*(a1 + 48) rankedAllSubscribedTagIDs];
-        v41 = v40 = v33;
-        v42 = [(NTWidgetDebugInspection *)v37 initWithSections:v46 mutedTagIDs:v39 previouslyReadArticleIDs:v50 previouslySeenArticleIDs:v47 rankedSubscribedTagIDs:v41];
+        v40 = v39 = v32;
+        v41 = [(NTWidgetDebugInspection *)v36 initWithSections:v44 mutedTagIDs:v38 previouslyReadArticleIDs:v48 previouslySeenArticleIDs:v45 rankedSubscribedTagIDs:v40];
 
-        v33 = v40;
-        v21 = v49;
+        v32 = v39;
+        v21 = v47;
 
-        v15 = v52;
+        v15 = v50;
       }
 
       else
       {
-        v42 = 0;
+        v41 = 0;
       }
 
-      if (v33)
+      if (v32)
       {
-        v43 = v33;
+        v42 = v32;
       }
 
       else
       {
-        v43 = MEMORY[0x277CBEBF8];
+        v42 = MEMORY[0x277CBEBF8];
       }
 
-      if (v53)
+      if (v51)
       {
-        v44 = v53;
+        v43 = v51;
       }
 
       else
       {
-        v44 = MEMORY[0x277CBEC10];
+        v43 = MEMORY[0x277CBEC10];
       }
 
-      [*(a1 + 40) _finalizeTodayResultsWithSectionDescriptors:v43 catchUpOperationResultsBySectionDescriptor:v44 appConfiguration:*(a1 + 72) feedPersonalizer:*(a1 + 80) todayData:*(a1 + 48) todayBanner:*(a1 + 88) debugInspection:v42 completion:*(a1 + 104)];
+      [*(a1 + 40) _finalizeTodayResultsWithSectionDescriptors:v42 catchUpOperationResultsBySectionDescriptor:v43 appConfiguration:*(a1 + 72) feedPersonalizer:*(a1 + 80) todayData:*(a1 + 48) todayBanner:*(a1 + 88) debugInspection:v41 completion:*(a1 + 104)];
     }
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 id __153__NTNewsTodayResultOperation__fetchTodayResultsWithFetchHelper_aggregator_budgetInfo_appConfiguration_feedPersonalizer_todayData_todayBanner_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 assembleResultsWithCatchUpOperation:*(a1 + 32)];
-  v5 = NTSharedLog();
+  v5 = NTSharedLog(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [*(a1 + 40) shortOperationDescription];
     v7 = [v4 items];
     v8 = [v7 count];
     v9 = [v3 identifier];
-    v12 = 138543874;
-    v13 = v6;
-    v14 = 2048;
-    v15 = v8;
-    v16 = 2114;
-    v17 = v9;
-    _os_log_impl(&dword_25BF21000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ Unpacking %ld results from catchUpOperation for section with identifier %{public}@.", &v12, 0x20u);
+    v11 = 138543874;
+    v12 = v6;
+    v13 = 2048;
+    v14 = v8;
+    v15 = 2114;
+    v16 = v9;
+    _os_log_impl(&dword_25BF21000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ Unpacking %ld results from catchUpOperation for section with identifier %{public}@.", &v11, 0x20u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1367,15 +1356,15 @@ void __200__NTNewsTodayResultOperation__finalizeTodayResultsWithSectionDescripto
 
 void __200__NTNewsTodayResultOperation__finalizeTodayResultsWithSectionDescriptors_catchUpOperationResultsBySectionDescriptor_appConfiguration_feedPersonalizer_todayData_todayBanner_debugInspection_completion___block_invoke_2(id *a1, void *a2, uint64_t a3)
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [a1[4] objectForKeyedSubscript:v5];
   v7 = [a1[5] objectForKeyedSubscript:v5];
   if ([v6 count])
   {
-    v55 = v6;
-    v53 = a1;
-    v51 = a3;
+    v54 = v6;
+    v52 = a1;
+    v50 = a3;
     if ([a1[6] allowSectionTitles])
     {
       v8 = [a1[6] preferCompactSectionName];
@@ -1399,7 +1388,7 @@ void __200__NTNewsTodayResultOperation__finalizeTodayResultsWithSectionDescripto
     }
 
     v11 = objc_opt_new();
-    v52 = v10;
+    v51 = v10;
     [v11 setName:v10];
     v12 = [v5 nameColorLight];
     [v11 setNameColorLight:v12];
@@ -1422,33 +1411,33 @@ void __200__NTNewsTodayResultOperation__finalizeTodayResultsWithSectionDescripto
     v18 = [v5 backgroundColorDark];
     [v11 setBackgroundColorDark:v18];
 
-    v48 = [NTSection alloc];
+    v47 = [NTSection alloc];
     v19 = [v5 identifier];
     v20 = [v5 subidentifier];
     v21 = [v5 actionTitle];
     v22 = [v5 actionURL];
     v23 = [v5 personalizationFeatureID];
-    v54 = v9;
+    v53 = v9;
     v24 = [v9 rankingFeedback];
     v25 = [v5 referralBarName];
     v26 = [v5 backingTagID];
-    v50 = v11;
-    v27 = [(NTSection *)v48 initWithIdentifier:v19 subidentifier:v20 actionTitle:v21 actionURL:v22 personalizationFeatureID:v23 items:v55 rankingFeedback:v24 displayDescriptor:v11 referralBarName:v25 backingTagID:v26];
+    v49 = v11;
+    v27 = [(NTSection *)v47 initWithIdentifier:v19 subidentifier:v20 actionTitle:v21 actionURL:v22 personalizationFeatureID:v23 items:v54 rankingFeedback:v24 displayDescriptor:v11 referralBarName:v25 backingTagID:v26];
 
-    v49 = v27;
-    [v53[7] addObject:v27];
+    v48 = v27;
+    [v52[7] addObject:v27];
     v28 = [MEMORY[0x277CBEAA8] distantFuture];
     v29 = [MEMORY[0x277CBEAA8] distantFuture];
+    v55 = 0u;
     v56 = 0u;
     v57 = 0u;
     v58 = 0u;
-    v59 = 0u;
-    v30 = [v54 items];
-    v31 = [v30 countByEnumeratingWithState:&v56 objects:v60 count:16];
+    v30 = [v53 items];
+    v31 = [v30 countByEnumeratingWithState:&v55 objects:v59 count:16];
     if (v31)
     {
       v32 = v31;
-      v33 = *v57;
+      v33 = *v56;
       do
       {
         v34 = 0;
@@ -1456,12 +1445,12 @@ void __200__NTNewsTodayResultOperation__finalizeTodayResultsWithSectionDescripto
         v36 = v28;
         do
         {
-          if (*v57 != v33)
+          if (*v56 != v33)
           {
             objc_enumerationMutation(v30);
           }
 
-          v37 = *(*(&v56 + 1) + 8 * v34);
+          v37 = *(*(&v55 + 1) + 8 * v34);
           v38 = [v37 cacheCutoffTimeRelativeDate];
           v28 = [v36 earlierDate:v38];
 
@@ -1474,7 +1463,7 @@ void __200__NTNewsTodayResultOperation__finalizeTodayResultsWithSectionDescripto
         }
 
         while (v32 != v34);
-        v32 = [v30 countByEnumeratingWithState:&v56 objects:v60 count:16];
+        v32 = [v30 countByEnumeratingWithState:&v55 objects:v59 count:16];
       }
 
       while (v32);
@@ -1482,14 +1471,14 @@ void __200__NTNewsTodayResultOperation__finalizeTodayResultsWithSectionDescripto
 
     v40 = [v28 dateByAddingTimeInterval:{objc_msgSend(v5, "cachedResultCutoffTime")}];
     v41 = [v29 earlierDate:v40];
-    v42 = [*(*(v53[8] + 1) + 40) earlierDate:v41];
-    v43 = *(v53[8] + 1);
+    v42 = [*(*(v52[8] + 1) + 40) earlierDate:v41];
+    v43 = *(v52[8] + 1);
     v44 = *(v43 + 40);
     *(v43 + 40) = v42;
 
-    if (!v51)
+    if (!v50)
     {
-      *(*(v53[9] + 1) + 24) = [v5 promotionCriterion];
+      *(*(v52[9] + 1) + 24) = [v5 promotionCriterion];
       if (NFInternalBuild())
       {
         v45 = NewsCoreUserDefaults();
@@ -1497,21 +1486,19 @@ void __200__NTNewsTodayResultOperation__finalizeTodayResultsWithSectionDescripto
 
         if (v46)
         {
-          *(*(v53[9] + 1) + 24) = v46;
+          *(*(v52[9] + 1) + 24) = v46;
         }
       }
     }
 
-    v7 = v54;
-    v6 = v55;
+    v7 = v53;
+    v6 = v54;
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 - (id)todayBannerWithTodayConfig:(id)config todayData:(id)data
 {
-  v56[2] = *MEMORY[0x277D85DE8];
+  v55[2] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   operationInfo = [(NTTodayResultOperation *)self operationInfo];
   widgetSize = [operationInfo widgetSize];
@@ -1560,31 +1547,31 @@ LABEL_8:
     v20 = [&unk_286D9EF88 objectForKeyedSubscript:*MEMORY[0x277D30688]];
   }
 
-  v51 = [(NTNewsTodayResultOperation *)self gradientBackgroundPairFromLightGradientDict:v17 darkGradientDict:v20];
+  v50 = [(NTNewsTodayResultOperation *)self gradientBackgroundPairFromLightGradientDict:v17 darkGradientDict:v20];
 
   if ([widgetBannerConfig2 hasSolidBackgroundColorPair])
   {
-    v24 = MEMORY[0x277D30EE8];
+    v23 = MEMORY[0x277D30EE8];
     solidBackgroundColorPair = [widgetBannerConfig2 solidBackgroundColorPair];
     light2 = [solidBackgroundColorPair light];
-    v27 = [v24 colorWithHexString:light2];
+    v26 = [v23 colorWithHexString:light2];
 
-    v28 = MEMORY[0x277D30EE8];
+    v27 = MEMORY[0x277D30EE8];
     solidBackgroundColorPair2 = [widgetBannerConfig2 solidBackgroundColorPair];
     dark2 = [solidBackgroundColorPair2 dark];
-    v31 = [v28 colorWithHexString:dark2];
+    v30 = [v27 colorWithHexString:dark2];
 
-    v56[0] = v27;
-    v56[1] = v31;
-    v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:2];
+    v55[0] = v26;
+    v55[1] = v30;
+    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:2];
   }
 
   else
   {
-    v32 = 0;
+    v31 = 0;
   }
 
-  v47 = [NTTodayBanner alloc];
+  v46 = [NTTodayBanner alloc];
   identifier = [widgetBannerConfig2 identifier];
   hasTitle = [widgetBannerConfig2 hasTitle];
   if (hasTitle)
@@ -1609,18 +1596,18 @@ LABEL_8:
   }
 
   hasActionURL = [widgetBannerConfig2 hasActionURL];
-  v34 = MEMORY[0x277CBEBC0];
-  v46 = hasActionURL;
+  v33 = MEMORY[0x277CBEBC0];
+  v45 = hasActionURL;
   if (hasActionURL)
   {
     actionURL = [widgetBannerConfig2 actionURL];
-    v53 = [v34 URLWithString:?];
+    v52 = [v33 URLWithString:?];
   }
 
   else
   {
-    v53 = [MEMORY[0x277CBEBC0] URLWithString:@"http://news.apple.com"];
-    actionURL = v53;
+    v52 = [MEMORY[0x277CBEBC0] URLWithString:@"http://news.apple.com"];
+    actionURL = v52;
   }
 
   hasActionButtonText = [widgetBannerConfig2 hasActionButtonText];
@@ -1636,41 +1623,41 @@ LABEL_8:
 
   if ([widgetBannerConfig2 hasImageMethod])
   {
-    v36 = -[NTNewsTodayResultOperation convertBannerImageMethodToNTBannerImageType:](self, "convertBannerImageMethodToNTBannerImageType:", [widgetBannerConfig2 imageMethod]);
+    v35 = -[NTNewsTodayResultOperation convertBannerImageMethodToNTBannerImageType:](self, "convertBannerImageMethodToNTBannerImageType:", [widgetBannerConfig2 imageMethod]);
   }
 
   else
   {
-    v36 = 3;
+    v35 = 3;
   }
 
   hasImageURL = [widgetBannerConfig2 hasImageURL];
   if (hasImageURL)
   {
-    v38 = MEMORY[0x277CBEBC0];
+    v37 = MEMORY[0x277CBEBC0];
     imageURL = [widgetBannerConfig2 imageURL];
-    v39 = [v38 URLWithString:?];
+    v38 = [v37 URLWithString:?];
   }
 
   else
   {
-    v39 = 0;
+    v38 = 0;
   }
 
   if ([widgetBannerConfig2 hasBackgroundMethod])
   {
-    v40 = -[NTNewsTodayResultOperation convertBannerBackgroundMethodToNTBannerBackgroundType:](self, "convertBannerBackgroundMethodToNTBannerBackgroundType:", [widgetBannerConfig2 backgroundMethod]);
+    v39 = -[NTNewsTodayResultOperation convertBannerBackgroundMethodToNTBannerBackgroundType:](self, "convertBannerBackgroundMethodToNTBannerBackgroundType:", [widgetBannerConfig2 backgroundMethod]);
   }
 
   else
   {
-    v40 = 2;
+    v39 = 2;
   }
 
-  v41 = v32;
+  v40 = v31;
   if (![widgetBannerConfig2 hasSolidBackgroundColorPair])
   {
-    v32 = 0;
+    v31 = 0;
   }
 
   numberOfAppearancesToHide = 0;
@@ -1689,7 +1676,7 @@ LABEL_8:
     numberOfTapsToHide = 0;
   }
 
-  v21 = [(NTTodayBanner *)v47 initWithIdentifier:identifier title:title body:body actionURL:v53 actionButtonText:actionButtonText imageMethod:v36 imageURL:v39 backgroundMethod:v40 solidBackgroundColorPair:v32 gradientBackgroundPair:v51 numberOfAppearancesToHide:numberOfAppearancesToHide numberOfTapsToHide:numberOfTapsToHide];
+  v21 = [(NTTodayBanner *)v46 initWithIdentifier:identifier title:title body:body actionURL:v52 actionButtonText:actionButtonText imageMethod:v35 imageURL:v38 backgroundMethod:v39 solidBackgroundColorPair:v31 gradientBackgroundPair:v50 numberOfAppearancesToHide:numberOfAppearancesToHide numberOfTapsToHide:numberOfTapsToHide];
   if (hasImageURL)
   {
   }
@@ -1698,7 +1685,7 @@ LABEL_8:
   {
   }
 
-  if (v46)
+  if (v45)
   {
   }
 
@@ -1711,7 +1698,6 @@ LABEL_8:
   }
 
 LABEL_9:
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -1750,101 +1736,97 @@ LABEL_9:
 
 - (id)gradientBackgroundPairFromLightGradientDict:(id)dict darkGradientDict:(id)gradientDict
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277D30EF0];
   gradientDictCopy = gradientDict;
   v7 = [v5 colorGradientWithConfigDict:dict];
   v8 = [MEMORY[0x277D30EF0] colorGradientWithConfigDict:gradientDictCopy];
 
-  v12[0] = v7;
-  v12[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[0] = v7;
+  v11[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
 
   return v9;
 }
 
 - (id)dictionaryFromColorGradient:(id)gradient
 {
-  v44[2] = *MEMORY[0x277D85DE8];
+  v43[2] = *MEMORY[0x277D85DE8];
   gradientCopy = gradient;
-  v43[0] = @"x";
+  v42[0] = @"x";
   v4 = MEMORY[0x277CCABB0];
   startPoint = [gradientCopy startPoint];
   [startPoint x];
   v6 = [v4 numberWithDouble:?];
-  v43[1] = @"y";
-  v44[0] = v6;
+  v42[1] = @"y";
+  v43[0] = v6;
   v7 = MEMORY[0x277CCABB0];
   startPoint2 = [gradientCopy startPoint];
   [startPoint2 y];
   v9 = [v7 numberWithDouble:?];
-  v44[1] = v9;
-  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:2];
+  v43[1] = v9;
+  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:2];
 
-  v41[0] = @"x";
+  v40[0] = @"x";
   v10 = MEMORY[0x277CCABB0];
   endPoint = [gradientCopy endPoint];
   [endPoint x];
   v12 = [v10 numberWithDouble:?];
-  v41[1] = @"y";
-  v42[0] = v12;
+  v40[1] = @"y";
+  v41[0] = v12;
   v13 = MEMORY[0x277CCABB0];
   endPoint2 = [gradientCopy endPoint];
   [endPoint2 y];
   v15 = [v13 numberWithDouble:?];
-  v42[1] = v15;
-  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:2];
+  v41[1] = v15;
+  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:2];
 
   array = [MEMORY[0x277CBEB18] array];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
-  v31 = gradientCopy;
+  v30 = gradientCopy;
   colorStops = [gradientCopy colorStops];
-  v18 = [colorStops countByEnumeratingWithState:&v32 objects:v40 count:16];
+  v18 = [colorStops countByEnumeratingWithState:&v31 objects:v39 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v33;
+    v20 = *v32;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v33 != v20)
+        if (*v32 != v20)
         {
           objc_enumerationMutation(colorStops);
         }
 
-        v22 = *(*(&v32 + 1) + 8 * i);
-        v38[0] = @"color";
+        v22 = *(*(&v31 + 1) + 8 * i);
+        v37[0] = @"color";
         color = [v22 color];
-        v38[1] = @"location";
-        v39[0] = color;
+        v37[1] = @"location";
+        v38[0] = color;
         v24 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v22, "location")}];
-        v39[1] = v24;
-        v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:2];
+        v38[1] = v24;
+        v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:2];
 
         [array addObject:v25];
       }
 
-      v19 = [colorStops countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v19 = [colorStops countByEnumeratingWithState:&v31 objects:v39 count:16];
     }
 
     while (v19);
   }
 
-  v36[0] = @"startPoint";
-  v36[1] = @"endPoint";
-  v37[0] = v30;
-  v37[1] = v29;
-  v36[2] = @"colorStops";
-  v37[2] = array;
-  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:3];
-
-  v27 = *MEMORY[0x277D85DE8];
+  v35[0] = @"startPoint";
+  v35[1] = @"endPoint";
+  v36[0] = v29;
+  v36[1] = v28;
+  v35[2] = @"colorStops";
+  v36[2] = array;
+  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:3];
 
   return v26;
 }
@@ -2027,18 +2009,18 @@ LABEL_9:
 
     if (v48 > v50)
     {
-      v51 = NTSharedLog();
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+      v52 = NTSharedLog(v51);
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
       {
         shortOperationDescription = [(FCOperation *)selfCopy shortOperationDescription];
-        v53 = [dictionary count];
+        v54 = [dictionary count];
         recentlySeenHistoryItems3 = [v75 recentlySeenHistoryItems];
-        v55 = [recentlySeenHistoryItems3 count];
+        v56 = [recentlySeenHistoryItems3 count];
         *buf = 138543618;
         v95 = shortOperationDescription;
         v96 = 2048;
-        v97 = v53 - v55;
-        _os_log_impl(&dword_25BF21000, v51, OS_LOG_TYPE_DEFAULT, "%{public}@ supplemented seen items with %lu additions from the article exposure registry", buf, 0x16u);
+        v97 = v54 - v56;
+        _os_log_impl(&dword_25BF21000, v52, OS_LOG_TYPE_DEFAULT, "%{public}@ supplemented seen items with %lu additions from the article exposure registry", buf, 0x16u);
       }
     }
 
@@ -2073,207 +2055,160 @@ LABEL_9:
     v74 = __62__NTNewsTodayResultOperation__supplementTodayData_forResults___block_invoke(v92);
   }
 
-  v60 = *MEMORY[0x277D85DE8];
-
   return v74;
 }
 
 id __62__NTNewsTodayResultOperation__supplementTodayData_forResults___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = NTSharedLog();
+  v8 = *MEMORY[0x277D85DE8];
+  v2 = NTSharedLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) shortOperationDescription];
-    v7 = 138543362;
-    v8 = v3;
-    _os_log_impl(&dword_25BF21000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ will not supplement seen items because we have no article exposure registry", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v3;
+    _os_log_impl(&dword_25BF21000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ will not supplement seen items because we have no article exposure registry", &v6, 0xCu);
   }
 
   v4 = *(a1 + 40);
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (void)validateOperation
 {
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"News today result operation must have a completion handler"];
+  v6 = 136315906;
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3_0(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)_assembleQueueDescriptorsWithConfig:allowOnlyWatchEligibleSections:respectsWidgetVisibleSectionsLimit:personalizationTreatment:aggregateStore:appConfiguration:todayData:completion:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "todayConfig"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "todayConfig", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_assembleQueueDescriptorsWithConfig:allowOnlyWatchEligibleSections:respectsWidgetVisibleSectionsLimit:personalizationTreatment:aggregateStore:appConfiguration:todayData:completion:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "personalizationTreatment"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "personalizationTreatment", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_assembleQueueDescriptorsWithConfig:allowOnlyWatchEligibleSections:respectsWidgetVisibleSectionsLimit:personalizationTreatment:aggregateStore:appConfiguration:todayData:completion:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "aggregateStore"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "aggregateStore", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_assembleQueueDescriptorsWithConfig:allowOnlyWatchEligibleSections:respectsWidgetVisibleSectionsLimit:personalizationTreatment:aggregateStore:appConfiguration:todayData:completion:.cold.4()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "appConfiguration"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "appConfiguration", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_assembleQueueDescriptorsWithConfig:allowOnlyWatchEligibleSections:respectsWidgetVisibleSectionsLimit:personalizationTreatment:aggregateStore:appConfiguration:todayData:completion:.cold.5()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "completion"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "completion", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_fetchTodayResultsWithFetchHelper:aggregator:budgetInfo:appConfiguration:feedPersonalizer:todayData:todayBanner:completion:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "fetchHelper"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "fetchHelper", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_fetchTodayResultsWithFetchHelper:aggregator:budgetInfo:appConfiguration:feedPersonalizer:todayData:todayBanner:completion:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "completion"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "completion", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_registerForYouFetchWithForYouFetchInfo:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "forYouFetchInfo"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "forYouFetchInfo", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_finalizeTodayResultsWithSectionDescriptors:catchUpOperationResultsBySectionDescriptor:appConfiguration:feedPersonalizer:todayData:todayBanner:debugInspection:completion:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "sectionDescriptors"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "sectionDescriptors", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_finalizeTodayResultsWithSectionDescriptors:catchUpOperationResultsBySectionDescriptor:appConfiguration:feedPersonalizer:todayData:todayBanner:debugInspection:completion:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "catchUpOperationResultsBySectionDescriptor"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "catchUpOperationResultsBySectionDescriptor", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_finalizeTodayResultsWithSectionDescriptors:catchUpOperationResultsBySectionDescriptor:appConfiguration:feedPersonalizer:todayData:todayBanner:debugInspection:completion:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "sectionDescriptors.count == [catchUpOperationResultsBySectionDescriptor nf_objectsForKeysWithoutMarker:sectionDescriptors].count"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "sectionDescriptors.count == [catchUpOperationResultsBySectionDescriptor nf_objectsForKeysWithoutMarker:sectionDescriptors].count", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_finalizeTodayResultsWithSectionDescriptors:catchUpOperationResultsBySectionDescriptor:appConfiguration:feedPersonalizer:todayData:todayBanner:debugInspection:completion:.cold.4()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "appConfiguration"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "appConfiguration", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_finalizeTodayResultsWithSectionDescriptors:catchUpOperationResultsBySectionDescriptor:appConfiguration:feedPersonalizer:todayData:todayBanner:debugInspection:completion:.cold.5()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "feedPersonalizer"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "feedPersonalizer", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_finalizeTodayResultsWithSectionDescriptors:catchUpOperationResultsBySectionDescriptor:appConfiguration:feedPersonalizer:todayData:todayBanner:debugInspection:completion:.cold.6()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "completion"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "completion", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 @end

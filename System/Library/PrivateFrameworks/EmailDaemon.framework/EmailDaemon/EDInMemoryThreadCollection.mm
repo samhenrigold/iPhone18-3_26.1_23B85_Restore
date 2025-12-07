@@ -1,6 +1,7 @@
 @interface EDInMemoryThreadCollection
 + (id)_comparatorForInThreadProxiesWithSortDescriptors:(id)descriptors;
 + (uint64_t)_comparisonForSortDescriptor:(void *)descriptor value1:(void *)value1 value2:;
+- (EDInMemoryThreadCollection)initWithQuery:(id)query mailboxTypeResolver:(id)resolver dataSource:(id)source delgate:(id)delgate logClient:(id)client limitedCache:(BOOL)cache;
 - (EDInMemoryThreadCollection)initWithQuery:(id)query mailboxTypeResolver:(id)resolver dataSource:(id)source delgate:(id)delgate logClient:(id)client limitedCache:(BOOL)cache inMemoryThreadClass:(Class)class;
 - (EDInMemoryThreadCollectionDataSource)dataSource;
 - (EDInMemoryThreadCollectionDelegate)delegate;
@@ -37,6 +38,19 @@
 @end
 
 @implementation EDInMemoryThreadCollection
+
+- (EDInMemoryThreadCollection)initWithQuery:(id)query mailboxTypeResolver:(id)resolver dataSource:(id)source delgate:(id)delgate logClient:(id)client limitedCache:(BOOL)cache
+{
+  cacheCopy = cache;
+  queryCopy = query;
+  resolverCopy = resolver;
+  sourceCopy = source;
+  delgateCopy = delgate;
+  clientCopy = client;
+  v19 = [(EDInMemoryThreadCollection *)self initWithQuery:queryCopy mailboxTypeResolver:resolverCopy dataSource:sourceCopy delgate:delgateCopy logClient:clientCopy limitedCache:cacheCopy inMemoryThreadClass:objc_opt_class()];
+
+  return v19;
+}
 
 - (EDInMemoryThreadCollection)initWithQuery:(id)query mailboxTypeResolver:(id)resolver dataSource:(id)source delgate:(id)delgate logClient:(id)client limitedCache:(BOOL)cache inMemoryThreadClass:(Class)class
 {
@@ -166,20 +180,8 @@ uint64_t __79__EDInMemoryThreadCollection__comparatorForInThreadProxiesWithSortD
 {
   v5 = a2;
   v6 = a3;
-  if (![*(a1 + 32) count])
+  if (![*(a1 + 32) count] || (v7 = *(a1 + 40), objc_msgSend(*(a1 + 32), "firstObject"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "primarySortValue"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "primarySortValue"), v10 = objc_claimAutoreleasedReturnValue(), v11 = +[EDInMemoryThreadCollection _comparisonForSortDescriptor:value1:value2:](v7, v8, v9, v10), v10, v9, v8, !v11))
   {
-    goto LABEL_3;
-  }
-
-  v7 = *(a1 + 40);
-  v8 = [*(a1 + 32) firstObject];
-  v9 = [v5 primarySortValue];
-  v10 = [v6 primarySortValue];
-  v11 = [(EDInMemoryThreadCollection *)v7 _comparisonForSortDescriptor:v8 value1:v9 value2:v10];
-
-  if (!v11)
-  {
-LABEL_3:
     if ([*(a1 + 32) count] >= 2)
     {
       v12 = [MEMORY[0x1E696AAA8] currentHandler];
@@ -389,32 +391,32 @@ id __67__EDInMemoryThreadCollection__messagesByConversationIDForMessages___block
 
 - (id)_inMemoryThreadsForObjectIDs:(char)ds cacheResults:
 {
-  v39 = *MEMORY[0x1E69E9840];
-  v23 = a2;
+  v38 = *MEMORY[0x1E69E9840];
+  v22 = a2;
   if (self)
   {
     v5 = objc_opt_new();
     dsCopy = ds;
     v6 = objc_opt_new();
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
-    v7 = v23;
-    v8 = [v7 countByEnumeratingWithState:&v28 objects:v38 count:16];
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    v7 = v22;
+    v8 = [v7 countByEnumeratingWithState:&v27 objects:v37 count:16];
     if (v8)
     {
-      v9 = *v29;
+      v9 = *v28;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v29 != v9)
+          if (*v28 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(*(*(&v28 + 1) + 8 * i), "conversationID")}];
+          v11 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(*(*(&v27 + 1) + 8 * i), "conversationID")}];
           v12 = [(EDInMemoryThreadCollection *)self _cachedInMemoryThreadForConversationID:v11];
           if (v12)
           {
@@ -427,7 +429,7 @@ id __67__EDInMemoryThreadCollection__messagesByConversationIDForMessages___block
           }
         }
 
-        v8 = [v7 countByEnumeratingWithState:&v28 objects:v38 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v27 objects:v37 count:16];
       }
 
       while (v8);
@@ -440,8 +442,8 @@ id __67__EDInMemoryThreadCollection__messagesByConversationIDForMessages___block
       {
         *buf = 134218242;
         selfCopy3 = self;
-        v34 = 2114;
-        v35 = v6;
+        v33 = 2114;
+        v34 = v6;
         _os_log_impl(&dword_1C61EF000, logClient, OS_LOG_TYPE_DEFAULT, "%p: Fetching messages for %{public}@", buf, 0x16u);
       }
 
@@ -449,14 +451,14 @@ id __67__EDInMemoryThreadCollection__messagesByConversationIDForMessages___block
       v15 = [dataSource collection:self messagesInConversationIDs:v6 limit:0x7FFFFFFFFFFFFFFFLL];
 
       v16 = [(EDInMemoryThreadCollection *)self _messagesByConversationIDForMessages:v15];
-      v24[0] = MEMORY[0x1E69E9820];
-      v24[1] = 3221225472;
-      v24[2] = __72__EDInMemoryThreadCollection__inMemoryThreadsForObjectIDs_cacheResults___block_invoke;
-      v24[3] = &unk_1E82527B0;
-      v25 = v5;
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = __72__EDInMemoryThreadCollection__inMemoryThreadsForObjectIDs_cacheResults___block_invoke;
+      v23[3] = &unk_1E82527B0;
+      v24 = v5;
       selfCopy2 = self;
-      v27 = dsCopy;
-      [v16 enumerateKeysAndObjectsUsingBlock:v24];
+      v26 = dsCopy;
+      [v16 enumerateKeysAndObjectsUsingBlock:v23];
       logClient2 = [self logClient];
       if (os_log_type_enabled(logClient2, OS_LOG_TYPE_DEFAULT))
       {
@@ -464,10 +466,10 @@ id __67__EDInMemoryThreadCollection__messagesByConversationIDForMessages___block
         v19 = [v16 count];
         *buf = 134218496;
         selfCopy3 = self;
-        v34 = 2048;
-        v35 = v18;
-        v36 = 2048;
-        v37 = v19;
+        v33 = 2048;
+        v34 = v18;
+        v35 = 2048;
+        v36 = v19;
         _os_log_impl(&dword_1C61EF000, logClient2, OS_LOG_TYPE_DEFAULT, "%p: Fetched %lu messages for %lu threads", buf, 0x20u);
       }
     }
@@ -478,14 +480,12 @@ id __67__EDInMemoryThreadCollection__messagesByConversationIDForMessages___block
     v5 = 0;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (id)_cachedInMemoryThreadForConversationID:(uint64_t)d
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (d)
@@ -512,11 +512,11 @@ id __67__EDInMemoryThreadCollection__messagesByConversationIDForMessages___block
       logClient2 = [d logClient];
       if (os_log_type_enabled(logClient2, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 134218242;
+        v9 = 134218242;
         dCopy = d;
-        v12 = 2112;
-        v13 = v4;
-        _os_log_impl(&dword_1C61EF000, logClient2, OS_LOG_TYPE_DEFAULT, "%p: Thread with conversation ID: %@ is not present in _inMemoryThreadsByConversationID.", &v10, 0x16u);
+        v11 = 2112;
+        v12 = v4;
+        _os_log_impl(&dword_1C61EF000, logClient2, OS_LOG_TYPE_DEFAULT, "%p: Thread with conversation ID: %@ is not present in _inMemoryThreadsByConversationID.", &v9, 0x16u);
       }
     }
 
@@ -533,8 +533,6 @@ id __67__EDInMemoryThreadCollection__messagesByConversationIDForMessages___block
   }
 
 LABEL_12:
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -586,7 +584,7 @@ void __72__EDInMemoryThreadCollection__inMemoryThreadsForObjectIDs_cacheResults_
 
 - (id)messageListItemForObjectID:(id)d error:(id *)error
 {
-  v34[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -621,8 +619,8 @@ LABEL_26:
     {
       *buf = 134218242;
       selfCopy = self;
-      v32 = 2114;
-      v33 = v8;
+      v31 = 2114;
+      v32 = v8;
       _os_log_impl(&dword_1C61EF000, logClient, OS_LOG_TYPE_DEFAULT, "%p: Fetched messageListItem for %{public}@ from cache", buf, 0x16u);
     }
   }
@@ -633,8 +631,8 @@ LABEL_26:
     v12 = [(EFMutableOrderedDictionary *)self->_threadsByConversationID indexOfKey:v8];
     if (v12 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v34[0] = dCopy;
-      logClient = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:1];
+      v33[0] = dCopy;
+      logClient = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:1];
     }
 
     else
@@ -672,12 +670,12 @@ LABEL_26:
     if ([logClient count])
     {
       0x7FFFFFFFFFFFFFFFLL = [(EDInMemoryThreadCollection *)self _inMemoryThreadsForObjectIDs:logClient cacheResults:v12 != 0x7FFFFFFFFFFFFFFFLL];
-      v29[0] = MEMORY[0x1E69E9820];
-      v29[1] = 3221225472;
-      v29[2] = __63__EDInMemoryThreadCollection_messageListItemForObjectID_error___block_invoke;
-      v29[3] = &__block_descriptor_40_e26_B16__0__EDInMemoryThread_8l;
-      v29[4] = conversationID;
-      v9 = [0x7FFFFFFFFFFFFFFFLL ef_firstObjectPassingTest:v29];
+      v28[0] = MEMORY[0x1E69E9820];
+      v28[1] = 3221225472;
+      v28[2] = __63__EDInMemoryThreadCollection_messageListItemForObjectID_error___block_invoke;
+      v28[3] = &__block_descriptor_40_e26_B16__0__EDInMemoryThread_8l;
+      v28[4] = conversationID;
+      v9 = [0x7FFFFFFFFFFFFFFFLL ef_firstObjectPassingTest:v28];
     }
 
     else
@@ -710,8 +708,6 @@ LABEL_27:
   *error = v26;
 LABEL_28:
 
-  v27 = *MEMORY[0x1E69E9840];
-
   return messageListItem;
 }
 
@@ -725,40 +721,38 @@ BOOL __63__EDInMemoryThreadCollection_messageListItemForObjectID_error___block_i
 
 - (id)threadsAndMessagesForObjectIDs:(id)ds
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = [(EDInMemoryThreadCollection *)self _inMemoryThreadsForObjectIDs:ds cacheResults:0];
   v4 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         messages = [v9 messages];
         thread = [v9 thread];
         [v4 setObject:messages forKeyedSubscript:thread];
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -774,7 +768,7 @@ BOOL __63__EDInMemoryThreadCollection_messageListItemForObjectID_error___block_i
 
 - (id)inMemoryThreadForConversationID:(int64_t)d
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (!d)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -799,7 +793,7 @@ BOOL __63__EDInMemoryThreadCollection_messageListItemForObjectID_error___block_i
     {
       *buf = 134218240;
       selfCopy = self;
-      v17 = 2050;
+      v16 = 2050;
       dCopy = d;
       _os_log_impl(&dword_1C61EF000, logClient, OS_LOG_TYPE_DEFAULT, "%p: Thread with conversation ID: %{public}lld is not present in _inMemoryThreadsByConversationID.", buf, 0x16u);
     }
@@ -809,24 +803,23 @@ BOOL __63__EDInMemoryThreadCollection_messageListItemForObjectID_error___block_i
   {
     logClient = [(EDInMemoryThreadCollection *)self inMemoryThreadCache];
     v9 = [MEMORY[0x1E696AD98] numberWithLongLong:d];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __62__EDInMemoryThreadCollection_inMemoryThreadForConversationID___block_invoke;
-    v14[3] = &unk_1E82527F8;
-    v14[4] = self;
-    v14[5] = d;
-    v7 = [logClient objectForKey:v9 generator:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __62__EDInMemoryThreadCollection_inMemoryThreadForConversationID___block_invoke;
+    v13[3] = &unk_1E82527F8;
+    v13[4] = self;
+    v13[5] = d;
+    v7 = [logClient objectForKey:v9 generator:v13];
   }
 
 LABEL_9:
-  v10 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 id __62__EDInMemoryThreadCollection_inMemoryThreadForConversationID___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = [(EDInMemoryThreadCollection *)*(a1 + 32) _createInMemoryThreadForConversationID:?];
   v4 = [*(a1 + 32) logClient];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -834,14 +827,12 @@ id __62__EDInMemoryThreadCollection_inMemoryThreadForConversationID___block_invo
     v5 = *(a1 + 40);
     v6 = [v3 thread];
     v7 = [v6 displayDate];
-    v10 = 134349314;
-    v11 = v5;
-    v12 = 2112;
-    v13 = v7;
-    _os_log_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_DEFAULT, "Didn't find conversationID in Cache: %{public}lld, displayDate = %@", &v10, 0x16u);
+    v9 = 134349314;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v7;
+    _os_log_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_DEFAULT, "Didn't find conversationID in Cache: %{public}lld, displayDate = %@", &v9, 0x16u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -849,13 +840,13 @@ id __62__EDInMemoryThreadCollection_inMemoryThreadForConversationID___block_invo
 - (id)_createInMemoryThreadForConversationID:(id)d
 {
   dCopy = d;
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   if (d)
   {
     dataSource = [d dataSource];
     v5 = [MEMORY[0x1E696AD98] numberWithLongLong:a2];
-    v18[0] = v5;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+    v17[0] = v5;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
     v7 = [dataSource collection:dCopy messagesInConversationIDs:v6 limit:0x7FFFFFFFFFFFFFFFLL];
 
     if (![v7 count])
@@ -863,11 +854,11 @@ id __62__EDInMemoryThreadCollection_inMemoryThreadForConversationID___block_invo
       logClient = [dCopy logClient];
       if (os_log_type_enabled(logClient, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 134218240;
-        v15 = dCopy;
-        v16 = 2050;
-        v17 = a2;
-        _os_log_impl(&dword_1C61EF000, logClient, OS_LOG_TYPE_DEFAULT, "%p: Could not find any messages for conversation ID: %{public}lld", &v14, 0x16u);
+        v13 = 134218240;
+        v14 = dCopy;
+        v15 = 2050;
+        v16 = a2;
+        _os_log_impl(&dword_1C61EF000, logClient, OS_LOG_TYPE_DEFAULT, "%p: Could not find any messages for conversation ID: %{public}lld", &v13, 0x16u);
       }
     }
 
@@ -885,29 +876,26 @@ id __62__EDInMemoryThreadCollection_inMemoryThreadForConversationID___block_invo
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return dCopy;
 }
 
 id __91__EDInMemoryThreadCollection__createInMemoryThreadForConversationID_messages_cacheResults___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) logClient];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 48);
     v4 = [*(a1 + 40) thread];
     v5 = [v4 displayDate];
-    v9 = 134349314;
-    v10 = v3;
-    v11 = 2112;
-    v12 = v5;
-    _os_log_impl(&dword_1C61EF000, v2, OS_LOG_TYPE_INFO, "Caching thread for conversationID: %{public}lld displayDate = %@", &v9, 0x16u);
+    v8 = 134349314;
+    v9 = v3;
+    v10 = 2112;
+    v11 = v5;
+    _os_log_impl(&dword_1C61EF000, v2, OS_LOG_TYPE_INFO, "Caching thread for conversationID: %{public}lld displayDate = %@", &v8, 0x16u);
   }
 
   v6 = *(a1 + 40);
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -1110,33 +1098,33 @@ void __49__EDInMemoryThreadCollection__threadsWereDeleted__block_invoke_2(uint64
 
 void __63__EDInMemoryThreadCollection__updateOldestThreadsForMailboxes___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = *(a1 + 32);
   os_unfair_lock_lock(v7 + 14);
   v8 = [*(*(a1 + 32) + 32) objectForKeyedSubscript:v6];
   v9 = [*(*(a1 + 32) + 16) objectForKeyedSubscript:v6];
   os_unfair_lock_unlock(v7 + 14);
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v10 = v8;
-  v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v11)
   {
-    v12 = *v17;
+    v12 = *v16;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v17 != v12)
+        if (*v16 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = *(*(&v16 + 1) + 8 * i);
-        if ([*(a1 + 40) containsObject:{v14, v16}])
+        v14 = *(*(&v15 + 1) + 8 * i);
+        if ([*(a1 + 40) containsObject:{v14, v15}])
         {
           if ([(EDInMemoryThreadCollection *)*(a1 + 32) _updateCurrentOldestThreadWithThreadIfApplicable:v9 forMailbox:v14])
           {
@@ -1150,7 +1138,7 @@ void __63__EDInMemoryThreadCollection__updateOldestThreadsForMailboxes___block_i
         }
       }
 
-      v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v11);
@@ -1160,8 +1148,6 @@ void __63__EDInMemoryThreadCollection__updateOldestThreadsForMailboxes___block_i
   {
     *a4 = 1;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)_updateCurrentOldestThreadWithThreadIfApplicable:(void *)applicable forMailbox:
@@ -1314,21 +1300,19 @@ void __62__EDInMemoryThreadCollection_initializeOldestThreadsByMailbox__block_in
 
 void __62__EDInMemoryThreadCollection_initializeOldestThreadsByMailbox__block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) logClient];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
     v6 = [v3 oldestThreadsByMailboxObjectIDs];
-    v8 = 134218240;
-    v9 = v5;
-    v10 = 1024;
-    v11 = [v6 count];
-    _os_log_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_DEFAULT, "%p: Oldest threads initialized for %u mailboxes", &v8, 0x12u);
+    v7 = 134218240;
+    v8 = v5;
+    v9 = 1024;
+    v10 = [v6 count];
+    _os_log_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_DEFAULT, "%p: Oldest threads initialized for %u mailboxes", &v7, 0x12u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __90__EDInMemoryThreadCollection__updateCurrentOldestThreadWithThreadIfApplicable_forMailbox___block_invoke(uint64_t a1, void *a2)
@@ -1394,7 +1378,7 @@ void __90__EDInMemoryThreadCollection__updateCurrentOldestThreadWithThreadIfAppl
 
 void __59__EDInMemoryThreadCollection_messagesWereAdded_searchInfo___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -1402,29 +1386,29 @@ void __59__EDInMemoryThreadCollection_messagesWereAdded_searchInfo___block_invok
   if (*(v8 + 32))
   {
     v9 = objc_opt_new();
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
     v55 = 0u;
+    v56 = 0u;
+    v53 = 0u;
+    v54 = 0u;
     v10 = v6;
-    v11 = [v10 countByEnumeratingWithState:&v54 objects:v66 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v53 objects:v65 count:16];
     if (v11)
     {
-      v12 = *v55;
+      v12 = *v54;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v55 != v12)
+          if (*v54 != v12)
           {
             objc_enumerationMutation(v10);
           }
 
-          v14 = [*(*(&v54 + 1) + 8 * i) mailboxObjectIDs];
+          v14 = [*(*(&v53 + 1) + 8 * i) mailboxObjectIDs];
           [v9 ef_addAbsentObjectsFromArrayAccordingToEquals:v14];
         }
 
-        v11 = [v10 countByEnumeratingWithState:&v54 objects:v66 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v53 objects:v65 count:16];
       }
 
       while (v11);
@@ -1484,18 +1468,18 @@ void __59__EDInMemoryThreadCollection_messagesWereAdded_searchInfo___block_invok
           v31 = [*(a1 + 32) logClient];
           if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
           {
-            v51 = *(a1 + 32);
-            v52 = NSStringFromSelector(*(a1 + 64));
-            v49 = [v20 thread];
-            v50 = [v49 itemID];
+            v50 = *(a1 + 32);
+            v51 = NSStringFromSelector(*(a1 + 64));
+            v48 = [v20 thread];
+            v49 = [v48 itemID];
             *buf = 134218754;
-            v59 = v51;
-            v60 = 2114;
-            v61 = v52;
-            v62 = 2048;
-            v63 = v22;
-            v64 = 2114;
-            v65 = v50;
+            v58 = v50;
+            v59 = 2114;
+            v60 = v51;
+            v61 = 2048;
+            v62 = v22;
+            v63 = 2114;
+            v64 = v49;
             _os_log_error_impl(&dword_1C61EF000, v31, OS_LOG_TYPE_ERROR, "%p: Missing threadProxy in %{public}@. Created new threadProxy:%p for itemID:%{public}@", buf, 0x2Au);
           }
         }
@@ -1514,9 +1498,9 @@ void __59__EDInMemoryThreadCollection_messagesWereAdded_searchInfo___block_invok
   {
     buf[0] = 0;
     v35 = *(a1 + 32);
-    v53 = 0;
-    v36 = [(EDInMemoryThreadCollection *)v35 _updateThreadProxy:v22 threadIsEmpty:buf thread:&v53];
-    v37 = v53;
+    v52 = 0;
+    v36 = [(EDInMemoryThreadCollection *)v35 _updateThreadProxy:v22 threadIsEmpty:buf thread:&v52];
+    v37 = v52;
     v20 = v37;
     if (v36)
     {
@@ -1558,36 +1542,35 @@ void __59__EDInMemoryThreadCollection_messagesWereAdded_searchInfo___block_invok
   }
 
   objc_autoreleasePoolPop(v7);
-  v48 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)_messageListItemChangeAffectsSorting:(void *)sorting
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (sorting)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     query = [sorting query];
     sortDescriptors = [query sortDescriptors];
 
-    v6 = [sortDescriptors countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [sortDescriptors countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
-      v7 = *v14;
+      v7 = *v13;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v14 != v7)
+          if (*v13 != v7)
           {
             objc_enumerationMutation(sortDescriptors);
           }
 
-          v9 = [*(*(&v13 + 1) + 8 * i) key];
+          v9 = [*(*(&v12 + 1) + 8 * i) key];
           v10 = [v3 valueForKeyPath:v9];
 
           if (v10)
@@ -1597,7 +1580,7 @@ void __59__EDInMemoryThreadCollection_messagesWereAdded_searchInfo___block_invok
           }
         }
 
-        v6 = [sortDescriptors countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v6 = [sortDescriptors countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v6)
         {
           continue;
@@ -1615,13 +1598,12 @@ LABEL_12:
     v6 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (id)_updateThreadProxy:(_BYTE *)proxy threadIsEmpty:(void *)empty thread:
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = v7;
   if (self)
@@ -1655,7 +1637,7 @@ LABEL_12:
       logClient = [self logClient];
       if (os_log_type_enabled(logClient, OS_LOG_TYPE_DEFAULT))
       {
-        -[EDInMemoryThreadCollection _updateThreadProxy:threadIsEmpty:thread:].cold.1(self, v19, [v8 conversationID], logClient);
+        -[EDInMemoryThreadCollection _updateThreadProxy:threadIsEmpty:thread:].cold.1(self, v18, [v8 conversationID], logClient);
       }
 
       v12 = 0;
@@ -1667,27 +1649,25 @@ LABEL_12:
     v12 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 - (uint64_t)_mergeInThreads:(void *)threads searchInfo:(unsigned int)info forMove:
 {
-  v74 = *MEMORY[0x1E69E9840];
+  v73 = *MEMORY[0x1E69E9840];
   v6 = a2;
   threadsCopy = threads;
-  v55 = v6;
+  v54 = v6;
   if (!self || ![v6 count])
   {
     v33 = 0;
     goto LABEL_47;
   }
 
-  v60 = 0;
+  v59 = 0;
   if (info)
   {
-    v60 = [(EDInMemoryThreadCollection *)self _removeThreadProxies:v6 forMove:1];
+    v59 = [(EDInMemoryThreadCollection *)self _removeThreadProxies:v6 forMove:1];
   }
 
   if (![v6 count])
@@ -1698,7 +1678,7 @@ LABEL_12:
   comparator = [self comparator];
   [v6 sortUsingComparator:?];
   array = [v6 array];
-  v47 = [array copy];
+  v46 = [array copy];
 
   firstObject = [v6 firstObject];
   delegate = [self delegate];
@@ -1711,21 +1691,21 @@ LABEL_12:
   }
 
   v11 = 0;
-  v52 = 0;
+  v51 = 0;
   *&v10 = 134219266;
-  v46 = v10;
+  v45 = v10;
   while (v11 < [*(self + 8) count])
   {
     v12 = [*(self + 8) objectAtIndexedSubscript:v11];
     os_unfair_lock_lock((self + 56));
-    v51 = v12;
+    v50 = v12;
     v13 = [*(self + 16) objectForKeyedSubscript:v12];
     os_unfair_lock_unlock((self + 56));
     v14 = v13;
     if ((comparator)[2](comparator, v13, firstObject) == 1)
     {
       firstObject = firstObject;
-      v50 = firstObject;
+      v49 = firstObject;
       v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
       v16 = firstObject;
       while (1)
@@ -1742,8 +1722,8 @@ LABEL_12:
         os_unfair_lock_lock((self + 56));
         [*(self + 16) setOrInsertObject:v16 forKey:v20 atIndex:v18];
         os_unfair_lock_unlock((self + 56));
-        [v55 removeObjectAtIndex:0];
-        firstObject = [v55 firstObject];
+        [v54 removeObjectAtIndex:0];
+        firstObject = [v54 firstObject];
 
         if (!firstObject)
         {
@@ -1761,7 +1741,7 @@ LABEL_12:
 
 LABEL_15:
       objectID2 = [v14 objectID];
-      if (v52 && (comparator)[2](comparator, v50, v52) != 1 || (comparator)[2](comparator, v16, v14) != -1)
+      if (v51 && (comparator)[2](comparator, v49, v51) != 1 || (comparator)[2](comparator, v16, v14) != -1)
       {
         if ([v15 count] == 1)
         {
@@ -1770,12 +1750,12 @@ LABEL_15:
           {
             *buf = 134218754;
             selfCopy4 = self;
-            v64 = 2114;
-            v65 = v50;
-            v66 = 2114;
-            v67 = v52;
-            v68 = 2114;
-            v69 = v14;
+            v63 = 2114;
+            v64 = v49;
+            v65 = 2114;
+            v66 = v51;
+            v67 = 2114;
+            v68 = v14;
             v24 = logClient;
             v25 = "%p: Merged in 1 new thread out of order! %{public}@ between existing threads %{public}@ and %{public}@";
             v26 = 42;
@@ -1789,18 +1769,18 @@ LABEL_15:
           if (os_log_type_enabled(logClient, OS_LOG_TYPE_FAULT))
           {
             v27 = [v15 count];
-            *buf = v46;
+            *buf = v45;
             selfCopy4 = self;
-            v64 = 2048;
-            v65 = v27;
-            v66 = 2114;
-            v67 = v50;
-            v68 = 2114;
-            v69 = v16;
-            v70 = 2114;
-            v71 = v52;
-            v72 = 2114;
-            v73 = v14;
+            v63 = 2048;
+            v64 = v27;
+            v65 = 2114;
+            v66 = v49;
+            v67 = 2114;
+            v68 = v16;
+            v69 = 2114;
+            v70 = v51;
+            v71 = 2114;
+            v72 = v14;
             v24 = logClient;
             v25 = "%p: Merged in %lu new threads out of order! %{public}@ to %{public}@ between existing threads %{public}@ and %{public}@";
             v26 = 62;
@@ -1812,7 +1792,7 @@ LABEL_23:
 LABEL_30:
 
         delegate2 = [self delegate];
-        [delegate2 collection:self didMergeInThreadsForMove:info newObjectIDs:v15 existingObjectID:objectID2 searchInfo:threadsCopy hasChanges:&v60];
+        [delegate2 collection:self didMergeInThreadsForMove:info newObjectIDs:v15 existingObjectID:objectID2 searchInfo:threadsCopy hasChanges:&v59];
 
         v11 = v18 + 1;
         goto LABEL_31;
@@ -1828,12 +1808,12 @@ LABEL_30:
 
         *buf = 134218754;
         selfCopy4 = self;
-        v64 = 2114;
-        v65 = v50;
-        v66 = 2114;
-        v67 = v52;
-        v68 = 2114;
-        v69 = v14;
+        v63 = 2114;
+        v64 = v49;
+        v65 = 2114;
+        v66 = v51;
+        v67 = 2114;
+        v68 = v14;
         v28 = logClient;
         v29 = "%p: Merged in 1 new thread %{public}@ between existing threads %{public}@ and %{public}@";
         v30 = 42;
@@ -1848,18 +1828,18 @@ LABEL_30:
         }
 
         v31 = [v15 count];
-        *buf = v46;
+        *buf = v45;
         selfCopy4 = self;
-        v64 = 2048;
-        v65 = v31;
-        v66 = 2114;
-        v67 = v50;
-        v68 = 2114;
-        v69 = v16;
-        v70 = 2114;
-        v71 = v52;
-        v72 = 2114;
-        v73 = v14;
+        v63 = 2048;
+        v64 = v31;
+        v65 = 2114;
+        v66 = v49;
+        v67 = 2114;
+        v68 = v16;
+        v69 = 2114;
+        v70 = v51;
+        v71 = 2114;
+        v72 = v14;
         v28 = logClient;
         v29 = "%p: Merged in %lu new threads %{public}@ to %{public}@ between existing threads %{public}@ and %{public}@";
         v30 = 62;
@@ -1872,40 +1852,40 @@ LABEL_30:
 LABEL_31:
 
     ++v11;
-    v52 = v14;
+    v51 = v14;
     if (!firstObject)
     {
       goto LABEL_36;
     }
   }
 
-  v14 = v52;
+  v14 = v51;
 LABEL_36:
-  if ([v55 count])
+  if ([v54 count])
   {
     v34 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v58 = 0u;
-    v59 = 0u;
-    v56 = 0u;
     v57 = 0u;
-    v35 = v55;
-    v53 = v14;
-    v36 = [v35 countByEnumeratingWithState:&v56 objects:v61 count:16];
+    v58 = 0u;
+    v55 = 0u;
+    v56 = 0u;
+    v35 = v54;
+    v52 = v14;
+    v36 = [v35 countByEnumeratingWithState:&v55 objects:v60 count:16];
     if (v36)
     {
-      v37 = *v57;
+      v37 = *v56;
       do
       {
         v38 = 0;
         v39 = firstObject;
         do
         {
-          if (*v57 != v37)
+          if (*v56 != v37)
           {
             objc_enumerationMutation(v35);
           }
 
-          firstObject = *(*(&v56 + 1) + 8 * v38);
+          firstObject = *(*(&v55 + 1) + 8 * v38);
 
           objectID3 = [firstObject objectID];
           [v34 addObject:objectID3];
@@ -1921,27 +1901,26 @@ LABEL_36:
         }
 
         while (v36 != v38);
-        v36 = [v35 countByEnumeratingWithState:&v56 objects:v61 count:16];
+        v36 = [v35 countByEnumeratingWithState:&v55 objects:v60 count:16];
       }
 
       while (v36);
     }
 
     delegate3 = [self delegate];
-    [delegate3 collection:self didMergeInThreadsForMove:info newObjectIDs:v34 existingObjectID:0 searchInfo:threadsCopy hasChanges:&v60];
+    [delegate3 collection:self didMergeInThreadsForMove:info newObjectIDs:v34 existingObjectID:0 searchInfo:threadsCopy hasChanges:&v59];
 
     firstObject = 0;
-    v14 = v53;
+    v14 = v52;
   }
 
-  v43 = [(EDInMemoryThreadCollection *)self _didMergeInThreads:v47];
-  v60 = (v43 | v60) & 1;
+  v43 = [(EDInMemoryThreadCollection *)self _didMergeInThreads:v46];
+  v59 = (v43 | v59) & 1;
 
 LABEL_46:
-  v33 = v60;
+  v33 = v59;
 LABEL_47:
 
-  v44 = *MEMORY[0x1E69E9840];
   return v33 & 1;
 }
 
@@ -2008,54 +1987,54 @@ LABEL_47:
 
 void __70__EDInMemoryThreadCollection_messagesWereChanged_forKeyPaths_deleted___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v103 = *MEMORY[0x1E69E9840];
+  v102 = *MEMORY[0x1E69E9840];
   v5 = a2;
-  v81 = a3;
+  v80 = a3;
   context = objc_autoreleasePoolPush();
-  v80 = v5;
+  v79 = v5;
   v6 = [(EDInMemoryThreadCollection *)*(a1 + 32) _cachedInMemoryThreadForConversationID:v5];
-  v89 = 0;
-  v90 = &v89;
-  v91 = 0x3032000000;
-  v92 = __Block_byref_object_copy__13;
-  v93 = __Block_byref_object_dispose__13;
-  v94 = 0;
+  v88 = 0;
+  v89 = &v88;
+  v90 = 0x3032000000;
+  v91 = __Block_byref_object_copy__13;
+  v92 = __Block_byref_object_dispose__13;
+  v93 = 0;
   v7 = *(a1 + 32);
   os_unfair_lock_lock(v7 + 14);
   v8 = [*(*(a1 + 32) + 16) objectForKeyedSubscript:v5];
-  v9 = v90[5];
-  v90[5] = v8;
+  v9 = v89[5];
+  v89[5] = v8;
 
   os_unfair_lock_unlock(v7 + 14);
   if (v6)
   {
-    v88 = 0;
+    v87 = 0;
     if (*(a1 + 88) == 1)
     {
       v10 = [*(a1 + 32) inMemoryThreadCache];
       [v10 removeObjectForKey:v5];
 
-      [v6 removeMessages:v81 threadIsEmpty:&v88];
+      [v6 removeMessages:v80 threadIsEmpty:&v87];
     }
 
     else
     {
-      [v6 changeMessages:v81 forKeyPaths:*(a1 + 40) threadIsEmpty:&v88];
+      [v6 changeMessages:v80 forKeyPaths:*(a1 + 40) threadIsEmpty:&v87];
     }
     v21 = ;
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __70__EDInMemoryThreadCollection_messagesWereChanged_forKeyPaths_deleted___block_invoke_2;
     aBlock[3] = &unk_1E8252A10;
-    v86 = &v89;
+    v85 = &v88;
     v14 = v6;
     v22 = *(a1 + 32);
-    v84 = v14;
-    v85 = v22;
-    v87 = *(a1 + 80);
+    v83 = v14;
+    v84 = v22;
+    v86 = *(a1 + 80);
     v23 = _Block_copy(aBlock);
     v24 = v23;
-    if (v88 == 1)
+    if (v87 == 1)
     {
       v25 = *(a1 + 48);
       v26 = v23[2](v23);
@@ -2068,9 +2047,9 @@ void __70__EDInMemoryThreadCollection_messagesWereChanged_forKeyPaths_deleted___
         v29 = [v14 thread];
         v30 = [v29 itemID];
         *buf = 134218242;
-        v96 = v28;
-        v97 = 2114;
-        v98 = v30;
+        v95 = v28;
+        v96 = 2114;
+        v97 = v30;
         _os_log_impl(&dword_1C61EF000, v27, OS_LOG_TYPE_DEFAULT, "%p: Marking thread %{public}@ as deleted", buf, 0x16u);
       }
     }
@@ -2087,22 +2066,22 @@ void __70__EDInMemoryThreadCollection_messagesWereChanged_forKeyPaths_deleted___
         v35 = [*(a1 + 32) logClient];
         if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
-          v78 = v21;
+          v77 = v21;
           v36 = *(a1 + 32);
           v37 = [v14 thread];
           v38 = [v37 itemID];
-          v39 = [v78 ef_publicDescription];
+          v39 = [v77 ef_publicDescription];
           *buf = 134218754;
-          v96 = v36;
-          v97 = 2114;
-          v98 = v38;
-          v99 = 2114;
-          v100 = v39;
-          v101 = 1024;
-          v102 = v34;
+          v95 = v36;
+          v96 = 2114;
+          v97 = v38;
+          v98 = 2114;
+          v99 = v39;
+          v100 = 1024;
+          v101 = v34;
           _os_log_impl(&dword_1C61EF000, v35, OS_LOG_TYPE_DEFAULT, "%p: Updating thread (%{public}@) with change: %{public}@, sectionDidChange: %{BOOL}d", buf, 0x26u);
 
-          v21 = v78;
+          v21 = v77;
         }
 
         if (([(EDInMemoryThreadCollection *)*(a1 + 32) _messageListItemChangeAffectsSorting:v21]| v34))
@@ -2112,7 +2091,7 @@ void __70__EDInMemoryThreadCollection_messagesWereChanged_forKeyPaths_deleted___
           [v40 addObject:v41];
         }
 
-        v42 = v90[5];
+        v42 = v89[5];
         v43 = [v14 thread];
         v44 = [*(a1 + 32) query];
         [v42 updateFromThread:v43 addingAdditionalInformation:0 query:v44];
@@ -2133,11 +2112,11 @@ void __70__EDInMemoryThreadCollection_messagesWereChanged_forKeyPaths_deleted___
           v58 = [v57 itemID];
           v59 = *(a1 + 40);
           *buf = 134218498;
-          v96 = v56;
-          v97 = 2114;
-          v98 = v58;
-          v99 = 2114;
-          v100 = v59;
+          v95 = v56;
+          v96 = 2114;
+          v97 = v58;
+          v98 = 2114;
+          v99 = v59;
           _os_log_impl(&dword_1C61EF000, v27, OS_LOG_TYPE_DEFAULT, "%p: No change detected for thread with item ID: %{public}@, keyPaths: %{public}@", buf, 0x20u);
         }
       }
@@ -2146,26 +2125,26 @@ void __70__EDInMemoryThreadCollection_messagesWereChanged_forKeyPaths_deleted___
     goto LABEL_37;
   }
 
-  v11 = v90[5];
+  v11 = v89[5];
   if (v11)
   {
-    v88 = 0;
+    v87 = 0;
     v12 = *(a1 + 32);
-    v82 = 0;
-    v13 = [(EDInMemoryThreadCollection *)v12 _updateThreadProxy:v11 threadIsEmpty:&v88 thread:&v82];
-    v14 = v82;
-    if (v88 == 1)
+    v81 = 0;
+    v13 = [(EDInMemoryThreadCollection *)v12 _updateThreadProxy:v11 threadIsEmpty:&v87 thread:&v81];
+    v14 = v81;
+    if (v87 == 1)
     {
-      [*(a1 + 48) addObject:v90[5]];
+      [*(a1 + 48) addObject:v89[5]];
       v15 = [*(a1 + 32) logClient];
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         v16 = *(a1 + 32);
-        v17 = [v90[5] conversationID];
+        v17 = [v89[5] conversationID];
         *buf = 134218240;
-        v96 = v16;
-        v97 = 2050;
-        v98 = v17;
+        v95 = v16;
+        v96 = 2050;
+        v97 = v17;
         v18 = "%p: Marking thread proxy %{public}lld as deleted";
         v19 = v15;
         v20 = 22;
@@ -2187,26 +2166,26 @@ LABEL_35:
         if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
         {
           v52 = *(a1 + 32);
-          v53 = [v90[5] conversationID];
+          v53 = [v89[5] conversationID];
           v54 = [v13 ef_publicDescription];
           *buf = 134218754;
-          v96 = v52;
-          v97 = 2048;
-          v98 = v53;
-          v99 = 2114;
-          v100 = v54;
-          v101 = 1024;
-          v102 = v50;
+          v95 = v52;
+          v96 = 2048;
+          v97 = v53;
+          v98 = 2114;
+          v99 = v54;
+          v100 = 1024;
+          v101 = v50;
           _os_log_impl(&dword_1C61EF000, v51, OS_LOG_TYPE_DEFAULT, "%p: Updating thread proxy (%lld) with change: %{public}@, sectionDidChange: %{BOOL}d", buf, 0x26u);
         }
 
         if (([(EDInMemoryThreadCollection *)*(a1 + 32) _messageListItemChangeAffectsSorting:v13]| v50))
         {
-          [*(a1 + 56) addObject:v90[5]];
+          [*(a1 + 56) addObject:v89[5]];
         }
 
         v55 = *(a1 + 64);
-        v15 = [v90[5] objectID];
+        v15 = [v89[5] objectID];
         [v55 setObject:v13 forKeyedSubscript:v15];
         goto LABEL_36;
       }
@@ -2215,14 +2194,14 @@ LABEL_35:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         v74 = *(a1 + 32);
-        v75 = [v90[5] conversationID];
+        v75 = [v89[5] conversationID];
         v76 = *(a1 + 40);
         *buf = 134218498;
-        v96 = v74;
-        v97 = 2048;
-        v98 = v75;
-        v99 = 2114;
-        v100 = v76;
+        v95 = v74;
+        v96 = 2048;
+        v97 = v75;
+        v98 = 2114;
+        v99 = v76;
         v18 = "%p: No change detected for thread proxy with item ID: %lld, keyPaths: %{public}@";
         v19 = v15;
         v20 = 32;
@@ -2246,27 +2225,27 @@ LABEL_36:
     if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
     {
       v61 = *(a1 + 32);
-      v62 = [v80 longLongValue];
+      v62 = [v79 longLongValue];
       *buf = 134218240;
-      v96 = v61;
-      v97 = 2048;
-      v98 = v62;
+      v95 = v61;
+      v96 = 2048;
+      v97 = v62;
       _os_log_impl(&dword_1C61EF000, v60, OS_LOG_TYPE_DEFAULT, "%p: Unable to find thread for conversation ID: %lld", buf, 0x16u);
     }
 
     v63 = objc_alloc([*(a1 + 32) inMemoryThreadClass]);
     v64 = [*(a1 + 32) query];
     v65 = [*(a1 + 32) threadScope];
-    v14 = [v63 initWithMessages:v81 originatingQuery:v64 threadScope:v65];
+    v14 = [v63 initWithMessages:v80 originatingQuery:v64 threadScope:v65];
 
     v66 = [EDSortableThreadProxy alloc];
     v67 = [v14 thread];
     v68 = [*(a1 + 32) query];
     v69 = [(EDSortableThreadProxy *)v66 initWithThread:v67 originatingQuery:v68];
-    v70 = v90[5];
-    v90[5] = v69;
+    v70 = v89[5];
+    v89[5] = v69;
 
-    [*(a1 + 72) addObject:v90[5]];
+    [*(a1 + 72) addObject:v89[5]];
     v71 = *(*(a1 + 32) + 48);
     v72 = [v14 thread];
     [v71 updateSectionForItem:v72];
@@ -2275,21 +2254,20 @@ LABEL_36:
     if (*(v73 + 24))
     {
       os_unfair_lock_lock((v73 + 56));
-      [*(*(a1 + 32) + 24) setObject:v14 forKeyedSubscript:v80];
+      [*(*(a1 + 32) + 24) setObject:v14 forKeyedSubscript:v79];
       os_unfair_lock_unlock((v73 + 56));
     }
   }
 
 LABEL_37:
-  _Block_object_dispose(&v89, 8);
+  _Block_object_dispose(&v88, 8);
 
   objc_autoreleasePoolPop(context);
-  v77 = *MEMORY[0x1E69E9840];
 }
 
 id __70__EDInMemoryThreadCollection_messagesWereChanged_forKeyPaths_deleted___block_invoke_2(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = *(*(*(a1 + 48) + 8) + 40);
   if (!v2)
   {
@@ -2304,26 +2282,24 @@ id __70__EDInMemoryThreadCollection_messagesWereChanged_forKeyPaths_deleted___bl
     v9 = [*(a1 + 40) logClient];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v12 = *(a1 + 40);
-      v13 = NSStringFromSelector(*(a1 + 56));
-      v14 = *(*(*(a1 + 48) + 8) + 40);
-      v15 = [*(a1 + 32) thread];
-      v16 = [v15 itemID];
-      v17 = 134218754;
-      v18 = v12;
-      v19 = 2114;
-      v20 = v13;
-      v21 = 2048;
-      v22 = v14;
-      v23 = 2114;
-      v24 = v16;
-      _os_log_error_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_ERROR, "%p: Missing threadProxy in %{public}@. Created new threadProxy:%p for itemID:%{public}@", &v17, 0x2Au);
+      v11 = *(a1 + 40);
+      v12 = NSStringFromSelector(*(a1 + 56));
+      v13 = *(*(*(a1 + 48) + 8) + 40);
+      v14 = [*(a1 + 32) thread];
+      v15 = [v14 itemID];
+      v16 = 134218754;
+      v17 = v11;
+      v18 = 2114;
+      v19 = v12;
+      v20 = 2048;
+      v21 = v13;
+      v22 = 2114;
+      v23 = v15;
+      _os_log_error_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_ERROR, "%p: Missing threadProxy in %{public}@. Created new threadProxy:%p for itemID:%{public}@", &v16, 0x2Au);
     }
 
     v2 = *(*(*(a1 + 48) + 8) + 40);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -2496,7 +2472,7 @@ id __70__EDInMemoryThreadCollection_messagesWereChanged_forKeyPaths_deleted___bl
 
 void __88__EDInMemoryThreadCollection_objectIDDidChangeForMessage_oldObjectID_oldConversationID___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -2507,23 +2483,21 @@ void __88__EDInMemoryThreadCollection_objectIDDidChangeForMessage_oldObjectID_ol
       v8 = *(a1 + 32);
       v9 = *(a1 + 40);
       *buf = 134218498;
-      v17 = v8;
-      v18 = 2114;
-      v19 = v9;
-      v20 = 2114;
-      v21 = v6;
+      v16 = v8;
+      v17 = 2114;
+      v18 = v9;
+      v19 = 2114;
+      v20 = v6;
       _os_log_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_DEFAULT, "%p: Changed objectID from %{public}@ for message in thread: %{public}@", buf, 0x20u);
     }
 
     v10 = [*(a1 + 32) delegate];
     v11 = *(a1 + 32);
-    v14 = v6;
-    v15 = v5;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+    v13 = v6;
+    v14 = v5;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
     [v10 collection:v11 reportChanges:v12];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __88__EDInMemoryThreadCollection_objectIDDidChangeForMessage_oldObjectID_oldConversationID___block_invoke_69(uint64_t a1, void *a2)
@@ -2734,7 +2708,7 @@ void __84__EDInMemoryThreadCollection_conversationIDDidChangeForMessages_fromCon
 
 - (void)conversationNotificationLevelDidChangeForConversation:(int64_t)conversation conversationID:(int64_t)d
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   delegate = [(EDInMemoryThreadCollection *)self delegate];
   [delegate assertCorrectSchedulerForCollection:self];
 
@@ -2755,16 +2729,14 @@ void __84__EDInMemoryThreadCollection_conversationIDDidChangeForMessages_fromCon
 
     delegate3 = [(EDInMemoryThreadCollection *)self delegate];
     objectID = [v10 objectID];
-    v19 = objectID;
-    v20[0] = v11;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v18 = objectID;
+    v19[0] = v11;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     [delegate3 collection:self reportChanges:v16];
 
     delegate4 = [(EDInMemoryThreadCollection *)self delegate];
     [delegate4 didSendUpdatesInCollection:self];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)_didMergeInThreads:(uint64_t)threads
@@ -2827,7 +2799,7 @@ void __40__EDInMemoryThreadCollection__hasLoaded__block_invoke(uint64_t a1, void
 
 void __49__EDInMemoryThreadCollection__didMergeInThreads___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = *(a1 + 32);
   os_unfair_lock_lock(v7 + 14);
@@ -2836,25 +2808,25 @@ void __49__EDInMemoryThreadCollection__didMergeInThreads___block_invoke(uint64_t
   v10 = [v8 objectForKeyedSubscript:v9];
 
   os_unfair_lock_unlock(v7 + 14);
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v11 = v10;
-  v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v12)
   {
-    v13 = *v21;
+    v13 = *v20;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v21 != v13)
+        if (*v20 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        v15 = *(*(&v20 + 1) + 8 * i);
+        v15 = *(*(&v19 + 1) + 8 * i);
         v16 = [(EDInMemoryThreadCollection *)*(a1 + 32) _updateCurrentOldestThreadWithThreadIfApplicable:v6 forMailbox:v15];
         v17 = *(*(a1 + 48) + 8);
         if (v16)
@@ -2870,11 +2842,11 @@ void __49__EDInMemoryThreadCollection__didMergeInThreads___block_invoke(uint64_t
         *(v17 + 24) = v18 & 1;
         if (*(a1 + 56) == 1)
         {
-          [*(a1 + 40) removeObject:{v15, v20}];
+          [*(a1 + 40) removeObject:{v15, v19}];
         }
       }
 
-      v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v12);
@@ -2884,8 +2856,6 @@ void __49__EDInMemoryThreadCollection__didMergeInThreads___block_invoke(uint64_t
   {
     *a4 = 1;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (id)itemIDs
@@ -2933,11 +2903,10 @@ id __37__EDInMemoryThreadCollection_itemIDs__block_invoke(uint64_t a1, void *a2)
 
 - (void)_cachedInMemoryThreadForConversationID:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "_cachedInMemoryThreadForConversationID called with conversationID %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "_cachedInMemoryThreadForConversationID called with conversationID %@", &v2, 0xCu);
 }
 
 - (void)_updateThreadProxy:(uint64_t)a3 threadIsEmpty:(os_log_t)log thread:.cold.1(uint64_t a1, uint8_t *buf, uint64_t a3, os_log_t log)
@@ -2951,13 +2920,12 @@ id __37__EDInMemoryThreadCollection_itemIDs__block_invoke(uint64_t a1, void *a2)
 
 - (void)messagesWereChanged:(uint64_t)a1 forKeyPaths:(uint64_t)a2 deleted:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 134218242;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_1C61EF000, log, OS_LOG_TYPE_ERROR, "%p: Marking threads from messages %{public}@ as deleted even though no messages were deleted.", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 134218242;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_1C61EF000, log, OS_LOG_TYPE_ERROR, "%p: Marking threads from messages %{public}@ as deleted even though no messages were deleted.", &v3, 0x16u);
 }
 
 @end
